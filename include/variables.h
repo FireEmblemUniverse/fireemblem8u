@@ -136,43 +136,43 @@ extern struct PrepUnitList gPrepUnitList;
 // extern ??? sSupportScreenUnitCount
 // extern ??? gUnknown_020136F4
 // extern ??? gUnknown_02013EF4
-// extern ??? gUnknown_020145C8
+extern u8 gUnknown_020145C8[];
 // extern ??? gUnknown_020146F4
 // extern ??? gUnknown_02014DC8
 // extern ??? gUnknown_02014EF4
 // extern ??? gUnknown_020165C8
 // extern ??? gUnknown_02016828
-extern u16 gUnknown_020169C8[];
+extern u16 gObjBuf_EkrSideHitDmgCrit[];
 // extern ??? gUnknown_02016DC8
 // extern ??? gUnknown_02016E48
 // extern ??? gUnknown_02017048
 // extern ??? gUnknown_02017248
 // extern ??? gUnknown_02017448
 // extern ??? gUnknown_020176F0
-extern u16 gUnknown_02017700[];
+extern u16 gDecodedEkrHitDmgCritBuf[];
 extern u32 gUnknown_02017724;
 extern u32 gUnknown_02017728;
-// extern ??? gUnknown_0201772C
-// extern ??? gUnknown_02017730
-// extern ??? gUnknown_02017734
+extern u32 gUnknown_0201772C;
+extern u32 gUnknown_02017730;
+extern u32 gUnknown_02017734;
 extern u32 gUnknown_02017738;
-// extern ??? gUnknown_0201773C
-// extern ??? gUnknown_02017740
-extern u32 gUnknown_02017744;
-// extern ??? gUnknown_02017748
-// extern ??? gUnknown_0201774C
-// extern ??? gUnknown_02017750
-// extern ??? gUnknown_02017754
-// extern ??? gUnknown_02017758
-// extern ??? gUnknown_0201775C
-// extern ??? gUnknown_02017760
-// extern ??? gUnknown_02017764
-// extern ??? gUnknown_02017768
-// extern ??? gUnknown_0201776C
+extern u32 gUnknown_0201773C;
+extern u32 gUnknown_02017740;
+extern u32 gEkrPos2Maybe;
+extern u32 gUnknown_02017748;
+extern u32 gUnknown_0201774C;
+extern u32 gUnknown_02017750;
+extern u32 gUnknown_02017754;
+extern u32 gUnknown_02017758;
+extern u32 gUnknown_0201775C;
+extern short gUnknown_02017760[2];
+extern short gUnknown_02017764[2];
+extern short gUnknown_02017768[2];
+extern u32 gUnknown_0201776C[2];
 // extern ??? gUnknown_02017774
-// extern ??? gUnknown_02017778
-// extern ??? gUnknown_0201777C
-extern short gEkrHitEfxBool[2];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
+extern u32 gUnknown_02017778;
+extern u32 gUnknown_0201777C;
+extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 // extern ??? gUnknown_02017790
 extern u16 gUnknown_02019490[];
 // extern ??? gUnknown_02019790
@@ -269,7 +269,7 @@ extern s8 gUnknown_020222A8[];
 extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_020228AA
 // extern ??? pPalette1Buffer
-// extern ??? pPalette2Buffer
+extern u16 pPalette2Buffer[];
 // extern ??? pPalette3Buffer
 // extern ??? pPalette4Buffer
 // extern ??? pPalette6Buffer
@@ -504,19 +504,19 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203DD9F
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
-// extern ??? gUnknown_0203E152
+extern short gUnknown_0203E152[];
 // extern ??? gUnknown_0203E156
 // extern ??? gUnknown_0203E182
-extern u8 gEkrBuIndexes[2];
+extern u8 gEkrPids[2];
 extern int gUnknown_0203E194;
 // extern ??? gUnknown_0203E19C
 // extern ??? gUnknown_0203E1A4
-extern short gUnknown_0203E1AC[2];
+extern short gUnknown_0203E1AC[];
 // extern ??? gUnknown_0203E1B0
 extern short gUnknown_0203E1B4[2];
-extern short gUnknown_0203E1B8[2];
-extern short gUnknown_0203E1BC[2];
-extern short gUnknown_0203E1C0[2];
+extern short gEkrHitPair[2];
+extern short gEkrDmgPair[2];
+extern short gEkrCritPair[2];
 extern short gUnknown_0203E1C4[2];
 extern short gUnknown_0203E1C8[2];
 // extern ??? gUnknown_0203E1CC
@@ -1536,7 +1536,7 @@ extern const u16 gUiBarPaletteD[];
 extern const u8  gUnkUiFrameImage[];
 extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_085B92C4
-// extern ??? gUnknown_085B9354
+extern char gNopStr[];
 // extern ??? gUnknown_085B9E4C
 // extern ??? gUnknown_085BA0B8
 // extern ??? gUnknown_085BA2E0
@@ -1949,30 +1949,30 @@ extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_085D8C64
 // extern ??? gUnknown_085D8C7C
 // extern ??? gUnknown_085D8CA0
-// extern ??? gUnknown_085D8CC4
+// extern ??? ProcScr_efxGorgonBGFinish
 // extern ??? gUnknown_085D8CE4
 // extern ??? gUnknown_085D8D14
-// extern ??? gUnknown_085D8D44
-// extern ??? gUnknown_085D8D5C
-// extern ??? gUnknown_085D8D74
-// extern ??? gUnknown_085D8D8C
-// extern ??? gUnknown_085D8DA4
-// extern ??? gUnknown_085D8DC4
-// extern ??? gUnknown_085D8DDC
+// extern ??? ProcScr_efxDamageMojiEffect
+// extern ??? ProcScr_efxDamageMojiEffectOBJ
+// extern ??? ProcScr_efxCriricalEffect
+// extern ??? ProcScr_efxCriricalEffectBG
+// extern ??? ProcScr_efxCriricalEffectBGCOL
+// extern ??? ProcScr_efxNormalEffect
+// extern ??? ProcScr_efxNormalEffectBG
 // extern ??? gUnknown_085D8DF4
-// extern ??? gUnknown_085D8E1C
-// extern ??? gUnknown_085D8E34
-// extern ??? gUnknown_085D8E4C
-// extern ??? gUnknown_085D8E6C
-// extern ??? gUnknown_085D8E84
+// extern ??? ProcScr_efxPierceCriticalEffect
+// extern ??? ProcScr_efxPierceCriticalEffectBG
+// extern ??? ProcScr_efxPierceCriticalEffectBGCOL
+// extern ??? ProcScr_efxPierceNormalEffect
+// extern ??? ProcScr_efxPierceNormalEffectBG
 // extern ??? gUnknown_085D8E9C
-// extern ??? gUnknown_085D8EC4
-// extern ??? gUnknown_085D8EDC
-// extern ??? gUnknown_085D8F0C
-// extern ??? gUnknown_085D8F24
-// extern ??? gUnknown_085D8F5C
-// extern ??? gUnknown_085D8F94
-// extern ??? gUnknown_085D8FAC
+// extern ??? ProcScr_efxYushaSpinShield
+// extern ??? ProcScr_efxYushaSpinShieldOBJ
+// extern ??? ProcScr_efxHurtmutEff00
+// extern ??? ProcScr_efxHurtmutEff00OBJ
+// extern ??? ProcScr_efxHurtmutEff01OBJ
+// extern ??? ProcScr_efxMagfcast
+// extern ??? ProcScr_efxMagfcastBG
 // extern ??? gUnknown_085D8FC4
 // extern ??? gUnknown_085D8FDC
 // extern ??? gUnknown_085D901C
@@ -2538,21 +2538,21 @@ extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_088018A0
 // extern ??? gUnknown_08801AAC
 // extern ??? gUnknown_08801AB4
-// extern ??? gUnknown_08801C14
-// extern ??? gUnknown_08801F7C
-// extern ??? gUnknown_08801FF4
-// extern ??? gUnknown_08802044
-// extern ??? gUnknown_088020BC
+extern u16 gUnknown_08801C14[];
+extern u16 Img_EfxLeftNameBox[];
+extern u16 Img_EfxLeftItemBox[];
+extern u16 Img_EfxRightNameBox[];
+extern u16 Img_EfxRightItemBox[];
 extern u8 gUnknown_0880210C[];
 extern u8 gUnknown_088021C0[];
 extern u8 gUnknown_08802274[];
 extern u8 gUnknown_08802348[];
 extern u8 gUnknown_08802428[];
-// extern ??? gUnknown_08802508
-// extern ??? gUnknown_08802558
-extern u16 gUnknown_088025D8[];
-extern u16 gUnknown_08802674[];
-extern u16 gUnknown_08802698[];
+extern u8 gUnknown_08802508[];
+extern u16 gUnknown_08802558[];
+extern u16 Img_EfxSideHitDmgCrit[];
+extern u16 Img_EfxWTAArrow1[];
+extern u16 Img_EfxWTAArrow2[];
 extern u16 gUnknown_088026E4[];
 extern u16 gUnknown_08802884[];
 extern u16 gUnknown_08802904[];

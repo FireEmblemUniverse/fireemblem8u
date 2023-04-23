@@ -1,49 +1,5 @@
 	.section .data
 
-	.global gProc_efxHPBar
-gProc_efxHPBar:  @ 0x085B9604
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80da3e4
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80523EC
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8052504
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80525A4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gProc_efxHPBarResire
-gProc_efxHPBarResire:  @ 0x085B962C
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80da3f0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80526C8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8052788
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805282C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8052504
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80525A4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gProc_efxAvoid
 gProc_efxAvoid:  @ 0x085B9664
         @ PROC_NAME
@@ -51,32 +7,32 @@ gProc_efxAvoid:  @ 0x085B9664
         .word 0x80da400
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80529F0
+        .word EfxAvoid_80529F0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8052504
+        .word efxHPBar_8052504
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80525A4
+        .word efxHPBar_80525A4
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gProc_efxHPBarLive
-gProc_efxHPBarLive:  @ 0x085B968C
+	.global ProcScr_efxHPBarLive
+ProcScr_efxHPBarLive:  @ 0x085B968C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da40c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8052AE4
+        .word EfxHPBarLive_8052AE4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8052504
+        .word efxHPBar_8052504
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80525A4
+        .word efxHPBar_80525A4
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -89,13 +45,13 @@ gProc_efxNoDamage:  @ 0x085B96B4
         .word 0x80da41c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8052C24
+        .word EfxNoDamage_8052C24
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8052504
+        .word efxHPBar_8052504
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80525A4
+        .word efxHPBar_80525A4
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -108,7 +64,7 @@ gProc_efxNoDamageYure:  @ 0x085B96DC
         .word 0x80da428
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8052CA0
+        .word EfxNoDamageYure_8052CA0
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -124,13 +80,13 @@ gProc_efxStatusCHG:  @ 0x085B96F4
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8052DB8
+        .word EfxStatusCHG_8052CA0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8052504
+        .word efxHPBar_8052504
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80525A4
+        .word efxHPBar_80525A4
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -439,8 +395,8 @@ gProc_efxFlashHPBar:  @ 0x085B9994
         .word 0x0
 
 
-	.global gProc_efxHPBarColorChange
-gProc_efxHPBarColorChange:  @ 0x085B99C4
+	.global ProcScr_efxHPBarColorChange
+ProcScr_efxHPBarColorChange:  @ 0x085B99C4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dac44

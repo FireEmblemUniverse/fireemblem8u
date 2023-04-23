@@ -58,7 +58,7 @@ void NewEkrBattle(void)
     AnimClearAll();
     gpProcEkrBattle = Proc_Start(gProc_ekrBattle, PROC_TREE_3);
     SetMainUpdateRoutine(InBattleMainRoutine);
-    sub_8052220();
+    EkrEfxStatusClear();
 
     gUnknown_02017724 = 0;
     gUnknown_02000018 = 0;
@@ -145,8 +145,8 @@ void nullsub_36(void)
 void ekrBattle_Init(struct ProcEkrBattle *proc)
 {
     gUnknown_0201FB0C = 0;
-    if (gUnknown_02017744 == 0) {
-        if (gUnknown_0203E120 == 1)
+    if (gEkrPos2Maybe == 0) {
+        if (gEkrSomeType == 1)
             gUnknown_0201FB0C = -0x20;
         else
             gUnknown_0201FB0C = -0xF0;
@@ -163,10 +163,10 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
     else
         proc->timer = 0x1E;
 
-    if (0 == gUnknown_0203E100)
-        proc->is_quote = ShouldCallBattleQuote(gEkrBuIndexes[0], gEkrBuIndexes[1]);
+    if (0 == gEkrPos1Maybe)
+        proc->is_quote = ShouldCallBattleQuote(gEkrPids[0], gEkrPids[1]);
     else
-        proc->is_quote = ShouldCallBattleQuote(gEkrBuIndexes[1], gEkrBuIndexes[0]);
+        proc->is_quote = ShouldCallBattleQuote(gEkrPids[1], gEkrPids[0]);
 
     proc->unk58 = 0;
     Proc_Break(proc);
@@ -195,16 +195,16 @@ void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc)
     EkrGauge_Set2A();
     sub_8051B90();
     CpuFastFill(0, gBG0TilemapBuffer, 0x800);
-    BG_SetPosition(BG_0, gUnknown_02000038.x, gUnknown_02000038.y);
+    BG_SetPosition(BG_0, gBanimBgPosMaybe.x, gBanimBgPosMaybe.y);
     BG_SetPosition(BG_1, 0, 0);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     EkrGauge_Set4C50();
 
     if (proc->is_quote == true) {
-        if (gUnknown_0203E100 == 0)
-            CallBattleQuoteEventsIfAny(gEkrBuIndexes[0], gEkrBuIndexes[1]);
+        if (gEkrPos1Maybe == 0)
+            CallBattleQuoteEventsIfAny(gEkrPids[0], gEkrPids[1]);
         else
-            CallBattleQuoteEventsIfAny(gEkrBuIndexes[1], gEkrBuIndexes[0]);
+            CallBattleQuoteEventsIfAny(gEkrPids[1], gEkrPids[0]);
 
         proc->is_quote = false;
     }
@@ -217,7 +217,7 @@ void ekrBattle_80500F0(struct ProcEkrBattle *proc)
     if (BattleEventEngineExists() != false)
         return;
 
-    sub_8051F1C();
+    EfxPrepareScreenFx();
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     NewEkrWindowAppear(0, 7);
     NewEkrNamewinAppear(0, 7, 0);
@@ -237,7 +237,7 @@ void ekrBattle_8050134(struct ProcEkrBattle *proc)
 
 void ekrBattle_8050158(struct ProcEkrBattle *proc)
 {
-    proc->unk44 = gUnknown_0203E100;
+    proc->unk44 = gEkrPos1Maybe;
     proc->unk48 = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050174;
 }
@@ -303,8 +303,8 @@ void ekrBattle_8050224(struct ProcEkrBattle *proc)
 
 void ekrBattle_8050244(struct ProcEkrBattle *proc)
 {
-    if (gUnknown_0203E100 != gUnknown_02017744) {
-        sub_80533D0(gUnknown_02000000[gUnknown_02017744 * 2], -1);
+    if (gEkrPos1Maybe != gEkrPos2Maybe) {
+        sub_80533D0(gUnknown_02000000[gEkrPos2Maybe * 2], -1);
         proc->timer = 0;
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050290;
     } else
@@ -355,7 +355,7 @@ void ekrBattle_8050360(struct ProcEkrBattle *proc)
     if (++proc->timer <= 0x1E)
         return;
 
-    if (gUnknown_0203E104[0] == true) {
+    if (gBanimSideVaildFlagMaybe[0] == true) {
         anim = gUnknown_02000000[0];
         anim->state3 = 0x8000;
         anim->state2 |= 0x4000;
@@ -365,7 +365,7 @@ void ekrBattle_8050360(struct ProcEkrBattle *proc)
         anim->state2 |= 0x4000;
     }
 
-    if (gUnknown_0203E104[1] == true) {
+    if (gBanimSideVaildFlagMaybe[1] == true) {
         anim = gUnknown_02000000[2];
         anim->state3 = 0x8000;
         anim->state2 |= 0x4000;
@@ -388,7 +388,7 @@ void ekrBattle_80503EC(struct ProcEkrBattle *proc)
 
 void ekrBattle_8050400(struct ProcEkrBattle *proc)
 {
-    if (gUnknown_0203E120 == 4) {
+    if (gEkrSomeType == 4) {
         NewEkrClassChg(gUnknown_02000000[2]);
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050440;
     } else {
@@ -412,7 +412,7 @@ void ekrBattle_805046C(struct ProcEkrBattle *proc)
     if (gKeyStatusPtr->heldKeys & 2)
         proc->unk29 = 1;
 
-    switch (gUnknown_0203E120) {
+    switch (gEkrSomeType) {
     case 0:
     case 1:
     case 2:
@@ -531,11 +531,11 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
     else
         val = 1;
 
-    if (val != gUnknown_02017744)
+    if (val != gEkrPos2Maybe)
         proc->unk29 = ret;
 
     if (proc->unk29 == 1)
-        sub_80533D0(gUnknown_02000000[gUnknown_02017744 * 2], -1);
+        sub_80533D0(gUnknown_02000000[gEkrPos2Maybe * 2], -1);
 }
 
 /**
@@ -798,7 +798,7 @@ void ekrBattle_8050CCC(struct ProcEkrBattle *proc)
 {
     sub_8054ED4();
     sub_80546B0();
-    proc->unk44 = gUnknown_0203E100;
+    proc->unk44 = gEkrPos1Maybe;
     proc->unk48 = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050CF8;
 }
@@ -886,6 +886,8 @@ void nullsub_69(struct ProcEkrBattle *proc)
 /**
  * section.data
  */
+
+CONST_DATA char gNopStr[] = "\0";
 
 CONST_DATA struct ProcCmd gProc_ekrBattleDeamon[] = {
     PROC_NAME("ekrBattleDaemon"),

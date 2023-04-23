@@ -903,7 +903,7 @@ sub_80545C0: @ 0x080545C0
 	sub sp, #4
 	adds r5, r0, #0
 	ldr r4, _0805467C  @ gUnknown_0201777C
-	ldr r0, _08054680  @ gProc_efxHPBarColorChange
+	ldr r0, _08054680  @ ProcScr_efxHPBarColorChange
 	movs r1, #3
 	bl Proc_Start
 	str r0, [r4]
@@ -984,7 +984,7 @@ sub_80545C0: @ 0x080545C0
 	bx r0
 	.align 2, 0
 _0805467C: .4byte gUnknown_0201777C
-_08054680: .4byte gProc_efxHPBarColorChange
+_08054680: .4byte ProcScr_efxHPBarColorChange
 _08054684: .4byte gUnknown_080DAC58
 _08054688: .4byte gUnknown_080DAC82
 _0805468C: .4byte gUnknown_0203E114

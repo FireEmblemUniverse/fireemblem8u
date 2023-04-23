@@ -135,8 +135,8 @@ BeginAnimsOnBattle_Hensei: @ 0x08076330
 	push {lr}
 	bl NewEkrBattleDeamon
 	bl AnimClearAll
-	bl sub_8052184
-	ldr r1, _08076350  @ gUnknown_02017744
+	bl GetEkrSomePosMaybe
+	ldr r1, _08076350  @ gEkrPos2Maybe
 	str r0, [r1]
 	bl NewEkrHenseiInitPROC
 	movs r0, #0
@@ -144,7 +144,7 @@ BeginAnimsOnBattle_Hensei: @ 0x08076330
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08076350: .4byte gUnknown_02017744
+_08076350: .4byte gEkrPos2Maybe
 
 	THUMB_FUNC_END BeginAnimsOnBattle_Hensei
 
@@ -181,7 +181,7 @@ sub_8076380: @ 0x08076380
 	adds r5, r0, #0
 	movs r0, #0
 	bl SetupOAMBufferSplice
-	bl sub_8051CC4
+	bl EfxClearScreenFx
 	bl sub_80599E8
 	bl NewEkrGauge
 	bl NewEkrDispUP
@@ -804,7 +804,7 @@ sub_8076818: @ 0x08076818
 	bl sub_805A358
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _08076894  @ gUnknown_0203E104
+	ldr r1, _08076894  @ gBanimSideVaildFlagMaybe
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
@@ -825,7 +825,7 @@ sub_8076818: @ 0x08076818
 	bx r0
 	.align 2, 0
 _08076890: .4byte gLCDControlBuffer
-_08076894: .4byte gUnknown_0203E104
+_08076894: .4byte gBanimSideVaildFlagMaybe
 _08076898: .4byte gBG3TilemapBuffer
 _0807689C: .4byte 0x0000601F
 
@@ -1213,7 +1213,7 @@ _08076B64:
 	subs r0, r0, r1
 	ldr r1, [r3]
 	subs r4, r0, r1
-	ldr r0, _08076BC8  @ gUnknown_0203E120
+	ldr r0, _08076BC8  @ gEkrSomeType
 	movs r6, #0
 	ldrsh r0, [r0, r6]
 	cmp r0, #0
@@ -1239,7 +1239,7 @@ _08076BB8: .4byte gUnknown_0201FB0C
 _08076BBC: .4byte gUnknown_0200002C
 _08076BC0: .4byte gUnknown_03004FA0
 _08076BC4: .4byte gUnknown_03004FA4
-_08076BC8: .4byte gUnknown_0203E120
+_08076BC8: .4byte gEkrSomeType
 _08076BCC:
 	cmp r0, #0
 	blt _08076C00
@@ -2269,7 +2269,7 @@ sub_80773BC: @ 0x080773BC
 	movs r0, #0
 	strb r0, [r1]
 	strh r0, [r2, #0x2c]
-	ldr r0, _080773DC  @ gUnknown_0203E120
+	ldr r0, _080773DC  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -2280,7 +2280,7 @@ _080773D6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080773DC: .4byte gUnknown_0203E120
+_080773DC: .4byte gEkrSomeType
 _080773E0: .4byte 0x0000FFE0
 
 	THUMB_FUNC_END sub_80773BC
@@ -2797,7 +2797,7 @@ sub_8077790: @ 0x08077790
 	strb r0, [r1]
 	movs r1, #0
 	strh r0, [r5, #0x2c]
-	ldr r0, _080777C0  @ gUnknown_0203E120
+	ldr r0, _080777C0  @ gEkrSomeType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -2806,7 +2806,7 @@ sub_8077790: @ 0x08077790
 	b _080777CA
 	.align 2, 0
 _080777BC: .4byte gUnknown_087F4578
-_080777C0: .4byte gUnknown_0203E120
+_080777C0: .4byte gEkrSomeType
 _080777C4: .4byte 0x0000FFF8
 _080777C8:
 	ldr r0, _080777DC  @ 0x0000FFE0
@@ -2936,7 +2936,7 @@ _080778BC:
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl BG_SetPosition
-	ldr r6, _08077A90  @ gUnknown_02000038
+	ldr r6, _08077A90  @ gBanimBgPosMaybe
 	ldrh r1, [r6]
 	ldrh r0, [r5]
 	adds r1, r1, r0
@@ -3149,7 +3149,7 @@ _08077A86:
 	bx r0
 	.align 2, 0
 _08077A8C: .4byte gUnknown_02017760
-_08077A90: .4byte gUnknown_02000038
+_08077A90: .4byte gBanimBgPosMaybe
 _08077A94: .4byte gUnknown_087F7DC8
 _08077A98: .4byte 0x0000018B
 _08077A9C: .4byte gBG3TilemapBuffer
@@ -3397,7 +3397,7 @@ sub_8077C54: @ 0x08077C54
 	mov r1, r9
 	mov r2, r8
 	bl BG_SetPosition
-	ldr r4, _08077D20  @ gUnknown_02000038
+	ldr r4, _08077D20  @ gBanimBgPosMaybe
 	ldrh r1, [r4]
 	asrs r5, r5, #0x10
 	adds r1, r5, r1
@@ -3477,7 +3477,7 @@ sub_8077C54: @ 0x08077C54
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08077D20: .4byte gUnknown_02000038
+_08077D20: .4byte gBanimBgPosMaybe
 _08077D24: .4byte gUnknown_02000028
 _08077D28: .4byte gUnknown_0201FB0C
 _08077D2C: .4byte gUnknown_0200002C
@@ -3691,7 +3691,7 @@ sub_8077EAC: @ 0x08077EAC
 	push {lr}
 	adds r3, r0, #0
 	adds r2, r1, #0
-	ldr r0, _08077EC8  @ gUnknown_0203E120
+	ldr r0, _08077EC8  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #1
@@ -3702,7 +3702,7 @@ sub_8077EAC: @ 0x08077EAC
 	beq _08077ED2
 	b _08077ED8
 	.align 2, 0
-_08077EC8: .4byte gUnknown_0203E120
+_08077EC8: .4byte gEkrSomeType
 _08077ECC:
 	cmp r0, #2
 	beq _08077ED6
@@ -3984,7 +3984,7 @@ sub_80780A4: @ 0x080780A4
 	sub sp, #8
 	adds r4, r0, #0
 	adds r3, r1, #0
-	ldr r0, _080780C0  @ gUnknown_0203E120
+	ldr r0, _080780C0  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -3994,7 +3994,7 @@ sub_80780A4: @ 0x080780A4
 	bl LZ77UnCompWram
 	b _080780D0
 	.align 2, 0
-_080780C0: .4byte gUnknown_0203E120
+_080780C0: .4byte gEkrSomeType
 _080780C4: .4byte gUnknown_02019790
 _080780C8:
 	ldr r1, _080780F4  @ gUnknown_02019790

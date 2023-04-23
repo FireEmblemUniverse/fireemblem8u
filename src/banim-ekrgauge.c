@@ -4,6 +4,8 @@
 #include "bmitem.h"
 #include "anime.h"
 #include "ekrbattle.h"
+#include "uiutils.h"
+#include "hardware.h"
 
 void sub_8050E40(void *_src, void *_dst)
 {
@@ -64,53 +66,59 @@ void NewEkrGauge(void)
     EkrGauge_Clr4C50();
     EkrGauge_Clr2A();
     EkrGauge_ClrInitFlag();
-    EkrGauge_Clr323A(gUnknown_02000038.x, gUnknown_02000038.y);
+    EkrGauge_Clr323A(gBanimBgPosMaybe.x, gBanimBgPosMaybe.y);
 
     if (gUnknown_0203E1AC[0] > 0x50)
-        CpuCopy16(gUnknown_08802C84, gUnknown_02022C08, 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xB), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gUnknown_0203E114[0] * 0x10, gUnknown_02022C08, 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802B04 + gUnknown_0203E114[0] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
 
     if (gUnknown_0203E1AC[1] > 0x50)
-        CpuCopy16(gUnknown_08802C84, gUnknown_02022C28, 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xC), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gUnknown_0203E114[1] * 0x10, gUnknown_02022C28, 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802B04 + gUnknown_0203E114[1] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
 
     gUnknown_0203E1B4[0] = -1;
     gUnknown_0203E1B4[1] = -1;
 
-    LZ77UnCompVram(gUnknown_088025D8, (void *)0x6013800);
-    LZ77UnCompVram(gUnknown_08802674, (void *)0x6013940);
-    LZ77UnCompVram(gUnknown_08802698, (void *)0x6013D40);
+    LZ77UnCompVram(Img_EfxSideHitDmgCrit, (void *)0x6013800);
+    LZ77UnCompVram(Img_EfxWTAArrow1, (void *)0x6013940);
+    LZ77UnCompVram(Img_EfxWTAArrow2, (void *)0x6013D40);
 
-    CpuFastCopy(gUnknown_08802884 + gUnknown_0203E114[0] * 0x10, gUnknown_02022B48, 0x10 * sizeof(u16));
-    CpuFastCopy(gUnknown_08802884 + gUnknown_0203E114[1] * 0x10, gUnknown_02022B48 + 0x10, 0x10 * sizeof(u16));
+    CpuFastCopy(gUnknown_08802884 + gUnknown_0203E114[0] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
+    CpuFastCopy(gUnknown_08802884 + gUnknown_0203E114[1] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
 
     EnablePaletteSync();
 
-    ModDec(gUnknown_0203E1B8[0], &gUnknown_02017700[0x0]);
-    ModDec(gUnknown_0203E1BC[0], &gUnknown_02017700[0x3]);
-    ModDec(gUnknown_0203E1C0[0], &gUnknown_02017700[0x6]);
+    /* decode value to number for display: 998 --> 9 9 8 */
+    ModDec(gEkrHitPair[0], &gDecodedEkrHitDmgCritBuf[0x0]);
+    ModDec(gEkrDmgPair[0], &gDecodedEkrHitDmgCritBuf[0x3]);
+    ModDec(gEkrCritPair[0], &gDecodedEkrHitDmgCritBuf[0x6]);
 
-    ModDec(gUnknown_0203E1B8[1], &gUnknown_02017700[0x9]);
-    ModDec(gUnknown_0203E1BC[1], &gUnknown_02017700[0xC]);
-    ModDec(gUnknown_0203E1C0[1], &gUnknown_02017700[0xF]);
+    ModDec(gEkrHitPair[1], &gDecodedEkrHitDmgCritBuf[0x9]);
+    ModDec(gEkrDmgPair[1], &gDecodedEkrHitDmgCritBuf[0xC]);
+    ModDec(gEkrCritPair[1], &gDecodedEkrHitDmgCritBuf[0xF]);
 
-    CpuFastFill(0, gUnknown_020169C8, 0x400);
+    CpuFastFill(0, gObjBuf_EkrSideHitDmgCrit, 0x400);
 
+    /* value of hit & dmg & crit */
     for (i = 0; i < 6; i++) {
         for (j = 0; j < 3; j++) {
             int r4 = i * 0x40 + j * 0x10;
 
             CpuCopy16(
-                gUnknown_088026E4 + gUnknown_02017700[i * 3 + j] * 0x10,
-                gUnknown_020169C8 + r4,
+                gUnknown_088026E4 + gDecodedEkrHitDmgCritBuf[i * 3 + j] * 0x10,
+                gObjBuf_EkrSideHitDmgCrit + r4,
                 0x10 * sizeof(u16));
         }
     }
 
-    RegisterTileGraphics(gUnknown_020169C8, (void *)0x6013A00, 0xC0 * sizeof(u16));
-    RegisterTileGraphics(gUnknown_020169C8 + 0xC0, (void *)0x6013E00, 0xC0 * sizeof(u16));
+    /* left side of hit & dmg & crit */
+    RegisterTileGraphics(gObjBuf_EkrSideHitDmgCrit, (void *)0x6013A00, 0xC0 * sizeof(u16));
+
+    /* right side of hit & dmg & crit */
+    RegisterTileGraphics(gObjBuf_EkrSideHitDmgCrit + 0xC0, (void *)0x6013E00, 0xC0 * sizeof(u16));
+
     ResetIconGraphics_();
     LoadIconPalette(0, 0x1D);
     LoadIconPalette(0, 0x1E);

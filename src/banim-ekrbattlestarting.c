@@ -38,8 +38,8 @@ void BeginAnimsOnBattleAnimations(void)
 
     NewEkrBattleDeamon();
     AnimClearAll();
-    ret = sub_8052184();
-    gUnknown_02017744 = ret;
+    ret = GetEkrSomePosMaybe();
+    gEkrPos2Maybe = ret;
     NewEkrBattleStarting();
 
     gUnknown_02000000[0] = NULL;
@@ -141,10 +141,10 @@ void ekrBaStart_SreenFailIn(struct ProcEkrBattleStarting *proc)
     if (proc->unk2C != proc->unk2E)
         proc->unk2C++;
 
-    left   = Interpolate(0, 0,    proc->unk32, proc->unk2C, proc->unk2E);
-    top    = Interpolate(0, 0,    proc->unk3A, proc->unk2C, proc->unk2E);
-    right  = Interpolate(0, 0xF0, proc->unk34, proc->unk2C, proc->unk2E);
-    bottom = Interpolate(0, 0xA0, proc->unk3C, proc->unk2C, proc->unk2E);
+    left   = Interpolate(INTERPOLATE_LINEAR, 0,    proc->unk32, proc->unk2C, proc->unk2E);
+    top    = Interpolate(INTERPOLATE_LINEAR, 0,    proc->unk3A, proc->unk2C, proc->unk2E);
+    right  = Interpolate(INTERPOLATE_LINEAR, 0xF0, proc->unk34, proc->unk2C, proc->unk2E);
+    bottom = Interpolate(INTERPOLATE_LINEAR, 0xA0, proc->unk3C, proc->unk2C, proc->unk2E);
 
     SetWin0Box(left, top, right, bottom);
 
@@ -166,19 +166,19 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
         NewEkrGauge();
         NewEkrDispUP();
 
-        switch (gUnknown_0203E120) {
+        switch (gEkrSomeType) {
         case 0:
         case 1:
         case 2:
             break;
 
         case 3:
-            if (gUnknown_0203E104[0] == 0) {
+            if (gBanimSideVaildFlagMaybe[0] == 0) {
                 EkrGauge_Set4C();
                 EkrDispUpSet4C();
             }
 
-            if (gUnknown_0203E104[1] == 0) {
+            if (gBanimSideVaildFlagMaybe[1] == 0) {
                 EkrGauge_Set50();
                 EkrDispUpSet50();
             }
@@ -194,7 +194,7 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
         }
     }
 
-    sub_8051CC4();
+    EfxClearScreenFx();
     sub_8056900(0);
     sub_805649C(0);
     NewEkrWindowAppear(0, 0xB);

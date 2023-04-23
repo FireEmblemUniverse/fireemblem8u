@@ -10213,8 +10213,8 @@ gUnknown_085D8CA0:  @ 0x085D8CA0
     .4byte gUnknown_086EAE24 + 0x10ec4
     .4byte gUnknown_086EAE24 + 0x11f34
 
-	.global gUnknown_085D8CC4
-gUnknown_085D8CC4:  @ 0x085D8CC4
+	.global ProcScr_efxGorgonBGFinish
+ProcScr_efxGorgonBGFinish:  @ 0x085D8CC4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df108
@@ -10273,60 +10273,60 @@ gUnknown_085D8D14:  @ 0x085D8D14
         .word 0x0
 
 
-	.global gUnknown_085D8D44
-gUnknown_085D8D44:  @ 0x085D8D44
+	.global ProcScr_efxDamageMojiEffect
+ProcScr_efxDamageMojiEffect:  @ 0x085D8D44
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df11c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806C650
+        .word efxDamageMojiEffectMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8D5C
-gUnknown_085D8D5C:  @ 0x085D8D5C
+	.global ProcScr_efxDamageMojiEffectOBJ
+ProcScr_efxDamageMojiEffectOBJ:  @ 0x085D8D5C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df130
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806C6EC
+        .word efxDamageMojiEffectOBJMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8D74
-gUnknown_085D8D74:  @ 0x085D8D74
+	.global ProcScr_efxCriricalEffect
+ProcScr_efxCriricalEffect:  @ 0x085D8D74
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df148
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806C768
+        .word efxCriricalEffectMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8D8C
-gUnknown_085D8D8C:  @ 0x085D8D8C
+	.global ProcScr_efxCriricalEffectBG
+ProcScr_efxCriricalEffectBG:  @ 0x085D8D8C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df15c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806C7E8
+        .word efxCriricalEffectBGMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8DA4
-gUnknown_085D8DA4:  @ 0x085D8DA4
+	.global ProcScr_efxCriricalEffectBGCOL
+ProcScr_efxCriricalEffectBGCOL:  @ 0x085D8DA4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df170
@@ -10335,33 +10335,33 @@ gUnknown_085D8DA4:  @ 0x085D8DA4
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806C840
+        .word efxCriricalEffectBGCOLMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8DC4
-gUnknown_085D8DC4:  @ 0x085D8DC4
+	.global ProcScr_efxNormalEffect
+ProcScr_efxNormalEffect:  @ 0x085D8DC4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df1cc
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806C8C4
+        .word efxNormalEffectMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8DDC
-gUnknown_085D8DDC:  @ 0x085D8DDC
+	.global ProcScr_efxNormalEffectBG
+ProcScr_efxNormalEffectBG:  @ 0x085D8DDC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df1dc
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806C990
+        .word efxNormalEffectBGMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -10380,34 +10380,34 @@ gUnknown_085D8DF4:  @ 0x085D8DF4
     .4byte gUnknown_085E9150 + 0x788
     .4byte gUnknown_085E9150 + 0x830
 
-	.global gUnknown_085D8E1C
-gUnknown_085D8E1C:  @ 0x085D8E1C
+	.global ProcScr_efxPierceCriticalEffect
+ProcScr_efxPierceCriticalEffect:  @ 0x085D8E1C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df218
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CA08
+        .word efxPierceCriticalEffectMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8E34
-gUnknown_085D8E34:  @ 0x085D8E34
+	.global ProcScr_efxPierceCriticalEffectBG
+ProcScr_efxPierceCriticalEffectBG:  @ 0x085D8E34
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df230
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CA88
+        .word efxPierceCriticalEffectBGMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8E4C
-gUnknown_085D8E4C:  @ 0x085D8E4C
+	.global ProcScr_efxPierceCriticalEffectBGCOL
+ProcScr_efxPierceCriticalEffectBGCOL:  @ 0x085D8E4C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df24c
@@ -10416,33 +10416,33 @@ gUnknown_085D8E4C:  @ 0x085D8E4C
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CAE0
+        .word efxPierceCriticalEffectBGCOLMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8E6C
-gUnknown_085D8E6C:  @ 0x085D8E6C
+	.global ProcScr_efxPierceNormalEffect
+ProcScr_efxPierceNormalEffect:  @ 0x085D8E6C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df2ac
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CB3C
+        .word efxPierceNormalEffectMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8E84
-gUnknown_085D8E84:  @ 0x085D8E84
+	.global ProcScr_efxPierceNormalEffectBG
+ProcScr_efxPierceNormalEffectBG:  @ 0x085D8E84
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df2c4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CC08
+        .word efxPierceNormalEffectBGMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -10461,125 +10461,125 @@ gUnknown_085D8E9C:  @ 0x085D8E9C
     .4byte gUnknown_085D1470 + 0x86c
     .4byte gUnknown_085D1470 + 0x930
 
-	.global gUnknown_085D8EC4
-gUnknown_085D8EC4:  @ 0x085D8EC4
+	.global ProcScr_efxYushaSpinShield
+ProcScr_efxYushaSpinShield:  @ 0x085D8EC4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df308
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CC88
+        .word EfxYushaSpinShieldMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8EDC
-gUnknown_085D8EDC:  @ 0x085D8EDC
+	.global ProcScr_efxYushaSpinShieldOBJ
+ProcScr_efxYushaSpinShieldOBJ:  @ 0x085D8EDC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df31c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CD14
+        .word efxYushaSpinShieldOBJ_806CD14
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CD7C
+        .word efxYushaSpinShieldOBJ_806CD7C
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CDA4
+        .word efxYushaSpinShieldOBJ_806CDA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CE08
+        .word efxYushaSpinShieldOBJ_806CE08
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8F0C
-gUnknown_085D8F0C:  @ 0x085D8F0C
+	.global ProcScr_efxHurtmutEff00
+ProcScr_efxHurtmutEff00:  @ 0x085D8F0C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df334
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CE74
+        .word EfxHurtmutEff00Main
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8F24
-gUnknown_085D8F24:  @ 0x085D8F24
+	.global ProcScr_efxHurtmutEff00OBJ
+ProcScr_efxHurtmutEff00OBJ:  @ 0x085D8F24
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df344
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CEC4
+        .word efxHurtmutEff00OBJ_806CEC4
         @ PROC_SLEEP
         .short 0xe, 0x1a
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CF10
+        .word efxHurtmutEff00OBJ_806CF10
         @ PROC_SLEEP
         .short 0xe, 0x8
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CF5C
+        .word efxHurtmutEff00OBJ_806CF5C
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8F5C
-gUnknown_085D8F5C:  @ 0x085D8F5C
+	.global ProcScr_efxHurtmutEff01OBJ
+ProcScr_efxHurtmutEff01OBJ:  @ 0x085D8F5C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df358
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806CFC4
+        .word efxHurtmutEff01OBJ_806CFC4
         @ PROC_SLEEP
         .short 0xe, 0x3a
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D010
+        .word efxHurtmutEff01OBJ_806D010
         @ PROC_SLEEP
         .short 0xe, 0x15
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D05C
+        .word efxHurtmutEff01OBJ_806D05C
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8F94
-gUnknown_085D8F94:  @ 0x085D8F94
+	.global ProcScr_efxMagfcast
+ProcScr_efxMagfcast:  @ 0x085D8F94
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df36c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D198
+        .word EfxMagfcastMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D8FAC
-gUnknown_085D8FAC:  @ 0x085D8FAC
+	.global ProcScr_efxMagfcastBG
+ProcScr_efxMagfcastBG:  @ 0x085D8FAC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df378
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D294
+        .word EfxMagfcastBGMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

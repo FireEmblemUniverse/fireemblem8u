@@ -1274,7 +1274,7 @@ _08055374:
 	cmp r6, r4
 	beq _08055402
 	adds r0, r5, #0
-	bl sub_8052304
+	bl NewEfxHPBar
 	adds r0, r7, #0
 	bl sub_805A268
 	cmp r0, #1
@@ -1310,7 +1310,7 @@ _08055402:
 	b _08055414
 _0805540E:
 	adds r0, r5, #0
-	bl sub_8052978
+	bl NewEfxAvoid
 _08055414:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -1390,7 +1390,7 @@ _080554AC:
 	cmp r6, r4
 	beq _080554EE
 	adds r0, r5, #0
-	bl sub_80525E8
+	bl NewEfxHPBarResire
 	adds r0, r7, #0
 	bl sub_805A268
 	cmp r0, #1
@@ -1429,7 +1429,7 @@ _080554EE:
 _08055500: .4byte gUnknown_02017750
 _08055504:
 	adds r0, r5, #0
-	bl sub_8052978
+	bl NewEfxAvoid
 _0805550A:
 	pop {r3, r4}
 	mov r8, r3
@@ -1467,7 +1467,7 @@ _08055544:
 	bl sub_8052D8C
 	b _0805554E
 _0805554A:
-	bl sub_8052978
+	bl NewEfxAvoid
 _0805554E:
 	pop {r4}
 	pop {r0}
@@ -1482,7 +1482,7 @@ sub_8055554: @ 0x08055554
 	adds r7, r1, #0
 	adds r6, r2, #0
 	adds r5, r3, #0
-	ldr r0, _08055578  @ gUnknown_0203E120
+	ldr r0, _08055578  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1494,7 +1494,7 @@ sub_8055554: @ 0x08055554
 	adds r0, r7, #0
 	b _08055590
 	.align 2, 0
-_08055578: .4byte gUnknown_0203E120
+_08055578: .4byte gEkrSomeType
 _0805557C:
 	adds r0, r6, #0
 	b _08055590
@@ -1532,7 +1532,7 @@ sub_80555B0: @ 0x080555B0
 	adds r7, r1, #0
 	adds r6, r2, #0
 	adds r5, r3, #0
-	ldr r0, _080555D4  @ gUnknown_0203E120
+	ldr r0, _080555D4  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1544,7 +1544,7 @@ sub_80555B0: @ 0x080555B0
 	adds r0, r7, #0
 	b _080555EC
 	.align 2, 0
-_080555D4: .4byte gUnknown_0203E120
+_080555D4: .4byte gEkrSomeType
 _080555D8:
 	adds r0, r6, #0
 	b _080555EC
@@ -1580,7 +1580,7 @@ sub_805560C: @ 0x0805560C
 	push {r4, lr}
 	sub sp, #8
 	adds r3, r0, #0
-	ldr r0, _08055640  @ gUnknown_0203E120
+	ldr r0, _08055640  @ gEkrSomeType
 	movs r4, #0
 	ldrsh r0, [r0, r4]
 	adds r4, r2, #0
@@ -1603,7 +1603,7 @@ _08055620:
 	bl sub_8070EC4
 	b _0805565C
 	.align 2, 0
-_08055640: .4byte gUnknown_0203E120
+_08055640: .4byte gEkrSomeType
 _08055644: .4byte gBG1TilemapBuffer
 _08055648:
 	ldr r1, _0805566C  @ gBG1TilemapBuffer
@@ -1633,7 +1633,7 @@ sub_8055670: @ 0x08055670
 	sub sp, #8
 	adds r4, r0, #0
 	adds r3, r1, #0
-	ldr r0, _0805568C  @ gUnknown_0203E120
+	ldr r0, _0805568C  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1643,7 +1643,7 @@ sub_8055670: @ 0x08055670
 	bl LZ77UnCompWram
 	b _0805569C
 	.align 2, 0
-_0805568C: .4byte gUnknown_0203E120
+_0805568C: .4byte gEkrSomeType
 _08055690: .4byte gUnknown_02019790
 _08055694:
 	ldr r1, _080556C0  @ gUnknown_02019790
@@ -1697,7 +1697,7 @@ sub_80556F0: @ 0x080556F0
 	adds r3, r1, #0
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	ldr r0, _08055710  @ gUnknown_0203E120
+	ldr r0, _08055710  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1707,7 +1707,7 @@ sub_80556F0: @ 0x080556F0
 	bl LZ77UnCompWram
 	b _08055720
 	.align 2, 0
-_08055710: .4byte gUnknown_0203E120
+_08055710: .4byte gEkrSomeType
 _08055714: .4byte gUnknown_02019790
 _08055718:
 	ldr r1, _0805573C  @ gUnknown_02019790
@@ -2069,7 +2069,7 @@ _08055988: .4byte gUnknown_0201775C
 	THUMB_FUNC_START GetAnimationStartFrameMaybe
 GetAnimationStartFrameMaybe: @ 0x0805598C
 	push {lr}
-	ldr r0, _0805599C  @ gUnknown_0203E120
+	ldr r0, _0805599C  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #2
@@ -2077,7 +2077,7 @@ GetAnimationStartFrameMaybe: @ 0x0805598C
 	movs r0, #0x18
 	b _080559AA
 	.align 2, 0
-_0805599C: .4byte gUnknown_0203E120
+_0805599C: .4byte gEkrSomeType
 _080559A0:
 	cmp r0, #1
 	beq _080559A8
@@ -2337,7 +2337,7 @@ sub_8055B38: @ 0x08055B38
 	adds r1, r4, #0
 	adds r2, r5, #0
 	bl sub_80559F0
-	ldr r0, _08055B94  @ gUnknown_0203E120
+	ldr r0, _08055B94  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -2351,7 +2351,7 @@ sub_8055B38: @ 0x08055B38
 _08055B88: .4byte gUnknown_02000028
 _08055B8C: .4byte gUnknown_0201FB0C
 _08055B90: .4byte gUnknown_0200002C
-_08055B94: .4byte gUnknown_0203E120
+_08055B94: .4byte gEkrSomeType
 _08055B98:
 	cmp r0, #0
 	blt _08055BA6

@@ -276,7 +276,7 @@ void NewEkrLevelup(struct Anim *ais)
     proc->ais_main = ais;
     proc->ais_core = GetCoreAIStruct(ais);
 
-    if (gUnknown_0203E120 != 4)
+    if (gEkrSomeType != 4)
         proc->is_promotion = false;
     else
         proc->is_promotion = true;

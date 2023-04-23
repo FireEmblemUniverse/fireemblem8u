@@ -114,7 +114,7 @@ void *GetVRAMPointerForTextMaybe(struct TextHandle *a);
 // ??? Font_SpecializedGlyphDrawer(???);
 void Font_LoadForUI(void);
 void Font_LoadForDialogue(void);
-// ??? Font_SetSomeSpecialDrawingRoutine(???);
+void Font_SetSomeSpecialDrawingRoutine(void);
 void DrawTextInline(struct TextHandle* text, u16* dest, int colorId, int x, int tileWidth, const char* string);
 void Text_InsertString(struct TextHandle *th, int x, int colorId, const char *str);
 void Text_InsertNumberOr2Dashes(struct TextHandle *th, int x, int colorId, int n);

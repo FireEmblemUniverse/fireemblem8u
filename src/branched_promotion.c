@@ -27,6 +27,7 @@
 #include "uiutils.h"
 #include "bmsave.h"
 #include "ekrbattle.h"
+#include "efxbattle.h"
 
 u8 PromoHandler_SetInitStat(struct ProcPromoHandler *proc);
 void PromoHandlerIdle(struct ProcPromoHandler *proc);
@@ -436,41 +437,6 @@ void LoadClassNameInClassReelFont(struct ProcPromoSel *proc) {
     if (proc->u44 < 0xff)
         proc->u44++;
 }
-
-struct Unknown_030053A0 {
-    u8 u00;
-    u8 u01;
-    u16 u02;
-    u16 u04;
-    u16 u06;
-    u16 u08;
-    u16 u0a;
-    u16 u0c;
-    u16 u0e;
-    u16 u10;
-    struct Anim *anim1;
-    struct Anim *anim2;
-    u8 * u1c;
-    u8 * u20;
-    u8 * u24;
-    u8 * u28;
-    u8 * _u2c;
-    struct Unknown_030053E0 * u30;
-};
-
-extern struct Unknown_030053A0 gUnknown_030053A0;
-
-struct Unknown_0201FADC {
-    u16 things[8];
-    u16 _pad1;
-    struct ProcPromoSel *p1;
-    struct ProcPromoSel *p2;
-    u32 u1c;
-    u8 * u20;
-    u32 _pad2;
-};
-
-extern struct Unknown_0201FADC gUnknown_0201FADC;
 
 void sub_805AA28(struct Unknown_030053A0 *a);
 
@@ -908,11 +874,7 @@ void sub_80CD34C(void) {
     gLCDControlBuffer.bldcnt.target2_bd_on = TRUE;
 }
 
-void sub_805AA68(struct Unknown_0201FADC *);
 void sub_805AE40(struct Unknown_0201FADC *, s16, s16, s16, s16);
-
-extern u8 gUnknown_020145C8[];
-
 
 void sub_80CD408(u32 a, s16 b, s16 c) {
     u32 tmp;
@@ -931,25 +893,6 @@ void sub_80CD408(u32 a, s16 b, s16 c) {
 
     sub_805AE40(&gUnknown_0201FADC, b, c, b + 0x60, c);
 }
-
-struct Unknown_030053E0 {
-    u16 u00;
-    u16 u02;
-    u16 u04;
-    u16 u06;
-    u16 u08;
-    u16 u0a;
-    u16 u0c;
-    u16 u0e;
-    u16 u10;
-    u16 u12;
-    u16 *buf;
-    u8 *u18;
-    u8 *u1c;
-    u8 *u20;
-    void (*u24)(void);
-};
-extern struct Unknown_030053E0 gUnknown_030053E0;
 
 extern u16 gUnknown_03005408[];
 extern u8 gUnknown_02000088[];
