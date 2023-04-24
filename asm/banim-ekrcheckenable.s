@@ -898,7 +898,7 @@ _08057724:
 	ldr r0, _08057730  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #1
-	bl sub_806FA84
+	bl SetEkrSpEffType
 	b _0805773E
 	.align 2, 0
 _08057730: .4byte gUnknown_02000000
@@ -906,7 +906,7 @@ _08057734:
 	ldr r0, _080579DC  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #2
-	bl sub_806FA84
+	bl SetEkrSpEffType
 _0805773E:
 	ldr r2, [sp, #0x24]
 	asrs r6, r2, #0x10

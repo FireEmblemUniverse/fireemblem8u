@@ -175,7 +175,7 @@ extern u32 gUnknown_0201777C;
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 // extern ??? gUnknown_02017790
 extern u16 gUnknown_02019490[];
-// extern ??? gUnknown_02019790
+extern u8 gUnknown_02019790[];
 // extern ??? gUnknown_02019D00
 // extern ??? gUnknown_0201A790
 // extern ??? gUnknown_0201AF90
@@ -248,7 +248,7 @@ extern u32 gUnknown_0201FB0C;
 // extern ??? gUnknown_0201FDC4
 // extern ??? gUnknown_0201FF04
 // extern ??? gUnknown_02020044
-// extern ??? gUnknown_02020048
+// extern ??? gEkrSpEffBuff
 // extern ??? gUnknown_02020058
 // extern ??? gUnknown_02020068
 // extern ??? gUnknown_020200A8
@@ -676,9 +676,9 @@ extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03004F20
 // extern ??? gUnknown_03004FA0
 // extern ??? gUnknown_03004FA4
-// extern ??? gUnknown_03004FA8
+extern int gUnknown_03004FA8;
 // extern ??? gUnknown_03004FAC
-// extern ??? gUnknown_03004FB0
+extern int gUnknown_03004FB0;
 // extern ??? MADebugInfo
 // extern ??? gUnknown_03005090
 // extern ??? gUnknown_03005110
@@ -2486,10 +2486,10 @@ extern char gNopStr[];
 // extern ??? ProcScr_ekrPopup2
 // extern ??? ProcScr_ekrHenseiInit
 // extern ??? ProcScr_ekrHenseiEnd
-// extern ??? gUnknown_0878D648
+// extern ??? Img_EfxDracoZombie
 // extern ??? gUnknown_08790F88
 // extern ??? gUnknown_0879115C
-// extern ??? gUnknown_08791D5C
+// extern ??? Pal_EfxDracoZombie
 // extern ??? gUnknown_08791D7C
 // extern ??? gUnknown_08791D9C
 // extern ??? gUnknown_08792194
@@ -2507,10 +2507,10 @@ extern char gNopStr[];
 // extern ??? gUnknown_087F3C54
 // extern ??? gUnknown_087F4184
 // extern ??? gUnknown_087F4314
-// extern ??? gUnknown_087F4324
-// extern ??? gUnknown_087F4394
-// extern ??? gUnknown_087F43B4
-// extern ??? gUnknown_087F43D4
+extern struct ProcCmd ProcScr_EkrDemoKingIntro[];
+// extern ??? ProcScr_ekrDragonBaseHide
+// extern ??? ProcScr_ekrDragonBaseAppear
+// extern ??? ProcScr_ekrDragonBodyAnime
 // extern ??? gUnknown_087F43EC
 // extern ??? gUnknown_087F43F8
 // extern ??? gUnknown_087F4458
@@ -2522,10 +2522,10 @@ extern char gNopStr[];
 // extern ??? gUnknown_087F4578
 // extern ??? gUnknown_087F45A0
 // extern ??? gUnknown_087F45D0
-// extern ??? gUnknown_087F4798
-// extern ??? gUnknown_087F798C
+extern u16 Img_DeamonKingBG[];
+extern u16 Tsa_DeamonKingBG[];
 // extern ??? gUnknown_087F7DC8
-// extern ??? gUnknown_087F85DC
+extern u16 Pal_DeamonKingBG[];
 // extern ??? gUnknown_087FF488
 // extern ??? gUnknown_0880064C
 // extern ??? gUnknown_088017E0

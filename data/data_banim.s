@@ -147893,7 +147893,7 @@ gUnknown_08758670:  @ 0x08758670
         .word sub_806FC50
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_806FCD8
+        .word EfxDracoZombiePrepareImg
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_806FD74

@@ -108,7 +108,7 @@ _08056198:
 	asrs r0, r0, #0x18
 	bl UnpackChapterMapGraphics
 	movs r0, #0x10
-	bl sub_807168C
+	bl EkrUpdateSomePalMaybe
 	bl RenderBmMap
 	movs r0, #3
 	movs r1, #0
@@ -155,7 +155,7 @@ _080561F0:
 	movs r1, #0x10
 	movs r2, #4
 	bl Interpolate
-	bl sub_807168C
+	bl EkrUpdateSomePalMaybe
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]

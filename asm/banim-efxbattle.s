@@ -359,7 +359,7 @@ sub_8053080: @ 0x08053080
 	beq _080530D2
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
-	bl sub_805328C
+	bl NewEfxDeadDragonAlpha
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd6
@@ -604,8 +604,8 @@ _08053282:
 
 	THUMB_FUNC_END sub_805320C
 
-	THUMB_FUNC_START sub_805328C
-sub_805328C: @ 0x0805328C
+	THUMB_FUNC_START NewEfxDeadDragonAlpha
+NewEfxDeadDragonAlpha: @ 0x0805328C
 	push {r4, r5, r6, lr}
 	mov r6, r9
 	mov r5, r8
@@ -633,7 +633,7 @@ sub_805328C: @ 0x0805328C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
-	bl sub_806FC8C
+	bl EfxDracoZombiePrepareTSA
 	mov r0, r8
 	strh r0, [r4, #0x2c]
 	strh r0, [r4, #0x2e]
@@ -710,7 +710,7 @@ sub_805328C: @ 0x0805328C
 _08053360: .4byte gProc_efxDeadDragonAlpha
 _08053364: .4byte gLCDControlBuffer
 
-	THUMB_FUNC_END sub_805328C
+	THUMB_FUNC_END NewEfxDeadDragonAlpha
 
 	THUMB_FUNC_START sub_8053368
 sub_8053368: @ 0x08053368

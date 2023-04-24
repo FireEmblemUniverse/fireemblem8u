@@ -276,7 +276,7 @@
 . = 0x01FDC4; gUnknown_0201FDC4 = .;
 . = 0x01FF04; gUnknown_0201FF04 = .;
 . = 0x020044; gUnknown_02020044 = .;
-. = 0x020048; gUnknown_02020048 = .;
+. = 0x020048; gEkrSpEffBuff = .;
 . = 0x020058; gUnknown_02020058 = .;
 . = 0x020068; gUnknown_02020068 = .;
 . = 0x0200A8; gUnknown_020200A8 = .;

@@ -9,6 +9,7 @@
 #include "bmarena.h"
 #include "ekrlevelup.h"
 #include "ekrbattle.h"
+#include "efxbattle.h"
 
 extern struct Anim *gUnknown_02000000[4];
 
@@ -239,10 +240,10 @@ void ekrBattle_8050158(struct ProcEkrBattle *proc)
 {
     proc->unk44 = gEkrPos1Maybe;
     proc->unk48 = 0;
-    proc->proc_idleCb = (ProcFunc)ekrBattle_8050174;
+    proc->proc_idleCb = (ProcFunc)ekrBattleDoSpeialClassIntro;
 }
 
-void ekrBattle_8050174(struct ProcEkrBattle *proc)
+void ekrBattleDoSpeialClassIntro(struct ProcEkrBattle *proc)
 {
     if (proc->unk48 == 2) {
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050244;
@@ -251,20 +252,23 @@ void ekrBattle_8050174(struct ProcEkrBattle *proc)
 
     if (proc->unk44 == 0) {
         proc->anim = gUnknown_02000000[0];
-        switch (sub_806FA6C(proc->anim)) {
+        switch (GetEkrSpEffType(proc->anim)) {
+        /* Draco Zombie */
         case 1:
-            sub_80701B8(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050224;
+            EfxDoDracoZombieIntroAnim(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
 
+        /* DemonKing */
         case 2:
-            sub_8076540(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050224;
+            EfxDoDemonKingIntroAnim(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
 
+        /* Myrrh */
         case 3:
-            sub_80708CC(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050224;
+            EfxDoMyrrhIntroAnim(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
         }
 
@@ -272,20 +276,20 @@ void ekrBattle_8050174(struct ProcEkrBattle *proc)
 
     } else {
         proc->anim = gUnknown_02000000[2];
-        switch (sub_806FA6C(proc->anim)) {
+        switch (GetEkrSpEffType(proc->anim)) {
         case 1:
-            sub_80701B8(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050224;
+            EfxDoDracoZombieIntroAnim(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
 
         case 2:
-            sub_8076540(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050224;
+            EfxDoDemonKingIntroAnim(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
 
         case 3:
-            sub_80708CC(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050224;
+            EfxDoMyrrhIntroAnim(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
         }
 
@@ -295,10 +299,10 @@ void ekrBattle_8050174(struct ProcEkrBattle *proc)
     proc->unk48++;
 }
 
-void ekrBattle_8050224(struct ProcEkrBattle *proc)
+void ekrBattleWaitSpeialClassIntroAnimIdle(struct ProcEkrBattle *proc)
 {
-    if (sub_806FBF8(proc->anim) == true)
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050174;
+    if (CheckEkrSpecialClassIntroAnimDone(proc->anim) == true)
+        proc->proc_idleCb = (ProcFunc)ekrBattleDoSpeialClassIntro;
 }
 
 void ekrBattle_8050244(struct ProcEkrBattle *proc)
@@ -814,7 +818,7 @@ void ekrBattle_8050CF8(struct ProcEkrBattle *proc)
 
     if (proc->unk44 == 0) {
         proc->anim = gUnknown_02000000[0];
-        switch (sub_806FA6C(proc->anim)) {
+        switch (GetEkrSpEffType(proc->anim)) {
         case 2:
             sub_80701E8(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;
@@ -837,7 +841,7 @@ void ekrBattle_8050CF8(struct ProcEkrBattle *proc)
 
     } else {
         proc->anim = gUnknown_02000000[2];
-        switch (sub_806FA6C(proc->anim)) {
+        switch (GetEkrSpEffType(proc->anim)) {
         case 2:
             sub_80701E8(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;

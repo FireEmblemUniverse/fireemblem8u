@@ -14,6 +14,8 @@
 #include "classdisplayfont.h"
 #include "opinfo.h"
 #include "anime.h"
+#include "efxbattle.h"
+#include "ekrbattle.h"
 
 #include "constants/classes.h"
 
