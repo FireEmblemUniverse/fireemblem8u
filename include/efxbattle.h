@@ -78,8 +78,8 @@ struct ProcEfxHPBar {
 
     /* 29 */ u8 unk29;
     /* 2A */ u8 _pad_2A[0x2C - 0x2A];
-    /* 2C */ s16 unk2C;
-    /* 2E */ s16 unk2E;
+    /* 2C */ s16 timer;
+    /* 2E */ s16 max;
     /* 30 */ u8 _pad_30[0x48 - 0x30];
     /* 48 */ int unk48;
     /* 4C */ int unk4C;

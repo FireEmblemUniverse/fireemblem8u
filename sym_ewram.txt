@@ -179,7 +179,7 @@
 . = 0x0176F0; gUnknown_020176F0 = .;
 . = 0x017700; gDecodedEkrHitDmgCritBuf = .;
 . = 0x017724; gUnknown_02017724 = .;
-. = 0x017728; gUnknown_02017728 = .;
+. = 0x017728; gEkrHPBarCount = .;
 . = 0x01772C; gUnknown_0201772C = .;
 . = 0x017730; gUnknown_02017730 = .;
 . = 0x017734; gUnknown_02017734 = .;
@@ -566,7 +566,7 @@
 . = 0x03E108; gUnknown_0203E108 = .;
 . = 0x03E10C; gBattleActorSide = .;
 . = 0x03E110; gBattleInitSide = .;
-. = 0x03E114; gUnknown_0203E114 = .;
+. = 0x03E114; gBanimSomeObjPalIndex = .;
 . = 0x03E118; gUnknown_0203E118 = .;
 . = 0x03E11A; gUnknown_0203E11A = .;
 . = 0x03E11C; gBanimTerrainIndexMaybe = .;

@@ -834,7 +834,7 @@ sub_805452C: @ 0x0805452C
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x50
 	bgt _08054564
-	ldr r0, _08054558  @ gUnknown_0203E114
+	ldr r0, _08054558  @ gBanimSomeObjPalIndex
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	lsls r0, r0, #5
@@ -844,7 +844,7 @@ sub_805452C: @ 0x0805452C
 	b _08054584
 	.align 2, 0
 _08054554: .4byte gUnknown_0203E1AC
-_08054558: .4byte gUnknown_0203E114
+_08054558: .4byte gBanimSomeObjPalIndex
 _0805455C: .4byte gUnknown_08802B04
 _08054560: .4byte gUnknown_02022C08
 _08054564:
@@ -858,7 +858,7 @@ _0805456C:
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x50
 	bgt _0805459C
-	ldr r0, _08054590  @ gUnknown_0203E114
+	ldr r0, _08054590  @ gBanimSomeObjPalIndex
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	lsls r0, r0, #5
@@ -872,7 +872,7 @@ _08054584:
 	b _080545A6
 	.align 2, 0
 _0805458C: .4byte gUnknown_0203E1AC
-_08054590: .4byte gUnknown_0203E114
+_08054590: .4byte gBanimSomeObjPalIndex
 _08054594: .4byte gUnknown_08802B04
 _08054598: .4byte gUnknown_02022C28
 _0805459C:
@@ -922,7 +922,7 @@ sub_80545C0: @ 0x080545C0
 	str r2, [r0, #0x58]
 	adds r0, #0x29
 	strb r3, [r0]
-	ldr r5, _0805468C  @ gUnknown_0203E114
+	ldr r5, _0805468C  @ gBanimSomeObjPalIndex
 	movs r1, #0
 	ldrsh r0, [r5, r1]
 	lsls r0, r0, #5
@@ -987,7 +987,7 @@ _0805467C: .4byte gUnknown_0201777C
 _08054680: .4byte ProcScr_efxHPBarColorChange
 _08054684: .4byte gUnknown_080DAC58
 _08054688: .4byte gUnknown_080DAC82
-_0805468C: .4byte gUnknown_0203E114
+_0805468C: .4byte gBanimSomeObjPalIndex
 _08054690: .4byte gUnknown_08802B04
 _08054694: .4byte gUnknown_0201F948
 _08054698: .4byte gUnknown_08802BC4

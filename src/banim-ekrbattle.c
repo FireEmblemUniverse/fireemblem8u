@@ -510,7 +510,7 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
 {
     int val, ret;
 
-    if (gUnknown_02017728 != 0)
+    if (gEkrHPBarCount != 0)
         return;
 
     if (gUnknown_02017738 != 0)

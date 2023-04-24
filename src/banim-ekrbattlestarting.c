@@ -98,7 +98,7 @@ void MainUpdate_8055C68(void)
 
 void NewEkrBattleStarting(void)
 {
-    Proc_Start(gProc_ekrBattleStarting, PROC_TREE_3);
+    Proc_Start(ProcScr_ekrBattleStarting, PROC_TREE_3);
 }
 
 void ekrBaStart_InitScreen(struct ProcEkrBattleStarting *proc)
@@ -257,7 +257,7 @@ void ekrBaStart_8056078(struct ProcEkrBattleStarting *proc)
     }
 }
 
-CONST_DATA struct ProcCmd gProc_ekrBattleStarting[] = {
+CONST_DATA struct ProcCmd ProcScr_ekrBattleStarting[] = {
     PROC_NAME("ekrBattleStarting"),
     PROC_REPEAT(ekrBaStart_InitScreen),
     PROC_REPEAT(ekrBaStart_SreenFailIn),
