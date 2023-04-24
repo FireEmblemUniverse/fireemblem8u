@@ -1103,8 +1103,8 @@ _080835A4: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_8083570
 
-	THUMB_FUNC_START sub_80835A8
-sub_80835A8: @ 0x080835A8
+	THUMB_FUNC_START EkrCheckSomeDeathMaybe
+EkrCheckSomeDeathMaybe: @ 0x080835A8
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
@@ -1133,7 +1133,7 @@ _080835D6:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80835A8
+	THUMB_FUNC_END EkrCheckSomeDeathMaybe
 
 	THUMB_FUNC_START sub_80835DC
 sub_80835DC: @ 0x080835DC

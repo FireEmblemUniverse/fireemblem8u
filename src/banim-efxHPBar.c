@@ -319,13 +319,13 @@ void efxHPBar_80523EC(struct ProcEfxHPBar *proc)
             if (GetEkrEventFlagMaybe() == true)
                 ret = 0;
             else
-                ret = sub_80835A8(gEkrPids[GetAISSubjectId(anim1)]);
+                ret = EkrCheckSomeDeathMaybe(gEkrPids[GetAISSubjectId(anim1)]);
 
             if (ret == true)
-                sub_8052DD4(anim1, anim2);
+                NewEfxDeadEvent(anim1, anim2);
             else {
-                sub_805B07C();
-                sub_8052FAC(anim1, anim2);
+                PlaySound8FForArenaMaybe();
+                NewEfxDead(anim1, anim2);
                 gBanimSideVaildFlagMaybe[GetAISSubjectId(proc->anim60)] = false;
             }
         }
@@ -518,13 +518,13 @@ void EfxHPBarResire_805282C(struct ProcEfxHPBar *proc)
             if (GetEkrEventFlagMaybe() == true)
                 ret = 0;
             else
-                ret = sub_80835A8(gEkrPids[GetAISSubjectId(anim3)]);
+                ret = EkrCheckSomeDeathMaybe(gEkrPids[GetAISSubjectId(anim3)]);
 
             if (ret == true)
-                sub_8052DD4(anim3, anim4);
+                NewEfxDeadEvent(anim3, anim4);
             else {
-                sub_805B07C();
-                sub_8052FAC(anim3, anim4);
+                PlaySound8FForArenaMaybe();
+                NewEfxDead(anim3, anim4);
                 gBanimSideVaildFlagMaybe[GetAISSubjectId(proc->anim60)] = false;
             }
         }

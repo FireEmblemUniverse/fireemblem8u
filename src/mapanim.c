@@ -177,7 +177,7 @@ void MapAnimProc_DisplayDeahQuote(void)
             break;
         }
 
-        if (sub_80835A8(charid)) {
+        if (EkrCheckSomeDeathMaybe(charid)) {
             DeleteBattleAnimInfoThing();
             sub_80835DC(charid);
         }

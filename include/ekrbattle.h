@@ -116,7 +116,7 @@ extern short gUnknown_0203E102;
 extern short gBanimSideVaildFlagMaybe[2];
 // extern ??? gUnknown_0203E108
 extern short gBanimSomeObjPalIndex[2];
-// extern ??? gUnknown_0203E118
+extern short gEkrSpellAnimIndexLutMaybe[];
 // extern ??? gUnknown_0203E11A
 extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
 extern EWRAM_DATA s16 gEkrSomeType; /* 0 maybe normal, 2 for counterable item, 3 for uncounterable item, 4 maybe promotion */
@@ -304,13 +304,13 @@ void NewEfxNoDamageYure(struct Anim *anim1, struct Anim *anim2);
 // ??? EfxNoDamageYureMain(???);
 // ??? NewEfxStatusCHG(???);
 // ??? EfxStatusCHGMain(???);
-void sub_8052DD4(struct Anim *anim1, struct Anim *anim2);
+void NewEfxDeadEvent(struct Anim *anim1, struct Anim *anim2);
 // ??? sub_8052DFC(???);
 // ??? sub_8052E7C(???);
 // ??? sub_8052EAC(???);
 // ??? sub_8052F24(???);
 // ??? sub_8052F84(???);
-void sub_8052FAC(struct Anim *anim1, struct Anim *anim2);
+void NewEfxDead(struct Anim *anim1, struct Anim *anim2);
 // ??? sub_8052FEC(???);
 // ??? sub_8053080(???);
 // ??? sub_8053120(???);

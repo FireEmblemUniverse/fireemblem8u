@@ -614,7 +614,7 @@ _080766BC:
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
 	bl sub_805A394
-	ldr r1, _080766E0  @ gUnknown_0203E118
+	ldr r1, _080766E0  @ gEkrSpellAnimIndexLutMaybe
 	movs r0, #0x40
 	strh r0, [r1]
 	ldr r0, [r4, #0x5c]
@@ -626,7 +626,7 @@ _080766BC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080766E0: .4byte gUnknown_0203E118
+_080766E0: .4byte gEkrSpellAnimIndexLutMaybe
 
 	THUMB_FUNC_END sub_807669C
 

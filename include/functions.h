@@ -1811,7 +1811,7 @@ s8 sub_80832D4(void);
 bool ShouldCallBattleQuote(u8 charA, u8 charB);
 void CallBattleQuoteEventsIfAny(int charA, int charB);
 // ??? sub_8083570(???);
-bool sub_80835A8(u8 pid);
+bool EkrCheckSomeDeathMaybe(u8 pid);
 void sub_80835DC(u8 pid);
 // ??? sub_8083654(???);
 void sub_808371C(u8, u8, int);
