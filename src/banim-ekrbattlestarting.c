@@ -8,6 +8,7 @@
 #include "mu.h"
 #include "anime.h"
 #include "ekrbattle.h"
+#include "efxbattle.h"
 
 extern struct Anim *gUnknown_02000000[4];
 extern void *gUnknown_02000010[2];
@@ -223,7 +224,7 @@ void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 
 void ekrBaStart_8055FE8(struct ProcEkrBattleStarting *proc)
 {
-    sub_807168C(Interpolate(0, 4, 0x10, proc->unk2C, 8));
+    EkrUpdateSomePalMaybe(Interpolate(0, 4, 0x10, proc->unk2C, 8));
 
     if (++proc->unk2C == 0x9) {
         proc->unk2C = 0;

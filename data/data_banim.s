@@ -4366,8 +4366,8 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x325a
     .4byte 0x80000000
 
-	.global gUnknown_085D4E60
-gUnknown_085D4E60:  @ 0x085D4E60
+	.global gEkrSpellAnimLut
+gEkrSpellAnimLut:  @ 0x085D4E60
 @ Replacing .incbin "baserom.gba", 0x5D4E60, 0x130
     .4byte StartSpellAnimDummy
     .4byte StartSpellAnimHandAxe
@@ -4450,8 +4450,8 @@ gUnknown_085D4E60:  @ 0x085D4E60
 gUnknown_085D4F90:  @ 0x085D4F90
 	.incbin "baserom.gba", 0x5D4F90, 0x8
 
-	.global gUnknown_085D4F98
-gUnknown_085D4F98:  @ 0x085D4F98
+	.global ProcScr_efxResetRST
+ProcScr_efxResetRST:  @ 0x085D4F98
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc860
@@ -4460,27 +4460,27 @@ gUnknown_085D4F98:  @ 0x085D4F98
         .word sub_805B444
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_805B454
+        .word EfxResetRSTMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D4FB8
-gUnknown_085D4FB8:  @ 0x085D4FB8
+	.global ProcScr_efxTwoBaiRST
+ProcScr_efxTwoBaiRST:  @ 0x085D4FB8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc86c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_805B534
+        .word EfxTwoBaiRSTMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D4FD0
-gUnknown_085D4FD0:  @ 0x085D4FD0
+	.global ProcScr_DummvRST
+ProcScr_DummvRST:  @ 0x085D4FD0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc87c
@@ -4489,27 +4489,27 @@ gUnknown_085D4FD0:  @ 0x085D4FD0
         .word sub_805B584
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_805B594
+        .word DummvRSTMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D4FF0
-gUnknown_085D4FF0:  @ 0x085D4FF0
+	.global ProcScr_EfxRestWIN
+ProcScr_EfxRestWIN:  @ 0x085D4FF0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc888
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_805B670
+        .word EfxRestWINMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D5008
-gUnknown_085D5008:  @ 0x085D5008
+	.global ProcScr_EfxRestWINH
+ProcScr_EfxRestWINH:  @ 0x085D5008
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc894
@@ -4524,8 +4524,8 @@ gUnknown_085D5008:  @ 0x085D5008
         .word 0x0
 
 
-	.global gUnknown_085D5028
-gUnknown_085D5028:  @ 0x085D5028
+	.global ProcScr_efxALPHA
+ProcScr_efxALPHA:  @ 0x085D5028
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc8a0
@@ -4537,8 +4537,8 @@ gUnknown_085D5028:  @ 0x085D5028
         .word 0x0
 
 
-	.global gUnknown_085D5040
-gUnknown_085D5040:  @ 0x085D5040
+	.global ProcScr_efxCircleWIN
+ProcScr_efxCircleWIN:  @ 0x085D5040
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc8ac
@@ -4550,8 +4550,8 @@ gUnknown_085D5040:  @ 0x085D5040
         .word 0x0
 
 
-	.global gUnknown_085D5058
-gUnknown_085D5058:  @ 0x085D5058
+	.global ProcScr_efxMagicQUAKE
+ProcScr_efxMagicQUAKE:  @ 0x085D5058
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc8bc
@@ -4563,8 +4563,8 @@ gUnknown_085D5058:  @ 0x085D5058
         .word 0x0
 
 
-	.global gUnknown_085D5070
-gUnknown_085D5070:  @ 0x085D5070
+	.global ProcScr_efxDummymagic
+ProcScr_efxDummymagic:  @ 0x085D5070
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc8cc
@@ -4576,8 +4576,8 @@ gUnknown_085D5070:  @ 0x085D5070
         .word 0x0
 
 
-	.global gUnknown_085D5088
-gUnknown_085D5088:  @ 0x085D5088
+	.global ProcScr_efxTeono
+ProcScr_efxTeono:  @ 0x085D5088
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc8dc
@@ -4589,8 +4589,8 @@ gUnknown_085D5088:  @ 0x085D5088
         .word 0x0
 
 
-	.global gUnknown_085D50A0
-gUnknown_085D50A0:  @ 0x085D50A0
+	.global ProcScr_efxTeonoOBJ
+ProcScr_efxTeonoOBJ:  @ 0x085D50A0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc8e8
@@ -4605,8 +4605,8 @@ gUnknown_085D50A0:  @ 0x085D50A0
         .word 0x0
 
 
-	.global gUnknown_085D50C0
-gUnknown_085D50C0:  @ 0x085D50C0
+	.global ProcScr_efxTeonoOBJ2
+ProcScr_efxTeonoOBJ2:  @ 0x085D50C0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc8f4
@@ -4618,8 +4618,8 @@ gUnknown_085D50C0:  @ 0x085D50C0
         .word 0x0
 
 
-	.global gUnknown_085D50D8
-gUnknown_085D50D8:  @ 0x085D50D8
+	.global ProcScr_efxTeonoSE
+ProcScr_efxTeonoSE:  @ 0x085D50D8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc904
@@ -4634,8 +4634,8 @@ gUnknown_085D50D8:  @ 0x085D50D8
         .word 0x0
 
 
-	.global gUnknown_085D50F8
-gUnknown_085D50F8:  @ 0x085D50F8
+	.global ProcScr_efxArrow
+ProcScr_efxArrow:  @ 0x085D50F8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc910
@@ -4647,8 +4647,8 @@ gUnknown_085D50F8:  @ 0x085D50F8
         .word 0x0
 
 
-	.global gUnknown_085D5110
-gUnknown_085D5110:  @ 0x085D5110
+	.global ProcScr_efxArrowOBJ
+ProcScr_efxArrowOBJ:  @ 0x085D5110
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc91c
@@ -4660,8 +4660,8 @@ gUnknown_085D5110:  @ 0x085D5110
         .word 0x0
 
 
-	.global gUnknown_085D5128
-gUnknown_085D5128:  @ 0x085D5128
+	.global ProcScr_efxTeyari
+ProcScr_efxTeyari:  @ 0x085D5128
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc928
@@ -4673,8 +4673,8 @@ gUnknown_085D5128:  @ 0x085D5128
         .word 0x0
 
 
-	.global gUnknown_085D5140
-gUnknown_085D5140:  @ 0x085D5140
+	.global ProcScr_efxTeyariOBJ
+ProcScr_efxTeyariOBJ:  @ 0x085D5140
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc934
@@ -4686,8 +4686,8 @@ gUnknown_085D5140:  @ 0x085D5140
         .word 0x0
 
 
-	.global gUnknown_085D5158
-gUnknown_085D5158:  @ 0x085D5158
+	.global ProcScr_efxSong
+ProcScr_efxSong:  @ 0x085D5158
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc944
@@ -4699,8 +4699,8 @@ gUnknown_085D5158:  @ 0x085D5158
         .word 0x0
 
 
-	.global gUnknown_085D5170
-gUnknown_085D5170:  @ 0x085D5170
+	.global ProcScr_efxSongBG
+ProcScr_efxSongBG:  @ 0x085D5170
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc94c
@@ -4772,8 +4772,8 @@ gUnknown_085D51F4:  @ 0x085D51F4
     .4byte gUnknown_08752020 + 0x22fc
     .4byte gUnknown_08752020 + 0x22fc
 
-	.global gUnknown_085D5260
-gUnknown_085D5260:  @ 0x085D5260
+	.global ProcScr_efxSongOBJ
+ProcScr_efxSongOBJ:  @ 0x085D5260
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc9c4
@@ -4785,8 +4785,8 @@ gUnknown_085D5260:  @ 0x085D5260
         .word 0x0
 
 
-	.global gUnknown_085D5278
-gUnknown_085D5278:  @ 0x085D5278
+	.global ProcScr_efxDance
+ProcScr_efxDance:  @ 0x085D5278
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc9d0
@@ -4798,8 +4798,8 @@ gUnknown_085D5278:  @ 0x085D5278
         .word 0x0
 
 
-	.global gUnknown_085D5290
-gUnknown_085D5290:  @ 0x085D5290
+	.global ProcScr_efxShooter
+ProcScr_efxShooter:  @ 0x085D5290
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc9dc
@@ -4811,8 +4811,8 @@ gUnknown_085D5290:  @ 0x085D5290
         .word 0x0
 
 
-	.global gUnknown_085D52A8
-gUnknown_085D52A8:  @ 0x085D52A8
+	.global ProcScr_efxShooterOBJ
+ProcScr_efxShooterOBJ:  @ 0x085D52A8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc9e8
@@ -4824,8 +4824,8 @@ gUnknown_085D52A8:  @ 0x085D52A8
         .word 0x0
 
 
-	.global gUnknown_085D52C0
-gUnknown_085D52C0:  @ 0x085D52C0
+	.global ProcScr_efxHurtmut
+ProcScr_efxHurtmut:  @ 0x085D52C0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dc9f8
@@ -4837,8 +4837,8 @@ gUnknown_085D52C0:  @ 0x085D52C0
         .word 0x0
 
 
-	.global gUnknown_085D52D8
-gUnknown_085D52D8:  @ 0x085D52D8
+	.global ProcScr_efxHurtmutOBJ
+ProcScr_efxHurtmutOBJ:  @ 0x085D52D8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dca04
@@ -4850,8 +4850,8 @@ gUnknown_085D52D8:  @ 0x085D52D8
         .word 0x0
 
 
-	.global gUnknown_085D52F0
-gUnknown_085D52F0:  @ 0x085D52F0
+	.global ProcScr_efxFirebreath
+ProcScr_efxFirebreath:  @ 0x085D52F0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dca14
@@ -4863,8 +4863,8 @@ gUnknown_085D52F0:  @ 0x085D52F0
         .word 0x0
 
 
-	.global gUnknown_085D5308
-gUnknown_085D5308:  @ 0x085D5308
+	.global ProcScr_efxFirebreathOBJ
+ProcScr_efxFirebreathOBJ:  @ 0x085D5308
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dca24
@@ -4876,8 +4876,8 @@ gUnknown_085D5308:  @ 0x085D5308
         .word 0x0
 
 
-	.global gUnknown_085D5320
-gUnknown_085D5320:  @ 0x085D5320
+	.global ProcScr_efxFirebreathBG
+ProcScr_efxFirebreathBG:  @ 0x085D5320
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dca38
@@ -4889,8 +4889,8 @@ gUnknown_085D5320:  @ 0x085D5320
         .word 0x0
 
 
-	.global gUnknown_085D5338
-gUnknown_085D5338:  @ 0x085D5338
+	.global ProcScr_efxFirebreathBGCOL
+ProcScr_efxFirebreathBGCOL:  @ 0x085D5338
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dca48
@@ -147893,7 +147893,7 @@ gUnknown_08758670:  @ 0x08758670
         .word sub_806FC50
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_806FCD8
+        .word EfxDracoZombiePrepareImg
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_806FD74

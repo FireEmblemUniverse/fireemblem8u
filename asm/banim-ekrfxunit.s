@@ -274,7 +274,7 @@ sub_8054BF0: @ 0x08054BF0
 	movs r2, #1
 	adds r3, r7, #0
 	bl sub_80713B0
-	bl sub_806FA98
+	bl GetEkrSpEffUnk1
 	cmp r0, #0
 	beq _08054C7A
 	mov r0, r8

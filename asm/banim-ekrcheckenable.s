@@ -795,7 +795,7 @@ _0805763E:
 	ldrsh r0, [r0, r7]
 	cmp r0, #4
 	bne _08057670
-	ldr r1, _0805766C  @ gUnknown_0203E118
+	ldr r1, _0805766C  @ gEkrSpellAnimIndexLutMaybe
 	movs r0, #1
 	strh r0, [r1, #2]
 	strh r0, [r1]
@@ -806,7 +806,7 @@ _0805765C: .4byte gUnknown_0203E1D0
 _08057660: .4byte gUnknown_0203E1AC
 _08057664: .4byte gUnknown_0203E1B0
 _08057668: .4byte gEkrSomeType
-_0805766C: .4byte gUnknown_0203E118
+_0805766C: .4byte gEkrSpellAnimIndexLutMaybe
 _08057670:
 	cmp r4, #0
 	beq _08057688
@@ -817,7 +817,7 @@ _08057670:
 	adds r1, #0x4a
 	ldrh r1, [r1]
 	bl GetSpellAnimId
-	ldr r1, _08057714  @ gUnknown_0203E118
+	ldr r1, _08057714  @ gEkrSpellAnimIndexLutMaybe
 	strh r0, [r1]
 _08057688:
 	cmp r6, #0
@@ -829,7 +829,7 @@ _08057688:
 	adds r1, #0x4a
 	ldrh r1, [r1]
 	bl GetSpellAnimId
-	ldr r1, _08057714  @ gUnknown_0203E118
+	ldr r1, _08057714  @ gEkrSpellAnimIndexLutMaybe
 	strh r0, [r1, #2]
 _080576A0:
 	ldr r0, _08057718  @ gBattleStats
@@ -850,14 +850,14 @@ _080576A0:
 	ldrb r0, [r0, #4]
 	cmp r0, #0x4d
 	bne _080576CC
-	ldr r1, _08057714  @ gUnknown_0203E118
+	ldr r1, _08057714  @ gEkrSpellAnimIndexLutMaybe
 	movs r0, #0xf
 	strh r0, [r1, #2]
 _080576CC:
 	ldr r4, [sp, #0x24]
 	cmp r4, #0
 	beq _080576E0
-	ldr r0, _08057714  @ gUnknown_0203E118
+	ldr r0, _08057714  @ gEkrSpellAnimIndexLutMaybe
 	ldr r1, [sp, #8]
 	adds r1, #0x4a
 	ldrh r2, [r1]
@@ -890,7 +890,7 @@ _080576F4:
 	beq _08057734
 	b _0805773E
 	.align 2, 0
-_08057714: .4byte gUnknown_0203E118
+_08057714: .4byte gEkrSpellAnimIndexLutMaybe
 _08057718: .4byte gBattleStats
 _0805771C: .4byte gUnknown_0203E11A
 _08057720: .4byte gEkrSomeType
@@ -898,7 +898,7 @@ _08057724:
 	ldr r0, _08057730  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #1
-	bl sub_806FA84
+	bl SetEkrSpEffType
 	b _0805773E
 	.align 2, 0
 _08057730: .4byte gUnknown_02000000
@@ -906,7 +906,7 @@ _08057734:
 	ldr r0, _080579DC  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #2
-	bl sub_806FA84
+	bl SetEkrSpEffType
 _0805773E:
 	ldr r2, [sp, #0x24]
 	asrs r6, r2, #0x10
@@ -1525,7 +1525,7 @@ _08057BD6:
 	negs r2, r2
 	cmp r0, r2
 	beq _08057C72
-	ldr r0, _08057C90  @ gUnknown_0203E118
+	ldr r0, _08057C90  @ gEkrSpellAnimIndexLutMaybe
 	movs r5, #0
 	ldrsh r1, [r0, r5]
 	movs r0, #2
@@ -1563,7 +1563,7 @@ _08057C28:
 	negs r2, r2
 	cmp r0, r2
 	beq _08057C72
-	ldr r0, _08057C90  @ gUnknown_0203E118
+	ldr r0, _08057C90  @ gEkrSpellAnimIndexLutMaybe
 	movs r4, #2
 	ldrsh r1, [r0, r4]
 	movs r0, #2
@@ -1592,7 +1592,7 @@ _08057C80: .4byte gUnknown_0203E0FE
 _08057C84: .4byte gEkrSomeType
 _08057C88: .4byte gBanimSideVaildFlagMaybe
 _08057C8C: .4byte gUnknown_0203E182
-_08057C90: .4byte gUnknown_0203E118
+_08057C90: .4byte gEkrSpellAnimIndexLutMaybe
 _08057C94: .4byte gBanimTerrainIndexMaybe
 _08057C98:
 	movs r0, #1

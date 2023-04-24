@@ -3063,8 +3063,8 @@ _0805B078: .4byte gBG3TilemapBuffer
 
 	THUMB_FUNC_END sub_805B034
 
-	THUMB_FUNC_START sub_805B07C
-sub_805B07C: @ 0x0805B07C
+	THUMB_FUNC_START PlaySound8FForArenaMaybe
+PlaySound8FForArenaMaybe: @ 0x0805B07C
 	push {lr}
 	bl GetBattleAnimArenaFlag
 	cmp r0, #0
@@ -3077,7 +3077,7 @@ _0805B090:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_805B07C
+	THUMB_FUNC_END PlaySound8FForArenaMaybe
 
 	THUMB_FUNC_START sub_805B094
 sub_805B094: @ 0x0805B094
@@ -3495,11 +3495,11 @@ _0805B3C8: .4byte pPalette6Buffer
 StartSpellAnimation: @ 0x0805B3CC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _0805B3F4  @ gUnknown_0203E118
+	ldr r4, _0805B3F4  @ gEkrSpellAnimIndexLutMaybe
 	bl GetAISSubjectId
 	lsls r0, r0, #1
 	adds r0, r0, r4
-	ldr r1, _0805B3F8  @ gUnknown_085D4E60
+	ldr r1, _0805B3F8  @ gEkrSpellAnimLut
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	lsls r0, r0, #2
@@ -3511,8 +3511,8 @@ StartSpellAnimation: @ 0x0805B3CC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B3F4: .4byte gUnknown_0203E118
-_0805B3F8: .4byte gUnknown_085D4E60
+_0805B3F4: .4byte gEkrSpellAnimIndexLutMaybe
+_0805B3F8: .4byte gEkrSpellAnimLut
 
 	THUMB_FUNC_END StartSpellAnimation
 
@@ -3536,7 +3536,7 @@ sub_805B400: @ 0x0805B400
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805B440  @ gUnknown_085D4F98
+	ldr r0, _0805B440  @ ProcScr_efxResetRST
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -3555,7 +3555,7 @@ sub_805B400: @ 0x0805B400
 	bx r1
 	.align 2, 0
 _0805B43C: .4byte gUnknown_0201774C
-_0805B440: .4byte gUnknown_085D4F98
+_0805B440: .4byte ProcScr_efxResetRST
 
 	THUMB_FUNC_END sub_805B400
 
@@ -3571,8 +3571,8 @@ _0805B450: .4byte gUnknown_0201774C
 
 	THUMB_FUNC_END sub_805B444
 
-	THUMB_FUNC_START sub_805B454
-sub_805B454: @ 0x0805B454
+	THUMB_FUNC_START EfxResetRSTMain
+EfxResetRSTMain: @ 0x0805B454
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -3646,14 +3646,14 @@ _0805B4DC: .4byte gUnknown_0201FF04
 _0805B4E0: .4byte gUnknown_0875879C
 _0805B4E4: .4byte gLCDControlBuffer
 
-	THUMB_FUNC_END sub_805B454
+	THUMB_FUNC_END EfxResetRSTMain
 
 	THUMB_FUNC_START sub_805B4E8
 sub_805B4E8: @ 0x0805B4E8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _0805B528  @ gUnknown_085D4FB8
+	ldr r0, _0805B528  @ ProcScr_efxTwoBaiRST
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -3684,14 +3684,14 @@ _0805B514:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B528: .4byte gUnknown_085D4FB8
+_0805B528: .4byte ProcScr_efxTwoBaiRST
 _0805B52C: .4byte gUnknown_0201FDC4
 _0805B530: .4byte gUnknown_0201FF04
 
 	THUMB_FUNC_END sub_805B4E8
 
-	THUMB_FUNC_START sub_805B534
-sub_805B534: @ 0x0805B534
+	THUMB_FUNC_START EfxTwoBaiRSTMain
+EfxTwoBaiRSTMain: @ 0x0805B534
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -3708,7 +3708,7 @@ _0805B54E:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_805B534
+	THUMB_FUNC_END EfxTwoBaiRSTMain
 
 	THUMB_FUNC_START sub_805B554
 sub_805B554: @ 0x0805B554
@@ -3719,7 +3719,7 @@ sub_805B554: @ 0x0805B554
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805B580  @ gUnknown_085D4FD0
+	ldr r0, _0805B580  @ ProcScr_DummvRST
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -3732,7 +3732,7 @@ sub_805B554: @ 0x0805B554
 	bx r0
 	.align 2, 0
 _0805B57C: .4byte gUnknown_0201774C
-_0805B580: .4byte gUnknown_085D4FD0
+_0805B580: .4byte ProcScr_DummvRST
 
 	THUMB_FUNC_END sub_805B554
 
@@ -3748,8 +3748,8 @@ _0805B590: .4byte gUnknown_0201774C
 
 	THUMB_FUNC_END sub_805B584
 
-	THUMB_FUNC_START sub_805B594
-sub_805B594: @ 0x0805B594
+	THUMB_FUNC_START DummvRSTMain
+DummvRSTMain: @ 0x0805B594
 	push {r4, r5, lr}
 	adds r3, r0, #0
 	ldr r0, _0805B5D0  @ gUnknown_0201FDB8
@@ -3788,7 +3788,7 @@ _0805B5D4: .4byte gUnknown_0201FDC4
 _0805B5D8: .4byte gUnknown_0201FF04
 _0805B5DC: .4byte gLCDControlBuffer
 
-	THUMB_FUNC_END sub_805B594
+	THUMB_FUNC_END DummvRSTMain
 
 	THUMB_FUNC_START sub_805B5E0
 sub_805B5E0: @ 0x0805B5E0
@@ -3804,7 +3804,7 @@ sub_805B5E0: @ 0x0805B5E0
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805B62C  @ gUnknown_085D4FF0
+	ldr r0, _0805B62C  @ ProcScr_EfxRestWIN
 	movs r1, #3
 	bl Proc_Start
 	adds r7, r0, #0
@@ -3827,7 +3827,7 @@ sub_805B5E0: @ 0x0805B5E0
 	b _0805B636
 	.align 2, 0
 _0805B628: .4byte gUnknown_0201774C
-_0805B62C: .4byte gUnknown_085D4FF0
+_0805B62C: .4byte ProcScr_EfxRestWIN
 _0805B630: .4byte 0x0000FFB8
 _0805B634:
 	ldr r0, _0805B654  @ 0x0000FFF8
@@ -3863,8 +3863,8 @@ _0805B662:
 
 	THUMB_FUNC_END sub_805B5E0
 
-	THUMB_FUNC_START sub_805B670
-sub_805B670: @ 0x0805B670
+	THUMB_FUNC_START EfxRestWINMain
+EfxRestWINMain: @ 0x0805B670
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	ldr r0, _0805B6B8  @ gUnknown_0201FB2C
@@ -3957,7 +3957,7 @@ _0805B718:
 	.align 2, 0
 _0805B720: .4byte gUnknown_0201774C
 
-	THUMB_FUNC_END sub_805B670
+	THUMB_FUNC_END EfxRestWINMain
 
 	THUMB_FUNC_START sub_805B724
 sub_805B724: @ 0x0805B724
@@ -4217,7 +4217,7 @@ _0805B908:
 	ldr r0, _0805B934  @ sub_805B750
 	bl SetPrimaryHBlankHandler
 _0805B90E:
-	ldr r0, _0805B938  @ gUnknown_085D5008
+	ldr r0, _0805B938  @ ProcScr_EfxRestWINH
 	movs r1, #0
 	bl Proc_Start
 	ldr r1, [sp]
@@ -4237,7 +4237,7 @@ _0805B90E:
 	bx r0
 	.align 2, 0
 _0805B934: .4byte sub_805B750
-_0805B938: .4byte gUnknown_085D5008
+_0805B938: .4byte ProcScr_EfxRestWINH
 
 	THUMB_FUNC_END sub_805B828
 
@@ -4369,7 +4369,7 @@ sub_805BA1C: @ 0x0805BA1C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805BA60  @ gUnknown_085D5028
+	ldr r0, _0805BA60  @ ProcScr_efxALPHA
 	movs r1, #3
 	bl Proc_Start
 	str r5, [r0, #0x5c]
@@ -4390,7 +4390,7 @@ sub_805BA1C: @ 0x0805BA1C
 	bx r0
 	.align 2, 0
 _0805BA5C: .4byte gUnknown_0201774C
-_0805BA60: .4byte gUnknown_085D5028
+_0805BA60: .4byte ProcScr_efxALPHA
 
 	THUMB_FUNC_END sub_805BA1C
 
@@ -4515,7 +4515,7 @@ sub_805BB24: @ 0x0805BB24
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805BB80  @ gUnknown_085D5040
+	ldr r0, _0805BB80  @ ProcScr_efxCircleWIN
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -4541,7 +4541,7 @@ sub_805BB24: @ 0x0805BB24
 	bx r0
 	.align 2, 0
 _0805BB7C: .4byte gUnknown_0201774C
-_0805BB80: .4byte gUnknown_085D5040
+_0805BB80: .4byte ProcScr_efxCircleWIN
 
 	THUMB_FUNC_END sub_805BB24
 
@@ -4692,7 +4692,7 @@ StartSpellThing_MagicQuake: @ 0x0805BC80
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805BCC0  @ gUnknown_085D5058
+	ldr r0, _0805BCC0  @ ProcScr_efxMagicQUAKE
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -4712,7 +4712,7 @@ StartSpellThing_MagicQuake: @ 0x0805BC80
 	bx r0
 	.align 2, 0
 _0805BCBC: .4byte gUnknown_0201774C
-_0805BCC0: .4byte gUnknown_085D5058
+_0805BCC0: .4byte ProcScr_efxMagicQUAKE
 
 	THUMB_FUNC_END StartSpellThing_MagicQuake
 
@@ -4936,7 +4936,7 @@ StartSpellAnimDummy: @ 0x0805BE90
 	adds r4, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805BEB0  @ gUnknown_085D5070
+	ldr r0, _0805BEB0  @ ProcScr_efxDummymagic
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -4946,7 +4946,7 @@ StartSpellAnimDummy: @ 0x0805BE90
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805BEB0: .4byte gUnknown_085D5070
+_0805BEB0: .4byte ProcScr_efxDummymagic
 
 	THUMB_FUNC_END StartSpellAnimDummy
 
@@ -5002,7 +5002,7 @@ StartSpellAnimHandAxe: @ 0x0805BF08
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805BF3C  @ gUnknown_085D5088
+	ldr r0, _0805BF3C  @ ProcScr_efxTeono
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5020,7 +5020,7 @@ StartSpellAnimHandAxe: @ 0x0805BF08
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805BF3C: .4byte gUnknown_085D5088
+_0805BF3C: .4byte ProcScr_efxTeono
 
 	THUMB_FUNC_END StartSpellAnimHandAxe
 
@@ -5109,7 +5109,7 @@ sub_805BFDC: @ 0x0805BFDC
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805C024  @ gUnknown_085D50A0
+	ldr r0, _0805C024  @ ProcScr_efxTeonoOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -5134,7 +5134,7 @@ sub_805BFDC: @ 0x0805BFDC
 	b _0805C03C
 	.align 2, 0
 _0805C020: .4byte gUnknown_0201774C
-_0805C024: .4byte gUnknown_085D50A0
+_0805C024: .4byte ProcScr_efxTeonoOBJ
 _0805C028: .4byte gUnknown_085DA6FC
 _0805C02C: .4byte gUnknown_085DA364
 _0805C030: .4byte gUnknown_085DA758
@@ -5254,7 +5254,7 @@ sub_805C104: @ 0x0805C104
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805C148  @ gUnknown_085D50C0
+	ldr r0, _0805C148  @ ProcScr_efxTeonoOBJ2
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -5278,7 +5278,7 @@ sub_805C104: @ 0x0805C104
 	b _0805C158
 	.align 2, 0
 _0805C144: .4byte gUnknown_0201774C
-_0805C148: .4byte gUnknown_085D50C0
+_0805C148: .4byte ProcScr_efxTeonoOBJ2
 _0805C14C: .4byte gUnknown_085DA778
 _0805C150: .4byte gUnknown_085DA3E0
 _0805C154:
@@ -5350,7 +5350,7 @@ sub_805C1C8: @ 0x0805C1C8
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805C208  @ gUnknown_085D50D8
+	ldr r0, _0805C208  @ ProcScr_efxTeonoSE
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5373,7 +5373,7 @@ sub_805C1C8: @ 0x0805C1C8
 	bx r1
 	.align 2, 0
 _0805C204: .4byte gUnknown_0201774C
-_0805C208: .4byte gUnknown_085D50D8
+_0805C208: .4byte ProcScr_efxTeonoSE
 
 	THUMB_FUNC_END sub_805C1C8
 
@@ -5434,7 +5434,7 @@ StartSpellAnimArrow: @ 0x0805C264
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C298  @ gUnknown_085D50F8
+	ldr r0, _0805C298  @ ProcScr_efxArrow
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5452,7 +5452,7 @@ StartSpellAnimArrow: @ 0x0805C264
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C298: .4byte gUnknown_085D50F8
+_0805C298: .4byte ProcScr_efxArrow
 
 	THUMB_FUNC_END StartSpellAnimArrow
 
@@ -5554,7 +5554,7 @@ sub_805C358: @ 0x0805C358
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805C3A4  @ gUnknown_085D5110
+	ldr r0, _0805C3A4  @ ProcScr_efxArrowOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5581,7 +5581,7 @@ sub_805C358: @ 0x0805C358
 	bx r0
 	.align 2, 0
 _0805C3A0: .4byte gUnknown_0201774C
-_0805C3A4: .4byte gUnknown_085D5110
+_0805C3A4: .4byte ProcScr_efxArrowOBJ
 _0805C3A8: .4byte gUnknown_085DA8E0
 _0805C3AC: .4byte gUnknown_085DA854
 _0805C3B0: .4byte gUnknown_085DA8F0
@@ -5625,7 +5625,7 @@ StartSpellAnimJavelin: @ 0x0805C3F0
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C440  @ gUnknown_085D5128
+	ldr r0, _0805C440  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5653,7 +5653,7 @@ StartSpellAnimJavelin: @ 0x0805C3F0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C440: .4byte gUnknown_085D5128
+_0805C440: .4byte ProcScr_efxTeyari
 _0805C444: .4byte gUnknown_085DAB30
 _0805C448: .4byte gUnknown_085DA900
 
@@ -5665,7 +5665,7 @@ sub_805C44C: @ 0x0805C44C
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C49C  @ gUnknown_085D5128
+	ldr r0, _0805C49C  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5693,7 +5693,7 @@ sub_805C44C: @ 0x0805C44C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C49C: .4byte gUnknown_085D5128
+_0805C49C: .4byte ProcScr_efxTeyari
 _0805C4A0: .4byte gUnknown_085DAD6C
 _0805C4A4: .4byte gUnknown_085DAB50
 
@@ -5705,7 +5705,7 @@ sub_805C4A8: @ 0x0805C4A8
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C4F8  @ gUnknown_085D5128
+	ldr r0, _0805C4F8  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5733,7 +5733,7 @@ sub_805C4A8: @ 0x0805C4A8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C4F8: .4byte gUnknown_085D5128
+_0805C4F8: .4byte ProcScr_efxTeyari
 _0805C4FC: .4byte gUnknown_085DAFA4
 _0805C500: .4byte gUnknown_085DAD8C
 
@@ -5745,7 +5745,7 @@ sub_805C504: @ 0x0805C504
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C554  @ gUnknown_085D5128
+	ldr r0, _0805C554  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5773,7 +5773,7 @@ sub_805C504: @ 0x0805C504
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C554: .4byte gUnknown_085D5128
+_0805C554: .4byte ProcScr_efxTeyari
 _0805C558: .4byte gUnknown_085DB1E0
 _0805C55C: .4byte gUnknown_085DAFC4
 
@@ -5785,7 +5785,7 @@ sub_805C560: @ 0x0805C560
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C5B0  @ gUnknown_085D5128
+	ldr r0, _0805C5B0  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5813,7 +5813,7 @@ sub_805C560: @ 0x0805C560
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C5B0: .4byte gUnknown_085D5128
+_0805C5B0: .4byte ProcScr_efxTeyari
 _0805C5B4: .4byte gUnknown_085DB42C
 _0805C5B8: .4byte gUnknown_085DB200
 
@@ -5825,7 +5825,7 @@ sub_805C5BC: @ 0x0805C5BC
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C60C  @ gUnknown_085D5128
+	ldr r0, _0805C60C  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5853,7 +5853,7 @@ sub_805C5BC: @ 0x0805C5BC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C60C: .4byte gUnknown_085D5128
+_0805C60C: .4byte ProcScr_efxTeyari
 _0805C610: .4byte gUnknown_085DB694
 _0805C614: .4byte gUnknown_085DB44C
 
@@ -5865,7 +5865,7 @@ sub_805C618: @ 0x0805C618
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C668  @ gUnknown_085D5128
+	ldr r0, _0805C668  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5893,7 +5893,7 @@ sub_805C618: @ 0x0805C618
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C668: .4byte gUnknown_085D5128
+_0805C668: .4byte ProcScr_efxTeyari
 _0805C66C: .4byte gUnknown_085DB8EC
 _0805C670: .4byte gUnknown_085DB6B4
 
@@ -5905,7 +5905,7 @@ sub_805C674: @ 0x0805C674
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C6C4  @ gUnknown_085D5128
+	ldr r0, _0805C6C4  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5933,7 +5933,7 @@ sub_805C674: @ 0x0805C674
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C6C4: .4byte gUnknown_085D5128
+_0805C6C4: .4byte ProcScr_efxTeyari
 _0805C6C8: .4byte gUnknown_085DBB70
 _0805C6CC: .4byte gUnknown_085DB90C
 
@@ -5945,7 +5945,7 @@ sub_805C6D0: @ 0x0805C6D0
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C720  @ gUnknown_085D5128
+	ldr r0, _0805C720  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -5973,7 +5973,7 @@ sub_805C6D0: @ 0x0805C6D0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C720: .4byte gUnknown_085D5128
+_0805C720: .4byte ProcScr_efxTeyari
 _0805C724: .4byte gUnknown_085DBE00
 _0805C728: .4byte gUnknown_085DBB90
 
@@ -5985,7 +5985,7 @@ sub_805C72C: @ 0x0805C72C
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C77C  @ gUnknown_085D5128
+	ldr r0, _0805C77C  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -6013,7 +6013,7 @@ sub_805C72C: @ 0x0805C72C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C77C: .4byte gUnknown_085D5128
+_0805C77C: .4byte ProcScr_efxTeyari
 _0805C780: .4byte gUnknown_085DC050
 _0805C784: .4byte gUnknown_085DBE20
 
@@ -6025,7 +6025,7 @@ sub_805C788: @ 0x0805C788
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C7D8  @ gUnknown_085D5128
+	ldr r0, _0805C7D8  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -6053,7 +6053,7 @@ sub_805C788: @ 0x0805C788
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C7D8: .4byte gUnknown_085D5128
+_0805C7D8: .4byte ProcScr_efxTeyari
 _0805C7DC: .4byte gUnknown_085DB1E0
 _0805C7E0: .4byte gUnknown_085DAFC4
 
@@ -6151,7 +6151,7 @@ sub_805C88C: @ 0x0805C88C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805C8BC  @ gUnknown_085D5140
+	ldr r0, _0805C8BC  @ ProcScr_efxTeyariOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
@@ -6165,7 +6165,7 @@ sub_805C88C: @ 0x0805C88C
 	b _0805C8CC
 	.align 2, 0
 _0805C8B8: .4byte gUnknown_0201774C
-_0805C8BC: .4byte gUnknown_085D5140
+_0805C8BC: .4byte ProcScr_efxTeyariOBJ
 _0805C8C0: .4byte gUnknown_085DC244
 _0805C8C4: .4byte gUnknown_085DC498
 _0805C8C8:
@@ -6234,7 +6234,7 @@ StartSpellAnimSong: @ 0x0805C934
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805C968  @ gUnknown_085D5158
+	ldr r0, _0805C968  @ ProcScr_efxSong
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -6252,7 +6252,7 @@ StartSpellAnimSong: @ 0x0805C934
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805C968: .4byte gUnknown_085D5158
+_0805C968: .4byte ProcScr_efxSong
 
 	THUMB_FUNC_END StartSpellAnimSong
 
@@ -6380,7 +6380,7 @@ sub_805CA64: @ 0x0805CA64
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805CAB0  @ gUnknown_085D5170
+	ldr r0, _0805CAB0  @ ProcScr_efxSongBG
 	movs r1, #3
 	bl Proc_Start
 	str r5, [r0, #0x5c]
@@ -6407,7 +6407,7 @@ sub_805CA64: @ 0x0805CA64
 	bx r0
 	.align 2, 0
 _0805CAAC: .4byte gUnknown_0201774C
-_0805CAB0: .4byte gUnknown_085D5170
+_0805CAB0: .4byte ProcScr_efxSongBG
 _0805CAB4: .4byte gUnknown_080DC956
 _0805CAB8: .4byte gUnknown_085D5188
 _0805CABC: .4byte gUnknown_085D51F4
@@ -6489,7 +6489,7 @@ sub_805CB40: @ 0x0805CB40
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805CB98  @ gUnknown_085D5260
+	ldr r0, _0805CB98  @ ProcScr_efxSongOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -6521,7 +6521,7 @@ sub_805CB40: @ 0x0805CB40
 	bx r0
 	.align 2, 0
 _0805CB94: .4byte gUnknown_0201774C
-_0805CB98: .4byte gUnknown_085D5260
+_0805CB98: .4byte ProcScr_efxSongOBJ
 _0805CB9C: .4byte gUnknown_08758134
 _0805CBA0: .4byte gUnknown_08754870
 _0805CBA4: .4byte gUnknown_08755FD4
@@ -6564,7 +6564,7 @@ StartSpellAnimDance: @ 0x0805CBDC
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805CC10  @ gUnknown_085D5278
+	ldr r0, _0805CC10  @ ProcScr_efxDance
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -6582,7 +6582,7 @@ StartSpellAnimDance: @ 0x0805CBDC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805CC10: .4byte gUnknown_085D5278
+_0805CC10: .4byte ProcScr_efxDance
 
 	THUMB_FUNC_END StartSpellAnimDance
 
@@ -6707,7 +6707,7 @@ sub_805CD0C: @ 0x0805CD0C
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805CD58  @ gUnknown_085D5290
+	ldr r0, _0805CD58  @ ProcScr_efxShooter
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -6735,7 +6735,7 @@ sub_805CD0C: @ 0x0805CD0C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805CD58: .4byte gUnknown_085D5290
+_0805CD58: .4byte ProcScr_efxShooter
 
 	THUMB_FUNC_END sub_805CD0C
 
@@ -6842,7 +6842,7 @@ sub_805CE1C: @ 0x0805CE1C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805CE74  @ gUnknown_085D52A8
+	ldr r0, _0805CE74  @ ProcScr_efxShooterOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -6876,7 +6876,7 @@ sub_805CE1C: @ 0x0805CE1C
 	b _0805CE86
 	.align 2, 0
 _0805CE70: .4byte gUnknown_0201774C
-_0805CE74: .4byte gUnknown_085D52A8
+_0805CE74: .4byte ProcScr_efxShooterOBJ
 _0805CE78: .4byte gUnknown_085DCA5C
 _0805CE7C: .4byte gUnknown_085DCAF8
 _0805CE80:
@@ -6935,7 +6935,7 @@ sub_805CEC8: @ 0x0805CEC8
 	bl SetSomethingSpellFxToTrue
 	bl NewEfxSpellCast
 	bl ClearBG1Setup
-	ldr r0, _0805CF00  @ gUnknown_085D52C0
+	ldr r0, _0805CF00  @ ProcScr_efxHurtmut
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -6953,7 +6953,7 @@ sub_805CEC8: @ 0x0805CEC8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805CF00: .4byte gUnknown_085D52C0
+_0805CF00: .4byte ProcScr_efxHurtmut
 
 	THUMB_FUNC_END sub_805CEC8
 
@@ -7055,7 +7055,7 @@ sub_805CFC0: @ 0x0805CFC0
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805D01C  @ gUnknown_085D52D8
+	ldr r0, _0805D01C  @ ProcScr_efxHurtmutOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -7090,7 +7090,7 @@ _0805CFF0:
 	bx r0
 	.align 2, 0
 _0805D018: .4byte gUnknown_0201774C
-_0805D01C: .4byte gUnknown_085D52D8
+_0805D01C: .4byte ProcScr_efxHurtmutOBJ
 _0805D020: .4byte gUnknown_085E12DC
 _0805D024: .4byte gUnknown_085E067C
 _0805D028: .4byte gUnknown_085DE964
@@ -7134,7 +7134,7 @@ StartSpellAnimFireBreath: @ 0x0805D064
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0805D098  @ gUnknown_085D52F0
+	ldr r0, _0805D098  @ ProcScr_efxFirebreath
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -7152,7 +7152,7 @@ StartSpellAnimFireBreath: @ 0x0805D064
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805D098: .4byte gUnknown_085D52F0
+_0805D098: .4byte ProcScr_efxFirebreath
 
 	THUMB_FUNC_END StartSpellAnimFireBreath
 
@@ -7248,7 +7248,7 @@ sub_805D14C: @ 0x0805D14C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805D1AC  @ gUnknown_085D5308
+	ldr r0, _0805D1AC  @ ProcScr_efxFirebreathOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
@@ -7285,7 +7285,7 @@ _0805D17C:
 	b _0805D1D6
 	.align 2, 0
 _0805D1A8: .4byte gUnknown_0201774C
-_0805D1AC: .4byte gUnknown_085D5308
+_0805D1AC: .4byte ProcScr_efxFirebreathOBJ
 _0805D1B0: .4byte gUnknown_085E35DC
 _0805D1B4: .4byte gUnknown_085E2A24
 _0805D1B8: .4byte gEkrSomeType
@@ -7385,7 +7385,7 @@ sub_805D260: @ 0x0805D260
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805D2A8  @ gUnknown_085D5320
+	ldr r0, _0805D2A8  @ ProcScr_efxFirebreathBG
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -7409,7 +7409,7 @@ sub_805D260: @ 0x0805D260
 	bx r0
 	.align 2, 0
 _0805D2A4: .4byte gUnknown_0201774C
-_0805D2A8: .4byte gUnknown_085D5320
+_0805D2A8: .4byte ProcScr_efxFirebreathBG
 _0805D2AC: .4byte gUnknown_087246D8
 _0805D2B0: .4byte gUnknown_08725AF0
 
@@ -7453,7 +7453,7 @@ sub_805D2EC: @ 0x0805D2EC
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0805D31C  @ gUnknown_085D5338
+	ldr r0, _0805D31C  @ ProcScr_efxFirebreathBGCOL
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -7469,7 +7469,7 @@ sub_805D2EC: @ 0x0805D2EC
 	bx r0
 	.align 2, 0
 _0805D318: .4byte gUnknown_0201774C
-_0805D31C: .4byte gUnknown_085D5338
+_0805D31C: .4byte ProcScr_efxFirebreathBGCOL
 _0805D320: .4byte gUnknown_080DCA5C
 _0805D324: .4byte gUnknown_08725AD0
 
@@ -31110,7 +31110,7 @@ sub_8068D9C: @ 0x08068D9C
 	cmp r0, #0
 	bne _08068DB4
 	movs r0, #4
-	bl sub_807168C
+	bl EkrUpdateSomePalMaybe
 	b _08068DCE
 	.align 2, 0
 _08068DB0: .4byte gUnknown_0203E0FE
@@ -44856,7 +44856,7 @@ _0806F9F6:
 
 	THUMB_FUNC_START sub_806F9FC
 sub_806F9FC: @ 0x0806F9FC
-	ldr r2, _0806FA20  @ gUnknown_02020048
+	ldr r2, _0806FA20  @ gEkrSpEffBuff
 	movs r0, #0
 	strb r0, [r2]
 	strb r0, [r2, #1]
@@ -44874,13 +44874,13 @@ sub_806F9FC: @ 0x0806F9FC
 	str r0, [r2, #0xc]
 	bx lr
 	.align 2, 0
-_0806FA20: .4byte gUnknown_02020048
+_0806FA20: .4byte gEkrSpEffBuff
 _0806FA24: .4byte gUnknown_02020058
 
 	THUMB_FUNC_END sub_806F9FC
 
-	THUMB_FUNC_START sub_806FA28
-sub_806FA28: @ 0x0806FA28
+	THUMB_FUNC_START GetEkrSpEff
+GetEkrSpEff: @ 0x0806FA28
 	push {lr}
 	bl GetAISSubjectId
 	cmp r0, #0
@@ -44890,31 +44890,31 @@ sub_806FA28: @ 0x0806FA28
 	.align 2, 0
 _0806FA38: .4byte gUnknown_02020058
 _0806FA3C:
-	ldr r0, _0806FA44  @ gUnknown_02020048
+	ldr r0, _0806FA44  @ gEkrSpEffBuff
 _0806FA3E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0806FA44: .4byte gUnknown_02020048
+_0806FA44: .4byte gEkrSpEffBuff
 
-	THUMB_FUNC_END sub_806FA28
+	THUMB_FUNC_END GetEkrSpEff
 
-	THUMB_FUNC_START sub_806FA48
-sub_806FA48: @ 0x0806FA48
+	THUMB_FUNC_START GetEkrSpEffAttr
+GetEkrSpEffAttr: @ 0x0806FA48
 	push {lr}
-	bl sub_806FA28
+	bl GetEkrSpEff
 	ldrh r0, [r0, #2]
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_806FA48
+	THUMB_FUNC_END GetEkrSpEffAttr
 
-	THUMB_FUNC_START sub_806FA54
-sub_806FA54: @ 0x0806FA54
+	THUMB_FUNC_START AddEkrSpEffAttr
+AddEkrSpEffAttr: @ 0x0806FA54
 	push {r4, lr}
 	lsls r4, r1, #0x10
 	lsrs r4, r4, #0x10
-	bl sub_806FA28
+	bl GetEkrSpEff
 	ldrh r1, [r0, #2]
 	orrs r4, r1
 	strh r4, [r0, #2]
@@ -44922,71 +44922,73 @@ sub_806FA54: @ 0x0806FA54
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806FA54
+	THUMB_FUNC_END AddEkrSpEffAttr
 
-	THUMB_FUNC_START sub_806FA6C
-sub_806FA6C: @ 0x0806FA6C
+/* 1 for normal, 2 for DemonKing, 3 for Myrrh */
+	THUMB_FUNC_START GetEkrSpEffType
+GetEkrSpEffType: @ 0x0806FA6C
 	push {lr}
-	bl sub_806FA78
+	bl GetEkrSpEffType_
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_806FA6C
+	THUMB_FUNC_END GetEkrSpEffType
 
-	THUMB_FUNC_START sub_806FA78
-sub_806FA78: @ 0x0806FA78
+	THUMB_FUNC_START GetEkrSpEffType_
+GetEkrSpEffType_: @ 0x0806FA78
 	push {lr}
-	bl sub_806FA28
+	bl GetEkrSpEff
 	ldrb r0, [r0]
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_806FA78
+	THUMB_FUNC_END GetEkrSpEffType_
 
-	THUMB_FUNC_START sub_806FA84
-sub_806FA84: @ 0x0806FA84
+/* 1 for normal, 2 for DemonKing, 3 for Myrrh */
+	THUMB_FUNC_START SetEkrSpEffType
+SetEkrSpEffType: @ 0x0806FA84
 	push {r4, lr}
 	lsls r4, r1, #0x18
 	lsrs r4, r4, #0x18
-	bl sub_806FA28
+	bl GetEkrSpEff
 	strb r4, [r0]
 	pop {r4}
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806FA84
+	THUMB_FUNC_END SetEkrSpEffType
 
-	THUMB_FUNC_START sub_806FA98
-sub_806FA98: @ 0x0806FA98
-	ldr r0, _0806FAA0  @ gUnknown_02020048
+	THUMB_FUNC_START GetEkrSpEffUnk1
+GetEkrSpEffUnk1: @ 0x0806FA98
+	ldr r0, _0806FAA0  @ gEkrSpEffBuff
 	ldrb r0, [r0, #1]
 	bx lr
 	.align 2, 0
-_0806FAA0: .4byte gUnknown_02020048
+_0806FAA0: .4byte gEkrSpEffBuff
 
-	THUMB_FUNC_END sub_806FA98
+	THUMB_FUNC_END GetEkrSpEffUnk1
 
-	THUMB_FUNC_START sub_806FAA4
-sub_806FAA4: @ 0x0806FAA4
-	ldr r1, _0806FAAC  @ gUnknown_02020048
+	THUMB_FUNC_START SetEkrSpEffUnk1
+SetEkrSpEffUnk1: @ 0x0806FAA4
+	ldr r1, _0806FAAC  @ gEkrSpEffBuff
 	strb r0, [r1, #1]
 	bx lr
 	.align 2, 0
-_0806FAAC: .4byte gUnknown_02020048
+_0806FAAC: .4byte gEkrSpEffBuff
 
-	THUMB_FUNC_END sub_806FAA4
+	THUMB_FUNC_END SetEkrSpEffUnk1
 
 	THUMB_FUNC_START sub_806FAB0
 sub_806FAB0: @ 0x0806FAB0
 	push {lr}
-	ldr r0, _0806FAD0  @ gUnknown_02020048
+	ldr r0, _0806FAD0  @ gEkrSpEffBuff
 	ldr r0, [r0, #0xc]
-	bl sub_806FA6C
+	bl GetEkrSpEffType
 	cmp r0, #0
 	bne _0806FACC
 	ldr r0, _0806FAD4  @ gUnknown_02020058
 	ldr r0, [r0, #0xc]
-	bl sub_806FA6C
+	bl GetEkrSpEffType
 	cmp r0, #0
 	bne _0806FACC
 	movs r0, #0
@@ -44994,7 +44996,7 @@ _0806FACC:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0806FAD0: .4byte gUnknown_02020048
+_0806FAD0: .4byte gEkrSpEffBuff
 _0806FAD4: .4byte gUnknown_02020058
 
 	THUMB_FUNC_END sub_806FAB0
@@ -45149,10 +45151,10 @@ _0806FBF2:
 
 	THUMB_FUNC_END sub_806FBB8
 
-	THUMB_FUNC_START sub_806FBF8
-sub_806FBF8: @ 0x0806FBF8
+	THUMB_FUNC_START CheckEkrSpecialClassIntroAnimDone
+CheckEkrSpecialClassIntroAnimDone: @ 0x0806FBF8
 	push {lr}
-	bl sub_806FA48
+	bl GetEkrSpEffAttr
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #2
@@ -45167,12 +45169,12 @@ _0806FC10:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_806FBF8
+	THUMB_FUNC_END CheckEkrSpecialClassIntroAnimDone
 
 	THUMB_FUNC_START sub_806FC14
 sub_806FC14: @ 0x0806FC14
 	push {lr}
-	bl sub_806FA48
+	bl GetEkrSpEffAttr
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #8
@@ -45223,7 +45225,7 @@ sub_806FC50: @ 0x0806FC50
 	movs r1, #4
 	movs r2, #0x10
 	bl Interpolate
-	bl sub_807168C
+	bl EkrUpdateSomePalMaybe
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]
@@ -45243,8 +45245,8 @@ _0806FC84:
 
 	THUMB_FUNC_END sub_806FC50
 
-	THUMB_FUNC_START sub_806FC8C
-sub_806FC8C: @ 0x0806FC8C
+	THUMB_FUNC_START EfxDracoZombiePrepareTSA
+EfxDracoZombiePrepareTSA: @ 0x0806FC8C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -45279,10 +45281,10 @@ _0806FCCC: .4byte gUnknown_08790F88
 _0806FCD0: .4byte gUnknown_02019790
 _0806FCD4: .4byte gUnknown_0201FB0C
 
-	THUMB_FUNC_END sub_806FC8C
+	THUMB_FUNC_END EfxDracoZombiePrepareTSA
 
-	THUMB_FUNC_START sub_806FCD8
-sub_806FCD8: @ 0x0806FCD8
+	THUMB_FUNC_START EfxDracoZombiePrepareImg
+EfxDracoZombiePrepareImg: @ 0x0806FCD8
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	movs r0, #0
@@ -45294,7 +45296,7 @@ sub_806FCD8: @ 0x0806FCD8
 	bl BG_Fill
 	movs r0, #8
 	bl BG_EnableSyncByMask
-	ldr r0, _0806FD5C  @ gUnknown_0878D648
+	ldr r0, _0806FD5C  @ Img_EfxDracoZombie
 	ldr r1, _0806FD60  @ 0x06008000
 	bl LZ77UnCompVram
 	ldr r3, _0806FD64  @ gLCDControlBuffer
@@ -45319,7 +45321,7 @@ sub_806FCD8: @ 0x0806FCD8
 	movs r1, #3
 	orrs r0, r1
 	strb r0, [r3, #0x14]
-	ldr r0, _0806FD68  @ gUnknown_08791D5C
+	ldr r0, _0806FD68  @ Pal_EfxDracoZombie
 	ldr r4, _0806FD6C  @ pPalette6Buffer
 	adds r1, r4, #0
 	movs r2, #8
@@ -45331,7 +45333,7 @@ sub_806FCD8: @ 0x0806FCD8
 	movs r2, #0x10
 	bl CpuFastSet
 	movs r0, #1
-	bl sub_806FAA4
+	bl SetEkrSpEffUnk1
 	movs r0, #0
 	strh r0, [r5, #0x2e]
 	pop {r4, r5}
@@ -45339,14 +45341,14 @@ sub_806FCD8: @ 0x0806FCD8
 	bx r0
 	.align 2, 0
 _0806FD58: .4byte gBG3TilemapBuffer
-_0806FD5C: .4byte gUnknown_0878D648
+_0806FD5C: .4byte Img_EfxDracoZombie
 _0806FD60: .4byte 0x06008000
 _0806FD64: .4byte gLCDControlBuffer
-_0806FD68: .4byte gUnknown_08791D5C
+_0806FD68: .4byte Pal_EfxDracoZombie
 _0806FD6C: .4byte pPalette6Buffer
 _0806FD70: .4byte gUnknown_02020068
 
-	THUMB_FUNC_END sub_806FCD8
+	THUMB_FUNC_END EfxDracoZombiePrepareImg
 
 	THUMB_FUNC_START sub_806FD74
 sub_806FD74: @ 0x0806FD74
@@ -45504,21 +45506,21 @@ sub_806FEA4: @ 0x0806FEA4
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
-	bl sub_806FC8C
+	bl EfxDracoZombiePrepareTSA
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xc0
 	bl sub_80589E0
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
 	bl sub_805A394
-	ldr r1, _0806FED0  @ gUnknown_0203E118
+	ldr r1, _0806FED0  @ gEkrSpellAnimIndexLutMaybe
 	movs r0, #0x15
 	strh r0, [r1]
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806FED0: .4byte gUnknown_0203E118
+_0806FED0: .4byte gEkrSpellAnimIndexLutMaybe
 
 	THUMB_FUNC_END sub_806FEA4
 
@@ -45528,14 +45530,14 @@ sub_806FED4: @ 0x0806FED4
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
 	bl GetCoreAIStruct
-	bl sub_806FA48
+	bl GetEkrSpEffAttr
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	cmp r0, #1
 	beq _0806FEF8
 	ldr r0, [r4, #0x5c]
 	movs r1, #2
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	adds r0, r4, #0
 	bl Proc_Break
 _0806FEF8:
@@ -45550,7 +45552,7 @@ sub_806FF00: @ 0x0806FF00
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_806FA48
+	bl GetEkrSpEffAttr
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #4
@@ -45570,7 +45572,7 @@ sub_806FF00: @ 0x0806FF00
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
-	bl sub_806FC8C
+	bl EfxDracoZombiePrepareTSA
 _0806FF3A:
 	adds r0, r4, #0
 	bl Proc_Break
@@ -45605,7 +45607,7 @@ sub_806FF48: @ 0x0806FF48
 	bl sub_80712B0
 	bl EnablePaletteSync
 	movs r0, #0
-	bl sub_806FAA4
+	bl SetEkrSpEffUnk1
 	ldr r3, _0806FFC0  @ gLCDControlBuffer
 	ldrb r2, [r3, #0xc]
 	movs r1, #4
@@ -45645,7 +45647,7 @@ _0806FFC4:
 	movs r2, #0x10
 	bl Interpolate
 	adds r5, r0, #0
-	ldr r0, _08070004  @ gUnknown_08791D5C
+	ldr r0, _08070004  @ Pal_EfxDracoZombie
 	ldr r4, _08070008  @ pPalette6Buffer
 	adds r1, r4, #0
 	movs r2, #8
@@ -45666,7 +45668,7 @@ _0806FFC4:
 	beq _08070030
 	b _08070048
 	.align 2, 0
-_08070004: .4byte gUnknown_08791D5C
+_08070004: .4byte Pal_EfxDracoZombie
 _08070008: .4byte pPalette6Buffer
 _0807000C: .4byte gEkrSomeType
 _08070010:
@@ -45718,7 +45720,7 @@ _08070048:
 	movs r0, #8
 	bl BG_EnableSyncByMask
 	movs r0, #0
-	bl sub_806FAA4
+	bl SetEkrSpEffUnk1
 	ldr r3, _080700C8  @ gLCDControlBuffer
 	ldrb r2, [r3, #0xc]
 	movs r1, #4
@@ -45781,7 +45783,7 @@ _080700EA:
 	movs r2, #4
 	bl Interpolate
 	adds r6, r0, #0
-	bl sub_807168C
+	bl EkrUpdateSomePalMaybe
 	ldr r0, [r5, #0x5c]
 	bl sub_8070234
 	lsls r0, r0, #0x18
@@ -45863,7 +45865,7 @@ sub_80701A0: @ 0x080701A0
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
 	movs r1, #8
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -45872,11 +45874,11 @@ sub_80701A0: @ 0x080701A0
 
 	THUMB_FUNC_END sub_80701A0
 
-	THUMB_FUNC_START sub_80701B8
-sub_80701B8: @ 0x080701B8
+	THUMB_FUNC_START EfxDoDracoZombieIntroAnim
+EfxDoDracoZombieIntroAnim: @ 0x080701B8
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl sub_806FA28
+	bl GetEkrSpEff
 	adds r6, r0, #0
 	ldr r0, _080701E4  @ gUnknown_08758670
 	movs r1, #3
@@ -45885,7 +45887,7 @@ sub_80701B8: @ 0x080701B8
 	str r4, [r6, #4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	str r5, [r6, #0xc]
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -45896,13 +45898,13 @@ sub_80701B8: @ 0x080701B8
 	.align 2, 0
 _080701E4: .4byte gUnknown_08758670
 
-	THUMB_FUNC_END sub_80701B8
+	THUMB_FUNC_END EfxDoDracoZombieIntroAnim
 
 	THUMB_FUNC_START sub_80701E8
 sub_80701E8: @ 0x080701E8
 	push {lr}
 	movs r1, #4
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	pop {r0}
 	bx r0
 
@@ -45913,7 +45915,7 @@ sub_80701F4: @ 0x080701F4
 	push {lr}
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	pop {r0}
 	bx r0
 
@@ -45924,7 +45926,7 @@ sub_8070204: @ 0x08070204
 	push {lr}
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	pop {r0}
 	bx r0
 
@@ -45933,7 +45935,7 @@ sub_8070204: @ 0x08070204
 	THUMB_FUNC_START sub_8070214
 sub_8070214: @ 0x08070214
 	push {lr}
-	bl sub_806FA48
+	bl GetEkrSpEffAttr
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0x80
@@ -45954,7 +45956,7 @@ _0807022E:
 	THUMB_FUNC_START sub_8070234
 sub_8070234: @ 0x08070234
 	push {lr}
-	bl sub_806FA48
+	bl GetEkrSpEffAttr
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0x80
@@ -46054,17 +46056,17 @@ sub_80702D0: @ 0x080702D0
 	beq _080702F0
 	b _080702F2
 _080702E6:
-	ldr r0, _080702EC  @ gUnknown_08791D5C
+	ldr r0, _080702EC  @ Pal_EfxDracoZombie
 	b _080702F2
 	.align 2, 0
-_080702EC: .4byte gUnknown_08791D5C
+_080702EC: .4byte Pal_EfxDracoZombie
 _080702F0:
-	ldr r0, _080702F8  @ gUnknown_087F85DC
+	ldr r0, _080702F8  @ Pal_DeamonKingBG
 _080702F2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080702F8: .4byte gUnknown_087F85DC
+_080702F8: .4byte Pal_DeamonKingBG
 
 	THUMB_FUNC_END sub_80702D0
 
@@ -46829,11 +46831,11 @@ _080708C8: .4byte gUnknown_08758740
 
 	THUMB_FUNC_END sub_80708A0
 
-	THUMB_FUNC_START sub_80708CC
-sub_80708CC: @ 0x080708CC
+	THUMB_FUNC_START EfxDoMyrrhIntroAnim
+EfxDoMyrrhIntroAnim: @ 0x080708CC
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl sub_806FA28
+	bl GetEkrSpEff
 	adds r6, r0, #0
 	ldr r0, _080708F8  @ gUnknown_08758754
 	movs r1, #3
@@ -46842,7 +46844,7 @@ sub_80708CC: @ 0x080708CC
 	str r4, [r6, #4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	str r5, [r6, #0xc]
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -46853,7 +46855,7 @@ sub_80708CC: @ 0x080708CC
 	.align 2, 0
 _080708F8: .4byte gUnknown_08758754
 
-	THUMB_FUNC_END sub_80708CC
+	THUMB_FUNC_END EfxDoMyrrhIntroAnim
 
 	THUMB_FUNC_START sub_80708FC
 sub_80708FC: @ 0x080708FC
@@ -46962,7 +46964,7 @@ sub_80709CC: @ 0x080709CC
 	bl GetCoreAIStruct
 	ldr r0, [r4, #0x5c]
 	movs r1, #2
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -46976,7 +46978,7 @@ sub_80709EC: @ 0x080709EC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_806FA48
+	bl GetEkrSpEffAttr
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #4
@@ -47022,7 +47024,7 @@ sub_8070A14: @ 0x08070A14
 	adds r0, r5, #0
 	movs r1, #0xc6
 	bl sub_80589E0
-	ldr r1, _08070A68  @ gUnknown_0203E118
+	ldr r1, _08070A68  @ gEkrSpellAnimIndexLutMaybe
 	ldr r0, _08070A6C  @ 0x0000FFFF
 	strh r0, [r1]
 	adds r0, r6, #0
@@ -47031,7 +47033,7 @@ sub_8070A14: @ 0x08070A14
 	.align 2, 0
 _08070A60: .4byte banim_data
 _08070A64: .4byte gUnknown_0203E152
-_08070A68: .4byte gUnknown_0203E118
+_08070A68: .4byte gEkrSpellAnimIndexLutMaybe
 _08070A6C: .4byte 0x0000FFFF
 _08070A70:
 	movs r1, #0x80
@@ -47102,7 +47104,7 @@ sub_8070AE4: @ 0x08070AE4
 	bl sub_80589E0
 	ldr r0, [r5, #0x5c]
 	movs r1, #8
-	bl sub_806FA54
+	bl AddEkrSpEffAttr
 	adds r0, r4, #0
 	bl GetAISSubjectId
 	cmp r0, #0
@@ -47110,7 +47112,7 @@ sub_8070AE4: @ 0x08070AE4
 	ldr r0, _08070B1C  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #0
-	bl sub_806FA84
+	bl SetEkrSpEffType
 	b _08070B2A
 	.align 2, 0
 _08070B1C: .4byte gUnknown_02000000
@@ -47118,7 +47120,7 @@ _08070B20:
 	ldr r0, _08070B38  @ gUnknown_02000000
 	ldr r0, [r0, #8]
 	movs r1, #0
-	bl sub_806FA84
+	bl SetEkrSpEffType
 _08070B2A:
 	adds r0, r5, #0
 	bl Proc_Break
@@ -47238,7 +47240,7 @@ _08070B9A:
 	ldr r0, _08070C20  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #3
-	bl sub_806FA84
+	bl SetEkrSpEffType
 	b _08070C4E
 	.align 2, 0
 _08070C20: .4byte gUnknown_02000000
@@ -47246,7 +47248,7 @@ _08070C24:
 	ldr r0, _08070C30  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #1
-	bl sub_806FA84
+	bl SetEkrSpEffType
 	b _08070C4E
 	.align 2, 0
 _08070C30: .4byte gUnknown_02000000
@@ -47254,7 +47256,7 @@ _08070C34:
 	ldr r0, _08070C40  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #2
-	bl sub_806FA84
+	bl SetEkrSpEffType
 	b _08070C4E
 	.align 2, 0
 _08070C40: .4byte gUnknown_02000000
@@ -47262,7 +47264,7 @@ _08070C44:
 	ldr r0, _08070CE0  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #0
-	bl sub_806FA84
+	bl SetEkrSpEffType
 _08070C4E:
 	mov r1, r8
 	ldr r0, [r1, #4]
@@ -47327,7 +47329,7 @@ _08070C4E:
 	ldr r0, _08070CE0  @ gUnknown_02000000
 	ldr r0, [r0, #8]
 	movs r1, #3
-	bl sub_806FA84
+	bl SetEkrSpEffType
 	b _08070CEE
 	.align 2, 0
 _08070CE0: .4byte gUnknown_02000000
@@ -47335,7 +47337,7 @@ _08070CE4:
 	ldr r0, _08070D00  @ gUnknown_02000000
 	ldr r0, [r0, #8]
 	movs r1, #0
-	bl sub_806FA84
+	bl SetEkrSpEffType
 _08070CEE:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -48727,8 +48729,8 @@ _08071680:
 
 	THUMB_FUNC_END sub_80715F4
 
-	THUMB_FUNC_START sub_807168C
-sub_807168C: @ 0x0807168C
+	THUMB_FUNC_START EkrUpdateSomePalMaybe
+EkrUpdateSomePalMaybe: @ 0x0807168C
 	push {r4, lr}
 	adds r4, r0, #0
 	bl UnpackChapterMapPalette
@@ -48744,7 +48746,7 @@ sub_807168C: @ 0x0807168C
 	.align 2, 0
 _080716AC: .4byte gPaletteBuffer
 
-	THUMB_FUNC_END sub_807168C
+	THUMB_FUNC_END EkrUpdateSomePalMaybe
 
 	THUMB_FUNC_START sub_80716B0
 sub_80716B0: @ 0x080716B0

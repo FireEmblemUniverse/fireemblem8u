@@ -2,8 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8052DD4
-sub_8052DD4: @ 0x08052DD4
+	THUMB_FUNC_START NewEfxDeadEvent
+NewEfxDeadEvent: @ 0x08052DD4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -22,7 +22,7 @@ sub_8052DD4: @ 0x08052DD4
 _08052DF4: .4byte gProc_efxDeadEvent
 _08052DF8: .4byte gUnknown_02017738
 
-	THUMB_FUNC_END sub_8052DD4
+	THUMB_FUNC_END NewEfxDeadEvent
 
 	THUMB_FUNC_START sub_8052DFC
 sub_8052DFC: @ 0x08052DFC
@@ -173,10 +173,10 @@ sub_8052F24: @ 0x08052F24
 	adds r5, r0, #0
 	cmp r5, #0
 	bne _08052F7A
-	bl sub_805B07C
+	bl PlaySound8FForArenaMaybe
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
-	bl sub_8052FAC
+	bl NewEfxDead
 	bl EfxPrepareScreenFx
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
@@ -230,8 +230,8 @@ _08052FA8: .4byte gUnknown_02017738
 
 	THUMB_FUNC_END sub_8052F84
 
-	THUMB_FUNC_START sub_8052FAC
-sub_8052FAC: @ 0x08052FAC
+	THUMB_FUNC_START NewEfxDead
+NewEfxDead: @ 0x08052FAC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -260,7 +260,7 @@ _08052FE0: .4byte gEkrHPBarCount
 _08052FE4: .4byte gUnknown_02017734
 _08052FE8: .4byte gProc_efxDead
 
-	THUMB_FUNC_END sub_8052FAC
+	THUMB_FUNC_END NewEfxDead
 
 	THUMB_FUNC_START sub_8052FEC
 sub_8052FEC: @ 0x08052FEC
@@ -359,7 +359,7 @@ sub_8053080: @ 0x08053080
 	beq _080530D2
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
-	bl sub_805328C
+	bl NewEfxDeadDragonAlpha
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd6
@@ -604,8 +604,8 @@ _08053282:
 
 	THUMB_FUNC_END sub_805320C
 
-	THUMB_FUNC_START sub_805328C
-sub_805328C: @ 0x0805328C
+	THUMB_FUNC_START NewEfxDeadDragonAlpha
+NewEfxDeadDragonAlpha: @ 0x0805328C
 	push {r4, r5, r6, lr}
 	mov r6, r9
 	mov r5, r8
@@ -633,7 +633,7 @@ sub_805328C: @ 0x0805328C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
-	bl sub_806FC8C
+	bl EfxDracoZombiePrepareTSA
 	mov r0, r8
 	strh r0, [r4, #0x2c]
 	strh r0, [r4, #0x2e]
@@ -710,7 +710,7 @@ sub_805328C: @ 0x0805328C
 _08053360: .4byte gProc_efxDeadDragonAlpha
 _08053364: .4byte gLCDControlBuffer
 
-	THUMB_FUNC_END sub_805328C
+	THUMB_FUNC_END NewEfxDeadDragonAlpha
 
 	THUMB_FUNC_START sub_8053368
 sub_8053368: @ 0x08053368
@@ -1713,7 +1713,7 @@ _08053B10:
 	movs r2, #0x80
 	lsls r2, r2, #4
 	bl RegisterTileGraphics
-	ldr r4, _08053BA4  @ gUnknown_0203E118
+	ldr r4, _08053BA4  @ gEkrSpellAnimIndexLutMaybe
 	mov r0, r9
 	bl GetAISSubjectId
 	lsls r0, r0, #1
@@ -1765,7 +1765,7 @@ _08053B90:
 	.align 2, 0
 _08053B9C: .4byte gUnknown_0200003C
 _08053BA0: .4byte 0x06011800
-_08053BA4: .4byte gUnknown_0203E118
+_08053BA4: .4byte gEkrSpellAnimIndexLutMaybe
 _08053BA8: .4byte gBanimTerrainPaletteMaybe
 _08053BAC: .4byte gUnknown_02016828
 _08053BB0: .4byte gUnknown_02022B08

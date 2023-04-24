@@ -901,7 +901,6 @@ extern u8 gUnknown_02004088[];
 extern u8 gUnknown_0200F1C8[];
 
 extern u8 gUnknown_02017790[];
-extern u8 gUnknown_02019790[];
 extern u8 gUnknown_0201A790[];
 
 void sub_806E8F0(void);
