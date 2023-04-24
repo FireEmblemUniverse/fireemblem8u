@@ -143,6 +143,9 @@ SECTIONS
         asm/banim-ekrfxunit.o(.text);
         src/banim-ekrbattlestarting.o(.text);
         asm/banim-ekrbattleending.o(.text);
+        asm/code-banim-08056864.o(.text);
+        asm/banim-ekrcheckenable.o(.text);
+        asm/banim-ekrmain.o(.text);
         asm/code_battleanim.o(.text);
         src/ekrlevelup.o(.text);
         asm/ekrlevelup.o(.text);

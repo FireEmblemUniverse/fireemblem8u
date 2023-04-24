@@ -1180,7 +1180,7 @@ _080552E4:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl sub_8058A34
+	bl GetAnimRoundType
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	adds r0, r5, #0
@@ -1190,7 +1190,7 @@ _080552E4:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl sub_8058A34
+	bl GetAnimRoundType
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
 	lsls r0, r6, #0x10
@@ -1306,7 +1306,7 @@ _08055402:
 	adds r0, r5, #0
 	mov r1, r8
 	movs r2, #0
-	bl sub_8052B98
+	bl NewEfxNoDmage
 	b _08055414
 _0805540E:
 	adds r0, r5, #0
@@ -1423,7 +1423,7 @@ _080554EE:
 	adds r0, r5, #0
 	mov r1, r8
 	movs r2, #1
-	bl sub_8052B98
+	bl NewEfxNoDmage
 	b _0805550A
 	.align 2, 0
 _08055500: .4byte gUnknown_02017750
@@ -1464,7 +1464,7 @@ _08055534:
 	.align 2, 0
 _08055540: .4byte gUnknown_02000000
 _08055544:
-	bl sub_8052D8C
+	bl NewEfxStatusCHG
 	b _0805554E
 _0805554A:
 	bl NewEfxAvoid

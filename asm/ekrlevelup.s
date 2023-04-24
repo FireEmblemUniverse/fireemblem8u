@@ -4754,7 +4754,7 @@ _08075F9E:
 	str r0, [r5, #0x44]
 	str r0, [r5, #0x50]
 	str r0, [r5, #0x4c]
-	ldr r0, _08076054  @ gUnknown_0203E114
+	ldr r0, _08076054  @ gBanimSomeObjPalIndex
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -4782,7 +4782,7 @@ _08075FDE:
 	ldrh r0, [r0]
 	str r0, [r5, #0x48]
 _08075FF4:
-	ldr r0, _08076054  @ gUnknown_0203E114
+	ldr r0, _08076054  @ gBanimSomeObjPalIndex
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -4828,7 +4828,7 @@ _0807603C:
 _08076048: .4byte gpAnimOnPopuProc
 _0807604C: .4byte ProcScr_ekrPopup
 _08076050: .4byte gpEkrPopupEndFlag
-_08076054: .4byte gUnknown_0203E114
+_08076054: .4byte gBanimSomeObjPalIndex
 _08076058: .4byte gpEkrBattleUnitLeft
 _0807605C: .4byte gpEkrBattleUnitRight
 _08076060:

@@ -151,7 +151,7 @@ extern u16 gObjBuf_EkrSideHitDmgCrit[];
 // extern ??? gUnknown_020176F0
 extern u16 gDecodedEkrHitDmgCritBuf[];
 extern u32 gUnknown_02017724;
-extern u32 gUnknown_02017728;
+extern u32 gEkrHPBarCount;
 extern u32 gUnknown_0201772C;
 extern u32 gUnknown_02017730;
 extern u32 gUnknown_02017734;
@@ -817,7 +817,7 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080DA26A
 // extern ??? gUnknown_080DA27E
 // extern ??? gUnknown_080DA2B0
-// extern ??? gUnknown_080DA438
+extern const s16 gUnknown_080DA438[];
 // extern ??? gUnknown_080DA4BA
 // extern ??? gUnknown_080DA4DC
 // extern ??? gUnknown_080DA526
