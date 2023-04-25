@@ -197,9 +197,9 @@
 . = 0x017764; gUnknown_02017764 = .;
 . = 0x017768; gUnknown_02017768 = .;
 . = 0x01776C; gUnknown_0201776C = .;
-. = 0x017774; gUnknown_02017774 = .;
+. = 0x017774; gpProcEfxWeaponIcon = .;
 . = 0x017778; gUnknown_02017778 = .;
-. = 0x01777C; gUnknown_0201777C = .;
+. = 0x01777C; gpProcEfxHPBarColorChange = .;
 . = 0x017780; gEkrHitEfxBool = .;
 . = 0x017790; gUnknown_02017790 = .;
 . = 0x019490; gUnknown_02019490 = .;
@@ -560,7 +560,7 @@
 . = 0x03E0F8; gpProcEkrBattleDeamon = .;
 . = 0x03E0FC; gUnknown_0203E0FC = .;
 . = 0x03E0FE; gUnknown_0203E0FE = .;
-. = 0x03E100; gEkrPos1Maybe = .;
+. = 0x03E100; gEkrInitialHitSide = .;
 . = 0x03E102; gUnknown_0203E102 = .;
 . = 0x03E104; gBanimSideVaildFlagMaybe = .;
 . = 0x03E108; gUnknown_0203E108 = .;

@@ -16,7 +16,7 @@ void EfxDoDemonKingIntroAnim(struct Anim *anim)
     struct ProcEkrDK *proc = Proc_Start(ProcScr_EkrDK, PROC_TREE_3);
 
     ekrsp->proc = proc;
-    AddEkrDragonStatusAttr(anim, 1);
+    AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_START);
     ekrsp->anim = anim;
     proc->anim = anim;
     proc->timer = 0;
@@ -95,7 +95,7 @@ void EkrDK_PrepareBanimfx(struct ProcEkrDK *proc)
     
     SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
     gEkrSpellAnimIndexLutMaybe[0] = 0x40;
-    AddEkrDragonStatusAttr(proc->anim, 1 << 1);
+    AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
     Proc_Break(proc);
 }
 
@@ -120,7 +120,7 @@ void PrepareDemonKingBGFx(struct ProcEkrDK *proc)
     /* Setup palette fade in process */
     NewEkrDragonPalFadeIn(Pal_DemonKingBG, 6, 0x78, proc);
 
-    SetEkrDragonStatusUnk1(1 << 0);
+    SetEkrDragonStatusUnk1(1);
     proc->unk2E = 0;
 }
 
@@ -130,7 +130,7 @@ void EkrDK_IdleInBattle(struct ProcEkrDK *proc)
     u16 attr2 = GetEkrDragonStatusAttr(GetCoreAIStruct(proc->anim));
 
     /* 1 << 2 seems to be the end of battle */
-    if (attr2 != 1 && attr1 & 4) {
+    if (attr2 != EKRDRGON_ATTR_START && attr1 & EKRDRGON_ATTR_BANIMFINISH) {
         proc->timer = 0;
         Proc_End(proc->fxproc);
 
@@ -148,7 +148,7 @@ void EkrDK_IdleInBattle(struct ProcEkrDK *proc)
 void EkrDK_WaitForFadeOut(struct ProcEkrDK *proc)
 {
     struct ProcEfxDKfx *fxproc = proc->fxproc;
-    if (fxproc->unk29 == 1) {
+    if (fxproc->finished == true) {
         Proc_End(fxproc);
         Proc_Break(proc);
     }
@@ -190,7 +190,7 @@ void EkrDK_ReloadCustomBgAndFadeOut(struct ProcEkrDK *proc)
 
 void EkrDK_SetDragonStatusBit3(struct ProcEkrDK *proc)
 {
-    AddEkrDragonStatusAttr(proc->anim, 1 << 3);
+    AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_END);
     Proc_Break(proc);
 }
 
@@ -198,7 +198,7 @@ ProcPtr NewEkrDragonBaseHide(struct Anim *anim)
 {
     struct ProcEfxDKfx *proc = Proc_Start(ProcScr_ekrDragonBaseHide, PROC_TREE_3);
     proc->anim = anim;
-    proc->unk29 = 0;
+    proc->finished = false;
     proc->timer = 0;
     return proc;
 }
@@ -213,7 +213,7 @@ void EkrDragonBaseHideMain(struct ProcEfxDKfx *proc)
 
     if (++proc->timer == 0x9) {
         proc->timer = 0;
-        proc->unk29 = 1;
+        proc->finished = true;
         Proc_Break(proc);
     }
 }
@@ -227,7 +227,7 @@ ProcPtr NewEkrDragonBaseAppear(struct Anim *anim)
 {
     struct ProcEfxDKfx *proc = Proc_Start(ProcScr_ekrDragonBaseAppear, PROC_TREE_3);
     proc->anim = anim;
-    proc->unk29 = 0;
+    proc->finished = false;
     proc->timer = 0;
     FillBGRect(gBG2TilemapBuffer, 0x20, 0x20, 0, 0);
     sub_805AA68(&gUnknown_0201FADC);
@@ -246,7 +246,7 @@ void EkrDragonBaseAppearMain(struct ProcEfxDKfx *proc)
 
     if (++proc->timer == 0x9) {
         proc->timer = 0;
-        proc->unk29 = 1;
+        proc->finished = true;
         Proc_Break(proc);
     }
 }
@@ -259,7 +259,7 @@ void EkrDragonBaseAppear_Nop(struct ProcEfxDKfx *proc)
 void EkrDKHandler_NewDragonAnime(struct ProcEkrDK *proc)
 {
     proc->fxproc = NewEkrDragonBodyAnime(proc->anim);
-    AddEkrDragonStatusAttr(proc->anim, 1 << 1);
+    AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
     Proc_Break(proc);
 }
 
@@ -273,7 +273,7 @@ ProcPtr NewEkrDragonBodyAnime(struct Anim *anim)
     proc->unk44 = 0;
     proc->unk48 = NULL;
     proc->tsa_set = TsaSet_DKBody;
-    proc->unk54 = -1;
+    proc->round_cur = -1;
 
     return proc;
 }
@@ -282,7 +282,7 @@ void EfxDKUpdateFrontAnimPostion(struct ProcEfxDKfx *proc)
 {
     int val1, val2, val3, val4;
 
-    if (GetBanimDragonStatusType() != 0) {
+    if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
         val1 = gEkrXPosBase[0] - gUnknown_02017760[0] - gEkrBgXOffset - gUnknown_03004FA0;
         val2 = gEkrYPosBase[0] - gUnknown_02017760[1] - gUnknown_03004FA4;
     } else {
@@ -495,7 +495,7 @@ void EkrDragonBodyAnimeSet54(struct Anim *anim)
 {
     struct ProcEfxDKfx *proc;
 
-    if (GetEkrDragonStatusType(anim) == 2) {
+    if (GetEkrDragonStatusType(anim) == EKRDRGON_TYPE_DEMON_KING) {
         proc = Proc_Find(ProcScr_ekrDragonBodyAnime);
 
         /**
@@ -503,7 +503,7 @@ void EkrDragonBodyAnimeSet54(struct Anim *anim)
          *     return;
          */
 
-        proc->unk54 = -1;
+        proc->round_cur = -1;
     }
 }
 
@@ -513,9 +513,10 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
     struct ProcEfxDKBody1 *child;
     int round_type;
 
-    if (proc->unk54 != proc->anim->currentRoundType) {
+    /* Wait for anim->round to triger DK action */
+    if (proc->round_cur != proc->anim->currentRoundType) {
         round_type = proc->anim->currentRoundType;
-        proc->unk54 = round_type;
+        proc->round_cur = round_type;
         proc->timer = 0;
         proc->unk2E = 0;
         proc->unk44 = 0;

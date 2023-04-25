@@ -4,8 +4,24 @@
 #include "proc.h"
 
 struct EkrDragonStatus {
+
+    enum dragonstatus_type {
+        EKRDRGON_TYPE_NORMAL = 0,
+        EKRDRGON_TYPE_DRACO_ZOMBIE,
+        EKRDRGON_TYPE_DEMON_KING,
+        EKRDRGON_TYPE_MYRRH
+    };
+
     /* 00 */ u8 type;
     /* 01 */ u8 unk01;
+
+    enum dragonstatue_attr {
+        EKRDRGON_ATTR_START = 1 << 0,
+        EKRDRGON_ATTR_BANIMFX_PREPARED = 1 << 1,
+        EKRDRGON_ATTR_BANIMFINISH = 1 << 2,
+        EKRDRGON_ATTR_END = 1 << 3,
+    };
+
     /* 02 */ u16 attr;
     /* 04 */ ProcPtr proc;
     /* 08 */ u32 unk08;
@@ -13,40 +29,39 @@ struct EkrDragonStatus {
 };
 
 extern struct EkrDragonStatus gEkrDragonStatusLeft, gEkrDragonStatusRight;
-struct EkrDragonStatus *GetEkrDragonStatus(struct Anim *anim);
-u16 GetEkrDragonStatusAttr(struct Anim *anim); /* 1 << 2 seems to be the end of the battle */
-void AddEkrDragonStatusAttr(struct Anim *anim, u16 attr_bitfile);
-u32 GetEkrDragonStatusType(struct Anim *anim);
-// ??? GetEkrDragonStatusType_(???);
-// ??? SetEkrDragonStatusType(???);
-// ??? GetEkrDragonStatusUnk1(???);
-void SetEkrDragonStatusUnk1(int);
 
 struct ProcEkrDK {
     PROC_HEADER;
 
     /* 29 */ u8 _pad_29[0x2C - 0x29];
+
     /* 2C */ s16 timer;
     /* 2E */ s16 unk2E;
+
     /* 30 */ u8 _pad_30[0x50 - 0x30];
+
     /* 50 */ ProcPtr fxproc;
+
     /* 54 */ u8 _pad_54[0x5C - 0x54];
+
     /* 5C */ struct Anim *anim;
 };
 
 struct ProcEfxDKfx {
     PROC_HEADER;
 
-    /* 29 */ u8 unk29;
+    /* 29 */ u8 finished;
     /* 2A */ s16 unk2A;
     /* 2C */ s16 timer;
     /* 2E */ s16 unk2E;
+
     /* 30 */ u8 _pad_30[0x44 - 0x30];
+
     /* 44 */ u32 unk44;
     /* 48 */ void *unk48;
     /* 4C */ u16 **tsa_set;
     /* 50 */ u32 unk50;
-    /* 54 */ u32 unk54;
+    /* 54 */ u32 round_cur;
     /* 58 */ u32 unk58;
     /* 5C */ struct Anim *anim;
 };
@@ -55,6 +70,7 @@ struct ProcEfxDKBody1 {
     PROC_HEADER;
 
     /* 29 */ u8 _pad_29[0x4C - 0x29];
+
     /* 4C */ struct ProcEfxDKfx *fxproc;
     /* 50 */ u32 unk50;
     /* 54 */ int timer;
@@ -76,13 +92,21 @@ struct ProcEfxDKBody4 {
     /* 5C */ struct Anim *anim;
 };
 
+struct EkrDragonStatus *GetEkrDragonStatus(struct Anim *anim);
+u16 GetEkrDragonStatusAttr(struct Anim *anim); /* 1 << 2 seems to be the end of the battle */
+void AddEkrDragonStatusAttr(struct Anim *anim, u16 attr_bitfile);
+u32 GetEkrDragonStatusType(struct Anim *anim);
+// ??? GetEkrDragonStatusType_(???);
+// ??? SetEkrDragonStatusType(???);
+// ??? GetEkrDragonStatusUnk1(???);
+void SetEkrDragonStatusUnk1(int);
 // ??? ResetEkrDragonStatus(???);
 int GetBanimDragonStatusType(void);
 // ??? sub_806FAD8(???);
 void EkrDragonBgSetPostion(int, int);
 void sub_806FBB8(void);
-bool CheckEkrSpecialClassIntroAnimDone(struct Anim *anim);
-bool sub_806FC14(struct Anim *anim);
+bool CheckEfrDragonStatusAttrPrepared(struct Anim *anim);
+bool CheckEfrDragonStatusAttrEnd(struct Anim *anim);
 // ??? sub_806FC30(???);
 // ??? sub_806FC50(???);
 // ??? EfxDracoZombiePrepareTSA(???);
@@ -95,7 +119,7 @@ bool sub_806FC14(struct Anim *anim);
 // ??? sub_80700CC(???);
 // ??? sub_80701A0(???);
 void EfxDoDracoZombieIntroAnim(struct Anim *anim);
-void sub_80701E8(struct Anim *anim);
+void SetEkrDragonStatusAttrFinished(struct Anim *anim);
 // ??? sub_80701F4(???);
 // ??? sub_8070204(???);
 bool CheckEkrDragonDeadEffectMaybe(struct Anim *anim);

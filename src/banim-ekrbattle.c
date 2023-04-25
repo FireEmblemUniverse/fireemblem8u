@@ -165,10 +165,10 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
     else
         proc->timer = 0x1E;
 
-    if (0 == gEkrPos1Maybe)
-        proc->is_quote = ShouldCallBattleQuote(gEkrPids[0], gEkrPids[1]);
+    if (EKR_BATTLE_LEFT == gEkrInitialHitSide)
+        proc->is_quote = ShouldCallBattleQuote(gEkrPids[EKR_BATTLE_LEFT], gEkrPids[EKR_BATTLE_RIGHT]);
     else
-        proc->is_quote = ShouldCallBattleQuote(gEkrPids[1], gEkrPids[0]);
+        proc->is_quote = ShouldCallBattleQuote(gEkrPids[EKR_BATTLE_RIGHT], gEkrPids[EKR_BATTLE_LEFT]);
 
     proc->unk58 = 0;
     Proc_Break(proc);
@@ -203,10 +203,10 @@ void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc)
     EkrGauge_Set4C50();
 
     if (proc->is_quote == true) {
-        if (gEkrPos1Maybe == 0)
-            CallBattleQuoteEventsIfAny(gEkrPids[0], gEkrPids[1]);
+        if (gEkrInitialHitSide == EKR_BATTLE_LEFT)
+            CallBattleQuoteEventsIfAny(gEkrPids[EKR_BATTLE_LEFT], gEkrPids[EKR_BATTLE_RIGHT]);
         else
-            CallBattleQuoteEventsIfAny(gEkrPids[1], gEkrPids[0]);
+            CallBattleQuoteEventsIfAny(gEkrPids[EKR_BATTLE_RIGHT], gEkrPids[EKR_BATTLE_LEFT]);
 
         proc->is_quote = false;
     }
@@ -239,76 +239,76 @@ void ekrBattle_8050134(struct ProcEkrBattle *proc)
 
 void ekrBattle_8050158(struct ProcEkrBattle *proc)
 {
-    proc->unk44 = gEkrPos1Maybe;
-    proc->unk48 = 0;
+    proc->side = gEkrInitialHitSide;
+    proc->counter = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattleDoSpeialClassIntro;
 }
 
 void ekrBattleDoSpeialClassIntro(struct ProcEkrBattle *proc)
 {
-    if (proc->unk48 == 2) {
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050244;
+    if (proc->counter == 2) {
+        proc->proc_idleCb = (ProcFunc)ekrBattlePostEkrDragonIntro;
         return;
     }
 
-    if (proc->unk44 == 0) {
-        proc->anim = gUnknown_02000000[0];
+    if (proc->side == EKR_BATTLE_LEFT) {
+        proc->anim = gUnknown_02000000[EKR_BATTLE_LEFT * 2];
         switch (GetEkrDragonStatusType(proc->anim)) {
         /* Draco Zombie */
-        case 1:
+        case EKRDRGON_TYPE_DRACO_ZOMBIE:
             EfxDoDracoZombieIntroAnim(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
 
         /* DemonKing */
-        case 2:
+        case EKRDRGON_TYPE_DEMON_KING:
             EfxDoDemonKingIntroAnim(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
 
         /* Myrrh */
-        case 3:
+        case EKRDRGON_TYPE_MYRRH:
             EfxDoMyrrhIntroAnim(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
         }
 
-        proc->unk44 = 1;
+        proc->side = EKR_BATTLE_RIGHT;
 
     } else {
-        proc->anim = gUnknown_02000000[2];
+        proc->anim = gUnknown_02000000[EKR_BATTLE_RIGHT * 2];
         switch (GetEkrDragonStatusType(proc->anim)) {
-        case 1:
+        case EKRDRGON_TYPE_DRACO_ZOMBIE:
             EfxDoDracoZombieIntroAnim(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
 
-        case 2:
+        case EKRDRGON_TYPE_DEMON_KING:
             EfxDoDemonKingIntroAnim(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
 
-        case 3:
+        case EKRDRGON_TYPE_MYRRH:
             EfxDoMyrrhIntroAnim(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
             break;
         }
 
-        proc->unk44 = 0;
+        proc->side = EKR_BATTLE_LEFT;
     }
 
-    proc->unk48++;
+    proc->counter++;
 }
 
 void ekrBattleWaitSpeialClassIntroAnimIdle(struct ProcEkrBattle *proc)
 {
-    if (CheckEkrSpecialClassIntroAnimDone(proc->anim) == true)
+    if (CheckEfrDragonStatusAttrPrepared(proc->anim) == true)
         proc->proc_idleCb = (ProcFunc)ekrBattleDoSpeialClassIntro;
 }
 
-void ekrBattle_8050244(struct ProcEkrBattle *proc)
+void ekrBattlePostEkrDragonIntro(struct ProcEkrBattle *proc)
 {
-    if (gEkrPos1Maybe != gEkrPos2Maybe) {
+    if (gEkrInitialHitSide != gEkrPos2Maybe) {
         sub_80533D0(gUnknown_02000000[gEkrPos2Maybe * 2], -1);
         proc->timer = 0;
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050290;
@@ -326,12 +326,12 @@ void ekrBattle_80502B0(struct ProcEkrBattle *proc)
 {
     NewEfxStatusUnit(gUnknown_02000000[0]);
     NewEfxStatusUnit(gUnknown_02000000[2]);
-    sub_8054E8C(gUnknown_0203E1D8.x, gUnknown_0203E1D8.y);
+    NewEfxWeaponIcon(gUnknown_0203E1D8.x, gUnknown_0203E1D8.y);
 
     if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
         sub_8054B64(gUnknown_02000000[0]);
 
-    sub_80545C0(gUnknown_02000000[0]);
+    NewEfxHPBarColorChange(gUnknown_02000000[0]);
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050304;
 }
 
@@ -582,8 +582,8 @@ void ekrBattle_80506C8(struct ProcEkrBattle *proc)
     ret = GetBanimDragonStatusType();
 
     switch (ret) {
-    case 1:
-    case 2:
+    case EKRDRGON_TYPE_DRACO_ZOMBIE:
+    case EKRDRGON_TYPE_DEMON_KING:
         gLCDControlBuffer.bg1cnt.priority = 0;
         gLCDControlBuffer.bg0cnt.priority = 1;
         gLCDControlBuffer.bg3cnt.priority = 2;
@@ -732,8 +732,8 @@ void ekrBattle_8050B08(struct ProcEkrBattle *proc)
 
     ret = GetBanimDragonStatusType();
     switch (ret) {
-    case 1:
-    case 2:
+    case EKRDRGON_TYPE_DRACO_ZOMBIE:
+    case EKRDRGON_TYPE_DEMON_KING:
         gLCDControlBuffer.bg0cnt.priority = 0;
         gLCDControlBuffer.bg1cnt.priority = 1;
         gLCDControlBuffer.bg3cnt.priority = 2;
@@ -795,83 +795,84 @@ void ekrBattle_WaitForPopup(struct ProcEkrBattle *proc)
 {
     if (CheckEkrPopupEnded() == true) {
         DeleteAnimsOnPopup();
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050CCC;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_PostPopup;
     }
 }
 
-void ekrBattle_8050CCC(struct ProcEkrBattle *proc)
+void ekrBattle_PostPopup(struct ProcEkrBattle *proc)
 {
-    sub_8054ED4();
-    sub_80546B0();
-    proc->unk44 = gEkrPos1Maybe;
-    proc->unk48 = 0;
-    proc->proc_idleCb = (ProcFunc)ekrBattle_8050CF8;
+    EndProcEfxWeaponIcon();
+    EndEfxHPBarColorChange();
+    proc->side = gEkrInitialHitSide;
+    proc->counter = 0;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_TriggerDragonStatusFinished;
 }
 
-void ekrBattle_8050CF8(struct ProcEkrBattle *proc)
+void ekrBattle_TriggerDragonStatusFinished(struct ProcEkrBattle *proc)
 {
     int val;
 
-    if (proc->unk48 == 2) {
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050DA8;
+    /* If both side is not the ekrdragon, get here */
+    if (proc->counter == 2) {
+        proc->proc_idleCb = (ProcFunc)ekrBattle_PostDragonStatusEffect;
         return;
     }
 
-    if (proc->unk44 == 0) {
+    if (proc->side == EKR_BATTLE_LEFT) {
         proc->anim = gUnknown_02000000[0];
         switch (GetEkrDragonStatusType(proc->anim)) {
-        case 2:
-            sub_80701E8(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;
+        case EKRDRGON_TYPE_DEMON_KING:
+            SetEkrDragonStatusAttrFinished(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
-        case 1:
-            sub_80701E8(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;
+        case EKRDRGON_TYPE_DRACO_ZOMBIE:
+            SetEkrDragonStatusAttrFinished(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
-        case 3:
-            sub_80701E8(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;
+        case EKRDRGON_TYPE_MYRRH:
+            SetEkrDragonStatusAttrFinished(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
 
         default:
             break;
         }
 
-        proc->unk44 = 1;
-        proc->unk48++;
+        proc->side = EKR_BATTLE_RIGHT;
+        proc->counter++;
 
     } else {
         proc->anim = gUnknown_02000000[2];
         switch (GetEkrDragonStatusType(proc->anim)) {
-        case 2:
-            sub_80701E8(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;
+        case EKRDRGON_TYPE_DEMON_KING:
+            SetEkrDragonStatusAttrFinished(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
-        case 1:
-            sub_80701E8(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;
+        case EKRDRGON_TYPE_DRACO_ZOMBIE:
+            SetEkrDragonStatusAttrFinished(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
-        case 3:
-            sub_80701E8(proc->anim);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;
+        case EKRDRGON_TYPE_MYRRH:
+            SetEkrDragonStatusAttrFinished(proc->anim);
+            proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
 
         default:
             break;
         }
 
-        proc->unk44 = 0;
-        proc->unk48++;
+        proc->side = EKR_BATTLE_LEFT;
+        proc->counter++;
     }
 }
 
-void ekrBattle_8050D88(struct ProcEkrBattle *proc)
+void ekrBattle_WaitEkrDragonEndIdle(struct ProcEkrBattle *proc)
 {
-    if (sub_806FC14(proc->anim) == true)
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050CF8;
+    if (CheckEfrDragonStatusAttrEnd(proc->anim) == true)
+        proc->proc_idleCb = (ProcFunc)ekrBattle_TriggerDragonStatusFinished;
 }
 
-void ekrBattle_8050DA8(struct ProcEkrBattle *proc)
+void ekrBattle_PostDragonStatusEffect(struct ProcEkrBattle *proc)
 {
     gUnknown_02017724 = 1;
 

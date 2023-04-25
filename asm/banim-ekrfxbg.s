@@ -893,8 +893,8 @@ _080545BC: .4byte gUnknown_02022C28
 
 	THUMB_FUNC_END sub_805452C
 
-	THUMB_FUNC_START sub_80545C0
-sub_80545C0: @ 0x080545C0
+	THUMB_FUNC_START NewEfxHPBarColorChange
+NewEfxHPBarColorChange: @ 0x080545C0
 	push {r4, r5, r6, lr}
 	mov r6, sl
 	mov r5, r9
@@ -902,7 +902,7 @@ sub_80545C0: @ 0x080545C0
 	push {r4, r5, r6}
 	sub sp, #4
 	adds r5, r0, #0
-	ldr r4, _0805467C  @ gUnknown_0201777C
+	ldr r4, _0805467C  @ gpProcEfxHPBarColorChange
 	ldr r0, _08054680  @ ProcScr_efxHPBarColorChange
 	movs r1, #3
 	bl Proc_Start
@@ -983,7 +983,7 @@ sub_80545C0: @ 0x080545C0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805467C: .4byte gUnknown_0201777C
+_0805467C: .4byte gpProcEfxHPBarColorChange
 _08054680: .4byte ProcScr_efxHPBarColorChange
 _08054684: .4byte gUnknown_080DAC58
 _08054688: .4byte gUnknown_080DAC82
@@ -997,44 +997,44 @@ _080546A4: .4byte gUnknown_0201FA08
 _080546A8: .4byte gUnknown_0201FA38
 _080546AC: .4byte gUnknown_0201FA68
 
-	THUMB_FUNC_END sub_80545C0
+	THUMB_FUNC_END NewEfxHPBarColorChange
 
-	THUMB_FUNC_START sub_80546B0
-sub_80546B0: @ 0x080546B0
+	THUMB_FUNC_START EndEfxHPBarColorChange
+EndEfxHPBarColorChange: @ 0x080546B0
 	push {lr}
-	ldr r0, _080546C0  @ gUnknown_0201777C
+	ldr r0, _080546C0  @ gpProcEfxHPBarColorChange
 	ldr r0, [r0]
 	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080546C0: .4byte gUnknown_0201777C
+_080546C0: .4byte gpProcEfxHPBarColorChange
 
-	THUMB_FUNC_END sub_80546B0
+	THUMB_FUNC_END EndEfxHPBarColorChange
 
 	THUMB_FUNC_START sub_80546C4
 sub_80546C4: @ 0x080546C4
-	ldr r0, _080546D0  @ gUnknown_0201777C
+	ldr r0, _080546D0  @ gpProcEfxHPBarColorChange
 	ldr r0, [r0]
 	adds r0, #0x29
 	movs r1, #1
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-_080546D0: .4byte gUnknown_0201777C
+_080546D0: .4byte gpProcEfxHPBarColorChange
 
 	THUMB_FUNC_END sub_80546C4
 
 	THUMB_FUNC_START sub_80546D4
 sub_80546D4: @ 0x080546D4
-	ldr r0, _080546E0  @ gUnknown_0201777C
+	ldr r0, _080546E0  @ gpProcEfxHPBarColorChange
 	ldr r0, [r0]
 	adds r0, #0x29
 	movs r1, #0
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-_080546E0: .4byte gUnknown_0201777C
+_080546E0: .4byte gpProcEfxHPBarColorChange
 
 	THUMB_FUNC_END sub_80546D4
 

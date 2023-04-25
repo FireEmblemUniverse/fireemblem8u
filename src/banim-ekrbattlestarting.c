@@ -210,7 +210,7 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
 void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 {
     if (++proc->unk2C > 0xB) {
-        if (gUnknown_0203E0FE == 0 || GetBanimDragonStatusType() != 0) {
+        if (gUnknown_0203E0FE == 0 || GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
 
             /* In normal battle, here will directly end the proc */
             NewEkrBattle();

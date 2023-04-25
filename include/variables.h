@@ -169,9 +169,9 @@ extern short gUnknown_02017760[2];
 extern short gUnknown_02017764[2];
 extern short gUnknown_02017768[2];
 extern u32 gUnknown_0201776C[2];
-// extern ??? gUnknown_02017774
+// extern ??? gpProcEfxWeaponIcon
 extern u32 gUnknown_02017778;
-extern u32 gUnknown_0201777C;
+extern u32 gpProcEfxHPBarColorChange;
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 // extern ??? gUnknown_02017790
 extern u16 gUnknown_02019490[];

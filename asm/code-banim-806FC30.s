@@ -711,15 +711,15 @@ _080701E4: .4byte gUnknown_08758670
 
 	THUMB_FUNC_END EfxDoDracoZombieIntroAnim
 
-	THUMB_FUNC_START sub_80701E8
-sub_80701E8: @ 0x080701E8
+	THUMB_FUNC_START SetEkrDragonStatusAttrFinished
+SetEkrDragonStatusAttrFinished: @ 0x080701E8
 	push {lr}
 	movs r1, #4
 	bl AddEkrDragonStatusAttr
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80701E8
+	THUMB_FUNC_END SetEkrDragonStatusAttrFinished
 
 	THUMB_FUNC_START sub_80701F4
 sub_80701F4: @ 0x080701F4
@@ -5541,7 +5541,7 @@ _080726C4:
 	movs r0, #1
 	str r0, [r1]
 	ldr r1, _08072700  @ gBanimSomeObjPalIndex
-	ldr r0, _08072704  @ gEkrPos1Maybe
+	ldr r0, _08072704  @ gEkrInitialHitSide
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	lsls r0, r0, #1
@@ -5564,7 +5564,7 @@ _080726F4: .4byte gpEkrBattleUnitRight
 _080726F8: .4byte gBmSt
 _080726FC: .4byte gUnknown_020200A8
 _08072700: .4byte gBanimSomeObjPalIndex
-_08072704: .4byte gEkrPos1Maybe
+_08072704: .4byte gEkrInitialHitSide
 _08072708:
 	bl GetEkrEventFlagMaybe
 	cmp r0, #1

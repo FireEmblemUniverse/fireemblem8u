@@ -182,7 +182,7 @@ int GetEkrSomePosMaybe(void)
 
     switch (gEkrSomeType) {
     case 1:
-        return gEkrPos1Maybe;
+        return gEkrInitialHitSide;
 
     case 0:
     case 3:
@@ -204,7 +204,7 @@ int GetEkrSomePosMaybe(void)
         else if (quote2 == true)
             return EKR_BATTLE_RIGHT;
         else
-            return gEkrPos1Maybe;
+            return gEkrInitialHitSide;
     }
 }
 
@@ -238,7 +238,7 @@ void EkrEfxStatusClear(void)
     gUnknown_0201776C[0] = 0;
     gUnknown_0201776C[1] = 0;
     gUnknown_02017778 = 0;
-    gUnknown_0201777C = 0;
+    gpProcEfxHPBarColorChange = 0;
 }
 
 int sub_80522CC(void)
@@ -707,7 +707,7 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
     struct Anim *anim2 = proc->anim60;
 
     if (gUnknown_080DA438[proc->timer] == -1) {
-        if (GetBanimDragonStatusType() == 0) {
+        if (GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL) {
             anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - gEkrBgXOffset;
             anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - gEkrBgXOffset;
         }
@@ -719,7 +719,7 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
         else
             val1 = gUnknown_080DA438[proc->timer];
 
-        if (GetBanimDragonStatusType() == 0) {
+        if (GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL) {
             anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - (s32)gEkrBgXOffset + val1;
             anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - (s32)gEkrBgXOffset + val1;
         }

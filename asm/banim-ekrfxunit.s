@@ -559,8 +559,8 @@ _08054E88: .4byte gUnknown_02022BC8
 
 	THUMB_FUNC_END sub_8054E4C
 
-	THUMB_FUNC_START sub_8054E8C
-sub_8054E8C: @ 0x08054E8C
+	THUMB_FUNC_START NewEfxWeaponIcon
+NewEfxWeaponIcon: @ 0x08054E8C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -584,7 +584,7 @@ sub_8054E8C: @ 0x08054E8C
 	lsls r5, r5, #0x10
 	asrs r5, r5, #0x10
 	str r5, [r0, #0x58]
-	ldr r1, _08054ED0  @ gUnknown_02017774
+	ldr r1, _08054ED0  @ gpProcEfxWeaponIcon
 	str r0, [r1]
 	pop {r4, r5}
 	pop {r0}
@@ -592,14 +592,14 @@ sub_8054E8C: @ 0x08054E8C
 	.align 2, 0
 _08054EC8: .4byte gProc_efxWeaponIcon
 _08054ECC: .4byte gUnknown_080DAD0A
-_08054ED0: .4byte gUnknown_02017774
+_08054ED0: .4byte gpProcEfxWeaponIcon
 
-	THUMB_FUNC_END sub_8054E8C
+	THUMB_FUNC_END NewEfxWeaponIcon
 
-	THUMB_FUNC_START sub_8054ED4
-sub_8054ED4: @ 0x08054ED4
+	THUMB_FUNC_START EndProcEfxWeaponIcon
+EndProcEfxWeaponIcon: @ 0x08054ED4
 	push {r4, lr}
-	ldr r4, _08054EEC  @ gUnknown_02017774
+	ldr r4, _08054EEC  @ gpProcEfxWeaponIcon
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _08054EE6
@@ -611,31 +611,31 @@ _08054EE6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08054EEC: .4byte gUnknown_02017774
+_08054EEC: .4byte gpProcEfxWeaponIcon
 
-	THUMB_FUNC_END sub_8054ED4
+	THUMB_FUNC_END EndProcEfxWeaponIcon
 
 	THUMB_FUNC_START sub_8054EF0
 sub_8054EF0: @ 0x08054EF0
-	ldr r0, _08054EFC  @ gUnknown_02017774
+	ldr r0, _08054EFC  @ gpProcEfxWeaponIcon
 	ldr r1, [r0]
 	movs r0, #1
 	str r0, [r1, #0x50]
 	bx lr
 	.align 2, 0
-_08054EFC: .4byte gUnknown_02017774
+_08054EFC: .4byte gpProcEfxWeaponIcon
 
 	THUMB_FUNC_END sub_8054EF0
 
 	THUMB_FUNC_START sub_8054F00
 sub_8054F00: @ 0x08054F00
-	ldr r0, _08054F0C  @ gUnknown_02017774
+	ldr r0, _08054F0C  @ gpProcEfxWeaponIcon
 	ldr r1, [r0]
 	movs r0, #0
 	str r0, [r1, #0x50]
 	bx lr
 	.align 2, 0
-_08054F0C: .4byte gUnknown_02017774
+_08054F0C: .4byte gpProcEfxWeaponIcon
 
 	THUMB_FUNC_END sub_8054F00
 

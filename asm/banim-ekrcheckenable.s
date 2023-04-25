@@ -2234,7 +2234,7 @@ sub_80581A0: @ 0x080581A0
 	movs r0, #0
 	strh r0, [r4]
 _080581C6:
-	ldr r0, _080581E8  @ gEkrPos1Maybe
+	ldr r0, _080581E8  @ gEkrInitialHitSide
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, r5
@@ -2253,7 +2253,7 @@ _080581E0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080581E8: .4byte gEkrPos1Maybe
+_080581E8: .4byte gEkrInitialHitSide
 
 	THUMB_FUNC_END sub_80581A0
 
@@ -2462,12 +2462,12 @@ _08058358:
 	ldr r2, [sp, #0xc]
 	cmp r2, #0
 	bne _080583B4
-	ldr r0, _08058394  @ gEkrPos1Maybe
+	ldr r0, _08058394  @ gEkrInitialHitSide
 	strh r2, [r0]
 	b _080583B4
 	.align 2, 0
 _08058390: .4byte gUnknown_0203E108
-_08058394: .4byte gEkrPos1Maybe
+_08058394: .4byte gEkrInitialHitSide
 _08058398:
 	mov r5, sp
 	adds r5, #2
@@ -2480,7 +2480,7 @@ _08058398:
 	ldr r0, [sp, #0xc]
 	cmp r0, #0
 	bne _080583B4
-	ldr r1, _080583F0  @ gEkrPos1Maybe
+	ldr r1, _080583F0  @ gEkrInitialHitSide
 	movs r0, #1
 	strh r0, [r1]
 _080583B4:
@@ -2514,7 +2514,7 @@ _080583D0:
 	ldr r0, _080583FC  @ gUnknown_080DAEA0
 	b _08058482
 	.align 2, 0
-_080583F0: .4byte gEkrPos1Maybe
+_080583F0: .4byte gEkrInitialHitSide
 _080583F4: .4byte gUnknown_0203E194
 _080583F8: .4byte gBattleStats
 _080583FC: .4byte gUnknown_080DAEA0
