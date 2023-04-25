@@ -8,14 +8,15 @@
 #include "anime.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "ekrdragon.h"
 
 void EfxDoDemonKingIntroAnim(struct Anim *anim)
 {
-    struct EkrSpEff *ekrsp = GetEkrSpEff(anim);
-    struct ProcEfxDKHandler *proc = Proc_Start(ProcScr_EkrDemoKingIntro, PROC_TREE_3);
+    struct EkrDragonStatus *ekrsp = GetEkrDragonStatus(anim);
+    struct ProcEkrDK *proc = Proc_Start(ProcScr_EkrDK, PROC_TREE_3);
 
     ekrsp->proc = proc;
-    AddEkrSpEffAttr(anim, 1);
+    AddEkrDragonStatusAttr(anim, 1);
     ekrsp->anim = anim;
     proc->anim = anim;
     proc->timer = 0;
@@ -44,13 +45,13 @@ int CheckEkrWpnDemonLight(struct Anim *anim)
         return false;
 }
 
-void EkrDKIntroStartBaseHide(struct ProcEfxDKHandler *proc)
+void EkrDKStartBaseHide(struct ProcEkrDK *proc)
 {
     NewEkrDragonBaseHide(proc->anim);
     Proc_Break(proc);
 }
 
-void sub_80765E4(struct ProcEfxDKHandler *proc)
+void EkrDK_CustomBgFadeIn(struct ProcEkrDK *proc)
 {
     EkrUpdateSomePalMaybe(Interpolate(INTERPOLATE_SQUARE, 4, 0x10, proc->timer, 8));
     if (++proc->timer == 0x9) {
@@ -65,19 +66,19 @@ void FillMem32_02019790(u32 val)
     u32 tmp, *buf;
 
     val = (val << 0x10);
-    buf = (u32 *)gUnknown_02019790;
+    buf = (u32 *)gEkrTsaBuffer;
     tmp = val | val >> 0x10;
 
     for (i = 0; i < 0x400; i++)
         *buf++ = tmp;
 }
 
-void sub_8076640(struct ProcEfxDKHandler *proc)
+void EkrDK_BgMovement(struct ProcEkrDK *proc)
 {
     int val1 = Interpolate(INTERPOLATE_RCUBIC, -0x20, 0, proc->unk2E, 0x78);
     int val2 = Interpolate(INTERPOLATE_RCUBIC, -0x50, 0, proc->unk2E, 0x78);
 
-    sub_806FB2C(gUnknown_0201FB0C + val1, val2);
+    EkrDragonBgSetPostion(gEkrBgXOffset + val1, val2);
     
     if (proc->unk2E == 0x78) {
         Proc_Break(proc);
@@ -85,29 +86,29 @@ void sub_8076640(struct ProcEfxDKHandler *proc)
         proc->unk2E++;
 }
 
-void sub_807669C(struct ProcEfxDKHandler *proc)
+void EkrDK_PrepareBanimfx(struct ProcEkrDK *proc)
 {
     if (CheckEkrWpnDemonLight(proc->anim) != false)
-        sub_80589E0(proc->anim, 0xC2);
+        EkrPrepareBanimfx(proc->anim, 0xC2);    /* index for DK Ravager in banim table */
     else
-        sub_80589E0(proc->anim, 0xC1);
+        EkrPrepareBanimfx(proc->anim, 0xC1);    /* index for DK Demon Light in banim table */
     
     SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
     gEkrSpellAnimIndexLutMaybe[0] = 0x40;
-    AddEkrSpEffAttr(proc->anim, 1 << 1);
+    AddEkrDragonStatusAttr(proc->anim, 1 << 1);
     Proc_Break(proc);
 }
 
-void PrepareDemonKingBGFx(struct ProcEfxDKHandler *proc)
+void PrepareDemonKingBGFx(struct ProcEkrDK *proc)
 {
     FillMem32_02019790(1);
     sub_80559D0((void *)0x60016001);
     BG_Fill(gBG3TilemapBuffer, 1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
     Decompress(Img_DemonKingBG, (void *)0x06008000);
-    Decompress(Tsa_DemonKingBG1, gUnknown_02019790);
+    Decompress(Tsa_DemonKingBG1, gEkrTsaBuffer);
     sub_806FBB8();
-    sub_806FB2C(gUnknown_0201FB0C - 0x20, -0x50);
+    EkrDragonBgSetPostion(gEkrBgXOffset - 0x20, -0x50);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;
@@ -115,30 +116,36 @@ void PrepareDemonKingBGFx(struct ProcEfxDKHandler *proc)
     gLCDControlBuffer.bg2cnt.priority = 3;
 
     sub_8013A84(0x6);
-    sub_8013928(Pal_DemonKingBG, 6, 0x78, proc);
-    SetEkrSpEffUnk1(1 << 0);
+
+    /* Setup palette fade in process */
+    NewEkrDragonPalFadeIn(Pal_DemonKingBG, 6, 0x78, proc);
+
+    SetEkrDragonStatusUnk1(1 << 0);
     proc->unk2E = 0;
 }
 
-void sub_8076798(struct ProcEfxDKHandler *proc)
+void EkrDK_IdleInBattle(struct ProcEkrDK *proc)
 {
-    u16 attr1 = GetEkrSpEffAttr(proc->anim);
-    u16 attr2 = GetEkrSpEffAttr(GetCoreAIStruct(proc->anim));
+    u16 attr1 = GetEkrDragonStatusAttr(proc->anim);
+    u16 attr2 = GetEkrDragonStatusAttr(GetCoreAIStruct(proc->anim));
 
+    /* 1 << 2 seems to be the end of battle */
     if (attr2 != 1 && attr1 & 4) {
         proc->timer = 0;
         Proc_End(proc->fxproc);
 
-        if (sub_8070214(proc->anim) == false)
+        if (CheckEkrDragonDeadEffectMaybe(proc->anim) == false)
+            /* Normal end banim */
             proc->fxproc = NewEkrDragonBodvBlack(proc->anim);
         else
+            /* Demon King dead */
             proc->fxproc = NewEkrDragonTunk(proc->anim);
 
         Proc_Break(proc);
     }
 }
 
-void sub_80767F4(struct ProcEfxDKHandler *proc)
+void EkrDK_WaitForFadeOut(struct ProcEkrDK *proc)
 {
     struct ProcEfxDKfx *fxproc = proc->fxproc;
     if (fxproc->unk29 == 1) {
@@ -147,9 +154,9 @@ void sub_80767F4(struct ProcEfxDKHandler *proc)
     }
 }
 
-void sub_8076818(struct ProcEfxDKHandler *proc)
+void EkrDK_ReloadTerrainEtc(struct ProcEkrDK *proc)
 {
-    SetEkrSpEffUnk1(0);
+    SetEkrDragonStatusUnk1(0);
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;
     gLCDControlBuffer.bg2cnt.priority = 2;
@@ -157,6 +164,8 @@ void sub_8076818(struct ProcEfxDKHandler *proc)
 
     SetAnimStateHidden(GetAISSubjectId(proc->anim));
     gBanimSideVaildFlagMaybe[GetAISSubjectId(proc->anim)] = false;
+
+    /* Reload the terrain palette */
     NewEkrDragonBaseAppear(proc->anim);
     BG_Fill(gBG3TilemapBuffer, 0x601F);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
@@ -164,7 +173,7 @@ void sub_8076818(struct ProcEfxDKHandler *proc)
     Proc_Break(proc);
 }
 
-void sub_80768A0(struct ProcEfxDKHandler *proc)
+void EkrDK_ReloadCustomBgAndFadeOut(struct ProcEkrDK *proc)
 {
     if (proc->timer == 0) {
         UnpackChapterMapGraphics(gPlaySt.chapterIndex);
@@ -179,9 +188,9 @@ void sub_80768A0(struct ProcEfxDKHandler *proc)
     }
 }
 
-void sub_80768F8(struct ProcEfxDKHandler *proc)
+void EkrDK_SetDragonStatusBit3(struct ProcEkrDK *proc)
 {
-    AddEkrSpEffAttr(proc->anim, 1 << 3);
+    AddEkrDragonStatusAttr(proc->anim, 1 << 3);
     Proc_Break(proc);
 }
 
@@ -194,7 +203,8 @@ ProcPtr NewEkrDragonBaseHide(struct Anim *anim)
     return proc;
 }
 
-void EkrDragonBaseHide_8076934(struct ProcEfxDKfx *proc)
+/* Gradullay fade the terrain palette into darkness */
+void EkrDragonBaseHideMain(struct ProcEfxDKfx *proc)
 {
     int val = Interpolate(INTERPOLATE_SQUARE, 0, 0x10, proc->timer, 8);
     CpuFastCopy(gEkrSomePalBuf, PAL_BG(4), 0x40);
@@ -208,7 +218,7 @@ void EkrDragonBaseHide_8076934(struct ProcEfxDKfx *proc)
     }
 }
 
-void EkrDragonBaseHide_807699C(struct ProcEfxDKfx *proc)
+void EkrDragonBaseHide_Nop(struct ProcEfxDKfx *proc)
 {
     Proc_Break(proc);
 }
@@ -226,7 +236,8 @@ ProcPtr NewEkrDragonBaseAppear(struct Anim *anim)
     return proc;
 }
 
-void EkrDragonBaseAppear_8076A10(struct ProcEfxDKfx *proc)
+/* Gradullay reload the terrain palette */
+void EkrDragonBaseAppearMain(struct ProcEfxDKfx *proc)
 {
     int val = Interpolate(INTERPOLATE_SQUARE, 0x10, 0, proc->timer, 8);
     CpuFastCopy(gEkrSomePalBuf, PAL_BG(4), 0x40);
@@ -240,15 +251,15 @@ void EkrDragonBaseAppear_8076A10(struct ProcEfxDKfx *proc)
     }
 }
 
-void EkrDragonBaseAppear_8076A78(struct ProcEfxDKfx *proc)
+void EkrDragonBaseAppear_Nop(struct ProcEfxDKfx *proc)
 {
     Proc_Break(proc);
 }
 
-void EkrDKHandler_NewDragonAnime(struct ProcEfxDKHandler *proc)
+void EkrDKHandler_NewDragonAnime(struct ProcEkrDK *proc)
 {
     proc->fxproc = NewEkrDragonBodyAnime(proc->anim);
-    AddEkrSpEffAttr(proc->anim, 1 << 1);
+    AddEkrDragonStatusAttr(proc->anim, 1 << 1);
     Proc_Break(proc);
 }
 
@@ -271,15 +282,15 @@ void EfxDKUpdateFrontAnimPostion(struct ProcEfxDKfx *proc)
 {
     int val1, val2, val3, val4;
 
-    if (sub_806FAB0() != 0) {
-        val1 = gEkrXPosBase[0] - gUnknown_02017760[0] - gUnknown_0201FB0C - gUnknown_03004FA0;
+    if (GetBanimDragonStatusType() != 0) {
+        val1 = gEkrXPosBase[0] - gUnknown_02017760[0] - gEkrBgXOffset - gUnknown_03004FA0;
         val2 = gEkrYPosBase[0] - gUnknown_02017760[1] - gUnknown_03004FA4;
     } else {
-        val1 = gEkrXPosBase[0] + gUnknown_02017760[0] - gUnknown_0201FB0C;
+        val1 = gEkrXPosBase[0] + gUnknown_02017760[0] - gEkrBgXOffset;
         val2 = gEkrYPosBase[0] - gUnknown_02017760[1];
     }
 
-    val3 = gEkrXPosBase[1] + gUnknown_02017760[0] - gUnknown_0201FB0C - gUnknown_03004FA0;
+    val3 = gEkrXPosBase[1] + gUnknown_02017760[0] - gEkrBgXOffset - gUnknown_03004FA0;
     val4 = gEkrYPosBase[1] - gUnknown_02017760[1] - gUnknown_03004FA4;
 
     switch (gEkrSomeType) {
@@ -337,8 +348,8 @@ void sub_8076C54(struct ProcEfxDKBody1 *proc)
     }while(0);
     }
 
-    val1 += gUnknown_0201FB0C;
-    sub_806FB2C(val1, val2);
+    val1 += gEkrBgXOffset;
+    EkrDragonBgSetPostion(val1, val2);
     if (proc->timer > 0x1E) {
         gEkrXQuakeOff = -56;
         gEkrYQuakeOff = 16;
@@ -365,7 +376,7 @@ void sub_8076D60(struct ProcEfxDKBody1 *proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_LINEAR, -56, 8, proc->timer, 0xA);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_LINEAR, 16, -8, proc->timer, 0xA);
 
-    sub_806FB2C(gUnknown_0201FB0C, 0);
+    EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
     gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
@@ -390,7 +401,7 @@ void sub_8076E00(struct ProcEfxDKBody1 *proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 8, 0, proc->timer, 20);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, -8, 0, proc->timer, 20);
 
-    sub_806FB2C(gUnknown_0201FB0C, 0);
+    EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
     gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
@@ -409,7 +420,7 @@ void sub_8076E84(struct ProcEfxDKBody1 *proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0, 0, proc->timer, 0x32);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0, 0, proc->timer, 0x32);
 
-    sub_806FB2C(gUnknown_0201FB0C, 0);
+    EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
     gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
@@ -442,7 +453,7 @@ void sub_8076F48(struct ProcEfxDKBody1 *proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0, -20, proc->timer, 5);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0, -10, proc->timer, 5);
 
-    sub_806FB2C(gUnknown_0201FB0C, 0);
+    EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
     gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
@@ -466,7 +477,7 @@ void sub_8076FD4(struct ProcEfxDKBody1 *proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_RCUBIC, -20, 0, proc->timer, 4);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, -10, 0, proc->timer, 4);
 
-    sub_806FB2C(gUnknown_0201FB0C, 0);
+    EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
     gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
@@ -484,7 +495,7 @@ void EkrDragonBodyAnimeSet54(struct Anim *anim)
 {
     struct ProcEfxDKfx *proc;
 
-    if (GetEkrSpEffType(anim) == 2) {
+    if (GetEkrDragonStatusType(anim) == 2) {
         proc = Proc_Find(ProcScr_ekrDragonBodyAnime);
 
         /**
@@ -537,9 +548,9 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
 
     ret = sub_80558F4((u16 *)&proc->timer, (u16 *)&proc->unk44, (u16 *)proc->unk48);
     if (ret >= 0) {
-        LZ77UnCompWram(proc->tsa_set[ret], gUnknown_02019790);
+        LZ77UnCompWram(proc->tsa_set[ret], gEkrTsaBuffer);
         sub_806FBB8();
-        sub_806FB2C(gUnknown_0201FB0C, 0);
+        EkrDragonBgSetPostion(gEkrBgXOffset, 0);
         return;
     }
 
@@ -634,34 +645,52 @@ void EkrDragonBodyUnk4Main(struct ProcEfxDKBody4 *proc)
     }
 }
 
-CONST_DATA struct ProcCmd ProcScr_EkrDemoKingIntro[] = {
+CONST_DATA struct ProcCmd ProcScr_EkrDK[] = {
     PROC_YIELD,
-    PROC_REPEAT(EkrDKIntroStartBaseHide),
-    PROC_REPEAT(sub_80765E4),
+    PROC_REPEAT(EkrDKStartBaseHide),
+
+    /* Make the background and terrain fade into darkness */
+    PROC_REPEAT(EkrDK_CustomBgFadeIn),
+
+    /* Decompress images and set palatte fade in effect */
     PROC_CALL(PrepareDemonKingBGFx),
-    PROC_REPEAT(sub_8076640),
-    PROC_REPEAT(sub_807669C),
+
+    /* Here only move the DK BG, but not handle the palette change */
+    PROC_REPEAT(EkrDK_BgMovement),
+
+    /* Decompress spell and ekr banimfx */
+    PROC_REPEAT(EkrDK_PrepareBanimfx),
+
     PROC_REPEAT(EkrDKHandler_NewDragonAnime),
-    PROC_REPEAT(sub_8076798),
-    PROC_REPEAT(sub_80767F4),
-    PROC_REPEAT(sub_8076818),
-    PROC_REPEAT(sub_80768A0),
-    PROC_REPEAT(sub_80768F8),
+
+    /* Check the attr bitfile to wait for end effect */
+    PROC_REPEAT(EkrDK_IdleInBattle),
+
+    /* If DK dead, here wait for fade-out proc (ProcScr_ekrDragonTunk) */
+    PROC_REPEAT(EkrDK_WaitForFadeOut),
+
+    /* Reload the screen and terrain palette */
+    PROC_REPEAT(EkrDK_ReloadTerrainEtc),
+
+    /* Gradullay fade out the normal battle background */
+    PROC_REPEAT(EkrDK_ReloadCustomBgAndFadeOut),
+
+    PROC_REPEAT(EkrDK_SetDragonStatusBit3),
     PROC_END,
     PROC_END
 };
 
 CONST_DATA struct ProcCmd ProcScr_ekrDragonBaseHide[] = {
     PROC_NAME("ekrDragonBaseHide"),
-    PROC_REPEAT(EkrDragonBaseHide_8076934),
-    PROC_REPEAT(EkrDragonBaseHide_807699C),
+    PROC_REPEAT(EkrDragonBaseHideMain),
+    PROC_REPEAT(EkrDragonBaseHide_Nop),
     PROC_END
 };
 
 CONST_DATA struct ProcCmd ProcScr_ekrDragonBaseAppear[] = {
     PROC_NAME("ekrDragonBaseAppear"),
-    PROC_REPEAT(EkrDragonBaseAppear_8076A10),
-    PROC_REPEAT(EkrDragonBaseAppear_8076A78),
+    PROC_REPEAT(EkrDragonBaseAppearMain),
+    PROC_REPEAT(EkrDragonBaseAppear_Nop),
     PROC_END
 };
 

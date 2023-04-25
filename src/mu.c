@@ -1625,7 +1625,7 @@ void MU_StartFlashFade(struct MUProc* proc, int flashType) {
         (0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
     );
 
-    sub_8013928(
+    NewEkrDragonPalFadeIn(
         sMUFlashColorLookup[flashType],
         0x15, 8, (struct Proc*) proc
     );
@@ -1634,7 +1634,7 @@ void MU_StartFlashFade(struct MUProc* proc, int flashType) {
 void MU_8079858(struct MUProc* muProc) {
     struct MUEffectProc* proc;
 
-    sub_8013928(
+    NewEkrDragonPalFadeIn(
         gPaletteBuffer + (0x10 * (0x10 + muProc->pMUConfig->paletteIndex)),
         0x15, 8, (struct Proc*) muProc
     );
@@ -1735,7 +1735,7 @@ static void MU_CritFlash_SetRegularPalette(struct MUFlashEffectProc* proc) {
 }
 
 static void MU_CritFlash_StartFadeBack_maybe(struct MUFlashEffectProc* proc) {
-    sub_8013928(
+    NewEkrDragonPalFadeIn(
         gPaletteBuffer + 0x10 * (0x10 + proc->pMUProc->pMUConfig->paletteIndex),
         0x15, 0x14, (struct Proc*) proc
     );
@@ -1770,7 +1770,7 @@ void MU_StartHitFlash(struct MUProc* muProc, int flashType) {
     muProc->pAPHandle->tileBase =
         (MU_FADE_OBJ_PAL << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
 
-    sub_8013928(
+    NewEkrDragonPalFadeIn(
         gPaletteBuffer + 0x10 * (0x10 + muProc->pMUConfig->paletteIndex),
         0x15, 0x14, (struct Proc*) muProc
     );

@@ -59,7 +59,7 @@ sub_80758D4: @ 0x080758D4
 	ldrh r5, [r4]
 	ldrh r0, [r3]
 	adds r1, r5, r0
-	ldr r2, _08075A44  @ gUnknown_0201FB0C
+	ldr r2, _08075A44  @ gEkrBgXOffset
 	mov sl, r2
 	ldr r0, [r2]
 	subs r1, r1, r0
@@ -173,7 +173,7 @@ _08075A2A:
 _08075A38: .4byte gUnknown_02017760
 _08075A3C: .4byte gBanimBgPosMaybe
 _08075A40: .4byte gEkrXPosBase
-_08075A44: .4byte gUnknown_0201FB0C
+_08075A44: .4byte gEkrBgXOffset
 _08075A48: .4byte gEkrYPosBase
 _08075A4C: .4byte gUnknown_0201774C
 
@@ -209,7 +209,7 @@ sub_8075A70: @ 0x08075A70
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	ldr r0, [r1]
-	ldr r4, _08075AAC  @ gUnknown_02019790
+	ldr r4, _08075AAC  @ gEkrTsaBuffer
 	adds r1, r4, #0
 	bl LZ77UnCompWram
 	ldr r1, _08075AB0  @ gBG3TilemapBuffer
@@ -227,7 +227,7 @@ sub_8075A70: @ 0x08075A70
 	bx r0
 	.align 2, 0
 _08075AA8: .4byte gBattleBGDataTable
-_08075AAC: .4byte gUnknown_02019790
+_08075AAC: .4byte gEkrTsaBuffer
 _08075AB0: .4byte gBG3TilemapBuffer
 
 	THUMB_FUNC_END sub_8075A70
@@ -358,7 +358,7 @@ MakeBattlePopupTileMapFromTSA: @ 0x08075B78
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	mov sl, r1
-	ldr r3, _08075CA4  @ gUnknown_02019790
+	ldr r3, _08075CA4  @ gEkrTsaBuffer
 	movs r0, #0x88
 	lsls r0, r0, #5
 	mov r8, r0
@@ -501,7 +501,7 @@ _08075C38:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08075CA4: .4byte gUnknown_02019790
+_08075CA4: .4byte gEkrTsaBuffer
 
 	THUMB_FUNC_END MakeBattlePopupTileMapFromTSA
 
@@ -520,7 +520,7 @@ DrawBattlePopup: @ 0x08075CA8
 	ldr r1, _08075D18  @ 0x06002000
 	bl LZ77UnCompVram
 	ldr r0, _08075D1C  @ gUnknown_08803CD0
-	ldr r1, _08075D20  @ gUnknown_02019790
+	ldr r1, _08075D20  @ gEkrTsaBuffer
 	bl LZ77UnCompWram
 	ldr r0, _08075D24  @ gSomeFontStruct
 	ldr r1, _08075D28  @ 0x06002100
@@ -555,7 +555,7 @@ DrawBattlePopup: @ 0x08075CA8
 _08075D14: .4byte gUnknown_08803B30
 _08075D18: .4byte 0x06002000
 _08075D1C: .4byte gUnknown_08803CD0
-_08075D20: .4byte gUnknown_02019790
+_08075D20: .4byte gEkrTsaBuffer
 _08075D24: .4byte gSomeFontStruct
 _08075D28: .4byte 0x06002100
 _08075D2C: .4byte gUnknown_08803CB0

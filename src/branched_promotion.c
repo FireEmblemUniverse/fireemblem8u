@@ -942,7 +942,7 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
     gUnknown_030053E0.u12 = 0x1;
     gUnknown_030053E0.buf = gBG1TilemapBuffer;
     gUnknown_030053E0.u18 = gUnknown_02017790;
-    gUnknown_030053E0.u1c = gUnknown_02019790;
+    gUnknown_030053E0.u1c = gEkrTsaBuffer;
     gUnknown_030053E0.u20 = gUnknown_0201A790;
     gUnknown_030053E0.u24 = sub_80CD34C;
 

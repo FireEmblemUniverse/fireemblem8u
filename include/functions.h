@@ -419,10 +419,10 @@ void WriteFadedPaletteFromArchive(int a1, int a2, int a3, int a4);
 // ??? sub_80138EC(???);
 void sub_80138F0(int palid, int duration, ProcPtr parent); // StartPalFadeToBlack
 // ??? sub_801390C(???);
-void sub_8013928(const u16*, int, int, ProcPtr proc);
-// ??? sub_8013988(???);
+void NewEkrDragonPalFadeIn(const u16*, int, int, ProcPtr proc);
+// ??? EndEkrDragonPalFadeInEffect(???);
 // ??? sub_8013998(???);
-// ??? sub_801399C(???);
+// ??? EkrDragonPalFadeInMain(???);
 void sub_8013A84(int); // SetBlackPal
 // ??? sub_8013AA4(???);
 // ??? sub_8013AC4(???);

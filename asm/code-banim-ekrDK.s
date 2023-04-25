@@ -195,12 +195,12 @@ sub_80773E4: @ 0x080773E4
 	movs r1, #0x17
 	movs r2, #0xf0
 	adds r3, r5, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 	adds r0, r4, #0
 	movs r1, #6
 	movs r2, #0xf0
 	adds r3, r5, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 _08077436:
 	ldr r0, _0807745C  @ gUnknown_08801810
 	bl Proc_Find
@@ -248,7 +248,7 @@ sub_8077474: @ 0x08077474
 	asrs r5, r5, #3
 	asrs r4, r4, #3
 	ldr r0, _08077500  @ Tsa_DemonKingBG1
-	ldr r6, _08077504  @ gUnknown_02019790
+	ldr r6, _08077504  @ gEkrTsaBuffer
 	adds r1, r6, #0
 	bl Decompress
 	movs r1, #0xf0
@@ -305,7 +305,7 @@ sub_8077474: @ 0x08077474
 	bx r0
 	.align 2, 0
 _08077500: .4byte Tsa_DemonKingBG1
-_08077504: .4byte gUnknown_02019790
+_08077504: .4byte gEkrTsaBuffer
 _08077508: .4byte gUnknown_0201D428
 
 	THUMB_FUNC_END sub_8077474
@@ -579,7 +579,7 @@ sub_80776D8: @ 0x080776D8
 	asrs r5, r5, #3
 	movs r0, #0
 	bl sub_80559D0
-	ldr r0, _08077734  @ gUnknown_02019790
+	ldr r0, _08077734  @ gEkrTsaBuffer
 	mov r8, r0
 	adds r0, r6, #0
 	mov r1, r8
@@ -611,7 +611,7 @@ sub_80776D8: @ 0x080776D8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08077734: .4byte gUnknown_02019790
+_08077734: .4byte gEkrTsaBuffer
 _08077738: .4byte gUnknown_0201D428
 
 	THUMB_FUNC_END sub_80776D8
@@ -1317,7 +1317,7 @@ sub_8077C54: @ 0x08077C54
 	mov r8, r0
 	ldrh r1, [r0]
 	subs r1, r1, r5
-	ldr r0, _08077D28  @ gUnknown_0201FB0C
+	ldr r0, _08077D28  @ gEkrBgXOffset
 	ldr r3, [r0]
 	subs r1, r1, r3
 	ldr r4, _08077D2C  @ gEkrYPosBase
@@ -1356,7 +1356,7 @@ sub_8077C54: @ 0x08077C54
 	.align 2, 0
 _08077D20: .4byte gBanimBgPosMaybe
 _08077D24: .4byte gEkrXPosBase
-_08077D28: .4byte gUnknown_0201FB0C
+_08077D28: .4byte gEkrBgXOffset
 _08077D2C: .4byte gEkrYPosBase
 
 	THUMB_FUNC_END sub_8077C54
@@ -1377,7 +1377,7 @@ sub_8077D38: @ 0x08077D38
 	mov r8, r0
 	ldr r6, _08077D74  @ gUnknown_03004FA0
 	ldr r1, [r6]
-	ldr r5, _08077D78  @ gUnknown_0201FB0C
+	ldr r5, _08077D78  @ gEkrBgXOffset
 	ldr r0, [r5]
 	subs r0, r0, r1
 	ldr r4, _08077D7C  @ gUnknown_03004FA4
@@ -1389,7 +1389,7 @@ sub_8077D38: @ 0x08077D38
 	subs r0, r0, r1
 	ldr r1, [r4]
 	negs r1, r1
-	bl sub_806FB2C
+	bl EkrDragonBgSetPostion
 	mov r1, r8
 	ldr r0, [r1, #0x58]
 	adds r0, #1
@@ -1401,7 +1401,7 @@ sub_8077D38: @ 0x08077D38
 	bx r0
 	.align 2, 0
 _08077D74: .4byte gUnknown_03004FA0
-_08077D78: .4byte gUnknown_0201FB0C
+_08077D78: .4byte gEkrBgXOffset
 _08077D7C: .4byte gUnknown_03004FA4
 
 	THUMB_FUNC_END sub_8077D38
@@ -1453,7 +1453,7 @@ sub_8077DC8: @ 0x08077DC8
 	push {r4, r5, lr}
 	sub sp, #0xc
 	ldr r0, _08077E4C  @ gUnknown_087F45D0
-	ldr r4, _08077E50  @ gUnknown_02019790
+	ldr r4, _08077E50  @ gEkrTsaBuffer
 	adds r1, r4, #0
 	bl Decompress
 	ldr r1, _08077E54  @ gBG1TilemapBuffer
@@ -1468,7 +1468,7 @@ sub_8077DC8: @ 0x08077DC8
 	bl sub_8070E94
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	ldr r0, _08077E58  @ gUnknown_0201FB0C
+	ldr r0, _08077E58  @ gEkrBgXOffset
 	ldr r0, [r0]
 	movs r1, #0
 	bl sub_8077EAC
@@ -1507,9 +1507,9 @@ sub_8077DC8: @ 0x08077DC8
 	bx r0
 	.align 2, 0
 _08077E4C: .4byte gUnknown_087F45D0
-_08077E50: .4byte gUnknown_02019790
+_08077E50: .4byte gEkrTsaBuffer
 _08077E54: .4byte gBG1TilemapBuffer
-_08077E58: .4byte gUnknown_0201FB0C
+_08077E58: .4byte gEkrBgXOffset
 _08077E5C: .4byte 0x06002000
 _08077E60: .4byte 0x01000800
 
@@ -1866,19 +1866,19 @@ sub_80780A4: @ 0x080780A4
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne _080780C8
-	ldr r1, _080780C4  @ gUnknown_02019790
+	ldr r1, _080780C4  @ gEkrTsaBuffer
 	adds r0, r3, #0
 	bl LZ77UnCompWram
 	b _080780D0
 	.align 2, 0
 _080780C0: .4byte gEkrSomeType
-_080780C4: .4byte gUnknown_02019790
+_080780C4: .4byte gEkrTsaBuffer
 _080780C8:
-	ldr r1, _080780F4  @ gUnknown_02019790
+	ldr r1, _080780F4  @ gEkrTsaBuffer
 	adds r0, r2, #0
 	bl LZ77UnCompWram
 _080780D0:
-	ldr r5, _080780F4  @ gUnknown_02019790
+	ldr r5, _080780F4  @ gEkrTsaBuffer
 	adds r0, r4, #0
 	bl GetAISSubjectId
 	cmp r0, #0
@@ -1894,7 +1894,7 @@ _080780D0:
 	bl sub_8070E94
 	b _08078110
 	.align 2, 0
-_080780F4: .4byte gUnknown_02019790
+_080780F4: .4byte gEkrTsaBuffer
 _080780F8: .4byte gBG1TilemapBuffer
 _080780FC:
 	ldr r1, _08078120  @ gBG1TilemapBuffer

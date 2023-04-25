@@ -9,6 +9,7 @@
 #include "anime.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "ekrdragon.h"
 
 extern struct Anim *gUnknown_02000000[4];
 extern void *gUnknown_02000010[2];
@@ -209,7 +210,7 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
 void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 {
     if (++proc->unk2C > 0xB) {
-        if (gUnknown_0203E0FE == 0 || sub_806FAB0() != 0) {
+        if (gUnknown_0203E0FE == 0 || GetBanimDragonStatusType() != 0) {
 
             /* In normal battle, here will directly end the proc */
             NewEkrBattle();

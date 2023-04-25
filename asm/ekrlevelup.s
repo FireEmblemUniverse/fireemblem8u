@@ -110,7 +110,7 @@ _08073B3E:
 	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne _08073B6E
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #2
 	beq _08073B6E
 	adds r0, r7, #0
@@ -182,7 +182,7 @@ _08073B6E:
 	movs r1, #3
 	orrs r0, r1
 	strb r0, [r4, #0x18]
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #1
 	bne _08073C24
 	mov r0, r9
@@ -319,7 +319,7 @@ EkrLvup_InitLevelUpBox: @ 0x08073CE8
 	adds r1, r5, #0
 	bl LZ77UnCompWram
 	ldr r0, _08073D90  @ Tsa_LevelUpBoxFrame
-	ldr r4, _08073D94  @ gUnknown_02019790
+	ldr r4, _08073D94  @ gEkrTsaBuffer
 	adds r1, r4, #0
 	bl LZ77UnCompWram
 	ldr r1, _08073D98  @ gUnknown_02023628
@@ -372,7 +372,7 @@ _08073D84: .4byte gpEkrBattleUnitRight
 _08073D88: .4byte Img_LevelUpBoxFrame
 _08073D8C: .4byte gUnknown_02017790
 _08073D90: .4byte Tsa_LevelUpBoxFrame
-_08073D94: .4byte gUnknown_02019790
+_08073D94: .4byte gEkrTsaBuffer
 _08073D98: .4byte gUnknown_02023628
 _08073D9C: .4byte 0x06002000
 _08073DA0: .4byte gUnknown_08803B10
@@ -1165,7 +1165,7 @@ EkrLvup_ResetScreen: @ 0x080743C0
 	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne _080743DE
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #2
 	beq _080743DE
 	adds r0, r4, #0
@@ -1218,7 +1218,7 @@ _080743DE:
 	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne _08074460
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #2
 	beq _08074460
 	movs r0, #2
@@ -1259,7 +1259,7 @@ _08074460:
 	bl BG_EnableSyncByMask
 	movs r0, #0
 	bl EkrGauge_Setup44
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #1
 	bne _08074500
 	ldr r3, _080744FC  @ gLCDControlBuffer

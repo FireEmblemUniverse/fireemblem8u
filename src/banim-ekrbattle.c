@@ -10,6 +10,7 @@
 #include "ekrlevelup.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "ekrdragon.h"
 
 extern struct Anim *gUnknown_02000000[4];
 
@@ -145,12 +146,12 @@ void nullsub_36(void)
 
 void ekrBattle_Init(struct ProcEkrBattle *proc)
 {
-    gUnknown_0201FB0C = 0;
+    gEkrBgXOffset = 0;
     if (gEkrPos2Maybe == 0) {
         if (gEkrSomeType == 1)
-            gUnknown_0201FB0C = -0x20;
+            gEkrBgXOffset = -0x20;
         else
-            gUnknown_0201FB0C = -0xF0;
+            gEkrBgXOffset = -0xF0;
     }
 
     sub_8059D28();
@@ -252,7 +253,7 @@ void ekrBattleDoSpeialClassIntro(struct ProcEkrBattle *proc)
 
     if (proc->unk44 == 0) {
         proc->anim = gUnknown_02000000[0];
-        switch (GetEkrSpEffType(proc->anim)) {
+        switch (GetEkrDragonStatusType(proc->anim)) {
         /* Draco Zombie */
         case 1:
             EfxDoDracoZombieIntroAnim(proc->anim);
@@ -276,7 +277,7 @@ void ekrBattleDoSpeialClassIntro(struct ProcEkrBattle *proc)
 
     } else {
         proc->anim = gUnknown_02000000[2];
-        switch (GetEkrSpEffType(proc->anim)) {
+        switch (GetEkrDragonStatusType(proc->anim)) {
         case 1:
             EfxDoDracoZombieIntroAnim(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattleWaitSpeialClassIntroAnimIdle;
@@ -527,7 +528,7 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
     proc->timer = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_WaitForPostBattleAct;
 
-    if (sub_8070214(gUnknown_02000000[0]) != false)
+    if (CheckEkrDragonDeadEffectMaybe(gUnknown_02000000[0]) != false)
         return;
 
     if (gUnknown_0203E1C8[0] != 0)
@@ -578,7 +579,7 @@ void ekrBattle_80506C8(struct ProcEkrBattle *proc)
     CpuFastSet(gUnknown_08803590, &gPaletteBuffer[0x10], 8);
     BG_EnableSyncByMask(2);
     EnablePaletteSync();
-    ret = sub_806FAB0();
+    ret = GetBanimDragonStatusType();
 
     switch (ret) {
     case 1:
@@ -729,7 +730,7 @@ void ekrBattle_8050B08(struct ProcEkrBattle *proc)
     ClearBG1();
     EkrGauge_Setup44(0);
 
-    ret = sub_806FAB0();
+    ret = GetBanimDragonStatusType();
     switch (ret) {
     case 1:
     case 2:
@@ -818,7 +819,7 @@ void ekrBattle_8050CF8(struct ProcEkrBattle *proc)
 
     if (proc->unk44 == 0) {
         proc->anim = gUnknown_02000000[0];
-        switch (GetEkrSpEffType(proc->anim)) {
+        switch (GetEkrDragonStatusType(proc->anim)) {
         case 2:
             sub_80701E8(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;
@@ -841,7 +842,7 @@ void ekrBattle_8050CF8(struct ProcEkrBattle *proc)
 
     } else {
         proc->anim = gUnknown_02000000[2];
-        switch (GetEkrSpEffType(proc->anim)) {
+        switch (GetEkrDragonStatusType(proc->anim)) {
         case 2:
             sub_80701E8(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_8050D88;

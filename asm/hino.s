@@ -534,7 +534,7 @@ sub_80138F0: @ 0x080138F0
 	ldr r0, _08013908  @ gUnknown_0859A120
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -552,7 +552,7 @@ sub_801390C: @ 0x0801390C
 	ldr r0, _08013924  @ gUnknown_0859A140
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -561,8 +561,8 @@ _08013924: .4byte gUnknown_0859A140
 
 	THUMB_FUNC_END sub_801390C
 
-	THUMB_FUNC_START sub_8013928
-sub_8013928: @ 0x08013928
+	THUMB_FUNC_START NewEkrDragonPalFadeIn
+NewEkrDragonPalFadeIn: @ 0x08013928
 	push {r4, r5, r6, lr}
 	mov r6, r9
 	mov r5, r8
@@ -576,7 +576,7 @@ sub_8013928: @ 0x08013928
 	lsls r4, r4, #4
 	ldr r0, _0801397C  @ gUnknown_0202B6B0
 	adds r4, r4, r0
-	ldr r0, _08013980  @ gUnknown_0859A00C
+	ldr r0, _08013980  @ ProcScr_EkrDragonPalFadeIn
 	bl Proc_Start
 	mov r8, r0
 	lsls r5, r5, #5
@@ -605,22 +605,22 @@ sub_8013928: @ 0x08013928
 	bx r1
 	.align 2, 0
 _0801397C: .4byte gUnknown_0202B6B0
-_08013980: .4byte gUnknown_0859A00C
+_08013980: .4byte ProcScr_EkrDragonPalFadeIn
 _08013984: .4byte gPaletteBuffer
 
-	THUMB_FUNC_END sub_8013928
+	THUMB_FUNC_END NewEkrDragonPalFadeIn
 
-	THUMB_FUNC_START sub_8013988
-sub_8013988: @ 0x08013988
+	THUMB_FUNC_START EndEkrDragonPalFadeInEffect
+EndEkrDragonPalFadeInEffect: @ 0x08013988
 	push {lr}
-	ldr r0, _08013994  @ gUnknown_0859A00C
+	ldr r0, _08013994  @ ProcScr_EkrDragonPalFadeIn
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08013994: .4byte gUnknown_0859A00C
+_08013994: .4byte ProcScr_EkrDragonPalFadeIn
 
-	THUMB_FUNC_END sub_8013988
+	THUMB_FUNC_END EndEkrDragonPalFadeInEffect
 
 	THUMB_FUNC_START sub_8013998
 sub_8013998: @ 0x08013998
@@ -629,8 +629,8 @@ sub_8013998: @ 0x08013998
 
 	THUMB_FUNC_END sub_8013998
 
-	THUMB_FUNC_START sub_801399C
-sub_801399C: @ 0x0801399C
+	THUMB_FUNC_START EkrDragonPalFadeInMain
+EkrDragonPalFadeInMain: @ 0x0801399C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -747,7 +747,7 @@ _08013A74:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_801399C
+	THUMB_FUNC_END EkrDragonPalFadeInMain
 
 	THUMB_FUNC_START sub_8013A84
 sub_8013A84: @ 0x08013A84

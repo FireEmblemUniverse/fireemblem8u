@@ -5158,7 +5158,7 @@ _0807F59C:
 	ldr r0, _0807F5C4  @ gUnknown_0859A120
 	movs r2, #0x3c
 	adds r3, r5, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 	movs r1, #0xf
 	bl sub_8013998
 	adds r4, #1
@@ -5208,7 +5208,7 @@ _0807F5F4:
 	adds r0, r5, #0
 	movs r2, #0xf
 	adds r3, r6, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 	adds r5, #0x20
 	adds r4, #1
 	cmp r4, #9

@@ -203,7 +203,7 @@
 . = 0x017780; gEkrHitEfxBool = .;
 . = 0x017790; gUnknown_02017790 = .;
 . = 0x019490; gUnknown_02019490 = .;
-. = 0x019790; gUnknown_02019790 = .;
+. = 0x019790; gEkrTsaBuffer = .;
 . = 0x019D00; gUnknown_02019D00 = .;
 . = 0x01A790; gUnknown_0201A790 = .;
 . = 0x01AF90; gUnknown_0201AF90 = .;
@@ -260,7 +260,7 @@
 . = 0x01FAD8; gUnknown_0201FAD8 = .;
 . = 0x01FADC; gUnknown_0201FADC = .;
 . = 0x01FB04; gUnknown_0201FB04 = .;
-. = 0x01FB0C; gUnknown_0201FB0C = .;
+. = 0x01FB0C; gEkrBgXOffset = .;
 . = 0x01FB18; gUnknown_0201FB18 = .;
 . = 0x01FB1C; gUnknown_0201FB1C = .;
 . = 0x01FB24; gUnknown_0201FB24 = .;
@@ -276,8 +276,8 @@
 . = 0x01FDC4; gUnknown_0201FDC4 = .;
 . = 0x01FF04; gUnknown_0201FF04 = .;
 . = 0x020044; gUnknown_02020044 = .;
-. = 0x020048; gEkrSpEffBuff = .;
-. = 0x020058; gUnknown_02020058 = .;
+. = 0x020048; gEkrDragonStatusLeft = .;
+. = 0x020058; gEkrDragonStatusRight = .;
 . = 0x020068; gUnknown_02020068 = .;
 . = 0x0200A8; gUnknown_020200A8 = .;
 . = 0x0200AC; gUnknown_020200AC = .;

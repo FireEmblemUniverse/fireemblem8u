@@ -175,7 +175,7 @@ extern u32 gUnknown_0201777C;
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 // extern ??? gUnknown_02017790
 extern u16 gUnknown_02019490[];
-extern u8 gUnknown_02019790[0x1000];
+extern u8 gEkrTsaBuffer[0x1000];
 // extern ??? gUnknown_0201A790
 // extern ??? gUnknown_0201AF90
 // extern ??? gUnknown_0201AFC0
@@ -209,9 +209,9 @@ extern u8 gUnknown_02019790[0x1000];
 // extern ??? gUnknown_0201C912
 extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
 // extern ??? gUnknown_0201CF84
-// extern ??? gUnknown_0201D428
+extern u16 gUnknown_0201D428[];
 // extern ??? gUnknown_0201D438
-// extern ??? gUnknown_0201D46A
+extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201DB00
 // extern ??? gUnknown_0201DB28
 // extern ??? gUnknown_0201F148
@@ -231,7 +231,7 @@ extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
 extern u32 gUnknown_0201FAD8;
 
 extern u32 gUnknown_0201FB04[];
-extern u32 gUnknown_0201FB0C;
+extern u32 gEkrBgXOffset;
 // extern ??? gUnknown_0201FB18
 // extern ??? gUnknown_0201FB1C
 // extern ??? gUnknown_0201FB24
@@ -247,8 +247,8 @@ extern u32 gUnknown_0201FB0C;
 // extern ??? gUnknown_0201FDC4
 // extern ??? gUnknown_0201FF04
 // extern ??? gUnknown_02020044
-// extern ??? gEkrSpEffBuff
-// extern ??? gUnknown_02020058
+// extern ??? gEkrDragonStatusLeft
+// extern ??? gEkrDragonStatusRight
 // extern ??? gUnknown_02020068
 // extern ??? gUnknown_020200A8
 // extern ??? gUnknown_020200AC
@@ -1206,7 +1206,7 @@ extern const char *gUnknown_08591AA4[][2];
 // extern ??? gUnknown_08599FB4
 // extern ??? gUnknown_08599FD4
 // extern ??? gUnknown_08599FF4
-// extern ??? gUnknown_0859A00C
+// extern ??? ProcScr_EkrDragonPalFadeIn
 // extern ??? gUnknown_0859A024
 // extern ??? gUnknown_0859A044
 // extern ??? gUnknown_0859A064
@@ -2506,7 +2506,7 @@ extern char gNopStr[];
 // extern ??? gUnknown_087F3C54
 // extern ??? gUnknown_087F4184
 // extern ??? gUnknown_087F4314
-extern struct ProcCmd ProcScr_EkrDemoKingIntro[];
+extern struct ProcCmd ProcScr_EkrDK[];
 extern struct ProcCmd ProcScr_ekrDragonBaseHide[];
 extern struct ProcCmd ProcScr_ekrDragonBaseAppear[];
 extern struct ProcCmd ProcScr_ekrDragonBodyAnime[];
