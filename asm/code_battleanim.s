@@ -3150,7 +3150,7 @@ sub_805B104: @ 0x0805B104
 	movs r0, #0
 	bl SetupOAMBufferSplice
 	ldr r1, _0805B178  @ gEkrPos2Maybe
-	ldr r0, _0805B17C  @ gEkrPos1Maybe
+	ldr r0, _0805B17C  @ gEkrInitialHitSide
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	str r0, [r1]
@@ -3191,7 +3191,7 @@ sub_805B104: @ 0x0805B104
 	bx r0
 	.align 2, 0
 _0805B178: .4byte gEkrPos2Maybe
-_0805B17C: .4byte gEkrPos1Maybe
+_0805B17C: .4byte gEkrInitialHitSide
 _0805B180: .4byte gUnknown_085BEF94
 _0805B184: .4byte pPalette6Buffer
 _0805B188: .4byte gUnknown_020165C8

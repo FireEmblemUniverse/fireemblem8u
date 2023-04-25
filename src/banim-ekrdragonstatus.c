@@ -91,7 +91,7 @@ void sub_806FAD8(int a, int b)
 {
     int _a, _b;
 
-    if (GetBanimDragonStatusType() == 0 || GetBanimDragonStatusType() == 3)
+    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL || GetBanimDragonStatusType() == EKRDRGON_TYPE_MYRRH)
         return;
 
     _a = a >> 3;
@@ -108,13 +108,13 @@ void EkrDragonBgSetPostion(int x, int y)
     int tmp1, tmp2, tmp3;
     u16 *buf;
 
-    if (GetBanimDragonStatusType() == 0)
+    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL)
         return;
 
-    if (GetBanimDragonStatusType() == 3)
+    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_MYRRH)
         return;
     
-    if (GetBanimDragonStatusType() == 2) {
+    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DEMON_KING) {
         tmp1 = x - 0x70;
         x = tmp1 - gEkrXQuakeOff;
 
@@ -156,21 +156,21 @@ void sub_806FBB8(void)
     }
 }
 
-bool CheckEkrSpecialClassIntroAnimDone(struct Anim *anim)
+bool CheckEfrDragonStatusAttrPrepared(struct Anim *anim)
 {
     u16 attr = GetEkrDragonStatusAttr(anim);
 
-    if (attr & 2)
+    if (attr & EKRDRGON_ATTR_BANIMFX_PREPARED)
         return true;
     else
         return false;
 }
 
-bool sub_806FC14(struct Anim *anim)
+bool CheckEfrDragonStatusAttrEnd(struct Anim *anim)
 {
     u16 attr = GetEkrDragonStatusAttr(anim);
 
-    if (attr & 8)
+    if (attr & EKRDRGON_ATTR_END)
         return true;
     else
         return false;
