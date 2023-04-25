@@ -21765,7 +21765,7 @@ sub_804BED8: @ 0x0804BED8
 	movs r1, #0x16
 	movs r2, #0x14
 	adds r3, r4, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 	ldr r0, _0804BF2C  @ gUnknown_085AA83C
 	adds r1, r4, #0
 	bl Proc_Start
@@ -21878,7 +21878,7 @@ sub_804BFAC: @ 0x0804BFAC
 	movs r1, #0x16
 	movs r2, #8
 	adds r3, r5, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -21901,7 +21901,7 @@ sub_804BFF8: @ 0x0804BFF8
 	movs r1, #0x16
 	movs r2, #8
 	adds r3, r4, #0
-	bl sub_8013928
+	bl NewEkrDragonPalFadeIn
 	ldr r0, _0804C028  @ gProcScr_MU_89A2CF8
 	movs r1, #3
 	bl Proc_Start

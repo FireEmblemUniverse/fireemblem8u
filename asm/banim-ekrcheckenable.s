@@ -12,7 +12,7 @@ PrepareBattleGraphicsMaybe: @ 0x08056FF8
 	sub sp, #0x40
 	movs r0, #1
 	str r0, [sp, #0x20]
-	bl sub_806F9FC
+	bl ResetEkrDragonStatus
 	ldr r0, _08057020  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x20
@@ -898,7 +898,7 @@ _08057724:
 	ldr r0, _08057730  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #1
-	bl SetEkrSpEffType
+	bl SetEkrDragonStatusType
 	b _0805773E
 	.align 2, 0
 _08057730: .4byte gUnknown_02000000
@@ -906,7 +906,7 @@ _08057734:
 	ldr r0, _080579DC  @ gUnknown_02000000
 	ldr r0, [r0]
 	movs r1, #2
-	bl SetEkrSpEffType
+	bl SetEkrDragonStatusType
 _0805773E:
 	ldr r2, [sp, #0x24]
 	asrs r6, r2, #0x10

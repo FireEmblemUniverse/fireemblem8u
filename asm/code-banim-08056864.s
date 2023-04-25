@@ -114,7 +114,7 @@ _08056934:
 	ldrsh r5, [r0, r1]
 	cmp r5, #1
 	bne _08056948
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	bne _08056948
 	str r5, [r4, #0x4c]

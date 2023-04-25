@@ -27,7 +27,7 @@ ekrBattleEnding_80560F0: @ 0x080560F0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq _0805610C
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #1
 	bcc _08056118
 	cmp r0, #2
@@ -90,7 +90,7 @@ ekrBattleEnding_8056170: @ 0x08056170
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq _0805618A
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #1
 	bcc _08056198
 	cmp r0, #2
@@ -135,7 +135,7 @@ ekrBattleEnding_80561C8: @ 0x080561C8
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq _080561E4
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #1
 	bcc _080561F0
 	cmp r0, #2

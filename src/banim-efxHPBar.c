@@ -7,6 +7,7 @@
 #include "bmitem.h"
 #include "proc.h"
 #include "banim_data.h"
+#include "ekrdragon.h"
 #include "constants/items.h"
 
 extern struct Anim *gUnknown_02000000[4];
@@ -706,9 +707,9 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
     struct Anim *anim2 = proc->anim60;
 
     if (gUnknown_080DA438[proc->timer] == -1) {
-        if (sub_806FAB0() == 0) {
-            anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - gUnknown_0201FB0C;
-            anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - gUnknown_0201FB0C;
+        if (GetBanimDragonStatusType() == 0) {
+            anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - gEkrBgXOffset;
+            anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - gEkrBgXOffset;
         }
 
         Proc_Break(proc);
@@ -718,9 +719,9 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
         else
             val1 = gUnknown_080DA438[proc->timer];
 
-        if (sub_806FAB0() == 0) {
-            anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - (s32)gUnknown_0201FB0C + val1;
-            anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - (s32)gUnknown_0201FB0C + val1;
+        if (GetBanimDragonStatusType() == 0) {
+            anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - (s32)gEkrBgXOffset + val1;
+            anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - (s32)gEkrBgXOffset + val1;
         }
         proc->timer++;
     }

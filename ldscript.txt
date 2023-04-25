@@ -147,6 +147,8 @@ SECTIONS
         asm/banim-ekrcheckenable.o(.text);
         asm/banim-ekrmain.o(.text);
         asm/code_battleanim.o(.text);
+        src/banim-ekrdragonstatus.o(.text);
+        asm/code-banim-806FC30.o(.text);
         src/ekrlevelup.o(.text);
         asm/ekrlevelup.o(.text);
         asm/banim-ekrpopup.o(.text);

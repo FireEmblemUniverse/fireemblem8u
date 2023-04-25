@@ -2,8 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80589E0
-sub_80589E0: @ 0x080589E0
+	THUMB_FUNC_START EkrPrepareBanimfx
+EkrPrepareBanimfx: @ 0x080589E0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	lsls r4, r1, #0x10
@@ -23,7 +23,7 @@ sub_80589E0: @ 0x080589E0
 	.align 2, 0
 _08058A08: .4byte gUnknown_0203E182
 
-	THUMB_FUNC_END sub_80589E0
+	THUMB_FUNC_END EkrPrepareBanimfx
 
 	THUMB_FUNC_START GetSomeAISRelatedIndexMaybeByID
 GetSomeAISRelatedIndexMaybeByID: @ 0x08058A0C

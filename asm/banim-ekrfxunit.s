@@ -274,7 +274,7 @@ sub_8054BF0: @ 0x08054BF0
 	movs r2, #1
 	adds r3, r7, #0
 	bl sub_80713B0
-	bl GetEkrSpEffUnk1
+	bl GetEkrDragonStatusUnk1
 	cmp r0, #0
 	beq _08054C7A
 	mov r0, r8
@@ -722,7 +722,7 @@ _08054F9C:
 	THUMB_FUNC_START NewEfxSpellCast
 NewEfxSpellCast: @ 0x08054FA8
 	push {r4, r5, lr}
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	adds r4, r0, #0
 	cmp r4, #0
 	bne _08054FF4
@@ -1638,19 +1638,19 @@ sub_8055670: @ 0x08055670
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne _08055694
-	ldr r1, _08055690  @ gUnknown_02019790
+	ldr r1, _08055690  @ gEkrTsaBuffer
 	adds r0, r3, #0
 	bl LZ77UnCompWram
 	b _0805569C
 	.align 2, 0
 _0805568C: .4byte gEkrSomeType
-_08055690: .4byte gUnknown_02019790
+_08055690: .4byte gEkrTsaBuffer
 _08055694:
-	ldr r1, _080556C0  @ gUnknown_02019790
+	ldr r1, _080556C0  @ gEkrTsaBuffer
 	adds r0, r2, #0
 	bl LZ77UnCompWram
 _0805569C:
-	ldr r5, _080556C0  @ gUnknown_02019790
+	ldr r5, _080556C0  @ gEkrTsaBuffer
 	adds r0, r4, #0
 	bl GetAISSubjectId
 	cmp r0, #0
@@ -1666,7 +1666,7 @@ _0805569C:
 	bl sub_8070EC4
 	b _080556DC
 	.align 2, 0
-_080556C0: .4byte gUnknown_02019790
+_080556C0: .4byte gEkrTsaBuffer
 _080556C4: .4byte gBG1TilemapBuffer
 _080556C8:
 	ldr r1, _080556EC  @ gBG1TilemapBuffer
@@ -1702,19 +1702,19 @@ sub_80556F0: @ 0x080556F0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne _08055718
-	ldr r1, _08055714  @ gUnknown_02019790
+	ldr r1, _08055714  @ gEkrTsaBuffer
 	adds r0, r3, #0
 	bl LZ77UnCompWram
 	b _08055720
 	.align 2, 0
 _08055710: .4byte gEkrSomeType
-_08055714: .4byte gUnknown_02019790
+_08055714: .4byte gEkrTsaBuffer
 _08055718:
-	ldr r1, _0805573C  @ gUnknown_02019790
+	ldr r1, _0805573C  @ gEkrTsaBuffer
 	adds r0, r2, #0
 	bl LZ77UnCompWram
 _08055720:
-	ldr r2, _0805573C  @ gUnknown_02019790
+	ldr r2, _0805573C  @ gEkrTsaBuffer
 	cmp r4, #0
 	bne _08055744
 	ldr r1, _08055740  @ gBG1TilemapBuffer
@@ -1728,7 +1728,7 @@ _08055720:
 	bl sub_8070EC4
 	b _08055758
 	.align 2, 0
-_0805573C: .4byte gUnknown_02019790
+_0805573C: .4byte gEkrTsaBuffer
 _08055740: .4byte gBG1TilemapBuffer
 _08055744:
 	ldr r1, _08055768  @ gBG1TilemapBuffer
@@ -1760,7 +1760,7 @@ sub_805576C: @ 0x0805576C
 	adds r0, r1, #0
 	adds r5, r2, #0
 	adds r6, r3, #0
-	ldr r7, _080557A4  @ gUnknown_02019790
+	ldr r7, _080557A4  @ gEkrTsaBuffer
 	adds r1, r7, #0
 	bl LZ77UnCompWram
 	adds r0, r4, #0
@@ -1780,7 +1780,7 @@ sub_805576C: @ 0x0805576C
 	bl sub_8070EC4
 	b _080557C4
 	.align 2, 0
-_080557A4: .4byte gUnknown_02019790
+_080557A4: .4byte gEkrTsaBuffer
 _080557A8: .4byte gBG1TilemapBuffer
 _080557AC:
 	ldr r1, _080557D4  @ gBG1TilemapBuffer
@@ -2316,7 +2316,7 @@ sub_8055B38: @ 0x08055B38
 	ldr r2, _08055B88  @ gEkrXPosBase
 	movs r0, #0
 	ldrsh r1, [r2, r0]
-	ldr r6, _08055B8C  @ gUnknown_0201FB0C
+	ldr r6, _08055B8C  @ gEkrBgXOffset
 	ldr r0, [r6]
 	subs r1, r1, r0
 	ldr r3, _08055B90  @ gEkrYPosBase
@@ -2349,7 +2349,7 @@ sub_8055B38: @ 0x08055B38
 	b _08055BA6
 	.align 2, 0
 _08055B88: .4byte gEkrXPosBase
-_08055B8C: .4byte gUnknown_0201FB0C
+_08055B8C: .4byte gEkrBgXOffset
 _08055B90: .4byte gEkrYPosBase
 _08055B94: .4byte gEkrSomeType
 _08055B98:

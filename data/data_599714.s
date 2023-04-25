@@ -76,15 +76,15 @@ gUnknown_08599FF4:  @ 0x08599FF4
     .2byte 0
     .4byte sub_8013870
 
-    .global gUnknown_0859A00C
-gUnknown_0859A00C:  @ 0x0859A00C
+    .global ProcScr_EkrDragonPalFadeIn
+ProcScr_EkrDragonPalFadeIn:  @ 0x0859A00C
     .2byte 15
     .2byte 10
     .4byte NULL
 
     .2byte 3
     .2byte 0
-    .4byte sub_801399C
+    .4byte EkrDragonPalFadeInMain
 
     .2byte 0
     .2byte 0

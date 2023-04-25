@@ -266,7 +266,7 @@ _08052FE8: .4byte gProc_efxDead
 sub_8052FEC: @ 0x08052FEC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #1
 	bne _08053030
 	ldr r0, [r5, #0x5c]
@@ -303,7 +303,7 @@ _08053032:
 	ldr r0, [r0]
 	cmp r0, #0
 	bne _0805307A
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #2
 	bne _0805305C
 	ldr r0, [r5, #0x5c]
@@ -347,7 +347,7 @@ sub_8053080: @ 0x08053080
 	cmp r1, #0x1e
 	bne _080530F6
 	adds r0, r5, #0
-	bl sub_8070214
+	bl CheckEkrDragonDeadEffectMaybe
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -859,7 +859,7 @@ _08053482:
 	strh r0, [r4, #0x36]
 	strh r1, [r4, #0x38]
 _08053490:
-	ldr r1, _080534A4  @ gUnknown_0201FB0C
+	ldr r1, _080534A4  @ gEkrBgXOffset
 	movs r2, #0x32
 	ldrsh r0, [r4, r2]
 	str r0, [r1]
@@ -871,7 +871,7 @@ _0805349E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080534A4: .4byte gUnknown_0201FB0C
+_080534A4: .4byte gEkrBgXOffset
 _080534A8: .4byte gUnknown_02017748
 
 	THUMB_FUNC_END sub_80533D0
@@ -918,7 +918,7 @@ sub_80534E4: @ 0x080534E4
 	movs r1, #0x32
 	ldrsh r0, [r4, r1]
 	movs r1, #0
-	bl sub_806FB2C
+	bl EkrDragonBgSetPostion
 	movs r1, #0x32
 	ldrsh r0, [r4, r1]
 	bl sub_8053618
@@ -949,13 +949,13 @@ sub_8053514: @ 0x08053514
 	movs r0, #1
 	bl Interpolate
 	adds r1, r0, #0
-	ldr r5, _08053580  @ gUnknown_0201FB0C
+	ldr r5, _08053580  @ gEkrBgXOffset
 	str r1, [r5]
 	adds r0, r4, #0
 	bl sub_80534AC
 	ldr r0, [r5]
 	movs r1, #0
-	bl sub_806FB2C
+	bl EkrDragonBgSetPostion
 	ldr r0, [r5]
 	bl sub_8053618
 	bl GetBattleAnimArenaFlag
@@ -983,7 +983,7 @@ _08053576:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08053580: .4byte gUnknown_0201FB0C
+_08053580: .4byte gEkrBgXOffset
 
 	THUMB_FUNC_END sub_8053514
 
@@ -1004,13 +1004,13 @@ sub_8053584: @ 0x08053584
 	movs r0, #4
 	bl Interpolate
 	adds r1, r0, #0
-	ldr r5, _080535EC  @ gUnknown_0201FB0C
+	ldr r5, _080535EC  @ gEkrBgXOffset
 	str r1, [r5]
 	adds r0, r4, #0
 	bl sub_80534AC
 	ldr r0, [r5]
 	movs r1, #0
-	bl sub_806FB2C
+	bl EkrDragonBgSetPostion
 	ldr r0, [r5]
 	bl sub_8053618
 	bl GetBattleAnimArenaFlag
@@ -1037,7 +1037,7 @@ _080535CA:
 	movs r0, #1
 	b _080535F8
 	.align 2, 0
-_080535EC: .4byte gUnknown_0201FB0C
+_080535EC: .4byte gEkrBgXOffset
 _080535F0: .4byte gEkrPos2Maybe
 _080535F4:
 	ldr r1, _08053610  @ gEkrPos2Maybe
@@ -1065,7 +1065,7 @@ sub_8053618: @ 0x08053618
 	push {r4, r5, lr}
 	sub sp, #0x10
 	adds r5, r0, #0
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #2
 	beq _08053668
 	bl GetBattleAnimArenaFlag
@@ -1364,7 +1364,7 @@ sub_805382C: @ 0x0805382C
 	ldr r3, _080538B0  @ gEkrXPosBase
 	movs r4, #0
 	ldrsh r2, [r3, r4]
-	ldr r0, _080538B4  @ gUnknown_0201FB0C
+	ldr r0, _080538B4  @ gEkrBgXOffset
 	ldr r1, [r0]
 	subs r6, r2, r1
 	ldr r2, _080538B8  @ gEkrYPosBase
@@ -1388,7 +1388,7 @@ sub_805382C: @ 0x0805382C
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _0805389E
 	ldrh r1, [r7, #0x34]
@@ -1408,7 +1408,7 @@ _0805389E:
 	.align 2, 0
 _080538AC: .4byte 0x00007FFF
 _080538B0: .4byte gEkrXPosBase
-_080538B4: .4byte gUnknown_0201FB0C
+_080538B4: .4byte gEkrBgXOffset
 _080538B8: .4byte gEkrYPosBase
 _080538BC: .4byte gUnknown_0201773C
 _080538C0:
@@ -1425,7 +1425,7 @@ _080538C0:
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl BG_SetPosition
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053900
 	ldrh r1, [r5]
@@ -1441,7 +1441,7 @@ _080538C0:
 	movs r0, #3
 	bl BG_SetPosition
 _08053900:
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053920
 	ldr r4, _0805391C  @ gEkrXPosBase
@@ -1462,7 +1462,7 @@ _08053920:
 	ldrsh r0, [r5, r3]
 	adds r1, r1, r0
 _0805392C:
-	ldr r3, _08053990  @ gUnknown_0201FB0C
+	ldr r3, _08053990  @ gEkrBgXOffset
 	ldr r0, [r3]
 	subs r6, r1, r0
 	ldr r2, _08053994  @ gEkrYPosBase
@@ -1509,7 +1509,7 @@ _0805392C:
 	b _080539D2
 	.align 2, 0
 _0805398C: .4byte gEkrXPosBase
-_08053990: .4byte gUnknown_0201FB0C
+_08053990: .4byte gEkrBgXOffset
 _08053994: .4byte gEkrYPosBase
 _08053998: .4byte gUnknown_02017760
 _0805399C: .4byte gEkrSomeType
@@ -1619,7 +1619,7 @@ _08053A5E:
 	str r0, [r5, #0x44]
 	movs r0, #1
 	str r0, [r5, #0x48]
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08053A78
@@ -1647,7 +1647,7 @@ _08053A94: .4byte gEkrSomeType
 _08053A98:
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _08053AC8  @ gUnknown_0201FB0C
+	ldr r1, _08053AC8  @ gEkrBgXOffset
 	ldr r1, [r1]
 	ldr r2, _08053ACC  @ gUnknown_02000030
 	lsls r0, r0, #1
@@ -1667,7 +1667,7 @@ _08053A98:
 	ldr r0, _08053AD0  @ gUnknown_085C7338
 	b _08053ADE
 	.align 2, 0
-_08053AC8: .4byte gUnknown_0201FB0C
+_08053AC8: .4byte gEkrBgXOffset
 _08053ACC: .4byte gUnknown_02000030
 _08053AD0: .4byte gUnknown_085C7338
 _08053AD4:
@@ -1752,7 +1752,7 @@ _08053B56:
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
 	bl sub_805AFA0
-	ldr r0, _08053BB8  @ gUnknown_0201FB0C
+	ldr r0, _08053BB8  @ gEkrBgXOffset
 	ldr r0, [r0]
 	bl sub_8053618
 _08053B90:
@@ -1770,7 +1770,7 @@ _08053BA8: .4byte gBanimTerrainPaletteMaybe
 _08053BAC: .4byte gUnknown_02016828
 _08053BB0: .4byte gUnknown_02022B08
 _08053BB4: .4byte gEkrSomeType
-_08053BB8: .4byte gUnknown_0201FB0C
+_08053BB8: .4byte gEkrBgXOffset
 
 	THUMB_FUNC_END sub_80539DC
 
@@ -1805,7 +1805,7 @@ _08053BDC:
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053C36
 	movs r0, #3
@@ -1821,7 +1821,7 @@ _08053C14:
 	blt _08053C36
 	cmp r0, #2
 	bgt _08053C36
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053C2E
 	movs r0, #3
@@ -1829,7 +1829,7 @@ _08053C14:
 	movs r2, #0
 	bl BG_SetPosition
 _08053C2E:
-	ldr r0, _08053CD8  @ gUnknown_0201FB0C
+	ldr r0, _08053CD8  @ gEkrBgXOffset
 	ldr r0, [r0]
 	bl sub_8053618
 _08053C36:
@@ -1843,7 +1843,7 @@ _08053C46:
 	ldr r3, _08053CE0  @ gEkrXPosBase
 	movs r4, #0
 	ldrsh r2, [r3, r4]
-	ldr r0, _08053CD8  @ gUnknown_0201FB0C
+	ldr r0, _08053CD8  @ gEkrBgXOffset
 	ldr r1, [r0]
 	subs r6, r2, r1
 	ldr r2, _08053CE4  @ gEkrYPosBase
@@ -1871,7 +1871,7 @@ _08053C46:
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne _08053CCE
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053C9A
 	movs r0, #3
@@ -1907,7 +1907,7 @@ _08053CCE:
 	bl Proc_End
 	b _08053F02
 	.align 2, 0
-_08053CD8: .4byte gUnknown_0201FB0C
+_08053CD8: .4byte gEkrBgXOffset
 _08053CDC: .4byte gUnknown_0201FADC
 _08053CE0: .4byte gEkrXPosBase
 _08053CE4: .4byte gEkrYPosBase
@@ -1954,7 +1954,7 @@ _08053D1C:
 	beq _08053D80
 	ldr r0, [r7, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _08053D74  @ gUnknown_0201FB0C
+	ldr r1, _08053D74  @ gEkrBgXOffset
 	ldr r1, [r1]
 	ldr r2, _08053D78  @ gUnknown_02000030
 	lsls r0, r0, #1
@@ -1977,7 +1977,7 @@ _08053D1C:
 	b _08053D8C
 	.align 2, 0
 _08053D70: .4byte gUnknown_02023F68
-_08053D74: .4byte gUnknown_0201FB0C
+_08053D74: .4byte gEkrBgXOffset
 _08053D78: .4byte gUnknown_02000030
 _08053D7C: .4byte gUnknown_02017760
 _08053D80:
@@ -1992,7 +1992,7 @@ _08053D8C:
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne _08053E04
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053DAE
 	negs r1, r4
@@ -2044,7 +2044,7 @@ _08053DAE:
 	lsrs r1, r1, #0x10
 	bl sub_8051B5C
 _08053E04:
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053E18
 	ldr r0, _08053E40  @ gUnknown_02017760
@@ -2053,7 +2053,7 @@ _08053E04:
 	movs r0, #3
 	bl BG_SetPosition
 _08053E18:
-	bl sub_806FAB0
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053E54
 	ldr r4, _08053E48  @ gEkrXPosBase
@@ -2064,7 +2064,7 @@ _08053E18:
 	movs r6, #0
 	ldrsh r0, [r2, r6]
 	subs r1, r1, r0
-	ldr r4, _08053E4C  @ gUnknown_0201FB0C
+	ldr r4, _08053E4C  @ gEkrBgXOffset
 	ldr r0, [r4]
 	subs r6, r1, r0
 	ldr r3, _08053E50  @ gEkrYPosBase
@@ -2075,7 +2075,7 @@ _08053E18:
 _08053E40: .4byte gUnknown_02017760
 _08053E44: .4byte gBanimBgPosMaybe
 _08053E48: .4byte gEkrXPosBase
-_08053E4C: .4byte gUnknown_0201FB0C
+_08053E4C: .4byte gEkrBgXOffset
 _08053E50: .4byte gEkrYPosBase
 _08053E54:
 	ldr r6, _08053EBC  @ gEkrXPosBase
@@ -2086,7 +2086,7 @@ _08053E54:
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	adds r1, r1, r0
-	ldr r4, _08053EC4  @ gUnknown_0201FB0C
+	ldr r4, _08053EC4  @ gEkrBgXOffset
 	ldr r0, [r4]
 	subs r6, r1, r0
 	ldr r3, _08053EC8  @ gEkrYPosBase
@@ -2132,7 +2132,7 @@ _08053E70:
 	.align 2, 0
 _08053EBC: .4byte gEkrXPosBase
 _08053EC0: .4byte gUnknown_02017760
-_08053EC4: .4byte gUnknown_0201FB0C
+_08053EC4: .4byte gEkrBgXOffset
 _08053EC8: .4byte gEkrYPosBase
 _08053ECC: .4byte gEkrSomeType
 _08053ED0:

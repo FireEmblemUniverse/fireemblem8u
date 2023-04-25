@@ -957,7 +957,7 @@ void StartFaceFadeIn(struct FaceProc* proc) {
     const struct FaceData* info = GetPortraitData(proc->faceId);
 
     sub_8013A84(sFaceConfig[proc->faceSlot].paletteId + 0x10);
-    sub_8013928(info->pal, sFaceConfig[proc->faceSlot].paletteId + 0x10, 12, proc);
+    NewEkrDragonPalFadeIn(info->pal, sFaceConfig[proc->faceSlot].paletteId + 0x10, 12, proc);
 
     return;
 }
