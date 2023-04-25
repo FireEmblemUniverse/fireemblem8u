@@ -715,10 +715,10 @@ sub_8059E18: @ 0x08059E18
 	strh r1, [r3]
 	ldr r0, _08059F34  @ gUnknown_02000034
 	strh r2, [r0]
-	ldr r0, _08059F38  @ gUnknown_02000028
+	ldr r0, _08059F38  @ gEkrXPosBase
 	adds r1, r1, r4
 	strh r1, [r0]
-	ldr r1, _08059F3C  @ gUnknown_0200002C
+	ldr r1, _08059F3C  @ gEkrYPosBase
 	movs r0, #0x58
 	strh r0, [r1]
 	ldr r0, _08059F40  @ gUnknown_0200005C
@@ -735,14 +735,14 @@ _08059E80:
 	adds r1, r6, #0
 	bl AnimCreate
 	adds r3, r0, #0
-	ldr r2, _08059F38  @ gUnknown_02000028
+	ldr r2, _08059F38  @ gEkrXPosBase
 	ldr r0, _08059F4C  @ gUnknown_0201FB0C
 	ldr r1, [r0]
 	ldrh r0, [r2]
 	subs r0, r0, r1
 	movs r2, #0
 	strh r0, [r3, #2]
-	ldr r0, _08059F3C  @ gUnknown_0200002C
+	ldr r0, _08059F3C  @ gEkrYPosBase
 	ldrh r0, [r0]
 	strh r0, [r3, #4]
 	movs r0, #0xf4
@@ -777,14 +777,14 @@ _08059ED4:
 	mov r1, r9
 	bl AnimCreate
 	adds r3, r0, #0
-	ldr r2, _08059F38  @ gUnknown_02000028
+	ldr r2, _08059F38  @ gEkrXPosBase
 	ldr r0, _08059F4C  @ gUnknown_0201FB0C
 	ldr r1, [r0]
 	ldrh r0, [r2]
 	subs r0, r0, r1
 	movs r2, #0
 	strh r0, [r3, #2]
-	ldr r0, _08059F3C  @ gUnknown_0200002C
+	ldr r0, _08059F3C  @ gEkrYPosBase
 	ldrh r0, [r0]
 	strh r0, [r3, #4]
 	movs r0, #0xf4
@@ -817,8 +817,8 @@ _08059F28: .4byte gEkrSomeType
 _08059F2C: .4byte gUnknown_02000030
 _08059F30: .4byte gUnknown_080DAF28
 _08059F34: .4byte gUnknown_02000034
-_08059F38: .4byte gUnknown_02000028
-_08059F3C: .4byte gUnknown_0200002C
+_08059F38: .4byte gEkrXPosBase
+_08059F3C: .4byte gEkrYPosBase
 _08059F40: .4byte gUnknown_0200005C
 _08059F44: .4byte gUnknown_0200F1C8
 _08059F48: .4byte gUnknown_085B9D5C
@@ -857,9 +857,9 @@ sub_8059F5C: @ 0x08059F5C
 	strh r1, [r0, #2]
 	ldr r0, _0805A054  @ gUnknown_02000034
 	strh r1, [r0, #2]
-	ldr r0, _0805A058  @ gUnknown_02000028
+	ldr r0, _0805A058  @ gEkrXPosBase
 	strh r2, [r0, #2]
-	ldr r1, _0805A05C  @ gUnknown_0200002C
+	ldr r1, _0805A05C  @ gEkrYPosBase
 	movs r0, #0x58
 	strh r0, [r1, #2]
 	ldr r0, _0805A060  @ gUnknown_02000060
@@ -876,14 +876,14 @@ _08059FAE:
 	adds r1, r4, #0
 	bl AnimCreate
 	adds r3, r0, #0
-	ldr r2, _0805A058  @ gUnknown_02000028
+	ldr r2, _0805A058  @ gEkrXPosBase
 	ldr r0, _0805A06C  @ gUnknown_0201FB0C
 	ldr r1, [r0]
 	ldrh r0, [r2, #2]
 	subs r0, r0, r1
 	movs r2, #0
 	strh r0, [r3, #2]
-	ldr r0, _0805A05C  @ gUnknown_0200002C
+	ldr r0, _0805A05C  @ gEkrYPosBase
 	ldrh r0, [r0, #2]
 	strh r0, [r3, #4]
 	movs r0, #0x9b
@@ -917,14 +917,14 @@ _0805A000:
 	adds r1, r7, #0
 	bl AnimCreate
 	adds r3, r0, #0
-	ldr r2, _0805A058  @ gUnknown_02000028
+	ldr r2, _0805A058  @ gEkrXPosBase
 	ldr r0, _0805A06C  @ gUnknown_0201FB0C
 	ldr r1, [r0]
 	ldrh r0, [r2, #2]
 	subs r0, r0, r1
 	movs r2, #0
 	strh r0, [r3, #2]
-	ldr r0, _0805A05C  @ gUnknown_0200002C
+	ldr r0, _0805A05C  @ gEkrYPosBase
 	ldrh r0, [r0, #2]
 	strh r0, [r3, #4]
 	movs r0, #0x9b
@@ -953,8 +953,8 @@ _0805A048: .4byte gUnknown_080DAF22
 _0805A04C: .4byte gEkrSomeType
 _0805A050: .4byte gUnknown_02000030
 _0805A054: .4byte gUnknown_02000034
-_0805A058: .4byte gUnknown_02000028
-_0805A05C: .4byte gUnknown_0200002C
+_0805A058: .4byte gEkrXPosBase
+_0805A05C: .4byte gEkrYPosBase
 _0805A060: .4byte gUnknown_02000060
 _0805A064: .4byte gUnknown_02011BC8
 _0805A068: .4byte gUnknown_085B9D5C
@@ -1062,7 +1062,7 @@ _0805A0FA:
 	str r1, [r4, #0x30]
 	bl AnimSort
 	adds r0, r4, #0
-	bl sub_807705C
+	bl EkrDragonBodyAnimeSet54
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -1350,8 +1350,8 @@ sub_805A334: @ 0x0805A334
 
 	THUMB_FUNC_END sub_805A334
 
-	THUMB_FUNC_START sub_805A358
-sub_805A358: @ 0x0805A358
+	THUMB_FUNC_START SetAnimStateHidden
+SetAnimStateHidden: @ 0x0805A358
 	push {lr}
 	cmp r0, #0
 	bne _0805A374
@@ -1385,10 +1385,10 @@ _0805A38C:
 	.align 2, 0
 _0805A390: .4byte gUnknown_02000000
 
-	THUMB_FUNC_END sub_805A358
+	THUMB_FUNC_END SetAnimStateHidden
 
-	THUMB_FUNC_START sub_805A394
-sub_805A394: @ 0x0805A394
+	THUMB_FUNC_START SetAnimStateUnHidden
+SetAnimStateUnHidden: @ 0x0805A394
 	push {r4, lr}
 	cmp r0, #0
 	bne _0805A3B4
@@ -1427,7 +1427,7 @@ _0805A3CE:
 _0805A3D4: .4byte gUnknown_02000000
 _0805A3D8: .4byte 0x0000FFFD
 
-	THUMB_FUNC_END sub_805A394
+	THUMB_FUNC_END SetAnimStateUnHidden
 
 	THUMB_FUNC_START sub_805A3DC
 sub_805A3DC: @ 0x0805A3DC
@@ -4779,7 +4779,7 @@ _0805BD42:
 	bl sub_806FAB0
 	cmp r0, #0
 	beq _0805BD60
-	ldr r4, _0805BD5C  @ gUnknown_02000028
+	ldr r4, _0805BD5C  @ gEkrXPosBase
 	ldrh r0, [r4]
 	ldrh r1, [r5]
 	subs r0, r0, r1
@@ -4787,9 +4787,9 @@ _0805BD42:
 	.align 2, 0
 _0805BD54: .4byte gUnknown_02017760
 _0805BD58: .4byte gBanimBgPosMaybe
-_0805BD5C: .4byte gUnknown_02000028
+_0805BD5C: .4byte gEkrXPosBase
 _0805BD60:
-	ldr r4, _0805BE78  @ gUnknown_02000028
+	ldr r4, _0805BE78  @ gEkrXPosBase
 	ldrh r0, [r5]
 	ldrh r3, [r4]
 	adds r0, r0, r3
@@ -4799,7 +4799,7 @@ _0805BD68:
 	subs r0, r0, r1
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
-	ldr r2, _0805BE80  @ gUnknown_0200002C
+	ldr r2, _0805BE80  @ gEkrYPosBase
 	ldrh r0, [r2]
 	ldrh r1, [r5, #2]
 	subs r0, r0, r1
@@ -4828,13 +4828,13 @@ _0805BD68:
 	lsls r2, r6, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	mov r2, r8
 	ldrh r0, [r2, #0x2c]
 	adds r0, #1
@@ -4900,13 +4900,13 @@ _0805BE2A:
 	movs r3, #0
 	ldrsh r2, [r0, r3]
 	movs r0, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	mov r1, r8
 	ldr r0, [r1, #0x60]
 	bl Proc_End
@@ -4921,9 +4921,9 @@ _0805BE6A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805BE78: .4byte gUnknown_02000028
+_0805BE78: .4byte gEkrXPosBase
 _0805BE7C: .4byte gUnknown_0201FB0C
-_0805BE80: .4byte gUnknown_0200002C
+_0805BE80: .4byte gEkrYPosBase
 _0805BE84: .4byte gUnknown_02017760
 _0805BE88: .4byte gUnknown_0201774C
 _0805BE8C: .4byte gBanimBgPosMaybe
@@ -41395,7 +41395,7 @@ _0806DF86:
 	strh r0, [r4, #8]
 	ldr r0, [r6, #0x5c]
 	bl GetAISSubjectId
-	bl sub_805A358
+	bl SetAnimStateHidden
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -41444,7 +41444,7 @@ sub_806DFD0: @ 0x0806DFD0
 	bne _0806E00A
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
-	bl sub_805A394
+	bl SetAnimStateUnHidden
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	ldr r0, [r4, #0x5c]
@@ -41781,7 +41781,7 @@ _0806E272:
 	strh r0, [r4, #8]
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
-	bl sub_805A358
+	bl SetAnimStateHidden
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -41808,7 +41808,7 @@ sub_806E290: @ 0x0806E290
 	bne _0806E2FC
 	ldr r0, [r6, #0x5c]
 	bl GetAISSubjectId
-	bl sub_805A394
+	bl SetAnimStateUnHidden
 	ldr r0, [r6, #0x60]
 	bl AnimDelete
 	ldr r0, [r6, #0x5c]
@@ -45062,12 +45062,12 @@ sub_806FB2C: @ 0x0806FB2C
 	bne _0806FB60
 	adds r1, r7, #0
 	subs r1, #0x70
-	ldr r0, _0806FBA8  @ gUnknown_03004FA8
+	ldr r0, _0806FBA8  @ gEkrXQuakeOff
 	ldr r0, [r0]
 	subs r7, r1, r0
 	adds r1, r6, #0
 	adds r1, #8
-	ldr r0, _0806FBAC  @ gUnknown_03004FB0
+	ldr r0, _0806FBAC  @ gEkrYQuakeOff
 	ldr r0, [r0]
 	subs r6, r1, r0
 _0806FB60:
@@ -45105,8 +45105,8 @@ _0806FB9E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806FBA8: .4byte gUnknown_03004FA8
-_0806FBAC: .4byte gUnknown_03004FB0
+_0806FBA8: .4byte gEkrXQuakeOff
+_0806FBAC: .4byte gEkrYQuakeOff
 _0806FBB0: .4byte gUnknown_0201D46A
 _0806FBB4: .4byte gBG3TilemapBuffer
 
@@ -45512,7 +45512,7 @@ sub_806FEA4: @ 0x0806FEA4
 	bl sub_80589E0
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
-	bl sub_805A394
+	bl SetAnimStateUnHidden
 	ldr r1, _0806FED0  @ gEkrSpellAnimIndexLutMaybe
 	movs r0, #0x15
 	strh r0, [r1]
@@ -45568,7 +45568,7 @@ sub_806FF00: @ 0x0806FF00
 	bne _0806FF3A
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
-	bl sub_805A358
+	bl SetAnimStateHidden
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
@@ -45987,11 +45987,11 @@ sub_8070254: @ 0x08070254
 	b _08070276
 _08070268:
 	movs r0, #0
-	bl sub_805A358
+	bl SetAnimStateHidden
 	b _08070276
 _08070270:
 	movs r0, #0
-	bl sub_805A358
+	bl SetAnimStateHidden
 _08070276:
 	pop {r0}
 	bx r0
@@ -46061,12 +46061,12 @@ _080702E6:
 	.align 2, 0
 _080702EC: .4byte Pal_EfxDracoZombie
 _080702F0:
-	ldr r0, _080702F8  @ Pal_DeamonKingBG
+	ldr r0, _080702F8  @ Pal_DemonKingBG
 _080702F2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080702F8: .4byte Pal_DeamonKingBG
+_080702F8: .4byte Pal_DemonKingBG
 
 	THUMB_FUNC_END sub_80702D0
 
@@ -46241,7 +46241,7 @@ sub_80703C4: @ 0x080703C4
 	ldrh r2, [r4, #2]
 	movs r0, #3
 	bl BG_SetPosition
-	ldr r0, _0807055C  @ gUnknown_02000028
+	ldr r0, _0807055C  @ gEkrXPosBase
 	ldrh r1, [r0]
 	ldrh r0, [r4]
 	subs r1, r1, r0
@@ -46249,18 +46249,18 @@ sub_80703C4: @ 0x080703C4
 	ldr r5, [r2]
 	subs r1, r1, r5
 	lsls r1, r1, #0x10
-	ldr r3, _08070564  @ gUnknown_0200002C
+	ldr r3, _08070564  @ gEkrYPosBase
 	ldrh r2, [r3]
 	ldrh r3, [r4, #2]
 	subs r2, r2, r3
 	lsls r2, r2, #0x10
-	ldr r4, _0807055C  @ gUnknown_02000028
+	ldr r4, _0807055C  @ gEkrXPosBase
 	ldrh r4, [r4, #2]
 	adds r0, r0, r4
 	subs r0, r0, r5
 	lsls r0, r0, #0x10
 	lsrs r5, r0, #0x10
-	ldr r7, _08070564  @ gUnknown_0200002C
+	ldr r7, _08070564  @ gEkrYPosBase
 	ldrh r0, [r7, #2]
 	subs r0, r0, r3
 	lsls r0, r0, #0x10
@@ -46271,13 +46271,13 @@ sub_80703C4: @ 0x080703C4
 	lsrs r7, r2, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	mov r1, r9
 	cmp r1, #0
 	beq _08070498
@@ -46327,7 +46327,7 @@ _08070498:
 	bl BG_SetPosition
 	ldr r7, _08070560  @ gUnknown_0201FB0C
 	ldr r2, [r7]
-	ldr r0, _0807055C  @ gUnknown_02000028
+	ldr r0, _0807055C  @ gEkrXPosBase
 	ldrh r1, [r0]
 	subs r1, r1, r2
 	lsls r1, r1, #0x10
@@ -46335,7 +46335,7 @@ _08070498:
 	subs r0, r0, r2
 	lsls r0, r0, #0x10
 	lsrs r5, r0, #0x10
-	ldr r2, _08070564  @ gUnknown_0200002C
+	ldr r2, _08070564  @ gEkrYPosBase
 	ldrh r4, [r2, #2]
 	lsrs r3, r1, #0x10
 	mov r8, r3
@@ -46344,13 +46344,13 @@ _08070498:
 	movs r0, #0
 	ldrsh r2, [r2, r0]
 	movs r0, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	mov r1, r9
 	cmp r1, #0
 	beq _08070536
@@ -46374,9 +46374,9 @@ _08070544:
 	.align 2, 0
 _08070554: .4byte gUnknown_02017760
 _08070558: .4byte gBanimBgPosMaybe
-_0807055C: .4byte gUnknown_02000028
+_0807055C: .4byte gEkrXPosBase
 _08070560: .4byte gUnknown_0201FB0C
-_08070564: .4byte gUnknown_0200002C
+_08070564: .4byte gEkrYPosBase
 
 	THUMB_FUNC_END sub_80703C4
 
@@ -51286,7 +51286,7 @@ _08072AF2:
 	cmp r0, #0x94
 	bne _08072AFE
 	movs r0, #1
-	bl sub_805A358
+	bl SetAnimStateHidden
 	b _08072C94
 _08072AFE:
 	cmp r0, #0x8c
@@ -51388,7 +51388,7 @@ _08072BC4:
 	cmp r1, r0
 	bne _08072BEC
 	movs r0, #0
-	bl sub_805A394
+	bl SetAnimStateUnHidden
 	ldr r0, [r4, #0x5c]
 	movs r1, #8
 	bl StartSpellBG_FLASH

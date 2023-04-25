@@ -2127,8 +2127,8 @@ _080559EC: .4byte 0x05000948
 
 	THUMB_FUNC_END sub_80559D0
 
-	THUMB_FUNC_START sub_80559F0
-sub_80559F0: @ 0x080559F0
+	THUMB_FUNC_START SetEkrFrontAnimPostion
+SetEkrFrontAnimPostion: @ 0x080559F0
 	push {lr}
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
@@ -2158,7 +2158,7 @@ _08055A1A:
 	.align 2, 0
 _08055A24: .4byte gUnknown_02000000
 
-	THUMB_FUNC_END sub_80559F0
+	THUMB_FUNC_END SetEkrFrontAnimPostion
 
 	THUMB_FUNC_START sub_8055A28
 sub_8055A28: @ 0x08055A28
@@ -2313,13 +2313,13 @@ _08055B34: .4byte 0x00007FFF
 sub_8055B38: @ 0x08055B38
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
-	ldr r2, _08055B88  @ gUnknown_02000028
+	ldr r2, _08055B88  @ gEkrXPosBase
 	movs r0, #0
 	ldrsh r1, [r2, r0]
 	ldr r6, _08055B8C  @ gUnknown_0201FB0C
 	ldr r0, [r6]
 	subs r1, r1, r0
-	ldr r3, _08055B90  @ gUnknown_0200002C
+	ldr r3, _08055B90  @ gEkrYPosBase
 	movs r5, #2
 	ldrsh r4, [r2, r5]
 	subs r4, r4, r0
@@ -2330,13 +2330,13 @@ sub_8055B38: @ 0x08055B38
 	movs r0, #0
 	ldrsh r2, [r3, r0]
 	movs r0, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	movs r0, #1
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	ldr r0, _08055B94  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -2348,9 +2348,9 @@ sub_8055B38: @ 0x08055B38
 	bl BG_SetPosition
 	b _08055BA6
 	.align 2, 0
-_08055B88: .4byte gUnknown_02000028
+_08055B88: .4byte gEkrXPosBase
 _08055B8C: .4byte gUnknown_0201FB0C
-_08055B90: .4byte gUnknown_0200002C
+_08055B90: .4byte gEkrYPosBase
 _08055B94: .4byte gEkrSomeType
 _08055B98:
 	cmp r0, #0

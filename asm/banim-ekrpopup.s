@@ -54,7 +54,7 @@ sub_80758D4: @ 0x080758D4
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	bl sub_8051B5C
-	ldr r3, _08075A40  @ gUnknown_02000028
+	ldr r3, _08075A40  @ gEkrXPosBase
 	mov r9, r3
 	ldrh r5, [r4]
 	ldrh r0, [r3]
@@ -63,7 +63,7 @@ sub_80758D4: @ 0x080758D4
 	mov sl, r2
 	ldr r0, [r2]
 	subs r1, r1, r0
-	ldr r3, _08075A48  @ gUnknown_0200002C
+	ldr r3, _08075A48  @ gEkrYPosBase
 	mov r8, r3
 	ldrh r2, [r3]
 	ldrh r3, [r4, #2]
@@ -84,7 +84,7 @@ sub_80758D4: @ 0x080758D4
 	lsls r2, r2, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	lsls r5, r5, #0x10
 	asrs r5, r5, #0x10
 	lsls r4, r4, #0x10
@@ -92,7 +92,7 @@ sub_80758D4: @ 0x080758D4
 	movs r0, #1
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
 	strh r0, [r7, #0x2c]
@@ -148,7 +148,7 @@ sub_80758D4: @ 0x080758D4
 	movs r3, #0
 	ldrsh r2, [r0, r3]
 	movs r0, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	lsls r5, r5, #0x10
@@ -156,7 +156,7 @@ sub_80758D4: @ 0x080758D4
 	movs r0, #1
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl sub_80559F0
+	bl SetEkrFrontAnimPostion
 	ldr r0, [r7, #0x60]
 	bl Proc_End
 	adds r0, r7, #0
@@ -172,9 +172,9 @@ _08075A2A:
 	.align 2, 0
 _08075A38: .4byte gUnknown_02017760
 _08075A3C: .4byte gBanimBgPosMaybe
-_08075A40: .4byte gUnknown_02000028
+_08075A40: .4byte gEkrXPosBase
 _08075A44: .4byte gUnknown_0201FB0C
-_08075A48: .4byte gUnknown_0200002C
+_08075A48: .4byte gEkrYPosBase
 _08075A4C: .4byte gUnknown_0201774C
 
 	THUMB_FUNC_END sub_80758D4

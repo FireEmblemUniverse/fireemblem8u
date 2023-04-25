@@ -1,213 +1,20 @@
         .section .data
 
-	.global ProcScr_EkrDemoKingIntro
-ProcScr_EkrDemoKingIntro:  @ 0x087F4324
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EkrDKIntroStartBaseHide
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80765E4
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word PrepareDemonKingBGFx
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076640
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807669C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076A84
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076798
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80767F4
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076818
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80768A0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80768F8
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-	.incbin "baserom.gba", 0x7F4324 + 0x68, 0x8
-
-	.global ProcScr_ekrDragonBaseHide
-ProcScr_ekrDragonBaseHide:  @ 0x087F4394
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e82dc
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076934
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807699C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_ekrDragonBaseAppear
-ProcScr_ekrDragonBaseAppear:  @ 0x087F43B4
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e82f0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076A10
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076A78
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_ekrDragonBodyAnime
-ProcScr_ekrDragonBodyAnime:  @ 0x087F43D4
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e8304
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807707C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_087F43EC
-gUnknown_087F43EC:  @ 0x087F43EC
-    .4byte Tsa_DeamonKingBG
-    .4byte gUnknown_087F7DC8 + 0x408
-    .4byte gUnknown_087F7DC8
-
-	.global gUnknown_087F43F8
-gUnknown_087F43F8:  @ 0x087F43F8
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_8076C34
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8076C10
-        @ PROC_SLEEP
-        .short 0xe, 0xc
-        .word 0x0
-        @ PROC_SLEEP
-        .short 0xe, 0x5a
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076C54
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076D60
-        @ PROC_SLEEP
-        .short 0xe, 0xa
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076DE8
-        @ PROC_SLEEP
-        .short 0xe, 0x1e
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076E00
-        @ PROC_SLEEP
-        .short 0xe, 0x16
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_087F4458
-gUnknown_087F4458:  @ 0x087F4458
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_8076C34
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8076C10
-        @ PROC_SLEEP
-        .short 0xe, 0x8
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076C54
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076D60
-        @ PROC_SLEEP
-        .short 0xe, 0xa
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076DE8
-        @ PROC_SLEEP
-        .short 0xe, 0x1e
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076E00
-        @ PROC_SLEEP
-        .short 0xe, 0x16
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_087F44B0
-gUnknown_087F44B0:  @ 0x087F44B0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_8076F28
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8076F08
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076F48
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076FD0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8076FD4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_087F44E0
-gUnknown_087F44E0:  @ 0x087F44E0
+	.global ProcScr_ekrDragonBodyUnk4
+ProcScr_ekrDragonBodyUnk4:  @ 0x087F44E0
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80771E4
+        .word EkrDragonBodyUnk4Main
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_087F44F8
-gUnknown_087F44F8:  @ 0x087F44F8
+	.global ProcScr_ekrDragonBodvBlack
+ProcScr_ekrDragonBodvBlack:  @ 0x087F44F8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e83a8
@@ -244,8 +51,8 @@ gUnknown_087F4518:  @ 0x087F4518
         .word 0x0
 
 
-	.global gUnknown_087F4548
-gUnknown_087F4548:  @ 0x087F4548
+	.global ProcScr_ekrDragonTunkFace
+ProcScr_ekrDragonTunkFace:  @ 0x087F4548
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e83bc
@@ -266,8 +73,8 @@ gUnknown_087F4548:  @ 0x087F4548
         .word 0x0
 
 
-	.global gUnknown_087F4578
-gUnknown_087F4578:  @ 0x087F4578
+	.global ProcScr_ekrDragonTunk
+ProcScr_ekrDragonTunk:  @ 0x087F4578
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e83d0
@@ -285,8 +92,8 @@ gUnknown_087F4578:  @ 0x087F4578
         .word 0x0
 
 
-	.global gUnknown_087F45A0
-gUnknown_087F45A0:  @ 0x087F45A0
+	.global ProcScr_ekrWhiteOUT
+ProcScr_ekrWhiteOUT:  @ 0x087F45A0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e83e0
@@ -311,20 +118,24 @@ gUnknown_087F45A0:  @ 0x087F45A0
 gUnknown_087F45D0:  @ 0x087F45D0
 	.incbin "baserom.gba", 0x7F45D0, 0x1C8
 
-	.global Img_DeamonKingBG
-Img_DeamonKingBG:  @ 0x087F4798
+	.global Img_DemonKingBG
+Img_DemonKingBG:  @ 0x087F4798
 	.incbin "baserom.gba", 0x7F4798, 0x31F4
 
-	.global Tsa_DeamonKingBG
-Tsa_DeamonKingBG:  @ 0x087F798C
+	.global Tsa_DemonKingBG1
+Tsa_DemonKingBG1:  @ 0x087F798C
 	.incbin "baserom.gba", 0x7F798C, 0x43C
 
-	.global gUnknown_087F7DC8
-gUnknown_087F7DC8:  @ 0x087F7DC8
-	.incbin "baserom.gba", 0x7F7DC8, 0x814
+	.global Tsa_DemonKingBG2
+Tsa_DemonKingBG2:  @ 0x087F7DC8
+	.incbin "baserom.gba", 0x7F7DC8, 0x408
 
-	.global Pal_DeamonKingBG
-Pal_DeamonKingBG:  @ 0x087F85DC
+	.global Tsa_DemonKingBG3
+Tsa_DemonKingBG3:  @ 0x087F7DC8
+	.incbin "baserom.gba", 0x7F81D0, 0x40C
+
+	.global Pal_DemonKingBG
+Pal_DemonKingBG:  @ 0x087F85DC
 	.incbin "baserom.gba", 0x7F85DC, 0x6EAC
 
 	.global gUnknown_087FF488
@@ -390,8 +201,8 @@ gUnknown_08801858:  @ 0x08801858
 gUnknown_08801860:  @ 0x08801860
 	.incbin "baserom.gba", 0x801860, 0x8
 
-	.global gUnknown_08801868
-gUnknown_08801868:  @ 0x08801868
+	.global ProcScr_ekrSelfThunder
+ProcScr_ekrSelfThunder:  @ 0x08801868
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e83f0
@@ -403,8 +214,8 @@ gUnknown_08801868:  @ 0x08801868
         .word 0x0
 
 
-	.global gUnknown_08801880
-gUnknown_08801880:  @ 0x08801880
+	.global ProcScr_ekrSelfThunderBG
+ProcScr_ekrSelfThunderBG:  @ 0x08801880
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e8400
@@ -423,85 +234,85 @@ gUnknown_08801880:  @ 0x08801880
 gUnknown_088018A0:  @ 0x088018A0
 @ Replacing .incbin "baserom.gba", 0x8018A0, 0x20C
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x20
-    .4byte Pal_DeamonKingBG + 0x4364
-    .4byte Pal_DeamonKingBG + 0x5938
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x20
+    .4byte Pal_DemonKingBG + 0x4364
+    .4byte Pal_DemonKingBG + 0x5938
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x2c4
-    .4byte Pal_DeamonKingBG + 0x4490
-    .4byte Pal_DeamonKingBG + 0x5a60
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x2c4
+    .4byte Pal_DemonKingBG + 0x4490
+    .4byte Pal_DemonKingBG + 0x5a60
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x6ac
-    .4byte Pal_DeamonKingBG + 0x45dc
-    .4byte Pal_DeamonKingBG + 0x5ba0
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x6ac
+    .4byte Pal_DemonKingBG + 0x45dc
+    .4byte Pal_DemonKingBG + 0x5ba0
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0xb70
-    .4byte Pal_DeamonKingBG + 0x4758
-    .4byte Pal_DeamonKingBG + 0x5cf8
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0xb70
+    .4byte Pal_DemonKingBG + 0x4758
+    .4byte Pal_DemonKingBG + 0x5cf8
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x1120
-    .4byte Pal_DeamonKingBG + 0x48dc
-    .4byte Pal_DeamonKingBG + 0x5e58
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x1120
+    .4byte Pal_DemonKingBG + 0x48dc
+    .4byte Pal_DemonKingBG + 0x5e58
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x1714
-    .4byte Pal_DeamonKingBG + 0x4a74
-    .4byte Pal_DeamonKingBG + 0x5fd0
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x1714
+    .4byte Pal_DemonKingBG + 0x4a74
+    .4byte Pal_DemonKingBG + 0x5fd0
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x1c90
-    .4byte Pal_DeamonKingBG + 0x4bf8
-    .4byte Pal_DeamonKingBG + 0x6140
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x1c90
+    .4byte Pal_DemonKingBG + 0x4bf8
+    .4byte Pal_DemonKingBG + 0x6140
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x21f4
-    .4byte Pal_DeamonKingBG + 0x4d7c
-    .4byte Pal_DeamonKingBG + 0x62bc
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x21f4
+    .4byte Pal_DemonKingBG + 0x4d7c
+    .4byte Pal_DemonKingBG + 0x62bc
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x26cc
-    .4byte Pal_DeamonKingBG + 0x4ef0
-    .4byte Pal_DeamonKingBG + 0x642c
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x26cc
+    .4byte Pal_DemonKingBG + 0x4ef0
+    .4byte Pal_DemonKingBG + 0x642c
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x2b0c
-    .4byte Pal_DeamonKingBG + 0x5048
-    .4byte Pal_DeamonKingBG + 0x6584
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x2b0c
+    .4byte Pal_DemonKingBG + 0x5048
+    .4byte Pal_DemonKingBG + 0x6584
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x2eb4
-    .4byte Pal_DeamonKingBG + 0x518c
-    .4byte Pal_DeamonKingBG + 0x66c4
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x2eb4
+    .4byte Pal_DemonKingBG + 0x518c
+    .4byte Pal_DemonKingBG + 0x66c4
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x3254
-    .4byte Pal_DeamonKingBG + 0x52d4
-    .4byte Pal_DeamonKingBG + 0x680c
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x3254
+    .4byte Pal_DemonKingBG + 0x52d4
+    .4byte Pal_DemonKingBG + 0x680c
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x35b0
-    .4byte Pal_DeamonKingBG + 0x5410
-    .4byte Pal_DeamonKingBG + 0x6944
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x35b0
+    .4byte Pal_DemonKingBG + 0x5410
+    .4byte Pal_DemonKingBG + 0x6944
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x3908
-    .4byte Pal_DeamonKingBG + 0x5548
-    .4byte Pal_DeamonKingBG + 0x6a7c
-    .4byte Pal_DeamonKingBG + 0x6e6c
+    .4byte Pal_DemonKingBG + 0x3908
+    .4byte Pal_DemonKingBG + 0x5548
+    .4byte Pal_DemonKingBG + 0x6a7c
+    .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x3cac
-    .4byte Pal_DeamonKingBG + 0x569c
-    .4byte Pal_DeamonKingBG + 0x6bd0
-    .4byte Pal_DeamonKingBG + 0x6e8c
+    .4byte Pal_DemonKingBG + 0x3cac
+    .4byte Pal_DemonKingBG + 0x569c
+    .4byte Pal_DemonKingBG + 0x6bd0
+    .4byte Pal_DemonKingBG + 0x6e8c
     .4byte 0x00000004
-    .4byte Pal_DeamonKingBG + 0x4014
-    .4byte Pal_DeamonKingBG + 0x57ec
-    .4byte Pal_DeamonKingBG + 0x6d1c
-    .4byte Pal_DeamonKingBG + 0x6e8c
+    .4byte Pal_DemonKingBG + 0x4014
+    .4byte Pal_DemonKingBG + 0x57ec
+    .4byte Pal_DemonKingBG + 0x6d1c
+    .4byte Pal_DemonKingBG + 0x6e8c
     .4byte 0xffffffff
     .4byte 0x00000000
     .4byte 0x00000000
