@@ -91,8 +91,8 @@ extern struct Font gSomeFontStruct;
 // extern ??? gUnknown_0200001C
 extern u32 gUnknown_02000020;
 extern u32 gUnknown_02000024;
-extern u16 gUnknown_02000028[];
-// extern ??? gUnknown_0200002C
+extern s16 gEkrXPosBase[2];
+extern s16 gEkrYPosBase[2];
 // extern ??? gUnknown_02000030
 // extern ??? gUnknown_02000034
 extern struct Vec2 gBanimBgPosMaybe;
@@ -417,12 +417,12 @@ void ClearBG1(void);
 // ??? sub_8055860(???);
 // ??? sub_805588C(???);
 // ??? sub_80558BC(???);
-// ??? sub_80558F4(???);
+s16 sub_80558F4(u16 *buf1, u16 *buf2, u16 *buf3);
 // ??? sub_8055980(???);
 // ??? GetAnimationStartFrameMaybe(???);
 // ??? sub_80559B0(???);
 void sub_80559D0(void *);
-// ??? sub_80559F0(???);
+void SetEkrFrontAnimPostion(int type, s16, s16);
 // ??? sub_8055A28(???);
 // ??? sub_8055A34(???);
 // ??? sub_8055A40(???);

@@ -4,8 +4,8 @@
 . = 0x00001C; gUnknown_0200001C = .;
 . = 0x000020; gUnknown_02000020 = .;
 . = 0x000024; gUnknown_02000024 = .;
-. = 0x000028; gUnknown_02000028 = .;
-. = 0x00002C; gUnknown_0200002C = .;
+. = 0x000028; gEkrXPosBase = .;
+. = 0x00002C; gEkrYPosBase = .;
 . = 0x000030; gUnknown_02000030 = .;
 . = 0x000034; gUnknown_02000034 = .;
 . = 0x000038; gBanimBgPosMaybe = .;
@@ -293,7 +293,7 @@
 . = 0x02013C; gUnknown_0202013C = .;
 . = 0x020140; gpAnimOnPopuProc = .;
 . = 0x020144; gpEkrPopupEndFlag = .;
-. = 0x020148; gUnknown_02020148 = .;
+. = 0x020148; gEkrSomePalBuf = .;
 . = 0x020188; gGenericBuffer = .;
 . = 0x020208; gUnknown_02020208 = .;
 . = 0x020288; gUnknown_02020288 = .;

@@ -707,8 +707,8 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
 
     if (gUnknown_080DA438[proc->timer] == -1) {
         if (sub_806FAB0() == 0) {
-            anim1->xPosition = gUnknown_02000028[GetAISSubjectId(proc->anim5C)] - gUnknown_0201FB0C;
-            anim2->xPosition = gUnknown_02000028[GetAISSubjectId(proc->anim60)] - gUnknown_0201FB0C;
+            anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - gUnknown_0201FB0C;
+            anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - gUnknown_0201FB0C;
         }
 
         Proc_Break(proc);
@@ -719,8 +719,8 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
             val1 = gUnknown_080DA438[proc->timer];
 
         if (sub_806FAB0() == 0) {
-            anim1->xPosition = gUnknown_02000028[GetAISSubjectId(proc->anim5C)] - (s32)gUnknown_0201FB0C + val1;
-            anim2->xPosition = gUnknown_02000028[GetAISSubjectId(proc->anim60)] - (s32)gUnknown_0201FB0C + val1;
+            anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - (s32)gUnknown_0201FB0C + val1;
+            anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - (s32)gUnknown_0201FB0C + val1;
         }
         proc->timer++;
     }

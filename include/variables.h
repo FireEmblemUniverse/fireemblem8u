@@ -175,8 +175,7 @@ extern u32 gUnknown_0201777C;
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 // extern ??? gUnknown_02017790
 extern u16 gUnknown_02019490[];
-extern u8 gUnknown_02019790[];
-// extern ??? gUnknown_02019D00
+extern u8 gUnknown_02019790[0x1000];
 // extern ??? gUnknown_0201A790
 // extern ??? gUnknown_0201AF90
 // extern ??? gUnknown_0201AFC0
@@ -256,8 +255,8 @@ extern u32 gUnknown_0201FB0C;
 // extern ??? gUnknown_020200B0
 // extern ??? gpAnimOnPopuProc
 // extern ??? gpEkrPopupEndFlag
-// extern ??? gUnknown_02020148
-extern u8 gGenericBuffer[]; // gGenericBuffer
+extern u8 gEkrSomePalBuf[0x40];
+extern u8 gGenericBuffer[0x1000];
 // extern ??? gUnknown_02020208
 // extern ??? gUnknown_02020288
 // extern ??? gUnknown_02020988
@@ -674,11 +673,11 @@ extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03004F08
 // extern ??? gUnknown_03004F0C
 // extern ??? gUnknown_03004F20
-// extern ??? gUnknown_03004FA0
-// extern ??? gUnknown_03004FA4
-extern int gUnknown_03004FA8;
+extern int gUnknown_03004FA0;
+extern int gUnknown_03004FA4;
+extern int gEkrXQuakeOff;
 // extern ??? gUnknown_03004FAC
-extern int gUnknown_03004FB0;
+extern int gEkrYQuakeOff;
 // extern ??? MADebugInfo
 // extern ??? gUnknown_03005090
 // extern ??? gUnknown_03005110
@@ -1004,12 +1003,12 @@ extern const s16 gUnknown_080DA438[];
 // extern ??? gUnknown_080E6CC4
 // extern ??? gUnknown_080E7400
 // extern ??? gUnknown_080E7B8C
-// extern ??? gUnknown_080E8318
-// extern ??? gUnknown_080E831E
-// extern ??? gUnknown_080E8334
-// extern ??? gUnknown_080E834E
-// extern ??? gUnknown_080E836C
-// extern ??? gUnknown_080E838E
+extern u16 gUnknown_080E8318[];
+extern u16 gUnknown_080E831E[];
+extern u16 gUnknown_080E8334[];
+extern u16 gUnknown_080E834E[];
+extern u16 gUnknown_080E836C[];
+extern u16 gUnknown_080E838E[];
 // extern ??? gMsgHuffmanTable
 // extern ??? gMsgHuffmanTableRoot
 extern const u8 *const gMsgStringTable[];
@@ -2508,24 +2507,24 @@ extern char gNopStr[];
 // extern ??? gUnknown_087F4184
 // extern ??? gUnknown_087F4314
 extern struct ProcCmd ProcScr_EkrDemoKingIntro[];
-// extern ??? ProcScr_ekrDragonBaseHide
-// extern ??? ProcScr_ekrDragonBaseAppear
-// extern ??? ProcScr_ekrDragonBodyAnime
-// extern ??? gUnknown_087F43EC
-// extern ??? gUnknown_087F43F8
-// extern ??? gUnknown_087F4458
-// extern ??? gUnknown_087F44B0
-// extern ??? gUnknown_087F44E0
-// extern ??? gUnknown_087F44F8
+extern struct ProcCmd ProcScr_ekrDragonBaseHide[];
+extern struct ProcCmd ProcScr_ekrDragonBaseAppear[];
+extern struct ProcCmd ProcScr_ekrDragonBodyAnime[];
+extern u16 *TsaSet_DKBody[];
+extern struct ProcCmd ProcScr_ekrDragonBodyUnk1[];
+extern struct ProcCmd ProcScr_ekrDragonBodyUnk2[];
+extern struct ProcCmd ProcScr_ekrDragonBodyUnk3[];
+extern struct ProcCmd ProcScr_ekrDragonBodyUnk4[];
 // extern ??? gUnknown_087F4518
-// extern ??? gUnknown_087F4548
-// extern ??? gUnknown_087F4578
-// extern ??? gUnknown_087F45A0
+extern struct ProcCmd ProcScr_ekrDragonTunkFace[];
+extern struct ProcCmd ProcScr_ekrDragonTunk[];
+extern struct ProcCmd ProcScr_ekrWhiteOUT[];
 // extern ??? gUnknown_087F45D0
-extern u16 Img_DeamonKingBG[];
-extern u16 Tsa_DeamonKingBG[];
-// extern ??? gUnknown_087F7DC8
-extern u16 Pal_DeamonKingBG[];
+extern u16 Img_DemonKingBG[];
+extern u16 Tsa_DemonKingBG1[];
+extern u16 Tsa_DemonKingBG2[];
+extern u16 Tsa_DemonKingBG3[];
+extern u16 Pal_DemonKingBG[];
 // extern ??? gUnknown_087FF488
 // extern ??? gUnknown_0880064C
 // extern ??? gUnknown_088017E0
@@ -2533,8 +2532,8 @@ extern u16 Pal_DeamonKingBG[];
 // extern ??? gUnknown_08801840
 // extern ??? gUnknown_08801858
 // extern ??? gUnknown_08801860
-// extern ??? gUnknown_08801868
-// extern ??? gUnknown_08801880
+// extern ??? ProcScr_ekrSelfThunder
+// extern ??? ProcScr_ekrSelfThunderBG
 // extern ??? gUnknown_088018A0
 // extern ??? gUnknown_08801AAC
 // extern ??? gUnknown_08801AB4
