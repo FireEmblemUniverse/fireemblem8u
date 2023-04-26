@@ -131,7 +131,7 @@ u16 GetEkrDragonStatusAttr(struct Anim *anim); /* 1 << 2 seems to be the end of 
 void AddEkrDragonStatusAttr(struct Anim *anim, u16 attr_bitfile);
 u32 GetEkrDragonStatusType(struct Anim *anim);
 // ??? GetEkrDragonStatusType_(???);
-// ??? SetEkrDragonStatusType(???);
+void SetEkrDragonStatusType(struct Anim *anim, u8 type);
 // ??? GetEkrDragonStatusUnk1(???);
 void SetEkrDragonStatusUnk1(int);
 // ??? ResetEkrDragonStatus(???);

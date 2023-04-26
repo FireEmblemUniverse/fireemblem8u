@@ -7380,8 +7380,8 @@ gUnknown_085D6D68:  @ 0x085D6D68
         .word 0x0
 
 
-	.global gUnknown_085D6D80
-gUnknown_085D6D80:  @ 0x085D6D80
+	.global ProcScr_efxBerserkBG
+ProcScr_efxBerserkBG:  @ 0x085D6D80
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80ddef0
@@ -7393,8 +7393,8 @@ gUnknown_085D6D80:  @ 0x085D6D80
         .word 0x0
 
 
-	.global gUnknown_085D6D98
-gUnknown_085D6D98:  @ 0x085D6D98
+	.global ProcScr_efxBerserkCLONE
+ProcScr_efxBerserkCLONE:  @ 0x085D6D98
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80ddf00
@@ -7409,8 +7409,8 @@ gUnknown_085D6D98:  @ 0x085D6D98
         .word 0x0
 
 
-	.global gUnknown_085D6DB8
-gUnknown_085D6DB8:  @ 0x085D6DB8
+	.global ProcScr_efxBerserkOBJ
+ProcScr_efxBerserkOBJ:  @ 0x085D6DB8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80ddf10
@@ -7482,8 +7482,8 @@ gUnknown_085D6DB8:  @ 0x085D6DB8
         .word 0x0
 
 
-	.global gUnknown_085D6E70
-gUnknown_085D6E70:  @ 0x085D6E70
+	.global ProcScr_efxMshield
+ProcScr_efxMshield:  @ 0x085D6E70
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80ddf20
@@ -7495,8 +7495,8 @@ gUnknown_085D6E70:  @ 0x085D6E70
         .word 0x0
 
 
-	.global gUnknown_085D6E88
-gUnknown_085D6E88:  @ 0x085D6E88
+	.global ProcScr_efxMshieldBG
+ProcScr_efxMshieldBG:  @ 0x085D6E88
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80ddf2c
@@ -7516,8 +7516,8 @@ gUnknown_085D6EA0:  @ 0x085D6EA0
     .4byte gUnknown_0868DF5C + 0x2ac
     .4byte gUnknown_0868DF5C + 0x3dc
 
-	.global gUnknown_085D6EB4
-gUnknown_085D6EB4:  @ 0x085D6EB4
+	.global ProcScr_efxMshieldBGOBJ
+ProcScr_efxMshieldBGOBJ:  @ 0x085D6EB4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de004
@@ -7532,8 +7532,8 @@ gUnknown_085D6EB4:  @ 0x085D6EB4
         .word 0x0
 
 
-	.global gUnknown_085D6ED4
-gUnknown_085D6ED4:  @ 0x085D6ED4
+	.global ProcScr_efxMshieldBGOBJ2
+ProcScr_efxMshieldBGOBJ2:  @ 0x085D6ED4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de014

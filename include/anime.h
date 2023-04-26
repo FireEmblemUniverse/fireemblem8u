@@ -107,6 +107,39 @@ enum {
 
 #define ANIM_IS_DISABLED(anim) ((anim)->state == 0)
 
+#define ANINS_IS_NOT_FORCESPRITE(instruction) ((instruction) & 0x80000000)
+#define ANINS_IS_PTRINS(instruction) ((instruction) & 0x40000000)
+
+#define ANINS_FORCESPRITE_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000003))
+#define ANINS_FORCESPRITE_GET_DELAY(instruction) ((((instruction) >> 26) & 0x1C) + ((instruction) & 3))
+
+#define ANINS_PTRINS_GET_TYPE(instruction) (0x3 & ((instruction) >> 28))
+#define ANINS_PTRINS_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000000))
+
+#define ANINS_GET_TYPE(instruction) (0x3F & ((instruction) >> 24))
+
+#define ANINS_WAIT_GET_DELAY(instruction) ((instruction) & 0xFFFF)
+
+#define ANINS_MOVE_GET_XOFF(instruction) (((int) ((instruction) << 24)) >> 24)
+#define ANINS_MOVE_GET_YOFF(instruction) (((int) ((instruction) << 16)) >> 24)
+#define ANINS_MOVE_GET_DELAY(instruction) (((instruction) >> 16) & 0xFF)
+
+#define ANINS_COMMAND_GET_ID(instruction) (0xFF & (instruction))
+
+#define ANINS_FRAME_GET_DELAY(instruction) ((instruction) & 0xFFFF)
+#define ANINS_FRAME_GET_UNK(instruction) ((instruction) >> 16) & 0xFF
+
+enum
+{
+    ANIM_INS_TYPE_STOP    = 0,
+    ANIM_INS_TYPE_END     = 1,
+    ANIM_INS_TYPE_LOOP    = 2,
+    ANIM_INS_TYPE_MOVE    = 3,
+    ANIM_INS_TYPE_WAIT    = 4,
+    ANIM_INS_TYPE_COMMAND = 5,
+    ANIM_INS_TYPE_FRAME   = 6,
+};
+
 void AnimUpdateAll(void);
 void AnimClearAll(void);
 struct Anim* AnimCreate_unused(const void* script);
@@ -156,7 +189,7 @@ void sub_8059D28(void);
 // ??? sub_8059DB8(???);
 // ??? sub_8059E18(???);
 // ??? sub_8059F5C(???);
-// ??? sub_805A07C(???);
+void sub_805A07C(struct Anim *anim, int);
 // ??? sub_805A154(???);
 int GetAISSubjectId(struct Anim *anim);
 // ??? GetSomeBoolean(???);
@@ -197,11 +230,11 @@ void PlaySound8FForArenaMaybe(void);
 void sub_805B094(void);
 void BeginAnimsOnBattle_Arena(void);
 void sub_805B0CC(void);
-// ??? sub_80708FC(???);
-// ??? sub_807096C(???);
-// ??? sub_80709CC(???);
-// ??? sub_80709EC(???);
-// ??? sub_8070A14(???);
+// ??? EkrMyr_PrepareBanimfx(???);
+// ??? EkrMyr_WaitForTransform(???);
+// ??? EkrMyr_TrigerForPrepared(???);
+// ??? EkrMyr_InBattleIdle(???);
+// ??? EkrMyr_ReturnToLoli(???);
 // ??? sub_8070AE4(???);
 void sub_8070B3C(void);
 void sub_8070D04(void *ptr, u16 a, u16 b, int r3, int r4);

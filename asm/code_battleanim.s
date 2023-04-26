@@ -18854,7 +18854,7 @@ sub_8062D30: @ 0x08062D30
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08062E28  @ gUnknown_085D6D80
+	ldr r0, _08062E28  @ ProcScr_efxBerserkBG
 	movs r1, #3
 	bl Proc_Start
 	str r5, [r0, #0x5c]
@@ -18957,7 +18957,7 @@ sub_8062D30: @ 0x08062D30
 	bx r0
 	.align 2, 0
 _08062E24: .4byte gUnknown_0201774C
-_08062E28: .4byte gUnknown_085D6D80
+_08062E28: .4byte ProcScr_efxBerserkBG
 _08062E2C: .4byte gUnknown_0868C338
 _08062E30: .4byte gUnknown_086849B8
 _08062E34: .4byte gUnknown_08684AB8
@@ -19027,7 +19027,7 @@ sub_8062EAC: @ 0x08062EAC
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08062ED4  @ gUnknown_085D6D98
+	ldr r0, _08062ED4  @ ProcScr_efxBerserkCLONE
 	movs r1, #4
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -19039,7 +19039,7 @@ sub_8062EAC: @ 0x08062EAC
 	bx r0
 	.align 2, 0
 _08062ED0: .4byte gUnknown_0201774C
-_08062ED4: .4byte gUnknown_085D6D98
+_08062ED4: .4byte ProcScr_efxBerserkCLONE
 
 	THUMB_FUNC_END sub_8062EAC
 
@@ -19117,7 +19117,7 @@ sub_8062F4C: @ 0x08062F4C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08062F98  @ gUnknown_085D6DB8
+	ldr r0, _08062F98  @ ProcScr_efxBerserkOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -19145,7 +19145,7 @@ sub_8062F4C: @ 0x08062F4C
 	bx r0
 	.align 2, 0
 _08062F94: .4byte gUnknown_0201774C
-_08062F98: .4byte gUnknown_085D6DB8
+_08062F98: .4byte ProcScr_efxBerserkOBJ
 _08062F9C: .4byte gUnknown_085D4F90
 _08062FA0: .4byte 0x0000F3FF
 
@@ -19464,7 +19464,7 @@ sub_8063214: @ 0x08063214
 	bl SetSomethingSpellFxToTrue
 	bl NewEfxSpellCast
 	bl ClearBG1Setup
-	ldr r0, _0806324C  @ gUnknown_085D6E70
+	ldr r0, _0806324C  @ ProcScr_efxMshield
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -19482,7 +19482,7 @@ sub_8063214: @ 0x08063214
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806324C: .4byte gUnknown_085D6E70
+_0806324C: .4byte ProcScr_efxMshield
 
 	THUMB_FUNC_END sub_8063214
 
@@ -19595,7 +19595,7 @@ sub_806331C: @ 0x0806331C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08063364  @ gUnknown_085D6E88
+	ldr r0, _08063364  @ ProcScr_efxMshieldBG
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -19620,7 +19620,7 @@ sub_806331C: @ 0x0806331C
 	bx r0
 	.align 2, 0
 _08063360: .4byte gUnknown_0201774C
-_08063364: .4byte gUnknown_085D6E88
+_08063364: .4byte ProcScr_efxMshieldBG
 _08063368: .4byte gUnknown_080DDF3A
 _0806336C: .4byte gUnknown_085D6EA0
 _08063370: .4byte gUnknown_0868DF5C
@@ -19682,7 +19682,7 @@ sub_80633D0: @ 0x080633D0
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08063418  @ gUnknown_085D6EB4
+	ldr r0, _08063418  @ ProcScr_efxMshieldBGOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -19707,7 +19707,7 @@ sub_80633D0: @ 0x080633D0
 	bx r0
 	.align 2, 0
 _08063414: .4byte gUnknown_0201774C
-_08063418: .4byte gUnknown_085D6EB4
+_08063418: .4byte ProcScr_efxMshieldBGOBJ
 _0806341C: .4byte gUnknown_08692524
 _08063420: .4byte gUnknown_0868E46C
 _08063424: .4byte gUnknown_08686F84
@@ -19723,7 +19723,7 @@ sub_8063428: @ 0x08063428
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08063460  @ gUnknown_085D6ED4
+	ldr r0, _08063460  @ ProcScr_efxMshieldBGOBJ2
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -19741,7 +19741,7 @@ sub_8063428: @ 0x08063428
 	bx r0
 	.align 2, 0
 _0806345C: .4byte gUnknown_0201774C
-_08063460: .4byte gUnknown_085D6ED4
+_08063460: .4byte ProcScr_efxMshieldBGOBJ2
 _08063464: .4byte gUnknown_08692674
 
 	THUMB_FUNC_END sub_8063428
@@ -44404,7 +44404,7 @@ sub_806F668: @ 0x0806F668
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	ldr r0, [r0, #0x1c]
-	ldr r5, _0806F6AC  @ gUnknown_0201C790
+	ldr r5, _0806F6AC  @ gPalBackupEkrUnitMaybe
 	adds r1, r5, #0
 	bl LZ77UnCompWram
 	adds r5, #0x20
@@ -44426,7 +44426,7 @@ sub_806F668: @ 0x0806F668
 	bx r0
 	.align 2, 0
 _0806F6A8: .4byte banim_data
-_0806F6AC: .4byte gUnknown_0201C790
+_0806F6AC: .4byte gPalBackupEkrUnitMaybe
 _0806F6B0: .4byte gUnknown_02022AE8
 
 	THUMB_FUNC_END sub_806F668

@@ -150,6 +150,7 @@ SECTIONS
         src/banim-ekrdragonstatus.o(.text);
         src/banim-ekrdragon-dracozombie.o(.text);
         asm/banim-ekrdragon.o(.text);
+        src/banim-ekrdragon-myrrh.o(.text);
         asm/banim-ekrclasschg.o(.text);
         src/ekrlevelup.o(.text);
         asm/ekrlevelup.o(.text);
@@ -477,6 +478,7 @@ SECTIONS
         . = ALIGN(4); data/data_banim.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-dracozombie.o(.data);
         . = ALIGN(4); data/data-ekrdragon.o(.data);
+        . = ALIGN(4); src/banim-ekrdragon-myrrh.o(.data);
         . = ALIGN(4); data/data-ekrclasschg.o(.data);
         . = ALIGN(4); src/ekrlevelup.o(.data);
         . = ALIGN(4); data/data_7593DC.o(.data);

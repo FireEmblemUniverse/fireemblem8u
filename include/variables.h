@@ -204,7 +204,7 @@ extern u8 gEkrTsaBuffer[0x1000];
 // extern ??? gUnknown_0201C5D0
 // extern ??? gUnknown_0201C5D1
 // extern ??? gUnknown_0201C5D4
-// extern ??? gUnknown_0201C790
+extern u16 gPalBackupEkrUnitMaybe[0x40 / sizeof(u16)];
 // extern ??? gUnknown_0201C8D0
 // extern ??? gUnknown_0201C912
 extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
@@ -1739,14 +1739,14 @@ extern char gNopStr[];
 // extern ??? gUnknown_085D6D14
 // extern ??? gUnknown_085D6D48
 // extern ??? gUnknown_085D6D68
-// extern ??? gUnknown_085D6D80
-// extern ??? gUnknown_085D6D98
-// extern ??? gUnknown_085D6DB8
-// extern ??? gUnknown_085D6E70
-// extern ??? gUnknown_085D6E88
+// extern ??? ProcScr_efxBerserkBG
+// extern ??? ProcScr_efxBerserkCLONE
+// extern ??? ProcScr_efxBerserkOBJ
+// extern ??? ProcScr_efxMshield
+// extern ??? ProcScr_efxMshieldBG
 // extern ??? gUnknown_085D6EA0
-// extern ??? gUnknown_085D6EB4
-// extern ??? gUnknown_085D6ED4
+// extern ??? ProcScr_efxMshieldBGOBJ
+// extern ??? ProcScr_efxMshieldBGOBJ2
 // extern ??? gUnknown_085D6EF4
 // extern ??? gUnknown_085D6F0C
 // extern ??? gUnknown_085D6F24
@@ -2415,10 +2415,11 @@ extern struct ProcCmd ProcScr_ekrWhiteINOUT[];
 // extern ??? gUnknown_08758720
 // extern ??? gUnknown_08758740
 // extern ??? ProcScr_EkrMyrrh
+extern struct ProcCmd ProcScr_EkrMyrrh[];
 // extern ??? gUnknown_0875879C
 // extern ??? gUnknown_08758A1C
-// extern ??? ProcScr_ekrsubAnimeEmulator
-// extern ??? ProcScr_efxSoundSE
+extern struct ProcCmd ProcScr_ekrsubAnimeEmulator[];
+extern struct ProcCmd ProcScr_efxSoundSE[];
 // extern ??? gUnknown_08758A60
 // extern ??? gUnknown_08758D20
 // extern ??? gUnknown_08758D3C

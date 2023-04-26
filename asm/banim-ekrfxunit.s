@@ -740,7 +740,7 @@ NewEfxSpellCast: @ 0x08054FA8
 	cmp r0, #0
 	bne _08054FEC
 	ldr r0, _08054FE4  @ pPalette6Buffer
-	ldr r1, _08054FE8  @ gUnknown_0201C790
+	ldr r1, _08054FE8  @ gPalBackupEkrUnitMaybe
 	movs r2, #0x50
 	bl CpuFastSet
 	b _08054FF0
@@ -748,7 +748,7 @@ NewEfxSpellCast: @ 0x08054FA8
 _08054FDC: .4byte gProc_efxSpellCast
 _08054FE0: .4byte gUnknown_02017778
 _08054FE4: .4byte pPalette6Buffer
-_08054FE8: .4byte gUnknown_0201C790
+_08054FE8: .4byte gPalBackupEkrUnitMaybe
 _08054FEC:
 	bl Proc_End
 _08054FF0:
@@ -815,7 +815,7 @@ sub_8055038: @ 0x08055038
 	movs r2, #8
 	bl Interpolate
 	adds r5, r0, #0
-	ldr r0, _08055094  @ gUnknown_0201C790
+	ldr r0, _08055094  @ gPalBackupEkrUnitMaybe
 	ldr r4, _08055098  @ pPalette6Buffer
 	adds r1, r4, #0
 	movs r2, #0x50
@@ -845,7 +845,7 @@ _0805508C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08055094: .4byte gUnknown_0201C790
+_08055094: .4byte gPalBackupEkrUnitMaybe
 _08055098: .4byte pPalette6Buffer
 
 	THUMB_FUNC_END sub_8055038
@@ -854,7 +854,7 @@ _08055098: .4byte pPalette6Buffer
 sub_805509C: @ 0x0805509C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _080550D4  @ gUnknown_0201C790
+	ldr r0, _080550D4  @ gPalBackupEkrUnitMaybe
 	ldr r4, _080550D8  @ pPalette6Buffer
 	adds r1, r4, #0
 	movs r2, #0x50
@@ -879,7 +879,7 @@ _080550CE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080550D4: .4byte gUnknown_0201C790
+_080550D4: .4byte gPalBackupEkrUnitMaybe
 _080550D8: .4byte pPalette6Buffer
 
 	THUMB_FUNC_END sub_805509C
@@ -899,7 +899,7 @@ sub_80550DC: @ 0x080550DC
 	movs r2, #0
 	bl Interpolate
 	adds r4, r0, #0
-	ldr r7, _08055150  @ gUnknown_0201C790
+	ldr r7, _08055150  @ gPalBackupEkrUnitMaybe
 	ldr r6, _08055154  @ pPalette6Buffer
 	adds r0, r7, #0
 	adds r1, r6, #0
@@ -938,7 +938,7 @@ _08055146:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08055150: .4byte gUnknown_0201C790
+_08055150: .4byte gPalBackupEkrUnitMaybe
 _08055154: .4byte pPalette6Buffer
 _08055158: .4byte gUnknown_02017778
 

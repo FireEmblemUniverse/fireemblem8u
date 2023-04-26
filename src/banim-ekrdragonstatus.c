@@ -5,6 +5,10 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 
+EWRAM_DATA struct EkrDragonStatus gEkrDragonStatusLeft  = {0};
+EWRAM_DATA struct EkrDragonStatus gEkrDragonStatusRight = {0};
+EWRAM_DATA u16 gEkrDragonPalBackup[0x40 / sizeof(u16)] = {0};
+
 u32 GetEkrDragonStatusType_(struct Anim *anim);
 
 void ResetEkrDragonStatus(void)
