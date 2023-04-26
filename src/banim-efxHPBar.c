@@ -171,8 +171,8 @@ void EfxPrepareScreenFx(void)
     CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gBanimSomeObjPalIndex[1], 0), PAL_BG(0x3), 0x20);
     EnablePaletteSync();
 
-    gBanimBgPosMaybe.x = 0;
-    gBanimBgPosMaybe.y = 0;
+    gEkrBg0QuakeVec.x = 0;
+    gEkrBg0QuakeVec.y = 0;
     BG_SetPosition(BG_0, 0, 0);
 }
 
@@ -210,8 +210,8 @@ int GetEkrSomePosMaybe(void)
 
 void sub_8052214(int a, int b)
 {
-    gUnknown_02017760[0] = a;
-    gUnknown_02017760[1] = b;
+    gEkrBg2QuakeVec.x = a;
+    gEkrBg2QuakeVec.y = b;
 }
 
 void EkrEfxStatusClear(void)

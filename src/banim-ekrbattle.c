@@ -156,7 +156,7 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
 
     sub_8059D28();
     sub_8070B3C();
-    sub_8070254();
+    SetAnimStateHiddenForDragon();
 
     gUnknown_02000024 = 1;
 
@@ -197,7 +197,7 @@ void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc)
     EkrGauge_Set2A();
     sub_8051B90();
     CpuFastFill(0, gBG0TilemapBuffer, 0x800);
-    BG_SetPosition(BG_0, gBanimBgPosMaybe.x, gBanimBgPosMaybe.y);
+    BG_SetPosition(BG_0, gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
     BG_SetPosition(BG_1, 0, 0);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     EkrGauge_Set4C50();

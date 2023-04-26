@@ -598,12 +598,12 @@ _08073EE2:
 	movs r1, #2
 	movs r2, #4
 	mov r3, sl
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x13
 	movs r2, #0xc
 	mov r3, sl
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
@@ -1119,12 +1119,12 @@ EkrLvup_PutWindowOffScreen: @ 0x080742F8
 	movs r1, #2
 	movs r2, #4
 	adds r3, r6, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x13
 	movs r2, #0xc
 	adds r3, r6, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	movs r0, #7
 _08074384:
@@ -2450,7 +2450,7 @@ sub_8074D58: @ 0x08074D58
 	movs r3, #5
 	str r3, [sp, #8]
 	movs r3, #0
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	ldr r0, [sp, #0x3c]
 	cmp r0, #0
 	beq _08074E52
@@ -2470,7 +2470,7 @@ sub_8074D58: @ 0x08074D58
 	mov r0, r8
 	mov r1, r9
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r4, #0x64]
 	b _08074E2A
 	.align 2, 0
@@ -2493,7 +2493,7 @@ _08074DE4:
 	str r3, [sp, #8]
 	mov r1, r9
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r4, #0x60]
 	orrs r6, r7
 	ldr r2, _08074E68  @ gUnknown_085C92D0
@@ -2505,7 +2505,7 @@ _08074DE4:
 	mov r0, r8
 	mov r1, r9
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r4, #0x64]
 	ldr r0, [sp, #0x40]
 	ldr r1, [sp, #0x18]
@@ -2586,7 +2586,7 @@ _08074E80:
 	movs r3, #3
 	str r3, [sp, #8]
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r4, #0x60]
 	ldr r0, [r4, #0x50]
 	movs r2, #0x30
@@ -3891,7 +3891,7 @@ sub_807589C: @ 0x0807589C
 	str r5, [r4, #0x5c]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8053678
+	bl NewEfxQuakePure
 	str r0, [r4, #0x60]
 	movs r0, #0
 	strh r0, [r4, #0x2c]

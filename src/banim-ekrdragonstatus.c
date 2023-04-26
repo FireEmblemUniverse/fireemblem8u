@@ -72,7 +72,7 @@ void SetEkrDragonStatusUnk1(int unk1)
     gEkrDragonStatusLeft.unk01 = unk1;
 }
 
-int GetBanimDragonStatusType(void)
+u32 GetBanimDragonStatusType(void)
 {
     int ret;
 

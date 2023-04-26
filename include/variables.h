@@ -165,7 +165,7 @@ extern u32 gUnknown_02017750;
 extern u32 gUnknown_02017754;
 extern u32 gUnknown_02017758;
 extern u32 gUnknown_0201775C;
-extern short gUnknown_02017760[2];
+struct Vec2 gEkrBg2QuakeVec;
 extern short gUnknown_02017764[2];
 extern short gUnknown_02017768[2];
 extern u32 gUnknown_0201776C[2];
@@ -249,7 +249,7 @@ extern u32 gEkrBgXOffset;
 // extern ??? gUnknown_02020044
 // extern ??? gEkrDragonStatusLeft
 // extern ??? gEkrDragonStatusRight
-// extern ??? gUnknown_02020068
+extern u16 gEkrDragonPalBackup[0x40 / sizeof(u16)];
 // extern ??? gUnknown_020200A8
 // extern ??? gUnknown_020200AC
 // extern ??? gUnknown_020200B0
@@ -283,7 +283,7 @@ extern u16 pPalette2Buffer[];
 // extern ??? gUnknown_02022B28
 extern u16 gUnknown_02022B48[];
 // extern ??? gUnknown_02022B68
-// extern ??? gUnknown_02022B88
+extern u16 gUnknown_02022B88[];
 extern u16 gUnknown_02022BA4[];
 // extern ??? gUnknown_02022BA8
 // extern ??? gUnknown_02022BC8
@@ -2408,17 +2408,17 @@ extern char gNopStr[];
 // extern ??? gUnknown_08758218
 // extern ??? gUnknown_087584B8
 // extern ??? gUnknown_087585DC
-// extern ??? gUnknown_087585F8
-// extern ??? gUnknown_08758670
-// extern ??? gUnknown_087586D8
-// extern ??? gUnknown_087586F0
+// extern ??? gEkrDracoZombiTsaSetLut
+extern struct ProcCmd ProcScr_EkrDracoZombie[];
+extern struct ProcCmd ProcScr_ekrDragonQuake[];
+extern struct ProcCmd ProcScr_ekrWhiteINOUT[];
 // extern ??? gUnknown_08758720
 // extern ??? gUnknown_08758740
-// extern ??? gUnknown_08758754
+// extern ??? ProcScr_EkrMyrrh
 // extern ??? gUnknown_0875879C
 // extern ??? gUnknown_08758A1C
-// extern ??? gUnknown_08758A30
-// extern ??? gUnknown_08758A48
+// extern ??? ProcScr_ekrsubAnimeEmulator
+// extern ??? ProcScr_efxSoundSE
 // extern ??? gUnknown_08758A60
 // extern ??? gUnknown_08758D20
 // extern ??? gUnknown_08758D3C
@@ -2428,21 +2428,21 @@ extern char gNopStr[];
 // extern ??? gUnknown_08758E8C
 // extern ??? gUnknown_08758F18
 // extern ??? gUnknown_08758FA4
-// extern ??? gUnknown_08758FC0
-// extern ??? gUnknown_08758FE8
+// extern ??? ProcScr_efxClasschg
+// extern ??? ProcScr_efxClasschgBG
 // extern ??? gUnknown_08759000
 // extern ??? gUnknown_08759094
 // extern ??? gUnknown_08759128
-// extern ??? gUnknown_087591BC
-// extern ??? gUnknown_087591D4
-// extern ??? gUnknown_087591EC
-// extern ??? gUnknown_0875920C
-// extern ??? gUnknown_0875922C
-// extern ??? gUnknown_0875924C
-// extern ??? gUnknown_08759264
-// extern ??? gUnknown_08759284
-// extern ??? gUnknown_0875929C
-// extern ??? gUnknown_087592B4
+// extern ??? ProcScr_efxClasschgBGSE00
+// extern ??? ProcScr_efxClasschgBGSE01
+// extern ??? ProcScr_efxClasschgOBJGain
+// extern ??? ProcScr_efxClasschgOBJDrop
+// extern ??? ProcScr_efxClasschgOBJDiffusion
+// extern ??? ProcScr_efxClasschgFIN
+// extern ??? ProcScr_efxClasschgCLONE
+// extern ??? ProcScr_efxBlackInOutUnit
+// extern ??? ProcScr_efxWhiteInOutUnit
+// extern ??? ProcScr_efxClasschgRST
 // extern ??? gUnknown_087592CC
 // extern ??? EkrLvupMsgsStr
 // extern ??? EkrLvupMsgsMag
@@ -2485,10 +2485,15 @@ extern char gNopStr[];
 // extern ??? ProcScr_ekrPopup2
 // extern ??? ProcScr_ekrHenseiInit
 // extern ??? ProcScr_ekrHenseiEnd
-// extern ??? Img_EfxDracoZombie
-// extern ??? gUnknown_08790F88
-// extern ??? gUnknown_0879115C
-// extern ??? Pal_EfxDracoZombie
+extern u16 Img_EfxDracoZombie[];
+extern u16 Tsa_EfxDracoZombieBaseLeft[];
+extern u16 Tsa_EfxDracoZombieBaseRight[];
+extern u16 Tsa_EfxDracoZombie1[];
+extern u16 Tsa_EfxDracoZombie2[];
+extern u16 Tsa_EfxDracoZombie3[];
+extern u16 Tsa_EfxDracoZombie4[];
+extern u16 Tsa_EfxDracoZombie5[];
+extern u16 Pal_EfxDracoZombie[];
 // extern ??? gUnknown_08791D7C
 // extern ??? gUnknown_08791D9C
 // extern ??? gUnknown_08792194
@@ -2559,7 +2564,7 @@ extern u16 gUnknown_08802B04[];
 // extern ??? gUnknown_08802B84
 // extern ??? gUnknown_08802BC4
 extern u16 gUnknown_08802C84[];
-// extern ??? gUnknown_08802D24
+extern u16 gUnknown_08802D24[];
 extern u8 gUnknown_08802D44[];
 extern u16 gUnknown_088030C4[];
 extern u16 gUnknown_088033C4[];

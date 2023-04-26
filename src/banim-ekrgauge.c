@@ -66,7 +66,7 @@ void NewEkrGauge(void)
     EkrGauge_Clr4C50();
     EkrGauge_Clr2A();
     EkrGauge_ClrInitFlag();
-    EkrGauge_Clr323A(gBanimBgPosMaybe.x, gBanimBgPosMaybe.y);
+    EkrGauge_Clr323A(gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
 
     if (gUnknown_0203E1AC[0] > 0x50)
         CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xB), 0x10 * sizeof(u16));
@@ -166,7 +166,7 @@ void EkrGauge_Clr323A(int x, int y)
     gpProcEkrGauge->battle_init = false;
 }
 
-void EkrGauge_Setxy323A(int x, int y)
+void EkrGauge_Setxy323A(s16 x, s16 y)
 {
     gpProcEkrGauge->unk32 = x;
     gpProcEkrGauge->unk3A = y;

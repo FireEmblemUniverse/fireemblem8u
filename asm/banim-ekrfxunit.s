@@ -825,7 +825,7 @@ sub_8055038: @ 0x08055038
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -864,7 +864,7 @@ sub_805509C: @ 0x0805509C
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #8
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r5, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -910,7 +910,7 @@ sub_80550DC: @ 0x080550DC
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r1, [r5, #0x2c]
 	adds r1, #1

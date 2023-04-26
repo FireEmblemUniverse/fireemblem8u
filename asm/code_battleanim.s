@@ -2605,7 +2605,7 @@ _0805ACE8:
 _0805AD0C:
 	movs r1, #0x68
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r6, #0x18]
 _0805AD16:
 	movs r0, #0
@@ -2720,7 +2720,7 @@ _0805ADD4:
 _0805ADF8:
 	movs r1, #0x68
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r6, #0x14]
 _0805AE02:
 	add sp, #0xc
@@ -3180,7 +3180,7 @@ sub_805B104: @ 0x0805B104
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	mov r0, r8
 	bl Proc_Break
@@ -3275,7 +3275,7 @@ sub_805B200: @ 0x0805B200
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -3376,7 +3376,7 @@ sub_805B2BC: @ 0x0805B2BC
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -4699,7 +4699,7 @@ StartSpellThing_MagicQuake: @ 0x0805BC80
 	str r6, [r4, #0x5c]
 	adds r0, r5, #0
 	movs r1, #0
-	bl sub_8053678
+	bl NewEfxQuakePure
 	str r0, [r4, #0x60]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -4724,12 +4724,12 @@ Loop6C_efxMagicQUAKE: @ 0x0805BCC4
 	mov r5, r8
 	push {r5, r6, r7}
 	mov r8, r0
-	ldr r5, _0805BD54  @ gUnknown_02017760
+	ldr r5, _0805BD54  @ gEkrBg2QuakeVec
 	ldrh r1, [r5]
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl BG_SetPosition
-	ldr r4, _0805BD58  @ gBanimBgPosMaybe
+	ldr r4, _0805BD58  @ gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	ldrh r0, [r5]
 	adds r1, r1, r0
@@ -4785,8 +4785,8 @@ _0805BD42:
 	subs r0, r0, r1
 	b _0805BD68
 	.align 2, 0
-_0805BD54: .4byte gUnknown_02017760
-_0805BD58: .4byte gBanimBgPosMaybe
+_0805BD54: .4byte gEkrBg2QuakeVec
+_0805BD58: .4byte gEkrBg0QuakeVec
 _0805BD5C: .4byte gEkrXPosBase
 _0805BD60:
 	ldr r4, _0805BE78  @ gEkrXPosBase
@@ -4807,7 +4807,7 @@ _0805BD68:
 	lsrs r6, r0, #0x10
 	mov r9, r4
 	mov sl, r2
-	ldr r2, _0805BE84  @ gUnknown_02017760
+	ldr r2, _0805BE84  @ gEkrBg2QuakeVec
 	ldrh r0, [r2]
 	mov r1, r9
 	ldrh r1, [r1, #2]
@@ -4853,7 +4853,7 @@ _0805BD68:
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	ldr r4, _0805BE8C  @ gBanimBgPosMaybe
+	ldr r4, _0805BE8C  @ gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	ldrh r2, [r4, #2]
 	movs r0, #0
@@ -4924,9 +4924,9 @@ _0805BE6A:
 _0805BE78: .4byte gEkrXPosBase
 _0805BE7C: .4byte gEkrBgXOffset
 _0805BE80: .4byte gEkrYPosBase
-_0805BE84: .4byte gUnknown_02017760
+_0805BE84: .4byte gEkrBg2QuakeVec
 _0805BE88: .4byte gUnknown_0201774C
-_0805BE8C: .4byte gBanimBgPosMaybe
+_0805BE8C: .4byte gEkrBg0QuakeVec
 
 	THUMB_FUNC_END Loop6C_efxMagicQUAKE
 
@@ -10493,7 +10493,7 @@ sub_805EAF0: @ 0x0805EAF0
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x20
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -30182,7 +30182,7 @@ sub_8068638: @ 0x08068638
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -30228,22 +30228,22 @@ sub_8068680: @ 0x08068680
 	movs r1, #4
 	movs r2, #2
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x19
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -30315,22 +30315,22 @@ sub_8068738: @ 0x08068738
 	movs r1, #4
 	movs r2, #2
 	movs r3, #0x10
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #0x10
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x19
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -31053,7 +31053,7 @@ sub_8068D20: @ 0x08068D20
 	ldr r0, _08068D70  @ gPaletteBuffer
 	movs r1, #6
 	movs r2, #0xa
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -31123,7 +31123,7 @@ _08068DB4:
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 _08068DCE:
 	pop {r0}
@@ -38331,7 +38331,7 @@ _0806C6C0:
 	str r2, [sp, #8]
 	adds r2, r4, #0
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r6, #0x60]
 	add sp, #0xc
 	pop {r4, r5, r6}

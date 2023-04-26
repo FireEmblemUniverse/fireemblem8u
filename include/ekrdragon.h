@@ -20,6 +20,9 @@ struct EkrDragonStatus {
         EKRDRGON_ATTR_BANIMFX_PREPARED = 1 << 1,
         EKRDRGON_ATTR_BANIMFINISH = 1 << 2,
         EKRDRGON_ATTR_END = 1 << 3,
+
+        EKRDRGON_ATTR_B12 = 1 << 12,
+        EKRDRGON_ATTR_B13 = 1 << 13,
     };
 
     /* 02 */ u16 attr;
@@ -30,7 +33,7 @@ struct EkrDragonStatus {
 
 extern struct EkrDragonStatus gEkrDragonStatusLeft, gEkrDragonStatusRight;
 
-struct ProcEkrDK {
+struct ProcEkrDragon {
     PROC_HEADER;
 
     /* 29 */ u8 _pad_29[0x2C - 0x29];
@@ -46,6 +49,16 @@ struct ProcEkrDK {
 
     /* 5C */ struct Anim *anim;
 };
+
+struct EkrDracoZombiTsaSet {
+    /* 00 */ u16 *tsa;
+    /* 04 */ u8 unk04;
+    /* 05 */ s8 lox;
+    /* 06 */ u8 loy;
+    /* 07 */ u8 unk07;
+};
+
+extern struct EkrDracoZombiTsaSet gEkrDracoZombiTsaSetLut[15];
 
 struct ProcEfxDKfx {
     PROC_HEADER;
@@ -64,6 +77,27 @@ struct ProcEfxDKfx {
     /* 54 */ u32 round_cur;
     /* 58 */ u32 unk58;
     /* 5C */ struct Anim *anim;
+};
+
+struct EkrDragonQuakePriv {
+    /* 00 */ u8 _pad_00[0x32 - 0x00];
+    /* 32 */ u16 unk32;
+    /* 34 */ u8 _pad_34[0x3A - 0x34];
+    /* 3A */ u16 unk3A;
+};
+
+struct ProcEkrDragonQuake {
+    PROC_HEADER;
+
+    /* 29 */ s8 unk29;
+    /* 2A */ s8 unk2A;
+    /* 2C */ s16 unk2C;
+    /* 2E */ s16 unk2E;
+
+    /* 30 */ u8 _pad_30[0x5C - 0x30];
+
+    /* 5C */ struct EkrDragonQuakePriv *priv;
+    /* 60 */ ProcPtr subproc;
 };
 
 struct ProcEfxDKBody1 {
@@ -101,39 +135,39 @@ u32 GetEkrDragonStatusType(struct Anim *anim);
 // ??? GetEkrDragonStatusUnk1(???);
 void SetEkrDragonStatusUnk1(int);
 // ??? ResetEkrDragonStatus(???);
-int GetBanimDragonStatusType(void);
+u32 GetBanimDragonStatusType(void);
 // ??? sub_806FAD8(???);
 void EkrDragonBgSetPostion(int, int);
 void sub_806FBB8(void);
 bool CheckEfrDragonStatusAttrPrepared(struct Anim *anim);
 bool CheckEfrDragonStatusAttrEnd(struct Anim *anim);
-// ??? sub_806FC30(???);
-// ??? sub_806FC50(???);
+// ??? Fill16_EkrTsaBuffer(???);
+// ??? EkrDZ_CustomBgFadeIn(???);
 // ??? EfxDracoZombiePrepareTSA(???);
 // ??? EfxDracoZombiePrepareImg(???);
 // ??? sub_806FD74(???);
-// ??? sub_806FEA4(???);
-// ??? sub_806FED4(???);
-// ??? sub_806FF00(???);
-// ??? sub_806FF48(???);
-// ??? sub_80700CC(???);
-// ??? sub_80701A0(???);
+// ??? EkrDZ_PrepareBanimfx(???);
+// ??? EkrDZ_TriggerPreparedFlag(???);
+// ??? EkrDZ_IdleInBattle(???);
+// ??? EkrDZ_ReloadCustomBg(???);
+// ??? EkrDZ_ReloadCustomBgAndFadeOut(???);
+// ??? EkrDZ_SetDragonStatAttrEndBit(???);
 void EfxDoDracoZombieIntroAnim(struct Anim *anim);
 void SetEkrDragonStatusAttrFinished(struct Anim *anim);
-// ??? sub_80701F4(???);
-// ??? sub_8070204(???);
+// ??? SetEkrDragonStatusAttrBit12(???);
+// ??? SetEkrDragonStatusAttrBit13(???);
 bool CheckEkrDragonDeadEffectMaybe(struct Anim *anim);
-// ??? sub_8070234(???);
-void sub_8070254(void);
+bool CheckEkrDragonStatusAttrBit13(struct Anim *anim);
+void SetAnimStateHiddenForDragon(void);
 // ??? sub_807027C(???);
-// ??? sub_80702D0(???);
+u16 *sub_80702D0(void);
 // ??? sub_80702FC(???);
 // ??? sub_807032C(???);
 // ??? sub_807035C(???);
-// ??? sub_8070380(???);
-// ??? sub_807038C(???);
-// ??? sub_80703C4(???);
-// ??? sub_8070568(???);
+void NewEkrDragonQuakeTree3(struct EkrDragonQuakePriv *priv, int, int);
+void NewEkrDragonQuake(struct EkrDragonQuakePriv *priv, int, int, ProcPtr);
+// ??? EkrDragonQuakeMain(???);
+// ??? NewEkrWhiteINOUT(???);
 // ??? sub_80705A8(???);
 // ??? sub_8070618(???);
 // ??? sub_8070670(???);
@@ -148,7 +182,7 @@ void EfxDoMyrrhIntroAnim(struct Anim *anim);
 // ??? CheckEkrWpnDemonLight(???);
 // ??? EkrDKStartBaseHide(???);
 // ??? EkrDK_CustomBgFadeIn(???);
-// ??? FillMem32_02019790(???);
+// ??? Fill16_EkrTsaBuffer_(???);
 // ??? EkrDK_BgMovement(???);
 // ??? EkrDK_PrepareBanimfx(???);
 // ??? PrepareDemonKingBGFx(???);

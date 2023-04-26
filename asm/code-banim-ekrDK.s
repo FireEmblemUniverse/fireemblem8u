@@ -38,7 +38,7 @@ sub_80772E4: @ 0x080772E4
 	movs r1, #4
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -79,12 +79,12 @@ sub_8077310: @ 0x08077310
 	movs r1, #6
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -801,19 +801,19 @@ sub_807789C: @ 0x0807789C
 	lsls r0, r0, #1
 	cmp r1, r0
 	bgt _080778BC
-	ldr r1, _08077A8C  @ gUnknown_02017760
+	ldr r1, _08077A8C  @ gEkrBg2QuakeVec
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	movs r2, #2
 	ldrsh r1, [r1, r2]
 	bl sub_807773C
 _080778BC:
-	ldr r5, _08077A8C  @ gUnknown_02017760
+	ldr r5, _08077A8C  @ gEkrBg2QuakeVec
 	ldrh r1, [r5]
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl BG_SetPosition
-	ldr r6, _08077A90  @ gBanimBgPosMaybe
+	ldr r6, _08077A90  @ gEkrBg0QuakeVec
 	ldrh r1, [r6]
 	ldrh r0, [r5]
 	adds r1, r1, r0
@@ -866,7 +866,7 @@ _080778BC:
 	bne _08077950
 	movs r0, #0xc
 	movs r1, #0
-	bl sub_8053678
+	bl NewEfxQuakePure
 	str r0, [r4, #0x54]
 	movs r0, #0xa1
 	lsls r0, r0, #1
@@ -884,7 +884,7 @@ _08077950:
 	bl Proc_End
 	movs r0, #0xd
 	movs r1, #0
-	bl sub_8053678
+	bl NewEfxQuakePure
 	str r0, [r4, #0x54]
 _08077968:
 	movs r2, #0x30
@@ -895,7 +895,7 @@ _08077968:
 	bl Proc_End
 	movs r0, #0xe
 	movs r1, #0
-	bl sub_8053678
+	bl NewEfxQuakePure
 	str r0, [r4, #0x54]
 _08077980:
 	movs r1, #0x30
@@ -1025,8 +1025,8 @@ _08077A86:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08077A8C: .4byte gUnknown_02017760
-_08077A90: .4byte gBanimBgPosMaybe
+_08077A8C: .4byte gEkrBg2QuakeVec
+_08077A90: .4byte gEkrBg0QuakeVec
 _08077A94: .4byte Tsa_DemonKingBG2
 _08077A98: .4byte 0x0000018B
 _08077A9C: .4byte gBG3TilemapBuffer
@@ -1274,7 +1274,7 @@ sub_8077C54: @ 0x08077C54
 	mov r1, r9
 	mov r2, r8
 	bl BG_SetPosition
-	ldr r4, _08077D20  @ gBanimBgPosMaybe
+	ldr r4, _08077D20  @ gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	asrs r5, r5, #0x10
 	adds r1, r5, r1
@@ -1354,7 +1354,7 @@ sub_8077C54: @ 0x08077C54
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08077D20: .4byte gBanimBgPosMaybe
+_08077D20: .4byte gEkrBg0QuakeVec
 _08077D24: .4byte gEkrXPosBase
 _08077D28: .4byte gEkrBgXOffset
 _08077D2C: .4byte gEkrYPosBase
