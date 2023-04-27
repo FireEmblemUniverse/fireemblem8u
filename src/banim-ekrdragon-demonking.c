@@ -13,7 +13,7 @@
 void EfxDoDemonKingIntroAnim(struct Anim *anim)
 {
     struct EkrDragonStatus *ekrsp = GetEkrDragonStatus(anim);
-    struct ProcEkrDK *proc = Proc_Start(ProcScr_EkrDK, PROC_TREE_3);
+    struct ProcEkrDragon *proc = Proc_Start(ProcScr_EkrDK, PROC_TREE_3);
 
     ekrsp->proc = proc;
     AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_START);
@@ -45,13 +45,13 @@ int CheckEkrWpnDemonLight(struct Anim *anim)
         return false;
 }
 
-void EkrDKStartBaseHide(struct ProcEkrDK *proc)
+void EkrDKStartBaseHide(struct ProcEkrDragon *proc)
 {
     NewEkrDragonBaseHide(proc->anim);
     Proc_Break(proc);
 }
 
-void EkrDK_CustomBgFadeIn(struct ProcEkrDK *proc)
+void EkrDK_CustomBgFadeIn(struct ProcEkrDragon *proc)
 {
     EkrUpdateSomePalMaybe(Interpolate(INTERPOLATE_SQUARE, 4, 0x10, proc->timer, 8));
     if (++proc->timer == 0x9) {
@@ -60,7 +60,7 @@ void EkrDK_CustomBgFadeIn(struct ProcEkrDK *proc)
     }
 }
 
-void FillMem32_02019790(u32 val)
+void Fill16_EkrTsaBuffer_(u32 val)
 {
     int i;
     u32 tmp, *buf;
@@ -73,7 +73,7 @@ void FillMem32_02019790(u32 val)
         *buf++ = tmp;
 }
 
-void EkrDK_BgMovement(struct ProcEkrDK *proc)
+void EkrDK_BgMovement(struct ProcEkrDragon *proc)
 {
     int val1 = Interpolate(INTERPOLATE_RCUBIC, -0x20, 0, proc->unk2E, 0x78);
     int val2 = Interpolate(INTERPOLATE_RCUBIC, -0x50, 0, proc->unk2E, 0x78);
@@ -86,7 +86,7 @@ void EkrDK_BgMovement(struct ProcEkrDK *proc)
         proc->unk2E++;
 }
 
-void EkrDK_PrepareBanimfx(struct ProcEkrDK *proc)
+void EkrDK_PrepareBanimfx(struct ProcEkrDragon *proc)
 {
     if (CheckEkrWpnDemonLight(proc->anim) != false)
         EkrPrepareBanimfx(proc->anim, 0xC2);    /* index for DK Ravager in banim table */
@@ -99,10 +99,10 @@ void EkrDK_PrepareBanimfx(struct ProcEkrDK *proc)
     Proc_Break(proc);
 }
 
-void PrepareDemonKingBGFx(struct ProcEkrDK *proc)
+void PrepareDemonKingBGFx(struct ProcEkrDragon *proc)
 {
-    FillMem32_02019790(1);
-    sub_80559D0((void *)0x60016001);
+    Fill16_EkrTsaBuffer_(1);
+    sub_80559D0(0x60016001);
     BG_Fill(gBG3TilemapBuffer, 1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
     Decompress(Img_DemonKingBG, (void *)0x06008000);
@@ -124,7 +124,7 @@ void PrepareDemonKingBGFx(struct ProcEkrDK *proc)
     proc->unk2E = 0;
 }
 
-void EkrDK_IdleInBattle(struct ProcEkrDK *proc)
+void EkrDK_IdleInBattle(struct ProcEkrDragon *proc)
 {
     u16 attr1 = GetEkrDragonStatusAttr(proc->anim);
     u16 attr2 = GetEkrDragonStatusAttr(GetCoreAIStruct(proc->anim));
@@ -145,7 +145,7 @@ void EkrDK_IdleInBattle(struct ProcEkrDK *proc)
     }
 }
 
-void EkrDK_WaitForFadeOut(struct ProcEkrDK *proc)
+void EkrDK_WaitForFadeOut(struct ProcEkrDragon *proc)
 {
     struct ProcEfxDKfx *fxproc = proc->fxproc;
     if (fxproc->finished == true) {
@@ -154,7 +154,7 @@ void EkrDK_WaitForFadeOut(struct ProcEkrDK *proc)
     }
 }
 
-void EkrDK_ReloadTerrainEtc(struct ProcEkrDK *proc)
+void EkrDK_ReloadTerrainEtc(struct ProcEkrDragon *proc)
 {
     SetEkrDragonStatusUnk1(0);
     gLCDControlBuffer.bg0cnt.priority = 0;
@@ -173,7 +173,7 @@ void EkrDK_ReloadTerrainEtc(struct ProcEkrDK *proc)
     Proc_Break(proc);
 }
 
-void EkrDK_ReloadCustomBgAndFadeOut(struct ProcEkrDK *proc)
+void EkrDK_ReloadCustomBgAndFadeOut(struct ProcEkrDragon *proc)
 {
     if (proc->timer == 0) {
         UnpackChapterMapGraphics(gPlaySt.chapterIndex);
@@ -188,7 +188,7 @@ void EkrDK_ReloadCustomBgAndFadeOut(struct ProcEkrDK *proc)
     }
 }
 
-void EkrDK_SetDragonStatusBit3(struct ProcEkrDK *proc)
+void EkrDK_SetDragonStatusBit3(struct ProcEkrDragon *proc)
 {
     AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_END);
     Proc_Break(proc);
@@ -208,7 +208,7 @@ void EkrDragonBaseHideMain(struct ProcEfxDKfx *proc)
 {
     int val = Interpolate(INTERPOLATE_SQUARE, 0, 0x10, proc->timer, 8);
     CpuFastCopy(gEkrSomePalBuf, PAL_BG(4), 0x40);
-    sub_80712B0(PAL_BG(0), 4, 2, val);
+    EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, val);
     EnablePaletteSync();
 
     if (++proc->timer == 0x9) {
@@ -232,7 +232,7 @@ ProcPtr NewEkrDragonBaseAppear(struct Anim *anim)
     FillBGRect(gBG2TilemapBuffer, 0x20, 0x20, 0, 0);
     sub_805AA68(&gUnknown_0201FADC);
     CpuFastCopy(PAL_BG(4), gEkrSomePalBuf, 0x40);
-    sub_80712B0(PAL_BG(0), 4, 2, 0x10);
+    EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, 0x10);
     return proc;
 }
 
@@ -241,7 +241,7 @@ void EkrDragonBaseAppearMain(struct ProcEfxDKfx *proc)
 {
     int val = Interpolate(INTERPOLATE_SQUARE, 0x10, 0, proc->timer, 8);
     CpuFastCopy(gEkrSomePalBuf, PAL_BG(4), 0x40);
-    sub_80712B0(PAL_BG(0), 4, 2, val);
+    EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, val);
     EnablePaletteSync();
 
     if (++proc->timer == 0x9) {
@@ -256,7 +256,7 @@ void EkrDragonBaseAppear_Nop(struct ProcEfxDKfx *proc)
     Proc_Break(proc);
 }
 
-void EkrDKHandler_NewDragonAnime(struct ProcEkrDK *proc)
+void EkrDKHandler_NewDragonAnime(struct ProcEkrDragon *proc)
 {
     proc->fxproc = NewEkrDragonBodyAnime(proc->anim);
     AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
@@ -283,15 +283,15 @@ void EfxDKUpdateFrontAnimPostion(struct ProcEfxDKfx *proc)
     int val1, val2, val3, val4;
 
     if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
-        val1 = gEkrXPosBase[0] - gUnknown_02017760[0] - gEkrBgXOffset - gUnknown_03004FA0;
-        val2 = gEkrYPosBase[0] - gUnknown_02017760[1] - gUnknown_03004FA4;
+        val1 = gEkrXPosBase[0] - gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
+        val2 = gEkrYPosBase[0] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
     } else {
-        val1 = gEkrXPosBase[0] + gUnknown_02017760[0] - gEkrBgXOffset;
-        val2 = gEkrYPosBase[0] - gUnknown_02017760[1];
+        val1 = gEkrXPosBase[0] + gEkrBg2QuakeVec.x - gEkrBgXOffset;
+        val2 = gEkrYPosBase[0] - gEkrBg2QuakeVec.y;
     }
 
-    val3 = gEkrXPosBase[1] + gUnknown_02017760[0] - gEkrBgXOffset - gUnknown_03004FA0;
-    val4 = gEkrYPosBase[1] - gUnknown_02017760[1] - gUnknown_03004FA4;
+    val3 = gEkrXPosBase[1] + gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
+    val4 = gEkrYPosBase[1] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
 
     switch (gEkrSomeType) {
     case 0:

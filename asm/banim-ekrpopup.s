@@ -10,12 +10,12 @@ sub_80758D4: @ 0x080758D4
 	mov r5, r8
 	push {r5, r6, r7}
 	adds r7, r0, #0
-	ldr r4, _08075A38  @ gUnknown_02017760
+	ldr r4, _08075A38  @ gEkrBg2QuakeVec
 	ldrh r1, [r4]
 	ldrh r2, [r4, #2]
 	movs r0, #2
 	bl BG_SetPosition
-	ldr r6, _08075A3C  @ gBanimBgPosMaybe
+	ldr r6, _08075A3C  @ gEkrBg0QuakeVec
 	ldrh r1, [r6]
 	ldrh r0, [r4]
 	adds r1, r1, r0
@@ -170,8 +170,8 @@ _08075A2A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08075A38: .4byte gUnknown_02017760
-_08075A3C: .4byte gBanimBgPosMaybe
+_08075A38: .4byte gEkrBg2QuakeVec
+_08075A3C: .4byte gEkrBg0QuakeVec
 _08075A40: .4byte gEkrXPosBase
 _08075A44: .4byte gEkrBgXOffset
 _08075A48: .4byte gEkrYPosBase
@@ -1410,7 +1410,7 @@ sub_8076380: @ 0x08076380
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	adds r0, r5, #0
 	bl Proc_Break
@@ -1467,7 +1467,7 @@ sub_8076400: @ 0x08076400
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -1563,7 +1563,7 @@ sub_80764B0: @ 0x080764B0
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1

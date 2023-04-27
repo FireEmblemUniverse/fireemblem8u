@@ -54,7 +54,7 @@ void EkrDispUP_8051B48(u32 a, u32 b)
     gpProcEkrDispUP->unk29 = 0;
 }
 
-void sub_8051B5C(u32 a, u32 b)
+void sub_8051B5C(u16 a, u16 b)
 {
     gpProcEkrDispUP->unk32 = a;
     gpProcEkrDispUP->unk3A = b;

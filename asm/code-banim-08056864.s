@@ -621,7 +621,7 @@ NewEkrWindowAppear: @ 0x08056D24
 	bne _08056D46
 	movs r2, #0x39
 _08056D46:
-	ldr r1, _08056D6C  @ gBanimBgPosMaybe
+	ldr r1, _08056D6C  @ gEkrBg0QuakeVec
 	movs r3, #0
 	ldrsh r0, [r1, r3]
 	ldrh r1, [r1, #2]
@@ -638,7 +638,7 @@ _08056D46:
 	bx r0
 	.align 2, 0
 _08056D68: .4byte gProc_ekrWindowAppear
-_08056D6C: .4byte gBanimBgPosMaybe
+_08056D6C: .4byte gEkrBg0QuakeVec
 _08056D70: .4byte gEkrWindowAppearExist
 
 	THUMB_FUNC_END NewEkrWindowAppear
@@ -712,7 +712,7 @@ _08056DDA:
 _08056DEC:
 	bl Interpolate
 	adds r2, r0, #0
-	ldr r1, _08056E0C  @ gBanimBgPosMaybe
+	ldr r1, _08056E0C  @ gEkrBg0QuakeVec
 	movs r3, #0
 	ldrsh r0, [r1, r3]
 	ldrh r1, [r1, #2]
@@ -726,7 +726,7 @@ _08056E04:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08056E0C: .4byte gBanimBgPosMaybe
+_08056E0C: .4byte gEkrBg0QuakeVec
 
 	THUMB_FUNC_END sub_8056D90
 

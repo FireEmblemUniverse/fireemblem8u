@@ -2605,7 +2605,7 @@ _0805ACE8:
 _0805AD0C:
 	movs r1, #0x68
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r6, #0x18]
 _0805AD16:
 	movs r0, #0
@@ -2720,7 +2720,7 @@ _0805ADD4:
 _0805ADF8:
 	movs r1, #0x68
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r6, #0x14]
 _0805AE02:
 	add sp, #0xc
@@ -3180,7 +3180,7 @@ sub_805B104: @ 0x0805B104
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	mov r0, r8
 	bl Proc_Break
@@ -3275,7 +3275,7 @@ sub_805B200: @ 0x0805B200
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -3376,7 +3376,7 @@ sub_805B2BC: @ 0x0805B2BC
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -4699,7 +4699,7 @@ StartSpellThing_MagicQuake: @ 0x0805BC80
 	str r6, [r4, #0x5c]
 	adds r0, r5, #0
 	movs r1, #0
-	bl sub_8053678
+	bl NewEfxQuakePure
 	str r0, [r4, #0x60]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -4724,12 +4724,12 @@ Loop6C_efxMagicQUAKE: @ 0x0805BCC4
 	mov r5, r8
 	push {r5, r6, r7}
 	mov r8, r0
-	ldr r5, _0805BD54  @ gUnknown_02017760
+	ldr r5, _0805BD54  @ gEkrBg2QuakeVec
 	ldrh r1, [r5]
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl BG_SetPosition
-	ldr r4, _0805BD58  @ gBanimBgPosMaybe
+	ldr r4, _0805BD58  @ gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	ldrh r0, [r5]
 	adds r1, r1, r0
@@ -4785,8 +4785,8 @@ _0805BD42:
 	subs r0, r0, r1
 	b _0805BD68
 	.align 2, 0
-_0805BD54: .4byte gUnknown_02017760
-_0805BD58: .4byte gBanimBgPosMaybe
+_0805BD54: .4byte gEkrBg2QuakeVec
+_0805BD58: .4byte gEkrBg0QuakeVec
 _0805BD5C: .4byte gEkrXPosBase
 _0805BD60:
 	ldr r4, _0805BE78  @ gEkrXPosBase
@@ -4807,7 +4807,7 @@ _0805BD68:
 	lsrs r6, r0, #0x10
 	mov r9, r4
 	mov sl, r2
-	ldr r2, _0805BE84  @ gUnknown_02017760
+	ldr r2, _0805BE84  @ gEkrBg2QuakeVec
 	ldrh r0, [r2]
 	mov r1, r9
 	ldrh r1, [r1, #2]
@@ -4853,7 +4853,7 @@ _0805BD68:
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	ldr r4, _0805BE8C  @ gBanimBgPosMaybe
+	ldr r4, _0805BE8C  @ gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	ldrh r2, [r4, #2]
 	movs r0, #0
@@ -4924,9 +4924,9 @@ _0805BE6A:
 _0805BE78: .4byte gEkrXPosBase
 _0805BE7C: .4byte gEkrBgXOffset
 _0805BE80: .4byte gEkrYPosBase
-_0805BE84: .4byte gUnknown_02017760
+_0805BE84: .4byte gEkrBg2QuakeVec
 _0805BE88: .4byte gUnknown_0201774C
-_0805BE8C: .4byte gBanimBgPosMaybe
+_0805BE8C: .4byte gEkrBg0QuakeVec
 
 	THUMB_FUNC_END Loop6C_efxMagicQUAKE
 
@@ -10493,7 +10493,7 @@ sub_805EAF0: @ 0x0805EAF0
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x20
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -18854,7 +18854,7 @@ sub_8062D30: @ 0x08062D30
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08062E28  @ gUnknown_085D6D80
+	ldr r0, _08062E28  @ ProcScr_efxBerserkBG
 	movs r1, #3
 	bl Proc_Start
 	str r5, [r0, #0x5c]
@@ -18957,7 +18957,7 @@ sub_8062D30: @ 0x08062D30
 	bx r0
 	.align 2, 0
 _08062E24: .4byte gUnknown_0201774C
-_08062E28: .4byte gUnknown_085D6D80
+_08062E28: .4byte ProcScr_efxBerserkBG
 _08062E2C: .4byte gUnknown_0868C338
 _08062E30: .4byte gUnknown_086849B8
 _08062E34: .4byte gUnknown_08684AB8
@@ -19027,7 +19027,7 @@ sub_8062EAC: @ 0x08062EAC
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08062ED4  @ gUnknown_085D6D98
+	ldr r0, _08062ED4  @ ProcScr_efxBerserkCLONE
 	movs r1, #4
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -19039,7 +19039,7 @@ sub_8062EAC: @ 0x08062EAC
 	bx r0
 	.align 2, 0
 _08062ED0: .4byte gUnknown_0201774C
-_08062ED4: .4byte gUnknown_085D6D98
+_08062ED4: .4byte ProcScr_efxBerserkCLONE
 
 	THUMB_FUNC_END sub_8062EAC
 
@@ -19117,7 +19117,7 @@ sub_8062F4C: @ 0x08062F4C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08062F98  @ gUnknown_085D6DB8
+	ldr r0, _08062F98  @ ProcScr_efxBerserkOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -19145,7 +19145,7 @@ sub_8062F4C: @ 0x08062F4C
 	bx r0
 	.align 2, 0
 _08062F94: .4byte gUnknown_0201774C
-_08062F98: .4byte gUnknown_085D6DB8
+_08062F98: .4byte ProcScr_efxBerserkOBJ
 _08062F9C: .4byte gUnknown_085D4F90
 _08062FA0: .4byte 0x0000F3FF
 
@@ -19464,7 +19464,7 @@ sub_8063214: @ 0x08063214
 	bl SetSomethingSpellFxToTrue
 	bl NewEfxSpellCast
 	bl ClearBG1Setup
-	ldr r0, _0806324C  @ gUnknown_085D6E70
+	ldr r0, _0806324C  @ ProcScr_efxMshield
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -19482,7 +19482,7 @@ sub_8063214: @ 0x08063214
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806324C: .4byte gUnknown_085D6E70
+_0806324C: .4byte ProcScr_efxMshield
 
 	THUMB_FUNC_END sub_8063214
 
@@ -19595,7 +19595,7 @@ sub_806331C: @ 0x0806331C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08063364  @ gUnknown_085D6E88
+	ldr r0, _08063364  @ ProcScr_efxMshieldBG
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -19620,7 +19620,7 @@ sub_806331C: @ 0x0806331C
 	bx r0
 	.align 2, 0
 _08063360: .4byte gUnknown_0201774C
-_08063364: .4byte gUnknown_085D6E88
+_08063364: .4byte ProcScr_efxMshieldBG
 _08063368: .4byte gUnknown_080DDF3A
 _0806336C: .4byte gUnknown_085D6EA0
 _08063370: .4byte gUnknown_0868DF5C
@@ -19682,7 +19682,7 @@ sub_80633D0: @ 0x080633D0
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08063418  @ gUnknown_085D6EB4
+	ldr r0, _08063418  @ ProcScr_efxMshieldBGOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -19707,7 +19707,7 @@ sub_80633D0: @ 0x080633D0
 	bx r0
 	.align 2, 0
 _08063414: .4byte gUnknown_0201774C
-_08063418: .4byte gUnknown_085D6EB4
+_08063418: .4byte ProcScr_efxMshieldBGOBJ
 _0806341C: .4byte gUnknown_08692524
 _08063420: .4byte gUnknown_0868E46C
 _08063424: .4byte gUnknown_08686F84
@@ -19723,7 +19723,7 @@ sub_8063428: @ 0x08063428
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08063460  @ gUnknown_085D6ED4
+	ldr r0, _08063460  @ ProcScr_efxMshieldBGOBJ2
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -19741,7 +19741,7 @@ sub_8063428: @ 0x08063428
 	bx r0
 	.align 2, 0
 _0806345C: .4byte gUnknown_0201774C
-_08063460: .4byte gUnknown_085D6ED4
+_08063460: .4byte ProcScr_efxMshieldBGOBJ2
 _08063464: .4byte gUnknown_08692674
 
 	THUMB_FUNC_END sub_8063428
@@ -30182,7 +30182,7 @@ sub_8068638: @ 0x08068638
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -30228,22 +30228,22 @@ sub_8068680: @ 0x08068680
 	movs r1, #4
 	movs r2, #2
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x19
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -30315,22 +30315,22 @@ sub_8068738: @ 0x08068738
 	movs r1, #4
 	movs r2, #2
 	movs r3, #0x10
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #0x10
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	adds r0, r4, #0
 	movs r1, #0x19
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -31053,7 +31053,7 @@ sub_8068D20: @ 0x08068D20
 	ldr r0, _08068D70  @ gPaletteBuffer
 	movs r1, #6
 	movs r2, #0xa
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -31123,7 +31123,7 @@ _08068DB4:
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 _08068DCE:
 	pop {r0}
@@ -38331,7 +38331,7 @@ _0806C6C0:
 	str r2, [sp, #8]
 	adds r2, r4, #0
 	movs r3, #2
-	bl sub_80716C8
+	bl NewEkrsubAnimeEmulator
 	str r0, [r6, #0x60]
 	add sp, #0xc
 	pop {r4, r5, r6}
@@ -44404,7 +44404,7 @@ sub_806F668: @ 0x0806F668
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	ldr r0, [r0, #0x1c]
-	ldr r5, _0806F6AC  @ gUnknown_0201C790
+	ldr r5, _0806F6AC  @ gPalBackupEkrUnitMaybe
 	adds r1, r5, #0
 	bl LZ77UnCompWram
 	adds r5, #0x20
@@ -44426,7 +44426,7 @@ sub_806F668: @ 0x0806F668
 	bx r0
 	.align 2, 0
 _0806F6A8: .4byte banim_data
-_0806F6AC: .4byte gUnknown_0201C790
+_0806F6AC: .4byte gPalBackupEkrUnitMaybe
 _0806F6B0: .4byte gUnknown_02022AE8
 
 	THUMB_FUNC_END sub_806F668

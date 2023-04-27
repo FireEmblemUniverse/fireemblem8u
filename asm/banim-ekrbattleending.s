@@ -57,7 +57,7 @@ _08056118:
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	bl EnablePaletteSync
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1

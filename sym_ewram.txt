@@ -8,7 +8,7 @@
 . = 0x00002C; gEkrYPosBase = .;
 . = 0x000030; gUnknown_02000030 = .;
 . = 0x000034; gUnknown_02000034 = .;
-. = 0x000038; gBanimBgPosMaybe = .;
+. = 0x000038; gEkrBg0QuakeVec = .;
 . = 0x00003C; gUnknown_0200003C = .;
 . = 0x000044; gUnknown_02000044 = .;
 . = 0x00004C; gBanimTerrainPaletteMaybe = .;
@@ -193,7 +193,7 @@
 . = 0x017754; gUnknown_02017754 = .;
 . = 0x017758; gUnknown_02017758 = .;
 . = 0x01775C; gUnknown_0201775C = .;
-. = 0x017760; gUnknown_02017760 = .;
+. = 0x017760; gEkrBg2QuakeVec = .;
 . = 0x017764; gUnknown_02017764 = .;
 . = 0x017768; gUnknown_02017768 = .;
 . = 0x01776C; gUnknown_0201776C = .;
@@ -233,7 +233,7 @@
 . = 0x01C5D0; gUnknown_0201C5D0 = .;
 . = 0x01C5D1; gUnknown_0201C5D1 = .;
 . = 0x01C5D4; gUnknown_0201C5D4 = .;
-. = 0x01C790; gUnknown_0201C790 = .;
+. = 0x01C790; gPalBackupEkrUnitMaybe = .;
 . = 0x01C8D0; gUnknown_0201C8D0 = .;
 . = 0x01C912; gUnknown_0201C912 = .;
 . = 0x01CDD4; gUnknown_0201CDD4 = .;
@@ -276,9 +276,8 @@
 . = 0x01FDC4; gUnknown_0201FDC4 = .;
 . = 0x01FF04; gUnknown_0201FF04 = .;
 . = 0x020044; gUnknown_02020044 = .;
-. = 0x020048; gEkrDragonStatusLeft = .;
-. = 0x020058; gEkrDragonStatusRight = .;
-. = 0x020068; gUnknown_02020068 = .;
+. = 0x020048;
+. = ALIGN(4); src/banim-ekrdragonstatus.o(ewram_data);
 . = 0x0200A8; gUnknown_020200A8 = .;
 . = 0x0200AC; gUnknown_020200AC = .;
 . = 0x0200B0; gUnknown_020200B0 = .;

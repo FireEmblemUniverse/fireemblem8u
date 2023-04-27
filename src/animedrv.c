@@ -9,39 +9,6 @@ static void AnimInsert(struct Anim* anim);
 static void AnimDisplayPrivate(struct Anim* anim);
 static void Anim_8005334(struct Anim* anim, u32 instruction);
 
-#define ANINS_IS_NOT_FORCESPRITE(instruction) ((instruction) & 0x80000000)
-#define ANINS_IS_PTRINS(instruction) ((instruction) & 0x40000000)
-
-#define ANINS_FORCESPRITE_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000003))
-#define ANINS_FORCESPRITE_GET_DELAY(instruction) ((((instruction) >> 26) & 0x1C) + ((instruction) & 3))
-
-#define ANINS_PTRINS_GET_TYPE(instruction) (0x3 & ((instruction) >> 28))
-#define ANINS_PTRINS_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000000))
-
-#define ANINS_GET_TYPE(instruction) (0x3F & ((instruction) >> 24))
-
-#define ANINS_WAIT_GET_DELAY(instruction) ((instruction) & 0xFFFF)
-
-#define ANINS_MOVE_GET_XOFF(instruction) (((int) ((instruction) << 24)) >> 24)
-#define ANINS_MOVE_GET_YOFF(instruction) (((int) ((instruction) << 16)) >> 24)
-#define ANINS_MOVE_GET_DELAY(instruction) (((instruction) >> 16) & 0xFF)
-
-#define ANINS_COMMAND_GET_ID(instruction) (0xFF & (instruction))
-
-#define ANINS_FRAME_GET_DELAY(instruction) ((instruction) & 0xFFFF)
-#define ANINS_FRAME_GET_UNK(instruction) ((instruction) >> 16) & 0xFF
-
-enum
-{
-    ANIM_INS_TYPE_STOP    = 0,
-    ANIM_INS_TYPE_END     = 1,
-    ANIM_INS_TYPE_LOOP    = 2,
-    ANIM_INS_TYPE_MOVE    = 3,
-    ANIM_INS_TYPE_WAIT    = 4,
-    ANIM_INS_TYPE_COMMAND = 5,
-    ANIM_INS_TYPE_FRAME   = 6,
-};
-
 typedef void (*AnimCallback_t) (struct Anim* anim);
 
 EWRAM_DATA static struct Anim sAnimPool[ANIM_MAX_COUNT] = {};

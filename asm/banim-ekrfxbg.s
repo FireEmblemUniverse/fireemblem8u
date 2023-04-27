@@ -464,7 +464,7 @@ sub_805425C: @ 0x0805425C
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -520,7 +520,7 @@ sub_80542B8: @ 0x080542B8
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -599,7 +599,7 @@ sub_8054360: @ 0x08054360
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -655,7 +655,7 @@ sub_80543BC: @ 0x080543BC
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl sub_80712B0
+	bl EkrMaybePalFadeWithVal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0

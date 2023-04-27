@@ -132,7 +132,7 @@ sub_8052EAC: @ 0x08052EAC
 	ldr r2, _08052F18  @ 0x01000200
 	mov r0, sp
 	bl CpuFastSet
-	ldr r0, _08052F1C  @ gBanimBgPosMaybe
+	ldr r0, _08052F1C  @ gEkrBg0QuakeVec
 	ldrh r1, [r0]
 	ldrh r2, [r0, #2]
 	movs r0, #0
@@ -160,7 +160,7 @@ _08052F0A:
 	.align 2, 0
 _08052F14: .4byte gBG0TilemapBuffer
 _08052F18: .4byte 0x01000200
-_08052F1C: .4byte gBanimBgPosMaybe
+_08052F1C: .4byte gEkrBg0QuakeVec
 _08052F20: .4byte gEkrPids
 
 	THUMB_FUNC_END sub_8052EAC
@@ -307,7 +307,7 @@ _08053032:
 	cmp r0, #2
 	bne _0805305C
 	ldr r0, [r5, #0x5c]
-	bl sub_80701F4
+	bl SetEkrDragonStatusAttrBit12
 	b _08053070
 	.align 2, 0
 _08053054: .4byte gUnknown_0201774C
@@ -316,7 +316,7 @@ _0805305C:
 	cmp r4, #0
 	bne _08053068
 	ldr r0, [r5, #0x5c]
-	bl sub_8070204
+	bl SetEkrDragonStatusAttrBit13
 	b _08053070
 _08053068:
 	ldr r0, [r5, #0x5c]
@@ -353,7 +353,7 @@ sub_8053080: @ 0x08053080
 	cmp r0, #1
 	beq _08053112
 	ldr r0, [r4, #0x5c]
-	bl sub_8070234
+	bl CheckEkrDragonStatusAttrBit13
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080530D2
@@ -1108,8 +1108,8 @@ _08053674: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_END sub_8053618
 
-	THUMB_FUNC_START sub_8053678
-sub_8053678: @ 0x08053678
+	THUMB_FUNC_START NewEfxQuakePure
+NewEfxQuakePure: @ 0x08053678
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -1141,7 +1141,7 @@ sub_8053678: @ 0x08053678
 _080536B0: .4byte gProc_efxQuakePure
 _080536B4: .4byte gUnknown_085B9804
 
-	THUMB_FUNC_END sub_8053678
+	THUMB_FUNC_END NewEfxQuakePure
 
 	THUMB_FUNC_START sub_80536B8
 sub_80536B8: @ 0x080536B8
@@ -1420,7 +1420,7 @@ _080538C0:
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
 	strh r0, [r7, #0x2c]
-	ldr r5, _08053918  @ gUnknown_02017760
+	ldr r5, _08053918  @ gEkrBg2QuakeVec
 	ldrh r1, [r5]
 	ldrh r2, [r5, #2]
 	movs r0, #2
@@ -1452,7 +1452,7 @@ _08053900:
 	subs r1, r1, r0
 	b _0805392C
 	.align 2, 0
-_08053918: .4byte gUnknown_02017760
+_08053918: .4byte gEkrBg2QuakeVec
 _0805391C: .4byte gEkrXPosBase
 _08053920:
 	ldr r4, _0805398C  @ gEkrXPosBase
@@ -1477,7 +1477,7 @@ _0805392C:
 	adds r5, r2, #0
 	movs r2, #2
 	ldrsh r1, [r4, r2]
-	ldr r2, _08053998  @ gUnknown_02017760
+	ldr r2, _08053998  @ gEkrBg2QuakeVec
 	movs r4, #0
 	ldrsh r0, [r2, r4]
 	adds r1, r1, r0
@@ -1511,7 +1511,7 @@ _0805392C:
 _0805398C: .4byte gEkrXPosBase
 _08053990: .4byte gEkrBgXOffset
 _08053994: .4byte gEkrYPosBase
-_08053998: .4byte gUnknown_02017760
+_08053998: .4byte gEkrBg2QuakeVec
 _0805399C: .4byte gEkrSomeType
 _080539A0:
 	cmp r0, #0
@@ -1879,7 +1879,7 @@ _08053C46:
 	movs r2, #0
 	bl BG_SetPosition
 _08053C9A:
-	ldr r4, _08053CEC  @ gBanimBgPosMaybe
+	ldr r4, _08053CEC  @ gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	ldrh r2, [r4, #2]
 	movs r0, #0
@@ -1912,7 +1912,7 @@ _08053CDC: .4byte gUnknown_0201FADC
 _08053CE0: .4byte gEkrXPosBase
 _08053CE4: .4byte gEkrYPosBase
 _08053CE8: .4byte gUnknown_02017740
-_08053CEC: .4byte gBanimBgPosMaybe
+_08053CEC: .4byte gEkrBg0QuakeVec
 _08053CF0:
 	movs r6, #0x2c
 	ldrsh r4, [r7, r6]
@@ -1962,7 +1962,7 @@ _08053D1C:
 	ldrh r0, [r0]
 	subs r1, r1, r0
 	ldr r3, [r7, #0x64]
-	ldr r2, _08053D7C  @ gUnknown_02017760
+	ldr r2, _08053D7C  @ gEkrBg2QuakeVec
 	ldrh r0, [r2]
 	ldrh r6, [r7, #0x36]
 	adds r0, r0, r6
@@ -1979,9 +1979,9 @@ _08053D1C:
 _08053D70: .4byte gUnknown_02023F68
 _08053D74: .4byte gEkrBgXOffset
 _08053D78: .4byte gUnknown_02000030
-_08053D7C: .4byte gUnknown_02017760
+_08053D7C: .4byte gEkrBg2QuakeVec
 _08053D80:
-	ldr r0, _08053E40  @ gUnknown_02017760
+	ldr r0, _08053E40  @ gEkrBg2QuakeVec
 	ldrh r1, [r0]
 	ldrh r2, [r0, #2]
 	movs r0, #2
@@ -2003,8 +2003,8 @@ _08053D8C:
 	movs r0, #3
 	bl BG_SetPosition
 _08053DAE:
-	ldr r5, _08053E40  @ gUnknown_02017760
-	ldr r4, _08053E44  @ gBanimBgPosMaybe
+	ldr r5, _08053E40  @ gEkrBg2QuakeVec
+	ldr r4, _08053E44  @ gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	ldrh r0, [r5]
 	adds r1, r1, r0
@@ -2047,7 +2047,7 @@ _08053E04:
 	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053E18
-	ldr r0, _08053E40  @ gUnknown_02017760
+	ldr r0, _08053E40  @ gEkrBg2QuakeVec
 	ldrh r1, [r0]
 	ldrh r2, [r0, #2]
 	movs r0, #3
@@ -2060,7 +2060,7 @@ _08053E18:
 	mov ip, r4
 	movs r5, #0
 	ldrsh r1, [r4, r5]
-	ldr r2, _08053E40  @ gUnknown_02017760
+	ldr r2, _08053E40  @ gEkrBg2QuakeVec
 	movs r6, #0
 	ldrsh r0, [r2, r6]
 	subs r1, r1, r0
@@ -2072,8 +2072,8 @@ _08053E18:
 	ldrsh r1, [r3, r0]
 	b _08053E70
 	.align 2, 0
-_08053E40: .4byte gUnknown_02017760
-_08053E44: .4byte gBanimBgPosMaybe
+_08053E40: .4byte gEkrBg2QuakeVec
+_08053E44: .4byte gEkrBg0QuakeVec
 _08053E48: .4byte gEkrXPosBase
 _08053E4C: .4byte gEkrBgXOffset
 _08053E50: .4byte gEkrYPosBase
@@ -2082,7 +2082,7 @@ _08053E54:
 	mov ip, r6
 	movs r0, #0
 	ldrsh r1, [r6, r0]
-	ldr r2, _08053EC0  @ gUnknown_02017760
+	ldr r2, _08053EC0  @ gEkrBg2QuakeVec
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	adds r1, r1, r0
@@ -2131,7 +2131,7 @@ _08053E70:
 	b _08053F02
 	.align 2, 0
 _08053EBC: .4byte gEkrXPosBase
-_08053EC0: .4byte gUnknown_02017760
+_08053EC0: .4byte gEkrBg2QuakeVec
 _08053EC4: .4byte gEkrBgXOffset
 _08053EC8: .4byte gEkrYPosBase
 _08053ECC: .4byte gEkrSomeType

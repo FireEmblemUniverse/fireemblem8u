@@ -107,6 +107,39 @@ enum {
 
 #define ANIM_IS_DISABLED(anim) ((anim)->state == 0)
 
+#define ANINS_IS_NOT_FORCESPRITE(instruction) ((instruction) & 0x80000000)
+#define ANINS_IS_PTRINS(instruction) ((instruction) & 0x40000000)
+
+#define ANINS_FORCESPRITE_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000003))
+#define ANINS_FORCESPRITE_GET_DELAY(instruction) ((((instruction) >> 26) & 0x1C) + ((instruction) & 3))
+
+#define ANINS_PTRINS_GET_TYPE(instruction) (0x3 & ((instruction) >> 28))
+#define ANINS_PTRINS_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000000))
+
+#define ANINS_GET_TYPE(instruction) (0x3F & ((instruction) >> 24))
+
+#define ANINS_WAIT_GET_DELAY(instruction) ((instruction) & 0xFFFF)
+
+#define ANINS_MOVE_GET_XOFF(instruction) (((int) ((instruction) << 24)) >> 24)
+#define ANINS_MOVE_GET_YOFF(instruction) (((int) ((instruction) << 16)) >> 24)
+#define ANINS_MOVE_GET_DELAY(instruction) (((instruction) >> 16) & 0xFF)
+
+#define ANINS_COMMAND_GET_ID(instruction) (0xFF & (instruction))
+
+#define ANINS_FRAME_GET_DELAY(instruction) ((instruction) & 0xFFFF)
+#define ANINS_FRAME_GET_UNK(instruction) ((instruction) >> 16) & 0xFF
+
+enum
+{
+    ANIM_INS_TYPE_STOP    = 0,
+    ANIM_INS_TYPE_END     = 1,
+    ANIM_INS_TYPE_LOOP    = 2,
+    ANIM_INS_TYPE_MOVE    = 3,
+    ANIM_INS_TYPE_WAIT    = 4,
+    ANIM_INS_TYPE_COMMAND = 5,
+    ANIM_INS_TYPE_FRAME   = 6,
+};
+
 void AnimUpdateAll(void);
 void AnimClearAll(void);
 struct Anim* AnimCreate_unused(const void* script);
@@ -156,7 +189,7 @@ void sub_8059D28(void);
 // ??? sub_8059DB8(???);
 // ??? sub_8059E18(???);
 // ??? sub_8059F5C(???);
-// ??? sub_805A07C(???);
+void sub_805A07C(struct Anim *anim, int);
 // ??? sub_805A154(???);
 int GetAISSubjectId(struct Anim *anim);
 // ??? GetSomeBoolean(???);
@@ -197,11 +230,11 @@ void PlaySound8FForArenaMaybe(void);
 void sub_805B094(void);
 void BeginAnimsOnBattle_Arena(void);
 void sub_805B0CC(void);
-// ??? sub_80708FC(???);
-// ??? sub_807096C(???);
-// ??? sub_80709CC(???);
-// ??? sub_80709EC(???);
-// ??? sub_8070A14(???);
+// ??? EkrMyr_PrepareBanimfx(???);
+// ??? EkrMyr_WaitForTransform(???);
+// ??? EkrMyr_TrigerForPrepared(???);
+// ??? EkrMyr_InBattleIdle(???);
+// ??? EkrMyr_ReturnToLoli(???);
 // ??? sub_8070AE4(???);
 void sub_8070B3C(void);
 void sub_8070D04(void *ptr, u16 a, u16 b, int r3, int r4);
@@ -215,7 +248,7 @@ void sub_8070FA4(void *, int, void *, int, int, int, int, int);
 // ??? sub_8071068(???);
 void sub_8071140(void *ptr, int);
 // ??? sub_80711C0(???);
-void sub_80712B0(void *ptr, int, int, int);
+void EkrMaybePalFadeWithVal(void *pal_buf, int line, int length, int ref);
 void sub_807132C(void *ptr, int, int, int);
 // ??? sub_80713B0(???);
 // ??? sub_8071468(???);
@@ -225,7 +258,7 @@ void sub_807132C(void *ptr, int, int, int);
 // ??? sub_80715F4(???);
 void EkrUpdateSomePalMaybe(int);
 // ??? sub_80716B0(???);
-// ??? sub_80716C8(???);
+// ??? NewEkrsubAnimeEmulator(???);
 // ??? sub_8071714(???);
 // ??? sub_80717D4(???);
 // ??? sub_80717F0(???);
@@ -263,26 +296,26 @@ void NewEkrClassChg(struct Anim *anim);
 // ??? sub_8072DD8(???);
 // ??? sub_8072E1C(???);
 // ??? sub_8072E60(???);
-// ??? sub_8072ED8(???);
+// ??? NewEfxClasschgBGSE00(???);
 // ??? sub_8072EF4(???);
-// ??? sub_8072F58(???);
+// ??? NewEfxClasschgBGSE01(???);
 // ??? sub_8072F74(???);
-// ??? sub_8072F84(???);
+// ??? NewEfxClasschgOBJGain(???);
 // ??? sub_8072FD0(???);
-// ??? sub_8072FE8(???);
+// ??? NewEfxClasschgOBJDrop(???);
 // ??? sub_8073034(???);
-// ??? sub_807304C(???);
+// ??? NewEfxClasschgOBJDiffusion(???);
 // ??? sub_80730AC(???);
-// ??? sub_80730C4(???);
+// ??? NewEfxClasschgFIN(???);
 // ??? sub_80731C8(???);
-// ??? sub_8073220(???);
+// ??? NewEfxClasschgCLONE(???);
 // ??? sub_8073240(???);
 // ??? sub_80732A4(???);
-// ??? sub_80732A8(???);
+// ??? NewEfxBlackInOutUnit(???);
 // ??? sub_80732E0(???);
-// ??? sub_8073388(???);
+// ??? NewEfxWhiteInOutUnit(???);
 // ??? sub_80733C0(???);
-// ??? sub_8073468(???);
+// ??? NewEfxClasschgRST(???);
 // ??? sub_80734AC(???);
 // ??? sub_8074580(???);
 // ??? sub_8074598(???);

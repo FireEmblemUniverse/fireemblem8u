@@ -139,13 +139,33 @@ ProcScr_ekrHenseiEnd:  @ 0x0878D620
 Img_EfxDracoZombie:  @ 0x0878D648
 	.incbin "baserom.gba", 0x78D648, 0x3940
 
-	.global gUnknown_08790F88
-gUnknown_08790F88:  @ 0x08790F88
+	.global Tsa_EfxDracoZombieBaseLeft
+Tsa_EfxDracoZombieBaseLeft:  @ 0x08790F88
 	.incbin "baserom.gba", 0x790F88, 0x1D4
 
-	.global gUnknown_0879115C
-gUnknown_0879115C:  @ 0x0879115C
-	.incbin "baserom.gba", 0x79115C, 0xC00
+	.global Tsa_EfxDracoZombieBaseRight
+Tsa_EfxDracoZombieBaseRight:  @ 0x0879115C
+	.incbin "baserom.gba", 0x79115C, 0x1E0
+
+	.global Tsa_EfxDracoZombie2
+Tsa_EfxDracoZombie2:
+    .incbin "baserom.gba", 0x79133C, 0x1E4
+
+	.global Tsa_EfxDracoZombie3
+Tsa_EfxDracoZombie3:
+    .incbin "baserom.gba", 0x791520, 0x218
+
+	.global Tsa_EfxDracoZombie4
+Tsa_EfxDracoZombie4:
+    .incbin "baserom.gba", 0x791738, 0x210
+
+	.global Tsa_EfxDracoZombie5
+Tsa_EfxDracoZombie5:
+    .incbin "baserom.gba", 0x791948, 0x1F4
+
+	.global Tsa_EfxDracoZombie1
+Tsa_EfxDracoZombie1:
+    .incbin "baserom.gba", 0x791B3C, 0x220
 
 	.global Pal_EfxDracoZombie
 Pal_EfxDracoZombie:  @ 0x08791D5C
