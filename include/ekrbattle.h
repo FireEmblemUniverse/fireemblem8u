@@ -60,6 +60,15 @@ struct ProcEkrGauge {
     /* 54 */
 };
 
+enum gEkrDistanceType_index {
+    EKR_DISTANCE_CLOSE,
+    EKR_DISTANCE_FAR,
+    EKR_DISTANCE_FARFAR,
+    EKR_DISTANCE_3,
+    EKR_DISTANCE_PROMOTION
+};
+extern s16 gEkrDistanceType;
+
 struct ProcEkrBattleStarting {
     PROC_HEADER;
 
@@ -79,8 +88,8 @@ struct ProcEkrBattleStarting {
 
 extern int gUnknown_02000018, gUnknown_0200001C;
 
-extern u16 gBattleActorSide;
-extern u16 gBattleInitSide;
+extern u16 gEkrPairBanimID[2];
+extern u16 gBattleInitSide[2];
 extern struct AnimRoundData gAnimRoundData;
 
 extern struct BattleUnit *gpEkrBattleUnitLeft;
@@ -106,21 +115,20 @@ extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
 // extern ??? gUnknown_02000088
 
-extern int gEkrEventFlagMaybe;
+extern int gBanimLinkArenaFlag;
 extern int gBattleDeamonActive;
 extern struct ProcEkrBattleDeamon *gpProcEkrBattleDeamon;
 extern short gUnknown_0203E0FC;
-extern short gUnknown_0203E0FE;
+extern short gEkrPairSomeTile;
 extern short gEkrInitialHitSide;
-extern short gUnknown_0203E102;
-extern short gBanimSideVaildFlagMaybe[2];
-// extern ??? gUnknown_0203E108
+extern short gEkrSnowWeather;
+extern short gEkrPairSideVaild[2];
+extern short gUnknown_0203E108[2];
 extern short gBanimSomeObjPalIndex[2];
 extern short gEkrSpellAnimIndexLutMaybe[];
 // extern ??? gUnknown_0203E11A
 extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
-extern EWRAM_DATA s16 gEkrSomeType; /* 0 maybe normal, 2 for counterable item, 3 for uncounterable item, 4 maybe promotion */
-extern EWRAM_DATA s16 gUnknown_0203E122[4];
+extern EWRAM_DATA short gEkrPairBmLoc[4];
 // extern ??? gAnimRoundData
 
 extern struct ProcCmd gProc_ekrBattleDeamon[];
@@ -198,8 +206,8 @@ extern struct ProcCmd gProc_ekrTogiInit[];
 extern struct ProcCmd gProc_ekrTogiEnd[];
 extern struct ProcCmd gProc_ekrTogiColor[];
 
-void SetEkrEventFlagMaybe(int unk);
-int GetEkrEventFlagMaybe(void);
+void SetBanimLinkArenaFlag(int unk);
+int GetBanimLinkArenaFlag(void);
 void NewEkrBattleDeamon(void);
 // ??? EndEkrBattleDeamon(???);
 int IsBattleDeamonActive(void); // battle?
@@ -225,7 +233,7 @@ void ekrBattle_8050338(struct ProcEkrBattle *proc);
 void ekrBattle_8050360(struct ProcEkrBattle *proc);
 void ekrBattle_80503EC(struct ProcEkrBattle *proc);
 void ekrBattle_8050400(struct ProcEkrBattle *proc);
-void ekrBattle_8050440(struct ProcEkrBattle *proc);
+void ekrBattle_WaitPromotionIdle(struct ProcEkrBattle *proc);
 void ekrBattle_805046C(struct ProcEkrBattle *proc);
 void ekrBattle_80505EC(struct ProcEkrBattle *proc);
 void ekrBattle_8050600(struct ProcEkrBattle *proc);
@@ -237,8 +245,8 @@ void ekrBattle_80509A8(struct ProcEkrBattle *proc);
 void ekrBattle_8050A84(struct ProcEkrBattle *proc);
 void ekrBattle_8050AB8(struct ProcEkrBattle *proc);
 void ekrBattle_8050B08(struct ProcEkrBattle *proc);
-void ekrBattle_CheckForLevelup_8050C34(struct ProcEkrBattle *proc);
-void ekrBattle_WaitForLevelup_8050C6C(struct ProcEkrBattle *proc);
+void ekrBattle_ExecEkrLvup(struct ProcEkrBattle *proc);
+void ekrBattle_WaitEkrLvupIdle(struct ProcEkrBattle *proc);
 void ekrNewEkrPopup(struct ProcEkrBattle *proc);
 void ekrBattle_WaitForPopup(struct ProcEkrBattle *proc);
 void ekrBattle_PostPopup(struct ProcEkrBattle *proc);
@@ -460,7 +468,7 @@ void NewEkrWindowAppear(int, int);
 bool DoesEkrWindowAppearExist(void);
 // ??? sub_8056D90(???);
 void NewEkrNamewinAppear(int, int, int);
-bool sub_8056E60(void);
+bool CheckEkrNamewinAppearUnexist(void);
 // ??? sub_8056E7C(???);
 // ??? sub_8056EA4(???);
 void sub_8056F20(int, int);

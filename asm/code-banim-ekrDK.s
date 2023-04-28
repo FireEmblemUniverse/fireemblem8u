@@ -129,7 +129,7 @@ sub_8077398: @ 0x08077398
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -146,7 +146,7 @@ sub_80773BC: @ 0x080773BC
 	movs r0, #0
 	strb r0, [r1]
 	strh r0, [r2, #0x2c]
-	ldr r0, _080773DC  @ gEkrSomeType
+	ldr r0, _080773DC  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -157,7 +157,7 @@ _080773D6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080773DC: .4byte gEkrSomeType
+_080773DC: .4byte gEkrDistanceType
 _080773E0: .4byte 0x0000FFE0
 
 	THUMB_FUNC_END sub_80773BC
@@ -674,7 +674,7 @@ NewEkrDragonTunk: @ 0x08077790
 	strb r0, [r1]
 	movs r1, #0
 	strh r0, [r5, #0x2c]
-	ldr r0, _080777C0  @ gEkrSomeType
+	ldr r0, _080777C0  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -683,7 +683,7 @@ NewEkrDragonTunk: @ 0x08077790
 	b _080777CA
 	.align 2, 0
 _080777BC: .4byte ProcScr_ekrDragonTunk
-_080777C0: .4byte gEkrSomeType
+_080777C0: .4byte gEkrDistanceType
 _080777C4: .4byte 0x0000FFF8
 _080777C8:
 	ldr r0, _080777DC  @ 0x0000FFE0
@@ -721,7 +721,7 @@ sub_80777E0: @ 0x080777E0
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 _0807780C:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -736,7 +736,7 @@ _0807780C:
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 _0807782C:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -751,7 +751,7 @@ _0807782C:
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 _0807784C:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -874,7 +874,7 @@ _080778BC:
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 _08077950:
 	movs r1, #0x30
 	ldrsh r0, [r4, r1]
@@ -1568,7 +1568,7 @@ sub_8077EAC: @ 0x08077EAC
 	push {lr}
 	adds r3, r0, #0
 	adds r2, r1, #0
-	ldr r0, _08077EC8  @ gEkrSomeType
+	ldr r0, _08077EC8  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #1
@@ -1579,7 +1579,7 @@ sub_8077EAC: @ 0x08077EAC
 	beq _08077ED2
 	b _08077ED8
 	.align 2, 0
-_08077EC8: .4byte gEkrSomeType
+_08077EC8: .4byte gEkrDistanceType
 _08077ECC:
 	cmp r0, #2
 	beq _08077ED6
@@ -1811,7 +1811,7 @@ NewEkrSelfThunder: @ 0x08078044
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 	bl ClearBG1Setup
 	ldr r0, _08078074  @ ProcScr_ekrSelfThunder
 	movs r1, #3
@@ -1861,7 +1861,7 @@ sub_80780A4: @ 0x080780A4
 	sub sp, #8
 	adds r4, r0, #0
 	adds r3, r1, #0
-	ldr r0, _080780C0  @ gEkrSomeType
+	ldr r0, _080780C0  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1871,7 +1871,7 @@ sub_80780A4: @ 0x080780A4
 	bl LZ77UnCompWram
 	b _080780D0
 	.align 2, 0
-_080780C0: .4byte gEkrSomeType
+_080780C0: .4byte gEkrDistanceType
 _080780C4: .4byte gEkrTsaBuffer
 _080780C8:
 	ldr r1, _080780F4  @ gEkrTsaBuffer

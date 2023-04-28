@@ -52,7 +52,7 @@ void DoPromoteAnimForChar100(struct Proc08A184B4 *proc)
     SetWinEnable(0, 0, 0);
     
     sub_802F598(unit, -1, 0);
-    gBattleStats.config = BATTLE_CONFIG_BIT4 | BATTLE_CONFIG_PROMOTION;
+    gBattleStats.config = BATTLE_CONFIG_PROMOTION | BATTLE_CONFIG_PROMOTION_CHAR100;
     gBattleActor.weaponBefore = 0;
     gBattleTarget.weaponBefore = 0;
     BeginBattleAnimations();

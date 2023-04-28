@@ -151,7 +151,7 @@ SECTIONS
         src/banim-ekrdragon-dracozombie.o(.text);
         asm/banim-ekrdragon.o(.text);
         src/banim-ekrdragon-myrrh.o(.text);
-        asm/banim-ekrclasschg.o(.text);
+        asm/banim-ekrpromotion.o(.text);
         src/ekrlevelup.o(.text);
         asm/ekrlevelup.o(.text);
         asm/banim-ekrpopup.o(.text);

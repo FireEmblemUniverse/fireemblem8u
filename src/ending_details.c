@@ -2099,7 +2099,7 @@ void sub_80B7BD8(struct UnkProc* proc) {
     return;
 }
 
-extern u8 gUnknown_02000000[];
+extern u8 gAnims[];
 
 //! FE8U = 0x080B8014
 void sub_80B8014(void) {
@@ -2137,7 +2137,7 @@ void sub_80B8014(void) {
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
     BG_EnableSyncByMask(0xc);
-    sub_80AB760(gUnknown_02000000);
+    sub_80AB760(gAnims);
     Sound_PlaySong80024D4(0x46, 0);
 
     return;

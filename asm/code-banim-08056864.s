@@ -95,7 +95,7 @@ sub_8056900: @ 0x08056900
 	movs r1, #0
 	str r1, [r4, #0x50]
 	str r1, [r4, #0x4c]
-	ldr r0, _08056930  @ gEkrSomeType
+	ldr r0, _08056930  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -107,9 +107,9 @@ sub_8056900: @ 0x08056900
 	b _0805696E
 	.align 2, 0
 _0805692C: .4byte ProcScr_ekrUnitKakudai
-_08056930: .4byte gEkrSomeType
+_08056930: .4byte gEkrDistanceType
 _08056934:
-	ldr r0, _08056958  @ gBanimSideVaildFlagMaybe
+	ldr r0, _08056958  @ gEkrPairSideVaild
 	movs r1, #0
 	ldrsh r5, [r0, r1]
 	cmp r5, #1
@@ -119,7 +119,7 @@ _08056934:
 	bne _08056948
 	str r5, [r4, #0x4c]
 _08056948:
-	ldr r0, _08056958  @ gBanimSideVaildFlagMaybe
+	ldr r0, _08056958  @ gEkrPairSideVaild
 	movs r2, #2
 	ldrsh r0, [r0, r2]
 	cmp r0, #1
@@ -127,7 +127,7 @@ _08056948:
 	str r0, [r4, #0x50]
 	b _0805696E
 	.align 2, 0
-_08056958: .4byte gBanimSideVaildFlagMaybe
+_08056958: .4byte gEkrPairSideVaild
 _0805695C:
 	cmp r5, #0
 	bne _08056968
@@ -151,7 +151,7 @@ sub_8056974: @ 0x08056974
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r1, _08056AE4  @ gUnknown_080DAF18
-	ldr r0, _08056AE8  @ gEkrSomeType
+	ldr r0, _08056AE8  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	adds r0, r0, r1
@@ -165,7 +165,7 @@ sub_8056974: @ 0x08056974
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _080569B2
-	ldr r5, _08056AF4  @ gUnknown_02000000
+	ldr r5, _08056AF4  @ gAnims
 	ldr r0, [r5, #8]
 	cmp r0, #0
 	beq _080569A4
@@ -224,7 +224,7 @@ _080569EE:
 	movs r2, #1
 	bl sub_8071468
 _08056A0A:
-	ldr r5, _08056B08  @ gBanimSideVaildFlagMaybe
+	ldr r5, _08056B08  @ gEkrPairSideVaild
 	movs r3, #0
 	ldrsh r0, [r5, r3]
 	cmp r0, #1
@@ -285,7 +285,7 @@ _08056A72:
 	strh r0, [r4, #0x2c]
 	movs r0, #0xb
 	strh r0, [r4, #0x2e]
-	ldr r1, _08056B3C  @ gUnknown_0203E122
+	ldr r1, _08056B3C  @ gEkrPairBmLoc
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	lsls r0, r0, #4
@@ -307,7 +307,7 @@ _08056A72:
 	adds r0, #8
 	strh r0, [r4, #0x3c]
 	ldr r1, _08056B40  @ gUnknown_080DAF1D
-	ldr r2, _08056AE8  @ gEkrSomeType
+	ldr r2, _08056AE8  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	adds r0, r0, r1
@@ -334,15 +334,15 @@ _08056A72:
 	b _08056B60
 	.align 2, 0
 _08056AE4: .4byte gUnknown_080DAF18
-_08056AE8: .4byte gEkrSomeType
+_08056AE8: .4byte gEkrDistanceType
 _08056AEC: .4byte gUnknown_080DAEF0
 _08056AF0: .4byte gUnknown_02017724
-_08056AF4: .4byte gUnknown_02000000
+_08056AF4: .4byte gAnims
 _08056AF8: .4byte gpEkrBattleUnitRight
 _08056AFC: .4byte gPaletteBuffer
 _08056B00: .4byte gpEkrBattleUnitLeft
 _08056B04: .4byte gBattleStats
-_08056B08: .4byte gBanimSideVaildFlagMaybe
+_08056B08: .4byte gEkrPairSideVaild
 _08056B0C: .4byte gUnknown_0200005C
 _08056B10: .4byte gUnknown_0200F1C8
 _08056B14: .4byte gUnknown_020041C8
@@ -355,7 +355,7 @@ _08056B2C: .4byte gUnknown_0203E1A4
 _08056B30: .4byte gUnknown_02001088
 _08056B34: .4byte gUnknown_02003088
 _08056B38: .4byte 0x06014000
-_08056B3C: .4byte gUnknown_0203E122
+_08056B3C: .4byte gEkrPairBmLoc
 _08056B40: .4byte gUnknown_080DAF1D
 _08056B44: .4byte gUnknown_080DAF22
 _08056B48: .4byte gEkrPos2Maybe
@@ -760,7 +760,7 @@ _08056E44:
 	movs r1, #0
 	bl EkrDispUP_8051B48
 _08056E4C:
-	ldr r1, _08056E5C  @ gUnknown_0201FAD0
+	ldr r1, _08056E5C  @ gEkrNamewinAppearExist
 	movs r0, #1
 	str r0, [r1]
 	bl sub_8051B80
@@ -768,28 +768,28 @@ _08056E4C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08056E5C: .4byte gUnknown_0201FAD0
+_08056E5C: .4byte gEkrNamewinAppearExist
 
 	THUMB_FUNC_END NewEkrNamewinAppear
 
-	THUMB_FUNC_START sub_8056E60
-sub_8056E60: @ 0x08056E60
+	THUMB_FUNC_START CheckEkrNamewinAppearUnexist
+CheckEkrNamewinAppearUnexist: @ 0x08056E60
 	push {lr}
-	ldr r0, _08056E70  @ gUnknown_0201FAD0
+	ldr r0, _08056E70  @ gEkrNamewinAppearExist
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _08056E74
 	movs r0, #0
 	b _08056E76
 	.align 2, 0
-_08056E70: .4byte gUnknown_0201FAD0
+_08056E70: .4byte gEkrNamewinAppearExist
 _08056E74:
 	movs r0, #1
 _08056E76:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8056E60
+	THUMB_FUNC_END CheckEkrNamewinAppearUnexist
 
 	THUMB_FUNC_START sub_8056E7C
 sub_8056E7C: @ 0x08056E7C
@@ -829,7 +829,7 @@ sub_8056EA4: @ 0x08056EA4
 	ldrsh r0, [r4, r3]
 	cmp r1, r0
 	blt _08056ED8
-	ldr r0, _08056ED4  @ gUnknown_0201FAD0
+	ldr r0, _08056ED4  @ gEkrNamewinAppearExist
 	movs r1, #0
 	str r1, [r0]
 	bl sub_8051B70
@@ -842,7 +842,7 @@ _08056ECC:
 	bl Proc_Break
 	b _08056F16
 	.align 2, 0
-_08056ED4: .4byte gUnknown_0201FAD0
+_08056ED4: .4byte gEkrNamewinAppearExist
 _08056ED8:
 	adds r0, r2, #1
 	strh r0, [r4, #0x2c]

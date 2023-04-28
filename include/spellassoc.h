@@ -25,7 +25,7 @@ struct SpellAssoc {
 extern struct SpellAssoc gSpellAssocData[];
 
 struct SpellAssoc *GetSpellAssocStructPtr(u16 item);
-int GetSpellAssocCharCount(u16 item);
+u8 GetSpellAssocCharCount(u16 item);
 u16 GetSpellAssocType(u16 item);
 struct ProcCmd *GetSpellAssocAlt6CPointer(u16 item);
 u8 GetSpellAssocReturnBool(int item);

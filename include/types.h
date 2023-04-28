@@ -203,7 +203,9 @@ struct PlaySt { // Chapter Data Struct
 
     // character identifiers indexed by weapon type.
     // has to do with allowing unusable weapons to be used
-    /* 1C */ u8  unk1C[4];
+    /* 1C */ u8  unk1C[2];
+    /* 1E */ u8 unk1E;
+    /* 1F */ u8 unk1F;
 
     /* 20 */ char playerName[0x2B - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
 

@@ -142,16 +142,16 @@ void EkrDragonBgSetPostion(int x, int y)
 
 void sub_806FBB8(void)
 {
-    switch (gEkrSomeType) {
-    case 0:
+    switch (gEkrDistanceType) {
+    case EKR_DISTANCE_CLOSE:
         sub_806FAD8(0x90, 0);
         break;
 
-    case 1:
+    case EKR_DISTANCE_FAR:
         sub_806FAD8(0x58, 0);
         break;
 
-    case 2:
+    case EKR_DISTANCE_FARFAR:
         sub_806FAD8(-0x78, 0);
         break;
 

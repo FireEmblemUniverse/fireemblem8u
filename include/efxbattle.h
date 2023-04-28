@@ -86,7 +86,7 @@ struct ProcEfxHPBar {
     /* 4C */ int unk4C;
     /* 50 */ int unk50;
     /* 54 */ int unk54;
-    /* 58 */ int unk58;
+    /* 58 */ int init;
     /* 5C */ struct Anim *anim5C;
     /* 60 */ struct Anim *anim60;
     /* 64 */ struct Anim *anim64;

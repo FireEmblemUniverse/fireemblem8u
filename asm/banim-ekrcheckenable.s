@@ -2,6 +2,7 @@
 
 	.SYNTAX UNIFIED
 
+/* https://decomp.me/scratch/CsYo6 */
 	THUMB_FUNC_START PrepareBattleGraphicsMaybe
 PrepareBattleGraphicsMaybe: @ 0x08056FF8
 	push {r4, r5, r6, r7, lr}
@@ -20,13 +21,13 @@ PrepareBattleGraphicsMaybe: @ 0x08056FF8
 	cmp r0, #0
 	bne _08057024
 	movs r0, #0
-	bl SetBattleAnimArenaFlag
+	bl SetBanimArenaFlag
 	b _0805702A
 	.align 2, 0
 _08057020: .4byte gBattleStats
 _08057024:
 	movs r0, #1
-	bl SetBattleAnimArenaFlag
+	bl SetBanimArenaFlag
 _0805702A:
 	ldr r0, _08057040  @ gBmSt
 	ldrb r1, [r0, #4]
@@ -35,13 +36,13 @@ _0805702A:
 	cmp r0, #0
 	bne _08057044
 	movs r0, #0
-	bl SetEkrEventFlagMaybe
+	bl SetBanimLinkArenaFlag
 	b _0805704A
 	.align 2, 0
 _08057040: .4byte gBmSt
 _08057044:
 	movs r0, #1
-	bl SetEkrEventFlagMaybe
+	bl SetBanimLinkArenaFlag
 _0805704A:
 	ldr r0, _08057064  @ gBattleStats
 	ldrh r1, [r0]
@@ -51,16 +52,16 @@ _0805704A:
 	lsrs r2, r0, #0x10
 	cmp r2, #0
 	beq _0805706C
-	ldr r1, _08057068  @ gEkrSomeType
+	ldr r1, _08057068  @ gEkrDistanceType
 	movs r0, #4
 	strh r0, [r1]
 	mov r8, r1
 	b _08057072
 	.align 2, 0
 _08057064: .4byte gBattleStats
-_08057068: .4byte gEkrSomeType
+_08057068: .4byte gEkrDistanceType
 _0805706C:
-	ldr r0, _080570A4  @ gEkrSomeType
+	ldr r0, _080570A4  @ gEkrDistanceType
 	strh r2, [r0]
 	mov r8, r0
 _08057072:
@@ -81,7 +82,7 @@ _08057072:
 	movs r0, #0
 	strh r0, [r1, #2]
 	strh r0, [r1]
-	ldr r0, _080570BC  @ gBanimSideVaildFlagMaybe
+	ldr r0, _080570BC  @ gEkrPairSideVaild
 	movs r1, #1
 	strh r1, [r0]
 	strh r1, [r0, #2]
@@ -89,13 +90,13 @@ _08057072:
 	adds r3, r0, #0
 	b _080571C6
 	.align 2, 0
-_080570A4: .4byte gEkrSomeType
+_080570A4: .4byte gEkrDistanceType
 _080570A8: .4byte gpEkrBattleUnitLeft
 _080570AC: .4byte gBattleActor
 _080570B0: .4byte gpEkrBattleUnitRight
 _080570B4: .4byte gBattleTarget
 _080570B8: .4byte gUnknown_0203E108
-_080570BC: .4byte gBanimSideVaildFlagMaybe
+_080570BC: .4byte gEkrPairSideVaild
 _080570C0:
 	ldr r5, _080570F8  @ gBattleActor
 	ldrb r1, [r5, #0xb]
@@ -145,12 +146,12 @@ _08057114:
 	lsrs r0, r0, #0x18
 	str r0, [sp, #0x20]
 _08057128:
-	ldr r1, _08057180  @ gBanimSideVaildFlagMaybe
+	ldr r1, _08057180  @ gEkrPairSideVaild
 	movs r0, #1
 	strh r0, [r1, #2]
 	strh r0, [r1]
 	movs r4, #0
-	bl GetEkrEventFlagMaybe
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	beq _08057150
 	lsls r0, r7, #0x10
@@ -181,23 +182,23 @@ _08057150:
 	movs r1, #0
 	strh r2, [r0]
 	strh r1, [r0, #2]
-	ldr r5, _08057198  @ gEkrSomeType
+	ldr r5, _08057198  @ gEkrDistanceType
 	mov r8, r5
 	ldr r6, [sp, #0xc]
-	ldr r3, _08057180  @ gBanimSideVaildFlagMaybe
+	ldr r3, _08057180  @ gEkrPairSideVaild
 	ldr r7, [sp, #0x20]
 	cmp r7, #1
 	bne _080571C6
 	strh r1, [r3]
 	b _080571C6
 	.align 2, 0
-_08057180: .4byte gBanimSideVaildFlagMaybe
+_08057180: .4byte gEkrPairSideVaild
 _08057184: .4byte gpEkrBattleUnitLeft
 _08057188: .4byte gBattleTarget
 _0805718C: .4byte gpEkrBattleUnitRight
 _08057190: .4byte gBattleActor
 _08057194: .4byte gUnknown_0203E108
-_08057198: .4byte gEkrSomeType
+_08057198: .4byte gEkrDistanceType
 _0805719C:
 	ldr r1, _08057284  @ gpEkrBattleUnitLeft
 	ldr r0, _08057288  @ gBattleActor
@@ -212,10 +213,10 @@ _0805719C:
 	strh r2, [r1]
 	movs r0, #1
 	strh r0, [r1, #2]
-	ldr r0, _08057298  @ gEkrSomeType
+	ldr r0, _08057298  @ gEkrDistanceType
 	mov r8, r0
 	ldr r6, [sp, #8]
-	ldr r3, _0805729C  @ gBanimSideVaildFlagMaybe
+	ldr r3, _0805729C  @ gEkrPairSideVaild
 	ldr r1, [sp, #0x20]
 	cmp r1, #1
 	bne _080571C6
@@ -257,7 +258,7 @@ _080571F4:
 _08057206:
 	cmp r5, #0
 	beq _08057232
-	ldr r3, _080572A0  @ gUnknown_0203E122
+	ldr r3, _080572A0  @ gEkrPairBmLoc
 	mov r2, r9
 	movs r0, #0x10
 	ldrsb r0, [r2, r0]
@@ -280,7 +281,7 @@ _08057206:
 _08057232:
 	cmp r4, #0
 	beq _0805725E
-	ldr r3, _080572A0  @ gUnknown_0203E122
+	ldr r3, _080572A0  @ gEkrPairBmLoc
 	mov r1, sl
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -324,9 +325,9 @@ _08057288: .4byte gBattleActor
 _0805728C: .4byte gpEkrBattleUnitRight
 _08057290: .4byte gBattleTarget
 _08057294: .4byte gUnknown_0203E108
-_08057298: .4byte gEkrSomeType
-_0805729C: .4byte gBanimSideVaildFlagMaybe
-_080572A0: .4byte gUnknown_0203E122
+_08057298: .4byte gEkrDistanceType
+_0805729C: .4byte gEkrPairSideVaild
+_080572A0: .4byte gEkrPairBmLoc
 _080572A4: .4byte gBmSt
 _080572A8:
 	movs r0, #3
@@ -335,7 +336,7 @@ _080572A8:
 	adds r0, r5, r4
 	cmp r0, #2
 	bne _0805732C
-	ldr r0, _080572CC  @ gUnknown_0203E122
+	ldr r0, _080572CC  @ gEkrPairBmLoc
 	movs r2, #0
 	ldrsh r1, [r0, r2]
 	movs r3, #4
@@ -348,7 +349,7 @@ _080572A8:
 	ldrh r1, [r2, #4]
 	b _080572D4
 	.align 2, 0
-_080572CC: .4byte gUnknown_0203E122
+_080572CC: .4byte gEkrPairBmLoc
 _080572D0:
 	ldrh r0, [r2, #4]
 	ldrh r1, [r2]
@@ -381,21 +382,21 @@ _080572F4:
 	adds r0, r1, r0
 	cmp r0, #1
 	bgt _08057314
-	ldr r1, _08057310  @ gEkrSomeType
+	ldr r1, _08057310  @ gEkrDistanceType
 	movs r0, #0
 	b _08057328
 	.align 2, 0
-_08057310: .4byte gEkrSomeType
+_08057310: .4byte gEkrDistanceType
 _08057314:
 	cmp r0, #3
 	bgt _08057324
-	ldr r1, _08057320  @ gEkrSomeType
+	ldr r1, _08057320  @ gEkrDistanceType
 	movs r0, #1
 	b _08057328
 	.align 2, 0
-_08057320: .4byte gEkrSomeType
+_08057320: .4byte gEkrDistanceType
 _08057324:
-	ldr r1, _08057374  @ gEkrSomeType
+	ldr r1, _08057374  @ gEkrDistanceType
 	movs r0, #2
 _08057328:
 	strh r0, [r1]
@@ -415,8 +416,8 @@ _08057336:
 	ldr r1, [sp, #0x3c]
 	mov r3, sp
 	bl GetBattleAnimationId
-	ldr r6, _08057378  @ gUnknown_0203E182
-	ldr r4, _0805737C  @ gBattleActorSide
+	ldr r6, _08057378  @ gEkrPairBanimID2
+	ldr r4, _0805737C  @ gEkrPairBanimID
 	strh r0, [r4]
 	strh r0, [r6]
 	ldr r5, [sp, #0xc]
@@ -436,9 +437,9 @@ _08057336:
 	str r5, [sp, #0x30]
 	b _080573FC
 	.align 2, 0
-_08057374: .4byte gEkrSomeType
-_08057378: .4byte gUnknown_0203E182
-_0805737C: .4byte gBattleActorSide
+_08057374: .4byte gEkrDistanceType
+_08057378: .4byte gEkrPairBanimID2
+_0805737C: .4byte gEkrPairBanimID
 _08057380:
 	ldr r0, _08057390  @ gBattleInitSide
 	ldr r1, _08057394  @ gUnknown_0895EEA4
@@ -474,8 +475,8 @@ _080573B0:
 	ldr r1, [sp, #0x3c]
 	mov r3, sp
 	bl GetBattleAnimationId
-	ldr r2, _080575A4  @ gUnknown_0203E182
-	ldr r1, _080575A8  @ gBattleActorSide
+	ldr r2, _080575A4  @ gEkrPairBanimID2
+	ldr r1, _080575A8  @ gEkrPairBanimID
 	strh r0, [r1]
 	strh r0, [r2]
 _080573D2:
@@ -495,8 +496,8 @@ _080573D2:
 	mov r0, sl
 	ldr r1, [sp, #0x18]
 	bl GetBattleAnimationId
-	ldr r2, _080575A4  @ gUnknown_0203E182
-	ldr r1, _080575A8  @ gBattleActorSide
+	ldr r2, _080575A4  @ gEkrPairBanimID2
+	ldr r1, _080575A8  @ gEkrPairBanimID
 	strh r0, [r1, #2]
 	strh r0, [r2, #2]
 _080573FC:
@@ -581,31 +582,31 @@ _08057486:
 	asrs r6, r1, #0x10
 	cmp r6, #0
 	beq _080574A2
-	ldr r0, _080575A4  @ gUnknown_0203E182
+	ldr r0, _080575A4  @ gEkrPairBanimID2
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	ldr r1, [sp, #8]
 	adds r1, #0x4a
 	ldrh r1, [r1]
 	bl SomethingFilterBattleAnimId
-	ldr r1, _080575B8  @ gUnknown_0203E19C
+	ldr r1, _080575B8  @ gEkrPaiSomeBanimID
 	str r0, [r1]
 _080574A2:
 	ldr r3, [sp, #0x28]
 	asrs r5, r3, #0x10
 	cmp r5, #0
 	beq _080574BE
-	ldr r0, _080575A4  @ gUnknown_0203E182
+	ldr r0, _080575A4  @ gEkrPairBanimID2
 	movs r4, #2
 	ldrsh r0, [r0, r4]
 	ldr r1, [sp, #0xc]
 	adds r1, #0x4a
 	ldrh r1, [r1]
 	bl SomethingFilterBattleAnimId
-	ldr r1, _080575B8  @ gUnknown_0203E19C
+	ldr r1, _080575B8  @ gEkrPaiSomeBanimID
 	str r0, [r1, #4]
 _080574BE:
-	ldr r7, _080575BC  @ gUnknown_0203E1CC
+	ldr r7, _080575BC  @ gEkrPairTerrainID
 	mov r8, r7
 	ldr r1, [sp, #0x34]
 	ldrb r0, [r1]
@@ -690,12 +691,12 @@ _08057562:
 	movs r0, #0x14
 	strh r0, [r1, #2]
 	strh r0, [r1]
-	ldr r1, _080575BC  @ gUnknown_0203E1CC
+	ldr r1, _080575BC  @ gEkrPairTerrainID
 	movs r0, #0x30
 	strh r0, [r1, #2]
 	strh r0, [r1]
 _0805757A:
-	ldr r0, _080575CC  @ gEkrSomeType
+	ldr r0, _080575CC  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	cmp r0, #0
@@ -714,24 +715,24 @@ _08057592:
 	bgt _080575D4
 	cmp r0, #1
 	blt _080575D4
-	ldr r1, _080575D0  @ gUnknown_0203E102
+	ldr r1, _080575D0  @ gEkrSnowWeather
 	movs r0, #1
 	b _080575D8
 	.align 2, 0
-_080575A4: .4byte gUnknown_0203E182
-_080575A8: .4byte gBattleActorSide
+_080575A4: .4byte gEkrPairBanimID2
+_080575A8: .4byte gEkrPairBanimID
 _080575AC: .4byte gBattleInitSide
 _080575B0: .4byte 0x0000FFFF
 _080575B4: .4byte gUnknown_0895E0A4
-_080575B8: .4byte gUnknown_0203E19C
-_080575BC: .4byte gUnknown_0203E1CC
+_080575B8: .4byte gEkrPaiSomeBanimID
+_080575BC: .4byte gEkrPairTerrainID
 _080575C0: .4byte gBanimTerrainIndexMaybe
 _080575C4: .4byte gPlaySt
 _080575C8: .4byte gBmSt
-_080575CC: .4byte gEkrSomeType
-_080575D0: .4byte gUnknown_0203E102
+_080575CC: .4byte gEkrDistanceType
+_080575D0: .4byte gEkrSnowWeather
 _080575D4:
-	ldr r1, _08057658  @ gUnknown_0203E102
+	ldr r1, _08057658  @ gEkrSnowWeather
 	movs r0, #0
 _080575D8:
 	strh r0, [r1]
@@ -739,7 +740,7 @@ _080575D8:
 	asrs r4, r5, #0x10
 	cmp r4, #0
 	beq _080575F0
-	ldr r0, _0805765C  @ gUnknown_0203E1D0
+	ldr r0, _0805765C  @ gEkrPairBaseCon
 	mov r7, r9
 	ldr r1, [r7, #4]
 	ldrb r1, [r1, #0x11]
@@ -751,7 +752,7 @@ _080575F0:
 	asrs r6, r0, #0x10
 	cmp r6, #0
 	beq _08057606
-	ldr r0, _0805765C  @ gUnknown_0203E1D0
+	ldr r0, _0805765C  @ gEkrPairBaseCon
 	mov r2, sl
 	ldr r1, [r2, #4]
 	ldrb r1, [r1, #0x11]
@@ -761,14 +762,14 @@ _080575F0:
 _08057606:
 	cmp r4, #0
 	beq _08057622
-	ldr r1, _08057660  @ gUnknown_0203E1AC
+	ldr r1, _08057660  @ gEkrPairHpInitial
 	ldr r0, [sp, #8]
 	adds r0, #0x72
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	strh r0, [r1]
-	ldr r1, _08057664  @ gUnknown_0203E1B0
+	ldr r1, _08057664  @ gEkrPairMaxHP
 	mov r3, r9
 	movs r0, #0x12
 	ldrsb r0, [r3, r0]
@@ -776,21 +777,21 @@ _08057606:
 _08057622:
 	cmp r6, #0
 	beq _0805763E
-	ldr r1, _08057660  @ gUnknown_0203E1AC
+	ldr r1, _08057660  @ gEkrPairHpInitial
 	ldr r0, [sp, #0xc]
 	adds r0, #0x72
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	strh r0, [r1, #2]
-	ldr r1, _08057664  @ gUnknown_0203E1B0
+	ldr r1, _08057664  @ gEkrPairMaxHP
 	mov r5, sl
 	movs r0, #0x12
 	ldrsb r0, [r5, r0]
 	strh r0, [r1, #2]
 _0805763E:
 	bl sub_80581EC
-	ldr r0, _08057668  @ gEkrSomeType
+	ldr r0, _08057668  @ gEkrDistanceType
 	movs r7, #0
 	ldrsh r0, [r0, r7]
 	cmp r0, #4
@@ -801,11 +802,11 @@ _0805763E:
 	strh r0, [r1]
 	b _080576CC
 	.align 2, 0
-_08057658: .4byte gUnknown_0203E102
-_0805765C: .4byte gUnknown_0203E1D0
-_08057660: .4byte gUnknown_0203E1AC
-_08057664: .4byte gUnknown_0203E1B0
-_08057668: .4byte gEkrSomeType
+_08057658: .4byte gEkrSnowWeather
+_0805765C: .4byte gEkrPairBaseCon
+_08057660: .4byte gEkrPairHpInitial
+_08057664: .4byte gEkrPairMaxHP
+_08057668: .4byte gEkrDistanceType
 _0805766C: .4byte gEkrSpellAnimIndexLutMaybe
 _08057670:
 	cmp r4, #0
@@ -874,7 +875,7 @@ _080576E0:
 	movs r1, #1
 	bl sub_80581A0
 _080576F4:
-	ldr r0, _08057720  @ gEkrSomeType
+	ldr r0, _08057720  @ gEkrDistanceType
 	movs r7, #0
 	ldrsh r0, [r0, r7]
 	cmp r0, #0
@@ -893,17 +894,17 @@ _080576F4:
 _08057714: .4byte gEkrSpellAnimIndexLutMaybe
 _08057718: .4byte gBattleStats
 _0805771C: .4byte gUnknown_0203E11A
-_08057720: .4byte gEkrSomeType
+_08057720: .4byte gEkrDistanceType
 _08057724:
-	ldr r0, _08057730  @ gUnknown_02000000
+	ldr r0, _08057730  @ gAnims
 	ldr r0, [r0]
 	movs r1, #1
 	bl SetEkrDragonStatusType
 	b _0805773E
 	.align 2, 0
-_08057730: .4byte gUnknown_02000000
+_08057730: .4byte gAnims
 _08057734:
-	ldr r0, _080579DC  @ gUnknown_02000000
+	ldr r0, _080579DC  @ gAnims
 	ldr r0, [r0]
 	movs r1, #2
 	bl SetEkrDragonStatusType
@@ -950,7 +951,7 @@ _08057784:
 	ldrb r0, [r3, #4]
 	strb r0, [r1, #1]
 _0805778E:
-	ldr r3, _080579E8  @ gEkrHitPair
+	ldr r3, _080579E8  @ gEkrPairHit
 	cmp r6, #0
 	beq _0805779C
 	ldr r0, [sp, #8]
@@ -984,7 +985,7 @@ _080577B8:
 _080577C6:
 	cmp r6, #0
 	beq _08057800
-	ldr r4, _080579F0  @ gEkrDmgPair
+	ldr r4, _080579F0  @ gEkrPairDmgPair
 	ldr r2, [sp, #8]
 	adds r2, #0x5a
 	ldr r0, [sp, #0xc]
@@ -1016,7 +1017,7 @@ _08057800:
 	ldr r2, [sp, #0x28]
 	cmp r2, #0
 	beq _0805783E
-	ldr r4, _080579F0  @ gEkrDmgPair
+	ldr r4, _080579F0  @ gEkrPairDmgPair
 	ldr r2, [sp, #0xc]
 	adds r2, #0x5a
 	ldr r0, [sp, #8]
@@ -1048,7 +1049,7 @@ _0805782E:
 _0805783E:
 	ldr r7, [sp, #0x24]
 	asrs r5, r7, #0x10
-	ldr r7, _080579F4  @ gEkrCritPair
+	ldr r7, _080579F4  @ gEkrPairCritPair
 	cmp r5, #0
 	beq _08057850
 	ldr r0, [sp, #8]
@@ -1098,15 +1099,15 @@ _0805788E:
 	ldr r0, _080579EC  @ 0x0000FFFF
 	strh r0, [r4, #2]
 _0805789E:
-	ldr r2, _080579F8  @ gEkrSomeType
+	ldr r2, _080579F8  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	cmp r0, #4
 	bne _080578B8
-	ldr r1, _080579E8  @ gEkrHitPair
+	ldr r1, _080579E8  @ gEkrPairHit
 	ldr r0, _080579EC  @ 0x0000FFFF
 	strh r0, [r1, #2]
-	ldr r1, _080579F0  @ gEkrDmgPair
+	ldr r1, _080579F0  @ gEkrPairDmgPair
 	movs r0, #1
 	negs r0, r0
 	strh r0, [r1, #2]
@@ -1114,7 +1115,7 @@ _0805789E:
 _080578B8:
 	cmp r5, #0
 	beq _080578CA
-	ldr r1, _080579FC  @ gUnknown_0203E1C4
+	ldr r1, _080579FC  @ gEkrPairExpPrevious
 	ldr r0, [sp, #8]
 	adds r0, #0x71
 	ldrb r0, [r0]
@@ -1124,7 +1125,7 @@ _080578B8:
 _080578CA:
 	cmp r6, #0
 	beq _080578DC
-	ldr r1, _080579FC  @ gUnknown_0203E1C4
+	ldr r1, _080579FC  @ gEkrPairExpPrevious
 	ldr r0, [sp, #0xc]
 	adds r0, #0x71
 	ldrb r0, [r0]
@@ -1134,7 +1135,7 @@ _080578CA:
 _080578DC:
 	cmp r5, #0
 	beq _080578EE
-	ldr r1, _08057A00  @ gUnknown_0203E1C8
+	ldr r1, _08057A00  @ gEkrPairExpGain
 	ldr r0, [sp, #8]
 	adds r0, #0x6e
 	ldrb r0, [r0]
@@ -1144,7 +1145,7 @@ _080578DC:
 _080578EE:
 	cmp r6, #0
 	beq _08057900
-	ldr r1, _08057A00  @ gUnknown_0203E1C8
+	ldr r1, _08057A00  @ gEkrPairExpGain
 	ldr r0, [sp, #0xc]
 	adds r0, #0x6e
 	ldrb r0, [r0]
@@ -1152,7 +1153,7 @@ _080578EE:
 	asrs r0, r0, #0x18
 	strh r0, [r1, #2]
 _08057900:
-	ldr r1, _08057A04  @ gUnknown_0203E1D4
+	ldr r1, _08057A04  @ gEkrPairWTABonus
 	movs r0, #0
 	strh r0, [r1, #2]
 	strh r0, [r1]
@@ -1183,7 +1184,7 @@ _08057930:
 	mov r0, r9
 	mov r1, sl
 	bl IsUnitEffectiveAgainst
-	ldr r1, _08057A08  @ gUnknown_0203E1D8
+	ldr r1, _08057A08  @ gEkrPairEffectiveAgainst
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	strh r0, [r1]
@@ -1193,12 +1194,12 @@ _08057944:
 	mov r0, sl
 	mov r1, r9
 	bl IsUnitEffectiveAgainst
-	ldr r1, _08057A08  @ gUnknown_0203E1D8
+	ldr r1, _08057A08  @ gEkrPairEffectiveAgainst
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	strh r0, [r1, #2]
 _08057958:
-	ldr r4, _08057A08  @ gUnknown_0203E1D8
+	ldr r4, _08057A08  @ gEkrPairEffectiveAgainst
 	movs r7, #0
 	ldrsh r0, [r4, r7]
 	cmp r0, #0
@@ -1213,7 +1214,7 @@ _08057958:
 	asrs r0, r0, #0x18
 	strh r0, [r4]
 _08057976:
-	ldr r4, _08057A08  @ gUnknown_0203E1D8
+	ldr r4, _08057A08  @ gEkrPairEffectiveAgainst
 	movs r2, #2
 	ldrsh r0, [r4, r2]
 	cmp r0, #0
@@ -1249,7 +1250,7 @@ _080579AE:
 	ldrh r0, [r0]
 	bl GetItemIndex
 _080579BE:
-	bl GetEkrEventFlagMaybe
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	beq _080579D2
 	ldr r0, _08057A10  @ gPlaySt
@@ -1265,18 +1266,18 @@ _080579D2:
 	strh r0, [r1]
 	b _08057A1E
 	.align 2, 0
-_080579DC: .4byte gUnknown_02000000
+_080579DC: .4byte gAnims
 _080579E0: .4byte gBanimSomeObjPalIndex
 _080579E4: .4byte gEkrPids
-_080579E8: .4byte gEkrHitPair
+_080579E8: .4byte gEkrPairHit
 _080579EC: .4byte 0x0000FFFF
-_080579F0: .4byte gEkrDmgPair
-_080579F4: .4byte gEkrCritPair
-_080579F8: .4byte gEkrSomeType
-_080579FC: .4byte gUnknown_0203E1C4
-_08057A00: .4byte gUnknown_0203E1C8
-_08057A04: .4byte gUnknown_0203E1D4
-_08057A08: .4byte gUnknown_0203E1D8
+_080579F0: .4byte gEkrPairDmgPair
+_080579F4: .4byte gEkrPairCritPair
+_080579F8: .4byte gEkrDistanceType
+_080579FC: .4byte gEkrPairExpPrevious
+_08057A00: .4byte gEkrPairExpGain
+_08057A04: .4byte gEkrPairWTABonus
+_08057A08: .4byte gEkrPairEffectiveAgainst
 _08057A0C: .4byte gUnknown_0203E1A4
 _08057A10: .4byte gPlaySt
 _08057A14: .4byte gUnknown_0203E1DC
@@ -1285,27 +1286,27 @@ _08057A18:
 	strh r4, [r0, #2]
 	strh r4, [r0]
 _08057A1E:
-	ldr r5, _08057A40  @ gUnknown_0203E0FE
+	ldr r5, _08057A40  @ gEkrPairSomeTile
 	movs r0, #0
 	strh r0, [r5]
 	bl GetBattleAnimType
 	cmp r0, #3
 	bne _08057A66
-	ldr r0, _08057A44  @ gBanimSideVaildFlagMaybe
+	ldr r0, _08057A44  @ gEkrPairSideVaild
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq _08057A4C
-	ldr r0, _08057A48  @ gUnknown_0203E1CC
+	ldr r0, _08057A48  @ gEkrPairTerrainID
 	ldrh r4, [r0]
 	b _08057A50
 	.align 2, 0
 _08057A3C: .4byte gUnknown_0203E1DC
-_08057A40: .4byte gUnknown_0203E0FE
-_08057A44: .4byte gBanimSideVaildFlagMaybe
-_08057A48: .4byte gUnknown_0203E1CC
+_08057A40: .4byte gEkrPairSomeTile
+_08057A44: .4byte gEkrPairSideVaild
+_08057A48: .4byte gEkrPairTerrainID
 _08057A4C:
-	ldr r0, _08057C78  @ gUnknown_0203E1CC
+	ldr r0, _08057C78  @ gEkrPairTerrainID
 	ldrh r4, [r0, #2]
 _08057A50:
 	ldr r0, _08057C7C  @ gPlaySt
@@ -1321,7 +1322,7 @@ _08057A66:
 	bl sub_8076310
 	cmp r0, #1
 	bne _08057A74
-	ldr r1, _08057C80  @ gUnknown_0203E0FE
+	ldr r1, _08057C80  @ gEkrPairSomeTile
 	movs r0, #0x3c
 	strh r0, [r1]
 _08057A74:
@@ -1339,7 +1340,7 @@ _08057A8A:
 	bl GetBattleAnimType
 	cmp r0, #1
 	bne _08057AB6
-	ldr r0, _08057C84  @ gEkrSomeType
+	ldr r0, _08057C84  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #4
@@ -1359,7 +1360,7 @@ _08057AA8:
 	movs r4, #1
 _08057AB6:
 	bl sub_8058B70
-	ldr r0, _08057C84  @ gEkrSomeType
+	ldr r0, _08057C84  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	cmp r0, #4
@@ -1505,7 +1506,7 @@ _08057BAA:
 _08057BD6:
 	cmp r4, #0
 	beq _08057C72
-	ldr r0, _08057C88  @ gBanimSideVaildFlagMaybe
+	ldr r0, _08057C88  @ gEkrPairSideVaild
 	movs r2, #0
 	ldrsh r1, [r0, r2]
 	adds r3, r0, #0
@@ -1518,7 +1519,7 @@ _08057BD6:
 	ands r0, r1
 	cmp r0, #4
 	beq _08057C72
-	ldr r0, _08057C8C  @ gUnknown_0203E182
+	ldr r0, _08057C8C  @ gEkrPairBanimID2
 	movs r4, #0
 	ldrsh r0, [r0, r4]
 	movs r2, #1
@@ -1537,7 +1538,7 @@ _08057BD6:
 	ldrsh r0, [r0, r7]
 	cmp r0, r2
 	beq _08057C72
-	ldr r0, _08057C78  @ gUnknown_0203E1CC
+	ldr r0, _08057C78  @ gEkrPairTerrainID
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x1b
@@ -1556,7 +1557,7 @@ _08057C28:
 	ands r0, r1
 	cmp r0, #4
 	beq _08057C72
-	ldr r0, _08057C8C  @ gUnknown_0203E182
+	ldr r0, _08057C8C  @ gEkrPairBanimID2
 	movs r3, #2
 	ldrsh r0, [r0, r3]
 	movs r2, #1
@@ -1575,7 +1576,7 @@ _08057C28:
 	ldrsh r0, [r0, r5]
 	cmp r0, r2
 	beq _08057C72
-	ldr r0, _08057C78  @ gUnknown_0203E1CC
+	ldr r0, _08057C78  @ gEkrPairTerrainID
 	movs r7, #2
 	ldrsh r0, [r0, r7]
 	cmp r0, #0x1b
@@ -1586,12 +1587,12 @@ _08057C72:
 	movs r0, #0
 	b _08057C9A
 	.align 2, 0
-_08057C78: .4byte gUnknown_0203E1CC
+_08057C78: .4byte gEkrPairTerrainID
 _08057C7C: .4byte gPlaySt
-_08057C80: .4byte gUnknown_0203E0FE
-_08057C84: .4byte gEkrSomeType
-_08057C88: .4byte gBanimSideVaildFlagMaybe
-_08057C8C: .4byte gUnknown_0203E182
+_08057C80: .4byte gEkrPairSomeTile
+_08057C84: .4byte gEkrDistanceType
+_08057C88: .4byte gEkrPairSideVaild
+_08057C8C: .4byte gEkrPairBanimID2
 _08057C90: .4byte gEkrSpellAnimIndexLutMaybe
 _08057C94: .4byte gBanimTerrainIndexMaybe
 _08057C98:
@@ -2269,7 +2270,7 @@ sub_80581EC: @ 0x080581EC
 	movs r2, #0
 	ldr r4, _08058248  @ gAnimRoundData
 	ldr r5, _0805824C  @ gUnknown_0203E194
-	ldr r6, _08058250  @ gEkrSomeType
+	ldr r6, _08058250  @ gEkrDistanceType
 	ldr r0, _08058254  @ 0x0000FFFF
 	adds r3, r0, #0
 	adds r1, r4, #0
@@ -2308,7 +2309,7 @@ _08058220:
 _08058244: .4byte gBattleHitArray
 _08058248: .4byte gAnimRoundData
 _0805824C: .4byte gUnknown_0203E194
-_08058250: .4byte gEkrSomeType
+_08058250: .4byte gEkrDistanceType
 _08058254: .4byte 0x0000FFFF
 _08058258: .4byte gUnknown_0203E156
 _0805825C:
@@ -2421,7 +2422,7 @@ _0805831E:
 	str r0, [sp, #0x18]
 _08058332:
 	ldr r3, _08058350  @ gUnknown_0203E156
-	ldr r1, _08058354  @ gUnknown_0203E1AC
+	ldr r1, _08058354  @ gEkrPairHpInitial
 	ldrh r0, [r1]
 	strh r0, [r3]
 	ldrh r0, [r1, #2]
@@ -2435,7 +2436,7 @@ _08058332:
 _08058348: .4byte gpEkrBattleUnitLeft
 _0805834C: .4byte gpEkrBattleUnitRight
 _08058350: .4byte gUnknown_0203E156
-_08058354: .4byte gUnknown_0203E1AC
+_08058354: .4byte gEkrPairHpInitial
 _08058358:
 	lsls r0, r2, #8
 	lsrs r0, r0, #0x1b
@@ -2780,7 +2781,7 @@ _080585E4:
 	ldrsb r1, [r7, r1]
 	adds r0, r0, r1
 	lsls r0, r0, #0x10
-	ldr r3, _08058630  @ gUnknown_0203E1B0
+	ldr r3, _08058630  @ gEkrPairMaxHP
 	lsrs r2, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r5, #0
@@ -2799,7 +2800,7 @@ _0805861A:
 	.align 2, 0
 _08058628: .4byte gUnknown_0203E108
 _0805862C: .4byte gUnknown_0203E156
-_08058630: .4byte gUnknown_0203E1B0
+_08058630: .4byte gEkrPairMaxHP
 _08058634:
 	mov r1, r9
 	lsls r0, r1, #1
@@ -2830,7 +2831,7 @@ _0805864C:
 	ldrsb r1, [r7, r1]
 	adds r0, r0, r1
 	lsls r0, r0, #0x10
-	ldr r3, _0805869C  @ gUnknown_0203E1B0
+	ldr r3, _0805869C  @ gEkrPairMaxHP
 	lsrs r2, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r5, #2
@@ -2853,7 +2854,7 @@ _08058690:
 	b _0805881C
 	.align 2, 0
 _08058698: .4byte gUnknown_0203E156
-_0805869C: .4byte gUnknown_0203E1B0
+_0805869C: .4byte gEkrPairMaxHP
 _080586A0:
 	ldr r0, _08058764  @ gUnknown_0203E108
 	movs r1, #0

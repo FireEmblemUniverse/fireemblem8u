@@ -609,7 +609,7 @@ void sub_802F598(struct Unit* unit, int itemIdx, s8 unk) {
     gBattleHitArray[0].info = BATTLE_HIT_INFO_END;
     gBattleHitArray[0].hpChange = 0;
 
-    gBattleStats.config = BATTLE_CONFIG_BIT4;
+    gBattleStats.config = BATTLE_CONFIG_PROMOTION;
 
     return;
 }
@@ -645,7 +645,7 @@ void sub_802F664(struct Unit* unit, u8 classId, int itemIdx, s8 unk) {
     gBattleHitArray[0].info = BATTLE_HIT_INFO_END;
     gBattleHitArray[0].hpChange = 0;
 
-    gBattleStats.config = BATTLE_CONFIG_BIT4;
+    gBattleStats.config = BATTLE_CONFIG_PROMOTION;
 
     return;
 }
@@ -676,7 +676,7 @@ void sub_802F760(struct Unit* unit, int item) {
     gBattleHitArray[0].info = BATTLE_HIT_INFO_END;
     gBattleHitArray[0].hpChange = 0;
 
-    gBattleStats.config = BATTLE_CONFIG_BIT4;
+    gBattleStats.config = BATTLE_CONFIG_PROMOTION;
 
     BeginBattleAnimations();
 

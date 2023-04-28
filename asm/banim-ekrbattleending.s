@@ -22,7 +22,7 @@ ekrBattleEnding_80560F0: @ 0x080560F0
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	ldr r0, _08056114  @ gUnknown_0203E0FE
+	ldr r0, _08056114  @ gEkrPairSomeTile
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -37,7 +37,7 @@ _0805610C:
 	bl Proc_Break
 	b _08056160
 	.align 2, 0
-_08056114: .4byte gUnknown_0203E0FE
+_08056114: .4byte gEkrPairSomeTile
 _08056118:
 	movs r0, #0x2c
 	ldrsh r3, [r5, r0]
@@ -48,7 +48,7 @@ _08056118:
 	movs r2, #0x10
 	bl Interpolate
 	adds r4, r0, #0
-	ldr r0, _08056168  @ gUnknown_0203E0FE
+	ldr r0, _08056168  @ gEkrPairSomeTile
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r0, #1
@@ -76,7 +76,7 @@ _08056160:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08056168: .4byte gUnknown_0203E0FE
+_08056168: .4byte gEkrPairSomeTile
 _0805616C: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END ekrBattleEnding_80560F0
@@ -85,7 +85,7 @@ _0805616C: .4byte gPaletteBuffer
 ekrBattleEnding_8056170: @ 0x08056170
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08056194  @ gUnknown_0203E0FE
+	ldr r0, _08056194  @ gEkrPairSomeTile
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -100,7 +100,7 @@ _0805618A:
 	bl Proc_Break
 	b _080561BE
 	.align 2, 0
-_08056194: .4byte gUnknown_0203E0FE
+_08056194: .4byte gEkrPairSomeTile
 _08056198:
 	ldr r0, _080561C4  @ gPlaySt
 	ldrb r0, [r0, #0xe]
@@ -130,7 +130,7 @@ ekrBattleEnding_80561C8: @ 0x080561C8
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	ldr r0, _080561EC  @ gUnknown_0203E0FE
+	ldr r0, _080561EC  @ gEkrPairSomeTile
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -145,7 +145,7 @@ _080561E4:
 	bl Proc_Break
 	b _0805621E
 	.align 2, 0
-_080561EC: .4byte gUnknown_0203E0FE
+_080561EC: .4byte gEkrPairSomeTile
 _080561F0:
 	movs r0, #0x2c
 	ldrsh r3, [r4, r0]
@@ -181,7 +181,7 @@ ekrBattleEnding_8056228: @ 0x08056228
 	adds r4, r0, #0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
-	ldr r2, _08056284  @ gUnknown_0203E122
+	ldr r2, _08056284  @ gEkrPairBmLoc
 	movs r1, #0
 	ldrsh r0, [r2, r1]
 	movs r3, #4
@@ -217,7 +217,7 @@ ekrBattleEnding_8056228: @ 0x08056228
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08056284: .4byte gUnknown_0203E122
+_08056284: .4byte gEkrPairBmLoc
 
 	THUMB_FUNC_END ekrBattleEnding_8056228
 
@@ -334,7 +334,7 @@ ekrBattleEnding_8056310: @ 0x08056310
 	beq _08056372
 	bl UnpackChapterMapPalette
 _08056372:
-	bl GetEkrEventFlagMaybe
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	bne _0805637E
 	bl sub_8049788
@@ -511,7 +511,7 @@ sub_805649C: @ 0x0805649C
 	movs r2, #0x20
 	orrs r0, r2
 	strb r0, [r1]
-	ldr r0, _080564FC  @ gUnknown_0203E122
+	ldr r0, _080564FC  @ gEkrPairBmLoc
 	movs r1, #0
 	ldrsh r3, [r0, r1]
 	movs r4, #4
@@ -529,7 +529,7 @@ sub_805649C: @ 0x0805649C
 	b _0805652C
 	.align 2, 0
 _080564F8: .4byte gLCDControlBuffer
-_080564FC: .4byte gUnknown_0203E122
+_080564FC: .4byte gEkrPairBmLoc
 _08056500:
 	movs r4, #2
 	ldrsh r1, [r0, r4]
@@ -556,7 +556,7 @@ _08056524:
 	blt _0805652C
 	movs r4, #5
 _0805652C:
-	ldr r0, _08056540  @ gEkrSomeType
+	ldr r0, _08056540  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #3
@@ -567,7 +567,7 @@ _0805652C:
 	beq _08056548
 	b _08056550
 	.align 2, 0
-_08056540: .4byte gEkrSomeType
+_08056540: .4byte gEkrDistanceType
 _08056544:
 	cmp r0, #4
 	bne _08056550
@@ -590,7 +590,7 @@ _08056552:
 	movs r2, #1
 	bl CpuFastSet
 	bl EnablePaletteSync
-	ldr r0, _08056594  @ gEkrSomeType
+	ldr r0, _08056594  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #4
@@ -607,7 +607,7 @@ _08056584: .4byte gUnknown_085B9BA4
 _08056588: .4byte 0x06010000
 _0805658C: .4byte gUnknown_080DC85C
 _08056590: .4byte gUnknown_02022B28
-_08056594: .4byte gEkrSomeType
+_08056594: .4byte gEkrDistanceType
 _08056598: .4byte _0805659C
 _0805659C: @ jump table
 	.4byte _080565B0 @ case 0
@@ -628,7 +628,7 @@ _080565B0:
 	strh r0, [r5, #0x2c]
 	movs r0, #0xb
 	strh r0, [r5, #0x2e]
-	ldr r2, _08056604  @ gUnknown_0203E122
+	ldr r2, _08056604  @ gEkrPairBmLoc
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	movs r4, #4
@@ -656,7 +656,7 @@ _080565B0:
 	b _0805660E
 	.align 2, 0
 _08056600: .4byte gProc_EkrBaseKaiten
-_08056604: .4byte gUnknown_0203E122
+_08056604: .4byte gEkrPairBmLoc
 _08056608: .4byte gUnknown_085B9BC4
 _0805660C:
 	ldr r0, _0805663C  @ gUnknown_085B9C24
@@ -707,7 +707,7 @@ _08056650:
 	strh r0, [r5, #0x2c]
 	movs r0, #0xb
 	strh r0, [r5, #0x2e]
-	ldr r1, _080566B0  @ gUnknown_0203E122
+	ldr r1, _080566B0  @ gEkrPairBmLoc
 	movs r4, #0
 	ldrsh r0, [r1, r4]
 	lsls r0, r0, #4
@@ -727,7 +727,7 @@ _08056650:
 	cmp r0, #1
 	bne _080566A2
 	ldr r1, _080566B8  @ gUnknown_080DAF28
-	ldr r0, _080566BC  @ gEkrSomeType
+	ldr r0, _080566BC  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	lsls r0, r0, #1
@@ -743,10 +743,10 @@ _080566A2:
 	b _080566C6
 	.align 2, 0
 _080566AC: .4byte gProc_EkrBaseKaiten
-_080566B0: .4byte gUnknown_0203E122
+_080566B0: .4byte gEkrPairBmLoc
 _080566B4: .4byte gEkrPos2Maybe
 _080566B8: .4byte gUnknown_080DAF28
-_080566BC: .4byte gEkrSomeType
+_080566BC: .4byte gEkrDistanceType
 _080566C0: .4byte gUnknown_085B9BE4
 _080566C4:
 	ldr r0, _080566F4  @ gUnknown_085B9C44
@@ -799,7 +799,7 @@ _080566FE:
 	strh r4, [r5, #0x2c]
 	movs r0, #0xb
 	strh r0, [r5, #0x2e]
-	ldr r1, _08056774  @ gUnknown_0203E122
+	ldr r1, _08056774  @ gEkrPairBmLoc
 	movs r4, #4
 	ldrsh r0, [r1, r4]
 	lsls r0, r0, #4
@@ -819,7 +819,7 @@ _080566FE:
 	cmp r0, #0
 	bne _08056760
 	ldr r1, _0805677C  @ gUnknown_080DAF28
-	ldr r0, _08056780  @ gEkrSomeType
+	ldr r0, _08056780  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	lsls r0, r0, #1
@@ -836,10 +836,10 @@ _08056760:
 	.align 2, 0
 _0805676C: .4byte gUnknown_085B9CA4
 _08056770: .4byte gProc_EkrBaseKaiten
-_08056774: .4byte gUnknown_0203E122
+_08056774: .4byte gEkrPairBmLoc
 _08056778: .4byte gEkrPos2Maybe
 _0805677C: .4byte gUnknown_080DAF28
-_08056780: .4byte gEkrSomeType
+_08056780: .4byte gEkrDistanceType
 _08056784: .4byte gUnknown_085B9C04
 _08056788:
 	ldr r0, _080567B8  @ gUnknown_085B9C64
@@ -880,7 +880,7 @@ _080567BC:
 	strh r0, [r5, #0x2c]
 	movs r0, #0xb
 	strh r0, [r5, #0x2e]
-	ldr r1, _08056804  @ gUnknown_0203E122
+	ldr r1, _08056804  @ gEkrPairBmLoc
 	movs r4, #4
 	ldrsh r0, [r1, r4]
 	lsls r0, r0, #4
@@ -902,7 +902,7 @@ _080567BC:
 	b _0805680E
 	.align 2, 0
 _08056800: .4byte gProc_EkrBaseKaiten
-_08056804: .4byte gUnknown_0203E122
+_08056804: .4byte gEkrPairBmLoc
 _08056808: .4byte gUnknown_085B9C04
 _0805680C:
 	ldr r0, _0805683C  @ gUnknown_085B9C64

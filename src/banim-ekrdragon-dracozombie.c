@@ -62,14 +62,14 @@ void EfxDracoZombiePrepareImg(struct ProcEkrDragon *proc)
 
     CpuFastCopy(PAL_BG(4), gEkrDragonPalBackup, 0x40);
     SetEkrDragonStatusUnk1(1);
-    proc->unk2E = 0;
+    proc->tcounter = 0;
 }
 
-void sub_806FD74(struct ProcEkrDragon *proc)
+void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon *proc)
 {
     int x, y;
 
-    if (gEkrSomeType == 2) {
+    if (gEkrDistanceType == EKR_DISTANCE_FARFAR) {
         EkrDZ_PrepareBanimfx(proc);
         Proc_Goto(proc, 0);
         Proc_Break(proc);
@@ -77,20 +77,22 @@ void sub_806FD74(struct ProcEkrDragon *proc)
     }
 
     if (proc->timer == 0) {
-        switch (gEkrDracoZombiTsaSetLut[proc->unk2E].unk07) {
+
+        /* Something related to monster's bark */
+        switch (gEkrDracoZombiTsaSetLut[proc->tcounter].type) {
         case 1:
-            sub_80729A4(0xE6, 0x100, 0x78, 0);
+            EkrSoundSomeBark(0xE6, 0x100, 0x78, 0);
             break;
 
         case 2:
-            sub_80729A4(0x2E0, 0x100, 0x78, 0);
+            EkrSoundSomeBark(0x2E0, 0x100, 0x78, 0);
             break;
 
         default:
             break;
         }
 
-        if (gEkrDracoZombiTsaSetLut[proc->unk2E].tsa == NULL) {
+        if (gEkrDracoZombiTsaSetLut[proc->tcounter].tsa == NULL) {
             proc->timer = 0;
             StartSpellBG_FLASH(proc->anim, 0x10);
             NewEkrDragonQuakeTree3(NULL, 0x2D, 0xB);
@@ -98,19 +100,19 @@ void sub_806FD74(struct ProcEkrDragon *proc)
             return;
         }
 
-        LZ77UnCompVram(gEkrDracoZombiTsaSetLut[proc->unk2E].tsa, gEkrTsaBuffer);
+        LZ77UnCompVram(gEkrDracoZombiTsaSetLut[proc->tcounter].tsa, gEkrTsaBuffer);
         sub_806FBB8();
     }
 
-    x = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->unk2E].lox, gEkrDracoZombiTsaSetLut[proc->unk2E + 1].lox, proc->timer, gEkrDracoZombiTsaSetLut[proc->unk2E].unk04);
-    y = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->unk2E].loy, gEkrDracoZombiTsaSetLut[proc->unk2E + 1].loy, proc->timer, gEkrDracoZombiTsaSetLut[proc->unk2E].unk04);
+    x = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->tcounter].lox, gEkrDracoZombiTsaSetLut[proc->tcounter + 1].lox, proc->timer, gEkrDracoZombiTsaSetLut[proc->tcounter].time);
+    y = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->tcounter].loy, gEkrDracoZombiTsaSetLut[proc->tcounter + 1].loy, proc->timer, gEkrDracoZombiTsaSetLut[proc->tcounter].time);
 
     EkrDragonBgSetPostion(x + gEkrBgXOffset, y);
 
     proc->timer++;
-    if (proc->timer == gEkrDracoZombiTsaSetLut[proc->unk2E].unk04) {
+    if (proc->timer == gEkrDracoZombiTsaSetLut[proc->tcounter].time) {
         proc->timer = 0;
-        proc->unk2E++;
+        proc->tcounter++;
     }
 }
 
@@ -174,13 +176,13 @@ void EkrDZ_ReloadCustomBg(struct ProcEkrDragon *proc)
     CpuFastCopy(Pal_EfxDracoZombie, PAL_BG(6), 0x20);
     EkrMaybePalFadeWithVal(PAL_BG(0), 6, 1, val);
 
-    switch (gEkrSomeType) {
-    case 0:
+    switch (gEkrDistanceType) {
+    case EKR_DISTANCE_CLOSE:
         CpuFastCopy(gEkrDragonPalBackup, PAL_BG(4), 0x40);
         EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, val);
         break;
 
-    case 1:
+    case EKR_DISTANCE_FAR:
         CpuFastCopy(gEkrDragonPalBackup, PAL_BG(4), 0x20);
         EkrMaybePalFadeWithVal(PAL_BG(0), 4, 1, val);
         break;
@@ -193,7 +195,7 @@ void EkrDZ_ReloadCustomBg(struct ProcEkrDragon *proc)
     
     if (++proc->timer == 0x9) {
         proc->timer = 0;
-        gBanimSideVaildFlagMaybe[GetAISSubjectId(proc->anim)] = false;
+        gEkrPairSideVaild[GetAISSubjectId(proc->anim)] = false;
         BG_Fill(gBG3TilemapBuffer, 0x6000);
         BG_EnableSyncByMask(BG3_SYNC_BIT);
         SetEkrDragonStatusUnk1(0);
@@ -222,13 +224,13 @@ void EkrDZ_ReloadCustomBgAndFadeOut(struct ProcEkrDragon *proc)
     if (CheckEkrDragonStatusAttrBit13(proc->anim) == false) {
         val = Interpolate(INTERPOLATE_RSQUARE, 0x10, 0, proc->timer, 8);
 
-        switch (gEkrSomeType) {
-        case 0:
+        switch (gEkrDistanceType) {
+        case EKR_DISTANCE_CLOSE:
             CpuFastCopy(gEkrDragonPalBackup, PAL_BG(4), 0x40);
             EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, val);
             break;
 
-        case 1:
+        case EKR_DISTANCE_FAR:
             CpuFastCopy(gEkrDragonPalBackup, PAL_BG(4), 0x20);
             EkrMaybePalFadeWithVal(PAL_BG(0), 4, 1, val);
             break;
@@ -428,7 +430,8 @@ CONST_DATA struct ProcCmd ProcScr_EkrDracoZombie[] = {
     PROC_REPEAT(EkrDZ_CustomBgFadeIn),
     PROC_CALL(EfxDracoZombiePrepareImg),
 
-    PROC_REPEAT(sub_806FD74),
+    /* Apply TSA sets and other ctrl to intro DZ to screen */
+    PROC_REPEAT(EkrDZ_MonsterFlyIntoScreen),
 
     /* Decompress spell and ekr banimfx */
     PROC_CALL(EkrDZ_PrepareBanimfx),

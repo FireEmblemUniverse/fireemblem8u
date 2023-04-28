@@ -21,7 +21,7 @@ struct SpellAssoc *GetSpellAssocStructPtr(u16 item)
     return it;
 }
 
-int GetSpellAssocCharCount(u16 item)
+u8 GetSpellAssocCharCount(u16 item)
 {
     return GetSpellAssocStructPtr(item)->count;
 }

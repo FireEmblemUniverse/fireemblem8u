@@ -68,12 +68,12 @@ void NewEkrGauge(void)
     EkrGauge_ClrInitFlag();
     EkrGauge_Clr323A(gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
 
-    if (gUnknown_0203E1AC[0] > 0x50)
+    if (gEkrPairHpInitial[0] > 0x50)
         CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xB), 0x10 * sizeof(u16));
     else
         CpuCopy16(gUnknown_08802B04 + gBanimSomeObjPalIndex[0] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
 
-    if (gUnknown_0203E1AC[1] > 0x50)
+    if (gEkrPairHpInitial[1] > 0x50)
         CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xC), 0x10 * sizeof(u16));
     else
         CpuCopy16(gUnknown_08802B04 + gBanimSomeObjPalIndex[1] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
@@ -91,13 +91,13 @@ void NewEkrGauge(void)
     EnablePaletteSync();
 
     /* decode value to number for display: 998 --> 9 9 8 */
-    ModDec(gEkrHitPair[0], &gDecodedEkrHitDmgCritBuf[0x0]);
-    ModDec(gEkrDmgPair[0], &gDecodedEkrHitDmgCritBuf[0x3]);
-    ModDec(gEkrCritPair[0], &gDecodedEkrHitDmgCritBuf[0x6]);
+    ModDec(gEkrPairHit[0], &gDecodedEkrHitDmgCritBuf[0x0]);
+    ModDec(gEkrPairDmgPair[0], &gDecodedEkrHitDmgCritBuf[0x3]);
+    ModDec(gEkrPairCritPair[0], &gDecodedEkrHitDmgCritBuf[0x6]);
 
-    ModDec(gEkrHitPair[1], &gDecodedEkrHitDmgCritBuf[0x9]);
-    ModDec(gEkrDmgPair[1], &gDecodedEkrHitDmgCritBuf[0xC]);
-    ModDec(gEkrCritPair[1], &gDecodedEkrHitDmgCritBuf[0xF]);
+    ModDec(gEkrPairHit[1], &gDecodedEkrHitDmgCritBuf[0x9]);
+    ModDec(gEkrPairDmgPair[1], &gDecodedEkrHitDmgCritBuf[0xC]);
+    ModDec(gEkrPairCritPair[1], &gDecodedEkrHitDmgCritBuf[0xF]);
 
     CpuFastFill(0, gObjBuf_EkrSideHitDmgCrit, 0x400);
 

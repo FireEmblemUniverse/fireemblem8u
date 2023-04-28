@@ -866,7 +866,7 @@ sub_80A7374: @ 0x080A7374
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #0x34
-	ldr r4, _080A751C  @ gUnknown_02000000
+	ldr r4, _080A751C  @ gAnims
 	movs r0, #0xe0
 	lsls r0, r0, #0x14
 	mov r9, r0
@@ -1053,7 +1053,7 @@ _080A750C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A751C: .4byte gUnknown_02000000
+_080A751C: .4byte gAnims
 _080A7520: .4byte ReadSramFast
 _080A7524: .4byte 0x00040624
 _080A7528: .4byte 0x00040603

@@ -9,7 +9,7 @@ EkrPrepareBanimfx: @ 0x080589E0
 	lsls r4, r1, #0x10
 	lsrs r4, r4, #0x10
 	bl GetAISSubjectId
-	ldr r1, _08058A08  @ gUnknown_0203E182
+	ldr r1, _08058A08  @ gEkrPairBanimID2
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
@@ -21,7 +21,7 @@ EkrPrepareBanimfx: @ 0x080589E0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08058A08: .4byte gUnknown_0203E182
+_08058A08: .4byte gEkrPairBanimID2
 
 	THUMB_FUNC_END EkrPrepareBanimfx
 
@@ -287,40 +287,40 @@ _08058B92:
 
 	THUMB_FUNC_START sub_8058B98
 sub_8058B98: @ 0x08058B98
-	ldr r1, _08058BA4  @ gEkrHitPair
+	ldr r1, _08058BA4  @ gEkrPairHit
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	bx lr
 	.align 2, 0
-_08058BA4: .4byte gEkrHitPair
+_08058BA4: .4byte gEkrPairHit
 
 	THUMB_FUNC_END sub_8058B98
 
 	THUMB_FUNC_START sub_8058BA8
 sub_8058BA8: @ 0x08058BA8
-	ldr r1, _08058BB4  @ gEkrDmgPair
+	ldr r1, _08058BB4  @ gEkrPairDmgPair
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	bx lr
 	.align 2, 0
-_08058BB4: .4byte gEkrDmgPair
+_08058BB4: .4byte gEkrPairDmgPair
 
 	THUMB_FUNC_END sub_8058BA8
 
 	THUMB_FUNC_START sub_8058BB8
 sub_8058BB8: @ 0x08058BB8
-	ldr r1, _08058BC4  @ gEkrCritPair
+	ldr r1, _08058BC4  @ gEkrPairCritPair
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	bx lr
 	.align 2, 0
-_08058BC4: .4byte gEkrCritPair
+_08058BC4: .4byte gEkrPairCritPair
 
 	THUMB_FUNC_END sub_8058BB8
 
@@ -335,7 +335,7 @@ BattleAIS_ExecCommands: @ 0x08058BC8
 _08058BD4:
 	ldr r0, _08058C38  @ gUnknown_03004FAC
 	str r2, [r0]
-	ldr r1, _08058C3C  @ gUnknown_02000000
+	ldr r1, _08058C3C  @ gAnims
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	ldr r7, [r0]
@@ -385,7 +385,7 @@ _08058C2E:
 	mov pc, r0
 	.align 2, 0
 _08058C38: .4byte gUnknown_03004FAC
-_08058C3C: .4byte gUnknown_02000000
+_08058C3C: .4byte gAnims
 _08058C40: .4byte _08058C44
 _08058C44: @ jump table
 	.4byte _080596CC @ case 0
@@ -571,7 +571,7 @@ _08058EA6:
 	.align 2, 0
 _08058EAC: .4byte 0x0000FFFE
 _08058EB0:
-	ldr r4, _08058F2C  @ gUnknown_02000000
+	ldr r4, _08058F2C  @ gAnims
 	ldr r0, [r4]
 	bl sub_8054BD4
 	movs r5, #0xc
@@ -628,7 +628,7 @@ _08058F26:
 	ldrh r1, [r7, #0x10]
 	b _08059674
 	.align 2, 0
-_08058F2C: .4byte gUnknown_02000000
+_08058F2C: .4byte gAnims
 _08058F30:
 	ldrh r1, [r7, #0x10]
 	movs r2, #0x20
@@ -867,7 +867,7 @@ _08059100:
 	bne _08059140
 	adds r0, r7, #0
 	bl sub_806E310
-	ldr r4, _08059150  @ gUnknown_02000000
+	ldr r4, _08059150  @ gAnims
 	ldr r1, [r4, #8]
 	ldrh r2, [r1, #0x10]
 	adds r0, r5, #0
@@ -898,7 +898,7 @@ _08059140:
 _0805914C:
 	b _08059674
 	.align 2, 0
-_08059150: .4byte gUnknown_02000000
+_08059150: .4byte gAnims
 _08059154: .4byte 0x0000FFF7
 _08059158:
 	adds r0, r7, #0
@@ -978,7 +978,7 @@ _080591F2:
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
-	ldr r4, _08059234  @ gUnknown_02000000
+	ldr r4, _08059234  @ gAnims
 	adds r0, r7, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #3
@@ -1004,7 +1004,7 @@ _08059228:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_08059234: .4byte gUnknown_02000000
+_08059234: .4byte gAnims
 _08059238: .4byte _0805923C
 _0805923C: @ jump table
 	.4byte _08059264 @ case 0
@@ -1046,7 +1046,7 @@ _0805926E:
 	orrs r1, r0
 	strh r1, [r6, #0x10]
 	ldr r1, _080592C4  @ gUnknown_080DAF18
-	ldr r0, _080592C8  @ gEkrSomeType
+	ldr r0, _080592C8  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	adds r0, r0, r1
@@ -1066,7 +1066,7 @@ _0805926E:
 	b _080592D6
 	.align 2, 0
 _080592C4: .4byte gUnknown_080DAF18
-_080592C8: .4byte gEkrSomeType
+_080592C8: .4byte gEkrDistanceType
 _080592CC: .4byte gUnknown_080DAEF0
 _080592D0: .4byte gUnknown_0200005C
 _080592D4:
@@ -1137,7 +1137,7 @@ _08059360: .4byte gUnknown_0203E1A4
 _08059364: .4byte gUnknown_0201FB1C
 _08059368:
 	ldr r1, _08059398  @ gUnknown_080DAF18
-	ldr r0, _0805939C  @ gEkrSomeType
+	ldr r0, _0805939C  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	adds r0, r0, r1
@@ -1160,7 +1160,7 @@ _0805938A:
 	b _080596D6
 	.align 2, 0
 _08059398: .4byte gUnknown_080DAF18
-_0805939C: .4byte gEkrSomeType
+_0805939C: .4byte gEkrDistanceType
 _080593A0:
 	ldrh r2, [r7, #0x10]
 	movs r1, #0x20
@@ -1647,7 +1647,7 @@ _0805975C:
 	negs r0, r0
 	cmp r8, r0
 	beq _080597B0
-	ldr r6, _080597A8  @ gUnknown_02000000
+	ldr r6, _080597A8  @ gAnims
 	adds r0, r7, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #3
@@ -1665,10 +1665,10 @@ _0805975C:
 _0805979C: .4byte gUnknown_0203E1A4
 _080597A0: .4byte gUnknown_0201FB1C
 _080597A4: .4byte gUnknown_02000024
-_080597A8: .4byte gUnknown_02000000
+_080597A8: .4byte gAnims
 _080597AC: .4byte 0x0000FFFD
 _080597B0:
-	ldr r5, _080597E0  @ gUnknown_02000000
+	ldr r5, _080597E0  @ gAnims
 	adds r0, r7, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #3
@@ -1691,7 +1691,7 @@ _080597B0:
 	strh r4, [r6, #0x10]
 	b _080598AE
 	.align 2, 0
-_080597E0: .4byte gUnknown_02000000
+_080597E0: .4byte gAnims
 _080597E4: .4byte 0x0000FFFD
 _080597E8:
 	movs r0, #0x80
@@ -1708,7 +1708,7 @@ _080597E8:
 	negs r0, r0
 	cmp r8, r0
 	beq _080598AE
-	ldr r6, _0805986C  @ gUnknown_02000000
+	ldr r6, _0805986C  @ gAnims
 	adds r0, r7, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #3
@@ -1755,7 +1755,7 @@ _08059824:
 	bl sub_80598CC
 	b _080598AE
 	.align 2, 0
-_0805986C: .4byte gUnknown_02000000
+_0805986C: .4byte gAnims
 _08059870: .4byte 0x00007FFF
 _08059874:
 	adds r0, r7, #0

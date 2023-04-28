@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+/* Promotion related EKR anim effect */
+
 	THUMB_FUNC_START sub_8070B3C
 sub_8070B3C: @ 0x08070B3C
 	push {r4, r5, r6, r7, lr}
@@ -17,12 +19,12 @@ sub_8070B3C: @ 0x08070B3C
 	ldr r7, [r0]
 	mov r6, sl
 	mov r8, r7
-	ldr r0, _08070B8C  @ gBanimSideVaildFlagMaybe
+	ldr r0, _08070B8C  @ gEkrPairSideVaild
 	ldrh r1, [r0]
 	mov r9, r1
 	ldrh r0, [r0, #2]
 	str r0, [sp]
-	ldr r0, _08070B90  @ gEkrSomeType
+	ldr r0, _08070B90  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -45,8 +47,8 @@ _08070B72:
 	.align 2, 0
 _08070B84: .4byte gpEkrBattleUnitLeft
 _08070B88: .4byte gpEkrBattleUnitRight
-_08070B8C: .4byte gBanimSideVaildFlagMaybe
-_08070B90: .4byte gEkrSomeType
+_08070B8C: .4byte gEkrPairSideVaild
+_08070B90: .4byte gEkrDistanceType
 _08070B94:
 	cmp r0, #0x66
 	beq _08070C34
@@ -106,31 +108,31 @@ _08070B9A:
 	bl GetItemIndex
 	cmp r0, #0xaa
 	bne _08070C4E
-	ldr r0, _08070C20  @ gUnknown_02000000
+	ldr r0, _08070C20  @ gAnims
 	ldr r0, [r0]
 	movs r1, #3
 	bl SetEkrDragonStatusType
 	b _08070C4E
 	.align 2, 0
-_08070C20: .4byte gUnknown_02000000
+_08070C20: .4byte gAnims
 _08070C24:
-	ldr r0, _08070C30  @ gUnknown_02000000
+	ldr r0, _08070C30  @ gAnims
 	ldr r0, [r0]
 	movs r1, #1
 	bl SetEkrDragonStatusType
 	b _08070C4E
 	.align 2, 0
-_08070C30: .4byte gUnknown_02000000
+_08070C30: .4byte gAnims
 _08070C34:
-	ldr r0, _08070C40  @ gUnknown_02000000
+	ldr r0, _08070C40  @ gAnims
 	ldr r0, [r0]
 	movs r1, #2
 	bl SetEkrDragonStatusType
 	b _08070C4E
 	.align 2, 0
-_08070C40: .4byte gUnknown_02000000
+_08070C40: .4byte gAnims
 _08070C44:
-	ldr r0, _08070CE0  @ gUnknown_02000000
+	ldr r0, _08070CE0  @ gAnims
 	ldr r0, [r0]
 	movs r1, #0
 	bl SetEkrDragonStatusType
@@ -195,15 +197,15 @@ _08070C4E:
 	bl GetItemIndex
 	cmp r0, #0xaa
 	bne _08070CEE
-	ldr r0, _08070CE0  @ gUnknown_02000000
+	ldr r0, _08070CE0  @ gAnims
 	ldr r0, [r0, #8]
 	movs r1, #3
 	bl SetEkrDragonStatusType
 	b _08070CEE
 	.align 2, 0
-_08070CE0: .4byte gUnknown_02000000
+_08070CE0: .4byte gAnims
 _08070CE4:
-	ldr r0, _08070D00  @ gUnknown_02000000
+	ldr r0, _08070D00  @ gAnims
 	ldr r0, [r0, #8]
 	movs r1, #0
 	bl SetEkrDragonStatusType
@@ -217,7 +219,7 @@ _08070CEE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08070D00: .4byte gUnknown_02000000
+_08070D00: .4byte gAnims
 
 	THUMB_FUNC_END sub_8070B3C
 
@@ -2291,14 +2293,14 @@ _08071B8E:
 	adds r6, r0, #0
 	cmp r6, #0
 	bne _08071BA8
-	ldr r0, _08071BA4  @ gUnknown_0203E1CC
+	ldr r0, _08071BA4  @ gEkrPairTerrainID
 	movs r1, #0
 	ldrsh r5, [r0, r1]
 	b _08071BAE
 	.align 2, 0
-_08071BA4: .4byte gUnknown_0203E1CC
+_08071BA4: .4byte gEkrPairTerrainID
 _08071BA8:
-	ldr r0, _08071BD8  @ gUnknown_0203E1CC
+	ldr r0, _08071BD8  @ gEkrPairTerrainID
 	movs r2, #2
 	ldrsh r5, [r0, r2]
 _08071BAE:
@@ -2317,15 +2319,15 @@ _08071BAE:
 _08071BCA:
 	cmp r6, #0
 	bne _08071BE0
-	ldr r0, _08071BDC  @ gUnknown_0203E1D0
+	ldr r0, _08071BDC  @ gEkrPairBaseCon
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	b _08071BE6
 	.align 2, 0
-_08071BD8: .4byte gUnknown_0203E1CC
-_08071BDC: .4byte gUnknown_0203E1D0
+_08071BD8: .4byte gEkrPairTerrainID
+_08071BDC: .4byte gEkrPairBaseCon
 _08071BE0:
-	ldr r0, _08071C20  @ gUnknown_0203E1D0
+	ldr r0, _08071C20  @ gEkrPairBaseCon
 	movs r2, #2
 	ldrsh r0, [r0, r2]
 _08071BE6:
@@ -2357,7 +2359,7 @@ _08071C14:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_08071C20: .4byte gUnknown_0203E1D0
+_08071C20: .4byte gEkrPairBaseCon
 _08071C24: .4byte 0x0000FFFF
 _08071C28: .4byte _08071C2C
 _08071C2C: @ jump table
@@ -2717,14 +2719,14 @@ _08071FAE:
 _08071FB2:
 	cmp r6, #0
 	beq _08071FC4
-	ldr r0, _08071FC0  @ gUnknown_0203E182
+	ldr r0, _08071FC0  @ gEkrPairBanimID2
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	b _08071FCA
 	.align 2, 0
-_08071FC0: .4byte gUnknown_0203E182
+_08071FC0: .4byte gEkrPairBanimID2
 _08071FC4:
-	ldr r0, _08071FE0  @ gUnknown_0203E182
+	ldr r0, _08071FE0  @ gEkrPairBanimID2
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 _08071FCA:
@@ -2740,7 +2742,7 @@ _08071FCA:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_08071FE0: .4byte gUnknown_0203E182
+_08071FE0: .4byte gEkrPairBanimID2
 _08071FE4: .4byte gUnknown_08758D20
 _08071FE8:
 	ldr r1, _08071FF8  @ gUnknown_08758D20
@@ -3624,7 +3626,7 @@ _080726FC: .4byte gUnknown_020200A8
 _08072700: .4byte gBanimSomeObjPalIndex
 _08072704: .4byte gEkrInitialHitSide
 _08072708:
-	bl GetEkrEventFlagMaybe
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	bne _0807271C
 _08072710:
@@ -3634,7 +3636,7 @@ _08072710:
 	bl sub_8071A54
 	b _08072892
 _0807271C:
-	ldr r0, _08072734  @ gEkrSomeType
+	ldr r0, _08072734  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #4
@@ -3645,7 +3647,7 @@ _0807271C:
 	bl sub_8071A54
 	b _08072892
 	.align 2, 0
-_08072734: .4byte gEkrSomeType
+_08072734: .4byte gEkrDistanceType
 _08072738:
 	movs r4, #0
 	adds r0, r7, #0
@@ -3665,7 +3667,7 @@ _0807274E:
 	bne _0807275C
 	movs r4, #0
 _0807275C:
-	ldr r0, _08072790  @ gBanimSideVaildFlagMaybe
+	ldr r0, _08072790  @ gEkrPairSideVaild
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -3694,7 +3696,7 @@ _0807277E:
 	bl sub_8071A54
 	b _08072892
 	.align 2, 0
-_08072790: .4byte gBanimSideVaildFlagMaybe
+_08072790: .4byte gEkrPairSideVaild
 _08072794:
 	cmp r0, #0xbe
 	bne _080727B4
@@ -3727,7 +3729,7 @@ _080727B4:
 	movs r4, #1
 	negs r4, r4
 _080727D6:
-	ldr r0, _080727F8  @ gBanimSideVaildFlagMaybe
+	ldr r0, _080727F8  @ gEkrPairSideVaild
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -3745,7 +3747,7 @@ _080727E4:
 	bl sub_8071A54
 	b _08072892
 	.align 2, 0
-_080727F8: .4byte gBanimSideVaildFlagMaybe
+_080727F8: .4byte gEkrPairSideVaild
 _080727FC:
 	movs r4, #0
 	ldr r0, [r7, #4]
@@ -3978,8 +3980,8 @@ _08072994:
 
 	THUMB_FUNC_END sub_807290C
 
-	THUMB_FUNC_START sub_80729A4
-sub_80729A4: @ 0x080729A4
+	THUMB_FUNC_START EkrSoundSomeBark
+EkrSoundSomeBark: @ 0x080729A4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r2, #0
@@ -3993,7 +3995,7 @@ sub_80729A4: @ 0x080729A4
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80729A4
+	THUMB_FUNC_END EkrSoundSomeBark
 
 	THUMB_FUNC_START sub_80729C0
 sub_80729C0: @ 0x080729C0
@@ -4324,7 +4326,7 @@ _08072C18:
 	ldrsh r2, [r5, r3]
 	adds r1, r6, #0
 	movs r3, #1
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 	b _08072C94
 	.align 2, 0
 _08072C70: .4byte 0x0000013D
@@ -4490,7 +4492,7 @@ _08072D8C:
 	adds r1, r3, #0
 _08072D94:
 	movs r3, #1
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 	b _08072DB4
 _08072D9C:
 	movs r0, #0x9a
@@ -4503,7 +4505,7 @@ _08072D9C:
 	ldrsh r2, [r1, r4]
 	adds r1, r3, #0
 	movs r3, #1
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 _08072DB4:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -4708,7 +4710,7 @@ _08072F1A:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 	b _08072F46
 _08072F30:
 	cmp r0, #0x78
@@ -4720,7 +4722,7 @@ _08072F30:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_80729A4
+	bl EkrSoundSomeBark
 _08072F46:
 	adds r0, r4, #0
 	bl Proc_Break

@@ -10,7 +10,7 @@
 #include "ekrdragon.h"
 #include "constants/items.h"
 
-extern struct Anim *gUnknown_02000000[4];
+extern struct Anim *gAnims[4];
 
 void EfxClearScreenFx(void)
 {
@@ -61,16 +61,16 @@ void sub_8051E00(void)
     BattleAnimTerrain *terrain1 = &battle_terrain_table[gBanimTerrainIndexMaybe[0]];
     BattleAnimTerrain *terrain2 = &battle_terrain_table[gBanimTerrainIndexMaybe[1]];
 
-    switch (gEkrSomeType) {
-    case 0:
-    case 4:
+    switch (gEkrDistanceType) {
+    case EKR_DISTANCE_CLOSE:
+    case EKR_DISTANCE_PROMOTION:
         gUnknown_0200003C[0] = &gUnknown_020145C8[0];
         gUnknown_0200003C[1] = &gUnknown_020145C8[0x1000];
         break;
 
-    case 1:
-    case 2:
-    case 3:
+    case EKR_DISTANCE_FAR:
+    case EKR_DISTANCE_FARFAR:
+    case EKR_DISTANCE_3:
         gUnknown_0200003C[0] = &gUnknown_020145C8[0x800];
         gUnknown_0200003C[1] = &gUnknown_020145C8[0x1800];
         break;
@@ -79,7 +79,7 @@ void sub_8051E00(void)
 
     switch (gPlaySt.chapterWeatherId) {
         // dummy, both cases do the same thing
-    case 1:
+    case WEATHER_SNOW:
         gBanimTerrainPaletteMaybe[0] = terrain1->palette;
         gBanimTerrainPaletteMaybe[1] = terrain2->palette;
         break;
@@ -90,8 +90,8 @@ void sub_8051E00(void)
         break;
     }
 
-    gUnknown_02000044[0] = gUnknown_085B9D6C[gEkrSomeType * 2];
-    gUnknown_02000044[1] = gUnknown_085B9D6C[gEkrSomeType * 2 + 1];
+    gUnknown_02000044[0] = gUnknown_085B9D6C[gEkrDistanceType * 2];
+    gUnknown_02000044[1] = gUnknown_085B9D6C[gEkrDistanceType * 2 + 1];
 
     unk0201FADC->things[0] = gBanimTerrainIndexMaybe[0];
     unk0201FADC->things[1] = 4;
@@ -99,11 +99,11 @@ void sub_8051E00(void)
     unk0201FADC->things[3] = gBanimTerrainIndexMaybe[1];
     unk0201FADC->things[4] = 5;
     unk0201FADC->things[5] = 640;
-    unk0201FADC->things[6] = gEkrSomeType;
+    unk0201FADC->things[6] = gEkrDistanceType;
     unk0201FADC->things[7] = 2;
     unk0201FADC->u1c = 0;
     unk0201FADC->u20 = &gUnknown_020145C8[0];
-    unk0201FADC->_pad_10 = gUnknown_0203E102;
+    unk0201FADC->_pad_10 = gEkrSnowWeather;
     sub_805AA68(unk0201FADC);
 }
 
@@ -118,7 +118,7 @@ void EfxPrepareScreenFx(void)
     LZ77UnCompVram(gUnknown_08801C14, (void *)0x6001000);
 
     /* left unit name */
-    if (gBanimSideVaildFlagMaybe[EKR_BATTLE_LEFT] == false)
+    if (gEkrPairSideVaild[EKR_BATTLE_LEFT] == false)
         str = gNopStr;
     else
         str = GetStringFromIndex(gpEkrBattleUnitLeft->unit.pCharacterData->nameTextId);
@@ -129,7 +129,7 @@ void EfxPrepareScreenFx(void)
     Text_AppendString(&gTextEkrlvupMsg[0], str);
 
     /* left unit item */
-    if (gBanimSideVaildFlagMaybe[EKR_BATTLE_LEFT] == false)
+    if (gEkrPairSideVaild[EKR_BATTLE_LEFT] == false)
         str = gNopStr;
     else
         str = GetItemName(gpEkrBattleUnitLeft->weaponBefore);
@@ -140,7 +140,7 @@ void EfxPrepareScreenFx(void)
     Text_AppendString(&gTextEkrlvupMsg[2], str);
 
     /* right unit name */
-    if (gBanimSideVaildFlagMaybe[EKR_BATTLE_RIGHT] == false)
+    if (gEkrPairSideVaild[EKR_BATTLE_RIGHT] == false)
         str = gNopStr;
     else
         str = GetStringFromIndex(gpEkrBattleUnitRight->unit.pCharacterData->nameTextId);
@@ -151,7 +151,7 @@ void EfxPrepareScreenFx(void)
     Text_AppendString(&gTextEkrlvupMsg[3], str);
 
     /* right unit item */
-    if (gBanimSideVaildFlagMaybe[EKR_BATTLE_RIGHT] == false)
+    if (gEkrPairSideVaild[EKR_BATTLE_RIGHT] == false)
         str = gNopStr;
     else
         str = GetItemName(gpEkrBattleUnitRight->weaponBefore);
@@ -180,7 +180,7 @@ int GetEkrSomePosMaybe(void)
 {
     int quote1, quote2;
 
-    switch (gEkrSomeType) {
+    switch (gEkrDistanceType) {
     case 1:
         return gEkrInitialHitSide;
 
@@ -219,7 +219,7 @@ void EkrEfxStatusClear(void)
     gEkrHPBarCount = 0;
     gUnknown_0201772C = 0;
     gUnknown_02017730 = 0;
-    gUnknown_02017738 = 0;
+    gEkrDeadEventFlag = 0;
     gUnknown_0201773C = 0;
     gUnknown_02017740 = 0;
     gUnknown_02017748 = 0;
@@ -270,11 +270,11 @@ void NewEfxHPBar(struct Anim *anim)
     proc->anim64 = anim;
 
     if (GetAISSubjectId(anim) == 0) {
-        proc->anim5C = gUnknown_02000000[2];
-        proc->anim60 = gUnknown_02000000[0];
+        proc->anim5C = gAnims[2];
+        proc->anim60 = gAnims[0];
     } else {
-        proc->anim5C = gUnknown_02000000[0];
-        proc->anim60 = gUnknown_02000000[2];
+        proc->anim5C = gAnims[0];
+        proc->anim60 = gAnims[2];
     }
 
     val1 = gUnknown_0203E152[GetAISSubjectId(proc->anim60)];
@@ -291,33 +291,33 @@ void NewEfxHPBar(struct Anim *anim)
     proc->timer = 0;
     proc->max = proc->unk4C;
     proc->unk54 = 0;
-    proc->unk58 = 0;
+    proc->init = false;
     gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 1;
 }
 
 void efxHPBar_80523EC(struct ProcEfxHPBar *proc)
 {
-    struct Anim *anim1 = gUnknown_02000000[GetAISSubjectId(proc->anim60) * 2];
-    struct Anim *anim2 = gUnknown_02000000[GetAISSubjectId(proc->anim60) * 2 + 1];
+    struct Anim *anim1 = gAnims[GetAISSubjectId(proc->anim60) * 2];
+    struct Anim *anim2 = gAnims[GetAISSubjectId(proc->anim60) * 2 + 1];
 
-    if (proc->unk58 == 0) {
+    if (proc->init == false) {
         if (++proc->timer == 2) {
             proc->timer = 0;
             proc->max += proc->unk48;
-            gUnknown_0203E1AC[GetAISSubjectId(proc->anim60)] += proc->unk48;
+            gEkrPairHpInitial[GetAISSubjectId(proc->anim60)] += proc->unk48;
 
             if (proc->max == proc->unk50)
-                proc->unk58 = 1;
+                proc->init = true;
         }
     }
 
-    if (proc->unk54 == 0x1E && proc->unk58 == 1) {
+    if (proc->unk54 == 0x1E && proc->init == true) {
         gUnknown_0203E152[GetAISSubjectId(proc->anim60)]++;
         gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 0;
     
         if (proc->unk50 == 0) {
             int ret;
-            if (GetEkrEventFlagMaybe() == true)
+            if (GetBanimLinkArenaFlag() == true)
                 ret = 0;
             else
                 ret = EkrCheckSomeDeathMaybe(gEkrPids[GetAISSubjectId(anim1)]);
@@ -327,7 +327,7 @@ void efxHPBar_80523EC(struct ProcEfxHPBar *proc)
             else {
                 PlaySound8FForArenaMaybe();
                 NewEfxDead(anim1, anim2);
-                gBanimSideVaildFlagMaybe[GetAISSubjectId(proc->anim60)] = false;
+                gEkrPairSideVaild[GetAISSubjectId(proc->anim60)] = false;
             }
         }
     
@@ -349,7 +349,7 @@ void efxHPBarMain(struct ProcEfxHPBar *proc)
         anim = GetCoreAIStruct(proc->anim64);
 
         if (sub_805A21C(sub_805A2F0(anim)) == 1) {
-            switch (gEkrSomeType) {
+            switch (gEkrDistanceType) {
             case 0:
             case 1:
             case 3:
@@ -395,11 +395,11 @@ void NewEfxHPBarResire(struct Anim *anim)
     proc->anim64 = GetCoreAIStruct(anim);
 
     if (GetAISSubjectId(anim) == 0) {
-        proc->anim5C = gUnknown_02000000[2];
-        proc->anim60 = gUnknown_02000000[0];
+        proc->anim5C = gAnims[2];
+        proc->anim60 = gAnims[0];
     } else {
-        proc->anim5C = gUnknown_02000000[0];
-        proc->anim60 = gUnknown_02000000[2];
+        proc->anim5C = gAnims[0];
+        proc->anim60 = gAnims[2];
     }
 
     val1 = gUnknown_0203E152[GetAISSubjectId(proc->anim60)];
@@ -417,7 +417,7 @@ void NewEfxHPBarResire(struct Anim *anim)
     proc->timer = 0;
     proc->max = proc->unk4C;
     proc->unk54 = 0;
-    proc->unk58 = 0;
+    proc->init = false;
     gUnknown_02017750 = 0;
     gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 1;
 }
@@ -427,18 +427,18 @@ void EfxHPBarResire_80526C8(struct ProcEfxHPBar *proc)
     GetAISSubjectId(proc->anim60);
     GetAISSubjectId(proc->anim60);
 
-    if (proc->unk58 == 0) {
+    if (proc->init == false) {
         if (++proc->timer == 2) {
             proc->timer = 0;
             proc->max += proc->unk48;
-            gUnknown_0203E1AC[GetAISSubjectId(proc->anim60)] += proc->unk48;
+            gEkrPairHpInitial[GetAISSubjectId(proc->anim60)] += proc->unk48;
 
             if (proc->max == proc->unk50)
-                proc->unk58 = 1;
+                proc->init = true;
         }
     }
 
-    if (proc->unk54 == 0x54 && proc->unk58 == 1) {
+    if (proc->unk54 == 0x54 && proc->init == true) {
         gUnknown_0203E152[GetAISSubjectId(proc->anim60)]++;
         gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 0;
 
@@ -474,10 +474,10 @@ void EfxHPBarResire_8052788(struct ProcEfxHPBar *proc)
     proc->timer = 0;
     proc->max = proc->unk4C;
     proc->unk54 = 0;
-    proc->unk58 = 0;
+    proc->init = false;
 
     if (proc->unk4C == proc->unk50)
-        proc->unk58 = 1;
+        proc->init = true;
 
     if (proc->unk4C > proc->unk50)
         proc->unk48 = -1;
@@ -492,31 +492,31 @@ void EfxHPBarResire_805282C(struct ProcEfxHPBar *proc)
 {
     struct Anim *anim1, *anim2, *anim3, *anim4;
 
-    anim1 = gUnknown_02000000[GetAISSubjectId(proc->anim5C) * 2];
-    anim2 = gUnknown_02000000[GetAISSubjectId(proc->anim5C) * 2 + 1];
-    anim3 = gUnknown_02000000[GetAISSubjectId(proc->anim60) * 2];
-    anim4 = gUnknown_02000000[GetAISSubjectId(proc->anim60) * 2 + 1];
+    anim1 = gAnims[GetAISSubjectId(proc->anim5C) * 2];
+    anim2 = gAnims[GetAISSubjectId(proc->anim5C) * 2 + 1];
+    anim3 = gAnims[GetAISSubjectId(proc->anim60) * 2];
+    anim4 = gAnims[GetAISSubjectId(proc->anim60) * 2 + 1];
 
-    if (proc->unk58 == 0) {
+    if (proc->init == false) {
         if (++proc->timer == 4) {
             proc->timer = 0;
             proc->max += proc->unk48;
-            gUnknown_0203E1AC[GetAISSubjectId(proc->anim5C)] += proc->unk48;
+            gEkrPairHpInitial[GetAISSubjectId(proc->anim5C)] += proc->unk48;
             SomePlaySound_8071990(0x75, 0x100);
             sub_8071AB0(0x75, anim1->xPosition, 1);
 
             if (proc->max == proc->unk50)
-                proc->unk58 = 1;
+                proc->init = true;
         }
     }
 
-    if (proc->unk54 == 0x1E && proc->unk58 == 1) {
+    if (proc->unk54 == 0x1E && proc->init == true) {
         gUnknown_0203E152[GetAISSubjectId(proc->anim5C)]++;
         gEkrHitEfxBool[GetAISSubjectId(proc->anim5C)] = 0;
     
         if (proc->unk29 == 1) {
             int ret;
-            if (GetEkrEventFlagMaybe() == true)
+            if (GetBanimLinkArenaFlag() == true)
                 ret = 0;
             else
                 ret = EkrCheckSomeDeathMaybe(gEkrPids[GetAISSubjectId(anim3)]);
@@ -526,7 +526,7 @@ void EfxHPBarResire_805282C(struct ProcEfxHPBar *proc)
             else {
                 PlaySound8FForArenaMaybe();
                 NewEfxDead(anim3, anim4);
-                gBanimSideVaildFlagMaybe[GetAISSubjectId(proc->anim60)] = false;
+                gEkrPairSideVaild[GetAISSubjectId(proc->anim60)] = false;
             }
         }
     
@@ -553,11 +553,11 @@ void NewEfxAvoid(struct Anim *anim)
     proc->timer = 0;
 
     if (GetAISSubjectId(anim) == 0) {
-        proc->anim5C = gUnknown_02000000[2];
-        proc->anim60 = gUnknown_02000000[0];
+        proc->anim5C = gAnims[2];
+        proc->anim60 = gAnims[0];
     } else {
-        proc->anim5C = gUnknown_02000000[0];
-        proc->anim60 = gUnknown_02000000[2];
+        proc->anim5C = gAnims[0];
+        proc->anim60 = gAnims[2];
     }
 
     NewEfxDamageMojiEffect(proc->anim60, 1);
@@ -588,11 +588,11 @@ void NewEfxHPBarLive(struct Anim *anim)
 
 
     if (GetAISSubjectId(anim) == 0) {
-        proc->anim5C = gUnknown_02000000[2];
-        proc->anim60 = gUnknown_02000000[0];
+        proc->anim5C = gAnims[2];
+        proc->anim60 = gAnims[0];
     } else {
-        proc->anim5C = gUnknown_02000000[0];
-        proc->anim60 = gUnknown_02000000[2];
+        proc->anim5C = gAnims[0];
+        proc->anim60 = gAnims[2];
     }
 
     val1 = gUnknown_0203E152[GetAISSubjectId(proc->anim60)];
@@ -602,10 +602,10 @@ void NewEfxHPBarLive(struct Anim *anim)
     proc->unk50 = sub_8058A60(val2 * 2 + GetAISSubjectId(proc->anim60));
 
     proc->unk54 = 0;
-    proc->unk58 = 0;
+    proc->init = false;
     
     if (proc->unk4C == proc->unk50)
-        proc->unk58 = 1;
+        proc->init = true;
     else if (proc->unk4C > proc->unk50)
         proc->unk48 = -1;
     else
@@ -621,21 +621,21 @@ void EfxHPBarLiveMain(struct ProcEfxHPBar *proc)
 {
     struct Anim *anim = proc->anim60;
 
-    if (proc->unk58 == 0) {
+    if (proc->init == false) {
         if (++proc->timer == 4) {
             proc->timer = 0;
             proc->max += proc->unk48;
-            gUnknown_0203E1AC[GetAISSubjectId(anim)] += proc->unk48;
+            gEkrPairHpInitial[GetAISSubjectId(anim)] += proc->unk48;
 
             SomePlaySound_8071990(0x75, 0x100);
             sub_8071AB0(0x75, anim->xPosition, 1);
 
             if (proc->max == proc->unk50)
-                proc->unk58 = 1;
+                proc->init = true;
         }
     }
 
-    if (proc->unk54 == 0x1E && proc->unk58 == 1) {
+    if (proc->unk54 == 0x1E && proc->init == true) {
         gUnknown_0203E152[GetAISSubjectId(anim)]++;
         gEkrHitEfxBool[GetAISSubjectId(anim)] = 0;
         Proc_Break(proc);
@@ -689,7 +689,6 @@ void EfxNoDamageMain(struct ProcEfxHPBar *proc)
         Proc_Break(proc);
     }
 }
-
 
 void NewEfxNoDamageYure(struct Anim *anim1, struct Anim *anim2)
 {
