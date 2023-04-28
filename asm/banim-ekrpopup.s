@@ -775,7 +775,7 @@ _08075F14: .4byte gLCDControlBuffer
 	THUMB_FUNC_START NewEkrPopup
 NewEkrPopup: @ 0x08075F18
 	push {r4, r5, lr}
-	ldr r0, _08075F6C  @ gEkrSomeType
+	ldr r0, _08075F6C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -816,7 +816,7 @@ _08075F44:
 	str r2, [r5, #0x44]
 	b _08075F86
 	.align 2, 0
-_08075F6C: .4byte gEkrSomeType
+_08075F6C: .4byte gEkrDistanceType
 _08075F70: .4byte gpAnimOnPopuProc
 _08075F74: .4byte ProcScr_ekrPopup2
 _08075F78: .4byte gpEkrPopupEndFlag
@@ -1395,7 +1395,7 @@ sub_8076380: @ 0x08076380
 	bl NewEkrGauge
 	bl NewEkrDispUP
 	bl NewEkrBattle
-	ldr r0, _080763D4  @ gUnknown_0203E0FE
+	ldr r0, _080763D4  @ gEkrPairSomeTile
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r0, #1
@@ -1418,7 +1418,7 @@ sub_8076380: @ 0x08076380
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080763D4: .4byte gUnknown_0203E0FE
+_080763D4: .4byte gEkrPairSomeTile
 _080763D8: .4byte gPaletteBuffer
 _080763DC: .4byte gUnknown_020165C8
 

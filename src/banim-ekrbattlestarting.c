@@ -11,7 +11,7 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 
-extern struct Anim *gUnknown_02000000[4];
+extern struct Anim *gAnims[4];
 extern void *gUnknown_02000010[2];
 
 bool sub_8055BB4(void)
@@ -44,10 +44,10 @@ void BeginAnimsOnBattleAnimations(void)
     gEkrPos2Maybe = ret;
     NewEkrBattleStarting();
 
-    gUnknown_02000000[0] = NULL;
-    gUnknown_02000000[1] = NULL;
-    gUnknown_02000000[2] = NULL;
-    gUnknown_02000000[3] = NULL;
+    gAnims[0] = NULL;
+    gAnims[1] = NULL;
+    gAnims[2] = NULL;
+    gAnims[3] = NULL;
 
     gUnknown_02000010[0] = NULL;
     gUnknown_02000010[1] = NULL;
@@ -110,11 +110,11 @@ void ekrBaStart_InitScreen(struct ProcEkrBattleStarting *proc)
     proc->unk2C = 0;
     proc->unk2E = 0xF;
 
-    val = (gUnknown_0203E122[0] + gUnknown_0203E122[2]) * 8 + 8;
+    val = (gEkrPairBmLoc[0] + gEkrPairBmLoc[2]) * 8 + 8;
     proc->unk34 = val;
     proc->unk32 = val;
 
-    val = (gUnknown_0203E122[1] + gUnknown_0203E122[3]) * 8 + 8;
+    val = (gEkrPairBmLoc[1] + gEkrPairBmLoc[3]) * 8 + 8;
     proc->unk3C = val;
     proc->unk3A = val;
 
@@ -168,25 +168,25 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
         NewEkrGauge();
         NewEkrDispUP();
 
-        switch (gEkrSomeType) {
-        case 0:
-        case 1:
-        case 2:
+        switch (gEkrDistanceType) {
+        case EKR_DISTANCE_CLOSE:
+        case EKR_DISTANCE_FAR:
+        case EKR_DISTANCE_FARFAR:
             break;
 
-        case 3:
-            if (gBanimSideVaildFlagMaybe[0] == 0) {
+        case EKR_DISTANCE_3:
+            if (gEkrPairSideVaild[EKR_BATTLE_LEFT] == false) {
                 EkrGauge_Set4C();
                 EkrDispUpSet4C();
             }
 
-            if (gBanimSideVaildFlagMaybe[1] == 0) {
+            if (gEkrPairSideVaild[EKR_BATTLE_RIGHT] == false) {
                 EkrGauge_Set50();
                 EkrDispUpSet50();
             }
             break;
 
-        case 4:
+        case EKR_DISTANCE_PROMOTION:
             EkrGauge_Set4C();
             EkrDispUpSet4C();
             break;
@@ -210,7 +210,7 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
 void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 {
     if (++proc->unk2C > 0xB) {
-        if (gUnknown_0203E0FE == 0 || GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
+        if (gEkrPairSomeTile == 0 || GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
 
             /* In normal battle, here will directly end the proc */
             NewEkrBattle();
@@ -235,12 +235,12 @@ void ekrBaStart_8055FE8(struct ProcEkrBattleStarting *proc)
 
 void ekrBaStart_8056024(struct ProcEkrBattleStarting *proc)
 {
-    if (gUnknown_0203E102 == 0)
+    if (gEkrSnowWeather == 0)
         gUnknown_0201FAD8 = 0x6;
     else
         gUnknown_0201FAD8 = 0xA;
 
-    sub_8075AD8(gUnknown_0203E0FE - 1);
+    sub_8075AD8(gEkrPairSomeTile - 1);
     EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, 0x10);
     Proc_Break(proc);
 }
@@ -249,7 +249,7 @@ void ekrBaStart_8056078(struct ProcEkrBattleStarting *proc)
 {
     int val = Interpolate(0, 0x10, 0, proc->unk2C, 8);
 
-    sub_8075AB4(gUnknown_0203E0FE - 1);
+    sub_8075AB4(gEkrPairSomeTile - 1);
     EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, val);
     EnablePaletteSync();
 

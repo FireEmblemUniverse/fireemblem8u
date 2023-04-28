@@ -440,7 +440,7 @@ _080AAB1C:
 	adds r0, #4
 	strh r1, [r0]
 	strh r1, [r6, #0x3e]
-	ldr r0, _080AAB68  @ gUnknown_02000000
+	ldr r0, _080AAB68  @ gAnims
 	bl sub_8014DA8
 	ldr r1, _080AAB6C  @ 0x04000018
 	movs r0, #0
@@ -462,7 +462,7 @@ _080AAB1C:
 	bx r0
 	.align 2, 0
 _080AAB64: .4byte gUnknown_08A280A8
-_080AAB68: .4byte gUnknown_02000000
+_080AAB68: .4byte gAnims
 _080AAB6C: .4byte 0x04000018
 _080AAB70: .4byte gUnknown_03004990
 _080AAB74: .4byte 0x0000079E

@@ -69,7 +69,7 @@ struct Unknown020007E0 {
 
 extern struct Unknown020007E0 gUnknown_020007E0[];
 
-extern u8 gUnknown_02000000[];
+extern u8 gAnims[];
 extern struct Font gUnknown_02000920;
 extern struct TextHandle gUnknown_02000938;
 extern u16 gUnknown_020238F6[];
@@ -348,7 +348,7 @@ struct ProcCmd CONST_DATA gProcScr_08A206F8[] = {
 //! FE8U = 0x080AB760
 void sub_80AB760(void* unused) {
     Proc_Start(gProcScr_08A206F8, PROC_TREE_3);
-    sub_8014DA8(gUnknown_02000000);
+    sub_8014DA8(gAnims);
     return;
 }
 

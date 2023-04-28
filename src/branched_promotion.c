@@ -648,7 +648,6 @@ void sub_80CCF60(struct ProcPromoSel *proc) {
     REG_BG3CNT = tmp + 1;
 }
 
-u16 GetBattleAnimationId(struct Unit *unit, const void *anim, u16 wpn, u32 *out);
 u8 sub_805A96C(struct Unknown_030053A0 *);
 void sub_805A990(struct Unknown_030053A0 *);
 void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {

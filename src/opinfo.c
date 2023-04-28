@@ -1438,7 +1438,7 @@ struct Unk2000000 {
     ProcPtr unk_34;
 };
 
-extern struct Unk2000000 gUnknown_02000000;
+extern struct Unk2000000 gAnims;
 
 struct Unk200A2D8 {
     u16 unk_00;
@@ -1634,21 +1634,21 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     SetTalkPrintDelay(4);
 
-    gUnknown_02000000.unk_08 = proc->classReelEnt->paletteId;
-    gUnknown_02000000.unk_02 = 0x104;
-    gUnknown_02000000.unk_04 = 0x58;
-    gUnknown_02000000.unk_06 = proc->classReelEnt->banimId;
-    gUnknown_02000000.unk_0A = 6;
-    gUnknown_02000000.unk_01 = proc->classReelEnt->unk_06;
-    gUnknown_02000000.unk_0C = 1;
-    gUnknown_02000000.unk_0E = 0x180;
-    gUnknown_02000000.unk_10 = 2;
-    gUnknown_02000000.unk_1C = gEkrBg0QuakeVec;
-    gUnknown_02000000.unk_24 = gUnknown_02002038;
-    gUnknown_02000000.unk_20 = gUnknown_02007838;
-    gUnknown_02000000.unk_28 = gUnknown_020078D8;
+    gAnims.unk_08 = proc->classReelEnt->paletteId;
+    gAnims.unk_02 = 0x104;
+    gAnims.unk_04 = 0x58;
+    gAnims.unk_06 = proc->classReelEnt->banimId;
+    gAnims.unk_0A = 6;
+    gAnims.unk_01 = proc->classReelEnt->unk_06;
+    gAnims.unk_0C = 1;
+    gAnims.unk_0E = 0x180;
+    gAnims.unk_10 = 2;
+    gAnims.unk_1C = gEkrBg0QuakeVec;
+    gAnims.unk_24 = gUnknown_02002038;
+    gAnims.unk_20 = gUnknown_02007838;
+    gAnims.unk_28 = gUnknown_020078D8;
 
-    gUnknown_02000000.unk_30 = &gUnknown_0200A2D8;
+    gAnims.unk_30 = &gUnknown_0200A2D8;
 
     gUnknown_0200A2D8.unk_00 = proc->classReelEnt->magicFx;
     gUnknown_0200A2D8.unk_02 = proc->classReelEnt->unk_09;
@@ -2016,7 +2016,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         bl SetTalkFlag\n\
         movs r0, #4\n\
         bl SetTalkPrintDelay\n\
-        ldr r0, _080B3BD4  @ gUnknown_02000000\n\
+        ldr r0, _080B3BD4  @ gAnims\n\
         ldr r3, [r4, #0x34]\n\
         movs r1, #4\n\
         ldrsb r1, [r3, r1]\n\
@@ -2125,7 +2125,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         bx r0\n\
         .align 2, 0\n\
     _080B3BD0: .4byte gUnknown_0201FB28\n\
-    _080B3BD4: .4byte gUnknown_02000000\n\
+    _080B3BD4: .4byte gAnims\n\
     _080B3BD8: .4byte gEkrBg0QuakeVec\n\
     _080B3BDC: .4byte gUnknown_02002038\n\
     _080B3BE0: .4byte gUnknown_02007838\n\
@@ -2216,7 +2216,7 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
         proc->unk_2a += 4;
     }
 
-    sub_805A940(&gUnknown_02000000, proc->unk_46, 88);
+    sub_805A940(&gAnims, proc->unk_46, 88);
     sub_805AE40(&gUnknown_0201DB00, proc->unk_46 - 48, 104, proc->unk_46 + 48, 104);
 
     sub_80B40E4(proc->unk_3c, 100);
@@ -2233,35 +2233,35 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
 
         case CLASS_REEL_OP_1:
             // melee normal?
-            gUnknown_02000000.unk_0A = 0;
-            sub_805A7B4(&gUnknown_02000000);
+            gAnims.unk_0A = 0;
+            sub_805A7B4(&gAnims);
 
             break;
 
         case CLASS_REEL_OP_2:
             // melee crit?
-            gUnknown_02000000.unk_0A = 1;
-            sub_805A7B4(&gUnknown_02000000);
+            gAnims.unk_0A = 1;
+            sub_805A7B4(&gAnims);
 
             break;
 
         case CLASS_REEL_OP_3:
         case CLASS_REEL_OP_7:
-            sub_805A990(&gUnknown_02000000);
+            sub_805A990(&gAnims);
 
             break;
 
         case CLASS_REEL_OP_4:
             // range normal?
-            gUnknown_02000000.unk_0A = 2;
-            sub_805A7B4(&gUnknown_02000000);
+            gAnims.unk_0A = 2;
+            sub_805A7B4(&gAnims);
 
             break;
 
         case CLASS_REEL_OP_6:
             // melee dodge?
-            gUnknown_02000000.unk_0A = 4;
-            sub_805A7B4(&gUnknown_02000000);
+            gAnims.unk_0A = 4;
+            sub_805A7B4(&gAnims);
 
             break;
 
@@ -2302,7 +2302,7 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
             break;
 
         case CLASS_REEL_OP_8:
-            if (sub_805A96C(&gUnknown_02000000) != 0) {
+            if (sub_805A96C(&gAnims) != 0) {
                 proc->script++;
                 Proc_Break(proc);
             }
@@ -2319,7 +2319,7 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
     sub_806E920();
     sub_805AE14(&gUnknown_0201DB00);
     sub_806E904();
-    sub_805AA28(&gUnknown_02000000);
+    sub_805AA28(&gAnims);
 
     if (proc->unk_3c != 0) {
         Proc_End(proc->unk_3c);

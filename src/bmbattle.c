@@ -2095,7 +2095,7 @@ void BeginBattleAnimations(void) {
     RenderBmMap();
 
     if (sub_8055BC4()) {
-        SetEkrEventFlagMaybe(0);
+        SetBanimLinkArenaFlag(0);
         BeginAnimsOnBattleAnimations();
     } else {
         MU_EndAll();

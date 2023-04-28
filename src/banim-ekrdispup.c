@@ -105,9 +105,9 @@ void ekrDispUP_Loop(struct ProcEkrDispUP *proc)
 
     val3 = 30 * (6 - val2);
 
-    if (gEkrSomeType >= 0)
+    if (gEkrDistanceType >= 0)
     {
-        if (gEkrSomeType <= 2)
+        if (gEkrDistanceType <= 2)
             val4 = 0;
         else
             goto label;

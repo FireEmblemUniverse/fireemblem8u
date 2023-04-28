@@ -6,7 +6,7 @@
 #include "global.h"
 #include "proc.h"
 
-// extern ??? gUnknown_02000000
+// extern ??? gAnims
 // extern ??? gUnknown_02000280
 // extern ??? gUnknown_02000500
 // extern ??? gUnknown_02000504
@@ -155,7 +155,7 @@ extern u32 gEkrHPBarCount;
 extern u32 gUnknown_0201772C;
 extern u32 gUnknown_02017730;
 extern u32 gUnknown_02017734;
-extern u32 gUnknown_02017738;
+extern u32 gEkrDeadEventFlag;
 extern u32 gUnknown_0201773C;
 extern u32 gUnknown_02017740;
 extern u32 gEkrPos2Maybe;
@@ -226,7 +226,7 @@ extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201FA68
 // extern ??? gUnknown_0201FAC8
 // extern ??? gEkrWindowAppearExist
-// extern ??? gUnknown_0201FAD0
+// extern ??? gEkrNamewinAppearExist
 // extern ??? gUnknown_0201FAD4
 extern u32 gUnknown_0201FAD8;
 
@@ -505,24 +505,24 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203DDDC
 extern short gUnknown_0203E152[];
 // extern ??? gUnknown_0203E156
-// extern ??? gUnknown_0203E182
+extern short gEkrPairBanimID2[];
 extern u8 gEkrPids[2];
 extern int gUnknown_0203E194;
-// extern ??? gUnknown_0203E19C
-// extern ??? gUnknown_0203E1A4
-extern short gUnknown_0203E1AC[];
-// extern ??? gUnknown_0203E1B0
+extern int gEkrPaiSomeBanimID[2];
+extern int gUnknown_0203E1A4[2];
+extern short gEkrPairHpInitial[2];
+extern short gEkrPairMaxHP[2];
 extern short gUnknown_0203E1B4[2];
-extern short gEkrHitPair[2];
-extern short gEkrDmgPair[2];
-extern short gEkrCritPair[2];
-extern short gUnknown_0203E1C4[2];
-extern short gUnknown_0203E1C8[2];
-// extern ??? gUnknown_0203E1CC
-// extern ??? gUnknown_0203E1D0
-// extern ??? gUnknown_0203E1D4
-extern struct Vec2 gUnknown_0203E1D8;
-// extern ??? gUnknown_0203E1DC
+extern short gEkrPairHit[2];
+extern short gEkrPairDmgPair[2];
+extern short gEkrPairCritPair[2];
+extern short gEkrPairExpPrevious[2];
+extern short gEkrPairExpGain[2];
+extern short gEkrPairTerrainID[2];
+extern short gEkrPairBaseCon[2];
+extern short gEkrPairWTABonus[2];
+extern short gEkrPairEffectiveAgainst[2];
+extern short gUnknown_0203E1DC[2];
 // extern ??? gUnknown_0203E1E0
 // extern ??? gBaArenaFlag
 // extern ??? gUnknown_0203E1E8

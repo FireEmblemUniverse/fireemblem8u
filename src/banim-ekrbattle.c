@@ -12,16 +12,16 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 
-extern struct Anim *gUnknown_02000000[4];
+extern struct Anim *gAnims[4];
 
-void SetEkrEventFlagMaybe(int flag)
+void SetBanimLinkArenaFlag(int flag)
 {
-    gEkrEventFlagMaybe = flag;
+    gBanimLinkArenaFlag = flag;
 }
 
-int GetEkrEventFlagMaybe(void)
+int GetBanimLinkArenaFlag(void)
 {
-    return gEkrEventFlagMaybe;
+    return gBanimLinkArenaFlag;
 }
 
 void NewEkrBattleDeamon(void)
@@ -148,7 +148,7 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
 {
     gEkrBgXOffset = 0;
     if (gEkrPos2Maybe == 0) {
-        if (gEkrSomeType == 1)
+        if (gEkrDistanceType == EKR_DISTANCE_FAR)
             gEkrBgXOffset = -0x20;
         else
             gEkrBgXOffset = -0xF0;
@@ -177,7 +177,7 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
 void ekrBattleMain(struct ProcEkrBattle *proc)
 {
     if (++proc->timer == 0x1F) {
-        if (GetEkrEventFlagMaybe() != 1 && (proc->is_quote == true || proc->unk58 == true)) {
+        if (GetBanimLinkArenaFlag() != 1 && (proc->is_quote == true || proc->unk58 == true)) {
             NewEkrWindowAppear(1, 7);
             NewEkrNamewinAppear(1, 7, 0);
             proc->proc_idleCb = (ProcFunc)ekrBattle_HandlePreEventMaybe;
@@ -252,7 +252,7 @@ void ekrBattleDoSpeialClassIntro(struct ProcEkrBattle *proc)
     }
 
     if (proc->side == EKR_BATTLE_LEFT) {
-        proc->anim = gUnknown_02000000[EKR_BATTLE_LEFT * 2];
+        proc->anim = gAnims[EKR_BATTLE_LEFT * 2];
         switch (GetEkrDragonStatusType(proc->anim)) {
         /* Draco Zombie */
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
@@ -276,7 +276,7 @@ void ekrBattleDoSpeialClassIntro(struct ProcEkrBattle *proc)
         proc->side = EKR_BATTLE_RIGHT;
 
     } else {
-        proc->anim = gUnknown_02000000[EKR_BATTLE_RIGHT * 2];
+        proc->anim = gAnims[EKR_BATTLE_RIGHT * 2];
         switch (GetEkrDragonStatusType(proc->anim)) {
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
             EfxDoDracoZombieIntroAnim(proc->anim);
@@ -309,7 +309,7 @@ void ekrBattleWaitSpeialClassIntroAnimIdle(struct ProcEkrBattle *proc)
 void ekrBattlePostEkrDragonIntro(struct ProcEkrBattle *proc)
 {
     if (gEkrInitialHitSide != gEkrPos2Maybe) {
-        sub_80533D0(gUnknown_02000000[gEkrPos2Maybe * 2], -1);
+        sub_80533D0(gAnims[gEkrPos2Maybe * 2], -1);
         proc->timer = 0;
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050290;
     } else
@@ -324,21 +324,21 @@ void ekrBattle_8050290(struct ProcEkrBattle *proc)
 
 void ekrBattle_80502B0(struct ProcEkrBattle *proc)
 {
-    NewEfxStatusUnit(gUnknown_02000000[0]);
-    NewEfxStatusUnit(gUnknown_02000000[2]);
-    NewEfxWeaponIcon(gUnknown_0203E1D8.x, gUnknown_0203E1D8.y);
+    NewEfxStatusUnit(gAnims[0]);
+    NewEfxStatusUnit(gAnims[2]);
+    NewEfxWeaponIcon(gEkrPairEffectiveAgainst[0], gEkrPairEffectiveAgainst[1]);
 
     if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
-        sub_8054B64(gUnknown_02000000[0]);
+        sub_8054B64(gAnims[0]);
 
-    NewEfxHPBarColorChange(gUnknown_02000000[0]);
+    NewEfxHPBarColorChange(gAnims[0]);
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050304;
 }
 
 void ekrBattle_8050304(struct ProcEkrBattle *proc)
 {
     if (gUnknown_0203E194 != false) {
-        NewEkrTriangle(gUnknown_02000000[2]);
+        NewEkrTriangle(gAnims[2]);
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050338;
     } else
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050360;
@@ -360,22 +360,22 @@ void ekrBattle_8050360(struct ProcEkrBattle *proc)
     if (++proc->timer <= 0x1E)
         return;
 
-    if (gBanimSideVaildFlagMaybe[0] == true) {
-        anim = gUnknown_02000000[0];
+    if (gEkrPairSideVaild[0] == true) {
+        anim = gAnims[0];
         anim->state3 = 0x8000;
         anim->state2 |= 0x4000;
 
-        anim = gUnknown_02000000[1];
+        anim = gAnims[1];
         anim->state3 = 0x8000;
         anim->state2 |= 0x4000;
     }
 
-    if (gBanimSideVaildFlagMaybe[1] == true) {
-        anim = gUnknown_02000000[2];
+    if (gEkrPairSideVaild[1] == true) {
+        anim = gAnims[2];
         anim->state3 = 0x8000;
         anim->state2 |= 0x4000;
 
-        anim = gUnknown_02000000[3];
+        anim = gAnims[3];
         anim->state3 = 0x8000;
         anim->state2 |= 0x4000;
     }
@@ -393,21 +393,21 @@ void ekrBattle_80503EC(struct ProcEkrBattle *proc)
 
 void ekrBattle_8050400(struct ProcEkrBattle *proc)
 {
-    if (gEkrSomeType == 4) {
-        NewEkrClassChg(gUnknown_02000000[2]);
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050440;
+    if (gEkrDistanceType == EKR_DISTANCE_PROMOTION) {
+        NewEkrClassChg(gAnims[2]);
+        proc->proc_idleCb = (ProcFunc)ekrBattle_WaitPromotionIdle;
     } else {
         proc->unk29 = 0;
         proc->proc_idleCb = (ProcFunc)ekrBattle_805046C;
     }
 }
 
-void ekrBattle_8050440(struct ProcEkrBattle *proc)
+void ekrBattle_WaitPromotionIdle(struct ProcEkrBattle *proc)
 {
     if (EkrClasschgFinished() == true) {
         EndEkrClasschg();
-        gUnknown_0203E1C8[0] = 1;
-        proc->proc_idleCb = (ProcFunc)ekrBattle_CheckForLevelup_8050C34;
+        gEkrPairExpGain[0] = 1;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_ExecEkrLvup;
     }
 }
 
@@ -417,33 +417,33 @@ void ekrBattle_805046C(struct ProcEkrBattle *proc)
     if (gKeyStatusPtr->heldKeys & 2)
         proc->unk29 = 1;
 
-    switch (gEkrSomeType) {
-    case 0:
-    case 1:
-    case 2:
+    switch (gEkrDistanceType) {
+    case EKR_DISTANCE_CLOSE:
+    case EKR_DISTANCE_FAR:
+    case EKR_DISTANCE_FARFAR:
         if ((gUnknown_0201FB04[0] + gUnknown_0201FB04[1]) == 2) {
             if (GetBattleAnimArenaFlag() == 0)
                 ret = 1;
             else {
-                gUnknown_0203E1C8[0] = gpEkrBattleUnitLeft->expGain;
-                gUnknown_0203E1C8[1] = gpEkrBattleUnitRight->expGain;
+                gEkrPairExpGain[0] = gpEkrBattleUnitLeft->expGain;
+                gEkrPairExpGain[1] = gpEkrBattleUnitRight->expGain;
     
-                if (gUnknown_0203E1AC[0] == 0) {
+                if (gEkrPairHpInitial[0] == 0) {
                     ArenaSetResult(1);
                     ret = 1;
-                } else if (gUnknown_0203E1AC[1] == 0) {
+                } else if (gEkrPairHpInitial[1] == 0) {
                     ArenaSetResult(2);
-                    gUnknown_0203E1C8[1] = 0;
+                    gEkrPairExpGain[1] = 0;
                     ret = 1;
                 } else if (proc->unk29 == 1) {
                     sub_805B094();
                     ArenaSetResult(4);
-                    gUnknown_0203E1C8[1] = 0;
+                    gEkrPairExpGain[1] = 0;
                     ret = 1;
                 } else {
                     u8 val = 0;
-                    struct Anim *anim1 = gUnknown_02000000[0];
-                    struct Anim *anim2 = gUnknown_02000000[2];
+                    struct Anim *anim1 = gAnims[0];
+                    struct Anim *anim2 = gAnims[2];
     
                     switch (anim1->currentRoundType) {
                     case 6:
@@ -491,12 +491,12 @@ void ekrBattle_805046C(struct ProcEkrBattle *proc)
         } /* switch */
         break;
 
-    case 3:
+    case EKR_DISTANCE_3:
         if ((gUnknown_0201FB04[0] + gUnknown_0201FB04[1]) == 1)
             ret = 1;
         break;
 
-    case 4:
+    case EKR_DISTANCE_PROMOTION:
         ret = 1;
         break;
     }
@@ -518,20 +518,20 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
     if (gEkrHPBarCount != 0)
         return;
 
-    if (gUnknown_02017738 != 0)
+    if (gEkrDeadEventFlag != 0)
         return;
 
-    ret = sub_8056E60();
+    ret = CheckEkrNamewinAppearUnexist();
     if (ret != true)
         return;
 
     proc->timer = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_WaitForPostBattleAct;
 
-    if (CheckEkrDragonDeadEffectMaybe(gUnknown_02000000[0]) != false)
+    if (CheckEkrDragonDeadEffectMaybe(gAnims[0]) != false)
         return;
 
-    if (gUnknown_0203E1C8[0] != 0)
+    if (gEkrPairExpGain[0] != 0)
         val = 0;
     else
         val = 1;
@@ -540,7 +540,7 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
         proc->unk29 = ret;
 
     if (proc->unk29 == 1)
-        sub_80533D0(gUnknown_02000000[gEkrPos2Maybe * 2], -1);
+        sub_80533D0(gAnims[gEkrPos2Maybe * 2], -1);
 }
 
 /**
@@ -551,7 +551,7 @@ void ekrBattle_WaitForPostBattleAct(struct ProcEkrBattle *proc)
     if (++proc->timer < 0x1E)
         return;
 
-    if (GetEkrEventFlagMaybe() != 1 && gUnknown_0203E1C8[0] != -gUnknown_0203E1C8[1])
+    if (GetBanimLinkArenaFlag() != 1 && gEkrPairExpGain[0] != -gEkrPairExpGain[1])
         proc->proc_idleCb = (ProcFunc)ekrBattle_80506C8;
     else
         proc->proc_idleCb = (ProcFunc)ekrNewEkrPopup;
@@ -599,10 +599,10 @@ void ekrBattle_80506C8(struct ProcEkrBattle *proc)
 
     EkrGauge_Setup44(1);
 
-    if (gUnknown_0203E1C8[0] != 0)
-        val0 = gUnknown_0203E1C4[0];
+    if (gEkrPairExpGain[0] != 0)
+        val0 = gEkrPairExpPrevious[0];
     else
-        val0 = gUnknown_0203E1C4[1];
+        val0 = gEkrPairExpPrevious[1];
 
     val1 = DivRem(val0, 100);
     val2 = Div(val1, 10);
@@ -637,12 +637,12 @@ void ekrBattle_80508F0(struct ProcEkrBattle *proc)
 void ekrBattle_8050940(struct ProcEkrBattle *proc)
 {
     if (++proc->timer > 10) {
-        if (gUnknown_0203E1C8[0] != 0) {
-            proc->timer = gUnknown_0203E1C4[0];
-            proc->unk2E = gUnknown_0203E1C4[0] + gUnknown_0203E1C8[0];
-        } else if (gUnknown_0203E1C8[1] != 0) {
-            proc->timer = gUnknown_0203E1C4[1];
-            proc->unk2E = gUnknown_0203E1C4[1] + gUnknown_0203E1C8[1];
+        if (gEkrPairExpGain[0] != 0) {
+            proc->timer = gEkrPairExpPrevious[0];
+            proc->unk2E = gEkrPairExpPrevious[0] + gEkrPairExpGain[0];
+        } else if (gEkrPairExpGain[1] != 0) {
+            proc->timer = gEkrPairExpPrevious[1];
+            proc->unk2E = gEkrPairExpPrevious[1] + gEkrPairExpGain[1];
         }
 
         proc->proc_idleCb = (ProcFunc)ekrBattle_80509A8;
@@ -711,12 +711,12 @@ void ekrBattle_8050B08(struct ProcEkrBattle *proc)
     register int c asm("r1");
 
     if (++proc->timer == 0x18) {
-        if (gUnknown_0203E1C8[0] != 0) {
-            a = gUnknown_0203E1C4[0];
-            b = gUnknown_0203E1C8[0];
+        if (gEkrPairExpGain[0] != 0) {
+            a = gEkrPairExpPrevious[0];
+            b = gEkrPairExpGain[0];
         } else {
-            a = gUnknown_0203E1C4[1];
-            b = gUnknown_0203E1C8[1];
+            a = gEkrPairExpPrevious[1];
+            b = gEkrPairExpGain[1];
         }
 
         c = a + b;
@@ -749,35 +749,35 @@ void ekrBattle_8050B08(struct ProcEkrBattle *proc)
 
     SetWin0Box(0, 0, 0xF0, 0xA0);
 
-    if (gUnknown_0203E1C8[0] != 0) {
-        a = gUnknown_0203E1C4[0];
-        b = gUnknown_0203E1C8[0];
+    if (gEkrPairExpGain[0] != 0) {
+        a = gEkrPairExpPrevious[0];
+        b = gEkrPairExpGain[0];
     } else {
-        a = gUnknown_0203E1C4[1];
-        b = gUnknown_0203E1C8[1];
+        a = gEkrPairExpPrevious[1];
+        b = gEkrPairExpGain[1];
     }
 
     c = a + b;
     if (c >= 100)
-        proc->proc_idleCb = (ProcFunc)ekrBattle_CheckForLevelup_8050C34;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_ExecEkrLvup;
     else
         proc->proc_idleCb = (ProcFunc)ekrNewEkrPopup;
 }
 
-void ekrBattle_CheckForLevelup_8050C34(struct ProcEkrBattle *proc)
+void ekrBattle_ExecEkrLvup(struct ProcEkrBattle *proc)
 {
     struct Anim *anim;
 
-    if (gUnknown_0203E1C8[0] != 0)
-        anim = gUnknown_02000000[0];
+    if (gEkrPairExpGain[0] != 0)
+        anim = gAnims[0];
     else
-        anim = gUnknown_02000000[2];
+        anim = gAnims[2];
 
     NewEkrLevelup(anim);
-    proc->proc_idleCb = (ProcFunc)ekrBattle_WaitForLevelup_8050C6C;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrLvupIdle;
 }
 
-void ekrBattle_WaitForLevelup_8050C6C(struct ProcEkrBattle *proc)
+void ekrBattle_WaitEkrLvupIdle(struct ProcEkrBattle *proc)
 {
     if (CheckEkrLvupDone() == true) {
         EndEkrLevelUp();
@@ -819,16 +819,18 @@ void ekrBattle_TriggerDragonStatusFinished(struct ProcEkrBattle *proc)
     }
 
     if (proc->side == EKR_BATTLE_LEFT) {
-        proc->anim = gUnknown_02000000[0];
+        proc->anim = gAnims[0];
         switch (GetEkrDragonStatusType(proc->anim)) {
         case EKRDRGON_TYPE_DEMON_KING:
             SetEkrDragonStatusAttrFinished(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
+
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
             SetEkrDragonStatusAttrFinished(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
+
         case EKRDRGON_TYPE_MYRRH:
             SetEkrDragonStatusAttrFinished(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
@@ -842,16 +844,18 @@ void ekrBattle_TriggerDragonStatusFinished(struct ProcEkrBattle *proc)
         proc->counter++;
 
     } else {
-        proc->anim = gUnknown_02000000[2];
+        proc->anim = gAnims[2];
         switch (GetEkrDragonStatusType(proc->anim)) {
         case EKRDRGON_TYPE_DEMON_KING:
             SetEkrDragonStatusAttrFinished(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
+
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
             SetEkrDragonStatusAttrFinished(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
+
         case EKRDRGON_TYPE_MYRRH:
             SetEkrDragonStatusAttrFinished(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;

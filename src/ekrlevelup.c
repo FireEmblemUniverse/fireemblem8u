@@ -276,11 +276,11 @@ void NewEkrLevelup(struct Anim *ais)
     proc->ais_main = ais;
     proc->ais_core = GetCoreAIStruct(ais);
 
-    if (gEkrSomeType != 4)
+    if (gEkrDistanceType != EKR_DISTANCE_PROMOTION)
         proc->is_promotion = false;
     else
         proc->is_promotion = true;
-    
+
     proc->count = 0;
     proc->finished = false;
 }

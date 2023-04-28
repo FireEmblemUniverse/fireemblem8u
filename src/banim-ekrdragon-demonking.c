@@ -23,7 +23,7 @@ void EfxDoDemonKingIntroAnim(struct Anim *anim)
     gEkrXQuakeOff = 0;
     gEkrYQuakeOff = 0;
     sub_8077DB4(0, 0);
-    sub_80729A4(0x380, 0x100, 0x78, 0);
+    EkrSoundSomeBark(0x380, 0x100, 0x78, 0);
 }
 
 void sub_8076598(void)
@@ -75,15 +75,15 @@ void Fill16_EkrTsaBuffer_(u32 val)
 
 void EkrDK_BgMovement(struct ProcEkrDragon *proc)
 {
-    int val1 = Interpolate(INTERPOLATE_RCUBIC, -0x20, 0, proc->unk2E, 0x78);
-    int val2 = Interpolate(INTERPOLATE_RCUBIC, -0x50, 0, proc->unk2E, 0x78);
+    int val1 = Interpolate(INTERPOLATE_RCUBIC, -0x20, 0, proc->tcounter, 0x78);
+    int val2 = Interpolate(INTERPOLATE_RCUBIC, -0x50, 0, proc->tcounter, 0x78);
 
     EkrDragonBgSetPostion(gEkrBgXOffset + val1, val2);
     
-    if (proc->unk2E == 0x78) {
+    if (proc->tcounter == 0x78) {
         Proc_Break(proc);
     } else
-        proc->unk2E++;
+        proc->tcounter++;
 }
 
 void EkrDK_PrepareBanimfx(struct ProcEkrDragon *proc)
@@ -121,7 +121,7 @@ void PrepareDemonKingBGFx(struct ProcEkrDragon *proc)
     NewEkrDragonPalFadeIn(Pal_DemonKingBG, 6, 0x78, proc);
 
     SetEkrDragonStatusUnk1(1);
-    proc->unk2E = 0;
+    proc->tcounter = 0;
 }
 
 void EkrDK_IdleInBattle(struct ProcEkrDragon *proc)
@@ -163,7 +163,7 @@ void EkrDK_ReloadTerrainEtc(struct ProcEkrDragon *proc)
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     SetAnimStateHidden(GetAISSubjectId(proc->anim));
-    gBanimSideVaildFlagMaybe[GetAISSubjectId(proc->anim)] = false;
+    gEkrPairSideVaild[GetAISSubjectId(proc->anim)] = false;
 
     /* Reload the terrain palette */
     NewEkrDragonBaseAppear(proc->anim);
@@ -293,14 +293,14 @@ void EfxDKUpdateFrontAnimPostion(struct ProcEfxDKfx *proc)
     val3 = gEkrXPosBase[1] + gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
     val4 = gEkrYPosBase[1] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
 
-    switch (gEkrSomeType) {
-    case 0:
+    switch (gEkrDistanceType) {
+    case EKR_DISTANCE_CLOSE:
         SetEkrFrontAnimPostion(0, val1, val2);
         SetEkrFrontAnimPostion(1, val3, val4);
         break;
 
-    case 1:
-    case 2:
+    case EKR_DISTANCE_FAR:
+    case EKR_DISTANCE_FARFAR:
         if (GetAISSubjectId(proc->anim) == 0)
             SetEkrFrontAnimPostion(0, val1, val2);
         else

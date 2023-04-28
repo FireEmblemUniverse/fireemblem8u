@@ -1145,7 +1145,7 @@ sub_8055298: @ 0x08055298
 	bl GetAISSubjectId
 	cmp r0, #0
 	bne _080552C4
-	ldr r0, _080552C0  @ gUnknown_02000000
+	ldr r0, _080552C0  @ gAnims
 	ldr r7, [r0, #8]
 	ldr r1, [r0, #0xc]
 	mov r9, r1
@@ -1153,9 +1153,9 @@ sub_8055298: @ 0x08055298
 	ldr r0, [r0, #4]
 	b _080552D0
 	.align 2, 0
-_080552C0: .4byte gUnknown_02000000
+_080552C0: .4byte gAnims
 _080552C4:
-	ldr r0, _080552E0  @ gUnknown_02000000
+	ldr r0, _080552E0  @ gAnims
 	ldr r7, [r0]
 	ldr r1, [r0, #4]
 	mov r9, r1
@@ -1171,7 +1171,7 @@ _080552D0:
 _080552DC:
 	b _08055414
 	.align 2, 0
-_080552E0: .4byte gUnknown_02000000
+_080552E0: .4byte gAnims
 _080552E4:
 	adds r0, r7, #0
 	bl GetAISSubjectId
@@ -1333,15 +1333,15 @@ sub_8055424: @ 0x08055424
 	bl GetAISSubjectId
 	cmp r0, #0
 	bne _08055444
-	ldr r0, _08055440  @ gUnknown_02000000
+	ldr r0, _08055440  @ gAnims
 	ldr r7, [r0, #8]
 	ldr r5, [r0]
 	ldr r0, [r0, #4]
 	b _0805544C
 	.align 2, 0
-_08055440: .4byte gUnknown_02000000
+_08055440: .4byte gAnims
 _08055444:
-	ldr r0, _080554A4  @ gUnknown_02000000
+	ldr r0, _080554A4  @ gAnims
 	ldr r7, [r0]
 	ldr r5, [r0, #8]
 	ldr r0, [r0, #0xc]
@@ -1384,7 +1384,7 @@ _0805544C:
 	beq _08055504
 	b _0805550A
 	.align 2, 0
-_080554A4: .4byte gUnknown_02000000
+_080554A4: .4byte gAnims
 _080554A8: .4byte gUnknown_0203E152
 _080554AC:
 	cmp r6, r4
@@ -1447,13 +1447,13 @@ sub_8055518: @ 0x08055518
 	bl GetAISSubjectId
 	cmp r0, #0
 	bne _08055530
-	ldr r0, _0805552C  @ gUnknown_02000000
+	ldr r0, _0805552C  @ gAnims
 	ldr r0, [r0]
 	b _08055534
 	.align 2, 0
-_0805552C: .4byte gUnknown_02000000
+_0805552C: .4byte gAnims
 _08055530:
-	ldr r0, _08055540  @ gUnknown_02000000
+	ldr r0, _08055540  @ gAnims
 	ldr r0, [r0, #8]
 _08055534:
 	cmp r4, #0
@@ -1462,7 +1462,7 @@ _08055534:
 	beq _0805554A
 	b _0805554E
 	.align 2, 0
-_08055540: .4byte gUnknown_02000000
+_08055540: .4byte gAnims
 _08055544:
 	bl NewEfxStatusCHG
 	b _0805554E
@@ -1482,7 +1482,7 @@ sub_8055554: @ 0x08055554
 	adds r7, r1, #0
 	adds r6, r2, #0
 	adds r5, r3, #0
-	ldr r0, _08055578  @ gEkrSomeType
+	ldr r0, _08055578  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1494,7 +1494,7 @@ sub_8055554: @ 0x08055554
 	adds r0, r7, #0
 	b _08055590
 	.align 2, 0
-_08055578: .4byte gEkrSomeType
+_08055578: .4byte gEkrDistanceType
 _0805557C:
 	adds r0, r6, #0
 	b _08055590
@@ -1532,7 +1532,7 @@ sub_80555B0: @ 0x080555B0
 	adds r7, r1, #0
 	adds r6, r2, #0
 	adds r5, r3, #0
-	ldr r0, _080555D4  @ gEkrSomeType
+	ldr r0, _080555D4  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1544,7 +1544,7 @@ sub_80555B0: @ 0x080555B0
 	adds r0, r7, #0
 	b _080555EC
 	.align 2, 0
-_080555D4: .4byte gEkrSomeType
+_080555D4: .4byte gEkrDistanceType
 _080555D8:
 	adds r0, r6, #0
 	b _080555EC
@@ -1580,7 +1580,7 @@ sub_805560C: @ 0x0805560C
 	push {r4, lr}
 	sub sp, #8
 	adds r3, r0, #0
-	ldr r0, _08055640  @ gEkrSomeType
+	ldr r0, _08055640  @ gEkrDistanceType
 	movs r4, #0
 	ldrsh r0, [r0, r4]
 	adds r4, r2, #0
@@ -1603,7 +1603,7 @@ _08055620:
 	bl sub_8070EC4
 	b _0805565C
 	.align 2, 0
-_08055640: .4byte gEkrSomeType
+_08055640: .4byte gEkrDistanceType
 _08055644: .4byte gBG1TilemapBuffer
 _08055648:
 	ldr r1, _0805566C  @ gBG1TilemapBuffer
@@ -1633,7 +1633,7 @@ sub_8055670: @ 0x08055670
 	sub sp, #8
 	adds r4, r0, #0
 	adds r3, r1, #0
-	ldr r0, _0805568C  @ gEkrSomeType
+	ldr r0, _0805568C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1643,7 +1643,7 @@ sub_8055670: @ 0x08055670
 	bl LZ77UnCompWram
 	b _0805569C
 	.align 2, 0
-_0805568C: .4byte gEkrSomeType
+_0805568C: .4byte gEkrDistanceType
 _08055690: .4byte gEkrTsaBuffer
 _08055694:
 	ldr r1, _080556C0  @ gEkrTsaBuffer
@@ -1697,7 +1697,7 @@ sub_80556F0: @ 0x080556F0
 	adds r3, r1, #0
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	ldr r0, _08055710  @ gEkrSomeType
+	ldr r0, _08055710  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1707,7 +1707,7 @@ sub_80556F0: @ 0x080556F0
 	bl LZ77UnCompWram
 	b _08055720
 	.align 2, 0
-_08055710: .4byte gEkrSomeType
+_08055710: .4byte gEkrDistanceType
 _08055714: .4byte gEkrTsaBuffer
 _08055718:
 	ldr r1, _0805573C  @ gEkrTsaBuffer
@@ -2069,7 +2069,7 @@ _08055988: .4byte gUnknown_0201775C
 	THUMB_FUNC_START GetAnimationStartFrameMaybe
 GetAnimationStartFrameMaybe: @ 0x0805598C
 	push {lr}
-	ldr r0, _0805599C  @ gEkrSomeType
+	ldr r0, _0805599C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #2
@@ -2077,7 +2077,7 @@ GetAnimationStartFrameMaybe: @ 0x0805598C
 	movs r0, #0x18
 	b _080559AA
 	.align 2, 0
-_0805599C: .4byte gEkrSomeType
+_0805599C: .4byte gEkrDistanceType
 _080559A0:
 	cmp r0, #1
 	beq _080559A8
@@ -2136,16 +2136,16 @@ SetEkrFrontAnimPostion: @ 0x080559F0
 	lsrs r2, r2, #0x10
 	cmp r0, #0
 	bne _08055A10
-	ldr r0, _08055A0C  @ gUnknown_02000000
+	ldr r0, _08055A0C  @ gAnims
 	ldr r3, [r0]
 	strh r1, [r3, #2]
 	strh r2, [r3, #4]
 	ldr r3, [r0, #4]
 	b _08055A1A
 	.align 2, 0
-_08055A0C: .4byte gUnknown_02000000
+_08055A0C: .4byte gAnims
 _08055A10:
-	ldr r0, _08055A24  @ gUnknown_02000000
+	ldr r0, _08055A24  @ gAnims
 	ldr r3, [r0, #8]
 	strh r1, [r3, #2]
 	strh r2, [r3, #4]
@@ -2156,7 +2156,7 @@ _08055A1A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08055A24: .4byte gUnknown_02000000
+_08055A24: .4byte gAnims
 
 	THUMB_FUNC_END SetEkrFrontAnimPostion
 
@@ -2215,7 +2215,7 @@ sub_8055A64: @ 0x08055A64
 	lsls r0, r0, #2
 	add r0, r8
 	ldrh r4, [r0, #2]
-	ldr r3, _08055AE8  @ gUnknown_02000000
+	ldr r3, _08055AE8  @ gAnims
 	ldr r6, [r3]
 	ldrh r1, [r6, #2]
 	ldrh r2, [r0]
@@ -2267,7 +2267,7 @@ sub_8055A64: @ 0x08055A64
 	bl Proc_Break
 	b _08055B28
 	.align 2, 0
-_08055AE8: .4byte gUnknown_02000000
+_08055AE8: .4byte gAnims
 _08055AEC: .4byte gLCDControlBuffer
 _08055AF0:
 	bl sub_8055A28
@@ -2337,7 +2337,7 @@ sub_8055B38: @ 0x08055B38
 	adds r1, r4, #0
 	adds r2, r5, #0
 	bl SetEkrFrontAnimPostion
-	ldr r0, _08055B94  @ gEkrSomeType
+	ldr r0, _08055B94  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -2351,7 +2351,7 @@ sub_8055B38: @ 0x08055B38
 _08055B88: .4byte gEkrXPosBase
 _08055B8C: .4byte gEkrBgXOffset
 _08055B90: .4byte gEkrYPosBase
-_08055B94: .4byte gEkrSomeType
+_08055B94: .4byte gEkrDistanceType
 _08055B98:
 	cmp r0, #0
 	blt _08055BA6

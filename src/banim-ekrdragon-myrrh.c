@@ -8,7 +8,7 @@
 #include "ekrdragon.h"
 #include "banim_data.h"
 
-extern struct Anim *gUnknown_02000000[4];
+extern struct Anim *gAnims[4];
 
 enum banim_myrrh {
     BANIM_INDEX_MYRRH_C3 = 0xC3,
@@ -119,9 +119,9 @@ void sub_8070AE4(struct ProcEkrDragon *proc)
         AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_END);
 
         if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
-            SetEkrDragonStatusType(gUnknown_02000000[0], EKRDRGON_TYPE_NORMAL);
+            SetEkrDragonStatusType(gAnims[0], EKRDRGON_TYPE_NORMAL);
         else
-            SetEkrDragonStatusType(gUnknown_02000000[2], EKRDRGON_TYPE_NORMAL);
+            SetEkrDragonStatusType(gAnims[2], EKRDRGON_TYPE_NORMAL);
 
         Proc_Break(proc);
     }

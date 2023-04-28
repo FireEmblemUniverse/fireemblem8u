@@ -39,7 +39,7 @@ struct ProcEkrDragon {
     /* 29 */ u8 _pad_29[0x2C - 0x29];
 
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
+    /* 2E */ s16 tcounter;
 
     /* 30 */ u8 _pad_30[0x50 - 0x30];
 
@@ -52,10 +52,10 @@ struct ProcEkrDragon {
 
 struct EkrDracoZombiTsaSet {
     /* 00 */ u16 *tsa;
-    /* 04 */ u8 unk04;
+    /* 04 */ u8 time;
     /* 05 */ s8 lox;
     /* 06 */ u8 loy;
-    /* 07 */ u8 unk07;
+    /* 07 */ u8 type;
 };
 
 extern struct EkrDracoZombiTsaSet gEkrDracoZombiTsaSetLut[15];
@@ -134,7 +134,7 @@ u32 GetEkrDragonStatusType(struct Anim *anim);
 void SetEkrDragonStatusType(struct Anim *anim, u8 type);
 // ??? GetEkrDragonStatusUnk1(???);
 void SetEkrDragonStatusUnk1(int);
-// ??? ResetEkrDragonStatus(???);
+void ResetEkrDragonStatus(void);
 u32 GetBanimDragonStatusType(void);
 // ??? sub_806FAD8(???);
 void EkrDragonBgSetPostion(int, int);
@@ -145,7 +145,7 @@ bool CheckEfrDragonStatusAttrEnd(struct Anim *anim);
 // ??? EkrDZ_CustomBgFadeIn(???);
 // ??? EfxDracoZombiePrepareTSA(???);
 // ??? EfxDracoZombiePrepareImg(???);
-// ??? sub_806FD74(???);
+// ??? EkrDZ_MonsterFlyIntoScreen(???);
 // ??? EkrDZ_PrepareBanimfx(???);
 // ??? EkrDZ_TriggerPreparedFlag(???);
 // ??? EkrDZ_IdleInBattle(???);

@@ -56,7 +56,7 @@ _080512DC:
 	subs r1, r1, r0
 	lsls r1, r1, #1
 	mov r8, r1
-	ldr r0, _08051300  @ gEkrSomeType
+	ldr r0, _08051300  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	cmp r0, #0
@@ -69,7 +69,7 @@ _080512DC:
 	str r5, [sp, #0xdc]
 	b _0805130A
 	.align 2, 0
-_08051300: .4byte gEkrSomeType
+_08051300: .4byte gEkrDistanceType
 _08051304:
 	movs r0, #8
 	str r0, [sp, #0xdc]
@@ -164,7 +164,7 @@ _080513BE:
 	bl BG_EnableSyncByMask
 _080513C4:
 	ldr r3, _08051424  @ gUnknown_0203E1B4
-	ldr r0, _08051428  @ gUnknown_0203E1AC
+	ldr r0, _08051428  @ gEkrPairHpInitial
 	movs r4, #0
 	ldrsh r2, [r3, r4]
 	ldrh r4, [r0]
@@ -189,13 +189,13 @@ _080513EE:
 	strh r4, [r3]
 	strh r2, [r3, #2]
 	ldrh r7, [r5]
-	ldr r0, _0805142C  @ gUnknown_0203E1B0
+	ldr r0, _0805142C  @ gEkrPairMaxHP
 	ldrh r6, [r0]
 	ldrh r1, [r5, #2]
 	mov r8, r1
 	ldrh r0, [r0, #2]
 	str r0, [sp, #0xd4]
-	ldr r0, _08051430  @ gEkrSomeType
+	ldr r0, _08051430  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #3
@@ -213,11 +213,11 @@ _080513EE:
 _0805141C: .4byte gUnknown_08802428
 _08051420: .4byte gBG0TilemapBuffer
 _08051424: .4byte gUnknown_0203E1B4
-_08051428: .4byte gUnknown_0203E1AC
-_0805142C: .4byte gUnknown_0203E1B0
-_08051430: .4byte gEkrSomeType
+_08051428: .4byte gEkrPairHpInitial
+_0805142C: .4byte gEkrPairMaxHP
+_08051430: .4byte gEkrDistanceType
 _08051434:
-	ldr r0, _08051448  @ gBanimSideVaildFlagMaybe
+	ldr r0, _08051448  @ gEkrPairSideVaild
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #1
@@ -228,7 +228,7 @@ _08051434:
 	adds r0, #0x38
 	b _0805145C
 	.align 2, 0
-_08051448: .4byte gBanimSideVaildFlagMaybe
+_08051448: .4byte gEkrPairSideVaild
 _0805144C:
 	mov r4, sl
 	movs r1, #0x32
@@ -920,7 +920,7 @@ _080519A6:
 	cmp r4, #0
 	bne _08051A12
 	str r4, [sp, #0x24]
-	ldr r1, _08051AB4  @ gUnknown_0203E1D4
+	ldr r1, _08051AB4  @ gEkrPairWTABonus
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	ldr r5, [sp, #0xe4]
@@ -973,7 +973,7 @@ _08051A12:
 	cmp r4, #0
 	bne _08051A7E
 	str r4, [sp, #0x24]
-	ldr r1, _08051AB4  @ gUnknown_0203E1D4
+	ldr r1, _08051AB4  @ gEkrPairWTABonus
 	movs r6, #2
 	ldrsh r0, [r1, r6]
 	ldr r5, [sp, #0xe4]
@@ -1039,7 +1039,7 @@ _08051AA4: .4byte 0x0000B1C0
 _08051AA8: .4byte 0x0000C1F0
 _08051AAC: .4byte gUnknown_085B94F0
 _08051AB0: .4byte 0x0000C1C0
-_08051AB4: .4byte gUnknown_0203E1D4
+_08051AB4: .4byte gEkrPairWTABonus
 _08051AB8: .4byte gUnknown_085B9544
 _08051ABC: .4byte 0x0000D1DC
 _08051AC0: .4byte 0x0000E1DE

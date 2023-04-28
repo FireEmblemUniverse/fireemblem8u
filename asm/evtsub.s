@@ -985,7 +985,7 @@ _08011F22:
 	cmp r0, #0
 	beq _08011F3C
 	movs r0, #0
-	bl SetEkrEventFlagMaybe
+	bl SetBanimLinkArenaFlag
 	bl BeginAnimsOnBattleAnimations
 	b _08011F52
 	.align 2, 0

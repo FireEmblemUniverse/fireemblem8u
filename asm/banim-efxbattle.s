@@ -12,7 +12,7 @@ NewEfxDeadEvent: @ 0x08052DD4
 	bl Proc_Start
 	str r4, [r0, #0x5c]
 	str r5, [r0, #0x60]
-	ldr r1, _08052DF8  @ gUnknown_02017738
+	ldr r1, _08052DF8  @ gEkrDeadEventFlag
 	movs r0, #1
 	str r0, [r1]
 	pop {r4, r5}
@@ -20,7 +20,7 @@ NewEfxDeadEvent: @ 0x08052DD4
 	bx r0
 	.align 2, 0
 _08052DF4: .4byte gProc_efxDeadEvent
-_08052DF8: .4byte gUnknown_02017738
+_08052DF8: .4byte gEkrDeadEventFlag
 
 	THUMB_FUNC_END NewEfxDeadEvent
 
@@ -54,7 +54,7 @@ _08052E2E:
 	bne _08052E62
 	movs r0, #7
 	strh r0, [r5, #0x2c]
-	ldr r0, _08052E74  @ gEkrSomeType
+	ldr r0, _08052E74  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -82,7 +82,7 @@ _08052E62:
 _08052E68: .4byte gUnknown_0201774C
 _08052E6C: .4byte gUnknown_0201772C
 _08052E70: .4byte gUnknown_0201FB04
-_08052E74: .4byte gEkrSomeType
+_08052E74: .4byte gEkrDistanceType
 _08052E78: .4byte gEkrPos2Maybe
 
 	THUMB_FUNC_END sub_8052DFC
@@ -180,7 +180,7 @@ sub_8052F24: @ 0x08052F24
 	bl EfxPrepareScreenFx
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _08052F80  @ gBanimSideVaildFlagMaybe
+	ldr r1, _08052F80  @ gEkrPairSideVaild
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r5, [r0]
@@ -203,7 +203,7 @@ _08052F7A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08052F80: .4byte gBanimSideVaildFlagMaybe
+_08052F80: .4byte gEkrPairSideVaild
 
 	THUMB_FUNC_END sub_8052F24
 
@@ -216,7 +216,7 @@ sub_8052F84: @ 0x08052F84
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne _08052FA0
-	ldr r1, _08052FA8  @ gUnknown_02017738
+	ldr r1, _08052FA8  @ gEkrDeadEventFlag
 	movs r0, #0
 	str r0, [r1]
 	adds r0, r4, #0
@@ -226,7 +226,7 @@ _08052FA0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08052FA8: .4byte gUnknown_02017738
+_08052FA8: .4byte gEkrDeadEventFlag
 
 	THUMB_FUNC_END sub_8052F84
 
@@ -768,7 +768,7 @@ sub_80533D0: @ 0x080533D0
 	adds r5, r0, #0
 	lsls r1, r1, #0x10
 	lsrs r6, r1, #0x10
-	ldr r0, _080533EC  @ gEkrSomeType
+	ldr r0, _080533EC  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -779,7 +779,7 @@ sub_80533D0: @ 0x080533D0
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_080533EC: .4byte gEkrSomeType
+_080533EC: .4byte gEkrDistanceType
 _080533F0: .4byte _080533F4
 _080533F4: @ jump table
 	.4byte _0805349E @ case 0
@@ -809,13 +809,13 @@ _08053408:
 	strh r0, [r4, #0x2e]
 	subs r0, r2, r0
 	strh r0, [r4, #0x30]
-	ldr r2, _08053440  @ gEkrSomeType
+	ldr r2, _08053440  @ gEkrDistanceType
 	b _0805345E
 	.align 2, 0
 _0805343C: .4byte gProc_efxFarAttack
-_08053440: .4byte gEkrSomeType
+_08053440: .4byte gEkrDistanceType
 _08053444:
-	ldr r0, _08053454  @ gEkrSomeType
+	ldr r0, _08053454  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r1, [r0, r2]
 	adds r2, r0, #0
@@ -824,7 +824,7 @@ _08053444:
 	movs r0, #5
 	b _0805345A
 	.align 2, 0
-_08053454: .4byte gEkrSomeType
+_08053454: .4byte gEkrDistanceType
 _08053458:
 	movs r0, #7
 _0805345A:
@@ -879,7 +879,7 @@ _080534A8: .4byte gUnknown_02017748
 	THUMB_FUNC_START sub_80534AC
 sub_80534AC: @ 0x080534AC
 	push {r4, lr}
-	ldr r3, _080534DC  @ gUnknown_02000000
+	ldr r3, _080534DC  @ gAnims
 	ldr r4, [r3]
 	negs r1, r1
 	ldr r2, _080534E0  @ gEkrXPosBase
@@ -902,7 +902,7 @@ sub_80534AC: @ 0x080534AC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080534DC: .4byte gUnknown_02000000
+_080534DC: .4byte gAnims
 _080534E0: .4byte gEkrXPosBase
 
 	THUMB_FUNC_END sub_80534AC
@@ -1236,7 +1236,7 @@ _08053744:
 	adds r2, r0, #0
 	movs r0, #0
 	strh r0, [r2, #0x2c]
-	ldr r1, _08053778  @ gUnknown_02000000
+	ldr r1, _08053778  @ gAnims
 	ldr r0, [r1]
 	str r0, [r2, #0x5c]
 	ldr r0, [r1, #8]
@@ -1251,7 +1251,7 @@ _08053744:
 	.align 2, 0
 _08053770: .4byte gUnknown_0201773C
 _08053774: .4byte gProc_efxQuake
-_08053778: .4byte gUnknown_02000000
+_08053778: .4byte gAnims
 _0805377C: .4byte _08053780
 _08053780: @ jump table
 	.4byte _0805379C @ case 0
@@ -1488,7 +1488,7 @@ _0805392C:
 	movs r3, #2
 	ldrsh r0, [r2, r3]
 	subs r5, r1, r0
-	ldr r0, _0805399C  @ gEkrSomeType
+	ldr r0, _0805399C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1512,7 +1512,7 @@ _0805398C: .4byte gEkrXPosBase
 _08053990: .4byte gEkrBgXOffset
 _08053994: .4byte gEkrYPosBase
 _08053998: .4byte gEkrBg2QuakeVec
-_0805399C: .4byte gEkrSomeType
+_0805399C: .4byte gEkrDistanceType
 _080539A0:
 	cmp r0, #0
 	blt _080539D2
@@ -1635,7 +1635,7 @@ _08053A78:
 	str r4, [r5, #0x64]
 	b _08053B90
 _08053A84:
-	ldr r0, _08053A94  @ gEkrSomeType
+	ldr r0, _08053A94  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1643,7 +1643,7 @@ _08053A84:
 	str r0, [r5, #0x64]
 	b _08053B90
 	.align 2, 0
-_08053A94: .4byte gEkrSomeType
+_08053A94: .4byte gEkrDistanceType
 _08053A98:
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
@@ -1742,7 +1742,7 @@ _08053B56:
 	movs r2, #8
 	bl CpuFastSet
 	bl EnablePaletteSync
-	ldr r0, _08053BB4  @ gEkrSomeType
+	ldr r0, _08053BB4  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r4, [r0, r1]
 	mov r0, r8
@@ -1769,7 +1769,7 @@ _08053BA4: .4byte gEkrSpellAnimIndexLutMaybe
 _08053BA8: .4byte gBanimTerrainPaletteMaybe
 _08053BAC: .4byte gUnknown_02016828
 _08053BB0: .4byte gUnknown_02022B08
-_08053BB4: .4byte gEkrSomeType
+_08053BB4: .4byte gEkrDistanceType
 _08053BB8: .4byte gEkrBgXOffset
 
 	THUMB_FUNC_END sub_80539DC
@@ -1796,7 +1796,7 @@ _08053BDC:
 	movs r0, #0
 	movs r1, #0
 	bl sub_8052214
-	ldr r0, _08053C10  @ gEkrSomeType
+	ldr r0, _08053C10  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	cmp r0, #0
@@ -1815,7 +1815,7 @@ _08053BDC:
 	b _08053C36
 	.align 2, 0
 _08053C0C: .4byte 0x00007FFF
-_08053C10: .4byte gEkrSomeType
+_08053C10: .4byte gEkrDistanceType
 _08053C14:
 	cmp r0, #0
 	blt _08053C36
@@ -2110,7 +2110,7 @@ _08053E70:
 	movs r3, #2
 	ldrsh r0, [r2, r3]
 	subs r5, r1, r0
-	ldr r0, _08053ECC  @ gEkrSomeType
+	ldr r0, _08053ECC  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -2134,7 +2134,7 @@ _08053EBC: .4byte gEkrXPosBase
 _08053EC0: .4byte gEkrBg2QuakeVec
 _08053EC4: .4byte gEkrBgXOffset
 _08053EC8: .4byte gEkrYPosBase
-_08053ECC: .4byte gEkrSomeType
+_08053ECC: .4byte gEkrDistanceType
 _08053ED0:
 	cmp r0, #0
 	blt _08053F02
