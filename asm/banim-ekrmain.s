@@ -1801,4 +1801,964 @@ _080598C8: .4byte gUnknown_0201FB04
 
 	THUMB_FUNC_END BattleAIS_ExecCommands
 
+	THUMB_FUNC_START sub_80598CC
+sub_80598CC: @ 0x080598CC
+	push {r4, lr}
+	adds r4, r0, #0
+	ldrb r0, [r4, #0x12]
+	bl sub_805A1D0
+	cmp r0, #0
+	beq _08059906
+	ldr r1, [r4, #0x20]
+	ldr r0, _080598E8  @ gUnknown_085B9D5C
+	cmp r1, r0
+	beq _08059906
+	movs r2, #0x3f
+	b _080598F4
+	.align 2, 0
+_080598E8: .4byte gUnknown_085B9D5C
+_080598EC:
+	cmp r1, #6
+	bne _080598F4
+	adds r0, #0xc
+	str r0, [r4, #0x20]
+_080598F4:
+	ldr r0, [r4, #0x20]
+	ldrb r1, [r0, #3]
+	ands r1, r2
+	cmp r1, #0
+	beq _08059902
+	cmp r1, #5
+	bne _080598EC
+_08059902:
+	subs r0, #0xc
+	str r0, [r4, #0x20]
+_08059906:
+	pop {r4}
+	pop {r0}
+	bx r0
+
+	THUMB_FUNC_END sub_80598CC
+
+	THUMB_FUNC_START NewEkrChienCHR
+NewEkrChienCHR: @ 0x0805990C
+	push {r4, lr}
+	adds r4, r0, #0
+	ldr r0, _08059920  @ gProc_ekrChienCHR
+	movs r1, #3
+	bl Proc_Start
+	str r4, [r0, #0x5c]
+	pop {r4}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08059920: .4byte gProc_ekrChienCHR
+
+	THUMB_FUNC_END NewEkrChienCHR
+
+	THUMB_FUNC_START sub_8059924
+sub_8059924: @ 0x08059924
+	push {r4, lr}
+	adds r4, r0, #0
+	ldr r0, [r4, #0x5c]
+	bl RegisterAISSheetGraphics
+	adds r0, r4, #0
+	bl Proc_Break
+	pop {r4}
+	pop {r0}
+	bx r0
+
+	THUMB_FUNC_END sub_8059924
+
+	THUMB_FUNC_START RegisterAISSheetGraphics
+RegisterAISSheetGraphics: @ 0x0805993C
+	push {r4, r5, lr}
+	adds r5, r0, #0
+	ldrh r0, [r5, #8]
+	ldr r4, _08059968  @ 0x000003FF
+	ands r4, r0
+	lsls r4, r4, #5
+	ldr r0, _0805996C  @ 0x06010000
+	adds r4, r4, r0
+	ldr r0, [r5, #0x28]
+	ldr r1, [r5, #0x2c]
+	bl LZ77UnCompWram
+	ldr r0, [r5, #0x2c]
+	movs r2, #0x80
+	lsls r2, r2, #6
+	adds r1, r4, #0
+	bl RegisterTileGraphics
+	pop {r4, r5}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08059968: .4byte 0x000003FF
+_0805996C: .4byte 0x06010000
+
+	THUMB_FUNC_END RegisterAISSheetGraphics
+
+	THUMB_FUNC_START sub_8059970
+sub_8059970: @ 0x08059970
+	push {lr}
+	adds r2, r0, #0
+	ldr r0, _08059998  @ gUnknown_0203E1DC
+	lsls r1, r1, #1
+	adds r1, r1, r0
+	movs r3, #0
+	ldrsh r0, [r1, r3]
+	cmp r0, #0
+	beq _08059992
+	movs r1, #0
+	adds r3, r2, #0
+	adds r3, #0x80
+_08059988:
+	ldm r3!, {r0}
+	stm r2!, {r0}
+	adds r1, #1
+	cmp r1, #7
+	bls _08059988
+_08059992:
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08059998: .4byte gUnknown_0203E1DC
+
+	THUMB_FUNC_END sub_8059970
+
+	THUMB_FUNC_START sub_805999C
+sub_805999C: @ 0x0805999C
+	push {lr}
+	adds r2, r0, #0
+	cmp r1, #0
+	bne _080599AC
+	ldr r0, _080599A8  @ gpEkrBattleUnitLeft
+	b _080599AE
+	.align 2, 0
+_080599A8: .4byte gpEkrBattleUnitLeft
+_080599AC:
+	ldr r0, _080599C4  @ gpEkrBattleUnitRight
+_080599AE:
+	ldr r0, [r0]
+	ldr r0, [r0, #4]
+	ldrb r0, [r0, #4]
+	cmp r0, #0x1a
+	beq _080599D6
+	cmp r0, #0x1a
+	bhi _080599C8
+	cmp r0, #0x19
+	beq _080599D2
+	b _080599E2
+	.align 2, 0
+_080599C4: .4byte gpEkrBattleUnitRight
+_080599C8:
+	cmp r0, #0x1b
+	beq _080599DA
+	cmp r0, #0x1c
+	beq _080599DE
+	b _080599E2
+_080599D2:
+	movs r0, #0x25
+	b _080599E4
+_080599D6:
+	movs r0, #0x27
+	b _080599E4
+_080599DA:
+	movs r0, #0x29
+	b _080599E4
+_080599DE:
+	movs r0, #0x2b
+	b _080599E4
+_080599E2:
+	adds r0, r2, #0
+_080599E4:
+	pop {r1}
+	bx r1
+
+	THUMB_FUNC_END sub_805999C
+
+	THUMB_FUNC_START sub_80599E8
+sub_80599E8: @ 0x080599E8
+	push {r4, r5, r6, r7, lr}
+	mov r7, sl
+	mov r6, r9
+	mov r5, r8
+	push {r5, r6, r7}
+	sub sp, #4
+	ldr r0, _08059BD8  @ banim_data
+	mov sl, r0
+	ldr r1, _08059BDC  @ gUnknown_0201FB1C
+	movs r0, #0
+	str r0, [r1, #4]
+	str r0, [r1]
+	ldr r0, _08059BE0  @ gEkrPairSideVaild
+	movs r1, #0
+	ldrsh r0, [r0, r1]
+	cmp r0, #1
+	bne _08059ADE
+	ldr r0, _08059BE4  @ gEkrPairBanimID2
+	movs r2, #0
+	ldrsh r7, [r0, r2]
+	ldr r0, _08059BE8  @ gBanimSomeObjPalIndex
+	movs r2, #0
+	ldrsh r1, [r0, r2]
+	mov r8, r1
+	ldr r0, _08059BEC  @ gBattleInitSide
+	movs r1, #0
+	ldrsh r5, [r0, r1]
+	lsls r4, r7, #5
+	add r4, sl
+	ldr r0, [r4, #0x10]
+	ldr r1, _08059BF0  @ gUnknown_0200F1C8
+	bl LZ77UnCompWram
+	ldr r1, _08059BF4  @ gUnknown_0200005C
+	ldr r0, [r4, #0xc]
+	str r0, [r1]
+	adds r0, r7, #0
+	movs r1, #0
+	bl sub_805999C
+	lsls r0, r0, #5
+	add r0, sl
+	ldr r0, [r0, #0x1c]
+	ldr r4, _08059BF8  @ gUnknown_02004088
+	adds r1, r4, #0
+	bl LZ77UnCompWram
+	movs r0, #1
+	negs r0, r0
+	cmp r5, r0
+	beq _08059A64
+	lsls r0, r5, #4
+	ldr r2, _08059BFC  @ character_battle_animation_palette_table
+	adds r0, r0, r2
+	ldr r0, [r0, #0xc]
+	adds r1, r4, #0
+	bl LZ77UnCompWram
+	adds r0, r4, #0
+	movs r1, #0
+	bl sub_8059970
+_08059A64:
+	ldr r1, _08059C00  @ gUnknown_02000054
+	mov r2, r8
+	lsls r0, r2, #5
+	adds r0, r0, r4
+	str r0, [r1]
+	ldr r4, _08059C04  @ gUnknown_02022B88
+	adds r1, r4, #0
+	movs r2, #8
+	bl CpuFastSet
+	ldr r0, _08059C08  @ gEkrPaiSomeBanimID
+	ldr r0, [r0]
+	adds r1, r4, #0
+	adds r1, #0x20
+	movs r2, #8
+	bl CpuFastSet
+	ldr r0, _08059C0C  @ gBattleActor
+	adds r0, #0x30
+	ldrb r0, [r0]
+	movs r1, #0xf
+	ands r1, r0
+	cmp r1, #0xb
+	beq _08059A98
+	cmp r1, #0xd
+	bne _08059AA4
+_08059A98:
+	ldr r1, _08059C10  @ 0xFFFFFD20
+	adds r0, r4, r1
+	adds r1, r4, #0
+	movs r2, #1
+	bl sub_8071468
+_08059AA4:
+	ldr r0, _08059C14  @ gBattleTarget
+	adds r0, #0x30
+	ldrb r0, [r0]
+	movs r1, #0xf
+	ands r1, r0
+	cmp r1, #0xb
+	beq _08059AB6
+	cmp r1, #0xd
+	bne _08059AC4
+_08059AB6:
+	ldr r0, _08059C18  @ gPaletteBuffer
+	movs r2, #0xc0
+	lsls r2, r2, #2
+	adds r1, r0, r2
+	movs r2, #1
+	bl sub_8071468
+_08059AC4:
+	bl EnablePaletteSync
+	lsls r0, r7, #5
+	add r0, sl
+	ldr r0, [r0, #0x18]
+	ldr r4, _08059C1C  @ gUnknown_020041C8
+	adds r1, r4, #0
+	bl LZ77UnCompWram
+	ldr r0, _08059C20  @ 0x000057F0
+	adds r4, r4, r0
+	movs r0, #1
+	str r0, [r4]
+_08059ADE:
+	ldr r0, _08059BE0  @ gEkrPairSideVaild
+	movs r2, #2
+	ldrsh r1, [r0, r2]
+	mov r9, r1
+	cmp r1, #1
+	bne _08059B7E
+	ldr r0, _08059BE4  @ gEkrPairBanimID2
+	movs r1, #2
+	ldrsh r7, [r0, r1]
+	ldr r0, _08059BE8  @ gBanimSomeObjPalIndex
+	movs r1, #2
+	ldrsh r2, [r0, r1]
+	mov r8, r2
+	ldr r0, _08059BEC  @ gBattleInitSide
+	movs r2, #2
+	ldrsh r5, [r0, r2]
+	lsls r0, r7, #5
+	mov r1, sl
+	adds r6, r0, r1
+	ldr r0, [r6, #0x10]
+	ldr r1, _08059C24  @ gUnknown_02011BC8
+	bl LZ77UnCompWram
+	ldr r1, _08059C28  @ gUnknown_02000060
+	ldr r0, [r6, #0xc]
+	str r0, [r1]
+	adds r0, r7, #0
+	movs r1, #1
+	bl sub_805999C
+	lsls r0, r0, #5
+	add r0, sl
+	ldr r0, [r0, #0x1c]
+	ldr r4, _08059C2C  @ gUnknown_02004128
+	adds r1, r4, #0
+	bl LZ77UnCompWram
+	movs r0, #1
+	negs r0, r0
+	cmp r5, r0
+	beq _08059B46
+	lsls r0, r5, #4
+	ldr r2, _08059BFC  @ character_battle_animation_palette_table
+	adds r0, r0, r2
+	ldr r0, [r0, #0xc]
+	adds r1, r4, #0
+	bl LZ77UnCompWram
+	adds r0, r4, #0
+	movs r1, #1
+	bl sub_8059970
+_08059B46:
+	ldr r1, _08059C00  @ gUnknown_02000054
+	mov r2, r8
+	lsls r0, r2, #5
+	adds r0, r0, r4
+	str r0, [r1, #4]
+	ldr r4, _08059C30  @ gUnknown_02022BC8
+	adds r1, r4, #0
+	movs r2, #8
+	bl CpuFastSet
+	ldr r0, _08059C08  @ gEkrPaiSomeBanimID
+	ldr r0, [r0, #4]
+	adds r4, #0x20
+	adds r1, r4, #0
+	movs r2, #8
+	bl CpuFastSet
+	bl EnablePaletteSync
+	ldr r0, [r6, #0x14]
+	ldr r4, _08059C34  @ gUnknown_020099C8
+	adds r1, r4, #0
+	bl LZ77UnCompWram
+	ldr r0, _08059C20  @ 0x000057F0
+	adds r4, r4, r0
+	mov r1, r9
+	str r1, [r4]
+_08059B7E:
+	ldr r4, _08059C38  @ gUnknown_0203E194
+	ldr r2, [r4]
+	cmp r2, #0
+	bne _08059B88
+	b _08059D06
+_08059B88:
+	ldr r0, [r2, #4]
+	ldr r1, [r0, #0x34]
+	adds r0, r2, #0
+	movs r2, #0
+	mov r3, sp
+	bl sub_8057CAC
+	lsls r0, r0, #0x10
+	ldr r2, _08059C08  @ gEkrPaiSomeBanimID
+	lsrs r0, r0, #0xb
+	add r0, sl
+	ldr r0, [r0, #0x1c]
+	str r0, [r2]
+	ldr r1, [r4]
+	ldr r0, [r1]
+	ldrb r0, [r0, #4]
+	subs r0, #1
+	lsls r0, r0, #0x10
+	lsrs r4, r0, #0x10
+	ldr r0, [r1, #4]
+	ldrb r5, [r0, #4]
+	movs r3, #0
+	ldr r0, _08059C3C  @ gUnknown_0895E0A4
+	lsls r1, r4, #3
+	subs r1, r1, r4
+	adds r0, r1, r0
+	ldrb r0, [r0]
+	cmp r0, r5
+	bne _08059C44
+	ldr r0, _08059C40  @ gUnknown_0895EEA4
+	adds r0, r1, r0
+	ldrb r0, [r0]
+	lsls r0, r0, #4
+	ldr r1, _08059BFC  @ character_battle_animation_palette_table
+	adds r0, r0, r1
+	subs r0, #0x10
+	ldr r0, [r0, #0xc]
+	str r0, [r2]
+	b _08059C72
+	.align 2, 0
+_08059BD8: .4byte banim_data
+_08059BDC: .4byte gUnknown_0201FB1C
+_08059BE0: .4byte gEkrPairSideVaild
+_08059BE4: .4byte gEkrPairBanimID2
+_08059BE8: .4byte gBanimSomeObjPalIndex
+_08059BEC: .4byte gBattleInitSide
+_08059BF0: .4byte gUnknown_0200F1C8
+_08059BF4: .4byte gUnknown_0200005C
+_08059BF8: .4byte gUnknown_02004088
+_08059BFC: .4byte character_battle_animation_palette_table
+_08059C00: .4byte gUnknown_02000054
+_08059C04: .4byte gUnknown_02022B88
+_08059C08: .4byte gEkrPaiSomeBanimID
+_08059C0C: .4byte gBattleActor
+_08059C10: .4byte 0xFFFFFD20
+_08059C14: .4byte gBattleTarget
+_08059C18: .4byte gPaletteBuffer
+_08059C1C: .4byte gUnknown_020041C8
+_08059C20: .4byte 0x000057F0
+_08059C24: .4byte gUnknown_02011BC8
+_08059C28: .4byte gUnknown_02000060
+_08059C2C: .4byte gUnknown_02004128
+_08059C30: .4byte gUnknown_02022BC8
+_08059C34: .4byte gUnknown_020099C8
+_08059C38: .4byte gUnknown_0203E194
+_08059C3C: .4byte gUnknown_0895E0A4
+_08059C40: .4byte gUnknown_0895EEA4
+_08059C44:
+	adds r0, r3, #1
+	lsls r0, r0, #0x10
+	lsrs r3, r0, #0x10
+	cmp r3, #6
+	bhi _08059C72
+	ldr r0, _08059CC4  @ gUnknown_0895E0A4
+	lsls r1, r4, #3
+	subs r1, r1, r4
+	adds r2, r3, r1
+	adds r0, r2, r0
+	ldrb r0, [r0]
+	cmp r0, r5
+	bne _08059C44
+	ldr r1, _08059CC8  @ gEkrPaiSomeBanimID
+	ldr r0, _08059CCC  @ gUnknown_0895EEA4
+	adds r0, r2, r0
+	ldrb r0, [r0]
+	lsls r0, r0, #4
+	ldr r2, _08059CD0  @ character_battle_animation_palette_table
+	adds r0, r0, r2
+	subs r0, #0x10
+	ldr r0, [r0, #0xc]
+	str r0, [r1]
+_08059C72:
+	ldr r4, _08059CD4  @ gUnknown_0203E194
+	ldr r0, [r4, #4]
+	ldr r1, [r0, #4]
+	ldr r1, [r1, #0x34]
+	movs r2, #0
+	mov r3, sp
+	bl sub_8057CAC
+	lsls r0, r0, #0x10
+	ldr r2, _08059CC8  @ gEkrPaiSomeBanimID
+	lsrs r0, r0, #0xb
+	add r0, sl
+	ldr r0, [r0, #0x1c]
+	str r0, [r2, #4]
+	ldr r1, [r4, #4]
+	ldr r0, [r1]
+	ldrb r0, [r0, #4]
+	subs r0, #1
+	lsls r0, r0, #0x10
+	lsrs r4, r0, #0x10
+	ldr r0, [r1, #4]
+	ldrb r5, [r0, #4]
+	movs r3, #0
+	ldr r0, _08059CC4  @ gUnknown_0895E0A4
+	lsls r1, r4, #3
+	subs r1, r1, r4
+	adds r0, r1, r0
+	ldrb r0, [r0]
+	cmp r0, r5
+	bne _08059CD8
+	ldr r0, _08059CCC  @ gUnknown_0895EEA4
+	adds r0, r1, r0
+	ldrb r0, [r0]
+	lsls r0, r0, #4
+	ldr r1, _08059CD0  @ character_battle_animation_palette_table
+	adds r0, r0, r1
+	subs r0, #0x10
+	ldr r0, [r0, #0xc]
+	str r0, [r2, #4]
+	b _08059D06
+	.align 2, 0
+_08059CC4: .4byte gUnknown_0895E0A4
+_08059CC8: .4byte gEkrPaiSomeBanimID
+_08059CCC: .4byte gUnknown_0895EEA4
+_08059CD0: .4byte character_battle_animation_palette_table
+_08059CD4: .4byte gUnknown_0203E194
+_08059CD8:
+	adds r0, r3, #1
+	lsls r0, r0, #0x10
+	lsrs r3, r0, #0x10
+	cmp r3, #6
+	bhi _08059D06
+	ldr r0, _08059D18  @ gUnknown_0895E0A4
+	lsls r1, r4, #3
+	subs r1, r1, r4
+	adds r2, r3, r1
+	adds r0, r2, r0
+	ldrb r0, [r0]
+	cmp r0, r5
+	bne _08059CD8
+	ldr r1, _08059D1C  @ gEkrPaiSomeBanimID
+	ldr r0, _08059D20  @ gUnknown_0895EEA4
+	adds r0, r2, r0
+	ldrb r0, [r0]
+	lsls r0, r0, #4
+	ldr r2, _08059D24  @ character_battle_animation_palette_table
+	adds r0, r0, r2
+	subs r0, #0x10
+	ldr r0, [r0, #0xc]
+	str r0, [r1, #4]
+_08059D06:
+	add sp, #4
+	pop {r3, r4, r5}
+	mov r8, r3
+	mov r9, r4
+	mov sl, r5
+	pop {r4, r5, r6, r7}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08059D18: .4byte gUnknown_0895E0A4
+_08059D1C: .4byte gEkrPaiSomeBanimID
+_08059D20: .4byte gUnknown_0895EEA4
+_08059D24: .4byte character_battle_animation_palette_table
+
+	THUMB_FUNC_END sub_80599E8
+
+	THUMB_FUNC_START sub_8059D28
+sub_8059D28: @ 0x08059D28
+	push {lr}
+	ldr r0, _08059D40  @ gEkrDistanceType
+	movs r1, #0
+	ldrsh r0, [r0, r1]
+	cmp r0, #4
+	bhi _08059DA2
+	lsls r0, r0, #2
+	ldr r1, _08059D44  @ _08059D48
+	adds r0, r0, r1
+	ldr r0, [r0]
+	mov pc, r0
+	.align 2, 0
+_08059D40: .4byte gEkrDistanceType
+_08059D44: .4byte _08059D48
+_08059D48: @ jump table
+	.4byte _08059D5C @ case 0
+	.4byte _08059D66 @ case 1
+	.4byte _08059D70 @ case 2
+	.4byte _08059D5C @ case 3
+	.4byte _08059D5C @ case 4
+_08059D5C:
+	movs r0, #6
+	movs r1, #6
+	bl sub_8059DB8
+	b _08059DA2
+_08059D66:
+	movs r0, #8
+	movs r1, #8
+	bl sub_8059DB8
+	b _08059DA2
+_08059D70:
+	movs r0, #8
+	movs r1, #8
+	bl sub_8059DB8
+	bl GetEkrSomePosMaybe
+	cmp r0, #0
+	bne _08059D94
+	ldr r1, _08059D90  @ gAnims
+	ldr r2, [r1, #8]
+	movs r0, #0xc0
+	lsls r0, r0, #1
+	strh r0, [r2, #2]
+	ldr r1, [r1, #0xc]
+	b _08059DA0
+	.align 2, 0
+_08059D90: .4byte gAnims
+_08059D94:
+	ldr r1, _08059DB0  @ gAnims
+	ldr r2, [r1]
+	movs r0, #0xc0
+	lsls r0, r0, #1
+	strh r0, [r2, #2]
+	ldr r1, [r1, #4]
+_08059DA0:
+	strh r0, [r1, #2]
+_08059DA2:
+	ldr r1, _08059DB4  @ gUnknown_0203E152
+	movs r0, #0
+	strh r0, [r1]
+	strh r0, [r1, #2]
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08059DB0: .4byte gAnims
+_08059DB4: .4byte gUnknown_0203E152
+
+	THUMB_FUNC_END sub_8059D28
+
+	THUMB_FUNC_START sub_8059DB8
+sub_8059DB8: @ 0x08059DB8
+	push {r4, r5, r6, lr}
+	adds r2, r0, #0
+	adds r6, r1, #0
+	ldr r4, _08059E0C  @ gAnims
+	movs r0, #0
+	str r0, [r4]
+	str r0, [r4, #4]
+	str r0, [r4, #8]
+	str r0, [r4, #0xc]
+	ldr r5, _08059E10  @ gEkrPairSideVaild
+	movs r1, #0
+	ldrsh r0, [r5, r1]
+	cmp r0, #1
+	bne _08059DDA
+	adds r0, r2, #0
+	bl sub_8059E18
+_08059DDA:
+	movs r1, #2
+	ldrsh r0, [r5, r1]
+	cmp r0, #1
+	bne _08059DE8
+	adds r0, r6, #0
+	bl sub_8059F5C
+_08059DE8:
+	ldr r0, _08059E14  @ gEkrDistanceType
+	movs r1, #0
+	ldrsh r0, [r0, r1]
+	cmp r0, #4
+	bne _08059E04
+	ldr r2, [r4]
+	ldrh r0, [r2]
+	movs r1, #2
+	orrs r0, r1
+	strh r0, [r2]
+	ldr r2, [r4, #4]
+	ldrh r0, [r2]
+	orrs r1, r0
+	strh r1, [r2]
+_08059E04:
+	pop {r4, r5, r6}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08059E0C: .4byte gAnims
+_08059E10: .4byte gEkrPairSideVaild
+_08059E14: .4byte gEkrDistanceType
+
+	THUMB_FUNC_END sub_8059DB8
+
+	THUMB_FUNC_START sub_8059E18
+sub_8059E18: @ 0x08059E18
+	push {r4, r5, r6, r7, lr}
+	mov r7, r9
+	mov r6, r8
+	push {r6, r7}
+	adds r7, r0, #0
+	ldr r2, _08059F20  @ gUnknown_080DAEF0
+	lsls r1, r7, #2
+	adds r0, r1, r2
+	ldrb r5, [r0]
+	adds r0, r1, #1
+	adds r0, r0, r2
+	ldrb r6, [r0]
+	adds r0, r1, #2
+	adds r0, r0, r2
+	ldrb r0, [r0]
+	mov r8, r0
+	adds r1, #3
+	adds r1, r1, r2
+	ldrb r1, [r1]
+	mov r9, r1
+	ldr r0, _08059F24  @ gUnknown_080DAF1D
+	ldr r1, _08059F28  @ gEkrDistanceType
+	movs r2, #0
+	ldrsh r1, [r1, r2]
+	adds r0, r1, r0
+	ldrb r4, [r0]
+	ldr r3, _08059F2C  @ gUnknown_02000030
+	ldr r0, _08059F30  @ gUnknown_080DAF28
+	lsls r1, r1, #1
+	adds r1, r1, r0
+	ldrh r1, [r1]
+	negs r1, r1
+	movs r2, #0
+	strh r1, [r3]
+	ldr r0, _08059F34  @ gUnknown_02000034
+	strh r2, [r0]
+	ldr r0, _08059F38  @ gEkrXPosBase
+	adds r1, r1, r4
+	strh r1, [r0]
+	ldr r1, _08059F3C  @ gEkrYPosBase
+	movs r0, #0x58
+	strh r0, [r1]
+	ldr r0, _08059F40  @ gUnknown_0200005C
+	ldr r1, [r0]
+	lsls r0, r5, #2
+	adds r0, r0, r1
+	ldr r1, [r0]
+	ldr r0, _08059F44  @ gUnknown_0200F1C8
+	adds r0, r1, r0
+	cmp r5, #0xff
+	bne _08059E80
+	ldr r0, _08059F48  @ gUnknown_085B9D5C
+_08059E80:
+	adds r1, r6, #0
+	bl AnimCreate
+	adds r3, r0, #0
+	ldr r2, _08059F38  @ gEkrXPosBase
+	ldr r0, _08059F4C  @ gEkrBgXOffset
+	ldr r1, [r0]
+	ldrh r0, [r2]
+	subs r0, r0, r1
+	movs r2, #0
+	strh r0, [r3, #2]
+	ldr r0, _08059F3C  @ gEkrYPosBase
+	ldrh r0, [r0]
+	strh r0, [r3, #4]
+	movs r0, #0xf4
+	lsls r0, r0, #7
+	strh r0, [r3, #8]
+	ldrh r1, [r3, #0xc]
+	movs r4, #0x80
+	lsls r4, r4, #3
+	adds r0, r4, #0
+	orrs r0, r1
+	strh r0, [r3, #0xc]
+	strh r2, [r3, #0xe]
+	strb r7, [r3, #0x12]
+	ldr r0, _08059F50  @ gUnknown_02000088
+	str r0, [r3, #0x2c]
+	ldr r0, _08059F54  @ gUnknown_020041C8
+	str r0, [r3, #0x30]
+	ldr r0, _08059F58  @ gAnims
+	str r3, [r0]
+	ldr r0, _08059F40  @ gUnknown_0200005C
+	ldr r1, [r0]
+	mov r2, r8
+	lsls r0, r2, #2
+	adds r0, r0, r1
+	ldr r1, [r0]
+	ldr r0, _08059F44  @ gUnknown_0200F1C8
+	adds r0, r1, r0
+	cmp r2, #0xff
+	bne _08059ED4
+	ldr r0, _08059F48  @ gUnknown_085B9D5C
+_08059ED4:
+	mov r1, r9
+	bl AnimCreate
+	adds r3, r0, #0
+	ldr r2, _08059F38  @ gEkrXPosBase
+	ldr r0, _08059F4C  @ gEkrBgXOffset
+	ldr r1, [r0]
+	ldrh r0, [r2]
+	subs r0, r0, r1
+	movs r2, #0
+	strh r0, [r3, #2]
+	ldr r0, _08059F3C  @ gEkrYPosBase
+	ldrh r0, [r0]
+	strh r0, [r3, #4]
+	movs r0, #0xf4
+	lsls r0, r0, #7
+	strh r0, [r3, #8]
+	ldrh r1, [r3, #0xc]
+	movs r4, #0xa0
+	lsls r4, r4, #3
+	adds r0, r4, #0
+	orrs r0, r1
+	strh r0, [r3, #0xc]
+	strh r2, [r3, #0xe]
+	strb r7, [r3, #0x12]
+	ldr r0, _08059F50  @ gUnknown_02000088
+	str r0, [r3, #0x2c]
+	ldr r0, _08059F54  @ gUnknown_020041C8
+	str r0, [r3, #0x30]
+	ldr r0, _08059F58  @ gAnims
+	str r3, [r0, #4]
+	pop {r3, r4}
+	mov r8, r3
+	mov r9, r4
+	pop {r4, r5, r6, r7}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08059F20: .4byte gUnknown_080DAEF0
+_08059F24: .4byte gUnknown_080DAF1D
+_08059F28: .4byte gEkrDistanceType
+_08059F2C: .4byte gUnknown_02000030
+_08059F30: .4byte gUnknown_080DAF28
+_08059F34: .4byte gUnknown_02000034
+_08059F38: .4byte gEkrXPosBase
+_08059F3C: .4byte gEkrYPosBase
+_08059F40: .4byte gUnknown_0200005C
+_08059F44: .4byte gUnknown_0200F1C8
+_08059F48: .4byte gUnknown_085B9D5C
+_08059F4C: .4byte gEkrBgXOffset
+_08059F50: .4byte gUnknown_02000088
+_08059F54: .4byte gUnknown_020041C8
+_08059F58: .4byte gAnims
+
+	THUMB_FUNC_END sub_8059E18
+
+	THUMB_FUNC_START sub_8059F5C
+sub_8059F5C: @ 0x08059F5C
+	push {r4, r5, r6, r7, lr}
+	adds r5, r0, #0
+	ldr r2, _0805A044  @ gUnknown_080DAEF0
+	lsls r1, r5, #2
+	adds r0, r1, r2
+	ldrb r3, [r0]
+	adds r0, r1, #1
+	adds r0, r0, r2
+	ldrb r4, [r0]
+	adds r0, r1, #2
+	adds r0, r0, r2
+	ldrb r6, [r0]
+	adds r1, #3
+	adds r1, r1, r2
+	ldrb r7, [r1]
+	ldr r1, _0805A048  @ gUnknown_080DAF22
+	ldr r0, _0805A04C  @ gEkrDistanceType
+	movs r2, #0
+	ldrsh r0, [r0, r2]
+	adds r0, r0, r1
+	ldrb r2, [r0]
+	ldr r0, _0805A050  @ gUnknown_02000030
+	movs r1, #0
+	strh r1, [r0, #2]
+	ldr r0, _0805A054  @ gUnknown_02000034
+	strh r1, [r0, #2]
+	ldr r0, _0805A058  @ gEkrXPosBase
+	strh r2, [r0, #2]
+	ldr r1, _0805A05C  @ gEkrYPosBase
+	movs r0, #0x58
+	strh r0, [r1, #2]
+	ldr r0, _0805A060  @ gUnknown_02000060
+	ldr r1, [r0]
+	lsls r0, r3, #2
+	adds r0, r0, r1
+	ldr r1, [r0]
+	ldr r0, _0805A064  @ gUnknown_02011BC8
+	adds r0, r1, r0
+	cmp r3, #0xff
+	bne _08059FAE
+	ldr r0, _0805A068  @ gUnknown_085B9D5C
+_08059FAE:
+	adds r1, r4, #0
+	bl AnimCreate
+	adds r3, r0, #0
+	ldr r2, _0805A058  @ gEkrXPosBase
+	ldr r0, _0805A06C  @ gEkrBgXOffset
+	ldr r1, [r0]
+	ldrh r0, [r2, #2]
+	subs r0, r0, r1
+	movs r2, #0
+	strh r0, [r3, #2]
+	ldr r0, _0805A05C  @ gEkrYPosBase
+	ldrh r0, [r0, #2]
+	strh r0, [r3, #4]
+	movs r0, #0x9b
+	lsls r0, r0, #8
+	strh r0, [r3, #8]
+	ldrh r1, [r3, #0xc]
+	movs r4, #0xc0
+	lsls r4, r4, #3
+	adds r0, r4, #0
+	orrs r0, r1
+	strh r0, [r3, #0xc]
+	strh r2, [r3, #0xe]
+	strb r5, [r3, #0x12]
+	ldr r0, _0805A070  @ gUnknown_02002088
+	str r0, [r3, #0x2c]
+	ldr r0, _0805A074  @ gUnknown_020099C8
+	str r0, [r3, #0x30]
+	ldr r0, _0805A078  @ gAnims
+	str r3, [r0, #8]
+	ldr r0, _0805A060  @ gUnknown_02000060
+	ldr r1, [r0]
+	lsls r0, r6, #2
+	adds r0, r0, r1
+	ldr r1, [r0]
+	ldr r0, _0805A064  @ gUnknown_02011BC8
+	adds r0, r1, r0
+	cmp r6, #0xff
+	bne _0805A000
+	ldr r0, _0805A068  @ gUnknown_085B9D5C
+_0805A000:
+	adds r1, r7, #0
+	bl AnimCreate
+	adds r3, r0, #0
+	ldr r2, _0805A058  @ gEkrXPosBase
+	ldr r0, _0805A06C  @ gEkrBgXOffset
+	ldr r1, [r0]
+	ldrh r0, [r2, #2]
+	subs r0, r0, r1
+	movs r2, #0
+	strh r0, [r3, #2]
+	ldr r0, _0805A05C  @ gEkrYPosBase
+	ldrh r0, [r0, #2]
+	strh r0, [r3, #4]
+	movs r0, #0x9b
+	lsls r0, r0, #8
+	strh r0, [r3, #8]
+	ldrh r1, [r3, #0xc]
+	movs r4, #0xe0
+	lsls r4, r4, #3
+	adds r0, r4, #0
+	orrs r0, r1
+	strh r0, [r3, #0xc]
+	strh r2, [r3, #0xe]
+	strb r5, [r3, #0x12]
+	ldr r0, _0805A070  @ gUnknown_02002088
+	str r0, [r3, #0x2c]
+	ldr r0, _0805A074  @ gUnknown_020099C8
+	str r0, [r3, #0x30]
+	ldr r0, _0805A078  @ gAnims
+	str r3, [r0, #0xc]
+	pop {r4, r5, r6, r7}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0805A044: .4byte gUnknown_080DAEF0
+_0805A048: .4byte gUnknown_080DAF22
+_0805A04C: .4byte gEkrDistanceType
+_0805A050: .4byte gUnknown_02000030
+_0805A054: .4byte gUnknown_02000034
+_0805A058: .4byte gEkrXPosBase
+_0805A05C: .4byte gEkrYPosBase
+_0805A060: .4byte gUnknown_02000060
+_0805A064: .4byte gUnknown_02011BC8
+_0805A068: .4byte gUnknown_085B9D5C
+_0805A06C: .4byte gEkrBgXOffset
+_0805A070: .4byte gUnknown_02002088
+_0805A074: .4byte gUnknown_020099C8
+_0805A078: .4byte gAnims
+
+	THUMB_FUNC_END sub_8059F5C
+
 .align 2, 0

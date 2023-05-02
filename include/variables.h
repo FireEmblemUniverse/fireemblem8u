@@ -252,7 +252,7 @@ extern u32 gEkrBgXOffset;
 extern u16 gEkrDragonPalBackup[0x40 / sizeof(u16)];
 // extern ??? gUnknown_020200A8
 // extern ??? gUnknown_020200AC
-// extern ??? gUnknown_020200B0
+// extern ??? gpProcEkrClasshg
 // extern ??? gpAnimOnPopuProc
 // extern ??? gpEkrPopupEndFlag
 extern u8 gEkrSomePalBuf[0x40];
