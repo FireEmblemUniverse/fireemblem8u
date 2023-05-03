@@ -44,8 +44,8 @@ gUnknown_080DAEDC:  @ 0x080DAEDC
 gUnknown_080DAEE6:  @ 0x080DAEE6
 	.incbin "baserom.gba", 0xDAEE6, 0xA
 
-	.global gUnknown_080DAEF0
-gUnknown_080DAEF0:  @ 0x080DAEF0
+	.global gBanimSpecificScrConfigs
+gBanimSpecificScrConfigs:  @ 0x080DAEF0
 	.incbin "baserom.gba", 0xDAEF0, 0x28
 
 	.global gUnknown_080DAF18

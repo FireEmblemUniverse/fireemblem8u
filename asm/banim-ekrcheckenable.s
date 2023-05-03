@@ -2283,7 +2283,7 @@ _08058208:
 	cmp r2, #0x13
 	bls _08058208
 	movs r2, #0
-	ldr r0, _08058258  @ gUnknown_0203E156
+	ldr r0, _08058258  @ gEfxHpBarBuf
 	ldr r1, _08058254  @ 0x0000FFFF
 	adds r3, r1, #0
 	adds r1, r0, #4
@@ -2311,7 +2311,7 @@ _08058248: .4byte gAnimRoundData
 _0805824C: .4byte gUnknown_0203E194
 _08058250: .4byte gEkrDistanceType
 _08058254: .4byte 0x0000FFFF
-_08058258: .4byte gUnknown_0203E156
+_08058258: .4byte gEfxHpBarBuf
 _0805825C:
 	ldr r0, _08058270  @ gBattleStats
 	ldrh r1, [r0]
@@ -2421,7 +2421,7 @@ _0805831E:
 	movs r0, #1
 	str r0, [sp, #0x18]
 _08058332:
-	ldr r3, _08058350  @ gUnknown_0203E156
+	ldr r3, _08058350  @ gEfxHpBarBuf
 	ldr r1, _08058354  @ gEkrPairHpInitial
 	ldrh r0, [r1]
 	strh r0, [r3]
@@ -2435,7 +2435,7 @@ _08058332:
 	.align 2, 0
 _08058348: .4byte gpEkrBattleUnitLeft
 _0805834C: .4byte gpEkrBattleUnitRight
-_08058350: .4byte gUnknown_0203E156
+_08058350: .4byte gEfxHpBarBuf
 _08058354: .4byte gEkrPairHpInitial
 _08058358:
 	lsls r0, r2, #8
@@ -2678,7 +2678,7 @@ _0805851A:
 	bne _08058574
 	mov r3, r9
 	lsls r0, r3, #1
-	bl sub_8058A60
+	bl GetEfxHp
 	movs r1, #3
 	ldrsb r1, [r7, r1]
 	subs r0, r0, r1
@@ -2694,7 +2694,7 @@ _08058546:
 	lsrs r0, r0, #0x10
 	mov r9, r0
 	lsls r0, r0, #2
-	ldr r1, _0805856C  @ gUnknown_0203E156
+	ldr r1, _0805856C  @ gEfxHpBarBuf
 	adds r0, r0, r1
 	strh r2, [r0]
 	ldrh r0, [r5]
@@ -2705,13 +2705,13 @@ _08058546:
 _08058560: .4byte gUnknown_080DAEB4
 _08058564: .4byte gAnimRoundData
 _08058568: .4byte gUnknown_0203E108
-_0805856C: .4byte gUnknown_0203E156
+_0805856C: .4byte gEfxHpBarBuf
 _08058570: .4byte 0xFFFF8000
 _08058574:
 	mov r3, sl
 	lsls r0, r3, #1
 	adds r0, #1
-	bl sub_8058A60
+	bl GetEfxHp
 	movs r1, #3
 	ldrsb r1, [r7, r1]
 	subs r0, r0, r1
@@ -2729,14 +2729,14 @@ _0805858E:
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #1
-	ldr r5, _080585AC  @ gUnknown_0203E156
+	ldr r5, _080585AC  @ gEfxHpBarBuf
 	adds r0, r0, r5
 	strh r2, [r0]
 	ldrh r0, [r4]
 	ldr r2, _080585B0  @ 0xFFFF8000
 	b _08058816
 	.align 2, 0
-_080585AC: .4byte gUnknown_0203E156
+_080585AC: .4byte gEfxHpBarBuf
 _080585B0: .4byte 0xFFFF8000
 _080585B4:
 	movs r0, #0x80
@@ -2753,7 +2753,7 @@ _080585B4:
 	mov r1, sl
 	lsls r0, r1, #1
 	adds r0, #1
-	bl sub_8058A60
+	bl GetEfxHp
 	movs r1, #3
 	ldrsb r1, [r7, r1]
 	subs r0, r0, r1
@@ -2768,7 +2768,7 @@ _080585E4:
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	mov sl, r0
-	ldr r4, _0805862C  @ gUnknown_0203E156
+	ldr r4, _0805862C  @ gEfxHpBarBuf
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #1
@@ -2776,7 +2776,7 @@ _080585E4:
 	strh r2, [r0]
 	mov r2, r9
 	lsls r0, r2, #1
-	bl sub_8058A60
+	bl GetEfxHp
 	movs r1, #3
 	ldrsb r1, [r7, r1]
 	adds r0, r0, r1
@@ -2799,12 +2799,12 @@ _0805861A:
 	b _08058690
 	.align 2, 0
 _08058628: .4byte gUnknown_0203E108
-_0805862C: .4byte gUnknown_0203E156
+_0805862C: .4byte gEfxHpBarBuf
 _08058630: .4byte gEkrPairMaxHP
 _08058634:
 	mov r1, r9
 	lsls r0, r1, #1
-	bl sub_8058A60
+	bl GetEfxHp
 	movs r1, #3
 	ldrsb r1, [r7, r1]
 	subs r0, r0, r1
@@ -2819,14 +2819,14 @@ _0805864C:
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	mov r9, r0
-	ldr r4, _08058698  @ gUnknown_0203E156
+	ldr r4, _08058698  @ gEfxHpBarBuf
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	strh r2, [r0]
 	mov r2, sl
 	lsls r0, r2, #1
 	adds r0, #1
-	bl sub_8058A60
+	bl GetEfxHp
 	movs r1, #3
 	ldrsb r1, [r7, r1]
 	adds r0, r0, r1
@@ -2853,7 +2853,7 @@ _08058690:
 	strh r2, [r0]
 	b _0805881C
 	.align 2, 0
-_08058698: .4byte gUnknown_0203E156
+_08058698: .4byte gEfxHpBarBuf
 _0805869C: .4byte gEkrPairMaxHP
 _080586A0:
 	ldr r0, _08058764  @ gUnknown_0203E108
@@ -2865,7 +2865,7 @@ _080586A0:
 	mov r3, sl
 	lsls r0, r3, #1
 	adds r0, #1
-	bl sub_8058A60
+	bl GetEfxHp
 	movs r1, #3
 	ldrsb r1, [r7, r1]
 	subs r0, r0, r1
@@ -2883,7 +2883,7 @@ _080586C6:
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #1
-	ldr r1, _08058768  @ gUnknown_0203E156
+	ldr r1, _08058768  @ gEfxHpBarBuf
 	adds r0, r0, r1
 	strh r2, [r0]
 	ldr r0, [r7]
@@ -2961,11 +2961,11 @@ _0805875E:
 	b _0805881C
 	.align 2, 0
 _08058764: .4byte gUnknown_0203E108
-_08058768: .4byte gUnknown_0203E156
+_08058768: .4byte gEfxHpBarBuf
 _0805876C:
 	mov r1, r9
 	lsls r0, r1, #1
-	bl sub_8058A60
+	bl GetEfxHp
 	movs r1, #3
 	ldrsb r1, [r7, r1]
 	subs r0, r0, r1
@@ -2981,7 +2981,7 @@ _08058784:
 	lsrs r0, r0, #0x10
 	mov r9, r0
 	lsls r0, r0, #2
-	ldr r3, _08058844  @ gUnknown_0203E156
+	ldr r3, _08058844  @ gEfxHpBarBuf
 	adds r0, r0, r3
 	strh r2, [r0]
 	ldr r0, [r7]
@@ -3080,7 +3080,7 @@ _08058834:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08058844: .4byte gUnknown_0203E156
+_08058844: .4byte gEfxHpBarBuf
 
 	THUMB_FUNC_END sub_80581EC
 

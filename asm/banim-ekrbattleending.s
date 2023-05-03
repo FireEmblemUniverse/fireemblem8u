@@ -210,7 +210,7 @@ ekrBattleEnding_8056228: @ 0x08056228
 	bl NewEkrWindowAppear
 	movs r0, #1
 	movs r1, #0xb
-	bl sub_8056F20
+	bl NewEkrBaseAppear
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}

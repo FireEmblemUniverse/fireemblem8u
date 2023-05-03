@@ -68,7 +68,7 @@ _08052E2E:
 	movs r1, #1
 	negs r1, r1
 	adds r0, r7, #0
-	bl sub_80533D0
+	bl NewEfxFarAttackWithDistance
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 _08052E5C:
@@ -279,19 +279,19 @@ sub_8052FEC: @ 0x08052FEC
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
 	adds r1, r0, #0
-	ldr r0, _0805302C  @ gUnknown_0203E152
+	ldr r0, _0805302C  @ gEfxPairHpBufOffset
 	lsls r4, r4, #1
 	adds r4, r4, r0
 	movs r2, #0
 	ldrsh r0, [r4, r2]
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl sub_8058A60
+	bl GetEfxHp
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	b _08053032
 	.align 2, 0
-_0805302C: .4byte gUnknown_0203E152
+_0805302C: .4byte gEfxPairHpBufOffset
 _08053030:
 	movs r4, #1
 _08053032:
@@ -368,7 +368,7 @@ sub_8053080: @ 0x08053080
 	ldrsh r1, [r5, r0]
 	movs r0, #0xd6
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 	movs r0, #0x64
 	strh r0, [r4, #0x2e]
 	b _08053112
@@ -384,7 +384,7 @@ _080530D2:
 	ldrsh r1, [r5, r2]
 	movs r0, #0xd6
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 	movs r0, #0x32
 	strh r0, [r4, #0x2e]
 	b _08053112
@@ -762,8 +762,8 @@ _080533C6:
 
 	THUMB_FUNC_END sub_8053368
 
-	THUMB_FUNC_START sub_80533D0
-sub_80533D0: @ 0x080533D0
+	THUMB_FUNC_START NewEfxFarAttackWithDistance
+NewEfxFarAttackWithDistance: @ 0x080533D0
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	lsls r1, r1, #0x10
@@ -874,7 +874,7 @@ _0805349E:
 _080534A4: .4byte gEkrBgXOffset
 _080534A8: .4byte gUnknown_02017748
 
-	THUMB_FUNC_END sub_80533D0
+	THUMB_FUNC_END NewEfxFarAttackWithDistance
 
 	THUMB_FUNC_START sub_80534AC
 sub_80534AC: @ 0x080534AC

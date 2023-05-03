@@ -5,30 +5,28 @@
 
 struct EkrDragonStatus {
 
-    enum dragonstatus_type {
-        EKRDRGON_TYPE_NORMAL = 0,
-        EKRDRGON_TYPE_DRACO_ZOMBIE,
-        EKRDRGON_TYPE_DEMON_KING,
-        EKRDRGON_TYPE_MYRRH
-    };
-
     /* 00 */ u8 type;
     /* 01 */ u8 unk01;
-
-    enum dragonstatue_attr {
-        EKRDRGON_ATTR_START = 1 << 0,
-        EKRDRGON_ATTR_BANIMFX_PREPARED = 1 << 1,
-        EKRDRGON_ATTR_BANIMFINISH = 1 << 2,
-        EKRDRGON_ATTR_END = 1 << 3,
-
-        EKRDRGON_ATTR_B12 = 1 << 12,
-        EKRDRGON_ATTR_B13 = 1 << 13,
-    };
-
     /* 02 */ u16 attr;
     /* 04 */ ProcPtr proc;
     /* 08 */ u32 unk08;
     /* 0C */ struct Anim *anim;
+};
+
+enum dragonstatus_type {
+    EKRDRGON_TYPE_NORMAL = 0,
+    EKRDRGON_TYPE_DRACO_ZOMBIE,
+    EKRDRGON_TYPE_DEMON_KING,
+    EKRDRGON_TYPE_MYRRH
+};
+
+enum dragonstatue_attr {
+    EKRDRGON_ATTR_START = 1 << 0,
+    EKRDRGON_ATTR_BANIMFX_PREPARED = 1 << 1,
+    EKRDRGON_ATTR_BANIMFINISH = 1 << 2,
+    EKRDRGON_ATTR_END = 1 << 3,
+    EKRDRGON_ATTR_B12 = 1 << 12,
+    EKRDRGON_ATTR_B13 = 1 << 13,
 };
 
 extern struct EkrDragonStatus gEkrDragonStatusLeft, gEkrDragonStatusRight;
@@ -178,6 +176,13 @@ void NewEkrDragonQuake(struct EkrDragonQuakePriv *priv, int, int, ProcPtr);
 // ??? sub_8070874(???);
 // ??? sub_80708A0(???);
 void EfxDoMyrrhIntroAnim(struct Anim *anim);
+void EkrMyr_PrepareBanimfx(struct ProcEkrDragon *proc);
+void EkrMyr_WaitForTransform(struct ProcEkrDragon *proc);
+void EkrMyr_TrigerForPrepared(struct ProcEkrDragon *proc);
+void EkrMyr_InBattleIdle(struct ProcEkrDragon *proc);
+void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc);
+void sub_8070AE4(struct ProcEkrDragon *proc);
+void sub_8070B3C(void);
 // ??? sub_8076598(???);
 // ??? CheckEkrWpnDemonLight(???);
 // ??? EkrDKStartBaseHide(???);
@@ -212,7 +217,7 @@ ProcPtr NewEkrDragonBodyAnime(struct Anim *anim);
 // ??? sub_8076F48(???);
 // ??? sub_8076FD0(???);
 // ??? sub_8076FD4(???);
-// ??? EkrDragonBodyAnimeSet54(???);
+void EkrDragonBodyAnimeSet54(struct Anim *anim);
 // ??? EkrDragonBodyAnimeMain(???);
 void NewEkrDragonBodyUnk4(struct Anim *anim, int round_type);
 // ??? EkrDragonBodyUnk4Main(???);

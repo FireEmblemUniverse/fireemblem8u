@@ -311,7 +311,7 @@ void ClassReel_OnEnd(ProcPtr proc) {
 
     EndAllProcChildren(proc);
 
-    sub_805A9E0();
+    EndEfxAnimeDrvProc();
     sub_8009A84(0);
     sub_806E920();
 
@@ -1490,7 +1490,7 @@ extern u8 gUnknown_0200CB00[];
 
 extern struct TextHandle gUnknown_0201FB28[6];
 
-void sub_805AA00(struct Unk200A2D8*);
+void NewEkrUnitMainMini(struct Unk200A2D8*);
 
 extern u8 gUnknown_0201DB28[];
 void sub_805AE40(struct Unk201DB00*, int, int, int, int);
@@ -1666,7 +1666,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     gUnknown_0200A2D8.unk_20 = gUnknown_0200CB00;
     gUnknown_0200A2D8.unk_24 = sub_80B3740;
 
-    sub_805AA00(&gUnknown_0200A2D8);
+    NewEkrUnitMainMini(&gUnknown_0200A2D8);
 
     gUnknown_0201DB00.unk_00 = proc->classReelEnt->unk_0D;
     gUnknown_0201DB00.unk_02 = 10;
@@ -2078,7 +2078,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         str r2, [r1, #0x20]\n\
         ldr r2, _080B3BFC  @ sub_80B3740\n\
         str r2, [r1, #0x24]\n\
-        bl sub_805AA00\n\
+        bl NewEkrUnitMainMini\n\
         ldr r4, _080B3C00  @ gUnknown_0201DB00\n\
         mov r0, r9\n\
         ldr r1, [r0, #0x34]\n\

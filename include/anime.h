@@ -6,13 +6,6 @@
 #include "fontgrp.h"
 
 struct Anim {
-    enum state {
-        ANIM_BIT_ENABLED = (1 << 0),
-        ANIM_BIT_HIDDEN  = (1 << 1),
-        ANIM_BIT_2       = (1 << 2),
-        ANIM_BIT_FROZEN  = (1 << 3),
-    };
-
     /* 00 */ u16 state;
     /* 02 */ short xPosition;
     /* 04 */ short yPosition;
@@ -44,22 +37,29 @@ struct Anim {
     /* 44 */ const void* pUnk44;
 };
 
-struct AnimRoundData {
-    enum type_identifier {
-        ANIM_ROUND_HIT_CLOSE,
-        ANIM_ROUND_CRIT_CLOSE,
-        ANIM_ROUND_NONCRIT_FAR,
-        ANIM_ROUND_CRIT_FAR,
-        ANIM_ROUND_TAKING_MISS_CLOSE,
-        ANIM_ROUND_TAKING_MISS_FAR,
-        ANIM_ROUND_TAKING_HIT_CLOSE,
-        ANIM_ROUND_STANDING,
-        ANIM_ROUND_TAKING_HIT_FAR,
-        ANIM_ROUND_MISS_CLOSE,
-    };
+enum state {
+    ANIM_BIT_ENABLED = (1 << 0),
+    ANIM_BIT_HIDDEN  = (1 << 1),
+    ANIM_BIT_2       = (1 << 2),
+    ANIM_BIT_FROZEN  = (1 << 3),
+};
 
+struct AnimRoundData {
     s16 type_identifier;
     u16 flags;
+};
+
+enum type_identifier {
+    ANIM_ROUND_HIT_CLOSE,
+    ANIM_ROUND_CRIT_CLOSE,
+    ANIM_ROUND_NONCRIT_FAR,
+    ANIM_ROUND_CRIT_FAR,
+    ANIM_ROUND_TAKING_MISS_CLOSE,
+    ANIM_ROUND_TAKING_MISS_FAR,
+    ANIM_ROUND_TAKING_HIT_CLOSE,
+    ANIM_ROUND_STANDING,
+    ANIM_ROUND_TAKING_HIT_FAR,
+    ANIM_ROUND_MISS_CLOSE,
 };
 
 struct AnimSpriteData {
@@ -163,8 +163,8 @@ int GetAllegienceId(u16);
 void EkrPrepareBanimfx(struct Anim *anim, int);
 // ??? GetSomeAISRelatedIndexMaybeByID(???);
 u32 GetAnimRoundType(int);
-s16 sub_8058A60(int);
-// ??? sub_8058A70(???);
+s16 GetEfxHp(int pos_based_round);
+// ??? GetEfxHpModMaybe(???);
 // ??? IsItemDisplayedInBattle(???);
 // ??? sub_8058AC8(???);
 // ??? sub_8058B08(???);
@@ -178,7 +178,7 @@ bool sub_8058B7C(void);
 void BattleAIS_ExecCommands(void);
 // ??? _08058BD4(???);
 // ??? _080596E0(???);
-// ??? sub_80598CC(???);
+void sub_80598CC(struct Anim *anim);
 // ??? NewEkrChienCHR(???);
 // ??? sub_8059924(???);
 // ??? RegisterAISSheetGraphics(???);
@@ -189,8 +189,8 @@ void sub_8059D28(void);
 // ??? sub_8059DB8(???);
 // ??? sub_8059E18(???);
 // ??? sub_8059F5C(???);
-void sub_805A07C(struct Anim *anim, int);
-// ??? sub_805A154(???);
+void BanimPrepareSpecificScript(struct Anim *anim, int);
+int sub_805A154(struct Anim *anim);
 int GetAISSubjectId(struct Anim *anim);
 // ??? GetSomeBoolean(???);
 // ??? sub_805A1D0(???);
@@ -215,10 +215,10 @@ void sub_805A940(void*, u16, u16);
 // ??? sub_805A990(???);
 // ??? sub_805A9A4(???);
 void NewEfxAnimeDrvProc(void);
-void sub_805A9E0(void);
+void EndEfxAnimeDrvProc(void);
 // ??? ExecAllAIS(???);
-// ??? sub_805AA00(???);
-// ??? sub_805AA4C(???);
+// ??? NewEkrUnitMainMini(???);
+// ??? EkrUnitMainMiniMain(???);
 void sub_805AA68(void *);
 // ??? sub_805AE40(???);
 // ??? sub_805AE58(???);
@@ -230,13 +230,6 @@ void PlaySound8FForArenaMaybe(void);
 void sub_805B094(void);
 void BeginAnimsOnBattle_Arena(void);
 void sub_805B0CC(void);
-// ??? EkrMyr_PrepareBanimfx(???);
-// ??? EkrMyr_WaitForTransform(???);
-// ??? EkrMyr_TrigerForPrepared(???);
-// ??? EkrMyr_InBattleIdle(???);
-// ??? EkrMyr_ReturnToLoli(???);
-// ??? sub_8070AE4(???);
-void sub_8070B3C(void);
 void sub_8070D04(void *ptr, u16 a, u16 b, int r3, int r4);
 void FillBGRect(void *ptr, u16 a, u16 b, int r3, int r4);
 // ??? sub_8070DBC(???);
@@ -271,7 +264,7 @@ void sub_8071A44(int);
 void sub_8071A8C(void);
 // ??? sub_8071A98(???);
 // ??? sub_8071AA4(???);
-void sub_8071AB0(int, int, int);
+void M4aPlayWithPostionCtrl(int, int, int);
 // ??? sub_8071B6C(???);
 // ??? sub_8072258(???);
 // ??? sub_80723A4(???);

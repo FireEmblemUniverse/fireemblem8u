@@ -1241,7 +1241,7 @@ _0805536C:
 	adds r7, r0, #0
 	mov r8, r9
 _08055374:
-	ldr r4, _080553DC  @ gUnknown_0203E152
+	ldr r4, _080553DC  @ gEfxPairHpBufOffset
 	adds r0, r5, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #1
@@ -1260,7 +1260,7 @@ _08055374:
 	adds r1, r0, #0
 	lsls r0, r6, #1
 	adds r0, r0, r1
-	bl sub_8058A60
+	bl GetEfxHp
 	lsls r0, r0, #0x10
 	asrs r6, r0, #0x10
 	adds r0, r5, #0
@@ -1268,7 +1268,7 @@ _08055374:
 	adds r1, r0, #0
 	lsls r0, r4, #1
 	adds r0, r0, r1
-	bl sub_8058A60
+	bl GetEfxHp
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r6, r4
@@ -1285,7 +1285,7 @@ _08055374:
 	bl sub_80539DC
 	b _080553EA
 	.align 2, 0
-_080553DC: .4byte gUnknown_0203E152
+_080553DC: .4byte gEfxPairHpBufOffset
 _080553E0:
 	adds r0, r5, #0
 	adds r1, r7, #0
@@ -1347,7 +1347,7 @@ _08055444:
 	ldr r0, [r0, #0xc]
 _0805544C:
 	mov r8, r0
-	ldr r4, _080554A8  @ gUnknown_0203E152
+	ldr r4, _080554A8  @ gEfxPairHpBufOffset
 	adds r0, r5, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #1
@@ -1366,7 +1366,7 @@ _0805544C:
 	adds r1, r0, #0
 	lsls r0, r6, #1
 	adds r0, r0, r1
-	bl sub_8058A60
+	bl GetEfxHp
 	lsls r0, r0, #0x10
 	asrs r6, r0, #0x10
 	adds r0, r5, #0
@@ -1374,7 +1374,7 @@ _0805544C:
 	adds r1, r0, #0
 	lsls r0, r4, #1
 	adds r0, r0, r1
-	bl sub_8058A60
+	bl GetEfxHp
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	mov r0, r9
@@ -1385,7 +1385,7 @@ _0805544C:
 	b _0805550A
 	.align 2, 0
 _080554A4: .4byte gAnims
-_080554A8: .4byte gUnknown_0203E152
+_080554A8: .4byte gEfxPairHpBufOffset
 _080554AC:
 	cmp r6, r4
 	beq _080554EE

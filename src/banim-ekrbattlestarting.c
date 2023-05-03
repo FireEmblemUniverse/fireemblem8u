@@ -201,7 +201,7 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
     sub_805649C(0);
     NewEkrWindowAppear(0, 0xB);
     NewEkrNamewinAppear(0, 0xB, 0);
-    sub_8056F20(0, 0xB);
+    NewEkrBaseAppear(0, 0xB);
 
     proc->unk2C = 0;
     Proc_Break(proc);
