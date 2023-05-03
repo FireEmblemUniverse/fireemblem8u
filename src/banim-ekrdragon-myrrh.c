@@ -11,10 +11,10 @@
 extern struct Anim *gAnims[4];
 
 enum banim_myrrh {
-    BANIM_INDEX_MYRRH_C3 = 0xC3,
-    BANIM_INDEX_MYRRH_C4 = 0xC4,
-    BANIM_INDEX_MYRRH_C5 = 0xC5,
-    BANIM_INDEX_MYRRH_C6 = 0xC6,
+    BANIM_INDEX_MYRRH_MAIN = 0xC4,
+    BANIM_INDEX_MYRRH_INTRO = 0xC5,
+    BANIM_INDEX_MYRRH_EXIT = 0xC6,
+    BANIM_INDEX_MYRRH_NOWPN = 0xC7,
 };
 
 void EfxDoMyrrhIntroAnim(struct Anim *anim)
@@ -35,9 +35,9 @@ void EkrMyr_PrepareBanimfx(struct ProcEkrDragon *proc)
     struct Anim *anim = proc->anim;
     proc->timer = 0;
 
-    EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_C4);
-    sub_805A07C(anim, 0);
-    LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_C4].pal, gPalBackupEkrUnitMaybe);
+    EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_INTRO - 1);
+    BanimPrepareSpecificScript(anim, 0);
+    LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 
     if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x7), 0x40);
@@ -54,13 +54,13 @@ void EkrMyr_WaitForTransform(struct ProcEkrDragon *proc)
 
     if (++proc->timer == 0x1A) {
         SomePlaySound_8071990(0xDC, 0x100);
-        sub_8071AB0(0xDC, anim->xPosition, 1);
+        M4aPlayWithPostionCtrl(0xDC, anim->xPosition, 1);
     }
-    
+
     if (ANINS_GET_TYPE(*anim->pScrCurrent) == ANIM_INS_TYPE_STOP) {
         SomePlaySound_8071990(0xDE, 0x100);
-        sub_8071AB0(0xDE, anim->xPosition, 1);
-        EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_C3);
+        M4aPlayWithPostionCtrl(0xDE, anim->xPosition, 1);
+        EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_MAIN - 1);
         Proc_Break(proc);
     }
 }
@@ -86,22 +86,22 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc)
     struct Anim *anim = proc->anim;
     BattleAnim *banim = banim_data;
 
-    if (sub_8058A60(2 * gUnknown_0203E152[GetAISSubjectId(anim)] + GetAISSubjectId(anim)) <= 0) {
+    if (GetEfxHp(2 * gEfxPairHpBufOffset[GetAISSubjectId(anim)] + GetAISSubjectId(anim)) <= 0) {
 
         /* Transform from dragon to loli */
         proc->timer = 0;
-        EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_C6);
+        EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_NOWPN - 1);
         gEkrSpellAnimIndexLutMaybe[0] = -1;
         Proc_Break(proc);
         return;
     }
 
     SomePlaySound_8071990(0xDD, 0x100);
-    sub_8071AB0(0xDD, anim->xPosition, 1);
-    EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_C5);
-    sub_805A07C(anim, 0);
+    M4aPlayWithPostionCtrl(0xDD, anim->xPosition, 1);
+    EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_EXIT - 1);
+    BanimPrepareSpecificScript(anim, 0);
     Proc_Break(proc);
-    LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_C4].pal, gPalBackupEkrUnitMaybe);
+    LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 
     if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x7), 0x40);
@@ -115,7 +115,7 @@ void sub_8070AE4(struct ProcEkrDragon *proc)
 {
     struct Anim *anim = proc->anim;
     if (ANINS_GET_TYPE(*anim->pScrCurrent) == ANIM_INS_TYPE_STOP) {
-        EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_C6);
+        EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_NOWPN - 1);
         AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_END);
 
         if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)

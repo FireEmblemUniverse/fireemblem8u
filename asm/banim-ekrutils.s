@@ -2178,8 +2178,8 @@ _08071AAC: .4byte gUnknown_020200AC
 
 	THUMB_FUNC_END sub_8071AA4
 
-	THUMB_FUNC_START sub_8071AB0
-sub_8071AB0: @ 0x08071AB0
+	THUMB_FUNC_START M4aPlayWithPostionCtrl
+M4aPlayWithPostionCtrl: @ 0x08071AB0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -2266,7 +2266,7 @@ _08071B60: .4byte gMPlayTable
 _08071B64: .4byte gSongTable
 _08071B68: .4byte 0x0000FFFF
 
-	THUMB_FUNC_END sub_8071AB0
+	THUMB_FUNC_END M4aPlayWithPostionCtrl
 
 	THUMB_FUNC_START sub_8071B6C
 sub_8071B6C: @ 0x08071B6C
@@ -2540,7 +2540,7 @@ _08071E0C:
 	ldrsh r1, [r0, r2]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 _08071E5A:
 	mov r0, r9
 	bl sub_8072400
@@ -2589,7 +2589,7 @@ _08071E78:
 	ldrsh r1, [r0, r2]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 _08071EC6:
 	mov r0, r9
 	bl sub_8072400
@@ -2638,7 +2638,7 @@ _08071EE4:
 	ldrsh r1, [r0, r2]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 _08071F32:
 	mov r0, r9
 	bl sub_8072400
@@ -3099,7 +3099,7 @@ _08072222:
 	asrs r1, r1, #0x10
 	movs r2, #1
 	adds r0, r4, #0
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 _08072246:
 	add sp, #8
 	pop {r3, r4, r5}
@@ -3291,7 +3291,7 @@ _080723F8:
 sub_8072400: @ 0x08072400
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	ldr r4, _08072440  @ gUnknown_0203E152
+	ldr r4, _08072440  @ gEfxPairHpBufOffset
 	bl GetAISSubjectId
 	lsls r0, r0, #1
 	adds r0, r0, r4
@@ -3302,12 +3302,12 @@ sub_8072400: @ 0x08072400
 	lsls r1, r6, #1
 	adds r6, r1, r0
 	adds r0, r6, #0
-	bl sub_8058A60
+	bl GetEfxHp
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	adds r0, r6, #2
-	bl sub_8058A60
+	bl GetEfxHp
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r4, r0
@@ -3317,7 +3317,7 @@ sub_8072400: @ 0x08072400
 	movs r0, #0
 	b _0807244A
 	.align 2, 0
-_08072440: .4byte gUnknown_0203E152
+_08072440: .4byte gEfxPairHpBufOffset
 _08072444:
 	movs r0, #1
 	b _0807244A
@@ -3367,7 +3367,7 @@ sub_8072450: @ 0x08072450
 	ldrsh r1, [r5, r0]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 _080724A6:
 	adds r0, r5, #0
 	bl sub_8072400
@@ -3410,7 +3410,7 @@ _080724D8:
 	ldrsh r1, [r5, r0]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 _080724FA:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -3446,7 +3446,7 @@ sub_8072504: @ 0x08072504
 	ldrsh r1, [r4, r0]
 	movs r0, #0xd8
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 _08072540:
 	pop {r4, r5}
 	pop {r0}
@@ -3988,7 +3988,7 @@ EkrSoundSomeBark: @ 0x080729A4
 	adds r0, r4, #0
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -4006,7 +4006,7 @@ sub_80729C0: @ 0x080729C0
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #1
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 	pop {r4, r5}
 	pop {r0}
 	bx r0

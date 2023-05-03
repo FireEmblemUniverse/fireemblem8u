@@ -109,8 +109,8 @@ extern void *gUnknown_0200003C[2];
 extern void *gUnknown_02000044[2];
 extern void *gBanimTerrainPaletteMaybe[2];
 // extern ??? gUnknown_02000054
-// extern ??? gUnknown_0200005C
-// extern ??? gUnknown_02000060
+extern int *gpBanimModesLeft;
+extern int *gpBanimModesRight;
 extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
 // extern ??? gUnknown_02000088
@@ -196,7 +196,7 @@ extern struct ProcCmd gProc_ekrbattleendin[];
 // extern ??? ProcScr_ekrUnitKakudai
 extern struct ProcCmd gProc_ekrWindowAppear[];
 extern struct ProcCmd gProc_ekrNamewinAppear[];
-extern struct ProcCmd gProc_ekrBaseAppear[];
+extern struct ProcCmd ProcScr_ekrBaseAppear[];
 // extern ??? gUnknown_085B9D5C
 extern void *gUnknown_085B9D6C[];
 extern struct ProcCmd gProc_ekrChienCHR[];
@@ -285,7 +285,7 @@ void sub_8051B5C(u16 a, u16 b);
 void sub_8051B80(void);
 void sub_8051B90(void);
 void sub_8051BA0(void);
-// ??? ekrDispUP_Loop(???);
+// ??? ekrDispUPMain(???);
 void EfxClearScreenFx(void);
 void sub_8051E00(void);
 void EfxPrepareScreenFx(void);
@@ -295,9 +295,9 @@ void EkrEfxStatusClear(void);
 int sub_80522CC(void);
 short EkrEfxIsUnitHittedNow(int pos);
 // ??? NewEfxHPBar(???);
-// ??? efxHPBar_80523EC(???);
+// ??? EfxHp_BarDeclineWithDeathJudge(???);
 // ??? efxHPBarMain(???);
-// ??? efxHPBarMainEnd(???);
+// ??? efxHPBarWaitForFarFarCamMoveMaybe(???);
 // ??? NewEfxHPBarResire(???);
 // ??? EfxHPBarResire_80526C8(???);
 // ??? EfxHPBarResire_8052788(???);
@@ -327,7 +327,7 @@ void NewEfxDead(struct Anim *anim1, struct Anim *anim2);
 // ??? sub_805320C(???);
 // ??? NewEfxDeadDragonAlpha(???);
 // ??? sub_8053368(???);
-void sub_80533D0(struct Anim *anim, int arg);
+void NewEfxFarAttackWithDistance(struct Anim *anim, int arg);
 // ??? sub_80534AC(???);
 // ??? sub_80534E4(???);
 // ??? sub_8053514(???);
@@ -471,6 +471,6 @@ void NewEkrNamewinAppear(int, int, int);
 bool CheckEkrNamewinAppearUnexist(void);
 // ??? sub_8056E7C(???);
 // ??? sub_8056EA4(???);
-void sub_8056F20(int, int);
-// ??? sub_8056F68(???);
-// ??? sub_8056F84(???);
+void NewEkrBaseAppear(int, int);
+// ??? CheckEkrBaseAppearExist(???);
+// ??? EndEkrBaseAppear(???);

@@ -63,11 +63,11 @@ extern s16 gUnknown_02003FAC[];
 // extern ??? gUnknown_0200400C
 extern u16 gUnknown_02004054[];
 // extern ??? gUnknown_0200407C
-// extern ??? gUnknown_02004088
+// extern ??? gBanimPal1
 extern u16 gUnknown_020040AE[];
 // extern ??? gUnknown_020040B2
-// extern ??? gUnknown_02004128
-// extern ??? gUnknown_020041C8
+// extern ??? gBanimPal2
+// extern ??? gBanimOaml
 extern u16 gUnknown_0200422C[];
 extern u16 gUnknown_02004254[];
 extern s16 gUnknown_020044AC[];
@@ -83,7 +83,7 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_020078D8
 // extern ??? gUnknown_02008000
 // extern ??? gUnknown_020087A0
-// extern ??? gUnknown_020099C8
+// extern ??? gBanimOamr2
 // extern ??? gUnknown_0200A2D8
 // extern ??? gUnknown_0200A300
 // extern ??? gUnknown_0200AF00
@@ -104,10 +104,10 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_0200F158
 // extern ??? gUnknown_0200F15C
 extern char gStringBufferAlt[];
-// extern ??? gUnknown_0200F1C8
+extern u8 gBanimScrLeft[];
 // extern ??? gUnknown_0201000C
 extern u8 gPrepUnitPool[];
-// extern ??? gUnknown_02011BC8
+extern u8 gBanimScrRight[];
 extern struct PrepUnitList gPrepUnitList;
 // extern ??? gUnknown_020122D4
 // extern ??? gUnknown_02012914
@@ -227,12 +227,12 @@ extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201FAC8
 // extern ??? gEkrWindowAppearExist
 // extern ??? gEkrNamewinAppearExist
-// extern ??? gUnknown_0201FAD4
+// extern ??? gProcEkrBaseAppearExist
 extern u32 gUnknown_0201FAD8;
 
 extern u32 gUnknown_0201FB04[];
 extern u32 gEkrBgXOffset;
-// extern ??? gUnknown_0201FB18
+// extern ??? gpProcEfxAnimeDrv
 // extern ??? gUnknown_0201FB1C
 // extern ??? gUnknown_0201FB24
 // extern ??? gUnknown_0201FB28
@@ -503,8 +503,8 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203DD9F
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
-extern short gUnknown_0203E152[];
-// extern ??? gUnknown_0203E156
+extern short gEfxPairHpBufOffset[];
+// extern ??? gEfxHpBarBuf
 extern short gEkrPairBanimID2[];
 extern u8 gEkrPids[2];
 extern int gUnknown_0203E194;
@@ -525,7 +525,7 @@ extern short gEkrPairEffectiveAgainst[2];
 extern short gUnknown_0203E1DC[2];
 // extern ??? gUnknown_0203E1E0
 // extern ??? gBaArenaFlag
-// extern ??? gUnknown_0203E1E8
+// extern ??? gpProcefxopCur
 // extern ??? gUnknown_0203E1EC
 // extern ??? gUnknown_0203E1F8
 // extern ??? gUnknown_0203E254
@@ -816,7 +816,7 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080DA26A
 // extern ??? gUnknown_080DA27E
 // extern ??? gUnknown_080DA2B0
-extern const s16 gUnknown_080DA438[];
+extern const s16 gEfxNoDmgBgShakeOff[];
 // extern ??? gUnknown_080DA4BA
 // extern ??? gUnknown_080DA4DC
 // extern ??? gUnknown_080DA526
@@ -840,7 +840,7 @@ extern const s16 gUnknown_080DA438[];
 // extern ??? gUnknown_080DAED2
 // extern ??? gUnknown_080DAEDC
 // extern ??? gUnknown_080DAEE6
-// extern ??? gUnknown_080DAEF0
+// extern ??? gBanimSpecificScrConfigs
 // extern ??? gUnknown_080DAF18
 // extern ??? gUnknown_080DAF1D
 // extern ??? gUnknown_080DAF22
@@ -1655,9 +1655,9 @@ extern char gNopStr[];
 // extern ??? gUnknown_085D59C4
 // extern ??? gUnknown_085D5A68
 // extern ??? gUnknown_085D5AB0
-// extern ??? gUnknown_085D5AE0
-// extern ??? gUnknown_085D5AF8
-// extern ??? gUnknown_085D5B28
+// extern ??? ProcScr_efxResire
+// extern ??? ProcScr_efxResireBG
+// extern ??? ProcScr_efxResireBG2
 // extern ??? gUnknown_085D5B40
 // extern ??? gUnknown_085D5C0C
 // extern ??? gUnknown_085D5CD8
@@ -2003,11 +2003,11 @@ extern char gNopStr[];
 // extern ??? gUnknown_085D93B0
 // extern ??? gUnknown_085D93F0
 // extern ??? gUnknown_085D9430
-// extern ??? gUnknown_085D9454
+// extern ??? ProcScr_efxopFire
 // extern ??? gUnknown_085D947C
 // extern ??? gUnknown_085D9494
 // extern ??? gUnknown_085D94C4
-// extern ??? gUnknown_085D94DC
+// extern ??? ProcScr_efxopThunder
 // extern ??? gUnknown_085D9504
 // extern ??? gUnknown_085D951C
 // extern ??? gUnknown_085D9524
@@ -2029,7 +2029,7 @@ extern char gNopStr[];
 // extern ??? gUnknown_085D9924
 // extern ??? gUnknown_085D996C
 // extern ??? gUnknown_085D999C
-// extern ??? gUnknown_085D99C4
+// extern ??? ProcScr_efxopMyrrh
 // extern ??? gUnknown_085D99EC
 // extern ??? gUnknown_085D9A1C
 // extern ??? gUnknown_085D9A2C

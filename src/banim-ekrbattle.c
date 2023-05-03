@@ -309,7 +309,7 @@ void ekrBattleWaitSpeialClassIntroAnimIdle(struct ProcEkrBattle *proc)
 void ekrBattlePostEkrDragonIntro(struct ProcEkrBattle *proc)
 {
     if (gEkrInitialHitSide != gEkrPos2Maybe) {
-        sub_80533D0(gAnims[gEkrPos2Maybe * 2], -1);
+        NewEfxFarAttackWithDistance(gAnims[gEkrPos2Maybe * 2], -1);
         proc->timer = 0;
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050290;
     } else
@@ -475,7 +475,7 @@ void ekrBattle_805046C(struct ProcEkrBattle *proc)
                             sub_8054BA4(anim2, NULL);
     
                         if (anim1->xPosition == 0x44)
-                            sub_80533D0(anim1, -1);
+                            NewEfxFarAttackWithDistance(anim1, -1);
     
                         ArenaContinueBattle();
                         sub_80581EC();
@@ -540,7 +540,7 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
         proc->unk29 = ret;
 
     if (proc->unk29 == 1)
-        sub_80533D0(gAnims[gEkrPos2Maybe * 2], -1);
+        NewEfxFarAttackWithDistance(gAnims[gEkrPos2Maybe * 2], -1);
 }
 
 /**
@@ -647,7 +647,7 @@ void ekrBattle_8050940(struct ProcEkrBattle *proc)
 
         proc->proc_idleCb = (ProcFunc)ekrBattle_80509A8;
         SomePlaySound_8071990(0x74, 0x100);
-        sub_8071AB0(0x74, 0x78, 0);
+        M4aPlayWithPostionCtrl(0x74, 0x78, 0);
     }
 }
 

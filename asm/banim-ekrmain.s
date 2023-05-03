@@ -16,7 +16,7 @@ EkrPrepareBanimfx: @ 0x080589E0
 	bl sub_80599E8
 	adds r0, r5, #0
 	movs r1, #6
-	bl sub_805A07C
+	bl BanimPrepareSpecificScript
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -79,21 +79,21 @@ _08058A5A:
 
 	THUMB_FUNC_END GetAnimRoundType
 
-	THUMB_FUNC_START sub_8058A60
-sub_8058A60: @ 0x08058A60
-	ldr r1, _08058A6C  @ gUnknown_0203E156
+	THUMB_FUNC_START GetEfxHp
+GetEfxHp: @ 0x08058A60
+	ldr r1, _08058A6C  @ gEfxHpBarBuf
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldrb r0, [r0]
 	bx lr
 	.align 2, 0
-_08058A6C: .4byte gUnknown_0203E156
+_08058A6C: .4byte gEfxHpBarBuf
 
-	THUMB_FUNC_END sub_8058A60
+	THUMB_FUNC_END GetEfxHp
 
-	THUMB_FUNC_START sub_8058A70
-sub_8058A70: @ 0x08058A70
-	ldr r1, _08058A84  @ gUnknown_0203E156
+	THUMB_FUNC_START GetEfxHpModMaybe
+GetEfxHpModMaybe: @ 0x08058A70
+	ldr r1, _08058A84  @ gEfxHpBarBuf
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldrh r1, [r0]
@@ -103,10 +103,10 @@ sub_8058A70: @ 0x08058A70
 	asrs r0, r0, #0x10
 	bx lr
 	.align 2, 0
-_08058A84: .4byte gUnknown_0203E156
+_08058A84: .4byte gEfxHpBarBuf
 _08058A88: .4byte 0xFFFFFF00
 
-	THUMB_FUNC_END sub_8058A70
+	THUMB_FUNC_END GetEfxHpModMaybe
 
 	THUMB_FUNC_START IsItemDisplayedInBattle
 IsItemDisplayedInBattle: @ 0x08058A8C
@@ -1033,10 +1033,10 @@ _0805926E:
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl sub_805A07C
+	bl BanimPrepareSpecificScript
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_805A07C
+	bl BanimPrepareSpecificScript
 	ldr r2, [sp]
 	ldrh r0, [r2, #0x10]
 	movs r1, #4
@@ -1052,7 +1052,7 @@ _0805926E:
 	adds r0, r0, r1
 	ldrb r0, [r0]
 	mov r8, r0
-	ldr r1, _080592CC  @ gUnknown_080DAEF0
+	ldr r1, _080592CC  @ gBanimSpecificScrConfigs
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldrb r4, [r0]
@@ -1062,15 +1062,15 @@ _0805926E:
 	ldr r2, [sp]
 	cmp r0, #0
 	bne _080592D4
-	ldr r0, _080592D0  @ gUnknown_0200005C
+	ldr r0, _080592D0  @ gpBanimModesLeft
 	b _080592D6
 	.align 2, 0
 _080592C4: .4byte gUnknown_080DAF18
 _080592C8: .4byte gEkrDistanceType
-_080592CC: .4byte gUnknown_080DAEF0
-_080592D0: .4byte gUnknown_0200005C
+_080592CC: .4byte gBanimSpecificScrConfigs
+_080592D0: .4byte gpBanimModesLeft
 _080592D4:
-	ldr r0, _08059354  @ gUnknown_02000060
+	ldr r0, _08059354  @ gpBanimModesRight
 _080592D6:
 	ldr r1, [r0]
 	lsls r0, r4, #2
@@ -1084,7 +1084,7 @@ _080592D6:
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	lsls r1, r1, #9
-	ldr r0, _08059358  @ gUnknown_0200F1C8
+	ldr r0, _08059358  @ gBanimScrLeft
 	adds r1, r1, r0
 	adds r1, r4, r1
 	ldr r0, [r1, #4]
@@ -1130,8 +1130,8 @@ _080592D6:
 	str r1, [r0]
 	b _0805938A
 	.align 2, 0
-_08059354: .4byte gUnknown_02000060
-_08059358: .4byte gUnknown_0200F1C8
+_08059354: .4byte gpBanimModesRight
+_08059358: .4byte gBanimScrLeft
 _0805935C: .4byte 0x000057F0
 _08059360: .4byte gUnknown_0203E1A4
 _08059364: .4byte gUnknown_0201FB1C
@@ -1147,10 +1147,10 @@ _08059376:
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl sub_805A07C
+	bl BanimPrepareSpecificScript
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_805A07C
+	bl BanimPrepareSpecificScript
 	ldr r2, [sp]
 _0805938A:
 	adds r0, r2, #0
@@ -1656,7 +1656,7 @@ _0805975C:
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl sub_805A07C
+	bl BanimPrepareSpecificScript
 	ldr r2, [sp]
 	ldrh r1, [r2, #0x10]
 	ldr r4, _080597AC  @ 0x0000FFFD
@@ -1717,7 +1717,7 @@ _080597E8:
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl sub_805A07C
+	bl BanimPrepareSpecificScript
 	ldr r2, [sp]
 	ldrh r1, [r2, #0x10]
 	ldr r4, _08059870  @ 0x00007FFF
@@ -1737,7 +1737,7 @@ _08059824:
 	ldr r6, [r0]
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_805A07C
+	bl BanimPrepareSpecificScript
 	ldrh r0, [r6, #0x10]
 	ands r4, r0
 	orrs r4, r5
@@ -2008,9 +2008,9 @@ sub_80599E8: @ 0x080599E8
 	lsls r4, r7, #5
 	add r4, sl
 	ldr r0, [r4, #0x10]
-	ldr r1, _08059BF0  @ gUnknown_0200F1C8
+	ldr r1, _08059BF0  @ gBanimScrLeft
 	bl LZ77UnCompWram
-	ldr r1, _08059BF4  @ gUnknown_0200005C
+	ldr r1, _08059BF4  @ gpBanimModesLeft
 	ldr r0, [r4, #0xc]
 	str r0, [r1]
 	adds r0, r7, #0
@@ -2019,7 +2019,7 @@ sub_80599E8: @ 0x080599E8
 	lsls r0, r0, #5
 	add r0, sl
 	ldr r0, [r0, #0x1c]
-	ldr r4, _08059BF8  @ gUnknown_02004088
+	ldr r4, _08059BF8  @ gBanimPal1
 	adds r1, r4, #0
 	bl LZ77UnCompWram
 	movs r0, #1
@@ -2088,7 +2088,7 @@ _08059AC4:
 	lsls r0, r7, #5
 	add r0, sl
 	ldr r0, [r0, #0x18]
-	ldr r4, _08059C1C  @ gUnknown_020041C8
+	ldr r4, _08059C1C  @ gBanimOaml
 	adds r1, r4, #0
 	bl LZ77UnCompWram
 	ldr r0, _08059C20  @ 0x000057F0
@@ -2116,9 +2116,9 @@ _08059ADE:
 	mov r1, sl
 	adds r6, r0, r1
 	ldr r0, [r6, #0x10]
-	ldr r1, _08059C24  @ gUnknown_02011BC8
+	ldr r1, _08059C24  @ gBanimScrRight
 	bl LZ77UnCompWram
-	ldr r1, _08059C28  @ gUnknown_02000060
+	ldr r1, _08059C28  @ gpBanimModesRight
 	ldr r0, [r6, #0xc]
 	str r0, [r1]
 	adds r0, r7, #0
@@ -2127,7 +2127,7 @@ _08059ADE:
 	lsls r0, r0, #5
 	add r0, sl
 	ldr r0, [r0, #0x1c]
-	ldr r4, _08059C2C  @ gUnknown_02004128
+	ldr r4, _08059C2C  @ gBanimPal2
 	adds r1, r4, #0
 	bl LZ77UnCompWram
 	movs r0, #1
@@ -2161,7 +2161,7 @@ _08059B46:
 	bl CpuFastSet
 	bl EnablePaletteSync
 	ldr r0, [r6, #0x14]
-	ldr r4, _08059C34  @ gUnknown_020099C8
+	ldr r4, _08059C34  @ gBanimOamr2
 	adds r1, r4, #0
 	bl LZ77UnCompWram
 	ldr r0, _08059C20  @ 0x000057F0
@@ -2220,9 +2220,9 @@ _08059BE0: .4byte gEkrPairSideVaild
 _08059BE4: .4byte gEkrPairBanimID2
 _08059BE8: .4byte gBanimSomeObjPalIndex
 _08059BEC: .4byte gBattleInitSide
-_08059BF0: .4byte gUnknown_0200F1C8
-_08059BF4: .4byte gUnknown_0200005C
-_08059BF8: .4byte gUnknown_02004088
+_08059BF0: .4byte gBanimScrLeft
+_08059BF4: .4byte gpBanimModesLeft
+_08059BF8: .4byte gBanimPal1
 _08059BFC: .4byte character_battle_animation_palette_table
 _08059C00: .4byte gUnknown_02000054
 _08059C04: .4byte gUnknown_02022B88
@@ -2231,13 +2231,13 @@ _08059C0C: .4byte gBattleActor
 _08059C10: .4byte 0xFFFFFD20
 _08059C14: .4byte gBattleTarget
 _08059C18: .4byte gPaletteBuffer
-_08059C1C: .4byte gUnknown_020041C8
+_08059C1C: .4byte gBanimOaml
 _08059C20: .4byte 0x000057F0
-_08059C24: .4byte gUnknown_02011BC8
-_08059C28: .4byte gUnknown_02000060
-_08059C2C: .4byte gUnknown_02004128
+_08059C24: .4byte gBanimScrRight
+_08059C28: .4byte gpBanimModesRight
+_08059C2C: .4byte gBanimPal2
 _08059C30: .4byte gUnknown_02022BC8
-_08059C34: .4byte gUnknown_020099C8
+_08059C34: .4byte gBanimOamr2
 _08059C38: .4byte gUnknown_0203E194
 _08059C3C: .4byte gUnknown_0895E0A4
 _08059C40: .4byte gUnknown_0895EEA4
@@ -2410,7 +2410,7 @@ _08059D94:
 _08059DA0:
 	strh r0, [r1, #2]
 _08059DA2:
-	ldr r1, _08059DB4  @ gUnknown_0203E152
+	ldr r1, _08059DB4  @ gEfxPairHpBufOffset
 	movs r0, #0
 	strh r0, [r1]
 	strh r0, [r1, #2]
@@ -2418,7 +2418,7 @@ _08059DA2:
 	bx r0
 	.align 2, 0
 _08059DB0: .4byte gAnims
-_08059DB4: .4byte gUnknown_0203E152
+_08059DB4: .4byte gEfxPairHpBufOffset
 
 	THUMB_FUNC_END sub_8059D28
 
@@ -2480,7 +2480,7 @@ sub_8059E18: @ 0x08059E18
 	mov r6, r8
 	push {r6, r7}
 	adds r7, r0, #0
-	ldr r2, _08059F20  @ gUnknown_080DAEF0
+	ldr r2, _08059F20  @ gBanimSpecificScrConfigs
 	lsls r1, r7, #2
 	adds r0, r1, r2
 	ldrb r5, [r0]
@@ -2517,12 +2517,12 @@ sub_8059E18: @ 0x08059E18
 	ldr r1, _08059F3C  @ gEkrYPosBase
 	movs r0, #0x58
 	strh r0, [r1]
-	ldr r0, _08059F40  @ gUnknown_0200005C
+	ldr r0, _08059F40  @ gpBanimModesLeft
 	ldr r1, [r0]
 	lsls r0, r5, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
-	ldr r0, _08059F44  @ gUnknown_0200F1C8
+	ldr r0, _08059F44  @ gBanimScrLeft
 	adds r0, r1, r0
 	cmp r5, #0xff
 	bne _08059E80
@@ -2554,17 +2554,17 @@ _08059E80:
 	strb r7, [r3, #0x12]
 	ldr r0, _08059F50  @ gUnknown_02000088
 	str r0, [r3, #0x2c]
-	ldr r0, _08059F54  @ gUnknown_020041C8
+	ldr r0, _08059F54  @ gBanimOaml
 	str r0, [r3, #0x30]
 	ldr r0, _08059F58  @ gAnims
 	str r3, [r0]
-	ldr r0, _08059F40  @ gUnknown_0200005C
+	ldr r0, _08059F40  @ gpBanimModesLeft
 	ldr r1, [r0]
 	mov r2, r8
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
-	ldr r0, _08059F44  @ gUnknown_0200F1C8
+	ldr r0, _08059F44  @ gBanimScrLeft
 	adds r0, r1, r0
 	cmp r2, #0xff
 	bne _08059ED4
@@ -2596,7 +2596,7 @@ _08059ED4:
 	strb r7, [r3, #0x12]
 	ldr r0, _08059F50  @ gUnknown_02000088
 	str r0, [r3, #0x2c]
-	ldr r0, _08059F54  @ gUnknown_020041C8
+	ldr r0, _08059F54  @ gBanimOaml
 	str r0, [r3, #0x30]
 	ldr r0, _08059F58  @ gAnims
 	str r3, [r0, #4]
@@ -2607,7 +2607,7 @@ _08059ED4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08059F20: .4byte gUnknown_080DAEF0
+_08059F20: .4byte gBanimSpecificScrConfigs
 _08059F24: .4byte gUnknown_080DAF1D
 _08059F28: .4byte gEkrDistanceType
 _08059F2C: .4byte gUnknown_02000030
@@ -2615,12 +2615,12 @@ _08059F30: .4byte gUnknown_080DAF28
 _08059F34: .4byte gUnknown_02000034
 _08059F38: .4byte gEkrXPosBase
 _08059F3C: .4byte gEkrYPosBase
-_08059F40: .4byte gUnknown_0200005C
-_08059F44: .4byte gUnknown_0200F1C8
+_08059F40: .4byte gpBanimModesLeft
+_08059F44: .4byte gBanimScrLeft
 _08059F48: .4byte gUnknown_085B9D5C
 _08059F4C: .4byte gEkrBgXOffset
 _08059F50: .4byte gUnknown_02000088
-_08059F54: .4byte gUnknown_020041C8
+_08059F54: .4byte gBanimOaml
 _08059F58: .4byte gAnims
 
 	THUMB_FUNC_END sub_8059E18
@@ -2629,7 +2629,7 @@ _08059F58: .4byte gAnims
 sub_8059F5C: @ 0x08059F5C
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
-	ldr r2, _0805A044  @ gUnknown_080DAEF0
+	ldr r2, _0805A044  @ gBanimSpecificScrConfigs
 	lsls r1, r5, #2
 	adds r0, r1, r2
 	ldrb r3, [r0]
@@ -2658,12 +2658,12 @@ sub_8059F5C: @ 0x08059F5C
 	ldr r1, _0805A05C  @ gEkrYPosBase
 	movs r0, #0x58
 	strh r0, [r1, #2]
-	ldr r0, _0805A060  @ gUnknown_02000060
+	ldr r0, _0805A060  @ gpBanimModesRight
 	ldr r1, [r0]
 	lsls r0, r3, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
-	ldr r0, _0805A064  @ gUnknown_02011BC8
+	ldr r0, _0805A064  @ gBanimScrRight
 	adds r0, r1, r0
 	cmp r3, #0xff
 	bne _08059FAE
@@ -2695,16 +2695,16 @@ _08059FAE:
 	strb r5, [r3, #0x12]
 	ldr r0, _0805A070  @ gUnknown_02002088
 	str r0, [r3, #0x2c]
-	ldr r0, _0805A074  @ gUnknown_020099C8
+	ldr r0, _0805A074  @ gBanimOamr2
 	str r0, [r3, #0x30]
 	ldr r0, _0805A078  @ gAnims
 	str r3, [r0, #8]
-	ldr r0, _0805A060  @ gUnknown_02000060
+	ldr r0, _0805A060  @ gpBanimModesRight
 	ldr r1, [r0]
 	lsls r0, r6, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
-	ldr r0, _0805A064  @ gUnknown_02011BC8
+	ldr r0, _0805A064  @ gBanimScrRight
 	adds r0, r1, r0
 	cmp r6, #0xff
 	bne _0805A000
@@ -2736,7 +2736,7 @@ _0805A000:
 	strb r5, [r3, #0x12]
 	ldr r0, _0805A070  @ gUnknown_02002088
 	str r0, [r3, #0x2c]
-	ldr r0, _0805A074  @ gUnknown_020099C8
+	ldr r0, _0805A074  @ gBanimOamr2
 	str r0, [r3, #0x30]
 	ldr r0, _0805A078  @ gAnims
 	str r3, [r0, #0xc]
@@ -2744,19 +2744,19 @@ _0805A000:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805A044: .4byte gUnknown_080DAEF0
+_0805A044: .4byte gBanimSpecificScrConfigs
 _0805A048: .4byte gUnknown_080DAF22
 _0805A04C: .4byte gEkrDistanceType
 _0805A050: .4byte gUnknown_02000030
 _0805A054: .4byte gUnknown_02000034
 _0805A058: .4byte gEkrXPosBase
 _0805A05C: .4byte gEkrYPosBase
-_0805A060: .4byte gUnknown_02000060
-_0805A064: .4byte gUnknown_02011BC8
+_0805A060: .4byte gpBanimModesRight
+_0805A064: .4byte gBanimScrRight
 _0805A068: .4byte gUnknown_085B9D5C
 _0805A06C: .4byte gEkrBgXOffset
 _0805A070: .4byte gUnknown_02002088
-_0805A074: .4byte gUnknown_020099C8
+_0805A074: .4byte gBanimOamr2
 _0805A078: .4byte gAnims
 
 	THUMB_FUNC_END sub_8059F5C

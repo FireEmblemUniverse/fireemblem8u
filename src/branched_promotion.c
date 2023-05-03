@@ -443,7 +443,7 @@ void sub_805AA28(struct Unknown_030053A0 *a);
 void sub_805AE14(struct Unknown_0201FADC *a);
 
 void sub_80CCBD4(void) {
-    sub_805A9E0();
+    EndEfxAnimeDrvProc();
     sub_805AA28(&gUnknown_030053A0);
     sub_805AE14(&gUnknown_0201FADC);
 }
@@ -686,7 +686,7 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
             proc->u40 = 2;
         }
         if (proc->u40 == 2) {
-            sub_805A9E0();
+            EndEfxAnimeDrvProc();
             sub_805AA28(&gUnknown_030053A0);
             r4 = proc->pid - 1;
             r6 = proc->u2c[proc->menu_index];
@@ -751,7 +751,7 @@ void sub_80CD1D4(struct Proc *proc) {
         Proc_End(gparent);
         sub_805AA28(&gUnknown_030053A0);
         sub_805AE14(&gUnknown_0201FADC);
-        sub_805A9E0();
+        EndEfxAnimeDrvProc();
     }
 }
 
@@ -768,7 +768,7 @@ void sub_80CD218(struct Proc *proc) {
         Proc_End(gparent);
         sub_805AA28(&gUnknown_030053A0);
         sub_805AE14(&gUnknown_0201FADC);
-        sub_805A9E0();
+        EndEfxAnimeDrvProc();
         gActionData.unitActionType = 0;
         Proc_Goto(ggparent, 2);
         BMapDispResume();
@@ -895,15 +895,15 @@ void sub_80CD408(u32 a, s16 b, s16 c) {
 
 extern u16 gUnknown_03005408[];
 extern u8 gUnknown_02000088[];
-extern u8 gUnknown_020041C8[];
-extern u8 gUnknown_02004088[];
-extern u8 gUnknown_0200F1C8[];
+extern u8 gBanimOaml[];
+extern u8 gBanimPal1[];
+extern u8 gBanimScrLeft[];
 
 extern u8 gUnknown_02017790[];
 extern u8 gUnknown_0201A790[];
 
 void sub_806E8F0(void);
-void sub_805AA00(struct Unknown_030053A0 *);
+void NewEkrUnitMainMini(struct Unknown_030053A0 *);
 
 void sub_80CD47C(int a, int b, int c, int d, int e) {
     u16 c1 = c;
@@ -925,9 +925,9 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
     gUnknown_030053A0.u0e = 0x200;
     gUnknown_030053A0.u10 = 0xa;
     gUnknown_030053A0.u1c = gUnknown_02000088;
-    gUnknown_030053A0.u24 = gUnknown_020041C8;
-    gUnknown_030053A0.u20 = gUnknown_02004088;
-    gUnknown_030053A0.u28 = gUnknown_0200F1C8;
+    gUnknown_030053A0.u24 = gBanimOaml;
+    gUnknown_030053A0.u20 = gBanimPal1;
+    gUnknown_030053A0.u28 = gBanimScrLeft;
     gUnknown_030053A0.u30 = &gUnknown_030053E0;
     gUnknown_030053E0.u00 = 0x4;
     gUnknown_030053E0.u02 = 0;
@@ -946,7 +946,7 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
     gUnknown_030053E0.u24 = sub_80CD34C;
 
     sub_806E8F0();
-    sub_805AA00(&gUnknown_030053A0);
+    NewEkrUnitMainMini(&gUnknown_030053A0);
 }
 
 u8 LoadClassBattleSprite(u16 *a, u16 b, u16 c) {

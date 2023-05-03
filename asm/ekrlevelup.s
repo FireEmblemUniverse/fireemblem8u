@@ -687,7 +687,7 @@ _08073FF4:
 	adds r0, r4, #0
 	movs r1, #0x38
 	movs r2, #0
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	movs r0, #8
@@ -848,7 +848,7 @@ EkrLvup_DrawNewLevel: @ 0x0807411C
 	adds r0, r4, #0
 	movs r1, #0x38
 	movs r2, #0
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 	adds r0, r5, #0
 	bl Proc_Break
 	b _0807418E
@@ -953,7 +953,7 @@ _080741F2:
 	movs r0, #0x76
 	movs r1, #0x38
 	movs r2, #0
-	bl sub_8071AB0
+	bl M4aPlayWithPostionCtrl
 	ldr r1, _08074280  @ sEfxLvupPartsPos
 	movs r0, #0x2e
 	ldrsh r4, [r5, r0]

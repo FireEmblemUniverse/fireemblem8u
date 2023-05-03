@@ -156,7 +156,7 @@ sub_8056974: @ 0x08056974
 	ldrsh r0, [r0, r2]
 	adds r0, r0, r1
 	ldrb r2, [r0]
-	ldr r1, _08056AEC  @ gUnknown_080DAEF0
+	ldr r1, _08056AEC  @ gBanimSpecificScrConfigs
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	ldrb r6, [r0]
@@ -229,16 +229,16 @@ _08056A0A:
 	ldrsh r0, [r5, r3]
 	cmp r0, #1
 	bne _08056A32
-	ldr r0, _08056B0C  @ gUnknown_0200005C
+	ldr r0, _08056B0C  @ gpBanimModesLeft
 	ldr r1, [r0]
 	lsls r0, r6, #2
 	adds r0, r0, r1
 	ldr r2, [r0]
-	ldr r0, _08056B10  @ gUnknown_0200F1C8
+	ldr r0, _08056B10  @ gBanimScrLeft
 	adds r2, r2, r0
 	ldr r0, [r2, #4]
 	ldr r1, [r2, #8]
-	ldr r2, _08056B14  @ gUnknown_020041C8
+	ldr r2, _08056B14  @ gBanimOaml
 	adds r1, r1, r2
 	str r1, [r4, #0x54]
 	ldr r1, _08056B18  @ gUnknown_02000088
@@ -248,16 +248,16 @@ _08056A32:
 	ldrsh r0, [r5, r1]
 	cmp r0, #1
 	bne _08056A58
-	ldr r0, _08056B1C  @ gUnknown_02000060
+	ldr r0, _08056B1C  @ gpBanimModesRight
 	ldr r1, [r0]
 	lsls r0, r6, #2
 	adds r0, r0, r1
 	ldr r2, [r0]
-	ldr r0, _08056B20  @ gUnknown_02011BC8
+	ldr r0, _08056B20  @ gBanimScrRight
 	adds r2, r2, r0
 	ldr r0, [r2, #4]
 	ldr r1, [r2, #8]
-	ldr r2, _08056B24  @ gUnknown_020099C8
+	ldr r2, _08056B24  @ gBanimOamr2
 	adds r1, r1, r2
 	str r1, [r4, #0x58]
 	ldr r1, _08056B28  @ gUnknown_02002088
@@ -335,7 +335,7 @@ _08056A72:
 	.align 2, 0
 _08056AE4: .4byte gUnknown_080DAF18
 _08056AE8: .4byte gEkrDistanceType
-_08056AEC: .4byte gUnknown_080DAEF0
+_08056AEC: .4byte gBanimSpecificScrConfigs
 _08056AF0: .4byte gUnknown_02017724
 _08056AF4: .4byte gAnims
 _08056AF8: .4byte gpEkrBattleUnitRight
@@ -343,13 +343,13 @@ _08056AFC: .4byte gPaletteBuffer
 _08056B00: .4byte gpEkrBattleUnitLeft
 _08056B04: .4byte gBattleStats
 _08056B08: .4byte gEkrPairSideVaild
-_08056B0C: .4byte gUnknown_0200005C
-_08056B10: .4byte gUnknown_0200F1C8
-_08056B14: .4byte gUnknown_020041C8
+_08056B0C: .4byte gpBanimModesLeft
+_08056B10: .4byte gBanimScrLeft
+_08056B14: .4byte gBanimOaml
 _08056B18: .4byte gUnknown_02000088
-_08056B1C: .4byte gUnknown_02000060
-_08056B20: .4byte gUnknown_02011BC8
-_08056B24: .4byte gUnknown_020099C8
+_08056B1C: .4byte gpBanimModesRight
+_08056B20: .4byte gBanimScrRight
+_08056B24: .4byte gBanimOamr2
 _08056B28: .4byte gUnknown_02002088
 _08056B2C: .4byte gUnknown_0203E1A4
 _08056B30: .4byte gUnknown_02001088
@@ -882,12 +882,12 @@ _08056F16:
 
 	THUMB_FUNC_END sub_8056EA4
 
-	THUMB_FUNC_START sub_8056F20
-sub_8056F20: @ 0x08056F20
+	THUMB_FUNC_START NewEkrBaseAppear
+NewEkrBaseAppear: @ 0x08056F20
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _08056F44  @ gProc_ekrBaseAppear
+	ldr r0, _08056F44  @ ProcScr_ekrBaseAppear
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x44]
@@ -901,7 +901,7 @@ sub_8056F20: @ 0x08056F20
 	bl BG_SetPosition
 	b _08056F56
 	.align 2, 0
-_08056F44: .4byte gProc_ekrBaseAppear
+_08056F44: .4byte ProcScr_ekrBaseAppear
 _08056F48: .4byte 0x0000FFA8
 _08056F4C:
 	movs r0, #2
@@ -909,38 +909,38 @@ _08056F4C:
 	movs r2, #0
 	bl BG_SetPosition
 _08056F56:
-	ldr r1, _08056F64  @ gUnknown_0201FAD4
+	ldr r1, _08056F64  @ gProcEkrBaseAppearExist
 	movs r0, #1
 	str r0, [r1]
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08056F64: .4byte gUnknown_0201FAD4
+_08056F64: .4byte gProcEkrBaseAppearExist
 
-	THUMB_FUNC_END sub_8056F20
+	THUMB_FUNC_END NewEkrBaseAppear
 
-	THUMB_FUNC_START sub_8056F68
-sub_8056F68: @ 0x08056F68
+	THUMB_FUNC_START CheckEkrBaseAppearExist
+CheckEkrBaseAppearExist: @ 0x08056F68
 	push {lr}
-	ldr r0, _08056F78  @ gUnknown_0201FAD4
+	ldr r0, _08056F78  @ gProcEkrBaseAppearExist
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _08056F7C
 	movs r0, #0
 	b _08056F7E
 	.align 2, 0
-_08056F78: .4byte gUnknown_0201FAD4
+_08056F78: .4byte gProcEkrBaseAppearExist
 _08056F7C:
 	movs r0, #1
 _08056F7E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8056F68
+	THUMB_FUNC_END CheckEkrBaseAppearExist
 
-	THUMB_FUNC_START sub_8056F84
-sub_8056F84: @ 0x08056F84
+	THUMB_FUNC_START EndEkrBaseAppear
+EndEkrBaseAppear: @ 0x08056F84
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -951,14 +951,14 @@ sub_8056F84: @ 0x08056F84
 	ldrsh r0, [r4, r3]
 	cmp r1, r0
 	blt _08056FAC
-	ldr r1, _08056FA8  @ gUnknown_0201FAD4
+	ldr r1, _08056FA8  @ gProcEkrBaseAppearExist
 	movs r0, #0
 	str r0, [r1]
 	adds r0, r4, #0
 	bl Proc_Break
 	b _08056FF0
 	.align 2, 0
-_08056FA8: .4byte gUnknown_0201FAD4
+_08056FA8: .4byte gProcEkrBaseAppearExist
 _08056FAC:
 	adds r0, r2, #1
 	strh r0, [r4, #0x2c]
@@ -999,6 +999,6 @@ _08056FF0:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8056F84
+	THUMB_FUNC_END EndEkrBaseAppear
 
 .align 2, 0
