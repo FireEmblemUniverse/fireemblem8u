@@ -684,7 +684,7 @@ _08057544:
 	bl sub_8057DA8
 	strh r0, [r7, #2]
 _08057562:
-	bl sub_8076310
+	bl CheckBanimHensei
 	cmp r0, #1
 	bne _0805757A
 	ldr r1, _080575C0  @ gBanimTerrainIndexMaybe
@@ -1319,7 +1319,7 @@ _08057A50:
 	bl sub_8057ED0
 	strh r0, [r5]
 _08057A66:
-	bl sub_8076310
+	bl CheckBanimHensei
 	cmp r0, #1
 	bne _08057A74
 	ldr r1, _08057C80  @ gEkrPairSomeTile

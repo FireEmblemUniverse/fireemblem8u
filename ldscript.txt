@@ -140,7 +140,8 @@ SECTIONS
         src/banim-efxHPBar.o(.text);
         asm/banim-efxbattle.o(.text);
         asm/banim-ekrfxbg.o(.text);
-        asm/banim-ekrfxunit.o(.text);
+        src/banim-efxstatusunit.o(.text);
+        asm/banim-efxflasheffect.o(.text);
         src/banim-ekrbattlestarting.o(.text);
         asm/banim-ekrbattleending.o(.text);
         asm/code-banim-08056864.o(.text);
@@ -155,8 +156,10 @@ SECTIONS
         src/banim-ekrdragon-myrrh.o(.text);
         asm/banim-ekrutils.o(.text);
         asm/banim-ekrpromotion.o(.text);
-        src/ekrlevelup.o(.text);
-        asm/ekrlevelup.o(.text);
+        src/banim-ekrlvup.o(.text);
+        asm/banim-ekrlvup.o(.text);
+        asm/banim-efxlvup.o(.text);
+        asm/banim-ekrtriangle.o(.text);
         asm/banim-ekrpopup.o(.text);
         src/banim-ekrdragon-demonking.o(.text);
         asm/code-banim-ekrDK.o(.text);
@@ -345,7 +348,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
-        . = ALIGN(4); src/ekrlevelup.o(.rodata);
+        . = ALIGN(4); src/banim-ekrlvup.o(.rodata);
         . = ALIGN(4); data/const_data_E162A.o(.rodata);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.rodata);
         . = ALIGN(4); data/const_data-ekrdk.o(.rodata);
@@ -484,8 +487,9 @@ SECTIONS
         . = ALIGN(4); data/data-ekrdragon.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-myrrh.o(.data);
         . = ALIGN(4); data/data-ekrclasschg.o(.data);
-        . = ALIGN(4); src/ekrlevelup.o(.data);
-        . = ALIGN(4); data/data_7593DC.o(.data);
+        . = ALIGN(4); src/banim-ekrlvup.o(.data);
+        . = ALIGN(4); data/banim-ekrlvup.o(.data);
+        . = ALIGN(4); data/banim-ekrtriangle.o(.data);
         . = ALIGN(4); data/data_btl_bg.o(.data);
         . = ALIGN(4); data/data_banim_78D500.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.data);

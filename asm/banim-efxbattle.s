@@ -251,7 +251,7 @@ NewEfxDead: @ 0x08052FAC
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
 	adds r0, r4, #0
-	bl sub_8054B64
+	bl DisableEfxStatusUnits
 	pop {r4, r5}
 	pop {r0}
 	bx r0

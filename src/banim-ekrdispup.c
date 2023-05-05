@@ -322,7 +322,7 @@ int GetEkrSomePosMaybe(void)
         quote2 = false;
         quote1 = false;
 
-        if (gUnknown_0203E0FC == 0) {
+        if (gEkrDebugModeMaybe == 0) {
             quote1 = ShouldCallBattleQuote(gEkrPids[EKR_BATTLE_LEFT],  gEkrPids[EKR_BATTLE_RIGHT]);
             quote2 = ShouldCallBattleQuote(gEkrPids[EKR_BATTLE_RIGHT], gEkrPids[EKR_BATTLE_LEFT]);
         }
@@ -363,8 +363,10 @@ void EkrEfxStatusClear(void)
     gUnknown_02017768[1] = 0;
     gEkrHitEfxBool[0] = 0;
     gEkrHitEfxBool[1] = 0;
-    gUnknown_0201776C[0] = 0;
-    gUnknown_0201776C[1] = 0;
+
+    gpProcEfxStatusUnits[EKR_BATTLE_LEFT] = NULL;
+    gpProcEfxStatusUnits[EKR_BATTLE_RIGHT] = NULL;
+
     gUnknown_02017778 = 0;
     gpProcEfxHPBarColorChange = 0;
 }

@@ -6595,66 +6595,66 @@ gUnknown_085D6884:  @ 0x085D6884
 gUnknown_085D689C:  @ 0x085D689C
 	.incbin "baserom.gba", 0x5D689C, 0x20
 
-	.global gUnknown_085D68BC
-gUnknown_085D68BC:  @ 0x085D68BC
+	.global ProcScr_efxLive
+ProcScr_efxLive:  @ 0x085D68BC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dd890
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806104C
+        .word EfxLiveMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D68D4
-gUnknown_085D68D4:  @ 0x085D68D4
+	.global ProcScr_efxRelive
+ProcScr_efxRelive:  @ 0x085D68D4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dd898
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8061180
+        .word EfxReliveMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D68EC
-gUnknown_085D68EC:  @ 0x085D68EC
+	.global ProcScr_efxRecover
+ProcScr_efxRecover:  @ 0x085D68EC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dd8a4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80612E4
+        .word EfxRecoverMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D6904
-gUnknown_085D6904:  @ 0x085D6904
+	.global ProcScr_efxReblow
+ProcScr_efxReblow:  @ 0x085D6904
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dd8b0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8061448
+        .word EfxReblowMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D691C
-gUnknown_085D691C:  @ 0x085D691C
+	.global ProcScr_efxLiveBG
+ProcScr_efxLiveBG:  @ 0x085D691C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dd8bc
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8061704
+        .word EfxLivebgMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -6692,21 +6692,21 @@ gUnknown_085D6954:  @ 0x085D6954
         .word 0x0
 
 
-	.global gUnknown_085D6974
-gUnknown_085D6974:  @ 0x085D6974
+	.global ProcScr_efxLiveOBJ
+ProcScr_efxLiveOBJ:  @ 0x085D6974
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dd9f8
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8061A30
+        .word EfxLiveobjMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D698C
-gUnknown_085D698C:  @ 0x085D698C
+	.global ProcScr_efxReserveOBJ
+ProcScr_efxReserveOBJ:  @ 0x085D698C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dda04
@@ -6721,8 +6721,8 @@ gUnknown_085D698C:  @ 0x085D698C
         .word 0x0
 
 
-	.global gUnknown_085D69AC
-gUnknown_085D69AC:  @ 0x085D69AC
+	.global ProcScr_efxReblowOBJ
+ProcScr_efxReblowOBJ:  @ 0x085D69AC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dda14
@@ -6737,27 +6737,27 @@ gUnknown_085D69AC:  @ 0x085D69AC
         .word 0x0
 
 
-	.global gUnknown_085D69CC
-gUnknown_085D69CC:  @ 0x085D69CC
+	.global ProcScr_efxReserve
+ProcScr_efxReserve:  @ 0x085D69CC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dda24
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8061C78
+        .word EfxReserveMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
 
-	.global gUnknown_085D69E4
-gUnknown_085D69E4:  @ 0x085D69E4
+	.global ProcScr_efxReserveBG
+ProcScr_efxReserveBG:  @ 0x085D69E4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dda30
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8061D78
+        .word EfxReservebgMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -10983,8 +10983,8 @@ gUnknown_085D95E0:  @ 0x085D95E0
         .word 0x0
 
 
-	.global gUnknown_085D95F8
-gUnknown_085D95F8:  @ 0x085D95F8
+	.global ProcScr_efxopLightning
+ProcScr_efxopLightning:  @ 0x085D95F8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df7ac
@@ -11002,8 +11002,8 @@ gUnknown_085D95F8:  @ 0x085D95F8
         .word 0x0
 
 
-	.global gUnknown_085D9620
-gUnknown_085D9620:  @ 0x085D9620
+	.global ProcScr_efxopLightningBG
+ProcScr_efxopLightningBG:  @ 0x085D9620
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df7bc

@@ -1196,8 +1196,8 @@ _080713A2:
 
 	THUMB_FUNC_END sub_807132C
 
-	THUMB_FUNC_START sub_80713B0
-sub_80713B0: @ 0x080713B0
+	THUMB_FUNC_START EfxSomePalFlash
+EfxSomePalFlash: @ 0x080713B0
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -1290,7 +1290,7 @@ _08071456:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80713B0
+	THUMB_FUNC_END EfxSomePalFlash
 
 	THUMB_FUNC_START sub_8071468
 sub_8071468: @ 0x08071468
@@ -3835,7 +3835,7 @@ _08072898: .4byte gUnknown_020200A8
 	THUMB_FUNC_START sub_807289C
 sub_807289C: @ 0x0807289C
 	push {lr}
-	bl sub_8076310
+	bl CheckBanimHensei
 	cmp r0, #1
 	beq _080728BA
 	ldr r0, _080728C0  @ gBmSt

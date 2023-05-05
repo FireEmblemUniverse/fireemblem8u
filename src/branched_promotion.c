@@ -438,10 +438,6 @@ void LoadClassNameInClassReelFont(struct ProcPromoSel *proc) {
         proc->u44++;
 }
 
-void sub_805AA28(struct Unknown_030053A0 *a);
-
-void sub_805AE14(struct Unknown_0201FADC *a);
-
 void sub_80CCBD4(void) {
     EndEfxAnimeDrvProc();
     sub_805AA28(&gUnknown_030053A0);
@@ -658,14 +654,13 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
     struct Anim *anim1;
     struct Anim *anim2;
     struct Unit copied_unit;
-    struct Unknown_030053A0 *tmp;
-    struct Unknown_030053A0 *tmp2;
+    void *tmp;
     u16 sp58;
     anim1 = gUnknown_030053A0.anim1;
     anim2 = gUnknown_030053A0.anim2;
 
-    p2 = gUnknown_0201FADC.p1;
-    c2 = gUnknown_0201FADC.p2;
+    p2 = (void *)gUnknown_0201FADC.p1;
+    c2 = (void *)gUnknown_0201FADC.p2;
 
     a = proc->u40;
     tmp = &gUnknown_030053A0;
@@ -872,8 +867,6 @@ void sub_80CD34C(void) {
 
     gLCDControlBuffer.bldcnt.target2_bd_on = TRUE;
 }
-
-void sub_805AE40(struct Unknown_0201FADC *, s16, s16, s16, s16);
 
 void sub_80CD408(u32 a, s16 b, s16 c) {
     u32 tmp;

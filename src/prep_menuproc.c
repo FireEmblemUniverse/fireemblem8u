@@ -75,7 +75,7 @@ void NullExpForChar100AndResetScreen()
     sub_80029E8(0x34, 0x100, 0x100, 0x20, NULL);
 }
 
-void sub_80965F0(struct Proc08A184B4 *proc)
+void PrepPromoteDebugMaybe(struct Proc08A184B4 *proc)
 {
     sub_808F270();
     ResetDialogueScreen();
@@ -89,7 +89,7 @@ void sub_80965F0(struct Proc08A184B4 *proc)
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
     EndAllProcChildren(proc);
-    Proc_StartBlocking(gUnknown_08A184B4, proc);
+    Proc_StartBlocking(ProcScr_PrepPromoteDebug, proc);
 }
 
 void sub_8096668()
@@ -717,7 +717,7 @@ void EnablePrepScreenMenu()
 
 
 /* section.data */
-CONST_DATA struct ProcCmd gUnknown_08A184B4[] = {
+CONST_DATA struct ProcCmd ProcScr_PrepPromoteDebug[] = {
     PROC_WHILE(MusicProc4Exists),
     PROC_CALL(DoPromoteAnimForChar100),
     PROC_REPEAT(IsGameLockLevelReserved),

@@ -1317,8 +1317,8 @@ _08076308:
 
 	THUMB_FUNC_END sub_80762D0
 
-	THUMB_FUNC_START sub_8076310
-sub_8076310: @ 0x08076310
+	THUMB_FUNC_START CheckBanimHensei
+CheckBanimHensei: @ 0x08076310
 	push {lr}
 	ldr r0, _08076324  @ gBattleStats
 	ldrh r1, [r0]
@@ -1337,7 +1337,7 @@ _0807632A:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8076310
+	THUMB_FUNC_END CheckBanimHensei
 
 	THUMB_FUNC_START BeginAnimsOnBattle_Hensei
 BeginAnimsOnBattle_Hensei: @ 0x08076330
@@ -1357,11 +1357,11 @@ _08076350: .4byte gEkrPos2Maybe
 
 	THUMB_FUNC_END BeginAnimsOnBattle_Hensei
 
-	THUMB_FUNC_START sub_8076354
-sub_8076354: @ 0x08076354
+	THUMB_FUNC_START ExecEkrHenseiEnd
+ExecEkrHenseiEnd: @ 0x08076354
 	push {lr}
 	bl AnimClearAll
-	bl sub_8076470
+	bl NewEkrHenseiEnd
 	ldr r0, _08076368  @ MainUpdate_8055C68
 	bl SetMainUpdateRoutine
 	pop {r0}
@@ -1369,7 +1369,7 @@ sub_8076354: @ 0x08076354
 	.align 2, 0
 _08076368: .4byte MainUpdate_8055C68
 
-	THUMB_FUNC_END sub_8076354
+	THUMB_FUNC_END ExecEkrHenseiEnd
 
 	THUMB_FUNC_START NewEkrHenseiInitPROC
 NewEkrHenseiInitPROC: @ 0x0807636C
@@ -1501,8 +1501,8 @@ sub_8076464: @ 0x08076464
 
 	THUMB_FUNC_END sub_8076464
 
-	THUMB_FUNC_START sub_8076470
-sub_8076470: @ 0x08076470
+	THUMB_FUNC_START NewEkrHenseiEnd
+NewEkrHenseiEnd: @ 0x08076470
 	push {lr}
 	ldr r0, _08076480  @ ProcScr_ekrHenseiEnd
 	movs r1, #3
@@ -1512,7 +1512,7 @@ sub_8076470: @ 0x08076470
 	.align 2, 0
 _08076480: .4byte ProcScr_ekrHenseiEnd
 
-	THUMB_FUNC_END sub_8076470
+	THUMB_FUNC_END NewEkrHenseiEnd
 
 	THUMB_FUNC_START sub_8076484
 sub_8076484: @ 0x08076484

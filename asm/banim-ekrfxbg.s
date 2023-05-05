@@ -1251,7 +1251,7 @@ sub_8054888: @ 0x08054888
 	bl GetAISSubjectId
 	cmp r0, #0
 	bne _080548B4
-	ldr r0, _080548AC  @ gUnknown_02000054
+	ldr r0, _080548AC  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0]
 	ldr r1, _080548B0  @ gUnknown_02022B88
 	movs r2, #8
@@ -1260,10 +1260,10 @@ sub_8054888: @ 0x08054888
 	bl sub_807035C
 	b _080548C6
 	.align 2, 0
-_080548AC: .4byte gUnknown_02000054
+_080548AC: .4byte gpEfxUnitPaletteBackup
 _080548B0: .4byte gUnknown_02022B88
 _080548B4:
-	ldr r0, _080548D8  @ gUnknown_02000054
+	ldr r0, _080548D8  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0, #4]
 	ldr r1, _080548DC  @ gUnknown_02022BC8
 	movs r2, #8
@@ -1278,7 +1278,7 @@ _080548C6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080548D8: .4byte gUnknown_02000054
+_080548D8: .4byte gpEfxUnitPaletteBackup
 _080548DC: .4byte gUnknown_02022BC8
 
 	THUMB_FUNC_END sub_8054888
@@ -1401,7 +1401,7 @@ sub_80549BC: @ 0x080549BC
 	bl GetAISSubjectId
 	cmp r0, #0
 	bne _080549E8
-	ldr r0, _080549E0  @ gUnknown_02000054
+	ldr r0, _080549E0  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0]
 	ldr r1, _080549E4  @ gUnknown_02022B88
 	movs r2, #8
@@ -1410,10 +1410,10 @@ sub_80549BC: @ 0x080549BC
 	bl sub_807035C
 	b _080549FA
 	.align 2, 0
-_080549E0: .4byte gUnknown_02000054
+_080549E0: .4byte gpEfxUnitPaletteBackup
 _080549E4: .4byte gUnknown_02022B88
 _080549E8:
-	ldr r0, _08054A14  @ gUnknown_02000054
+	ldr r0, _08054A14  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0, #4]
 	ldr r1, _08054A18  @ gUnknown_02022BC8
 	movs r2, #8
@@ -1433,7 +1433,7 @@ _080549FA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08054A14: .4byte gUnknown_02000054
+_08054A14: .4byte gpEfxUnitPaletteBackup
 _08054A18: .4byte gUnknown_02022BC8
 
 	THUMB_FUNC_END sub_80549BC

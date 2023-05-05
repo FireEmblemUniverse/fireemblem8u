@@ -3,6 +3,7 @@
 #include "hardware.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "efxbattle.h"
 
 /*
 The opening monologue that introduces the Sacred Stones / associated lore.

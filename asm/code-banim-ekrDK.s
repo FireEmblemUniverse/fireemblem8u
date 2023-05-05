@@ -67,7 +67,7 @@ sub_8077310: @ 0x08077310
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
-	ldr r0, _08077390  @ gUnknown_02000054
+	ldr r0, _08077390  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0]
 	movs r2, #0x88
 	lsls r2, r2, #2
@@ -107,7 +107,7 @@ _08077380:
 	.align 2, 0
 _08077388: .4byte Pal_DemonKingBG
 _0807738C: .4byte pPalette6Buffer
-_08077390: .4byte gUnknown_02000054
+_08077390: .4byte gpEfxUnitPaletteBackup
 
 	THUMB_FUNC_END sub_8077310
 

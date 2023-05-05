@@ -309,7 +309,7 @@ void EkrLvup_OnPrepare(struct ProcEkrLevelup *proc)
     }
 
     if (count == 59) {
-        sub_80748C4(proc->ais_main);
+        NewEfxlvupbg(proc->ais_main);
         return;
     }
 
