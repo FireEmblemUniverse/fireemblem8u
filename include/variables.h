@@ -140,95 +140,6 @@ extern u8 gUnknown_020145C8[];
 // extern ??? gUnknown_020146F4
 // extern ??? gUnknown_02014DC8
 // extern ??? gUnknown_02014EF4
-// extern ??? gUnknown_020165C8
-// extern ??? gUnknown_02016828
-extern u16 gObjBuf_EkrSideHitDmgCrit[];
-// extern ??? gUnknown_02016DC8
-// extern ??? gUnknown_02016E48
-// extern ??? gUnknown_02017048
-// extern ??? gUnknown_02017248
-// extern ??? gUnknown_02017448
-// extern ??? gUnknown_020176F0
-extern u16 gDecodedEkrHitDmgCritBuf[];
-extern u32 gUnknown_02017724;
-extern u32 gEkrHPBarCount;
-extern u32 gUnknown_0201772C;
-extern u32 gUnknown_02017730;
-extern u32 gUnknown_02017734;
-extern u32 gEkrDeadEventFlag;
-extern u32 gUnknown_0201773C;
-extern u32 gUnknown_02017740;
-extern u32 gEkrPos2Maybe;
-extern u32 gUnknown_02017748;
-extern u32 gUnknown_0201774C;
-extern u32 gUnknown_02017750;
-extern u32 gUnknown_02017754;
-extern u32 gUnknown_02017758;
-extern u32 gUnknown_0201775C;
-struct Vec2 gEkrBg2QuakeVec;
-extern short gUnknown_02017764[2];
-extern short gUnknown_02017768[2];
-extern u32 gUnknown_0201776C[2];
-// extern ??? gpProcEfxWeaponIcon
-extern u32 gUnknown_02017778;
-extern u32 gpProcEfxHPBarColorChange;
-extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
-// extern ??? gUnknown_02017790
-extern u16 gUnknown_02019490[];
-extern u8 gEkrTsaBuffer[0x1000];
-// extern ??? gUnknown_0201A790
-// extern ??? gUnknown_0201AF90
-// extern ??? gUnknown_0201AFC0
-// extern ??? gUnknown_0201AFF0
-// extern ??? gUnknown_0201B0D8
-// extern ??? gUnknown_0201B100
-// extern ??? gUnknown_0201B104
-// extern ??? gUnknown_0201B1E4
-// extern ??? gUnknown_0201B3A4
-// extern ??? gUnknown_0201B430
-// extern ??? gUnknown_0201B458
-// extern ??? gUnknown_0201B718
-// extern ??? gUnknown_0201B71C
-// extern ??? gUnknown_0201B758
-// extern ??? gUnknown_0201B7DA
-// extern ??? gUnknown_0201B864
-// extern ??? gUnknown_0201B930
-// extern ??? gUnknown_0201B958
-// extern ??? gUnknown_0201BBD8
-// extern ??? gUnknown_0201BE30
-// extern ??? gUnknown_0201BE32
-// extern ??? gUnknown_0201C5B4
-// extern ??? gUnknown_0201C5C0
-// extern ??? gUnknown_0201C5CC
-// extern ??? gUnknown_0201C5CF
-// extern ??? gUnknown_0201C5D0
-// extern ??? gUnknown_0201C5D1
-// extern ??? gUnknown_0201C5D4
-extern u16 gPalBackupEkrUnitMaybe[0x40 / sizeof(u16)];
-// extern ??? gUnknown_0201C8D0
-// extern ??? gUnknown_0201C912
-extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
-// extern ??? gUnknown_0201CF84
-extern u16 gUnknown_0201D428[];
-// extern ??? gUnknown_0201D438
-extern u16 gUnknown_0201D46A[];
-// extern ??? gUnknown_0201DB00
-// extern ??? gUnknown_0201DB28
-// extern ??? gUnknown_0201F148
-// extern ??? gUnknown_0201F160
-// extern ??? gUnknown_0201F198
-// extern ??? gUnknown_0201F19C
-// extern ??? gUnknown_0201F948
-// extern ??? gUnknown_0201F978
-// extern ??? gUnknown_0201F9A8
-// extern ??? gUnknown_0201FA08
-// extern ??? gUnknown_0201FA38
-// extern ??? gUnknown_0201FA68
-// extern ??? gUnknown_0201FAC8
-// extern ??? gEkrWindowAppearExist
-// extern ??? gEkrNamewinAppearExist
-// extern ??? gProcEkrBaseAppearExist
-extern u32 gUnknown_0201FAD8;
 
 extern u32 gUnknown_0201FB04[];
 extern u32 gEkrBgXOffset;
@@ -264,7 +175,7 @@ extern u8 gGenericBuffer[0x1000];
 // extern ??? gUnknown_02022188
 extern s8 gUnknown_02022288[];
 extern s8 gUnknown_020222A8[];
-// extern ??? gUnknown_02022308
+extern s8 gUnknown_02022308[];
 extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_020228AA
 // extern ??? pPalette1Buffer
@@ -276,17 +187,11 @@ extern u16 pPalette2Buffer[];
 // extern ??? pPaletteEBuffer
 // extern ??? pPaletteFBuffer
 // extern ??? pPalette10Buffer
-// extern ??? gUnknown_02022ABA
-// extern ??? gUnknown_02022AE8
-// extern ??? gUnknown_02022B08
-// extern ??? gUnknown_02022B24
-// extern ??? gUnknown_02022B28
-extern u16 gUnknown_02022B48[];
 // extern ??? gUnknown_02022B68
 extern u16 gUnknown_02022B88[];
 extern u16 gUnknown_02022BA4[];
 // extern ??? gUnknown_02022BA8
-// extern ??? gUnknown_02022BC8
+extern u16 gUnknown_02022BC8[];
 // extern ??? gUnknown_02022BE8
 extern u16 gUnknown_02022C08[];
 extern u16 gUnknown_02022C28[];
@@ -828,7 +733,7 @@ extern const s16 gEfxNoDmgBgShakeOff[];
 // extern ??? gUnknown_080DAA8E
 // extern ??? gUnknown_080DAC58
 // extern ??? gUnknown_080DAC82
-// extern ??? gUnknown_080DACDA
+extern const u16 gUnknown_080DACDA[];
 // extern ??? gUnknown_080DAD0A
 // extern ??? gUnknown_080DAE8C
 // extern ??? gUnknown_080DAE96
@@ -1701,18 +1606,18 @@ extern char gNopStr[];
 // extern ??? gUnknown_085D686C
 // extern ??? gUnknown_085D6884
 // extern ??? gUnknown_085D689C
-// extern ??? gUnknown_085D68BC
-// extern ??? gUnknown_085D68D4
-// extern ??? gUnknown_085D68EC
-// extern ??? gUnknown_085D6904
-// extern ??? gUnknown_085D691C
+// extern ??? ProcScr_efxLive
+// extern ??? ProcScr_efxRelive
+// extern ??? ProcScr_efxRecover
+// extern ??? ProcScr_efxReblow
+// extern ??? ProcScr_efxLiveBG
 // extern ??? gUnknown_085D6934
 // extern ??? gUnknown_085D6954
-// extern ??? gUnknown_085D6974
-// extern ??? gUnknown_085D698C
-// extern ??? gUnknown_085D69AC
-// extern ??? gUnknown_085D69CC
-// extern ??? gUnknown_085D69E4
+// extern ??? ProcScr_efxLiveOBJ
+// extern ??? ProcScr_efxReserveOBJ
+// extern ??? ProcScr_efxReblowOBJ
+// extern ??? ProcScr_efxReserve
+// extern ??? ProcScr_efxReserveBG
 // extern ??? gUnknown_085D69FC
 // extern ??? gUnknown_085D6A0C
 // extern ??? gUnknown_085D6A2C
@@ -2018,8 +1923,8 @@ extern char gNopStr[];
 // extern ??? gUnknown_085D95A0
 // extern ??? gUnknown_085D95C0
 // extern ??? gUnknown_085D95E0
-// extern ??? gUnknown_085D95F8
-// extern ??? gUnknown_085D9620
+// extern ??? ProcScr_efxopLightning
+// extern ??? ProcScr_efxopLightningBG
 // extern ??? gUnknown_085D9638
 // extern ??? gUnknown_085D96BC
 // extern ??? gUnknown_085D9740
@@ -2448,28 +2353,28 @@ extern struct ProcCmd ProcScr_efxSoundSE[];
 // extern ??? EkrLvupMsgsStr
 // extern ??? EkrLvupMsgsMag
 // extern ??? ProcScr_EkrLevelup
-// extern ??? gUnknown_087593DC
-// extern ??? gUnknown_087593FC
+// extern ??? ProcScr_EfxPartsofScroll
+// extern ??? ProcScr_EfxPartsofScroll2
 // extern ??? gUnknown_0875941C
-// extern ??? gUnknown_0875945C
-// extern ??? gUnknown_08759484
+// extern ??? ProcScr_Efxleveluphb
+// extern ??? ProcScr_Efxlvupbg
 // extern ??? gUnknown_0875949C
 // extern ??? gUnknown_087594C8
 // extern ??? gUnknown_087594F4
 // extern ??? gUnknown_0875950C
 // extern ??? gUnknown_08759524
 // extern ??? gUnknown_08759544
-// extern ??? gUnknown_08759564
+// extern ??? ProcScr_EkrLvupApfx
 // extern ??? gUnknown_0875957C
-// extern ??? gUnknown_087595A4
-// extern ??? gUnknown_087595BC
-// extern ??? gUnknown_087595D4
+// extern ??? ProcScr_ekrTriangle
+// extern ??? ProcScr_ekrTriPegasusKnight
+// extern ??? ProcScr_ekrTriPegasusKnightBG
 // extern ??? gUnknown_087595EC
-// extern ??? gUnknown_08759604
-// extern ??? gUnknown_0875961C
-// extern ??? gUnknown_08759634
-// extern ??? gUnknown_0875964C
-// extern ??? gUnknown_0875966C
+// extern ??? ProcScr_EkrTriPegasusKnightOBJ
+// extern ??? ProcScr_EkrTriArmorKnight
+// extern ??? ProcScr_EkrTriArmorKnightOBJ
+// extern ??? ProcScr_EkrTriArmorKnightOBJ2
+// extern ??? ProcScr_EfxTriangleQUAKE
 // extern ??? gUnknown_08759B34
 // extern ??? gUnknown_08759E68
 // extern ??? gUnknown_08759F00
@@ -3090,7 +2995,7 @@ extern u16 gUnknown_08A181E8[];
 // extern ??? gUnknown_08A18200
 extern CONST_DATA struct ProcCmd ProcScr_PrepMenuDescHandler[];
 extern CONST_DATA struct ProcCmd ProcScr_AtMenu[];
-extern CONST_DATA struct ProcCmd gUnknown_08A184B4[];
+extern CONST_DATA struct ProcCmd ProcScr_PrepPromoteDebug[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepTraineePromo[];
 extern CONST_DATA u16 obj_8A1856E[];
 extern CONST_DATA u16 obj_8A18582[];

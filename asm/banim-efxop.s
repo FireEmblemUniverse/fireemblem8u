@@ -1188,7 +1188,7 @@ _0806F20A:
 sub_806F210: @ 0x0806F210
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	ldr r0, _0806F22C  @ gUnknown_085D95F8
+	ldr r0, _0806F22C  @ ProcScr_efxopLightning
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
@@ -1198,7 +1198,7 @@ sub_806F210: @ 0x0806F210
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806F22C: .4byte gUnknown_085D95F8
+_0806F22C: .4byte ProcScr_efxopLightning
 
 	THUMB_FUNC_END sub_806F210
 
@@ -1224,7 +1224,7 @@ sub_806F248: @ 0x0806F248
 	adds r4, r1, #0
 	bl sub_806E954
 	adds r6, r0, #0
-	ldr r0, _0806F28C  @ gUnknown_085D9620
+	ldr r0, _0806F28C  @ ProcScr_efxopLightningBG
 	adds r1, r4, #0
 	bl Proc_Start
 	adds r4, r0, #0
@@ -1250,7 +1250,7 @@ sub_806F248: @ 0x0806F248
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806F28C: .4byte gUnknown_085D9620
+_0806F28C: .4byte ProcScr_efxopLightningBG
 _0806F290: .4byte gUnknown_080DF7CE
 _0806F294: .4byte gUnknown_085D9740
 _0806F298: .4byte gUnknown_085D9638
@@ -1767,7 +1767,7 @@ sub_806F668: @ 0x0806F668
 	adds r1, r5, #0
 	bl LZ77UnCompWram
 	adds r5, #0x20
-	ldr r4, _0806F6B0  @ gUnknown_02022AE8
+	ldr r4, _0806F6B0  @ gPaletteBuffer + 0x240
 	adds r0, r5, #0
 	adds r1, r4, #0
 	movs r2, #8
@@ -1786,7 +1786,7 @@ sub_806F668: @ 0x0806F668
 	.align 2, 0
 _0806F6A8: .4byte banim_data
 _0806F6AC: .4byte gPalBackupEkrUnitMaybe
-_0806F6B0: .4byte gUnknown_02022AE8
+_0806F6B0: .4byte gPaletteBuffer + 0x240
 
 	THUMB_FUNC_END sub_806F668
 

@@ -33,7 +33,7 @@ void BeginAnimsOnBattleAnimations(void)
         return;
     }
 
-    if (sub_8076310() == true) {
+    if (CheckBanimHensei() == true) {
         BeginAnimsOnBattle_Hensei();
         return;
     }
@@ -56,19 +56,19 @@ void BeginAnimsOnBattleAnimations(void)
     SetPrimaryHBlankHandler(NULL);
 }
 
-void sub_8055C38(void)
+void EkrMainEndExec(void)
 {
     if (GetBattleAnimArenaFlag() == true) {
-        sub_805B0CC();
+        ExecBattleAnimArenaExit();
         return;
     }
 
-    if (sub_8076310() == true) {
-        sub_8076354();
+    if (CheckBanimHensei() == true) {
+        ExecEkrHenseiEnd();
         return;
     }
 
-    sub_80560D8();
+    NewEkrbattleending();
     SetMainUpdateRoutine(MainUpdate_8055C68);
 }
 
@@ -164,7 +164,7 @@ void ekrBaStart_SreenFailIn(struct ProcEkrBattleStarting *proc)
 
 void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
 {
-    if (0 == gUnknown_0203E0FC) {
+    if (0 == gEkrDebugModeMaybe) {
         NewEkrGauge();
         NewEkrDispUP();
 

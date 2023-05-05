@@ -4,6 +4,7 @@
 #include "bmitem.h"
 #include "anime.h"
 #include "ekrbattle.h"
+#include "efxbattle.h"
 #include "uiutils.h"
 #include "hardware.h"
 

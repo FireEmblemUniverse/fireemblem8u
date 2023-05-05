@@ -2,8 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80560D8
-sub_80560D8: @ 0x080560D8
+	THUMB_FUNC_START NewEkrbattleending
+NewEkrbattleending: @ 0x080560D8
 	push {lr}
 	ldr r0, _080560EC  @ gProc_ekrbattleendin
 	movs r1, #3
@@ -15,7 +15,7 @@ sub_80560D8: @ 0x080560D8
 	.align 2, 0
 _080560EC: .4byte gProc_ekrbattleendin
 
-	THUMB_FUNC_END sub_80560D8
+	THUMB_FUNC_END NewEkrbattleending
 
 	THUMB_FUNC_START ekrBattleEnding_80560F0
 ekrBattleEnding_80560F0: @ 0x080560F0
@@ -586,7 +586,7 @@ _08056552:
 	ldr r1, _08056588  @ 0x06010000
 	bl LZ77UnCompVram
 	ldr r0, _0805658C  @ gUnknown_080DC85C
-	ldr r1, _08056590  @ gUnknown_02022B28
+	ldr r1, _08056590  @ gPaletteBuffer + 0x280
 	movs r2, #1
 	bl CpuFastSet
 	bl EnablePaletteSync
@@ -606,7 +606,7 @@ _0805657A:
 _08056584: .4byte gUnknown_085B9BA4
 _08056588: .4byte 0x06010000
 _0805658C: .4byte gUnknown_080DC85C
-_08056590: .4byte gUnknown_02022B28
+_08056590: .4byte gPaletteBuffer + 0x280
 _08056594: .4byte gEkrDistanceType
 _08056598: .4byte _0805659C
 _0805659C: @ jump table

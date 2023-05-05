@@ -318,7 +318,7 @@ _080ABE60:
 	movs r1, #0xa0
 	lsls r1, r1, #1
 	adds r0, r0, r1
-	ldr r1, _080ABE94  @ gUnknown_02022ABA
+	ldr r1, _080ABE94  @ gPaletteBuffer + 0x212
 	adds r0, r0, r1
 	mov r8, r0
 	ldr r0, [sp]
@@ -330,7 +330,7 @@ _080ABE60:
 	b _080ABEA6
 	.align 2, 0
 _080ABE90: .4byte gUnknown_02000940
-_080ABE94: .4byte gUnknown_02022ABA
+_080ABE94: .4byte gPaletteBuffer + 0x212
 _080ABE98: .4byte gUnknown_08A07AEA
 _080ABE9C: .4byte gUnknown_08A07BEA
 _080ABEA0:

@@ -1,189 +1,7 @@
 	.section .data
 
-	.global gUnknown_087593DC
-gUnknown_087593DC:  @ 0x087593DC
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e15e8
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word nullsub_62
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074610
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_087593FC
-gUnknown_087593FC:  @ 0x087593FC
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e15fc
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_8074634
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074638
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_0875941C
-gUnknown_0875941C:  @ 0x0875941C
-	.incbin "baserom.gba", 0x75941C, 0x40
-
-	.global gUnknown_0875945C
-gUnknown_0875945C:  @ 0x0875945C
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e1610
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_807478C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074798
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80747A4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08759484
-gUnknown_08759484:  @ 0x08759484
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e1620
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807490C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_0875949C
-gUnknown_0875949C:  @ 0x0875949C
-    .4byte gUnknown_085C48AC + 0x20
-    .4byte gUnknown_085C48AC + 0x180
-    .4byte gUnknown_085C48AC + 0x2f4
-    .4byte gUnknown_085C48AC + 0x488
-    .4byte gUnknown_085C48AC + 0x63c
-    .4byte gUnknown_085C48AC + 0x814
-    .4byte gUnknown_085C48AC + 0xa0c
-    .4byte gUnknown_085C48AC + 0xc28
-    .4byte gUnknown_085C48AC + 0xe3c
-    .4byte gUnknown_085C48AC + 0xf6c
-    .4byte gUnknown_085C48AC + 0x1034
-
-	.global gUnknown_087594C8
-gUnknown_087594C8:  @ 0x087594C8
-    .4byte gUnknown_085BEF94 + 0x774
-    .4byte gUnknown_085BEF94 + 0x774
-    .4byte gUnknown_085BEF94 + 0x134c
-    .4byte gUnknown_085BEF94 + 0x134c
-    .4byte gUnknown_085BEF94 + 0x217c
-    .4byte gUnknown_085BEF94 + 0x2d40
-    .4byte gUnknown_085BEF94 + 0x3980
-    .4byte gUnknown_085BEF94 + 0x4704
-    .4byte gUnknown_085BEF94 + 0x5408
-    .4byte gUnknown_085BEF94 + 0x5408
-    .4byte gUnknown_085BEF94 + 0x5408
-
-	.global gUnknown_087594F4
-gUnknown_087594F4:  @ 0x087594F4
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e1658
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80749B0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_0875950C
-gUnknown_0875950C:  @ 0x0875950C
-    .4byte gUnknown_085C60D4 + 0x20
-    .4byte gUnknown_085C60D4 + 0x104
-    .4byte gUnknown_085C60D4 + 0x1e8
-    .4byte gUnknown_085C60D4 + 0x308
-    .4byte gUnknown_085C60D4 + 0x428
-    .4byte gUnknown_085C60D4 + 0x544
-
-	.global gUnknown_08759524
-gUnknown_08759524:  @ 0x08759524
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e1680
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_8074A54
-        @ PROC_SLEEP
-        .short 0xe, 0x18
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08759544
-gUnknown_08759544:  @ 0x08759544
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e168c
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074A94
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074AFC
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08759564
-gUnknown_08759564:  @ 0x08759564
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8074B38
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074B40
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_0875957C
-gUnknown_0875957C:  @ 0x0875957C
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e16f0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074E6C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074EDC
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074F14
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_087595A4
-gUnknown_087595A4:  @ 0x087595A4
+	.global ProcScr_ekrTriangle
+ProcScr_ekrTriangle:  @ 0x087595A4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e16fc
@@ -195,8 +13,8 @@ gUnknown_087595A4:  @ 0x087595A4
         .word 0x0
 
 
-	.global gUnknown_087595BC
-gUnknown_087595BC:  @ 0x087595BC
+	.global ProcScr_ekrTriPegasusKnight
+ProcScr_ekrTriPegasusKnight:  @ 0x087595BC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e1708
@@ -208,8 +26,8 @@ gUnknown_087595BC:  @ 0x087595BC
         .word 0x0
 
 
-	.global gUnknown_087595D4
-gUnknown_087595D4:  @ 0x087595D4
+	.global ProcScr_ekrTriPegasusKnightBG
+ProcScr_ekrTriPegasusKnightBG:  @ 0x087595D4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e171c
@@ -230,8 +48,8 @@ gUnknown_087595EC:  @ 0x087595EC
     .4byte gUnknown_080E2B54 + 0xe2c
     .4byte gUnknown_080E2B54 + 0xf50
 
-	.global gUnknown_08759604
-gUnknown_08759604:  @ 0x08759604
+	.global ProcScr_EkrTriPegasusKnightOBJ
+ProcScr_EkrTriPegasusKnightOBJ:  @ 0x08759604
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e1750
@@ -243,8 +61,8 @@ gUnknown_08759604:  @ 0x08759604
         .word 0x0
 
 
-	.global gUnknown_0875961C
-gUnknown_0875961C:  @ 0x0875961C
+	.global ProcScr_EkrTriArmorKnight
+ProcScr_EkrTriArmorKnight:  @ 0x0875961C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e1768
@@ -256,8 +74,8 @@ gUnknown_0875961C:  @ 0x0875961C
         .word 0x0
 
 
-	.global gUnknown_08759634
-gUnknown_08759634:  @ 0x08759634
+	.global ProcScr_EkrTriArmorKnightOBJ
+ProcScr_EkrTriArmorKnightOBJ:  @ 0x08759634
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e177c
@@ -269,8 +87,8 @@ gUnknown_08759634:  @ 0x08759634
         .word 0x0
 
 
-	.global gUnknown_0875964C
-gUnknown_0875964C:  @ 0x0875964C
+	.global ProcScr_EkrTriArmorKnightOBJ2
+ProcScr_EkrTriArmorKnightOBJ2:  @ 0x0875964C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e1794
@@ -285,8 +103,8 @@ gUnknown_0875964C:  @ 0x0875964C
         .word 0x0
 
 
-	.global gUnknown_0875966C
-gUnknown_0875966C:  @ 0x0875966C
+	.global ProcScr_EfxTriangleQUAKE
+ProcScr_EfxTriangleQUAKE:  @ 0x0875966C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e17ac
@@ -300,12 +118,12 @@ gUnknown_0875966C:  @ 0x0875966C
 
 	.global gUnknown_08759B34
 gUnknown_08759B34:  @ 0x08759B34
-    .4byte gUnknown_0875966C + 0x19
-    .4byte gUnknown_0875966C + 0xf2
-    .4byte gUnknown_0875966C + 0x1b1
-    .4byte gUnknown_0875966C + 0x271
-    .4byte gUnknown_0875966C + 0x333
-    .4byte 0x20000000 + gUnknown_0875966C + 0x3f2
+    .4byte ProcScr_EfxTriangleQUAKE + 0x19
+    .4byte ProcScr_EfxTriangleQUAKE + 0xf2
+    .4byte ProcScr_EfxTriangleQUAKE + 0x1b1
+    .4byte ProcScr_EfxTriangleQUAKE + 0x271
+    .4byte ProcScr_EfxTriangleQUAKE + 0x333
+    .4byte 0x20000000 + ProcScr_EfxTriangleQUAKE + 0x3f2
     .4byte 0x80000000
 
 	.global gUnknown_08759B50

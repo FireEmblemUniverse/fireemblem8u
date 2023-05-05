@@ -169,8 +169,6 @@ struct OpInfoGaugeDrawProc {
 void sub_805A7B4(void*);
 s8 sub_805A96C(void*);
 void sub_805A990(void*);
-void sub_805AA28(void*);
-void sub_805AE14(void*);
 
 // TODO: Forward declarations
 
@@ -1493,7 +1491,6 @@ extern struct TextHandle gUnknown_0201FB28[6];
 void NewEkrUnitMainMini(struct Unk200A2D8*);
 
 extern u8 gUnknown_0201DB28[];
-void sub_805AE40(struct Unk201DB00*, int, int, int, int);
 
 const int gUnknown_08205EDC[2][6] = {
     {

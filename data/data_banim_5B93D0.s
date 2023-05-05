@@ -367,10 +367,10 @@ gProc_efxStatusUnit:  @ 0x085B9A34
         .word 0x0
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_8054E4C
+        .word EfxStatusUnitEnd
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8054C94
+        .word EfxStatusUnitMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

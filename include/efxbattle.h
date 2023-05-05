@@ -94,6 +94,117 @@ struct ProcEfxHPBar {
 
 void ekrDispUPMain(struct ProcEkrDispUP *proc);
 
+struct ProcEfxStatusUnit {
+    PROC_HEADER;
+    /* 29 */ u8 invalid;
+    /* 2A */ u8 _pad_2A[0x2C - 0x2A];
+    /* 2C */ u16 unk2C;
+    /* 2E */ u8 _pad_2D[0x32 - 0x2E];
+    /* 32 */ s16 red;
+    /* 34 */ s16 green;
+    /* 36 */ s16 blue;
+    /* 38 */ u8 _pad_38[0x44 - 0x38];
+    /* 44 */ u32 unk44;
+    /* 48 */ const u16 *unk48;
+    /* 4C */ u32 debuff;
+    /* 50 */ u32 unk50;
+
+    /* 54 */ u8 _pad_54[0x5C - 0x54];
+    /* 5C */ struct Anim *anim;
+};
+
+extern struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2];
+
+// extern ??? gUnknown_020165C8
+// extern ??? gUnknown_02016828
+extern u16 gObjBuf_EkrSideHitDmgCrit[];
+// extern ??? gUnknown_02016DC8
+// extern ??? gUnknown_02016E48
+// extern ??? gUnknown_02017048
+// extern ??? gUnknown_02017248
+// extern ??? gUnknown_02017448
+// extern ??? gUnknown_020176F0
+extern u16 gDecodedEkrHitDmgCritBuf[];
+extern u32 gEkrBattleEndFlag;
+extern u32 gEkrHPBarCount;
+extern u32 gUnknown_0201772C;
+extern u32 gUnknown_02017730;
+extern u32 gUnknown_02017734;
+extern u32 gEkrDeadEventFlag;
+extern u32 gUnknown_0201773C;
+extern u32 gUnknown_02017740;
+extern u32 gEkrPos2Maybe;
+extern u32 gUnknown_02017748;
+extern u32 gUnknown_0201774C;
+extern u32 gUnknown_02017750;
+extern u32 gUnknown_02017754;
+extern u32 gUnknown_02017758;
+extern u32 gUnknown_0201775C;
+struct Vec2 gEkrBg2QuakeVec;
+extern short gUnknown_02017764[2];
+extern short gUnknown_02017768[2];
+// extern ??? gpProcEfxWeaponIcon
+extern u32 gUnknown_02017778;
+extern u32 gpProcEfxHPBarColorChange;
+extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
+// extern ??? gUnknown_02017790
+extern u16 gUnknown_02019490[];
+extern u8 gEkrTsaBuffer[0x1000];
+// extern ??? gUnknown_0201A790
+// extern ??? gUnknown_0201AF90
+// extern ??? gUnknown_0201AFC0
+// extern ??? gUnknown_0201AFF0
+// extern ??? gUnknown_0201B0D8
+// extern ??? gUnknown_0201B100
+// extern ??? gUnknown_0201B104
+// extern ??? gUnknown_0201B1E4
+// extern ??? gUnknown_0201B3A4
+// extern ??? gUnknown_0201B430
+// extern ??? gUnknown_0201B458
+// extern ??? gUnknown_0201B718
+// extern ??? gUnknown_0201B71C
+// extern ??? gUnknown_0201B758
+// extern ??? gUnknown_0201B7DA
+// extern ??? gUnknown_0201B864
+// extern ??? gUnknown_0201B930
+// extern ??? gUnknown_0201B958
+// extern ??? gUnknown_0201BBD8
+// extern ??? gUnknown_0201BE30
+// extern ??? gUnknown_0201BE32
+// extern ??? gUnknown_0201C5B4
+// extern ??? gUnknown_0201C5C0
+// extern ??? gUnknown_0201C5CC
+// extern ??? gUnknown_0201C5CF
+// extern ??? gUnknown_0201C5D0
+// extern ??? gUnknown_0201C5D1
+// extern ??? gUnknown_0201C5D4
+extern u16 gPalBackupEkrUnitMaybe[0x40 / sizeof(u16)];
+// extern ??? gUnknown_0201C8D0
+// extern ??? gUnknown_0201C912
+extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
+// extern ??? gUnknown_0201CF84
+extern u16 gUnknown_0201D428[];
+// extern ??? gUnknown_0201D438
+extern u16 gUnknown_0201D46A[];
+// extern ??? gUnknown_0201DB00
+// extern ??? gUnknown_0201DB28
+// extern ??? gUnknown_0201F148
+// extern ??? gUnknown_0201F160
+// extern ??? gUnknown_0201F198
+// extern ??? gUnknown_0201F19C
+// extern ??? gUnknown_0201F948
+// extern ??? gUnknown_0201F978
+// extern ??? gUnknown_0201F9A8
+// extern ??? gUnknown_0201FA08
+// extern ??? gUnknown_0201FA38
+// extern ??? gUnknown_0201FA68
+// extern ??? gUnknown_0201FAC8
+// extern ??? gEkrWindowAppearExist
+// extern ??? gEkrNamewinAppearExist
+// extern ??? gProcEkrBaseAppearExist
+extern u32 gUnknown_0201FAD8;
+
+
 // ??? NewEkrTogiInitPROC(???);
 // ??? sub_805B104(???);
 // ??? sub_805B18C(???);
@@ -338,25 +449,25 @@ void ekrDispUPMain(struct ProcEkrDispUP *proc);
 // ??? sub_8060F24(???);
 // ??? sub_8060FA4(???);
 // ??? StartSpellAnimHeal(???);
-// ??? sub_806104C(???);
+// ??? EfxLiveMain(???);
 // ??? StartSpellAnimMend(???);
-// ??? sub_8061180(???);
+// ??? EfxReliveMain(???);
 // ??? StartSpellAnimRecover(???);
-// ??? sub_80612E4(???);
+// ??? EfxRecoverMain(???);
 // ??? sub_8061420(???);
-// ??? sub_8061448(???);
+// ??? EfxReblowMain(???);
 // ??? sub_8061594(???);
 // ??? sub_8061650(???);
-// ??? sub_8061704(???);
+// ??? EfxLivebgMain(???);
 // ??? sub_8061774(???);
 // ??? sub_80617E4(???);
 // ??? sub_8061854(???);
 // ??? sub_806189C(???);
 // ??? sub_80618D8(???);
 // ??? sub_80618F4(???);
-// ??? sub_806196C(???);
+// ??? NewEfxLiveOBJ(???);
 // ??? sub_80619CC(???);
-// ??? sub_8061A30(???);
+// ??? EfxLiveobjMain(???);
 // ??? sub_8061A64(???);
 // ??? sub_8061A98(???);
 // ??? sub_8061ACC(???);
@@ -364,9 +475,9 @@ void ekrDispUPMain(struct ProcEkrDispUP *proc);
 // ??? sub_8061BE4(???);
 // ??? sub_8061C18(???);
 // ??? sub_8061C48(???);
-// ??? sub_8061C78(???);
+// ??? EfxReserveMain(???);
 // ??? sub_8061D28(???);
-// ??? sub_8061D78(???);
+// ??? EfxReservebgMain(???);
 // ??? sub_8061DF8(???);
 // ??? sub_8061E44(???);
 // ??? sub_8061E8C(???);

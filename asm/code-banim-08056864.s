@@ -161,7 +161,7 @@ sub_8056974: @ 0x08056974
 	adds r0, r0, r1
 	ldrb r6, [r0]
 	bl sub_80599E8
-	ldr r0, _08056AF0  @ gUnknown_02017724
+	ldr r0, _08056AF0  @ gEkrBattleEndFlag
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _080569B2
@@ -169,12 +169,12 @@ sub_8056974: @ 0x08056974
 	ldr r0, [r5, #8]
 	cmp r0, #0
 	beq _080569A4
-	bl sub_8054B18
+	bl EndEfxStatusUnits
 _080569A4:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _080569AE
-	bl sub_8054B18
+	bl EndEfxStatusUnits
 _080569AE:
 	bl DeleteEach6C_efxStatusUnit
 _080569B2:
@@ -336,7 +336,7 @@ _08056A72:
 _08056AE4: .4byte gUnknown_080DAF18
 _08056AE8: .4byte gEkrDistanceType
 _08056AEC: .4byte gBanimSpecificScrConfigs
-_08056AF0: .4byte gUnknown_02017724
+_08056AF0: .4byte gEkrBattleEndFlag
 _08056AF4: .4byte gAnims
 _08056AF8: .4byte gpEkrBattleUnitRight
 _08056AFC: .4byte gPaletteBuffer

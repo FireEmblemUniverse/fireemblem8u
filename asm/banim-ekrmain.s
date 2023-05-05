@@ -573,41 +573,41 @@ _08058EAC: .4byte 0x0000FFFE
 _08058EB0:
 	ldr r4, _08058F2C  @ gAnims
 	ldr r0, [r4]
-	bl sub_8054BD4
+	bl GettUnitEfxDebuff
 	movs r5, #0xc
 	ands r0, r5
 	cmp r0, #0
 	beq _08058EC8
 	ldr r0, [r4]
 	movs r1, #0
-	bl sub_8054BA4
+	bl SetUnitEfxDebuff
 _08058EC8:
 	ldr r0, [r4, #4]
-	bl sub_8054BD4
+	bl GettUnitEfxDebuff
 	ands r0, r5
 	cmp r0, #0
 	beq _08058EDC
 	ldr r0, [r4, #4]
 	movs r1, #0
-	bl sub_8054BA4
+	bl SetUnitEfxDebuff
 _08058EDC:
 	ldr r0, [r4, #8]
-	bl sub_8054BD4
+	bl GettUnitEfxDebuff
 	ands r0, r5
 	cmp r0, #0
 	beq _08058EF0
 	ldr r0, [r4, #8]
 	movs r1, #0
-	bl sub_8054BA4
+	bl SetUnitEfxDebuff
 _08058EF0:
 	ldr r0, [r4, #0xc]
-	bl sub_8054BD4
+	bl GettUnitEfxDebuff
 	ands r0, r5
 	cmp r0, #0
 	beq _08058F04
 	ldr r0, [r4, #0xc]
 	movs r1, #0
-	bl sub_8054BA4
+	bl SetUnitEfxDebuff
 _08058F04:
 	ldrh r1, [r7, #0x10]
 	movs r2, #0x20
@@ -1458,7 +1458,7 @@ _080595EE:
 	adds r0, r7, #0
 	bl nullsub_17
 	adds r0, r7, #0
-	bl sub_8055A40
+	bl NewEfxspdquake
 	b _08058F26
 _080595FC:
 	adds r0, r7, #0
@@ -2036,7 +2036,7 @@ sub_80599E8: @ 0x080599E8
 	movs r1, #0
 	bl sub_8059970
 _08059A64:
-	ldr r1, _08059C00  @ gUnknown_02000054
+	ldr r1, _08059C00  @ gpEfxUnitPaletteBackup
 	mov r2, r8
 	lsls r0, r2, #5
 	adds r0, r0, r4
@@ -2144,7 +2144,7 @@ _08059ADE:
 	movs r1, #1
 	bl sub_8059970
 _08059B46:
-	ldr r1, _08059C00  @ gUnknown_02000054
+	ldr r1, _08059C00  @ gpEfxUnitPaletteBackup
 	mov r2, r8
 	lsls r0, r2, #5
 	adds r0, r0, r4
@@ -2224,7 +2224,7 @@ _08059BF0: .4byte gBanimScrLeft
 _08059BF4: .4byte gpBanimModesLeft
 _08059BF8: .4byte gBanimPal1
 _08059BFC: .4byte character_battle_animation_palette_table
-_08059C00: .4byte gUnknown_02000054
+_08059C00: .4byte gpEfxUnitPaletteBackup
 _08059C04: .4byte gUnknown_02022B88
 _08059C08: .4byte gEkrPaiSomeBanimID
 _08059C0C: .4byte gBattleActor

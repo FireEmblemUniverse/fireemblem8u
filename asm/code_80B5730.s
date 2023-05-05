@@ -23281,7 +23281,7 @@ sub_80C2D44: @ 0x080C2D44
 	ldr r2, _080C2D78  @ gUnknown_08AA11B0
 	adds r3, r2, #0
 	subs r3, #0x20
-	ldr r1, _080C2D7C  @ gUnknown_02022B48
+	ldr r1, _080C2D7C  @ gPaletteBuffer + 0x2A0
 	str r1, [sp]
 	movs r1, #0x1e
 	bl sub_80C2C80
@@ -23292,10 +23292,10 @@ sub_80C2D44: @ 0x080C2D44
 	b _080C2D94
 	.align 2, 0
 _080C2D78: .4byte gUnknown_08AA11B0
-_080C2D7C: .4byte gUnknown_02022B48
+_080C2D7C: .4byte gPaletteBuffer + 0x2A0
 _080C2D80:
 	ldr r0, _080C2D9C  @ gUnknown_08AA1190
-	ldr r1, _080C2DA0  @ gUnknown_02022B48
+	ldr r1, _080C2DA0  @ gPaletteBuffer + 0x2A0
 	movs r2, #0x10
 	bl CpuSet
 	movs r0, #0
@@ -23309,7 +23309,7 @@ _080C2D94:
 	bx r0
 	.align 2, 0
 _080C2D9C: .4byte gUnknown_08AA1190
-_080C2DA0: .4byte gUnknown_02022B48
+_080C2DA0: .4byte gPaletteBuffer + 0x2A0
 
 	THUMB_FUNC_END sub_80C2D44
 
@@ -23330,17 +23330,17 @@ sub_80C2DA4: @ 0x080C2DA4
 	ldr r2, _080C2DD0  @ gUnknown_08AA1190
 	adds r3, r2, #0
 	adds r3, #0x20
-	ldr r1, _080C2DD4  @ gUnknown_02022B48
+	ldr r1, _080C2DD4  @ gPaletteBuffer + 0x2A0
 	str r1, [sp]
 	movs r1, #0x1e
 	bl sub_80C2C80
 	b _080C2DF4
 	.align 2, 0
 _080C2DD0: .4byte gUnknown_08AA1190
-_080C2DD4: .4byte gUnknown_02022B48
+_080C2DD4: .4byte gPaletteBuffer + 0x2A0
 _080C2DD8:
 	ldr r0, _080C2DFC  @ gUnknown_08AA11B0
-	ldr r1, _080C2E00  @ gUnknown_02022B48
+	ldr r1, _080C2E00  @ gPaletteBuffer + 0x2A0
 	movs r2, #0x10
 	bl CpuSet
 	movs r0, #0
@@ -23358,7 +23358,7 @@ _080C2DF4:
 	bx r0
 	.align 2, 0
 _080C2DFC: .4byte gUnknown_08AA11B0
-_080C2E00: .4byte gUnknown_02022B48
+_080C2E00: .4byte gPaletteBuffer + 0x2A0
 
 	THUMB_FUNC_END sub_80C2DA4
 

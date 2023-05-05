@@ -62,13 +62,13 @@ void NewEkrBattle(void)
     SetMainUpdateRoutine(InBattleMainRoutine);
     EkrEfxStatusClear();
 
-    gUnknown_02017724 = 0;
+    gEkrBattleEndFlag = 0;
     gUnknown_02000018 = 0;
     gUnknown_0200001C = 0;
     gUnknown_02000020 = 0;
     gUnknown_02000024 = 0;
 
-    if (0 == gUnknown_0203E0FC)
+    if (0 == gEkrDebugModeMaybe)
         sub_80726AC();
 }
 
@@ -81,27 +81,27 @@ void InBattleMainRoutine(void)
     else if (gUnknown_02000020 == 1)
         MainUpdateEkrBattle();
     
-    switch (gUnknown_02017724) {
+    switch (gEkrBattleEndFlag) {
     case 0:
         break;
 
     case 1:
-        if (0 == gUnknown_0203E0FC) {
+        if (0 == gEkrDebugModeMaybe) {
             Proc_End(gpProcEkrBattle);
-            sub_8055C38();
+            EkrMainEndExec();
         }
         break;
 
     case 2:
-        if (0 == gUnknown_0203E0FC) {
+        if (0 == gEkrDebugModeMaybe) {
             Proc_End(gpProcEkrBattle);
-            sub_8055C38();
+            EkrMainEndExec();
         } else {
             Proc_End(gpProcEkrBattle);
             EndEkrGauge();
         }
         break;
-        
+
     default:
         break;
     }
@@ -329,7 +329,7 @@ void ekrBattle_80502B0(struct ProcEkrBattle *proc)
     NewEfxWeaponIcon(gEkrPairEffectiveAgainst[0], gEkrPairEffectiveAgainst[1]);
 
     if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
-        sub_8054B64(gAnims[0]);
+        DisableEfxStatusUnits(gAnims[0]);
 
     NewEfxHPBarColorChange(gAnims[0]);
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050304;
@@ -346,7 +346,7 @@ void ekrBattle_8050304(struct ProcEkrBattle *proc)
 
 void ekrBattle_8050338(struct ProcEkrBattle *proc)
 {
-    if (sub_8074F3C() == true) {
+    if (CheckEkrTriangleInvalid() == true) {
         nullsub_18();
         proc->timer = 0x1E;
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050360;
@@ -427,7 +427,7 @@ void ekrBattle_805046C(struct ProcEkrBattle *proc)
             else {
                 gEkrPairExpGain[0] = gpEkrBattleUnitLeft->expGain;
                 gEkrPairExpGain[1] = gpEkrBattleUnitRight->expGain;
-    
+
                 if (gEkrPairHpInitial[0] == 0) {
                     ArenaSetResult(1);
                     ret = 1;
@@ -444,45 +444,45 @@ void ekrBattle_805046C(struct ProcEkrBattle *proc)
                     u8 val = 0;
                     struct Anim *anim1 = gAnims[0];
                     struct Anim *anim2 = gAnims[2];
-    
+
                     switch (anim1->currentRoundType) {
                     case 6:
                     case 7:
                     case 8:
                         val = 1;
                         break;
-    
+
                     default:
                         break;
                     } /* switch */
-    
+
                     switch (anim2->currentRoundType) {
                     case 6:
                     case 7:
                     case 8:
                         val++;
                         break;
-    
+
                     default:
                         break;
                     } /* switch */
-    
+
                     if (val == 2) {
-                        if (sub_8054BD4(anim1) & 0xC)
-                            sub_8054BA4(anim1, NULL);
-    
-                        if (sub_8054BD4(anim2) & 0xC)
-                            sub_8054BA4(anim2, NULL);
-    
+                        if (GettUnitEfxDebuff(anim1) & 0xC)
+                            SetUnitEfxDebuff(anim1, UNIT_STATUS_NONE);
+
+                        if (GettUnitEfxDebuff(anim2) & 0xC)
+                            SetUnitEfxDebuff(anim2, UNIT_STATUS_NONE);
+
                         if (anim1->xPosition == 0x44)
                             NewEfxFarAttackWithDistance(anim1, -1);
-    
+
                         ArenaContinueBattle();
                         sub_80581EC();
                         AnimClearAll();
                         sub_80599E8();
                         sub_8059D28();
-    
+
                         proc->timer = 0;
                         proc->proc_idleCb = (ProcFunc)ekrBattle_8050360;
                     } /* if */
@@ -878,9 +878,9 @@ void ekrBattle_WaitEkrDragonEndIdle(struct ProcEkrBattle *proc)
 
 void ekrBattle_PostDragonStatusEffect(struct ProcEkrBattle *proc)
 {
-    gUnknown_02017724 = 1;
+    gEkrBattleEndFlag = 1;
 
-    if (gUnknown_0203E0FC == 0) {
+    if (gEkrDebugModeMaybe == 0) {
         NewEkrNamewinAppear(2, 7, 0);
         sub_807289C();
     }
