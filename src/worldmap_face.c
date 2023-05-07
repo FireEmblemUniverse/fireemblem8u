@@ -64,25 +64,20 @@ void WMFaceCtrl_Init(struct WMFaceCtrlProc* proc) {
 }
 
 //! FE8U = 0x080B826C
-int sub_80B826C(int xIn, int* xOut) {
-    int a;
+int sub_80B826C(int xIn, int *xOut) {
+    int a = xIn - 0x30;
     int b;
-    register int r3 asm("r3");
 
-    a = (xIn - 0x30);
-
-    if (a < 0) {
+    if (a < 0)
         b = xIn - 0x29;
-    } else {
+    else
         b = a;
-    }
 
-    r3 = b >> 3;
-    b = r3 << 3;
+    xIn = b;
+    xIn = xIn >> 3;
+    *xOut = xIn * 8 - a;
 
-    *xOut = (b) - a;
-
-    return r3;
+    return xIn;
 }
 
 //! FE8U = 0x080B828C
@@ -457,28 +452,10 @@ void sub_80B895C(void) {
         struct FaceProc* faceProc = pWrapper->faceProc;
 
         if (faceProc != NULL && (pWrapper->unk_02 & 0x1000) == 0) {
-            int tmp;
-
             SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) | FACE_DISP_BIT_14);
 
-            tmp = (u16)pWrapper->unk_02;
-
-        #if NONMATCHING
-
-            tmp &= 0xFFFFFF00;
-
-        #else // if !NONMATCHING
-
-            {
-                int r1;
-                int r2 = 0xFFFFFF00;
-                asm("add %0, %1, #0" : "=r" (r1) : "r" (r2));
-                tmp &= r1;
-            }
-
-        #endif // NONMATCHING
-
-            pWrapper->unk_02 = tmp + 0x1000;
+            pWrapper->unk_02 &= ~0xff;
+            pWrapper->unk_02 += 0x1000;
 
             pWrapper->unk_0a = -1;
             proc->increment = -2;
