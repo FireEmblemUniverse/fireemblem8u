@@ -436,48 +436,8 @@ struct ProcCmd CONST_DATA gUnused_0859166C[] =
 
 extern u16 gUnknown_089E84D4[];
 
-extern u16 gUnknown_080D77FC[];
 extern u16 gUnknown_0859F000[];
 extern u16 gUnknown_0859EFE0[];
-
-//! FE8U = 0x08006738
-void sub_8006738(u16* a, u16 b, s8 c) {
-    int i;
-    int j;
-    const u16* src = gUnknown_080D77FC;
-    u16* dst = a;
-
-    if (c == 0) {
-        for (i = 0; i < 10; i++) {
-            const u16* nextSrc = src + 12;
-
-            for (j = 0; j < 12; j++) {
-                if (src[j] == 0xFFFF) {
-                    dst[j] = 0;
-                } else {
-                    dst[j] = src[j] + b;
-                }
-
-            }
-
-            src = nextSrc;
-            dst += 0x20;
-        }
-    } else {
-        for (i = 0; i < 10; i++) {
-            for (j = 0; j < 12; j++) {
-                if (src[11 - j] == 0xFFFF) {
-                    dst[j] = 0;
-                } else {
-                    dst[j] = src[11 - j] + b + 0x400;
-                }
-            }
-
-            src += 12;
-            dst += 0x20;
-        }
-    }
-}
 
 //! FE8U = 0x080067E8
 void sub_80067E8(void) {
