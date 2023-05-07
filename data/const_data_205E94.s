@@ -1,12 +1,24 @@
     .section .rodata
 
-	.global gUnknown_08205F28
-gUnknown_08205F28:  @ 0x08205F28
-	.incbin "baserom.gba", 0x205F28, 0x54
+	@ 0x08205F60
+	.asciz "GMapScreenVSync"
+	.align 2, 0
+
+	@ 0x08205F70
+	.asciz "GmapScreen"
+	.align 2, 0
 
 	.global gUnknown_08205F7C
 gUnknown_08205F7C:  @ 0x08205F7C
-	.incbin "baserom.gba", 0x205F7C, 0x24
+	.incbin "baserom.gba", 0x205F7C, 0x8
+
+	@ 0x08205F84
+	.asciz "GmapUnit"
+	.align 2, 0
+
+	@ 0x08205F90
+	.asciz "Gmap Unit Fade"
+	.align 2, 0
 
 	.global gUnknown_08205FA0
 gUnknown_08205FA0:  @ 0x08205FA0

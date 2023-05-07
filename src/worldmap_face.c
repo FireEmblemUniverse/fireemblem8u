@@ -43,7 +43,13 @@ void sub_80B820C(struct GMap8A3D6E0Proc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3D6E0[];
+struct ProcCmd CONST_DATA gUnknown_08A3D6E0[] = {
+    PROC_MARK(8),
+    PROC_CALL(sub_80B820C),
+    PROC_BLOCK,
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B823C
 void sub_80B823C(struct GMap08A3D700Proc* proc) {
@@ -507,17 +513,22 @@ void sub_80B843C(struct GMap08A3D700Proc* proc) {
 
 #endif // NONMATCHING
 
-extern u8 gUnknown_08205F28[];
-
 //! FE8U = 0x080B8630
 void sub_80B8630(struct GMap08A3D700Proc* proc) {
-    u8 hack[0x37];
+    u8 gUnknown_08205F28[] = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 1, 1, 1, 1, 1, 1, 2, 2,
+        2, 2, 2, 2, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 2, 2, 2, 2,
+        2, 2, 1, 1, 1, 1, 1, 1, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
 
-    memcpy(hack, gUnknown_08205F28, 0x37);
+        -1,
+    };
 
     proc->unk_2a++;
 
-    if (hack[proc->unk_2a] == 0xFF) {
+    if (gUnknown_08205F28[proc->unk_2a] == 0xFF) {
         proc->unk_2a = 0;
     }
 
@@ -535,7 +546,15 @@ void nullsub_57(void) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3D700[];
+struct ProcCmd CONST_DATA gUnknown_08A3D700[] = {
+    PROC_MARK(8),
+    PROC_SET_END_CB(nullsub_57),
+
+    PROC_CALL(sub_80B823C),
+    PROC_REPEAT(sub_80B8630),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B8680
 ProcPtr sub_80B8680(ProcPtr parent) {
