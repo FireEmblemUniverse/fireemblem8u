@@ -1,6 +1,6 @@
 . = 0x000000; gAnims = .;
 . = 0x000010; gUnknown_02000010 = .;
-. = 0x000018; gUnknown_02000018 = .;
+. = 0x000018; gEkrDebugTimer = .;
 . = 0x00001C; gUnknown_0200001C = .;
 . = 0x000020; gUnknown_02000020 = .;
 . = 0x000024; gUnknown_02000024 = .;
@@ -259,10 +259,10 @@
 . = 0x01FAD4; gProcEkrBaseAppearExist = .;
 . = 0x01FAD8; gUnknown_0201FAD8 = .;
 . = 0x01FADC; gUnknown_0201FADC = .;
-. = 0x01FB04; gUnknown_0201FB04 = .;
+. = 0x01FB04; gBanimDoneMaybe = .;
 . = 0x01FB0C; gEkrBgXOffset = .;
 . = 0x01FB18; gpProcEfxAnimeDrv = .;
-. = 0x01FB1C; gUnknown_0201FB1C = .;
+. = 0x01FB1C; gpImgSheet = .;
 . = 0x01FB24; gUnknown_0201FB24 = .;
 . = 0x01FB28; gUnknown_0201FB28 = .;
 . = 0x01FB2C; gUnknown_0201FB2C = .;
@@ -566,13 +566,13 @@
 . = 0x03E122; gEkrPairBmLoc = .;
 . = 0x03E12A; gAnimRoundData = .;
 . = 0x03E152; gEfxPairHpBufOffset = .;
-. = 0x03E156; gEfxHpBarBuf = .;
+. = 0x03E156; gEfxHpLut = .;
 . = 0x03E182; gEkrPairBanimID2 = .;
 . = 0x03E188; gpEkrBattleUnitLeft = .;
 . = 0x03E18C; gpEkrBattleUnitRight = .;
 . = 0x03E190; gEkrPids = .;
-. = 0x03E194; gUnknown_0203E194 = .;
-. = 0x03E19C; gEkrPaiSomeBanimID = .;
+. = 0x03E194; gEkrTriangleAtkFlag = .;
+. = 0x03E19C; gBanimCharacterTSAs = .;
 . = 0x03E1A4; gUnknown_0203E1A4 = .;
 . = 0x03E1AC; gEkrPairHpInitial = .;
 . = 0x03E1B0; gEkrPairMaxHP = .;

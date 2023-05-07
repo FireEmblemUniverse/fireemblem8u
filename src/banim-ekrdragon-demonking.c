@@ -10,7 +10,7 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 
-void EfxDoDemonKingIntroAnim(struct Anim *anim)
+void NewEkrDragonDemonKing(struct Anim *anim)
 {
     struct EkrDragonStatus *ekrsp = GetEkrDragonStatus(anim);
     struct ProcEkrDragon *proc = Proc_Start(ProcScr_EkrDK, PROC_TREE_3);

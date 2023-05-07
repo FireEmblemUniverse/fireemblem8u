@@ -35,7 +35,7 @@ void NewEfxHPBar(struct Anim *anim)
     struct ProcEfxHPBar *proc;
     int ais_id = GetAISSubjectId(anim);
 
-    if (0x400 & GetAnimRoundType((anim->nextRoundId - 1) * 2 + ais_id) || gEkrHPBarCount != 0)
+    if (ANIM_ROUND_GREAT_SHIELD & GetAnimRoundType((anim->nextRoundId - 1) * 2 + ais_id) || gEkrHPBarCount != 0)
         return;
 
     gEkrHPBarCount = 1;
@@ -426,7 +426,7 @@ void NewEfxNoDmage(struct Anim *anim1, struct Anim *anim2, int death)
     struct ProcEfxHPBar *proc;
     int ais_id = GetAISSubjectId(anim1);
 
-    if (0x400 & GetAnimRoundType((anim1->nextRoundId - 1) * 2 + ais_id))
+    if (ANIM_ROUND_GREAT_SHIELD & GetAnimRoundType((anim1->nextRoundId - 1) * 2 + ais_id))
         return;
 
     if (GetAISSubjectId(anim1) == 0)

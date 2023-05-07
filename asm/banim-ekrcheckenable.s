@@ -589,7 +589,7 @@ _08057486:
 	adds r1, #0x4a
 	ldrh r1, [r1]
 	bl SomethingFilterBattleAnimId
-	ldr r1, _080575B8  @ gEkrPaiSomeBanimID
+	ldr r1, _080575B8  @ gBanimCharacterTSAs
 	str r0, [r1]
 _080574A2:
 	ldr r3, [sp, #0x28]
@@ -603,7 +603,7 @@ _080574A2:
 	adds r1, #0x4a
 	ldrh r1, [r1]
 	bl SomethingFilterBattleAnimId
-	ldr r1, _080575B8  @ gEkrPaiSomeBanimID
+	ldr r1, _080575B8  @ gBanimCharacterTSAs
 	str r0, [r1, #4]
 _080574BE:
 	ldr r7, _080575BC  @ gEkrPairTerrainID
@@ -724,7 +724,7 @@ _080575A8: .4byte gEkrPairBanimID
 _080575AC: .4byte gBattleInitSide
 _080575B0: .4byte 0x0000FFFF
 _080575B4: .4byte gUnknown_0895E0A4
-_080575B8: .4byte gEkrPaiSomeBanimID
+_080575B8: .4byte gBanimCharacterTSAs
 _080575BC: .4byte gEkrPairTerrainID
 _080575C0: .4byte gBanimTerrainIndexMaybe
 _080575C4: .4byte gPlaySt
@@ -790,7 +790,7 @@ _08057622:
 	ldrsb r0, [r5, r0]
 	strh r0, [r1, #2]
 _0805763E:
-	bl sub_80581EC
+	bl ParseBattleHitToBanimCmd
 	ldr r0, _08057668  @ gEkrDistanceType
 	movs r7, #0
 	ldrsh r0, [r0, r7]
@@ -2258,8 +2258,8 @@ _080581E8: .4byte gEkrInitialHitSide
 
 	THUMB_FUNC_END sub_80581A0
 
-	THUMB_FUNC_START sub_80581EC
-sub_80581EC: @ 0x080581EC
+	THUMB_FUNC_START ParseBattleHitToBanimCmd
+ParseBattleHitToBanimCmd: @ 0x080581EC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -2269,7 +2269,7 @@ sub_80581EC: @ 0x080581EC
 	ldr r7, _08058244  @ gBattleHitArray
 	movs r2, #0
 	ldr r4, _08058248  @ gAnimRoundData
-	ldr r5, _0805824C  @ gUnknown_0203E194
+	ldr r5, _0805824C  @ gEkrTriangleAtkFlag
 	ldr r6, _08058250  @ gEkrDistanceType
 	ldr r0, _08058254  @ 0x0000FFFF
 	adds r3, r0, #0
@@ -2283,7 +2283,7 @@ _08058208:
 	cmp r2, #0x13
 	bls _08058208
 	movs r2, #0
-	ldr r0, _08058258  @ gEfxHpBarBuf
+	ldr r0, _08058258  @ gEfxHpLut
 	ldr r1, _08058254  @ 0x0000FFFF
 	adds r3, r1, #0
 	adds r1, r0, #4
@@ -2308,10 +2308,10 @@ _08058220:
 	.align 2, 0
 _08058244: .4byte gBattleHitArray
 _08058248: .4byte gAnimRoundData
-_0805824C: .4byte gUnknown_0203E194
+_0805824C: .4byte gEkrTriangleAtkFlag
 _08058250: .4byte gEkrDistanceType
 _08058254: .4byte 0x0000FFFF
-_08058258: .4byte gEfxHpBarBuf
+_08058258: .4byte gEfxHpLut
 _0805825C:
 	ldr r0, _08058270  @ gBattleStats
 	ldrh r1, [r0]
@@ -2421,7 +2421,7 @@ _0805831E:
 	movs r0, #1
 	str r0, [sp, #0x18]
 _08058332:
-	ldr r3, _08058350  @ gEfxHpBarBuf
+	ldr r3, _08058350  @ gEfxHpLut
 	ldr r1, _08058354  @ gEkrPairHpInitial
 	ldrh r0, [r1]
 	strh r0, [r3]
@@ -2435,7 +2435,7 @@ _08058332:
 	.align 2, 0
 _08058348: .4byte gpEkrBattleUnitLeft
 _0805834C: .4byte gpEkrBattleUnitRight
-_08058350: .4byte gEfxHpBarBuf
+_08058350: .4byte gEfxHpLut
 _08058354: .4byte gEkrPairHpInitial
 _08058358:
 	lsls r0, r2, #8
@@ -2493,7 +2493,7 @@ _080583B4:
 	ands r0, r1
 	cmp r0, #0
 	beq _080583D0
-	ldr r2, _080583F4  @ gUnknown_0203E194
+	ldr r2, _080583F4  @ gEkrTriangleAtkFlag
 	ldr r1, _080583F8  @ gBattleStats
 	ldr r0, [r1, #0x10]
 	str r0, [r2]
@@ -2516,7 +2516,7 @@ _080583D0:
 	b _08058482
 	.align 2, 0
 _080583F0: .4byte gEkrInitialHitSide
-_080583F4: .4byte gUnknown_0203E194
+_080583F4: .4byte gEkrTriangleAtkFlag
 _080583F8: .4byte gBattleStats
 _080583FC: .4byte gUnknown_080DAEA0
 _08058400:
@@ -2694,7 +2694,7 @@ _08058546:
 	lsrs r0, r0, #0x10
 	mov r9, r0
 	lsls r0, r0, #2
-	ldr r1, _0805856C  @ gEfxHpBarBuf
+	ldr r1, _0805856C  @ gEfxHpLut
 	adds r0, r0, r1
 	strh r2, [r0]
 	ldrh r0, [r5]
@@ -2705,7 +2705,7 @@ _08058546:
 _08058560: .4byte gUnknown_080DAEB4
 _08058564: .4byte gAnimRoundData
 _08058568: .4byte gUnknown_0203E108
-_0805856C: .4byte gEfxHpBarBuf
+_0805856C: .4byte gEfxHpLut
 _08058570: .4byte 0xFFFF8000
 _08058574:
 	mov r3, sl
@@ -2729,14 +2729,14 @@ _0805858E:
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #1
-	ldr r5, _080585AC  @ gEfxHpBarBuf
+	ldr r5, _080585AC  @ gEfxHpLut
 	adds r0, r0, r5
 	strh r2, [r0]
 	ldrh r0, [r4]
 	ldr r2, _080585B0  @ 0xFFFF8000
 	b _08058816
 	.align 2, 0
-_080585AC: .4byte gEfxHpBarBuf
+_080585AC: .4byte gEfxHpLut
 _080585B0: .4byte 0xFFFF8000
 _080585B4:
 	movs r0, #0x80
@@ -2768,7 +2768,7 @@ _080585E4:
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	mov sl, r0
-	ldr r4, _0805862C  @ gEfxHpBarBuf
+	ldr r4, _0805862C  @ gEfxHpLut
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #1
@@ -2799,7 +2799,7 @@ _0805861A:
 	b _08058690
 	.align 2, 0
 _08058628: .4byte gUnknown_0203E108
-_0805862C: .4byte gEfxHpBarBuf
+_0805862C: .4byte gEfxHpLut
 _08058630: .4byte gEkrPairMaxHP
 _08058634:
 	mov r1, r9
@@ -2819,7 +2819,7 @@ _0805864C:
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	mov r9, r0
-	ldr r4, _08058698  @ gEfxHpBarBuf
+	ldr r4, _08058698  @ gEfxHpLut
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	strh r2, [r0]
@@ -2853,7 +2853,7 @@ _08058690:
 	strh r2, [r0]
 	b _0805881C
 	.align 2, 0
-_08058698: .4byte gEfxHpBarBuf
+_08058698: .4byte gEfxHpLut
 _0805869C: .4byte gEkrPairMaxHP
 _080586A0:
 	ldr r0, _08058764  @ gUnknown_0203E108
@@ -2883,7 +2883,7 @@ _080586C6:
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #1
-	ldr r1, _08058768  @ gEfxHpBarBuf
+	ldr r1, _08058768  @ gEfxHpLut
 	adds r0, r0, r1
 	strh r2, [r0]
 	ldr r0, [r7]
@@ -2961,7 +2961,7 @@ _0805875E:
 	b _0805881C
 	.align 2, 0
 _08058764: .4byte gUnknown_0203E108
-_08058768: .4byte gEfxHpBarBuf
+_08058768: .4byte gEfxHpLut
 _0805876C:
 	mov r1, r9
 	lsls r0, r1, #1
@@ -2981,7 +2981,7 @@ _08058784:
 	lsrs r0, r0, #0x10
 	mov r9, r0
 	lsls r0, r0, #2
-	ldr r3, _08058844  @ gEfxHpBarBuf
+	ldr r3, _08058844  @ gEfxHpLut
 	adds r0, r0, r3
 	strh r2, [r0]
 	ldr r0, [r7]
@@ -3080,9 +3080,9 @@ _08058834:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08058844: .4byte gEfxHpBarBuf
+_08058844: .4byte gEfxHpLut
 
-	THUMB_FUNC_END sub_80581EC
+	THUMB_FUNC_END ParseBattleHitToBanimCmd
 
 	THUMB_FUNC_START GetBattleAnimationId
 GetBattleAnimationId: @ 0x08058848

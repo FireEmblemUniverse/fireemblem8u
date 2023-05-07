@@ -144,10 +144,12 @@ SECTIONS
         asm/banim-efxflasheffect.o(.text);
         src/banim-ekrbattlestarting.o(.text);
         asm/banim-ekrbattleending.o(.text);
-        asm/code-banim-08056864.o(.text);
+        asm/banim-08056864.o(.text);
         asm/banim-ekrcheckenable.o(.text);
+        src/banim-ekrcmd.o(.text);
+        asm/banim-main.o(.text);
+        src/banim-ekrmain.o(.text);
         asm/banim-ekrmain.o(.text);
-        asm/banim-efx805A07C.o(.text);
         asm/code_battleanim.o(.text);
         asm/banim-efxop.o(.text);
         src/banim-ekrdragonstatus.o(.text);
@@ -162,7 +164,7 @@ SECTIONS
         asm/banim-ekrtriangle.o(.text);
         asm/banim-ekrpopup.o(.text);
         src/banim-ekrdragon-demonking.o(.text);
-        asm/code-banim-ekrDK.o(.text);
+        asm/banim-ekrdragon-demonking.o(.text);
         src/spellassoc.o(.text);
         src/monstergen.o(.text);
         src/mu.o(.text);
@@ -348,6 +350,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
+        . = ALIGN(4); data/const_data_DAF18.o(.rodata);
         . = ALIGN(4); src/banim-ekrlvup.o(.rodata);
         . = ALIGN(4); data/const_data_E162A.o(.rodata);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.rodata);

@@ -24,7 +24,7 @@ gProc_ekrChienCHR:  @ 0x085B9D94
         .word 0x80daf34
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8059924
+        .word EkrChienCHRMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -10487,8 +10487,8 @@ gUnknown_085D90C4:  @ 0x085D90C4
         .word 0x0
 
 
-	.global gUnknown_085D90DC
-gUnknown_085D90DC:  @ 0x085D90DC
+	.global ProcScr_efxSpecalEffect
+ProcScr_efxSpecalEffect:  @ 0x085D90DC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80df458

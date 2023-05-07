@@ -557,7 +557,7 @@ ThisMakesTheHPInSpellAnimGoAway: @ 0x08055278
 	push {lr}
 	movs r2, #3
 	movs r3, #4
-	bl sub_8055298
+	bl ExecHittedEffectBanim
 	pop {r0}
 	bx r0
 
@@ -568,14 +568,14 @@ sub_8055288: @ 0x08055288
 	push {lr}
 	movs r2, #5
 	movs r3, #5
-	bl sub_8055298
+	bl ExecHittedEffectBanim
 	pop {r0}
 	bx r0
 
 	THUMB_FUNC_END sub_8055288
 
-	THUMB_FUNC_START sub_8055298
-sub_8055298: @ 0x08055298
+	THUMB_FUNC_START ExecHittedEffectBanim
+ExecHittedEffectBanim: @ 0x08055298
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -725,7 +725,7 @@ _08055374:
 	adds r0, r5, #0
 	adds r1, r7, #0
 	mov r2, sl
-	bl sub_80539DC
+	bl NewEfxHitQuake
 	b _080553EA
 	.align 2, 0
 _080553DC: .4byte gEfxPairHpBufOffset
@@ -733,17 +733,17 @@ _080553E0:
 	adds r0, r5, #0
 	adds r1, r7, #0
 	ldr r2, [sp]
-	bl sub_80539DC
+	bl NewEfxHitQuake
 _080553EA:
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #5
-	bl sub_8054440
+	bl NewEfxFlashHPBar
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #8
 	movs r3, #0
-	bl sub_80547DC
+	bl NewEfxFlashUnit
 	b _08055414
 _08055402:
 	adds r0, r5, #0
@@ -764,7 +764,7 @@ _08055414:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8055298
+	THUMB_FUNC_END ExecHittedEffectBanim
 
 	THUMB_FUNC_START sub_8055424
 sub_8055424: @ 0x08055424
@@ -841,23 +841,23 @@ _080554AC:
 	adds r0, r5, #0
 	adds r1, r7, #0
 	movs r2, #4
-	bl sub_80539DC
+	bl NewEfxHitQuake
 	b _080554D6
 _080554CC:
 	adds r0, r5, #0
 	adds r1, r7, #0
 	movs r2, #3
-	bl sub_80539DC
+	bl NewEfxHitQuake
 _080554D6:
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #5
-	bl sub_8054440
+	bl NewEfxFlashHPBar
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #8
 	movs r3, #0
-	bl sub_80547DC
+	bl NewEfxFlashUnit
 	b _0805550A
 _080554EE:
 	ldr r1, _08055500  @ gUnknown_02017750

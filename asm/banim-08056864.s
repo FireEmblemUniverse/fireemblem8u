@@ -83,8 +83,8 @@ _080568F6:
 
 	THUMB_FUNC_END sub_8056864
 
-	THUMB_FUNC_START sub_8056900
-sub_8056900: @ 0x08056900
+	THUMB_FUNC_START NewEkrUnitKakudai
+NewEkrUnitKakudai: @ 0x08056900
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, _0805692C  @ ProcScr_ekrUnitKakudai
@@ -144,7 +144,7 @@ _0805696E:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8056900
+	THUMB_FUNC_END NewEkrUnitKakudai
 
 	THUMB_FUNC_START sub_8056974
 sub_8056974: @ 0x08056974
@@ -156,11 +156,11 @@ sub_8056974: @ 0x08056974
 	ldrsh r0, [r0, r2]
 	adds r0, r0, r1
 	ldrb r2, [r0]
-	ldr r1, _08056AEC  @ gBanimSpecificScrConfigs
+	ldr r1, _08056AEC  @ gBanimRoundScripts
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	ldrb r6, [r0]
-	bl sub_80599E8
+	bl UpdateBanimFrame
 	ldr r0, _08056AF0  @ gEkrBattleEndFlag
 	ldr r0, [r0]
 	cmp r0, #0
@@ -335,7 +335,7 @@ _08056A72:
 	.align 2, 0
 _08056AE4: .4byte gUnknown_080DAF18
 _08056AE8: .4byte gEkrDistanceType
-_08056AEC: .4byte gBanimSpecificScrConfigs
+_08056AEC: .4byte gBanimRoundScripts
 _08056AF0: .4byte gEkrBattleEndFlag
 _08056AF4: .4byte gAnims
 _08056AF8: .4byte gpEkrBattleUnitRight

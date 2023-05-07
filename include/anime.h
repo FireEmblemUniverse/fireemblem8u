@@ -26,7 +26,7 @@ struct Anim {
     /* 20 */ const u32* pScrCurrent;
     /* 24 */ const u32* pScrStart;
     /* 28 */ const void* pImgSheet;
-    /* 2C */ const void* pUnk2C;
+    /* 2C */ void* pUnk2C;
     /* 30 */ const void* pSpriteDataPool; // aka "OAM data"
 
     /* 34 */ struct Anim* pPrev;
@@ -37,29 +37,11 @@ struct Anim {
     /* 44 */ const void* pUnk44;
 };
 
-enum state {
+enum Anim_state {
     ANIM_BIT_ENABLED = (1 << 0),
     ANIM_BIT_HIDDEN  = (1 << 1),
     ANIM_BIT_2       = (1 << 2),
     ANIM_BIT_FROZEN  = (1 << 3),
-};
-
-struct AnimRoundData {
-    s16 type_identifier;
-    u16 flags;
-};
-
-enum type_identifier {
-    ANIM_ROUND_HIT_CLOSE,
-    ANIM_ROUND_CRIT_CLOSE,
-    ANIM_ROUND_NONCRIT_FAR,
-    ANIM_ROUND_CRIT_FAR,
-    ANIM_ROUND_TAKING_MISS_CLOSE,
-    ANIM_ROUND_TAKING_MISS_FAR,
-    ANIM_ROUND_TAKING_HIT_CLOSE,
-    ANIM_ROUND_STANDING,
-    ANIM_ROUND_TAKING_HIT_FAR,
-    ANIM_ROUND_MISS_CLOSE,
 };
 
 struct AnimSpriteData {
@@ -154,11 +136,11 @@ s8 sub_8057DA8(u16, u16);
 s8 sub_8057ED0(u16, u16);
 // ??? GetSpellAnimId(???);
 // ??? sub_80581A0(???);
-void sub_80581EC(void);
+void ParseBattleHitToBanimCmd(void);
 int GetBattleAnimationId(struct Unit *unit, const void *anim, u16 wpn, u32 *out);
 // ??? sub_8058918(???);
 // ??? sub_805893C(???);
 int SomethingFilterBattleAnimId(s16, u16 item);
-int GetAllegienceId(u16);
+int GetAllegienceId(u8);
 
 #endif // GUARD_ANIME_H

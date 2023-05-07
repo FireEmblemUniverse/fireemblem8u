@@ -40,7 +40,7 @@ sub_8052DFC: @ 0x08052DFC
 	ldr r0, [r0]
 	cmp r0, #0
 	bne _08052E2E
-	ldr r4, _08052E70  @ gUnknown_0201FB04
+	ldr r4, _08052E70  @ gBanimDoneMaybe
 	adds r0, r7, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #2
@@ -81,7 +81,7 @@ _08052E62:
 	.align 2, 0
 _08052E68: .4byte gUnknown_0201774C
 _08052E6C: .4byte gUnknown_0201772C
-_08052E70: .4byte gUnknown_0201FB04
+_08052E70: .4byte gBanimDoneMaybe
 _08052E74: .4byte gEkrDistanceType
 _08052E78: .4byte gEkrPos2Maybe
 
@@ -1195,8 +1195,8 @@ _08053710:
 
 	THUMB_FUNC_END sub_80536B8
 
-	THUMB_FUNC_START sub_8053718
-sub_8053718: @ 0x08053718
+	THUMB_FUNC_START NewEfxHitQuakePure
+NewEfxHitQuakePure: @ 0x08053718
 	push {lr}
 	ldr r0, _08053728  @ gProc_efxHitQuakePure
 	movs r1, #3
@@ -1206,7 +1206,7 @@ sub_8053718: @ 0x08053718
 	.align 2, 0
 _08053728: .4byte gProc_efxHitQuakePure
 
-	THUMB_FUNC_END sub_8053718
+	THUMB_FUNC_END NewEfxHitQuakePure
 
 	THUMB_FUNC_START nullsub_56
 nullsub_56: @ 0x0805372C
@@ -1546,8 +1546,8 @@ _080539D2:
 
 	THUMB_FUNC_END sub_805382C
 
-	THUMB_FUNC_START sub_80539DC
-sub_80539DC: @ 0x080539DC
+	THUMB_FUNC_START NewEfxHitQuake
+NewEfxHitQuake: @ 0x080539DC
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -1772,7 +1772,7 @@ _08053BB0: .4byte gUnknown_02022B08
 _08053BB4: .4byte gEkrDistanceType
 _08053BB8: .4byte gEkrBgXOffset
 
-	THUMB_FUNC_END sub_80539DC
+	THUMB_FUNC_END NewEfxHitQuake
 
 	THUMB_FUNC_START sub_8053BBC
 sub_8053BBC: @ 0x08053BBC

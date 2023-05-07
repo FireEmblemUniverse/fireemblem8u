@@ -202,9 +202,9 @@ ekrBattleEnding_8056228: @ 0x08056228
 	strh r0, [r4, #0x3a]
 	bl AnimClearAll
 	movs r0, #1
-	bl sub_8056900
+	bl NewEkrUnitKakudai
 	movs r0, #1
-	bl sub_805649C
+	bl NewEkrBaseKaiten
 	movs r0, #1
 	movs r1, #0xb
 	bl NewEkrWindowAppear
@@ -482,8 +482,8 @@ ekrBattleEnding_8056484: @ 0x08056484
 
 	THUMB_FUNC_END ekrBattleEnding_8056484
 
-	THUMB_FUNC_START sub_805649C
-sub_805649C: @ 0x0805649C
+	THUMB_FUNC_START NewEkrBaseKaiten
+NewEkrBaseKaiten: @ 0x0805649C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
@@ -952,6 +952,6 @@ _08056856:
 	.align 2, 0
 _08056860: .4byte gUnknown_085B9CC4
 
-	THUMB_FUNC_END sub_805649C
+	THUMB_FUNC_END NewEkrBaseKaiten
 
 .align 2, 0
