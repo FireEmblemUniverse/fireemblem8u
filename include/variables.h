@@ -3235,8 +3235,8 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3CB46
 // extern ??? gUnknown_08A3CB50
 // extern ??? gCGDataTable
-// extern ??? gUnknown_08A3D6E0
-// extern ??? gUnknown_08A3D700
+// extern ??? gProcScr_WorldMapFaceHolder
+// extern ??? gProcScr_WorldMapFaceCtrl
 // extern ??? gUnknown_08A3D728
 // extern ??? gUnknown_08A3D748
 // extern ??? gUnknown_08A3DD08

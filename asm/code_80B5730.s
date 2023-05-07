@@ -2245,7 +2245,7 @@ sub_80B9AB0: @ 0x080B9AB0
 	strb r0, [r2, #1]
 	bl sub_80B895C
 	bl sub_80C3660
-	bl sub_80B8694
+	bl EndWMFaceCtrl
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2412,7 +2412,7 @@ _080B9C08:
 _080B9C26:
 	bl sub_80B895C
 	bl sub_80C3660
-	bl sub_80B8694
+	bl EndWMFaceCtrl
 	bl sub_80C0200
 	bl sub_80C2460
 	bl sub_80C1F5C
@@ -2497,7 +2497,7 @@ WorldMap_WaitForChapterIntroEvents: @ 0x080B9CB0
 	strb r0, [r2, #1]
 	bl sub_80B895C
 	bl sub_80C3660
-	bl sub_80B8694
+	bl EndWMFaceCtrl
 	bl sub_80C0200
 	bl sub_80C2460
 	bl sub_80C1F5C
@@ -2722,7 +2722,7 @@ sub_80B9E64: @ 0x080B9E64
 	sub sp, #4
 	bl sub_80B895C
 	bl sub_80C3660
-	bl sub_80B8694
+	bl EndWMFaceCtrl
 	mov r2, sp
 	ldr r1, _080B9EA0  @ gGMData
 	ldrh r0, [r1, #2]
@@ -3446,7 +3446,7 @@ _080BA368:
 	bl CallEvent
 _080BA3BC:
 	adds r0, r5, #0
-	bl sub_80B8680
+	bl StartWMFaceCtrl
 	movs r0, #0
 	bl NewMapMuEntry
 _080BA3C8:
@@ -3485,7 +3485,7 @@ CallChapterWMIntroEvents: @ 0x080BA3D4
 	movs r1, #0
 	bl CallEvent
 	adds r0, r5, #0
-	bl sub_80B8680
+	bl StartWMFaceCtrl
 	movs r0, #0
 	bl NewMapMuEntry
 _080BA416:
@@ -21133,7 +21133,7 @@ _080C2594: .4byte gUnknown_08A3EAF0
 	THUMB_FUNC_START sub_80C2598
 sub_80C2598: @ 0x080C2598
 	push {lr}
-	bl sub_80B86A4
+	bl GetWMFaceBlendAmt
 	lsls r1, r0, #0x18
 	lsrs r1, r1, #0x18
 	movs r2, #0x10
