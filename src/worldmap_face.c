@@ -64,25 +64,20 @@ void WMFaceCtrl_Init(struct WMFaceCtrlProc* proc) {
 }
 
 //! FE8U = 0x080B826C
-int sub_80B826C(int xIn, int* xOut) {
-    int a;
+int sub_80B826C(int xIn, int *xOut) {
+    int a = xIn - 0x30;
     int b;
-    register int r3 asm("r3");
 
-    a = (xIn - 0x30);
-
-    if (a < 0) {
+    if (a < 0)
         b = xIn - 0x29;
-    } else {
+    else
         b = a;
-    }
 
-    r3 = b >> 3;
-    b = r3 << 3;
+    xIn = b;
+    xIn = xIn >> 3;
+    *xOut = xIn * 8 - a;
 
-    *xOut = (b) - a;
-
-    return r3;
+    return xIn;
 }
 
 //! FE8U = 0x080B828C
