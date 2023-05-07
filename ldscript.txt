@@ -227,6 +227,7 @@ SECTIONS
         src/gamerankings.o(.text);
         src/cg.o(.text);
         src/ending_details.o(.text);
+        src/worldmap_face.o(.text);
         asm/code_80B5730.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);

@@ -33,6 +33,8 @@ enum
 #define FACE_DISP_HLAYER(layer) (((layer) & 0xF) << 6)
 #define FACE_DISP_HLAYER_MASK FACE_DISP_HLAYER(-1)
 #define FACE_DISP_BLEND (1 << 10)
+#define FACE_DISP_BIT_12 (1 << 12)
+#define FACE_DISP_BIT_13 (1 << 13)
 #define FACE_DISP_BIT_14 (1 << 14)
 
 struct FaceBlinkProc;
@@ -116,8 +118,9 @@ void sub_8006618(int slot, int x, int y);
 // ??? sub_8006650(???);
 // ??? sub_80066A8(???);
 void sub_80066E0(struct FaceProc* parent, int fid);
-// ??? sub_80066FC(???);
-// ??? sub_800671C(???);
+void sub_80066FC(int offset, int fid);
+void sub_800671C(int pal, int fid);
+void sub_8006738(u16* a, u16 b, s8 c);
 
 extern struct FaceProc* gFaces[];
 extern struct ProcCmd gProcScr_E_FACE[];
