@@ -88,7 +88,7 @@ void sub_8051BA0(void)
 
 void ekrDispUPMain(struct ProcEkrDispUP *proc)
 {
-    int val0, val1, val2, val3, val4, val5;
+    int val0, val1, val2, val3, val4;
     int r2 = 15; // for matching
 
     if (proc->unk2A == 1)
@@ -131,7 +131,6 @@ void ekrDispUPMain(struct ProcEkrDispUP *proc)
         }
 
         if (proc->unk50 == 0) {
-
             sub_8070E94(&gUnknown_088021C0[val3], &gBG0TilemapBuffer2D[val1][r2], r2, val2, -1, -1);
             sub_8070D04(&gBG0TilemapBuffer2D[val1][r2], 15, val2, 3, 128);
         }

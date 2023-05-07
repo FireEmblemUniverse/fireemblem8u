@@ -159,69 +159,60 @@ void HandleWMFaceFade(struct WMFaceCtrlProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/A4kYr */
-
 //! FE8U = 0x080B843C
 void sub_80B843C(struct WMFaceCtrlProc* proc) {
     int i;
     int iVar10;
-    int y;
-    u16* yptr;
-
     struct WMFaceHolderProc* internalProc = proc->faceHolderProc;
-
     int bgMaybe = GetWMFaceBg();
 
-    for (i = 0, yptr = &internalProc->faceWrapper[0].unk_02; i < 2; i++, yptr = &internalProc->faceWrapper[i].unk_02) {
+    for (i = 0; i < 2; i++) {
         iVar10 = 0;
 
-        if (internalProc->faceWrapper[i].faceProc != 0) {
+        if (internalProc->faceWrapper[i].faceProc != NULL) {
             struct FaceProc* faceProc = internalProc->faceWrapper[i].faceProc;
-            int x_ = internalProc->faceWrapper[i].unk_00;
+            int x = internalProc->faceWrapper[i].unk_00;
+            u16* yptrUnsigned = &internalProc->faceWrapper[i].unk_02;
 
-            if (((*yptr & 0x800) != 0) && ((*yptr & 0xff) < 0x10)) {
-                if ((*yptr & 0x100) != 0) {
-                    faceProc->xPos = x_ + (((0x10 - (*yptr & 0xff)) * 0x20 * (0x10 - (*yptr & 0xff))) / 256);
+            if (((*yptrUnsigned & 0x800) != 0) && ((*yptrUnsigned & 0xff) < 0x10)) {
+                if ((*yptrUnsigned & 0x100) != 0) {
+                    faceProc->xPos = x + (((0x10 - (*yptrUnsigned & 0xff)) * 0x20 * (0x10 - (*yptrUnsigned & 0xff))) / 256);
                     iVar10 = 1;
                 }
 
-                if ((*yptr & 0x200) != 0) {
-                    faceProc->xPos = x_ - (((0x10 - (*yptr & 0xff)) * 0x20 * (0x10 - (*yptr & 0xff))) / 256);
+                if ((*yptrUnsigned & 0x200) != 0) {
+                    faceProc->xPos = x - (((0x10 - (*yptrUnsigned & 0xff)) * 0x20 * (0x10 - (*yptrUnsigned & 0xff))) / 256);
                     iVar10 = 1;
                 }
 
-                (*yptr)++;
+                (*yptrUnsigned)++;
 
-                if ((*yptr & 0xff) > 0xf) {
+                if ((*yptrUnsigned & 0xff) > 0xf) {
                     iVar10 = 2;
 
                     SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) &~ 0x4000);
-                    *yptr &= ~0x800;
+                    *yptrUnsigned &= ~0x800;
                 }
             }
 
-            if (((*yptr & 0x1000) != 0) && ((*yptr & 0xff) < 0x10)) {
-                if ((*yptr & 0xff) == 0) {
+            if (((*yptrUnsigned & 0x1000) != 0) && ((*yptrUnsigned & 0xff) < 0x10)) {
+                if ((*yptrUnsigned & 0xff) == 0) {
                     SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) | 0x4000);
                 }
 
-                if ((*yptr & 0x100) != 0) {
-                    int t2 = x_ - 0x20;
-                    faceProc->xPos = t2 + (((0x10 - ((*yptr) & 0xff)) * 0x20 * (0x10 - ((*yptr) & 0xff))) / 256);
+                if ((*yptrUnsigned & 0x100) != 0) {
+                    faceProc->xPos = ({ x - 0x20; }) + (((0x10 - (*yptrUnsigned & 0xff)) * 0x20 * (0x10 - (*yptrUnsigned & 0xff))) / 256);
                     iVar10 = 1;
                 }
 
-                if ((*yptr & 0x200) != 0) {
-                    int t2 = x_ + 0x20;
-                    faceProc->xPos = t2 - (((0x10 - ((*yptr) & 0xff)) * 0x20 * (0x10 - ((*yptr) & 0xff))) / 256);
+                if ((*yptrUnsigned & 0x200) != 0) {
+                    faceProc->xPos = ({ x + 0x20; }) - (((0x10 - (*yptrUnsigned & 0xff)) * 0x20 * (0x10 - (*yptrUnsigned & 0xff))) / 256);
                     iVar10 = 1;
                 }
 
-                (*yptr)++;
+                (*yptrUnsigned)++;
 
-                if ((*yptr & 0xff) > 0xf) {
+                if ((*yptrUnsigned & 0xff) > 0xf) {
                     iVar10 = 2;
                 }
             }
@@ -234,7 +225,7 @@ void sub_80B843C(struct WMFaceCtrlProc* proc) {
                         GetWMFaceVramOffset(),
                         faceProc->xPos,
                         0x1c,
-                        (*yptr >> 10) & 1
+                        (*yptrUnsigned >> 10) & 1
                     );
                     BG_EnableSyncByMask(1 << (bgMaybe));
 
@@ -251,269 +242,6 @@ void sub_80B843C(struct WMFaceCtrlProc* proc) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80B843C(struct WMFaceCtrlProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x14\n\
-        ldr r0, [r0, #0x2c]\n\
-        str r0, [sp, #8]\n\
-        bl GetWMFaceBg\n\
-        mov sl, r0\n\
-        ldr r0, [sp, #8]\n\
-        adds r0, #0x2e\n\
-        mov r9, r0\n\
-        ldr r1, [sp, #8]\n\
-        adds r1, #0x2c\n\
-        str r1, [sp, #0xc]\n\
-        movs r2, #0\n\
-        str r2, [sp, #0x10]\n\
-        movs r3, #1\n\
-        str r3, [sp, #4]\n\
-    _080B8466:\n\
-        movs r7, #0\n\
-        ldr r0, [sp, #8]\n\
-        adds r0, #0x30\n\
-        ldr r1, [sp, #0x10]\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        cmp r0, #0\n\
-        bne _080B8478\n\
-        b _080B8602\n\
-    _080B8478:\n\
-        adds r6, r0, #0\n\
-        ldr r2, [sp, #0xc]\n\
-        movs r3, #0\n\
-        ldrsh r4, [r2, r3]\n\
-        mov r5, r9\n\
-        ldrh r2, [r5]\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #4\n\
-        adds r0, r1, #0\n\
-        ands r0, r2\n\
-        cmp r0, #0\n\
-        beq _080B850C\n\
-        movs r1, #0xff\n\
-        ands r1, r2\n\
-        cmp r1, #0xf\n\
-        bhi _080B850C\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #1\n\
-        adds r0, r3, #0\n\
-        ands r0, r2\n\
-        cmp r0, #0\n\
-        beq _080B84BA\n\
-        movs r0, #0x10\n\
-        subs r0, r0, r1\n\
-        lsls r1, r0, #5\n\
-        muls r0, r1, r0\n\
-        cmp r0, #0\n\
-        bge _080B84B2\n\
-        adds r0, #0xff\n\
-    _080B84B2:\n\
-        asrs r0, r0, #8\n\
-        adds r0, r4, r0\n\
-        strh r0, [r6, #0x34]\n\
-        movs r7, #1\n\
-    _080B84BA:\n\
-        ldrh r1, [r5]\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #2\n\
-        adds r0, r2, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080B84E2\n\
-        movs r0, #0xff\n\
-        ands r0, r1\n\
-        movs r1, #0x10\n\
-        subs r1, r1, r0\n\
-        lsls r0, r1, #5\n\
-        muls r0, r1, r0\n\
-        cmp r0, #0\n\
-        bge _080B84DA\n\
-        adds r0, #0xff\n\
-    _080B84DA:\n\
-        asrs r0, r0, #8\n\
-        subs r0, r4, r0\n\
-        strh r0, [r6, #0x34]\n\
-        movs r7, #1\n\
-    _080B84E2:\n\
-        ldrh r0, [r5]\n\
-        adds r0, #1\n\
-        strh r0, [r5]\n\
-        movs r3, #0xff\n\
-        ands r0, r3\n\
-        cmp r0, #0xf\n\
-        bls _080B850C\n\
-        movs r7, #2\n\
-        adds r0, r6, #0\n\
-        bl GetFaceDisplayBits\n\
-        ldr r1, _080B85AC  @ 0xFFFFBFFF\n\
-        ands r1, r0\n\
-        adds r0, r6, #0\n\
-        bl SetFaceDisplayBits\n\
-        ldrh r0, [r5]\n\
-        ldr r2, _080B85B0  @ 0x0000F7FF\n\
-        adds r1, r2, #0\n\
-        ands r0, r1\n\
-        strh r0, [r5]\n\
-    _080B850C:\n\
-        ldrh r1, [r5]\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #5\n\
-        adds r0, r3, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080B85A2\n\
-        movs r0, #0xff\n\
-        mov r8, r0\n\
-        ands r0, r1\n\
-        cmp r0, #0xf\n\
-        bhi _080B85A2\n\
-        cmp r0, #0\n\
-        bne _080B853A\n\
-        adds r0, r6, #0\n\
-        bl GetFaceDisplayBits\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #7\n\
-        orrs r1, r0\n\
-        adds r0, r6, #0\n\
-        bl SetFaceDisplayBits\n\
-    _080B853A:\n\
-        ldrh r1, [r5]\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #1\n\
-        adds r0, r2, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080B8566\n\
-        adds r2, r4, #0\n\
-        subs r2, #0x20\n\
-        mov r0, r8\n\
-        ands r0, r1\n\
-        movs r1, #0x10\n\
-        subs r1, r1, r0\n\
-        lsls r0, r1, #5\n\
-        muls r0, r1, r0\n\
-        cmp r0, #0\n\
-        bge _080B855E\n\
-        adds r0, #0xff\n\
-    _080B855E:\n\
-        asrs r0, r0, #8\n\
-        adds r0, r2, r0\n\
-        strh r0, [r6, #0x34]\n\
-        movs r7, #1\n\
-    _080B8566:\n\
-        ldrh r1, [r5]\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #2\n\
-        adds r0, r3, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080B8592\n\
-        adds r2, r4, #0\n\
-        adds r2, #0x20\n\
-        movs r0, #0xff\n\
-        ands r0, r1\n\
-        movs r1, #0x10\n\
-        subs r1, r1, r0\n\
-        lsls r0, r1, #5\n\
-        muls r0, r1, r0\n\
-        cmp r0, #0\n\
-        bge _080B858A\n\
-        adds r0, #0xff\n\
-    _080B858A:\n\
-        asrs r0, r0, #8\n\
-        subs r0, r2, r0\n\
-        strh r0, [r6, #0x34]\n\
-        movs r7, #1\n\
-    _080B8592:\n\
-        ldrh r0, [r5]\n\
-        adds r0, #1\n\
-        strh r0, [r5]\n\
-        movs r1, #0xff\n\
-        ands r0, r1\n\
-        cmp r0, #0xf\n\
-        bls _080B85A2\n\
-        movs r7, #2\n\
-    _080B85A2:\n\
-        cmp r7, #1\n\
-        beq _080B85B4\n\
-        cmp r7, #2\n\
-        beq _080B85EC\n\
-        b _080B8602\n\
-        .align 2, 0\n\
-    _080B85AC: .4byte 0xFFFFBFFF\n\
-    _080B85B0: .4byte 0x0000F7FF\n\
-    _080B85B4:\n\
-        mov r0, sl\n\
-        bl BG_GetMapBuffer\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        bl GetWMFaceBg\n\
-        adds r4, r0, #0\n\
-        bl GetWMFaceVramOffset\n\
-        adds r1, r0, #0\n\
-        movs r3, #0x34\n\
-        ldrsh r2, [r6, r3]\n\
-        ldrh r0, [r5]\n\
-        lsrs r0, r0, #0xa\n\
-        ands r0, r7\n\
-        str r0, [sp]\n\
-        adds r0, r4, #0\n\
-        movs r3, #0x1c\n\
-        bl sub_80B82C8\n\
-        mov r0, sl\n\
-        lsls r7, r0\n\
-        adds r0, r7, #0\n\
-        bl BG_EnableSyncByMask\n\
-        b _080B8602\n\
-    _080B85EC:\n\
-        mov r0, sl\n\
-        bl BG_GetMapBuffer\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        movs r0, #1\n\
-        mov r1, sl\n\
-        lsls r0, r1\n\
-        bl BG_EnableSyncByMask\n\
-    _080B8602:\n\
-        movs r2, #0xc\n\
-        add r9, r2\n\
-        ldr r3, [sp, #0xc]\n\
-        adds r3, #0xc\n\
-        str r3, [sp, #0xc]\n\
-        ldr r0, [sp, #0x10]\n\
-        adds r0, #0xc\n\
-        str r0, [sp, #0x10]\n\
-        ldr r1, [sp, #4]\n\
-        subs r1, #1\n\
-        str r1, [sp, #4]\n\
-        cmp r1, #0\n\
-        blt _080B861E\n\
-        b _080B8466\n\
-    _080B861E:\n\
-        add sp, #0x14\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080B8630
 void WMFaceCtrl_Loop(struct WMFaceCtrlProc* proc) {
