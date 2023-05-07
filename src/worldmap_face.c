@@ -457,28 +457,10 @@ void sub_80B895C(void) {
         struct FaceProc* faceProc = pWrapper->faceProc;
 
         if (faceProc != NULL && (pWrapper->unk_02 & 0x1000) == 0) {
-            int tmp;
-
             SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) | FACE_DISP_BIT_14);
 
-            tmp = (u16)pWrapper->unk_02;
-
-        #if NONMATCHING
-
-            tmp &= 0xFFFFFF00;
-
-        #else // if !NONMATCHING
-
-            {
-                int r1;
-                int r2 = 0xFFFFFF00;
-                asm("add %0, %1, #0" : "=r" (r1) : "r" (r2));
-                tmp &= r1;
-            }
-
-        #endif // NONMATCHING
-
-            pWrapper->unk_02 = tmp + 0x1000;
+            pWrapper->unk_02 &= ~0xff;
+            pWrapper->unk_02 += 0x1000;
 
             pWrapper->unk_0a = -1;
             proc->increment = -2;
