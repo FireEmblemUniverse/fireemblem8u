@@ -291,7 +291,6 @@ extern u16 gBG1TilemapBuffer[];
 // extern ??? gUnknown_020235F0
 // extern ??? gUnknown_020235FC
 // extern ??? gUnknown_020235FE
-// extern ??? gUnknown_02023628
 // extern ??? gUnknown_020236E4
 // extern ??? gUnknown_020237E8
 // extern ??? gUnknown_02023816
@@ -1426,8 +1425,8 @@ extern char gNopStr[];
 // extern ??? gUnknown_085BA2E0
 // extern ??? gUnknown_085BA300
 // extern ??? gUnknown_085BA320
-// extern ??? gUnknown_085BB0C8
-// extern ??? gUnknown_085BB2DC
+extern u16 gUnknown_085BB0C8[];
+extern u16 gUnknown_085BB2DC[];
 // extern ??? gUnknown_085BC188
 // extern ??? gUnknown_085BE7F4
 // extern ??? gUnknown_085BEF94
@@ -2329,7 +2328,7 @@ extern struct ProcCmd ProcScr_efxSoundSE[];
 // extern ??? ProcScr_efxBlackInOutUnit
 // extern ??? ProcScr_efxWhiteInOutUnit
 // extern ??? ProcScr_efxClasschgRST
-// extern ??? gUnknown_087592CC
+extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? EkrLvupMsgsStr
 // extern ??? EkrLvupMsgsMag
 // extern ??? ProcScr_EkrLevelup
@@ -2340,10 +2339,10 @@ extern struct ProcCmd ProcScr_efxSoundSE[];
 // extern ??? ProcScr_Efxlvupbg
 // extern ??? gUnknown_0875949C
 // extern ??? gUnknown_087594C8
-// extern ??? gUnknown_087594F4
+// extern ??? ProcScr_efxLvupBG2
 // extern ??? gUnknown_0875950C
-// extern ??? gUnknown_08759524
-// extern ??? gUnknown_08759544
+// extern ??? ProcScr_efxLvupOBJ2
+// extern ??? ProcScr_efxLvupBGCOL
 // extern ??? ProcScr_EkrLvupApfx
 // extern ??? gUnknown_0875957C
 // extern ??? ProcScr_ekrTriangle
@@ -2456,9 +2455,9 @@ extern u16 gUnknown_088030C4[];
 extern u16 gUnknown_088033C4[];
 extern u16 gUnknown_08803524[];
 extern u16 gUnknown_08803590[];
-// extern ??? Img_LevelUpBoxFrame
-// extern ??? Tsa_LevelUpBoxFrame
-// extern ??? gUnknown_08803B10
+extern u16 Img_LevelUpBoxFrame[];
+extern u16 Tsa_LevelUpBoxFrame[];
+extern u16 Pal_LevelUpBoxFrame[];
 // extern ??? gUnknown_08803B30
 // extern ??? gUnknown_08803BD0
 // extern ??? gUnknown_08803CB0

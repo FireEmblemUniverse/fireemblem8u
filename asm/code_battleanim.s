@@ -393,7 +393,7 @@ sub_805B104: @ 0x0805B104
 	movs r2, #0x20
 	bl CpuFastSet
 	subs r4, #0xc0
-	ldr r5, _0805B188  @ gUnknown_020165C8
+	ldr r5, _0805B188  @ gEkrBgPalBackupMaybe
 	movs r6, #0x80
 	lsls r6, r6, #1
 	adds r0, r4, #0
@@ -422,7 +422,7 @@ _0805B178: .4byte gEkrPos2Maybe
 _0805B17C: .4byte gEkrInitialHitSide
 _0805B180: .4byte gUnknown_085BEF94
 _0805B184: .4byte pPalette6Buffer
-_0805B188: .4byte gUnknown_020165C8
+_0805B188: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_805B104
 
@@ -493,7 +493,7 @@ sub_805B200: @ 0x0805B200
 	movs r2, #0
 	bl Interpolate
 	adds r5, r0, #0
-	ldr r0, _0805B25C  @ gUnknown_020165C8
+	ldr r0, _0805B25C  @ gEkrBgPalBackupMaybe
 	ldr r4, _0805B260  @ gPaletteBuffer
 	movs r2, #0x80
 	lsls r2, r2, #1
@@ -523,7 +523,7 @@ _0805B254:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B25C: .4byte gUnknown_020165C8
+_0805B25C: .4byte gEkrBgPalBackupMaybe
 _0805B260: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_805B200
@@ -560,7 +560,7 @@ sub_805B290: @ 0x0805B290
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _0805B2B4  @ gPaletteBuffer
-	ldr r1, _0805B2B8  @ gUnknown_020165C8
+	ldr r1, _0805B2B8  @ gEkrBgPalBackupMaybe
 	movs r2, #0x80
 	lsls r2, r2, #1
 	bl CpuFastSet
@@ -575,7 +575,7 @@ sub_805B290: @ 0x0805B290
 	bx r0
 	.align 2, 0
 _0805B2B4: .4byte gPaletteBuffer
-_0805B2B8: .4byte gUnknown_020165C8
+_0805B2B8: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_805B290
 
@@ -594,7 +594,7 @@ sub_805B2BC: @ 0x0805B2BC
 	movs r2, #0x10
 	bl Interpolate
 	adds r5, r0, #0
-	ldr r0, _0805B318  @ gUnknown_020165C8
+	ldr r0, _0805B318  @ gEkrBgPalBackupMaybe
 	ldr r4, _0805B31C  @ gPaletteBuffer
 	movs r2, #0x80
 	lsls r2, r2, #1
@@ -624,7 +624,7 @@ _0805B310:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B318: .4byte gUnknown_020165C8
+_0805B318: .4byte gEkrBgPalBackupMaybe
 _0805B31C: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_805B2BC
@@ -4263,7 +4263,7 @@ _0805CF9A:
 	cmp r1, r0
 	bne _0805CFB6
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805CFB6:
@@ -4717,7 +4717,7 @@ sub_805D328: @ 0x0805D328
 	cmp r5, #0
 	blt _0805D368
 	ldr r0, [r4, #0x4c]
-	ldr r4, _0805D364  @ gUnknown_020165C8
+	ldr r4, _0805D364  @ gEkrBgPalBackupMaybe
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
@@ -4731,7 +4731,7 @@ sub_805D328: @ 0x0805D328
 	bl SomePaletteStoringRoutine_SpellAnim2
 	b _0805D37E
 	.align 2, 0
-_0805D364: .4byte gUnknown_020165C8
+_0805D364: .4byte gEkrBgPalBackupMaybe
 _0805D368:
 	movs r0, #1
 	negs r0, r0
@@ -4834,7 +4834,7 @@ _0805D428:
 	cmp r0, #0x3c
 	bne _0805D43E
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805D43E:
@@ -5399,7 +5399,7 @@ _0805D892:
 	cmp r1, r0
 	bne _0805D8AE
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805D8AE:
@@ -5859,7 +5859,7 @@ _0805DC42:
 	cmp r0, r9
 	bne _0805DC58
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805DC58:
@@ -6584,7 +6584,7 @@ _0805E20C:
 	cmp r1, r0
 	bne _0805E228
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805E228:
@@ -7348,7 +7348,7 @@ _0805E82C:
 	cmp r1, r0
 	bne _0805E848
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805E848:
@@ -7584,7 +7584,7 @@ sub_805E9E4: @ 0x0805E9E4
 	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0805EA44  @ gPaletteBuffer
-	ldr r4, _0805EA48  @ gUnknown_020165C8
+	ldr r4, _0805EA48  @ gEkrBgPalBackupMaybe
 	movs r2, #0x80
 	lsls r2, r2, #1
 	adds r1, r4, #0
@@ -7616,7 +7616,7 @@ _0805EA3A:
 	bx r0
 	.align 2, 0
 _0805EA44: .4byte gPaletteBuffer
-_0805EA48: .4byte gUnknown_020165C8
+_0805EA48: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_805E9E4
 
@@ -7679,7 +7679,7 @@ sub_805EAAC: @ 0x0805EAAC
 	adds r0, #1
 	str r0, [r1]
 	ldr r0, _0805EAE4  @ gPaletteBuffer
-	ldr r1, _0805EAE8  @ gUnknown_020165C8
+	ldr r1, _0805EAE8  @ gEkrBgPalBackupMaybe
 	movs r2, #0x80
 	lsls r2, r2, #1
 	bl CpuFastSet
@@ -7697,7 +7697,7 @@ sub_805EAAC: @ 0x0805EAAC
 	.align 2, 0
 _0805EAE0: .4byte gUnknown_0201774C
 _0805EAE4: .4byte gPaletteBuffer
-_0805EAE8: .4byte gUnknown_020165C8
+_0805EAE8: .4byte gEkrBgPalBackupMaybe
 _0805EAEC: .4byte gUnknown_085D5860
 
 	THUMB_FUNC_END sub_805EAAC
@@ -7717,7 +7717,7 @@ sub_805EAF0: @ 0x0805EAF0
 	movs r2, #0x10
 	bl Interpolate
 	adds r3, r0, #0
-	ldr r4, _0805EB50  @ gUnknown_020165C8
+	ldr r4, _0805EB50  @ gEkrBgPalBackupMaybe
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x20
@@ -7748,7 +7748,7 @@ _0805EB46:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805EB50: .4byte gUnknown_020165C8
+_0805EB50: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_805EAF0
 
@@ -7756,7 +7756,7 @@ _0805EB50: .4byte gUnknown_020165C8
 sub_805EB54: @ 0x0805EB54
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0805EB90  @ gUnknown_020165C8
+	ldr r0, _0805EB90  @ gEkrBgPalBackupMaybe
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -7783,7 +7783,7 @@ _0805EB8A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805EB90: .4byte gUnknown_020165C8
+_0805EB90: .4byte gEkrBgPalBackupMaybe
 _0805EB94: .4byte gUnknown_0201774C
 
 	THUMB_FUNC_END sub_805EB54
@@ -7929,7 +7929,7 @@ _0805ECAA:
 	cmp r1, r0
 	bne _0805ECCC
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805ECCC:
@@ -8334,7 +8334,7 @@ _0805EFE8:
 	cmp r1, r0
 	bne _0805EFFE
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805EFFE:
@@ -9119,7 +9119,7 @@ _0805F618:
 	subs r0, #1
 	str r0, [r1]
 	bl sub_805526C
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r7, #0
 	bl Proc_End
 	b _0805F65A
@@ -9152,7 +9152,7 @@ sub_805F660: @ 0x0805F660
 	subs r0, #1
 	str r0, [r1]
 	bl sub_805526C
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_End
 	b _0805F6E6
@@ -9313,7 +9313,7 @@ _0805F7A8:
 	subs r0, #1
 	str r0, [r1]
 	bl sub_805526C
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r7, #0
 	bl Proc_Break
 _0805F7CA:
@@ -9550,7 +9550,7 @@ _0805F984:
 	cmp r1, r0
 	bne _0805F9A0
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805F9A0:
@@ -9910,7 +9910,7 @@ _0805FC72:
 	cmp r1, r0
 	bne _0805FC88
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
 _0805FC88:
@@ -10312,7 +10312,7 @@ _0805FF90:
 	cmp r2, #0x64
 	bne _0805FFAA
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0805FFAA:
@@ -10876,7 +10876,7 @@ _08060420:
 	cmp r1, r0
 	bne _08060438
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
 _08060438:
@@ -11680,7 +11680,7 @@ _08060A72:
 	cmp r1, r0
 	bne _08060A94
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
 _08060A94:
@@ -12524,7 +12524,7 @@ _08061124:
 	cmp r0, #0xb5
 	bne _08061150
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl sub_805A2F0
 	lsls r0, r0, #0x10
@@ -12696,7 +12696,7 @@ _08061284:
 	cmp r1, r0
 	bne _080612B4
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl sub_805A2F0
 	lsls r0, r0, #0x10
@@ -12868,7 +12868,7 @@ _080613E8:
 	cmp r1, r0
 	bne _08061418
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl sub_805A2F0
 	lsls r0, r0, #0x10
@@ -13046,7 +13046,7 @@ _0806155C:
 	cmp r1, r0
 	bne _0806158C
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl sub_805A2F0
 	lsls r0, r0, #0x10
@@ -14052,7 +14052,7 @@ _08061D0A:
 	cmp r1, r0
 	bne _08061D1E
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08061D1E:
@@ -14735,7 +14735,7 @@ _08062274:
 	orrs r0, r1
 	strh r0, [r6, #0x10]
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08062294:
@@ -15049,7 +15049,7 @@ _080624FA:
 	orrs r0, r1
 	strh r0, [r5, #0x10]
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08062518:
@@ -15364,7 +15364,7 @@ _08062786:
 	orrs r0, r1
 	strh r0, [r5, #0x10]
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _080627A6:
@@ -15780,7 +15780,7 @@ _08062AC8:
 	orrs r0, r1
 	strh r0, [r6, #0x10]
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08062AE8:
@@ -16058,7 +16058,7 @@ _08062D08:
 	orrs r0, r1
 	strh r0, [r5, #0x10]
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08062D26:
@@ -16805,7 +16805,7 @@ _080632F8:
 	orrs r0, r1
 	strh r0, [r4, #0x10]
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl Proc_Break
 _08063316:
@@ -17111,7 +17111,7 @@ _08063572:
 	cmp r1, r0
 	bne _08063588
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08063588:
@@ -17840,7 +17840,7 @@ _08063B4C:
 	cmp r1, r0
 	bne _08063B62
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08063B62:
@@ -19035,7 +19035,7 @@ _08064486:
 	cmp r1, r0
 	bne _080644D8
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl Proc_Break
 	b _080644D8
@@ -19061,7 +19061,7 @@ _080644BE:
 	cmp r1, r0
 	bne _080644D8
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl Proc_Break
 _080644D8:
@@ -20504,7 +20504,7 @@ _08064FE8:
 	cmp r1, r0
 	bne _08064FFE
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08064FFE:
@@ -21702,7 +21702,7 @@ _0806598C:
 	cmp r1, r0
 	bne _080659A4
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
 _080659A4:
@@ -23130,7 +23130,7 @@ sub_80664A8: @ 0x080664A8
 	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _08066508  @ gPaletteBuffer
-	ldr r4, _0806650C  @ gUnknown_020165C8
+	ldr r4, _0806650C  @ gEkrBgPalBackupMaybe
 	movs r2, #0x80
 	lsls r2, r2, #1
 	adds r1, r4, #0
@@ -23162,7 +23162,7 @@ _080664FE:
 	bx r0
 	.align 2, 0
 _08066508: .4byte gPaletteBuffer
-_0806650C: .4byte gUnknown_020165C8
+_0806650C: .4byte gEkrBgPalBackupMaybe
 _08066510: .4byte gUnknown_0201774C
 
 	THUMB_FUNC_END sub_80664A8
@@ -23359,7 +23359,7 @@ _080666A6:
 	orrs r0, r1
 	strh r0, [r4, #0x10]
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
 _080666C4:
@@ -23937,7 +23937,7 @@ sub_8066B40: @ 0x08066B40
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08066BB4  @ gPaletteBuffer
-	ldr r4, _08066BB8  @ gUnknown_020165C8
+	ldr r4, _08066BB8  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -23976,7 +23976,7 @@ _08066BAA:
 	bx r0
 	.align 2, 0
 _08066BB4: .4byte gPaletteBuffer
-_08066BB8: .4byte gUnknown_020165C8
+_08066BB8: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8066B40
 
@@ -25295,7 +25295,7 @@ _080675B8:
 	cmp r1, r0
 	bne _080675CE
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _080675CE:
@@ -25632,7 +25632,7 @@ _08067870:
 	cmp r1, r0
 	bne _08067886
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08067886:
@@ -26270,7 +26270,7 @@ _08067DA4:
 	cmp r1, r0
 	bne _08067DBC
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r7, #0
 	bl Proc_Break
 _08067DBC:
@@ -27400,7 +27400,7 @@ sub_8068638: @ 0x08068638
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, _08068678  @ gPaletteBuffer
-	ldr r4, _0806867C  @ gUnknown_020165C8
+	ldr r4, _0806867C  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -27426,7 +27426,7 @@ sub_8068638: @ 0x08068638
 	bx r0
 	.align 2, 0
 _08068678: .4byte gPaletteBuffer
-_0806867C: .4byte gUnknown_020165C8
+_0806867C: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8068638
 
@@ -27446,7 +27446,7 @@ sub_8068680: @ 0x08068680
 	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0806872C  @ gPaletteBuffer
-	ldr r4, _08068730  @ gUnknown_020165C8
+	ldr r4, _08068730  @ gEkrBgPalBackupMaybe
 	movs r6, #0x80
 	lsls r6, r6, #1
 	adds r1, r4, #0
@@ -27512,7 +27512,7 @@ _08068724:
 	bx r0
 	.align 2, 0
 _0806872C: .4byte gPaletteBuffer
-_08068730: .4byte gUnknown_020165C8
+_08068730: .4byte gEkrBgPalBackupMaybe
 _08068734: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_8068680
@@ -27533,7 +27533,7 @@ sub_8068738: @ 0x08068738
 	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _080687C8  @ gPaletteBuffer
-	ldr r4, _080687CC  @ gUnknown_020165C8
+	ldr r4, _080687CC  @ gEkrBgPalBackupMaybe
 	movs r6, #0x80
 	lsls r6, r6, #1
 	adds r1, r4, #0
@@ -27585,7 +27585,7 @@ _080687C0:
 	bx r0
 	.align 2, 0
 _080687C8: .4byte gPaletteBuffer
-_080687CC: .4byte gUnknown_020165C8
+_080687CC: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8068738
 
@@ -27959,7 +27959,7 @@ sub_8068A9C: @ 0x08068A9C
 	cmp r5, #0
 	blt _08068ADC
 	ldr r0, [r4, #0x4c]
-	ldr r4, _08068AD8  @ gUnknown_020165C8
+	ldr r4, _08068AD8  @ gEkrBgPalBackupMaybe
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
@@ -27973,7 +27973,7 @@ sub_8068A9C: @ 0x08068A9C
 	bl SomePaletteStoringRoutine_SpellAnim2
 	b _08068AF2
 	.align 2, 0
-_08068AD8: .4byte gUnknown_020165C8
+_08068AD8: .4byte gEkrBgPalBackupMaybe
 _08068ADC:
 	movs r0, #1
 	negs r0, r0
@@ -28206,7 +28206,7 @@ _08068C8C:
 	cmp r0, #0
 	beq _08068D14
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 	b _08068D14
@@ -28252,7 +28252,7 @@ _08068CFE:
 	cmp r1, r0
 	bne _08068D14
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08068D14:
@@ -29348,7 +29348,7 @@ sub_8069530: @ 0x08069530
 	str r0, [sp, #4]
 	ldr r0, _08069564  @ gPaletteBuffer
 	mov r9, r0
-	ldr r1, _08069568  @ gUnknown_020165C8
+	ldr r1, _08069568  @ gEkrBgPalBackupMaybe
 	mov r8, r1
 	ldr r0, [sp, #4]
 	adds r0, #0x4c
@@ -29366,7 +29366,7 @@ sub_8069530: @ 0x08069530
 	b _08069582
 	.align 2, 0
 _08069564: .4byte gPaletteBuffer
-_08069568: .4byte gUnknown_020165C8
+_08069568: .4byte gEkrBgPalBackupMaybe
 _0806956C:
 	cmp r1, #0x18
 	ble _08069574
@@ -29514,7 +29514,7 @@ _080696B2:
 	lsls r1, r1, #0x13
 	movs r2, #0x80
 	lsls r2, r2, #1
-	ldr r0, _080696EC  @ gUnknown_020165C8
+	ldr r0, _080696EC  @ gEkrBgPalBackupMaybe
 	bl CpuFastSet
 	bl DisablePaletteSync
 	ldr r7, [sp, #8]
@@ -29538,7 +29538,7 @@ _080696D4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080696EC: .4byte gUnknown_020165C8
+_080696EC: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8069530
 
@@ -30725,7 +30725,7 @@ _08069FE8:
 	cmp r1, r0
 	bne _08069FFE
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _08069FFE:
@@ -32767,7 +32767,7 @@ _0806AFD6:
 	cmp r0, #0
 	beq _0806B07A
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 	b _0806B07A
@@ -32821,7 +32821,7 @@ _0806B058:
 	adds r0, r2, r3
 	cmp r1, r0
 	bne _0806B068
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	b _0806B07A
 _0806B068:
 	ldr r3, _0806B084  @ 0x0000012B
@@ -33207,7 +33207,7 @@ sub_806B344: @ 0x0806B344
 	sub sp, #0xc
 	str r0, [sp, #4]
 	ldr r7, _0806B370  @ gPaletteBuffer
-	ldr r6, _0806B374  @ gUnknown_020165C8
+	ldr r6, _0806B374  @ gEkrBgPalBackupMaybe
 	adds r0, #0x4c
 	movs r2, #0
 	ldrsh r1, [r0, r2]
@@ -33223,7 +33223,7 @@ sub_806B344: @ 0x0806B344
 	b _0806B390
 	.align 2, 0
 _0806B370: .4byte gPaletteBuffer
-_0806B374: .4byte gUnknown_020165C8
+_0806B374: .4byte gEkrBgPalBackupMaybe
 _0806B378:
 	cmp r1, #0xc
 	ble _0806B382
@@ -33354,7 +33354,7 @@ _0806B49E:
 	bgt _0806B4A6
 	b _0806B3A2
 _0806B4A6:
-	ldr r0, _0806B4E0  @ gUnknown_020165C8
+	ldr r0, _0806B4E0  @ gEkrBgPalBackupMaybe
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -33382,7 +33382,7 @@ _0806B4C8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806B4E0: .4byte gUnknown_020165C8
+_0806B4E0: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_806B344
 
@@ -33554,7 +33554,7 @@ _0806B630:
 	cmp r1, r0
 	bne _0806B646
 	bl SetSomethingSpellFxToFalse
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
 _0806B646:
@@ -33954,7 +33954,7 @@ sub_806B940: @ 0x0806B940
 	sub sp, #0xc
 	str r0, [sp, #4]
 	ldr r6, _0806B980  @ gPaletteBuffer
-	ldr r5, _0806B984  @ gUnknown_020165C8
+	ldr r5, _0806B984  @ gEkrBgPalBackupMaybe
 	adds r0, #0x4c
 	movs r1, #0
 	ldrsh r3, [r0, r1]
@@ -33979,7 +33979,7 @@ _0806B96E:
 	mov pc, r0
 	.align 2, 0
 _0806B980: .4byte gPaletteBuffer
-_0806B984: .4byte gUnknown_020165C8
+_0806B984: .4byte gEkrBgPalBackupMaybe
 _0806B988: .4byte _0806B98C
 _0806B98C: @ jump table
 	.4byte _0806BA00 @ case 0
@@ -34082,7 +34082,7 @@ _0806BA7E:
 	bgt _0806BA86
 	b _0806B96E
 _0806BA86:
-	ldr r0, _0806BAB0  @ gUnknown_020165C8
+	ldr r0, _0806BAB0  @ gEkrBgPalBackupMaybe
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -34101,7 +34101,7 @@ _0806BA86:
 	bl Proc_Break
 	b _0806BABA
 	.align 2, 0
-_0806BAB0: .4byte gUnknown_020165C8
+_0806BAB0: .4byte gEkrBgPalBackupMaybe
 _0806BAB4:
 	adds r0, r1, #1
 	mov r3, r8
@@ -34125,7 +34125,7 @@ sub_806BACC: @ 0x0806BACC
 	push {r7}
 	mov r8, r0
 	ldr r5, _0806BAF0  @ gPaletteBuffer
-	ldr r4, _0806BAF4  @ gUnknown_020165C8
+	ldr r4, _0806BAF4  @ gEkrBgPalBackupMaybe
 	ldrh r0, [r5]
 	strh r0, [r4]
 	movs r6, #0
@@ -34140,7 +34140,7 @@ _0806BADE:
 	mov pc, r0
 	.align 2, 0
 _0806BAF0: .4byte gPaletteBuffer
-_0806BAF4: .4byte gUnknown_020165C8
+_0806BAF4: .4byte gEkrBgPalBackupMaybe
 _0806BAF8: .4byte _0806BAFC
 _0806BAFC: @ jump table
 	.4byte _0806BB70 @ case 0
@@ -34202,7 +34202,7 @@ _0806BBA0:
 	adds r6, r1, #0
 	cmp r6, #0x1f
 	ble _0806BADE
-	ldr r0, _0806BBD8  @ gUnknown_020165C8
+	ldr r0, _0806BBD8  @ gEkrBgPalBackupMaybe
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -34225,7 +34225,7 @@ _0806BBC6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806BBD8: .4byte gUnknown_020165C8
+_0806BBD8: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_806BACC
 
@@ -34916,7 +34916,7 @@ sub_806C14C: @ 0x0806C14C
 sub_806C154: @ 0x0806C154
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	ldr r2, _0806C1A4  @ gUnknown_020165C8
+	ldr r2, _0806C1A4  @ gEkrBgPalBackupMaybe
 	movs r1, #0
 	adds r6, r2, #0
 	adds r4, r5, #0
@@ -34954,7 +34954,7 @@ _0806C16C:
 	bl Proc_Break
 	b _0806C1B0
 	.align 2, 0
-_0806C1A4: .4byte gUnknown_020165C8
+_0806C1A4: .4byte gEkrBgPalBackupMaybe
 _0806C1A8: .4byte 0x00007FFF
 _0806C1AC:
 	adds r0, r1, #1
@@ -34973,7 +34973,7 @@ sub_806C1B8: @ 0x0806C1B8
 	push {r7}
 	mov r8, r0
 	ldr r5, _0806C1DC  @ gPaletteBuffer
-	ldr r4, _0806C1E0  @ gUnknown_020165C8
+	ldr r4, _0806C1E0  @ gEkrBgPalBackupMaybe
 	ldrh r0, [r5]
 	strh r0, [r4]
 	movs r7, #0
@@ -34988,7 +34988,7 @@ _0806C1CA:
 	mov pc, r0
 	.align 2, 0
 _0806C1DC: .4byte gPaletteBuffer
-_0806C1E0: .4byte gUnknown_020165C8
+_0806C1E0: .4byte gEkrBgPalBackupMaybe
 _0806C1E4: .4byte _0806C1E8
 _0806C1E8: @ jump table
 	.4byte _0806C260 @ case 0
@@ -35051,7 +35051,7 @@ _0806C290:
 	adds r7, r1, #0
 	cmp r7, #0x1f
 	ble _0806C1CA
-	ldr r0, _0806C2C0  @ gUnknown_020165C8
+	ldr r0, _0806C2C0  @ gEkrBgPalBackupMaybe
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -35069,7 +35069,7 @@ _0806C290:
 	bl Proc_Break
 	b _0806C2C8
 	.align 2, 0
-_0806C2C0: .4byte gUnknown_020165C8
+_0806C2C0: .4byte gEkrBgPalBackupMaybe
 _0806C2C4:
 	adds r0, r1, #1
 	strh r0, [r6]
@@ -35092,7 +35092,7 @@ sub_806C2D4: @ 0x0806C2D4
 	sub sp, #0xc
 	str r0, [sp, #4]
 	ldr r6, _0806C314  @ gPaletteBuffer
-	ldr r5, _0806C318  @ gUnknown_020165C8
+	ldr r5, _0806C318  @ gEkrBgPalBackupMaybe
 	adds r0, #0x4c
 	movs r1, #0
 	ldrsh r3, [r0, r1]
@@ -35117,7 +35117,7 @@ _0806C302:
 	mov pc, r0
 	.align 2, 0
 _0806C314: .4byte gPaletteBuffer
-_0806C318: .4byte gUnknown_020165C8
+_0806C318: .4byte gEkrBgPalBackupMaybe
 _0806C31C: .4byte _0806C320
 _0806C320: @ jump table
 	.4byte _0806C398 @ case 0
@@ -35221,7 +35221,7 @@ _0806C416:
 	bgt _0806C41E
 	b _0806C302
 _0806C41E:
-	ldr r0, _0806C448  @ gUnknown_020165C8
+	ldr r0, _0806C448  @ gEkrBgPalBackupMaybe
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -35240,7 +35240,7 @@ _0806C41E:
 	bl Proc_Break
 	b _0806C452
 	.align 2, 0
-_0806C448: .4byte gUnknown_020165C8
+_0806C448: .4byte gEkrBgPalBackupMaybe
 _0806C44C:
 	adds r0, r1, #1
 	mov r3, r8
@@ -35280,7 +35280,7 @@ sub_806C478: @ 0x0806C478
 	sub sp, #0xc
 	str r0, [sp, #4]
 	ldr r6, _0806C4B8  @ gPaletteBuffer
-	ldr r5, _0806C4BC  @ gUnknown_020165C8
+	ldr r5, _0806C4BC  @ gEkrBgPalBackupMaybe
 	adds r0, #0x4c
 	movs r1, #0
 	ldrsh r3, [r0, r1]
@@ -35305,7 +35305,7 @@ _0806C4A6:
 	mov pc, r0
 	.align 2, 0
 _0806C4B8: .4byte gPaletteBuffer
-_0806C4BC: .4byte gUnknown_020165C8
+_0806C4BC: .4byte gEkrBgPalBackupMaybe
 _0806C4C0: .4byte _0806C4C4
 _0806C4C4: @ jump table
 	.4byte _0806C53C @ case 0
@@ -35409,7 +35409,7 @@ _0806C5BA:
 	bgt _0806C5C2
 	b _0806C4A6
 _0806C5C2:
-	ldr r0, _0806C5EC  @ gUnknown_020165C8
+	ldr r0, _0806C5EC  @ gEkrBgPalBackupMaybe
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -35428,7 +35428,7 @@ _0806C5C2:
 	bl Proc_Break
 	b _0806C5F6
 	.align 2, 0
-_0806C5EC: .4byte gUnknown_020165C8
+_0806C5EC: .4byte gEkrBgPalBackupMaybe
 _0806C5F0:
 	adds r0, r1, #1
 	mov r3, r8

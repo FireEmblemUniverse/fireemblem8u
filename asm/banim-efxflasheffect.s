@@ -58,8 +58,8 @@ _08054EEC: .4byte gpProcEfxWeaponIcon
 
 	THUMB_FUNC_END EndProcEfxWeaponIcon
 
-	THUMB_FUNC_START sub_8054EF0
-sub_8054EF0: @ 0x08054EF0
+	THUMB_FUNC_START EfxWeaponIconSet50
+EfxWeaponIconSet50: @ 0x08054EF0
 	ldr r0, _08054EFC  @ gpProcEfxWeaponIcon
 	ldr r1, [r0]
 	movs r0, #1
@@ -68,10 +68,10 @@ sub_8054EF0: @ 0x08054EF0
 	.align 2, 0
 _08054EFC: .4byte gpProcEfxWeaponIcon
 
-	THUMB_FUNC_END sub_8054EF0
+	THUMB_FUNC_END EfxWeaponIconSet50
 
-	THUMB_FUNC_START sub_8054F00
-sub_8054F00: @ 0x08054F00
+	THUMB_FUNC_START EfxWeaponIconClear50
+EfxWeaponIconClear50: @ 0x08054F00
 	ldr r0, _08054F0C  @ gpProcEfxWeaponIcon
 	ldr r1, [r0]
 	movs r0, #0
@@ -80,7 +80,7 @@ sub_8054F00: @ 0x08054F00
 	.align 2, 0
 _08054F0C: .4byte gpProcEfxWeaponIcon
 
-	THUMB_FUNC_END sub_8054F00
+	THUMB_FUNC_END EfxWeaponIconClear50
 
 	THUMB_FUNC_START sub_8054F10
 sub_8054F10: @ 0x08054F10
@@ -178,7 +178,7 @@ NewEfxSpellCast: @ 0x08054FA8
 	strh r4, [r5, #0x2c]
 	movs r0, #4
 	strh r0, [r5, #0x2e]
-	ldr r0, _08054FE0  @ gUnknown_02017778
+	ldr r0, _08054FE0  @ gpProcEfxSpellCast
 	ldr r0, [r0]
 	cmp r0, #0
 	bne _08054FEC
@@ -189,27 +189,27 @@ NewEfxSpellCast: @ 0x08054FA8
 	b _08054FF0
 	.align 2, 0
 _08054FDC: .4byte gProc_efxSpellCast
-_08054FE0: .4byte gUnknown_02017778
+_08054FE0: .4byte gpProcEfxSpellCast
 _08054FE4: .4byte pPalette6Buffer
 _08054FE8: .4byte gPalBackupEkrUnitMaybe
 _08054FEC:
 	bl Proc_End
 _08054FF0:
-	ldr r0, _08054FFC  @ gUnknown_02017778
+	ldr r0, _08054FFC  @ gpProcEfxSpellCast
 	str r5, [r0]
 _08054FF4:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08054FFC: .4byte gUnknown_02017778
+_08054FFC: .4byte gpProcEfxSpellCast
 
 	THUMB_FUNC_END NewEfxSpellCast
 
-	THUMB_FUNC_START sub_8055000
-sub_8055000: @ 0x08055000
+	THUMB_FUNC_START EfxSpellCastSet29
+EfxSpellCastSet29: @ 0x08055000
 	push {lr}
-	ldr r0, _08055018  @ gUnknown_02017778
+	ldr r0, _08055018  @ gpProcEfxSpellCast
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _08055012
@@ -221,14 +221,14 @@ _08055012:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08055018: .4byte gUnknown_02017778
+_08055018: .4byte gpProcEfxSpellCast
 
-	THUMB_FUNC_END sub_8055000
+	THUMB_FUNC_END EfxSpellCastSet29
 
-	THUMB_FUNC_START sub_805501C
-sub_805501C: @ 0x0805501C
+	THUMB_FUNC_START EndEfxSpellCast
+EndEfxSpellCast: @ 0x0805501C
 	push {lr}
-	ldr r1, _08055034  @ gUnknown_02017778
+	ldr r1, _08055034  @ gpProcEfxSpellCast
 	ldr r0, [r1]
 	cmp r0, #0
 	beq _0805502E
@@ -239,9 +239,9 @@ _0805502E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08055034: .4byte gUnknown_02017778
+_08055034: .4byte gpProcEfxSpellCast
 
-	THUMB_FUNC_END sub_805501C
+	THUMB_FUNC_END EndEfxSpellCast
 
 	THUMB_FUNC_START sub_8055038
 sub_8055038: @ 0x08055038
@@ -365,7 +365,7 @@ sub_80550DC: @ 0x080550DC
 	adds r0, #1
 	cmp r1, r0
 	bne _08055146
-	ldr r1, _08055158  @ gUnknown_02017778
+	ldr r1, _08055158  @ gpProcEfxSpellCast
 	movs r0, #0
 	str r0, [r1]
 	adds r0, r7, #0
@@ -383,7 +383,7 @@ _08055146:
 	.align 2, 0
 _08055150: .4byte gPalBackupEkrUnitMaybe
 _08055154: .4byte pPalette6Buffer
-_08055158: .4byte gUnknown_02017778
+_08055158: .4byte gpProcEfxSpellCast
 
 	THUMB_FUNC_END sub_80550DC
 
@@ -1291,7 +1291,7 @@ SomeImageStoringRoutine_SpellAnim2: @ 0x0805581C
 	push {r4, r5, r6, lr}
 	adds r6, r1, #0
 	ldr r5, _0805583C  @ 0x06002000
-	ldr r4, _08055840  @ gUnknown_02017790
+	ldr r4, _08055840  @ gEkrImgBuffer
 	adds r1, r4, #0
 	bl LZ77UnCompWram
 	adds r0, r4, #0
@@ -1303,7 +1303,7 @@ SomeImageStoringRoutine_SpellAnim2: @ 0x0805581C
 	bx r0
 	.align 2, 0
 _0805583C: .4byte 0x06002000
-_08055840: .4byte gUnknown_02017790
+_08055840: .4byte gEkrImgBuffer
 
 	THUMB_FUNC_END SomeImageStoringRoutine_SpellAnim2
 

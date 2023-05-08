@@ -32,4 +32,10 @@
     if (num < min)                  \
         num = min;
 
+#define LIMIT_AREA_(num, min, max)  \
+    if (num < min)                  \
+        num = min;                  \
+    else if (num > max)             \
+        num = max;
+
 #endif  // GUARD_GLOBAL_H

@@ -582,8 +582,8 @@ Img_LevelUpBoxFrame:  @ 0x088035B0
 Tsa_LevelUpBoxFrame:  @ 0x088039E8
 	.incbin "baserom.gba", 0x8039E8, 0x128
 
-	.global gUnknown_08803B10
-gUnknown_08803B10:  @ 0x08803B10
+	.global Pal_LevelUpBoxFrame
+Pal_LevelUpBoxFrame:  @ 0x08803B10
 	.incbin "baserom.gba", 0x803B10, 0x20
 
 	.global gUnknown_08803B30

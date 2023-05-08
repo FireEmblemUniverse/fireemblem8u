@@ -3739,7 +3739,7 @@ sub_807EA98: @ 0x0807EA98
 	adds r0, r4, #0
 	adds r1, r5, #0
 	bl sub_80149F0
-	ldr r0, _0807EB94  @ gUnknown_08803B10
+	ldr r0, _0807EB94  @ Pal_LevelUpBoxFrame
 	movs r1, #0xa0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -3821,7 +3821,7 @@ _0807EB84: .4byte Img_LevelUpBoxFrame
 _0807EB88: .4byte 0x06004000
 _0807EB8C: .4byte Tsa_LevelUpBoxFrame
 _0807EB90: .4byte gGenericBuffer
-_0807EB94: .4byte gUnknown_08803B10
+_0807EB94: .4byte Pal_LevelUpBoxFrame
 _0807EB98: .4byte gBG0TilemapBuffer
 _0807EB9C: .4byte gCurrentMapAnimState
 _0807EBA0: .4byte gUnknown_089A3ED4

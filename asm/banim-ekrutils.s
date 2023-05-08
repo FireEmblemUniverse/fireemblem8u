@@ -1673,8 +1673,8 @@ _08071710: .4byte ProcScr_ekrsubAnimeEmulator
 
 	THUMB_FUNC_END NewEkrsubAnimeEmulator
 
-	THUMB_FUNC_START sub_8071714
-sub_8071714: @ 0x08071714
+	THUMB_FUNC_START EkrsubAnimeEmulatorMain
+EkrsubAnimeEmulatorMain: @ 0x08071714
 	push {r4, lr}
 	sub sp, #0x48
 	adds r2, r0, #0
@@ -1779,7 +1779,7 @@ _080717C6:
 	.align 2, 0
 _080717D0: .4byte 0x0FFFFFFC
 
-	THUMB_FUNC_END sub_8071714
+	THUMB_FUNC_END EkrsubAnimeEmulatorMain
 
 	THUMB_FUNC_START sub_80717D4
 sub_80717D4: @ 0x080717D4
