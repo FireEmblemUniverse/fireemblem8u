@@ -4,7 +4,11 @@
 #include "proc.h"
 #include "fontgrp.h"
 #include "hardware.h"
+#include "ctc.h"
+#include "uiutils.h"
 #include "ekrbattle.h"
+#include "efxbattle.h"
+#include "ekrdragon.h"
 #include "ekrlevelup.h"
 
 /**
@@ -152,7 +156,7 @@ void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc)
             gpEkrLvupBattleUnit = bunit = gpEkrBattleUnitLeft;
     }
     
-    if (!proc->is_promotion) {
+    if (proc->is_promotion == false) {
         unit = GetUnit(unit->index);
 
         gEkrLvupPreLevel = bunit2->levelPrevious;
@@ -252,14 +256,14 @@ void EkrLvup_DrawUpdatedStatus(struct ProcEkrLevelup *proc, int index)
     Text_Draw(&gTextEkrlvupValue[index], gBG2TilemapBuffer + 3 + sEfxLvupPartsPos[index]);
 }
 
-void EkrLvup_DrawUnitName(void)
+void EkrLvup_DrawUnitName(struct ProcEkrLevelup *proc)
 {
     Text_Clear(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME]);
     Text_AppendString(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME], GetStringFromIndex(gpEkrLvupUnit->pClassData->nameTextId));
     Text_Draw(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME], TILEMAP_LOCATED(gBG2TilemapBuffer, 2, 7));
 }
 
-void EkrLvup_DrawPreLevelValue(void)
+void EkrLvup_DrawPreLevelValue(struct ProcEkrLevelup *proc)
 {
     Text_Clear(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL]);
     Text_SetXCursor(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], 8);
@@ -281,46 +285,356 @@ void NewEkrLevelup(struct Anim *ais)
     else
         proc->is_promotion = true;
 
-    proc->count = 0;
+    proc->timer = 0;
     proc->finished = false;
 }
 
 void EkrLvup_OnPrepare(struct ProcEkrLevelup *proc)
 {
-    int count;
+    int timer;
 
     if (proc->is_promotion) {
         Proc_Break(proc);
         return;
     }
 
-    count = ++proc->count;
+    timer = ++proc->timer;
 
-    if (count == 1) {
+    if (timer == 1) {
         NewEfxSpellCast();
-        sub_80749F4(proc->ais_main, 0x78, 0x58);
+        NewEfxLvupOBJ2(proc->ais_main, 0x78, 0x58);
         return;
     }
 
-    if (count == 25) {
-        sub_8074964(proc->ais_main);
-        sub_8074A60(proc->ais_main);
+    if (timer == 25) {
+        NewEfxLvupBG2(proc->ais_main);
+        NewEfxLvupBGCOL(proc->ais_main);
         return;
     }
 
-    if (count == 59) {
+    if (timer == 59) {
         NewEfxlvupbg(proc->ais_main);
         return;
     }
 
-    if (count == 73) {
-        sub_8055000();
+    if (timer == 73) {
+        EfxSpellCastSet29();
         return;
     }
 
-    if (count == 83) {
-        proc->count = 0;
+    if (timer == 83) {
+        proc->timer = 0;
         Proc_Break(proc);
         return;
+    }
+}
+
+void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
+{
+    struct Struct20200E0 *buf = &gUnknown_020200E0;
+
+    CpuFastFill(0, gBG1TilemapBuffer, 0x800);
+    CpuFastFill(0, gBG2TilemapBuffer, 0x800);
+
+    RegisterTileGraphics(gBG1TilemapBuffer, BG_SCREEN_ADDR(0xD), 0x800);
+    RegisterTileGraphics(gBG1TilemapBuffer, BG_SCREEN_ADDR(0xE), 0x800);
+    RegisterTileGraphics(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xA), 0x800);
+    RegisterTileGraphics(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xB), 0x800);
+
+    buf->unk00 = gBanimTerrainIndexMaybe[EKR_BATTLE_LEFT];
+    buf->unk02 = 3;
+    buf->unk04 = 0x100;
+    buf->unk06 = gBanimTerrainIndexMaybe[EKR_BATTLE_RIGHT];
+    buf->unk08 = 4;
+    buf->unk0A = 0x140;
+    buf->unk0C = gEkrDistanceType;
+    buf->unk0E = -1;
+    buf->unk1C = OBJ_VRAM0;
+    buf->unk20 = gUnknown_020145C8;
+    buf->unk10 = gEkrSnowWeather;
+
+    if (gEkrDistanceType == 2) {
+        if (gEkrPos2Maybe == 0)
+            buf->unk06 = -1;
+        else
+            buf->unk00 = -1;
+    }
+
+    if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != 2) {
+
+        sub_805AA68(buf);
+
+#if NONMATCHING
+        buf->unk14->unk4C &= ~OAM2_LAYER(0x3);
+        buf->unk14->unk4C |=  OAM2_LAYER(0x3);
+        buf->unk18->unk4C &= ~OAM2_LAYER(0x3);
+        buf->unk18->unk4C |=  OAM2_LAYER(0x3);
+#else
+    {
+        register struct Struct20200E0_14 *_buf asm("r3");
+        register u32 oam2 asm("r0");
+
+        _buf = buf->unk14;
+        oam2 = _buf->unk4C;
+        oam2 &= 0xF3FF;
+        oam2 |= 0x0C00;
+        _buf->unk4C = oam2;
+
+        _buf = buf->unk18;
+        oam2 = _buf->unk4C;
+        oam2 &= 0xF3FF;
+        oam2 |= 0x0C00;
+        _buf->unk4C = oam2;
+    }
+#endif
+    }
+
+    proc->ais_main->oam2Base &= ~OAM2_LAYER(0x3);
+    proc->ais_main->oam2Base |=  OAM2_LAYER(0x3);
+    proc->ais_core->oam2Base &= ~OAM2_LAYER(0x3);
+    proc->ais_core->oam2Base |=  OAM2_LAYER(0x3);
+
+    gLCDControlBuffer.bg2cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 1;
+    gLCDControlBuffer.bg0cnt.priority = 2;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+
+    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DRACO_ZOMBIE) {
+        proc->ais_core->oam2Base &= ~OAM2_LAYER(0x3);
+        proc->ais_core->oam2Base |=  OAM2_LAYER(0x2);
+
+        gLCDControlBuffer.bg0cnt.priority = 2;
+        gLCDControlBuffer.bg1cnt.priority = 1;
+        gLCDControlBuffer.bg2cnt.priority = 0;
+        gLCDControlBuffer.bg3cnt.priority = 2;
+    }
+
+    gEkrLvupScrollPos1 = 0x90;
+    gEkrLvupScrollPos2 = 0x90;
+
+    BG_SetPosition(2, 0, 8);
+    BG_SetPosition(1, 0, 8);
+
+    SetBackgroundMapDataOffset(0, 0x6000);
+    SetBackgroundMapDataOffset(1, 0x6800);
+    SetBackgroundMapDataOffset(2, 0x5000);
+
+    SetBackgroundScreenSize(1, 1);
+    SetBackgroundScreenSize(2, 1);
+
+    gpProcEfxPartsofScroll = NewEfxPartsofScroll();
+    gpProcEfxleveluphb = NewEfxleveluphb();
+    sub_8074598();
+    EkrGauge_Setup44(2);
+    DisableEfxStatusUnits(proc->ais_main);
+    DisableEfxStatusUnits(proc->ais_core);
+
+    EfxWeaponIconSet50();
+    EfxHPBarColorChangeSet29();
+
+    SetWinEnable(0, 0, 0);
+    SetDefaultColorEffects();
+    Proc_Break(proc);
+}
+
+void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
+{
+    int portrait;
+    struct BattleUnit *bu1 = gpEkrBattleUnitLeft;
+    struct BattleUnit *bu2 = gpEkrBattleUnitRight;
+    struct Anim *anim = proc->ais_main;
+
+    LZ77UnCompWram(Img_LevelUpBoxFrame, gEkrImgBuffer);
+    LZ77UnCompWram(Tsa_LevelUpBoxFrame, gEkrTsaBuffer);
+    sub_8070E94(gEkrTsaBuffer, TILEMAP_LOCATED(gBG1TilemapBuffer, 0, 0x6), 0x20, 0x14, 1, 0x100);
+    RegisterTileGraphics(gEkrImgBuffer, (void *)BG_VRAM + 0x2000, 0x8C0);
+    CpuFastCopy(Pal_LevelUpBoxFrame, PAL_BG(1), 0x20);
+
+    LZ77UnCompWram(gUnknown_085BB0C8, gUnknown_0201A790);
+    RegisterTileGraphics(gUnknown_0201A790, OBJ_VRAM0 + 0x1400, 0xC00);
+    CpuFastCopy(gUnknown_085BB2DC, PAL_OBJ(1), 0x20);
+
+    EnablePaletteSync();
+
+    proc->timer = EKR_LVUP_UI_BASE;
+
+    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+        portrait = bu1->unit.pCharacterData->portraitId;
+    else
+        portrait = bu2->unit.pCharacterData->portraitId;
+
+    SetupFaceGfxData(&gUnknown_087592CC[0]);
+    StartFace(0, portrait, 0xBC, EKR_LVUP_UI_BASE, 0x1042);
+    gFaces[0]->yPos = 0xA0;
+
+    CpuFastFill16(0, gBG2TilemapBuffer, 0x800);
+    EkrLvup_InitStatusText(proc);
+    Proc_Break(proc);
+}
+
+void EkrLvup_SetBgs(struct ProcEkrLevelup *proc)
+{
+    SetPrimaryHBlankHandler(EkrLvupHBlank);
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+    EnablePaletteSync();
+
+    Proc_Break(proc);
+}
+
+void EkrLvup_InitPalette(struct ProcEkrLevelup *proc)
+{
+    if (++proc->timer > EKR_LVUP_UI_BASE) {
+
+        proc->timer = 0;
+
+        proc->unk_44 = 0;
+        proc->unk_48 = 0;
+        proc->unk_4C = -2;
+        proc->unk_50 = -4;
+
+        CpuFastCopy(PAL_BG(0), gEkrBgPalBackupMaybe, 0x400);
+
+        Proc_Break(proc);
+    }
+}
+
+void EkrLvup_PutWindowOnScreen(struct ProcEkrLevelup *proc)
+{
+    int a, b, c, d, pos, pal;
+
+    a = proc->unk_44;
+    b = proc->unk_48;
+    c = proc->unk_4C;
+    d = proc->unk_50;
+
+    LIMIT_AREA_(a, 0, 8);
+    LIMIT_AREA_(b, 0, 8);
+    LIMIT_AREA_(c, 0, 8);
+    LIMIT_AREA_(d, 0, 8);
+
+    proc->unk_44++;
+    proc->unk_48++;
+    proc->unk_4C++;
+    proc->unk_50++;
+
+    pos = Interpolate(INTERPOLATE_LINEAR, -EKR_LVUP_UI_BASE, 0, a, 8);
+    pal = Interpolate(INTERPOLATE_LINEAR, 0, 8, b, 8);
+
+    gEkrLvupScrollPos1 = Interpolate(INTERPOLATE_LINEAR, 0x90, 0, c, 8);
+    gEkrLvupScrollPos2 = Interpolate(INTERPOLATE_LINEAR, 0x90, 0, d, 8);
+
+    gFaces[0]->yPos = EKR_LVUP_UI_BASE - pos;
+
+    CpuFastCopy(gEkrBgPalBackupMaybe, PAL_BG(0), 0x400);
+    EkrMaybePalFadeWithVal(PAL_BG(0), 2, 4, pal);
+    EkrMaybePalFadeWithVal(PAL_BG(0), 0x13, 0xC, pal);
+    EnablePaletteSync();
+
+    if (++proc->timer > 0x14) {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+}
+
+void EkrLvup_PrepareApGfx(struct ProcEkrLevelup *proc)
+{
+    int i;
+
+    NewEkrLvupApfx(0xA0, 1);
+
+    for (i = 0; i < 8; i++)
+        gUnknown_020200B8[i] = 0;
+    
+    Proc_Break(proc);
+}
+
+void EkrLvup_Promo_WindowScroll0(struct ProcEkrLevelup *proc)
+{
+    if (proc->is_promotion == false) {
+        Proc_Break(proc);
+        return;
+    }
+
+    SetPrimaryHBlankHandler(EfxPartsofScroll2HBlank);
+
+    Proc_End(gpProcEfxPartsofScroll);
+    gpProcEfxPartsofScroll = NewEfxPartsofScroll2();
+
+    SomePlaySound_8071990(0x2CD, 0x100);
+    M4aPlayWithPostionCtrl(0x2CD, 0x38, 0);
+    
+    proc->timer = 0;
+    proc->index = 8;
+    Proc_Break(proc);
+}
+
+void EkrLvup_Promo_DrawPromoNewClassName(struct ProcEkrLevelup *proc)
+{
+    if (proc->is_promotion == false) {
+        Proc_Break(proc);
+        return;
+    }
+
+    gEkrLvupScrollPos1 = Interpolate(1, 0, 0x1000, proc->timer, proc->index);
+
+    if (++proc->timer > proc->index) {
+        gpEkrLvupUnit = &gpEkrLvupBattleUnit->unit;
+        EkrLvup_DrawUnitName(proc);
+
+        gEkrLvupPreLevel = gEkrLvupPostLevel;
+        EkrLvup_DrawPreLevelValue(proc);
+
+        proc->timer = 0;
+        proc->index = 8;
+
+        Proc_Break(proc);
+    }
+}
+
+void EkrLvup_Promo_WindowScroll1(struct ProcEkrLevelup *proc)
+{
+    if (proc->is_promotion == false) {
+        Proc_Break(proc);
+        return;
+    }
+
+    gEkrLvupScrollPos1 = Interpolate(4, 0x1000, 0, proc->timer, proc->index);
+    if (++proc->timer > proc->index)
+        Proc_Break(proc);
+}
+
+void EkrLvup_DrawNewLevel(struct ProcEkrLevelup *proc)
+{
+    if (proc->is_promotion == false) {
+        proc->timer = 0;
+        sub_8074D58(0xA0, 1, 0x84, 0x3C, 0, 0);
+        gEkrLvupPreLevel = gEkrLvupPostLevel;
+        EkrLvup_DrawPreLevelValue(proc);
+        SomePlaySound_8071990(0x2CD, 0x100);
+        M4aPlayWithPostionCtrl(0x2CD, 0x38, 0);
+        Proc_Break(proc);
+    } else {
+        Proc_End(gpProcEfxPartsofScroll);
+        gpProcEfxPartsofScroll = NewEfxPartsofScroll();
+        proc->timer = 0;
+        proc->index = 0;
+        Proc_Break(proc);
+    }
+}
+
+void EkrLvup_InitCounterForMainAnim(struct ProcEkrLevelup *proc)
+{
+    if (proc->is_promotion != false) {
+        Proc_Break(proc);
+        return;
+    }
+
+    if (++proc->timer < 0x1E) {
+        proc->timer = 0;
+        proc->index = 0;
+        Proc_Break(proc);
     }
 }

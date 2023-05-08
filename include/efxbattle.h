@@ -74,6 +74,28 @@ struct Unknown_0201FADC {
 
 extern struct Unknown_0201FADC gUnknown_0201FADC;
 
+struct Struct20200E0_14 {
+    /* 00 */ u8 _pad_00[0x4C - 0x0];
+    /* 4C */ int unk4C;
+};
+
+struct Struct20200E0 {
+    /* 00 */ u16 unk00;
+    /* 02 */ u16 unk02;
+    /* 04 */ u16 unk04;
+    /* 06 */ u16 unk06;
+    /* 08 */ u16 unk08;
+    /* 0A */ u16 unk0A;
+    /* 0C */ u16 unk0C;
+    /* 0E */ u16 unk0E;
+    /* 10 */ u16 unk10;
+    /* 14 */ struct Struct20200E0_14 *unk14;
+    /* 18 */ struct Struct20200E0_14 *unk18;
+    /* 1C */ void *unk1C;
+    /* 20 */ void *unk20;
+};
+extern struct Struct20200E0 gUnknown_020200E0;
+
 struct ProcEfxHPBar {
     PROC_HEADER;
 
@@ -115,7 +137,7 @@ struct ProcEfxStatusUnit {
 
 extern struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2];
 
-// extern ??? gUnknown_020165C8
+extern u16 gEkrBgPalBackupMaybe[];
 // extern ??? gUnknown_02016828
 extern u16 gObjBuf_EkrSideHitDmgCrit[];
 // extern ??? gUnknown_02016DC8
@@ -144,13 +166,13 @@ struct Vec2 gEkrBg2QuakeVec;
 extern short gUnknown_02017764[2];
 extern short gUnknown_02017768[2];
 // extern ??? gpProcEfxWeaponIcon
-extern u32 gUnknown_02017778;
+extern u32 gpProcEfxSpellCast;
 extern u32 gpProcEfxHPBarColorChange;
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
-// extern ??? gUnknown_02017790
+extern u8 gEkrImgBuffer[];
 extern u16 gUnknown_02019490[];
 extern u8 gEkrTsaBuffer[0x1000];
-// extern ??? gUnknown_0201A790
+extern u8 gUnknown_0201A790[];
 // extern ??? gUnknown_0201AF90
 // extern ??? gUnknown_0201AFC0
 // extern ??? gUnknown_0201AFF0

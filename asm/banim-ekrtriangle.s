@@ -486,7 +486,7 @@ _080752B6:
 	ldr r0, _080752F4  @ gUnknown_087595EC
 	str r0, [r1, #0x4c]
 	str r0, [r1, #0x50]
-	ldr r4, _080752F8  @ gUnknown_02017790
+	ldr r4, _080752F8  @ gEkrImgBuffer
 	adds r0, r2, #0
 	adds r1, r4, #0
 	bl LZ77UnCompWram
@@ -511,7 +511,7 @@ _080752DE:
 _080752EC: .4byte gBanimCharacterTSAs
 _080752F0: .4byte gUnknown_080E1740
 _080752F4: .4byte gUnknown_087595EC
-_080752F8: .4byte gUnknown_02017790
+_080752F8: .4byte gEkrImgBuffer
 _080752FC: .4byte gUnknown_080E17C0
 _08075300: .4byte gUnknown_080E2B54
 _08075304: .4byte gUnknown_080E2164

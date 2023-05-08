@@ -15,7 +15,7 @@ ProcScr_ekrsubAnimeEmulator:  @ 0x08758A30
         .word 0x80e13c0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8071714
+        .word EkrsubAnimeEmulatorMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

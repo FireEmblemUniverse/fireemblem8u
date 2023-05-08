@@ -1,7 +1,7 @@
 #include "global.h"
 #include "variables.h"
 #include "functions.h"
-
+#include "uiutils.h"
 #include "hardware.h"
 #include "proc.h"
 
@@ -13,45 +13,45 @@ struct Struct8012F98 {
     int unk4;
 };
 
-int Interpolate(int method, int lo, int hi, int x, int end)
+int Interpolate(int method, int lo, int hi, int x, int x_max)
 {
-    int deno, _x, base, ret;
+    int deno, dx, base, ret;
     register int _deno asm("r0");
 
-    if (0 == end)
+    if (0 == x_max)
         return hi;
 
     switch (method) {
-    case 0:
+    case INTERPOLATE_LINEAR:
         deno =(hi - lo) * x;
-        ret = lo + Div(deno, end);
+        ret = lo + Div(deno, x_max);
         break;
 
-    case 1:
+    case INTERPOLATE_SQUARE:
         _deno = x * x;
         deno = _deno * (hi - lo);
-        ret = lo + Div(deno, end * end);
+        ret = lo + Div(deno, x_max * x_max);
         break;
 
-    case 2:
+    case INTERPOLATE_CUBIC:
         deno = x * x * x * (hi - lo);
-        ret = lo + Div(deno,  end * end * end);
+        ret = lo + Div(deno,  x_max * x_max * x_max);
         break;
 
-    case 3:
+    case INTERPOLATE_POW4:
         deno = x * x * x * x * (hi - lo);
-        ret = lo + Div(deno, end * end * end * end);
+        ret = lo + Div(deno, x_max * x_max * x_max * x_max);
         break;
 
-    case 4:
-        _x = end - x;
-        deno = _x * _x * (hi - lo);
-        ret = lo + (hi - lo) - Div(deno, end * end);
+    case INTERPOLATE_RSQUARE:
+        dx = x_max - x;
+        deno = dx * dx * (hi - lo);
+        ret = lo + (hi - lo) - Div(deno, x_max * x_max);
         break;
-    case 5:
-        _x = end - x;
-        deno = _x * _x * _x * (hi - lo);
-        ret = lo + (hi - lo) - Div(deno, end * end * end);
+    case INTERPOLATE_RCUBIC:
+        dx = x_max - x;
+        deno = dx * dx * dx * (hi - lo);
+        ret = lo + (hi - lo) - Div(deno, x_max * x_max * x_max);
         break;
 
     default:

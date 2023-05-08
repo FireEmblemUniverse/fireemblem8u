@@ -380,8 +380,8 @@ _08074830: .4byte gUnknown_0201FDC0
 
 	THUMB_FUNC_END sub_80747A4
 
-	THUMB_FUNC_START sub_8074834
-sub_8074834: @ 0x08074834
+	THUMB_FUNC_START EkrLvupHBlank
+EkrLvupHBlank: @ 0x08074834
 	push {lr}
 	ldr r0, _08074864  @ 0x04000004
 	ldrh r1, [r0]
@@ -412,10 +412,10 @@ _08074868: .4byte 0x04000018
 _0807486C: .4byte gUnknown_0201FB34
 _08074870: .4byte gUnknown_0201FDC0
 
-	THUMB_FUNC_END sub_8074834
+	THUMB_FUNC_END EkrLvupHBlank
 
-	THUMB_FUNC_START sub_8074874
-sub_8074874: @ 0x08074874
+	THUMB_FUNC_START EfxPartsofScroll2HBlank
+EfxPartsofScroll2HBlank: @ 0x08074874
 	push {r4, r5, lr}
 	ldr r0, _080748B0  @ 0x04000004
 	ldrh r1, [r0]
@@ -453,7 +453,7 @@ _080748B8: .4byte gLCDControlBuffer
 _080748BC: .4byte gUnknown_0201FB34
 _080748C0: .4byte gUnknown_0201FDC0
 
-	THUMB_FUNC_END sub_8074874
+	THUMB_FUNC_END EfxPartsofScroll2HBlank
 
 	THUMB_FUNC_START NewEfxlvupbg
 NewEfxlvupbg: @ 0x080748C4
@@ -534,11 +534,11 @@ _0807495E:
 
 	THUMB_FUNC_END sub_807490C
 
-	THUMB_FUNC_START sub_8074964
-sub_8074964: @ 0x08074964
+	THUMB_FUNC_START NewEfxLvupBG2
+NewEfxLvupBG2: @ 0x08074964
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0807499C  @ gUnknown_087594F4
+	ldr r0, _0807499C  @ ProcScr_efxLvupBG2
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -561,13 +561,13 @@ sub_8074964: @ 0x08074964
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807499C: .4byte gUnknown_087594F4
+_0807499C: .4byte ProcScr_efxLvupBG2
 _080749A0: .4byte gUnknown_080E1664
 _080749A4: .4byte gUnknown_0875950C
 _080749A8: .4byte gUnknown_085C5994
 _080749AC: .4byte gUnknown_085C6054
 
-	THUMB_FUNC_END sub_8074964
+	THUMB_FUNC_END NewEfxLvupBG2
 
 	THUMB_FUNC_START sub_80749B0
 sub_80749B0: @ 0x080749B0
@@ -606,8 +606,8 @@ _080749EC:
 
 	THUMB_FUNC_END sub_80749B0
 
-	THUMB_FUNC_START sub_80749F4
-sub_80749F4: @ 0x080749F4
+	THUMB_FUNC_START NewEfxLvupOBJ2
+NewEfxLvupOBJ2: @ 0x080749F4
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -615,7 +615,7 @@ sub_80749F4: @ 0x080749F4
 	adds r5, r0, #0
 	adds r6, r1, #0
 	mov r8, r2
-	ldr r0, _08074A44  @ gUnknown_08759524
+	ldr r0, _08074A44  @ ProcScr_efxLvupOBJ2
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -644,12 +644,12 @@ sub_80749F4: @ 0x080749F4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08074A44: .4byte gUnknown_08759524
+_08074A44: .4byte ProcScr_efxLvupOBJ2
 _08074A48: .4byte gUnknown_085C71E4
 _08074A4C: .4byte gUnknown_085C6730
 _08074A50: .4byte gUnknown_085C6054
 
-	THUMB_FUNC_END sub_80749F4
+	THUMB_FUNC_END NewEfxLvupOBJ2
 
 	THUMB_FUNC_START sub_8074A54
 sub_8074A54: @ 0x08074A54
@@ -661,11 +661,11 @@ sub_8074A54: @ 0x08074A54
 
 	THUMB_FUNC_END sub_8074A54
 
-	THUMB_FUNC_START sub_8074A60
-sub_8074A60: @ 0x08074A60
+	THUMB_FUNC_START NewEfxLvupBGCOL
+NewEfxLvupBGCOL: @ 0x08074A60
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08074A88  @ gUnknown_08759544
+	ldr r0, _08074A88  @ ProcScr_efxLvupBGCOL
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -683,11 +683,11 @@ sub_8074A60: @ 0x08074A60
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08074A88: .4byte gUnknown_08759544
+_08074A88: .4byte ProcScr_efxLvupBGCOL
 _08074A8C: .4byte gUnknown_080E169A
 _08074A90: .4byte gUnknown_085C60D4
 
-	THUMB_FUNC_END sub_8074A60
+	THUMB_FUNC_END NewEfxLvupBGCOL
 
 	THUMB_FUNC_START sub_8074A94
 sub_8074A94: @ 0x08074A94

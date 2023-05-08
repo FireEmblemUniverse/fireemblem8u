@@ -271,7 +271,7 @@ _08072BEC:
 	adds r0, r2, #0
 	orrs r1, r0
 	strh r1, [r5, #8]
-	bl sub_8055000
+	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	movs r1, #0xa
 	movs r2, #0x46

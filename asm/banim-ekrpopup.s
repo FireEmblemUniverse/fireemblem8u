@@ -1401,7 +1401,7 @@ sub_8076380: @ 0x08076380
 	subs r0, #1
 	bl sub_8075AD8
 	ldr r4, _080763D8  @ gPaletteBuffer
-	ldr r1, _080763DC  @ gUnknown_020165C8
+	ldr r1, _080763DC  @ gEkrBgPalBackupMaybe
 	movs r2, #0x80
 	lsls r2, r2, #1
 	adds r0, r4, #0
@@ -1420,7 +1420,7 @@ sub_8076380: @ 0x08076380
 	.align 2, 0
 _080763D4: .4byte gEkrPairSomeTile
 _080763D8: .4byte gPaletteBuffer
-_080763DC: .4byte gUnknown_020165C8
+_080763DC: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8076380
 
@@ -1457,7 +1457,7 @@ sub_8076400: @ 0x08076400
 	movs r2, #0
 	bl Interpolate
 	adds r5, r0, #0
-	ldr r0, _0807645C  @ gUnknown_020165C8
+	ldr r0, _0807645C  @ gEkrBgPalBackupMaybe
 	ldr r4, _08076460  @ gPaletteBuffer
 	movs r2, #0x80
 	lsls r2, r2, #1
@@ -1487,7 +1487,7 @@ _08076454:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807645C: .4byte gUnknown_020165C8
+_0807645C: .4byte gEkrBgPalBackupMaybe
 _08076460: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_8076400
@@ -1519,7 +1519,7 @@ sub_8076484: @ 0x08076484
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080764A8  @ gPaletteBuffer
-	ldr r1, _080764AC  @ gUnknown_020165C8
+	ldr r1, _080764AC  @ gEkrBgPalBackupMaybe
 	movs r2, #0x80
 	lsls r2, r2, #1
 	bl CpuFastSet
@@ -1534,7 +1534,7 @@ sub_8076484: @ 0x08076484
 	bx r0
 	.align 2, 0
 _080764A8: .4byte gPaletteBuffer
-_080764AC: .4byte gUnknown_020165C8
+_080764AC: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8076484
 
@@ -1553,7 +1553,7 @@ sub_80764B0: @ 0x080764B0
 	movs r2, #0x10
 	bl Interpolate
 	adds r5, r0, #0
-	ldr r0, _0807650C  @ gUnknown_020165C8
+	ldr r0, _0807650C  @ gEkrBgPalBackupMaybe
 	ldr r4, _08076510  @ gPaletteBuffer
 	movs r2, #0x80
 	lsls r2, r2, #1
@@ -1583,7 +1583,7 @@ _08076504:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807650C: .4byte gUnknown_020165C8
+_0807650C: .4byte gEkrBgPalBackupMaybe
 _08076510: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_80764B0

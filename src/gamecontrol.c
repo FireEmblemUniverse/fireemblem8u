@@ -609,7 +609,7 @@ void sub_8009C5C(struct GameCtrlProc* proc) {
     return;
 }
 
-void sub_8009CA4(ProcPtr proc) {
+void GameCtrlStartExtraMap(ProcPtr proc) {
     NullBmMapHidden_();
     ClearPidStats();
 

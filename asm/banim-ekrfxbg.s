@@ -18,7 +18,7 @@ StartSpellBG_FLASH: @ 0x08053F10
 	movs r0, #1
 	negs r0, r0
 	str r0, [sp]
-	ldr r1, _08053F44  @ gUnknown_020165C8
+	ldr r1, _08053F44  @ gEkrBgPalBackupMaybe
 	ldr r2, _08053F48  @ 0x01000100
 	mov r0, sp
 	bl CpuFastSet
@@ -28,7 +28,7 @@ StartSpellBG_FLASH: @ 0x08053F10
 	bx r0
 	.align 2, 0
 _08053F40: .4byte gProc_efxFlashBG
-_08053F44: .4byte gUnknown_020165C8
+_08053F44: .4byte gEkrBgPalBackupMaybe
 _08053F48: .4byte 0x01000100
 
 	THUMB_FUNC_END StartSpellBG_FLASH
@@ -48,7 +48,7 @@ sub_8053F4C: @ 0x08053F4C
 	strh r5, [r0, #0x2e]
 	ldr r0, _08053F80  @ 0x001F001F
 	str r0, [sp]
-	ldr r1, _08053F84  @ gUnknown_020165C8
+	ldr r1, _08053F84  @ gEkrBgPalBackupMaybe
 	ldr r2, _08053F88  @ 0x01000100
 	mov r0, sp
 	bl CpuFastSet
@@ -59,7 +59,7 @@ sub_8053F4C: @ 0x08053F4C
 	.align 2, 0
 _08053F7C: .4byte gProc_efxFlashBG
 _08053F80: .4byte 0x001F001F
-_08053F84: .4byte gUnknown_020165C8
+_08053F84: .4byte gEkrBgPalBackupMaybe
 _08053F88: .4byte 0x01000100
 
 	THUMB_FUNC_END sub_8053F4C
@@ -78,7 +78,7 @@ sub_8053F8C: @ 0x08053F8C
 	strh r1, [r0, #0x2c]
 	strh r5, [r0, #0x2e]
 	str r1, [sp]
-	ldr r1, _08053FBC  @ gUnknown_020165C8
+	ldr r1, _08053FBC  @ gEkrBgPalBackupMaybe
 	ldr r2, _08053FC0  @ 0x01000100
 	mov r0, sp
 	bl CpuFastSet
@@ -88,7 +88,7 @@ sub_8053F8C: @ 0x08053F8C
 	bx r0
 	.align 2, 0
 _08053FB8: .4byte gProc_efxFlashBG
-_08053FBC: .4byte gUnknown_020165C8
+_08053FBC: .4byte gEkrBgPalBackupMaybe
 _08053FC0: .4byte 0x01000100
 
 	THUMB_FUNC_END sub_8053F8C
@@ -117,7 +117,7 @@ _08053FE0: .4byte gProc_efxFlashBG
 sub_8053FE4: @ 0x08053FE4
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08054018  @ gUnknown_020165C8
+	ldr r0, _08054018  @ gEkrBgPalBackupMaybe
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -140,7 +140,7 @@ _08054012:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08054018: .4byte gUnknown_020165C8
+_08054018: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8053FE4
 
@@ -184,7 +184,7 @@ sub_8054054: @ 0x08054054
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, _080540A8  @ gPaletteBuffer
-	ldr r4, _080540AC  @ gUnknown_020165C8
+	ldr r4, _080540AC  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -220,7 +220,7 @@ _080540A0:
 	bx r0
 	.align 2, 0
 _080540A8: .4byte gPaletteBuffer
-_080540AC: .4byte gUnknown_020165C8
+_080540AC: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8054054
 
@@ -240,7 +240,7 @@ sub_80540B0: @ 0x080540B0
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08054118  @ gPaletteBuffer
-	ldr r4, _0805411C  @ gUnknown_020165C8
+	ldr r4, _0805411C  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -275,7 +275,7 @@ _08054110:
 	bx r0
 	.align 2, 0
 _08054118: .4byte gPaletteBuffer
-_0805411C: .4byte gUnknown_020165C8
+_0805411C: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_80540B0
 
@@ -319,7 +319,7 @@ sub_8054158: @ 0x08054158
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, _080541AC  @ gPaletteBuffer
-	ldr r4, _080541B0  @ gUnknown_020165C8
+	ldr r4, _080541B0  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -355,7 +355,7 @@ _080541A4:
 	bx r0
 	.align 2, 0
 _080541AC: .4byte gPaletteBuffer
-_080541B0: .4byte gUnknown_020165C8
+_080541B0: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8054158
 
@@ -375,7 +375,7 @@ sub_80541B4: @ 0x080541B4
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _0805421C  @ gPaletteBuffer
-	ldr r4, _08054220  @ gUnknown_020165C8
+	ldr r4, _08054220  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -410,7 +410,7 @@ _08054214:
 	bx r0
 	.align 2, 0
 _0805421C: .4byte gPaletteBuffer
-_08054220: .4byte gUnknown_020165C8
+_08054220: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_80541B4
 
@@ -454,7 +454,7 @@ sub_805425C: @ 0x0805425C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, _080542B0  @ gPaletteBuffer
-	ldr r4, _080542B4  @ gUnknown_020165C8
+	ldr r4, _080542B4  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -490,7 +490,7 @@ _080542A8:
 	bx r0
 	.align 2, 0
 _080542B0: .4byte gPaletteBuffer
-_080542B4: .4byte gUnknown_020165C8
+_080542B4: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_805425C
 
@@ -510,7 +510,7 @@ sub_80542B8: @ 0x080542B8
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08054320  @ gPaletteBuffer
-	ldr r4, _08054324  @ gUnknown_020165C8
+	ldr r4, _08054324  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -545,7 +545,7 @@ _08054318:
 	bx r0
 	.align 2, 0
 _08054320: .4byte gPaletteBuffer
-_08054324: .4byte gUnknown_020165C8
+_08054324: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_80542B8
 
@@ -589,7 +589,7 @@ sub_8054360: @ 0x08054360
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, _080543B4  @ gPaletteBuffer
-	ldr r4, _080543B8  @ gUnknown_020165C8
+	ldr r4, _080543B8  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -625,7 +625,7 @@ _080543AC:
 	bx r0
 	.align 2, 0
 _080543B4: .4byte gPaletteBuffer
-_080543B8: .4byte gUnknown_020165C8
+_080543B8: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_8054360
 
@@ -645,7 +645,7 @@ sub_80543BC: @ 0x080543BC
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08054424  @ gPaletteBuffer
-	ldr r4, _08054428  @ gUnknown_020165C8
+	ldr r4, _08054428  @ gEkrBgPalBackupMaybe
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -680,7 +680,7 @@ _0805441C:
 	bx r0
 	.align 2, 0
 _08054424: .4byte gPaletteBuffer
-_08054428: .4byte gUnknown_020165C8
+_08054428: .4byte gEkrBgPalBackupMaybe
 
 	THUMB_FUNC_END sub_80543BC
 
@@ -1012,8 +1012,8 @@ _080546C0: .4byte gpProcEfxHPBarColorChange
 
 	THUMB_FUNC_END EndEfxHPBarColorChange
 
-	THUMB_FUNC_START sub_80546C4
-sub_80546C4: @ 0x080546C4
+	THUMB_FUNC_START EfxHPBarColorChangeSet29
+EfxHPBarColorChangeSet29: @ 0x080546C4
 	ldr r0, _080546D0  @ gpProcEfxHPBarColorChange
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -1023,10 +1023,10 @@ sub_80546C4: @ 0x080546C4
 	.align 2, 0
 _080546D0: .4byte gpProcEfxHPBarColorChange
 
-	THUMB_FUNC_END sub_80546C4
+	THUMB_FUNC_END EfxHPBarColorChangeSet29
 
-	THUMB_FUNC_START sub_80546D4
-sub_80546D4: @ 0x080546D4
+	THUMB_FUNC_START EfxHPBarColorChangeClear29
+EfxHPBarColorChangeClear29: @ 0x080546D4
 	ldr r0, _080546E0  @ gpProcEfxHPBarColorChange
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -1036,7 +1036,7 @@ sub_80546D4: @ 0x080546D4
 	.align 2, 0
 _080546E0: .4byte gpProcEfxHPBarColorChange
 
-	THUMB_FUNC_END sub_80546D4
+	THUMB_FUNC_END EfxHPBarColorChangeClear29
 
 	THUMB_FUNC_START sub_80546E4
 sub_80546E4: @ 0x080546E4

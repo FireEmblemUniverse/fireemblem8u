@@ -6,13 +6,15 @@
 #include "bmbattle.h"
 #include "anime.h"
 
+#define EKR_LVUP_UI_BASE 0x50
+
 struct ProcEkrLevelup {
     PROC_HEADER;
 
     /* 29 */ bool8 finished;
-    /* 2A */ bool8 is_promotion; // promo = 1, else = 0
-    /* 2C */ s16 count;    // init 0, maybe a counter
-    /* 2E */ s16 stat_id;
+    /* 2A */ bool8 is_promotion;
+    /* 2C */ s16 timer;
+    /* 2E */ s16 index;
     /* 30 */ u8 _pad_30[0x44 - 0x30];
     /* 44 */ int unk_44;
     /* 48 */ int unk_48;
@@ -50,9 +52,9 @@ extern const u16 sEfxLvupPartsPos[];
 extern struct TextHandle gTextEkrlvupMsg[EKRLVUP_STAT_MAX];
 extern struct TextHandle gTextEkrlvupValue[EKRLVUP_STAT_MAX];
 extern struct ProcEkrLevelup *gpProcEkrLevelup;
-// extern ??? gUnknown_020200B8
-// extern ??? gUnknown_020200D8
-// extern ??? gUnknown_020200DC
+extern u32 gUnknown_020200B8[8];
+extern ProcPtr gpProcEfxPartsofScroll;
+extern ProcPtr gpProcEfxleveluphb;
 // extern ??? gUnknown_020200E0
 extern struct Unit *gpEkrLvupUnit;
 extern struct BattleUnit *gpEkrLvupBattleUnit;
@@ -69,8 +71,8 @@ bool CheckEkrLvupDone(void);
 void EndEkrLevelUp(void);
 void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc);
 void EkrLvup_DrawUpdatedStatus(struct ProcEkrLevelup *proc, int index);
-void EkrLvup_DrawUnitName(void);
-void EkrLvup_DrawPreLevelValue(void);
+void EkrLvup_DrawUnitName(struct ProcEkrLevelup *proc);
+void EkrLvup_DrawPreLevelValue(struct ProcEkrLevelup *proc);
 void NewEkrLevelup(struct Anim *ais);
 void EkrLvup_OnPrepare(struct ProcEkrLevelup *proc);
 void EkrLvup_InitScreen(struct ProcEkrLevelup *proc);

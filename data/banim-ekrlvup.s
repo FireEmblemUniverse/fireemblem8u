@@ -96,8 +96,8 @@ gUnknown_087594C8:  @ 0x087594C8
     .4byte gUnknown_085BEF94 + 0x5408
     .4byte gUnknown_085BEF94 + 0x5408
 
-	.global gUnknown_087594F4
-gUnknown_087594F4:  @ 0x087594F4
+	.global ProcScr_efxLvupBG2
+ProcScr_efxLvupBG2:  @ 0x087594F4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e1658
@@ -118,8 +118,8 @@ gUnknown_0875950C:  @ 0x0875950C
     .4byte gUnknown_085C60D4 + 0x428
     .4byte gUnknown_085C60D4 + 0x544
 
-	.global gUnknown_08759524
-gUnknown_08759524:  @ 0x08759524
+	.global ProcScr_efxLvupOBJ2
+ProcScr_efxLvupOBJ2:  @ 0x08759524
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e1680
@@ -134,8 +134,8 @@ gUnknown_08759524:  @ 0x08759524
         .word 0x0
 
 
-	.global gUnknown_08759544
-gUnknown_08759544:  @ 0x08759544
+	.global ProcScr_efxLvupBGCOL
+ProcScr_efxLvupBGCOL:  @ 0x08759544
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e168c

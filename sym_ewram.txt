@@ -162,7 +162,7 @@
 . = 0x0146F4; gUnknown_020146F4 = .;
 . = 0x014DC8; gUnknown_02014DC8 = .;
 . = 0x014EF4; gUnknown_02014EF4 = .;
-. = 0x0165C8; gUnknown_020165C8 = .;
+. = 0x0165C8; gEkrBgPalBackupMaybe = .;
 . = 0x016828; gUnknown_02016828 = .;
 . = 0x0169C8; gObjBuf_EkrSideHitDmgCrit = .;
 . = 0x016DC8; gUnknown_02016DC8 = .;
@@ -198,10 +198,10 @@
 . = 0x017768; gUnknown_02017768 = .;
 . = 0x01776C; gpProcEfxStatusUnits = .;
 . = 0x017774; gpProcEfxWeaponIcon = .;
-. = 0x017778; gUnknown_02017778 = .;
+. = 0x017778; gpProcEfxSpellCast = .;
 . = 0x01777C; gpProcEfxHPBarColorChange = .;
 . = 0x017780; gEkrHitEfxBool = .;
-. = 0x017790; gUnknown_02017790 = .;
+. = 0x017790; gEkrImgBuffer = .;
 . = 0x019490; gUnknown_02019490 = .;
 . = 0x019790; gEkrTsaBuffer = .;
 . = 0x019D00; gUnknown_02019D00 = .;
@@ -283,8 +283,8 @@
 . = 0x0200B0; gpProcEkrClasshg = .;
 . = 0x0200B4; gpProcEkrLevelup = .;
 . = 0x0200B8; gUnknown_020200B8 = .;
-. = 0x0200D8; gUnknown_020200D8 = .;
-. = 0x0200DC; gUnknown_020200DC = .;
+. = 0x0200D8; gpProcEfxPartsofScroll = .;
+. = 0x0200DC; gpProcEfxleveluphb = .;
 . = 0x0200E0; gUnknown_020200E0 = .;
 . = 0x020108;
 . = ALIGN(4); src/banim-ekrlvup.o(ewram_data);
@@ -417,7 +417,6 @@
 . = 0x0235F0; gUnknown_020235F0 = .;
 . = 0x0235FC; gUnknown_020235FC = .;
 . = 0x0235FE; gUnknown_020235FE = .;
-. = 0x023628; gUnknown_02023628 = .;
 . = 0x0236E4; gUnknown_020236E4 = .;
 . = 0x0237E8; gUnknown_020237E8 = .;
 . = 0x023816; gUnknown_02023816 = .;
