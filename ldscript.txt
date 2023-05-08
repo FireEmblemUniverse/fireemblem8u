@@ -159,7 +159,6 @@ SECTIONS
         asm/banim-ekrutils.o(.text);
         asm/banim-ekrpromotion.o(.text);
         src/banim-ekrlvup.o(.text);
-        asm/banim-ekrlvup.o(.text);
         asm/banim-efxlvup.o(.text);
         asm/banim-ekrtriangle.o(.text);
         asm/banim-ekrpopup.o(.text);

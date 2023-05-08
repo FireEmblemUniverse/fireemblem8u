@@ -93,6 +93,7 @@ struct Struct20200E0 {
     /* 18 */ struct Struct20200E0_14 *unk18;
     /* 1C */ void *unk1C;
     /* 20 */ void *unk20;
+    /* 24 */ void *unk24;
 };
 extern struct Struct20200E0 gUnknown_020200E0;
 

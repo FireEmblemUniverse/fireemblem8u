@@ -360,7 +360,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
             buf->unk00 = -1;
     }
 
-    if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != 2) {
+    if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING) {
 
         sub_805AA68(buf);
 
@@ -610,7 +610,7 @@ void EkrLvup_DrawNewLevel(struct ProcEkrLevelup *proc)
 {
     if (proc->is_promotion == false) {
         proc->timer = 0;
-        sub_8074D58(0xA0, 1, 0x84, 0x3C, 0, 0);
+        BanimDrawStatupAp(0xA0, 1, 0x84, 0x3C, 0, 0);
         gEkrLvupPreLevel = gEkrLvupPostLevel;
         EkrLvup_DrawPreLevelValue(proc);
         SomePlaySound_8071990(0x2CD, 0x100);
@@ -637,4 +637,155 @@ void EkrLvup_InitCounterForMainAnim(struct ProcEkrLevelup *proc)
         proc->index = 0;
         Proc_Break(proc);
     }
+}
+
+void EkrLvup_MainAnime(struct ProcEkrLevelup *proc)
+{
+    int base, diff;
+    s16 stat_index;
+
+    if (++proc->timer == 0x14) {
+        proc->timer = 0;
+
+        for (; proc->index != EKRLVUP_STAT_MAX; proc->index++) {
+            base = gEkrLvupBaseStatus[proc->index];
+            diff = gEkrLvupPostStatus[proc->index] - base;
+
+            if (diff != 0) {
+                gEkrLvupBaseStatus[proc->index] = gEkrLvupPostStatus[proc->index];
+                EkrLvup_DrawUpdatedStatus(proc, proc->index);
+                SomePlaySound_8071990(0x76, 0x100);
+                M4aPlayWithPostionCtrl(0x76, 0x38, 0);
+
+                BanimDrawStatupAp(0xA0, 1,
+                    0x35 + (sEfxLvupPartsPos[proc->index] & 0x1F) * 8,
+                    6 + (sEfxLvupPartsPos[proc->index] & 0x7E0) / 4,
+                    proc->index + 1,
+                    diff);
+
+                if (proc->index == EKRLVUP_STAT_HP) {
+                    gEkrPairMaxHP[1] = gEkrLvupBaseStatus[proc->index];
+                    gUnknown_0203E1B4[1] = -1;
+                }
+                proc->timer = 0;
+                break;
+            }
+        }
+    }
+
+    if (proc->index == EKRLVUP_STAT_MAX) {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+}
+
+void EkrLvup_SetHBlank(struct ProcEkrLevelup *proc)
+{
+    if (++proc->timer > 0x6D) {
+        proc->timer = 0;
+        EkrLvupApfxEndEach();
+        SetPrimaryHBlankHandler(EkrLvupHBlank);
+        Proc_Break(proc);
+    }
+}
+
+void EkrLvup_DoNothing(struct ProcEkrLevelup *proc)
+{
+    Proc_Break(proc);
+}
+
+void EkrLvup_PutWindowOffScreen(struct ProcEkrLevelup *proc)
+{
+    int i, pos, pal;
+
+    gEkrLvupScrollPos1 = Interpolate(INTERPOLATE_LINEAR, 0, 0x90, proc->timer, 8);
+    gEkrLvupScrollPos2 = Interpolate(INTERPOLATE_LINEAR, 0, 0x90, proc->timer, 8);
+
+    pos = Interpolate(INTERPOLATE_LINEAR, 0, -EKR_LVUP_UI_BASE, proc->timer, 8);
+    pal = Interpolate(INTERPOLATE_LINEAR, 8, 0, proc->timer, 8);
+
+    gFaces[0]->yPos = EKR_LVUP_UI_BASE - pos;
+
+    CpuFastCopy(gEkrBgPalBackupMaybe, PAL_BG(0), 0x400);
+    EkrMaybePalFadeWithVal(PAL_BG(0), 2, 4, pal);
+    EkrMaybePalFadeWithVal(PAL_BG(0), 0x13, 0xC, pal);
+    EnablePaletteSync();
+
+    /* Maybe some debug routine? */
+    for (i = 0; i < 8; i++);
+
+    if (++proc->timer > 8) {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+}
+
+void EkrLvup_ResetScreen(struct ProcEkrLevelup *proc)
+{
+    struct Struct20200E0 *buf, _buf;
+    buf = &gUnknown_020200E0;
+
+    if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING)
+        sub_805AE14(buf);
+
+    SetBackgroundMapDataOffset(0, 0x6000);
+    SetBackgroundMapDataOffset(1, 0x6800);
+    SetBackgroundMapDataOffset(2, 0x7000);
+
+    SetBackgroundScreenSize(1, 0);
+    SetBackgroundScreenSize(2, 0);
+
+    buf = &_buf;
+    buf->unk00 = gBanimTerrainIndexMaybe[0];
+    buf->unk02 = 4;
+    buf->unk04 = 0x280;
+    buf->unk06 = gBanimTerrainIndexMaybe[1];
+    buf->unk08 = 5;
+    buf->unk0A = 0x280;
+    buf->unk0C = gEkrDistanceType;
+    buf->unk0E = 0x2;
+    buf->unk1C = NULL;
+    buf->unk20 = gUnknown_020145C8;
+    buf->unk10 = gEkrSnowWeather;
+
+    if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING) {
+        BG_SetPosition(2, 0, 0);
+        sub_805AA68(&_buf);
+    }
+
+    proc->ais_main->oam2Base &= ~OAM2_LAYER(0x3);
+    proc->ais_main->oam2Base |=  OAM2_LAYER(0x2);
+    proc->ais_core->oam2Base &= ~OAM2_LAYER(0x3);
+    proc->ais_core->oam2Base |=  OAM2_LAYER(0x2);
+
+    CpuFastFill(0, gBG1TilemapBuffer, 0x800);
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+    EkrGauge_Setup44(0);
+
+    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DRACO_ZOMBIE) {
+        gLCDControlBuffer.bg0cnt.priority = 0;
+        gLCDControlBuffer.bg1cnt.priority = 1;
+        gLCDControlBuffer.bg3cnt.priority = 2;
+        gLCDControlBuffer.bg2cnt.priority = 3;
+    } else {
+        gLCDControlBuffer.bg0cnt.priority = 0;
+        gLCDControlBuffer.bg1cnt.priority = 1;
+        gLCDControlBuffer.bg2cnt.priority = 2;
+        gLCDControlBuffer.bg3cnt.priority = 3;
+    }
+
+    EndFaceById(0);
+    Proc_Break(proc);
+}
+
+void EkrLvup_OnEnd(struct ProcEkrLevelup *proc)
+{
+    Proc_End(gpProcEfxPartsofScroll);
+    Proc_End(gpProcEfxleveluphb);
+
+    EnableEfxStatusUnits(proc->ais_main);
+    EnableEfxStatusUnits(proc->ais_core);
+    EfxWeaponIconClear50();
+    EfxHPBarColorChangeClear29();
+    proc->finished = true;
 }

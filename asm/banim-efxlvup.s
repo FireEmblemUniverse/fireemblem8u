@@ -1053,8 +1053,8 @@ _08074D54: .4byte 0x06010000
 
 	THUMB_FUNC_END sub_8074C78
 
-	THUMB_FUNC_START sub_8074D58
-sub_8074D58: @ 0x08074D58
+	THUMB_FUNC_START BanimDrawStatupAp
+BanimDrawStatupAp: @ 0x08074D58
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -1186,7 +1186,7 @@ _08074E52:
 _08074E64: .4byte gUnknown_085C92EC
 _08074E68: .4byte gUnknown_085C92D0
 
-	THUMB_FUNC_END sub_8074D58
+	THUMB_FUNC_END BanimDrawStatupAp
 
 	THUMB_FUNC_START sub_8074E6C
 sub_8074E6C: @ 0x08074E6C
