@@ -256,7 +256,7 @@ _08072BC4:
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0
-	bl sub_80547DC
+	bl NewEfxFlashUnit
 	b _08072C94
 _08072BEC:
 	movs r0, #0x9d

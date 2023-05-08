@@ -697,8 +697,8 @@ sub_805442C: @ 0x0805442C
 
 	THUMB_FUNC_END sub_805442C
 
-	THUMB_FUNC_START sub_8054440
-sub_8054440: @ 0x08054440
+	THUMB_FUNC_START NewEfxFlashHPBar
+NewEfxFlashHPBar: @ 0x08054440
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r4, r1, #0
@@ -727,7 +727,7 @@ _0805446E:
 	.align 2, 0
 _08054474: .4byte gProc_efxFlashHPBar
 
-	THUMB_FUNC_END sub_8054440
+	THUMB_FUNC_END NewEfxFlashHPBar
 
 	THUMB_FUNC_START sub_8054478
 sub_8054478: @ 0x08054478
@@ -1155,8 +1155,8 @@ _080547D8: .4byte gUnknown_02022C28
 
 	THUMB_FUNC_END sub_80546E4
 
-	THUMB_FUNC_START sub_80547DC
-sub_80547DC: @ 0x080547DC
+	THUMB_FUNC_START NewEfxFlashUnit
+NewEfxFlashUnit: @ 0x080547DC
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -1187,7 +1187,7 @@ sub_80547DC: @ 0x080547DC
 	.align 2, 0
 _08054814: .4byte gProc_efxFlashUnit
 
-	THUMB_FUNC_END sub_80547DC
+	THUMB_FUNC_END NewEfxFlashUnit
 
 	THUMB_FUNC_START sub_8054818
 sub_8054818: @ 0x08054818

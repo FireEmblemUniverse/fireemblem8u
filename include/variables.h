@@ -141,10 +141,10 @@ extern u8 gUnknown_020145C8[];
 // extern ??? gUnknown_02014DC8
 // extern ??? gUnknown_02014EF4
 
-extern u32 gUnknown_0201FB04[];
+extern u32 gBanimDoneMaybe[];
 extern u32 gEkrBgXOffset;
 // extern ??? gpProcEfxAnimeDrv
-// extern ??? gUnknown_0201FB1C
+extern void *gpImgSheet[2];
 // extern ??? gUnknown_0201FB24
 // extern ??? gUnknown_0201FB28
 // extern ??? gUnknown_0201FB2C
@@ -408,27 +408,8 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203DD9F
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
-extern short gEfxPairHpBufOffset[];
-// extern ??? gEfxHpBarBuf
-extern short gEkrPairBanimID2[];
-extern u8 gEkrPids[2];
-extern int gUnknown_0203E194;
-extern int gEkrPaiSomeBanimID[2];
-extern int gUnknown_0203E1A4[2];
-extern short gEkrPairHpInitial[2];
-extern short gEkrPairMaxHP[2];
-extern short gUnknown_0203E1B4[2];
-extern short gEkrPairHit[2];
-extern short gEkrPairDmgPair[2];
-extern short gEkrPairCritPair[2];
-extern short gEkrPairExpPrevious[2];
-extern short gEkrPairExpGain[2];
-extern short gEkrPairTerrainID[2];
-extern short gEkrPairBaseCon[2];
-extern short gEkrPairWTABonus[2];
-extern short gEkrPairEffectiveAgainst[2];
-extern short gUnknown_0203E1DC[2];
-// extern ??? gUnknown_0203E1E0
+
+extern int gUnknown_0203E1E0;
 // extern ??? gBaArenaFlag
 // extern ??? gpProcefxopCur
 // extern ??? gUnknown_0203E1EC
@@ -581,7 +562,7 @@ extern struct Unit* gActiveUnit;
 extern int gUnknown_03004FA0;
 extern int gUnknown_03004FA4;
 extern int gEkrXQuakeOff;
-// extern ??? gUnknown_03004FAC
+extern int gUnknown_03004FAC;
 extern int gEkrYQuakeOff;
 // extern ??? MADebugInfo
 // extern ??? gUnknown_03005090
@@ -745,7 +726,6 @@ extern const u16 gUnknown_080DACDA[];
 // extern ??? gUnknown_080DAED2
 // extern ??? gUnknown_080DAEDC
 // extern ??? gUnknown_080DAEE6
-// extern ??? gBanimSpecificScrConfigs
 // extern ??? gUnknown_080DAF18
 // extern ??? gUnknown_080DAF1D
 // extern ??? gUnknown_080DAF22
@@ -1887,7 +1867,7 @@ extern char gNopStr[];
 // extern ??? gUnknown_085D9094
 // extern ??? gUnknown_085D90AC
 // extern ??? gUnknown_085D90C4
-// extern ??? gUnknown_085D90DC
+// extern ??? ProcScr_efxSpecalEffect
 // extern ??? gUnknown_085D90F4
 // extern ??? gUnknown_085D910C
 // extern ??? gUnknown_085D9124

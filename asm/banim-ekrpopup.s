@@ -1391,7 +1391,7 @@ sub_8076380: @ 0x08076380
 	movs r0, #0
 	bl SetupOAMBufferSplice
 	bl EfxClearScreenFx
-	bl sub_80599E8
+	bl UpdateBanimFrame
 	bl NewEkrGauge
 	bl NewEkrDispUP
 	bl NewEkrBattle

@@ -2099,8 +2099,8 @@ _08071A40: .4byte gPlaySt
 
 	THUMB_FUNC_END Loop6C_efxSoundSE
 
-	THUMB_FUNC_START sub_8071A44
-sub_8071A44: @ 0x08071A44
+	THUMB_FUNC_START DoM4aSongNumStop
+DoM4aSongNumStop: @ 0x08071A44
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -2108,7 +2108,7 @@ sub_8071A44: @ 0x08071A44
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8071A44
+	THUMB_FUNC_END DoM4aSongNumStop
 
 	THUMB_FUNC_START sub_8071A54
 sub_8071A54: @ 0x08071A54

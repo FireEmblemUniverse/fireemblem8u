@@ -17,7 +17,7 @@ enum banim_myrrh {
     BANIM_INDEX_MYRRH_NOWPN = 0xC7,
 };
 
-void EfxDoMyrrhIntroAnim(struct Anim *anim)
+void NewEkrDragonManakete(struct Anim *anim)
 {
     struct EkrDragonStatus *ekrsp = GetEkrDragonStatus(anim);
     struct ProcEkrDragon *proc = Proc_Start(ProcScr_EkrMyrrh, PROC_TREE_3);
@@ -36,7 +36,7 @@ void EkrMyr_PrepareBanimfx(struct ProcEkrDragon *proc)
     proc->timer = 0;
 
     EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_INTRO - 1);
-    BanimPrepareSpecificScript(anim, 0);
+    BanimSetupRoundBasedScript(anim, 0);
     LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 
     if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
@@ -99,7 +99,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc)
     SomePlaySound_8071990(0xDD, 0x100);
     M4aPlayWithPostionCtrl(0xDD, anim->xPosition, 1);
     EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_EXIT - 1);
-    BanimPrepareSpecificScript(anim, 0);
+    BanimSetupRoundBasedScript(anim, 0);
     Proc_Break(proc);
     LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 

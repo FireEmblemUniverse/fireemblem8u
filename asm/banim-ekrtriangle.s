@@ -83,7 +83,7 @@ _08074FBA:
 	ble _08074FC0
 	b _080750BC
 _08074FC0:
-	ldr r0, _08075000  @ gUnknown_0203E194
+	ldr r0, _08075000  @ gEkrTriangleAtkFlag
 	ldr r1, [r0]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -117,7 +117,7 @@ _08074FE8:
 	b _0807500A
 	.align 2, 0
 _08074FFC: .4byte gpEkrBattleUnitRight
-_08075000: .4byte gUnknown_0203E194
+_08075000: .4byte gEkrTriangleAtkFlag
 _08075004:
 	adds r0, r4, #0
 	bl GetItemType
@@ -141,7 +141,7 @@ _0807501A:
 	movs r0, #2
 	mov r8, r0
 _0807502C:
-	ldr r0, _08075068  @ gUnknown_0203E194
+	ldr r0, _08075068  @ gEkrTriangleAtkFlag
 	ldr r1, [r0, #4]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -174,7 +174,7 @@ _08075054:
 	movs r0, #1
 	b _08075072
 	.align 2, 0
-_08075068: .4byte gUnknown_0203E194
+_08075068: .4byte gEkrTriangleAtkFlag
 _0807506C:
 	adds r0, r4, #0
 	bl GetItemType
@@ -215,7 +215,7 @@ _0807508E:
 _080750B4: .4byte gpEkrBattleUnitRight
 _080750B8: .4byte gEkrTriangleInvalid
 _080750BC:
-	ldr r0, _080750E8  @ gUnknown_0203E194
+	ldr r0, _080750E8  @ gEkrTriangleAtkFlag
 	ldr r1, [r0]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -238,7 +238,7 @@ _080750D4:
 	movs r0, #1
 	b _080750F6
 	.align 2, 0
-_080750E8: .4byte gUnknown_0203E194
+_080750E8: .4byte gEkrTriangleAtkFlag
 _080750EC:
 	adds r0, r4, #0
 	bl GetItemType
@@ -254,7 +254,7 @@ _08075100:
 	movs r2, #1
 	mov r8, r2
 _08075104:
-	ldr r0, _08075130  @ gUnknown_0203E194
+	ldr r0, _08075130  @ gEkrTriangleAtkFlag
 	ldr r1, [r0, #4]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -277,7 +277,7 @@ _0807511C:
 	movs r0, #1
 	b _0807513E
 	.align 2, 0
-_08075130: .4byte gUnknown_0203E194
+_08075130: .4byte gEkrTriangleAtkFlag
 _08075134:
 	adds r0, r4, #0
 	bl GetItemType
@@ -469,16 +469,16 @@ NewEkrTriPegasusKnightBG: @ 0x0807527C
 	str r0, [r1, #0x44]
 	cmp r5, #0
 	bne _080752B0
-	ldr r0, _080752A8  @ gEkrPaiSomeBanimID
+	ldr r0, _080752A8  @ gBanimCharacterTSAs
 	ldr r2, [r0]
 	ldr r0, _080752AC  @ gUnknown_080E1732
 	b _080752B6
 	.align 2, 0
 _080752A4: .4byte ProcScr_ekrTriPegasusKnightBG
-_080752A8: .4byte gEkrPaiSomeBanimID
+_080752A8: .4byte gBanimCharacterTSAs
 _080752AC: .4byte gUnknown_080E1732
 _080752B0:
-	ldr r0, _080752EC  @ gEkrPaiSomeBanimID
+	ldr r0, _080752EC  @ gBanimCharacterTSAs
 	ldr r2, [r0, #4]
 	ldr r0, _080752F0  @ gUnknown_080E1740
 _080752B6:
@@ -508,7 +508,7 @@ _080752DE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080752EC: .4byte gEkrPaiSomeBanimID
+_080752EC: .4byte gBanimCharacterTSAs
 _080752F0: .4byte gUnknown_080E1740
 _080752F4: .4byte gUnknown_087595EC
 _080752F8: .4byte gUnknown_02017790
@@ -578,18 +578,18 @@ sub_8075350: @ 0x08075350
 	bne _08075390
 	movs r0, #0x12
 	strh r0, [r5, #0x2e]
-	ldr r0, _08075388  @ gEkrPaiSomeBanimID
+	ldr r0, _08075388  @ gBanimCharacterTSAs
 	ldr r6, [r0]
 	ldr r3, _0807538C  @ gUnknown_08759B34
 	b _0807539A
 	.align 2, 0
 _08075384: .4byte ProcScr_EkrTriPegasusKnightOBJ
-_08075388: .4byte gEkrPaiSomeBanimID
+_08075388: .4byte gBanimCharacterTSAs
 _0807538C: .4byte gUnknown_08759B34
 _08075390:
 	movs r0, #0x11
 	strh r0, [r5, #0x2e]
-	ldr r0, _080753E4  @ gEkrPaiSomeBanimID
+	ldr r0, _080753E4  @ gBanimCharacterTSAs
 	ldr r6, [r0, #4]
 	ldr r3, _080753E8  @ gUnknown_08759E68
 _0807539A:
@@ -627,7 +627,7 @@ _080753CC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080753E4: .4byte gEkrPaiSomeBanimID
+_080753E4: .4byte gBanimCharacterTSAs
 _080753E8: .4byte gUnknown_08759E68
 _080753EC: .4byte gUnknown_0201A790
 _080753F0: .4byte gUnknown_080E3B78
@@ -822,7 +822,7 @@ sub_8075538: @ 0x08075538
 	strh r0, [r5, #0x2c]
 	movs r0, #0x14
 	strh r0, [r5, #0x2e]
-	ldr r0, _08075574  @ gEkrPaiSomeBanimID
+	ldr r0, _08075574  @ gBanimCharacterTSAs
 	ldr r7, [r0]
 	cmp r4, #0
 	bne _08075580
@@ -831,7 +831,7 @@ sub_8075538: @ 0x08075538
 	b _080755AC
 	.align 2, 0
 _08075570: .4byte ProcScr_EkrTriArmorKnightOBJ
-_08075574: .4byte gEkrPaiSomeBanimID
+_08075574: .4byte gBanimCharacterTSAs
 _08075578: .4byte gUnknown_08759F00
 _0807557C: .4byte gUnknown_080E58A4
 _08075580:
@@ -876,7 +876,7 @@ _080755AC:
 	adds r0, r6, #0
 	adds r1, r4, #0
 	bl LZ77UnCompWram
-	ldr r0, _08075600  @ gEkrPaiSomeBanimID
+	ldr r0, _08075600  @ gBanimCharacterTSAs
 	ldr r7, [r0, #4]
 	mov r0, r9
 	cmp r0, #0
@@ -890,7 +890,7 @@ _080755F0: .4byte gUnknown_080E63CC
 _080755F4: .4byte 0x00008840
 _080755F8: .4byte gUnknown_0201A790
 _080755FC: .4byte gUnknown_02022BA8
-_08075600: .4byte gEkrPaiSomeBanimID
+_08075600: .4byte gBanimCharacterTSAs
 _08075604: .4byte gUnknown_08759F00
 _08075608: .4byte gUnknown_080E58A4
 _0807560C:
@@ -1047,14 +1047,14 @@ sub_8075718: @ 0x08075718
 	strb r6, [r0]
 	cmp r5, #0
 	bne _0807575C
-	ldr r0, _08075758  @ gEkrPaiSomeBanimID
+	ldr r0, _08075758  @ gBanimCharacterTSAs
 	ldr r0, [r0]
 	b _08075760
 	.align 2, 0
 _08075754: .4byte ProcScr_EkrTriArmorKnightOBJ2
-_08075758: .4byte gEkrPaiSomeBanimID
+_08075758: .4byte gBanimCharacterTSAs
 _0807575C:
-	ldr r0, _0807576C  @ gEkrPaiSomeBanimID
+	ldr r0, _0807576C  @ gBanimCharacterTSAs
 	ldr r0, [r0, #4]
 _08075760:
 	mov r9, r0
@@ -1064,7 +1064,7 @@ _08075760:
 	ldr r6, _08075774  @ gUnknown_080E678C
 	b _080757A4
 	.align 2, 0
-_0807576C: .4byte gEkrPaiSomeBanimID
+_0807576C: .4byte gBanimCharacterTSAs
 _08075770: .4byte gUnknown_0875A19C
 _08075774: .4byte gUnknown_080E678C
 _08075778:

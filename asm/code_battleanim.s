@@ -314,7 +314,7 @@ sub_805B094: @ 0x0805B094
 	cmp r0, #0
 	beq _0805B0A4
 	movs r0, #0x8e
-	bl sub_8071A44
+	bl DoM4aSongNumStop
 _0805B0A4:
 	pop {r0}
 	bx r0
@@ -383,7 +383,7 @@ sub_805B104: @ 0x0805B104
 	ldrsh r0, [r0, r2]
 	str r0, [r1]
 	bl EfxClearScreenFx
-	bl sub_80599E8
+	bl UpdateBanimFrame
 	bl NewEkrGauge
 	bl NewEkrDispUP
 	bl NewEkrBattle
@@ -14667,7 +14667,7 @@ _080621E4:
 	movs r1, #1
 	movs r2, #5
 	movs r3, #0
-	bl sub_80547DC
+	bl NewEfxFlashUnit
 	b _08062294
 _080621FA:
 	adds r0, r5, #0
@@ -15752,7 +15752,7 @@ _08062A94:
 	movs r1, #1
 	movs r2, #5
 	movs r3, #0
-	bl sub_80547DC
+	bl NewEfxFlashUnit
 	b _08062AE8
 _08062AAA:
 	adds r0, r5, #0
@@ -16778,7 +16778,7 @@ _080632C4:
 	movs r1, #1
 	movs r2, #5
 	movs r3, #0
-	bl sub_80547DC
+	bl NewEfxFlashUnit
 	b _08063316
 _080632DA:
 	adds r0, r6, #0
@@ -37544,7 +37544,7 @@ sub_806D678: @ 0x0806D678
 	movs r1, #1
 	movs r2, #0x28
 	movs r3, #0
-	bl sub_80547DC
+	bl NewEfxFlashUnit
 	b _0806D6DE
 _0806D69A:
 	cmp r0, #0xa
@@ -37834,8 +37834,8 @@ _0806D8CC: .4byte gUnknown_0201774C
 
 	THUMB_FUNC_END sub_806D89C
 
-	THUMB_FUNC_START sub_806D8D0
-sub_806D8D0: @ 0x0806D8D0
+	THUMB_FUNC_START NewEfxSpecalEffect
+NewEfxSpecalEffect: @ 0x0806D8D0
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r4, _0806D904  @ gUnknown_02017768
@@ -37867,7 +37867,7 @@ _0806D90E:
 	ldr r0, [r0]
 	adds r0, #0x4a
 	ldrh r0, [r0]
-	bl sub_8058AC8
+	bl IsWeaponLegency
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	bne _0806D954
@@ -37897,7 +37897,7 @@ _0806D91E:
 _0806D94C: .4byte gpEkrBattleUnitRight
 _0806D950: .4byte gAnims
 _0806D954:
-	ldr r0, _0806D97C  @ gUnknown_085D90DC
+	ldr r0, _0806D97C  @ ProcScr_efxSpecalEffect
 	movs r1, #3
 	bl Proc_Start
 	str r5, [r0, #0x5c]
@@ -37916,9 +37916,9 @@ _0806D976:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806D97C: .4byte gUnknown_085D90DC
+_0806D97C: .4byte ProcScr_efxSpecalEffect
 
-	THUMB_FUNC_END sub_806D8D0
+	THUMB_FUNC_END NewEfxSpecalEffect
 
 	THUMB_FUNC_START sub_806D980
 sub_806D980: @ 0x0806D980

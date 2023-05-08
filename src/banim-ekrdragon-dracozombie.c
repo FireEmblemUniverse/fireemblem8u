@@ -252,7 +252,7 @@ void EkrDZ_SetDragonStatAttrEndBit(struct ProcEkrDragon *proc)
     Proc_Break(proc);
 }
 
-void EfxDoDracoZombieIntroAnim(struct Anim *anim)
+void NewEkrDragonDracoZombie(struct Anim *anim)
 {
     struct EkrDragonStatus *ekrsp = GetEkrDragonStatus(anim);
     struct ProcEkrDragon *proc = Proc_Start(ProcScr_EkrDracoZombie, PROC_TREE_3);

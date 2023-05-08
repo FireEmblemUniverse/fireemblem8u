@@ -18,10 +18,10 @@ struct ProcEkrBattleDeamon {
 struct ProcEkrBattle {
     PROC_HEADER;
 
-    /* 29 */ u8 unk29;
+    /* 29 */ u8 speedup;
     /* 2A */ u8 _pad_2A[0x2C - 0x2A];
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
+    /* 2E */ s16 end;
     /* 30 */ u8 _pad_30[0x44 - 0x30];
     /* 44 */ int side;
     /* 48 */ int counter;
@@ -86,11 +86,57 @@ struct ProcEkrBattleStarting {
     /* 3C */ s16 unk3C;
 };
 
-extern int gUnknown_02000018, gUnknown_0200001C;
+struct ProcEkrChienCHR {
+    PROC_HEADER;
+
+    /* 29 */ u8 _pad_29[0x5C - 0x29];
+    /* 5C */ struct Anim *anim;
+};
+
+enum AnimRoundData_type_identifier {
+    ANIM_ROUND_HIT_CLOSE,
+    ANIM_ROUND_CRIT_CLOSE,
+    ANIM_ROUND_NONCRIT_FAR,
+    ANIM_ROUND_CRIT_FAR,
+    ANIM_ROUND_TAKING_MISS_CLOSE,
+    ANIM_ROUND_TAKING_MISS_FAR,
+    ANIM_ROUND_TAKING_HIT_CLOSE,
+    ANIM_ROUND_STANDING,
+    ANIM_ROUND_TAKING_HIT_FAR,
+    ANIM_ROUND_MISS_CLOSE,
+    ANIM_ROUND_MAX,
+};
+
+enum anim_round_type {
+    ANIM_ROUND_BIT8 = 0x0100,
+    ANIM_ROUND_PIERCE = 0x0200,
+    ANIM_ROUND_GREAT_SHIELD = 0x0400,
+    ANIM_ROUND_SURE_SHOT = 0x0800,
+    ANIM_ROUND_SILENCER = 0x1000,
+    ANIM_ROUND_POISON = 0x2000,
+    ANIM_ROUND_BIT14 = 0x4000,
+    ANIM_ROUND_DEVIL = 0x8000,    
+};
+
+extern s16 gAnimRoundData[];
+s16 GetSomeAISRelatedIndexMaybeByID(int index);
+s16 GetAnimRoundType(int);
+
+extern u8 gEfxHpLut[];
+
+struct BanimRoundScripts {
+    u8 frame_front;
+    u8 priority_front;
+    u8 frame_back;
+    u8 priority_back;
+};
+
+extern const struct BanimRoundScripts gBanimRoundScripts[ANIM_ROUND_MAX];
+
+extern int gEkrDebugTimer, gUnknown_0200001C;
 
 extern u16 gEkrPairBanimID[2];
-extern u16 gBattleInitSide[2];
-extern struct AnimRoundData gAnimRoundData;
+extern s16 gBattleInitSide[2];
 
 extern struct BattleUnit *gpEkrBattleUnitLeft;
 extern struct BattleUnit *gpEkrBattleUnitRight;
@@ -128,6 +174,25 @@ extern short gEkrSpellAnimIndexLutMaybe[];
 extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
 extern EWRAM_DATA short gEkrPairBmLoc[4];
 // extern ??? gAnimRoundData
+extern short gEfxPairHpBufOffset[];
+extern short gEkrPairBanimID2[];
+extern u8 gEkrPids[2];
+extern int gEkrTriangleAtkFlag;
+extern char *gBanimCharacterTSAs[2];
+extern int gUnknown_0203E1A4[2];
+extern short gEkrPairHpInitial[2];
+extern short gEkrPairMaxHP[2];
+extern short gUnknown_0203E1B4[2];
+extern short gEkrPairHit[2];
+extern short gEkrPairDmgPair[2];
+extern short gEkrPairCritPair[2];
+extern short gEkrPairExpPrevious[2];
+extern short gEkrPairExpGain[2];
+extern short gEkrPairTerrainID[2];
+extern short gEkrPairBaseCon[2];
+extern short gEkrPairWTABonus[2];
+extern short gEkrPairEffectiveAgainst[2];
+extern short gUnknown_0203E1DC[2];
 
 extern struct ProcCmd gProc_ekrBattleDeamon[];
 extern struct ProcCmd gProc_ekrBattle[];
@@ -195,7 +260,7 @@ extern struct ProcCmd gProc_ekrbattleendin[];
 extern struct ProcCmd gProc_ekrWindowAppear[];
 extern struct ProcCmd gProc_ekrNamewinAppear[];
 extern struct ProcCmd ProcScr_ekrBaseAppear[];
-// extern ??? gUnknown_085B9D5C
+extern u32 gUnknown_085B9D5C[4];
 extern void *gUnknown_085B9D6C[];
 extern struct ProcCmd gProc_ekrChienCHR[];
 extern struct ProcCmd gProc_efxAnimeDrvProc[];
@@ -218,31 +283,31 @@ void MainUpdateEkrBattle(void);
 // ??? ekrBattle_Init(???);
 // ??? ekrBattleMain(???);
 void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc);
-void ekrBattle_80500F0(struct ProcEkrBattle *proc);
+void ekrBattleWaitPreEvent(struct ProcEkrBattle *proc);
 void ekrBattle_8050134(struct ProcEkrBattle *proc);
-void ekrBattle_8050158(struct ProcEkrBattle *proc);
-void ekrBattleDoSpeialClassIntro(struct ProcEkrBattle *proc);
-void ekrBattleWaitSpeialClassIntroAnimIdle(struct ProcEkrBattle *proc);
+void ekrBattlePrepareDragonIntro(struct ProcEkrBattle *proc);
+void ekrBattleExecDragonIntro(struct ProcEkrBattle *proc);
+void ekrBattleWaitDragonIntro(struct ProcEkrBattle *proc);
 void ekrBattlePostEkrDragonIntro(struct ProcEkrBattle *proc);
 void ekrBattle_8050290(struct ProcEkrBattle *proc);
-void ekrBattle_80502B0(struct ProcEkrBattle *proc);
-void ekrBattle_8050304(struct ProcEkrBattle *proc);
-void ekrBattle_8050338(struct ProcEkrBattle *proc);
-void ekrBattle_8050360(struct ProcEkrBattle *proc);
+void ekrBattleSetFlashingEffect(struct ProcEkrBattle *proc);
+void ekrBattleExecTriangleAtk(struct ProcEkrBattle *proc);
+void ekrBattleWaitTriangleIdle(struct ProcEkrBattle *proc);
+void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc);
 void ekrBattle_80503EC(struct ProcEkrBattle *proc);
 void ekrBattle_8050400(struct ProcEkrBattle *proc);
 void ekrBattle_WaitPromotionIdle(struct ProcEkrBattle *proc);
-void ekrBattle_805046C(struct ProcEkrBattle *proc);
-void ekrBattle_80505EC(struct ProcEkrBattle *proc);
+void ekrBattleInRoundIdle(struct ProcEkrBattle *proc);
+void ekrBattleOnBattkeEnd(struct ProcEkrBattle *proc);
 void ekrBattle_8050600(struct ProcEkrBattle *proc);
 void ekrBattle_WaitForPostBattleAct(struct ProcEkrBattle *proc);
-void ekrBattle_80506C8(struct ProcEkrBattle *proc);
+void ekrBattleExecExpGain(struct ProcEkrBattle *proc);
 void ekrBattle_80508F0(struct ProcEkrBattle *proc);
 void ekrBattle_8050940(struct ProcEkrBattle *proc);
-void ekrBattle_80509A8(struct ProcEkrBattle *proc);
-void ekrBattle_8050A84(struct ProcEkrBattle *proc);
+void ekrBattleWaitExpBarIdle(struct ProcEkrBattle *proc);
+void ekrBattlePostExpBarIdle(struct ProcEkrBattle *proc);
 void ekrBattle_8050AB8(struct ProcEkrBattle *proc);
-void ekrBattle_8050B08(struct ProcEkrBattle *proc);
+void ekrBattleLvupHanlder(struct ProcEkrBattle *proc);
 void ekrBattle_ExecEkrLvup(struct ProcEkrBattle *proc);
 void ekrBattle_WaitEkrLvupIdle(struct ProcEkrBattle *proc);
 void ekrNewEkrPopup(struct ProcEkrBattle *proc);
@@ -333,11 +398,11 @@ void NewEfxFarAttackWithDistance(struct Anim *anim, int arg);
 // ??? sub_8053618(???);
 ProcPtr NewEfxQuakePure(int, int);
 // ??? sub_80536B8(???);
-// ??? sub_8053718(???);
+// ??? NewEfxHitQuakePure(???);
 // ??? nullsub_56(???);
 // ??? sub_8053730(???);
 // ??? sub_805382C(???);
-// ??? sub_80539DC(???);
+// ??? NewEfxHitQuake(???);
 // ??? sub_8053BBC(???);
 void StartSpellBG_FLASH(struct Anim *anim, int);
 // ??? sub_8053F4C(???);
@@ -361,7 +426,7 @@ void StartSpellBG_FLASH(struct Anim *anim, int);
 // ??? sub_8054360(???);
 // ??? sub_80543BC(???);
 // ??? sub_805442C(???);
-// ??? sub_8054440(???);
+// ??? NewEfxFlashHPBar(???);
 // ??? sub_8054478(???);
 // ??? sub_8054498(???);
 // ??? sub_805452C(???);
@@ -370,7 +435,7 @@ void EndEfxHPBarColorChange(void);
 // ??? sub_80546C4(???);
 // ??? sub_80546D4(???);
 // ??? sub_80546E4(???);
-// ??? sub_80547DC(???);
+// ??? NewEfxFlashUnit(???);
 // ??? sub_8054818(???);
 // ??? sub_8054888(???);
 // ??? sub_80548E0(???);
@@ -405,9 +470,9 @@ void sub_8055000(void);
 void ClearBG1(void);
 // ??? sub_80551B0(???);
 // ??? sub_805526C(???);
-// ??? ThisMakesTheHPInSpellAnimGoAway(???);
+void ThisMakesTheHPInSpellAnimGoAway(struct Anim *anim, int);
 // ??? sub_8055288(???);
-// ??? sub_8055298(???);
+// ??? ExecHittedEffectBanim(???);
 // ??? sub_8055424(???);
 // ??? sub_8055518(???);
 // ??? sub_8055554(???);
@@ -429,8 +494,8 @@ s16 sub_80558F4(void *buf1, void *buf2, const void *buf3);
 // ??? sub_80559B0(???);
 void sub_80559D0(u32 val);
 void SetEkrFrontAnimPostion(int type, s16, s16);
-// ??? sub_8055A28(???);
-// ??? sub_8055A34(???);
+int sub_8055A28(void);
+void sub_8055A34(int);
 // ??? NewEfxspdquake(???);
 // ??? sub_8055A64(???);
 // ??? sub_8055B38(???);
@@ -456,9 +521,9 @@ void NewEkrbattleending(void);
 // ??? ekrBattleEnding_8056310(???);
 // ??? ekrBattleEnding_8056390(???);
 // ??? ekrBattleEnding_8056484(???);
-void sub_805649C(u32 val);
+void NewEkrBaseKaiten(struct Anim *anim);
 // ??? sub_8056864(???);
-void sub_8056900(u32 val);
+void NewEkrUnitKakudai(struct Anim *anim);
 // ??? sub_8056974(???);
 // ??? sub_8056B70(???);
 // ??? sub_8056D18(???);
@@ -473,47 +538,45 @@ void NewEkrBaseAppear(int, int);
 // ??? CheckEkrBaseAppearExist(???);
 // ??? EndEkrBaseAppear(???);
 
-void EkrPrepareBanimfx(struct Anim *anim, int);
-// ??? GetSomeAISRelatedIndexMaybeByID(???);
-u32 GetAnimRoundType(int);
-s16 GetEfxHp(int pos_based_round);
+void EkrPrepareBanimfx(struct Anim *anim, u16);
+s16 GetEfxHp(int index);
 // ??? GetEfxHpModMaybe(???);
 // ??? IsItemDisplayedInBattle(???);
-// ??? sub_8058AC8(???);
+// ??? IsWeaponLegency(???);
 // ??? sub_8058B08(???);
 // ??? sub_8058B24(???);
 // ??? sub_8058B64(???);
 void sub_8058B70(void);
 bool sub_8058B7C(void);
-// ??? sub_8058B98(???);
-// ??? sub_8058BA8(???);
-// ??? sub_8058BB8(???);
+// ??? GetEkrHit(???);
+// ??? GetEkrDmg(???);
+// ??? GetEkrCrit(???);
 void BattleAIS_ExecCommands(void);
 // ??? _08058BD4(???);
 // ??? _080596E0(???);
 void sub_80598CC(struct Anim *anim);
-// ??? NewEkrChienCHR(???);
-// ??? sub_8059924(???);
-// ??? RegisterAISSheetGraphics(???);
-// ??? sub_8059970(???);
-// ??? sub_805999C(???);
-void sub_80599E8(void);
+void NewEkrChienCHR(struct Anim *anim);
+// ??? EkrChienCHRMain(???);
+void RegisterAISSheetGraphics(struct Anim *anim);
+void sub_8059970(u32 *, int);
+int GetBanimPalette(int banim_id, enum ekr_battle_unit_position pos);
+void UpdateBanimFrame(void);
 void sub_8059D28(void);
 // ??? sub_8059DB8(???);
 // ??? sub_8059E18(???);
 // ??? sub_8059F5C(???);
-void BanimPrepareSpecificScript(struct Anim *anim, int);
+void BanimSetupRoundBasedScript(struct Anim *anim, int);
 int sub_805A154(struct Anim *anim);
 int GetAISSubjectId(struct Anim *anim);
-// ??? GetSomeBoolean(???);
-// ??? sub_805A1D0(???);
+int GetSomeBoolean(s16);
+int sub_805A1D0(s16);
 int sub_805A21C(s16);
 // ??? sub_805A268(???);
 struct Anim *GetCoreAIStruct(struct Anim *anim);
 // ??? sub_805A2D0(???);
 s16 sub_805A2F0(struct Anim *anim);
-// ??? GetSomeAISRelatedIndexMaybe(???);
-// ??? sub_805A334(???);
+s16 GetSomeAISRelatedIndexMaybe(struct Anim *anim);
+s16 sub_805A334(struct Anim *anim);
 void SetAnimStateHidden(int ais_id);
 void SetAnimStateUnHidden(int ais_id);
 // ??? sub_805A3DC(???);
@@ -573,7 +636,7 @@ void EkrUpdateSomePalMaybe(int);
 // ??? EkrEfxHandleUnitHittedEffect(???);
 void SomePlaySound_8071990(int, int);
 // ??? Loop6C_efxSoundSE(???);
-void sub_8071A44(int);
+void DoM4aSongNumStop(int);
 // ??? sub_8071A54(???);
 // ??? StopBGM1(???);
 void sub_8071A8C(void);
@@ -713,4 +776,4 @@ void ExecEkrHenseiEnd(void);
 // ??? sub_8076484(???);
 // ??? sub_80764B0(???);
 // ??? sub_8076514(???);
-void EfxDoDemonKingIntroAnim(struct Anim *anim);
+void NewEkrDragonDemonKing(struct Anim *anim);
