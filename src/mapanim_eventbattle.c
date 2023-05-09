@@ -15,7 +15,7 @@
 
 void MapEventBattle_SetUpHitData(ProcPtr proc)
 {
-    if (gCurrentMapAnimState.pCurrentRound->info & BATTLE_HIT_INFO_END) {
+    if (gManimSt.pCurrentRound->info & BATTLE_HIT_INFO_END) {
         Proc_Goto(proc, 1); // TODO: label definitions
         return;
     }

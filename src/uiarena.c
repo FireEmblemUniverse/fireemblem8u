@@ -326,11 +326,11 @@ void DrawArenaOpponentDetailsText(ProcPtr proc) {
     SetFont(0);
     Font_LoadForUI();
 
-    MADrawTextMaybe(gUnknown_02022F38, 0, GetStringFromIndex(gMid_Lv));
+    PutString(gUnknown_02022F38, 0, GetStringFromIndex(gMid_Lv));
     sub_8004B88(gUnknown_02022F38 + 4, 2, gArenaState.opponentUnit->level);
-    MADrawTextMaybe(gUnknown_02022F38 + 0x40, 0, GetStringFromIndex(gArenaState.opponentUnit->pCharacterData->nameTextId));
-    MADrawTextMaybe(gUnknown_02022F38 + 7, 0, GetStringFromIndex(gArenaState.opponentUnit->pClassData->nameTextId));
-    MADrawTextMaybe(gUnknown_02022F38 + 0x47, 0, GetItemName(gArenaState.opponentWeapon));
+    PutString(gUnknown_02022F38 + 0x40, 0, GetStringFromIndex(gArenaState.opponentUnit->pCharacterData->nameTextId));
+    PutString(gUnknown_02022F38 + 7, 0, GetStringFromIndex(gArenaState.opponentUnit->pClassData->nameTextId));
+    PutString(gUnknown_02022F38 + 0x47, 0, GetItemName(gArenaState.opponentWeapon));
 
     return;
 }
@@ -340,14 +340,14 @@ void Arena_PlayResultSong(ProcPtr proc) {
     switch (ArenaGetResult()) {
         case 1:
             if (!gPlaySt.cfgDisableBgm) {
-                Sound_PlaySong8002448(0x3a, 0);
+                StartBgmCore(0x3a, 0);
             }
 
             break;
 
         default:
             if (!gPlaySt.cfgDisableBgm) {
-                Sound_PlaySong8002448(0x38, 0);
+                StartBgmCore(0x38, 0);
             }
 
             Proc_End(proc);
@@ -360,7 +360,7 @@ void Arena_PlayResultSong(ProcPtr proc) {
 
 //! FE8U = 0x080B5D2C
 void Arena_PlayArenaSong(void) {
-    Sound_PlaySong80024E4(0x38, 0, 0);
+    StartBgmExt(0x38, 0, 0);
     return;
 }
 

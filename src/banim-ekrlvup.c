@@ -11,6 +11,10 @@
 #include "ekrdragon.h"
 #include "ekrlevelup.h"
 
+void sub_805AA68(void *);
+void sub_805AE14(void *);
+void sub_805AE40(void *, s16, s16, s16, s16);
+
 /**
  * section.ewramdata
  */
@@ -365,10 +369,10 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
         sub_805AA68(buf);
 
 #if NONMATCHING
-        buf->unk14->unk4C &= ~OAM2_LAYER(0x3);
-        buf->unk14->unk4C |=  OAM2_LAYER(0x3);
-        buf->unk18->unk4C &= ~OAM2_LAYER(0x3);
-        buf->unk18->unk4C |=  OAM2_LAYER(0x3);
+        ((struct Struct20200E0_14 *)buf->unk14)->unk4C &= ~OAM2_LAYER(0x3);
+        ((struct Struct20200E0_14 *)buf->unk14)->unk4C |=  OAM2_LAYER(0x3);
+        ((struct Struct20200E0_14 *)buf->unk18)->unk4C &= ~OAM2_LAYER(0x3);
+        ((struct Struct20200E0_14 *)buf->unk18)->unk4C |=  OAM2_LAYER(0x3);
 #else
     {
         register struct Struct20200E0_14 *_buf asm("r3");

@@ -2634,10 +2634,10 @@ extern CONST_DATA struct ProcCmd gUnknown_089A398C[];
 // extern ??? gUnknown_089A3E44
 // extern ??? gUnknown_089A3E6C
 // extern ??? gUnknown_089A3EC4
-// extern ??? gUnknown_089A3ED4
-// extern ??? gUnknown_089A3F4C
-// extern ??? gUnknown_089A3F5C
-// extern ??? gUnknown_089A3F74
+// extern ??? gManimLevelUpLabelInfoList
+extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpStatGainLabel[];
+extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpLabelColor[];
+extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUp[];
 // extern ??? gUnknown_089A4034
 // extern ??? gUnknown_089A404C
 // extern ??? gUnknown_089A4064
@@ -2687,8 +2687,8 @@ extern CONST_DATA struct ProcCmd ProcScr_CritAtkMapEffect[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocBarrier[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocWarp[];
 // extern ??? gUnknown_089A52FC
-// extern ??? gUnknown_089A5314
-// extern ??? gUnknown_089A5A6C
+extern u16 SpriteAnim_ManimStatGain[];
+extern u16 gUnknown_089A5A6C[];
 // extern ??? gUnknown_089A61F8
 // extern ??? gUnknown_089A6254
 extern u16 CONST_DATA Obj_PoisonAnim[];
@@ -2699,14 +2699,14 @@ extern u8 gGfx_ArenaBuildingFront[];
 extern u8 gTsa_ArenaBuildingFront[];
 extern u16 gPal_ArenaBuildingFront[];
 extern u8 Img_MapAnimMISS[];
- extern u16 Obj_MapAnimMISS[];
+extern u16 Obj_MapAnimMISS[];
 extern u8 Img_MapAnimNODAMAGE[];
- extern u16 obj_MapAnimNODAMAGE[];
-// extern ??? gUnknown_089AC5CC
-// extern ??? gUnknown_089AC794
-// extern ??? gUnknown_089AC9A8
-// extern ??? gUnknown_089ACA08
-// extern ??? gUnknown_089ACC98
+extern u16 obj_MapAnimNODAMAGE[];
+extern u16 Pal_ManimLevelUpStatGainCycling[];
+extern u16 Img_ManimLevelUpText[];
+extern u16 Pal_ManimLevelUp[];
+extern u16 Img_ManimLevelUpStatGain[];
+extern u8 Img_ManimLevelUpStatGainDigits[];
 extern u16 gUnknown_089AD498[];
 extern u8 Img_MapBattleInfoBox[];
 extern u16 Pal_MapBattleInfoBlue[];
@@ -2816,7 +2816,7 @@ extern struct ProcCmd ProcScr_SlidingWallBg[];
 // extern ??? gHelpInfo_MbpHp
 // extern ??? gHelpInfo_CbpHp
 extern unsigned CONST_DATA gMid_Lv;
-extern unsigned CONST_DATA gMid_Exp_Unused;
+extern unsigned CONST_DATA gMid_Exp;
 extern unsigned CONST_DATA gMid_Hp;
 extern unsigned CONST_DATA gMid_Str;
 extern unsigned CONST_DATA gMid_Mag;

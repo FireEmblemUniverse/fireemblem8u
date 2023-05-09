@@ -454,38 +454,6 @@ struct SMSHandle
     /* 0B */ s8 config;
 };
 
-struct MapAnimActorState
-{
-    /* 00 */ struct Unit* pUnit;
-    /* 04 */ struct BattleUnit* pBattleUnit;
-    /* 08 */ struct MUProc* pMUProc;
-    /* 0C */ u8 u0C;
-    /* 0D */ u8 u0D;
-    /* 0E */ u16 u0E;
-    /* 10 */ u8 u10;
-    /* 11 */ u8 u11;
-    /* 12 */ u8 u12;
-    /* 13 */ u8 u13;
-};
-
-struct MapAnimState
-{
-    /* 00 */ struct MapAnimActorState actors[4];
-
-    /* 50 */ struct BattleHit* pCurrentRound;
-    /* 54 */ const struct ProcCmd* specialProcScr;
-    /* 58 */ u8 subjectActorId;
-    /* 59 */ u8 targetActorId;
-    /* 5A */ u16 hitAttributes;
-    /* 5C */ u8 hitInfo;
-    /* 5D */ u8 hitDamage;
-    /* 5E */ u8 actorCount_maybe;
-    /* 5F */ u8 u5F;
-    /* 60 */ u8 u60;
-    /* 61 */ u8 u61;
-    /* 62 */ u8 u62;
-};
-
 struct MMSData
 {
     const void* pGraphics;

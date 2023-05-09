@@ -112,7 +112,7 @@ void ProcMAExpBar_FrameAdvance(struct MAExpBarProc* proc)
 void ProcMAExpBar_LevelUpIfPossible(struct MAExpBarProc* proc)
 {
     if (proc->expTo >= 100)
-        DoMapAnimLevelUp(proc->actorId, (struct Proc*) proc);
+        StartManimLevelUp(proc->actorId, (struct Proc*) proc);
 }
 
 CONST_DATA u16 gUnknown_089A36C0[] = {

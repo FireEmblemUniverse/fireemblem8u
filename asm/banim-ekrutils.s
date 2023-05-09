@@ -2124,7 +2124,7 @@ sub_8071A54: @ 0x08071A54
 	adds r0, r2, #0
 	bl Sound_SetSEVolume
 	adds r0, r4, #0
-	bl sub_8002620
+	bl OverrideBgm
 _08071A72:
 	pop {r4}
 	pop {r0}
@@ -3849,13 +3849,13 @@ sub_807289C: @ 0x0807289C
 	cmp r0, #0
 	bne _080728C8
 _080728BA:
-	bl sub_800270C
+	bl MakeBgmOverridePersist
 	b _080728CC
 	.align 2, 0
 _080728C0: .4byte gBmSt
 _080728C4: .4byte gUnknown_020200A8
 _080728C8:
-	bl sub_8002670
+	bl RestoreBgm
 _080728CC:
 	pop {r0}
 	bx r0

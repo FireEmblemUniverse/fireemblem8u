@@ -187,7 +187,7 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    Sound_PlaySong80024D4(3, 0);
+    StartBgm(3, 0);
 
     proc->index = 0;
     proc->timer_2a = 60;

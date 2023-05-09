@@ -8784,13 +8784,13 @@ sub_80458E8: @ 0x080458E8
 	movs r0, #0x3a
 	movs r1, #0
 	movs r2, #0
-	bl Sound_PlaySong80024E4
+	bl StartBgmExt
 	b _08045906
 _080458FC:
 	movs r0, #0x3b
 	movs r1, #0
 	movs r2, #0
-	bl Sound_PlaySong80024E4
+	bl StartBgmExt
 _08045906:
 	ldr r0, _0804591C  @ gPlaySt
 	adds r0, #0x41
@@ -8814,7 +8814,7 @@ sub_8045920: @ 0x08045920
 	movs r0, #0x3b
 	movs r1, #0
 	movs r2, #0
-	bl Sound_PlaySong80024E4
+	bl StartBgmExt
 	pop {r0}
 	bx r0
 
@@ -13105,7 +13105,7 @@ _08047BFC:
 	str r0, [r6, #0x54]
 	movs r0, #0x38
 	movs r1, #0
-	bl Sound_PlaySong80024D4
+	bl StartBgm
 	bl sub_80497CC
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -13412,7 +13412,7 @@ _08047E68:
 	bl sub_80497CC
 	movs r0, #0x38
 	movs r1, #0
-	bl Sound_PlaySong80024D4
+	bl StartBgm
 	movs r0, #0
 	str r0, [r6, #0x54]
 	add sp, #4
@@ -24546,7 +24546,7 @@ StopBGM2: @ 0x0804D3DC
 	push {lr}
 	ldr r1, _0804D3EC  @ gMPlayInfo_BGM2
 	movs r0, #0x34
-	bl Sound_PlaySong80024D4
+	bl StartBgm
 	pop {r0}
 	bx r0
 	.align 2, 0

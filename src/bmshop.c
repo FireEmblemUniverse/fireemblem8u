@@ -1063,9 +1063,9 @@ void ShopProc_Init(struct BmShopProc* proc) {
     int i;
 
     if (proc->shopType == 0) {
-        Sound_PlaySong80024D4(0x36, 0);
+        StartBgm(0x36, 0);
     } else {
-        Sound_PlaySong80024D4(0x35, 0);
+        StartBgm(0x35, 0);
     }
 
     Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Hide);

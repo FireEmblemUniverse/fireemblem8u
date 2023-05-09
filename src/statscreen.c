@@ -3060,7 +3060,7 @@ static DECL_INFO sHelpInfo_08A0113C =
 
 // TODO: msg constants
 unsigned CONST_DATA gMid_Lv = 0x4E7; // Lv
-unsigned CONST_DATA gMid_Exp_Unused = 0x4E8; // Exp
+unsigned CONST_DATA gMid_Exp = 0x4E8; // Exp
 unsigned CONST_DATA gMid_Hp = 0x4E9; // HP
 unsigned CONST_DATA gMid_Str = 0x4FE; // Str
 unsigned CONST_DATA gMid_Mag = 0x4FF; // Mag

@@ -900,7 +900,7 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
 
         if ((GetChapterThing() == 2) || GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack) {
             if ((GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE]) != 0xFFFF) {
-                Sound_PlaySong80024D4(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
+                StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
             }
 
             proc->unk_4C = 0;
@@ -931,7 +931,7 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
 
         if ((proc->unk_4C == 0x18) &&
             ((GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE]) != 0xFFFF)) {
-            Sound_PlaySong80024D4(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
+            StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
         }
 
         if (proc->unk_4C < 0) {
@@ -1040,7 +1040,7 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
     proc->unk_4C = 0xE;
 
     if ((GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE]) != 0xFFFF) {
-        Sound_PlaySong80024D4(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
+        StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
     }
 
     return;

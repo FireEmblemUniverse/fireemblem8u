@@ -36,7 +36,7 @@ struct MusicProc {
     /*0x6A*/ s16 unk6A;
 };
 
-static void sub_8002788(struct Proc *proc);
+static void MusicVc_OnLoop(struct Proc *proc);
 
 int Sound_GetCurrentSong(void)
 {
@@ -117,7 +117,7 @@ void Sound_FadeOutSE(int speed)
     m4aMPlayFadeOut(&gMPlayInfo_SE7_EVT, speed);
 }
 
-void Sound_PlaySong8002448(int songId, struct MusicPlayerInfo *player)
+void StartBgmCore(int songId, struct MusicPlayerInfo *player)
 {
     sSoundStatus.unk6 = TRUE;
     sSoundStatus.unk7 = 0;
@@ -127,7 +127,7 @@ void Sound_PlaySong8002448(int songId, struct MusicPlayerInfo *player)
     m4aMPlayImmInit(&gMPlayInfo_BGM2);
 }
 
-void PlaySong8002478(int songId, int speed, struct MusicPlayerInfo *player)
+void StartOrChangeBgm(int songId, int speed, struct MusicPlayerInfo *player)
 {
     if (sSoundStatus.unk6 && Sound_GetCurrentSong() == songId)
         return;
@@ -141,19 +141,19 @@ void PlaySong8002478(int songId, int speed, struct MusicPlayerInfo *player)
         }
         else
         {
-            Sound_PlaySong8002448(songId, player);
+            StartBgmCore(songId, player);
         }
     }
 }
 
-void Sound_PlaySong80024D4(int songId, struct MusicPlayerInfo *player)
+void StartBgm(int songId, struct MusicPlayerInfo *player)
 {
-    PlaySong8002478(songId, 3, player);
+    StartOrChangeBgm(songId, 3, player);
 }
 
-void Sound_PlaySong80024E4(int songId, int speed, struct MusicPlayerInfo *player)
+void StartBgmExt(int songId, int speed, struct MusicPlayerInfo *player)
 {
-    PlaySong8002478(songId, speed, player);
+    StartOrChangeBgm(songId, speed, player);
 }
 
 static void sub_80024F0(struct Proc *proc)
@@ -178,7 +178,7 @@ static struct ProcCmd sMusicProc1Script[] =
     PROC_END,
 };
 
-void Sound_PlaySong8002574(int songId, int b, struct MusicPlayerInfo *player)
+void StartBgmFadeIn(int songId, int duration, struct MusicPlayerInfo *player)
 {
     struct MusicProc *proc;
 
@@ -196,12 +196,12 @@ void Sound_PlaySong8002574(int songId, int b, struct MusicPlayerInfo *player)
         m4aMPlayVolumeControl(&gMPlayInfo_BGM1, 0xFFFF, 0);
         m4aMPlayVolumeControl(&gMPlayInfo_BGM2, 0xFFFF, 0);
         proc->delayCounter = 0;
-        proc->unk4E = b * 16;
+        proc->unk4E = duration * 16;
         sMusicProc1 = (struct Proc *)proc;
     }
 }
 
-void sub_8002620(int songId)
+void OverrideBgm(int songId)
 {
     if (gPlaySt.cfgDisableBgm == 0)
     {
@@ -215,7 +215,7 @@ void sub_8002620(int songId)
     }
 }
 
-void sub_8002670(void)
+void RestoreBgm(void)
 {
     if (gPlaySt.cfgDisableBgm == 0 && sSoundStatus.unk2 != 0)
     {
@@ -228,7 +228,7 @@ void sub_8002670(void)
     }
 }
 
-void sub_80026BC(u16 speed)
+void _RestoreBgm(u16 speed)
 {
     if (gPlaySt.cfgDisableBgm == 0 && sSoundStatus.unk2 != 0)
     {
@@ -241,7 +241,7 @@ void sub_80026BC(u16 speed)
     }
 }
 
-void sub_800270C(void)
+void MakeBgmOverridePersist(void)
 {
     if (gPlaySt.cfgDisableBgm == 0)
     {
@@ -253,11 +253,11 @@ void sub_800270C(void)
 struct ProcCmd sMusicProc2Script[] =
 {
     PROC_YIELD,
-    PROC_REPEAT(sub_8002788),
+    PROC_REPEAT(MusicVc_OnLoop),
     PROC_END,
 };
 
-void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, ProcPtr parent)
+void StartBgmVolumeChange(int volume, int b, int c, ProcPtr parent)
 {
     struct MusicProc *proc;
 
@@ -275,7 +275,7 @@ void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, ProcPtr pare
     sMusicProc2 = (ProcPtr)proc;
 }
 
-static void sub_8002788(struct Proc *proc)
+static void MusicVc_OnLoop(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
     Sound_SetSEVolume(Interpolate(4, mproc->unk64, mproc->unk66, mproc->unk68++, mproc->unk6A));
@@ -297,7 +297,7 @@ static void sub_8002788(struct Proc *proc)
     }
 }
 
-void Some6CMusicRelatedWaitCallback(struct Proc *proc)
+void DelaySong_OnLoop(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
     mproc->delayCounter--;
@@ -312,7 +312,7 @@ void Some6CMusicRelatedWaitCallback(struct Proc *proc)
 
 struct ProcCmd gMusicProc3Script[] =
 {
-    PROC_REPEAT(Some6CMusicRelatedWaitCallback),
+    PROC_REPEAT(DelaySong_OnLoop),
     PROC_END,
 };
 
@@ -389,9 +389,9 @@ void sub_800296C(struct Proc *proc)
     if (sub_8002264() != 0 && mproc->unk64 != 0)
     {
         if (mproc->unk5C == -1)
-            ISuspectThisToBeMusicRelated_8002730(mproc->unk64, mproc->unk66, mproc->unk58, proc);
+            StartBgmVolumeChange(mproc->unk64, mproc->unk66, mproc->unk58, proc);
         else
-            ISuspectThisToBeMusicRelated_8002730(mproc->unk64, 0, mproc->unk58, proc);
+            StartBgmVolumeChange(mproc->unk64, 0, mproc->unk58, proc);
     }
 }
 
@@ -400,7 +400,7 @@ void sub_80029BC(struct Proc *proc)
     struct MusicProc *mproc = (struct MusicProc *)proc;
     if (mproc->unk5C > 0)
     {
-        Sound_PlaySong80024D4(mproc->unk5C, 0);
+        StartBgm(mproc->unk5C, 0);
         Sound_SetSEVolume(mproc->unk66);
     }
     else
@@ -455,7 +455,7 @@ void sub_8002A88(int songId)
     {
         if (sub_8002264() != 0)
             Sound_SetSEVolume(0);
-        Sound_PlaySong8002448(songId, 0);
+        StartBgmCore(songId, 0);
     }
 }
 

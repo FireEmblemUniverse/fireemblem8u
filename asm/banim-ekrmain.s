@@ -2636,46 +2636,4 @@ _0805AE10: .4byte gUnknown_085C7438
 
 	THUMB_FUNC_END sub_805AA68
 
-	THUMB_FUNC_START sub_805AE14
-sub_805AE14: @ 0x0805AE14
-	push {r4, lr}
-	adds r4, r0, #0
-	movs r0, #0xe
-	ldrsh r1, [r4, r0]
-	movs r0, #1
-	negs r0, r0
-	cmp r1, r0
-	bne _0805AE38
-	ldr r0, [r4, #0x14]
-	cmp r0, #0
-	beq _0805AE2E
-	bl Proc_End
-_0805AE2E:
-	ldr r0, [r4, #0x18]
-	cmp r0, #0
-	beq _0805AE38
-	bl Proc_End
-_0805AE38:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_805AE14
-
-	THUMB_FUNC_START sub_805AE40
-sub_805AE40: @ 0x0805AE40
-	push {r4, r5, lr}
-	ldr r4, [sp, #0xc]
-	ldr r5, [r0, #0x14]
-	strh r1, [r5, #0x32]
-	strh r2, [r5, #0x3a]
-	ldr r5, [r0, #0x18]
-	strh r3, [r5, #0x32]
-	strh r4, [r5, #0x3a]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_805AE40
-
 .align 2, 0

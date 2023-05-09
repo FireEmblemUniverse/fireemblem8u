@@ -1153,7 +1153,7 @@ sub_80835DC: @ 0x080835DC
 	bne _08083614
 	movs r0, #0x3e
 	movs r1, #0
-	bl Sound_PlaySong80024D4
+	bl StartBgm
 	ldr r0, _08083610  @ gPlaySt
 	adds r0, #0x41
 	ldrb r1, [r0]
@@ -1175,7 +1175,7 @@ _08083614:
 	bne _08083630
 	movs r0, #0x3f
 	movs r1, #0
-	bl Sound_PlaySong80024D4
+	bl StartBgm
 _08083630:
 	ldrh r0, [r4, #6]
 	cmp r0, #0
@@ -1386,7 +1386,7 @@ sub_80837B0: @ 0x080837B0
 	bl SetEventId
 	movs r0, #0x3e
 	movs r1, #0
-	bl Sound_PlaySong80024D4
+	bl StartBgm
 	ldr r0, _080837D4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r1, [r0]

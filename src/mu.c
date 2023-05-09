@@ -1677,12 +1677,12 @@ void MU_StartDelayedFaceTarget(struct MUProc* proc) {
 static void MU_EndRefaceApAnim(int argAp) {
     struct APHandle* ap = (struct APHandle*) argAp;
 
-    int actor1 = gCurrentMapAnimState.subjectActorId;
+    int actor1 = gManimSt.subjectActorId;
     int actor2 = 1 - actor1;
 
     SetBattleAnimFacing(
         actor1, actor2,
-        GetSpellAssocFacing(gCurrentMapAnimState.actors[0].pBattleUnit->weaponBefore)
+        GetSpellAssocFacing(gManimSt.actor[0].bu->weaponBefore)
     );
 
     ap->frameTimer    = 0;

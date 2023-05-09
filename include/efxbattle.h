@@ -89,8 +89,8 @@ struct Struct20200E0 {
     /* 0C */ u16 unk0C;
     /* 0E */ u16 unk0E;
     /* 10 */ u16 unk10;
-    /* 14 */ struct Struct20200E0_14 *unk14;
-    /* 18 */ struct Struct20200E0_14 *unk18;
+    /* 14 */ void *unk14;
+    /* 18 */ void *unk18;
     /* 1C */ void *unk1C;
     /* 20 */ void *unk20;
     /* 24 */ void *unk24;

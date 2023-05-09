@@ -2183,8 +2183,8 @@ _080143D4: .4byte gUnknown_0859A0F3
 
 	THUMB_FUNC_END String_FromNumber
 
-	THUMB_FUNC_START DrawMapBattleInfoText
-DrawMapBattleInfoText: @ 0x080143D8
+	THUMB_FUNC_START PutStringCentered
+PutStringCentered: @ 0x080143D8
 	push {r4, r5, r6, lr}
 	mov r6, r9
 	mov r5, r8
@@ -2229,10 +2229,10 @@ DrawMapBattleInfoText: @ 0x080143D8
 	.align 2, 0
 _08014438: .4byte gUnknown_03000800
 
-	THUMB_FUNC_END DrawMapBattleInfoText
+	THUMB_FUNC_END PutStringCentered
 
-	THUMB_FUNC_START MADrawTextMaybe
-MADrawTextMaybe: @ 0x0801443C
+	THUMB_FUNC_START PutString
+PutString: @ 0x0801443C
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r6, r1, #0
@@ -2264,7 +2264,7 @@ _08014454:
 	.align 2, 0
 _0801447C: .4byte gUnknown_03000800
 
-	THUMB_FUNC_END MADrawTextMaybe
+	THUMB_FUNC_END PutString
 
 	THUMB_FUNC_START DeleteAllPaletteAnimator
 DeleteAllPaletteAnimator: @ 0x08014480
@@ -3019,8 +3019,8 @@ _08014986:
 
 	THUMB_FUNC_END sub_8014968
 
-	THUMB_FUNC_START sub_801498C
-sub_801498C: @ 0x0801498C
+	THUMB_FUNC_START VramCopy
+VramCopy: @ 0x0801498C
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r3, r2, #0
@@ -3050,7 +3050,7 @@ _080149BC:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_801498C
+	THUMB_FUNC_END VramCopy
 
 	THUMB_FUNC_START sub_80149C4
 sub_80149C4: @ 0x080149C4
@@ -3065,7 +3065,7 @@ _080149D2:
 	adds r0, r6, #0
 	adds r1, r5, #0
 	adds r2, r7, #0
-	bl sub_801498C
+	bl VramCopy
 	adds r6, r6, r7
 	movs r0, #0x80
 	lsls r0, r0, #3
@@ -3080,8 +3080,8 @@ _080149EA:
 
 	THUMB_FUNC_END sub_80149C4
 
-	THUMB_FUNC_START sub_80149F0
-sub_80149F0: @ 0x080149F0
+	THUMB_FUNC_START PutTmLinear
+PutTmLinear: @ 0x080149F0
 	push {r4, lr}
 	adds r4, r0, #0
 	lsls r3, r3, #0x10
@@ -3102,10 +3102,10 @@ _08014A0C:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80149F0
+	THUMB_FUNC_END PutTmLinear
 
-	THUMB_FUNC_START sub_8014A14
-sub_8014A14: @ 0x08014A14
+	THUMB_FUNC_START GetTmOffsetById
+GetTmOffsetById: @ 0x08014A14
 	push {lr}
 	cmp r0, #1
 	beq _08014A40
@@ -3162,7 +3162,7 @@ _08014A72:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8014A14
+	THUMB_FUNC_END GetTmOffsetById
 
 	THUMB_FUNC_START sub_8014A78
 sub_8014A78: @ 0x08014A78
@@ -3349,7 +3349,7 @@ sub_8014BC0: @ 0x08014BC0
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r1, #0
-	bl Sound_PlaySong80024D4
+	bl StartBgm
 	pop {r0}
 	bx r0
 

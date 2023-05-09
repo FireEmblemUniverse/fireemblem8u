@@ -1702,7 +1702,7 @@ sub_809CC9C: @ 0x0809CC9C
 	cmp r0, #0
 	beq _0809CCB8
 	movs r0, #0x38
-	bl sub_8002620
+	bl OverrideBgm
 	b _0809CCDA
 _0809CCB8:
 	ldr r0, _0809CCD0  @ gGMData
@@ -1711,14 +1711,14 @@ _0809CCB8:
 	ands r0, r1
 	cmp r0, #0
 	beq _0809CCD4
-	bl sub_800270C
+	bl MakeBgmOverridePersist
 	bl sub_80B9FC0
 	b _0809CCDA
 	.align 2, 0
 _0809CCD0: .4byte gGMData
 _0809CCD4:
 	movs r0, #0x34
-	bl sub_8002620
+	bl OverrideBgm
 _0809CCDA:
 	pop {r0}
 	bx r0
@@ -1863,7 +1863,7 @@ PrepItemBooster_OnInit: @ 0x0809CDD4
 	movs r1, #3
 	movs r2, #0
 	adds r3, r7, #0
-	bl sub_807EDF8
+	bl StartManimLevelUpStatGainLabels
 	ldr r0, [r4, #0x2c]
 	bl GetUnitCurrentHp
 	adds r1, r7, #0
@@ -1999,7 +1999,7 @@ _0809CEF0:
 	ldrb r2, [r2]
 	ldrb r3, [r3]
 	subs r2, r2, r3
-	bl sub_807EFF0
+	bl StartPrepItemBoostStatGainLabelAnim
 _0809CF1E:
 	adds r4, #1
 	cmp r4, #7
@@ -2108,7 +2108,7 @@ _0809CFD4:
 	bl DrawPrepScreenItemUseItemUseDesc
 	movs r0, #0
 	bl sub_80ACA84
-	bl sub_807EE74
+	bl EndManimLevelUpStatGainLabels
 	movs r0, #5
 	bl BG_EnableSyncByMask
 	ldr r0, _0809D010  @ 0x06014000
@@ -2233,7 +2233,7 @@ PrepJunaEffect_OnInit: @ 0x0809D0D4
 	movs r1, #3
 	movs r2, #0
 	adds r3, r7, #0
-	bl sub_807EDF8
+	bl StartManimLevelUpStatGainLabels
 	ldr r0, [r4, #0x2c]
 	ldrb r0, [r0, #8]
 	movs r1, #0x30
@@ -2279,7 +2279,7 @@ PrepJunaEffect_OnInit: @ 0x0809D0D4
 	subs r2, r2, r0
 	movs r0, #0xb0
 	movs r1, #0x1a
-	bl sub_807EFF0
+	bl StartPrepItemBoostStatGainLabelAnim
 _0809D154:
 	movs r0, #0x78
 	str r0, [r7, #0x2c]

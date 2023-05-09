@@ -184,7 +184,7 @@ void MADebug_InitScreen(struct MADebugProc* proc)
     DrawUiFrame2(0, 0, 29, 19, 1); // TODO: UI_STYLE...
 
     for (i = 0; MADebugStrings2[i]; ++i)
-        MADrawTextMaybe(
+        PutString(
             TILEMAP_LOCATED(gBG0TilemapBuffer, 1, i*2), 0, MADebugStrings2[i]);
 
     for (i = 0; i < 10; ++i) {

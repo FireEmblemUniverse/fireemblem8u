@@ -590,7 +590,7 @@
 . = 0x03E1E4; gBaArenaFlag = .;
 . = 0x03E1E8; gpProcefxopCur = .;
 . = 0x03E1EC; gUnknown_0203E1EC = .;
-. = 0x03E1F0; gCurrentMapAnimState = .;
+. = 0x03E1F0; gManimSt = .;
 . = 0x03E1F8; gUnknown_0203E1F8 = .;
 . = 0x03E254; gUnknown_0203E254 = .;
 . = 0x03E754; gUnknown_0203E754 = .;

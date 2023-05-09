@@ -1140,7 +1140,7 @@ _0800DD98:
 	asrs r0, r0, #0x10
 	movs r1, #3
 	movs r2, #0
-	bl Sound_PlaySong80024E4
+	bl StartBgmExt
 	movs r0, #2
 _0800DDA6:
 	pop {r1}
@@ -1186,7 +1186,7 @@ _0800DDEC:
 	adds r0, r3, #0
 	adds r1, r4, #0
 	movs r2, #0
-	bl Sound_PlaySong8002574
+	bl StartBgmFadeIn
 	b _0800DE0C
 _0800DDF8:
 	ldrh r0, [r2, #0x3c]
@@ -1246,14 +1246,14 @@ _0800DE46:
 _0800DE50:
 	lsls r0, r4, #0x10
 	asrs r0, r0, #0x10
-	bl sub_8002620
+	bl OverrideBgm
 	b _0800DE6A
 	.align 2, 0
 _0800DE5C: .4byte gEventSlots
 _0800DE60:
 	bl DeleteAll6CWaitMusicRelated
 	adds r0, r4, #0
-	bl sub_80026BC
+	bl _RestoreBgm
 _0800DE6A:
 	movs r0, #2
 _0800DE6C:
@@ -1290,7 +1290,7 @@ _0800DE9A:
 	lsls r0, r0, #1
 	movs r1, #0x90
 	movs r2, #0xa
-	bl ISuspectThisToBeMusicRelated_8002730
+	bl StartBgmVolumeChange
 	b _0800DECC
 _0800DEA8:
 	ldrh r0, [r3, #0x3c]
@@ -1309,7 +1309,7 @@ _0800DEC0:
 	lsls r1, r1, #1
 	movs r0, #0x90
 	movs r2, #0xa
-	bl ISuspectThisToBeMusicRelated_8002730
+	bl StartBgmVolumeChange
 _0800DECC:
 	movs r0, #2
 _0800DECE:

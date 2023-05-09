@@ -141,7 +141,7 @@ void GameOverScreen_Init(struct ProcGameOverScreen *proc)
 
     BMapDispSuspend();
 
-    Sound_PlaySong80024D4(0x3E, 0);
+    StartBgm(0x3E, 0);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;

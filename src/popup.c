@@ -331,7 +331,7 @@ void PopupProc_PrepareGfx(struct PopupProc *proc)
 void PopupProc_MaybeSetVolume(struct PopupProc *proc)
 {
     if (0 != proc->soundId)
-        ISuspectThisToBeMusicRelated_8002730(0x100, 0x80, 0x10, (ProcPtr)proc);
+        StartBgmVolumeChange(0x100, 0x80, 0x10, (ProcPtr)proc);
 }
 
 void PopupProc_PlaySound(struct PopupProc *proc)
@@ -344,7 +344,7 @@ void PopupProc_PlaySound(struct PopupProc *proc)
 void PopupProc_MaybeResetVolume(struct PopupProc *proc)
 {
     if (0 != proc->soundId)
-        ISuspectThisToBeMusicRelated_8002730(0x80, 0x100, 0x10, (ProcPtr)proc);
+        StartBgmVolumeChange(0x80, 0x100, 0x10, (ProcPtr)proc);
 }
 
 void PopupIconUpdateProc_Loop(struct PopupIconUpdateProc *proc)

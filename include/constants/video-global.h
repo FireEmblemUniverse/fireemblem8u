@@ -82,9 +82,9 @@ enum
 
     BGPAL_UI_STATBAR = 6,
 
-    BGPAL_MANIM_1 = 1, // .. 2
+    BGPAL_MANIM_INFOFRAME = 1, // .. 2
     BGPAL_MANIM_4 = 4,
-    BGPAL_MANIM_5 = 5,
+    BGPAL_MANIM_INFO = 5,
 };
 
 enum

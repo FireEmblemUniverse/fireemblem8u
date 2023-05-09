@@ -115,7 +115,7 @@ void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
 
     PrepareMapBattleBoxNumGfx(Img_MapBattleInfoHpBar);
 
-    switch (gCurrentMapAnimState.actorCount_maybe) {
+    switch (gManimSt.actorCount_maybe) {
     case 1:
         DisplayBattleInfoBox(proc, 0, -5);
         break;
@@ -124,13 +124,13 @@ void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
         DisplayBattleInfoBox(proc, 0, -1);
         DisplayBattleInfoBox(proc, 1, -11);
         break;
-    } // switch (gCurrentMapAnimState.actorCount_maybe)
+    } // switch (gManimSt.actorCount_maybe)
 
     sub_8081E78();
 
     sub_80820D8(
-        gCurrentMapAnimState.actors[0].u11*8,
-        gCurrentMapAnimState.actors[0].u11*8 + 0x20,
+        gManimSt.actor[0].hp_info_y*8,
+        gManimSt.actor[0].hp_info_y*8 + 0x20,
         gPaletteBuffer[0x11],
         gPaletteBuffer[0x21]);
 }
@@ -140,48 +140,48 @@ void sub_807BCA8(struct MAInfoFrameProc* proc)
     s8 updated = FALSE;
     int i;
 
-    for (i = 0; i < gCurrentMapAnimState.actorCount_maybe; ++i) {
-        u16 r4 = gCurrentMapAnimState.actors[i].u0E;
+    for (i = 0; i < gManimSt.actorCount_maybe; ++i) {
+        u16 r4 = gManimSt.actor[i].hp_displayed_q4;
 
-        if (r4 > gCurrentMapAnimState.actors[i].u0D*16)
+        if (r4 > gManimSt.actor[i].hp_cur*16)
             r4 = r4 - 16;
 
-        if (r4 < gCurrentMapAnimState.actors[i].u0D*16) {
+        if (r4 < gManimSt.actor[i].hp_cur*16) {
             r4 = r4 + 4;
 
             if (r4 % 16 == 0)
                 PlaySoundEffect(0x75); // TODO: song ids
         }
 
-        if (r4 != gCurrentMapAnimState.actors[i].u0E) {
-            gCurrentMapAnimState.actors[i].u0E = r4;
+        if (r4 != gManimSt.actor[i].hp_displayed_q4) {
+            gManimSt.actor[i].hp_displayed_q4 = r4;
             sub_807BD54(proc, i);
             updated = TRUE;
         }
     }
 
-    if (!updated && gCurrentMapAnimState.u5F)
-        gCurrentMapAnimState.u5F = FALSE;
+    if (!updated && gManimSt.u5F)
+        gManimSt.u5F = FALSE;
 }
 
 void sub_807BD54(struct MAInfoFrameProc* proc, int a)
 {
-    int dummy = gCurrentMapAnimState.actors[a].u0E/16;
+    int dummy = gManimSt.actor[a].hp_displayed_q4/16;
     int r6 = (dummy >= 100);
 
     sub_807BA28(
         gBG0TilemapBuffer + TILEMAP_INDEX(
-            gCurrentMapAnimState.actors[a].u10 + 3,
-            gCurrentMapAnimState.actors[a].u11 + 3),
-        gCurrentMapAnimState.actors[a].u0E/16,
+            gManimSt.actor[a].hp_info_x + 3,
+            gManimSt.actor[a].hp_info_y + 3),
+        gManimSt.actor[a].hp_displayed_q4/16,
         TILEREF(32, BM_BGPAL_BANIM_UNK5), 3, 0, r6);
 
     sub_807BB40(
         gBG0TilemapBuffer + TILEMAP_INDEX(
-            gCurrentMapAnimState.actors[a].u10 + 4,
-            gCurrentMapAnimState.actors[a].u11 + 3),
-        gCurrentMapAnimState.actors[a].u0C,
-        gCurrentMapAnimState.actors[a].u0E/16,
+            gManimSt.actor[a].hp_info_x + 4,
+            gManimSt.actor[a].hp_info_y + 3),
+        gManimSt.actor[a].hp_max,
+        gManimSt.actor[a].hp_displayed_q4/16,
         0, gUnknown_089A3648);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -208,35 +208,35 @@ u16* GetBattleInfoPalByFaction(struct Unit* unit)
 
 void DisplayBattleInfoBox(struct MAInfoFrameProc* proc, int index, int arg2)
 {
-    gCurrentMapAnimState.actors[index].u10 = proc->x + arg2;
-    gCurrentMapAnimState.actors[index].u11 = proc->y;
+    gManimSt.actor[index].hp_info_x = proc->x + arg2;
+    gManimSt.actor[index].hp_info_y = proc->y;
 
     ApplyPalette(
-        GetBattleInfoPalByFaction(gCurrentMapAnimState.actors[index].pUnit),
+        GetBattleInfoPalByFaction(gManimSt.actor[index].unit),
         BM_BGPAL_BANIM_IFBACK + index);
 
     Decompress(
-        TsaSet_MapBattleBoxGfx[gCurrentMapAnimState.actorCount_maybe][index], gGenericBuffer);
+        TsaSet_MapBattleBoxGfx[gManimSt.actorCount_maybe][index], gGenericBuffer);
 
     CallARM_FillTileRect(
         TILEMAP_LOCATED(gBG1TilemapBuffer,
-            gCurrentMapAnimState.actors[index].u10,
-            gCurrentMapAnimState.actors[index].u11),
+            gManimSt.actor[index].hp_info_x,
+            gManimSt.actor[index].hp_info_y),
         (u16*) gGenericBuffer,
         (u16)(BM_BGCHR_BANIM_IFBACK | TILEREF(0, BM_BGPAL_BANIM_IFBACK + index)));
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 
-    DrawMapBattleInfoText(
+    PutStringCentered(
         TILEMAP_LOCATED(gBG0TilemapBuffer,
-            gCurrentMapAnimState.actors[index].u10 + 2,
-            gCurrentMapAnimState.actors[index].u11 + 1),
+            gManimSt.actor[index].hp_info_x + 2,
+            gManimSt.actor[index].hp_info_y + 1),
         0, 9,
-        GetStringFromIndex(UNIT_NAME_ID(gCurrentMapAnimState.actors[index].pUnit)));
+        GetStringFromIndex(UNIT_NAME_ID(gManimSt.actor[index].unit)));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    gCurrentMapAnimState.actors[index].u0E = gCurrentMapAnimState.actors[index].u0D*16;
+    gManimSt.actor[index].hp_displayed_q4 = gManimSt.actor[index].hp_cur*16;
 
     sub_807BD54(proc, index);
 }

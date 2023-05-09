@@ -1255,7 +1255,7 @@ int GetCurrentMapMusicIndex(void) {
 
 //! FE8U = 0x080160D0
 void StartMapSongBgm(void) {
-    Sound_PlaySong80024D4(GetCurrentMapMusicIndex(), 0);
+    StartBgm(GetCurrentMapMusicIndex(), 0);
     return;
 }
 

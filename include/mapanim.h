@@ -1,6 +1,8 @@
 #ifndef GUARD_MAPANIM_H
 #define GUARD_MAPANIM_H
 
+#include "global.h"
+#include "proc.h"
 #include "fontgrp.h"
 
 enum {
@@ -161,7 +163,73 @@ struct Unk03005090 {
     /* 04 */ int pad04;
 };
 
-extern struct MapAnimState gCurrentMapAnimState;
+struct MapAnimActorState {
+    /* 00 */ struct Unit* unit;
+    /* 04 */ struct BattleUnit* bu;
+    /* 08 */ struct MUProc* mu;
+    /* 0C */ u8 hp_max;
+    /* 0D */ u8 hp_cur;
+    /* 0E */ u16 hp_displayed_q4;
+    /* 10 */ u8 hp_info_x;
+    /* 11 */ u8 hp_info_y;
+    /* 12 */ STRUCT_PAD(0x12, 0x14);
+};
+
+struct MapAnimState {
+    /* 00 */ struct MapAnimActorState actor[4];
+
+    /* 50 */ struct BattleHit* pCurrentRound;
+    /* 54 */ const struct ProcCmd* specialProcScr;
+    /* 58 */ u8 subjectActorId;
+    /* 59 */ u8 targetActorId;
+    /* 5A */ u16 hitAttributes;
+    /* 5C */ u8 hitInfo;
+    /* 5D */ u8 hitDamage;
+    /* 5E */ u8 actorCount_maybe;
+    /* 5F */ u8 u5F;
+    /* 60 */ u8 u60;
+    /* 61 */ u8 u61;
+    /* 62 */ u8 u62;
+};
+
+extern struct MapAnimState gManimSt;
+
+struct ManimLevelUpStatGainLabelProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2A);
+    /* 2A */ u16 chr;
+    /* 2C */ u16 pal;
+    /* 2E */ u16 sprite_layer;
+};
+
+struct ManimLevelUpProc {
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2E);
+    /* 2E */ s16 actor_id;
+    /* 30 */ u8 next_stat_num;
+    /* 31 */ u8 clock;
+    /* 32 */ s16 y_scroll_offset;
+};
+
+struct ManimLevelUpLabelColorProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x54);
+    /* 54 */ s32 clock;
+    /* 58 */ STRUCT_PAD(0x58, 0x64);
+    /* 64 */ s16 pal;
+};
+
+struct ManimLevelUpLabelInfo {
+    /* 00 */ u8 x;
+    /* 01 */ u8 y;
+    /* 02 */ STRUCT_PAD(0x02, 0x04);
+    /* 04 */ int *msg[2];
+};
+
+extern struct ManimLevelUpLabelInfo CONST_DATA gManimLevelUpLabelInfoList[];
+
 extern CONST_DATA struct MADebugInfo* pMADebugInfoData;
 extern CONST_DATA struct Unk089A3798 gUnknown_089A3798[];
 
@@ -170,5 +238,29 @@ void DisplayWpnBrokePopup(ProcPtr proc);
 s8 BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit *);
 void DisplayWRankUpPopup(ProcPtr proc);
 s8 BattleUnit_ShouldDisplayWRankUp(struct BattleUnit *);
+
+void PutManimLevelUpFrame(int actor_id, int x, int y);
+void PutManimLevelUpStat(int actor_id, int x, int y, int stat_num, bool after_gain);
+int GetManimLevelUpStatGain(int actor_id, int stat_num);
+int GetManimLevelUpBaseStat(int actor_id, int stat_num);
+// ??? ManimLevelUpStatGainLabel_Finish(???);
+void StartManimLevelUpStatGainLabels(int chr, int pal, int sprite_layer, ProcPtr parent);
+void EndManimLevelUpStatGainLabels(void);
+void StartManimLevelUpStatGainLabelAnim(int x, int y, int stat_num, int stat_gain);
+// ??? StartPrepItemBoostStatGainLabelAnim(???);
+void StartManimLevelUp(int actor, ProcPtr parent);
+void InitManimLevelUpWindow(void);
+void ClearManimLevelUpWindow(void);
+void ManimLevelUp_InitMainScreen(struct ManimLevelUpProc *proc);
+void ManimLevelUpLabelColor_Init(struct ManimLevelUpLabelColorProc *proc);
+void ManimLevelUpLabelColor_Loop(struct ManimLevelUpLabelColorProc *proc);
+void ManimLevelUp_ScrollIn(struct ManimLevelUpProc *proc);
+void ManimLevelUp_ScrollOut(struct ManimLevelUpProc *proc);
+void ManimLevelUp_PutStatGainLabels(struct ManimLevelUpProc * proc);
+void ManimLevelUp_DimBgm(struct ManimLevelUpProc * proc);
+void ManimLevelUp_StartLevelUpText(struct ManimLevelUpProc * proc);
+void ManimLevelUp_EndLevelUpText(struct ManimLevelUpProc * proc);
+void ManimLevelUp_RestoreBgm(struct ManimLevelUpProc * proc);
+void ManimLevelUp_Clear(struct ManimLevelUpProc * proc);
 
 #endif  // GUARD_MAPANIM_H
