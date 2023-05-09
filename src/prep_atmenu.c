@@ -439,7 +439,7 @@ void AtMenu_StartSubmenu(struct ProcAtMenu *proc)
 void AtMenu_OnSubmenuEnd(struct ProcAtMenu *proc)
 {
     if (3 == proc->state)
-        ISuspectThisToBeMusicRelated_8002730(0x80, 0x100, 0x20, NULL);
+        StartBgmVolumeChange(0x80, 0x100, 0x20, NULL);
 
     switch (proc->state) {
     case 4:

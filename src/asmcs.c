@@ -617,9 +617,9 @@ void sub_8085E08(int index, int mode)
 void sub_8085E48(struct Proc89EE9E0 *proc)
 {
     if (0 == proc->mode)
-        Sound_PlaySong80024D4(0x3D, 0);
+        StartBgm(0x3D, 0);
     else
-        Sound_PlaySong80024D4(0x3C, 0);
+        StartBgm(0x3C, 0);
 
     SetDispEnable(1, 1, 1, 1, 1);
     proc->timer = 0;

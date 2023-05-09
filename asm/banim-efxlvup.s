@@ -787,7 +787,7 @@ sub_8074B38: @ 0x08074B38
 sub_8074B40: @ 0x08074B40
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r1, _08074B8C  @ gUnknown_089AC5CC
+	ldr r1, _08074B8C  @ Pal_ManimLevelUpStatGainCycling
 	ldrh r0, [r5, #0x2e]
 	adds r4, r0, #1
 	strh r4, [r5, #0x2e]
@@ -823,7 +823,7 @@ _08074B86:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08074B8C: .4byte gUnknown_089AC5CC
+_08074B8C: .4byte Pal_ManimLevelUpStatGainCycling
 
 	THUMB_FUNC_END sub_8074B40
 
@@ -831,7 +831,7 @@ _08074B8C: .4byte gUnknown_089AC5CC
 NewEkrLvupApfx: @ 0x08074B90
 	push {r4, r5, lr}
 	adds r5, r1, #0
-	ldr r2, _08074BDC  @ gUnknown_089ACA08
+	ldr r2, _08074BDC  @ Img_ManimLevelUpStatGain
 	ldr r1, _08074BE0  @ 0x000003FF
 	ands r1, r0
 	lsls r1, r1, #5
@@ -839,7 +839,7 @@ NewEkrLvupApfx: @ 0x08074B90
 	adds r1, r1, r0
 	adds r0, r2, #0
 	bl Decompress
-	ldr r4, _08074BE8  @ gUnknown_089AC9A8
+	ldr r4, _08074BE8  @ Pal_ManimLevelUp
 	adds r1, r5, #0
 	adds r1, #0x10
 	lsls r1, r1, #5
@@ -863,10 +863,10 @@ NewEkrLvupApfx: @ 0x08074B90
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08074BDC: .4byte gUnknown_089ACA08
+_08074BDC: .4byte Img_ManimLevelUpStatGain
 _08074BE0: .4byte 0x000003FF
 _08074BE4: .4byte 0x06010000
-_08074BE8: .4byte gUnknown_089AC9A8
+_08074BE8: .4byte Pal_ManimLevelUp
 _08074BEC: .4byte ProcScr_EkrLvupApfx
 _08074BF0: .4byte gpProcEkrLvupApfx
 
@@ -914,7 +914,7 @@ _08074C28:
 	ldr r7, _08074C74  @ 0x06010000
 	adds r1, r1, r7
 	movs r2, #0x40
-	bl sub_801498C
+	bl VramCopy
 	adds r0, r4, #0
 	cmp r0, #0
 	bge _08074C4A
@@ -930,7 +930,7 @@ _08074C4A:
 	lsls r1, r1, #5
 	adds r1, r1, r7
 	movs r2, #0x40
-	bl sub_801498C
+	bl VramCopy
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -951,7 +951,7 @@ sub_8074C78: @ 0x08074C78
 	push {r6, r7}
 	adds r7, r0, #0
 	adds r6, r1, #0
-	ldr r0, _08074CC0  @ gUnknown_089ACC98
+	ldr r0, _08074CC0  @ Img_ManimLevelUpStatGainDigits
 	mov r9, r0
 	ldr r0, _08074CC4  @ gUnknown_085C8278
 	mov r8, r0
@@ -967,7 +967,7 @@ sub_8074C78: @ 0x08074C78
 	ldr r4, _08074CCC  @ 0x06010000
 	adds r1, r1, r4
 	movs r2, #0x40
-	bl sub_801498C
+	bl VramCopy
 	movs r0, #0xe0
 	lsls r0, r0, #3
 	add r0, r8
@@ -977,10 +977,10 @@ sub_8074C78: @ 0x08074C78
 	lsls r1, r1, #5
 	adds r1, r1, r4
 	movs r2, #0x40
-	bl sub_801498C
+	bl VramCopy
 	b _08074D00
 	.align 2, 0
-_08074CC0: .4byte gUnknown_089ACC98
+_08074CC0: .4byte Img_ManimLevelUpStatGainDigits
 _08074CC4: .4byte gUnknown_085C8278
 _08074CC8: .4byte 0x000003FF
 _08074CCC: .4byte 0x06010000
@@ -996,7 +996,7 @@ _08074CD0:
 	ldr r4, _08074D54  @ 0x06010000
 	adds r1, r1, r4
 	movs r2, #0x40
-	bl sub_801498C
+	bl VramCopy
 	movs r0, #0xe8
 	lsls r0, r0, #3
 	add r0, r8
@@ -1006,7 +1006,7 @@ _08074CD0:
 	lsls r1, r1, #5
 	adds r1, r1, r4
 	movs r2, #0x40
-	bl sub_801498C
+	bl VramCopy
 _08074D00:
 	adds r0, r7, #0
 	cmp r7, #0
@@ -1024,7 +1024,7 @@ _08074D08:
 	ldr r5, _08074D54  @ 0x06010000
 	adds r1, r1, r5
 	movs r2, #0x20
-	bl sub_801498C
+	bl VramCopy
 	adds r0, r7, #0
 	cmp r0, #0
 	bge _08074D2A
@@ -1040,7 +1040,7 @@ _08074D2A:
 	lsls r1, r1, #5
 	adds r1, r1, r5
 	movs r2, #0x20
-	bl sub_801498C
+	bl VramCopy
 	pop {r3, r4}
 	mov r8, r3
 	mov r9, r4

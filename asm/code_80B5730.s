@@ -2900,7 +2900,7 @@ _080B9FAA:
 	cmp r0, r4
 	beq _080B9FB8
 	adds r0, r4, #0
-	bl sub_8002620
+	bl OverrideBgm
 _080B9FB8:
 	pop {r4}
 	pop {r0}
@@ -24592,7 +24592,7 @@ sub_80C3F04: @ 0x080C3F04
 	ldr r0, [r1, #0x34]
 	movs r1, #1
 	movs r2, #0
-	bl Sound_PlaySong8002574
+	bl StartBgmFadeIn
 _080C3F1E:
 	pop {r0}
 	bx r0

@@ -605,7 +605,7 @@ s8 MusicOptionChangeHandler(ProcPtr proc) {
     }
 
     if ((gConfigUiState->unk_37 & 1) != 0) {
-        Sound_PlaySong80024D4(0x34, 0);
+        StartBgm(0x34, 0);
         return 0;
     }
 

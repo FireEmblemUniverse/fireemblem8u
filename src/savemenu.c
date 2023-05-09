@@ -46,7 +46,7 @@ s8 sub_80AB9FC(struct SaveMenuProc*, int);
 //! FE8U = 0x080A882C
 void sub_80A882C(ProcPtr proc) {
     Proc_Goto(proc, 18);
-    ISuspectThisToBeMusicRelated_8002730(0xc0, 0, 0x10, 0);
+    StartBgmVolumeChange(0xc0, 0, 0x10, 0);
     return;
 }
 
@@ -624,7 +624,7 @@ void Loop6C_savemenu(struct SaveMenuProc* proc) {
             case 0x10:
                 proc->unk_2c = sub_80AB98C(proc->unk_2c, 0, 1);
                 Proc_Goto(proc, 1);
-                ISuspectThisToBeMusicRelated_8002730(0xC0, 0x100, 0x10, 0);
+                StartBgmVolumeChange(0xC0, 0x100, 0x10, 0);
 
                 break;
 
@@ -939,7 +939,7 @@ void sub_80A96EC(struct SaveMenuProc* proc) {
 
         if (proc->unk_42 == 0x10) {
             Proc_Goto(proc, 0x12);
-            ISuspectThisToBeMusicRelated_8002730(0xc0, 0, 0x10, 0);
+            StartBgmVolumeChange(0xc0, 0, 0x10, 0);
         } else if (proc->unk_42 == 0x40) {
             Proc_Goto(proc, 0x11);
         } else {
@@ -1414,7 +1414,7 @@ void sub_80AA030(struct SaveMenuProc* proc) {
     } else if (proc->unk_42 & 0x40) {
         return;
     } else if (proc->unk_42 & 0x100) {
-        ISuspectThisToBeMusicRelated_8002730(0xc0, 0x100, 0x10, 0);
+        StartBgmVolumeChange(0xc0, 0x100, 0x10, 0);
         if ((proc->unk_42 & 0x80) != 0) {
             SetNextGameActionId(GAME_ACTION_A);
         } else {

@@ -190,9 +190,9 @@ void PromoMain_OnEnd(struct ProcPromoMain *proc)
 {
     struct ProcPromoHandler *parent = proc->proc_parent;
     if (parent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
-        sub_8002670();
+        RestoreBgm();
         Sound_SetSEVolume(0x100);
-        sub_8002620(0x34);
+        OverrideBgm(0x34);
     }
     parent->stat = 2;
     EndAllProcChildren(proc);

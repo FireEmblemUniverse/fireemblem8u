@@ -182,7 +182,7 @@ ProcScr_PrepItemJunaFruitEffect:  @ 0x08A191C4
 	.word sub_809D17C
 	@ PROC_CALL
 	.short 0x2, 0x0
-	.word sub_807EE74
+	.word EndManimLevelUpStatGainLabels
 	@ PROC_SLEEP
 	.short 0xe, 0x1
 	.word 0x0

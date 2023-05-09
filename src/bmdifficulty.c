@@ -505,7 +505,7 @@ void PopGlobalTimer() {
 }
 
 void sub_8038230() {
-    Sound_PlaySong80024D4(0x40, 0);
+    StartBgm(0x40, 0);
     return;
 }
 

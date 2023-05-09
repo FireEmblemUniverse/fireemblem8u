@@ -1,6 +1,8 @@
 #ifndef GUARD_BM_UNIT_H
 #define GUARD_BM_UNIT_H
 
+#include "global.h"
+
 struct SupportData;
 
 // Config

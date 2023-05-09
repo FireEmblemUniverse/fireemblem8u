@@ -165,7 +165,9 @@ struct OpInfoGaugeDrawProc {
 };
 
 // TODO: Move elsewhere
-
+void sub_805AA68(void *);
+void sub_805AE14(void *);
+void sub_805AE40(void *, s16, s16, s16, s16);
 void sub_805A7B4(void*);
 s8 sub_805A96C(void*);
 void sub_805A990(void*);

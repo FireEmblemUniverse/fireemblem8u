@@ -29,6 +29,9 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 
+void sub_805AA68(void *);
+void sub_805AE14(void *);
+void sub_805AE40(void *, s16, s16, s16, s16);
 u8 PromoHandler_SetInitStat(struct ProcPromoHandler *proc);
 void PromoHandlerIdle(struct ProcPromoHandler *proc);
 

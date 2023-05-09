@@ -1229,7 +1229,7 @@ _080C6D72:
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
-	bl Sound_PlaySong80024E4
+	bl StartBgmExt
 	add sp, #8
 	pop {r4, r5, r6}
 	pop {r0}

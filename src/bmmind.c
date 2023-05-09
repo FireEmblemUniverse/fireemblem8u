@@ -676,7 +676,7 @@ void sub_80328B0(void) {
     int bgmIdx = GetCurrentMapMusicIndex();
 
     if (Sound_GetCurrentSong() != bgmIdx) {
-        Sound_PlaySong80024E4(bgmIdx, 6, NULL);
+        StartBgmExt(bgmIdx, 6, NULL);
     }
 
     return;

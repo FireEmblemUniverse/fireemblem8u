@@ -455,14 +455,14 @@ void sub_8009A84(ProcPtr proc) {
 }
 
 void sub_8009ABC(ProcPtr proc) {
-    Sound_PlaySong8002448(0x43, 0);
-    ISuspectThisToBeMusicRelated_8002730(0, 0xC0, 0x3C, 0);
+    StartBgmCore(0x43, 0);
+    StartBgmVolumeChange(0, 0xC0, 0x3C, 0);
     return;
 }
 
 
 void sub_8009AD8(ProcPtr proc) {
-    ISuspectThisToBeMusicRelated_8002730(0x100, 0xC0, 0x20, 0);
+    StartBgmVolumeChange(0x100, 0xC0, 0x20, 0);
     return;
 }
 

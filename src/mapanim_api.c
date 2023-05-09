@@ -19,21 +19,21 @@ void MakeBattleMOVEUNIT(int maActor, struct BattleUnit* bu, struct Unit* unit)
     if (!bu)
         return;
 
-    gCurrentMapAnimState.actors[maActor].pUnit = unit;
-    gCurrentMapAnimState.actors[maActor].pBattleUnit   = bu;
-    gCurrentMapAnimState.actors[maActor].pMUProc   = MU_Create(unit);
+    gManimSt.actor[maActor].unit = unit;
+    gManimSt.actor[maActor].bu   = bu;
+    gManimSt.actor[maActor].mu   = MU_Create(unit);
 
-    gCurrentMapAnimState.actors[maActor].pMUProc->pAPHandle->frameTimer    = 0;
-    gCurrentMapAnimState.actors[maActor].pMUProc->pAPHandle->frameInterval = 0;
+    gManimSt.actor[maActor].mu->pAPHandle->frameTimer    = 0;
+    gManimSt.actor[maActor].mu->pAPHandle->frameInterval = 0;
 
     if (BUNIT_IS_OBSTACLE(bu))
-        MU_Hide(gCurrentMapAnimState.actors[maActor].pMUProc);
+        MU_Hide(gManimSt.actor[maActor].mu);
 
     switch (unit->statusIndex) {
 
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
-        MU_SetPaletteId(gCurrentMapAnimState.actors[maActor].pMUProc, BM_OBJPAL_UNIT_GRAYED);
+        MU_SetPaletteId(gManimSt.actor[maActor].mu, BM_OBJPAL_UNIT_GRAYED);
         break;
     } // switch (unit->statusIndex)
 }
@@ -44,32 +44,32 @@ void SetBattleAnimFacing(int maActor, int maOpponent, int facing)
     switch (facing){
     case MA_FACING_OPPONENT:
         muFacing = GetFacingDirection(
-            gCurrentMapAnimState.actors[maActor].pUnit->xPos,    gCurrentMapAnimState.actors[maActor].pUnit->yPos,
-            gCurrentMapAnimState.actors[maOpponent].pUnit->xPos, gCurrentMapAnimState.actors[maOpponent].pUnit->yPos);
+            gManimSt.actor[maActor].unit->xPos,    gManimSt.actor[maActor].unit->yPos,
+            gManimSt.actor[maOpponent].unit->xPos, gManimSt.actor[maOpponent].unit->yPos);
 
-        MU_SetFacing(gCurrentMapAnimState.actors[maActor].pMUProc, muFacing);
+        MU_SetFacing(gManimSt.actor[maActor].mu, muFacing);
 
         break;
 
     case MA_FACING_DEFAULT:
-        MU_SetDefaultFacing(gCurrentMapAnimState.actors[maActor].pMUProc);
+        MU_SetDefaultFacing(gManimSt.actor[maActor].mu);
         break;
 
     case MA_FACING_UNK:
         muFacing = GetFacingDirection(
-            gCurrentMapAnimState.actors[maActor].pUnit->xPos, gCurrentMapAnimState.actors[maActor].pUnit->yPos, 0, 0);
+            gManimSt.actor[maActor].unit->xPos, gManimSt.actor[maActor].unit->yPos, 0, 0);
 
-        MU_SetFacing(gCurrentMapAnimState.actors[maActor].pMUProc, muFacing);
+        MU_SetFacing(gManimSt.actor[maActor].mu, muFacing);
         break;
     } // switch (facing)
 }
 
 void SetupBattleMOVEUNITs(void)
 {
-    int maFacing = GetSpellAssocFacing(gCurrentMapAnimState.actors[0].pBattleUnit->weaponBefore);
+    int maFacing = GetSpellAssocFacing(gManimSt.actor[0].bu->weaponBefore);
     sub_807B4D0();
 
-    switch (gCurrentMapAnimState.actorCount_maybe) {
+    switch (gManimSt.actorCount_maybe) {
     case 2:
         if (gBattleHitArray[0].attributes & BATTLE_HIT_ATTR_TATTACK) {
             // In triangle attacks, both partners face the opponent too
@@ -83,16 +83,16 @@ void SetupBattleMOVEUNITs(void)
     case 1:
         SetBattleAnimFacing(0, 1, maFacing);
         break;
-    } // switch (gCurrentMapAnimState.actorCount_maybe)
+    } // switch (gManimSt.actorCount_maybe)
 }
 
 void sub_807B4D0(void)
 {
     u8 array[4];
     int i, j;
-    int count = gCurrentMapAnimState.actorCount_maybe;
+    int count = gManimSt.actorCount_maybe;
 
-    switch (gCurrentMapAnimState.actorCount_maybe) {
+    switch (gManimSt.actorCount_maybe) {
     case 2:
         if (gBattleHitArray[0].attributes & BATTLE_HIT_ATTR_TATTACK)
             count += 2;
@@ -101,7 +101,7 @@ void sub_807B4D0(void)
     case 1:
         break;
 
-    } // switch (gCurrentMapAnimState.actorCount_maybe)
+    } // switch (gManimSt.actorCount_maybe)
 
     // Init ref array
     for (i = 0; i < count; ++i)
@@ -111,10 +111,10 @@ void sub_807B4D0(void)
     for (i = 0; i < count-1; ++i) {
         for (j = i+1; j < count; ++j) {
             int swap = FALSE;
-            if (gCurrentMapAnimState.actors[array[i]].pUnit->yPos == gCurrentMapAnimState.actors[array[j]].pUnit->yPos) {
-                if (gCurrentMapAnimState.actors[array[i]].pUnit->xPos >= gCurrentMapAnimState.actors[array[j]].pUnit->xPos)
+            if (gManimSt.actor[array[i]].unit->yPos == gManimSt.actor[array[j]].unit->yPos) {
+                if (gManimSt.actor[array[i]].unit->xPos >= gManimSt.actor[array[j]].unit->xPos)
                     swap = TRUE;
-            } else if (gCurrentMapAnimState.actors[array[i]].pUnit->yPos >= gCurrentMapAnimState.actors[array[j]].pUnit->yPos)
+            } else if (gManimSt.actor[array[i]].unit->yPos >= gManimSt.actor[array[j]].unit->yPos)
                 swap = TRUE;
 
             if (swap) {
@@ -127,18 +127,18 @@ void sub_807B4D0(void)
 
     // Apply
     for (i = 0; i < count; ++i)
-        gCurrentMapAnimState.actors[array[i]].pMUProc->pAPHandle->objLayer = gUnknown_08205714[i];
+        gManimSt.actor[array[i]].mu->pAPHandle->objLayer = gUnknown_08205714[i];
 }
 
 void BeginMapAnimForPoisonDmg(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
-    gCurrentMapAnimState.u5F = 0;
-    gCurrentMapAnimState.u62 = 0;
-    gCurrentMapAnimState.actorCount_maybe = 1;
+    gManimSt.u5F = 0;
+    gManimSt.u62 = 0;
+    gManimSt.actorCount_maybe = 1;
 
-    gCurrentMapAnimState.pCurrentRound = gBattleHitArray;
+    gManimSt.pCurrentRound = gBattleHitArray;
     MapAnim_AdvanceBattleRound();
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
@@ -149,11 +149,11 @@ void BeginMapAnimForEggDmg(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
-    gCurrentMapAnimState.u5F = 0;
-    gCurrentMapAnimState.u62 = 0;
-    gCurrentMapAnimState.actorCount_maybe = 1;
+    gManimSt.u5F = 0;
+    gManimSt.u62 = 0;
+    gManimSt.actorCount_maybe = 1;
 
-    gCurrentMapAnimState.pCurrentRound = gBattleHitArray;
+    gManimSt.pCurrentRound = gBattleHitArray;
     MapAnim_AdvanceBattleRound();
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
@@ -164,11 +164,11 @@ void BeginMapAnimForCritAtk(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
-    gCurrentMapAnimState.u5F = 0;
-    gCurrentMapAnimState.u62 = 0;
-    gCurrentMapAnimState.actorCount_maybe = 1;
+    gManimSt.u5F = 0;
+    gManimSt.u62 = 0;
+    gManimSt.actorCount_maybe = 1;
 
-    gCurrentMapAnimState.pCurrentRound = gBattleHitArray;
+    gManimSt.pCurrentRound = gBattleHitArray;
     MapAnim_AdvanceBattleRound();
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
@@ -179,12 +179,12 @@ void BeginMapAnimForSteal(void)
 {
     gBattleActor.weaponBefore = ITEM_SWORD_IRON;
 
-    gCurrentMapAnimState.u5F = 0;
-    gCurrentMapAnimState.u62 = 1;
-    gCurrentMapAnimState.actorCount_maybe = 2;
+    gManimSt.u5F = 0;
+    gManimSt.u62 = 1;
+    gManimSt.actorCount_maybe = 2;
 
-    gCurrentMapAnimState.subjectActorId = 0;
-    gCurrentMapAnimState.targetActorId = 1;
+    gManimSt.subjectActorId = 0;
+    gManimSt.targetActorId = 1;
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
     Proc_Start(ProcScr_MapAnimSteal, PROC_TREE_3);
@@ -194,12 +194,12 @@ void BeginMapAnimForSummon(void)
 {
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
-    gCurrentMapAnimState.u5F = 0;
-    gCurrentMapAnimState.u62 = 2;
-    gCurrentMapAnimState.actorCount_maybe = 1;
+    gManimSt.u5F = 0;
+    gManimSt.u62 = 2;
+    gManimSt.actorCount_maybe = 1;
 
-    gCurrentMapAnimState.subjectActorId = 0;
-    gCurrentMapAnimState.targetActorId = 1;
+    gManimSt.subjectActorId = 0;
+    gManimSt.targetActorId = 1;
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
     Proc_Start(ProcScr_MapAnimSummon, PROC_TREE_3);
@@ -209,12 +209,12 @@ void BeginMapAnimForSummonDK(void)
 {
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
-    gCurrentMapAnimState.u5F = 0;
-    gCurrentMapAnimState.u62 = 2;
-    gCurrentMapAnimState.actorCount_maybe = 1;
+    gManimSt.u5F = 0;
+    gManimSt.u62 = 2;
+    gManimSt.actorCount_maybe = 1;
 
-    gCurrentMapAnimState.subjectActorId = 0;
-    gCurrentMapAnimState.targetActorId = 1;
+    gManimSt.subjectActorId = 0;
+    gManimSt.targetActorId = 1;
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
     Proc_Start(ProcScr_MapAnimSumDK, PROC_TREE_3);
@@ -224,12 +224,12 @@ void BeginMapAnimForDance(void)
 {
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
-    gCurrentMapAnimState.u5F = 0;
-    gCurrentMapAnimState.u62 = 2;
-    gCurrentMapAnimState.actorCount_maybe = 1;
+    gManimSt.u5F = 0;
+    gManimSt.u62 = 2;
+    gManimSt.actorCount_maybe = 1;
 
-    gCurrentMapAnimState.subjectActorId = 0;
-    gCurrentMapAnimState.targetActorId = 0;
+    gManimSt.subjectActorId = 0;
+    gManimSt.targetActorId = 0;
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
     Proc_Start(ProcScr_MapAnimDance, PROC_TREE_3);
@@ -242,8 +242,8 @@ void BeginBattleMapAnims(void)
         return;
     }
 
-    gCurrentMapAnimState.u5F = 0;
-    gCurrentMapAnimState.u62 = 0;
+    gManimSt.u5F = 0;
+    gManimSt.u62 = 0;
 
     SetupMapAnimSpellData(&gBattleActor, &gBattleTarget, gBattleHitArray);
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
@@ -256,9 +256,9 @@ void BeginBattleMapAnims(void)
 
 void SetupMapAnimSpellData(struct BattleUnit* actor, struct BattleUnit* target, struct BattleHit* hit)
 {
-    gCurrentMapAnimState.actorCount_maybe = GetSpellAssocCharCount(actor->weaponBefore);
-    gCurrentMapAnimState.pCurrentRound    = hit;
-    gCurrentMapAnimState.specialProcScr   = GetSpellAssocAlt6CPointer(actor->weaponBefore);
+    gManimSt.actorCount_maybe = GetSpellAssocCharCount(actor->weaponBefore);
+    gManimSt.pCurrentRound    = hit;
+    gManimSt.specialProcScr   = GetSpellAssocAlt6CPointer(actor->weaponBefore);
 }
 
 void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, struct BattleHit* hit)
@@ -267,7 +267,7 @@ void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, str
 
     MakeBattleMOVEUNIT(0, actor, &actor->unit);
 
-    if (gCurrentMapAnimState.actorCount_maybe > 1)
+    if (gManimSt.actorCount_maybe > 1)
     {
         HideUnitSprite(&gBattleTarget.unit); // NOTE: uses gBattleTarget instead of target argument
         MakeBattleMOVEUNIT(1, target, &target->unit);
@@ -284,10 +284,10 @@ void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, str
 
     SetupBattleMOVEUNITs();
 
-    for (i = 0; i < gCurrentMapAnimState.actorCount_maybe; ++i)
+    for (i = 0; i < gManimSt.actorCount_maybe; ++i)
     {
-        gCurrentMapAnimState.actors[i].u0D = gCurrentMapAnimState.actors[i].pBattleUnit->hpInitial;
-        gCurrentMapAnimState.actors[i].u0C = GetUnitMaxHp(gCurrentMapAnimState.actors[i].pUnit);
+        gManimSt.actor[i].hp_cur = gManimSt.actor[i].bu->hpInitial;
+        gManimSt.actor[i].hp_max = GetUnitMaxHp(gManimSt.actor[i].unit);
     }
 
     SetDefaultColorEffects();

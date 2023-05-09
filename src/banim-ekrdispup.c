@@ -8,6 +8,10 @@
 #include "ekrlevelup.h"
 #include "bmitem.h"
 
+void sub_805AA68(void *);
+void sub_805AE14(void *);
+void sub_805AE40(void *, s16, s16, s16, s16);
+
 CONST_DATA struct ProcCmd gProc_ekrDispUP[] = {
     PROC_NAME("ekrDispUP"),
     PROC_REPEAT(ekrDispUPMain),

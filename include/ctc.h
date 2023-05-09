@@ -40,8 +40,8 @@
 #define OAM1_SIZE_32x64    0xC000
 
 #define OAM2_CHR(ac)       ((ac) & 0x3FF)
-#define OAM2_LAYER(al)     (((al) << 10) & 0x0C00)
-#define OAM2_PAL(ap)       (((ap) << 12) & 0xF000)
+#define OAM2_LAYER(al)     (((al) & 0x3) << 10) // #define OAM2_LAYER(al) (((al) << 10) & 0x0C00)
+#define OAM2_PAL(ap)       (((ap) & 0xF) << 12) // #define OAM2_PAL(ap)   (((ap) << 12) & 0xF000)
 
 extern u16 CONST_DATA gObject_8x8[];
 extern u16 CONST_DATA gObject_16x16[];

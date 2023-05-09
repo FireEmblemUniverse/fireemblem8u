@@ -478,7 +478,7 @@ void Title_Loop_DrawRedBlueOrbs(struct TitleScreenProc* proc) {
     );
 
     if (proc->timer == 20) {
-        Sound_PlaySong80024E4(2, 0, 0);
+        StartBgmExt(2, 0, 0);
     }
 
     if (proc->timer < 20) {
@@ -929,7 +929,7 @@ void Title_RestartProc(struct TitleScreenProc* proc) {
     gLCDControlBuffer.dispcnt.bg3_on = 0;
     gLCDControlBuffer.dispcnt.obj_on = 0;
 
-    Sound_PlaySong80024E4(0x43, 0, 0);
+    StartBgmExt(0x43, 0, 0);
 
     return;
 }
@@ -1025,7 +1025,7 @@ void StartTitleScreen_WithMusic(ProcPtr parent) {
     proc = Proc_StartBlocking(gProcScr_TitleScreen, parent);
     proc->unk_29 = 0;
 
-    Sound_PlaySong80024E4(0x43, 0, 0);
+    StartBgmExt(0x43, 0, 0);
 
     return;
 }

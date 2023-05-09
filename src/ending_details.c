@@ -1152,7 +1152,7 @@ void Fin_Init(struct FinScreenProc* proc) {
 
     SetupFinScreenGfx();
 
-    Sound_PlaySong8002574(0x56, 7, 0);
+    StartBgmFadeIn(0x56, 7, 0);
     SetDefaultColorEffects();
 
     return;
@@ -2138,7 +2138,7 @@ void sub_80B8014(void) {
 
     BG_EnableSyncByMask(0xc);
     sub_80AB760(gAnims);
-    Sound_PlaySong80024D4(0x46, 0);
+    StartBgm(0x46, 0);
 
     return;
 }

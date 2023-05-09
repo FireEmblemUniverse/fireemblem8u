@@ -1014,7 +1014,7 @@ void StartPrepSaveScreen(ProcPtr proc) {
         gPlaySt.unk4A_2 = 4;
     }
 
-    ISuspectThisToBeMusicRelated_8002730(0x100, 0x80, 0x20, 0);
+    StartBgmVolumeChange(0x100, 0x80, 0x20, 0);
     sub_801240C();
     Make6C_savemenu2(proc);
 
@@ -1022,7 +1022,7 @@ void StartPrepSaveScreen(ProcPtr proc) {
 }
 
 void sub_8034168() {
-    ISuspectThisToBeMusicRelated_8002730(0x80, 0x100, 0x20, 0);
+    StartBgmVolumeChange(0x80, 0x100, 0x20, 0);
     gPlaySt.unk4A_2 = 2;
     return;
 }

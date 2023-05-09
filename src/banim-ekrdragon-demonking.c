@@ -10,6 +10,10 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 
+void sub_805AA68(void *);
+void sub_805AE14(void *);
+void sub_805AE40(void *, s16, s16, s16, s16);
+
 void NewEkrDragonDemonKing(struct Anim *anim)
 {
     struct EkrDragonStatus *ekrsp = GetEkrDragonStatus(anim);
