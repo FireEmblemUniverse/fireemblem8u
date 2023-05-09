@@ -82,8 +82,6 @@ extern struct ProcCmd gUnknown_08A21308[];
 extern void* gUnknown_08A212D4;
 extern void* gUnknown_08A212D8;
 
-extern u16 gUnknown_0202396C[];
-
 extern u8 gUnknown_08A2C92C[];
 extern u8 gUnknown_08A2C5A8[];
 extern u8 gUnknown_08A2C7A4[];
@@ -451,7 +449,7 @@ void sub_80AFBBC(struct SoundRoomProc* proc) {
 
     sub_80AF4D0(gUnknown_08A212D8, proc);
 
-    CallARM_FillTileRect(gUnknown_0202396C, gUnknown_08A2C92C, 0x1200);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 2, 19), gUnknown_08A2C92C, 0x1200);
     CallARM_FillTileRect((u16*)gUnknown_08A212D4 + 0x321, gUnknown_08A2C7A4, 0x1000);
 
     HidePrepScreenHandCursor();

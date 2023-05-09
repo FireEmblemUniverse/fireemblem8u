@@ -72,7 +72,6 @@ extern struct Unknown020007E0 gUnknown_020007E0[];
 extern u8 gAnims[];
 extern struct Font gUnknown_02000920;
 extern struct TextHandle gUnknown_02000938;
-extern u16 gUnknown_020238F6[];
 
 struct Unknown03004990 {
     /* 000 */ u8 unk[0x79E - 0x000];
@@ -383,9 +382,9 @@ void sub_80AB7BC(int msgId, s8 flag) {
         Text_SetXCursor(&gUnknown_02000938, 0x2c);
         Text_AppendString(&gUnknown_02000938, GetStringFromIndex(0x142)); // TODO: msgid "Cancel"
 
-        Text_Draw(&gUnknown_02000938, gUnknown_020238F6);
+        Text_Draw(&gUnknown_02000938, TILEMAP_LOCATED(gBG1TilemapBuffer, 7, 17));
     } else {
-        TileMap_FillRect(gUnknown_020238F6, 0xb, 1, 0);
+        TileMap_FillRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 7, 17), 0xb, 1, 0);
     }
 
     BG_EnableSyncByMask(2);

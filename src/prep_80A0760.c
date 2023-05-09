@@ -24,8 +24,6 @@ struct PrepProcA1962C {
 s8 sub_80A0A34(void);
 s8 sub_80A0A70(void);
 
-extern u16 gUnknown_02022F28[];
-
 extern struct TextHandle gUnknown_02013498[];
 
 void FortuneSubMenu_Init_Null(void);
@@ -126,7 +124,7 @@ void FortuneSubMenu_Unused_SetupText(struct PrepProcA1962C* proc) {
     SetFontGlyphSet(0);
     SetFont(0);
 
-    TileMap_FillRect(gUnknown_02022F28, 31, 10, 0);
+    TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 0xA), 31, 10, 0);
 
     for (i = 0; i < 4; i++) {
         Text_Clear(th);

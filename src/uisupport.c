@@ -94,9 +94,6 @@ extern int sSupportScreenUnitCount;
 extern u16 gUnknown_020136F4[];
 extern u8 gUnknown_0203E884;
 
-extern u16 gUnknown_02022CEC[];
-extern u16 gUnknown_02023136[];
-extern u16 gUnknown_020235AA[];
 extern u16 gUnknown_02023CC8[];
 
 //! FE8U = 0x080A0A94
@@ -400,7 +397,7 @@ void DrawSupportScreenText(void) {
     str = GetStringFromIndex(0x5AD); // TODO: msgid "Select Character"
     Text_InsertString(th - 1, (s16)GetStringTextCenteredPos(128, str), 0, str);
 
-    Text_Draw(th - 1, gUnknown_02023136);
+    Text_Draw(th - 1, TILEMAP_LOCATED(gBG0TilemapBuffer, 7, 18));
 
     Text_Clear(th + 0);
     Text_InsertString(
@@ -421,7 +418,7 @@ void DrawSupportScreenText(void) {
         GetStringFromIndex(0x5AE) // TODO: msgid "%[.]"
     );
 
-    Text_Draw(th + 0, gUnknown_02023136 - 500);
+    Text_Draw(th + 0, TILEMAP_LOCATED(gBG0TilemapBuffer, 7, 18) - 500);
 
     BG_EnableSyncByMask(1);
 
@@ -569,7 +566,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     sub_8098C3C(0x5000, 5);
 
     Decompress(gUnknown_08A1DB80, gGenericBuffer);
-    CallARM_FillTileRect(gUnknown_020235AA, gGenericBuffer, 0x1200);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 4), gGenericBuffer, 0x1200);
 
     Decompress(gGfx_SupportScreenBanner, (void*)0x06013800);
     CopyToPaletteBuffer(gPal_SupportScreenBanner, 0x240, 0x20);
@@ -1405,7 +1402,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
 
     PutFace80x72(
         (struct Proc*)proc,
-        gUnknown_02022CEC,
+        TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 1),
         gCharacterData[GetSupportScreenCharIdAt(proc->unitIdx) - 1].portraitId,
         0x200,
         2

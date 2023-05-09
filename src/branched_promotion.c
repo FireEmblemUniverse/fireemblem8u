@@ -472,10 +472,10 @@ void sub_80CCC2C(struct ProcPromoSel *proc) {
     SetFont(0);
     class = GetClassData(proc->u2c[0]);
     string = GetStringFromIndex(class->nameTextId);
-    DrawTextInline(0, gUnknown_02022D2E, 0, 0, 0x8, string);
+    DrawTextInline(0, TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 2), 0, 0, 0x8, string);
     class = GetClassData(proc->u2c[1]);
     string = GetStringFromIndex(class->nameTextId);
-    DrawTextInline(0, gUnknown_02022D2E + 0x40, 0, 0, 0x8, string);
+    DrawTextInline(0, TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 4), 0, 0, 0x8, string);
 }
 
 bool8 sub_80CCCA4(void) {
@@ -1267,13 +1267,11 @@ u8 PromoSelMenu_OnInit(struct MenuProc *proc) {
     return 0;
 }
 
-extern u16 gUnknown_02022DB8[];
-extern u16 gUnknown_02023DB8[];
 extern struct Font gUnknown_03005380;
 
 u8 PromoSelMenu_OnEnd(struct MenuProc *proc) {
-    TileMap_FillRect(gUnknown_02022DB8, 0xa, 6, 0);
-    TileMap_FillRect(gUnknown_02023DB8, 0xa, 6, 0);
+    TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 4), 0xa, 6, 0);
+    TileMap_FillRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 8, 4), 0xa, 6, 0);
     SetFont(&gUnknown_03005380);
     sub_80CDA4C(proc->proc_parent);
     RedrawMenu(proc->proc_parent);
@@ -1424,7 +1422,7 @@ struct ProcCmd ProcScr_PromoMenuSel[] = {
 };
 
 extern struct Font gUnknown_03005360;
-extern u16 gUnknown_02022DBA[];
+
 u8 PromotionCommand_OnSelect(struct MenuProc *proc, struct MenuItemProc *proc2) {
     struct Proc *parent;
     struct ProcPromoSel *gparent;
@@ -1465,7 +1463,7 @@ u8 PromotionCommand_OnSelect(struct MenuProc *proc, struct MenuItemProc *proc2) 
             break;
         }
         Font_InitForUI(&gUnknown_03005360, (void *) 0x06001000, 0x80, 0x5);
-        TileMap_FillRect(gUnknown_02022DBA, 0xa, 0x6, 0);
+        TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 9, 4), 0xa, 0x6, 0);
         BG_EnableSyncByMask(1);
         StartMenuExt(&Menu_PromoSel, 2, 0, 0, 0, (struct Proc *) proc);
     }
