@@ -1542,7 +1542,7 @@ _08012378:
 _08012398: .4byte gPlaySt
 _0801239C:
 	ldr r0, [r4, #0xc]
-	ldr r1, _080123DC  @ gUnknown_0201000C
+	ldr r1, _080123DC  @ 0x0201000C
 	ands r0, r1
 	cmp r0, #0
 	bne _080123F8
@@ -1571,7 +1571,7 @@ _0801239C:
 	strb r0, [r4, #0x11]
 	b _080123F8
 	.align 2, 0
-_080123DC: .4byte gUnknown_0201000C
+_080123DC: .4byte 0x0201000C
 _080123E0:
 	adds r0, r5, #0
 	mov r1, sp

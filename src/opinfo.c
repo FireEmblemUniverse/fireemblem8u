@@ -188,8 +188,6 @@ extern ProcPtr* gUnknown_03001D50;
 
 extern u16 gUnknown_08A30978[]; // tsa
 
-extern u16 gUnknown_02022E68[];
-
 static inline int DarknessCoeff(int darkness, u8 lsr) {
     return 0x10 - (darkness >> (lsr));
 }
@@ -677,7 +675,7 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     Decompress(gUnknown_08A360E8, (void *)0x6000000);
 
     Decompress(gUnknown_08A36284, gGenericBuffer);
-    CallARM_FillTileRect(gUnknown_02022E68, gGenericBuffer, 0x4000);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 0x7), gGenericBuffer, 0x4000);
 
     Decompress(gUnknown_08A35A3C, (void *)0x06000800);
 

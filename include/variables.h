@@ -105,7 +105,6 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_0200F15C
 extern char gStringBufferAlt[];
 extern u8 gBanimScrLeft[];
-// extern ??? gUnknown_0201000C
 extern u8 gPrepUnitPool[];
 extern u8 gBanimScrRight[];
 extern struct PrepUnitList gPrepUnitList;
@@ -198,140 +197,74 @@ extern u16 gUnknown_02022C28[];
 extern u16 gUnknown_02022C48[];
 // extern ??? gUnknown_02022C68
 extern u16 gBG0TilemapBuffer[];
-// extern ??? gUnknown_02022CAA
-// extern ??? gUnknown_02022CAC
 // extern ??? gUnknown_02022CAE
-// extern ??? gUnknown_02022CB0
 // extern ??? gUnknown_02022CB4
 // extern ??? gUnknown_02022CB8
 // extern ??? gUnknown_02022CC6
 // extern ??? gUnknown_02022CCA
-// extern ??? gUnknown_02022CCE
-// extern ??? gUnknown_02022CD0
 // extern ??? gUnknown_02022CD4
-// extern ??? gUnknown_02022CDC
-// extern ??? gUnknown_02022CEC
-// extern ??? gUnknown_02022CFE
-// extern ??? gUnknown_02022D02
-// extern ??? gUnknown_02022D08
 // extern ??? gUnknown_02022D10
 // extern ??? gUnknown_02022D18
-extern u16 gUnknown_02022D2E[];
-// extern ??? gUnknown_02022D36
-// extern ??? gUnknown_02022D3C
-// extern ??? gUnknown_02022D40
-// extern ??? gUnknown_02022D72
 // extern ??? gUnknown_02022D76
 // extern ??? gUnknown_02022D86
-// extern ??? gUnknown_02022DB4
-// extern ??? gUnknown_02022DB8
-// extern ??? gUnknown_02022DBA
-// extern ??? gUnknown_02022DEA
-// extern ??? gUnknown_02022DEE
 // extern ??? gUnknown_02022DF2
 // extern ??? gUnknown_02022E00
 // extern ??? gUnknown_02022E2E
-// extern ??? gUnknown_02022E30
-// extern ??? gUnknown_02022E34
-// extern ??? gUnknown_02022E5E
-// extern ??? gUnknown_02022E68
 // extern ??? gUnknown_02022E76
-// extern ??? gUnknown_02022E90
-// extern ??? gUnknown_02022EB4
-// extern ??? gUnknown_02022EE8
-// extern ??? gUnknown_02022EEA
 // extern ??? gUnknown_02022EEC
-// extern ??? gUnknown_02022EF6
 // extern ??? gUnknown_02022F06
 // extern ??? gUnknown_02022F0A
 // extern ??? gUnknown_02022F0E
-// extern ??? gUnknown_02022F10
-// extern ??? gUnknown_02022F1A
-// extern ??? gUnknown_02022F1E
-// extern ??? gUnknown_02022F28
-// extern ??? gUnknown_02022F2A
-// extern ??? gUnknown_02022F38
 // extern ??? gUnknown_02022F4E
-// extern ??? gUnknown_02022F6A
 // extern ??? gUnknown_02022FA8
 // extern ??? gUnknown_02022FBE
 // extern ??? gUnknown_02022FC6
 // extern ??? gUnknown_02022FD4
 extern u16 gUnknown_02022FE8[];
-// extern ??? gUnknown_02023016
 // extern ??? gUnknown_02023028
-// extern ??? gUnknown_0202304E
 // extern ??? gUnknown_0202306E
 // extern ??? gUnknown_02023084
 // extern ??? gUnknown_020230A8
 // extern ??? gUnknown_020230CA
-// extern ??? gUnknown_020230CE
-// extern ??? gUnknown_020230F4
-// extern ??? gUnknown_020230F6
 // extern ??? gUnknown_0202310E
 // extern ??? gUnknown_02023114
 // extern ??? gUnknown_02023116
 // extern ??? gUnknown_02023130
-// extern ??? gUnknown_02023136
 extern u16 gBG1TilemapBuffer[];
 // extern ??? gUnknown_020234AC
 // extern ??? gUnknown_020234AE
-// extern ??? gUnknown_020234B0
 // extern ??? gUnknown_020234BE
-// extern ??? gUnknown_020234C0
 // extern ??? gUnknown_020234CA
-// extern ??? gUnknown_020234CE
-// extern ??? gUnknown_020234D0
 // extern ??? gUnknown_020234E2
 // extern ??? gUnknown_020234E4
-// extern ??? gUnknown_02023548
-// extern ??? gUnknown_020235AA
-// extern ??? gUnknown_020235EA
-// extern ??? gUnknown_020235EE
-// extern ??? gUnknown_020235F0
 // extern ??? gUnknown_020235FC
 // extern ??? gUnknown_020235FE
 // extern ??? gUnknown_020236E4
-// extern ??? gUnknown_020237E8
-// extern ??? gUnknown_02023816
-// extern ??? gUnknown_02023828
-// extern ??? gUnknown_0202384E
 // extern ??? gUnknown_0202387E
 // extern ??? gUnknown_020238A8
 // extern ??? gUnknown_020238CA
-extern u16 gUnknown_020238F4[];
-// extern ??? gUnknown_020238F6
 // extern ??? gUnknown_0202393E
-// extern ??? gUnknown_0202396C
 // extern ??? gUnknown_020239A8
 // I'm not sure if this is u8 or u16.
 // In text mode, the tilemap entries are 16 bits,
 // while in affine mode, they are 8 bits.
 extern u16 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
-// extern ??? gUnknown_02023CAE
-// extern ??? gUnknown_02023CC2
 // extern ??? gUnknown_02023CC6
 // extern ??? gUnknown_02023CC8
 // extern ??? gUnknown_02023CE8
-// extern ??? gUnknown_02023CEA
 // extern ??? gUnknown_02023D0C
 // extern ??? gUnknown_02023D12
-// extern ??? gUnknown_02023D40
 // extern ??? gUnknown_02023D88
 // extern ??? gUnknown_02023D90
 // extern ??? gUnknown_02023D9C
 // extern ??? gUnknown_02023DAA
-// extern ??? gUnknown_02023DB8
 // extern ??? gUnknown_02023DBA
 // extern ??? gUnknown_02023DE8
 // extern ??? gUnknown_02023DEA
 // extern ??? gUnknown_02023DEE
 // extern ??? gUnknown_02023DF8
 // extern ??? gUnknown_02023E10
-// extern ??? gUnknown_02023E42
-// extern ??? gUnknown_02023E6C
-// extern ??? gUnknown_02023E82
 // extern ??? gUnknown_02023E88
 // extern ??? gUnknown_02023EA8
 // extern ??? gUnknown_02023F68
