@@ -24,8 +24,6 @@ struct PrepProcA1962C {
 s8 sub_80A0A34(void);
 s8 sub_80A0A70(void);
 
-extern struct TextHandle gUnknown_02013498[];
-
 void FortuneSubMenu_Init_Null(void);
 void FortuneSubMenu_OnOptionSelected(ProcPtr);
 void FortuneSubMenu_HandleOptionSwitch(struct PrepProcA1962C*);
@@ -119,7 +117,7 @@ void FortuneSubMenu_Unused_SetAvailableOptions(struct PrepProcA1962C* proc) {
 void FortuneSubMenu_Unused_SetupText(struct PrepProcA1962C* proc) {
     int i;
 
-    struct TextHandle* th = gUnknown_02013498;
+    struct TextHandle* th = gPrepItemTexts;
 
     SetFontGlyphSet(0);
     SetFont(0);
@@ -138,7 +136,7 @@ void FortuneSubMenu_Unused_SetupText(struct PrepProcA1962C* proc) {
         );
     }
 
-    th = gUnknown_02013498 + 0x1e;
+    th = gPrepItemTexts + 0x1e;
 
     Text_Clear(th);
     DrawTextInline(

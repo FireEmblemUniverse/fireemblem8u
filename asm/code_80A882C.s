@@ -3332,7 +3332,7 @@ _080AD474:
 ResetPrepScreenHandCursor: @ 0x080AD47C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _080AD49C  @ gUnknown_08A20C1C
+	ldr r4, _080AD49C  @ ProcScr_SysHandCtrlMaybe
 	adds r0, r4, #0
 	bl Proc_Find
 	bl Proc_End
@@ -3343,7 +3343,7 @@ ResetPrepScreenHandCursor: @ 0x080AD47C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080AD49C: .4byte gUnknown_08A20C1C
+_080AD49C: .4byte ProcScr_SysHandCtrlMaybe
 
 	THUMB_FUNC_END ResetPrepScreenHandCursor
 
@@ -3352,7 +3352,7 @@ sub_80AD4A0: @ 0x080AD4A0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
-	ldr r0, _080AD4D8  @ gUnknown_08A20C1C
+	ldr r0, _080AD4D8  @ ProcScr_SysHandCtrlMaybe
 	bl Proc_Find
 	adds r2, r0, #0
 	cmp r2, #0
@@ -3376,7 +3376,7 @@ _080AD4D0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD4D8: .4byte gUnknown_08A20C1C
+_080AD4D8: .4byte ProcScr_SysHandCtrlMaybe
 _080AD4DC: .4byte Img_PrepTextShadow
 _080AD4E0: .4byte 0x06010000
 
@@ -3386,7 +3386,7 @@ _080AD4E0: .4byte 0x06010000
 SetPrepScreenHandXPos: @ 0x080AD4E4
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080AD4FC  @ gUnknown_08A20C1C
+	ldr r0, _080AD4FC  @ ProcScr_SysHandCtrlMaybe
 	bl Proc_Find
 	cmp r0, #0
 	beq _080AD4F4
@@ -3396,7 +3396,7 @@ _080AD4F4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD4FC: .4byte gUnknown_08A20C1C
+_080AD4FC: .4byte ProcScr_SysHandCtrlMaybe
 
 	THUMB_FUNC_END SetPrepScreenHandXPos
 
@@ -3404,7 +3404,7 @@ _080AD4FC: .4byte gUnknown_08A20C1C
 SetPrepScreenHandYPos: @ 0x080AD500
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080AD518  @ gUnknown_08A20C1C
+	ldr r0, _080AD518  @ ProcScr_SysHandCtrlMaybe
 	bl Proc_Find
 	cmp r0, #0
 	beq _080AD510
@@ -3414,7 +3414,7 @@ _080AD510:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD518: .4byte gUnknown_08A20C1C
+_080AD518: .4byte ProcScr_SysHandCtrlMaybe
 
 	THUMB_FUNC_END SetPrepScreenHandYPos
 
@@ -3426,7 +3426,7 @@ ShowPrepScreenHandCursor: @ 0x080AD51C
 	adds r4, r2, #0
 	lsls r3, r3, #0x10
 	lsrs r7, r3, #0x10
-	ldr r0, _080AD544  @ gUnknown_08A20C1C
+	ldr r0, _080AD544  @ ProcScr_SysHandCtrlMaybe
 	bl Proc_Find
 	adds r1, r0, #0
 	cmp r1, #0
@@ -3439,7 +3439,7 @@ ShowPrepScreenHandCursor: @ 0x080AD51C
 	strb r4, [r0]
 	b _080AD554
 	.align 2, 0
-_080AD544: .4byte gUnknown_08A20C1C
+_080AD544: .4byte ProcScr_SysHandCtrlMaybe
 _080AD548:
 	adds r2, r1, #0
 	adds r2, #0x35
@@ -3461,7 +3461,7 @@ _080AD55C:
 	THUMB_FUNC_START HidePrepScreenHandCursor
 HidePrepScreenHandCursor: @ 0x080AD564
 	push {lr}
-	ldr r0, _080AD57C  @ gUnknown_08A20C1C
+	ldr r0, _080AD57C  @ ProcScr_SysHandCtrlMaybe
 	bl Proc_Find
 	cmp r0, #0
 	beq _080AD576
@@ -3471,20 +3471,20 @@ _080AD576:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD57C: .4byte gUnknown_08A20C1C
+_080AD57C: .4byte ProcScr_SysHandCtrlMaybe
 
 	THUMB_FUNC_END HidePrepScreenHandCursor
 
 	THUMB_FUNC_START EndPrepScreenHandCursor
 EndPrepScreenHandCursor: @ 0x080AD580
 	push {lr}
-	ldr r0, _080AD590  @ gUnknown_08A20C1C
+	ldr r0, _080AD590  @ ProcScr_SysHandCtrlMaybe
 	bl Proc_Find
 	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD590: .4byte gUnknown_08A20C1C
+_080AD590: .4byte ProcScr_SysHandCtrlMaybe
 
 	THUMB_FUNC_END EndPrepScreenHandCursor
 
@@ -3493,7 +3493,7 @@ sub_80AD594: @ 0x080AD594
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	ldr r0, _080AD5B0  @ gUnknown_08A20C1C
+	ldr r0, _080AD5B0  @ ProcScr_SysHandCtrlMaybe
 	bl Proc_Find
 	cmp r0, #0
 	beq _080AD5A8
@@ -3504,7 +3504,7 @@ _080AD5A8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD5B0: .4byte gUnknown_08A20C1C
+_080AD5B0: .4byte ProcScr_SysHandCtrlMaybe
 
 	THUMB_FUNC_END sub_80AD594
 
@@ -4350,8 +4350,8 @@ _080ADBF8: .4byte gUnknown_08A1B154
 
 	THUMB_FUNC_END StartSmallBrownNameBoxes
 
-	THUMB_FUNC_START sub_80ADBFC
-sub_80ADBFC: @ 0x080ADBFC
+	THUMB_FUNC_START SmallBrownNameBoxDoSomeConfig
+SmallBrownNameBoxDoSomeConfig: @ 0x080ADBFC
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -4386,7 +4386,7 @@ sub_80ADBFC: @ 0x080ADBFC
 _080ADC3C: .4byte gUnknown_08A20D6C
 _080ADC40: .4byte 0x000001FF
 
-	THUMB_FUNC_END sub_80ADBFC
+	THUMB_FUNC_END SmallBrownNameBoxDoSomeConfig
 
 	THUMB_FUNC_START sub_80ADC44
 sub_80ADC44: @ 0x080ADC44
@@ -7850,7 +7850,7 @@ _080AF410:
 	movs r1, #1
 	movs r2, #0x14
 	movs r3, #0x14
-	bl sub_8004D5C
+	bl DrawSpecialUiStr
 	b _080AF4A4
 	.align 2, 0
 _080AF438: .4byte gUnknown_08A20E74

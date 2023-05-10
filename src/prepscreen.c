@@ -12,7 +12,7 @@
 #include "bmudisp.h"
 
 #include "prepscreen.h"
-s8 CheckSomethingSomewhere();
+s8 CheckInLinkArena();
 
 void PrepScreenMenu_OnPickUnits(struct ProcAtMenu* proc) {
     proc->state = 1;
@@ -61,7 +61,7 @@ void sub_8095284(ProcPtr proc)
 }
 
 #if NONMATCHING
-    if(0 == CheckSomethingSomewhere()) {
+    if(0 == CheckInLinkArena()) {
         if(0 == CanPrepScreenCheckMap())
             return 0;
 
@@ -73,7 +73,7 @@ void sub_8095284(ProcPtr proc)
 #else
 int PrepScreenMenu_OnBPress(struct ProcAtMenu* proc) {
 
-    if (0 != CheckSomethingSomewhere())
+    if (0 != CheckInLinkArena())
         goto goto_jump;
     
     if (0 != CanPrepScreenCheckMap()) {
@@ -169,7 +169,7 @@ void PrepSetLatestCharId(int val)
 
 s8 IsCharacterForceDeployed(int char_id)
 {
-    if (0 != CheckSomethingSomewhere())
+    if (0 != CheckInLinkArena())
         return 0;
 
     if (0 != GetChapterThing())
@@ -249,7 +249,7 @@ void InitPrepScreenMainMenu(struct ProcAtMenu* proc)
     int color;
 
     StartPrepScreenMenu(proc);
-    if (!CheckSomethingSomewhere()) {
+    if (!CheckInLinkArena()) {
         SetPrepScreenMenuItem(
             PREP_MAINMENU_UNIT,
             PrepScreenMenu_OnPickUnits,
@@ -314,7 +314,7 @@ void InitPrepScreenMainMenu(struct ProcAtMenu* proc)
     TileMap_FillRect(gBG0TilemapBuffer, 0xC, 0x13, 0);
     TileMap_FillRect(gBG1TilemapBuffer, 0xC, 0x13, 0);
 
-    if (CheckSomethingSomewhere())
+    if (CheckInLinkArena())
         SetPrepScreenMenuPosition(1, 5);
     else
         SetPrepScreenMenuPosition(1, 6);

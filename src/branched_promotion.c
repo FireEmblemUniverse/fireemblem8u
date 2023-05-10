@@ -28,6 +28,7 @@
 #include "bmsave.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "prepscreen.h"
 
 void sub_805AA68(void *);
 void sub_805AE14(void *);
@@ -324,27 +325,21 @@ void StartTraineePromoScreen(ProcPtr parent) {
     target->statusOut = -1;
 }
 
-struct Proc_80CC990 {
-    PROC_HEADER;
-
-    struct Unit *unit;
-    u32 u30;
-};
-
-void StartPrepScreenPromotion(struct Proc_80CC990 *proc) {
+void StartPrepScreenPromotion(struct ProcPrepItemUse *proc) {
     struct BattleUnit *actor, *target;
     struct ProcPromoHandler *new_proc;
     struct ProcPromoMain *parent;
 
     u32 weapon;
-    u32 u30 = proc->u30;
-    if (u30 != -1) {
+    u32 slot = proc->slot;
+    if (slot != -1) {
         struct BattleUnit *actor, *target;
         actor = &gBattleActor;
         target = &gBattleTarget;
-        target->weaponBefore = proc->unit->items[u30];
-        actor->weaponBefore = proc->unit->items[u30];
+        target->weaponBefore = proc->unit->items[slot];
+        actor->weaponBefore = proc->unit->items[slot];
     }
+
     weapon = GetUnitEquippedWeapon(proc->unit);
     actor = &gBattleActor;
     target = &gBattleTarget;

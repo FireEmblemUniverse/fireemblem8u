@@ -12,6 +12,7 @@
 #include "chapterdata.h"
 #include "face.h"
 #include "bm.h"
+#include "prepscreen.h"
 
 #include "constants/terrains.h"
 

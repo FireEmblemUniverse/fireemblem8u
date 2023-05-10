@@ -50,7 +50,7 @@ void PhaseIntro_EndIfNoUnits(ProcPtr proc);
 void PhaseIntro_InitGraphics(ProcPtr proc);
 void PhaseIntro_InitDisp(ProcPtr proc);
 void PhaseIntro_WaitForEnd(ProcPtr proc);
-int CheckSomethingSomewhere();
+int CheckInLinkArena();
 
 
 /* section.data */
@@ -184,7 +184,7 @@ void PhaseIntroText_InLoop(struct PhaseIntroSubProc *proc)
 {
     int lo, hi;
 
-    if (0 != CheckSomethingSomewhere()) {
+    if (0 != CheckInLinkArena()) {
         hi = 0;
         lo = -0x14;
     } else {
@@ -210,7 +210,7 @@ void PhaseIntroText_OutLoop(struct PhaseIntroSubProc *proc)
 {
     int lo, hi;
 
-    if (0 != CheckSomethingSomewhere()) {
+    if (0 != CheckInLinkArena()) {
         hi = -0x14;
         lo = -0x30;
     } else {

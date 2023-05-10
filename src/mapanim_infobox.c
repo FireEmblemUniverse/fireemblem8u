@@ -6,7 +6,7 @@
 #include "bmio.h"
 #include "soundwrapper.h"
 #include "bmunit.h"
-
+#include "prepscreen.h"
 #include "mapanim.h"
 
 void UncompMapBattleBoxNumGfx(int tileNum)

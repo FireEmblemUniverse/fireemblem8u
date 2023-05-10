@@ -1226,7 +1226,7 @@ int sub_8004ACC(int a, int b)
     }
 }
 
-void sub_8004B0C(u16 *a, int b, int c)
+void DrawSpecialUiChar(u16 *a, int b, int c)
 {
     if (c == 0xFF)
     {
@@ -1246,13 +1246,13 @@ void sub_8004B48(u16 *a, int b, int c, int d)
 {
     if (c == 0)
     {
-        sub_8004B0C(a, b, d);
+        DrawSpecialUiChar(a, b, d);
         return;
     }
 
     while (c != 0)
     {
-        sub_8004B0C(a, b, c % 10 + d);
+        DrawSpecialUiChar(a, b, c % 10 + d);
         c /= 10;
         a--;
     }
@@ -1266,7 +1266,7 @@ void sub_8004B88(u16 *a, int b, int c)
 void DrawDecNumber(u16 *a, int b, int c)
 {
     if (c < 0 || c == 255)
-        sub_8004D5C(a - 1, b, 20, 20);
+        DrawSpecialUiStr(a - 1, b, 20, 20);
     else
         sub_8004B88(a, b, c);
 }
@@ -1274,9 +1274,9 @@ void DrawDecNumber(u16 *a, int b, int c)
 void sub_8004BB4(u16 *a, int b, int c)
 {
     if (c == 100)
-        sub_8004D5C(a - 1, b, 40, 41);
+        DrawSpecialUiStr(a - 1, b, 40, 41);
     else if (c < 0 || c == 255)
-        sub_8004D5C(a - 1, b, 20, 20);
+        DrawSpecialUiStr(a - 1, b, 20, 20);
     else
         sub_8004B88(a, b, c);
 }
@@ -1290,7 +1290,7 @@ void sub_8004BF0(int a, u16 *b)
 {
     if (a != 0)
     {
-        sub_8004B0C(b, 4, 21);
+        DrawSpecialUiChar(b, 4, 21);
         sub_8004BE4(b + ((a >= 10) ? 2 : 1), 4, a);
     }
 }
@@ -1306,7 +1306,7 @@ void sub_8004C1C(void)
         for (j = 0; j < 30; j++)
         {
             int index = i * 64 + j;
-            sub_8004B0C((u16 *)gBG0TilemapBuffer + index, 0, r5++ & 1);
+            DrawSpecialUiChar((u16 *)gBG0TilemapBuffer + index, 0, r5++ & 1);
         }
     }
     BG_EnableSyncByMask(1 << 0);
@@ -1325,47 +1325,47 @@ void sub_8004C68(u16 *a, int b, int c, u8 d)
     sub_8004B88(a + 2, b, sp0);
 
     var1 = sp2;
-    sub_8004B0C(a + 5, b, var1 % 10);
-    sub_8004B0C(a + 4, b, (var1 / 10) % 10);
+    DrawSpecialUiChar(a + 5, b, var1 % 10);
+    DrawSpecialUiChar(a + 4, b, (var1 / 10) % 10);
 
     var2 = sp4;
-    sub_8004B0C(a + 8, b, var2 % 10 + 10);
-    sub_8004B0C(a + 7, b, (var2 / 10) % 10 + 10);
+    DrawSpecialUiChar(a + 8, b, var2 % 10 + 10);
+    DrawSpecialUiChar(a + 7, b, (var2 / 10) % 10 + 10);
 
     if (r9 == 0 || d != 0)
     {
-        sub_8004B0C(a + 3, b, 32);
-        sub_8004B0C(a + 6, b, 32);
+        DrawSpecialUiChar(a + 3, b, 32);
+        DrawSpecialUiChar(a + 6, b, 32);
     }
     else
     {
-        sub_8004B0C(a + 3, b, 0xFF);
-        sub_8004B0C(a + 6, b, 0xFF);
+        DrawSpecialUiChar(a + 3, b, 0xFF);
+        DrawSpecialUiChar(a + 6, b, 0xFF);
     }
 }
 
-void sub_8004D5C(u16 *a, int b, int c, int d)
+void DrawSpecialUiStr(u16 *a, int b, int c, int d)
 {
-    sub_8004B0C(a++, b, c);
-    sub_8004B0C(a++, b, d);
+    DrawSpecialUiChar(a++, b, c);
+    DrawSpecialUiChar(a++, b, d);
 }
 
 void sub_8004D7C(u16 *a, int b, int c)
 {
-    sub_8004B0C(a, b, c % 10);
-    sub_8004B0C(a - 1, b, (c / 10) % 10);
+    DrawSpecialUiChar(a, b, c % 10);
+    DrawSpecialUiChar(a - 1, b, (c / 10) % 10);
 }
 
 void sub_8004DB8(u16 *a, int b, int c)
 {
-    sub_8004B0C(a, b, c % 10 + 10);
-    sub_8004B0C(a - 1, b, (c / 10) % 10 + 10);
+    DrawSpecialUiChar(a, b, c % 10 + 10);
+    DrawSpecialUiChar(a - 1, b, (c / 10) % 10 + 10);
 }
 
 void sub_8004DF8(u16 *a, int b, int c, int d)
 {
-    sub_8004B0C(a, b, c % 10 + d);
-    sub_8004B0C(a - 1, b, (c / 10) % 10 + d);
+    DrawSpecialUiChar(a, b, c % 10 + d);
+    DrawSpecialUiChar(a - 1, b, (c / 10) % 10 + d);
 }
 
 #include "data/fonts/color_lookup_tables.h"

@@ -247,7 +247,7 @@ int GetManimLevelUpBaseStat(int actor_id, int stat_num);
 void StartManimLevelUpStatGainLabels(int chr, int pal, int sprite_layer, ProcPtr parent);
 void EndManimLevelUpStatGainLabels(void);
 void StartManimLevelUpStatGainLabelAnim(int x, int y, int stat_num, int stat_gain);
-// ??? StartPrepItemBoostStatGainLabelAnim(???);
+void StartPrepItemBoostStatGainLabelAnim(int x, int y, int stat_gain);
 void StartManimLevelUp(int actor, ProcPtr parent);
 void InitManimLevelUpWindow(void);
 void ClearManimLevelUpWindow(void);

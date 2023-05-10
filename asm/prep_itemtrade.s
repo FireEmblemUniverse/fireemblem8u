@@ -295,8 +295,8 @@ _0809B746:
 
 	THUMB_FUNC_END sub_809B564
 
-	THUMB_FUNC_START sub_809B74C
-sub_809B74C: @ 0x0809B74C
+	THUMB_FUNC_START DrawPrepScreenItems
+DrawPrepScreenItems: @ 0x0809B74C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -407,7 +407,7 @@ _0809B820:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_809B74C
+	THUMB_FUNC_END DrawPrepScreenItems
 
 	THUMB_FUNC_START sub_809B830
 sub_809B830: @ 0x0809B830
@@ -459,7 +459,7 @@ sub_809B86C: @ 0x0809B86C
 	stm r1!, {r2, r3, r4}
 	ldm r0!, {r2, r3}
 	stm r1!, {r2, r3}
-	ldr r0, _0809B968  @ gUnknown_08A181E8
+	ldr r0, _0809B968  @ gBgConfig_ItemUseScreen
 	ldrh r0, [r0]
 	bl SetupBackgrounds
 	add r0, sp, #8
@@ -552,7 +552,7 @@ _0809B932:
 	b _0809B992
 	.align 2, 0
 _0809B964: .4byte gUnknown_08205C44
-_0809B968: .4byte gUnknown_08A181E8
+_0809B968: .4byte gBgConfig_ItemUseScreen
 _0809B96C: .4byte gLCDControlBuffer
 _0809B970: .4byte 0x06014000
 _0809B974: .4byte gUnknown_02013510
@@ -659,7 +659,7 @@ _0809B992:
 	ldr r2, [r3, #0x2c]
 	adds r1, r4, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	movs r0, #0x98
 	lsls r0, r0, #2
 	add r0, r9
@@ -668,7 +668,7 @@ _0809B992:
 	ldr r2, [r1, #0x30]
 	adds r1, r4, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	mov r0, r8
 	bl sub_80AC9C0
 	mov r0, r8
@@ -716,12 +716,12 @@ _0809B992:
 	movs r0, #0
 	adds r2, r4, #0
 	movs r3, #1
-	bl sub_80ADBFC
+	bl SmallBrownNameBoxDoSomeConfig
 	movs r0, #1
 	movs r1, #0xb8
 	adds r2, r4, #0
 	movs r3, #0
-	bl sub_80ADBFC
+	bl SmallBrownNameBoxDoSomeConfig
 	movs r0, #1
 	movs r1, #0xe
 	movs r2, #4
@@ -876,14 +876,14 @@ _0809BBF4:
 	adds r0, r4, #0
 	adds r1, r5, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	adds r4, #0x1c
 	adds r5, #0x28
 	ldr r2, [r6, #0x30]
 	adds r0, r4, #0
 	adds r1, r5, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	ldr r0, [r6, #0x38]

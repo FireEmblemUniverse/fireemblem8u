@@ -651,7 +651,7 @@ _0809D744:
 	adds r0, #0xc
 	movs r1, #0
 	movs r2, #0x16
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	adds r0, r6, #0
 	adds r0, #0x12
 	movs r1, #2
@@ -679,7 +679,7 @@ sub_809D784: @ 0x0809D784
 	movs r1, #0x21
 	movs r2, #5
 	movs r3, #4
-	bl sub_809A31C
+	bl PrepItemDrawPopupBox
 	ldr r4, _0809D7C8  @ gObject_32x16
 	ldr r0, _0809D7CC  @ 0x0000B080
 	str r0, [sp]
@@ -717,7 +717,7 @@ sub_809D7D4: @ 0x0809D7D4
 	movs r1, #0x21
 	movs r2, #5
 	movs r3, #2
-	bl sub_809A31C
+	bl PrepItemDrawPopupBox
 	ldr r3, _0809D804  @ gObject_32x16
 	ldr r0, _0809D808  @ 0x0000B080
 	str r0, [sp]
@@ -745,7 +745,7 @@ sub_809D80C: @ 0x0809D80C
 	movs r1, #0x31
 	movs r2, #5
 	movs r3, #2
-	bl sub_809A31C
+	bl PrepItemDrawPopupBox
 	ldr r3, _0809D83C  @ gObject_32x16
 	ldr r0, _0809D840  @ 0x0000B088
 	str r0, [sp]
@@ -981,7 +981,7 @@ sub_809DA00: @ 0x0809DA00
 	movs r0, #0xa0
 	lsls r0, r0, #7
 	movs r1, #5
-	bl sub_8098C3C
+	bl PutImg_PrepItemUseUnk
 	movs r0, #0x80
 	lsls r0, r0, #4
 	movs r1, #0xa
@@ -1020,7 +1020,7 @@ sub_809DA00: @ 0x0809DA00
 	movs r1, #0x90
 	movs r2, #6
 	movs r3, #2
-	bl sub_80ADBFC
+	bl SmallBrownNameBoxDoSomeConfig
 	ldr r0, [r7, #0x2c]
 	ldr r0, [r0]
 	ldrh r0, [r0]
@@ -1193,7 +1193,7 @@ _0809DB5C:
 	adds r0, r5, #0
 	adds r1, r4, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	bl sub_809D6CC
 	adds r0, r7, #0
 	bl sub_80ACCE0
@@ -2125,7 +2125,7 @@ _0809E304:
 	ldr r2, [r7, #0x2c]
 	adds r1, r4, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	adds r4, #0x28
 	ldr r1, _0809E3F0  @ gUnknown_02023CC6
 	mov r2, r8
@@ -2809,7 +2809,7 @@ sub_809E85C: @ 0x0809E85C
 	ldr r2, [r5, #0x2c]
 	adds r1, r4, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	adds r4, #0x28
 	ldr r1, _0809E92C  @ gUnknown_02023CC6
 	ldrb r2, [r6]

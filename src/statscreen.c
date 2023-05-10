@@ -21,6 +21,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmsave.h"
+#include "prepscreen.h"
 
 #include "constants/classes.h"
 
@@ -556,12 +557,12 @@ void DisplayLeftPanel(void)
         GetStringFromIndex(gStatScreen.unit->pClassData->nameTextId));
 
     // Display Lv/E labels
-    sub_8004D5C(gBG0TilemapBuffer + TILEMAP_INDEX(1, 15), TEXT_COLOR_GOLD, 0x24, 0x25);
-    sub_8004B0C(gBG0TilemapBuffer + TILEMAP_INDEX(5, 15), TEXT_COLOR_GOLD, 0x1D);
+    DrawSpecialUiStr(gBG0TilemapBuffer + TILEMAP_INDEX(1, 15), TEXT_COLOR_GOLD, 0x24, 0x25);
+    DrawSpecialUiChar(gBG0TilemapBuffer + TILEMAP_INDEX(5, 15), TEXT_COLOR_GOLD, 0x1D);
 
     // Display Hp/'/' labels
-    sub_8004D5C(gBG0TilemapBuffer + TILEMAP_INDEX(1, 17), TEXT_COLOR_GOLD, 0x22, 0x23);
-    sub_8004B0C(gBG0TilemapBuffer + TILEMAP_INDEX(5, 17), TEXT_COLOR_GOLD, 0x16);
+    DrawSpecialUiStr(gBG0TilemapBuffer + TILEMAP_INDEX(1, 17), TEXT_COLOR_GOLD, 0x22, 0x23);
+    DrawSpecialUiChar(gBG0TilemapBuffer + TILEMAP_INDEX(5, 17), TEXT_COLOR_GOLD, 0x16);
 
     // Display level
     DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(4, 15), TEXT_COLOR_BLUE,
@@ -576,7 +577,7 @@ void DisplayLeftPanel(void)
     if (GetUnitCurrentHp(gStatScreen.unit) > 99)
     {
         // Display '--' if current hp > 99
-        sub_8004D5C(gBG0TilemapBuffer + TILEMAP_INDEX(3, 17), TEXT_COLOR_BLUE,
+        DrawSpecialUiStr(gBG0TilemapBuffer + TILEMAP_INDEX(3, 17), TEXT_COLOR_BLUE,
             0x14, 0x14);
     }
     else
@@ -591,7 +592,7 @@ void DisplayLeftPanel(void)
     if (GetUnitMaxHp(gStatScreen.unit) > 99)
     {
         // Display '--' if max hp > 99
-        sub_8004D5C(gBG0TilemapBuffer + TILEMAP_INDEX(6, 17), TEXT_COLOR_BLUE,
+        DrawSpecialUiStr(gBG0TilemapBuffer + TILEMAP_INDEX(6, 17), TEXT_COLOR_BLUE,
             0x14, 0x14);
     }
     else
@@ -880,7 +881,7 @@ void DisplayPage1(void)
     {
         if ((gStatScreen.unit->pClassData->number != CLASS_GORGONEGG2) && (i >= 0))
         {
-            sub_8004B0C(
+            DrawSpecialUiChar(
                 gBmFrameTmap0 + TILEMAP_INDEX(16, 1 + i*2),
                 0, 0x35);
 
@@ -986,7 +987,7 @@ void DisplaySupportList(void)
             if (textColor == TEXT_COLOR_GREEN)
                 rankColor = TEXT_COLOR_GREEN;
 
-            sub_8004B0C(gBmFrameTmap0 + TILEMAP_INDEX(13, yTile),
+            DrawSpecialUiChar(gBmFrameTmap0 + TILEMAP_INDEX(13, yTile),
                 rankColor, GetSupportLevelUiChar(level));
 
             yTile += 2;
@@ -1014,7 +1015,7 @@ void DisplayWeaponExp(int num, int x, int y, int wtype)
         : TEXT_COLOR_BLUE;
 
     // Display rank letter
-    sub_8004B0C(gBmFrameTmap0 + TILEMAP_INDEX(x + 4, y),
+    DrawSpecialUiChar(gBmFrameTmap0 + TILEMAP_INDEX(x + 4, y),
         color,
         GetDisplayRankStringFromExp(wexp));
 

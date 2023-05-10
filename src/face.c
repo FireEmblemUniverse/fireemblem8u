@@ -6,7 +6,7 @@
 #include "hardware.h"
 #include "rng.h"
 #include "bm.h"
-
+#include "prepscreen.h"
 #include "constants/faces.h"
 
 #include "face.h"

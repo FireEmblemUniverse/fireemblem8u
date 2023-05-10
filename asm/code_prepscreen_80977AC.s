@@ -995,7 +995,7 @@ sub_8097EA0: @ 0x08097EA0
 	adds r6, r3, #0
 	cmp r4, r5
 	beq _08097F3A
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	cmp r0, #0
 	beq _08097F3A
 	ldr r0, [r4, #0xc]
@@ -1075,7 +1075,7 @@ sub_8097F44: @ 0x08097F44
 	adds r4, r0, #0
 	adds r5, r1, #0
 	adds r6, r2, #0
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	cmp r0, #0
 	beq _08097F90
 	ldr r0, [r4, #0xc]
@@ -1119,7 +1119,7 @@ sub_8097F98: @ 0x08097F98
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	cmp r0, #0
 	beq _08097FD4
 	ldr r0, [r4, #0xc]

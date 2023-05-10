@@ -24,7 +24,7 @@ s8 CanUnitUseLockpickItem(struct Unit* unit);
 s8 CanUnitUsePromotionItem(struct Unit* unit, int item);
 s8 CanUnitUseStatGainItem(struct Unit* unit, int item);
 s8 CanUnitUseFruitItem(struct Unit* unit);
-s8 CanUnitUseItemPrepScreen(struct Unit* unit, int item);
+int CanUnitUseItemPrepScreen(struct Unit* unit, int item);
 s8 sub_802A108(struct Unit* unit);
 
 u8 RepairMenuItemIsAvailable(const struct MenuItemDef*, int number);

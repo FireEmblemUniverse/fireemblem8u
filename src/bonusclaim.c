@@ -13,7 +13,7 @@
 #include "soundwrapper.h"
 #include "bmitem.h"
 #include "bmsave.h"
-
+#include "prepscreen.h"
 #include "constants/characters.h"
 #include "constants/items.h"
 

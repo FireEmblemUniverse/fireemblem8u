@@ -16,7 +16,9 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "prepscreen.h"
-s8 CheckSomethingSomewhere();
+#include "branched_promotion.h"
+
+s8 CheckInLinkArena();
 
 s8 HasConvoyAccess_()
 {
@@ -184,7 +186,7 @@ void sub_8096958(struct ProcPrepSpecialChar *proc)
     int xOam1 = 0xA0;
     int yOam0 = 8;
 
-    if (0 == CheckSomethingSomewhere()) {
+    if (0 == CheckInLinkArena()) {
         switch (proc->unk30) {
         case 1:
             PutObj8A18582_WithConfigs(xOam1, yOam0, proc->unk2F, 0x6380);
@@ -235,7 +237,7 @@ void ProcPrepSpChar_OnInit(struct ProcPrepSpecialChar *proc)
 
     ForceSyncUnitSpriteSheet();
 
-    if (CheckSomethingSomewhere()) {
+    if (CheckInLinkArena()) {
         proc->apProc = APProc_Create(gUnknown_08A1B194, 0x3C, 0x10, 0x9E40, 1, 0xD);
     } else {
         proc->apProc = APProc_Create(gUnknown_08A1B194, 0x3C, 0x10, 0x9E40, 0, 0xD);

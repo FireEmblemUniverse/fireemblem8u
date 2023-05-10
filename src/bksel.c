@@ -310,7 +310,7 @@ void DrawBattleForecastContentsStandard(struct BattleForecastProc* proc) {
     sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0x40, 2, gBattleActor.battleEffectiveHitRate);
     sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0x80, 2, critRate);
 
-    sub_8004D5C(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
+    DrawSpecialUiStr(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
 
     Text_Draw(gaBattleForecastTextStructs, gBmFrameTmap0  + 0xA8 - 5);
     Text_Draw(gaBattleForecastTextStructs + 1, gBmFrameTmap0  + 0xA8 + 0x3B);
@@ -364,7 +364,7 @@ void DrawBattleForecastContentsExtended(struct BattleForecastProc* proc) {
     sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0xC0, 2, gBattleActor.battleEffectiveCritRate);
     sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0x100, 2, gBattleActor.battleSpeed);
 
-    sub_8004D5C(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
+    DrawSpecialUiStr(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
 
     Text_Draw(gaBattleForecastTextStructs + 3, gBmFrameTmap0 + 0xA8 - 5);
     Text_Draw(gaBattleForecastTextStructs + 4, gBmFrameTmap0 + 0xA8 + 0x3B);

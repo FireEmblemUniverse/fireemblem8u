@@ -73,7 +73,7 @@ void sub_80B9FC0();
 void Make6C_savemenu2(ProcPtr);
 void NewPrepScreenTraineePromotionManager(ProcPtr);
 int PrepScreenTraineePromotionManagerExists(ProcPtr);
-int CheckSomethingSomewhere();
+int CheckInLinkArena();
 
 // asmcs.s
 void nullsub_20(ProcPtr);
@@ -1028,7 +1028,7 @@ void sub_8034168() {
 }
 
 void sub_8034194() {
-    if (CheckSomethingSomewhere()) {
+    if (CheckInLinkArena()) {
         return;
     }
 

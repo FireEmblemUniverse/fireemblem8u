@@ -724,11 +724,11 @@ void DrawChapterStatusStatValues() {
 
     sub_8004B88(gBG0TilemapBuffer + 0x1C0 + 0x4B, 2, GetPartyGoldAmount());
 
-    sub_8004B0C(gBG0TilemapBuffer + 0x1C0 + 0x4C, 3, 30);
+    DrawSpecialUiChar(gBG0TilemapBuffer + 0x1C0 + 0x4C, 3, 30);
 
-    sub_8004D5C(gBG0TilemapBuffer + 0x1C0 - 0x8F, 3, 36, 37);
+    DrawSpecialUiStr(gBG0TilemapBuffer + 0x1C0 - 0x8F, 3, 36, 37);
 
-    sub_8004D5C(gBG0TilemapBuffer + 0x1C0 - 0x4F, 3, 34, 35);
+    DrawSpecialUiStr(gBG0TilemapBuffer + 0x1C0 - 0x4F, 3, 34, 35);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
@@ -747,8 +747,8 @@ void ChapterStatus_DrawText(struct ChapterStatusProc* proc) {
     sub_8004B88(gBG1TilemapBuffer + 0xA4, 2, proc->numAllyUnits);
 
     if (gPlaySt.chapterVisionRange != 0) {
-        sub_8004B0C(gBG1TilemapBuffer + 0xA4 + 7, 2, 20);
-        sub_8004B0C(gBG1TilemapBuffer + 0xA4 + 8, 2, 20);
+        DrawSpecialUiChar(gBG1TilemapBuffer + 0xA4 + 7, 2, 20);
+        DrawSpecialUiChar(gBG1TilemapBuffer + 0xA4 + 8, 2, 20);
     } else {
         sub_8004B88(gBG1TilemapBuffer + 0xA4 + 7, 2, proc->numEnemyUnits);
     }

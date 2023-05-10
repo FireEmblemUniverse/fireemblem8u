@@ -18,7 +18,7 @@
 
 #include "prepscreen.h"
 
-s8 CheckSomethingSomewhere();
+s8 CheckInLinkArena();
 extern struct TextHandle gPrepUnitTexts[];
 
 void PrepUnit_DrawUnitListNames(struct ProcPrepUnit *proc, int line)
@@ -44,7 +44,7 @@ void PrepUnit_DrawUnitListNames(struct ProcPrepUnit *proc, int line)
         unit = GetUnitFromPrepList(itext);
 
         color = TEXT_COLOR_NORMAL;
-        if (!CheckSomethingSomewhere() && IsCharacterForceDeployed(unit->pCharacterData->number))
+        if (!CheckInLinkArena() && IsCharacterForceDeployed(unit->pCharacterData->number))
             color = TEXT_COLOR_GREEN;
         else if (unit->state & US_NOT_DEPLOYED)
             color = TEXT_COLOR_GRAY;
@@ -101,7 +101,7 @@ void PrepUnit_DrawSMSAndObjs(struct ProcPrepUnit *proc)
 
     /* "Start" button */
     if (0 == ((proc->button_blank >> 2) & 1) && proc->cur_counter) {
-        if (CheckSomethingSomewhere())
+        if (CheckInLinkArena())
             PutSpriteExt(4, 0x80, 0x82,obj_08A18E62, 0x40);
         else
             PutSpriteExt(4, 0x80, 0x82,obj_08A18E4E, 0x40);
@@ -174,8 +174,8 @@ void PrepUnit_DrawLeftUnitName(struct Unit *unit)
         GetStringFromIndex(unit->pCharacterData->nameTextId)
     );
 
-    sub_8004D5C(TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 3), 3, 0x24, 0x25);
-    sub_8004B0C(TILEMAP_LOCATED(gBG0TilemapBuffer, 9, 3), 3, 0x1D);
+    DrawSpecialUiStr(TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 3), 3, 0x24, 0x25);
+    DrawSpecialUiChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 9, 3), 3, 0x1D);
 
     DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 3), 2, unit->level);
     DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 3), 2, unit->exp);
@@ -267,7 +267,7 @@ void PrepUnit_DrawPickLeftBar(struct ProcPrepUnit *proc, s8 val)
         proc->cur_counter
     );
 
-    sub_8004B0C(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1A, 1), 0, 0x16);
+    DrawSpecialUiChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1A, 1), 0, 0x16);
     DrawDecNumber(
         TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1C, 1),
         proc->cur_counter == proc->max_counter
@@ -325,7 +325,7 @@ s8 PrepUnit_HandlePressA(struct ProcPrepUnit *proc)
     }
 
     if (unit->state & US_NOT_DEPLOYED) {
-        if (CheckSomethingSomewhere() && !sub_8097E74(unit)) {
+        if (CheckInLinkArena() && !sub_8097E74(unit)) {
             u32 ilist = proc->list_num_cur;
             sub_8097DA8(
                 (ilist & 1) * 56 + 0x70,
@@ -336,7 +336,7 @@ s8 PrepUnit_HandlePressA(struct ProcPrepUnit *proc)
             return 0;
         }
 
-        if (CheckSomethingSomewhere() && !sub_8097E38(unit)) {
+        if (CheckInLinkArena() && !sub_8097E38(unit)) {
             u32 ilist = proc->list_num_cur;
             sub_8097DA8(
                 (ilist & 1) * 56 + 0x70,
@@ -429,7 +429,7 @@ void ProcPrepUnit_OnInit(struct ProcPrepUnit *proc)
 void ProcPrepUnit_InitScreen(struct ProcPrepUnit *proc)
 {
     int i;
-    SetupBackgrounds(gUnknown_08A181E8);
+    SetupBackgrounds(gBgConfig_ItemUseScreen);
     SetDispEnable(0, 0, 0, 0, 0);
     sub_809ADC8(proc);
     BG_Fill(gBG0TilemapBuffer, 0);
@@ -661,8 +661,7 @@ void ProcPrepUnit_OnEnd(struct ProcPrepUnit *proc)
     ((struct ProcAtMenu *)(proc->proc_parent))->yDiff = proc->yDiff_cur;
     ((struct ProcAtMenu *)(proc->proc_parent))->cur_counter = proc->cur_counter;
 
-    PrepSetLatestCharId(
-        GetUnitFromPrepList(proc->list_num_cur)->pCharacterData->number);
+    PrepSetLatestCharId(GetUnitFromPrepList(proc->list_num_cur)->pCharacterData->number);
     EndBG3Slider_();
 }
 

@@ -23,12 +23,12 @@
 // ??? ExecAntitoxinItem(???);
 // ??? sub_802F510(???);
 void sub_802F598(struct Unit* unit, int itemIdx, s8 unk);
-void sub_802F664(struct Unit* unit, u8 classId, int itemIdx, s8 unk);
+void ExecUnitPromotion(struct Unit* unit, u8 classId, int itemIdx, s8 unk);
 // ??? sub_802F73C(???);
 void sub_802F760(struct Unit* unit, int item);
 int ApplyStatBoostItem(struct Unit* unit, int itemIdx);
 // ??? ExecStatBoostItem(???);
-int sub_802F978(struct Unit* unit, int itemIdx);
+int ApplyJunaFruitItem(struct Unit* unit, int itemIdx);
 // ??? ExecJunaFruitItem(???);
 // ??? ExecMine(???);
 // ??? ExecLightRune(???);
