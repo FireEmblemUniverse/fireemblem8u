@@ -516,7 +516,7 @@ sub_80B8E14: @ 0x080B8E14
 	adds r0, r4, #0
 	movs r2, #0xc
 	movs r3, #4
-	bl CopyTileGfxForObj
+	bl Copy2dChr
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -570,7 +570,7 @@ sub_80B8E60: @ 0x080B8E60
 	adds r0, r4, #0
 	movs r2, #8
 	movs r3, #2
-	bl CopyTileGfxForObj
+	bl Copy2dChr
 	bl sub_80B8E14
 	ldr r0, _080B8F94  @ gUnknown_08A97FA4
 	movs r1, #0xe0
@@ -14055,7 +14055,7 @@ sub_80BF048: @ 0x080BF048
 	adds r0, r4, #0
 	movs r2, #0xd
 	movs r3, #2
-	bl CopyTileGfxForObj
+	bl Copy2dChr
 	ldr r0, _080BF128  @ gUnknown_08A99120
 	movs r1, #0xa0
 	movs r2, #0x20
@@ -18603,7 +18603,7 @@ sub_80C12AC: @ 0x080C12AC
 	adds r0, r4, #0
 	movs r2, #6
 	movs r3, #4
-	bl CopyTileGfxForObj
+	bl Copy2dChr
 _080C12E0:
 	ldr r4, _080C1320  @ gUnknown_08A3EA00
 	adds r0, r4, #0

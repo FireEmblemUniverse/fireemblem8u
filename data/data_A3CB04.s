@@ -1553,7 +1553,7 @@ gUnknown_08A3E8B8:  @ 0x08A3E8B8
         .word sub_80C0DF0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word AddSkipThread2
+        .word LockGame
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispSuspend
@@ -1589,7 +1589,7 @@ gUnknown_08A3E8B8:  @ 0x08A3E8B8
         .word BMapDispResume
         @ PROC_CALL
         .short 0x2, 0x0
-        .word SubSkipThread2
+        .word UnlockGame
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

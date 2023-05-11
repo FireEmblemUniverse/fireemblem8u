@@ -43,7 +43,7 @@ gUnknown_089A4064:  @ 0x089A4064
 gUnknown_089A407C:  @ 0x089A407C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word AddSkipThread2
+        .word LockGame
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -55,7 +55,7 @@ gUnknown_089A407C:  @ 0x089A407C
         .word sub_807F788
         @ PROC_CALL
         .short 0x2, 0x0
-        .word SubSkipThread2
+        .word UnlockGame
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

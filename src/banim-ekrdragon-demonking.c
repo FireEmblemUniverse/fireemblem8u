@@ -4,6 +4,7 @@
 #include "constants/items.h"
 #include "hardware.h"
 #include "uiutils.h"
+#include "bmlib.h"
 #include "bmmap.h"
 #include "anime.h"
 #include "ekrbattle.h"
@@ -119,10 +120,10 @@ void PrepareDemonKingBGFx(struct ProcEkrDragon *proc)
     gLCDControlBuffer.bg3cnt.priority = 2;
     gLCDControlBuffer.bg2cnt.priority = 3;
 
-    sub_8013A84(0x6);
+    SetBlackPal(0x6);
 
     /* Setup palette fade in process */
-    NewEkrDragonPalFadeIn(Pal_DemonKingBG, 6, 0x78, proc);
+    StartPalFade(Pal_DemonKingBG, 6, 0x78, proc);
 
     SetEkrDragonStatusUnk1(1);
     proc->tcounter = 0;

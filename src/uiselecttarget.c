@@ -143,7 +143,7 @@ void TargetSelection_Loop(struct SelectTargetProc* proc) {
 ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
     struct SelectTargetProc* proc;
 
-    AddSkipThread2();
+    LockGame();
     proc = Proc_Start(gProcScr_TargetSelection, PROC_TREE_3);
 
     proc->flags = TARGETSELECTION_FLAG_GAMELOCK;
@@ -184,7 +184,7 @@ ProcPtr EndTargetSelection(struct SelectTargetProc* proc) {
     }
 
     if ((TARGETSELECTION_FLAG_GAMELOCK & proc->flags) != 0) {
-        SubSkipThread2();
+        UnlockGame();
     }
 
     Proc_End(proc);

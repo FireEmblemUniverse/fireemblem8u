@@ -7085,7 +7085,7 @@ sub_8010A28: @ 0x08010A28
 	adds r0, #0x64
 	movs r1, #0
 	ldrsh r4, [r0, r1]
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r4, r0
@@ -7184,7 +7184,7 @@ _08010AE4:
 	bl Proc_StartBlocking
 	adds r4, r0, #0
 	str r6, [r4, #0x58]
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r4, #0x64
@@ -7236,7 +7236,7 @@ sub_8010B48: @ 0x08010B48
 	adds r0, #0x64
 	movs r1, #0
 	ldrsh r4, [r0, r1]
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r4, r0
@@ -7272,7 +7272,7 @@ Event40_: @ 0x08010B78
 	bl Proc_StartBlocking
 	adds r4, r0, #0
 	str r6, [r4, #0x58]
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r4, #0x64

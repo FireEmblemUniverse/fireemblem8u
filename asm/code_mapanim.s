@@ -39,12 +39,12 @@ sub_807F58C: @ 0x0807F58C
 	movs r4, #0
 _0807F59C:
 	adds r1, r4, #6
-	ldr r0, _0807F5C4  @ gUnknown_0859A120
+	ldr r0, _0807F5C4  @ Pal_AllBlack
 	movs r2, #0x3c
 	adds r3, r5, #0
-	bl NewEkrDragonPalFadeIn
+	bl StartPalFade
 	movs r1, #0xf
-	bl sub_8013998
+	bl SetPalFadeStop
 	adds r4, #1
 	cmp r4, #9
 	ble _0807F59C
@@ -54,7 +54,7 @@ _0807F59C:
 	.align 2, 0
 _0807F5BC: .4byte pPalette6Buffer
 _0807F5C0: .4byte gUnknown_03005110
-_0807F5C4: .4byte gUnknown_0859A120
+_0807F5C4: .4byte Pal_AllBlack
 
 	THUMB_FUNC_END sub_807F58C
 
@@ -92,7 +92,7 @@ _0807F5F4:
 	adds r0, r5, #0
 	movs r2, #0xf
 	adds r3, r6, #0
-	bl NewEkrDragonPalFadeIn
+	bl StartPalFade
 	adds r5, #0x20
 	adds r4, #1
 	cmp r4, #9
@@ -578,7 +578,7 @@ sub_807F964: @ 0x0807F964
 	movs r0, #0xa0
 	lsls r0, r0, #1
 	ldr r1, [r7, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	b _0807F9C8
 _0807F990:
 	cmp r1, #0x13
@@ -1655,7 +1655,7 @@ _08080154:
 	ldr r0, _0808025C  @ 0x0000013F
 	mov r2, r9
 	ldr r1, [r2, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 _08080212:
 	ldrh r0, [r7]
 	lsls r0, r0, #2
@@ -2356,7 +2356,7 @@ sub_8080730: @ 0x08080730
 	bne _08080768
 	ldr r0, _080807C0  @ 0x00000141
 	ldr r1, [r4, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 _08080768:
 	ldrh r0, [r5]
 	adds r0, #1
@@ -3246,7 +3246,7 @@ sub_8080DCC: @ 0x08080DCC
 	bne _08080DF4
 	ldr r0, _08080DF0  @ 0x000003BF
 	ldr r1, [r4, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	b _08080E0E
 	.align 2, 0
 _08080DF0: .4byte 0x000003BF
@@ -3437,7 +3437,7 @@ sub_8080F44: @ 0x08080F44
 	bne _08080F6C
 	ldr r0, _08080F68  @ 0x000003BF
 	ldr r1, [r4, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	b _08080F92
 	.align 2, 0
 _08080F68: .4byte 0x000003BF
@@ -3666,7 +3666,7 @@ sub_8081100: @ 0x08081100
 	bne _08081128
 	ldr r0, _08081124  @ 0x000003BF
 	ldr r1, [r4, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	b _08081134
 	.align 2, 0
 _08081124: .4byte 0x000003BF
@@ -3993,7 +3993,7 @@ sub_8081348: @ 0x08081348
 	movs r3, #0xc
 	ldrsh r2, [r2, r3]
 	subs r1, r1, r2
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -4024,7 +4024,7 @@ sub_8081384: @ 0x08081384
 	movs r3, #0xc
 	ldrsh r2, [r2, r3]
 	subs r1, r1, r2
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -4508,7 +4508,7 @@ _080816F8:
 	ldrsh r0, [r0, r2]
 	subs r1, r1, r0
 	movs r0, #0xc8
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldr r0, [r4]
 	bl MapAnim_BeginMISSAnim
 	b _080818C4
@@ -4539,7 +4539,7 @@ _08081740:
 	movs r3, #0xc
 	ldrsh r2, [r2, r3]
 	subs r1, r1, r2
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldr r0, [r4]
 	bl MapAnim_BeginNODAMAGEAnim
 	b _080818C4
@@ -4640,7 +4640,7 @@ _080817FA:
 	ldrsh r0, [r2, r3]
 	subs r1, r1, r0
 	adds r0, r6, #0
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	adds r6, r7, #0
 	adds r6, #8
 	adds r4, r4, r6
@@ -4670,7 +4670,7 @@ _080817FA:
 	ldrsh r0, [r2, r3]
 	subs r1, r1, r0
 	movs r0, #0xd8
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	adds r4, r4, r6
 	ldr r0, [r4]
 	bl MU_StartFastMoveAnim
@@ -4691,7 +4691,7 @@ _08081880:
 	ldrsh r0, [r0, r2]
 	subs r1, r1, r0
 	adds r0, r6, #0
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	adds r0, r7, #0
 	adds r0, #8
 	adds r4, r4, r0

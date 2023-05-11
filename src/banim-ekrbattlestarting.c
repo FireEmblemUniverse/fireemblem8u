@@ -79,7 +79,7 @@ void MainUpdate_8055C68(void)
 
     Proc_Run(gProcTreeRootArray[1]);
 
-    if (GetThread2SkipStack() == 0)
+    if (GetGameLock() == 0)
         Proc_Run(gProcTreeRootArray[2]);
     
     Proc_Run(gProcTreeRootArray[3]);

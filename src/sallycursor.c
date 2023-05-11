@@ -1043,7 +1043,7 @@ void sub_8034194() {
 }
 
 void sub_80341D0() {
-    AddSkipThread2();
+    LockGame();
     BMapDispSuspend();
 
     gLCDControlBuffer.dispcnt.bg0_on = TRUE;
@@ -1056,7 +1056,7 @@ void sub_80341D0() {
 }
 
 void sub_8034200() {
-    SubSkipThread2();
+    UnlockGame();
     BMapDispResume();
 
     sub_80141B0(); // disables layers

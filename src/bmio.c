@@ -455,7 +455,7 @@ void WfxSandStorm_Init(void) {
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
 
     Decompress(gUnknown_085A3964, gGenericBuffer);
-    CopyTileGfxForObj(gGenericBuffer, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
+    Copy2dChr(gGenericBuffer, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
 
     for (i = 0; i < 0x40; ++i) {
         sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
@@ -495,7 +495,7 @@ void WfxSnowStorm_Init(void) {
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
 
     Decompress(gUnknown_085A39EC, gGenericBuffer);
-    CopyTileGfxForObj(gGenericBuffer, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
+    Copy2dChr(gGenericBuffer, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
 
     for (i = 0; i < 0x40; ++i) {
         unsigned type = typeLookup[i & 7];
@@ -804,7 +804,7 @@ void WfxClouds_VSync(void) {
         break;
 
     case 7:
-        CopyTileGfxForObj(gfx, OBJ_VRAM0 + (0x20 * 18), 14, 4);
+        Copy2dChr(gfx, OBJ_VRAM0 + (0x20 * 18), 14, 4);
         break;
 
     } // switch (GetGameClock() % 8)

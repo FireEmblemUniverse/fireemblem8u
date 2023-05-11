@@ -340,10 +340,10 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     CpuFastFill(0, gBG1TilemapBuffer, 0x800);
     CpuFastFill(0, gBG2TilemapBuffer, 0x800);
 
-    RegisterTileGraphics(gBG1TilemapBuffer, BG_SCREEN_ADDR(0xD), 0x800);
-    RegisterTileGraphics(gBG1TilemapBuffer, BG_SCREEN_ADDR(0xE), 0x800);
-    RegisterTileGraphics(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xA), 0x800);
-    RegisterTileGraphics(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xB), 0x800);
+    RegisterDataMove(gBG1TilemapBuffer, BG_SCREEN_ADDR(0xD), 0x800);
+    RegisterDataMove(gBG1TilemapBuffer, BG_SCREEN_ADDR(0xE), 0x800);
+    RegisterDataMove(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xA), 0x800);
+    RegisterDataMove(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xB), 0x800);
 
     buf->unk00 = gBanimTerrainIndexMaybe[EKR_BATTLE_LEFT];
     buf->unk02 = 3;
@@ -451,11 +451,11 @@ void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
     LZ77UnCompWram(Img_LevelUpBoxFrame, gEkrImgBuffer);
     LZ77UnCompWram(Tsa_LevelUpBoxFrame, gEkrTsaBuffer);
     sub_8070E94(gEkrTsaBuffer, TILEMAP_LOCATED(gBG1TilemapBuffer, 0, 0x6), 0x20, 0x14, 1, 0x100);
-    RegisterTileGraphics(gEkrImgBuffer, (void *)BG_VRAM + 0x2000, 0x8C0);
+    RegisterDataMove(gEkrImgBuffer, (void *)BG_VRAM + 0x2000, 0x8C0);
     CpuFastCopy(Pal_LevelUpBoxFrame, PAL_BG(1), 0x20);
 
     LZ77UnCompWram(gUnknown_085BB0C8, gUnknown_0201A790);
-    RegisterTileGraphics(gUnknown_0201A790, OBJ_VRAM0 + 0x1400, 0xC00);
+    RegisterDataMove(gUnknown_0201A790, OBJ_VRAM0 + 0x1400, 0xC00);
     CpuFastCopy(gUnknown_085BB2DC, PAL_OBJ(1), 0x20);
 
     EnablePaletteSync();

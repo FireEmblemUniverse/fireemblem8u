@@ -91,7 +91,7 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectWarp[] =
 {
     PROC_SET_END_CB(WarpSelect_OnEnd),
 
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
     PROC_WHILE_EXISTS(gProcScr_CamMove),
 
@@ -103,7 +103,7 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectWarp[] =
     PROC_CALL(WarpSelect_OnConfirm),
     PROC_SLEEP(0),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_GOTO(100),
 
@@ -111,7 +111,7 @@ PROC_LABEL(99),
     PROC_CALL(WarpSelect_OnCancel),
     PROC_SLEEP(0),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
 PROC_LABEL(100),
     PROC_END,
@@ -119,7 +119,7 @@ PROC_LABEL(100),
 
 struct ProcCmd CONST_DATA gProcScr_SquareSelectTorch[] =
 {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
     PROC_CALL(TorchSelect_OnInit),
     PROC_WHILE_EXISTS(gProcScr_CamMove),
@@ -134,7 +134,7 @@ PROC_LABEL(99),
     PROC_CALL(WarpSelect_OnCancel),
 
 PROC_LABEL(100),
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };

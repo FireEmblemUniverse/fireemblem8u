@@ -4,9 +4,9 @@
 
 void OnVBlank(void);
 void OnGameLoopMain(void);
-void AddSkipThread2(void);
-void SubSkipThread2(void);
-u8 GetThread2SkipStack(void);
+void LockGame(void);
+void UnlockGame(void);
+u8 GetGameLock(void);
 // ??? SwitchPhases(???);
 // ??? CallBeginningEvents(???);
 // ??? BmMain_ChangePhase(???);

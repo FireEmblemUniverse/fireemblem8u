@@ -942,7 +942,7 @@ _08075638:
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r0, r4, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	bl EnablePaletteSync
 	ldr r1, [r5, #0x60]
 	ldr r0, [r5, #0x5c]

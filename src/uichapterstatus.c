@@ -127,7 +127,7 @@ void ChapterStatus_OnEnd(struct ChapterStatusProc* proc);
 void ChapterStatus_MaybeFocusLeaderUnit(struct ChapterStatusProc* proc);
 
 struct ProcCmd CONST_DATA gProcScr_ChapterStatusScreen[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
     PROC_CALL(sub_8013D80),
     PROC_REPEAT(WaitForFade),
@@ -155,7 +155,7 @@ PROC_LABEL(1),
     PROC_CALL(ChapterStatus_MaybeFocusLeaderUnit),
     PROC_SLEEP(0),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };

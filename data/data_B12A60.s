@@ -205,7 +205,7 @@ ProcScr_E_Guide1:  @ 0x08B12C64
         .word 0x820717c
         @ PROC_CALL
         .short 0x2, 0x0
-        .word AddSkipThread2
+        .word LockGame
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013D80
@@ -265,7 +265,7 @@ ProcScr_E_Guide1:  @ 0x08B12C64
         .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
-        .word SubSkipThread2
+        .word UnlockGame
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -276,9 +276,9 @@ ProcScr_E_Guide2:  @ 0x08B12D1C
     @ PROC_NAME(E_Guide)
     .short 0x1, 0x0
     .word 0x0820717C
-    @ PROC_CALL(AddSkipThread2)
+    @ PROC_CALL(LockGame)
     .short 0x2, 0x0
-    .word AddSkipThread2
+    .word LockGame
     @ PROC_CALL(BMapDispSuspend)
     .short 0x2, 0x0
     .word BMapDispSuspend
@@ -324,9 +324,9 @@ ProcScr_E_Guide2:  @ 0x08B12D1C
     @ PROC_CALL(RefreshBMapGraphics)
     .short 0x2, 0x0
     .word RefreshBMapGraphics
-    @ PROC_CALL(SubSkipThread2)
+    @ PROC_CALL(UnlockGame)
     .short 0x2, 0x0
-    .word SubSkipThread2
+    .word UnlockGame
     @ PROC_END
     .short 0x0, 0x0
     .word 0x0

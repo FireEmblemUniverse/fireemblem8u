@@ -208,7 +208,7 @@ void StartEmitStarsAnim(ProcPtr parent, int xloc, int yloc, int xdiff, int ydiff
 {
     struct ProcEmitStars *proc;
 
-    RegisterTileGraphics(
+    RegisterDataMove(
         Img_EmitedStar,
         OBJ_CHR_ADDR(OBJCHR_EMITSTARTS),
         0x20

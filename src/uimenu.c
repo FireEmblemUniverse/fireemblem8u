@@ -192,7 +192,7 @@ struct MenuProc* StartMenuCore(
     }
     else
     {
-        AddSkipThread2();
+        LockGame();
 
         proc = Proc_Start(sProc_Menu, PROC_TREE_3);
         proc->state = MENU_STATE_GAMELOCKING;
@@ -259,7 +259,7 @@ struct Proc* EndMenu(struct MenuProc* proc)
         proc->def->onEnd(proc);
 
     if (proc->state & MENU_STATE_GAMELOCKING)
-        SubSkipThread2();
+        UnlockGame();
 
     Proc_End(proc);
 

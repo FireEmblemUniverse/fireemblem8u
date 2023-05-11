@@ -1072,7 +1072,7 @@ void sub_80B24C0(void) {
 struct ProcCmd CONST_DATA gProcScr_Config1[] = {
     PROC_NAME("E_config"),
 
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
     PROC_CALL(BMapDispSuspend),
@@ -1099,7 +1099,7 @@ PROC_LABEL(0),
 
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };
@@ -1107,7 +1107,7 @@ PROC_LABEL(0),
 struct ProcCmd CONST_DATA gProcScr_Config2[] = {
     PROC_NAME("E_config"),
 
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
 PROC_LABEL(0),
     PROC_SLEEP(0),
@@ -1126,7 +1126,7 @@ PROC_LABEL(0),
     PROC_CALL(EndHelpBox),
     PROC_CALL_2(sub_80B2464),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };
@@ -1134,7 +1134,7 @@ PROC_LABEL(0),
 struct ProcCmd CONST_DATA gProcScr_Config3[] = {
     PROC_NAME("E_config"),
 
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(BMapDispSuspend),
 
 PROC_LABEL(0),
@@ -1157,7 +1157,7 @@ PROC_LABEL(0),
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };

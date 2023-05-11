@@ -306,7 +306,7 @@ void LoadSumMonsterFromDK(struct SumProc* proc)
 */
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimSummon[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(GenerateSummonUnitDef),
     PROC_CALL(New6C_SummonGfx_FromActionPos),
     PROC_SLEEP(0x5),
@@ -314,7 +314,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimSummon[] = {
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimSumDK[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(ProcSummonDK_InitCounters),
     PROC_LABEL(PROC_LABEL_SUMDK_LOAD_START),
     PROC_CALL(ProcSummonDK_SelectDownPos),

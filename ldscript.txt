@@ -62,6 +62,8 @@ SECTIONS
         src/eventcmd_42.o(.text);
         asm/eventcmd_44.o(.text);
         src/bmlib.o(.text);
+        asm/bmlib-pal.o(.text);
+        src/bmlib-fade.o(.text);
         asm/hino.o(.text);
         src/bm.o(.text);
         src/bmitem.o(.text);
@@ -308,6 +310,8 @@ SECTIONS
         . = ALIGN(4); src/gamecontrol.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
+        . = ALIGN(4); src/bmlib.o(.rodata);
+        . = ALIGN(4); data/bmlib-const.o(.rodata);
         . = ALIGN(4); src/bm.o(.rodata);
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
@@ -419,6 +423,10 @@ SECTIONS
         . = ALIGN(4); data/data_5924D8.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/data_599714.o(.data);
+        . = ALIGN(4); src/bmlib.o(.data);
+        . = ALIGN(4); data/bmlib-pal.o(.data);
+        . = ALIGN(4); src/bmlib-fade.o(.data);
+        . = ALIGN(4); data/bmlib.o(.data);
         . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);

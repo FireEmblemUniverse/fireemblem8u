@@ -658,7 +658,7 @@ void StartSqMask(struct SaveMenuProc* parent, int b, int c) {
 
 //! FE8U = 0x080ABBE4
 void SaveBgUp_Loop(void) {
-    RegisterTileGraphics(gBG2TilemapBuffer, (void*)0x06007000, 0x800);
+    RegisterDataMove(gBG2TilemapBuffer, (void*)0x06007000, 0x800);
     return;
 }
 

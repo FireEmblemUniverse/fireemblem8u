@@ -255,7 +255,6 @@ extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
 extern u8 gUnknown_0202B4AC[];
 // extern ??? gUnknown_0202B5AC
 extern int gUnknown_0202B6AC;
-extern struct Struct202B6B0 gUnknown_0202B6B0;
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;
 // extern ??? gUnknown_0202BD30
@@ -986,10 +985,9 @@ extern const char *gUnknown_08591AA4[][2];
 // extern ??? gUnknown_08592628
 // extern ??? gUnknown_085926F4
 // extern ??? gUnknown_085996F4
-// extern ??? gUnknown_08599FB4
 // extern ??? gUnknown_08599FD4
-// extern ??? gUnknown_08599FF4
-// extern ??? ProcScr_EkrDragonPalFadeIn
+// extern ??? ProcScr_SpacialSeTest
+// extern ??? ProcScr_PalFade
 // extern ??? gUnknown_0859A024
 // extern ??? gUnknown_0859A044
 // extern ??? gUnknown_0859A064
@@ -1003,8 +1001,8 @@ extern const char *gUnknown_08591AA4[][2];
 // extern ??? gUnknown_0859A0F8
 // extern ??? gUnknown_0859A100
 // extern ??? gUnknown_0859A110
-extern const u16 gUnknown_0859A120[];
-extern const u16 gUnknown_0859A140[];
+extern const u16 Pal_AllBlack[];
+extern const u16 Pal_AllWhite[];
 extern const u16 gUnknown_0859A160[];
 extern const u16 gUnknown_0859A180[];
 extern const u16 gUnknown_0859A1A0[];

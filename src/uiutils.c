@@ -223,11 +223,11 @@ void UnpackUiFrameBuffered(int id)
     if (id < 0)
         id = gPlaySt.cfgWindowColor;
 
-    bufSize = FilterR0ForRawCopy(sUiFrameImageLookup[id]);
+    bufSize = GetDataSize(sUiFrameImageLookup[id]);
     bufAddr = gUnknown_02022288 - bufSize;
 
     Decompress(sUiFrameImageLookup[id], bufAddr);
-    RegisterTileGraphics(bufAddr, BG_CHAR_ADDR(0), bufSize);
+    RegisterDataMove(bufAddr, BG_CHAR_ADDR(0), bufSize);
 
     UnpackUiFramePalette(-1);
 }

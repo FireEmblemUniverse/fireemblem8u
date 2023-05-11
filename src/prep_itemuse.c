@@ -862,7 +862,7 @@ void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse *proc)
      *
      *          -------- from Mokha's conjecture wwwww
      */
-    proc->game_lock = GetThread2SkipStack();
+    proc->game_lock = GetGameLock();
 
     ResetFaces();
     EndHelpPromptSprite();
@@ -885,7 +885,7 @@ void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse *proc)
 
 void PrepItemUse_ExecPromoDoneUnusedIDLE(struct ProcPrepItemUse *proc)
 {
-    if (proc->game_lock == GetThread2SkipStack())
+    if (proc->game_lock == GetGameLock())
         Proc_Break(proc);
 }
 

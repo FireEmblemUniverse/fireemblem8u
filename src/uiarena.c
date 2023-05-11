@@ -384,7 +384,7 @@ void sub_80B5D5C(void) {
 }
 
 struct ProcCmd CONST_DATA gProcScr_ArenaUiMain[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
     PROC_SLEEP(1),
     PROC_CALL_ARG(sub_8014BD0, 65535),
@@ -425,7 +425,7 @@ PROC_LABEL(0),
     PROC_CALL(ArenaUi_StartArenaBattle),
     PROC_SLEEP(1),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
     PROC_CALL(BMapDispResume),
 
     PROC_JUMP(gProcScr_ArenaUiResults),
@@ -447,7 +447,7 @@ PROC_LABEL(2),
     PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };
@@ -456,7 +456,7 @@ struct ProcCmd CONST_DATA gProcScr_ArenaUiResults[] = {
 PROC_LABEL(1),
     PROC_CALL(sub_80B5B00),
 
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(BMapDispSuspend),
     PROC_SLEEP(0),
 
@@ -496,7 +496,7 @@ PROC_LABEL(2),
     PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };

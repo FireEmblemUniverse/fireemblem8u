@@ -992,10 +992,10 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
 
     if (gUnknown_0880B90C[terrainId] > 0) {
         StoreNumberStringToSmallBuffer(gUnknown_0880C4BA[terrainId]);
-        sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
+        PutDigits(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
         StoreNumberStringToSmallBuffer(gUnknown_0880C479[terrainId]);
-        sub_8013138(gUnknown_02003FAC + 0xA5, gUnknown_02028E44+7, 0x2128, 2);
+        PutDigits(gUnknown_02003FAC + 0xA5, gUnknown_02028E44+7, 0x2128, 2);
     }
 
     switch (terrainId) {
@@ -1009,7 +1009,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
                 CallARM_FillTileRect(gUnknown_020040AE + 0x23,gUnknown_08A176B4, 0x100);
             } else {
                 StoreNumberStringToSmallBuffer(num);
-                sub_8013138(gUnknown_020040AE + 0x24, gUnknown_02028E44+7, 0x2128, 2);
+                PutDigits(gUnknown_020040AE + 0x24, gUnknown_02028E44+7, 0x2128, 2);
             }
 
             break;
@@ -1020,7 +1020,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
             CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Ballistae, 0x100);
 
             StoreNumberStringToSmallBuffer(GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y));
-            sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
+            PutDigits(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
             break;
 

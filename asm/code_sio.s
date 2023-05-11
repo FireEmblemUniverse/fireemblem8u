@@ -17846,7 +17846,7 @@ sub_804A108: @ 0x0804A108
 	ldr r1, _0804A150  @ gActiveUnit
 	str r0, [r1]
 	bl sub_8049298
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r4, #0x64
@@ -17873,7 +17873,7 @@ sub_804A158: @ 0x0804A158
 	adds r0, #0x64
 	movs r1, #0
 	ldrsh r4, [r0, r1]
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r4, r0
@@ -17938,7 +17938,7 @@ sub_804A1D0: @ 0x0804A1D0
 	adds r1, #0x1e
 	adds r1, r1, r0
 	ldrh r5, [r1]
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r4, #0x64
@@ -18055,7 +18055,7 @@ sub_804A298: @ 0x0804A298
 	adds r0, #0x64
 	movs r2, #0
 	ldrsh r4, [r0, r2]
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r4, r0
@@ -21765,7 +21765,7 @@ sub_804BED8: @ 0x0804BED8
 	movs r1, #0x16
 	movs r2, #0x14
 	adds r3, r4, #0
-	bl NewEkrDragonPalFadeIn
+	bl StartPalFade
 	ldr r0, _0804BF2C  @ gUnknown_085AA83C
 	adds r1, r4, #0
 	bl Proc_Start
@@ -21878,7 +21878,7 @@ sub_804BFAC: @ 0x0804BFAC
 	movs r1, #0x16
 	movs r2, #8
 	adds r3, r5, #0
-	bl NewEkrDragonPalFadeIn
+	bl StartPalFade
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -21901,7 +21901,7 @@ sub_804BFF8: @ 0x0804BFF8
 	movs r1, #0x16
 	movs r2, #8
 	adds r3, r4, #0
-	bl NewEkrDragonPalFadeIn
+	bl StartPalFade
 	ldr r0, _0804C028  @ gProcScr_MU_89A2CF8
 	movs r1, #3
 	bl Proc_Start
@@ -24446,7 +24446,7 @@ sub_804D2A4: @ 0x0804D2A4
 	adds r0, r4, #0
 	movs r2, #3
 	movs r3, #3
-	bl CopyTileGfxForObj
+	bl Copy2dChr
 	ldrb r0, [r5, #0xf]
 	lsls r0, r0, #2
 	adds r6, r6, r0

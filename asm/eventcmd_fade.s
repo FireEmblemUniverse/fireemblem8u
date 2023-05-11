@@ -86,7 +86,7 @@ _08012746:
 	adds r1, r5, #0
 	adds r3, r7, #0
 	bl WriteFadedPaletteFromArchive
-	bl GetSomethingInPaletteBB_2A
+	bl GetPalFadeStClkEnd1
 	ldr r2, _080127B4  @ 0x000003FF
 	adds r1, r2, #0
 	ands r0, r1
@@ -96,7 +96,7 @@ _08012746:
 	ands r1, r2
 	orrs r1, r0
 	strh r1, [r4]
-	bl GetSomethingInPaletteBB_5A
+	bl GetPalFadeStClkEnd2
 	mov r1, r9
 	ands r0, r1
 	lsls r0, r0, #0xa
@@ -105,7 +105,7 @@ _08012746:
 	ands r1, r2
 	orrs r1, r0
 	str r1, [r4]
-	bl GetSomethingInPaletteBB_8A
+	bl GetPalFadeStClkEnd3
 	mov r2, r9
 	ands r0, r2
 	lsls r0, r0, #4

@@ -238,7 +238,7 @@ void AP_QueueObjGraphics(struct APHandle* handle) {
     #define OBJ_SIZE_TABLE_INDEX(aIt) ((((aIt[0] & 0xC000)>>12)+((aIt[1] & 0xC000)>>14))*2)
 
     while ((i--) > 0) {
-        RegisterObjectTileGraphics(
+        Register2dChrMove(
             handle->pGraphics + (*itGfxData & 0x3FF) * 0x20,              // source location
             OBJ_VRAM0 + ((handle->tileBase & 0x3FF) * 0x20) + tileOffset, // target location
             sOamTileSizeLut[OBJ_SIZE_TABLE_INDEX(itObjData)+0],        // x size (tiles)

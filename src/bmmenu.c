@@ -76,14 +76,14 @@ void BackToUnitMenu_CamWatch(ProcPtr proc);
 void BackToUnitMenu_RestartMenu(void);
 
 struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
     PROC_CALL(BackToUnitMenu_CamWatch),
     PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL(BackToUnitMenu_RestartMenu),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };
@@ -92,7 +92,7 @@ void sub_8022E38(void);
 void sub_8022E54(void);
 
 struct ProcCmd CONST_DATA gProcScr_0859B630[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
     PROC_CALL(sub_8022E38),
 
@@ -101,7 +101,7 @@ struct ProcCmd CONST_DATA gProcScr_0859B630[] = {
 
     PROC_CALL(sub_8022E54),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };

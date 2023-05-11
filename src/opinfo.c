@@ -657,7 +657,7 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 
     while (*str != 0) {
         Decompress((gUnknown_08A2F2C0[*str] != 0) ? gUnknown_08A2F2C0[*str] : gUnknown_08A2F2C0[0x58], gGenericBuffer);
-        CopyTileGfxForObj(gGenericBuffer, (void*)(ptr + 0x06010000), 2, 4);
+        Copy2dChr(gGenericBuffer, (void*)(ptr + 0x06010000), 2, 4);
 
         str++;
         ptr += 0x40;

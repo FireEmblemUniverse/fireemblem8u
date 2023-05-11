@@ -468,7 +468,7 @@ void sub_8096404()
 void AtMenu_LockGame()
 {
     if (!CheckInLinkArena()) {
-        AddSkipThread2();
+        LockGame();
         BMapDispSuspend();
     }
 }
@@ -477,7 +477,7 @@ void AtMenu_UnlockGame()
 {
     if (!CheckInLinkArena()) {
         BMapDispResume();
-        SubSkipThread2();
+        UnlockGame();
     }
 }
 

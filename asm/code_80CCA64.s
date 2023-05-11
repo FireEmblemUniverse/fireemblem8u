@@ -19,7 +19,7 @@ sub_80CDDF0: @ 0x080CDDF0
 	bl Proc_End
 	b _080CDE6A
 _080CDE10:
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r4, #0
@@ -78,7 +78,7 @@ sub_80CDE74: @ 0x080CDE74
 	adds r0, #0x4c
 	movs r1, #0
 	ldrsh r4, [r0, r1]
-	bl GetThread2SkipStack
+	bl GetGameLock
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r4, r0

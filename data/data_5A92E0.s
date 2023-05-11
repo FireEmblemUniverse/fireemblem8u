@@ -1946,8 +1946,8 @@ gUnknown_085AA7EC:  @ 0x085AA7EC
 	.global gUnknown_085AA824
 gUnknown_085AA824:  @ 0x085AA824
 @ replacing .incbin "baserom.gba", 0x005aa824, 0x18
-.4byte gUnknown_0859A140
-.4byte gUnknown_0859A120
+.4byte Pal_AllWhite
+.4byte Pal_AllBlack
 .4byte gUnknown_0859A160
 .4byte gUnknown_0859A180
 .4byte gUnknown_0859A1A0
