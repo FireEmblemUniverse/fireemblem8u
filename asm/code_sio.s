@@ -3351,8 +3351,8 @@ _08042E94: .4byte gBmSt
 
 	THUMB_FUNC_END sub_8042E88
 
-	THUMB_FUNC_START CheckSomethingSomewhere
-CheckSomethingSomewhere: @ 0x08042E98
+	THUMB_FUNC_START CheckInLinkArena
+CheckInLinkArena: @ 0x08042E98
 	ldr r0, _08042EA4  @ gBmSt
 	ldrb r0, [r0, #4]
 	lsrs r0, r0, #6
@@ -3362,7 +3362,7 @@ CheckSomethingSomewhere: @ 0x08042E98
 	.align 2, 0
 _08042EA4: .4byte gBmSt
 
-	THUMB_FUNC_END CheckSomethingSomewhere
+	THUMB_FUNC_END CheckInLinkArena
 
 	THUMB_FUNC_START sub_8042EA8
 sub_8042EA8: @ 0x08042EA8
@@ -6609,7 +6609,7 @@ sub_8044768: @ 0x08044768
 	bl SetFont
 	bl Font_LoadForUI
 	bl Font_ResetAllocation
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	asrs r1, r0, #0x18
 	cmp r1, #0
@@ -6684,7 +6684,7 @@ _08044854:
 	cmp r4, r3
 	blt _08044854
 _08044860:
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0804486E
@@ -7060,7 +7060,7 @@ sub_8044B2C: @ 0x08044B2C
 	beq _08044B6A
 	movs r0, #2
 	bl sub_804320C
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08044B5C
@@ -7504,7 +7504,7 @@ _08044E9C:
 	bl sub_8044AD4
 	b _08044ED0
 _08044EB8:
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08044ED0
@@ -7921,7 +7921,7 @@ _080451EC: .4byte gUnknown_02022FBE
 sub_80451F0: @ 0x080451F0
 	push {lr}
 	bl EndBG3Slider
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08045204

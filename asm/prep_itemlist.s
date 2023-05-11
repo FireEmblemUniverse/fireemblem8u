@@ -354,7 +354,7 @@ sub_809ED8C: @ 0x0809ED8C
 	movs r0, #0xa0
 	lsls r0, r0, #7
 	movs r1, #5
-	bl sub_8098C3C
+	bl PutImg_PrepItemUseUnk
 	ldr r0, _0809F0C8  @ gUnknown_08A1B9EC
 	ldr r4, _0809F0CC  @ gGenericBuffer
 	adds r1, r4, #0
@@ -520,7 +520,7 @@ _0809EF4A:
 	subs r1, #0x28
 	ldr r2, [r7, #0x2c]
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	bl sub_809EBF0
 	adds r0, r7, #0
 	bl sub_80ACCE0
@@ -570,12 +570,12 @@ _0809EF4A:
 	negs r2, r2
 	movs r0, #0
 	movs r3, #1
-	bl sub_80ADBFC
+	bl SmallBrownNameBoxDoSomeConfig
 	movs r0, #1
 	movs r1, #0x98
 	movs r2, #6
 	movs r3, #2
-	bl sub_80ADBFC
+	bl SmallBrownNameBoxDoSomeConfig
 	movs r0, #1
 	movs r1, #0xe
 	movs r2, #4
@@ -1180,7 +1180,7 @@ _0809F4D4:
 	ldr r2, [r6, #0x2c]
 	adds r1, r4, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	adds r4, #0x28
 	ldr r1, _0809F5C4  @ gUnknown_02023CC6
 	ldrb r0, [r7]
@@ -2036,7 +2036,7 @@ _0809FBB6:
 	ldr r2, [r6, #0x2c]
 	adds r1, r4, #0
 	movs r3, #0
-	bl sub_809B74C
+	bl DrawPrepScreenItems
 	adds r4, #0x28
 	ldr r1, _0809FC18  @ gUnknown_02023CC6
 	ldrb r2, [r7]

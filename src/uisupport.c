@@ -16,6 +16,7 @@
 #include "soundwrapper.h"
 #include "event.h"
 #include "bmsave.h"
+#include "prepscreen.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -87,7 +88,7 @@ void sub_80A199C(struct SupportScreenProc*, int);
 int GetSupportScreenPartnerCount(int);
 void StartSupportUnitSubScreen(s8, int, ProcPtr);
 
-extern struct TextHandle gUnknown_02013498[];
+extern struct TextHandle gPrepItemTexts[];
 extern struct TextHandle gUnknown_02013590[];
 
 extern int sSupportScreenUnitCount;
@@ -563,7 +564,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     ResetUnitSprites();
 
     sub_80A0EC0((void*)proc);
-    sub_8098C3C(0x5000, 5);
+    PutImg_PrepItemUseUnk(0x5000, 5);
 
     Decompress(gUnknown_08A1DB80, gGenericBuffer);
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 4), gGenericBuffer, 0x1200);
@@ -601,7 +602,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     SetBlendTargetA(1, 1, 1, 1, 1);
 
     for (i = 0; i <= 20; i++) {
-        Text_Init(gUnknown_02013498 + i, 5);
+        Text_Init(gPrepItemTexts + i, 5);
     }
 
     DrawSupportScreenText();
@@ -896,7 +897,7 @@ void sub_80A199C(struct SupportScreenProc* proc, int param_2) {
     SetFontGlyphSet(0);
     SetFont(0);
 
-    textPtr = gUnknown_02013498 + ((param_2 * 3) % 0x15);
+    textPtr = gPrepItemTexts + ((param_2 * 3) % 0x15);
     for (i = 0, j = (param_2 * 3); i < 3; textPtr++, j++, i++) {
         Text_Clear(textPtr);
 
@@ -1066,15 +1067,15 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
 
     if (proc->partnerState[idx] == 0) {
         for (i = 0; i < 5; i++) {
-            sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x10 + i, _y = idx * 2 + 3), 1, 0x14);
+            DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x10 + i, _y = idx * 2 + 3), 1, 0x14);
         }
 
         for (i = 0; i < 2; i++) {
-            sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x16 + i, _y = idx * 2 + 3), 1, 0x14);
+            DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x16 + i, _y = idx * 2 + 3), 1, 0x14);
         }
 
         for (i = 0; i < 3; i++) {
-            sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, _y = idx * 2 + 3), 1, 0x14);
+            DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, _y = idx * 2 + 3), 1, 0x14);
         }
     } else {
         int color = 0;
@@ -1110,10 +1111,10 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
                     color = 0;
                 }
 
-                sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
+                DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
             }
 
-            sub_8004B0C(gBG2TilemapBuffer + 0x1B + (((idx * 2) + 3) * 0x20), 1, 0x14);
+            DrawSpecialUiChar(gBG2TilemapBuffer + 0x1B + (((idx * 2) + 3) * 0x20), 1, 0x14);
         } else {
 
             for (i = 0; i < 3; i++) {
@@ -1124,7 +1125,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
                     color = 0;
                 }
 
-                sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
+                DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
             }
         }
     }
@@ -1395,7 +1396,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
 
     EndSlidingWallEffectMaybe();
 
-    sub_8098C3C(0x4000, 5);
+    PutImg_PrepItemUseUnk(0x4000, 5);
 
     Decompress(gTsa_SupportSubScreen, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);

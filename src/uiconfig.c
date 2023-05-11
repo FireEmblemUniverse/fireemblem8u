@@ -12,6 +12,7 @@
 #include "statscreen.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "prepscreen.h"
 
 #include "uiconfig.h"
 

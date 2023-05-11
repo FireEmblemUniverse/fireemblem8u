@@ -346,7 +346,7 @@ sub_80985B8: @ 0x080985B8
 	adds r0, r4, #0
 	movs r1, #3
 	movs r2, #0x1e
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	movs r0, #0xa8
 	movs r1, #0x85
 	bl sub_80984CC
@@ -396,7 +396,7 @@ sub_8098620: @ 0x08098620
 	stm r1!, {r2, r3, r4}
 	ldm r0!, {r2, r3}
 	stm r1!, {r2, r3}
-	ldr r0, _08098974  @ gUnknown_08A181E8
+	ldr r0, _08098974  @ gBgConfig_ItemUseScreen
 	bl SetupBackgrounds
 	ldr r4, _08098978  @ gLCDControlBuffer
 	ldrb r1, [r4]
@@ -487,7 +487,7 @@ sub_8098620: @ 0x08098620
 	bl EnablePaletteSync
 	add r4, sp, #0x24
 	mov sl, r4
-	ldr r5, _0809898C  @ gUnknown_02013498
+	ldr r5, _0809898C  @ gPrepItemTexts
 	movs r4, #0xe
 _08098726:
 	adds r0, r5, #0
@@ -746,13 +746,13 @@ _080988E2:
 	bx r0
 	.align 2, 0
 _08098970: .4byte gUnknown_08205C14
-_08098974: .4byte gUnknown_08A181E8
+_08098974: .4byte gBgConfig_ItemUseScreen
 _08098978: .4byte gLCDControlBuffer
 _0809897C: .4byte 0x06017800
 _08098980: .4byte gUiFramePaletteD
 _08098984: .4byte sub_809A274
 _08098988: .4byte gPaletteBuffer
-_0809898C: .4byte gUnknown_02013498
+_0809898C: .4byte gPrepItemTexts
 _08098990: .4byte gUnknown_02013510
 _08098994: .4byte gUnknown_02013560
 _08098998: .4byte 0x06014000
@@ -958,7 +958,7 @@ sub_8098B48: @ 0x08098B48
 	movs r1, #0x59
 	movs r2, #9
 	movs r3, #4
-	bl sub_809A31C
+	bl PrepItemDrawPopupBox
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -980,7 +980,7 @@ sub_8098B68: @ 0x08098B68
 	movs r1, #0x51
 	movs r2, #9
 	movs r3, #6
-	bl sub_809A31C
+	bl PrepItemDrawPopupBox
 	b _08098B9C
 	.align 2, 0
 _08098B88: .4byte 0x0000A440
@@ -991,7 +991,7 @@ _08098B8C:
 	movs r1, #0x51
 	movs r2, #9
 	movs r3, #6
-	bl sub_809A31C
+	bl PrepItemDrawPopupBox
 _08098B9C:
 	add sp, #4
 	pop {r0}
@@ -1011,7 +1011,7 @@ sub_8098BA8: @ 0x08098BA8
 	movs r1, #0x5c
 	movs r2, #0xa
 	movs r3, #5
-	bl sub_809A31C
+	bl PrepItemDrawPopupBox
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -1030,7 +1030,7 @@ sub_8098BC8: @ 0x08098BC8
 	movs r1, #0x51
 	movs r2, #9
 	movs r3, #6
-	bl sub_809A31C
+	bl PrepItemDrawPopupBox
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -1075,8 +1075,8 @@ _08098C38: .4byte sub_8098BC8
 
 	THUMB_FUNC_END sub_8098BE8
 
-	THUMB_FUNC_START sub_8098C3C
-sub_8098C3C: @ 0x08098C3C
+	THUMB_FUNC_START PutImg_PrepItemUseUnk
+PutImg_PrepItemUseUnk: @ 0x08098C3C
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r2, r0, #0
@@ -1113,7 +1113,7 @@ _08098C80: .4byte Pals_PrepWindow
 _08098C84: .4byte Img_PrepWindow
 _08098C88: .4byte gPlaySt
 
-	THUMB_FUNC_END sub_8098C3C
+	THUMB_FUNC_END PutImg_PrepItemUseUnk
 
 	THUMB_FUNC_START PutImg_PrepPopupWindow
 PutImg_PrepPopupWindow: @ 0x08098C8C
@@ -1168,7 +1168,7 @@ sub_8098CC0: @ 0x08098CC0
 	movs r0, #0xc0
 	lsls r0, r0, #7
 	movs r1, #5
-	bl sub_8098C3C
+	bl PutImg_PrepItemUseUnk
 	movs r0, #0x80
 	lsls r0, r0, #4
 	movs r1, #0xa
@@ -2031,7 +2031,7 @@ _08099400:
 	bl GetUnitItemCount
 	cmp r0, #0
 	ble _0809943E
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	cmp r0, #0
 	beq _08099440
 _0809943E:
@@ -2054,7 +2054,7 @@ _08099464: .4byte 0x0000059A
 _08099468: .4byte gGMData
 _0809946C: .4byte 0x00000597
 _08099470:
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	cmp r0, #0
 	beq _08099490
 	ldr r0, _0809948C  @ 0x00000599
@@ -2173,12 +2173,12 @@ sub_80994C4: @ 0x080994C4
 	movs r1, #3
 	movs r2, #0x24
 	movs r3, #0x25
-	bl sub_8004D5C
+	bl DrawSpecialUiStr
 	adds r0, r7, #0
 	subs r0, #0xae
 	movs r1, #3
 	movs r2, #0x1d
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	adds r0, r7, #0
 	subs r0, #0xb0
 	movs r2, #8
@@ -2222,7 +2222,7 @@ sub_80995D4: @ 0x080995D4
 	movs r0, #0xc0
 	lsls r0, r0, #7
 	movs r1, #5
-	bl sub_8098C3C
+	bl PutImg_PrepItemUseUnk
 	movs r0, #0x80
 	lsls r0, r0, #4
 	movs r1, #0xa
@@ -2455,7 +2455,7 @@ _080997C2:
 	movs r1, #9
 	b _080998B4
 _080997C8:
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	cmp r0, #0
 	beq _080997F8
 	adds r0, r5, #0
@@ -2545,7 +2545,7 @@ _08099868:
 	bl GetUnitItemCount
 	cmp r0, #0
 	ble _080998D4
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	cmp r0, #0
 	bne _080998D4
 	adds r0, r5, #0
@@ -2554,7 +2554,7 @@ _08099868:
 	.align 2, 0
 _080998A4: .4byte gGMData
 _080998A8:
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	cmp r0, #0
 	bne _080998D4
 	adds r0, r5, #0
@@ -2882,7 +2882,7 @@ sub_8099AF8: @ 0x08099AF8
 	movs r0, #0xc0
 	lsls r0, r0, #7
 	movs r1, #5
-	bl sub_8098C3C
+	bl PutImg_PrepItemUseUnk
 	ldr r0, _08099C40  @ gUnknown_08A1B8B8
 	ldr r5, _08099C44  @ gGenericBuffer
 	adds r1, r5, #0
@@ -3642,7 +3642,7 @@ sub_809A114: @ 0x0809A114
 	movs r1, #0xf
 	bl __modsi3
 	lsls r0, r0, #3
-	ldr r1, _0809A1C0  @ gUnknown_02013498
+	ldr r1, _0809A1C0  @ gPrepItemTexts
 	adds r4, r0, r1
 	ldr r0, _0809A1C4  @ gGMData
 	ldrb r1, [r0]
@@ -3707,7 +3707,7 @@ _0809A16C:
 	bl Text_SetColorId
 	b _0809A1DA
 	.align 2, 0
-_0809A1C0: .4byte gUnknown_02013498
+_0809A1C0: .4byte gPrepItemTexts
 _0809A1C4: .4byte gGMData
 _0809A1C8:
 	adds r0, r4, #0
@@ -3890,8 +3890,8 @@ _0809A308:
 
 	THUMB_FUNC_END sub_809A274
 
-	THUMB_FUNC_START sub_809A31C
-sub_809A31C: @ 0x0809A31C
+	THUMB_FUNC_START PrepItemDrawPopupBox
+PrepItemDrawPopupBox: @ 0x0809A31C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -4137,7 +4137,7 @@ _0809A4F8: .4byte gObject_8x8
 _0809A4FC: .4byte gObject_16x8
 _0809A500: .4byte gObject_32x8
 
-	THUMB_FUNC_END sub_809A31C
+	THUMB_FUNC_END PrepItemDrawPopupBox
 
 	THUMB_FUNC_START sub_809A504
 sub_809A504: @ 0x0809A504

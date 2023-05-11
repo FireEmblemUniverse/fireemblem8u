@@ -507,8 +507,8 @@ gUnknown_08A17C48:  @ 0x08A17C48
 gUnknown_08A17C4C:  @ 0x08A17C4C
 	.incbin "baserom.gba", 0xA17C4C, 0x59C
 
-	.global gUnknown_08A181E8
-gUnknown_08A181E8:  @ 0x08A181E8
+	.global gBgConfig_ItemUseScreen
+gBgConfig_ItemUseScreen:  @ 0x08A181E8
 	.incbin "baserom.gba", 0xA181E8, 0x18
 
 	.global gUnknown_08A18200

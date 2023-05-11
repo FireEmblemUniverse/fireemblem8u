@@ -25,8 +25,6 @@
 
 extern struct UnitDefinition gUnknown_03001788;
 
-extern s8 CONST_DATA gUnknown_080D7C44[];
-
 static int sub_802EF70(ProcPtr);
 static int sub_802EF80(void);
 
@@ -614,7 +612,7 @@ void sub_802F598(struct Unit* unit, int itemIdx, s8 unk) {
     return;
 }
 
-void sub_802F664(struct Unit* unit, u8 classId, int itemIdx, s8 unk) {
+void ExecUnitPromotion(struct Unit* unit, u8 classId, int itemIdx, s8 unk) {
 
     if (itemIdx != -1) {
         gBattleActor.weaponBefore = gBattleTarget.weaponBefore = unit->items[itemIdx];
@@ -651,7 +649,7 @@ void sub_802F664(struct Unit* unit, u8 classId, int itemIdx, s8 unk) {
 }
 
 void sub_802F73C() {
-    sub_802F664(GetUnit(gActionData.subjectIndex), 1, gActionData.itemSlotIndex, 1);
+    ExecUnitPromotion(GetUnit(gActionData.subjectIndex), 1, gActionData.itemSlotIndex, 1);
     BeginBattleAnimations();
 
     return;
@@ -764,24 +762,33 @@ void ExecStatBoostItem(ProcPtr proc) {
     return;
 }
 
-int sub_802F978(struct Unit* unit, int itemIdx) {
-    int unk_r1 = 0;
-    int unk_r2;
+const s8 JunaItemEffLevelLut[] = {
+    15, 25, 30, 20, 10
+};
+
+int ApplyJunaFruitItem(struct Unit* unit, int slot) {
+    int rn1 = 0;
+    int rn2;
     u32 levelCount = 0;
 
     while (levelCount <= 4) {
-        unk_r1 += gUnknown_080D7C44[levelCount];
+        rn1 += JunaItemEffLevelLut[levelCount];
         levelCount++;
     }
 
-    unk_r2 = NextRN_N(unk_r1);
+    rn2 = NextRN_N(rn1);
 
     levelCount = 0;
-    unk_r1 = gUnknown_080D7C44[levelCount];
-    if (unk_r1 <= unk_r2) {
+    rn1 = JunaItemEffLevelLut[levelCount];
+    if (rn1 <= rn2) {
 		while (++levelCount < 5) {
-			unk_r1 += gUnknown_080D7C44[levelCount];
-			if (unk_r1 > unk_r2)
+			rn1 += JunaItemEffLevelLut[levelCount];
+
+            /**
+             * Got a random number in [1, 5]...
+             * What a stupid method!
+             */
+			if (rn1 > rn2)
 				break;
 		}
     }
@@ -790,7 +797,7 @@ int sub_802F978(struct Unit* unit, int itemIdx) {
     unit->level -= levelCount;
     unit->exp = 0;
 
-    UnitUpdateUsedItem(unit, itemIdx);
+    UnitUpdateUsedItem(unit, slot);
 
     return levelCount;
 }
@@ -802,7 +809,7 @@ void ExecJunaFruitItem(ProcPtr proc) {
 
     gBattleTarget.statusOut = -1;
 
-    levelCount = sub_802F978(unit, gActionData.itemSlotIndex);
+    levelCount = ApplyJunaFruitItem(unit, gActionData.itemSlotIndex);
 
     PlaySoundEffect(0x5A);
 

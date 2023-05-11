@@ -43,7 +43,7 @@ _080CDE10:
 	negs r2, r2
 	adds r0, r6, #0
 	movs r3, #0
-	bl sub_802F664
+	bl ExecUnitPromotion
 	adds r0, r7, #0
 	adds r0, #0x31
 	ldrb r0, [r0]

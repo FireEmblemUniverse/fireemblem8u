@@ -1129,7 +1129,7 @@ void DoUseTorchStaff(struct Unit* unit)
     PlaySoundEffect(0x6A); // TODO: song ids
 }
 
-s8 CanUnitUseItemPrepScreen(struct Unit* unit, int item)
+int CanUnitUseItemPrepScreen(struct Unit* unit, int item)
 {
     if (GetItemAttributes(item) & IA_STAFF)
         return FALSE;

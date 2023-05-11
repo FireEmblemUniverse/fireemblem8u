@@ -30,6 +30,12 @@ struct Anim;
 
 // Type definitions for types without any other home :/
 
+enum glb_pos
+{
+    POS_L,
+    POS_R
+};
+
 struct BgCoords
 {
     u16 x;

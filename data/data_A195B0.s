@@ -116,12 +116,12 @@ gUnknown_08A1B990:  @ 0x08A1B990
 gUnknown_08A1B9EC:  @ 0x08A1B9EC
 	.incbin "baserom.gba", 0xA1B9EC, 0xCC
 
-	.global gUnknown_08A1BAB8
-gUnknown_08A1BAB8:  @ 0x08A1BAB8
+	.global Img_PrepItemUseScreen
+Img_PrepItemUseScreen:  @ 0x08A1BAB8
 	.incbin "baserom.gba", 0xA1BAB8, 0x2C
 
-	.global gUnknown_08A1BAE4
-gUnknown_08A1BAE4:  @ 0x08A1BAE4
+	.global Tsa_PrepItemUseScreen
+Tsa_PrepItemUseScreen:  @ 0x08A1BAE4
 	.incbin "baserom.gba", 0xA1BAE4, 0xEC
 
 	.global gUnknown_08A1BBD0

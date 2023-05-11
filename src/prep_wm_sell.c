@@ -13,7 +13,7 @@
 #include "statscreen.h"
 #include "m4a.h"
 #include "soundwrapper.h"
-
+#include "prepscreen.h"
 #include "constants/faces.h"
 
 struct WmSellProc {
@@ -123,7 +123,7 @@ void sub_809FE68(void) {
 
 //! FE8U = 0x0809FEFC
 void WmSell_DrawSellOptionSpriteText(void) {
-    sub_809A31C(160, 91, 8, 4, 0x8840);
+    PrepItemDrawPopupBox(160, 91, 8, 4, 0x8840);
 
     PutSpriteExt(4, 176, 94, gObject_32x16, 0xB088);
     PutSpriteExt(4, 208, 94, gObject_32x16, 0xB08C);
@@ -148,14 +148,14 @@ void WmSell_DrawItemGoldValue(int item) {
         u16 sellPrice = GetItemSellPrice(item);
 
         if ((sellPrice == 0) || (GetItemAttributes(item) & IA_UNSELLABLE)) {
-            sub_8004B0C(gBG0TilemapBuffer + 0x134 + 5, 1, 0x14);
-            sub_8004B0C(gBG0TilemapBuffer + 0x134 + 6, 1, 0x14);
-            sub_8004B0C(gBG0TilemapBuffer + 0x134 + 7, 1, 0x14);
+            DrawSpecialUiChar(gBG0TilemapBuffer + 0x134 + 5, 1, 0x14);
+            DrawSpecialUiChar(gBG0TilemapBuffer + 0x134 + 6, 1, 0x14);
+            DrawSpecialUiChar(gBG0TilemapBuffer + 0x134 + 7, 1, 0x14);
         } else {
             sub_8004B88(gBG0TilemapBuffer + 0x134 + 6, 2, sellPrice);
         }
 
-        sub_8004B0C(gBG0TilemapBuffer + 0x13B, 3, 0x1e);
+        DrawSpecialUiChar(gBG0TilemapBuffer + 0x13B, 3, 0x1e);
     }
 
     BG_EnableSyncByMask(1);
@@ -168,7 +168,7 @@ void WmSell_DrawPartyFunds(void) {
     TileMap_FillRect(gBG0TilemapBuffer + 0xF4, 10, 1, 0);
 
     sub_8004B88(gBG0TilemapBuffer + 0xF4 + 0x146, 2, GetPartyGoldAmount());
-    sub_8004B0C(gBG0TilemapBuffer + 0xF4 + 0x147, 3, 0x1e);
+    DrawSpecialUiChar(gBG0TilemapBuffer + 0xF4 + 0x147, 3, 0x1e);
 
     BG_EnableSyncByMask(1);
 
@@ -222,7 +222,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
 
     EndSlidingWallEffectMaybe();
 
-    sub_8098C3C(0x5000, 5);
+    PutImg_PrepItemUseUnk(0x5000, 5);
     PutImg_PrepPopupWindow(0x800, 8);
 
     Decompress(gUnknown_08A1BBD0, gGenericBuffer);
@@ -281,7 +281,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
 
     BG_EnableSyncByMask(4);
 
-    sub_809B74C(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
     WmSell_PutSupplyFaceAndText();
 
     StartParallelWorker(WmSell_DrawValueSpriteText, proc);
@@ -338,7 +338,7 @@ s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
 
 //! FE8U = 0x080A03C4
 void sub_80A03C4(struct WmSellProc* proc) {
-    sub_809B74C(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
 
     WmSell_DrawItemGoldValue(proc->unit->items[proc->unk_30]);
 
@@ -434,7 +434,7 @@ void WmSell_ConfirmSellItem(struct WmSellProc* proc) {
 
     count = GetUnitItemCount(proc->unit);
     if (count == 0) {
-        sub_809B74C(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
+        DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
 
         Proc_Goto(proc, 3);
     } else {

@@ -5259,7 +5259,7 @@ _08091360:
 	ands r1, r0
 	cmp r1, #0
 	beq _080913CA
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08091390
@@ -5278,7 +5278,7 @@ _08091360:
 	.align 2, 0
 _0809138C: .4byte 0x0000088A
 _08091390:
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080913C0
@@ -7031,7 +7031,7 @@ _080920FA:
 	adds r1, #0x39
 	movs r0, #1
 	strb r0, [r1]
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -7262,7 +7262,7 @@ sub_8092298: @ 0x08092298
 	adds r0, r4, #2
 	movs r1, #0
 	movs r2, #0x16
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	adds r4, #4
 	adds r0, r4, #0
 	movs r1, #2
@@ -7338,7 +7338,7 @@ sub_80922F0: @ 0x080922F0
 	adds r0, r5, #0
 	movs r1, #0
 	bl Text_SetXCursor
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	mov r8, r4
 	cmp r0, #0
@@ -7671,7 +7671,7 @@ _0809261C:
 	adds r0, #0x30
 	mov r1, r8
 	movs r2, #0x16
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	adds r4, r7, #0
 	adds r4, #0x34
 	movs r5, #2
@@ -7827,7 +7827,7 @@ _08092756:
 	adds r0, #0x34
 	movs r1, #2
 	movs r2, #0x14
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	b _08092BC6
 	.align 2, 0
 _08092788: .4byte gUnknown_0200D6E0
@@ -8147,7 +8147,7 @@ _08092A24:
 	adds r0, #8
 	ldr r2, [r0]
 	adds r0, r3, #0
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	adds r0, r6, #1
 	lsls r0, r0, #0x18
 	lsrs r6, r0, #0x18
@@ -13160,7 +13160,7 @@ sub_8095024: @ 0x08095024
 	push {r4, lr}
 	bl GetActivePrepMenuItemIndex
 	adds r4, r0, #0
-	bl CheckSomethingSomewhere
+	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08095048

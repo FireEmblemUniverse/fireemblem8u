@@ -253,8 +253,8 @@ ProcScr_ParallelWorker:  @ 0x08A20C04
         .word 0x0
 
 
-	.global gUnknown_08A20C1C
-gUnknown_08A20C1C:  @ 0x08A20C1C
+	.global ProcScr_SysHandCtrlMaybe
+ProcScr_SysHandCtrlMaybe:  @ 0x08A20C1C
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80AD434

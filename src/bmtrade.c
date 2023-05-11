@@ -260,8 +260,8 @@ void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     // TODO: constants
     StartSmallBrownNameBoxes(6, 0x4800, 0x08, 0x800, 0x400, (struct Proc*) (proc));
 
-    sub_80ADBFC(0, -40, -1, 1);
-    sub_80ADBFC(1, 184, -1, 0);
+    SmallBrownNameBoxDoSomeConfig(0, -40, -1, 1);
+    SmallBrownNameBoxDoSomeConfig(1, 184, -1, 0);
 
     // TODO: special effect constants
     SetSpecialColorEffectsParameters(1, 12, 6, 0);

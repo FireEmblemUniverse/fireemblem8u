@@ -137,7 +137,7 @@
 . = 0x012F58; gUnknown_02012F58 = .;
 . = 0x013458; gUnknown_02013458 = .;
 . = 0x013460; gUnknown_02013460 = .;
-. = 0x013498; gUnknown_02013498 = .;
+. = 0x013498; gPrepItemTexts = .;
 . = 0x013510; gUnknown_02013510 = .;
 . = 0x013538; gUnknown_02013538 = .;
 . = 0x013560; gUnknown_02013560 = .;
@@ -156,7 +156,6 @@
 . = 0x0136D8; gUnknown_020136D8 = .;
 . = 0x0136F0; sSupportScreenUnitCount = .;
 . = 0x0136F4; gUnknown_020136F4 = .;
-. = 0x013EF4; gUnknown_02013EF4 = .;
 . = 0x0145C8; gUnknown_020145C8 = .;
 . = 0x0146F4; gUnknown_020146F4 = .;
 . = 0x014DC8; gUnknown_02014DC8 = .;
@@ -380,7 +379,6 @@
 . = 0x023D0C; gUnknown_02023D0C = .;
 . = 0x023D12; gUnknown_02023D12 = .;
 . = 0x023D88; gUnknown_02023D88 = .;
-. = 0x023D90; gUnknown_02023D90 = .;
 . = 0x023D9C; gUnknown_02023D9C = .;
 . = 0x023DAA; gUnknown_02023DAA = .;
 . = 0x023DBA; gUnknown_02023DBA = .;
@@ -388,14 +386,10 @@
 . = 0x023DEA; gUnknown_02023DEA = .;
 . = 0x023DEE; gUnknown_02023DEE = .;
 . = 0x023DF8; gUnknown_02023DF8 = .;
-. = 0x023E10; gUnknown_02023E10 = .;
 . = 0x023E88; gUnknown_02023E88 = .;
 . = 0x023EA8; gUnknown_02023EA8 = .;
 . = 0x023F68; gUnknown_02023F68 = .;
 . = 0x023FBA; gUnknown_02023FBA = .;
-. = 0x02400A; gUnknown_0202400A = .;
-. = 0x024044; gUnknown_02024044 = .;
-. = 0x02404A; gUnknown_0202404A = .;
 . = 0x0244A8; gBG3TilemapBuffer = .;
 . = 0x024CA8; gBGVramTilemapPointers = .;
 . = 0x024CB8; gMainCallback = .;

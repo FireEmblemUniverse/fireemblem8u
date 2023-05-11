@@ -202,7 +202,8 @@ SECTIONS
         asm/prep_itemscreen.o(.text);
         src/prep_unitselect.o(.text);
         asm/prep_itemtrade.o(.text);
-        asm/prep_itemuse.o(.text);
+        src/prep_itemuse.o(.text);
+        src/prep_itemusemind.o(.text);
         asm/prep_itemsupply.o(.text);
         asm/prep_itemlist.o(.text);
         src/prep_wm_sell.o(.text);
@@ -322,7 +323,7 @@ SECTIONS
         . = ALIGN(4); src/bmreliance.o(.rodata);
         . = ALIGN(4); src/bmbattle.o(.rodata);
         . = ALIGN(4); src/bmtrade.o(.rodata);
-        . = ALIGN(4); data/const_data_D7C44.o(.rodata);
+        . = ALIGN(4); src/bmusemind.o(.rodata);
         . = ALIGN(4); src/raw_text_jp.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); src/bmarena.o(.rodata);
@@ -375,6 +376,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); src/prep_atmenu.o(.rodata);
         . = ALIGN(4); data/const_data_205BD0.o(.rodata);
+        . = ALIGN(4); src/prep_itemuse.o(.rodata);
         . = ALIGN(4); src/uisupport.o(.rodata);
         . = ALIGN(4); src/bmsave-lib.o(.rodata);
         . = ALIGN(4); data/const_data_205C9C.o(.rodata);
@@ -553,7 +555,8 @@ SECTIONS
         . = ALIGN(4); data/data_A184B4.o(.data);
         . = ALIGN(4); src/prep_unitselect.o(.data);
         . = ALIGN(4); data/prep_itemtrade.o(.data);
-        . = ALIGN(4); data/prep_itemuse.o(.data);
+        . = ALIGN(4); src/prep_itemuse.o(.data);
+        . = ALIGN(4); src/prep_itemusemind.o(.data);
         . = ALIGN(4); data/data_prep_A1901C.o(.data);
         . = ALIGN(4); src/prep_wm_sell.o(.data);
         . = ALIGN(4); src/prep_80A0760.o(.data);

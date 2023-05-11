@@ -17,7 +17,7 @@
 #include "face.h"
 #include "bm.h"
 #include "scene.h"
-
+#include "prepscreen.h"
 #include "bmshop.h"
 
 #include "constants/faces.h"
@@ -1184,7 +1184,7 @@ void InitGoldBoxText(u16* tm) {
 
     Text_Init(&gText_GoldBox, 1);
 
-    sub_8004B0C(tm, 3, 30);
+    DrawSpecialUiChar(tm, 3, 30);
 
     return;
 }

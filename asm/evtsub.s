@@ -1449,7 +1449,7 @@ sub_8012270: @ 0x08012270
 	mov r0, r8
 	adds r1, r6, #0
 	movs r3, #0
-	bl sub_802F664
+	bl ExecUnitPromotion
 	ldr r1, _08012318  @ gBattleActor
 	ldr r0, _0801231C  @ gBattleTarget
 	adds r0, #0x4a

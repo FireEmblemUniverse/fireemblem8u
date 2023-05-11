@@ -17638,26 +17638,26 @@ sub_80C0A9C: @ 0x080C0A9C
 	movs r1, #3
 	movs r2, #0x24
 	movs r3, #0x25
-	bl sub_8004D5C
+	bl DrawSpecialUiStr
 	movs r1, #0xa2
 	lsls r1, r1, #1
 	adds r0, r4, r1
 	movs r1, #3
 	movs r2, #0x35
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	movs r1, #0xde
 	lsls r1, r1, #1
 	adds r0, r4, r1
 	movs r1, #3
 	movs r2, #0x22
 	movs r3, #0x23
-	bl sub_8004D5C
+	bl DrawSpecialUiStr
 	movs r1, #0xe2
 	lsls r1, r1, #1
 	adds r0, r4, r1
 	movs r1, #3
 	movs r2, #0x16
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	movs r1, #0xa1
 	lsls r1, r1, #1
 	adds r0, r4, r1
@@ -17683,7 +17683,7 @@ sub_80C0A9C: @ 0x080C0A9C
 	movs r1, #2
 	movs r2, #0x14
 	movs r3, #0x14
-	bl sub_8004D5C
+	bl DrawSpecialUiStr
 	b _080C0B9A
 	.align 2, 0
 _080C0B80: .4byte gUnknown_02022F4E
@@ -17706,7 +17706,7 @@ _080C0B9A:
 	movs r1, #2
 	movs r2, #0x14
 	movs r3, #0x14
-	bl sub_8004D5C
+	bl DrawSpecialUiStr
 	b _080C0BCA
 	.align 2, 0
 _080C0BB4: .4byte gUnknown_02023114
@@ -18083,7 +18083,7 @@ sub_80C0EBC: @ 0x080C0EBC
 	adds r0, r4, #0
 	movs r1, #3
 	movs r2, #0x1e
-	bl sub_8004B0C
+	bl DrawSpecialUiChar
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	pop {r4, r5}

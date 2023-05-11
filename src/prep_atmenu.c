@@ -16,7 +16,7 @@
 #include "bm.h"
 
 #include "prepscreen.h"
-s8 CheckSomethingSomewhere();
+s8 CheckInLinkArena();
 
 void PrepAtMenu_OnInit(struct ProcAtMenu *proc)
 {
@@ -24,7 +24,7 @@ void PrepAtMenu_OnInit(struct ProcAtMenu *proc)
     proc->xDiff = 0;
     *((u16*)&proc->yDiff) = 0;    /* ? */
 
-    if (CheckSomethingSomewhere())
+    if (CheckInLinkArena())
         proc->max_counter = 5;
     else
         proc->max_counter = GetChapterAllyUnitCount();
@@ -75,7 +75,7 @@ void DrawPrepMenuDescTexts()
 {
     int i, base_line;
 
-    base_line = CheckSomethingSomewhere() ? 1 : 0;
+    base_line = CheckInLinkArena() ? 1 : 0;
     for (i = 0; i < 5; i++) {
         Text_Draw(
             &gPrepMainMenuTexts[i + 5],
@@ -133,7 +133,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
 {
     int i;
 
-    SetupBackgrounds(gUnknown_08A181E8);
+    SetupBackgrounds(gBgConfig_ItemUseScreen);
     Font_InitForUIDefault();
     LoadUiFrameGraphics();
     LoadHelpBoxGfx(NULL, 0xE);
@@ -186,7 +186,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     EndSlidingWallEffectMaybe();
     ApplyPalettes(gUiFramePaletteB, 0x2, 3);
 
-    if (CheckSomethingSomewhere()) {
+    if (CheckInLinkArena()) {
         Decompress(gUnknown_08A1B698, gGenericBuffer);
         CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 5), gGenericBuffer, 0x1000);
     } else {
@@ -395,7 +395,7 @@ void AtMenu_ResetBmUiEffect(struct ProcAtMenu *proc)
 
     if (proc->end_prep)
         EndPrepScreen();
-    else if (CheckSomethingSomewhere())
+    else if (CheckInLinkArena())
         sub_8042EA8();
 
     sub_801240C();
@@ -467,7 +467,7 @@ void sub_8096404()
 
 void AtMenu_LockGame()
 {
-    if (!CheckSomethingSomewhere()) {
+    if (!CheckInLinkArena()) {
         AddSkipThread2();
         BMapDispSuspend();
     }
@@ -475,7 +475,7 @@ void AtMenu_LockGame()
 
 void AtMenu_UnlockGame()
 {
-    if (!CheckSomethingSomewhere()) {
+    if (!CheckInLinkArena()) {
         BMapDispResume();
         SubSkipThread2();
     }
