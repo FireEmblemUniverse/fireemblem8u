@@ -753,7 +753,7 @@ void sub_800183C(int a, int b, int c)
         gUnknown_02022288[i] = c;
 }
 
-void sub_8001860(u8 a)
+void ColorFadeSetupFromColorToBlack(u8 a)
 {
     int i;
     int j;
@@ -770,7 +770,7 @@ void sub_8001860(u8 a)
     }
 }
 
-void sub_80018E4(u8 a)
+void ColorFadeSetupFromBlack(u8 a)
 {
     int i;
     int j;
@@ -787,8 +787,8 @@ void sub_80018E4(u8 a)
     }
 }
 
-// duplicate of sub_8001860
-void sub_8001964(u8 a)
+// duplicate of ColorFadeSetupFromColorToBlack
+void ColorFadeSetupFromColorToWhite(u8 a)
 {
     int i;
     int j;
@@ -805,7 +805,7 @@ void sub_8001964(u8 a)
     }
 }
 
-void sub_80019E8(u8 a)
+void ColorFadeSetupFromWhite(u8 a)
 {
     int i;
     int j;
@@ -1062,7 +1062,7 @@ void SetBlendTargetB(int a, int b, int c, int d, int e)
     gUnknown_030030BC |= (a << 8) | (b << 9) | (c << 10) | (d << 11) | (e << 12);
 }
 
-void sub_8001F48(int a)
+void SetBlendBackdropA(int a)
 {
     gLCDControlBuffer.bldcnt.target1_bd_on = a;
 }

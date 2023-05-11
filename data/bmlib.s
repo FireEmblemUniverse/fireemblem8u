@@ -2,80 +2,8 @@
 
     .section .data
 
-    .global gUnknown_0859A024
-gUnknown_0859A024:  @ 0x0859A024
-    .2byte 2
-    .2byte 0
-    .4byte sub_8013AF4
-
-    .2byte 14
-    .2byte 0
-    .4byte NULL
-
-    .2byte 3
-    .2byte 0
-    .4byte sub_8013B5C
-
-    .2byte 16
-    .2byte 0
-    .4byte NULL
-
-    .global gUnknown_0859A044
-gUnknown_0859A044:  @ 0x0859A044
-    .2byte 2
-    .2byte 0
-    .4byte sub_8013BA0
-
-    .2byte 14
-    .2byte 0
-    .4byte NULL
-
-    .2byte 3
-    .2byte 0
-    .4byte sub_8013C18
-
-    .2byte 16
-    .2byte 0
-    .4byte NULL
-
-    .global gUnknown_0859A064
-gUnknown_0859A064:  @ 0x0859A064
-    .2byte 2
-    .2byte 0
-    .4byte sub_8013C58
-
-    .2byte 14
-    .2byte 0
-    .4byte NULL
-
-    .2byte 3
-    .2byte 0
-    .4byte sub_8013B5C
-
-    .2byte 16
-    .2byte 0
-    .4byte NULL
-
-    .global gUnknown_0859A084
-gUnknown_0859A084:  @ 0x0859A084
-    .2byte 2
-    .2byte 0
-    .4byte sub_8013C70
-
-    .2byte 14
-    .2byte 0
-    .4byte NULL
-
-    .2byte 3
-    .2byte 0
-    .4byte sub_8013C18
-
-    .2byte 16
-    .2byte 0
-    .4byte NULL
-
-    .global gUnknown_0859A0A4
-gUnknown_0859A0A4:  @ 0x0859A0A4
+    .global ProcScr_FadeCore
+ProcScr_FadeCore:  @ 0x0859A0A4
     .2byte 15
     .2byte 10
     .4byte NULL

@@ -5,6 +5,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "gamecontrol.h"
+#include "bmlib.h"
 #include "bm.h"
 
 struct TitleScreenProc {
@@ -196,7 +197,7 @@ void Title_Init(struct TitleScreenProc* proc) {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_Fill(gBG3TilemapBuffer, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
     sub_8001F64(0);
 
     SetDefaultColorEffects();

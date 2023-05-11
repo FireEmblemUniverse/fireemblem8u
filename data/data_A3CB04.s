@@ -161,7 +161,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -185,7 +185,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -209,7 +209,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_80B98A8
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -221,7 +221,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -245,7 +245,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_80B9924
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -257,7 +257,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -281,7 +281,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_80B99A0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -293,7 +293,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -518,7 +518,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_80B982C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -536,7 +536,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_80B982C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -3180,7 +3180,7 @@ gUnknown_08AA2084:  @ 0x08AA2084
         .word sub_80C47B0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D74
+        .word StartSlowFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade

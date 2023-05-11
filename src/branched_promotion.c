@@ -29,6 +29,7 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "prepscreen.h"
+#include "bmlib.h"
 
 void sub_805AA68(void *);
 void sub_805AE14(void *);
@@ -74,7 +75,6 @@ const struct TraineeData gTrainees[] = {
 
 void SetupPromotionScreen(struct ProcPromoSel *proc);
 void sub_80CCF60(struct ProcPromoSel *proc);
-void IntroPromoTraineeEventFace(ProcPtr);
 void sub_80CD294(struct Proc *proc);
 void sub_80CD1D4(struct Proc *proc);
 void sub_80CD2CC(struct Proc *proc);
@@ -85,7 +85,7 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc);
 CONST_DATA
 const struct ProcCmd ProcScr_PromoSelect[] =
 {
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     /* ? */
@@ -97,7 +97,7 @@ PROC_LABEL(0),
     PROC_CALL(sub_80CCF60),
 
 PROC_LABEL(1),
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
     PROC_REPEAT(LoadBattleSpritesForBranchScreen),
     PROC_GOTO(3),
@@ -105,7 +105,7 @@ PROC_LABEL(1),
 /* Pre End */
 PROC_LABEL(2),
     PROC_CALL(sub_80CD294),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
 /* On End */
@@ -113,7 +113,7 @@ PROC_LABEL(4),
     PROC_CALL(sub_80CD1D4),
     PROC_CALL(sub_80CD2CC),
     PROC_SET_END_CB(sub_80CD618),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_80CD218),
 
@@ -126,7 +126,7 @@ CONST_DATA
 const struct ProcCmd ProcScr_PromoSelectEnd[] =
 {
 	PROC_NAME("ccramify_end"),
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
     PROC_END,
 };
@@ -148,7 +148,7 @@ const struct ProcCmd ProcScr_PromoSelectEvent[] =
     PROC_LABEL(0),
     PROC_CALL(PromoTrainee_InitScreen),
     PROC_LABEL(1),
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(PromoTrainee_Talk1),
     PROC_WHILE(SomeTalkProcExists),

@@ -2387,7 +2387,7 @@ sub_80B9BA4: @ 0x080B9BA4
 	movs r3, #0
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	b _080B9C26
@@ -14046,7 +14046,7 @@ sub_80BF048: @ 0x080BF048
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	ldr r0, _080BF11C  @ gUnknown_08A9901C
 	ldr r4, _080BF120  @ gGenericBuffer
 	adds r1, r4, #0
@@ -15153,7 +15153,7 @@ sub_80BF890: @ 0x080BF890
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	add sp, #4
@@ -15562,7 +15562,7 @@ sub_80BFB90: @ 0x080BFB90
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	add sp, #4
@@ -16555,7 +16555,7 @@ sub_80C0308: @ 0x080C0308
 	movs r3, #0
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	add sp, #4
@@ -16729,7 +16729,7 @@ _080C0430:
 	movs r3, #0
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	ldr r1, _080C04C8  @ gUnknown_0201BE30
@@ -17987,7 +17987,7 @@ sub_80C0DF0: @ 0x080C0DF0
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #1
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	ldr r0, _080C0E48  @ gPaletteBuffer
 	strh r4, [r0]
 	bl EnablePaletteSync
@@ -18146,7 +18146,7 @@ _080C0F28:
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #1
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	ldr r0, _080C0F9C  @ gPaletteBuffer
 	strh r4, [r0]
 	bl EnablePaletteSync
@@ -18301,7 +18301,7 @@ _080C1036:
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	movs r0, #0
@@ -24470,7 +24470,7 @@ sub_80C3DAC: @ 0x080C3DAC
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	ldr r0, _080C3E6C  @ gUnknown_08AA1280
 	ldr r1, _080C3E70  @ 0x06003C00
 	bl Decompress
@@ -25416,7 +25416,7 @@ sub_80C4460: @ 0x080C4460
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	str r4, [sp, #4]

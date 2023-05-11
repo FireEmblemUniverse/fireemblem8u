@@ -11,7 +11,7 @@
 #include "uimenu.h"
 #include "scene.h"
 #include "ekrbattle.h"
-
+#include "bmlib.h"
 #include "event.h"
 
 // TODO: move those where they belong when possible
@@ -523,7 +523,7 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
             if (proc->evStateBits & EV_STATE_FADEDIN)
                 sub_800D488(proc);
             else
-                sub_8013D08(0x40, (struct Proc*)(proc));
+                StartLockingFadeToBlack(0x40, (struct Proc*)(proc));
 
             proc->evStateBits |= EV_STATE_FADEDIN;
         }

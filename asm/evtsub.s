@@ -385,7 +385,7 @@ sub_8011A48: @ 0x08011A48
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #1
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	bl sub_8001F64
 	ldr r0, _08011A9C  @ gUnknown_085924D8
@@ -468,7 +468,7 @@ sub_8011AF4: @ 0x08011AF4
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #1
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	bl sub_8001F64
 	ldr r0, _08011B48  @ gUnknown_085924D8

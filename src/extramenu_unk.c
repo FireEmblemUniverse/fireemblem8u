@@ -3,6 +3,7 @@
 #include "fontgrp.h"
 #include "hardware.h"
 #include "ctc.h"
+#include "bmlib.h"
 
 struct Proc8A21568 {
     /* 00 */ PROC_HEADER;

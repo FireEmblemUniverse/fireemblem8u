@@ -6,7 +6,7 @@
 
 #include "functions.h"
 #include "variables.h"
-
+#include "bmlib.h"
 #include "bg.h"
 
 struct gfx_set {

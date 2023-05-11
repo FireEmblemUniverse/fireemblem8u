@@ -33,7 +33,7 @@ gUnknown_089EDF78:  @ 0x089EDF78
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D74
+        .word StartSlowFadeToBlack
         @ PROC_SLEEP
         .short 0xe, 0x50
         .word 0x0

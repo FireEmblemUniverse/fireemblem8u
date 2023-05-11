@@ -7,6 +7,7 @@
 #include "ctc.h"
 #include "hardware.h"
 #include "mu.h"
+#include "bmlib.h"
 #include "variables.h"
 
 void SetLastCoords(u16 x, u16 y) {

@@ -10,7 +10,7 @@
 #include "mu.h"
 
 #include "bmudisp.h"
-
+#include "bmlib.h"
 #include "constants/terrains.h"
 
 /**

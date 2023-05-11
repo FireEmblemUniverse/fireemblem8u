@@ -5,6 +5,7 @@
 #include "variables.h"
 #include "functions.h"
 #include "bmudisp.h"
+#include "bmlib.h"
 
 /**
  * Unit Swapping Animation/Effect (When you swap unit places in the prep screen)

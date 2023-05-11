@@ -16,6 +16,7 @@
 #include "bm.h"
 #include "bmio.h"
 #include "bmsave.h"
+#include "bmlib.h"
 #include "scene.h"
 
 extern struct ProcCmd gProcScr_ArenaUiMain[];
@@ -388,7 +389,7 @@ struct ProcCmd CONST_DATA gProcScr_ArenaUiMain[] = {
 
     PROC_SLEEP(1),
     PROC_CALL_ARG(sub_8014BD0, 65535),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(BMapDispSuspend),
@@ -444,7 +445,7 @@ PROC_LABEL(2),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(UnlockGame),
@@ -493,7 +494,7 @@ PROC_LABEL(2),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(UnlockGame),

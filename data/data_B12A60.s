@@ -208,7 +208,7 @@ ProcScr_E_Guide1:  @ 0x08B12C64
         .word LockGame
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -226,7 +226,7 @@ ProcScr_E_Guide1:  @ 0x08B12C64
         .word NewGreenTextColorManager
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -238,7 +238,7 @@ ProcScr_E_Guide1:  @ 0x08B12C64
         .word sub_80CEFD4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -259,7 +259,7 @@ ProcScr_E_Guide1:  @ 0x08B12C64
         .word RefreshBMapGraphics
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -291,9 +291,9 @@ ProcScr_E_Guide2:  @ 0x08B12D1C
     @ PROC_CALL(NewGreenTextColorManager)
     .short 0x2, 0x0
     .word NewGreenTextColorManager
-    @ PROC_CALL(sub_8013DA4)
+    @ PROC_CALL(StartFastFadeFromBlack)
     .short 0x2, 0x0
-    .word sub_8013DA4
+    .word StartFastFadeFromBlack
     @ PROC_REPEAT(WaitForFade)
     .short 0x3, 0x0
     .word WaitForFade
@@ -303,9 +303,9 @@ ProcScr_E_Guide2:  @ 0x08B12D1C
     @ PROC_REPEAT(sub_80CEFD4)
     .short 0x3, 0x0
     .word sub_80CEFD4
-    @ PROC_CALL(sub_8013D80)
+    @ PROC_CALL(StartFastFadeToBlack)
     .short 0x2, 0x0
-    .word sub_8013D80
+    .word StartFastFadeToBlack
     @ PROC_REPEAT(WaitForFade)
     .short 0x3, 0x0
     .word WaitForFade

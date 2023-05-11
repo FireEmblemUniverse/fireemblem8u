@@ -16,7 +16,7 @@
 #include "anime.h"
 #include "efxbattle.h"
 #include "ekrbattle.h"
-
+#include "bmlib.h"
 #include "constants/classes.h"
 
 enum ClassReelScrOpCode {
@@ -699,7 +699,7 @@ void sub_80B2DF0(struct OpInfoEnterProc* proc) {
 
     SetSpecialColorEffectsParameters(2, 0, 0, DarknessCoeff(proc->timer, 1));
 
-    sub_8001F48(1);
+    SetBlendBackdropA(1);
 
     proc->timer++;
 
@@ -807,7 +807,7 @@ struct ProcCmd CONST_DATA gProcScr_opinfoenter[] = {
     PROC_REPEAT(ClassIntro_LoopOut),
     PROC_CALL(ClassIntro_DisableAllExceptBg1),
 
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
 PROC_LABEL(4),

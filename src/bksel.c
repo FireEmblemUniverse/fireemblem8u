@@ -14,7 +14,7 @@
 #include "bmmap.h"
 #include "statscreen.h"
 #include "bm.h"
-
+#include "bmlib.h"
 #include "bksel.h"
 
 extern u16 gBmFrameTmap0[];

@@ -23,7 +23,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmsave.h"
-
+#include "bmlib.h"
 #include "bmio.h"
 
 // General Battle Map System Stuff, mostly low level hardware stuff but also more
@@ -1036,7 +1036,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     EnablePaletteSync();
 
     SetBlendTargetA(TRUE, TRUE, TRUE, TRUE, TRUE);
-    sub_8001F48(TRUE);
+    SetBlendBackdropA(TRUE);
 
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 }
@@ -1139,7 +1139,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
     } // switch (gActionData.suspendPointType)
 
     SetBlendTargetA(TRUE, TRUE, TRUE, TRUE, TRUE);
-    sub_8001F48(TRUE);
+    SetBlendBackdropA(TRUE);
 
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 }

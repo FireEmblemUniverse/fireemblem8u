@@ -9,7 +9,7 @@
 #include "fontgrp.h"
 #include "uiutils.h"
 #include "bm.h"
-
+#include "bmlib.h"
 #include "minimap.h"
 
 struct MinimapProc {

@@ -9,6 +9,7 @@
 #include "soundwrapper.h"
 #include "constants/video-global.h"
 #include "uiutils.h"
+#include "bmlib.h"
 
 /**
  * Background effect for the game over screen

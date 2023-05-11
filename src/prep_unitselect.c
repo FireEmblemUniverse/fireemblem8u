@@ -15,7 +15,7 @@
 #include "soundwrapper.h"
 #include "statscreen.h"
 #include "constants/video-global.h"
-
+#include "bmlib.h"
 #include "prepscreen.h"
 
 s8 CheckInLinkArena();

@@ -7,6 +7,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "prepscreen.h"
+#include "bmlib.h"
 #include "ctc.h"
 
 struct SoundRoomEnt {

@@ -7,6 +7,7 @@
 #include "rng.h"
 #include "ctc.h"
 #include "bmfx.h"
+#include "bmlib.h"
 
 /**
  * Some effect proc emitting little white stars. Seems unused

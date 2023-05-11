@@ -13,7 +13,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "prepscreen.h"
-
+#include "bmlib.h"
 #include "uiconfig.h"
 
 struct Selector {
@@ -1086,7 +1086,7 @@ PROC_LABEL(0),
     PROC_WHILE(FadeInExists),
 
     PROC_REPEAT(Config_Loop_KeyHandler),
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
 
     PROC_REPEAT(WaitForFade),
 
@@ -1095,7 +1095,7 @@ PROC_LABEL(0),
 
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
-    PROC_CALL(sub_8013DA4),
+    PROC_CALL(StartFastFadeFromBlack),
 
     PROC_REPEAT(WaitForFade),
 
@@ -1120,7 +1120,7 @@ PROC_LABEL(0),
 
     PROC_REPEAT(Config_Loop_KeyHandler),
 
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndHelpBox),
@@ -1143,12 +1143,12 @@ PROC_LABEL(0),
     PROC_CALL(Config_Init),
     PROC_CALL(sub_80B24C0),
 
-    PROC_CALL(sub_8013DA4),
+    PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_REPEAT(Config_Loop_KeyHandler),
 
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndHelpBox),

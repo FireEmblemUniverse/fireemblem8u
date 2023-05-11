@@ -12,6 +12,7 @@
 #include "bmfx.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "bmlib.h"
 
 // arm_call.s
 void CALLARM_MaybeScreenFadeIn();

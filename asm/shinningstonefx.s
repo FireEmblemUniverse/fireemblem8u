@@ -38,7 +38,7 @@ sub_8012984: @ 0x08012984
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0

@@ -13,7 +13,7 @@
 #include "face.h"
 #include "bm.h"
 #include "prepscreen.h"
-
+#include "bmlib.h"
 #include "constants/terrains.h"
 
 struct PlayerInterfaceProc {
@@ -1299,7 +1299,7 @@ void InitPlayerPhaseInterface() {
 
     SetBlendTargetA(0, 1, 0, 0, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
 
     SetBlendTargetB(0, 0, 1, 1, 1);
 

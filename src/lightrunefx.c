@@ -7,7 +7,7 @@
 #include "soundwrapper.h"
 #include "bmudisp.h"
 #include "bmfx.h"
-
+#include "bmlib.h"
 
 /**
  * The effect that plays when putting down a light rune

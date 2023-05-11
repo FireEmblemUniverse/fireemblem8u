@@ -11,6 +11,7 @@
 #include "face.h"
 #include "scene.h"
 #include "bmio.h"
+#include "bmlib.h"
 
 struct HelpBoxScrollProc {
     /* 00 */ PROC_HEADER;

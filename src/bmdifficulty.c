@@ -14,7 +14,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "popup.h"
-
+#include "bmlib.h"
 #include "bmdifficulty.h"
 
 /*
@@ -425,7 +425,7 @@ void UpdateDungeonEnemiesDefeated() {
 struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_FromMenu[] = {
     PROC_CALL(PushGlobalTimer),
     PROC_CALL(LockGame),
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_SLEEP(0),
@@ -442,7 +442,7 @@ struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_FromMenu[] = {
     PROC_SLEEP(0),
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
-    PROC_CALL(sub_8013DA4),
+    PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(UnlockGame),
 
@@ -459,7 +459,7 @@ extern struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[];
 struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[] = {
     PROC_CALL(PushGlobalTimer),
     PROC_CALL(LockGame),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(MU_EndAll),
@@ -544,7 +544,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
     sub_8001F64(0);
 
     // Load and display background

@@ -163,10 +163,10 @@ void MaybeResetSomePal(void);
 void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d);
 void sub_80017B4(int a, int b, int c, int d);
 // ??? sub_800183C(???);
-// ??? sub_8001860(???);
-// ??? sub_80018E4(???);
-// ??? sub_8001964(???);
-// ??? sub_80019E8(???);
+void ColorFadeSetupFromColorToBlack(u8);
+void ColorFadeSetupFromBlack(u8);
+void ColorFadeSetupFromColorToWhite(u8);
+void ColorFadeSetupFromWhite(u8);
 // ??? sub_8001A6C(???);
 void SetupBackgrounds(u16 *bgConfig);
 u16* BG_GetMapBuffer(int bg);
@@ -184,7 +184,7 @@ int GetBackgroundFromBufferPointer(u16 *ptr);
 void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
 void SetBlendTargetA(int, int, int, int, int); // SetColorEffectFirstTarget
 void SetBlendTargetB(int, int, int, int, int);
-void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
+void SetBlendBackdropA(int); // SetColorEffectBackdropFirstTarget
 void sub_8001F64(int a);
 void SetDefaultColorEffects(void);
 void EnablePaletteSync(void);

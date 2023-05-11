@@ -62,8 +62,6 @@ SECTIONS
         src/eventcmd_42.o(.text);
         asm/eventcmd_44.o(.text);
         src/bmlib.o(.text);
-        asm/bmlib-pal.o(.text);
-        src/bmlib-fade.o(.text);
         asm/hino.o(.text);
         src/bm.o(.text);
         src/bmitem.o(.text);
@@ -110,7 +108,7 @@ SECTIONS
         src/bmarena.o(.text);
         src/bmmind.o(.text);
         src/bmpatharrowdisp.o(.text);
-        src/sallycursor.o(.text);
+        src/prep_sallycursor.o(.text);
         asm/bmcommanddbg.o(.text);
         src/chapterdata.o(.text);
         src/unitinfowindow.o(.text);
@@ -311,7 +309,6 @@ SECTIONS
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
         . = ALIGN(4); src/bmlib.o(.rodata);
-        . = ALIGN(4); data/bmlib-const.o(.rodata);
         . = ALIGN(4); src/bm.o(.rodata);
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
@@ -331,7 +328,7 @@ SECTIONS
         . = ALIGN(4); src/raw_text_jp.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); src/bmarena.o(.rodata);
-        . = ALIGN(4); src/sallycursor.o(.rodata);
+        . = ALIGN(4); src/prep_sallycursor.o(.rodata);
         . = ALIGN(4); src/unitinfowindow.o(.rodata);
         . = ALIGN(4); src/bb.o(.rodata);
         . = ALIGN(4); src/bksel.o(.rodata);
@@ -424,8 +421,6 @@ SECTIONS
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/data_599714.o(.data);
         . = ALIGN(4); src/bmlib.o(.data);
-        . = ALIGN(4); data/bmlib-pal.o(.data);
-        . = ALIGN(4); src/bmlib-fade.o(.data);
         . = ALIGN(4); data/bmlib.o(.data);
         . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
@@ -468,7 +463,7 @@ SECTIONS
         . = ALIGN(4); src/bmarena.o(.data);
         . = ALIGN(4); src/bmmind.o(.data);
         . = ALIGN(4); data/data_59DB6C.o(.data);
-        . = ALIGN(4); src/sallycursor.o(.data);
+        . = ALIGN(4); src/prep_sallycursor.o(.data);
         . = ALIGN(4); src/unitinfowindow.o(.data);
         . = ALIGN(4); src/bb.o(.data);
         . = ALIGN(4); src/bmusailment.o(.data);

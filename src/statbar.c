@@ -1,4 +1,5 @@
 #include "global.h"
+#include "bmlib.h"
 #include "functions.h"
 #include "variables.h"
 

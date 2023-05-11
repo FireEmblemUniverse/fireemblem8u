@@ -14,6 +14,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "prepscreen.h"
+#include "bmlib.h"
 #include "constants/faces.h"
 
 struct WmSellProc {

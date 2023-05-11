@@ -7,6 +7,7 @@
 #include "bmunit.h"
 #include "bmbattle.h"
 #include "bmfx.h"
+#include "bmlib.h"
 
 /**
  * Some sparkle effect that's apparenly calling on dance

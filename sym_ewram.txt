@@ -125,7 +125,7 @@
 . = 0x00F15C; gUnknown_0200F15C = .;
 . = 0x00F17C; gStringBufferAlt = .;
 . = 0x00F1C8; gBanimScrLeft = .;
-. = 0x010004; src/sallycursor.o(ewram_data);
+. = 0x010004; src/prep_sallycursor.o(ewram_data);
 . = 0x01117C; gPrepMainMenuTexts = .;
 . = 0x0111CC; gPrepUnitPool = .;
 . = 0x011BC8; gBanimScrRight = .;

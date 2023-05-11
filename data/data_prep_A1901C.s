@@ -108,7 +108,7 @@ ProcScr_BmSupplyScreen:  @ 0x08A192EC
 	.word LockGame
 	@ PROC_CALL
 	.short 0x2, 0x0
-	.word sub_8013D80
+	.word StartFastFadeToBlack
 	@ PROC_REPEAT
 	.short 0x3, 0x0
 	.word WaitForFade
@@ -207,7 +207,7 @@ ProcScr_BmSupplyScreen:  @ 0x08A192EC
 	.word sub_809EB14
 	@ PROC_CALL
 	.short 0x2, 0x0
-	.word sub_8013DA4
+	.word StartFastFadeFromBlack
 	@ PROC_REPEAT
 	.short 0x3, 0x0
 	.word WaitForFade

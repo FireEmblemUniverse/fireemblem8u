@@ -19,7 +19,7 @@
 #include "scene.h"
 #include "prepscreen.h"
 #include "bmshop.h"
-
+#include "bmlib.h"
 #include "constants/faces.h"
 #include "constants/items.h"
 
@@ -97,7 +97,7 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeIn[] = {
     PROC_SLEEP(1),
 
     PROC_CALL_ARG(sub_8014BD0, -1),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
 
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
@@ -112,7 +112,7 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeOut[] = {
     PROC_CALL(RefreshBMapGraphics),
 
     PROC_CALL(StartMapSongBgm),
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
 
     PROC_REPEAT(WaitForFade),
     PROC_CALL(UnlockGame),

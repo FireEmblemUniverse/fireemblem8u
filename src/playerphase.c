@@ -13,7 +13,7 @@
 #include "event.h"
 #include "bmitem.h"
 #include "bmbattle.h"
-#include "sallycursor.h"
+#include "prepscreen.h"
 #include "bmtrick.h"
 #include "bmio.h"
 #include "hardware.h"
@@ -1167,7 +1167,7 @@ void MoveLimitView_OnInit(ProcPtr proc) {
     SetSpecialColorEffectsParameters(1, 10, 6, 0);
 
     SetBlendTargetA(0, 0, 1, 0, 0);
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
 
     SetBlendTargetB(0, 0, 0, 1, 1);
     sub_8001F64(1);

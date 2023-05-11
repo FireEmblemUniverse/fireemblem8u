@@ -8,6 +8,7 @@
 #include "bmunit.h"
 #include "prepscreen.h"
 #include "mapanim.h"
+#include "bmlib.h"
 
 void UncompMapBattleBoxNumGfx(int tileNum)
 {

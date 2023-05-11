@@ -1,5 +1,5 @@
 #include "global.h"
-
+#include "bmlib.h"
 #include "hardware.h"
 
 extern u8 cg_0_part_0_tiles[];

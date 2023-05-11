@@ -12,7 +12,7 @@
 #include "mu.h"
 #include "rng.h"
 #include "uiselecttarget.h"
-#include "sallycursor.h"
+#include "prepscreen.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "bmtrick.h"

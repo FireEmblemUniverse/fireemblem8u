@@ -10,7 +10,7 @@
 #include "soundwrapper.h"
 #include "m4a.h"
 #include "ctc.h"
-
+#include "bmlib.h"
 #include "popup.h"
 #include "functions.h"
 #include "variables.h"

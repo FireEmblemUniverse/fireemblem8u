@@ -9,7 +9,7 @@
 #include "fontgrp.h"
 #include "bmsave.h"
 #include "ctc.h"
-
+#include "bmlib.h"
 #include "ending_details.h"
 
 #include "constants/characters.h"
@@ -2123,7 +2123,7 @@ void sub_80B8014(void) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
     sub_8001F64(0);
     SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
 

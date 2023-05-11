@@ -1393,15 +1393,15 @@ _0800DF4C:
 	b _0800DFB2
 _0800DF56:
 	adds r1, r4, #0
-	bl sub_8013D20
+	bl StartLockingFadeFromBlack
 	b _0800DF6C
 _0800DF5E:
 	adds r1, r4, #0
-	bl sub_8013D08
+	bl StartLockingFadeToBlack
 	b _0800DFA2
 _0800DF66:
 	adds r1, r4, #0
-	bl sub_8013D50
+	bl StartLockingFadeFromWhite
 _0800DF6C:
 	ldrh r1, [r4, #0x3c]
 	ldr r0, _0800DF94  @ 0x0000FEFF
@@ -1427,7 +1427,7 @@ _0800DF94: .4byte 0x0000FEFF
 _0800DF98: .4byte gLCDControlBuffer
 _0800DF9C:
 	adds r1, r4, #0
-	bl sub_8013D38
+	bl StartLockingFadeToWhite
 _0800DFA2:
 	ldrh r1, [r4, #0x3c]
 	movs r2, #0x80
@@ -2986,7 +2986,7 @@ _0800EB5E:
 	strb r0, [r5, #0x18]
 _0800EB94:
 	movs r0, #1
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	movs r0, #0
@@ -3564,7 +3564,7 @@ _0800EFE2:
 	movs r3, #0
 	bl SetBlendTargetB
 	movs r0, #1
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	bl sub_8001F64
 	bl sub_800BA34

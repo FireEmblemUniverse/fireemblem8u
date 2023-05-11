@@ -542,7 +542,7 @@ _08098746:
 	negs r1, r1
 	bl LoadHelpBoxGfx
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	movs r1, #0

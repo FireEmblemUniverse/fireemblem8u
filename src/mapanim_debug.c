@@ -11,6 +11,7 @@
 #include "uiutils.h"
 #include "player_interface.h"
 #include "bm.h"
+#include "bmlib.h"
 #include "mapanim.h"
 
 /* section.bss */

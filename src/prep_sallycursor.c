@@ -29,19 +29,10 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "prepscreen.h"
-
-#include "sallycursor.h"
+#include "bmlib.h"
 
 // hino.s
-void ArchiveCurrentPalettes();
-void WriteFadedPaletteFromArchive(int, int, int, int);
 void WaitForFade(ProcPtr);
-void sub_8013800();
-void sub_8013844(ProcPtr);
-void StartFadeInBlackMedium(ProcPtr);
-void sub_8013D80(ProcPtr);
-void IntroPromoTraineeEventFace(ProcPtr);
-void sub_8013DA4(ProcPtr);
 
 // ev_triggercheck.s
 const struct UnitDefinition* GetChapterAllyUnitDataPointer();
@@ -119,7 +110,7 @@ PROC_LABEL(2),
     PROC_GOTO(0x32),
 
 PROC_LABEL(0x33),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(StartPrepAtMenu),
     PROC_WHILE(PrepAtMenuExists),
@@ -134,7 +125,7 @@ PROC_LABEL(0x32),
     PROC_CALL(RefreshUnitSprites),
     PROC_CALL(PrepScreenProc_InitMapMenu),
     PROC_CALL(sub_80334CC),
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(0x3D),
@@ -236,7 +227,7 @@ PROC_LABEL(0xB),
     PROC_GOTO(1),
 
 PROC_LABEL(0x39),
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(sub_803334C),
@@ -247,7 +238,7 @@ PROC_LABEL(0x39),
     PROC_GOTO(0x3E),
 
 PROC_LABEL(0x38),
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(sub_803334C),
@@ -258,7 +249,7 @@ PROC_LABEL(0x38),
     PROC_GOTO(0x3E),
 
 PROC_LABEL(0x3B),
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(sub_803334C),
@@ -270,7 +261,7 @@ PROC_LABEL(0x3B),
     PROC_GOTO(0x3E),
 
 PROC_LABEL(0x37),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_8034078),
     PROC_CALL(nullsub_20),
@@ -287,13 +278,13 @@ PROC_LABEL(0x3E),
     PROC_CALL(RefreshUnitSprites),
     PROC_CALL(PrepScreenProc_StartMapMenu),
     PROC_CALL(sub_80334CC),
-    PROC_CALL(sub_8013DA4),
+    PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(0x3D),
 
 PROC_LABEL(0x3C),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(HideMoveRangeGraphics),
     PROC_CALL(BMapDispSuspend),
@@ -306,7 +297,7 @@ PROC_LABEL(0x3C),
     PROC_CALL(RefreshUnitSprites),
     PROC_CALL(sub_8034194),
     PROC_CALL(sub_8033608),
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(9),
@@ -390,14 +381,14 @@ void sub_803334C() {
     return;
 }
 
-void PrepMapMenu_OnViewMap(struct UnknownSALLYCURSORProc* proc) {
+void PrepMapMenu_OnViewMap(struct ProcPrepSallyCursor* proc) {
     proc->unk_58 = 1;
     Proc_Break(proc);
     sub_803334C();
     return;
 }
 
-void PrepMapMenu_OnFormation(struct UnknownSALLYCURSORProc* proc) {
+void PrepMapMenu_OnFormation(struct ProcPrepSallyCursor* proc) {
     s16 x, y;
     proc->unk_58 = 2;
 
@@ -441,7 +432,7 @@ void SALLYCURSOR_DeploySupplyUnit() {
     return;
 }
 
-void PrepMapMenu_OnOptions(struct UnknownSALLYCURSORProc* proc) {
+void PrepMapMenu_OnOptions(struct ProcPrepSallyCursor* proc) {
     proc->unk_58 = 8;
     Proc_Goto(proc, 0x39);
     return;
@@ -461,13 +452,13 @@ void SALLYCURSOR_RemoveSupplyUnit() {
     return;
 }
 
-void PrepMapMenu_OnSave(struct UnknownSALLYCURSORProc* proc) {
+void PrepMapMenu_OnSave(struct ProcPrepSallyCursor* proc) {
     proc->unk_58 = 9;
     Proc_Goto(proc, 0x3B);
     return;
 }
 
-void sub_8033468(struct UnknownSALLYCURSORProc* proc) {
+void sub_8033468(struct ProcPrepSallyCursor* proc) {
     proc->unk_58 = 0xA;
     sub_803334C();
     StartOrphanMenu(&gDebugMenuDef);
@@ -482,7 +473,7 @@ void sub_803348C(ProcPtr proc) {
     return;
 }
 
-void PrepScreenProc_InitMapMenu(struct UnknownSALLYCURSORProc* proc) {
+void PrepScreenProc_InitMapMenu(struct ProcPrepSallyCursor* proc) {
     proc->unk_58 = 1;
     PrepScreenProc_StartMapMenu(proc);
     return;
@@ -494,21 +485,21 @@ void sub_80334CC() {
     return;
 }
 
-void sub_80334E8(int r0) {
-    sub_8013800(0xC0, 0xC0, 0xC0, 0x100, 0x100, 0x100, 0xFF00FFF0, 0x40, r0);
+void sub_80334E8(ProcPtr proc) {
+    sub_8013800(0xC0, 0xC0, 0xC0, 0x100, 0x100, 0x100, 0xFF00FFF0, 0x40, proc);
     return;
 }
 
-void sub_8033514(int r4) {
+void sub_8033514(ProcPtr proc) {
     ArchiveCurrentPalettes();
-    sub_8013800(0x100, 0x100, 0x100, 0xC0, 0xC0, 0xC0, 0xFF00FFF0, 0x40, r4);
+    sub_8013800(0x100, 0x100, 0x100, 0xC0, 0xC0, 0xC0, 0xFF00FFF0, 0x40, proc);
     return;
 }
 
 void sub_8033548(ProcPtr proc) {
     StartHelpPromptSprite(0xAA, 0x8C, 2, proc);
     Decompress(gUnknown_08A199C8, (void *) (OBJ_VRAM1 + 0x3000));
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 0;
+    ((struct ProcPrepSallyCursor*)(proc))->unk_58 = 0;
     return;
 }
 
@@ -535,7 +526,7 @@ void PrepMapMenu_OnEnd() {
     Proc_EndEach(sProcScr_SALLYCURSORHelpPrompt);
 }
 
-void PrepScreenProc_StartMapMenu(struct UnknownSALLYCURSORProc* proc) {
+void PrepScreenProc_StartMapMenu(struct ProcPrepSallyCursor* proc) {
     LoadHelpBoxGfx(0, -1);
     Font_InitForUIDefault();
     EndPlayerPhaseSideWindows();
@@ -576,7 +567,7 @@ bool8 CanCharacterBePrepMoved(int unitId) {
     return 0;
 }
 
-void sub_8033770(struct UnknownSALLYCURSORProc* proc) {
+void sub_8033770(struct ProcPrepSallyCursor* proc) {
     s16 x;
 
     proc->unk_4A = 0;
@@ -592,7 +583,7 @@ void sub_8033770(struct UnknownSALLYCURSORProc* proc) {
     return;
 }
 
-void sub_8033798(struct UnknownSALLYCURSORProc* proc) {
+void sub_8033798(struct ProcPrepSallyCursor* proc) {
     s16 y;
 
     proc->unk_34 = 0;
@@ -604,7 +595,7 @@ void sub_8033798(struct UnknownSALLYCURSORProc* proc) {
     return;
 }
 
-void sub_80337B4(struct UnknownSALLYCURSORProc* proc) {
+void sub_80337B4(struct ProcPrepSallyCursor* proc) {
     s16 x;
 
     proc->unk_34 = -2;
@@ -616,7 +607,7 @@ void sub_80337B4(struct UnknownSALLYCURSORProc* proc) {
     return;
 }
 
-void sub_80337D4(struct UnknownSALLYCURSORProc* proc) {
+void sub_80337D4(struct ProcPrepSallyCursor* proc) {
     s16 y;
 
     proc->unk_34 = 0;
@@ -628,7 +619,7 @@ void sub_80337D4(struct UnknownSALLYCURSORProc* proc) {
     return;
 }
 
-void sub_80337F0(struct UnknownSALLYCURSORProc* proc) {
+void sub_80337F0(struct ProcPrepSallyCursor* proc) {
     if ((A_BUTTON | B_BUTTON | START_BUTTON) & gKeyStatusPtr->newKeys) {
         proc->unk_4A = 1;
     }
@@ -694,7 +685,7 @@ void sub_80338C0() {
     return;
 }
 
-void sub_8033940(struct UnknownSALLYCURSORProc* proc) {
+void sub_8033940(struct ProcPrepSallyCursor* proc) {
     if (!DoesBMXFADEExist()) {
         if (proc->unk_58 == 2) {
             sub_80332D0();
@@ -764,7 +755,7 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
                     UnitBeginAction(unit);
                     gActiveUnit->state &= ~(US_HIDDEN);
 
-                    if (((struct UnknownSALLYCURSORProc*)(proc))->unk_58 == 2) {
+                    if (((struct ProcPrepSallyCursor*)(proc))->unk_58 == 2) {
                         Proc_Goto(proc, 3);
                         return;
                     }
@@ -772,7 +763,7 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
                     Proc_Goto(proc, 1);
                     return;
                 case 4:
-                    if (((struct UnknownSALLYCURSORProc*)(proc))->unk_58 == 2) {
+                    if (((struct ProcPrepSallyCursor*)(proc))->unk_58 == 2) {
                         PlaySoundEffect(0x6C);
                         return;
                     }
@@ -805,7 +796,7 @@ int sub_8033BF8() {
     return 0x17;
 }
 
-void SALLYCURSOR6C_StartUnitSwap(struct UnknownSALLYCURSORProc* proc) {
+void SALLYCURSOR6C_StartUnitSwap(struct ProcPrepSallyCursor* proc) {
     struct APHandle* ap = AP_Create(gUnknown_085A0EA0, 0);
     ap->tileBase = 0;
     AP_SwitchAnimation(ap, 0);
@@ -823,7 +814,7 @@ void SALLYCURSOR6C_StartUnitSwap(struct UnknownSALLYCURSORProc* proc) {
     return;
 }
 
-void sub_8033C90(struct UnknownSALLYCURSORProc* proc) {
+void sub_8033C90(struct ProcPrepSallyCursor* proc) {
     s8 r7 = ((s8**) gBmMapRange)[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
     u32 xLoc, yLoc;
 

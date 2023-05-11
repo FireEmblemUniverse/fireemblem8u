@@ -22,7 +22,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "prepscreen.h"
-
+#include "bmlib.h"
 #include "constants/classes.h"
 
 #include "statscreen.h"
@@ -1653,7 +1653,7 @@ void StatScreen_BlackenScreen(void)
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
-    sub_8001F48(1);
+    SetBlendBackdropA(1);
     sub_8001F64(0);
 
     // TODO: ResetBackdropColor macro?
@@ -1826,7 +1826,7 @@ void StatScreen_OnIdle(struct Proc* proc)
         SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 
         SetBlendTargetA(0, 0, 0, 0, 0);
-        sub_8001F48(1);
+        SetBlendBackdropA(1);
 
         // TODO: ResetBackdropColor macro?
         gPaletteBuffer[0] = 0;

@@ -4,6 +4,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "efxbattle.h"
+#include "bmlib.h"
 
 /*
 The opening monologue that introduces the Sacred Stones / associated lore.
@@ -658,7 +659,7 @@ void sub_80C5218(struct OpSubtitleProc* proc) {
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(1, 1, 0, 0, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
     sub_8001F64(0);
 
     BG_SetPosition(0, 0, 0);
@@ -827,7 +828,7 @@ PROC_LABEL(5),
 
     PROC_CALL(sub_80C5400),
 
-    PROC_CALL(sub_8013D74),
+    PROC_CALL(StartSlowFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_SLEEP(30),
 
@@ -837,7 +838,7 @@ PROC_LABEL(6), // ended due to Start Button press
     PROC_END_EACH(gProcScr_OpSubtitle_LightFlareFx),
     PROC_END_EACH(gProcScr_08AA2184),
 
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_SLEEP(10),

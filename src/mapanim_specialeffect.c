@@ -13,6 +13,7 @@
 #include "bmmap.h"
 #include "bmudisp.h"
 #include "mapanim.h"
+#include "bmlib.h"
 
 void MapAnim_BeginMISSAnim(struct Unit* unit)
 {

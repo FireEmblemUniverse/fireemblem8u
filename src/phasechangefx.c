@@ -10,6 +10,7 @@
 #include "bmphase.h"
 #include "bmunit.h"
 #include "bm.h"
+#include "bmlib.h"
 #include "constants/video-global.h"
 
 /*
