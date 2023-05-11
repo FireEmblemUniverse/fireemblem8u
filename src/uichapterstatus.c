@@ -4,7 +4,7 @@
 #include "hardware.h"
 #include "fontgrp.h"
 #include "uiutils.h"
-#include "sallycursor.h"
+#include "prepscreen.h"
 #include "statscreen.h"
 #include "chapterdata.h"
 #include "m4a.h"
@@ -15,7 +15,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmsave.h"
-
+#include "bmlib.h"
 #include "uichapterstatus.h"
 
 #include "constants/characters.h"
@@ -127,9 +127,9 @@ void ChapterStatus_OnEnd(struct ChapterStatusProc* proc);
 void ChapterStatus_MaybeFocusLeaderUnit(struct ChapterStatusProc* proc);
 
 struct ProcCmd CONST_DATA gProcScr_ChapterStatusScreen[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
-    PROC_CALL(sub_8013D80),
+    PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
 
@@ -149,13 +149,13 @@ PROC_LABEL(1),
 
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
-    PROC_CALL(sub_8013DA4),
+    PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(ChapterStatus_MaybeFocusLeaderUnit),
     PROC_SLEEP(0),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };
@@ -685,7 +685,7 @@ void DrawChapterStatusTextForUnit(struct Unit* unit) {
 
     SetSpecialColorEffectsParameters(1, 13, 3, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
 
     sub_8001F64(0);
 

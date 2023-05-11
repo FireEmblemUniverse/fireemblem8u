@@ -9,7 +9,7 @@
 #include "fontgrp.h"
 #include "uiutils.h"
 #include "bm.h"
-
+#include "bmlib.h"
 #include "minimap.h"
 
 struct MinimapProc {
@@ -57,7 +57,7 @@ void Minimap_LoopRotateOut(struct MinimapProc* proc);
 void Minimap_AdjustCursorOnClose(struct MinimapProc* proc);
 
 struct ProcCmd CONST_DATA gProcScr_Minimap[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
     PROC_SLEEP(0),
 
@@ -86,7 +86,7 @@ struct ProcCmd CONST_DATA gProcScr_Minimap[] = {
     PROC_CALL(Font_InitForUIDefault),
     PROC_CALL(LoadObjUIGfx),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };

@@ -11,7 +11,7 @@
 #include "bm.h"
 #include "ap.h"
 #include "gamecontrol.h"
-
+#include "bmlib.h"
 #include "savemenu.h"
 
 struct Unknown203EF64 {
@@ -396,7 +396,7 @@ void sub_80A8AF0(void) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
     sub_8001F64(0);
 
     SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
@@ -426,7 +426,7 @@ void SaveMenu_Init(void) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
     sub_8001F64(0);
 
     SetSpecialColorEffectsParameters(1, 6, 0x10, 0);

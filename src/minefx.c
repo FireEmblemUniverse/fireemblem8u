@@ -8,6 +8,7 @@
 #include "bmfx.h"
 #include "ap.h"
 #include "soundwrapper.h"
+#include "bmlib.h"
 
 /**
  * Map effect happening when a mine is being set

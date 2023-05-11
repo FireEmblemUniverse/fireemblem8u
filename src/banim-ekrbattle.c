@@ -28,7 +28,7 @@ void NewEkrBattleDeamon(void)
 {
     gpProcEkrBattleDeamon = Proc_Start(gProc_ekrBattleDeamon, PROC_TREE_3);
     gBattleDeamonActive = true;
-    AddSkipThread2();
+    LockGame();
 }
 
 void EndEkrBattleDeamon(void)
@@ -47,7 +47,7 @@ int IsBattleDeamonActive(void)
 void ekrBattleDeamon_Destructor(void)
 {
     gBattleDeamonActive = false;
-    SubSkipThread2();
+    UnlockGame();
 }
 
 void nullsub_35(void)
@@ -116,7 +116,7 @@ void MainUpdateEkrBattle(void)
     ClearSprites();
     sub_8071A8C();
 
-    if (GetThread2SkipStack() == 0)
+    if (GetGameLock() == 0)
         Proc_Run(gProcTreeRootArray[2]);
     
     Proc_Run(gProcTreeRootArray[3]);
@@ -574,7 +574,7 @@ void ekrBattleExecExpGain(struct ProcEkrBattle *proc)
     gLCDControlBuffer.wincnt.win0_enableBlend = 0;
     gLCDControlBuffer.wincnt.wout_enableBlend = 0;
 
-    RegisterTileGraphics(gUnknown_08802D44, (void *)0x6002000, 0x300);
+    RegisterDataMove(gUnknown_08802D44, (void *)0x6002000, 0x300);
     sub_8070E94(gUnknown_08803524, TILEMAP_LOCATED(gBG1TilemapBuffer, 6, 17), 18, 3, 1, 0x100);
     CpuFastSet(gUnknown_08803590, &gPaletteBuffer[0x10], 8);
     BG_EnableSyncByMask(2);
@@ -619,7 +619,7 @@ void ekrBattleExecExpGain(struct ProcEkrBattle *proc)
 
     CpuFastSet(&gUnknown_088033C4[val2 * 0x10], &buf0[0xD0], 8);
     CpuFastSet(&gUnknown_088033C4[val3 * 0x10], &buf0[0xE0], 8);
-    RegisterTileGraphics(buf0, (void *)0x60021A0, 0x1E0);
+    RegisterDataMove(buf0, (void *)0x60021A0, 0x1E0);
 
     proc->timer = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_80508F0;
@@ -675,7 +675,7 @@ void ekrBattleWaitExpBarIdle(struct ProcEkrBattle *proc)
 
     CpuFastSet(&gUnknown_088033C4[val2 * 0x10], &buf0[0xD0], 8);
     CpuFastSet(&gUnknown_088033C4[val3 * 0x10], &buf0[0xE0], 8);
-    RegisterTileGraphics(buf0, (void *)0x60021A0, 0x1E0);
+    RegisterDataMove(buf0, (void *)0x60021A0, 0x1E0);
 
     if (++proc->timer > proc->end) {
         proc->timer = 0;

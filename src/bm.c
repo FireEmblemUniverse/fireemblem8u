@@ -17,7 +17,7 @@
 #include "face.h"
 #include "icon.h"
 #include "uiutils.h"
-
+#include "bmlib.h"
 #include "soundwrapper.h"
 #include "bmmap.h"
 #include "bmphase.h"
@@ -150,7 +150,7 @@ PROC_LABEL(4),
     PROC_CALL(RenderBmMap),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(5),
@@ -159,7 +159,7 @@ PROC_LABEL(6),
     PROC_CALL(RenderBmMap),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_REPEAT(BmMain_ResumePlayerPhase),
@@ -180,7 +180,7 @@ PROC_LABEL(8),
     PROC_CALL(RenderBmMap),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(9),
@@ -189,7 +189,7 @@ PROC_LABEL(7),
     PROC_CALL(RenderBmMap),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),
@@ -378,7 +378,7 @@ void OnGameLoopMain(void) {
 
     Proc_Run(gProcTreeRootArray[1]);
 
-    if (GetThread2SkipStack() == 0) {
+    if (GetGameLock() == 0) {
         Proc_Run(gProcTreeRootArray[2]);
     }
 
@@ -399,19 +399,19 @@ void OnGameLoopMain(void) {
 }
 
 //! FE8U = 0x08015360
-void AddSkipThread2(void) {
+void LockGame(void) {
     gBmSt.gameLogicSemaphore++;
     return;
 }
 
 //! FE8U = 0x08015370
-void SubSkipThread2(void) {
+void UnlockGame(void) {
     gBmSt.gameLogicSemaphore--;
     return;
 }
 
 //! FE8U = 0x08015380
-u8 GetThread2SkipStack(void) {
+u8 GetGameLock(void) {
     return gBmSt.gameLogicSemaphore;
 }
 
@@ -625,7 +625,7 @@ void InitBmBgLayers(void) {
 //! FE8U = 0x08015680
 void LoadObjUIGfx(void) {
     Decompress(gGfx_MiscUiGraphics, gGenericBuffer);
-    CopyTileGfxForObj(gGenericBuffer, (void*)0x06010000, 0x12, 4);
+    Copy2dChr(gGenericBuffer, (void*)0x06010000, 0x12, 4);
 
     CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x200, 0x40);
 

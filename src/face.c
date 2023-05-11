@@ -6,6 +6,7 @@
 #include "hardware.h"
 #include "rng.h"
 #include "bm.h"
+#include "bmlib.h"
 #include "prepscreen.h"
 #include "constants/faces.h"
 
@@ -646,7 +647,7 @@ void PutFaceTm(u16* tm, u8* data, int tileref, s8 isFlipped) {
 //! FE8U = 0x08005924
 void UnpackFaceChibiGraphics(int fid, int chr, int pal) {
     if (fid >= FID_FACTION_CHIBI) {
-        RegisterTileGraphics(sub_8005F6C(fid), (void *)(((chr * CHR_SIZE + VRAM) & 0x1FFFF) + VRAM), 0x200);
+        RegisterDataMove(sub_8005F6C(fid), (void *)(((chr * CHR_SIZE + VRAM) & 0x1FFFF) + VRAM), 0x200);
         sub_8005F9C(fid, pal);
     } else {
         const struct FaceData* info = GetPortraitData(fid);
@@ -674,10 +675,10 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal) {
     chr += 0x800;
 
     if (fid >= FID_FACTION_CHIBI) {
-        RegisterTileGraphics(sub_8005F6C(fid) + 0x00, (void *)(((chr + 0x00) * 0x20 & 0x1FFFF) + VRAM), 0x80);
-        RegisterTileGraphics(sub_8005F6C(fid) + 0x80, (void *)(((chr + 0x20) * 0x20 & 0x1FFFF) + VRAM), 0x80);
-        RegisterTileGraphics(sub_8005F6C(fid) + 0x100, (void *)(((chr + 0x04) * 0x20 & 0x1FFFF) + VRAM), 0x80);
-        RegisterTileGraphics(sub_8005F6C(fid) + 0x180, (void *)(((chr + 0x24) * 0x20 & 0x1FFFF) + VRAM), 0x80);
+        RegisterDataMove(sub_8005F6C(fid) + 0x00, (void *)(((chr + 0x00) * 0x20 & 0x1FFFF) + VRAM), 0x80);
+        RegisterDataMove(sub_8005F6C(fid) + 0x80, (void *)(((chr + 0x20) * 0x20 & 0x1FFFF) + VRAM), 0x80);
+        RegisterDataMove(sub_8005F6C(fid) + 0x100, (void *)(((chr + 0x04) * 0x20 & 0x1FFFF) + VRAM), 0x80);
+        RegisterDataMove(sub_8005F6C(fid) + 0x180, (void *)(((chr + 0x24) * 0x20 & 0x1FFFF) + VRAM), 0x80);
 
         sub_8005F9C(fid, pal + 0x10);
     } else {
@@ -825,7 +826,7 @@ void PutFace80x72_Core(u16* tm, int fid, int chr, int pal) {
 
     } else {
         Decompress(info->imgCard, (void*)(chr * CHR_SIZE + VRAM));
-        sub_8013104(tm, (pal << 12) + (0x3FF & chr), 10, 9);
+        PutAppliedBitmap(tm, (pal << 12) + (0x3FF & chr), 10, 9);
     }
 
     return;
@@ -954,8 +955,8 @@ void EndFaceIn8Frames(struct FaceProc* target) {
 void StartFaceFadeIn(struct FaceProc* proc) {
     const struct FaceData* info = GetPortraitData(proc->faceId);
 
-    sub_8013A84(sFaceConfig[proc->faceSlot].paletteId + 0x10);
-    NewEkrDragonPalFadeIn(info->pal, sFaceConfig[proc->faceSlot].paletteId + 0x10, 12, proc);
+    SetBlackPal(sFaceConfig[proc->faceSlot].paletteId + 0x10);
+    StartPalFade(info->pal, sFaceConfig[proc->faceSlot].paletteId + 0x10, 12, proc);
 
     return;
 }
@@ -966,7 +967,7 @@ void StartFaceFadeOut(struct FaceProc* proc) {
     // unused
     const struct FaceData* info = GetPortraitData(proc->faceId);
 
-    sub_80138F0(sFaceConfig[proc->faceSlot].paletteId + 0x10, 12, proc);
+    StartPalFadeToBlack(sFaceConfig[proc->faceSlot].paletteId + 0x10, 12, proc);
 
     EndFaceIn8Frames(proc);
 
@@ -1032,7 +1033,7 @@ void sub_8005FE0(struct FaceBlinkProc* proc) {
         int offsetA = (GetFaceDisplayBits(proc->pFaceProc) & FACE_DISP_SMILE) ? 0 : 24;
         offsetA += 16;
 
-        RegisterObjectTileGraphics(
+        Register2dChrMove(
             proc->pFaceProc->pFaceInfo->imgMouth + offsetA * 0x20,
             (void*)(((proc->pFaceProc->oam2 + 28) & 0x3FF) * 0x20 + 0x06010000),
             4,
@@ -1064,7 +1065,7 @@ void sub_8005FE0(struct FaceBlinkProc* proc) {
                     break;
             }
 
-            RegisterObjectTileGraphics(
+            Register2dChrMove(
                 proc->pFaceProc->pFaceInfo->imgMouth + offsetB * 0x20,
                 (void*)(((proc->pFaceProc->oam2 + 28) & 0x3FF) * 0x20 + 0x06010000),
                 4,

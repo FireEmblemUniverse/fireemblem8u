@@ -57,7 +57,7 @@ void Destruct6CBMXFADE(struct BmxfadeProc *proc)
     SetAllUnitNotBackSprite();
 
     if (0 != proc->game_lock)
-        SubSkipThread2();
+        UnlockGame();
 }
 
 void NewBMXFADE(s8 lock_game)
@@ -66,7 +66,7 @@ void NewBMXFADE(s8 lock_game)
     proc->game_lock = lock_game;
 
     if (0 != lock_game)
-        AddSkipThread2();
+        LockGame();
 }
 
 void MakeNew6CBMXFADE2(s8 lock_game, ProcPtr parent)
@@ -77,7 +77,7 @@ void MakeNew6CBMXFADE2(s8 lock_game, ProcPtr parent)
     proc->game_lock = lock_game;
 
     if (0 != lock_game)
-        AddSkipThread2();
+        LockGame();
 }
 
 bool8 DoesBMXFADEExist(void)

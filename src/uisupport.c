@@ -16,6 +16,7 @@
 #include "soundwrapper.h"
 #include "event.h"
 #include "bmsave.h"
+#include "bmlib.h"
 #include "prepscreen.h"
 
 struct SupportScreenUnit {
@@ -835,7 +836,7 @@ PROC_LABEL(0),
     PROC_CALL(SupportScreen_SetupGraphics),
     PROC_WHILE(IsMusicProc2Running),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_WHILE(MusicProc4Exists),
@@ -862,7 +863,7 @@ PROC_LABEL(2),
 PROC_LABEL(3),
     PROC_CALL(SupportScreen_RestartSourceScreenMusic),
 
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(SupportScreen_OnEnd),
@@ -1391,7 +1392,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
     sub_8001F64(0);
 
     EndSlidingWallEffectMaybe();
@@ -1732,7 +1733,7 @@ void SupportSubScreen_EndSwapPage(struct SubScreenProc* proc) {
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(1, 1, 1, 1, 1);
 
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
     sub_8001F64(0);
 
     if (proc->fromPrepScreen == 0) {

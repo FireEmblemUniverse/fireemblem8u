@@ -2276,7 +2276,7 @@ _0805AAF0:
 	lsls r5, r5, #4
 	adds r0, r3, #0
 	adds r2, r5, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	movs r1, #0xa
 	ldrsh r0, [r6, r1]
 	lsls r0, r0, #5
@@ -2285,7 +2285,7 @@ _0805AAF0:
 	adds r1, r1, r0
 	adds r0, r7, #0
 	adds r2, r5, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	movs r2, #2
 	ldrsh r1, [r6, r2]
 	lsls r1, r1, #5
@@ -2320,7 +2320,7 @@ _0805AB74:
 	movs r2, #0x80
 	lsls r2, r2, #4
 	adds r0, r3, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	movs r0, #2
 	ldrsh r1, [r6, r0]
 	lsls r1, r1, #5
@@ -2342,7 +2342,7 @@ _0805ABA2:
 	movs r2, #0x80
 	lsls r2, r2, #4
 	adds r0, r7, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	movs r0, #8
 	ldrsh r1, [r6, r0]
 	lsls r1, r1, #5

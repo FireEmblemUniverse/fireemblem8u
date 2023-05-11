@@ -13,7 +13,7 @@
 #include "event.h"
 #include "bmitem.h"
 #include "bmbattle.h"
-#include "sallycursor.h"
+#include "prepscreen.h"
 #include "bmtrick.h"
 #include "bmio.h"
 #include "hardware.h"
@@ -1116,12 +1116,12 @@ void sub_801D834() {
 
 void MoveLimitViewChange_OnInit(struct MoveLimitViewProc* proc) {
 
-    RegisterTileGraphics(gUnknown_08A02EB4, (u8*)VRAM + 0x5080, 0x80);
+    RegisterDataMove(gUnknown_08A02EB4, (u8*)VRAM + 0x5080, 0x80);
 
     if (!(gBmSt.gameStateBits & (1 << 0))) {
         proc->unk_4C = 2;
     } else {
-        RegisterTileGraphics(gUnknown_08A02EB4, (u8*)VRAM + 0x5000, 0x80);
+        RegisterDataMove(gUnknown_08A02EB4, (u8*)VRAM + 0x5000, 0x80);
         Proc_End(proc);
     }
 
@@ -1130,7 +1130,7 @@ void MoveLimitViewChange_OnInit(struct MoveLimitViewProc* proc) {
 
 void MoveLimitViewChange_OnLoop(struct MoveLimitViewProc* proc) {
 
-    RegisterTileGraphics(gUnknown_0859AD08[proc->unk_4C], (u8*)VRAM + 0x5000, 0x80);
+    RegisterDataMove(gUnknown_0859AD08[proc->unk_4C], (u8*)VRAM + 0x5000, 0x80);
 
     proc->unk_4C++;
 
@@ -1167,7 +1167,7 @@ void MoveLimitView_OnInit(ProcPtr proc) {
     SetSpecialColorEffectsParameters(1, 10, 6, 0);
 
     SetBlendTargetA(0, 0, 1, 0, 0);
-    sub_8001F48(0);
+    SetBlendBackdropA(0);
 
     SetBlendTargetB(0, 0, 0, 1, 1);
     sub_8001F64(1);

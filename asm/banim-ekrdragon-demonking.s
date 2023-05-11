@@ -190,17 +190,17 @@ sub_80773E4: @ 0x080773E4
 	lsls r0, r0, #1
 	cmp r1, r0
 	bne _08077436
-	ldr r4, _08077458  @ gUnknown_0859A120
+	ldr r4, _08077458  @ Pal_AllBlack
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #0xf0
 	adds r3, r5, #0
-	bl NewEkrDragonPalFadeIn
+	bl StartPalFade
 	adds r0, r4, #0
 	movs r1, #6
 	movs r2, #0xf0
 	adds r3, r5, #0
-	bl NewEkrDragonPalFadeIn
+	bl StartPalFade
 _08077436:
 	ldr r0, _0807745C  @ gUnknown_08801810
 	bl Proc_Find
@@ -217,7 +217,7 @@ _0807744E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08077458: .4byte gUnknown_0859A120
+_08077458: .4byte Pal_AllBlack
 _0807745C: .4byte gUnknown_08801810
 
 	THUMB_FUNC_END sub_80773E4
@@ -1473,7 +1473,7 @@ sub_8077DC8: @ 0x08077DC8
 	movs r1, #0
 	bl sub_8077EAC
 	movs r0, #1
-	bl sub_8013A84
+	bl SetBlackPal
 	bl EnablePaletteSync
 	add r1, sp, #8
 	movs r0, #0

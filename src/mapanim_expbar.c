@@ -34,17 +34,17 @@ void ProcMAExpBar_OnDraw(struct MAExpBarProc* proc)
     // TODO: ApplyTileImages macros?
     // TODO: BM_BGCHR_...?
 
-    RegisterTileGraphics(
+    RegisterDataMove(
         gUnknown_08802D44,
         (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 512 * 0x20,
         13 * 0x20);
 
-    RegisterTileGraphics(
+    RegisterDataMove(
         gUnknown_088030C4,
         (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 525 * 0x20,
         24 * 0x20);
 
-    RegisterTileGraphics(
+    RegisterDataMove(
         gUnknown_088033C4,
         (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 549 * 0x20,
         11 * 0x20);

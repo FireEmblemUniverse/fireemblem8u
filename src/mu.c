@@ -16,6 +16,7 @@
 #include "m4a.h"
 #include "mapanim.h"
 #include "mu.h"
+#include "bmlib.h"
 #include "proc.h"
 #include "soundwrapper.h"
 #include "spellassoc.h"
@@ -160,8 +161,8 @@ static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
 #endif // CONST_DATA
 
 static const u16* CONST_DATA sMUFlashColorLookup[] = {
-    gUnknown_0859A140,
-    gUnknown_0859A120,
+    Pal_AllWhite,
+    Pal_AllBlack,
     gUnknown_0859A160,
     gUnknown_0859A180,
     gUnknown_0859A1A0,
@@ -832,12 +833,12 @@ static void MU_StepSound_OnInit(struct MUStepSoundProc* proc) {
 }
 
 static void MU_StepSound_OnFirstSound(struct MUStepSoundProc* proc) {
-    PlaySpacialSoundMaybe(proc->idSound1, proc->xSound1);
+    PlaySeSpacial(proc->idSound1, proc->xSound1);
 }
 
 static void MU_StepSound_OnSecondSound(struct MUStepSoundProc* proc) {
     if (proc->idSound2)
-        PlaySpacialSoundMaybe(proc->idSound2, proc->xSound2);
+        PlaySeSpacial(proc->idSound2, proc->xSound2);
 }
 
 void MU_StartStepSfx(int soundId, int b, int hPosition) {
@@ -1568,7 +1569,7 @@ static void MU_PixelEffect_OnLoop(struct MUEffectProc* proc) {
     proc->frameIndex++;
 
     // TODO: FIXME: This may be bugged?
-    RegisterTileGraphics(
+    RegisterDataMove(
         gMUGfxBuffer,
         OBJ_VRAM0 + (MU_BASE_OBJ_TILE * 0x20),
         (0x80 * 0x20)
@@ -1625,7 +1626,7 @@ void MU_StartFlashFade(struct MUProc* proc, int flashType) {
         (0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
     );
 
-    NewEkrDragonPalFadeIn(
+    StartPalFade(
         sMUFlashColorLookup[flashType],
         0x15, 8, (struct Proc*) proc
     );
@@ -1634,7 +1635,7 @@ void MU_StartFlashFade(struct MUProc* proc, int flashType) {
 void MU_8079858(struct MUProc* muProc) {
     struct MUEffectProc* proc;
 
-    NewEkrDragonPalFadeIn(
+    StartPalFade(
         gPaletteBuffer + (0x10 * (0x10 + muProc->pMUConfig->paletteIndex)),
         0x15, 8, (struct Proc*) muProc
     );
@@ -1735,7 +1736,7 @@ static void MU_CritFlash_SetRegularPalette(struct MUFlashEffectProc* proc) {
 }
 
 static void MU_CritFlash_StartFadeBack_maybe(struct MUFlashEffectProc* proc) {
-    NewEkrDragonPalFadeIn(
+    StartPalFade(
         gPaletteBuffer + 0x10 * (0x10 + proc->pMUProc->pMUConfig->paletteIndex),
         0x15, 0x14, (struct Proc*) proc
     );
@@ -1770,7 +1771,7 @@ void MU_StartHitFlash(struct MUProc* muProc, int flashType) {
     muProc->pAPHandle->tileBase =
         (MU_FADE_OBJ_PAL << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
 
-    NewEkrDragonPalFadeIn(
+    StartPalFade(
         gPaletteBuffer + 0x10 * (0x10 + muProc->pMUConfig->paletteIndex),
         0x15, 0x14, (struct Proc*) muProc
     );

@@ -7,6 +7,7 @@
 #include "rng.h"
 #include "ctc.h"
 #include "bmfx.h"
+#include "bmlib.h"
 
 /**
  * Some effect proc emitting little white stars. Seems unused
@@ -208,7 +209,7 @@ void StartEmitStarsAnim(ProcPtr parent, int xloc, int yloc, int xdiff, int ydiff
 {
     struct ProcEmitStars *proc;
 
-    RegisterTileGraphics(
+    RegisterDataMove(
         Img_EmitedStar,
         OBJ_CHR_ADDR(OBJCHR_EMITSTARTS),
         0x20

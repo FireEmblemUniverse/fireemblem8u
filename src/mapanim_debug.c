@@ -11,6 +11,7 @@
 #include "uiutils.h"
 #include "player_interface.h"
 #include "bm.h"
+#include "bmlib.h"
 #include "mapanim.h"
 
 /* section.bss */
@@ -411,7 +412,7 @@ CONST_DATA struct MADebugInfo* pMADebugInfoData = &MADebugInfoData;
 
 CONST_DATA struct ProcCmd ProcScr_MADebug[] = {
     PROC_SLEEP(0x1),
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(EndPlayerPhaseSideWindows),
     PROC_SLEEP(0x1),
     PROC_CALL(InitDebugMapAnim),

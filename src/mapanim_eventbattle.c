@@ -36,7 +36,7 @@ void MapEventBattle_OnEnd(void)
 
 /* section.data */
 CONST_DATA struct ProcCmd ProcScr_MapAnimEventBattle[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(_InitFontForUIDefault),
     PROC_SLEEP(0x1),
     PROC_SLEEP(0x5),
@@ -55,7 +55,7 @@ PROC_LABEL(0x1),
     PROC_WHILE_EXISTS(gProcScr_MUDeathFade),
     PROC_CALL(DeleteBattleAnimInfoThing),
     PROC_SLEEP(0x1),
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
     PROC_CALL(MapEventBattle_OnEnd),
     PROC_END
 };

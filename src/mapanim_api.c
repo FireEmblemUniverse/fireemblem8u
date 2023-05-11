@@ -319,7 +319,7 @@ const u8 gUnknown_08205714[4] = {
 
 /* section.data */
 CONST_DATA struct ProcCmd ProcScr_MapAnimDance[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
     PROC_SLEEP(0x2),
     PROC_SLEEP(0x14),
@@ -333,7 +333,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimDance[] = {
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimBattle[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(_InitFontForUIDefault),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
@@ -373,7 +373,7 @@ CONST_DATA struct ProcCmd gProc_MapAnimEnd[] = {
     PROC_YIELD,
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
     PROC_SLEEP(0x2),
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
     PROC_CALL(MapAnim_Cleanup),
     PROC_END
 };

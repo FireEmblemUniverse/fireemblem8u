@@ -6,6 +6,7 @@
 #include "hardware.h"
 #include "bmudisp.h"
 #include "bmfx.h"
+#include "bmlib.h"
 #include "soundwrapper.h"
 
 /**

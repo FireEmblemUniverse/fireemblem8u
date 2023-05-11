@@ -3,6 +3,7 @@
 #include "hardware.h"
 #include "chap_title.h"
 #include "chapterdata.h"
+#include "bmlib.h"
 
 extern ChapTitle chap_title_data[];
 

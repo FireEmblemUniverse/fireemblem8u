@@ -15,7 +15,7 @@
 #include "bmreliance.h"
 #include "bmtrick.h"
 #include "monstergen.h"
-#include "sallycursor.h"
+#include "prepscreen.h"
 #include "uiselecttarget.h"
 #include "bmdifficulty.h"
 #include "cp_utility.h"

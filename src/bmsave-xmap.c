@@ -8,6 +8,7 @@
 #include "bmbattle.h"
 #include "chapterdata.h"
 #include "bmmap.h"
+#include "bmlib.h"
 
 EWRAM_DATA struct ExtraMapSaveHead gExtraMapSaveHead = {0};
 EWRAM_DATA struct ChapterStats gExtraMapStatus = {0};

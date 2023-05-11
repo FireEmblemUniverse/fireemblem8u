@@ -19,7 +19,7 @@
 #include "trapfx.h"
 #include "bmudisp.h"
 #include "bm.h"
-
+#include "bmlib.h"
 #include "bmusailment.h"
 
 extern u16 gUnknown_08A032AC[];

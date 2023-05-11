@@ -10,7 +10,7 @@
 #include "mu.h"
 
 #include "bmudisp.h"
-
+#include "bmlib.h"
 #include "constants/terrains.h"
 
 /**
@@ -1112,22 +1112,22 @@ void ForceSyncUnitSpriteSheet(void) {
     frame = GetGameClock() % 72;
 
     if (frame >= 68) {
-        RegisterTileGraphics(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
+        RegisterDataMove(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
         return;
     }
 
     if (frame >= 36) {
-        RegisterTileGraphics(gSMSGfxBuffer[2], (void*)0x06011000, sizeof(gSMSGfxBuffer[2]));
+        RegisterDataMove(gSMSGfxBuffer[2], (void*)0x06011000, sizeof(gSMSGfxBuffer[2]));
         return;
     }
 
     if (frame >= 32) {
-        RegisterTileGraphics(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
+        RegisterDataMove(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
         return;
     }
 
     if (frame >= 0) {
-        RegisterTileGraphics(gSMSGfxBuffer[0], (void*)0x06011000, sizeof(gSMSGfxBuffer[0]));
+        RegisterDataMove(gSMSGfxBuffer[0], (void*)0x06011000, sizeof(gSMSGfxBuffer[0]));
         return;
     }
 
@@ -1207,7 +1207,7 @@ void sub_8027068(int frameId, u8* dst) {
         u32 a = off + 0 * CHR_SIZE + i * CHR_SIZE * CHR_LINE;
         u32 b = off + 1 * CHR_SIZE + i * CHR_SIZE * CHR_LINE;
 
-        RegisterTileGraphics(
+        RegisterDataMove(
             src + a,
             dst + b,
             2 * CHR_SIZE
@@ -1249,7 +1249,7 @@ void sub_80270DC(int frameId, u8* dst) {
     }
 
     for (a = frameId * CHR_SIZE, i = 0; i <= 3; a += CHR_SIZE * CHR_LINE, i++) {
-        RegisterTileGraphics(
+        RegisterDataMove(
             src + (a),
             dst + (a),
             4 * CHR_SIZE);

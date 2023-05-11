@@ -14,7 +14,7 @@
 #include "bmmap.h"
 #include "statscreen.h"
 #include "bm.h"
-
+#include "bmlib.h"
 #include "bksel.h"
 
 extern u16 gBmFrameTmap0[];
@@ -432,7 +432,7 @@ void InitBattleForecastFramePalettes() {
 void BattleForecast_Init(struct BattleForecastProc* proc) {
 
     Decompress(gBattleForecast_x2x4Gfx, gGenericBuffer);
-    CopyTileGfxForObj(gGenericBuffer, (void*)0x06015D00, 4, 2);
+    Copy2dChr(gGenericBuffer, (void*)0x06015D00, 4, 2);
     CopyToPaletteBuffer(gBattleForecast_x2x4Pal, 0x240, 0x20);
 
     Font_ResetAllocation();

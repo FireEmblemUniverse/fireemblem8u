@@ -4,6 +4,7 @@
 #include "bmio.h"
 #include "bmitem.h"
 #include "bmunit.h"
+#include "bmlib.h"
 
 const char *gUnknown_08591AA4[][2] =
 {

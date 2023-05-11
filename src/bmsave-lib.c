@@ -6,6 +6,7 @@
 #include "bmreliance.h"
 #include "bmsave.h"
 #include "sram-layout.h"
+#include "bmlib.h"
 
 // TODO: Should be in "bmsave.h", but doing so causes a non-match (implicit declaration?) in "bonusclaim.c"
 bool LoadBonusContentData(void *buf);

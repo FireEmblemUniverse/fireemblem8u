@@ -19,6 +19,7 @@
 #include "bmmap.h"
 #include "bm.h"
 #include "spellassoc.h"
+#include "bmlib.h"
 #include "constants/characters.h"
 #include "constants/items.h"
 #include "constants/classes.h"
@@ -352,7 +353,7 @@ void sub_807ACEC(void)
 */
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimPoisonDmg[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
     PROC_SLEEP(0x2),
     PROC_CALL(MapAnim_InitInfoBox),
@@ -363,7 +364,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimPoisonDmg[] = {
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimEggDmg[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
     PROC_SLEEP(0x2),
     PROC_CALL(MapAnim_InitInfoBox),
@@ -376,7 +377,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimEggDmg[] = {
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimCritAtk[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
     PROC_SLEEP(0x2),
     PROC_CALL(MapAnim_InitInfoBox),
@@ -387,7 +388,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimCritAtk[] = {
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimSteal[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_CALL(MapAnim_MoveCameraOntoTarget),
     PROC_SLEEP(0x2),
     PROC_CALL(MapAnim_MoveCameraOntoSubject),

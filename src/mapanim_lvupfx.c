@@ -7,6 +7,7 @@
 #include "ctc.h"
 #include "constants/video-global.h"
 #include "mapanim.h"
+#include "bmlib.h"
 
 void PutManimLevelUpFrame(int actor_id, int x, int y)
 {

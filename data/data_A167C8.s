@@ -110,10 +110,10 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word AddSkipThread2
+        .word LockGame
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -125,7 +125,7 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word sub_8091180
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -140,7 +140,7 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word sub_8091AEC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -158,13 +158,13 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word MU_EndAll
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
-        .word SubSkipThread2
+        .word UnlockGame
         @ PROC_GOTO
         .short 0xc, 0x4
         .word 0x0
@@ -225,7 +225,7 @@ gUnknown_08A178C0:  @ 0x08A178C0
         .word sub_8091180
         @ PROC_CALL
         .short 0x2, 0x0
-        .word IntroPromoTraineeEventFace
+        .word StartMidFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -240,7 +240,7 @@ gUnknown_08A178C0:  @ 0x08A178C0
         .word sub_8091AEC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word StartFadeInBlackMedium
+        .word StartMidFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -304,7 +304,7 @@ gUnknown_08A17990:  @ 0x08A17990
         .word sub_8091180
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -319,7 +319,7 @@ gUnknown_08A17990:  @ 0x08A17990
         .word sub_8091AEC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -365,13 +365,13 @@ gUnknown_08A17A30:  @ 0x08A17A30
         .word 0x8205b74
         @ PROC_CALL
         .short 0x2, 0x0
-        .word AddSkipThread2
+        .word LockGame
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8091180
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013DA4
+        .word StartFastFadeFromBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -386,7 +386,7 @@ gUnknown_08A17A30:  @ 0x08A17A30
         .word sub_8091AEC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D80
+        .word StartFastFadeToBlack
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade
@@ -395,7 +395,7 @@ gUnknown_08A17A30:  @ 0x08A17A30
         .word sub_8091C00
         @ PROC_CALL
         .short 0x2, 0x0
-        .word SubSkipThread2
+        .word UnlockGame
         @ PROC_GOTO
         .short 0xc, 0x4
         .word 0x0

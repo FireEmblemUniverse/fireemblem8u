@@ -1260,7 +1260,7 @@ SomeImageStoringRoutine_SpellAnim: @ 0x080557D8
 	adds r0, r4, #0
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -1297,7 +1297,7 @@ SomeImageStoringRoutine_SpellAnim2: @ 0x0805581C
 	adds r0, r4, #0
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0

@@ -13,6 +13,7 @@
 #include "bmmap.h"
 #include "bmudisp.h"
 #include "mapanim.h"
+#include "bmlib.h"
 
 void MapAnim_BeginMISSAnim(struct Unit* unit)
 {
@@ -81,7 +82,7 @@ void NewMapPoisonEffect(struct Unit* unit)
 
 void MapAnim_BeginPoisonAnim(struct MAEffectProc* proc)
 {
-    PlaySpacialSoundMaybe(0xB7, proc->xDisplay); // TODO: song ids
+    PlaySeSpacial(0xB7, proc->xDisplay); // TODO: song ids
 
     Decompress(
         Img_PoisonAnim,
@@ -110,7 +111,7 @@ void sub_807CD18(struct Unit* unit)
 
 void MapAnim_BeginPoisonAnim2(struct MAEffectProc* proc)
 {
-    PlaySpacialSoundMaybe(0xB7, proc->xDisplay); // TODO: song ids
+    PlaySeSpacial(0xB7, proc->xDisplay); // TODO: song ids
 
     Decompress(
         Img_PoisonAnim,

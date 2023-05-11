@@ -687,7 +687,7 @@ Event81_: @ 0x0800BDE8
 	cmp r0, #0
 	bne _0800BE02
 	adds r0, r2, #0
-	bl sub_8013DC0
+	bl StartSlowLockingFadeToBlack
 	movs r0, #2
 	b _0800BE22
 _0800BE02:

@@ -38,7 +38,7 @@ sub_8012984: @ 0x08012984
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
@@ -95,7 +95,7 @@ sub_8012A2C: @ 0x08012A2C
 	adds r4, r0, #0
 	ldr r1, [r4, #0x30]
 	movs r0, #0x8d
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldr r0, _08012A58  @ gUnknown_089B06AC
 	ldr r1, _08012A5C  @ 0x06013800
 	bl Decompress

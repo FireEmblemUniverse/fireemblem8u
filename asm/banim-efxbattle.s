@@ -1712,7 +1712,7 @@ _08053B10:
 	ldr r1, _08053BA0  @ 0x06011800
 	movs r2, #0x80
 	lsls r2, r2, #4
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	ldr r4, _08053BA4  @ gEkrSpellAnimIndexLutMaybe
 	mov r0, r9
 	bl GetAISSubjectId

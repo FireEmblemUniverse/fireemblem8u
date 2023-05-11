@@ -385,12 +385,12 @@ _0805154A:
 	ldr r1, _080515C8  @ 0x060139C0
 	adds r0, r7, #0
 	movs r2, #0x40
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	adds r0, r7, #0
 	adds r0, #0x40
 	ldr r1, _080515CC  @ 0x06013DC0
 	movs r2, #0x40
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 _08051582:
 	add r0, sp, #8
 	movs r4, #0
@@ -823,7 +823,7 @@ _080518DC:
 	ldr r1, _08051A94  @ 0x06013000
 	movs r2, #0x80
 	lsls r2, r2, #4
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 _080518EE:
 	mov r5, sl
 	ldr r4, [r5, #0x4c]

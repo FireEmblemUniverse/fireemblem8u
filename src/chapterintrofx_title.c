@@ -11,6 +11,7 @@
 #include "bmfx.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "bmlib.h"
 
 /**
  * Proc Displaying Chapter Title in the middle of the screen
@@ -106,7 +107,7 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntroTitleOnly[] =
 
     PROC_START_CHILD(sProcScr_ChapterIntro_KeyListen),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 99),
@@ -114,7 +115,7 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntroTitleOnly[] =
     PROC_SLEEP(180),
 
 PROC_LABEL(99),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
 PROC_LABEL(999),

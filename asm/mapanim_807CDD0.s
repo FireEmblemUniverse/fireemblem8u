@@ -100,7 +100,7 @@ sub_807CE78: @ 0x0807CE78
 	bne _0807CEA0
 	ldr r0, _0807CE9C  @ 0x000003CA
 	ldr r1, [r4, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	b _0807CEB8
 	.align 2, 0
 _0807CE9C: .4byte 0x000003CA
@@ -444,7 +444,7 @@ sub_807D0FC: @ 0x0807D0FC
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
@@ -572,7 +572,7 @@ _0807D23A:
 	bl Proc_Break
 	ldr r1, [r5, #0x30]
 	movs r0, #0x8c
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	b _0807D2BA
 	.align 2, 0
 _0807D260: .4byte gUnknown_089AFFF8
@@ -615,7 +615,7 @@ _0807D296:
 	bl sub_807D360
 	ldr r1, [r5, #0x30]
 	movs r0, #0x89
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldrh r0, [r4]
 	adds r0, #1
 	strh r0, [r4]
@@ -662,7 +662,7 @@ sub_807D2E0: @ 0x0807D2E0
 	movs r3, #1
 	bl SetBlendTargetA
 	movs r0, #1
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	adds r1, r4, #0
 	adds r1, #0x64
 	movs r0, #0x40
@@ -1012,7 +1012,7 @@ sub_807D57C: @ 0x0807D57C
 	movs r0, #0xe1
 	lsls r0, r0, #2
 	ldr r1, [r5, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	b _0807D5AE
 _0807D5A2:
 	cmp r1, #0x21
@@ -1178,7 +1178,7 @@ sub_807D6D8: @ 0x0807D6D8
 	adds r5, r0, #0
 	ldr r1, [r5, #0x30]
 	movs r0, #0xb6
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldr r2, _0807D758  @ gLCDControlBuffer
 	ldrb r3, [r2, #0xc]
 	movs r1, #4
@@ -1339,7 +1339,7 @@ sub_807D818: @ 0x0807D818
 	ldr r2, _0807D828  @ 0x0000010F
 	ldr r1, [r0, #0x30]
 	adds r0, r2, #0
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1469,7 +1469,7 @@ sub_807D860: @ 0x0807D860
 	lsls r1, r1, #1
 	adds r1, #1
 	lsls r1, r1, #3
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	add sp, #8
 	pop {r4, r5, r6}
 	pop {r0}
@@ -1525,7 +1525,7 @@ _0807D97A:
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
@@ -1583,7 +1583,7 @@ _0807D9EC:
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
@@ -1841,7 +1841,7 @@ _0807DBFC:
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	movs r0, #4
-	bl sub_8013AA4
+	bl SetWhitePal
 	movs r0, #2
 	bl GetBackgroundTileDataOffset
 	ldr r1, _0807DC90  @ 0x06002C00
@@ -2059,7 +2059,7 @@ sub_807DDC8: @ 0x0807DDC8
 	adds r5, r0, #0
 	ldr r1, [r5, #0x30]
 	movs r0, #0x87
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
@@ -2138,7 +2138,7 @@ sub_807DE70: @ 0x0807DE70
 	push {lr}
 	ldr r1, [r0, #0x30]
 	movs r0, #0x86
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	pop {r0}
 	bx r0
 
@@ -2374,7 +2374,7 @@ sub_807E038: @ 0x0807E038
 	push {lr}
 	ldr r1, [r0, #0x30]
 	movs r0, #0x82
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldr r0, _0807E050  @ gUnknown_0867B5A4
 	movs r1, #0x80
 	movs r2, #0x20
@@ -2495,7 +2495,7 @@ sub_807E118: @ 0x0807E118
 	adds r4, r0, #0
 	ldr r1, [r4, #0x30]
 	movs r0, #0x85
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
@@ -2539,7 +2539,7 @@ sub_807E17C: @ 0x0807E17C
 	adds r4, r0, #0
 	ldr r1, [r4, #0x30]
 	movs r0, #0x85
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldr r0, _0807E1A8  @ gUnknown_089B1A10
 	ldr r1, [r4, #0x30]
 	ldr r2, [r4, #0x34]
@@ -2567,7 +2567,7 @@ sub_807E1B0: @ 0x0807E1B0
 	adds r4, r0, #0
 	ldr r1, [r4, #0x30]
 	movs r0, #0x85
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldr r0, _0807E1DC  @ gUnknown_089B1A10
 	ldr r1, [r4, #0x30]
 	ldr r2, [r4, #0x34]
@@ -2685,7 +2685,7 @@ sub_807E28C: @ 0x0807E28C
 	bne _0807E2B4
 	ldr r0, _0807E2B0  @ 0x000003BA
 	ldr r1, [r4, #0x30]
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	b _0807E2BE
 	.align 2, 0
 _0807E2B0: .4byte 0x000003BA
@@ -2811,7 +2811,7 @@ sub_807E390: @ 0x0807E390
 	adds r4, r0, #0
 	ldr r1, [r4, #0x30]
 	movs r0, #0xfd
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	bl sub_8081E78
 	bl sub_8081EAC
 	ldr r0, _0807E3F0  @ sub_8081FA8
@@ -2972,7 +2972,7 @@ sub_807E4D0: @ 0x0807E4D0
 	adds r6, r0, #0
 	ldr r1, [r6, #0x30]
 	movs r0, #0x83
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
@@ -3021,7 +3021,7 @@ sub_807E4D0: @ 0x0807E4D0
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0x10
@@ -3049,7 +3049,7 @@ sub_807E584: @ 0x0807E584
 	adds r4, r0, #0
 	ldr r1, [r4, #0x30]
 	movs r0, #0x84
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	ldr r5, _0807E5E8  @ gBG2TilemapBuffer
 	ldr r0, [r4, #0x30]
 	cmp r0, #0
@@ -3080,7 +3080,7 @@ _0807E5A8:
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -3178,7 +3178,7 @@ sub_807E67C: @ 0x0807E67C
 	adds r5, r0, #0
 	ldr r1, [r5, #0x30]
 	movs r0, #0x88
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
@@ -3362,7 +3362,7 @@ sub_807E7E0: @ 0x0807E7E0
 	adds r5, r0, #0
 	ldr r1, [r5, #0x30]
 	movs r0, #0x8d
-	bl PlaySpacialSoundMaybe
+	bl PlaySeSpacial
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
@@ -3580,7 +3580,7 @@ sub_807E978: @ 0x0807E978
 	movs r3, #0
 	bl SetBlendTargetA
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0

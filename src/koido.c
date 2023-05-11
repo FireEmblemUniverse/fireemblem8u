@@ -30,9 +30,9 @@ struct ProcCmd CONST_DATA sProcScr_KOIDO[] = {
 
 struct ProcCmd CONST_DATA sProcScr_KOIDOAMM[] = {
     PROC_NAME("KOIDOAMM"),
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_REPEAT(Loop6C_KOIDO),
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
     PROC_END
 };
 

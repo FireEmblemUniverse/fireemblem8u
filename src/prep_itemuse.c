@@ -17,6 +17,7 @@
 #include "uiutils.h"
 #include "soundwrapper.h"
 #include "branched_promotion.h"
+#include "bmlib.h"
 #include "prepscreen.h"
 
 bool CheckInLinkArena(void);
@@ -862,7 +863,7 @@ void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse *proc)
      *
      *          -------- from Mokha's conjecture wwwww
      */
-    proc->game_lock = GetThread2SkipStack();
+    proc->game_lock = GetGameLock();
 
     ResetFaces();
     EndHelpPromptSprite();
@@ -885,7 +886,7 @@ void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse *proc)
 
 void PrepItemUse_ExecPromoDoneUnusedIDLE(struct ProcPrepItemUse *proc)
 {
-    if (proc->game_lock == GetThread2SkipStack())
+    if (proc->game_lock == GetGameLock())
         Proc_Break(proc);
 }
 
@@ -967,7 +968,7 @@ PROC_LABEL(PROC_LABEL_PREPITEMUSE_EXEC_JUNA),
 PROC_LABEL(PROC_LABEL_PREPITEMUSE_EXEC_PROMO),
     PROC_CALL_ARG(NewFadeOut, 0x10),
     PROC_WHILE(FadeOutExists),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(StartPrepScreenPromotion),
     PROC_SLEEP(0x8),

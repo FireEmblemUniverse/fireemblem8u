@@ -11,7 +11,7 @@
 #include "uimenu.h"
 #include "scene.h"
 #include "ekrbattle.h"
-
+#include "bmlib.h"
 #include "event.h"
 
 // TODO: move those where they belong when possible
@@ -231,7 +231,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
         }
 
     case EV_EXEC_GAMEPLAY:
-        SubSkipThread2();
+        UnlockGame();
         ResumeMenu();
         sub_800BB98();
         ClearCutsceneUnits();
@@ -332,7 +332,7 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
     case EV_EXEC_CUTSCENE:
     case EV_EXEC_GAMEPLAY:
         proc->chapterIndex = gPlaySt.chapterIndex;
-        AddSkipThread2();
+        LockGame();
         break;
     }
 
@@ -523,7 +523,7 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
             if (proc->evStateBits & EV_STATE_FADEDIN)
                 sub_800D488(proc);
             else
-                sub_8013D08(0x40, (struct Proc*)(proc));
+                StartLockingFadeToBlack(0x40, (struct Proc*)(proc));
 
             proc->evStateBits |= EV_STATE_FADEDIN;
         }

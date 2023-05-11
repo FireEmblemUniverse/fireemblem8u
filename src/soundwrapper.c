@@ -2,6 +2,7 @@
 #include "m4a.h"
 #include "proc.h"
 #include "bmsave.h"
+#include "bmlib.h"
 #include "soundwrapper.h"
 
 struct Struct02024E5C

@@ -10,6 +10,7 @@
 #include "bmmap.h"
 #include "bmidoten.h"
 #include "bmtrick.h"
+#include "bmlib.h"
 
 static void BmMapInit(void* buffer, u8*** outHandle, int width, int height);
 

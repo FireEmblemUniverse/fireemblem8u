@@ -165,7 +165,7 @@ static struct ProcCmd sProcScr_TradeMenu_HighlightUpdater[] = {
 
 CONST_DATA
 static struct ProcCmd sProcScr_TradeMenu[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_YIELD,
 
     PROC_WHILE_EXISTS(gProcScr_CamMove),
@@ -196,7 +196,7 @@ PROC_LABEL(L_TRADEMENU_END),
     PROC_CALL(TradeMenu_ClearDisplay),
     PROC_CALL(ClearBg0Bg1),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END
 };

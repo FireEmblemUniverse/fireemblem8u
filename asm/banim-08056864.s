@@ -280,7 +280,7 @@ _08056A72:
 	ldr r0, _08056B18  @ gUnknown_02000088
 	movs r2, #0x80
 	lsls r2, r2, #7
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	movs r0, #0xb

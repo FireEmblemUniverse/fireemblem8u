@@ -125,7 +125,7 @@
 . = 0x00F15C; gUnknown_0200F15C = .;
 . = 0x00F17C; gStringBufferAlt = .;
 . = 0x00F1C8; gBanimScrLeft = .;
-. = 0x010004; src/sallycursor.o(ewram_data);
+. = 0x010004; src/prep_sallycursor.o(ewram_data);
 . = 0x01117C; gPrepMainMenuTexts = .;
 . = 0x0111CC; gPrepUnitPool = .;
 . = 0x011BC8; gBanimScrRight = .;
@@ -409,7 +409,7 @@
 . = 0x02B4AC; gUnknown_0202B4AC = .;
 . = 0x02B5AC; gUnknown_0202B5AC = .;
 . = 0x02B6AC; gUnknown_0202B6AC = .;
-. = 0x02B6B0; gUnknown_0202B6B0 = .;
+. = 0x02B6B0; sPalFadeSt = .;
 . = 0x02BCB0; gBmSt = .;
 . = 0x02BCF0; gPlaySt = .;
 . = 0x02BCFE; gUnknown_0202BCFE = .;

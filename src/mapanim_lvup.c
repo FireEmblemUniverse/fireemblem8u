@@ -8,6 +8,7 @@
 #include "ctc.h"
 #include "soundwrapper.h"
 #include "mapanim.h"
+#include "bmlib.h"
 
 void StartManimLevelUp(int actor_id, ProcPtr parent)
 {

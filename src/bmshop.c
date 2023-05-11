@@ -19,7 +19,7 @@
 #include "scene.h"
 #include "prepscreen.h"
 #include "bmshop.h"
-
+#include "bmlib.h"
 #include "constants/faces.h"
 #include "constants/items.h"
 
@@ -93,11 +93,11 @@ int CONST_DATA gShopPortraitLut[] = {
 };
 
 struct ProcCmd CONST_DATA gProcScr_ShopFadeIn[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_SLEEP(1),
 
     PROC_CALL_ARG(sub_8014BD0, -1),
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
 
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
@@ -112,10 +112,10 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeOut[] = {
     PROC_CALL(RefreshBMapGraphics),
 
     PROC_CALL(StartMapSongBgm),
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
 
     PROC_REPEAT(WaitForFade),
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };
@@ -155,7 +155,7 @@ struct ProcCmd CONST_DATA gProcScr_Shop[] = {
     PROC_CALL(StartShopFadeIn),
     PROC_SLEEP(0),
 
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
 
     PROC_CALL(ShopProc_Init),
     PROC_CALL(ShopProc_InitBuyState),
@@ -279,7 +279,7 @@ PROC_LABEL(12),
     PROC_CALL(StartShopFadeOut),
     PROC_SLEEP(0),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END,
 };

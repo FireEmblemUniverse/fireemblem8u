@@ -105,10 +105,10 @@ ProcScr_PrepItemSupplyScreen:  @ 0x08A1920C
 ProcScr_BmSupplyScreen:  @ 0x08A192EC
 	@ PROC_CALL
 	.short 0x2, 0x0
-	.word AddSkipThread2
+	.word LockGame
 	@ PROC_CALL
 	.short 0x2, 0x0
-	.word sub_8013D80
+	.word StartFastFadeToBlack
 	@ PROC_REPEAT
 	.short 0x3, 0x0
 	.word WaitForFade
@@ -207,7 +207,7 @@ ProcScr_BmSupplyScreen:  @ 0x08A192EC
 	.word sub_809EB14
 	@ PROC_CALL
 	.short 0x2, 0x0
-	.word sub_8013DA4
+	.word StartFastFadeFromBlack
 	@ PROC_REPEAT
 	.short 0x3, 0x0
 	.word WaitForFade
@@ -216,7 +216,7 @@ ProcScr_BmSupplyScreen:  @ 0x08A192EC
 	.word 0x0
 	@ PROC_CALL
 	.short 0x2, 0x0
-	.word SubSkipThread2
+	.word UnlockGame
 	@ PROC_END
 	.short 0x0, 0x0
 	.word 0x0

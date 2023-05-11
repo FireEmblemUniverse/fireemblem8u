@@ -14,7 +14,7 @@
 #include "bmunit.h"
 #include "uiutils.h"
 #include "ekrbattle.h"
-
+#include "bmlib.h"
 #include "scene.h"
 
 struct TalkState

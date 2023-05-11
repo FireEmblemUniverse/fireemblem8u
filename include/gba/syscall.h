@@ -12,13 +12,11 @@
 #define RESET_ALL        0xFF
 
 void SoftReset(u32 resetFlags);
-
+void SoundBiasReset(void);
+void SoundBiasSet(void);
 void RegisterRamReset(u32 resetFlags);
-
 void VBlankIntrWait(void);
-
 u16 Sqrt(u32 num);
-
 u16 ArcTan2(s16 x, s16 y);
 
 #define CPU_SET_SRC_FIXED 0x01000000
@@ -30,19 +28,16 @@ void CpuSet(const void *src, void *dest, u32 control);
 #define CPU_FAST_SET_SRC_FIXED 0x01000000
 
 void CpuFastSet(const void *src, void *dest, u32 control);
-
 void BgAffineSet(struct BgAffineSrcData *src, struct BgAffineDstData *dest, s32 count);
-
 void ObjAffineSet(struct ObjAffineSrcData *src, void *dest, s32 count, s32 offset);
-
 void LZ77UnCompWram(const void *src, void *dest);
-
+int Div(int, int);
+int DivArm(int, int);
+int DivRem(int, int);
+void HuffUnComp(void const * src, void * dst);
 void LZ77UnCompVram(const void *src, void *dest);
-
 void RLUnCompWram(const void *src, void *dest);
-
 void RLUnCompVram(const void *src, void *dest);
-
 int MultiBoot(struct MultiBootParam *mp);
 
 #endif // GUARD_GBA_SYSCALL_H

@@ -7,14 +7,13 @@
 #include "bmunit.h"
 #include "statscreen.h"
 #include "soundwrapper.h"
-#include "sallycursor.h"
 #include "bmmap.h"
 #include "uichapterstatus.h"
 #include "bmio.h"
 #include "mu.h"
 #include "bmudisp.h"
 #include "bm.h"
-
+#include "bmlib.h"
 #include "prepscreen.h"
 s8 CheckInLinkArena();
 
@@ -383,7 +382,7 @@ void AtMenu_ResetScreenEffect(struct ProcAtMenu *proc)
     SetupBackgrounds(0);
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
-    sub_8001F48(1);
+    SetBlendBackdropA(1);
 
     if (proc->end_prep)
         nullsub_20(proc);
@@ -468,7 +467,7 @@ void sub_8096404()
 void AtMenu_LockGame()
 {
     if (!CheckInLinkArena()) {
-        AddSkipThread2();
+        LockGame();
         BMapDispSuspend();
     }
 }
@@ -477,7 +476,7 @@ void AtMenu_UnlockGame()
 {
     if (!CheckInLinkArena()) {
         BMapDispResume();
-        SubSkipThread2();
+        UnlockGame();
     }
 }
 

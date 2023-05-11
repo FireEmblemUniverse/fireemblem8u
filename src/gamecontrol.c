@@ -12,7 +12,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "ending_details.h"
-
+#include "bmlib.h"
 #include "gamecontrol.h"
 
 extern u16 gEvent_8A0035C[];
@@ -240,7 +240,7 @@ PROC_LABEL(17),
 PROC_LABEL(18),
     PROC_CALL(sub_8009A24),
 
-    PROC_CALL(IntroPromoTraineeEventFace),
+    PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(sub_8048850),
@@ -248,7 +248,7 @@ PROC_LABEL(18),
     PROC_WHILE(EventEngineExists),
     PROC_SLEEP(0),
 
-    PROC_CALL(StartFadeInBlackMedium),
+    PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndBG3Slider),
@@ -730,7 +730,7 @@ void sub_8009E28(ProcPtr proc) {
 
     SetSpecialColorEffectsParameters(3, 0, 0, 16);
     SetBlendTargetA(1, 1, 1, 1, 1);
-    sub_8001F48(1);
+    SetBlendBackdropA(1);
 
     return;
 }

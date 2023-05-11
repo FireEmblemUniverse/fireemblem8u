@@ -52,5 +52,5 @@ void RegisterAISSheetGraphics(struct Anim *anim)
     void *mmap;
     mmap = (void *)0x06010000 + (anim->oam2Base & 0x3FF) * 0x20;
     LZ77UnCompWram(anim->pImgSheet, anim->pUnk2C);
-    RegisterTileGraphics(anim->pUnk2C, mmap, 0x2000);
+    RegisterDataMove(anim->pUnk2C, mmap, 0x2000);
 }

@@ -10,14 +10,13 @@
 #include "constants/video-global.h"
 #include "constants/characters.h"
 #include "constants/items.h"
-
+#include "bmlib.h"
 #include "proc.h"
 #include "event.h"
 #include "soundwrapper.h"
 #include "gamecontrol.h"
 #include "bmio.h"
 #include "hardware.h"
-#include "sallycursor.h"
 #include "bmunit.h"
 #include "bmmap.h"
 #include "mu.h"
@@ -218,7 +217,7 @@ void sub_80855A0(struct UnkProc80855A0 *proc)
     proc->unk4D = 1;
     SetSpecialColorEffectsParameters(3, 0, 0, 16);
     SetBlendTargetA(1, 1, 1, 1, 1);
-    sub_8001F48(1);
+    SetBlendBackdropA(1);
 }
 
 void sub_80855D4(struct EventEngineProc *proc)

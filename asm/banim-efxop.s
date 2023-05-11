@@ -223,7 +223,7 @@ sub_806EAA4: @ 0x0806EAA4
 	movs r2, #0x80
 	lsls r2, r2, #6
 	adds r1, r4, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -268,7 +268,7 @@ sub_806EAFC: @ 0x0806EAFC
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r1, r4, #0
-	bl RegisterTileGraphics
+	bl RegisterDataMove
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0

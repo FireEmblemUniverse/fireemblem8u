@@ -99,7 +99,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
 
         SetupBackgrounds(0);
         EndGreenTextColorManager();
-        gparent->u40 = GetThread2SkipStack();
+        gparent->u40 = GetGameLock();
         EndHelpPromptSprite();
         EndSmallBrownNameBoxes();
         EndAllParallelWorkers();

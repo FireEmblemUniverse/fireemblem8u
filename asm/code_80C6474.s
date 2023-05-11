@@ -1663,7 +1663,7 @@ sub_80C7050: @ 0x080C7050
 	movs r0, #0xf
 	bl BG_EnableSyncByMask
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	movs r0, #1
@@ -3202,7 +3202,7 @@ _080C7D30:
 	movs r0, #7
 	bl BG_EnableSyncByMask
 	movs r0, #0
-	bl sub_8001F48
+	bl SetBlendBackdropA
 	movs r0, #0
 	bl sub_8001F64
 	movs r0, #1

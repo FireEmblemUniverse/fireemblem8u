@@ -115,10 +115,10 @@ void NewEkrGauge(void)
     }
 
     /* left side of hit & dmg & crit */
-    RegisterTileGraphics(gObjBuf_EkrSideHitDmgCrit, (void *)0x6013A00, 0xC0 * sizeof(u16));
+    RegisterDataMove(gObjBuf_EkrSideHitDmgCrit, (void *)0x6013A00, 0xC0 * sizeof(u16));
 
     /* right side of hit & dmg & crit */
-    RegisterTileGraphics(gObjBuf_EkrSideHitDmgCrit + 0xC0, (void *)0x6013E00, 0xC0 * sizeof(u16));
+    RegisterDataMove(gObjBuf_EkrSideHitDmgCrit + 0xC0, (void *)0x6013E00, 0xC0 * sizeof(u16));
 
     ResetIconGraphics_();
     LoadIconPalette(0, 0x1D);

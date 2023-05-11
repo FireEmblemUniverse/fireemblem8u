@@ -50,7 +50,7 @@ void DoPromoteAnimForChar100(struct Proc08A184B4 *proc)
         return;
     }
 
-    proc->game_lock = GetThread2SkipStack();
+    proc->game_lock = GetGameLock();
     SetWinEnable(0, 0, 0);
     
     sub_802F598(unit, -1, 0);
@@ -62,7 +62,7 @@ void DoPromoteAnimForChar100(struct Proc08A184B4 *proc)
 
 void IsGameLockLevelReserved(struct Proc08A184B4 *proc)
 {
-    if (proc->game_lock == GetThread2SkipStack())
+    if (proc->game_lock == GetGameLock())
         Proc_Break(proc);
 }
 
