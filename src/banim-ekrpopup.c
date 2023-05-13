@@ -70,205 +70,40 @@ void EfxPlaySound5CVol100(void)
     EfxPlaySE(0x5C, 0x100);
 }
 
-/* https://decomp.me/scratch/TrgDh */
-#if NONMATCHING
-
 void MakeBattlePopupTileMapFromTSA(u16 *tm, u16 width)
 {
-    u16 i, *buf1, *buf2, *buf3, *buf4;
+    u32 i;
+    u16 *ekrTsaBuf = gEkrTsaBuffer;
+    s32 constant = 0x1100;
 
-    tm[0x00] = gEkrTsaBuffer[0x00] + 0x1100;
-    tm[0x20] = gEkrTsaBuffer[0x1A] + 0x1100;
-    tm[0x40] = gEkrTsaBuffer[0x34] + 0x1100;
-    tm[0x60] = gEkrTsaBuffer[0x4E] + 0x1100;
+    tm[0x00] = ekrTsaBuf[0x00] + constant;
+    tm[0x20] = ekrTsaBuf[0x1A] + constant;
+    tm[0x40] = ekrTsaBuf[0x34] + constant;
+    tm[0x60] = ekrTsaBuf[0x4E] + constant;
 
-    tm[0x01] = gEkrTsaBuffer[0x01] + 0x1100;
-    tm[0x21] = gEkrTsaBuffer[0x1B] + 0x1100;
-    tm[0x41] = gEkrTsaBuffer[0x35] + 0x1100;
-    tm[0x61] = gEkrTsaBuffer[0x4F] + 0x1100;
+    tm[0x01] = ekrTsaBuf[0x01] + constant;
+    tm[0x21] = ekrTsaBuf[0x1B] + constant;
+    tm[0x41] = ekrTsaBuf[0x35] + constant;
+    tm[0x61] = ekrTsaBuf[0x4F] + constant;
 
     for (i = 0; i < width; i++) {
   
-        tm[0x02 + i] = gEkrTsaBuffer[0x02 + i] + 0x1100;
-        tm[0x22 + i] = gEkrTsaBuffer[0x1A + i] + 0x1100;
-        tm[0x42 + i] = gEkrTsaBuffer[0x36 + i] + 0x1100;
-        tm[0x62 + i] = gEkrTsaBuffer[0x50 + i] + 0x1100;
+        tm[0x02 + i] = ekrTsaBuf[0x02 + i] + constant;
+        tm[0x22 + i] = ekrTsaBuf[0x1C + i] + constant;
+        tm[0x42 + i] = ekrTsaBuf[0x36 + i] + constant;
+        tm[0x62 + i] = ekrTsaBuf[0x50 + i] + constant;
     }
 
-    tm[i + 0x02] = gEkrTsaBuffer[0x18] + 0x1100;
-    tm[i + 0x22] = gEkrTsaBuffer[0x32] + 0x1100;
-    tm[i + 0x42] = gEkrTsaBuffer[0x4C] + 0x1100;
-    tm[i + 0x62] = gEkrTsaBuffer[0x66] + 0x1100;
+    tm[0x02 + i] = ekrTsaBuf[0x18] + constant;
+    tm[0x22 + i] = ekrTsaBuf[0x32] + constant;
+    tm[0x42 + i] = ekrTsaBuf[0x4C] + constant;
+    tm[0x62 + i] = ekrTsaBuf[0x66] + constant;
 
-    tm[i + 0x03] = gEkrTsaBuffer[0x19] + 0x1100;
-    tm[i + 0x23] = gEkrTsaBuffer[0x33] + 0x1100;
-    tm[i + 0x43] = gEkrTsaBuffer[0x4D] + 0x1100;
-    tm[i + 0x63] = gEkrTsaBuffer[0x67] + 0x1100;
+    tm[0x03 + i] = ekrTsaBuf[0x19] + constant;
+    tm[0x23 + i] = ekrTsaBuf[0x33] + constant;
+    tm[0x43 + i] = ekrTsaBuf[0x4D] + constant;
+    tm[0x63 + i] = ekrTsaBuf[0x67] + constant;
 }
-
-#else
-__attribute__((naked))
-void MakeBattlePopupTileMapFromTSA(u16 *tm, u16 width)
-{
-    asm(".syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #4\n\
-        adds r2, r0, #0\n\
-        lsls r1, r1, #0x10\n\
-        lsrs r1, r1, #0x10\n\
-        mov sl, r1\n\
-        ldr r3, _08075CA4  @ gEkrTsaBuffer\n\
-        movs r0, #0x88\n\
-        lsls r0, r0, #5\n\
-        mov r8, r0\n\
-        ldrh r0, [r3]\n\
-        add r0, r8\n\
-        strh r0, [r2]\n\
-        adds r1, r2, #0\n\
-        adds r1, #0x40\n\
-        ldrh r0, [r3, #0x34]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        adds r1, #0x40\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x68\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        adds r1, #0x40\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x9c\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        ldrh r0, [r3, #2]\n\
-        add r0, r8\n\
-        strh r0, [r2, #2]\n\
-        subs r1, #0x7e\n\
-        ldrh r0, [r3, #0x36]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        adds r1, #0x40\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x6a\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        adds r1, #0x40\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x9e\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        movs r1, #0\n\
-        mov r9, r1\n\
-        cmp r9, sl\n\
-        bcs _08075C38\n\
-        adds r7, r2, #0\n\
-        adds r7, #0xc4\n\
-        str r7, [sp]\n\
-        movs r0, #0x6c\n\
-        adds r0, r0, r3\n\
-        mov ip, r0\n\
-        adds r6, r2, #0\n\
-        adds r6, #0x84\n\
-        adds r5, r2, #0\n\
-        adds r5, #0x44\n\
-        adds r4, r3, #4\n\
-        adds r1, r2, #0\n\
-    _08075C02:\n\
-        ldrh r0, [r4]\n\
-        add r0, r8\n\
-        strh r0, [r1, #4]\n\
-        ldrh r0, [r4, #0x34]\n\
-        add r0, r8\n\
-        strh r0, [r5]\n\
-        mov r7, ip\n\
-        ldrh r0, [r7]\n\
-        add r0, r8\n\
-        strh r0, [r6]\n\
-        ldrh r0, [r7, #0x34]\n\
-        add r0, r8\n\
-        ldr r7, [sp]\n\
-        strh r0, [r7]\n\
-        adds r0, r7, #0\n\
-        adds r0, #2\n\
-        str r0, [sp]\n\
-        movs r7, #2\n\
-        add ip, r7\n\
-        adds r6, #2\n\
-        adds r5, #2\n\
-        adds r4, #2\n\
-        adds r1, #2\n\
-        movs r0, #1\n\
-        add r9, r0\n\
-        cmp r9, sl\n\
-        bcc _08075C02\n\
-    _08075C38:\n\
-        mov r1, r9\n\
-        lsls r0, r1, #1\n\
-        adds r2, r0, r2\n\
-        ldrh r0, [r3, #0x30]\n\
-        add r0, r8\n\
-        strh r0, [r2, #4]\n\
-        adds r1, r2, #0\n\
-        adds r1, #0x44\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x64\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        adds r1, #0x40\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x98\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        adds r1, #0x40\n\
-        adds r0, r3, #0\n\
-        adds r0, #0xcc\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        ldrh r0, [r3, #0x32]\n\
-        add r0, r8\n\
-        strh r0, [r2, #6]\n\
-        subs r1, #0x7e\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x66\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        adds r1, #0x40\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x9a\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        adds r1, #0x40\n\
-        adds r0, r3, #0\n\
-        adds r0, #0xce\n\
-        ldrh r0, [r0]\n\
-        add r0, r8\n\
-        strh r0, [r1]\n\
-        add sp, #4\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08075CA4: .4byte gEkrTsaBuffer\n\
-        .syntax divided");
-}
-
-#endif
 
 void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
 {
@@ -432,13 +267,9 @@ PROC_LABEL(0x5),
     PROC_END
 };
 
-/* https://decomp.me/scratch/1ULp6 */
-#if NONMATCHING
 void NewEkrPopup(void)
 {
     int i;
-    register struct BattleUnit **bu1 asm("r4");
-    register struct BattleUnit **bu2 asm("r3");
     struct ProcEkrPopup *proc;
 
     if (gEkrDistanceType == 4) {
@@ -448,17 +279,17 @@ void NewEkrPopup(void)
         proc->unk44 = -1;
         proc->unk48 = -1;
 
-        i = 0;
-        for (; i < 8; i++) {
-            bu1 = &gpEkrBattleUnitLeft;
-            bu2 = &gpEkrBattleUnitRight;
-            if ((*bu1)->unit.ranks[i] == 0)
-                if ((*bu2)->unit.ranks[i] != 0) {
+        for (i = 0; i < 8; i++) {
+            gpEkrBattleUnitRight = gpEkrBattleUnitRight;
+            if (&gpEkrBattleUnitLeft == &gpEkrBattleUnitLeft && &gpEkrBattleUnitRight == &gpEkrBattleUnitRight && gpEkrBattleUnitRight->unit.ranks[i] == 0) {
+                if (gpEkrBattleUnitLeft->unit.ranks[i] != 0) {
                     if (proc->unk44 == -1)
                         proc->unk44 = i;
                     else
                         proc->unk48 = i;
                 }
+            }
+            gpEkrBattleUnitLeft = gpEkrBattleUnitLeft;
         }
 
         if (proc->unk44 != -1) {
@@ -472,7 +303,7 @@ void NewEkrPopup(void)
         gpProcEkrPopup = proc = Proc_Start(ProcScr_ekrPopup, PROC_TREE_3);
         gEkrPopupEnded = 0;
     
-        proc->unk2C = 0;
+        proc->timer = 0;
         proc->unk48 = 0;
         proc->unk44 = 0;
         proc->unk50 = 0;
@@ -502,175 +333,6 @@ void NewEkrPopup(void)
         }
     }
 }
-#else
-__attribute__((naked))
-void NewEkrPopup(void)
-{
-    asm(".syntax unified\n\
-        push {r4, r5, lr}\n\
-        ldr r0, _08075F6C  @ gEkrDistanceType\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        cmp r0, #4\n\
-        bne _08075F9E\n\
-        ldr r4, _08075F70  @ gpProcEkrPopup\n\
-        ldr r0, _08075F74  @ ProcScr_ekrPopup2\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r5, r0, #0\n\
-        str r5, [r4]\n\
-        ldr r1, _08075F78  @ gEkrPopupEnded\n\
-        movs r0, #0\n\
-        str r0, [r1]\n\
-        subs r0, #1\n\
-        str r0, [r5, #0x44]\n\
-        str r0, [r5, #0x48]\n\
-        movs r2, #0\n\
-        ldr r4, _08075F7C  @ gpEkrBattleUnitRight\n\
-        ldr r3, _08075F80  @ gpEkrBattleUnitLeft\n\
-    _08075F44:\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x28\n\
-        adds r0, r0, r2\n\
-        ldrb r0, [r0]\n\
-        cmp r0, #0\n\
-        bne _08075F86\n\
-        ldr r0, [r3]\n\
-        adds r0, #0x28\n\
-        adds r0, r0, r2\n\
-        ldrb r0, [r0]\n\
-        cmp r0, #0\n\
-        beq _08075F86\n\
-        ldr r1, [r5, #0x44]\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        bne _08075F84\n\
-        str r2, [r5, #0x44]\n\
-        b _08075F86\n\
-        .align 2, 0\n\
-    _08075F6C: .4byte gEkrDistanceType\n\
-    _08075F70: .4byte gpProcEkrPopup\n\
-    _08075F74: .4byte ProcScr_ekrPopup2\n\
-    _08075F78: .4byte gEkrPopupEnded\n\
-    _08075F7C: .4byte gpEkrBattleUnitRight\n\
-    _08075F80: .4byte gpEkrBattleUnitLeft\n\
-    _08075F84:\n\
-        str r2, [r5, #0x48]\n\
-    _08075F86:\n\
-        adds r2, #1\n\
-        cmp r2, #7\n\
-        ble _08075F44\n\
-        ldr r1, [r5, #0x44]\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        beq _0807603C\n\
-        movs r0, #0x80\n\
-        bl Sound_SetSEVolume\n\
-        b _08076066\n\
-    _08075F9E:\n\
-        ldr r4, _08076048  @ gpProcEkrPopup\n\
-        ldr r0, _0807604C  @ ProcScr_ekrPopup\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r5, r0, #0\n\
-        str r5, [r4]\n\
-        ldr r1, _08076050  @ gEkrPopupEnded\n\
-        movs r0, #0\n\
-        str r0, [r1]\n\
-        strh r0, [r5, #0x2c]\n\
-        str r0, [r5, #0x48]\n\
-        str r0, [r5, #0x44]\n\
-        str r0, [r5, #0x50]\n\
-        str r0, [r5, #0x4c]\n\
-        ldr r0, _08076054  @ gBanimSomeObjPalIndex\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        cmp r0, #0\n\
-        bne _08075FF4\n\
-        ldr r4, _08076058  @ gpEkrBattleUnitLeft\n\
-        ldr r0, [r4]\n\
-        bl HasBattleUnitGainedWeaponLevel\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #1\n\
-        bne _08075FDE\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        str r0, [r5, #0x44]\n\
-    _08075FDE:\n\
-        ldr r0, [r4]\n\
-        bl DidBattleUnitBreakWeapon\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #1\n\
-        bne _08075FF4\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        str r0, [r5, #0x48]\n\
-    _08075FF4:\n\
-        ldr r0, _08076054  @ gBanimSomeObjPalIndex\n\
-        movs r1, #2\n\
-        ldrsh r0, [r0, r1]\n\
-        cmp r0, #0\n\
-        bne _0807602C\n\
-        ldr r4, _0807605C  @ gpEkrBattleUnitRight\n\
-        ldr r0, [r4]\n\
-        bl HasBattleUnitGainedWeaponLevel\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #1\n\
-        bne _08076016\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        str r0, [r5, #0x4c]\n\
-    _08076016:\n\
-        ldr r0, [r4]\n\
-        bl DidBattleUnitBreakWeapon\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #1\n\
-        bne _0807602C\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        str r0, [r5, #0x50]\n\
-    _0807602C:\n\
-        ldr r0, [r5, #0x44]\n\
-        ldr r1, [r5, #0x48]\n\
-        adds r0, r0, r1\n\
-        ldr r1, [r5, #0x4c]\n\
-        adds r0, r0, r1\n\
-        ldr r1, [r5, #0x50]\n\
-        cmn r0, r1\n\
-        bne _08076060\n\
-    _0807603C:\n\
-        ldr r1, _08076050  @ gEkrPopupEnded\n\
-        movs r0, #1\n\
-        str r0, [r1]\n\
-        bl DeleteAnimsOnPopup\n\
-        b _08076066\n\
-        .align 2, 0\n\
-    _08076048: .4byte gpProcEkrPopup\n\
-    _0807604C: .4byte ProcScr_ekrPopup\n\
-    _08076050: .4byte gEkrPopupEnded\n\
-    _08076054: .4byte gBanimSomeObjPalIndex\n\
-    _08076058: .4byte gpEkrBattleUnitLeft\n\
-    _0807605C: .4byte gpEkrBattleUnitRight\n\
-    _08076060:\n\
-        movs r0, #0x80\n\
-        bl Sound_SetSEVolume\n\
-    _08076066:\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-    .syntax divided");
-}
-#endif
 
 void BattlePopup_Wait16Frames(struct ProcEkrPopup *proc)
 {
