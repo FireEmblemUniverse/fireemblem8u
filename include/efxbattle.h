@@ -172,7 +172,7 @@ extern u32 gpProcEfxHPBarColorChange;
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 extern u8 gEkrImgBuffer[];
 extern u16 gUnknown_02019490[];
-extern u8 gEkrTsaBuffer[0x1000];
+extern u16 gEkrTsaBuffer[0x1000 / 2];
 extern u8 gUnknown_0201A790[];
 // extern ??? gUnknown_0201AF90
 // extern ??? gUnknown_0201AFC0

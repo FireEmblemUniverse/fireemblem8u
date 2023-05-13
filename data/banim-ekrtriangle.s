@@ -1,18 +1,5 @@
 	.section .data
 
-	.global ProcScr_ekrTriangle
-ProcScr_ekrTriangle:  @ 0x087595A4
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e16fc
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8074F80
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_ekrTriPegasusKnight
 ProcScr_ekrTriPegasusKnight:  @ 0x087595BC
         @ PROC_NAME
@@ -110,7 +97,7 @@ ProcScr_EfxTriangleQUAKE:  @ 0x0875966C
         .word 0x80e17ac
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80758D4
+        .word EfxTriangleQUAKEMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

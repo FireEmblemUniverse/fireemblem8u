@@ -3,7 +3,7 @@
 #include "hardware.h"
 #include "ctc.h"
 #include "bm.h"
-#include "uiutils.h"
+#include "bmlib.h"
 #include "bmio.h"
 #include "mu.h"
 #include "anime.h"
@@ -240,7 +240,7 @@ void ekrBaStart_8056024(struct ProcEkrBattleStarting *proc)
     else
         gUnknown_0201FAD8 = 0xA;
 
-    sub_8075AD8(gEkrPairSomeTile - 1);
+    PutBanimBG(gEkrPairSomeTile - 1);
     EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, 0x10);
     Proc_Break(proc);
 }
@@ -249,7 +249,7 @@ void ekrBaStart_8056078(struct ProcEkrBattleStarting *proc)
 {
     int val = Interpolate(0, 0x10, 0, proc->unk2C, 8);
 
-    sub_8075AB4(gEkrPairSomeTile - 1);
+    PutBanimBgPAL(gEkrPairSomeTile - 1);
     EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, val);
     EnablePaletteSync();
 

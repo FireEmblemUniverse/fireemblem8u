@@ -1,11 +1,5 @@
-. = 0x000000; gAnims = .;
-. = 0x000010; gUnknown_02000010 = .;
-. = 0x000018; gEkrDebugTimer = .;
-. = 0x00001C; gUnknown_0200001C = .;
-. = 0x000020; gUnknown_02000020 = .;
-. = 0x000024; gUnknown_02000024 = .;
-. = 0x000028; gEkrXPosBase = .;
-. = 0x00002C; gEkrYPosBase = .;
+. = 0x000000;
+. = ALIGN(4); src/banim-ekrbattle.o(ewram_data);
 . = 0x000030; gUnknown_02000030 = .;
 . = 0x000034; gUnknown_02000034 = .;
 . = 0x000038; gEkrBg0QuakeVec = .;
@@ -287,9 +281,9 @@
 . = 0x020108;
 . = ALIGN(4); src/banim-ekrlvup.o(ewram_data);
 . = 0x020138; gpProcEkrLvupApfx = .;
-. = 0x02013C; gEkrTriangleInvalid = .;
-. = 0x020140; gpAnimOnPopuProc = .;
-. = 0x020144; gpEkrPopupEndFlag = .;
+. = 0x02013C;
+. = ALIGN(4); src/banim-ekrtriangle.o(ewram_data);
+. = ALIGN(4); src/banim-ekrpopup.o(ewram_data);
 . = 0x020148; gEkrSomePalBuf = .;
 . = 0x020188; gGenericBuffer = .;
 . = 0x020288; gUnknown_02020288 = .;
@@ -498,7 +492,7 @@
 . = 0x03E188; gpEkrBattleUnitLeft = .;
 . = 0x03E18C; gpEkrBattleUnitRight = .;
 . = 0x03E190; gEkrPids = .;
-. = 0x03E194; gEkrTriangleAtkFlag = .;
+. = 0x03E194; gpEkrTriangleUnits = .;
 . = 0x03E19C; gBanimCharacterTSAs = .;
 . = 0x03E1A4; gUnknown_0203E1A4 = .;
 . = 0x03E1AC; gEkrPairHpInitial = .;

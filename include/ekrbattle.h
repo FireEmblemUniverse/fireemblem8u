@@ -133,7 +133,7 @@ struct BanimRoundScripts {
 
 extern const struct BanimRoundScripts gBanimRoundScripts[ANIM_ROUND_MAX];
 
-extern int gEkrDebugTimer, gUnknown_0200001C;
+extern int gEkrDebugTimer, gEkrDebugUnk1;
 
 extern u16 gEkrPairBanimID[2];
 extern s16 gBattleInitSide[2];
@@ -142,8 +142,8 @@ extern struct BattleUnit *gpEkrBattleUnitLeft;
 extern struct BattleUnit *gpEkrBattleUnitRight;
 extern struct Font gSomeFontStruct;
 
-extern u32 gUnknown_02000020;
-extern u32 gUnknown_02000024;
+extern int gEkrDebugUnk2;
+extern int gEkrDebugUnk3;
 extern s16 gEkrXPosBase[2];
 extern s16 gEkrYPosBase[2];
 // extern ??? gUnknown_02000030
@@ -177,7 +177,7 @@ extern EWRAM_DATA short gEkrPairBmLoc[4];
 extern short gEfxPairHpBufOffset[];
 extern short gEkrPairBanimID2[];
 extern u8 gEkrPids[2];
-extern int gEkrTriangleAtkFlag;
+extern struct Unit *gpEkrTriangleUnits[2];
 extern char *gBanimCharacterTSAs[2];
 extern int gUnknown_0203E1A4[2];
 extern short gEkrPairHpInitial[2];
@@ -193,6 +193,10 @@ extern short gEkrPairBaseCon[2];
 extern short gEkrPairWTABonus[2];
 extern short gEkrPairEffectiveAgainst[2];
 extern short gUnknown_0203E1DC[2];
+
+// extern ??? gUnknown_020200A8
+// extern ??? gUnknown_020200AC
+// extern ??? gpProcEkrClasshg
 
 extern struct ProcCmd gProc_ekrBattleDeamon[];
 extern struct ProcCmd gProc_ekrBattle[];
@@ -272,7 +276,7 @@ extern struct ProcCmd gProc_ekrTogiColor[];
 void SetBanimLinkArenaFlag(int unk);
 int GetBanimLinkArenaFlag(void);
 void NewEkrBattleDeamon(void);
-// ??? EndEkrBattleDeamon(???);
+void EndEkrBattleDeamon(void);
 int IsBattleDeamonActive(void); // battle?
 // ??? ekrBattleDeamon_Destructor(???);
 // ??? nullsub_35(???);
@@ -475,7 +479,7 @@ void ThisMakesTheHPInSpellAnimGoAway(struct Anim *anim, int);
 // ??? ExecHittedEffectBanim(???);
 // ??? sub_8055424(???);
 // ??? sub_8055518(???);
-// ??? sub_8055554(???);
+void EfxAnimCreate(struct Anim *anim, u32 *scr_closeleft, u32 *scr_closeright, u32 *scr_farleft, u32 *scr_farright);
 // ??? sub_80555B0(???);
 // ??? sub_805560C(???);
 // ??? sub_8055670(???);
@@ -634,7 +638,7 @@ void EkrUpdateSomePalMaybe(int);
 // ??? sub_80717D4(???);
 // ??? sub_80717F0(???);
 // ??? EkrEfxHandleUnitHittedEffect(???);
-void SomePlaySound_8071990(int, int);
+void EfxPlaySE(int, int);
 // ??? Loop6C_efxSoundSE(???);
 void DoM4aSongNumStop(int);
 // ??? sub_8071A54(???);
@@ -720,59 +724,21 @@ void BanimDrawStatupAp(int, int, int, int, int, int);
 // ??? sub_8074E6C(???);
 // ??? sub_8074EDC(???);
 // ??? sub_8074F14(???);
-bool CheckEkrTriangleInvalid(void);
-void nullsub_18(void);
-void NewEkrTriangle(struct Anim *anim);
-// ??? sub_8074F80(???);
-// ??? NewEkrTriPegasusKnight(???);
-// ??? sub_80751BC(???);
-// ??? NewEkrTriPegasusKnightBG(???);
-// ??? sub_8075308(???);
-// ??? sub_8075350(???);
-// ??? sub_80753FC(???);
-// ??? sub_8075424(???);
-// ??? sub_807545C(???);
-// ??? sub_8075538(???);
-// ??? sub_80756BC(???);
-// ??? sub_8075718(???);
-// ??? sub_8075828(???);
-// ??? sub_8075874(???);
-// ??? sub_807589C(???);
-// ??? sub_80758D4(???);
-// ??? sub_8075A50(???);
-// ??? sub_8075A70(???);
-void sub_8075AB4(int);
-void sub_8075AD8(int);
-bool CheckEkrPopupEnded(void);
-void DeleteAnimsOnPopup(void);
-// ??? sub_8075B58(???);
-// ??? sub_8075B68(???);
-// ??? MakeBattlePopupTileMapFromTSA(???);
-// ??? DrawBattlePopup(???);
-void NewEkrPopup(void);
-// ??? BattlePopup_Wait16Frames(???);
-// ??? ekrPopup_DrawWRankUp(???);
-// ??? ekrPopup_WaitWRankUp(???);
-// ??? ekrPopup_DrawWRankUp2(???);
-// ??? ekrPopup_WaitWRankUp2(???);
-// ??? ekrPopup_DrawWpnBroke(???);
-// ??? ekrPopup_WaitWpnBroke(???);
-// ??? ekrPopup_DrawWpnBroke2(???);
-// ??? ekrPopup_WaitWpnBroke2(???);
-// ??? ekrPopup_MarkEnd(???);
-// ??? nullsub_68(???);
-// ??? sub_8076250(???);
-// ??? sub_8076290(???);
-// ??? sub_80762D0(???);
+
+// ??? PutBanimBgIMG(???);
+// ??? PutBanimBgTSA(???);
+void PutBanimBgPAL(int);
+void PutBanimBG(int);
+
 int CheckBanimHensei(void);
 void BeginAnimsOnBattle_Hensei(void);
 void ExecEkrHenseiEnd(void);
-// ??? NewEkrHenseiInitPROC(???);
+void NewEkrHenseiInitPROC(void);
 // ??? sub_8076380(???);
 // ??? sub_80763E0(???);
 // ??? sub_8076400(???);
 // ??? sub_8076464(???);
-// ??? NewEkrHenseiEnd(???);
+void NewEkrHenseiEnd(void);
 // ??? sub_8076484(???);
 // ??? sub_80764B0(???);
 // ??? sub_8076514(???);

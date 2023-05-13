@@ -300,7 +300,7 @@ PlaySound8FForArenaMaybe: @ 0x0805B07C
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x8f
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 _0805B090:
 	pop {r0}
 	bx r0
@@ -462,7 +462,7 @@ sub_805B18C: @ 0x0805B18C
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x8e
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	adds r0, r5, #0
 	bl Proc_Break
 	add sp, #0x10
@@ -2350,7 +2350,7 @@ sub_805BFDC: @ 0x0805BFDC
 	ldr r0, _0805C034  @ gUnknown_085DA3C0
 	str r0, [sp]
 	adds r0, r4, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
@@ -2494,7 +2494,7 @@ sub_805C104: @ 0x0805C104
 	str r2, [sp]
 	adds r0, r4, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
@@ -2795,7 +2795,7 @@ sub_805C358: @ 0x0805C358
 	ldr r0, _0805C3B4  @ gUnknown_085DA864
 	str r0, [sp]
 	adds r0, r5, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _0805C3B8  @ gUnknown_085DA05C
 	movs r1, #0x20
@@ -3403,7 +3403,7 @@ _0805C8CC:
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	adds r0, r6, #0
@@ -3731,7 +3731,7 @@ sub_805CB40: @ 0x0805CB40
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	lsls r5, r5, #5
 	ldr r0, _0805CBA0  @ gUnknown_08754870
@@ -4083,7 +4083,7 @@ sub_805CE1C: @ 0x0805CE1C
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	ldrh r0, [r6, #4]
@@ -4303,7 +4303,7 @@ _0805CFF0:
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _0805D028  @ gUnknown_085DE964
 	movs r1, #0x20
@@ -4496,7 +4496,7 @@ _0805D17C:
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, _0805D1B8  @ gEkrDistanceType
@@ -4863,7 +4863,7 @@ sub_805D444: @ 0x0805D444
 	str r2, [sp]
 	adds r0, r4, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r6, r0, #0
 	str r6, [r5, #0x60]
 	adds r0, r4, #0
@@ -5190,7 +5190,7 @@ sub_805D6CC: @ 0x0805D6CC
 	str r3, [sp]
 	adds r0, r6, #0
 	adds r1, r2, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	movs r0, #0x14
@@ -5627,7 +5627,7 @@ sub_805DA44: @ 0x0805DA44
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _0805DA9C  @ gUnknown_085F3F40
 	movs r1, #0x20
@@ -5982,7 +5982,7 @@ sub_805DD1C: @ 0x0805DD1C
 	ldr r0, _0805DD74  @ gUnknown_085F80E0
 	str r0, [sp]
 	adds r0, r6, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r5, r0, #0
 	str r5, [r4, #0x60]
 	adds r0, r6, #0
@@ -6367,7 +6367,7 @@ StartSubSpell_efxElfireOBJ: @ 0x0805E030
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	adds r0, r5, #0
@@ -6863,7 +6863,7 @@ sub_805E430: @ 0x0805E430
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldrh r1, [r0, #2]
 	adds r1, #0x18
@@ -7477,7 +7477,7 @@ sub_805E924: @ 0x0805E924
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _0805E960  @ gUnknown_085F3F40
 	movs r1, #0x20
@@ -8131,7 +8131,7 @@ sub_805EE24: @ 0x0805EE24
 	ldr r0, _0805EE7C  @ gUnknown_08625148
 	str r0, [sp]
 	adds r0, r4, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
@@ -8564,7 +8564,7 @@ sub_805F1A4: @ 0x0805F1A4
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	add sp, #4
 	pop {r4, r5}
@@ -8598,7 +8598,7 @@ sub_805F1E8: @ 0x0805F1E8
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldrh r1, [r0, #4]
 	subs r1, #4
@@ -10126,7 +10126,7 @@ sub_805FDFC: @ 0x0805FDFC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	strh r6, [r0, #2]
 	mov r1, r8
@@ -10605,7 +10605,7 @@ sub_80601E0: @ 0x080601E0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	adds r0, r5, #0
@@ -11112,7 +11112,7 @@ sub_80605E8: @ 0x080605E8
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	ldrh r1, [r6, #8]
@@ -11415,7 +11415,7 @@ sub_8060838: @ 0x08060838
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	strh r6, [r0, #2]
 	mov r1, r8
@@ -11909,7 +11909,7 @@ sub_8060C18: @ 0x08060C18
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _08060C70  @ gUnknown_0865BAB8
 	movs r1, #0x20
@@ -13599,7 +13599,7 @@ NewEfxLiveOBJ: @ 0x0806196C
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _080619C4  @ gUnknown_08670528
 	movs r1, #0x20
@@ -13646,7 +13646,7 @@ sub_80619CC: @ 0x080619CC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _08061A28  @ gUnknown_08670528
 	movs r1, #0x20
@@ -13886,7 +13886,7 @@ _08061BBC:
 	str r2, [sp]
 	adds r1, r7, #0
 	adds r3, r7, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	strh r5, [r0, #2]
 	strh r6, [r0, #4]
@@ -14857,7 +14857,7 @@ sub_8062358: @ 0x08062358
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r6, r0, #0
 	str r6, [r5, #0x60]
 	adds r0, r4, #0
@@ -15189,7 +15189,7 @@ sub_8062608: @ 0x08062608
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _08062658  @ gUnknown_08680DC0
 	movs r1, #0x20
@@ -15504,7 +15504,7 @@ sub_8062898: @ 0x08062898
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _080628E8  @ gUnknown_0868716C
 	movs r1, #0x20
@@ -15545,7 +15545,7 @@ sub_80628F0: @ 0x080628F0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldrh r1, [r0, #4]
 	subs r1, #8
@@ -15902,7 +15902,7 @@ sub_8062BAC: @ 0x08062BAC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _08062BFC  @ gUnknown_0868718C
 	movs r1, #0x20
@@ -16357,7 +16357,7 @@ sub_8062F4C: @ 0x08062F4C
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldrh r2, [r0, #8]
 	ldr r1, _08062FA0  @ 0x0000F3FF
@@ -16920,7 +16920,7 @@ sub_80633D0: @ 0x080633D0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _08063420  @ gUnknown_0868E46C
 	movs r1, #0x20
@@ -16961,7 +16961,7 @@ sub_8063428: @ 0x08063428
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	add sp, #4
 	pop {r4, r5}
@@ -17573,7 +17573,7 @@ sub_80638F0: @ 0x080638F0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	strh r6, [r0, #2]
 	mov r1, r8
@@ -18513,7 +18513,7 @@ sub_8064060: @ 0x08064060
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	strh r5, [r0, #6]
 	ldrh r2, [r0, #8]
@@ -19974,7 +19974,7 @@ sub_8064B90: @ 0x08064B90
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r1, [r4, #0x5c]
 	ldrh r1, [r1, #2]
@@ -21242,7 +21242,7 @@ sub_80655C4: @ 0x080655C4
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x60]
 	ldrh r1, [r4, #2]
 	strh r1, [r0, #2]
@@ -22911,7 +22911,7 @@ _0806631E:
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r7, #0x60]
 	mov r1, sl
 	strh r1, [r0, #2]
@@ -23023,7 +23023,7 @@ _080663F6:
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x60]
 	mov r1, sp
 	ldrh r1, [r1, #4]
@@ -24162,7 +24162,7 @@ sub_8066CB8: @ 0x08066CB8
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -24289,7 +24289,7 @@ sub_8066DB0: @ 0x08066DB0
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -24435,7 +24435,7 @@ sub_8066EC8: @ 0x08066EC8
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -24563,7 +24563,7 @@ sub_8066FC4: @ 0x08066FC4
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -24700,7 +24700,7 @@ sub_80670DC: @ 0x080670DC
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -25112,7 +25112,7 @@ sub_8067400: @ 0x08067400
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	strh r5, [r0, #2]
 	strh r6, [r0, #4]
@@ -25461,7 +25461,7 @@ sub_80676E4: @ 0x080676E4
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldrh r1, [r0, #4]
 	adds r1, #0xc
@@ -25938,7 +25938,7 @@ sub_8067AA0: @ 0x08067AA0
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x60]
 	ldrh r1, [r0, #4]
 	adds r1, #0x18
@@ -26740,7 +26740,7 @@ sub_80680EC: @ 0x080680EC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r3, r0, #0
 	str r3, [r4, #0x60]
 	mov r2, r9
@@ -26887,7 +26887,7 @@ sub_806823C: @ 0x0806823C
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x60]
 	ldrh r1, [r0, #4]
 	adds r1, #0x18
@@ -27738,7 +27738,7 @@ _080688F0:
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, _0806892C  @ gEkrDistanceType
@@ -28346,7 +28346,7 @@ _08068DB4:
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	subs r0, #1
-	bl sub_8075AB4
+	bl PutBanimBgPAL
 	ldr r0, _08068DD4  @ gPaletteBuffer
 	movs r1, #6
 	movs r2, #0xa
@@ -29836,7 +29836,7 @@ _080698F6:
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
@@ -30173,7 +30173,7 @@ sub_8069B68: @ 0x08069B68
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r7, #0x60]
 	movs r0, #0x68
@@ -30263,7 +30263,7 @@ sub_8069C18: @ 0x08069C18
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r7, #0x60]
 	movs r0, #0x78
@@ -30924,7 +30924,7 @@ _0806A174:
 	adds r0, r7, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	ldr r1, _0806A1E8  @ gUnknown_085D87DC
@@ -32345,7 +32345,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x60]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -32358,7 +32358,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x64]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -32371,7 +32371,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x68]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -32384,7 +32384,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x44]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -32397,7 +32397,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x48]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -33152,7 +33152,7 @@ sub_806B2C0: @ 0x0806B2C0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r5, r0, #0
 	str r5, [r4, #0x60]
 	ldr r0, [r4, #0x5c]
@@ -33616,7 +33616,7 @@ sub_806B680: @ 0x0806B680
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
@@ -34361,7 +34361,7 @@ sub_806BC98: @ 0x0806BC98
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r7, #0x60]
 	ldr r0, [r7, #0x5c]
@@ -36350,7 +36350,7 @@ _0806CCCC:
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldrh r0, [r4, #8]
@@ -36610,7 +36610,7 @@ sub_806CE80: @ 0x0806CE80
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	add sp, #4
 	pop {r4, r5}
@@ -36742,7 +36742,7 @@ sub_806CF80: @ 0x0806CF80
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	add sp, #4
 	pop {r4, r5}
@@ -37220,7 +37220,7 @@ _0806D398:
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x60]
 	ldr r4, _0806D3E4  @ gEkrPairTerrainID
 	ldr r0, [r5, #0x5c]
@@ -37440,7 +37440,7 @@ sub_806D5A8: @ 0x0806D5A8
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	ldrh r1, [r6, #8]
@@ -37678,7 +37678,7 @@ sub_806D764: @ 0x0806D764
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _0806D7D0  @ gUnknown_085DCC84
 	movs r1, #0x20
@@ -37774,7 +37774,7 @@ sub_806D828: @ 0x0806D828
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r4, #0x60]
 	ldr r0, _0806D894  @ gUnknown_085DCC84
 	movs r1, #0x20
@@ -38248,7 +38248,7 @@ sub_806DBBC: @ 0x0806DBBC
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	ldr r0, [r5, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
@@ -38582,7 +38582,7 @@ _0806DF14:
 	adds r1, r4, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	ldr r0, [r6, #0x5c]
@@ -38968,7 +38968,7 @@ _0806E202:
 	adds r1, r7, #0
 	adds r2, r4, #0
 	adds r3, r7, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]

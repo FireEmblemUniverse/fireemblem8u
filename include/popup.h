@@ -1,6 +1,8 @@
 #ifndef GUARD_POPUP_H
 #define GUARD_POPUP_H
 
+#include "global.h"
+
 enum popup_opcode_index {
     POPUP_OP_END,              /* 00 */
     POPUP_OP_SPACE,            /* 01 */

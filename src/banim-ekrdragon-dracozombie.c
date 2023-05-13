@@ -1,6 +1,6 @@
 #include "global.h"
 #include "hardware.h"
-#include "uiutils.h"
+#include "bmlib.h"
 #include "bmmap.h"
 #include "anime.h"
 #include "ekrbattle.h"

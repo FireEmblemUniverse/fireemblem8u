@@ -65,7 +65,7 @@ extern u16 gEkrLvupPostStatus[EKRLVUP_STAT_MAX];
 extern u16 gEkrLvupScrollPos1;
 extern u16 gEkrLvupScrollPos2;
 // extern ??? gpProcEkrLvupApfx
-// extern ??? gEkrTriangleInvalid
+extern int gEkrTriangleInvalid;
 
 bool CheckEkrLvupDone(void);
 void EndEkrLevelUp(void);

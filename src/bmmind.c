@@ -18,7 +18,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmsave.h"
-#include "uiutils.h"
+#include "bmlib.h"
 
 #include "bmmind.h"
 

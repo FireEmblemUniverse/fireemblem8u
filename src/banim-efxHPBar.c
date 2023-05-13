@@ -276,7 +276,7 @@ void EfxHPBarResire_805282C(struct ProcEfxHPBar *proc)
             proc->pos = 0;
             proc->max += proc->diff;
             gEkrPairHpInitial[GetAISSubjectId(proc->anim5C)] += proc->diff;
-            SomePlaySound_8071990(0x75, 0x100);
+            EfxPlaySE(0x75, 0x100);
             M4aPlayWithPostionCtrl(0x75, anim1->xPosition, 1);
 
             if (proc->max == proc->post)
@@ -337,7 +337,7 @@ void NewEfxAvoid(struct Anim *anim)
     NewEfxDamageMojiEffect(proc->anim60, 1);
     proc->anim64 = anim;
     proc->death = false;
-    SomePlaySound_8071990(0xD7, 0x100);
+    EfxPlaySE(0xD7, 0x100);
     M4aPlayWithPostionCtrl(0xD7, anim->xPosition, 1);
 }
 
@@ -401,7 +401,7 @@ void EfxHPBarLiveMain(struct ProcEfxHPBar *proc)
             proc->max += proc->diff;
             gEkrPairHpInitial[GetAISSubjectId(anim)] += proc->diff;
 
-            SomePlaySound_8071990(0x75, 0x100);
+            EfxPlaySE(0x75, 0x100);
             M4aPlayWithPostionCtrl(0x75, anim->xPosition, 1);
 
             if (proc->max == proc->post)

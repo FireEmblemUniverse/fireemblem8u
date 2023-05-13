@@ -363,7 +363,7 @@ sub_8053080: @ 0x08053080
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd6
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r5, r0]
 	movs r0, #0xd6
@@ -379,7 +379,7 @@ _080530D2:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd6
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	movs r2, #2
 	ldrsh r1, [r5, r2]
 	movs r0, #0xd6

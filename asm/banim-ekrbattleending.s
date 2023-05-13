@@ -52,7 +52,7 @@ _08056118:
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r0, #1
-	bl sub_8075AB4
+	bl PutBanimBgPAL
 	ldr r0, _0805616C  @ gPaletteBuffer
 	movs r1, #6
 	movs r2, #0xa
