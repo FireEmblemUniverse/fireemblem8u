@@ -2218,15 +2218,7 @@ extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? ProcScr_efxLvupBGCOL
 // extern ??? ProcScr_EkrLvupApfx
 // extern ??? gUnknown_0875957C
-extern CONST_DATA struct ProcCmd ProcScr_ekrTriangle[];
-extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnight[];
-extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnightBG[];
-// extern ??? gUnknown_087595EC
-extern CONST_DATA struct ProcCmd ProcScr_EkrTriPegasusKnightOBJ[];
-extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnight[];
-extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnightOBJ[];
-extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnightOBJ2[];
-extern CONST_DATA struct ProcCmd ProcScr_EfxTriangleQUAKE[];
+
 // extern ??? gUnknown_08759B34
 // extern ??? gUnknown_08759E68
 // extern ??? gUnknown_08759F00
@@ -2238,13 +2230,10 @@ extern CONST_DATA struct ProcCmd ProcScr_EfxTriangleQUAKE[];
 // extern ??? gUnknown_0875A468
 // extern ??? gUnknown_0875A730
 extern u16 *gBattleBGDataTable[];
-extern u32 gPopupIconOAMData[6];
-extern u32 gPopupIconFrameData[2];
-// extern ??? gPopupIconFrameData
-// extern ??? ProcScr_ekrPopup
-// extern ??? ProcScr_ekrPopup2
-// extern ??? ProcScr_ekrHenseiInit
-// extern ??? ProcScr_ekrHenseiEnd
+extern CONST_DATA struct ProcCmd ProcScr_ekrPopup[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrPopup2[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrHenseiInit[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrHenseiEnd[];
 extern u16 Img_EfxDracoZombie[];
 extern u16 Tsa_EfxDracoZombieBaseLeft[];
 extern u16 Tsa_EfxDracoZombieBaseRight[];

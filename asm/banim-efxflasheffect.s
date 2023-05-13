@@ -918,8 +918,8 @@ _0805554E:
 
 	THUMB_FUNC_END sub_8055518
 
-	THUMB_FUNC_START sub_8055554
-sub_8055554: @ 0x08055554
+	THUMB_FUNC_START EfxAnimCreate
+EfxAnimCreate: @ 0x08055554
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r7, r1, #0
@@ -966,7 +966,7 @@ _08055590:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8055554
+	THUMB_FUNC_END EfxAnimCreate
 
 	THUMB_FUNC_START sub_80555B0
 sub_80555B0: @ 0x080555B0

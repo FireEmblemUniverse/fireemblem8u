@@ -2008,8 +2008,8 @@ _0807198C: .4byte 0xC1FFFFFF
 
 	THUMB_FUNC_END EkrEfxHandleUnitHittedEffect
 
-	THUMB_FUNC_START SomePlaySound_8071990
-SomePlaySound_8071990: @ 0x08071990
+	THUMB_FUNC_START EfxPlaySE
+EfxPlaySE: @ 0x08071990
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r5, r1, #0
@@ -2054,7 +2054,7 @@ _080719E6:
 	.align 2, 0
 _080719EC: .4byte ProcScr_efxSoundSE
 
-	THUMB_FUNC_END SomePlaySound_8071990
+	THUMB_FUNC_END EfxPlaySE
 
 	THUMB_FUNC_START Loop6C_efxSoundSE
 Loop6C_efxSoundSE: @ 0x080719F0
@@ -2534,7 +2534,7 @@ _08071E0C:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	mov r0, r8
 	movs r2, #2
 	ldrsh r1, [r0, r2]
@@ -2583,7 +2583,7 @@ _08071E78:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	mov r0, r8
 	movs r2, #2
 	ldrsh r1, [r0, r2]
@@ -2632,7 +2632,7 @@ _08071EE4:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	mov r0, r8
 	movs r2, #2
 	ldrsh r1, [r0, r2]
@@ -3093,7 +3093,7 @@ _08072222:
 	ldr r1, [sp]
 	adds r0, r4, #0
 	str r2, [sp, #4]
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	ldr r2, [sp, #4]
 	lsls r1, r2, #0x10
 	asrs r1, r1, #0x10
@@ -3362,7 +3362,7 @@ sub_8072450: @ 0x08072450
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r5, r0]
 	adds r0, r4, #0
@@ -3405,7 +3405,7 @@ _080724D8:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r5, r0]
 	adds r0, r4, #0
@@ -3441,7 +3441,7 @@ sub_8072504: @ 0x08072504
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd8
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r4, r0]
 	movs r0, #0xd8
@@ -3984,7 +3984,7 @@ EkrSoundSomeBark: @ 0x080729A4
 	adds r4, r0, #0
 	adds r5, r2, #0
 	adds r6, r3, #0
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	adds r0, r4, #0
 	adds r1, r5, #0
 	adds r2, r6, #0
@@ -4000,7 +4000,7 @@ sub_80729C0: @ 0x080729C0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r2, #0
-	bl SomePlaySound_8071990
+	bl EfxPlaySE
 	adds r0, r4, #0
 	bl sub_807290C
 	adds r1, r0, #0

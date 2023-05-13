@@ -2,6 +2,17 @@
 
 #include "global.h"
 
+enum interpolate_method {
+    INTERPOLATE_LINEAR,
+    INTERPOLATE_SQUARE,
+    INTERPOLATE_CUBIC,
+    INTERPOLATE_POW4,
+    INTERPOLATE_RSQUARE,
+    INTERPOLATE_RCUBIC,
+};
+
+int Interpolate(int method, int lo, int hi, int x, int end);
+
 struct PalFadeSt {
     /* 00 */ u16 from_colors[0x10];
     /* 20 */ u16 const * to_colors;
@@ -48,7 +59,6 @@ extern const u16 gUnknown_0859A180[];
 extern const u16 gUnknown_0859A1A0[];
 extern const u16 gUnknown_0859A1C0[];
 
-int Interpolate(int method, int lo, int hi, int x, int end);
 void sub_8012E94(void);
 bool StringCompare(const char *str1, const char *str2);
 void CopyString(char *, const char *);

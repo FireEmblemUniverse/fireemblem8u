@@ -5,7 +5,7 @@
 #include "fontgrp.h"
 #include "hardware.h"
 #include "ctc.h"
-#include "uiutils.h"
+#include "bmlib.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "ekrdragon.h"
@@ -567,7 +567,7 @@ void EkrLvup_Promo_WindowScroll0(struct ProcEkrLevelup *proc)
     Proc_End(gpProcEfxPartsofScroll);
     gpProcEfxPartsofScroll = NewEfxPartsofScroll2();
 
-    SomePlaySound_8071990(0x2CD, 0x100);
+    EfxPlaySE(0x2CD, 0x100);
     M4aPlayWithPostionCtrl(0x2CD, 0x38, 0);
     
     proc->timer = 0;
@@ -617,7 +617,7 @@ void EkrLvup_DrawNewLevel(struct ProcEkrLevelup *proc)
         BanimDrawStatupAp(0xA0, 1, 0x84, 0x3C, 0, 0);
         gEkrLvupPreLevel = gEkrLvupPostLevel;
         EkrLvup_DrawPreLevelValue(proc);
-        SomePlaySound_8071990(0x2CD, 0x100);
+        EfxPlaySE(0x2CD, 0x100);
         M4aPlayWithPostionCtrl(0x2CD, 0x38, 0);
         Proc_Break(proc);
     } else {
@@ -658,7 +658,7 @@ void EkrLvup_MainAnime(struct ProcEkrLevelup *proc)
             if (diff != 0) {
                 gEkrLvupBaseStatus[proc->index] = gEkrLvupPostStatus[proc->index];
                 EkrLvup_DrawUpdatedStatus(proc, proc->index);
-                SomePlaySound_8071990(0x76, 0x100);
+                EfxPlaySE(0x76, 0x100);
                 M4aPlayWithPostionCtrl(0x76, 0x38, 0);
 
                 BanimDrawStatupAp(0xA0, 1,

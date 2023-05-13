@@ -12,6 +12,7 @@
 #include "efxbattle.h"
 #include "ekrpopup.h"
 #include "ekrdragon.h"
+#include "ekrtriangle.h"
 
 EWRAM_DATA struct Anim *gAnims[4] = {NULL};
 EWRAM_DATA void *gUnknown_02000010[2] = {NULL};
@@ -654,7 +655,7 @@ void ekrBattle_8050940(struct ProcEkrBattle *proc)
         }
 
         proc->proc_idleCb = (ProcFunc)ekrBattleWaitExpBarIdle;
-        SomePlaySound_8071990(0x74, 0x100);
+        EfxPlaySE(0x74, 0x100);
         M4aPlayWithPostionCtrl(0x74, 0x78, 0);
     }
 }

@@ -164,7 +164,7 @@ SECTIONS
         src/banim-ekrtriangle.o(.text);
         asm/banim-ekrtriangle.o(.text);
         src/banim-ekrpopup.o(.text);
-        asm/banim-ekrpopup.o(.text);
+        src/banim-ekrhensei.o(.text);
         src/banim-ekrdragon-demonking.o(.text);
         asm/banim-ekrdragon-demonking.o(.text);
         src/spellassoc.o(.text);
@@ -363,6 +363,8 @@ SECTIONS
         . = ALIGN(4); data/banim-ekrlvup-const.o(.rodata);
         . = ALIGN(4); src/banim-ekrtriangle.o(.rodata);
         . = ALIGN(4); data/const_data_E162A.o(.rodata);
+        . = ALIGN(4); src/banim-ekrpopup.o(.rodata);
+        . = ALIGN(4); src/banim-ekrhensei.o(.rodata);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.rodata);
         . = ALIGN(4); data/const_data-ekrdk.o(.rodata);
         . = ALIGN(4); src/msg_data.o(.rodata);
@@ -505,12 +507,12 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrdragon-myrrh.o(.data);
         . = ALIGN(4); data/data-ekrclasschg.o(.data);
         . = ALIGN(4); src/banim-ekrlvup.o(.data);
-        . = ALIGN(4); data/banim-ekrlvup.o(.data);
+        . = ALIGN(4); data/banim-efxlvup.o(.data);
         . = ALIGN(4); src/banim-ekrtriangle.o(.data);
         . = ALIGN(4); data/banim-ekrtriangle.o(.data);
         . = ALIGN(4); data/data_btl_bg.o(.data);
         . = ALIGN(4); src/banim-ekrpopup.o(.data);
-        . = ALIGN(4); data/banim-ekrpopup.o(.data);
+        . = ALIGN(4); src/banim-ekrhensei.o(.data);
         . = ALIGN(4); data/data_banim_78D500.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.data);
         . = ALIGN(4); data/data-ekrdk.o(.data);

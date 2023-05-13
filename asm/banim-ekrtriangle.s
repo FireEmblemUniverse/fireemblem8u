@@ -2,314 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START EkrTriangleMain
-EkrTriangleMain: @ 0x08074F80
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #4
-	adds r6, r0, #0
-	movs r0, #0
-	mov r9, r0
-	mov sl, r0
-	mov r8, r0
-	movs r7, #0
-	ldr r0, [r6, #0x5c]
-	bl GetAISSubjectId
-	cmp r0, #0
-	bne _08074FAC
-	ldr r0, _08074FA8  @ gpEkrBattleUnitLeft
-	b _08074FAE
-	.align 2, 0
-_08074FA8: .4byte gpEkrBattleUnitLeft
-_08074FAC:
-	ldr r0, _08074FFC  @ gpEkrBattleUnitRight
-_08074FAE:
-	ldr r0, [r0]
-	ldr r0, [r0, #4]
-	ldrb r5, [r0, #4]
-	cmp r5, #9
-	bge _08074FBA
-	b _080750BC
-_08074FBA:
-	cmp r5, #0xc
-	ble _08074FC0
-	b _080750BC
-_08074FC0:
-	ldr r0, _08075000  @ gpEkrTriangleUnits
-	ldr r1, [r0]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #4]
-	cmp r0, #9
-	bne _08074FD0
-	movs r2, #0
-	mov r9, r2
-_08074FD0:
-	cmp r0, #0xa
-	bne _08074FD8
-	movs r2, #0
-	mov r9, r2
-_08074FD8:
-	cmp r0, #0xb
-	bne _08074FE0
-	movs r2, #1
-	mov r9, r2
-_08074FE0:
-	cmp r0, #0xc
-	bne _08074FE8
-	movs r0, #1
-	mov r9, r0
-_08074FE8:
-	adds r0, r1, #0
-	bl GetUnitEquippedWeapon
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0
-	bne _08075004
-	movs r0, #1
-	b _0807500A
-	.align 2, 0
-_08074FFC: .4byte gpEkrBattleUnitRight
-_08075000: .4byte gpEkrTriangleUnits
-_08075004:
-	adds r0, r4, #0
-	bl GetItemType
-_0807500A:
-	cmp r0, #1
-	beq _08075014
-	cmp r0, #2
-	beq _0807501A
-	b _0807502C
-_08075014:
-	movs r1, #0
-	mov r8, r1
-	b _0807502C
-_0807501A:
-	adds r0, r4, #0
-	bl GetItemIndex
-	movs r2, #1
-	mov r8, r2
-	cmp r0, #0x28
-	bne _0807502C
-	movs r0, #2
-	mov r8, r0
-_0807502C:
-	ldr r0, _08075068  @ gpEkrTriangleUnits
-	ldr r1, [r0, #4]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #4]
-	cmp r0, #9
-	bne _0807503C
-	movs r2, #0
-	mov sl, r2
-_0807503C:
-	cmp r0, #0xa
-	bne _08075044
-	movs r2, #0
-	mov sl, r2
-_08075044:
-	cmp r0, #0xb
-	bne _0807504C
-	movs r2, #1
-	mov sl, r2
-_0807504C:
-	cmp r0, #0xc
-	bne _08075054
-	movs r0, #1
-	mov sl, r0
-_08075054:
-	adds r0, r1, #0
-	bl GetUnitEquippedWeapon
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0
-	bne _0807506C
-	movs r0, #1
-	b _08075072
-	.align 2, 0
-_08075068: .4byte gpEkrTriangleUnits
-_0807506C:
-	adds r0, r4, #0
-	bl GetItemType
-_08075072:
-	cmp r0, #1
-	beq _0807507C
-	cmp r0, #2
-	beq _08075080
-	b _0807508E
-_0807507C:
-	movs r7, #0
-	b _0807508E
-_08075080:
-	adds r0, r4, #0
-	bl GetItemIndex
-	movs r7, #1
-	cmp r0, #0x28
-	bne _0807508E
-	movs r7, #2
-_0807508E:
-	ldr r0, [r6, #0x5c]
-	str r7, [sp]
-	mov r1, r9
-	mov r2, sl
-	mov r3, r8
-	bl NewEkrTriArmorKnight
-	ldr r0, _080750B4  @ gpEkrBattleUnitRight
-	ldr r0, [r0]
-	adds r0, #0x4a
-	ldrh r0, [r0]
-	bl GetItemIndex
-	cmp r0, #0x28
-	bne _08075164
-	ldr r1, _080750B8  @ gEkrTriangleInvalid
-	movs r0, #0
-	b _08075168
-	.align 2, 0
-_080750B4: .4byte gpEkrBattleUnitRight
-_080750B8: .4byte gEkrTriangleInvalid
-_080750BC:
-	ldr r0, _080750E8  @ gpEkrTriangleUnits
-	ldr r1, [r0]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #4]
-	cmp r0, #0x48
-	bne _080750CC
-	movs r2, #0
-	mov r9, r2
-_080750CC:
-	cmp r0, #0x49
-	bne _080750D4
-	movs r0, #1
-	mov r9, r0
-_080750D4:
-	adds r0, r1, #0
-	bl GetUnitEquippedWeapon
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0
-	bne _080750EC
-	movs r0, #1
-	b _080750F6
-	.align 2, 0
-_080750E8: .4byte gpEkrTriangleUnits
-_080750EC:
-	adds r0, r4, #0
-	bl GetItemType
-	cmp r0, #0
-	beq _08075100
-_080750F6:
-	cmp r0, #1
-	bne _08075104
-	movs r1, #0
-	mov r8, r1
-	b _08075104
-_08075100:
-	movs r2, #1
-	mov r8, r2
-_08075104:
-	ldr r0, _08075130  @ gpEkrTriangleUnits
-	ldr r1, [r0, #4]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #4]
-	cmp r0, #0x48
-	bne _08075114
-	movs r2, #0
-	mov sl, r2
-_08075114:
-	cmp r0, #0x49
-	bne _0807511C
-	movs r0, #1
-	mov sl, r0
-_0807511C:
-	adds r0, r1, #0
-	bl GetUnitEquippedWeapon
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0
-	bne _08075134
-	movs r0, #1
-	b _0807513E
-	.align 2, 0
-_08075130: .4byte gpEkrTriangleUnits
-_08075134:
-	adds r0, r4, #0
-	bl GetItemType
-	cmp r0, #0
-	beq _08075146
-_0807513E:
-	cmp r0, #1
-	bne _08075148
-	movs r7, #0
-	b _08075148
-_08075146:
-	movs r7, #1
-_08075148:
-	ldr r0, [r6, #0x5c]
-	str r7, [sp]
-	mov r1, r9
-	mov r2, sl
-	mov r3, r8
-	bl NewEkrTriPegasusKnight
-	cmp r5, #0x48
-	bne _08075164
-	ldr r1, _08075160  @ gEkrTriangleInvalid
-	movs r0, #0
-	b _08075168
-	.align 2, 0
-_08075160: .4byte gEkrTriangleInvalid
-_08075164:
-	ldr r1, _08075180  @ gEkrTriangleInvalid
-	movs r0, #1
-_08075168:
-	str r0, [r1]
-	adds r0, r6, #0
-	bl Proc_Break
-	add sp, #4
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08075180: .4byte gEkrTriangleInvalid
-
-	THUMB_FUNC_END EkrTriangleMain
-
-	THUMB_FUNC_START NewEkrTriPegasusKnight
-NewEkrTriPegasusKnight: @ 0x08075184
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	adds r4, r0, #0
-	adds r5, r1, #0
-	adds r6, r2, #0
-	mov r8, r3
-	ldr r7, [sp, #0x18]
-	ldr r0, _080751B8  @ ProcScr_ekrTriPegasusKnight
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	str r5, [r0, #0x44]
-	str r6, [r0, #0x48]
-	mov r1, r8
-	str r1, [r0, #0x4c]
-	str r7, [r0, #0x50]
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080751B8: .4byte ProcScr_ekrTriPegasusKnight
-
-	THUMB_FUNC_END NewEkrTriPegasusKnight
-
 	THUMB_FUNC_START sub_80751BC
 sub_80751BC: @ 0x080751BC
 	push {r4, r5, lr}
@@ -552,7 +244,7 @@ _0807539A:
 	adds r0, r7, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	str r0, [r5, #0x60]
 	ldr r4, _080753EC  @ gUnknown_0201A790
 	adds r0, r6, #0
@@ -815,7 +507,7 @@ _080755AC:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r1, r0, #0
 	str r1, [r5, #0x60]
 	ldr r0, _080755F4  @ 0x00008840
@@ -875,7 +567,7 @@ _08075638:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r1, r0, #0
 	str r1, [r5, #0x64]
 	ldr r0, _080756A8  @ 0x0000A880
@@ -1048,7 +740,7 @@ _080757A4:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_8055554
+	bl EfxAnimCreate
 	adds r1, r0, #0
 	str r1, [r4, #0x60]
 	cmp r5, #0

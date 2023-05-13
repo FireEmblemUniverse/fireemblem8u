@@ -3,7 +3,7 @@
 #include "hardware.h"
 #include "ctc.h"
 #include "bm.h"
-#include "uiutils.h"
+#include "bmlib.h"
 #include "bmio.h"
 #include "mu.h"
 #include "anime.h"

@@ -66,4 +66,4 @@ gUnknown_080E7400:  @ 0x080E7400
 
 	.global gUnknown_080E7B8C
 gUnknown_080E7B8C:  @ 0x080E7B8C
-	.incbin "baserom.gba", 0xE7B8C, 0x750
+	.incbin "baserom.gba", 0xE7B8C, (0xE829C - 0xE7B8C)
