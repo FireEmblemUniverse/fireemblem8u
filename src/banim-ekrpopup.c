@@ -432,13 +432,9 @@ PROC_LABEL(0x5),
     PROC_END
 };
 
-/* https://decomp.me/scratch/1ULp6 */
-#if NONMATCHING
 void NewEkrPopup(void)
 {
     int i;
-    register struct BattleUnit **bu1 asm("r4");
-    register struct BattleUnit **bu2 asm("r3");
     struct ProcEkrPopup *proc;
 
     if (gEkrDistanceType == 4) {
@@ -448,17 +444,17 @@ void NewEkrPopup(void)
         proc->unk44 = -1;
         proc->unk48 = -1;
 
-        i = 0;
-        for (; i < 8; i++) {
-            bu1 = &gpEkrBattleUnitLeft;
-            bu2 = &gpEkrBattleUnitRight;
-            if ((*bu1)->unit.ranks[i] == 0)
-                if ((*bu2)->unit.ranks[i] != 0) {
+        for (i = 0; i < 8; i++) {
+            gpEkrBattleUnitRight = gpEkrBattleUnitRight;
+            if (&gpEkrBattleUnitLeft == &gpEkrBattleUnitLeft && &gpEkrBattleUnitRight == &gpEkrBattleUnitRight && gpEkrBattleUnitRight->unit.ranks[i] == 0) {
+                if (gpEkrBattleUnitLeft->unit.ranks[i] != 0) {
                     if (proc->unk44 == -1)
                         proc->unk44 = i;
                     else
                         proc->unk48 = i;
                 }
+            }
+            gpEkrBattleUnitLeft = gpEkrBattleUnitLeft;
         }
 
         if (proc->unk44 != -1) {
@@ -472,7 +468,7 @@ void NewEkrPopup(void)
         gpProcEkrPopup = proc = Proc_Start(ProcScr_ekrPopup, PROC_TREE_3);
         gEkrPopupEnded = 0;
     
-        proc->unk2C = 0;
+        proc->timer = 0;
         proc->unk48 = 0;
         proc->unk44 = 0;
         proc->unk50 = 0;
@@ -502,175 +498,6 @@ void NewEkrPopup(void)
         }
     }
 }
-#else
-__attribute__((naked))
-void NewEkrPopup(void)
-{
-    asm(".syntax unified\n\
-        push {r4, r5, lr}\n\
-        ldr r0, _08075F6C  @ gEkrDistanceType\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        cmp r0, #4\n\
-        bne _08075F9E\n\
-        ldr r4, _08075F70  @ gpProcEkrPopup\n\
-        ldr r0, _08075F74  @ ProcScr_ekrPopup2\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r5, r0, #0\n\
-        str r5, [r4]\n\
-        ldr r1, _08075F78  @ gEkrPopupEnded\n\
-        movs r0, #0\n\
-        str r0, [r1]\n\
-        subs r0, #1\n\
-        str r0, [r5, #0x44]\n\
-        str r0, [r5, #0x48]\n\
-        movs r2, #0\n\
-        ldr r4, _08075F7C  @ gpEkrBattleUnitRight\n\
-        ldr r3, _08075F80  @ gpEkrBattleUnitLeft\n\
-    _08075F44:\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x28\n\
-        adds r0, r0, r2\n\
-        ldrb r0, [r0]\n\
-        cmp r0, #0\n\
-        bne _08075F86\n\
-        ldr r0, [r3]\n\
-        adds r0, #0x28\n\
-        adds r0, r0, r2\n\
-        ldrb r0, [r0]\n\
-        cmp r0, #0\n\
-        beq _08075F86\n\
-        ldr r1, [r5, #0x44]\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        bne _08075F84\n\
-        str r2, [r5, #0x44]\n\
-        b _08075F86\n\
-        .align 2, 0\n\
-    _08075F6C: .4byte gEkrDistanceType\n\
-    _08075F70: .4byte gpProcEkrPopup\n\
-    _08075F74: .4byte ProcScr_ekrPopup2\n\
-    _08075F78: .4byte gEkrPopupEnded\n\
-    _08075F7C: .4byte gpEkrBattleUnitRight\n\
-    _08075F80: .4byte gpEkrBattleUnitLeft\n\
-    _08075F84:\n\
-        str r2, [r5, #0x48]\n\
-    _08075F86:\n\
-        adds r2, #1\n\
-        cmp r2, #7\n\
-        ble _08075F44\n\
-        ldr r1, [r5, #0x44]\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        beq _0807603C\n\
-        movs r0, #0x80\n\
-        bl Sound_SetSEVolume\n\
-        b _08076066\n\
-    _08075F9E:\n\
-        ldr r4, _08076048  @ gpProcEkrPopup\n\
-        ldr r0, _0807604C  @ ProcScr_ekrPopup\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r5, r0, #0\n\
-        str r5, [r4]\n\
-        ldr r1, _08076050  @ gEkrPopupEnded\n\
-        movs r0, #0\n\
-        str r0, [r1]\n\
-        strh r0, [r5, #0x2c]\n\
-        str r0, [r5, #0x48]\n\
-        str r0, [r5, #0x44]\n\
-        str r0, [r5, #0x50]\n\
-        str r0, [r5, #0x4c]\n\
-        ldr r0, _08076054  @ gBanimSomeObjPalIndex\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        cmp r0, #0\n\
-        bne _08075FF4\n\
-        ldr r4, _08076058  @ gpEkrBattleUnitLeft\n\
-        ldr r0, [r4]\n\
-        bl HasBattleUnitGainedWeaponLevel\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #1\n\
-        bne _08075FDE\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        str r0, [r5, #0x44]\n\
-    _08075FDE:\n\
-        ldr r0, [r4]\n\
-        bl DidBattleUnitBreakWeapon\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #1\n\
-        bne _08075FF4\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        str r0, [r5, #0x48]\n\
-    _08075FF4:\n\
-        ldr r0, _08076054  @ gBanimSomeObjPalIndex\n\
-        movs r1, #2\n\
-        ldrsh r0, [r0, r1]\n\
-        cmp r0, #0\n\
-        bne _0807602C\n\
-        ldr r4, _0807605C  @ gpEkrBattleUnitRight\n\
-        ldr r0, [r4]\n\
-        bl HasBattleUnitGainedWeaponLevel\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #1\n\
-        bne _08076016\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        str r0, [r5, #0x4c]\n\
-    _08076016:\n\
-        ldr r0, [r4]\n\
-        bl DidBattleUnitBreakWeapon\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #1\n\
-        bne _0807602C\n\
-        ldr r0, [r4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        str r0, [r5, #0x50]\n\
-    _0807602C:\n\
-        ldr r0, [r5, #0x44]\n\
-        ldr r1, [r5, #0x48]\n\
-        adds r0, r0, r1\n\
-        ldr r1, [r5, #0x4c]\n\
-        adds r0, r0, r1\n\
-        ldr r1, [r5, #0x50]\n\
-        cmn r0, r1\n\
-        bne _08076060\n\
-    _0807603C:\n\
-        ldr r1, _08076050  @ gEkrPopupEnded\n\
-        movs r0, #1\n\
-        str r0, [r1]\n\
-        bl DeleteAnimsOnPopup\n\
-        b _08076066\n\
-        .align 2, 0\n\
-    _08076048: .4byte gpProcEkrPopup\n\
-    _0807604C: .4byte ProcScr_ekrPopup\n\
-    _08076050: .4byte gEkrPopupEnded\n\
-    _08076054: .4byte gBanimSomeObjPalIndex\n\
-    _08076058: .4byte gpEkrBattleUnitLeft\n\
-    _0807605C: .4byte gpEkrBattleUnitRight\n\
-    _08076060:\n\
-        movs r0, #0x80\n\
-        bl Sound_SetSEVolume\n\
-    _08076066:\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-    .syntax divided");
-}
-#endif
 
 void BattlePopup_Wait16Frames(struct ProcEkrPopup *proc)
 {
