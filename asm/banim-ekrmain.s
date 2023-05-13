@@ -274,7 +274,7 @@ _08059B46:
 	mov r1, r9
 	str r1, [r4]
 _08059B7E:
-	ldr r4, _08059C38  @ gEkrTriangleAtkFlag
+	ldr r4, _08059C38  @ gpEkrTriangleUnits
 	ldr r2, [r4]
 	cmp r2, #0
 	bne _08059B88
@@ -343,7 +343,7 @@ _08059C28: .4byte gpBanimModesRight
 _08059C2C: .4byte gBanimPal2
 _08059C30: .4byte gUnknown_02022BC8
 _08059C34: .4byte gBanimOamr2
-_08059C38: .4byte gEkrTriangleAtkFlag
+_08059C38: .4byte gpEkrTriangleUnits
 _08059C3C: .4byte gUnknown_0895E0A4
 _08059C40: .4byte gUnknown_0895EEA4
 _08059C44:
@@ -371,7 +371,7 @@ _08059C44:
 	ldr r0, [r0, #0xc]
 	str r0, [r1]
 _08059C72:
-	ldr r4, _08059CD4  @ gEkrTriangleAtkFlag
+	ldr r4, _08059CD4  @ gpEkrTriangleUnits
 	ldr r0, [r4, #4]
 	ldr r1, [r0, #4]
 	ldr r1, [r1, #0x34]
@@ -415,7 +415,7 @@ _08059CC4: .4byte gUnknown_0895E0A4
 _08059CC8: .4byte gBanimCharacterTSAs
 _08059CCC: .4byte gUnknown_0895EEA4
 _08059CD0: .4byte character_battle_animation_palette_table
-_08059CD4: .4byte gEkrTriangleAtkFlag
+_08059CD4: .4byte gpEkrTriangleUnits
 _08059CD8:
 	adds r0, r3, #1
 	lsls r0, r0, #0x10

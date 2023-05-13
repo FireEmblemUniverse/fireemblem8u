@@ -10,9 +10,17 @@
 #include "ekrlevelup.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "ekrpopup.h"
 #include "ekrdragon.h"
 
-extern struct Anim *gAnims[4];
+EWRAM_DATA struct Anim *gAnims[4] = {NULL};
+EWRAM_DATA void *gUnknown_02000010[2] = {NULL};
+EWRAM_DATA int gEkrDebugTimer = 0;
+EWRAM_DATA int gEkrDebugUnk1 = 0;
+EWRAM_DATA int gEkrDebugUnk2 = 0;
+EWRAM_DATA int gEkrDebugUnk3 = 0;
+EWRAM_DATA s16 gEkrXPosBase[2] = {0};
+EWRAM_DATA s16 gEkrYPosBase[2] = {0};
 
 void SetBanimLinkArenaFlag(int flag)
 {
@@ -64,9 +72,9 @@ void NewEkrBattle(void)
 
     gEkrBattleEndFlag = 0;
     gEkrDebugTimer = 0;
-    gUnknown_0200001C = 0;
-    gUnknown_02000020 = 0;
-    gUnknown_02000024 = 0;
+    gEkrDebugUnk1 = 0;
+    gEkrDebugUnk2 = 0;
+    gEkrDebugUnk3 = 0;
 
     if (0 == gEkrDebugModeMaybe)
         sub_80726AC();
@@ -76,11 +84,11 @@ void InBattleMainRoutine(void)
 {
     UpdateKeyStatus(gKeyStatusPtr);
     
-    if (gUnknown_0200001C == 0)
+    if (gEkrDebugUnk1 == 0)
         MainUpdateEkrBattle();
-    else if (gUnknown_02000020 == 1)
+    else if (gEkrDebugUnk2 == 1)
         MainUpdateEkrBattle();
-    
+
     switch (gEkrBattleEndFlag) {
     case 0:
         break;
@@ -131,7 +139,7 @@ void MainUpdateEkrBattle(void)
 
     Proc_Run(gProcTreeRootArray[4]);
 
-    gUnknown_02000020 = 0;
+    gEkrDebugUnk2 = 0;
 
     if ((gBanimDoneMaybe[0] + gBanimDoneMaybe[1]) != 2)
         gEkrDebugTimer++;
@@ -158,7 +166,7 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
     sub_8070B3C();
     SetAnimStateHiddenForDragon();
 
-    gUnknown_02000024 = 1;
+    gEkrDebugUnk3 = 1;
 
     if (true == GetBattleAnimArenaFlag())
         proc->timer = 0;
@@ -337,7 +345,7 @@ void ekrBattleSetFlashingEffect(struct ProcEkrBattle *proc)
 
 void ekrBattleExecTriangleAtk(struct ProcEkrBattle *proc)
 {
-    if (gEkrTriangleAtkFlag != false) {
+    if (gpEkrTriangleUnits[0] != NULL) {
         NewEkrTriangle(gAnims[2]);
         proc->proc_idleCb = (ProcFunc)ekrBattleWaitTriangleIdle;
     } else
@@ -387,7 +395,7 @@ void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc)
 
 void ekrBattle_80503EC(struct ProcEkrBattle *proc)
 {
-    gUnknown_02000024 = 0;
+    gEkrDebugUnk3 = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050400;
 }
 

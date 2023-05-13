@@ -1,6 +1,7 @@
 // battle animation data in the ROM
 // by laqieer
 
+#include "global.h"
 #include "packed_data_block.h"
 #include "banim_pointer.h"
 

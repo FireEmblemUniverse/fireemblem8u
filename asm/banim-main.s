@@ -191,7 +191,7 @@ _08058C44: @ jump table
 	.4byte _08059698 @ case 122
 	.4byte _08059698 @ case 123
 _08058E34:
-	ldr r0, _08058E44  @ gUnknown_02000024
+	ldr r0, _08058E44  @ gEkrDebugUnk3
 	ldr r0, [r0]
 	cmp r0, #1
 	bne _08058E48
@@ -199,7 +199,7 @@ _08058E34:
 	str r0, [r7, #0x20]
 	bl _080596CC
 	.align 2, 0
-_08058E44: .4byte gUnknown_02000024
+_08058E44: .4byte gEkrDebugUnk3
 _08058E48:
 	ldrh r1, [r7, #0x10]
 	movs r0, #4
@@ -1305,7 +1305,7 @@ _08059746:
 	ands r1, r0
 	cmp r1, #0
 	bne _0805975C
-	ldr r0, _080597A4  @ gUnknown_02000024
+	ldr r0, _080597A4  @ gEkrDebugUnk3
 	ldr r0, [r0]
 	cmp r0, #1
 	beq _0805975C
@@ -1342,7 +1342,7 @@ _0805975C:
 	.align 2, 0
 _0805979C: .4byte gUnknown_0203E1A4
 _080597A0: .4byte gpImgSheet
-_080597A4: .4byte gUnknown_02000024
+_080597A4: .4byte gEkrDebugUnk3
 _080597A8: .4byte gAnims
 _080597AC: .4byte 0x0000FFFD
 _080597B0:

@@ -2269,7 +2269,7 @@ ParseBattleHitToBanimCmd: @ 0x080581EC
 	ldr r7, _08058244  @ gBattleHitArray
 	movs r2, #0
 	ldr r4, _08058248  @ gAnimRoundData
-	ldr r5, _0805824C  @ gEkrTriangleAtkFlag
+	ldr r5, _0805824C  @ gpEkrTriangleUnits
 	ldr r6, _08058250  @ gEkrDistanceType
 	ldr r0, _08058254  @ 0x0000FFFF
 	adds r3, r0, #0
@@ -2308,7 +2308,7 @@ _08058220:
 	.align 2, 0
 _08058244: .4byte gBattleHitArray
 _08058248: .4byte gAnimRoundData
-_0805824C: .4byte gEkrTriangleAtkFlag
+_0805824C: .4byte gpEkrTriangleUnits
 _08058250: .4byte gEkrDistanceType
 _08058254: .4byte 0x0000FFFF
 _08058258: .4byte gEfxHpLut
@@ -2493,7 +2493,7 @@ _080583B4:
 	ands r0, r1
 	cmp r0, #0
 	beq _080583D0
-	ldr r2, _080583F4  @ gEkrTriangleAtkFlag
+	ldr r2, _080583F4  @ gpEkrTriangleUnits
 	ldr r1, _080583F8  @ gBattleStats
 	ldr r0, [r1, #0x10]
 	str r0, [r2]
@@ -2516,7 +2516,7 @@ _080583D0:
 	b _08058482
 	.align 2, 0
 _080583F0: .4byte gEkrInitialHitSide
-_080583F4: .4byte gEkrTriangleAtkFlag
+_080583F4: .4byte gpEkrTriangleUnits
 _080583F8: .4byte gBattleStats
 _080583FC: .4byte gUnknown_080DAEA0
 _08058400:

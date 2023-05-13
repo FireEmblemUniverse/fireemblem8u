@@ -131,11 +131,7 @@ extern void *gpImgSheet[2];
 // extern ??? gEkrDragonStatusLeft
 // extern ??? gEkrDragonStatusRight
 extern u16 gEkrDragonPalBackup[0x40 / sizeof(u16)];
-// extern ??? gUnknown_020200A8
-// extern ??? gUnknown_020200AC
-// extern ??? gpProcEkrClasshg
-// extern ??? gpAnimOnPopuProc
-// extern ??? gpEkrPopupEndFlag
+
 extern u8 gEkrSomePalBuf[0x40];
 extern u8 gGenericBuffer[0x1000];
 // extern ??? gUnknown_02020208
@@ -2222,15 +2218,15 @@ extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? ProcScr_efxLvupBGCOL
 // extern ??? ProcScr_EkrLvupApfx
 // extern ??? gUnknown_0875957C
-// extern ??? ProcScr_ekrTriangle
-// extern ??? ProcScr_ekrTriPegasusKnight
-// extern ??? ProcScr_ekrTriPegasusKnightBG
+extern CONST_DATA struct ProcCmd ProcScr_ekrTriangle[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnight[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnightBG[];
 // extern ??? gUnknown_087595EC
-// extern ??? ProcScr_EkrTriPegasusKnightOBJ
-// extern ??? ProcScr_EkrTriArmorKnight
-// extern ??? ProcScr_EkrTriArmorKnightOBJ
-// extern ??? ProcScr_EkrTriArmorKnightOBJ2
-// extern ??? ProcScr_EfxTriangleQUAKE
+extern CONST_DATA struct ProcCmd ProcScr_EkrTriPegasusKnightOBJ[];
+extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnight[];
+extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnightOBJ[];
+extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnightOBJ2[];
+extern CONST_DATA struct ProcCmd ProcScr_EfxTriangleQUAKE[];
 // extern ??? gUnknown_08759B34
 // extern ??? gUnknown_08759E68
 // extern ??? gUnknown_08759F00
@@ -2241,7 +2237,9 @@ extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? gUnknown_0875A314
 // extern ??? gUnknown_0875A468
 // extern ??? gUnknown_0875A730
-// extern ??? gBattleBGDataTable
+extern u16 *gBattleBGDataTable[];
+extern u32 gPopupIconOAMData[6];
+extern u32 gPopupIconFrameData[2];
 // extern ??? gPopupIconFrameData
 // extern ??? ProcScr_ekrPopup
 // extern ??? ProcScr_ekrPopup2
@@ -2335,10 +2333,10 @@ extern u16 gUnknown_08803590[];
 extern u16 Img_LevelUpBoxFrame[];
 extern u16 Tsa_LevelUpBoxFrame[];
 extern u16 Pal_LevelUpBoxFrame[];
-// extern ??? gUnknown_08803B30
-// extern ??? gUnknown_08803BD0
-// extern ??? gUnknown_08803CB0
-// extern ??? gUnknown_08803CD0
+extern u16 gUnknown_08803B30[];
+extern u16 gUnknown_08803BD0[];
+extern u16 gUnknown_08803CB0[];
+extern u16 gUnknown_08803CD0[];
 // extern ??? gCharacterData
 extern const s8 gUnknown_0880B90C[]; // terrainId to ? lookup
 extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table

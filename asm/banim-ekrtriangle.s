@@ -2,53 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START CheckEkrTriangleInvalid
-CheckEkrTriangleInvalid: @ 0x08074F3C
-	push {lr}
-	ldr r0, _08074F4C  @ gEkrTriangleInvalid
-	ldr r0, [r0]
-	cmp r0, #1
-	beq _08074F50
-	movs r0, #0
-	b _08074F52
-	.align 2, 0
-_08074F4C: .4byte gEkrTriangleInvalid
-_08074F50:
-	movs r0, #1
-_08074F52:
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END CheckEkrTriangleInvalid
-
-	THUMB_FUNC_START nullsub_18
-nullsub_18: @ 0x08074F58
-	bx lr
-
-	THUMB_FUNC_END nullsub_18
-
-	THUMB_FUNC_START NewEkrTriangle
-NewEkrTriangle: @ 0x08074F5C
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _08074F78  @ ProcScr_ekrTriangle
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	ldr r1, _08074F7C  @ gEkrTriangleInvalid
-	movs r0, #0
-	str r0, [r1]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08074F78: .4byte ProcScr_ekrTriangle
-_08074F7C: .4byte gEkrTriangleInvalid
-
-	THUMB_FUNC_END NewEkrTriangle
-
-	THUMB_FUNC_START sub_8074F80
-sub_8074F80: @ 0x08074F80
+	THUMB_FUNC_START EkrTriangleMain
+EkrTriangleMain: @ 0x08074F80
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -83,7 +38,7 @@ _08074FBA:
 	ble _08074FC0
 	b _080750BC
 _08074FC0:
-	ldr r0, _08075000  @ gEkrTriangleAtkFlag
+	ldr r0, _08075000  @ gpEkrTriangleUnits
 	ldr r1, [r0]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -117,7 +72,7 @@ _08074FE8:
 	b _0807500A
 	.align 2, 0
 _08074FFC: .4byte gpEkrBattleUnitRight
-_08075000: .4byte gEkrTriangleAtkFlag
+_08075000: .4byte gpEkrTriangleUnits
 _08075004:
 	adds r0, r4, #0
 	bl GetItemType
@@ -141,7 +96,7 @@ _0807501A:
 	movs r0, #2
 	mov r8, r0
 _0807502C:
-	ldr r0, _08075068  @ gEkrTriangleAtkFlag
+	ldr r0, _08075068  @ gpEkrTriangleUnits
 	ldr r1, [r0, #4]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -174,7 +129,7 @@ _08075054:
 	movs r0, #1
 	b _08075072
 	.align 2, 0
-_08075068: .4byte gEkrTriangleAtkFlag
+_08075068: .4byte gpEkrTriangleUnits
 _0807506C:
 	adds r0, r4, #0
 	bl GetItemType
@@ -200,7 +155,7 @@ _0807508E:
 	mov r1, r9
 	mov r2, sl
 	mov r3, r8
-	bl sub_8075424
+	bl NewEkrTriArmorKnight
 	ldr r0, _080750B4  @ gpEkrBattleUnitRight
 	ldr r0, [r0]
 	adds r0, #0x4a
@@ -215,7 +170,7 @@ _0807508E:
 _080750B4: .4byte gpEkrBattleUnitRight
 _080750B8: .4byte gEkrTriangleInvalid
 _080750BC:
-	ldr r0, _080750E8  @ gEkrTriangleAtkFlag
+	ldr r0, _080750E8  @ gpEkrTriangleUnits
 	ldr r1, [r0]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -238,7 +193,7 @@ _080750D4:
 	movs r0, #1
 	b _080750F6
 	.align 2, 0
-_080750E8: .4byte gEkrTriangleAtkFlag
+_080750E8: .4byte gpEkrTriangleUnits
 _080750EC:
 	adds r0, r4, #0
 	bl GetItemType
@@ -254,7 +209,7 @@ _08075100:
 	movs r2, #1
 	mov r8, r2
 _08075104:
-	ldr r0, _08075130  @ gEkrTriangleAtkFlag
+	ldr r0, _08075130  @ gpEkrTriangleUnits
 	ldr r1, [r0, #4]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -277,7 +232,7 @@ _0807511C:
 	movs r0, #1
 	b _0807513E
 	.align 2, 0
-_08075130: .4byte gEkrTriangleAtkFlag
+_08075130: .4byte gpEkrTriangleUnits
 _08075134:
 	adds r0, r4, #0
 	bl GetItemType
@@ -322,7 +277,7 @@ _08075168:
 	.align 2, 0
 _08075180: .4byte gEkrTriangleInvalid
 
-	THUMB_FUNC_END sub_8074F80
+	THUMB_FUNC_END EkrTriangleMain
 
 	THUMB_FUNC_START NewEkrTriPegasusKnight
 NewEkrTriPegasusKnight: @ 0x08075184
@@ -660,8 +615,8 @@ _0807541E:
 
 	THUMB_FUNC_END sub_80753FC
 
-	THUMB_FUNC_START sub_8075424
-sub_8075424: @ 0x08075424
+	THUMB_FUNC_START NewEkrTriArmorKnight
+NewEkrTriArmorKnight: @ 0x08075424
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -689,7 +644,7 @@ sub_8075424: @ 0x08075424
 	.align 2, 0
 _08075458: .4byte ProcScr_EkrTriArmorKnight
 
-	THUMB_FUNC_END sub_8075424
+	THUMB_FUNC_END NewEkrTriArmorKnight
 
 	THUMB_FUNC_START sub_807545C
 sub_807545C: @ 0x0807545C
@@ -1247,5 +1202,182 @@ _080758CC: .4byte gUnknown_0201774C
 _080758D0: .4byte ProcScr_EfxTriangleQUAKE
 
 	THUMB_FUNC_END sub_807589C
+
+	THUMB_FUNC_START EfxTriangleQUAKEMain
+EfxTriangleQUAKEMain: @ 0x080758D4
+	push {r4, r5, r6, r7, lr}
+	mov r7, sl
+	mov r6, r9
+	mov r5, r8
+	push {r5, r6, r7}
+	adds r7, r0, #0
+	ldr r4, _08075A38  @ gEkrBg2QuakeVec
+	ldrh r1, [r4]
+	ldrh r2, [r4, #2]
+	movs r0, #2
+	bl BG_SetPosition
+	ldr r6, _08075A3C  @ gEkrBg0QuakeVec
+	ldrh r1, [r6]
+	ldrh r0, [r4]
+	adds r1, r1, r0
+	lsls r1, r1, #0x10
+	lsrs r1, r1, #0x10
+	ldrh r2, [r6, #2]
+	ldrh r3, [r4, #2]
+	adds r2, r2, r3
+	lsls r2, r2, #0x10
+	lsrs r2, r2, #0x10
+	movs r0, #0
+	bl BG_SetPosition
+	ldrh r0, [r6]
+	ldrh r1, [r4]
+	adds r0, r0, r1
+	negs r0, r0
+	lsls r0, r0, #0x10
+	asrs r0, r0, #0x10
+	ldrh r1, [r6, #2]
+	ldrh r2, [r4, #2]
+	adds r1, r1, r2
+	negs r1, r1
+	lsls r1, r1, #0x10
+	asrs r1, r1, #0x10
+	bl EkrGauge_Setxy323A
+	ldrh r0, [r6]
+	ldrh r3, [r4]
+	adds r0, r0, r3
+	negs r0, r0
+	lsls r0, r0, #0x10
+	lsrs r0, r0, #0x10
+	ldrh r1, [r6, #2]
+	ldrh r2, [r4, #2]
+	adds r1, r1, r2
+	negs r1, r1
+	lsls r1, r1, #0x10
+	lsrs r1, r1, #0x10
+	bl sub_8051B5C
+	ldr r3, _08075A40  @ gEkrXPosBase
+	mov r9, r3
+	ldrh r5, [r4]
+	ldrh r0, [r3]
+	adds r1, r5, r0
+	ldr r2, _08075A44  @ gEkrBgXOffset
+	mov sl, r2
+	ldr r0, [r2]
+	subs r1, r1, r0
+	ldr r3, _08075A48  @ gEkrYPosBase
+	mov r8, r3
+	ldrh r2, [r3]
+	ldrh r3, [r4, #2]
+	subs r2, r2, r3
+	mov r4, r9
+	ldrh r4, [r4, #2]
+	adds r5, r5, r4
+	subs r5, r5, r0
+	lsls r5, r5, #0x10
+	lsrs r5, r5, #0x10
+	mov r0, r8
+	ldrh r4, [r0, #2]
+	subs r4, r4, r3
+	lsls r4, r4, #0x10
+	lsrs r4, r4, #0x10
+	lsls r1, r1, #0x10
+	asrs r1, r1, #0x10
+	lsls r2, r2, #0x10
+	asrs r2, r2, #0x10
+	movs r0, #0
+	bl SetEkrFrontAnimPostion
+	lsls r5, r5, #0x10
+	asrs r5, r5, #0x10
+	lsls r4, r4, #0x10
+	asrs r4, r4, #0x10
+	movs r0, #1
+	adds r1, r5, #0
+	adds r2, r4, #0
+	bl SetEkrFrontAnimPostion
+	ldrh r0, [r7, #0x2c]
+	adds r0, #1
+	strh r0, [r7, #0x2c]
+	lsls r0, r0, #0x10
+	asrs r0, r0, #0x10
+	movs r2, #0x2e
+	ldrsh r1, [r7, r2]
+	cmp r0, r1
+	ble _08075A2A
+	ldr r1, _08075A4C  @ gUnknown_0201774C
+	ldr r0, [r1]
+	subs r0, #1
+	str r0, [r1]
+	movs r0, #2
+	movs r1, #0
+	movs r2, #0
+	bl BG_SetPosition
+	ldrh r1, [r6]
+	ldrh r2, [r6, #2]
+	movs r0, #0
+	bl BG_SetPosition
+	ldrh r0, [r6]
+	negs r0, r0
+	lsls r0, r0, #0x10
+	asrs r0, r0, #0x10
+	ldrh r1, [r6, #2]
+	negs r1, r1
+	lsls r1, r1, #0x10
+	asrs r1, r1, #0x10
+	bl EkrGauge_Setxy323A
+	ldrh r0, [r6]
+	negs r0, r0
+	lsls r0, r0, #0x10
+	lsrs r0, r0, #0x10
+	ldrh r1, [r6, #2]
+	negs r1, r1
+	lsls r1, r1, #0x10
+	lsrs r1, r1, #0x10
+	bl sub_8051B5C
+	mov r3, sl
+	ldr r0, [r3]
+	mov r4, r9
+	ldrh r1, [r4]
+	subs r1, r1, r0
+	ldrh r4, [r4, #2]
+	subs r4, r4, r0
+	lsls r4, r4, #0x10
+	lsrs r4, r4, #0x10
+	mov r0, r8
+	ldrh r5, [r0, #2]
+	lsls r1, r1, #0x10
+	asrs r1, r1, #0x10
+	movs r3, #0
+	ldrsh r2, [r0, r3]
+	movs r0, #0
+	bl SetEkrFrontAnimPostion
+	lsls r4, r4, #0x10
+	asrs r4, r4, #0x10
+	lsls r5, r5, #0x10
+	asrs r5, r5, #0x10
+	movs r0, #1
+	adds r1, r4, #0
+	adds r2, r5, #0
+	bl SetEkrFrontAnimPostion
+	ldr r0, [r7, #0x60]
+	bl Proc_End
+	adds r0, r7, #0
+	bl Proc_Break
+_08075A2A:
+	pop {r3, r4, r5}
+	mov r8, r3
+	mov r9, r4
+	mov sl, r5
+	pop {r4, r5, r6, r7}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08075A38: .4byte gEkrBg2QuakeVec
+_08075A3C: .4byte gEkrBg0QuakeVec
+_08075A40: .4byte gEkrXPosBase
+_08075A44: .4byte gEkrBgXOffset
+_08075A48: .4byte gEkrYPosBase
+_08075A4C: .4byte gUnknown_0201774C
+
+	THUMB_FUNC_END EfxTriangleQUAKEMain
 
 .align 2, 0
