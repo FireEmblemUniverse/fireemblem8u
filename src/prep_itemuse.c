@@ -170,11 +170,9 @@ void DrawPrepScreenItemUseStatLabels(struct Unit *unit)
     DrawSpecialUiStr(TILEMAP_LOCATED(gBG2TilemapBuffer, 17, 1), 3, 0x24, 0x25);
 }
 
-/* https://decomp.me/scratch/uskyF */
-#if NONMATCHING
 void DrawPrepScreenItemUseStatBars(struct Unit* unit, int mask)
 {
-    u32 i;
+    s32 i;
     int stat_pack[8];
     UnpackUiBarPalette(2);
 
@@ -188,226 +186,29 @@ void DrawPrepScreenItemUseStatBars(struct Unit* unit, int mask)
 	stat_pack[7] = UNIT_CON(unit) * 24 / UNIT_CON_MAX(unit);
 
     for (i = 0; i < 8; i++) {
+        u32 var = 0x100 * i + 0x7000;
+
         if ((mask >> i) & 1) {
+            u32 x = var << 15;
+            if (x) { ++x; --x; }
             DrawStatBarGfx(
-                0x380 + 8 * i,
+                x >> 20,
                 4,
                 TILEMAP_LOCATED(gBG0TilemapBuffer, (i >> 2) * 7 + 0x12, (i & 3) * 2 + 4),
                 0x3000, 0x18, stat_pack[i], 0);
         } else {
+            u32 x = var << 15;
+            if (x) { ++x; --x; }
             DrawStatBarGfx(
-                0x380 + 8 * i,
+                x >> 20,
                 4,
                 TILEMAP_LOCATED(gBG0TilemapBuffer, (i >> 2) * 7 + 0x12, (i & 3) * 2 + 4),
-                0x2000, 0x18, stat_pack[i], 1);
+                0x2000, 0x18, stat_pack[i], 0);
         }
     }
 
     BG_EnableSyncByMask(1);
 }
-#else
-__attribute__((naked))
-void DrawPrepScreenItemUseStatBars(struct Unit* unit, int mask)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r8\n\
-        push {r7}\n\
-        sub sp, #0x2c\n\
-        adds r5, r0, #0\n\
-        mov r8, r1\n\
-        movs r0, #2\n\
-        bl UnpackUiBarPalette\n\
-        add r4, sp, #0xc\n\
-        adds r0, r5, #0\n\
-        bl GetUnitCurrentHp\n\
-        adds r2, r0, #0\n\
-        lsls r0, r2, #1\n\
-        adds r0, r0, r2\n\
-        lsls r3, r0, #3\n\
-        movs r0, #0xb\n\
-        ldrsb r0, [r5, r0]\n\
-        movs r1, #0xc0\n\
-        ands r0, r1\n\
-        cmp r0, #0x80\n\
-        beq _0809C0E8\n\
-        adds r0, r3, #0\n\
-        movs r1, #0x3c\n\
-        b _0809C0EC\n\
-    _0809C0E8:\n\
-        adds r0, r2, #0\n\
-        movs r1, #5\n\
-    _0809C0EC:\n\
-        bl __divsi3\n\
-        str r0, [r4]\n\
-        adds r0, r5, #0\n\
-        bl GetUnitPower\n\
-        adds r1, r0, #0\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #3\n\
-        ldr r1, [r5, #4]\n\
-        ldrb r1, [r1, #0x14]\n\
-        lsls r1, r1, #0x18\n\
-        asrs r1, r1, #0x18\n\
-        bl __divsi3\n\
-        str r0, [sp, #0x10]\n\
-        adds r0, r5, #0\n\
-        bl GetUnitSkill\n\
-        adds r1, r0, #0\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #3\n\
-        ldr r1, [r5, #4]\n\
-        ldrb r1, [r1, #0x15]\n\
-        lsls r1, r1, #0x18\n\
-        asrs r1, r1, #0x18\n\
-        bl __divsi3\n\
-        str r0, [sp, #0x14]\n\
-        adds r0, r5, #0\n\
-        bl GetUnitSpeed\n\
-        adds r1, r0, #0\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #3\n\
-        ldr r1, [r5, #4]\n\
-        ldrb r1, [r1, #0x16]\n\
-        lsls r1, r1, #0x18\n\
-        asrs r1, r1, #0x18\n\
-        bl __divsi3\n\
-        str r0, [sp, #0x18]\n\
-        adds r0, r5, #0\n\
-        bl GetUnitLuck\n\
-        adds r1, r0, #0\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #3\n\
-        movs r1, #0x1e\n\
-        bl __divsi3\n\
-        str r0, [sp, #0x1c]\n\
-        adds r0, r5, #0\n\
-        bl GetUnitDefense\n\
-        adds r1, r0, #0\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #3\n\
-        ldr r1, [r5, #4]\n\
-        ldrb r1, [r1, #0x17]\n\
-        lsls r1, r1, #0x18\n\
-        asrs r1, r1, #0x18\n\
-        bl __divsi3\n\
-        str r0, [sp, #0x20]\n\
-        adds r0, r5, #0\n\
-        bl GetUnitResistance\n\
-        adds r1, r0, #0\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #3\n\
-        ldr r4, [r5, #4]\n\
-        movs r1, #0x18\n\
-        ldrsb r1, [r4, r1]\n\
-        bl __divsi3\n\
-        str r0, [sp, #0x24]\n\
-        movs r1, #0x11\n\
-        ldrsb r1, [r4, r1]\n\
-        ldr r0, [r5]\n\
-        ldrb r0, [r0, #0x13]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        adds r1, r1, r0\n\
-        movs r0, #0x1a\n\
-        ldrsb r0, [r5, r0]\n\
-        adds r1, r1, r0\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #3\n\
-        movs r1, #0x19\n\
-        ldrsb r1, [r4, r1]\n\
-        bl __divsi3\n\
-        str r0, [sp, #0x28]\n\
-        movs r5, #0\n\
-        add r6, sp, #0xc\n\
-        movs r7, #0xe0\n\
-        lsls r7, r7, #7\n\
-    _0809C1BE:\n\
-        mov r4, r8\n\
-        asrs r4, r5\n\
-        movs r0, #1\n\
-        ands r4, r0\n\
-        cmp r4, #0\n\
-        beq _0809C200\n\
-        lsls r0, r7, #0xf\n\
-        lsrs r0, r0, #0x14\n\
-        movs r2, #3\n\
-        ands r2, r5\n\
-        lsls r2, r2, #6\n\
-        adds r2, #0x92\n\
-        asrs r3, r5, #2\n\
-        lsls r1, r3, #3\n\
-        subs r1, r1, r3\n\
-        adds r2, r2, r1\n\
-        lsls r2, r2, #1\n\
-        ldr r1, _0809C1FC  @ gBG0TilemapBuffer\n\
-        adds r2, r2, r1\n\
-        movs r1, #0x18\n\
-        str r1, [sp]\n\
-        ldr r1, [r6]\n\
-        str r1, [sp, #4]\n\
-        movs r1, #0\n\
-        str r1, [sp, #8]\n\
-        movs r1, #4\n\
-        movs r3, #0xc0\n\
-        lsls r3, r3, #6\n\
-        bl DrawStatBarGfx\n\
-        b _0809C22E\n\
-        .align 2, 0\n\
-    _0809C1FC: .4byte gBG0TilemapBuffer\n\
-    _0809C200:\n\
-        lsls r0, r7, #0xf\n\
-        lsrs r0, r0, #0x14\n\
-        movs r2, #3\n\
-        ands r2, r5\n\
-        lsls r2, r2, #6\n\
-        adds r2, #0x92\n\
-        asrs r3, r5, #2\n\
-        lsls r1, r3, #3\n\
-        subs r1, r1, r3\n\
-        adds r2, r2, r1\n\
-        lsls r2, r2, #1\n\
-        ldr r1, _0809C250  @ gBG0TilemapBuffer\n\
-        adds r2, r2, r1\n\
-        movs r1, #0x18\n\
-        str r1, [sp]\n\
-        ldr r1, [r6]\n\
-        str r1, [sp, #4]\n\
-        str r4, [sp, #8]\n\
-        movs r1, #4\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #6\n\
-        bl DrawStatBarGfx\n\
-    _0809C22E:\n\
-        adds r6, #4\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        adds r7, r7, r0\n\
-        adds r5, #1\n\
-        cmp r5, #7\n\
-        ble _0809C1BE\n\
-        movs r0, #1\n\
-        bl BG_EnableSyncByMask\n\
-        add sp, #0x2c\n\
-        pop {r3}\n\
-        mov r8, r3\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0809C250: .4byte gBG0TilemapBuffer\n\
-        .syntax divided\n\
-    ");
-}
-#endif
 
 void DrawPrepScreenItemUseStatValues(struct Unit* unit)
 {
