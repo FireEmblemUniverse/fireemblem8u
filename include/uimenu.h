@@ -139,15 +139,15 @@ enum
 // function decls
 
 struct MenuProc* StartOrphanMenuAdjusted(const struct MenuDef* def, int xSubject, int xTileLeft, int xTileRight);
-struct MenuProc* StartMenu(const struct MenuDef* def, struct Proc* parent);
+struct MenuProc* StartMenu(const struct MenuDef* def, ProcPtr parent);
 struct MenuProc* StartOrphanMenuAt(const struct MenuDef* def, struct MenuRect rect);
 struct MenuProc* StartOrphanMenu(const struct MenuDef* def);
 struct MenuProc* StartOrphanMenuAdjustedExt(const struct MenuDef* def, int xSubject, int xTileLeft, int xTileRight, int backBg, int tileref, int frontBg, int unk);
-struct MenuProc* StartMenuExt(const struct MenuDef* def, int backBg, int tileref, int frontBg, int unk, struct Proc* parent);
+struct MenuProc* StartMenuExt(const struct MenuDef* def, int backBg, int tileref, int frontBg, int unk, ProcPtr parent);
 struct MenuProc* StartOrphanMenuAtExt(const struct MenuDef* def, struct MenuRect rect, int backBg, int tileref, int frontBg, int unk);
 struct MenuProc* StartOrphanMenuExt(const struct MenuDef* def, int backBg, int tileref, int frontBg, int unk);
-struct MenuProc* StartMenuAt(const struct MenuDef* def, struct MenuRect rect, struct Proc* parent);
-struct MenuProc* StartMenuCore(const struct MenuDef* def, struct MenuRect rect, int backBg, int tileref, int frontBg, int unk, struct Proc* parent);
+struct MenuProc* StartMenuAt(const struct MenuDef* def, struct MenuRect rect, ProcPtr parent);
+struct MenuProc* StartMenuCore(const struct MenuDef* def, struct MenuRect rect, int backBg, int tileref, int frontBg, int unk, ProcPtr parent);
 
 struct Proc* EndMenu(struct MenuProc* proc);
 void EndAllMenus(void);

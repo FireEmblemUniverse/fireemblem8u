@@ -16,7 +16,7 @@
 #include "fontgrp.h"
 #include "uiutils.h"
 #include "soundwrapper.h"
-#include "branched_promotion.h"
+#include "classchg.h"
 #include "bmlib.h"
 #include "prepscreen.h"
 

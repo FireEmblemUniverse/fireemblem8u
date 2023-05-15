@@ -92,7 +92,7 @@ struct MenuProc* StartOrphanMenuAdjusted(
     return StartMenuAt(def, rect, NULL);
 }
 
-struct MenuProc* StartMenu(const struct MenuDef* def, struct Proc* parent)
+struct MenuProc* StartMenu(const struct MenuDef* def, ProcPtr parent)
 {
     return StartMenuAt(def, def->rect, parent);
 }
@@ -131,7 +131,7 @@ struct MenuProc* StartMenuExt(
     int tileref,
     int frontBg,
     int unk,
-    struct Proc* parent)
+    ProcPtr parent)
 {
     return StartMenuCore(def, def->rect, backBg, tileref, frontBg, unk, parent);
 }
@@ -160,7 +160,7 @@ struct MenuProc* StartOrphanMenuExt(
 struct MenuProc* StartMenuAt(
     const struct MenuDef* def,
     struct MenuRect rect,
-    struct Proc* parent)
+    ProcPtr parent)
 {
     return StartMenuCore(def, rect, 1, TILEREF(0, 0), 0, 0, parent);
 }
@@ -172,7 +172,7 @@ struct MenuProc* StartMenuCore(
     int tileref,
     int frontBg,
     int unk,
-    struct Proc* parent)
+    ProcPtr parent)
 {
     struct MenuProc* proc;
     int i, itemCount;

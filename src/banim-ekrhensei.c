@@ -19,7 +19,7 @@ struct ProcEkrHensei {
 
 int CheckBanimHensei(void)
 {
-    if (gBattleStats.config & BATTLE_CONFIG_PROMOTION_CHAR100)
+    if (gBattleStats.config & BATTLE_CONFIG_PROMOTION_PREP)
         return true;
 
     return false;

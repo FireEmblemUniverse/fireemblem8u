@@ -2,185 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80CDDF0
-sub_80CDDF0: @ 0x080CDDF0
-	push {r4, r5, r6, r7, lr}
-	adds r4, r0, #0
-	ldr r5, [r4, #0x14]
-	ldr r7, [r5, #0x14]
-	adds r0, r5, #0
-	adds r0, #0x38
-	ldrb r0, [r0]
-	bl GetUnitFromCharId
-	adds r6, r0, #0
-	cmp r6, #0
-	bne _080CDE10
-	adds r0, r4, #0
-	bl Proc_End
-	b _080CDE6A
-_080CDE10:
-	bl GetGameLock
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r1, r4, #0
-	adds r1, #0x4c
-	strh r0, [r1]
-	ldr r2, _080CDE58  @ gLCDControlBuffer
-	ldrb r1, [r2, #1]
-	movs r0, #0x21
-	negs r0, r0
-	ands r0, r1
-	movs r1, #0x41
-	negs r1, r1
-	ands r0, r1
-	movs r1, #0x7f
-	ands r0, r1
-	strb r0, [r2, #1]
-	adds r0, r5, #0
-	adds r0, #0x3b
-	ldrb r1, [r0]
-	movs r2, #1
-	negs r2, r2
-	adds r0, r6, #0
-	movs r3, #0
-	bl ExecUnitPromotion
-	adds r0, r7, #0
-	adds r0, #0x31
-	ldrb r0, [r0]
-	cmp r0, #2
-	beq _080CDE60
-	ldr r1, _080CDE5C  @ gBattleStats
-	movs r0, #0x88
-	lsls r0, r0, #1
-	b _080CDE64
-	.align 2, 0
-_080CDE58: .4byte gLCDControlBuffer
-_080CDE5C: .4byte gBattleStats
-_080CDE60:
-	ldr r1, _080CDE70  @ gBattleStats
-	movs r0, #0x10
-_080CDE64:
-	strh r0, [r1]
-	bl BeginBattleAnimations
-_080CDE6A:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080CDE70: .4byte gBattleStats
-
-	THUMB_FUNC_END sub_80CDDF0
-
-	THUMB_FUNC_START sub_80CDE74
-sub_80CDE74: @ 0x080CDE74
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	adds r0, #0x4c
-	movs r1, #0
-	ldrsh r4, [r0, r1]
-	bl GetGameLock
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r4, r0
-	bne _080CDE90
-	adds r0, r5, #0
-	bl Proc_Break
-_080CDE90:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80CDE74
-
-	THUMB_FUNC_START sub_80CDE98
-sub_80CDE98: @ 0x080CDE98
-	push {lr}
-	ldr r0, [r0, #0x14]
-	adds r0, #0x38
-	ldrb r0, [r0]
-	bl GetUnitFromCharId
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80CDE98
-
-	THUMB_FUNC_START PromoMain_PostSelect
-PromoMain_PostSelect: @ 0x080CDEA8
-	push {r4, r5, lr}
-	sub sp, #4
-	adds r4, r0, #0
-	ldr r5, [r4, #0x14]
-	ldr r1, _080CDF40  @ gUnknown_03005398
-	movs r2, #1
-	negs r2, r2
-	adds r0, r2, #0
-	strb r0, [r1]
-	bl sub_808F270
-	bl ResetDialogueScreen
-	bl APProc_DeleteAll
-	bl EndBG3Slider_
-	ldr r3, _080CDF44  @ gLCDControlBuffer
-	ldrb r2, [r3, #0xc]
-	movs r1, #4
-	negs r1, r1
-	adds r0, r1, #0
-	ands r0, r2
-	strb r0, [r3, #0xc]
-	ldrb r2, [r3, #0x10]
-	adds r0, r1, #0
-	ands r0, r2
-	movs r2, #1
-	orrs r0, r2
-	strb r0, [r3, #0x10]
-	ldrb r0, [r3, #0x14]
-	ands r1, r0
-	movs r0, #2
-	orrs r1, r0
-	strb r1, [r3, #0x14]
-	ldrb r0, [r3, #0x18]
-	movs r1, #3
-	orrs r0, r1
-	strb r0, [r3, #0x18]
-	movs r0, #3
-	movs r1, #0
-	movs r2, #0
-	movs r3, #0x10
-	bl SetSpecialColorEffectsParameters
-	movs r0, #1
-	str r0, [sp]
-	movs r1, #1
-	movs r2, #1
-	movs r3, #1
-	bl SetBlendTargetA
-	adds r0, r4, #0
-	bl EndAllProcChildren
-	ldr r0, _080CDF48  @ ProcScr_PromoPostSel
-	adds r1, r4, #0
-	bl Proc_StartBlocking
-	adds r0, r5, #0
-	adds r0, #0x31
-	ldrb r0, [r0]
-	cmp r0, #0
-	beq _080CDF38
-	ldr r1, [r5, #0x3c]
-	movs r0, #1
-	negs r0, r0
-	cmp r1, r0
-	beq _080CDF38
-	ldr r0, [r5, #0x38]
-	bl UnitUpdateUsedItem
-_080CDF38:
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080CDF40: .4byte gUnknown_03005398
-_080CDF44: .4byte gLCDControlBuffer
-_080CDF48: .4byte ProcScr_PromoPostSel
-
-	THUMB_FUNC_END PromoMain_PostSelect
-
 	THUMB_FUNC_START sub_80CDF4C
 sub_80CDF4C: @ 0x080CDF4C
 	push {r4, lr}
@@ -234,7 +55,7 @@ sub_80CDF88: @ 0x080CDF88
 	movs r1, #0x10
 	movs r2, #8
 	bl PutSprite
-	ldr r5, _080CE018  @ gUnknown_08B12AA4
+	ldr r5, _080CE018  @ gpBuf
 	ldr r0, [r5]
 	adds r0, #0x2f
 	ldrb r0, [r0]
@@ -292,7 +113,7 @@ _080CDFBC:
 	b _080CE11A
 	.align 2, 0
 _080CE014: .4byte gUnknown_08B12AA8
-_080CE018: .4byte gUnknown_08B12AA4
+_080CE018: .4byte gpBuf
 _080CE01C: .4byte gUnknown_08B12AC2
 _080CE020: .4byte gUnknown_08B12AD0
 _080CE024:
@@ -322,7 +143,7 @@ _080CE04A:
 	cmp r0, #6
 	ble _080CE11A
 _080CE054:
-	ldr r4, _080CE090  @ gUnknown_08B12AA4
+	ldr r4, _080CE090  @ gpBuf
 	ldr r0, [r4]
 	adds r0, #0x2a
 	ldrb r0, [r0]
@@ -353,7 +174,7 @@ _080CE070:
 	blt _080CE0A4
 	b _080CE11A
 	.align 2, 0
-_080CE090: .4byte gUnknown_08B12AA4
+_080CE090: .4byte gpBuf
 _080CE094: .4byte 0x000030E0
 _080CE098:
 	adds r0, r1, #0
@@ -419,7 +240,7 @@ _080CE0F8:
 	movs r3, #0
 	bl DisplayUiVArrow
 _080CE11A:
-	ldr r0, _080CE144  @ gUnknown_08B12AA4
+	ldr r0, _080CE144  @ gpBuf
 	ldr r0, [r0]
 	adds r1, r0, #0
 	adds r1, #0x2c
@@ -438,7 +259,7 @@ _080CE11A:
 	bx r0
 	.align 2, 0
 _080CE140: .4byte 0x000030E0
-_080CE144: .4byte gUnknown_08B12AA4
+_080CE144: .4byte gpBuf
 
 	THUMB_FUNC_END sub_80CDF88
 
@@ -446,7 +267,7 @@ _080CE144: .4byte gUnknown_08B12AA4
 sub_80CE148: @ 0x080CE148
 	push {r4, lr}
 	sub sp, #8
-	ldr r4, _080CE1B0  @ gUnknown_08B12AA4
+	ldr r4, _080CE1B0  @ gpBuf
 	ldr r1, [r4]
 	adds r0, r1, #0
 	adds r0, #0x30
@@ -493,7 +314,7 @@ _080CE1A8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080CE1B0: .4byte gUnknown_08B12AA4
+_080CE1B0: .4byte gpBuf
 _080CE1B4: .4byte 0x000005D4
 _080CE1B8: .4byte gUnknown_02023130
 _080CE1BC: .4byte gUnknown_08B12B04
@@ -507,7 +328,7 @@ sub_80CE1C0: @ 0x080CE1C0
 	adds r5, r0, #0
 	adds r6, r1, #0
 	adds r7, r2, #0
-	ldr r4, _080CE1F8  @ gUnknown_08B12AA4
+	ldr r4, _080CE1F8  @ gpBuf
 	lsls r1, r6, #3
 	adds r1, #0x7c
 	ldr r0, [r4]
@@ -529,7 +350,7 @@ sub_80CE1C0: @ 0x080CE1C0
 	ldr r0, [r0]
 	b _080CE210
 	.align 2, 0
-_080CE1F8: .4byte gUnknown_08B12AA4
+_080CE1F8: .4byte gpBuf
 _080CE1FC: .4byte gUnknown_08B12AE0
 _080CE200:
 	ldr r1, _080CE23C  @ gUnknown_08B12B04
@@ -543,7 +364,7 @@ _080CE200:
 _080CE210:
 	bl GetStringFromIndex
 	adds r3, r0, #0
-	ldr r0, _080CE240  @ gUnknown_08B12AA4
+	ldr r0, _080CE240  @ gpBuf
 	lsls r1, r6, #3
 	adds r1, #0x7c
 	ldr r0, [r0]
@@ -563,7 +384,7 @@ _080CE210:
 	bx r0
 	.align 2, 0
 _080CE23C: .4byte gUnknown_08B12B04
-_080CE240: .4byte gUnknown_08B12AA4
+_080CE240: .4byte gpBuf
 _080CE244: .4byte gUnknown_020234AC
 
 	THUMB_FUNC_END sub_80CE1C0
@@ -571,7 +392,7 @@ _080CE244: .4byte gUnknown_020234AC
 	THUMB_FUNC_START sub_80CE248
 sub_80CE248: @ 0x080CE248
 	push {r4, r5, r6, lr}
-	ldr r0, _080CE260  @ gUnknown_08B12AA4
+	ldr r0, _080CE260  @ gpBuf
 	ldr r1, [r0]
 	adds r0, r1, #0
 	adds r0, #0x30
@@ -582,7 +403,7 @@ sub_80CE248: @ 0x080CE248
 	adds r0, #0x3c
 	b _080CE268
 	.align 2, 0
-_080CE260: .4byte gUnknown_08B12AA4
+_080CE260: .4byte gpBuf
 _080CE264:
 	adds r0, r1, #0
 	adds r0, #0x3d
@@ -687,7 +508,7 @@ sub_80CE2FC: @ 0x080CE2FC
 	adds r0, r4, #0
 	movs r1, #6
 	bl __modsi3
-	ldr r5, _080CE37C  @ gUnknown_08B12AA4
+	ldr r5, _080CE37C  @ gpBuf
 	lsls r0, r0, #3
 	adds r6, r0, #0
 	adds r6, #0xb4
@@ -739,7 +560,7 @@ _080CE342:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080CE37C: .4byte gUnknown_08B12AA4
+_080CE37C: .4byte gpBuf
 _080CE380: .4byte gUnknown_08B19E0C
 _080CE384: .4byte gUnknown_020235FE
 
@@ -755,7 +576,7 @@ sub_80CE388: @ 0x080CE388
 	adds r0, r4, #0
 	movs r1, #6
 	bl __modsi3
-	ldr r5, _080CE408  @ gUnknown_08B12AA4
+	ldr r5, _080CE408  @ gpBuf
 	lsls r0, r0, #3
 	adds r6, r0, #0
 	adds r6, #0xb4
@@ -807,7 +628,7 @@ _080CE3CE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080CE408: .4byte gUnknown_08B12AA4
+_080CE408: .4byte gpBuf
 _080CE40C: .4byte gUnknown_08B19E0C
 _080CE410: .4byte gUnknown_0202387E
 
@@ -825,7 +646,7 @@ sub_80CE414: @ 0x080CE414
 	str r0, [sp, #8]
 	movs r5, #0
 	mov r8, r5
-	ldr r0, _080CE47C  @ gUnknown_08B12AA4
+	ldr r0, _080CE47C  @ gpBuf
 	ldr r0, [r0]
 	adds r0, #0x3e
 	mov r1, r8
@@ -842,7 +663,7 @@ _080CE43C:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080CE4A8
-	ldr r0, _080CE47C  @ gUnknown_08B12AA4
+	ldr r0, _080CE47C  @ gpBuf
 	ldr r2, [r0]
 	adds r0, r2, #0
 	adds r0, #0x30
@@ -868,7 +689,7 @@ _080CE43C:
 	strb r2, [r0]
 	b _080CE4A6
 	.align 2, 0
-_080CE47C: .4byte gUnknown_08B12AA4
+_080CE47C: .4byte gpBuf
 _080CE480: .4byte gUnknown_08B19E0C
 _080CE484:
 	adds r0, r2, #0
@@ -900,7 +721,7 @@ _080CE4A8:
 	cmp r0, #0xc
 	bne _080CE43C
 _080CE4B8:
-	ldr r1, _080CE580  @ gUnknown_08B12AA4
+	ldr r1, _080CE580  @ gpBuf
 	ldr r0, [r1]
 	adds r0, #0x3e
 	strb r5, [r0]
@@ -998,7 +819,7 @@ _080CE56C:
 	bx r0
 	.align 2, 0
 _080CE57C: .4byte gUnknown_08B19E0C
-_080CE580: .4byte gUnknown_08B12AA4
+_080CE580: .4byte gpBuf
 _080CE584: .4byte gUnknown_020234BE
 
 	THUMB_FUNC_END sub_80CE414
@@ -1100,7 +921,7 @@ _080CE61E:
 	adds r6, r0, #0
 	cmp r6, #0
 	bne _080CE61C
-	ldr r0, _080CE654  @ gUnknown_08B12AA4
+	ldr r0, _080CE654  @ gpBuf
 	ldr r1, [r0]
 	adds r1, #0x3f
 	strb r4, [r1]
@@ -1121,7 +942,7 @@ _080CE61E:
 	adds r7, r1, #0
 	b _080CE660
 	.align 2, 0
-_080CE654: .4byte gUnknown_08B12AA4
+_080CE654: .4byte gpBuf
 _080CE658:
 	subs r7, #4
 	cmp r7, #0
@@ -1139,7 +960,7 @@ _080CE660:
 	beq _080CE73A
 _080CE672:
 	bl sub_80CE588
-	ldr r5, _080CE6C0  @ gUnknown_08B12AA4
+	ldr r5, _080CE6C0  @ gpBuf
 	ldr r0, [r5]
 	adds r0, #0x2e
 	strb r7, [r0]
@@ -1173,7 +994,7 @@ _080CE672:
 	mov r9, r0
 	b _080CE71E
 	.align 2, 0
-_080CE6C0: .4byte gUnknown_08B12AA4
+_080CE6C0: .4byte gpBuf
 _080CE6C4: .4byte gUnknown_08B19E0C
 _080CE6C8: .4byte gUnknown_020235FC
 _080CE6CC:
@@ -1183,7 +1004,7 @@ _080CE6CC:
 	movs r1, #5
 	bl __modsi3
 	adds r4, r0, #0
-	ldr r5, _080CE748  @ gUnknown_08B12AA4
+	ldr r5, _080CE748  @ gpBuf
 	lsls r4, r4, #3
 	adds r4, #0xbc
 	ldr r0, [r5]
@@ -1240,7 +1061,7 @@ _080CE73A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080CE748: .4byte gUnknown_08B12AA4
+_080CE748: .4byte gpBuf
 _080CE74C: .4byte gUnknown_020234BE
 
 	THUMB_FUNC_END sub_80CE5F0
@@ -1256,7 +1077,7 @@ sub_80CE750: @ 0x080CE750
 	mov r9, r1
 	movs r4, #0xd0
 	lsls r4, r4, #1
-	ldr r0, _080CE774  @ gUnknown_08B12AA4
+	ldr r0, _080CE774  @ gpBuf
 	ldr r0, [r0]
 	adds r0, #0x2f
 	ldrb r0, [r0]
@@ -1266,7 +1087,7 @@ sub_80CE750: @ 0x080CE750
 	beq _080CE7DC
 	b _080CE83A
 	.align 2, 0
-_080CE774: .4byte gUnknown_08B12AA4
+_080CE774: .4byte gpBuf
 _080CE778:
 	movs r0, #0
 	ldr r7, _080CE7D8  @ gBG1TilemapBuffer
@@ -1393,7 +1214,7 @@ sub_80CE858: @ 0x080CE858
 	mov r8, r0
 	mov r9, r1
 	movs r4, #0xa0
-	ldr r0, _080CE87C  @ gUnknown_08B12AA4
+	ldr r0, _080CE87C  @ gpBuf
 	ldr r0, [r0]
 	adds r0, #0x2f
 	ldrb r0, [r0]
@@ -1403,7 +1224,7 @@ sub_80CE858: @ 0x080CE858
 	beq _080CE8E4
 	b _080CE940
 	.align 2, 0
-_080CE87C: .4byte gUnknown_08B12AA4
+_080CE87C: .4byte gpBuf
 _080CE880:
 	movs r0, #0
 	ldr r7, _080CE8E0  @ gBG1TilemapBuffer
@@ -1529,7 +1350,7 @@ sub_80CE95C: @ 0x080CE95C
 	bl __modsi3
 	adds r4, r0, #0
 	ldr r2, _080CE998  @ gUnknown_08B19E0C
-	ldr r0, _080CE99C  @ gUnknown_08B12AA4
+	ldr r0, _080CE99C  @ gpBuf
 	ldr r0, [r0]
 	adds r1, r0, #0
 	adds r1, #0x2b
@@ -1549,7 +1370,7 @@ sub_80CE95C: @ 0x080CE95C
 	b _080CE9A2
 	.align 2, 0
 _080CE998: .4byte gUnknown_08B19E0C
-_080CE99C: .4byte gUnknown_08B12AA4
+_080CE99C: .4byte gpBuf
 _080CE9A0:
 	subs r5, #1
 _080CE9A2:
@@ -1561,7 +1382,7 @@ _080CE9A2:
 	cmp r6, #0
 	bne _080CE9A0
 _080CE9B2:
-	ldr r5, _080CE9E0  @ gUnknown_08B12AA4
+	ldr r5, _080CE9E0  @ gpBuf
 	lsls r4, r4, #3
 	adds r4, #0xbc
 	ldr r0, [r5]
@@ -1583,7 +1404,7 @@ _080CE9B2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080CE9E0: .4byte gUnknown_08B12AA4
+_080CE9E0: .4byte gpBuf
 _080CE9E4: .4byte gUnknown_0202393E
 
 	THUMB_FUNC_END sub_80CE95C
@@ -1738,7 +1559,7 @@ sub_80CEAE8: @ 0x080CEAE8
 	movs r5, #0
 	ldr r3, _080CEB5C  @ gUnknown_08B19E0C
 	movs r1, #0
-	ldr r2, _080CEB60  @ gUnknown_08B12AA4
+	ldr r2, _080CEB60  @ gpBuf
 _080CEAF4:
 	mov r4, sp
 	adds r0, r4, r5
@@ -1769,7 +1590,7 @@ _080CEB22:
 	cmp r4, #0xc
 	bne _080CEB10
 _080CEB2A:
-	ldr r0, _080CEB60  @ gUnknown_08B12AA4
+	ldr r0, _080CEB60  @ gpBuf
 	ldr r1, [r0]
 	adds r1, #0x3d
 	movs r2, #0
@@ -1796,7 +1617,7 @@ _080CEB3A:
 	b _080CEB8C
 	.align 2, 0
 _080CEB5C: .4byte gUnknown_08B19E0C
-_080CEB60: .4byte gUnknown_08B12AA4
+_080CEB60: .4byte gpBuf
 _080CEB64:
 	movs r3, #0
 	ldrb r2, [r2]
@@ -1842,7 +1663,7 @@ sub_80CEBA4: @ 0x080CEBA4
 	movs r5, #0
 	ldr r6, _080CEC20  @ gUnknown_08B19E0C
 	movs r4, #0xff
-	ldr r3, _080CEC24  @ gUnknown_08B12AA4
+	ldr r3, _080CEC24  @ gpBuf
 	movs r2, #0
 _080CEBB2:
 	mov r1, sp
@@ -1877,7 +1698,7 @@ _080CEBE6:
 	cmp r2, #0xc
 	bne _080CEBD2
 _080CEBEE:
-	ldr r0, _080CEC24  @ gUnknown_08B12AA4
+	ldr r0, _080CEC24  @ gpBuf
 	ldr r1, [r0]
 	adds r1, #0x3c
 	movs r2, #0
@@ -1905,7 +1726,7 @@ _080CEBFE:
 	b _080CEC50
 	.align 2, 0
 _080CEC20: .4byte gUnknown_08B19E0C
-_080CEC24: .4byte gUnknown_08B12AA4
+_080CEC24: .4byte gpBuf
 _080CEC28:
 	movs r4, #0
 	ldrb r3, [r3]
@@ -1997,7 +1818,7 @@ sub_80CECB0: @ 0x080CECB0
 	movs r0, #0
 	mov sl, r0
 	bl SetupBackgrounds
-	ldr r5, _080CEED0  @ gUnknown_08B12AA4
+	ldr r5, _080CEED0  @ gpBuf
 	ldr r0, [r5]
 	adds r0, #0x2f
 	mov r1, sl
@@ -2204,7 +2025,7 @@ _080CEE44:
 	movs r1, #0xe0
 	movs r2, #0x2f
 	bl PrepStartSideBarScroll
-	ldr r0, _080CEED0  @ gUnknown_08B12AA4
+	ldr r0, _080CEED0  @ gpBuf
 	ldr r0, [r0]
 	adds r1, r0, #0
 	adds r1, #0x2c
@@ -2227,7 +2048,7 @@ _080CEE44:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080CEED0: .4byte gUnknown_08B12AA4
+_080CEED0: .4byte gpBuf
 _080CEED4: .4byte gLCDControlBuffer
 _080CEED8: .4byte gBG0TilemapBuffer
 _080CEEDC: .4byte gBG1TilemapBuffer
@@ -2278,7 +2099,7 @@ sub_80CEF10: @ 0x080CEF10
 	THUMB_FUNC_START sub_80CEF48
 sub_80CEF48: @ 0x080CEF48
 	push {r4, lr}
-	ldr r1, _080CEF64  @ gUnknown_08B12AA4
+	ldr r1, _080CEF64  @ gpBuf
 	ldr r1, [r1]
 	adds r1, #0x2f
 	ldrb r2, [r1]
@@ -2291,7 +2112,7 @@ sub_80CEF48: @ 0x080CEF48
 	beq _080CEF72
 	b _080CEFC0
 	.align 2, 0
-_080CEF64: .4byte gUnknown_08B12AA4
+_080CEF64: .4byte gpBuf
 _080CEF68: .4byte gKeyStatusPtr
 _080CEF6C:
 	cmp r2, #2
@@ -2392,7 +2213,7 @@ _080CF00C:
 	movs r0, #0x6a
 	bl m4aSongNumStart
 _080CF01E:
-	ldr r4, _080CF040  @ gUnknown_08B12AA4
+	ldr r4, _080CF040  @ gpBuf
 	ldr r1, [r4]
 	adds r1, #0x2f
 	ldrb r0, [r1]
@@ -2409,7 +2230,7 @@ _080CF01E:
 	b _080CF43A
 	.align 2, 0
 _080CF03C: .4byte gPlaySt
-_080CF040: .4byte gUnknown_08B12AA4
+_080CF040: .4byte gpBuf
 _080CF044:
 	movs r0, #0x80
 	lsls r0, r0, #6
@@ -2450,7 +2271,7 @@ _080CF04A:
 	.align 2, 0
 _080CF090: .4byte gUnknown_08B19E0C
 _080CF094:
-	ldr r0, _080CF0B0  @ gUnknown_08B12AA4
+	ldr r0, _080CF0B0  @ gpBuf
 	ldr r0, [r0]
 	adds r1, r0, #0
 	adds r1, #0x2b
@@ -2464,9 +2285,9 @@ _080CF094:
 	bl sub_80CE5F0
 	b _080CF43A
 	.align 2, 0
-_080CF0B0: .4byte gUnknown_08B12AA4
+_080CF0B0: .4byte gpBuf
 _080CF0B4:
-	ldr r0, _080CF0D0  @ gUnknown_08B12AA4
+	ldr r0, _080CF0D0  @ gpBuf
 	ldr r0, [r0]
 	adds r1, r0, #0
 	adds r1, #0x2b
@@ -2480,7 +2301,7 @@ _080CF0B4:
 	bl sub_80CE5F0
 	b _080CF43A
 	.align 2, 0
-_080CF0D0: .4byte gUnknown_08B12AA4
+_080CF0D0: .4byte gpBuf
 _080CF0D4:
 	ldr r0, _080CF108  @ gPlaySt
 	adds r0, #0x41
@@ -2491,7 +2312,7 @@ _080CF0D4:
 	movs r0, #0x6b
 	bl m4aSongNumStart
 _080CF0E6:
-	ldr r2, _080CF10C  @ gUnknown_08B12AA4
+	ldr r2, _080CF10C  @ gpBuf
 	ldr r0, [r2]
 	adds r1, r0, #0
 	adds r1, #0x2f
@@ -2510,7 +2331,7 @@ _080CF0E6:
 	b _080CF43A
 	.align 2, 0
 _080CF108: .4byte gPlaySt
-_080CF10C: .4byte gUnknown_08B12AA4
+_080CF10C: .4byte gpBuf
 _080CF110:
 	movs r0, #0x80
 	lsls r0, r0, #5
@@ -2541,7 +2362,7 @@ _080CF13C:
 	movs r0, #0x6a
 	bl m4aSongNumStart
 _080CF14E:
-	ldr r3, _080CF174  @ gUnknown_08B12AA4
+	ldr r3, _080CF174  @ gpBuf
 	ldr r2, [r3]
 	adds r2, #0x30
 	ldrb r0, [r2]
@@ -2559,12 +2380,12 @@ _080CF14E:
 	b _080CF17E
 	.align 2, 0
 _080CF170: .4byte gPlaySt
-_080CF174: .4byte gUnknown_08B12AA4
+_080CF174: .4byte gpBuf
 _080CF178:
 	movs r0, #0xb3
 	bl UnsetEventId
 _080CF17E:
-	ldr r2, _080CF1A4  @ gUnknown_08B12AA4
+	ldr r2, _080CF1A4  @ gpBuf
 	ldr r0, [r2]
 	adds r0, #0x29
 	movs r1, #0
@@ -2583,10 +2404,10 @@ _080CF17E:
 	bl Proc_StartBlocking
 	b _080CF43A
 	.align 2, 0
-_080CF1A4: .4byte gUnknown_08B12AA4
+_080CF1A4: .4byte gpBuf
 _080CF1A8: .4byte gUnknown_08B12B3C
 _080CF1AC:
-	ldr r6, _080CF1C8  @ gUnknown_08B12AA4
+	ldr r6, _080CF1C8  @ gpBuf
 	ldr r3, [r6]
 	adds r0, r3, #0
 	adds r0, #0x2f
@@ -2602,7 +2423,7 @@ _080CF1BE:
 	beq _080CF1D4
 	b _080CF424
 	.align 2, 0
-_080CF1C8: .4byte gUnknown_08B12AA4
+_080CF1C8: .4byte gpBuf
 _080CF1CC:
 	cmp r0, #2
 	bne _080CF1D2
@@ -2741,7 +2562,7 @@ _080CF2C6:
 	ldr r0, _080CF2E0  @ gUnknown_08B12B9C
 	adds r1, r5, #0
 	bl Proc_Start
-	ldr r2, _080CF2E4  @ gUnknown_08B12AA4
+	ldr r2, _080CF2E4  @ gpBuf
 	ldr r0, [r2]
 	adds r0, #0x2b
 	movs r1, #0
@@ -2752,7 +2573,7 @@ _080CF2C6:
 	b _080CF424
 	.align 2, 0
 _080CF2E0: .4byte gUnknown_08B12B9C
-_080CF2E4: .4byte gUnknown_08B12AA4
+_080CF2E4: .4byte gpBuf
 _080CF2E8:
 	ldr r0, _080CF348  @ gKeyStatusPtr
 	ldr r0, [r0]

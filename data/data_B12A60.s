@@ -1,34 +1,7 @@
     .section .data
 
-	.global ProcScr_PromoPostSel
-ProcScr_PromoPostSel:  @ 0x08B12A64
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word MusicProc4Exists
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CDDF0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80CDE74
-        @ PROC_SLEEP
-        .short 0xe, 0x8
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CDE98
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word MusicProc4Exists
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-	.global gUnknown_08B12AA4
-gUnknown_08B12AA4:  @ 0x08B12AA4
+	.global gpBuf
+gpBuf:  @ 0x08B12AA4
 @ replacing .incbin "baserom.gba", 0x00b12aa4, 0x4
 .4byte gGenericBuffer
 

@@ -116,18 +116,20 @@ void Decompress(const void* src, void* dst)
     };
 
     int is_wram;
+    const struct TileMapArr *tsa = src;
 
     if ((((u32) dst) - VRAM) < VRAM_SIZE)
         is_wram = FALSE; // is vram
     else
         is_wram = TRUE;
 
-    func_lut[is_wram + ((((u8 const *) src)[0] & 0xF0) >> 3)](src, dst);
+    func_lut[is_wram + ((tsa->type & 0xF0) >> 3)](src, dst);
 }
 
 int GetDataSize(const void* data)
 {
-    return *((u32 const *) data) >> 8;
+    const struct TileMapArr *tsa = data;
+    return tsa->size;
 }
 
 void sub_8012F98(struct Struct8012F98 *buf, int arg_1, int arg_2)

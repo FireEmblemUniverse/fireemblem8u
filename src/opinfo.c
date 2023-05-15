@@ -186,8 +186,6 @@ extern struct ProcCmd CONST_DATA gProcScr_opinfo[];
 
 extern ProcPtr* gUnknown_03001D50;
 
-extern u16 gUnknown_08A30978[]; // tsa
-
 static inline int DarknessCoeff(int darkness, u8 lsr) {
     return 0x10 - (darkness >> (lsr));
 }
@@ -1487,8 +1485,6 @@ extern u8 gUnknown_0200C300[];
 extern u8 gUnknown_0200CB00[];
 
 extern struct TextHandle gUnknown_0201FB28[6];
-
-void NewEkrUnitMainMini(struct Unk200A2D8*);
 
 extern u8 gUnknown_0201DB28[];
 

@@ -20,6 +20,7 @@
 #include "bmtarget.h"
 #include "popup.h"
 #include "bmudisp.h"
+#include "classchg.h"
 
 #include "bmusemind.h"
 
@@ -66,9 +67,6 @@ void StartMineAnim(ProcPtr, int, int);
 // ev_triggercheck.s
 void sub_80831C8(s8, s8);
 void sub_808320C(s8, s8);
-
-// code.s
-void StartBmPromotion(ProcPtr);
 
 void ExecStandardHeal(ProcPtr proc) {
     int amount;

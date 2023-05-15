@@ -137,7 +137,7 @@ SECTIONS
         src/banim-ekrgauge.o(.text);
         asm/banim-ekrgauge.o(.text);
         src/banim-ekrdispup.o(.text);
-        src/banim-efxHPBar.o(.text);
+        src/banim-efxhpbar.o(.text);
         asm/banim-efxbattle.o(.text);
         asm/banim-ekrfxbg.o(.text);
         src/banim-efxstatusunit.o(.text);
@@ -150,7 +150,8 @@ SECTIONS
         asm/banim-main.o(.text);
         src/banim-ekrmain.o(.text);
         asm/banim-ekrmain.o(.text);
-        src/banim-ekr805AE40.o(.text);
+        asm/banim-ekrmainmini.o(.text);
+        src/banim-ekrmainmini.o(.text);
         asm/code_battleanim.o(.text);
         asm/banim-efxop.o(.text);
         src/banim-ekrdragonstatus.o(.text);
@@ -240,9 +241,14 @@ SECTIONS
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
         asm/code_80C6474.o(.text);
-        src/branched_promotion_main.o(.text);
-        src/branched_promotion.o(.text);
-        asm/code_80CCA64.o(.text);
+        src/classchg-main.o(.text);
+        src/classchg-handler.o(.text);
+        src/classchg-sel.o(.text);
+        src/classchg-event.o(.text);
+        src/classchg-menuconfirm.o(.text);
+        src/classchg-menuselect.o(.text);
+        src/classchg-postconfirm.o(.text);
+        asm/bmguide.o(.text);
         asm/m4a_1.o(.text);
         src/m4a.o(.text);
         asm/libagbsyscall.o(.text);
@@ -354,7 +360,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrlvupfan.o(.rodata);
         . = ALIGN(4); src/banim-ekrgauge.o(.rodata);
         . = ALIGN(4); src/banim-ekrdispup.o(.rodata);
-        . = ALIGN(4); src/banim-efxHPBar.o(.rodata);
+        . = ALIGN(4); src/banim-efxhpbar.o(.rodata);
         . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
@@ -398,8 +404,13 @@ SECTIONS
         . = ALIGN(4); src/worldmap_face.o(.rodata);
         . = ALIGN(4); data/const_data_205E94.o(.rodata);
         . = ALIGN(4); src/opsubtitle.o(.rodata);
-        . = ALIGN(4); src/branched_promotion_main.o(.rodata);
-        . = ALIGN(4); src/branched_promotion.o(.rodata);
+        . = ALIGN(4); src/classchg-main.o(.rodata);
+        . = ALIGN(4); src/classchg-handler.o(.rodata);
+        . = ALIGN(4); src/classchg-sel.o(.rodata);
+        . = ALIGN(4); src/classchg-event.o(.rodata);
+        . = ALIGN(4); src/classchg-menuconfirm.o(.rodata);
+        . = ALIGN(4); src/classchg-menuselect.o(.rodata);
+        . = ALIGN(4); src/bmguide.o(.rodata);
         . = ALIGN(4); INCLUDE "linker_script_sound.txt"
         . = ALIGN(4); src/agb_sram.o(.rodata);
         . = ALIGN(4); *libc.a:vfprintf.o(.rodata);
@@ -497,7 +508,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrgauge.o(.data);
         . = ALIGN(4); data/data-ekrgauge.o(.data);
         . = ALIGN(4); src/banim-ekrdispup.o(.data);
-        . = ALIGN(4); src/banim-efxHPBar.o(.data);
+        . = ALIGN(4); src/banim-efxhpbar.o(.data);
         . = ALIGN(4); data/data_banim_5B93D0.o(.data);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); data/banim-ekrbattlectrl.o(.data);
@@ -533,7 +544,7 @@ SECTIONS
         . = ALIGN(4); src/monstergen_data.o(.data);
         . = ALIGN(4); data/data_bg.o(.data);
         . = ALIGN(4); src/ectscr_.o(.data);
-        . = ALIGN(4); src/branched_promotion_data.o(.data);
+        . = ALIGN(4); src/classchg-data.o(.data);
         . = ALIGN(4); data/data_95DFA4.o(.data);
         . = ALIGN(4); data/data_map_anim_frames.o(.data);
         . = ALIGN(4); data/data_99D6DC.o(.data);
@@ -606,8 +617,13 @@ SECTIONS
         . = ALIGN(4); data/data_opsubtitle.o(.data);
         . = ALIGN(4); src/titlescreen.o(.data);
         . = ALIGN(4); data/data_AA6BFA.o(.data);
-        . = ALIGN(4); src/branched_promotion_main.o(.data);
-        . = ALIGN(4); src/branched_promotion.o(.data);
+        . = ALIGN(4); src/classchg-main.o(.data);
+        . = ALIGN(4); src/classchg-handler.o(.data);
+        . = ALIGN(4); src/classchg-sel.o(.data);
+        . = ALIGN(4); src/classchg-event.o(.data);
+        . = ALIGN(4); src/classchg-menuconfirm.o(.data);
+        . = ALIGN(4); src/classchg-menuselect.o(.data);
+        . = ALIGN(4); src/classchg-postconfirm.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);

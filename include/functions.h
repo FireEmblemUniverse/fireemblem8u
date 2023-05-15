@@ -1990,7 +1990,7 @@ void sub_808E9D8(int);
 // ??? sub_808F084(???);
 // ??? sub_808F0C4(???);
 // ??? sub_808F0EC(???);
-void sub_808F128(int, int, int, int, int, int, s8, int);
+void sub_808F128(int, int, int, int, int, void *, s8, int);
 void sub_808F270(void); // ??? (text related)
 bool SomeTalkProcExists(ProcPtr);
 // ??? sub_808F2A0(???);

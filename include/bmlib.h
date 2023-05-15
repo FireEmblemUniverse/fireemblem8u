@@ -2,6 +2,12 @@
 
 #include "global.h"
 
+struct TileMapArr {
+    u32 type : 8;
+    u32 size : 24;
+    u16 data[0x259]; /* todo */
+};
+
 enum interpolate_method {
     INTERPOLATE_LINEAR,
     INTERPOLATE_SQUARE,
