@@ -260,9 +260,9 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepMenu[];
 // extern ??? gUnknown_08A18754
 // extern ??? gUnknown_08A1879C
 // extern ??? gUnknown_08A187F0
-// extern ??? ProcScr_PrepSideBarHandler
-// extern ??? gUnknown_08A18840
-// extern ??? gUnknown_08A18888
+// extern ??? ProcScr_menu_scroll
+// extern ??? ProcScr_SallyCir
+// extern ??? ProcScr_ViewCounter
 // extern ??? gUnknown_08A188A8
 // extern ??? gUnknown_08A188C0
 // extern ??? gUnknown_08A188E4

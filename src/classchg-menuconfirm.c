@@ -51,7 +51,7 @@ u8 ClassChgMenuSel_OnBPress(struct MenuProc *_proc, struct MenuItemProc *_proc2)
 
 CONST_DATA struct MenuItemDef MenuItem_PromoSubConfirm[] = {
     {
-        "\x81\x40\x8c\x88\x92\xe8",
+        "　決定",
         0x23,   /* Change */
         0, TEXT_COLOR_NORMAL, 0,
         MenuAlwaysEnabled,
@@ -60,7 +60,7 @@ CONST_DATA struct MenuItemDef MenuItem_PromoSubConfirm[] = {
         NULL, NULL
     },
     {
-        "\x81\x40\x82\xe2\x82\xdf\x82\xe9",
+        "　やめる",
         0x24,   /* Cancel */
         0, TEXT_COLOR_NORMAL, 1,
         MenuAlwaysEnabled,

@@ -370,16 +370,16 @@ void MADebug_DoBattleAnim(void)
 /* section.data */
 /* I think this maybe some encoded string ? */
 CONST_DATA char *MADebugStrings1[] = {
-    "\x81\x5B\x81\x5B\x81\x5B",
-    "\x8D\x55\x8C\x82",
-    "\x8D\x55\x8C\x82\x83\x66",
-    "\x8D\x55\x8C\x82\x83\x8A",
-    "\x8D\x55\x8C\x82\x93\xC5",
-    "\x95\x4B\x8E\x45",
-    "\x95\x4B\x8E\x45\x83\x66",
-    "\x95\x4B\x8E\x45\x83\x8A",
-    "\x95\x4B\x8E\x45\x93\xC5",
-    "\x8B\xF3\x82\xD4\x82\xE8"
+    "ーーー",
+    "攻撃",
+    "攻撃デ",
+    "攻撃リ",
+    "攻撃毒",
+    "必殺",
+    "必殺デ",
+    "必殺リ",
+    "必殺毒",
+    "空ぶり"
 };
 
 CONST_DATA struct Unk089A3798 gUnknown_089A3798[] = {
@@ -396,15 +396,15 @@ CONST_DATA struct Unk089A3798 gUnknown_089A3798[] = {
 };
 
 CONST_DATA char* MADebugStrings2[] = {
-    "\x82\x6F\x82\x68\x82\x63",
-    "\x82\x77\x82\x78",
-    "\x95\xBA\x8E\xED",
-    "\x95\x90\x8A\xED",
-    "\x82\x50",
-    "\x82\x51",
-    "\x82\x52",
-    "\x82\x53",
-    "\x82\x54",
+    "ＰＩＤ",
+    "ＸＹ",
+    "兵種",
+    "武器",
+    "１",
+    "２",
+    "３",
+    "４",
+    "５",
     NULL
 };
 

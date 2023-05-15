@@ -47,8 +47,8 @@ gUnknown_08A187F0:  @ 0x08A187F0
 .4byte gUnknown_08A1879C + 0x44
 .4byte gUnknown_08A1879C + 0x4c
 
-	.global ProcScr_PrepSideBarHandler
-ProcScr_PrepSideBarHandler:  @ 0x08A18808
+	.global ProcScr_menu_scroll
+ProcScr_menu_scroll:  @ 0x08A18808
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205bd8
@@ -72,8 +72,8 @@ ProcScr_PrepSideBarHandler:  @ 0x08A18808
         .word 0x0
 
 
-	.global gUnknown_08A18840
-gUnknown_08A18840:  @ 0x08A18840
+	.global ProcScr_SallyCir
+ProcScr_SallyCir:  @ 0x08A18840
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205be4
@@ -94,8 +94,8 @@ gUnknown_08A18840:  @ 0x08A18840
         .word 0x0
 	.incbin "baserom.gba", 0xA18870, 0x18
 
-	.global gUnknown_08A18888
-gUnknown_08A18888:  @ 0x08A18888
+	.global ProcScr_ViewCounter
+ProcScr_ViewCounter:  @ 0x08A18888
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205bf0

@@ -103,8 +103,8 @@ gUnknown_08A2067C:  @ 0x08A2067C
 .4byte gUnknown_08A20590 + 0xae
 .4byte gUnknown_08A20590 + 0xb6
 
-	.global gUnknown_08A206A8
-gUnknown_08A206A8:  @ 0x08A206A8
+	.global ProcScr_savedraw
+ProcScr_savedraw:  @ 0x08A206A8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205de0

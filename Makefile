@@ -179,7 +179,7 @@ src/msg_data.c: msg_list.txt
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
-	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.s
+	$(CPP) $(CPPFLAGS) $< | iconv -f UTF-8 -t CP932 | $(CC1) $(CC1FLAGS) -o $*.s
 	echo '.ALIGN 2, 0' >> $*.s
 ifeq ($(UNAME),Darwin)
 	$(SED) -f scripts/align_2_before_debug_section_for_osx.sed $*.s

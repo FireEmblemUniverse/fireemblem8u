@@ -348,7 +348,7 @@ _08097648: .4byte gUnknown_08A18754
 	THUMB_FUNC_START sub_809764C
 sub_809764C: @ 0x0809764C
 	push {lr}
-	ldr r0, _08097664  @ ProcScr_PrepSideBarHandler
+	ldr r0, _08097664  @ ProcScr_menu_scroll
 	bl Proc_Find
 	cmp r0, #0
 	beq _0809765E
@@ -358,14 +358,14 @@ _0809765E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08097664: .4byte ProcScr_PrepSideBarHandler
+_08097664: .4byte ProcScr_menu_scroll
 
 	THUMB_FUNC_END sub_809764C
 
 	THUMB_FUNC_START sub_8097668
 sub_8097668: @ 0x08097668
 	push {lr}
-	ldr r0, _08097680  @ ProcScr_PrepSideBarHandler
+	ldr r0, _08097680  @ ProcScr_menu_scroll
 	bl Proc_Find
 	cmp r0, #0
 	beq _0809767A
@@ -375,20 +375,20 @@ _0809767A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08097680: .4byte ProcScr_PrepSideBarHandler
+_08097680: .4byte ProcScr_menu_scroll
 
 	THUMB_FUNC_END sub_8097668
 
 	THUMB_FUNC_START Delete6CMenuScroll
 Delete6CMenuScroll: @ 0x08097684
 	push {lr}
-	ldr r0, _08097694  @ ProcScr_PrepSideBarHandler
+	ldr r0, _08097694  @ ProcScr_menu_scroll
 	bl Proc_Find
 	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08097694: .4byte ProcScr_PrepSideBarHandler
+_08097694: .4byte ProcScr_menu_scroll
 
 	THUMB_FUNC_END Delete6CMenuScroll
 
@@ -396,12 +396,12 @@ _08097694: .4byte ProcScr_PrepSideBarHandler
 Make6CMenuScroll: @ 0x08097698
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080976A8  @ ProcScr_PrepSideBarHandler
+	ldr r0, _080976A8  @ ProcScr_menu_scroll
 	bl Proc_Start
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080976A8: .4byte ProcScr_PrepSideBarHandler
+_080976A8: .4byte ProcScr_menu_scroll
 
 	THUMB_FUNC_END Make6CMenuScroll
 
@@ -410,7 +410,7 @@ sub_80976AC: @ 0x080976AC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _080976C8  @ ProcScr_PrepSideBarHandler
+	ldr r0, _080976C8  @ ProcScr_menu_scroll
 	bl Proc_Find
 	cmp r0, #0
 	beq _080976C2
@@ -422,7 +422,7 @@ _080976C2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080976C8: .4byte ProcScr_PrepSideBarHandler
+_080976C8: .4byte ProcScr_menu_scroll
 
 	THUMB_FUNC_END sub_80976AC
 
@@ -437,7 +437,7 @@ sub_80976CC: @ 0x080976CC
 	lsrs r4, r2, #0x10
 	lsls r3, r3, #0x18
 	lsrs r5, r3, #0x18
-	ldr r0, _080976FC  @ ProcScr_PrepSideBarHandler
+	ldr r0, _080976FC  @ ProcScr_menu_scroll
 	bl Proc_Find
 	cmp r0, #0
 	beq _080976F6
@@ -453,7 +453,7 @@ _080976F6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080976FC: .4byte ProcScr_PrepSideBarHandler
+_080976FC: .4byte ProcScr_menu_scroll
 
 	THUMB_FUNC_END sub_80976CC
 
@@ -471,7 +471,7 @@ InitPrepSideBarImg: @ 0x08097700
 	ldr r2, _08097740  @ 0x06010000
 	adds r1, r4, r2
 	bl Decompress
-	ldr r0, _08097744  @ ProcScr_PrepSideBarHandler
+	ldr r0, _08097744  @ ProcScr_menu_scroll
 	bl Proc_Find
 	adds r2, r0, #0
 	cmp r2, #0
@@ -488,7 +488,7 @@ _08097730:
 _08097738: .4byte Pal_PrepWindowSideBar
 _0809773C: .4byte Img_PrepWindowSideBar
 _08097740: .4byte 0x06010000
-_08097744: .4byte ProcScr_PrepSideBarHandler
+_08097744: .4byte ProcScr_menu_scroll
 
 	THUMB_FUNC_END InitPrepSideBarImg
 
@@ -503,7 +503,7 @@ PrepStartSideBarScroll: @ 0x08097748
 	mov r9, r2
 	adds r5, r3, #0
 	ldr r6, [sp, #0x18]
-	ldr r0, _0809779C  @ ProcScr_PrepSideBarHandler
+	ldr r0, _0809779C  @ ProcScr_menu_scroll
 	adds r1, r4, #0
 	bl Proc_Start
 	adds r4, r0, #0
@@ -534,7 +534,7 @@ PrepStartSideBarScroll: @ 0x08097748
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0809779C: .4byte ProcScr_PrepSideBarHandler
+_0809779C: .4byte ProcScr_menu_scroll
 _080977A0: .4byte Pal_PrepWindowSideBar
 _080977A4: .4byte Img_PrepWindowSideBar
 _080977A8: .4byte 0x06010000
