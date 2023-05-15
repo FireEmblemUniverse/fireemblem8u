@@ -163,8 +163,8 @@ ProcScr_EkrLvupApfx:  @ 0x08759564
         .word 0x0
 
 
-	.global gUnknown_0875957C
-gUnknown_0875957C:  @ 0x0875957C
+	.global ProcScr_eobjLvup
+ProcScr_eobjLvup:  @ 0x0875957C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e16f0

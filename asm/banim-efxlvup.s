@@ -1096,7 +1096,7 @@ BanimDrawStatupAp: @ 0x08074D58
 	ldr r0, [sp, #0x3c]
 	cmp r0, #0
 	beq _08074E52
-	ldr r0, _08074DDC  @ gUnknown_0875957C
+	ldr r0, _08074DDC  @ ProcScr_eobjLvup
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -1117,7 +1117,7 @@ BanimDrawStatupAp: @ 0x08074D58
 	b _08074E2A
 	.align 2, 0
 _08074DD8: .4byte gUnknown_085C9270
-_08074DDC: .4byte gUnknown_0875957C
+_08074DDC: .4byte ProcScr_eobjLvup
 _08074DE0: .4byte gUnknown_085C92A0
 _08074DE4:
 	ldr r1, [sp, #0x18]

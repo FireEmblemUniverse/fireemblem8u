@@ -165,7 +165,7 @@ u8 ClassChgMenuItem_3rdUsability(const struct MenuItemDef * _def, int _number)
 
 CONST_DATA struct MenuItemDef gMenuItem_PromoSel[] = {
     {
-        "\x81\x40\x91\xe6\x82\x50\x95\xba\x8e\xed", /* "　第１兵種" */
+        "　第１兵種",
         0,
         0x6DC,  /* Discard items. Important[NL]items cannot be discarded. */
         TEXT_COLOR_NORMAL,
@@ -178,7 +178,7 @@ CONST_DATA struct MenuItemDef gMenuItem_PromoSel[] = {
         0
     },
     {
-        "\x81\x40\x91\xe6\x82\x51\x95\xba\x8e\xed", /* "　第２兵種" */
+        "　第２兵種",
         0,
         0x6DC,  /* Discard items. Important[NL]items cannot be discarded. */
         TEXT_COLOR_NORMAL,
@@ -191,7 +191,7 @@ CONST_DATA struct MenuItemDef gMenuItem_PromoSel[] = {
         0
     },
     {
-        "\x81\x40\x91\xe6\x82\x52\x95\xba\x8e\xed", /* "　第３兵種" */
+        "　第３兵種",
         0,
         0x6DC,  /* Discard items. Important[NL]items cannot be discarded. */
         TEXT_COLOR_NORMAL,

@@ -1455,12 +1455,12 @@ _080AB2EC:
 New6C_savedraw: @ 0x080AB300
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080AB310  @ gUnknown_08A206A8
+	ldr r0, _080AB310  @ ProcScr_savedraw
 	bl Proc_Start
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080AB310: .4byte gUnknown_08A206A8
+_080AB310: .4byte ProcScr_savedraw
 
 	THUMB_FUNC_END New6C_savedraw
 

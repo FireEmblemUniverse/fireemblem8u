@@ -84,8 +84,8 @@ gUnknown_080D9EF0:  @ 0x080D9EF0
 gUnknown_080D9EFC:  @ 0x080D9EFC
 @ Replacing .incbin "baserom.gba", 0xD9EFC, 0x1C
     .4byte gUnknown_085A9BA0
-    .4byte gUnknown_085A979C
-    .4byte gUnknown_085A9888
+    .4byte ProcScr_SIOPRA
+    .4byte ProcScr_SIOBAT
     .4byte gUnknown_085A9D38
     .4byte gUnknown_085A9DF8
     .4byte 0x4d4f4953

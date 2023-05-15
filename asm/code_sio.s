@@ -3574,7 +3574,7 @@ sub_8042FFC: @ 0x08042FFC
 	adds r6, r2, #0
 	mov r8, r3
 	ldr r7, [sp, #0x18]
-	ldr r0, _08043028  @ gUnknown_085A93B8
+	ldr r0, _08043028  @ ProcScr_HOLD
 	adds r1, r4, #0
 	bl Proc_Start
 	str r5, [r0, #0x2c]
@@ -3588,19 +3588,19 @@ sub_8042FFC: @ 0x08042FFC
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08043028: .4byte gUnknown_085A93B8
+_08043028: .4byte ProcScr_HOLD
 
 	THUMB_FUNC_END sub_8042FFC
 
 	THUMB_FUNC_START sub_804302C
 sub_804302C: @ 0x0804302C
 	push {lr}
-	ldr r0, _08043038  @ gUnknown_085A93B8
+	ldr r0, _08043038  @ ProcScr_HOLD
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08043038: .4byte gUnknown_085A93B8
+_08043038: .4byte ProcScr_HOLD
 
 	THUMB_FUNC_END sub_804302C
 
@@ -9276,18 +9276,18 @@ sub_8045C68: @ 0x08045C68
 	THUMB_FUNC_START sub_8045CBC
 sub_8045CBC: @ 0x08045CBC
 	push {lr}
-	ldr r0, _08045CD4  @ gUnknown_085A9354
+	ldr r0, _08045CD4  @ ProcScr_SIOVSYNC
 	bl Proc_EndEach
-	ldr r0, _08045CD8  @ gUnknown_085A937C
+	ldr r0, _08045CD8  @ ProcScr_SIOMAIN
 	bl Proc_EndEach
-	ldr r0, _08045CDC  @ gUnknown_085A932C
+	ldr r0, _08045CDC  @ ProcScr_SIOCON
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08045CD4: .4byte gUnknown_085A9354
-_08045CD8: .4byte gUnknown_085A937C
-_08045CDC: .4byte gUnknown_085A932C
+_08045CD4: .4byte ProcScr_SIOVSYNC
+_08045CD8: .4byte ProcScr_SIOMAIN
+_08045CDC: .4byte ProcScr_SIOCON
 
 	THUMB_FUNC_END sub_8045CBC
 
@@ -9548,13 +9548,13 @@ sub_8045F00: @ 0x08045F00
 	ldr r1, _08045F38  @ 0x00002586
 	mov r0, sp
 	strh r1, [r0]
-	ldr r0, _08045F3C  @ gUnknown_085A9354
+	ldr r0, _08045F3C  @ ProcScr_SIOVSYNC
 	movs r1, #0
 	bl Proc_Start
-	ldr r0, _08045F40  @ gUnknown_085A937C
+	ldr r0, _08045F40  @ ProcScr_SIOMAIN
 	adds r1, r4, #0
 	bl Proc_Start
-	ldr r0, _08045F44  @ gUnknown_085A932C
+	ldr r0, _08045F44  @ ProcScr_SIOCON
 	adds r1, r4, #0
 	bl Proc_Start
 	movs r1, #1
@@ -9567,9 +9567,9 @@ sub_8045F00: @ 0x08045F00
 	bx r0
 	.align 2, 0
 _08045F38: .4byte 0x00002586
-_08045F3C: .4byte gUnknown_085A9354
-_08045F40: .4byte gUnknown_085A937C
-_08045F44: .4byte gUnknown_085A932C
+_08045F3C: .4byte ProcScr_SIOVSYNC
+_08045F40: .4byte ProcScr_SIOMAIN
+_08045F44: .4byte ProcScr_SIOCON
 
 	THUMB_FUNC_END sub_8045F00
 
@@ -9586,7 +9586,7 @@ sub_8045F48: @ 0x08045F48
 	mov r0, sp
 	strb r1, [r0]
 	bl sub_8045CEC
-	ldr r0, _08045F8C  @ gUnknown_085A932C
+	ldr r0, _08045F8C  @ ProcScr_SIOCON
 	bl Proc_Find
 	cmp r0, #0
 	beq _08045F94
@@ -9605,7 +9605,7 @@ _08045F7A:
 	b _08045FEE
 	.align 2, 0
 _08045F88: .4byte gUnknown_0203DD28
-_08045F8C: .4byte gUnknown_085A932C
+_08045F8C: .4byte ProcScr_SIOCON
 _08045F90: .4byte gKeyStatusPtr
 _08045F94:
 	ldr r0, _08046000  @ gKeyStatusPtr
@@ -13927,7 +13927,7 @@ sub_80482E0: @ 0x080482E0
 	sub sp, #4
 	adds r5, r0, #0
 	movs r4, #0
-	ldr r0, _08048308  @ gUnknown_085A932C
+	ldr r0, _08048308  @ ProcScr_SIOCON
 	bl Proc_Find
 	cmp r0, #0
 	beq _08048310
@@ -13942,7 +13942,7 @@ sub_80482E0: @ 0x080482E0
 	movs r1, #4
 	b _080483A8
 	.align 2, 0
-_08048308: .4byte gUnknown_085A932C
+_08048308: .4byte ProcScr_SIOCON
 _0804830C: .4byte gKeyStatusPtr
 _08048310:
 	ldr r0, _08048330  @ gUnknown_085A92E0

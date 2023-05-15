@@ -1160,11 +1160,11 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gUnknown_085A92E0
 // extern ??? gUnknown_085A92E4
 // extern ??? gUnknown_085A9304
-// extern ??? gUnknown_085A932C
-// extern ??? gUnknown_085A9354
-// extern ??? gUnknown_085A937C
+// extern ??? ProcScr_SIOCON
+// extern ??? ProcScr_SIOVSYNC
+// extern ??? ProcScr_SIOMAIN
 // extern ??? gUnknown_085A93A0
-// extern ??? gUnknown_085A93B8
+// extern ??? ProcScr_HOLD
 // extern ??? gUnknown_085A93E0
 // extern ??? gUnknown_085A93F0
 // extern ??? gUnknown_085A94A0
@@ -2217,7 +2217,7 @@ extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? ProcScr_efxLvupOBJ2
 // extern ??? ProcScr_efxLvupBGCOL
 // extern ??? ProcScr_EkrLvupApfx
-// extern ??? gUnknown_0875957C
+// extern ??? ProcScr_eobjLvup
 
 // extern ??? gUnknown_08759B34
 // extern ??? gUnknown_08759E68
@@ -2855,7 +2855,7 @@ extern u16 gTSA_GoalBox_OneLine[];
 // extern ??? gUnknown_08A20590
 // extern ??? gUnknown_08A20650
 // extern ??? gUnknown_08A2067C
-// extern ??? gUnknown_08A206A8
+// extern ??? ProcScr_savedraw
 // extern ??? gProcScr_SaveDrawCursor
 // extern ??? gProcScr_08A206F8
 // extern ??? gUnknown_08A20720

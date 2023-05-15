@@ -418,7 +418,7 @@ sub_8097AAC: @ 0x08097AAC
 	adds r2, r0, #0
 	lsls r4, r1, #0x18
 	lsrs r4, r4, #0x18
-	ldr r0, _08097AC8  @ gUnknown_08A18840
+	ldr r0, _08097AC8  @ ProcScr_SallyCir
 	adds r1, r2, #0
 	bl Proc_StartBlocking
 	adds r1, r0, #0
@@ -428,7 +428,7 @@ sub_8097AAC: @ 0x08097AAC
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08097AC8: .4byte gUnknown_08A18840
+_08097AC8: .4byte ProcScr_SallyCir
 
 	THUMB_FUNC_END sub_8097AAC
 
@@ -753,7 +753,7 @@ sub_8097D14: @ 0x08097D14
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
-	ldr r0, _08097D4C  @ gUnknown_08A18888
+	ldr r0, _08097D4C  @ ProcScr_ViewCounter
 	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -777,7 +777,7 @@ sub_8097D14: @ 0x08097D14
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08097D4C: .4byte gUnknown_08A18888
+_08097D4C: .4byte ProcScr_ViewCounter
 _08097D50: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_8097D14

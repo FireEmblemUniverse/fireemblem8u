@@ -39,8 +39,8 @@ gUnknown_085A9304:  @ 0x085A9304
         .word 0x0
 
 
-	.global gUnknown_085A932C
-gUnknown_085A932C:  @ 0x085A932C
+	.global ProcScr_SIOCON
+ProcScr_SIOCON:  @ 0x085A932C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d8724
@@ -58,8 +58,8 @@ gUnknown_085A932C:  @ 0x085A932C
         .word 0x0
 
 
-	.global gUnknown_085A9354
-gUnknown_085A9354:  @ 0x085A9354
+	.global ProcScr_SIOVSYNC
+ProcScr_SIOVSYNC:  @ 0x085A9354
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d872c
@@ -77,8 +77,8 @@ gUnknown_085A9354:  @ 0x085A9354
         .word 0x0
 
 
-	.global gUnknown_085A937C
-gUnknown_085A937C:  @ 0x085A937C
+	.global ProcScr_SIOMAIN
+ProcScr_SIOMAIN:  @ 0x085A937C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d8738
@@ -106,8 +106,8 @@ gUnknown_085A93A0:  @ 0x085A93A0
         .word 0x0
 
 
-	.global gUnknown_085A93B8
-gUnknown_085A93B8:  @ 0x085A93B8
+	.global ProcScr_HOLD
+ProcScr_HOLD:  @ 0x085A93B8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d9d48
@@ -470,8 +470,8 @@ gUnknown_085A9774:  @ 0x085A9774
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_085A979C
-gUnknown_085A979C:  @ 0x085A979C
+	.global ProcScr_SIOPRA
+ProcScr_SIOPRA:  @ 0x085A979C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d9e48
@@ -557,8 +557,8 @@ gUnknown_085A9884:  @ 0x085A9884
 @ replacing .incbin "baserom.gba", 0x005a9884, 0x4
 .4byte gGenericBuffer
 
-	.global gUnknown_085A9888
-gUnknown_085A9888:  @ 0x085A9888
+	.global ProcScr_SIOBAT
+ProcScr_SIOBAT:  @ 0x085A9888
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d9e8c
