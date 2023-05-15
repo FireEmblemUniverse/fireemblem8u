@@ -1,4 +1,4 @@
-#include "branched_promotion.h"
+#include "classchg.h"
 
 #include "bm.h"
 #include "bmio.h"
@@ -11,20 +11,12 @@
 #include "statscreen.h"
 #include "uiutils.h"
 
-void PromoMain_InitScreen(struct ProcPromoMain *proc);
-void PromoMain_HandleType(struct ProcPromoMain *proc);
 int PromoMain_SetupTraineeEvent_(struct ProcPromoMain *proc);
 bool PromoTraineeEventExists(struct ProcPromoMain *proc);
-void PromoHandleTraineePostType(struct ProcPromoMain *proc);
 bool StartAndWaitPromoSelect(ProcPtr proc);
-u32 sub_80CD330(struct ProcPromoMain *proc);
-void PromoMain_PostSelect(struct ProcPromoMain *proc);
-void PromoMain_HandlePrepEndEffect(struct ProcPromoMain *proc);
-void PromoMain_OnEnd(struct ProcPromoMain *proc);
+bool sub_80CD330(struct ProcPromoMain *proc);
 
-CONST_DATA
-struct ProcCmd ProcScr_PromoMain[] =
-{
+CONST_DATA struct ProcCmd ProcScr_PromoMain[] = {
 	PROC_NAME("ccramify"),
 
 PROC_LABEL(PROMOMAIN_LABEL_START),
@@ -45,7 +37,7 @@ PROC_LABEL(PROMOMAIN_LABEL_SEL_EN),
     PROC_REPEAT(sub_80CD330),
 
 PROC_LABEL(PROMOMAIN_LABEL_POST_SEL),
-    PROC_CALL(PromoMain_PostSelect),
+    PROC_CALL(ExecClassChgReal),
     PROC_SLEEP(2),
 
 PROC_LABEL(6),
@@ -99,7 +91,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
 
         SetupBackgrounds(0);
         EndGreenTextColorManager();
-        gparent->u40 = GetGameLock();
+        gparent->game_lock = GetGameLock();
         EndHelpPromptSprite();
         EndSmallBrownNameBoxes();
         EndAllParallelWorkers();

@@ -89,7 +89,7 @@ int CONST_DATA gUnused_08A196E4[] = {
 
 //! FE8U = 0x080A0724
 void sub_80A0724(struct PrepProcA1962C* proc) {
-    sub_808F128(10, 7, 17, 4, proc->unk_2c, 0x06011000, -1, 0);
+    sub_808F128(10, 7, 17, 4, proc->unk_2c, OBJ_VRAM0 + 0x1000, -1, 0);
     sub_808E9D8(0x7c);
     return;
 }

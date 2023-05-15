@@ -157,7 +157,7 @@ extern int *gpBanimModesLeft;
 extern int *gpBanimModesRight;
 extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
-// extern ??? gUnknown_02000088
+extern u8 gUnknown_02000088[];
 
 extern int gBanimLinkArenaFlag;
 extern int gBattleDeamonActive;
@@ -597,7 +597,7 @@ void sub_805A940(void*, u16, u16);
 void NewEfxAnimeDrvProc(void);
 void EndEfxAnimeDrvProc(void);
 // ??? ExecAllAIS(???);
-// ??? NewEkrUnitMainMini(???);
+void NewEkrUnitMainMini(void *);
 void sub_805AA28(void*);
 // ??? EkrUnitMainMiniMain(???);
 // void sub_805AA68(void *);

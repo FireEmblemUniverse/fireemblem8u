@@ -52,11 +52,11 @@ struct Unknown_030053A0 {
     /* 10 */ u16 u10;
     /* 14 */ struct Anim *anim1;
     /* 18 */ struct Anim *anim2;
-    /* 1C */ u8 *u1c;
-    /* 20 */ u8 *u20;
-    /* 24 */ u8 *u24;
-    /* 28 */ u8 *u28;
-    /* 2C */ u8 *_u2c;
+    /* 1C */ void *u1c;
+    /* 20 */ void *u20;
+    /* 24 */ void *u24;
+    /* 28 */ void *u28;
+    /* 2C */ void *_u2c;
     /* 30 */ struct Unknown_030053E0 * u30;
 };
 

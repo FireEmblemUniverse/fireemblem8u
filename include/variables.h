@@ -63,11 +63,11 @@ extern s16 gUnknown_02003FAC[];
 // extern ??? gUnknown_0200400C
 extern u16 gUnknown_02004054[];
 // extern ??? gUnknown_0200407C
-// extern ??? gBanimPal1
+extern u16 gBanimPal1[];
 extern u16 gUnknown_020040AE[];
 // extern ??? gUnknown_020040B2
-// extern ??? gBanimPal2
-// extern ??? gBanimOaml
+extern u16 gBanimPal2[];
+extern u16 gBanimOaml[];
 extern u16 gUnknown_0200422C[];
 extern u16 gUnknown_02004254[];
 extern s16 gUnknown_020044AC[];
@@ -466,12 +466,12 @@ extern struct GMapData gGMData;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
 extern u16 gGmMonsterRnState[];
-// extern ??? gUnknown_03005360
-// extern ??? gUnknown_03005380
-// extern ??? gUnknown_03005398
+extern struct Font gFontClassChgMenu;
+extern struct Font gFontClassChg;
+extern s8 gUnknown_03005398;
 
 // extern ??? gUnknown_030053E0
-// extern ??? gUnknown_03005408
+extern u16 gUnknown_03005408[];
 // extern ??? gSoundInfo
 extern struct MusicPlayerInfo gMPlayInfo_SE4_BMP2;
 extern struct MusicPlayerInfo gMPlayInfo_SE5_BMP3;
@@ -2959,6 +2959,7 @@ extern u16 gUnknown_08A2E8F0[]; // Pal
 extern u8 gUnknown_08A301B0[]; // gfx?
 extern u16 gUnknown_08A30780[]; // pal
 extern u8 gUnknown_08A30800[]; // gfx
+extern u16 gUnknown_08A30978[]; // tsa
 extern u8 gUnknown_08A30E2C[]; // gfx
 extern u8 gUnknown_08A35488[]; // tsa
 extern u16 gUnknown_08A3593C[]; // pal
@@ -3389,17 +3390,8 @@ extern u16 gPal_TitleSmallLightBubbles[];
 // extern ??? gUnknown_08B11C0C
 // extern ??? gUnknown_08B11D0C
 // extern ??? gUnknown_08B125F4
-// extern ??? ProcScr_PromoMain
-// extern ??? ProcScr_PromoHandler
-extern const struct ProcCmd ProcScr_PromoSelect[];
-// extern ??? ProcScr_PromoSelectEnd
-// extern ??? ProcScr_PromoSelectEvent
-// extern ??? Menu_PromoSel
-// extern ??? gMenuDef_PromoSel
-// extern ??? ProcScr_PromoMenuSel
-// extern ??? PromotionMenuRect
-// extern ??? ProcScr_PromoPostSel
-// extern ??? gUnknown_08B12AA4
+/* #include classchg.h */
+// extern ??? gpBuf
 // extern ??? gUnknown_08B12AA8
 // extern ??? gUnknown_08B12AC2
 // extern ??? gUnknown_08B12AD0

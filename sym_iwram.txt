@@ -164,8 +164,8 @@
 . = 0x005324; gUnknown_03005324 = .;
 . = 0x005349; gUnknown_03005349 = .;
 . = 0x00534E; gGmMonsterRnState = .;
-. = 0x005360; gUnknown_03005360 = .;
-. = 0x005380; gUnknown_03005380 = .;
+. = 0x005360; gFontClassChgMenu = .;
+. = 0x005380; gFontClassChg = .;
 . = 0x005398; gUnknown_03005398 = .;
 . = 0x0053A0; gUnknown_030053A0 = .;
 . = 0x0053E0; gUnknown_030053E0 = .;
