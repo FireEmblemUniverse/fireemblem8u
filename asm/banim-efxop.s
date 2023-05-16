@@ -350,12 +350,12 @@ _0806EB50: .4byte pPalette10Buffer
 
 	THUMB_FUNC_END sub_806EB2C
 
-	THUMB_FUNC_START sub_806EB54
-sub_806EB54: @ 0x0806EB54
+	THUMB_FUNC_START ExecEfxop
+ExecEfxop: @ 0x0806EB54
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_806E954
-	ldr r1, _0806EB74  @ gUnknown_085D9430
+	ldr r1, _0806EB74  @ gpEfxopFuncLut
 	ldrh r0, [r0]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -366,9 +366,9 @@ sub_806EB54: @ 0x0806EB54
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806EB74: .4byte gUnknown_085D9430
+_0806EB74: .4byte gpEfxopFuncLut
 
-	THUMB_FUNC_END sub_806EB54
+	THUMB_FUNC_END ExecEfxop
 
 	THUMB_FUNC_START nullsub_73
 nullsub_73: @ 0x0806EB78
@@ -400,10 +400,10 @@ sub_806EB9C: @ 0x0806EB9C
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_806EBBC
+	bl NewEfxopFireBG
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_806EC68
+	bl NewEfxopFireOBJ
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -412,14 +412,14 @@ sub_806EB9C: @ 0x0806EB9C
 
 	THUMB_FUNC_END sub_806EB9C
 
-	THUMB_FUNC_START sub_806EBBC
-sub_806EBBC: @ 0x0806EBBC
+	THUMB_FUNC_START NewEfxopFireBG
+NewEfxopFireBG: @ 0x0806EBBC
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
 	bl sub_806E954
 	adds r6, r0, #0
-	ldr r0, _0806EC08  @ gUnknown_085D947C
+	ldr r0, _0806EC08  @ ProcScr_efxopFireBG
 	adds r1, r4, #0
 	bl Proc_Start
 	adds r4, r0, #0
@@ -446,13 +446,13 @@ sub_806EBBC: @ 0x0806EBBC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806EC08: .4byte gUnknown_085D947C
+_0806EC08: .4byte ProcScr_efxopFireBG
 _0806EC0C: .4byte gUnknown_080DF644
 _0806EC10: .4byte gUnknown_085D9494
 _0806EC14: .4byte gUnknown_085F6230
 _0806EC18: .4byte gUnknown_085F5638
 
-	THUMB_FUNC_END sub_806EBBC
+	THUMB_FUNC_END NewEfxopFireBG
 
 	THUMB_FUNC_START sub_806EC1C
 sub_806EC1C: @ 0x0806EC1C
@@ -493,14 +493,14 @@ _0806EC60:
 
 	THUMB_FUNC_END sub_806EC1C
 
-	THUMB_FUNC_START sub_806EC68
-sub_806EC68: @ 0x0806EC68
+	THUMB_FUNC_START NewEfxopFireOBJ
+NewEfxopFireOBJ: @ 0x0806EC68
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
 	bl sub_806E954
 	adds r7, r0, #0
-	ldr r0, _0806ECA4  @ gUnknown_085D94C4
+	ldr r0, _0806ECA4  @ ProcScr_efxopFireOBJ
 	adds r1, r4, #0
 	bl Proc_Start
 	adds r6, r0, #0
@@ -522,7 +522,7 @@ sub_806EC68: @ 0x0806EC68
 	subs r0, #8
 	b _0806ECB4
 	.align 2, 0
-_0806ECA4: .4byte gUnknown_085D94C4
+_0806ECA4: .4byte ProcScr_efxopFireOBJ
 _0806ECA8: .4byte gUnknown_085F843C
 _0806ECAC: .4byte gUnknown_085F80B4
 _0806ECB0:
@@ -553,7 +553,7 @@ _0806ECB4:
 _0806ECE0: .4byte gUnknown_085F7D64
 _0806ECE4: .4byte gUnknown_085F7768
 
-	THUMB_FUNC_END sub_806EC68
+	THUMB_FUNC_END NewEfxopFireOBJ
 
 	THUMB_FUNC_START sub_806ECE8
 sub_806ECE8: @ 0x0806ECE8
@@ -622,7 +622,7 @@ sub_806ED54: @ 0x0806ED54
 	adds r5, r0, #0
 	bl sub_806E954
 	adds r6, r0, #0
-	ldr r0, _0806ED9C  @ gUnknown_085D9504
+	ldr r0, _0806ED9C  @ ProcScr_efxopThunderBG
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -649,7 +649,7 @@ sub_806ED54: @ 0x0806ED54
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806ED9C: .4byte gUnknown_085D9504
+_0806ED9C: .4byte ProcScr_efxopThunderBG
 _0806EDA0: .4byte gUnknown_080DF6A8
 _0806EDA4: .4byte gUnknown_085D951C
 _0806EDA8: .4byte gUnknown_085F367C
@@ -728,7 +728,7 @@ _0806EE2A:
 sub_806EE34: @ 0x0806EE34
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0806EE5C  @ gUnknown_085D9524
+	ldr r0, _0806EE5C  @ ProcScr_efxopThunderBGCOL
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -745,7 +745,7 @@ sub_806EE34: @ 0x0806EE34
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806EE5C: .4byte gUnknown_085D9524
+_0806EE5C: .4byte ProcScr_efxopThunderBGCOL
 _0806EE60: .4byte gUnknown_080DF6C6
 _0806EE64: .4byte gUnknown_085F367C
 
@@ -791,7 +791,7 @@ sub_806EEA8: @ 0x0806EEA8
 	adds r5, r0, #0
 	bl sub_806E954
 	adds r7, r0, #0
-	ldr r0, _0806EEE4  @ gUnknown_085D9544
+	ldr r0, _0806EEE4  @ ProcScr_efxopThunderOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -813,7 +813,7 @@ sub_806EEA8: @ 0x0806EEA8
 	adds r0, #0x38
 	b _0806EEF4
 	.align 2, 0
-_0806EEE4: .4byte gUnknown_085D9544
+_0806EEE4: .4byte ProcScr_efxopThunderOBJ
 _0806EEE8: .4byte gUnknown_085F5550
 _0806EEEC: .4byte gUnknown_085F4A24
 _0806EEF0:
@@ -866,11 +866,11 @@ _0806EF42:
 
 	THUMB_FUNC_END sub_806EF24
 
-	THUMB_FUNC_START sub_806EF48
-sub_806EF48: @ 0x0806EF48
+	THUMB_FUNC_START NewEfxopLive
+NewEfxopLive: @ 0x0806EF48
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0806EF60  @ gUnknown_085D955C
+	ldr r0, _0806EF60  @ ProcScr_efxopLive
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -880,9 +880,9 @@ sub_806EF48: @ 0x0806EF48
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806EF60: .4byte gUnknown_085D955C
+_0806EF60: .4byte ProcScr_efxopLive
 
-	THUMB_FUNC_END sub_806EF48
+	THUMB_FUNC_END NewEfxopLive
 
 	THUMB_FUNC_START sub_806EF64
 sub_806EF64: @ 0x0806EF64
@@ -930,7 +930,7 @@ sub_806EFB8: @ 0x0806EFB8
 	adds r5, r0, #0
 	bl sub_806E954
 	adds r6, r0, #0
-	ldr r0, _0806EFFC  @ gUnknown_085D9584
+	ldr r0, _0806EFFC  @ ProcScr_efxopLiveBG
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -955,7 +955,7 @@ sub_806EFB8: @ 0x0806EFB8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806EFFC: .4byte gUnknown_085D9584
+_0806EFFC: .4byte ProcScr_efxopLiveBG
 _0806F000: .4byte gUnknown_080DF730
 _0806F004: .4byte gUnknown_085D959C
 _0806F008: .4byte gUnknown_0866F5E4
@@ -1005,7 +1005,7 @@ _0806F050:
 sub_806F058: @ 0x0806F058
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0806F080  @ gUnknown_085D95A0
+	ldr r0, _0806F080  @ ProcScr_efxopLiveBGCOL
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -1022,7 +1022,7 @@ sub_806F058: @ 0x0806F058
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806F080: .4byte gUnknown_085D95A0
+_0806F080: .4byte ProcScr_efxopLiveBGCOL
 _0806F084: .4byte gUnknown_080DF748
 _0806F088: .4byte gUnknown_086700D4
 
@@ -1071,7 +1071,7 @@ sub_806F0CC: @ 0x0806F0CC
 	adds r5, r1, #0
 	adds r6, r2, #0
 	mov r8, r3
-	ldr r0, _0806F0F8  @ gUnknown_085D95C0
+	ldr r0, _0806F0F8  @ ProcScr_efxopLiveALPHA
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -1086,7 +1086,7 @@ sub_806F0CC: @ 0x0806F0CC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806F0F8: .4byte gUnknown_085D95C0
+_0806F0F8: .4byte ProcScr_efxopLiveALPHA
 
 	THUMB_FUNC_END sub_806F0CC
 
@@ -1172,7 +1172,7 @@ sub_806F184: @ 0x0806F184
 	adds r5, r0, #0
 	bl sub_806E954
 	adds r6, r0, #0
-	ldr r0, _0806F1D8  @ gUnknown_085D95E0
+	ldr r0, _0806F1D8  @ ProcScr_efxopLiveOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -1205,7 +1205,7 @@ sub_806F184: @ 0x0806F184
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806F1D8: .4byte gUnknown_085D95E0
+_0806F1D8: .4byte ProcScr_efxopLiveOBJ
 _0806F1DC: .4byte gUnknown_08675114
 _0806F1E0: .4byte gUnknown_08670528
 _0806F1E4: .4byte gUnknown_086702D4
@@ -1236,8 +1236,8 @@ _0806F20A:
 
 	THUMB_FUNC_END sub_806F1E8
 
-	THUMB_FUNC_START sub_806F210
-sub_806F210: @ 0x0806F210
+	THUMB_FUNC_START NewEfxopLightning
+NewEfxopLightning: @ 0x0806F210
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, _0806F22C  @ ProcScr_efxopLightning
@@ -1252,7 +1252,7 @@ sub_806F210: @ 0x0806F210
 	.align 2, 0
 _0806F22C: .4byte ProcScr_efxopLightning
 
-	THUMB_FUNC_END sub_806F210
+	THUMB_FUNC_END NewEfxopLightning
 
 	THUMB_FUNC_START sub_806F230
 sub_806F230: @ 0x0806F230
@@ -1713,11 +1713,11 @@ _0806F5B8: .4byte gUnknown_0862DC58
 
 	THUMB_FUNC_END sub_806F594
 
-	THUMB_FUNC_START sub_806F5BC
-sub_806F5BC: @ 0x0806F5BC
+	THUMB_FUNC_START NewEfxopMistyrain
+NewEfxopMistyrain: @ 0x0806F5BC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0806F5DC  @ gUnknown_085D999C
+	ldr r0, _0806F5DC  @ ProcScr_efxopMistyrain
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -1729,9 +1729,9 @@ sub_806F5BC: @ 0x0806F5BC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806F5DC: .4byte gUnknown_085D999C
+_0806F5DC: .4byte ProcScr_efxopMistyrain
 
-	THUMB_FUNC_END sub_806F5BC
+	THUMB_FUNC_END NewEfxopMistyrain
 
 	THUMB_FUNC_START sub_806F5E0
 sub_806F5E0: @ 0x0806F5E0
@@ -1788,8 +1788,8 @@ _0806F640:
 
 	THUMB_FUNC_END sub_806F5E0
 
-	THUMB_FUNC_START sub_806F648
-sub_806F648: @ 0x0806F648
+	THUMB_FUNC_START NewEfxopMyrrh
+NewEfxopMyrrh: @ 0x0806F648
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, _0806F664  @ ProcScr_efxopMyrrh
@@ -1804,7 +1804,7 @@ sub_806F648: @ 0x0806F648
 	.align 2, 0
 _0806F664: .4byte ProcScr_efxopMyrrh
 
-	THUMB_FUNC_END sub_806F648
+	THUMB_FUNC_END NewEfxopMyrrh
 
 	THUMB_FUNC_START sub_806F668
 sub_806F668: @ 0x0806F668
