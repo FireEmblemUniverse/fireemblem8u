@@ -524,7 +524,7 @@ _08074948:
 	cmp r3, r0
 	bne _0807495E
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0807495E:

@@ -2,6 +2,58 @@
 
 	.SYNTAX UNIFIED
 
+	THUMB_FUNC_START sub_806E8F0
+sub_806E8F0: @ 0x0806E8F0
+	ldr r0, _0806E8FC  @ gpProcefxopCur
+	movs r1, #0
+	str r1, [r0]
+	ldr r0, _0806E900  @ gUnknown_0203E1EC
+	str r1, [r0]
+	bx lr
+	.align 2, 0
+_0806E8FC: .4byte gpProcefxopCur
+_0806E900: .4byte gUnknown_0203E1EC
+
+	THUMB_FUNC_END sub_806E8F0
+
+	THUMB_FUNC_START sub_806E904
+sub_806E904: @ 0x0806E904
+	push {r4, lr}
+	ldr r4, _0806E91C  @ gpProcefxopCur
+	ldr r0, [r4]
+	cmp r0, #0
+	beq _0806E916
+	bl Proc_End
+	movs r0, #0
+	str r0, [r4]
+_0806E916:
+	pop {r4}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0806E91C: .4byte gpProcefxopCur
+
+	THUMB_FUNC_END sub_806E904
+
+	THUMB_FUNC_START sub_806E920
+sub_806E920: @ 0x0806E920
+	push {r4, lr}
+	ldr r4, _0806E938  @ gUnknown_0203E1EC
+	ldr r0, [r4]
+	cmp r0, #0
+	beq _0806E932
+	bl Proc_End
+	movs r0, #0
+	str r0, [r4]
+_0806E932:
+	pop {r4}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0806E938: .4byte gUnknown_0203E1EC
+
+	THUMB_FUNC_END sub_806E920
+
 	THUMB_FUNC_START SetGlbProcefxopCur
 SetGlbProcefxopCur: @ 0x0806E93C
 	ldr r1, _0806E944  @ gpProcefxopCur
@@ -431,7 +483,7 @@ _0806EC48:
 	bne _0806EC60
 	ldr r0, [r4, #0x5c]
 	bl sub_806E9B4
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806EC60:
@@ -661,7 +713,7 @@ _0806EE12:
 	bne _0806EE2A
 	ldr r0, [r4, #0x5c]
 	bl sub_806E9B4
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806EE2A:
@@ -939,7 +991,7 @@ _0806F038:
 	bne _0806F050
 	ldr r0, [r4, #0x5c]
 	bl sub_806E9B4
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806F050:
@@ -1297,7 +1349,7 @@ _0806F2E4:
 	bne _0806F2FC
 	ldr r0, [r7, #0x5c]
 	bl sub_806E9B4
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _0806F2FC:
@@ -1453,7 +1505,7 @@ _0806F430:
 	bne _0806F448
 	ldr r0, [r6, #0x5c]
 	bl sub_806E9B4
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r6, #0
 	bl Proc_Break
 _0806F448:
@@ -1917,7 +1969,7 @@ _0806F7A0:
 	bne _0806F7B8
 	ldr r0, [r7, #0x5c]
 	bl sub_806E9B4
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _0806F7B8:
@@ -2129,7 +2181,7 @@ _0806F948:
 	bne _0806F960
 	ldr r0, [r6, #0x5c]
 	bl sub_806E9B4
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r6, #0
 	bl Proc_Break
 _0806F960:

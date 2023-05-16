@@ -543,14 +543,14 @@ _08055268: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_80551B0
 
-	THUMB_FUNC_START sub_805526C
-sub_805526C: @ 0x0805526C
+	THUMB_FUNC_START SetDefaultColorEffects_
+SetDefaultColorEffects_: @ 0x0805526C
 	push {lr}
 	bl SetDefaultColorEffects
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_805526C
+	THUMB_FUNC_END SetDefaultColorEffects_
 
 	THUMB_FUNC_START ThisMakesTheHPInSpellAnimGoAway
 ThisMakesTheHPInSpellAnimGoAway: @ 0x08055278
