@@ -3693,7 +3693,7 @@ _0805CB14:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0805CB32:
@@ -4657,7 +4657,7 @@ sub_805D2B4: @ 0x0805D2B4
 	cmp r0, r1
 	bne _0805D2E0
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	ldr r1, _0805D2E8  @ gUnknown_0201774C
 	ldr r0, [r1]
 	subs r0, #1
@@ -5085,7 +5085,7 @@ _0805D61A:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0805D638:
@@ -5151,7 +5151,7 @@ _0805D6A6:
 	negs r0, r0
 	cmp r1, r0
 	bne _0805D6C0
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	ldr r1, _0805D6C8  @ gUnknown_0201774C
 	ldr r0, [r1]
 	subs r0, #1
@@ -5523,7 +5523,7 @@ _0805D990:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0805D9AE:
@@ -5590,7 +5590,7 @@ _0805DA1E:
 	negs r0, r0
 	cmp r1, r0
 	bne _0805DA38
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	ldr r1, _0805DA40  @ gUnknown_0201774C
 	ldr r0, [r1]
 	subs r0, #1
@@ -5948,7 +5948,7 @@ _0805DCF2:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0805DD10:
@@ -6164,7 +6164,7 @@ _0805DEB0:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_End
 _0805DECE:
@@ -6258,7 +6258,7 @@ sub_805DF70: @ 0x0805DF70
 	cmp r0, #0x28
 	bne _0805DF98
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	ldr r1, _0805DFA0  @ gUnknown_0201774C
 	ldr r0, [r1]
 	subs r0, #1
@@ -6695,7 +6695,7 @@ _0805E2F0:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0805E30E:
@@ -6830,7 +6830,7 @@ _0805E408:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r6, #0
 	bl Proc_Break
 _0805E426:
@@ -7651,7 +7651,7 @@ sub_805EA4C: @ 0x0805EA4C
 	cmp r0, r1
 	ble _0805EA9E
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	ldr r1, _0805EAA8  @ gUnknown_0201774C
 	ldr r0, [r1]
 	subs r0, #1
@@ -8024,7 +8024,7 @@ _0805ED70:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0805ED8E:
@@ -8531,7 +8531,7 @@ _0805F17C:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_End
 _0805F19A:
@@ -9118,7 +9118,7 @@ _0805F618:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	bl EfxSpellCastSet29
 	adds r0, r7, #0
 	bl Proc_End
@@ -9151,7 +9151,7 @@ sub_805F660: @ 0x0805F660
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_End
@@ -9312,7 +9312,7 @@ _0805F7A8:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	bl EfxSpellCastSet29
 	adds r0, r7, #0
 	bl Proc_Break
@@ -9364,7 +9364,7 @@ _0805F810:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _0805F82E:
@@ -9694,7 +9694,7 @@ _0805FAB0:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_End
 _0805FACE:
@@ -10006,7 +10006,7 @@ _0805FD2E:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_End
 _0805FD4C:
@@ -10571,7 +10571,7 @@ _080601B4:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _080601D2:
@@ -11074,7 +11074,7 @@ _080605BC:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _080605DA:
@@ -11763,7 +11763,7 @@ sub_8060B2C: @ 0x08060B2C
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -12173,7 +12173,7 @@ _08060E60:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _08060E7E:
@@ -13277,7 +13277,7 @@ _08061736:
 	cmp r0, #0
 	bne _08061750
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 _08061750:
 	movs r0, #1
 	movs r1, #0
@@ -14152,7 +14152,7 @@ _08061DD0:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _08061DEE:
@@ -14449,7 +14449,7 @@ _08061FDC:
 	orrs r0, r2
 	strh r0, [r4, #8]
 _0806203C:
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r5, #0
 	bl Proc_Break
 _08062046:
@@ -14826,7 +14826,7 @@ _08062330:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806234E:
@@ -15158,7 +15158,7 @@ _080625DE:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _080625FC:
@@ -15473,7 +15473,7 @@ _0806286E:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806288C:
@@ -15871,7 +15871,7 @@ _08062B84:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _08062BA2:
@@ -16214,7 +16214,7 @@ sub_8062E44: @ 0x08062E44
 	cmp r0, r1
 	bne _08062E96
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	bl sub_8070874
 	ldr r0, [r5, #0x1c]
 	ldr r1, _08062EA0  @ 0xFFFFF7FF
@@ -16889,7 +16889,7 @@ _080633A6:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _080633C4:
@@ -17201,7 +17201,7 @@ _08063624:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _08063642:
@@ -17336,7 +17336,7 @@ _08063740:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806375E:
@@ -17925,7 +17925,7 @@ _08063BF6:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _08063C14:
@@ -18229,7 +18229,7 @@ sub_8063E58: @ 0x08063E58
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -18449,7 +18449,7 @@ _08063FFC:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806401A:
@@ -19129,7 +19129,7 @@ sub_806454C: @ 0x0806454C
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -19637,7 +19637,7 @@ sub_806491C: @ 0x0806491C
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -19849,7 +19849,7 @@ sub_8064AC8: @ 0x08064AC8
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -20118,7 +20118,7 @@ _08064CD4:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_End
 _08064CF2:
@@ -20216,7 +20216,7 @@ sub_8064DA8: @ 0x08064DA8
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -20749,7 +20749,7 @@ _080651F2:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _08065210:
@@ -20871,7 +20871,7 @@ sub_8065300: @ 0x08065300
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -21056,7 +21056,7 @@ _08065468:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _08065486:
@@ -21208,7 +21208,7 @@ _08065594:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _080655B2:
@@ -21801,7 +21801,7 @@ _08065A56:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r5, #0
 	bl Proc_Break
 _08065A74:
@@ -21901,7 +21901,7 @@ _08065B2A:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r5, #0
 	bl Proc_Break
 _08065B48:
@@ -21918,7 +21918,7 @@ StartSpellBG_IvaldiBG3: @ 0x08065B54
 	push {r4, lr}
 	adds r4, r0, #0
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	ldr r1, _08065BA0  @ gUnknown_0201774C
 	ldr r0, [r1]
 	adds r0, #1
@@ -22008,7 +22008,7 @@ _08065C10:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _08065C2E:
@@ -22163,7 +22163,7 @@ _08065D58:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r5, #0
 	bl Proc_Break
 _08065D76:
@@ -23488,7 +23488,7 @@ _080667B8:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _080667D6:
@@ -23607,7 +23607,7 @@ _080668B2:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _080668D0:
@@ -23759,7 +23759,7 @@ _080669E4:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _08066A02:
@@ -23884,7 +23884,7 @@ _08066AEC:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _08066B0A:
@@ -25421,7 +25421,7 @@ _080676BC:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _080676DA:
@@ -25748,7 +25748,7 @@ _0806795C:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_End
 _0806797A:
@@ -25882,7 +25882,7 @@ _08067A78:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_End
 _08067A96:
@@ -26370,7 +26370,7 @@ _08067E70:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_End
 _08067E8E:
@@ -26469,7 +26469,7 @@ _08067F3C:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_End
 _08067F5A:
@@ -26564,7 +26564,7 @@ _08068000:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_End
 _0806801E:
@@ -26659,7 +26659,7 @@ _080680C4:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_End
 _080680E2:
@@ -27899,7 +27899,7 @@ sub_8068A28: @ 0x08068A28
 	cmp r0, r1
 	bne _08068A54
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	ldr r1, _08068A5C  @ gUnknown_0201774C
 	ldr r0, [r1]
 	subs r0, #1
@@ -29011,7 +29011,7 @@ _0806927C:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _080692A0:
@@ -29241,7 +29241,7 @@ _08069460:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r6, #0
 	bl Proc_Break
 _0806947E:
@@ -32907,7 +32907,7 @@ _0806B0F4:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _0806B112:
@@ -33731,7 +33731,7 @@ _0806B780:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r7, #0
 	bl Proc_Break
 _0806B79E:
@@ -34822,7 +34822,7 @@ _0806C08E:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r6, #0
 	bl Proc_Break
 _0806C0AC:
@@ -35712,7 +35712,7 @@ efxCriricalEffectBGMain: @ 0x0806C7E8
 	cmp r0, #0x11
 	bne _0806C808
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806C808:
@@ -35950,7 +35950,7 @@ _0806C9BE:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806C9DC:
@@ -36056,7 +36056,7 @@ efxPierceCriticalEffectBGMain: @ 0x0806CA88
 	cmp r0, #0x11
 	bne _0806CAA8
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806CAA8:
@@ -36275,7 +36275,7 @@ _0806CC36:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806CC54:
@@ -37136,7 +37136,7 @@ _0806D2F6:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_End
 _0806D314:
@@ -38051,7 +38051,7 @@ sub_806DA68: @ 0x0806DA68
 	cmp r0, #0x3c
 	bne _0806DA88
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806DA88:
@@ -38399,7 +38399,7 @@ _0806DCD0:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806DD24:
@@ -38824,7 +38824,7 @@ _0806E0FE:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 _0806E11C:
@@ -38840,7 +38840,7 @@ _0806E124: .4byte gUnknown_0201774C
 sub_806E128: @ 0x0806E128
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0806E14C  @ gUnknown_085D92E0
+	ldr r0, _0806E14C  @ ProcScr_efxChillEffectBGCOL
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -38855,7 +38855,7 @@ sub_806E128: @ 0x0806E128
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806E14C: .4byte gUnknown_085D92E0
+_0806E14C: .4byte ProcScr_efxChillEffectBGCOL
 _0806E150: .4byte gUnknown_080DF568
 _0806E154: .4byte gUnknown_087456E8
 
@@ -38954,7 +38954,7 @@ sub_806E1F0: @ 0x0806E1F0
 	ldr r4, _0806E25C  @ gUnknown_08746508
 	ldr r7, _0806E260  @ gUnknown_0874670C
 _0806E202:
-	ldr r0, _0806E264  @ gUnknown_085D9300
+	ldr r0, _0806E264  @ ProcScr_efxChillAnime
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
@@ -38997,7 +38997,7 @@ _0806E202:
 	.align 2, 0
 _0806E25C: .4byte gUnknown_08746508
 _0806E260: .4byte gUnknown_0874670C
-_0806E264: .4byte gUnknown_085D9300
+_0806E264: .4byte ProcScr_efxChillAnime
 _0806E268: .4byte gUnknown_02000010
 _0806E26C:
 	ldrh r0, [r4, #8]
@@ -39084,789 +39084,4 @@ nullsub_17: @ 0x0806E30C
 
 	THUMB_FUNC_END nullsub_17
 
-	THUMB_FUNC_START sub_806E310
-sub_806E310: @ 0x0806E310
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	adds r4, r0, #0
-	ldr r0, _0806E364  @ gUnknown_085D9318
-	movs r1, #3
-	bl Proc_Start
-	adds r7, r0, #0
-	str r4, [r7, #0x5c]
-	movs r0, #0
-	strh r0, [r7, #0x2c]
-	str r0, [r7, #0x44]
-	ldr r0, _0806E368  @ gUnknown_080DF5D6
-	str r0, [r7, #0x48]
-	ldr r0, _0806E36C  @ gUnknown_085D9330
-	str r0, [r7, #0x4c]
-	str r0, [r7, #0x50]
-	ldr r0, _0806E370  @ gUnknown_085D9370
-	str r0, [r7, #0x54]
-	ldr r0, _0806E374  @ gUnknown_085D93B0
-	str r0, [r7, #0x58]
-	bl sub_80551B0
-	ldr r0, _0806E378  @ gEkrDistanceType
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	beq _0806E386
-	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
-	cmp r0, #0
-	bne _0806E37C
-	movs r0, #1
-	movs r1, #0x18
-	movs r2, #0
-	bl BG_SetPosition
-	b _0806E386
-	.align 2, 0
-_0806E364: .4byte gUnknown_085D9318
-_0806E368: .4byte gUnknown_080DF5D6
-_0806E36C: .4byte gUnknown_085D9330
-_0806E370: .4byte gUnknown_085D9370
-_0806E374: .4byte gUnknown_085D93B0
-_0806E378: .4byte gEkrDistanceType
-_0806E37C:
-	movs r0, #1
-	movs r1, #0xe8
-	movs r2, #0
-	bl BG_SetPosition
-_0806E386:
-	ldr r4, [r7, #0x5c]
-	ldr r2, _0806E43C  @ gAnims
-	mov r9, r2
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	add r0, r9
-	ldr r6, [r0]
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	add r0, r9
-	ldr r1, [r0]
-	ldrh r0, [r4, #0x10]
-	movs r3, #0x20
-	mov r8, r3
-	mov r2, r8
-	orrs r0, r2
-	strh r0, [r4, #0x10]
-	ldrh r0, [r4]
-	movs r5, #8
-	orrs r0, r5
-	strh r0, [r4]
-	ldrh r0, [r6, #0x10]
-	orrs r0, r2
-	strh r0, [r6, #0x10]
-	ldrh r0, [r6]
-	orrs r0, r5
-	strh r0, [r6]
-	ldrh r0, [r1, #0x10]
-	orrs r0, r2
-	strh r0, [r1, #0x10]
-	ldrh r0, [r1]
-	orrs r0, r5
-	strh r0, [r1]
-	ldr r0, [r7, #0x5c]
-	bl GetCoreAIStruct
-	adds r4, r0, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	add r0, r9
-	ldr r6, [r0]
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	add r0, r9
-	ldr r1, [r0]
-	ldrh r0, [r4, #0x10]
-	mov r3, r8
-	orrs r0, r3
-	strh r0, [r4, #0x10]
-	ldrh r0, [r4]
-	orrs r0, r5
-	strh r0, [r4]
-	ldrh r0, [r6, #0x10]
-	orrs r0, r3
-	strh r0, [r6, #0x10]
-	ldrh r0, [r6]
-	orrs r0, r5
-	strh r0, [r6]
-	ldrh r0, [r1, #0x10]
-	orrs r0, r3
-	strh r0, [r1, #0x10]
-	ldrh r0, [r1]
-	orrs r5, r0
-	strh r5, [r1]
-	ldr r0, _0806E440  @ 0x000003D1
-	movs r1, #0x80
-	lsls r1, r1, #1
-	ldr r2, [r7, #0x5c]
-	movs r3, #2
-	ldrsh r2, [r2, r3]
-	movs r3, #1
-	bl EkrSoundSomeBark
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806E43C: .4byte gAnims
-_0806E440: .4byte 0x000003D1
-
-	THUMB_FUNC_END sub_806E310
-
-	THUMB_FUNC_START sub_806E444
-sub_806E444: @ 0x0806E444
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #4
-	adds r7, r0, #0
-	adds r0, #0x2c
-	adds r1, r7, #0
-	adds r1, #0x44
-	ldr r2, [r7, #0x48]
-	bl sub_80558F4
-	lsls r0, r0, #0x10
-	asrs r4, r0, #0x10
-	cmp r4, #0
-	blt _0806E4C0
-	ldr r1, [r7, #0x4c]
-	ldr r2, [r7, #0x50]
-	ldr r5, [r7, #0x54]
-	ldr r6, [r7, #0x58]
-	ldr r0, [r7, #0x5c]
-	lsls r4, r4, #2
-	adds r1, r4, r1
-	ldr r1, [r1]
-	adds r2, r4, r2
-	ldr r2, [r2]
-	bl sub_8055670
-	adds r5, r4, r5
-	ldr r0, [r5]
-	movs r1, #0x80
-	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	adds r4, r4, r6
-	ldr r0, [r4]
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	movs r3, #0
-	ldr r4, _0806E4BC  @ gBG1TilemapBuffer
-_0806E494:
-	lsls r2, r3, #5
-	adds r0, r2, #0
-	adds r0, #0x1e
-	lsls r0, r0, #1
-	adds r0, r0, r4
-	ldrh r1, [r4]
-	strh r1, [r0]
-	adds r2, #0x1f
-	lsls r2, r2, #1
-	adds r2, r2, r4
-	ldrh r0, [r4]
-	strh r0, [r2]
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #0x13
-	bls _0806E494
-	bl sub_80551B0
-	b _0806E578
-	.align 2, 0
-_0806E4BC: .4byte gBG1TilemapBuffer
-_0806E4C0:
-	movs r0, #1
-	negs r0, r0
-	cmp r4, r0
-	bne _0806E578
-	bl ClearBG1
-	bl sub_805526C
-	ldr r4, [r7, #0x5c]
-	ldr r0, _0806E584  @ gAnims
-	mov r8, r0
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	add r0, r8
-	ldr r3, [r0]
-	adds r0, r4, #0
-	str r3, [sp]
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	add r0, r8
-	ldr r2, [r0]
-	ldrh r0, [r4, #0x10]
-	movs r6, #0x40
-	orrs r0, r6
-	strh r0, [r4, #0x10]
-	ldrh r1, [r4]
-	ldr r5, _0806E588  @ 0x0000FFF7
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r4]
-	ldr r3, [sp]
-	ldrh r0, [r3, #0x10]
-	orrs r0, r6
-	strh r0, [r3, #0x10]
-	ldrh r1, [r3]
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r3]
-	ldrh r0, [r2, #0x10]
-	orrs r0, r6
-	strh r0, [r2, #0x10]
-	ldrh r1, [r2]
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r2]
-	ldr r0, [r7, #0x5c]
-	bl GetCoreAIStruct
-	adds r4, r0, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	add r0, r8
-	ldr r3, [r0]
-	adds r0, r4, #0
-	str r3, [sp]
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	add r0, r8
-	ldr r2, [r0]
-	ldrh r0, [r4, #0x10]
-	orrs r0, r6
-	strh r0, [r4, #0x10]
-	ldrh r1, [r4]
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r4]
-	ldr r3, [sp]
-	ldrh r0, [r3, #0x10]
-	orrs r0, r6
-	strh r0, [r3, #0x10]
-	ldrh r1, [r3]
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r3]
-	ldrh r0, [r2, #0x10]
-	orrs r6, r0
-	strh r6, [r2, #0x10]
-	ldrh r0, [r2]
-	ands r5, r0
-	strh r5, [r2]
-	adds r0, r7, #0
-	bl Proc_Break
-_0806E578:
-	add sp, #4
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806E584: .4byte gAnims
-_0806E588: .4byte 0x0000FFF7
-
-	THUMB_FUNC_END sub_806E444
-
-	THUMB_FUNC_START sub_806E58C
-sub_806E58C: @ 0x0806E58C
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	lsls r5, r1, #0x18
-	lsrs r5, r5, #0x18
-	ldr r0, _0806E5E8  @ gUnknown_085D93F0
-	movs r1, #3
-	bl Proc_Start
-	adds r4, r0, #0
-	str r6, [r4, #0x5c]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-	str r0, [r4, #0x44]
-	strh r5, [r4, #0x3a]
-	ldr r0, _0806E5EC  @ gUnknown_080DF5D6
-	str r0, [r4, #0x48]
-	ldr r0, _0806E5F0  @ gUnknown_085D9330
-	str r0, [r4, #0x4c]
-	str r0, [r4, #0x50]
-	ldr r0, _0806E5F4  @ gUnknown_085D9370
-	str r0, [r4, #0x54]
-	ldr r0, _0806E5F8  @ gUnknown_085D93B0
-	str r0, [r4, #0x58]
-	bl sub_80551B0
-	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
-	adds r1, r0, #0
-	ldr r0, _0806E5FC  @ gEkrDistanceType
-	movs r2, #0
-	ldrsh r0, [r0, r2]
-	cmp r0, #0
-	beq _0806E60A
-	adds r0, r1, #0
-	bl GetAISSubjectId
-	cmp r0, #0
-	bne _0806E600
-	movs r0, #1
-	movs r1, #0x18
-	movs r2, #0
-	bl BG_SetPosition
-	b _0806E60A
-	.align 2, 0
-_0806E5E8: .4byte gUnknown_085D93F0
-_0806E5EC: .4byte gUnknown_080DF5D6
-_0806E5F0: .4byte gUnknown_085D9330
-_0806E5F4: .4byte gUnknown_085D9370
-_0806E5F8: .4byte gUnknown_085D93B0
-_0806E5FC: .4byte gEkrDistanceType
-_0806E600:
-	movs r0, #1
-	movs r1, #0xe8
-	movs r2, #0
-	bl BG_SetPosition
-_0806E60A:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_806E58C
-
-	THUMB_FUNC_START sub_806E610
-sub_806E610: @ 0x0806E610
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _0806E634  @ 0x000003D1
-	movs r1, #0x80
-	lsls r1, r1, #1
-	ldr r2, [r4, #0x5c]
-	movs r3, #2
-	ldrsh r2, [r2, r3]
-	movs r3, #1
-	bl EkrSoundSomeBark
-	adds r0, r4, #0
-	bl Proc_Break
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806E634: .4byte 0x000003D1
-
-	THUMB_FUNC_END sub_806E610
-
-	THUMB_FUNC_START sub_806E638
-sub_806E638: @ 0x0806E638
-	push {r4, r5, r6, r7, lr}
-	adds r6, r0, #0
-	ldr r0, [r6, #0x5c]
-	bl GetCoreAIStruct
-	adds r7, r0, #0
-	adds r0, r6, #0
-	adds r0, #0x2c
-	adds r1, r6, #0
-	adds r1, #0x44
-	ldr r2, [r6, #0x48]
-	bl sub_80558F4
-	lsls r0, r0, #0x10
-	asrs r4, r0, #0x10
-	cmp r4, #0
-	blt _0806E6B4
-	ldr r0, [r6, #0x4c]
-	ldr r2, [r6, #0x50]
-	ldr r5, [r6, #0x54]
-	ldr r6, [r6, #0x58]
-	lsls r4, r4, #2
-	adds r0, r4, r0
-	ldr r1, [r0]
-	adds r2, r4, r2
-	ldr r2, [r2]
-	adds r0, r7, #0
-	bl sub_8055670
-	adds r5, r4, r5
-	ldr r0, [r5]
-	movs r1, #0x80
-	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	adds r4, r4, r6
-	ldr r0, [r4]
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	movs r3, #0
-	ldr r4, _0806E6B0  @ gBG1TilemapBuffer
-_0806E68C:
-	lsls r2, r3, #5
-	adds r0, r2, #0
-	adds r0, #0x1e
-	lsls r0, r0, #1
-	adds r0, r0, r4
-	ldrh r1, [r4]
-	strh r1, [r0]
-	adds r2, #0x1f
-	lsls r2, r2, #1
-	adds r2, r2, r4
-	ldrh r0, [r4]
-	strh r0, [r2]
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #0x13
-	bls _0806E68C
-	b _0806E6DA
-	.align 2, 0
-_0806E6B0: .4byte gBG1TilemapBuffer
-_0806E6B4:
-	movs r0, #1
-	negs r0, r0
-	cmp r4, r0
-	bne _0806E6DA
-	movs r1, #0x3a
-	ldrsh r0, [r6, r1]
-	cmp r0, #1
-	bne _0806E6CC
-	adds r0, r7, #0
-	movs r1, #0xc
-	bl SetUnitEfxDebuff
-_0806E6CC:
-	bl ClearBG1
-	bl sub_805526C
-	adds r0, r6, #0
-	bl Proc_Break
-_0806E6DA:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_806E638
-
-	THUMB_FUNC_START sub_806E6E0
-sub_806E6E0: @ 0x0806E6E0
-	push {r4, r5, r6, lr}
-	mov r6, sl
-	mov r5, r9
-	mov r4, r8
-	push {r4, r5, r6}
-	mov sl, r0
-	ldr r4, [r0, #0x5c]
-	ldr r0, _0806E798  @ gAnims
-	mov r9, r0
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	add r0, r9
-	ldr r6, [r0]
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	add r0, r9
-	ldr r1, [r0]
-	ldrh r0, [r4, #0x10]
-	movs r2, #0x20
-	mov r8, r2
-	mov r2, r8
-	orrs r0, r2
-	strh r0, [r4, #0x10]
-	ldrh r0, [r4]
-	movs r5, #8
-	orrs r0, r5
-	strh r0, [r4]
-	ldrh r0, [r6, #0x10]
-	orrs r0, r2
-	strh r0, [r6, #0x10]
-	ldrh r0, [r6]
-	orrs r0, r5
-	strh r0, [r6]
-	ldrh r0, [r1, #0x10]
-	orrs r0, r2
-	strh r0, [r1, #0x10]
-	ldrh r0, [r1]
-	orrs r0, r5
-	strh r0, [r1]
-	mov r1, sl
-	ldr r0, [r1, #0x5c]
-	bl GetCoreAIStruct
-	adds r4, r0, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	add r0, r9
-	ldr r6, [r0]
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	add r0, r9
-	ldr r1, [r0]
-	ldrh r0, [r4, #0x10]
-	mov r2, r8
-	orrs r0, r2
-	strh r0, [r4, #0x10]
-	ldrh r0, [r4]
-	orrs r0, r5
-	strh r0, [r4]
-	ldrh r0, [r6, #0x10]
-	orrs r0, r2
-	strh r0, [r6, #0x10]
-	ldrh r0, [r6]
-	orrs r0, r5
-	strh r0, [r6]
-	ldrh r0, [r1, #0x10]
-	orrs r0, r2
-	strh r0, [r1, #0x10]
-	ldrh r0, [r1]
-	orrs r5, r0
-	strh r5, [r1]
-	mov r0, sl
-	bl Proc_Break
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806E798: .4byte gAnims
-
-	THUMB_FUNC_END sub_806E6E0
-
-	THUMB_FUNC_START sub_806E79C
-sub_806E79C: @ 0x0806E79C
-	push {r4, r5, r6, lr}
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6}
-	sub sp, #4
-	mov r9, r0
-	ldr r4, [r0, #0x5c]
-	ldr r0, _0806E860  @ gAnims
-	mov r8, r0
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	add r0, r8
-	ldr r3, [r0]
-	adds r0, r4, #0
-	str r3, [sp]
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	add r0, r8
-	ldr r2, [r0]
-	ldrh r0, [r4, #0x10]
-	movs r6, #0x40
-	orrs r0, r6
-	strh r0, [r4, #0x10]
-	ldrh r1, [r4]
-	ldr r5, _0806E864  @ 0x0000FFF7
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r4]
-	ldr r3, [sp]
-	ldrh r0, [r3, #0x10]
-	orrs r0, r6
-	strh r0, [r3, #0x10]
-	ldrh r1, [r3]
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r3]
-	ldrh r0, [r2, #0x10]
-	orrs r0, r6
-	strh r0, [r2, #0x10]
-	ldrh r1, [r2]
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r2]
-	mov r1, r9
-	ldr r0, [r1, #0x5c]
-	bl GetCoreAIStruct
-	adds r4, r0, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	add r0, r8
-	ldr r3, [r0]
-	adds r0, r4, #0
-	str r3, [sp]
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	add r0, r8
-	ldr r2, [r0]
-	ldrh r0, [r4, #0x10]
-	orrs r0, r6
-	strh r0, [r4, #0x10]
-	ldrh r1, [r4]
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r4]
-	ldr r3, [sp]
-	ldrh r0, [r3, #0x10]
-	orrs r0, r6
-	strh r0, [r3, #0x10]
-	ldrh r1, [r3]
-	adds r0, r5, #0
-	ands r0, r1
-	strh r0, [r3]
-	ldrh r0, [r2, #0x10]
-	orrs r6, r0
-	strh r6, [r2, #0x10]
-	ldrh r0, [r2]
-	ands r5, r0
-	strh r5, [r2]
-	mov r0, r9
-	bl Proc_Break
-	add sp, #4
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806E860: .4byte gAnims
-_0806E864: .4byte 0x0000FFF7
-
-	THUMB_FUNC_END sub_806E79C
-
-	THUMB_FUNC_START sub_806E868
-sub_806E868: @ 0x0806E868
-	push {r4, lr}
-	adds r4, r0, #0
-	bl GetAnimationStartFrameMaybe
-	adds r2, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #1
-	bne _0806E88C
-	ldr r0, [r4, #0x5c]
-	movs r1, #1
-	negs r1, r1
-	bl NewEfxFarAttackWithDistance
-	b _0806E89E
-_0806E88C:
-	movs r0, #0x2c
-	ldrsh r1, [r4, r0]
-	adds r0, r2, #0
-	adds r0, #0xa
-	cmp r1, r0
-	bne _0806E89E
-	adds r0, r4, #0
-	bl Proc_Break
-_0806E89E:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_806E868
-
-	THUMB_FUNC_START sub_806E8A4
-sub_806E8A4: @ 0x0806E8A4
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
-	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
-	adds r2, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #1
-	bne _0806E8D0
-	movs r1, #1
-	negs r1, r1
-	adds r0, r5, #0
-	bl NewEfxFarAttackWithDistance
-	b _0806E8EA
-_0806E8D0:
-	movs r0, #0x2c
-	ldrsh r1, [r4, r0]
-	adds r0, r2, #0
-	adds r0, #0xa
-	cmp r1, r0
-	bne _0806E8EA
-	ldrh r0, [r5, #0x10]
-	movs r1, #0x40
-	orrs r0, r1
-	strh r0, [r5, #0x10]
-	adds r0, r4, #0
-	bl Proc_Break
-_0806E8EA:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_806E8A4
-
-	THUMB_FUNC_START sub_806E8F0
-sub_806E8F0: @ 0x0806E8F0
-	ldr r0, _0806E8FC  @ gpProcefxopCur
-	movs r1, #0
-	str r1, [r0]
-	ldr r0, _0806E900  @ gUnknown_0203E1EC
-	str r1, [r0]
-	bx lr
-	.align 2, 0
-_0806E8FC: .4byte gpProcefxopCur
-_0806E900: .4byte gUnknown_0203E1EC
-
-	THUMB_FUNC_END sub_806E8F0
-
-	THUMB_FUNC_START sub_806E904
-sub_806E904: @ 0x0806E904
-	push {r4, lr}
-	ldr r4, _0806E91C  @ gpProcefxopCur
-	ldr r0, [r4]
-	cmp r0, #0
-	beq _0806E916
-	bl Proc_End
-	movs r0, #0
-	str r0, [r4]
-_0806E916:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806E91C: .4byte gpProcefxopCur
-
-	THUMB_FUNC_END sub_806E904
-
-	THUMB_FUNC_START sub_806E920
-sub_806E920: @ 0x0806E920
-	push {r4, lr}
-	ldr r4, _0806E938  @ gUnknown_0203E1EC
-	ldr r0, [r4]
-	cmp r0, #0
-	beq _0806E932
-	bl Proc_End
-	movs r0, #0
-	str r0, [r4]
-_0806E932:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806E938: .4byte gUnknown_0203E1EC
-
-	THUMB_FUNC_END sub_806E920
+.align 2, 0

@@ -154,6 +154,8 @@ SECTIONS
         asm/banim-ekrmainmini.o(.text);
         src/banim-ekrmainmini.o(.text);
         asm/code_battleanim.o(.text);
+        src/banim-efxskill.o(.text);
+        asm/banim-efxskill.o(.text);
         asm/banim-efxop.o(.text);
         src/banim-ekrdragonstatus.o(.text);
         src/banim-ekrdragon-dracozombie.o(.text);
@@ -515,6 +517,8 @@ SECTIONS
         . = ALIGN(4); data/data_banim_5B93D0.o(.data);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); data/banim-ekrbattlectrl.o(.data);
+        . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
+        . = ALIGN(4); data/banim-efxskill.o(.data);
         . = ALIGN(4); data/data_banim.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-dracozombie.o(.data);
         . = ALIGN(4); data/data-ekrdragon.o(.data);

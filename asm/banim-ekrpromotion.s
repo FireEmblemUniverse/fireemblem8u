@@ -639,7 +639,7 @@ _08072EB8:
 	cmp r4, r0
 	bne _08072ECE
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r5, #0
 	bl Proc_End
 _08072ECE:
@@ -1053,7 +1053,7 @@ sub_80731C8: @ 0x080731C8
 	cmp r0, r1
 	bne _0807320E
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	ldr r0, [r5, #0x1c]
 	ldr r1, _08073218  @ 0xFFFFF7FF
 	ands r0, r1

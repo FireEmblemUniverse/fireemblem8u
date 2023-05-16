@@ -2013,7 +2013,7 @@ sub_807819C: @ 0x0807819C
 	cmp r0, r1
 	bne _080781E0
 	bl ClearBG1
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
 	b _0807820C

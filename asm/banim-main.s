@@ -478,7 +478,7 @@ _08059074:
 	cmp r0, #0
 	bne _08059140
 	adds r0, r7, #0
-	bl sub_806E310
+	bl NewEfxSkillType01BG
 	b _08059140
 _0805908C:
 	adds r0, r7, #0
@@ -511,7 +511,7 @@ _080590B8:
 	bne _08059140
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_806E58C
+	bl NewEfxSkillCommonBG
 	b _08059140
 _080590D2:
 	adds r0, r7, #0
@@ -544,7 +544,7 @@ _08059100:
 	cmp r0, #0
 	bne _08059140
 	adds r0, r7, #0
-	bl sub_806E310
+	bl NewEfxSkillType01BG
 	ldr r4, _08059150  @ gAnims
 	ldr r1, [r4, #8]
 	ldrh r2, [r1, #0x10]

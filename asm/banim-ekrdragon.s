@@ -532,7 +532,7 @@ sub_80707C0: @ 0x080707C0
 	strb r0, [r1]
 	bl sub_80702D0
 	str r0, [r4, #0x34]
-	bl sub_805526C
+	bl SetDefaultColorEffects_
 	bl ClearBG1
 	pop {r4}
 	pop {r0}
