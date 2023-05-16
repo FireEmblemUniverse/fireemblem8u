@@ -527,7 +527,7 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
     if (gEkrHPBarCount != 0)
         return;
 
-    if (gEkrDeadEventFlag != 0)
+    if (gEkrDeadEventExist != 0)
         return;
 
     ret = CheckEkrNamewinAppearUnexist();

@@ -350,7 +350,7 @@ void EkrEfxStatusClear(void)
     gEkrHPBarCount = 0;
     gUnknown_0201772C = 0;
     gUnknown_02017730 = 0;
-    gEkrDeadEventFlag = 0;
+    gEkrDeadEventExist = 0;
     gUnknown_0201773C = 0;
     gUnknown_02017740 = 0;
     gUnknown_02017748 = 0;
