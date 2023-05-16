@@ -155,7 +155,6 @@ SECTIONS
         src/banim-ekrmainmini.o(.text);
         asm/code_battleanim.o(.text);
         src/banim-efxskill.o(.text);
-        asm/banim-efxskill.o(.text);
         asm/banim-efxop.o(.text);
         src/banim-ekrdragonstatus.o(.text);
         src/banim-ekrdragon-dracozombie.o(.text);
@@ -369,6 +368,8 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
         . = ALIGN(4); data/const_data_DAF18.o(.rodata);
+        . = ALIGN(4); src/banim-efxskill.o(.rodata);
+        . = ALIGN(4); data/const_data_DF568.o(.rodata);
         . = ALIGN(4); src/banim-ekrlvup.o(.rodata);
         . = ALIGN(4); data/banim-ekrlvup-const.o(.rodata);
         . = ALIGN(4); src/banim-ekrtriangle.o(.rodata);
@@ -518,7 +519,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); data/banim-ekrbattlectrl.o(.data);
         . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
-        . = ALIGN(4); data/banim-efxskill.o(.data);
+        . = ALIGN(4); src/banim-efxskill.o(.data);
         . = ALIGN(4); data/data_banim.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-dracozombie.o(.data);
         . = ALIGN(4); data/data-ekrdragon.o(.data);

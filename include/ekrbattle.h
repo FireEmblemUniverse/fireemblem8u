@@ -480,7 +480,7 @@ void SomePaletteStoringRoutine_SpellAnim2(u16 *pal, int offset);
 // ??? sub_80558BC(???);
 s16 sub_80558F4(void *buf1, void *buf2, const void *buf3);
 // ??? sub_8055980(???);
-// ??? GetAnimationStartFrameMaybe(???);
+int GetAnimationStartFrameMaybe(void);
 // ??? sub_80559B0(???);
 void sub_80559D0(u32 val);
 void SetEkrFrontAnimPostion(int type, s16, s16);

@@ -165,6 +165,96 @@ struct ProcEfxStatusUnit {
 
 extern struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2];
 
+struct ProcEfxSkill {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+
+    /* 30 */ STRUCT_PAD(0x30, 0x3A);
+
+    /* 3A */ s16 unk3A;
+
+    /* 3C */ STRUCT_PAD(0x3C, 0x44);
+
+    /* 44 */ u32 unk44;
+    /* 48 */ const u16 *time_lut;
+    /* 4C */ u16 **tsa_lut;
+    /* 50 */ u16 **tsa_cur;
+    /* 54 */ u16 **img_lut;
+    /* 58 */ u16 **pal_lut;
+    /* 5C */ struct Anim *anim;
+};
+
+void NewEfxSkillType01BG(struct Anim *anim);
+void EfxSkillType01BGMain(struct ProcEfxSkill *proc);
+void NewEfxSkillCommonBG(struct Anim *anim, u8 val);
+void sub_806E610(struct ProcEfxSkill *proc);
+void sub_806E638(struct ProcEfxSkill *proc);
+void sub_806E6E0(struct ProcEfxSkill *proc);
+void sub_806E79C(struct ProcEfxSkill *proc);
+void sub_806E868(struct ProcEfxSkill *proc);
+void sub_806E8A4(struct ProcEfxSkill *proc);
+
+extern CONST_DATA u16 Img_EfxSkill1[];
+extern CONST_DATA u16 Img_EfxSkill2[];
+extern CONST_DATA u16 Img_EfxSkill3[];
+extern CONST_DATA u16 Img_EfxSkill4[];
+extern CONST_DATA u16 Img_EfxSkill5[];
+extern CONST_DATA u16 Img_EfxSkill6[];
+extern CONST_DATA u16 Img_EfxSkill7[];
+extern CONST_DATA u16 Img_EfxSkill8[];
+extern CONST_DATA u16 Img_EfxSkill9[];
+extern CONST_DATA u16 Img_EfxSkillA[];
+extern CONST_DATA u16 Img_EfxSkillB[];
+extern CONST_DATA u16 Img_EfxSkillC[];
+extern CONST_DATA u16 Img_EfxSkillD[];
+extern CONST_DATA u16 Img_EfxSkillE[];
+extern CONST_DATA u16 Img_EfxSkillF[];
+extern CONST_DATA u16 Img_EfxSkill10[];
+
+extern CONST_DATA u16 Pal_EfxSkill1[];
+extern CONST_DATA u16 Pal_EfxSkill2[];
+extern CONST_DATA u16 Pal_EfxSkill3[];
+extern CONST_DATA u16 Pal_EfxSkill4[];
+extern CONST_DATA u16 Pal_EfxSkill5[];
+extern CONST_DATA u16 Pal_EfxSkill6[];
+extern CONST_DATA u16 Pal_EfxSkill7[];
+extern CONST_DATA u16 Pal_EfxSkill8[];
+extern CONST_DATA u16 Pal_EfxSkill9[];
+extern CONST_DATA u16 Pal_EfxSkillA[];
+extern CONST_DATA u16 Pal_EfxSkillB[];
+extern CONST_DATA u16 Pal_EfxSkillC[];
+extern CONST_DATA u16 Pal_EfxSkillD[];
+extern CONST_DATA u16 Pal_EfxSkillE[];
+extern CONST_DATA u16 Pal_EfxSkillF[];
+extern CONST_DATA u16 Pal_EfxSkill10[];
+
+extern CONST_DATA u16 Tsa_EfxSkill1[];
+extern CONST_DATA u16 Tsa_EfxSkill2[];
+extern CONST_DATA u16 Tsa_EfxSkill3[];
+extern CONST_DATA u16 Tsa_EfxSkill4[];
+extern CONST_DATA u16 Tsa_EfxSkill5[];
+extern CONST_DATA u16 Tsa_EfxSkill6[];
+extern CONST_DATA u16 Tsa_EfxSkill7[];
+extern CONST_DATA u16 Tsa_EfxSkill8[];
+extern CONST_DATA u16 Tsa_EfxSkill9[];
+extern CONST_DATA u16 Tsa_EfxSkillA[];
+extern CONST_DATA u16 Tsa_EfxSkillB[];
+extern CONST_DATA u16 Tsa_EfxSkillC[];
+extern CONST_DATA u16 Tsa_EfxSkillD[];
+extern CONST_DATA u16 Tsa_EfxSkillE[];
+extern CONST_DATA u16 Tsa_EfxSkillF[];
+extern CONST_DATA u16 Tsa_EfxSkill10[];
+
+void sub_806E8F0(void);
+void sub_806E904(void);
+void sub_806E920(void);
+
+extern const u16 FrameLut_EfxSkill[];
+
 extern u16 gEkrBgPalBackupMaybe[];
 // extern ??? gUnknown_02016828
 extern u16 gObjBuf_EkrSideHitDmgCrit[];
@@ -682,9 +772,9 @@ extern u32 gUnknown_0201FAD8;
 // extern ??? ProcScr_efxChillEffectBGCOL
 // extern ??? ProcScr_efxChillAnime
 extern struct ProcCmd ProcScr_efxSkillType01BG[];
-extern u16 *TsaLut_EfxSkillType01BG[];
-extern u16 *ImgLut_EfxSkillType01BG[];
-extern u16 *PalLut_EfxSkillType01BG[];
+extern u16 *TsaLut_EfxSkill[];
+extern u16 *ImgLut_EfxSkill[];
+extern u16 *PalLut_EfxSkill[];
 extern struct ProcCmd ProcScr_efxSkillCommonBG[];
 // extern ??? gUnknown_085D9430
 // extern ??? ProcScr_efxopFire
@@ -1430,18 +1520,7 @@ void NewEfxSpecalEffect(struct Anim *anim);
 // ??? sub_806E1F0(???);
 // ??? sub_806E290(???);
 // ??? nullsub_17(???);
-void NewEfxSkillType01BG(struct Anim *anim);
-// ??? EfxSkillType01BGMain(???);
-void NewEfxSkillCommonBG(struct Anim *anim);
-// ??? sub_806E610(???);
-// ??? sub_806E638(???);
-// ??? sub_806E6E0(???);
-// ??? sub_806E79C(???);
-// ??? sub_806E868(???);
-// ??? sub_806E8A4(???);
-void sub_806E8F0(void);
-void sub_806E904(void);
-void sub_806E920(void);
+
 // ??? SetGlbProcefxopCur(???);
 // ??? sub_806E948(???);
 // ??? sub_806E954(???);
