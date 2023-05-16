@@ -620,12 +620,12 @@ _08059164:
 	cmp r1, #0
 	beq _080591BC
 	adds r0, r2, #0
-	bl sub_806E014
+	bl NewEfxChillEffect
 	b _080591C4
 _080591BC:
 	adds r0, r2, #0
 	str r2, [sp]
-	bl sub_806C71C
+	bl NewEfxPierceCritical
 _080591C4:
 	ldr r2, [sp]
 _080591C6:
@@ -873,7 +873,7 @@ _080593D0:
 	b _080596CC
 _080593DC:
 	movs r0, #3
-	bl sub_8053730
+	bl NewEfxQuake
 	b _080596CC
 _080593E4:
 	adds r0, r7, #0
@@ -883,7 +883,7 @@ _080593E4:
 	b _080596CC
 _080593F0:
 	movs r0, #0
-	bl sub_8053730
+	bl NewEfxQuake
 	b _080596CC
 _080593F8:
 	ldrh r1, [r7, #0x10]
@@ -965,11 +965,11 @@ _0805947C:
 	cmp r1, #0
 	beq _080594A4
 	adds r0, r2, #0
-	bl sub_806E014
+	bl NewEfxChillEffect
 	b _080596CC
 _080594A4:
 	adds r0, r7, #0
-	bl sub_806C87C
+	bl NewEfxNormalEffect
 	b _080596CC
 _080594AC:
 	adds r0, r7, #0
@@ -980,7 +980,7 @@ _080594AC:
 _080594B8:
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_806CC60
+	bl NewEfxYushaSpinShield
 	b _080596CC
 _080594C2:
 	adds r0, r7, #0
@@ -991,7 +991,7 @@ _080594C2:
 _080594CE:
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_806CC60
+	bl NewEfxYushaSpinShield
 	b _080596CC
 _080594D8:
 	adds r0, r7, #0
@@ -1001,7 +1001,7 @@ _080594D8:
 	b _080596CC
 _080594E4:
 	adds r0, r7, #0
-	bl sub_806CE30
+	bl NewEfxHurtmutEff00
 	b _080596CC
 _080594EC:
 	adds r0, r7, #0
@@ -1038,7 +1038,7 @@ _0805951A:
 _0805952C:
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_806E1F0
+	bl NewEfxChillAnime
 	b _080596CC
 _08059536:
 	adds r0, r7, #0
@@ -1049,7 +1049,7 @@ _08059536:
 _08059542:
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_806D080
+	bl NewEfxMagfcast
 	b _080596CC
 _0805954C:
 	adds r0, r7, #0
@@ -1060,7 +1060,7 @@ _0805954C:
 _08059558:
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_806D080
+	bl NewEfxMagfcast
 	b _080596CC
 _08059562:
 	adds r0, r7, #0
@@ -1071,7 +1071,7 @@ _08059562:
 _0805956E:
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_806D320
+	bl NewEfxSunakemuri
 	b _080596CC
 _08059578:
 	adds r0, r7, #0
@@ -1082,7 +1082,7 @@ _08059578:
 _08059584:
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_806D320
+	bl NewEfxSunakemuri
 	b _080596CC
 _0805958E:
 	adds r0, r7, #0
@@ -1093,7 +1093,7 @@ _0805958E:
 _0805959A:
 	adds r0, r7, #0
 	movs r1, #2
-	bl sub_806D320
+	bl NewEfxSunakemuri
 	b _080596CC
 _080595A4:
 	ldrh r1, [r7, #0x10]
@@ -1112,7 +1112,7 @@ _080595A4:
 	b _080596CC
 _080595C2:
 	adds r0, r7, #0
-	bl sub_806D65C
+	bl NewEfxKingPika
 	b _080596CC
 _080595CA:
 	ldrh r1, [r7, #0x10]
@@ -1140,11 +1140,11 @@ _080595EE:
 	b _08058F26
 _080595FC:
 	adds r0, r7, #0
-	bl sub_806DD34
+	bl NewEfxMantBatabata
 	b _080596CC
 _08059604:
 	adds r0, r7, #0
-	bl sub_806D570
+	bl NewEfxLokmsuna
 	b _080596CC
 _0805960C:
 	ldrh r1, [r7, #0x10]
@@ -1161,7 +1161,7 @@ _0805960C:
 	cmp r0, #0
 	bne _080596CC
 	adds r0, r7, #0
-	bl sub_806D6E8
+	bl NewEfxFlashFX
 	b _080596CC
 _08059630:
 	adds r0, r7, #0
@@ -1192,7 +1192,7 @@ _08059630:
 	bne _080596CC
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_806E1F0
+	bl NewEfxChillAnime
 	b _080596CC
 _08059674:
 	movs r0, #0x40

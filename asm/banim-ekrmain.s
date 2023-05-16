@@ -1434,7 +1434,7 @@ _0805A4F8:
 	cmp r0, #0
 	bne _0805A508
 	adds r0, r4, #0
-	bl sub_806EB54
+	bl ExecEfxop
 _0805A508:
 	ldr r0, [r4, #0x20]
 	adds r0, #4
@@ -1446,7 +1446,7 @@ _0805A510:
 	b _0805A526
 _0805A518:
 	adds r0, r4, #0
-	bl sub_806EB54
+	bl ExecEfxop
 	b _0805A526
 _0805A520:
 	adds r0, r4, #0

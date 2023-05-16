@@ -454,8 +454,8 @@ nullsub_56: @ 0x0805372C
 
 	THUMB_FUNC_END nullsub_56
 
-	THUMB_FUNC_START sub_8053730
-sub_8053730: @ 0x08053730
+	THUMB_FUNC_START NewEfxQuake
+NewEfxQuake: @ 0x08053730
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08053740  @ gUnknown_02017748
@@ -583,7 +583,7 @@ _08053820:
 	.align 2, 0
 _08053828: .4byte gUnknown_080DA4BA
 
-	THUMB_FUNC_END sub_8053730
+	THUMB_FUNC_END NewEfxQuake
 
 	THUMB_FUNC_START sub_805382C
 sub_805382C: @ 0x0805382C
