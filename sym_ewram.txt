@@ -175,7 +175,7 @@
 . = 0x01772C; gUnknown_0201772C = .;
 . = 0x017730; gUnknown_02017730 = .;
 . = 0x017734; gUnknown_02017734 = .;
-. = 0x017738; gEkrDeadEventFlag = .;
+. = 0x017738; gEkrDeadEventExist = .;
 . = 0x01773C; gUnknown_0201773C = .;
 . = 0x017740; gUnknown_02017740 = .;
 . = 0x017744; gEkrPos2Maybe = .;

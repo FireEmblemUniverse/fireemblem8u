@@ -117,6 +117,33 @@ struct ProcEfxHPBar {
 
 void ekrDispUPMain(struct ProcEkrDispUP *proc);
 
+struct ProcEfxDead {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    /* 30 */ STRUCT_PAD(0x30, 0x5C);
+    /* 5C */ struct Anim *anim1;
+    /* 60 */ struct Anim *anim2;
+};
+
+void NewEfxDeadEvent(struct Anim *anim1, struct Anim *anim2);
+void sub_8052DFC(struct ProcEfxDead *proc);
+void sub_8052E7C(struct ProcEfxDead *proc);
+void sub_8052EAC(struct ProcEfxDead *proc);
+void sub_8052F24(struct ProcEfxDead *proc);
+void sub_8052F84(struct ProcEfxDead *proc);
+void NewEfxDead(struct Anim *anim1, struct Anim *anim2);
+void sub_8052FEC(struct ProcEfxDead *proc);
+void sub_8053080(struct ProcEfxDead *proc);
+void NewEfxDeadPika(struct Anim *anim1, struct Anim *anim2);
+void EfxDeadPikaMain(struct ProcEfxDead *proc);
+void NewEfxDeadAlpha(struct Anim *anim1, struct Anim *anim2);
+void EfxDeadAlphaMain(struct ProcEfxDead *proc);
+void NewEfxDeadDragonAlpha(struct Anim *anim1, struct Anim *anim2);
+void EfxDeadDragonAlphaMain(struct ProcEfxDead *proc);
+
 struct ProcEfxStatusUnit {
     PROC_HEADER;
     /* 29 */ u8 invalid;
@@ -153,7 +180,7 @@ extern u32 gEkrHPBarCount;
 extern u32 gUnknown_0201772C;
 extern u32 gUnknown_02017730;
 extern u32 gUnknown_02017734;
-extern u32 gEkrDeadEventFlag;
+extern u32 gEkrDeadEventExist;
 extern u32 gUnknown_0201773C;
 extern u32 gUnknown_02017740;
 extern u32 gEkrPos2Maybe;
