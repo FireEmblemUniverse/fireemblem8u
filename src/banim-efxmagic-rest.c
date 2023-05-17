@@ -268,44 +268,36 @@ void NewEfxRestWIN(struct Anim *anim, int unk44, void *unk54, void *unk58)
     }
 }
 
-/* https://decomp.me/scratch/jwO0K */
-#if NONMATCHING
 void EfxRestWINMain(struct ProcEfxMagic *proc)
 {
     u32 i;
-    int val1;
     u16 val2;
     u16 *buf;
-    u16 *buf2;
+    s16 *buf2, *base;
 
-    if (gUnknown_0201FB2C == NULL)
+    if (gUnknown_0201FB2C == 0)
         buf = gUnknown_0201FC78;
     else
         buf = gUnknown_0201FB38;
 
-    buf2 = proc->unk54;
-    val2 = buf2[proc->unk2E];
+    base = proc->unk54;
+    val2 = base[proc->unk2E];
     buf2 = proc->unk58[val2];
 
     if (val2 != 0xFFFF) {
         proc->unk2E++;
         for (i = 0; i < 0x78; buf2 = buf2 + 2, buf++, i++) {
-            s16 _tmp1 = *buf2;
-            register int tmp2 asm("r2");
-            if (_tmp1 == 0x7FFF)
-                tmp2 = 0;
+            if (buf2[0] == 0x7FFF)
+                buf[0] = 0;
             else {
-                s32 tmp3 = buf2[0] + proc->unk32;
-                s32 tmp4 = proc->unk32 + buf2[1];
-                tmp3 = (((tmp3) << 0x10) >> 0x8);
-                tmp4 = (tmp4 << 0x10) >> 0x10;
-                tmp2 = tmp3 | tmp4;
+                s16 tmp3 = buf2[0] + proc->unk32;
+                s16 tmp4 = buf2[1] + proc->unk32;
+                buf[0] = (tmp3 * 0x100) | tmp4;
             }
-            *buf = tmp2;
         }
     } else {
         for (i = 0; i < 0x78; i++)
-            buf[i] = 0;
+            *buf++ = 0;
     }
 
     proc->timer++;
@@ -314,106 +306,6 @@ void EfxRestWINMain(struct ProcEfxMagic *proc)
         Proc_Break(proc);
     }
 }
-
-#else
-__attribute__((naked))
-void EfxRestWINMain(struct ProcEfxMagic *proc)
-{
-    asm(".syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        adds r4, r0, #0\n\
-        ldr r0, _0805B6B8  @ gUnknown_0201FB2C\n\
-        ldr r0, [r0]\n\
-        ldr r5, _0805B6BC  @ gUnknown_0201FB38\n\
-        cmp r0, #0\n\
-        bne _0805B680\n\
-        ldr r5, _0805B6C0  @ gUnknown_0201FC78\n\
-    _0805B680:\n\
-        ldr r1, [r4, #0x54]\n\
-        movs r2, #0x2e\n\
-        ldrsh r0, [r4, r2]\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r1\n\
-        ldrh r2, [r0]\n\
-        ldr r1, [r4, #0x58]\n\
-        lsls r0, r2, #2\n\
-        adds r0, r0, r1\n\
-        ldr r3, [r0]\n\
-        ldr r0, _0805B6C4  @ 0x0000FFFF\n\
-        cmp r2, r0\n\
-        beq _0805B6EC\n\
-        ldrh r0, [r4, #0x2e]\n\
-        adds r0, #1\n\
-        strh r0, [r4, #0x2e]\n\
-        movs r2, #0\n\
-        ldr r6, [r4, #0x44]\n\
-        ldr r7, _0805B6C8  @ 0x00007FFF\n\
-        mov ip, r7\n\
-    _0805B6A8:\n\
-        ldrh r1, [r3]\n\
-        movs r7, #0\n\
-        ldrsh r0, [r3, r7]\n\
-        cmp r0, ip\n\
-        bne _0805B6CC\n\
-        movs r0, #0\n\
-        b _0805B6DE\n\
-        .align 2, 0\n\
-    _0805B6B8: .4byte gUnknown_0201FB2C\n\
-    _0805B6BC: .4byte gUnknown_0201FB38\n\
-    _0805B6C0: .4byte gUnknown_0201FC78\n\
-    _0805B6C4: .4byte 0x0000FFFF\n\
-    _0805B6C8: .4byte 0x00007FFF\n\
-    _0805B6CC:\n\
-        ldrh r0, [r4, #0x32]\n\
-        adds r1, r1, r0\n\
-        ldrh r7, [r3, #2]\n\
-        adds r0, r0, r7\n\
-        lsls r1, r1, #0x10\n\
-        asrs r1, r1, #8\n\
-        lsls r0, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        orrs r0, r1\n\
-    _0805B6DE:\n\
-        strh r0, [r5]\n\
-        adds r3, #4\n\
-        adds r5, #2\n\
-        adds r2, #1\n\
-        cmp r2, #0x77\n\
-        bls _0805B6A8\n\
-        b _0805B6FC\n\
-    _0805B6EC:\n\
-        movs r2, #0\n\
-        ldr r6, [r4, #0x44]\n\
-        movs r0, #0\n\
-    _0805B6F2:\n\
-        strh r0, [r5]\n\
-        adds r5, #2\n\
-        adds r2, #1\n\
-        cmp r2, #0x77\n\
-        bls _0805B6F2\n\
-    _0805B6FC:\n\
-        ldrh r0, [r4, #0x2c]\n\
-        adds r0, #1\n\
-        strh r0, [r4, #0x2c]\n\
-        movs r1, #0x2c\n\
-        ldrsh r0, [r4, r1]\n\
-        cmp r0, r6\n\
-        bne _0805B718\n\
-        ldr r1, _0805B720  @ gUnknown_0201774C\n\
-        ldr r0, [r1]\n\
-        subs r0, #1\n\
-        str r0, [r1]\n\
-        adds r0, r4, #0\n\
-        bl Proc_Break\n\
-    _0805B718:\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0805B720: .4byte gUnknown_0201774C\n\
-    .syntax divided");
-}
-#endif
 
 void EfxMagicHBlank_805B724(void)
 {
