@@ -126,7 +126,7 @@ void EkrDZ_PrepareBanimfx(struct ProcEkrDragon *proc)
     SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
 
     /* spell anim index maybe */
-    gEkrSpellAnimIndexLutMaybe[0] = 0x15;
+    gEkrSpellAnimIndex[0] = 0x15;
 }
 
 void EkrDZ_TriggerPreparedFlag(struct ProcEkrDragon *proc)

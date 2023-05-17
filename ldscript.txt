@@ -154,7 +154,9 @@ SECTIONS
         asm/banim-ekrmainmini.o(.text);
         src/banim-ekrmainmini.o(.text);
         asm/code_battleanim.o(.text);
+        src/banim-efxmagic-rest.o(.text);
         asm/banim-efxmagic.o(.text);
+        asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxdevilatk.o(.text);
         asm/banim-efxhit.o(.text);
         asm/banim-efxspecialleffect.o(.text);
@@ -373,6 +375,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
+        . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-rest.o(.rodata);
         . = ALIGN(4); data/const_data_DAF18.o(.rodata);
         . = ALIGN(4); src/banim-efxskill.o(.rodata);
         . = ALIGN(4); data/const_data_DF568.o(.rodata);
@@ -525,7 +529,9 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); data/banim-ekrbattlectrl.o(.data);
         . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-rest.o(.data);
         . = ALIGN(4); data/banim-efxmagic.o(.data);
+        . = ALIGN(4); data/banim-efxmagic-ivaldi.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);
         . = ALIGN(4); data/banim-efxhit.o(.data);
         . = ALIGN(4); data/banim-efxspecialleffect.o(.data);

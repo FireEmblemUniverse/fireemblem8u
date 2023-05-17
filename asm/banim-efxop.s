@@ -1523,7 +1523,7 @@ sub_806F450: @ 0x0806F450
 	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
-	ldr r3, _0806F478  @ gUnknown_085D4F90
+	ldr r3, _0806F478  @ FramData_Unk5D4F90
 	adds r0, r4, #0
 	movs r1, #1
 	adds r2, r3, #0
@@ -1534,7 +1534,7 @@ sub_806F450: @ 0x0806F450
 	bx r0
 	.align 2, 0
 _0806F474: .4byte gUnknown_085D9924
-_0806F478: .4byte gUnknown_085D4F90
+_0806F478: .4byte FramData_Unk5D4F90
 
 	THUMB_FUNC_END sub_806F450
 
@@ -1546,7 +1546,7 @@ sub_806F47C: @ 0x0806F47C
 	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
-	ldr r3, _0806F4B0  @ gUnknown_085D4F90
+	ldr r3, _0806F4B0  @ FramData_Unk5D4F90
 	adds r0, r5, #0
 	movs r1, #0
 	adds r2, r3, #0
@@ -1564,7 +1564,7 @@ sub_806F47C: @ 0x0806F47C
 	bx r1
 	.align 2, 0
 _0806F4AC: .4byte gUnknown_085D996C
-_0806F4B0: .4byte gUnknown_085D4F90
+_0806F4B0: .4byte FramData_Unk5D4F90
 
 	THUMB_FUNC_END sub_806F47C
 

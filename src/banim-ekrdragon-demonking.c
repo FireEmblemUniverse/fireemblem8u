@@ -99,7 +99,7 @@ void EkrDK_PrepareBanimfx(struct ProcEkrDragon *proc)
         EkrPrepareBanimfx(proc->anim, 0xC1);    /* index for DK Demon Light in banim table */
     
     SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
-    gEkrSpellAnimIndexLutMaybe[0] = 0x40;
+    gEkrSpellAnimIndex[0] = 0x40;
     AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
     Proc_Break(proc);
 }

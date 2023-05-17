@@ -6,909 +6,6 @@
 	 * Magic spell anim effects
 	 */
 
-	THUMB_FUNC_START StartSpellAnimation
-StartSpellAnimation: @ 0x0805B3CC
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, _0805B3F4  @ gEkrSpellAnimIndexLutMaybe
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, r0, r4
-	ldr r1, _0805B3F8  @ gEkrSpellAnimLut
-	movs r2, #0
-	ldrsh r0, [r0, r2]
-	lsls r0, r0, #2
-	adds r0, r0, r1
-	ldr r1, [r0]
-	adds r0, r5, #0
-	bl _call_via_r1
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B3F4: .4byte gEkrSpellAnimIndexLutMaybe
-_0805B3F8: .4byte gEkrSpellAnimLut
-
-	THUMB_FUNC_END StartSpellAnimation
-
-	THUMB_FUNC_START sub_805B3FC
-sub_805B3FC: @ 0x0805B3FC
-	bx lr
-
-	THUMB_FUNC_END sub_805B3FC
-
-	THUMB_FUNC_START sub_805B400
-sub_805B400: @ 0x0805B400
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	adds r4, r0, #0
-	adds r5, r1, #0
-	adds r6, r2, #0
-	mov r8, r3
-	ldr r7, [sp, #0x18]
-	ldr r1, _0805B43C  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _0805B440  @ ProcScr_efxResetRST
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	strh r1, [r0, #0x2e]
-	str r5, [r0, #0x44]
-	str r6, [r0, #0x48]
-	mov r1, r8
-	str r1, [r0, #0x4c]
-	str r7, [r0, #0x50]
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0805B43C: .4byte gUnknown_0201774C
-_0805B440: .4byte ProcScr_efxResetRST
-
-	THUMB_FUNC_END sub_805B400
-
-	THUMB_FUNC_START sub_805B444
-sub_805B444: @ 0x0805B444
-	ldr r1, _0805B450  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	bx lr
-	.align 2, 0
-_0805B450: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_805B444
-
-	THUMB_FUNC_START EfxResetRSTMain
-EfxResetRSTMain: @ 0x0805B454
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	adds r2, r0, #0
-	ldr r0, _0805B4D4  @ gUnknown_0201FDB8
-	ldr r0, [r0]
-	ldr r4, _0805B4D8  @ gUnknown_0201FDC4
-	cmp r0, #0
-	bne _0805B46C
-	ldr r4, _0805B4DC  @ gUnknown_0201FF04
-_0805B46C:
-	ldrh r0, [r2, #0x2e]
-	lsls r1, r0, #0x18
-	lsrs r3, r1, #0x18
-	ldr r1, [r2, #0x50]
-	adds r0, r0, r1
-	strh r0, [r2, #0x2e]
-	movs r1, #0
-	ldr r0, [r2, #0x44]
-	mov r8, r0
-	ldr r6, [r2, #0x48]
-	mov sl, r6
-	ldr r7, _0805B4E0  @ gUnknown_0875879C
-	mov ip, r7
-	ldr r5, [r2, #0x4c]
-	ldr r0, _0805B4E4  @ gLCDControlBuffer
-	mov r9, r0
-_0805B48C:
-	mov r6, sl
-	adds r0, r3, r6
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	lsls r0, r3, #1
-	add r0, ip
-	movs r7, #0
-	ldrsh r0, [r0, r7]
-	muls r0, r5, r0
-	lsls r0, r0, #8
-	lsrs r0, r0, #0x10
-	mov r6, r9
-	ldrh r6, [r6, #0x20]
-	adds r0, r0, r6
-	strh r0, [r4]
-	adds r4, #2
-	adds r1, #1
-	cmp r1, #0x77
-	bls _0805B48C
-	ldrh r0, [r2, #0x2c]
-	adds r0, #1
-	strh r0, [r2, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, r8
-	bne _0805B4C6
-	adds r0, r2, #0
-	bl Proc_End
-_0805B4C6:
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B4D4: .4byte gUnknown_0201FDB8
-_0805B4D8: .4byte gUnknown_0201FDC4
-_0805B4DC: .4byte gUnknown_0201FF04
-_0805B4E0: .4byte gUnknown_0875879C
-_0805B4E4: .4byte gLCDControlBuffer
-
-	THUMB_FUNC_END EfxResetRSTMain
-
-	THUMB_FUNC_START sub_805B4E8
-sub_805B4E8: @ 0x0805B4E8
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	adds r5, r1, #0
-	ldr r0, _0805B528  @ ProcScr_efxTwoBaiRST
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	strh r1, [r0, #0x2e]
-	str r5, [r0, #0x44]
-	ldr r2, _0805B52C  @ gUnknown_0201FDC4
-_0805B502:
-	lsrs r0, r1, #1
-	negs r0, r0
-	strh r0, [r2]
-	adds r2, #2
-	adds r1, #1
-	cmp r1, #0x77
-	bls _0805B502
-	ldr r2, _0805B530  @ gUnknown_0201FF04
-	movs r1, #0
-_0805B514:
-	lsrs r0, r1, #1
-	negs r0, r0
-	strh r0, [r2]
-	adds r2, #2
-	adds r1, #1
-	cmp r1, #0x77
-	bls _0805B514
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B528: .4byte ProcScr_efxTwoBaiRST
-_0805B52C: .4byte gUnknown_0201FDC4
-_0805B530: .4byte gUnknown_0201FF04
-
-	THUMB_FUNC_END sub_805B4E8
-
-	THUMB_FUNC_START EfxTwoBaiRSTMain
-EfxTwoBaiRSTMain: @ 0x0805B534
-	push {lr}
-	adds r2, r0, #0
-	ldrh r0, [r2, #0x2c]
-	adds r0, #1
-	strh r0, [r2, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	ldr r1, [r2, #0x44]
-	cmp r0, r1
-	bne _0805B54E
-	adds r0, r2, #0
-	bl Proc_Break
-_0805B54E:
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END EfxTwoBaiRSTMain
-
-	THUMB_FUNC_START sub_805B554
-sub_805B554: @ 0x0805B554
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	adds r5, r1, #0
-	ldr r1, _0805B57C  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _0805B580  @ ProcScr_DummvRST
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	strh r1, [r0, #0x2e]
-	str r5, [r0, #0x44]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B57C: .4byte gUnknown_0201774C
-_0805B580: .4byte ProcScr_DummvRST
-
-	THUMB_FUNC_END sub_805B554
-
-	THUMB_FUNC_START sub_805B584
-sub_805B584: @ 0x0805B584
-	ldr r1, _0805B590  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	bx lr
-	.align 2, 0
-_0805B590: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_805B584
-
-	THUMB_FUNC_START DummvRSTMain
-DummvRSTMain: @ 0x0805B594
-	push {r4, r5, lr}
-	adds r3, r0, #0
-	ldr r0, _0805B5D0  @ gUnknown_0201FDB8
-	ldr r0, [r0]
-	ldr r1, _0805B5D4  @ gUnknown_0201FDC4
-	cmp r0, #0
-	bne _0805B5A4
-	ldr r1, _0805B5D8  @ gUnknown_0201FF04
-_0805B5A4:
-	movs r2, #0
-	ldr r5, [r3, #0x44]
-	ldr r4, _0805B5DC  @ gLCDControlBuffer
-_0805B5AA:
-	ldrh r0, [r4, #0x20]
-	strh r0, [r1]
-	adds r1, #2
-	adds r2, #1
-	cmp r2, #0x77
-	bls _0805B5AA
-	ldrh r0, [r3, #0x2c]
-	adds r0, #1
-	strh r0, [r3, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, r5
-	bne _0805B5CA
-	adds r0, r3, #0
-	bl Proc_End
-_0805B5CA:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B5D0: .4byte gUnknown_0201FDB8
-_0805B5D4: .4byte gUnknown_0201FDC4
-_0805B5D8: .4byte gUnknown_0201FF04
-_0805B5DC: .4byte gLCDControlBuffer
-
-	THUMB_FUNC_END DummvRSTMain
-
-	THUMB_FUNC_START sub_805B5E0
-sub_805B5E0: @ 0x0805B5E0
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	mov r8, r0
-	adds r4, r1, #0
-	adds r5, r2, #0
-	adds r6, r3, #0
-	ldr r1, _0805B628  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _0805B62C  @ ProcScr_EfxRestWIN
-	movs r1, #3
-	bl Proc_Start
-	adds r7, r0, #0
-	mov r0, r8
-	str r0, [r7, #0x5c]
-	movs r1, #0
-	mov r9, r1
-	movs r0, #0
-	strh r0, [r7, #0x2c]
-	strh r0, [r7, #0x2e]
-	str r4, [r7, #0x44]
-	str r5, [r7, #0x54]
-	str r6, [r7, #0x58]
-	mov r0, r8
-	bl GetCoreAIStruct
-	bl GetAISSubjectId
-	cmp r0, #0
-	bne _0805B634
-	ldr r0, _0805B630  @ 0x0000FFB8
-	b _0805B636
-	.align 2, 0
-_0805B628: .4byte gUnknown_0201774C
-_0805B62C: .4byte ProcScr_EfxRestWIN
-_0805B630: .4byte 0x0000FFB8
-_0805B634:
-	ldr r0, _0805B654  @ 0x0000FFF8
-_0805B636:
-	strh r0, [r7, #0x32]
-	ldr r0, _0805B658  @ gEkrDistanceType
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	beq _0805B662
-	mov r0, r8
-	bl GetAISSubjectId
-	cmp r0, #0
-	bne _0805B65C
-	ldrh r0, [r7, #0x32]
-	adds r0, #0x18
-	b _0805B660
-	.align 2, 0
-_0805B654: .4byte 0x0000FFF8
-_0805B658: .4byte gEkrDistanceType
-_0805B65C:
-	ldrh r0, [r7, #0x32]
-	subs r0, #0x18
-_0805B660:
-	strh r0, [r7, #0x32]
-_0805B662:
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_805B5E0
-
-	THUMB_FUNC_START EfxRestWINMain
-EfxRestWINMain: @ 0x0805B670
-	push {r4, r5, r6, r7, lr}
-	adds r4, r0, #0
-	ldr r0, _0805B6B8  @ gUnknown_0201FB2C
-	ldr r0, [r0]
-	ldr r5, _0805B6BC  @ gUnknown_0201FB38
-	cmp r0, #0
-	bne _0805B680
-	ldr r5, _0805B6C0  @ gUnknown_0201FC78
-_0805B680:
-	ldr r1, [r4, #0x54]
-	movs r2, #0x2e
-	ldrsh r0, [r4, r2]
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	ldrh r2, [r0]
-	ldr r1, [r4, #0x58]
-	lsls r0, r2, #2
-	adds r0, r0, r1
-	ldr r3, [r0]
-	ldr r0, _0805B6C4  @ 0x0000FFFF
-	cmp r2, r0
-	beq _0805B6EC
-	ldrh r0, [r4, #0x2e]
-	adds r0, #1
-	strh r0, [r4, #0x2e]
-	movs r2, #0
-	ldr r6, [r4, #0x44]
-	ldr r7, _0805B6C8  @ 0x00007FFF
-	mov ip, r7
-_0805B6A8:
-	ldrh r1, [r3]
-	movs r7, #0
-	ldrsh r0, [r3, r7]
-	cmp r0, ip
-	bne _0805B6CC
-	movs r0, #0
-	b _0805B6DE
-	.align 2, 0
-_0805B6B8: .4byte gUnknown_0201FB2C
-_0805B6BC: .4byte gUnknown_0201FB38
-_0805B6C0: .4byte gUnknown_0201FC78
-_0805B6C4: .4byte 0x0000FFFF
-_0805B6C8: .4byte 0x00007FFF
-_0805B6CC:
-	ldrh r0, [r4, #0x32]
-	adds r1, r1, r0
-	ldrh r7, [r3, #2]
-	adds r0, r0, r7
-	lsls r1, r1, #0x10
-	asrs r1, r1, #8
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	orrs r0, r1
-_0805B6DE:
-	strh r0, [r5]
-	adds r3, #4
-	adds r5, #2
-	adds r2, #1
-	cmp r2, #0x77
-	bls _0805B6A8
-	b _0805B6FC
-_0805B6EC:
-	movs r2, #0
-	ldr r6, [r4, #0x44]
-	movs r0, #0
-_0805B6F2:
-	strh r0, [r5]
-	adds r5, #2
-	adds r2, #1
-	cmp r2, #0x77
-	bls _0805B6F2
-_0805B6FC:
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	movs r1, #0x2c
-	ldrsh r0, [r4, r1]
-	cmp r0, r6
-	bne _0805B718
-	ldr r1, _0805B720  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	adds r0, r4, #0
-	bl Proc_Break
-_0805B718:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B720: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END EfxRestWINMain
-
-	THUMB_FUNC_START sub_805B724
-sub_805B724: @ 0x0805B724
-	push {lr}
-	ldr r0, _0805B744  @ 0x04000004
-	ldrh r1, [r0]
-	movs r0, #1
-	ands r0, r1
-	cmp r0, #0
-	bne _0805B740
-	ldr r3, _0805B748  @ 0x04000014
-	ldr r2, _0805B74C  @ gUnknown_0201FDC0
-	ldr r0, [r2]
-	ldrh r1, [r0]
-	strh r1, [r3]
-	adds r0, #2
-	str r0, [r2]
-_0805B740:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B744: .4byte 0x04000004
-_0805B748: .4byte 0x04000014
-_0805B74C: .4byte gUnknown_0201FDC0
-
-	THUMB_FUNC_END sub_805B724
-
-	THUMB_FUNC_START sub_805B750
-sub_805B750: @ 0x0805B750
-	push {lr}
-	ldr r0, _0805B770  @ 0x04000004
-	ldrh r1, [r0]
-	movs r0, #1
-	ands r0, r1
-	cmp r0, #0
-	bne _0805B76C
-	ldr r3, _0805B774  @ 0x04000016
-	ldr r2, _0805B778  @ gUnknown_0201FDC0
-	ldr r0, [r2]
-	ldrh r1, [r0]
-	strh r1, [r3]
-	adds r0, #2
-	str r0, [r2]
-_0805B76C:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B770: .4byte 0x04000004
-_0805B774: .4byte 0x04000016
-_0805B778: .4byte gUnknown_0201FDC0
-
-	THUMB_FUNC_END sub_805B750
-
-	THUMB_FUNC_START sub_805B77C
-sub_805B77C: @ 0x0805B77C
-	push {lr}
-	ldr r0, _0805B7AC  @ 0x04000004
-	ldrh r1, [r0]
-	movs r0, #1
-	ands r0, r1
-	cmp r0, #0
-	bne _0805B7A6
-	ldr r3, _0805B7B0  @ 0x0400001A
-	ldr r2, _0805B7B4  @ gUnknown_0201FB34
-	ldr r0, [r2]
-	ldrh r1, [r0]
-	strh r1, [r3]
-	adds r0, #2
-	str r0, [r2]
-	subs r3, #6
-	ldr r2, _0805B7B8  @ gUnknown_0201FDC0
-	ldr r0, [r2]
-	ldrh r1, [r0]
-	strh r1, [r3]
-	adds r0, #2
-	str r0, [r2]
-_0805B7A6:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B7AC: .4byte 0x04000004
-_0805B7B0: .4byte 0x0400001A
-_0805B7B4: .4byte gUnknown_0201FB34
-_0805B7B8: .4byte gUnknown_0201FDC0
-
-	THUMB_FUNC_END sub_805B77C
-
-	THUMB_FUNC_START sub_805B7BC
-sub_805B7BC: @ 0x0805B7BC
-	push {lr}
-	ldr r0, _0805B7EC  @ 0x04000004
-	ldrh r1, [r0]
-	movs r0, #1
-	ands r0, r1
-	cmp r0, #0
-	bne _0805B7E6
-	ldr r3, _0805B7F0  @ 0x0400001A
-	ldr r2, _0805B7F4  @ gUnknown_0201FB34
-	ldr r0, [r2]
-	ldrh r1, [r0]
-	strh r1, [r3]
-	adds r0, #2
-	str r0, [r2]
-	subs r3, #4
-	ldr r2, _0805B7F8  @ gUnknown_0201FDC0
-	ldr r0, [r2]
-	ldrh r1, [r0]
-	strh r1, [r3]
-	adds r0, #2
-	str r0, [r2]
-_0805B7E6:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B7EC: .4byte 0x04000004
-_0805B7F0: .4byte 0x0400001A
-_0805B7F4: .4byte gUnknown_0201FB34
-_0805B7F8: .4byte gUnknown_0201FDC0
-
-	THUMB_FUNC_END sub_805B7BC
-
-	THUMB_FUNC_START sub_805B7FC
-sub_805B7FC: @ 0x0805B7FC
-	push {lr}
-	ldr r0, _0805B81C  @ 0x04000004
-	ldrh r1, [r0]
-	movs r0, #1
-	ands r0, r1
-	cmp r0, #0
-	bne _0805B818
-	ldr r3, _0805B820  @ 0x0400001A
-	ldr r2, _0805B824  @ gUnknown_0201FB34
-	ldr r0, [r2]
-	ldrh r1, [r0]
-	strh r1, [r3]
-	adds r0, #2
-	str r0, [r2]
-_0805B818:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B81C: .4byte 0x04000004
-_0805B820: .4byte 0x0400001A
-_0805B824: .4byte gUnknown_0201FB34
-
-	THUMB_FUNC_END sub_805B7FC
-
-	THUMB_FUNC_START sub_805B828
-sub_805B828: @ 0x0805B828
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #8
-	str r0, [sp]
-	str r1, [sp, #4]
-	adds r4, r3, #0
-	lsls r2, r2, #0x10
-	lsrs r2, r2, #0x10
-	ldr r1, _0805B8C4  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r6, _0805B8C8  @ gUnknown_0201FDC4
-	ldr r7, _0805B8CC  @ gUnknown_0201FF04
-	ldr r0, _0805B8D0  @ gUnknown_0201FDBC
-	mov sl, r0
-	cmp r4, #2
-	bne _0805B88A
-	ldr r1, _0805B8D4  @ gUnknown_0201FB38
-	movs r0, #0
-	adds r5, r1, #0
-	ldr r3, _0805B8D8  @ gUnknown_0201FB2C
-	mov ip, r3
-	ldr r3, _0805B8DC  @ gUnknown_0201FB30
-	mov r8, r3
-	ldr r3, _0805B8E0  @ gUnknown_0201FB34
-	mov r9, r3
-_0805B864:
-	strh r2, [r1]
-	adds r1, #2
-	adds r0, #1
-	cmp r0, #0x9f
-	bls _0805B864
-	ldr r1, _0805B8E4  @ gUnknown_0201FC78
-	movs r0, #0
-_0805B872:
-	strh r2, [r1]
-	adds r1, #2
-	adds r0, #1
-	cmp r0, #0x9f
-	bls _0805B872
-	movs r0, #0
-	mov r1, ip
-	str r0, [r1]
-	mov r3, r8
-	str r5, [r3]
-	mov r0, r9
-	str r5, [r0]
-_0805B88A:
-	adds r1, r6, #0
-	movs r0, #0
-_0805B88E:
-	strh r2, [r1]
-	adds r1, #2
-	adds r0, #1
-	cmp r0, #0x9f
-	bls _0805B88E
-	adds r1, r7, #0
-	movs r0, #0
-_0805B89C:
-	strh r2, [r1]
-	adds r1, #2
-	adds r0, #1
-	cmp r0, #0x9f
-	bls _0805B89C
-	movs r0, #0
-	ldr r1, _0805B8E8  @ gUnknown_0201FDB8
-	str r0, [r1]
-	mov r3, sl
-	str r6, [r3]
-	ldr r0, _0805B8EC  @ gUnknown_0201FDC0
-	str r6, [r0]
-	cmp r4, #1
-	beq _0805B8FC
-	cmp r4, #1
-	bcc _0805B8F0
-	cmp r4, #2
-	beq _0805B908
-	b _0805B90E
-	.align 2, 0
-_0805B8C4: .4byte gUnknown_0201774C
-_0805B8C8: .4byte gUnknown_0201FDC4
-_0805B8CC: .4byte gUnknown_0201FF04
-_0805B8D0: .4byte gUnknown_0201FDBC
-_0805B8D4: .4byte gUnknown_0201FB38
-_0805B8D8: .4byte gUnknown_0201FB2C
-_0805B8DC: .4byte gUnknown_0201FB30
-_0805B8E0: .4byte gUnknown_0201FB34
-_0805B8E4: .4byte gUnknown_0201FC78
-_0805B8E8: .4byte gUnknown_0201FDB8
-_0805B8EC: .4byte gUnknown_0201FDC0
-_0805B8F0:
-	ldr r0, _0805B8F8  @ sub_805B724
-	bl SetPrimaryHBlankHandler
-	b _0805B90E
-	.align 2, 0
-_0805B8F8: .4byte sub_805B724
-_0805B8FC:
-	ldr r0, _0805B904  @ sub_805B750
-	bl SetPrimaryHBlankHandler
-	b _0805B90E
-	.align 2, 0
-_0805B904: .4byte sub_805B750
-_0805B908:
-	ldr r0, _0805B934  @ sub_805B750
-	bl SetPrimaryHBlankHandler
-_0805B90E:
-	ldr r0, _0805B938  @ ProcScr_EfxRestWINH
-	movs r1, #0
-	bl Proc_Start
-	ldr r1, [sp]
-	str r1, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	ldr r3, [sp, #4]
-	str r3, [r0, #0x44]
-	str r4, [r0, #0x48]
-	add sp, #8
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805B934: .4byte sub_805B750
-_0805B938: .4byte ProcScr_EfxRestWINH
-
-	THUMB_FUNC_END sub_805B828
-
-	THUMB_FUNC_START sub_805B93C
-sub_805B93C: @ 0x0805B93C
-	push {lr}
-	adds r3, r2, #0
-	movs r2, #0
-	bl sub_805B828
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_805B93C
-
-	THUMB_FUNC_START sub_805B94C
-sub_805B94C: @ 0x0805B94C
-	push {lr}
-	bl Proc_Break
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_805B94C
-
-	THUMB_FUNC_START sub_805B958
-sub_805B958: @ 0x0805B958
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _0805B984  @ gBmSt
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	ldr r3, _0805B988  @ gUnknown_0201FB30
-	ldr r2, _0805B98C  @ gUnknown_0201FDBC
-	cmp r0, #0
-	beq _0805B9D0
-	ldr r0, [r4, #0x48]
-	cmp r0, #2
-	bne _0805B9A0
-	ldr r1, _0805B990  @ gUnknown_0201FB2C
-	ldr r0, [r1]
-	cmp r0, #1
-	bne _0805B998
-	movs r0, #0
-	str r0, [r1]
-	ldr r0, _0805B994  @ gUnknown_0201FB38
-	b _0805B99E
-	.align 2, 0
-_0805B984: .4byte gBmSt
-_0805B988: .4byte gUnknown_0201FB30
-_0805B98C: .4byte gUnknown_0201FDBC
-_0805B990: .4byte gUnknown_0201FB2C
-_0805B994: .4byte gUnknown_0201FB38
-_0805B998:
-	movs r0, #1
-	str r0, [r1]
-	ldr r0, _0805B9B4  @ gUnknown_0201FC78
-_0805B99E:
-	str r0, [r3]
-_0805B9A0:
-	ldr r1, _0805B9B8  @ gUnknown_0201FDB8
-	ldr r0, [r1]
-	cmp r0, #1
-	bne _0805B9C4
-	movs r0, #0
-	str r0, [r1]
-	ldr r1, _0805B9BC  @ gUnknown_0201FDBC
-	ldr r0, _0805B9C0  @ gUnknown_0201FDC4
-	b _0805B9CC
-	.align 2, 0
-_0805B9B4: .4byte gUnknown_0201FC78
-_0805B9B8: .4byte gUnknown_0201FDB8
-_0805B9BC: .4byte gUnknown_0201FDBC
-_0805B9C0: .4byte gUnknown_0201FDC4
-_0805B9C4:
-	movs r0, #1
-	str r0, [r1]
-	ldr r1, _0805BA08  @ gUnknown_0201FDBC
-	ldr r0, _0805BA0C  @ gUnknown_0201FF04
-_0805B9CC:
-	str r0, [r1]
-	adds r2, r1, #0
-_0805B9D0:
-	ldr r1, _0805BA10  @ gUnknown_0201FB34
-	ldr r0, [r3]
-	str r0, [r1]
-	ldr r1, _0805BA14  @ gUnknown_0201FDC0
-	ldr r0, [r2]
-	str r0, [r1]
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	ldr r1, [r4, #0x44]
-	cmp r0, r1
-	bne _0805BA00
-	ldr r1, _0805BA18  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	movs r0, #0
-	bl SetPrimaryHBlankHandler
-	adds r0, r4, #0
-	bl Proc_Break
-_0805BA00:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805BA08: .4byte gUnknown_0201FDBC
-_0805BA0C: .4byte gUnknown_0201FF04
-_0805BA10: .4byte gUnknown_0201FB34
-_0805BA14: .4byte gUnknown_0201FDC0
-_0805BA18: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_805B958
-
-	THUMB_FUNC_START sub_805BA1C
-sub_805BA1C: @ 0x0805BA1C
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	adds r5, r0, #0
-	adds r4, r1, #0
-	adds r6, r2, #0
-	mov r8, r3
-	ldr r7, [sp, #0x18]
-	ldr r1, _0805BA5C  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _0805BA60  @ ProcScr_efxALPHA
-	movs r1, #3
-	bl Proc_Start
-	str r5, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	strh r4, [r0, #0x2e]
-	adds r4, r4, r6
-	strh r4, [r0, #0x30]
-	mov r1, r8
-	str r1, [r0, #0x44]
-	str r7, [r0, #0x48]
-	ldr r1, [sp, #0x1c]
-	str r1, [r0, #0x4c]
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805BA5C: .4byte gUnknown_0201774C
-_0805BA60: .4byte ProcScr_efxALPHA
-
-	THUMB_FUNC_END sub_805BA1C
-
 	THUMB_FUNC_START sub_805BA64
 sub_805BA64: @ 0x0805BA64
 	push {r4, r5, r6, lr}
@@ -2797,10 +1894,10 @@ sub_805C96C: @ 0x0805C96C
 	adds r0, r4, #0
 	movs r1, #0x82
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r4, #0
 	movs r1, #0x64
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
@@ -2813,14 +1910,14 @@ sub_805C96C: @ 0x0805C96C
 	movs r1, #0
 	movs r2, #8
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r6, [sp]
 	str r6, [sp, #4]
 	adds r0, r4, #0
 	movs r1, #0x3c
 	movs r2, #0x28
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
@@ -3127,10 +2224,10 @@ sub_805CC14: @ 0x0805CC14
 	adds r0, r4, #0
 	movs r1, #0x82
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r4, #0
 	movs r1, #0x64
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
@@ -3143,14 +2240,14 @@ sub_805CC14: @ 0x0805CC14
 	movs r1, #0
 	movs r2, #8
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r6, [sp]
 	str r6, [sp, #4]
 	adds r0, r4, #0
 	movs r1, #0x3c
 	movs r2, #0x28
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
@@ -3539,7 +2636,7 @@ _0805CF80:
 	movs r1, #0
 	movs r2, #0xe
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _0805CFB6
 _0805CF9A:
 	adds r0, r6, #0
@@ -3712,7 +2809,7 @@ _0805D0C4:
 	movs r1, #0x28
 	movs r2, #0xf
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	ldr r0, _0805D10C  @ 0x0000011D
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -5797,7 +4894,7 @@ _0805E14E:
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r0, #0x91
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -5832,7 +4929,7 @@ _0805E1AA:
 	movs r1, #0x18
 	movs r2, #0x10
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	ldr r0, _0805E1E0  @ 0x00000123
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -7173,7 +6270,7 @@ _0805EC44:
 	movs r1, #6
 	movs r2, #5
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	ldr r0, _0805EC7C  @ 0x00000109
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -7846,7 +6943,7 @@ sub_805F1A4: @ 0x0805F1A4
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
 	bl GetCoreAIStruct
-	ldr r3, _0805F1E4  @ gUnknown_085D4F90
+	ldr r3, _0805F1E4  @ FramData_Unk5D4F90
 	ldr r0, [r4, #0x5c]
 	str r3, [sp]
 	adds r1, r3, #0
@@ -7860,7 +6957,7 @@ sub_805F1A4: @ 0x0805F1A4
 	.align 2, 0
 _0805F1DC: .4byte gUnknown_0201774C
 _0805F1E0: .4byte ProcScr_efxMistyrainOBJ
-_0805F1E4: .4byte gUnknown_085D4F90
+_0805F1E4: .4byte FramData_Unk5D4F90
 
 	THUMB_FUNC_END sub_805F1A4
 
@@ -7880,7 +6977,7 @@ sub_805F1E8: @ 0x0805F1E8
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
 	bl GetCoreAIStruct
-	ldr r3, _0805F230  @ gUnknown_085D4F90
+	ldr r3, _0805F230  @ FramData_Unk5D4F90
 	ldr r0, [r4, #0x5c]
 	str r3, [sp]
 	adds r1, r3, #0
@@ -7898,7 +6995,7 @@ sub_805F1E8: @ 0x0805F1E8
 	.align 2, 0
 _0805F228: .4byte gUnknown_0201774C
 _0805F22C: .4byte gUnknown_085D5AB0
-_0805F230: .4byte gUnknown_085D4F90
+_0805F230: .4byte FramData_Unk5D4F90
 
 	THUMB_FUNC_END sub_805F1E8
 
@@ -8125,14 +7222,14 @@ _0805F3BE:
 	movs r1, #0
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x23
 	movs r2, #0x14
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	adds r0, r5, #0
 	bl sub_805F53C
 	movs r0, #0x92
@@ -8149,7 +7246,7 @@ _0805F402:
 	movs r1, #0x2a
 	movs r2, #0xf
 	movs r3, #0
-	bl sub_805B400
+	bl NewefxRestRST
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #0x1e
@@ -8160,7 +7257,7 @@ _0805F402:
 	adds r0, r5, #0
 	movs r1, #0x2b
 	movs r3, #0
-	bl sub_805B828
+	bl NewEfxRestWINH
 	b _0805F4A8
 	.align 2, 0
 _0805F438: .4byte gLCDControlBuffer
@@ -9137,7 +8234,7 @@ _0805FBDE:
 	movs r1, #3
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
@@ -9189,7 +8286,7 @@ _0805FC58:
 	movs r1, #0
 	movs r2, #0x14
 	movs r3, #8
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _0805FC88
 _0805FC72:
 	adds r0, r4, #0
@@ -10037,14 +9134,14 @@ _080602F6:
 	movs r1, #0
 	movs r2, #0xf
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x50
 	movs r2, #0xf
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	ldr r0, [r6, #0x5c]
 	bl sub_8060440
 	ldr r0, [r6, #0x5c]
@@ -10068,7 +9165,7 @@ _0806034C:
 	movs r1, #0x2a
 	movs r2, #0xf
 	movs r3, #0
-	bl sub_805B400
+	bl NewefxRestRST
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #0x1e
@@ -10076,7 +9173,7 @@ _0806034C:
 	adds r0, r5, #0
 	movs r1, #0x2b
 	movs r2, #0
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	b _08060438
 _0806037A:
 	adds r0, r4, #0
@@ -10154,7 +9251,7 @@ _08060400:
 	movs r1, #0x10
 	movs r2, #0xa
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _08060438
 _08060420:
 	movs r2, #0x87
@@ -10394,7 +9491,7 @@ sub_80605E8: @ 0x080605E8
 	adds r5, r0, #0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
-	ldr r3, _08060648  @ gUnknown_085D4F90
+	ldr r3, _08060648  @ FramData_Unk5D4F90
 	str r3, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
@@ -10420,7 +9517,7 @@ sub_80605E8: @ 0x080605E8
 	.align 2, 0
 _08060640: .4byte gUnknown_0201774C
 _08060644: .4byte ProcScr_efxHazymoonOBJ2
-_08060648: .4byte gUnknown_085D4F90
+_08060648: .4byte FramData_Unk5D4F90
 _0806064C: .4byte 0x0000F3FF
 _08060650:
 	ldrh r0, [r6, #2]
@@ -10807,11 +9904,11 @@ _0806090E:
 	movs r1, #0x64
 	movs r2, #2
 	adds r3, r4, #0
-	bl sub_805B400
+	bl NewefxRestRST
 	adds r0, r5, #0
 	movs r1, #0x69
 	movs r2, #0
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
@@ -10824,14 +9921,14 @@ _0806090E:
 	movs r1, #0
 	movs r2, #0xf
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x46
 	movs r2, #0xf
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r0, #0x98
 	lsls r0, r0, #1
 	adds r1, r4, #0
@@ -10953,7 +10050,7 @@ _08060A50:
 	movs r1, #0x12
 	movs r2, #8
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _08060A94
 _08060A72:
 	movs r2, #0x91
@@ -13899,7 +12996,7 @@ _0806215E:
 	movs r1, #0x28
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r4, #0x10
 	str r4, [sp]
 	str r7, [sp, #4]
@@ -13907,28 +13004,28 @@ _0806215E:
 	movs r1, #0x47
 	movs r2, #0x1e
 	movs r3, #8
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r5, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x66
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r4, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x85
 	movs r2, #0x1e
 	movs r3, #8
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0xa4
 	movs r2, #0x3c
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
@@ -14288,7 +13385,7 @@ _08062474:
 	movs r1, #0x42
 	movs r2, #0x14
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _08062518
 _080624A8:
 	adds r0, r6, #0
@@ -14604,14 +13701,14 @@ _0806270A:
 	movs r1, #0
 	movs r2, #0x14
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0xe6
 	movs r2, #0x14
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _080627A6
 	.align 2, 0
 _0806274C: .4byte 0x0000011B
@@ -14982,7 +14079,7 @@ _08062A0A:
 	movs r1, #0x28
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r4, #0x10
 	str r4, [sp]
 	str r7, [sp, #4]
@@ -14990,28 +14087,28 @@ _08062A0A:
 	movs r1, #0x47
 	movs r2, #0x1e
 	movs r3, #8
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r5, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x66
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r4, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x85
 	movs r2, #0x1e
 	movs r3, #8
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0xa4
 	movs r2, #0x3c
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	ldr r0, _08062A80  @ 0x00000103
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -15296,11 +14393,11 @@ _08062C7E:
 	movs r1, #0x4a
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_805B400
+	bl NewefxRestRST
 	adds r0, r5, #0
 	movs r1, #0x4a
 	movs r2, #0
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	movs r0, #2
 	ldrsh r2, [r5, r0]
 	movs r0, #0xf9
@@ -15639,7 +14736,7 @@ sub_8062F4C: @ 0x08062F4C
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
 	bl GetCoreAIStruct
-	ldr r3, _08062F9C  @ gUnknown_085D4F90
+	ldr r3, _08062F9C  @ FramData_Unk5D4F90
 	ldr r0, [r4, #0x5c]
 	str r3, [sp]
 	adds r1, r3, #0
@@ -15661,7 +14758,7 @@ sub_8062F4C: @ 0x08062F4C
 	.align 2, 0
 _08062F94: .4byte gUnknown_0201774C
 _08062F98: .4byte ProcScr_efxBerserkOBJ
-_08062F9C: .4byte gUnknown_085D4F90
+_08062F9C: .4byte FramData_Unk5D4F90
 _08062FA0: .4byte 0x0000F3FF
 
 	THUMB_FUNC_END sub_8062F4C
@@ -16987,7 +16084,7 @@ _080639DE:
 	movs r1, #0
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r5, #0x80
 	lsls r5, r5, #1
 	movs r0, #2
@@ -16996,7 +16093,7 @@ _080639DE:
 	movs r1, #0x14
 	movs r2, #0xf
 	adds r3, r5, #0
-	bl sub_805B400
+	bl NewefxRestRST
 	adds r1, r0, #0
 	adds r0, r6, #0
 	movs r2, #0x14
@@ -17006,7 +16103,7 @@ _080639DE:
 	adds r0, r6, #0
 	movs r1, #0x14
 	movs r3, #0
-	bl sub_805B828
+	bl NewEfxRestWINH
 	ldr r0, _08063A60  @ 0x000002BD
 	adds r1, r5, #0
 	movs r2, #0x78
@@ -17025,7 +16122,7 @@ _08063A64:
 	adds r0, r6, #0
 	movs r1, #0x15
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r6, #0
 	bl sub_8064024
 	str r7, [sp]
@@ -17034,7 +16131,7 @@ _08063A64:
 	movs r1, #0
 	movs r2, #0x19
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _08063B62
 _08063A92:
 	adds r0, r5, #0
@@ -17074,18 +16171,18 @@ _08063AB0:
 	movs r1, #0
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r0, #1
 	str r0, [sp]
 	adds r0, r6, #0
 	movs r1, #0x41
 	movs r2, #2
 	movs r3, #0x80
-	bl sub_805B400
+	bl NewefxRestRST
 	adds r0, r6, #0
 	movs r1, #0x44
 	movs r2, #0
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	b _08063B62
 _08063B02:
 	adds r0, r5, #0
@@ -18200,7 +17297,7 @@ _08064374:
 	movs r1, #0
 	movs r2, #0x14
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	adds r0, r4, #0
 	bl sub_8064C28
 	ldr r0, _0806439C  @ 0x000003B5
@@ -18218,7 +17315,7 @@ _080643A0:
 	movs r1, #0
 	movs r2, #0x14
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _0806441C
 _080643BA:
 	adds r0, r6, #0
@@ -18230,7 +17327,7 @@ _080643BA:
 	adds r0, r4, #0
 	movs r1, #0xf
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	b _0806441C
 _080643D4:
 	adds r0, r6, #0
@@ -19770,10 +18867,10 @@ _08064FB6:
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x5f
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x42
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	adds r0, r5, #0
 	bl sub_80653CC
 	str r6, [sp]
@@ -19783,7 +18880,7 @@ _08064FB6:
 	movs r2, #0xc
 _08064FE0:
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _08064FFE
 _08064FE8:
 	adds r0, r2, #0
@@ -20573,7 +19670,7 @@ sub_8065634: @ 0x08065634
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _0806566C  @ gUnknown_085D7670
+	ldr r0, _0806566C  @ ProcScr_efxDancepara
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -20593,7 +19690,7 @@ sub_8065634: @ 0x08065634
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806566C: .4byte gUnknown_085D7670
+_0806566C: .4byte ProcScr_efxDancepara
 
 	THUMB_FUNC_END sub_8065634
 
@@ -20603,7 +19700,7 @@ sub_8065670: @ 0x08065670
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _080656A8  @ gUnknown_085D7670
+	ldr r0, _080656A8  @ ProcScr_efxDancepara
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -20623,7 +19720,7 @@ sub_8065670: @ 0x08065670
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080656A8: .4byte gUnknown_085D7670
+_080656A8: .4byte ProcScr_efxDancepara
 
 	THUMB_FUNC_END sub_8065670
 
@@ -20633,7 +19730,7 @@ sub_80656AC: @ 0x080656AC
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _080656E4  @ gUnknown_085D7670
+	ldr r0, _080656E4  @ ProcScr_efxDancepara
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -20653,7 +19750,7 @@ sub_80656AC: @ 0x080656AC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080656E4: .4byte gUnknown_085D7670
+_080656E4: .4byte ProcScr_efxDancepara
 
 	THUMB_FUNC_END sub_80656AC
 
@@ -20663,7 +19760,7 @@ sub_80656E8: @ 0x080656E8
 	adds r5, r0, #0
 	bl SetSomethingSpellFxToTrue
 	bl ClearBG1Setup
-	ldr r0, _08065720  @ gUnknown_085D7670
+	ldr r0, _08065720  @ ProcScr_efxDancepara
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -20683,7 +19780,7 @@ sub_80656E8: @ 0x080656E8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065720: .4byte gUnknown_085D7670
+_08065720: .4byte ProcScr_efxDancepara
 
 	THUMB_FUNC_END sub_80656E8
 
@@ -20713,10 +19810,10 @@ sub_8065724: @ 0x08065724
 	adds r0, r4, #0
 	movs r1, #0x82
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r4, #0
 	movs r1, #0x64
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
@@ -20729,14 +19826,14 @@ sub_8065724: @ 0x08065724
 	movs r1, #0
 	movs r2, #8
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	str r6, [sp]
 	str r6, [sp, #4]
 	adds r0, r4, #0
 	movs r1, #0x3c
 	movs r2, #0x28
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
@@ -20771,1685 +19868,3 @@ _080657CC:
 	bx r0
 
 	THUMB_FUNC_END sub_8065724
-
-	THUMB_FUNC_START StartSpellAnimIvaldi
-StartSpellAnimIvaldi: @ 0x080657D4
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	bl SetSomethingSpellFxToTrue
-	bl NewEfxSpellCast
-	bl ClearBG1Setup
-	ldr r0, _0806580C  @ gUnknown_085D7688
-	movs r1, #3
-	bl Proc_Start
-	adds r4, r0, #0
-	str r5, [r4, #0x5c]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	bl GetSomeBoolean
-	adds r4, #0x29
-	strb r0, [r4]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806580C: .4byte gUnknown_085D7688
-
-	THUMB_FUNC_END StartSpellAnimIvaldi
-
-	THUMB_FUNC_START Loop6C_efxIvaldi
-Loop6C_efxIvaldi: @ 0x08065810
-	push {r4, r5, r6, r7, lr}
-	sub sp, #4
-	adds r6, r0, #0
-	ldr r0, [r6, #0x5c]
-	bl GetCoreAIStruct
-	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
-	adds r4, r0, #0
-	movs r7, #0x3e
-	ldrh r0, [r6, #0x2c]
-	adds r0, #1
-	strh r0, [r6, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #1
-	bne _0806583E
-	ldr r0, [r6, #0x5c]
-	movs r1, #1
-	negs r1, r1
-	bl NewEfxFarAttackWithDistance
-_0806583E:
-	movs r0, #0x2c
-	ldrsh r1, [r6, r0]
-	adds r0, r4, #1
-	cmp r1, r0
-	bne _0806584E
-	bl PrepareSomeIvaldiParticleGraphics
-	b _080659A4
-_0806584E:
-	adds r0, r4, #0
-	adds r0, #0xb
-	cmp r1, r0
-	bne _08065860
-	adds r0, r5, #0
-	movs r1, #0x1a
-	bl StartSpellOBJ_IvaldiSideWash
-	b _080659A4
-_08065860:
-	adds r3, r4, #0
-	adds r3, #0x14
-	cmp r1, r3
-	bne _08065888
-	ldr r0, _08065884  @ 0x000003D3
-	movs r1, #0x80
-	lsls r1, r1, #1
-	ldr r2, [r6, #0x5c]
-	movs r3, #2
-	ldrsh r2, [r2, r3]
-	movs r3, #1
-	bl EkrSoundSomeBark
-	adds r0, r5, #0
-	bl StartSpellBG_IvaldiBG1
-	b _080659A4
-	.align 2, 0
-_08065884: .4byte 0x000003D3
-_08065888:
-	adds r0, r4, #0
-	adds r0, #0x49
-	cmp r1, r0
-	bne _080658AC
-	movs r0, #0xf5
-	lsls r0, r0, #2
-	movs r1, #0x80
-	lsls r1, r1, #1
-	ldr r2, [r6, #0x5c]
-	movs r3, #2
-	ldrsh r2, [r2, r3]
-	movs r3, #1
-	bl EkrSoundSomeBark
-	adds r0, r5, #0
-	bl StartSpellBG_IvaldiBG2
-	b _080659A4
-_080658AC:
-	adds r0, r4, #0
-	adds r0, #0x76
-	cmp r1, r0
-	bne _080658BC
-	adds r0, r5, #0
-	bl StartSpellBG_IvaldiBG3
-	b _080659A4
-_080658BC:
-	adds r0, r4, #0
-	adds r0, #0x7c
-	cmp r1, r0
-	bne _080658CE
-	adds r0, r5, #0
-	movs r1, #0x46
-	bl StartSpellOBJ_IvaldiFall
-	b _080659A4
-_080658CE:
-	adds r0, r4, #0
-	adds r0, #0xc6
-	cmp r1, r0
-	bne _08065902
-	movs r0, #0
-	str r0, [sp]
-	movs r0, #1
-	movs r1, #1
-	movs r2, #0
-	movs r3, #0
-	bl SetBlendTargetA
-	movs r0, #1
-	str r0, [sp]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #1
-	movs r3, #1
-	bl SetBlendTargetB
-	adds r0, r5, #0
-	movs r1, #0x3c
-	movs r2, #0x1e
-	bl sub_8066470
-	b _080659A4
-_08065902:
-	adds r0, r7, #0
-	adds r0, #0xc4
-	adds r0, r4, r0
-	cmp r1, r0
-	bne _0806592A
-	adds r0, r5, #0
-	movs r1, #0x78
-	movs r2, #0xa
-	bl StartSpellThing_MagicQuake
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	adds r0, r5, #0
-	bl StartSpellBG_IvaldiBG4
-	b _080659A4
-_0806592A:
-	ldr r2, _0806595C  @ 0x00000107
-	adds r0, r4, r2
-	cmp r1, r0
-	bne _08065960
-	adds r0, r5, #0
-	movs r1, #0x5c
-	bl sub_8066060
-	ldrh r0, [r5, #0x10]
-	movs r1, #9
-	orrs r0, r1
-	strh r0, [r5, #0x10]
-	adds r4, r6, #0
-	adds r4, #0x29
-	ldrb r1, [r4]
-	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
-	ldrb r0, [r4]
-	cmp r0, #0
-	bne _080659A4
-	adds r0, r5, #0
-	bl sub_8072450
-	b _080659A4
-	.align 2, 0
-_0806595C: .4byte 0x00000107
-_08065960:
-	movs r0, #0xc4
-	adds r2, r7, r0
-	adds r0, r2, r3
-	cmp r1, r0
-	beq _08065982
-	movs r3, #0x2c
-	ldrsh r1, [r6, r3]
-	adds r0, r4, #0
-	adds r0, #0x52
-	adds r0, r2, r0
-	cmp r1, r0
-	beq _08065982
-	adds r0, r4, #0
-	adds r0, #0x5e
-	adds r0, r2, r0
-	cmp r1, r0
-	bne _0806598C
-_08065982:
-	adds r0, r5, #0
-	movs r1, #2
-	bl StartSpellBG_FLASH
-	b _080659A4
-_0806598C:
-	adds r0, r4, #0
-	adds r0, #0x64
-	adds r0, r2, r0
-	cmp r1, r0
-	bne _080659A4
-	bl SetSomethingSpellFxToFalse
-	bl EfxSpellCastSet29
-	adds r0, r6, #0
-	bl Proc_Break
-_080659A4:
-	add sp, #4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END Loop6C_efxIvaldi
-
-	THUMB_FUNC_START StartSpellBG_IvaldiBG1
-StartSpellBG_IvaldiBG1: @ 0x080659AC
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r1, _080659F8  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _080659FC  @ gUnknown_085D76A0
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	str r1, [r0, #0x44]
-	ldr r1, _08065A00  @ gUnknown_080DE4E6
-	str r1, [r0, #0x48]
-	ldr r1, _08065A04  @ gUnknown_085D76B8
-	str r1, [r0, #0x4c]
-	str r1, [r0, #0x50]
-	ldr r0, _08065A08  @ gUnknown_086937C0
-	movs r1, #0x80
-	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	ldr r0, _08065A0C  @ gUnknown_086945C4
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	bl sub_80551B0
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080659F8: .4byte gUnknown_0201774C
-_080659FC: .4byte gUnknown_085D76A0
-_08065A00: .4byte gUnknown_080DE4E6
-_08065A04: .4byte gUnknown_085D76B8
-_08065A08: .4byte gUnknown_086937C0
-_08065A0C: .4byte gUnknown_086945C4
-
-	THUMB_FUNC_END StartSpellBG_IvaldiBG1
-
-	THUMB_FUNC_START Loop6C_efxIvaldiBG1
-Loop6C_efxIvaldiBG1: @ 0x08065A10
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r0, [r5, #0x5c]
-	bl GetCoreAIStruct
-	adds r0, r5, #0
-	adds r0, #0x2c
-	adds r1, r5, #0
-	adds r1, #0x44
-	ldr r2, [r5, #0x48]
-	bl sub_80558F4
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	lsls r4, r4, #0x10
-	asrs r2, r4, #0x10
-	cmp r2, #0
-	blt _08065A56
-	ldr r1, [r5, #0x4c]
-	ldr r3, [r5, #0x50]
-	ldr r0, [r5, #0x5c]
-	lsls r2, r2, #2
-	adds r1, r2, r1
-	ldr r1, [r1]
-	adds r2, r2, r3
-	ldr r2, [r2]
-	bl sub_8055670
-	b _08065A74
-_08065A56:
-	movs r0, #1
-	negs r0, r0
-	cmp r2, r0
-	bne _08065A74
-	bl ClearBG1
-	ldr r1, _08065A7C  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	bl SetDefaultColorEffects_
-	adds r0, r5, #0
-	bl Proc_Break
-_08065A74:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065A7C: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END Loop6C_efxIvaldiBG1
-
-	THUMB_FUNC_START StartSpellBG_IvaldiBG2
-StartSpellBG_IvaldiBG2: @ 0x08065A80
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r1, _08065AD4  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _08065AD8  @ gUnknown_085D76E8
-	movs r1, #3
-	bl Proc_Start
-	adds r4, r0, #0
-	adds r0, r5, #0
-	bl GetCoreAIStruct
-	str r0, [r4, #0x5c]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-	str r0, [r4, #0x44]
-	ldr r0, _08065ADC  @ gUnknown_080DE526
-	str r0, [r4, #0x48]
-	ldr r0, _08065AE0  @ gUnknown_085D7700
-	str r0, [r4, #0x4c]
-	str r0, [r4, #0x50]
-	ldr r0, _08065AE4  @ gUnknown_08695B10
-	movs r1, #0x80
-	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	ldr r0, _08065AE8  @ gUnknown_08696840
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	bl sub_80551B0
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065AD4: .4byte gUnknown_0201774C
-_08065AD8: .4byte gUnknown_085D76E8
-_08065ADC: .4byte gUnknown_080DE526
-_08065AE0: .4byte gUnknown_085D7700
-_08065AE4: .4byte gUnknown_08695B10
-_08065AE8: .4byte gUnknown_08696840
-
-	THUMB_FUNC_END StartSpellBG_IvaldiBG2
-
-	THUMB_FUNC_START Loop6C_efxIvaldiBG2
-Loop6C_efxIvaldiBG2: @ 0x08065AEC
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	adds r0, #0x2c
-	adds r1, r5, #0
-	adds r1, #0x44
-	ldr r2, [r5, #0x48]
-	bl sub_80558F4
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	lsls r4, r4, #0x10
-	asrs r2, r4, #0x10
-	cmp r2, #0
-	blt _08065B2A
-	ldr r1, [r5, #0x4c]
-	ldr r3, [r5, #0x50]
-	ldr r0, [r5, #0x5c]
-	lsls r2, r2, #2
-	adds r1, r2, r1
-	ldr r1, [r1]
-	adds r2, r2, r3
-	ldr r2, [r2]
-	bl sub_8055670
-	b _08065B48
-_08065B2A:
-	movs r0, #1
-	negs r0, r0
-	cmp r2, r0
-	bne _08065B48
-	bl ClearBG1
-	ldr r1, _08065B50  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	bl SetDefaultColorEffects_
-	adds r0, r5, #0
-	bl Proc_Break
-_08065B48:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065B50: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END Loop6C_efxIvaldiBG2
-
-	THUMB_FUNC_START StartSpellBG_IvaldiBG3
-StartSpellBG_IvaldiBG3: @ 0x08065B54
-	push {r4, lr}
-	adds r4, r0, #0
-	bl ClearBG1
-	bl SetDefaultColorEffects_
-	ldr r1, _08065BA0  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _08065BA4  @ gUnknown_085D7714
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	str r1, [r0, #0x44]
-	ldr r1, _08065BA8  @ gUnknown_080DE552
-	str r1, [r0, #0x48]
-	ldr r1, _08065BAC  @ gUnknown_085D772C
-	str r1, [r0, #0x4c]
-	str r1, [r0, #0x50]
-	ldr r1, _08065BB0  @ gUnknown_085D7758
-	str r1, [r0, #0x54]
-	ldr r1, _08065BB4  @ gUnknown_085D7784
-	str r1, [r0, #0x58]
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	bl sub_80551B0
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065BA0: .4byte gUnknown_0201774C
-_08065BA4: .4byte gUnknown_085D7714
-_08065BA8: .4byte gUnknown_080DE552
-_08065BAC: .4byte gUnknown_085D772C
-_08065BB0: .4byte gUnknown_085D7758
-_08065BB4: .4byte gUnknown_085D7784
-
-	THUMB_FUNC_END StartSpellBG_IvaldiBG3
-
-	THUMB_FUNC_START Loop6C_efxIvaldiBG3
-Loop6C_efxIvaldiBG3: @ 0x08065BB8
-	push {r4, r5, r6, r7, lr}
-	adds r7, r0, #0
-	adds r0, #0x2c
-	adds r1, r7, #0
-	adds r1, #0x44
-	ldr r2, [r7, #0x48]
-	bl sub_80558F4
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	lsls r4, r4, #0x10
-	asrs r4, r4, #0x10
-	cmp r4, #0
-	blt _08065C10
-	ldr r1, [r7, #0x4c]
-	ldr r2, [r7, #0x50]
-	ldr r5, [r7, #0x54]
-	ldr r6, [r7, #0x58]
-	ldr r0, [r7, #0x5c]
-	lsls r4, r4, #2
-	adds r1, r4, r1
-	ldr r1, [r1]
-	adds r2, r4, r2
-	ldr r2, [r2]
-	bl sub_8055670
-	adds r5, r4, r5
-	ldr r0, [r5]
-	movs r1, #0x80
-	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	adds r4, r4, r6
-	ldr r0, [r4]
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	b _08065C2E
-_08065C10:
-	movs r0, #1
-	negs r0, r0
-	cmp r4, r0
-	bne _08065C2E
-	bl ClearBG1
-	ldr r1, _08065C34  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	bl SetDefaultColorEffects_
-	adds r0, r7, #0
-	bl Proc_Break
-_08065C2E:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065C34: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END Loop6C_efxIvaldiBG3
-
-	THUMB_FUNC_START StartSpellBG_IvaldiBG4
-StartSpellBG_IvaldiBG4: @ 0x08065C38
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r1, _08065C88  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _08065C8C  @ gUnknown_085D77B0
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	strh r1, [r0, #0x34]
-	strh r1, [r0, #0x3c]
-	str r1, [r0, #0x44]
-	ldr r1, _08065C90  @ gUnknown_080DE58E
-	str r1, [r0, #0x48]
-	ldr r1, _08065C94  @ gUnknown_085D77C8
-	str r1, [r0, #0x4c]
-	str r1, [r0, #0x50]
-	ldr r0, _08065C98  @ gUnknown_086A06A8
-	movs r1, #0x80
-	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	ldr r0, _08065C9C  @ gUnknown_086A1CE0
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	bl sub_80551B0
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065C88: .4byte gUnknown_0201774C
-_08065C8C: .4byte gUnknown_085D77B0
-_08065C90: .4byte gUnknown_080DE58E
-_08065C94: .4byte gUnknown_085D77C8
-_08065C98: .4byte gUnknown_086A06A8
-_08065C9C: .4byte gUnknown_086A1CE0
-
-	THUMB_FUNC_END StartSpellBG_IvaldiBG4
-
-	THUMB_FUNC_START sub_8065CA0
-sub_8065CA0: @ 0x08065CA0
-	push {r4, r5, lr}
-	sub sp, #8
-	adds r5, r0, #0
-	ldrh r0, [r5, #0x3c]
-	adds r0, #0x18
-	movs r1, #0xff
-	ands r0, r1
-	strh r0, [r5, #0x3c]
-	adds r0, r5, #0
-	adds r0, #0x2c
-	adds r1, r5, #0
-	adds r1, #0x44
-	ldr r2, [r5, #0x48]
-	bl sub_80558F4
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	ldrh r1, [r5, #0x34]
-	ldrh r2, [r5, #0x3c]
-	movs r0, #1
-	bl BG_SetPosition
-	movs r0, #2
-	bl BG_EnableSyncByMask
-	lsls r4, r4, #0x10
-	asrs r4, r4, #0x10
-	cmp r4, #0
-	blt _08065D58
-	ldr r2, [r5, #0x4c]
-	ldr r1, [r5, #0x50]
-	ldr r0, _08065CF8  @ gEkrDistanceType
-	movs r3, #0
-	ldrsh r0, [r0, r3]
-	cmp r0, #0
-	bne _08065D00
-	lsls r0, r4, #2
-	adds r0, r0, r2
-	ldr r0, [r0]
-	ldr r1, _08065CFC  @ gEkrTsaBuffer
-	bl LZ77UnCompWram
-	b _08065D0C
-	.align 2, 0
-_08065CF8: .4byte gEkrDistanceType
-_08065CFC: .4byte gEkrTsaBuffer
-_08065D00:
-	lsls r0, r4, #2
-	adds r0, r0, r1
-	ldr r0, [r0]
-	ldr r1, _08065D30  @ gEkrTsaBuffer
-	bl LZ77UnCompWram
-_08065D0C:
-	ldr r4, _08065D30  @ gEkrTsaBuffer
-	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
-	cmp r0, #0
-	bne _08065D38
-	ldr r1, _08065D34  @ gBG1TilemapBuffer
-	movs r0, #1
-	str r0, [sp]
-	adds r0, #0xff
-	str r0, [sp, #4]
-	adds r0, r4, #0
-	movs r2, #0x1e
-	movs r3, #0x20
-	bl sub_8070EC4
-	b _08065D4C
-	.align 2, 0
-_08065D30: .4byte gEkrTsaBuffer
-_08065D34: .4byte gBG1TilemapBuffer
-_08065D38:
-	ldr r1, _08065D54  @ gBG1TilemapBuffer
-	movs r0, #1
-	str r0, [sp]
-	adds r0, #0xff
-	str r0, [sp, #4]
-	adds r0, r4, #0
-	movs r2, #0x1e
-	movs r3, #0x20
-	bl sub_8070E94
-_08065D4C:
-	movs r0, #2
-	bl BG_EnableSyncByMask
-	b _08065D76
-	.align 2, 0
-_08065D54: .4byte gBG1TilemapBuffer
-_08065D58:
-	movs r0, #1
-	negs r0, r0
-	cmp r4, r0
-	bne _08065D76
-	bl ClearBG1
-	ldr r1, _08065D80  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	bl SetDefaultColorEffects_
-	adds r0, r5, #0
-	bl Proc_Break
-_08065D76:
-	add sp, #8
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065D80: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_8065CA0
-
-	THUMB_FUNC_START PrepareSomeIvaldiParticleGraphics
-PrepareSomeIvaldiParticleGraphics: @ 0x08065D84
-	push {lr}
-	ldr r0, _08065D9C  @ gUnknown_08692B10
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
-	ldr r0, _08065DA0  @ gUnknown_086926E0
-	movs r1, #0x80
-	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065D9C: .4byte gUnknown_08692B10
-_08065DA0: .4byte gUnknown_086926E0
-
-	THUMB_FUNC_END PrepareSomeIvaldiParticleGraphics
-
-	THUMB_FUNC_START StartSpellOBJ_IvaldiFall
-StartSpellOBJ_IvaldiFall: @ 0x08065DA4
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	adds r6, r1, #0
-	bl GetAISSubjectId
-	ldr r0, _08065DE8  @ gUnknown_08692B10
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
-	ldr r0, _08065DEC  @ gUnknown_086926E0
-	movs r1, #0x80
-	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
-	ldr r1, _08065DF0  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _08065DF4  @ gUnknown_085D77CC
-	movs r1, #3
-	bl Proc_Start
-	adds r4, r0, #0
-	adds r0, r5, #0
-	bl GetCoreAIStruct
-	str r0, [r4, #0x5c]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-	strh r6, [r4, #0x2e]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065DE8: .4byte gUnknown_08692B10
-_08065DEC: .4byte gUnknown_086926E0
-_08065DF0: .4byte gUnknown_0201774C
-_08065DF4: .4byte gUnknown_085D77CC
-
-	THUMB_FUNC_END StartSpellOBJ_IvaldiFall
-
-	THUMB_FUNC_START sub_8065DF8
-sub_8065DF8: @ 0x08065DF8
-	push {r4, lr}
-	sub sp, #4
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #7
-	bne _08065E18
-	ldr r0, [r4, #0x5c]
-	movs r1, #3
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x98
-	b _08065E26
-_08065E18:
-	cmp r0, #0xd
-	bne _08065E2E
-	ldr r0, [r4, #0x5c]
-	movs r1, #3
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x30
-_08065E26:
-	movs r3, #0x54
-	bl sub_8066258
-	b _08065EEA
-_08065E2E:
-	cmp r0, #0x13
-	bne _08065E44
-	ldr r0, [r4, #0x5c]
-	movs r1, #3
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xbc
-	movs r3, #0x6a
-	bl sub_8066258
-	b _08065EEA
-_08065E44:
-	cmp r0, #0x19
-	bne _08065E54
-	ldr r0, [r4, #0x5c]
-	movs r1, #2
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x68
-	b _08065EA4
-_08065E54:
-	cmp r0, #0x1f
-	bne _08065E6A
-	ldr r0, [r4, #0x5c]
-	movs r1, #2
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x24
-	movs r3, #0x66
-	bl sub_8066258
-	b _08065EEA
-_08065E6A:
-	cmp r0, #0x25
-	bne _08065E80
-	ldr r0, [r4, #0x5c]
-	movs r1, #3
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xb0
-	movs r3, #0x61
-	bl sub_8066258
-	b _08065EEA
-_08065E80:
-	cmp r0, #0x2b
-	bne _08065E96
-	ldr r0, [r4, #0x5c]
-	movs r1, #3
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x38
-	movs r3, #0x64
-	bl sub_8066258
-	b _08065EEA
-_08065E96:
-	cmp r0, #0x31
-	bne _08065EAC
-	ldr r0, [r4, #0x5c]
-	movs r1, #2
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x9e
-_08065EA4:
-	movs r3, #0x67
-	bl sub_8066258
-	b _08065EEA
-_08065EAC:
-	cmp r0, #0x37
-	bne _08065EBC
-	ldr r0, [r4, #0x5c]
-	movs r1, #3
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x42
-	b _08065ECA
-_08065EBC:
-	cmp r0, #0x3d
-	bne _08065ED2
-	ldr r0, [r4, #0x5c]
-	movs r1, #3
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xe6
-_08065ECA:
-	movs r3, #0x5c
-	bl sub_8066258
-	b _08065EEA
-_08065ED2:
-	movs r1, #0x2c
-	ldrsh r0, [r4, r1]
-	cmp r0, #0x43
-	bne _08065EEA
-	ldr r0, [r4, #0x5c]
-	movs r1, #3
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x68
-	movs r3, #0x6c
-	bl sub_8066258
-_08065EEA:
-	movs r2, #0x2c
-	ldrsh r1, [r4, r2]
-	movs r2, #0x2e
-	ldrsh r0, [r4, r2]
-	cmp r1, r0
-	bne _08065F04
-	ldr r1, _08065F0C  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	adds r0, r4, #0
-	bl Proc_Break
-_08065F04:
-	add sp, #4
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065F0C: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_8065DF8
-
-	THUMB_FUNC_START StartSpellOBJ_IvaldiSideWash
-StartSpellOBJ_IvaldiSideWash: @ 0x08065F10
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	adds r6, r1, #0
-	bl GetAISSubjectId
-	ldr r0, _08065F54  @ gUnknown_08692B10
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
-	ldr r0, _08065F58  @ gUnknown_086926E0
-	movs r1, #0x80
-	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
-	ldr r1, _08065F5C  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _08065F60  @ gUnknown_085D77E4
-	movs r1, #3
-	bl Proc_Start
-	adds r4, r0, #0
-	adds r0, r5, #0
-	bl GetCoreAIStruct
-	str r0, [r4, #0x5c]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-	strh r6, [r4, #0x2e]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08065F54: .4byte gUnknown_08692B10
-_08065F58: .4byte gUnknown_086926E0
-_08065F5C: .4byte gUnknown_0201774C
-_08065F60: .4byte gUnknown_085D77E4
-
-	THUMB_FUNC_END StartSpellOBJ_IvaldiSideWash
-
-	THUMB_FUNC_START Loop6C_efxIvaldiOBJSideWash
-Loop6C_efxIvaldiOBJSideWash: @ 0x08065F64
-	push {r4, lr}
-	sub sp, #4
-	adds r4, r0, #0
-	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	movs r2, #0
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r1, r0, #0x10
-	cmp r1, #0
-	bne _08065F90
-	ldr r0, [r4, #0x5c]
-	str r1, [sp]
-	movs r1, #0x1a
-	movs r2, #0x68
-	movs r3, #0xc
-	bl sub_8066258
-	b _08066052
-_08065F90:
-	cmp r1, #3
-	bne _08065FA6
-	ldr r0, [r4, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x1a
-	movs r2, #0x68
-	movs r3, #0x5f
-	bl sub_8066258
-	b _08066052
-_08065FA6:
-	cmp r1, #6
-	bne _08065FBC
-	ldr r0, [r4, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x1a
-	movs r2, #0x78
-	movs r3, #0x24
-	bl sub_8066258
-	b _08066052
-_08065FBC:
-	cmp r1, #9
-	bne _08065FD2
-	ldr r0, [r4, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x1a
-	movs r2, #0x64
-	movs r3, #0xa
-	bl sub_8066258
-	b _08066052
-_08065FD2:
-	cmp r1, #0xc
-	bne _08065FE6
-	ldr r0, [r4, #0x5c]
-	str r2, [sp]
-	movs r1, #0x1a
-	movs r2, #0x5e
-	movs r3, #0x36
-	bl sub_8066258
-	b _08066052
-_08065FE6:
-	cmp r1, #0xf
-	bne _08065FFC
-	ldr r0, [r4, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x1a
-	movs r2, #0x64
-	movs r3, #0x30
-	bl sub_8066258
-	b _08066052
-_08065FFC:
-	cmp r1, #0x12
-	bne _08066010
-	ldr r0, [r4, #0x5c]
-	str r2, [sp]
-	movs r1, #0x1a
-	movs r2, #0x68
-	movs r3, #0x66
-	bl sub_8066258
-	b _08066052
-_08066010:
-	cmp r1, #0x15
-	bne _08066026
-	ldr r0, [r4, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x1a
-	movs r2, #0x60
-	movs r3, #0x10
-	bl sub_8066258
-	b _08066052
-_08066026:
-	cmp r1, #0x18
-	bne _0806603C
-	ldr r0, [r4, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x1a
-	movs r2, #0x80
-	movs r3, #0x50
-	bl sub_8066258
-	b _08066052
-_0806603C:
-	movs r2, #0x2e
-	ldrsh r0, [r4, r2]
-	cmp r1, r0
-	bne _08066052
-	ldr r1, _0806605C  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	adds r0, r4, #0
-	bl Proc_Break
-_08066052:
-	add sp, #4
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806605C: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END Loop6C_efxIvaldiOBJSideWash
-
-	THUMB_FUNC_START sub_8066060
-sub_8066060: @ 0x08066060
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	adds r6, r1, #0
-	bl GetAISSubjectId
-	ldr r0, _080660A4  @ gUnknown_08692B10
-	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
-	ldr r0, _080660A8  @ gUnknown_086926E0
-	movs r1, #0x80
-	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
-	ldr r1, _080660AC  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _080660B0  @ gUnknown_085D77FC
-	movs r1, #3
-	bl Proc_Start
-	adds r4, r0, #0
-	adds r0, r5, #0
-	bl GetCoreAIStruct
-	str r0, [r4, #0x5c]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-	strh r6, [r4, #0x2e]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080660A4: .4byte gUnknown_08692B10
-_080660A8: .4byte gUnknown_086926E0
-_080660AC: .4byte gUnknown_0201774C
-_080660B0: .4byte gUnknown_085D77FC
-
-	THUMB_FUNC_END sub_8066060
-
-	THUMB_FUNC_START sub_80660B4
-sub_80660B4: @ 0x080660B4
-	push {lr}
-	sub sp, #4
-	adds r2, r0, #0
-	ldrh r0, [r2, #0x2c]
-	adds r0, #1
-	movs r1, #0
-	strh r0, [r2, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #5
-	bne _080660D6
-	ldr r0, [r2, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xc8
-	b _08066218
-_080660D6:
-	cmp r0, #0xa
-	bne _080660EC
-	ldr r0, [r2, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x43
-	movs r3, #0x5b
-	bl sub_8066390
-	b _0806624C
-_080660EC:
-	cmp r0, #0xf
-	bne _08066102
-	ldr r0, [r2, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xd
-	movs r3, #0x59
-	bl sub_8066390
-	b _0806624C
-_08066102:
-	cmp r0, #0x14
-	bne _08066118
-	ldr r0, [r2, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xcb
-	movs r3, #0x4c
-	bl sub_8066390
-	b _0806624C
-_08066118:
-	cmp r0, #0x19
-	bne _0806612E
-	ldr r0, [r2, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xdf
-	movs r3, #2
-	bl sub_8066390
-	b _0806624C
-_0806612E:
-	cmp r0, #0x1e
-	bne _08066144
-	ldr r0, [r2, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xe
-	movs r3, #0x6f
-	bl sub_8066390
-	b _0806624C
-_08066144:
-	cmp r0, #0x23
-	bne _0806615A
-	ldr r0, [r2, #0x5c]
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xe0
-	movs r3, #0x6c
-	bl sub_8066390
-	b _0806624C
-_0806615A:
-	cmp r0, #0x28
-	bne _0806616C
-	ldr r0, [r2, #0x5c]
-	movs r2, #0xb8
-	lsls r2, r2, #1
-	movs r1, #1
-	str r1, [sp]
-	movs r1, #0x40
-	b _08066218
-_0806616C:
-	cmp r0, #0x2d
-	bne _08066180
-	ldr r0, [r2, #0x5c]
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x3a
-	movs r3, #0x2d
-	bl sub_8066390
-	b _0806624C
-_08066180:
-	cmp r0, #0x32
-	bne _0806618E
-	ldr r0, [r2, #0x5c]
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x7f
-	b _080661E2
-_0806618E:
-	movs r0, #0x2c
-	ldrsh r1, [r2, r0]
-	cmp r1, #0x37
-	bne _080661A8
-	ldr r0, [r2, #0x5c]
-	movs r1, #0
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xa3
-	movs r3, #0x14
-	bl sub_8066390
-	b _0806624C
-_080661A8:
-	cmp r1, #0x3c
-	bne _080661BE
-	ldr r0, [r2, #0x5c]
-	movs r1, #0
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xa7
-	movs r3, #0x3e
-	bl sub_8066390
-	b _0806624C
-_080661BE:
-	cmp r1, #0x41
-	bne _080661D4
-	ldr r0, [r2, #0x5c]
-	movs r1, #0
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x38
-	movs r3, #0x60
-	bl sub_8066390
-	b _0806624C
-_080661D4:
-	cmp r1, #0x46
-	bne _080661EA
-	ldr r0, [r2, #0x5c]
-	movs r1, #0
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x80
-_080661E2:
-	movs r3, #0x42
-	bl sub_8066390
-	b _0806624C
-_080661EA:
-	cmp r1, #0x4b
-	bne _080661FA
-	ldr r0, [r2, #0x5c]
-	movs r1, #0
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x38
-	b _08066218
-_080661FA:
-	cmp r1, #0x50
-	bne _0806620A
-	ldr r0, [r2, #0x5c]
-	movs r1, #0
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xa8
-	b _08066218
-_0806620A:
-	cmp r1, #0x55
-	bne _08066220
-	ldr r0, [r2, #0x5c]
-	movs r1, #0
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0xa4
-_08066218:
-	movs r3, #0x70
-	bl sub_8066390
-	b _0806624C
-_08066220:
-	cmp r1, #0x5a
-	bne _08066236
-	ldr r0, [r2, #0x5c]
-	movs r1, #0
-	str r1, [sp]
-	movs r1, #0x40
-	movs r2, #0x41
-	movs r3, #0x78
-	bl sub_8066390
-	b _0806624C
-_08066236:
-	movs r3, #0x2e
-	ldrsh r0, [r2, r3]
-	cmp r1, r0
-	bne _0806624C
-	ldr r1, _08066254  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	adds r0, r2, #0
-	bl Proc_Break
-_0806624C:
-	add sp, #4
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08066254: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_80660B4
-
-	THUMB_FUNC_START sub_8066258
-sub_8066258: @ 0x08066258
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x34
-	adds r4, r0, #0
-	mov r8, r1
-	ldr r0, [sp, #0x54]
-	lsls r2, r2, #0x10
-	lsrs r2, r2, #0x10
-	mov sl, r2
-	lsls r3, r3, #0x10
-	lsrs r3, r3, #0x10
-	mov r9, r3
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-	add r1, sp, #4
-	ldr r0, _080662C8  @ gUnknown_080DE5E4
-	ldm r0!, {r2, r3, r6}
-	stm r1!, {r2, r3, r6}
-	ldm r0!, {r2, r3, r6}
-	stm r1!, {r2, r3, r6}
-	ldm r0!, {r2, r3, r6}
-	stm r1!, {r2, r3, r6}
-	ldm r0!, {r2, r3, r6}
-	stm r1!, {r2, r3, r6}
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	lsls r0, r0, #0x18
-	lsrs r6, r0, #0x18
-	ldr r1, _080662CC  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _080662D0  @ gUnknown_085D7814
-	movs r1, #3
-	bl Proc_Start
-	adds r7, r0, #0
-	adds r0, r4, #0
-	bl GetCoreAIStruct
-	str r0, [r7, #0x5c]
-	movs r0, #0
-	strh r0, [r7, #0x2c]
-	mov r0, r8
-	strh r0, [r7, #0x2e]
-	cmp r5, #5
-	bhi _08066318
-	lsls r0, r5, #2
-	ldr r1, _080662D4  @ _080662D8
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_080662C8: .4byte gUnknown_080DE5E4
-_080662CC: .4byte gUnknown_0201774C
-_080662D0: .4byte gUnknown_085D7814
-_080662D4: .4byte _080662D8
-_080662D8: @ jump table
-	.4byte _08066318 @ case 0
-	.4byte _080662F0 @ case 1
-	.4byte _080662F8 @ case 2
-	.4byte _08066300 @ case 3
-	.4byte _08066308 @ case 4
-	.4byte _08066310 @ case 5
-_080662F0:
-	lsls r1, r6, #2
-	add r0, sp, #0xc
-	adds r0, r0, r1
-	b _0806631E
-_080662F8:
-	lsls r1, r6, #2
-	add r0, sp, #0x14
-	adds r0, r0, r1
-	b _0806631E
-_08066300:
-	lsls r1, r6, #2
-	add r0, sp, #0x1c
-	adds r0, r0, r1
-	b _0806631E
-_08066308:
-	lsls r1, r6, #2
-	add r0, sp, #0x24
-	adds r0, r0, r1
-	b _0806631E
-_08066310:
-	lsls r1, r6, #2
-	add r0, sp, #0x2c
-	adds r0, r0, r1
-	b _0806631E
-_08066318:
-	lsls r0, r6, #2
-	add r0, sp
-	adds r0, #4
-_0806631E:
-	ldr r3, [r0]
-	ldr r0, [r7, #0x5c]
-	str r3, [sp]
-	adds r1, r3, #0
-	adds r2, r3, #0
-	bl EfxAnimCreate
-	str r0, [r7, #0x60]
-	mov r1, sl
-	strh r1, [r0, #2]
-	mov r2, r9
-	strh r2, [r0, #4]
-	ldrh r2, [r0, #8]
-	ldr r1, _08066358  @ 0x0000F3FF
-	ands r1, r2
-	movs r3, #0x80
-	lsls r3, r3, #3
-	adds r2, r3, #0
-	orrs r1, r2
-	strh r1, [r0, #8]
-	add sp, #0x34
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08066358: .4byte 0x0000F3FF
-
-	THUMB_FUNC_END sub_8066258
-
-	THUMB_FUNC_START sub_806635C
-sub_806635C: @ 0x0806635C
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	movs r2, #0x2e
-	ldrsh r1, [r4, r2]
-	cmp r0, r1
-	bne _08066386
-	ldr r0, _0806638C  @ gUnknown_0201774C
-	ldr r1, [r0]
-	subs r1, #1
-	str r1, [r0]
-	ldr r0, [r4, #0x60]
-	bl AnimDelete
-	adds r0, r4, #0
-	bl Proc_Break
-_08066386:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806638C: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_806635C
-
-	THUMB_FUNC_START sub_8066390
-sub_8066390: @ 0x08066390
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #8
-	mov r8, r0
-	mov r9, r1
-	ldr r0, [sp, #0x28]
-	lsls r2, r2, #0x10
-	lsrs r2, r2, #0x10
-	str r2, [sp, #4]
-	lsls r3, r3, #0x10
-	lsrs r3, r3, #0x10
-	mov sl, r3
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	ldr r0, _080663E8  @ gUnknown_080DE624
-	ldr r6, [r0]
-	ldr r7, [r0, #4]
-	ldr r1, _080663EC  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _080663F0  @ gUnknown_085D782C
-	movs r1, #3
-	bl Proc_Start
-	adds r5, r0, #0
-	mov r0, r8
-	bl GetCoreAIStruct
-	str r0, [r5, #0x5c]
-	movs r0, #0
-	strh r0, [r5, #0x2c]
-	mov r0, r9
-	strh r0, [r5, #0x2e]
-	cmp r4, #0
-	beq _080663E2
-	cmp r4, #1
-	beq _080663F4
-_080663E2:
-	adds r3, r6, #0
-	b _080663F6
-	.align 2, 0
-_080663E8: .4byte gUnknown_080DE624
-_080663EC: .4byte gUnknown_0201774C
-_080663F0: .4byte gUnknown_085D782C
-_080663F4:
-	adds r3, r7, #0
-_080663F6:
-	ldr r0, [r5, #0x5c]
-	str r3, [sp]
-	adds r1, r3, #0
-	adds r2, r3, #0
-	bl EfxAnimCreate
-	str r0, [r5, #0x60]
-	mov r1, sp
-	ldrh r1, [r1, #4]
-	strh r1, [r0, #2]
-	mov r2, sl
-	strh r2, [r0, #4]
-	ldrh r2, [r0, #8]
-	ldr r1, _08066430  @ 0x0000F3FF
-	ands r1, r2
-	movs r3, #0x80
-	lsls r3, r3, #3
-	adds r2, r3, #0
-	orrs r1, r2
-	strh r1, [r0, #8]
-	add sp, #8
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08066430: .4byte 0x0000F3FF
-
-	THUMB_FUNC_END sub_8066390
-
-	THUMB_FUNC_START sub_8066434
-sub_8066434: @ 0x08066434
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r1, [r4, #0x60]
-	ldrh r0, [r1, #4]
-	subs r0, #0x10
-	strh r0, [r1, #4]
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	movs r2, #0x2e
-	ldrsh r1, [r4, r2]
-	cmp r0, r1
-	bne _08066466
-	ldr r0, _0806646C  @ gUnknown_0201774C
-	ldr r1, [r0]
-	subs r1, #1
-	str r1, [r0]
-	ldr r0, [r4, #0x60]
-	bl AnimDelete
-	adds r0, r4, #0
-	bl Proc_Break
-_08066466:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0806646C: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_8066434
-
-	THUMB_FUNC_START sub_8066470
-sub_8066470: @ 0x08066470
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	adds r6, r1, #0
-	adds r5, r2, #0
-	ldr r1, _080664A0  @ gUnknown_0201774C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	ldr r0, _080664A4  @ gUnknown_085D7844
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x5c]
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	strh r5, [r0, #0x2e]
-	adds r0, r4, #0
-	adds r1, r6, #0
-	bl StartSpellBG_FLASH
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080664A0: .4byte gUnknown_0201774C
-_080664A4: .4byte gUnknown_085D7844
-
-	THUMB_FUNC_END sub_8066470
-
-	THUMB_FUNC_START sub_80664A8
-sub_80664A8: @ 0x080664A8
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	adds r6, r0, #0
-	movs r0, #0x2c
-	ldrsh r3, [r6, r0]
-	movs r1, #0x2e
-	ldrsh r0, [r6, r1]
-	str r0, [sp]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #0x10
-	bl Interpolate
-	adds r5, r0, #0
-	ldr r0, _08066508  @ gPaletteBuffer
-	ldr r4, _0806650C  @ gEkrBgPalBackupMaybe
-	movs r2, #0x80
-	lsls r2, r2, #1
-	adds r1, r4, #0
-	bl CpuFastSet
-	adds r0, r4, #0
-	movs r1, #0
-	movs r2, #0x20
-	adds r3, r5, #0
-	bl sub_807132C
-	ldrh r0, [r6, #0x2c]
-	adds r0, #1
-	strh r0, [r6, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	movs r2, #0x2e
-	ldrsh r1, [r6, r2]
-	cmp r0, r1
-	ble _080664FE
-	ldr r1, _08066510  @ gUnknown_0201774C
-	ldr r0, [r1]
-	subs r0, #1
-	str r0, [r1]
-	adds r0, r6, #0
-	bl Proc_Break
-_080664FE:
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08066508: .4byte gPaletteBuffer
-_0806650C: .4byte gEkrBgPalBackupMaybe
-_08066510: .4byte gUnknown_0201774C
-
-	THUMB_FUNC_END sub_80664A8

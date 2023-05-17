@@ -79,14 +79,14 @@ _08066594:
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	adds r0, r4, #0
 	movs r1, #0xa6
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r4, #0
 	movs r1, #0xa6
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	adds r0, r4, #0
 	bl sub_80666D0
 	ldr r0, _080665E0  @ 0x000003B2
@@ -120,10 +120,10 @@ _0806660A:
 	adds r0, r4, #0
 	movs r1, #0x22
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r4, #0
 	movs r1, #0x22
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	adds r0, r4, #0
 	bl sub_8066A0C
 	b _08066636
@@ -2898,10 +2898,10 @@ _08067BE8:
 	adds r0, r4, #0
 	movs r1, #0x3e
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r4, #0
 	movs r1, #0x3e
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	adds r0, r4, #0
 	bl sub_8067DC4
 	movs r0, #0x10
@@ -2911,7 +2911,7 @@ _08067BE8:
 	movs r1, #0
 	movs r2, #0x1e
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	adds r0, r4, #0
 	movs r1, #5
 	movs r2, #0
@@ -2939,7 +2939,7 @@ _08067C30:
 	movs r1, #0
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _08067DBC
 _08067C5A:
 	adds r0, r5, #0
@@ -2974,10 +2974,10 @@ _08067C8A:
 	adds r0, r4, #0
 	movs r1, #0x68
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r4, #0
 	movs r1, #0x68
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	adds r0, r4, #0
 	bl sub_8067E98
 	b _08067DBC
@@ -3058,10 +3058,10 @@ _08067D20:
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	adds r0, r4, #0
 	movs r1, #0x42
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	adds r0, r4, #0
 	bl sub_8068028
 	str r6, [sp]
@@ -3070,7 +3070,7 @@ _08067D20:
 	movs r1, #0xe
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r0, #0xec
 	lsls r0, r0, #2
 _08067D74:
@@ -4502,7 +4502,7 @@ _08068844:
 	movs r1, #0x28
 	movs r2, #0xf
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	ldr r0, _08068880  @ 0x0000011D
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -9627,10 +9627,10 @@ _0806B014:
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x46
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x32
-	bl sub_805B4E8
+	bl NewEfxTwobaiRST
 	ldr r0, [r4, #0x5c]
 	bl sub_8065498
 	str r6, [sp]
@@ -9639,7 +9639,7 @@ _0806B014:
 	movs r1, #0x10
 	movs r2, #0xa
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	ldr r0, _0806B054  @ 0x000003D6
 	movs r1, #0x80
 	lsls r1, r1, #1

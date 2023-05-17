@@ -91,7 +91,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc)
         /* Transform from dragon to loli */
         proc->timer = 0;
         EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_NOWPN - 1);
-        gEkrSpellAnimIndexLutMaybe[0] = -1;
+        gEkrSpellAnimIndex[0] = -1;
         Proc_Break(proc);
         return;
     }
