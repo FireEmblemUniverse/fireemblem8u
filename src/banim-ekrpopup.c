@@ -281,7 +281,7 @@ void NewEkrPopup(void)
 
         for (i = 0; i < 8; i++) {
             gpEkrBattleUnitRight = gpEkrBattleUnitRight;
-            if (&gpEkrBattleUnitLeft == &gpEkrBattleUnitLeft && &gpEkrBattleUnitRight == &gpEkrBattleUnitRight && gpEkrBattleUnitRight->unit.ranks[i] == 0) {
+            if (gpEkrBattleUnitRight->unit.ranks[i] == 0) {
                 if (gpEkrBattleUnitLeft->unit.ranks[i] != 0) {
                     if (proc->unk44 == -1)
                         proc->unk44 = i;
