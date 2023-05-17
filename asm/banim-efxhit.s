@@ -1704,7 +1704,7 @@ sub_806CE80: @ 0x0806CE80
 	str r5, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
-	ldr r3, _0806CEC0  @ gUnknown_085D4F90
+	ldr r3, _0806CEC0  @ FramData_Unk5D4F90
 	str r3, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
@@ -1718,7 +1718,7 @@ sub_806CE80: @ 0x0806CE80
 	.align 2, 0
 _0806CEB8: .4byte gUnknown_0201774C
 _0806CEBC: .4byte ProcScr_efxHurtmutEff00OBJ
-_0806CEC0: .4byte gUnknown_085D4F90
+_0806CEC0: .4byte FramData_Unk5D4F90
 
 	THUMB_FUNC_END sub_806CE80
 
@@ -1836,7 +1836,7 @@ sub_806CF80: @ 0x0806CF80
 	str r5, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
-	ldr r3, _0806CFC0  @ gUnknown_085D4F90
+	ldr r3, _0806CFC0  @ FramData_Unk5D4F90
 	str r3, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
@@ -1850,7 +1850,7 @@ sub_806CF80: @ 0x0806CF80
 	.align 2, 0
 _0806CFB8: .4byte gUnknown_0201774C
 _0806CFBC: .4byte ProcScr_efxHurtmutEff01OBJ
-_0806CFC0: .4byte gUnknown_085D4F90
+_0806CFC0: .4byte FramData_Unk5D4F90
 
 	THUMB_FUNC_END sub_806CF80
 

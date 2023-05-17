@@ -124,7 +124,7 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
     };
 
     static u32 anim_instr[2] = {
-        (u32)instr_unit + 1,
+        (uintptr_t)instr_unit + 1,
         0x80000000
     };
 

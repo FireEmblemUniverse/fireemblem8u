@@ -953,7 +953,7 @@ _08053B10:
 	movs r2, #0x80
 	lsls r2, r2, #4
 	bl RegisterDataMove
-	ldr r4, _08053BA4  @ gEkrSpellAnimIndexLutMaybe
+	ldr r4, _08053BA4  @ gEkrSpellAnimIndex
 	mov r0, r9
 	bl GetAISSubjectId
 	lsls r0, r0, #1
@@ -1005,7 +1005,7 @@ _08053B90:
 	.align 2, 0
 _08053B9C: .4byte gUnknown_0200003C
 _08053BA0: .4byte 0x06011800
-_08053BA4: .4byte gEkrSpellAnimIndexLutMaybe
+_08053BA4: .4byte gEkrSpellAnimIndex
 _08053BA8: .4byte gBanimTerrainPaletteMaybe
 _08053BAC: .4byte gUnknown_02016828
 _08053BB0: .4byte gUnknown_02022B08

@@ -117,16 +117,16 @@ extern u32 gEkrBgXOffset;
 extern void *gpImgSheet[2];
 // extern ??? gUnknown_0201FB24
 // extern ??? gUnknown_0201FB28
-// extern ??? gUnknown_0201FB2C
-// extern ??? gUnknown_0201FB30
-// extern ??? gUnknown_0201FB34
-// extern ??? gUnknown_0201FB38
-// extern ??? gUnknown_0201FC78
-// extern ??? gUnknown_0201FDB8
-// extern ??? gUnknown_0201FDBC
-// extern ??? gUnknown_0201FDC0
-// extern ??? gUnknown_0201FDC4
-// extern ??? gUnknown_0201FF04
+extern int gUnknown_0201FB2C;
+extern u16 *gUnknown_0201FB30;
+extern u16 *gUnknown_0201FB34;
+extern u16 gUnknown_0201FB38[];
+extern u16 gUnknown_0201FC78[];
+extern int gUnknown_0201FDB8;
+extern u16 *gUnknown_0201FDBC;
+extern u16 *gUnknown_0201FDC0;
+extern u16 gUnknown_0201FDC4[];
+extern u16 gUnknown_0201FF04[];
 // extern ??? gUnknown_02020044
 // extern ??? gEkrDragonStatusLeft
 // extern ??? gEkrDragonStatusRight
@@ -1714,7 +1714,7 @@ extern struct ProcCmd ProcScr_ekrWhiteINOUT[];
 // extern ??? gUnknown_08758740
 // extern ??? ProcScr_EkrMyrrh
 extern struct ProcCmd ProcScr_EkrMyrrh[];
-// extern ??? gUnknown_0875879C
+extern short gUnknown_0875879C[];
 // extern ??? gUnknown_08758A1C
 extern struct ProcCmd ProcScr_ekrsubAnimeEmulator[];
 extern struct ProcCmd ProcScr_efxSoundSE[];

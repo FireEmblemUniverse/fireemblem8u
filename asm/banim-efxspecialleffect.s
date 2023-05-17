@@ -136,7 +136,7 @@ _0806D9C6:
 	ldr r0, [r6, #0x5c]
 	movs r1, #0x2d
 	movs r2, #1
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	bl sub_806DA90
 	b _0806DA10
 _0806D9DA:

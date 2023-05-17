@@ -132,7 +132,7 @@ _08072ACC:
 	movs r1, #0
 	movs r2, #0x38
 	movs r3, #0x10
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	b _08072C94
 _08072AE2:
 	cmp r0, #0x88
@@ -220,7 +220,7 @@ _08072B54:
 	movs r1, #0
 	movs r2, #0x38
 	movs r3, #0
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
@@ -298,18 +298,18 @@ _08072C18:
 	movs r1, #0x5a
 	movs r2, #0x28
 	movs r3, #0xe
-	bl sub_805BA1C
+	bl NewEfxALPHA
 	movs r0, #1
 	str r0, [sp]
 	adds r0, r5, #0
 	movs r1, #0x82
 	movs r2, #0xa
 	adds r3, r6, #0
-	bl sub_805B400
+	bl NewefxRestRST
 	adds r0, r5, #0
 	movs r1, #0x82
 	movs r2, #0
-	bl sub_805B93C
+	bl NewEfxRestWINH_
 	ldr r0, _08072C70  @ 0x0000013D
 	movs r3, #2
 	ldrsh r2, [r5, r3]

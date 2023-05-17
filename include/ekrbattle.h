@@ -169,7 +169,7 @@ extern short gEkrSnowWeather;
 extern short gEkrPairSideVaild[2];
 extern short gUnknown_0203E108[2];
 extern short gBanimSomeObjPalIndex[2];
-extern short gEkrSpellAnimIndexLutMaybe[];
+extern short gEkrSpellAnimIndex[];
 // extern ??? gUnknown_0203E11A
 extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
 extern EWRAM_DATA short gEkrPairBmLoc[4];

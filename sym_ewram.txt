@@ -480,7 +480,7 @@
 . = 0x03E10C; gEkrPairBanimID = .;
 . = 0x03E110; gBattleInitSide = .;
 . = 0x03E114; gBanimSomeObjPalIndex = .;
-. = 0x03E118; gEkrSpellAnimIndexLutMaybe = .;
+. = 0x03E118; gEkrSpellAnimIndex = .;
 . = 0x03E11A; gUnknown_0203E11A = .;
 . = 0x03E11C; gBanimTerrainIndexMaybe = .;
 . = 0x03E120; gEkrDistanceType = .;
