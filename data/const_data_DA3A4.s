@@ -44,12 +44,4 @@ gUnknown_080DAC58:  @ 0x080DAC58
 
 	.global gUnknown_080DAC82
 gUnknown_080DAC82:  @ 0x080DAC82
-	.incbin "baserom.gba", 0xDAC82, 0x58
-
-	.global gUnknown_080DACDA
-gUnknown_080DACDA:  @ 0x080DACDA
-	.incbin "baserom.gba", 0xDACDA, 0x30
-
-	.global gUnknown_080DAD0A
-gUnknown_080DAD0A:  @ 0x080DAD0A
-	.incbin "baserom.gba", 0xDAD0A, 0x4A
+	.incbin "baserom.gba", 0xDAC82, 0xDACCC - 0xDAC82

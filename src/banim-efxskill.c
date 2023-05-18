@@ -142,7 +142,7 @@ void NewEfxSkillType01BG(struct Anim *anim)
     sub_80551B0();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(proc->anim) == EKR_BATTLE_LEFT)
+        if (GetAISSubjectId(proc->anim) == EKR_POS_L)
             BG_SetPosition(BG_1, 0x18, 0);
         else
             BG_SetPosition(BG_1, 0xE8, 0);
@@ -159,7 +159,7 @@ void EfxSkillType01BGMain(struct ProcEfxSkill *proc)
     u8 i;
     int ret;
 
-    ret = sub_80558F4(&proc->timer, &proc->unk44, proc->time_lut);
+    ret = sub_80558F4((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
 
     if (ret >= 0) {
         u16 **tsa = proc->tsa_lut;
@@ -223,7 +223,7 @@ void NewEfxSkillCommonBG(struct Anim *anim, u8 val)
 
     anim = GetCoreAIStruct(proc->anim);
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+        if (GetAISSubjectId(anim) == EKR_POS_L)
             BG_SetPosition(BG_1, 0x18, 0);
         else
             BG_SetPosition(BG_1, 0xE8, 0);
@@ -241,7 +241,7 @@ void sub_806E638(struct ProcEfxSkill *proc)
     u8 i;
     int ret;
     struct Anim *anim = GetCoreAIStruct(proc->anim);
-    ret = sub_80558F4(&proc->timer, &proc->unk44, proc->time_lut);
+    ret = sub_80558F4((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
 
     if (ret >= 0) {
         u16 **tsa = proc->tsa_lut;

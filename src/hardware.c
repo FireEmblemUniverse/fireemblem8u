@@ -3,8 +3,8 @@
 #include "bm.h"
 #include "hardware.h"
 
-EWRAM_DATA struct Struct02024CD4 gUnknown_02024CD4 = {0};
-EWRAM_DATA struct TileDataTransfer gUnknown_02024CDC[32] = {0};
+EWRAM_DATA struct Struct02024CD4 gFrameTmRegisterConfig = {0};
+EWRAM_DATA struct TileDataTransfer gFrameTmRegister[32] = {0};
 
 struct KeyProc {
     PROC_HEADER
@@ -1109,48 +1109,48 @@ void ClearTileRigistry(void)
 {
     int i;
 
-    gUnknown_02024CD4.unk0 = 0;
-    gUnknown_02024CD4.unk4 = 0;
+    gFrameTmRegisterConfig.count = 0;
+    gFrameTmRegisterConfig.size = 0;
     for (i = 0; i < 32; i++)
     {
-        gUnknown_02024CDC[i].src = 0;
-        gUnknown_02024CDC[i].dest = 0;
-        gUnknown_02024CDC[i].size = 0;
-        gUnknown_02024CDC[i].mode = 0;
+        gFrameTmRegister[i].src = 0;
+        gFrameTmRegister[i].dest = 0;
+        gFrameTmRegister[i].size = 0;
+        gFrameTmRegister[i].mode = 0;
     }
-    gUnknown_02024CDC[0].src = 0;
+    gFrameTmRegister[0].src = 0;
 }
 
-void RegisterDataMove(const void *a, void *b, int c)
+void RegisterDataMove(const void *src, void *dst, int size)
 {
-    struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
+    struct TileDataTransfer *ptr = &gFrameTmRegister[gFrameTmRegisterConfig.count];
 
-    ptr->src = a;
-    ptr->dest = b;
-    ptr->size = c;
-    ptr->mode = (c & 0x1F) ? 0 : 1;
-    gUnknown_02024CD4.unk4 += c;
-    gUnknown_02024CD4.unk0++;
+    ptr->src = src;
+    ptr->dest = dst;
+    ptr->size = size;
+    ptr->mode = (size & 0x1F) ? 0 : 1;
+    gFrameTmRegisterConfig.size += size;
+    gFrameTmRegisterConfig.count++;
 }
 
-void RegisterFillTile(const void *a, void *b, int c)
+void RegisterFillTile(const void *src, void *dst, int size)
 {
-    struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
+    struct TileDataTransfer *ptr = &gFrameTmRegister[gFrameTmRegisterConfig.count];
 
-    ptr->src = a;
-    ptr->dest = b;
-    ptr->size = c;
+    ptr->src = src;
+    ptr->dest = dst;
+    ptr->size = size;
     ptr->mode = 2;
-    gUnknown_02024CD4.unk4 += c;
-    gUnknown_02024CD4.unk0++;
+    gFrameTmRegisterConfig.size += size;
+    gFrameTmRegisterConfig.count++;
 }
 
 void FlushTiles(void)
 {
-    struct TileDataTransfer *ptr = gUnknown_02024CDC;
+    struct TileDataTransfer *ptr = gFrameTmRegister;
     int i;
 
-    for (i = 0; i < gUnknown_02024CD4.unk0; i++)
+    for (i = 0; i < gFrameTmRegisterConfig.count; i++)
     {
         switch (ptr->mode)
         {

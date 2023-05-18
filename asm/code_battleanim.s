@@ -346,13 +346,13 @@ ExecBattleAnimArenaExit: @ 0x0805B0CC
 	bl NewEkrTogiEndPROC
 	ldr r0, _0805B0E8  @ MainUpdate_8055C68
 	bl SetMainUpdateRoutine
-	ldr r0, _0805B0EC  @ gProc_efxStatusUnit
+	ldr r0, _0805B0EC  @ ProcScr_efxStatusUnit
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
 _0805B0E8: .4byte MainUpdate_8055C68
-_0805B0EC: .4byte gProc_efxStatusUnit
+_0805B0EC: .4byte ProcScr_efxStatusUnit
 
 	THUMB_FUNC_END ExecBattleAnimArenaExit
 

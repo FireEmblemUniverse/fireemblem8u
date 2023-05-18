@@ -103,8 +103,8 @@ struct OamDataTransfer
 
 struct Struct02024CD4
 {
-    int unk0;
-    int unk4;
+    int count;
+    int size;
 };
 
 struct KeyStatusBuffer

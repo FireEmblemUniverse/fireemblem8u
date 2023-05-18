@@ -625,7 +625,7 @@ StartSpellAnimHandAxe: @ 0x0805BF08
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -1057,7 +1057,7 @@ StartSpellAnimArrow: @ 0x0805C264
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -1248,7 +1248,7 @@ StartSpellAnimJavelin: @ 0x0805C3F0
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1288,7 +1288,7 @@ sub_805C44C: @ 0x0805C44C
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1328,7 +1328,7 @@ sub_805C4A8: @ 0x0805C4A8
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1368,7 +1368,7 @@ sub_805C504: @ 0x0805C504
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1408,7 +1408,7 @@ sub_805C560: @ 0x0805C560
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1448,7 +1448,7 @@ sub_805C5BC: @ 0x0805C5BC
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1488,7 +1488,7 @@ sub_805C618: @ 0x0805C618
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1528,7 +1528,7 @@ sub_805C674: @ 0x0805C674
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1568,7 +1568,7 @@ sub_805C6D0: @ 0x0805C6D0
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1608,7 +1608,7 @@ sub_805C72C: @ 0x0805C72C
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1648,7 +1648,7 @@ sub_805C788: @ 0x0805C788
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
@@ -1857,7 +1857,7 @@ StartSpellAnimSong: @ 0x0805C934
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -2187,7 +2187,7 @@ StartSpellAnimDance: @ 0x0805CBDC
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -2330,7 +2330,7 @@ sub_805CD0C: @ 0x0805CD0C
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r1, r4, #0
 	adds r1, #0x29
 	strb r0, [r1]
@@ -2558,7 +2558,7 @@ sub_805CEC8: @ 0x0805CEC8
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -2757,7 +2757,7 @@ StartSpellAnimFireBreath: @ 0x0805D064
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -3154,7 +3154,7 @@ StartSpellAnimIceBreath: @ 0x0805D388
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -3317,7 +3317,7 @@ StartSpellAnimDarkBreath: @ 0x0805D4D0
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -3705,7 +3705,7 @@ StartSpellAnimThunder: @ 0x0805D7D8
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -4084,7 +4084,7 @@ StartSpellAnimFire: @ 0x0805DAD4
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -4117,7 +4117,7 @@ StartSpellAnimElfire: @ 0x0805DB18
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -4839,7 +4839,7 @@ StartSpellAnimFimbulvetr: @ 0x0805E0E4
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -5639,7 +5639,7 @@ sub_805E754: @ 0x0805E754
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -6190,7 +6190,7 @@ sub_805EB98: @ 0x0805EB98
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -6601,7 +6601,7 @@ sub_805EED8: @ 0x0805EED8
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -7171,7 +7171,7 @@ StartSpellAnimNosferatu: @ 0x0805F354
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -7846,7 +7846,7 @@ sub_805F8B4: @ 0x0805F8B4
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -8111,7 +8111,7 @@ StartSpellAnimPurge: @ 0x0805FAE0
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	ldr r0, _0805FB20  @ gUnknown_02020044
@@ -8577,7 +8577,7 @@ StartSpellAnimDivine: @ 0x0805FE84
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -9083,7 +9083,7 @@ sub_806028C: @ 0x0806028C
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -9851,7 +9851,7 @@ StartSpellAnimFenrir: @ 0x080608A4
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -12944,7 +12944,7 @@ sub_80620EC: @ 0x080620EC
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -13310,7 +13310,7 @@ StartSpellAnimSilence: @ 0x080623E0
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -13629,7 +13629,7 @@ StartSpellAnimSleep: @ 0x08062678
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -14027,7 +14027,7 @@ StartSpellAnimHammerne: @ 0x08062998
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -14338,7 +14338,7 @@ StartSpellAnimBerserk: @ 0x08062C14
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -15087,7 +15087,7 @@ sub_8063214: @ 0x08063214
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -15392,7 +15392,7 @@ StartSpellAnimShine: @ 0x08063480
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -16020,7 +16020,7 @@ StartSpellAnimLuna: @ 0x08063974
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -17250,7 +17250,7 @@ sub_8064308: @ 0x08064308
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -18721,7 +18721,7 @@ StartSpellAnimAura: @ 0x08064E74
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -19683,7 +19683,7 @@ sub_8065634: @ 0x08065634
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -19713,7 +19713,7 @@ sub_8065670: @ 0x08065670
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -19743,7 +19743,7 @@ sub_80656AC: @ 0x080656AC
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -19773,7 +19773,7 @@ sub_80656E8: @ 0x080656E8
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}

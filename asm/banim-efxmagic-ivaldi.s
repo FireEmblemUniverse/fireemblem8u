@@ -20,7 +20,7 @@ StartSpellAnimIvaldi: @ 0x080657D4
 	bl GetSomeAISRelatedIndexMaybe
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}

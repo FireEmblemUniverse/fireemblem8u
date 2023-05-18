@@ -175,12 +175,12 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
             break;
 
         case EKR_DISTANCE_3:
-            if (gEkrPairSideVaild[EKR_BATTLE_LEFT] == false) {
+            if (gEkrPairSideVaild[EKR_POS_L] == false) {
                 EkrGauge_Set4C();
                 EkrDispUpSet4C();
             }
 
-            if (gEkrPairSideVaild[EKR_BATTLE_RIGHT] == false) {
+            if (gEkrPairSideVaild[EKR_POS_R] == false) {
                 EkrGauge_Set50();
                 EkrDispUpSet50();
             }

@@ -43,12 +43,12 @@ void NewEfxHPBar(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxHPBar, PROC_TREE_3);
     proc->anim64 = anim;
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT) {
-        proc->anim5C = gAnims[EKR_BATTLE_RIGHT * 2];
-        proc->anim60 = gAnims[EKR_BATTLE_LEFT * 2];
+    if (GetAISSubjectId(anim) == EKR_POS_L) {
+        proc->anim5C = gAnims[EKR_POS_R * 2];
+        proc->anim60 = gAnims[EKR_POS_L * 2];
     } else {
-        proc->anim5C = gAnims[EKR_BATTLE_LEFT * 2];
-        proc->anim60 = gAnims[EKR_BATTLE_RIGHT * 2];
+        proc->anim5C = gAnims[EKR_POS_L * 2];
+        proc->anim60 = gAnims[EKR_POS_R * 2];
     }
 
     val1 = gEfxPairHpBufOffset[GetAISSubjectId(proc->anim60)];
@@ -168,12 +168,12 @@ void NewEfxHPBarResire(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxHPBarResire, PROC_TREE_3);
     proc->anim64 = GetCoreAIStruct(anim);
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT) {
-        proc->anim5C = gAnims[EKR_BATTLE_RIGHT * 2];
-        proc->anim60 = gAnims[EKR_BATTLE_LEFT * 2];
+    if (GetAISSubjectId(anim) == EKR_POS_L) {
+        proc->anim5C = gAnims[EKR_POS_R * 2];
+        proc->anim60 = gAnims[EKR_POS_L * 2];
     } else {
-        proc->anim5C = gAnims[EKR_BATTLE_LEFT * 2];
-        proc->anim60 = gAnims[EKR_BATTLE_RIGHT * 2];
+        proc->anim5C = gAnims[EKR_POS_L * 2];
+        proc->anim60 = gAnims[EKR_POS_R * 2];
     }
 
     val1 = gEfxPairHpBufOffset[GetAISSubjectId(proc->anim60)];

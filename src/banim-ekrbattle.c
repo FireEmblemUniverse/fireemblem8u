@@ -174,10 +174,10 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
     else
         proc->timer = 0x1E;
 
-    if (EKR_BATTLE_LEFT == gEkrInitialHitSide)
-        proc->is_quote = ShouldCallBattleQuote(gEkrPids[EKR_BATTLE_LEFT], gEkrPids[EKR_BATTLE_RIGHT]);
+    if (EKR_POS_L == gEkrInitialHitSide)
+        proc->is_quote = ShouldCallBattleQuote(gEkrPids[EKR_POS_L], gEkrPids[EKR_POS_R]);
     else
-        proc->is_quote = ShouldCallBattleQuote(gEkrPids[EKR_BATTLE_RIGHT], gEkrPids[EKR_BATTLE_LEFT]);
+        proc->is_quote = ShouldCallBattleQuote(gEkrPids[EKR_POS_R], gEkrPids[EKR_POS_L]);
 
     proc->unk58 = 0;
     Proc_Break(proc);
@@ -212,10 +212,10 @@ void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc)
     EkrGauge_Set4C50();
 
     if (proc->is_quote == true) {
-        if (gEkrInitialHitSide == EKR_BATTLE_LEFT)
-            CallBattleQuoteEventsIfAny(gEkrPids[EKR_BATTLE_LEFT], gEkrPids[EKR_BATTLE_RIGHT]);
+        if (gEkrInitialHitSide == EKR_POS_L)
+            CallBattleQuoteEventsIfAny(gEkrPids[EKR_POS_L], gEkrPids[EKR_POS_R]);
         else
-            CallBattleQuoteEventsIfAny(gEkrPids[EKR_BATTLE_RIGHT], gEkrPids[EKR_BATTLE_LEFT]);
+            CallBattleQuoteEventsIfAny(gEkrPids[EKR_POS_R], gEkrPids[EKR_POS_L]);
 
         proc->is_quote = false;
     }
@@ -260,8 +260,8 @@ void ekrBattleExecDragonIntro(struct ProcEkrBattle *proc)
         return;
     }
 
-    if (proc->side == EKR_BATTLE_LEFT) {
-        proc->anim = gAnims[EKR_BATTLE_LEFT * 2];
+    if (proc->side == EKR_POS_L) {
+        proc->anim = gAnims[EKR_POS_L * 2];
         switch (GetEkrDragonStatusType(proc->anim)) {
         /* Draco Zombie */
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
@@ -282,10 +282,10 @@ void ekrBattleExecDragonIntro(struct ProcEkrBattle *proc)
             break;
         }
 
-        proc->side = EKR_BATTLE_RIGHT;
+        proc->side = EKR_POS_R;
 
     } else {
-        proc->anim = gAnims[EKR_BATTLE_RIGHT * 2];
+        proc->anim = gAnims[EKR_POS_R * 2];
         switch (GetEkrDragonStatusType(proc->anim)) {
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
             NewEkrDragonDracoZombie(proc->anim);
@@ -303,7 +303,7 @@ void ekrBattleExecDragonIntro(struct ProcEkrBattle *proc)
             break;
         }
 
-        proc->side = EKR_BATTLE_LEFT;
+        proc->side = EKR_POS_L;
     }
 
     proc->counter++;
@@ -540,10 +540,10 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
     if (CheckEkrDragonDeadEffectMaybe(gAnims[0]) != false)
         return;
 
-    if (gEkrPairExpGain[EKR_BATTLE_LEFT] != 0)
-        pos = EKR_BATTLE_LEFT;
+    if (gEkrPairExpGain[EKR_POS_L] != 0)
+        pos = EKR_POS_L;
     else
-        pos = EKR_BATTLE_RIGHT;
+        pos = EKR_POS_R;
 
     if (pos != gEkrPos2Maybe)
         proc->speedup = ret;
@@ -560,7 +560,7 @@ void ekrBattle_WaitForPostBattleAct(struct ProcEkrBattle *proc)
     if (++proc->timer < 0x1E)
         return;
 
-    if (GetBanimLinkArenaFlag() != 1 && gEkrPairExpGain[EKR_BATTLE_LEFT] != -gEkrPairExpGain[EKR_BATTLE_RIGHT])
+    if (GetBanimLinkArenaFlag() != 1 && gEkrPairExpGain[EKR_POS_L] != -gEkrPairExpGain[EKR_POS_R])
         proc->proc_idleCb = (ProcFunc)ekrBattleExecExpGain;
     else
         proc->proc_idleCb = (ProcFunc)ekrNewEkrPopup;
@@ -608,10 +608,10 @@ void ekrBattleExecExpGain(struct ProcEkrBattle *proc)
 
     EkrGauge_Setup44(1);
 
-    if (gEkrPairExpGain[EKR_BATTLE_LEFT] != 0)
-        val0 = gEkrPairExpPrevious[EKR_BATTLE_LEFT];
+    if (gEkrPairExpGain[EKR_POS_L] != 0)
+        val0 = gEkrPairExpPrevious[EKR_POS_L];
     else
-        val0 = gEkrPairExpPrevious[EKR_BATTLE_RIGHT];
+        val0 = gEkrPairExpPrevious[EKR_POS_R];
 
     val1 = DivRem(val0, 100);
     val2 = Div(val1, 10);
@@ -720,12 +720,12 @@ void ekrBattleLvupHanlder(struct ProcEkrBattle *proc)
     register int c asm("r1");
 
     if (++proc->timer == 0x18) {
-        if (gEkrPairExpGain[EKR_BATTLE_LEFT] != 0) {
-            a = gEkrPairExpPrevious[EKR_BATTLE_LEFT];
-            b = gEkrPairExpGain[EKR_BATTLE_LEFT];
+        if (gEkrPairExpGain[EKR_POS_L] != 0) {
+            a = gEkrPairExpPrevious[EKR_POS_L];
+            b = gEkrPairExpGain[EKR_POS_L];
         } else {
-            a = gEkrPairExpPrevious[EKR_BATTLE_RIGHT];
-            b = gEkrPairExpGain[EKR_BATTLE_RIGHT];
+            a = gEkrPairExpPrevious[EKR_POS_R];
+            b = gEkrPairExpGain[EKR_POS_R];
         }
 
         c = a + b;
@@ -758,12 +758,12 @@ void ekrBattleLvupHanlder(struct ProcEkrBattle *proc)
 
     SetWin0Box(0, 0, 0xF0, 0xA0);
 
-    if (gEkrPairExpGain[EKR_BATTLE_LEFT] != 0) {
-        a = gEkrPairExpPrevious[EKR_BATTLE_LEFT];
-        b = gEkrPairExpGain[EKR_BATTLE_LEFT];
+    if (gEkrPairExpGain[EKR_POS_L] != 0) {
+        a = gEkrPairExpPrevious[EKR_POS_L];
+        b = gEkrPairExpGain[EKR_POS_L];
     } else {
-        a = gEkrPairExpPrevious[EKR_BATTLE_RIGHT];
-        b = gEkrPairExpGain[EKR_BATTLE_RIGHT];
+        a = gEkrPairExpPrevious[EKR_POS_R];
+        b = gEkrPairExpGain[EKR_POS_R];
     }
 
     c = a + b;
@@ -777,10 +777,10 @@ void ekrBattle_ExecEkrLvup(struct ProcEkrBattle *proc)
 {
     struct Anim *anim;
 
-    if (gEkrPairExpGain[EKR_BATTLE_LEFT] != 0)
-        anim = gAnims[EKR_BATTLE_LEFT * 2];
+    if (gEkrPairExpGain[EKR_POS_L] != 0)
+        anim = gAnims[EKR_POS_L * 2];
     else
-        anim = gAnims[EKR_BATTLE_RIGHT * 2];
+        anim = gAnims[EKR_POS_R * 2];
 
     NewEkrLevelup(anim);
     proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrLvupIdle;
@@ -827,7 +827,7 @@ void ekrBattle_TriggerDragonStatusFinished(struct ProcEkrBattle *proc)
         return;
     }
 
-    if (proc->side == EKR_BATTLE_LEFT) {
+    if (proc->side == EKR_POS_L) {
         proc->anim = gAnims[0];
         switch (GetEkrDragonStatusType(proc->anim)) {
         case EKRDRGON_TYPE_DEMON_KING:
@@ -849,7 +849,7 @@ void ekrBattle_TriggerDragonStatusFinished(struct ProcEkrBattle *proc)
             break;
         }
 
-        proc->side = EKR_BATTLE_RIGHT;
+        proc->side = EKR_POS_R;
         proc->counter++;
 
     } else {
@@ -874,7 +874,7 @@ void ekrBattle_TriggerDragonStatusFinished(struct ProcEkrBattle *proc)
             break;
         }
 
-        proc->side = EKR_BATTLE_LEFT;
+        proc->side = EKR_POS_L;
         proc->counter++;
     }
 }
