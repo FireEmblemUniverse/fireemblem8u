@@ -402,16 +402,22 @@ void sub_80558BC(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
     EnablePaletteSync();
 }
 
-/* https://decomp.me/scratch/HkBeB */
-#if NONMATCHING
-
 s16 sub_80558F4(s16 *ptime, s16 *pcount, const s16 lut[])
 {
-    u16 uframe, count, time;
-    int iframe, ret;
+    u16 uframe;
+    u16 count;
+    u16 time;
+    int iframe;
+    u16 tmp, time2, count2;
+#ifndef NONMATCHING
+    register u32 r6 asm("r6");
+#else
+    u32 r6;
+#endif
 
     time = *ptime;
-    if (time == 0) {
+    r6 = time;
+    if (r6 == 0) {
         count = *pcount;
         uframe = lut[count * 2];
         iframe = lut[count * 2];
@@ -429,111 +435,24 @@ s16 sub_80558F4(s16 *ptime, s16 *pcount, const s16 lut[])
             return -4;
         
         if (-2 == iframe) {
-            *pcount = time;
+            *pcount = r6;
             uframe = lut[0];
         } else if (-3 == iframe) {
             *pcount = count - 1;
-            count = *pcount;
-            uframe = lut[count * 2];
+            tmp = *pcount;
+            uframe = lut[tmp * 2];
         }
     
-        count = *pcount;
-        time = lut[count * 2 + 1];
-        count = *pcount + 1;
-        *pcount = count;
-        *ptime = time - 1;
+        count2 = *pcount;
+        time2 = lut[count2 * 2 + 1];
+        ++*(vs16 *)pcount;
+        *ptime = time2 - 1;
         return uframe;
+    } else {
+        --*ptime;
+        return -7;
     }
-
-    *ptime = time - 1;
-    return -7;
 }
-
-#else
-__attribute__((naked))
-s16 sub_80558F4(s16 *ptime, s16 *pcount, const s16 lut[])
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        adds r5, r0, #0\n\
-        adds r3, r1, #0\n\
-        ldrh r0, [r5]\n\
-        adds r6, r0, #0\n\
-        cmp r6, #0\n\
-        bne _08055970\n\
-        ldrh r0, [r3]\n\
-        mov ip, r0\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r2\n\
-        ldrh r4, [r0]\n\
-        movs r7, #0\n\
-        ldrsh r1, [r0, r7]\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        beq _08055930\n\
-        movs r0, #6\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        beq _08055930\n\
-        movs r0, #5\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        beq _08055930\n\
-        movs r0, #4\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        bne _08055934\n\
-    _08055930:\n\
-        adds r0, r1, #0\n\
-        b _08055978\n\
-    _08055934:\n\
-        movs r0, #2\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        bne _08055942\n\
-        strh r6, [r3]\n\
-        ldrh r4, [r2]\n\
-        b _08055958\n\
-    _08055942:\n\
-        movs r0, #3\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        bne _08055958\n\
-        mov r0, ip\n\
-        subs r0, #1\n\
-        strh r0, [r3]\n\
-        ldrh r0, [r3]\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r2\n\
-        ldrh r4, [r0]\n\
-    _08055958:\n\
-        ldrh r0, [r3]\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r2\n\
-        ldrh r1, [r0, #2]\n\
-        ldrh r0, [r3]\n\
-        adds r0, #1\n\
-        strh r0, [r3]\n\
-        subs r1, #1\n\
-        strh r1, [r5]\n\
-        lsls r0, r4, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        b _08055978\n\
-    _08055970:\n\
-        subs r0, #1\n\
-        strh r0, [r5]\n\
-        movs r0, #7\n\
-        negs r0, r0\n\
-    _08055978:\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-#endif
 
 void sub_8055980(void)
 {
