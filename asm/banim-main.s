@@ -226,13 +226,13 @@ _08058E6E:
 	ldr r0, [r7, #0x20]
 	adds r0, #4
 	str r0, [r7, #0x20]
-	bl sub_8055A28
+	bl Get0201FAC8
 	cmp r0, #0
 	bne _08058E88
 	bl _080596CC
 _08058E88:
 	movs r0, #0
-	bl sub_8055A34
+	bl Set0201FAC8
 	bl _080596CC
 	.align 2, 0
 _08058E94: .4byte 0x0000FFF2
@@ -412,13 +412,13 @@ _08058FD6:
 _08058FF6:
 	adds r0, r7, #0
 	bl StartSpellAnimation
-	bl sub_8055A28
+	bl Get0201FAC8
 	cmp r0, #0
 	bne _08059006
 	b _080596CC
 _08059006:
 	movs r0, #2
-	bl sub_8055A34
+	bl Set0201FAC8
 	b _080596CC
 	.align 2, 0
 _08059010: .4byte 0x0000FFDF
@@ -1131,7 +1131,7 @@ _080595D8:
 	cmp r0, #0
 	bne _080595EE
 	movs r0, #1
-	bl sub_8055A34
+	bl Set0201FAC8
 _080595EE:
 	adds r0, r7, #0
 	bl nullsub_17

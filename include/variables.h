@@ -237,8 +237,8 @@ extern u16 gBG2TilemapBuffer[];
 extern u16 gBG3TilemapBuffer[];
 extern void *gBGVramTilemapPointers[];
 extern void (*gMainCallback)(void);
-extern struct Struct02024CD4 gUnknown_02024CD4;
-extern struct TileDataTransfer gUnknown_02024CDC[];
+extern struct Struct02024CD4 gFrameTmRegisterConfig;
+extern struct TileDataTransfer gFrameTmRegister[];
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
 // extern ??? gUnknown_02026A90
@@ -597,9 +597,9 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080DA2B0
 extern const s16 gEfxNoDmgBgShakeOff[];
 // extern ??? gUnknown_080DA4BA
-// extern ??? gUnknown_080DA4DC
+extern CONST_DATA struct Vec2 gUnknown_080DA4DC[];
 // extern ??? gUnknown_080DA526
-// extern ??? gUnknown_080DA570
+extern CONST_DATA struct Vec2 gUnknown_080DA570[];
 // extern ??? gUnknown_080DA5BA
 // extern ??? gUnknown_080DA604
 // extern ??? gUnknown_080DA66E
@@ -608,7 +608,7 @@ extern const s16 gEfxNoDmgBgShakeOff[];
 // extern ??? gUnknown_080DAC58
 // extern ??? gUnknown_080DAC82
 extern const u16 gUnknown_080DACDA[];
-// extern ??? gUnknown_080DAD0A
+extern const u16 gUnknown_080DAD0A[];
 // extern ??? gUnknown_080DAE8C
 // extern ??? gUnknown_080DAE96
 // extern ??? gUnknown_080DAEA0

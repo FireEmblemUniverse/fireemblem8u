@@ -370,6 +370,6 @@ void EkrEfxStatusClear(void)
     gpProcEfxStatusUnits[EKR_BATTLE_LEFT] = NULL;
     gpProcEfxStatusUnits[EKR_BATTLE_RIGHT] = NULL;
 
-    gpProcEfxSpellCast = 0;
+    gpProcEfxSpellCast = NULL;
     gpProcEfxHPBarColorChange = 0;
 }

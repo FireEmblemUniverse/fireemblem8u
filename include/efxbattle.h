@@ -165,6 +165,58 @@ struct ProcEfxStatusUnit {
 
 extern struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2];
 
+void NewEfxStatusUnit(struct Anim *anim);
+// ??? EndEfxStatusUnits(???);
+// ??? DeleteEach6C_efxStatusUnit(???);
+void DisableEfxStatusUnits(struct Anim *anim);
+void EnableEfxStatusUnits(struct Anim *anim);
+void SetUnitEfxDebuff(struct Anim *anim, int debuff);
+u32 GettUnitEfxDebuff(struct Anim *anim);
+void EfxStatusUnitSomePalModify(struct Anim *anim, int, int, int);
+void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc);
+void EfxStatusUnitEnd(struct ProcEfxStatusUnit *proc);
+
+struct ProcEfxWeaponIcon {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 unk2C;
+    /* 2E */ STRUCT_PAD(0x2E, 0x44);
+    /* 44 */ u32 unk44;
+    /* 48 */ const u16 *unk48;
+    /* 4C */ u32 unk4C;
+    /* 50 */ u32 unk50;
+    /* 54 */ int unk54;
+    /* 58 */ int unk58;
+};
+
+extern struct ProcEfxWeaponIcon *gpProcEfxWeaponIcon;
+
+void NewEfxWeaponIcon(s16 a, s16 b);
+void EndProcEfxWeaponIcon(void);
+void EfxWeaponIconSet50(void);
+void EfxWeaponIconClear50(void);
+void sub_8054F10(struct ProcEfxWeaponIcon *proc);
+void sub_8054F78(struct ProcEfxWeaponIcon *proc);
+
+struct ProcEfxSpellCast {
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    /* 2A */ STRUCT_PAD(0x2A, 0x2C);
+    /* 2C */ s16 unk2C;
+    /* 2E */ s16 unk2E;
+};
+
+extern struct ProcEfxSpellCast *gpProcEfxSpellCast;
+
+void NewEfxSpellCast(void);
+void EfxSpellCastSet29(void);
+void EndEfxSpellCast(void);
+void sub_8055038(struct ProcEfxSpellCast *proc);
+void sub_805509C(struct ProcEfxSpellCast *proc);
+void sub_80550DC(struct ProcEfxSpellCast *proc);
+
 struct ProcEfxSkill {
     PROC_HEADER;
 
@@ -283,8 +335,7 @@ extern u32 gUnknown_0201775C;
 struct Vec2 gEkrBg2QuakeVec;
 extern short gUnknown_02017764[2];
 extern short gUnknown_02017768[2];
-// extern ??? gpProcEfxWeaponIcon
-extern u32 gpProcEfxSpellCast;
+
 extern u32 gpProcEfxHPBarColorChange;
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 extern u8 gEkrImgBuffer[];
@@ -319,7 +370,7 @@ extern u8 gUnknown_0201A790[];
 // extern ??? gUnknown_0201C5D1
 // extern ??? gUnknown_0201C5D4
 extern u16 gPalBackupEkrUnitMaybe[0x40 / sizeof(u16)];
-// extern ??? gUnknown_0201C8D0
+extern u16 gUnknown_0201C8D0[];
 // extern ??? gUnknown_0201C912
 extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
 // extern ??? gUnknown_0201CF84
@@ -338,7 +389,7 @@ extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201FA08
 // extern ??? gUnknown_0201FA38
 // extern ??? gUnknown_0201FA68
-// extern ??? gUnknown_0201FAC8
+extern int gUnknown_0201FAC8;
 // extern ??? gEkrWindowAppearExist
 // extern ??? gEkrNamewinAppearExist
 // extern ??? gProcEkrBaseAppearExist

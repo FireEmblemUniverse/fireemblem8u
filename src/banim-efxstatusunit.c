@@ -12,6 +12,26 @@
  * Debuff unit status flash effect for banim (Unit::statusIndex)
  */
 
+CONST_DATA struct ProcCmd ProcScr_efxStatusUnit[] = {
+    PROC_NAME("efxStatusUnit"),
+    PROC_MARK(0xA),
+    PROC_SET_END_CB(EfxStatusUnitEnd),
+    PROC_REPEAT(EfxStatusUnitMain),
+    PROC_END
+};
+
+const u16 gUnknown_080DACDA[] = {
+    0, 0x14,
+    0x4, 0x6,
+    0x8, 0x5,
+    0xC, 0x6,
+    0x10, 0x14,
+    0xC, 0x6,
+    0x8, 0x5,
+    0x4, 0x6,
+    0xFFFE
+};
+
 void NewEfxStatusUnit(struct Anim *anim)
 {
     struct Unit *unit;
@@ -22,7 +42,7 @@ void NewEfxStatusUnit(struct Anim *anim)
     else
         unit = &gpEkrBattleUnitRight->unit;
 
-    proc = Proc_Start(gProc_efxStatusUnit, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxStatusUnit, PROC_TREE_3);
 
     proc->invalid = 0;
     proc->anim = anim;
@@ -61,7 +81,7 @@ void EndEfxStatusUnits(struct Anim *anim)
 
 void DeleteEach6C_efxStatusUnit(void)
 {
-    Proc_EndEach(gProc_efxStatusUnit);
+    Proc_EndEach(ProcScr_efxStatusUnit);
 }
 
 void DisableEfxStatusUnits(struct Anim *anim)
@@ -121,7 +141,7 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
     }
 
     /* seems like a interpolate-style function ? */
-    ret = sub_80558F4(&proc->unk2C, &proc->unk44, proc->unk48);
+    ret = sub_80558F4((void *)&proc->unk2C, (void *)&proc->unk44, proc->unk48);
     if (ret >= 0) {
         switch (proc->debuff) {
         case UNIT_STATUS_POISON:

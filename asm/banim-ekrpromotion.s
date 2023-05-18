@@ -517,12 +517,12 @@ sub_8072DC0: @ 0x08072DC0
 	THUMB_FUNC_START EndEfxStatusUnit
 EndEfxStatusUnit: @ 0x08072DC8
 	push {lr}
-	ldr r0, _08072DD4  @ gProc_efxStatusUnit
+	ldr r0, _08072DD4  @ ProcScr_efxStatusUnit
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08072DD4: .4byte gProc_efxStatusUnit
+_08072DD4: .4byte ProcScr_efxStatusUnit
 
 	THUMB_FUNC_END EndEfxStatusUnit
 
