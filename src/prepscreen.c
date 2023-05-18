@@ -60,32 +60,20 @@ void sub_8095284(ProcPtr proc)
     Proc_Goto(proc, 0x5);
 }
 
-#if NONMATCHING
-    if(0 == CheckInLinkArena()) {
-        if(0 == CanPrepScreenCheckMap())
-            return 0;
-
-        PrepSpecialChar_BlinkButtonB();
-    }
-
-    Proc_Goto(proc, 0x5);
-    return 1;
-#else
 int PrepScreenMenu_OnBPress(struct ProcAtMenu* proc) {
 
-    if (0 != CheckInLinkArena())
-        goto goto_jump;
-    
-    if (0 != CanPrepScreenCheckMap()) {
-        PrepSpecialChar_BlinkButtonB();
-    goto_jump:
+    if (false != CheckInLinkArena()) {
         Proc_Goto(proc, 0x5);
-            return 1;
+        return true;
     }
+    
+    if (false == CanPrepScreenCheckMap())
+        return false;
 
-    return 0;
+    PrepSpecialChar_BlinkButtonB();
+    Proc_Goto(proc, 0x5);
+    return true;
 }
-#endif
 
 void PrepScreenMenu_OnCheckMap(struct ProcAtMenu* proc) {
     Proc_Goto(proc, 0x5);
