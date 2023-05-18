@@ -532,22 +532,25 @@ void NewEfxspdquake(struct Anim *anim)
     proc->unk44 = gUnknown_080DA4DC;
 }
 
-/* https://decomp.me/scratch/7vZUC */
-#if NONMATCHING
-
 void sub_8055A64(struct ProcEfxSpdQuake *proc)
 {
-    int dx = proc->unk44[proc->unk2C].x;
-    int dy = proc->unk44[proc->unk2C].y;
+    struct Vec2 *unk44 = proc->unk44;
+    s16 dx = unk44[proc->unk2C].x;
+    s16 dy = unk44[proc->unk2C].y;
+    struct Anim *anim;
 
-    gAnims[0]->xPosition += dx;
-    gAnims[0]->yPosition += dy;
-    gAnims[1]->xPosition += dx;
-    gAnims[1]->yPosition += dy;
-    gAnims[2]->xPosition += dx;
-    gAnims[2]->yPosition += dy;
-    gAnims[3]->xPosition += dx;
-    gAnims[3]->yPosition += dy;
+    anim = gAnims[0];
+    anim->xPosition += dx;
+    anim->yPosition += dy;
+    anim = gAnims[1];
+    anim->xPosition += dx;
+    anim->yPosition += dy;
+    anim = gAnims[2];
+    anim->xPosition += dx;
+    anim->yPosition += dy;
+    anim = gAnims[3];
+    anim->xPosition += dx;
+    anim->yPosition += dy;
 
     gLCDControlBuffer.bgoffset[2].y -= dx;
     gLCDControlBuffer.bgoffset[2].x -= dy;
@@ -564,123 +567,10 @@ void sub_8055A64(struct ProcEfxSpdQuake *proc)
         return;
     }
 
-    if (proc->unk44[++proc->unk2C].x == 0x7FFF)
+    ++proc->unk2C;
+    if (unk44[proc->unk2C].x == 0x7FFF)
         proc->unk2C = 0;
 }
-
-#else
-__attribute__((naked))
-void sub_8055A64(struct ProcEfxSpdQuake *proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        adds r7, r0, #0\n\
-        ldr r0, [r7, #0x44]\n\
-        mov r8, r0\n\
-        movs r1, #0x2c\n\
-        ldrsh r0, [r7, r1]\n\
-        lsls r0, r0, #2\n\
-        add r0, r8\n\
-        ldrh r4, [r0, #2]\n\
-        ldr r3, _08055AE8  @ gAnims\n\
-        ldr r6, [r3]\n\
-        ldrh r1, [r6, #2]\n\
-        ldrh r2, [r0]\n\
-        mov ip, r2\n\
-        movs r5, #0\n\
-        ldrsh r2, [r0, r5]\n\
-        adds r1, r2, r1\n\
-        movs r0, #0\n\
-        mov r9, r0\n\
-        strh r1, [r6, #2]\n\
-        ldrh r0, [r6, #4]\n\
-        lsls r1, r4, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        adds r0, r1, r0\n\
-        strh r0, [r6, #4]\n\
-        ldr r6, [r3, #4]\n\
-        ldrh r0, [r6, #2]\n\
-        adds r0, r2, r0\n\
-        strh r0, [r6, #2]\n\
-        ldrh r0, [r6, #4]\n\
-        adds r0, r1, r0\n\
-        strh r0, [r6, #4]\n\
-        ldr r6, [r3, #8]\n\
-        ldrh r0, [r6, #2]\n\
-        adds r0, r2, r0\n\
-        strh r0, [r6, #2]\n\
-        ldrh r0, [r6, #4]\n\
-        adds r0, r1, r0\n\
-        strh r0, [r6, #4]\n\
-        ldr r6, [r3, #0xc]\n\
-        ldrh r0, [r6, #2]\n\
-        adds r2, r2, r0\n\
-        strh r2, [r6, #2]\n\
-        ldrh r0, [r6, #4]\n\
-        adds r1, r1, r0\n\
-        strh r1, [r6, #4]\n\
-        ldr r1, _08055AEC  @ gLCDControlBuffer\n\
-        ldrh r0, [r1, #0x26]\n\
-        mov r2, ip\n\
-        subs r0, r0, r2\n\
-        strh r0, [r1, #0x26]\n\
-        ldrh r0, [r1, #0x24]\n\
-        subs r0, r0, r4\n\
-        strh r0, [r1, #0x24]\n\
-        bl Get0201FAC8\n\
-        cmp r0, #0\n\
-        bne _08055AF0\n\
-        adds r0, r7, #0\n\
-        bl Proc_Break\n\
-        b _08055B28\n\
-        .align 2, 0\n\
-    _08055AE8: .4byte gAnims\n\
-    _08055AEC: .4byte gLCDControlBuffer\n\
-    _08055AF0:\n\
-        bl Get0201FAC8\n\
-        cmp r0, #2\n\
-        bne _08055B0C\n\
-        ldr r0, _08055B08  @ gUnknown_080DA570\n\
-        str r0, [r7, #0x44]\n\
-        mov r5, r9\n\
-        strh r5, [r7, #0x2c]\n\
-        movs r0, #3\n\
-        bl Set0201FAC8\n\
-        b _08055B28\n\
-        .align 2, 0\n\
-    _08055B08: .4byte gUnknown_080DA570\n\
-    _08055B0C:\n\
-        ldrh r0, [r7, #0x2c]\n\
-        adds r0, #1\n\
-        strh r0, [r7, #0x2c]\n\
-        movs r1, #0x2c\n\
-        ldrsh r0, [r7, r1]\n\
-        lsls r0, r0, #2\n\
-        add r0, r8\n\
-        movs r2, #0\n\
-        ldrsh r1, [r0, r2]\n\
-        ldr r0, _08055B34  @ 0x00007FFF\n\
-        cmp r1, r0\n\
-        bne _08055B28\n\
-        mov r5, r9\n\
-        strh r5, [r7, #0x2c]\n\
-    _08055B28:\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08055B34: .4byte 0x00007FFF\n\
-        .syntax divided\n\
-    ");
-}
-#endif
 
 void sub_8055B38(struct ProcEfxSpdQuake *proc)
 {
