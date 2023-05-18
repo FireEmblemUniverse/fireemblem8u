@@ -39,7 +39,7 @@ void EkrMyr_PrepareBanimfx(struct ProcEkrDragon *proc)
     BanimSetupRoundBasedScript(anim, 0);
     LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x7), 0x40);
     else
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x9), 0x40);
@@ -103,7 +103,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc)
     Proc_Break(proc);
     LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x7), 0x40);
     else
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x9), 0x40);
@@ -118,7 +118,7 @@ void sub_8070AE4(struct ProcEkrDragon *proc)
         EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_NOWPN - 1);
         AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_END);
 
-        if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+        if (GetAISSubjectId(anim) == EKR_POS_L)
             SetEkrDragonStatusType(gAnims[0], EKRDRGON_TYPE_NORMAL);
         else
             SetEkrDragonStatusType(gAnims[2], EKRDRGON_TYPE_NORMAL);

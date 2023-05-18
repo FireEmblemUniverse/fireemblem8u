@@ -5,9 +5,18 @@
 #include "anime.h"
 
 enum ekr_battle_unit_position {
-    EKR_BATTLE_LEFT,
-    EKR_BATTLE_RIGHT
+    EKR_POS_L,
+    EKR_POS_R
 };
+
+int GetAISSubjectId(struct Anim *anim);
+
+enum ekr_hit_identifer {
+    EKR_HITTED = 0,
+    EKR_MISS
+};
+
+enum ekr_hit_identifer EkrCheckHitOrMiss(s16);
 
 struct ProcEkrBattleDeamon {
     PROC_HEADER;
@@ -549,8 +558,7 @@ void sub_8059D28(void);
 // ??? sub_8059F5C(???);
 void BanimSetupRoundBasedScript(struct Anim *anim, int);
 int sub_805A154(struct Anim *anim);
-int GetAISSubjectId(struct Anim *anim);
-int GetSomeBoolean(s16);
+
 int sub_805A1D0(s16);
 int sub_805A21C(s16);
 int sub_805A268(struct Anim *anim);

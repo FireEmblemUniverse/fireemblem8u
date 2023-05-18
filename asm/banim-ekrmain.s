@@ -1012,8 +1012,8 @@ _0805A180:
 
 	THUMB_FUNC_END GetAISSubjectId
 
-	THUMB_FUNC_START GetSomeBoolean
-GetSomeBoolean: @ 0x0805A184
+	THUMB_FUNC_START EkrCheckHitOrMiss
+EkrCheckHitOrMiss: @ 0x0805A184
 	push {lr}
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
@@ -1046,7 +1046,7 @@ _0805A1CA:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END GetSomeBoolean
+	THUMB_FUNC_END EkrCheckHitOrMiss
 
 	THUMB_FUNC_START sub_805A1D0
 sub_805A1D0: @ 0x0805A1D0

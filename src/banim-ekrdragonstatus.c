@@ -34,7 +34,7 @@ void ResetEkrDragonStatus(void)
 
 struct EkrDragonStatus *GetEkrDragonStatus(struct Anim *anim)
 {
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         return &gEkrDragonStatusLeft;
     else
         return &gEkrDragonStatusRight;

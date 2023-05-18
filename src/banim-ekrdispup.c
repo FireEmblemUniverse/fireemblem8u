@@ -249,7 +249,7 @@ void EfxPrepareScreenFx(void)
     LZ77UnCompVram(gUnknown_08801C14, (void *)0x6001000);
 
     /* left unit name */
-    if (gEkrPairSideVaild[EKR_BATTLE_LEFT] == false)
+    if (gEkrPairSideVaild[EKR_POS_L] == false)
         str = gNopStr;
     else
         str = GetStringFromIndex(gpEkrBattleUnitLeft->unit.pCharacterData->nameTextId);
@@ -260,7 +260,7 @@ void EfxPrepareScreenFx(void)
     Text_AppendString(&gTextEkrlvupMsg[0], str);
 
     /* left unit item */
-    if (gEkrPairSideVaild[EKR_BATTLE_LEFT] == false)
+    if (gEkrPairSideVaild[EKR_POS_L] == false)
         str = gNopStr;
     else
         str = GetItemName(gpEkrBattleUnitLeft->weaponBefore);
@@ -271,7 +271,7 @@ void EfxPrepareScreenFx(void)
     Text_AppendString(&gTextEkrlvupMsg[2], str);
 
     /* right unit name */
-    if (gEkrPairSideVaild[EKR_BATTLE_RIGHT] == false)
+    if (gEkrPairSideVaild[EKR_POS_R] == false)
         str = gNopStr;
     else
         str = GetStringFromIndex(gpEkrBattleUnitRight->unit.pCharacterData->nameTextId);
@@ -282,7 +282,7 @@ void EfxPrepareScreenFx(void)
     Text_AppendString(&gTextEkrlvupMsg[3], str);
 
     /* right unit item */
-    if (gEkrPairSideVaild[EKR_BATTLE_RIGHT] == false)
+    if (gEkrPairSideVaild[EKR_POS_R] == false)
         str = gNopStr;
     else
         str = GetItemName(gpEkrBattleUnitRight->weaponBefore);
@@ -318,7 +318,7 @@ int GetEkrSomePosMaybe(void)
     case 0:
     case 3:
     case 4:
-        return EKR_BATTLE_RIGHT;
+        return EKR_POS_R;
 
     case 2:
     default:
@@ -326,14 +326,14 @@ int GetEkrSomePosMaybe(void)
         quote1 = false;
 
         if (gEkrDebugModeMaybe == 0) {
-            quote1 = ShouldCallBattleQuote(gEkrPids[EKR_BATTLE_LEFT],  gEkrPids[EKR_BATTLE_RIGHT]);
-            quote2 = ShouldCallBattleQuote(gEkrPids[EKR_BATTLE_RIGHT], gEkrPids[EKR_BATTLE_LEFT]);
+            quote1 = ShouldCallBattleQuote(gEkrPids[EKR_POS_L],  gEkrPids[EKR_POS_R]);
+            quote2 = ShouldCallBattleQuote(gEkrPids[EKR_POS_R], gEkrPids[EKR_POS_L]);
         }
 
         if (quote1 == true)
-            return EKR_BATTLE_LEFT;
+            return EKR_POS_L;
         else if (quote2 == true)
-            return EKR_BATTLE_RIGHT;
+            return EKR_POS_R;
         else
             return gEkrInitialHitSide;
     }
@@ -367,8 +367,8 @@ void EkrEfxStatusClear(void)
     gEkrHitEfxBool[0] = 0;
     gEkrHitEfxBool[1] = 0;
 
-    gpProcEfxStatusUnits[EKR_BATTLE_LEFT] = NULL;
-    gpProcEfxStatusUnits[EKR_BATTLE_RIGHT] = NULL;
+    gpProcEfxStatusUnits[EKR_POS_L] = NULL;
+    gpProcEfxStatusUnits[EKR_POS_R] = NULL;
 
     gpProcEfxSpellCast = NULL;
     gpProcEfxHPBarColorChange = 0;

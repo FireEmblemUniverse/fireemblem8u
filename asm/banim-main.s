@@ -349,7 +349,7 @@ _08058F52:
 	mov r8, r0
 	mov r4, r8
 	adds r0, r4, #0
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	ldr r2, [sp]
 	cmp r0, #1
 	beq _08058F8E
@@ -594,7 +594,7 @@ _08059164:
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	ldr r2, [sp]
 	cmp r0, #0
 	bne _080591C6
@@ -644,7 +644,7 @@ _080591CC:
 	asrs r0, r0, #0x10
 	mov r8, r0
 _080591E2:
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
@@ -934,7 +934,7 @@ _08059438:
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
-	bl GetSomeBoolean
+	bl EkrCheckHitOrMiss
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0

@@ -33,7 +33,7 @@ void EkrDZ_CustomBgFadeIn(struct ProcEkrDragon *proc)
 
 void EfxDracoZombiePrepareTSA(int x, int y, s8 pos)
 {
-    if (pos == EKR_BATTLE_RIGHT)
+    if (pos == EKR_POS_R)
         LZ77UnCompVram(Tsa_EfxDracoZombieBaseRight, gEkrTsaBuffer);
     else
         LZ77UnCompVram(Tsa_EfxDracoZombieBaseLeft, gEkrTsaBuffer);
@@ -301,11 +301,11 @@ void SetAnimStateHiddenForDragon(void)
 {
     switch (GetBanimDragonStatusType()) {
     case EKRDRGON_TYPE_DRACO_ZOMBIE:
-        SetAnimStateHidden(EKR_BATTLE_LEFT);
+        SetAnimStateHidden(EKR_POS_L);
         break;
 
     case EKRDRGON_TYPE_DEMON_KING:
-        SetAnimStateHidden(EKR_BATTLE_LEFT);
+        SetAnimStateHidden(EKR_POS_L);
         break;
 
     case EKRDRGON_TYPE_NORMAL:
@@ -333,7 +333,7 @@ void sub_807027C(struct Anim *anim)
             break;
     }
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         CpuFastCopy(pal, PAL_BG(6), 0x20);
     else
         CpuFastCopy(pal, PAL_BG(7), 0x20);
@@ -363,7 +363,7 @@ u16 *sub_80702D0(void)
 
 void sub_80702FC(int pos)
 {
-    if (pos == EKR_BATTLE_LEFT)
+    if (pos == EKR_POS_L)
         CpuFastCopy(sub_80702D0(), PAL_OBJ(0x7), 0x20);
     else
         CpuFastCopy(sub_80702D0(), PAL_OBJ(0x9), 0x20);
@@ -373,7 +373,7 @@ void sub_80702FC(int pos)
 
 void sub_807032C(int pos)
 {
-    if (pos == EKR_BATTLE_LEFT)
+    if (pos == EKR_POS_L)
         CpuFastCopy(sub_80702D0(), PAL_BG(0x6), 0x20);
     else
         CpuFastCopy(sub_80702D0(), PAL_BG(0x7), 0x20);

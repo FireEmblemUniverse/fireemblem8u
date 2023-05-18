@@ -8,6 +8,47 @@
 
 extern struct Anim *gAnims[4];
 
+void sub_805515C(void)
+{
+    return;
+}
+
+void SetSomethingSpellFxToTrue(void)
+{
+    gUnknown_0201772C = true;
+}
+
+void SetSomethingSpellFxToFalse(void)
+{
+    gUnknown_0201772C = false;
+}
+
+void ClearBG1Setup(void)
+{
+    BG_SetPosition(BG_1, 0, 0);
+}
+
+void ClearBG1(void)
+{
+    CpuFastFill16(0, gBG1TilemapBuffer, 0x800);
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+}
+
+void sub_80551B0(void)
+{
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 1, 1, 1);
+    SetWinEnable(1, 0, 0);
+    SetWin0Box(0, 0, 0xF0, 0xA0);
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(1, 0, 1, 1, 1);
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = 1;
+    gLCDControlBuffer.wincnt.wout_enableBlend = 0;
+    gLCDControlBuffer.bldcnt.target2_bd_on = 1;
+}
+
 void SetDefaultColorEffects_(void)
 {
     SetDefaultColorEffects();
@@ -29,7 +70,7 @@ void ExecHittedEffectBanim(struct Anim *anim, int type, int a, int b)
     int val1, val2;
     s16 roundt1, roundt2;
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT) {
+    if (GetAISSubjectId(anim) == EKR_POS_L) {
         animr7 = gAnims[2];
         animr9 = gAnims[3];
         animr5 = gAnims[0];
@@ -42,7 +83,7 @@ void ExecHittedEffectBanim(struct Anim *anim, int type, int a, int b)
     }
 
     switch (type) {
-    case 0:
+    case EKR_HITTED:
         roundt1 = GetAnimRoundType((animr7->nextRoundId - 1) * 2 + GetAISSubjectId(animr7));
         roundt2 = GetAnimRoundType((animr5->nextRoundId - 1) * 2 + GetAISSubjectId(animr5));
 
@@ -86,7 +127,7 @@ void ExecHittedEffectBanim(struct Anim *anim, int type, int a, int b)
         }
         break;
 
-    case 1:
+    case EKR_MISS:
         NewEfxAvoid(animr5);
         break;
     }
@@ -97,7 +138,7 @@ void sub_8055424(struct Anim *anim, int type)
     int val1, val2, off;
     struct Anim *animR7, *animR5, *animR8;
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT) {
+    if (GetAISSubjectId(anim) == EKR_POS_L) {
         animR7 = gAnims[2];
         animR5 = gAnims[0];
         animR8 = gAnims[1];
@@ -117,7 +158,7 @@ void sub_8055424(struct Anim *anim, int type)
     }
 
     switch (type) {
-    case 0:
+    case EKR_HITTED:
         if (val1 != val2) {
             NewEfxHPBarResire(animR5);
 
@@ -134,7 +175,7 @@ void sub_8055424(struct Anim *anim, int type)
         }
         break;
 
-    case 1:
+    case EKR_MISS:
         NewEfxAvoid(animR5);
         break;
     }
@@ -144,17 +185,17 @@ void sub_8055518(struct Anim *anim, int type)
 {
     struct Anim *anim1;
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         anim1 = gAnims[0];
     else
         anim1 = gAnims[2];
 
     switch (type) {
-    case 0:
+    case EKR_HITTED:
         NewEfxStatusCHG(anim1);
         break;
     
-    case 1:
+    case EKR_MISS:
         NewEfxAvoid(anim1);
         break;
     }
@@ -165,7 +206,7 @@ struct Anim *EfxAnimCreate(struct Anim *anim, const u32 *scr1, const u32 *scr2, 
     struct Anim *anim1;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT) {
+        if (GetAISSubjectId(anim) == EKR_POS_L) {
             anim1 = AnimCreate(scr1, 0x78);
             anim1->oam2Base = 0x2840;
             anim1->xPosition = anim->xPosition;
@@ -180,7 +221,7 @@ struct Anim *EfxAnimCreate(struct Anim *anim, const u32 *scr1, const u32 *scr2, 
             return anim1;
         }
     } else {
-        if (GetAISSubjectId(anim) != EKR_BATTLE_LEFT) {
+        if (GetAISSubjectId(anim) != EKR_POS_L) {
             anim1 = AnimCreate(scr4, 0x78);
             anim1->oam2Base = 0x2840;
             anim1->xPosition = anim->xPosition;
@@ -202,7 +243,7 @@ struct Anim *sub_80555B0(struct Anim *anim, const u32 *scr1, const u32 *scr2, co
     struct Anim *anim1;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT) {
+        if (GetAISSubjectId(anim) == EKR_POS_L) {
             anim1 = AnimCreate(scr1, 0x14);
             anim1->oam2Base = 0x2840;
             anim1->xPosition = anim->xPosition;
@@ -217,7 +258,7 @@ struct Anim *sub_80555B0(struct Anim *anim, const u32 *scr1, const u32 *scr2, co
             return anim1;
         }
     } else {
-        if (GetAISSubjectId(anim) != EKR_BATTLE_LEFT) {
+        if (GetAISSubjectId(anim) != EKR_POS_L) {
             anim1 = AnimCreate(scr4, 0x14);
             anim1->oam2Base = 0x2840;
             anim1->xPosition = anim->xPosition;
@@ -243,7 +284,7 @@ void sub_805560C(struct Anim *anim, const u16 *src1, const u16 *src2)
     else
         buf = src2;
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         sub_8070EC4(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     else
         sub_8070E94(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
@@ -261,7 +302,7 @@ void sub_8055670(struct Anim *anim, const u16 *src1, const u16 *src2)
         LZ77UnCompWram(src2, gEkrTsaBuffer);
     
     buf = gEkrTsaBuffer;
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         sub_8070EC4(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     else
         sub_8070E94(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
@@ -279,7 +320,7 @@ void sub_80556F0(u8 pos, const u16 *src1, const u16 *src2)
         LZ77UnCompWram(src2, gEkrTsaBuffer);
     
     buf = gEkrTsaBuffer;
-    if (pos == EKR_BATTLE_LEFT)
+    if (pos == EKR_POS_L)
         sub_8070EC4(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     else
         sub_8070E94(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
@@ -291,7 +332,7 @@ void sub_805576C(struct Anim *anim, const u16 *src, int a, int b)
 {
     LZ77UnCompWram(src, gEkrTsaBuffer);
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         sub_8070EC4(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
     else
         sub_8070E94(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
@@ -527,7 +568,7 @@ void SetEkrFrontAnimPostion(int pos, s16 x, s16 y)
     u16 ux = x;
     u16 uy = y;
 
-    if (EKR_BATTLE_LEFT == pos) {
+    if (EKR_POS_L == pos) {
         anim = gAnims[0];
         anim->xPosition = ux;
         anim->yPosition = uy;
@@ -729,8 +770,8 @@ void sub_8055B38(struct ProcEfxSpdQuake *proc)
     int y1 = gEkrXPosBase[1] - gEkrBgXOffset;
     int y2 = gEkrYPosBase[1];
 
-    SetEkrFrontAnimPostion(EKR_BATTLE_LEFT, x1, x2);
-    SetEkrFrontAnimPostion(EKR_BATTLE_RIGHT, y1, y2);
+    SetEkrFrontAnimPostion(EKR_POS_L, x1, x2);
+    SetEkrFrontAnimPostion(EKR_POS_R, y1, y2);
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:

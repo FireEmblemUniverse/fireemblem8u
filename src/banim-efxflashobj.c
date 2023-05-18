@@ -204,29 +204,3 @@ void sub_80550DC(struct ProcEfxSpellCast *proc)
         Proc_Break(proc);
     }
 }
-
-void sub_805515C(void)
-{
-    return;
-}
-
-void SetSomethingSpellFxToTrue(void)
-{
-    gUnknown_0201772C = true;
-}
-
-void SetSomethingSpellFxToFalse(void)
-{
-    gUnknown_0201772C = false;
-}
-
-void ClearBG1Setup(void)
-{
-    BG_SetPosition(BG_1, 0, 0);
-}
-
-void ClearBG1(void)
-{
-    CpuFastFill16(0, gBG1TilemapBuffer, 0x800);
-    BG_EnableSyncByMask(BG1_SYNC_BIT);
-}

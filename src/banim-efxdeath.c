@@ -129,7 +129,7 @@ void sub_8052FEC(struct ProcEfxDead *proc)
 {
     int hp;
 
-    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DRACO_ZOMBIE && GetAISSubjectId(proc->anim1) == EKR_BATTLE_LEFT) {
+    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DRACO_ZOMBIE && GetAISSubjectId(proc->anim1) == EKR_POS_L) {
         hp = GetEfxHp(gEfxPairHpBufOffset[GetAISSubjectId(proc->anim1)] * 2 + GetAISSubjectId(proc->anim1));
     } else
         hp = 1;
@@ -289,7 +289,7 @@ void NewEfxDeadDragonAlpha(struct Anim *anim1, struct Anim *anim2)
     anim1->state |= 0x2;
     anim2->state |= 0x2;
 
-    EfxDracoZombiePrepareTSA(0, 0, EKR_BATTLE_RIGHT);
+    EfxDracoZombiePrepareTSA(0, 0, EKR_POS_R);
 
     proc->timer = 0;
     proc->unk2E = 0;

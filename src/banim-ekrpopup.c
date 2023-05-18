@@ -309,7 +309,7 @@ void NewEkrPopup(void)
         proc->unk50 = 0;
         proc->unk4C = 0;
     
-        if (gBanimSomeObjPalIndex[EKR_BATTLE_LEFT] == false) {
+        if (gBanimSomeObjPalIndex[EKR_POS_L] == false) {
             if (HasBattleUnitGainedWeaponLevel(gpEkrBattleUnitLeft) == true)
                 proc->unk44 = gpEkrBattleUnitLeft->weaponBefore;
     
@@ -317,7 +317,7 @@ void NewEkrPopup(void)
                 proc->unk48 = gpEkrBattleUnitLeft->weaponBefore;
         }
     
-        if (gBanimSomeObjPalIndex[EKR_BATTLE_RIGHT] == false) {
+        if (gBanimSomeObjPalIndex[EKR_POS_R] == false) {
             if (HasBattleUnitGainedWeaponLevel(gpEkrBattleUnitRight) == true)
                 proc->unk4C = gpEkrBattleUnitRight->weaponBefore;
     

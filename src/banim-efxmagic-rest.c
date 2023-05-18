@@ -255,13 +255,13 @@ void NewEfxRestWIN(struct Anim *anim, int unk44, void *unk54, void *unk58)
     proc->unk54 = unk54;
     proc->unk58 = unk58;
 
-    if (GetAISSubjectId(GetCoreAIStruct(anim)) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(GetCoreAIStruct(anim)) == EKR_POS_L)
         proc->unk32 = 0xFFB8;
     else
         proc->unk32 = 0xFFF8;
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+        if (GetAISSubjectId(anim) == EKR_POS_L)
             proc->unk32 += 0x18;
         else
             proc->unk32 -= 0x18;

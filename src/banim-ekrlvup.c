@@ -345,10 +345,10 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     RegisterDataMove(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xA), 0x800);
     RegisterDataMove(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xB), 0x800);
 
-    buf->unk00 = gBanimTerrainIndexMaybe[EKR_BATTLE_LEFT];
+    buf->unk00 = gBanimTerrainIndexMaybe[EKR_POS_L];
     buf->unk02 = 3;
     buf->unk04 = 0x100;
-    buf->unk06 = gBanimTerrainIndexMaybe[EKR_BATTLE_RIGHT];
+    buf->unk06 = gBanimTerrainIndexMaybe[EKR_POS_R];
     buf->unk08 = 4;
     buf->unk0A = 0x140;
     buf->unk0C = gEkrDistanceType;
@@ -462,7 +462,7 @@ void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
 
     proc->timer = EKR_LVUP_UI_BASE;
 
-    if (GetAISSubjectId(anim) == EKR_BATTLE_LEFT)
+    if (GetAISSubjectId(anim) == EKR_POS_L)
         portrait = bu1->unit.pCharacterData->portraitId;
     else
         portrait = bu2->unit.pCharacterData->portraitId;
