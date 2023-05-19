@@ -22192,13 +22192,13 @@ sub_804C208: @ 0x0804C208
 	lsrs r4, r0, #0x18
 	cmp r1, #0
 	beq _0804C230
-	ldr r0, _0804C22C  @ gUnknown_085AA89C
+	ldr r0, _0804C22C  @ ProcScr_SIOWARPFX
 	bl Proc_StartBlocking
 	b _0804C238
 	.align 2, 0
-_0804C22C: .4byte gUnknown_085AA89C
+_0804C22C: .4byte ProcScr_SIOWARPFX
 _0804C230:
-	ldr r0, _0804C25C  @ gUnknown_085AA89C
+	ldr r0, _0804C25C  @ ProcScr_SIOWARPFX
 	movs r1, #2
 	bl Proc_Start
 _0804C238:
@@ -22220,7 +22220,7 @@ _0804C238:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0804C25C: .4byte gUnknown_085AA89C
+_0804C25C: .4byte ProcScr_SIOWARPFX
 
 	THUMB_FUNC_END sub_804C208
 

@@ -180,7 +180,7 @@ _0806592A:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _080659A4

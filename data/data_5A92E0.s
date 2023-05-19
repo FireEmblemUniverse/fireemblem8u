@@ -1992,8 +1992,8 @@ gUnknown_085AA86C:  @ 0x085AA86C
         .word 0x0
 
 
-	.global gUnknown_085AA89C
-gUnknown_085AA89C:  @ 0x085AA89C
+	.global ProcScr_SIOWARPFX
+ProcScr_SIOWARPFX:  @ 0x085AA89C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d9fcc

@@ -648,7 +648,7 @@ _080591E2:
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	b _080596CC
 _080591F2:
 	adds r0, r7, #0
@@ -938,7 +938,7 @@ _08059438:
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldr r2, [sp]
 _0805946A:
 	adds r0, r2, #0

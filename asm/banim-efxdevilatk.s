@@ -150,7 +150,7 @@ _08066636:
 	adds r5, #0x29
 	ldrb r1, [r5]
 	adds r0, r4, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r0, [r5]
 	cmp r0, #0
 	bne _0806669C
@@ -2120,7 +2120,7 @@ _08067564:
 _080675A8:
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	b _080675CE
 	.align 2, 0
 _080675B4: .4byte 0x000003B9
@@ -2454,7 +2454,7 @@ _08067848:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08067886
@@ -3051,7 +3051,7 @@ _08067D20:
 	adds r6, #0x29
 	ldrb r1, [r6]
 	adds r0, r4, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r6, [r6]
 	cmp r6, #0
 	bne _08067D84
@@ -4523,7 +4523,7 @@ _08068884:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _080688B6
@@ -5022,7 +5022,7 @@ _08068C68:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08068D14
@@ -7545,7 +7545,7 @@ _08069FBC:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08069FFE
@@ -9584,7 +9584,7 @@ _0806AFAE:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0806B07A
@@ -10376,7 +10376,7 @@ _0806B608:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl ThisMakesTheHPInSpellAnimGoAway
+	bl DoEkrOffensiveAtkHit
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0806B646
