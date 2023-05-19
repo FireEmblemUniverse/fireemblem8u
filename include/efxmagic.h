@@ -9,15 +9,14 @@ extern CONST_DATA SpellAnimFunc gEkrSpellAnimLut[];
 struct ProcEfxMagic {
     PROC_HEADER;
 
-    /* 29 */ STRUCT_PAD(0x29, 0x2C);
-
+    /* 29 */ u8 hitted;
+    /* 2A */ u8 unk2A;
+    /* 2B */ STRUCT_PAD(0x2B, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ s16 unk2E;
     /* 30 */ s16 unk30;
     /* 32 */ u16 unk32;
-
     /* 34 */ STRUCT_PAD(0x34, 0x44);
-
     /* 44 */ u32 unk44;
     /* 48 */ u32 unk48;
     /* 4C */ u32 unk4C;
@@ -25,6 +24,44 @@ struct ProcEfxMagic {
     /* 54 */ s16 *unk54;
     /* 58 */ s16 **unk58;
     /* 5C */ struct Anim *anim;
+};
+
+struct ProcEfxMagicBG {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    STRUCT_PAD(0x2E, 0x44);
+    /* 44 */ u32 unk44;
+    /* 48 */ const u16 *unk48;
+    /* 4C */ u16 **unk4C;
+    /* 50 */ u16 **unk50;
+    /* 54 */ u16 **unk54;
+    STRUCT_PAD(0x58, 0x5C);
+    /* 5C */ struct Anim *anim;
+};
+
+struct ProcEfxMagicBGCOL {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    STRUCT_PAD(0x2E, 0x44);
+    /* 44 */ u32 unk44;
+    /* 48 */ const u16 *unk48;
+    /* 4C */ u16 *unk4C;
+    STRUCT_PAD(0x50, 0x5C);
+    /* 5C */ struct Anim *anim;
+};
+
+struct ProcEfxMagicOBJ {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    STRUCT_PAD(0x2E, 0x5C);
+    /* 5C */ struct Anim *anim;
+    /* 60 */ struct Anim *anim2;
 };
 
 // extern ??? FramData_Unk5D4F90
@@ -84,26 +121,26 @@ extern CONST_DATA struct ProcCmd ProcScr_efxSongBG[];
 // extern ??? gUnknown_085D53A8
 // extern ??? gUnknown_085D53C0
 // extern ??? gUnknown_085D53F0
-// extern ??? gUnknown_085D5410
-// extern ??? gUnknown_085D5428
-// extern ??? gUnknown_085D5440
-// extern ??? gUnknown_085D5458
-// extern ??? gUnknown_085D5460
-// extern ??? gUnknown_085D5468
-// extern ??? gUnknown_085D5488
-// extern ??? gUnknown_085D54A0
-// extern ??? gUnknown_085D54B8
-// extern ??? gUnknown_085D54D0
-// extern ??? gUnknown_085D5500
-// extern ??? gUnknown_085D5530
-// extern ??? gUnknown_085D5548
-// extern ??? gUnknown_085D5560
-// extern ??? gUnknown_085D55B4
-// extern ??? ProcScr_efxElfireBG
-// extern ??? gUnknown_085D5620
-// extern ??? gUnknown_085D5640
-// extern ??? gUnknown_085D5658
-// extern ??? gUnknown_085D5670
+extern struct ProcCmd ProcScr_efxDarkbreathOBJ[];
+extern struct ProcCmd ProcScr_efxThunder[];
+extern struct ProcCmd ProcScr_efxThunderBG[];
+extern u16 *gUnknown_085D5458[2];
+extern u16 *gUnknown_085D5460[2];
+extern struct ProcCmd ProcScr_efxThunderBGCOL[];
+extern struct ProcCmd ProcScr_efxThunderOBJ[];
+extern struct ProcCmd ProcScr_efxFire[];
+extern struct ProcCmd ProcScr_efxFireBG[];
+extern u16 *gUnknown_085D54D0[];
+extern u16 *gUnknown_085D5500[];
+extern struct ProcCmd ProcScr_efxFireOBJ[];
+extern struct ProcCmd ProcScr_efxFireHITBG[];
+extern u16 *gUnknown_085D5560[];
+extern u16 *gUnknown_085D55B4[];
+extern struct ProcCmd ProcScr_efxElfireBG[];
+extern struct ProcCmd ProcScr_efxElfireBGCOL[];
+extern struct ProcCmd ProcScr_efxElfireOBJ[];
+extern struct ProcCmd ProcScr_efxFimbulvetr[];
+extern struct ProcCmd ProcScr_efxFimbulvetrBGTR[];
 // extern ??? gUnknown_085D5688
 // extern ??? gUnknown_085D56A0
 // extern ??? gUnknown_085D56B8
@@ -193,7 +230,7 @@ extern CONST_DATA struct ProcCmd ProcScr_efxSongBG[];
 // extern ??? gUnknown_085D6A2C
 // extern ??? gUnknown_085D6A44
 // extern ??? gUnknown_085D6A48
-// extern ??? gUnknown_085D6A68
+// extern ??? ProcScr_efxRest
 // extern ??? gUnknown_085D6A80
 // extern ??? gUnknown_085D6A98
 // extern ??? gUnknown_085D6ACC
@@ -299,9 +336,9 @@ void StartSpellAnimation(struct Anim *anim);
 void sub_805B94C(ProcPtr proc);
 void sub_805B958(struct ProcEfxMagic *proc);
 void NewEfxALPHA(struct Anim *anim, int a, int b, int c, int d, int e);
-// ??? sub_805BA64(???);
+// ??? EfxALPHAMain(???);
 // ??? sub_805BB24(???);
-// ??? sub_805BB84(???);
+// ??? EfxCircleWINMain(???);
 // ??? StartSpellThing_MagicQuake(???);
 // ??? Loop6C_efxMagicQUAKE(???);
 void StartSpellAnimDummy(struct Anim *anim);
@@ -372,27 +409,27 @@ void StartSpellAnimDarkBreath(struct Anim *anim);
 // ??? sub_805D6CC(???);
 // ??? sub_805D774(???);
 void StartSpellAnimThunder(struct Anim *anim);
-// ??? Loop6C_efxThunder(???);
-// ??? sub_805D8B4(???);
-// ??? sub_805D938(???);
-// ??? sub_805D9BC(???);
+void Loop6C_efxThunder(struct ProcEfxMagic *proc);
+void NewEfxThunderBG(struct Anim *anim);
+// ??? EfxThunderBGMain(???);
+void NewEfxThunderBGCOL(struct Anim *anim);
 // ??? sub_805D9F8(???);
-// ??? sub_805DA44(???);
-// ??? sub_805DAA4(???);
+void NewEfxThunderOBJ(struct Anim *anim);
+// ??? EfxThunderOBJMain(???);
 void StartSpellAnimFire(struct Anim *anim);
 void StartSpellAnimElfire(struct Anim *anim);
 // ??? Loop6C_efxFire(???);
-// ??? sub_805DC64(???);
+void NewEfxFireBG(struct Anim *anim);
 // ??? Loop6C_efxFireBG(???);
-// ??? sub_805DD1C(???);
+void NewEfxFireOBJ(struct Anim *anim);
 // ??? sub_805DDA8(???);
-// ??? StartSubSpell_efxFireHITBG(???);
+void StartSubSpell_efxFireHITBG(struct Anim *anim);
 // ??? sub_805DE74(???);
-// ??? StartSubSpell_efxElfireBG(???);
+void StartSubSpell_efxElfireBG(struct Anim *anim);
 // ??? sub_805DF70(???);
-// ??? StartSubSpell_efxElfireBGCOL(???);
+void StartSubSpell_efxElfireBGCOL(struct Anim *anim);
 // ??? sub_805DFE8(???);
-// ??? StartSubSpell_efxElfireOBJ(???);
+void StartSubSpell_efxElfireOBJ(struct Anim *anim);
 // ??? sub_805E0B4(???);
 void StartSpellAnimFimbulvetr(struct Anim *anim);
 // ??? sub_805E120(???);
@@ -545,7 +582,7 @@ void sub_8061C48(struct Anim *anim);
 // ??? sub_8062058(???);
 // ??? sub_80620A4(???);
 void sub_80620EC(struct Anim *anim);
-// ??? sub_8062128(???);
+// ??? EfxRestMain(???);
 // ??? sub_80622A0(???);
 // ??? sub_80622F4(???);
 // ??? sub_8062358(???);

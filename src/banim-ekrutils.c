@@ -54,17 +54,17 @@ void SetDefaultColorEffects_(void)
     SetDefaultColorEffects();
 }
 
-void ThisMakesTheHPInSpellAnimGoAway(struct Anim *anim, int type)
+void DoEkrOffensiveAtkHit(struct Anim *anim, int type)
 {
-    ExecHittedEffectBanim(anim, type, 3, 4);
+    DoEkrOffensiveAtkHit_(anim, type, 3, 4);
 }
 
 void sub_8055288(struct Anim *anim, int type)
 {
-    ExecHittedEffectBanim(anim, type, 5, 5);
+    DoEkrOffensiveAtkHit_(anim, type, 5, 5);
 }
 
-void ExecHittedEffectBanim(struct Anim *anim, int type, int a, int b)
+void DoEkrOffensiveAtkHit_(struct Anim *anim, int type, int a, int b)
 {
     struct Anim *animr7, *animr9, *animr5, *animr8;
     int val1, val2;
@@ -133,7 +133,7 @@ void ExecHittedEffectBanim(struct Anim *anim, int type, int a, int b)
     }
 }
 
-void sub_8055424(struct Anim *anim, int type)
+void DoEkrResire(struct Anim *anim, int type)
 {
     int val1, val2, off;
     struct Anim *animR7, *animR5, *animR8;
