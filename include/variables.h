@@ -2200,7 +2200,7 @@ extern struct ProcCmd gUnknown_089EEA28[];
 extern const struct MenuDef gUnknown_089F36A0;
 // extern ??? gUnknown_089FF480
 // extern ??? gEvent_SkirmishCommonBeginning
-// extern ??? gUnknown_089FFD64
+extern u16 gUnknown_089FFD64[];
 // extern ??? gEvent_8A0035C
 // extern ??? gEvent_8A00364
 // extern ??? gEvent_EirikaModeGameEnd

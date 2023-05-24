@@ -24,12 +24,45 @@
 #define EVT_CMD_B3(cmd) (((cmd) & 0x00FF0000) >> 16)
 #define EVT_CMD_B4(cmd) (((cmd) & 0xFF000000) >> 24)
 
-extern struct EventListCmdInfo gUnknown_089E84F4[];
+int sub_8083830(struct EventInfo* info);
+int CheckAFEV(struct EventInfo* info);
+int CheckTURN(struct EventInfo* info);
+int CheckCHAR(struct EventInfo* info);
+int CheckCHARASM(struct EventInfo* info);
+int CheckLOCA(struct EventInfo* info);
+int CheckVILL(struct EventInfo* info);
+int CheckCHES(struct EventInfo* info);
+int CheckDOOR(struct EventInfo* info);
+int sub_8083A10(struct EventInfo* info);
+int CheckSHOP(struct EventInfo* info);
+int CheckAREA(struct EventInfo* info);
+int sub_8083B24(struct EventInfo* info);
+int sub_8083B28(struct EventInfo* info);
+int sub_8083B2C(struct EventInfo* info);
+int sub_8083B58(struct EventInfo* info);
+int sub_8083B98(struct EventInfo* info);
 
-extern u16 gUnknown_089FFD64[];
+struct EventListCmdInfo CONST_DATA gUnknown_089E84F4[] = {
+    { sub_8083830,        1, },
+    { CheckAFEV,          3, },
+    { CheckTURN,          3, },
+    { CheckCHAR,          4, },
+    { CheckCHARASM,       4, },
+    { CheckLOCA,          3, },
+    { CheckVILL,          3, },
+    { CheckCHES,          3, },
+    { CheckDOOR,          3, },
+    { sub_8083A10,        3, },
+    { CheckSHOP,          3, },
+    { CheckAREA,          3, },
+    { sub_8083B24,        3, },
+    { sub_8083B28,        3, },
+    { sub_8083B2C,        3, },
+    { sub_8083B58,        4, },
+    { sub_8083B98,        4, },
+};
 
 extern u8 gUnknown_03005270[];
-extern u8 gUnknown_089E857C[];
 extern u8 gUnknown_03005250[];
 
 struct ActiveEventRegistry {
@@ -99,6 +132,7 @@ struct EventInfo* CheckForEvents(struct EventInfo* info) {
     return NULL;
 }
 
+//! FE8U = 0x08082F28
 struct EventInfo* CheckForNextEvents(struct EventInfo* info) {
     if (info != NULL) {
         int cmdId = EVT_CMD_LO(info->listScript[0]);
@@ -728,7 +762,7 @@ s8 sub_80837F8(void) {
 }
 
 //! FE8U = 0x08083830
-s8 sub_8083830(void) {
+int sub_8083830(struct EventInfo* info) {
     return 1;
 }
 
@@ -974,12 +1008,12 @@ int CheckAREA(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083B24
-int sub_8083B24(void) {
+int sub_8083B24(struct EventInfo* info) {
     return 0;
 }
 
 //! FE8U = 0x08083B28
-int sub_8083B28(void) {
+int sub_8083B28(struct EventInfo* info) {
     return 0;
 }
 
@@ -1023,6 +1057,11 @@ int sub_8083B98(struct EventInfo* info) {
 
     return 0;
 }
+
+u8 CONST_DATA gUnknown_089E857C[] = {
+    1 << 0, 1 << 1, 1 << 2, 1 << 3,
+    1 << 4, 1 << 5, 1 << 6, 1 << 7,
+};
 
 //! FE8U = 0x08083BD8
 void SetLocalEventId(int flag) {
