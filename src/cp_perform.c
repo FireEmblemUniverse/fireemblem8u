@@ -18,6 +18,7 @@
 #include "popup.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "ev_triggercheck.h"
 
 #include "cp_perform.h"
 

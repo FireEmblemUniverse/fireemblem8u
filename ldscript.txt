@@ -198,7 +198,7 @@ SECTIONS
         src/mapanim_lvupfx.o(.text);
         src/mapanim_lvup.o(.text);
         asm/code_mapanim.o(.text);
-        asm/ev_triggercheck.o(.text);
+        src/ev_triggercheck.o(.text);
         src/uidebug.o(.text);
         src/asmcs.o(.text);
         asm/code_8086934.o(.text);

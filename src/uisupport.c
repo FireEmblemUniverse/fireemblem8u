@@ -18,6 +18,7 @@
 #include "bmsave.h"
 #include "bmlib.h"
 #include "prepscreen.h"
+#include "ev_triggercheck.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -948,6 +949,8 @@ void sub_80A1A90(int idx) {
 
     return;
 }
+
+int sub_8083790(u8, u8, u8, int);
 
 //! FE8U = 0x080A1AAC
 int sub_80A1AAC(int idx, int partner, int unk) {

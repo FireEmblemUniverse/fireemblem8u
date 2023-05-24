@@ -12,6 +12,7 @@
 #include "ap.h"
 #include "gamecontrol.h"
 #include "bmlib.h"
+#include "ev_triggercheck.h"
 #include "savemenu.h"
 
 struct Unknown203EF64 {

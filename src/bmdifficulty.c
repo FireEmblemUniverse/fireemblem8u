@@ -15,6 +15,7 @@
 #include "bmsave.h"
 #include "popup.h"
 #include "bmlib.h"
+#include "ev_triggercheck.h"
 #include "bmdifficulty.h"
 
 /*

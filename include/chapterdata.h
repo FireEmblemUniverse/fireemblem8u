@@ -119,7 +119,7 @@ struct ChapterEventGroup
 {
     /* 00 */ void *turnBasedEvents;
     /* 04 */ void *characterBasedEvents; // must be 32-Aligned?
-    /* 08 */ struct EventCheckBuffer* locationBasedEvents;
+    /* 08 */ void *locationBasedEvents;
     /* 0C */ void *miscBasedEvents;
 
     // select unit -> select destination -> move unit to destination

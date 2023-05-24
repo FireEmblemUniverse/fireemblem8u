@@ -378,7 +378,7 @@ void sub_80337F0(struct ProcPrepSallyCursor*);
 void InitPrepScreenUnitsAndCamera(void);
 void sub_80338C0(void);
 void sub_8033940(struct ProcPrepSallyCursor*);
-void PrepScreenProc_MapIdle(ProcPtr);
+void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor* proc);
 int sub_8033BF8(void);
 void SALLYCURSOR6C_StartUnitSwap(struct ProcPrepSallyCursor*);
 void sub_8033C90(struct ProcPrepSallyCursor*);

@@ -33,6 +33,7 @@
 #include "bmsave.h"
 #include "ekrbattle.h"
 #include "prepscreen.h"
+#include "ev_triggercheck.h"
 
 struct UnkProc80855A0 {
     PROC_HEADER;

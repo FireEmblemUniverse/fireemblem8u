@@ -466,6 +466,16 @@ struct MMSData
     const void* pAnimation;
 };
 
+struct GMUnit {
+    /* 00 */ u8 state;
+    /* 01 */ u8 location;
+    /* 02 */ s16 id; // character or class ID
+};
+
+struct GMNode {
+    /* 00 */ u8 state;
+};
+
 struct GMapData
 {
     /* 00 */ u8 state;
@@ -474,9 +484,13 @@ struct GMapData
     /* 04 */ short yCamera;
     /* 08 */ u32 unk08;
     /* 0C */ u32 unk0C;
-    /* 10 */ struct { u8 state, location; u16 unk; } unk10[4];
-    /* 20 */ struct { u8 state, location; u16 unk; } unk20[4];
-    /* 30 */ struct { u8 unk; } unk30[0x1D];
+    /* 10 */ struct GMUnit unk10[8];
+    /* 30 */ struct GMNode unk30[0x1C];
+    /* A0 */ u8 _pad[0xC4-0xA0];
+    /* C4 */ int unk_c4; // path count
+    /* C8 */ u8 unk_c8; // entry node id?
+    /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
+    /* CC */ u8 unk_cc; // used to determine which skirmish enemy block to load
 };
 
 enum
@@ -527,17 +541,6 @@ struct FaceVramEntry
 {
     /* 00 */ u32 tileOffset;
     /* 04 */ u16 paletteId;
-};
-
-struct SupportTalkEnt {
-    /* 00 */ u16 unitA;
-    /* 02 */ u16 unitB;
-
-    /* 04 */ u16 msgSupportC;
-    /* 06 */ u16 msgSupportB;
-    /* 08 */ u16 msgSupportA;
-
-    u16 _pad[3];
 };
 
 struct Struct202B6B0 {

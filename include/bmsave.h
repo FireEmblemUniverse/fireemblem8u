@@ -143,6 +143,7 @@ enum
     DEFEAT_CAUSE_POISON,
     DEFEAT_CAUSE_5,
     DEFEAT_CAUSE_ARENA,
+    DEFEAT_CAUSE_7,
 };
 
 struct UnitUsageStats {

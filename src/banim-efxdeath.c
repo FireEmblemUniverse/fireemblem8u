@@ -6,6 +6,7 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "ekrdragon.h"
+#include "ev_triggercheck.h"
 
 CONST_DATA struct ProcCmd ProcScr_efxDeadEvent[] = {
     PROC_NAME("efxDeadEVTENT"),

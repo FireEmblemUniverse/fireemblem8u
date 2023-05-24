@@ -19,6 +19,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "bmlib.h"
+#include "ev_triggercheck.h"
 
 #include "bmmind.h"
 

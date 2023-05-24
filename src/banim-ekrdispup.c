@@ -7,6 +7,7 @@
 #include "banim_data.h"
 #include "ekrlevelup.h"
 #include "bmitem.h"
+#include "ev_triggercheck.h"
 
 void sub_805AA68(void *);
 void sub_805AE14(void *);

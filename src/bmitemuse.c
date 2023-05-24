@@ -21,6 +21,7 @@
 #include "face.h"
 #include "bm.h"
 #include "unitinfowindow.h"
+#include "ev_triggercheck.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
