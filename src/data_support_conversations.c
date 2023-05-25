@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "ev_triggercheck.h"
 #include "constants/characters.h"
 
 struct SupportTalkEnt CONST_DATA gSupportTalkList[] = {

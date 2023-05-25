@@ -15,6 +15,7 @@
 #include "bmsave.h"
 #include "popup.h"
 #include "bmlib.h"
+#include "ev_triggercheck.h"
 #include "bmdifficulty.h"
 
 /*
@@ -151,11 +152,11 @@ void UnlockPostgameAllyByEnemyCount() {
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         if ((gDungeonState.type == 0) && (dungeon->postgameEnemiesDefeated >= 200)) {
-            SetEventId(0x6B); // Riev
+            SetFlag(0x6B); // Riev
         }
 
         if ((gDungeonState.type == 1) && (dungeon->postgameEnemiesDefeated >= 200)) {
-            SetEventId(0x6C); // Hayden
+            SetFlag(0x6C); // Hayden
         }
     }
 
@@ -171,11 +172,11 @@ void UnlockPostgameAllyByClearCount() {
         struct Dungeon* dungeon = &gDungeonState.dungeon[gDungeonState.type];
 
         if ((gDungeonState.type == 0) && (dungeon->postgameClearCount >= 3)) {
-            SetEventId(0x6F); // Selena
+            SetFlag(0x6F); // Selena
         }
 
         if ((gDungeonState.type == 1) && (dungeon->postgameClearCount >= 3)) {
-            SetEventId(0x70); // Lyon
+            SetFlag(0x70); // Lyon
         }
     }
 
@@ -217,7 +218,7 @@ s8 PrepScreenProc_AddPostgameUnits(ProcPtr proc) {
     }
 
     for (i = 0; unitDefLut[i].eid != 0; i++) {
-        if (((s8)CheckEventId(unitDefLut[i].eid) == 1) && (TryAddPostgameUnit(proc, unitDefLut[i].uDef) == 1) ) {
+        if ((CheckFlag(unitDefLut[i].eid) == 1) && (TryAddPostgameUnit(proc, unitDefLut[i].uDef) == 1) ) {
             return 1;
         }
     }

@@ -13,6 +13,7 @@
 #include "bmsave.h"
 #include "ending_details.h"
 #include "bmlib.h"
+#include "ev_triggercheck.h"
 #include "gamecontrol.h"
 
 extern u16 gEvent_8A0035C[];
@@ -599,7 +600,7 @@ void sub_8009C5C(struct GameCtrlProc* proc) {
         gPlaySt.chapterStateBits |= PLAY_FLAG_TUTORIAL;
 
         ResetPermanentFlags();
-        ClearLocalEvents();
+        ResetChapterFlags();
 
         InitUnits();
 
@@ -691,7 +692,7 @@ void GameControl_ChapterSwitch(struct GameCtrlProc* proc) {
 
     StoreRNState(gGmMonsterRnState);
 
-    if (CheckEventId(3) != 0) {
+    if (CheckFlag(3) != 0) {
         RegisterChapterTimeAndTurnCount(&gPlaySt);
     }
 
@@ -748,7 +749,7 @@ void sub_8009E54(ProcPtr proc) {
             break;
     }
 
-    SetEventId(0x84);
+    SetFlag(0x84);
 
     return;
 }
@@ -768,7 +769,7 @@ void CallGameEndingEvent(ProcPtr proc) {
             break;
     }
 
-    SetEventId(0x84);
+    SetFlag(0x84);
 
     return;
 }

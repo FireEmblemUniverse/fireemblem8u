@@ -12,6 +12,7 @@
 #include "scene.h"
 #include "ekrbattle.h"
 #include "bmlib.h"
+#include "ev_triggercheck.h"
 #include "event.h"
 
 // TODO: move those where they belong when possible
@@ -542,13 +543,13 @@ void sub_800D488(struct EventEngineProc* unused) {
 
 void SetEventTriggerState(u16 triggerId, bool8 value) {
     if (!value)
-        UnsetEventId(triggerId);
+        ClearFlag(triggerId);
     else
-        SetEventId(triggerId);
+        SetFlag(triggerId);
 }
 
-int GetEventTriggerState(u16 triggerId) {
-    if (!CheckEventId(triggerId))
+s8 GetEventTriggerState(u16 triggerId) {
+    if (!CheckFlag(triggerId))
         return FALSE;
     return TRUE;
 }

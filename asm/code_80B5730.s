@@ -6001,7 +6001,7 @@ WMLoc_GetNextLocId: @ 0x080BB5E4
 	adds r4, r0, r1
 	movs r1, #6
 	ldrsh r0, [r4, r1]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	adds r1, r4, #0
 	adds r1, #8
@@ -19373,7 +19373,7 @@ _080C1868:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r7, #0
-	bl sub_8083400
+	bl GetChapterSkirmishLeaderClasses
 	movs r0, #3
 	bl NextRN_N
 	adds r1, r7, r0

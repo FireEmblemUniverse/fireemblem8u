@@ -33,6 +33,7 @@
 #include "bmsave.h"
 #include "ekrbattle.h"
 #include "prepscreen.h"
+#include "ev_triggercheck.h"
 
 struct UnkProc80855A0 {
     PROC_HEADER;
@@ -374,12 +375,12 @@ void sub_8085948(struct EventEngineProc *proc)
 
 void SetEventId_0x84(ProcPtr proc)
 {
-    SetEventId(0x84);
+    SetFlag(0x84);
 }
 
 void UnsetEventId_0x84(ProcPtr proc)
 {
-    UnsetEventId(0x84);
+    ClearFlag(0x84);
 }
 
 void sub_8085988(struct EventEngineProc *proc)

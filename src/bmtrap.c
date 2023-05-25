@@ -17,22 +17,13 @@
 #include "bmusailment.h"
 #include "bmudisp.h"
 #include "bmsave.h"
+#include "ev_triggercheck.h"
 
 #include "bmtrap.h"
-
-// code.s
-void PidStatsRecordLoseData(u8);
-void PidStatsRecordDefeatInfo(u8, u8, int);
 
 // trapfx.s
 void StartFireTrapAnim(ProcPtr, int, int);
 void StartFireTrapAnim2(ProcPtr, int, int);
-
-// ev_triggercheck.s
-s8 CheckForWaitEvents(void);
-void RunWaitEvents(void);
-struct TrapData* GetCurrentChapterBallistaePtr(void);
-struct TrapData* GetCurrentChapterBallistae2Ptr(void);
 
 // notifybox.s
 void NewPopup2_PlanA(ProcPtr, int, char*);
@@ -318,9 +309,9 @@ void LoadTrapData(struct TrapData* data) {
     return;
 }
 
-void LoadChapterBallistae() {
-    LoadTrapData(GetCurrentChapterBallistaePtr());
-    LoadTrapData(GetCurrentChapterBallistae2Ptr());
+void LoadChapterTraps() {
+    LoadTrapData(GetTrapPointer());
+    LoadTrapData(GetHardModeTrapPointer());
 
     return;
 }

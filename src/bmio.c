@@ -982,7 +982,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     ClearBattleMapState();
     sub_80156D4();
     SetupMapSpritesPalettes();
-    ClearLocalEvents();
+    ResetChapterFlags();
     ResetUnitSprites();
     ResetMenuOverrides();
     ClearTraps();
@@ -1026,7 +1026,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     }
 
     ClearTemporaryUnits();
-    LoadChapterBallistae();
+    LoadChapterTraps();
 
     if (gameCtrl)
         StartBMapMain(gameCtrl);
@@ -1061,7 +1061,7 @@ void RestartBattleMap(void) {
     InitChapterMap(gPlaySt.chapterIndex);
 
     InitMapObstacles();
-    LoadChapterBallistae();
+    LoadChapterTraps();
     BMapVSync_End();
     BMapVSync_Start();
 

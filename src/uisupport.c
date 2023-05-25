@@ -18,6 +18,7 @@
 #include "bmsave.h"
 #include "bmlib.h"
 #include "prepscreen.h"
+#include "ev_triggercheck.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -53,7 +54,7 @@ struct SubScreenProc {
     /* 3B */ u8 unk_3b;
     /* 3C */ u8 partnerCount;
     /* 3D */ u8 remainingSupports;
-    /* 3E */ u8 unk_3e;
+    /* 3E */ u8 songId;
     /* 3F */ u8 partnerState[UNIT_SUPPORT_MAX_COUNT];
     /* 46 */ u8 supportLevel[UNIT_SUPPORT_MAX_COUNT];
     /* 4D */ u8 partnerClassId[UNIT_SUPPORT_MAX_COUNT];
@@ -949,13 +950,15 @@ void sub_80A1A90(int idx) {
     return;
 }
 
+int GetSupportTalkSong_(u8, u8, u8, int);
+
 //! FE8U = 0x080A1AAC
-int sub_80A1AAC(int idx, int partner, int unk) {
-    return sub_8083790(
+int UiSupport_GetSupportTalkSong(int idx, int partner, int rank) {
+    return GetSupportTalkSong_(
         0,
         GetSupportScreenCharIdAt(idx),
         GetSupportScreenPartnerCharId(idx, partner),
-        unk
+        rank
     );
 }
 
@@ -1518,7 +1521,7 @@ void sub_80A25F8(struct SubScreenProc* proc) {
     LoadLegacyUiFrameGraphics();
     LoadObjUIGfx();
 
-    sub_8083764(
+    StartSupportViewerTalk(
         GetSupportScreenCharIdAt(proc->unitIdx),
         GetSupportScreenPartnerCharId(proc->unitIdx, proc->unk_39 >> 2 & 7),
         (proc->unk_39 & 3) + 1
@@ -1764,16 +1767,16 @@ void SupportSubScreen_OnEnd(struct SubScreenProc* proc) {
 //! FE8U = 0x080A2B7C
 void SupportSubScreen_PrepareSupportConvo(struct SubScreenProc* proc) {
 
-    proc->unk_3e = sub_80A1AAC(
+    proc->songId = UiSupport_GetSupportTalkSong(
         proc->unitIdx,
         proc->unk_39 >> 2 & 7,
         (proc->unk_39 & 3) + 1
     );
 
-    if (proc->unk_3e == 0) {
+    if (proc->songId == 0) {
         sub_80029E8(9, 0x100, 0x80, 0x10, 0);
     } else {
-        sub_80029E8(proc->unk_3e, 0x100, 0x100, 0x10, 0);
+        sub_80029E8(proc->songId, 0x100, 0x100, 0x10, 0);
     }
 
     return;
@@ -1782,7 +1785,7 @@ void SupportSubScreen_PrepareSupportConvo(struct SubScreenProc* proc) {
 //! FE8U = 0x080A2BD0
 void sub_80A2BD0(struct SubScreenProc* proc) {
 
-    if (proc->unk_3e == 0) {
+    if (proc->songId == 0) {
         sub_80029E8(9, 0x80, 0x100, 0x10, 0);
     } else {
         sub_80029E8(9, 0x100, 0x100, 0x10, 0);

@@ -10,19 +10,13 @@
 #include "bmreliance.h"
 #include "bmarch.h"
 #include "rng.h"
+#include "bmsave.h"
+#include "ev_triggercheck.h"
 
 #include "constants/classes.h"
 #include "constants/terrains.h"
 
 struct Unit* EWRAM_DATA gSubjectUnit = NULL;
-
-// ev_triggercheck.s
-s8 sub_8083F68(u8, u8);
-s8 IsThereClosedDoorAt(s8, s8);
-
-// code.s
-void PidStatsRecordDefeatInfo(u8, u8, int);
-void PidStatsRecordLoseData(u8);
 
 s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
@@ -414,7 +408,7 @@ void TryAddUnitToTalkTargetList(struct Unit* unit) {
         return;
     }
 
-    if (!sub_8083F68(gSubjectUnit->pCharacterData->number, unit->pCharacterData->number)) {
+    if (!CheckForCharacterEvents(gSubjectUnit->pCharacterData->number, unit->pCharacterData->number)) {
         return;
     }
 

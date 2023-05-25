@@ -21,6 +21,7 @@
 #include "popup.h"
 #include "bmudisp.h"
 #include "classchg.h"
+#include "ev_triggercheck.h"
 
 #include "bmusemind.h"
 
@@ -63,10 +64,6 @@ void StartLightRuneAnim2(ProcPtr, int, int);
 
 // minefx.s
 void StartMineAnim(ProcPtr, int, int);
-
-// ev_triggercheck.s
-void sub_80831C8(s8, s8);
-void sub_808320C(s8, s8);
 
 void ExecStandardHeal(ProcPtr proc) {
     int amount;
@@ -560,12 +557,12 @@ void sub_802F510() {
     x = GetUnit(gActionData.subjectIndex)->xPos;
     y = GetUnit(gActionData.subjectIndex)->yPos;
 
-    sub_808320C(x - 1, y);
-    sub_808320C(x + 1, y);
-    sub_808320C(x, y - 1);
-    sub_808320C(x, y + 1);
+    StartAvailableDoorTileEvent(x - 1, y);
+    StartAvailableDoorTileEvent(x + 1, y);
+    StartAvailableDoorTileEvent(x, y - 1);
+    StartAvailableDoorTileEvent(x, y + 1);
 
-    sub_80831C8(x, y);
+    StartAvailableChestTileEvent(x, y);
 
     PlaySoundEffect(0xB1);
 
@@ -1080,9 +1077,9 @@ void ActionPick(ProcPtr proc) {
     xPos = gActionData.xOther;
     yPos = gActionData.yOther;
 
-    sub_808320C(xPos, yPos);
+    StartAvailableDoorTileEvent(xPos, yPos);
 
-    sub_80831C8(xPos, yPos);
+    StartAvailableChestTileEvent(xPos, yPos);
 
     PlaySoundEffect(0xB1);
 

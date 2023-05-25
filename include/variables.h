@@ -398,7 +398,7 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001C68
 // extern ??? gUnknown_03001C74
 // extern ??? gUnknown_03001C7C
-// extern ??? gUnknown_03001C80
+// extern ??? gActiveEventRegistry
 // extern ??? gUnknown_03001CC0
 // extern ??? gUnknown_03001CC8
 // extern ??? gUnknown_03001CE8
@@ -460,8 +460,8 @@ extern int gEkrYQuakeOff;
 // extern ??? MADebugInfo
 // extern ??? gUnknown_03005090
 // extern ??? gUnknown_03005110
-// extern ??? gUnknown_03005250
-// extern ??? gUnknown_03005270
+// extern ??? gPermanentFlagBits
+// extern ??? gChapterFlagBits
 extern struct GMapData gGMData;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
@@ -2175,13 +2175,6 @@ extern u16 CONST_DATA Pal_PoisonAnim[];
 // extern ??? gUnknown_089E7DEC
 // extern ??? gUnknown_089E8238
 // extern ??? gUnknown_089E84D4
-// extern ??? gUnknown_089E84F4
-// extern ??? gUnknown_089E857C
-// extern ??? gUnknown_089EC6BC
-// extern ??? gUnknown_089ECD4C
-extern struct SupportTalkEnt CONST_DATA gSupportTalkList[];
-// extern ??? gUnknown_089ED64C
-// extern ??? gUnknown_089ED674
 // extern ??? gUnknown_089ED67C
 // extern ??? gUnknown_089ED694
 // extern ??? gUnknown_089ED6AC
@@ -2200,7 +2193,7 @@ extern struct ProcCmd gUnknown_089EEA28[];
 extern const struct MenuDef gUnknown_089F36A0;
 // extern ??? gUnknown_089FF480
 // extern ??? gEvent_SkirmishCommonBeginning
-// extern ??? gUnknown_089FFD64
+extern u16 gEvent_SkirmishCommonEnd[];
 // extern ??? gEvent_8A0035C
 // extern ??? gEvent_8A00364
 // extern ??? gEvent_EirikaModeGameEnd

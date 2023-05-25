@@ -20,6 +20,7 @@
 #include "bm.h"
 #include "spellassoc.h"
 #include "bmlib.h"
+#include "ev_triggercheck.h"
 #include "constants/characters.h"
 #include "constants/items.h"
 #include "constants/classes.h"
@@ -173,14 +174,14 @@ void MapAnimProc_DisplayDeahQuote(void)
         switch (charid) {
         case CHARACTER_EIRIKA:
         case CHARACTER_EPHRAIM:
-            if (CheckEventId(0x65)) // TODO: flag constants
-                UnsetEventId(0x65); // TODO: flag constants
+            if (CheckFlag(0x65)) // TODO: flag constants
+                ClearFlag(0x65); // TODO: flag constants
             break;
         }
 
-        if (EkrCheckSomeDeathMaybe(charid)) {
+        if (ShouldDisplayDefeatTalkForPid(charid)) {
             DeleteBattleAnimInfoThing();
-            sub_80835DC(charid);
+            DisplayDefeatTalkForPid(charid);
         }
     }
 }

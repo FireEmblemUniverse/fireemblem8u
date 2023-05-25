@@ -15,6 +15,7 @@
 #include "bmunit.h"
 #include "bmsave.h"
 #include "sram-layout.h"
+#include "ev_triggercheck.h"
 
 /* variables */
 EWRAM_DATA u32 gBonusContentClaimFlags = 0;
@@ -260,7 +261,7 @@ s8 LoadSavedEid8A(int slot)
 {
     void *sram_base = GetSaveReadAddr(slot);
     ReadPermanentFlags_ret(sram_base + GAMESAVE_OFFSET_PERMANENTFLAGS, gGenericBuffer);
-    return sub_8083D34(0x8A, gGenericBuffer);
+    return CheckPermanentFlagFrom(0x8A, gGenericBuffer);
 }
 
 bool IsGameNotFirstChapter(struct PlaySt *chapter_data)

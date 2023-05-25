@@ -34,10 +34,6 @@
 // hino.s
 void WaitForFade(ProcPtr);
 
-// ev_triggercheck.s
-const struct UnitDefinition* GetChapterAllyUnitDataPointer();
-struct EventCheckBuffer* CheckForEvents(struct EventCheckBuffer*);
-
 // evtsub.s
 void InitPlayerUnitPositionsForPrepScreen();
 void sub_801240C();
@@ -85,7 +81,7 @@ static struct ProcCmd CONST_DATA sProcScr_SALLYCURSORHelpPrompt[] = {
 struct ProcCmd CONST_DATA gProcScr_SALLYCURSOR[] = {
     PROC_NAME("SALLYCURSOR"),
 
-    PROC_SLEEP(0x10),
+    PROC_SLEEP(16),
     PROC_CALL(sub_80341D0),
     PROC_WHILE(PrepScreenProc_AddPostgameUnits),
     PROC_SLEEP(1),
@@ -107,9 +103,9 @@ PROC_LABEL(2),
     PROC_SLEEP(0),
     PROC_CALL(sub_80338C0),
 
-    PROC_GOTO(0x32),
+    PROC_GOTO(50),
 
-PROC_LABEL(0x33),
+PROC_LABEL(51),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(StartPrepAtMenu),
@@ -118,7 +114,7 @@ PROC_LABEL(0x33),
 
     // fallthrough
 
-PROC_LABEL(0x32),
+PROC_LABEL(50),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
@@ -128,7 +124,7 @@ PROC_LABEL(0x32),
     PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_GOTO(0x3D),
+    PROC_GOTO(61),
 
 PROC_LABEL(0),
     PROC_CALL(sub_8033514),
@@ -137,7 +133,7 @@ PROC_LABEL(0),
 
     // fallthrough
 
-PROC_LABEL(0x3D),
+PROC_LABEL(61),
     PROC_CALL(EnablePrepScreenMenu),
     PROC_WHILE(PrepScreenMenuExists),
     PROC_CALL(sub_80334E8),
@@ -164,25 +160,25 @@ PROC_LABEL(1),
 
     PROC_GOTO(9),
 
-PROC_LABEL(0x35),
+PROC_LABEL(53),
     PROC_CALL(sub_803348C),
     PROC_WHILE_EXISTS(gProcScr_CamMove),
-    PROC_CALL(SALLYCURSOR_DeploySupplyUnit), // add convoy unit?
+    PROC_CALL(SALLYCURSOR_DeploySupplyUnit),
 
-    PROC_GOTO(0x34),
+    PROC_GOTO(52),
 
-PROC_LABEL(0x36),
+PROC_LABEL(54),
     PROC_CALL(sub_803348C),
     PROC_WHILE_EXISTS(gProcScr_CamMove),
-    PROC_CALL(SALLYCURSOR_RemoveSupplyUnit), // remove convoy unit?
+    PROC_CALL(SALLYCURSOR_RemoveSupplyUnit),
 
-    PROC_GOTO(0x34),
+    PROC_GOTO(52),
 
-PROC_LABEL(0x34),
+PROC_LABEL(52),
     PROC_CALL(sub_8033E8C),
     PROC_SLEEP(0),
     PROC_CALL(sub_8033EA4),
-    PROC_SLEEP(0x3C),
+    PROC_SLEEP(60),
 
     PROC_GOTO(0),
 
@@ -222,11 +218,11 @@ PROC_LABEL(4),
 
     PROC_GOTO(9),
 
-PROC_LABEL(0xB),
+PROC_LABEL(11),
 
     PROC_GOTO(1),
 
-PROC_LABEL(0x39),
+PROC_LABEL(57),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
@@ -235,9 +231,9 @@ PROC_LABEL(0x39),
     PROC_SLEEP(0),
     PROC_CALL(BMapDispResume),
 
-    PROC_GOTO(0x3E),
+    PROC_GOTO(62),
 
-PROC_LABEL(0x38),
+PROC_LABEL(56),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
@@ -246,9 +242,9 @@ PROC_LABEL(0x38),
     PROC_SLEEP(0),
     PROC_CALL(BMapDispResume),
 
-    PROC_GOTO(0x3E),
+    PROC_GOTO(62),
 
-PROC_LABEL(0x3B),
+PROC_LABEL(59),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
@@ -258,9 +254,9 @@ PROC_LABEL(0x3B),
     PROC_CALL(BMapDispResume),
     PROC_CALL(sub_8034168),
 
-    PROC_GOTO(0x3E),
+    PROC_GOTO(62),
 
-PROC_LABEL(0x37),
+PROC_LABEL(55),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_8034078),
@@ -271,7 +267,7 @@ PROC_LABEL(0x37),
 
     PROC_BLOCK,
 
-PROC_LABEL(0x3E),
+PROC_LABEL(62),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
@@ -281,9 +277,9 @@ PROC_LABEL(0x3E),
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_GOTO(0x3D),
+    PROC_GOTO(61),
 
-PROC_LABEL(0x3C),
+PROC_LABEL(60),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(HideMoveRangeGraphics),
@@ -302,11 +298,11 @@ PROC_LABEL(0x3C),
 
     PROC_GOTO(9),
 
-PROC_LABEL(0x3A),
+PROC_LABEL(58),
     PROC_SLEEP(0),
     PROC_CALL(PrepScreenProc_StartMapMenu),
 
-    PROC_GOTO(0x3D),
+    PROC_GOTO(61),
 
     PROC_END,
 };
@@ -315,14 +311,17 @@ PROC_LABEL(0x3A),
 int GetPlayerLeaderUnitId() {
     int i;
     int unitId;
+
     switch (gPlaySt.chapterModeIndex) {
-        case 1: // tutorial (chapter 0-8)
-        case 2: // Eirika
+        case CHAPTER_MODE_COMMON:
+        case CHAPTER_MODE_EIRIKA:
             unitId = CHARACTER_EIRIKA;
             break;
-        case 3: // Ephraim
+
+        case CHAPTER_MODE_EPHRAIM:
             unitId = CHARACTER_EPHRAIM;
             break;
+
         default:
             break;
     }
@@ -343,7 +342,7 @@ int GetPlayerLeaderUnitId() {
             }
         }
 
-        for (i = 1; i <= 0x3F; ++i) { // TODO - Is there a constant for number of units?
+        for (i = FACTION_BLUE + 1; i < FACTION_GREEN; ++i) {
             unit = GetUnit(i);
 
             if (!UNIT_IS_VALID(unit) || (unit->state & US_UNAVAILABLE)) {
@@ -362,7 +361,7 @@ void sub_80332D0() {
     const struct UnitDefinition* uDef = GetChapterAllyUnitDataPointer();
     BmMapFill(gBmMapRange, 0);
     BmMapFill(gBmMapMovement, -1);
-    uDef += CalcForceDeployedUnitCounts(); // TODO - Seems to be count of non-deployable / force-deployed characters
+    uDef += CalcForceDeployedUnitCounts();
 
     if (uDef->charIndex != 0) {
         while (uDef->charIndex) {
@@ -434,7 +433,7 @@ void SALLYCURSOR_DeploySupplyUnit() {
 
 void PrepMapMenu_OnOptions(struct ProcPrepSallyCursor* proc) {
     proc->unk_58 = 8;
-    Proc_Goto(proc, 0x39);
+    Proc_Goto(proc, 57);
     return;
 }
 
@@ -454,7 +453,7 @@ void SALLYCURSOR_RemoveSupplyUnit() {
 
 void PrepMapMenu_OnSave(struct ProcPrepSallyCursor* proc) {
     proc->unk_58 = 9;
-    Proc_Goto(proc, 0x3B);
+    Proc_Goto(proc, 59);
     return;
 }
 
@@ -462,7 +461,7 @@ void sub_8033468(struct ProcPrepSallyCursor* proc) {
     proc->unk_58 = 0xA;
     sub_803334C();
     StartOrphanMenu(&gDebugMenuDef);
-    Proc_Goto(proc, 0x3A);
+    Proc_Goto(proc, 58);
     return;
 }
 
@@ -497,19 +496,19 @@ void sub_8033514(ProcPtr proc) {
 }
 
 void sub_8033548(ProcPtr proc) {
-    StartHelpPromptSprite(0xAA, 0x8C, 2, proc);
+    StartHelpPromptSprite(170, 140, 2, proc);
     Decompress(gUnknown_08A199C8, (void *) (OBJ_VRAM1 + 0x3000));
     ((struct ProcPrepSallyCursor*)(proc))->unk_58 = 0;
     return;
 }
 
 void sub_8033574() {
-    PutSprite(4, 0x64, 0x8C, gObject_32x16, 0x0000238B);
-    PutSprite(4, 0x84, 0x8C, gObject_32x16, 0x0000238F);
-    PutSprite(4, 0xA4, 0x8C, gObject_16x16, 0x00002393);
-    PutSprite(4, 0x10, 0x8C, gObject_32x16, 0x00002395);
-    PutSprite(4, 0x30, 0x8C, gObject_32x16, 0x00002399);
-    PutSprite(4, 0x50, 0x8C, gObject_8x16, 0x0000239D);
+    PutSprite(4, 100, 140, gObject_32x16, 0x0000238B);
+    PutSprite(4, 132, 140, gObject_32x16, 0x0000238F);
+    PutSprite(4, 164, 140, gObject_16x16, 0x00002393);
+    PutSprite(4, 16, 140, gObject_32x16, 0x00002395);
+    PutSprite(4, 48, 140, gObject_32x16, 0x00002399);
+    PutSprite(4, 80, 140, gObject_8x16, 0x0000239D);
 }
 
 void sub_8033608() {
@@ -550,7 +549,7 @@ void PrepScreenProc_StartMapMenu(struct ProcPrepSallyCursor* proc) {
     SetPrepScreenMenuOnBPress(*PrepMapMenu_OnBPress);
     SetPrepScreenMenuOnStartPress(*PrepMapMenu_OnStartPress);
     SetPrepScreenMenuOnEnd(*PrepMapMenu_OnEnd);
-    DrawPrepScreenMenuFrameAt(0xA, 2);
+    DrawPrepScreenMenuFrameAt(10, 2);
 
     SetPrepScreenMenuSelectedItem(proc->unk_58);
     BG_EnableSyncByMask(3);
@@ -558,7 +557,7 @@ void PrepScreenProc_StartMapMenu(struct ProcPrepSallyCursor* proc) {
 }
 
 bool8 CanCharacterBePrepMoved(int unitId) {
-    if ((IsCharacterForceDeployed(unitId)) == 0) {
+    if (!IsCharacterForceDeployed(unitId)) {
         if (unitId != 0x100) {
             return 1;
         }
@@ -656,7 +655,7 @@ void InitPrepScreenUnitsAndCamera() {
 
     gBmSt.camera.x = GetCameraCenteredX(0);
     gBmSt.camera.y = GetCameraCenteredY(0);
-    gBmSt.gameStateBits |= PLAY_FLAG_PREPSCREEN;
+    gBmSt.gameStateBits |= BM_FLAG_4;
 
     RefreshEntityBmMaps();
     RenderBmMap();
@@ -700,7 +699,7 @@ void sub_8033940(struct ProcPrepSallyCursor* proc) {
     return;
 }
 
-void PrepScreenProc_MapIdle(ProcPtr proc) {
+void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor* proc) {
     HandlePlayerCursorMovement();
     if (!DoesBMXFADEExist()) {
         if (L_BUTTON & gKeyStatusPtr->newKeys) {
@@ -744,7 +743,7 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
                         case TERRAIN_VENDOR:
                         case TERRAIN_ARMORY:
                             PlaySoundEffect(0x6A);
-                            Proc_Goto(proc, 0x3C);
+                            Proc_Goto(proc, 60);
                             return;
                         default:
                             Proc_Goto(proc, 0);
@@ -755,7 +754,7 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
                     UnitBeginAction(unit);
                     gActiveUnit->state &= ~(US_HIDDEN);
 
-                    if (((struct ProcPrepSallyCursor*)(proc))->unk_58 == 2) {
+                    if (proc->unk_58 == 2) {
                         Proc_Goto(proc, 3);
                         return;
                     }
@@ -763,7 +762,7 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
                     Proc_Goto(proc, 1);
                     return;
                 case 4:
-                    if (((struct ProcPrepSallyCursor*)(proc))->unk_58 == 2) {
+                    if (proc->unk_58 == 2) {
                         PlaySoundEffect(0x6C);
                         return;
                     }
@@ -792,7 +791,7 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
 
 int sub_8033BF8() {
     ProcPtr proc = Proc_Find(gProcScr_SALLYCURSOR);
-    Proc_Goto(proc, 0x33);
+    Proc_Goto(proc, 51);
     return 0x17;
 }
 
@@ -900,24 +899,26 @@ void sub_8033EC0(ProcPtr proc) {
 }
 
 void CallCursorShop(ProcPtr proc) {
-    struct EventCheckBuffer r0;
-    const struct ChapterEventGroup *einfo = GetChapterEventDataPointer(gPlaySt.chapterIndex);
-    struct EventCheckBuffer *buf;
-    r0.eventDef = einfo->locationBasedEvents;
+    struct EventInfo info;
+    const struct ChapterEventGroup *evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
+    struct EventInfo *pInfo;
 
-    r0.xPos = gBmSt.playerCursor.x;
-    r0.yPos = gBmSt.playerCursor.y;
-    buf = CheckForEvents(&r0);
-    if (!buf) {
+    info.listScript = evGroup->locationBasedEvents;
+    info.xPos = gBmSt.playerCursor.x;
+    info.yPos = gBmSt.playerCursor.y;
+
+    pInfo = SearchAvailableEvent(&info);
+    if (!pInfo) {
         return;
     }
 
-    switch (r0.commandId) {
-        case 0x16:
-            StartArmoryScreen(0, (u16*) r0.eventCode, proc);
+    switch (info.commandId) {
+        case TILE_COMMAND_ARMORY:
+            StartArmoryScreen(NULL, (u16*) info.script, proc);
             break;
-        case 0x17:
-            StartVendorScreen(0, (u16*) r0.eventCode, proc);
+
+        case TILE_COMMAND_VENDOR:
+            StartVendorScreen(NULL, (u16*) info.script, proc);
             break;
     }
 
@@ -930,7 +931,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc) {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON)) {
         MU_EndAll();
         gActiveUnit->state &= ~US_HIDDEN;
-        gBmSt.gameStateBits &= 0xF7;
+        gBmSt.gameStateBits &= ~BM_FLAG_3;
 
         HideMoveRangeGraphics();
         RefreshEntityBmMaps();
@@ -981,7 +982,7 @@ void sub_8034078(ProcPtr proc) {
 void sub_8034090(ProcPtr proc) {
     if (gActiveUnit == NULL) {
         RefreshBMapGraphics();
-        Proc_Goto(proc, 0xC);
+        Proc_Goto(proc, 12);
         return;
     }
 
@@ -993,7 +994,7 @@ void sub_8034090(ProcPtr proc) {
     gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
     gActiveUnit->state |= US_HIDDEN;
 
-    Proc_Goto(proc, 0xB);
+    Proc_Goto(proc, 11);
 
     return;
 }
@@ -1001,7 +1002,7 @@ void sub_8034090(ProcPtr proc) {
 void StartPrepSaveScreen(ProcPtr proc) {
     gPlaySt.unk4A_2 = 2;
 
-    if (!(0x20 & gPlaySt.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {
+    if (!(PLAY_FLAG_COMPLETE & gPlaySt.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {
         gPlaySt.unk4A_2 = 4;
     }
 
@@ -1056,39 +1057,41 @@ void sub_8034200() {
 }
 
 void ShrinkPlayerUnits() {
-    int uid;
+    int i;
 
-    if (!(0x80 & gPlaySt.chapterStateBits)) {
+    if (!(PLAY_FLAG_7 & gPlaySt.chapterStateBits)) {
         return;
     }
 
-    if ((0x40 & gBmSt.gameStateBits)) {
+    if (BM_FLAG_LINKARENA & gBmSt.gameStateBits) {
         return;
     }
 
     InitUnitStack(gGenericBuffer);
-    for (uid = 1; uid <= 0x3F; ++uid) {
-        struct Unit* unit = GetUnit(uid);
-        if (UNIT_IS_VALID(unit)) {
-            if (!(unit->state & US_UNAVAILABLE)) {
-                PushUnit(unit);
-            }
+
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; ++i) {
+        struct Unit* unit = GetUnit(i);
+
+        if (!UNIT_IS_VALID(unit)) {
+            continue;
+        }
+
+        if (!(unit->state & US_UNAVAILABLE)) {
+            PushUnit(unit);
         }
     }
+
     LoadPlayerUnitsFromUnitStack2();
+
     return;
 }
 
 void EndPrepScreen() {
-    int uid;
-    for (uid = 1; uid <= 0x3F; ++uid) {
-        struct Unit* unit = GetUnit(uid);
+    int i;
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; ++i) {
+        struct Unit* unit = GetUnit(i);
 
-        if (!unit) {
-            continue;
-        }
-
-        if (!unit->pCharacterData) {
+        if (!UNIT_IS_VALID(unit)) {
             continue;
         }
 
@@ -1107,8 +1110,8 @@ void EndPrepScreen() {
 
     ShrinkPlayerUnits();
     Proc_EndEach(gProcScr_SALLYCURSOR);
-    gBmSt.gameStateBits &= 0xEF;
-    gPlaySt.chapterStateBits &= 0xEF;
+    gBmSt.gameStateBits &= ~BM_FLAG_4;
+    gPlaySt.chapterStateBits &= ~PLAY_FLAG_PREPSCREEN;
     gPlaySt.unk4A_1 = 1;
     return;
 }

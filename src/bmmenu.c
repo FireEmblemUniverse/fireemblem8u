@@ -33,6 +33,7 @@
 #include "uiconfig.h"
 #include "bm.h"
 #include "unitinfowindow.h"
+#include "ev_triggercheck.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -735,7 +736,7 @@ u8 UnitActionMenu_CanSeize(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    return GetAvailableLocaCommandAt(gActiveUnit->xPos, gActiveUnit->yPos) == 0x11
+    return GetAvailableTileEventCommand(gActiveUnit->xPos, gActiveUnit->yPos) == TILE_COMMAND_SEIZE
         ? MENU_ENABLED : MENU_NOTSHOWN;
 }
 
@@ -766,7 +767,7 @@ u8 VisitCommandUsability(const struct MenuItemDef* def, int number) {
             break;
     }
 
-    if (GetAvailableLocaCommandAt(gActiveUnit->xPos, gActiveUnit->yPos) == 0x10) {
+    if (GetAvailableTileEventCommand(gActiveUnit->xPos, gActiveUnit->yPos) == TILE_COMMAND_VISIT) {
         if (IsUnitMagicSealed(gActiveUnit)) {
             return MENU_DISABLED;
         }
@@ -1670,13 +1671,13 @@ u8 ArmoryCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    return GetAvailableLocaCommandAt(gActiveUnit->xPos, gActiveUnit->yPos) == 0x16
+    return GetAvailableTileEventCommand(gActiveUnit->xPos, gActiveUnit->yPos) == TILE_COMMAND_ARMORY
         ? MENU_ENABLED : MENU_NOTSHOWN;
 }
 
 u8 ArmoryCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
-    sub_80840C4(gActiveUnit->xPos, gActiveUnit->yPos);
+    StartAvailableTileEvent(gActiveUnit->xPos, gActiveUnit->yPos);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -1691,13 +1692,13 @@ u8 VendorCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    return GetAvailableLocaCommandAt(gActiveUnit->xPos, gActiveUnit->yPos) == 0x17
+    return GetAvailableTileEventCommand(gActiveUnit->xPos, gActiveUnit->yPos) == TILE_COMMAND_VENDOR
         ? MENU_ENABLED : MENU_NOTSHOWN;
 }
 
 u8 VendorCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
-    sub_80840C4(gActiveUnit->xPos, gActiveUnit->yPos);
+    StartAvailableTileEvent(gActiveUnit->xPos, gActiveUnit->yPos);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -1711,12 +1712,12 @@ u8 SecretShopCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    return GetAvailableLocaCommandAt(gActiveUnit->xPos, gActiveUnit->yPos) == 0x18
+    return GetAvailableTileEventCommand(gActiveUnit->xPos, gActiveUnit->yPos) == TILE_COMMAND_SECRET
         ? MENU_ENABLED : MENU_NOTSHOWN;
 }
 
 u8 SecretShopCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    sub_80840C4(gActiveUnit->xPos, gActiveUnit->yPos);
+    StartAvailableTileEvent(gActiveUnit->xPos, gActiveUnit->yPos);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -2413,13 +2414,13 @@ u8 MapMenu_IsRecordsCommandAvailable(const struct MenuItemDef* def, int number) 
         return MENU_ENABLED;
     }
 
-    if ((CheckEventId(0x71) == 0) ||
-        (CheckEventId(0x72) == 0) ||
-        (CheckEventId(0x73) == 0) ||
-        (CheckEventId(0x74) == 0) ||
-        (CheckEventId(0x75) == 0) ||
-        (CheckEventId(0x76) == 0) ||
-        (CheckEventId(0x77) == 0)) {
+    if ((CheckFlag(0x71) == 0) ||
+        (CheckFlag(0x72) == 0) ||
+        (CheckFlag(0x73) == 0) ||
+        (CheckFlag(0x74) == 0) ||
+        (CheckFlag(0x75) == 0) ||
+        (CheckFlag(0x76) == 0) ||
+        (CheckFlag(0x77) == 0)) {
         return MENU_NOTSHOWN;
     }
 
