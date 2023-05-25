@@ -5,19 +5,29 @@ enum
 {
     TILE_COMMAND_NONE,
 
-    TILE_COMMAND_10       = 0x10,
-    TILE_COMMAND_11       = 0x11,
+    TILE_COMMAND_VISIT    = 0x10,
+    TILE_COMMAND_SEIZE    = 0x11,
 
     TILE_COMMAND_DOOR     = 0x12,
     TILE_COMMAND_BRIDGE   = 0x13,
     TILE_COMMAND_CHEST    = 0x14,
-
+    TILE_COMMAND_15       = 0x15,
     TILE_COMMAND_ARMORY   = 0x16,
     TILE_COMMAND_VENDOR   = 0x17,
     TILE_COMMAND_SECRET   = 0x18,
     TILE_COMMAND_SHOP_UNK = 0x19,
 
     TILE_COMMAND_20       = 0x20,
+};
+
+enum {
+    TUTORIAL_EVT_TYPE_PHASECHANGE = 0,
+    TUTORIAL_EVT_TYPE_POSTACTION = 1,
+    TUTORIAL_EVT_TYPE_ONSELECT = 2,
+    TUTORIAL_EVT_TYPE_DESTSELECTED = 3,
+    TUTORIAL_EVT_TYPE_AFTERMOVE = 4,
+    TUTORIAL_EVT_TYPE_FORECAST = 5,
+    TUTORIAL_EVT_TYPE_PLAYERPHASE = 6,
 };
 
 typedef uintptr_t EventListScr;
@@ -83,12 +93,12 @@ struct ForceDeploymentEnt {
     /* 02 */ u8 chapter;
 };
 
-// ??? CallEventsFromBuffer(???);
-struct EventInfo* CheckForEvents(struct EventInfo* info);
-// ??? CheckForNextEvents(???);
-// ??? sub_8082F58(???);
-// ??? sub_8082F84(???);
-// ??? sub_8082FB8(???);
+// ??? StartEventFromInfo(???);
+struct EventInfo* SearchAvailableEvent(struct EventInfo* info);
+// ??? SearchNextAvailableEvent(???);
+// ??? EventInfoCheckTalk(???);
+// ??? CheckActiveUnitArea(???);
+// ??? CheckAnyBlueUnitArea(???);
 // ??? sub_8083018(???);
 // ??? sub_8083044(???);
 // ??? sub_8083094(???);
@@ -96,108 +106,108 @@ struct EventInfo* CheckForEvents(struct EventInfo* info);
 // ??? sub_80830D4(???);
 // ??? sub_80830FC(???);
 // ??? sub_8083124(???);
-// ??? sub_808314C(???);
+// ??? CheckAnyRedUnitArea(???);
 s8 IsThereClosedChestAt(s8 x, s8 y);
-// ??? sub_80831C8(???);
-// ??? IsThereClosedDoorAt(???);
-// ??? sub_808320C(???);
+void StartAvailableChestTileEvent(s8, s8);
+s8 IsThereClosedDoorAt(s8 x, s8 y);
+void StartAvailableDoorTileEvent(s8, s8);
 // ??? sub_8083234(???);
-// ??? sub_8083250(???);
-// ??? sub_808326C(???);
-// ??? sub_8083280(???);
+s8 ShouldCallEndEvent(void);
+void MaybeCallEndEvent_(void);
+// ??? CallEndEvent(???);
 s8 sub_80832C4(void);
 s8 sub_80832C8(void);
-// ??? sub_80832CC(???);
+s8 sub_80832CC(void);
 s8 sub_80832D0(void);
 s8 sub_80832D4(void);
-s8 CheckEventId3(void);
-void sub_80832E8(void);
-// ??? GetCurrentChapterBallistaePtr(???);
-// ??? GetCurrentChapterBallistae2Ptr(???);
+s8 CheckWin(void);
+void MaybeCallEndEvent(void);
+struct TrapData* GetTrapPointer(void);
+struct TrapData* GetHardModeTrapPointer(void);
 void* GetChapterAllyUnitDataPointer(void);
-// ??? sub_80833B0(???);
-// ??? sub_8083400(???);
+// ??? GetChapterEnemyUnitDefinitions(???);
+// ??? GetChapterSkirmishLeaderClasses(???);
 // ??? sub_8083424(???);
-// ??? sub_8083468(???);
+// ??? GetAvailableBattleTalk(???);
 bool ShouldCallBattleQuote(u8 charA, u8 charB);
 void CallBattleQuoteEventsIfAny(u8 charA, u8 charB);
-// ??? sub_8083570(???);
-bool EkrCheckSomeDeathMaybe(u8 pid);
-void sub_80835DC(u8 pid);
+// ??? SetPidDefeatedFlag(???);
+bool ShouldDisplayDefeatTalkForPid(u8 pid);
+void DisplayDefeatTalkForPid(u8 pid);
 // ??? sub_8083654(???);
-void sub_808371C(u8, u8, int);
-void sub_8083764(u8, u8, int);
-// u16 sub_8083790(u8, u8, u8, int);
+void StartSupportTalk(u8, u8, int);
+void StartSupportViewerTalk(u8, u8, int);
+// u16 GetSupportTalkSong_(u8, u8, u8, int);
 // ??? sub_80837B0(???);
 // ??? sub_80837D8(???);
 s8 sub_80837F8(void);
-// ??? sub_8083830(???);
-// ??? CheckAFEV(???);
-// ??? CheckTURN(???);
-// ??? CheckCHAR(???);
-// ??? CheckCHARASM(???);
-// ??? CheckLOCA(???);
-// ??? CheckVILL(???);
-// ??? CheckCHES(???);
-// ??? CheckDOOR(???);
-// ??? sub_8083A10(???);
-// ??? CheckSHOP(???);
-// ??? CheckAREA(???);
-// ??? sub_8083B24(???);
-// ??? sub_8083B28(???);
-// ??? sub_8083B2C(???);
-// ??? sub_8083B58(???);
-// ??? sub_8083B98(???);
-// ??? SetLocalEventId(???);
-// ??? UnsetLocalEventId(???);
-void ClearLocalEvents(void);
-// ??? CheckLocalEventId(???);
-// ??? SetGlobalEventId(???);
-// ??? UnsetGlobalEventId(???);
+// ??? EvCheck00_Always(???);
+// ??? EvCheck01_AFEV(???);
+// ??? EvCheck02_TURN(???);
+// ??? EvCheck03_CHAR(???);
+// ??? EvCheck04_CHARASM(???);
+// ??? EvCheck05_LOCA(???);
+// ??? EvCheck06_VILL(???);
+// ??? EvCheck07_CHES(???);
+// ??? EvCheck08_DOOR(???);
+// ??? EvCheck09_(???);
+// ??? EvCheck0A_SHOP(???);
+// ??? EvCheck0B_AREA(???);
+// ??? EvCheck0C_Never(???);
+// ??? EvCheck0D_Never(???);
+// ??? EvCheck0E_(???);
+// ??? EvCheck0F_(???);
+// ??? EvCheck10_(???);
+// ??? SetChapterFlag(???);
+// ??? ClearChapterFlag(???);
+void ResetChapterFlags(void);
+// ??? CheckChapterFlag(???);
+// ??? SetPermanentFlag(???);
+// ??? ClearPermanentFlag(???);
 void ResetPermanentFlags(void);
-s8 sub_8083D34(int, void*);
-s8 CheckGlobalEventId(int);
-void SetEventId(int);
-void UnsetEventId(int);
-s8 CheckEventId(int);
+s8 CheckPermanentFlagFrom(int, void*);
+s8 CheckPermanentFlag(int);
+void SetFlag(int);
+void ClearFlag(int);
+s8 CheckFlag(int);
 u8 *GetPermanentFlagBits();
 int GetPermanentFlagBitsSize();
 u8 *GetChapterFlagBits();
 int GetChapterFlagBitsSize();;
 // ??? sub_8083DD8(???);
-// ??? sub_8083E34(???);
-// ??? TryCallSelectEvents_u1C(???);
-s8 sub_8083EB8(void);
-// ??? sub_8083F68(???);
-void sub_8083FB0(u8, u8);
+// ??? CheckTutorialEvent(???);
+// ??? RunTutorialEvent(???);
+s8 RunPhaseSwitchEvents(void);
+s8 CheckForCharacterEvents(u8 pidA, u8 pidB);
+void StartCharacterEvent(u8, u8);
 // ??? sub_8083FFC(???);
-int GetAvailableLocaCommandAt(s8, s8);
-void sub_80840C4(s8, s8); // RunLocationEvents
+int GetAvailableTileEventCommand(s8, s8);
+void StartAvailableTileEvent(s8, s8);
 s8 CheckForWaitEvents(void);
 void RunWaitEvents(void);
-// ??? TryCallSelectEvents(???);
-// ??? sub_80844B0(???);
-// ??? sub_8084508(???);
-// ??? sub_8084560(???);
-// ??? sub_808457C(???);
-// ??? sub_8084590(???);
-void sub_80845A4(void);
-void sub_80845B8(u32, u16);
-// ??? sub_80845E4(???);
-// ??? sub_8084628(???);
-// ??? sub_8084634(???);
+s8 TryCallSelectEvents(void);
+s8 StartDestSelectedEvent(void);
+s8 StartAfterUnitMovedEvent(void);
+s8 CheckBattleForecastTutorialEvent(void);
+void StartBattleForecastTutorialEvent(void);
+void StartPlayerPhaseStartTutorialEvent(void);
+void ClearActiveEventRegistry(void);
+void RegisterEventActivation(u32, u16);
+// ??? GetEventTriggerId(???);
+// ??? SetFlag82(???);
+// ??? CheckFlag82(???);
 struct BattleTalkExtEnt* GetBattleQuoteEntry(u16, u16);
-struct DefeatTalkEnt* sub_80846E4(u16);
-struct SupportTalkEnt* sub_8084748(u16, u16);
-int sub_808478C(u16, u16, u8);
+struct DefeatTalkEnt* GetDefeatTalkEntry(u16);
+struct SupportTalkEnt* GetSupportTalkEntry(u16, u16);
+int GetSupportTalkSong(u16, u16, u8);
 struct SupportTalkEnt* GetSupportTalkList();
 s8 IsCharacterForceDeployed_(u16 pid);
 // ??? IsSethLArachelMyrrhInnes(???);
 
-extern struct BattleTalkExtEnt gUnknown_089EC6BC[];
-extern struct DefeatTalkEnt gUnknown_089ECD4C[];
+extern struct BattleTalkExtEnt gBattleTalkList[];
+extern struct DefeatTalkEnt gDefeatTalkList[];
 extern struct SupportTalkEnt gSupportTalkList[];
-extern struct ForceDeploymentEnt gUnknown_089ED64C[];
-extern u8 gUnknown_089ED674[];
+extern struct ForceDeploymentEnt gForceDeploymentList[];
+extern u8 gPidList_SethLArachelMyrrhInnes[];
 
 #endif // GUARD_EV_TRIGGERCHECK_H

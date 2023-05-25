@@ -24,46 +24,46 @@
 #define EVT_CMD_B3(cmd) (((cmd) & 0x00FF0000) >> 16)
 #define EVT_CMD_B4(cmd) (((cmd) & 0xFF000000) >> 24)
 
-int sub_8083830(struct EventInfo* info);
-int CheckAFEV(struct EventInfo* info);
-int CheckTURN(struct EventInfo* info);
-int CheckCHAR(struct EventInfo* info);
-int CheckCHARASM(struct EventInfo* info);
-int CheckLOCA(struct EventInfo* info);
-int CheckVILL(struct EventInfo* info);
-int CheckCHES(struct EventInfo* info);
-int CheckDOOR(struct EventInfo* info);
-int sub_8083A10(struct EventInfo* info);
-int CheckSHOP(struct EventInfo* info);
-int CheckAREA(struct EventInfo* info);
-int sub_8083B24(struct EventInfo* info);
-int sub_8083B28(struct EventInfo* info);
-int sub_8083B2C(struct EventInfo* info);
-int sub_8083B58(struct EventInfo* info);
-int sub_8083B98(struct EventInfo* info);
+int EvCheck00_Always(struct EventInfo* info);
+int EvCheck01_AFEV(struct EventInfo* info);
+int EvCheck02_TURN(struct EventInfo* info);
+int EvCheck03_CHAR(struct EventInfo* info);
+int EvCheck04_CHARASM(struct EventInfo* info);
+int EvCheck05_LOCA(struct EventInfo* info);
+int EvCheck06_VILL(struct EventInfo* info);
+int EvCheck07_CHES(struct EventInfo* info);
+int EvCheck08_DOOR(struct EventInfo* info);
+int EvCheck09_(struct EventInfo* info);
+int EvCheck0A_SHOP(struct EventInfo* info);
+int EvCheck0B_AREA(struct EventInfo* info);
+int EvCheck0C_Never(struct EventInfo* info);
+int EvCheck0D_Never(struct EventInfo* info);
+int EvCheck0E_(struct EventInfo* info);
+int EvCheck0F_(struct EventInfo* info);
+int EvCheck10_(struct EventInfo* info);
 
-struct EventListCmdInfo CONST_DATA gUnknown_089E84F4[] = {
-    { sub_8083830,        1, },
-    { CheckAFEV,          3, },
-    { CheckTURN,          3, },
-    { CheckCHAR,          4, },
-    { CheckCHARASM,       4, },
-    { CheckLOCA,          3, },
-    { CheckVILL,          3, },
-    { CheckCHES,          3, },
-    { CheckDOOR,          3, },
-    { sub_8083A10,        3, },
-    { CheckSHOP,          3, },
-    { CheckAREA,          3, },
-    { sub_8083B24,        3, },
-    { sub_8083B28,        3, },
-    { sub_8083B2C,        3, },
-    { sub_8083B58,        4, },
-    { sub_8083B98,        4, },
+struct EventListCmdInfo CONST_DATA gEventListCmdInfoTable[] = {
+    { EvCheck00_Always,        1, },
+    { EvCheck01_AFEV,          3, },
+    { EvCheck02_TURN,          3, },
+    { EvCheck03_CHAR,          4, },
+    { EvCheck04_CHARASM,       4, },
+    { EvCheck05_LOCA,          3, },
+    { EvCheck06_VILL,          3, },
+    { EvCheck07_CHES,          3, },
+    { EvCheck08_DOOR,          3, },
+    { EvCheck09_,              3, },
+    { EvCheck0A_SHOP,          3, },
+    { EvCheck0B_AREA,          3, },
+    { EvCheck0C_Never,         3, },
+    { EvCheck0D_Never,         3, },
+    { EvCheck0E_,              3, },
+    { EvCheck0F_,              4, },
+    { EvCheck10_,              4, },
 };
 
-extern u8 gUnknown_03005270[];
-extern u8 gUnknown_03005250[];
+extern u8 gChapterFlagBits[];
+extern u8 gPermanentFlagBits[];
 
 struct ActiveEventRegistry {
     /* 00 */ u32 unk_00[10];
@@ -71,47 +71,47 @@ struct ActiveEventRegistry {
     /* 3C */ s16 unk_3c;
 };
 
-extern struct ActiveEventRegistry gUnknown_03001C80;
+extern struct ActiveEventRegistry gActiveEventRegistry;
 
 //! FE8U = 0x08082E80
-void CallEventsFromBuffer(struct EventInfo* info, u8 execType) {
+void StartEventFromInfo(struct EventInfo* info, u8 execType) {
     if (info->script == 0) {
         return;
     }
 
-    SetEventId((int)info->flag);
+    SetFlag((int)info->flag);
 
     if ((int)info->script == 1) {
         return;
     }
 
-    sub_80845B8(info->script, info->flag);
+    RegisterEventActivation(info->script, info->flag);
     CallEvent((u16*)info->script, execType);
 
-    if (CheckEventId(3) != 0) {
+    if (CheckFlag(3) != 0) {
         sub_8019108();
-        SetEventId(0x84);
+        SetFlag(0x84);
     }
 
     return;
 }
 
 //! FE8U = 0x08082EC4
-struct EventInfo* CheckForEvents(struct EventInfo* info) {
+struct EventInfo* SearchAvailableEvent(struct EventInfo* info) {
     int* len;
     struct EventListCmdInfo* cmdInfo;
 
     info->script = 0;
     info->flag = 0;
 
-    cmdInfo = gUnknown_089E84F4;
+    cmdInfo = gEventListCmdInfoTable;
     len = &cmdInfo[0].length;
 
     for (;;) {
         int cmdId = EVT_CMD_LO(info->listScript[0]);
         int r6 = cmdId;
 
-        if (!CheckEventId(EVT_CMD_HI(info->listScript[0]))) {
+        if (!CheckFlag(EVT_CMD_HI(info->listScript[0]))) {
 
             if (cmdInfo[cmdId].func(info) != 1) {
             label:
@@ -133,20 +133,19 @@ struct EventInfo* CheckForEvents(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08082F28
-struct EventInfo* CheckForNextEvents(struct EventInfo* info) {
+struct EventInfo* SearchNextAvailableEvent(struct EventInfo* info) {
     if (info != NULL) {
         int cmdId = EVT_CMD_LO(info->listScript[0]);
-        info->listScript += gUnknown_089E84F4[cmdId].length;
+        info->listScript += gEventListCmdInfoTable[cmdId].length;
 
-        return CheckForEvents(info);
+        return SearchAvailableEvent(info);
     }
 
     return NULL;
 }
 
 //! FE8U = 0x08082F58
-s8 sub_8082F58(struct EventInfo* info, u8 pidA, u8 pidB) {
-
+s8 EventInfoCheckTalk(struct EventInfo* info, u8 pidA, u8 pidB) {
     if ((info->pidA == pidA) && (info->pidB == pidB)) {
         info->script = info->listScript[1];
         info->flag = EVT_CMD_HI(info->listScript[0]);
@@ -158,8 +157,8 @@ s8 sub_8082F58(struct EventInfo* info, u8 pidA, u8 pidB) {
 }
 
 //! FE8U = 0x08082F84
-s8 sub_8082F84(int x1, int y1, int x2, int y2) {
-    if ((((gActiveUnit->xPos >= x1) && (gActiveUnit->xPos <= x2)) && (gActiveUnit->yPos >= y1)) && (gActiveUnit->yPos <= y2)) {
+s8 CheckActiveUnitArea(int x1, int y1, int x2, int y2) {
+    if ((gActiveUnit->xPos >= x1) && (gActiveUnit->xPos <= x2) && (gActiveUnit->yPos >= y1) && (gActiveUnit->yPos <= y2)) {
         return 1;
     }
 
@@ -167,7 +166,7 @@ s8 sub_8082F84(int x1, int y1, int x2, int y2) {
 }
 
 //! FE8U = 0x08082FB8
-s8 sub_8082FB8(int x1, int y1, int x2, int y2) {
+s8 CheckAnyBlueUnitArea(int x1, int y1, int x2, int y2) {
     int i;
 
     for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
@@ -191,12 +190,11 @@ s8 sub_8082FB8(int x1, int y1, int x2, int y2) {
 
 //! FE8U = 0x08083018
 s8 sub_8083018(void) {
-
     if (gPlaySt.faction != FACTION_RED) {
         return 0;
     }
 
-    if (sub_8082FB8(0, 15, 25, 23)) {
+    if (CheckAnyBlueUnitArea(0, 15, 25, 23)) {
         return 0;
     }
 
@@ -205,20 +203,19 @@ s8 sub_8083018(void) {
 
 //! FE8U = 0x08083044
 s8 sub_8083044(void) {
-
     if (gPlaySt.faction != FACTION_RED) {
         return 0;
     }
 
-    if (sub_8082FB8(0, 24, 16, 27)) {
+    if (CheckAnyBlueUnitArea(0, 24, 16, 27)) {
         return 1;
     }
 
-    if (sub_8082FB8(0, 21, 2, 23)) {
+    if (CheckAnyBlueUnitArea(0, 21, 2, 23)) {
         return 1;
     }
 
-    if (sub_8082FB8(3, 20, 5, 22)) {
+    if (CheckAnyBlueUnitArea(3, 20, 5, 22)) {
         return 1;
     }
 
@@ -227,7 +224,7 @@ s8 sub_8083044(void) {
 
 //! FE8U = 0x08083094
 s8 sub_8083094(void) {
-    return sub_8082FB8(12, 21, 31, 24);
+    return CheckAnyBlueUnitArea(12, 21, 31, 24);
 }
 
 //! FE8U = 0x080830AC
@@ -236,7 +233,7 @@ s8 sub_80830AC(void) {
         return 0;
     }
 
-    return sub_8082FB8(17, 21, 31, 35);
+    return CheckAnyBlueUnitArea(17, 21, 31, 35);
 }
 
 //! FE8U = 0x080830D4
@@ -245,7 +242,7 @@ s8 sub_80830D4(void) {
         return 0;
     }
 
-    return sub_8082FB8(0, 15, 8, 18);
+    return CheckAnyBlueUnitArea(0, 15, 8, 18);
 }
 
 //! FE8U = 0x080830FC
@@ -254,7 +251,7 @@ s8 sub_80830FC(void) {
         return 0;
     }
 
-    return sub_8082FB8(0, 24, 12, 27);
+    return CheckAnyBlueUnitArea(0, 24, 12, 27);
 }
 
 //! FE8U = 0x08083124
@@ -263,11 +260,11 @@ s8 sub_8083124(void) {
         return 0;
     }
 
-    return sub_8082FB8(21, 0, 30, 6);
+    return CheckAnyBlueUnitArea(21, 0, 30, 6);
 }
 
 //! FE8U = 0x0808314C
-s8 sub_808314C(int x1, int y1, int x2, int y2) {
+s8 CheckAnyRedUnitArea(int x1, int y1, int x2, int y2) {
     int i;
 
     for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++) {
@@ -291,7 +288,7 @@ s8 sub_808314C(int x1, int y1, int x2, int y2) {
 
 //! FE8U = 0x080831AC
 s8 IsThereClosedChestAt(s8 x, s8 y) {
-    if (GetAvailableLocaCommandAt(x, y) == TILE_COMMAND_CHEST) {
+    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_CHEST) {
         return 1;
     }
 
@@ -299,16 +296,17 @@ s8 IsThereClosedChestAt(s8 x, s8 y) {
 }
 
 //! FE8U = 0x080831C8
-void sub_80831C8(s8 x, s8 y) {
+void StartAvailableChestTileEvent(s8 x, s8 y) {
     if (IsThereClosedChestAt(x, y)) {
-        sub_80840C4(x, y);
+        StartAvailableTileEvent(x, y);
     }
 
     return;
 }
 
+//! FE8U = 0x080831F0
 s8 IsThereClosedDoorAt(s8 x, s8 y) {
-    if (GetAvailableLocaCommandAt(x, y) == TILE_COMMAND_DOOR) {
+    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_DOOR) {
         return 1;
     }
 
@@ -316,9 +314,9 @@ s8 IsThereClosedDoorAt(s8 x, s8 y) {
 }
 
 //! FE8U = 0x0808320C
-void sub_808320C(s8 x, s8 y) {
+void StartAvailableDoorTileEvent(s8 x, s8 y) {
     if (IsThereClosedDoorAt(x, y)) {
-        sub_80840C4(x, y);
+        StartAvailableTileEvent(x, y);
     }
 
     return;
@@ -326,7 +324,7 @@ void sub_808320C(s8 x, s8 y) {
 
 //! FE8U = 0x08083234
 s8 sub_8083234(s8 x, s8 y) {
-    if (GetAvailableLocaCommandAt(x, y) == 0x15) {
+    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_15) {
         return 1;
     }
 
@@ -334,35 +332,35 @@ s8 sub_8083234(s8 x, s8 y) {
 }
 
 //! FE8U = 0x08083250
-s8 sub_8083250(void) {
+s8 ShouldCallEndEvent(void) {
     if (GetChapterThing() == 2) {
         return 0;
     }
 
-    return CheckEventId3();
+    return CheckWin();
 }
 
 //! FE8U = 0x0808326C
-void sub_808326C(void) {
+void MaybeCallEndEvent_(void) {
     if (GetChapterThing() != 2) {
-        sub_80832E8();
+        MaybeCallEndEvent();
     }
 
     return;
 }
 
 //! FE8U = 0x08083280
-void sub_8083280(void) {
+void CallEndEvent(void) {
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
     if (GetChapterThing() != 2) {
         CallEvent(evGroup->endingSceneEvents, 1);
     } else {
-        CallEvent(gUnknown_089FFD64, 1);
+        CallEvent(gEvent_SkirmishCommonEnd, 1);
     }
 
     sub_8019108();
-    SetEventId(0x84);
+    SetFlag(0x84);
 
     return;
 }
@@ -393,32 +391,32 @@ s8 sub_80832D4(void) {
 }
 
 //! FE8U = 0x080832D8
-s8 CheckEventId3(void) {
-    return CheckEventId(3);
+s8 CheckWin(void) {
+    return CheckFlag(3);
 }
 
 //! FE8U = 0x080832E8
-void sub_80832E8(void) {
-    if (!CheckEventId(3)) {
+void MaybeCallEndEvent(void) {
+    if (!CheckFlag(3)) {
         return;
     }
 
-    if (!sub_8083250()) {
+    if (!ShouldCallEndEvent()) {
         return;
     }
 
-    sub_8083280();
+    CallEndEvent();
 
     return;
 }
 
 //! FE8U = 0x08083308
-void* GetCurrentChapterBallistaePtr(void) {
+struct TrapData* GetTrapPointer(void) {
     return GetChapterEventDataPointer(gPlaySt.chapterIndex)->traps;
 }
 
 //! FE8U = 0x08083320
-void* GetCurrentChapterBallistae2Ptr(void) {
+struct TrapData* GetHardModeTrapPointer(void) {
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_HARD) {
@@ -453,7 +451,7 @@ void* GetChapterAllyUnitDataPointer(void) {
 }
 
 //! FE8U = 0x080833B0
-void* sub_80833B0(void) {
+void* GetChapterEnemyUnitDefinitions(void) {
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
     void* ret = NULL;
@@ -476,7 +474,7 @@ void* sub_80833B0(void) {
 }
 
 //! FE8U = 0x08083400
-void sub_8083400(u8 chapterId, u8* list) {
+void GetChapterSkirmishLeaderClasses(u8 chapterId, u8* list) {
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(chapterId);
 
     list[0] = ((u8*)(evGroup->enemyUnitsChoice1InEncounter))[1];
@@ -518,9 +516,9 @@ s8 sub_8083424(void) {
 }
 
 //! FE8U = 0x08083468
-struct BattleTalkEnt* sub_8083468(u8 pid, struct BattleTalkEnt* it) {
+struct BattleTalkEnt* GetAvailableBattleTalk(u8 pid, struct BattleTalkEnt* it) {
     for (; it->pid != 0; it++) {
-        if (CheckEventId(it->flag)) {
+        if (CheckFlag(it->flag)) {
             continue;
         }
 
@@ -587,18 +585,18 @@ void CallBattleQuoteEventsIfAny(u8 pidA, u8 pidB) {
             }
         }
 
-        SetEventId(ent->flag);
+        SetFlag(ent->flag);
     }
 
     return;
 }
 
 //! FE8U = 0x08083570
-void sub_8083570(u8 pid, int flag) {
+void SetPidDefeatedFlag(u8 pid, int flag) {
     const struct ROMChapterData* chapterData;
 
     if ((GetChapterThing() == 0) || (chapterData = GetROMChapterStruct(gPlaySt.chapterIndex), pid != chapterData->protectCharacterIndex) || flag != 0x65) {
-        SetEventId(flag);
+        SetFlag(flag);
         return;
     }
 
@@ -606,12 +604,12 @@ void sub_8083570(u8 pid, int flag) {
 }
 
 //! FE8U = 0x080835A8
-s8 EkrCheckSomeDeathMaybe(u8 pid) {
-    struct DefeatTalkEnt* ent = sub_80846E4(pid);
+s8 ShouldDisplayDefeatTalkForPid(u8 pid) {
+    struct DefeatTalkEnt* ent = GetDefeatTalkEntry(pid);
 
     if (ent) {
         if (ent->msg == 0 && ent->event == 0) {
-            sub_8083570(pid, ent->flag);
+            SetPidDefeatedFlag(pid, ent->flag);
         } else {
             return 1;
         }
@@ -622,8 +620,8 @@ s8 EkrCheckSomeDeathMaybe(u8 pid) {
 }
 
 //! FE8U = 0x080835DC
-void sub_80835DC(u8 pid) {
-    struct DefeatTalkEnt* ent = sub_80846E4(pid);
+void DisplayDefeatTalkForPid(u8 pid) {
+    struct DefeatTalkEnt* ent = GetDefeatTalkEntry(pid);
 
     if (ent) {
         if ((ent->route == 1) && (ent->flag == 0x65)) {
@@ -642,7 +640,7 @@ void sub_80835DC(u8 pid) {
             }
         }
 
-        sub_8083570(pid, ent->flag);
+        SetPidDefeatedFlag(pid, ent->flag);
     }
 
     return;
@@ -700,12 +698,12 @@ void sub_8083654(u16 pid) {
 }
 
 //! FE8U = 0x0808371C
-void sub_808371C(u8 pidA, u8 pidB, int rank) {
-    struct SupportTalkEnt* ent = sub_8084748(pidA, pidB);
+void StartSupportTalk(u8 pidA, u8 pidB, int rank) {
+    struct SupportTalkEnt* ent = GetSupportTalkEntry(pidA, pidB);
 
     if (ent) {
         CallMapSupportEvent(
-            sub_808478C(pidA, pidB, rank),
+            GetSupportTalkSong(pidA, pidB, rank),
             ent->msgSupports[rank - 1]
         );
 
@@ -716,8 +714,8 @@ void sub_808371C(u8 pidA, u8 pidB, int rank) {
 }
 
 //! FE8U = 0x08083764
-void sub_8083764(u8 pidA, u8 pidB, int rank) {
-    struct SupportTalkEnt* ent = sub_8084748(pidA, pidB);
+void StartSupportViewerTalk(u8 pidA, u8 pidB, int rank) {
+    struct SupportTalkEnt* ent = GetSupportTalkEntry(pidA, pidB);
 
     if (ent) {
         CallSupportViewerEvent(ent->msgSupports[rank - 1]);
@@ -727,13 +725,13 @@ void sub_8083764(u8 pidA, u8 pidB, int rank) {
 }
 
 //! FE8U = 0x08083790
-u16 sub_8083790(u8 unused, u8 pidA, u8 pidB, int rank) {
-    return sub_808478C(pidA, pidB, rank);
+u16 GetSupportTalkSong_(u8 unused, u8 pidA, u8 pidB, int rank) {
+    return GetSupportTalkSong(pidA, pidB, rank);
 }
 
 //! FE8U = 0x080837B0
 void sub_80837B0(void) {
-    SetEventId(0x65);
+    SetFlag(0x65);
     StartBgm(0x3e, NULL);
     gPlaySt.cfgDisableBgm = 1;
     CallGameOverEvent();
@@ -755,22 +753,22 @@ s8 sub_80837F8(void) {
     int ret = 0;
 
     if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD) && (gPlaySt.cfgController != 1)) {
-        ret = CheckEventId(0x87) != 0;
+        ret = CheckFlag(0x87) != 0;
     }
 
     return ret;
 }
 
 //! FE8U = 0x08083830
-int sub_8083830(struct EventInfo* info) {
+int EvCheck00_Always(struct EventInfo* info) {
     return 1;
 }
 
 //! FE8U = 0x08083834
-int CheckAFEV(struct EventInfo* info) {
+int EvCheck01_AFEV(struct EventInfo* info) {
     EventListScr* listScript = info->listScript;
 
-    if ((listScript[2] == 0) || (listScript[2] == 100) || (CheckEventId(listScript[2]) == 1)) {
+    if ((listScript[2] == 0) || (listScript[2] == 100) || (CheckFlag(listScript[2]) == 1)) {
         info->script = listScript[1];
         info->flag = EVT_CMD_HI(listScript[0]);
         return 1;
@@ -780,7 +778,7 @@ int CheckAFEV(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083864
-int CheckTURN(struct EventInfo* info) {
+int EvCheck02_TURN(struct EventInfo* info) {
     EventListScr* listScript = info->listScript;
 
     int turn = ((u8*)listScript)[8];
@@ -805,7 +803,7 @@ int CheckTURN(struct EventInfo* info) {
 }
 
 //! FE8U = 0x080838AC
-int CheckCHAR(struct EventInfo* info) {
+int EvCheck03_CHAR(struct EventInfo* info) {
     EventListScr* listScript = info->listScript;
 
     int pidA = ((u8*)listScript)[8];
@@ -818,7 +816,7 @@ int CheckCHAR(struct EventInfo* info) {
         case 2:
             return 0;
         case 3:
-            if ((CheckEventId(((u16*)listScript)[14 / sizeof(u16)]) == 0)) {
+            if ((CheckFlag(((u16*)listScript)[14 / sizeof(u16)]) == 0)) {
                 return 0;
             }
             break;
@@ -834,7 +832,7 @@ int CheckCHAR(struct EventInfo* info) {
 }
 
 //! FE8U = 0x080838FC
-int CheckCHARASM(struct EventInfo* info) {
+int EvCheck04_CHARASM(struct EventInfo* info) {
 #if NONMATCHING
     EventListScr* listScript = info->listScript;
 #else // if !NONMATCHING
@@ -855,7 +853,7 @@ int CheckCHARASM(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083938
-int CheckLOCA(struct EventInfo* info) {
+int EvCheck05_LOCA(struct EventInfo* info) {
     EventListScr* listScript = info->listScript;
 
     int x = ((u8*)listScript)[8];
@@ -883,15 +881,15 @@ int CheckLOCA(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083978
-int CheckVILL(struct EventInfo* info) {
-    CheckLOCA(info);
+int EvCheck06_VILL(struct EventInfo* info) {
+    EvCheck05_LOCA(info);
     info->givenMoney = 3;
 
     // return 1; // BUG?
 }
 
 //! FE8U = 0x0808398C
-int CheckCHES(struct EventInfo* info) {
+int EvCheck07_CHES(struct EventInfo* info) {
     EventListScr* listScript = info->listScript;
 
     u8 x = ((u8*)listScript)[8];
@@ -911,7 +909,7 @@ int CheckCHES(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083A10
-int CheckDOOR(struct EventInfo* info) {
+int EvCheck08_DOOR(struct EventInfo* info) {
     EventListScr* listScript = info->listScript;
 
     int x = EVT_CMD_B1(listScript[2]);
@@ -936,7 +934,7 @@ int CheckDOOR(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083A10
-int sub_8083A10(struct EventInfo* info) {
+int EvCheck09_(struct EventInfo* info) {
     EventListScr* listScript = info->listScript;
 
     int x = EVT_CMD_B1(listScript[2]);
@@ -961,7 +959,7 @@ int sub_8083A10(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083A58
-int CheckSHOP(struct EventInfo* info) {
+int EvCheck0A_SHOP(struct EventInfo* info) {
 #if NONMATCHING
     EventListScr* listScript = info->listScript;
 #else // if !NONMATCHING
@@ -986,7 +984,7 @@ int CheckSHOP(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083AA4
-int CheckAREA(struct EventInfo* info) {
+int EvCheck0B_AREA(struct EventInfo* info) {
     s8 x = gActiveUnit->xPos;
     s8 y = gActiveUnit->yPos;
 
@@ -1008,17 +1006,17 @@ int CheckAREA(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083B24
-int sub_8083B24(struct EventInfo* info) {
+int EvCheck0C_Never(struct EventInfo* info) {
     return 0;
 }
 
 //! FE8U = 0x08083B28
-int sub_8083B28(struct EventInfo* info) {
+int EvCheck0D_Never(struct EventInfo* info) {
     return 0;
 }
 
 //! FE8U = 0x08083B2C
-int sub_8083B2C(struct EventInfo* info) {
+int EvCheck0E_(struct EventInfo* info) {
     s8 (*func)(struct EventInfo* info) = (void *)((u32*)(info->listScript))[8 / sizeof(u32)];
 
     if (func(info) != 0) {
@@ -1031,11 +1029,11 @@ int sub_8083B2C(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083B58
-int sub_8083B58(struct EventInfo* info) {
+int EvCheck0F_(struct EventInfo* info) {
     int unk = EVT_CMD_LO(info->listScript[3]);
     int unk2 = EVT_CMD_HI(info->listScript[0]);
 
-    if ((CheckEventId(unk2) == 0) && (CheckEventId(unk) != 0)) {
+    if ((CheckFlag(unk2) == 0) && (CheckFlag(unk) != 0)) {
         info->script = info->listScript[2];
         info->flag = EVT_CMD_HI(info->listScript[0]);
         return 1;
@@ -1045,11 +1043,11 @@ int sub_8083B58(struct EventInfo* info) {
 }
 
 //! FE8U = 0x08083B98
-int sub_8083B98(struct EventInfo* info) {
+int EvCheck10_(struct EventInfo* info) {
     int unk = EVT_CMD_LO(info->listScript[3]);
     int unk2 = EVT_CMD_HI(info->listScript[0]);
 
-    if ((CheckEventId(unk2) == 0) && (CheckEventId(unk) != 0)) {
+    if ((CheckFlag(unk2) == 0) && (CheckFlag(unk) != 0)) {
         info->script = info->listScript[2];
         info->flag = EVT_CMD_HI(info->listScript[0]);
         return 1;
@@ -1058,26 +1056,26 @@ int sub_8083B98(struct EventInfo* info) {
     return 0;
 }
 
-u8 CONST_DATA gUnknown_089E857C[] = {
+u8 CONST_DATA gFlagBitMaskLut[] = {
     1 << 0, 1 << 1, 1 << 2, 1 << 3,
     1 << 4, 1 << 5, 1 << 6, 1 << 7,
 };
 
 //! FE8U = 0x08083BD8
-void SetLocalEventId(int flag) {
+void SetChapterFlag(int flag) {
     if (flag == 0) {
         return;
     }
 
     flag = flag - 1;
 
-    gUnknown_03005270[flag / 8] |= gUnknown_089E857C[flag % 8];
+    gChapterFlagBits[flag / 8] |= gFlagBitMaskLut[flag % 8];
 
     return;
 }
 
 //! FE8U = 0x08083C0C
-void UnsetLocalEventId(int flag) {
+void ClearChapterFlag(int flag) {
     u8 mask;
 
     if (flag == 0) {
@@ -1086,32 +1084,32 @@ void UnsetLocalEventId(int flag) {
 
     flag = flag - 1;
 
-    mask = ~gUnknown_089E857C[flag % 8];
-    gUnknown_03005270[flag / 8] = mask & gUnknown_03005270[flag / 8];
+    mask = ~gFlagBitMaskLut[flag % 8];
+    gChapterFlagBits[flag / 8] = mask & gChapterFlagBits[flag / 8];
 
     return;
 }
 
 //! FE8U = 0x08083C48
-void ClearLocalEvents(void) {
+void ResetChapterFlags(void) {
     int i;
 
     for (i = 0; i < (32 + 8) / 8; i++) {
-        gUnknown_03005270[i] = 0;
+        gChapterFlagBits[i] = 0;
     }
 
     return;
 }
 
 //! FE8U = 0x08083C60
-s8 CheckLocalEventId(int flag) {
+s8 CheckChapterFlag(int flag) {
     if (flag == 0) {
         return 0;
     }
 
     flag = flag - 1;
 
-    if ((gUnknown_03005270[flag / 8] & gUnknown_089E857C[flag % 8]) != 0) {
+    if ((gChapterFlagBits[flag / 8] & gFlagBitMaskLut[flag % 8]) != 0) {
         return 1;
     }
 
@@ -1119,7 +1117,7 @@ s8 CheckLocalEventId(int flag) {
 }
 
 //! FE8U = 0x08083CA0
-void SetGlobalEventId(int flag) {
+void SetPermanentFlag(int flag) {
     if (flag < 100) {
         return;
     }
@@ -1130,12 +1128,12 @@ void SetGlobalEventId(int flag) {
 
     flag = flag - 100 - 1;
 
-    gUnknown_03005250[flag / 8] |=  gUnknown_089E857C[flag % 8];
+    gPermanentFlagBits[flag / 8] |=  gFlagBitMaskLut[flag % 8];
 
     return;
 }
 
-void UnsetGlobalEventId(int flag) {
+void ClearPermanentFlag(int flag) {
     u8 mask;
 
     if (flag < 100) {
@@ -1148,8 +1146,8 @@ void UnsetGlobalEventId(int flag) {
 
     flag = flag - 100 - 1;
 
-    mask = ~gUnknown_089E857C[flag % 8];
-    gUnknown_03005250[flag / 8] = mask & gUnknown_03005250[flag / 8];
+    mask = ~gFlagBitMaskLut[flag % 8];
+    gPermanentFlagBits[flag / 8] = mask & gPermanentFlagBits[flag / 8];
 
     return;
 }
@@ -1159,14 +1157,14 @@ void ResetPermanentFlags(void) {
     int i;
 
     for (i = 0; i < 25; i++) {
-        gUnknown_03005250[i] = 0;
+        gPermanentFlagBits[i] = 0;
     }
 
     return;
 }
 
 //! FE8U = 0x08083D34
-s8 sub_8083D34(int flag, void* list) {
+s8 CheckPermanentFlagFrom(int flag, void* list) {
 
     if (flag < 100 || flag == 100) {
         return 0;
@@ -1174,7 +1172,7 @@ s8 sub_8083D34(int flag, void* list) {
 
     flag = flag - 100 - 1;
 
-    if (( ((u8*)list)[flag / 8] & gUnknown_089E857C[flag % 8]) != 0) {
+    if (( ((u8*)list)[flag / 8] & gFlagBitMaskLut[flag % 8]) != 0) {
         return 1;
     }
 
@@ -1182,43 +1180,43 @@ s8 sub_8083D34(int flag, void* list) {
 }
 
 //! FE8U = 0x08083D6C
-s8 CheckGlobalEventId(int flag) {
-    return sub_8083D34(flag, gUnknown_03005250);
+s8 CheckPermanentFlag(int flag) {
+    return CheckPermanentFlagFrom(flag, gPermanentFlagBits);
 }
 
 //! FE8U = 0x08083D80
-void SetEventId(int flag) {
+void SetFlag(int flag) {
 
     if (flag < 100) {
-        SetLocalEventId(flag);
+        SetChapterFlag(flag);
     } else {
-        SetGlobalEventId(flag);
+        SetPermanentFlag(flag);
     }
     return;
 }
 
 //! FE8U = 0x08083D94
-void UnsetEventId(int flag) {
+void ClearFlag(int flag) {
     if (flag < 100) {
-        UnsetLocalEventId(flag);
+        ClearChapterFlag(flag);
     } else {
-        UnsetGlobalEventId(flag);
+        ClearPermanentFlag(flag);
     }
     return;
 }
 
 //! FE8U = 0x08083DA8
-s8 CheckEventId(int flag) {
+s8 CheckFlag(int flag) {
     if (flag < 100) {
-        return CheckLocalEventId(flag);
+        return CheckChapterFlag(flag);
     } else {
-        return CheckGlobalEventId(flag);
+        return CheckPermanentFlag(flag);
     }
 }
 
 //! FE8U = 0x08083DC0
 u8* GetPermanentFlagBits(void) {
-    return gUnknown_03005250;
+    return gPermanentFlagBits;
 }
 
 //! FE8U = 0x08083DC8
@@ -1228,7 +1226,7 @@ int GetPermanentFlagBitsSize(void) {
 
 //! FE8U = 0x08083DCC
 u8* GetChapterFlagBits(void) {
-    return gUnknown_03005270;
+    return gChapterFlagBits;
 }
 
 //! FE8U = 0x08083DD4
@@ -1253,8 +1251,8 @@ void sub_8083DD8(int a, u8 b) {
 }
 
 //! FE8U = 0x08083E34
-s8 sub_8083E34(u8 a) {
-    if ((gPlaySt.unk4B != 0) && (gPlaySt.unk4A_5 == a)) {
+s8 CheckTutorialEvent(u8 type) {
+    if ((gPlaySt.unk4B != 0) && (gPlaySt.unk4A_5 == type)) {
         return 1;
     }
 
@@ -1262,8 +1260,8 @@ s8 sub_8083E34(u8 a) {
 }
 
 //! FE8U = 0x08083E64
-s8 TryCallSelectEvents_u1C(u8 a) {
-    if ((gPlaySt.unk4B != 0) && (gPlaySt.unk4A_5 == a)) {
+s8 RunTutorialEvent(u8 type) {
+    if ((gPlaySt.unk4B != 0) && (gPlaySt.unk4A_5 == type)) {
         int unk = gPlaySt.unk4B;
         CallEvent(((u16**)(GetChapterEventDataPointer(gPlaySt.chapterIndex)->tutorialEvents))[unk - 1], 1);
         gPlaySt.unk4B = 0;
@@ -1275,7 +1273,7 @@ s8 TryCallSelectEvents_u1C(u8 a) {
 }
 
 //! FE8U = 0x08083EB8
-s8 sub_8083EB8(void) {
+s8 RunPhaseSwitchEvents(void) {
     u8 ret;
     int type;
     u16 chapter;
@@ -1293,30 +1291,30 @@ s8 sub_8083EB8(void) {
         if (GetChapterThing() != 2) {
             type = GetROMChapterStruct(chapter)->goalWindowDataType;
         } else {
-            type = 1;
+            type = GOAL_TYPE_DEFEAT_ALL;
         }
 
-        if (((type == 1) || (type == 3)) && (AreAnyEnemyUnitDead() == 0)) {
+        if (((type == GOAL_TYPE_DEFEAT_ALL) || (type == GOAL_TYPE_DEFEAT_BOSS)) && (AreAnyEnemyUnitDead() == 0)) {
 
             if (GetChapterThing() == 0) {
-                SetEventId(3);
+                SetFlag(3);
             }
-            sub_8083280();
+            CallEndEvent();
             return 1;
         }
     }
 
-    ret = TryCallSelectEvents_u1C(0);
+    ret = RunTutorialEvent(TUTORIAL_EVT_TYPE_PHASECHANGE);
 
     info.listScript = GetChapterEventDataPointer(gPlaySt.chapterIndex)->turnBasedEvents;
-    pInfo = CheckForEvents(&info);
+    pInfo = SearchAvailableEvent(&info);
 
     if (pInfo) {
-        sub_80845A4();
+        ClearActiveEventRegistry();
 
         while (pInfo) {
-            CallEventsFromBuffer(&info, EV_EXEC_CUTSCENE);
-            pInfo = CheckForNextEvents(&info);
+            StartEventFromInfo(&info, EV_EXEC_CUTSCENE);
+            pInfo = SearchNextAvailableEvent(&info);
         }
 
         return 1;
@@ -1326,7 +1324,7 @@ s8 sub_8083EB8(void) {
 }
 
 //! FE8U = 0x08083F68
-s8 sub_8083F68(u8 pidA, u8 pidB) {
+s8 CheckForCharacterEvents(u8 pidA, u8 pidB) {
     struct EventInfo info;
 
     if (GetChapterThing() == 2) {
@@ -1337,7 +1335,7 @@ s8 sub_8083F68(u8 pidA, u8 pidB) {
     info.pidA = pidA;
     info.pidB = pidB;
 
-    if (CheckForEvents(&info)) {
+    if (SearchAvailableEvent(&info)) {
         return 1;
     }
 
@@ -1345,7 +1343,7 @@ s8 sub_8083F68(u8 pidA, u8 pidB) {
 }
 
 //! FE8U = 0x08083FB0
-void sub_8083FB0(u8 pidA, u8 pidB) {
+void StartCharacterEvent(u8 pidA, u8 pidB) {
     struct EventInfo info;
 
     if (GetChapterThing() == 2) {
@@ -1356,9 +1354,9 @@ void sub_8083FB0(u8 pidA, u8 pidB) {
     info.pidA = pidA;
     info.pidB = pidB;
 
-    if (CheckForEvents(&info)) {
-        sub_80845A4();
-        CallEventsFromBuffer(&info, EV_EXEC_CUTSCENE);
+    if (SearchAvailableEvent(&info)) {
+        ClearActiveEventRegistry();
+        StartEventFromInfo(&info, EV_EXEC_CUTSCENE);
     }
 
     return;
@@ -1401,14 +1399,14 @@ u16 sub_8083FFC(u16 itemId) {
 }
 
 //! FE8U = 0x08084078
-int GetAvailableLocaCommandAt(s8 x, s8 y) {
+int GetAvailableTileEventCommand(s8 x, s8 y) {
     struct EventInfo info;
 
     info.listScript = GetChapterEventDataPointer(gPlaySt.chapterIndex)->locationBasedEvents;
     info.xPos = x;
     info.yPos = y;
 
-    if (CheckForEvents(&info) && (GetChapterThing() != 2)) {
+    if (SearchAvailableEvent(&info) && (GetChapterThing() != 2)) {
         return info.commandId;
     }
 
@@ -1416,30 +1414,30 @@ int GetAvailableLocaCommandAt(s8 x, s8 y) {
 }
 
 //! FE8U = 0x080840C4
-void sub_80840C4(s8 x, s8 y) {
+void StartAvailableTileEvent(s8 x, s8 y) {
     struct EventInfo info;
 
     info.listScript = GetChapterEventDataPointer(gPlaySt.chapterIndex)->locationBasedEvents;
     info.xPos = x;
     info.yPos = y;
 
-    if (CheckForEvents(&info) == NULL) {
+    if (SearchAvailableEvent(&info) == NULL) {
         return;
     }
 
     switch (info.commandId) {
-        case TILE_COMMAND_10:
+        case TILE_COMMAND_VISIT:
             gBmMapUnit[y][x] = gActiveUnit->pCharacterData->number;
 
             // fallthrough
 
-        case TILE_COMMAND_11:
+        case TILE_COMMAND_SEIZE:
             if (GetChapterThing() == 2) {
                 return;
             }
 
-            sub_80845A4();
-            CallEventsFromBuffer(&info, EV_EXEC_CUTSCENE);
+            ClearActiveEventRegistry();
+            StartEventFromInfo(&info, EV_EXEC_CUTSCENE);
 
             if (info.givenMoney == 3) {
                 CallTileChangeEvent(GetMapChangeIdAt(info.xPos, info.yPos));
@@ -1464,10 +1462,10 @@ void sub_80840C4(s8 x, s8 y) {
 
             if (info.script == 1) {
                 CallTileChangeEvent(GetMapChangeIdAt(info.xPos, info.yPos));
-                SetEventId(info.flag);
+                SetFlag(info.flag);
             } else {
-                sub_80845A4();
-                CallEventsFromBuffer(&info, EV_EXEC_CUTSCENE);
+                ClearActiveEventRegistry();
+                StartEventFromInfo(&info, EV_EXEC_CUTSCENE);
             }
 
             return;
@@ -1511,7 +1509,7 @@ void sub_80840C4(s8 x, s8 y) {
                 }
             }
 
-            SetEventId(info.flag);
+            SetFlag(info.flag);
 
             return;
 
@@ -1561,28 +1559,27 @@ s8 CheckForWaitEvents(void) {
     struct EventInfo info;
 
     if (AreAnyEnemyUnitDead() == 0) {
-        SetEventId(6);
+        SetFlag(6);
 
         if (GetChapterThing() == 2) {
             return 1;
         }
     } else {
-        UnsetEventId(6);
+        ClearFlag(6);
     }
 
-
-    if (!CheckEventId(0x65) && (CountAvailableBlueUnits() != 0)) {
+    if (!CheckFlag(0x65) && (CountAvailableBlueUnits() != 0)) {
         if (GetChapterThing() == 2) {
             return 0;
         }
 
-        ret = sub_8083E34(1);
+        ret = CheckTutorialEvent(TUTORIAL_EVT_TYPE_POSTACTION);
 
         info.listScript = GetChapterEventDataPointer(gPlaySt.chapterIndex)->miscBasedEvents;
         info.xPos = gActiveUnit->xPos;
         info.yPos = gActiveUnit->yPos;
 
-        if (CheckForEvents(&info) == 0) {
+        if (SearchAvailableEvent(&info) == 0) {
             return ret;
         }
     }
@@ -1596,16 +1593,16 @@ void RunWaitEvents(void) {
     struct EventInfo info;
 
     if (AreAnyEnemyUnitDead() == 0) {
-        SetEventId(6);
+        SetFlag(6);
         if (GetChapterThing() == 2) {
-            sub_8083280();
+            CallEndEvent();
             return;
         }
     } else {
-        UnsetEventId(6);
+        ClearFlag(6);
     }
 
-    if ((CheckEventId(0x65) != 0) || (CountAvailableBlueUnits() == 0)) {
+    if (CheckFlag(0x65) || (CountAvailableBlueUnits() == 0)) {
         sub_80837B0();
         return;
     }
@@ -1614,21 +1611,21 @@ void RunWaitEvents(void) {
         return;
     }
 
-    TryCallSelectEvents_u1C(1);
+    RunTutorialEvent(TUTORIAL_EVT_TYPE_POSTACTION);
 
     info.listScript = GetChapterEventDataPointer(gPlaySt.chapterIndex)->miscBasedEvents;
     info.xPos = gActiveUnit->xPos;
     info.yPos = gActiveUnit->yPos;
 
-    if (!CheckForEvents(&info)) {
+    if (!SearchAvailableEvent(&info)) {
         return;
     }
 
-    sub_80845A4();
+    ClearActiveEventRegistry();
 
     do {
-        CallEventsFromBuffer(&info, EV_EXEC_CUTSCENE);
-        pInfo = CheckForNextEvents(&info);
+        StartEventFromInfo(&info, EV_EXEC_CUTSCENE);
+        pInfo = SearchNextAvailableEvent(&info);
     } while (pInfo);
 
     return;
@@ -1643,14 +1640,14 @@ s8 TryCallSelectEvents(void) {
         return 0;
     }
 
-    ret = TryCallSelectEvents_u1C(2);
+    ret = RunTutorialEvent(TUTORIAL_EVT_TYPE_ONSELECT);
 
     info.listScript = GetChapterEventDataPointer(gPlaySt.chapterIndex)->specialEventsWhenUnitSelected;
 
-    sub_80845A4();
+    ClearActiveEventRegistry();
 
-    while (CheckForEvents(&info)) {
-        CallEventsFromBuffer(&info, EV_EXEC_CUTSCENE);
+    while (SearchAvailableEvent(&info)) {
+        StartEventFromInfo(&info, EV_EXEC_CUTSCENE);
         ret = 1;
     }
 
@@ -1658,7 +1655,7 @@ s8 TryCallSelectEvents(void) {
 }
 
 //! FE8U = 0x080844B0
-s8 sub_80844B0(void) {
+s8 StartDestSelectedEvent(void) {
     s8 ret;
     struct EventInfo info;
 
@@ -1666,13 +1663,13 @@ s8 sub_80844B0(void) {
         return 0;
     }
 
-    ret = TryCallSelectEvents_u1C(3);
+    ret = RunTutorialEvent(TUTORIAL_EVT_TYPE_DESTSELECTED);
 
     info.listScript = GetChapterEventDataPointer(gPlaySt.chapterIndex)->specialEventsWhenDestSelected;
 
-    if (CheckForEvents(&info)) {
-        sub_80845A4();
-        CallEventsFromBuffer(&info, EV_EXEC_CUTSCENE);
+    if (SearchAvailableEvent(&info)) {
+        ClearActiveEventRegistry();
+        StartEventFromInfo(&info, EV_EXEC_CUTSCENE);
         return 1;
     }
 
@@ -1680,7 +1677,7 @@ s8 sub_80844B0(void) {
 }
 
 //! FE8U = 0x08084508
-s8 sub_8084508(void) {
+s8 StartAfterUnitMovedEvent(void) {
     s8 ret;
     struct EventInfo info;
 
@@ -1688,13 +1685,13 @@ s8 sub_8084508(void) {
         return 0;
     }
 
-    ret = TryCallSelectEvents_u1C(4);
+    ret = RunTutorialEvent(TUTORIAL_EVT_TYPE_AFTERMOVE);
 
     info.listScript = GetChapterEventDataPointer(gPlaySt.chapterIndex)->specialEventsAfterUnitMoved;
 
-    if (CheckForEvents(&info)) {
-        sub_80845A4();
-        CallEventsFromBuffer(&info, EV_EXEC_CUTSCENE);
+    if (SearchAvailableEvent(&info)) {
+        ClearActiveEventRegistry();
+        StartEventFromInfo(&info, EV_EXEC_CUTSCENE);
         return 1;
     }
 
@@ -1702,56 +1699,56 @@ s8 sub_8084508(void) {
 }
 
 //! FE8U = 0x08084560
-s8 sub_8084560(void) {
+s8 CheckBattleForecastTutorialEvent(void) {
     if (GetChapterThing() == 2) {
         return 0;
     }
 
-    return sub_8083E34(5);
+    return CheckTutorialEvent(TUTORIAL_EVT_TYPE_FORECAST);
 }
 
 //! FE8U = 0x0808457C
-void sub_808457C(void) {
+void StartBattleForecastTutorialEvent(void) {
     if (GetChapterThing() == 2) {
         return;
     }
 
-    TryCallSelectEvents_u1C(5);
+    RunTutorialEvent(TUTORIAL_EVT_TYPE_FORECAST);
     return;
 }
 
 //! FE8U = 0x08084590
-void sub_8084590(void) {
+void StartPlayerPhaseStartTutorialEvent(void) {
     if (GetChapterThing() == 2) {
         return;
     }
 
-    TryCallSelectEvents_u1C(6);
+    RunTutorialEvent(TUTORIAL_EVT_TYPE_PLAYERPHASE);
     return;
 }
 
 //! FE8U = 0x080845A4
-void sub_80845A4(void) {
-    memset(&gUnknown_03001C80, 0, 0x40);
+void ClearActiveEventRegistry(void) {
+    memset(&gActiveEventRegistry, 0, sizeof(gActiveEventRegistry));
     return;
 }
 
 //! FE8U = 0x080845B8
-void sub_80845B8(u32 script, u16 flag) {
-    gUnknown_03001C80.unk_00[gUnknown_03001C80.unk_3c] = script;
-    gUnknown_03001C80.unk_28[gUnknown_03001C80.unk_3c] = flag;
+void RegisterEventActivation(u32 script, u16 flag) {
+    gActiveEventRegistry.unk_00[gActiveEventRegistry.unk_3c] = script;
+    gActiveEventRegistry.unk_28[gActiveEventRegistry.unk_3c] = flag;
 
-    gUnknown_03001C80.unk_3c++;
+    gActiveEventRegistry.unk_3c++;
     return;
 }
 
 //! FE8U = 0x080845E4
-u16 sub_80845E4(int script) {
+u16 GetEventTriggerId(int script) {
     s16 i;
 
-    for (i = 0; i < gUnknown_03001C80.unk_3c; i++) {
-        if (gUnknown_03001C80.unk_00[i] == script) {
-            return gUnknown_03001C80.unk_28[i];
+    for (i = 0; i < gActiveEventRegistry.unk_3c; i++) {
+        if (gActiveEventRegistry.unk_00[i] == script) {
+            return gActiveEventRegistry.unk_28[i];
         }
     }
 
@@ -1759,14 +1756,14 @@ u16 sub_80845E4(int script) {
 }
 
 //! FE8U = 0x08084628
-void sub_8084628(void) {
-    SetEventId(0x82);
+void SetFlag82(void) {
+    SetFlag(0x82);
     return;
 }
 
 //! FE8U = 0x08084634
-s8 sub_8084634(void) {
-    if (CheckEventId(0x82)) {
+s8 CheckFlag82(void) {
+    if (CheckFlag(0x82)) {
         return 1;
     }
 
@@ -1777,7 +1774,7 @@ s8 sub_8084634(void) {
 struct BattleTalkExtEnt* GetBattleQuoteEntry(u16 pidA, u16 pidB) {
     struct BattleTalkExtEnt* it;
 
-    for (it = gUnknown_089EC6BC; it->pidA != 0xFFFF; it++) {
+    for (it = gBattleTalkList; it->pidA != 0xFFFF; it++) {
 
         if (it->chapter != 0xff && it->chapter != gPlaySt.chapterIndex) {
             if (it->chapter != 0xfe || BattleIsTriangleAttack() != 1) {
@@ -1788,7 +1785,6 @@ struct BattleTalkExtEnt* GetBattleQuoteEntry(u16 pidA, u16 pidB) {
         if (GetEventTriggerState(it->flag)) {
             continue;
         }
-
 
         if (it->pidA != 0) {
 
@@ -1826,10 +1822,10 @@ struct BattleTalkExtEnt* GetBattleQuoteEntry(u16 pidA, u16 pidB) {
 }
 
 //! FE8U = 0x080846E4
-struct DefeatTalkEnt* sub_80846E4(u16 pid) {
+struct DefeatTalkEnt* GetDefeatTalkEntry(u16 pid) {
     struct DefeatTalkEnt* it;
 
-    for (it = gUnknown_089ECD4C; it->pid != 0xFFFF; it++) {
+    for (it = gDefeatTalkList; it->pid != 0xFFFF; it++) {
         if ((it->route != 0xff) && (it->route != gPlaySt.chapterModeIndex)) {
             continue;
         }
@@ -1853,7 +1849,7 @@ struct DefeatTalkEnt* sub_80846E4(u16 pid) {
 }
 
 //! FE8U = 0x08084748
-struct SupportTalkEnt* sub_8084748(u16 pidA, u16 pidB) {
+struct SupportTalkEnt* GetSupportTalkEntry(u16 pidA, u16 pidB) {
     struct SupportTalkEnt* it;
 
     for (it = gSupportTalkList; it->unitA != 0xFFFF; it++) {
@@ -1871,10 +1867,10 @@ struct SupportTalkEnt* sub_8084748(u16 pidA, u16 pidB) {
 }
 
 //! FE8U = 0x0808478C
-int sub_808478C(u16 pidA, u16 pidB, u8 rank) {
+int GetSupportTalkSong(u16 pidA, u16 pidB, u8 rank) {
     int unk;
 
-    struct SupportTalkEnt* ent = sub_8084748(pidA, pidB);
+    struct SupportTalkEnt* ent = GetSupportTalkEntry(pidA, pidB);
 
     if (ent == NULL) {
         return 0;
@@ -1923,7 +1919,7 @@ struct SupportTalkEnt* GetSupportTalkList(void) {
 s8 IsCharacterForceDeployed_(u16 pid) {
     struct ForceDeploymentEnt* it;
 
-    for (it = gUnknown_089ED64C; it->pid != 0xFFFF; it++) {
+    for (it = gForceDeploymentList; it->pid != 0xFFFF; it++) {
         if (it->route != 0xFF && it->route != gPlaySt.chapterModeIndex) {
             continue;
         }
@@ -1946,7 +1942,7 @@ s8 IsCharacterForceDeployed_(u16 pid) {
 s8 IsSethLArachelMyrrhInnes(u16 pid) {
     u8* it;
 
-    for (it = gUnknown_089ED674; *it != 0; it++) {
+    for (it = gPidList_SethLArachelMyrrhInnes; *it != 0; it++) {
         if (*it == pid) {
             return 1;
         }

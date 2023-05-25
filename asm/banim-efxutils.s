@@ -3698,7 +3698,7 @@ _08072790: .4byte gEkrPairSideVaild
 _08072794:
 	cmp r0, #0xbe
 	bne _080727B4
-	bl sub_8084634
+	bl CheckFlag82
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -3709,7 +3709,7 @@ _08072794:
 	bl sub_8071A54
 	b _08072892
 _080727B0:
-	bl sub_8084628
+	bl SetFlag82
 _080727B4:
 	adds r0, r5, #0
 	bl sub_80728D0

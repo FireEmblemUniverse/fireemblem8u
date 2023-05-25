@@ -95,7 +95,7 @@ void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar *proc)
             if (GetBanimLinkArenaFlag() == true)
                 ret = 0;
             else
-                ret = EkrCheckSomeDeathMaybe(gEkrPids[GetAISSubjectId(anim1)]);
+                ret = ShouldDisplayDefeatTalkForPid(gEkrPids[GetAISSubjectId(anim1)]);
 
             if (ret == true)
                 NewEfxDeadEvent(anim1, anim2);
@@ -294,7 +294,7 @@ void EfxHPBarResire_805282C(struct ProcEfxHPBar *proc)
             if (GetBanimLinkArenaFlag() == true)
                 ret = 0;
             else
-                ret = EkrCheckSomeDeathMaybe(gEkrPids[GetAISSubjectId(anim3)]);
+                ret = ShouldDisplayDefeatTalkForPid(gEkrPids[GetAISSubjectId(anim3)]);
 
             if (ret == true)
                 NewEfxDeadEvent(anim3, anim4);

@@ -51,14 +51,14 @@
 
 	.global PrologueEvents
 PrologueEvents:  @ 0x089E863C
-    .4byte gUnknown_089E857C + 0x10
-    .4byte gUnknown_089E857C + 0x44
-    .4byte gUnknown_089E857C + 0x48
-    .4byte gUnknown_089E857C + 0x4c
-    .4byte gUnknown_089E857C + 0x74
-    .4byte gUnknown_089E857C + 0x78
-    .4byte gUnknown_089E857C + 0x7c
-    .4byte gUnknown_089E857C + 0x80
+    .4byte gFlagBitMaskLut + 0x10
+    .4byte gFlagBitMaskLut + 0x44
+    .4byte gFlagBitMaskLut + 0x48
+    .4byte gFlagBitMaskLut + 0x4c
+    .4byte gFlagBitMaskLut + 0x74
+    .4byte gFlagBitMaskLut + 0x78
+    .4byte gFlagBitMaskLut + 0x7c
+    .4byte gFlagBitMaskLut + 0x80
     .4byte gUnknown_089ED6AC + 0x2fc
     .4byte gUnknown_089ED6AC + 0x7ed
     .4byte gUnknown_088B3AD8 + 0x13c
@@ -145,14 +145,14 @@ gUnknown_089E868C:  @ 0x089E868C
 
 	.global Ch1Events
 Ch1Events:  @ 0x089E879C
-    .4byte gUnknown_089E857C + 0x110
-    .4byte gUnknown_089E857C + 0x144
-    .4byte gUnknown_089E857C + 0x188
-    .4byte gUnknown_089E857C + 0x1b0
-    .4byte gUnknown_089E857C + 0x1d8
-    .4byte gUnknown_089E857C + 0x1dc
-    .4byte gUnknown_089E857C + 0x1e0
-    .4byte gUnknown_089E857C + 0x1e4
+    .4byte gFlagBitMaskLut + 0x110
+    .4byte gFlagBitMaskLut + 0x144
+    .4byte gFlagBitMaskLut + 0x188
+    .4byte gFlagBitMaskLut + 0x1b0
+    .4byte gFlagBitMaskLut + 0x1d8
+    .4byte gFlagBitMaskLut + 0x1dc
+    .4byte gFlagBitMaskLut + 0x1e0
+    .4byte gFlagBitMaskLut + 0x1e4
     .4byte gUnknown_089ED6AC + 0x2ff
     .4byte gUnknown_089ED6AC + 0x7f0
     .4byte gUnknown_088B3AD8 + 0x5c8
@@ -253,14 +253,14 @@ gUnknown_089E87EC:  @ 0x089E87EC
 
 	.global Ch2Events
 Ch2Events:  @ 0x089E8934
-    .4byte gUnknown_089E857C + 0x270
-    .4byte gUnknown_089E857C + 0x298
-    .4byte gUnknown_089E857C + 0x2bc
-    .4byte gUnknown_089E857C + 0x314
-    .4byte gUnknown_089E857C + 0x330
-    .4byte gUnknown_089E857C + 0x334
-    .4byte gUnknown_089E857C + 0x338
-    .4byte gUnknown_089E857C + 0x33c
+    .4byte gFlagBitMaskLut + 0x270
+    .4byte gFlagBitMaskLut + 0x298
+    .4byte gFlagBitMaskLut + 0x2bc
+    .4byte gFlagBitMaskLut + 0x314
+    .4byte gFlagBitMaskLut + 0x330
+    .4byte gFlagBitMaskLut + 0x334
+    .4byte gFlagBitMaskLut + 0x338
+    .4byte gFlagBitMaskLut + 0x33c
     .4byte gUnknown_089ED6AC + 0x300
     .4byte gUnknown_089ED6AC + 0x7f1
     .4byte gUnknown_088B3AD8 + 0x7f4
@@ -324,14 +324,14 @@ gUnknown_089E8984:  @ 0x089E8984
 
 	.global Ch3Events
 Ch3Events:  @ 0x089E8A38
-    .4byte gUnknown_089E857C + 0x408
-    .4byte gUnknown_089E857C + 0x424
-    .4byte gUnknown_089E857C + 0x438
-    .4byte gUnknown_089E857C + 0x49c
-    .4byte gUnknown_089E857C + 0x4ac
-    .4byte gUnknown_089E857C + 0x4b0
-    .4byte gUnknown_089E857C + 0x4b4
-    .4byte gUnknown_089E857C + 0x4b8
+    .4byte gFlagBitMaskLut + 0x408
+    .4byte gFlagBitMaskLut + 0x424
+    .4byte gFlagBitMaskLut + 0x438
+    .4byte gFlagBitMaskLut + 0x49c
+    .4byte gFlagBitMaskLut + 0x4ac
+    .4byte gFlagBitMaskLut + 0x4b0
+    .4byte gFlagBitMaskLut + 0x4b4
+    .4byte gFlagBitMaskLut + 0x4b8
     .4byte gUnknown_089ED6AC + 0x301
     .4byte gUnknown_089ED6AC + 0x7f2
     .4byte gUnknown_088B3AD8 + 0xa9c
@@ -388,14 +388,14 @@ gUnknown_089E8A88:  @ 0x089E8A88
 
 	.global Ch4Events
 Ch4Events: @0x89e8b20
-    .4byte gUnknown_089E857C + 0x50c
-    .4byte gUnknown_089E857C + 0x534
-    .4byte gUnknown_089E857C + 0x538
-    .4byte gUnknown_089E857C + 0x56c
-    .4byte gUnknown_089E857C + 0x594
-    .4byte gUnknown_089E857C + 0x598
-    .4byte gUnknown_089E857C + 0x59c
-    .4byte gUnknown_089E857C + 0x5a0
+    .4byte gFlagBitMaskLut + 0x50c
+    .4byte gFlagBitMaskLut + 0x534
+    .4byte gFlagBitMaskLut + 0x538
+    .4byte gFlagBitMaskLut + 0x56c
+    .4byte gFlagBitMaskLut + 0x594
+    .4byte gFlagBitMaskLut + 0x598
+    .4byte gFlagBitMaskLut + 0x59c
+    .4byte gFlagBitMaskLut + 0x5a0
     .4byte gUnknown_089ED6AC + 0x303
     .4byte gUnknown_089ED6AC + 0x7f4
     .4byte gUnknown_088B3AD8 + 0xe2c
@@ -468,14 +468,14 @@ Ch4Events: @0x89e8b20
 
 	.global Ch5EventData
 Ch5EventData: @0x89e8c54
-    .4byte gUnknown_089E857C + 0x5f4
-    .4byte gUnknown_089E857C + 0x61c
-    .4byte gUnknown_089E857C + 0x630
-    .4byte gUnknown_089E857C + 0x6ac
-    .4byte gUnknown_089E857C + 0x6c8
-    .4byte gUnknown_089E857C + 0x6cc
-    .4byte gUnknown_089E857C + 0x6d0
-    .4byte gUnknown_089E857C + 0x6d4
+    .4byte gFlagBitMaskLut + 0x5f4
+    .4byte gFlagBitMaskLut + 0x61c
+    .4byte gFlagBitMaskLut + 0x630
+    .4byte gFlagBitMaskLut + 0x6ac
+    .4byte gFlagBitMaskLut + 0x6c8
+    .4byte gFlagBitMaskLut + 0x6cc
+    .4byte gFlagBitMaskLut + 0x6d0
+    .4byte gFlagBitMaskLut + 0x6d4
     .4byte gUnknown_089ED6AC + 0x304
     .4byte gUnknown_089ED6AC + 0x7f5
     .4byte gUnknown_088B3AD8 + 0x1b58
@@ -518,14 +518,14 @@ Ch5EventData: @0x89e8c54
 
 	.global Ch5XEvents
 Ch5XEvents: @0x89e8d0c
-    .4byte gUnknown_089E857C + 0x728
-    .4byte gUnknown_089E857C + 0x72c
-    .4byte gUnknown_089E857C + 0x730
-    .4byte gUnknown_089E857C + 0x770
-    .4byte gUnknown_089E857C + 0x780
-    .4byte gUnknown_089E857C + 0x784
-    .4byte gUnknown_089E857C + 0x788
-    .4byte gUnknown_089E857C + 0x78c
+    .4byte gFlagBitMaskLut + 0x728
+    .4byte gFlagBitMaskLut + 0x72c
+    .4byte gFlagBitMaskLut + 0x730
+    .4byte gFlagBitMaskLut + 0x770
+    .4byte gFlagBitMaskLut + 0x780
+    .4byte gFlagBitMaskLut + 0x784
+    .4byte gFlagBitMaskLut + 0x788
+    .4byte gFlagBitMaskLut + 0x78c
     .4byte gUnknown_089ED6AC + 0x305
     .4byte gUnknown_089ED6AC + 0x7f6
     .4byte gUnknown_088B3AD8 + 0x1f8c
@@ -567,14 +567,14 @@ Ch5XEvents: @0x89e8d0c
 
 	.global Ch6Events
 Ch6Events: @0x89e8dc4
-    .4byte gUnknown_089E857C + 0x7e0
-    .4byte gUnknown_089E857C + 0x7f0
-    .4byte gUnknown_089E857C + 0x7f4
-    .4byte gUnknown_089E857C + 0x810
-    .4byte gUnknown_089E857C + 0x838
-    .4byte gUnknown_089E857C + 0x83c
-    .4byte gUnknown_089E857C + 0x840
-    .4byte gUnknown_089E857C + 0x844
+    .4byte gFlagBitMaskLut + 0x7e0
+    .4byte gFlagBitMaskLut + 0x7f0
+    .4byte gFlagBitMaskLut + 0x7f4
+    .4byte gFlagBitMaskLut + 0x810
+    .4byte gFlagBitMaskLut + 0x838
+    .4byte gFlagBitMaskLut + 0x83c
+    .4byte gFlagBitMaskLut + 0x840
+    .4byte gFlagBitMaskLut + 0x844
     .4byte gUnknown_089ED6AC + 0x30a
     .4byte gUnknown_089ED6AC + 0x7fb
     .4byte gUnknown_088B3AD8 + 0x2900
@@ -613,14 +613,14 @@ Ch6Events: @0x89e8dc4
 
 	.global Ch7EventData
 Ch7EventData: @0x89e8e70
-    .4byte gUnknown_089E857C + 0x898
-    .4byte gUnknown_089E857C + 0x8a8
-    .4byte gUnknown_089E857C + 0x8ac
-    .4byte gUnknown_089E857C + 0x8d4
-    .4byte gUnknown_089E857C + 0x8e4
-    .4byte gUnknown_089E857C + 0x8e8
-    .4byte gUnknown_089E857C + 0x8ec
-    .4byte gUnknown_089E857C + 0x8f0
+    .4byte gFlagBitMaskLut + 0x898
+    .4byte gFlagBitMaskLut + 0x8a8
+    .4byte gFlagBitMaskLut + 0x8ac
+    .4byte gFlagBitMaskLut + 0x8d4
+    .4byte gFlagBitMaskLut + 0x8e4
+    .4byte gFlagBitMaskLut + 0x8e8
+    .4byte gFlagBitMaskLut + 0x8ec
+    .4byte gFlagBitMaskLut + 0x8f0
     .4byte gUnknown_089ED6AC + 0x30b
     .4byte gUnknown_089ED6AC + 0x7fc
     .4byte gUnknown_088B3AD8 + 0x33a0
@@ -709,14 +709,14 @@ Ch7EventData: @0x89e8e70
 
 	.global Ch8EventData
 Ch8EventData: @0x89e8fe4
-    .4byte gUnknown_089E857C + 0x944
-    .4byte gUnknown_089E857C + 0x96c
-    .4byte gUnknown_089E857C + 0x9f0
-    .4byte gUnknown_089E857C + 0xa3c
-    .4byte gUnknown_089E857C + 0xa58
-    .4byte gUnknown_089E857C + 0xa5c
-    .4byte gUnknown_089E857C + 0xa60
-    .4byte gUnknown_089E857C + 0xa64
+    .4byte gFlagBitMaskLut + 0x944
+    .4byte gFlagBitMaskLut + 0x96c
+    .4byte gFlagBitMaskLut + 0x9f0
+    .4byte gFlagBitMaskLut + 0xa3c
+    .4byte gFlagBitMaskLut + 0xa58
+    .4byte gFlagBitMaskLut + 0xa5c
+    .4byte gFlagBitMaskLut + 0xa60
+    .4byte gFlagBitMaskLut + 0xa64
     .4byte gUnknown_089ED6AC + 0x319
     .4byte gUnknown_089ED6AC + 0x7fe
     .4byte gUnknown_088B3AD8 + 0x3828
@@ -799,14 +799,14 @@ Ch8EventData: @0x89e8fe4
 
 	.global Ch9EirikaEvents
 Ch9EirikaEvents: @0x89e9140
-    .4byte gUnknown_089E857C + 0xab8
-    .4byte gUnknown_089E857C + 0xb28
-    .4byte gUnknown_089E857C + 0xb4c
-    .4byte gUnknown_089E857C + 0xb98
-    .4byte gUnknown_089E857C + 0xbb4
-    .4byte gUnknown_089E857C + 0xbb8
-    .4byte gUnknown_089E857C + 0xbbc
-    .4byte gUnknown_089E857C + 0xbc0
+    .4byte gFlagBitMaskLut + 0xab8
+    .4byte gFlagBitMaskLut + 0xb28
+    .4byte gFlagBitMaskLut + 0xb4c
+    .4byte gFlagBitMaskLut + 0xb98
+    .4byte gFlagBitMaskLut + 0xbb4
+    .4byte gFlagBitMaskLut + 0xbb8
+    .4byte gFlagBitMaskLut + 0xbbc
+    .4byte gFlagBitMaskLut + 0xbc0
     .4byte gUnknown_089ED6AC + 0x31c
     .4byte gUnknown_089ED6AC + 0x801
     .4byte gUnknown_088B3AD8 + 0x4134
@@ -894,14 +894,14 @@ Ch9EirikaEvents: @0x89e9140
 
 	.global Ch10EirikaEvents
 Ch10EirikaEvents: @0x89e92b0
-    .4byte gUnknown_089E857C + 0xc14
-    .4byte gUnknown_089E857C + 0xc48
-    .4byte gUnknown_089E857C + 0xcbc
-    .4byte gUnknown_089E857C + 0xd08
-    .4byte gUnknown_089E857C + 0xd24
-    .4byte gUnknown_089E857C + 0xd28
-    .4byte gUnknown_089E857C + 0xd2c
-    .4byte gUnknown_089E857C + 0xd30
+    .4byte gFlagBitMaskLut + 0xc14
+    .4byte gFlagBitMaskLut + 0xc48
+    .4byte gFlagBitMaskLut + 0xcbc
+    .4byte gFlagBitMaskLut + 0xd08
+    .4byte gFlagBitMaskLut + 0xd24
+    .4byte gFlagBitMaskLut + 0xd28
+    .4byte gFlagBitMaskLut + 0xd2c
+    .4byte gFlagBitMaskLut + 0xd30
     .4byte gUnknown_089ED6AC + 0x31f
     .4byte gUnknown_089ED6AC + 0x804
     .4byte gUnknown_088B3AD8 + 0x4a68
@@ -981,14 +981,14 @@ Ch10EirikaEvents: @0x89e92b0
 
 	.global Ch11EirikaEvents
 Ch11EirikaEvents: @0x89e9400
-    .4byte gUnknown_089E857C + 0xd84
-    .4byte gUnknown_089E857C + 0xdb8
-    .4byte gUnknown_089E857C + 0xddc
-    .4byte gUnknown_089E857C + 0xe28
-    .4byte gUnknown_089E857C + 0xe74
-    .4byte gUnknown_089E857C + 0xe78
-    .4byte gUnknown_089E857C + 0xe7c
-    .4byte gUnknown_089E857C + 0xe80
+    .4byte gFlagBitMaskLut + 0xd84
+    .4byte gFlagBitMaskLut + 0xdb8
+    .4byte gFlagBitMaskLut + 0xddc
+    .4byte gFlagBitMaskLut + 0xe28
+    .4byte gFlagBitMaskLut + 0xe74
+    .4byte gFlagBitMaskLut + 0xe78
+    .4byte gFlagBitMaskLut + 0xe7c
+    .4byte gFlagBitMaskLut + 0xe80
     .4byte gUnknown_089ED6AC + 0x333
     .4byte gUnknown_089ED6AC + 0x806
     .4byte gUnknown_088B3AD8 + 0x5dbc
@@ -1042,14 +1042,14 @@ Ch11EirikaEvents: @0x89e9400
 
 	.global Ch12EirikaEventData
 Ch12EirikaEventData: @0x89e94e8
-    .4byte gUnknown_089E857C + 0xed4
-    .4byte gUnknown_089E857C + 0xef0
-    .4byte gUnknown_089E857C + 0xef4
-    .4byte gUnknown_089E857C + 0xf1c
-    .4byte gUnknown_089E857C + 0xf5c
-    .4byte gUnknown_089E857C + 0xf60
-    .4byte gUnknown_089E857C + 0xf64
-    .4byte gUnknown_089E857C + 0xf68
+    .4byte gFlagBitMaskLut + 0xed4
+    .4byte gFlagBitMaskLut + 0xef0
+    .4byte gFlagBitMaskLut + 0xef4
+    .4byte gFlagBitMaskLut + 0xf1c
+    .4byte gFlagBitMaskLut + 0xf5c
+    .4byte gFlagBitMaskLut + 0xf60
+    .4byte gFlagBitMaskLut + 0xf64
+    .4byte gFlagBitMaskLut + 0xf68
     .4byte gUnknown_089ED6AC + 0x335
     .4byte gUnknown_089ED6AC + 0x808
     .4byte gUnknown_088B3AD8 + 0x6698
@@ -1109,14 +1109,14 @@ Ch12EirikaEventData: @0x89e94e8
 
 	.global Ch13EirikaEvents
 Ch13EirikaEvents: @0x89e95e8
-    .4byte gUnknown_089E857C + 0xfbc
-    .4byte gUnknown_089E857C + 0x1008
-    .4byte gUnknown_089E857C + 0x103c
-    .4byte gUnknown_089E857C + 0x1040
-    .4byte gUnknown_089E857C + 0x105c
-    .4byte gUnknown_089E857C + 0x1060
-    .4byte gUnknown_089E857C + 0x1064
-    .4byte gUnknown_089E857C + 0x1068
+    .4byte gFlagBitMaskLut + 0xfbc
+    .4byte gFlagBitMaskLut + 0x1008
+    .4byte gFlagBitMaskLut + 0x103c
+    .4byte gFlagBitMaskLut + 0x1040
+    .4byte gFlagBitMaskLut + 0x105c
+    .4byte gFlagBitMaskLut + 0x1060
+    .4byte gFlagBitMaskLut + 0x1064
+    .4byte gFlagBitMaskLut + 0x1068
     .4byte gUnknown_089ED6AC + 0x336
     .4byte gUnknown_089ED6AC + 0x809
     .4byte gUnknown_088B3AD8 + 0x6e70
@@ -1226,14 +1226,14 @@ Ch13EirikaEvents: @0x89e95e8
 
 	.global Ch14EirikaEvents
 Ch14EirikaEvents: @0x89e97b0
-    .4byte gUnknown_089E857C + 0x10bc
-    .4byte gUnknown_089E857C + 0x10fc
-    .4byte gUnknown_089E857C + 0x1120
-    .4byte gUnknown_089E857C + 0x11f0
-    .4byte gUnknown_089E857C + 0x1224
-    .4byte gUnknown_089E857C + 0x1228
-    .4byte gUnknown_089E857C + 0x122c
-    .4byte gUnknown_089E857C + 0x1230
+    .4byte gFlagBitMaskLut + 0x10bc
+    .4byte gFlagBitMaskLut + 0x10fc
+    .4byte gFlagBitMaskLut + 0x1120
+    .4byte gFlagBitMaskLut + 0x11f0
+    .4byte gFlagBitMaskLut + 0x1224
+    .4byte gFlagBitMaskLut + 0x1228
+    .4byte gFlagBitMaskLut + 0x122c
+    .4byte gFlagBitMaskLut + 0x1230
     .4byte gUnknown_089ED6AC + 0x34c
     .4byte gUnknown_089ED6AC + 0x80d
     .4byte gUnknown_088B3AD8 + 0x80d0
@@ -1377,14 +1377,14 @@ Ch14EirikaEvents: @0x89e97b0
 
 	.global Ch15EirikaEvents
 Ch15EirikaEvents: @0x89e9a00
-    .4byte gUnknown_089E857C + 0x1284
-    .4byte gUnknown_089E857C + 0x12d0
-    .4byte gUnknown_089E857C + 0x1394
-    .4byte gUnknown_089E857C + 0x13d4
-    .4byte gUnknown_089E857C + 0x1474
-    .4byte gUnknown_089E857C + 0x1478
-    .4byte gUnknown_089E857C + 0x147c
-    .4byte gUnknown_089E857C + 0x1480
+    .4byte gFlagBitMaskLut + 0x1284
+    .4byte gFlagBitMaskLut + 0x12d0
+    .4byte gFlagBitMaskLut + 0x1394
+    .4byte gFlagBitMaskLut + 0x13d4
+    .4byte gFlagBitMaskLut + 0x1474
+    .4byte gFlagBitMaskLut + 0x1478
+    .4byte gFlagBitMaskLut + 0x147c
+    .4byte gFlagBitMaskLut + 0x1480
     .4byte gUnknown_089ED6AC + 0x350
     .4byte gUnknown_089ED6AC + 0x811
     .4byte gUnknown_088B3AD8 + 0x8b38
@@ -1450,14 +1450,14 @@ Ch15EirikaEvents: @0x89e9a00
 
 	.global Ch16EirEvents
 Ch16EirEvents: @0x89e9b18
-    .4byte gUnknown_089E857C + 0x14d4
-    .4byte gUnknown_089E857C + 0x14fc
-    .4byte gUnknown_089E857C + 0x1500
-    .4byte gUnknown_089E857C + 0x1564
-    .4byte gUnknown_089E857C + 0x158c
-    .4byte gUnknown_089E857C + 0x1590
-    .4byte gUnknown_089E857C + 0x1594
-    .4byte gUnknown_089E857C + 0x1598
+    .4byte gFlagBitMaskLut + 0x14d4
+    .4byte gFlagBitMaskLut + 0x14fc
+    .4byte gFlagBitMaskLut + 0x1500
+    .4byte gFlagBitMaskLut + 0x1564
+    .4byte gFlagBitMaskLut + 0x158c
+    .4byte gFlagBitMaskLut + 0x1590
+    .4byte gFlagBitMaskLut + 0x1594
+    .4byte gFlagBitMaskLut + 0x1598
     .4byte gUnknown_089ED6AC + 0x351
     .4byte gUnknown_089ED6AC + 0x812
     .4byte gUnknown_088B3AD8 + 0x9380
@@ -1556,14 +1556,14 @@ Ch16EirEvents: @0x89e9b18
 
 	.global Ch17EirikaEvents
 Ch17EirikaEvents: @0x89e9cb4
-    .4byte gUnknown_089E857C + 0x15ec
-    .4byte gUnknown_089E857C + 0x1698
-    .4byte gUnknown_089E857C + 0x16cc
-    .4byte gUnknown_089E857C + 0x16e8
-    .4byte gUnknown_089E857C + 0x1728
-    .4byte gUnknown_089E857C + 0x172c
-    .4byte gUnknown_089E857C + 0x1730
-    .4byte gUnknown_089E857C + 0x1734
+    .4byte gFlagBitMaskLut + 0x15ec
+    .4byte gFlagBitMaskLut + 0x1698
+    .4byte gFlagBitMaskLut + 0x16cc
+    .4byte gFlagBitMaskLut + 0x16e8
+    .4byte gFlagBitMaskLut + 0x1728
+    .4byte gFlagBitMaskLut + 0x172c
+    .4byte gFlagBitMaskLut + 0x1730
+    .4byte gFlagBitMaskLut + 0x1734
     .4byte gUnknown_089ED6AC + 0x357
     .4byte gUnknown_089ED6AC + 0x818
     .4byte gUnknown_088B3AD8 + 0xa380
@@ -1620,14 +1620,14 @@ Ch17EirikaEvents: @0x89e9cb4
 
 	.global Ch18EirikaEvents
 Ch18EirikaEvents: @0x89e9da8
-    .4byte gUnknown_089E857C + 0x1788
-    .4byte gUnknown_089E857C + 0x17c8
-    .4byte gUnknown_089E857C + 0x17cc
-    .4byte gUnknown_089E857C + 0x17d0
-    .4byte gUnknown_089E857C + 0x181c
-    .4byte gUnknown_089E857C + 0x1820
-    .4byte gUnknown_089E857C + 0x1824
-    .4byte gUnknown_089E857C + 0x1828
+    .4byte gFlagBitMaskLut + 0x1788
+    .4byte gFlagBitMaskLut + 0x17c8
+    .4byte gFlagBitMaskLut + 0x17cc
+    .4byte gFlagBitMaskLut + 0x17d0
+    .4byte gFlagBitMaskLut + 0x181c
+    .4byte gFlagBitMaskLut + 0x1820
+    .4byte gFlagBitMaskLut + 0x1824
+    .4byte gFlagBitMaskLut + 0x1828
     .4byte gUnknown_089ED6AC + 0x358
     .4byte gUnknown_089ED6AC + 0x819
     .4byte gUnknown_088B3AD8 + 0xb510
@@ -1711,14 +1711,14 @@ Ch18EirikaEvents: @0x89e9da8
 
 	.global Ch19EirikaEvents
 Ch19EirikaEvents: @0x89e9f08
-    .4byte gUnknown_089E857C + 0x187c
-    .4byte gUnknown_089E857C + 0x18f8
-    .4byte gUnknown_089E857C + 0x18fc
-    .4byte gUnknown_089E857C + 0x1960
-    .4byte gUnknown_089E857C + 0x197c
-    .4byte gUnknown_089E857C + 0x1980
-    .4byte gUnknown_089E857C + 0x1984
-    .4byte gUnknown_089E857C + 0x1988
+    .4byte gFlagBitMaskLut + 0x187c
+    .4byte gFlagBitMaskLut + 0x18f8
+    .4byte gFlagBitMaskLut + 0x18fc
+    .4byte gFlagBitMaskLut + 0x1960
+    .4byte gFlagBitMaskLut + 0x197c
+    .4byte gFlagBitMaskLut + 0x1980
+    .4byte gFlagBitMaskLut + 0x1984
+    .4byte gFlagBitMaskLut + 0x1988
     .4byte gUnknown_089ED6AC + 0x4bb
     .4byte gUnknown_089ED6AC + 0x81a
     .4byte gUnknown_088B3AD8 + 0xc7b8
@@ -1787,14 +1787,14 @@ Ch19EirikaEvents: @0x89e9f08
 
 	.global Ch20EirikaEvents
 Ch20EirikaEvents: @0x89ea02c
-    .4byte gUnknown_089E857C + 0x19dc
-    .4byte gUnknown_089E857C + 0x1a4c
-    .4byte gUnknown_089E857C + 0x1a50
-    .4byte gUnknown_089E857C + 0x1a60
-    .4byte gUnknown_089E857C + 0x1aa0
-    .4byte gUnknown_089E857C + 0x1aa4
-    .4byte gUnknown_089E857C + 0x1aa8
-    .4byte gUnknown_089E857C + 0x1aac
+    .4byte gFlagBitMaskLut + 0x19dc
+    .4byte gFlagBitMaskLut + 0x1a4c
+    .4byte gFlagBitMaskLut + 0x1a50
+    .4byte gFlagBitMaskLut + 0x1a60
+    .4byte gFlagBitMaskLut + 0x1aa0
+    .4byte gFlagBitMaskLut + 0x1aa4
+    .4byte gFlagBitMaskLut + 0x1aa8
+    .4byte gFlagBitMaskLut + 0x1aac
     .4byte gUnknown_089ED6AC + 0x4bd
     .4byte gUnknown_089ED6AC + 0x81c
     .4byte gUnknown_088B3AD8 + 0xd29c
@@ -1857,14 +1857,14 @@ Ch20EirikaEvents: @0x89ea02c
 
 	.global FinalEirikaEvents1
 FinalEirikaEvents1: @0x89ea138
-    .4byte gUnknown_089E857C + 0x1b00
-    .4byte gUnknown_089E857C + 0x1b28
-    .4byte gUnknown_089E857C + 0x1b2c
-    .4byte gUnknown_089E857C + 0x1b60
-    .4byte gUnknown_089E857C + 0x1bac
-    .4byte gUnknown_089E857C + 0x1bb0
-    .4byte gUnknown_089E857C + 0x1bb4
-    .4byte gUnknown_089E857C + 0x1bb8
+    .4byte gFlagBitMaskLut + 0x1b00
+    .4byte gFlagBitMaskLut + 0x1b28
+    .4byte gFlagBitMaskLut + 0x1b2c
+    .4byte gFlagBitMaskLut + 0x1b60
+    .4byte gFlagBitMaskLut + 0x1bac
+    .4byte gFlagBitMaskLut + 0x1bb0
+    .4byte gFlagBitMaskLut + 0x1bb4
+    .4byte gFlagBitMaskLut + 0x1bb8
     .4byte gUnknown_089ED6AC + 0x4bf
     .4byte gUnknown_089ED6AC + 0x81e
     .4byte gUnknown_088B3AD8 + 0xdd44
@@ -1894,14 +1894,14 @@ FinalEirikaEvents1: @0x89ea138
 
 	.global FinalEirikaEvents2
 FinalEirikaEvents2: @0x89ea1c0
-    .4byte gUnknown_089E857C + 0x1c0c
-    .4byte gUnknown_089E857C + 0x1c10
-    .4byte gUnknown_089E857C + 0x1c14
-    .4byte gUnknown_089E857C + 0x1c18
-    .4byte gUnknown_089E857C + 0x1c34
-    .4byte gUnknown_089E857C + 0x1c38
-    .4byte gUnknown_089E857C + 0x1c3c
-    .4byte gUnknown_089E857C + 0x1c40
+    .4byte gFlagBitMaskLut + 0x1c0c
+    .4byte gFlagBitMaskLut + 0x1c10
+    .4byte gFlagBitMaskLut + 0x1c14
+    .4byte gFlagBitMaskLut + 0x1c18
+    .4byte gFlagBitMaskLut + 0x1c34
+    .4byte gFlagBitMaskLut + 0x1c38
+    .4byte gFlagBitMaskLut + 0x1c3c
+    .4byte gFlagBitMaskLut + 0x1c40
     .4byte gUnknown_089ED6AC + 0x4c0
     .4byte gUnknown_089ED6AC + 0x81f
     .4byte gUnknown_088B3AD8 + 0xe46c
@@ -1995,14 +1995,14 @@ FinalEirikaEvents2: @0x89ea1c0
 
 	.global Ch9Events
 Ch9Events: @0x89ea348
-    .4byte gUnknown_089E857C + 0x1c94
-    .4byte gUnknown_089E857C + 0x1cc8
-    .4byte gUnknown_089E857C + 0x1d0c
-    .4byte gUnknown_089E857C + 0x1d7c
-    .4byte gUnknown_089E857C + 0x1dbc
-    .4byte gUnknown_089E857C + 0x1dc0
-    .4byte gUnknown_089E857C + 0x1dc4
-    .4byte gUnknown_089E857C + 0x1dc8
+    .4byte gFlagBitMaskLut + 0x1c94
+    .4byte gFlagBitMaskLut + 0x1cc8
+    .4byte gFlagBitMaskLut + 0x1d0c
+    .4byte gFlagBitMaskLut + 0x1d7c
+    .4byte gFlagBitMaskLut + 0x1dbc
+    .4byte gFlagBitMaskLut + 0x1dc0
+    .4byte gFlagBitMaskLut + 0x1dc4
+    .4byte gFlagBitMaskLut + 0x1dc8
     .4byte gUnknown_089ED6AC + 0x4c1
     .4byte gUnknown_089ED6AC + 0x820
     .4byte gUnknown_088B3AD8 + 0xe7f0
@@ -2086,14 +2086,14 @@ Ch9Events: @0x89ea348
 
 	.global Ch10EphraimEvents
 Ch10EphraimEvents: @0x89ea4a8
-    .4byte gUnknown_089E857C + 0x1e1c
-    .4byte gUnknown_089E857C + 0x1e68
-    .4byte gUnknown_089E857C + 0x1e9c
-    .4byte gUnknown_089E857C + 0x1f00
-    .4byte gUnknown_089E857C + 0x1f1c
-    .4byte gUnknown_089E857C + 0x1f20
-    .4byte gUnknown_089E857C + 0x1f24
-    .4byte gUnknown_089E857C + 0x1f28
+    .4byte gFlagBitMaskLut + 0x1e1c
+    .4byte gFlagBitMaskLut + 0x1e68
+    .4byte gFlagBitMaskLut + 0x1e9c
+    .4byte gFlagBitMaskLut + 0x1f00
+    .4byte gFlagBitMaskLut + 0x1f1c
+    .4byte gFlagBitMaskLut + 0x1f20
+    .4byte gFlagBitMaskLut + 0x1f24
+    .4byte gFlagBitMaskLut + 0x1f28
     .4byte gUnknown_089ED6AC + 0x4c4
     .4byte gUnknown_089ED6AC + 0x823
     .4byte gUnknown_088B3AD8 + 0xf17c
@@ -2158,14 +2158,14 @@ Ch10EphraimEvents: @0x89ea4a8
 
 	.global Ch11EphraimEvents
 Ch11EphraimEvents: @0x89ea5bc
-    .4byte gUnknown_089E857C + 0x1f7c
-    .4byte gUnknown_089E857C + 0x1fec
-    .4byte gUnknown_089E857C + 0x2010
-    .4byte gUnknown_089E857C + 0x2014
-    .4byte gUnknown_089E857C + 0x2030
-    .4byte gUnknown_089E857C + 0x2034
-    .4byte gUnknown_089E857C + 0x2038
-    .4byte gUnknown_089E857C + 0x203c
+    .4byte gFlagBitMaskLut + 0x1f7c
+    .4byte gFlagBitMaskLut + 0x1fec
+    .4byte gFlagBitMaskLut + 0x2010
+    .4byte gFlagBitMaskLut + 0x2014
+    .4byte gFlagBitMaskLut + 0x2030
+    .4byte gFlagBitMaskLut + 0x2034
+    .4byte gFlagBitMaskLut + 0x2038
+    .4byte gFlagBitMaskLut + 0x203c
     .4byte gUnknown_089ED6AC + 0x4c6
     .4byte gUnknown_089ED6AC + 0x825
     .4byte gUnknown_088B3AD8 + 0x10378
@@ -2229,14 +2229,14 @@ Ch11EphraimEvents: @0x89ea5bc
     
 	.global Ch12EphraimEvents
 Ch12EphraimEvents: @0x89ea6cc
-    .4byte gUnknown_089E857C + 0x2090
-    .4byte gUnknown_089E857C + 0x20dc
-    .4byte gUnknown_089E857C + 0x20f0
-    .4byte gUnknown_089E857C + 0x2124
-    .4byte gUnknown_089E857C + 0x2140
-    .4byte gUnknown_089E857C + 0x2144
-    .4byte gUnknown_089E857C + 0x2148
-    .4byte gUnknown_089E857C + 0x214c
+    .4byte gFlagBitMaskLut + 0x2090
+    .4byte gFlagBitMaskLut + 0x20dc
+    .4byte gFlagBitMaskLut + 0x20f0
+    .4byte gFlagBitMaskLut + 0x2124
+    .4byte gFlagBitMaskLut + 0x2140
+    .4byte gFlagBitMaskLut + 0x2144
+    .4byte gFlagBitMaskLut + 0x2148
+    .4byte gFlagBitMaskLut + 0x214c
     .4byte gUnknown_089ED6AC + 0x4c8
     .4byte gUnknown_089ED6AC + 0x827
     .4byte gUnknown_088B3AD8 + 0x10be0
@@ -2329,14 +2329,14 @@ Ch12EphraimEvents: @0x89ea6cc
     
 	.global Ch13EphraimEventData
 Ch13EphraimEventData: @0x89ea850
-    .4byte gUnknown_089E857C + 0x21a0
-    .4byte gUnknown_089E857C + 0x21d4
-    .4byte gUnknown_089E857C + 0x2238
-    .4byte gUnknown_089E857C + 0x226c
-    .4byte gUnknown_089E857C + 0x22c4
-    .4byte gUnknown_089E857C + 0x22c8
-    .4byte gUnknown_089E857C + 0x22cc
-    .4byte gUnknown_089E857C + 0x22d0
+    .4byte gFlagBitMaskLut + 0x21a0
+    .4byte gFlagBitMaskLut + 0x21d4
+    .4byte gFlagBitMaskLut + 0x2238
+    .4byte gFlagBitMaskLut + 0x226c
+    .4byte gFlagBitMaskLut + 0x22c4
+    .4byte gFlagBitMaskLut + 0x22c8
+    .4byte gFlagBitMaskLut + 0x22cc
+    .4byte gFlagBitMaskLut + 0x22d0
     .4byte gUnknown_089ED6AC + 0x4c9
     .4byte gUnknown_089ED6AC + 0x828
     .4byte gUnknown_088B3AD8 + 0x113dc
@@ -2491,14 +2491,14 @@ Ch13EphraimEventData: @0x89ea850
     
 	.global Ch14EphraimEventData
 Ch14EphraimEventData: @0x89eaacc
-    .4byte gUnknown_089E857C + 0x2324
-    .4byte gUnknown_089E857C + 0x237c
-    .4byte gUnknown_089E857C + 0x23a0
-    .4byte gUnknown_089E857C + 0x2518
-    .4byte gUnknown_089E857C + 0x2540
-    .4byte gUnknown_089E857C + 0x2544
-    .4byte gUnknown_089E857C + 0x2548
-    .4byte gUnknown_089E857C + 0x254c
+    .4byte gFlagBitMaskLut + 0x2324
+    .4byte gFlagBitMaskLut + 0x237c
+    .4byte gFlagBitMaskLut + 0x23a0
+    .4byte gFlagBitMaskLut + 0x2518
+    .4byte gFlagBitMaskLut + 0x2540
+    .4byte gFlagBitMaskLut + 0x2544
+    .4byte gFlagBitMaskLut + 0x2548
+    .4byte gFlagBitMaskLut + 0x254c
     .4byte gUnknown_089ED6AC + 0x4ca
     .4byte gUnknown_089ED6AC + 0x829
     .4byte gUnknown_088B3AD8 + 0x124e4
@@ -2631,14 +2631,14 @@ Ch14EphraimEventData: @0x89eaacc
     
 	.global Ch15EphraimEventData
 Ch15EphraimEventData: @0x89eacf0
-    .4byte gUnknown_089E857C + 0x25a0
-    .4byte gUnknown_089E857C + 0x25e0
-    .4byte gUnknown_089E857C + 0x2684
-    .4byte gUnknown_089E857C + 0x26c4
-    .4byte gUnknown_089E857C + 0x2764
-    .4byte gUnknown_089E857C + 0x2768
-    .4byte gUnknown_089E857C + 0x276c
-    .4byte gUnknown_089E857C + 0x2770
+    .4byte gFlagBitMaskLut + 0x25a0
+    .4byte gFlagBitMaskLut + 0x25e0
+    .4byte gFlagBitMaskLut + 0x2684
+    .4byte gFlagBitMaskLut + 0x26c4
+    .4byte gFlagBitMaskLut + 0x2764
+    .4byte gFlagBitMaskLut + 0x2768
+    .4byte gFlagBitMaskLut + 0x276c
+    .4byte gFlagBitMaskLut + 0x2770
     .4byte gUnknown_089ED6AC + 0x4ce
     .4byte gUnknown_089ED6AC + 0x82d
     .4byte gUnknown_088B3AD8 + 0x1333c
@@ -2713,14 +2713,14 @@ Ch15EphraimEventData: @0x89eacf0
     
 	.global Ch16EphraimEventData
 Ch16EphraimEventData: @0x89eae2c
-    .4byte gUnknown_089E857C + 0x27c4
-    .4byte gUnknown_089E857C + 0x27f8
-    .4byte gUnknown_089E857C + 0x27fc
-    .4byte gUnknown_089E857C + 0x2860
-    .4byte gUnknown_089E857C + 0x28a0
-    .4byte gUnknown_089E857C + 0x28a4
-    .4byte gUnknown_089E857C + 0x28a8
-    .4byte gUnknown_089E857C + 0x28ac
+    .4byte gFlagBitMaskLut + 0x27c4
+    .4byte gFlagBitMaskLut + 0x27f8
+    .4byte gFlagBitMaskLut + 0x27fc
+    .4byte gFlagBitMaskLut + 0x2860
+    .4byte gFlagBitMaskLut + 0x28a0
+    .4byte gFlagBitMaskLut + 0x28a4
+    .4byte gFlagBitMaskLut + 0x28a8
+    .4byte gFlagBitMaskLut + 0x28ac
     .4byte gUnknown_089ED6AC + 0x4cf
     .4byte gUnknown_089ED6AC + 0x82e
     .4byte gUnknown_088B3AD8 + 0x13b70
@@ -2819,14 +2819,14 @@ Ch16EphraimEventData: @0x89eae2c
 
 	.global Ch17EphraimEventData
 Ch17EphraimEventData: @0x89eafc8
-    .4byte gUnknown_089E857C + 0x2900
-    .4byte gUnknown_089E857C + 0x29ac
-    .4byte gUnknown_089E857C + 0x29e0
-    .4byte gUnknown_089E857C + 0x29fc
-    .4byte gUnknown_089E857C + 0x2a3c
-    .4byte gUnknown_089E857C + 0x2a40
-    .4byte gUnknown_089E857C + 0x2a44
-    .4byte gUnknown_089E857C + 0x2a48
+    .4byte gFlagBitMaskLut + 0x2900
+    .4byte gFlagBitMaskLut + 0x29ac
+    .4byte gFlagBitMaskLut + 0x29e0
+    .4byte gFlagBitMaskLut + 0x29fc
+    .4byte gFlagBitMaskLut + 0x2a3c
+    .4byte gFlagBitMaskLut + 0x2a40
+    .4byte gFlagBitMaskLut + 0x2a44
+    .4byte gFlagBitMaskLut + 0x2a48
     .4byte gUnknown_089ED6AC + 0x4d0
     .4byte gUnknown_089ED6AC + 0x82f
     .4byte gUnknown_088B3AD8 + 0x141c4
@@ -2883,14 +2883,14 @@ Ch17EphraimEventData: @0x89eafc8
     
 	.global Ch18EphraimEventData
 Ch18EphraimEventData: @0x89eb0bc
-    .4byte gUnknown_089E857C + 0x2a9c
-    .4byte gUnknown_089E857C + 0x2adc
-    .4byte gUnknown_089E857C + 0x2ae0
-    .4byte gUnknown_089E857C + 0x2ae4
-    .4byte gUnknown_089E857C + 0x2b30
-    .4byte gUnknown_089E857C + 0x2b34
-    .4byte gUnknown_089E857C + 0x2b38
-    .4byte gUnknown_089E857C + 0x2b3c
+    .4byte gFlagBitMaskLut + 0x2a9c
+    .4byte gFlagBitMaskLut + 0x2adc
+    .4byte gFlagBitMaskLut + 0x2ae0
+    .4byte gFlagBitMaskLut + 0x2ae4
+    .4byte gFlagBitMaskLut + 0x2b30
+    .4byte gFlagBitMaskLut + 0x2b34
+    .4byte gFlagBitMaskLut + 0x2b38
+    .4byte gFlagBitMaskLut + 0x2b3c
     .4byte gUnknown_089ED6AC + 0x4d1
     .4byte gUnknown_089ED6AC + 0x830
     .4byte gUnknown_088B3AD8 + 0x15000
@@ -2974,14 +2974,14 @@ Ch18EphraimEventData: @0x89eb0bc
 
 	.global Ch19EphraimEventData
 Ch19EphraimEventData: @0x89eb21c
-    .4byte gUnknown_089E857C + 0x2b90
-    .4byte gUnknown_089E857C + 0x2c0c
-    .4byte gUnknown_089E857C + 0x2c10
-    .4byte gUnknown_089E857C + 0x2c74
-    .4byte gUnknown_089E857C + 0x2c90
-    .4byte gUnknown_089E857C + 0x2c94
-    .4byte gUnknown_089E857C + 0x2c98
-    .4byte gUnknown_089E857C + 0x2c9c
+    .4byte gFlagBitMaskLut + 0x2b90
+    .4byte gFlagBitMaskLut + 0x2c0c
+    .4byte gFlagBitMaskLut + 0x2c10
+    .4byte gFlagBitMaskLut + 0x2c74
+    .4byte gFlagBitMaskLut + 0x2c90
+    .4byte gFlagBitMaskLut + 0x2c94
+    .4byte gFlagBitMaskLut + 0x2c98
+    .4byte gFlagBitMaskLut + 0x2c9c
     .4byte gUnknown_089ED6AC + 0x634
     .4byte gUnknown_089ED6AC + 0x831
     .4byte gUnknown_088B3AD8 + 0x161d8
@@ -3050,14 +3050,14 @@ Ch19EphraimEventData: @0x89eb21c
 
 	.global Ch20EphraimEventData
 Ch20EphraimEventData: @0x89eb340
-    .4byte gUnknown_089E857C + 0x2cf0
-    .4byte gUnknown_089E857C + 0x2d60
-    .4byte gUnknown_089E857C + 0x2d64
-    .4byte gUnknown_089E857C + 0x2d74
-    .4byte gUnknown_089E857C + 0x2db4
-    .4byte gUnknown_089E857C + 0x2db8
-    .4byte gUnknown_089E857C + 0x2dbc
-    .4byte gUnknown_089E857C + 0x2dc0
+    .4byte gFlagBitMaskLut + 0x2cf0
+    .4byte gFlagBitMaskLut + 0x2d60
+    .4byte gFlagBitMaskLut + 0x2d64
+    .4byte gFlagBitMaskLut + 0x2d74
+    .4byte gFlagBitMaskLut + 0x2db4
+    .4byte gFlagBitMaskLut + 0x2db8
+    .4byte gFlagBitMaskLut + 0x2dbc
+    .4byte gFlagBitMaskLut + 0x2dc0
     .4byte gUnknown_089ED6AC + 0x635
     .4byte gUnknown_089ED6AC + 0x832
     .4byte gUnknown_088B3AD8 + 0x16b64
@@ -3120,14 +3120,14 @@ Ch20EphraimEventData: @0x89eb340
     
 	.global FinalEphraimEvents1
 FinalEphraimEvents1: @0x89eb44c
-    .4byte gUnknown_089E857C + 0x2e14
-    .4byte gUnknown_089E857C + 0x2e3c
-    .4byte gUnknown_089E857C + 0x2e40
-    .4byte gUnknown_089E857C + 0x2e74
-    .4byte gUnknown_089E857C + 0x2ec0
-    .4byte gUnknown_089E857C + 0x2ec4
-    .4byte gUnknown_089E857C + 0x2ec8
-    .4byte gUnknown_089E857C + 0x2ecc
+    .4byte gFlagBitMaskLut + 0x2e14
+    .4byte gFlagBitMaskLut + 0x2e3c
+    .4byte gFlagBitMaskLut + 0x2e40
+    .4byte gFlagBitMaskLut + 0x2e74
+    .4byte gFlagBitMaskLut + 0x2ec0
+    .4byte gFlagBitMaskLut + 0x2ec4
+    .4byte gFlagBitMaskLut + 0x2ec8
+    .4byte gFlagBitMaskLut + 0x2ecc
     .4byte gUnknown_089ED6AC + 0x636
     .4byte gUnknown_089ED6AC + 0x833
     .4byte gUnknown_088B3AD8 + 0x17588
@@ -3157,14 +3157,14 @@ FinalEphraimEvents1: @0x89eb44c
     
 	.global FinalEphraimEvents2
 FinalEphraimEvents2: @0x89eb4d4
-    .4byte gUnknown_089E857C + 0x2f20
-    .4byte gUnknown_089E857C + 0x2f24
-    .4byte gUnknown_089E857C + 0x2f28
-    .4byte gUnknown_089E857C + 0x2f2c
-    .4byte gUnknown_089E857C + 0x2f48
-    .4byte gUnknown_089E857C + 0x2f4c
-    .4byte gUnknown_089E857C + 0x2f50
-    .4byte gUnknown_089E857C + 0x2f54
+    .4byte gFlagBitMaskLut + 0x2f20
+    .4byte gFlagBitMaskLut + 0x2f24
+    .4byte gFlagBitMaskLut + 0x2f28
+    .4byte gFlagBitMaskLut + 0x2f2c
+    .4byte gFlagBitMaskLut + 0x2f48
+    .4byte gFlagBitMaskLut + 0x2f4c
+    .4byte gFlagBitMaskLut + 0x2f50
+    .4byte gFlagBitMaskLut + 0x2f54
     .4byte gUnknown_089ED6AC + 0x637
     .4byte gUnknown_089ED6AC + 0x834
     .4byte gUnknown_088B3AD8 + 0x17bc8
@@ -3200,14 +3200,14 @@ FinalEphraimEvents2: @0x89eb4d4
 
 	.global TowerOfValni1Events
 TowerOfValni1Events: @0x89eb574
-    .4byte gUnknown_089E857C + 0x2fa8
-    .4byte gUnknown_089E857C + 0x2fac
-    .4byte gUnknown_089E857C + 0x2fb0
-    .4byte gUnknown_089E857C + 0x2fcc
-    .4byte gUnknown_089E857C + 0x2fe8
-    .4byte gUnknown_089E857C + 0x2fec
-    .4byte gUnknown_089E857C + 0x2ff0
-    .4byte gUnknown_089E857C + 0x2ff4
+    .4byte gFlagBitMaskLut + 0x2fa8
+    .4byte gFlagBitMaskLut + 0x2fac
+    .4byte gFlagBitMaskLut + 0x2fb0
+    .4byte gFlagBitMaskLut + 0x2fcc
+    .4byte gFlagBitMaskLut + 0x2fe8
+    .4byte gFlagBitMaskLut + 0x2fec
+    .4byte gFlagBitMaskLut + 0x2ff0
+    .4byte gFlagBitMaskLut + 0x2ff4
     .4byte gUnknown_089ED6AC + 0x638
     .4byte gUnknown_089ED6AC + 0x835
     .4byte gUnknown_088B3AD8 + 0x17bf0
@@ -3243,14 +3243,14 @@ TowerOfValni1Events: @0x89eb574
     
 	.global TowerOfValni2Events
 TowerOfValni2Events: @0x89eb614
-    .4byte gUnknown_089E857C + 0x3048
-    .4byte gUnknown_089E857C + 0x3058
-    .4byte gUnknown_089E857C + 0x305c
-    .4byte gUnknown_089E857C + 0x3060
-    .4byte gUnknown_089E857C + 0x3088
-    .4byte gUnknown_089E857C + 0x308c
-    .4byte gUnknown_089E857C + 0x3090
-    .4byte gUnknown_089E857C + 0x3094
+    .4byte gFlagBitMaskLut + 0x3048
+    .4byte gFlagBitMaskLut + 0x3058
+    .4byte gFlagBitMaskLut + 0x305c
+    .4byte gFlagBitMaskLut + 0x3060
+    .4byte gFlagBitMaskLut + 0x3088
+    .4byte gFlagBitMaskLut + 0x308c
+    .4byte gFlagBitMaskLut + 0x3090
+    .4byte gFlagBitMaskLut + 0x3094
     .4byte gUnknown_089ED6AC + 0x639
     .4byte gUnknown_089ED6AC + 0x836
     .4byte gUnknown_088B3AD8 + 0x17e40
@@ -3283,14 +3283,14 @@ TowerOfValni2Events: @0x89eb614
 
 	.global TowerOfValni3Events
 TowerOfValni3Events: @0x89eb6a8
-    .4byte gUnknown_089E857C + 0x30e8
-    .4byte gUnknown_089E857C + 0x30ec
-    .4byte gUnknown_089E857C + 0x30f0
-    .4byte gUnknown_089E857C + 0x3100
-    .4byte gUnknown_089E857C + 0x311c
-    .4byte gUnknown_089E857C + 0x3120
-    .4byte gUnknown_089E857C + 0x3124
-    .4byte gUnknown_089E857C + 0x3128
+    .4byte gFlagBitMaskLut + 0x30e8
+    .4byte gFlagBitMaskLut + 0x30ec
+    .4byte gFlagBitMaskLut + 0x30f0
+    .4byte gFlagBitMaskLut + 0x3100
+    .4byte gFlagBitMaskLut + 0x311c
+    .4byte gFlagBitMaskLut + 0x3120
+    .4byte gFlagBitMaskLut + 0x3124
+    .4byte gFlagBitMaskLut + 0x3128
     .4byte gUnknown_089ED6AC + 0x63a
     .4byte gUnknown_089ED6AC + 0x837
     .4byte gUnknown_088B3AD8 + 0x18160
@@ -3320,14 +3320,14 @@ TowerOfValni3Events: @0x89eb6a8
     
 	.global TowerOfValni4Events
 TowerOfValni4Events: @0x89eb730
-    .4byte gUnknown_089E857C + 0x317c
-    .4byte gUnknown_089E857C + 0x3180
-    .4byte gUnknown_089E857C + 0x3184
-    .4byte gUnknown_089E857C + 0x3188
-    .4byte gUnknown_089E857C + 0x31a4
-    .4byte gUnknown_089E857C + 0x31a8
-    .4byte gUnknown_089E857C + 0x31ac
-    .4byte gUnknown_089E857C + 0x31b0
+    .4byte gFlagBitMaskLut + 0x317c
+    .4byte gFlagBitMaskLut + 0x3180
+    .4byte gFlagBitMaskLut + 0x3184
+    .4byte gFlagBitMaskLut + 0x3188
+    .4byte gFlagBitMaskLut + 0x31a4
+    .4byte gFlagBitMaskLut + 0x31a8
+    .4byte gFlagBitMaskLut + 0x31ac
+    .4byte gFlagBitMaskLut + 0x31b0
     .4byte gUnknown_089ED6AC + 0x63b
     .4byte gUnknown_089ED6AC + 0x838
     .4byte gUnknown_088B3AD8 + 0x1844c
@@ -3366,14 +3366,14 @@ TowerOfValni4Events: @0x89eb730
     
 	.global TowerOfValni5Events
 TowerOfValni5Events: @0x89eb7dc
-    .4byte gUnknown_089E857C + 0x3204
-    .4byte gUnknown_089E857C + 0x3214
-    .4byte gUnknown_089E857C + 0x3218
-    .4byte gUnknown_089E857C + 0x3234
-    .4byte gUnknown_089E857C + 0x3250
-    .4byte gUnknown_089E857C + 0x3254
-    .4byte gUnknown_089E857C + 0x3258
-    .4byte gUnknown_089E857C + 0x325c
+    .4byte gFlagBitMaskLut + 0x3204
+    .4byte gFlagBitMaskLut + 0x3214
+    .4byte gFlagBitMaskLut + 0x3218
+    .4byte gFlagBitMaskLut + 0x3234
+    .4byte gFlagBitMaskLut + 0x3250
+    .4byte gFlagBitMaskLut + 0x3254
+    .4byte gFlagBitMaskLut + 0x3258
+    .4byte gFlagBitMaskLut + 0x325c
     .4byte gUnknown_089ED6AC + 0x63c
     .4byte gUnknown_089ED6AC + 0x839
     .4byte gUnknown_088B3AD8 + 0x186b8
@@ -3415,14 +3415,14 @@ TowerOfValni5Events: @0x89eb7dc
     
 	.global TowerOfValni6Events
 TowerOfValni6Events: @0x89eb894
-    .4byte gUnknown_089E857C + 0x32b0
-    .4byte gUnknown_089E857C + 0x32b4
-    .4byte gUnknown_089E857C + 0x32b8
-    .4byte gUnknown_089E857C + 0x32ec
-    .4byte gUnknown_089E857C + 0x3308
-    .4byte gUnknown_089E857C + 0x330c
-    .4byte gUnknown_089E857C + 0x3310
-    .4byte gUnknown_089E857C + 0x3314
+    .4byte gFlagBitMaskLut + 0x32b0
+    .4byte gFlagBitMaskLut + 0x32b4
+    .4byte gFlagBitMaskLut + 0x32b8
+    .4byte gFlagBitMaskLut + 0x32ec
+    .4byte gFlagBitMaskLut + 0x3308
+    .4byte gFlagBitMaskLut + 0x330c
+    .4byte gFlagBitMaskLut + 0x3310
+    .4byte gFlagBitMaskLut + 0x3314
     .4byte gUnknown_089ED6AC + 0x63d
     .4byte gUnknown_089ED6AC + 0x83a
     .4byte gUnknown_088B3AD8 + 0x18af0
@@ -3476,14 +3476,14 @@ TowerOfValni6Events: @0x89eb894
     
 	.global TowerOfValni7Events
 TowerOfValni7Events: @0x89eb97c
-    .4byte gUnknown_089E857C + 0x3368
-    .4byte gUnknown_089E857C + 0x3390
-    .4byte gUnknown_089E857C + 0x3394
-    .4byte gUnknown_089E857C + 0x3398
-    .4byte gUnknown_089E857C + 0x33f0
-    .4byte gUnknown_089E857C + 0x33f4
-    .4byte gUnknown_089E857C + 0x33f8
-    .4byte gUnknown_089E857C + 0x33fc
+    .4byte gFlagBitMaskLut + 0x3368
+    .4byte gFlagBitMaskLut + 0x3390
+    .4byte gFlagBitMaskLut + 0x3394
+    .4byte gFlagBitMaskLut + 0x3398
+    .4byte gFlagBitMaskLut + 0x33f0
+    .4byte gFlagBitMaskLut + 0x33f4
+    .4byte gFlagBitMaskLut + 0x33f8
+    .4byte gFlagBitMaskLut + 0x33fc
     .4byte gUnknown_089ED6AC + 0x63e
     .4byte gUnknown_089ED6AC + 0x83b
     .4byte gUnknown_088B3AD8 + 0x18ee0
@@ -3516,14 +3516,14 @@ TowerOfValni7Events: @0x89eb97c
     
 	.global TowerOfValni8Events
 TowerOfValni8Events: @0x89eba10
-    .4byte gUnknown_089E857C + 0x3450
-    .4byte gUnknown_089E857C + 0x3454
-    .4byte gUnknown_089E857C + 0x3458
-    .4byte gUnknown_089E857C + 0x3468
-    .4byte gUnknown_089E857C + 0x3484
-    .4byte gUnknown_089E857C + 0x3488
-    .4byte gUnknown_089E857C + 0x348c
-    .4byte gUnknown_089E857C + 0x3490
+    .4byte gFlagBitMaskLut + 0x3450
+    .4byte gFlagBitMaskLut + 0x3454
+    .4byte gFlagBitMaskLut + 0x3458
+    .4byte gFlagBitMaskLut + 0x3468
+    .4byte gFlagBitMaskLut + 0x3484
+    .4byte gFlagBitMaskLut + 0x3488
+    .4byte gFlagBitMaskLut + 0x348c
+    .4byte gFlagBitMaskLut + 0x3490
     .4byte gUnknown_089ED6AC + 0x63f
     .4byte gUnknown_089ED6AC + 0x83c
     .4byte gUnknown_088B3AD8 + 0x192dc
@@ -3571,14 +3571,14 @@ TowerOfValni8Events: @0x89eba10
     
 	.global LagdouRuins1Event
 LagdouRuins1Event: @0x89ebae0
-    .4byte gUnknown_089E857C + 0x34e4
-    .4byte gUnknown_089E857C + 0x3518
-    .4byte gUnknown_089E857C + 0x351c
-    .4byte gUnknown_089E857C + 0x3520
-    .4byte gUnknown_089E857C + 0x3554
-    .4byte gUnknown_089E857C + 0x3558
-    .4byte gUnknown_089E857C + 0x355c
-    .4byte gUnknown_089E857C + 0x3560
+    .4byte gFlagBitMaskLut + 0x34e4
+    .4byte gFlagBitMaskLut + 0x3518
+    .4byte gFlagBitMaskLut + 0x351c
+    .4byte gFlagBitMaskLut + 0x3520
+    .4byte gFlagBitMaskLut + 0x3554
+    .4byte gFlagBitMaskLut + 0x3558
+    .4byte gFlagBitMaskLut + 0x355c
+    .4byte gFlagBitMaskLut + 0x3560
     .4byte gUnknown_089ED6AC + 0x64c
     .4byte gUnknown_089ED6AC + 0x83d
     .4byte gUnknown_088B3AD8 + 0x195e8
@@ -3614,14 +3614,14 @@ LagdouRuins1Event: @0x89ebae0
 
 	.global LagdouRuins2Event
 LagdouRuins2Event: @0x89ebb80
-    .4byte gUnknown_089E857C + 0x35b4
-    .4byte gUnknown_089E857C + 0x35b8
-    .4byte gUnknown_089E857C + 0x35bc
-    .4byte gUnknown_089E857C + 0x35c0
-    .4byte gUnknown_089E857C + 0x35f4
-    .4byte gUnknown_089E857C + 0x35f8
-    .4byte gUnknown_089E857C + 0x35fc
-    .4byte gUnknown_089E857C + 0x3600
+    .4byte gFlagBitMaskLut + 0x35b4
+    .4byte gFlagBitMaskLut + 0x35b8
+    .4byte gFlagBitMaskLut + 0x35bc
+    .4byte gFlagBitMaskLut + 0x35c0
+    .4byte gFlagBitMaskLut + 0x35f4
+    .4byte gFlagBitMaskLut + 0x35f8
+    .4byte gFlagBitMaskLut + 0x35fc
+    .4byte gFlagBitMaskLut + 0x3600
     .4byte gUnknown_089ED6AC + 0x64d
     .4byte gUnknown_089ED6AC + 0x83e
     .4byte gUnknown_088B3AD8 + 0x19a5c
@@ -3690,14 +3690,14 @@ LagdouRuins2Event: @0x89ebb80
     
 	.global LagdouRuins3Event
 LagdouRuins3Event: @0x89ebca4
-    .4byte gUnknown_089E857C + 0x3654
-    .4byte gUnknown_089E857C + 0x3694
-    .4byte gUnknown_089E857C + 0x3698
-    .4byte gUnknown_089E857C + 0x36fc
-    .4byte gUnknown_089E857C + 0x3718
-    .4byte gUnknown_089E857C + 0x371c
-    .4byte gUnknown_089E857C + 0x3720
-    .4byte gUnknown_089E857C + 0x3724
+    .4byte gFlagBitMaskLut + 0x3654
+    .4byte gFlagBitMaskLut + 0x3694
+    .4byte gFlagBitMaskLut + 0x3698
+    .4byte gFlagBitMaskLut + 0x36fc
+    .4byte gFlagBitMaskLut + 0x3718
+    .4byte gFlagBitMaskLut + 0x371c
+    .4byte gFlagBitMaskLut + 0x3720
+    .4byte gFlagBitMaskLut + 0x3724
     .4byte gUnknown_089ED6AC + 0x64e
     .4byte gUnknown_089ED6AC + 0x83f
     .4byte gUnknown_088B3AD8 + 0x19f20
@@ -3739,14 +3739,14 @@ LagdouRuins3Event: @0x89ebca4
     
 	.global LagdouRuins4Event
 LagdouRuins4Event: @0x89ebd5c
-    .4byte gUnknown_089E857C + 0x3778
-    .4byte gUnknown_089E857C + 0x3794
-    .4byte gUnknown_089E857C + 0x3798
-    .4byte gUnknown_089E857C + 0x37b4
-    .4byte gUnknown_089E857C + 0x37d0
-    .4byte gUnknown_089E857C + 0x37d4
-    .4byte gUnknown_089E857C + 0x37d8
-    .4byte gUnknown_089E857C + 0x37dc
+    .4byte gFlagBitMaskLut + 0x3778
+    .4byte gFlagBitMaskLut + 0x3794
+    .4byte gFlagBitMaskLut + 0x3798
+    .4byte gFlagBitMaskLut + 0x37b4
+    .4byte gFlagBitMaskLut + 0x37d0
+    .4byte gFlagBitMaskLut + 0x37d4
+    .4byte gFlagBitMaskLut + 0x37d8
+    .4byte gFlagBitMaskLut + 0x37dc
     .4byte gUnknown_089ED6AC + 0x64f
     .4byte gUnknown_089ED6AC + 0x840
     .4byte gUnknown_088B3AD8 + 0x1a470
@@ -3794,14 +3794,14 @@ LagdouRuins4Event: @0x89ebd5c
     
 	.global LagdouRuins5Event
 LagdouRuins5Event: @0x89ebe2c
-    .4byte gUnknown_089E857C + 0x3830
-    .4byte gUnknown_089E857C + 0x3858
-    .4byte gUnknown_089E857C + 0x385c
-    .4byte gUnknown_089E857C + 0x3884
-    .4byte gUnknown_089E857C + 0x38a0
-    .4byte gUnknown_089E857C + 0x38a4
-    .4byte gUnknown_089E857C + 0x38a8
-    .4byte gUnknown_089E857C + 0x38ac
+    .4byte gFlagBitMaskLut + 0x3830
+    .4byte gFlagBitMaskLut + 0x3858
+    .4byte gFlagBitMaskLut + 0x385c
+    .4byte gFlagBitMaskLut + 0x3884
+    .4byte gFlagBitMaskLut + 0x38a0
+    .4byte gFlagBitMaskLut + 0x38a4
+    .4byte gFlagBitMaskLut + 0x38a8
+    .4byte gFlagBitMaskLut + 0x38ac
     .4byte gUnknown_089ED6AC + 0x650
     .4byte gUnknown_089ED6AC + 0x841
     .4byte gUnknown_088B3AD8 + 0x1a894
@@ -3855,14 +3855,14 @@ LagdouRuins5Event: @0x89ebe2c
     
 	.global LagdouRuins6Event
 LagdouRuins6Event: @0x89ebf14
-    .4byte gUnknown_089E857C + 0x3900
-    .4byte gUnknown_089E857C + 0x3958
-    .4byte gUnknown_089E857C + 0x395c
-    .4byte gUnknown_089E857C + 0x396c
-    .4byte gUnknown_089E857C + 0x3988
-    .4byte gUnknown_089E857C + 0x398c
-    .4byte gUnknown_089E857C + 0x3990
-    .4byte gUnknown_089E857C + 0x3994
+    .4byte gFlagBitMaskLut + 0x3900
+    .4byte gFlagBitMaskLut + 0x3958
+    .4byte gFlagBitMaskLut + 0x395c
+    .4byte gFlagBitMaskLut + 0x396c
+    .4byte gFlagBitMaskLut + 0x3988
+    .4byte gFlagBitMaskLut + 0x398c
+    .4byte gFlagBitMaskLut + 0x3990
+    .4byte gFlagBitMaskLut + 0x3994
     .4byte gUnknown_089ED6AC + 0x6cf
     .4byte gUnknown_089ED6AC + 0x842
     .4byte gUnknown_088B3AD8 + 0x1ac68
@@ -3931,14 +3931,14 @@ LagdouRuins6Event: @0x89ebf14
     
 	.global LagdouRuins7Event
 LagdouRuins7Event: @0x89ec038
-    .4byte gUnknown_089E857C + 0x39e8
-    .4byte gUnknown_089E857C + 0x3a4c
-    .4byte gUnknown_089E857C + 0x3a50
-    .4byte gUnknown_089E857C + 0x3a60
-    .4byte gUnknown_089E857C + 0x3aac
-    .4byte gUnknown_089E857C + 0x3ab0
-    .4byte gUnknown_089E857C + 0x3ab4
-    .4byte gUnknown_089E857C + 0x3ab8
+    .4byte gFlagBitMaskLut + 0x39e8
+    .4byte gFlagBitMaskLut + 0x3a4c
+    .4byte gFlagBitMaskLut + 0x3a50
+    .4byte gFlagBitMaskLut + 0x3a60
+    .4byte gFlagBitMaskLut + 0x3aac
+    .4byte gFlagBitMaskLut + 0x3ab0
+    .4byte gFlagBitMaskLut + 0x3ab4
+    .4byte gFlagBitMaskLut + 0x3ab8
     .4byte gUnknown_089ED6AC + 0x6d0
     .4byte gUnknown_089ED6AC + 0x843
     .4byte gUnknown_088B3AD8 + 0x1b1ac
@@ -4040,14 +4040,14 @@ LagdouRuins7Event: @0x89ec038
     
 	.global LagdouRuins8Event
 LagdouRuins8Event: @0x89ec1e0
-    .4byte gUnknown_089E857C + 0x3b0c
-    .4byte gUnknown_089E857C + 0x3bd0
-    .4byte gUnknown_089E857C + 0x3bd4
-    .4byte gUnknown_089E857C + 0x3bfc
-    .4byte gUnknown_089E857C + 0x3c54
-    .4byte gUnknown_089E857C + 0x3c58
-    .4byte gUnknown_089E857C + 0x3c5c
-    .4byte gUnknown_089E857C + 0x3c60
+    .4byte gFlagBitMaskLut + 0x3b0c
+    .4byte gFlagBitMaskLut + 0x3bd0
+    .4byte gFlagBitMaskLut + 0x3bd4
+    .4byte gFlagBitMaskLut + 0x3bfc
+    .4byte gFlagBitMaskLut + 0x3c54
+    .4byte gFlagBitMaskLut + 0x3c58
+    .4byte gFlagBitMaskLut + 0x3c5c
+    .4byte gFlagBitMaskLut + 0x3c60
     .4byte gUnknown_089ED6AC + 0x6d1
     .4byte gUnknown_089ED6AC + 0x844
     .4byte gUnknown_088B3AD8 + 0x1b634
@@ -4089,14 +4089,14 @@ LagdouRuins8Event: @0x89ec1e0
     
 	.global LagdouRuins9Event
 LagdouRuins9Event: @0x89ec298
-    .4byte gUnknown_089E857C + 0x3cb4
-    .4byte gUnknown_089E857C + 0x3cc4
-    .4byte gUnknown_089E857C + 0x3cc8
-    .4byte gUnknown_089E857C + 0x3ccc
-    .4byte gUnknown_089E857C + 0x3d0c
-    .4byte gUnknown_089E857C + 0x3d10
-    .4byte gUnknown_089E857C + 0x3d14
-    .4byte gUnknown_089E857C + 0x3d18
+    .4byte gFlagBitMaskLut + 0x3cb4
+    .4byte gFlagBitMaskLut + 0x3cc4
+    .4byte gFlagBitMaskLut + 0x3cc8
+    .4byte gFlagBitMaskLut + 0x3ccc
+    .4byte gFlagBitMaskLut + 0x3d0c
+    .4byte gFlagBitMaskLut + 0x3d10
+    .4byte gFlagBitMaskLut + 0x3d14
+    .4byte gFlagBitMaskLut + 0x3d18
     .4byte gUnknown_089ED6AC + 0x6d2
     .4byte gUnknown_089ED6AC + 0x845
     .4byte gUnknown_088B3AD8 + 0x1baf8
@@ -4129,14 +4129,14 @@ LagdouRuins9Event: @0x89ec298
     
 	.global LagdouRuins10Event
 LagdouRuins10Event: @0x89ec32c
-    .4byte gUnknown_089E857C + 0x3d6c
-    .4byte gUnknown_089E857C + 0x3d70
-    .4byte gUnknown_089E857C + 0x3d74
-    .4byte gUnknown_089E857C + 0x3d84
-    .4byte gUnknown_089E857C + 0x3da0
-    .4byte gUnknown_089E857C + 0x3da4
-    .4byte gUnknown_089E857C + 0x3da8
-    .4byte gUnknown_089E857C + 0x3dac
+    .4byte gFlagBitMaskLut + 0x3d6c
+    .4byte gFlagBitMaskLut + 0x3d70
+    .4byte gFlagBitMaskLut + 0x3d74
+    .4byte gFlagBitMaskLut + 0x3d84
+    .4byte gFlagBitMaskLut + 0x3da0
+    .4byte gFlagBitMaskLut + 0x3da4
+    .4byte gFlagBitMaskLut + 0x3da8
+    .4byte gFlagBitMaskLut + 0x3dac
     .4byte gUnknown_089ED6AC + 0x7c9
     .4byte gUnknown_089ED6AC + 0x8be
     .4byte gUnknown_088B3AD8 + 0x1bf58
@@ -4166,14 +4166,14 @@ LagdouRuins10Event: @0x89ec32c
     
 	.global LordsSplitEvents
 LordsSplitEvents: @0x89ec3b4
-    .4byte gUnknown_089E857C + 0x3e00
-    .4byte gUnknown_089E857C + 0x3e04
-    .4byte gUnknown_089E857C + 0x3e08
-    .4byte gUnknown_089E857C + 0x3e18
-    .4byte gUnknown_089E857C + 0x3e28
-    .4byte gUnknown_089E857C + 0x3e2c
-    .4byte gUnknown_089E857C + 0x3e30
-    .4byte gUnknown_089E857C + 0x3e34
+    .4byte gFlagBitMaskLut + 0x3e00
+    .4byte gFlagBitMaskLut + 0x3e04
+    .4byte gFlagBitMaskLut + 0x3e08
+    .4byte gFlagBitMaskLut + 0x3e18
+    .4byte gFlagBitMaskLut + 0x3e28
+    .4byte gFlagBitMaskLut + 0x3e2c
+    .4byte gFlagBitMaskLut + 0x3e30
+    .4byte gFlagBitMaskLut + 0x3e34
     .4byte gUnknown_089ED6AC + 0x7ca
     .4byte gUnknown_089ED6AC + 0x8bf
     .4byte gUnknown_088B3AD8 + 0x1c0fc
@@ -4203,14 +4203,14 @@ LordsSplitEvents: @0x89ec3b4
     
 	.global MelkaenCoastEvent
 MelkaenCoastEvent: @0x89ec43c
-    .4byte gUnknown_089E857C + 0x3e88
-    .4byte gUnknown_089E857C + 0x3e8c
-    .4byte gUnknown_089E857C + 0x3e90
-    .4byte gUnknown_089E857C + 0x3e94
-    .4byte gUnknown_089E857C + 0x3eb0
-    .4byte gUnknown_089E857C + 0x3eb4
-    .4byte gUnknown_089E857C + 0x3eb8
-    .4byte gUnknown_089E857C + 0x3ebc
+    .4byte gFlagBitMaskLut + 0x3e88
+    .4byte gFlagBitMaskLut + 0x3e8c
+    .4byte gFlagBitMaskLut + 0x3e90
+    .4byte gFlagBitMaskLut + 0x3e94
+    .4byte gFlagBitMaskLut + 0x3eb0
+    .4byte gFlagBitMaskLut + 0x3eb4
+    .4byte gFlagBitMaskLut + 0x3eb8
+    .4byte gFlagBitMaskLut + 0x3ebc
     .4byte gUnknown_089ED6AC + 0x7cb
     .4byte gUnknown_089ED6AC + 0x8c0
     .4byte gUnknown_088B3AD8 + 0x1c124
@@ -4297,14 +4297,14 @@ MelkaenCoastEvent: @0x89ec43c
     
 	.global AnInterestingMapEvents
 AnInterestingMapEvents: @0x89ec5a8
-    .4byte gUnknown_089E857C + 0x3f10
-    .4byte gUnknown_089E857C + 0x4004
-    .4byte gUnknown_089E857C + 0x4008
-    .4byte gUnknown_089E857C + 0x400c
-    .4byte gUnknown_089E857C + 0x401c
-    .4byte gUnknown_089E857C + 0x4020
-    .4byte gUnknown_089E857C + 0x4024
-    .4byte gUnknown_089E857C + 0x4028
+    .4byte gFlagBitMaskLut + 0x3f10
+    .4byte gFlagBitMaskLut + 0x4004
+    .4byte gFlagBitMaskLut + 0x4008
+    .4byte gFlagBitMaskLut + 0x400c
+    .4byte gFlagBitMaskLut + 0x401c
+    .4byte gFlagBitMaskLut + 0x4020
+    .4byte gFlagBitMaskLut + 0x4024
+    .4byte gFlagBitMaskLut + 0x4028
     .4byte gUnknown_089ED6AC + 0x7cc
     .4byte gUnknown_089ED6AC + 0x8c1
     .4byte gUnknown_088B3AD8 + 0x1d484
@@ -4349,14 +4349,14 @@ AnInterestingMapEvents: @0x89ec5a8
     
 	.global DebugMapEvents
 DebugMapEvents: @0x89ec66c
-    .4byte gUnknown_089E857C + 0x407c
-    .4byte gUnknown_089E857C + 0x4080
-    .4byte gUnknown_089E857C + 0x4084
-    .4byte gUnknown_089E857C + 0x40ac
-    .4byte gUnknown_089E857C + 0x40e0
-    .4byte gUnknown_089E857C + 0x40e4
-    .4byte gUnknown_089E857C + 0x40e8
-    .4byte gUnknown_089E857C + 0x40ec
+    .4byte gFlagBitMaskLut + 0x407c
+    .4byte gFlagBitMaskLut + 0x4080
+    .4byte gFlagBitMaskLut + 0x4084
+    .4byte gFlagBitMaskLut + 0x40ac
+    .4byte gFlagBitMaskLut + 0x40e0
+    .4byte gFlagBitMaskLut + 0x40e4
+    .4byte gFlagBitMaskLut + 0x40e8
+    .4byte gFlagBitMaskLut + 0x40ec
     .4byte gUnknown_089ED6AC + 0x7cd
     .4byte gUnknown_089ED6AC + 0x8c2
     .4byte gUnknown_088B3AD8 + 0x1d6b4
@@ -4370,10 +4370,10 @@ DebugMapEvents: @0x89ec66c
     .4byte gUnknown_089FF480 + 0x38
     .4byte gUnknown_089FF480 + 0x58
 
-	.global gUnknown_089EC6BC
-gUnknown_089EC6BC:  @ 0x089EC6BC
+	.global gBattleTalkList
+gBattleTalkList:  @ 0x089EC6BC
 	.incbin "baserom.gba", 0x9EC6BC, 0x690
 
-	.global gUnknown_089ECD4C
-gUnknown_089ECD4C:  @ 0x089ECD4C
+	.global gDefeatTalkList
+gDefeatTalkList:  @ 0x089ECD4C
 	.incbin "baserom.gba", 0x9ECD4C, 0x3C0

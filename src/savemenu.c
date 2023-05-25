@@ -362,7 +362,7 @@ void sub_80A8AF0(void) {
                 gPlaySt.chapterIndex = WMLoc_GetChapterId(mapLocation);
             }
         } else {
-            if (gPlaySt.chapterIndex == 0x06 && CheckEventId(0x88) != 0) {
+            if (gPlaySt.chapterIndex == 0x06 && CheckFlag(0x88) != 0) {
                 gPlaySt.chapterIndex = 0x38;
             } else {
                 if (chapterId != 0x01 && chapterId != 0x0A && chapterId != 0x17) {

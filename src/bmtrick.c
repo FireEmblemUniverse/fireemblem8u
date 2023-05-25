@@ -663,13 +663,13 @@ void sub_802EA28(void)
 {
     // TODO: EID/FLAG DEFINITIONS
 
-    if (CheckEventId(0x65) || CountAvailableBlueUnits() == 0)
+    if (CheckFlag(0x65) || CountAvailableBlueUnits() == 0)
     {
         CallGameOverEvent();
     }
 
     if (!AreAnyEnemyUnitDead())
-        SetEventId(0x06);
+        SetFlag(0x06);
 }
 
 struct Trap* AddLightRune(int x, int y)

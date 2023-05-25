@@ -74,7 +74,7 @@ void sub_8052EAC(struct ProcEfxDead *proc)
         EkrGauge_Set4C50();
         
         /* Maybe triger death event */
-        sub_80835DC(gEkrPids[GetAISSubjectId(proc->anim1)]);
+        DisplayDefeatTalkForPid(gEkrPids[GetAISSubjectId(proc->anim1)]);
         Proc_Break(proc);
     }
 }

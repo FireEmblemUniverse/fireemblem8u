@@ -1,11 +1,11 @@
     .section .data
 
-	.global gUnknown_089ED64C
-gUnknown_089ED64C:  @ 0x089ED64C
+	.global gForceDeploymentList
+gForceDeploymentList:  @ 0x089ED64C
 	.incbin "baserom.gba", 0x9ED64C, 0x28
 
-	.global gUnknown_089ED674
-gUnknown_089ED674:  @ 0x089ED674
+	.global gPidList_SethLArachelMyrrhInnes
+gPidList_SethLArachelMyrrhInnes:  @ 0x089ED674
 	.incbin "baserom.gba", 0x9ED674, 0x8
 
 	.global gUnknown_089ED67C
@@ -17866,67 +17866,67 @@ gEvent_SkirmishCommonBeginning:  @ 0x089FFC30
     .4byte 0x00000004
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x120
+    .4byte gEvent_SkirmishCommonEnd + 0x120
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000007
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x1b0
+    .4byte gEvent_SkirmishCommonEnd + 0x1b0
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000000b
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x228
+    .4byte gEvent_SkirmishCommonEnd + 0x228
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000000d
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x2d0
+    .4byte gEvent_SkirmishCommonEnd + 0x2d0
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000011
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x33c
+    .4byte gEvent_SkirmishCommonEnd + 0x33c
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000012
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x3d8
+    .4byte gEvent_SkirmishCommonEnd + 0x3d8
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000018
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x448
+    .4byte gEvent_SkirmishCommonEnd + 0x448
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000001a
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x4fc
+    .4byte gEvent_SkirmishCommonEnd + 0x4fc
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000001e
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x33c
+    .4byte gEvent_SkirmishCommonEnd + 0x33c
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000001f
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x3d8
+    .4byte gEvent_SkirmishCommonEnd + 0x3d8
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000039
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x58c
+    .4byte gEvent_SkirmishCommonEnd + 0x58c
     .4byte 0x00000721
     .4byte 0x00000a40
     .4byte gUnknown_089FF480 + 0x78c
@@ -17938,8 +17938,8 @@ gEvent_SkirmishCommonBeginning:  @ 0x089FFC30
     .4byte gEvent_OpenChest + 0x30
     .4byte 0x00000120
 
-	.global gUnknown_089FFD64
-gUnknown_089FFD64:  @ 0x089FFD64
+	.global gEvent_SkirmishCommonEnd
+gEvent_SkirmishCommonEnd:  @ 0x089FFD64
 @ Replacing .incbin "baserom.gba", 0x9FFD64, 0x5F8
     .4byte 0x000d0540
     .4byte 0x00000000
@@ -17947,67 +17947,67 @@ gUnknown_089FFD64:  @ 0x089FFD64
     .4byte 0x00000004
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x1a4
+    .4byte gEvent_SkirmishCommonEnd + 0x1a4
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000007
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x21c
+    .4byte gEvent_SkirmishCommonEnd + 0x21c
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000000b
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x2c4
+    .4byte gEvent_SkirmishCommonEnd + 0x2c4
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000000d
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x330
+    .4byte gEvent_SkirmishCommonEnd + 0x330
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000011
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x3cc
+    .4byte gEvent_SkirmishCommonEnd + 0x3cc
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000012
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x43c
+    .4byte gEvent_SkirmishCommonEnd + 0x43c
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000018
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x4f0
+    .4byte gEvent_SkirmishCommonEnd + 0x4f0
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000001a
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x580
+    .4byte gEvent_SkirmishCommonEnd + 0x580
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000001e
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x3cc
+    .4byte gEvent_SkirmishCommonEnd + 0x3cc
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x0000001f
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x43c
+    .4byte gEvent_SkirmishCommonEnd + 0x43c
     .4byte 0x00000721
     .4byte 0x00010540
     .4byte 0x00000039
     .4byte 0x00000721
     .4byte 0x00010540
-    .4byte gUnknown_089FFD64 + 0x5ec
+    .4byte gEvent_SkirmishCommonEnd + 0x5ec
     .4byte 0x00000721
     .4byte 0x00000a40
     .4byte gUnknown_089FF480 + 0x78c

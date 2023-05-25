@@ -57,15 +57,6 @@ s8 CanMoveActiveUnitTo(int, int);
 // code.s
 void PidStatsAddActAmt(u8);
 
-// ev_triggercheck.s
-s8 sub_8083250(void);
-void sub_808326C(void);
-void sub_80832CC(void);
-s8 sub_80844B0(void);
-s8 sub_8084508(void);
-void sub_8084590(ProcPtr);
-void TryCallSelectEvents(ProcPtr);
-
 extern struct ProcCmd gProcScr_0859ACE8[];
 
 void PlayerPhase_Suspend(void);
@@ -96,7 +87,7 @@ PROC_LABEL(0),
     PROC_CALL(RenderBmMap),
     PROC_CALL(RefreshUnitSprites),
 
-    PROC_CALL(sub_8084590),
+    PROC_CALL(StartPlayerPhaseStartTutorialEvent),
     PROC_WHILE(EventEngineExists),
 
     PROC_CALL(PlayerPhase_HandleAutoEnd),
@@ -491,7 +482,7 @@ void PlayerPhase_RangeDisplayIdle(ProcPtr proc) {
             goto _0801CDE2;
         }
 
-        if (sub_80844B0()) {
+        if (StartDestSelectedEvent()) {
             action = 5;
             goto _0801CDE2;
         } else {
@@ -822,14 +813,14 @@ void PlayerPhase_FinishAction(ProcPtr proc) {
         return;
     }
 
-    if (sub_8083250()) {
+    if (ShouldCallEndEvent()) {
         MU_EndAll();
 
         RefreshEntityBmMaps();
         RenderBmMap();
         RefreshUnitSprites();
 
-        sub_808326C();
+        MaybeCallEndEvent_();
 
         Proc_Goto(proc, 8);
 
@@ -877,7 +868,7 @@ void PlayerPhase_ApplyUnitMovement(ProcPtr proc) {
 
     Font_ResetAllocation();
 
-    if (sub_8084508() == 1) {
+    if (StartAfterUnitMovedEvent() == 1) {
         sub_801D434(proc);
         return;
     }

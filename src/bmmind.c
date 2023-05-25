@@ -307,7 +307,7 @@ s8 ActionVisitAndSeize(ProcPtr proc) {
     int x = GetUnit(gActionData.subjectIndex)->xPos;
     int y = GetUnit(gActionData.subjectIndex)->yPos;
 
-    sub_80840C4(x, y);
+    StartAvailableTileEvent(x, y);
 
     return 0;
 }
@@ -375,7 +375,7 @@ s8 ActionDance(ProcPtr proc) {
 
 //! FE8U = 0x080323A8
 s8 ActionTalk(ProcPtr proc) {
-    sub_8083FB0(
+    StartCharacterEvent(
         GetUnit(gActionData.subjectIndex)->pCharacterData->number,
         GetUnit(gActionData.targetIndex)->pCharacterData->number
     );
@@ -398,7 +398,7 @@ s8 ActionSupport(ProcPtr proc) {
     UnitGainSupportLevel(gActiveUnit, targetSupportNum);
     UnitGainSupportLevel(target, subjectSupportNum);
 
-    sub_808371C(
+    StartSupportTalk(
         gActiveUnit->pCharacterData->number,
         target->pCharacterData->number,
         GetUnitSupportLevel(gActiveUnit, targetSupportNum)

@@ -1321,7 +1321,7 @@ void InitPlayerPhaseInterface() {
     if (gBmSt.gameStateBits & 0x10) {
         Proc_Start(gProcScr_PrepMap_MenuButtonDisplay, PROC_TREE_3);
     } else {
-        if ((gPlaySt.cfgDisableGoalDisplay == 0) && (CheckEventId(0x66) == 0)) {
+        if ((gPlaySt.cfgDisableGoalDisplay == 0) && (CheckFlag(0x66) == 0)) {
             Proc_Start(gProcScr_GoalDisplay, PROC_TREE_3);
         }
     }

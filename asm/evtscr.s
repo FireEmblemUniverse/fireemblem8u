@@ -173,12 +173,12 @@ _0800D6C4:
 	bne _0800D6D2
 	lsls r0, r2, #0x10
 	asrs r0, r0, #0x10
-	bl UnsetEventId
+	bl ClearFlag
 	b _0800D6DA
 _0800D6D2:
 	lsls r0, r2, #0x10
 	asrs r0, r0, #0x10
-	bl SetEventId
+	bl SetFlag
 _0800D6DA:
 	movs r0, #0
 	pop {r4, r5, r6}
@@ -227,7 +227,7 @@ _0800D724: .4byte gEventSlots
 _0800D728:
 	lsls r0, r2, #0x10
 	asrs r0, r0, #0x10
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	asrs r1, r0, #0x18
 	cmp r1, #0
@@ -1649,7 +1649,7 @@ _0800E138:
 _0800E140: .4byte gEventSlots
 _0800E144:
 	ldr r0, [r2, #0x30]
-	bl sub_80845E4
+	bl GetEventTriggerId
 _0800E14A:
 	ldr r1, _0800E154  @ gEventSlots
 	lsls r0, r0, #0x10
@@ -5120,7 +5120,7 @@ _0800FBC2:
 	.align 2, 0
 _0800FBCC: .4byte gEventSlots
 _0800FBD0:
-	bl sub_80833B0
+	bl GetChapterEnemyUnitDefinitions
 	adds r5, r0, #0
 _0800FBD6:
 	cmp r7, #0
@@ -6981,7 +6981,7 @@ Event3E_PrepScreenCall: @ 0x08010968
 	adds r4, r0, #0
 	bl HideAllUnits
 	movs r0, #0x84
-	bl UnsetEventId
+	bl ClearFlag
 	ldr r0, _08010988  @ gProcScr_SALLYCURSOR
 	adds r1, r4, #0
 	bl Proc_StartBlocking

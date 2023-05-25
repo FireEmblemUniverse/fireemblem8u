@@ -907,7 +907,7 @@ void CallCursorShop(ProcPtr proc) {
     info.xPos = gBmSt.playerCursor.x;
     info.yPos = gBmSt.playerCursor.y;
 
-    pInfo = CheckForEvents(&info);
+    pInfo = SearchAvailableEvent(&info);
     if (!pInfo) {
         return;
     }

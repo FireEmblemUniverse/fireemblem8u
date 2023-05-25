@@ -883,7 +883,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc* proc)
         if (gKeyStatusPtr->newKeys & B_BUTTON)
         {
             SetKeyStatus_IgnoreMask(0);
-            UnsetEventId(0x87); // TODO: EID/FLAG DEFINTIONS
+            ClearFlag(0x87); // TODO: EID/FLAG DEFINTIONS
 
             return FALSE;
         }

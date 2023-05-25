@@ -16,7 +16,7 @@ _080CDF50:
 _080CDF5C: .4byte gUnknown_08B19E0C
 _080CDF60:
 	ldrh r0, [r4, #6]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080CDF70
@@ -526,7 +526,7 @@ sub_80CE2FC: @ 0x080CE2FC
 	lsls r0, r0, #2
 	add r0, r8
 	ldrh r0, [r0, #8]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	movs r7, #0
 	cmp r0, #0
@@ -594,7 +594,7 @@ sub_80CE388: @ 0x080CE388
 	lsls r0, r0, #2
 	add r0, r8
 	ldrh r0, [r0, #8]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	movs r7, #0
 	cmp r0, #0
@@ -659,7 +659,7 @@ sub_80CE414: @ 0x080CE414
 _080CE43C:
 	adds r4, r6, r1
 	ldrh r0, [r4, #6]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080CE4A8
@@ -760,7 +760,7 @@ _080CE4D8:
 	ldr r1, _080CE57C  @ gUnknown_08B19E0C
 	adds r0, r0, r1
 	ldrh r0, [r0, #8]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	movs r2, #0
 	mov r9, r2
@@ -1577,7 +1577,7 @@ _080CEAF4:
 	adds r5, r3, #0
 _080CEB10:
 	ldrh r0, [r5, #6]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080CEB22
@@ -1684,7 +1684,7 @@ _080CEBB2:
 	adds r4, r6, #0
 _080CEBD2:
 	ldrh r0, [r4, #6]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080CEBE6
@@ -1824,7 +1824,7 @@ sub_80CECB0: @ 0x080CECB0
 	mov r1, sl
 	strb r1, [r0]
 	movs r0, #0xb3
-	bl CheckEventId
+	bl CheckFlag
 	ldr r1, [r5]
 	adds r1, #0x30
 	strb r0, [r1]
@@ -2254,7 +2254,7 @@ _080CF04A:
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	ldrh r0, [r0, #8]
-	bl SetEventId
+	bl SetFlag
 	ldr r0, [r4]
 	adds r1, r0, #0
 	adds r1, #0x2b
@@ -2376,14 +2376,14 @@ _080CF14E:
 	cmp r0, #0
 	beq _080CF178
 	movs r0, #0xb3
-	bl SetEventId
+	bl SetFlag
 	b _080CF17E
 	.align 2, 0
 _080CF170: .4byte gPlaySt
 _080CF174: .4byte gpBuf
 _080CF178:
 	movs r0, #0xb3
-	bl UnsetEventId
+	bl ClearFlag
 _080CF17E:
 	ldr r2, _080CF1A4  @ gpBuf
 	ldr r0, [r2]
@@ -2777,7 +2777,7 @@ sub_80CF460: @ 0x080CF460
 _080CF468: .4byte gUnknown_08B19E0C
 _080CF46C:
 	ldrh r0, [r4, #6]
-	bl SetEventId
+	bl SetFlag
 	adds r4, #0xc
 _080CF474:
 	ldrb r0, [r4]
@@ -2798,12 +2798,12 @@ sub_80CF480: @ 0x080CF480
 _080CF488: .4byte gUnknown_08B19E0C
 _080CF48C:
 	ldrh r0, [r4, #6]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080CF4A8
 	ldrh r0, [r4, #8]
-	bl CheckEventId
+	bl CheckFlag
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080CF4A8

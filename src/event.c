@@ -543,13 +543,13 @@ void sub_800D488(struct EventEngineProc* unused) {
 
 void SetEventTriggerState(u16 triggerId, bool8 value) {
     if (!value)
-        UnsetEventId(triggerId);
+        ClearFlag(triggerId);
     else
-        SetEventId(triggerId);
+        SetFlag(triggerId);
 }
 
 s8 GetEventTriggerState(u16 triggerId) {
-    if (!CheckEventId(triggerId))
+    if (!CheckFlag(triggerId))
         return FALSE;
     return TRUE;
 }

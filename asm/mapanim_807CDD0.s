@@ -3328,7 +3328,7 @@ sub_807E79C: @ 0x0807E79C
 	ldrsb r0, [r4, r0]
 	movs r1, #0x14
 	ldrsb r1, [r4, r1]
-	bl sub_808320C
+	bl StartAvailableDoorTileEvent
 	pop {r4}
 	pop {r0}
 	bx r0

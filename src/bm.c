@@ -462,7 +462,7 @@ int BmMain_ChangePhase(void) {
     RefreshUnitSprites();
     SwitchPhases();
 
-    if (sub_8083EB8() == 1) {
+    if (RunPhaseSwitchEvents() == 1) {
         return 0;
     }
 
@@ -540,7 +540,7 @@ void BmMain_StartIntroFx(ProcPtr proc) {
         return;
     }
 
-    if (gPlaySt.chapterIndex == 0x06 && CheckEventId(0x88)) {
+    if (gPlaySt.chapterIndex == 0x06 && CheckFlag(0x88)) {
         return;
     }
 
@@ -553,7 +553,7 @@ void BmMain_StartIntroFx(ProcPtr proc) {
 void UndeployEveryone(void) {
     int i;
 
-    UnsetEventId(0x84);
+    ClearFlag(0x84);
 
     if ((gPlaySt.unk4A_1) == 0) {
         for (i = 1; i < FACTION_GREEN; i++) {
@@ -586,7 +586,7 @@ void GotoChapterWithoutSave(int chapterId) {
 void sub_80155C4(void) {
     u8 flag;
 
-    if (CheckEventId(3)) {
+    if (CheckFlag(3)) {
         RegisterChapterTimeAndTurnCount(&gPlaySt);
     }
 
@@ -1204,7 +1204,7 @@ void sub_8015F90(int x, int y, int duration) {
 }
 
 static inline int CheckAltBgm(u8 base, u8 alt) {
-    if (!CheckEventId(4)) {
+    if (!CheckFlag(4)) {
         return base;
     } else {
         return alt;
@@ -1220,7 +1220,7 @@ int GetCurrentMapMusicIndex(void) {
     u8 redBgmIdx = CheckAltBgm(MAP_BGM_RED, MAP_BGM_RED_ALT);
     u8 greenBgmIdx;
 
-    if (!CheckEventId(4)) {
+    if (!CheckFlag(4)) {
         greenBgmIdx = MAP_BGM_GREEN;
         greenBgmIdx++; greenBgmIdx--;
     } else {
@@ -1236,7 +1236,7 @@ int GetCurrentMapMusicIndex(void) {
 
         case FACTION_BLUE:
 
-            if (CheckEventId(4)) {
+            if (CheckFlag(4)) {
                 return GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[blueBgmIdx];
             }
 

@@ -15,6 +15,7 @@
 #include "statscreen.h"
 #include "bm.h"
 #include "bmlib.h"
+#include "ev_triggercheck.h"
 #include "bksel.h"
 
 extern u16 gBmFrameTmap0[];
@@ -58,12 +59,6 @@ struct UnknownBkSelProc {
 
     /* 4C */ u16 unk_4C;
 };
-
-
-// ev_triggercheck.s
-s8 sub_8084560(void);
-void sub_808457C(void);
-
 
 int GetBattleForecastPanelSide() {
     int x;
@@ -672,9 +667,9 @@ s8 MapEventEngineExists_() {
 
 void sub_80372E4() {
 
-    if (sub_8084560() == 1) {
+    if (CheckBattleForecastTutorialEvent() == 1) {
         SetKeyStatus_IgnoreMask(GetKeyStatus_IgnoreMask() & ~(A_BUTTON));
-        sub_808457C();
+        StartBattleForecastTutorialEvent();
     }
 
     return;
@@ -721,7 +716,7 @@ void NewBattleForecast() {
     proc = Proc_Start(gProcScr_BKSEL, PROC_TREE_3);
     proc->ready = 0;
 
-    if (sub_8084560() == 1) {
+    if (CheckBattleForecastTutorialEvent() == 1) {
         SetKeyStatus_IgnoreMask(GetKeyStatus_IgnoreMask() | A_BUTTON);
     }
 

@@ -274,7 +274,7 @@ s8 AiPillageAction(struct CpPerformProc* proc) {
         ActionStaffDoorChestUseItem(proc);
     } else {
         s8 y2 = y - 1;
-        sub_80840C4((s8)x, y2);
+        StartAvailableTileEvent((s8)x, y2);
 
         PlaySoundEffect(0xAB);
 
@@ -319,7 +319,7 @@ s8 AiTalkAction(struct CpPerformProc* proc) {
     gActiveUnit->yPos = gAiDecision.yMove;
 
     if (gAiDecision.targetId == 0) {
-        sub_8083FB0(
+        StartCharacterEvent(
             GetUnit(gAiDecision.itemSlot)->pCharacterData->number,
             GetUnit(gAiDecision.xTarget)->pCharacterData->number
         );

@@ -1550,7 +1550,7 @@ void PutUnitSpriteIconsOam(void) {
     berserkIconFrame = GetGameClock() / 8 % ARRAY_COUNT(sBerserkIconSprites);
     silenceIconFrame = GetGameClock() / 4 % ARRAY_COUNT(sSilenceIconSprites);
 
-    if (CheckEventId(0x84) != 0) {
+    if (CheckFlag(0x84) != 0) {
         return;
     }
 

@@ -78,7 +78,7 @@
 . = 0x001C68; gUnknown_03001C68 = .;
 . = 0x001C74; gUnknown_03001C74 = .;
 . = 0x001C7C; gUnknown_03001C7C = .;
-. = 0x001C80; gUnknown_03001C80 = .;
+. = 0x001C80; gActiveEventRegistry = .;
 . = 0x001CC0; gUnknown_03001CC0 = .;
 . = 0x001CC8; gUnknown_03001CC8 = .;
 . = 0x001CE8; gUnknown_03001CE8 = .;
@@ -158,8 +158,8 @@
 . = ALIGN(4); src/mapanim_debug.o(.bss);
 . = 0x005090; gUnknown_03005090 = .;
 . = 0x005110; gUnknown_03005110 = .;
-. = 0x005250; gUnknown_03005250 = .;
-. = 0x005270; gUnknown_03005270 = .;
+. = 0x005250; gPermanentFlagBits = .;
+. = 0x005270; gChapterFlagBits = .;
 . = 0x005280; gGMData = .;
 . = 0x005324; gUnknown_03005324 = .;
 . = 0x005349; gUnknown_03005349 = .;

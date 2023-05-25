@@ -65,7 +65,7 @@ _08034378:
 	lsls r0, r4, #0x18
 	asrs r0, r0, #0x18
 	asrs r1, r7, #0x18
-	bl GetAvailableLocaCommandAt
+	bl GetAvailableTileEventCommand
 	cmp r0, #0x10
 	beq _0803432C
 _08034386:
@@ -138,7 +138,7 @@ _080343EA:
 	lsls r0, r4, #0x18
 	asrs r0, r0, #0x18
 	asrs r1, r6, #0x18
-	bl GetAvailableLocaCommandAt
+	bl GetAvailableTileEventCommand
 	cmp r0, #0x11
 	beq _080343CC
 _0803440A:

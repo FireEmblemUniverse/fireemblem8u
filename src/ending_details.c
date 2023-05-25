@@ -403,7 +403,7 @@ char* GetPidDefeatedEndingString(int pid) {
     int type = GetPidDefeatType(pid);
 
     if (type == DEFEAT_TYPE_4) {
-        CheckGlobalEventId(0x7d);
+        CheckPermanentFlag(0x7d);
         pid = 0x100;
     }
 
