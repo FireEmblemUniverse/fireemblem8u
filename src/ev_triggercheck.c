@@ -764,26 +764,40 @@ int EvCheck00_Always(struct EventInfo* info) {
     return 1;
 }
 
+struct EvCheck01 {
+    u32 unk0;
+    u32 script;
+    u32 unk8;
+};
+
 //! FE8U = 0x08083834
 int EvCheck01_AFEV(struct EventInfo* info) {
-    EventListScr* listScript = info->listScript;
+    struct EvCheck01* listScript = (void *)info->listScript;
 
-    if ((listScript[2] == 0) || (listScript[2] == 100) || (CheckFlag(listScript[2]) == 1)) {
-        info->script = listScript[1];
-        info->flag = EVT_CMD_HI(listScript[0]);
+    if ((listScript->unk8 == 0) || (listScript->unk8 == 100) || (CheckFlag(listScript->unk8) == 1)) {
+        info->script = listScript->script;
+        info->flag = EVT_CMD_HI(listScript->unk0);
         return 1;
     }
 
     return 0;
 }
 
+struct EvCheck02 {
+    u32 unk0;
+    u32 script;
+    u8 turn;
+    u8 maxTurn;
+    u16 faction;
+};
+
 //! FE8U = 0x08083864
 int EvCheck02_TURN(struct EventInfo* info) {
-    EventListScr* listScript = info->listScript;
+    struct EvCheck02* listScript = (void *)info->listScript;
 
-    int turn = ((u8*)listScript)[8];
-    int maxTurn = ((u8*)listScript)[9];
-    int faction = ((u16*)listScript)[10 / sizeof(u16)];
+    int turn = listScript->turn;
+    int maxTurn = listScript->maxTurn;
+    int faction = listScript->faction;
 
     if (maxTurn == 0) {
         maxTurn = turn;
@@ -793,8 +807,8 @@ int EvCheck02_TURN(struct EventInfo* info) {
 
 
     if ((turn <= gPlaySt.chapterTurnNumber) && (gPlaySt.chapterTurnNumber <= maxTurn) && (gPlaySt.faction == faction)) {
-        info->script = listScript[1];
-        info->flag = EVT_CMD_HI(listScript[0]);
+        info->script = listScript->script;
+        info->flag = EVT_CMD_HI(listScript->unk0);
 
         return 1;
     }
@@ -802,13 +816,23 @@ int EvCheck02_TURN(struct EventInfo* info) {
     return 0;
 }
 
+struct EvCheck03 {
+    u32 unk0;
+    u32 script;
+    u8 pidA;
+    u8 pidB;
+    u16 fillerA;
+    u16 unkC;
+    u16 unkE;
+};
+
 //! FE8U = 0x080838AC
 int EvCheck03_CHAR(struct EventInfo* info) {
-    EventListScr* listScript = info->listScript;
+    struct EvCheck03* listScript = (void *)info->listScript;
 
-    int pidA = ((u8*)listScript)[8];
-    int pidB = ((u8*)listScript)[9];
-    int unk = ((u16*)listScript)[12 / sizeof(u16)];
+    int pidA = listScript->pidA;
+    int pidB = listScript->pidB;
+    int unk = listScript->unkC;
 
     switch (unk) {
         case 1:
@@ -816,59 +840,67 @@ int EvCheck03_CHAR(struct EventInfo* info) {
         case 2:
             return 0;
         case 3:
-            if ((CheckFlag(((u16*)listScript)[14 / sizeof(u16)]) == 0)) {
+            if ((CheckFlag(listScript->unkE) == 0)) {
                 return 0;
             }
             break;
     }
 
     if (((info->pidA == pidA) || (pidA == 0)) && info->pidB == pidB) {
-        info->script = listScript[1];
-        info->flag = EVT_CMD_HI(listScript[0]);
+        info->script = listScript->script;
+        info->flag = EVT_CMD_HI(listScript->unk0);
         return 1;
     }
 
     return 0;
 }
+
+struct EvCheck04 {
+    u32 unk0;
+    u32 script;
+    u8 pidA;
+    u8 pidB;
+    s8 (*func)(void *);
+};
 
 //! FE8U = 0x080838FC
 int EvCheck04_CHARASM(struct EventInfo* info) {
-#if NONMATCHING
-    EventListScr* listScript = info->listScript;
-#else // if !NONMATCHING
-    register EventListScr* listScript asm("r5") = info->listScript;
-#endif // NONMATCHING
+    struct EvCheck04 *listScript = (void *)info->listScript;
 
-    int pidA = ((u8*)listScript)[8];
-    int pidB = ((u8*)listScript)[9];
-    s8 (*func)(struct EventInfo* info) = (void*)((u32*)listScript)[12 / sizeof(u32)];
+    int pidA = listScript->pidA;
+    int pidB = listScript->pidB;
 
-    if ((func(info) != 0) && (info->pidA == pidA || (pidA == 0)) && (info->pidB == pidB)) {
-        info->script = listScript[1];
-        info->flag = EVT_CMD_HI(listScript[0]);
+    if ((listScript->func(info) != 0) && (info->pidA == pidA || (pidA == 0)) && (info->pidB == pidB)) {
+        info->script = listScript->script;
+        info->flag = listScript->unk0 >> 16; // EVT_CMD_HI causes regswap
         return 1;
     }
 
     return 0;
 }
 
+struct EvCheck05 {
+    u32 unk0;
+    u32 script;
+    u8 x;
+    u8 y;
+    u16 cmdId;
+};
+
 //! FE8U = 0x08083938
 int EvCheck05_LOCA(struct EventInfo* info) {
-    EventListScr* listScript = info->listScript;
+    struct EvCheck05* listScript = (void *)info->listScript;
 
-    int x = ((u8*)listScript)[8];
-    int y = ((u8*)listScript)[9];
-    int cmdId = ((u16*)listScript)[10 / sizeof(u16)];
+    int x = listScript->x;
+    int y = listScript->y;
+    int cmdId = listScript->cmdId;
 
     info->givenMoney = 0;
 
     if ((x == info->xPos) && (y == info->yPos)) {
-        info->script = listScript[1];
-#if !NONMATCHING
-        asm("":::"memory");
-#endif
-        info->flag = EVT_CMD_HI(listScript[0]);
-        info->commandId = ((u16*)listScript)[10 / sizeof(u16)];
+        info->script = listScript->script;
+        info->flag = EVT_CMD_HI(listScript->unk0);
+        info->commandId = listScript->cmdId;
 
         if (cmdId == TILE_COMMAND_CHEST) {
             info->givenItem = 0;
@@ -888,19 +920,28 @@ int EvCheck06_VILL(struct EventInfo* info) {
     // return 1; // BUG?
 }
 
+struct EvCheck07 {
+    u32 unk0;
+    u16 givenItem;
+    u16 givenMoney;
+    u8 x;
+    u8 y;
+    u16 cmdId;
+};
+
 //! FE8U = 0x0808398C
 int EvCheck07_CHES(struct EventInfo* info) {
-    EventListScr* listScript = info->listScript;
+    struct EvCheck07* listScript = (void *)info->listScript;
 
-    u8 x = ((u8*)listScript)[8];
-    u8 y = ((u8*)listScript)[9];
+    u8 x = listScript->x;
+    u8 y = listScript->y;
 
     if ((x == info->xPos) && (y == info->yPos)) {
         info->script = 1;
-        info->flag = EVT_CMD_HI(listScript[0]);
-        info->commandId = ((u16*)listScript)[10 / sizeof(u16)];
-        info->givenItem = ((u16*)listScript)[4 / sizeof(u16)];
-        info->givenMoney = ((u16*)listScript)[6 / sizeof(u16)];
+        info->flag = EVT_CMD_HI(listScript->unk0);
+        info->commandId = listScript->cmdId;
+        info->givenItem = listScript->givenItem;
+        info->givenMoney = listScript->givenMoney;
 
         return 1;
     }
@@ -908,24 +949,30 @@ int EvCheck07_CHES(struct EventInfo* info) {
     return 0;
 }
 
-//! FE8U = 0x08083A10
-int EvCheck08_DOOR(struct EventInfo* info) {
-    EventListScr* listScript = info->listScript;
+struct EvCheck08 {
+    u32 unk0;
+    u32 script;
+    u32 unk8;
+};
 
-    int x = EVT_CMD_B1(listScript[2]);
-    int y = EVT_CMD_B2(listScript[2]);
-    int tileCommand = EVT_CMD_B3(listScript[2]);
-    int unk = EVT_CMD_B4(listScript[2]);
+//! FE8U = 0x080839C8
+int EvCheck08_DOOR(struct EventInfo* info) {
+    struct EvCheck08* listScript = (void *)info->listScript;
+
+    int x = EVT_CMD_B1(listScript->unk8);
+    int y = EVT_CMD_B2(listScript->unk8);
+    int tileCommand = EVT_CMD_B3(listScript->unk8);
+    int givenMoney = EVT_CMD_B4(listScript->unk8);
 
     if ((x == info->xPos) && (y == info->yPos)) {
-        info->script = listScript[1];
+        info->script = listScript->script;
 #if !NONMATCHING
         asm("":::"memory");
 #endif
-        info->flag = EVT_CMD_HI(info->listScript[0]);
+        info->flag = EVT_CMD_HI(((struct EvCheck08 *)info->listScript)->unk0);
 
         info->commandId = tileCommand;
-        info->givenMoney = unk;
+        info->givenMoney = givenMoney;
 
         return 1;
     }
@@ -935,22 +982,22 @@ int EvCheck08_DOOR(struct EventInfo* info) {
 
 //! FE8U = 0x08083A10
 int EvCheck09_(struct EventInfo* info) {
-    EventListScr* listScript = info->listScript;
+    struct EvCheck08* listScript = (void *)info->listScript;
 
-    int x = EVT_CMD_B1(listScript[2]);
-    int y = EVT_CMD_B2(listScript[2]);
-    int tileCommand = EVT_CMD_B3(listScript[2]);
-    int unk = EVT_CMD_B4(listScript[2]);
+    int x = EVT_CMD_B1(listScript->unk8);
+    int y = EVT_CMD_B2(listScript->unk8);
+    int tileCommand = EVT_CMD_B3(listScript->unk8);
+    int givenMoney = EVT_CMD_B4(listScript->unk8);
 
     if ((x == info->xPos) && (y == info->yPos)) {
-        info->script = listScript[1];
+        info->script = listScript->script;
 #if !NONMATCHING
         asm("":::"memory");
 #endif
-        info->flag = EVT_CMD_HI(info->listScript[0]);
+        info->flag = EVT_CMD_HI(((struct EvCheck08 *)info->listScript)->unk0);
 
         info->commandId = tileCommand;
-        info->givenMoney = unk;
+        info->givenMoney = givenMoney;
 
         return 1;
     }
@@ -958,23 +1005,27 @@ int EvCheck09_(struct EventInfo* info) {
     return 0;
 }
 
+struct EvCheck0A {
+    u32 unk0;
+    u32 script;
+    u8 x;
+    u8 y;
+    u16 tileCommand;
+};
+
 //! FE8U = 0x08083A58
 int EvCheck0A_SHOP(struct EventInfo* info) {
-#if NONMATCHING
-    EventListScr* listScript = info->listScript;
-#else // if !NONMATCHING
-    register EventListScr* listScript asm("r5") = info->listScript;
-#endif // NONMATCHING
+    struct EvCheck0A* listScript = (void *)info->listScript;
 
-    int x = ((u8*)listScript)[8];
-    int y = ((u8*)listScript)[9];
+    int x = listScript->x;
+    int y = listScript->y;
 
-    int tileCommand = ((u16*)listScript)[10 / sizeof(u16)];
+    int tileCommand = listScript->tileCommand;
 
     if ((x == info->xPos) && (y == info->yPos)) {
         if ((tileCommand != TILE_COMMAND_SECRET || (GetUnitItemSlot(gActiveUnit, ITEM_MEMBERCARD) != -1))) {
-            info->script = listScript[1];
-            info->flag = EVT_CMD_HI(listScript[0]);
+            info->script = listScript->script;
+            info->flag = listScript->unk0 >> 16;
             info->commandId = tileCommand;
             return 1;
         }
@@ -983,20 +1034,26 @@ int EvCheck0A_SHOP(struct EventInfo* info) {
     return 0;
 }
 
+struct EvCheck0B {
+    u32 unk0;
+    u32 script;
+    u32 unk8;
+};
+
 //! FE8U = 0x08083AA4
 int EvCheck0B_AREA(struct EventInfo* info) {
     s8 x = gActiveUnit->xPos;
     s8 y = gActiveUnit->yPos;
 
-    s8 x1 = EVT_CMD_B1(info->listScript[2]);
-    s8 y1 = EVT_CMD_B2(info->listScript[2]);
-    s8 x2 = EVT_CMD_B3(info->listScript[2]);
-    s8 y2 = EVT_CMD_B4(info->listScript[2]);
+    s8 x1 = EVT_CMD_B1(((struct EvCheck0B *)info->listScript)->unk8);
+    s8 y1 = EVT_CMD_B2(((struct EvCheck0B *)info->listScript)->unk8);
+    s8 x2 = EVT_CMD_B3(((struct EvCheck0B *)info->listScript)->unk8);
+    s8 y2 = EVT_CMD_B4(((struct EvCheck0B *)info->listScript)->unk8);
 
     if ((x1 <= x && x <= x2) || (x2 <= x && x <= x1)) {
         if ((y1 <= y && y <= y2) || (y2 <= y && y <= y1)) {
-            info->script = info->listScript[1];
-            info->flag = EVT_CMD_HI(info->listScript[0]);
+            info->script = ((struct EvCheck0B *)info->listScript)->script;
+            info->flag = EVT_CMD_HI(((struct EvCheck0B *)info->listScript)->unk0);
 
             return 1;
         }
@@ -1015,27 +1072,38 @@ int EvCheck0D_Never(struct EventInfo* info) {
     return 0;
 }
 
+struct EvCheck0E {
+    u32 unk0;
+    u32 script;
+    s8 (*func)(struct EventInfo*);
+};
+
 //! FE8U = 0x08083B2C
 int EvCheck0E_(struct EventInfo* info) {
-    s8 (*func)(struct EventInfo* info) = (void *)((u32*)(info->listScript))[8 / sizeof(u32)];
-
-    if (func(info) != 0) {
-        info->script = info->listScript[1];
-        info->flag = EVT_CMD_HI(info->listScript[0]);
+    if (((struct EvCheck0E *)info->listScript)->func(info) != 0) {
+        info->script = ((struct EvCheck0E *)info->listScript)->script;
+        info->flag = EVT_CMD_HI(((struct EvCheck0E *)info->listScript)->unk0);
         return 1;
     }
 
     return 0;
 }
 
+struct EvCheck0F {
+    u32 unk0;
+    u32 unk4;
+    u32 script;
+    u32 unkC;
+};
+
 //! FE8U = 0x08083B58
 int EvCheck0F_(struct EventInfo* info) {
-    int unk = EVT_CMD_LO(info->listScript[3]);
-    int unk2 = EVT_CMD_HI(info->listScript[0]);
+    int unk = EVT_CMD_LO(((struct EvCheck0F *)info->listScript)->unkC);
+    int unk2 = EVT_CMD_HI(((struct EvCheck0F *)info->listScript)->unk0);
 
     if ((CheckFlag(unk2) == 0) && (CheckFlag(unk) != 0)) {
-        info->script = info->listScript[2];
-        info->flag = EVT_CMD_HI(info->listScript[0]);
+        info->script = ((struct EvCheck0F *)info->listScript)->script;
+        info->flag = EVT_CMD_HI(((struct EvCheck0F *)info->listScript)->unk0);
         return 1;
     }
 
@@ -1044,12 +1112,12 @@ int EvCheck0F_(struct EventInfo* info) {
 
 //! FE8U = 0x08083B98
 int EvCheck10_(struct EventInfo* info) {
-    int unk = EVT_CMD_LO(info->listScript[3]);
-    int unk2 = EVT_CMD_HI(info->listScript[0]);
+    int unk = EVT_CMD_LO(((struct EvCheck0F *)info->listScript)->unkC);
+    int unk2 = EVT_CMD_HI(((struct EvCheck0F *)info->listScript)->unk0);
 
     if ((CheckFlag(unk2) == 0) && (CheckFlag(unk) != 0)) {
-        info->script = info->listScript[2];
-        info->flag = EVT_CMD_HI(info->listScript[0]);
+        info->script = ((struct EvCheck0F *)info->listScript)->script;
+        info->flag = EVT_CMD_HI(((struct EvCheck0F *)info->listScript)->unk0);
         return 1;
     }
 
