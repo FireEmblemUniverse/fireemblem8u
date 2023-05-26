@@ -6,65 +6,7 @@
 typedef void (*SpellAnimFunc)(struct Anim *anim);
 extern CONST_DATA SpellAnimFunc gEkrSpellAnimLut[];
 
-struct ProcEfxMagic {
-    PROC_HEADER;
-
-    /* 29 */ u8 hitted;
-    /* 2A */ u8 unk2A;
-    /* 2B */ STRUCT_PAD(0x2B, 0x2C);
-    /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
-    /* 30 */ s16 unk30;
-    /* 32 */ u16 unk32;
-    /* 34 */ STRUCT_PAD(0x34, 0x44);
-    /* 44 */ u32 unk44;
-    /* 48 */ u32 unk48;
-    /* 4C */ u32 unk4C;
-    /* 50 */ u32 unk50;
-    /* 54 */ s16 *unk54;
-    /* 58 */ s16 **unk58;
-    /* 5C */ struct Anim *anim;
-};
-
-struct ProcEfxMagicBG {
-    PROC_HEADER;
-
-    STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ s16 timer;
-    STRUCT_PAD(0x2E, 0x44);
-    /* 44 */ u32 unk44;
-    /* 48 */ const u16 *unk48;
-    /* 4C */ u16 **unk4C;
-    /* 50 */ u16 **unk50;
-    /* 54 */ u16 **unk54;
-    STRUCT_PAD(0x58, 0x5C);
-    /* 5C */ struct Anim *anim;
-};
-
-struct ProcEfxMagicBGCOL {
-    PROC_HEADER;
-
-    STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ s16 timer;
-    STRUCT_PAD(0x2E, 0x44);
-    /* 44 */ u32 unk44;
-    /* 48 */ const u16 *unk48;
-    /* 4C */ u16 *unk4C;
-    STRUCT_PAD(0x50, 0x5C);
-    /* 5C */ struct Anim *anim;
-};
-
-struct ProcEfxMagicOBJ {
-    PROC_HEADER;
-
-    STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ s16 timer;
-    STRUCT_PAD(0x2E, 0x5C);
-    /* 5C */ struct Anim *anim;
-    /* 60 */ struct Anim *anim2;
-};
-
-// extern ??? FramData_Unk5D4F90
+extern u32 FramScr_Unk5D4F90[];
 extern CONST_DATA struct ProcCmd ProcScr_efxRestRST[];
 extern CONST_DATA struct ProcCmd ProcScr_efxTwobaiRST[];
 extern CONST_DATA struct ProcCmd ProcScr_DummvRST[];
@@ -72,15 +14,15 @@ extern CONST_DATA struct ProcCmd ProcScr_EfxRestWIN[];
 extern CONST_DATA struct ProcCmd ProcScr_EfxRestWINH[];
 
 ProcPtr NewefxRestRST(struct Anim *anim, int unk44, int unk48, int frame, int unk50);
-void sub_805B444(struct ProcEfxMagic *proc);
-void efxRestRSTMain(struct ProcEfxMagic *proc);
+void sub_805B444(struct ProcEfx *proc);
+void efxRestRSTMain(struct ProcEfx *proc);
 void NewEfxTwobaiRST(struct Anim *anim, int a);
-void EfxTwobaiRSTMain(struct ProcEfxMagic *proc);
+void EfxTwobaiRSTMain(struct ProcEfx *proc);
 void NewDummvRST(struct Anim *anim, int unk44);
 void sub_805B584(void);
-void DummvRSTMain(struct ProcEfxMagic *proc);
+void DummvRSTMain(struct ProcEfx *proc);
 void NewEfxRestWIN(struct Anim *anim, int unk44, void *unk54, void *unk58);
-void EfxRestWINMain(struct ProcEfxMagic *proc);
+void EfxRestWINMain(struct ProcEfx *proc);
 // ??? EfxMagicHBlank_805B724(???);
 // ??? EfxMagicHBlank_805B750(???);
 // ??? EfxMagicHBlank_805B77C(???);
@@ -334,7 +276,7 @@ void StartSpellAnimation(struct Anim *anim);
 // ??? sub_805B3FC(???);
 
 void sub_805B94C(ProcPtr proc);
-void sub_805B958(struct ProcEfxMagic *proc);
+void sub_805B958(struct ProcEfx *proc);
 void NewEfxALPHA(struct Anim *anim, int a, int b, int c, int d, int e);
 // ??? EfxALPHAMain(???);
 // ??? sub_805BB24(???);
@@ -409,7 +351,7 @@ void StartSpellAnimDarkBreath(struct Anim *anim);
 // ??? sub_805D6CC(???);
 // ??? sub_805D774(???);
 void StartSpellAnimThunder(struct Anim *anim);
-void Loop6C_efxThunder(struct ProcEfxMagic *proc);
+void Loop6C_efxThunder(struct ProcEfx *proc);
 void NewEfxThunderBG(struct Anim *anim);
 // ??? EfxThunderBGMain(???);
 void NewEfxThunderBGCOL(struct Anim *anim);

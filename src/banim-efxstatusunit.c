@@ -141,7 +141,7 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
     }
 
     /* seems like a interpolate-style function ? */
-    ret = sub_80558F4((void *)&proc->unk2C, (void *)&proc->unk44, proc->unk48);
+    ret = EfxGetNextFrameIndex((void *)&proc->unk2C, (void *)&proc->unk44, proc->unk48);
     if (ret >= 0) {
         switch (proc->debuff) {
         case UNIT_STATUS_POISON:

@@ -4,6 +4,66 @@
 #include "anime.h"
 #include "proc.h"
 
+struct ProcEfx {
+    PROC_HEADER;
+
+    /* 29 */ u8 hitted;
+    /* 2A */ u8 type;
+    /* 2B */ STRUCT_PAD(0x2B, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    /* 30 */ s16 unk30;
+    /* 32 */ u16 unk32;
+    /* 34 */ STRUCT_PAD(0x34, 0x44);
+    /* 44 */ u32 unk44;
+    /* 48 */ u32 unk48;
+    /* 4C */ u32 unk4C;
+    /* 50 */ u32 unk50;
+    /* 54 */ s16 *unk54;
+    /* 58 */ s16 **unk58;
+    /* 5C */ struct Anim *anim;
+};
+
+struct ProcEfxBG {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    STRUCT_PAD(0x2E, 0x44);
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 *frame_config;
+    /* 4C */ u16 **unk4C;
+    /* 50 */ u16 **unk50;
+    /* 54 */ u16 **unk54;
+    STRUCT_PAD(0x58, 0x5C);
+    /* 5C */ struct Anim *anim;
+};
+
+struct ProcEfxBGCOL {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    STRUCT_PAD(0x2E, 0x44);
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 *frame_config;
+    /* 4C */ void *unk4C;
+    STRUCT_PAD(0x50, 0x5C);
+    /* 5C */ struct Anim *anim;
+};
+
+struct ProcEfxOBJ {
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    STRUCT_PAD(0x2A, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    STRUCT_PAD(0x30, 0x5C);
+    /* 5C */ struct Anim *anim;
+    /* 60 */ struct Anim *anim2;
+};
+
 struct ProcEkrDispUP {
     PROC_HEADER;
 
@@ -307,6 +367,17 @@ void sub_806E920(void);
 
 extern const u16 FrameLut_EfxSkill[];
 
+struct ProcEfxDamageMojiEffectOBJ {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    STRUCT_PAD(0x30, 0x5C);
+    /* 5C */ struct Anim *anim;
+    /* 60 */ struct ProcEkrSubAnimeEmulator *sub_proc;
+};
+
 extern u16 gEkrBgPalBackupMaybe[];
 // extern ??? gUnknown_02016828
 extern u16 gObjBuf_EkrSideHitDmgCrit[];
@@ -319,7 +390,7 @@ extern u16 gObjBuf_EkrSideHitDmgCrit[];
 extern u16 gDecodedEkrHitDmgCritBuf[];
 extern u32 gEkrBattleEndFlag;
 extern u32 gEkrHPBarCount;
-extern u32 gUnknown_0201772C;
+extern u32 gEfxSpellAnimExists;
 extern u32 gUnknown_02017730;
 extern u32 gUnknown_02017734;
 extern u32 gEkrDeadEventExist;
@@ -327,7 +398,7 @@ extern u32 gUnknown_0201773C;
 extern u32 gUnknown_02017740;
 extern u32 gEkrPos2Maybe;
 extern u32 gUnknown_02017748;
-extern u32 gUnknown_0201774C;
+extern u32 gEfxBgSemaphore;
 extern u32 gUnknown_02017750;
 extern u32 gUnknown_02017754;
 extern u32 gUnknown_02017758;
@@ -529,42 +600,42 @@ extern u32 gUnknown_0201FAD8;
 // extern ??? ProcScr_efxGorgonBGFinish
 // extern ??? gUnknown_085D8CE4
 // extern ??? gUnknown_085D8D14
-// extern ??? ProcScr_efxDamageMojiEffect
-// extern ??? ProcScr_efxDamageMojiEffectOBJ
-// extern ??? ProcScr_efxCriricalEffect
-// extern ??? ProcScr_efxCriricalEffectBG
-// extern ??? ProcScr_efxCriricalEffectBGCOL
-// extern ??? ProcScr_efxNormalEffect
-// extern ??? ProcScr_efxNormalEffectBG
-// extern ??? gUnknown_085D8DF4
-// extern ??? ProcScr_efxPierceCriticalEffect
-// extern ??? ProcScr_efxPierceCriticalEffectBG
-// extern ??? ProcScr_efxPierceCriticalEffectBGCOL
-// extern ??? ProcScr_efxPierceNormalEffect
-// extern ??? ProcScr_efxPierceNormalEffectBG
-// extern ??? gUnknown_085D8E9C
-// extern ??? ProcScr_efxYushaSpinShield
-// extern ??? ProcScr_efxYushaSpinShieldOBJ
-// extern ??? ProcScr_efxHurtmutEff00
-// extern ??? ProcScr_efxHurtmutEff00OBJ
-// extern ??? ProcScr_efxHurtmutEff01OBJ
-// extern ??? ProcScr_efxMagfcast
-// extern ??? ProcScr_efxMagfcastBG
-// extern ??? gUnknown_085D8FC4
-// extern ??? gUnknown_085D8FDC
-// extern ??? ProcScr_efxSunakemuri
-// extern ??? ProcScr_efxSunakemuriOBJ
-// extern ??? ProcScr_efxLokmsuna
-// extern ??? ProcScr_efxLokmsunaOBJ
-// extern ??? ProcScr_efxKingPika
-// extern ??? ProcScr_efxFlashFX
-// extern ??? ProcScr_efxSongOBJ2
-// extern ??? ProcScr_efxDanceOBJ
-// extern ??? ProcScr_efxSpecalEffect
-// extern ??? ProcScr_efxSRankWeaponEffect
-// extern ??? ProcScr_efxSRankWeaponEffectBG
-// extern ??? efxSRankWeaponEffectSCR
-// extern ??? efxSRankWeaponEffectSCR2
+extern struct ProcCmd ProcScr_efxDamageMojiEffect[];
+extern struct ProcCmd ProcScr_efxDamageMojiEffectOBJ[];
+extern struct ProcCmd ProcScr_efxCriricalEffect[];
+extern struct ProcCmd ProcScr_efxCriricalEffectBG[];
+extern struct ProcCmd ProcScr_efxCriricalEffectBGCOL[];
+extern struct ProcCmd ProcScr_efxNormalEffect[];
+extern struct ProcCmd ProcScr_efxNormalEffectBG[];
+extern u16 *gUnknown_085D8DF4[];
+extern struct ProcCmd ProcScr_efxPierceCriticalEffect[];
+extern struct ProcCmd ProcScr_efxPierceCriticalEffectBG[];
+extern struct ProcCmd ProcScr_efxPierceCriticalEffectBGCOL[];
+extern struct ProcCmd ProcScr_efxPierceNormalEffect[];
+extern struct ProcCmd ProcScr_efxPierceNormalEffectBG[];
+extern u16 *gUnknown_085D8E9C[];
+extern struct ProcCmd ProcScr_efxYushaSpinShield[];
+extern struct ProcCmd ProcScr_efxYushaSpinShieldOBJ[];
+extern struct ProcCmd ProcScr_efxHurtmutEff00[];
+extern struct ProcCmd ProcScr_efxHurtmutEff00OBJ[];
+extern struct ProcCmd ProcScr_efxHurtmutEff01OBJ[];
+extern struct ProcCmd ProcScr_efxMagfcast[];
+extern struct ProcCmd ProcScr_efxMagfcastBG[];
+extern u16 *gUnknown_085D8FC4[];
+extern u16 *gUnknown_085D8FDC[];
+extern struct ProcCmd ProcScr_efxSunakemuri[];
+extern struct ProcCmd ProcScr_efxSunakemuriOBJ[];
+extern struct ProcCmd ProcScr_efxLokmsuna[];
+extern struct ProcCmd ProcScr_efxLokmsunaOBJ[];
+extern struct ProcCmd ProcScr_efxKingPika[];
+extern struct ProcCmd ProcScr_efxFlashFX[];
+extern struct ProcCmd ProcScr_efxSongOBJ2[];
+extern struct ProcCmd ProcScr_efxDanceOBJ[];
+extern struct ProcCmd ProcScr_efxSpecalEffect[];
+extern struct ProcCmd ProcScr_efxSRankWeaponEffect[];
+extern struct ProcCmd ProcScr_efxSRankWeaponEffectBG[];
+extern struct ProcCmd efxSRankWeaponEffectSCR[];
+extern struct ProcCmd efxSRankWeaponEffectSCR2[];
 // extern ??? gUnknown_085D9154
 // extern ??? ProcScr_efxMagdhisEffect
 // extern ??? ProcScr_efxMagdhisEffectBG
@@ -634,67 +705,67 @@ extern struct ProcCmd ProcScr_efxSkillCommonBG[];
 // ??? sub_806C464(???);
 // ??? sub_806C478(???);
 // ??? sub_806C608(???);
-void NewEfxDamageMojiEffect(struct Anim *anim, int r1);
+void NewEfxDamageMojiEffect(struct Anim *anim, int hitted);
 // ??? efxDamageMojiEffectMain(???);
-// ??? sub_806C67C(???);
+void NewEfxDamageMojiEffectOBJ(struct Anim *anim, int hitted);
 // ??? efxDamageMojiEffectOBJMain(???);
 // ??? NewEfxPierceCritical(???);
 // ??? efxCriricalEffectMain(???);
-// ??? sub_806C798(???);
+void NewEfxCriricalEffectBG(struct Anim *anim);
 // ??? efxCriricalEffectBGMain(???);
-// ??? sub_806C810(???);
+void NewEfxCriricalEffectBGCOL(struct Anim *anim);
 // ??? efxCriricalEffectBGCOLMain(???);
 // ??? NewEfxNormalEffect(???);
 // ??? efxNormalEffectMain(???);
-// ??? sub_806C904(???);
+void NewEfxNormalEffectBG(struct Anim *anim);
 // ??? efxNormalEffectBGMain(???);
-// ??? NewEfxPierceCriticalEffect(???);
+void NewEfxPierceCriticalEffect(struct Anim *anim);
 // ??? efxPierceCriticalEffectMain(???);
-// ??? sub_806CA38(???);
+void NewEfxPierceCriticalEffectBG(struct Anim *anim);
 // ??? efxPierceCriticalEffectBGMain(???);
-// ??? sub_806CAB0(???);
+void NewEfxPierceCriticalEffectBGCOL(struct Anim *anim);
 // ??? efxPierceCriticalEffectBGCOLMain(???);
-// ??? sub_806CB1C(???);
+void NewEfxPierceNormalEffect(struct Anim *anim);
 // ??? efxPierceNormalEffectMain(???);
-// ??? sub_806CB7C(???);
+void NewEfxPierceNormalEffectBG(struct Anim *anim);
 // ??? efxPierceNormalEffectBGMain(???);
-// ??? NewEfxYushaSpinShield(???);
+void NewEfxYushaSpinShield(struct Anim *anim, int r1);
 // ??? EfxYushaSpinShieldMain(???);
-// ??? sub_806CC94(???);
+void NewEfxYushaSpinShieldOBJ(struct Anim *anim, int r1);
 // ??? efxYushaSpinShieldOBJ_806CD14(???);
 // ??? efxYushaSpinShieldOBJ_806CD7C(???);
 // ??? efxYushaSpinShieldOBJ_806CDA4(???);
 // ??? efxYushaSpinShieldOBJ_806CE08(???);
-// ??? NewEfxHurtmutEff00(???);
+void NewEfxHurtmutEff00(struct Anim *anim);
 // ??? EfxHurtmutEff00Main(???);
-// ??? sub_806CE80(???);
+void NewEfxHurtmutEff00OBJ(struct Anim *anim);
 // ??? efxHurtmutEff00OBJ_806CEC4(???);
 // ??? efxHurtmutEff00OBJ_806CF10(???);
 // ??? efxHurtmutEff00OBJ_806CF5C(???);
-// ??? sub_806CF80(???);
+void NewEfxHurtmutEff01OBJ(struct Anim *anim);
 // ??? efxHurtmutEff01OBJ_806CFC4(???);
 // ??? efxHurtmutEff01OBJ_806D010(???);
 // ??? efxHurtmutEff01OBJ_806D05C(???);
-// ??? NewEfxMagfcast(???);
+void NewEfxMagfcast(struct Anim *anim, int type);
 // ??? EfxMagfcastMain(???);
-// ??? sub_806D1B4(???);
+void NewEfxMagfcastBG(struct Anim *anim, u32 type);
 // ??? EfxMagfcastBGMain(???);
-// ??? NewEfxSunakemuri(???);
-// ??? sub_806D350(???);
-// ??? sub_806D35C(???);
-// ??? sub_806D540(???);
-// ??? NewEfxLokmsuna(???);
-// ??? sub_806D59C(???);
-// ??? sub_806D5A8(???);
-// ??? sub_806D62C(???);
+void NewEfxSunakemuri(struct Anim *anim, int type);
+// ??? EfxSunakemuriMain(???);
+void NewEfxSunakemuriOBJ(struct Anim *anim, int type);
+// ??? EfxSunakemuriOBJMain(???);
+void NewEfxLokmsuna(struct Anim *anim);
+// ??? EfxLokmsunaMain(???);
+void NewEfxLokmsunaOBJ(struct Anim *anim);
+// ??? EfxLokmsunaIOBJMain(???);
 // ??? NewEfxKingPika(???);
-// ??? sub_806D678(???);
+// ??? EfxKingPikaMain(???);
 // ??? NewEfxFlashFX(???);
-// ??? sub_806D704(???);
-// ??? sub_806D764(???);
-// ??? sub_806D7D8(???);
-// ??? sub_806D828(???);
-// ??? sub_806D89C(???);
+// ??? EfxFlashFXMain(???);
+// ??? NewEfxSongOBJ2(???);
+// ??? EfxSongOBJ2Main(???);
+// ??? NewEfxDanceOBJ(???);
+// ??? EfxDanceOBJMain(???);
 void NewEfxSpecalEffect(struct Anim *anim);
 // ??? sub_806D980(???);
 // ??? NewEfxSRankWeaponEffect(???);

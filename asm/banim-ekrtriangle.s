@@ -173,7 +173,7 @@ sub_8075308: @ 0x08075308
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -870,7 +870,7 @@ sub_807589C: @ 0x0807589C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
-	ldr r1, _080758CC  @ gUnknown_0201774C
+	ldr r1, _080758CC  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -890,7 +890,7 @@ sub_807589C: @ 0x0807589C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080758CC: .4byte gUnknown_0201774C
+_080758CC: .4byte gEfxBgSemaphore
 _080758D0: .4byte ProcScr_EfxTriangleQUAKE
 
 	THUMB_FUNC_END sub_807589C
@@ -995,7 +995,7 @@ EfxTriangleQUAKEMain: @ 0x080758D4
 	ldrsh r1, [r7, r2]
 	cmp r0, r1
 	ble _08075A2A
-	ldr r1, _08075A4C  @ gUnknown_0201774C
+	ldr r1, _08075A4C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -1068,7 +1068,7 @@ _08075A3C: .4byte gEkrBg0QuakeVec
 _08075A40: .4byte gEkrXPosBase
 _08075A44: .4byte gEkrBgXOffset
 _08075A48: .4byte gEkrYPosBase
-_08075A4C: .4byte gUnknown_0201774C
+_08075A4C: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END EfxTriangleQUAKEMain
 

@@ -391,7 +391,7 @@ ProcScr_efxSunakemuri:  @ 0x085D901C
         .word 0x80df3e8
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D350
+        .word EfxSunakemuriMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -403,7 +403,7 @@ ProcScr_efxSunakemuriOBJ:  @ 0x085D9034
         .word 0x80df3f8
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D540
+        .word EfxSunakemuriOBJMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -416,7 +416,7 @@ ProcScr_efxLokmsuna:  @ 0x085D904C
         .word 0x80df40c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D59C
+        .word EfxLokmsunaMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -429,7 +429,7 @@ ProcScr_efxLokmsunaOBJ:  @ 0x085D9064
         .word 0x80df418
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D62C
+        .word EfxLokmsunaIOBJMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -442,7 +442,7 @@ ProcScr_efxKingPika:  @ 0x085D907C
         .word 0x80df428
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D678
+        .word EfxKingPikaMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -455,7 +455,7 @@ ProcScr_efxFlashFX:  @ 0x085D9094
         .word 0x80df434
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D704
+        .word EfxFlashFXMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -468,7 +468,7 @@ ProcScr_efxSongOBJ2:  @ 0x085D90AC
         .word 0x80df440
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D7D8
+        .word EfxSongOBJ2Main
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -481,7 +481,7 @@ ProcScr_efxDanceOBJ:  @ 0x085D90C4
         .word 0x80df44c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D89C
+        .word EfxDanceOBJMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

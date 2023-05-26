@@ -697,7 +697,7 @@ sub_805B394: @ 0x0805B394
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #0

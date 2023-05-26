@@ -442,7 +442,7 @@ sub_806DC08: @ 0x0806DC08
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r1, _0806DC88  @ gUnknown_0201774C
+	ldr r1, _0806DC88  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -498,7 +498,7 @@ sub_806DC08: @ 0x0806DC08
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806DC88: .4byte gUnknown_0201774C
+_0806DC88: .4byte gEfxBgSemaphore
 _0806DC8C: .4byte ProcScr_efxMagdhisEffectBG
 _0806DC90: .4byte gUnknown_080DF4F4
 _0806DC94: .4byte gUnknown_085D9274
@@ -516,7 +516,7 @@ sub_806DCA4: @ 0x0806DCA4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -563,7 +563,7 @@ _0806DCD0:
 	orrs r0, r1
 	strb r0, [r3, #0x14]
 	bl ClearBG1
-	ldr r1, _0806DD30  @ gUnknown_0201774C
+	ldr r1, _0806DD30  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -576,6 +576,6 @@ _0806DD24:
 	bx r0
 	.align 2, 0
 _0806DD2C: .4byte gLCDControlBuffer
-_0806DD30: .4byte gUnknown_0201774C
+_0806DD30: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_806DCA4

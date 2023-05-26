@@ -199,7 +199,7 @@ NewEfxleveluphb: @ 0x080746C0
 	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
-	ldr r1, _0807475C  @ gUnknown_0201774C
+	ldr r1, _0807475C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -276,7 +276,7 @@ _08074722:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0807475C: .4byte gUnknown_0201774C
+_0807475C: .4byte gEfxBgSemaphore
 _08074760: .4byte gUnknown_0201FB38
 _08074764: .4byte gUnknown_0201FC78
 _08074768: .4byte gUnknown_0201FDC4
@@ -497,7 +497,7 @@ sub_807490C: @ 0x0807490C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -577,7 +577,7 @@ sub_80749B0: @ 0x080749B0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -698,7 +698,7 @@ sub_8074A94: @ 0x08074A94
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -750,7 +750,7 @@ sub_8074AFC: @ 0x08074AFC
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0

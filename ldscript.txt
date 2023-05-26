@@ -162,7 +162,8 @@ SECTIONS
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxdevilatk.o(.text);
-        asm/banim-efxhit.o(.text);
+        src/banim-efxhit.o(.text);
+        src/banim-efxmisc.o(.text);
         asm/banim-efxspecialleffect.o(.text);
         asm/banim-efxmantbata.o(.text);
         asm/banim-efxchill.o(.text);

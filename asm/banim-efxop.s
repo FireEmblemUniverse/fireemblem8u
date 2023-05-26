@@ -462,7 +462,7 @@ sub_806EC1C: @ 0x0806EC1C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -671,7 +671,7 @@ sub_806EDB0: @ 0x0806EDB0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -759,7 +759,7 @@ sub_806EE68: @ 0x0806EE68
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -970,7 +970,7 @@ sub_806F00C: @ 0x0806F00C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -1036,7 +1036,7 @@ sub_806F08C: @ 0x0806F08C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -1318,7 +1318,7 @@ sub_806F2A0: @ 0x0806F2A0
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -1479,7 +1479,7 @@ sub_806F3F8: @ 0x0806F3F8
 	adds r1, r6, #0
 	adds r1, #0x44
 	ldr r2, [r6, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -1523,7 +1523,7 @@ sub_806F450: @ 0x0806F450
 	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
-	ldr r3, _0806F478  @ FramData_Unk5D4F90
+	ldr r3, _0806F478  @ FramScr_Unk5D4F90
 	adds r0, r4, #0
 	movs r1, #1
 	adds r2, r3, #0
@@ -1534,7 +1534,7 @@ sub_806F450: @ 0x0806F450
 	bx r0
 	.align 2, 0
 _0806F474: .4byte gUnknown_085D9924
-_0806F478: .4byte FramData_Unk5D4F90
+_0806F478: .4byte FramScr_Unk5D4F90
 
 	THUMB_FUNC_END sub_806F450
 
@@ -1546,7 +1546,7 @@ sub_806F47C: @ 0x0806F47C
 	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
-	ldr r3, _0806F4B0  @ FramData_Unk5D4F90
+	ldr r3, _0806F4B0  @ FramScr_Unk5D4F90
 	adds r0, r5, #0
 	movs r1, #0
 	adds r2, r3, #0
@@ -1564,7 +1564,7 @@ sub_806F47C: @ 0x0806F47C
 	bx r1
 	.align 2, 0
 _0806F4AC: .4byte gUnknown_085D996C
-_0806F4B0: .4byte FramData_Unk5D4F90
+_0806F4B0: .4byte FramScr_Unk5D4F90
 
 	THUMB_FUNC_END sub_806F47C
 
@@ -1938,7 +1938,7 @@ sub_806F75C: @ 0x0806F75C
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -2141,7 +2141,7 @@ sub_806F8F0: @ 0x0806F8F0
 	adds r1, r6, #0
 	adds r1, #0x44
 	ldr r2, [r6, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r7, r0, #0x10
 	cmp r7, #0

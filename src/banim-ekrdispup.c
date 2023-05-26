@@ -349,13 +349,13 @@ void sub_8052214(int a, int b)
 void EkrEfxStatusClear(void)
 {
     gEkrHPBarCount = 0;
-    gUnknown_0201772C = 0;
+    gEfxSpellAnimExists = 0;
     gUnknown_02017730 = 0;
     gEkrDeadEventExist = 0;
     gUnknown_0201773C = 0;
     gUnknown_02017740 = 0;
     gUnknown_02017748 = 0;
-    gUnknown_0201774C = 0;
+    gEfxBgSemaphore = 0;
     gUnknown_02017750 = 0;
     gUnknown_02017754 = 0;
     gUnknown_02017758 = 0;
