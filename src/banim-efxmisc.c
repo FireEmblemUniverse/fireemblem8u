@@ -99,18 +99,10 @@ void efxYushaSpinShieldOBJ_806CD14(struct ProcEfxOBJ *proc)
 
 void efxYushaSpinShieldOBJ_806CD7C(struct ProcEfxOBJ *proc)
 {
-#if NONMATCHING
-    int state3;
-#else
-    register int state3 asm("r2");
-#endif
-
-    state3 = proc->anim->state3;
-
-    if (!(state3 & 0x4))
+    if (!(proc->anim->state3 & 0x4))
         return;
-    
-    if (!(state3 & 0x8))
+
+    if (!(proc->anim->state3 & 0x8))
         return;
 
     proc->timer = 0;
