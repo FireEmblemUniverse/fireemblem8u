@@ -1219,7 +1219,7 @@ _08059698:
 	adds r0, r2, r0
 	ldrb r1, [r0]
 	adds r0, r7, #0
-	bl sub_8071B6C
+	bl EfxPlaySEwithCmdCtrl
 	b _080596CC
 _080596A6:
 	adds r0, r7, #0

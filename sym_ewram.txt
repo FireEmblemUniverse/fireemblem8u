@@ -172,7 +172,7 @@
 . = 0x017700; gDecodedEkrHitDmgCritBuf = .;
 . = 0x017724; gEkrBattleEndFlag = .;
 . = 0x017728; gEkrHPBarCount = .;
-. = 0x01772C; gUnknown_0201772C = .;
+. = 0x01772C; gEfxSpellAnimExists = .;
 . = 0x017730; gUnknown_02017730 = .;
 . = 0x017734; gUnknown_02017734 = .;
 . = 0x017738; gEkrDeadEventExist = .;
@@ -180,7 +180,7 @@
 . = 0x017740; gUnknown_02017740 = .;
 . = 0x017744; gEkrPos2Maybe = .;
 . = 0x017748; gUnknown_02017748 = .;
-. = 0x01774C; gUnknown_0201774C = .;
+. = 0x01774C; gEfxBgSemaphore = .;
 . = 0x017750; gUnknown_02017750 = .;
 . = 0x017754; gUnknown_02017754 = .;
 . = 0x017758; gUnknown_02017758 = .;

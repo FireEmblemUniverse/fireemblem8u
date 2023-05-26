@@ -17,7 +17,7 @@ extern struct Anim *gAnims[4];
 
 int sub_80522CC(void)
 {
-    if (gEkrHPBarCount == 0 && gUnknown_0201772C == 0)
+    if (gEkrHPBarCount == 0 && gEfxSpellAnimExists == 0)
         return true;
     else
         return false;
@@ -118,7 +118,7 @@ void efxHPBarMain(struct ProcEfxHPBar *proc)
 {
     struct Anim *anim;
 
-    if (gUnknown_0201774C == 0 && gUnknown_0201772C == 0) {
+    if (gEfxBgSemaphore == 0 && gEfxSpellAnimExists == 0) {
         proc->pos = 0;
         proc->max = 1;
         anim = GetCoreAIStruct(proc->anim64);

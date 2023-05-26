@@ -157,6 +157,18 @@ struct BanimRoundScripts {
 
 extern const struct BanimRoundScripts gBanimRoundScripts[ANIM_ROUND_MAX];
 
+struct ProcEkrSubAnimeEmulator {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2E);
+    /* 2E */ s16 unk2E;
+    STRUCT_PAD(0x30, 0x32);
+    /* 32 */ s16 unk32;
+};
+
+struct ProcEkrSubAnimeEmulator *NewEkrsubAnimeEmulator(int x, int y, u16 *buf[], int, int, int, int);
+// ??? EkrsubAnimeEmulatorMain(???);
+
 extern int gEkrDebugTimer, gEkrDebugUnk1;
 
 extern u16 gEkrPairBanimID[2];
@@ -457,8 +469,8 @@ void NewEfxFlashUnit(struct Anim *anim, int a, int b, int c);
 // ??? sub_80549BC(???);
 
 void sub_805515C(void);
-void SetSomethingSpellFxToTrue(void);
-void SetSomethingSpellFxToFalse(void);
+void RegisterEfxSpellAnimDelay(void);
+void UnregisterEfxSpellAnimDelay(void);
 void ClearBG1Setup(void);
 void ClearBG1(void);
 void sub_80551B0(void);
@@ -481,7 +493,7 @@ void SomePaletteStoringRoutine_SpellAnim2(const u16 *pal, u32 size);
 // ??? sub_8055860(???);
 // ??? sub_805588C(???);
 // ??? sub_80558BC(???);
-s16 sub_80558F4(s16 *ptime, s16 *pcount, const s16 lut[]);
+s16 EfxGetNextFrameIndex(s16 *ptime, s16 *pcount, const s16 lut[]);
 // ??? sub_8055980(???);
 int GetAnimationStartFrameMaybe(void);
 // ??? sub_80559B0(???);
@@ -619,8 +631,7 @@ void sub_8071574(s8 *, s8 *, u16 *, int, int);
 void sub_80715F4(void *, void *, void *, void *, int, int, int);
 void EkrUpdateSomePalMaybe(int);
 // ??? sub_80716B0(???);
-// ??? NewEkrsubAnimeEmulator(???);
-// ??? EkrsubAnimeEmulatorMain(???);
+
 // ??? sub_80717D4(???);
 // ??? sub_80717F0(???);
 // ??? EkrEfxHandleUnitHittedEffect(???);
@@ -633,9 +644,9 @@ void sub_8071A8C(void);
 // ??? sub_8071A98(???);
 // ??? sub_8071AA4(???);
 void M4aPlayWithPostionCtrl(int, int, int);
-// ??? sub_8071B6C(???);
+void EfxPlaySEwithCmdCtrl(struct Anim *anim, int);
 // ??? sub_8072258(???);
-// ??? sub_80723A4(???);
+int sub_80723A4(struct Anim *anim);
 // ??? sub_80723D4(???);
 // ??? sub_8072400(???);
 void sub_8072450(struct Anim *anim);

@@ -81,12 +81,12 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     (void *)NULL
 };
 
-u32 FramData_Unk5D4F84[] = {
+u32 FramScr_Unk5D4F84[] = {
     0x1, 0x0, 0x0
 };
 
-u32 FramData_Unk5D4F90[] = {
-    0x85D4F85, /* (uintptr_t)FramData_Unk5D4F84 + 1 */
+u32 FramScr_Unk5D4F90[] = {
+    0x85D4F85, /* (uintptr_t)FramScr_Unk5D4F84 + 1 */
     0x80000000
 };
 
@@ -116,9 +116,9 @@ CONST_DATA struct ProcCmd ProcScr_efxRestRST[] = {
 
 ProcPtr NewefxRestRST(struct Anim *anim, int unk44, int unk48, int frame, int unk50)
 {
-    struct ProcEfxMagic *proc;
+    struct ProcEfx *proc;
 
-    gUnknown_0201774C++;
+    gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxRestRST, PROC_TREE_3);
 
     proc->anim = anim;
@@ -132,12 +132,12 @@ ProcPtr NewefxRestRST(struct Anim *anim, int unk44, int unk48, int frame, int un
     return proc;
 }
 
-void sub_805B444(struct ProcEfxMagic *proc)
+void sub_805B444(struct ProcEfx *proc)
 {
-    gUnknown_0201774C--;
+    gEfxBgSemaphore--;
 }
 
-void efxRestRSTMain(struct ProcEfxMagic *proc)
+void efxRestRSTMain(struct ProcEfx *proc)
 {
     u8 val1;
     int val2;
@@ -171,7 +171,7 @@ void NewEfxTwobaiRST(struct Anim *anim, int unk44)
 {
     u32 i, j;
     u16 *buf;
-    struct ProcEfxMagic *proc;
+    struct ProcEfx *proc;
     proc = Proc_Start(ProcScr_efxTwobaiRST, PROC_TREE_3);
 
     proc->anim = anim;
@@ -187,7 +187,7 @@ void NewEfxTwobaiRST(struct Anim *anim, int unk44)
         *buf = -(j / 2);
 }
 
-void EfxTwobaiRSTMain(struct ProcEfxMagic *proc)
+void EfxTwobaiRSTMain(struct ProcEfx *proc)
 {
     if (++proc->timer == proc->unk44)
         Proc_Break(proc);
@@ -202,9 +202,9 @@ CONST_DATA struct ProcCmd ProcScr_DummvRST[] = {
 
 void NewDummvRST(struct Anim *anim, int unk44)
 {
-    struct ProcEfxMagic *proc;
+    struct ProcEfx *proc;
 
-    gUnknown_0201774C++;
+    gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_DummvRST, PROC_TREE_3);
 
     proc->anim = anim;
@@ -215,10 +215,10 @@ void NewDummvRST(struct Anim *anim, int unk44)
 
 void sub_805B584(void)
 {
-    gUnknown_0201774C--;
+    gEfxBgSemaphore--;
 }
 
-void DummvRSTMain(struct ProcEfxMagic *proc)
+void DummvRSTMain(struct ProcEfx *proc)
 {
     u32 i;
     u16 *buf;
@@ -243,9 +243,9 @@ CONST_DATA struct ProcCmd ProcScr_EfxRestWIN[] = {
 
 void NewEfxRestWIN(struct Anim *anim, int unk44, void *unk54, void *unk58)
 {
-    struct ProcEfxMagic *proc;
+    struct ProcEfx *proc;
 
-    gUnknown_0201774C++;
+    gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_EfxRestWIN, PROC_TREE_3);
 
     proc->anim = anim;
@@ -268,7 +268,7 @@ void NewEfxRestWIN(struct Anim *anim, int unk44, void *unk54, void *unk58)
     }
 }
 
-void EfxRestWINMain(struct ProcEfxMagic *proc)
+void EfxRestWINMain(struct ProcEfx *proc)
 {
     u32 i;
     u16 val2;
@@ -302,7 +302,7 @@ void EfxRestWINMain(struct ProcEfxMagic *proc)
 
     proc->timer++;
     if (proc->timer == proc->unk44) {
-        gUnknown_0201774C--;
+        gEfxBgSemaphore--;
         Proc_Break(proc);
     }
 }
@@ -353,9 +353,9 @@ void NewEfxRestWINH(struct Anim *anim, int a, u16 b, u32 c)
 {
     u32 i;
     u16 *buf;
-    struct ProcEfxMagic *proc;
+    struct ProcEfx *proc;
 
-    gUnknown_0201774C++;
+    gEfxBgSemaphore++;
 
     if (c == 2) {
         buf = gUnknown_0201FB38;
@@ -413,7 +413,7 @@ void sub_805B94C(ProcPtr proc)
     Proc_Break(proc);
 }
 
-void sub_805B958(struct ProcEfxMagic *proc)
+void sub_805B958(struct ProcEfx *proc)
 {
     if (gBmSt.mainLoopEndedFlag != false) {
         if (proc->unk48 == 0x2) {
@@ -439,7 +439,7 @@ void sub_805B958(struct ProcEfxMagic *proc)
     gUnknown_0201FDC0 = gUnknown_0201FDBC;
 
     if (++proc->timer == proc->unk44) {
-        gUnknown_0201774C--;
+        gEfxBgSemaphore--;
         SetPrimaryHBlankHandler(NULL);
         Proc_Break(proc);
     }
@@ -447,8 +447,8 @@ void sub_805B958(struct ProcEfxMagic *proc)
 
 void NewEfxALPHA(struct Anim *anim, int a, int b, int c, int d, int e)
 {
-    struct ProcEfxMagic *proc;
-    gUnknown_0201774C++;
+    struct ProcEfx *proc;
+    gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxALPHA, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;

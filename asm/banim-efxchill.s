@@ -63,7 +63,7 @@ _0806E070:
 sub_806E078: @ 0x0806E078
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r1, _0806E0BC  @ gUnknown_0201774C
+	ldr r1, _0806E0BC  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -92,7 +92,7 @@ sub_806E078: @ 0x0806E078
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806E0BC: .4byte gUnknown_0201774C
+_0806E0BC: .4byte gEfxBgSemaphore
 _0806E0C0: .4byte ProcScr_efxChillEffectBG
 _0806E0C4: .4byte gUnknown_080DF546
 _0806E0C8: .4byte gUnknown_085D92D4
@@ -108,7 +108,7 @@ sub_806E0D0: @ 0x0806E0D0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -129,7 +129,7 @@ _0806E0FE:
 	cmp r2, r0
 	bne _0806E11C
 	bl ClearBG1
-	ldr r1, _0806E124  @ gUnknown_0201774C
+	ldr r1, _0806E124  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -141,7 +141,7 @@ _0806E11C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806E124: .4byte gUnknown_0201774C
+_0806E124: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_806E0D0
 
@@ -179,7 +179,7 @@ sub_806E158: @ 0x0806E158
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0

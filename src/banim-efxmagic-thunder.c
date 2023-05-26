@@ -7,8 +7,8 @@
 
 void StartSpellAnimThunder(struct Anim *anim)
 {
-    struct ProcEfxMagic *proc;
-    SetSomethingSpellFxToTrue();
+    struct ProcEfx *proc;
+    RegisterEfxSpellAnimDelay();
     NewEfxSpellCast();
     ClearBG1Setup();
 
@@ -18,7 +18,7 @@ void StartSpellAnimThunder(struct Anim *anim)
     proc->hitted = EkrCheckHitOrMiss(GetSomeAISRelatedIndexMaybe(anim));
 }
 
-void Loop6C_efxThunder(struct ProcEfxMagic *proc)
+void Loop6C_efxThunder(struct ProcEfx *proc)
 {
     struct Anim *animc = GetCoreAIStruct(proc->anim);
     int cur, frame = GetAnimationStartFrameMaybe();
@@ -49,7 +49,7 @@ void Loop6C_efxThunder(struct ProcEfxMagic *proc)
         return;
     
     if (cur == (frame + 0x60)) {
-        SetSomethingSpellFxToFalse();
+        UnregisterEfxSpellAnimDelay();
         EfxSpellCastSet29();
         Proc_Break(proc);
     }
@@ -57,13 +57,13 @@ void Loop6C_efxThunder(struct ProcEfxMagic *proc)
 
 void NewEfxThunderBG(struct Anim *anim)
 {
-    struct ProcEfxMagicBG *proc;
-    gUnknown_0201774C++;
+    struct ProcEfxBG *proc;
+    gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxThunderBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk44 = 0;
-    proc->unk48 = gUnknown_080DCCA6;
+    proc->frame = 0;
+    proc->frame_config = gUnknown_080DCCA6;
     proc->unk4C = gUnknown_085D5458;
     proc->unk50 = gUnknown_085D5460;
 
@@ -78,12 +78,12 @@ void NewEfxThunderBG(struct Anim *anim)
     }
 }
 
-void EfxThunderBGMain(struct ProcEfxMagicBG *proc)
+void EfxThunderBGMain(struct ProcEfxBG *proc)
 {
     int val, ret;
 
     val = 0;
-    ret = sub_80558F4((s16 *)&proc->timer, (s16 *)&proc->unk44, proc->unk48);
+    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
@@ -101,7 +101,7 @@ void EfxThunderBGMain(struct ProcEfxMagicBG *proc)
 
     if (ret == -1) {
         ClearBG1();
-        gUnknown_0201774C--;
+        gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_Break(proc);
     }
@@ -109,20 +109,20 @@ void EfxThunderBGMain(struct ProcEfxMagicBG *proc)
 
 void NewEfxThunderBGCOL(struct Anim *anim)
 {
-    struct ProcEfxMagicBGCOL *proc;
-    gUnknown_0201774C++;
+    struct ProcEfxBGCOL *proc;
+    gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxThunderBGCOL, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk44 = 0;
-    proc->unk48 = gUnknown_080DCCC0;
+    proc->frame = 0;
+    proc->frame_config = gUnknown_080DCCC0;
     proc->unk4C = gUnknown_085F367C;
 }
 
-void sub_805D9F8(struct ProcEfxMagicBGCOL *proc)
+void sub_805D9F8(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = sub_80558F4((s16 *)&proc->timer, (s16 *)&proc->unk44, proc->unk48);
+    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *buf = proc->unk4C;
         SomePaletteStoringRoutine_SpellAnim2(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
@@ -131,15 +131,15 @@ void sub_805D9F8(struct ProcEfxMagicBGCOL *proc)
 
     if (ret == -1) {
         SetDefaultColorEffects_();
-        gUnknown_0201774C--;
+        gEfxBgSemaphore--;
         Proc_Break(proc);
     }
 }
 
 void NewEfxThunderOBJ(struct Anim *anim)
 {
-    struct ProcEfxMagicOBJ *proc;
-    gUnknown_0201774C++;
+    struct ProcEfxOBJ *proc;
+    gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxThunderOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
@@ -149,11 +149,11 @@ void NewEfxThunderOBJ(struct Anim *anim)
     SomeImageStoringRoutine_SpellAnim(gUnknown_085F3AA8, 0x1000);
 }
 
-void EfxThunderOBJMain(struct ProcEfxMagicOBJ *proc)
+void EfxThunderOBJMain(struct ProcEfxOBJ *proc)
 {
     if (++proc->timer > 0x32) {
         AnimDelete(proc->anim2);
-        gUnknown_0201774C--;
+        gEfxBgSemaphore--;
         Proc_Break(proc);
     }
 }

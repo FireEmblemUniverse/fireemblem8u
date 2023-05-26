@@ -6,7 +6,7 @@
 StartSpellAnimIvaldi: @ 0x080657D4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl SetSomethingSpellFxToTrue
+	bl RegisterEfxSpellAnimDelay
 	bl NewEfxSpellCast
 	bl ClearBG1Setup
 	ldr r0, _0806580C  @ ProcScr_efxIvaldi
@@ -218,7 +218,7 @@ _0806598C:
 	adds r0, r2, r0
 	cmp r1, r0
 	bne _080659A4
-	bl SetSomethingSpellFxToFalse
+	bl UnregisterEfxSpellAnimDelay
 	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
@@ -234,7 +234,7 @@ _080659A4:
 StartSpellBG_IvaldiBG1: @ 0x080659AC
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r1, _080659F8  @ gUnknown_0201774C
+	ldr r1, _080659F8  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -266,7 +266,7 @@ StartSpellBG_IvaldiBG1: @ 0x080659AC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080659F8: .4byte gUnknown_0201774C
+_080659F8: .4byte gEfxBgSemaphore
 _080659FC: .4byte gUnknown_085D76A0
 _08065A00: .4byte gUnknown_080DE4E6
 _08065A04: .4byte gUnknown_085D76B8
@@ -286,7 +286,7 @@ Loop6C_efxIvaldiBG1: @ 0x08065A10
 	adds r1, r5, #0
 	adds r1, #0x44
 	ldr r2, [r5, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -314,7 +314,7 @@ _08065A56:
 	cmp r2, r0
 	bne _08065A74
 	bl ClearBG1
-	ldr r1, _08065A7C  @ gUnknown_0201774C
+	ldr r1, _08065A7C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -326,7 +326,7 @@ _08065A74:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065A7C: .4byte gUnknown_0201774C
+_08065A7C: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END Loop6C_efxIvaldiBG1
 
@@ -334,7 +334,7 @@ _08065A7C: .4byte gUnknown_0201774C
 StartSpellBG_IvaldiBG2: @ 0x08065A80
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r1, _08065AD4  @ gUnknown_0201774C
+	ldr r1, _08065AD4  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -369,7 +369,7 @@ StartSpellBG_IvaldiBG2: @ 0x08065A80
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065AD4: .4byte gUnknown_0201774C
+_08065AD4: .4byte gEfxBgSemaphore
 _08065AD8: .4byte gUnknown_085D76E8
 _08065ADC: .4byte gUnknown_080DE526
 _08065AE0: .4byte gUnknown_085D7700
@@ -386,7 +386,7 @@ Loop6C_efxIvaldiBG2: @ 0x08065AEC
 	adds r1, r5, #0
 	adds r1, #0x44
 	ldr r2, [r5, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -414,7 +414,7 @@ _08065B2A:
 	cmp r2, r0
 	bne _08065B48
 	bl ClearBG1
-	ldr r1, _08065B50  @ gUnknown_0201774C
+	ldr r1, _08065B50  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -426,7 +426,7 @@ _08065B48:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065B50: .4byte gUnknown_0201774C
+_08065B50: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END Loop6C_efxIvaldiBG2
 
@@ -436,7 +436,7 @@ StartSpellBG_IvaldiBG3: @ 0x08065B54
 	adds r4, r0, #0
 	bl ClearBG1
 	bl SetDefaultColorEffects_
-	ldr r1, _08065BA0  @ gUnknown_0201774C
+	ldr r1, _08065BA0  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -465,7 +465,7 @@ StartSpellBG_IvaldiBG3: @ 0x08065B54
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065BA0: .4byte gUnknown_0201774C
+_08065BA0: .4byte gEfxBgSemaphore
 _08065BA4: .4byte ProcScr_efxDanceparaBG3
 _08065BA8: .4byte gUnknown_080DE552
 _08065BAC: .4byte gUnknown_085D772C
@@ -482,7 +482,7 @@ Loop6C_efxIvaldiBG3: @ 0x08065BB8
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -521,7 +521,7 @@ _08065C10:
 	cmp r4, r0
 	bne _08065C2E
 	bl ClearBG1
-	ldr r1, _08065C34  @ gUnknown_0201774C
+	ldr r1, _08065C34  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -533,7 +533,7 @@ _08065C2E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065C34: .4byte gUnknown_0201774C
+_08065C34: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END Loop6C_efxIvaldiBG3
 
@@ -541,7 +541,7 @@ _08065C34: .4byte gUnknown_0201774C
 StartSpellBG_IvaldiBG4: @ 0x08065C38
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r1, _08065C88  @ gUnknown_0201774C
+	ldr r1, _08065C88  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -575,7 +575,7 @@ StartSpellBG_IvaldiBG4: @ 0x08065C38
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065C88: .4byte gUnknown_0201774C
+_08065C88: .4byte gEfxBgSemaphore
 _08065C8C: .4byte ProcScr_efxDanceparaBG4
 _08065C90: .4byte gUnknown_080DE58E
 _08065C94: .4byte gUnknown_085D77C8
@@ -599,7 +599,7 @@ sub_8065CA0: @ 0x08065CA0
 	adds r1, r5, #0
 	adds r1, #0x44
 	ldr r2, [r5, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -676,7 +676,7 @@ _08065D58:
 	cmp r4, r0
 	bne _08065D76
 	bl ClearBG1
-	ldr r1, _08065D80  @ gUnknown_0201774C
+	ldr r1, _08065D80  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -689,7 +689,7 @@ _08065D76:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065D80: .4byte gUnknown_0201774C
+_08065D80: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_8065CA0
 
@@ -724,7 +724,7 @@ StartSpellOBJ_IvaldiFall: @ 0x08065DA4
 	movs r1, #0x80
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
-	ldr r1, _08065DF0  @ gUnknown_0201774C
+	ldr r1, _08065DF0  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -744,7 +744,7 @@ StartSpellOBJ_IvaldiFall: @ 0x08065DA4
 	.align 2, 0
 _08065DE8: .4byte gUnknown_08692B10
 _08065DEC: .4byte gUnknown_086926E0
-_08065DF0: .4byte gUnknown_0201774C
+_08065DF0: .4byte gEfxBgSemaphore
 _08065DF4: .4byte ProcScr_efxDanceparaOBJFall
 
 	THUMB_FUNC_END StartSpellOBJ_IvaldiFall
@@ -884,7 +884,7 @@ _08065EEA:
 	ldrsh r0, [r4, r2]
 	cmp r1, r0
 	bne _08065F04
-	ldr r1, _08065F0C  @ gUnknown_0201774C
+	ldr r1, _08065F0C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -896,7 +896,7 @@ _08065F04:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08065F0C: .4byte gUnknown_0201774C
+_08065F0C: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_8065DF8
 
@@ -913,7 +913,7 @@ StartSpellOBJ_IvaldiSideWash: @ 0x08065F10
 	movs r1, #0x80
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
-	ldr r1, _08065F5C  @ gUnknown_0201774C
+	ldr r1, _08065F5C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -933,7 +933,7 @@ StartSpellOBJ_IvaldiSideWash: @ 0x08065F10
 	.align 2, 0
 _08065F54: .4byte gUnknown_08692B10
 _08065F58: .4byte gUnknown_086926E0
-_08065F5C: .4byte gUnknown_0201774C
+_08065F5C: .4byte gEfxBgSemaphore
 _08065F60: .4byte efxIvaldiOBJSideWash
 
 	THUMB_FUNC_END StartSpellOBJ_IvaldiSideWash
@@ -1051,7 +1051,7 @@ _0806603C:
 	ldrsh r0, [r4, r2]
 	cmp r1, r0
 	bne _08066052
-	ldr r1, _0806605C  @ gUnknown_0201774C
+	ldr r1, _0806605C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -1063,7 +1063,7 @@ _08066052:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806605C: .4byte gUnknown_0201774C
+_0806605C: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END Loop6C_efxIvaldiOBJSideWash
 
@@ -1080,7 +1080,7 @@ sub_8066060: @ 0x08066060
 	movs r1, #0x80
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
-	ldr r1, _080660AC  @ gUnknown_0201774C
+	ldr r1, _080660AC  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -1100,7 +1100,7 @@ sub_8066060: @ 0x08066060
 	.align 2, 0
 _080660A4: .4byte gUnknown_08692B10
 _080660A8: .4byte gUnknown_086926E0
-_080660AC: .4byte gUnknown_0201774C
+_080660AC: .4byte gEfxBgSemaphore
 _080660B0: .4byte ProcScr_efxDanceparaOBJUprise
 
 	THUMB_FUNC_END sub_8066060
@@ -1311,7 +1311,7 @@ _08066236:
 	ldrsh r0, [r2, r3]
 	cmp r1, r0
 	bne _0806624C
-	ldr r1, _08066254  @ gUnknown_0201774C
+	ldr r1, _08066254  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -1322,7 +1322,7 @@ _0806624C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08066254: .4byte gUnknown_0201774C
+_08066254: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_80660B4
 
@@ -1359,7 +1359,7 @@ sub_8066258: @ 0x08066258
 	bl GetAISSubjectId
 	lsls r0, r0, #0x18
 	lsrs r6, r0, #0x18
-	ldr r1, _080662CC  @ gUnknown_0201774C
+	ldr r1, _080662CC  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -1383,7 +1383,7 @@ sub_8066258: @ 0x08066258
 	mov pc, r0
 	.align 2, 0
 _080662C8: .4byte gUnknown_080DE5E4
-_080662CC: .4byte gUnknown_0201774C
+_080662CC: .4byte gEfxBgSemaphore
 _080662D0: .4byte ProcScr_efxDanceparaOBJ1
 _080662D4: .4byte _080662D8
 _080662D8: @ jump table
@@ -1468,7 +1468,7 @@ sub_806635C: @ 0x0806635C
 	ldrsh r1, [r4, r2]
 	cmp r0, r1
 	bne _08066386
-	ldr r0, _0806638C  @ gUnknown_0201774C
+	ldr r0, _0806638C  @ gEfxBgSemaphore
 	ldr r1, [r0]
 	subs r1, #1
 	str r1, [r0]
@@ -1481,7 +1481,7 @@ _08066386:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806638C: .4byte gUnknown_0201774C
+_0806638C: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_806635C
 
@@ -1507,7 +1507,7 @@ sub_8066390: @ 0x08066390
 	ldr r0, _080663E8  @ gUnknown_080DE624
 	ldr r6, [r0]
 	ldr r7, [r0, #4]
-	ldr r1, _080663EC  @ gUnknown_0201774C
+	ldr r1, _080663EC  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -1531,7 +1531,7 @@ _080663E2:
 	b _080663F6
 	.align 2, 0
 _080663E8: .4byte gUnknown_080DE624
-_080663EC: .4byte gUnknown_0201774C
+_080663EC: .4byte gEfxBgSemaphore
 _080663F0: .4byte ProcScr_efxDanceparaOBJ2
 _080663F4:
 	adds r3, r7, #0
@@ -1585,7 +1585,7 @@ sub_8066434: @ 0x08066434
 	ldrsh r1, [r4, r2]
 	cmp r0, r1
 	bne _08066466
-	ldr r0, _0806646C  @ gUnknown_0201774C
+	ldr r0, _0806646C  @ gEfxBgSemaphore
 	ldr r1, [r0]
 	subs r1, #1
 	str r1, [r0]
@@ -1598,7 +1598,7 @@ _08066466:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806646C: .4byte gUnknown_0201774C
+_0806646C: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_8066434
 
@@ -1608,7 +1608,7 @@ sub_8066470: @ 0x08066470
 	adds r4, r0, #0
 	adds r6, r1, #0
 	adds r5, r2, #0
-	ldr r1, _080664A0  @ gUnknown_0201774C
+	ldr r1, _080664A0  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -1626,7 +1626,7 @@ sub_8066470: @ 0x08066470
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080664A0: .4byte gUnknown_0201774C
+_080664A0: .4byte gEfxBgSemaphore
 _080664A4: .4byte ProcScr_efxDanceparaWOUT
 
 	THUMB_FUNC_END sub_8066470
@@ -1666,7 +1666,7 @@ sub_80664A8: @ 0x080664A8
 	ldrsh r1, [r6, r2]
 	cmp r0, r1
 	ble _080664FE
-	ldr r1, _08066510  @ gUnknown_0201774C
+	ldr r1, _08066510  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -1680,6 +1680,6 @@ _080664FE:
 	.align 2, 0
 _08066508: .4byte gPaletteBuffer
 _0806650C: .4byte gEkrBgPalBackupMaybe
-_08066510: .4byte gUnknown_0201774C
+_08066510: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_80664A8

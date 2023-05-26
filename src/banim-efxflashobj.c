@@ -82,7 +82,7 @@ void sub_8054F10(struct ProcEfxWeaponIcon *proc)
         return;
     
     ResetIconGraphics_();
-    ret = sub_80558F4(&proc->unk2C, (s16 *)&proc->unk44, proc->unk48);
+    ret = EfxGetNextFrameIndex(&proc->unk2C, (s16 *)&proc->unk44, proc->unk48);
     if (ret >= 0)
         proc->unk4C = ret;
     

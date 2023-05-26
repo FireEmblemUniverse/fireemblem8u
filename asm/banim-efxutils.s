@@ -2268,8 +2268,8 @@ _08071B68: .4byte 0x0000FFFF
 
 	THUMB_FUNC_END M4aPlayWithPostionCtrl
 
-	THUMB_FUNC_START sub_8071B6C
-sub_8071B6C: @ 0x08071B6C
+	THUMB_FUNC_START EfxPlaySEwithCmdCtrl
+EfxPlaySEwithCmdCtrl: @ 0x08071B6C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -3110,7 +3110,7 @@ _08072246:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8071B6C
+	THUMB_FUNC_END EfxPlaySEwithCmdCtrl
 
 	THUMB_FUNC_START sub_8072258
 sub_8072258: @ 0x08072258

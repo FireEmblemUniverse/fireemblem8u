@@ -606,7 +606,7 @@ sub_8072E60: @ 0x08072E60
 	adds r1, r5, #0
 	adds r1, #0x44
 	ldr r2, [r5, #0x48]
-	bl sub_80558F4
+	bl EfxGetNextFrameIndex
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -1390,7 +1390,7 @@ NewEfxClasschgRST: @ 0x08073468
 	adds r5, r2, #0
 	adds r6, r3, #0
 	ldr r7, [sp, #0x18]
-	ldr r1, _080734A4  @ gUnknown_0201774C
+	ldr r1, _080734A4  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -1411,7 +1411,7 @@ NewEfxClasschgRST: @ 0x08073468
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080734A4: .4byte gUnknown_0201774C
+_080734A4: .4byte gEfxBgSemaphore
 _080734A8: .4byte ProcScr_efxClasschgRST
 
 	THUMB_FUNC_END NewEfxClasschgRST
@@ -1441,7 +1441,7 @@ sub_80734AC: @ 0x080734AC
 	ldrsh r1, [r5, r2]
 	cmp r0, r1
 	ble _080734EA
-	ldr r1, _080734F4  @ gUnknown_0201774C
+	ldr r1, _080734F4  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -1453,7 +1453,7 @@ _080734EA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080734F4: .4byte gUnknown_0201774C
+_080734F4: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END sub_80734AC
 

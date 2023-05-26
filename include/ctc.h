@@ -1,6 +1,8 @@
 #ifndef GUARD_CTC_H
 #define GUARD_CTC_H
 
+#include "global.h"
+
 #define OAM0_Y(ay)         ((ay) & 0x00FF)
 #define OAM0_AFFINE_ENABLE 0x0100
 #define OAM0_DOUBLESIZE    0x0200
@@ -42,6 +44,12 @@
 #define OAM2_CHR(ac)       ((ac) & 0x3FF)
 #define OAM2_LAYER(al)     (((al) & 0x3) << 10) // #define OAM2_LAYER(al) (((al) << 10) & 0x0C00)
 #define OAM2_PAL(ap)       (((ap) & 0xF) << 12) // #define OAM2_PAL(ap)   (((ap) << 12) & 0xF000)
+
+struct oam2_data {
+    u16 chr : 0xA;
+    u16 layer : 0x2;
+    u16 pal : 0x4;
+};
 
 extern u16 CONST_DATA gObject_8x8[];
 extern u16 CONST_DATA gObject_16x16[];

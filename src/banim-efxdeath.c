@@ -33,7 +33,7 @@ void sub_8052DFC(struct ProcEfxDead *proc)
     struct Anim *ais_core1 = GetCoreAIStruct(proc->anim1);
     int ret = false;
 
-    if (gUnknown_0201774C == 0 && gUnknown_0201772C == 0) {
+    if (gEfxBgSemaphore == 0 && gEfxSpellAnimExists == 0) {
         if (gBanimDoneMaybe[GetAISSubjectId(ais_core1)] == true)
             ret = true;
     }
@@ -135,7 +135,7 @@ void sub_8052FEC(struct ProcEfxDead *proc)
     } else
         hp = 1;
 
-    if (gUnknown_0201774C == false && gUnknown_0201772C == false) {
+    if (gEfxBgSemaphore == false && gEfxSpellAnimExists == false) {
         if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DEMON_KING)
             SetEkrDragonStatusAttrBit12(proc->anim1);
         else if (hp == 0)

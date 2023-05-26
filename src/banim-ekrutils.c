@@ -13,14 +13,14 @@ void sub_805515C(void)
     return;
 }
 
-void SetSomethingSpellFxToTrue(void)
+void RegisterEfxSpellAnimDelay(void)
 {
-    gUnknown_0201772C = true;
+    gEfxSpellAnimExists = true;
 }
 
-void SetSomethingSpellFxToFalse(void)
+void UnregisterEfxSpellAnimDelay(void)
 {
-    gUnknown_0201772C = false;
+    gEfxSpellAnimExists = false;
 }
 
 void ClearBG1Setup(void)
@@ -402,7 +402,7 @@ void sub_80558BC(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
     EnablePaletteSync();
 }
 
-s16 sub_80558F4(s16 *ptime, s16 *pcount, const s16 lut[])
+s16 EfxGetNextFrameIndex(s16 *ptime, s16 *pcount, const s16 lut[])
 {
     u16 uframe;
     u16 count;

@@ -556,4 +556,9 @@ struct Struct203E87C {
     u8 unk00[5];
 };
 
+struct EfxFrameConfig {
+    s16 value;
+    s16 duration;
+};
+
 #endif // GUARD_TYPES_H
