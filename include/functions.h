@@ -1774,9 +1774,9 @@ void sub_8086A40(int a1, int a2, int a3, int a4, int a5, int a6);
 void DrawStatBarGfx(int arg0, int arg1, u16* tilemap, int arg3, int arg4, int arg5, int arg6);
 // ??? sub_8086B74(???);
 // ??? sub_8086B7C(???);
-void sub_8086BB8(ProcPtr, u8*, int);
+ProcPtr sub_8086BB8(ProcPtr, void*, int);
 // ??? sub_8086C50(???);
-void sub_8086CE8(ProcPtr, int, int, int, int);
+ProcPtr sub_8086CE8(ProcPtr, void*, int, int, int);
 void EndBG3Slider(void);
 
 void sub_80895B4(int, int);
