@@ -675,7 +675,7 @@ DEBUGONLY_Startup: @ 0x0801C090
 	ldr r1, _0801C0F4  @ 0x0600B000
 	movs r2, #1
 	negs r2, r2
-	bl sub_8086BB8
+	bl StartMuralBackground
 	ldrb r1, [r4, #4]
 	movs r0, #0xbf
 	ands r0, r1

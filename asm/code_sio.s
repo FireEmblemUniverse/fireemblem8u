@@ -4774,7 +4774,7 @@ sub_8043904: @ 0x08043904
 	movs r1, #0
 	movs r2, #0x12
 	movs r3, #2
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r0, _08043AD4  @ gUnknown_085ABD68
 	ldr r1, _08043AD8  @ 0x06014800
 	bl Decompress
@@ -5238,7 +5238,7 @@ sub_8043CF4: @ 0x08043CF4
 	ldr r0, [r4, #0x2c]
 	bl Proc_End
 	bl nullsub_13
-	bl EndBG3Slider
+	bl EndMuralBackground
 	bl InitUnits
 	movs r0, #1
 	bl GetUnit
@@ -6586,7 +6586,7 @@ sub_8044768: @ 0x08044768
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r0, _080447DC  @ gUnknown_085ABD68
 	ldr r1, _080447E0  @ 0x06014800
 	bl Decompress
@@ -7920,7 +7920,7 @@ _080451EC: .4byte gUnknown_02022FBE
 	THUMB_FUNC_START sub_80451F0
 sub_80451F0: @ 0x080451F0
 	push {lr}
-	bl EndBG3Slider
+	bl EndMuralBackground
 	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -9417,7 +9417,7 @@ sub_8045DC0: @ 0x08045DC0
 	movs r1, #0
 	movs r2, #0x12
 	movs r3, #2
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r0, _08045ECC  @ gUnknown_085ABD68
 	ldr r1, _08045ED0  @ 0x06014800
 	bl Decompress
@@ -10629,7 +10629,7 @@ sub_80467AC: @ 0x080467AC
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	bl sub_804D6B4
 	movs r0, #3
 	bl EndFaceById
@@ -10689,7 +10689,7 @@ sub_8046838: @ 0x08046838
 	movs r1, #0
 	movs r2, #0x12
 	movs r3, #2
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r4, _0804696C  @ gUnknown_085AC9DC
 	movs r0, #1
 	bl GetBackgroundTileDataOffset
@@ -10859,7 +10859,7 @@ sub_80469C4: @ 0x080469C4
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #4
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r0, _08046AB8  @ gUnknown_085ABD68
 	ldr r1, _08046ABC  @ 0x06014800
 	bl Decompress
@@ -11667,7 +11667,7 @@ sub_8047008: @ 0x08047008
 	movs r1, #0
 	movs r2, #0x12
 	movs r3, #2
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r4, _080471C0  @ gUnknown_085AC9DC
 	movs r0, #1
 	bl GetBackgroundTileDataOffset
@@ -12029,7 +12029,7 @@ sub_8047324: @ 0x08047324
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r4, _08047520  @ gUnknown_085AC9DC
 	movs r0, #1
 	bl GetBackgroundTileDataOffset
@@ -12554,7 +12554,7 @@ sub_8047780: @ 0x08047780
 	movs r1, #0
 	movs r2, #0x12
 	movs r3, #2
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r4, _080478EC  @ gUnknown_085AC9DC
 	movs r0, #1
 	bl GetBackgroundTileDataOffset
@@ -13004,7 +13004,7 @@ sub_8047B34: @ 0x08047B34
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #4
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r0, _08047BC8  @ gUnknown_085AB358
 	ldr r1, _08047BCC  @ 0x06014800
 	bl Decompress
@@ -13291,7 +13291,7 @@ sub_8047D88: @ 0x08047D88
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #4
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r0, _08047E24  @ gUnknown_085AB358
 	ldr r1, _08047E28  @ 0x06014800
 	bl Decompress
@@ -13757,7 +13757,7 @@ sub_8048168: @ 0x08048168
 	stm r1!, {r2, r3, r4}
 	ldm r0!, {r2, r3}
 	stm r1!, {r2, r3}
-	bl EndBG3Slider
+	bl EndMuralBackground
 	movs r0, #3
 	bl EndFaceById
 	adds r5, r6, #0

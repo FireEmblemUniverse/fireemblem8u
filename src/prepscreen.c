@@ -552,12 +552,12 @@ void PrepAutoCapDeployUnits(struct ProcAtMenu* proc)
 void EndSlidingWallEffectMaybe()
 {
     Proc_EndEach(ProcScr_SlidingWallBg);
-    sub_8086BB8(0, 0, 0xA);
+    StartMuralBackground(0, 0, 0xA);
 }
 
 void EndBG3Slider_()
 {
-    EndBG3Slider();
+    EndMuralBackground();
 }
 
 void Prep_DrawChapterGoal(int VRAM_offset, int pal)

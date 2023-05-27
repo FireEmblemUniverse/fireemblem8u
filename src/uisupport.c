@@ -560,7 +560,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     BG_SetPosition(1, 0, 2);
     BG_SetPosition(2, 0x0000FFD8, proc->unk_34 - 36);
 
-    sub_8086CE8(proc, 0, 18, 2, 0);
+    StartMuralBackgroundExt(proc, 0, 18, 2, 0);
 
     SetupMapSpritesPalettes();
     ResetUnitSprites();

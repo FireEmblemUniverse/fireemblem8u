@@ -143,7 +143,7 @@ PROC_LABEL(0),
 PROC_LABEL(1),
     PROC_CALL(sub_8013F58),
     PROC_SLEEP(0),
-    PROC_CALL(EndBG3Slider),
+    PROC_CALL(EndMuralBackground),
 
     PROC_CALL(ChapterStatus_OnEnd),
 
@@ -179,7 +179,7 @@ PROC_LABEL(1),
     PROC_CALL(sub_8013F58),
     PROC_SLEEP(0),
 
-    PROC_CALL(EndBG3Slider),
+    PROC_CALL(EndMuralBackground),
 
     PROC_CALL(ChapterStatus_OnEnd),
 
@@ -582,7 +582,7 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
     gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 
-    sub_8086BB8(proc, 0, 14);
+    StartMuralBackground(proc, 0, 14);
 
     CopyToPaletteBuffer(gUnknown_08B1754C, 0x1C0, 0x40);
 

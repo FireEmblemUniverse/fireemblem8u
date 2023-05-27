@@ -4978,7 +4978,7 @@ _0809104E:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xa
-	bl sub_8086BB8
+	bl StartMuralBackground
 	mov r2, r8
 	str r0, [r2, #0x44]
 	movs r1, #1

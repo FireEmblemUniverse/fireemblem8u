@@ -17882,7 +17882,7 @@ sub_80C0CF4: @ 0x080C0CF4
 	movs r2, #1
 	negs r2, r2
 	movs r0, #0
-	bl sub_8086BB8
+	bl StartMuralBackground
 	ldr r0, _080C0DC4  @ gUnknown_08A986C0
 	ldr r1, _080C0DC8  @ 0x06003000
 	bl Decompress
@@ -18004,7 +18004,7 @@ _080C0E48: .4byte gPaletteBuffer
 	THUMB_FUNC_START sub_80C0E4C
 sub_80C0E4C: @ 0x080C0E4C
 	push {lr}
-	bl EndBG3Slider
+	bl EndMuralBackground
 	pop {r0}
 	bx r0
 
