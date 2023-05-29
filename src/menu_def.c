@@ -210,8 +210,8 @@ CONST_DATA struct MenuDef gDebugContinueMenuDef = {
     {9, 4, 0xc, 0},
     0,
     gDebugContinueMenuItems,
-    DebugContinueMenuInit, 
-    DebugContinueMenuEnd,
+    (void(*)(struct MenuProc*))DebugContinueMenuInit,
+    (void(*)(struct MenuProc*))DebugContinueMenuEnd,
     0, 0, 0, 0
 };
 
@@ -228,7 +228,7 @@ CONST_DATA struct MenuDef gDebugMenuDef = {
     {1, 1, 15, 0},
     0,
     gDebugMenuItems,
-    DebugMenuInit,
+    (void(*)(struct MenuProc*))DebugMenuInit,
     (void(*)(struct MenuProc*))0, 
     (void(*)(struct MenuProc*))0,
     EndMenuAndClear,

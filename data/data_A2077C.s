@@ -415,8 +415,8 @@ gUnknown_08A20E44:  @ 0x08A20E44
         .word 0x0
 
 
-	.global gUnknown_08A20E74
-gUnknown_08A20E74:  @ 0x08A20E74
+	.global gSoundRoomTable
+gSoundRoomTable:  @ 0x08A20E74
 	.incbin "baserom.gba", 0xA20E74, 0x460
 
 	.global gUnknown_08A212D4

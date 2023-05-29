@@ -2,7 +2,12 @@
 #define GUARD_CONSTANTS_FACES_H
 
 enum {
+    FID_EIRIKA              = 0x02,
+
     FID_LUTE                = 0x10,
+
+    FID_EPHRAIM             = 0x14,
+
     FID_AMELIA              = 0x19,
     FID_EWAN                = 0x21,
     FID_DOZLA               = 0x23,

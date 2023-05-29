@@ -844,7 +844,7 @@ void WfxInit(void) {
         WfxRain_Init();
         break;
 
-    case WEATHER_3:
+    case WEATHER_NIGHT:
         WfxBlue_Init();
         break;
 
@@ -878,7 +878,7 @@ void WfxVSync(void) {
         WfxRain_VSync();
         break;
 
-    case WEATHER_3:
+    case WEATHER_NIGHT:
         WfxBlue_VSync();
         break;
 
@@ -958,8 +958,8 @@ void InitPlayConfig(int isDifficult, s8 unk) {
     gPlaySt.cfgDisableAutoEndTurns = 0;
     gPlaySt.cfgNoSubtitleHelp = 0;
     gPlaySt.cfgBattleForecastType = 0;
-    gPlaySt.unk42_8 = 0;
-    gPlaySt.unk43_2 = 0;
+    gPlaySt.debugControlRed = 0;
+    gPlaySt.debugControlGreen = 0;
     gPlaySt.cfgUnitColor = 0;
     gPlaySt.unk41_5 = 0;
 }

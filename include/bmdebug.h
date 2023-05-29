@@ -34,11 +34,12 @@ struct DebugPrintProc
     int unk_58;
     int unk_5C;
     int unk_60;
-    int unk_64;
+    s16 unk_64;
+    s16 unk_66;
     int unk_68;
 };
 
-void DebugMenuInit();
+int DebugMenuInit(void);
 u8 EndMenuAndClear(struct MenuProc*, struct MenuItemProc*);
 void DebugMenuMapIdleCore(struct MenuItemProc *menuItemProc, int, int);
 u8 DebugClearMenu_ClearFile(struct MenuProc*, struct MenuItemProc*);
@@ -68,9 +69,9 @@ u8 DebugMenu_ClearEffect(struct MenuProc*, struct MenuItemProc*);
 u8 DebugMenu_ClearIdle(struct MenuProc*, struct MenuItemProc*);
 u8 DebugMenu_ErasedEffect(struct MenuProc*, struct MenuItemProc*);
 u8 DebugMenu_GNightEffect(struct MenuProc*, struct MenuItemProc*);
-void DebugContinueMenuInit(struct MenuProc*);
-void DebugContinueMenuEnd(struct MenuProc*);
-u8 sub_801C650(s8 menuItemNumber);
+int DebugContinueMenuInit(struct MenuProc*);
+int DebugContinueMenuEnd(struct MenuProc*);
+u8 Debug_GetChapterId(int menuItemNumber);
 void nullsub_9();
 
 extern const struct MenuDef gDebugClearMenuDef;
@@ -79,6 +80,9 @@ extern const struct MenuDef gDebugContinueMenuDef;
 extern const struct MenuDef gDebugChuudanMenuDef;
 extern const struct MenuDef gDebugMenuDef;
 
-extern u8 gUnknown_03001780;
+extern u8 gDebugChapterModeIndex;
+
+extern struct ProcCmd CONST_DATA ProcScr_DebugMonitor[];
+extern struct ProcCmd CONST_DATA gProc_DebugPrintWithProc[];
 
 #endif //GUARD_BMDEBUG_H

@@ -173,7 +173,7 @@ u16* BG_GetMapBuffer(int bg);
 void sub_8001C5C(u8);
 // ??? ShouldSkipHSScreen(???);
 void SoftResetIfKeyComboPressed();
-// ??? sub_8001CB0(???);
+void sub_8001CB0(int a);
 // ??? ExecBothHBlankHandlers(???);
 // ??? UpdateHBlankHandlerState(???);
 void SetPrimaryHBlankHandler(void (*hblankHandler)(void));

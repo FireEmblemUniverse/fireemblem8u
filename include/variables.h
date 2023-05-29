@@ -172,7 +172,6 @@ extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CD4
 // extern ??? gUnknown_02022D10
 // extern ??? gUnknown_02022D18
-// extern ??? gUnknown_02022D76
 // extern ??? gUnknown_02022D86
 // extern ??? gUnknown_02022DF2
 // extern ??? gUnknown_02022E00
@@ -219,7 +218,6 @@ extern u16 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CC6
 // extern ??? gUnknown_02023CC8
-// extern ??? gUnknown_02023CE8
 // extern ??? gUnknown_02023D0C
 // extern ??? gUnknown_02023D12
 // extern ??? gUnknown_02023D88
@@ -362,7 +360,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03000700
 // extern ??? gUnknown_03000800
 // extern ??? gUnknown_03000808
-// extern ??? gUnknown_03001780
 // extern ??? gUnknown_03001788
 // extern ??? gDungeonState
 // extern ??? gUnknown_030017AC
@@ -520,12 +517,6 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080D7A30
 // extern ??? gUnknown_080D7A38
 // extern ??? gUnknown_080D7A64
-// extern ??? gUnknown_080D7A6C
-// extern ??? gUnknown_080D7A7C
-// extern ??? gUnknown_080D7A88
-// extern ??? gUnknown_080D7A8C
-// extern ??? gUnknown_080D7AB4
-// extern ??? gUnknown_080D7AC4
 // extern ??? Vectors_LightRune
 // extern ??? Vectors_LightRune2
 // extern ??? Vectors_LightRune3
@@ -988,11 +979,6 @@ extern const char *gUnknown_08591AA4[][2];
 // extern ??? gUnitLookup
 // extern ??? gTilesetTerrainLookup
 // extern ??? gBmMapBaseTiles
-extern struct ProcCmd CONST_DATA ProcScr_DebugMonitor[];
-extern struct ProcCmd CONST_DATA gProc_DebugPrintWithProc[];
-// extern ??? gUnknown_0859AA7C
-// extern ??? gUnknown_0859AA84
-// extern ??? gUnknown_0859AA9C
 extern struct ProcCmd CONST_DATA sProcScr_KOIDO[];
 extern struct ProcCmd CONST_DATA sProcScr_KOIDOAMM[];
 // extern ??? sProcScr_BMXFADE
@@ -2427,7 +2413,7 @@ extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 // extern ??? gUnknown_08A20DFC
 // extern ??? gUnknown_08A20E24
 // extern ??? gUnknown_08A20E44
-// extern ??? gUnknown_08A20E74
+// extern ??? gSoundRoomTable
 // extern ??? gUnknown_08A212D4
 // extern ??? gUnknown_08A212D8
 // extern ??? gUnknown_08A212DC

@@ -10,14 +10,7 @@
 #include "bmlib.h"
 #include "ctc.h"
 
-struct SoundRoomEnt {
-    /* 00 */ int bgmId;
-    /* 04 */ int songLength; // in frames
-    /* 08 */ void* displayCondFunc;
-    /* 0C */ int nameTextId;
-};
-
-extern struct SoundRoomEnt gUnknown_08A20E74[];
+#include "soundroom.h"
 
 struct SoundRoomProc {
     /* 00 */ PROC_HEADER;
@@ -250,7 +243,7 @@ s8 StartSoundRoomSong(struct SoundRoomProc* proc, int index, int flagsMaybe) {
 
     proc->unk_32 = index;
     proc->unk_2c = 1;
-    sub_80029E8(gUnknown_08A20E74[index].bgmId, 0x100, 0x100, flagsMaybe, 0);
+    sub_80029E8(gSoundRoomTable[index].bgmId, 0x100, 0x100, flagsMaybe, 0);
 
     return 1;
 }
@@ -577,7 +570,7 @@ void SoundRoomUi_Loop_ShufflePlayKeyHandler(struct SoundRoomProc* proc) {
     }
 
     if (proc->shuffleActive != 0) {
-        if (proc->unk_2c >= (gUnknown_08A20E74[proc->unk_32].songLength)) {
+        if (proc->unk_2c >= (gSoundRoomTable[proc->unk_32].songLength)) {
             sub_80AEF24(proc);
             return;
         }
@@ -748,7 +741,7 @@ void DrawSoundRoomSongTitle(int index) {
     if (index == -1) {
         str = GetStringFromIndex(0x7D0); // TODO: msgid "?????[.]"
     } else {
-        str = GetStringFromIndex(gUnknown_08A20E74[index].nameTextId);
+        str = GetStringFromIndex(gSoundRoomTable[index].nameTextId);
     }
 
     SetFont(&gUnknown_0201F148.font);
@@ -1024,7 +1017,7 @@ void SoundRoom_DrawSprites_Loop(struct Proc8A21530* proc) {
         // Draw indicator at the song's current playback position
         PutSpriteExt(
             0,
-            parent->unk_2c * 66 / (gUnknown_08A20E74[parent->unk_32].songLength + 120) + 124,
+            parent->unk_2c * 66 / (gSoundRoomTable[parent->unk_32].songLength + 120) + 124,
             y,
             gSprite_MusicPlayer_SeekBarIndicator,
             0x4000

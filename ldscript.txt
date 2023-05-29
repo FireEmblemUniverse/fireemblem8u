@@ -69,7 +69,6 @@ SECTIONS
         src/bmmap.o(.text);
         src/bmidoten.o(.text);
         src/bmdebug.o(.text);
-        asm/bmdebug.o(.text);
         src/playerphase.o(.text);
         src/koido.o(.text);
         src/bmxfade.o(.text);
@@ -335,7 +334,7 @@ SECTIONS
         . = ALIGN(4); src/bm.o(.rodata);
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
-        . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
+        . = ALIGN(4); src/bmdebug.o(.rodata);
         . = ALIGN(4); src/playerphase.o(.rodata);
         . = ALIGN(4); src/koido.o(.rodata);
         . = ALIGN(4); src/bmxfade.o(.rodata);
@@ -465,9 +464,7 @@ SECTIONS
         . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);
-        . = ALIGN(4); data/data_59A9D8.o(.data);
         . = ALIGN(4); src/bmdebug.o(.data);
-        . = ALIGN(4); data/data_59AA7C.o(.data);
         . = ALIGN(4); src/playerphase.o(.data);
         . = ALIGN(4); src/koido.o(.data);
         . = ALIGN(4); src/bmxfade.o(.data);

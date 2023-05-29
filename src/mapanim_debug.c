@@ -12,6 +12,7 @@
 #include "player_interface.h"
 #include "bm.h"
 #include "bmlib.h"
+#include "bmdebug.h"
 #include "mapanim.h"
 
 /* section.bss */

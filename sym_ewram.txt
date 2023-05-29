@@ -325,7 +325,6 @@
 . = 0x022CD4; gUnknown_02022CD4 = .;
 . = 0x022D10; gUnknown_02022D10 = .;
 . = 0x022D18; gUnknown_02022D18 = .;
-. = 0x022D76; gUnknown_02022D76 = .;
 . = 0x022D86; gUnknown_02022D86 = .;
 . = 0x022DF2; gUnknown_02022DF2 = .;
 . = 0x022E00; gUnknown_02022E00 = .;
@@ -369,7 +368,6 @@
 . = 0x023CAA; gUnknown_02023CAA = .;
 . = 0x023CC6; gUnknown_02023CC6 = .;
 . = 0x023CC8; gUnknown_02023CC8 = .;
-. = 0x023CE8; gUnknown_02023CE8 = .;
 . = 0x023D0C; gUnknown_02023D0C = .;
 . = 0x023D12; gUnknown_02023D12 = .;
 . = 0x023D88; gUnknown_02023D88 = .;
