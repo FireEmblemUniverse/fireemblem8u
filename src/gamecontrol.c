@@ -252,7 +252,7 @@ PROC_LABEL(18),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(EndBG3Slider),
+    PROC_CALL(EndMuralBackground),
 
     PROC_GOTO(0),
 
@@ -420,7 +420,7 @@ void sub_8009A24(ProcPtr proc) {
 
     gPlaySt.cfgTextSpeed = 1;
 
-    sub_8086BB8(PROC_TREE_3, 0, -1);
+    StartMuralBackground(PROC_TREE_3, 0, -1);
 
     return;
 }

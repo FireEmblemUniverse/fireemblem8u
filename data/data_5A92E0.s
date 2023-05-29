@@ -299,7 +299,7 @@ gUnknown_085A94AC:  @ 0x085A94AC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_804B920
@@ -654,7 +654,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_804D6B4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8046838
@@ -738,7 +738,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_804D6B4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_CALL
         .short 0x2, 0x0
         .word nullsub_13
@@ -813,7 +813,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_804D6B4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_GOTO
         .short 0xc, 0x0
         .word 0x0
@@ -921,7 +921,7 @@ gUnknown_085A9BA0:  @ 0x085A9BA0
         .word sub_804C31C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapVSync_End
@@ -1002,7 +1002,7 @@ gUnknown_085A9BA0:  @ 0x085A9BA0
         .word sub_804C31C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_GOTO
         .short 0xc, 0x0
         .word 0x0
@@ -1047,7 +1047,7 @@ gUnknown_085A9D38:  @ 0x085A9D38
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -1086,7 +1086,7 @@ gUnknown_085A9D98:  @ 0x085A9D98
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -1119,7 +1119,7 @@ gUnknown_085A9DF8:  @ 0x085A9DF8
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndBG3Slider
+        .word EndMuralBackground
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

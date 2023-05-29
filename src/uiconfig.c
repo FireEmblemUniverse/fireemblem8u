@@ -574,7 +574,7 @@ void Config_Init(struct ConfigProc* proc) {
         DrawOptionValueTexts(i, i, y);
     }
 
-    sub_8086CE8(proc, 0, 18, 2, 0);
+    StartMuralBackgroundExt(proc, 0, 18, 2, 0);
 
     Proc_Start(gProcScr_DrawConfigUiSprites, proc);
 
@@ -1034,7 +1034,7 @@ void Config_Loop_KeyHandler(struct ConfigProc* proc) {
 s8 sub_80B2464(struct ConfigProc* proc) {
     Delete6CMenuScroll();
 
-    EndBG3Slider();
+    EndMuralBackground();
 
     Proc_EndEach(gProcScr_DrawConfigUiSprites);
     Proc_EndEach(gProcScr_RedrawConfigHelpText);

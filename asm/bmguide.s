@@ -2011,7 +2011,7 @@ _080CEE44:
 	movs r1, #0
 	movs r2, #0x12
 	movs r3, #2
-	bl sub_8086CE8
+	bl StartMuralBackgroundExt
 	ldr r0, _080CEF0C  @ gUnknown_08B12B1C
 	ldr r1, [sp, #4]
 	bl Proc_Start
@@ -2757,7 +2757,7 @@ _080CF444: .4byte gPlaySt
 	THUMB_FUNC_START sub_80CF448
 sub_80CF448: @ 0x080CF448
 	push {lr}
-	bl EndBG3Slider
+	bl EndMuralBackground
 	ldr r0, _080CF45C  @ gUnknown_08B12B1C
 	bl Proc_EndEach
 	bl Delete6CMenuScroll

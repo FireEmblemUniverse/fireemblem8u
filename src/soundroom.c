@@ -230,7 +230,7 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    sub_8086BB8(proc, 0, 0xe);
+    StartMuralBackground(proc, 0, 0xe);
 
     NewGreenTextColorManager((void*)proc);
     sub_80AF1D8();
@@ -409,7 +409,7 @@ void SoundRoomUi_RestartTitleMusic(struct SoundRoomProc* proc) {
 
 //! FE8U = 0x080AFA94
 void SoundRoomUi_OnEnd(struct SoundRoomProc* proc) {
-    EndBG3Slider();
+    EndMuralBackground();
     EndAllProcChildren(proc);
     Proc_EndEach(gUnknown_08A21308);
 
