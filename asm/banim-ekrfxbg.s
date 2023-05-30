@@ -64,8 +64,8 @@ _08053F88: .4byte 0x01000100
 
 	THUMB_FUNC_END sub_8053F4C
 
-	THUMB_FUNC_START sub_8053F8C
-sub_8053F8C: @ 0x08053F8C
+	THUMB_FUNC_START NewEfxFlashBG
+NewEfxFlashBG: @ 0x08053F8C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -91,7 +91,7 @@ _08053FB8: .4byte gProc_efxFlashBG
 _08053FBC: .4byte gEkrBgPalBackupMaybe
 _08053FC0: .4byte 0x01000100
 
-	THUMB_FUNC_END sub_8053F8C
+	THUMB_FUNC_END NewEfxFlashBG
 
 	THUMB_FUNC_START sub_8053FC4
 sub_8053FC4: @ 0x08053FC4

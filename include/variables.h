@@ -729,9 +729,9 @@ extern const u16 gUnknown_080DF386[];
 extern const u16 gUnknown_080DF39C[];
 extern const u16 gUnknown_080DF3A2[];
 extern const u16 gUnknown_080DF3C4[];
-// extern ??? gUnknown_080DF4F4
-// extern ??? gUnknown_080DF546
-// extern ??? gUnknown_080DF568
+extern const u16 gUnknown_080DF4F4[];
+extern const u16 gUnknown_080DF546[];
+extern const u16 gUnknown_080DF568[];
 
 // extern ??? gUnknown_080DF644
 // extern ??? gUnknown_080DF6A8
@@ -1396,9 +1396,9 @@ extern u16 gUnknown_085E7028[];
 extern u16 gUnknown_085E8108[];
 extern u16 gUnknown_085E8308[];
 extern u16 gUnknown_085E87A8[];
-// extern ??? gUnknown_085E8C04
-// extern ??? gUnknown_085E8CC4
-// extern ??? gUnknown_085E8CE4
+extern u16 gUnknown_085E8C04[];
+extern u16 gUnknown_085E8CC4[];
+extern u16 gUnknown_085E8CE4[];
 extern u16 gUnknown_085E8D88[];
 extern u16 gUnknown_085E9150[];
 extern u32 gUnknown_085EAB58[];
@@ -1415,8 +1415,8 @@ extern u32 gUnknown_085EE49C[];
 extern u32 gUnknown_085EE4C4[];
 extern u16 gUnknown_085EE4F8[];
 extern u16 gUnknown_085EF24C[];
-// extern ??? gUnknown_085F0190
-// extern ??? gUnknown_085F0E04
+extern u16 gUnknown_085F0190[];
+extern u16 gUnknown_085F0E04[];
 extern u16 gUnknown_085F11B0[];
 extern u16 gUnknown_085F1620[];
 extern u16 gUnknown_085F1640[];
@@ -1427,20 +1427,20 @@ extern u32 gUnknown_085F1858[];
 extern u32 gUnknown_085F18FC[];
 extern u32 gUnknown_085F19A0[];
 extern u32 gUnknown_085F1A44[];
-// extern ??? gUnknown_085F1BD8
-// extern ??? gUnknown_085F1D6C
-// extern ??? gUnknown_085F1F18
-// extern ??? gUnknown_085F20C4
-// extern ??? gUnknown_085F2270
-// extern ??? gUnknown_085F2418
-// extern ??? gUnknown_085F24F4
-// extern ??? gUnknown_085F25D8
-// extern ??? gUnknown_085F26E0
-// extern ??? gUnknown_085F27E4
-// extern ??? gUnknown_085F29C0
-// extern ??? gUnknown_085F2C3C
-// extern ??? gUnknown_085F2D44
-// extern ??? gUnknown_085F2DAC
+extern u32 gUnknown_085F1BD8[];
+extern u32 gUnknown_085F1D6C[];
+extern u32 gUnknown_085F1F18[];
+extern u32 gUnknown_085F20C4[];
+extern u32 gUnknown_085F2270[];
+extern u32 gUnknown_085F2418[];
+extern u32 gUnknown_085F24F4[];
+extern u32 gUnknown_085F25D8[];
+extern u32 gUnknown_085F26E0[];
+extern u32 gUnknown_085F27E4[];
+extern u32 gUnknown_085F29C0[];
+extern u32 gUnknown_085F2C3C[];
+extern u32 gUnknown_085F2D44[];
+extern u32 gUnknown_085F2DAC[];
 extern u16 gUnknown_085F2DC0[];
 extern u16 gUnknown_085F367C[];
 extern u16 gUnknown_085F3AA8[];
@@ -1664,7 +1664,7 @@ extern u32 gUnknown_08605DF4[];
 // extern ??? gUnknown_0872E25C
 // extern ??? gUnknown_0872E64C
 // extern ??? gUnknown_0872E7EC
-// extern ??? gUnknown_0872E998
+extern u16 gUnknown_0872E998[];
 // extern ??? gUnknown_0872FA04
 // extern ??? gUnknown_0872FA84
 // extern ??? gUnknown_0872FEB8
@@ -1679,9 +1679,9 @@ extern u32 gUnknown_08605DF4[];
 // extern ??? gUnknown_087327C4
 // extern ??? gUnknown_0873313C
 // extern ??? gUnknown_0874394C
-// extern ??? gUnknown_087456E8
-// extern ??? gUnknown_08746508
-// extern ??? gUnknown_0874670C
+extern u32 gUnknown_087456E8[];
+extern u32 gUnknown_08746508[];
+extern u32 gUnknown_0874670C[];
 // extern ??? gUnknown_08750268
 // extern ??? gUnknown_08751808
 // extern ??? gUnknown_08751DB4

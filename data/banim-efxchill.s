@@ -7,7 +7,7 @@ ProcScr_efxChillEffect:  @ 0x085D92A4
         .word 0x80df524
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806E034
+        .word EfxChillEffectMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -20,7 +20,7 @@ ProcScr_efxChillEffectBG:  @ 0x085D92BC
         .word 0x80df534
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806E0D0
+        .word EfxChillEffectBGMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

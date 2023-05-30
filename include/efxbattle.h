@@ -29,7 +29,9 @@ struct ProcEfxBG {
 
     STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
-    STRUCT_PAD(0x2E, 0x44);
+    /* 2E */ s16 terminator;
+    /* 30 */ s16 unk30;
+    STRUCT_PAD(0x32, 0x44);
     /* 44 */ u32 frame;
     /* 48 */ const u16 *frame_config;
     /* 4C */ u16 **unk4C;
@@ -378,6 +380,17 @@ struct ProcEfxDamageMojiEffectOBJ {
     /* 60 */ struct ProcEkrSubAnimeEmulator *sub_proc;
 };
 
+struct ProcEfxSRankSCR2 {
+    PROC_HEADER;
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    STRUCT_PAD(0x30, 0x44);
+    /* 44 */ u32 unk44;
+    STRUCT_PAD(0x48, 0x5C);
+    /* 5C */ struct ProcEfx *seff_scr1;
+};
+
 extern u16 gEkrBgPalBackupMaybe[];
 // extern ??? gUnknown_02016828
 extern u16 gObjBuf_EkrSideHitDmgCrit[];
@@ -636,16 +649,16 @@ extern struct ProcCmd ProcScr_efxSRankWeaponEffect[];
 extern struct ProcCmd ProcScr_efxSRankWeaponEffectBG[];
 extern struct ProcCmd efxSRankWeaponEffectSCR[];
 extern struct ProcCmd efxSRankWeaponEffectSCR2[];
-// extern ??? gUnknown_085D9154
-// extern ??? ProcScr_efxMagdhisEffect
-// extern ??? ProcScr_efxMagdhisEffectBG
-// extern ??? gUnknown_085D9274
-// extern ??? ProcScr_efxMantBatabata
-// extern ??? ProcScr_efxChillEffect
-// extern ??? ProcScr_efxChillEffectBG
-// extern ??? gUnknown_085D92D4
-// extern ??? ProcScr_efxChillEffectBGCOL
-// extern ??? ProcScr_efxChillAnime
+extern s16 gUnknown_085D9154[];
+extern struct ProcCmd ProcScr_efxMagdhisEffect[];
+extern struct ProcCmd ProcScr_efxMagdhisEffectBG[];
+extern u16 *gUnknown_085D9274[];
+extern struct ProcCmd ProcScr_efxMantBatabata[];
+extern struct ProcCmd ProcScr_efxChillEffect[];
+extern struct ProcCmd ProcScr_efxChillEffectBG[];
+extern u16 *gUnknown_085D92D4[];
+extern struct ProcCmd ProcScr_efxChillEffectBGCOL[];
+extern struct ProcCmd ProcScr_efxChillAnime[];
 extern struct ProcCmd ProcScr_efxSkillType01BG[];
 extern u16 *TsaLut_EfxSkill[];
 extern u16 *ImgLut_EfxSkill[];
@@ -768,26 +781,26 @@ void NewEfxLokmsunaOBJ(struct Anim *anim);
 // ??? EfxDanceOBJMain(???);
 void NewEfxSpecalEffect(struct Anim *anim);
 // ??? sub_806D980(???);
-// ??? NewEfxSRankWeaponEffect(???);
-// ??? sub_806D9AC(???);
-// ??? sub_806DA1C(???);
-// ??? sub_806DA68(???);
-// ??? sub_806DA90(???);
-// ??? sub_806DAB0(???);
-// ??? sub_806DB34(???);
-// ??? sub_806DB54(???);
-// ??? sub_806DB9C(???);
-// ??? sub_806DBBC(???);
-// ??? sub_806DC08(???);
-// ??? sub_806DCA4(???);
-// ??? NewEfxMantBatabata(???);
+void NewEfxSRankWeaponEffect(struct Anim *anim);
+// ??? EfxSRankWeaponEffectMain(???);
+void NewEfxSRankWeaponEffectBG(struct Anim *anim);
+// ??? EfxSRankWeaponEffectBGMain(???);
+void NewEfxSRankWeaponEffectSCR(void);
+// ??? EfxSRankWeaponEffectSCRMain(???);
+void NewEfxSRankWeaponEffectSCR2(struct ProcEfx *seff_scr);
+// ??? EfxSRankWeaponEffectSCR2Main(???);
+void NewEfxMagdhisEffect(struct Anim *anim);
+// ??? EfxMagdhisEffectMain(???);
+void NewEfxMagdhisEffectBG(struct Anim *anim, int);
+// ??? EfxMagdhisEffectBGMain(???);
+void NewEfxMantBatabata(struct Anim *anim);
 // ??? sub_806DFA4(???);
 // ??? sub_806DFD0(???);
-// ??? NewEfxChillEffect(???);
-// ??? sub_806E034(???);
-// ??? sub_806E078(???);
-// ??? sub_806E0D0(???);
-// ??? sub_806E128(???);
+void NewEfxChillEffect(struct Anim *anim);
+// ??? EfxChillEffectMain(???);
+void NewEfxChillEffectBG(struct Anim *anim);
+// ??? EfxChillEffectBGMain(???);
+void NewEfxChillEffectBGCOL(struct Anim *anim);
 // ??? sub_806E158(???);
 // ??? NewEfxChillAnime(???);
 // ??? sub_806E290(???);
