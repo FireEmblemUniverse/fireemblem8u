@@ -745,13 +745,7 @@ void NewEfxSpecalEffect(struct Anim *anim)
 {
     struct BattleUnit *bu;
     struct ProcEfx *proc;
-
-#if NONMATCHING
-    struct Anim *anim1;
-#else
-    register struct Anim *anim1 asm("r6");
-#endif
-    struct Anim *anim2;
+    struct Anim *anim1, *anim2;
 
     if (gUnknown_02017768[GetAISSubjectId(anim)] == false) {
         gUnknown_02017768[GetAISSubjectId(anim)] = true;
@@ -760,25 +754,29 @@ void NewEfxSpecalEffect(struct Anim *anim)
             bu = gpEkrBattleUnitLeft;
         else
             bu = gpEkrBattleUnitRight;
-        
-        if (IsWeaponLegency(bu->weaponBefore) != false)
-            goto exec_srank_shinning;
+
+        if (IsWeaponLegency(bu->weaponBefore) == false) {
+            anim1 = gAnims[GetAISSubjectId(anim) * 2];
+            anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+
+            anim1->state3 |= 0x40;
+            anim2->state3 |= 0x40;
+            return;
+        }
+    } else {
+        anim1 = gAnims[GetAISSubjectId(anim) * 2];
+        anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+
+        anim1->state3 |= 0x40;
+        anim2->state3 |= 0x40;
+        return;
     }
 
-    anim1 = gAnims[GetAISSubjectId(anim) * 2];
-    anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
-
-    anim1->state3 |= 0x40;
-    anim2->state3 |= 0x40;
-    return;
-
-exec_srank_shinning:
     proc = Proc_Start(ProcScr_efxSpecalEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0x0;
     EkrSoundSomeBark(0xF0, 0x100, 0x78, 0x0);
     NewEfxSRankWeaponEffect(anim);
-    return;
 }
 
 void sub_806D980(ProcPtr proc)
