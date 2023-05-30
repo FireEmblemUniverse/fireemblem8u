@@ -854,7 +854,7 @@ void RestartGameAndGoto12() {
     return;
 }
 
-void sub_8009FD4(ProcPtr proc) {
+void nullsub_RestartGameAndGoto7(void) {
     return;
 }
 

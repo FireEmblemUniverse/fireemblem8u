@@ -35,7 +35,7 @@
 . = 0x000800; gUnknown_03000800 = .;
 . = 0x000808;
 . = ALIGN(4); src/bmmap.o(.bss);
-. = 0x001780; gUnknown_03001780 = .;
+. = 0x001780; gDebugChapterModeIndex = .;
 . = 0x001788; gUnknown_03001788 = .;
 . = 0x0017A0; gDungeonState = .;
 . = 0x0017AC; gUnknown_030017AC = .;

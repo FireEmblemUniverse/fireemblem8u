@@ -262,8 +262,8 @@ struct PlaySt { // Chapter Data Struct
     u32 cfgBattleForecastType:2; // 2
     u32 cfgController:1; // 1
     u32 cfgRankDisplay:1; // unk
-    u32 unk42_8:2; // 2 (!)
-    u32 unk43_2:2; // 2
+    u32 debugControlRed:2; // 2 (!)
+    u32 debugControlGreen:2; // 2
     u32 unk43_4:5; // unk
 
     u8  unk44[0x48 - 0x44];
@@ -431,7 +431,7 @@ enum
     WEATHER_FINE = 0,
     WEATHER_SNOW = 1,
     WEATHER_SNOWSTORM = 2,
-    WEATHER_3 = 3,
+    WEATHER_NIGHT = 3,
     WEATHER_RAIN = 4,
     WEATHER_FLAMES = 5,
     WEATHER_SANDSTORM = 6,

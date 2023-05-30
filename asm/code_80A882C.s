@@ -6770,7 +6770,7 @@ sub_80AEC90: @ 0x080AEC90
 sub_80AEC94: @ 0x080AEC94
 	push {lr}
 	movs r2, #0
-	ldr r1, _080AECA8  @ gUnknown_08A20E74
+	ldr r1, _080AECA8  @ gSoundRoomTable
 _080AEC9A:
 	ldr r0, [r1]
 	cmp r0, #0
@@ -6779,7 +6779,7 @@ _080AEC9A:
 	adds r2, #1
 	b _080AEC9A
 	.align 2, 0
-_080AECA8: .4byte gUnknown_08A20E74
+_080AECA8: .4byte gSoundRoomTable
 _080AECAC:
 	adds r0, r2, #0
 	pop {r1}
@@ -6792,7 +6792,7 @@ sub_80AECB4: @ 0x080AECB4
 	push {r4, r5, lr}
 	movs r3, #0
 	movs r4, #0
-	ldr r0, _080AECD0  @ gUnknown_08A20E74
+	ldr r0, _080AECD0  @ gSoundRoomTable
 	adds r5, r0, #0
 	adds r5, #8
 	adds r2, r0, #0
@@ -6804,7 +6804,7 @@ _080AECC2:
 	adds r0, r4, #0
 	b _080AECE4
 	.align 2, 0
-_080AECD0: .4byte gUnknown_08A20E74
+_080AECD0: .4byte gSoundRoomTable
 _080AECD4:
 	adds r0, r1, r5
 	ldr r0, [r0]
@@ -6852,7 +6852,7 @@ sub_80AED10: @ 0x080AED10
 	adds r6, r0, #0
 	movs r2, #0
 	movs r4, #0
-	ldr r3, _080AED2C  @ gUnknown_08A20E74
+	ldr r3, _080AED2C  @ gSoundRoomTable
 	adds r5, r3, #0
 _080AED1C:
 	lsls r1, r2, #4
@@ -6863,7 +6863,7 @@ _080AED1C:
 	adds r0, r4, #0
 	b _080AED5E
 	.align 2, 0
-_080AED2C: .4byte gUnknown_08A20E74
+_080AED2C: .4byte gSoundRoomTable
 _080AED30:
 	adds r0, r3, #0
 	adds r0, #8
@@ -6930,7 +6930,7 @@ sub_80AED64: @ 0x080AED64
 	cmp r0, #0
 	beq _080AEE9A
 	movs r6, #0
-	ldr r1, _080AEEBC  @ gUnknown_08A20E74
+	ldr r1, _080AEEBC  @ gSoundRoomTable
 	ldr r0, [r1]
 	mov r9, r8
 	mov r8, r5
@@ -6978,7 +6978,7 @@ _080AEDFA:
 	movs r3, #0x10
 	add ip, r3
 	adds r6, #1
-	ldr r1, _080AEEBC  @ gUnknown_08A20E74
+	ldr r1, _080AEEBC  @ gSoundRoomTable
 	adds r0, r4, r1
 	ldr r0, [r0]
 	cmp r0, #0
@@ -6997,7 +6997,7 @@ _080AEE0C:
 	mov r1, sl
 	strb r0, [r1]
 	movs r6, #0
-	ldr r1, _080AEEBC  @ gUnknown_08A20E74
+	ldr r1, _080AEEBC  @ gSoundRoomTable
 	ldr r0, [r1]
 	cmp r0, #0
 	blt _080AEE9A
@@ -7050,7 +7050,7 @@ _080AEE6A:
 _080AEE8C:
 	adds r5, #0x10
 	adds r6, #1
-	ldr r1, _080AEEBC  @ gUnknown_08A20E74
+	ldr r1, _080AEEBC  @ gSoundRoomTable
 	adds r0, r5, r1
 	ldr r0, [r0]
 	cmp r0, #0
@@ -7071,7 +7071,7 @@ _080AEE9A:
 	bx r0
 	.align 2, 0
 _080AEEB8: .4byte 0x01000008
-_080AEEBC: .4byte gUnknown_08A20E74
+_080AEEBC: .4byte gSoundRoomTable
 
 	THUMB_FUNC_END sub_80AED64
 
@@ -7821,7 +7821,7 @@ _080AF3E8:
 	movs r5, #0
 	b _080AF440
 _080AF3FA:
-	ldr r0, _080AF438  @ gUnknown_08A20E74
+	ldr r0, _080AF438  @ gSoundRoomTable
 	lsls r1, r4, #4
 	adds r0, #8
 	adds r1, r1, r0
@@ -7853,7 +7853,7 @@ _080AF410:
 	bl DrawSpecialUiStr
 	b _080AF4A4
 	.align 2, 0
-_080AF438: .4byte gUnknown_08A20E74
+_080AF438: .4byte gSoundRoomTable
 _080AF43C: .4byte gBG2TilemapBuffer
 _080AF440:
 	cmp r4, #0x62
