@@ -1250,8 +1250,6 @@ void NewEfxChillEffectBGCOL(struct Anim *anim)
     proc->unk4C = gUnknown_087456E8;
 }
 
-#if NONMATCHING
-
 void sub_806E158(struct ProcEfxBGCOL *proc)
 {
     int ret;
@@ -1261,12 +1259,13 @@ void sub_806E158(struct ProcEfxBGCOL *proc)
     ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *src = proc->unk4C;
-        CpuFastCopy(&PAL_BUF_COLOR(src, ret, 0), pal, 0x20);
+        u16 *ptr = pal;
+        CpuFastCopy(&PAL_BUF_COLOR(src, ret, 0), ptr, 0x20);
 
         for (i = 0; i < 0x10; i++) {
-            s8 green = GREEN_VALUE(pal[i]);
-            s8 red = green - 0xC;
-            s8 blue = green + 0x4;
+            s8 green = GREEN_VALUE(ptr[i]);
+            s8 red = RED_VALUE(ptr[i]) - 0xC;
+            s8 blue = red + 0x4;
 
             if (red < 0)
                 red = 0;
@@ -1274,10 +1273,10 @@ void sub_806E158(struct ProcEfxBGCOL *proc)
             if (blue < 0)
                 blue = 0;
 
-            pal[i] = RGB(red, green, blue);
+            ptr[i] = RGB(red, green, blue);
         }
 
-        SomePaletteStoringRoutine_SpellAnim2(pal, 0x20);
+        SomePaletteStoringRoutine_SpellAnim2(ptr, 0x20);
         return;
     }
 
@@ -1287,93 +1286,6 @@ void sub_806E158(struct ProcEfxBGCOL *proc)
     }
 }
 
-#else
-
-__attribute__((naked))
-
-void sub_806E158(struct ProcEfxBGCOL *proc)
-{
-    asm(".syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #0x20\n\
-        adds r4, r0, #0\n\
-        adds r0, #0x2c\n\
-        adds r1, r4, #0\n\
-        adds r1, #0x44\n\
-        ldr r2, [r4, #0x48]\n\
-        bl EfxGetNextFrameIndex\n\
-        lsls r0, r0, #0x10\n\
-        asrs r1, r0, #0x10\n\
-        cmp r1, #0\n\
-        blt _0806E1D8\n\
-        ldr r0, [r4, #0x4c]\n\
-        mov r7, sp\n\
-        lsls r1, r1, #5\n\
-        adds r0, r0, r1\n\
-        mov r1, sp\n\
-        movs r2, #8\n\
-        bl CpuFastSet\n\
-        movs r6, #0\n\
-        movs r0, #0x1f\n\
-        mov ip, r0\n\
-    _0806E188:\n\
-        lsls r0, r6, #1\n\
-        adds r5, r0, r7\n\
-        ldrh r1, [r5]\n\
-        lsrs r3, r1, #5\n\
-        mov r2, ip\n\
-        ands r3, r2\n\
-        mov r0, ip\n\
-        ands r0, r1\n\
-        subs r0, #0xc\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r4, r0, #0x18\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #0x13\n\
-        adds r1, r0, r2\n\
-        lsrs r2, r1, #0x18\n\
-        cmp r0, #0\n\
-        bge _0806E1AC\n\
-        movs r4, #0\n\
-    _0806E1AC:\n\
-        lsls r0, r2, #0x18\n\
-        cmp r0, #0\n\
-        bge _0806E1B4\n\
-        movs r2, #0\n\
-    _0806E1B4:\n\
-        lsls r1, r4, #0x18\n\
-        asrs r1, r1, #0x18\n\
-        lsls r0, r3, #5\n\
-        orrs r1, r0\n\
-        lsls r0, r2, #0x18\n\
-        asrs r0, r0, #0xe\n\
-        orrs r1, r0\n\
-        strh r1, [r5]\n\
-        adds r0, r6, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r6, r0, #0x10\n\
-        cmp r6, #0xf\n\
-        bls _0806E188\n\
-        adds r0, r7, #0\n\
-        movs r1, #0x20\n\
-        bl SomePaletteStoringRoutine_SpellAnim2\n\
-        b _0806E1E6\n\
-    _0806E1D8:\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        bne _0806E1E6\n\
-        adds r0, r4, #0\n\
-        bl Proc_Break\n\
-    _0806E1E6:\n\
-        add sp, #0x20\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided");
-}
-
-#endif
 
 void NewEfxChillAnime(struct Anim *anim, int arg1)
 {
