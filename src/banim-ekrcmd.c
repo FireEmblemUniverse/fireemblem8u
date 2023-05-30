@@ -58,7 +58,7 @@ bool IsItemDisplayedInBattle(u16 item)
     return false;
 }
 
-bool IsWeaponLegency(u16 item)
+u16 IsWeaponLegency(u16 item)
 {
     switch (GetItemIndex(item)) {
     case ITEM_ANIMA_EXCALIBUR:

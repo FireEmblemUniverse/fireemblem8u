@@ -20,7 +20,7 @@ ProcScr_efxSRankWeaponEffect:  @ 0x085D90F4
         .word 0x80df468
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806D9AC
+        .word EfxSRankWeaponEffectMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -33,7 +33,7 @@ ProcScr_efxSRankWeaponEffectBG:  @ 0x085D910C
         .word 0x80df480
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806DA68
+        .word EfxSRankWeaponEffectBGMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -46,7 +46,7 @@ efxSRankWeaponEffectSCR:  @ 0x085D9124
         .word 0x80df498
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806DAB0
+        .word EfxSRankWeaponEffectSCRMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -59,7 +59,7 @@ efxSRankWeaponEffectSCR2:  @ 0x085D913C
         .word 0x80df4b0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806DB54
+        .word EfxSRankWeaponEffectSCR2Main
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

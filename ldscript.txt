@@ -155,18 +155,15 @@ SECTIONS
         asm/banim-ekrmainmini.o(.text);
         src/banim-ekrmainmini.o(.text);
         asm/code_battleanim.o(.text);
-        src/banim-efxmagic-rest.o(.text);
+        src/banim-efxmagic.o(.text);
         asm/banim-efxmagic-5BA64.o(.text);
         src/banim-efxmagic-thunder.o(.text);
         src/banim-efxmagic-fire.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
-        asm/banim-efxdevilatk.o(.text);
+        asm/banim-efxmagic-66514.o(.text);
         src/banim-efxhit.o(.text);
         src/banim-efxmisc.o(.text);
-        asm/banim-efxspecialleffect.o(.text);
-        asm/banim-efxmantbata.o(.text);
-        asm/banim-efxchill.o(.text);
         src/banim-efxskill.o(.text);
         asm/banim-efxop.o(.text);
         src/banim-ekrdragonstatus.o(.text);
@@ -384,7 +381,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
-        . = ALIGN(4); src/banim-efxmagic-rest.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic.o(.rodata);
         . = ALIGN(4); data/const_data_DAF18.o(.rodata);
         . = ALIGN(4); src/banim-efxskill.o(.rodata);
         . = ALIGN(4); data/const_data_DF568.o(.rodata);
@@ -540,7 +537,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); data/banim-ekrbattlectrl.o(.data);
         . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
-        . = ALIGN(4); src/banim-efxmagic-rest.o(.data);
+        . = ALIGN(4); src/banim-efxmagic.o(.data);
         . = ALIGN(4); data/banim-efxmagic-5D5028.o(.data);
         . = ALIGN(4); data/banim-efxmagic-thunder.o(.data);
         . = ALIGN(4); data/banim-efxmagic-fire.o(.data);

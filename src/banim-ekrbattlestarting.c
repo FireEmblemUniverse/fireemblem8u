@@ -12,7 +12,6 @@
 #include "ekrdragon.h"
 
 extern struct Anim *gAnims[4];
-extern void *gUnknown_02000010[2];
 
 bool sub_8055BB4(void)
 {

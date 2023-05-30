@@ -7,7 +7,7 @@ ProcScr_efxMagdhisEffect:  @ 0x085D9244
         .word 0x80df4cc
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806DBBC
+        .word EfxMagdhisEffectMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -20,7 +20,7 @@ ProcScr_efxMagdhisEffectBG:  @ 0x085D925C
         .word 0x80df4e0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806DCA4
+        .word EfxMagdhisEffectBGMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

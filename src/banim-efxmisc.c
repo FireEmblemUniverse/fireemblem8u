@@ -7,6 +7,9 @@
 #include "proc.h"
 #include "ctc.h"
 #include "constants/terrains.h"
+#include "bmunit.h"
+#include "bmbattle.h"
+#include "bmlib.h"
 
 extern struct Anim *gAnims[4];
 
@@ -733,4 +736,698 @@ void EfxDanceOBJMain(struct ProcEfxOBJ *proc)
         gEfxBgSemaphore--;
         Proc_Break(proc);
     }
+}
+
+/**
+ * Shinning effect for legend weapon
+ */
+void NewEfxSpecalEffect(struct Anim *anim)
+{
+    struct BattleUnit *bu;
+    struct ProcEfx *proc;
+
+#if NONMATCHING
+    struct Anim *anim1;
+#else
+    register struct Anim *anim1 asm("r6");
+#endif
+    struct Anim *anim2;
+
+    if (gUnknown_02017768[GetAISSubjectId(anim)] == false) {
+        gUnknown_02017768[GetAISSubjectId(anim)] = true;
+
+        if (GetAISSubjectId(anim) == EKR_POS_L)
+            bu = gpEkrBattleUnitLeft;
+        else
+            bu = gpEkrBattleUnitRight;
+        
+        if (IsWeaponLegency(bu->weaponBefore) != false)
+            goto exec_srank_shinning;
+    }
+
+    anim1 = gAnims[GetAISSubjectId(anim) * 2];
+    anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+
+    anim1->state3 |= 0x40;
+    anim2->state3 |= 0x40;
+    return;
+
+exec_srank_shinning:
+    proc = Proc_Start(ProcScr_efxSpecalEffect, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0x0;
+    EkrSoundSomeBark(0xF0, 0x100, 0x78, 0x0);
+    NewEfxSRankWeaponEffect(anim);
+    return;
+}
+
+void sub_806D980(ProcPtr proc)
+{
+    Proc_Break(proc);
+}
+
+void NewEfxSRankWeaponEffect(struct Anim *anim)
+{
+    struct ProcEfx *proc;
+    ClearBG1Setup();
+    proc = Proc_Start(ProcScr_efxSRankWeaponEffect, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0x0;
+}
+
+void EfxSRankWeaponEffectMain(struct ProcEfx *proc)
+{
+    int time = ++proc->timer;
+
+    if (time == 1) {
+        NewEfxSRankWeaponEffectBG(proc->anim);
+        return;
+    }
+
+    if (time == 0x15) {
+        NewEfxRestWINH_(proc->anim, 0x2D, 0x1);
+        NewEfxSRankWeaponEffectSCR();
+        return;
+    }
+
+    if (time == 0x46) {
+        struct Anim *anim1, *anim2;
+
+        anim1 = gAnims[GetAISSubjectId(proc->anim) * 2];
+        anim2 = gAnims[GetAISSubjectId(proc->anim) * 2 + 1];
+        
+        anim1->state3 |= 0x40;
+        anim2->state3 |= 0x40;
+        Proc_Break(proc);
+    }
+}
+
+void NewEfxSRankWeaponEffectBG(struct Anim *anim)
+{
+    struct ProcEfxBG *proc;
+    proc = Proc_Start(ProcScr_efxSRankWeaponEffectBG, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+    SomeImageStoringRoutine_SpellAnim2(gUnknown_085E8C04, 0x2000);
+    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085E8CC4, 0x20);
+    sub_8055670(proc->anim, gUnknown_085E8CE4, gUnknown_085E8CE4);
+    sub_80551B0();
+}
+
+void EfxSRankWeaponEffectBGMain(struct ProcEfxBG *proc)
+{
+    if (++proc->timer == 0x3C) {
+        ClearBG1();
+        SetDefaultColorEffects_();
+        Proc_Break(proc);
+    }
+}
+
+void NewEfxSRankWeaponEffectSCR(void)
+{
+    struct ProcEfx *proc;
+    proc = Proc_Start(efxSRankWeaponEffectSCR, PROC_TREE_3);
+    proc->timer = 0;
+    proc->unk2E = 0;
+    proc->unk44 = 0;
+    NewEfxSRankWeaponEffectSCR2(proc);
+}
+
+#if NONMATCHING
+void EfxSRankWeaponEffectSCRMain(struct ProcEfx *proc)
+{
+    u32 i;
+    u16 *dst = gUnknown_0201FDB8 != 0
+        ? gUnknown_0201FDC4
+        : gUnknown_0201FF04;
+
+    for (i = 0; i < 0x9F; i++) {
+        s16 val;
+        u32 ref;
+
+        if (i < 0x77) {
+            ref = (gUnknown_085D9154[i] * proc->unk44 * 0x10) << 0x10;
+            val = ref >> 0x10;
+    
+            if (val == 0) {
+                dst[i] = ref;
+                continue;
+            }
+    
+            if (i < 0x3B) {
+                if (val < (i - 0x88)) {
+                    dst[i] = ref;
+                } else {
+                    u16 tmp = i + 0xFF78;
+                    dst[i] = tmp;
+                }
+            } else {
+                if (val < 0x88) {
+                    dst[i] = ref;
+                } else {
+                    u32 tmp = (0x880000 + 0xFFFF0000 * i) << 0x10;
+                    dst[i] = tmp;
+                }
+            }
+        } else {
+            dst[i] = 0;
+        }
+    }
+}
+#else
+
+__attribute__((naked))
+void EfxSRankWeaponEffectSCRMain(struct ProcEfx *proc)
+{
+    asm(".syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov ip, r0\n\
+        ldr r0, _0806DAF8  @ gUnknown_0201FDB8\n\
+        ldr r0, [r0]\n\
+        ldr r4, _0806DAFC  @ gUnknown_0201FDC4\n\
+        cmp r0, #0\n\
+        bne _0806DAC0\n\
+        ldr r4, _0806DB00  @ gUnknown_0201FF04\n\
+    _0806DAC0:\n\
+        movs r3, #0\n\
+        movs r7, #0x88\n\
+        lsls r7, r7, #0x10	/* 8800000 */\n\
+        movs r6, #0x88\n\
+        ldr r5, _0806DB04  @ gUnknown_085D9154\n\
+    _0806DACA:\n\
+        cmp r3, #0x77\n\
+        bhi _0806DB16\n\
+        movs r0, #0\n\
+        ldrsh r1, [r5, r0]\n\
+        mov r2, ip\n\
+        ldr r0, [r2, #0x44]\n\
+        muls r0, r1, r0\n\
+        lsls r0, r0, #4\n\
+        lsrs r2, r0, #0x10\n\
+        asrs r1, r0, #0x10\n\
+        cmp r1, #0\n\
+        beq _0806DB12\n\
+        cmp r3, #0x3b\n\
+        bhi _0806DB0C\n\
+        adds r0, r3, #0\n\
+        subs r0, #0x88\n\
+        cmp r1, r0\n\
+        bcs _0806DB12\n\
+        ldr r1, _0806DB08  @ 0x0000FF78\n\
+        adds r0, r3, r1\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r2, r0, #0x10\n\
+        b _0806DB12\n\
+        .align 2, 0\n\
+    _0806DAF8: .4byte gUnknown_0201FDB8\n\
+    _0806DAFC: .4byte gUnknown_0201FDC4\n\
+    _0806DB00: .4byte gUnknown_0201FF04\n\
+    _0806DB04: .4byte gUnknown_085D9154\n\
+    _0806DB08: .4byte 0x0000FF78\n\
+    _0806DB0C:\n\
+        cmp r1, r6\n\
+        bls _0806DB12\n\
+        lsrs r2, r7, #0x10\n\
+    _0806DB12:\n\
+        strh r2, [r4]\n\
+        b _0806DB1A\n\
+    _0806DB16:\n\
+        movs r0, #0\n\
+        strh r0, [r4]\n\
+    _0806DB1A:\n\
+        adds r4, #2\n\
+        ldr r2, _0806DB30  @ 0xFFFF0000\n\
+        adds r7, r7, r2\n\
+        subs r6, #1\n\
+        adds r5, #2\n\
+        adds r3, #1\n\
+        cmp r3, #0x9f\n\
+        bls _0806DACA\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _0806DB30: .4byte 0xFFFF0000\n\
+        .syntax divided");
+}
+#endif
+
+void NewEfxSRankWeaponEffectSCR2(struct ProcEfx *seff_scr)
+{
+    struct ProcEfxSRankSCR2 *proc;
+    proc = Proc_Start(efxSRankWeaponEffectSCR2, PROC_TREE_3);
+    proc->timer = 0;
+    proc->terminator = 0x28;
+    proc->seff_scr1 = seff_scr;
+}
+
+void EfxSRankWeaponEffectSCR2Main(struct ProcEfxSRankSCR2 *proc)
+{
+    struct ProcEfx *seff_scr = proc->seff_scr1;
+    seff_scr->unk44 = 
+        Interpolate(INTERPOLATE_LINEAR, 0, 0x40000, proc->timer, proc->terminator);
+
+    if (++proc->timer > proc->terminator) {
+        Proc_End(seff_scr);
+        Proc_Break(proc);
+    }
+}
+
+void NewEfxMagdhisEffect(struct Anim *anim)
+{
+    struct ProcEfx *proc;
+    ClearBG1Setup();
+    proc = Proc_Start(ProcScr_efxMagdhisEffect, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+}
+
+void EfxMagdhisEffectMain(struct ProcEfx *proc)
+{
+    if (++proc->timer == 0x11) {
+        NewEfxMagdhisEffectBG(proc->anim, 0x49);
+        EfxPlaySE(0x140, 0x100);
+        M4aPlayWithPostionCtrl(0x140, proc->anim->xPosition, 1);
+    }
+
+    if (proc->timer == 0x64)
+        Proc_Break(proc);
+}
+
+void NewEfxMagdhisEffectBG(struct Anim *anim, int arg1)
+{
+    struct ProcEfxBG *proc;
+    gEfxBgSemaphore++;
+
+    proc = Proc_Start(ProcScr_efxMagdhisEffectBG, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+    proc->terminator = 0;
+    proc->unk30 = arg1;
+    proc->frame = 0;
+    proc->frame_config = gUnknown_080DF4F4;
+    proc->unk4C = gUnknown_085D9274;
+    proc->unk50 = gUnknown_085D9274;
+
+    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085F0E04, 0x20);
+    SomeImageStoringRoutine_SpellAnim2(gUnknown_085F0190, 0x2000);
+    sub_80551B0();
+
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg2cnt.priority = 1;
+    gLCDControlBuffer.bg1cnt.priority = 2;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+    BG_SetPosition(BG_1, 0x10, 0x0);
+}
+
+void EfxMagdhisEffectBGMain(struct ProcEfxBG *proc)
+{
+    s16 ret;
+    ret = EfxGetNextFrameIndex(
+        (void *)&proc->timer,
+        (void *)&proc->frame,
+        proc->frame_config
+    );
+
+    if (ret >= 0) {
+        u16 **buf1 = proc->unk4C;
+        u16 **buf2 = proc->unk50;
+        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+    }
+
+    if (++proc->terminator == proc->unk30) {
+        gLCDControlBuffer.bg0cnt.priority = 0;
+        gLCDControlBuffer.bg1cnt.priority = 1;
+        gLCDControlBuffer.bg3cnt.priority = 2;
+        gLCDControlBuffer.bg2cnt.priority = 3;
+        ClearBG1();
+        gEfxBgSemaphore--;
+        SetDefaultColorEffects_();
+        Proc_Break(proc);
+    }
+}
+
+/**
+ * C47: banim_code_cape_flowing
+ */
+
+void NewEfxMantBatabata(struct Anim *anim)
+{
+    s16 banim_index;
+    u32 *scr1, *scr2;
+    struct ProcEfxOBJ *proc;
+    struct Anim *anim2;
+
+    banim_index = gEkrPairBanimID2[GetAISSubjectId(anim)] - 0x6A;
+    switch (banim_index) {
+    case 0x2:
+    case 0x4:
+        scr1 = gUnknown_085F1F18;
+        scr2 = gUnknown_085F20C4;
+        break;
+
+    case 0xA:
+    case 0xB:
+        scr1 = gUnknown_085F2270;
+        scr2 = gUnknown_085F2418;
+        break;
+
+    case 0x2A:
+        scr1 = gUnknown_085F24F4;
+        scr2 = gUnknown_085F25D8;
+        break;
+
+    case 0x32:
+    case 0x33:
+        scr1 = gUnknown_085F26E0;
+        scr2 = gUnknown_085F27E4;
+        break;
+
+    case 0x4F:
+    case 0x50:
+        scr1 = gUnknown_085F29C0;
+        scr2 = gUnknown_085F2C3C;
+        break;
+
+    case 0x51:
+        scr1 = gUnknown_085F2D44;
+        scr2 = gUnknown_085F2DAC;
+        break;
+
+    case 0x0:
+    case 0x1:
+    default:
+        scr1 = gUnknown_085F1BD8;
+        scr2 = gUnknown_085F1D6C;
+        break;
+    }
+
+    proc = Proc_Start(ProcScr_efxMantBatabata, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+    anim2 = EfxAnimCreate(anim, scr2, scr1, scr2, scr1);
+    proc->anim2 = anim2;
+    gUnknown_02000010[GetAISSubjectId(proc->anim)] = proc->anim2;
+
+    anim2->oam2Base &= 0xC00;
+
+    anim2->drawLayerPriority = 0x64;
+    AnimSort();
+
+    if (GetAISSubjectId(anim) == EKR_POS_L)
+        anim2->oam2Base |= 0x7200;
+    else
+        anim2->oam2Base |= 0x9300;
+    
+    SetAnimStateHidden(GetAISSubjectId(proc->anim));
+}
+
+void sub_806DFA4(struct ProcEfxOBJ *proc)
+{
+    proc->anim2->xPosition = proc->anim->xPosition;
+
+    if (!(proc->anim->state3 & 0x4))
+        return;
+
+    if (!(proc->anim->state3 & 0x8))
+        return;
+
+    Proc_Break(proc);
+}
+
+void sub_806DFD0(struct ProcEfxOBJ *proc)
+{
+    proc->anim2->xPosition = proc->anim->xPosition;
+
+    if (sub_80522CC() == 0x1) {
+        SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
+        AnimDelete(proc->anim2);
+        gUnknown_02000010[GetAISSubjectId(proc->anim)] = NULL;
+        Proc_Break(proc);
+    }
+}
+
+/**
+ * Some critical atk effect?
+ */
+void NewEfxChillEffect(struct Anim *anim)
+{
+    struct ProcEfx *proc;
+    ClearBG1Setup();
+    proc = Proc_Start(ProcScr_efxChillEffect, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+}
+
+void EfxChillEffectMain(struct ProcEfx *proc)
+{
+    int time = ++proc->timer;
+
+    if (time == 0x1) {
+        NewEfxChillEffectBG(proc->anim);
+        NewEfxChillEffectBGCOL(proc->anim);
+        return;
+    }
+
+    if (time == 0x3) {
+        NewEfxFlashBG(proc->anim, 0x5);
+        return;
+    }
+
+    if (time == 0x11) {
+        NewEfxFlashBG(proc->anim, 0x5);
+        return;
+    }
+
+    if (time == 0x24) {
+        Proc_Break(proc);
+        return;
+    }
+}
+
+void NewEfxChillEffectBG(struct Anim *anim)
+{
+    struct ProcEfxBG *proc;
+
+    gEfxBgSemaphore++;
+    proc = Proc_Start(ProcScr_efxChillEffectBG, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+    proc->terminator = 0;
+    proc->frame = 0;
+    proc->frame_config = gUnknown_080DF546;
+    proc->unk4C = gUnknown_085D92D4;
+    proc->unk50 = gUnknown_085D92D4;
+    SomeImageStoringRoutine_SpellAnim2(gUnknown_0872E998, 0x2000);
+    BG_SetPosition(BG_1, 0x0, 0x0);
+}
+
+void EfxChillEffectBGMain(struct ProcEfxBG *proc)
+{
+    int ret;
+    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    if (ret >= 0) {
+        u16 **buf1 = proc->unk4C;
+        u16 **buf2 = proc->unk50;
+        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+        return;
+    }
+
+    if (ret == -1) {
+        ClearBG1();
+        gEfxBgSemaphore--;
+        SetDefaultColorEffects_();
+        Proc_Break(proc);
+    }
+}
+
+void NewEfxChillEffectBGCOL(struct Anim *anim)
+{
+    struct ProcEfxBGCOL *proc;
+    proc = Proc_Start(ProcScr_efxChillEffectBGCOL, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+    proc->frame = 0;
+    proc->frame_config = gUnknown_080DF568;
+    proc->unk4C = gUnknown_087456E8;
+}
+
+#if NONMATCHING
+
+void sub_806E158(struct ProcEfxBGCOL *proc)
+{
+    int ret;
+    u16 i;
+    u16 pal[0x10];
+
+    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    if (ret >= 0) {
+        u16 *src = proc->unk4C;
+        CpuFastCopy(&PAL_BUF_COLOR(src, ret, 0), pal, 0x20);
+
+        for (i = 0; i < 0x10; i++) {
+            s8 green = GREEN_VALUE(pal[i]);
+            s8 red = green - 0xC;
+            s8 blue = green + 0x4;
+
+            if (red < 0)
+                red = 0;
+
+            if (blue < 0)
+                blue = 0;
+
+            pal[i] = RGB(red, green, blue);
+        }
+
+        SomePaletteStoringRoutine_SpellAnim2(pal, 0x20);
+        return;
+    }
+
+    if (ret == -1) {
+        Proc_Break(proc);
+        return;
+    }
+}
+
+#else
+
+__attribute__((naked))
+
+void sub_806E158(struct ProcEfxBGCOL *proc)
+{
+    asm(".syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        sub sp, #0x20\n\
+        adds r4, r0, #0\n\
+        adds r0, #0x2c\n\
+        adds r1, r4, #0\n\
+        adds r1, #0x44\n\
+        ldr r2, [r4, #0x48]\n\
+        bl EfxGetNextFrameIndex\n\
+        lsls r0, r0, #0x10\n\
+        asrs r1, r0, #0x10\n\
+        cmp r1, #0\n\
+        blt _0806E1D8\n\
+        ldr r0, [r4, #0x4c]\n\
+        mov r7, sp\n\
+        lsls r1, r1, #5\n\
+        adds r0, r0, r1\n\
+        mov r1, sp\n\
+        movs r2, #8\n\
+        bl CpuFastSet\n\
+        movs r6, #0\n\
+        movs r0, #0x1f\n\
+        mov ip, r0\n\
+    _0806E188:\n\
+        lsls r0, r6, #1\n\
+        adds r5, r0, r7\n\
+        ldrh r1, [r5]\n\
+        lsrs r3, r1, #5\n\
+        mov r2, ip\n\
+        ands r3, r2\n\
+        mov r0, ip\n\
+        ands r0, r1\n\
+        subs r0, #0xc\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r4, r0, #0x18\n\
+        movs r2, #0x80\n\
+        lsls r2, r2, #0x13\n\
+        adds r1, r0, r2\n\
+        lsrs r2, r1, #0x18\n\
+        cmp r0, #0\n\
+        bge _0806E1AC\n\
+        movs r4, #0\n\
+    _0806E1AC:\n\
+        lsls r0, r2, #0x18\n\
+        cmp r0, #0\n\
+        bge _0806E1B4\n\
+        movs r2, #0\n\
+    _0806E1B4:\n\
+        lsls r1, r4, #0x18\n\
+        asrs r1, r1, #0x18\n\
+        lsls r0, r3, #5\n\
+        orrs r1, r0\n\
+        lsls r0, r2, #0x18\n\
+        asrs r0, r0, #0xe\n\
+        orrs r1, r0\n\
+        strh r1, [r5]\n\
+        adds r0, r6, #1\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r6, r0, #0x10\n\
+        cmp r6, #0xf\n\
+        bls _0806E188\n\
+        adds r0, r7, #0\n\
+        movs r1, #0x20\n\
+        bl SomePaletteStoringRoutine_SpellAnim2\n\
+        b _0806E1E6\n\
+    _0806E1D8:\n\
+        movs r0, #1\n\
+        negs r0, r0\n\
+        cmp r1, r0\n\
+        bne _0806E1E6\n\
+        adds r0, r4, #0\n\
+        bl Proc_Break\n\
+    _0806E1E6:\n\
+        add sp, #0x20\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .syntax divided");
+}
+
+#endif
+
+void NewEfxChillAnime(struct Anim *anim, int arg1)
+{
+    u32 *scr1, *scr2;
+    struct ProcEfxOBJ *proc;
+    struct Anim *anim2;
+
+    if (arg1 == 0) {
+        scr1 = gUnknown_08746508;
+        scr2 = gUnknown_0874670C;
+    }
+
+    proc = Proc_Start(ProcScr_efxChillAnime, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+    anim2 = EfxAnimCreate(anim, scr2, scr1, scr2, scr1);
+    proc->anim2 = anim2;
+    gUnknown_02000010[GetAISSubjectId(proc->anim)] = proc->anim2;
+
+    anim2->oam2Base &= 0xC00;
+
+    anim2->drawLayerPriority = 0x64;
+    AnimSort();
+
+    if (GetAISSubjectId(anim) == EKR_POS_L)
+        anim2->oam2Base |= 0x7200;
+    else
+        anim2->oam2Base |= 0x9300;
+    
+    SetAnimStateHidden(GetAISSubjectId(proc->anim));
+}
+
+void sub_806E290(struct ProcEfxOBJ *proc)
+{
+    struct Anim *_anim1, *_anim2;
+    proc->anim2->xPosition = proc->anim->xPosition;
+
+    if (++proc->timer == 0x14) {
+        SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
+        AnimDelete(proc->anim2);
+        gUnknown_02000010[GetAISSubjectId(proc->anim)] = NULL;
+        
+        _anim1 = gAnims[GetAISSubjectId(proc->anim) * 2];
+        _anim2 = gAnims[GetAISSubjectId(proc->anim) * 2 + 1];
+
+        _anim1->state3 |= 0x40;
+        _anim2->state3 |= 0x40;
+        Proc_Break(proc);
+    }
+}
+
+void nullsub_17(void)
+{
+    return;
 }
