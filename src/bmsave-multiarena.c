@@ -19,6 +19,79 @@ int CONST_DATA sArenaCpTeamNameLut[] = {
     0x2E2,      /* Druid */
 };
 
+struct MultiArenaRankingEnt const gInitialMultiArenaRankings[MULTIARENA_MAX_RANKINGS] = {
+    [0] = {
+        .ranking = 0,
+        .player_count = 1,
+        .mode = 0,
+        .points = 100,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [1] = {
+        .ranking = 0,
+        .player_count = 1,
+        .mode = 1,
+        .points = 90,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [2] = {
+        .ranking = 0,
+        .player_count = 1,
+        .mode = 0,
+        .points = 80,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [3] = {
+        .ranking = 0,
+        .player_count = 2,
+        .mode = 1,
+        .points = 70,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [4] = {
+        .ranking = 0,
+        .player_count = 2,
+        .mode = 0,
+        .points = 60,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [5] = {
+        .ranking = 1,
+        .player_count = 2,
+        .mode = 1,
+        .points = 50,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [6] = {
+        .ranking = 1,
+        .player_count = 3,
+        .mode = 0,
+        .points = 40,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [7] = {
+        .ranking = 1,
+        .player_count = 3,
+        .mode = 1,
+        .points = 30,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [8] = {
+        .ranking = 1,
+        .player_count = 3,
+        .mode = 0,
+        .points = 20,
+        .name = { 0x81, 0x40, 0, },
+    },
+    [9] = {
+        .ranking = 1,
+        .player_count = 3,
+        .mode = 1,
+        .points = 10,
+        .name = { 0x81, 0x40, 0, },
+    },
+};
+
 void WriteNewMultiArenaSave(void)
 {
     int i, j;

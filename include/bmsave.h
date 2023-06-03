@@ -5,6 +5,13 @@
 #include "bmunit.h"
 #include "bmbattle.h"
 #include "bmtrick.h"
+#include "bmdifficulty.h"
+
+enum {
+    UNIT_SAVE_AMOUNT_BLUE = 51,
+    UNIT_SAVE_AMOUNT_RED = 50,
+    UNIT_SAVE_AMOUNT_GREEN = 10,
+};
 
 enum save_chunk_index {
     SAVE_ID_GAME0,
@@ -81,11 +88,6 @@ struct SaveBlockInfo {
 struct SramHeader {
     struct GlobalSaveInfo meta;
     struct SaveBlockInfo chunks[0x7];
-};
-
-/* used in IsExtraBonusClaimEnabled */
-struct bmsave_unkstruct0 {
-    u8 unk[0x14];
 };
 
 struct GameRankSaveData {
@@ -330,6 +332,51 @@ struct ExtraMapInfo {
 
 #define EWRAM_XMAP_SIZE 0x1000u
 
+struct GMapSaveInfo {
+    /* 00 */ u8 nodes[8];
+    /* 08 */ u8 paths[4];
+    /* 0C */ u16 units[7];
+    /* 1A */ u8 xCursor;
+    /* 1B */ u8 yCursor;
+    /* 1C */ u8 unk_1c_1 : 1;
+    /* 1C */ u8 unk_1c_2 : 1;
+    /* 1C */ u8 unk_1c_3 : 2;
+    /* 1D */ u8 skirmishes[3];
+    /* 20 */ u8 skirmishState;
+};
+
+struct GameSaveBlock {
+    struct PlaySt playSt;
+    struct GameSavePackedUnit units[UNIT_SAVE_AMOUNT_BLUE];
+    struct GameSavePackedUnit gmUnit;
+    u16 supplyItems[0xB0 / 2];
+    struct UnitUsageStats pidStats[BWL_ARRAY_NUM];
+    struct ChapterStats chapterStats[WIN_ARRAY_NUM];
+    u8 permanentFlags[0x19];
+    u32 bonusClaimFlags;
+    struct GMapSaveInfo wmStuff;
+    struct Dungeon dungeons[2];
+};
+
+struct SuspendSaveBlock {
+    struct PlaySt playSt;
+    struct ActionData action;
+    struct SuspendSavePackedUnit blueUnits[UNIT_SAVE_AMOUNT_BLUE];
+    struct SuspendSavePackedUnit wmMonsterUnit;
+    struct SuspendSavePackedUnit redUnits[UNIT_SAVE_AMOUNT_RED];
+    struct SuspendSavePackedUnit greenUnits[UNIT_SAVE_AMOUNT_GREEN];
+    struct Trap traps[TRAP_MAX_COUNT];
+    u16 supplyItems[0xB0 / 2];
+    struct UnitUsageStats pidStats[BWL_ARRAY_NUM];
+    struct ChapterStats chapterStats[WIN_ARRAY_NUM];
+    u8 menuOverride[0x10];
+    u8 permanentFlags[0x19];
+    u8 chapterFlags[7];
+    struct GMapSaveInfo wmStuff;
+    struct Dungeon dungeon;
+    int eventSlotCnt;
+};
+
 extern struct UnitUsageStats *gPidStatsSaveLoc;
 extern struct UnitUsageStats gPidStatsData[BWL_ARRAY_NUM];
 #define gBWLDataArray (&gPidStatsData[-1])
@@ -530,17 +577,17 @@ void ReadExtraMapInfo(void);
 // ??? bmsave_null_false2(???);
 void NullBmMapHidden_(void);
 // ??? sub_80A6D4C(???);
-// ??? sub_80A6DA0(???);
-// ??? sub_80A6E24(???);
-// ??? sub_80A6EB0(???);
-// ??? sub_80A6F0C(???);
-// ??? sub_80A6F50(???);
-// ??? sub_80A6FBC(???);
-// ??? sub_80A7034(???);
-// ??? sub_80A7054(???);
+// ??? WriteWorldMapNodes(???);
+// ??? ReadWorldMapNodes(???);
+// ??? WriteWorldMapPaths(???);
+// ??? ReadWorldMapPaths(???);
+// ??? WriteWorldMapUnits(???);
+// ??? ReadWorldMapUnits(???);
+// ??? WriteWorldMapSkirmishes(???);
+// ??? ReadWorldMapSkirmishes(???);
 void ClearWorldMapStuff(void *ptr);
-void WriteWorldMapStuff(void *sram_dest, void *src); /* SaveWMStaff */
-void ReadWorldMapStuff(const void *sram_src, void *src);
+void WriteWorldMapStuff(void *sram_dest, void *src);
+void ReadWorldMapStuff(const void *sram_src, void *dst);
 void sub_80A71E4(void*);
 void sub_80A71F8(void*);
 // ??? sub_80A720C(???);

@@ -14,6 +14,7 @@
 #include "bmlib.h"
 #include "ev_triggercheck.h"
 #include "soundroom.h"
+#include "bonusclaim.h"
 #include "savemenu.h"
 
 struct Unknown203EF64 {
@@ -352,7 +353,7 @@ void sub_80A8AF0(void) {
 
         chapterId = gPlaySt.chapterIndex;
 
-        if ((gGMData.state & 3) == 3) {
+        if ((gGMData.state.raw & 3) == 3) {
             if (chapterId > 0x01 && chapterId != 0x38) {
 
                 mapLocation = sub_80BD014(&gGMData);

@@ -1034,11 +1034,11 @@ void ShopProc_Loop_UnkKeyHandler(struct BmShopProc* proc) {
 
 void StartShopFadeIn(struct BmShopProc* proc) {
 
-    if (gBmSt.gameStateBits & 0x10) {
+    if (gBmSt.gameStateBits & BM_FLAG_4) {
         return;
     }
 
-    if (gGMData.state & GMAP_STATE_BIT0) {
+    if (gGMData.state.bits.state_0) {
         return;
     }
 
@@ -1049,7 +1049,7 @@ void StartShopFadeIn(struct BmShopProc* proc) {
 
 void StartShopFadeOut(struct BmShopProc* proc) {
 
-    if ((!(gBmSt.gameStateBits & 0x10)) && (!(gGMData.state & GMAP_STATE_BIT0))) {
+    if (!(gBmSt.gameStateBits & BM_FLAG_4) && !(gGMData.state.bits.state_0)) {
         Proc_StartBlocking(gProcScr_ShopFadeOut, proc);
         return;
     }
@@ -1379,7 +1379,7 @@ void DrawShopItemLine(struct TextHandle* th, int item, struct Unit* unit, u16* d
 u16 GetItemPurchasePrice(struct Unit* unit, int item) {
     int cost = GetItemCost(item);
 
-    if (gBmSt.gameStateBits & 0x10) {
+    if (gBmSt.gameStateBits & BM_FLAG_4) {
         cost = cost + (cost / 2);
     }
 

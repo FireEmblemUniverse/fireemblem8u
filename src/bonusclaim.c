@@ -15,6 +15,9 @@
 #include "bmsave.h"
 #include "prepscreen.h"
 #include "bmlib.h"
+
+#include "bonusclaim.h"
+
 #include "constants/characters.h"
 #include "constants/items.h"
 
@@ -33,26 +36,6 @@ struct BonusClaimProc {
 struct Unknown8A215A4 {
     /* 00 */ s8 hasInventorySpace;
     /* 04 */ struct Unit* unit;
-};
-
-struct BonusClaimEnt {
-    /* 00 */ u8 unseen;
-    /* 01 */ u8 kind;
-    /* 02 */ u8 itemId;
-    /* 03 */ char str[0x11]; // Only used in FE8
-};
-
-enum {
-    BONUSKIND_ITEM0 = 0,
-    BONUSKIND_ITEM1 = 1,
-    BONUSKIND_MONEY = 2,
-    BONUSKIND_SONG3 = 3,
-    BONUSKIND_SONG4 = 4,
-};
-
-struct BonusClaimItemEnt {
-    /* 00 */ s8 unk_00;
-    /* 01 */ s8 claimable;
 };
 
 extern struct BonusClaimEnt gUnknown_02000968[];

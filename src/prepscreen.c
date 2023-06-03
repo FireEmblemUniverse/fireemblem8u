@@ -141,7 +141,7 @@ void PrepSetUnitAmount(int val)
 
 int PrepGetLatestCharId()
 {
-    if (0 == (1 & gGMData.state))
+    if (0 == (gGMData.state.bits.state_0))
         return gPrepUnitList.latest_pid;
     else
         return sub_80C4088();
@@ -149,7 +149,7 @@ int PrepGetLatestCharId()
 
 void PrepSetLatestCharId(int val)
 {
-    if (1 & gGMData.state)
+    if (gGMData.state.bits.state_0)
         sub_80C409C(val);
     else
         gPrepUnitList.latest_pid = val;

@@ -228,7 +228,8 @@ SECTIONS
         src/bmsave.o(.text);
         src/bmsave-multiarena.o(.text);
         src/bmsave-xmap.o(.text);
-        asm/code_80A2C3C.o(.text);
+        src/bmsave-gmap.o(.text);
+        src/bmsave-misc.o(.text);
         src/minimap.o(.text);
         src/savemenu.o(.text);
         asm/savemenu_.o(.text);
@@ -411,7 +412,8 @@ SECTIONS
         . = ALIGN(4); src/prep_itemuse.o(.rodata);
         . = ALIGN(4); src/uisupport.o(.rodata);
         . = ALIGN(4); src/bmsave-lib.o(.rodata);
-        . = ALIGN(4); data/const_data_205C9C.o(.rodata);
+        . = ALIGN(4); src/bmsave-multiarena.o(.rodata);
+        . = ALIGN(4); src/bmsave-misc.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); src/savemenu.o(.rodata);
         . = ALIGN(4); src/savedrawcursor.o(.rodata);

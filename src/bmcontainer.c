@@ -88,7 +88,7 @@ int GetConvoyItemSlot(int r0) {
 
 bool8 HasConvoyAccess() {
     unsigned int chapterId;
-    if (GMAP_STATE_BIT0 & gGMData.state) {
+    if (gGMData.state.bits.state_0) {
         chapterId = sub_80BD048();
         if (chapterId <= 1) {
             return 0;

@@ -1024,7 +1024,7 @@ void sub_8034194() {
         return;
     }
 
-    if (GMAP_STATE_BIT0 & gGMData.state) {
+    if (gGMData.state.bits.state_0) {
         sub_80B9FC0();
         return;
     }
