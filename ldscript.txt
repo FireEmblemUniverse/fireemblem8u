@@ -412,6 +412,7 @@ SECTIONS
         . = ALIGN(4); src/prep_itemuse.o(.rodata);
         . = ALIGN(4); src/uisupport.o(.rodata);
         . = ALIGN(4); src/bmsave-lib.o(.rodata);
+        . = ALIGN(4); src/bmsave-multiarena.o(.rodata);
         . = ALIGN(4); data/const_data_205C9C.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); src/savemenu.o(.rodata);
