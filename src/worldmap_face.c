@@ -82,12 +82,12 @@ int sub_80B826C(int xIn, int *xOut) {
 
 //! FE8U = 0x080B828C
 int GetWMFaceBg(void) {
-    return (gGMData.state & GMAP_STATE_BIT3) ? BG_2 : BG_1;
+    return (gGMData.state.bits.state_3) ? BG_2 : BG_1;
 }
 
 //! FE8U = 0x080B82A8
 int GetWMFaceVramOffset(void) {
-    return (gGMData.state & GMAP_STATE_BIT3) ? 0x5000 : 0x1800;
+    return (gGMData.state.bits.state_3) ? 0x5000 : 0x1800;
 }
 
 //! FE8U = 0x080B82C8
@@ -316,7 +316,7 @@ void sub_80B86CC(int faceSlot, int faceId, u16 config) {
 
     struct WMFaceWrapper* pWrapper = proc->faceHolderProc->faceWrapper + faceSlot;
 
-    if (gGMData.state & GMAP_STATE_BIT3) {
+    if (gGMData.state.bits.state_3) {
         SetBlendTargetA(0, 0, 1, 0, 0);
         SetBlendTargetB(0, 1, 0, 1, 1);
     } else {
@@ -391,7 +391,7 @@ void sub_80B8844(int faceSlot, u16 config) {
 
     struct WMFaceWrapper* pWrapper = proc->faceHolderProc->faceWrapper + faceSlot;
 
-    if (gGMData.state & GMAP_STATE_BIT3) {
+    if (gGMData.state.bits.state_3) {
         SetBlendTargetA(0, 0, 1, 0, 0);
         SetBlendTargetB(0, 1, 0, 1, 1);
     } else {

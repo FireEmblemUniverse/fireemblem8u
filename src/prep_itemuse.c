@@ -717,7 +717,7 @@ void PrepItemUse_ResetBgmAfterPromo(struct ProcPrepItemUse *proc)
         return;
     }
     
-    if (gGMData.state & GMAP_STATE_BIT0) {
+    if (gGMData.state.bits.state_0) {
         MakeBgmOverridePersist();
         sub_80B9FC0();
         return;

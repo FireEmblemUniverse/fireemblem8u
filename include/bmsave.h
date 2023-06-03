@@ -330,6 +330,19 @@ struct ExtraMapInfo {
 
 #define EWRAM_XMAP_SIZE 0x1000u
 
+struct GMapSaveInfo {
+    /* 00 */ u8 nodes[8];
+    /* 08 */ u8 paths[4];
+    /* 0C */ u16 units[7];
+    /* 1A */ u8 xCursor;
+    /* 1B */ u8 yCursor;
+    /* 1C */ u8 unk_1c_1 : 1;
+    /* 1C */ u8 unk_1c_2 : 1;
+    /* 1C */ u8 unk_1c_3 : 2;
+    /* 1D */ u8 skirmishes[3];
+    /* 20 */ u8 skirmishState;
+};
+
 extern struct UnitUsageStats *gPidStatsSaveLoc;
 extern struct UnitUsageStats gPidStatsData[BWL_ARRAY_NUM];
 #define gBWLDataArray (&gPidStatsData[-1])

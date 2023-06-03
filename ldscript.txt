@@ -228,6 +228,7 @@ SECTIONS
         src/bmsave.o(.text);
         src/bmsave-multiarena.o(.text);
         src/bmsave-xmap.o(.text);
+        src/bmsave-gmap.o(.text);
         asm/code_80A2C3C.o(.text);
         src/minimap.o(.text);
         src/savemenu.o(.text);
