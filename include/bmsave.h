@@ -5,6 +5,13 @@
 #include "bmunit.h"
 #include "bmbattle.h"
 #include "bmtrick.h"
+#include "bmdifficulty.h"
+
+enum {
+    UNIT_SAVE_AMOUNT_BLUE = 51,
+    UNIT_SAVE_AMOUNT_RED = 50,
+    UNIT_SAVE_AMOUNT_GREEN = 10,
+};
 
 enum save_chunk_index {
     SAVE_ID_GAME0,
@@ -81,11 +88,6 @@ struct SaveBlockInfo {
 struct SramHeader {
     struct GlobalSaveInfo meta;
     struct SaveBlockInfo chunks[0x7];
-};
-
-/* used in IsExtraBonusClaimEnabled */
-struct bmsave_unkstruct0 {
-    u8 unk[0x14];
 };
 
 struct GameRankSaveData {
@@ -341,6 +343,38 @@ struct GMapSaveInfo {
     /* 1C */ u8 unk_1c_3 : 2;
     /* 1D */ u8 skirmishes[3];
     /* 20 */ u8 skirmishState;
+};
+
+struct GameSaveBlock {
+    struct PlaySt playSt;
+    struct GameSavePackedUnit units[UNIT_SAVE_AMOUNT_BLUE];
+    struct GameSavePackedUnit gmUnit;
+    u16 supplyItems[0xB0 / 2];
+    struct UnitUsageStats pidStats[BWL_ARRAY_NUM];
+    struct ChapterStats chapterStats[WIN_ARRAY_NUM];
+    u8 permanentFlags[0x19];
+    u32 bonusClaimFlags;
+    struct GMapSaveInfo wmStuff;
+    struct Dungeon dungeons[2];
+};
+
+struct SuspendSaveBlock {
+    struct PlaySt playSt;
+    struct ActionData action;
+    struct SuspendSavePackedUnit blueUnits[UNIT_SAVE_AMOUNT_BLUE];
+    struct SuspendSavePackedUnit wmMonsterUnit;
+    struct SuspendSavePackedUnit redUnits[UNIT_SAVE_AMOUNT_RED];
+    struct SuspendSavePackedUnit greenUnits[UNIT_SAVE_AMOUNT_GREEN];
+    struct Trap traps[TRAP_MAX_COUNT];
+    u16 supplyItems[0xB0 / 2];
+    struct UnitUsageStats pidStats[BWL_ARRAY_NUM];
+    struct ChapterStats chapterStats[WIN_ARRAY_NUM];
+    u8 menuOverride[0x10];
+    u8 permanentFlags[0x19];
+    u8 chapterFlags[7];
+    struct GMapSaveInfo wmStuff;
+    struct Dungeon dungeon;
+    int eventSlotCnt;
 };
 
 extern struct UnitUsageStats *gPidStatsSaveLoc;

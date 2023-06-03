@@ -14,6 +14,7 @@
 #include "bmlib.h"
 #include "ev_triggercheck.h"
 #include "soundroom.h"
+#include "bonusclaim.h"
 #include "savemenu.h"
 
 struct Unknown203EF64 {

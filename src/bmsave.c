@@ -150,7 +150,7 @@ void WriteNewGameSave(int index, int isDifficult, int mode, int isTutorial)
     WriteSupplyItems(dest + GAMESAVE_OFFSET_SUPPLY);
     ClearPidChStatsSaveData(dest);
     WritePermanentFlags(dest + GAMESAVE_OFFSET_PERMANENTFLAGS);
-    ClearWorldMapStuff(dest + GAMESAVE_OFFSET_WMSTAFF);
+    ClearWorldMapStuff(dest + GAMESAVE_OFFSET_GMINFO);
 
     {
         struct Dungeon dungeon[2];  
@@ -192,7 +192,7 @@ void WriteGameSave(int slot)
     WriteChapterStats(dest + GAMESAVE_OFFSET_CHAPTERSTATS);
     WriteBonusContentClaimFlags(dest);
     WritePermanentFlags(dest + GAMESAVE_OFFSET_PERMANENTFLAGS);
-    WriteWorldMapStuff(dest + GAMESAVE_OFFSET_WMSTAFF, &gGMData);
+    WriteWorldMapStuff(dest + GAMESAVE_OFFSET_GMINFO, &gGMData);
     SaveDungeonRecords(dungeon);
     WriteAndVerifySramFast(dungeon, dest + GAMESAVE_OFFSET_DUNGEON ,sizeof(dungeon));
 
@@ -226,7 +226,7 @@ void ReadGameSave(int slot)
     ReadPidStats(src + GAMESAVE_OFFSET_PIDSTATS);
     ReadChapterStats(src + GAMESAVE_OFFSET_CHAPTERSTATS);
     ReadBonusContentClaimFlags(src);
-    ReadWorldMapStuff(src + GAMESAVE_OFFSET_WMSTAFF, &gGMData);
+    ReadWorldMapStuff(src + GAMESAVE_OFFSET_GMINFO, &gGMData);
     ReadSramFast(src + GAMESAVE_OFFSET_DUNGEON, dungeon, sizeof(dungeon));
     LoadDungeonRecords(dungeon);
     WriteLastGameSaveId(slot);
@@ -254,7 +254,7 @@ u32 LoadSavedBonusClaimFlags(int slot)
 void LoadSavedWMStuff(int slot, void *dest)
 {
     void *src = GetSaveReadAddr(slot);
-    ReadWorldMapStuff(src + GAMESAVE_OFFSET_WMSTAFF, dest);
+    ReadWorldMapStuff(src + GAMESAVE_OFFSET_GMINFO, dest);
 }
 
 s8 LoadSavedEid8A(int slot)
@@ -582,7 +582,7 @@ void ReadSuspendSave(int slot)
     ReadSramFast(src + SUSPENDSAVE_OFFSET_FORCENMENU, list, sizeof(list));
     SetForceDisabledMenuItems(list);
 
-    ReadWorldMapStuff(src + SUSPENDSAVE_OFFSET_WMSTAFF, &gGMData);
+    ReadWorldMapStuff(src + SUSPENDSAVE_OFFSET_GMINFO, &gGMData);
 
     ReadSramFast(src + SUSPENDSAVE_OFFSET_GMMONSTER, dungeon, 2 * sizeof(struct Dungeon));
     LoadDungeonRecords(dungeon);

@@ -8,6 +8,7 @@
 #include "sram-layout.h"
 #include "bmlib.h"
 #include "ev_triggercheck.h"
+#include "bonusclaim.h"
 
 // TODO: Should be in "bmsave.h", but doing so causes a non-match (implicit declaration?) in "bonusclaim.c"
 bool LoadBonusContentData(void *buf);
@@ -525,7 +526,7 @@ bool IsExtraFreeMapEnabled()
 
 bool IsExtraBonusClaimEnabled(void) {
     unsigned char buf0[0x4C];
-    struct bmsave_unkstruct0 *buf1;
+    struct BonusClaimEnt *buf1;
     int i, ret;
 
     if (LoadBonusContentData((void*)gGenericBuffer)) {
@@ -534,13 +535,13 @@ bool IsExtraBonusClaimEnabled(void) {
         buf1 = (void*)gGenericBuffer;
     
         for (i = 0; i < 0x10; i++) {
-            if ((0 == buf1[i].unk[0]))
+            if (!buf1[i].unseen)
                 continue;
     
-            if (0 == buf1[i].unk[1])
+            if (BONUSKIND_ITEM0 == buf1[i].kind)
                 ret = true;
 
-            if (2 == buf1[i].unk[1])
+            if (BONUSKIND_MONEY == buf1[i].kind)
                 ret = true;
         }
 
