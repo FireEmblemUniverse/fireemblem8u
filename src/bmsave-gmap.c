@@ -4,7 +4,7 @@
 #include "bmsave.h"
 
 //! FE8U = 0x080A6DA0
-void sub_80A6DA0(struct GMapData* pGMapData, u8* nodeFlags) {
+void WriteWorldMapNodes(struct GMapData* pGMapData, u8* nodeFlags) {
     int i;
     int j;
     int count;
@@ -42,7 +42,7 @@ void sub_80A6DA0(struct GMapData* pGMapData, u8* nodeFlags) {
 }
 
 //! FE8U = 0x080A6E24
-void sub_80A6E24(struct GMapData* pGMapData, u8* nodeFlags) {
+void ReadWorldMapNodes(struct GMapData* pGMapData, u8* nodeFlags) {
     int i;
     int j;
 
@@ -79,7 +79,7 @@ void sub_80A6E24(struct GMapData* pGMapData, u8* nodeFlags) {
 }
 
 //! FE8U = 0x080A6EB0
-void sub_80A6EB0(struct GMapData* pGMapData, u8* pathFlags) {
+void WriteWorldMapPaths(struct GMapData* pGMapData, u8* pathFlags) {
     int i;
 
     for (i = 0; i < 4; i++) {
@@ -101,7 +101,7 @@ void sub_80A6EB0(struct GMapData* pGMapData, u8* pathFlags) {
 }
 
 //! FE8U = 0x080A6F0C
-void sub_80A6F0C(struct GMapData* pGMapData, u8* pathFlags) {
+void ReadWorldMapPaths(struct GMapData* pGMapData, u8* pathFlags) {
     int i;
 
     pGMapData->unk_c4 = 0;
@@ -120,7 +120,7 @@ void sub_80A6F0C(struct GMapData* pGMapData, u8* pathFlags) {
 /* https://decomp.me/scratch/2QiqH */
 
 //! FE8U = 0x080A6F50
-void sub_80A6F50(struct GMapData* pGMapData, u16* param_2) {
+void WriteWorldMapUnits(struct GMapData* pGMapData, u16* param_2) {
     int i;
     u8 r8;
     u8 ip;
@@ -184,7 +184,7 @@ void sub_80A6F50(struct GMapData* pGMapData, u16* param_2) {
 /* https://decomp.me/scratch/wG1FK */
 
 //! FE8U = 0x080A6FBC
-void sub_80A6FBC(struct GMapData* param_1, u16* param_2) {
+void ReadWorldMapUnits(struct GMapData* param_1, u16* param_2) {
     int i;
 
     for (i = 0; i < 7; i++) {
@@ -214,7 +214,7 @@ void sub_80A6FBC(struct GMapData* param_1, u16* param_2) {
 #else // if !NONMATCHING
 
 __attribute__((naked))
-void sub_80A6FBC(struct GMapData* param_1, u16* param_2) {
+void ReadWorldMapUnits(struct GMapData* param_1, u16* param_2) {
     asm("\n\
         .syntax unified\n\
         push {r4, r5, r6, r7, lr}\n\
@@ -287,7 +287,7 @@ void sub_80A6FBC(struct GMapData* param_1, u16* param_2) {
 #endif // NONMATCHING
 
 //! FE8U = 0x080A7034
-void sub_80A7034(struct GMapData* pGMapData, u8* skirmishFlags) {
+void WriteWorldMapSkirmishes(struct GMapData* pGMapData, u8* skirmishFlags) {
     int i;
 
     for (i = 0; i < 3; i++) {
@@ -298,7 +298,7 @@ void sub_80A7034(struct GMapData* pGMapData, u8* skirmishFlags) {
 }
 
 //! FE8U = 0x080A7054
-void sub_80A7054(struct GMapData* pGMapData, u8* skirmishFlags) {
+void ReadWorldMapSkirmishes(struct GMapData* pGMapData, u8* skirmishFlags) {
     int i;
 
     for (i = 0; i < 3; i++) {
@@ -329,10 +329,10 @@ void WriteWorldMapStuff(void* sram_dest, void* src) {
 
     pGMapData = (struct GMapData*)src;
 
-    sub_80A6DA0(pGMapData, info.nodes);
-    sub_80A6EB0(pGMapData, info.paths);
-    sub_80A6F50(pGMapData, info.units);
-    sub_80A7034(pGMapData, info.skirmishes);
+    WriteWorldMapNodes(pGMapData, info.nodes);
+    WriteWorldMapPaths(pGMapData, info.paths);
+    WriteWorldMapUnits(pGMapData, info.units);
+    WriteWorldMapSkirmishes(pGMapData, info.skirmishes);
 
     info.skirmishState = pGMapData->unk_cc;
     info.xCursor = pGMapData->xCamera;
@@ -348,17 +348,17 @@ void WriteWorldMapStuff(void* sram_dest, void* src) {
 }
 
 //! FE8U = 0x080A7138
-void ReadWorldMapStuff(const void* sram_src, void* src) {
+void ReadWorldMapStuff(const void* sram_src, void* dst) {
     struct GMapData* pGMapData;
     struct GMapSaveInfo info;
 
-    pGMapData = (struct GMapData*) src;
+    pGMapData = (struct GMapData*) dst;
     ReadSramFast(sram_src, &info, sizeof(struct GMapSaveInfo));
 
-    sub_80A6E24(pGMapData, info.nodes);
-    sub_80A6F0C(pGMapData, info.paths);
-    sub_80A6FBC(pGMapData, info.units);
-    sub_80A7054(pGMapData, info.skirmishes);
+    ReadWorldMapNodes(pGMapData, info.nodes);
+    ReadWorldMapPaths(pGMapData, info.paths);
+    ReadWorldMapUnits(pGMapData, info.units);
+    ReadWorldMapSkirmishes(pGMapData, info.skirmishes);
 
     pGMapData->unk_cc = info.skirmishState;
 
