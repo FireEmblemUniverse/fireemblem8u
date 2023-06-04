@@ -117,7 +117,19 @@ void ReadWorldMapPaths(struct GMapData* pGMapData, u8* pathFlags) {
     return;
 }
 
+union Unk_80A6FBC {
+    struct __attribute__((packed, aligned(2))) Unk_80A6FBC_pat1 {
+        u8 unk0_0 : 1;
+        u8 unk0_1 : 6;
+        u8 unk0_7 : 1;
+        u8 unk1;
+    } pat1;
+    u32 pat2;
+    u16 pat3;
+};
+
 /* https://decomp.me/scratch/2QiqH */
+// bitfield access makes it close https://decomp.me/scratch/azzUL
 
 //! FE8U = 0x080A6F50
 void WriteWorldMapUnits(struct GMapData* pGMapData, u16* param_2) {
@@ -179,112 +191,40 @@ void WriteWorldMapUnits(struct GMapData* pGMapData, u16* param_2) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/wG1FK */
-
 //! FE8U = 0x080A6FBC
 void ReadWorldMapUnits(struct GMapData* param_1, u16* param_2) {
     int i;
+    union Unk_80A6FBC sp;
+    struct Unk_80A6FBC_pat1 *r4 = &sp.pat1;
 
     for (i = 0; i < 7; i++) {
-        int a = param_2[i];
-        u32 packed = (packed & 0xffff0000) | a;
+        // TODO: this is almost certainly some struct access that I couldn't pull off
+#ifndef NONMATCHING
+        u32 r2 = param_2[i], mask = 0xffff0000;
+        sp.pat2 = (mask & sp.pat2) | r2;
+#else
+        sp.pat3 = param_2[i];
+#endif
 
-        if (packed & 1) {
+        if (r4->unk0_0) {
             param_1->unk10[i].state |= 1;
         } else {
             param_1->unk10[i].state &= ~1;
         }
 
-        param_1->unk10[i].location = (packed << 0x19) >> 0x1a;
+        param_1->unk10[i].location = sp.pat1.unk0_1;
 
-        if (packed & 0x80) {
-            param_1->unk10[i].id = packed;
+        if (r4->unk0_7) {
+            param_1->unk10[i].id = r4->unk1;
             param_1->unk10[i].state |= 2;
         } else {
-            param_1->unk10[i].id = packed;
+            param_1->unk10[i].id = r4->unk1;
             param_1->unk10[i].state &= ~2;
         }
     }
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void ReadWorldMapUnits(struct GMapData* param_1, u16* param_2) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #4\n\
-        mov r4, sp\n\
-        movs r7, #1\n\
-        adds r3, r0, #0\n\
-        adds r5, r1, #0\n\
-        movs r6, #6\n\
-    _080A6FCA:\n\
-        ldrh r2, [r5]\n\
-        ldr r1, _080A6FE8  @ 0xFFFF0000\n\
-        ldr r0, [sp]\n\
-        ands r0, r1\n\
-        orrs r0, r2\n\
-        str r0, [sp]\n\
-        ldrb r1, [r4]\n\
-        movs r0, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A6FEC\n\
-        ldrb r0, [r3, #0x10]\n\
-        orrs r0, r7\n\
-        b _080A6FF2\n\
-        .align 2, 0\n\
-    _080A6FE8: .4byte 0xFFFF0000\n\
-    _080A6FEC:\n\
-        ldrb r1, [r3, #0x10]\n\
-        movs r0, #0xfe\n\
-        ands r0, r1\n\
-    _080A6FF2:\n\
-        strb r0, [r3, #0x10]\n\
-        ldr r0, [sp]\n\
-        lsls r0, r0, #0x19\n\
-        lsrs r0, r0, #0x1a\n\
-        movs r2, #0\n\
-        strb r0, [r3, #0x11]\n\
-        ldrb r1, [r4]\n\
-        movs r0, #0x80\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A7014\n\
-        ldrb r0, [r4, #1]\n\
-        strh r0, [r3, #0x12]\n\
-        ldrb r0, [r3, #0x10]\n\
-        movs r1, #2\n\
-        orrs r0, r1\n\
-        b _080A701E\n\
-    _080A7014:\n\
-        ldrb r0, [r4, #1]\n\
-        strh r0, [r3, #0x12]\n\
-        ldrb r1, [r3, #0x10]\n\
-        movs r0, #0xfd\n\
-        ands r0, r1\n\
-    _080A701E:\n\
-        strb r0, [r3, #0x10]\n\
-        adds r3, #4\n\
-        adds r5, #2\n\
-        subs r6, #1\n\
-        cmp r6, #0\n\
-        bge _080A6FCA\n\
-        add sp, #4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080A7034
 void WriteWorldMapSkirmishes(struct GMapData* pGMapData, u8* skirmishFlags) {
