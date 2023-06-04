@@ -716,20 +716,13 @@ void ekrBattle_8050AB8(struct ProcEkrBattle *proc)
 
 void ekrBattleLvupHanlder(struct ProcEkrBattle *proc)
 {
-    u32 ret;
-    int a, b;
-    register int c asm("r1");
+    int c;
 
     if (++proc->timer == 0x18) {
-        if (gEkrPairExpGain[EKR_POS_L] != 0) {
-            a = gEkrPairExpPrevious[EKR_POS_L];
-            b = gEkrPairExpGain[EKR_POS_L];
-        } else {
-            a = gEkrPairExpPrevious[EKR_POS_R];
-            b = gEkrPairExpGain[EKR_POS_R];
-        }
-
-        c = a + b;
+        if (gEkrPairExpGain[EKR_POS_L] != 0)
+            c = gEkrPairExpPrevious[EKR_POS_L] + gEkrPairExpGain[EKR_POS_L];
+        else
+            c = gEkrPairExpPrevious[EKR_POS_R] + gEkrPairExpGain[EKR_POS_R];
         if (c >= 100)
             NewEkrLvlupFan();
     }
@@ -740,8 +733,7 @@ void ekrBattleLvupHanlder(struct ProcEkrBattle *proc)
     ClearBG1();
     EkrGauge_Setup44(0);
 
-    ret = GetBanimDragonStatusType();
-    switch (ret) {
+    switch (GetBanimDragonStatusType()) {
     case EKRDRGON_TYPE_DRACO_ZOMBIE:
     case EKRDRGON_TYPE_DEMON_KING:
         gLCDControlBuffer.bg0cnt.priority = 0;
@@ -759,15 +751,10 @@ void ekrBattleLvupHanlder(struct ProcEkrBattle *proc)
 
     SetWin0Box(0, 0, 0xF0, 0xA0);
 
-    if (gEkrPairExpGain[EKR_POS_L] != 0) {
-        a = gEkrPairExpPrevious[EKR_POS_L];
-        b = gEkrPairExpGain[EKR_POS_L];
-    } else {
-        a = gEkrPairExpPrevious[EKR_POS_R];
-        b = gEkrPairExpGain[EKR_POS_R];
-    }
-
-    c = a + b;
+    if (gEkrPairExpGain[EKR_POS_L] != 0)
+        c = gEkrPairExpPrevious[EKR_POS_L] + gEkrPairExpGain[EKR_POS_L];
+    else
+        c = gEkrPairExpPrevious[EKR_POS_R] + gEkrPairExpGain[EKR_POS_R];
     if (c >= 100)
         proc->proc_idleCb = (ProcFunc)ekrBattle_ExecEkrLvup;
     else
