@@ -500,8 +500,10 @@ struct GMapData
     /* 10 */ struct GMUnit unk10[8];
     /* 30 */ struct GMNode unk30[0x1C];
     /* A0 */ int unk_a0; // pad?
-    /* A4 */ s8 unk_a4[0x20]; // routes
-    /* C4 */ s8 unk_c4; // path count
+    // These are typically treated as one logical unit, but can't be pulled out
+    // into a separate struct because that messes up the struct padding.
+    /* A4 */ s8 openPaths[0x20];
+    /* C4 */ s8 openPathsLength;
     /* C5 */ u8 _pad[3];
     /* C8 */ u8 unk_c8; // entry node id?
     /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
