@@ -120,20 +120,11 @@ void OnMain_SioError(void) {
 
     FlushLCDControl();
 
-#if NONMATCHING
-
-    CpuFastFill(0, (void*)0x06000000, 0x20);
-    CpuFastFill(0, (void*)0x06008000, 0x20);
-
-#else // if !NONMATCHING
-
     {
-        register int s asm("r4") = 0;
+        u32 s = gLCDControlBuffer.mosaic & 0x10000; // any 16-bit variable for producing zero
         CpuFastFill(s, (void*)0x06000000, 0x20);
         CpuFastFill(s, (void*)0x06008000, 0x20);
     }
-
-#endif // NONMATCHING
 
     PutSioErrorMessage();
 
