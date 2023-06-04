@@ -1029,8 +1029,8 @@ void sub_80A849C() {
 }
 
 void sub_80A84D8() {
-    register u8 idx asm("r0");
-    register int color asm("r3");
+    u8 idx;
+    int tmp;
     int r, g, b;
 
     u8 gUnknown_08205D97[] = {
@@ -1040,13 +1040,13 @@ void sub_80A84D8() {
         0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
     };
 
+    tmp = GetGameClock() & 0x1F;
+    idx = gUnknown_08205D97[tmp];
+    tmp = idx + 0x10;
 
-    idx = gUnknown_08205D97[GetGameClock() & 0x1F];
-    color = idx + 0x10;
-
-    r = color;
-    g = color;
-    b = color;
+    r = tmp;
+    g = tmp;
+    b = tmp;
 
     gPaletteBuffer[(0x10) * 0x10 + 0xE] = (b << 10) + (g << 5) + r;
 
