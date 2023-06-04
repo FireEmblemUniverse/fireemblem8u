@@ -686,14 +686,22 @@ void Text_AppendNumberOr2Dashes(struct TextHandle *th, int n)
     }
 }
 
-#if NONMATCHING
 const char *Text_AppendChar(struct TextHandle *th, const char *b)
 {
     struct Glyph *r1 = NULL;
     char r3;
     char r2;
+#ifndef NONMATCHING
+    register struct Font **currentFont asm("r6"), **currentFontTmp asm("r0");
+#else
+    struct Font **currentFont, **currentFontTmp;
+#endif
+    u8 isAscii;
 
-    if (gCurrentFont->isAscii)
+    currentFontTmp = &gCurrentFont;
+    isAscii = (*currentFontTmp)->isAscii;
+    currentFont = currentFontTmp;
+    if (isAscii)
         return Text_AppendCharASCII(th, b);
 
     r3 = *b++;
@@ -701,7 +709,7 @@ const char *Text_AppendChar(struct TextHandle *th, const char *b)
 
     while (1)
     {
-        r1 = gCurrentFont->glyphs[r2 - 0x40];
+        r1 = (*currentFont)->glyphs[r2 - 0x40];
         goto _080041BE;
       _080041BC:
         r1 = r1->sjisNext;
@@ -710,12 +718,14 @@ const char *Text_AppendChar(struct TextHandle *th, const char *b)
         {
             r3 = 0x81;
             r2 = 0xA7;
+            currentFont = &gCurrentFont;
         }
         else
         {
             if (r1->sjisByte1 == r3)
             {
-                gCurrentFont->drawGlyph(th, r1);
+                ++currentFont; --currentFont;
+                (*currentFont)->drawGlyph(th, r1);
                 break;
             }
             goto _080041BC;
@@ -723,69 +733,6 @@ const char *Text_AppendChar(struct TextHandle *th, const char *b)
     }
     return b;
 }
-#else
-__attribute__((naked))
-const char *Text_AppendChar(struct TextHandle *th, const char *b)
-{
-    asm(".syntax unified\n\
-	push {r4, r5, r6, lr}\n\
-	adds r5, r0, #0\n\
-	adds r4, r1, #0\n\
-	ldr r0, _0800419C  @ gCurrentFont\n\
-	ldr r1, [r0]\n\
-	ldrb r1, [r1, #0x16]\n\
-	adds r6, r0, #0\n\
-	cmp r1, #0\n\
-	beq _080041A0\n\
-	adds r0, r5, #0\n\
-	adds r1, r4, #0\n\
-	bl Text_AppendCharASCII\n\
-	b _080041E2\n\
-	.align 2, 0\n\
-_0800419C: .4byte gCurrentFont\n\
-_080041A0:\n\
-	ldrb r3, [r4]\n\
-	adds r4, #1\n\
-	ldrb r2, [r4]\n\
-	adds r4, #1\n\
-_080041A8:\n\
-	ldr r0, [r6]\n\
-	ldr r1, [r0, #4]\n\
-	lsls r0, r2, #2\n\
-	adds r0, r0, r1\n\
-	ldr r1, _080041B8  @ 0xFFFFFF00\n\
-	adds r0, r0, r1\n\
-	ldr r1, [r0]\n\
-	b _080041BE\n\
-	.align 2, 0\n\
-_080041B8: .4byte 0xFFFFFF00\n\
-_080041BC:\n\
-	ldr r1, [r1]\n\
-_080041BE:\n\
-	cmp r1, #0\n\
-	bne _080041D0\n\
-	movs r3, #0x81\n\
-	movs r2, #0xa7\n\
-	ldr r6, _080041CC  @ gCurrentFont\n\
-	b _080041A8\n\
-	.align 2, 0\n\
-_080041CC: .4byte gCurrentFont\n\
-_080041D0:\n\
-	ldrb r0, [r1, #4]\n\
-	cmp r0, r3\n\
-	bne _080041BC\n\
-	ldr r0, [r6]\n\
-	ldr r2, [r0, #8]\n\
-	adds r0, r5, #0\n\
-	bl _call_via_r2\n\
-	adds r0, r4, #0\n\
-_080041E2:\n\
-	pop {r4, r5, r6}\n\
-	pop {r1}\n\
-	bx r1\n\
-    .syntax divided");
-}
-#endif
 
 void *GetVRAMPointerForTextMaybe(struct TextHandle *th)
 {
