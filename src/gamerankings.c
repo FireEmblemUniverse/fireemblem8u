@@ -448,12 +448,8 @@ void sub_80B62D8(void) {
 
 //! FE8U = 0x080B62DC
 int GetChapterFundsRank(void) {
-    struct ChapterStats* ent;
-#if NONMATCHING
     int goldInChapter;
-#else // if !NONMATCHING
-    register int goldInChapter asm("r5"); // :(
-#endif // NONMATCHING
+    const struct ChapterStats* ent;
     int goldForFundsRank;
 
     int totalGold = GetPartyTotalGoldValue();
@@ -467,15 +463,13 @@ int GetChapterFundsRank(void) {
 
     goldForFundsRank = gChapterDataTable[ent->chapter_index].goldForFundsRankInEliwoodStory[IsDifficultMode()];
 
-    goldInChapter = (goldInChapter) * 100;
-
-    if (goldInChapter >= (goldForFundsRank * 80)) {
+    if (goldInChapter * 100 >= goldForFundsRank * 80) {
         return 4;
-    } else if (goldInChapter >= (goldForFundsRank * 60)) {
+    } else if (goldInChapter * 100 >= goldForFundsRank * 60) {
         return 3;
-    } else if (goldInChapter >= (goldForFundsRank * 40)) {
+    } else if (goldInChapter * 100 >= goldForFundsRank * 40) {
         return 2;
-    } else if (goldInChapter >= (goldForFundsRank * 20)) {
+    } else if (goldInChapter * 100 >= goldForFundsRank * 20) {
         return 1;
     } else {
         return 0;
