@@ -1221,28 +1221,20 @@ void sub_8027068(int frameId, u8* dst) {
 void sub_80270DC(int frameId, u8* dst) {
     int a;
     int i;
-
     int frame = GetGameClock() % 72;
-
-    #if NONMATCHING
-
     u8* src = NULL;
 
-    #else // if !NONMATCHING
-
-    register u8* src asm("r5") = NULL;
-
-    #endif // NONMATCHING
-
-    if (frame >= 68) {
-        src = gSMSGfxBuffer[1];
-    } else if (frame >= 36) {
-        src = gSMSGfxBuffer[2];
-    } else if (frame >= 32) {
-        src = gSMSGfxBuffer[1];
-    } else if (frame >= 0) {
-        src = gSMSGfxBuffer[0];
-    }
+    do {
+        if (frame >= 68) {
+            src = gSMSGfxBuffer[1];
+        } else if (frame >= 36) {
+            src = gSMSGfxBuffer[2];
+        } else if (frame >= 32) {
+            src = gSMSGfxBuffer[1];
+        } else if (frame >= 0) {
+            src = gSMSGfxBuffer[0];
+        }
+    } while (0);
 
     if (src == NULL) {
         return;
