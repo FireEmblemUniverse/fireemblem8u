@@ -851,124 +851,32 @@ void NewEfxSRankWeaponEffectSCR(void)
     NewEfxSRankWeaponEffectSCR2(proc);
 }
 
-#if NONMATCHING
-void EfxSRankWeaponEffectSCRMain(struct ProcEfx *proc)
+ void EfxSRankWeaponEffectSCRMain(struct ProcEfx *proc)
 {
     u32 i;
-    u16 *dst = gUnknown_0201FDB8 != 0
-        ? gUnknown_0201FDC4
-        : gUnknown_0201FF04;
+    u16 *dst = !gUnknown_0201FDB8
+        ? gUnknown_0201FF04
+        : gUnknown_0201FDC4;
 
-    for (i = 0; i < 0x9F; i++) {
-        s16 val;
-        u32 ref;
+    for (i = 0; i < 160; dst++, i++) {
+        if (i < 120) {
+            s16 ref = gUnknown_085D9154[i] * proc->unk44 >> 0xC;
 
-        if (i < 0x77) {
-            ref = (gUnknown_085D9154[i] * proc->unk44 * 0x10) << 0x10;
-            val = ref >> 0x10;
-    
-            if (val == 0) {
-                dst[i] = ref;
-                continue;
-            }
-    
-            if (i < 0x3B) {
-                if (val < (i - 0x88)) {
-                    dst[i] = ref;
+            if (ref) {
+                if (i < 60) {
+                    if (ref < i - 0x88)
+                        ref = i + -0x88; // required for matching
                 } else {
-                    u16 tmp = i + 0xFF78;
-                    dst[i] = tmp;
-                }
-            } else {
-                if (val < 0x88) {
-                    dst[i] = ref;
-                } else {
-                    u32 tmp = (0x880000 + 0xFFFF0000 * i) << 0x10;
-                    dst[i] = tmp;
+                    if (ref > 0x88 - i)
+                        ref = 0x88 - i;
                 }
             }
+            *dst = ref;
         } else {
-            dst[i] = 0;
+            *dst = 0;
         }
     }
 }
-#else
-
-__attribute__((naked))
-void EfxSRankWeaponEffectSCRMain(struct ProcEfx *proc)
-{
-    asm(".syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov ip, r0\n\
-        ldr r0, _0806DAF8  @ gUnknown_0201FDB8\n\
-        ldr r0, [r0]\n\
-        ldr r4, _0806DAFC  @ gUnknown_0201FDC4\n\
-        cmp r0, #0\n\
-        bne _0806DAC0\n\
-        ldr r4, _0806DB00  @ gUnknown_0201FF04\n\
-    _0806DAC0:\n\
-        movs r3, #0\n\
-        movs r7, #0x88\n\
-        lsls r7, r7, #0x10	/* 8800000 */\n\
-        movs r6, #0x88\n\
-        ldr r5, _0806DB04  @ gUnknown_085D9154\n\
-    _0806DACA:\n\
-        cmp r3, #0x77\n\
-        bhi _0806DB16\n\
-        movs r0, #0\n\
-        ldrsh r1, [r5, r0]\n\
-        mov r2, ip\n\
-        ldr r0, [r2, #0x44]\n\
-        muls r0, r1, r0\n\
-        lsls r0, r0, #4\n\
-        lsrs r2, r0, #0x10\n\
-        asrs r1, r0, #0x10\n\
-        cmp r1, #0\n\
-        beq _0806DB12\n\
-        cmp r3, #0x3b\n\
-        bhi _0806DB0C\n\
-        adds r0, r3, #0\n\
-        subs r0, #0x88\n\
-        cmp r1, r0\n\
-        bcs _0806DB12\n\
-        ldr r1, _0806DB08  @ 0x0000FF78\n\
-        adds r0, r3, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r2, r0, #0x10\n\
-        b _0806DB12\n\
-        .align 2, 0\n\
-    _0806DAF8: .4byte gUnknown_0201FDB8\n\
-    _0806DAFC: .4byte gUnknown_0201FDC4\n\
-    _0806DB00: .4byte gUnknown_0201FF04\n\
-    _0806DB04: .4byte gUnknown_085D9154\n\
-    _0806DB08: .4byte 0x0000FF78\n\
-    _0806DB0C:\n\
-        cmp r1, r6\n\
-        bls _0806DB12\n\
-        lsrs r2, r7, #0x10\n\
-    _0806DB12:\n\
-        strh r2, [r4]\n\
-        b _0806DB1A\n\
-    _0806DB16:\n\
-        movs r0, #0\n\
-        strh r0, [r4]\n\
-    _0806DB1A:\n\
-        adds r4, #2\n\
-        ldr r2, _0806DB30  @ 0xFFFF0000\n\
-        adds r7, r7, r2\n\
-        subs r6, #1\n\
-        adds r5, #2\n\
-        adds r3, #1\n\
-        cmp r3, #0x9f\n\
-        bls _0806DACA\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0806DB30: .4byte 0xFFFF0000\n\
-        .syntax divided");
-}
-#endif
 
 void NewEfxSRankWeaponEffectSCR2(struct ProcEfx *seff_scr)
 {
