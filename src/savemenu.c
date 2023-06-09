@@ -371,7 +371,6 @@ void sub_80A8AF0(void) {
                     if (gPlaySt.unk4A_2 != 2) {
                         if (!(gBmSt.gameStateBits & 0x10)) {
                             gPlaySt.chapterIndex = sub_80BD224(&gGMData);
-                            asm("");
                         }
                     }
                 }
