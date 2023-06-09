@@ -215,7 +215,7 @@ SECTIONS
         asm/code_prepscreen_80977AC.o(.text);
         asm/prep_itemscreen.o(.text);
         src/prep_unitselect.o(.text);
-        asm/prep_itemtrade.o(.text);
+        src/prep_itemtrade.o(.text);
         src/prep_itemuse.o(.text);
         src/prep_itemusemind.o(.text);
         asm/prep_itemsupply.o(.text);
