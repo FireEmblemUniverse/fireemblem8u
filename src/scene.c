@@ -1112,7 +1112,9 @@ int TalkInterpret(ProcPtr proc) {
                 sTalkState->printColor,
                 proc
             );
+#ifndef NONMATCHING
             asm("");
+#endif
 
             sTalkState->str++;
             return 3;
@@ -1127,7 +1129,9 @@ int TalkInterpret(ProcPtr proc) {
                 sTalkState->printColor,
                 proc
             );
+#ifndef NONMATCHING
             asm("");
+#endif
 
             sTalkState->str++;
             return 3;

@@ -15,7 +15,11 @@ struct Struct8012F98 {
 int Interpolate(int method, int lo, int hi, int x, int x_max)
 {
     int deno, dx, base, ret;
+#ifndef NONMATCHING
     register int _deno asm("r0");
+#else
+    int _deno;
+#endif
 
     if (0 == x_max)
         return hi;
@@ -292,7 +296,11 @@ void PutDigits(u16 *tm, const u8 *src, int tileref, int len)
 
 void sub_8013168(u16 *dst, u8* src, int a3, int a4, int a5)
 {
+#ifndef NONMATCHING
     register u16 *_dst asm("r4") = dst;
+#else
+    u16 *_dst = dst;
+#endif
 
     if (a4 > 0) {
         do {
@@ -373,6 +381,7 @@ void sub_80131F0(s16 *buf, int x1, int y1, int x2, int y2)
     }
 
     for (; y1 < y2; y1++) {
+#ifndef NONMATCHING
         register int val asm("r3") = val2 >> 0x10;
         LIMIT_AREA(val, 0, 240);
 
@@ -382,6 +391,17 @@ void sub_80131F0(s16 *buf, int x1, int y1, int x2, int y2)
         if (buf[2 * y1 + 1] < val)
             buf[2 * y1 + 1] = val;
         asm(""::"r"(buf + 2 * y1));
+#else
+        int val = val2 >> 0x10;
+        LIMIT_AREA(val, 0, 240);
+
+        if (buf[2 * y1 + 0] > val)
+            buf[2 * y1 + 0] = val;
+
+        if (buf[2 * y1 + 1] < val)
+            buf[2 * y1 + 1] = val;
+#endif
+
         val2 += val1;
     }
 }
