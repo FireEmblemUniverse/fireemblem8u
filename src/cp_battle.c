@@ -699,17 +699,10 @@ int AiGetTargetClassCombatScoreComponent(void) {
 
 //! FE8U = 0x0803E09C
 int AiGetTurnCombatScoreComponent(void) {
-    #if NONMATCHING
+    int ret = gPlaySt.chapterTurnNumber;
 
-    int turn = gPlaySt.chapterTurnNumber;
-
-    #else // if !NONMATCHING
-
-    register int turn asm("r0") = gPlaySt.chapterTurnNumber;
-
-    #endif // NONMATCHING
-
-    return turn * sCombatScoreCoefficients->coeffTurnNumber;
+    ret *= sCombatScoreCoefficients->coeffTurnNumber;
+    return ret;
 }
 
 //! FE8U = 0x0803E0B4
