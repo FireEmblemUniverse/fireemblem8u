@@ -810,7 +810,6 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205BFC
 // extern ??? gUnknown_08205C14
 // extern ??? Pals_PrepWindow
-// extern ??? gUnknown_08205C44
 // extern ??? gUnknown_08205C64
 extern const struct FaceVramEntry gFaceConfig_PrepItemUseScreen[4];
 // extern ??? gUnknown_08205C90
