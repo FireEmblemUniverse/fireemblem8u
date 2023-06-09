@@ -571,399 +571,86 @@ void ArchivePalette(int index)
         dst[index].from_colors[i] = *src++;
 }
 
-#if NONMATCHING
-
 void WriteFadedPaletteFromArchive(int a1, int a2, int a3, u32 mask)
 {
     int i, j;
-    u32 color_mask;
-    u16 *buf;
     struct PalFadeSt *st;
+    u16 *buffer = gPaletteBuffer;
 
     SetPalFadeStClkEnd1(a1);
     SetPalFadeStClkEnd2(a2);
-    SetPalFadeStClkEnd1(a3);
+    SetPalFadeStClkEnd3(a3);
 
     st = GetPalFadeSt();
 
     if (a1 > 0x100) {
-        a1 = a1 - 0x100;
-
-        for (i = 0; i < 0x20; i++) {
-            if ((1 << i) & mask) {
-                for (j = 0; j < 0x10; j++)
-                    gPaletteBuffer[0x10 * i + j] = 0x1F & RGB(
-                        (RED_VALUE(st[i].from_colors[j]) + ((0x1F - RED_VALUE(st[i].from_colors[j])) * a1 >> 8)), 0, 0);
-            }
-        }
-    } else {
-        for (i = 0; i < 0x20; i++) {
-            if ((1 << i) & mask) {
-                for (j = 0; j < 0x10; j++)
-                    gPaletteBuffer[0x10 * i + j] = 0x1F & RGB(
-                        (RED_VALUE(st[i].from_colors[j]) * a1 >> 8), 0, 0);
-            }
-        }
-    }
-
-    if (a2 > 0x100) {
-        a2 = a2 - 0x100;
-
-        for (i = 0; i < 0x20; i++) {
-            if ((1 << i) & mask) {
-                for (j = 0; j < 0x10; j++)
-                    gPaletteBuffer[0x10 * i + j] |= 0x3E0 & RGB(
-                        0, (RED_VALUE(st[i].from_colors[j]) + ((0x1F - RED_VALUE(st[i].from_colors[j])) * a2 >> 8)), 0);
-            }
-        }
-    } else {
-        for (i = 0; i < 0x20; i++) {
-            if ((1 << i) & mask) {
-                for (j = 0; j < 0x10; j++)
-                    gPaletteBuffer[0x10 * i + j] |= 0x3E0 & RGB(
-                        0, (RED_VALUE(st[i].from_colors[j]) * a2 >> 8), 0);
-            }
-        }
-    }
-
-    if (a3 > 0x100) {
-        a3 = a3 - 0x100;
+        a1 -= 0x100;
 
         for (i = 0; i < 0x20; i++) {
             if ((1 << i) & mask) {
                 for (j = 0; j < 0x10; j++) {
-                    gPaletteBuffer[0x10 * i + j] |= 0x7C00 & RGB(
-                        0, 0, RED_VALUE(RED_VALUE(st[i].from_colors[j]) + ((0x1F - RED_VALUE(st[i].from_colors[j])) * a3 >> 8)));
-            
+                    u8 r __attribute__((unused)) = st[i].from_colors[j] & 0x1F;
+                    buffer[0x10 * i + j] = ((st[i].from_colors[j] & 0x1F) + (((0x1F - (st[i].from_colors[j] & 0x1F)) * a1) >> 8)) & 0x1F;
                 }
             }
         }
     } else {
         for (i = 0; i < 0x20; i++) {
             if ((1 << i) & mask) {
-                for (j = 0; j < 0x10; j++)
-                    gPaletteBuffer[0x10 * i + j] |= 0x7C00 & RGB(
-                        0, 0, (RED_VALUE(st[i].from_colors[j]) * a3 >> 8));
+                for (j = 0; j < 0x10; j++) {
+                    u8 r __attribute__((unused)) = st[i].from_colors[j] & 0x1F;
+                    buffer[0x10 * i + j] = (((st[i].from_colors[j] & 0x1F) * a1) >> 8) & 0x1F;
+                }
+            }
+        }
+    }
+
+    if (a2 > 0x100) {
+        a2 -= 0x100;
+
+        for (i = 0; i < 0x20; i++) {
+            if ((1 << i) & mask) {
+                for (j = 0; j < 0x10; j++) {
+                    u16 g = st[i].from_colors[j] & 0x3E0;
+                    buffer[0x10 * i + j] |= 0x3E0 & (g + ((0x3E0 - g) * a2 >> 8));
+                }
+            }
+        }
+    } else {
+        for (i = 0; i < 0x20; i++) {
+            if ((1 << i) & mask) {
+                for (j = 0; j < 0x10; j++) {
+                    u16 g = st[i].from_colors[j] & 0x3E0;
+                    buffer[0x10 * i + j] |= 0x3E0 & (g * a2 >> 8);
+                }
+            }
+        }
+    }
+
+    if (a3 > 0x100) {
+        a3 -= 0x100;
+
+        for (i = 0; i < 0x20; i++) {
+            if ((1 << i) & mask) {
+                for (j = 0; j < 0x10; j++) {
+                    u16 b = st[i].from_colors[j] & 0x7C00;
+                    buffer[0x10 * i + j] |= 0x7C00 & (b + ((0x7C00 - b) * a3 >> 8));
+                }
+            }
+        }
+    } else {
+        for (i = 0; i < 0x20; i++) {
+            if ((1 << i) & mask) {
+                for (j = 0; j < 0x10; j++) {
+                    u16 b = st[i].from_colors[j] & 0x7C00;
+                    buffer[0x10 * i + j] |= 0x7C00 & (b * a3 >> 8);
+                }
             }
         }
     }
 
     EnablePaletteSync();
 }
-
-#else
-
-__attribute__((naked))
-void WriteFadedPaletteFromArchive(int red, int green, int blue, u32 mask)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #4\n\
-        adds r7, r0, #0\n\
-        mov r8, r1\n\
-        str r2, [sp]\n\
-        mov sl, r3\n\
-        bl SetPalFadeStClkEnd1\n\
-        mov r0, r8\n\
-        bl SetPalFadeStClkEnd2\n\
-        ldr r0, [sp]\n\
-        bl SetPalFadeStClkEnd3\n\
-        bl GetPalFadeSt\n\
-        mov r9, r0\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        cmp r7, r0\n\
-        ble _080135D4\n\
-        ldr r0, _080135CC  @ 0xFFFFFF00\n\
-        adds r7, r7, r0\n\
-        movs r5, #0\n\
-        mov ip, r5\n\
-    _0801358A:\n\
-        movs r0, #1\n\
-        lsls r0, r5\n\
-        mov r1, sl\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080135C0\n\
-        movs r4, #0\n\
-        movs r6, #0x1f\n\
-        mov r3, ip\n\
-        add r3, r9\n\
-        lsls r0, r5, #5\n\
-        ldr r1, _080135D0  @ gPaletteBuffer\n\
-        adds r2, r0, r1\n\
-    _080135A4:\n\
-        ldrh r0, [r3]\n\
-        adds r1, r6, #0\n\
-        ands r1, r0\n\
-        subs r0, r6, r1\n\
-        muls r0, r7, r0\n\
-        asrs r0, r0, #8\n\
-        adds r1, r1, r0\n\
-        ands r1, r6\n\
-        strh r1, [r2]\n\
-        adds r3, #2\n\
-        adds r2, #2\n\
-        adds r4, #1\n\
-        cmp r4, #0xf\n\
-        ble _080135A4\n\
-    _080135C0:\n\
-        movs r0, #0x30\n\
-        add ip, r0\n\
-        adds r5, #1\n\
-        cmp r5, #0x1f\n\
-        ble _0801358A\n\
-        b _08013614\n\
-        .align 2, 0\n\
-    _080135CC: .4byte 0xFFFFFF00\n\
-    _080135D0: .4byte gPaletteBuffer\n\
-    _080135D4:\n\
-        movs r5, #0\n\
-        mov ip, r5\n\
-    _080135D8:\n\
-        movs r0, #1\n\
-        lsls r0, r5\n\
-        mov r1, sl\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _0801360A\n\
-        movs r4, #0\n\
-        movs r6, #0x1f\n\
-        mov r3, ip\n\
-        add r3, r9\n\
-        lsls r0, r5, #5\n\
-        ldr r1, _08013670  @ gPaletteBuffer\n\
-        adds r2, r0, r1\n\
-    _080135F2:\n\
-        ldrh r1, [r3]\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        muls r0, r7, r0\n\
-        asrs r0, r0, #8\n\
-        ands r0, r6\n\
-        strh r0, [r2]\n\
-        adds r3, #2\n\
-        adds r2, #2\n\
-        adds r4, #1\n\
-        cmp r4, #0xf\n\
-        ble _080135F2\n\
-    _0801360A:\n\
-        movs r0, #0x30\n\
-        add ip, r0\n\
-        adds r5, #1\n\
-        cmp r5, #0x1f\n\
-        ble _080135D8\n\
-    _08013614:\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        cmp r8, r0\n\
-        ble _08013678\n\
-        ldr r1, _08013674  @ 0xFFFFFF00\n\
-        add r8, r1\n\
-        movs r5, #0\n\
-        mov ip, r5\n\
-    _08013624:\n\
-        movs r0, #1\n\
-        lsls r0, r5\n\
-        mov r7, sl\n\
-        ands r0, r7\n\
-        cmp r0, #0\n\
-        beq _08013664\n\
-        movs r4, #0\n\
-        movs r6, #0xf8\n\
-        lsls r6, r6, #2\n\
-        mov r3, ip\n\
-        add r3, r9\n\
-        lsls r0, r5, #5\n\
-        ldr r1, _08013670  @ gPaletteBuffer\n\
-        adds r2, r0, r1\n\
-    _08013640:\n\
-        ldrh r1, [r3]\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        subs r1, r6, r0\n\
-        mov r7, r8\n\
-        muls r7, r1, r7\n\
-        adds r1, r7, #0\n\
-        asrs r1, r1, #8\n\
-        adds r0, r0, r1\n\
-        ands r0, r6\n\
-        ldrh r1, [r2]\n\
-        orrs r0, r1\n\
-        strh r0, [r2]\n\
-        adds r3, #2\n\
-        adds r2, #2\n\
-        adds r4, #1\n\
-        cmp r4, #0xf\n\
-        ble _08013640\n\
-    _08013664:\n\
-        movs r0, #0x30\n\
-        add ip, r0\n\
-        adds r5, #1\n\
-        cmp r5, #0x1f\n\
-        ble _08013624\n\
-        b _080136C0\n\
-        .align 2, 0\n\
-    _08013670: .4byte gPaletteBuffer\n\
-    _08013674: .4byte 0xFFFFFF00\n\
-    _08013678:\n\
-        movs r5, #0\n\
-        movs r7, #0\n\
-    _0801367C:\n\
-        movs r0, #1\n\
-        lsls r0, r5\n\
-        mov r1, sl\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080136B8\n\
-        movs r4, #0\n\
-        movs r6, #0xf8\n\
-        lsls r6, r6, #2\n\
-        mov r0, r9\n\
-        adds r3, r7, r0\n\
-        lsls r0, r5, #5\n\
-        ldr r1, _08013720  @ gPaletteBuffer\n\
-        adds r2, r0, r1\n\
-    _08013698:\n\
-        ldrh r1, [r3]\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        mov r1, r8\n\
-        muls r1, r0, r1\n\
-        adds r0, r1, #0\n\
-        asrs r0, r0, #8\n\
-        ands r0, r6\n\
-        ldrh r1, [r2]\n\
-        orrs r0, r1\n\
-        strh r0, [r2]\n\
-        adds r3, #2\n\
-        adds r2, #2\n\
-        adds r4, #1\n\
-        cmp r4, #0xf\n\
-        ble _08013698\n\
-    _080136B8:\n\
-        adds r7, #0x30\n\
-        adds r5, #1\n\
-        cmp r5, #0x1f\n\
-        ble _0801367C\n\
-    _080136C0:\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        ldr r5, [sp]\n\
-        cmp r5, r0\n\
-        ble _08013728\n\
-        ldr r7, _08013724  @ 0xFFFFFF00\n\
-        adds r5, r5, r7\n\
-        str r5, [sp]\n\
-        movs r5, #0\n\
-    _080136D2:\n\
-        movs r0, #1\n\
-        lsls r0, r5\n\
-        mov r1, sl\n\
-        ands r0, r1\n\
-        adds r7, r5, #1\n\
-        cmp r0, #0\n\
-        beq _08013718\n\
-        movs r4, #0\n\
-        lsls r0, r5, #1\n\
-        adds r0, r0, r5\n\
-        lsls r0, r0, #4\n\
-        movs r6, #0xf8\n\
-        lsls r6, r6, #7\n\
-        mov r1, r9\n\
-        adds r3, r0, r1\n\
-        lsls r0, r5, #5\n\
-        ldr r5, _08013720  @ gPaletteBuffer\n\
-        adds r2, r0, r5\n\
-    _080136F6:\n\
-        ldrh r1, [r3]\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        subs r1, r6, r0\n\
-        ldr r5, [sp]\n\
-        muls r1, r5, r1\n\
-        asrs r1, r1, #8\n\
-        adds r0, r0, r1\n\
-        ands r0, r6\n\
-        ldrh r1, [r2]\n\
-        orrs r0, r1\n\
-        strh r0, [r2]\n\
-        adds r3, #2\n\
-        adds r2, #2\n\
-        adds r4, #1\n\
-        cmp r4, #0xf\n\
-        ble _080136F6\n\
-    _08013718:\n\
-        adds r5, r7, #0\n\
-        cmp r5, #0x1f\n\
-        ble _080136D2\n\
-        b _08013772\n\
-        .align 2, 0\n\
-    _08013720: .4byte gPaletteBuffer\n\
-    _08013724: .4byte 0xFFFFFF00\n\
-    _08013728:\n\
-        movs r5, #0\n\
-    _0801372A:\n\
-        movs r0, #1\n\
-        lsls r0, r5\n\
-        mov r7, sl\n\
-        ands r0, r7\n\
-        adds r7, r5, #1\n\
-        cmp r0, #0\n\
-        beq _0801376C\n\
-        movs r4, #0\n\
-        lsls r0, r5, #1\n\
-        adds r0, r0, r5\n\
-        lsls r0, r0, #4\n\
-        movs r6, #0xf8\n\
-        lsls r6, r6, #7\n\
-        mov r1, r9\n\
-        adds r3, r0, r1\n\
-        lsls r0, r5, #5\n\
-        ldr r5, _08013788  @ gPaletteBuffer\n\
-        adds r2, r0, r5\n\
-    _0801374E:\n\
-        ldrh r1, [r3]\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        ldr r1, [sp]\n\
-        muls r0, r1, r0\n\
-        asrs r0, r0, #8\n\
-        ands r0, r6\n\
-        ldrh r1, [r2]\n\
-        orrs r0, r1\n\
-        strh r0, [r2]\n\
-        adds r3, #2\n\
-        adds r2, #2\n\
-        adds r4, #1\n\
-        cmp r4, #0xf\n\
-        ble _0801374E\n\
-    _0801376C:\n\
-        adds r5, r7, #0\n\
-        cmp r5, #0x1f\n\
-        ble _0801372A\n\
-    _08013772:\n\
-        bl EnablePaletteSync\n\
-        add sp, #4\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08013788: .4byte gPaletteBuffer\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 struct Proc8599FD4 {
     PROC_HEADER;
