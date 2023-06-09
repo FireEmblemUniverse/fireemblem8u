@@ -1573,75 +1573,30 @@ int sub_80B5534(int a, int b, int c, int d) {
     return 0;
 }
 
-#if NONMATCHING
-
 int sub_80B557C(int a, int b, int c) {
+    int r1, r3 = a - b;
 
-    if (a - b >= 0) {
-        if (a - b < c) {
+    if (r3 >= 0) {
+        if (r3 < c)
             return b;
-        }
-
+        r3 = b - a;
     } else {
-        if (b - a < c) {
+        r3 = b - a;
+        if (r3 < c)
             return b;
-        }
     }
 
-    if (b - a <= 0) {
-        return b - a >= 0
-            ? a
-            : a - c;
+    if (r3 <= 0) {
+        r1 = a;
+        if (r3 < 0)
+            r1 = a - c;
     } else {
-        b = a + c;
+        r1 = a + c;
     }
 
-    return b;
+    a = r1;
+    return a;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-int sub_80B557C(int a, int b, int c) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {lr}\n\
-        subs r3, r0, r1\n\
-        cmp r3, #0\n\
-        blt _080B558C\n\
-        cmp r3, r2\n\
-        blt _080B5592\n\
-        subs r3, r1, r0\n\
-        b _080B5596\n\
-    _080B558C:\n\
-        subs r3, r1, r0\n\
-        cmp r3, r2\n\
-        bge _080B5596\n\
-    _080B5592:\n\
-        adds r0, r1, #0\n\
-        b _080B55A8\n\
-    _080B5596:\n\
-        cmp r3, #0\n\
-        bgt _080B55A4\n\
-        adds r1, r0, #0\n\
-        cmp r3, #0\n\
-        bge _080B55A6\n\
-        subs r1, r0, r2\n\
-        b _080B55A6\n\
-    _080B55A4:\n\
-        adds r1, r0, r2\n\
-    _080B55A6:\n\
-        adds r0, r1, #0\n\
-    _080B55A8:\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-
-}
-
-#endif
 
 void sub_80B55AC(u16 a, u16 b, u16 c, u16 d, int e, ShopFunc func, struct BmShopProc* proc) {
 
