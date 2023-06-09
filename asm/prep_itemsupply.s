@@ -1569,7 +1569,7 @@ sub_809DEFC: @ 0x0809DEFC
 	bl sub_809D300
 	ldr r0, _0809DF94  @ gUnknown_02022EEC
 	ldr r1, [r4, #0x2c]
-	bl sub_809B830
+	bl DrawPrepScreenItemIcons
 	ldrb r0, [r5]
 	lsls r0, r0, #1
 	adds r7, r4, #0
@@ -1984,7 +1984,7 @@ sub_809E218: @ 0x0809E218
 	bl sub_809D418
 	ldr r0, _0809E2B4  @ gUnknown_02022EEC
 	ldr r1, [r4, #0x2c]
-	bl sub_809B830
+	bl DrawPrepScreenItemIcons
 	movs r0, #5
 	bl BG_EnableSyncByMask
 	cmp r7, #0

@@ -19,7 +19,3 @@ Pals_PrepWindow:  @ 0x08205C34
 .4byte Img_PrepPopupWindow + 0x94
 .4byte Img_PrepPopupWindow + 0xb4
 .4byte Img_PrepPopupWindow + 0xd4
-
-	.global gUnknown_08205C44
-gUnknown_08205C44:  @ 0x08205C44
-	.incbin "baserom.gba", 0x205C44, 0x20

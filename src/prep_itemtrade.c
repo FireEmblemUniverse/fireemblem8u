@@ -28,7 +28,7 @@ struct PrepMenuTradeProc {
 extern struct TextHandle gUnknown_02013510[];
 
 //! FE8U = 0x0809B538
-void sub_809B538(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSlotB) {
+void PrepItemTrade_ApplyItemSwap(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSlotB) {
     u16 itemTmp = unitA->items[itemSlotA];
     unitA->items[itemSlotA] = unitB->items[itemSlotB];
     unitB->items[itemSlotB] = itemTmp;
@@ -40,7 +40,7 @@ void sub_809B538(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int item
 }
 
 //! FE8U = 0x0809B564
-s8 sub_809B564(struct PrepMenuTradeProc* proc) {
+s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc* proc) {
     if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT) {
         int itemCount;
 
@@ -189,7 +189,7 @@ void DrawPrepScreenItems(u16* tm, struct TextHandle* th, struct Unit* unit, u8 c
 }
 
 //! FE8U = 0x0809B830
-void sub_809B830(u16* tm, struct Unit* unit) {
+void DrawPrepScreenItemIcons(u16* tm, struct Unit* unit) {
     int i;
 
     int itemCount = GetUnitItemCount(unit);
@@ -201,20 +201,22 @@ void sub_809B830(u16* tm, struct Unit* unit) {
     return;
 }
 
-extern struct FaceVramEntry gUnknown_08205C44[];
-
 //! FE8U = 0x0809B86C
-void sub_809B86C(struct PrepMenuTradeProc* proc) {
+void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
     const char* str;
     int i;
 
-    struct FaceVramEntry local[4];
-    memcpy(local, gUnknown_08205C44, 0x20);
+    struct FaceVramEntry faceConfig[4] = {
+        { 0x5800, 6 },
+        { 0x6800, 7 },
+        { 0x0000, 0 },
+        { 0x0000, 0 }
+    };
 
     // TODO: Seems to be necessary to match - there is a "ldrh" here...
     SetupBackgrounds((void*)(u32)*gBgConfig_ItemUseScreen);
 
-    SetupFaceGfxData(local);
+    SetupFaceGfxData(faceConfig);
 
     gLCDControlBuffer.bg0cnt.priority = 1;
     gLCDControlBuffer.bg1cnt.priority = 2;
@@ -302,7 +304,7 @@ void sub_809B86C(struct PrepMenuTradeProc* proc) {
 }
 
 //! FE8U = 0x0809BB34
-void sub_809BB34(struct PrepMenuTradeProc* proc) {
+void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
     int item;
 
     if (proc->helpBoxItemSlot != 0xff) {
@@ -331,7 +333,7 @@ void sub_809BB34(struct PrepMenuTradeProc* proc) {
                     return;
                 }
 
-                sub_809B538(
+                PrepItemTrade_ApplyItemSwap(
                     proc->units[proc->selectedItemSlot >> 3],
                     proc->selectedItemSlot & 7,
                     proc->units[proc->cursorItemSlot >> 3],
@@ -393,7 +395,7 @@ void sub_809BB34(struct PrepMenuTradeProc* proc) {
         }
     }
 
-    if (sub_809B564(proc) == 0) {
+    if (PrepItemTrade_DpadKeyHandler(proc) == 0) {
         return;
     }
 
@@ -416,12 +418,30 @@ void sub_809BB34(struct PrepMenuTradeProc* proc) {
 }
 
 //! FE8U = 0x0809BE24
-void sub_809BE24(void) {
+void PrepItemTrade_OnEnd(void) {
     EndBG3Slider_();
     EndFaceById(0);
     EndFaceById(1);
     return;
 }
+
+struct ProcCmd CONST_DATA ProcScr_PrepItemTradeScreen[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(PrepItemTrade_Init),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_REPEAT(PrepItemTrade_Loop_MainKeyHandler),
+
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(PrepItemTrade_OnEnd),
+
+    PROC_END,
+};
 
 //! FE8U = 0x0809BE3C
 void StartPrepItemTradeScreenProc(struct Unit* unitA, struct Unit* unitB, ProcPtr parent) {
