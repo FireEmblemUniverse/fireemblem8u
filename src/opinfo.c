@@ -829,26 +829,25 @@ void ClassIntroLetter_Init(struct OpInfoViewProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
 void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc* proc) {
+    int timer = proc->timer, a;
+#ifndef NONMATCHING
+    register int timer2 asm("r1") = timer;
+#else
+    int timer2 = timer;
+#endif
 
-    int c;
-    int a = ((DarknessCoeff(proc->timer, 4)) * 2);
-    u8 r5 = proc->charIndex;
-
-    int r2 = proc->unk_2e;
-    r2 -= a;
-
-    c = 0x18;
+    if (timer2) { ++timer2; --timer2; }
+    timer2 >>= 4;
+    a = (0x10 - timer2) * 2;
 
     sub_80B2A14(
-        r5,
-        r2,
-        c,
-        proc->timer,
+        proc->charIndex,
+        proc->unk_2e - a,
+        0x18,
+        timer,
         0x100,
-        DarknessCoeff(proc->timer, 4)
+        0x10 - ({proc->timer + 0;}) / 16
     );
 
     if ((proc->timer += 0x10) == 0x100) {
@@ -859,65 +858,6 @@ void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc* proc) {
     return;
 }
 
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc* proc) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        sub sp, #8\n\
-        adds r4, r0, #0\n\
-        ldrh r3, [r4, #0x2A]\n\
-        adds r1, r3, #0\n\
-        asrs r1, r1, #4\n\
-        movs r0, #0x10\n\
-        subs r0, r0, r1\n\
-        lsls r0, r0, #1\n\
-        adds r1, r4, #0\n\
-        adds r1, #0x2C\n\
-        ldrb r5, [r1]\n\
-        movs r2, #0x2E\n\
-        ldrsh r1, [r4, r2]\n\
-        subs r2, r1, r0\n\
-        movs r6, #0x80\n\
-        lsls r6, r6, #1\n\
-        str r6, [sp]\n\
-        ldrh r0, [r4, #0x2A]\n\
-        asrs r0, r0, #4\n\
-        movs r1, #0x10\n\
-        subs r1, r1, r0\n\
-        lsls r1, r1, #0x18\n\
-        lsrs r1, r1, #0x18\n\
-        str r1, [sp, #4]\n\
-        adds r0, r5, #0\n\
-        adds r1, r2, #0\n\
-        movs r2, #0x18\n\
-        bl sub_80B2A14\n\
-        ldrh r0, [r4, #0x2A]\n\
-        adds r0, #0x10\n\
-        strh r0, [r4, #0x2A]\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        cmp r0, r6\n\
-        bne _080B2FC8\n\
-        movs r0, #0\n\
-        strh r0, [r4, #0x2A]\n\
-        adds r0, r4, #0\n\
-        bl Proc_Break\n\
-    _080B2FC8:\n\
-        add sp, #8\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-
-}
-
-#endif // NONMATCHING
-
 void ClassIntroLetter_LoopDisplay(struct OpInfoViewProc* proc) {
 
     sub_80B2A14(proc->charIndex, proc->unk_2e, 0x18, 0x100, 0x100, 0);
@@ -927,90 +867,29 @@ void ClassIntroLetter_LoopDisplay(struct OpInfoViewProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
 void ClassIntroLetter_LoopFadeOut(struct OpInfoViewProc* proc) {
+    u32 a4 = 0x100 + proc->timer;
+    u32 a5 = 0x100 - proc->timer;
 
     sub_80B2A14(
         proc->charIndex,
         proc->unk_2e,
         0x18,
-        proc->timer + 0x100,
-        0x100 - proc->timer,
-        DarknessCoeff(proc->timer, 4)
+        a4,
+        a5,
+        ({proc->timer + 0;}) / 16
     );
 
     if (proc->timer == 0x100) {
-        ((struct OpInfoEnterProc*)(proc->proc_parent))->unk_34[proc->charIndex] = 0;
+        ((struct OpInfoEnterProc*)(proc->proc_parent))->letterProcsPtr[proc->charIndex] = NULL;
 
         Proc_Break(proc);
     }
 
-    proc->timer = proc->timer + 8;
+    proc->timer += 8;
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void ClassIntroLetter_LoopFadeOut(struct OpInfoViewProc* proc) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #8\n\
-        adds r4, r0, #0\n\
-        ldrh r0, [r4, #0x2A]\n\
-        movs r5, #0x80\n\
-        lsls r5, r5, #1\n\
-        adds r1, r0, r5\n\
-        subs r0, r5, r0\n\
-        adds r7, r4, #0\n\
-        adds r7, #0x2C\n\
-        ldrb r2, [r7]\n\
-        movs r6, #0x2E\n\
-        ldrsh r3, [r4, r6]\n\
-        lsls r1, r1, #0x10\n\
-        lsrs r6, r1, #0x10\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        str r0, [sp]\n\
-        ldrh r0, [r4, #0x2A]\n\
-        asrs r0, r0, #4\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        str r0, [sp, #4]\n\
-        adds r0, r2, #0\n\
-        adds r1, r3, #0\n\
-        movs r2, #0x18\n\
-        adds r3, r6, #0\n\
-        bl sub_80B2A14\n\
-        ldrh r0, [r4, #0x2A]\n\
-        cmp r0, r5\n\
-        bne _080B304C\n\
-        ldr r1, [r4, #0x14]\n\
-        ldrb r0, [r7]\n\
-        ldr r1, [r1, #0x34]\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r1\n\
-        movs r1, #0\n\
-        str r1, [r0]\n\
-        adds r0, r4, #0\n\
-        bl Proc_Break\n\
-    _080B304C:\n\
-        ldrh r0, [r4, #0x2A]\n\
-        adds r0, #8\n\
-        strh r0, [r4, #0x2A]\n\
-        add sp, #8\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 struct ProcCmd CONST_DATA gProcScr_opinfoview[] = {
     PROC_NAME("opinfoview"),

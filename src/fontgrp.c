@@ -66,7 +66,11 @@ void PrintDebugStringToBG(u16 *dest, const char *str)
     while (*str != 0)
     {
         int tileIndex;
+#ifndef NONMATCHING
         register u32 r6 asm("r6");
+#else
+        u32 r6;
+#endif
 
         if (*str > 0x60)
             tileIndex = gUnknown_02026E30.tileIndex + (u16)-0x40;
@@ -1140,9 +1144,15 @@ void sub_8004A34(int a, int b, struct Glyph *glyph)
     for (i = 0; i < 16; i++)
     {
         u32 r0 = *r7++;
+#ifndef NONMATCHING
         register u32 r4 asm("r4") = r2[r0 & 0xFF];
         register u32 r5 asm("r5") = r2[(r0 >> 8) & 0xFF];
         register u32 var asm("r0") = (r5 << 16);
+#else
+        u32 r4 = r2[r0 & 0xFF];
+        u32 r5 = r2[(r0 >> 8) & 0xFF];
+        u32 var = (r5 << 16);
+#endif
         u32 var2 = var + r4;
 
         *r8++ = var2;

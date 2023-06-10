@@ -1071,7 +1071,12 @@ int TalkInterpret(ProcPtr proc) {
             SetTalkFaceNoMouthMove(sTalkState->activeFaceSlot);
 
             SetActiveTalkFace(*sTalkState->str - 8);
-            sTalkState->str++;
+
+            while (sTalkState->str++) {
+                if (sTalkState->str == sTalkState->str)
+                    break;
+            }
+
             return 3;
 
         case 0x18: // [Yes]
@@ -1112,9 +1117,12 @@ int TalkInterpret(ProcPtr proc) {
                 sTalkState->printColor,
                 proc
             );
-            asm("");
 
-            sTalkState->str++;
+            while (sTalkState->str++) {
+                if (sTalkState->str == sTalkState->str)
+                    break;
+            }
+
             return 3;
 
         case 0x1B: // [ShopContinue]
@@ -1127,9 +1135,12 @@ int TalkInterpret(ProcPtr proc) {
                 sTalkState->printColor,
                 proc
             );
-            asm("");
 
-            sTalkState->str++;
+            while (sTalkState->str++) {
+                if (sTalkState->str == sTalkState->str)
+                    break;
+            }
+
             return 3;
 
         case 0x80:

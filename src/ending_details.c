@@ -23,7 +23,7 @@ struct CharacterEndingProc {
     /* 34 */ struct CharacterEndingEnt* unk_34;
     /* 38 */ struct Unit* unitA;
     /* 3C */ struct Unit* unitB;
-    /* 40 */ u32* unk_40; // flags for characters who have already been shown in an ending
+    /* 40 */ u32 unk_40[8]; // flags for characters who have already been shown in an ending
 };
 
 struct EndingBattleDisplayProc {
@@ -498,7 +498,7 @@ void CharacterEnding_Init(struct CharacterEndingProc* proc) {
 
     proc->unk_2e = 0;
 
-    CpuFill16(0, &proc->unk_40, 0x20);
+    CpuFill16(0, proc->unk_40, sizeof(proc->unk_40));
 
     switch (gPlaySt.chapterModeIndex) {
         case CHAPTER_MODE_COMMON:
@@ -615,12 +615,12 @@ void LoadNextCharacterEnding(struct CharacterEndingProc* proc) {
             return;
         }
 
-        if ((((u32*)proc + 0x10)[proc->unk_30->pidA >> 5] >> (proc->unk_30->pidA & 0x1f)) & 1) {
+        if ((*&proc->unk_40[proc->unk_30->pidA >> 5] >> (proc->unk_30->pidA & 0x1f)) & 1) {
             continue;
         }
 
         if (proc->unk_30->pidB != 0) {
-            if ((((u32*)proc + 0x10)[proc->unk_30->pidB >> 5] >> (proc->unk_30->pidB & 0x1f)) & 1) {
+            if ((*&proc->unk_40[proc->unk_30->pidB >> 5] >> (proc->unk_30->pidB & 0x1f)) & 1) {
                 continue;
             }
         }
@@ -661,13 +661,13 @@ void LoadNextCharacterEnding(struct CharacterEndingProc* proc) {
                 break;
         }
 
-        ((u32*)proc + 0x10)[(proc->unk_30->pidA >> 5)] |= 1 << (proc->unk_30->pidA & 0x1f);
+        *&proc->unk_40[(proc->unk_30->pidA >> 5)] |= 1 << (proc->unk_30->pidA & 0x1f);
 
         if (proc->unk_30->pidB == 0) {
             return;
         }
 
-        ((u32*)proc + 0x10)[proc->unk_30->pidB >> 5] |= 1 << (proc->unk_30->pidB & 0x1f);
+        *&proc->unk_40[proc->unk_30->pidB >> 5] |= 1 << (proc->unk_30->pidB & 0x1f);
 
         return;
     }

@@ -476,8 +476,11 @@ void sub_8085B30(struct Proc89EE088 *proc)
 void sub_8085B58(struct Proc89EE088 *proc)
 {
     int val0, val1, val3, val4, val5, count, max_count;
+#ifndef NONMATCHING
     register int val2 asm("r5");
-    
+#else
+    int val2;
+#endif
     val1 = 0x80;
     val2 = 0xF0;
 
@@ -555,8 +558,9 @@ void sub_8085C7C(ProcPtr parent, int val)
 {
     struct Proc89EE9E0 *proc = Proc_StartBlocking(gUnknown_089EE9E0, parent);
 
+#ifndef NONMATCHING
     asm("add r2, r0, #0");
-
+#endif
     proc->mode = val;
 
     SetDispEnable(0, 0, 1, 1, 1);
