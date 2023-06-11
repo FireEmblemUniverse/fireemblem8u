@@ -124,68 +124,23 @@ union Unk_80A6FBC {
         u8 unk0_7 : 1;
         u8 unk1;
     } pat1;
-    u32 pat2;
-    u16 pat3;
+    u16 pat2;
 };
-
-/* https://decomp.me/scratch/2QiqH */
-// bitfield access makes it close https://decomp.me/scratch/azzUL
 
 //! FE8U = 0x080A6F50
 void WriteWorldMapUnits(struct GMapData* pGMapData, u16* param_2) {
     int i;
-    u8 r8;
-    u8 ip;
-
-    r8 = 1;
-#if !NONMATCHING
-    asm("mov r2, #1");
-#endif
-    ip = 1;
+    union Unk_80A6FBC unaff_r5;
 
     for (i = 0; i < 7; i++) {
-        int r5;
-#if NONMATCHING
-        int a;
-        int b;
-        int c;
-#else // if !NONMATCHING
-        register int a asm("r3");
-        register int b asm("r1");
-        register int c asm("r2");
-#endif // NONMATCHING
-        int d;
-
-        struct GMUnit* u = &pGMapData->unk10[i];
-
-        a = (u->state & ip);
-        a |= (r5 & 0xfffffffe);
-
-#if NONMATCHING
-        b = ((u->location & 0x3f) << 1);
-        b |= (a & 0xffffff81);
-#else // if !NONMATCHING
-        asm(
-            "ldrb r1, [r4, #1]\n\
-            mov r0, #0x3f\n\
-            and r1, r0\n\
-            lsl r1, r1, #1\n\
-            sub r0, #0xbe\n\
-            and r0, r3\n\
-            orr r1, r0\n\
-            "
-            : "=r" (b)
-            : "r" (a));
-#endif // NONMATCHING
-
-        c = ((((u->state >> 1) & r8) & ip) << 7);
-        c |= (b & 0xffffff7f);
-
-        d = (((u8)u->id << 8));
-        d |= (c & 0xffff00ff);
-
-        r5 = d;
-        param_2[i] = r5;
+        unaff_r5.pat1.unk0_0 = pGMapData->unk10[i].state & 1;
+        unaff_r5.pat1.unk0_1 = pGMapData->unk10[i].location;
+        unaff_r5.pat1.unk0_7 = (pGMapData->unk10[i].state >> 1) & 1;
+        unaff_r5.pat1.unk1 = pGMapData->unk10[i].id;
+        {
+            union Unk_80A6FBC *ptr = &unaff_r5;
+            param_2[i] = ptr->pat2;
+        }
     }
 
     return;
@@ -194,19 +149,14 @@ void WriteWorldMapUnits(struct GMapData* pGMapData, u16* param_2) {
 //! FE8U = 0x080A6FBC
 void ReadWorldMapUnits(struct GMapData* param_1, u16* param_2) {
     int i;
-    union Unk_80A6FBC sp;
-    struct Unk_80A6FBC_pat1 *r4 = &sp.pat1;
 
     for (i = 0; i < 7; i++) {
-        // TODO: this is almost certainly some struct access that I couldn't pull off
-#ifndef NONMATCHING
-        u32 r2 = param_2[i], mask = 0xffff0000;
-        sp.pat2 = (mask & sp.pat2) | r2;
-#else
-        sp.pat3 = param_2[i];
-#endif
+        union Unk_80A6FBC sp;
+        union Unk_80A6FBC *ptr = &sp;
 
-        if (r4->unk0_0) {
+        ptr->pat2 = param_2[i];
+
+        if (sp.pat1.unk0_0) {
             param_1->unk10[i].state |= 1;
         } else {
             param_1->unk10[i].state &= ~1;
@@ -214,11 +164,11 @@ void ReadWorldMapUnits(struct GMapData* param_1, u16* param_2) {
 
         param_1->unk10[i].location = sp.pat1.unk0_1;
 
-        if (r4->unk0_7) {
-            param_1->unk10[i].id = r4->unk1;
+        if (sp.pat1.unk0_7) {
+            param_1->unk10[i].id = sp.pat1.unk1;
             param_1->unk10[i].state |= 2;
         } else {
-            param_1->unk10[i].id = r4->unk1;
+            param_1->unk10[i].id = sp.pat1.unk1;
             param_1->unk10[i].state &= ~2;
         }
     }
