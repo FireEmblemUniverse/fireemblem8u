@@ -66,7 +66,7 @@ EWRAM_DATA struct BattleUnit gBattleActor = {};
 EWRAM_DATA struct BattleUnit gBattleTarget = {};
 
 EWRAM_DATA struct BattleHit gBattleHitArray[BATTLE_HIT_MAX] = {};
-EWRAM_DATA struct BattleHit* gBattleHitIterator = 0;
+EWRAM_DATA struct BattleHit *gBattleHitIterator = 0;
 
 static EWRAM_DATA struct {
     u8 unk00;

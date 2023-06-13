@@ -131,7 +131,7 @@ void AnimDelete(struct Anim* anim);
 void AnimDisplay(struct Anim* anim);
 
 bool PrepareBattleGraphicsMaybe(void);
-// ??? sub_8057CAC(???);
+u16 sub_8057CAC(struct Unit *unit, const void* pBattleAnimDef, u16, int *out);
 s8 sub_8057DA8(u16, u16);
 s8 sub_8057ED0(u16, u16);
 // ??? GetSpellAnimId(???);

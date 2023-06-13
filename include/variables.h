@@ -83,7 +83,7 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_020078D8
 // extern ??? gUnknown_02008000
 // extern ??? gUnknown_020087A0
-// extern ??? gBanimOamr2
+extern u32 gBanimOamr2[];
 // extern ??? gUnknown_0200A2D8
 // extern ??? gUnknown_0200A300
 // extern ??? gUnknown_0200AF00
@@ -105,6 +105,7 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_0200F15C
 extern char gStringBufferAlt[];
 extern u8 gBanimScrLeft[];
+extern u8 gBanimScrRight[];
 
 extern u8 gUnknown_020145C8[];
 // extern ??? gUnknown_020146F4
@@ -611,9 +612,9 @@ extern const u16 gUnknown_080DAD0A[];
 // extern ??? gUnknown_080DAEDC
 // extern ??? gUnknown_080DAEE6
 // extern ??? gUnknown_080DAF18
-// extern ??? gUnknown_080DAF1D
+extern const u8 gUnknown_080DAF1D[];
 // extern ??? gUnknown_080DAF22
-// extern ??? gUnknown_080DAF28
+extern u16 gUnknown_080DAF28[];
 // extern ??? gUnknown_080DAF60
 // extern ??? gUnknown_080DB026
 // extern ??? gUnknown_080DC85C
