@@ -150,7 +150,7 @@ _0809D362:
 	ldr r1, [sp]
 	adds r1, r1, r0
 	mov r8, r1
-	ldr r1, _0809D410  @ gUnknown_020122D4
+	ldr r1, _0809D410  @ gPrepScreenItemList
 	lsls r0, r6, #2
 	adds r0, r0, r1
 	ldrh r7, [r0, #2]
@@ -225,7 +225,7 @@ _0809D3FE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809D410: .4byte gUnknown_020122D4
+_0809D410: .4byte gPrepScreenItemList
 _0809D414: .4byte gUnknown_02012F56
 
 	THUMB_FUNC_END sub_809D300
@@ -245,7 +245,7 @@ sub_809D418: @ 0x0809D418
 	ldrh r0, [r0]
 	cmp r5, r0
 	bge _0809D468
-	ldr r1, _0809D478  @ gUnknown_020122D4
+	ldr r1, _0809D478  @ gPrepScreenItemList
 	lsls r0, r5, #2
 	adds r6, r0, r1
 _0809D438:
@@ -279,7 +279,7 @@ _0809D468:
 	bx r0
 	.align 2, 0
 _0809D474: .4byte gUnknown_02012F56
-_0809D478: .4byte gUnknown_020122D4
+_0809D478: .4byte gPrepScreenItemList
 
 	THUMB_FUNC_END sub_809D418
 
@@ -302,7 +302,7 @@ sub_809D47C: @ 0x0809D47C
 	ands r0, r2
 	lsls r0, r0, #3
 	adds r7, r5, r0
-	ldr r1, _0809D52C  @ gUnknown_020122D4
+	ldr r1, _0809D52C  @ gPrepScreenItemList
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	ldrh r6, [r0, #2]
@@ -366,7 +366,7 @@ _0809D51C:
 	bx r0
 	.align 2, 0
 _0809D528: .4byte gUnknown_02012F56
-_0809D52C: .4byte gUnknown_020122D4
+_0809D52C: .4byte gPrepScreenItemList
 
 	THUMB_FUNC_END sub_809D47C
 
@@ -1595,7 +1595,7 @@ sub_809DEFC: @ 0x0809DEFC
 	ldrh r0, [r0]
 	cmp r0, #0
 	beq _0809DFA0
-	ldr r2, _0809DF9C  @ gUnknown_020122D4
+	ldr r2, _0809DF9C  @ gPrepScreenItemList
 	ldrb r3, [r5]
 	lsls r3, r3, #1
 	adds r0, r7, r3
@@ -1617,7 +1617,7 @@ _0809DF8C: .4byte gUnknown_02013698
 _0809DF90: .4byte gUnknown_02023CC6
 _0809DF94: .4byte gUnknown_02022EEC
 _0809DF98: .4byte gUnknown_02012F56
-_0809DF9C: .4byte gUnknown_020122D4
+_0809DF9C: .4byte gPrepScreenItemList
 _0809DFA0:
 	bl CloseHelpBox
 	movs r0, #0xff
@@ -2087,7 +2087,7 @@ _0809E304:
 	lsls r0, r2, #1
 	adds r1, #0x1e
 	adds r1, r1, r0
-	ldr r4, _0809E3E4  @ gUnknown_020122D4
+	ldr r4, _0809E3E4  @ gPrepScreenItemList
 	movs r0, #0x35
 	adds r0, r0, r7
 	mov r8, r0
@@ -2180,7 +2180,7 @@ _0809E304:
 	bl m4aSongNumStart
 	b _0809E412
 	.align 2, 0
-_0809E3E4: .4byte gUnknown_020122D4
+_0809E3E4: .4byte gPrepScreenItemList
 _0809E3E8: .4byte gUnknown_02022EEC
 _0809E3EC: .4byte gUnknown_02013670
 _0809E3F0: .4byte gUnknown_02023CC6
@@ -2257,7 +2257,7 @@ _0809E462:
 	ldrh r0, [r0]
 	cmp r0, #0
 	beq _0809E4A8
-	ldr r1, _0809E4A4  @ gUnknown_020122D4
+	ldr r1, _0809E4A4  @ gPrepScreenItemList
 	mov r2, sl
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -2275,7 +2275,7 @@ _0809E462:
 	.align 2, 0
 _0809E49C: .4byte gKeyStatusPtr
 _0809E4A0: .4byte gUnknown_02012F56
-_0809E4A4: .4byte gUnknown_020122D4
+_0809E4A4: .4byte gPrepScreenItemList
 _0809E4A8:
 	ldr r0, _0809E4C0  @ gPlaySt
 	adds r0, #0x41
@@ -2540,7 +2540,7 @@ _0809E6A8:
 	ldrh r0, [r0]
 	cmp sl, r0
 	beq _0809E79A
-	ldr r1, _0809E710  @ gUnknown_020122D4
+	ldr r1, _0809E710  @ gPrepScreenItemList
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldrh r0, [r0, #2]
@@ -2586,7 +2586,7 @@ _0809E702:
 	negs r1, r1
 	b _0809E750
 	.align 2, 0
-_0809E710: .4byte gUnknown_020122D4
+_0809E710: .4byte gPrepScreenItemList
 _0809E714: .4byte gPlaySt
 _0809E718:
 	ldrb r0, [r6]

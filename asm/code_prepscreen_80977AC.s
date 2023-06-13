@@ -1242,7 +1242,7 @@ sub_8098048: @ 0x08098048
 	adds r6, r0, r1
 	mov r7, sl
 _08098078:
-	ldr r1, _08098110  @ gUnknown_020122D4
+	ldr r1, _08098110  @ gPrepScreenItemList
 	lsls r0, r4, #2
 	adds r5, r0, r1
 	ldrh r0, [r5, #2]
@@ -1282,7 +1282,7 @@ _080980B4:
 	lsls r0, r2, #2
 	adds r6, r0, r1
 _080980C4:
-	ldr r1, _08098110  @ gUnknown_020122D4
+	ldr r1, _08098110  @ gPrepScreenItemList
 	lsls r0, r4, #2
 	adds r5, r0, r1
 	ldrh r0, [r5, #2]
@@ -1319,7 +1319,7 @@ _08098100: .4byte gUnknown_02012914
 _08098104: .4byte gUnknown_02012F56
 _08098108: .4byte gUnknown_02012F54
 _0809810C: .4byte gUnknown_08A188C0
-_08098110: .4byte gUnknown_020122D4
+_08098110: .4byte gPrepScreenItemList
 _08098114:
 	lsls r0, r2, #1
 	adds r0, r0, r2
@@ -1408,7 +1408,7 @@ _080981AE:
 	cmp r2, #0
 	bgt _08098134
 _080981BC:
-	ldr r1, _080981E0  @ gUnknown_020122D4
+	ldr r1, _080981E0  @ gPrepScreenItemList
 	movs r2, #0xc8
 	lsls r2, r2, #1
 	adds r0, r5, #0
@@ -1424,7 +1424,7 @@ _080981BC:
 	.align 2, 0
 _080981D8: .4byte gUnknown_02012F56
 _080981DC: .4byte gUnknown_02012914
-_080981E0: .4byte gUnknown_020122D4
+_080981E0: .4byte gPrepScreenItemList
 
 	THUMB_FUNC_END sub_8098048
 
@@ -1438,7 +1438,7 @@ SomethingPrepListRelated: @ 0x080981E4
 	mov r8, r0
 	mov sl, r1
 	mov r9, r2
-	ldr r6, _080982AC  @ gUnknown_020122D4
+	ldr r6, _080982AC  @ gPrepScreenItemList
 	ldr r1, _080982B0  @ gUnknown_02012F54
 	movs r0, #0
 	strh r0, [r1]
@@ -1533,7 +1533,7 @@ _08098298:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080982AC: .4byte gUnknown_020122D4
+_080982AC: .4byte gPrepScreenItemList
 _080982B0: .4byte gUnknown_02012F54
 _080982B4: .4byte 0x00010004
 
@@ -1548,7 +1548,7 @@ sub_80982B8: @ 0x080982B8
 	ldrh r0, [r0]
 	cmp r4, r0
 	bcs _080982EC
-	ldr r5, _080982F8  @ gUnknown_020122D4
+	ldr r5, _080982F8  @ gPrepScreenItemList
 _080982CA:
 	lsls r0, r4, #2
 	adds r1, r0, r5
@@ -1573,7 +1573,7 @@ _080982EC:
 	bx r0
 	.align 2, 0
 _080982F4: .4byte gUnknown_02012F54
-_080982F8: .4byte gUnknown_020122D4
+_080982F8: .4byte gPrepScreenItemList
 
 	THUMB_FUNC_END sub_80982B8
 
