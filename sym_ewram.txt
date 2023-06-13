@@ -124,7 +124,7 @@
 . = 0x0111CC; gPrepUnitPool = .;
 . = 0x011BC8; gBanimScrRight = .;
 . = 0x0121CC; gPrepUnitList = .;
-. = 0x0122D4; gUnknown_020122D4 = .;
+. = 0x0122D4; gPrepScreenItemList = .;
 . = 0x012914; gUnknown_02012914 = .;
 . = 0x012F54; gUnknown_02012F54 = .;
 . = 0x012F56; gUnknown_02012F56 = .;

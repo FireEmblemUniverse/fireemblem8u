@@ -33,6 +33,12 @@ struct PrepUnitList {
     int latest_pid;     /* Last unit char-id when you leave the prep-unit-screen */
 };
 
+struct PrepScreenItemListEnt {
+    /* 00 */ u8 pid; // 0 if item is in Supply inventory
+    /* 01 */ u8 itemSlot;
+    /* 02 */ u16 item;
+};
+
 enum prep_atmenu_item_index {
     PREP_MAINMENU_UNIT = 0,
     PREP_MAINMENU_ITEM = 1,
@@ -213,10 +219,10 @@ extern struct TextHandle gPrepMainMenuTexts[9];
 extern u8 gPrepUnitPool[];
 extern u8 gBanimScrRight[];
 extern struct PrepUnitList gPrepUnitList;
-// extern ??? gUnknown_020122D4
+extern struct PrepScreenItemListEnt gPrepScreenItemList[];
 // extern ??? gUnknown_02012914
 // extern ??? gUnknown_02012F54
-// extern ??? gUnknown_02012F56
+extern u16 gUnknown_02012F56;
 // extern ??? gUnknown_02012F58
 // extern ??? gUnknown_02013458
 // extern ??? gUnknown_02013460
