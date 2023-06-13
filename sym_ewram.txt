@@ -324,7 +324,6 @@
 . = 0x022CCA; gUnknown_02022CCA = .;
 . = 0x022CD4; gUnknown_02022CD4 = .;
 . = 0x022D10; gUnknown_02022D10 = .;
-. = 0x022D18; gUnknown_02022D18 = .;
 . = 0x022D86; gUnknown_02022D86 = .;
 . = 0x022DF2; gUnknown_02022DF2 = .;
 . = 0x022E00; gUnknown_02022E00 = .;

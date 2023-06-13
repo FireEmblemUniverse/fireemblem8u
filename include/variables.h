@@ -171,7 +171,6 @@ extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CCA
 // extern ??? gUnknown_02022CD4
 // extern ??? gUnknown_02022D10
-// extern ??? gUnknown_02022D18
 // extern ??? gUnknown_02022D86
 // extern ??? gUnknown_02022DF2
 // extern ??? gUnknown_02022E00
