@@ -64,15 +64,13 @@ u32 PromoHandler_SetupAndStartUI(struct ProcPromoHandler *proc)
         u8 flag;
         proc->bmtype = PROMO_HANDLER_TYPE_TRANINEE;
         proc->sel_en = 1;
-        // This probably loops over trainee units - not sure why it goes to 6 though.
         flag = 0;
 
-        /* This maybe a bug?
-         *
-         * for (i = 0; i < 3; i++) {
-         */
-
+#if BUGFIX
+        for (i = 0; i < 3; i++) {
+#else
         for (i = 0; i < 7; i++) {
+#endif
             unit = GetUnitFromCharId(trainees[i].charId);
             if (!unit)
                 flag = true;

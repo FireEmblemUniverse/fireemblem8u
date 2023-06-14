@@ -486,12 +486,6 @@ extern struct MusicPlayerInfo gMPlayInfo_SE3_BMP1;
 // extern ??? gMPlayMemAccArea
 extern struct MusicPlayerInfo gMPlayInfo_SE7_EVT;
 extern struct MusicPlayerInfo gMPlayInfo_SE2_SYS2;
-// extern ??? gUnknown_03007E00
-// extern ??? gUnknown_03007F00
-// extern ??? gUnknown_03007FA0
-// extern ??? gUnknown_03007FF0
-// extern ??? gUnknown_03007FF8
-// extern ??? gUnknown_03007FFC
 
 // const data
 // extern ??? gUnknown_08000540

@@ -193,9 +193,3 @@
 
 . = 0x67A8;
 . = ALIGN(4); tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
-
-. = 0x007E00; gUnknown_03007E00 = .;
-. = 0x007F00; gUnknown_03007F00 = .;
-. = 0x007FA0; gUnknown_03007FA0 = .;
-. = 0x007FF0; gUnknown_03007FF0 = .;
-. = 0x007FF8; gUnknown_03007FF8 = .;

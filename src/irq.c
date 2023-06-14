@@ -14,7 +14,7 @@ void StoreIRQToIRAM(void)
     for(i = 0; i < IRQ_COUNT; i++)
         gIRQHandlers[i] = DummyIRQRoutine;
 
-    CpuFastCopy(GlobalIRQHandler, IntrMain_Buffer, sizeof IntrMain_Buffer);
+    CpuFastCopy(IrqMain, IntrMain_Buffer, sizeof IntrMain_Buffer);
     INTR_VECTOR = IntrMain_Buffer;
 }
 
