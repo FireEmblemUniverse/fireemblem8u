@@ -1,6 +1,8 @@
 #ifndef GUARD_EVENT_H
 #define GUARD_EVENT_H
 
+#include "global.h"
+
 struct EventEngineProc {
     PROC_HEADER;
 

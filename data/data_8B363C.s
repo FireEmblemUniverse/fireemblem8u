@@ -2555,7 +2555,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x000002d5
     .4byte 0x00000000
     .4byte 0x00000000
@@ -2593,7 +2593,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x0008ffff
     .4byte 0x00000288
     .4byte 0x0008ffff
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01000309
     .4byte gUnknown_088B3AD8 + 0x239c
     .4byte 0x00000000
@@ -2651,7 +2651,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x0000ffff
     .4byte 0x00010347
     .4byte 0x0000ffff
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x03000109
     .4byte gUnknown_088B3AD8 + 0x2434
     .4byte 0x00000000
@@ -4240,7 +4240,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x000003c8
     .4byte 0x00000000
     .4byte 0x00000000
@@ -10101,7 +10101,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0000014e
     .4byte 0x00000000
     .4byte 0x00000000
@@ -10116,7 +10116,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0200014e
     .4byte gUnknown_088B3AD8 + 0x92c0
     .4byte 0x00000000
@@ -10171,7 +10171,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x020000cd
     .4byte gUnknown_088B3AD8 + 0x92f8
     .4byte 0x00000000
@@ -10206,7 +10206,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x9340
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0300014c
     .4byte gUnknown_088B3AD8 + 0x9348
     .4byte 0x00000000
@@ -10514,7 +10514,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x9ef8
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01000287
     .4byte gUnknown_088B3AD8 + 0x9f10
     .4byte 0x00000000
@@ -10554,7 +10554,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x0000ffff
     .4byte 0x0f010148
     .4byte 0x0000ffff
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0300000b
     .4byte gUnknown_088B3AD8 + 0x9fd0
     .4byte 0x00000000
@@ -10629,7 +10629,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x0000ffff
     .4byte 0x00010107
     .4byte 0x0000ffff
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x03000247
     .4byte gUnknown_088B3AD8 + 0xa0d4
     .4byte 0x00000000
@@ -11190,7 +11190,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0xa338
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01000508
     .4byte gUnknown_088B3AD8 + 0xa340
     .4byte 0x00000000
@@ -11210,7 +11210,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01002153
     .4byte gUnknown_088B3AD8 + 0xa358
     .4byte 0x00000000
@@ -13503,7 +13503,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0xc720
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x02000451
     .4byte gUnknown_088B3AD8 + 0xc730
     .4byte 0x00000000
@@ -13558,7 +13558,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0xc758
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01000312
     .4byte gUnknown_088B3AD8 + 0xc768
     .4byte 0x00000000
@@ -13603,7 +13603,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x00000586
     .4byte 0x00000000
     .4byte 0x00000000
@@ -13684,7 +13684,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0xd080
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01000246
     .4byte gUnknown_088B3AD8 + 0xd088
     .4byte 0x00000000
@@ -14360,7 +14360,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0xd26c
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0100051a
     .4byte gUnknown_088B3AD8 + 0xd274
     .4byte 0x00000000
@@ -14837,7 +14837,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0xdcfc
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0200060a
     .4byte gUnknown_088B3AD8 + 0xdd04
     .4byte 0x00000000
@@ -14872,7 +14872,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0xdd2c
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0200014b
     .4byte gUnknown_088B3AD8 + 0xdd34
     .4byte 0x00000000
@@ -14925,7 +14925,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x0000ffff
     .4byte 0x0000048c
     .4byte 0x0000ffff
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0100040a
     .4byte gUnknown_088B3AD8 + 0xe3fc
     .4byte 0x00000000
@@ -15411,7 +15411,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x20004822
-    .4byte GlobalIRQHandler + 0x14
+    .4byte IrqMain + 0x14
     .4byte gUnknown_088B3AD8 + 0xe688
     .4byte 0x00000000
     .4byte 0x00000000
@@ -16859,7 +16859,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x1019c
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x03000009
     .4byte gUnknown_088B3AD8 + 0x101ac
     .4byte 0x00000000
@@ -17197,7 +17197,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x00000104
     .4byte 0x00000000
     .4byte 0x00000000
@@ -17860,7 +17860,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x000004c6
     .4byte 0x00000000
     .4byte 0x00000000
@@ -18276,7 +18276,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01000009
     .4byte gUnknown_088B3AD8 + 0x11374
     .4byte 0x00000000
@@ -19491,7 +19491,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0000010e
     .4byte 0x00000000
     .4byte 0x00000000
@@ -19626,7 +19626,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x0020ffff
     .4byte 0x000101c6
     .4byte 0x0000ffff
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0100024a
     .4byte gUnknown_088B3AD8 + 0x12db8
     .4byte 0x00000000
@@ -19702,7 +19702,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x0000ffff
     .4byte 0xc0010153
     .4byte 0x0000ffff
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x02000006
     .4byte gUnknown_088B3AD8 + 0x12e80
     .4byte 0x00000000
@@ -19742,7 +19742,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x12ea0
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01000146
     .4byte gUnknown_088B3AD8 + 0x12ea8
     .4byte 0x00000000
@@ -19767,7 +19767,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x02000309
     .4byte gUnknown_088B3AD8 + 0x12ec8
     .4byte 0x00000000
@@ -19792,7 +19792,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x12ee8
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x02000292
     .4byte gUnknown_088B3AD8 + 0x12ef0
     .4byte 0x00000000
@@ -19882,7 +19882,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x130e4
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x01000247
     .4byte gUnknown_088B3AD8 + 0x130f4
     .4byte 0x00000000
@@ -23322,7 +23322,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x16170
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x02000451
     .4byte gUnknown_088B3AD8 + 0x16180
     .4byte 0x00000000
@@ -23352,7 +23352,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x00000311
     .4byte 0x00000000
     .4byte 0x00000000
@@ -23407,7 +23407,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x00000586
     .4byte 0x00000000
     .4byte 0x00000000
@@ -24118,7 +24118,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x16b34
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0100051a
     .4byte gUnknown_088B3AD8 + 0x16b3c
     .4byte 0x00000000
@@ -24587,7 +24587,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0100010b
     .4byte gUnknown_088B3AD8 + 0x17580
     .4byte 0x00000000
@@ -30831,7 +30831,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x00000390
     .4byte 0x00000000
     .4byte 0x00000000
@@ -30851,7 +30851,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x00000351
     .4byte 0x00000000
     .4byte 0x00000000
@@ -30911,7 +30911,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0000014e
     .4byte 0x00000000
     .4byte 0x00000000
@@ -30966,7 +30966,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0000014e
     .4byte 0x00000000
     .4byte 0x00000000
@@ -31026,7 +31026,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0000028b
     .4byte 0x00000000
     .4byte 0x00000000
@@ -31121,7 +31121,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x00000148
     .4byte 0x00000000
     .4byte 0x00000000
@@ -31136,7 +31136,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x00000108
     .4byte 0x00000000
     .4byte 0x00000000
@@ -31183,7 +31183,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x1e208
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0100028e
     .4byte gUnknown_088B3AD8 + 0x1e218
     .4byte 0x00000000
@@ -31193,7 +31193,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte GlobalIRQHandler + 0x13
+    .4byte IrqMain + 0x13
     .4byte 0x0200028c
     .4byte gUnknown_088B3AD8 + 0x1e220
     .4byte 0x00000000
