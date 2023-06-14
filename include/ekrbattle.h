@@ -148,14 +148,7 @@ s16 GetAnimRoundType(int);
 
 extern u8 gEfxHpLut[];
 
-struct BanimRoundScripts {
-    u8 frame_front;
-    u8 priority_front;
-    u8 frame_back;
-    u8 priority_back;
-};
-
-extern const struct BanimRoundScripts gBanimRoundScripts[ANIM_ROUND_MAX];
+extern const u8 gBanimRoundScripts[ANIM_ROUND_MAX * 4];
 
 struct ProcEkrSubAnimeEmulator {
     PROC_HEADER;
@@ -190,8 +183,8 @@ extern void *gUnknown_0200003C[2];
 extern void *gUnknown_02000044[2];
 extern void *gBanimTerrainPaletteMaybe[2];
 extern u16 *gpEfxUnitPaletteBackup[2];
-extern u32 **gpBanimModesLeft;
-extern u32 **gpBanimModesRight;
+extern int *gpBanimModesLeft;
+extern int *gpBanimModesRight;
 extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
 extern u8 gUnknown_02000088[];
