@@ -148,14 +148,7 @@ s16 GetAnimRoundType(int);
 
 extern u8 gEfxHpLut[];
 
-struct BanimRoundScripts {
-    u8 frame_front;
-    u8 priority_front;
-    u8 frame_back;
-    u8 priority_back;
-};
-
-extern const struct BanimRoundScripts gBanimRoundScripts[ANIM_ROUND_MAX];
+extern const u8 gBanimRoundScripts[ANIM_ROUND_MAX * 4];
 
 struct ProcEkrSubAnimeEmulator {
     PROC_HEADER;

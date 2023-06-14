@@ -259,51 +259,72 @@ void sub_8059DB8(int a, int b)
 }
 
 #if 0
+
+// https://decomp.me/scratch/SYj19
+// This matches with -O1, so 100% functional equivalent
+
+#ifdef NONMATCHING
+#define SetAnimState2(anim, flags) ({ \
+    (anim)->state2 |= (flags); \
+})
+#else
+#define SetAnimState2(anim, flags) ({ \
+    u16 _r1 = (anim)->state2; \
+    register u16 _r4 asm("r4") = (flags); \
+    register u16 _r0 asm("r0") = _r4; \
+    _r0 |= _r1; \
+    (anim)->state2 = _r0; \
+})
+#endif
+
 void sub_8059E18(int arg)
 {
-    void *scr;
     struct Anim *anim;
-    int r5 = gBanimRoundScripts[arg].frame_front;
-    int r6 = gBanimRoundScripts[arg].priority_front;
-    int r8 = gBanimRoundScripts[arg].frame_back;
-    int r9 = gBanimRoundScripts[arg].priority_back;
+    u8 frame_front = gBanimRoundScripts[arg * 4 + 0];
+    u8 priority_front = gBanimRoundScripts[arg * 4 + 1];
+    u8 frame_back = gBanimRoundScripts[arg * 4 + 2];
+    u8 priority_back = gBanimRoundScripts[arg * 4 + 3];
     int r4 = gUnknown_080DAF1D[gEkrDistanceType];
 
     gUnknown_02000030[0] = -gUnknown_080DAF28[gEkrDistanceType];
     gUnknown_02000034[0] = 0;
-    gEkrXPosBase[0] = r4 - gUnknown_080DAF28[gEkrDistanceType];
+    gEkrXPosBase[0] = gUnknown_02000030[0] + r4;
     gEkrYPosBase[0] = 0x58;
 
-    scr = gBanimScrLeft + (*gpBanimModesLeft)[r5];
+    {
+        u32 idx = gpBanimModesLeft[frame_front];
+        void *scr = gBanimScrLeft + idx;
+        if (frame_front == 0xFF)
+            scr = gUnknown_085B9D5C;
 
-    if (r5 == 0xFF)
-        scr = gUnknown_085B9D5C;
-    
-    anim = AnimCreate(scr, r6);
-    anim->xPosition = gEkrXPosBase[0] - gEkrBgXOffset;
-    anim->yPosition = gEkrYPosBase[0];
-    anim->oam2Base = 0x7A00;
-    anim->state2 |= 0x400;
-    anim->nextRoundId = 0x0;
-    anim->currentRoundType = arg;
-    anim->pUnk2C = gUnknown_02000088;
-    anim->pSpriteDataPool = gBanimOaml;
-    gAnims[0] = anim;
+        do anim = AnimCreate(scr, priority_front); while (0);
+        anim->xPosition = gEkrXPosBase[0] - gEkrBgXOffset;
+        anim->yPosition = gEkrYPosBase[0];
+        anim->oam2Base = 0x7A00;
+        SetAnimState2(anim, 0x400);
+        anim->nextRoundId = 0x0;
+        anim->currentRoundType = arg;
+        anim->pUnk2C = gUnknown_02000088;
+        anim->pSpriteDataPool = gBanimOaml;
+        gAnims[0] = anim;
+    }
 
-    scr = gBanimScrLeft + (*gpBanimModesLeft)[r8];
+    {
+        u32 idx = gpBanimModesLeft[frame_back];
+        void *scr = gBanimScrLeft + idx;
+        if (frame_back == 0xFF)
+            scr = gUnknown_085B9D5C;
 
-    if (r8 == 0xFF)
-        scr = gUnknown_085B9D5C;
-    
-    anim = AnimCreate(scr, r9);
-    anim->xPosition = gEkrXPosBase[0] - gEkrBgXOffset;
-    anim->yPosition = gEkrYPosBase[0];
-    anim->oam2Base = 0x7A00;
-    anim->state2 |= 0x500;
-    anim->nextRoundId = 0x0;
-    anim->currentRoundType = arg;
-    anim->pUnk2C = gUnknown_02000088;
-    anim->pSpriteDataPool = gBanimOaml;
-    gAnims[1] = anim;
+        anim = AnimCreate(scr, priority_back);
+        anim->xPosition = gEkrXPosBase[0] - gEkrBgXOffset;
+        anim->yPosition = gEkrYPosBase[0];
+        anim->oam2Base = 0x7A00;
+        SetAnimState2(anim, 0x500);
+        anim->nextRoundId = 0x0;
+        anim->currentRoundType = arg;
+        anim->pUnk2C = gUnknown_02000088;
+        anim->pSpriteDataPool = gBanimOaml;
+        gAnims[1] = anim;
+    }
 }
 #endif
