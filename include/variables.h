@@ -67,7 +67,7 @@ extern u16 gBanimPal1[];
 extern u16 gUnknown_020040AE[];
 // extern ??? gUnknown_020040B2
 extern u16 gBanimPal2[];
-extern u16 gBanimOaml[];
+extern u32 gBanimOaml[];
 extern u16 gUnknown_0200422C[];
 extern u16 gUnknown_02004254[];
 extern s16 gUnknown_020044AC[];
