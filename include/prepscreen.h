@@ -288,9 +288,9 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepItemTradeScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemUseScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemUseBooster[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemUseJunaFruit[];
-// extern ??? gUnknown_08A191F4
-// extern ??? gUnknown_08A19200
-// extern ??? gUnknown_08A19204
+// extern ??? gSupplyTextIndexLookup
+// extern ??? gpPrepItemSupplyStringBuffer
+// extern ??? gSupplyHelpTextIndexLookup
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemSupplyScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_BmSupplyScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemListScreen[];
@@ -538,9 +538,9 @@ s8 sub_8097E38(struct Unit *unit);
 s8 sub_8097E74(struct Unit *unit);
 s8 sub_8097EA0(struct Unit*, int, struct Unit*, int);
 s8 sub_8097F44(struct Unit*, int, int);
-// ??? sub_8097F98(???);
+s8 sub_8097F98(struct Unit*, int);
 // ??? sub_8097FDC(???);
-// ??? sub_8098014(???);
+int sub_8098014(int);
 // ??? sub_8098048(???);
 void SomethingPrepListRelated(struct Unit*, int, int);
 void sub_80982B8(void);
