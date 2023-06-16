@@ -60,7 +60,7 @@ extern u16 gUnknown_08A195F8[];
 // forward declarations
 
 void PrepItemList_DrawCurrentOwnerText(struct PrepItemListProc*);
-void PutHighlightedItemCategorySprites(struct PrepItemListProc*);
+void List_PutHighlightedCategorySprites(struct PrepItemListProc*);
 void sub_809F150(struct PrepItemListProc*);
 void sub_809F370(struct PrepItemListProc*);
 void sub_809F5F4(struct PrepItemListProc*);
@@ -133,7 +133,7 @@ void PrepItemList_DrawCurrentOwnerText(struct PrepItemListProc* proc) {
 }
 
 //! FE8U = 0x0809ECFC
-void PutHighlightedItemCategorySprites(struct PrepItemListProc* proc) {
+void List_PutHighlightedCategorySprites(struct PrepItemListProc* proc) {
     int x = proc->currentPage * 12 + 124;
 
     gPaletteBuffer[0x14D] = *(gUnknown_08A1BD60 + (GetGameClock() >> 2 & 0xf));
@@ -259,7 +259,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     sub_80ACD7C(0x78, 0x18, 0xe9, 0x18);
     sub_80ACD60(3);
 
-    StartParallelWorker(PutHighlightedItemCategorySprites, proc);
+    StartParallelWorker(List_PutHighlightedCategorySprites, proc);
 
     StartFace2(0, GetUnitPortraitId(proc->unit), 64, -4, FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_HLAYER(FACE_HLAYER_3));
 
