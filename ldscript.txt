@@ -218,7 +218,7 @@ SECTIONS
         src/prep_itemtrade.o(.text);
         src/prep_itemuse.o(.text);
         src/prep_itemusemind.o(.text);
-        asm/prep_itemsupply.o(.text);
+        src/prep_itemsupply.o(.text);
         src/prep_itemlist.o(.text);
         src/prep_wm_sell.o(.text);
         src/prep_80A0760.o(.text);
