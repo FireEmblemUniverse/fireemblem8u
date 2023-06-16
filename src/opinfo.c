@@ -1304,7 +1304,7 @@ struct Unk2000000 {
     u16 unk_10;
     void* unk_14;
     void* unk_18;
-    void* unk_1C;
+    struct Vec2* unk_1C;
     void* unk_20;
     void* unk_24;
     void* unk_28;
@@ -1386,17 +1386,19 @@ const int gUnknown_08205EDC[2][6] = {
     },
 };
 
-#if NONMATCHING
-
 void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
-    int hack[2][6];
+    union {
+        int hack_4d[2][6][1][1];
+        int hack_2d[2][6];
+    } hack;
     int i;
     int hasMagicRank;
     int r5;
+    u16 *buffer;
 
     hasMagicRank = 0;
 
-    memcpy(hack, gUnknown_08205EDC, 12*4);
+    memcpy(hack.hack_2d, gUnknown_08205EDC, sizeof(hack));
 
     proc->script = proc->classReelEnt->script;
 
@@ -1415,7 +1417,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     proc->unk_46 = 0xFA;
 
-    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(buffer = gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
 
@@ -1455,7 +1457,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     BG_EnableSyncByMask(0xF);
 
-    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(buffer, 0);
 
     proc->unk_40[0] = GetClassData(proc->classReelEnt->classId)->baseHP;
     proc->unk_40[1] = GetClassData(proc->classReelEnt->classId)->basePow;
@@ -1474,17 +1476,17 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         Text_SetXCursor(&gUnknown_0201FB28[i], 0);
 
         if (hasMagicRank != 0) {
-            Text_AppendString(&gUnknown_0201FB28[i], GetStringFromIndex(hack[1][i]));
+            Text_AppendString(&gUnknown_0201FB28[i], GetStringFromIndex(hack.hack_2d[1][i]));
         } else {
-            Text_AppendString(&gUnknown_0201FB28[i], GetStringFromIndex(hack[0][i]));
+            Text_AppendString(&gUnknown_0201FB28[i], GetStringFromIndex(hack.hack_4d[0][i][1][-1]));
         }
 
-        Text_Draw(&gUnknown_0201FB28[i], gBG0TilemapBuffer + 0x21 + (i * 0x40));
+        Text_Draw(&gUnknown_0201FB28[i], buffer + 0x21 + (i * 0x40));
 
-        sub_8004B88((gBG0TilemapBuffer + 0x25 + (i * 0x40)), 0, proc->unk_40[i]);
+        sub_8004B88(buffer + 0x25 + (i * 0x40), 0, proc->unk_40[i]);
     }
 
-    r5 = 0; // ?
+    r5 = 0;
 
     proc->unk_3c = StartClassStatsDisplay(proc);
 
@@ -1515,7 +1517,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     gAnims.unk_0C = 1;
     gAnims.unk_0E = 0x180;
     gAnims.unk_10 = 2;
-    gAnims.unk_1C = gEkrBg0QuakeVec;
+    gAnims.unk_1C = &gEkrBg0QuakeVec;
     gAnims.unk_24 = gUnknown_02002038;
     gAnims.unk_20 = gUnknown_02007838;
     gAnims.unk_28 = gUnknown_020078D8;
@@ -1538,7 +1540,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     gUnknown_0200A2D8.unk_20 = gUnknown_0200CB00;
     gUnknown_0200A2D8.unk_24 = sub_80B3740;
 
-    NewEkrUnitMainMini(&gUnknown_0200A2D8);
+    NewEkrUnitMainMini(&gAnims);
 
     gUnknown_0201DB00.unk_00 = proc->classReelEnt->unk_0D;
     gUnknown_0201DB00.unk_02 = 10;
@@ -1559,465 +1561,6 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x3C\n\
-        mov r9, r0\n\
-        movs r0, #0\n\
-        str r0, [sp, #0x34]\n\
-        add r1, sp, #4\n\
-        ldr r0, _080B3830  @ gUnknown_08205EDC\n\
-        ldm r0!, {r2, r3, r4}\n\
-        stm r1!, {r2, r3, r4}\n\
-        ldm r0!, {r2, r3, r4}\n\
-        stm r1!, {r2, r3, r4}\n\
-        ldm r0!, {r2, r3, r4}\n\
-        stm r1!, {r2, r3, r4}\n\
-        ldm r0!, {r2, r3, r4}\n\
-        stm r1!, {r2, r3, r4}\n\
-        mov r1, r9\n\
-        ldr r0, [r1, #0x34]\n\
-        ldr r0, [r0, #0x10]\n\
-        str r0, [r1, #0x38]\n\
-        movs r7, #4\n\
-        b _080B3836\n\
-        .align 2, 0\n\
-    _080B3830: .4byte gUnknown_08205EDC\n\
-    _080B3834:\n\
-        adds r7, #1\n\
-    _080B3836:\n\
-        cmp r7, #7\n\
-        bgt _080B3852\n\
-        mov r2, r9\n\
-        ldr r0, [r2, #0x34]\n\
-        ldrb r0, [r0, #5]\n\
-        bl GetClassData\n\
-        adds r0, #0x2C\n\
-        adds r0, r0, r7\n\
-        ldrb r0, [r0]\n\
-        cmp r0, #0\n\
-        beq _080B3834\n\
-        movs r3, #1\n\
-        str r3, [sp, #0x34]\n\
-    _080B3852:\n\
-        movs r0, #0\n\
-        bl SetupBackgrounds\n\
-        movs r0, #0\n\
-        mov r4, r9\n\
-        strh r0, [r4, #0x2A]\n\
-        strh r0, [r4, #0x2C]\n\
-        mov r1, r9\n\
-        adds r1, #0x46\n\
-        movs r0, #0xFA\n\
-        strb r0, [r1]\n\
-        ldr r6, _080B3A28  @ gBG0TilemapBuffer\n\
-        adds r0, r6, #0\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        ldr r0, _080B3A2C  @ gBG1TilemapBuffer\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        ldr r0, _080B3A30  @ gBG2TilemapBuffer\n\
-        mov r8, r0\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        ldr r4, _080B3A34  @ gLCDControlBuffer\n\
-        ldrb r1, [r4, #1]\n\
-        movs r0, #2\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        movs r1, #3\n\
-        negs r1, r1\n\
-        ands r0, r1\n\
-        subs r1, #2\n\
-        ands r0, r1\n\
-        subs r1, #4\n\
-        ands r0, r1\n\
-        subs r1, #8\n\
-        ands r0, r1\n\
-        strb r0, [r4, #1]\n\
-        ldrb r1, [r4]\n\
-        movs r0, #8\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        strb r0, [r4]\n\
-        bl SetDefaultColorEffects\n\
-        bl Font_ResetAllocation\n\
-        bl Font_InitForUIDefault\n\
-        ldrb r2, [r4, #0xC]\n\
-        movs r1, #4\n\
-        negs r1, r1\n\
-        adds r0, r1, #0\n\
-        ands r0, r2\n\
-        movs r3, #2\n\
-        orrs r0, r3\n\
-        strb r0, [r4, #0xC]\n\
-        ldrb r2, [r4, #0x10]\n\
-        adds r0, r1, #0\n\
-        ands r0, r2\n\
-        orrs r0, r3\n\
-        strb r0, [r4, #0x10]\n\
-        ldrb r0, [r4, #0x14]\n\
-        ands r1, r0\n\
-        orrs r1, r3\n\
-        strb r1, [r4, #0x14]\n\
-        ldrb r0, [r4, #0x18]\n\
-        movs r1, #3\n\
-        orrs r0, r1\n\
-        strb r0, [r4, #0x18]\n\
-        movs r0, #0\n\
-        movs r1, #0\n\
-        movs r2, #0\n\
-        bl BG_SetPosition\n\
-        movs r0, #1\n\
-        movs r1, #0\n\
-        movs r2, #0\n\
-        bl BG_SetPosition\n\
-        movs r0, #2\n\
-        movs r1, #0\n\
-        movs r2, #0\n\
-        bl BG_SetPosition\n\
-        movs r0, #3\n\
-        movs r1, #0\n\
-        movs r2, #0\n\
-        bl BG_SetPosition\n\
-        ldr r4, _080B3A38  @ gUnknown_08A30E2C\n\
-        movs r0, #3\n\
-        bl GetBackgroundTileDataOffset\n\
-        adds r1, r0, #0\n\
-        movs r5, #0xC0\n\
-        lsls r5, r5, #0x13\n\
-        adds r1, r1, r5\n\
-        adds r0, r4, #0\n\
-        bl Decompress\n\
-        ldr r0, _080B3A3C  @ gUnknown_08A3593C\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #1\n\
-        movs r1, #0xE0\n\
-        bl CopyToPaletteBuffer\n\
-        ldr r0, _080B3A40  @ gBG3TilemapBuffer\n\
-        ldr r1, _080B3A44  @ gUnknown_08A35488\n\
-        movs r2, #0xE0\n\
-        lsls r2, r2, #7\n\
-        bl CallARM_FillTileRect\n\
-        ldr r4, _080B3A48  @ gUnknown_08A30800\n\
-        movs r0, #2\n\
-        bl GetBackgroundTileDataOffset\n\
-        adds r1, r0, #0\n\
-        adds r1, r1, r5\n\
-        adds r0, r4, #0\n\
-        bl Decompress\n\
-        ldr r0, _080B3A4C  @ gUiFramePaletteA\n\
-        movs r1, #0xC0\n\
-        movs r2, #0x20\n\
-        bl CopyToPaletteBuffer\n\
-        ldr r1, _080B3A50  @ gUnknown_08A30978\n\
-        movs r2, #0xC0\n\
-        lsls r2, r2, #7\n\
-        mov r0, r8\n\
-        bl CallARM_FillTileRect\n\
-        movs r0, #0xF\n\
-        bl BG_EnableSyncByMask\n\
-        adds r0, r6, #0\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        mov r1, r9\n\
-        ldr r0, [r1, #0x34]\n\
-        ldrb r0, [r0, #5]\n\
-        bl GetClassData\n\
-        ldrb r0, [r0, #0xB]\n\
-        mov r4, r9\n\
-        adds r4, #0x40\n\
-        strb r0, [r4]\n\
-        mov r2, r9\n\
-        ldr r0, [r2, #0x34]\n\
-        ldrb r0, [r0, #5]\n\
-        bl GetClassData\n\
-        ldrb r0, [r0, #0xC]\n\
-        mov r1, r9\n\
-        adds r1, #0x41\n\
-        strb r0, [r1]\n\
-        mov r3, r9\n\
-        ldr r0, [r3, #0x34]\n\
-        ldrb r0, [r0, #5]\n\
-        bl GetClassData\n\
-        ldrb r0, [r0, #0xD]\n\
-        mov r1, r9\n\
-        adds r1, #0x42\n\
-        strb r0, [r1]\n\
-        mov r1, r9\n\
-        ldr r0, [r1, #0x34]\n\
-        ldrb r0, [r0, #5]\n\
-        bl GetClassData\n\
-        ldrb r0, [r0, #0xE]\n\
-        mov r1, r9\n\
-        adds r1, #0x43\n\
-        strb r0, [r1]\n\
-        mov r2, r9\n\
-        ldr r0, [r2, #0x34]\n\
-        ldrb r0, [r0, #5]\n\
-        bl GetClassData\n\
-        ldrb r1, [r0, #0xF]\n\
-        mov r0, r9\n\
-        adds r0, #0x44\n\
-        strb r1, [r0]\n\
-        mov r3, r9\n\
-        ldr r0, [r3, #0x34]\n\
-        ldrb r0, [r0, #5]\n\
-        bl GetClassData\n\
-        ldrb r0, [r0, #0x10]\n\
-        mov r1, r9\n\
-        adds r1, #0x45\n\
-        strb r0, [r1]\n\
-        movs r7, #0\n\
-        str r4, [sp, #0x38]\n\
-        movs r4, #0x4A\n\
-        adds r4, r4, r6\n\
-        mov sl, r4\n\
-        adds r6, #0x42\n\
-        mov r8, r6\n\
-        movs r6, #0\n\
-        movs r4, #0\n\
-    _080B39EC:\n\
-        ldr r0, _080B3A54  @ gUnknown_0201FB28\n\
-        adds r5, r4, r0\n\
-        adds r0, r5, #0\n\
-        movs r1, #3\n\
-        bl Text_Init\n\
-        adds r0, r5, #0\n\
-        bl Text_Clear\n\
-        adds r0, r5, #0\n\
-        movs r1, #3\n\
-        bl Text_SetColorId\n\
-        adds r0, r5, #0\n\
-        movs r1, #0\n\
-        bl Text_SetXCursor\n\
-        ldr r0, [sp, #0x34]\n\
-        cmp r0, #0\n\
-        beq _080B3A58\n\
-        add r0, sp, #0x1C\n\
-        adds r0, r0, r6\n\
-        ldr r0, [r0]\n\
-        bl GetStringFromIndex\n\
-        adds r1, r0, #0\n\
-        adds r0, r5, #0\n\
-        bl Text_AppendString\n\
-        b _080B3A6C\n\
-        .align 2, 0\n\
-    _080B3A28: .4byte gBG0TilemapBuffer\n\
-    _080B3A2C: .4byte gBG1TilemapBuffer\n\
-    _080B3A30: .4byte gBG2TilemapBuffer\n\
-    _080B3A34: .4byte gLCDControlBuffer\n\
-    _080B3A38: .4byte gUnknown_08A30E2C\n\
-    _080B3A3C: .4byte gUnknown_08A3593C\n\
-    _080B3A40: .4byte gBG3TilemapBuffer\n\
-    _080B3A44: .4byte gUnknown_08A35488\n\
-    _080B3A48: .4byte gUnknown_08A30800\n\
-    _080B3A4C: .4byte gUiFramePaletteA\n\
-    _080B3A50: .4byte gUnknown_08A30978\n\
-    _080B3A54: .4byte gUnknown_0201FB28\n\
-    _080B3A58:\n\
-        mov r0, sp\n\
-        adds r0, r0, r6\n\
-        adds r0, #4\n\
-        ldr r0, [r0]\n\
-        bl GetStringFromIndex\n\
-        adds r1, r0, #0\n\
-        adds r0, r5, #0\n\
-        bl Text_AppendString\n\
-    _080B3A6C:\n\
-        ldr r0, _080B3BD0  @ gUnknown_0201FB28\n\
-        adds r0, r4, r0\n\
-        mov r1, r8\n\
-        bl Text_Draw\n\
-        ldr r1, [sp, #0x38]\n\
-        adds r0, r1, r7\n\
-        ldrb r2, [r0]\n\
-        mov r0, sl\n\
-        movs r1, #0\n\
-        bl sub_8004B88\n\
-        movs r2, #0x80\n\
-        add sl, r2\n\
-        add r8, r2\n\
-        adds r6, #4\n\
-        adds r4, #8\n\
-        adds r7, #1\n\
-        cmp r7, #5\n\
-        ble _080B39EC\n\
-        movs r5, #0\n\
-        mov r0, r9\n\
-        bl StartClassStatsDisplay\n\
-        mov r3, r9\n\
-        str r0, [r3, #0x3C]\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        movs r1, #2\n\
-        movs r2, #0\n\
-        bl InitTalk\n\
-        bl SetInitTalkTextFont\n\
-        bl ClearTalkText\n\
-        bl EndTalk\n\
-        mov r4, r9\n\
-        ldr r0, [r4, #0x34]\n\
-        ldr r2, [r0]\n\
-        movs r0, #2\n\
-        movs r1, #0xF\n\
-        bl StartTalkMsg\n\
-        movs r0, #0\n\
-        bl SetTalkPrintColor\n\
-        movs r0, #1\n\
-        bl SetTalkFlag\n\
-        movs r0, #2\n\
-        bl SetTalkFlag\n\
-        movs r0, #4\n\
-        bl SetTalkFlag\n\
-        movs r0, #8\n\
-        bl SetTalkFlag\n\
-        movs r0, #0x40\n\
-        bl SetTalkFlag\n\
-        movs r0, #4\n\
-        bl SetTalkPrintDelay\n\
-        ldr r0, _080B3BD4  @ gAnims\n\
-        ldr r3, [r4, #0x34]\n\
-        movs r1, #4\n\
-        ldrsb r1, [r3, r1]\n\
-        strh r1, [r0, #8]\n\
-        movs r1, #0x82\n\
-        lsls r1, r1, #1\n\
-        strh r1, [r0, #2]\n\
-        movs r1, #0x58\n\
-        strh r1, [r0, #4]\n\
-        ldrb r1, [r3, #7]\n\
-        strh r1, [r0, #6]\n\
-        movs r1, #6\n\
-        strh r1, [r0, #0xA]\n\
-        ldrb r1, [r3, #6]\n\
-        strb r1, [r0, #1]\n\
-        movs r4, #1\n\
-        strh r4, [r0, #0xC]\n\
-        movs r1, #0xC0\n\
-        lsls r1, r1, #1\n\
-        strh r1, [r0, #0xE]\n\
-        movs r1, #2\n\
-        strh r1, [r0, #0x10]\n\
-        ldr r1, _080B3BD8  @ gEkrBg0QuakeVec\n\
-        str r1, [r0, #0x1C]\n\
-        ldr r1, _080B3BDC  @ gUnknown_02002038\n\
-        str r1, [r0, #0x24]\n\
-        ldr r1, _080B3BE0  @ gUnknown_02007838\n\
-        str r1, [r0, #0x20]\n\
-        ldr r1, _080B3BE4  @ gUnknown_020078D8\n\
-        str r1, [r0, #0x28]\n\
-        ldr r1, _080B3BE8  @ gUnknown_0200A2D8\n\
-        str r1, [r0, #0x30]\n\
-        ldrb r2, [r3, #8]\n\
-        strh r2, [r1]\n\
-        ldrb r2, [r3, #9]\n\
-        strh r2, [r1, #2]\n\
-        ldrb r2, [r3, #0xA]\n\
-        strh r2, [r1, #4]\n\
-        ldrb r2, [r3, #0xB]\n\
-        strh r2, [r1, #6]\n\
-        ldrb r2, [r3, #0xC]\n\
-        strh r2, [r1, #8]\n\
-        movs r2, #0xA0\n\
-        lsls r2, r2, #2\n\
-        strh r2, [r1, #0xE]\n\
-        movs r3, #0xF\n\
-        strh r3, [r1, #0x10]\n\
-        subs r2, #0x80\n\
-        strh r2, [r1, #0xA]\n\
-        strh r3, [r1, #0xC]\n\
-        strh r4, [r1, #0x12]\n\
-        ldr r2, _080B3BEC  @ gBG1TilemapBuffer\n\
-        str r2, [r1, #0x14]\n\
-        ldr r2, _080B3BF0  @ gUnknown_0200A300\n\
-        str r2, [r1, #0x18]\n\
-        ldr r2, _080B3BF4  @ gUnknown_0200C300\n\
-        str r2, [r1, #0x1C]\n\
-        ldr r2, _080B3BF8  @ gUnknown_0200CB00\n\
-        str r2, [r1, #0x20]\n\
-        ldr r2, _080B3BFC  @ sub_80B3740\n\
-        str r2, [r1, #0x24]\n\
-        bl NewEkrUnitMainMini\n\
-        ldr r4, _080B3C00  @ gUnknown_0201DB00\n\
-        mov r0, r9\n\
-        ldr r1, [r0, #0x34]\n\
-        ldrb r0, [r1, #0xD]\n\
-        strh r0, [r4]\n\
-        movs r0, #0xA\n\
-        strh r0, [r4, #2]\n\
-        movs r0, #0xE0\n\
-        lsls r0, r0, #2\n\
-        strh r0, [r4, #4]\n\
-        ldrb r0, [r1, #0xE]\n\
-        strh r0, [r4, #6]\n\
-        movs r0, #0xB\n\
-        strh r0, [r4, #8]\n\
-        movs r0, #0xF0\n\
-        lsls r0, r0, #2\n\
-        strh r0, [r4, #0xA]\n\
-        strh r5, [r4, #0xC]\n\
-        ldr r0, _080B3C04  @ 0x0000FFFF\n\
-        strh r0, [r4, #0xE]\n\
-        ldr r0, _080B3C08  @ 0x06010000\n\
-        str r0, [r4, #0x1C]\n\
-        ldr r0, _080B3C0C  @ gUnknown_0201DB28\n\
-        str r0, [r4, #0x20]\n\
-        adds r0, r4, #0\n\
-        bl sub_805AA68\n\
-        movs r3, #0x98\n\
-        lsls r3, r3, #1\n\
-        movs r0, #0x68\n\
-        str r0, [sp]\n\
-        adds r0, r4, #0\n\
-        movs r1, #0xD0\n\
-        movs r2, #0x68\n\
-        bl sub_805AE40\n\
-        ldr r0, _080B3C10  @ sub_80B36E0\n\
-        bl SetPrimaryHBlankHandler\n\
-        add sp, #0x3C\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080B3BD0: .4byte gUnknown_0201FB28\n\
-    _080B3BD4: .4byte gAnims\n\
-    _080B3BD8: .4byte gEkrBg0QuakeVec\n\
-    _080B3BDC: .4byte gUnknown_02002038\n\
-    _080B3BE0: .4byte gUnknown_02007838\n\
-    _080B3BE4: .4byte gUnknown_020078D8\n\
-    _080B3BE8: .4byte gUnknown_0200A2D8\n\
-    _080B3BEC: .4byte gBG1TilemapBuffer\n\
-    _080B3BF0: .4byte gUnknown_0200A300\n\
-    _080B3BF4: .4byte gUnknown_0200C300\n\
-    _080B3BF8: .4byte gUnknown_0200CB00\n\
-    _080B3BFC: .4byte sub_80B3740\n\
-    _080B3C00: .4byte gUnknown_0201DB00\n\
-    _080B3C04: .4byte 0x0000FFFF\n\
-    _080B3C08: .4byte 0x06010000\n\
-    _080B3C0C: .4byte gUnknown_0201DB28\n\
-    _080B3C10: .4byte sub_80B36E0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void sub_80B3C14(struct OpInfoClassDisplayProc* proc) {
 
