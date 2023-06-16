@@ -181,6 +181,26 @@ enum BmSt_gameStateBits {
     BM_FLAG_LINKARENA = (1 << 6),
 };
 
+struct PlaySt_30 {
+    int total_gold;
+
+    u32 unk_4_00 : 0x14;
+    u32 unk_4_14 : 0x0C;
+
+    u32 unk_8_1:8;
+    u32 unk_8_2:20; // Used by bmdifficulty (Valni/Lagdou)
+    u32 unk_8_3:4;
+
+    u32 unk_C_00 : 6;
+    u32 combatRank : 3;
+    u32 expRank : 3;
+    u32 unk_3D_04 : 3;
+    u32 fundsRank : 3;
+    u32 tacticsRank : 3;
+    u32 survivalRank : 3;
+    u32 unk_F_00 : 8;
+};
+
 struct PlaySt { // Chapter Data Struct
     /* 00 */ u32 time_saved;
     /* 04 */ u32 time_chapter_started;
@@ -225,23 +245,7 @@ struct PlaySt { // Chapter Data Struct
     u32 unk_2C_2:5;
     u32 unk_2C_3:4;
 
-    /* 30 */ int total_gold;
-
-    /* 34 */ u32 unk_34_00 : 0x14;
-             u32 unk_34_14 : 0x0C;
-
-    u32 unk_38_1:8;
-    u32 unk_38_2:20; // Used by bmdifficulty (Valni/Lagdou)
-    u32 unk_38_3:4;
-
-    /* 3C */ u32 unk_3C_00 : 6;
-    /* 3C */ u32 combatRank : 3;
-    /* 3D */ u32 expRank : 3;
-    /* 3D */ u32 unk_3D_04 : 3;
-    /* 3D */ u32 fundsRank : 3;
-    /* 3E */ u32 tacticsRank : 3;
-    /* 3E */ u32 survivalRank : 3;
-    /* 3F */ u32 unk_3F_00 : 8;
+    struct PlaySt_30 unk_30;
 
     // option bits
     u32 cfgUnitColor:1; // 1

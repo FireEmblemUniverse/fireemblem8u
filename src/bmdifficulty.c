@@ -287,7 +287,7 @@ void UpdateDungeonStats(struct Dungeon* dungeon) {
 
     val = dungeon->expEarned;
 
-    val += (PidStatsGetTotalExpGain() - gPlaySt.unk_38_2);
+    val += (PidStatsGetTotalExpGain() - gPlaySt.unk_30.unk_8_2);
 
     if (val > 50000) {
         val = 50000;

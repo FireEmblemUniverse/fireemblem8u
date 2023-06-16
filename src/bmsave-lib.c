@@ -246,7 +246,7 @@ void WriteSaveBlockInfo(struct SaveBlockInfo *chunk, int index)
 
     switch (chunk->kind) {
     case SAVEBLOCK_KIND_GAME:
-        chunk->size = GAMESAVE_OFFSET_MAX;
+        chunk->size = sizeof(struct GameSaveBlock);
         break;
 
     case SAVEBLOCK_KIND_SUSPEND:
@@ -364,7 +364,7 @@ void ReadPermanentFlags(void *ewram_dest)
         GetPermanentFlagBitsSize());
 }
 
-void ReadPermanentFlags_ret(void *sram_src, void *ewram_dest)
+void ReadPermanentFlags_ret(const void *sram_src, void *ewram_dest)
 {
     ReadSramFast(
         sram_src,
