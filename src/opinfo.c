@@ -348,16 +348,17 @@ u16 CONST_DATA sSprite_08A2EF48[] = {
     0x8300, 0x8000, 0x0400
 };
 
-#if NONMATCHING
-
 void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset) {
     int i;
     int k;
 
     for (i = 1; i < 0x10; i++) {
-        gPaletteBuffer[((charId + 0x10) * 0x10) + i] = ((offset + i) >= 0x10)
-            ? gPaletteBuffer[((0 + 0x10) * 0x10) + 0xF]
-            : gPaletteBuffer[((1 + 0x10) * 0x10) + i];
+        if (i + offset >= 0x10) {
+            int j = 0xF;
+            gPaletteBuffer[0x110 + charId * 0x10 + i] = gPaletteBuffer[0x100 + j];
+        } else {
+            gPaletteBuffer[0x110 + charId * 0x10 + i] = gPaletteBuffer[0x100 + i + offset];
+        }
 
         k = charId + 1;
     }
@@ -400,197 +401,6 @@ void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x10\n\
-        mov r8, r1\n\
-        str r2, [sp, #4]\n\
-        ldr r1, [sp, #0x30]\n\
-        ldr r2, [sp, #0x34]\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        mov r9, r0\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov sl, r3\n\
-        lsls r1, r1, #0x10\n\
-        lsrs r1, r1, #0x10\n\
-        str r1, [sp, #8]\n\
-        lsls r2, r2, #0x18\n\
-        lsrs r2, r2, #0x18\n\
-        str r2, [sp, #0xC]\n\
-        movs r4, #1\n\
-        ldr r2, _080B2A6C  @ gPaletteBuffer\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        ldr r1, _080B2A70  @ 0x0000021E\n\
-        adds r5, r2, r1\n\
-        ldr r3, [sp, #0xC]\n\
-        adds r0, r3, r0\n\
-        mov r3, r9\n\
-        lsls r1, r3, #5\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r2\n\
-        adds r3, r0, #2\n\
-        ldr r0, _080B2A74  @ 0x00000222\n\
-        adds r1, r1, r0\n\
-        adds r1, r1, r2\n\
-    _080B2A60:\n\
-        ldr r2, [sp, #0xC]\n\
-        adds r0, r4, r2\n\
-        cmp r0, #0xF\n\
-        ble _080B2A78\n\
-        ldrh r0, [r5]\n\
-        b _080B2A7A\n\
-        .align 2, 0\n\
-    _080B2A6C: .4byte gPaletteBuffer\n\
-    _080B2A70: .4byte 0x0000021E\n\
-    _080B2A74: .4byte 0x00000222\n\
-    _080B2A78:\n\
-        ldrh r0, [r3]\n\
-    _080B2A7A:\n\
-        strh r0, [r1]\n\
-        mov r7, r9\n\
-        adds r7, #1\n\
-        adds r1, #2\n\
-        adds r3, #2\n\
-        adds r4, #1\n\
-        cmp r4, #0xF\n\
-        ble _080B2A60\n\
-        bl EnablePaletteSync\n\
-        ldr r3, [sp, #8]\n\
-        cmp r3, #8\n\
-        bls _080B2B74\n\
-        mov r0, sl\n\
-        cmp r0, #7\n\
-        bhi _080B2A9E\n\
-        movs r1, #8\n\
-        mov sl, r1\n\
-    _080B2A9E:\n\
-        ldr r4, _080B2B34  @ gSinLookup\n\
-        ldr r2, _080B2B38  @ gCosLookup\n\
-        movs r3, #0\n\
-        ldrsh r0, [r2, r3]\n\
-        lsls r0, r0, #4\n\
-        mov r1, sl\n\
-        bl Div\n\
-        adds r6, r0, #0\n\
-        lsls r6, r6, #0x10\n\
-        asrs r6, r6, #0x10\n\
-        movs r1, #0\n\
-        ldrsh r0, [r4, r1]\n\
-        negs r0, r0\n\
-        lsls r0, r0, #4\n\
-        ldr r1, [sp, #8]\n\
-        bl Div\n\
-        adds r5, r0, #0\n\
-        lsls r5, r5, #0x10\n\
-        asrs r5, r5, #0x10\n\
-        movs r2, #0\n\
-        ldrsh r0, [r4, r2]\n\
-        lsls r0, r0, #4\n\
-        mov r1, sl\n\
-        bl Div\n\
-        adds r4, r0, #0\n\
-        lsls r4, r4, #0x10\n\
-        asrs r4, r4, #0x10\n\
-        ldr r3, _080B2B38  @ gCosLookup\n\
-        movs r1, #0\n\
-        ldrsh r0, [r3, r1]\n\
-        lsls r0, r0, #4\n\
-        ldr r1, [sp, #8]\n\
-        bl Div\n\
-        lsls r0, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        str r0, [sp]\n\
-        mov r0, r9\n\
-        adds r1, r6, #0\n\
-        adds r2, r5, #0\n\
-        adds r3, r4, #0\n\
-        bl WriteOAMRotScaleData\n\
-        ldr r2, [sp, #0xC]\n\
-        cmp r2, #0\n\
-        beq _080B2B44\n\
-        ldr r0, _080B2B3C  @ 0x000001FF\n\
-        mov r3, r8\n\
-        ands r3, r0\n\
-        mov r8, r3\n\
-        mov r2, r9\n\
-        lsls r1, r2, #9\n\
-        add r1, r8\n\
-        ldr r3, [sp, #4]\n\
-        ands r3, r0\n\
-        str r3, [sp, #4]\n\
-        ldr r3, _080B2B40  @ sSprite_08A2EF48\n\
-        lsls r0, r2, #1\n\
-        movs r2, #0xF\n\
-        ands r7, r2\n\
-        lsls r2, r7, #0xC\n\
-        adds r0, r0, r2\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #4\n\
-        adds r0, r0, r2\n\
-        str r0, [sp]\n\
-        movs r0, #4\n\
-        ldr r2, [sp, #4]\n\
-        bl PutSpriteExt\n\
-        b _080B2B74\n\
-        .align 2, 0\n\
-    _080B2B34: .4byte gSinLookup\n\
-    _080B2B38: .4byte gCosLookup\n\
-    _080B2B3C: .4byte 0x000001FF\n\
-    _080B2B40: .4byte sSprite_08A2EF48\n\
-    _080B2B44:\n\
-        ldr r0, _080B2B84  @ 0x000001FF\n\
-        mov r3, r8\n\
-        ands r3, r0\n\
-        mov r8, r3\n\
-        mov r2, r9\n\
-        lsls r1, r2, #9\n\
-        add r1, r8\n\
-        ldr r3, [sp, #4]\n\
-        ands r3, r0\n\
-        str r3, [sp, #4]\n\
-        ldr r3, _080B2B88  @ sSprite_08A2EF48\n\
-        lsls r0, r2, #1\n\
-        movs r2, #0xF\n\
-        ands r7, r2\n\
-        lsls r2, r7, #0xC\n\
-        adds r0, r0, r2\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        adds r0, r0, r2\n\
-        str r0, [sp]\n\
-        movs r0, #4\n\
-        ldr r2, [sp, #4]\n\
-        bl PutSpriteExt\n\
-        _080B2B74:\n\
-        add sp, #0x10\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080B2B84: .4byte 0x000001FF\n\
-    _080B2B88: .4byte sSprite_08A2EF48\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 extern u8* CONST_DATA gUnknown_08A2F2C0[];
 
@@ -1398,7 +1208,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     hasMagicRank = 0;
 
-    memcpy(hack.hack_2d, gUnknown_08205EDC, sizeof(hack));
+    memcpy(hack.hack_2d, gUnknown_08205EDC, sizeof(hack.hack_2d));
 
     proc->script = proc->classReelEnt->script;
 
