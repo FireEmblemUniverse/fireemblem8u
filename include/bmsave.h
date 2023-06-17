@@ -86,11 +86,6 @@ struct SaveBlockInfo {
     /* 0C */ u32 checksum32;
 };
 
-struct SramHeader {
-    struct GlobalSaveInfo meta;
-    struct SaveBlockInfo chunks[0x7];
-};
-
 struct GameRankSaveData {
     /* 00 */ u32 valid : 0x01;
              u32 unk00_01 : 0x03;
@@ -389,8 +384,12 @@ struct SaveBlocks {
     /* 0x00D4 */ struct SuspendSaveBlock suspendSaveBlocks[2];
     /* 0x3FC4 */ struct GameSaveBlock gameSaveBlocks[3];
     /* 0x691C */ u8 offset_5[0x874];
-    // TODO: update these fields
-    /* 0x7190 */ u8 unk_7190[0x270];
+    /* 0x7190 */ struct GameRankSaveDataPacks gameRankSave;
+    /* 0x7224 */ struct bmsave_unkstruct1 unkstruct1;
+    /* 0x7248 */ struct bmsave_unkstruct2 unkstruct2;
+    /* 0x725C */ struct bmsave_unkstruct3 unkstruct3;
+    /* 0x73A0 */ u8 unk_73A0[4];
+    /* 0x73A4 */ u8 unk_73A4[0x5C];
     /* 0x7400 */ struct ExtraMapSaveHead offset_6; // see bmsave-xmap.c
 };
 
@@ -431,7 +430,7 @@ extern struct MultiArenaSaveTeam EWRAM_DATA gMultiArenaSaveTeamBufA;
 extern struct MultiArenaSaveTeam EWRAM_DATA gMultiArenaSaveTeamBufB;
 
 extern EWRAM_DATA bool gBoolSramWorking;
-extern CONST_DATA u8 * gSram;
+extern CONST_DATA struct SaveBlocks *gSram;
 extern u32 gBonusContentClaimFlags;
 extern u8 gSuspendSaveIdOffset;    /* gSaveSuBaseSlot */
 extern CONST_DATA struct ExtraMapInfo *gExtraMapInfo;
