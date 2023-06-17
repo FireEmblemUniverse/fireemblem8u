@@ -38,7 +38,7 @@ static const u8 sConvySavePackMask2[] = {
     0xE0,   /* 1110 0000 */
 };
 
-CONST_DATA u8 *gSram = CART_SRAM;
+CONST_DATA struct SaveBlocks *gSram = CART_SRAM;
 
 CONST_DATA int sSupportUnkLut[][2] = {
     { 0x0100, 0x0100 }, 
@@ -53,8 +53,8 @@ void SramInit()
 
     SetSramFastFunc();
     REG_IE |= INTR_FLAG_GAMEPAK;
-    WriteSramFast((u8 *)&buf[0], gSram + 0x73A0, 4);
-    ReadSramFast(gSram + 0x73A0, &buf[1], 4);
+    WriteSramFast((u8 *)&buf[0], gSram->unk_73A0, sizeof(gSram->unk_73A0));
+    ReadSramFast(gSram->unk_73A0, &buf[1], sizeof(buf[1]));
     
     gBoolSramWorking = (buf[1] == buf[0])
                      ? true
@@ -75,7 +75,7 @@ void WipeSram()
         buf[i] = 0xFFFFFFFF;
 
     for (i = 0; i < 0x200; i++)
-        WriteAndVerifySramFast(buf, gSram + i * 0x40, 0x40);
+        WriteAndVerifySramFast(buf, (u8 *)gSram + i * 0x40, 0x40);
 }
 
 u16 Checksum16(void const * data, int size)
@@ -107,7 +107,7 @@ bool ReadGlobalSaveInfo(struct GlobalSaveInfo *buf)
     if (NULL == buf)
         buf = &local_info;
 
-    ReadSramFast(gSram, buf, sizeof(struct GlobalSaveInfo));
+    ReadSramFast(&gSram->globalSaveInfo, buf, sizeof(struct GlobalSaveInfo));
 
     if (0 != StringCompare(buf->name, sSaveMarker)
         && SAVEMAGIC32 == buf->magic32
@@ -121,12 +121,12 @@ bool ReadGlobalSaveInfo(struct GlobalSaveInfo *buf)
 void WriteGlobalSaveInfo(struct GlobalSaveInfo *header)
 {
     header->checksum = Checksum16(header, GLOBALSIZEINFO_SIZE_FOR_CHECKSUM);
-    WriteAndVerifySramFast(header, gSram, sizeof(struct GlobalSaveInfo));
+    WriteAndVerifySramFast(header, &gSram->globalSaveInfo, sizeof(struct GlobalSaveInfo));
 }
 
 void WriteGlobalSaveInfoNoChecksum(struct GlobalSaveInfo *header)
 {
-    WriteAndVerifySramFast(header, gSram, sizeof(struct GlobalSaveInfo));
+    WriteAndVerifySramFast(header, &gSram->globalSaveInfo, sizeof(struct GlobalSaveInfo));
 }
 
 void InitGlobalSaveInfodata()
@@ -179,12 +179,12 @@ void EraseBonusContentData()
 
 void * SramOffsetToAddr(u16 off)
 {
-    return gSram + off;
+    return (u8 *)gSram + off;
 }
 
 u16 SramAddrToOffset(void * addr)
 {
-    return ((u8 *) addr) - gSram;
+    return ((u8 *)addr) - (u8 *)gSram;
 }
 
 bool ReadSaveBlockInfo(struct SaveBlockInfo *chunk, int index)
@@ -195,7 +195,7 @@ bool ReadSaveBlockInfo(struct SaveBlockInfo *chunk, int index)
     if (NULL == chunk)
         chunk = &tmp;
 
-    ReadSramFast(&((struct SramHeader *)gSram)->chunks[index], chunk, sizeof(struct SaveBlockInfo));
+    ReadSramFast(&gSram->saveBlockInfo[index], chunk, sizeof(struct SaveBlockInfo));
 
     if (SAVEMAGIC16 != chunk->magic16)
         return false;
@@ -272,7 +272,7 @@ void WriteSaveBlockInfo(struct SaveBlockInfo *chunk, int index)
     }
 
     PopulateSaveBlockChecksum(chunk);
-    WriteAndVerifySramFast( chunk, &((struct SramHeader *)gSram)->chunks[index], sizeof(struct SaveBlockInfo));
+    WriteAndVerifySramFast(chunk, &gSram->saveBlockInfo[index], sizeof(struct SaveBlockInfo));
 }
 
 void EraseSaveBlockInfo(int index)
@@ -283,7 +283,7 @@ void EraseSaveBlockInfo(int index)
         CpuFill16(0xFFFF, &chunk, sizeof(struct SaveBlockInfo));
         WriteAndVerifySramFast(
             &chunk,
-            &((struct SramHeader *)gSram)->chunks[index],
+            &gSram->saveBlockInfo[index],
             sizeof(struct SaveBlockInfo));
     }
 }
@@ -292,27 +292,27 @@ void *GetSaveWriteAddr(int index)
 {
     switch (index) {
         case SAVE_ID_GAME0:
-            return SRAM_OFFSET_SAV0 + gSram;
+            return &gSram->gameSaveBlocks[0];
             break;
 
         case SAVE_ID_GAME1:
-            return SRAM_OFFSET_SAV1 + gSram;
+            return &gSram->gameSaveBlocks[1];
             break;
 
         case SAVE_ID_GAME2:
-            return SRAM_OFFSET_SAV2 + gSram;
+            return &gSram->gameSaveBlocks[2];
             break;
 
         case SAVE_ID_SUSPEND:
-            return SRAM_OFFSET_SUS0 + gSram;
+            return &gSram->suspendSaveBlocks[0];
             break;
 
         case SAVE_ID_SUSPEND_ALT:
-            return SRAM_OFFSET_SUS1 + gSram;
+            return &gSram->suspendSaveBlocks[1];
             break;
 
         case SAVE_ID_ARENA:
-            return SRAM_OFFSET_5 + gSram;
+            return gSram->offset_5;
             break;
 
         case SAVE_ID_XMAP:
@@ -842,7 +842,7 @@ bool LoadAndVerfyRankData(void *buf)
         _buf = (void*)gGenericBuffer;
 
     ReadSramFast(
-        (void*)gSram + 0x7190,
+        &gSram->gameRankSave,
         (void*)_buf,
         sizeof(struct GameRankSaveDataPacks)
     );
@@ -864,9 +864,9 @@ bool LoadBonusContentData(void *buf)
         _buf = (void*)gGenericBuffer;
 
     ReadSramFast(
-        (void*)gSram + 0x725C,
+        &gSram->unkstruct3,
         (void*)_buf,
-        0x144
+        sizeof(gSram->unkstruct3)
     );
 
     if (_buf[0x140 / 2] != Checksum16(_buf, 0x140))
@@ -881,7 +881,7 @@ void SaveBonusContentData(void *buf)
 
     _buf[0x140/2] = Checksum16(buf, 0x140);
 
-    WriteAndVerifySramFast(buf, gSram + 0x725C, 0x144);
+    WriteAndVerifySramFast(buf, &gSram->unkstruct3, sizeof(gSram->unkstruct3));
 }
 
 void SaveRankings(void *buf)
@@ -892,16 +892,16 @@ void SaveRankings(void *buf)
 
     WriteAndVerifySramFast(
         buf,
-        (void*)gSram + 0x7190,
+        &gSram->gameRankSave,
         sizeof(struct GameRankSaveDataPacks)
     );
 }
 
 void EraseSaveRankData()
 {
-    u16 _buf[0x94 / 2];
+    u16 _buf[sizeof(struct GameRankSaveDataPacks) / 2];
 
-    CpuFill16(0, _buf, 0x128 / 2);
+    CpuFill16(0, _buf, sizeof(struct GameRankSaveDataPacks));
     SaveRankings(_buf);
 }
 
@@ -1075,8 +1075,8 @@ bool sub_80A3E4C(void *buf)
 
     if (NULL == buf)
         _buf = &tmp;
-    
-    ReadSramFast(gSram + 0x7224, _buf, sizeof(struct bmsave_unkstruct1));
+
+    ReadSramFast(&gSram->unkstruct1, _buf, sizeof(struct bmsave_unkstruct1));
 
     if (_buf->magic1 != Checksum16(_buf, sizeof(struct bmsave_unkstruct1) - 4))
         return false;
@@ -1090,7 +1090,7 @@ void sub_80A3EA4(void *buf)
 
     _buf->magic1 = Checksum16(buf, sizeof(struct bmsave_unkstruct1) - 4);
 
-    WriteAndVerifySramFast(_buf, gSram + 0x7224, sizeof(struct bmsave_unkstruct1));
+    WriteAndVerifySramFast(_buf, &gSram->unkstruct1, sizeof(struct bmsave_unkstruct1));
 }
 
 int sub_80A3ED0(void *buf, int val)
@@ -1159,7 +1159,7 @@ bool sub_80A3FA8(void *buf)
     if (0 == _buf)
         _buf = &tmp;
 
-    ReadSramFast((void*)gSram + 0x7248, (void*)_buf, sizeof(struct bmsave_unkstruct2));
+    ReadSramFast(&gSram->unkstruct2, (void*)_buf, sizeof(struct bmsave_unkstruct2));
 
     if (_buf->magic1 != Checksum16((u16*)_buf, sizeof(struct bmsave_unkstruct2) - 4))
         return 0;
@@ -1172,8 +1172,8 @@ void sub_80A4000(struct bmsave_unkstruct2 *buf)
     buf->magic1 = Checksum16((u16*)buf, sizeof(struct bmsave_unkstruct2) - 4);
 
     WriteAndVerifySramFast((void*)buf,
-                           (void*)gSram + 0x7248,
-                            sizeof(struct bmsave_unkstruct2));
+                           &gSram->unkstruct2,
+                           sizeof(struct bmsave_unkstruct2));
 }
 
 int sub_80A402C(void *buf, int val)
