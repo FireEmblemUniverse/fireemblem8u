@@ -493,6 +493,11 @@ union GMStateBits {
     } __attribute__((packed)) bits;
 } __attribute__((packed));
 
+struct OpenPaths {
+    s8 openPaths[0x20];
+    s8 openPathsLength;
+};
+
 struct GMapData
 {
     /* 00 */ union GMStateBits state;
@@ -504,11 +509,7 @@ struct GMapData
     /* 10 */ struct GMUnit unk10[8];
     /* 30 */ struct GMNode unk30[0x1C];
     /* A0 */ int unk_a0; // pad?
-    // These are typically treated as one logical unit, but can't be pulled out
-    // into a separate struct because that messes up the struct padding.
-    /* A4 */ s8 openPaths[0x20];
-    /* C4 */ s8 openPathsLength;
-    /* C5 */ u8 _pad[3];
+    /* A4 */ struct OpenPaths routeData;
     /* C8 */ u8 unk_c8; // entry node id?
     /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
     /* CC */ u8 unk_cc; // used to determine which skirmish enemy block to load
