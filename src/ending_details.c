@@ -1508,463 +1508,88 @@ void sub_80B770C(void) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/hajQV */
-
 //! FE8U = 0x080B7800
 int sub_80B7800(struct ChapterStats* param_1, int param_2) {
-    int bVar1;
-    int uVar5;
+    int var = 3;
+    int r4;
     int r6;
     int r7;
-    int uVar7;
-    int iVar8;
-    int iVar9;
     int uVar10;
-    const char* str;
-    int a;
+    int r9;
+    int sl;
+    int sp0C;
+    s8 sp10 = 0;
 
-    s8 local_24 = 0;
-    int iVar4 = param_2 % 9;
+    sp0C = param_2 % 9;
+    r7 = (param_2 * 2) & 0x1f;
+    r6 = r7 * 0x20;
 
-    param_2 = (param_2 * 2) & 0x1f;
-    r6 = param_2 * 0x20;
-
-    TileMap_FillRect(gBG1TilemapBuffer + TILEMAP_INDEX(0, param_2), 0x1f, 1, 0);
+    TileMap_FillRect(gBG1TilemapBuffer + TILEMAP_INDEX(0, r7), 0x1f, 1, 0);
     BG_EnableSyncByMask(2);
 
-    Text_Clear(gUnknown_08A3D674 + iVar4);
-    Text_Clear(gUnknown_08A3D674 + 9 + iVar4);
+    Text_Clear(gUnknown_08A3D674 + sp0C);
+    Text_Clear(gUnknown_08A3D674 + 9 + sp0C);
 
     if ((u32)param_1 == -1) {
-        int t;
-        uVar5 = GetGameTotalTurnCount();
+        r4 = GetGameTotalTurnCount();
 
-        DrawTextInline(gUnknown_08A3D674 + 9 + iVar4, gBG1TilemapBuffer + (t = r6 + 0xc), 3, 0, 0, GetStringFromIndex(0x15F));
-        sub_8004B88(gBG1TilemapBuffer + (t = r6 + 0x17), 2, uVar5);
-        Text_Draw(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + (t = r6 + 0x18));
+        DrawTextInline(gUnknown_08A3D674 + 9 + sp0C, gBG1TilemapBuffer + ({r6 + 0xC;}), 3, 0, 0, GetStringFromIndex(0x15f));
+        sub_8004B88(gBG1TilemapBuffer + ({r6 + 0x17;}), 2, r4);
+        Text_Draw(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + ({r6 + 0x18;}));
 
         return 0;
     }
 
-    if (param_1 == 0) {
-        return local_24;
+    if (param_1) {
+        sl = param_1->chapter_index;
+        r9 = GetROMChapterStruct(sl)->prepScreenNumber >> 1;
+        switch (sl) {
+            case 0:
+                DrawTextInline(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x15a)); // TODO: msgid "Prologue"
+                break;
+
+            case 21:
+            case 22:
+            case 34:
+            case 35:
+                DrawTextInline(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x159)); // TODO: msgid "Final[.]"
+                break;
+
+            case 5:
+                Text_Draw(gUnknown_08A3D674 + 0x13, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7));
+                sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (1  + var), r7), 2, r9);
+                DrawTextInline(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (2 + var), r7), 2, 0, 0, GetStringFromIndex(0x158));
+                break;
+
+            default:
+                DrawTextInline(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x0157));
+                sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (1 + var), r7), 2, r9);
+                break;
+        }
+
+        switch (sl) {
+            case 21:
+            case 22:
+            case 34:
+            case 35:
+                uVar10 = param_1->chapter_turn;
+                ++param_1;
+                uVar10 += param_1->chapter_turn;
+                sp10 = 1;
+                break;
+
+            default:
+                uVar10 = param_1->chapter_turn;
+                break;
+        }
+
+        DrawTextInline(gUnknown_08A3D674 + 9 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(5 + var, r7), 0, 0, 0, GetStringFromIndex(GetROMChapterStruct(sl)->chapTitleTextId));
+        sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(0x14 + var, r7), 2, uVar10);
+        Text_Draw(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + TILEMAP_INDEX(0x15 + var, r7));
     }
 
-    uVar7 = param_1->chapter_index;
-    bVar1 = GetROMChapterStruct(uVar7)->prepScreenNumber >> 1;
-    switch (uVar7) {
-        case 0:
-            // _080B7988
-            str = GetStringFromIndex(0x15a); // TODO: msgid "Prologue"
-            DrawTextInline(gUnknown_08A3D674 + iVar4, gBG1TilemapBuffer + TILEMAP_INDEX(3, param_2), 3, 0, 0, str);
-            break;
-
-        case 21:
-        case 22:
-        case 34:
-        case 35:
-            // _080B798E
-            str = GetStringFromIndex(0x159); // TODO: msgid "Final[.]"
-            DrawTextInline(gUnknown_08A3D674 + iVar4, gBG1TilemapBuffer + TILEMAP_INDEX(3, param_2), 3, 0, 0, str);
-            break;
-
-        case 5:
-            // _080B79CC
-            Text_Draw(gUnknown_08A3D674 + 0x13, gBG1TilemapBuffer + TILEMAP_INDEX(3, param_2));
-            sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(bVar1) + 4, param_2), 2, bVar1);
-            DrawTextInline(gUnknown_08A3D674 + iVar4, gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(bVar1) + 5, param_2), 2, 0, 0, GetStringFromIndex(0x158));
-            break;
-
-        default:
-            // _080B7A40
-            DrawTextInline(gUnknown_08A3D674 + iVar4, gBG1TilemapBuffer + TILEMAP_INDEX(3, param_2), 3, 0, 0, GetStringFromIndex(0x157));
-            sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(bVar1) + 4, param_2), 2, bVar1);
-            break;
-
-    }
-
-    switch (uVar7) {
-        default:
-            uVar10 = (param_1->chapter_turn) + ((++param_1)->chapter_turn);
-            local_24 = 1;
-            break;
-
-        case 21:
-        case 22:
-        case 34:
-        case 35:
-            uVar10 = param_1->chapter_turn;
-            break;
-    }
-
-    DrawTextInline(gUnknown_08A3D674 + 9 + iVar4, gBG1TilemapBuffer + TILEMAP_INDEX(8, param_2), 0, 0, 0, GetStringFromIndex(GetROMChapterStruct(uVar7)->chapTitleTextId));
-    sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(0x17, param_2), 2, uVar10);
-    Text_Draw(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + TILEMAP_INDEX(0x18, param_2));
-
-    return local_24;
+    return sp10;
 }
-
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-int sub_80B7800(struct ChapterStats* param_1, int param_2) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x14\n\
-        str r0, [sp, #8]\n\
-        adds r4, r1, #0\n\
-        movs r0, #0\n\
-        str r0, [sp, #0x10]\n\
-        adds r0, r4, #0\n\
-        movs r1, #9\n\
-        bl __modsi3\n\
-        str r0, [sp, #0xc]\n\
-        lsls r7, r4, #1\n\
-        movs r0, #0x1f\n\
-        ands r7, r0\n\
-        lsls r6, r7, #5\n\
-        lsls r0, r7, #6\n\
-        ldr r1, _080B78B8  @ gBG1TilemapBuffer\n\
-        mov r9, r1\n\
-        add r0, r9\n\
-        movs r1, #0x1f\n\
-        movs r2, #1\n\
-        movs r3, #0\n\
-        bl TileMap_FillRect\n\
-        movs r0, #2\n\
-        bl BG_EnableSyncByMask\n\
-        ldr r3, _080B78BC  @ gUnknown_08A3D674\n\
-        mov r8, r3\n\
-        ldr r0, [sp, #0xc]\n\
-        lsls r4, r0, #3\n\
-        ldr r0, [r3]\n\
-        adds r0, r0, r4\n\
-        bl Text_Clear\n\
-        adds r5, r4, #0\n\
-        adds r5, #0x48\n\
-        mov r1, r8\n\
-        ldr r0, [r1]\n\
-        adds r0, r0, r5\n\
-        bl Text_Clear\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        ldr r3, [sp, #8]\n\
-        cmp r3, r0\n\
-        bne _080B78C4\n\
-        bl GetGameTotalTurnCount\n\
-        adds r4, r0, #0\n\
-        ldr r0, _080B78C0  @ 0x0000015F\n\
-        bl GetStringFromIndex\n\
-        adds r2, r0, #0\n\
-        mov r1, r8\n\
-        ldr r0, [r1]\n\
-        adds r0, r0, r5\n\
-        adds r1, r6, #0\n\
-        adds r1, #0xc\n\
-        lsls r1, r1, #1\n\
-        add r1, r9\n\
-        ldr r3, [sp, #0x10]\n\
-        str r3, [sp]\n\
-        str r2, [sp, #4]\n\
-        movs r2, #3\n\
-        movs r3, #0\n\
-        bl DrawTextInline\n\
-        adds r0, r6, #0\n\
-        adds r0, #0x17\n\
-        lsls r0, r0, #1\n\
-        add r0, r9\n\
-        movs r1, #2\n\
-        adds r2, r4, #0\n\
-        bl sub_8004B88\n\
-        mov r1, r8\n\
-        ldr r0, [r1]\n\
-        adds r0, #0x90\n\
-        adds r1, r6, #0\n\
-        adds r1, #0x18\n\
-        lsls r1, r1, #1\n\
-        add r1, r9\n\
-        bl Text_Draw\n\
-        movs r0, #0\n\
-        b _080B7B18\n\
-        .align 2, 0\n\
-    _080B78B8: .4byte gBG1TilemapBuffer\n\
-    _080B78BC: .4byte gUnknown_08A3D674\n\
-    _080B78C0: .4byte 0x0000015F\n\
-    _080B78C4:\n\
-        ldr r3, [sp, #8]\n\
-        cmp r3, #0\n\
-        bne _080B78CC\n\
-        b _080B7B16\n\
-    _080B78CC:\n\
-        ldr r0, [r3]\n\
-        lsls r0, r0, #0x19\n\
-        lsrs r0, r0, #0x19\n\
-        mov sl, r0\n\
-        bl GetROMChapterStruct\n\
-        adds r0, #0x80\n\
-        ldrb r0, [r0]\n\
-        lsrs r0, r0, #1\n\
-        mov r9, r0\n\
-        mov r0, sl\n\
-        cmp r0, #0x23\n\
-        bls _080B78E8\n\
-        b _080B7A40\n\
-    _080B78E8:\n\
-        lsls r0, r0, #2\n\
-        ldr r1, _080B78F4  @ _080B78F8\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        mov pc, r0\n\
-        .align 2, 0\n\
-    _080B78F4: .4byte _080B78F8\n\
-    _080B78F8: @ jump table\n\
-        .4byte _080B7988 @ case 0\n\
-        .4byte _080B7A40 @ case 1\n\
-        .4byte _080B7A40 @ case 2\n\
-        .4byte _080B7A40 @ case 3\n\
-        .4byte _080B7A40 @ case 4\n\
-        .4byte _080B79CC @ case 5\n\
-        .4byte _080B7A40 @ case 6\n\
-        .4byte _080B7A40 @ case 7\n\
-        .4byte _080B7A40 @ case 8\n\
-        .4byte _080B7A40 @ case 9\n\
-        .4byte _080B7A40 @ case 10\n\
-        .4byte _080B7A40 @ case 11\n\
-        .4byte _080B7A40 @ case 12\n\
-        .4byte _080B7A40 @ case 13\n\
-        .4byte _080B7A40 @ case 14\n\
-        .4byte _080B7A40 @ case 15\n\
-        .4byte _080B7A40 @ case 16\n\
-        .4byte _080B7A40 @ case 17\n\
-        .4byte _080B7A40 @ case 18\n\
-        .4byte _080B7A40 @ case 19\n\
-        .4byte _080B7A40 @ case 20\n\
-        .4byte _080B798E @ case 21\n\
-        .4byte _080B798E @ case 22\n\
-        .4byte _080B7A40 @ case 23\n\
-        .4byte _080B7A40 @ case 24\n\
-        .4byte _080B7A40 @ case 25\n\
-        .4byte _080B7A40 @ case 26\n\
-        .4byte _080B7A40 @ case 27\n\
-        .4byte _080B7A40 @ case 28\n\
-        .4byte _080B7A40 @ case 29\n\
-        .4byte _080B7A40 @ case 30\n\
-        .4byte _080B7A40 @ case 31\n\
-        .4byte _080B7A40 @ case 32\n\
-        .4byte _080B7A40 @ case 33\n\
-        .4byte _080B798E @ case 34\n\
-        .4byte _080B798E @ case 35\n\
-    _080B7988:\n\
-        movs r0, #0xad\n\
-        lsls r0, r0, #1\n\
-        b _080B7990\n\
-    _080B798E:\n\
-        ldr r0, _080B79C0  @ 0x00000159\n\
-    _080B7990:\n\
-        bl GetStringFromIndex\n\
-        adds r3, r0, #0\n\
-        ldr r0, _080B79C4  @ gUnknown_08A3D674\n\
-        ldr r1, [sp, #0xc]\n\
-        lsls r5, r1, #3\n\
-        ldr r0, [r0]\n\
-        adds r0, r0, r5\n\
-        lsls r4, r7, #5\n\
-        adds r1, r4, #3\n\
-        lsls r1, r1, #1\n\
-        ldr r2, _080B79C8  @ gBG1TilemapBuffer\n\
-        adds r1, r1, r2\n\
-        movs r2, #0\n\
-        str r2, [sp]\n\
-        str r3, [sp, #4]\n\
-        movs r2, #3\n\
-        movs r3, #0\n\
-        bl DrawTextInline\n\
-        mov r8, r4\n\
-        adds r6, r5, #0\n\
-        b _080B7A84\n\
-        .align 2, 0\n\
-    _080B79C0: .4byte 0x00000159\n\
-    _080B79C4: .4byte gUnknown_08A3D674\n\
-    _080B79C8: .4byte gBG1TilemapBuffer\n\
-    _080B79CC:\n\
-        ldr r3, _080B7A38  @ gUnknown_08A3D674\n\
-        mov r8, r3\n\
-        ldr r0, [r3]\n\
-        adds r0, #0x98\n\
-        lsls r6, r7, #5\n\
-        adds r1, r6, #3\n\
-        lsls r1, r1, #1\n\
-        ldr r5, _080B7A3C  @ gBG1TilemapBuffer\n\
-        adds r1, r1, r5\n\
-        bl Text_Draw\n\
-        mov r0, r9\n\
-        bl sub_80AEBEC\n\
-        adds r0, #1\n\
-        adds r0, #3\n\
-        adds r0, r6, r0\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r5\n\
-        movs r1, #2\n\
-        mov r2, r9\n\
-        bl sub_8004B88\n\
-        mov r0, r9\n\
-        bl sub_80AEBEC\n\
-        adds r4, r0, #0\n\
-        adds r4, #2\n\
-        adds r4, #3\n\
-        adds r4, r6, r4\n\
-        lsls r4, r4, #1\n\
-        adds r4, r4, r5\n\
-        movs r0, #0xac\n\
-        lsls r0, r0, #1\n\
-        bl GetStringFromIndex\n\
-        adds r2, r0, #0\n\
-        ldr r0, [sp, #0xc]\n\
-        lsls r5, r0, #3\n\
-        mov r1, r8\n\
-        ldr r0, [r1]\n\
-        adds r0, r0, r5\n\
-        movs r1, #0\n\
-        str r1, [sp]\n\
-        str r2, [sp, #4]\n\
-        adds r1, r4, #0\n\
-        movs r2, #2\n\
-        movs r3, #0\n\
-        bl DrawTextInline\n\
-        mov r8, r6\n\
-        adds r6, r5, #0\n\
-        b _080B7A84\n\
-        .align 2, 0\n\
-    _080B7A38: .4byte gUnknown_08A3D674\n\
-    _080B7A3C: .4byte gBG1TilemapBuffer\n\
-    _080B7A40:\n\
-        ldr r0, _080B7AAC  @ 0x00000157\n\
-        bl GetStringFromIndex\n\
-        adds r3, r0, #0\n\
-        ldr r0, _080B7AB0  @ gUnknown_08A3D674\n\
-        ldr r1, [sp, #0xc]\n\
-        lsls r6, r1, #3\n\
-        ldr r0, [r0]\n\
-        adds r0, r0, r6\n\
-        lsls r4, r7, #5\n\
-        adds r1, r4, #3\n\
-        lsls r1, r1, #1\n\
-        ldr r5, _080B7AB4  @ gBG1TilemapBuffer\n\
-        adds r1, r1, r5\n\
-        movs r2, #0\n\
-        str r2, [sp]\n\
-        str r3, [sp, #4]\n\
-        movs r2, #3\n\
-        movs r3, #0\n\
-        bl DrawTextInline\n\
-        mov r0, r9\n\
-        bl sub_80AEBEC\n\
-        adds r0, #1\n\
-        adds r0, #3\n\
-        adds r0, r4, r0\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r5\n\
-        movs r1, #2\n\
-        mov r2, r9\n\
-        bl sub_8004B88\n\
-        mov r8, r4\n\
-    _080B7A84:\n\
-        mov r3, sl\n\
-        cmp r3, #0x15\n\
-        blt _080B7AB8\n\
-        cmp r3, #0x16\n\
-        ble _080B7A96\n\
-        cmp r3, #0x23\n\
-        bgt _080B7AB8\n\
-        cmp r3, #0x22\n\
-        blt _080B7AB8\n\
-    _080B7A96:\n\
-        ldr r1, [sp, #8]\n\
-        ldm r1!, {r0}\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r7, r0, #0x17\n\
-        ldr r0, [r1]\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x17\n\
-        adds r7, r7, r0\n\
-        movs r3, #1\n\
-        str r3, [sp, #0x10]\n\
-        b _080B7AC0\n\
-        .align 2, 0\n\
-    _080B7AAC: .4byte 0x00000157\n\
-    _080B7AB0: .4byte gUnknown_08A3D674\n\
-    _080B7AB4: .4byte gBG1TilemapBuffer\n\
-    _080B7AB8:\n\
-        ldr r1, [sp, #8]\n\
-        ldr r0, [r1]\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r7, r0, #0x17\n\
-    _080B7AC0:\n\
-        mov r0, sl\n\
-        bl GetROMChapterStruct\n\
-        adds r0, #0x70\n\
-        ldrh r0, [r0]\n\
-        bl GetStringFromIndex\n\
-        adds r3, r0, #0\n\
-        ldr r5, _080B7B28  @ gUnknown_08A3D674\n\
-        adds r1, r6, #0\n\
-        adds r1, #0x48\n\
-        ldr r0, [r5]\n\
-        adds r0, r0, r1\n\
-        mov r1, r8\n\
-        adds r1, #5\n\
-        adds r1, #3\n\
-        lsls r1, r1, #1\n\
-        ldr r4, _080B7B2C  @ gBG1TilemapBuffer\n\
-        adds r1, r1, r4\n\
-        movs r2, #0\n\
-        str r2, [sp]\n\
-        str r3, [sp, #4]\n\
-        movs r3, #0\n\
-        bl DrawTextInline\n\
-        mov r0, r8\n\
-        adds r0, #0x14\n\
-        adds r0, #3\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r4\n\
-        movs r1, #2\n\
-        adds r2, r7, #0\n\
-        bl sub_8004B88\n\
-        ldr r0, [r5]\n\
-        adds r0, #0x90\n\
-        mov r1, r8\n\
-        adds r1, #0x15\n\
-        adds r1, #3\n\
-        lsls r1, r1, #1\n\
-        adds r1, r1, r4\n\
-        bl Text_Draw\n\
-    _080B7B16:\n\
-        ldr r0, [sp, #0x10]\n\
-    _080B7B18:\n\
-        add sp, #0x14\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _080B7B28: .4byte gUnknown_08A3D674\n\
-    _080B7B2C: .4byte gBG1TilemapBuffer\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080B7B30
 void sub_80B7B30(struct EndingTurnRecordProc* proc) {
