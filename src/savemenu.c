@@ -128,20 +128,15 @@ void sub_80A88E0(struct SaveMenuProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/5PCbw */
-
 //! FE8U = 0x080A8950
 int LoadSaveMenuHelpText(int slot) {
     int leaderId;
-    uintptr_t saveBase;
+    struct GameSaveBlock *saveBase;
     int i;
     struct PlaySt chapterData;
     struct Unit unit;
     struct GMapData mapData;
-
-    u8 localbuffer[0x30];
+    u8 localbuffer[4] __attribute__((unused));
 
     if (!IsSaveValid(slot)) {
         return 0;
@@ -162,119 +157,22 @@ int LoadSaveMenuHelpText(int slot) {
 
     saveBase = GetSaveReadAddr(slot);
 
-    for (i = 0;; i++) {
-
-        if (i >= 0x33) {
-            sub_80AA700();
-            return 2;
-        }
-
-        LoadSavedUnit((void*)((saveBase + 0x4c) + 0x24 * i), &unit);
-
-        if (unit.pCharacterData == NULL) {
-            continue;
-        }
-
-        if (unit.pCharacterData->number != leaderId) {
-            continue;
-        }
-
-        gUnknown_0203EF64.unk_00 = leaderId;
-        gUnknown_0203EF64.unk_01 = unit.level;
-
-        ReadWorldMapStuff((void*)(saveBase + 0xD8C), &mapData);
-        gUnknown_0203EF64.unk_02 = mapData.unk10[0].location;
-
-        return 2;
+    for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++) {
+        LoadSavedUnit(&saveBase->units[i], &unit);
+        if (unit.pCharacterData != NULL && unit.pCharacterData->number == leaderId) break;
     }
+    if (i >= UNIT_SAVE_AMOUNT_BLUE) goto label;
+    gUnknown_0203EF64.unk_00 = leaderId;
+    gUnknown_0203EF64.unk_01 = unit.level;
 
+    ReadWorldMapStuff(&saveBase->wmStuff, &mapData);
+    gUnknown_0203EF64.unk_02 = mapData.unk10[0].location;
+
+    return 2;
+label:
+    sub_80AA700();
+    return 2;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-int LoadSaveMenuHelpText(int slot) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #0x168\n\
-        adds r4, r0, #0\n\
-        bl IsSaveValid\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        bne _080A8964\n\
-        movs r0, #0\n\
-        b _080A89DA\n\
-    _080A8964:\n\
-        adds r0, r4, #0\n\
-        mov r1, sp\n\
-        bl ReadGameSavePlaySt\n\
-        mov r0, sp\n\
-        ldrb r0, [r0, #0x1b]\n\
-        cmp r0, #1\n\
-        blt _080A897C\n\
-        cmp r0, #2\n\
-        ble _080A897C\n\
-        cmp r0, #3\n\
-        beq _080A8980\n\
-    _080A897C:\n\
-        movs r6, #1\n\
-        b _080A8982\n\
-    _080A8980:\n\
-        movs r6, #0xf\n\
-    _080A8982:\n\
-        adds r0, r4, #0\n\
-        bl GetSaveReadAddr\n\
-        adds r7, r0, #0\n\
-        movs r5, #0\n\
-        adds r4, r7, #0\n\
-        adds r4, #0x4c\n\
-        b _080A8996\n\
-    _080A8992:\n\
-        adds r4, #0x24\n\
-        adds r5, #1\n\
-    _080A8996:\n\
-        cmp r5, #0x32\n\
-        bgt _080A89D4\n\
-        adds r0, r4, #0\n\
-        add r1, sp, #0x4c\n\
-        bl LoadSavedUnit\n\
-        ldr r0, [sp, #0x4c]\n\
-        add r1, sp, #0x4c\n\
-        cmp r0, #0\n\
-        beq _080A8992\n\
-        ldrb r0, [r0, #4]\n\
-        cmp r0, r6\n\
-        bne _080A8992\n\
-        ldr r4, _080A89CC  @ gUnknown_0203EF64\n\
-        strb r6, [r4]\n\
-        ldrb r0, [r1, #8]\n\
-        strb r0, [r4, #1]\n\
-        ldr r1, _080A89D0  @ 0x00000D8C\n\
-        adds r0, r7, r1\n\
-        add r5, sp, #0x94\n\
-        adds r1, r5, #0\n\
-        bl ReadWorldMapStuff\n\
-        ldrb r0, [r5, #0x11]\n\
-        strb r0, [r4, #2]\n\
-        b _080A89D8\n\
-        .align 2, 0\n\
-    _080A89CC: .4byte gUnknown_0203EF64\n\
-    _080A89D0: .4byte 0x00000D8C\n\
-    _080A89D4:\n\
-        bl sub_80AA700\n\
-    _080A89D8:\n\
-        movs r0, #2\n\
-    _080A89DA:\n\
-        add sp, #0x168\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080A89E4
 s8 sub_80A89E4(struct SaveMenuProc* proc) {

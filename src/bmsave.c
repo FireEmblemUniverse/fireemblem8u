@@ -31,16 +31,16 @@ void SetBonusContentClaimFlags(u32 num)
     gBonusContentClaimFlags = num;
 }
 
-void WriteBonusContentClaimFlags(void *sram_dest)
+void WriteBonusContentClaimFlags(struct GameSaveBlock *sram_dest)
 {
     WriteAndVerifySramFast(&gBonusContentClaimFlags,
-                           sram_dest + GAMESAVE_OFFSET_BONUSCLAIM,
+                           &sram_dest->bonusClaimFlags,
                            sizeof(gBonusContentClaimFlags));
 }
 
-void ReadBonusContentClaimFlags(const void *sram_src)
+void ReadBonusContentClaimFlags(const struct GameSaveBlock *sram_src)
 {
-    ReadSramFast(sram_src + GAMESAVE_OFFSET_BONUSCLAIM,
+    ReadSramFast(&sram_src->bonusClaimFlags,
                  &gBonusContentClaimFlags,
                  sizeof(gBonusContentClaimFlags));
 }
@@ -94,8 +94,8 @@ void CopyGameSave(int index_src, int index_dest)
     void *src = GetSaveReadAddr(index_src);
     void *dest = GetSaveWriteAddr(index_dest);
 
-    ReadSramFast(src, gGenericBuffer, 0xDC8);
-    WriteAndVerifySramFast(gGenericBuffer, dest, 0xDC8);
+    ReadSramFast(src, gGenericBuffer, sizeof(struct GameSaveBlock));
+    WriteAndVerifySramFast(gGenericBuffer, dest, sizeof(struct GameSaveBlock));
 
     chunk.magic32 = SAVEMAGIC32;
     chunk.kind = SAVEBLOCK_KIND_GAME;
@@ -108,8 +108,7 @@ void WriteNewGameSave(int index, int isDifficult, int mode, int isTutorial)
     struct SaveBlockInfo chunk;
     struct GameSavePackedUnit unitp;
 
-    void *dest = GetSaveWriteAddr(index);
-    void *tmp_dest;
+    struct GameSaveBlock *dest = GetSaveWriteAddr(index);
 
     if (0 == mode)
         mode = gPlaySt.chapterModeIndex;
@@ -126,7 +125,7 @@ void WriteNewGameSave(int index, int isDifficult, int mode, int isTutorial)
     
     gPlaySt.unk_2C_1 = 0;
     gPlaySt.unk_2C_04 = 0;
-    CpuFill16(0, &gPlaySt.total_gold, 0x10);
+    CpuFill16(0, &gPlaySt.unk_30, sizeof(gPlaySt.unk_30));
     gPlaySt.unk_2C_0D = 0;
     gPlaySt.chapterModeIndex = mode;
     gPlaySt.unk_2B_00 = 1;
@@ -136,26 +135,26 @@ void WriteNewGameSave(int index, int isDifficult, int mode, int isTutorial)
     gPlaySt.gameSaveSlot = index;
     gPlaySt.unk_2C_2 = GetGlobalCompletionCount();
 
-    WriteAndVerifySramFast(&gPlaySt, dest + GAMESAVE_OFFSET_PLAYST, sizeof(gPlaySt));
+    WriteAndVerifySramFast(&gPlaySt, &dest->playSt, sizeof(gPlaySt));
     SetBonusContentClaimFlags(0);
     WriteBonusContentClaimFlags(dest);
     
     CpuFill16(0, &unitp, sizeof(unitp));
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++) {
-        WriteAndVerifySramFast(&unitp, dest + GAMESAVE_OFFSET_UNITS + i * sizeof(unitp), sizeof(unitp));
+        WriteAndVerifySramFast(&unitp, &dest->units[i], sizeof(unitp));
     }
-    WriteAndVerifySramFast(&unitp, dest + GAMESAVE_OFFSET_GMMONSTER, sizeof(unitp));
+    WriteAndVerifySramFast(&unitp, &dest->gmUnit, sizeof(unitp));
 
-    WriteSupplyItems(dest + GAMESAVE_OFFSET_SUPPLY);
+    WriteSupplyItems(dest->supplyItems);
     ClearPidChStatsSaveData(dest);
-    WritePermanentFlags(dest + GAMESAVE_OFFSET_PERMANENTFLAGS);
-    ClearWorldMapStuff(dest + GAMESAVE_OFFSET_GMINFO);
+    WritePermanentFlags(dest->permanentFlags);
+    ClearWorldMapStuff(&dest->wmStuff);
 
     {
         struct Dungeon dungeon[2];  
         CpuFill16(0, dungeon, sizeof(dungeon));
-        WriteAndVerifySramFast(dungeon, dest + GAMESAVE_OFFSET_DUNGEON, sizeof(dungeon));
+        WriteAndVerifySramFast(dungeon, dest->dungeons, sizeof(dungeon));
     }
 
     chunk.magic32 = SAVEMAGIC32;
@@ -171,14 +170,14 @@ void WriteGameSave(int slot)
     struct GlobalSaveInfo info;
     struct Dungeon dungeon[2];
 
-    void *dest = GetSaveWriteAddr(slot);
+    struct GameSaveBlock *dest = GetSaveWriteAddr(slot);
     InvalidateSuspendSave(SAVE_ID_SUSPEND);
     gPlaySt.gameSaveSlot = slot;
     gPlaySt.time_saved = GetGameClock();
-    WriteAndVerifySramFast(&gPlaySt, dest, sizeof(gPlaySt));
+    WriteAndVerifySramFast(&gPlaySt, &dest->playSt, sizeof(gPlaySt));
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        WriteGameSavePackedUnit(&gUnitArrayBlue[i], dest + 0x4C + i * sizeof(struct GameSavePackedUnit));
+        WriteGameSavePackedUnit(&gUnitArrayBlue[i], &dest->units[i]);
 
     ReadGlobalSaveInfo(&info);
     
@@ -186,15 +185,15 @@ void WriteGameSave(int slot)
         SGM_SetCharacterKnown(UNIT_CHAR_ID(&gUnitArrayBlue[i]), &info);
 
     WriteGlobalSaveInfo(&info);
-    WriteGMMonsterRnState(dest + GAMESAVE_OFFSET_GMMONSTER);
-    WriteSupplyItems(dest + GAMESAVE_OFFSET_SUPPLY);
-    WritePidStats(dest + GAMESAVE_OFFSET_PIDSTATS);
-    WriteChapterStats(dest + GAMESAVE_OFFSET_CHAPTERSTATS);
+    WriteGMMonsterRnState(&dest->gmUnit);
+    WriteSupplyItems(dest->supplyItems);
+    WritePidStats(dest->pidStats);
+    WriteChapterStats(dest->chapterStats);
     WriteBonusContentClaimFlags(dest);
-    WritePermanentFlags(dest + GAMESAVE_OFFSET_PERMANENTFLAGS);
-    WriteWorldMapStuff(dest + GAMESAVE_OFFSET_GMINFO, &gGMData);
+    WritePermanentFlags(dest->permanentFlags);
+    WriteWorldMapStuff(&dest->wmStuff, &gGMData);
     SaveDungeonRecords(dungeon);
-    WriteAndVerifySramFast(dungeon, dest + GAMESAVE_OFFSET_DUNGEON ,sizeof(dungeon));
+    WriteAndVerifySramFast(dungeon, dest->dungeons, sizeof(dungeon));
 
     chunk.magic32 = SAVEMAGIC32;
     chunk.kind = SAVEBLOCK_KIND_GAME;
@@ -206,7 +205,7 @@ void ReadGameSave(int slot)
 {
     int i;
     struct Dungeon dungeon[2];
-    void *src = GetSaveReadAddr(slot);
+    struct GameSaveBlock *src = GetSaveReadAddr(slot);
 
     if (!(PLAY_FLAG_HARD & gBmSt.gameStateBits))
         InvalidateSuspendSave(SAVE_ID_SUSPEND);
@@ -218,16 +217,16 @@ void ReadGameSave(int slot)
     InitUnits();
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        LoadSavedUnit(src + GAMESAVE_OFFSET_UNITS + i * sizeof(struct GameSavePackedUnit), &gUnitArrayBlue[i]);
+        LoadSavedUnit(src->units + i, &gUnitArrayBlue[i]);
 
-    ReadGMMonsterRnState(src + GAMESAVE_OFFSET_GMMONSTER);
-    ReadSupplyItems(src + GAMESAVE_OFFSET_SUPPLY);
-    ReadPermanentFlags(src + GAMESAVE_OFFSET_PERMANENTFLAGS);
-    ReadPidStats(src + GAMESAVE_OFFSET_PIDSTATS);
-    ReadChapterStats(src + GAMESAVE_OFFSET_CHAPTERSTATS);
+    ReadGMMonsterRnState(&src->gmUnit);
+    ReadSupplyItems(src->supplyItems);
+    ReadPermanentFlags(src->permanentFlags);
+    ReadPidStats(src->pidStats);
+    ReadChapterStats(src->chapterStats);
     ReadBonusContentClaimFlags(src);
-    ReadWorldMapStuff(src + GAMESAVE_OFFSET_GMINFO, &gGMData);
-    ReadSramFast(src + GAMESAVE_OFFSET_DUNGEON, dungeon, sizeof(dungeon));
+    ReadWorldMapStuff(&src->wmStuff, &gGMData);
+    ReadSramFast(src->dungeons, dungeon, sizeof(dungeon));
     LoadDungeonRecords(dungeon);
     WriteLastGameSaveId(slot);
 }
@@ -239,28 +238,28 @@ bool IsSaveValid(int index)
 
 void ReadGameSavePlaySt(int slot, struct PlaySt *buf)
 {
-    void *src = GetSaveReadAddr(slot);
-    ReadSramFast(src, buf, sizeof(struct PlaySt));
+    const struct GameSaveBlock *src = GetSaveReadAddr(slot);
+    ReadSramFast(&src->playSt, buf, sizeof(struct PlaySt));
 }
 
 u32 LoadSavedBonusClaimFlags(int slot)
 {
     u32 buf;
-    void *src = GetSaveReadAddr(slot);
-    ReadSramFast(src + GAMESAVE_OFFSET_BONUSCLAIM, &buf, sizeof(buf));
+    const struct GameSaveBlock *src = GetSaveReadAddr(slot);
+    ReadSramFast(&src->bonusClaimFlags, &buf, sizeof(buf));
     return buf;
 }
 
-void LoadSavedWMStuff(int slot, void *dest)
+void LoadSavedWMStuff(int slot, struct GMapData *dest)
 {
-    void *src = GetSaveReadAddr(slot);
-    ReadWorldMapStuff(src + GAMESAVE_OFFSET_GMINFO, dest);
+    const struct GameSaveBlock *src = GetSaveReadAddr(slot);
+    ReadWorldMapStuff(&src->wmStuff, dest);
 }
 
 s8 LoadSavedEid8A(int slot)
 {
-    void *sram_base = GetSaveReadAddr(slot);
-    ReadPermanentFlags_ret(sram_base + GAMESAVE_OFFSET_PERMANENTFLAGS, gGenericBuffer);
+    const struct GameSaveBlock *sram_base = GetSaveReadAddr(slot);
+    ReadPermanentFlags_ret(sram_base->permanentFlags, gGenericBuffer);
     return CheckPermanentFlagFrom(0x8A, gGenericBuffer);
 }
 
@@ -482,7 +481,7 @@ void InvalidateSuspendSave(int slot)
 
 void WriteSuspendSave(int slot)
 {
-    void *dest;
+    struct SuspendSaveBlock *dest;
     struct SaveBlockInfo chunk;
     u8 list[MENU_OVERRIDE_MAX];
     struct Dungeon dungeon[2];
@@ -498,15 +497,15 @@ void WriteSuspendSave(int slot)
     slot += GetNextSuspendSaveId();
     dest = GetSaveWriteAddr(slot);
     gPlaySt.time_saved = GetGameClock();
-    WriteAndVerifySramFast(&gPlaySt, dest + SUSPENDSAVE_OFFSET_PLAYST, sizeof(gPlaySt));
+    WriteAndVerifySramFast(&gPlaySt, &dest->playSt, sizeof(gPlaySt));
     StoreRNStateToActionStruct();
-    WriteAndVerifySramFast(&gActionData, dest + SUSPENDSAVE_OFFSET_ACTION, sizeof(struct ActionData));
+    WriteAndVerifySramFast(&gActionData, &dest->action, sizeof(struct ActionData));
 
     buf = (struct SuspendSavePackedUnit *)gGenericBuffer;
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
         EncodeSuspendSavePackedUnit(&gUnitArrayBlue[i], buf++);
 
-    WriteSramFast(gGenericBuffer, dest + SUSPENDSAVE_OFFSET_UNITS_BLUE, UNIT_SAVE_AMOUNT_BLUE * sizeof(struct SuspendSavePackedUnit));
+    WriteSramFast(gGenericBuffer, (u8 *)dest->blueUnits, UNIT_SAVE_AMOUNT_BLUE * sizeof(struct SuspendSavePackedUnit));
 
     buf = (struct SuspendSavePackedUnit *)gGenericBuffer;
     for (i = 0; i < UNIT_SAVE_AMOUNT_RED; i++)
@@ -515,31 +514,31 @@ void WriteSuspendSave(int slot)
     for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
         EncodeSuspendSavePackedUnit(&gUnitArrayGreen[i], buf++);
 
-    WriteSramFast(gGenericBuffer, dest + SUSPENDSAVE_OFFSET_UNITS_RED, (UNIT_SAVE_AMOUNT_RED + UNIT_SAVE_AMOUNT_GREEN) * sizeof(struct SuspendSavePackedUnit));
+    WriteSramFast(gGenericBuffer, (u8 *)dest->redUnits, (UNIT_SAVE_AMOUNT_RED + UNIT_SAVE_AMOUNT_GREEN) * sizeof(struct SuspendSavePackedUnit)); // TODO: maybe pack them into a single struct?
 
-    WritePermanentFlags(dest + SUSPENDSAVE_OFFSET_PERMANENTFLAGS);
-    WriteChapterFlags(dest + SUSPENDSAVE_OFFSET_CHAPTERFLAGS);
-    WriteSupplyItems(dest + SUSPENDSAVE_OFFSET_SUPPLY);
-    WritePidStats(dest + SUSPENDSAVE_OFFSET_PIDSTATS);
-    WriteChapterStats(dest + SUSPENDSAVE_OFFSET_CHAPTERSTATS);
-    WriteTraps(dest + SUSPENDSAVE_OFFSET_TRAPS);
+    WritePermanentFlags(dest->permanentFlags);
+    WriteChapterFlags(dest->chapterFlags);
+    WriteSupplyItems(dest->supplyItems);
+    WritePidStats(dest->pidStats);
+    WriteChapterStats(dest->chapterStats);
+    WriteTraps(dest->traps);
 
     GetForceDisabledMenuItems(list);
-    WriteAndVerifySramFast(list, dest + SUSPENDSAVE_OFFSET_FORCENMENU, sizeof(list));
+    WriteAndVerifySramFast(list, dest->menuOverride, sizeof(list));
 
-    WriteWorldMapStuff(dest + 0x1F44, &gGMData);
+    WriteWorldMapStuff(&dest->wmStuff, &gGMData);
 
     /**
-     * I think this maybe a coincidence that I$ find that gm-generated-monster does not require the suspend save sapce
+     * I think this maybe a coincidence that I$ find that gm-generated-monster does not require the suspend save space
      */
     SaveDungeonRecords(dungeon);
-    WriteAndVerifySramFast(dungeon, dest + SUSPENDSAVE_OFFSET_GMMONSTER, 2 * sizeof(struct Dungeon));
+    WriteAndVerifySramFast(dungeon, &dest->wmMonsterUnit, sizeof(dungeon));
 
     SaveDungeonState(dungeon);
-    WriteAndVerifySramFast(dungeon, dest + SUSPENDSAVE_OFFSET_DUNGEON, sizeof(struct Dungeon));
+    WriteAndVerifySramFast(dungeon, &dest->dungeon, sizeof(struct Dungeon));
 
     val = GetEventSlotCounter();
-    WriteAndVerifySramFast(&val, dest + SUSPENDSAVE_OFFSET_EVENTSLOTCNT, sizeof(int));
+    WriteAndVerifySramFast(&val, &dest->eventSlotCnt, sizeof(int));
 
     chunk.magic32 = SAVEMAGIC32;
     chunk.kind = SAVEBLOCK_KIND_SUSPEND;
@@ -554,43 +553,43 @@ void ReadSuspendSave(int slot)
     int i, val;
     u8 list[MENU_OVERRIDE_MAX];
     struct Dungeon dungeon[2];
-    void *src = GetSaveReadAddr(slot + gSuspendSaveIdOffset);
+    struct SuspendSaveBlock *src = GetSaveReadAddr(slot + gSuspendSaveIdOffset);
 
-    ReadSramFast(src + SUSPENDSAVE_OFFSET_PLAYST, &gPlaySt, sizeof(gPlaySt));
+    ReadSramFast(&src->playSt, &gPlaySt, sizeof(gPlaySt));
     SetGameTime(gPlaySt.time_saved);
 
-    ReadSramFast(src + SUSPENDSAVE_OFFSET_ACTION, &gActionData, sizeof(struct ActionData));
+    ReadSramFast(&src->action, &gActionData, sizeof(struct ActionData));
     LoadRNStateFromActionStruct();
     InitUnits();
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        ReadSuspendSavePackedUnit(src + SUSPENDSAVE_OFFSET_UNITS_BLUE + i * sizeof(struct SuspendSavePackedUnit), &gUnitArrayBlue[i]);
+        ReadSuspendSavePackedUnit(&src->blueUnits[i], &gUnitArrayBlue[i]);
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_RED; i++)
-        ReadSuspendSavePackedUnit(src + SUSPENDSAVE_OFFSET_UNITS_RED + i * sizeof(struct SuspendSavePackedUnit), &gUnitArrayRed[i]);
+        ReadSuspendSavePackedUnit(&src->redUnits[i], &gUnitArrayRed[i]);
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
-        ReadSuspendSavePackedUnit(src + SUSPENDSAVE_OFFSET_UNITS_GREEN + i * sizeof(struct SuspendSavePackedUnit), &gUnitArrayGreen[i]);
+        ReadSuspendSavePackedUnit(&src->greenUnits[i], &gUnitArrayGreen[i]);
 
-    ReadPidStats(src + SUSPENDSAVE_OFFSET_PIDSTATS);
-    ReadChapterStats(src + SUSPENDSAVE_OFFSET_CHAPTERSTATS);
-    ReadSupplyItems(src + SUSPENDSAVE_OFFSET_SUPPLY);
-    ReadPermanentFlags(src + SUSPENDSAVE_OFFSET_PERMANENTFLAGS);
-    ReadChapterFlags(src + SUSPENDSAVE_OFFSET_CHAPTERFLAGS);
-    ReadTraps(src + SUSPENDSAVE_OFFSET_TRAPS);
+    ReadPidStats(src->pidStats);
+    ReadChapterStats(src->chapterStats);
+    ReadSupplyItems(src->supplyItems);
+    ReadPermanentFlags(src->permanentFlags);
+    ReadChapterFlags(src->chapterFlags);
+    ReadTraps(src->traps);
 
-    ReadSramFast(src + SUSPENDSAVE_OFFSET_FORCENMENU, list, sizeof(list));
+    ReadSramFast(src->menuOverride, list, sizeof(list));
     SetForceDisabledMenuItems(list);
 
-    ReadWorldMapStuff(src + SUSPENDSAVE_OFFSET_GMINFO, &gGMData);
+    ReadWorldMapStuff(&src->wmStuff, &gGMData);
 
-    ReadSramFast(src + SUSPENDSAVE_OFFSET_GMMONSTER, dungeon, 2 * sizeof(struct Dungeon));
+    ReadSramFast(&src->wmMonsterUnit, dungeon, sizeof(dungeon));
     LoadDungeonRecords(dungeon);
 
-    ReadSramFast(src + SUSPENDSAVE_OFFSET_DUNGEON, dungeon, sizeof(struct Dungeon));
+    ReadSramFast(&src->dungeon, dungeon, sizeof(struct Dungeon));
     LoadDungeonState(dungeon);
 
-    ReadSramFast(src + SUSPENDSAVE_OFFSET_EVENTSLOTCNT, &val, sizeof(int));
+    ReadSramFast(&src->eventSlotCnt, &val, sizeof(int));
     SetEventSlotCounter(val);
 
     SetBonusContentClaimFlags(LoadSavedBonusClaimFlags(gPlaySt.gameSaveSlot));

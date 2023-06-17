@@ -454,10 +454,10 @@ int GetChapterFundsRank(void) {
 
     int totalGold = GetPartyTotalGoldValue();
 
-    goldInChapter = gPlaySt.total_gold;
+    goldInChapter = gPlaySt.unk_30.total_gold;
     goldInChapter = totalGold - goldInChapter;
 
-    gPlaySt.total_gold = totalGold;
+    gPlaySt.unk_30.total_gold = totalGold;
 
     ent = GetChapterStats(GetNextChapterStatsSlot() - 1);
 
@@ -495,14 +495,14 @@ int GetChapterWinPerc(void) {
         totalWins = 0xFFFFF;
     }
 
-    chapterTotalBattles = gPlaySt.unk_34_00;
+    chapterTotalBattles = gPlaySt.unk_30.unk_4_00;
 
     if (totalBattles == chapterTotalBattles) {
         return 40;
     }
 
-    a = gPlaySt.unk_34_14;
-    b = gPlaySt.unk_38_1 << 12;
+    a = gPlaySt.unk_30.unk_4_14;
+    b = gPlaySt.unk_30.unk_8_1 << 12;
     num = (totalWins - (b | a)) * 100;
 
     percentage = num / (totalBattles - chapterTotalBattles);
@@ -511,9 +511,9 @@ int GetChapterWinPerc(void) {
         percentage = 100;
     }
 
-    gPlaySt.unk_34_00 = totalBattles;
-    gPlaySt.unk_34_14 = (totalWins & 0x00000FFF);
-    gPlaySt.unk_38_1 = ((u32)totalWins >> 12);
+    gPlaySt.unk_30.unk_4_00 = totalBattles;
+    gPlaySt.unk_30.unk_4_14 = (totalWins & 0x00000FFF);
+    gPlaySt.unk_30.unk_8_1 = ((u32)totalWins >> 12);
 
     return percentage;
 }
@@ -559,8 +559,8 @@ int GetChapterExpRank(void) {
         totalExp = 0xFFFFF;
     }
 
-    expInChapter = totalExp - gPlaySt.unk_38_2;
-    gPlaySt.unk_38_2 = totalExp;
+    expInChapter = totalExp - gPlaySt.unk_30.unk_8_2;
+    gPlaySt.unk_30.unk_8_2 = totalExp;
 
     ent = GetChapterStats(GetNextChapterStatsSlot() - 1);
 
@@ -592,19 +592,19 @@ void ComputeChapterRankings(void) {
             case CHAPTER_MODE_COMMON:
             case CHAPTER_MODE_EIRIKA:
             case CHAPTER_MODE_EPHRAIM:
-                gPlaySt.tacticsRank = GetChapterTacticsRank();
-                gPlaySt.survivalRank = GetChapterSurvivalRank();
-                gPlaySt.fundsRank = GetChapterFundsRank();
-                gPlaySt.combatRank = GetChapterCombatRank();
-                gPlaySt.expRank = GetChapterExpRank();
+                gPlaySt.unk_30.tacticsRank = GetChapterTacticsRank();
+                gPlaySt.unk_30.survivalRank = GetChapterSurvivalRank();
+                gPlaySt.unk_30.fundsRank = GetChapterFundsRank();
+                gPlaySt.unk_30.combatRank = GetChapterCombatRank();
+                gPlaySt.unk_30.expRank = GetChapterExpRank();
         }
 
         overallRank = GetOverallRank(
-            gPlaySt.tacticsRank,
-            gPlaySt.survivalRank,
-            gPlaySt.fundsRank,
-            gPlaySt.expRank,
-            gPlaySt.combatRank
+            gPlaySt.unk_30.tacticsRank,
+            gPlaySt.unk_30.survivalRank,
+            gPlaySt.unk_30.fundsRank,
+            gPlaySt.unk_30.expRank,
+            gPlaySt.unk_30.combatRank
         );
 
         newRank = gPlaySt.unk_2C_04 + overallRank;

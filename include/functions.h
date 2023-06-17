@@ -2619,7 +2619,7 @@ char* sub_80BBA28(int); // GetWorldMapNodeName
 // ??? sub_80BC7F4(???);
 void sub_80BC81C(void);
 // ??? sub_80BC898(???);
-bool SetupNewWMRoute(struct GMapData*, u8*, int);
+bool SetupNewWMRoute(struct GMapData*, struct OpenPaths*, int);
 // ??? WM_RemovePath(???);
 // ??? sub_80BC970(???);
 void sub_80BCA0C(struct GMapData*);

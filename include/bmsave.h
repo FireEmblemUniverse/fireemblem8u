@@ -6,6 +6,7 @@
 #include "bmbattle.h"
 #include "bmtrick.h"
 #include "bmdifficulty.h"
+#include "bonusclaim.h"
 
 enum {
     UNIT_SAVE_AMOUNT_BLUE = 51,
@@ -134,6 +135,11 @@ struct bmsave_unkstruct2 {
     u32 unk[0x4];
     u16 magic1;
     u16 magic2;
+};
+
+struct bmsave_unkstruct3 {
+    struct BonusClaimEnt unk0[0x10];
+    u32 unk140;
 };
 
 enum
@@ -356,13 +362,13 @@ struct GameSaveBlock {
     u32 bonusClaimFlags;
     struct GMapSaveInfo wmStuff;
     struct Dungeon dungeons[2];
-};
+}; /* size = 0xDC8 */
 
 struct SuspendSaveBlock {
     struct PlaySt playSt;
     struct ActionData action;
     struct SuspendSavePackedUnit blueUnits[UNIT_SAVE_AMOUNT_BLUE];
-    struct SuspendSavePackedUnit wmMonsterUnit;
+    struct SuspendSavePackedUnit wmMonsterUnit; // TODO: update this to `struct Dungeon dungeons[2]; u8 filler[0x1C];`?
     struct SuspendSavePackedUnit redUnits[UNIT_SAVE_AMOUNT_RED];
     struct SuspendSavePackedUnit greenUnits[UNIT_SAVE_AMOUNT_GREEN];
     struct Trap traps[TRAP_MAX_COUNT];
@@ -375,6 +381,44 @@ struct SuspendSaveBlock {
     struct GMapSaveInfo wmStuff;
     struct Dungeon dungeon;
     int eventSlotCnt;
+}; /* size = 0x1F78 */
+
+struct SaveBlocks {
+    /* 0x0000 */ struct GlobalSaveInfo globalSaveInfo;
+    /* 0x0064 */ struct SaveBlockInfo saveBlockInfo[SAVE_ID_MAX];
+    /* 0x00D4 */ struct SuspendSaveBlock suspendSaveBlocks[2];
+    /* 0x3FC4 */ struct GameSaveBlock gameSaveBlocks[3];
+    /* 0x691C */ u8 offset_5[0x874];
+    // TODO: update these fields
+    /* 0x7190 */ u8 unk_7190[0x270];
+    /* 0x7400 */ struct ExtraMapSaveHead offset_6; // see bmsave-xmap.c
+};
+
+// TODO: figure out how these structs work
+struct GameSaveBlockEwram {
+    struct PlaySt playSt;
+    u8 unk_4C[0xC];
+    u8 buffer_58[0xD1C];
+    u32 buffer_D74[0xC];
+}; /* size = 0xDA4 */
+
+struct SuspendSaveBlockEwram {
+    struct PlaySt playSt;
+    u8 unk_4C[0xC];
+    u8 buffer_58[0x1EC4];
+    u32 buffer_1F1C[0xF];
+}; /* size = 0x1F58 */
+
+struct SaveBlocksEwram {
+    /* 0x0000 */ struct GlobalSaveInfo globalSaveInfo;
+    /* 0x0064 */ struct SaveBlockInfo saveBlockInfo[SAVE_ID_MAX];
+    /* 0x00D4 */ struct SuspendSaveBlockEwram suspendSaveBlocks[2];
+    /* 0x3F84 */ struct GameSaveBlockEwram gameSaveBlocks[3];
+    /* 0x6870 */ u8 offset_5[0x874];
+    /* 0x70E4 */ struct GameRankSaveDataPacks gameRankSave;
+    /* 0x7178 */ struct bmsave_unkstruct1 unkstruct1;
+    /* 0x719C */ struct bmsave_unkstruct2 unkstruct2;
+    /* 0x71B0 */ struct bmsave_unkstruct3 unkstruct3;
 };
 
 extern struct UnitUsageStats *gPidStatsSaveLoc;
@@ -414,7 +458,7 @@ void WriteChapterFlags(void *sram_dest);
 void WritePermanentFlags(void *sram_dest);
 void ReadChapterFlags(void *ewram_dest);
 void ReadPermanentFlags(void *ewram_dest);
-void ReadPermanentFlags_ret(void *sram_src, void *ewram_dest);
+void ReadPermanentFlags_ret(const void *sram_src, void *ewram_dest);
 void WriteSupplyItems(void *sram_dest);
 void ReadSupplyItems(const void *sram_src);
 bool null_true(void);
@@ -459,7 +503,7 @@ void sub_80A4000(struct bmsave_unkstruct2 *buf);
 int sub_80A402C(void *buf, int val);
 int sub_80A402C(void *buf, int val);
 void LoadAndVerifySramSaveData(void);
-void ClearPidChStatsSaveData(void *sram_dest);
+void ClearPidChStatsSaveData(struct GameSaveBlock *sram_dest);
 void ClearPidStats_ret(void);
 void ClearPidStats(void);
 void ReadPidStats(void *sram_src);
@@ -510,8 +554,8 @@ void SetGameEndFlag(void);
 struct UnitUsageStats* GetPidStats(u8 pid);
 u32 GetBonusContentClaimFlags(void);
 void SetBonusContentClaimFlags(u32 num);
-void WriteBonusContentClaimFlags(void *sram_dest);
-void ReadBonusContentClaimFlags(const void *sram_src);
+void WriteBonusContentClaimFlags(struct GameSaveBlock *sram_dest);
+void ReadBonusContentClaimFlags(const struct GameSaveBlock *sram_src);
 void WriteLastGameSaveId(int num);
 int ReadLastGameSaveId(void);
 void InvalidateGameSave(int);
@@ -522,7 +566,7 @@ void ReadGameSave(int slot);
 bool IsSaveValid(int);
 void ReadGameSavePlaySt(int, struct PlaySt*);
 u32 LoadSavedBonusClaimFlags(int slot);
-void LoadSavedWMStuff(int slot, void *dest);
+void LoadSavedWMStuff(int slot, struct GMapData *dest);
 s8 LoadSavedEid8A(int slot);
 bool IsGameNotFirstChapter(struct PlaySt *chapter_data);
 bool IsGameSaveNotFirstChapter(int);
