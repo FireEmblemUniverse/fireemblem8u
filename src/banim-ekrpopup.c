@@ -110,12 +110,6 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
     const char *str;
     int width1, width2, width3, width_popupbox, width5, xcursor, tmp, tmpr0;
 
-#if NONMATCHING
-    int tmpr1;
-#else
-    register int tmpr1 asm("r1");
-#endif
-
     struct TextHandle *text;
     struct Anim *anim;
 
@@ -222,9 +216,7 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
     proc->anim = anim;
     anim->oam2Base = 0x2440;
 
-    tmpr1 = xcursor + 0x10;
-    tmpr1 = width5 + tmpr1;
-    anim->xPosition = tmpr1 + width1;
+    anim->xPosition = width5 + ({ xcursor + 0x10; }) + width1;
     anim->yPosition = 0x38;
 
     EnablePaletteSync();
