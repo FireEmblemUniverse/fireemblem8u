@@ -295,43 +295,38 @@ void WmSell_Setup(struct WmSellProc* proc) {
 
 //! FE8U = 0x080A032C
 s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
-
     if (gKeyStatusPtr->repeatedKeys & DPAD_UP) {
         int count = GetUnitItemCount(proc->unit);
 
         if (proc->unk_30 != 0) {
             proc->unk_30--;
+            PlaySoundEffect(0x66);
+            return 1;
         } else {
             if (!(gKeyStatusPtr->newKeys & DPAD_UP)) {
                 return 0;
             }
 
             proc->unk_30 = count - 1;
-#ifndef NONMATCHING
-            asm("");
-#endif
+            PlaySoundEffect(0x66);
+            return 1;
         }
-
-        PlaySoundEffect(0x66);
-
-        return 1;
-
     } else if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN) {
         int count = GetUnitItemCount(proc->unit);
 
         if (proc->unk_30 < count - 1) {
             proc->unk_30++;
+            PlaySoundEffect(0x66);
+            return 1;
         } else {
             if (!(gKeyStatusPtr->newKeys & DPAD_DOWN)) {
                 return 0;
             }
 
             proc->unk_30 = 0;
+            PlaySoundEffect(0x66);
+            return 1;
         }
-
-        PlaySoundEffect(0x66);
-
-        return 1;
     }
 
     return 0;
