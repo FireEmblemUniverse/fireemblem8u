@@ -161,15 +161,17 @@ int LoadSaveMenuHelpText(int slot) {
         LoadSavedUnit(&saveBase->units[i], &unit);
         if (unit.pCharacterData != NULL && unit.pCharacterData->number == leaderId) break;
     }
-    if (i >= UNIT_SAVE_AMOUNT_BLUE) goto label;
-    gUnknown_0203EF64.unk_00 = leaderId;
-    gUnknown_0203EF64.unk_01 = unit.level;
 
-    ReadWorldMapStuff(&saveBase->wmStuff, &mapData);
-    gUnknown_0203EF64.unk_02 = mapData.unk10[0].location;
+    if (i < UNIT_SAVE_AMOUNT_BLUE) {
+        gUnknown_0203EF64.unk_00 = leaderId;
+        gUnknown_0203EF64.unk_01 = unit.level;
 
-    return 2;
-label:
+        ReadWorldMapStuff(&saveBase->wmStuff, &mapData);
+        gUnknown_0203EF64.unk_02 = mapData.unk10[0].location;
+
+        return 2;
+    }
+
     sub_80AA700();
     return 2;
 }
