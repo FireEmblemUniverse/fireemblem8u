@@ -1556,582 +1556,96 @@ void sub_808AC0C(int x, int y, int msg) {
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x0808ACFC
 void sub_808ACFC(int x, int y, int width, int height) {
-    int flag;
+    int i, j, l;
+    int spriteWidth, spriteHeight;
+    int sp14 = height >> 5;
 
-    if (width < 0x20) {
-        width = 0x20;
-    }
+    if (width < 0x20) width = 0x20;
+    if (width > 0xc0) width = 0xc0;
+    if (height < 0x10) height = 0x10;
+    if (height > 0x50) height = 0x50;
 
-    if (width > 0xc0) {
-        width = 0xc0;
-    }
+    if (!(GetDialogueBoxConfig() & 1)) {
+        spriteHeight = (height + 0xF) / 0x10;
+        spriteWidth = (width + 7) / 8 + 1;
 
-    if (height < 0x10) {
-        height = 0x10;
-    }
-
-    if (height > 0x50) {
-        height = 0x50;
-    }
-
-    flag = GetDialogueBoxConfig() & 1;
-
-    if (flag == 0) {
-        int ix;
-        int iy;
-
-        int spriteWidth = (width + 0x7) >> 3;
-        int spriteHeight = (height + 0xf) >> 4;
-
-        for (ix = spriteHeight - 3; ix >= 0; ix -= 4) {
-            for (iy = spriteWidth; iy >= 0; iy--) {
-                int spriteX = iy * 0x10;
-                int spriteY = (ix + 1) * 0x10;
-                if (spriteY > height) {
-                    spriteY = height;
-                }
-                PutSprite(2, x + iy * 8, y + spriteY - 0x10, gObject_32x16, gUnknown_0203E7E8.unk_40 + iy + ix * 0x40);
+        for (i = 0; i < spriteWidth - 4; i += 4) {
+            l = 8 * i;
+            for (j = spriteHeight; j >= 0; j -= 1) {
+                int k = 0x10 * (j + 1);
+                if (k > height) k = height;
+                k -= 0x10;
+                PutSprite(2, x + l, y + k, gObject_32x16, gUnknown_0203E7E8.unk_40 + i + j * 0x40);
             }
         }
 
-        for (ix = spriteHeight - 1; ix >= 0; ix--) {
-            for (iy = flag; iy >= 0; iy--) {
-                int spriteTile;
-                int spriteX = iy * 0x10;
-                int spriteY = (ix + 1) * 0x10;
-
-                if (spriteY > height) {
-                    spriteY = height;
-                }
-
-                spriteTile = gUnknown_0203E7E8.unk_40 + iy + (flag << 6);
-                if (ix < spriteHeight - 1) {
-                    PutSprite(2, x + iy * 8, y + spriteY - 0x10, gObject_16x16, spriteTile);
+        for (; i < spriteWidth; i += 1) {
+            l = 8 * i;
+            for (j = spriteHeight; j >= 0; j -= 1) {
+                int k = 0x10 * (j + 1);
+                if (k > height) k = height;
+                k -= 0x10;
+                if (i < spriteWidth - 2) {
+                    PutSprite(2, x + l, y + k, gObject_16x16, gUnknown_0203E7E8.unk_40 + i + j * 0x40);
                 } else {
-                    PutSprite(2, x + iy * 8, y + spriteY - 0x10, gObject_8x16, spriteTile);
+                    PutSprite(2, x + l, y + k, gObject_8x16, gUnknown_0203E7E8.unk_40 + i + j * 0x40);
                 }
+            }
+            if (i < spriteWidth - 2) i += 1;
+        }
+
+        for (i = 0; i < spriteWidth; i += 1) {
+            l = 8 * i;
+            if (i < spriteWidth - 2) {
+                PutSprite(2, x + l, y - 8, gObject_16x8, gUnknown_0203E7E8.unk_40 + 0x1B + (!((i + 6) % 10) ? 2 : 0));
+                PutSprite(2, x + l, y + height, gObject_16x8, gUnknown_0203E7E8.unk_40 + 0x3B + (!((i + 6) % 8) ? 2 : 0));
+                i += 1;
+            } else {
+                PutSprite(2, x + l, y - 8, gObject_8x8, gUnknown_0203E7E8.unk_40 + 0x1B);
+                PutSprite(2, x + l, y + height, gObject_8x8, gUnknown_0203E7E8.unk_40 + 0x3B);
             }
         }
 
-        for (ix = 0; ix < spriteHeight; ix++) {
-            if (ix < spriteHeight - 1) {
-                int spriteX = x + ix * 8;
-                int spriteTile = gUnknown_0203E7E8.unk_40 + 0x40;
-                int spritePalette = spriteTile + 0x1b;
-                int spriteMod = (ix + 6) % 10;
-                if (spriteMod == 0) {
-                    spritePalette = spriteTile + 0x1d;
-                }
-                PutSprite(2, spriteX, y, gObject_16x8, spritePalette);
+        if (GetDialogueBoxConfig() & 0x10) {
+            for (j = spriteHeight; j >= 0; j -= 1) {
+                int k = 0x10 * (j + 1);
+                if (k > height) k = height;
+                k -= 0x10;
+                PutSprite(2, x - 8, y + k, gObject_8x16, gUnknown_0203E7E8.unk_40 + (j & 1 ? 0x7F : 0x5F));
+                PutSprite(2, x + 8 * i, y + k, gObject_8x16, gUnknown_0203E7E8.unk_40 + (j == sp14 ? 0x7E : 0x1F));
+            }
+        } else {
+            for (j = spriteHeight; j >= 0; j -= 1) {
+                int k = 0x10 * (j + 1);
+                if (k > height) k = height;
+                k -= 0x10;
+                PutSprite(2, x - 8, y + k, gObject_8x16, gUnknown_0203E7E8.unk_40 + 0x5F);
+                PutSprite(2, x + 8 * i, y + k, gObject_8x16, gUnknown_0203E7E8.unk_40 + 0x1F);
             }
         }
 
-        PutSprite(2, x - 8, y - 8, gObject_8x8, (gUnknown_0203E7E8.unk_40 + 0x40) + 0x5b);
-        x = x + spriteHeight * 8;
-        PutSprite(2, x, y - 8, gObject_8x8, (gUnknown_0203E7E8.unk_40 + 0x40) + 0x5c);
-        PutSprite(2, x - 8, y + height, gObject_8x8, (gUnknown_0203E7E8.unk_40 + 0x40) + 0x5d);
-        PutSprite(2, x, y + height, gObject_8x8, (gUnknown_0203E7E8.unk_40 + 0x40) + 0x5e);
+        PutSprite(2, x - 8, y - 8, gObject_8x8, gUnknown_0203E7E8.unk_40 + 0x5B);
+        PutSprite(2, x + 8 * i, y - 8, gObject_8x8, gUnknown_0203E7E8.unk_40 + 0x5C);
+        PutSprite(2, x - 8, y + height, gObject_8x8, gUnknown_0203E7E8.unk_40 + 0x5D);
+        PutSprite(2, x + 8 * i, y + height, gObject_8x8, gUnknown_0203E7E8.unk_40 + 0x5E);
     } else {
-        int ix;
-        int iy;
-        int xPx;
-        int yPx;
-        int yCount = (height + 0x0f) / 0x10;
-        int xCount = (width + 0x1f) / 0x20;
+        spriteWidth = (width + 0x1f) / 0x20;
+        spriteHeight = GetDialogueBoxConfig() / 0x100 - 1;
 
-        for (ix = xCount - 1; ix >= 0; ix--) {
-            for (iy = ((GetDialogueBoxConfig() << 0x10) >> 0x18) - 1; iy >= 0; iy--) {
-                yPx = (iy + 1) * 0x10;
-                PutSprite(2, x + xPx * 0x20, yPx, gObject_32x16, gUnknown_0203E7E8.unk_40 + ix * 4 + iy * 0x40);
+        for (i = spriteWidth - 1; i >= 0; i -= 1) {
+            for (j = spriteHeight; j >= 0; j -= 1) {
+                int k;
+                l = 0x20 * i;
+                k = 0x10 * j;
+                PutSprite(2, x + l, y + k, gObject_32x16, gUnknown_0203E7E8.unk_40 + 4 * i + j * 0x40);
             }
         }
     }
+
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808ACFC(int param_1,int param_2,int param_3,int param_4) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x28\n\
-        str r0, [sp, #4]\n\
-        str r1, [sp, #8]\n\
-        adds r4, r2, #0\n\
-        mov r8, r3\n\
-        mov r0, r8\n\
-        asrs r0, r0, #5\n\
-        str r0, [sp, #0x14]\n\
-        cmp r4, #0x1f\n\
-        bgt _0808AD1C\n\
-        movs r4, #0x20\n\
-    _0808AD1C:\n\
-        cmp r4, #0xc0\n\
-        ble _0808AD22\n\
-        movs r4, #0xc0\n\
-    _0808AD22:\n\
-        mov r1, r8\n\
-        cmp r1, #0xf\n\
-        bgt _0808AD2C\n\
-        movs r2, #0x10\n\
-        mov r8, r2\n\
-    _0808AD2C:\n\
-        mov r3, r8\n\
-        cmp r3, #0x50\n\
-        ble _0808AD36\n\
-        movs r0, #0x50\n\
-        mov r8, r0\n\
-    _0808AD36:\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #1\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _0808AD44\n\
-        b _0808B020\n\
-    _0808AD44:\n\
-        mov r0, r8\n\
-        adds r0, #0xf\n\
-        cmp r0, #0\n\
-        bge _0808AD4E\n\
-        adds r0, #0xf\n\
-    _0808AD4E:\n\
-        asrs r0, r0, #4\n\
-        str r0, [sp, #0x10]\n\
-        adds r0, r4, #7\n\
-        cmp r0, #0\n\
-        bge _0808AD5A\n\
-        adds r0, #7\n\
-    _0808AD5A:\n\
-        asrs r0, r0, #3\n\
-        adds r1, r0, #1\n\
-        str r1, [sp, #0xc]\n\
-        movs r7, #0\n\
-        subs r0, #3\n\
-        ldr r2, [sp, #8]\n\
-        subs r2, #8\n\
-        str r2, [sp, #0x24]\n\
-        ldr r3, [sp, #8]\n\
-        add r3, r8\n\
-        str r3, [sp, #0x1c]\n\
-        ldr r1, [sp, #4]\n\
-        subs r1, #8\n\
-        str r1, [sp, #0x20]\n\
-        cmp r7, r0\n\
-        bge _0808ADBE\n\
-        mov sl, r0\n\
-    _0808AD7C:\n\
-        lsls r6, r7, #3\n\
-        ldr r5, [sp, #0x10]\n\
-        adds r4, r7, #4\n\
-        cmp r5, #0\n\
-        blt _0808ADB8\n\
-        ldr r2, _0808AE04  @ gUnknown_0203E828\n\
-        mov r9, r2\n\
-    _0808AD8A:\n\
-        adds r0, r5, #1\n\
-        lsls r0, r0, #4\n\
-        cmp r0, r8\n\
-        ble _0808AD94\n\
-        mov r0, r8\n\
-    _0808AD94:\n\
-        subs r0, #0x10\n\
-        ldr r3, [sp, #8]\n\
-        adds r2, r3, r0\n\
-        mov r1, r9\n\
-        ldrh r0, [r1]\n\
-        adds r0, r0, r7\n\
-        lsls r1, r5, #6\n\
-        adds r0, r0, r1\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        ldr r3, [sp, #4]\n\
-        adds r1, r3, r6\n\
-        ldr r3, _0808AE08  @ gObject_32x16\n\
-        bl PutSprite\n\
-        subs r5, #1\n\
-        cmp r5, #0\n\
-        bge _0808AD8A\n\
-    _0808ADB8:\n\
-        adds r7, r4, #0\n\
-        cmp r7, sl\n\
-        blt _0808AD7C\n\
-    _0808ADBE:\n\
-        ldr r0, [sp, #0xc]\n\
-        cmp r7, r0\n\
-        bge _0808AE40\n\
-        subs r0, #2\n\
-        mov sl, r0\n\
-    _0808ADC8:\n\
-        lsls r6, r7, #3\n\
-        ldr r5, [sp, #0x10]\n\
-        cmp r5, #0\n\
-        blt _0808AE32\n\
-        ldr r1, _0808AE04  @ gUnknown_0203E828\n\
-        mov r9, r1\n\
-        lsls r4, r5, #6\n\
-    _0808ADD6:\n\
-        adds r0, r5, #1\n\
-        lsls r0, r0, #4\n\
-        cmp r0, r8\n\
-        ble _0808ADE0\n\
-        mov r0, r8\n\
-    _0808ADE0:\n\
-        subs r0, #0x10\n\
-        cmp r7, sl\n\
-        bge _0808AE10\n\
-        ldr r3, [sp, #8]\n\
-        adds r2, r3, r0\n\
-        mov r1, r9\n\
-        ldrh r0, [r1]\n\
-        adds r0, r0, r7\n\
-        adds r0, r0, r4\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        ldr r3, [sp, #4]\n\
-        adds r1, r3, r6\n\
-        ldr r3, _0808AE0C  @ gObject_16x16\n\
-        bl PutSprite\n\
-        b _0808AE2A\n\
-        .align 2, 0\n\
-    _0808AE04: .4byte gUnknown_0203E828\n\
-    _0808AE08: .4byte gObject_32x16\n\
-    _0808AE0C: .4byte gObject_16x16\n\
-    _0808AE10:\n\
-        ldr r1, [sp, #8]\n\
-        adds r2, r1, r0\n\
-        mov r3, r9\n\
-        ldrh r0, [r3]\n\
-        adds r0, r0, r7\n\
-        adds r0, r0, r4\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        ldr r3, [sp, #4]\n\
-        adds r1, r3, r6\n\
-        ldr r3, _0808AEAC  @ gObject_8x16\n\
-        bl PutSprite\n\
-    _0808AE2A:\n\
-        subs r4, #0x40\n\
-        subs r5, #1\n\
-        cmp r5, #0\n\
-        bge _0808ADD6\n\
-    _0808AE32:\n\
-        cmp r7, sl\n\
-        bge _0808AE38\n\
-        adds r7, #1\n\
-    _0808AE38:\n\
-        adds r7, #1\n\
-        ldr r0, [sp, #0xc]\n\
-        cmp r7, r0\n\
-        blt _0808ADC8\n\
-    _0808AE40:\n\
-        movs r7, #0\n\
-        ldr r1, [sp, #0xc]\n\
-        cmp r7, r1\n\
-        bge _0808AEEC\n\
-        ldr r2, _0808AEB0  @ gUnknown_0203E7E8\n\
-        str r2, [sp, #0x18]\n\
-    _0808AE4C:\n\
-        lsls r6, r7, #3\n\
-        ldr r0, [sp, #0xc]\n\
-        subs r0, #2\n\
-        cmp r7, r0\n\
-        bge _0808AEB8\n\
-        ldr r3, [sp, #4]\n\
-        adds r3, r3, r6\n\
-        mov r9, r3\n\
-        ldr r0, [sp, #0x18]\n\
-        adds r0, #0x40\n\
-        mov sl, r0\n\
-        ldrh r5, [r0]\n\
-        adds r6, r5, #0\n\
-        adds r6, #0x1b\n\
-        adds r4, r7, #6\n\
-        adds r0, r4, #0\n\
-        movs r1, #0xa\n\
-        bl __modsi3\n\
-        cmp r0, #0\n\
-        bne _0808AE78\n\
-        adds r6, #2\n\
-    _0808AE78:\n\
-        str r6, [sp]\n\
-        movs r0, #2\n\
-        mov r1, r9\n\
-        ldr r2, [sp, #0x24]\n\
-        ldr r3, _0808AEB4  @ gObject_16x8\n\
-        bl PutSprite\n\
-        mov r2, sl\n\
-        ldrh r1, [r2]\n\
-        adds r2, r1, #0\n\
-        adds r2, #0x3b\n\
-        movs r0, #7\n\
-        ands r4, r0\n\
-        cmp r4, #0\n\
-        bne _0808AE98\n\
-        adds r2, #2\n\
-    _0808AE98:\n\
-        str r2, [sp]\n\
-        movs r0, #2\n\
-        mov r1, r9\n\
-        ldr r2, [sp, #0x1c]\n\
-        ldr r3, _0808AEB4  @ gObject_16x8\n\
-        bl PutSprite\n\
-        adds r7, #1\n\
-        b _0808AEE4\n\
-        .align 2, 0\n\
-    _0808AEAC: .4byte gObject_8x16\n\
-    _0808AEB0: .4byte gUnknown_0203E7E8\n\
-    _0808AEB4: .4byte gObject_16x8\n\
-    _0808AEB8:\n\
-        ldr r3, [sp, #4]\n\
-        adds r4, r3, r6\n\
-        ldr r1, _0808AF60  @ gUnknown_0203E828\n\
-        ldrh r0, [r1]\n\
-        adds r0, #0x1b\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        adds r1, r4, #0\n\
-        ldr r2, [sp, #0x24]\n\
-        ldr r3, _0808AF64  @ gObject_8x8\n\
-        bl PutSprite\n\
-        ldr r2, _0808AF60  @ gUnknown_0203E828\n\
-        ldrh r0, [r2]\n\
-        adds r0, #0x3b\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        adds r1, r4, #0\n\
-        ldr r2, [sp, #0x1c]\n\
-        ldr r3, _0808AF64  @ gObject_8x8\n\
-        bl PutSprite\n\
-    _0808AEE4:\n\
-        adds r7, #1\n\
-        ldr r3, [sp, #0xc]\n\
-        cmp r7, r3\n\
-        blt _0808AE4C\n\
-    _0808AEEC:\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #0x10\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _0808AF70\n\
-        ldr r5, [sp, #0x10]\n\
-        lsls r7, r7, #3\n\
-        mov r9, r7\n\
-        cmp r5, #0\n\
-        blt _0808AFBA\n\
-    _0808AF02:\n\
-        adds r0, r5, #1\n\
-        lsls r0, r0, #4\n\
-        cmp r0, r8\n\
-        ble _0808AF0C\n\
-        mov r0, r8\n\
-    _0808AF0C:\n\
-        subs r0, #0x10\n\
-        ldr r1, [sp, #8]\n\
-        adds r4, r1, r0\n\
-        ldr r6, _0808AF68  @ gObject_8x16\n\
-        ldr r0, _0808AF6C  @ gUnknown_0203E7E8\n\
-        adds r7, r0, #0\n\
-        adds r7, #0x40\n\
-        ldrh r2, [r7]\n\
-        movs r0, #1\n\
-        ands r0, r5\n\
-        adds r1, r2, #0\n\
-        adds r1, #0x5f\n\
-        cmp r0, #0\n\
-        beq _0808AF2A\n\
-        adds r1, #0x20\n\
-    _0808AF2A:\n\
-        str r1, [sp]\n\
-        movs r0, #2\n\
-        ldr r1, [sp, #0x20]\n\
-        adds r2, r4, #0\n\
-        adds r3, r6, #0\n\
-        bl PutSprite\n\
-        ldr r1, [sp, #4]\n\
-        add r1, r9\n\
-        ldrh r0, [r7]\n\
-        adds r2, r0, #0\n\
-        adds r2, #0x1f\n\
-        ldr r3, [sp, #0x14]\n\
-        cmp r5, r3\n\
-        bne _0808AF4A\n\
-        adds r2, #0x5f\n\
-    _0808AF4A:\n\
-        str r2, [sp]\n\
-        movs r0, #2\n\
-        adds r2, r4, #0\n\
-        adds r3, r6, #0\n\
-        bl PutSprite\n\
-        subs r5, #1\n\
-        cmp r5, #0\n\
-        bge _0808AF02\n\
-        b _0808AFBA\n\
-        .align 2, 0\n\
-    _0808AF60: .4byte gUnknown_0203E828\n\
-    _0808AF64: .4byte gObject_8x8\n\
-    _0808AF68: .4byte gObject_8x16\n\
-    _0808AF6C: .4byte gUnknown_0203E7E8\n\
-    _0808AF70:\n\
-        ldr r5, [sp, #0x10]\n\
-        lsls r7, r7, #3\n\
-        mov r9, r7\n\
-        cmp r5, #0\n\
-        blt _0808AFBA\n\
-        ldr r6, _0808B010  @ gObject_8x16\n\
-        ldr r7, _0808B014  @ gUnknown_0203E828\n\
-    _0808AF7E:\n\
-        adds r0, r5, #1\n\
-        lsls r0, r0, #4\n\
-        cmp r0, r8\n\
-        ble _0808AF88\n\
-        mov r0, r8\n\
-    _0808AF88:\n\
-        subs r0, #0x10\n\
-        ldr r1, [sp, #8]\n\
-        adds r4, r1, r0\n\
-        ldrh r0, [r7]\n\
-        adds r0, #0x5f\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        ldr r1, [sp, #0x20]\n\
-        adds r2, r4, #0\n\
-        adds r3, r6, #0\n\
-        bl PutSprite\n\
-        ldrh r0, [r7]\n\
-        adds r0, #0x1f\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        ldr r1, [sp, #4]\n\
-        add r1, r9\n\
-        adds r2, r4, #0\n\
-        adds r3, r6, #0\n\
-        bl PutSprite\n\
-        subs r5, #1\n\
-        cmp r5, #0\n\
-        bge _0808AF7E\n\
-    _0808AFBA:\n\
-        ldr r5, _0808B018  @ gObject_8x8\n\
-        ldr r4, _0808B01C  @ gUnknown_0203E7E8\n\
-        adds r4, #0x40\n\
-        ldrh r0, [r4]\n\
-        adds r0, #0x5b\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        ldr r1, [sp, #0x20]\n\
-        ldr r2, [sp, #0x24]\n\
-        adds r3, r5, #0\n\
-        bl PutSprite\n\
-        ldr r6, [sp, #4]\n\
-        add r6, r9\n\
-        ldrh r0, [r4]\n\
-        adds r0, #0x5c\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        adds r1, r6, #0\n\
-        ldr r2, [sp, #0x24]\n\
-        adds r3, r5, #0\n\
-        bl PutSprite\n\
-        ldrh r0, [r4]\n\
-        adds r0, #0x5d\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        ldr r1, [sp, #0x20]\n\
-        ldr r2, [sp, #0x1c]\n\
-        adds r3, r5, #0\n\
-        bl PutSprite\n\
-        ldrh r0, [r4]\n\
-        adds r0, #0x5e\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        adds r1, r6, #0\n\
-        ldr r2, [sp, #0x1c]\n\
-        adds r3, r5, #0\n\
-        bl PutSprite\n\
-        b _0808B082\n\
-        .align 2, 0\n\
-    _0808B010: .4byte gObject_8x16\n\
-    _0808B014: .4byte gUnknown_0203E828\n\
-    _0808B018: .4byte gObject_8x8\n\
-    _0808B01C: .4byte gUnknown_0203E7E8\n\
-    _0808B020:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x1f\n\
-        cmp r0, #0\n\
-        bge _0808B02A\n\
-        adds r0, #0x1f\n\
-    _0808B02A:\n\
-        asrs r0, r0, #5\n\
-        str r0, [sp, #0xc]\n\
-        bl GetDialogueBoxConfig\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x18\n\
-        subs r0, #1\n\
-        str r0, [sp, #0x10]\n\
-        ldr r7, [sp, #0xc]\n\
-        subs r7, #1\n\
-        cmp r7, #0\n\
-        blt _0808B082\n\
-    _0808B042:\n\
-        ldr r5, [sp, #0x10]\n\
-        subs r2, r7, #1\n\
-        mov r8, r2\n\
-        cmp r5, #0\n\
-        blt _0808B07C\n\
-        lsls r6, r7, #5\n\
-        ldr r3, _0808B094  @ gUnknown_0203E828\n\
-        mov r9, r3\n\
-        lsls r0, r5, #4\n\
-        ldr r1, [sp, #8]\n\
-        adds r4, r0, r1\n\
-    _0808B058:\n\
-        lsls r0, r7, #2\n\
-        mov r2, r9\n\
-        ldrh r2, [r2]\n\
-        adds r0, r0, r2\n\
-        lsls r1, r5, #6\n\
-        adds r0, r0, r1\n\
-        str r0, [sp]\n\
-        movs r0, #2\n\
-        ldr r3, [sp, #4]\n\
-        adds r1, r3, r6\n\
-        adds r2, r4, #0\n\
-        ldr r3, _0808B098  @ gObject_32x16\n\
-        bl PutSprite\n\
-        subs r4, #0x10\n\
-        subs r5, #1\n\
-        cmp r5, #0\n\
-        bge _0808B058\n\
-    _0808B07C:\n\
-        mov r7, r8\n\
-        cmp r7, #0\n\
-        bge _0808B042\n\
-    _0808B082:\n\
-        add sp, #0x28\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0808B094: .4byte gUnknown_0203E828\n\
-    _0808B098: .4byte gObject_32x16\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x0808B09C
 void sub_808B09C(struct HelpBox8A01760Proc* proc) {

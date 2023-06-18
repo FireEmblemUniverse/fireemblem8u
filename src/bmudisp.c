@@ -2051,96 +2051,19 @@ u8 GetUnitSpriteHideFlag(struct Unit* unit) {
     return unit->pMapSpriteHandle->config & 0x80;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/7S0c5 */
-
 //! FE8U = 0x08028160
-void sub_8028160(u16** a, int b, int c, int d) {
-    int i;
-    int j;
+// attempt with 1D array gets very close
+// https://decomp.me/scratch/wkkkM
+void sub_8028160(u32 (*r8)[1][1], int r5, int r9, int d) {
+    int i, j;
+    int r6 = gUnknown_0859B73C[d];
 
-    u16 unk = gUnknown_0859B73C[d];
-
-    for (i = 0; i < c; i++) {
-
-        for (j = 0; j < b; j++) {
-            int l = 7 << ((7 & unk) << 1);
-
-            a[i][l + j * 16] &= (7 & unk) << 2;
-
+    for (i = 0; i < r9; i++) {
+        for (j = 0; j < r5; j++) {
+            u32 ip = ~(0xf << ((r6 & 7) << 2));
+            r8[8 * j][0x100 * i][r6 >> 3] &= ip;
         }
     }
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_8028160(u16** param_1, int param_2, int param_3,int param_4) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        mov r8, r0\n\
-        adds r5, r1, #0\n\
-        mov r9, r2\n\
-        ldr r0, _080281C4  @ gUnknown_0859B73C\n\
-        lsls r3, r3, #1\n\
-        adds r3, r3, r0\n\
-        ldrh r6, [r3]\n\
-        movs r3, #0\n\
-        cmp r3, r9\n\
-        bge _080281B8\n\
-        movs r0, #7\n\
-        ands r0, r6\n\
-        lsls r0, r0, #2\n\
-        movs r1, #0xf\n\
-        mov ip, r1\n\
-        mov r7, ip\n\
-        lsls r7, r0\n\
-        mov ip, r7\n\
-    _0802818C:\n\
-        adds r4, r3, #1\n\
-        cmp r5, #0\n\
-        ble _080281B2\n\
-        mov r0, ip\n\
-        mvns r2, r0\n\
-        asrs r1, r6, #3\n\
-        lsls r1, r1, #2\n\
-        lsls r0, r3, #0xa\n\
-        adds r3, r5, #0\n\
-        adds r0, r0, r1\n\
-        mov r7, r8\n\
-        adds r1, r7, r0\n\
-    _080281A4:\n\
-        ldr r0, [r1]\n\
-        ands r0, r2\n\
-        str r0, [r1]\n\
-        adds r1, #0x20\n\
-        subs r3, #1\n\
-        cmp r3, #0\n\
-        bne _080281A4\n\
-    _080281B2:\n\
-        adds r3, r4, #0\n\
-        cmp r3, r9\n\
-        blt _0802818C\n\
-    _080281B8:\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080281C4: .4byte gUnknown_0859B73C\n\
-        .syntax divided\n\
-    ");
-
-}
-
-#endif // NONMATCHING
