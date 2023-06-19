@@ -453,228 +453,70 @@ void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits)
     }
 }
 
-#if NONMATCHING
-void sub_800159C(u16 *a, u8 *b, s16 c, s16 d, u16 e)
+void sub_800159C(u16 *a1, u16 *a2, s16 a3, s16 a4, u16 a5) // TODO: handle type of a1
 {
-    s16 sb = c;  // s16?
-    s16 r3 = d;  // s16?
-    s16 ip  = b[0] + 1;
-    s16 sp4 = b[1] + 1;
-    s16 spC = 0;
-    s16 sp8 = 0;  // sp8 = spC = 0
-    s16 r8;  // r4 in the beginning
-    s16 r4;  // r5 in the beginning
+    u16 *dst;
+    s16 r4, r5;
+    s16 ip;
+    s16 sp04;
+    s16 sp08;
+    s16 sp0C;
 
-    u16 *r2;
-    u16 *r3_;
-    int r4_;
-    int r1_;
+    r4 = ((u8 *)a2)[0] + 1;
+    sp04 = ((u8 *)a2)[1];
+    r5 = sp04 + 1;
+    ip = r4;
+    sp04 = r5;
+    ++a2;
+    sp0C = 0;
+    sp08 = 0;
 
-    b += 2;
+    if (a3 + r4 > 0x20)
+        r4 = 0x20 - a3;
 
-    if (c + ip > 32)
-        r8 = 32 - c;
-    else
-        r8 = ip;
-    if (c < 0)
+    if (a3 < 0)
     {
-        sp8 = -c;
-        r8 -= -c;
-        sb = 0;
+        sp08 = -a3;
+        r4 -= sp08;
+        a3 = 0;
     }
-    if (r8 > 0)
-        return;
 
-    if (d + sp4 > 32)
-        r4 = 32 - d;
-    else
-        r4 = sp4;
-    if (d < 0)
-    {
-        spC = -d;
-        r4 -= -d;
-        r3 = 0;
-    }
     if (r4 > 0)
-        return;
-
-    b += ip * (sp4 - (spC + r4)) * 2;
-    a += (r3 + r4 - 1) * 32;
-
-    //r2 = a + sb;
-    for (r4_ = r4 - 1; r4_ >= 0; r4_--)
     {
-        r3_ = (u16 *)b + sp8;
-        r2 = a + sb;
-        for (r1_ = 0; r1_ < r8; r1_++)
-            *r2++ = *r3_++ + e;
-        b += ip;
-        sb -= 64;
+        int i, j;
+        if (a4 + r5 > 0x20)
+            r5 = 0x20 - a4;
+
+        if (a4 < 0)
+        {
+            sp0C = -a4;
+            r5 -= sp0C;
+            a4 = 0;
+        }
+
+        if (r5 > 0)
+        {
+            a2 += ip * (sp04 - (sp0C + r5));
+            dst = a1 + (a4 + r5 - 1) * 0x20 + a3;
+
+            for (i = r5 - 1; i >= 0; --i)
+            {
+                const u16 *src = a2 + sp08;
+                u16 *dst2 = dst;
+
+                for (j = 0; r4 > j; ++j)
+                {
+                    *dst2 = *src + a5;
+                    ++src;
+                    ++dst2;
+                }
+
+                a2 += ip;
+                dst -= 0x20;
+            }
+        }
     }
 }
-#else
-__attribute__((naked))
-void sub_800159C(u16 *a, u16 *b, s16 c, s16 d, u16 e)
-{
-    asm(".syntax unified\n\
-    push {r4, r5, r6, r7, lr}\n\
-    mov r7, sl\n\
-    mov r6, sb\n\
-    mov r5, r8\n\
-    push {r5, r6, r7}\n\
-    sub sp, #0x10\n\
-    str r0, [sp]\n\
-    adds r7, r1, #0\n\
-    ldr r0, [sp, #0x30]\n\
-    lsls r2, r2, #0x10\n\
-    lsls r3, r3, #0x10\n\
-    lsrs r3, r3, #0x10\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r0, r0, #0x10\n\
-    mov sl, r0\n\
-    ldrb r0, [r7]\n\
-    adds r4, r0, #1\n\
-    ldrb r0, [r7, #1]\n\
-    adds r5, r0, #1\n\
-    lsls r0, r4, #0x10\n\
-    lsrs r1, r0, #0x10\n\
-    mov ip, r1\n\
-    lsls r6, r5, #0x10\n\
-    lsrs r1, r6, #0x10\n\
-    str r1, [sp, #4]\n\
-    adds r7, #2\n\
-    movs r1, #0\n\
-    str r1, [sp, #0xc]\n\
-    str r1, [sp, #8]\n\
-    lsrs r1, r2, #0x10\n\
-    mov sb, r1\n\
-    asrs r1, r2, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    adds r0, r1, r0\n\
-    cmp r0, #0x20\n\
-    ble _080015EC\n\
-    movs r0, #0x20\n\
-    subs r0, r0, r1\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r4, r0, #0x10\n\
-_080015EC:\n\
-    cmp r1, #0\n\
-    bge _08001608\n\
-    rsbs r1, r1, #0\n\
-    lsls r1, r1, #0x10\n\
-    lsls r0, r4, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    lsrs r2, r1, #0x10\n\
-    str r2, [sp, #8]\n\
-    asrs r1, r1, #0x10\n\
-    subs r0, r0, r1\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r4, r0, #0x10\n\
-    movs r0, #0\n\
-    mov sb, r0\n\
-_08001608:\n\
-    lsls r0, r4, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    mov r8, r0\n\
-    cmp r0, #0\n\
-    ble _080016B2\n\
-    lsls r0, r3, #0x10\n\
-    asrs r1, r0, #0x10\n\
-    asrs r0, r6, #0x10\n\
-    adds r0, r1, r0\n\
-    cmp r0, #0x20\n\
-    ble _08001626\n\
-    movs r0, #0x20\n\
-    subs r0, r0, r1\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r5, r0, #0x10\n\
-_08001626:\n\
-    cmp r1, #0\n\
-    bge _08001640\n\
-    rsbs r1, r1, #0\n\
-    lsls r1, r1, #0x10\n\
-    lsls r0, r5, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    lsrs r2, r1, #0x10\n\
-    str r2, [sp, #0xc]\n\
-    asrs r1, r1, #0x10\n\
-    subs r0, r0, r1\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r5, r0, #0x10\n\
-    movs r3, #0\n\
-_08001640:\n\
-    lsls r0, r5, #0x10\n\
-    asrs r4, r0, #0x10\n\
-    cmp r4, #0\n\
-    ble _080016B2\n\
-    mov r5, ip\n\
-    ldr r1, [sp, #0xc]\n\
-    lsls r0, r1, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    adds r0, r0, r4\n\
-    ldr r2, [sp, #4]\n\
-    subs r0, r2, r0\n\
-    muls r0, r5, r0\n\
-    lsls r0, r0, #1\n\
-    adds r7, r7, r0\n\
-    lsls r0, r3, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    adds r0, r0, r4\n\
-    subs r0, #1\n\
-    lsls r0, r0, #6\n\
-    ldr r3, [sp]\n\
-    adds r0, r3, r0\n\
-    mov r2, sb\n\
-    lsls r1, r2, #0x10\n\
-    asrs r1, r1, #0xf\n\
-    adds r2, r0, r1\n\
-    subs r1, r4, #1\n\
-    cmp r1, #0\n\
-    blt _080016B2\n\
-    ldr r3, [sp, #8]\n\
-    lsls r0, r3, #0x10\n\
-    asrs r0, r0, #0xf\n\
-    mov sb, r0\n\
-    mov r6, r8\n\
-    lsls r5, r5, #1\n\
-    mov r8, r5\n\
-    mov ip, r6\n\
-_08001688:\n\
-    mov r0, sb\n\
-    adds r3, r7, r0\n\
-    adds r5, r2, #0\n\
-    subs r5, #0x40\n\
-    subs r4, r1, #1\n\
-    cmp r6, #0\n\
-    ble _080016A8\n\
-    mov r1, ip\n\
-_08001698:\n\
-    ldrh r0, [r3]\n\
-    add r0, sl\n\
-    strh r0, [r2]\n\
-    adds r3, #2\n\
-    adds r2, #2\n\
-    subs r1, #1\n\
-    cmp r1, #0\n\
-    bne _08001698\n\
-_080016A8:\n\
-    add r7, r8\n\
-    adds r2, r5, #0\n\
-    adds r1, r4, #0\n\
-    cmp r1, #0\n\
-    bge _08001688\n\
-_080016B2:\n\
-    add sp, #0x10\n\
-    pop {r3, r4, r5}\n\
-    mov r8, r3\n\
-    mov sb, r4\n\
-    mov sl, r5\n\
-    pop {r4, r5, r6, r7}\n\
-    pop {r0}\n\
-    bx r0\n\
-    .syntax divided");
-}
-#endif
 
 void sub_80016C4(u16 *a, struct UnknownDmaStruct *b)
 {
