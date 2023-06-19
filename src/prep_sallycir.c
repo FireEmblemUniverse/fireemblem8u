@@ -215,7 +215,17 @@ void sub_8097AA0(void) {
     return;
 }
 
-extern struct ProcCmd ProcScr_SallyCir[];
+struct ProcCmd CONST_DATA ProcScr_SallyCir[] = {
+    PROC_NAME("SallyCir"),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_809788C),
+    PROC_REPEAT(sub_80979DC),
+
+    PROC_CALL(sub_8097AA0),
+
+    PROC_END,
+};
 
 //! FE8U = 0x08097AAC
 struct SallyCirProc* sub_8097AAC(ProcPtr parent, u8 unk) {
@@ -320,3 +330,10 @@ void sub_8097B98(struct SallyCirProc* proc) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_08A18870[] = {
+    PROC_SLEEP(0),
+    PROC_SLEEP(0),
+
+    PROC_END,
+};

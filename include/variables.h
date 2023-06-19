@@ -252,7 +252,6 @@ extern int gUnknown_0202B6AC;
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;
 // extern ??? gUnknown_0202BD30
-// extern ??? gUnknown_0202BD31
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
 // extern ??? gUnknown_02030B8C

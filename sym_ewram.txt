@@ -405,7 +405,6 @@
 . = 0x02BCFE; gUnknown_0202BCFE = .;
 . = 0x02BD0B; gUnknown_0202BD0B = .;
 . = 0x02BD30; gUnknown_0202BD30 = .;
-. = 0x02BD31; gUnknown_0202BD31 = .;
 . = 0x02BD3A; gUnknown_0202BD3A = .;
 . = ALIGN(4); src/bm.o(ewram_data);
 . = ALIGN(4); src/bmunit.o(ewram_data);

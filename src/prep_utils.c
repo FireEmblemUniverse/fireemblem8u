@@ -8,6 +8,8 @@
 #include "bmitem.h"
 #include "bmarena.h"
 
+#include "constants/characters.h"
+
 #include "prepscreen.h"
 
 struct ViewCounterProc {
@@ -44,7 +46,12 @@ void sub_8097CD8(struct ViewCounterProc* proc) {
     return;
 }
 
-extern struct ProcCmd ProcScr_ViewCounter[];
+struct ProcCmd CONST_DATA ProcScr_ViewCounter[] = {
+    PROC_NAME("ViewCounter"),
+    PROC_SLEEP(0),
+    PROC_REPEAT(sub_8097CD8),
+    PROC_END,
+};
 
 //! FE8U = 0x08097D14
 void sub_8097D14(u16 unk, ProcPtr parent) {
@@ -92,7 +99,12 @@ void sub_8097D80(ProcPtr proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A188A8[];
+struct ProcCmd CONST_DATA gUnknown_08A188A8[] = {
+    PROC_SLEEP(1),
+    PROC_REPEAT(sub_8097D80),
+
+    PROC_END,
+};
 
 //! FE8U = 0x08097DA8
 ProcPtr sub_8097DA8(int x, int y, int msgId, ProcPtr parent) {
@@ -152,7 +164,21 @@ s8 sub_8097E38(struct Unit* unit) {
     return 1;
 }
 
-extern s16 gUnknown_08205BFC[];
+const s16 gUnknown_08205BFC[] = {
+    CHARACTER_MYRRH,
+    CHARACTER_CAELLACH_CC,
+    CHARACTER_GLEN_CC,
+    CHARACTER_ORSON_CC,
+    CHARACTER_VALTER_CC,
+    CHARACTER_RIEV_CC,
+    CHARACTER_HAYDEN_CC,
+    CHARACTER_FADO_CC,
+    CHARACTER_ISMAIRE_CC,
+    CHARACTER_SELENA_CC,
+    CHARACTER_LYON_CC,
+
+    0,
+};
 
 //! FE8U = 0x08097E74
 s8 sub_8097E74(struct Unit* unit) {
@@ -251,11 +277,8 @@ s8 sub_8097F98(struct Unit* unit, int itemSlot) {
     return 0;
 }
 
-
-//gUnknown_0202BD31 => gPlaySt.cfgWindowColor
 extern u16 gUnknown_08A1D448[];
 extern u16 gUnknown_02013460[];
-
 
 //! FE8U = 0x08097FDC
 void sub_8097FDC(void) {
@@ -278,7 +301,17 @@ struct Struct8A188C0 {
     /* 01 */ u8 upperBound;
 };
 
-extern struct Struct8A188C0 gUnknown_08A188C0[];
+struct Struct8A188C0 CONST_DATA gUnknown_08A188C0[] = {
+    [0] = { ITYPE_SWORD,  ITYPE_SWORD },
+    [1] = { ITYPE_LANCE,  ITYPE_LANCE },
+    [2] = { ITYPE_AXE,    ITYPE_AXE   },
+    [3] = { ITYPE_BOW,    ITYPE_BOW   },
+    [4] = { ITYPE_STAFF,  ITYPE_STAFF },
+    [5] = { ITYPE_ANIMA,  ITYPE_ANIMA },
+    [6] = { ITYPE_LIGHT,  ITYPE_LIGHT },
+    [7] = { ITYPE_DARK,   ITYPE_DARK  },
+    [8] = { ITYPE_ITEM,   ITYPE_12    },
+};
 
 //! FE8U = 0x08098014
 int sub_8098014(int item) {
@@ -398,7 +431,7 @@ void SomethingPrepListRelated(struct Unit* pUnit, int page, int flags) {
                 continue;
             }
 
-            if (unit->state & 0x00010004) {
+            if (unit->state & (US_DEAD | US_BIT16)) {
                 continue;
             }
 
@@ -423,7 +456,7 @@ void SomethingPrepListRelated(struct Unit* pUnit, int page, int flags) {
         int j;
         u16* convoy = GetConvoyItemArray();
 
-        for (j = 0; j < 100 && convoy[j] != 0; j++) {
+        for (j = 0; j < CONVOY_ITEM_COUNT && convoy[j] != 0; j++) {
             pPrepItemList->item = convoy[j];
             pPrepItemList->pid = 0;
             pPrepItemList->itemSlot = j;
