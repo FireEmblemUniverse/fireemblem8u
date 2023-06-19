@@ -2471,7 +2471,7 @@ _080997C8:
 	ldr r2, _080997F4  @ 0x0000088B
 	adds r0, r1, #0
 	adds r3, r5, #0
-	bl sub_8097DA8
+	bl StartPrepErrorHelpbox
 	b _08099A90
 	.align 2, 0
 _080997F4: .4byte 0x0000088B

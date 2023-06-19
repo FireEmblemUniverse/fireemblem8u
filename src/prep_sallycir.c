@@ -73,7 +73,7 @@ void sub_80977EC(u8* a, u16* b) {
 }
 
 //! FE8U = 0x08097840
-void sub_8097840(void) {
+void SallyCir_OnHBlank(void) {
     u16 vcount = REG_VCOUNT;
 
     if (vcount == 160) {
@@ -95,7 +95,7 @@ void sub_8097840(void) {
 }
 
 //! FE8U = 0x0809788C
-void sub_809788C(struct SallyCirProc* proc) {
+void SallyCir_Init(struct SallyCirProc* proc) {
     u16 i;
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
@@ -153,13 +153,13 @@ void sub_809788C(struct SallyCirProc* proc) {
     gUnknown_02013458[0] = (gUnknown_02012F58 + 0);
     gUnknown_02013458[1] = (gUnknown_02012F58 + 640 / 4);
 
-    SetPrimaryHBlankHandler(sub_8097840);
+    SetPrimaryHBlankHandler(SallyCir_OnHBlank);
 
     return;
 }
 
 //! FE8U = 0x080979DC
-void sub_80979DC(struct SallyCirProc* proc) {
+void SallyCir_Loop(struct SallyCirProc* proc) {
     s16 i;
 
     proc->unk_2c += proc->unk_2a;
@@ -210,7 +210,7 @@ void sub_80979DC(struct SallyCirProc* proc) {
 }
 
 //! FE8U = 0x08097AA0
-void sub_8097AA0(void) {
+void SallyCir_OnEnd(void) {
     SetPrimaryHBlankHandler(NULL);
     return;
 }
@@ -219,16 +219,16 @@ struct ProcCmd CONST_DATA ProcScr_SallyCir[] = {
     PROC_NAME("SallyCir"),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_809788C),
-    PROC_REPEAT(sub_80979DC),
+    PROC_CALL(SallyCir_Init),
+    PROC_REPEAT(SallyCir_Loop),
 
-    PROC_CALL(sub_8097AA0),
+    PROC_CALL(SallyCir_OnEnd),
 
     PROC_END,
 };
 
 //! FE8U = 0x08097AAC
-struct SallyCirProc* sub_8097AAC(ProcPtr parent, u8 unk) {
+struct SallyCirProc* StartSallyCirProc(ProcPtr parent, u8 unk) {
     struct SallyCirProc* proc = Proc_StartBlocking(ProcScr_SallyCir, parent);
     proc->unk_2a = unk;
 
@@ -331,7 +331,7 @@ void sub_8097B98(struct SallyCirProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A18870[] = {
+struct ProcCmd CONST_DATA gUnused_08A18870[] = {
     PROC_SLEEP(0),
     PROC_SLEEP(0),
 

@@ -800,7 +800,7 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205B94
 // extern ??? gUnknown_08205BB0
 // extern ??? gUnknown_08205BC0
-// extern ??? gUnknown_08205BFC
+// extern ??? gLinkArenaBanList
 // extern ??? gUnknown_08205C14
 // extern ??? Pals_PrepWindow
 // extern ??? gUnknown_08205C64

@@ -14,9 +14,11 @@
 
 struct ViewCounterProc {
     /* 00 */ PROC_HEADER;
-    /* 2A */ u16 unk_2a;
-    /* 2C */ u16 unk_2c;
+    /* 2A */ u16 targetFrameCount;
+    /* 2C */ u16 counter;
 };
+
+int CheckInLinkArena(void);
 
 //! FE8U = 0x08097CC4
 int sub_8097CC4(void) {
@@ -29,9 +31,9 @@ u8 GetConvoyItemCount_(void) {
 }
 
 //! FE8U = 0x08097CD8
-void sub_8097CD8(struct ViewCounterProc* proc) {
+void ViewCounter_Loop(struct ViewCounterProc* proc) {
 
-    if (proc->unk_2a == proc->unk_2c) {
+    if (proc->targetFrameCount == proc->counter) {
         gLCDControlBuffer.dispcnt.bg0_on = 1;
         gLCDControlBuffer.dispcnt.bg1_on = 1;
         gLCDControlBuffer.dispcnt.bg2_on = 1;
@@ -41,7 +43,7 @@ void sub_8097CD8(struct ViewCounterProc* proc) {
         Proc_Break(proc);
     }
 
-    proc->unk_2c++;
+    proc->counter++;
 
     return;
 }
@@ -49,16 +51,16 @@ void sub_8097CD8(struct ViewCounterProc* proc) {
 struct ProcCmd CONST_DATA ProcScr_ViewCounter[] = {
     PROC_NAME("ViewCounter"),
     PROC_SLEEP(0),
-    PROC_REPEAT(sub_8097CD8),
+    PROC_REPEAT(ViewCounter_Loop),
     PROC_END,
 };
 
 //! FE8U = 0x08097D14
-void sub_8097D14(u16 unk, ProcPtr parent) {
+void StartViewCounter(u16 frames, ProcPtr parent) {
     struct ViewCounterProc* proc = Proc_Start(ProcScr_ViewCounter, parent);
 
-    proc->unk_2c = 0;
-    proc->unk_2a = unk;
+    proc->counter = 0;
+    proc->targetFrameCount = frames;
 
     gLCDControlBuffer.dispcnt.bg0_on = 0;
     gLCDControlBuffer.dispcnt.bg1_on = 0;
@@ -90,7 +92,7 @@ void sub_8097D68(ProcPtr proc) {
 }
 
 //! FE8U = 0x08097D80
-void sub_8097D80(ProcPtr proc) {
+void PrepHbKeyListener_Loop(ProcPtr proc) {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | DPAD_ANY)) {
         CloseHelpBox();
         Proc_Break(proc);
@@ -99,15 +101,15 @@ void sub_8097D80(ProcPtr proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A188A8[] = {
+struct ProcCmd CONST_DATA gProcScr_PrepHelpboxListener[] = {
     PROC_SLEEP(1),
-    PROC_REPEAT(sub_8097D80),
+    PROC_REPEAT(PrepHbKeyListener_Loop),
 
     PROC_END,
 };
 
 //! FE8U = 0x08097DA8
-ProcPtr sub_8097DA8(int x, int y, int msgId, ProcPtr parent) {
+ProcPtr StartPrepErrorHelpbox(int x, int y, int msgId, ProcPtr parent) {
     if (x < 0 && y < 0) {
         x = GetUiHandPrevDisplayX();
         y = GetUiHandPrevDisplayY();
@@ -115,11 +117,11 @@ ProcPtr sub_8097DA8(int x, int y, int msgId, ProcPtr parent) {
 
     StartHelpBox(x, y, msgId);
 
-    return Proc_StartBlocking(gUnknown_08A188A8, parent);
+    return Proc_StartBlocking(gProcScr_PrepHelpboxListener, parent);
 }
 
 //! FE8U = 0x08097DE0
-s8 sub_8097DE0(struct Unit* unit, int item) {
+s8 IsWeaponUsable(struct Unit* unit, int item) {
     if (!CanUnitUseWeapon(unit, item)) {
         return 0;
     }
@@ -132,13 +134,13 @@ s8 sub_8097DE0(struct Unit* unit, int item) {
 }
 
 //! FE8U = 0x08097E08
-int sub_8097E08(struct Unit* unit) {
+int CountUnitUsableWeapons(struct Unit* unit) {
     int i;
 
     int count = 0;
 
     for (i = 0; i < UNIT_ITEM_COUNT; i++) {
-        if (sub_8097DE0(unit, unit->items[i]) == 1) {
+        if (IsWeaponUsable(unit, unit->items[i]) == 1) {
             count++;
         }
     }
@@ -157,14 +159,14 @@ s8 sub_8097E38(struct Unit* unit) {
         return 0;
     }
 
-    if (sub_8097E08(unit) == 0) {
+    if (CountUnitUsableWeapons(unit) == 0) {
         return 0;
     }
 
     return 1;
 }
 
-const s16 gUnknown_08205BFC[] = {
+const s16 gLinkArenaBanList[] = {
     CHARACTER_MYRRH,
     CHARACTER_CAELLACH_CC,
     CHARACTER_GLEN_CC,
@@ -181,11 +183,11 @@ const s16 gUnknown_08205BFC[] = {
 };
 
 //! FE8U = 0x08097E74
-s8 sub_8097E74(struct Unit* unit) {
+s8 CanUnitBeDeployedLinkArena(struct Unit* unit) {
     u32 i;
 
     for (i = 0; i < 0xb; i++) {
-        if (unit->pCharacterData->number == gUnknown_08205BFC[i]) {
+        if (unit->pCharacterData->number == gLinkArenaBanList[i]) {
             return 0;
         }
     }
@@ -193,10 +195,8 @@ s8 sub_8097E74(struct Unit* unit) {
     return 1;
 }
 
-int CheckInLinkArena(void);
-
 //! FE8U = 0x08097EA0
-s8 sub_8097EA0(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSlotB) {
+s8 CheckValidLinkArenaItemSwap(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSlotB) {
 
     if (unitA == unitB) {
         return 1;
@@ -207,9 +207,9 @@ s8 sub_8097EA0(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSl
     }
 
     if (!(unitA->state & US_NOT_DEPLOYED)) {
-        if (sub_8097DE0(unitA, unitA->items[itemSlotA]) != 0) {
-            if (sub_8097E08(unitA) <= 1) {
-                if (sub_8097DE0(unitA, unitB->items[itemSlotB]) == 0) {
+        if (IsWeaponUsable(unitA, unitA->items[itemSlotA]) != 0) {
+            if (CountUnitUsableWeapons(unitA) <= 1) {
+                if (IsWeaponUsable(unitA, unitB->items[itemSlotB]) == 0) {
                     return 0;
                 }
             }
@@ -217,9 +217,9 @@ s8 sub_8097EA0(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSl
     }
 
     if (!(unitB->state & US_NOT_DEPLOYED)) {
-        if (sub_8097DE0(unitB, unitB->items[itemSlotB]) != 0) {
-            if (sub_8097E08(unitB) <= 1) {
-                if (sub_8097DE0(unitB, unitA->items[itemSlotA]) == 0) {
+        if (IsWeaponUsable(unitB, unitB->items[itemSlotB]) != 0) {
+            if (CountUnitUsableWeapons(unitB) <= 1) {
+                if (IsWeaponUsable(unitB, unitA->items[itemSlotA]) == 0) {
                     return 0;
                 }
             }
@@ -230,7 +230,7 @@ s8 sub_8097EA0(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSl
 }
 
 //! FE8U = 0x08097F44
-s8 sub_8097F44(struct Unit* unit, int itemSlot, int item) {
+s8 CheckValidLinkArenaItemSupply(struct Unit* unit, int itemSlot, int item) {
 
     if (!CheckInLinkArena()) {
         return 1;
@@ -240,15 +240,15 @@ s8 sub_8097F44(struct Unit* unit, int itemSlot, int item) {
         return 1;
     }
 
-    if (!sub_8097DE0(unit, unit->items[itemSlot])) {
+    if (!IsWeaponUsable(unit, unit->items[itemSlot])) {
         return 1;
     }
 
-    if (sub_8097E08(unit) != 1) {
+    if (CountUnitUsableWeapons(unit) != 1) {
         return 1;
     }
 
-    if (sub_8097DE0(unit, item)) {
+    if (IsWeaponUsable(unit, item)) {
         return 1;
     }
 
@@ -266,11 +266,11 @@ s8 sub_8097F98(struct Unit* unit, int itemSlot) {
         return 1;
     }
 
-    if (!sub_8097DE0(unit, unit->items[itemSlot])) {
+    if (!IsWeaponUsable(unit, unit->items[itemSlot])) {
         return 1;
     }
 
-    if (sub_8097E08(unit) != 1) {
+    if (CountUnitUsableWeapons(unit) != 1) {
         return 1;
     }
 
@@ -296,12 +296,12 @@ void sub_8097FDC(void) {
     return;
 }
 
-struct Struct8A188C0 {
+struct PrepItemTypePageEnt {
     /* 00 */ u8 lowerBound;
     /* 01 */ u8 upperBound;
 };
 
-struct Struct8A188C0 CONST_DATA gUnknown_08A188C0[] = {
+struct PrepItemTypePageEnt CONST_DATA gPrepItemTypePageLut[] = {
     [0] = { ITYPE_SWORD,  ITYPE_SWORD },
     [1] = { ITYPE_LANCE,  ITYPE_LANCE },
     [2] = { ITYPE_AXE,    ITYPE_AXE   },
@@ -314,17 +314,17 @@ struct Struct8A188C0 CONST_DATA gUnknown_08A188C0[] = {
 };
 
 //! FE8U = 0x08098014
-int sub_8098014(int item) {
+int GetPrepPageForItem(int item) {
     int i;
 
     for (i = 0; i < 9; i++) {
         int itemType = GetItemType(item);
 
-        if (itemType < gUnknown_08A188C0[i].lowerBound) {
+        if (itemType < gPrepItemTypePageLut[i].lowerBound) {
             continue;
         }
 
-        if (itemType > gUnknown_08A188C0[i].upperBound) {
+        if (itemType > gPrepItemTypePageLut[i].upperBound) {
             continue;
         }
 
@@ -334,31 +334,28 @@ int sub_8098014(int item) {
     return 8;
 }
 
-extern u16 gUnknown_02012F54;
-extern struct PrepScreenItemListEnt gUnknown_02012914[];
-
 //! FE8U = 0x08098048
 void sub_8098048(int page) {
     int j;
     int i;
     int k;
 
-    struct PrepScreenItemListEnt* prepItemListBuffer = gUnknown_02012914;
+    struct PrepScreenItemListEnt* buffer = gUnknown_02012914;
     gUnknown_02012F56 = 0;
 
     for (i = 0; i < gUnknown_02012F54; i++) {
         u8 itemType = GetItemType(gPrepScreenItemList[i].item);
 
-        if (itemType < gUnknown_08A188C0[page].lowerBound) {
+        if (itemType < gPrepItemTypePageLut[page].lowerBound) {
             continue;
         }
 
-        if (itemType > gUnknown_08A188C0[page].upperBound) {
+        if (itemType > gPrepItemTypePageLut[page].upperBound) {
             continue;
         }
 
-        *prepItemListBuffer = gPrepScreenItemList[i];
-        prepItemListBuffer++;
+        *buffer = gPrepScreenItemList[i];
+        buffer++;
 
         gUnknown_02012F56++;
     }
@@ -366,9 +363,9 @@ void sub_8098048(int page) {
     for (i = 0; i < gUnknown_02012F54; i++) {
         u8 itemType = GetItemType(gPrepScreenItemList[i].item);
 
-        if (itemType < gUnknown_08A188C0[page].lowerBound || itemType > gUnknown_08A188C0[page].upperBound) {
-            *prepItemListBuffer = gPrepScreenItemList[i];
-            prepItemListBuffer++;
+        if (itemType < gPrepItemTypePageLut[page].lowerBound || itemType > gPrepItemTypePageLut[page].upperBound) {
+            *buffer = gPrepScreenItemList[i];
+            buffer++;
         }
     }
 
@@ -544,7 +541,6 @@ int sub_8098378(u16 a) {
     int i;
 
     for (i = 0; i < 0x10; i++) {
-
         if ((a >> i) & 1) {
             return i;
         }
