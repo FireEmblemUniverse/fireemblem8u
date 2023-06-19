@@ -212,7 +212,8 @@ SECTIONS
         src/prep_atmenu.o(.text);
         src/prep_menuproc.o(.text);
         asm/prep_menuscroll.o(.text);
-        asm/code_prepscreen_80977AC.o(.text);
+        src/prep_sallycir.o(.text);
+        src/prep_utils.o(.text);
         asm/prep_itemscreen.o(.text);
         src/prep_unitselect.o(.text);
         src/prep_itemtrade.o(.text);

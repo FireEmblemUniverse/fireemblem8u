@@ -531,7 +531,7 @@ void PrepStartSideBarScroll(ProcPtr, int, int, int, int);
 void sub_8097D54(ProcPtr);
 void sub_8097D68(ProcPtr);
 // ??? sub_8097D80(???);
-void sub_8097DA8(int, int, int, ProcPtr);
+ProcPtr sub_8097DA8(int, int, int, ProcPtr);
 // ??? sub_8097DE0(???);
 // ??? sub_8097E08(???);
 s8 sub_8097E38(struct Unit *unit);
