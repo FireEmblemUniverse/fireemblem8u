@@ -12,7 +12,10 @@ enum {
 // Utility macros and constants
 extern u16 gPaletteBuffer[];
 
+// Some functions only match with one of the macros.
 #define TILEMAP_INDEX(aX, aY) (0x20 * (aY) + (aX))
+#define TILEMAP_INDEX2(aX, aY) (((aY) << 5) + (aX))
+
 #define TILEMAP_LOCATED(aMap, aX, aY) (TILEMAP_INDEX((aX), (aY)) + (aMap))
 
 #define TILEREF(aChar, aPal) ((aChar) + ((aPal) << 12))
