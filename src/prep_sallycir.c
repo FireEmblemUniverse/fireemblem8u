@@ -173,31 +173,22 @@ void SallyCir_Loop(struct SallyCirProc* proc) {
     }
 
     for (i = 0; i < 160; i++) {
-        struct Win1H** ptr = gUnknown_02013458;
-
-        if (proc->unk_2c > 0) {
-            s16 diff;
-
-            int val = (proc->unk_2c * proc->unk_2c) - ((i - 80) * (i - 80));
-
-            if (val < 0) {
-            _08097A32:
-                (*(ptr + 1) + i)->left = 120;
-                (*(ptr + 1) + i)->right = 120;
-                continue;
-            }
-
-            diff = Sqrt(val);
-            if (diff > 120) {
-                diff = 120;
-            }
-
-            (*(ptr + 1) + i)->left = 120 - diff;
-            (*(ptr + 1) + i)->right = diff + 120;
-        } else {
-           goto _08097A32;
+        s16 distance;
+        int var;
+        if (proc->unk_2c < 1
+            || (var = (proc->unk_2c * proc->unk_2c) - ((i - 80) * (i - 80))) < 0) {
+            gUnknown_02013458[1][i].left = 120;
+            gUnknown_02013458[1][i].right = 120;
+            continue;
         }
 
+        distance = Sqrt(var);
+        if (distance > 120) {
+            distance = 120;
+        }
+
+        gUnknown_02013458[1][i].left = 120 - distance;
+        gUnknown_02013458[1][i].right = distance + 120;
     }
 
     proc->unk_29++;
