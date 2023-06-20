@@ -22,7 +22,7 @@ struct Win1H {
     /* 01 */ u8 right;
 };
 
-extern struct Win1H gUnknown_02012F58[];
+extern struct Win1H gUnknown_02012F58[][160];
 extern struct Win1H* gUnknown_02013458[];
 
 //! FE8U = 0x080977AC
@@ -106,12 +106,11 @@ void SallyCir_Init(struct SallyCirProc* proc) {
         proc->unk_2c = 150;
 
         for (i = 0; i < 160; i++) {
-            u8* ptr = (u8*)(gUnknown_02012F58);
-            (ptr[i * 4]) = 0;
-            (ptr[i * 4 + 1]) = 240;
+            gUnknown_02012F58[0][i].left = 0;
+            gUnknown_02012F58[0][i].right = 240;
 
-            (ptr[640 + i * 4]) = 0;
-            (ptr[640 + 1 + i * 4]) = 240;
+            gUnknown_02012F58[1][i].left = 0;
+            gUnknown_02012F58[1][i].right = 240;
         }
 
         gLCDControlBuffer.win1_left = 0;
@@ -122,12 +121,11 @@ void SallyCir_Init(struct SallyCirProc* proc) {
         proc->unk_2c = 0;
 
         for (i = 0; i < 160; i++) {
-            u8* ptr = (u8*)(gUnknown_02012F58);
-            (ptr[i * 4]) = 120;
-            (ptr[i * 4 + 1]) = 120;
+            gUnknown_02012F58[0][i].left = 120;
+            gUnknown_02012F58[0][i].right = 120;
 
-            (ptr[640 + i * 4]) = 120;
-            (ptr[640 + 1 + i * 4]) = 120;
+            gUnknown_02012F58[1][i].left = 120;
+            gUnknown_02012F58[1][i].right = 120;
         }
 
         gLCDControlBuffer.win1_left = 120;
@@ -150,8 +148,8 @@ void SallyCir_Init(struct SallyCirProc* proc) {
 
     proc->unk_29 = 0;
 
-    gUnknown_02013458[0] = (gUnknown_02012F58 + 0);
-    gUnknown_02013458[1] = (gUnknown_02012F58 + 640 / 4);
+    gUnknown_02013458[0] = gUnknown_02012F58[0];
+    gUnknown_02013458[1] = gUnknown_02012F58[1];
 
     SetPrimaryHBlankHandler(SallyCir_OnHBlank);
 
@@ -173,31 +171,22 @@ void SallyCir_Loop(struct SallyCirProc* proc) {
     }
 
     for (i = 0; i < 160; i++) {
-        struct Win1H** ptr = gUnknown_02013458;
-
-        if (proc->unk_2c > 0) {
-            s16 diff;
-
-            int val = (proc->unk_2c * proc->unk_2c) - ((i - 80) * (i - 80));
-
-            if (val < 0) {
-            _08097A32:
-                (*(ptr + 1) + i)->left = 120;
-                (*(ptr + 1) + i)->right = 120;
-                continue;
-            }
-
-            diff = Sqrt(val);
-            if (diff > 120) {
-                diff = 120;
-            }
-
-            (*(ptr + 1) + i)->left = 120 - diff;
-            (*(ptr + 1) + i)->right = diff + 120;
-        } else {
-           goto _08097A32;
+        s16 distance;
+        int var;
+        if (proc->unk_2c < 1
+            || (var = (proc->unk_2c * proc->unk_2c) - ((i - 80) * (i - 80))) < 0) {
+            gUnknown_02013458[1][i].left = 120;
+            gUnknown_02013458[1][i].right = 120;
+            continue;
         }
 
+        distance = Sqrt(var);
+        if (distance > 120) {
+            distance = 120;
+        }
+
+        gUnknown_02013458[1][i].left = 120 - distance;
+        gUnknown_02013458[1][i].right = distance + 120;
     }
 
     proc->unk_29++;
