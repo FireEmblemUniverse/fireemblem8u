@@ -1029,7 +1029,7 @@ void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc* proc) {
     proc->unit->items[proc->unitInvIdx] = 0;
     UnitRemoveInvalidItems(proc->unit);
 
-    proc->currentPage = sub_8098014(item);
+    proc->currentPage = GetPrepPageForItem(item);
     AddItemToConvoy(item);
 
     SomethingPrepListRelated(proc->unit, proc->currentPage, 1);
@@ -1083,7 +1083,7 @@ void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc* proc) {
 
         if (gKeyStatusPtr->newKeys & A_BUTTON) {
             if (sub_8097F98(proc->unit, proc->unitInvIdx) == 0) {
-                sub_8097DA8(-1, -1, 0x88B, proc);
+                StartPrepErrorHelpbox(-1, -1, 0x88B, proc); // TODO: msgid "If you have no usable[.][NL]weapons, you cannot attack.[.]"
                 return;
             }
             PrepItemSupply_GiveItemToSupply(proc);

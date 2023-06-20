@@ -800,8 +800,8 @@ void PrepItemList_Loop_UnitInvKeyHandler(struct PrepItemListProc* proc) {
         }
 
         if (gKeyStatusPtr->newKeys & A_BUTTON) {
-            if (sub_8097F44(proc->unit, proc->unitInvIdx, gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].item) == 0) {
-                sub_8097DA8(-1, -1, 0x88B, proc);
+            if (CheckValidLinkArenaItemSupply(proc->unit, proc->unitInvIdx, gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].item) == 0) {
+                StartPrepErrorHelpbox(-1, -1, 0x88B, proc);
                 return;
             }
             sub_80ACA84(0);

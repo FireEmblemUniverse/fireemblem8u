@@ -5264,7 +5264,7 @@ _08091360:
 	cmp r0, #0
 	beq _08091390
 	adds r0, r5, #0
-	bl sub_8097E74
+	bl CanUnitBeDeployedLinkArena
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08091390
@@ -5296,7 +5296,7 @@ _08091390:
 _080913B2:
 	movs r0, #0
 	adds r3, r4, #0
-	bl sub_8097DA8
+	bl StartPrepErrorHelpbox
 	b _080913D2
 	.align 2, 0
 _080913BC: .4byte 0x00000889

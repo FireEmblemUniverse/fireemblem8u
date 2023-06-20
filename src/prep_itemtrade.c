@@ -328,8 +328,8 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
             if (gKeyStatusPtr->newKeys & A_BUTTON) {
                 int itemCount;
 
-                if (sub_8097EA0(proc->units[proc->selectedItemSlot >> 3], proc->selectedItemSlot & 7, proc->units[proc->cursorItemSlot >> 3], proc->cursorItemSlot & 7) == 0) {
-                    sub_8097DA8(-1, -1, 0x0000088B, proc);
+                if (CheckValidLinkArenaItemSwap(proc->units[proc->selectedItemSlot >> 3], proc->selectedItemSlot & 7, proc->units[proc->cursorItemSlot >> 3], proc->cursorItemSlot & 7) == 0) {
+                    StartPrepErrorHelpbox(-1, -1, 0x88B, proc); // TODO: msgid "If you have no usable[.][NL]weapons, you cannot attack.[.]"
                     return;
                 }
 

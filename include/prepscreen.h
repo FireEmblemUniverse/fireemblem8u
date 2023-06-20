@@ -220,8 +220,8 @@ extern u8 gPrepUnitPool[];
 extern u8 gBanimScrRight[];
 extern struct PrepUnitList gPrepUnitList;
 extern struct PrepScreenItemListEnt gPrepScreenItemList[];
-// extern ??? gUnknown_02012914
-// extern ??? gUnknown_02012F54
+extern struct PrepScreenItemListEnt gUnknown_02012914[];
+extern u16 gUnknown_02012F54;
 extern u16 gUnknown_02012F56;
 // extern ??? gUnknown_02012F58
 // extern ??? gUnknown_02013458
@@ -269,8 +269,8 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepMenu[];
 // extern ??? ProcScr_menu_scroll
 // extern ??? ProcScr_SallyCir
 // extern ??? ProcScr_ViewCounter
-// extern ??? gUnknown_08A188A8
-// extern ??? gUnknown_08A188C0
+// extern ??? gProcScr_PrepHelpboxListener
+// extern ??? gPrepItemTypePageLut
 // extern ??? gUnknown_08A188E4
 // extern ??? gUnknown_08A188F8
 // extern ??? gUnknown_08A18910
@@ -517,30 +517,30 @@ void InitPrepSideBarImg(int, int);
 void PrepStartSideBarScroll(ProcPtr, int, int, int, int);
 // ??? sub_80977AC(???);
 // ??? sub_80977EC(???);
-// ??? sub_8097840(???);
-// ??? sub_809788C(???);
-// ??? sub_80979DC(???);
-// ??? sub_8097AA0(???);
-// ??? sub_8097AAC(???);
+// ??? SallyCir_OnHBlank(???);
+// ??? SallyCir_Init(???);
+// ??? SallyCir_Loop(???);
+// ??? SallyCir_OnEnd(???);
+// ??? StartSallyCirProc(???);
 // ??? sub_8097ACC(???);
 // ??? sub_8097B98(???);
 // ??? sub_8097CC4(???);
 // ??? GetConvoyItemCount_(???);
-// ??? sub_8097CD8(???);
-// ??? sub_8097D14(???);
+// ??? ViewCounter_Loop(???);
+// ??? StartViewCounter(???);
 void sub_8097D54(ProcPtr);
 void sub_8097D68(ProcPtr);
-// ??? sub_8097D80(???);
-void sub_8097DA8(int, int, int, ProcPtr);
-// ??? sub_8097DE0(???);
-// ??? sub_8097E08(???);
+// ??? PrepHbKeyListener_Loop(???);
+ProcPtr StartPrepErrorHelpbox(int, int, int, ProcPtr);
+// ??? IsWeaponUsable(???);
+// ??? CountUnitUsableWeapons(???);
 s8 sub_8097E38(struct Unit *unit);
-s8 sub_8097E74(struct Unit *unit);
-s8 sub_8097EA0(struct Unit*, int, struct Unit*, int);
-s8 sub_8097F44(struct Unit*, int, int);
+s8 CanUnitBeDeployedLinkArena(struct Unit *unit);
+s8 CheckValidLinkArenaItemSwap(struct Unit*, int, struct Unit*, int);
+s8 CheckValidLinkArenaItemSupply(struct Unit*, int, int);
 s8 sub_8097F98(struct Unit*, int);
 // ??? sub_8097FDC(???);
-int sub_8098014(int);
+int GetPrepPageForItem(int);
 // ??? sub_8098048(???);
 void SomethingPrepListRelated(struct Unit*, int, int);
 void sub_80982B8(void);

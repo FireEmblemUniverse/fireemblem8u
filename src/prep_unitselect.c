@@ -315,7 +315,7 @@ s8 PrepUnit_HandlePressA(struct ProcPrepUnit *proc)
 
     if (unit->state & US_BIT25) {
         u32 ilist = proc->list_num_cur;
-        sub_8097DA8(
+        StartPrepErrorHelpbox(
             (ilist & 1) * 56 + 0x70,
             (ilist / 2) * 16 - proc->yDiff_cur + 0x18,
             0xC52,    /* This unit cannot take part[NL]in this chapter. */
@@ -325,9 +325,9 @@ s8 PrepUnit_HandlePressA(struct ProcPrepUnit *proc)
     }
 
     if (unit->state & US_NOT_DEPLOYED) {
-        if (CheckInLinkArena() && !sub_8097E74(unit)) {
+        if (CheckInLinkArena() && !CanUnitBeDeployedLinkArena(unit)) {
             u32 ilist = proc->list_num_cur;
-            sub_8097DA8(
+            StartPrepErrorHelpbox(
                 (ilist & 1) * 56 + 0x70,
                 (ilist / 2) * 16 - proc->yDiff_cur + 0x18,
                 0x88A,    /* This unit cannot be deployed.[.] */
@@ -338,10 +338,10 @@ s8 PrepUnit_HandlePressA(struct ProcPrepUnit *proc)
 
         if (CheckInLinkArena() && !sub_8097E38(unit)) {
             u32 ilist = proc->list_num_cur;
-            sub_8097DA8(
+            StartPrepErrorHelpbox(
                 (ilist & 1) * 56 + 0x70,
                 (ilist / 2) * 16 - proc->yDiff_cur + 0x18,
-                0x889,    /* his unit has no usable[.][NL]weapons, so it cannot join.[.] */
+                0x889,    /* This unit has no usable[.][NL]weapons, so it cannot join.[.] */
                 proc
             );
             return 0;

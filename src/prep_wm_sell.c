@@ -231,7 +231,13 @@ void WmSell_Setup(struct WmSellProc* proc) {
 
     BG_EnableSyncByMask(7);
 
-    StartFace2(0, GetUnitPortraitId(proc->unit), 0x44, 0x48, 0x503);
+    StartFace2(
+        0,
+        GetUnitPortraitId(proc->unit),
+        68,
+        72,
+        FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_HLAYER(FACE_HLAYER_2) | FACE_DISP_BLEND
+    );
     sub_80AC9C0(proc);
     ResetPrepScreenHandCursor(proc);
     sub_80AD4A0(0x600, 1);
@@ -371,8 +377,13 @@ void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
 
         if (gKeyStatusPtr->newKeys & A_BUTTON) {
             u16 item = proc->unit->items[proc->unk_30];
-            if ((GetItemSellPrice(item) == 0) || (GetItemAttributes(item) & 0x10)) {
-                sub_8097DA8(16, proc->unk_30 * 16 + 72, 0x850, proc);
+            if ((GetItemSellPrice(item) == 0) || (GetItemAttributes(item) & IA_UNSELLABLE)) {
+                StartPrepErrorHelpbox(
+                    16,
+                    proc->unk_30 * 16 + 72,
+                    0x850, // TODO: msgid "Treasure can't be sold.[.]"
+                    proc
+                );
             } else {
                 Proc_Goto(proc, 2);
                 PlaySoundEffect(0x6a);
@@ -492,7 +503,7 @@ void WmSell_OnLoop_ConfirmSellKeyHandler(struct WmSellProc* proc) {
 void WmSell_OnEnd(void) {
     EndBG3Slider_();
     EndFaceById(0);
-    SetPrimaryHBlankHandler(0);
+    SetPrimaryHBlankHandler(NULL);
     sub_8098500();
 
     return;

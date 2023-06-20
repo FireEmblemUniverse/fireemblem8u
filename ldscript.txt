@@ -212,7 +212,8 @@ SECTIONS
         src/prep_atmenu.o(.text);
         src/prep_menuproc.o(.text);
         asm/prep_menuscroll.o(.text);
-        asm/code_prepscreen_80977AC.o(.text);
+        src/prep_sallycir.o(.text);
+        src/prep_utils.o(.text);
         asm/prep_itemscreen.o(.text);
         src/prep_unitselect.o(.text);
         src/prep_itemtrade.o(.text);
@@ -411,6 +412,9 @@ SECTIONS
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); src/prep_atmenu.o(.rodata);
         . = ALIGN(4); data/const_data_205BD0.o(.rodata);
+        . = ALIGN(4); src/prep_sallycir.o(.rodata);
+        . = ALIGN(4); src/prep_utils.o(.rodata);
+        . = ALIGN(4); data/const_data_205C14.o(.rodata);
         . = ALIGN(4); src/prep_itemtrade.o(.rodata);
         . = ALIGN(4); src/prep_itemuse.o(.rodata);
         . = ALIGN(4); src/uisupport.o(.rodata);
@@ -619,7 +623,10 @@ SECTIONS
         . = ALIGN(4); data/data_A167C8.o(.data);
         . = ALIGN(4); src/prep_atmenu.o(.data);
         . = ALIGN(4); src/prep_menuproc.o(.data);
-        . = ALIGN(4); data/data_A184B4.o(.data);
+        . = ALIGN(4); data/data_prep_menuscroll.o(.data);
+        . = ALIGN(4); src/prep_sallycir.o(.data);
+        . = ALIGN(4); src/prep_utils.o(.data);
+        . = ALIGN(4); data/data_prep_itemscreen.o(.data);
         . = ALIGN(4); src/prep_unitselect.o(.data);
         . = ALIGN(4); src/prep_itemtrade.o(.data);
         . = ALIGN(4); src/prep_itemuse.o(.data);

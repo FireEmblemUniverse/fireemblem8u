@@ -252,7 +252,6 @@ extern int gUnknown_0202B6AC;
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;
 // extern ??? gUnknown_0202BD30
-// extern ??? gUnknown_0202BD31
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
 // extern ??? gUnknown_02030B8C
@@ -801,7 +800,7 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205B94
 // extern ??? gUnknown_08205BB0
 // extern ??? gUnknown_08205BC0
-// extern ??? gUnknown_08205BFC
+// extern ??? gLinkArenaBanList
 // extern ??? gUnknown_08205C14
 // extern ??? Pals_PrepWindow
 // extern ??? gUnknown_08205C64

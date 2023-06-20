@@ -2634,7 +2634,7 @@ void sub_80BCA0C(struct GMapData*);
 // ??? sub_80BCFB4(???);
 int sub_80BCFDC(int);
 int sub_80BD014(struct GMapData*); // Get next WM Destination?
-// ??? sub_80BD048(???);
+unsigned int sub_80BD048(void);
 unsigned int GetChapterThing(void);
 // ??? sub_80BD20C(???);
 int sub_80BD224(struct GMapData*);
