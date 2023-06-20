@@ -22,7 +22,7 @@ struct Win1H {
     /* 01 */ u8 right;
 };
 
-extern struct Win1H gUnknown_02012F58[];
+extern struct Win1H gUnknown_02012F58[][160];
 extern struct Win1H* gUnknown_02013458[];
 
 //! FE8U = 0x080977AC
@@ -106,12 +106,11 @@ void SallyCir_Init(struct SallyCirProc* proc) {
         proc->unk_2c = 150;
 
         for (i = 0; i < 160; i++) {
-            u8* ptr = (u8*)(gUnknown_02012F58);
-            (ptr[i * 4]) = 0;
-            (ptr[i * 4 + 1]) = 240;
+            gUnknown_02012F58[0][i].left = 0;
+            gUnknown_02012F58[0][i].right = 240;
 
-            (ptr[640 + i * 4]) = 0;
-            (ptr[640 + 1 + i * 4]) = 240;
+            gUnknown_02012F58[1][i].left = 0;
+            gUnknown_02012F58[1][i].right = 240;
         }
 
         gLCDControlBuffer.win1_left = 0;
@@ -122,12 +121,11 @@ void SallyCir_Init(struct SallyCirProc* proc) {
         proc->unk_2c = 0;
 
         for (i = 0; i < 160; i++) {
-            u8* ptr = (u8*)(gUnknown_02012F58);
-            (ptr[i * 4]) = 120;
-            (ptr[i * 4 + 1]) = 120;
+            gUnknown_02012F58[0][i].left = 120;
+            gUnknown_02012F58[0][i].right = 120;
 
-            (ptr[640 + i * 4]) = 120;
-            (ptr[640 + 1 + i * 4]) = 120;
+            gUnknown_02012F58[1][i].left = 120;
+            gUnknown_02012F58[1][i].right = 120;
         }
 
         gLCDControlBuffer.win1_left = 120;
@@ -150,8 +148,8 @@ void SallyCir_Init(struct SallyCirProc* proc) {
 
     proc->unk_29 = 0;
 
-    gUnknown_02013458[0] = (gUnknown_02012F58 + 0);
-    gUnknown_02013458[1] = (gUnknown_02012F58 + 640 / 4);
+    gUnknown_02013458[0] = gUnknown_02012F58[0];
+    gUnknown_02013458[1] = gUnknown_02012F58[1];
 
     SetPrimaryHBlankHandler(SallyCir_OnHBlank);
 
