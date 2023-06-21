@@ -188,6 +188,7 @@ extern int *gpBanimModesRight;
 extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
 extern u8 gUnknown_02000088[];
+extern u8 gUnknown_02002088[];
 
 extern int gBanimLinkArenaFlag;
 extern int gBattleDeamonActive;

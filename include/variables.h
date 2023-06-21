@@ -605,7 +605,7 @@ extern const u16 gUnknown_080DAD0A[];
 // extern ??? gUnknown_080DAEE6
 // extern ??? gUnknown_080DAF18
 extern const u8 gUnknown_080DAF1D[];
-// extern ??? gUnknown_080DAF22
+extern const u8 gUnknown_080DAF22[];
 extern u16 gUnknown_080DAF28[];
 // extern ??? gUnknown_080DAF60
 // extern ??? gUnknown_080DB026
