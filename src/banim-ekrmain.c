@@ -312,3 +312,58 @@ label2:
         gAnims[1] = anim;
     }
 }
+
+void sub_8059F5C(int arg)
+{
+    struct Anim *anim;
+    u32 frame_front = gBanimRoundScripts[arg * 4 + 0];
+    u32 priority_front = gBanimRoundScripts[arg * 4 + 1];
+    u32 frame_back = gBanimRoundScripts[arg * 4 + 2];
+    u32 priority_back = gBanimRoundScripts[arg * 4 + 3];
+    u32 r2 = gUnknown_080DAF22[gEkrDistanceType];
+
+    void *array[2];
+    array[0] = &&label1;
+    array[1] = &&label2;
+    
+    gUnknown_02000030[1] = 0;
+    gUnknown_02000034[1] = 0;
+    gEkrXPosBase[1] = r2;
+    gEkrYPosBase[1] = 0x58;
+
+label1:
+    {
+        u32 idx = gpBanimModesRight[frame_front];
+        void *scr = gBanimScrRight + idx;
+        if (frame_front == 0xFF)
+            scr = gUnknown_085B9D5C;
+        do anim = AnimCreate(scr, priority_front); while (0);
+        anim->xPosition = gEkrXPosBase[1] - gEkrBgXOffset;
+        anim->yPosition = gEkrYPosBase[1];
+        anim->oam2Base = 0x9B00;
+        anim->state2 |= 0x600;
+        anim->nextRoundId = 0x0;
+        anim->currentRoundType = arg;
+        anim->pUnk2C = gUnknown_02002088;
+        anim->pSpriteDataPool = gBanimOamr2;
+        gAnims[2] = anim;
+    }
+
+label2:
+    {
+        u32 idx = gpBanimModesRight[frame_back];
+        void *scr = gBanimScrRight + idx;
+        if (frame_back == 0xFF)
+            scr = gUnknown_085B9D5C;
+        anim = AnimCreate(scr, priority_back);
+        anim->xPosition = gEkrXPosBase[1] - gEkrBgXOffset;
+        anim->yPosition = gEkrYPosBase[1];
+        anim->oam2Base = 0x9B00;
+        anim->state2 |= 0x700;
+        anim->nextRoundId = 0x0;
+        anim->currentRoundType = arg;
+        anim->pUnk2C = gUnknown_02002088;
+        anim->pSpriteDataPool = gBanimOamr2;
+        gAnims[3] = anim;
+    }
+}
