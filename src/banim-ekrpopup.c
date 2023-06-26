@@ -356,7 +356,7 @@ void ekrPopup_WaitWRankUp(struct ProcEkrPopup *proc)
     
     if (++proc->timer > proc->unk2E) {
         AnimDelete(proc->anim);
-        ClearBG1();
+        SpellFx_ClearBG1();
         Proc_Break(proc);
     }
 }
@@ -384,7 +384,7 @@ void ekrPopup_WaitWRankUp2(struct ProcEkrPopup *proc)
 
     if (++proc->timer > proc->unk2E) {
         AnimDelete(proc->anim);
-        ClearBG1();
+        SpellFx_ClearBG1();
         Proc_Break(proc);
     }
 }
@@ -412,7 +412,7 @@ void ekrPopup_WaitWpnBroke(struct ProcEkrPopup *proc)
 
     if (++proc->timer > proc->unk2E) {
         AnimDelete(proc->anim);
-        ClearBG1();
+        SpellFx_ClearBG1();
         Proc_Break(proc);
     }
 }
@@ -441,7 +441,7 @@ void ekrPopup_WaitWpnBroke2(struct ProcEkrPopup *proc)
     if (++proc->timer > proc->unk2E) {
         proc->timer = 0;
         AnimDelete(proc->anim);
-        ClearBG1();
+        SpellFx_ClearBG1();
         Proc_Break(proc);
     }
 }
@@ -494,7 +494,7 @@ void sub_8076290(struct ProcEkrPopup *proc)
     if (++proc->timer > proc->unk2E) {
         proc->timer = 0;
         AnimDelete(proc->anim);
-        ClearBG1();
+        SpellFx_ClearBG1();
         Proc_Break(proc);
     }
 }

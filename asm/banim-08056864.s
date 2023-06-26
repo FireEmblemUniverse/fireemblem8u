@@ -146,8 +146,8 @@ _0805696E:
 
 	THUMB_FUNC_END NewEkrUnitKakudai
 
-	THUMB_FUNC_START sub_8056974
-sub_8056974: @ 0x08056974
+	THUMB_FUNC_START UnitKakudai1
+UnitKakudai1: @ 0x08056974
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r1, _08056AE4  @ gUnknown_080DAF18
@@ -378,10 +378,10 @@ _08056B60:
 	.align 2, 0
 _08056B6C: .4byte gUnknown_080DAF28
 
-	THUMB_FUNC_END sub_8056974
+	THUMB_FUNC_END UnitKakudai1
 
-	THUMB_FUNC_START sub_8056B70
-sub_8056B70: @ 0x08056B70
+	THUMB_FUNC_START UnitKakudai2
+UnitKakudai2: @ 0x08056B70
 	push {r4, r5, r6, r7, lr}
 	ldr r4, _08056B90  @ 0xFFFFFCB4
 	add sp, r4
@@ -591,7 +591,7 @@ _08056D0A:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8056B70
+	THUMB_FUNC_END UnitKakudai2
 
 	THUMB_FUNC_START sub_8056D18
 sub_8056D18: @ 0x08056D18

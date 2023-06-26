@@ -533,7 +533,7 @@ sub_80707C0: @ 0x080707C0
 	bl sub_80702D0
 	str r0, [r4, #0x34]
 	bl SetDefaultColorEffects_
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	pop {r4}
 	pop {r0}
 	bx r0

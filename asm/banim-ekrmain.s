@@ -2,12 +2,12 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START BanimSetupRoundBasedScript
-BanimSetupRoundBasedScript: @ 0x0805A07C
+	THUMB_FUNC_START SwitchAISFrameDataFromBARoundType
+SwitchAISFrameDataFromBARoundType: @ 0x0805A07C
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _0805A09C
 	ldr r0, _0805A098  @ gBanimRoundScripts
@@ -108,10 +108,10 @@ _0805A148: .4byte gUnknown_085B9D5C
 _0805A14C: .4byte 0x0000F3FF
 _0805A150: .4byte gBanimOaml
 
-	THUMB_FUNC_END BanimSetupRoundBasedScript
+	THUMB_FUNC_END SwitchAISFrameDataFromBARoundType
 
-	THUMB_FUNC_START sub_805A154
-sub_805A154: @ 0x0805A154
+	THUMB_FUNC_START GetAISLayerId
+GetAISLayerId: @ 0x0805A154
 	push {lr}
 	ldrh r1, [r0, #0xc]
 	movs r0, #0x80
@@ -127,7 +127,7 @@ _0805A168:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_805A154
+	THUMB_FUNC_END GetAISLayerId
 
 	THUMB_FUNC_START GetAISSubjectId
 GetAISSubjectId: @ 0x0805A16C
@@ -319,7 +319,7 @@ sub_805A2D0: @ 0x0805A2D0
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetSomeAISRelatedIndexMaybeByID
+	bl GetBattleAnimRoundType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	pop {r4}
@@ -337,7 +337,7 @@ sub_805A2F0: @ 0x0805A2F0
 	ldrh r0, [r4, #0xe]
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetSomeAISRelatedIndexMaybeByID
+	bl GetBattleAnimRoundType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	pop {r4}
@@ -358,7 +358,7 @@ GetSomeAISRelatedIndexMaybe: @ 0x0805A310
 	movs r1, #1
 	eors r1, r2
 	adds r0, r0, r1
-	bl GetSomeAISRelatedIndexMaybeByID
+	bl GetBattleAnimRoundType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	pop {r4}
@@ -378,7 +378,7 @@ sub_805A334: @ 0x0805A334
 	movs r1, #1
 	eors r1, r2
 	adds r0, r0, r1
-	bl GetSomeAISRelatedIndexMaybeByID
+	bl GetBattleAnimRoundType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	pop {r4}
@@ -566,7 +566,7 @@ _0805A4F0:
 	b _0805A526
 _0805A4F8:
 	adds r0, r4, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _0805A508
 	adds r0, r4, #0
@@ -605,7 +605,7 @@ _0805A538:
 	cmp r0, #0
 	beq _0805A568
 	adds r0, r4, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _0805A55E
 	ldr r1, [r6, #0x2c]
@@ -670,7 +670,7 @@ sub_805A5A8: @ 0x0805A5A8
 	adds r6, r0, #0
 	ldr r5, [r6, #0x44]
 	ldr r4, _0805A600  @ banim_data
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _0805A5FA
 	ldr r0, _0805A604  @ gBanimRoundScripts

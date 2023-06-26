@@ -36,7 +36,7 @@ void EkrMyr_PrepareBanimfx(struct ProcEkrDragon *proc)
     proc->timer = 0;
 
     EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_INTRO - 1);
-    BanimSetupRoundBasedScript(anim, 0);
+    SwitchAISFrameDataFromBARoundType(anim, 0);
     LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 
     if (GetAISSubjectId(anim) == EKR_POS_L)
@@ -99,7 +99,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc)
     EfxPlaySE(0xDD, 0x100);
     M4aPlayWithPostionCtrl(0xDD, anim->xPosition, 1);
     EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_EXIT - 1);
-    BanimSetupRoundBasedScript(anim, 0);
+    SwitchAISFrameDataFromBARoundType(anim, 0);
     Proc_Break(proc);
     LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 

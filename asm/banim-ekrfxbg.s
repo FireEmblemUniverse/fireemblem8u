@@ -1052,7 +1052,7 @@ sub_80546E4: @ 0x080546E4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #0
@@ -1064,7 +1064,7 @@ _0805470A:
 	adds r1, r4, #0
 	adds r1, #0x4c
 	ldr r2, [r4, #0x50]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #0

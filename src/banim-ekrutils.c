@@ -13,28 +13,28 @@ void sub_805515C(void)
     return;
 }
 
-void RegisterEfxSpellAnimDelay(void)
+void SpellFx_Begin(void)
 {
     gEfxSpellAnimExists = true;
 }
 
-void UnregisterEfxSpellAnimDelay(void)
+void SpellFx_Finish(void)
 {
     gEfxSpellAnimExists = false;
 }
 
-void ClearBG1Setup(void)
+void SpellFx_SpellFx_ClearBG1Position(void)
 {
     BG_SetPosition(BG_1, 0, 0);
 }
 
-void ClearBG1(void)
+void SpellFx_ClearBG1(void)
 {
     CpuFastFill16(0, gBG1TilemapBuffer, 0x800);
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void sub_80551B0(void)
+void SpellFx_SetSomeColorEffect(void)
 {
     SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
     SetBlendTargetA(0, 1, 0, 0, 0);
@@ -54,17 +54,17 @@ void SetDefaultColorEffects_(void)
     SetDefaultColorEffects();
 }
 
-void DoEkrOffensiveAtkHit(struct Anim *anim, int type)
+void StartBattleAnimHitEffectsDefault(struct Anim *anim, int type)
 {
-    DoEkrOffensiveAtkHit_(anim, type, 3, 4);
+    StartBattleAnimHitEffects(anim, type, 3, 4);
 }
 
 void sub_8055288(struct Anim *anim, int type)
 {
-    DoEkrOffensiveAtkHit_(anim, type, 5, 5);
+    StartBattleAnimHitEffects(anim, type, 5, 5);
 }
 
-void DoEkrOffensiveAtkHit_(struct Anim *anim, int type, int a, int b)
+void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
 {
     struct Anim *animr7, *animr9, *animr5, *animr8;
     int val1, val2;
@@ -84,8 +84,8 @@ void DoEkrOffensiveAtkHit_(struct Anim *anim, int type, int a, int b)
 
     switch (type) {
     case EKR_HITTED:
-        roundt1 = GetAnimRoundType((animr7->nextRoundId - 1) * 2 + GetAISSubjectId(animr7));
-        roundt2 = GetAnimRoundType((animr5->nextRoundId - 1) * 2 + GetAISSubjectId(animr5));
+        roundt1 = GetBattleAnimRoundTypeFlags((animr7->nextRoundId - 1) * 2 + GetAISSubjectId(animr7));
+        roundt2 = GetBattleAnimRoundTypeFlags((animr5->nextRoundId - 1) * 2 + GetAISSubjectId(animr5));
 
         if (roundt1 & ANIM_ROUND_POISON) {
             if (GettUnitEfxDebuff(animr7) == UNIT_STATUS_NONE)
@@ -133,7 +133,7 @@ void DoEkrOffensiveAtkHit_(struct Anim *anim, int type, int a, int b)
     }
 }
 
-void DoEkrResire(struct Anim *anim, int type)
+void StartBattleAnimResireHitEffects(struct Anim *anim, int type)
 {
     int val1, val2, off;
     struct Anim *animR7, *animR5, *animR8;
@@ -292,7 +292,7 @@ void sub_805560C(struct Anim *anim, const u16 *src1, const u16 *src2)
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void sub_8055670(struct Anim *anim, const u16 *src1, const u16 *src2)
+void SpellFx_WriteBgMap(struct Anim *anim, const u16 *src1, const u16 *src2)
 {
     u16 *buf;
 
@@ -340,27 +340,27 @@ void sub_805576C(struct Anim *anim, const u16 *src, int a, int b)
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void SomeImageStoringRoutine_SpellAnim(const u16 *img, u32 size)
+void SpellFx_RegisterObjGfx(const u16 *img, u32 size)
 {
     u16 *dst = OBJ_VRAM0 + 0x0800;
     LZ77UnCompWram(img, gUnknown_0201A790);
     RegisterDataMove(gUnknown_0201A790, dst, size);
 }
 
-void SomePaletteStoringRoutine_SpellAnim(const u16 *pal, u32 size)
+void SpellFx_RegisterObjPal(const u16 *pal, u32 size)
 {
     CpuFastCopy(pal, PAL_OBJ(2), size);
     EnablePaletteSync();
 }
 
-void SomeImageStoringRoutine_SpellAnim2(const u16 *img, u32 size)
+void SpellFx_RegisterBgGfx(const u16 *img, u32 size)
 {
     u16 *dst = (void *)BG_VRAM + 0x2000;
     LZ77UnCompWram(img, gEkrImgBuffer);
     RegisterDataMove(gEkrImgBuffer, dst, size);
 }
 
-void SomePaletteStoringRoutine_SpellAnim2(const u16 *pal, u32 size)
+void SpellFx_RegisterBgPal(const u16 *pal, u32 size)
 {
     CpuFastCopy(pal, PAL_BG(1), size);
     EnablePaletteSync();
@@ -402,7 +402,7 @@ void sub_80558BC(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
     EnablePaletteSync();
 }
 
-s16 EfxGetNextFrameIndex(s16 *ptime, s16 *pcount, const s16 lut[])
+s16 SpellFx_InterpretBgAnimScript(s16 *ptime, s16 *pcount, const s16 lut[])
 {
     u16 uframe;
     u16 count;

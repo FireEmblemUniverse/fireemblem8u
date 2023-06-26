@@ -8,9 +8,9 @@
 void StartSpellAnimThunder(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    RegisterEfxSpellAnimDelay();
+    SpellFx_Begin();
     NewEfxSpellCast();
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
 
     proc = Proc_Start(ProcScr_efxThunder, PROC_TREE_3);
     proc->anim = anim;
@@ -36,7 +36,7 @@ void Loop6C_efxThunder(struct ProcEfx *proc)
 
     if (cur == (frame + 4)) {
         animc->state3 |= 0x9;
-        DoEkrOffensiveAtkHit(animc, proc->hitted);
+        StartBattleAnimHitEffectsDefault(animc, proc->hitted);
         EkrSoundSomeBark(0xF5, 0x100, animc->xPosition, 1);
 
         if (proc->hitted == EKR_HITTED)
@@ -49,7 +49,7 @@ void Loop6C_efxThunder(struct ProcEfx *proc)
         return;
     
     if (cur == (frame + 0x60)) {
-        UnregisterEfxSpellAnimDelay();
+        SpellFx_Finish();
         EfxSpellCastSet29();
         Proc_Break(proc);
     }
@@ -67,8 +67,8 @@ void NewEfxThunderBG(struct Anim *anim)
     proc->unk4C = gUnknown_085D5458;
     proc->unk50 = gUnknown_085D5460;
 
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085F2DC0, 0x10C0);
-    sub_80551B0();
+    SpellFx_RegisterBgGfx(gUnknown_085F2DC0, 0x10C0);
+    SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
         if (GetAISSubjectId(proc->anim) == EKR_POS_L)
@@ -83,11 +83,11 @@ void EfxThunderBGMain(struct ProcEfxBG *proc)
     int val, ret;
 
     val = 0;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
-        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+        SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
 
         if (ret == 0)
             val = 0x11F;
@@ -100,7 +100,7 @@ void EfxThunderBGMain(struct ProcEfxBG *proc)
     }
 
     if (ret == -1) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_Break(proc);
@@ -122,10 +122,10 @@ void NewEfxThunderBGCOL(struct Anim *anim)
 void sub_805D9F8(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *buf = proc->unk4C;
-        SomePaletteStoringRoutine_SpellAnim2(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
+        SpellFx_RegisterBgPal(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
         return;
     }
 
@@ -145,8 +145,8 @@ void NewEfxThunderOBJ(struct Anim *anim)
     proc->timer = 0;
     proc->anim2 = EfxAnimCreate(anim, gUnknown_085F5550, gUnknown_085F4A24, gUnknown_085F5550, gUnknown_085F4A24);
 
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_085F3F40, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085F3AA8, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085F3F40, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_085F3AA8, 0x1000);
 }
 
 void EfxThunderOBJMain(struct ProcEfxOBJ *proc)

@@ -198,7 +198,7 @@ void UpdateBanimFrame(void)
     }
 }
 
-void sub_8059D28(void)
+void InitBothAIS(void)
 {
     struct Anim *anim1, *anim2;
 
@@ -206,15 +206,15 @@ void sub_8059D28(void)
     case EKR_DISTANCE_CLOSE:
     case EKR_DISTANCE_3:
     case EKR_DISTANCE_PROMOTION:
-        sub_8059DB8(6, 6);
+        BattleAnimationAISInit(6, 6);
         break;
 
     case EKR_DISTANCE_FAR:
-        sub_8059DB8(8, 8);
+        BattleAnimationAISInit(8, 8);
         break;
 
     case EKR_DISTANCE_FARFAR:
-        sub_8059DB8(8, 8);
+        BattleAnimationAISInit(8, 8);
 
         if (GetEkrSomePosMaybe() == EKR_POS_L) {
             anim1 = gAnims[2];
@@ -239,7 +239,7 @@ void sub_8059D28(void)
     gEfxPairHpBufOffset[1] = 0;
 }
 
-void sub_8059DB8(int a, int b)
+void BattleAnimationAISInit(int a, int b)
 {
     gAnims[0] = NULL;
     gAnims[1] = NULL;
@@ -250,7 +250,7 @@ void sub_8059DB8(int a, int b)
         sub_8059E18(a);
 
     if (gEkrPairSideVaild[EKR_POS_R] == true)
-        sub_8059F5C(b);
+        InitRightAIS(b);
     
     if (gEkrDistanceType == 4) {
         gAnims[0]->state |= 0x2;
@@ -313,7 +313,7 @@ label2:
     }
 }
 
-void sub_8059F5C(int arg)
+void InitRightAIS(int arg)
 {
     struct Anim *anim;
     u32 frame_front = gBanimRoundScripts[arg * 4 + 0];

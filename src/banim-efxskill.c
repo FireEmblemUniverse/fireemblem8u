@@ -139,7 +139,7 @@ void NewEfxSkillType01BG(struct Anim *anim)
     proc->img_lut = ImgLut_EfxSkill;
     proc->pal_lut = PalLut_EfxSkill;
 
-    sub_80551B0();
+    SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
         if (GetAISSubjectId(proc->anim) == EKR_POS_L)
@@ -159,7 +159,7 @@ void EfxSkillType01BGMain(struct ProcEfxSkill *proc)
     u8 i;
     int ret;
 
-    ret = EfxGetNextFrameIndex((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
+    ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
 
     if (ret >= 0) {
         u16 **tsa = proc->tsa_lut;
@@ -167,23 +167,23 @@ void EfxSkillType01BGMain(struct ProcEfxSkill *proc)
         u16 **img = proc->img_lut;
         u16 **pal = proc->pal_lut;
 
-        sub_8055670(proc->anim, tsa[ret], tsa_[ret]);
-        SomeImageStoringRoutine_SpellAnim2(img[ret], 0x2000);
-        SomePaletteStoringRoutine_SpellAnim2(pal[ret], 0x20);
+        SpellFx_WriteBgMap(proc->anim, tsa[ret], tsa_[ret]);
+        SpellFx_RegisterBgGfx(img[ret], 0x2000);
+        SpellFx_RegisterBgPal(pal[ret], 0x20);
 
         for (i = 0; i < 0x14; i++) {
             gBG1TilemapBuffer[0x20 * i + 0x1E] = gBG1TilemapBuffer[0];
             gBG1TilemapBuffer[0x20 * i + 0x1F] = gBG1TilemapBuffer[0];
         }
 
-        sub_80551B0();
+        SpellFx_SetSomeColorEffect();
         return;
     }
 
     if (ret != -1)
         return;
 
-    ClearBG1();
+    SpellFx_ClearBG1();
     SetDefaultColorEffects_();
 
     EfxSkillResetAnimState(proc->anim);
@@ -219,7 +219,7 @@ void NewEfxSkillCommonBG(struct Anim *anim, u8 val)
     proc->img_lut = ImgLut_EfxSkill;
     proc->pal_lut = PalLut_EfxSkill;
 
-    sub_80551B0();
+    SpellFx_SetSomeColorEffect();
 
     anim = GetCoreAIStruct(proc->anim);
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
@@ -241,7 +241,7 @@ void sub_806E638(struct ProcEfxSkill *proc)
     u8 i;
     int ret;
     struct Anim *anim = GetCoreAIStruct(proc->anim);
-    ret = EfxGetNextFrameIndex((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
+    ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
 
     if (ret >= 0) {
         u16 **tsa = proc->tsa_lut;
@@ -249,9 +249,9 @@ void sub_806E638(struct ProcEfxSkill *proc)
         u16 **img = proc->img_lut;
         u16 **pal = proc->pal_lut;
 
-        sub_8055670(anim, tsa[ret], tsa_[ret]);
-        SomeImageStoringRoutine_SpellAnim2(img[ret], 0x2000);
-        SomePaletteStoringRoutine_SpellAnim2(pal[ret], 0x20);
+        SpellFx_WriteBgMap(anim, tsa[ret], tsa_[ret]);
+        SpellFx_RegisterBgGfx(img[ret], 0x2000);
+        SpellFx_RegisterBgPal(pal[ret], 0x20);
 
         for (i = 0; i < 0x14; i++) {
             gBG1TilemapBuffer[0x20 * i + 0x1E] = gBG1TilemapBuffer[0];
@@ -267,7 +267,7 @@ void sub_806E638(struct ProcEfxSkill *proc)
     if (proc->unk3A == 1)
         SetUnitEfxDebuff(anim, UNIT_STATUS_12);
 
-    ClearBG1();
+    SpellFx_ClearBG1();
     SetDefaultColorEffects_();
     Proc_Break(proc);
 }

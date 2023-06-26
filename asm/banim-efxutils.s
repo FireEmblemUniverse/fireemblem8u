@@ -2281,7 +2281,7 @@ EfxPlaySEwithCmdCtrl: @ 0x08071B6C
 	bl GetCoreAIStruct
 	mov r9, r0
 	mov r0, r8
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #1
 	bne _08071B8E
 	b _08072246
@@ -2524,7 +2524,7 @@ _08071E0C:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #2
 	ands r1, r0
@@ -2573,7 +2573,7 @@ _08071E78:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #2
 	ands r1, r0
@@ -2622,7 +2622,7 @@ _08071EE4:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #2
 	ands r1, r0
@@ -3352,7 +3352,7 @@ sub_8072450: @ 0x08072450
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #2
 	ands r1, r0
