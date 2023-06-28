@@ -11,10 +11,10 @@ void EkrPrepareBanimfx(struct Anim *anim, u16 index)
 {
     gEkrPairBanimID2[GetAISSubjectId(anim)] = index;
     UpdateBanimFrame();
-    BanimSetupRoundBasedScript(anim, 6);
+    SwitchAISFrameDataFromBARoundType(anim, 6);
 }
 
-s16 GetSomeAISRelatedIndexMaybeByID(int index)
+s16 GetBattleAnimRoundType(int index)
 {
     if (gAnimRoundData[index] == -1)
         return -1;
@@ -22,7 +22,7 @@ s16 GetSomeAISRelatedIndexMaybeByID(int index)
         return gAnimRoundData[index] & 0xFF;
 }
 
-s16 GetAnimRoundType(int index)
+s16 GetBattleAnimRoundTypeFlags(int index)
 {
     if (gAnimRoundData[index] == -1)
         return 0;

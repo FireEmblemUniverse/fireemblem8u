@@ -199,8 +199,8 @@ void efxHurtmutEff00OBJ_806CEC4(struct ProcEfxOBJ *proc)
 
     anim2->timer = 0;
 
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_085DFA08, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085DE984, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085DFA08, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_085DE984, 0x1000);
     Proc_Break(proc);
 }
 
@@ -217,8 +217,8 @@ void efxHurtmutEff00OBJ_806CF10(struct ProcEfxOBJ *proc)
 
     anim2->timer = 0;
 
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_085DFA08, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085DF224, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085DFA08, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_085DF224, 0x1000);
     Proc_Break(proc);
 }
 
@@ -252,8 +252,8 @@ void efxHurtmutEff01OBJ_806CFC4(struct ProcEfxOBJ *proc)
 
     anim2->timer = 0;
 
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_085DFA08, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085DE984, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085DFA08, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_085DE984, 0x1000);
     Proc_Break(proc);
 }
 
@@ -270,8 +270,8 @@ void efxHurtmutEff01OBJ_806D010(struct ProcEfxOBJ *proc)
 
     anim2->timer = 0;
 
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_085DFA08, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085DF224, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085DFA08, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_085DF224, 0x1000);
     Proc_Break(proc);
 }
 
@@ -295,7 +295,7 @@ void NewEfxMagfcast(struct Anim *anim, int type)
     if (gEfxBgSemaphore != 0)
         return;
 
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxMagfcast, PROC_TREE_3);
 
     proc->anim = anim;
@@ -365,9 +365,9 @@ void NewEfxMagfcastBG(struct Anim *anim, u32 type)
         break;
     }
 
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085EE4F8, 0x2000);
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085EF24C, 0x20);
-    sub_80551B0();
+    SpellFx_RegisterBgGfx(gUnknown_085EE4F8, 0x2000);
+    SpellFx_RegisterBgPal(gUnknown_085EF24C, 0x20);
+    SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
         if (GetAISSubjectId(proc->anim) == EKR_POS_L)
@@ -380,7 +380,7 @@ void NewEfxMagfcastBG(struct Anim *anim, u32 type)
 void EfxMagfcastBGMain(struct ProcEfxBG *proc)
 {
     s16 ret;
-    ret = EfxGetNextFrameIndex(
+    ret = SpellFx_InterpretBgAnimScript(
         (void *)&proc->timer,
         (void *)&proc->frame,
         proc->frame_config
@@ -400,7 +400,7 @@ void EfxMagfcastBGMain(struct ProcEfxBG *proc)
         tsa1 = proc->unk4C;
         tsa2 = proc->unk50;
 
-        sub_8055670(
+        SpellFx_WriteBgMap(
             proc->anim,
             tsa1[ret],
             tsa2[ret]
@@ -410,7 +410,7 @@ void EfxMagfcastBGMain(struct ProcEfxBG *proc)
     }
 
     if (ret == -1) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_End(proc);
@@ -504,14 +504,14 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
     case TERRAIN_GUNNELS:
     case TERRAIN_BRACE:
     case TERRAIN_MAST:
-        SomePaletteStoringRoutine_SpellAnim(gUnknown_085F1620, 0x20);
+        SpellFx_RegisterObjPal(gUnknown_085F1620, 0x20);
         break;
     
     case TERRAIN_BRIDGE_14:
         if (sub_80723A4(proc->anim) != EKR_POS_L)
-            SomePaletteStoringRoutine_SpellAnim(gUnknown_085F1620, 0x20);
+            SpellFx_RegisterObjPal(gUnknown_085F1620, 0x20);
         else
-            SomePaletteStoringRoutine_SpellAnim(gUnknown_085F1640, 0x20);
+            SpellFx_RegisterObjPal(gUnknown_085F1640, 0x20);
         break;
 
     case TERRAIN_RIVER:
@@ -519,7 +519,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
     case TERRAIN_LAKE:
     case TERRAIN_DEEPS:
     case TERRAIN_WATER:
-        SomePaletteStoringRoutine_SpellAnim(gUnknown_085F1640, 0x20);
+        SpellFx_RegisterObjPal(gUnknown_085F1640, 0x20);
         break;
 
     case TERRAIN_ARMORY:
@@ -541,7 +541,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
     case TERRAIN_FENCE_32:
     case TERRAIN_RUINS_37:
     case TERRAIN_DECK:
-        SomePaletteStoringRoutine_SpellAnim(gUnknown_085F1660, 0x20);
+        SpellFx_RegisterObjPal(gUnknown_085F1660, 0x20);
         break;
 
     case TERRAIN_TILE_00:
@@ -549,7 +549,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
         break;
     }
 
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085F11B0, 0x1000);
+    SpellFx_RegisterObjGfx(gUnknown_085F11B0, 0x1000);
 }
 
 void EfxSunakemuriOBJMain(struct ProcEfxOBJ *proc)
@@ -605,7 +605,7 @@ void NewEfxLokmsunaOBJ(struct Anim *anim)
     else
         anim2->oam2Base |= 0x9000;
     
-    SomeImageStoringRoutine_SpellAnim(gUnknown_08758218, 0x1000);
+    SpellFx_RegisterObjGfx(gUnknown_08758218, 0x1000);
 }
 
 void EfxLokmsunaIOBJMain(struct ProcEfxOBJ *proc)
@@ -697,8 +697,8 @@ void NewEfxSongOBJ2(struct Anim *anim)
     proc->timer = 0;
     proc->unk2E = 0x28;
     proc->anim2 = EfxAnimCreate(anim, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4);
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_085DCC84, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085DCB10, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
     EkrSoundSomeBark(0xEE, 0x100, proc->anim->xPosition, 0x1);
 }
 
@@ -724,8 +724,8 @@ void NewEfxDanceOBJ(struct Anim *anim)
     proc->timer = 0;
     proc->unk2E = 0x19;
     proc->anim2 = EfxAnimCreate(anim, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484);
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_085DCC84, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085DCB10, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
     EkrSoundSomeBark(0xE1, 0x100, proc->anim->xPosition, 0x1);
 }
 
@@ -787,7 +787,7 @@ void sub_806D980(ProcPtr proc)
 void NewEfxSRankWeaponEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxSRankWeaponEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0x0;
@@ -826,16 +826,16 @@ void NewEfxSRankWeaponEffectBG(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxSRankWeaponEffectBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085E8C04, 0x2000);
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085E8CC4, 0x20);
-    sub_8055670(proc->anim, gUnknown_085E8CE4, gUnknown_085E8CE4);
-    sub_80551B0();
+    SpellFx_RegisterBgGfx(gUnknown_085E8C04, 0x2000);
+    SpellFx_RegisterBgPal(gUnknown_085E8CC4, 0x20);
+    SpellFx_WriteBgMap(proc->anim, gUnknown_085E8CE4, gUnknown_085E8CE4);
+    SpellFx_SetSomeColorEffect();
 }
 
 void EfxSRankWeaponEffectBGMain(struct ProcEfxBG *proc)
 {
     if (++proc->timer == 0x3C) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         SetDefaultColorEffects_();
         Proc_Break(proc);
     }
@@ -902,7 +902,7 @@ void EfxSRankWeaponEffectSCR2Main(struct ProcEfxSRankSCR2 *proc)
 void NewEfxMagdhisEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxMagdhisEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
@@ -935,9 +935,9 @@ void NewEfxMagdhisEffectBG(struct Anim *anim, int arg1)
     proc->unk4C = gUnknown_085D9274;
     proc->unk50 = gUnknown_085D9274;
 
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085F0E04, 0x20);
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085F0190, 0x2000);
-    sub_80551B0();
+    SpellFx_RegisterBgPal(gUnknown_085F0E04, 0x20);
+    SpellFx_RegisterBgGfx(gUnknown_085F0190, 0x2000);
+    SpellFx_SetSomeColorEffect();
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg2cnt.priority = 1;
@@ -949,7 +949,7 @@ void NewEfxMagdhisEffectBG(struct Anim *anim, int arg1)
 void EfxMagdhisEffectBGMain(struct ProcEfxBG *proc)
 {
     s16 ret;
-    ret = EfxGetNextFrameIndex(
+    ret = SpellFx_InterpretBgAnimScript(
         (void *)&proc->timer,
         (void *)&proc->frame,
         proc->frame_config
@@ -958,7 +958,7 @@ void EfxMagdhisEffectBGMain(struct ProcEfxBG *proc)
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
-        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+        SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
     }
 
     if (++proc->terminator == proc->unk30) {
@@ -966,7 +966,7 @@ void EfxMagdhisEffectBGMain(struct ProcEfxBG *proc)
         gLCDControlBuffer.bg1cnt.priority = 1;
         gLCDControlBuffer.bg3cnt.priority = 2;
         gLCDControlBuffer.bg2cnt.priority = 3;
-        ClearBG1();
+        SpellFx_ClearBG1();
         gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_Break(proc);
@@ -1079,7 +1079,7 @@ void sub_806DFD0(struct ProcEfxOBJ *proc)
 void NewEfxChillEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxChillEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
@@ -1124,23 +1124,23 @@ void NewEfxChillEffectBG(struct Anim *anim)
     proc->frame_config = gUnknown_080DF546;
     proc->unk4C = gUnknown_085D92D4;
     proc->unk50 = gUnknown_085D92D4;
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_0872E998, 0x2000);
+    SpellFx_RegisterBgGfx(gUnknown_0872E998, 0x2000);
     BG_SetPosition(BG_1, 0x0, 0x0);
 }
 
 void EfxChillEffectBGMain(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
-        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+        SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }
 
     if (ret == -1) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_Break(proc);
@@ -1164,7 +1164,7 @@ void sub_806E158(struct ProcEfxBGCOL *proc)
     u16 i;
     u16 pal[0x10];
 
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *src = proc->unk4C;
         u16 *ptr = pal;
@@ -1184,7 +1184,7 @@ void sub_806E158(struct ProcEfxBGCOL *proc)
             ptr[i] = RGB(red, green, blue);
         }
 
-        SomePaletteStoringRoutine_SpellAnim2(ptr, 0x20);
+        SpellFx_RegisterBgPal(ptr, 0x20);
         return;
     }
 

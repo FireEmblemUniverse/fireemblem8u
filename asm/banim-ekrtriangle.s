@@ -139,7 +139,7 @@ _080752B6:
 	bl LZ77UnCompWram
 	adds r0, r4, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _080752FC  @ gUnknown_080E17C0
 	cmp r6, #0
 	beq _080752DE
@@ -150,7 +150,7 @@ _080752B6:
 _080752DE:
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -173,7 +173,7 @@ sub_8075308: @ 0x08075308
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -186,14 +186,14 @@ sub_8075308: @ 0x08075308
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _08075348
 _08075336:
 	movs r0, #1
 	negs r0, r0
 	cmp r2, r0
 	bne _08075348
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	adds r0, r4, #0
 	bl Proc_Break
 _08075348:
@@ -252,7 +252,7 @@ _0807539A:
 	bl LZ77UnCompWram
 	adds r0, r4, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080753F0  @ gUnknown_080E3B78
 	mov r1, r8
 	cmp r1, #0
@@ -265,7 +265,7 @@ _0807539A:
 _080753CC:
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -783,11 +783,11 @@ _080757EE:
 	bl LZ77UnCompWram
 	adds r0, r4, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	movs r1, #0x80
 	lsls r1, r1, #5
 	adds r0, r6, #0
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3

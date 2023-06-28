@@ -397,11 +397,11 @@ sub_807759C: @ 0x0807759C
 	ldr r4, _080775DC  @ gUnknown_087F4184
 	ldr r0, _080775E0  @ gUnknown_088017E0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080775E4  @ gUnknown_087FF488
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	ldr r0, [r5, #0x5c]
 	str r4, [sp]
 	adds r1, r4, #0
@@ -465,11 +465,11 @@ sub_8077620: @ 0x08077620
 	ldr r4, _08077660  @ gUnknown_087F4314
 	ldr r0, _08077664  @ gUnknown_088017E0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08077668  @ gUnknown_0880064C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	ldr r0, [r5, #0x5c]
 	str r4, [sp]
 	adds r1, r4, #0
@@ -1555,7 +1555,7 @@ _08077E96:
 	THUMB_FUNC_START sub_8077E9C
 sub_8077E9C: @ 0x08077E9C
 	push {lr}
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	pop {r0}
@@ -1812,7 +1812,7 @@ NewEkrSelfThunder: @ 0x08078044
 	movs r2, #0x78
 	movs r3, #0
 	bl EkrSoundSomeBark
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08078074  @ ProcScr_ekrSelfThunder
 	movs r1, #3
 	bl Proc_Start
@@ -1926,7 +1926,7 @@ NewEkrSelfThunderBG: @ 0x08078124
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -1947,10 +1947,10 @@ sub_8078140: @ 0x08078140
 	ldr r4, [sp, #0x14]
 	movs r1, #0xc0
 	lsls r1, r1, #4
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	adds r0, r4, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, [r5, #0x5c]
 	adds r1, r6, #0
 	mov r2, r8
@@ -2012,7 +2012,7 @@ sub_807819C: @ 0x0807819C
 	negs r1, r1
 	cmp r0, r1
 	bne _080781E0
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break

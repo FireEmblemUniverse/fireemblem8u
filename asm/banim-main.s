@@ -297,7 +297,7 @@ _08058F04:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _08058F26
 	adds r0, r7, #0
@@ -364,7 +364,7 @@ _08058F94:
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _08058FA8
 	b _080596CC
@@ -405,7 +405,7 @@ _08058FD6:
 	orrs r1, r0
 	strh r1, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _08058FF6
 	b _080596CC
@@ -456,7 +456,7 @@ _08059048:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #4
 	ands r1, r0
@@ -474,7 +474,7 @@ _08059074:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _08059140
 	adds r0, r7, #0
@@ -488,7 +488,7 @@ _0805908C:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #3
 	ands r1, r0
@@ -506,7 +506,7 @@ _080590B8:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _08059140
 	adds r0, r7, #0
@@ -521,7 +521,7 @@ _080590D2:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #2
 	ands r1, r0
@@ -540,7 +540,7 @@ _08059100:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _08059140
 	adds r0, r7, #0
@@ -580,7 +580,7 @@ _08059150: .4byte gAnims
 _08059154: .4byte 0x0000FFF7
 _08059158:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _08059164
 	b _080596CC
@@ -612,7 +612,7 @@ _08059164:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #5
 	ands r1, r0
@@ -648,7 +648,7 @@ _080591E2:
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	b _080596CC
 _080591F2:
 	adds r0, r7, #0
@@ -711,10 +711,10 @@ _0805926E:
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl BanimSetupRoundBasedScript
+	bl SwitchAISFrameDataFromBARoundType
 	adds r0, r6, #0
 	mov r1, r8
-	bl BanimSetupRoundBasedScript
+	bl SwitchAISFrameDataFromBARoundType
 	ldr r2, [sp]
 	ldrh r0, [r2, #0x10]
 	movs r1, #4
@@ -825,10 +825,10 @@ _08059376:
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl BanimSetupRoundBasedScript
+	bl SwitchAISFrameDataFromBARoundType
 	adds r0, r6, #0
 	mov r1, r8
-	bl BanimSetupRoundBasedScript
+	bl SwitchAISFrameDataFromBARoundType
 	ldr r2, [sp]
 _0805938A:
 	adds r0, r2, #0
@@ -867,7 +867,7 @@ _080593C8: .4byte gUnknown_02017758
 _080593CC: .4byte 0x0000FFDF
 _080593D0:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _080593DC
 	b _080596CC
@@ -877,7 +877,7 @@ _080593DC:
 	b _080596CC
 _080593E4:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _080593F0
 	b _080596CC
@@ -914,7 +914,7 @@ _08059424: .4byte 0x0000FFFE
 _08059428: .4byte 0x0000F3FF
 _0805942C:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _08059438
 	b _080596CC
@@ -938,7 +938,7 @@ _08059438:
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldr r2, [sp]
 _0805946A:
 	adds r0, r2, #0
@@ -957,7 +957,7 @@ _0805947C:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #5
 	ands r1, r0
@@ -973,7 +973,7 @@ _080594A4:
 	b _080596CC
 _080594AC:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _080594B8
 	b _080596CC
@@ -984,7 +984,7 @@ _080594B8:
 	b _080596CC
 _080594C2:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _080594CE
 	b _080596CC
@@ -995,7 +995,7 @@ _080594CE:
 	b _080596CC
 _080594D8:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _080594E4
 	b _080596CC
@@ -1011,7 +1011,7 @@ _080594EC:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #5
 	ands r1, r0
@@ -1031,7 +1031,7 @@ _0805951A:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _0805952C
 	b _080596CC
@@ -1042,7 +1042,7 @@ _0805952C:
 	b _080596CC
 _08059536:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _08059542
 	b _080596CC
@@ -1053,7 +1053,7 @@ _08059542:
 	b _080596CC
 _0805954C:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _08059558
 	b _080596CC
@@ -1064,7 +1064,7 @@ _08059558:
 	b _080596CC
 _08059562:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _0805956E
 	b _080596CC
@@ -1075,7 +1075,7 @@ _0805956E:
 	b _080596CC
 _08059578:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _08059584
 	b _080596CC
@@ -1086,7 +1086,7 @@ _08059584:
 	b _080596CC
 _0805958E:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _0805959A
 	b _080596CC
@@ -1106,7 +1106,7 @@ _080595A4:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	beq _080595C2
 	b _080596CC
@@ -1127,7 +1127,7 @@ _080595D8:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _080595EE
 	movs r0, #1
@@ -1157,7 +1157,7 @@ _0805960C:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _080596CC
 	adds r0, r7, #0
@@ -1171,7 +1171,7 @@ _08059630:
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetAnimRoundType
+	bl GetBattleAnimRoundTypeFlags
 	movs r1, #0x80
 	lsls r1, r1, #5
 	ands r1, r0
@@ -1187,7 +1187,7 @@ _08059630:
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _080596CC
 	adds r0, r7, #0
@@ -1223,7 +1223,7 @@ _08059698:
 	b _080596CC
 _080596A6:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _080596CC
 	movs r0, #0x14
@@ -1233,7 +1233,7 @@ _080596B2:
 	b _080596CC
 _080596BA:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _080596CC
 	movs r0, #0x64
@@ -1258,7 +1258,7 @@ _080596E0: @ 0x080596E0
 	cmp r0, #0
 	beq _08059746
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _0805973C
 	ldr r4, _0805979C  @ gUnknown_0203E1A4
@@ -1334,7 +1334,7 @@ _0805975C:
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl BanimSetupRoundBasedScript
+	bl SwitchAISFrameDataFromBARoundType
 	ldr r2, [sp]
 	ldrh r1, [r2, #0x10]
 	ldr r4, _080597AC  @ 0x0000FFFD
@@ -1395,7 +1395,7 @@ _080597E8:
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl BanimSetupRoundBasedScript
+	bl SwitchAISFrameDataFromBARoundType
 	ldr r2, [sp]
 	ldrh r1, [r2, #0x10]
 	ldr r4, _08059870  @ 0x00007FFF
@@ -1415,7 +1415,7 @@ _08059824:
 	ldr r6, [r0]
 	adds r0, r6, #0
 	mov r1, r8
-	bl BanimSetupRoundBasedScript
+	bl SwitchAISFrameDataFromBARoundType
 	ldrh r0, [r6, #0x10]
 	ands r4, r0
 	orrs r4, r5
@@ -1437,7 +1437,7 @@ _0805986C: .4byte gAnims
 _08059870: .4byte 0x00007FFF
 _08059874:
 	adds r0, r7, #0
-	bl sub_805A154
+	bl GetAISLayerId
 	cmp r0, #0
 	bne _080598AE
 	adds r0, r7, #0
@@ -1446,7 +1446,7 @@ _08059874:
 	ldrh r0, [r7, #0xe]
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl GetSomeAISRelatedIndexMaybeByID
+	bl GetBattleAnimRoundType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0

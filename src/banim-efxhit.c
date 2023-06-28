@@ -75,11 +75,11 @@ void NewEfxPierceCritical(struct Anim *anim)
     struct Anim *anim1 = GetCoreAIStruct(anim);
     int is_pierce;
 
-    is_pierce = GetAnimRoundType((anim1->nextRoundId - 1) * 2 + GetAISSubjectId(anim1)) & ANIM_ROUND_PIERCE;
+    is_pierce = GetBattleAnimRoundTypeFlags((anim1->nextRoundId - 1) * 2 + GetAISSubjectId(anim1)) & ANIM_ROUND_PIERCE;
     if (is_pierce != 0) {
         NewEfxPierceCriticalEffect(anim);
     } else {
-        ClearBG1Setup();
+        SpellFx_SpellFx_ClearBG1Position();
         proc = Proc_Start(ProcScr_efxCriricalEffect, PROC_TREE_3);
         proc->anim = anim;
         proc->timer = 0;
@@ -106,16 +106,16 @@ void NewEfxCriricalEffectBG(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
 
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085E7028, 0x2000);
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085E8108, 0x20);
-    sub_8055670(proc->anim, gUnknown_085E8308, gUnknown_085E87A8);
-    sub_80551B0();
+    SpellFx_RegisterBgGfx(gUnknown_085E7028, 0x2000);
+    SpellFx_RegisterBgPal(gUnknown_085E8108, 0x20);
+    SpellFx_WriteBgMap(proc->anim, gUnknown_085E8308, gUnknown_085E87A8);
+    SpellFx_SetSomeColorEffect();
 }
 
 void efxCriricalEffectBGMain(struct ProcEfxBG *proc)
 {
     if (++proc->timer == 0x11) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         SetDefaultColorEffects_();
         Proc_Break(proc);
     }
@@ -135,10 +135,10 @@ void NewEfxCriricalEffectBGCOL(struct Anim *anim)
 void efxCriricalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *pal = proc->unk4C;
-        SomePaletteStoringRoutine_SpellAnim2(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
+        SpellFx_RegisterBgPal(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
         return;
     }
 
@@ -153,8 +153,8 @@ void NewEfxNormalEffect(struct Anim *anim)
     struct ProcEfx *proc;
     int is_pierce;
 
-    ClearBG1Setup();
-    is_pierce = GetAnimRoundType((anim->nextRoundId - 1) * 2 + GetAISSubjectId(anim)) & ANIM_ROUND_PIERCE;
+    SpellFx_SpellFx_ClearBG1Position();
+    is_pierce = GetBattleAnimRoundTypeFlags((anim->nextRoundId - 1) * 2 + GetAISSubjectId(anim)) & ANIM_ROUND_PIERCE;
     if (is_pierce != 0) {
         NewEfxPierceNormalEffect(anim);
     } else {
@@ -199,9 +199,9 @@ void NewEfxNormalEffectBG(struct Anim *anim)
     proc->unk4C = gUnknown_085D8DF4;
     proc->unk50 = gUnknown_085D8DF4;
     
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085E9150, 0x20);
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085E8D88, 0x2000);
-    sub_80551B0();
+    SpellFx_RegisterBgPal(gUnknown_085E9150, 0x20);
+    SpellFx_RegisterBgGfx(gUnknown_085E8D88, 0x2000);
+    SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
         if (GetAISSubjectId(proc->anim) == EKR_POS_L)
@@ -214,16 +214,16 @@ void NewEfxNormalEffectBG(struct Anim *anim)
 void efxNormalEffectBGMain(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
-        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+        SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }
 
     if (ret == -1) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_Break(proc);
@@ -233,7 +233,7 @@ void efxNormalEffectBGMain(struct ProcEfxBG *proc)
 void NewEfxPierceCriticalEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxPierceCriticalEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
@@ -259,16 +259,16 @@ void NewEfxPierceCriticalEffectBG(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
 
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085CFB70, 0x2000);
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085D0820, 0x20);
-    sub_8055670(proc->anim, gUnknown_085D0A20, gUnknown_085D0CE0);
-    sub_80551B0();
+    SpellFx_RegisterBgGfx(gUnknown_085CFB70, 0x2000);
+    SpellFx_RegisterBgPal(gUnknown_085D0820, 0x20);
+    SpellFx_WriteBgMap(proc->anim, gUnknown_085D0A20, gUnknown_085D0CE0);
+    SpellFx_SetSomeColorEffect();
 }
 
 void efxPierceCriticalEffectBGMain(struct ProcEfxBG *proc)
 {
     if (++proc->timer == 0x11) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         SetDefaultColorEffects_();
         Proc_Break(proc);
     }
@@ -288,10 +288,10 @@ void NewEfxPierceCriticalEffectBGCOL(struct Anim *anim)
 void efxPierceCriticalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *pal = proc->unk4C;
-        SomePaletteStoringRoutine_SpellAnim2(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
+        SpellFx_RegisterBgPal(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
         return;
     }
 
@@ -304,7 +304,7 @@ void efxPierceCriticalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
 void NewEfxPierceNormalEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxPierceNormalEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
@@ -345,9 +345,9 @@ void NewEfxPierceNormalEffectBG(struct Anim *anim)
     proc->unk4C = gUnknown_085D8E9C;
     proc->unk50 = gUnknown_085D8E9C;
     
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085D1470, 0x20);
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085D0FD0, 0x2000);
-    sub_80551B0();
+    SpellFx_RegisterBgPal(gUnknown_085D1470, 0x20);
+    SpellFx_RegisterBgGfx(gUnknown_085D0FD0, 0x2000);
+    SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
         if (GetAISSubjectId(proc->anim) == EKR_POS_L)
@@ -360,16 +360,16 @@ void NewEfxPierceNormalEffectBG(struct Anim *anim)
 void efxPierceNormalEffectBGMain(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
-        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+        SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }
 
     if (ret == -1) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_Break(proc);

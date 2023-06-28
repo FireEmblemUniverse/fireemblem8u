@@ -552,7 +552,7 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
         }
     }
 
-    ret = EfxGetNextFrameIndex((void *)&proc->timer, (void *)&proc->unk44, (const s16 *)proc->unk48);
+    ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->unk44, (const s16 *)proc->unk48);
     if (ret >= 0) {
         LZ77UnCompWram(proc->tsa_set[ret], gEkrTsaBuffer);
         sub_806FBB8();

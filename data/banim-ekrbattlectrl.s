@@ -175,10 +175,10 @@ ProcScr_ekrUnitKakudai:  @ 0x085B9CE4
         .word 0x80dae48
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8056974
+        .word UnitKakudai1
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8056B70
+        .word UnitKakudai2
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_8056D18

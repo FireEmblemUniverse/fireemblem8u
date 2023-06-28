@@ -8,9 +8,9 @@
 void StartSpellAnimFire(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    RegisterEfxSpellAnimDelay();
+    SpellFx_Begin();
     NewEfxSpellCast();
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
 
     proc = Proc_Start(ProcScr_efxFire, PROC_TREE_3);
     proc->anim = anim;
@@ -22,9 +22,9 @@ void StartSpellAnimFire(struct Anim *anim)
 void StartSpellAnimElfire(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    RegisterEfxSpellAnimDelay();
+    SpellFx_Begin();
     NewEfxSpellCast();
-    ClearBG1Setup();
+    SpellFx_SpellFx_ClearBG1Position();
 
     proc = Proc_Start(ProcScr_efxFire, PROC_TREE_3);
     proc->anim = anim;
@@ -64,7 +64,7 @@ void Loop6C_efxFire(struct ProcEfx *proc)
 
     if (time == r7) {
         animc->state3 |= 0x9;
-        DoEkrOffensiveAtkHit(animc, proc->hitted);
+        StartBattleAnimHitEffectsDefault(animc, proc->hitted);
 
         if (proc->hitted != EKR_HITTED)
             return;
@@ -86,7 +86,7 @@ void Loop6C_efxFire(struct ProcEfx *proc)
         return;
 
     if (time == r9) {
-        UnregisterEfxSpellAnimDelay();
+        SpellFx_Finish();
         EfxSpellCastSet29();
         Proc_Break(proc);
     }
@@ -104,24 +104,24 @@ void NewEfxFireBG(struct Anim *anim)
     proc->unk4C = gUnknown_085D54D0;
     proc->unk50 = gUnknown_085D5500;
 
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_085F6230, 0x20);
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_085F5638, 0x2000);
-    sub_80551B0();
+    SpellFx_RegisterBgPal(gUnknown_085F6230, 0x20);
+    SpellFx_RegisterBgGfx(gUnknown_085F5638, 0x2000);
+    SpellFx_SetSomeColorEffect();
 }
 
 void Loop6C_efxFireBG(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
-        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+        SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }
 
     if (ret == -1) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_Break(proc);
@@ -146,8 +146,8 @@ void NewEfxFireOBJ(struct Anim *anim)
     
     anim2->yPosition = anim->yPosition + 0x8;
 
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_085F7D64, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_085F7768, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085F7D64, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_085F7768, 0x1000);
 }
 
 void sub_805DDA8(struct ProcEfxOBJ *proc)
@@ -178,8 +178,8 @@ void StartSubSpell_efxFireHITBG(struct Anim *anim)
     proc->unk50 = gUnknown_085D55B4;
     proc->unk54 = gUnknown_085D5560;
 
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_0860108C, 0x20);
-    sub_80551B0();
+    SpellFx_RegisterBgPal(gUnknown_0860108C, 0x20);
+    SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
         return;
@@ -193,17 +193,17 @@ void StartSubSpell_efxFireHITBG(struct Anim *anim)
 void sub_805DE74(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
-        SomeImageStoringRoutine_SpellAnim2(proc->unk54[ret], 0x2000);
-        sub_8055670(proc->anim, buf1[ret], buf2[ret]);
+        SpellFx_RegisterBgGfx(proc->unk54[ret], 0x2000);
+        SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }
 
     if (ret == -1) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         gEfxBgSemaphore--;
         SetDefaultColorEffects_();
         Proc_End(proc);
@@ -218,10 +218,10 @@ void StartSubSpell_efxElfireBG(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxElfireBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    SomeImageStoringRoutine_SpellAnim2(gUnknown_08602B94, 0x2000);
-    sub_8055670(proc->anim, gUnknown_08603D50, gUnknown_08603D50);
-    ClearBG1Setup();
-    sub_80551B0();
+    SpellFx_RegisterBgGfx(gUnknown_08602B94, 0x2000);
+    SpellFx_WriteBgMap(proc->anim, gUnknown_08603D50, gUnknown_08603D50);
+    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
         return;
@@ -237,7 +237,7 @@ void StartSubSpell_efxElfireBG(struct Anim *anim)
 void sub_805DF70(struct ProcEfxBG *proc)
 {
     if (++proc->timer == 0x28) {
-        ClearBG1();
+        SpellFx_ClearBG1();
         SetDefaultColorEffects_();
         gEfxBgSemaphore--;
         Proc_Break(proc);
@@ -254,16 +254,16 @@ void StartSubSpell_efxElfireBGCOL(struct Anim *anim)
     proc->frame = 0;
     proc->frame_config = gUnknown_080DCDE4;
     proc->unk4C = gUnknown_08603B50;
-    SomePaletteStoringRoutine_SpellAnim2(gUnknown_08603B50, 0x20);
+    SpellFx_RegisterBgPal(gUnknown_08603B50, 0x20);
 }
 
 void sub_805DFE8(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = EfxGetNextFrameIndex((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *buf = proc->unk4C;
-        SomePaletteStoringRoutine_SpellAnim2(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
+        SpellFx_RegisterBgPal(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
         return;
     }
 
@@ -291,8 +291,8 @@ void StartSubSpell_efxElfireOBJ(struct Anim *anim)
     
     anim2->oamBase = anim2->oamBase | 0x400;
 
-    SomePaletteStoringRoutine_SpellAnim(gUnknown_08604210, 0x20);
-    SomeImageStoringRoutine_SpellAnim(gUnknown_08603F98, 0x800);
+    SpellFx_RegisterObjPal(gUnknown_08604210, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_08603F98, 0x800);
 }
 
 void sub_805E0B4(struct ProcEfxOBJ *proc)

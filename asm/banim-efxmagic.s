@@ -10,9 +10,9 @@
 StartSpellAnimFimbulvetr: @ 0x0805E0E4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0805E11C  @ ProcScr_efxFimbulvetr
 	movs r1, #3
 	bl Proc_Start
@@ -137,7 +137,7 @@ _0805E1E4:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0805E228
@@ -152,7 +152,7 @@ _0805E20C:
 	adds r0, #0x19
 	cmp r1, r0
 	bne _0805E228
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -189,7 +189,7 @@ sub_805E230: @ 0x0805E230
 	str r0, [r5, #0x54]
 	ldr r0, _0805E298  @ gUnknown_08617F04
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _0805E29C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -218,7 +218,7 @@ _0805E2A0:
 	movs r2, #0
 	bl BG_SetPosition
 _0805E2AA:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -233,7 +233,7 @@ sub_805E2B4: @ 0x0805E2B4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -247,19 +247,19 @@ sub_805E2B4: @ 0x0805E2B4
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _0805E30E
 _0805E2F0:
 	movs r0, #1
 	negs r0, r0
 	cmp r3, r0
 	bne _0805E30E
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0805E314  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -301,7 +301,7 @@ sub_805E318: @ 0x0805E318
 	str r0, [r5, #0x54]
 	ldr r0, _0805E380  @ gUnknown_086101DC
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _0805E384  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -330,7 +330,7 @@ _0805E388:
 	movs r2, #0
 	bl BG_SetPosition
 _0805E392:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -368,7 +368,7 @@ _0805E3CE:
 	adds r1, r6, #0
 	adds r1, #0x44
 	ldr r2, [r6, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -382,19 +382,19 @@ _0805E3CE:
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _0805E426
 _0805E408:
 	movs r0, #1
 	negs r0, r0
 	cmp r4, r0
 	bne _0805E426
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0805E42C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -439,11 +439,11 @@ sub_805E430: @ 0x0805E430
 	strh r1, [r0, #2]
 	ldr r0, _0805E48C  @ gUnknown_08670528
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0805E490  @ gUnknown_08618BBC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -505,11 +505,11 @@ sub_805E4C4: @ 0x0805E4C4
 	str r2, [r0, #0x48]
 	ldr r0, _0805E508  @ gUnknown_08670528
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0805E50C  @ gUnknown_08618BBC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -810,9 +810,9 @@ _0805E750: .4byte gUnknown_0861AD8C
 sub_805E754: @ 0x0805E754
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0805E78C  @ gUnknown_085D5770
 	movs r1, #3
 	bl Proc_Start
@@ -899,7 +899,7 @@ _0805E7F6:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0805E848
@@ -916,7 +916,7 @@ _0805E82C:
 	adds r0, #5
 	cmp r1, r0
 	bne _0805E848
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -951,8 +951,8 @@ sub_805E850: @ 0x0805E850
 	str r1, [r0, #0x54]
 	ldr r0, _0805E8A0  @ gUnknown_08608838
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -974,7 +974,7 @@ sub_805E8A4: @ 0x0805E8A4
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -987,13 +987,13 @@ sub_805E8A4: @ 0x0805E8A4
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _0805E8F6
 _0805E8E0:
 	movs r0, #1
@@ -1050,11 +1050,11 @@ sub_805E924: @ 0x0805E924
 	str r0, [r4, #0x60]
 	ldr r0, _0805E960  @ gUnknown_085F3F40
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0805E964  @ gUnknown_085F3AA8
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	add sp, #4
@@ -1219,7 +1219,7 @@ sub_805EA4C: @ 0x0805EA4C
 	ldrsh r1, [r4, r2]
 	cmp r0, r1
 	ble _0805EA9E
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	bl SetDefaultColorEffects_
 	ldr r1, _0805EAA8  @ gEfxBgSemaphore
 	ldr r0, [r1]
@@ -1361,9 +1361,9 @@ _0805EB94: .4byte gEfxBgSemaphore
 sub_805EB98: @ 0x0805EB98
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0805EBD0  @ gUnknown_085D5880
 	movs r1, #3
 	bl Proc_Start
@@ -1479,7 +1479,7 @@ _0805EC80:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0805ECCC
@@ -1497,7 +1497,7 @@ _0805ECAA:
 	adds r0, r3, r0
 	cmp r1, r0
 	bne _0805ECCC
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -1532,8 +1532,8 @@ sub_805ECD4: @ 0x0805ECD4
 	ldr r0, _0805ED30  @ gUnknown_08621960
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
 	cmp r0, #0
@@ -1569,7 +1569,7 @@ sub_805ED44: @ 0x0805ED44
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -1588,7 +1588,7 @@ _0805ED70:
 	negs r0, r0
 	cmp r1, r0
 	bne _0805ED8E
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0805ED94  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -1627,7 +1627,7 @@ sub_805ED98: @ 0x0805ED98
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -1647,7 +1647,7 @@ sub_805EDDC: @ 0x0805EDDC
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -1656,7 +1656,7 @@ sub_805EDDC: @ 0x0805EDDC
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _0805EE18
 _0805EE02:
 	movs r0, #1
@@ -1726,11 +1726,11 @@ _0805EE84:
 	strh r0, [r6, #0x2e]
 	ldr r0, _0805EEA4  @ gUnknown_08623A9C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0805EEA8  @ gUnknown_086234D8
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -1772,9 +1772,9 @@ _0805EED4: .4byte gEfxBgSemaphore
 sub_805EED8: @ 0x0805EED8
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0805EF10  @ gUnknown_085D58F0
 	movs r1, #3
 	bl Proc_Start
@@ -1890,7 +1890,7 @@ _0805EFB8:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0805EFFE
@@ -1902,7 +1902,7 @@ _0805EFE8:
 	adds r0, #0xa4
 	cmp r1, r0
 	bne _0805EFFE
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -1938,8 +1938,8 @@ sub_805F004: @ 0x0805F004
 	str r0, [r5, #0x54]
 	ldr r0, _0805F070  @ gUnknown_0862A2D0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, _0805F074  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -2020,8 +2020,8 @@ sub_805F0B0: @ 0x0805F0B0
 	str r0, [r5, #0x54]
 	ldr r0, _0805F128  @ gUnknown_0862A2F0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0xa
 	movs r2, #7
@@ -2069,7 +2069,7 @@ sub_805F140: @ 0x0805F140
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -2082,20 +2082,20 @@ sub_805F140: @ 0x0805F140
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _0805F19A
 _0805F17C:
 	movs r0, #1
 	negs r0, r0
 	cmp r4, r0
 	bne _0805F19A
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0805F1A0  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -2212,11 +2212,11 @@ sub_805F24C: @ 0x0805F24C
 	strh r0, [r1, #6]
 	ldr r0, _0805F280  @ gUnknown_0862D424
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0805F284  @ gUnknown_0862C82C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -2241,11 +2241,11 @@ sub_805F288: @ 0x0805F288
 	strh r0, [r1, #6]
 	ldr r0, _0805F2BC  @ gUnknown_0862D424
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0805F2C0  @ gUnknown_0862CC2C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -2270,11 +2270,11 @@ sub_805F2C4: @ 0x0805F2C4
 	strh r0, [r1, #6]
 	ldr r0, _0805F2F8  @ gUnknown_0862D424
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0805F2FC  @ gUnknown_0862D06C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -2342,9 +2342,9 @@ _0805F350: .4byte gUnknown_0862DC58
 StartSpellAnimNosferatu: @ 0x0805F354
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0805F38C  @ ProcScr_efxResire
 	movs r1, #3
 	bl Proc_Start
@@ -2479,7 +2479,7 @@ _0805F468:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrResire
+	bl StartBattleAnimResireHitEffects
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0805F4A8
@@ -2494,7 +2494,7 @@ _0805F490:
 	adds r0, #0x14
 	cmp r1, r0
 	bne _0805F4A8
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	adds r0, r4, #0
 	bl Proc_Break
 _0805F4A8:
@@ -2534,8 +2534,8 @@ sub_805F4B0: @ 0x0805F4B0
 	str r0, [r6, #0x54]
 	ldr r0, _0805F524  @ gUnknown_08636640
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, _0805F528  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -2595,8 +2595,8 @@ sub_805F53C: @ 0x0805F53C
 	str r0, [r5, #0x54]
 	ldr r0, _0805F5C0  @ gUnknown_08636640
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	ldr r2, _0805F5C4  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21
@@ -2651,7 +2651,7 @@ sub_805F5DC: @ 0x0805F5DC
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -2664,20 +2664,20 @@ sub_805F5DC: @ 0x0805F5DC
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _0805F65A
 _0805F618:
 	movs r0, #1
 	negs r0, r0
 	cmp r4, r0
 	bne _0805F65A
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	adds r0, r7, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -2850,7 +2850,7 @@ sub_805F76C: @ 0x0805F76C
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -2863,20 +2863,20 @@ sub_805F76C: @ 0x0805F76C
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _0805F7CA
 _0805F7A8:
 	movs r0, #1
 	negs r0, r0
 	cmp r4, r0
 	bne _0805F7CA
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0805F7D0  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -2902,7 +2902,7 @@ sub_805F7D4: @ 0x0805F7D4
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -2915,20 +2915,20 @@ sub_805F7D4: @ 0x0805F7D4
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _0805F82E
 _0805F810:
 	movs r0, #1
 	negs r0, r0
 	cmp r4, r0
 	bne _0805F82E
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0805F834  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -3017,9 +3017,9 @@ _0805F8B0: .4byte gEfxBgSemaphore
 sub_805F8B4: @ 0x0805F8B4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0805F8EC  @ gUnknown_085D5CF0
 	movs r1, #3
 	bl Proc_Start
@@ -3101,7 +3101,7 @@ _0805F93E:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0805F9A0
@@ -3118,7 +3118,7 @@ _0805F984:
 	adds r0, #1
 	cmp r1, r0
 	bne _0805F9A0
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -3154,7 +3154,7 @@ sub_805F9A8: @ 0x0805F9A8
 	str r0, [r5, #0x54]
 	ldr r0, _0805FA10  @ gUnknown_085D5DA4
 	str r0, [r5, #0x58]
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, _0805FA14  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -3200,7 +3200,7 @@ sub_805FA28: @ 0x0805FA28
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -3215,17 +3215,17 @@ sub_805FA28: @ 0x0805FA28
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	adds r4, r5, r4
 	ldr r0, [r4]
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, [r7, #0x5c]
 	adds r6, r5, r6
 	ldr r1, [r6]
 	add r5, r8
 	ldr r2, [r5]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	ldr r0, _0805FA90  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -3258,7 +3258,7 @@ _0805FAB0:
 	negs r0, r0
 	cmp r5, r0
 	bne _0805FACE
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0805FADC  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -3282,9 +3282,9 @@ _0805FADC: .4byte gEfxBgSemaphore
 StartSpellAnimPurge: @ 0x0805FAE0
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0805FB1C  @ gUnknown_085D5EAC
 	movs r1, #3
 	bl Proc_Start
@@ -3444,7 +3444,7 @@ _0805FC12:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldr r0, _0805FC54  @ 0x00000101
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -3478,7 +3478,7 @@ _0805FC72:
 	adds r0, #0x71
 	cmp r1, r0
 	bne _0805FC88
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
@@ -3514,7 +3514,7 @@ sub_805FC90: @ 0x0805FC90
 	str r1, [r0, #0x54]
 	ldr r1, _0805FCDC  @ gUnknown_085D6014
 	str r1, [r0, #0x58]
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -3538,7 +3538,7 @@ sub_805FCE0: @ 0x0805FCE0
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -3553,24 +3553,24 @@ sub_805FCE0: @ 0x0805FCE0
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	adds r4, r5, r4
 	ldr r0, [r4]
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, [r7, #0x5c]
 	adds r6, r5, r6
 	ldr r1, [r6]
 	add r5, r8
 	ldr r2, [r5]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _0805FD4C
 _0805FD2E:
 	movs r0, #1
 	negs r0, r0
 	cmp r5, r0
 	bne _0805FD4C
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0805FD58  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -3702,11 +3702,11 @@ sub_805FDFC: @ 0x0805FDFC
 	strh r1, [r0, #4]
 	ldr r0, _0805FE60  @ gUnknown_0866F2B4
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0805FE64  @ gUnknown_0866EFF0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -3748,9 +3748,9 @@ nullsub_41: @ 0x0805FE80
 StartSpellAnimDivine: @ 0x0805FE84
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0805FEBC  @ gUnknown_085D62FC
 	movs r1, #3
 	bl Proc_Start
@@ -3866,7 +3866,7 @@ _0805FF62:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0805FFAA
@@ -3880,7 +3880,7 @@ _0805FF90:
 	beq _0805FFAA
 	cmp r2, #0x64
 	bne _0805FFAA
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -3916,7 +3916,7 @@ sub_805FFB0: @ 0x0805FFB0
 	str r0, [r5, #0x54]
 	ldr r0, _08060018  @ gUnknown_08641D84
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _0806001C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -3945,7 +3945,7 @@ _08060020:
 	movs r2, #0
 	bl BG_SetPosition
 _0806002A:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -3977,7 +3977,7 @@ sub_8060034: @ 0x08060034
 	str r0, [r5, #0x54]
 	ldr r0, _0806009C  @ gUnknown_08641D84
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _080600A0  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -4006,7 +4006,7 @@ _080600A4:
 	movs r2, #0
 	bl BG_SetPosition
 _080600AE:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -4038,7 +4038,7 @@ sub_80600B8: @ 0x080600B8
 	str r0, [r5, #0x54]
 	ldr r0, _08060120  @ gUnknown_08641D64
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _08060124  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -4067,7 +4067,7 @@ _08060128:
 	movs r2, #0
 	bl BG_SetPosition
 _08060132:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -4083,7 +4083,7 @@ sub_806013C: @ 0x0806013C
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -4096,13 +4096,13 @@ sub_806013C: @ 0x0806013C
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	ldr r0, _08060194  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -4135,7 +4135,7 @@ _080601B4:
 	negs r0, r0
 	cmp r4, r0
 	bne _080601D2
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _080601DC  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -4195,11 +4195,11 @@ _08060230:
 	strh r0, [r6, #2]
 	ldr r0, _0806024C  @ gUnknown_08645F44
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08060250  @ gUnknown_08645DD8
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -4254,9 +4254,9 @@ nullsub_40: @ 0x08060288
 sub_806028C: @ 0x0806028C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080602C4  @ gUnknown_085D64A4
 	movs r1, #3
 	bl Proc_Start
@@ -4414,7 +4414,7 @@ _080603B8:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08060438
@@ -4444,7 +4444,7 @@ _08060420:
 	adds r0, r4, r2
 	cmp r1, r0
 	bne _08060438
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
@@ -4481,8 +4481,8 @@ sub_8060440: @ 0x08060440
 	str r2, [r0, #0x58]
 	ldr r0, _080604A8  @ gUnknown_08636640
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	ldr r2, _080604AC  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21
@@ -4533,8 +4533,8 @@ sub_80604B0: @ 0x080604B0
 	str r2, [r0, #0x58]
 	ldr r0, _08060510  @ gUnknown_0864E790
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0xc
 	movs r2, #6
@@ -4578,8 +4578,8 @@ sub_8060514: @ 0x08060514
 	str r2, [r0, #0x58]
 	ldr r0, _08060568  @ gUnknown_0864E7B0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -4603,7 +4603,7 @@ sub_806056C: @ 0x0806056C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -4621,7 +4621,7 @@ sub_806056C: @ 0x0806056C
 	movs r1, #0x80
 	lsls r1, r1, #6
 	adds r0, r2, #0
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 _080605A6:
 	ldr r0, [r6]
 	str r0, [r4, #0x58]
@@ -4631,14 +4631,14 @@ _080605A6:
 	mov r3, r8
 	adds r2, r5, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _080605DA
 _080605BC:
 	movs r0, #1
 	negs r0, r0
 	cmp r1, r0
 	bne _080605DA
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _080605E4  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -4756,11 +4756,11 @@ sub_806067C: @ 0x0806067C
 	strh r0, [r1, #0x2e]
 	ldr r0, _080606B8  @ gUnknown_0865163C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080606BC  @ gUnknown_086508DC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	b _080606D0
 	.align 2, 0
 _080606B4: .4byte gUnknown_086517DC
@@ -4802,11 +4802,11 @@ sub_80606D8: @ 0x080606D8
 	strh r0, [r1, #0x2e]
 	ldr r0, _08060714  @ gUnknown_0865163C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08060718  @ gUnknown_08650DA8
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	b _0806072C
 	.align 2, 0
 _08060710: .4byte gUnknown_08651AE4
@@ -4848,11 +4848,11 @@ sub_8060734: @ 0x08060734
 	strh r0, [r1, #0x2e]
 	ldr r0, _08060770  @ gUnknown_0865163C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08060774  @ gUnknown_08651240
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	b _08060788
 	.align 2, 0
 _0806076C: .4byte gUnknown_08651DE0
@@ -4892,11 +4892,11 @@ sub_8060790: @ 0x08060790
 	strh r1, [r0, #0x30]
 	ldr r0, _080607D0  @ gUnknown_0862D424
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080607D4  @ gUnknown_0862C82C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -5022,9 +5022,9 @@ _080608A0: .4byte gEfxBgSemaphore
 StartSpellAnimFenrir: @ 0x080608A4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080608DC  @ gUnknown_085D6644
 	movs r1, #3
 	bl Proc_Start
@@ -5205,7 +5205,7 @@ _08060A04:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldr r0, _08060A4C  @ 0x00000133
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -5248,7 +5248,7 @@ _08060A72:
 	adds r0, r4, r3
 	cmp r1, r0
 	bne _08060A94
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r6, #0
 	bl Proc_Break
@@ -5280,8 +5280,8 @@ sub_8060A9C: @ 0x08060A9C
 	ldr r0, _08060B18  @ gUnknown_08651DF4
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl ClearBG1
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_ClearBG1
 	ldr r0, _08060B1C  @ gUnknown_08652734
 	ldr r4, _08060B20  @ gEkrTsaBuffer
 	adds r1, r4, #0
@@ -5297,7 +5297,7 @@ sub_8060A9C: @ 0x08060A9C
 	bl sub_8070E94
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	ldr r2, _08060B28  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21
@@ -5327,7 +5327,7 @@ _08060B28: .4byte gLCDControlBuffer
 	THUMB_FUNC_START sub_8060B2C
 sub_8060B2C: @ 0x08060B2C
 	push {lr}
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08060B44  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -5394,7 +5394,7 @@ sub_8060B7C: @ 0x08060B7C
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -5426,7 +5426,7 @@ sub_8060BD4: @ 0x08060BD4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -5435,7 +5435,7 @@ sub_8060BD4: @ 0x08060BD4
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 _08060BF8:
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
@@ -5482,11 +5482,11 @@ sub_8060C18: @ 0x08060C18
 	str r0, [r4, #0x60]
 	ldr r0, _08060C70  @ gUnknown_0865BAB8
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08060C74  @ gUnknown_0865AF3C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -5556,8 +5556,8 @@ sub_8060CAC: @ 0x08060CAC
 	str r1, [r5, #0x58]
 	ldr r0, _08060D24  @ gUnknown_086568F4
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -5622,8 +5622,8 @@ sub_8060D3C: @ 0x08060D3C
 	str r1, [r5, #0x58]
 	ldr r0, _08060DAC  @ gUnknown_08656914
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, _08060DB0  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -5669,7 +5669,7 @@ sub_8060DC4: @ 0x08060DC4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -5687,7 +5687,7 @@ sub_8060DC4: @ 0x08060DC4
 	movs r1, #0x80
 	lsls r1, r1, #6
 	adds r0, r2, #0
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 _08060E00:
 	ldr r0, [r6]
 	str r0, [r4, #0x58]
@@ -5697,7 +5697,7 @@ _08060E00:
 	mov r3, r8
 	adds r2, r5, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	ldr r0, _08060E3C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -5737,7 +5737,7 @@ _08060E60:
 	negs r0, r0
 	cmp r1, r0
 	bne _08060E7E
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08060E8C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -5775,11 +5775,11 @@ sub_8060E90: @ 0x08060E90
 	str r1, [r0, #0x44]
 	ldr r0, _08060ED0  @ gUnknown_0865BAD8
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08060ED4  @ gUnknown_0865AF3C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -5971,9 +5971,9 @@ _08061020: .4byte gEfxBgSemaphore
 StartSpellAnimHeal: @ 0x08061024
 	push {r4, lr}
 	adds r4, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08061048  @ ProcScr_efxLive
 	movs r1, #3
 	bl Proc_Start
@@ -6092,7 +6092,7 @@ _08061118:
 _08061124:
 	cmp r0, #0xb5
 	bne _08061150
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl sub_805A2F0
@@ -6120,9 +6120,9 @@ _08061150:
 StartSpellAnimMend: @ 0x08061158
 	push {r4, lr}
 	adds r4, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0806117C  @ ProcScr_efxRelive
 	movs r1, #3
 	bl Proc_Start
@@ -6264,7 +6264,7 @@ _08061284:
 	adds r0, #0xb5
 	cmp r1, r0
 	bne _080612B4
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl sub_805A2F0
@@ -6292,9 +6292,9 @@ _080612B4:
 StartSpellAnimRecover: @ 0x080612BC
 	push {r4, lr}
 	adds r4, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080612E0  @ ProcScr_efxRecover
 	movs r1, #3
 	bl Proc_Start
@@ -6436,7 +6436,7 @@ _080613E8:
 	adds r0, #0xb5
 	cmp r1, r0
 	bne _08061418
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl sub_805A2F0
@@ -6464,9 +6464,9 @@ _08061418:
 sub_8061420: @ 0x08061420
 	push {r4, lr}
 	adds r4, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08061444  @ ProcScr_efxReblow
 	movs r1, #3
 	bl Proc_Start
@@ -6614,7 +6614,7 @@ _0806155C:
 	adds r0, #0xdd
 	cmp r1, r0
 	bne _0806158C
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl sub_805A2F0
@@ -6672,7 +6672,7 @@ sub_8061594: @ 0x08061594
 	ldr r0, _080615F0  @ gUnknown_08670548
 	movs r1, #0xa8
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _08061646
 	.align 2, 0
 _080615DC: .4byte gEfxBgSemaphore
@@ -6694,7 +6694,7 @@ _080615F4:
 	ldr r0, _08061634  @ gUnknown_0866F5E4
 	movs r1, #0x80
 	lsls r1, r1, #3
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _08061638  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -6719,7 +6719,7 @@ _08061640:
 	movs r2, #0
 	bl BG_SetPosition
 _08061646:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -6760,7 +6760,7 @@ sub_8061650: @ 0x08061650
 	ldr r0, _080616AC  @ gUnknown_08670548
 	movs r1, #0xa8
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _080616FA
 	.align 2, 0
 _08061698: .4byte gEfxBgSemaphore
@@ -6778,7 +6778,7 @@ _080616B0:
 	ldr r0, _080616E8  @ gUnknown_0866F5E4
 	movs r1, #0x80
 	lsls r1, r1, #3
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _080616EC  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -6803,7 +6803,7 @@ _080616F4:
 	movs r2, #0
 	bl BG_SetPosition
 _080616FA:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -6818,7 +6818,7 @@ EfxLivebgMain: @ 0x08061704
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -6845,7 +6845,7 @@ _08061736:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _08061750
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	bl SetDefaultColorEffects_
 _08061750:
 	movs r0, #1
@@ -6999,7 +6999,7 @@ sub_8061854: @ 0x08061854
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -7008,7 +7008,7 @@ sub_8061854: @ 0x08061854
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _08061890
 _0806187A:
 	movs r0, #1
@@ -7172,11 +7172,11 @@ NewEfxLiveOBJ: @ 0x0806196C
 	str r0, [r4, #0x60]
 	ldr r0, _080619C4  @ gUnknown_08670528
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080619C8  @ gUnknown_086702D4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -7219,11 +7219,11 @@ sub_80619CC: @ 0x080619CC
 	str r0, [r4, #0x60]
 	ldr r0, _08061A28  @ gUnknown_08670528
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08061A2C  @ gUnknown_086702D4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -7505,9 +7505,9 @@ _08061C14: .4byte gEfxBgSemaphore
 sub_8061C18: @ 0x08061C18
 	push {r4, lr}
 	adds r4, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08061C44  @ ProcScr_efxReserve
 	movs r1, #3
 	bl Proc_Start
@@ -7529,9 +7529,9 @@ _08061C44: .4byte ProcScr_efxReserve
 sub_8061C48: @ 0x08061C48
 	push {r4, lr}
 	adds r4, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08061C74  @ ProcScr_efxReserve
 	movs r1, #3
 	bl Proc_Start
@@ -7620,7 +7620,7 @@ _08061D0A:
 	ldr r0, _08061D24  @ 0x000001C5
 	cmp r1, r0
 	bne _08061D1E
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -7656,8 +7656,8 @@ sub_8061D28: @ 0x08061D28
 	ldr r0, _08061D74  @ gUnknown_0866F5E4
 	movs r1, #0x80
 	lsls r1, r1, #3
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -7682,7 +7682,7 @@ EfxReservebgMain: @ 0x08061D78
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -7695,7 +7695,7 @@ EfxReservebgMain: @ 0x08061D78
 	adds r0, r0, r2
 	ldr r2, [r0]
 	adds r0, r6, #0
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	ldr r0, _08061DC8  @ gUnknown_080DDA50
 	lsls r1, r5, #1
 	adds r0, r1, r0
@@ -7716,7 +7716,7 @@ _08061DD0:
 	negs r0, r0
 	cmp r5, r0
 	bne _08061DEE
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08061DF4  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -7781,7 +7781,7 @@ sub_8061E44: @ 0x08061E44
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -7790,7 +7790,7 @@ sub_8061E44: @ 0x08061E44
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _08061E80
 _08061E6A:
 	movs r0, #1
@@ -7841,7 +7841,7 @@ sub_8061E8C: @ 0x08061E8C
 	ldr r0, _08061F68  @ gUnknown_08670548
 	movs r1, #0xa8
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r3, _08061F6C  @ gLCDControlBuffer
 	ldrb r2, [r3, #0xc]
 	movs r1, #4
@@ -7888,7 +7888,7 @@ sub_8061E8C: @ 0x08061E8C
 	orrs r0, r6
 	strh r0, [r2, #8]
 _08061F26:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	mov r0, r8
 	str r0, [sp]
 	movs r0, #0
@@ -7951,7 +7951,7 @@ _08061FA8:
 	adds r1, r5, #0
 	adds r1, #0x44
 	ldr r2, [r5, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -7964,7 +7964,7 @@ _08061FA8:
 	adds r0, r0, r2
 	ldr r2, [r0]
 	adds r0, r7, #0
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _08062046
 	.align 2, 0
 _08061FD4: .4byte gUnknown_02000010
@@ -7974,7 +7974,7 @@ _08061FDC:
 	negs r0, r0
 	cmp r3, r0
 	bne _08062046
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0806204C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -8080,7 +8080,7 @@ sub_80620A4: @ 0x080620A4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -8089,7 +8089,7 @@ sub_80620A4: @ 0x080620A4
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _080620E0
 _080620CA:
 	movs r0, #1
@@ -8115,9 +8115,9 @@ _080620E8: .4byte gEfxBgSemaphore
 sub_80620EC: @ 0x080620EC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08062124  @ ProcScr_efxRest
 	movs r1, #3
 	bl Proc_Start
@@ -8303,7 +8303,7 @@ _08062274:
 	movs r1, #2
 	orrs r0, r1
 	strh r0, [r6, #0x10]
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -8341,8 +8341,8 @@ sub_80622A0: @ 0x080622A0
 	str r1, [r0, #0x54]
 	ldr r0, _080622F0  @ gUnknown_0867B5A4
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -8364,7 +8364,7 @@ sub_80622F4: @ 0x080622F4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -8378,19 +8378,19 @@ sub_80622F4: @ 0x080622F4
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _0806234E
 _08062330:
 	movs r0, #1
 	negs r0, r0
 	cmp r3, r0
 	bne _0806234E
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08062354  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -8450,11 +8450,11 @@ _080623A4:
 	strh r0, [r6, #4]
 	ldr r0, _080623C8  @ gUnknown_0868716C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080623CC  @ gUnknown_08686F84
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -8481,9 +8481,9 @@ _080623DC: .4byte gEfxBgSemaphore
 StartSpellAnimSilence: @ 0x080623E0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08062418  @ gUnknown_085D6B20
 	movs r1, #3
 	bl Proc_Start
@@ -8617,7 +8617,7 @@ _080624FA:
 	movs r1, #2
 	orrs r0, r1
 	strh r0, [r5, #0x10]
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -8654,12 +8654,12 @@ sub_8062524: @ 0x08062524
 	str r0, [r5, #0x50]
 	ldr r0, _08062594  @ gUnknown_08680DC0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _08062598  @ gUnknown_0867EEB4
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, _0806259C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -8702,7 +8702,7 @@ sub_80625B0: @ 0x080625B0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -8715,14 +8715,14 @@ sub_80625B0: @ 0x080625B0
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _080625FC
 _080625DE:
 	movs r0, #1
 	negs r0, r0
 	cmp r2, r0
 	bne _080625FC
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08062604  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -8762,11 +8762,11 @@ sub_8062608: @ 0x08062608
 	str r0, [r4, #0x60]
 	ldr r0, _08062658  @ gUnknown_08680DC0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0806265C  @ gUnknown_086808A0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -8800,9 +8800,9 @@ _08062674: .4byte gEfxBgSemaphore
 StartSpellAnimSleep: @ 0x08062678
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080626B0  @ gUnknown_085D6BB8
 	movs r1, #3
 	bl Proc_Start
@@ -8932,7 +8932,7 @@ _08062786:
 	movs r1, #2
 	orrs r0, r1
 	strh r0, [r5, #0x10]
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -8969,12 +8969,12 @@ sub_80627B4: @ 0x080627B4
 	str r0, [r5, #0x50]
 	ldr r0, _08062824  @ gUnknown_086861A4
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _08062828  @ gUnknown_086852D8
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, _0806282C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -9017,7 +9017,7 @@ sub_8062840: @ 0x08062840
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -9030,14 +9030,14 @@ sub_8062840: @ 0x08062840
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _0806288C
 _0806286E:
 	movs r0, #1
 	negs r0, r0
 	cmp r2, r0
 	bne _0806288C
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08062894  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -9077,11 +9077,11 @@ sub_8062898: @ 0x08062898
 	str r0, [r4, #0x60]
 	ldr r0, _080628E8  @ gUnknown_0868716C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080628EC  @ gUnknown_08686F84
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -9198,9 +9198,9 @@ _08062994: .4byte gEfxBgSemaphore
 StartSpellAnimHammerne: @ 0x08062998
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080629D0  @ ProcScr_efxHammarne
 	movs r1, #3
 	bl Proc_Start
@@ -9348,7 +9348,7 @@ _08062AC8:
 	movs r1, #2
 	orrs r0, r1
 	strh r0, [r6, #0x10]
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -9386,8 +9386,8 @@ sub_8062AF4: @ 0x08062AF4
 	str r1, [r0, #0x54]
 	ldr r0, _08062B44  @ gUnknown_086810B8
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -9409,7 +9409,7 @@ sub_8062B48: @ 0x08062B48
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -9423,19 +9423,19 @@ sub_8062B48: @ 0x08062B48
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _08062BA2
 _08062B84:
 	movs r0, #1
 	negs r0, r0
 	cmp r3, r0
 	bne _08062BA2
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08062BA8  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -9475,11 +9475,11 @@ sub_8062BAC: @ 0x08062BAC
 	str r0, [r4, #0x60]
 	ldr r0, _08062BFC  @ gUnknown_0868718C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08062C00  @ gUnknown_08686F84
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -9509,9 +9509,9 @@ _08062C10: .4byte gEfxBgSemaphore
 StartSpellAnimBerserk: @ 0x08062C14
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08062C4C  @ ProcScr_efxBerserk
 	movs r1, #3
 	bl Proc_Start
@@ -9626,7 +9626,7 @@ _08062D08:
 	movs r1, #2
 	orrs r0, r1
 	strh r0, [r5, #0x10]
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -9662,11 +9662,11 @@ sub_8062D30: @ 0x08062D30
 	strh r4, [r0, #0x2e]
 	ldr r0, _08062E2C  @ gUnknown_0868C338
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _08062E30  @ gUnknown_086849B8
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _08062E34  @ gUnknown_08684AB8
 	ldr r1, _08062E38  @ gBG1TilemapBuffer
 	movs r2, #1
@@ -9679,7 +9679,7 @@ sub_8062D30: @ 0x08062D30
 	bl sub_8070E94
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0xe
 	movs r2, #8
@@ -9782,7 +9782,7 @@ sub_8062E44: @ 0x08062E44
 	ldrsh r1, [r4, r2]
 	cmp r0, r1
 	bne _08062E96
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	bl SetDefaultColorEffects_
 	bl sub_8070874
 	ldr r0, [r5, #0x1c]
@@ -9976,11 +9976,11 @@ sub_8062FBC: @ 0x08062FBC
 	strh r0, [r1, #6]
 	ldr r0, _08062FF0  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08062FF4  @ gUnknown_0868C358
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10005,11 +10005,11 @@ sub_8062FF8: @ 0x08062FF8
 	strh r0, [r1, #6]
 	ldr r0, _0806302C  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08063030  @ gUnknown_0868C358
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10034,11 +10034,11 @@ sub_8063034: @ 0x08063034
 	strh r0, [r1, #6]
 	ldr r0, _08063068  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0806306C  @ gUnknown_0868C358
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10063,11 +10063,11 @@ sub_8063070: @ 0x08063070
 	strh r0, [r1, #6]
 	ldr r0, _080630A4  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080630A8  @ gUnknown_0868C358
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10092,11 +10092,11 @@ sub_80630AC: @ 0x080630AC
 	strh r0, [r1, #6]
 	ldr r0, _080630E0  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080630E4  @ gUnknown_0868C358
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10121,11 +10121,11 @@ sub_80630E8: @ 0x080630E8
 	strh r0, [r1, #6]
 	ldr r0, _0806311C  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08063120  @ gUnknown_0868C7F0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10150,11 +10150,11 @@ sub_8063124: @ 0x08063124
 	strh r0, [r1, #6]
 	ldr r0, _08063158  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0806315C  @ gUnknown_0868C7F0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10179,11 +10179,11 @@ sub_8063160: @ 0x08063160
 	strh r0, [r1, #6]
 	ldr r0, _08063194  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08063198  @ gUnknown_0868C7F0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10208,11 +10208,11 @@ sub_806319C: @ 0x0806319C
 	strh r0, [r1, #6]
 	ldr r0, _080631D0  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _080631D4  @ gUnknown_0868C7F0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10237,11 +10237,11 @@ sub_80631D8: @ 0x080631D8
 	strh r0, [r1, #6]
 	ldr r0, _0806320C  @ gUnknown_0868CC10
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08063210  @ gUnknown_0868C7F0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -10258,9 +10258,9 @@ _08063210: .4byte gUnknown_0868C7F0
 sub_8063214: @ 0x08063214
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0806324C  @ ProcScr_efxMshield
 	movs r1, #3
 	bl Proc_Start
@@ -10373,7 +10373,7 @@ _080632F8:
 	movs r1, #2
 	orrs r0, r1
 	strh r0, [r4, #0x10]
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl Proc_Break
@@ -10406,12 +10406,12 @@ sub_806331C: @ 0x0806331C
 	str r1, [r0, #0x50]
 	ldr r0, _08063370  @ gUnknown_0868DF5C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _08063374  @ gUnknown_0868D6D0
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -10433,7 +10433,7 @@ sub_8063378: @ 0x08063378
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -10446,14 +10446,14 @@ sub_8063378: @ 0x08063378
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _080633C4
 _080633A6:
 	movs r0, #1
 	negs r0, r0
 	cmp r2, r0
 	bne _080633C4
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _080633CC  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -10493,11 +10493,11 @@ sub_80633D0: @ 0x080633D0
 	str r0, [r4, #0x60]
 	ldr r0, _08063420  @ gUnknown_0868E46C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08063424  @ gUnknown_08686F84
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -10563,9 +10563,9 @@ _0806347C: .4byte gEfxBgSemaphore
 StartSpellAnimShine: @ 0x08063480
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080634B8  @ ProcScr_efxShine
 	movs r1, #3
 	bl Proc_Start
@@ -10667,7 +10667,7 @@ _0806354A:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08063588
@@ -10679,7 +10679,7 @@ _08063572:
 	adds r0, #0x23
 	cmp r1, r0
 	bne _08063588
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -10717,7 +10717,7 @@ sub_8063590: @ 0x08063590
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -10739,7 +10739,7 @@ sub_80635E8: @ 0x080635E8
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -10752,20 +10752,20 @@ sub_80635E8: @ 0x080635E8
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _08063642
 _08063624:
 	movs r0, #1
 	negs r0, r0
 	cmp r4, r0
 	bne _08063642
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08063648  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -10805,11 +10805,11 @@ sub_806364C: @ 0x0806364C
 	str r0, [r5, #0x50]
 	ldr r0, _080636B8  @ gUnknown_08727C48
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _080636BC  @ gUnknown_0872796C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _080636C0  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -10838,7 +10838,7 @@ _080636C4:
 	movs r2, #0
 	bl BG_SetPosition
 _080636CE:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -10854,7 +10854,7 @@ sub_80636D8: @ 0x080636D8
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -10867,7 +10867,7 @@ sub_80636D8: @ 0x080636D8
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	ldr r0, _08063720  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -10900,7 +10900,7 @@ _08063740:
 	negs r0, r0
 	cmp r2, r0
 	bne _0806375E
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08063768  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -10940,7 +10940,7 @@ sub_806376C: @ 0x0806376C
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -10960,7 +10960,7 @@ sub_80637B0: @ 0x080637B0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -10969,7 +10969,7 @@ sub_80637B0: @ 0x080637B0
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _080637EC
 _080637D6:
 	movs r0, #1
@@ -11010,11 +11010,11 @@ sub_80637F8: @ 0x080637F8
 	strh r2, [r0, #0x30]
 	ldr r0, _08063838  @ gUnknown_08728920
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0806383C  @ gUnknown_0872865C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -11191,9 +11191,9 @@ _08063970: .4byte gEfxBgSemaphore
 StartSpellAnimLuna: @ 0x08063974
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080639AC  @ ProcScr_efxLuna
 	movs r1, #3
 	bl Proc_Start
@@ -11384,7 +11384,7 @@ _08063B02:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r6, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08063B62
@@ -11408,7 +11408,7 @@ _08063B4C:
 	adds r0, #0xbe
 	cmp r1, r0
 	bne _08063B62
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -11442,12 +11442,12 @@ sub_8063B6C: @ 0x08063B6C
 	str r1, [r0, #0x50]
 	ldr r0, _08063BC0  @ gUnknown_0872972C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	ldr r0, _08063BC4  @ gUnknown_08728C5C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -11469,7 +11469,7 @@ sub_8063BC8: @ 0x08063BC8
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -11482,14 +11482,14 @@ sub_8063BC8: @ 0x08063BC8
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _08063C14
 _08063BF6:
 	movs r0, #1
 	negs r0, r0
 	cmp r2, r0
 	bne _08063C14
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08063C1C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -11702,11 +11702,11 @@ sub_8063D64: @ 0x08063D64
 	ldr r0, _08063DD0  @ gUnknown_0872987C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _08063DD4  @ gUnknown_08729FDC
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl ClearBG1
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_ClearBG1
 	ldr r0, _08063DD8  @ gUnknown_0872A1BC
 	ldr r4, _08063DDC  @ gEkrTsaBuffer
 	adds r1, r4, #0
@@ -11746,7 +11746,7 @@ _08063DE4:
 _08063DF8:
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, _08063E28  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -11793,7 +11793,7 @@ _08063E54: .4byte gLCDControlBuffer
 	THUMB_FUNC_START sub_8063E58
 sub_8063E58: @ 0x08063E58
 	push {lr}
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08063E70  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -11857,7 +11857,7 @@ sub_8063EA0: @ 0x08063EA0
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -11889,7 +11889,7 @@ sub_8063EF8: @ 0x08063EF8
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -11898,7 +11898,7 @@ sub_8063EF8: @ 0x08063EF8
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 _08063F1C:
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
@@ -11943,8 +11943,8 @@ sub_8063F3C: @ 0x08063F3C
 	str r0, [r5, #0x54]
 	ldr r0, _08063FA8  @ gUnknown_0872CE60
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	ldr r0, _08063FAC  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -11987,7 +11987,7 @@ sub_8063FC0: @ 0x08063FC0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -12001,19 +12001,19 @@ sub_8063FC0: @ 0x08063FC0
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _0806401A
 _08063FFC:
 	movs r0, #1
 	negs r0, r0
 	cmp r3, r0
 	bne _0806401A
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08064020  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -12046,11 +12046,11 @@ _0806402A:
 	bls _0806402A
 	ldr r0, _08064058  @ gUnknown_0872DE04
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _0806405C  @ gUnknown_0872DA04
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -12421,9 +12421,9 @@ _08064304: .4byte gEfxBgSemaphore
 sub_8064308: @ 0x08064308
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08064340  @ gUnknown_085D71F8
 	movs r1, #3
 	bl Proc_Start
@@ -12582,7 +12582,7 @@ _08064444:
 	strh r1, [r4, #0x10]
 	ldrb r1, [r7]
 	adds r0, r4, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	adds r0, r4, #0
 	bl sub_8072450
 _0806446E:
@@ -12603,7 +12603,7 @@ _08064486:
 	adds r0, #0xa7
 	cmp r1, r0
 	bne _080644D8
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl Proc_Break
@@ -12621,7 +12621,7 @@ _080644A2:
 	strh r1, [r4, #0x10]
 	ldrb r1, [r7]
 	adds r0, r4, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 _080644BE:
 	movs r3, #0x2c
 	ldrsh r1, [r5, r3]
@@ -12629,7 +12629,7 @@ _080644BE:
 	adds r0, #0x6f
 	cmp r1, r0
 	bne _080644D8
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r5, #0
 	bl Proc_Break
@@ -12660,12 +12660,12 @@ sub_80644E0: @ 0x080644E0
 	ldr r0, _0806453C  @ gUnknown_0872E25C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl ClearBG1
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_ClearBG1
 	ldr r0, _08064540  @ gUnknown_0872E7EC
 	ldr r1, _08064544  @ gEkrTsaBuffer
 	bl LZ77UnCompWram
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	ldr r2, _08064548  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21
@@ -12693,7 +12693,7 @@ _08064548: .4byte gLCDControlBuffer
 	THUMB_FUNC_START sub_806454C
 sub_806454C: @ 0x0806454C
 	push {lr}
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08064564  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -12866,7 +12866,7 @@ sub_806466C: @ 0x0806466C
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -12898,7 +12898,7 @@ sub_80646C0: @ 0x080646C0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -12907,7 +12907,7 @@ sub_80646C0: @ 0x080646C0
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _080646F4
 _080646E6:
 	movs r0, #1
@@ -13117,8 +13117,8 @@ sub_8064838: @ 0x08064838
 	ldr r0, _08064884  @ gUnknown_0872E998
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl ClearBG1
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_ClearBG1
 	ldr r0, _08064888  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -13171,7 +13171,7 @@ _080648C8:
 _080648DC:
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -13201,7 +13201,7 @@ _08064918: .4byte gLCDControlBuffer
 	THUMB_FUNC_START sub_806491C
 sub_806491C: @ 0x0806491C
 	push {lr}
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08064934  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -13257,7 +13257,7 @@ sub_8064958: @ 0x08064958
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13277,7 +13277,7 @@ sub_806499C: @ 0x0806499C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -13286,7 +13286,7 @@ sub_806499C: @ 0x0806499C
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _080649D8
 _080649C2:
 	movs r0, #1
@@ -13329,8 +13329,8 @@ sub_80649E4: @ 0x080649E4
 	ldr r0, _08064A30  @ gUnknown_08725DCC
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl ClearBG1
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_ClearBG1
 	ldr r0, _08064A34  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -13383,7 +13383,7 @@ _08064A74:
 _08064A88:
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -13413,7 +13413,7 @@ _08064AC4: .4byte gLCDControlBuffer
 	THUMB_FUNC_START sub_8064AC8
 sub_8064AC8: @ 0x08064AC8
 	push {lr}
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08064AE0  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -13469,7 +13469,7 @@ sub_8064B04: @ 0x08064B04
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13489,7 +13489,7 @@ sub_8064B48: @ 0x08064B48
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -13498,7 +13498,7 @@ sub_8064B48: @ 0x08064B48
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _08064B84
 _08064B6E:
 	movs r0, #1
@@ -13553,11 +13553,11 @@ sub_8064B90: @ 0x08064B90
 	strh r1, [r0, #4]
 	ldr r0, _08064BF4  @ gUnknown_08730780
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	ldr r0, _08064BF8  @ gUnknown_08730324
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -13623,8 +13623,8 @@ sub_8064C28: @ 0x08064C28
 	str r1, [r0, #0x54]
 	ldr r0, _08064C7C  @ gUnknown_08724424
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13657,7 +13657,7 @@ sub_8064C80: @ 0x08064C80
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -13675,14 +13675,14 @@ sub_8064C80: @ 0x08064C80
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _08064CF2
 _08064CD4:
 	movs r0, #1
 	negs r0, r0
 	cmp r2, r0
 	bne _08064CF2
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08064CF8  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -13725,11 +13725,11 @@ sub_8064D00: @ 0x08064D00
 	ldr r0, _08064D90  @ gUnknown_087313C8
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _08064D94  @ gUnknown_08732228
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl ClearBG1
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_ClearBG1
 	ldr r0, _08064D98  @ gUnknown_08732368
 	ldr r4, _08064D9C  @ gEkrTsaBuffer
 	adds r1, r4, #0
@@ -13745,7 +13745,7 @@ sub_8064D00: @ 0x08064D00
 	bl sub_8070EC4
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -13780,7 +13780,7 @@ _08064DA4: .4byte gLCDControlBuffer
 	THUMB_FUNC_START sub_8064DA8
 sub_8064DA8: @ 0x08064DA8
 	push {lr}
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08064DC0  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -13836,7 +13836,7 @@ sub_8064DE4: @ 0x08064DE4
 	str r1, [r0, #0x4c]
 	ldr r0, _08064E28  @ gUnknown_08731348
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13857,7 +13857,7 @@ sub_8064E2C: @ 0x08064E2C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -13866,7 +13866,7 @@ sub_8064E2C: @ 0x08064E2C
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _08064E68
 _08064E52:
 	movs r0, #1
@@ -13892,9 +13892,9 @@ _08064E70: .4byte gEfxBgSemaphore
 StartSpellAnimAura: @ 0x08064E74
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
+	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl ClearBG1Setup
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08064EAC  @ gUnknown_085D7490
 	movs r1, #3
 	bl Proc_Start
@@ -14037,7 +14037,7 @@ _08064F86:
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl DoEkrOffensiveAtkHit
+	bl StartBattleAnimHitEffectsDefault
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08064FFE
@@ -14072,7 +14072,7 @@ _08064FE8:
 	adds r0, #0xf5
 	cmp r1, r0
 	bne _08064FFE
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	bl EfxSpellCastSet29
 	adds r0, r4, #0
 	bl Proc_Break
@@ -14108,10 +14108,10 @@ sub_8065008: @ 0x08065008
 	ldr r0, _0806507C  @ gUnknown_087327C4
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _08065080  @ gUnknown_0873313C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -14144,7 +14144,7 @@ _08065088:
 	movs r2, #0
 	bl BG_SetPosition
 _08065092:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -14175,10 +14175,10 @@ sub_806509C: @ 0x0806509C
 	ldr r0, _08065110  @ gUnknown_087327C4
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _08065114  @ gUnknown_0873313C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -14211,7 +14211,7 @@ _0806511C:
 	movs r2, #0
 	bl BG_SetPosition
 _08065126:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -14242,10 +14242,10 @@ sub_8065130: @ 0x08065130
 	ldr r0, _080651A4  @ gUnknown_087327C4
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _080651A8  @ gUnknown_0873313C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -14278,7 +14278,7 @@ _080651B0:
 	movs r2, #0
 	bl BG_SetPosition
 _080651BA:
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -14293,7 +14293,7 @@ sub_80651C4: @ 0x080651C4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -14306,14 +14306,14 @@ sub_80651C4: @ 0x080651C4
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _08065210
 _080651F2:
 	movs r0, #1
 	negs r0, r0
 	cmp r2, r0
 	bne _08065210
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08065218  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -14351,8 +14351,8 @@ sub_806521C: @ 0x0806521C
 	ldr r0, _08065268  @ gUnknown_08725DCC
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
-	bl ClearBG1
+	bl SpellFx_RegisterBgGfx
+	bl SpellFx_ClearBG1
 	ldr r0, _0806526C  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -14405,7 +14405,7 @@ _080652AC:
 _080652C0:
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -14435,7 +14435,7 @@ _080652FC: .4byte gLCDControlBuffer
 	THUMB_FUNC_START sub_8065300
 sub_8065300: @ 0x08065300
 	push {lr}
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _08065318  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -14492,7 +14492,7 @@ sub_806533C: @ 0x0806533C
 	str r0, [r1, #0x4c]
 	adds r0, #0x60
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -14512,7 +14512,7 @@ sub_8065384: @ 0x08065384
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -14521,7 +14521,7 @@ sub_8065384: @ 0x08065384
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _080653C0
 _080653AA:
 	movs r0, #1
@@ -14567,12 +14567,12 @@ sub_80653CC: @ 0x080653CC
 	str r1, [r0, #0x54]
 	ldr r0, _08065428  @ gUnknown_0874394C
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_80551B0
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -14594,7 +14594,7 @@ sub_806542C: @ 0x0806542C
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -14607,20 +14607,20 @@ sub_806542C: @ 0x0806542C
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _08065486
 _08065468:
 	movs r0, #1
 	negs r0, r0
 	cmp r4, r0
 	bne _08065486
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _0806548C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -14674,8 +14674,8 @@ sub_8065498: @ 0x08065498
 	str r2, [r0, #0x58]
 	ldr r0, _080654F4  @ gUnknown_08750268
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -14704,7 +14704,7 @@ sub_80654F8: @ 0x080654F8
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -14722,7 +14722,7 @@ sub_80654F8: @ 0x080654F8
 	movs r1, #0x80
 	lsls r1, r1, #6
 	adds r0, r2, #0
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 _08065534:
 	ldr r0, [r6]
 	str r0, [r4, #0x58]
@@ -14732,7 +14732,7 @@ _08065534:
 	mov r3, r8
 	adds r2, r5, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	ldr r0, _08065570  @ gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -14772,7 +14772,7 @@ _08065594:
 	negs r0, r0
 	cmp r1, r0
 	bne _080655B2
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	ldr r1, _080655C0  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	subs r0, #1
@@ -14820,10 +14820,10 @@ sub_80655C4: @ 0x080655C4
 	ldr r0, _0806561C  @ gUnknown_08751808
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	ldr r0, _08065620  @ gUnknown_08751DB4
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -14853,8 +14853,8 @@ _08065630: .4byte gEfxBgSemaphore
 sub_8065634: @ 0x08065634
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
-	bl ClearBG1Setup
+	bl SpellFx_Begin
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _0806566C  @ ProcScr_efxDancepara
 	movs r1, #3
 	bl Proc_Start
@@ -14883,8 +14883,8 @@ _0806566C: .4byte ProcScr_efxDancepara
 sub_8065670: @ 0x08065670
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
-	bl ClearBG1Setup
+	bl SpellFx_Begin
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080656A8  @ ProcScr_efxDancepara
 	movs r1, #3
 	bl Proc_Start
@@ -14913,8 +14913,8 @@ _080656A8: .4byte ProcScr_efxDancepara
 sub_80656AC: @ 0x080656AC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
-	bl ClearBG1Setup
+	bl SpellFx_Begin
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _080656E4  @ ProcScr_efxDancepara
 	movs r1, #3
 	bl Proc_Start
@@ -14943,8 +14943,8 @@ _080656E4: .4byte ProcScr_efxDancepara
 sub_80656E8: @ 0x080656E8
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl RegisterEfxSpellAnimDelay
-	bl ClearBG1Setup
+	bl SpellFx_Begin
+	bl SpellFx_SpellFx_ClearBG1Position
 	ldr r0, _08065720  @ ProcScr_efxDancepara
 	movs r1, #3
 	bl Proc_Start
@@ -15043,7 +15043,7 @@ _080657B6:
 	movs r1, #2
 	orrs r0, r1
 	strh r0, [r4, #0x10]
-	bl UnregisterEfxSpellAnimDelay
+	bl SpellFx_Finish
 	adds r0, r5, #0
 	bl Proc_Break
 _080657CC:

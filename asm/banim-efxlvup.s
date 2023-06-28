@@ -475,8 +475,8 @@ NewEfxlvupbg: @ 0x080748C4
 	str r1, [r0, #0x54]
 	ldr r0, _08074908  @ gUnknown_085C48AC
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
-	bl sub_80551B0
+	bl SpellFx_RegisterBgPal
+	bl SpellFx_SetSomeColorEffect
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -497,7 +497,7 @@ sub_807490C: @ 0x0807490C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -511,19 +511,19 @@ sub_807490C: @ 0x0807490C
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	b _0807495E
 _08074948:
 	movs r0, #1
 	negs r0, r0
 	cmp r3, r0
 	bne _0807495E
-	bl ClearBG1
+	bl SpellFx_ClearBG1
 	bl SetDefaultColorEffects_
 	adds r0, r4, #0
 	bl Proc_Break
@@ -553,10 +553,10 @@ NewEfxLvupBG2: @ 0x08074964
 	ldr r0, _080749A8  @ gUnknown_085C5994
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl SomeImageStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgGfx
 	ldr r0, _080749AC  @ gUnknown_085C6054
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -577,7 +577,7 @@ sub_80749B0: @ 0x080749B0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -590,7 +590,7 @@ sub_80749B0: @ 0x080749B0
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8055670
+	bl SpellFx_WriteBgMap
 	b _080749EC
 _080749DE:
 	movs r0, #1
@@ -633,10 +633,10 @@ NewEfxLvupOBJ2: @ 0x080749F4
 	ldr r0, _08074A4C  @ gUnknown_085C6730
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl SomeImageStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjGfx
 	ldr r0, _08074A50  @ gUnknown_085C6054
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim
+	bl SpellFx_RegisterObjPal
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -698,7 +698,7 @@ sub_8074A94: @ 0x08074A94
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -750,7 +750,7 @@ sub_8074AFC: @ 0x08074AFC
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl EfxGetNextFrameIndex
+	bl SpellFx_InterpretBgAnimScript
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -759,7 +759,7 @@ sub_8074AFC: @ 0x08074AFC
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl SomePaletteStoringRoutine_SpellAnim2
+	bl SpellFx_RegisterBgPal
 	b _08074B30
 _08074B22:
 	movs r0, #1

@@ -164,7 +164,7 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
             gEkrBgXOffset = -0xF0;
     }
 
-    sub_8059D28();
+    InitBothAIS();
     sub_8070B3C();
     SetAnimStateHiddenForDragon();
 
@@ -491,7 +491,7 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                         ParseBattleHitToBanimCmd();
                         AnimClearAll();
                         UpdateBanimFrame();
-                        sub_8059D28();
+                        InitBothAIS();
 
                         proc->timer = 0;
                         proc->proc_idleCb = (ProcFunc)ekrBattleTriggerNewRoundStart;
@@ -730,7 +730,7 @@ void ekrBattleLvupHanlder(struct ProcEkrBattle *proc)
     if (proc->timer <= 0x28)
         return;
 
-    ClearBG1();
+    SpellFx_ClearBG1();
     EkrGauge_Setup44(0);
 
     switch (GetBanimDragonStatusType()) {
