@@ -924,68 +924,17 @@ void sub_8077474(int arg1, int arg2)
         66, 32, 30, 6, 0);
 }
 
-#if NONMATCHING
-
 void sub_807750C(int arg1, int arg2)
 {
     int _a1 = arg1 >> 3;
+    int a = arg1 & 7;
     int _a2 = arg2 >> 3;
+    int b = arg2 & 7;
 
-    BG_SetPosition(BG_3, (u16)arg1, (u16)(arg2 & 0x7));
+    BG_SetPosition(BG_3, a, b);
     sub_8070EF4(gUnknown_0201D428 + _a1 + 66 * _a2, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 }
-
-#else
-
-__attribute__((naked))
-void sub_807750C(int arg1, int arg2)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        sub sp, #0x10\n\
-        adds r3, r0, #0\n\
-        adds r2, r1, #0\n\
-        asrs r4, r3, #3\n\
-        movs r1, #7\n\
-        asrs r5, r2, #3\n\
-        ands r2, r1\n\
-        movs r0, #3\n\
-        ands r1, r3\n\
-        bl BG_SetPosition\n\
-        lsls r4, r4, #1\n\
-        lsls r0, r5, #5\n\
-        adds r0, r0, r5\n\
-        lsls r0, r0, #2\n\
-        ldr r1, _08077558  @ gUnknown_0201D428\n\
-        adds r0, r0, r1\n\
-        adds r4, r4, r0\n\
-        ldr r2, _0807755C  @ gBG3TilemapBuffer\n\
-        movs r0, #0x20\n\
-        str r0, [sp]\n\
-        str r0, [sp, #4]\n\
-        subs r0, #0x21\n\
-        str r0, [sp, #8]\n\
-        str r0, [sp, #0xc]\n\
-        adds r0, r4, #0\n\
-        movs r1, #0x42\n\
-        movs r3, #0x20\n\
-        bl sub_8070EF4\n\
-        movs r0, #8\n\
-        bl BG_EnableSyncByMask\n\
-        add sp, #0x10\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08077558: .4byte gUnknown_0201D428\n\
-    _0807755C: .4byte gBG3TilemapBuffer\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 CONST_DATA struct ProcCmd ProcScr_087F4518[] = {
     PROC_YIELD,
@@ -1116,68 +1065,17 @@ void sub_80776D8(int arg1, int arg2, const u16 *tsa)
         66, 32, 32, 6, 0);
 }
 
-#if NONMATCHING
-
 void sub_807773C(int arg1, int arg2)
 {
     int _a1 = arg1 >> 3;
+    int a = arg1 & 7;
     int _a2 = arg2 >> 3;
+    int b = arg2 & 7;
 
-    BG_SetPosition(BG_3, (u16)arg1, (u16)(arg2 & 0x7));
+    BG_SetPosition(BG_3, a, b);
     sub_8070EF4(gUnknown_0201D428 + _a1 + 66 * _a2, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 }
-
-#else
-
-__attribute__((naked))
-void sub_807773C(int arg1, int arg2)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        sub sp, #0x10\n\
-        adds r3, r0, #0\n\
-        adds r2, r1, #0\n\
-        asrs r4, r3, #3\n\
-        movs r1, #7\n\
-        asrs r5, r2, #3\n\
-        ands r2, r1\n\
-        movs r0, #3\n\
-        ands r1, r3\n\
-        bl BG_SetPosition\n\
-        lsls r4, r4, #1\n\
-        lsls r0, r5, #5\n\
-        adds r0, r0, r5\n\
-        lsls r0, r0, #2\n\
-        ldr r1, _08077788  @ gUnknown_0201D428\n\
-        adds r0, r0, r1\n\
-        adds r4, r4, r0\n\
-        ldr r2, _0807778C  @ gBG3TilemapBuffer\n\
-        movs r0, #0x20\n\
-        str r0, [sp]\n\
-        str r0, [sp, #4]\n\
-        subs r0, #0x21\n\
-        str r0, [sp, #8]\n\
-        str r0, [sp, #0xc]\n\
-        adds r0, r4, #0\n\
-        movs r1, #0x42\n\
-        movs r3, #0x20\n\
-        bl sub_8070EF4\n\
-        movs r0, #8\n\
-        bl BG_EnableSyncByMask\n\
-        add sp, #0x10\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08077788: .4byte gUnknown_0201D428\n\
-    _0807778C: .4byte gBG3TilemapBuffer\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 CONST_DATA struct ProcCmd ProcScr_ekrDragonTunk[] = {
     PROC_NAME("ekrDragonTunk"),
@@ -1395,12 +1293,10 @@ void EkrWhiteOutOnEnd(struct ProcEkrWhiteOUT *proc)
     Proc_Break(proc);
 }
 
-/* https://decomp.me/scratch/aK4hE */
-#if NONMATCHING
-
-void sub_8077C54(int x, int y)
+void sub_8077C54(s16 x, s16 y)
 {
-    int ix1, iy1, ix2, iy2;
+    s16 ix1, iy1;
+    s16 ix2, iy2;
 
     BG_SetPosition(BG_2, x, y);
     BG_SetPosition(BG_0, x + gEkrBg0QuakeVec.x, y + gEkrBg0QuakeVec.y);
@@ -1417,121 +1313,9 @@ void sub_8077C54(int x, int y)
 
     ix1 = gEkrXPosBase[0] - x - gEkrBgXOffset;
     iy1 = gEkrYPosBase[0] - y;
-    ix2 = gEkrXPosBase[1] - gEkrBgXOffset;
+    ix2 = gEkrXPosBase[1] + x - gEkrBgXOffset;
     iy2 = gEkrYPosBase[1] - y;
 
     SetEkrFrontAnimPostion(0, ix1, iy1);
     SetEkrFrontAnimPostion(1, ix2, iy2);
 }
-#else
-
-__attribute__((naked))
-void sub_8077C54(int x, int y)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        adds r5, r0, #0\n\
-        adds r6, r1, #0\n\
-        lsls r5, r5, #0x10\n\
-        lsrs r0, r5, #0x10\n\
-        mov r9, r0\n\
-        lsls r6, r6, #0x10\n\
-        lsrs r7, r6, #0x10\n\
-        mov r8, r7\n\
-        movs r0, #2\n\
-        mov r1, r9\n\
-        mov r2, r8\n\
-        bl BG_SetPosition\n\
-        ldr r4, _08077D20  @ gEkrBg0QuakeVec\n\
-        ldrh r1, [r4]\n\
-        asrs r5, r5, #0x10\n\
-        adds r1, r5, r1\n\
-        lsls r1, r1, #0x10\n\
-        lsrs r1, r1, #0x10\n\
-        ldrh r2, [r4, #2]\n\
-        asrs r6, r6, #0x10\n\
-        adds r2, r6, r2\n\
-        lsls r2, r2, #0x10\n\
-        lsrs r2, r2, #0x10\n\
-        movs r0, #0\n\
-        bl BG_SetPosition\n\
-        ldrh r0, [r4]\n\
-        adds r0, r5, r0\n\
-        negs r0, r0\n\
-        lsls r0, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        ldrh r1, [r4, #2]\n\
-        adds r1, r6, r1\n\
-        negs r1, r1\n\
-        lsls r1, r1, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        bl EkrGauge_Setxy323A\n\
-        ldrh r0, [r4]\n\
-        adds r0, r5, r0\n\
-        negs r0, r0\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        ldrh r1, [r4, #2]\n\
-        adds r1, r6, r1\n\
-        negs r1, r1\n\
-        lsls r1, r1, #0x10\n\
-        lsrs r1, r1, #0x10\n\
-        bl sub_8051B5C\n\
-        movs r0, #3\n\
-        mov r1, r9\n\
-        mov r2, r8\n\
-        bl BG_SetPosition\n\
-        ldr r0, _08077D24  @ gEkrXPosBase\n\
-        mov r8, r0\n\
-        ldrh r1, [r0]\n\
-        subs r1, r1, r5\n\
-        ldr r0, _08077D28  @ gEkrBgXOffset\n\
-        ldr r3, [r0]\n\
-        subs r1, r1, r3\n\
-        ldr r4, _08077D2C  @ gEkrYPosBase\n\
-        ldrh r2, [r4]\n\
-        subs r2, r2, r6\n\
-        mov r7, r8\n\
-        ldrh r0, [r7, #2]\n\
-        adds r5, r5, r0\n\
-        subs r5, r5, r3\n\
-        lsls r5, r5, #0x10\n\
-        lsrs r5, r5, #0x10\n\
-        ldrh r4, [r4, #2]\n\
-        subs r4, r4, r6\n\
-        lsls r4, r4, #0x10\n\
-        lsrs r4, r4, #0x10\n\
-        lsls r1, r1, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        lsls r2, r2, #0x10\n\
-        asrs r2, r2, #0x10\n\
-        movs r0, #0\n\
-        bl SetEkrFrontAnimPostion\n\
-        lsls r5, r5, #0x10\n\
-        asrs r5, r5, #0x10\n\
-        lsls r4, r4, #0x10\n\
-        asrs r4, r4, #0x10\n\
-        movs r0, #1\n\
-        adds r1, r5, #0\n\
-        adds r2, r4, #0\n\
-        bl SetEkrFrontAnimPostion\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08077D20: .4byte gEkrBg0QuakeVec\n\
-    _08077D24: .4byte gEkrXPosBase\n\
-    _08077D28: .4byte gEkrBgXOffset\n\
-    _08077D2C: .4byte gEkrYPosBase\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif

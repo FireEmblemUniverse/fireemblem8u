@@ -118,126 +118,30 @@ void sub_8077F04(struct Proc08801840 *proc)
     proc->timer = 0;
 }
 
-/* https://decomp.me/scratch/40fgO */
-#if NONMATCHING
-
 void sub_8077F10(struct Proc08801840 *proc)
 {
     int time, i = 0;
-    u32 *src = gUnknown_08801AB4;
-    for (i = 0; i < 6; i++) {
-        u16 *buf = (void *)0x6002000 + ((proc->ref + i * 0x10) & 0x3FF) * 0x20;
-        *(u32 *)0x6002000 = *(src++);
-        sub_8077F9C(buf, *((u8 *)0x6002000 + proc->timer));
+    for (i = 0; i < 6; i++)
+        sub_8077F9C((void *)0x6002000 + ((proc->ref + i * 0x10) & 0x3FF) * 0x20, gUnknown_08801AB4[i][proc->timer]);
+
+    if (proc->timer > 0x3E)
+        Proc_Break(proc);
+    else {
+        proc->timer++;
+
+        for (i = 0; i < 6; i++)
+            sub_8077F9C((void *)0x6002000 + ((proc->ref + i * 0x10) & 0x3FF) * 0x20, gUnknown_08801AB4[i][proc->timer]);
+
+        if (proc->timer > 0x3E)
+            Proc_Break(proc);
+        else
+            proc->timer++;
     }
-
-    time = proc->timer;
-    if (time <= 0x3E) {
-        proc->timer = time + 1;
-
-        for (i = 0; i < 6; i++) {
-            u16 *buf = (void *)0x6002000 + ((proc->ref + i * 0x10) & 0x3FF) * 0x20;
-            *(u32 *)0x6002000 = *(src++);
-            sub_8077F9C(buf, *((u8 *)0x6002000 + proc->timer));
-        }
-
-        time = proc->timer;
-        if (time <= 0x3E) {
-            proc->timer = time + 1;
-            return;
-        }
-    }
-
-    Proc_Break(proc);
-}
-#else
-
-__attribute__((naked))
-void sub_8077F10(struct Proc08801840 *proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        adds r5, r0, #0\n\
-        movs r4, #0\n\
-        adds r7, r5, #0\n\
-        adds r7, #0x64\n\
-        ldr r6, _08077F84  @ gUnknown_08801AB4\n\
-    _08077F1C:\n\
-        adds r0, r5, #0\n\
-        adds r0, #0x64\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        lsls r1, r4, #4\n\
-        adds r0, r0, r1\n\
-        ldr r1, _08077F88  @ 0x000003FF\n\
-        ands r0, r1\n\
-        lsls r0, r0, #5\n\
-        ldr r1, _08077F8C  @ 0x06002000\n\
-        adds r0, r0, r1\n\
-        ldm r6!, {r1}\n\
-        ldr r2, [r5, #0x58]\n\
-        adds r1, r1, r2\n\
-        ldrb r1, [r1]\n\
-        bl sub_8077F9C\n\
-        adds r4, #1\n\
-        cmp r4, #5\n\
-        ble _08077F1C\n\
-        ldr r0, [r5, #0x58]\n\
-        cmp r0, #0x3e\n\
-        bgt _08077F7C\n\
-        adds r0, #1\n\
-        str r0, [r5, #0x58]\n\
-        movs r4, #0\n\
-        ldr r6, _08077F84  @ gUnknown_08801AB4\n\
-    _08077F52:\n\
-        movs r1, #0\n\
-        ldrsh r0, [r7, r1]\n\
-        lsls r1, r4, #4\n\
-        adds r0, r0, r1\n\
-        ldr r1, _08077F88  @ 0x000003FF\n\
-        ands r0, r1\n\
-        lsls r0, r0, #5\n\
-        ldr r1, _08077F8C  @ 0x06002000\n\
-        adds r0, r0, r1\n\
-        ldm r6!, {r1}\n\
-        ldr r2, [r5, #0x58]\n\
-        adds r1, r1, r2\n\
-        ldrb r1, [r1]\n\
-        bl sub_8077F9C\n\
-        adds r4, #1\n\
-        cmp r4, #5\n\
-        ble _08077F52\n\
-        ldr r0, [r5, #0x58]\n\
-        cmp r0, #0x3e\n\
-        ble _08077F90\n\
-    _08077F7C:\n\
-        adds r0, r5, #0\n\
-        bl Proc_Break\n\
-        b _08077F94\n\
-        .align 2, 0\n\
-    _08077F84: .4byte gUnknown_08801AB4\n\
-    _08077F88: .4byte 0x000003FF\n\
-    _08077F8C: .4byte 0x06002000\n\
-    _08077F90:\n\
-        adds r0, #1\n\
-        str r0, [r5, #0x58]\n\
-    _08077F94:\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
 }
 
-#endif
-
-#if 0
 void sub_8077F9C(u16 *buf, int a)
 {
-    int _a = a >> 2;
-    int _b = (_a << 1) % 4;
-    buf[_a] &= gUnknown_08801858[_b];
-    buf[_a] |= gUnknown_08801860[_b];
+    u16 *dst = &buf[a >> 2];
+    *dst &= ~gUnknown_08801858[a & 3];
+    *dst |= gUnknown_08801860[a & 3];
 }
-#endif
