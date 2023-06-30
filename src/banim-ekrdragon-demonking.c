@@ -1065,68 +1065,17 @@ void sub_80776D8(int arg1, int arg2, const u16 *tsa)
         66, 32, 32, 6, 0);
 }
 
-#if NONMATCHING
-
 void sub_807773C(int arg1, int arg2)
 {
     int _a1 = arg1 >> 3;
+    int a = arg1 & 7;
     int _a2 = arg2 >> 3;
+    int b = arg2 & 7;
 
-    BG_SetPosition(BG_3, (u16)arg1, (u16)(arg2 & 0x7));
+    BG_SetPosition(BG_3, a, b);
     sub_8070EF4(gUnknown_0201D428 + _a1 + 66 * _a2, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 }
-
-#else
-
-__attribute__((naked))
-void sub_807773C(int arg1, int arg2)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        sub sp, #0x10\n\
-        adds r3, r0, #0\n\
-        adds r2, r1, #0\n\
-        asrs r4, r3, #3\n\
-        movs r1, #7\n\
-        asrs r5, r2, #3\n\
-        ands r2, r1\n\
-        movs r0, #3\n\
-        ands r1, r3\n\
-        bl BG_SetPosition\n\
-        lsls r4, r4, #1\n\
-        lsls r0, r5, #5\n\
-        adds r0, r0, r5\n\
-        lsls r0, r0, #2\n\
-        ldr r1, _08077788  @ gUnknown_0201D428\n\
-        adds r0, r0, r1\n\
-        adds r4, r4, r0\n\
-        ldr r2, _0807778C  @ gBG3TilemapBuffer\n\
-        movs r0, #0x20\n\
-        str r0, [sp]\n\
-        str r0, [sp, #4]\n\
-        subs r0, #0x21\n\
-        str r0, [sp, #8]\n\
-        str r0, [sp, #0xc]\n\
-        adds r0, r4, #0\n\
-        movs r1, #0x42\n\
-        movs r3, #0x20\n\
-        bl sub_8070EF4\n\
-        movs r0, #8\n\
-        bl BG_EnableSyncByMask\n\
-        add sp, #0x10\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08077788: .4byte gUnknown_0201D428\n\
-    _0807778C: .4byte gBG3TilemapBuffer\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 CONST_DATA struct ProcCmd ProcScr_ekrDragonTunk[] = {
     PROC_NAME("ekrDragonTunk"),
