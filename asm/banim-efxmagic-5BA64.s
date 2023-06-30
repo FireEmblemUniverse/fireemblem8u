@@ -730,7 +730,7 @@ sub_805BFDC: @ 0x0805BFDC
 	ldr r0, _0805C034  @ gUnknown_085DA3C0
 	str r0, [sp]
 	adds r0, r4, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
@@ -874,7 +874,7 @@ sub_805C104: @ 0x0805C104
 	str r2, [sp]
 	adds r0, r4, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
@@ -1175,7 +1175,7 @@ sub_805C358: @ 0x0805C358
 	ldr r0, _0805C3B4  @ gUnknown_085DA864
 	str r0, [sp]
 	adds r0, r5, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r4, #0x60]
 	ldr r0, _0805C3B8  @ gUnknown_085DA05C
 	movs r1, #0x20
@@ -1783,7 +1783,7 @@ _0805C8CC:
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	adds r0, r6, #0
@@ -2111,7 +2111,7 @@ sub_805CB40: @ 0x0805CB40
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r4, #0x60]
 	lsls r5, r5, #5
 	ldr r0, _0805CBA0  @ gUnknown_08754870
@@ -2463,7 +2463,7 @@ sub_805CE1C: @ 0x0805CE1C
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	ldrh r0, [r6, #4]
@@ -2683,7 +2683,7 @@ _0805CFF0:
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r4, #0x60]
 	ldr r0, _0805D028  @ gUnknown_085DE964
 	movs r1, #0x20
@@ -2876,7 +2876,7 @@ _0805D17C:
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, _0805D1B8  @ gEkrDistanceType
@@ -3243,7 +3243,7 @@ sub_805D444: @ 0x0805D444
 	str r2, [sp]
 	adds r0, r4, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r6, r0, #0
 	str r6, [r5, #0x60]
 	adds r0, r4, #0
@@ -3570,7 +3570,7 @@ sub_805D6CC: @ 0x0805D6CC
 	str r3, [sp]
 	adds r0, r6, #0
 	adds r1, r2, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	movs r0, #0x14

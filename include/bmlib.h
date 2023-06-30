@@ -17,7 +17,7 @@ enum interpolate_method {
     INTERPOLATE_RCUBIC,
 };
 
-int Interpolate(int method, int lo, int hi, int x, int end);
+int Interpolate(int method, int ymin, int ymax, int xcur, int xmax);
 
 struct PalFadeSt {
     /* 00 */ u16 from_colors[0x10];
@@ -116,7 +116,7 @@ void StartPalFadeToBlack(int palid, int duration, ProcPtr parent); // StartPalFa
 // ??? EndPalFade(???);
 // ??? SetPalFadeStop(???);
 // ??? PalFade_OnLoop(???);
-void SetBlackPal(int); // SetBlackPal
+void SetBlackPal(int);
 // ??? SetWhitePal(???);
 // ??? SetAllBlackPals(???);
 // ??? SetAllWhitePals(???);

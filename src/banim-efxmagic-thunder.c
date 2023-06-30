@@ -143,7 +143,7 @@ void NewEfxThunderOBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxThunderOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->anim2 = EfxAnimCreate(anim, gUnknown_085F5550, gUnknown_085F4A24, gUnknown_085F5550, gUnknown_085F4A24);
+    proc->anim2 = EfxAnimCreate1(anim, gUnknown_085F5550, gUnknown_085F4A24, gUnknown_085F5550, gUnknown_085F4A24);
 
     SpellFx_RegisterObjPal(gUnknown_085F3F40, 0x20);
     SpellFx_RegisterObjGfx(gUnknown_085F3AA8, 0x1000);

@@ -1140,8 +1140,8 @@ gUnknown_087A73F4:  @ 0x087A73F4
 gUnknown_087F3C54:  @ 0x087F3C54
 	.incbin "baserom.gba", 0x7F3C54, 0x530
 
-	.global gUnknown_087F4184
-gUnknown_087F4184:  @ 0x087F4184
+	.global BanimScr_087F4184
+BanimScr_087F4184:  @ 0x087F4184
     .4byte gUnknown_087F3C54 + 0x3ee
     .4byte 0x70000000 + gUnknown_087F3C54 + 0x4a3
     .4byte 0x8400010d
@@ -1151,8 +1151,8 @@ gUnknown_087F4184:  @ 0x087F4184
 gUnknown_087F4194:  @ 0x087F4194
 	.incbin "baserom.gba", 0x7F4194, 0x180
 
-	.global gUnknown_087F4314
-gUnknown_087F4314:  @ 0x087F4314
+	.global BanimScr_087F4314
+BanimScr_087F4314:  @ 0x087F4314
     .4byte gUnknown_087F4194 + 0x2
     .4byte 0x70000000 + gUnknown_087F4194 + 0xc3
     .4byte 0x840001d5

@@ -55,7 +55,7 @@ void NewEfxYushaSpinShieldOBJ(struct Anim *anim, int r1)
         scr2 = gUnknown_085EE398;
     }
 
-    anim2 = EfxAnimCreate(anim, scr2, scr1, scr2, scr1);
+    anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
 
     /**
@@ -183,7 +183,7 @@ void NewEfxHurtmutEff00OBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxHurtmutEff00OBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->anim2 = EfxAnimCreate(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
+    proc->anim2 = EfxAnimCreate1(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
 }
 
 void efxHurtmutEff00OBJ_806CEC4(struct ProcEfxOBJ *proc)
@@ -236,7 +236,7 @@ void NewEfxHurtmutEff01OBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxHurtmutEff01OBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->anim2 = EfxAnimCreate(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
+    proc->anim2 = EfxAnimCreate1(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
 }
 
 void efxHurtmutEff01OBJ_806CFC4(struct ProcEfxOBJ *proc)
@@ -465,7 +465,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
             scr2 = gUnknown_085F18FC;
     }
 
-    proc->anim2 = EfxAnimCreate(anim, scr2, scr1, scr2, scr1);
+    proc->anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
 
     terrain = gEkrPairTerrainID[GetAISSubjectId(proc->anim)];
     switch (terrain) {
@@ -594,7 +594,7 @@ void NewEfxLokmsunaOBJ(struct Anim *anim)
 
     scr1 = gUnknown_087584B8;
     scr2 = gUnknown_087585DC;
-    anim2 = EfxAnimCreate(anim, scr2, scr1, scr2, scr1);
+    anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
 
     /* oam2_data::pal = 0 */
@@ -696,7 +696,7 @@ void NewEfxSongOBJ2(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->unk2E = 0x28;
-    proc->anim2 = EfxAnimCreate(anim, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4);
+    proc->anim2 = EfxAnimCreate1(anim, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4);
     SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
     SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
     EkrSoundSomeBark(0xEE, 0x100, proc->anim->xPosition, 0x1);
@@ -723,7 +723,7 @@ void NewEfxDanceOBJ(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->unk2E = 0x19;
-    proc->anim2 = EfxAnimCreate(anim, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484);
+    proc->anim2 = EfxAnimCreate1(anim, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484);
     SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
     SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
     EkrSoundSomeBark(0xE1, 0x100, proc->anim->xPosition, 0x1);
@@ -1031,7 +1031,7 @@ void NewEfxMantBatabata(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxMantBatabata, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    anim2 = EfxAnimCreate(anim, scr2, scr1, scr2, scr1);
+    anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
     gUnknown_02000010[GetAISSubjectId(proc->anim)] = proc->anim2;
 
@@ -1209,7 +1209,7 @@ void NewEfxChillAnime(struct Anim *anim, int arg1)
     proc = Proc_Start(ProcScr_efxChillAnime, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    anim2 = EfxAnimCreate(anim, scr2, scr1, scr2, scr1);
+    anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
     gUnknown_02000010[GetAISSubjectId(proc->anim)] = proc->anim2;
 

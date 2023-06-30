@@ -26,22 +26,26 @@ int Interpolate(int method, int lo, int hi, int x, int x_max)
 
     switch (method) {
     case INTERPOLATE_LINEAR:
+        // y = lo + (hi - lo) * x / xmax
         deno =(hi - lo) * x;
         ret = lo + Div(deno, x_max);
         break;
 
     case INTERPOLATE_SQUARE:
+        // y = lo + (hi - lo)^2 * x^2 / xmax^2
         _deno = x * x;
         deno = _deno * (hi - lo);
         ret = lo + Div(deno, x_max * x_max);
         break;
 
     case INTERPOLATE_CUBIC:
+        // y = lo + (hi - lo)^3 * x^3 / xmax^3
         deno = x * x * x * (hi - lo);
         ret = lo + Div(deno,  x_max * x_max * x_max);
         break;
 
     case INTERPOLATE_POW4:
+        // y = lo + (hi - lo)^4 * x^4 / xmax^4
         deno = x * x * x * x * (hi - lo);
         ret = lo + Div(deno, x_max * x_max * x_max * x_max);
         break;

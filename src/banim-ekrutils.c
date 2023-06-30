@@ -201,7 +201,7 @@ void sub_8055518(struct Anim *anim, int type)
     }
 }
 
-struct Anim *EfxAnimCreate(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
+struct Anim *EfxAnimCreate1(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
 {
     struct Anim *anim1;
 
@@ -238,7 +238,7 @@ struct Anim *EfxAnimCreate(struct Anim *anim, const u32 *scr1, const u32 *scr2, 
     }
 }
 
-struct Anim *sub_80555B0(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
+struct Anim *EfxAnimCreate2(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
 {
     struct Anim *anim1;
 

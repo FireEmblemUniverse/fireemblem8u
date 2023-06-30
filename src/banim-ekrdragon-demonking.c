@@ -10,10 +10,46 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "ekrdragon.h"
+#include "soundwrapper.h"
 
 void sub_805AA68(void *);
 void sub_805AE14(void *);
 void sub_805AE40(void *, s16, s16, s16, s16);
+
+CONST_DATA struct ProcCmd ProcScr_EkrDK[] = {
+    PROC_YIELD,
+    PROC_REPEAT(EkrDKStartBaseHide),
+
+    /* Make the background and terrain fade into darkness */
+    PROC_REPEAT(EkrDK_CustomBgFadeIn),
+
+    /* Decompress images and set palatte fade in effect */
+    PROC_CALL(PrepareDemonKingBGFx),
+
+    /* Here only move the DK BG, but not handle the palette change */
+    PROC_REPEAT(EkrDK_BgMovement),
+
+    /* Decompress spell and ekr banimfx */
+    PROC_REPEAT(EkrDK_PrepareBanimfx),
+
+    PROC_REPEAT(EkrDKHandler_NewDragonAnime),
+
+    /* Check the attr bitfile to wait for end effect */
+    PROC_REPEAT(EkrDK_IdleInBattle),
+
+    /* If DK dead, here wait for fade-out proc (ProcScr_ekrDragonTunk) */
+    PROC_REPEAT(EkrDK_WaitForFadeOut),
+
+    /* Reload the screen and terrain palette */
+    PROC_REPEAT(EkrDK_ReloadTerrainEtc),
+
+    /* Gradullay fade out the normal battle background */
+    PROC_REPEAT(EkrDK_ReloadCustomBgAndFadeOut),
+
+    PROC_REPEAT(EkrDK_SetDragonStatusBit3),
+    PROC_END,
+    PROC_END
+};
 
 void NewEkrDragonDemonKing(struct Anim *anim)
 {
@@ -199,6 +235,13 @@ void EkrDK_SetDragonStatusBit3(struct ProcEkrDragon *proc)
     Proc_Break(proc);
 }
 
+CONST_DATA struct ProcCmd ProcScr_ekrDragonBaseHide[] = {
+    PROC_NAME("ekrDragonBaseHide"),
+    PROC_REPEAT(EkrDragonBaseHideMain),
+    PROC_REPEAT(EkrDragonBaseHide_Nop),
+    PROC_END
+};
+
 ProcPtr NewEkrDragonBaseHide(struct Anim *anim)
 {
     struct ProcEfxDKfx *proc = Proc_Start(ProcScr_ekrDragonBaseHide, PROC_TREE_3);
@@ -227,6 +270,13 @@ void EkrDragonBaseHide_Nop(struct ProcEfxDKfx *proc)
 {
     Proc_Break(proc);
 }
+
+CONST_DATA struct ProcCmd ProcScr_ekrDragonBaseAppear[] = {
+    PROC_NAME("ekrDragonBaseAppear"),
+    PROC_REPEAT(EkrDragonBaseAppearMain),
+    PROC_REPEAT(EkrDragonBaseAppear_Nop),
+    PROC_END
+};
 
 ProcPtr NewEkrDragonBaseAppear(struct Anim *anim)
 {
@@ -267,6 +317,18 @@ void EkrDKHandler_NewDragonAnime(struct ProcEkrDragon *proc)
     AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
     Proc_Break(proc);
 }
+
+CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyAnime[] = {
+    PROC_NAME("ekrDragonBodyAnime"),
+    PROC_REPEAT(EkrDragonBodyAnimeMain),
+    PROC_END
+};
+
+CONST_DATA u16 *TsaSet_DKBody[] = {
+    Tsa_DemonKingBG1,
+    Tsa_DemonKingBG3,
+    Tsa_DemonKingBG2
+};
 
 ProcPtr NewEkrDragonBodyAnime(struct Anim *anim)
 {
@@ -503,14 +565,121 @@ void EkrDragonBodyAnimeSet54(struct Anim *anim)
     if (GetEkrDragonStatusType(anim) == EKRDRGON_TYPE_DEMON_KING) {
         proc = Proc_Find(ProcScr_ekrDragonBodyAnime);
 
-        /**
-         * if (!proc)
-         *     return;
-         */
+#if BUGFIX
+        if (!proc)
+            return;
+#endif
 
         proc->round_cur = -1;
     }
 }
+
+CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk1[] = {
+    PROC_SET_END_CB(sub_8076C34),
+    PROC_CALL(sub_8076C10),
+    PROC_SLEEP(0xC),
+    PROC_SLEEP(0x5A),
+    PROC_REPEAT(sub_8076C54),
+    PROC_REPEAT(sub_8076D60),
+    PROC_SLEEP(0xA),
+    PROC_REPEAT(sub_8076DE8),
+    PROC_SLEEP(0x1E),
+    PROC_REPEAT(sub_8076E00),
+    PROC_SLEEP(0x16),
+    PROC_END
+};
+
+CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk2[] = {
+    PROC_SET_END_CB(sub_8076C34),
+    PROC_CALL(sub_8076C10),
+    PROC_SLEEP(0x8),
+    PROC_REPEAT(sub_8076C54),
+    PROC_REPEAT(sub_8076D60),
+    PROC_SLEEP(0xA),
+    PROC_REPEAT(sub_8076DE8),
+    PROC_SLEEP(0x1E),
+    PROC_REPEAT(sub_8076E00),
+    PROC_SLEEP(0x16),
+    PROC_END
+};
+
+CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk3[] = {
+    PROC_SET_END_CB(sub_8076F28),
+    PROC_CALL(sub_8076F08),
+    PROC_REPEAT(sub_8076F48),
+    PROC_REPEAT(sub_8076FD0),
+    PROC_REPEAT(sub_8076FD4),
+    PROC_END
+};
+
+CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk4[] = {
+    PROC_SLEEP(0x1),
+    PROC_REPEAT(EkrDragonBodyUnk4Main),
+    PROC_END
+};
+
+const s16 gUnknown_080E8318[] = {
+    /* Index    Duration */
+    0,          1,
+    -1
+};
+
+const s16 gUnknown_080E831E[] = {
+    /* Index    Duration */
+    0,          2,
+    2,          224,
+    -4,         0,
+    2,          9,
+    0,          1,
+    -1
+};
+
+const s16 gUnknown_080E8334[] = {
+    /* Index    Duration */
+    0,          2,
+    2,          90,
+    2,          224,
+    -4,         0,
+    2,          9,
+    0,          1,
+    -1
+};
+
+const s16 gUnknown_080E834E[] = {
+    /* Index    Duration */
+    0,          2,
+    0,          60,
+    1,          11,
+    1,          2,
+    -4,         0,
+    1,          52,
+    0,          1,
+    -1
+};
+
+const s16 gUnknown_080E836C[] = {
+    /* Index    Duration */
+    0,          2,
+    2,          90,
+    0,          60,
+    1,          11,
+    1,          5,
+    -4,         0,
+    1,          52,
+    0,          1,
+    -1
+};
+
+const s16 gUnknown_080E838E[] = {
+    /* Index    Duration */
+    0,          1,
+    -5,         0,
+    0,          2,
+    0,          1,
+    -6,         0,
+    0,          1,
+    -1,
+};
 
 void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
 {
@@ -651,103 +820,718 @@ void EkrDragonBodyUnk4Main(struct ProcEfxDKBody4 *proc)
     }
 }
 
-CONST_DATA struct ProcCmd ProcScr_EkrDK[] = {
+CONST_DATA struct ProcCmd ProcScr_ekrDragonBodvBlack[] = {
+    PROC_NAME("ekrDragonBodyBlack"),
+    PROC_REPEAT(EkrDragonBodyBlackMain),
+    PROC_REPEAT(nop_8077394),
+    PROC_END
+};
+
+ProcPtr NewEkrDragonBodvBlack(struct Anim *anim)
+{
+    struct ProcEfxDKfx *proc;
+    proc = Proc_Start(ProcScr_ekrDragonBodvBlack, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+    proc->finished = 0;
+    return proc;
+}
+
+void sub_80772E4(int val)
+{
+    CpuFastCopy(gUnknown_080E1164, PAL_BG(4), 0x20);
+    EkrMaybePalFadeWithVal(gPaletteBuffer, 4, 1, val);
+}
+
+void EkrDragonBodyBlackMain(struct ProcEfxDKfx *proc)
+{
+    int ret = Interpolate(INTERPOLATE_RSQUARE, 0, 0x10, proc->timer, 0x8);
+    CpuFastCopy(Pal_DemonKingBG, PAL_BG(0x6), 0x20);
+    CpuFastCopy(gpEfxUnitPaletteBackup[0], PAL_OBJ(0x7), 0x20);
+    EkrMaybePalFadeWithVal(gPaletteBuffer, 6, 1, ret);
+    EkrMaybePalFadeWithVal(gPaletteBuffer, 0x17, 1, ret);
+    EnablePaletteSync();
+
+    if (++proc->timer == 9) {
+        proc->finished = true;
+        Proc_Break(proc);
+    }
+}
+
+void nop_8077394(void)
+{
+    return;
+}
+
+void sub_8077398(void)
+{
+    NewEkrWhiteOUT(3, 2, 3);
+    EkrSoundSomeBark(0x147, 0x100, 0x78, 0x0);
+}
+
+void sub_80773BC(struct ProcEfxDKfx *proc)
+{
+    proc->finished = false;
+    proc->timer = 0;
+
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
+        proc->unk32 = -32;
+    else
+        proc->unk32 = 0;
+}
+
+void sub_80773E4(struct ProcEfxDKfx *proc)
+{
+    int time;
+    s16 val1, val2;
+
+    sub_8077D80(&val1, &val2, proc->timer, 0);
+    sub_8077DB4(val1, val2);
+
+    ++proc->timer;
+    
+    time = proc->timer;
+    if (time == 480) {
+        StartPalFade(Pal_AllBlack, 0x17, 0xF0, proc);
+        StartPalFade(Pal_AllBlack, 0x06, 0xF0, proc);
+    }
+
+    if (Proc_Find(ProcScr_08801810) == NULL) {
+        sub_8077DB4(0, 0);
+        Proc_Break(proc);
+    }
+}
+
+void sub_8077460(struct ProcEfxDKfx *proc)
+{
+    proc->finished = true;
+    Proc_Break(proc);
+}
+
+void sub_8077474(int arg1, int arg2)
+{
+    int _a1 = arg1 >> 3;
+    int _a2 = arg2 >> 3;
+
+    Decompress(Tsa_DemonKingBG1, gEkrTsaBuffer);
+
+    sub_8070FA4(&gEkrTsaBuffer[0x3C0], -1,
+        gUnknown_0201D428 + _a1 + 66 * _a2,
+        66, 32, 2, 6, 0);
+
+    sub_8070FA4(gEkrTsaBuffer, -1,
+        gUnknown_0201D428 + _a1 + 66 * (_a2 + 2),
+        66, 32, 30, 6, 0);
+}
+
+#if NONMATCHING
+
+void sub_807750C(int arg1, int arg2)
+{
+    int _a1 = arg1 >> 3;
+    int _a2 = arg2 >> 3;
+
+    BG_SetPosition(BG_3, (u16)arg1, (u16)(arg2 & 0x7));
+    sub_8070EF4(gUnknown_0201D428 + _a1 + 66 * _a2, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
+    BG_EnableSyncByMask(BG3_SYNC_BIT);
+}
+
+#else
+
+__attribute__((naked))
+void sub_807750C(int arg1, int arg2)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, lr}\n\
+        sub sp, #0x10\n\
+        adds r3, r0, #0\n\
+        adds r2, r1, #0\n\
+        asrs r4, r3, #3\n\
+        movs r1, #7\n\
+        asrs r5, r2, #3\n\
+        ands r2, r1\n\
+        movs r0, #3\n\
+        ands r1, r3\n\
+        bl BG_SetPosition\n\
+        lsls r4, r4, #1\n\
+        lsls r0, r5, #5\n\
+        adds r0, r0, r5\n\
+        lsls r0, r0, #2\n\
+        ldr r1, _08077558  @ gUnknown_0201D428\n\
+        adds r0, r0, r1\n\
+        adds r4, r4, r0\n\
+        ldr r2, _0807755C  @ gBG3TilemapBuffer\n\
+        movs r0, #0x20\n\
+        str r0, [sp]\n\
+        str r0, [sp, #4]\n\
+        subs r0, #0x21\n\
+        str r0, [sp, #8]\n\
+        str r0, [sp, #0xc]\n\
+        adds r0, r4, #0\n\
+        movs r1, #0x42\n\
+        movs r3, #0x20\n\
+        bl sub_8070EF4\n\
+        movs r0, #8\n\
+        bl BG_EnableSyncByMask\n\
+        add sp, #0x10\n\
+        pop {r4, r5}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _08077558: .4byte gUnknown_0201D428\n\
+    _0807755C: .4byte gBG3TilemapBuffer\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif
+
+CONST_DATA struct ProcCmd ProcScr_087F4518[] = {
     PROC_YIELD,
-    PROC_REPEAT(EkrDKStartBaseHide),
-
-    /* Make the background and terrain fade into darkness */
-    PROC_REPEAT(EkrDK_CustomBgFadeIn),
-
-    /* Decompress images and set palatte fade in effect */
-    PROC_CALL(PrepareDemonKingBGFx),
-
-    /* Here only move the DK BG, but not handle the palette change */
-    PROC_REPEAT(EkrDK_BgMovement),
-
-    /* Decompress spell and ekr banimfx */
-    PROC_REPEAT(EkrDK_PrepareBanimfx),
-
-    PROC_REPEAT(EkrDKHandler_NewDragonAnime),
-
-    /* Check the attr bitfile to wait for end effect */
-    PROC_REPEAT(EkrDK_IdleInBattle),
-
-    /* If DK dead, here wait for fade-out proc (ProcScr_ekrDragonTunk) */
-    PROC_REPEAT(EkrDK_WaitForFadeOut),
-
-    /* Reload the screen and terrain palette */
-    PROC_REPEAT(EkrDK_ReloadTerrainEtc),
-
-    /* Gradullay fade out the normal battle background */
-    PROC_REPEAT(EkrDK_ReloadCustomBgAndFadeOut),
-
-    PROC_REPEAT(EkrDK_SetDragonStatusBit3),
-    PROC_END,
+    PROC_CALL(sub_80773BC),
+    PROC_START_CHILD(ProcScr_08801810),
+    PROC_REPEAT(sub_80773E4),
+    PROC_CALL(sub_8077460),
     PROC_END
 };
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBaseHide[] = {
-    PROC_NAME("ekrDragonBaseHide"),
-    PROC_REPEAT(EkrDragonBaseHideMain),
-    PROC_REPEAT(EkrDragonBaseHide_Nop),
+ProcPtr NewProc087F4518(struct Anim *anim)
+{
+    struct ProcEfxDKfx *proc;
+    proc = Proc_Start(ProcScr_087F4518, PROC_TREE_3);
+    proc->anim = anim;
+    Sound_FadeOutBGM(1);
+    return proc;
+}
+
+CONST_DATA struct ProcCmd ProcScr_ekrDragonTunkFace[] = {
+    PROC_NAME("ekrDragonTunkFace"),
+    PROC_SET_END_CB(sub_8077678),
+    PROC_CALL(sub_807759C),
+    PROC_REPEAT(sub_80775E8),
+    PROC_REPEAT(sub_807766C),
     PROC_END
 };
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBaseAppear[] = {
-    PROC_NAME("ekrDragonBaseAppear"),
-    PROC_REPEAT(EkrDragonBaseAppearMain),
-    PROC_REPEAT(EkrDragonBaseAppear_Nop),
+ProcPtr NewEkrDragonTunkFace(struct Anim *anim)
+{
+    struct ProcEfxDKfx *proc;
+    proc = Proc_Start(ProcScr_ekrDragonTunkFace, PROC_TREE_3);
+    proc->anim = anim;
+    return proc;
+}
+
+void sub_807759C(struct ProcEfxDKfx *proc)
+{
+    struct Anim *anim;
+
+    const u32 *scr = BanimScr_087F4184;
+    SpellFx_RegisterObjPal(Pal_088017E0, 0x20);
+    SpellFx_RegisterObjGfx(Img_087FF488, 0x2000);
+    anim = EfxAnimCreate2(proc->anim, scr, scr, scr, scr);
+    proc->anim2 = anim;
+    anim->xPosition = proc->unk32;
+    anim->yPosition = proc->unk3A;
+    proc->timer = 0;
+}
+
+void sub_80775E8(struct ProcEfxDKfx *proc)
+{
+    struct Anim *anim = proc->anim2;
+
+    anim->xPosition = proc->unk32;
+    anim->yPosition = proc->unk3A;
+
+    if (++proc->timer > 3) {
+        proc->timer = 0;
+        AnimDelete(proc->anim2);
+        Proc_Break(proc);
+        sub_8077620(proc);
+    }
+}
+
+void sub_8077620(struct ProcEfxDKfx *proc)
+{
+    struct Anim *anim;
+
+    const u32 *scr = BanimScr_087F4314;
+    SpellFx_RegisterObjPal(Pal_088017E0, 0x20);
+    SpellFx_RegisterObjGfx(Img_0880064C, 0x2000);
+    anim = EfxAnimCreate2(proc->anim, scr, scr, scr, scr);
+    proc->anim2 = anim;
+    anim->xPosition = proc->unk32;
+    anim->yPosition = proc->unk3A;
+    proc->timer = 0;
+}
+
+void sub_807766C(struct ProcEfxDKfx *proc)
+{
+    struct Anim *anim = proc->anim2;
+
+    anim->xPosition = proc->unk32;
+    anim->yPosition = proc->unk3A;
+}
+
+void sub_8077678(struct ProcEfxDKfx *proc)
+{
+    AnimDelete(proc->anim2);
+}
+
+void sub_8077684(struct ProcEfxDKfx *proc)
+{
+    struct Anim *anim = proc->anim2;
+
+    anim->xPosition = proc->unk32;
+    anim->yPosition = proc->unk3A;
+
+    if (++proc->timer == 4) {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+}
+
+void sub_80776B0(struct ProcEfxDKfx *proc)
+{
+    struct Anim *anim = proc->anim2;
+
+    anim->xPosition = proc->unk32;
+    anim->yPosition = proc->unk3A;
+
+    if (++proc->timer == 0x12C) {
+        Proc_Break(proc);
+    }
+}
+
+void sub_80776D8(int arg1, int arg2, const u16 *tsa)
+{
+    int _a1 = arg1 >> 3;
+    int _a2 = arg2 >> 3;
+
+    sub_80559D0(0);
+    LZ77UnCompWram(tsa, gEkrTsaBuffer);
+
+    sub_8070FA4(gEkrTsaBuffer, -1,
+        gUnknown_0201D428 + _a1 + 66 * _a2,
+        66, 32, 32, 6, 0);
+}
+
+#if NONMATCHING
+
+void sub_807773C(int arg1, int arg2)
+{
+    int _a1 = arg1 >> 3;
+    int _a2 = arg2 >> 3;
+
+    BG_SetPosition(BG_3, (u16)arg1, (u16)(arg2 & 0x7));
+    sub_8070EF4(gUnknown_0201D428 + _a1 + 66 * _a2, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
+    BG_EnableSyncByMask(BG3_SYNC_BIT);
+}
+
+#else
+
+__attribute__((naked))
+void sub_807773C(int arg1, int arg2)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, lr}\n\
+        sub sp, #0x10\n\
+        adds r3, r0, #0\n\
+        adds r2, r1, #0\n\
+        asrs r4, r3, #3\n\
+        movs r1, #7\n\
+        asrs r5, r2, #3\n\
+        ands r2, r1\n\
+        movs r0, #3\n\
+        ands r1, r3\n\
+        bl BG_SetPosition\n\
+        lsls r4, r4, #1\n\
+        lsls r0, r5, #5\n\
+        adds r0, r0, r5\n\
+        lsls r0, r0, #2\n\
+        ldr r1, _08077788  @ gUnknown_0201D428\n\
+        adds r0, r0, r1\n\
+        adds r4, r4, r0\n\
+        ldr r2, _0807778C  @ gBG3TilemapBuffer\n\
+        movs r0, #0x20\n\
+        str r0, [sp]\n\
+        str r0, [sp, #4]\n\
+        subs r0, #0x21\n\
+        str r0, [sp, #8]\n\
+        str r0, [sp, #0xc]\n\
+        adds r0, r4, #0\n\
+        movs r1, #0x42\n\
+        movs r3, #0x20\n\
+        bl sub_8070EF4\n\
+        movs r0, #8\n\
+        bl BG_EnableSyncByMask\n\
+        add sp, #0x10\n\
+        pop {r4, r5}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _08077788: .4byte gUnknown_0201D428\n\
+    _0807778C: .4byte gBG3TilemapBuffer\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif
+
+CONST_DATA struct ProcCmd ProcScr_ekrDragonTunk[] = {
+    PROC_NAME("ekrDragonTunk"),
+    PROC_REPEAT(sub_80777E0),
+    PROC_REPEAT(sub_807789C),
+    PROC_REPEAT(sub_8077AA8),
     PROC_END
 };
 
-void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc);
+ProcPtr NewEkrDragonTunk(struct Anim *anim)
+{
+    struct ProcEkrDragonTunk *proc;
+    proc = Proc_Start(ProcScr_ekrDragonTunk, PROC_TREE_3);
+    proc->anim = anim;
+    proc->finished = false;
+    proc->timer1 = 0;
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyAnime[] = {
-    PROC_NAME("ekrDragonBodyAnime"),
-    PROC_REPEAT(EkrDragonBodyAnimeMain),
+    if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
+        proc->unk32 = -8;
+    else
+        proc->unk32 = -32;
+    
+    Sound_FadeOutBGM(1);
+    return proc;
+}
+
+void sub_80777E0(struct ProcEkrDragonTunk *proc)
+{
+    if (++proc->timer1 == 0x1) {
+        NewEkrWhiteOUT(3, 2, 3);
+        EkrSoundSomeBark(0x147, 0x100, 0x78, 0x0);
+    }
+
+    if (proc->timer1 == 0x23) {
+        NewEkrWhiteOUT(3, 2, 3);
+        EkrSoundSomeBark(0x147, 0x100, 0x78, 0x0);
+    }
+
+    if (proc->timer1 == 0x32) {
+        NewEkrWhiteOUT(3, 2, 3);
+        EkrSoundSomeBark(0x147, 0x100, 0x78, 0x0);
+    }
+
+    if (proc->timer1 == 0x36) {
+        SetAnimStateHidden(GetAISSubjectId(proc->anim));
+        sub_80776D8(proc->unk32, -8, Tsa_DemonKingBG1);
+        sub_807773C(0, 0);
+    }
+
+    if (proc->timer1 == 0x64) {
+        proc->timer1 = 0;
+        proc->timer2 = 0;
+        Proc_Break(proc);
+        NewProc087F4518(proc->anim);
+    }
+}
+
+
+void sub_807789C(struct ProcEkrDragonTunk *proc)
+{
+    int _0 = 0;
+
+    if (proc->timer2 <=0x18A)
+        sub_807773C(gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
+    
+    BG_SetPosition(BG_2, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
+    BG_SetPosition(BG_0,
+        gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x,
+        gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y);
+
+    sub_8077EAC(gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
+
+    EkrGauge_Setxy323A(
+        -(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x),
+        -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
+    
+    sub_8051B5C(
+        -(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x),
+        -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
+    
+    if (++proc->timer2 == 0x2) {
+        proc->qproc = NewEfxQuakePure(0xC, 0);
+        EkrSoundSomeBark(0x142, 0x100, 0x78, 0x0);
+    }
+
+    if (proc->timer2 == 0x78) {
+        Proc_End(proc->qproc);
+        proc->qproc = NewEfxQuakePure(0xD, 0);
+    }
+
+    if (proc->timer2 == 0xB4) {
+        Proc_End(proc->qproc);
+        proc->qproc = NewEfxQuakePure(0xE, 0);
+    }
+
+    if (proc->timer2 == 0xE6) {
+        proc->unk3A = _0;
+        proc->unk3C = _0;
+        proc->fproc = NewEkrDragonTunkFace(proc->anim);
+        proc->fproc->xPos = proc->anim->xPosition;
+        proc->fproc->yPos = proc->anim->yPosition - proc->unk3A;
+    }
+
+    if (proc->timer2 == 0xE7) {
+        sub_80776D8(proc->unk32, -8, Tsa_DemonKingBG2);
+        sub_807773C(0, 0);
+    }
+
+    if (proc->timer2 > 0xE5) {
+        proc->fproc->xPos = proc->anim->xPosition;
+        proc->fproc->yPos = proc->anim->yPosition;
+
+        proc->fproc->xPos -= gEkrBg2QuakeVec.x;
+        proc->fproc->yPos -= gEkrBg2QuakeVec.y;
+    }
+
+    if (proc->timer2 == 0xF0)
+        NewEkrWhiteOUT(0x7D, 0x1E, 0x78);
+    
+    if (proc->timer2 == 0x18B) {
+        Proc_End(proc->fproc);
+        Proc_End(proc->qproc);
+        gEkrBg2QuakeVec.x = _0;
+        gEkrBg2QuakeVec.y = _0;
+
+        BG_Fill(gBG3TilemapBuffer, 0x601F);
+        BG_EnableSyncByMask(BG3_SYNC_BIT);
+
+        BG_SetPosition(BG_2, 0, 0);
+        BG_SetPosition(BG_0, gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
+        sub_8077EAC(0, 0);
+        EkrGauge_Setxy323A(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
+        sub_8051B5C(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
+    }
+
+    if (proc->timer2 == 0x203) {
+        proc->finished = true;
+        Proc_Break(proc);
+    }
+}
+
+void sub_8077AA8(void)
+{
+    return;
+}
+
+CONST_DATA struct ProcCmd ProcScr_ekrWhiteOUT[] = {
+    PROC_NAME("ekrWhiteINOUT"),
+    PROC_REPEAT(EkrWhiteOutFadeIn),
+    PROC_REPEAT(EkrWhiteOutDelay),
+    PROC_REPEAT(EkrWhiteOutFadeOut),
+    PROC_REPEAT(EkrWhiteOutOnEnd),
     PROC_END
 };
 
-CONST_DATA u16 *TsaSet_DKBody[] = {
-    Tsa_DemonKingBG1,
-    Tsa_DemonKingBG3,
-    Tsa_DemonKingBG2
-};
+void NewEkrWhiteOUT(int a, int b, int c)
+{
+    struct ProcEkrWhiteOUT *proc;
+    proc = Proc_Start(ProcScr_ekrWhiteOUT, PROC_TREE_VSYNC);
+    proc->timer = 0;
+    proc->max_time1 = a;
+    proc->max_time2 = b;
+    proc->max_time3 = c;
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk1[] = {
-    PROC_SET_END_CB(sub_8076C34),
-    PROC_CALL(sub_8076C10),
-    PROC_SLEEP(0xC),
-    PROC_SLEEP(0x5A),
-    PROC_REPEAT(sub_8076C54),
-    PROC_REPEAT(sub_8076D60),
-    PROC_SLEEP(0xA),
-    PROC_REPEAT(sub_8076DE8),
-    PROC_SLEEP(0x1E),
-    PROC_REPEAT(sub_8076E00),
-    PROC_SLEEP(0x16),
-    PROC_END
-};
+    gLCDControlBuffer.bldcnt.target1_bd_on = 0;
+    gLCDControlBuffer.bldcnt.target2_bd_on = 0;
+}
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk2[] = {
-    PROC_SET_END_CB(sub_8076C34),
-    PROC_CALL(sub_8076C10),
-    PROC_SLEEP(0x8),
-    PROC_REPEAT(sub_8076C54),
-    PROC_REPEAT(sub_8076D60),
-    PROC_SLEEP(0xA),
-    PROC_REPEAT(sub_8076DE8),
-    PROC_SLEEP(0x1E),
-    PROC_REPEAT(sub_8076E00),
-    PROC_SLEEP(0x16),
-    PROC_END
-};
+void EkrWhiteOutFadeIn(struct ProcEkrWhiteOUT *proc)
+{
+    int ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, proc->max_time1);
+    CpuFastCopy(gPaletteBuffer, gEkrBgPalBackupMaybe, PLTT_SIZE);
+    sub_807132C(gEkrBgPalBackupMaybe, 0, 0x20, ret);
+    CpuFastCopy(gEkrBgPalBackupMaybe, (u16 *)PLTT, PLTT_SIZE);
+    DisablePaletteSync();
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk3[] = {
-    PROC_SET_END_CB(sub_8076F28),
-    PROC_CALL(sub_8076F08),
-    PROC_REPEAT(sub_8076F48),
-    PROC_REPEAT(sub_8076FD0),
-    PROC_REPEAT(sub_8076FD4),
-    PROC_END
-};
+    if (++proc->timer > proc->max_time1) {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+}
+
+void EkrWhiteOutDelay(struct ProcEkrWhiteOUT *proc)
+{
+    CpuFastCopy(gPaletteBuffer, gEkrBgPalBackupMaybe, PLTT_SIZE);
+    sub_807132C(gEkrBgPalBackupMaybe, 0, 0x20, 0x10);
+    CpuFastCopy(gEkrBgPalBackupMaybe, (u16 *)PLTT, PLTT_SIZE);
+    DisablePaletteSync();
+
+    if (++proc->timer > proc->max_time2) {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+}
+
+void EkrWhiteOutFadeOut(struct ProcEkrWhiteOUT *proc)
+{
+    int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0x0, proc->timer, proc->max_time3);
+    CpuFastCopy(gPaletteBuffer, gEkrBgPalBackupMaybe, PLTT_SIZE);
+    sub_807132C(gEkrBgPalBackupMaybe, 0, 0x20, ret);
+    CpuFastCopy(gEkrBgPalBackupMaybe, (u16 *)PLTT, PLTT_SIZE);
+    DisablePaletteSync();
+
+    if (++proc->timer > proc->max_time3) {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+}
+
+void EkrWhiteOutOnEnd(struct ProcEkrWhiteOUT *proc)
+{
+    gLCDControlBuffer.bldcnt.target1_bd_on = 1;
+    gLCDControlBuffer.bldcnt.target2_bd_on = 1;
+    EnablePaletteSync();
+    Proc_Break(proc);
+}
+
+/* https://decomp.me/scratch/aK4hE */
+#if NONMATCHING
+
+void sub_8077C54(int x, int y)
+{
+    int ix1, iy1, ix2, iy2;
+
+    BG_SetPosition(BG_2, x, y);
+    BG_SetPosition(BG_0, x + gEkrBg0QuakeVec.x, y + gEkrBg0QuakeVec.y);
+
+    EkrGauge_Setxy323A(
+        -(x + gEkrBg0QuakeVec.x),
+        -(y + gEkrBg0QuakeVec.y));
+
+    sub_8051B5C(
+        -(x + gEkrBg0QuakeVec.x),
+        -(y + gEkrBg0QuakeVec.y));
+
+    BG_SetPosition(BG_3, x, y);
+
+    ix1 = gEkrXPosBase[0] - x - gEkrBgXOffset;
+    iy1 = gEkrYPosBase[0] - y;
+    ix2 = gEkrXPosBase[1] - gEkrBgXOffset;
+    iy2 = gEkrYPosBase[1] - y;
+
+    SetEkrFrontAnimPostion(0, ix1, iy1);
+    SetEkrFrontAnimPostion(1, ix2, iy2);
+}
+#else
+
+__attribute__((naked))
+void sub_8077C54(int x, int y)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, r9\n\
+        mov r6, r8\n\
+        push {r6, r7}\n\
+        adds r5, r0, #0\n\
+        adds r6, r1, #0\n\
+        lsls r5, r5, #0x10\n\
+        lsrs r0, r5, #0x10\n\
+        mov r9, r0\n\
+        lsls r6, r6, #0x10\n\
+        lsrs r7, r6, #0x10\n\
+        mov r8, r7\n\
+        movs r0, #2\n\
+        mov r1, r9\n\
+        mov r2, r8\n\
+        bl BG_SetPosition\n\
+        ldr r4, _08077D20  @ gEkrBg0QuakeVec\n\
+        ldrh r1, [r4]\n\
+        asrs r5, r5, #0x10\n\
+        adds r1, r5, r1\n\
+        lsls r1, r1, #0x10\n\
+        lsrs r1, r1, #0x10\n\
+        ldrh r2, [r4, #2]\n\
+        asrs r6, r6, #0x10\n\
+        adds r2, r6, r2\n\
+        lsls r2, r2, #0x10\n\
+        lsrs r2, r2, #0x10\n\
+        movs r0, #0\n\
+        bl BG_SetPosition\n\
+        ldrh r0, [r4]\n\
+        adds r0, r5, r0\n\
+        negs r0, r0\n\
+        lsls r0, r0, #0x10\n\
+        asrs r0, r0, #0x10\n\
+        ldrh r1, [r4, #2]\n\
+        adds r1, r6, r1\n\
+        negs r1, r1\n\
+        lsls r1, r1, #0x10\n\
+        asrs r1, r1, #0x10\n\
+        bl EkrGauge_Setxy323A\n\
+        ldrh r0, [r4]\n\
+        adds r0, r5, r0\n\
+        negs r0, r0\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r0, r0, #0x10\n\
+        ldrh r1, [r4, #2]\n\
+        adds r1, r6, r1\n\
+        negs r1, r1\n\
+        lsls r1, r1, #0x10\n\
+        lsrs r1, r1, #0x10\n\
+        bl sub_8051B5C\n\
+        movs r0, #3\n\
+        mov r1, r9\n\
+        mov r2, r8\n\
+        bl BG_SetPosition\n\
+        ldr r0, _08077D24  @ gEkrXPosBase\n\
+        mov r8, r0\n\
+        ldrh r1, [r0]\n\
+        subs r1, r1, r5\n\
+        ldr r0, _08077D28  @ gEkrBgXOffset\n\
+        ldr r3, [r0]\n\
+        subs r1, r1, r3\n\
+        ldr r4, _08077D2C  @ gEkrYPosBase\n\
+        ldrh r2, [r4]\n\
+        subs r2, r2, r6\n\
+        mov r7, r8\n\
+        ldrh r0, [r7, #2]\n\
+        adds r5, r5, r0\n\
+        subs r5, r5, r3\n\
+        lsls r5, r5, #0x10\n\
+        lsrs r5, r5, #0x10\n\
+        ldrh r4, [r4, #2]\n\
+        subs r4, r4, r6\n\
+        lsls r4, r4, #0x10\n\
+        lsrs r4, r4, #0x10\n\
+        lsls r1, r1, #0x10\n\
+        asrs r1, r1, #0x10\n\
+        lsls r2, r2, #0x10\n\
+        asrs r2, r2, #0x10\n\
+        movs r0, #0\n\
+        bl SetEkrFrontAnimPostion\n\
+        lsls r5, r5, #0x10\n\
+        asrs r5, r5, #0x10\n\
+        lsls r4, r4, #0x10\n\
+        asrs r4, r4, #0x10\n\
+        movs r0, #1\n\
+        adds r1, r5, #0\n\
+        adds r2, r4, #0\n\
+        bl SetEkrFrontAnimPostion\n\
+        pop {r3, r4}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _08077D20: .4byte gEkrBg0QuakeVec\n\
+    _08077D24: .4byte gEkrXPosBase\n\
+    _08077D28: .4byte gEkrBgXOffset\n\
+    _08077D2C: .4byte gEkrYPosBase\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif

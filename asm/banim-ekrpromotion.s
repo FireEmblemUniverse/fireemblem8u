@@ -768,7 +768,7 @@ NewEfxClasschgOBJGain: @ 0x08072F84
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r5, #0x60]
 	ldr r0, _08072FC8  @ gUnknown_08792194
 	movs r1, #0x20
@@ -818,7 +818,7 @@ NewEfxClasschgOBJDrop: @ 0x08072FE8
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r5, #0x60]
 	ldr r0, _0807302C  @ gUnknown_08792194
 	movs r1, #0x20
@@ -880,7 +880,7 @@ _08073074:
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r5, #0x60]
 	ldr r0, _080730A4  @ gUnknown_08792194
 	movs r1, #0x20

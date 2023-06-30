@@ -625,7 +625,7 @@ NewEfxLvupOBJ2: @ 0x080749F4
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r4, #0x64]
 	strh r6, [r0, #2]
 	mov r1, r8
