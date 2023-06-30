@@ -244,7 +244,7 @@ _0807539A:
 	adds r0, r7, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r5, #0x60]
 	ldr r4, _080753EC  @ gUnknown_0201A790
 	adds r0, r6, #0
@@ -507,7 +507,7 @@ _080755AC:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r1, r0, #0
 	str r1, [r5, #0x60]
 	ldr r0, _080755F4  @ 0x00008840
@@ -567,7 +567,7 @@ _08075638:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r1, r0, #0
 	str r1, [r5, #0x64]
 	ldr r0, _080756A8  @ 0x0000A880
@@ -740,7 +740,7 @@ _080757A4:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	adds r1, r0, #0
 	str r1, [r4, #0x60]
 	cmp r5, #0

@@ -736,7 +736,7 @@ extern const u16 gUnknown_080DF568[];
 // extern ??? gUnknown_080DF898
 // extern ??? gUnknown_080DF954
 // extern ??? gUnknown_080DF9BE
-// extern ??? gUnknown_080E1164
+extern u16 gUnknown_080E1164[];
 // extern ??? gUnknown_080E1394
 // extern ??? gUnknown_080E13A2
 // extern ??? gUnknown_080E13B4
@@ -765,12 +765,7 @@ extern const u16 gUnknown_080DF568[];
 // extern ??? gUnknown_080E6CC4
 // extern ??? gUnknown_080E7400
 // extern ??? gUnknown_080E7B8C
-extern u16 gUnknown_080E8318[];
-extern u16 gUnknown_080E831E[];
-extern u16 gUnknown_080E8334[];
-extern u16 gUnknown_080E834E[];
-extern u16 gUnknown_080E836C[];
-extern u16 gUnknown_080E838E[];
+
 // extern ??? gMsgHuffmanTable
 // extern ??? gMsgHuffmanTableRoot
 extern const u8 *const gMsgStringTable[];
@@ -1753,63 +1748,7 @@ extern CONST_DATA struct ProcCmd ProcScr_ekrPopup[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrPopup2[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrHenseiInit[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrHenseiEnd[];
-extern u16 Img_EfxDracoZombie[];
-extern u16 Tsa_EfxDracoZombieBaseLeft[];
-extern u16 Tsa_EfxDracoZombieBaseRight[];
-extern u16 Tsa_EfxDracoZombie1[];
-extern u16 Tsa_EfxDracoZombie2[];
-extern u16 Tsa_EfxDracoZombie3[];
-extern u16 Tsa_EfxDracoZombie4[];
-extern u16 Tsa_EfxDracoZombie5[];
-extern u16 Pal_EfxDracoZombie[];
-// extern ??? gUnknown_08791D7C
-// extern ??? gUnknown_08791D9C
-// extern ??? gUnknown_08792194
-// extern ??? gUnknown_08792928
-// extern ??? gUnknown_08792958
-// extern ??? gUnknown_08792988
-// extern ??? gUnknown_087A4EEC
-// extern ??? gUnknown_087A5118
-// extern ??? gUnknown_087A5390
-// extern ??? gUnknown_087A574C
-// extern ??? gUnknown_087A5B5C
-// extern ??? gUnknown_087A5BA4
-// extern ??? gUnknown_087A5E9C
-// extern ??? gUnknown_087A61EC
-// extern ??? gUnknown_087F3C54
-// extern ??? gUnknown_087F4184
-// extern ??? gUnknown_087F4314
-extern struct ProcCmd ProcScr_EkrDK[];
-extern struct ProcCmd ProcScr_ekrDragonBaseHide[];
-extern struct ProcCmd ProcScr_ekrDragonBaseAppear[];
-extern struct ProcCmd ProcScr_ekrDragonBodyAnime[];
-extern u16 *TsaSet_DKBody[];
-extern struct ProcCmd ProcScr_ekrDragonBodyUnk1[];
-extern struct ProcCmd ProcScr_ekrDragonBodyUnk2[];
-extern struct ProcCmd ProcScr_ekrDragonBodyUnk3[];
-extern struct ProcCmd ProcScr_ekrDragonBodyUnk4[];
-// extern ??? gUnknown_087F4518
-extern struct ProcCmd ProcScr_ekrDragonTunkFace[];
-extern struct ProcCmd ProcScr_ekrDragonTunk[];
-extern struct ProcCmd ProcScr_ekrWhiteOUT[];
-// extern ??? gUnknown_087F45D0
-extern u16 Img_DemonKingBG[];
-extern u16 Tsa_DemonKingBG1[];
-extern u16 Tsa_DemonKingBG2[];
-extern u16 Tsa_DemonKingBG3[];
-extern u16 Pal_DemonKingBG[];
-// extern ??? gUnknown_087FF488
-// extern ??? gUnknown_0880064C
-// extern ??? gUnknown_088017E0
-// extern ??? gUnknown_08801810
-// extern ??? gUnknown_08801840
-// extern ??? gUnknown_08801858
-// extern ??? gUnknown_08801860
-// extern ??? ProcScr_ekrSelfThunder
-// extern ??? ProcScr_ekrSelfThunderBG
-// extern ??? gUnknown_088018A0
-// extern ??? gUnknown_08801AAC
-// extern ??? gUnknown_08801AB4
+
 extern u16 gUnknown_08801C14[];
 extern u16 Img_EfxLeftNameBox[];
 extern u16 Img_EfxLeftItemBox[];

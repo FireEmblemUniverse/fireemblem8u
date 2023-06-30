@@ -1428,7 +1428,7 @@ _0806631E:
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r7, #0x60]
 	mov r1, sl
 	strh r1, [r0, #2]
@@ -1540,7 +1540,7 @@ _080663F6:
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate
+	bl EfxAnimCreate1
 	str r0, [r5, #0x60]
 	mov r1, sp
 	ldrh r1, [r1, #4]

@@ -136,7 +136,7 @@ void NewEfxFireOBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxFireOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    anim2 = EfxAnimCreate(anim, gUnknown_085F843C, gUnknown_085F80B4, gUnknown_085F8468, gUnknown_085F80E0);
+    anim2 = EfxAnimCreate1(anim, gUnknown_085F843C, gUnknown_085F80B4, gUnknown_085F8468, gUnknown_085F80E0);
     proc->anim2 = anim2;
 
     if (GetAISSubjectId(anim) == EKR_POS_L)
@@ -281,7 +281,7 @@ void StartSubSpell_efxElfireOBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxElfireOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    anim2 = EfxAnimCreate(anim, gUnknown_08605DF4, gUnknown_08604FD4, gUnknown_08605DF4, gUnknown_08604FD4);
+    anim2 = EfxAnimCreate1(anim, gUnknown_08605DF4, gUnknown_08604FD4, gUnknown_08605DF4, gUnknown_08604FD4);
     proc->anim2 = anim2;
 
     if (GetAISSubjectId(anim) == EKR_POS_L)
