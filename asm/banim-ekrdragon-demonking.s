@@ -2,32 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8077F9C
-sub_8077F9C: @ 0x08077F9C
-	asrs r2, r1, #2
-	lsls r2, r2, #1
-	adds r0, r0, r2
-	ldr r3, _08077FC0  @ gUnknown_08801858
-	movs r2, #3
-	ands r2, r1
-	lsls r2, r2, #1
-	adds r3, r2, r3
-	ldrh r3, [r3]
-	ldrh r1, [r0]
-	bics r1, r3
-	strh r1, [r0]
-	ldr r3, _08077FC4  @ gUnknown_08801860
-	adds r2, r2, r3
-	ldrh r2, [r2]
-	orrs r1, r2
-	strh r1, [r0]
-	bx lr
-	.align 2, 0
-_08077FC0: .4byte gUnknown_08801858
-_08077FC4: .4byte gUnknown_08801860
-
-	THUMB_FUNC_END sub_8077F9C
-
 	THUMB_FUNC_START sub_8077FC8
 sub_8077FC8: @ 0x08077FC8
 	push {r4, r5, r6, r7, lr}

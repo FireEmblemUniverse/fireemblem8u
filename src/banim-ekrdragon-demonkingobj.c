@@ -139,12 +139,9 @@ void sub_8077F10(struct Proc08801840 *proc)
     }
 }
 
-#if 0
 void sub_8077F9C(u16 *buf, int a)
 {
-    int _a = a >> 2;
-    int _b = (_a << 1) % 4;
-    buf[_a] &= gUnknown_08801858[_b];
-    buf[_a] |= gUnknown_08801860[_b];
+    u16 *dst = &buf[a >> 2];
+    *dst &= ~gUnknown_08801858[a & 3];
+    *dst |= gUnknown_08801860[a & 3];
 }
-#endif

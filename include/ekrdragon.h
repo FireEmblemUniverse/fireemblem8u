@@ -250,7 +250,7 @@ extern u16 gUnknown_08801860[];
 // extern ??? ProcScr_ekrSelfThunderBG
 // extern ??? gUnknown_088018A0
 extern s16 *gUnknown_08801AAC[];
-extern u32 gUnknown_08801AB4[];
+extern u8 *gUnknown_08801AB4[];
 
 extern const s16 gUnknown_080E8318[];
 extern const s16 gUnknown_080E831E[];
