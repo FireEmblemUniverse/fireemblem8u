@@ -387,7 +387,7 @@ void EkrWhiteOutFadeIn(struct ProcEkrWhiteOUT *proc);
 void EkrWhiteOutDelay(struct ProcEkrWhiteOUT *proc);
 void EkrWhiteOutFadeOut(struct ProcEkrWhiteOUT *proc);
 void EkrWhiteOutOnEnd(struct ProcEkrWhiteOUT *proc);
-void sub_8077C54(int, int);
+void sub_8077C54(s16, s16);
 void sub_8077D30(struct Proc08801800 *proc);
 void sub_8077D38(struct Proc08801800 *proc);
 void sub_8077D80(s16 *buf1, s16 *buf2, int val1, int val2);
