@@ -75,7 +75,7 @@ void sub_8076598(void)
 int CheckEkrWpnDemonLight(struct Anim *anim)
 {
     struct BattleUnit *bu;
-    if (GetAISSubjectId(anim) == 0)
+    if (GetAnimPosition(anim) == 0)
         bu = gpEkrBattleUnitLeft;
     else
         bu = gpEkrBattleUnitRight;
@@ -134,7 +134,7 @@ void EkrDK_PrepareBanimfx(struct ProcEkrDragon *proc)
     else
         EkrPrepareBanimfx(proc->anim, 0xC1);    /* index for DK Demon Light in banim table */
     
-    SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
+    SetAnimStateUnHidden(GetAnimPosition(proc->anim));
     gEkrSpellAnimIndex[0] = 0x40;
     AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
     Proc_Break(proc);
@@ -168,7 +168,7 @@ void PrepareDemonKingBGFx(struct ProcEkrDragon *proc)
 void EkrDK_IdleInBattle(struct ProcEkrDragon *proc)
 {
     u16 attr1 = GetEkrDragonStatusAttr(proc->anim);
-    u16 attr2 = GetEkrDragonStatusAttr(GetCoreAIStruct(proc->anim));
+    u16 attr2 = GetEkrDragonStatusAttr(GetAnimAnotherSide(proc->anim));
 
     /* 1 << 2 seems to be the end of battle */
     if (attr2 != EKRDRGON_ATTR_START && attr1 & EKRDRGON_ATTR_BANIMFINISH) {
@@ -203,8 +203,8 @@ void EkrDK_ReloadTerrainEtc(struct ProcEkrDragon *proc)
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    SetAnimStateHidden(GetAISSubjectId(proc->anim));
-    gEkrPairSideVaild[GetAISSubjectId(proc->anim)] = false;
+    SetAnimStateHidden(GetAnimPosition(proc->anim));
+    gEkrPairSideVaild[GetAnimPosition(proc->anim)] = false;
 
     /* Reload the terrain palette */
     NewEkrDragonBaseAppear(proc->anim);
@@ -368,7 +368,7 @@ void EfxDKUpdateFrontAnimPostion(struct ProcEfxDKfx *proc)
 
     case EKR_DISTANCE_FAR:
     case EKR_DISTANCE_FARFAR:
-        if (GetAISSubjectId(proc->anim) == 0)
+        if (GetAnimPosition(proc->anim) == 0)
             SetEkrFrontAnimPostion(0, val1, val2);
         else
             SetEkrFrontAnimPostion(1, val3, val4);
@@ -400,7 +400,7 @@ void sub_8076C54(struct ProcEfxDKBody1 *proc)
     s16 val2;
     u32 val3;
     
-    GetCoreAIStruct(proc->fxproc->anim);
+    GetAnimAnotherSide(proc->fxproc->anim);
     
     val1 = 0;
     val2 = 0;
@@ -459,7 +459,7 @@ void sub_8076D60(struct ProcEfxDKBody1 *proc)
 
 void sub_8076DE8(struct ProcEfxDKBody1 *proc)
 {
-    if (sub_80522CC() == true)
+    if (CheckEkrHitDone() == true)
         Proc_Break(proc);
 }
 
@@ -732,9 +732,9 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
     switch (ret) {
     case -6:
         if (proc->unk2E == 0) {
-            if (GetCoreAIStruct(proc->anim)->state3 & ANIM_BIT_FROZEN)
+            if (GetAnimAnotherSide(proc->anim)->state3 & ANIM_BIT_FROZEN)
                 proc->unk2E = 1;
-        } else if (sub_80522CC() == true){
+        } else if (CheckEkrHitDone() == true){
             Proc_BreakEach(ProcScr_ekrDragonBodyUnk3);
             proc->timer = 0;
             proc->unk2E = 0;
@@ -757,7 +757,7 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
     case -4:
         if (proc->unk2E == 0)
             proc->unk2E = 1;
-        else if (sub_80522CC() == true){
+        else if (CheckEkrHitDone() == true){
             proc->timer = 0;
             proc->unk2E = 0;
             proc->unk44++;
@@ -1120,7 +1120,7 @@ void sub_80777E0(struct ProcEkrDragonTunk *proc)
     }
 
     if (proc->timer1 == 0x36) {
-        SetAnimStateHidden(GetAISSubjectId(proc->anim));
+        SetAnimStateHidden(GetAnimPosition(proc->anim));
         sub_80776D8(proc->unk32, -8, Tsa_DemonKingBG1);
         sub_807773C(0, 0);
     }

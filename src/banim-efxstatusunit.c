@@ -37,7 +37,7 @@ void NewEfxStatusUnit(struct Anim *anim)
     struct Unit *unit;
     struct ProcEfxStatusUnit *proc;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         unit = &gpEkrBattleUnitLeft->unit;
     else
         unit = &gpEkrBattleUnitRight->unit;
@@ -58,9 +58,9 @@ void NewEfxStatusUnit(struct Anim *anim)
     proc->blue = 0;
     proc->green = 0;
     proc->red = 0;
-    gpProcEfxStatusUnits[GetAISSubjectId(anim)] = proc;
+    gpProcEfxStatusUnits[GetAnimPosition(anim)] = proc;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L) {
+    if (GetAnimPosition(anim) == EKR_POS_L) {
         sub_80714DC(gpEfxUnitPaletteBackup[EKR_POS_L], &gUnknown_020222A8[0], 0x10);
         sub_807151C(gpEfxUnitPaletteBackup[EKR_POS_L], &gUnknown_020222A8[0x30], 0x10);
         sub_8071574(&gUnknown_020222A8[0], &gUnknown_020222A8[0x30], (void *)&gUnknown_020222A8[0x180], 0x10, 0x10);
@@ -73,9 +73,9 @@ void NewEfxStatusUnit(struct Anim *anim)
 
 void EndEfxStatusUnits(struct Anim *anim)
 {
-    if (gpProcEfxStatusUnits[GetAISSubjectId(anim)]) {
-        Proc_End(gpProcEfxStatusUnits[GetAISSubjectId(anim)]);
-        gpProcEfxStatusUnits[GetAISSubjectId(anim)] = NULL;
+    if (gpProcEfxStatusUnits[GetAnimPosition(anim)]) {
+        Proc_End(gpProcEfxStatusUnits[GetAnimPosition(anim)]);
+        gpProcEfxStatusUnits[GetAnimPosition(anim)] = NULL;
     }
 }
 
@@ -87,19 +87,19 @@ void DeleteEach6C_efxStatusUnit(void)
 void DisableEfxStatusUnits(struct Anim *anim)
 {
     struct ProcEfxStatusUnit **procs = gpProcEfxStatusUnits;
-    procs[GetAISSubjectId(anim)]->invalid = true;
+    procs[GetAnimPosition(anim)]->invalid = true;
 }
 
 void EnableEfxStatusUnits(struct Anim *anim)
 {
     struct ProcEfxStatusUnit **procs = gpProcEfxStatusUnits;
-    procs[GetAISSubjectId(anim)]->invalid = false;
+    procs[GetAnimPosition(anim)]->invalid = false;
 }
 
 void SetUnitEfxDebuff(struct Anim *anim, int debuff)
 {
     struct ProcEfxStatusUnit **procs = gpProcEfxStatusUnits;
-    procs[GetAISSubjectId(anim)]->debuff = debuff;
+    procs[GetAnimPosition(anim)]->debuff = debuff;
 
     if (debuff == UNIT_STATUS_NONE)
         EfxStatusUnitSomePalModify(anim, 0, 0, 0);
@@ -108,12 +108,12 @@ void SetUnitEfxDebuff(struct Anim *anim, int debuff)
 u32 GettUnitEfxDebuff(struct Anim *anim)
 {
     struct ProcEfxStatusUnit **procs = gpProcEfxStatusUnits;
-    return procs[GetAISSubjectId(anim)]->debuff;
+    return procs[GetAnimPosition(anim)]->debuff;
 }
 
 void EfxStatusUnitSomePalModify(struct Anim *anim, int r, int g, int b)
 {
-    if (GetAISSubjectId(anim) == EKR_POS_L) {
+    if (GetAnimPosition(anim) == EKR_POS_L) {
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], &PAL_COLOR(0x17, 0), 0x20);
         EfxSomePalFlash(&PAL_COLOR(0, 0), 0x17, 1, r, g, b);
 
@@ -201,7 +201,7 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
 
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
             sub_80715F4(gUnknown_02022B88, gUnknown_020222A8, &gUnknown_020222A8[0x30],
                         &gUnknown_020222A8[0x180], 16, proc->red, 16);
         else
@@ -226,7 +226,7 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
 
 void EfxStatusUnitEnd(struct ProcEfxStatusUnit *proc)
 {
-    if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+    if (GetAnimPosition(proc->anim) == EKR_POS_L)
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], &PAL_COLOR(0x17, 0), 0x20);
     else
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], &PAL_COLOR(0x19, 0), 0x20);

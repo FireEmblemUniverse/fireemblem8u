@@ -64,7 +64,7 @@ void NewEfxYushaSpinShieldOBJ(struct Anim *anim, int r1)
      */
     anim2->oam2Base &= 0xC00;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         anim2->oam2Base |= 0x7200; /* oam2_data::chr = 0x7200; */
     else
         anim2->oam2Base |= 0x9300; /* oam2_data::chr = 0x9300; */
@@ -78,7 +78,7 @@ void efxYushaSpinShieldOBJ_806CD14(struct ProcEfxOBJ *proc)
         return;
     
     if (proc->unk29 == 0) {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L) {
+        if (GetAnimPosition(proc->anim) == EKR_POS_L) {
             anim2->pScrStart = gUnknown_085EBEFC;
             anim2->pScrCurrent = gUnknown_085EBEFC;
         } else {
@@ -86,7 +86,7 @@ void efxYushaSpinShieldOBJ_806CD14(struct ProcEfxOBJ *proc)
             anim2->pScrCurrent = gUnknown_085EAC5C;
         }
     } else {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L) {
+        if (GetAnimPosition(proc->anim) == EKR_POS_L) {
             anim2->pScrStart = gUnknown_085EE49C;
             anim2->pScrCurrent = gUnknown_085EE49C;
         } else {
@@ -116,11 +116,11 @@ void efxYushaSpinShieldOBJ_806CDA4(struct ProcEfxOBJ *proc)
 {
     struct Anim *anim2 = proc->anim2;
 
-    if (sub_80522CC() != true)
+    if (CheckEkrHitDone() != true)
         return;
 
     if (proc->unk29 == 0) {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L) {
+        if (GetAnimPosition(proc->anim) == EKR_POS_L) {
             anim2->pScrStart = gUnknown_085EBF24;
             anim2->pScrCurrent = gUnknown_085EBF24;
         } else {
@@ -128,7 +128,7 @@ void efxYushaSpinShieldOBJ_806CDA4(struct ProcEfxOBJ *proc)
             anim2->pScrCurrent = gUnknown_085EAC84;
         }
     } else {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L) {
+        if (GetAnimPosition(proc->anim) == EKR_POS_L) {
             anim2->pScrStart = gUnknown_085EE4C4;
             anim2->pScrCurrent = gUnknown_085EE4C4;
         } else {
@@ -189,7 +189,7 @@ void NewEfxHurtmutEff00OBJ(struct Anim *anim)
 void efxHurtmutEff00OBJ_806CEC4(struct ProcEfxOBJ *proc)
 {
     struct Anim *anim2 = proc->anim2;
-    if (GetAISSubjectId(proc->anim) == EKR_POS_R) {
+    if (GetAnimPosition(proc->anim) == EKR_POS_R) {
         anim2->pScrStart = gUnknown_085E15F4;
         anim2->pScrCurrent = gUnknown_085E15F4;
     } else {
@@ -207,7 +207,7 @@ void efxHurtmutEff00OBJ_806CEC4(struct ProcEfxOBJ *proc)
 void efxHurtmutEff00OBJ_806CF10(struct ProcEfxOBJ *proc)
 {
     struct Anim *anim2 = proc->anim2;
-    if (GetAISSubjectId(proc->anim) == EKR_POS_R) {
+    if (GetAnimPosition(proc->anim) == EKR_POS_R) {
         anim2->pScrStart = gUnknown_085E1C48;
         anim2->pScrCurrent = gUnknown_085E1C48;
     } else {
@@ -242,7 +242,7 @@ void NewEfxHurtmutEff01OBJ(struct Anim *anim)
 void efxHurtmutEff01OBJ_806CFC4(struct ProcEfxOBJ *proc)
 {
     struct Anim *anim2 = proc->anim2;
-    if (GetAISSubjectId(proc->anim) == EKR_POS_R) {
+    if (GetAnimPosition(proc->anim) == EKR_POS_R) {
         anim2->pScrStart = gUnknown_085E163C;
         anim2->pScrCurrent = gUnknown_085E163C;
     } else {
@@ -260,7 +260,7 @@ void efxHurtmutEff01OBJ_806CFC4(struct ProcEfxOBJ *proc)
 void efxHurtmutEff01OBJ_806D010(struct ProcEfxOBJ *proc)
 {
     struct Anim *anim2 = proc->anim2;
-    if (GetAISSubjectId(proc->anim) == EKR_POS_R) {
+    if (GetAnimPosition(proc->anim) == EKR_POS_R) {
         anim2->pScrStart = gUnknown_085E1C58;
         anim2->pScrCurrent = gUnknown_085E1C58;
     } else {
@@ -301,7 +301,7 @@ void NewEfxMagfcast(struct Anim *anim, int type)
     proc->anim = anim;
     proc->timer = 0;
 
-    id2 = gEkrPairBanimID2[GetAISSubjectId(anim)] - 0x6A;
+    id2 = gEkrPairBanimID2[GetAnimPosition(anim)] - 0x6A;
     switch (id2) {
     case 0x0:
     case 0x1:
@@ -370,7 +370,7 @@ void NewEfxMagfcastBG(struct Anim *anim, u32 type)
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
             BG_SetPosition(BG_1, 0x18, 0x0);
         else
             BG_SetPosition(BG_1, 0xE8, 0x0);
@@ -391,7 +391,7 @@ void EfxMagfcastBGMain(struct ProcEfxBG *proc)
         u16 **tsa2;
 
         if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-            if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+            if (GetAnimPosition(proc->anim) == EKR_POS_L)
                 BG_SetPosition(BG_1, 0x18, 0x0);
             else
                 BG_SetPosition(BG_1, 0xE8, 0x0);
@@ -467,7 +467,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
 
     proc->anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
 
-    terrain = gEkrPairTerrainID[GetAISSubjectId(proc->anim)];
+    terrain = gEkrPairTerrainID[GetAnimPosition(proc->anim)];
     switch (terrain) {
     case TERRAIN_PLAINS:
     case TERRAIN_ROAD:
@@ -600,7 +600,7 @@ void NewEfxLokmsunaOBJ(struct Anim *anim)
     /* oam2_data::pal = 0 */
     anim2->oam2Base &= 0xFFF;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         anim2->oam2Base |= 0x7000;
     else
         anim2->oam2Base |= 0x9000;
@@ -644,8 +644,8 @@ void EfxKingPikaMain(struct ProcEfx *proc)
     }
 
     if (time == 0x2D) {
-        struct Anim *anim1 = gAnims[GetAISSubjectId(anim) * 2];
-        struct Anim *anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+        struct Anim *anim1 = gAnims[GetAnimPosition(anim) * 2];
+        struct Anim *anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
         anim1->state3 |= 0x40;
         anim2->state3 |= 0x40;
@@ -675,8 +675,8 @@ void EfxFlashFXMain(struct ProcEfx *proc)
     }
 
     if (time == 0x6) {
-        struct Anim *anim1 = gAnims[GetAISSubjectId(anim) * 2];
-        struct Anim *anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+        struct Anim *anim1 = gAnims[GetAnimPosition(anim) * 2];
+        struct Anim *anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
         anim1->state3 |= 0x40;
         anim2->state3 |= 0x40;
@@ -747,25 +747,25 @@ void NewEfxSpecalEffect(struct Anim *anim)
     struct ProcEfx *proc;
     struct Anim *anim1, *anim2;
 
-    if (gUnknown_02017768[GetAISSubjectId(anim)] == false) {
-        gUnknown_02017768[GetAISSubjectId(anim)] = true;
+    if (gUnknown_02017768[GetAnimPosition(anim)] == false) {
+        gUnknown_02017768[GetAnimPosition(anim)] = true;
 
-        if (GetAISSubjectId(anim) == EKR_POS_L)
+        if (GetAnimPosition(anim) == EKR_POS_L)
             bu = gpEkrBattleUnitLeft;
         else
             bu = gpEkrBattleUnitRight;
 
         if (IsWeaponLegency(bu->weaponBefore) == false) {
-            anim1 = gAnims[GetAISSubjectId(anim) * 2];
-            anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+            anim1 = gAnims[GetAnimPosition(anim) * 2];
+            anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
             anim1->state3 |= 0x40;
             anim2->state3 |= 0x40;
             return;
         }
     } else {
-        anim1 = gAnims[GetAISSubjectId(anim) * 2];
-        anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+        anim1 = gAnims[GetAnimPosition(anim) * 2];
+        anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
         anim1->state3 |= 0x40;
         anim2->state3 |= 0x40;
@@ -811,8 +811,8 @@ void EfxSRankWeaponEffectMain(struct ProcEfx *proc)
     if (time == 0x46) {
         struct Anim *anim1, *anim2;
 
-        anim1 = gAnims[GetAISSubjectId(proc->anim) * 2];
-        anim2 = gAnims[GetAISSubjectId(proc->anim) * 2 + 1];
+        anim1 = gAnims[GetAnimPosition(proc->anim) * 2];
+        anim2 = gAnims[GetAnimPosition(proc->anim) * 2 + 1];
         
         anim1->state3 |= 0x40;
         anim2->state3 |= 0x40;
@@ -984,7 +984,7 @@ void NewEfxMantBatabata(struct Anim *anim)
     struct ProcEfxOBJ *proc;
     struct Anim *anim2;
 
-    banim_index = gEkrPairBanimID2[GetAISSubjectId(anim)] - 0x6A;
+    banim_index = gEkrPairBanimID2[GetAnimPosition(anim)] - 0x6A;
     switch (banim_index) {
     case 0x2:
     case 0x4:
@@ -1033,19 +1033,19 @@ void NewEfxMantBatabata(struct Anim *anim)
     proc->timer = 0;
     anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
-    gUnknown_02000010[GetAISSubjectId(proc->anim)] = proc->anim2;
+    gUnknown_02000010[GetAnimPosition(proc->anim)] = proc->anim2;
 
     anim2->oam2Base &= 0xC00;
 
     anim2->drawLayerPriority = 0x64;
     AnimSort();
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         anim2->oam2Base |= 0x7200;
     else
         anim2->oam2Base |= 0x9300;
     
-    SetAnimStateHidden(GetAISSubjectId(proc->anim));
+    SetAnimStateHidden(GetAnimPosition(proc->anim));
 }
 
 void sub_806DFA4(struct ProcEfxOBJ *proc)
@@ -1065,10 +1065,10 @@ void sub_806DFD0(struct ProcEfxOBJ *proc)
 {
     proc->anim2->xPosition = proc->anim->xPosition;
 
-    if (sub_80522CC() == 0x1) {
-        SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
+    if (CheckEkrHitDone() == 0x1) {
+        SetAnimStateUnHidden(GetAnimPosition(proc->anim));
         AnimDelete(proc->anim2);
-        gUnknown_02000010[GetAISSubjectId(proc->anim)] = NULL;
+        gUnknown_02000010[GetAnimPosition(proc->anim)] = NULL;
         Proc_Break(proc);
     }
 }
@@ -1211,19 +1211,19 @@ void NewEfxChillAnime(struct Anim *anim, int arg1)
     proc->timer = 0;
     anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
-    gUnknown_02000010[GetAISSubjectId(proc->anim)] = proc->anim2;
+    gUnknown_02000010[GetAnimPosition(proc->anim)] = proc->anim2;
 
     anim2->oam2Base &= 0xC00;
 
     anim2->drawLayerPriority = 0x64;
     AnimSort();
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         anim2->oam2Base |= 0x7200;
     else
         anim2->oam2Base |= 0x9300;
     
-    SetAnimStateHidden(GetAISSubjectId(proc->anim));
+    SetAnimStateHidden(GetAnimPosition(proc->anim));
 }
 
 void sub_806E290(struct ProcEfxOBJ *proc)
@@ -1232,12 +1232,12 @@ void sub_806E290(struct ProcEfxOBJ *proc)
     proc->anim2->xPosition = proc->anim->xPosition;
 
     if (++proc->timer == 0x14) {
-        SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
+        SetAnimStateUnHidden(GetAnimPosition(proc->anim));
         AnimDelete(proc->anim2);
-        gUnknown_02000010[GetAISSubjectId(proc->anim)] = NULL;
+        gUnknown_02000010[GetAnimPosition(proc->anim)] = NULL;
         
-        _anim1 = gAnims[GetAISSubjectId(proc->anim) * 2];
-        _anim2 = gAnims[GetAISSubjectId(proc->anim) * 2 + 1];
+        _anim1 = gAnims[GetAnimPosition(proc->anim) * 2];
+        _anim2 = gAnims[GetAnimPosition(proc->anim) * 2 + 1];
 
         _anim1->state3 |= 0x40;
         _anim2->state3 |= 0x40;

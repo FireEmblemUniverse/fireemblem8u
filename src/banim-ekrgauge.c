@@ -69,12 +69,12 @@ void NewEkrGauge(void)
     EkrGauge_ClrInitFlag();
     EkrGauge_Clr323A(gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
 
-    if (gEkrPairHpInitial[0] > 0x50)
+    if (gEkrGaugeHp[0] > 0x50)
         CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xB), 0x10 * sizeof(u16));
     else
         CpuCopy16(gUnknown_08802B04 + gBanimSomeObjPalIndex[0] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
 
-    if (gEkrPairHpInitial[1] > 0x50)
+    if (gEkrGaugeHp[1] > 0x50)
         CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xC), 0x10 * sizeof(u16));
     else
         CpuCopy16(gUnknown_08802B04 + gBanimSomeObjPalIndex[1] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));

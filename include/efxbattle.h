@@ -165,13 +165,13 @@ struct ProcEfxHPBar {
     /* 29 */ u8 death;
     /* 2A */ u8 _pad_2A[0x2C - 0x2A];
     /* 2C */ s16 pos;
-    /* 2E */ s16 max;
+    /* 2E */ s16 cur;
     /* 30 */ u8 _pad_30[0x48 - 0x30];
     /* 48 */ int diff;
     /* 4C */ int pre;
     /* 50 */ int post;
     /* 54 */ int timer;
-    /* 58 */ int init;
+    /* 58 */ int finished;
     /* 5C */ struct Anim *anim5C;
     /* 60 */ struct Anim *anim60;
     /* 64 */ struct Anim *anim64;

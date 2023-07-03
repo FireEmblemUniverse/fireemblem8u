@@ -17,10 +17,10 @@ sub_8066514: @ 0x08066514
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -37,7 +37,7 @@ sub_8066550: @ 0x08066550
 	sub sp, #8
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r4, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r7, r0, #0
@@ -274,7 +274,7 @@ sub_8066758: @ 0x08066758
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	ldr r0, [r7, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r0, r7, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
@@ -973,7 +973,7 @@ sub_8066CB8: @ 0x08066CB8
 	str r0, [sp, #4]
 	str r1, [sp, #8]
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #0x18
 	lsrs r7, r0, #0x18
 	ldr r1, _08066D38  @ gEfxBgSemaphore
@@ -985,7 +985,7 @@ sub_8066CB8: @ 0x08066CB8
 	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r6, #0x5c]
 	movs r1, #0
 	strh r1, [r6, #0x2c]
@@ -1100,7 +1100,7 @@ sub_8066DB0: @ 0x08066DB0
 	str r0, [sp, #4]
 	str r1, [sp, #8]
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #0x18
 	lsrs r7, r0, #0x18
 	ldr r1, _08066E30  @ gEfxBgSemaphore
@@ -1112,7 +1112,7 @@ sub_8066DB0: @ 0x08066DB0
 	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r6, #0x5c]
 	movs r1, #0
 	strh r1, [r6, #0x2c]
@@ -1245,7 +1245,7 @@ sub_8066EC8: @ 0x08066EC8
 	str r0, [sp, #4]
 	str r1, [sp, #8]
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #0x18
 	lsrs r7, r0, #0x18
 	ldr r1, _08066F4C  @ gEfxBgSemaphore
@@ -1257,7 +1257,7 @@ sub_8066EC8: @ 0x08066EC8
 	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r6, #0x5c]
 	movs r0, #0
 	strh r0, [r6, #0x2c]
@@ -1373,7 +1373,7 @@ sub_8066FC4: @ 0x08066FC4
 	str r0, [sp, #4]
 	str r1, [sp, #8]
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #0x18
 	lsrs r7, r0, #0x18
 	ldr r1, _08067048  @ gEfxBgSemaphore
@@ -1385,7 +1385,7 @@ sub_8066FC4: @ 0x08066FC4
 	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r6, #0x5c]
 	movs r0, #0
 	strh r0, [r6, #0x2c]
@@ -1510,7 +1510,7 @@ sub_80670DC: @ 0x080670DC
 	str r0, [sp, #4]
 	str r1, [sp, #8]
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #0x18
 	lsrs r7, r0, #0x18
 	ldr r1, _08067160  @ gEfxBgSemaphore
@@ -1522,7 +1522,7 @@ sub_80670DC: @ 0x080670DC
 	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r6, #0x5c]
 	movs r0, #0
 	strh r0, [r6, #0x2c]
@@ -1640,7 +1640,7 @@ sub_80671F4: @ 0x080671F4
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -1668,7 +1668,7 @@ sub_8067244: @ 0x08067244
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
 	adds r0, r4, #0
@@ -1936,7 +1936,7 @@ sub_8067400: @ 0x08067400
 	bl Proc_Start
 	adds r4, r0, #0
 	mov r0, r8
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -2032,10 +2032,10 @@ StartSpellAnimStone: @ 0x080674D4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -2051,7 +2051,7 @@ sub_8067510: @ 0x08067510
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r2, r0, #0
@@ -2153,7 +2153,7 @@ sub_80675D4: @ 0x080675D4
 	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r5, #0x5c]
 	movs r0, #0
 	strh r0, [r5, #0x2c]
@@ -2175,7 +2175,7 @@ sub_80675D4: @ 0x080675D4
 	cmp r0, #0
 	beq _0806765A
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08067650
 	movs r0, #1
@@ -2285,7 +2285,7 @@ sub_80676E4: @ 0x080676E4
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r6, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r5, #0
 	strh r5, [r4, #0x2c]
@@ -2372,10 +2372,10 @@ StartSpellAnimEvilEye: @ 0x08067798
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -2391,7 +2391,7 @@ sub_80677D4: @ 0x080677D4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r2, r0, #0
@@ -2490,7 +2490,7 @@ sub_806788C: @ 0x0806788C
 	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r5, #0x5c]
 	movs r0, #0
 	strh r0, [r5, #0x2c]
@@ -2511,7 +2511,7 @@ sub_806788C: @ 0x0806788C
 	cmp r0, #0
 	beq _0806790E
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08067904
 	movs r0, #1
@@ -2608,7 +2608,7 @@ sub_8067984: @ 0x08067984
 	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r5, #0x5c]
 	movs r0, #0
 	strh r0, [r5, #0x2c]
@@ -2647,7 +2647,7 @@ _080679D2:
 	cmp r0, #0
 	beq _08067A2A
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08067A20
 	movs r0, #1
@@ -2744,7 +2744,7 @@ sub_8067AA0: @ 0x08067AA0
 	str r0, [sp, #4]
 	str r1, [sp, #8]
 	adds r0, r6, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r4, r0, #0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
@@ -2757,7 +2757,7 @@ sub_8067AA0: @ 0x08067AA0
 	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r6, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r5, #0x5c]
 	movs r0, #0
 	mov r8, r0
@@ -2851,10 +2851,10 @@ StartSpellAnimNaglfar: @ 0x08067B7C
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -2871,7 +2871,7 @@ Loop6C_efxNaglfar: @ 0x08067BB8
 	sub sp, #8
 	adds r7, r0, #0
 	ldr r0, [r7, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r4, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r5, r0, #0
@@ -3550,7 +3550,7 @@ sub_80680EC: @ 0x080680EC
 	movs r2, #0x14
 	bl memcpy
 	adds r0, r5, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r1, _0806819C  @ gEfxBgSemaphore
 	ldr r0, [r1]
 	adds r0, #1
@@ -3560,7 +3560,7 @@ sub_80680EC: @ 0x080680EC
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -3692,7 +3692,7 @@ sub_806823C: @ 0x0806823C
 	ldr r0, [r0]
 	str r0, [r1]
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r4, r0, #0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
@@ -3705,7 +3705,7 @@ sub_806823C: @ 0x0806823C
 	bl Proc_Start
 	adds r5, r0, #0
 	mov r0, r8
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r5, #0x5c]
 	movs r0, #0
 	strh r0, [r5, #0x2c]
@@ -3794,7 +3794,7 @@ sub_8068314: @ 0x08068314
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -4451,10 +4451,10 @@ sub_80687E4: @ 0x080687E4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -4471,7 +4471,7 @@ sub_806881C: @ 0x0806881C
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -4563,7 +4563,7 @@ sub_80688C0: @ 0x080688C0
 	movs r0, #0x34
 	strh r0, [r5, #0x2e]
 	adds r0, r6, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r3, _08068924  @ gUnknown_085E35DC
 	cmp r0, #0
 	bne _080688F0
@@ -4582,7 +4582,7 @@ _080688F0:
 	cmp r0, #0
 	bne _08068936
 	adds r0, r6, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08068930
 	ldrh r0, [r4, #2]
@@ -4600,7 +4600,7 @@ _08068930:
 	b _0806894A
 _08068936:
 	adds r0, r6, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08068946
 	ldrh r0, [r4, #2]
@@ -4638,7 +4638,7 @@ sub_8068970: @ 0x08068970
 	cmp r0, #0
 	beq _080689A2
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08068998
 	ldr r1, [r4, #0x60]
@@ -4837,7 +4837,7 @@ sub_8068AFC: @ 0x08068AFC
 	lsrs r5, r3, #0x18
 	bl SpellFx_WriteBgMap
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08068B18
 	adds r5, #1
@@ -4916,10 +4916,10 @@ sub_8068B80: @ 0x08068B80
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -4935,7 +4935,7 @@ sub_8068BB8: @ 0x08068BB8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r2, r0, #0
@@ -5895,7 +5895,7 @@ sub_80692B0: @ 0x080692B0
 	cmp r0, #1
 	bne _08069344
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069330
 	ldr r2, _0806932C  @ 0x0000FFF0
@@ -6028,7 +6028,7 @@ sub_8069400: @ 0x08069400
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x11
 	ldr r0, [r6, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	beq _08069416
 	negs r4, r4
@@ -6117,7 +6117,7 @@ sub_8069488: @ 0x08069488
 	cmp r0, #1
 	bne _080694F8
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _080694EC
 	movs r0, #1
@@ -6139,7 +6139,7 @@ _080694EC:
 _080694F4: .4byte 0x0000FFE8
 _080694F8:
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806950E
 	movs r0, #1
@@ -6527,7 +6527,7 @@ sub_80697F4: @ 0x080697F4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069816
 	movs r1, #0x2c
@@ -6675,7 +6675,7 @@ _080698F6:
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806992C
 	movs r0, #0x58
@@ -6694,7 +6694,7 @@ _0806992E:
 	cmp r0, #1
 	bne _0806995A
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069954
 	ldrh r0, [r5, #0x32]
@@ -6709,7 +6709,7 @@ _08069958:
 	strh r0, [r5, #0x32]
 _0806995A:
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069976
 	movs r1, #0x2c
@@ -6927,7 +6927,7 @@ sub_8069AFC: @ 0x08069AFC
 	adds r0, r0, r1
 	str r0, [r4, #0x48]
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069B20
 	ldr r2, [r4, #0x60]
@@ -7016,7 +7016,7 @@ sub_8069B68: @ 0x08069B68
 	mov r0, r8
 	strh r0, [r4, #4]
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069BD8
 	ldrh r0, [r4, #2]
@@ -7039,7 +7039,7 @@ _08069BDC:
 	cmp r0, #1
 	bne _08069C02
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069BFC
 	ldrh r0, [r4, #2]
@@ -7106,7 +7106,7 @@ sub_8069C18: @ 0x08069C18
 	mov r0, r8
 	strh r0, [r4, #4]
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069C88
 	ldrh r0, [r4, #2]
@@ -7129,7 +7129,7 @@ _08069C8C:
 	cmp r0, #1
 	bne _08069CB2
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08069CAC
 	ldrh r0, [r4, #2]
@@ -7430,10 +7430,10 @@ StartSpellAnimCrimsonEye: @ 0x08069EC4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -7449,7 +7449,7 @@ sub_8069F00: @ 0x08069F00
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r2, r0, #0
@@ -8108,7 +8108,7 @@ sub_806A3F4: @ 0x0806A3F4
 	cmp r0, #1
 	bne _0806A460
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806A450
 	movs r0, #1
@@ -8222,7 +8222,7 @@ sub_806A4CC: @ 0x0806A4CC
 	cmp r0, #1
 	bne _0806A54C
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806A53C
 	movs r0, #1
@@ -9134,7 +9134,7 @@ sub_806ABCC: @ 0x0806ABCC
 	strh r0, [r5, #0x2c]
 	strh r0, [r5, #0x2e]
 	adds r0, r6, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806AC08
 	movs r0, #0x58
@@ -9154,7 +9154,7 @@ _0806AC0A:
 	cmp r0, #1
 	bne _0806AC36
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806AC30
 	ldrh r0, [r5, #0x32]
@@ -9496,10 +9496,10 @@ sub_806AEF4: @ 0x0806AEF4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -9516,7 +9516,7 @@ sub_806AF30: @ 0x0806AF30
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r2, r0, #0
@@ -9726,7 +9726,7 @@ sub_806B0AC: @ 0x0806B0AC
 	movs r1, #0x20
 	bl SpellFx_RegisterBgPal
 	ldr r0, [r7, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r5, r6
 	ldr r2, [r5]
 	adds r1, r2, #0
@@ -9826,7 +9826,7 @@ sub_806B194: @ 0x0806B194
 	blt _0806B1C2
 	ldr r4, [r6, #0x4c]
 	ldr r0, [r6, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	lsls r1, r5, #2
 	adds r1, r1, r4
 	ldr r2, [r1]
@@ -9991,7 +9991,7 @@ sub_806B2C0: @ 0x0806B2C0
 	adds r5, r0, #0
 	str r5, [r4, #0x60]
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806B310
 	movs r0, #0xc8
@@ -10249,10 +10249,10 @@ sub_806B4F8: @ 0x0806B4F8
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -10268,7 +10268,7 @@ sub_806B534: @ 0x0806B534
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r2, r0, #0
@@ -10455,7 +10455,7 @@ sub_806B680: @ 0x0806B680
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806B6C8
 	movs r0, #0x58
@@ -10476,7 +10476,7 @@ _0806B6CA:
 	cmp r0, #1
 	bne _0806B6F6
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806B6F0
 	ldrh r0, [r4, #2]
@@ -10607,7 +10607,7 @@ sub_806B7A8: @ 0x0806B7A8
 	cmp r0, #1
 	bne _0806B81C
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806B80C
 	movs r0, #1
@@ -10726,7 +10726,7 @@ sub_806B89C: @ 0x0806B89C
 	cmp r0, #1
 	bne _0806B90C
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806B900
 	movs r0, #1
@@ -10748,7 +10748,7 @@ _0806B900:
 _0806B908: .4byte 0x0000FFE8
 _0806B90C:
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806B922
 	movs r0, #1
@@ -11200,7 +11200,7 @@ sub_806BC98: @ 0x0806BC98
 	adds r4, r0, #0
 	str r4, [r7, #0x60]
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806BCF0
 	movs r0, #0x58
@@ -11221,7 +11221,7 @@ _0806BCF2:
 	cmp r0, #1
 	bne _0806BD1E
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806BD18
 	ldrh r0, [r4, #2]
@@ -11471,7 +11471,7 @@ sub_806BEEC: @ 0x0806BEEC
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806BF28
 	movs r0, #0x58
@@ -11491,7 +11491,7 @@ _0806BF2A:
 	cmp r0, #1
 	bne _0806BF56
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806BF50
 	ldrh r0, [r5, #0x32]
@@ -11640,7 +11640,7 @@ sub_806C050: @ 0x0806C050
 	lsls r1, r1, #6
 	bl SpellFx_RegisterBgGfx
 	ldr r0, [r6, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r4, r4, r5
 	ldr r2, [r4]
 	adds r1, r2, #0
@@ -11696,7 +11696,7 @@ sub_806C0B8: @ 0x0806C0B8
 	cmp r0, #1
 	bne _0806C124
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806C114
 	movs r0, #1

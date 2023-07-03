@@ -214,7 +214,7 @@ _08058E56:
 	bne _08058E62
 	bl _080596CC
 _08058E62:
-	bl sub_80522CC
+	bl CheckEkrHitDone
 	cmp r0, #1
 	beq _08058E6E
 	bl _080596CC
@@ -339,17 +339,17 @@ _08058F52:
 	orrs r1, r5
 	strh r1, [r7, #0x10]
 	adds r0, r7, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r2, r0, #0
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
 	mov r4, r8
 	adds r0, r4, #0
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	ldr r2, [sp]
 	cmp r0, #1
 	beq _08058F8E
@@ -425,14 +425,14 @@ _08059010: .4byte 0x0000FFDF
 _08059014: .4byte 0x0000FFBF
 _08059018:
 	adds r0, r7, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r2, r0, #0
 	cmp r2, #0
 	bne _08059026
 	b _080596CC
 _08059026:
 	str r2, [sp]
-	bl sub_805A334
+	bl GetAnimNextRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
@@ -450,7 +450,7 @@ _0805903E:
 	b _080596CC
 _08059048:
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	subs r0, #1
@@ -482,7 +482,7 @@ _08059074:
 	b _08059140
 _0805908C:
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	subs r0, #1
@@ -515,7 +515,7 @@ _080590B8:
 	b _08059140
 _080590D2:
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	subs r0, #1
@@ -586,15 +586,15 @@ _08059158:
 	b _080596CC
 _08059164:
 	adds r0, r7, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r2, r0, #0
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	ldr r2, [sp]
 	cmp r0, #0
 	bne _080591C6
@@ -606,7 +606,7 @@ _08059164:
 	cmp r0, #2
 	beq _080591C6
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	subs r0, #1
@@ -639,12 +639,12 @@ _080591CC:
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
 _080591E2:
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
@@ -652,19 +652,19 @@ _080591E2:
 	b _080596CC
 _080591F2:
 	adds r0, r7, #0
-	bl sub_805A2F0
+	bl GetAnimNextRoundType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
 	ldr r4, _08059234  @ gAnims
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #3
 	adds r0, r0, r4
 	ldr r2, [r0]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -736,7 +736,7 @@ _0805926E:
 	ldrb r4, [r0]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r2, [sp]
 	cmp r0, #0
 	bne _080592D4
@@ -756,7 +756,7 @@ _080592D6:
 	ldr r4, [r0]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r1, r0, #2
 	adds r1, r1, r0
 	lsls r1, r1, #2
@@ -779,7 +779,7 @@ _080592D6:
 	ldr r4, _08059360  @ gUnknown_0203E1A4
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -788,7 +788,7 @@ _080592D6:
 	bne _0805938A
 	ldr r4, _08059364  @ gpImgSheet
 	adds r0, r2, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r1, [r0]
@@ -800,7 +800,7 @@ _080592D6:
 	bl NewEkrChienCHR
 	ldr r2, [sp]
 	adds r0, r2, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r2, [sp]
@@ -920,7 +920,7 @@ _0805942C:
 	b _080596CC
 _08059438:
 	adds r0, r7, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0805946A
@@ -930,11 +930,11 @@ _08059438:
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
@@ -951,7 +951,7 @@ _0805946A:
 	b _080596CC
 _0805947C:
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	subs r0, #1
@@ -1005,7 +1005,7 @@ _080594E4:
 	b _080596CC
 _080594EC:
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	subs r0, #1
@@ -1165,7 +1165,7 @@ _0805960C:
 	b _080596CC
 _08059630:
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	subs r0, #1
@@ -1263,7 +1263,7 @@ _080596E0: @ 0x080596E0
 	bne _0805973C
 	ldr r4, _0805979C  @ gUnknown_0203E1A4
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -1277,7 +1277,7 @@ _080596E0: @ 0x080596E0
 	bne _0805973C
 	ldr r4, _080597A0  @ gpImgSheet
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r1, [r0]
@@ -1287,7 +1287,7 @@ _080596E0: @ 0x080596E0
 	adds r0, r7, #0
 	bl RegisterAISSheetGraphics
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r1, [r7, #0x28]
@@ -1317,7 +1317,7 @@ _0805975C:
 	cmp r0, #0
 	beq _080597E8
 	adds r0, r7, #0
-	bl sub_805A2F0
+	bl GetAnimNextRoundType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
@@ -1327,7 +1327,7 @@ _0805975C:
 	beq _080597B0
 	ldr r6, _080597A8  @ gAnims
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #3
 	adds r0, r0, r6
 	ldr r2, [r0]
@@ -1348,7 +1348,7 @@ _080597AC: .4byte 0x0000FFFD
 _080597B0:
 	ldr r5, _080597E0  @ gAnims
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #3
 	adds r0, r0, r5
 	ldr r2, [r0]
@@ -1358,7 +1358,7 @@ _080597B0:
 	ands r0, r1
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -1378,7 +1378,7 @@ _080597E8:
 	cmp r0, #0
 	beq _08059874
 	adds r0, r7, #0
-	bl sub_805A2F0
+	bl GetAnimNextRoundType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
@@ -1388,7 +1388,7 @@ _080597E8:
 	beq _080598AE
 	ldr r6, _0805986C  @ gAnims
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #3
 	adds r0, r0, r6
 	ldr r2, [r0]
@@ -1407,7 +1407,7 @@ _08059824:
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -1441,7 +1441,7 @@ _08059874:
 	cmp r0, #0
 	bne _080598AE
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	lsls r0, r0, #1
@@ -1455,7 +1455,7 @@ _08059874:
 	cmp r8, r0
 	bne _080598AE
 	adds r0, r7, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r1, _080598C8  @ gBanimDoneMaybe
 	lsls r0, r0, #2
 	adds r0, r0, r1

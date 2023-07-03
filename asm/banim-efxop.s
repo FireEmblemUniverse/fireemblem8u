@@ -87,7 +87,7 @@ sub_806E95C: @ 0x0806E95C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806E978
 	ldr r0, _0806E974  @ gUnknown_080DAF1D
@@ -515,7 +515,7 @@ NewEfxopFireOBJ: @ 0x0806EC68
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r0, r5, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806ECB0
 	ldrh r0, [r5, #2]
@@ -806,7 +806,7 @@ sub_806EEA8: @ 0x0806EEA8
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r0, r5, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806EEF0
 	ldrh r0, [r5, #2]
@@ -1386,7 +1386,7 @@ sub_806F304: @ 0x0806F304
 	adds r0, r4, #0
 	bl sub_806EAD4
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806F364
 	ldr r1, _0806F360  @ gLCDControlBuffer

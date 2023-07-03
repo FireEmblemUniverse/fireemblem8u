@@ -438,10 +438,10 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                 gEkrPairExpGain[0] = gpEkrBattleUnitLeft->expGain;
                 gEkrPairExpGain[1] = gpEkrBattleUnitRight->expGain;
 
-                if (gEkrPairHpInitial[0] == 0) {
+                if (gEkrGaugeHp[0] == 0) {
                     ArenaSetResult(1);
                     ret = 1;
-                } else if (gEkrPairHpInitial[1] == 0) {
+                } else if (gEkrGaugeHp[1] == 0) {
                     ArenaSetResult(2);
                     gEkrPairExpGain[1] = 0;
                     ret = 1;

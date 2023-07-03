@@ -69,7 +69,7 @@ sub_8072A44: @ 0x08072A44
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -599,7 +599,7 @@ sub_8072E60: @ 0x08072E60
 	push {r7}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r7, r0, #0
 	adds r0, r5, #0
 	adds r0, #0x2c
@@ -872,7 +872,7 @@ NewEfxClasschgOBJDiffusion: @ 0x0807304C
 _08073068: .4byte ProcScr_efxClasschgOBJDiffusion
 _0807306C:
 	adds r0, r6, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r5, #0x5c]
 _08073074:
 	ldr r3, _080730A0  @ gUnknown_08792988
@@ -1209,7 +1209,7 @@ sub_80732E0: @ 0x080732E0
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08073338
 	ldr r0, _0807332C  @ gpEfxUnitPaletteBackup
@@ -1320,7 +1320,7 @@ sub_80733C0: @ 0x080733C0
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08073418
 	ldr r0, _0807340C  @ gpEfxUnitPaletteBackup

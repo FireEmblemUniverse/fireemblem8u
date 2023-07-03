@@ -33,7 +33,7 @@ _08053408:
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r2, r4, #0
 	adds r2, #0x29
 	movs r1, #0
@@ -759,7 +759,7 @@ _080539A0:
 	cmp r0, #2
 	bgt _080539D2
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _080539C4
 	lsls r1, r6, #0x10
@@ -886,7 +886,7 @@ _08053A84:
 _08053A94: .4byte gEkrDistanceType
 _08053A98:
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r1, _08053AC8  @ gEkrBgXOffset
 	ldr r1, [r1]
 	ldr r2, _08053ACC  @ gUnknown_02000030
@@ -897,7 +897,7 @@ _08053A98:
 	lsls r1, r1, #0x10
 	lsrs r4, r1, #0x10
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08053AD4
 	movs r0, #0x40
@@ -945,7 +945,7 @@ _08053B10:
 	str r2, [r5, #0x64]
 	ldr r4, _08053B9C  @ gUnknown_0200003C
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -955,7 +955,7 @@ _08053B10:
 	bl RegisterDataMove
 	ldr r4, _08053BA4  @ gEkrSpellAnimIndex
 	mov r0, r9
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -964,7 +964,7 @@ _08053B10:
 	bne _08053B56
 	ldr r4, _08053BA8  @ gBanimTerrainPaletteMaybe
 	mov r0, r9
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -974,7 +974,7 @@ _08053B10:
 _08053B56:
 	ldr r4, _08053BA8  @ gBanimTerrainPaletteMaybe
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -986,7 +986,7 @@ _08053B56:
 	movs r1, #0
 	ldrsh r4, [r0, r1]
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
@@ -1162,7 +1162,7 @@ _08053CF0:
 	cmp r0, #0
 	beq _08053D1C
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	lsls r0, r1, #4
 	subs r0, r0, r1
@@ -1193,7 +1193,7 @@ _08053D1C:
 	cmp r0, #0
 	beq _08053D80
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r1, _08053D74  @ gEkrBgXOffset
 	ldr r1, [r1]
 	ldr r2, _08053D78  @ gUnknown_02000030
@@ -1381,7 +1381,7 @@ _08053ED0:
 	cmp r0, #2
 	bgt _08053F02
 	ldr r0, [r7, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08053EF4
 	lsls r1, r6, #0x10

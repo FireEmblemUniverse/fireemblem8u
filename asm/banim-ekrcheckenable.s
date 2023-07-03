@@ -78,7 +78,7 @@ _08057072:
 	ldr r0, _080570B4  @ gBattleTarget
 	str r0, [r1]
 	str r0, [sp, #0xc]
-	ldr r1, _080570B8  @ gUnknown_0203E108
+	ldr r1, _080570B8  @ gEkrInitialPosition
 	movs r0, #0
 	strh r0, [r1, #2]
 	strh r0, [r1]
@@ -95,7 +95,7 @@ _080570A8: .4byte gpEkrBattleUnitLeft
 _080570AC: .4byte gBattleActor
 _080570B0: .4byte gpEkrBattleUnitRight
 _080570B4: .4byte gBattleTarget
-_080570B8: .4byte gUnknown_0203E108
+_080570B8: .4byte gEkrInitialPosition
 _080570BC: .4byte gEkrPairSideVaild
 _080570C0:
 	ldr r5, _080570F8  @ gBattleActor
@@ -178,7 +178,7 @@ _08057150:
 	ldr r0, _08057190  @ gBattleActor
 	str r0, [r1]
 	str r0, [sp, #0xc]
-	ldr r0, _08057194  @ gUnknown_0203E108
+	ldr r0, _08057194  @ gEkrInitialPosition
 	movs r1, #0
 	strh r2, [r0]
 	strh r1, [r0, #2]
@@ -197,7 +197,7 @@ _08057184: .4byte gpEkrBattleUnitLeft
 _08057188: .4byte gBattleTarget
 _0805718C: .4byte gpEkrBattleUnitRight
 _08057190: .4byte gBattleActor
-_08057194: .4byte gUnknown_0203E108
+_08057194: .4byte gEkrInitialPosition
 _08057198: .4byte gEkrDistanceType
 _0805719C:
 	ldr r1, _08057284  @ gpEkrBattleUnitLeft
@@ -208,7 +208,7 @@ _0805719C:
 	ldr r0, _08057290  @ gBattleTarget
 	str r0, [r1]
 	str r0, [sp, #0xc]
-	ldr r1, _08057294  @ gUnknown_0203E108
+	ldr r1, _08057294  @ gEkrInitialPosition
 	movs r2, #0
 	strh r2, [r1]
 	movs r0, #1
@@ -324,7 +324,7 @@ _08057284: .4byte gpEkrBattleUnitLeft
 _08057288: .4byte gBattleActor
 _0805728C: .4byte gpEkrBattleUnitRight
 _08057290: .4byte gBattleTarget
-_08057294: .4byte gUnknown_0203E108
+_08057294: .4byte gEkrInitialPosition
 _08057298: .4byte gEkrDistanceType
 _0805729C: .4byte gEkrPairSideVaild
 _080572A0: .4byte gEkrPairBmLoc
@@ -762,7 +762,7 @@ _080575F0:
 _08057606:
 	cmp r4, #0
 	beq _08057622
-	ldr r1, _08057660  @ gEkrPairHpInitial
+	ldr r1, _08057660  @ gEkrGaugeHp
 	ldr r0, [sp, #8]
 	adds r0, #0x72
 	ldrb r0, [r0]
@@ -777,7 +777,7 @@ _08057606:
 _08057622:
 	cmp r6, #0
 	beq _0805763E
-	ldr r1, _08057660  @ gEkrPairHpInitial
+	ldr r1, _08057660  @ gEkrGaugeHp
 	ldr r0, [sp, #0xc]
 	adds r0, #0x72
 	ldrb r0, [r0]
@@ -804,7 +804,7 @@ _0805763E:
 	.align 2, 0
 _08057658: .4byte gEkrSnowWeather
 _0805765C: .4byte gEkrPairBaseCon
-_08057660: .4byte gEkrPairHpInitial
+_08057660: .4byte gEkrGaugeHp
 _08057664: .4byte gEkrPairMaxHP
 _08057668: .4byte gEkrDistanceType
 _0805766C: .4byte gEkrSpellAnimIndex
@@ -2422,7 +2422,7 @@ _0805831E:
 	str r0, [sp, #0x18]
 _08058332:
 	ldr r3, _08058350  @ gEfxHpLut
-	ldr r1, _08058354  @ gEkrPairHpInitial
+	ldr r1, _08058354  @ gEkrGaugeHp
 	ldrh r0, [r1]
 	strh r0, [r3]
 	ldrh r0, [r1, #2]
@@ -2436,7 +2436,7 @@ _08058332:
 _08058348: .4byte gpEkrBattleUnitLeft
 _0805834C: .4byte gpEkrBattleUnitRight
 _08058350: .4byte gEfxHpLut
-_08058354: .4byte gEkrPairHpInitial
+_08058354: .4byte gEkrGaugeHp
 _08058358:
 	lsls r0, r2, #8
 	lsrs r0, r0, #0x1b
@@ -2445,7 +2445,7 @@ _08058358:
 	negs r0, r0
 	lsrs r0, r0, #0x1f
 	str r0, [sp, #0x10]
-	ldr r0, _08058390  @ gUnknown_0203E108
+	ldr r0, _08058390  @ gEkrInitialPosition
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	ldr r3, [sp, #0x10]
@@ -2467,7 +2467,7 @@ _08058358:
 	strh r2, [r0]
 	b _080583B4
 	.align 2, 0
-_08058390: .4byte gUnknown_0203E108
+_08058390: .4byte gEkrInitialPosition
 _08058394: .4byte gEkrInitialHitSide
 _08058398:
 	mov r5, sp
@@ -2670,7 +2670,7 @@ _0805851A:
 	ands r0, r1
 	cmp r0, #0
 	beq _080585B4
-	ldr r0, _08058568  @ gUnknown_0203E108
+	ldr r0, _08058568  @ gEkrInitialPosition
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	ldr r2, [sp, #0x10]
@@ -2704,7 +2704,7 @@ _08058546:
 	.align 2, 0
 _08058560: .4byte gUnknown_080DAEB4
 _08058564: .4byte gAnimRoundData
-_08058568: .4byte gUnknown_0203E108
+_08058568: .4byte gEkrInitialPosition
 _0805856C: .4byte gEfxHpLut
 _08058570: .4byte 0xFFFF8000
 _08058574:
@@ -2744,7 +2744,7 @@ _080585B4:
 	ands r1, r0
 	cmp r1, #0
 	beq _080586A0
-	ldr r0, _08058628  @ gUnknown_0203E108
+	ldr r0, _08058628  @ gEkrInitialPosition
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	ldr r5, [sp, #0x10]
@@ -2798,7 +2798,7 @@ _0805861A:
 	lsls r0, r0, #2
 	b _08058690
 	.align 2, 0
-_08058628: .4byte gUnknown_0203E108
+_08058628: .4byte gEkrInitialPosition
 _0805862C: .4byte gEfxHpLut
 _08058630: .4byte gEkrPairMaxHP
 _08058634:
@@ -2856,7 +2856,7 @@ _08058690:
 _08058698: .4byte gEfxHpLut
 _0805869C: .4byte gEkrPairMaxHP
 _080586A0:
-	ldr r0, _08058764  @ gUnknown_0203E108
+	ldr r0, _08058764  @ gEkrInitialPosition
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	ldr r2, [sp, #0x10]
@@ -2960,7 +2960,7 @@ _0805875E:
 	strh r0, [r5]
 	b _0805881C
 	.align 2, 0
-_08058764: .4byte gUnknown_0203E108
+_08058764: .4byte gEkrInitialPosition
 _08058768: .4byte gEfxHpLut
 _0805876C:
 	mov r1, r9

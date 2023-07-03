@@ -154,7 +154,7 @@ _080780C8:
 _080780D0:
 	ldr r5, _080780F4  @ gEkrTsaBuffer
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _080780FC
 	ldr r1, _080780F8  @ gBG1TilemapBuffer
