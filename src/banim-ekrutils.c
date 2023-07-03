@@ -70,7 +70,7 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
     int val1, val2;
     s16 roundt1, roundt2;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L) {
+    if (GetAnimPosition(anim) == EKR_POS_L) {
         animr7 = gAnims[2];
         animr9 = gAnims[3];
         animr5 = gAnims[0];
@@ -84,8 +84,8 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
 
     switch (type) {
     case EKR_HITTED:
-        roundt1 = GetBattleAnimRoundTypeFlags((animr7->nextRoundId - 1) * 2 + GetAISSubjectId(animr7));
-        roundt2 = GetBattleAnimRoundTypeFlags((animr5->nextRoundId - 1) * 2 + GetAISSubjectId(animr5));
+        roundt1 = GetBattleAnimRoundTypeFlags((animr7->nextRoundId - 1) * 2 + GetAnimPosition(animr7));
+        roundt2 = GetBattleAnimRoundTypeFlags((animr5->nextRoundId - 1) * 2 + GetAnimPosition(animr5));
 
         if (roundt1 & ANIM_ROUND_POISON) {
             if (GettUnitEfxDebuff(animr7) == UNIT_STATUS_NONE)
@@ -105,17 +105,17 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
             animr8 = animr9;
         }
 
-        val1 = gEfxPairHpBufOffset[GetAISSubjectId(animr5)];
-        val2 = gEfxPairHpBufOffset[GetAISSubjectId(animr5)];
+        val1 = gEfxPairHpBufOffset[GetAnimPosition(animr5)];
+        val2 = gEfxPairHpBufOffset[GetAnimPosition(animr5)];
         val2++;
     
-        val1 = GetEfxHp(val1 * 2 + GetAISSubjectId(animr5));
-        val2 = GetEfxHp(val2 * 2 + GetAISSubjectId(animr5));
+        val1 = GetEfxHp(val1 * 2 + GetAnimPosition(animr5));
+        val2 = GetEfxHp(val2 * 2 + GetAnimPosition(animr5));
 
         if (val1 != val2) {
             NewEfxHPBar(animr5);
 
-            if (sub_805A268(animr7) == 1)
+            if (CheckRoundCrit(animr7) == 1)
                 NewEfxHitQuake(animr5, animr7, b);
             else
                 NewEfxHitQuake(animr5, animr7, a);
@@ -138,7 +138,7 @@ void StartBattleAnimResireHitEffects(struct Anim *anim, int type)
     int val1, val2, off;
     struct Anim *animR7, *animR5, *animR8;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L) {
+    if (GetAnimPosition(anim) == EKR_POS_L) {
         animR7 = gAnims[2];
         animR5 = gAnims[0];
         animR8 = gAnims[1];
@@ -148,13 +148,13 @@ void StartBattleAnimResireHitEffects(struct Anim *anim, int type)
         animR8 = gAnims[3];
     }
 
-    val1 = gEfxPairHpBufOffset[GetAISSubjectId(animR5)];
-    val2 = gEfxPairHpBufOffset[GetAISSubjectId(animR5)];
+    val1 = gEfxPairHpBufOffset[GetAnimPosition(animR5)];
+    val2 = gEfxPairHpBufOffset[GetAnimPosition(animR5)];
     val2++;
 
     {
-        val1 = GetEfxHp(val1 * 2 + GetAISSubjectId(animR5));
-        val2 = GetEfxHp(val2 * 2 + GetAISSubjectId(animR5));
+        val1 = GetEfxHp(val1 * 2 + GetAnimPosition(animR5));
+        val2 = GetEfxHp(val2 * 2 + GetAnimPosition(animR5));
     }
 
     switch (type) {
@@ -162,7 +162,7 @@ void StartBattleAnimResireHitEffects(struct Anim *anim, int type)
         if (val1 != val2) {
             NewEfxHPBarResire(animR5);
 
-            if (sub_805A268(animR7) == 1)
+            if (CheckRoundCrit(animR7) == 1)
                 NewEfxHitQuake(animR5, animR7, 4);
             else
                 NewEfxHitQuake(animR5, animR7, 3);
@@ -185,7 +185,7 @@ void sub_8055518(struct Anim *anim, int type)
 {
     struct Anim *anim1;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         anim1 = gAnims[0];
     else
         anim1 = gAnims[2];
@@ -206,7 +206,7 @@ struct Anim *EfxAnimCreate1(struct Anim *anim, const u32 *scr1, const u32 *scr2,
     struct Anim *anim1;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(anim) == EKR_POS_L) {
+        if (GetAnimPosition(anim) == EKR_POS_L) {
             anim1 = AnimCreate(scr1, 0x78);
             anim1->oam2Base = 0x2840;
             anim1->xPosition = anim->xPosition;
@@ -221,7 +221,7 @@ struct Anim *EfxAnimCreate1(struct Anim *anim, const u32 *scr1, const u32 *scr2,
             return anim1;
         }
     } else {
-        if (GetAISSubjectId(anim) != EKR_POS_L) {
+        if (GetAnimPosition(anim) != EKR_POS_L) {
             anim1 = AnimCreate(scr4, 0x78);
             anim1->oam2Base = 0x2840;
             anim1->xPosition = anim->xPosition;
@@ -243,7 +243,7 @@ struct Anim *EfxAnimCreate2(struct Anim *anim, const u32 *scr1, const u32 *scr2,
     struct Anim *anim1;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(anim) == EKR_POS_L) {
+        if (GetAnimPosition(anim) == EKR_POS_L) {
             anim1 = AnimCreate(scr1, 0x14);
             anim1->oam2Base = 0x2840;
             anim1->xPosition = anim->xPosition;
@@ -258,7 +258,7 @@ struct Anim *EfxAnimCreate2(struct Anim *anim, const u32 *scr1, const u32 *scr2,
             return anim1;
         }
     } else {
-        if (GetAISSubjectId(anim) != EKR_POS_L) {
+        if (GetAnimPosition(anim) != EKR_POS_L) {
             anim1 = AnimCreate(scr4, 0x14);
             anim1->oam2Base = 0x2840;
             anim1->xPosition = anim->xPosition;
@@ -284,7 +284,7 @@ void sub_805560C(struct Anim *anim, const u16 *src1, const u16 *src2)
     else
         buf = src2;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         sub_8070EC4(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     else
         sub_8070E94(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
@@ -302,7 +302,7 @@ void SpellFx_WriteBgMap(struct Anim *anim, const u16 *src1, const u16 *src2)
         LZ77UnCompWram(src2, gEkrTsaBuffer);
     
     buf = gEkrTsaBuffer;
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         sub_8070EC4(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     else
         sub_8070E94(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
@@ -332,7 +332,7 @@ void sub_805576C(struct Anim *anim, const u16 *src, int a, int b)
 {
     LZ77UnCompWram(src, gEkrTsaBuffer);
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         sub_8070EC4(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
     else
         sub_8070E94(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);

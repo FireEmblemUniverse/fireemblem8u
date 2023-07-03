@@ -39,7 +39,7 @@ void EkrMyr_PrepareBanimfx(struct ProcEkrDragon *proc)
     SwitchAISFrameDataFromBARoundType(anim, 0);
     LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x7), 0x40);
     else
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x9), 0x40);
@@ -67,7 +67,7 @@ void EkrMyr_WaitForTransform(struct ProcEkrDragon *proc)
 
 void EkrMyr_TrigerForPrepared(struct ProcEkrDragon *proc)
 {
-    (void)GetCoreAIStruct(proc->anim);
+    (void)GetAnimAnotherSide(proc->anim);
     AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
     Proc_Break(proc);
 }
@@ -86,7 +86,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc)
     struct Anim *anim = proc->anim;
     BattleAnim *banim = banim_data;
 
-    if (GetEfxHp(2 * gEfxPairHpBufOffset[GetAISSubjectId(anim)] + GetAISSubjectId(anim)) <= 0) {
+    if (GetEfxHp(2 * gEfxPairHpBufOffset[GetAnimPosition(anim)] + GetAnimPosition(anim)) <= 0) {
 
         /* Transform from dragon to loli */
         proc->timer = 0;
@@ -103,7 +103,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc)
     Proc_Break(proc);
     LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x7), 0x40);
     else
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x9), 0x40);
@@ -118,7 +118,7 @@ void sub_8070AE4(struct ProcEkrDragon *proc)
         EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_NOWPN - 1);
         AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_END);
 
-        if (GetAISSubjectId(anim) == EKR_POS_L)
+        if (GetAnimPosition(anim) == EKR_POS_L)
             SetEkrDragonStatusType(gAnims[0], EKRDRGON_TYPE_NORMAL);
         else
             SetEkrDragonStatusType(gAnims[2], EKRDRGON_TYPE_NORMAL);

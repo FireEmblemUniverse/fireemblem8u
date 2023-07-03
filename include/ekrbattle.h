@@ -9,14 +9,14 @@ enum ekr_battle_unit_position {
     EKR_POS_R
 };
 
-int GetAISSubjectId(struct Anim *anim);
+int GetAnimPosition(struct Anim *anim);
 
 enum ekr_hit_identifer {
     EKR_HITTED = 0,
     EKR_MISS
 };
 
-enum ekr_hit_identifer EkrCheckHitOrMiss(s16);
+int CheckRoundMiss(s16);
 
 struct ProcEkrBattleDeamon {
     PROC_HEADER;
@@ -148,6 +148,14 @@ s16 GetBattleAnimRoundTypeFlags(int);
 
 extern u8 gEfxHpLut[];
 
+struct BanimRoundScript {
+    u8 frame_front;
+    u8 priority_front;
+    u8 frame_back;
+    u8 priority_back;
+};
+
+// extern const struct BanimRoundScript gBanimRoundScripts[ANIM_ROUND_MAX * 4];
 extern const u8 gBanimRoundScripts[ANIM_ROUND_MAX * 4];
 
 struct ProcEkrSubAnimeEmulator {
@@ -198,7 +206,7 @@ extern short gEkrPairSomeTile;
 extern short gEkrInitialHitSide;
 extern short gEkrSnowWeather;
 extern short gEkrPairSideVaild[2];
-extern short gUnknown_0203E108[2];
+extern short gEkrInitialPosition[2];
 extern short gBanimSomeObjPalIndex[2];
 extern short gEkrSpellAnimIndex[];
 // extern ??? gUnknown_0203E11A
@@ -211,7 +219,7 @@ extern u8 gEkrPids[2];
 extern struct Unit *gpEkrTriangleUnits[2];
 extern char *gBanimCharacterTSAs[2];
 extern int gUnknown_0203E1A4[2];
-extern short gEkrPairHpInitial[2];
+extern short gEkrGaugeHp[2];
 extern short gEkrPairMaxHP[2];
 extern short gUnknown_0203E1B4[2];
 extern short gEkrPairHit[2];
@@ -295,7 +303,7 @@ extern struct ProcCmd gProc_ekrbattleendin[];
 extern struct ProcCmd gProc_ekrWindowAppear[];
 extern struct ProcCmd gProc_ekrNamewinAppear[];
 extern struct ProcCmd ProcScr_ekrBaseAppear[];
-extern u32 gUnknown_085B9D5C[4];
+extern u32 BanimScr_085B9D5C[4];
 extern void *gUnknown_085B9D6C[];
 extern struct ProcCmd gProc_ekrChienCHR[];
 extern struct ProcCmd gProc_efxAnimeDrvProc[];
@@ -390,7 +398,7 @@ void EfxPrepareScreenFx(void);
 int GetEkrSomePosMaybe(void);
 void sub_8052214(int a, int b);
 void EkrEfxStatusClear(void);
-int sub_80522CC(void);
+int CheckEkrHitDone(void);
 short EkrEfxIsUnitHittedNow(int pos);
 void NewEfxHPBar(struct Anim *anim);
 // ??? EfxHp_BarDeclineWithDeathJudge(???);
@@ -561,19 +569,19 @@ int GetBanimPalette(int banim_id, enum ekr_battle_unit_position pos);
 void UpdateBanimFrame(void);
 void InitBothAIS(void);
 void BattleAnimationAISInit(int, int);
-void sub_8059E18(int);
-void InitRightAIS(int);
+void InitLeftAnim(int);
+void InitRightAnim(int);
 void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int);
 int GetAISLayerId(struct Anim *anim);
 
-int sub_805A1D0(s16);
-int sub_805A21C(s16);
-int sub_805A268(struct Anim *anim);
-struct Anim *GetCoreAIStruct(struct Anim *anim);
-// ??? sub_805A2D0(???);
-s16 sub_805A2F0(struct Anim *anim);
-s16 GetSomeAISRelatedIndexMaybe(struct Anim *anim);
-s16 sub_805A334(struct Anim *anim);
+int CheckRound1(s16);
+int CheckRound2(s16);
+int CheckRoundCrit(struct Anim *anim);
+struct Anim *GetAnimAnotherSide(struct Anim *anim);
+// ??? GetAnimRoundType(???);
+s16 GetAnimNextRoundType(struct Anim *anim);
+s16 GetAnimRoundTypeAnotherSide(struct Anim *anim);
+s16 GetAnimNextRoundTypeAnotherSide(struct Anim *anim);
 void SetAnimStateHidden(int ais_id);
 void SetAnimStateUnHidden(int ais_id);
 // ??? sub_805A3DC(???);

@@ -471,7 +471,7 @@
 . = 0x03E100; gEkrInitialHitSide = .;
 . = 0x03E102; gEkrSnowWeather = .;
 . = 0x03E104; gEkrPairSideVaild = .;
-. = 0x03E108; gUnknown_0203E108 = .;
+. = 0x03E108; gEkrInitialPosition = .;
 . = 0x03E10C; gEkrPairBanimID = .;
 . = 0x03E110; gBattleInitSide = .;
 . = 0x03E114; gBanimSomeObjPalIndex = .;
@@ -490,7 +490,7 @@
 . = 0x03E194; gpEkrTriangleUnits = .;
 . = 0x03E19C; gBanimCharacterTSAs = .;
 . = 0x03E1A4; gUnknown_0203E1A4 = .;
-. = 0x03E1AC; gEkrPairHpInitial = .;
+. = 0x03E1AC; gEkrGaugeHp = .;
 . = 0x03E1B0; gEkrPairMaxHP = .;
 . = 0x03E1B4; gUnknown_0203E1B4 = .;
 . = 0x03E1B8; gEkrPairHit = .;

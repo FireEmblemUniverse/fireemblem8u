@@ -15,12 +15,12 @@ void StartSpellAnimThunder(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxThunder, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->hitted = EkrCheckHitOrMiss(GetSomeAISRelatedIndexMaybe(anim));
+    proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
 }
 
 void Loop6C_efxThunder(struct ProcEfx *proc)
 {
-    struct Anim *animc = GetCoreAIStruct(proc->anim);
+    struct Anim *animc = GetAnimAnotherSide(proc->anim);
     int cur, frame = GetAnimationStartFrameMaybe();
 
     if (++proc->timer == 1)
@@ -71,7 +71,7 @@ void NewEfxThunderBG(struct Anim *anim)
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
             BG_SetPosition(BG_1, 0x18, 0x0);
         else
             BG_SetPosition(BG_1, 0xE8, 0x0);

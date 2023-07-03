@@ -282,7 +282,7 @@ void NewEkrLevelup(struct Anim *ais)
     gpProcEkrLevelup = proc = Proc_Start(ProcScr_EkrLevelup, PROC_TREE_3);
 
     proc->ais_main = ais;
-    proc->ais_core = GetCoreAIStruct(ais);
+    proc->ais_core = GetAnimAnotherSide(ais);
 
     if (gEkrDistanceType != EKR_DISTANCE_PROMOTION)
         proc->is_promotion = false;
@@ -462,7 +462,7 @@ void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
 
     proc->timer = EKR_LVUP_UI_BASE;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         portrait = bu1->unit.pCharacterData->portraitId;
     else
         portrait = bu2->unit.pCharacterData->portraitId;

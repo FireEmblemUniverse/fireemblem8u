@@ -17,10 +17,10 @@ StartSpellAnimIvaldi: @ 0x080657D4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl GetSomeAISRelatedIndexMaybe
+	bl GetAnimRoundTypeAnotherSide
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl EkrCheckHitOrMiss
+	bl CheckRoundMiss
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -37,7 +37,7 @@ Loop6C_efxIvaldi: @ 0x08065810
 	sub sp, #4
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	bl GetAnimationStartFrameMaybe
 	adds r4, r0, #0
@@ -280,7 +280,7 @@ Loop6C_efxIvaldiBG1: @ 0x08065A10
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r0, r5, #0
 	adds r0, #0x2c
 	adds r1, r5, #0
@@ -343,7 +343,7 @@ StartSpellBG_IvaldiBG2: @ 0x08065A80
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -638,7 +638,7 @@ _08065D00:
 _08065D0C:
 	ldr r4, _08065D30  @ gEkrTsaBuffer
 	ldr r0, [r5, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08065D38
 	ldr r1, _08065D34  @ gBG1TilemapBuffer
@@ -716,7 +716,7 @@ StartSpellOBJ_IvaldiFall: @ 0x08065DA4
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r0, _08065DE8  @ gUnknown_08692B10
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
@@ -733,7 +733,7 @@ StartSpellOBJ_IvaldiFall: @ 0x08065DA4
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -905,7 +905,7 @@ StartSpellOBJ_IvaldiSideWash: @ 0x08065F10
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r0, _08065F54  @ gUnknown_08692B10
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
@@ -922,7 +922,7 @@ StartSpellOBJ_IvaldiSideWash: @ 0x08065F10
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -944,7 +944,7 @@ Loop6C_efxIvaldiOBJSideWash: @ 0x08065F64
 	sub sp, #4
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	movs r2, #0
@@ -1072,7 +1072,7 @@ sub_8066060: @ 0x08066060
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	ldr r0, _080660A4  @ gUnknown_08692B10
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
@@ -1089,7 +1089,7 @@ sub_8066060: @ 0x08066060
 	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -1356,7 +1356,7 @@ sub_8066258: @ 0x08066258
 	ldm r0!, {r2, r3, r6}
 	stm r1!, {r2, r3, r6}
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #0x18
 	lsrs r6, r0, #0x18
 	ldr r1, _080662CC  @ gEfxBgSemaphore
@@ -1368,7 +1368,7 @@ sub_8066258: @ 0x08066258
 	bl Proc_Start
 	adds r7, r0, #0
 	adds r0, r4, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r7, #0x5c]
 	movs r0, #0
 	strh r0, [r7, #0x2c]
@@ -1516,7 +1516,7 @@ sub_8066390: @ 0x08066390
 	bl Proc_Start
 	adds r5, r0, #0
 	mov r0, r8
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	str r0, [r5, #0x5c]
 	movs r0, #0
 	strh r0, [r5, #0x2c]

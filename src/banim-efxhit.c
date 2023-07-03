@@ -50,7 +50,7 @@ void NewEfxDamageMojiEffectOBJ(struct Anim *anim, int hitted)
         buf = gUnknown_085C8218;
     }
 
-    val1 = GetAISSubjectId(anim) == EKR_POS_L ? 0x6100 : 0x5100;
+    val1 = GetAnimPosition(anim) == EKR_POS_L ? 0x6100 : 0x5100;
     proc->sub_proc = NewEkrsubAnimeEmulator(
         anim->xPosition,
         anim->yPosition - 0x28,
@@ -72,10 +72,10 @@ void efxDamageMojiEffectOBJMain(struct ProcEfxDamageMojiEffectOBJ *proc)
 void NewEfxPierceCritical(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    struct Anim *anim1 = GetCoreAIStruct(anim);
+    struct Anim *anim1 = GetAnimAnotherSide(anim);
     int is_pierce;
 
-    is_pierce = GetBattleAnimRoundTypeFlags((anim1->nextRoundId - 1) * 2 + GetAISSubjectId(anim1)) & ANIM_ROUND_PIERCE;
+    is_pierce = GetBattleAnimRoundTypeFlags((anim1->nextRoundId - 1) * 2 + GetAnimPosition(anim1)) & ANIM_ROUND_PIERCE;
     if (is_pierce != 0) {
         NewEfxPierceCriticalEffect(anim);
     } else {
@@ -154,7 +154,7 @@ void NewEfxNormalEffect(struct Anim *anim)
     int is_pierce;
 
     SpellFx_SpellFx_ClearBG1Position();
-    is_pierce = GetBattleAnimRoundTypeFlags((anim->nextRoundId - 1) * 2 + GetAISSubjectId(anim)) & ANIM_ROUND_PIERCE;
+    is_pierce = GetBattleAnimRoundTypeFlags((anim->nextRoundId - 1) * 2 + GetAnimPosition(anim)) & ANIM_ROUND_PIERCE;
     if (is_pierce != 0) {
         NewEfxPierceNormalEffect(anim);
     } else {
@@ -167,7 +167,7 @@ void NewEfxNormalEffect(struct Anim *anim)
 void efxNormalEffectMain(struct ProcEfx *proc)
 {
     int time;
-    struct Anim *anim1 = GetCoreAIStruct(proc->anim);
+    struct Anim *anim1 = GetAnimAnotherSide(proc->anim);
 
     time = ++proc->timer;
 
@@ -204,7 +204,7 @@ void NewEfxNormalEffectBG(struct Anim *anim)
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
             BG_SetPosition(BG_1, 0x18, 0);
         else
             BG_SetPosition(BG_1, 0xE8, 0);
@@ -313,7 +313,7 @@ void NewEfxPierceNormalEffect(struct Anim *anim)
 void efxPierceNormalEffectMain(struct ProcEfx *proc)
 {
     int time;
-    struct Anim *anim1 = GetCoreAIStruct(proc->anim);
+    struct Anim *anim1 = GetAnimAnotherSide(proc->anim);
 
     time = ++proc->timer;
 
@@ -350,7 +350,7 @@ void NewEfxPierceNormalEffectBG(struct Anim *anim)
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
             BG_SetPosition(BG_1, 0x18, 0);
         else
             BG_SetPosition(BG_1, 0xE8, 0);

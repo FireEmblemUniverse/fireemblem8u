@@ -2278,7 +2278,7 @@ EfxPlaySEwithCmdCtrl: @ 0x08071B6C
 	sub sp, #8
 	mov r8, r0
 	mov sl, r1
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	mov r9, r0
 	mov r0, r8
 	bl GetAISLayerId
@@ -2287,7 +2287,7 @@ EfxPlaySEwithCmdCtrl: @ 0x08071B6C
 	b _08072246
 _08071B8E:
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r6, r0, #0
 	cmp r6, #0
 	bne _08071BA8
@@ -2517,7 +2517,7 @@ _08071E0C:
 	cmp r0, #2
 	beq _08071E5A
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	mov r2, r8
 	ldrh r0, [r2, #0xe]
@@ -2566,7 +2566,7 @@ _08071E78:
 	cmp r0, #2
 	beq _08071EC6
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	mov r2, r8
 	ldrh r0, [r2, #0xe]
@@ -2615,7 +2615,7 @@ _08071EE4:
 	cmp r0, #2
 	beq _08071F32
 	mov r0, r8
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	mov r2, r8
 	ldrh r0, [r2, #0xe]
@@ -3237,7 +3237,7 @@ sub_80723A4: @ 0x080723A4
 	ldrsh r1, [r4, r2]
 	adds r5, r0, r1
 	adds r0, r4, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _080723C2
 	cmp r5, #0x58
@@ -3292,13 +3292,13 @@ sub_8072400: @ 0x08072400
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r4, _08072440  @ gEfxPairHpBufOffset
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
 	ldrsh r6, [r0, r1]
 	adds r0, r5, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	lsls r1, r6, #1
 	adds r6, r1, r0
 	adds r0, r6, #0
@@ -3334,7 +3334,7 @@ _0807244A:
 sub_8072450: @ 0x08072450
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r4, r0, #0
 	ldr r6, _080724C0  @ 0x0000FFFF
 	adds r0, r5, #0
@@ -3346,7 +3346,7 @@ sub_8072450: @ 0x08072450
 	cmp r0, #2
 	beq _080724A6
 	adds r0, r5, #0
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	adds r1, r0, #0
 	ldrh r0, [r5, #0xe]
 	subs r0, #1
@@ -3424,7 +3424,7 @@ _08072500: .4byte 0x000002CE
 sub_8072504: @ 0x08072504
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl GetCoreAIStruct
+	bl GetAnimAnotherSide
 	adds r5, r0, #0
 	adds r0, r4, #0
 	bl sub_8072400
@@ -3435,7 +3435,7 @@ sub_8072504: @ 0x08072504
 	cmp r0, #0
 	blt _08072540
 	adds r0, r5, #0
-	bl sub_805A268
+	bl CheckRoundCrit
 	cmp r0, #1
 	bne _08072540
 	movs r1, #0x80

@@ -755,10 +755,10 @@ sub_8054498: @ 0x08054498
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _080544D4
-	ldr r0, _080544B8  @ gEkrPairHpInitial
+	ldr r0, _080544B8  @ gEkrGaugeHp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x50
@@ -767,7 +767,7 @@ sub_8054498: @ 0x08054498
 	ldr r1, _080544C0  @ gUnknown_02022C08
 	b _080544E2
 	.align 2, 0
-_080544B8: .4byte gEkrPairHpInitial
+_080544B8: .4byte gEkrGaugeHp
 _080544BC: .4byte gUnknown_08802B84
 _080544C0: .4byte gUnknown_02022C08
 _080544C4:
@@ -778,7 +778,7 @@ _080544C4:
 _080544CC: .4byte gUnknown_08802C84
 _080544D0: .4byte gUnknown_02022C08
 _080544D4:
-	ldr r0, _080544EC  @ gEkrPairHpInitial
+	ldr r0, _080544EC  @ gEkrGaugeHp
 	movs r2, #2
 	ldrsh r0, [r0, r2]
 	cmp r0, #0x50
@@ -790,7 +790,7 @@ _080544E2:
 	bl CpuSet
 	b _08054502
 	.align 2, 0
-_080544EC: .4byte gEkrPairHpInitial
+_080544EC: .4byte gEkrGaugeHp
 _080544F0: .4byte gUnknown_08802B84
 _080544F4: .4byte gUnknown_02022C28
 _080544F8:
@@ -826,10 +826,10 @@ sub_805452C: @ 0x0805452C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0805456C
-	ldr r0, _08054554  @ gEkrPairHpInitial
+	ldr r0, _08054554  @ gEkrGaugeHp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x50
@@ -843,7 +843,7 @@ sub_805452C: @ 0x0805452C
 	ldr r1, _08054560  @ gUnknown_02022C08
 	b _08054584
 	.align 2, 0
-_08054554: .4byte gEkrPairHpInitial
+_08054554: .4byte gEkrGaugeHp
 _08054558: .4byte gBanimSomeObjPalIndex
 _0805455C: .4byte gUnknown_08802B04
 _08054560: .4byte gUnknown_02022C08
@@ -853,7 +853,7 @@ _08054564:
 	.align 2, 0
 _08054568: .4byte gUnknown_08802C84
 _0805456C:
-	ldr r0, _0805458C  @ gEkrPairHpInitial
+	ldr r0, _0805458C  @ gEkrGaugeHp
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x50
@@ -871,7 +871,7 @@ _08054584:
 	bl CpuSet
 	b _080545A6
 	.align 2, 0
-_0805458C: .4byte gEkrPairHpInitial
+_0805458C: .4byte gEkrGaugeHp
 _08054590: .4byte gBanimSomeObjPalIndex
 _08054594: .4byte gUnknown_08802B04
 _08054598: .4byte gUnknown_02022C28
@@ -1071,7 +1071,7 @@ _0805470A:
 	blt _08054722
 	str r0, [r4, #0x58]
 _08054722:
-	ldr r0, _0805474C  @ gEkrPairHpInitial
+	ldr r0, _0805474C  @ gEkrGaugeHp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x50
@@ -1092,7 +1092,7 @@ _08054722:
 	bl sub_80715F4
 	b _08054770
 	.align 2, 0
-_0805474C: .4byte gEkrPairHpInitial
+_0805474C: .4byte gEkrGaugeHp
 _08054750: .4byte gUnknown_0201F948
 _08054754: .4byte gUnknown_0201F978
 _08054758: .4byte gUnknown_0201F9A8
@@ -1106,7 +1106,7 @@ _08054760:
 	movs r2, #8
 	bl CpuFastSet
 _08054770:
-	ldr r0, _080547A4  @ gEkrPairHpInitial
+	ldr r0, _080547A4  @ gEkrGaugeHp
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x50
@@ -1129,7 +1129,7 @@ _08054770:
 	.align 2, 0
 _0805479C: .4byte gUnknown_08802C84
 _080547A0: .4byte gUnknown_02022C08
-_080547A4: .4byte gEkrPairHpInitial
+_080547A4: .4byte gEkrGaugeHp
 _080547A8: .4byte gUnknown_0201FA08
 _080547AC: .4byte gUnknown_0201FA38
 _080547B0: .4byte gUnknown_0201FA68
@@ -1203,7 +1203,7 @@ sub_8054818: @ 0x08054818
 	cmp r0, r1
 	blt _0805487A
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _08054854
 	ldr r0, _0805484C  @ gUnknown_08802D24
@@ -1248,7 +1248,7 @@ sub_8054888: @ 0x08054888
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _080548B4
 	ldr r0, _080548AC  @ gpEfxUnitPaletteBackup
@@ -1341,7 +1341,7 @@ sub_8054930: @ 0x08054930
 	cmp r0, r1
 	blt _080549A8
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _0805496C
 	ldr r0, _08054964  @ gUnknown_08802D24
@@ -1398,7 +1398,7 @@ sub_80549BC: @ 0x080549BC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl GetAISSubjectId
+	bl GetAnimPosition
 	cmp r0, #0
 	bne _080549E8
 	ldr r0, _080549E0  @ gpEfxUnitPaletteBackup

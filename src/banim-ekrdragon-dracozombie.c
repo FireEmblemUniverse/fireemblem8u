@@ -123,7 +123,7 @@ void EkrDZ_PrepareBanimfx(struct ProcEkrDragon *proc)
     /* banim index for Draco Zombie */
     EkrPrepareBanimfx(proc->anim, 0xC0);
 
-    SetAnimStateUnHidden(GetAISSubjectId(proc->anim));
+    SetAnimStateUnHidden(GetAnimPosition(proc->anim));
 
     /* spell anim index maybe */
     gEkrSpellAnimIndex[0] = 0x15;
@@ -131,7 +131,7 @@ void EkrDZ_PrepareBanimfx(struct ProcEkrDragon *proc)
 
 void EkrDZ_TriggerPreparedFlag(struct ProcEkrDragon *proc)
 {
-    if (GetEkrDragonStatusAttr(GetCoreAIStruct(proc->anim)) != EKRDRGON_ATTR_START) {
+    if (GetEkrDragonStatusAttr(GetAnimAnotherSide(proc->anim)) != EKRDRGON_ATTR_START) {
         AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
         Proc_Break(proc);
     }
@@ -144,7 +144,7 @@ void EkrDZ_IdleInBattle(struct ProcEkrDragon *proc)
         proc->timer = 0;
 
         if (CheckEkrDragonStatusAttrBit13(proc->anim) == false) {
-            SetAnimStateHidden(GetAISSubjectId(proc->anim));
+            SetAnimStateHidden(GetAnimPosition(proc->anim));
             EfxDracoZombiePrepareTSA(0, 0, 1);
         }
 
@@ -195,7 +195,7 @@ void EkrDZ_ReloadCustomBg(struct ProcEkrDragon *proc)
     
     if (++proc->timer == 0x9) {
         proc->timer = 0;
-        gEkrPairSideVaild[GetAISSubjectId(proc->anim)] = false;
+        gEkrPairSideVaild[GetAnimPosition(proc->anim)] = false;
         BG_Fill(gBG3TilemapBuffer, 0x6000);
         BG_EnableSyncByMask(BG3_SYNC_BIT);
         SetEkrDragonStatusUnk1(0);
@@ -333,7 +333,7 @@ void sub_807027C(struct Anim *anim)
             break;
     }
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         CpuFastCopy(pal, PAL_BG(6), 0x20);
     else
         CpuFastCopy(pal, PAL_BG(7), 0x20);
@@ -384,7 +384,7 @@ void sub_807032C(int pos)
 void sub_807035C(struct Anim *anim)
 {
     if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL && GetBanimDragonStatusType() != EKRDRGON_TYPE_MYRRH)
-        sub_807032C(GetAISSubjectId(anim));
+        sub_807032C(GetAnimPosition(anim));
 }
 
 void NewEkrDragonQuakeTree3(struct EkrDragonQuakePriv *priv, int b, int c)

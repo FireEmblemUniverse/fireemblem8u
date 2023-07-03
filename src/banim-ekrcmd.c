@@ -9,7 +9,7 @@ extern struct Anim *gAnims[4];
 
 void EkrPrepareBanimfx(struct Anim *anim, u16 index)
 {
-    gEkrPairBanimID2[GetAISSubjectId(anim)] = index;
+    gEkrPairBanimID2[GetAnimPosition(anim)] = index;
     UpdateBanimFrame();
     SwitchAISFrameDataFromBARoundType(anim, 6);
 }

@@ -164,7 +164,7 @@ _080513BE:
 	bl BG_EnableSyncByMask
 _080513C4:
 	ldr r3, _08051424  @ gUnknown_0203E1B4
-	ldr r0, _08051428  @ gEkrPairHpInitial
+	ldr r0, _08051428  @ gEkrGaugeHp
 	movs r4, #0
 	ldrsh r2, [r3, r4]
 	ldrh r4, [r0]
@@ -213,7 +213,7 @@ _080513EE:
 _0805141C: .4byte gUnknown_08802428
 _08051420: .4byte gBG0TilemapBuffer
 _08051424: .4byte gUnknown_0203E1B4
-_08051428: .4byte gEkrPairHpInitial
+_08051428: .4byte gEkrGaugeHp
 _0805142C: .4byte gEkrPairMaxHP
 _08051430: .4byte gEkrDistanceType
 _08051434:

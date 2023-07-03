@@ -15,7 +15,7 @@
 
 extern struct Anim *gAnims[4];
 
-int sub_80522CC(void)
+int CheckEkrHitDone(void)
 {
     if (gEkrHPBarCount == 0 && gEfxSpellAnimExists == 0)
         return true;
@@ -34,7 +34,7 @@ void NewEfxHPBar(struct Anim *anim)
     int val1;
     s16 val2;
     struct ProcEfxHPBar *proc;
-    int ais_id = GetAISSubjectId(anim);
+    int ais_id = GetAnimPosition(anim);
 
     if (ANIM_ROUND_GREAT_SHIELD & GetBattleAnimRoundTypeFlags((anim->nextRoundId - 1) * 2 + ais_id) || gEkrHPBarCount != 0)
         return;
@@ -44,7 +44,7 @@ void NewEfxHPBar(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxHPBar, PROC_TREE_3);
     proc->anim64 = anim;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L) {
+    if (GetAnimPosition(anim) == EKR_POS_L) {
         proc->anim5C = gAnims[EKR_POS_R * 2];
         proc->anim60 = gAnims[EKR_POS_L * 2];
     } else {
@@ -52,11 +52,11 @@ void NewEfxHPBar(struct Anim *anim)
         proc->anim60 = gAnims[EKR_POS_R * 2];
     }
 
-    val1 = gEfxPairHpBufOffset[GetAISSubjectId(proc->anim60)];
+    val1 = gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)];
     val2 = val1 + 1;
 
-    proc->pre = GetEfxHp(val1 * 2 + GetAISSubjectId(proc->anim60));
-    proc->post = GetEfxHp(val2 * 2 + GetAISSubjectId(proc->anim60));
+    proc->pre = GetEfxHp(val1 * 2 + GetAnimPosition(proc->anim60));
+    proc->post = GetEfxHp(val2 * 2 + GetAnimPosition(proc->anim60));
 
     if (proc->pre > proc->post)
         proc->diff = -1;
@@ -64,45 +64,45 @@ void NewEfxHPBar(struct Anim *anim)
         proc->diff = 1;
 
     proc->pos = 0;
-    proc->max = proc->pre;
+    proc->cur = proc->pre;
     proc->timer = 0;
-    proc->init = false;
-    gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 1;
+    proc->finished = false;
+    gEkrHitEfxBool[GetAnimPosition(proc->anim60)] = 1;
 }
 
 void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar *proc)
 {
-    struct Anim *anim1 = gAnims[GetAISSubjectId(proc->anim60) * 2];
-    struct Anim *anim2 = gAnims[GetAISSubjectId(proc->anim60) * 2 + 1];
+    struct Anim *anim1 = gAnims[GetAnimPosition(proc->anim60) * 2];
+    struct Anim *anim2 = gAnims[GetAnimPosition(proc->anim60) * 2 + 1];
 
-    if (proc->init == false) {
+    if (proc->finished == false) {
         if (++proc->pos == 2) {
             proc->pos = 0;
-            proc->max += proc->diff;
-            gEkrPairHpInitial[GetAISSubjectId(proc->anim60)] += proc->diff;
+            proc->cur += proc->diff;
+            gEkrGaugeHp[GetAnimPosition(proc->anim60)] += proc->diff;
 
-            if (proc->max == proc->post)
-                proc->init = true;
+            if (proc->cur == proc->post)
+                proc->finished = true;
         }
     }
 
-    if (proc->timer == 0x1E && proc->init == true) {
-        gEfxPairHpBufOffset[GetAISSubjectId(proc->anim60)]++;
-        gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 0;
+    if (proc->timer == 0x1E && proc->finished == true) {
+        gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)]++;
+        gEkrHitEfxBool[GetAnimPosition(proc->anim60)] = 0;
     
         if (proc->post == 0) {
             int ret;
             if (GetBanimLinkArenaFlag() == true)
                 ret = 0;
             else
-                ret = ShouldDisplayDefeatTalkForPid(gEkrPids[GetAISSubjectId(anim1)]);
+                ret = ShouldDisplayDefeatTalkForPid(gEkrPids[GetAnimPosition(anim1)]);
 
             if (ret == true)
                 NewEfxDeadEvent(anim1, anim2);
             else {
                 PlaySound8FForArenaMaybe();
                 NewEfxDead(anim1, anim2);
-                gEkrPairSideVaild[GetAISSubjectId(proc->anim60)] = false;
+                gEkrPairSideVaild[GetAnimPosition(proc->anim60)] = false;
             }
         }
 
@@ -120,22 +120,22 @@ void efxHPBarMain(struct ProcEfxHPBar *proc)
 
     if (gEfxBgSemaphore == 0 && gEfxSpellAnimExists == 0) {
         proc->pos = 0;
-        proc->max = 1;
-        anim = GetCoreAIStruct(proc->anim64);
+        proc->cur = 1;
+        anim = GetAnimAnotherSide(proc->anim64);
 
-        if (sub_805A21C(sub_805A2F0(anim)) == 1) {
+        if (CheckRound2(GetAnimNextRoundType(anim)) == 1) {
             switch (gEkrDistanceType) {
             case EKR_DISTANCE_CLOSE:
             case EKR_DISTANCE_FAR:
             case EKR_DISTANCE_3:
             case EKR_DISTANCE_PROMOTION:
-                proc->max = 16;
-                NewEfxFarAttackWithDistance(GetCoreAIStruct(anim), -1);
+                proc->cur = 16;
+                NewEfxFarAttackWithDistance(GetAnimAnotherSide(anim), -1);
                 break;
 
             case EKR_DISTANCE_FARFAR:
-                proc->max = 20;
-                NewEfxFarAttackWithDistance(GetCoreAIStruct(anim), -1);
+                proc->cur = 20;
+                NewEfxFarAttackWithDistance(GetAnimAnotherSide(anim), -1);
                 break;
             }
         }
@@ -146,10 +146,10 @@ void efxHPBarMain(struct ProcEfxHPBar *proc)
 
 void efxHPBarWaitForFarFarCamMoveMaybe(struct ProcEfxHPBar *proc)
 {
-    if (++proc->pos == (proc->max - 4)) {
-        GetCoreAIStruct(proc->anim64);
+    if (++proc->pos == (proc->cur - 4)) {
+        GetAnimAnotherSide(proc->anim64);
         BG_EnableSyncByMask(BG2_SYNC_BIT);
-    } else if (proc->pos == proc->max){
+    } else if (proc->pos == proc->cur){
         gEkrHPBarCount--;
         Proc_Break(proc);
     }
@@ -167,9 +167,9 @@ void NewEfxHPBarResire(struct Anim *anim)
     gEkrHPBarCount = 1;
 
     proc = Proc_Start(ProcScr_efxHPBarResire, PROC_TREE_3);
-    proc->anim64 = GetCoreAIStruct(anim);
+    proc->anim64 = GetAnimAnotherSide(anim);
 
-    if (GetAISSubjectId(anim) == EKR_POS_L) {
+    if (GetAnimPosition(anim) == EKR_POS_L) {
         proc->anim5C = gAnims[EKR_POS_R * 2];
         proc->anim60 = gAnims[EKR_POS_L * 2];
     } else {
@@ -177,11 +177,11 @@ void NewEfxHPBarResire(struct Anim *anim)
         proc->anim60 = gAnims[EKR_POS_R * 2];
     }
 
-    val1 = gEfxPairHpBufOffset[GetAISSubjectId(proc->anim60)];
+    val1 = gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)];
     val2 = val1 + 1;
 
-    proc->pre = GetEfxHp(val1 * 2 + GetAISSubjectId(proc->anim60));
-    proc->post = GetEfxHp(val2 * 2 + GetAISSubjectId(proc->anim60));
+    proc->pre = GetEfxHp(val1 * 2 + GetAnimPosition(proc->anim60));
+    proc->post = GetEfxHp(val2 * 2 + GetAnimPosition(proc->anim60));
 
     if (proc->pre > proc->post)
         proc->diff = -1;
@@ -190,38 +190,38 @@ void NewEfxHPBarResire(struct Anim *anim)
 
     proc->death = false;
     proc->pos = 0;
-    proc->max = proc->pre;
+    proc->cur = proc->pre;
     proc->timer = 0;
-    proc->init = false;
+    proc->finished = false;
     gUnknown_02017750 = 0;
-    gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 1;
+    gEkrHitEfxBool[GetAnimPosition(proc->anim60)] = 1;
 }
 
 void EfxHPBarResire_80526C8(struct ProcEfxHPBar *proc)
 {
-    GetAISSubjectId(proc->anim60);
-    GetAISSubjectId(proc->anim60);
+    GetAnimPosition(proc->anim60);
+    GetAnimPosition(proc->anim60);
 
-    if (proc->init == false) {
+    if (proc->finished == false) {
         if (++proc->pos == 2) {
             proc->pos = 0;
-            proc->max += proc->diff;
-            gEkrPairHpInitial[GetAISSubjectId(proc->anim60)] += proc->diff;
+            proc->cur += proc->diff;
+            gEkrGaugeHp[GetAnimPosition(proc->anim60)] += proc->diff;
 
-            if (proc->max == proc->post)
-                proc->init = true;
+            if (proc->cur == proc->post)
+                proc->finished = true;
         }
     }
 
-    if (proc->timer == 0x54 && proc->init == true) {
-        gEfxPairHpBufOffset[GetAISSubjectId(proc->anim60)]++;
-        gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 0;
+    if (proc->timer == 0x54 && proc->finished == true) {
+        gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)]++;
+        gEkrHitEfxBool[GetAnimPosition(proc->anim60)] = 0;
 
         if (proc->post == 0)
             proc->death = true;
 
         proc->pos = 0;
-        proc->max = 10;
+        proc->cur = 10;
         gUnknown_02017750 = 1;
 
         Proc_Break(proc);
@@ -237,22 +237,22 @@ void EfxHPBarResire_8052788(struct ProcEfxHPBar *proc)
     int val1;
     s16 val2;
 
-    if (++proc->pos <= proc->max)
+    if (++proc->pos <= proc->cur)
         return;
 
-    val1 = gEfxPairHpBufOffset[GetAISSubjectId(proc->anim5C)];
+    val1 = gEfxPairHpBufOffset[GetAnimPosition(proc->anim5C)];
     val2 = val1 + 1;
 
-    proc->pre = GetEfxHp(val1 * 2 + GetAISSubjectId(proc->anim5C));
-    proc->post = GetEfxHp(val2 * 2 + GetAISSubjectId(proc->anim5C));
+    proc->pre = GetEfxHp(val1 * 2 + GetAnimPosition(proc->anim5C));
+    proc->post = GetEfxHp(val2 * 2 + GetAnimPosition(proc->anim5C));
 
     proc->pos = 0;
-    proc->max = proc->pre;
+    proc->cur = proc->pre;
     proc->timer = 0;
-    proc->init = false;
+    proc->finished = false;
 
     if (proc->pre == proc->post)
-        proc->init = true;
+        proc->finished = true;
 
     if (proc->pre > proc->post)
         proc->diff = -1;
@@ -260,48 +260,48 @@ void EfxHPBarResire_8052788(struct ProcEfxHPBar *proc)
         proc->diff = 1;
 
     Proc_Break(proc);
-    gEkrHitEfxBool[GetAISSubjectId(proc->anim5C)] = 2;
+    gEkrHitEfxBool[GetAnimPosition(proc->anim5C)] = 2;
 }
 
 void EfxHPBarResire_805282C(struct ProcEfxHPBar *proc)
 {
     struct Anim *anim1, *anim2, *anim3, *anim4;
 
-    anim1 = gAnims[GetAISSubjectId(proc->anim5C) * 2];
-    anim2 = gAnims[GetAISSubjectId(proc->anim5C) * 2 + 1];
-    anim3 = gAnims[GetAISSubjectId(proc->anim60) * 2];
-    anim4 = gAnims[GetAISSubjectId(proc->anim60) * 2 + 1];
+    anim1 = gAnims[GetAnimPosition(proc->anim5C) * 2];
+    anim2 = gAnims[GetAnimPosition(proc->anim5C) * 2 + 1];
+    anim3 = gAnims[GetAnimPosition(proc->anim60) * 2];
+    anim4 = gAnims[GetAnimPosition(proc->anim60) * 2 + 1];
 
-    if (proc->init == false) {
+    if (proc->finished == false) {
         if (++proc->pos == 4) {
             proc->pos = 0;
-            proc->max += proc->diff;
-            gEkrPairHpInitial[GetAISSubjectId(proc->anim5C)] += proc->diff;
+            proc->cur += proc->diff;
+            gEkrGaugeHp[GetAnimPosition(proc->anim5C)] += proc->diff;
             EfxPlaySE(0x75, 0x100);
             M4aPlayWithPostionCtrl(0x75, anim1->xPosition, 1);
 
-            if (proc->max == proc->post)
-                proc->init = true;
+            if (proc->cur == proc->post)
+                proc->finished = true;
         }
     }
 
-    if (proc->timer == 30 && proc->init == true) {
-        gEfxPairHpBufOffset[GetAISSubjectId(proc->anim5C)]++;
-        gEkrHitEfxBool[GetAISSubjectId(proc->anim5C)] = 0;
+    if (proc->timer == 30 && proc->finished == true) {
+        gEfxPairHpBufOffset[GetAnimPosition(proc->anim5C)]++;
+        gEkrHitEfxBool[GetAnimPosition(proc->anim5C)] = 0;
     
         if (proc->death == true) {
             int ret;
             if (GetBanimLinkArenaFlag() == true)
                 ret = 0;
             else
-                ret = ShouldDisplayDefeatTalkForPid(gEkrPids[GetAISSubjectId(anim3)]);
+                ret = ShouldDisplayDefeatTalkForPid(gEkrPids[GetAnimPosition(anim3)]);
 
             if (ret == true)
                 NewEfxDeadEvent(anim3, anim4);
             else {
                 PlaySound8FForArenaMaybe();
                 NewEfxDead(anim3, anim4);
-                gEkrPairSideVaild[GetAISSubjectId(proc->anim60)] = false;
+                gEkrPairSideVaild[GetAnimPosition(proc->anim60)] = false;
             }
         }
     
@@ -327,7 +327,7 @@ void NewEfxAvoid(struct Anim *anim)
     proc = Proc_Start(ProcScr_EfxAvoid, PROC_TREE_3);
     proc->pos = 0;
 
-    if (GetAISSubjectId(anim) == 0) {
+    if (GetAnimPosition(anim) == 0) {
         proc->anim5C = gAnims[2];
         proc->anim60 = gAnims[0];
     } else {
@@ -362,7 +362,7 @@ void NewEfxHPBarLive(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxHPBarLive, PROC_TREE_3);
 
 
-    if (GetAISSubjectId(anim) == 0) {
+    if (GetAnimPosition(anim) == 0) {
         proc->anim5C = gAnims[2];
         proc->anim60 = gAnims[0];
     } else {
@@ -370,49 +370,49 @@ void NewEfxHPBarLive(struct Anim *anim)
         proc->anim60 = gAnims[2];
     }
 
-    val1 = gEfxPairHpBufOffset[GetAISSubjectId(proc->anim60)];
+    val1 = gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)];
     val2 = val1 + 1;
 
-    proc->pre = GetEfxHp(val1 * 2 + GetAISSubjectId(proc->anim60));
-    proc->post = GetEfxHp(val2 * 2 + GetAISSubjectId(proc->anim60));
+    proc->pre = GetEfxHp(val1 * 2 + GetAnimPosition(proc->anim60));
+    proc->post = GetEfxHp(val2 * 2 + GetAnimPosition(proc->anim60));
 
     proc->timer = 0;
-    proc->init = false;
+    proc->finished = false;
     
     if (proc->pre == proc->post)
-        proc->init = true;
+        proc->finished = true;
     else if (proc->pre > proc->post)
         proc->diff = -1;
     else
         proc->diff = 1;
 
     proc->pos = 0;
-    proc->max = proc->pre;
+    proc->cur = proc->pre;
     proc->anim64 = anim;
-    gEkrHitEfxBool[GetAISSubjectId(proc->anim5C)] = 2;
+    gEkrHitEfxBool[GetAnimPosition(proc->anim5C)] = 2;
 }
 
 void EfxHPBarLiveMain(struct ProcEfxHPBar *proc)
 {
     struct Anim *anim = proc->anim60;
 
-    if (proc->init == false) {
+    if (proc->finished == false) {
         if (++proc->pos == 4) {
             proc->pos = 0;
-            proc->max += proc->diff;
-            gEkrPairHpInitial[GetAISSubjectId(anim)] += proc->diff;
+            proc->cur += proc->diff;
+            gEkrGaugeHp[GetAnimPosition(anim)] += proc->diff;
 
             EfxPlaySE(0x75, 0x100);
             M4aPlayWithPostionCtrl(0x75, anim->xPosition, 1);
 
-            if (proc->max == proc->post)
-                proc->init = true;
+            if (proc->cur == proc->post)
+                proc->finished = true;
         }
     }
 
-    if (proc->timer == 0x1E && proc->init == true) {
-        gEfxPairHpBufOffset[GetAISSubjectId(anim)]++;
-        gEkrHitEfxBool[GetAISSubjectId(anim)] = 0;
+    if (proc->timer == 0x1E && proc->finished == true) {
+        gEfxPairHpBufOffset[GetAnimPosition(anim)]++;
+        gEkrHitEfxBool[GetAnimPosition(anim)] = 0;
         Proc_Break(proc);
         return;
     }
@@ -425,12 +425,12 @@ void NewEfxNoDmage(struct Anim *anim1, struct Anim *anim2, int death)
 {
     struct BattleUnit *bu;
     struct ProcEfxHPBar *proc;
-    int ais_id = GetAISSubjectId(anim1);
+    int ais_id = GetAnimPosition(anim1);
 
     if (ANIM_ROUND_GREAT_SHIELD & GetBattleAnimRoundTypeFlags((anim1->nextRoundId - 1) * 2 + ais_id))
         return;
 
-    if (GetAISSubjectId(anim1) == 0)
+    if (GetAnimPosition(anim1) == 0)
         bu = gpEkrBattleUnitRight;
     else
         bu = gpEkrBattleUnitLeft;
@@ -451,15 +451,15 @@ void NewEfxNoDmage(struct Anim *anim1, struct Anim *anim2, int death)
 void EfxNoDamageMain(struct ProcEfxHPBar *proc)
 {
     s32 val;
-    struct Anim *anim = GetCoreAIStruct(proc->anim5C);
+    struct Anim *anim = GetAnimAnotherSide(proc->anim5C);
 
     ++proc->pos;
     val = proc->pos;
     if (val == 8) {
-        gEfxPairHpBufOffset[GetAISSubjectId(proc->anim5C)]++;
+        gEfxPairHpBufOffset[GetAnimPosition(proc->anim5C)]++;
     
         if (proc->death == true)
-            gEfxPairHpBufOffset[GetAISSubjectId(anim)]++;
+            gEfxPairHpBufOffset[GetAnimPosition(anim)]++;
     
         Proc_Break(proc);
     }
@@ -471,7 +471,7 @@ void NewEfxNoDamageYure(struct Anim *anim1, struct Anim *anim2)
     proc->anim5C = anim1;
     proc->anim60 = anim2;
     proc->pos = 0;
-    proc->max = 0;
+    proc->cur = 0;
 }
 
 void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
@@ -482,20 +482,20 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
 
     if (gEfxNoDmgBgShakeOff[proc->pos] == -1) {
         if (GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL) {
-            anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - gEkrBgXOffset;
-            anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - gEkrBgXOffset;
+            anim1->xPosition = gEkrXPosBase[GetAnimPosition(proc->anim5C)] - gEkrBgXOffset;
+            anim2->xPosition = gEkrXPosBase[GetAnimPosition(proc->anim60)] - gEkrBgXOffset;
         }
 
         Proc_Break(proc);
     } else {
-        if (GetAISSubjectId(anim1) == 1)
+        if (GetAnimPosition(anim1) == 1)
             val1 = -gEfxNoDmgBgShakeOff[proc->pos];
         else
             val1 = gEfxNoDmgBgShakeOff[proc->pos];
 
         if (GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL) {
-            anim1->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim5C)] - (s32)gEkrBgXOffset + val1;
-            anim2->xPosition = gEkrXPosBase[GetAISSubjectId(proc->anim60)] - (s32)gEkrBgXOffset + val1;
+            anim1->xPosition = gEkrXPosBase[GetAnimPosition(proc->anim5C)] - (s32)gEkrBgXOffset + val1;
+            anim2->xPosition = gEkrXPosBase[GetAnimPosition(proc->anim60)] - (s32)gEkrBgXOffset + val1;
         }
         proc->pos++;
     }

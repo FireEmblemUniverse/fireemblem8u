@@ -16,7 +16,7 @@ void StartSpellAnimFire(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->type = 0;
-    proc->hitted = EkrCheckHitOrMiss(GetSomeAISRelatedIndexMaybe(anim));
+    proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
 }
 
 void StartSpellAnimElfire(struct Anim *anim)
@@ -30,13 +30,13 @@ void StartSpellAnimElfire(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->type = 1;
-    proc->hitted = EkrCheckHitOrMiss(GetSomeAISRelatedIndexMaybe(anim));
+    proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
 }
 
 void Loop6C_efxFire(struct ProcEfx *proc)
 {
     int r5, r7, r8, r9, time;
-    struct Anim *animc = GetCoreAIStruct(proc->anim);
+    struct Anim *animc = GetAnimAnotherSide(proc->anim);
 
     if (0 == gEkrDistanceType) {
         r5 = 0x20;
@@ -139,7 +139,7 @@ void NewEfxFireOBJ(struct Anim *anim)
     anim2 = EfxAnimCreate1(anim, gUnknown_085F843C, gUnknown_085F80B4, gUnknown_085F8468, gUnknown_085F80E0);
     proc->anim2 = anim2;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         anim2->xPosition = anim->xPosition - 0x8;
     else
         anim2->xPosition = anim->xPosition + 0x8;
@@ -184,7 +184,7 @@ void StartSubSpell_efxFireHITBG(struct Anim *anim)
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
         return;
     
-    if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+    if (GetAnimPosition(proc->anim) == EKR_POS_L)
         BG_SetPosition(BG_1, 0x18, 0x0);
     else
         BG_SetPosition(BG_1, 0xE8, 0x0);
@@ -226,7 +226,7 @@ void StartSubSpell_efxElfireBG(struct Anim *anim)
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
         return;
     
-    if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+    if (GetAnimPosition(proc->anim) == EKR_POS_L)
         BG_SetPosition(BG_1, 0x18, 0x0);
     else
         BG_SetPosition(BG_1, 0xE8, 0x0);
@@ -284,7 +284,7 @@ void StartSubSpell_efxElfireOBJ(struct Anim *anim)
     anim2 = EfxAnimCreate1(anim, gUnknown_08605DF4, gUnknown_08604FD4, gUnknown_08605DF4, gUnknown_08604FD4);
     proc->anim2 = anim2;
 
-    if (GetAISSubjectId(anim) == EKR_POS_L)
+    if (GetAnimPosition(anim) == EKR_POS_L)
         anim2->xPosition = anim2->xPosition - 0x8;
     else
         anim2->xPosition = anim2->xPosition + 0x8;

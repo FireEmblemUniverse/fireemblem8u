@@ -10,8 +10,8 @@ static inline void EfxSkillSetAnimState(struct Anim *anim)
 {
     struct Anim *anim1, *anim2;
 
-    anim1 = gAnims[GetAISSubjectId(anim) * 2];
-    anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+    anim1 = gAnims[GetAnimPosition(anim) * 2];
+    anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
     anim->state3 |= 0x20;
     anim->state |= 0x8;
@@ -27,8 +27,8 @@ static inline void EfxSkillResetAnimState(struct Anim *anim)
 {
     struct Anim *anim1, *anim2;
 
-    anim1 = gAnims[GetAISSubjectId(anim) * 2];
-    anim2 = gAnims[GetAISSubjectId(anim) * 2 + 1];
+    anim1 = gAnims[GetAnimPosition(anim) * 2];
+    anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
     anim->state3 |= 0x40;
     anim->state &= ~0x8;
@@ -142,14 +142,14 @@ void NewEfxSkillType01BG(struct Anim *anim)
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(proc->anim) == EKR_POS_L)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
             BG_SetPosition(BG_1, 0x18, 0);
         else
             BG_SetPosition(BG_1, 0xE8, 0);
     }
 
     EfxSkillSetAnimState(proc->anim);
-    EfxSkillSetAnimState(GetCoreAIStruct(proc->anim));
+    EfxSkillSetAnimState(GetAnimAnotherSide(proc->anim));
 
     EkrSoundSomeBark(0x3D1, 0x100, proc->anim->xPosition, 1);
 }
@@ -187,7 +187,7 @@ void EfxSkillType01BGMain(struct ProcEfxSkill *proc)
     SetDefaultColorEffects_();
 
     EfxSkillResetAnimState(proc->anim);
-    EfxSkillResetAnimState(GetCoreAIStruct(proc->anim));
+    EfxSkillResetAnimState(GetAnimAnotherSide(proc->anim));
 
     Proc_Break(proc);
 }
@@ -221,9 +221,9 @@ void NewEfxSkillCommonBG(struct Anim *anim, u8 val)
 
     SpellFx_SetSomeColorEffect();
 
-    anim = GetCoreAIStruct(proc->anim);
+    anim = GetAnimAnotherSide(proc->anim);
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
-        if (GetAISSubjectId(anim) == EKR_POS_L)
+        if (GetAnimPosition(anim) == EKR_POS_L)
             BG_SetPosition(BG_1, 0x18, 0);
         else
             BG_SetPosition(BG_1, 0xE8, 0);
@@ -240,7 +240,7 @@ void sub_806E638(struct ProcEfxSkill *proc)
 {
     u8 i;
     int ret;
-    struct Anim *anim = GetCoreAIStruct(proc->anim);
+    struct Anim *anim = GetAnimAnotherSide(proc->anim);
     ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
 
     if (ret >= 0) {
@@ -275,14 +275,14 @@ void sub_806E638(struct ProcEfxSkill *proc)
 void sub_806E6E0(struct ProcEfxSkill *proc)
 {
     EfxSkillSetAnimState(proc->anim);
-    EfxSkillSetAnimState(GetCoreAIStruct(proc->anim));
+    EfxSkillSetAnimState(GetAnimAnotherSide(proc->anim));
     Proc_Break(proc);
 }
 
 void sub_806E79C(struct ProcEfxSkill *proc)
 {
     EfxSkillResetAnimState(proc->anim);
-    EfxSkillResetAnimState(GetCoreAIStruct(proc->anim));
+    EfxSkillResetAnimState(GetAnimAnotherSide(proc->anim));
     Proc_Break(proc);
 }
 
@@ -301,7 +301,7 @@ void sub_806E868(struct ProcEfxSkill *proc)
 
 void sub_806E8A4(struct ProcEfxSkill *proc)
 {
-    struct Anim *anim = GetCoreAIStruct(proc->anim);
+    struct Anim *anim = GetAnimAnotherSide(proc->anim);
     int val = GetAnimationStartFrameMaybe();
 
     if (++proc->timer == 1) {

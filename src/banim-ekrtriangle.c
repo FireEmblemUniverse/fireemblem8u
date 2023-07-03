@@ -56,7 +56,7 @@ void EkrTriangleMain(struct ProcEkrTriangle *proc)
     banim_type1 = 0;
     banim_type2 = 0;
 
-    jid = (GetAISSubjectId(proc->anim) == EKR_POS_L) 
+    jid = (GetAnimPosition(proc->anim) == EKR_POS_L) 
         ? gpEkrBattleUnitLeft->unit.pClassData->number
         : gpEkrBattleUnitRight->unit.pClassData->number; 
 

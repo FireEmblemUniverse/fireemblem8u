@@ -30,11 +30,11 @@ void NewEfxDeadEvent(struct Anim *anim1, struct Anim *anim2)
 
 void sub_8052DFC(struct ProcEfxDead *proc)
 {
-    struct Anim *ais_core1 = GetCoreAIStruct(proc->anim1);
+    struct Anim *ais_core1 = GetAnimAnotherSide(proc->anim1);
     int ret = false;
 
     if (gEfxBgSemaphore == 0 && gEfxSpellAnimExists == 0) {
-        if (gBanimDoneMaybe[GetAISSubjectId(ais_core1)] == true)
+        if (gBanimDoneMaybe[GetAnimPosition(ais_core1)] == true)
             ret = true;
     }
 
@@ -43,7 +43,7 @@ void sub_8052DFC(struct ProcEfxDead *proc)
 
     proc->timer = 7;
 
-    if (gEkrDistanceType != EKR_DISTANCE_CLOSE && GetAISSubjectId(proc->anim1) != gEkrPos2Maybe) {
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE && GetAnimPosition(proc->anim1) != gEkrPos2Maybe) {
         NewEfxFarAttackWithDistance(ais_core1, -1);
         proc->timer = 0;
     }
@@ -74,7 +74,7 @@ void sub_8052EAC(struct ProcEfxDead *proc)
         EkrGauge_Set4C50();
         
         /* Maybe triger death event */
-        DisplayDefeatTalkForPid(gEkrPids[GetAISSubjectId(proc->anim1)]);
+        DisplayDefeatTalkForPid(gEkrPids[GetAnimPosition(proc->anim1)]);
         Proc_Break(proc);
     }
 }
@@ -85,7 +85,7 @@ void sub_8052F24(struct ProcEfxDead *proc)
         PlaySound8FForArenaMaybe();
         NewEfxDead(proc->anim1, proc->anim2);
         EfxPrepareScreenFx();
-        gEkrPairSideVaild[GetAISSubjectId(proc->anim1)] = false;
+        gEkrPairSideVaild[GetAnimPosition(proc->anim1)] = false;
         BG_EnableSyncByMask(BG0_SYNC_BIT);
         NewEkrWindowAppear(0, 7);
         NewEkrNamewinAppear(0, 7, 0);
@@ -130,8 +130,8 @@ void sub_8052FEC(struct ProcEfxDead *proc)
 {
     int hp;
 
-    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DRACO_ZOMBIE && GetAISSubjectId(proc->anim1) == EKR_POS_L) {
-        hp = GetEfxHp(gEfxPairHpBufOffset[GetAISSubjectId(proc->anim1)] * 2 + GetAISSubjectId(proc->anim1));
+    if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DRACO_ZOMBIE && GetAnimPosition(proc->anim1) == EKR_POS_L) {
+        hp = GetEfxHp(gEfxPairHpBufOffset[GetAnimPosition(proc->anim1)] * 2 + GetAnimPosition(proc->anim1));
     } else
         hp = 1;
 
