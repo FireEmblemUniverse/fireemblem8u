@@ -370,11 +370,10 @@ label2:
     }
 }
 
-#if NONMATCHING
-
 void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
 {
-    u32 frame, priority, oam2;
+    u32 frame, priority;
+    const u32 *scr;
 
     if (GetAISLayerId(anim) == 0) {
         frame    = gBanimRoundScripts[4 * type + 0];
@@ -386,18 +385,14 @@ void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
 
     if (frame != 0xFF) {
         if (GetAnimPosition(anim) == EKR_POS_L) {
-            u32 idx = gpBanimModesLeft[frame];
-            void *scr = gBanimScrLeft + idx;
-
-            anim->pScrStart = scr;
-            anim->pScrCurrent = scr;
+            // use r1 for scr
+            scr = gpBanimModesLeft;
+            scr = (void *)gBanimScrLeft + scr[frame];
         } else {
-            u32 idx = gpBanimModesRight[frame];
-            void *scr = gBanimScrRight + idx;
-
-            anim->pScrStart = scr;
-            anim->pScrCurrent = scr;
+            scr = (void *)gBanimScrRight + gpBanimModesRight[frame];
         }
+        anim->pScrStart = scr;
+        anim->pScrCurrent = scr;
     } else {
         anim->pScrStart = BanimScr_085B9D5C;
         anim->pScrCurrent = BanimScr_085B9D5C;
@@ -405,11 +400,8 @@ void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
     }
 
     anim->drawLayerPriority = priority;
-
-    oam2 = anim->oam2Base;
-    oam2 &= 0xF3FF;
-    oam2 |= 0x800;
-    anim->oam2Base = oam2;
+    anim->oam2Base &= ~0xC00;
+    anim->oam2Base |= 0x800;
     anim->timer = 0;
     anim->state2 &= 0x700;
     anim->currentRoundType = type;
@@ -418,121 +410,6 @@ void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
     AnimSort();
     EkrDragonBodyAnimeSet54(anim);
 }
-
-#else
-
-__attribute__((naked))
-void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        adds r4, r0, #0\n\
-        adds r6, r1, #0\n\
-        bl GetAISLayerId\n\
-        cmp r0, #0\n\
-        bne _0805A09C\n\
-        ldr r0, _0805A098  @ gBanimRoundScripts\n\
-        lsls r1, r6, #2\n\
-        adds r2, r1, r0\n\
-        ldrb r5, [r2]\n\
-        adds r1, #1\n\
-        adds r1, r1, r0\n\
-        b _0805A0AA\n\
-        .align 2, 0\n\
-    _0805A098: .4byte gBanimRoundScripts\n\
-    _0805A09C:\n\
-        ldr r2, _0805A0C8  @ gBanimRoundScripts\n\
-        lsls r1, r6, #2\n\
-        adds r0, r1, #2\n\
-        adds r0, r0, r2\n\
-        ldrb r5, [r0]\n\
-        adds r1, #3\n\
-        adds r1, r1, r2\n\
-    _0805A0AA:\n\
-        ldrb r7, [r1]\n\
-        cmp r5, #0xff\n\
-        beq _0805A0F0\n\
-        adds r0, r4, #0\n\
-        bl GetAnimPosition\n\
-        cmp r0, #0\n\
-        bne _0805A0D4\n\
-        ldr r0, _0805A0CC  @ gpBanimModesLeft\n\
-        ldr r1, [r0]\n\
-        lsls r0, r5, #2\n\
-        adds r0, r0, r1\n\
-        ldr r1, [r0]\n\
-        ldr r0, _0805A0D0  @ gBanimScrLeft\n\
-        b _0805A0E0\n\
-        .align 2, 0\n\
-    _0805A0C8: .4byte gBanimRoundScripts\n\
-    _0805A0CC: .4byte gpBanimModesLeft\n\
-    _0805A0D0: .4byte gBanimScrLeft\n\
-    _0805A0D4:\n\
-        ldr r0, _0805A0E8  @ gpBanimModesRight\n\
-        ldr r1, [r0]\n\
-        lsls r0, r5, #2\n\
-        adds r0, r0, r1\n\
-        ldr r1, [r0]\n\
-        ldr r0, _0805A0EC  @ gBanimScrRight\n\
-    _0805A0E0:\n\
-        adds r1, r1, r0\n\
-        str r1, [r4, #0x24]\n\
-        str r1, [r4, #0x20]\n\
-        b _0805A0FA\n\
-        .align 2, 0\n\
-    _0805A0E8: .4byte gpBanimModesRight\n\
-    _0805A0EC: .4byte gBanimScrRight\n\
-    _0805A0F0:\n\
-        ldr r0, _0805A148  @ BanimScr_085B9D5C\n\
-        str r0, [r4, #0x24]\n\
-        str r0, [r4, #0x20]\n\
-        movs r0, #0\n\
-        strh r0, [r4, #0x10]\n\
-    _0805A0FA:\n\
-        movs r3, #0\n\
-        movs r2, #0\n\
-        strh r7, [r4, #0xa]\n\
-        ldrh r1, [r4, #8]\n\
-        ldr r0, _0805A14C  @ 0x0000F3FF\n\
-        ands r0, r1\n\
-        movs r5, #0x80\n\
-        lsls r5, r5, #4\n\
-        adds r1, r5, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4, #8]\n\
-        strh r2, [r4, #6]\n\
-        ldrh r1, [r4, #0xc]\n\
-        movs r0, #0xe0\n\
-        lsls r0, r0, #3\n\
-        ands r0, r1\n\
-        strh r0, [r4, #0xc]\n\
-        strb r6, [r4, #0x12]\n\
-        strb r3, [r4, #0x14]\n\
-        adds r0, r4, #0\n\
-        bl GetAnimPosition\n\
-        lsls r1, r0, #1\n\
-        adds r1, r1, r0\n\
-        lsls r1, r1, #2\n\
-        subs r1, r1, r0\n\
-        lsls r1, r1, #0xb\n\
-        ldr r0, _0805A150  @ gBanimOaml\n\
-        adds r1, r1, r0\n\
-        str r1, [r4, #0x30]\n\
-        bl AnimSort\n\
-        adds r0, r4, #0\n\
-        bl EkrDragonBodyAnimeSet54\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0805A148: .4byte BanimScr_085B9D5C\n\
-    _0805A14C: .4byte 0x0000F3FF\n\
-    _0805A150: .4byte gBanimOaml\n\
-        .syntax divided\n\
-    ");
-}
-#endif
 
 int GetAISLayerId(struct Anim *anim)
 {

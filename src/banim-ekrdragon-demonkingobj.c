@@ -120,7 +120,7 @@ void sub_8077F04(struct Proc08801840 *proc)
 
 void sub_8077F10(struct Proc08801840 *proc)
 {
-    int time, i = 0;
+    int i = 0;
     for (i = 0; i < 6; i++)
         sub_8077F9C((void *)0x6002000 + ((proc->ref + i * 0x10) & 0x3FF) * 0x20, gUnknown_08801AB4[i][proc->timer]);
 
