@@ -143,7 +143,7 @@ void MainUpdateEkrBattle(void)
 
     gEkrDebugUnk2 = 0;
 
-    if ((gBanimDoneMaybe[0] + gBanimDoneMaybe[1]) != 2)
+    if ((gBanimDoneFlag[0] + gBanimDoneFlag[1]) != 2)
         gEkrDebugTimer++;
 
     PushSpriteLayerObjects(0xD);
@@ -390,8 +390,8 @@ void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc)
         anim->state2 |= 0x4000;
     }
 
-    gBanimDoneMaybe[0] = false;
-    gBanimDoneMaybe[1] = false;
+    gBanimDoneFlag[0] = false;
+    gBanimDoneFlag[1] = false;
     proc->proc_idleCb = (ProcFunc)ekrBattle_80503EC;
 }
 
@@ -431,7 +431,7 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
     case EKR_DISTANCE_CLOSE:
     case EKR_DISTANCE_FAR:
     case EKR_DISTANCE_FARFAR:
-        if ((gBanimDoneMaybe[0] + gBanimDoneMaybe[1]) == 2) {
+        if ((gBanimDoneFlag[0] + gBanimDoneFlag[1]) == 2) {
             if (GetBattleAnimArenaFlag() == 0)
                 ret = 1;
             else {
@@ -502,7 +502,7 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
         break;
 
     case EKR_DISTANCE_3:
-        if ((gBanimDoneMaybe[0] + gBanimDoneMaybe[1]) == 1)
+        if ((gBanimDoneFlag[0] + gBanimDoneFlag[1]) == 1)
             ret = 1;
         break;
 

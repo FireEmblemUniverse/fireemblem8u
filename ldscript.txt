@@ -148,7 +148,7 @@ SECTIONS
         asm/banim-08056864.o(.text);
         asm/banim-ekrcheckenable.o(.text);
         src/banim-ekrcmd.o(.text);
-        asm/banim-main.o(.text);
+        src/banim-main.o(.text);
         src/banim-ekrmain.o(.text);
         asm/banim-ekrmainmini.o(.text);
         src/banim-ekrmainmini.o(.text);

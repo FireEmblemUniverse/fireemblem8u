@@ -221,7 +221,7 @@ int AnimInterpret(struct Anim* anim)
                 anim->pScrCurrent--;
                 anim->timer = 1;
 
-                anim->state2 = (anim->state2 & 0xFFF) | 0x4000;
+                anim->state2 = (anim->state2 & 0xFFF) | ANIM_BIT2_STOP;
 
                 break;
 
@@ -252,7 +252,7 @@ int AnimInterpret(struct Anim* anim)
                 break;
 
             case ANIM_INS_TYPE_COMMAND:
-                anim->state2 = (anim->state2 & 0xFFF) | 0x1000;
+                anim->state2 = (anim->state2 & 0xFFF) | ANIM_BIT2_COMMAND;
 
                 anim->commandQueue[anim->commandQueueSize] = ANINS_COMMAND_GET_ID(instruction);
                 anim->commandQueueSize++;
@@ -289,7 +289,7 @@ int AnimInterpret(struct Anim* anim)
                 anim->pSpriteData = (const void*) (*anim->pScrCurrent++);
                 anim->pSpriteData += (unsigned) anim->pSpriteDataPool;
 
-                anim->state2 = (anim->state2 & 0xFFF) | 0x2000;
+                anim->state2 = (anim->state2 & 0xFFF) | ANIM_BIT2_FRAME;
 
                 break;
 

@@ -104,36 +104,7 @@ extern u32 gBanimOamr2[];
 // extern ??? gUnknown_0200F158
 // extern ??? gUnknown_0200F15C
 extern char gStringBufferAlt[];
-extern u8 gBanimScrLeft[];
-extern u8 gBanimScrRight[];
 
-extern u8 gUnknown_020145C8[];
-// extern ??? gUnknown_020146F4
-// extern ??? gUnknown_02014DC8
-// extern ??? gUnknown_02014EF4
-
-extern u32 gBanimDoneMaybe[];
-extern u32 gEkrBgXOffset;
-// extern ??? gpProcEfxAnimeDrv
-extern void *gpImgSheet[2];
-// extern ??? gUnknown_0201FB24
-// extern ??? gUnknown_0201FB28
-extern int gUnknown_0201FB2C;
-extern u16 *gUnknown_0201FB30;
-extern u16 *gUnknown_0201FB34;
-extern u16 gUnknown_0201FB38[];
-extern u16 gUnknown_0201FC78[];
-extern int gUnknown_0201FDB8;
-extern u16 *gUnknown_0201FDBC;
-extern u16 *gUnknown_0201FDC0;
-extern u16 gUnknown_0201FDC4[];
-extern u16 gUnknown_0201FF04[];
-// extern ??? gUnknown_02020044
-// extern ??? gEkrDragonStatusLeft
-// extern ??? gEkrDragonStatusRight
-extern u16 gEkrDragonPalBackup[0x40 / sizeof(u16)];
-
-extern u8 gEkrSomePalBuf[0x40];
 extern u8 gGenericBuffer[0x1000];
 // extern ??? gUnknown_02020208
 // extern ??? gUnknown_02020288
@@ -603,7 +574,7 @@ extern const u16 gUnknown_080DAD0A[];
 // extern ??? gUnknown_080DAED2
 // extern ??? gUnknown_080DAEDC
 // extern ??? gUnknown_080DAEE6
-// extern ??? gUnknown_080DAF18
+extern u8 BanimScr_080DAF18[];
 extern const u8 gUnknown_080DAF1D[];
 extern const u8 gUnknown_080DAF22[];
 extern u16 gUnknown_080DAF28[];

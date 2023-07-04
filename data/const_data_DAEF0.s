@@ -4,8 +4,8 @@
 gBanimRoundScripts:  @ 0x080DAEF0
 	.incbin "baserom.gba", 0xDAEF0, 0x28
 
-	.global gUnknown_080DAF18
-gUnknown_080DAF18:  @ 0x080DAF18
+	.global BanimScr_080DAF18
+BanimScr_080DAF18:  @ 0x080DAF18
 	.incbin "baserom.gba", 0xDAF18, 0x5
 
 	.global gUnknown_080DAF1D

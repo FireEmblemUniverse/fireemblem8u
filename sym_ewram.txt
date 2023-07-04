@@ -250,7 +250,7 @@
 . = 0x01FAD4; gProcEkrBaseAppearExist = .;
 . = 0x01FAD8; gUnknown_0201FAD8 = .;
 . = 0x01FADC; gUnknown_0201FADC = .;
-. = 0x01FB04; gBanimDoneMaybe = .;
+. = 0x01FB04; gBanimDoneFlag = .;
 . = 0x01FB0C; gEkrBgXOffset = .;
 . = 0x01FB18; gpProcEfxAnimeDrv = .;
 . = 0x01FB1C; gpImgSheet = .;
