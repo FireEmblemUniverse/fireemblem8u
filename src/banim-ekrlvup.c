@@ -365,32 +365,15 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     }
 
     if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING) {
-
+        struct Struct20200E0_14 *_buf;
         sub_805AA68(buf);
 
-#if NONMATCHING
-        ((struct Struct20200E0_14 *)buf->unk14)->unk4C &= ~OAM2_LAYER(0x3);
-        ((struct Struct20200E0_14 *)buf->unk14)->unk4C |=  OAM2_LAYER(0x3);
-        ((struct Struct20200E0_14 *)buf->unk18)->unk4C &= ~OAM2_LAYER(0x3);
-        ((struct Struct20200E0_14 *)buf->unk18)->unk4C |=  OAM2_LAYER(0x3);
-#else
-    {
-        register struct Struct20200E0_14 *_buf asm("r3");
-        register u32 oam2 asm("r0");
-
         _buf = buf->unk14;
-        oam2 = _buf->unk4C;
-        oam2 &= 0xF3FF;
-        oam2 |= 0x0C00;
-        _buf->unk4C = oam2;
-
+        _buf->unk4C &= (u16)~OAM2_LAYER(0x3);
+        _buf->unk4C |=       OAM2_LAYER(0x3);
         _buf = buf->unk18;
-        oam2 = _buf->unk4C;
-        oam2 &= 0xF3FF;
-        oam2 |= 0x0C00;
-        _buf->unk4C = oam2;
-    }
-#endif
+        _buf->unk4C &= (u16)~OAM2_LAYER(0x3);
+        _buf->unk4C |=       OAM2_LAYER(0x3);
     }
 
     proc->ais_main->oam2Base &= ~OAM2_LAYER(0x3);
