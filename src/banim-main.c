@@ -272,28 +272,38 @@ void BattleAIS_ExecCommands(void)
                             else
                                 idx = gpBanimModesRight[frame_front];
 
-                            // TODO
+#ifndef NONMATCHING
                             {
                                 struct UnkStruct {
                                     const u32 *unk0;
                                     const u32 *unk1;
                                     u32 unk2;
                                 };
-
-                                struct UnkStruct *unk = (void *)(idx + gBanimScrLeft + GetAnimPosition(anim) * 0x2A00);
                                 register const void *_ptr asm("r4");
-                                register u32 unk1 asm("r1");
+                                register u32 r1 asm("r1");
+                                struct UnkStruct *unk = (void *)(idx + gBanimScrLeft + GetAnimPosition(anim) * 0x2A00);
 
                                 anim1->pImgSheet = unk->unk1;
                                 _ptr = anim1->pSpriteDataPool;
-                                unk1 = unk->unk2;
-                                _ptr += unk1;
+                                _ptr += r1 = unk->unk2;
                                 anim1->pSpriteData = _ptr;
+                                _ptr = anim2->pSpriteDataPool + 0x57F0;
+                                anim2->pSpriteData = _ptr;
                             }
+#else
+                            {
+                                struct UnkStruct {
+                                    const u32 *unk0;
+                                    const u32 *unk1;
+                                    u32 unk2;
+                                };
+                                struct UnkStruct *unk = (void *)(idx + gBanimScrLeft + GetAnimPosition(anim) * 0x2A00);
 
-                            idx = (int)(anim2->pSpriteDataPool);
-                            idx += 0x57F0;
-                            anim2->pSpriteData = (const void *)(idx);
+                                anim1->pImgSheet = unk->unk1;
+                                anim1->pSpriteData = anim1->pSpriteDataPool + unk->unk2;
+                                anim2->pSpriteData = anim2->pSpriteDataPool + 0x57F0;
+                            }
+#endif
 
                             if (gUnknown_0203E1A4[GetAnimPosition(anim)] == 0) {
                                 if (gpImgSheet[GetAnimPosition(anim1)] != anim1->pImgSheet) {
