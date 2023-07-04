@@ -1245,7 +1245,7 @@ void sub_806E290(struct ProcEfxOBJ *proc)
     }
 }
 
-void nullsub_17(void)
+void nullsub_17(struct Anim *anim)
 {
     return;
 }

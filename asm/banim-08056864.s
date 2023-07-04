@@ -150,7 +150,7 @@ _0805696E:
 UnitKakudai1: @ 0x08056974
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	ldr r1, _08056AE4  @ gUnknown_080DAF18
+	ldr r1, _08056AE4  @ BanimScr_080DAF18
 	ldr r0, _08056AE8  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
@@ -333,7 +333,7 @@ _08056A72:
 	strh r0, [r4, #0x38]
 	b _08056B60
 	.align 2, 0
-_08056AE4: .4byte gUnknown_080DAF18
+_08056AE4: .4byte BanimScr_080DAF18
 _08056AE8: .4byte gEkrDistanceType
 _08056AEC: .4byte gBanimRoundScripts
 _08056AF0: .4byte gEkrBattleEndFlag

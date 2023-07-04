@@ -34,7 +34,7 @@ void sub_8052DFC(struct ProcEfxDead *proc)
     int ret = false;
 
     if (gEfxBgSemaphore == 0 && gEfxSpellAnimExists == 0) {
-        if (gBanimDoneMaybe[GetAnimPosition(ais_core1)] == true)
+        if (gBanimDoneFlag[GetAnimPosition(ais_core1)] == true)
             ret = true;
     }
 

@@ -193,6 +193,11 @@ struct Proc08801840 {
     s16 ref;
 };
 
+// extern ??? gEkrDragonStatusLeft
+// extern ??? gEkrDragonStatusRight
+extern u16 gEkrDragonPalBackup[0x40 / sizeof(u16)];
+extern u8 gEkrSomePalBuf[0x40];
+
 extern u16 Img_EfxDracoZombie[];
 extern u16 Tsa_EfxDracoZombieBaseLeft[];
 extern u16 Tsa_EfxDracoZombieBaseRight[];

@@ -129,6 +129,8 @@ enum AnimRoundData_type_identifier {
     ANIM_ROUND_TAKING_HIT_FAR,
     ANIM_ROUND_MISS_CLOSE,
     ANIM_ROUND_MAX,
+
+    ANIM_ROUND_INVALID = -1,
 };
 
 enum anim_round_type {
@@ -145,6 +147,8 @@ enum anim_round_type {
 extern s16 gAnimRoundData[];
 s16 GetBattleAnimRoundType(int index);
 s16 GetBattleAnimRoundTypeFlags(int);
+
+#define GetRoundFlagByAnim(aAnim) (GetBattleAnimRoundTypeFlags((aAnim->nextRoundId - 1) * 2 + GetAnimPosition(aAnim)))
 
 extern u8 gEfxHpLut[];
 
@@ -232,6 +236,30 @@ extern short gEkrPairBaseCon[2];
 extern short gEkrPairWTABonus[2];
 extern short gEkrPairEffectiveAgainst[2];
 extern short gUnknown_0203E1DC[2];
+
+extern u8 gBanimScrLeft[];
+extern u8 gBanimScrRight[];
+extern u8 gUnknown_020145C8[];
+// extern ??? gUnknown_020146F4
+// extern ??? gUnknown_02014DC8
+// extern ??? gUnknown_02014EF4
+extern u32 gBanimDoneFlag[];
+extern u32 gEkrBgXOffset;
+// extern ??? gpProcEfxAnimeDrv
+extern const void *gpImgSheet[2];
+// extern ??? gUnknown_0201FB24
+// extern ??? gUnknown_0201FB28
+extern int gUnknown_0201FB2C;
+extern u16 *gUnknown_0201FB30;
+extern u16 *gUnknown_0201FB34;
+extern u16 gUnknown_0201FB38[];
+extern u16 gUnknown_0201FC78[];
+extern int gUnknown_0201FDB8;
+extern u16 *gUnknown_0201FDBC;
+extern u16 *gUnknown_0201FDC0;
+extern u16 gUnknown_0201FDC4[];
+extern u16 gUnknown_0201FF04[];
+// extern ??? gUnknown_02020044
 
 // extern ??? gUnknown_020200A8
 // extern ??? gUnknown_020200AC
@@ -429,7 +457,7 @@ ProcPtr NewEfxQuakePure(int, int);
 // ??? sub_80536B8(???);
 // ??? NewEfxHitQuakePure(???);
 // ??? nullsub_56(???);
-// ??? NewEfxQuake(???);
+ProcPtr NewEfxQuake(int);
 // ??? sub_805382C(???);
 void NewEfxHitQuake(struct Anim *anim1, struct Anim *anim2, int);
 // ??? sub_8053BBC(???);
@@ -560,7 +588,7 @@ bool sub_8058B7C(void);
 void BattleAIS_ExecCommands(void);
 // ??? _08058BD4(???);
 // ??? _080596E0(???);
-void sub_80598CC(struct Anim *anim);
+void AnimScrAdvance(struct Anim *anim);
 void NewEkrChienCHR(struct Anim *anim);
 // ??? EkrChienCHRMain(???);
 void RegisterAISSheetGraphics(struct Anim *anim);
@@ -651,7 +679,7 @@ void EfxPlaySEwithCmdCtrl(struct Anim *anim, int);
 // ??? sub_8072258(???);
 int sub_80723A4(struct Anim *anim);
 // ??? sub_80723D4(???);
-// ??? sub_8072400(???);
+s16 sub_8072400(struct Anim *anim);
 void sub_8072450(struct Anim *anim);
 // ??? sub_8072504(???);
 // ??? sub_8072548(???);

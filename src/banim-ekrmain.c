@@ -11,7 +11,7 @@
 
 extern struct Anim *gAnims[4];
 
-void sub_80598CC(struct Anim *anim)
+void AnimScrAdvance(struct Anim *anim)
 {
     u32 inst;
 
@@ -24,17 +24,17 @@ void sub_80598CC(struct Anim *anim)
     while (1) {
         inst = ANINS_GET_TYPE(*anim->pScrCurrent);
 
-        if (inst == 0) {
+        if (inst == ANIM_INS_TYPE_STOP) {
             anim->pScrCurrent -= 3;
             break;
         }
 
-        if (inst == 5) {
+        if (inst == ANIM_INS_TYPE_COMMAND) {
             anim->pScrCurrent -= 3;
             break;
         }
 
-        if (inst == 6)
+        if (inst == ANIM_INS_TYPE_FRAME)
             anim->pScrCurrent += 3;
     }
 
