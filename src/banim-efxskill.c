@@ -151,7 +151,7 @@ void NewEfxSkillType01BG(struct Anim *anim)
     EfxSkillSetAnimState(proc->anim);
     EfxSkillSetAnimState(GetAnimAnotherSide(proc->anim));
 
-    EkrSoundSomeBark(0x3D1, 0x100, proc->anim->xPosition, 1);
+    PlaySFX(0x3D1, 0x100, proc->anim->xPosition, 1);
 }
 
 void EfxSkillType01BGMain(struct ProcEfxSkill *proc)
@@ -232,7 +232,7 @@ void NewEfxSkillCommonBG(struct Anim *anim, u8 val)
 
 void sub_806E610(struct ProcEfxSkill *proc)
 {
-    EkrSoundSomeBark(0x3D1, 0x100, proc->anim->xPosition, 1);
+    PlaySFX(0x3D1, 0x100, proc->anim->xPosition, 1);
     Proc_Break(proc);
 }
 

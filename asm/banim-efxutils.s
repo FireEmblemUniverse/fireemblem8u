@@ -3978,8 +3978,8 @@ _08072994:
 
 	THUMB_FUNC_END sub_807290C
 
-	THUMB_FUNC_START EkrSoundSomeBark
-EkrSoundSomeBark: @ 0x080729A4
+	THUMB_FUNC_START PlaySFX
+PlaySFX: @ 0x080729A4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r2, #0
@@ -3993,7 +3993,7 @@ EkrSoundSomeBark: @ 0x080729A4
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END EkrSoundSomeBark
+	THUMB_FUNC_END PlaySFX
 
 	THUMB_FUNC_START sub_80729C0
 sub_80729C0: @ 0x080729C0

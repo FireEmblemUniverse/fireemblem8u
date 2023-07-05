@@ -295,7 +295,7 @@ void NewEfxMagfcast(struct Anim *anim, int type)
     if (gEfxBgSemaphore != 0)
         return;
 
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxMagfcast, PROC_TREE_3);
 
     proc->anim = anim;
@@ -699,13 +699,13 @@ void NewEfxSongOBJ2(struct Anim *anim)
     proc->anim2 = EfxAnimCreate1(anim, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4);
     SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
     SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
-    EkrSoundSomeBark(0xEE, 0x100, proc->anim->xPosition, 0x1);
+    PlaySFX(0xEE, 0x100, proc->anim->xPosition, 0x1);
 }
 
 void EfxSongOBJ2Main(struct ProcEfxOBJ *proc)
 {
     if (++proc->timer == 0x18)
-        EkrSoundSomeBark(0xEE, 0x100, proc->anim->xPosition, 0x1);
+        PlaySFX(0xEE, 0x100, proc->anim->xPosition, 0x1);
 
     if (proc->timer > proc->unk2E) {
         AnimDelete(proc->anim2);
@@ -726,7 +726,7 @@ void NewEfxDanceOBJ(struct Anim *anim)
     proc->anim2 = EfxAnimCreate1(anim, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484);
     SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
     SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
-    EkrSoundSomeBark(0xE1, 0x100, proc->anim->xPosition, 0x1);
+    PlaySFX(0xE1, 0x100, proc->anim->xPosition, 0x1);
 }
 
 void EfxDanceOBJMain(struct ProcEfxOBJ *proc)
@@ -775,7 +775,7 @@ void NewEfxSpecalEffect(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxSpecalEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0x0;
-    EkrSoundSomeBark(0xF0, 0x100, 0x78, 0x0);
+    PlaySFX(0xF0, 0x100, 0x78, 0x0);
     NewEfxSRankWeaponEffect(anim);
 }
 
@@ -787,7 +787,7 @@ void sub_806D980(ProcPtr proc)
 void NewEfxSRankWeaponEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxSRankWeaponEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0x0;
@@ -902,7 +902,7 @@ void EfxSRankWeaponEffectSCR2Main(struct ProcEfxSRankSCR2 *proc)
 void NewEfxMagdhisEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxMagdhisEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
@@ -1079,7 +1079,7 @@ void sub_806DFD0(struct ProcEfxOBJ *proc)
 void NewEfxChillEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxChillEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;

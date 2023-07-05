@@ -19,6 +19,10 @@
 #define GREEN_VALUE(color) (((color) >> 5) & 0x1F)
 #define BLUE_VALUE(color) (((color) >> 10) & 0x1F)
 
+#define RED_VALUE_(color) ((color) & 0x1F)
+#define GREEN_VALUE_(color) ((color) & (0x1F << 5) >> 5)
+#define BLUE_VALUE_(color) ((color) & (0x1F << 10) >> 10)
+
 #define ABS(aValue) ((aValue) >= 0 ? (aValue) : -(aValue))
 
 #define SIN(aAngle) (gSinLookup[(aAngle&0xFF)])

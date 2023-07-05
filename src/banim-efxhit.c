@@ -79,7 +79,7 @@ void NewEfxPierceCritical(struct Anim *anim)
     if (is_pierce != 0) {
         NewEfxPierceCriticalEffect(anim);
     } else {
-        SpellFx_SpellFx_ClearBG1Position();
+        SpellFx_ClearBG1Position();
         proc = Proc_Start(ProcScr_efxCriricalEffect, PROC_TREE_3);
         proc->anim = anim;
         proc->timer = 0;
@@ -153,7 +153,7 @@ void NewEfxNormalEffect(struct Anim *anim)
     struct ProcEfx *proc;
     int is_pierce;
 
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
     is_pierce = GetBattleAnimRoundTypeFlags((anim->nextRoundId - 1) * 2 + GetAnimPosition(anim)) & ANIM_ROUND_PIERCE;
     if (is_pierce != 0) {
         NewEfxPierceNormalEffect(anim);
@@ -233,7 +233,7 @@ void efxNormalEffectBGMain(struct ProcEfxBG *proc)
 void NewEfxPierceCriticalEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxPierceCriticalEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
@@ -304,7 +304,7 @@ void efxPierceCriticalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
 void NewEfxPierceNormalEffect(struct Anim *anim)
 {
     struct ProcEfx *proc;
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
     proc = Proc_Start(ProcScr_efxPierceNormalEffect, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;

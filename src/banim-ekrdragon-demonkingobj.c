@@ -105,6 +105,12 @@ void sub_8077EAC(int x, int y)
     BG_SetPosition(BG_1, x, y);
 }
 
+CONST_DATA struct ProcCmd ProcScr_08801840[] = {
+    PROC_CALL(sub_8077F04),
+    PROC_REPEAT(sub_8077F10),
+    PROC_END
+};
+
 void sub_8077EEC(int ref, ProcPtr parent)
 {
     struct Proc08801840 *proc;
@@ -139,9 +145,147 @@ void sub_8077F10(struct Proc08801840 *proc)
     }
 }
 
+CONST_DATA u16 gUnknown_08801858[] = {
+    0x000F, 0x00F0, 0x0F00, 0xF000
+};
+CONST_DATA u16 gUnknown_08801860[] = {
+    0x0001, 0x0010, 0x0100, 0x1000
+};
+
 void sub_8077F9C(u16 *buf, int a)
 {
     u16 *dst = &buf[a >> 2];
     *dst &= ~gUnknown_08801858[a & 3];
     *dst |= gUnknown_08801860[a & 3];
+}
+
+void CopyPalWithFade(const u16 *src, u16 *dst, int ref)
+{
+    int i;
+    int r, g, b;
+    for (i = 0; i < 0x10; i++) {
+        if (src[i] == 0) {
+            dst[i] = 0;
+            continue;
+        }
+
+        r = RED_VALUE_(src[i]);
+        g = (0x3E0 & src[i]) >> 5;
+        b = (0x7C00 & src[i]) >> 10;
+
+        r += ref;
+        g += ref;
+        b += ref;
+
+        if (r < 0) r = 0;
+        if (g < 0) g = 0;
+        if (b < 0) b = 0;
+
+        if (r > 0x1F) r = 0x1F;
+        if (g > 0x1F) g = 0x1F;
+        if (b > 0x1F) b = 0x1F;
+
+        dst[i] = (b << 10) + (g << 5) + r;
+    }
+}
+
+CONST_DATA struct ProcCmd ProcScr_ekrSelfThunder[] = {
+    PROC_NAME("efxSelfThunder"),
+    PROC_REPEAT(EkrSelfThunderMain),
+    PROC_END
+};
+
+void NewEkrSelfThunder(struct Anim *anim)
+{
+    struct ProcEfxDKfx *proc;
+    PlaySFX(0x37E, 0x100,0x78, 0x0);
+    SpellFx_ClearBG1Position();
+    proc = Proc_Start(ProcScr_ekrSelfThunder, PROC_TREE_3);
+    proc->anim = anim;
+    proc->timer = 0;
+}
+
+void EkrSelfThunderMain(struct ProcEfxDKfx *proc)
+{
+    int time = ++proc->timer;
+    if (time == 0x1) {
+        NewEkrSelfThunderBG(proc->anim);
+        return;
+    }
+
+    if (time == 0x15)
+        return;
+
+    if (time == 0x46) {
+        Proc_Break(proc);
+        return;
+    }
+}
+
+void EfxSelfThunderBGUpdateAnimTSA(struct Anim *anim, const u16 *tsa_close, const u16 *tsa_far)
+{
+    u16 *buffer;
+
+    if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
+        LZ77UnCompWram(tsa_close, gEkrTsaBuffer);
+    else
+        LZ77UnCompWram(tsa_far, gEkrTsaBuffer);
+
+    buffer = gEkrTsaBuffer;
+    if (GetAnimPosition(anim) == EKR_POS_L)
+        sub_8070E94(buffer, gBG1TilemapBuffer, 32, 20, 1, 256);
+    else
+        sub_8070EC4(buffer, gBG1TilemapBuffer, 32, 20, 1, 256);
+    
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+}
+
+CONST_DATA struct ProcCmd ProcScr_ekrSelfThunderBG[] = {
+    PROC_NAME("efxSelfThunderBG"),
+    PROC_CALL(EfxSelfThunderBGOnInit),
+    PROC_REPEAT(EfxSelfThunderBGMain),
+    PROC_END
+};
+
+void NewEkrSelfThunderBG(struct Anim *anim)
+{
+    struct ProcSelfThunderBG *proc;
+    proc = Proc_Start(ProcScr_ekrSelfThunderBG, PROC_TREE_3);
+    proc->anim = anim;
+    SpellFx_SetSomeColorEffect();
+}
+
+void EfxSelfThunderBGUpdateAnim(struct ProcSelfThunderBG *proc, u16 *img, u16 *tsa_close, u16 *tsa_far, u16 *pal)
+{
+    SpellFx_RegisterBgGfx(img, 0x0C00);
+    SpellFx_RegisterBgPal(pal, 0x20);
+    EfxSelfThunderBGUpdateAnimTSA(proc->anim, tsa_close, tsa_far);
+}
+
+void EfxSelfThunderBGOnInit(struct ProcSelfThunderBG *proc)
+{
+    proc->frame = 0;
+    proc->timer = gEfxSelfThunderBGFrames[0].duration;
+    EfxSelfThunderBGUpdateAnim(proc, gEfxSelfThunderBGFrames[0].img, gEfxSelfThunderBGFrames[0].tsa1, gEfxSelfThunderBGFrames[0].tsa2, gEfxSelfThunderBGFrames[0].pal);
+}
+
+void EfxSelfThunderBGMain(struct ProcSelfThunderBG *proc)
+{
+    int frame;
+
+    if (proc->timer == 0) {
+        frame = ++proc->frame;
+        proc->timer = gEfxSelfThunderBGFrames[frame].duration;
+
+        if (proc->timer == -1) {
+            SpellFx_ClearBG1();
+            SetDefaultColorEffects_();
+            Proc_Break(proc);
+            return;
+        }
+
+        EfxSelfThunderBGUpdateAnim(proc, gEfxSelfThunderBGFrames[frame].img, gEfxSelfThunderBGFrames[frame].tsa1, gEfxSelfThunderBGFrames[frame].tsa2, gEfxSelfThunderBGFrames[frame].pal);
+    }
+
+    proc->timer--;
 }

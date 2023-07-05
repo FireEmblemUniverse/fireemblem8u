@@ -10,7 +10,7 @@ void StartSpellAnimThunder(struct Anim *anim)
     struct ProcEfx *proc;
     SpellFx_Begin();
     NewEfxSpellCast();
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
 
     proc = Proc_Start(ProcScr_efxThunder, PROC_TREE_3);
     proc->anim = anim;
@@ -37,7 +37,7 @@ void Loop6C_efxThunder(struct ProcEfx *proc)
     if (cur == (frame + 4)) {
         animc->state3 |= 0x9;
         StartBattleAnimHitEffectsDefault(animc, proc->hitted);
-        EkrSoundSomeBark(0xF5, 0x100, animc->xPosition, 1);
+        PlaySFX(0xF5, 0x100, animc->xPosition, 1);
 
         if (proc->hitted == EKR_HITTED)
             sub_8072450(animc);

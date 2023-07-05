@@ -1,136 +1,86 @@
 	.section .data
 
-	.global ProcScr_08801840
-ProcScr_08801840:  @ 0x08801840
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8077F04
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8077F10
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08801858
-gUnknown_08801858:  @ 0x08801858
-	.incbin "baserom.gba", 0x801858, 0x8
-
-	.global gUnknown_08801860
-gUnknown_08801860:  @ 0x08801860
-	.incbin "baserom.gba", 0x801860, 0x8
-
-	.global ProcScr_ekrSelfThunder
-ProcScr_ekrSelfThunder:  @ 0x08801868
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e83f0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8078078
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_ekrSelfThunderBG
-ProcScr_ekrSelfThunderBG:  @ 0x08801880
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e8400
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8078174
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807819C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_088018A0
-gUnknown_088018A0:  @ 0x088018A0
+	.global gEfxSelfThunderBGFrames
+gEfxSelfThunderBGFrames:  @ 0x088018A0
 @ Replacing .incbin "baserom.gba", 0x8018A0, 0x20C
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x20
-    .4byte Pal_DemonKingBG + 0x4364
+    .4byte Img_EfxSelfThunderBG1
+    .4byte TSA1_EfxSelfThunderBG1
     .4byte Pal_DemonKingBG + 0x5938
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x2c4
-    .4byte Pal_DemonKingBG + 0x4490
+    .4byte Img_EfxSelfThunderBG2
+    .4byte TSA1_EfxSelfThunderBG2
     .4byte Pal_DemonKingBG + 0x5a60
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x6ac
-    .4byte Pal_DemonKingBG + 0x45dc
+    .4byte Img_EfxSelfThunderBG3
+    .4byte TSA1_EfxSelfThunderBG3
     .4byte Pal_DemonKingBG + 0x5ba0
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0xb70
-    .4byte Pal_DemonKingBG + 0x4758
+    .4byte Img_EfxSelfThunderBG4
+    .4byte TSA1_EfxSelfThunderBG4
     .4byte Pal_DemonKingBG + 0x5cf8
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x1120
-    .4byte Pal_DemonKingBG + 0x48dc
+    .4byte Img_EfxSelfThunderBG5
+    .4byte TSA1_EfxSelfThunderBG5
     .4byte Pal_DemonKingBG + 0x5e58
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x1714
-    .4byte Pal_DemonKingBG + 0x4a74
+    .4byte Img_EfxSelfThunderBG6
+    .4byte TSA1_EfxSelfThunderBG6
     .4byte Pal_DemonKingBG + 0x5fd0
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x1c90
-    .4byte Pal_DemonKingBG + 0x4bf8
+    .4byte Img_EfxSelfThunderBG7
+    .4byte TSA1_EfxSelfThunderBG7
     .4byte Pal_DemonKingBG + 0x6140
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x21f4
-    .4byte Pal_DemonKingBG + 0x4d7c
+    .4byte Img_EfxSelfThunderBG8
+    .4byte TSA1_EfxSelfThunderBG8
     .4byte Pal_DemonKingBG + 0x62bc
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x26cc
-    .4byte Pal_DemonKingBG + 0x4ef0
+    .4byte Img_EfxSelfThunderBG9
+    .4byte TSA1_EfxSelfThunderBG9
     .4byte Pal_DemonKingBG + 0x642c
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x2b0c
-    .4byte Pal_DemonKingBG + 0x5048
+    .4byte Img_EfxSelfThunderBG10
+    .4byte TSA1_EfxSelfThunderBG10
     .4byte Pal_DemonKingBG + 0x6584
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x2eb4
-    .4byte Pal_DemonKingBG + 0x518c
+    .4byte Img_EfxSelfThunderBG11
+    .4byte TSA1_EfxSelfThunderBG11
     .4byte Pal_DemonKingBG + 0x66c4
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x3254
-    .4byte Pal_DemonKingBG + 0x52d4
+    .4byte Img_EfxSelfThunderBG12
+    .4byte TSA1_EfxSelfThunderBG12
     .4byte Pal_DemonKingBG + 0x680c
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x35b0
-    .4byte Pal_DemonKingBG + 0x5410
+    .4byte Img_EfxSelfThunderBG13
+    .4byte TSA1_EfxSelfThunderBG13
     .4byte Pal_DemonKingBG + 0x6944
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x3908
-    .4byte Pal_DemonKingBG + 0x5548
+    .4byte Img_EfxSelfThunderBG14
+    .4byte TSA1_EfxSelfThunderBG14
     .4byte Pal_DemonKingBG + 0x6a7c
     .4byte Pal_DemonKingBG + 0x6e6c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x3cac
-    .4byte Pal_DemonKingBG + 0x569c
+    .4byte Img_EfxSelfThunderBG15
+    .4byte TSA1_EfxSelfThunderBG15
     .4byte Pal_DemonKingBG + 0x6bd0
     .4byte Pal_DemonKingBG + 0x6e8c
     .4byte 0x00000004
-    .4byte Pal_DemonKingBG + 0x4014
-    .4byte Pal_DemonKingBG + 0x57ec
+    .4byte Img_EfxSelfThunderBG16
+    .4byte TSA1_EfxSelfThunderBG16
     .4byte Pal_DemonKingBG + 0x6d1c
     .4byte Pal_DemonKingBG + 0x6e8c
     .4byte 0xffffffff
@@ -187,8 +137,8 @@ gUnknown_088018A0:  @ 0x088018A0
 
 	.global gUnknown_08801AAC
 gUnknown_08801AAC:  @ 0x08801AAC
-    .4byte gUnknown_088018A0 + 0x1f6
-    .4byte gUnknown_088018A0 + 0x154
+    .4byte gEfxSelfThunderBGFrames + 0x1f6
+    .4byte gEfxSelfThunderBGFrames + 0x154
 
 	.global gUnknown_08801AB4
 gUnknown_08801AB4:  @ 0x08801AB4

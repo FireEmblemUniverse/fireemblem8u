@@ -23,7 +23,7 @@ void SpellFx_Finish(void)
     gEfxSpellAnimExists = false;
 }
 
-void SpellFx_SpellFx_ClearBG1Position(void)
+void SpellFx_ClearBG1Position(void)
 {
     BG_SetPosition(BG_1, 0, 0);
 }
