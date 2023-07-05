@@ -193,6 +193,26 @@ struct Proc08801840 {
     s16 ref;
 };
 
+struct ProcSelfThunderBG {
+    PROC_HEADER;
+    STRUCT_PAD(0x29, 0x2C);
+    s16 timer;
+    STRUCT_PAD(0x2E, 0x44);
+    int frame;
+    STRUCT_PAD(0x48, 0x5C);
+    struct Anim *anim;
+};
+
+struct EfxSelfThunderBGFrame {
+    int duration;
+    u16 *img;
+    u16 *tsa1;
+    u16 *tsa2;
+    u16 *pal;
+};
+
+extern CONST_DATA struct EfxSelfThunderBGFrame gEfxSelfThunderBGFrames[];
+
 // extern ??? gEkrDragonStatusLeft
 // extern ??? gEkrDragonStatusRight
 extern u16 gEkrDragonPalBackup[0x40 / sizeof(u16)];
@@ -251,9 +271,8 @@ extern struct ProcCmd ProcScr_08801810[];
 extern struct ProcCmd ProcScr_08801840[];
 extern u16 gUnknown_08801858[];
 extern u16 gUnknown_08801860[];
-// extern ??? ProcScr_ekrSelfThunder
-// extern ??? ProcScr_ekrSelfThunderBG
-// extern ??? gUnknown_088018A0
+extern struct ProcCmd ProcScr_ekrSelfThunder[];
+extern struct ProcCmd ProcScr_ekrSelfThunderBG[];
 extern s16 *gUnknown_08801AAC[];
 extern u8 *gUnknown_08801AB4[];
 
@@ -403,14 +422,14 @@ void sub_8077E6C(struct Proc08801810 *proc);
 void sub_8077E9C(void);
 void sub_8077EAC(int arg1, int arg2);
 void sub_8077EEC(int, ProcPtr parent);
-// ??? sub_8077F04(???);
-// ??? sub_8077F10(???);
+void sub_8077F04(struct Proc08801840 *proc);
+void sub_8077F10(struct Proc08801840 *proc);
 void sub_8077F9C(u16 *buf, int);
-// ??? sub_8077FC8(???);
+void CopyPalWithFade(const u16 *src, u16 *dst, int ref);
 void NewEkrSelfThunder(struct Anim *anim);
-// ??? sub_8078078(???);
-// ??? sub_80780A4(???);
-// ??? NewEkrSelfThunderBG(???);
-// ??? sub_8078140(???);
-// ??? sub_8078174(???);
-// ??? sub_807819C(???);
+void EkrSelfThunderMain(struct ProcEfxDKfx *proc);
+void EfxSelfThunderBGUpdateAnimTSA(struct Anim *anim, const u16 *tsa_close, const u16 *tsa_far);
+void NewEkrSelfThunderBG(struct Anim *anim);
+void EfxSelfThunderBGUpdateAnim(struct ProcSelfThunderBG *proc, u16 *img, u16 *tsa_close, u16 *tsa_far, u16 *pal);
+void EfxSelfThunderBGOnInit(struct ProcSelfThunderBG *proc);
+void EfxSelfThunderBGMain(struct ProcSelfThunderBG *proc);

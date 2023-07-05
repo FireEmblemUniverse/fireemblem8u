@@ -81,11 +81,11 @@ void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon *proc)
         /* Something related to monster's bark */
         switch (gEkrDracoZombiTsaSetLut[proc->tcounter].type) {
         case 1:
-            EkrSoundSomeBark(0xE6, 0x100, 0x78, 0);
+            PlaySFX(0xE6, 0x100, 0x78, 0);
             break;
 
         case 2:
-            EkrSoundSomeBark(0x2E0, 0x100, 0x78, 0);
+            PlaySFX(0x2E0, 0x100, 0x78, 0);
             break;
 
         default:

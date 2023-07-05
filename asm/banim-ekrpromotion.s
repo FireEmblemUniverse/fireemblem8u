@@ -315,7 +315,7 @@ _08072C18:
 	ldrsh r2, [r5, r3]
 	adds r1, r6, #0
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	b _08072C94
 	.align 2, 0
 _08072C70: .4byte 0x0000013D
@@ -481,7 +481,7 @@ _08072D8C:
 	adds r1, r3, #0
 _08072D94:
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	b _08072DB4
 _08072D9C:
 	movs r0, #0x9a
@@ -494,7 +494,7 @@ _08072D9C:
 	ldrsh r2, [r1, r4]
 	adds r1, r3, #0
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _08072DB4:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -699,7 +699,7 @@ _08072F1A:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	b _08072F46
 _08072F30:
 	cmp r0, #0x78
@@ -711,7 +711,7 @@ _08072F30:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _08072F46:
 	adds r0, r4, #0
 	bl Proc_Break

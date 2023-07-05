@@ -10,7 +10,7 @@ void StartSpellAnimFire(struct Anim *anim)
     struct ProcEfx *proc;
     SpellFx_Begin();
     NewEfxSpellCast();
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
 
     proc = Proc_Start(ProcScr_efxFire, PROC_TREE_3);
     proc->anim = anim;
@@ -24,7 +24,7 @@ void StartSpellAnimElfire(struct Anim *anim)
     struct ProcEfx *proc;
     SpellFx_Begin();
     NewEfxSpellCast();
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
 
     proc = Proc_Start(ProcScr_efxFire, PROC_TREE_3);
     proc->anim = anim;
@@ -53,7 +53,7 @@ void Loop6C_efxFire(struct ProcEfx *proc)
     if (++proc->timer == 1) {
         NewEfxFireBG(proc->anim);
         NewEfxFireOBJ(proc->anim);
-        EkrSoundSomeBark(0xF1, 0x100, proc->anim->xPosition, 1);
+        PlaySFX(0xF1, 0x100, proc->anim->xPosition, 1);
     }
 
     time = proc->timer;
@@ -70,10 +70,10 @@ void Loop6C_efxFire(struct ProcEfx *proc)
             return;
 
         if (proc->type == 0) {
-            EkrSoundSomeBark(0xF7, 0x100, animc->xPosition, 1);
+            PlaySFX(0xF7, 0x100, animc->xPosition, 1);
             StartSubSpell_efxFireHITBG(animc);
         } else {
-            EkrSoundSomeBark(0xF8, 0x100, animc->xPosition, 1);
+            PlaySFX(0xF8, 0x100, animc->xPosition, 1);
             StartSubSpell_efxElfireBG(animc);
             StartSubSpell_efxElfireBGCOL(animc);
             StartSubSpell_efxElfireOBJ(animc);
@@ -154,7 +154,7 @@ void sub_805DDA8(struct ProcEfxOBJ *proc)
 {
     int time = ++proc->timer;
     if (time == 0x25) {
-        EkrSoundSomeBark(0xF2, 0x100, proc->anim->xPosition, 0x1);
+        PlaySFX(0xF2, 0x100, proc->anim->xPosition, 0x1);
         return;
     }
 
@@ -220,7 +220,7 @@ void StartSubSpell_efxElfireBG(struct Anim *anim)
     proc->timer = 0;
     SpellFx_RegisterBgGfx(gUnknown_08602B94, 0x2000);
     SpellFx_WriteBgMap(proc->anim, gUnknown_08603D50, gUnknown_08603D50);
-    SpellFx_SpellFx_ClearBG1Position();
+    SpellFx_ClearBG1Position();
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE)

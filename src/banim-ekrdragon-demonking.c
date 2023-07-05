@@ -64,7 +64,7 @@ void NewEkrDragonDemonKing(struct Anim *anim)
     gEkrXQuakeOff = 0;
     gEkrYQuakeOff = 0;
     sub_8077DB4(0, 0);
-    EkrSoundSomeBark(0x380, 0x100, 0x78, 0);
+    PlaySFX(0x380, 0x100, 0x78, 0);
 }
 
 void sub_8076598(void)
@@ -866,7 +866,7 @@ void nop_8077394(void)
 void sub_8077398(void)
 {
     NewEkrWhiteOUT(3, 2, 3);
-    EkrSoundSomeBark(0x147, 0x100, 0x78, 0x0);
+    PlaySFX(0x147, 0x100, 0x78, 0x0);
 }
 
 void sub_80773BC(struct ProcEfxDKfx *proc)
@@ -1106,17 +1106,17 @@ void sub_80777E0(struct ProcEkrDragonTunk *proc)
 {
     if (++proc->timer1 == 0x1) {
         NewEkrWhiteOUT(3, 2, 3);
-        EkrSoundSomeBark(0x147, 0x100, 0x78, 0x0);
+        PlaySFX(0x147, 0x100, 0x78, 0x0);
     }
 
     if (proc->timer1 == 0x23) {
         NewEkrWhiteOUT(3, 2, 3);
-        EkrSoundSomeBark(0x147, 0x100, 0x78, 0x0);
+        PlaySFX(0x147, 0x100, 0x78, 0x0);
     }
 
     if (proc->timer1 == 0x32) {
         NewEkrWhiteOUT(3, 2, 3);
-        EkrSoundSomeBark(0x147, 0x100, 0x78, 0x0);
+        PlaySFX(0x147, 0x100, 0x78, 0x0);
     }
 
     if (proc->timer1 == 0x36) {
@@ -1158,7 +1158,7 @@ void sub_807789C(struct ProcEkrDragonTunk *proc)
     
     if (++proc->timer2 == 0x2) {
         proc->qproc = NewEfxQuakePure(0xC, 0);
-        EkrSoundSomeBark(0x142, 0x100, 0x78, 0x0);
+        PlaySFX(0x142, 0x100, 0x78, 0x0);
     }
 
     if (proc->timer2 == 0x78) {

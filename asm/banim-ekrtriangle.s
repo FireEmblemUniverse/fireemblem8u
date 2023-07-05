@@ -52,7 +52,7 @@ _080751F2:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _08075226:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -79,7 +79,7 @@ _08075236:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _0807525E:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -364,7 +364,7 @@ sub_807545C: @ 0x0807545C
 	ldrsh r2, [r0, r3]
 	movs r0, #0xe2
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _08075492:
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]
@@ -382,7 +382,7 @@ _08075492:
 	ldrsh r2, [r0, r3]
 	movs r0, #0xe2
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _080754B8:
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]
@@ -411,7 +411,7 @@ _080754D0:
 	ldrsh r2, [r0, r3]
 	movs r0, #0xe2
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _080754F6:
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]

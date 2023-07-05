@@ -178,7 +178,6 @@ SECTIONS
         src/banim-ekrhensei.o(.text);
         src/banim-ekrdragon-demonking.o(.text);
         src/banim-ekrdragon-demonkingobj.o(.text);
-        asm/banim-ekrdragon-demonking.o(.text);
         src/spellassoc.o(.text);
         src/monstergen.o(.text);
         src/mu.o(.text);
@@ -396,7 +395,6 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrhensei.o(.rodata);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.rodata);
         . = ALIGN(4); src/banim-ekrdragon-demonkingobj.o(.rodata);
-        . = ALIGN(4); data/const_data-ekrdk.o(.rodata);
         . = ALIGN(4); src/msg_data.o(.rodata);
         . = ALIGN(4); data/const_data_chapter_maps.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_wait.o(.rodata);

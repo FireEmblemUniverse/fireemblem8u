@@ -8,7 +8,7 @@ StartSpellAnimIvaldi: @ 0x080657D4
 	adds r5, r0, #0
 	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0806580C  @ ProcScr_efxIvaldi
 	movs r1, #3
 	bl Proc_Start
@@ -82,7 +82,7 @@ _08065860:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	adds r0, r5, #0
 	bl StartSpellBG_IvaldiBG1
 	b _080659A4
@@ -101,7 +101,7 @@ _08065888:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	adds r0, r5, #0
 	bl StartSpellBG_IvaldiBG2
 	b _080659A4

@@ -543,7 +543,7 @@ StartSpellAnimDummy: @ 0x0805BE90
 	push {r4, lr}
 	adds r4, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805BEB0  @ ProcScr_efxDummymagic
 	movs r1, #3
 	bl Proc_Start
@@ -609,7 +609,7 @@ StartSpellAnimHandAxe: @ 0x0805BF08
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805BF3C  @ ProcScr_efxTeono
 	movs r1, #3
 	bl Proc_Start
@@ -974,7 +974,7 @@ sub_805C1C8: @ 0x0805C1C8
 	ldrsh r2, [r6, r0]
 	movs r0, #0xcd
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	adds r0, r4, #0
 	pop {r4, r5, r6}
 	pop {r1}
@@ -1019,7 +1019,7 @@ sub_805C21C: @ 0x0805C21C
 	asrs r2, r2, #0x10
 	movs r0, #0xcd
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	ldrh r1, [r4, #0x2e]
@@ -1041,7 +1041,7 @@ StartSpellAnimArrow: @ 0x0805C264
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C298  @ ProcScr_efxArrow
 	movs r1, #3
 	bl Proc_Start
@@ -1093,7 +1093,7 @@ sub_805C29C: @ 0x0805C29C
 	ldrsh r2, [r0, r3]
 	movs r0, #0xcc
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]
 	cmp r0, #1
@@ -1232,7 +1232,7 @@ StartSpellAnimJavelin: @ 0x0805C3F0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C440  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1272,7 +1272,7 @@ sub_805C44C: @ 0x0805C44C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C49C  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1312,7 +1312,7 @@ sub_805C4A8: @ 0x0805C4A8
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C4F8  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1352,7 +1352,7 @@ sub_805C504: @ 0x0805C504
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C554  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1392,7 +1392,7 @@ sub_805C560: @ 0x0805C560
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C5B0  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1432,7 +1432,7 @@ sub_805C5BC: @ 0x0805C5BC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C60C  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1472,7 +1472,7 @@ sub_805C618: @ 0x0805C618
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C668  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1512,7 +1512,7 @@ sub_805C674: @ 0x0805C674
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C6C4  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1552,7 +1552,7 @@ sub_805C6D0: @ 0x0805C6D0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C720  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1592,7 +1592,7 @@ sub_805C72C: @ 0x0805C72C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C77C  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1632,7 +1632,7 @@ sub_805C788: @ 0x0805C788
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C7D8  @ ProcScr_efxTeyari
 	movs r1, #3
 	bl Proc_Start
@@ -1689,7 +1689,7 @@ sub_805C7E4: @ 0x0805C7E4
 	ldrsh r2, [r0, r3]
 	movs r0, #0xca
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]
 	cmp r0, #1
@@ -1841,7 +1841,7 @@ StartSpellAnimSong: @ 0x0805C934
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805C968  @ ProcScr_efxSong
 	movs r1, #3
 	bl Proc_Start
@@ -1920,7 +1920,7 @@ sub_805C96C: @ 0x0805C96C
 	ldrsh r2, [r4, r0]
 	movs r0, #0xef
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _0805C9EC:
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]
@@ -2171,7 +2171,7 @@ StartSpellAnimDance: @ 0x0805CBDC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805CC10  @ ProcScr_efxDance
 	movs r1, #3
 	bl Proc_Start
@@ -2250,7 +2250,7 @@ sub_805CC14: @ 0x0805CC14
 	ldrsh r2, [r4, r0]
 	movs r0, #0xef
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _0805CC94:
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]
@@ -2314,7 +2314,7 @@ sub_805CD0C: @ 0x0805CD0C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805CD58  @ ProcScr_efxShooter
 	movs r1, #3
 	bl Proc_Start
@@ -2338,7 +2338,7 @@ sub_805CD0C: @ 0x0805CD0C
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -2378,7 +2378,7 @@ _0805CD82:
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	b _0805CE14
 	.align 2, 0
 _0805CDA0: .4byte 0x00000137
@@ -2542,7 +2542,7 @@ sub_805CEC8: @ 0x0805CEC8
 	adds r5, r0, #0
 	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805CF00  @ ProcScr_efxHurtmut
 	movs r1, #3
 	bl Proc_Start
@@ -2599,7 +2599,7 @@ _0805CF32:
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	adds r0, r5, #0
 	bl sub_805CFC0
 	ldr r0, [r4, #0x5c]
@@ -2741,7 +2741,7 @@ StartSpellAnimFireBreath: @ 0x0805D064
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805D098  @ ProcScr_efxFirebreath
 	movs r1, #3
 	bl Proc_Start
@@ -2812,7 +2812,7 @@ _0805D0C4:
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 	b _0805D142
 	.align 2, 0
 _0805D10C: .4byte 0x0000011D
@@ -3010,7 +3010,7 @@ sub_805D260: @ 0x0805D260
 	ldr r0, [r4, #0x5c]
 	adds r1, r2, #0
 	bl SpellFx_WriteBgMap
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	bl SpellFx_SetSomeColorEffect
 	pop {r4, r5}
 	pop {r0}
@@ -3138,7 +3138,7 @@ StartSpellAnimIceBreath: @ 0x0805D388
 	adds r5, r0, #0
 	bl SpellFx_Begin
 	bl NewEfxSpellCast
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805D3C0  @ gUnknown_085D5358
 	movs r1, #3
 	bl Proc_Start
@@ -3188,7 +3188,7 @@ sub_805D3C4: @ 0x0805D3C4
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _0805D400:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -3301,7 +3301,7 @@ StartSpellAnimDarkBreath: @ 0x0805D4D0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl SpellFx_Begin
-	bl SpellFx_SpellFx_ClearBG1Position
+	bl SpellFx_ClearBG1Position
 	ldr r0, _0805D504  @ gUnknown_085D5390
 	movs r1, #3
 	bl Proc_Start
@@ -3358,7 +3358,7 @@ Loop6C_efxDarkbreath: @ 0x0805D508
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl EkrSoundSomeBark
+	bl PlaySFX
 _0805D558:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
