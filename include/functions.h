@@ -2215,7 +2215,7 @@ void HidePrepScreenHandCursor(void);
 void EndPrepScreenHandCursor(void);
 void sub_80AD594(int);
 void sub_80AD5B4(void);
-// ??? EnableAllGfx(???);
+void EnableAllGfx(void);
 // ??? sub_80AD5F8(???);
 // ??? sub_80AD610(???);
 // ??? sub_80AD950(???);

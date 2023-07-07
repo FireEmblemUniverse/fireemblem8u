@@ -19,6 +19,8 @@
 #include "bmitemuse.h"
 #include "bmcontainer.h"
 
+#include "constants/items.h"
+
 #include "prepscreen.h"
 
 struct PrepItemScreenProc {
@@ -63,16 +65,6 @@ extern struct TextHandle gUnknown_02013560[];
 extern struct TextHandle gUnknown_02013570[];
 extern struct TextHandle gUnknown_02013588[];
 
-extern u8 Img_PrepTextShadow[];
-extern u8 Img_PrepPopupWindow[];
-
-extern u8 gUnknown_08A1B1FC[]; // gfx
-extern u16 gUnknown_08A1B638[]; // pal
-
-extern u8 gUnknown_08A1B8B8[]; // tsa
-extern u8 gUnknown_08A1B990[]; // tsa
-
-
 int CheckInLinkArena(void);
 
 // Forward declarations
@@ -88,6 +80,36 @@ void sub_809A274(struct PrepItemScreenProc*);
 void sub_809A504(struct PrepItemScreenProc*, u8);
 s8 sub_809A538(struct Unit*);
 
+u16 CONST_DATA gUnknown_08A188E4[] = {
+    ITEM_SWORD_IRON,
+    ITEM_LANCE_IRON,
+    ITEM_AXE_IRON,
+    ITEM_BOW_IRON,
+    ITEM_ANIMA_FIRE,
+    ITEM_DARK_FLUX,
+    ITEM_LIGHT_LIGHTNING,
+    ITEM_STAFF_HEAL,
+
+    ITEM_NONE,
+};
+
+int CONST_DATA gUnknown_08A188F8[] = {
+    0x05AF, // TODO: msgid "Exchange items[NL]between units."
+    0x05B3, // TODO: msgid "Display all units' items.[.]"
+    0x05B0, // TODO: msgid "Use items."
+    0x05B5, // TODO: msgid "Place all items in storage.[.]"
+    0x05B1, // TODO: msgid "Transfer items to and[.][NL]from storage.[.]"
+    0x05B2, // TODO: msgid "Buy and sell items.[.]"
+};
+
+int CONST_DATA gUnknown_08A18910[] = {
+    0x05AF, // TODO: msgid "Exchange items[NL]between units."
+    0x05B3, // TODO: msgid "Display all units' items.[.]"
+    0x05B0, // TODO: msgid "Use items."
+    0x05B5, // TODO: msgid "Place all items in storage.[.]"
+    0x05B1, // TODO: msgid "Transfer items to and[.][NL]from storage.[.]"
+    0x05B4, // TODO: msgid "Sell your unneeded items.[.][NL]Important items cannot be sold.[.]"
+};
 
 //! FE8U = 0x080983D4
 void sub_80983D4(void) {
@@ -111,7 +133,6 @@ void sub_80983D4(void) {
 //! FE8U = 0x08098408
 void sub_8098408(struct PrepItemScreenProc* proc) {
     proc->unk_29 = 0;
-
     proc->unk_2b = -1;
     proc->unk_2d = -1;
     proc->unk_2e = 0;
@@ -129,7 +150,13 @@ void sub_8098448(struct ProcA18944* proc) {
     return;
 }
 
-extern u16 gUnknown_08A18928[];
+u16 CONST_DATA gUnknown_08A18928[] = {
+    4,
+    0x4000, 0x8000, 0x0050,
+    0x4000, 0x8020, 0x0054,
+    0x4010, 0x8000, 0x0058,
+    0x4010, 0x8020, 0x005C,
+};
 
 //! FE8U = 0x08098474
 void sub_8098474(struct ProcA18944* proc) {
@@ -145,7 +172,14 @@ void sub_8098474(struct ProcA18944* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A18944[];
+struct ProcCmd CONST_DATA gUnknown_08A18944[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8098448),
+    PROC_REPEAT(sub_8098474),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080984A8
 void sub_80984A8(int x, int y, int pal, ProcPtr parent) {
@@ -185,7 +219,15 @@ void sub_8098514(void) {
     return;
 }
 
-extern u16 gUnknown_08A18964[];
+u16 CONST_DATA gUnknown_08A18964[] = {
+    6,
+    0x4000, 0xC000, 0x0000,
+    0x4000, 0xC040, 0x0008,
+    0x4020, 0x8000, 0x0010,
+    0x4020, 0x8020, 0x0014,
+    0x4020, 0x8040, 0x0018,
+    0x4020, 0x8060, 0x001C,
+};
 
 //! FE8U = 0x0809852C
 void sub_809852C(struct ProcA1898C* proc) {
@@ -201,7 +243,12 @@ void sub_809852C(struct ProcA1898C* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A1898C[];
+struct ProcCmd CONST_DATA gUnknown_08A1898C[] = {
+    PROC_CALL(sub_8098514),
+    PROC_REPEAT(sub_809852C),
+
+    PROC_END,
+};
 
 //! FE8U = 0x08098554
 void sub_8098554(ProcPtr parent) {
@@ -256,20 +303,22 @@ void sub_8098600(void) {
 
 extern u16 gUnknown_02022C08[];
 
-extern struct FaceVramEntry gUnknown_08205C14[];
-
 //! FE8U = 0x08098620
 void sub_8098620(struct PrepItemScreenProc* proc) {
     int i;
 
-    struct FaceVramEntry hack[4];
-    memcpy(hack, gUnknown_08205C14, 0x20);
+    struct FaceVramEntry gUnknown_08205C14[4] = {
+        { 0x5800, 6, },
+        { 0x6800, 7, },
+        { 0x0000, 0, },
+        { 0x0000, 0, },
+    };
 
     SetupBackgrounds(gBgConfig_ItemUseScreen);
 
     gLCDControlBuffer.dispcnt.mode = 0;
 
-    SetupFaceGfxData(hack);
+    SetupFaceGfxData(gUnknown_08205C14);
 
     SetDispEnable(0, 0, 0, 0, 0);
 
@@ -495,15 +544,17 @@ void sub_8098BE8(void) {
     return;
 }
 
-extern u16* Pals_PrepWindow[];
-
 //! FE8U = 0x08098C3C
 void PutImg_PrepItemUseUnk(int vram, int pal) {
-    u16* hack[4];
-    memcpy(hack, Pals_PrepWindow, 0x10);
+    u16* Pals_PrepWindow[] = {
+        gUnknown_08A1D850,
+        gUnknown_08A1D870,
+        gUnknown_08A1D890,
+        gUnknown_08A1D8B0,
+    };
 
     Decompress(Img_PrepWindow, (void *)(0x6000000 + vram));
-    CopyToPaletteBuffer(hack[gPlaySt.cfgWindowColor], pal * 0x20, 0x20);
+    CopyToPaletteBuffer(Pals_PrepWindow[gPlaySt.cfgWindowColor], pal * 0x20, 0x20);
     return;
 }
 
@@ -734,7 +785,7 @@ void sub_8099120(struct PrepItemScreenProc* proc) {
                         break;
 
                     case 2:
-                        if (UnitHasItem(GetUnitFromPrepList(proc->unk_2a), 0x72) != 0) {
+                        if (UnitHasItem(GetUnitFromPrepList(proc->unk_2a), ITEM_MEMBERCARD)) {
                             PlaySoundEffect(0x6a);
                             Proc_Goto(proc, 0xd);
                             return;
@@ -930,9 +981,6 @@ void sub_80996B0(struct PrepItemScreenProc* proc) {
 
     return;
 }
-
-extern int gUnknown_08A188F8[];
-extern int gUnknown_08A18910[];
 
 //! FE8U = 0x080996E8
 void sub_80996E8(struct PrepItemScreenProc* proc) {
@@ -1279,8 +1327,6 @@ void StartPrepItemListScreen(struct PrepItemScreenProc* proc) {
     return;
 }
 
-extern u16 gUnknown_08A188E4[];
-
 //! FE8U = 0x08099E48
 void sub_8099E48(struct PrepItemScreenProc* proc) {
     StartArmoryScreen(GetUnitFromPrepList(proc->unk_2b), gUnknown_08A188E4, proc);
@@ -1302,7 +1348,198 @@ void sub_8099E68(struct PrepItemScreenProc* proc) {
     return;
 }
 
-extern struct ProcCmd ProcScr_PrepItemScreen[];
+struct ProcCmd CONST_DATA ProcScr_PrepItemScreen[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8098408),
+    PROC_CALL(sub_8098620),
+    PROC_CALL(sub_8098CC0),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_SLEEP(0),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_8098CC0),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_REPEAT(sub_8099120),
+    PROC_CALL(sub_80AD5B4),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80990D4),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8099100),
+    PROC_CALL(sub_8098CC0),
+    PROC_SLEEP(0),
+    PROC_CALL(EnableAllGfx),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_80995D4),
+    PROC_CALL(sub_80985B8),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8099654),
+
+    // fallthrough
+
+PROC_LABEL(3),
+    PROC_REPEAT(sub_80996E8),
+
+    // fallthrough
+
+PROC_LABEL(4),
+    PROC_CALL(sub_8098600),
+    PROC_CALL(sub_8099AF8),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8099C60),
+
+    // fallthrough
+
+PROC_LABEL(5),
+    PROC_REPEAT(sub_8099C70),
+    PROC_CALL(sub_80AD5B4),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80990D4),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8099100),
+    PROC_CALL(sub_8099AF8),
+    PROC_CALL(sub_8099C60),
+    PROC_SLEEP(0),
+    PROC_CALL(EnableAllGfx),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(6),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(StartPrepItemTradeScreen),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8098620),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8099AF8),
+    PROC_CALL(sub_8099C60),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(8),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80989BC),
+    PROC_CALL(StartPrepItemListScreen),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8098620),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8034194),
+    PROC_CALL(sub_80996B0),
+    PROC_CALL(sub_80995D4),
+    PROC_CALL(sub_80985B8),
+    PROC_CALL(sub_8099654),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(9),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80989BC),
+    PROC_CALL(sub_8099DE8),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8098620),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8034194),
+    PROC_CALL(sub_80996B0),
+    PROC_CALL(sub_80995D4),
+    PROC_CALL(sub_80985B8),
+    PROC_CALL(sub_8099654),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(10),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80989BC),
+    PROC_CALL(StartPrepItemSupply),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8098620),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8034194),
+    PROC_CALL(sub_80996B0),
+    PROC_CALL(sub_80995D4),
+    PROC_CALL(sub_80985B8),
+    PROC_CALL(sub_8099654),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(11),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80989BC),
+    PROC_CALL(sub_8099E18),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8098620),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8034194),
+    PROC_CALL(sub_80996B0),
+    PROC_CALL(sub_80995D4),
+    PROC_CALL(sub_80985B8),
+    PROC_CALL(sub_8099654),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(12),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80989BC),
+    PROC_CALL(sub_8099E48),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8098620),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8034194),
+    PROC_CALL(sub_80996B0),
+    PROC_CALL(sub_80995D4),
+    PROC_CALL(sub_80985B8),
+    PROC_CALL(sub_8099654),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(13),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80989BC),
+    PROC_CALL(sub_8099E68),
+
+    PROC_END,
+};
 
 //! FE8U = 0x08099E98
 void sub_8099E98(int slot, struct Unit* unit, u16 x, u16 y, u16 disp) {
@@ -1456,7 +1693,7 @@ void sub_809A114(struct PrepItemScreenProc* proc, u8 unk, s8 flag) {
             Text_SetXCursor(th, 0);
 
             if (isWorldMapMaybe) {
-                if (UnitHasItem(unit, 0x72) != 0) {
+                if (UnitHasItem(unit, ITEM_MEMBERCARD)) {
                     Text_SetColorId(th, 0);
                 } else {
                     Text_SetColorId(th, 1);
@@ -1491,7 +1728,7 @@ void sub_809A230(struct Unit* unit, u16 x, u16 y) {
 
     int classId = unit->pClassData->number;
 
-    if (UnitHasItem(unit, 0x72)) {
+    if (UnitHasItem(unit, ITEM_MEMBERCARD)) {
         oam2Base = 0xc000;
     } else {
         oam2Base = 0xf000;
@@ -1605,3 +1842,14 @@ s8 sub_809A538(struct Unit* unit) {
 
     return 0;
 }
+
+u16 CONST_DATA gUnknown_08A18E1C[] = {
+    3,
+    0x4000, 0x0000, 0x0800,
+    0x4008, 0x0000, 0x0806,
+    0x4010, 0x0000, 0x080C,
+};
+
+u16 CONST_DATA gUnknown_08A18E30[] = {
+    0x0200, 0x0204,
+};

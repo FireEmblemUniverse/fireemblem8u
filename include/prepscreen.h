@@ -317,14 +317,14 @@ extern u16 CONST_DATA gUnknown_08A1B0D8[];
 extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycursor
 extern u16 CONST_DATA gPal_SupportScreenBanner[];
 extern u16 CONST_DATA gUnknown_08A1B194[];
-// extern ??? gUnknown_08A1B1FC
-// extern ??? gUnknown_08A1B638
+extern u8 gUnknown_08A1B1FC[]; // gfx
+extern u16 gUnknown_08A1B638[]; // pal
 extern u8 CONST_DATA gUnknown_08A1B658[];
 extern u8 CONST_DATA gUnknown_08A1B698[];
 extern u8 CONST_DATA gUnknown_08A1B730[];
 extern u8 CONST_DATA gUnknown_08A1B7C8[];
-// extern ??? gUnknown_08A1B8B8
-// extern ??? gUnknown_08A1B990
+extern u8 gUnknown_08A1B8B8[]; // tsa
+extern u8 gUnknown_08A1B990[]; // tsa
 // extern ??? gUnknown_08A1B9EC
 extern u16 CONST_DATA Img_PrepItemUseScreen[];
 extern u16 CONST_DATA Tsa_PrepItemUseScreen[];
@@ -341,10 +341,14 @@ extern u8 gUnknown_08A1C704[]; // arrow gfx
 // extern ??? gUnknown_08A1D288
 // extern ??? gUnknown_08A1D448
 extern u16 CONST_DATA gUnknown_08A1D4C8[];
-// extern ??? Img_PrepTextShadow
+extern u8 Img_PrepTextShadow[];
 extern u8 CONST_DATA gUnknown_08A1D510[];
 extern u16 CONST_DATA Pal_MapBattleInfoNum[]; // 'R is info' palette
-// extern ??? Img_PrepPopupWindow
+extern u8 Img_PrepPopupWindow[];
+extern u16 gUnknown_08A1D850[];
+extern u16 gUnknown_08A1D870[];
+extern u16 gUnknown_08A1D890[];
+extern u16 gUnknown_08A1D8B0[];
 extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A1DB80
 // extern ??? gTsa_SupportSubScreen

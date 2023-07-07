@@ -413,7 +413,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_205BD0.o(.rodata);
         . = ALIGN(4); src/prep_sallycir.o(.rodata);
         . = ALIGN(4); src/prep_utils.o(.rodata);
-        . = ALIGN(4); data/const_data_205C14.o(.rodata);
+        . = ALIGN(4); src/prep_itemscreen.o(.rodata);
         . = ALIGN(4); src/prep_itemtrade.o(.rodata);
         . = ALIGN(4); src/prep_itemuse.o(.rodata);
         . = ALIGN(4); src/uisupport.o(.rodata);
@@ -627,7 +627,7 @@ SECTIONS
         . = ALIGN(4); data/data_prep_menuscroll.o(.data);
         . = ALIGN(4); src/prep_sallycir.o(.data);
         . = ALIGN(4); src/prep_utils.o(.data);
-        . = ALIGN(4); data/data_prep_itemscreen.o(.data);
+        . = ALIGN(4); src/prep_itemscreen.o(.data);
         . = ALIGN(4); src/prep_unitselect.o(.data);
         . = ALIGN(4); src/prep_itemtrade.o(.data);
         . = ALIGN(4); src/prep_itemuse.o(.data);
