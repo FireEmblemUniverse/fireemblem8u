@@ -434,7 +434,7 @@ void AtMenu_LockGame();
 void AtMenu_UnlockGame();
 void StartPrepAtMenu();
 void StartPrepAtMenuWithConfig();
-// ??? HasConvoyAccess_(???);
+s8 HasConvoyAccess_(void);
 // ??? TraineePromo_ResetScreenEffect(???);
 // ??? DoPromoteAnimForChar100(???);
 // ??? IsGameLockLevelReserved(???);
@@ -525,7 +525,7 @@ void PrepStartSideBarScroll(ProcPtr, int, int, int, int);
 // ??? sub_8097ACC(???);
 // ??? sub_8097B98(???);
 // ??? sub_8097CC4(???);
-// ??? GetConvoyItemCount_(???);
+u8 GetConvoyItemCount_(void);
 // ??? ViewCounter_Loop(???);
 // ??? StartViewCounter(???);
 void sub_8097D54(ProcPtr);
@@ -548,7 +548,7 @@ void sub_80982B8(void);
 // ??? sub_809831C(???);
 // ??? sub_8098344(???);
 // ??? sub_8098378(???);
-// ??? CanUnitPrepScreenUse(???);
+s8 CanUnitPrepScreenUse(struct Unit*);
 // ??? sub_80983D4(???);
 // ??? sub_8098408(???);
 // ??? sub_8098448(???);
@@ -600,7 +600,7 @@ void PutImg_PrepPopupWindow(int, int);
 // ??? sub_8099E48(???);
 // ??? sub_8099E68(???);
 // ??? sub_8099E98(???);
-// ??? sub_8099F50(???);
+void sub_8099F50(int);
 ProcPtr StartPrepItemScreen(ProcPtr);
 // ??? sub_8099F7C(???);
 // ??? sub_809A08C(???);
@@ -618,7 +618,7 @@ void DrawPrepScreenItemIcons(u16* tm, struct Unit* unit);
 // ??? PrepItemTrade_Init(???);
 // ??? PrepItemTrade_Loop_MainKeyHandler(???);
 // ??? PrepItemTrade_OnEnd(???);
-// ??? StartPrepItemTradeScreenProc(???);
+void StartPrepItemTradeScreenProc(struct Unit* unitA, struct Unit* unitB, ProcPtr parent);
 void sub_809BE60(struct Unit* unitA, struct Unit* unitB, int rightItemIdx, ProcPtr parent);
 
 /* PrepItemUse */
@@ -642,7 +642,7 @@ void PrepItemUseClearSubBox(void);
 // ??? PrepItemUse_PostPromotion(???);
 // ??? PrepItemUse_ResetBgmAfterPromo(???);
 // ??? sub_809CCE0(???);
-// ??? StartPrepItemUseScreen(???);
+void StartPrepItemUseScreen(struct Unit *unit, ProcPtr parent);
 
 /* itemusemind */
 void PrepItemUseBooster_OnDraw(struct ProcPrepItemUseBooster *proc, int x, int y, int msg, int item);
@@ -654,3 +654,9 @@ void PrepItemUseJuna_OnDraw(struct ProcPrepItemUseJunaFruit *proc, int x, int y,
 // ??? PrepItemUseJuna_OnInit(???);
 // ??? PrepItemUseJuna_IDLE(???);
 // ??? PrepItemUseJuna_OnEnd(???);
+
+void StartPrepItemSupplyProc(struct Unit* unit, ProcPtr parent);
+
+void StartWorldMapSellScreen(struct Unit* unit, ProcPtr parent);
+
+void StartPrepItemListScreenProc(struct Unit* unit, ProcPtr parent);

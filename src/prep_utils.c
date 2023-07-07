@@ -548,3 +548,23 @@ int sub_8098378(u16 a) {
 
     return 0;
 }
+
+// TODO: Implicit declaration?
+int CanUnitUseItemPrepScreen(struct Unit*, int);
+
+//! FE8U = 0x0809839C
+s8 CanUnitPrepScreenUse(struct Unit* unit) {
+    int i;
+
+    int itemCount = GetUnitItemCount(unit);
+
+    for (i = 0; i < itemCount; i++) {
+        u16 item = unit->items[i];
+
+        if (CanUnitUseItemPrepScreen(unit, item)) {
+            return 1;
+        }
+    }
+
+    return 0;
+}

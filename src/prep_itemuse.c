@@ -3,7 +3,6 @@
 #include "constants/classes.h"
 #include "bmitem.h"
 #include "constants/items.h"
-#include "bmitemuse.h"
 #include "bmusemind.h"
 #include "bmbattle.h"
 #include "bmudisp.h"
@@ -21,6 +20,9 @@
 #include "prepscreen.h"
 
 bool CheckInLinkArena(void);
+
+// TODO: Implicit declaration?
+int CanUnitUseItemPrepScreen(struct Unit* unit, int item);
 
 bool PrepItemUseTryMoveHand(struct ProcPrepItemUse *proc)
 {

@@ -213,7 +213,7 @@ SECTIONS
         asm/prep_menuscroll.o(.text);
         src/prep_sallycir.o(.text);
         src/prep_utils.o(.text);
-        asm/prep_itemscreen.o(.text);
+        src/prep_itemscreen.o(.text);
         src/prep_unitselect.o(.text);
         src/prep_itemtrade.o(.text);
         src/prep_itemuse.o(.text);
