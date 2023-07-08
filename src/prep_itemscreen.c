@@ -670,39 +670,23 @@ s8 PrepItemScreen_DpadKeyHandler(struct PrepItemScreenProc* proc) {
     }
 
     if (proc->hoverUnitIdx != previous) {
-        #if NONMATCHING
-        u32 j;
-        #else
-        register u32 j asm("r1");
-        #endif
+        int a = proc->hoverUnitIdx / 3 * 16;
+        int b = (PrepGetUnitAmount() - 1) / 3 * 16;
 
-        int a = (proc->hoverUnitIdx / 3) * 16;
-
-        int b = ((PrepGetUnitAmount() - 1) / 3) * 16;
-
-        if (((a - proc->unk_34) > 32) && ((proc->unk_34 + 48) < b)) {
-            j = ((proc->unk_34 >> 4) + 4);
-            goto _l;
+        if (a - proc->unk_34 > 32 && proc->unk_34 + 48 < b) {
+            sub_809A114(proc, (proc->unk_34 >> 4) + 4, 0);
+            SetPrepScreenHandXPos((proc->hoverUnitIdx % 3) * 64 + 24);
+        } else if (a - proc->unk_34 < 0x10 && ({ proc->unk_34 + 0; }) != 0) {
+            sub_809A114(proc, (proc->unk_34 >> 4) - 1, 0);
+            SetPrepScreenHandXPos((proc->hoverUnitIdx % 3) * 64 + 24);
         } else {
-            if (((a - proc->unk_34) < 16)) {
-                if (proc->unk_34 != 0) {
-                    j = proc->unk_34;
-                    j = (j >> 4) - 1;
-                _l:
-                    sub_809A114(proc, j, 0);
-                    SetPrepScreenHandXPos(((proc->hoverUnitIdx % 3) * 64) + 24);
-                    PlaySoundEffect(0x65);
-                    return 1;
-                }
-            }
+            ShowPrepScreenHandCursor(
+                (proc->hoverUnitIdx % 3) * 64 + 24,
+                (proc->hoverUnitIdx / 3) * 16 + 4 - proc->unk_34,
+                7,
+                0x800
+            );
         }
-
-        ShowPrepScreenHandCursor(
-            ((proc->hoverUnitIdx % 3) * 64) + 24,
-            ((proc->hoverUnitIdx / 3) * 16) + 4 - proc->unk_34,
-            7,
-            0x800
-        );
 
         PlaySoundEffect(0x65);
         return 1;
