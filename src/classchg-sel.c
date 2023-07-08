@@ -270,7 +270,7 @@ void Make6C_PromotionMenuSelect(struct ProcPromoSel* proc) {
 
     grandparent = parent->proc_parent;
     if (grandparent->bmtype == PROMO_HANDLER_TYPE_BM) {
-        EndSlidingWallEffectMaybe();
+        RestartMuralBackground();
         BG_EnableSyncByMask(0xf);
     }
 }

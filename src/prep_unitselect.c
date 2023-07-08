@@ -473,7 +473,7 @@ void ProcPrepUnit_InitScreen(struct ProcPrepUnit *proc)
     PrepUnit_DrawPickLeftBar(proc, 0);
     NewGreenTextColorManager(proc);
     LoadHelpBoxGfx(BG_SCREEN_ADDR(0x29), 5);
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
 }
 
 void sub_809B014()
@@ -484,7 +484,7 @@ void sub_809B014()
 	EndPrepScreenHandCursor();
 	EndHelpPromptSprite();
 	sub_80ACDDC();
-	EndBG3Slider_();
+	EndMuralBackground_();
 }
 
 void ProcPrepUnit_Idle(struct ProcPrepUnit *proc)
@@ -662,7 +662,7 @@ void ProcPrepUnit_OnEnd(struct ProcPrepUnit *proc)
     ((struct ProcAtMenu *)(proc->proc_parent))->cur_counter = proc->cur_counter;
 
     PrepSetLatestCharId(GetUnitFromPrepList(proc->list_num_cur)->pCharacterData->number);
-    EndBG3Slider_();
+    EndMuralBackground_();
 }
 
 void ProcPrepUnit_OnGameStart(struct ProcPrepUnit *proc)

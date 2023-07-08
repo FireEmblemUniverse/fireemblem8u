@@ -65,7 +65,7 @@ void ExecClassChgReal(struct ProcPromoMain *proc)
 
     ResetDialogueScreen();
     APProc_DeleteAll();
-    EndBG3Slider_();
+    EndMuralBackground_();
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;

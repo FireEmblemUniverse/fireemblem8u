@@ -549,13 +549,13 @@ void PrepAutoCapDeployUnits(struct ProcAtMenu* proc)
         proc->max_counter = proc->unit_count;
 }
 
-void EndSlidingWallEffectMaybe()
+void RestartMuralBackground()
 {
     Proc_EndEach(ProcScr_SlidingWallBg);
     StartMuralBackground(0, 0, 0xA);
 }
 
-void EndBG3Slider_()
+void EndMuralBackground_()
 {
     EndMuralBackground();
 }

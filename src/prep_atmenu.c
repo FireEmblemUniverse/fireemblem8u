@@ -116,7 +116,7 @@ void sub_8095C2C(struct ProcAtMenu *proc)
 {
     sub_80AD2D4();
     EndPrepSpecialCharEffect();
-    EndBG3Slider_();
+    EndMuralBackground_();
     proc->cur_cmd = GetActivePrepMenuItemIndex();
     EndPrepScreenMenu();
 }
@@ -182,7 +182,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     SetDefaultColorEffects();
 
     StartPrepSpecialCharEffect(proc);
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
     ApplyPalettes(gUiFramePaletteB, 0x2, 3);
 
     if (CheckInLinkArena()) {
@@ -377,7 +377,7 @@ void AtMenuSetUnitStateAndEndFlag(struct ProcAtMenu *proc)
 
 void AtMenu_ResetScreenEffect(struct ProcAtMenu *proc)
 {
-    EndBG3Slider_();
+    EndMuralBackground_();
     EndPrepSpecialCharEffect();
     SetupBackgrounds(0);
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);

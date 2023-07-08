@@ -221,7 +221,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
     LoadHelpBoxGfx((void*)0x06014000, -1);
     LoadIconPalettes(4);
 
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
 
     PutImg_PrepItemUseUnk(0x5000, 5);
     PutImg_PrepPopupWindow(0x800, 8);
@@ -271,8 +271,8 @@ void WmSell_Setup(struct WmSellProc* proc) {
     NewGreenTextColorManager((struct Proc*)proc);
 
     StartHelpPromptSprite(120, 140, 2, (struct Proc*)proc);
-    sub_80984A8(165, 128, 10, proc);
-    sub_80984CC(165, 128);
+    StartDrawPrepFundsSprite(165, 128, 10, proc);
+    ShowPrepFundsSpriteAt(165, 128);
 
     Text_Init(&gUnknown_02013648.textA, 4);
     Text_Init(&gUnknown_02013648.textB, 2);
@@ -501,10 +501,10 @@ void WmSell_OnLoop_ConfirmSellKeyHandler(struct WmSellProc* proc) {
 
 //! FE8U = 0x080A06F0
 void WmSell_OnEnd(void) {
-    EndBG3Slider_();
+    EndMuralBackground_();
     EndFaceById(0);
     SetPrimaryHBlankHandler(NULL);
-    sub_8098500();
+    EndDrawPrepFundsSprite();
 
     return;
 }

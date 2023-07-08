@@ -148,10 +148,6 @@ extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022E00
 // extern ??? gUnknown_02022E2E
 // extern ??? gUnknown_02022E76
-// extern ??? gUnknown_02022EEC
-// extern ??? gUnknown_02022F06
-// extern ??? gUnknown_02022F0A
-// extern ??? gUnknown_02022F0E
 // extern ??? gUnknown_02022F4E
 // extern ??? gUnknown_02022FA8
 // extern ??? gUnknown_02022FBE
@@ -163,7 +159,6 @@ extern u16 gUnknown_02022FE8[];
 // extern ??? gUnknown_02023084
 // extern ??? gUnknown_020230A8
 // extern ??? gUnknown_020230CA
-// extern ??? gUnknown_0202310E
 // extern ??? gUnknown_02023114
 // extern ??? gUnknown_02023116
 // extern ??? gUnknown_02023130

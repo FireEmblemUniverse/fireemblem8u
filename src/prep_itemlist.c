@@ -177,7 +177,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     LoadHelpBoxGfx((void*)0x06012000, -1);
     LoadIconPalettes(4);
 
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
 
     PutImg_PrepItemUseUnk(0x5000, 5);
 
@@ -295,7 +295,7 @@ void PrepItemList_OnEnd(struct PrepItemListProc* proc) {
 
     EndAllProcChildren(proc);
     EndFaceById(0);
-    EndBG3Slider_();
+    EndMuralBackground_();
 
     return;
 }

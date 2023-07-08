@@ -396,7 +396,7 @@ void sub_809D914(struct PrepItemSupplyProc* proc) {
 
     LoadHelpBoxGfx((void*)0x06013000, -1);
     LoadIconPalettes(4);
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
     BG_EnableSyncByMask(8);
 
     gLCDControlBuffer.dispcnt.bg0_on = 0;
@@ -1126,7 +1126,7 @@ void PrepItemSupply_OnEnd(struct PrepItemSupplyProc* proc) {
     }
 
     EndAllProcChildren(proc);
-    EndBG3Slider_();
+    EndMuralBackground_();
 
     SetPrimaryHBlankHandler(NULL);
 
