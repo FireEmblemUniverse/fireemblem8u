@@ -198,7 +198,7 @@ void Title_Init(struct TitleScreenProc* proc) {
     BG_Fill(gBG3TilemapBuffer, 0);
 
     SetBlendBackdropA(0);
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     SetDefaultColorEffects();
 

@@ -687,7 +687,7 @@ void DrawChapterStatusTextForUnit(struct Unit* unit) {
 
     SetBlendBackdropA(0);
 
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     return;
 }

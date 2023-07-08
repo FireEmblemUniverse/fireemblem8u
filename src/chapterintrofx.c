@@ -838,7 +838,7 @@ void ChapterIntro_InitMapDisplay() {
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
 
-    sub_8001F64(1);
+    SetBlendBackdropB(1);
 
     CpuFastFill(0, (void *)BG_VRAM, 32);
 

@@ -7,11 +7,11 @@
 #include "proc.h"
 
 // extern ??? gAnims
-// extern ??? gUnknown_02000280
-// extern ??? gUnknown_02000500
-// extern ??? gUnknown_02000504
-// extern ??? gUnknown_02000508
-extern u16 *gUnknown_0200050C;
+// extern ??? gMinimapWinBuf
+// extern ??? gMinimapFrontWinBuf
+// extern ??? gMinimapBackWinBuf
+// extern ??? gMinimapDisplayedWinBuf
+extern u16 *gMinimapObjectFlashPal;
 // extern ??? gUnknown_020007A0
 // extern ??? gUnknown_020007E0
 // extern ??? gUnknown_02000920
@@ -772,10 +772,6 @@ extern const struct FaceVramEntry gFaceConfig_PrepItemUseScreen[4];
 // extern ??? sConvySavePackMask2
 // extern ??? gInitialMultiArenaRankings
 // extern ??? gUnknown_08205D7C
-// extern ??? gUnknown_08205D84
-// extern ??? gUnknown_08205D87
-// extern ??? gUnknown_08205D97
-// extern ??? gUnknown_08205DB8
 // extern ??? gUnknown_08205E18
 // extern ??? gUnknown_08205E28
 // extern ??? gUnknown_08205F28

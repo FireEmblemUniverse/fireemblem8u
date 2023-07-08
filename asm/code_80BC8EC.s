@@ -6525,7 +6525,7 @@ sub_80BF890: @ 0x080BF890
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -6934,7 +6934,7 @@ sub_80BFB90: @ 0x080BFB90
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -7927,7 +7927,7 @@ sub_80C0308: @ 0x080C0308
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -8101,7 +8101,7 @@ _080C0430:
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	ldr r1, _080C04C8  @ gUnknown_0201BE30
 	ldrb r0, [r1]
 	orrs r0, r4
@@ -9673,7 +9673,7 @@ _080C1036:
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0x10
@@ -16788,7 +16788,7 @@ sub_80C4460: @ 0x080C4460
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	str r4, [sp, #4]
 	ldr r1, _080C45BC  @ gPaletteBuffer
 	ldr r2, _080C45C0  @ 0x01000100

@@ -2988,7 +2988,7 @@ _0800EB94:
 	movs r0, #1
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #0
 	movs r1, #6
 	bl sub_800BA04
@@ -3566,7 +3566,7 @@ _0800EFE2:
 	movs r0, #1
 	bl SetBlendBackdropA
 	movs r0, #1
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	bl sub_800BA34
 	ldr r0, _0800F0C0  @ gBG2TilemapBuffer
 	movs r1, #0

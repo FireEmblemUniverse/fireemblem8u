@@ -2134,7 +2134,7 @@ void TalkOpen_InitBlend(struct Proc* proc) {
         SetBlendTargetA(0, 1, 0, 0, 0);
         SetBlendTargetB(0, 0, 1, 1, 1);
 
-        sub_8001F64(1);
+        SetBlendBackdropB(1);
 
         gLCDControlBuffer.wincnt.win0_enableBlend = 1;
         gLCDControlBuffer.wincnt.wout_enableBlend = 1;

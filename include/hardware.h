@@ -188,7 +188,7 @@ void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blend
 void SetBlendTargetA(int, int, int, int, int); // SetColorEffectFirstTarget
 void SetBlendTargetB(int, int, int, int, int);
 void SetBlendBackdropA(int); // SetColorEffectBackdropFirstTarget
-void sub_8001F64(int a);
+void SetBlendBackdropB(int a);
 void SetDefaultColorEffects(void);
 void EnablePaletteSync(void);
 void DisablePaletteSync(void);

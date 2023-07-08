@@ -546,7 +546,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
     SetBlendTargetB(0, 0, 0, 1, 0);
 
     SetBlendBackdropA(0);
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     // Load and display background
 

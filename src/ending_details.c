@@ -1749,7 +1749,7 @@ void sub_80B8014(void) {
     SetBlendTargetB(0, 0, 0, 1, 0);
 
     SetBlendBackdropA(0);
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
     SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
 
     Decompress(gUnknown_08A21658, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));

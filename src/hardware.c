@@ -909,7 +909,7 @@ void SetBlendBackdropA(int a)
     gLCDControlBuffer.bldcnt.target1_bd_on = a;
 }
 
-void sub_8001F64(int a)
+void SetBlendBackdropB(int a)
 {
     gLCDControlBuffer.bldcnt.target2_bd_on = a;
 }
