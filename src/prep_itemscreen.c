@@ -363,7 +363,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     LoadHelpBoxGfx((void *)0x06014000, -1);
 
     SetBlendBackdropA(0);
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 0, 0);

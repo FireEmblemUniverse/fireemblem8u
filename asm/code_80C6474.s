@@ -1665,7 +1665,7 @@ sub_80C7050: @ 0x080C7050
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #1
 	movs r1, #8
 	movs r2, #8
@@ -3204,7 +3204,7 @@ _080C7D30:
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #1
 	movs r1, #8
 	movs r2, #8

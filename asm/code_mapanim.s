@@ -527,7 +527,7 @@ sub_807F89C: @ 0x0807F89C
 	movs r3, #0
 	bl SetBlendTargetB
 	movs r0, #1
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -1067,7 +1067,7 @@ sub_807FCE4: @ 0x0807FCE4
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #1
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -1510,7 +1510,7 @@ sub_8080050: @ 0x08080050
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #1
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -2296,7 +2296,7 @@ sub_8080660: @ 0x08080660
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #1
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10

@@ -660,7 +660,7 @@ void sub_80C5218(struct OpSubtitleProc* proc) {
     SetBlendTargetB(1, 1, 0, 0, 0);
 
     SetBlendBackdropA(0);
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(1, -3, -3);

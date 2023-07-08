@@ -78,7 +78,7 @@ void InitChapterMap(int chapterId) {
         sub_8019624();
 }
 
-void InitChapterPreviewMap(int chapterId) {
+void InitMapForMinimap(int chapterId) {
     UnpackChapterMap(gBmMapBuffer, chapterId);
 
     BmMapInit(sBmMapUnitPool,    &gBmMapUnit,    gBmMapSize.x, gBmMapSize.y);

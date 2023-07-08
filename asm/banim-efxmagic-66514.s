@@ -6156,7 +6156,7 @@ _0806950E:
 _08069518:
 	bl SpellFx_SetSomeColorEffect
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	pop {r4}
 	pop {r0}
 	bx r0

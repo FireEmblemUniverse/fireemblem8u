@@ -387,7 +387,7 @@ sub_8011A48: @ 0x08011A48
 	movs r0, #1
 	bl SetBlendBackdropA
 	movs r0, #1
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	ldr r0, _08011A9C  @ gUnknown_085924D8
 	bl Proc_Find
 	movs r1, #1
@@ -470,7 +470,7 @@ sub_8011AF4: @ 0x08011AF4
 	movs r0, #1
 	bl SetBlendBackdropA
 	movs r0, #1
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	ldr r0, _08011B48  @ gUnknown_085924D8
 	bl Proc_Find
 	movs r1, #1

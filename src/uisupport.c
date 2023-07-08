@@ -1396,7 +1396,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     SetBlendTargetB(0, 0, 0, 1, 0);
 
     SetBlendBackdropA(0);
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     RestartMuralBackground();
 
@@ -1737,7 +1737,7 @@ void SupportSubScreen_EndSwapPage(struct SubScreenProc* proc) {
     SetBlendTargetB(1, 1, 1, 1, 1);
 
     SetBlendBackdropA(0);
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     if (proc->fromPrepScreen == 0) {
         if (proc->unk_3b != 0) {

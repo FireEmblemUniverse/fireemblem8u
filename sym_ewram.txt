@@ -13,11 +13,11 @@
 . = 0x000068; gpProcEkrGauge = .;
 . = 0x00006C; gpProcEkrDispUP = .;
 . = 0x000088; gUnknown_02000088 = .;
-. = 0x000280; gUnknown_02000280 = .;
-. = 0x000500; gUnknown_02000500 = .;
-. = 0x000504; gUnknown_02000504 = .;
-. = 0x000508; gUnknown_02000508 = .;
-. = 0x00050C; gUnknown_0200050C = .;
+. = 0x000280; gMinimapWinBuf = .;
+. = 0x000500; gMinimapFrontWinBuf = .;
+. = 0x000504; gMinimapBackWinBuf = .;
+. = 0x000508; gMinimapDisplayedWinBuf = .;
+. = 0x00050C; gMinimapObjectFlashPal = .;
 . = 0x0007A0; gUnknown_020007A0 = .;
 . = 0x0007E0; gUnknown_020007E0 = .;
 . = 0x000920; gUnknown_02000920 = .;

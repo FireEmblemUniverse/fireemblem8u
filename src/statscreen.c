@@ -1271,7 +1271,7 @@ void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc)
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(1, 1, 1, 0, 1);
 
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     if (proc->direction > 0)
     {
@@ -1654,7 +1654,7 @@ void StatScreen_BlackenScreen(void)
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendBackdropA(1);
-    sub_8001F64(0);
+    SetBlendBackdropB(0);
 
     // TODO: ResetBackdropColor macro?
     gPaletteBuffer[0] = 0;

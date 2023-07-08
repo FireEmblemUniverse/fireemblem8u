@@ -2,7 +2,7 @@
 #define GUARD_BMMAP_H
 
 void InitChapterMap(int chapterId);
-void InitChapterPreviewMap(int chapterId);
+void InitMapForMinimap(int chapterId);
 void sub_8019624(void);
 void sub_8019778(void);
 void BmMapFill(u8** map, int value);

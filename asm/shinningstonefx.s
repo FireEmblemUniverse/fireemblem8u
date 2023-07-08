@@ -47,7 +47,7 @@ sub_8012984: @ 0x08012984
 	movs r3, #1
 	bl SetBlendTargetB
 	movs r0, #1
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	movs r0, #0x34
 	adds r0, r0, r4
 	mov r8, r0

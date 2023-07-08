@@ -2389,7 +2389,7 @@ sub_80B9BA4: @ 0x080B9BA4
 	movs r0, #0
 	bl SetBlendBackdropA
 	movs r0, #0
-	bl sub_8001F64
+	bl SetBlendBackdropB
 	b _080B9C26
 	.align 2, 0
 _080B9C04: .4byte gGMData
