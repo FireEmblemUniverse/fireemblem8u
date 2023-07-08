@@ -226,11 +226,7 @@ extern u16 gUnknown_02012F56;
 // extern ??? gUnknown_02012F58
 // extern ??? gUnknown_02013458
 // extern ??? gUnknown_02013460
-// extern ??? gUnknown_02013510
-// extern ??? gUnknown_02013538
-// extern ??? gUnknown_02013560
-// extern ??? gUnknown_02013570
-// extern ??? gUnknown_02013588
+// extern ??? gPrepItemScreenTexts
 // extern ??? gUnknown_02013590
 // extern ??? gPrepUnitTexts
 // extern ??? gUnknown_02013608
@@ -271,13 +267,13 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepMenu[];
 // extern ??? ProcScr_ViewCounter
 // extern ??? gProcScr_PrepHelpboxListener
 // extern ??? gPrepItemTypePageLut
-// extern ??? gUnknown_08A188E4
-// extern ??? gUnknown_08A188F8
-// extern ??? gUnknown_08A18910
-// extern ??? gUnknown_08A18928
-// extern ??? gUnknown_08A18944
-// extern ??? gUnknown_08A18964
-// extern ??? gUnknown_08A1898C
+// extern ??? gPrepShopInventory
+// extern ??? gHelpTextIds_PrepItemScreen
+// extern ??? gHelpTextIds_GMapItemScreen
+// extern ??? gSprite_PrepFunds
+// extern ??? gProcScr_DrawPrepFundsSprite
+// extern ??? gSprite_PrepUnitInfoBg
+// extern ??? gProcScr_DrawUnitInfoBgSprites
 // extern ??? ProcScr_PrepItemScreen
 extern CONST_DATA u16 obj_08A18E34[];
 extern CONST_DATA u16 obj_08A18E4E[];
@@ -317,14 +313,14 @@ extern u16 CONST_DATA gUnknown_08A1B0D8[];
 extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycursor
 extern u16 CONST_DATA gPal_SupportScreenBanner[];
 extern u16 CONST_DATA gUnknown_08A1B194[];
-// extern ??? gUnknown_08A1B1FC
-// extern ??? gUnknown_08A1B638
+extern u8 gUnknown_08A1B1FC[]; // gfx
+extern u16 gUnknown_08A1B638[]; // pal
 extern u8 CONST_DATA gUnknown_08A1B658[];
 extern u8 CONST_DATA gUnknown_08A1B698[];
 extern u8 CONST_DATA gUnknown_08A1B730[];
 extern u8 CONST_DATA gUnknown_08A1B7C8[];
-// extern ??? gUnknown_08A1B8B8
-// extern ??? gUnknown_08A1B990
+extern u8 gUnknown_08A1B8B8[]; // tsa
+extern u8 gUnknown_08A1B990[]; // tsa
 // extern ??? gUnknown_08A1B9EC
 extern u16 CONST_DATA Img_PrepItemUseScreen[];
 extern u16 CONST_DATA Tsa_PrepItemUseScreen[];
@@ -341,10 +337,14 @@ extern u8 gUnknown_08A1C704[]; // arrow gfx
 // extern ??? gUnknown_08A1D288
 // extern ??? gUnknown_08A1D448
 extern u16 CONST_DATA gUnknown_08A1D4C8[];
-// extern ??? Img_PrepTextShadow
+extern u8 Img_PrepTextShadow[];
 extern u8 CONST_DATA gUnknown_08A1D510[];
 extern u16 CONST_DATA Pal_MapBattleInfoNum[]; // 'R is info' palette
-// extern ??? Img_PrepPopupWindow
+extern u8 Img_PrepPopupWindow[];
+extern u16 gUnknown_08A1D850[];
+extern u16 gUnknown_08A1D870[];
+extern u16 gUnknown_08A1D890[];
+extern u16 gUnknown_08A1D8B0[];
 extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A1DB80
 // extern ??? gTsa_SupportSubScreen
@@ -434,7 +434,7 @@ void AtMenu_LockGame();
 void AtMenu_UnlockGame();
 void StartPrepAtMenu();
 void StartPrepAtMenuWithConfig();
-// ??? HasConvoyAccess_(???);
+s8 HasConvoyAccess_(void);
 // ??? TraineePromo_ResetScreenEffect(???);
 // ??? DoPromoteAnimForChar100(???);
 // ??? IsGameLockLevelReserved(???);
@@ -477,8 +477,8 @@ int UnitGetIndexInPrepList(int pid);
 void PrepUpdateSMS();
 int PrepGetDeployedUnitAmt(void);
 void PrepAutoCapDeployUnits(struct ProcAtMenu* proc);
-void EndSlidingWallEffectMaybe();
-void EndBG3Slider_(void);
+void RestartMuralBackground();
+void EndMuralBackground_(void);
 void PrepSpecialChar_BlinkButtonStart();
 void PrepSpecialChar_BlinkButtonB();
 ProcPtr StartPrepSpecialCharEffect(ProcPtr parent);
@@ -525,7 +525,7 @@ void PrepStartSideBarScroll(ProcPtr, int, int, int, int);
 // ??? sub_8097ACC(???);
 // ??? sub_8097B98(???);
 // ??? sub_8097CC4(???);
-// ??? GetConvoyItemCount_(???);
+u8 GetConvoyItemCount_(void);
 // ??? ViewCounter_Loop(???);
 // ??? StartViewCounter(???);
 void sub_8097D54(ProcPtr);
@@ -548,25 +548,25 @@ void sub_80982B8(void);
 // ??? sub_809831C(???);
 // ??? sub_8098344(???);
 // ??? sub_8098378(???);
-// ??? CanUnitPrepScreenUse(???);
-// ??? sub_80983D4(???);
-// ??? sub_8098408(???);
-// ??? sub_8098448(???);
-// ??? sub_8098474(???);
-void sub_80984A8(int, int, int, ProcPtr);
-void sub_80984CC(int, int);
-// ??? sub_80984EC(???);
-void sub_8098500(void);
-// ??? sub_8098514(???);
-// ??? sub_809852C(???);
-// ??? sub_8098554(???);
-// ??? sub_8098570(???);
-// ??? sub_8098590(???);
-// ??? sub_80985A4(???);
-// ??? sub_80985B8(???);
-// ??? sub_8098600(???);
-// ??? sub_8098620(???);
-// ??? sub_80989BC(???);
+s8 CanUnitPrepScreenUse(struct Unit*);
+// ??? PrepItemScreen_OnHBlank(???);
+// ??? PrepItemScreen_Init(???);
+// ??? DrawFundsSprite_Init(???);
+// ??? DrawFundsSprite_Loop(???);
+void StartDrawPrepFundsSprite(int, int, int, ProcPtr);
+void ShowPrepFundsSpriteAt(int, int);
+// ??? HidePrepFundsSprite(???);
+void EndDrawPrepFundsSprite(void);
+// ??? DrawUnitInfoBg_Init(???);
+// ??? DrawUnitInfoBg_Loop(???);
+// ??? StartDrawPrepUnitInfoBgSprites(???);
+// ??? ShowUnitInfoBgSpritesAt(???);
+// ??? HideUnitInfoBgSprites(???);
+// ??? EndDrawPrepUnitInfoBgSprites(???);
+// ??? PrepItemScreen_DrawFunds(???);
+// ??? PrepItemScreen_HideFunds(???);
+// ??? PrepItemScreen_SetupGfx(???);
+// ??? PrepItemScreen_OnEnd(???);
 // ??? sub_8098A04(???);
 // ??? sub_8098A74(???);
 // ??? sub_8098B48(???);
@@ -577,10 +577,10 @@ void sub_8098500(void);
 void PutImg_PrepItemUseUnk(int, int);
 void PutImg_PrepPopupWindow(int, int);
 // ??? sub_8098CC0(???);
-// ??? sub_8098E40(???);
+// ??? PrepItemScreen_DpadKeyHandler(???);
 // ??? sub_8098FAC(???);
-// ??? sub_80990D4(???);
-// ??? sub_8099100(???);
+// ??? PrepItemScreen_StartStatScreen(???);
+// ??? PrepItemScreen_ResumeFromStatScreen(???);
 // ??? sub_8099120(???);
 // ??? sub_8099328(???);
 // ??? sub_80994C4(???);
@@ -591,16 +591,16 @@ void PutImg_PrepPopupWindow(int, int);
 // ??? sub_8099AA0(???);
 // ??? sub_8099AF8(???);
 // ??? sub_8099C60(???);
-// ??? sub_8099C70(???);
+// ??? PrepItemScreen_Loop_MainKeyHandler(???);
 // ??? StartPrepItemTradeScreen(???);
-// ??? sub_8099DE8(???);
+// ??? StartPrepItemUse(???);
 // ??? StartPrepItemSupply(???);
-// ??? sub_8099E18(???);
+// ??? StartPrepSell(???);
 // ??? StartPrepItemListScreen(???);
-// ??? sub_8099E48(???);
+// ??? StartPrepArmory(???);
 // ??? sub_8099E68(???);
-// ??? sub_8099E98(???);
-// ??? sub_8099F50(???);
+// ??? UpdatePrepItemScreenFace(???);
+void EndPrepItemScreenFace(int);
 ProcPtr StartPrepItemScreen(ProcPtr);
 // ??? sub_8099F7C(???);
 // ??? sub_809A08C(???);
@@ -610,7 +610,7 @@ ProcPtr StartPrepItemScreen(ProcPtr);
 // ??? sub_809A274(???);
 void PrepItemDrawPopupBox(int x, int y, int w, int h, int oam2);
 // ??? sub_809A504(???);
-// ??? sub_809A538(???);
+// ??? PrepItemScreen_GiveAll(???);
 // ??? PrepItemTrade_ApplyItemSwap(???);
 // ??? PrepItemTrade_DpadKeyHandler(???);
 void DrawPrepScreenItems(u16*, struct TextHandle*, struct Unit*, u8);
@@ -618,7 +618,7 @@ void DrawPrepScreenItemIcons(u16* tm, struct Unit* unit);
 // ??? PrepItemTrade_Init(???);
 // ??? PrepItemTrade_Loop_MainKeyHandler(???);
 // ??? PrepItemTrade_OnEnd(???);
-// ??? StartPrepItemTradeScreenProc(???);
+void StartPrepItemTradeScreenProc(struct Unit* unitA, struct Unit* unitB, ProcPtr parent);
 void sub_809BE60(struct Unit* unitA, struct Unit* unitB, int rightItemIdx, ProcPtr parent);
 
 /* PrepItemUse */
@@ -642,7 +642,7 @@ void PrepItemUseClearSubBox(void);
 // ??? PrepItemUse_PostPromotion(???);
 // ??? PrepItemUse_ResetBgmAfterPromo(???);
 // ??? sub_809CCE0(???);
-// ??? StartPrepItemUseScreen(???);
+void StartPrepItemUseScreen(struct Unit *unit, ProcPtr parent);
 
 /* itemusemind */
 void PrepItemUseBooster_OnDraw(struct ProcPrepItemUseBooster *proc, int x, int y, int msg, int item);
@@ -654,3 +654,9 @@ void PrepItemUseJuna_OnDraw(struct ProcPrepItemUseJunaFruit *proc, int x, int y,
 // ??? PrepItemUseJuna_OnInit(???);
 // ??? PrepItemUseJuna_IDLE(???);
 // ??? PrepItemUseJuna_OnEnd(???);
+
+void StartPrepItemSupplyProc(struct Unit* unit, ProcPtr parent);
+
+void StartWorldMapSellScreen(struct Unit* unit, ProcPtr parent);
+
+void StartPrepItemListScreenProc(struct Unit* unit, ProcPtr parent);

@@ -37,7 +37,6 @@ struct GMapBaseMenuProc* sub_80C4048(void);
 
 extern struct TextHandle gUnknown_02013660[16];
 
-void sub_8098C3C(int, int);
 void sub_809D300(void*, void*, int, void*);
 void sub_809D418(u16*, int);
 void sub_809D47C(struct TextHandle*, u16*, int, struct Unit*);
@@ -178,7 +177,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     LoadHelpBoxGfx((void*)0x06012000, -1);
     LoadIconPalettes(4);
 
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
 
     PutImg_PrepItemUseUnk(0x5000, 5);
 
@@ -296,7 +295,7 @@ void PrepItemList_OnEnd(struct PrepItemListProc* proc) {
 
     EndAllProcChildren(proc);
     EndFaceById(0);
-    EndBG3Slider_();
+    EndMuralBackground_();
 
     return;
 }

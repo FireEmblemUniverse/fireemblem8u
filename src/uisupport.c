@@ -654,7 +654,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 void SupportScreen_OnEnd(ProcPtr proc) {
     sub_808F270();
     EndAllProcChildren(proc);
-    EndBG3Slider_();
+    EndMuralBackground_();
     EndFaceById(0);
     SetPrimaryHBlankHandler(0);
     EndDrawSupportBannerSprites();
@@ -1398,7 +1398,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     SetBlendBackdropA(0);
     sub_8001F64(0);
 
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
 
     PutImg_PrepItemUseUnk(0x4000, 5);
 
@@ -1758,7 +1758,7 @@ void SupportSubScreen_EndSwapPage(struct SubScreenProc* proc) {
 //! FE8U = 0x080A2B5C
 void SupportSubScreen_OnEnd(struct SubScreenProc* proc) {
     EndAllProcChildren(proc);
-    EndBG3Slider_();
+    EndMuralBackground_();
     EndFaceById(0);
     sub_80A1A90(proc->unitIdx);
     return;

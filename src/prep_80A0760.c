@@ -185,7 +185,7 @@ s8 FortuneSubMenu_Unused_KeyHandler(struct PrepProcA1962C* proc) {
 void FortuneSubMenu_OnOptionSelected(ProcPtr proc) {
     sub_808F270();
     EndAllProcChildren(proc);
-    EndBG3Slider_();
+    EndMuralBackground_();
     EndFaceById(0);
     SetPrimaryHBlankHandler(0);
     return;

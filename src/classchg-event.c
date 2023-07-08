@@ -101,7 +101,7 @@ void PromoTrainee_InitScreen(struct ProcPromoTraineeEvent *proc)
     gLCDControlBuffer.bg2cnt.priority = 1;
     gLCDControlBuffer.bg3cnt.priority = 3;
     BG_EnableSyncByMask(2);
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(0xf);
 
@@ -119,7 +119,7 @@ void PromoTrainee_OnEnd(struct ProcPromoTraineeEvent *proc)
     ResetDialogueScreen();
     EndPrepSpecialCharEffect();
     APProc_DeleteAll();
-    EndBG3Slider_();
+    EndMuralBackground_();
     BG_SetPosition(1, 0, 0);
     BG_SetPosition(2, 0, 0);
     BG_SetPosition(4, 0, 0);

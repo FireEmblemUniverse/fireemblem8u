@@ -131,11 +131,7 @@
 . = 0x013458; gUnknown_02013458 = .;
 . = 0x013460; gUnknown_02013460 = .;
 . = 0x013498; gPrepItemTexts = .;
-. = 0x013510; gUnknown_02013510 = .;
-. = 0x013538; gUnknown_02013538 = .;
-. = 0x013560; gUnknown_02013560 = .;
-. = 0x013570; gUnknown_02013570 = .;
-. = 0x013588; gUnknown_02013588 = .;
+. = 0x013510; gPrepItemScreenTexts = .;
 . = 0x013590; gUnknown_02013590 = .;
 . = 0x013598; gPrepUnitTexts = .;
 . = 0x013608; gUnknown_02013608 = .;
@@ -328,10 +324,6 @@
 . = 0x022E00; gUnknown_02022E00 = .;
 . = 0x022E2E; gUnknown_02022E2E = .;
 . = 0x022E76; gUnknown_02022E76 = .;
-. = 0x022EEC; gUnknown_02022EEC = .;
-. = 0x022F06; gUnknown_02022F06 = .;
-. = 0x022F0A; gUnknown_02022F0A = .;
-. = 0x022F0E; gUnknown_02022F0E = .;
 . = 0x022F4E; gUnknown_02022F4E = .;
 . = 0x022FA8; gUnknown_02022FA8 = .;
 . = 0x022FBE; gUnknown_02022FBE = .;
@@ -343,7 +335,6 @@
 . = 0x023084; gUnknown_02023084 = .;
 . = 0x0230A8; gUnknown_020230A8 = .;
 . = 0x0230CA; gUnknown_020230CA = .;
-. = 0x02310E; gUnknown_0202310E = .;
 . = 0x023114; gUnknown_02023114 = .;
 . = 0x023116; gUnknown_02023116 = .;
 . = 0x023130; gUnknown_02023130 = .;

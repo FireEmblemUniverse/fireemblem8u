@@ -25,7 +25,7 @@ struct PrepMenuTradeProc {
     /* 40 */ int unk_40; // Starting item slot for right unit? Seems to be used when starting trade from "List"
 };
 
-extern struct TextHandle gUnknown_02013510[];
+extern struct TextHandle gPrepItemScreenTexts[];
 
 //! FE8U = 0x0809B538
 void PrepItemTrade_ApplyItemSwap(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSlotB) {
@@ -239,11 +239,11 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
     LoadHelpBoxGfx((void*)0x06014000, -1);
     LoadIconPalettes(4);
 
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
 
     for (i = 0; i < 5; i++) {
-        Text_Allocate(gUnknown_02013510 + 0 + i, 7);
-        Text_Allocate(gUnknown_02013510 + 5 + i, 7);
+        Text_Allocate(gPrepItemScreenTexts + 0 + i, 7);
+        Text_Allocate(gPrepItemScreenTexts + 5 + i, 7);
     }
 
     proc->selectedItemSlot = 0xff;
@@ -274,8 +274,8 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
     str = GetStringFromIndex(proc->units[1]->pCharacterData->nameTextId);
     DrawTextInline(0, gBG0TilemapBuffer + 0x18, 0, ((48 - GetStringTextWidth(str)) / 2), 6, str);
 
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gUnknown_02013510 + 0, proc->units[0], 0);
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x130, gUnknown_02013510 + 5, proc->units[1], 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gPrepItemScreenTexts + 0, proc->units[0], 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x130, gPrepItemScreenTexts + 5, proc->units[1], 0);
 
     sub_80AC9C0(proc);
 
@@ -340,8 +340,8 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
                     proc->cursorItemSlot & 7
                 );
 
-                DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gUnknown_02013510 + 0, proc->units[0], 0);
-                DrawPrepScreenItems(gBG0TilemapBuffer + 0x122 + 0xe, gUnknown_02013510 + 5, proc->units[1], 0);
+                DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gPrepItemScreenTexts + 0, proc->units[0], 0);
+                DrawPrepScreenItems(gBG0TilemapBuffer + 0x122 + 0xe, gPrepItemScreenTexts + 5, proc->units[1], 0);
 
                 BG_EnableSyncByMask(1);
 
@@ -419,7 +419,7 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
 
 //! FE8U = 0x0809BE24
 void PrepItemTrade_OnEnd(void) {
-    EndBG3Slider_();
+    EndMuralBackground_();
     EndFaceById(0);
     EndFaceById(1);
     return;

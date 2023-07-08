@@ -190,7 +190,23 @@ Pal_MapBattleInfoNum:  @ 0x08A1D79C
 
 	.global Img_PrepPopupWindow
 Img_PrepPopupWindow:  @ 0x08A1D7DC
-	.incbin "baserom.gba", 0xA1D7DC, 0xF4
+	.incbin "baserom.gba", 0xA1D7DC, 0x74
+
+	.global gUnknown_08A1D850
+gUnknown_08A1D850:  @ 0x08A1D850
+	.incbin "baserom.gba", 0xA1D850, 0x20
+
+	.global gUnknown_08A1D870
+gUnknown_08A1D870:  @ 0x08A1D870
+	.incbin "baserom.gba", 0xA1D870, 0x20
+
+	.global gUnknown_08A1D890
+gUnknown_08A1D890:  @ 0x08A1D890
+	.incbin "baserom.gba", 0xA1D890, 0x20
+
+	.global gUnknown_08A1D8B0
+gUnknown_08A1D8B0:  @ 0x08A1D8B0
+	.incbin "baserom.gba", 0xA1D8B0, 0x20
 
 	.global Img_PrepWindow
 Img_PrepWindow:  @ 0x08A1D8D0

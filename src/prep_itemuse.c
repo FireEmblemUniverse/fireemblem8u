@@ -3,7 +3,6 @@
 #include "constants/classes.h"
 #include "bmitem.h"
 #include "constants/items.h"
-#include "bmitemuse.h"
 #include "bmusemind.h"
 #include "bmbattle.h"
 #include "bmudisp.h"
@@ -21,6 +20,9 @@
 #include "prepscreen.h"
 
 bool CheckInLinkArena(void);
+
+// TODO: Implicit declaration?
+int CanUnitUseItemPrepScreen(struct Unit* unit, int item);
 
 bool PrepItemUseTryMoveHand(struct ProcPrepItemUse *proc)
 {
@@ -386,7 +388,7 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
 
     LoadHelpBoxGfx(OBJ_VRAM1, -1);
     LoadIconPalettes(4);
-    EndSlidingWallEffectMaybe();
+    RestartMuralBackground();
 
     for (i = 0; i < 5; i++)
         Text_Allocate(&gPrepItemTexts[0xF + i], 7);
@@ -522,7 +524,7 @@ void PrepItemUse_CtrlLoop(struct ProcPrepItemUse *proc)
 
 void ProcPrepItemUse_OnEnd(void)
 {
-    EndBG3Slider_();
+    EndMuralBackground_();
     EndFaceById(0);
     EndFaceById(1);
 }
@@ -646,7 +648,7 @@ void PrepItemUse_HandleItemEffect(struct ProcPrepItemUse *proc)
 
 void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse *proc)
 {
-    EndBG3Slider_();
+    EndMuralBackground_();
     Font_InitForUIDefault();
     SetupBackgrounds(NULL);
     EndGreenTextColorManager();
