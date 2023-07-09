@@ -852,9 +852,9 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? sMusicProc4Script
 // extern ??? gProcCmdFuncs
 extern u8 debug_font_4bpp[];
-extern u16 *gUnknown_08588240[];
-// extern ??? gUnknown_08588274
-// extern ??? gUnknown_08588284
+extern u16 *s2bppTo4bppLutTable[];
+// extern ??? ProcScr_TextPrint
+// extern ??? ProcScr_GreenTextColor
 extern u16 gUnknown_0858829C[];
 extern u16 gUnknown_0858849C[];
 extern u16 gUnknown_0858869C[];
@@ -868,9 +868,9 @@ extern u16 gUnknown_0858949C[];
 extern u16 gUnknown_0858969C[];
 extern u16 gUnknown_0858989C[];
 extern u16 gUnknown_08589A9C[];
-extern struct Glyph *gUnknown_0858C7EC[];
-extern struct Glyph *gUnknown_0858F6F4[];
-extern struct Glyph *gUnknown_08590B44[];
+extern struct Glyph *TextGlyphs_System[];
+extern struct Glyph *TextGlyphs_Talk[];
+extern struct Glyph *TextGlyphs_Special[];
 // extern ??? gUnknown_0859160C
 // extern ??? gUnknown_08591624
 // extern ??? gUnknown_0859163C
@@ -1018,12 +1018,12 @@ extern u16 gPal_MapSprite[];
 extern u16 gPal_NotMapSprite[];
 extern u16 gPal_MapSpriteArena[];
 extern u16 gPal_MapSpriteSepia[];
-extern u8 Pal_UIFont[];
+extern u8 Pal_Text[];
 extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40
 // extern ??? gPal_HelpTextBox
 // extern ??? gPal_YellowTextBox
-extern u16 gUnknown_0859EFC0[];
+extern u16 Pal_GreenTextColors[];
 // extern ??? gUnknown_0859EFE0
 // extern ??? gUnknown_0859F000
 // extern ??? Img_PhaseChangeUnk

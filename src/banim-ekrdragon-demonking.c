@@ -337,8 +337,8 @@ ProcPtr NewEkrDragonBodyAnime(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->unk2E = 0;
-    proc->unk44 = 0;
-    proc->unk48 = NULL;
+    proc->frame = 0;
+    proc->frame_lut = NULL;
     proc->tsa_set = TsaSet_DKBody;
     proc->round_cur = -1;
 
@@ -574,7 +574,7 @@ void EkrDragonBodyAnimeSet54(struct Anim *anim)
     }
 }
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk1[] = {
+CONST_DATA struct ProcCmd ProcScr_EkrDemoKingAtkRavagerCritical[] = {
     PROC_SET_END_CB(sub_8076C34),
     PROC_CALL(sub_8076C10),
     PROC_SLEEP(0xC),
@@ -589,7 +589,7 @@ CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk1[] = {
     PROC_END
 };
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk2[] = {
+CONST_DATA struct ProcCmd ProcScr_EkrDemoKingAtkRavagerNormal[] = {
     PROC_SET_END_CB(sub_8076C34),
     PROC_CALL(sub_8076C10),
     PROC_SLEEP(0x8),
@@ -603,7 +603,7 @@ CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk2[] = {
     PROC_END
 };
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk3[] = {
+CONST_DATA struct ProcCmd ProcScr_EkrDemoKingBodyShake[] = {
     PROC_SET_END_CB(sub_8076F28),
     PROC_CALL(sub_8076F08),
     PROC_REPEAT(sub_8076F48),
@@ -612,19 +612,19 @@ CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk3[] = {
     PROC_END
 };
 
-CONST_DATA struct ProcCmd ProcScr_ekrDragonBodyUnk4[] = {
+CONST_DATA struct ProcCmd ProcScr_EkrDemoKingAtk[] = {
     PROC_SLEEP(0x1),
-    PROC_REPEAT(EkrDragonBodyUnk4Main),
+    PROC_REPEAT(EkrDemoKingAtkMain),
     PROC_END
 };
 
-const s16 gUnknown_080E8318[] = {
+const s16 BnaimFrames_DkHittedNormal[] = {
     /* Index    Duration */
     0,          1,
     -1
 };
 
-const s16 gUnknown_080E831E[] = {
+const s16 BnaimFrames_DkDemonLightNormal[] = {
     /* Index    Duration */
     0,          2,
     2,          224,
@@ -634,7 +634,7 @@ const s16 gUnknown_080E831E[] = {
     -1
 };
 
-const s16 gUnknown_080E8334[] = {
+const s16 BnaimFrames_DkDemonLightCritical[] = {
     /* Index    Duration */
     0,          2,
     2,          90,
@@ -645,7 +645,7 @@ const s16 gUnknown_080E8334[] = {
     -1
 };
 
-const s16 gUnknown_080E834E[] = {
+const s16 BnaimFrames_DkRavagerNormal[] = {
     /* Index    Duration */
     0,          2,
     0,          60,
@@ -657,7 +657,7 @@ const s16 gUnknown_080E834E[] = {
     -1
 };
 
-const s16 gUnknown_080E836C[] = {
+const s16 BnaimFrames_DkRavagerCritical[] = {
     /* Index    Duration */
     0,          2,
     2,          90,
@@ -670,7 +670,7 @@ const s16 gUnknown_080E836C[] = {
     -1
 };
 
-const s16 gUnknown_080E838E[] = {
+const s16 BnaimFrames_DkMiss[] = {
     /* Index    Duration */
     0,          1,
     -5,         0,
@@ -693,27 +693,27 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
         proc->round_cur = round_type;
         proc->timer = 0;
         proc->unk2E = 0;
-        proc->unk44 = 0;
+        proc->frame = 0;
 
         switch (round_type) {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-        case 9:
-            proc->unk48 = gUnknown_080E8318;
-            NewEkrDragonBodyUnk4(proc->anim, round_type);
+        case ANIM_ROUND_HIT_CLOSE:
+        case ANIM_ROUND_CRIT_CLOSE:
+        case ANIM_ROUND_NONCRIT_FAR:
+        case ANIM_ROUND_CRIT_FAR:
+        case ANIM_ROUND_MISS_CLOSE:
+            proc->frame_lut = BnaimFrames_DkHittedNormal;
+            NewEkrDemoKingAtk(proc->anim, round_type);
             break;
 
-        case 4:
-        case 5:
-            proc->unk48 = gUnknown_080E838E;
+        case ANIM_ROUND_TAKING_MISS_CLOSE:
+        case ANIM_ROUND_TAKING_MISS_FAR:
+            proc->frame_lut = BnaimFrames_DkMiss;
             break;
 
-        case 6:
-        case 7:
-        case 8:
-            proc->unk48 = gUnknown_080E8318;
+        case ANIM_ROUND_TAKING_HIT_CLOSE:
+        case ANIM_ROUND_STANDING:
+        case ANIM_ROUND_TAKING_HIT_FAR:
+            proc->frame_lut = BnaimFrames_DkHittedNormal;
             break;
 
         default:
@@ -721,7 +721,7 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
         }
     }
 
-    ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->unk44, (const s16 *)proc->unk48);
+    ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->frame, (const s16 *)proc->frame_lut);
     if (ret >= 0) {
         LZ77UnCompWram(proc->tsa_set[ret], gEkrTsaBuffer);
         sub_806FBB8();
@@ -735,10 +735,10 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
             if (GetAnimAnotherSide(proc->anim)->state3 & ANIM_BIT_FROZEN)
                 proc->unk2E = 1;
         } else if (CheckEkrHitDone() == true){
-            Proc_BreakEach(ProcScr_ekrDragonBodyUnk3);
+            Proc_BreakEach(ProcScr_EkrDemoKingBodyShake);
             proc->timer = 0;
             proc->unk2E = 0;
-            proc->unk44++;
+            proc->frame++;
         }
         break;
 
@@ -746,11 +746,11 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
         if (proc->unk2E == 0)
             proc->unk2E = 1;
         else if (proc->anim->state3 & ANIM_BIT_FROZEN){
-            child = Proc_Start(ProcScr_ekrDragonBodyUnk3, PROC_TREE_3);
+            child = Proc_Start(ProcScr_EkrDemoKingBodyShake, PROC_TREE_3);
             child->fxproc = proc;
             proc->timer = 0;
             proc->unk2E = 0;
-            proc->unk44++;
+            proc->frame++;
         }
         break;
 
@@ -760,7 +760,7 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
         else if (CheckEkrHitDone() == true){
             proc->timer = 0;
             proc->unk2E = 0;
-            proc->unk44++;
+            proc->frame++;
         }
         break;
 
@@ -769,15 +769,15 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
     }
 }
 
-void NewEkrDragonBodyUnk4(struct Anim *anim, int round_type)
+void NewEkrDemoKingAtk(struct Anim *anim, int round_type)
 {
     struct ProcEfxDKBody4 *proc;
-    proc = Proc_Start(ProcScr_ekrDragonBodyUnk4, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_EkrDemoKingAtk, PROC_TREE_3);
     proc->round_type = round_type;
     proc->anim = anim;
 }
 
-void EkrDragonBodyUnk4Main(struct ProcEfxDKBody4 *proc)
+void EkrDemoKingAtkMain(struct ProcEfxDKBody4 *proc)
 {
     struct ProcEfxDKfx *fxproc;
     struct ProcEfxDKBody1 *bdproc;
@@ -791,29 +791,29 @@ void EkrDragonBodyUnk4Main(struct ProcEfxDKBody4 *proc)
     fxproc = Proc_Find(ProcScr_ekrDragonBodyAnime);
     fxproc->timer = 0;
     fxproc->unk2E = 0;
-    fxproc->unk44 = 0;
+    fxproc->frame = 0;
 
     switch (proc->round_type) {
-    case 0:
-    case 2:
-    case 9:
+    case ANIM_ROUND_HIT_CLOSE:
+    case ANIM_ROUND_NONCRIT_FAR:
+    case ANIM_ROUND_MISS_CLOSE:
         if (CheckEkrWpnDemonLight(proc->anim) != false)
-            fxproc->unk48 = gUnknown_080E831E;
+            fxproc->frame_lut = BnaimFrames_DkDemonLightNormal;
         else {
-            fxproc->unk48 = gUnknown_080E834E;
-            bdproc = Proc_Start(ProcScr_ekrDragonBodyUnk2, PROC_TREE_3);
+            fxproc->frame_lut = BnaimFrames_DkRavagerNormal;
+            bdproc = Proc_Start(ProcScr_EkrDemoKingAtkRavagerNormal, PROC_TREE_3);
             bdproc->fxproc = fxproc;
         }
         break;
 
-    case 1:
-    case 3:
+    case ANIM_ROUND_CRIT_CLOSE:
+    case ANIM_ROUND_CRIT_FAR:
         if (CheckEkrWpnDemonLight(proc->anim) != false) {
-            fxproc->unk48 = gUnknown_080E8334;
+            fxproc->frame_lut = BnaimFrames_DkDemonLightCritical;
             NewEkrSelfThunder(proc->anim);
         } else {
-            fxproc->unk48 = gUnknown_080E836C;
-            bdproc = Proc_Start(ProcScr_ekrDragonBodyUnk1, PROC_TREE_3);
+            fxproc->frame_lut = BnaimFrames_DkRavagerCritical;
+            bdproc = Proc_Start(ProcScr_EkrDemoKingAtkRavagerCritical, PROC_TREE_3);
             bdproc->fxproc = fxproc;
             NewEkrSelfThunder(proc->anim);
         }

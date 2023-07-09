@@ -521,7 +521,7 @@ sub_80ABFE0: @ 0x080ABFE0
 	movs r5, #4
 _080ABFEA:
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	adds r4, #8
 	subs r5, #1
 	cmp r5, #0
@@ -551,7 +551,7 @@ _080AC010:
 _080AC020: .4byte gUnknown_08A20A08
 _080AC024:
 	adds r0, r4, #0
-	bl Text_AppendChar
+	bl Text_DrawCharacter
 	b _080AC00E
 _080AC02C:
 	pop {r4, r5, r6}
@@ -579,7 +579,7 @@ sub_80AC034: @ 0x080AC034
 _080AC052:
 	adds r1, r6, r7
 	adds r0, r5, #0
-	bl Text_Draw
+	bl PutText
 	adds r6, #0x80
 	adds r5, #8
 	subs r4, #1
@@ -611,16 +611,16 @@ sub_80AC078: @ 0x080AC078
 InitDifficultySelectScreen: @ 0x080AC084
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
-	bl Font_ResetAllocation
+	bl ResetTextFont
 	bl LoadUiFrameGraphics
-	bl Font_InitForUIDefault
+	bl ResetText
 	adds r4, r7, #0
 	adds r4, #0x38
 	movs r5, #4
 _080AC09A:
 	adds r0, r4, #0
 	movs r1, #0xe
-	bl Text_Init
+	bl InitText
 	adds r4, #8
 	subs r5, #1
 	cmp r5, #0
@@ -4453,7 +4453,7 @@ sub_80ADCA4: @ 0x080ADCA4
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
-	bl SetFont
+	bl SetTextFont
 	adds r2, r4, #0
 	adds r2, #0x5a
 	adds r1, r4, #0
@@ -4492,7 +4492,7 @@ _080ADCE8:
 	lsls r0, r0, #3
 	adds r0, #0x44
 	adds r0, r4, r0
-	bl Text_AppendChar
+	bl Text_DrawCharacter
 _080ADCF8:
 	str r0, [r4, #0x54]
 	adds r6, #1
@@ -4511,7 +4511,7 @@ _080ADD10:
 	adds r0, #1
 	strh r0, [r7]
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -4544,7 +4544,7 @@ _080ADD4C:
 	ldr r2, _080ADDCC  @ 0x06010000
 	adds r1, r7, r2
 	mov r2, r9
-	bl InitSomeOtherGraphicsRelatedStruct
+	bl InitSpriteTextFont
 	mov r0, r8
 	str r0, [r6, #0x54]
 	adds r0, r6, #0
@@ -4570,23 +4570,23 @@ _080ADD4C:
 	adds r4, #0x44
 _080ADD88:
 	adds r0, r4, #0
-	bl Text_Init3
+	bl InitSpriteText
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_80046B4
+	bl SpriteText_DrawBackgroundExt
 	adds r4, #8
 	subs r5, #1
 	cmp r5, #0
 	bne _080ADD88
 _080ADD9E:
-	ldr r0, _080ADDD0  @ Pal_UIFont
+	ldr r0, _080ADDD0  @ Pal_Text
 	lsls r1, r7, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	movs r0, #0
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	adds r0, r6, #0
 	movs r1, #0
 	bl Proc_Goto
@@ -4599,7 +4599,7 @@ _080ADD9E:
 	.align 2, 0
 _080ADDC8: .4byte gUnknown_08A20D8C
 _080ADDCC: .4byte 0x06010000
-_080ADDD0: .4byte Pal_UIFont
+_080ADDD0: .4byte Pal_Text
 
 	THUMB_FUNC_END sub_80ADD24
 
@@ -6509,7 +6509,7 @@ sub_80AEAE8: @ 0x080AEAE8
 	adds r6, r1, #0
 	ldr r0, [r5]
 	mov r1, sp
-	bl GetCharTextWidth
+	bl GetCharTextLen
 	adds r4, r0, #0
 	ldr r1, [r5]
 	subs r4, r4, r1
@@ -7850,7 +7850,7 @@ _080AF410:
 	movs r1, #1
 	movs r2, #0x14
 	movs r3, #0x14
-	bl DrawSpecialUiStr
+	bl PutTwoSpecialChar
 	b _080AF4A4
 	.align 2, 0
 _080AF438: .4byte gSoundRoomTable
@@ -7879,7 +7879,7 @@ _080AF44C:
 	adds r0, r0, r1
 	adds r2, r4, #1
 	adds r1, r5, #0
-	bl sub_8004B88
+	bl PutNumber
 	b _080AF4A4
 	.align 2, 0
 _080AF474: .4byte gBG2TilemapBuffer
@@ -7905,7 +7905,7 @@ _080AF480:
 	adds r0, r0, r1
 	adds r2, r4, #1
 	adds r1, r5, #0
-	bl sub_8004D7C
+	bl PutNumber2Digit
 _080AF4A4:
 	adds r4, #1
 	adds r0, r7, #0
@@ -7940,7 +7940,7 @@ sub_80AF4D0: @ 0x080AF4D0
 	ldr r6, _080AF50C  @ gUnknown_0201F160
 	adds r0, r6, #0
 	adds r1, r5, #0
-	bl Text_Draw
+	bl PutText
 	adds r3, r5, #0
 	adds r3, #0x10
 	adds r4, #0x34
@@ -7952,12 +7952,12 @@ sub_80AF4D0: @ 0x080AF4D0
 _080AF4F0:
 	ldrb r2, [r4]
 	adds r0, r3, #0
-	bl sub_8004B88
+	bl PutNumber
 	adds r0, r6, #0
 	adds r0, #0x30
 	adds r1, r5, #0
 	adds r1, #0x12
-	bl Text_Draw
+	bl PutText
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0

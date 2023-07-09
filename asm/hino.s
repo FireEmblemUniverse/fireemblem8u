@@ -402,9 +402,9 @@ PutStringCentered: @ 0x080143D8
 	ldr r5, _08014438  @ gUnknown_03000800
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl Text_Init
+	bl InitText
 	adds r0, r6, #0
-	bl GetStringTextWidth
+	bl GetStringTextLen
 	lsls r4, r4, #3
 	subs r4, r4, r0
 	subs r4, #1
@@ -413,16 +413,16 @@ PutStringCentered: @ 0x080143D8
 	asrs r4, r4, #1
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r0, r5, #0
 	mov r1, r8
-	bl Text_SetColorId
+	bl Text_SetColor
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	adds r0, r5, #0
 	mov r1, r9
-	bl Text_Draw
+	bl PutText
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	adds r0, r5, #0
@@ -445,7 +445,7 @@ PutString: @ 0x0801443C
 	adds r5, r2, #0
 	ldr r4, _0801447C  @ gUnknown_03000800
 	adds r0, r5, #0
-	bl GetStringTextWidth
+	bl GetStringTextLen
 	adds r1, r0, #7
 	cmp r1, #0
 	bge _08014454
@@ -453,16 +453,16 @@ PutString: @ 0x0801443C
 _08014454:
 	asrs r1, r1, #3
 	adds r0, r4, #0
-	bl Text_Init
+	bl InitText
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	adds r0, r4, #0
 	adds r1, r7, #0
-	bl Text_Draw
+	bl PutText
 	adds r0, r4, #0
 	pop {r4, r5, r6, r7}
 	pop {r1}
@@ -1653,16 +1653,16 @@ sub_8014C54: @ 0x08014C54
 	mov r8, r3
 	ldr r4, [sp, #0x18]
 	mov r0, r8
-	bl GetStringTextWidth
+	bl GetStringTextLen
 	adds r1, r0, #0
 	lsls r4, r4, #3
 	subs r4, r4, r1
 	asrs r1, r4, #1
 	adds r0, r6, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r0, r6, #0
 	mov r1, r8
-	bl Text_AppendString
+	bl Text_DrawString
 	lsls r5, r5, #5
 	add r5, r9
 	lsls r5, r5, #1
@@ -1670,7 +1670,7 @@ sub_8014C54: @ 0x08014C54
 	adds r5, r5, r0
 	adds r0, r6, #0
 	adds r1, r5, #0
-	bl Text_Draw
+	bl PutText
 	pop {r3, r4}
 	mov r8, r3
 	mov r9, r4

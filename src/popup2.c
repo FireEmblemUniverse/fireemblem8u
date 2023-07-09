@@ -57,7 +57,7 @@ void ProcPopup2_Loop(struct Popup2Proc *proc)
 
 void NewPopup2_PlanA(ProcPtr parent, int IconIndex, char *str)
 {
-    int len = GetStringTextWidth(str);
+    int len = GetStringTextLen(str);
     int x, x_tile, y_tile;
 
     if (IconIndex >= 0)
@@ -85,22 +85,22 @@ void NewPopup2_PlanA(ProcPtr parent, int IconIndex, char *str)
         x += 2;
     }
 
-    Font_ResetAllocation();
-    DrawTextInline(NULL, TILEMAP_LOCATED(gBG0TilemapBuffer, x + 1, 9), TEXT_COLOR_NORMAL, 0, 0x14, str);
+    ResetTextFont();
+    PutDrawText(NULL, TILEMAP_LOCATED(gBG0TilemapBuffer, x + 1, 9), TEXT_COLOR_SYSTEM_WHITE, 0, 0x14, str);
     Proc_StartBlocking(ProcScr_Popup2, parent);
 }
 
 void NewPopup2_PlanB(ProcPtr proc, int icon_index, char *str0, int num, char *str1)
 {
     int tmp, tiles, x, x_tile;
-    struct TextHandle th;
+    struct Text th;
     int len = 1;
 
     if (0 != str0)
-        len += GetStringTextWidth(str0) + 2;
+        len += GetStringTextLen(str0) + 2;
     
     if (0 != str1)
-        len += GetStringTextWidth(str1) + 2;
+        len += GetStringTextLen(str1) + 2;
 
     tiles = 8;
     tmp = num;
@@ -139,26 +139,26 @@ void NewPopup2_PlanB(ProcPtr proc, int icon_index, char *str0, int num, char *st
         x += 2;
     }
 
-    Font_ResetAllocation();
-    Text_Init(&th, tiles);
-    Text_Advance(&th, 1);
+    ResetTextFont();
+    InitText(&th, tiles);
+    Text_Skip(&th, 1);
 
     if (0 != str0) {
-        Text_SetColorId(&th, 0);
-        Text_AppendString(&th, str0);
-        Text_Advance(&th, 2);
+        Text_SetColor(&th, 0);
+        Text_DrawString(&th, str0);
+        Text_Skip(&th, 2);
     }
 
-    Text_SetColorId(&th, 2);
-    sub_80040C0(&th, num);    /* seems like draw this number */
+    Text_SetColor(&th, 2);
+    Text_DrawNumberOrSpace(&th, num);    /* seems like draw this number */
 
     if (0 != str1) {
-        Text_Advance(&th, 2);
-        Text_SetColorId(&th, 0);
-        Text_AppendString(&th, str1);
+        Text_Skip(&th, 2);
+        Text_SetColor(&th, 0);
+        Text_DrawString(&th, str1);
     }
 
-    Text_Draw(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x + 1, 9));
+    PutText(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x + 1, 9));
     Proc_StartBlocking(ProcScr_Popup2, proc);
 }
 
@@ -166,17 +166,17 @@ void NewPopup2_PlanC(ProcPtr parent, int item, int msg)
 {
     int len, x, y, x_tile, y_tile;
 
-    struct TextHandle th;
+    struct Text th;
 
-    Font_ResetAllocation();
-    Text_Init(&th, 0x14);
-    Text_SetColorId(&th, TEXT_COLOR_BLUE);
-    Text_AppendString(&th, GetItemName(item));
-    Text_Advance(&th, 2);
-    Text_SetColorId(&th, TEXT_COLOR_NORMAL);
-    Text_AppendString(&th, GetStringFromIndex(msg));
+    ResetTextFont();
+    InitText(&th, 0x14);
+    Text_SetColor(&th, TEXT_COLOR_SYSTEM_BLUE);
+    Text_DrawString(&th, GetItemName(item));
+    Text_Skip(&th, 2);
+    Text_SetColor(&th, TEXT_COLOR_SYSTEM_WHITE);
+    Text_DrawString(&th, GetStringFromIndex(msg));
 
-    len = Text_GetXCursor(&th);
+    len = Text_GetCursor(&th);
     len += 0x28;
 
     x_tile = 0xF0 - len;
@@ -195,7 +195,7 @@ void NewPopup2_PlanC(ProcPtr parent, int item, int msg)
         TILEREF(0, 0x4)
     );
 
-    Text_Draw(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x + 3, 9));
+    PutText(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x + 3, 9));
     Proc_StartBlocking(ProcScr_Popup2, parent);
 
 }
@@ -214,40 +214,40 @@ void NewPopup2_PlanD(ProcPtr parent, int item, int msg0, int msg1)
     register int x1 asm("r6") = 0;
 #endif /* NONMATCHING */
 
-    struct TextHandle th;
+    struct Text th;
 
-    Font_ResetAllocation();
-    Text_Init(&th, 0x14);
+    ResetTextFont();
+    InitText(&th, 0x14);
 
     if (0 != msg0) {
-        Text_SetColorId(&th, 0);
-        Text_AppendString(&th, GetStringFromIndex(msg0));
-        Text_Advance(&th, 2);
+        Text_SetColor(&th, 0);
+        Text_DrawString(&th, GetStringFromIndex(msg0));
+        Text_Skip(&th, 2);
     }
 
-    Text_SetColorId(&th, 2);
+    Text_SetColor(&th, 2);
 
     if (0 != msg0)
         str = GetItemNameWithArticle(item, 0);
     else
         str = GetItemNameWithArticle(item, 1);
 
-    Text_AppendString(&th, str);
+    Text_DrawString(&th, str);
 
-    len1 = Text_GetXCursor(&th) + 7;
+    len1 = Text_GetCursor(&th) + 7;
     if (len1 < 0)
         len1 += 7;
 
     x0 = len1 >> 3;
 
-    Text_SetXCursor(&th, (x0 + 2) * 8);
-    Text_SetColorId(&th, 0);
+    Text_SetCursor(&th, (x0 + 2) * 8);
+    Text_SetColor(&th, 0);
 
     if (0 != msg1) {
-        Text_AppendString(&th, GetStringFromIndex(msg1));
+        Text_DrawString(&th, GetStringFromIndex(msg1));
     }
 
-    len2 = Text_GetXCursor(&th);
+    len2 = Text_GetCursor(&th);
     len2 += 0x18;
 
     x_tile = 0xF0 - len2;
@@ -259,7 +259,7 @@ void NewPopup2_PlanD(ProcPtr parent, int item, int msg0, int msg1)
     y = y_tile >> 3;
 
     DrawUiFrame2(x1, 8, y, 4, 0);
-    Text_Draw(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x1 + 1, 9));
+    PutText(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x1 + 1, 9));
 
     x0 += 1;
     DrawIcon(

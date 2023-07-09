@@ -3254,13 +3254,13 @@ sub_8042DE8: @ 0x08042DE8
 	adds r4, r0, #0
 	adds r5, r2, #0
 	adds r6, r3, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl Text_AppendDecNumber
+	bl Text_DrawNumber
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -3704,7 +3704,7 @@ sub_8043100: @ 0x08043100
 	ldr r0, _0804312C  @ gUnknown_0203DD0C
 	adds r5, r1, r0
 	adds r0, r5, #0
-	bl Text_Clear
+	bl ClearText
 	cmp r6, #0
 	bge _08043134
 	lsls r1, r4, #7
@@ -3714,7 +3714,7 @@ sub_8043100: @ 0x08043100
 	ldr r0, _08043130  @ gUnknown_02023CAA
 	adds r1, r1, r0
 	adds r0, r5, #0
-	bl Text_Draw
+	bl PutText
 	b _0804315A
 	.align 2, 0
 _0804312C: .4byte gUnknown_0203DD0C
@@ -3724,7 +3724,7 @@ _08043134:
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	lsls r1, r4, #7
 	movs r0, #0x80
 	lsls r0, r0, #3
@@ -3732,7 +3732,7 @@ _08043134:
 	ldr r0, _08043160  @ gUnknown_02023CAA
 	adds r1, r1, r0
 	adds r0, r5, #0
-	bl Text_Draw
+	bl PutText
 	movs r0, #4
 	bl BG_EnableSyncByMask
 _0804315A:
@@ -3752,7 +3752,7 @@ sub_8043164: @ 0x08043164
 _0804316A:
 	adds r0, r5, #0
 	movs r1, #0xc
-	bl Text_Init
+	bl InitText
 	adds r5, #8
 	subs r4, #1
 	cmp r4, #0
@@ -3762,7 +3762,7 @@ _0804316A:
 _0804317E:
 	adds r0, r5, #0
 	movs r1, #0xc
-	bl Text_Init
+	bl InitText
 	adds r5, #8
 	subs r4, #1
 	cmp r4, #0
@@ -3772,7 +3772,7 @@ _0804317E:
 _08043192:
 	adds r0, r5, #0
 	movs r1, #0x18
-	bl Text_Init
+	bl InitText
 	adds r5, #8
 	subs r4, #1
 	cmp r4, #0
@@ -4227,10 +4227,10 @@ sub_80434B4: @ 0x080434B4
 	ldr r6, _0804351C  @ gUnknown_0203DA30
 	adds r0, r0, r6
 	mov r9, r0
-	bl Text_Clear
+	bl ClearText
 	mov r0, r9
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	lsls r4, r5, #2
 	adds r4, r4, r5
 	lsls r4, r4, #2
@@ -4238,7 +4238,7 @@ sub_80434B4: @ 0x080434B4
 	adds r4, r4, r0
 	mov r0, r9
 	adds r1, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	subs r6, #0xc
 	add r8, r6
 	mov r1, r8
@@ -4257,7 +4257,7 @@ sub_80434B4: @ 0x080434B4
 	adds r5, r5, r0
 	mov r0, r9
 	adds r1, r5, #0
-	bl Text_Draw
+	bl PutText
 	pop {r3, r4}
 	mov r8, r3
 	mov r9, r4
@@ -4354,7 +4354,7 @@ _0804359C:
 	adds r1, r1, r0
 	adds r0, r5, #0
 	str r3, [sp]
-	bl Text_Draw
+	bl PutText
 	adds r5, #8
 	movs r2, #0x14
 	add r8, r2
@@ -4632,7 +4632,7 @@ _080437F4:
 	adds r1, r4, #0
 	bl sub_8042DC8
 	adds r0, r5, #0
-	bl Text_Clear
+	bl ClearText
 	movs r0, #0xa
 	str r0, [sp]
 	adds r0, r5, #0
@@ -4689,10 +4689,10 @@ _08043876:
 	ldr r0, _080438AC  @ gUnknown_0203DA88
 	adds r4, r4, r0
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	lsls r0, r6, #4
 	adds r0, r0, r7
 	ldr r0, [r0, #8]
@@ -4765,7 +4765,7 @@ sub_8043904: @ 0x08043904
 	push {r7}
 	sub sp, #0xc
 	adds r7, r0, #0
-	ldr r5, _08043AD0  @ Pal_UIFont
+	ldr r5, _08043AD0  @ Pal_Text
 	bl sub_8043044
 	bl sub_804C33C
 	movs r4, #0
@@ -4812,9 +4812,9 @@ _08043968:
 	bge _08043968
 	bl EnablePaletteSync
 	ldr r0, _08043AF8  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl InitSystemTextFont
+	bl ResetTextFont
 	bl sub_8043164
 	bl SetupMapSpritesPalettes
 	bl ResetUnitSprites
@@ -4967,7 +4967,7 @@ _080439EA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08043AD0: .4byte Pal_UIFont
+_08043AD0: .4byte Pal_Text
 _08043AD4: .4byte gUnknown_085ABD68
 _08043AD8: .4byte 0x06014800
 _08043ADC: .4byte gUnknown_02023DBA
@@ -5670,7 +5670,7 @@ _0804403C:
 	lsls r0, r0, #3
 	adds r5, #0x64
 	adds r0, r0, r5
-	bl Text_Clear
+	bl ClearText
 	mov r2, r8
 	ldrb r1, [r2]
 	lsls r0, r1, #3
@@ -6109,28 +6109,28 @@ _080443D8:
 	str r0, [r5, #0x58]
 	ldr r4, _08044424  @ gUnknown_0203DAB0
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	movs r0, #0xa0
 	lsls r0, r0, #1
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	adds r0, r4, #0
 	movs r1, #0x26
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	ldr r0, _08044428  @ 0x00000141
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	ldr r1, [r5, #0x58]
 	adds r1, #4
 	lsls r1, r1, #6
 	ldr r0, _0804442C  @ gUnknown_02022CC6
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	pop {r4, r5}
@@ -6415,7 +6415,7 @@ _0804462E:
 	adds r0, r5, r0
 	lsls r0, r0, #3
 	add r0, r8
-	bl Text_Clear
+	bl ClearText
 	ldrb r1, [r6]
 	lsls r0, r1, #2
 	adds r0, r0, r1
@@ -6423,7 +6423,7 @@ _0804462E:
 	lsls r0, r0, #3
 	add r0, r8
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	movs r7, #0
 	lsls r0, r5, #4
 	mov r9, r0
@@ -6460,7 +6460,7 @@ _0804465E:
 	lsls r0, r0, #3
 	add r0, r8
 	ldrh r1, [r4, #0x30]
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	ldrb r1, [r6]
 	lsls r0, r1, #2
 	adds r0, r0, r1
@@ -6474,7 +6474,7 @@ _0804465E:
 	lsls r1, r1, #2
 	adds r1, r4, r1
 	ldr r1, [r1]
-	bl Text_AppendString
+	bl Text_DrawString
 _080446B8:
 	adds r7, #1
 	cmp r7, #0xe
@@ -6490,7 +6490,7 @@ _080446B8:
 	lsls r1, r1, #6
 	ldr r2, _080446FC  @ gBG1TilemapBuffer
 	adds r1, r1, r2
-	bl Text_Draw
+	bl PutText
 	ldr r5, [sp]
 	cmp r5, #4
 	ble _0804462E
@@ -6517,7 +6517,7 @@ sub_8044700: @ 0x08044700
 	adds r4, #0x3d
 	ldr r5, _08044748  @ gUnknown_0203DD1C
 	adds r0, r5, #0
-	bl Text_Clear
+	bl ClearText
 	ldrb r0, [r4]
 	cmp r0, #0
 	beq _08044732
@@ -6526,10 +6526,10 @@ sub_8044700: @ 0x08044700
 _08044718:
 	adds r0, r6, #0
 	adds r1, r5, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl Text_AppendChar
+	bl Text_DrawCharacter
 	adds r4, r0, #0
 	adds r5, #7
 	ldrb r0, [r4]
@@ -6538,7 +6538,7 @@ _08044718:
 _08044732:
 	ldr r0, _08044748  @ gUnknown_0203DD1C
 	ldr r1, _0804474C  @ gUnknown_02022E00
-	bl Text_Draw
+	bl PutText
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	pop {r4, r5, r6}
@@ -6606,9 +6606,9 @@ sub_8044768: @ 0x08044768
 	lsls r2, r2, #5
 	bl CallARM_FillTileRect
 	ldr r0, _080447F4  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl InitSystemTextFont
+	bl ResetTextFont
 	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	asrs r1, r0, #0x18
@@ -6696,7 +6696,7 @@ _0804486E:
 	strb r0, [r1]
 	ldr r0, _08044958  @ gUnknown_0203DD1C
 	movs r1, #8
-	bl Text_Init
+	bl InitText
 	movs r0, #1
 	strb r0, [r7]
 	movs r4, #0
@@ -6717,14 +6717,14 @@ _0804486E:
 _080448A2:
 	adds r0, r5, #0
 	movs r1, #0x1a
-	bl Text_Init
+	bl InitText
 	adds r5, #8
 	subs r4, #1
 	cmp r4, #0
 	bge _080448A2
 	ldr r0, _08044960  @ gUnknown_0203DAB0
 	movs r1, #0xc
-	bl Text_Init
+	bl InitText
 	ldr r0, [r6, #0x2c]
 	movs r2, #0xa0
 	lsls r2, r2, #3
@@ -7776,24 +7776,24 @@ NameSelect_DrawName: @ 0x080450AC
 	bl sub_804D80C
 	ldr r4, _080450FC  @ gUnknown_0203DAB0
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	ldr r0, _08045100  @ 0x00000141
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	adds r0, r4, #0
 	movs r1, #0x26
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	movs r0, #0xa3
 	lsls r0, r0, #1
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	ldr r1, _08045104  @ gUnknown_02022FBE
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	pop {r4}
@@ -8381,7 +8381,7 @@ sub_804556C: @ 0x0804556C
 	ldrb r0, [r0]
 	mov r9, r0
 	ldr r0, _080455C0  @ gUnknown_02000C60
-	bl SetFont
+	bl SetTextFont
 	movs r5, #0
 	cmp r5, r9
 	bge _080455FA
@@ -8394,7 +8394,7 @@ _08045596:
 	ldr r0, _080455C4  @ gUnknown_0203DAC5
 	adds r4, r6, r0
 	adds r0, r4, #0
-	bl GetStringTextWidth
+	bl GetStringTextLen
 	adds r1, r0, #0
 	movs r0, #0x48
 	subs r0, r0, r1
@@ -8407,7 +8407,7 @@ _08045596:
 	ldr r0, _080455C8  @ gUnknown_0203DB14
 	movs r2, #0
 	adds r3, r4, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	b _080455D6
 	.align 2, 0
 _080455C0: .4byte gUnknown_02000C60
@@ -8417,7 +8417,7 @@ _080455CC:
 	ldr r0, _0804560C  @ gUnknown_0203DB1C
 	movs r2, #0
 	adds r3, r4, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 _080455D6:
 	ldr r0, [sp]
 	adds r0, #0x48
@@ -8539,23 +8539,23 @@ sub_8045640: @ 0x08045640
 	ldr r0, _080457DC  @ gUnknown_02000C60
 	ldr r1, _080457E0  @ 0x06012000
 	movs r2, #0xe
-	bl InitSomeOtherGraphicsRelatedStruct
-	ldr r0, _080457E4  @ Pal_UIFont
+	bl InitSpriteTextFont
+	ldr r0, _080457E4  @ Pal_Text
 	movs r1, #0xf0
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	movs r0, #0
-	bl SetFontGlyphSet
-	bl Font_ResetAllocation
+	bl SetTextFontGlyphs
+	bl ResetTextFont
 	ldr r4, _080457E8  @ gUnknown_0203DB14
 	movs r5, #1
 _080456EC:
 	adds r0, r4, #0
-	bl Text_Init3
+	bl InitSpriteText
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_80046B4
+	bl SpriteText_DrawBackgroundExt
 	adds r4, #8
 	subs r5, #1
 	cmp r5, #0
@@ -8647,7 +8647,7 @@ _080457D4: .4byte gGenericBuffer
 _080457D8: .4byte gBG3TilemapBuffer
 _080457DC: .4byte gUnknown_02000C60
 _080457E0: .4byte 0x06012000
-_080457E4: .4byte Pal_UIFont
+_080457E4: .4byte Pal_Text
 _080457E8: .4byte gUnknown_0203DB14
 _080457EC: .4byte gUnknown_085A92E0
 _080457F0: .4byte 0x01000010
@@ -9247,7 +9247,7 @@ sub_8045C68: @ 0x08045C68
 	adds r6, r3, #0
 	bl SetInitTalkTextFont
 	bl ClearTalkText
-	bl Font_ResetAllocation
+	bl ResetTextFont
 	adds r0, r4, #0
 	adds r1, r5, #0
 	mov r2, r8
@@ -9336,10 +9336,10 @@ _08045D0C:
 	adds r1, #0xc
 	adds r4, r0, r1
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	ldrb r0, [r5]
 	cmp r0, #4
 	bhi _08045D78
@@ -9444,9 +9444,9 @@ _08045DFC:
 	add r1, sp, #4
 	bl ReadMultiArenaSaveTeamName
 	ldr r0, _08045EEC  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl InitSystemTextFont
+	bl ResetTextFont
 	bl sub_8043164
 	movs r5, #0
 	adds r4, #0x9c
@@ -10635,10 +10635,10 @@ sub_80467AC: @ 0x080467AC
 	bl EndFaceById
 	ldr r4, _08046828  @ gUnknown_0203DA78
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	ldr r5, _0804682C  @ 0x0000077D
 	adds r0, r5, #0
 	bl GetStringFromIndex
@@ -10647,15 +10647,15 @@ sub_80467AC: @ 0x080467AC
 	bl GetStringTextCenteredPos
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r0, r5, #0
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	ldr r1, _08046830  @ gUnknown_02023FBA
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	ldr r0, _08046834  @ gUnknown_085A93A0
 	adds r1, r6, #0
 	bl Proc_Start
@@ -10722,8 +10722,8 @@ sub_8046838: @ 0x08046838
 	adds r1, r4, #0
 	bl CallARM_FillTileRect
 	ldr r0, _08046990  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl ResetTextFont
 	bl sub_8043164
 	bl sub_804CEB0
 	add r0, sp, #4
@@ -10742,19 +10742,19 @@ _080468D4:
 	mov r8, r0
 	add r4, r8
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	ldr r0, [r6]
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	ldr r1, _0804699C  @ gUnknown_02022CB4
 	adds r1, r7, r1
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	mov r0, sp
 	adds r0, r0, r5
 	adds r0, #4
@@ -10864,9 +10864,9 @@ sub_80469C4: @ 0x080469C4
 	ldr r1, _08046ABC  @ 0x06014800
 	bl Decompress
 	ldr r0, _08046AC0  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl InitSystemTextFont
+	bl ResetTextFont
 	movs r0, #0xc0
 	movs r1, #0x10
 	adds r2, r7, #0
@@ -10874,11 +10874,11 @@ sub_80469C4: @ 0x080469C4
 	ldr r4, _08046AC4  @ gUnknown_0203DD0C
 	adds r0, r4, #0
 	movs r1, #0x18
-	bl Text_Init
+	bl InitText
 	adds r4, #8
 	adds r0, r4, #0
 	movs r1, #0x18
-	bl Text_Init
+	bl InitText
 	ldr r0, _08046AC8  @ 0x0000074C
 	movs r1, #0
 	bl sub_8043100
@@ -11527,7 +11527,7 @@ sub_8046EB8: @ 0x08046EB8
 	movs r1, #4
 	movs r2, #0
 	mov r3, sl
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	mov r0, r9
 	movs r1, #0x54
 	movs r2, #2
@@ -11539,7 +11539,7 @@ sub_8046EB8: @ 0x08046EB8
 	mov r0, r9
 	movs r1, #0x5d
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	lsls r4, r4, #1
 	mov r1, sp
 	adds r0, r1, r4
@@ -11549,7 +11549,7 @@ sub_8046EB8: @ 0x08046EB8
 	mov r0, r9
 	movs r1, #0x80
 	movs r2, #2
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	lsls r5, r5, #1
 	add r8, r5
 	mov r1, r8
@@ -11559,7 +11559,7 @@ sub_8046EB8: @ 0x08046EB8
 	mov r0, r9
 	movs r1, #0x9a
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	add sp, #0x18
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -11597,7 +11597,7 @@ _08046F86:
 	ldr r0, _08047004  @ gUnknown_0203DB14
 	adds r5, r5, r0
 	adds r0, r5, #0
-	bl Text_Clear
+	bl ClearText
 	ldrb r0, [r7]
 	lsls r2, r0, #0x1e
 	lsrs r2, r2, #6
@@ -11625,7 +11625,7 @@ _08046F86:
 	adds r4, r4, r0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl Text_Draw
+	bl PutText
 	ldrb r1, [r7]
 	lsls r1, r1, #0x1b
 	lsrs r1, r1, #0x1f
@@ -11694,9 +11694,9 @@ sub_8047008: @ 0x08047008
 	lsls r2, r2, #5
 	bl CallARM_FillTileRect
 	ldr r0, _080471E0  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl InitSystemTextFont
+	bl ResetTextFont
 	movs r1, #0
 	movs r0, #0xc8
 	strh r0, [r7, #0x36]
@@ -11716,7 +11716,7 @@ sub_8047008: @ 0x08047008
 _08047094:
 	adds r0, r5, #0
 	movs r1, #0x16
-	bl Text_Init
+	bl InitText
 	adds r5, #8
 	subs r4, #1
 	cmp r4, #0
@@ -11724,44 +11724,44 @@ _08047094:
 	ldr r4, _080471E8  @ gUnknown_0203DD0C
 	adds r0, r4, #0
 	movs r1, #0x18
-	bl Text_Init
+	bl InitText
 	adds r0, r4, #0
 	adds r0, #8
 	movs r1, #0x18
-	bl Text_Init
+	bl InitText
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	ldr r0, _080471EC  @ 0x00000772
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0xc
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r0, _080471F0  @ 0x00000773
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x54
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r0, _080471F4  @ 0x00000774
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x78
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r0, _080471F8  @ 0x00000775
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x96
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r1, _080471FC  @ gUnknown_02022DF2
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	ldr r0, _08047200  @ 0x00000744
 	movs r1, #1
 	bl sub_8043100
@@ -12059,9 +12059,9 @@ sub_8047324: @ 0x08047324
 	lsls r2, r2, #5
 	bl CallARM_FillTileRect
 	ldr r0, _08047548  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl InitSystemTextFont
+	bl ResetTextFont
 	adds r1, r7, #0
 	adds r1, #0x34
 	movs r0, #5
@@ -12090,7 +12090,7 @@ sub_8047324: @ 0x08047324
 _080473D2:
 	adds r0, r5, #0
 	movs r1, #0x18
-	bl Text_Init
+	bl InitText
 	adds r5, #8
 	subs r4, #1
 	cmp r4, #0
@@ -12098,44 +12098,44 @@ _080473D2:
 	ldr r4, _08047550  @ gUnknown_0203DD0C
 	adds r0, r4, #0
 	movs r1, #0x18
-	bl Text_Init
+	bl InitText
 	adds r0, r4, #0
 	adds r0, #8
 	movs r1, #0x18
-	bl Text_Init
+	bl InitText
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	ldr r0, _08047554  @ 0x00000772
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0xc
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r0, _08047558  @ 0x00000773
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x54
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r0, _0804755C  @ 0x00000774
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x78
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r0, _08047560  @ 0x00000775
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x96
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r1, _08047564  @ gUnknown_02022DF2
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	ldr r0, _08047568  @ gUnknown_0203DC44
 	bl ReadMultiArenaSaveRankings
 	bl sub_8046F68
@@ -12487,7 +12487,7 @@ _08047704:
 	ldr r4, _08047778  @ gUnknown_0203DA88
 	adds r4, r6, r4
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	ldr r1, [sp, #8]
 	adds r0, r1, r7
 	movs r1, #1
@@ -12496,7 +12496,7 @@ _08047704:
 	add r0, sp
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	mov r0, r8
 	adds r0, #0xc
 	adds r0, r5, r0
@@ -12504,7 +12504,7 @@ _08047704:
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	mov r2, r9
 	adds r2, #4
 	mov r9, r2
@@ -12515,7 +12515,7 @@ _08047704:
 	ldr r0, _0804777C  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	adds r6, #8
 	adds r5, #4
 	adds r7, #1
@@ -12587,8 +12587,8 @@ sub_8047780: @ 0x08047780
 	adds r1, r4, #0
 	bl CallARM_FillTileRect
 	ldr r0, _08047910  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl ResetTextFont
 	bl sub_8043164
 	mov r1, r8
 	str r5, [r1, #0x30]
@@ -12637,19 +12637,19 @@ _0804785A:
 	ldr r0, _08047918  @ gUnknown_0203DA30
 	adds r4, r4, r0
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	ldr r0, [r5]
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	ldr r1, _0804791C  @ gUnknown_02022CB4
 	adds r1, r7, r1
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	mov r0, sp
 	adds r0, r0, r6
 	adds r0, #4
@@ -13014,9 +13014,9 @@ sub_8047B34: @ 0x08047B34
 	movs r2, #0x60
 	bl CopyToPaletteBuffer
 	ldr r0, _08047BD4  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl InitSystemTextFont
+	bl ResetTextFont
 	bl sub_8043164
 	str r4, [r6, #0x4c]
 	bl IsMultiArenaSaveReady
@@ -13301,9 +13301,9 @@ sub_8047D88: @ 0x08047D88
 	movs r2, #0x60
 	bl CopyToPaletteBuffer
 	ldr r0, _08047E30  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl InitSystemTextFont
+	bl ResetTextFont
 	bl sub_8043164
 	str r4, [r6, #0x4c]
 	bl IsMultiArenaSaveReady
@@ -13811,7 +13811,7 @@ sub_80481E0: @ 0x080481E0
 	ldr r1, _0804824C  @ 0x06001800
 	movs r2, #0xc0
 	movs r3, #0
-	bl Font_InitForUI
+	bl InitTextFont
 	movs r0, #5
 	bl IsSaveValid
 	lsls r0, r0, #0x18
@@ -13887,7 +13887,7 @@ sub_8048280: @ 0x08048280
 	ldr r1, _080482D0  @ 0x06001800
 	movs r2, #0xc0
 	movs r3, #0
-	bl Font_InitForUI
+	bl InitTextFont
 	ldr r1, _080482D4  @ gUnknown_0203DA24
 	movs r0, #0
 	strb r0, [r1, #5]
@@ -14199,12 +14199,12 @@ sub_80484D8: @ 0x080484D8
 	adds r4, r0, #0
 	adds r5, r1, #0
 	adds r6, r2, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0
 	adds r3, r5, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	adds r0, r4, #0
 	movs r1, #0x36
 	movs r2, #2
@@ -14216,10 +14216,10 @@ sub_80484D8: @ 0x080484D8
 	adds r0, r4, #0
 	movs r1, #0x3e
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r1, _08048520  @ gUnknown_02022FC6
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -14347,8 +14347,8 @@ sub_8048604: @ 0x08048604
 	sub sp, #4
 	adds r6, r0, #0
 	ldr r0, _08048648  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
+	bl SetTextFont
+	bl InitSystemTextFont
 	ldr r0, _0804864C  @ gUnknown_085A92E0
 	ldr r0, [r0]
 	ldrb r0, [r0, #6]
@@ -14414,7 +14414,7 @@ _0804868C:
 	movs r0, #0x7e
 	bl m4aSongNumStart
 _0804869E:
-	bl Font_LoadForDialogue
+	bl InitTalkTextFont
 	ldr r0, _080486C8  @ gUnknown_085A92E0
 	ldr r0, [r0]
 	ldrb r0, [r0, #6]
@@ -14508,8 +14508,8 @@ sub_8048730: @ 0x08048730
 	movs r3, #6
 	bl DrawUiFrame2
 	ldr r0, _0804878C  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
+	bl SetTextFont
+	bl InitSystemTextFont
 	ldr r4, _08048790  @ gUnknown_0203DA88
 	ldr r0, _08048794  @ 0x0000077E
 	bl GetStringFromIndex
@@ -14588,11 +14588,11 @@ _080487D0:
 	movs r0, #3
 	strb r0, [r1]
 	ldr r0, _08048814  @ gUnknown_0203DB64
-	bl SetFont
-	bl Font_LoadForUI
+	bl SetTextFont
+	bl InitSystemTextFont
 	ldr r0, _08048818  @ gUnknown_0203DA88
 	movs r1, #0xa
-	bl Text_Allocate
+	bl InitTextDb
 	movs r0, #1
 	bl Sound_FadeOutBGM
 	pop {r4, r5}
@@ -14790,7 +14790,7 @@ _0804894C:
 	cmp r1, #3
 	ble _08048948
 	adds r0, r6, #0
-	bl Text_Clear
+	bl ClearText
 	lsls r0, r4, #5
 	adds r0, #4
 	adds r0, r0, r5
@@ -14799,7 +14799,7 @@ _0804894C:
 	adds r0, r0, r1
 	movs r1, #2
 	ldr r2, [sp, #0x10]
-	bl sub_8004B88
+	bl PutNumber
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -14826,8 +14826,8 @@ sub_8048988: @ 0x08048988
 	movs r2, #0x80
 	bl CopyToPaletteBuffer
 	movs r0, #0
-	bl SetFont
-	bl Font_ResetAllocation
+	bl SetTextFont
+	bl ResetTextFont
 	movs r0, #0
 	mov r9, r0
 	ldr r0, _08048A54  @ gUnknown_080D9F28
@@ -14871,7 +14871,7 @@ _080489F8:
 	adds r4, r4, r0
 	adds r0, r6, #0
 	movs r1, #4
-	bl Text_Allocate
+	bl InitTextDb
 	ldrb r1, [r7]
 	ldrb r2, [r7, #1]
 	lsls r0, r5, #2
@@ -15036,7 +15036,7 @@ _08048B2C:
 	adds r0, #8
 	strh r0, [r5, #0x30]
 	ldr r0, _08048B70  @ gUnknown_02000C60
-	bl SetFont
+	bl SetTextFont
 	ldr r0, _08048B74  @ gUnknown_02000C78
 	adds r1, r5, #0
 	adds r1, #0x32
@@ -15275,7 +15275,7 @@ sub_8048D1C: @ 0x08048D1C
 	mov r8, r1
 	adds r4, r2, #0
 	adds r6, r3, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r5, #0
 	movs r1, #0x18
 	movs r2, #2
@@ -15290,7 +15290,7 @@ sub_8048D1C: @ 0x08048D1C
 	adds r4, r4, r0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl Text_Draw
+	bl PutText
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	pop {r3}
@@ -15331,7 +15331,7 @@ sub_8048D64: @ 0x08048D64
 	ldrb r0, [r0]
 	strh r0, [r6, #0x2c]
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	adds r0, r6, #0
 	adds r0, #0x48
 	movs r2, #0x2a
@@ -15372,7 +15372,7 @@ sub_8048DD0: @ 0x08048DD0
 	bl Interpolate
 	adds r5, r0, #0
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	adds r0, r4, #0
 	adds r0, #0x48
 	movs r2, #0x2a
@@ -15456,7 +15456,7 @@ sub_8048E84: @ 0x08048E84
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08048EB0  @ gUnknown_02000C60
-	bl SetFont
+	bl SetTextFont
 	ldr r1, [r4, #0x54]
 	movs r0, #0x50
 	bl GetStringTextCenteredPos
@@ -15465,7 +15465,7 @@ sub_8048E84: @ 0x08048E84
 	adds r1, #0x80
 	ldr r3, [r4, #0x54]
 	movs r2, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	adds r4, #0x4c
 	movs r0, #0
 	strh r0, [r4]
@@ -15757,7 +15757,7 @@ sub_80490EC: @ 0x080490EC
 	mov r9, r3
 	movs r0, #0
 	mov sl, r0
-	ldr r0, _080491C4  @ Pal_UIFont
+	ldr r0, _080491C4  @ Pal_Text
 	movs r1, #0xc8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -15765,18 +15765,18 @@ sub_80490EC: @ 0x080490EC
 	ldr r0, _080491C8  @ gUnknown_02000C60
 	ldr r1, _080491CC  @ 0x06016800
 	movs r2, #3
-	bl InitSomeOtherGraphicsRelatedStruct
+	bl InitSpriteTextFont
 	movs r0, #0
-	bl SetFontGlyphSet
-	bl Font_ResetAllocation
+	bl SetTextFontGlyphs
+	bl ResetTextFont
 	ldr r4, _080491D0  @ gUnknown_02000C78
 	adds r0, r4, #0
-	bl Text_Init3
+	bl InitSpriteText
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_80046B4
+	bl SpriteText_DrawBackgroundExt
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	movs r1, #0
 	mov r8, r1
 _08049142:
@@ -15838,12 +15838,12 @@ _080491A4:
 	strb r1, [r0]
 	adds r0, #8
 	movs r1, #4
-	bl Text_Allocate
+	bl InitTextDb
 	movs r0, #1
 	add sl, r0
 	b _080491F0
 	.align 2, 0
-_080491C4: .4byte Pal_UIFont
+_080491C4: .4byte Pal_Text
 _080491C8: .4byte gUnknown_02000C60
 _080491CC: .4byte 0x06016800
 _080491D0: .4byte gUnknown_02000C78
@@ -15855,7 +15855,7 @@ _080491E4: .4byte 0x0000270F
 _080491E8:
 	mov r0, sp
 	movs r1, #4
-	bl Text_Allocate
+	bl InitTextDb
 _080491F0:
 	movs r1, #1
 	add r8, r1
@@ -16655,7 +16655,7 @@ sub_80497A0: @ 0x080497A0
 	bl SetupMapSpritesPalettes
 	bl ForceSyncUnitSpriteSheet
 	bl sub_8049788
-	bl Font_LoadForUI
+	bl InitSystemTextFont
 	ldr r1, _080497C8  @ gUnknown_0203DD90
 	movs r0, #0xff
 	strb r0, [r1, #3]
@@ -17834,7 +17834,7 @@ _0804A104: .4byte gPlaySt
 sub_804A108: @ 0x0804A108
 	push {r4, lr}
 	adds r4, r0, #0
-	bl Font_ResetAllocation
+	bl ResetTextFont
 	ldr r2, _0804A148  @ gUnknown_0203DD90
 	movs r0, #0xff
 	strb r0, [r2, #6]

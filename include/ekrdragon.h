@@ -74,8 +74,8 @@ struct ProcEfxDKfx {
 
     /* 3C */ STRUCT_PAD(0x3C, 0x44);
 
-    /* 44 */ u32 unk44;
-    /* 48 */ const s16 *unk48;
+    /* 44 */ u32 frame;
+    /* 48 */ const s16 *frame_lut;
     /* 4C */ u16 **tsa_set;
     /* 50 */ u32 unk50;
     /* 54 */ u32 round_cur;
@@ -249,10 +249,10 @@ extern struct ProcCmd ProcScr_ekrDragonBaseHide[];
 extern struct ProcCmd ProcScr_ekrDragonBaseAppear[];
 extern struct ProcCmd ProcScr_ekrDragonBodyAnime[];
 extern u16 *TsaSet_DKBody[];
-extern struct ProcCmd ProcScr_ekrDragonBodyUnk1[];
-extern struct ProcCmd ProcScr_ekrDragonBodyUnk2[];
-extern struct ProcCmd ProcScr_ekrDragonBodyUnk3[];
-extern struct ProcCmd ProcScr_ekrDragonBodyUnk4[];
+extern struct ProcCmd ProcScr_EkrDemoKingAtkRavagerCritical[];
+extern struct ProcCmd ProcScr_EkrDemoKingAtkRavagerNormal[];
+extern struct ProcCmd ProcScr_EkrDemoKingBodyShake[];
+extern struct ProcCmd ProcScr_EkrDemoKingAtk[];
 extern struct ProcCmd ProcScr_ekrDragonBodvBlack[];
 extern struct ProcCmd ProcScr_087F4518[];
 extern struct ProcCmd ProcScr_ekrDragonTunkFace[];
@@ -277,10 +277,10 @@ extern s16 *gUnknown_08801AAC[];
 extern u8 *gUnknown_08801AB4[];
 
 extern const s16 gUnknown_080E8318[];
-extern const s16 gUnknown_080E831E[];
-extern const s16 gUnknown_080E8334[];
-extern const s16 gUnknown_080E834E[];
-extern const s16 gUnknown_080E836C[];
+extern const s16 BnaimFrames_DkDemonLightNormal[];
+extern const s16 BnaimFrames_DkDemonLightCritical[];
+extern const s16 BnaimFrames_DkRavagerNormal[];
+extern const s16 BnaimFrames_DkRavagerCritical[];
 extern const s16 gUnknown_080E838E[];
 
 struct EkrDragonStatus *GetEkrDragonStatus(struct Anim *anim);
@@ -379,8 +379,8 @@ void sub_8076FD0(struct ProcEfxDKBody1 *proc);
 void sub_8076FD4(struct ProcEfxDKBody1 *proc);
 void EkrDragonBodyAnimeSet54(struct Anim *anim);
 void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc);
-void NewEkrDragonBodyUnk4(struct Anim *anim, int round_type);
-void EkrDragonBodyUnk4Main(struct ProcEfxDKBody4 *proc);
+void NewEkrDemoKingAtk(struct Anim *anim, int round_type);
+void EkrDemoKingAtkMain(struct ProcEfxDKBody4 *proc);
 ProcPtr NewEkrDragonBodvBlack(struct Anim *anim);
 void sub_80772E4(int val);
 void EkrDragonBodyBlackMain(struct ProcEfxDKfx *proc);

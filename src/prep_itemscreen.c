@@ -58,7 +58,7 @@ struct DrawPrepUnitInfoBgProc {
     /* 34 */ int visible;
 };
 
-extern struct TextHandle gPrepItemScreenTexts[16];
+extern struct Text gPrepItemScreenTexts[16];
 
 int CheckInLinkArena(void);
 
@@ -67,7 +67,7 @@ int CheckInLinkArena(void);
 s8 PrepItemScreen_DpadKeyHandler(struct PrepItemScreenProc*);
 void sub_8098FAC(struct PrepItemScreenProc*);
 void UpdatePrepItemScreenFace(int, struct Unit*, u16, u16, u16);
-void sub_8099F7C(struct TextHandle*, u16*, struct Unit*, u16);
+void sub_8099F7C(struct Text*, u16*, struct Unit*, u16);
 void sub_809A08C(struct PrepItemScreenProc*);
 void sub_809A114(struct PrepItemScreenProc*, u8, s8);
 s8 sub_809A21C(u32, int);
@@ -278,9 +278,9 @@ void EndDrawPrepUnitInfoBgSprites(void) {
 
 //! FE8U = 0x080985B8
 void PrepItemScreen_DrawFunds(void) {
-    Text_Draw(&gPrepItemScreenTexts[15], TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 17));
-    sub_8004B88(TILEMAP_LOCATED(gBG0TilemapBuffer, 27, 17), 2, GetPartyGoldAmount());
-    DrawSpecialUiChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 28, 17), 3, 0x1e);
+    PutText(&gPrepItemScreenTexts[15], TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 17));
+    PutNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 27, 17), 2, GetPartyGoldAmount());
+    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 28, 17), 3, 0x1e);
     ShowPrepFundsSpriteAt(168, 133);
     BG_EnableSyncByMask(1);
     return;
@@ -322,7 +322,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 1;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
     LoadIconPalettes(4);
     LoadUiFrameGraphics();
@@ -346,19 +346,19 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     EnablePaletteSync();
 
     for (i = 0; i < 15; i++) {
-        Text_Init(gPrepItemTexts + i, 5);
+        InitText(gPrepItemTexts + i, 5);
     }
 
     for (i = 0; i < 5; i++) {
-        Text_Init(&gPrepItemScreenTexts[0 + i], 7);
-        Text_Init(&gPrepItemScreenTexts[5 + i], 7);
+        InitText(&gPrepItemScreenTexts[0 + i], 7);
+        InitText(&gPrepItemScreenTexts[5 + i], 7);
     }
 
-    Text_Allocate(&gPrepItemScreenTexts[10], 8);
-    Text_Allocate(&gPrepItemScreenTexts[11], 8);
-    Text_Init(&gPrepItemScreenTexts[12], 8);
-    Text_Init(&gPrepItemScreenTexts[15], 7);
-    Text_Init(&gPrepItemScreenTexts[16], 5);
+    InitTextDb(&gPrepItemScreenTexts[10], 8);
+    InitTextDb(&gPrepItemScreenTexts[11], 8);
+    InitText(&gPrepItemScreenTexts[12], 8);
+    InitText(&gPrepItemScreenTexts[15], 7);
+    InitText(&gPrepItemScreenTexts[16], 5);
 
     LoadHelpBoxGfx((void *)0x06014000, -1);
 
@@ -450,21 +450,21 @@ void sub_8098A04(u16* tm) {
 
     TileMap_FillRect(tm, 10, 6, 0);
 
-    Text_Clear(&gPrepItemScreenTexts[10]);
-    Text_Clear(&gPrepItemScreenTexts[11]);
+    ClearText(&gPrepItemScreenTexts[10]);
+    ClearText(&gPrepItemScreenTexts[11]);
 
-    DrawTextInline(
+    PutDrawText(
         &gPrepItemScreenTexts[10],
         tm + TILEMAP_INDEX(1, 1),
-        TEXT_COLOR_NORMAL,
+        TEXT_COLOR_SYSTEM_WHITE,
         0,
         0,
         GetStringFromIndex(0x0583) // TODO: msgid "Choose unit[.]"
     );
-    DrawTextInline(
+    PutDrawText(
         &gPrepItemScreenTexts[11],
         tm + TILEMAP_INDEX(1, 3),
-        TEXT_COLOR_NORMAL,
+        TEXT_COLOR_SYSTEM_WHITE,
         0,
         0, 
         GetStringFromIndex(0x0584) // TODO: msgid " [.]"
@@ -479,9 +479,9 @@ void sub_8098A74(u16* tm) {
 
     TileMap_FillRect(tm, 10, 8, 0);
 
-    Text_Clear(&gPrepItemScreenTexts[10]);
-    Text_Clear(&gPrepItemScreenTexts[11]);
-    Text_Clear(&gPrepItemScreenTexts[12]);
+    ClearText(&gPrepItemScreenTexts[10]);
+    ClearText(&gPrepItemScreenTexts[11]);
+    ClearText(&gPrepItemScreenTexts[12]);
 
     switch (sub_80C4070()) {
         case 0:
@@ -501,9 +501,9 @@ void sub_8098A74(u16* tm) {
             break;
     }
 
-    DrawTextInline(&gPrepItemScreenTexts[10], tm + TILEMAP_INDEX(0, 2), TEXT_COLOR_NORMAL, 4, 0, GetStringFromIndex(textId));
-    DrawTextInline(&gPrepItemScreenTexts[11], tm + TILEMAP_INDEX(0, 4), TEXT_COLOR_NORMAL, 4, 0, GetStringFromIndex(0x0583)); // TODO: msgid "Choose unit"
-    DrawTextInline(&gPrepItemScreenTexts[12], tm + TILEMAP_INDEX(0, 6), TEXT_COLOR_NORMAL, 4, 0, GetStringFromIndex(0x0584)); // TODO: msgid " [.]"
+    PutDrawText(&gPrepItemScreenTexts[10], tm + TILEMAP_INDEX(0, 2), TEXT_COLOR_SYSTEM_WHITE, 4, 0, GetStringFromIndex(textId));
+    PutDrawText(&gPrepItemScreenTexts[11], tm + TILEMAP_INDEX(0, 4), TEXT_COLOR_SYSTEM_WHITE, 4, 0, GetStringFromIndex(0x0583)); // TODO: msgid "Choose unit"
+    PutDrawText(&gPrepItemScreenTexts[12], tm + TILEMAP_INDEX(0, 6), TEXT_COLOR_SYSTEM_WHITE, 4, 0, GetStringFromIndex(0x0584)); // TODO: msgid " [.]"
     return;
 }
 
@@ -837,36 +837,36 @@ void sub_8099120(struct PrepItemScreenProc* proc) {
 void sub_8099328(struct PrepItemScreenProc* proc, u16* tm, struct Unit* unit) {
     TileMap_FillRect(tm, 10, 6, 0);
 
-    Text_Clear(&gPrepItemScreenTexts[10]);
-    Text_InsertString(&gPrepItemScreenTexts[10], 0, PrepGetUnitAmount() < 2 ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL, GetStringFromIndex(0x594)); // TODO: msgid "Trade"
-    Text_InsertString(&gPrepItemScreenTexts[10], 32, PrepGetUnitAmount() < 2 ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL, GetStringFromIndex(0x595)); // TODO: msgid "List"
+    ClearText(&gPrepItemScreenTexts[10]);
+    Text_InsertDrawString(&gPrepItemScreenTexts[10], 0, PrepGetUnitAmount() < 2 ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(0x594)); // TODO: msgid "Trade"
+    Text_InsertDrawString(&gPrepItemScreenTexts[10], 32, PrepGetUnitAmount() < 2 ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(0x595)); // TODO: msgid "List"
 
-    Text_Draw(&gPrepItemScreenTexts[10], tm + TILEMAP_INDEX(0, 1));
+    PutText(&gPrepItemScreenTexts[10], tm + TILEMAP_INDEX(0, 1));
 
-    Text_Clear(&gPrepItemScreenTexts[11]);
-    Text_InsertString(&gPrepItemScreenTexts[11], 0, !CanUnitPrepScreenUse(unit) ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL, GetStringFromIndex(0x596)); // TODO: msgid "Use"
-    Text_InsertString(&gPrepItemScreenTexts[11], 32, !proc->hasConvoyAccess ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL, GetStringFromIndex(0x59A)); // TODO: msgid "Give all"
-    Text_Draw(&gPrepItemScreenTexts[11], tm + TILEMAP_INDEX(0, 3));
+    ClearText(&gPrepItemScreenTexts[11]);
+    Text_InsertDrawString(&gPrepItemScreenTexts[11], 0, !CanUnitPrepScreenUse(unit) ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(0x596)); // TODO: msgid "Use"
+    Text_InsertDrawString(&gPrepItemScreenTexts[11], 32, !proc->hasConvoyAccess ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(0x59A)); // TODO: msgid "Give all"
+    PutText(&gPrepItemScreenTexts[11], tm + TILEMAP_INDEX(0, 3));
 
-    Text_Clear(&gPrepItemScreenTexts[12]);
-    Text_InsertString(&gPrepItemScreenTexts[12], 0, !proc->hasConvoyAccess ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL, GetStringFromIndex(0x598)); // TODO: msgid "Supply"
+    ClearText(&gPrepItemScreenTexts[12]);
+    Text_InsertDrawString(&gPrepItemScreenTexts[12], 0, !proc->hasConvoyAccess ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(0x598)); // TODO: msgid "Supply"
 
     if (gGMData.state.bits.state_0) {
-        struct TextHandle* th = &gPrepItemScreenTexts[12];
-        int color = TEXT_COLOR_NORMAL;
+        struct Text* th = &gPrepItemScreenTexts[12];
+        int color = TEXT_COLOR_SYSTEM_WHITE;
         if ((!proc->hasConvoyAccess) || (GetUnitItemCount(unit) < 1) || CheckInLinkArena()) {
-            color = TEXT_COLOR_GRAY;
+            color = TEXT_COLOR_SYSTEM_GRAY;
         }
-        Text_InsertString(th, 32, color, GetStringFromIndex(0x597)); // TODO: msgid "Sell"
+        Text_InsertDrawString(th, 32, color, GetStringFromIndex(0x597)); // TODO: msgid "Sell"
     } else {
         if (CheckInLinkArena()) {
-            Text_InsertString(&gPrepItemScreenTexts[12], 32, TEXT_COLOR_GRAY, GetStringFromIndex(0x599)); // TODO: msgid "Armory"
+            Text_InsertDrawString(&gPrepItemScreenTexts[12], 32, TEXT_COLOR_SYSTEM_GRAY, GetStringFromIndex(0x599)); // TODO: msgid "Armory"
         } else {
-            Text_InsertString(&gPrepItemScreenTexts[12], 32, TEXT_COLOR_NORMAL, GetStringFromIndex(0x599)); // TODO: msgid "Armory"
+            Text_InsertDrawString(&gPrepItemScreenTexts[12], 32, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(0x599)); // TODO: msgid "Armory"
         }
     }
 
-    Text_Draw(&gPrepItemScreenTexts[12], tm + TILEMAP_INDEX(0, 5));
+    PutText(&gPrepItemScreenTexts[12], tm + TILEMAP_INDEX(0, 5));
     return;
 }
 
@@ -874,7 +874,7 @@ void sub_8099328(struct PrepItemScreenProc* proc, u16* tm, struct Unit* unit) {
 void sub_80994C4(struct PrepItemScreenProc* proc) {
     const char* str;
     int x;
-    struct TextHandle* th;
+    struct Text* th;
 
     struct Unit* unit = GetUnitFromPrepList(proc->selectedUnitIdx);
 
@@ -890,17 +890,17 @@ void sub_80994C4(struct PrepItemScreenProc* proc) {
 
     PutFaceChibi(GetUnitPortraitId(unit), TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0xa0, 0x270, 3, 0);
 
-    Text_Clear(&gPrepItemScreenTexts[16]);
+    ClearText(&gPrepItemScreenTexts[16]);
 
     str = GetStringFromIndex(unit->pCharacterData->nameTextId);
     x = GetStringTextCenteredPos(40, str);
-    DrawTextInline(&gPrepItemScreenTexts[16], TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x9a, 0, x, 0, str);
+    PutDrawText(&gPrepItemScreenTexts[16], TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x9a, 0, x, 0, str);
 
-    DrawSpecialUiStr(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x5b, 3, 0x24, 0x25);
-    DrawSpecialUiChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x57, 3, 0x1d);
+    PutTwoSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x5b, 3, 0x24, 0x25);
+    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x57, 3, 0x1d);
 
-    DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x58, 2, unit->level);
-    DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x55, 2, unit->exp);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x58, 2, unit->level);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x55, 2, unit->exp);
 
     BG_EnableSyncByMask(7);
 
@@ -1575,7 +1575,7 @@ ProcPtr StartPrepItemScreen(ProcPtr proc) {
 }
 
 //! FE8U = 0x08099F7C
-void sub_8099F7C(struct TextHandle* th, u16* tm, struct Unit* unit, u16 flags) {
+void sub_8099F7C(struct Text* th, u16* tm, struct Unit* unit, u16 flags) {
     int itemCount;
     int i;
 
@@ -1599,17 +1599,17 @@ void sub_8099F7C(struct TextHandle* th, u16* tm, struct Unit* unit, u16 flags) {
             : !IsItemDisplayUsable(unit, item);
 
         if ((flags & 1) == 0) {
-            Text_Clear(th);
-            Text_SetColorId(th, isUnusable);
-            Text_SetXCursor(th, 0);
-            Text_AppendString(th, GetItemName(item));
+            ClearText(th);
+            Text_SetColor(th, isUnusable);
+            Text_SetCursor(th, 0);
+            Text_DrawString(th, GetItemName(item));
         }
 
         DrawIcon(tm + i * 0x40, GetItemIconId(item), 0x4000);
 
-        Text_Draw(th, tm + 2 + i * 0x40);
+        PutText(th, tm + 2 + i * 0x40);
 
-        DrawDecNumber(tm + 11 + i * 0x40, !isUnusable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemUses(item));
+        PutNumberOrBlank(tm + 11 + i * 0x40, !isUnusable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
     }
 
     return;
@@ -1649,7 +1649,7 @@ void sub_809A114(struct PrepItemScreenProc* proc, u8 unk, s8 flag) {
     int isWorldMapMaybe;
     int i;
     int prepUnitAmt;
-    struct TextHandle* th;
+    struct Text* th;
     int newIdx;
     int x;
     int y;
@@ -1665,7 +1665,7 @@ void sub_809A114(struct PrepItemScreenProc* proc, u8 unk, s8 flag) {
 
     for (i = 0; i < 3; th++, i++) {
         if (flag == 0) {
-            Text_Clear(th);
+            ClearText(th);
         }
 
         newIdx = idx + i;
@@ -1680,22 +1680,22 @@ void sub_809A114(struct PrepItemScreenProc* proc, u8 unk, s8 flag) {
         if (flag == 0) {
             struct Unit* unit = GetUnitFromPrepList(newIdx);
 
-            Text_SetXCursor(th, 0);
+            Text_SetCursor(th, 0);
 
             if (isWorldMapMaybe) {
                 if (UnitHasItem(unit, ITEM_MEMBERCARD)) {
-                    Text_SetColorId(th, TEXT_COLOR_NORMAL);
+                    Text_SetColor(th, TEXT_COLOR_SYSTEM_WHITE);
                 } else {
-                    Text_SetColorId(th, TEXT_COLOR_GRAY);
+                    Text_SetColor(th, TEXT_COLOR_SYSTEM_GRAY);
                 }
             } else {
-                Text_SetColorId(th, TEXT_COLOR_NORMAL);
+                Text_SetColor(th, TEXT_COLOR_SYSTEM_WHITE);
             }
 
-            Text_AppendString(th, GetStringFromIndex(unit->pCharacterData->nameTextId));
+            Text_DrawString(th, GetStringFromIndex(unit->pCharacterData->nameTextId));
         }
 
-        Text_Draw(th, TILEMAP_LOCATED(gBG2TilemapBuffer, x, y));
+        PutText(th, TILEMAP_LOCATED(gBG2TilemapBuffer, x, y));
     }
 
     BG_EnableSyncByMask(4);

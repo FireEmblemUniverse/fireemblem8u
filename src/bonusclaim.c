@@ -43,13 +43,13 @@ extern struct BonusClaimEnt gUnknown_02000D68[];
 extern struct BonusClaimItemEnt gUnknown_02001168[];
 extern struct Unknown8A215A4 gUnknown_02001368[];
 extern int gUnknown_02001568;
-extern struct TextHandle gUnknown_02001668[];
+extern struct Text gUnknown_02001668[];
 
 struct BonusClaimEnt* CONST_DATA gpBonusClaimData = gUnknown_02000968;
 struct BonusClaimEnt* CONST_DATA gpBonusClaimDataUpdated = gUnknown_02000D68;
 struct BonusClaimItemEnt* CONST_DATA gpBonusClaimItemList = gUnknown_02001168;
 int* CONST_DATA gpBonusClaimItemCount = &gUnknown_02001568;
-struct TextHandle* CONST_DATA gpBonusClaimText = gUnknown_02001668;
+struct Text* CONST_DATA gpBonusClaimText = gUnknown_02001668;
 struct Unknown8A215A4* CONST_DATA gUnknown_08A215A4 = gUnknown_02001368;
 
 int LoadBonusContentData(void*);
@@ -195,7 +195,7 @@ void DrawBonusClaimItemText(int idx) {
     struct BonusClaimEnt* ent;
     struct BonusClaimEnt* ent2;
 
-    struct TextHandle* th = gpBonusClaimText + ((idx % 6) << 1);
+    struct Text* th = gpBonusClaimText + ((idx % 6) << 1);
 
     unk1 = idx * 2;
     unk1 &= 0x1f;
@@ -208,11 +208,11 @@ void DrawBonusClaimItemText(int idx) {
 
     itemId = ent->itemId;
 
-    color = TEXT_COLOR_NORMAL;
+    color = TEXT_COLOR_SYSTEM_WHITE;
 
     TileMap_FillRect(gBG2TilemapBuffer + ((unk1) * 0x20), 0x14, 1, 0);
 
-    Text_Clear(th);
+    ClearText(th);
 
     if (idx >= 0x20) {
         return;
@@ -224,17 +224,17 @@ void DrawBonusClaimItemText(int idx) {
     }
 
     if ((ent2->unseen & 3) == 1) {
-        color = TEXT_COLOR_GREEN;
+        color = TEXT_COLOR_SYSTEM_GREEN;
     }
 
     if (claimable == 0) {
-        color = TEXT_COLOR_GRAY;
+        color = TEXT_COLOR_SYSTEM_GRAY;
     }
 
     switch (gpBonusClaimData[unk3].kind) {
         case BONUSKIND_ITEM0:
         case BONUSKIND_ITEM1:
-            DrawTextInline(
+            PutDrawText(
                 th,
                 gBG2TilemapBuffer + (unk1 * 0x20) + 2,
                 color,
@@ -243,9 +243,9 @@ void DrawBonusClaimItemText(int idx) {
                 GetItemName(itemId)
             );
 
-            DrawDecNumber(
+            PutNumberOrBlank(
                 gBG2TilemapBuffer + (unk1 * 0x20) + 0xA,
-                color == 0 ? TEXT_COLOR_BLUE : color,
+                color == 0 ? TEXT_COLOR_SYSTEM_BLUE : color,
                 GetItemMaxUses(itemId)
             );
 
@@ -254,7 +254,7 @@ void DrawBonusClaimItemText(int idx) {
             break;
 
         case BONUSKIND_MONEY:
-            DrawTextInline(
+            PutDrawText(
                 th,
                 gBG2TilemapBuffer + (unk1 * 0x20) + 2,
                 color,
@@ -270,12 +270,12 @@ void DrawBonusClaimItemText(int idx) {
 
     th++;
 
-    Text_Clear(th);
+    ClearText(th);
 
-    DrawTextInline(
+    PutDrawText(
         th,
         gBG2TilemapBuffer + 12 + unk1 * 0x20,
-        color == 0 ? TEXT_COLOR_GOLD : color,
+        color == 0 ? TEXT_COLOR_SYSTEM_GOLD : color,
         0,
         0,
         gpBonusClaimData[unk3].str
@@ -359,7 +359,7 @@ void BonusClaim_Init(struct BonusClaimProc* proc) {
     BG_EnableSyncByMask(8);
 
     LoadUiFrameGraphics();
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
     LoadIconPalettes(4);
     LoadObjUIGfx();
@@ -396,18 +396,18 @@ void BonusClaim_Init(struct BonusClaimProc* proc) {
     InitBonusClaimData();
 
     for (i = 0; i <= 5 && i < *gpBonusClaimItemCount; i++) {
-        struct TextHandle* th = gpBonusClaimText + i * 2;
-        Text_Init(th, 7);
+        struct Text* th = gpBonusClaimText + i * 2;
+        InitText(th, 7);
         th++;
-        Text_Init(th, 10);
+        InitText(th, 10);
         DrawBonusClaimItemText(i);
     }
 
     for (i = 0; i < 2; i++) {
-        Text_Init(gpBonusClaimText + 12 + i, 6);
+        InitText(gpBonusClaimText + 12 + i, 6);
     }
 
-    Text_Init(gpBonusClaimText + 14, 15);
+    InitText(gpBonusClaimText + 14, 15);
 
     StartParallelWorker(PutChapterBannerSprites, proc);
 
@@ -429,7 +429,7 @@ void BonusClaim_Init(struct BonusClaimProc* proc) {
     sub_80AD4A0(0x600, 1);
     ShowPrepScreenHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
 
-    NewGreenTextColorManager(proc);
+    StartGreenText(proc);
 
     Make6CMenuScroll(proc);
 
@@ -601,7 +601,7 @@ void sub_80B1008(struct BonusClaimProc* proc) {
 void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc* proc) {
     int i;
 
-    struct TextHandle* th = gpBonusClaimText + 12;
+    struct Text* th = gpBonusClaimText + 12;
     int sl = proc->targets;
     int tmp = (proc->targets * 2);
 
@@ -632,19 +632,19 @@ void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc* proc) {
         struct Unit* unit = gUnknown_08A215A4[i].unit;
         u16* tm = gBG0TilemapBuffer + 14;
 
-        Text_Clear(th);
-        Text_SetXCursor(th, 0);
+        ClearText(th);
+        Text_SetCursor(th, 0);
 
         if (i == sl - 1) {
             count = GetConvoyItemCount();
-            color = (count == CONVOY_ITEM_COUNT) ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL;
-            Text_SetParameters(th, 0, color);
-            Text_AppendString(th, GetStringFromIndex(0x308)); // TODO: msgid "Supply"
+            color = (count == CONVOY_ITEM_COUNT) ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE;
+            Text_SetParams(th, 0, color);
+            Text_DrawString(th, GetStringFromIndex(0x308)); // TODO: msgid "Supply"
         } else {
             count = GetUnitItemCount(unit);
-            color = (count == UNIT_ITEM_COUNT) ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL;
-            Text_SetParameters(th, 0, color);
-            Text_AppendString(th, GetStringFromIndex(unit->pCharacterData->nameTextId));
+            color = (count == UNIT_ITEM_COUNT) ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE;
+            Text_SetParams(th, 0, color);
+            Text_DrawString(th, GetStringFromIndex(unit->pCharacterData->nameTextId));
         }
 
         if (color == 0) {
@@ -653,11 +653,11 @@ void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc* proc) {
             gUnknown_08A215A4[i].hasInventorySpace = 0;
         }
 
-        Text_Draw(th, tm + 0xc0 + 0x40 * i);
+        PutText(th, tm + 0xc0 + 0x40 * i);
 
-        sub_8004B88(
+        PutNumber(
             tm + 0xc9 + 0x40 * i,
-            color == 0 ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY,
+            color == 0 ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY,
             count
         );
     }
@@ -764,7 +764,7 @@ void BonusClaim_DrawItemSentPopup(struct BonusClaimProc* proc) {
     const char* otherStr;
     int width;
     int x;
-    struct TextHandle* th;
+    struct Text* th;
     char buf[32];
     struct BonusClaimEnt* ent;
     struct BonusClaimEnt* ent2;
@@ -798,20 +798,20 @@ void BonusClaim_DrawItemSentPopup(struct BonusClaimProc* proc) {
 
     ShowPrepScreenHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
 
-    Text_Clear(th);
-    Text_SetParameters(th, 0, TEXT_COLOR_NORMAL);
-    Text_SetXCursor(th, 0);
+    ClearText(th);
+    Text_SetParams(th, 0, TEXT_COLOR_SYSTEM_WHITE);
+    Text_SetCursor(th, 0);
 
     itemNameStr = GetItemName(itemId);
     otherStr = GetStringFromIndexInBuffer(0x883, buf); // TODO: msgid "Sent[.]"
 
-    width = ((GetStringTextWidth(itemNameStr) + GetStringTextWidth(otherStr) + 7) / 8) + 4;
+    width = ((GetStringTextLen(itemNameStr) + GetStringTextLen(otherStr) + 7) / 8) + 4;
     x = 15 - width / 2;
 
-    Text_AppendString(th, itemNameStr);
-    Text_AppendString(th, otherStr);
+    Text_DrawString(th, itemNameStr);
+    Text_DrawString(th, otherStr);
 
-    Text_Draw(th, gBG0TilemapBuffer + x + 0x143);
+    PutText(th, gBG0TilemapBuffer + x + 0x143);
 
     DrawIcon(gBG0TilemapBuffer + x + 0x141, GetItemIconId(itemId), 0x4000);
 
@@ -889,7 +889,7 @@ void BonusClaim_ClearItemSentPopup(void) {
 
 //! FE8U = 0x080B166C
 void BonusClaim_OnEnd(struct BonusClaimProc* proc) {
-    EndGreenTextColorManager();
+    EndGreenText();
     EndAllProcChildren(proc);
     SetPrimaryHBlankHandler(NULL);
     return;

@@ -71,7 +71,7 @@ extern struct Unknown020007E0 gUnknown_020007E0[];
 
 extern u8 gAnims[];
 extern struct Font gUnknown_02000920;
-extern struct TextHandle gUnknown_02000938;
+extern struct Text gUnknown_02000938;
 
 struct Unknown03004990 {
     /* 000 */ u8 unk[0x79E - 0x000];
@@ -360,8 +360,8 @@ void sub_80AB77C(void) {
 
 //! FE8U = 0x080AB794
 void sub_80AB794(void) {
-    Font_InitForUI(&gUnknown_02000920, (void*)0x06001000, 0x80, 4);
-    Text_Init(&gUnknown_02000938, 10);
+    InitTextFont(&gUnknown_02000920, (void*)0x06001000, 0x80, 4);
+    InitText(&gUnknown_02000938, 10);
     return;
 }
 
@@ -372,17 +372,17 @@ void sub_80AB7BC(int msgId, s8 flag) {
     if (flag != 0) {
         str = GetStringFromIndex(msgId);
 
-        SetFont(&gUnknown_02000920);
+        SetTextFont(&gUnknown_02000920);
 
-        Text_Clear(&gUnknown_02000938);
-        Text_SetXCursor(&gUnknown_02000938, 0);
-        Text_SetColorId(&gUnknown_02000938, 0);
-        Text_AppendString(&gUnknown_02000938, str);
+        ClearText(&gUnknown_02000938);
+        Text_SetCursor(&gUnknown_02000938, 0);
+        Text_SetColor(&gUnknown_02000938, 0);
+        Text_DrawString(&gUnknown_02000938, str);
 
-        Text_SetXCursor(&gUnknown_02000938, 0x2c);
-        Text_AppendString(&gUnknown_02000938, GetStringFromIndex(0x142)); // TODO: msgid "Cancel"
+        Text_SetCursor(&gUnknown_02000938, 0x2c);
+        Text_DrawString(&gUnknown_02000938, GetStringFromIndex(0x142)); // TODO: msgid "Cancel"
 
-        Text_Draw(&gUnknown_02000938, TILEMAP_LOCATED(gBG1TilemapBuffer, 7, 17));
+        PutText(&gUnknown_02000938, TILEMAP_LOCATED(gBG1TilemapBuffer, 7, 17));
     } else {
         TileMap_FillRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 7, 17), 0xb, 1, 0);
     }

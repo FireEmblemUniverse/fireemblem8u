@@ -36,7 +36,7 @@ void ManimLevelUp_InitMainScreen(struct ManimLevelUpProc *proc)
 {
     int i;
 
-    Font_ResetAllocation();
+    ResetTextFont();
     BG_Fill(gBG0TilemapBuffer, 0);
     PutManimLevelUpFrame(proc->actor_id, 1, 1);
 

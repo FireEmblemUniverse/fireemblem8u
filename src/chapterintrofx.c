@@ -813,7 +813,7 @@ void ChapterIntro_8020AF8() {
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
     RefreshUnitSprites();
     ForceSyncUnitSpriteSheet();
-    Font_LoadForUI();
+    InitSystemTextFont();
 
     return;
 }

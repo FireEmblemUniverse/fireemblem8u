@@ -993,7 +993,7 @@ void GenerateGameRankSaveData(struct GameRankSaveData *buf, int chapter_mode, in
     buf->unk00_16 = gPlaySt.unk_2B_00;
     buf->unk00_17 = gPlaySt.unk_2C_04;
 
-    ComputeDisplayTime(GetGameTotalTime(), &hours, &minutes, &seconds);
+    FormatTime(GetGameTotalTime(), &hours, &minutes, &seconds);
     buf->hours = hours;
     buf->minutes = minutes;
     buf->seconds = seconds;

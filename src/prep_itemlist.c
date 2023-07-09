@@ -35,11 +35,11 @@ struct GMapBaseMenuProc {
 
 struct GMapBaseMenuProc* sub_80C4048(void);
 
-extern struct TextHandle gUnknown_02013660[16];
+extern struct Text gUnknown_02013660[16];
 
 void sub_809D300(void*, void*, int, void*);
 void sub_809D418(u16*, int);
-void sub_809D47C(struct TextHandle*, u16*, int, struct Unit*);
+void sub_809D47C(struct Text*, u16*, int, struct Unit*);
 void sub_809D8D4(u16*, int, int);
 void sub_80ACD7C(int, int, int, int);
 void sub_80ACDA4(int);
@@ -100,7 +100,7 @@ void PrepItemList_Init(struct PrepItemListProc* proc) {
 void sub_809EBF0(void) {
     TileMap_FillRect(gBG0TilemapBuffer + 0x34, 0xc, 1, 0);
 
-    DrawTextInline(gUnknown_02013660 + 15, gBG0TilemapBuffer + 0x34, 0, 0, 0, GetStringFromIndex(0x5A9)); // TODO: msgid "Owner"
+    PutDrawText(gUnknown_02013660 + 15, gBG0TilemapBuffer + 0x34, 0, 0, 0, GetStringFromIndex(0x5A9)); // TODO: msgid "Owner"
 
     BG_EnableSyncByMask(1);
     return;
@@ -112,17 +112,17 @@ void PrepItemList_DrawCurrentOwnerText(struct PrepItemListProc* proc) {
 
     TileMap_FillRect(gBG0TilemapBuffer + 0x38, 10, 1, 0);
 
-    Text_Clear(gUnknown_02013660 + 1);
+    ClearText(gUnknown_02013660 + 1);
 
     if (gUnknown_02012F56 <= idx) {
-        DrawTextInline(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 1, 0, 0, GetStringFromIndex(0x536));
+        PutDrawText(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 1, 0, 0, GetStringFromIndex(0x536));
     } else {
         int pid = gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].pid;
 
         if (pid == 0) {
-            DrawTextInline(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 3, 0, 0, GetStringFromIndex(0x598)); // TODO: msgid "Supply"
+            PutDrawText(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 3, 0, 0, GetStringFromIndex(0x598)); // TODO: msgid "Supply"
         } else {
-            DrawTextInline(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 0, 0, 0, GetStringFromIndex(GetUnitFromCharId(pid)->pCharacterData->nameTextId));
+            PutDrawText(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 0, 0, 0, GetStringFromIndex(GetUnitFromCharId(pid)->pCharacterData->nameTextId));
         }
     }
 
@@ -165,7 +165,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     ResetFaces();
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
@@ -212,21 +212,21 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 
-    NewGreenTextColorManager(proc);
+    StartGreenText(proc);
 
     StartHelpPromptSprite(195, 147, 9, proc);
 
-    Text_Init(gUnknown_02013660 + 0, 6);
-    Text_Init(gUnknown_02013660 + 1, 5);
+    InitText(gUnknown_02013660 + 0, 6);
+    InitText(gUnknown_02013660 + 1, 5);
 
-    Text_Init(gUnknown_02013660 + 15, 4);
+    InitText(gUnknown_02013660 + 15, 4);
 
     for (i = 0; i < UNIT_ITEM_COUNT; i++) {
-        Text_Init(gUnknown_02013660 + 2 + i, 7);
+        InitText(gUnknown_02013660 + 2 + i, 7);
     }
 
     for (i = 0; i < 8; i++) {
-        Text_Allocate(gUnknown_02013660 + 7 + i, 7);
+        InitTextDb(gUnknown_02013660 + 7 + i, 7);
     }
 
     StoreConvoyWeaponIconGraphics(0x4000, 6);
@@ -273,7 +273,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    DrawTextInline(gUnknown_02013660, gBG0TilemapBuffer, 0, GetStringTextCenteredPos(48, str), 0, str);
+    PutDrawText(gUnknown_02013660, gBG0TilemapBuffer, 0, GetStringTextCenteredPos(48, str), 0, str);
 
     PrepItemList_DrawCurrentOwnerText(proc);
 

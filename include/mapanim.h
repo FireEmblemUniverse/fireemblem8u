@@ -75,7 +75,7 @@ struct MADebugProc {
 
 struct MADebugInfoEntry {
     /* 00 */ short data[10];
-    /* 14 */ struct TextHandle text[10];
+    /* 14 */ struct Text text[10];
 };
 
 struct MADebugInfo {

@@ -641,7 +641,7 @@ void sub_80156BC(void) {
 //! FE8U = 0x080156D4
 void sub_80156D4(void) {
 
-    Font_InitForUIDefault();
+    ResetText();
     LoadLegacyUiFrameGraphics();
     ResetFaces();
     ResetIconGraphics_();
@@ -654,7 +654,7 @@ void sub_80156D4(void) {
 //! FE8U = 0x080156F4
 void ReadGameSaveCoreGfx(void) {
 
-    Font_InitForUIDefault();
+    ResetText();
     LoadUiFrameGraphics();
     ResetFaces();
     ResetIconGraphics_();

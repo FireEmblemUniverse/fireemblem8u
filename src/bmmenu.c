@@ -174,16 +174,16 @@ u8 MapMenu_IsGuideCommandAvailable(const struct MenuItemDef* def, int number) {
 
 int MapMenu_GuideCommandDraw(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     if (!sub_80CF480()) {
-        Text_SetColorId(&menuItem->text, 4);
+        Text_SetColor(&menuItem->text, 4);
     }
 
     if (menuItem->availability == MENU_DISABLED) {
-        Text_SetColorId(&menuItem->text, 1);
+        Text_SetColor(&menuItem->text, 1);
     }
 
-    Text_AppendString(&menuItem->text, GetStringFromIndex(menuItem->def->nameMsgId));
+    Text_DrawString(&menuItem->text, GetStringFromIndex(menuItem->def->nameMsgId));
 
-    Text_Draw(&menuItem->text, BG_GetMapBuffer(menu->frontBg) + TILEMAP_INDEX(menuItem->xTile, menuItem->yTile));
+    PutText(&menuItem->text, BG_GetMapBuffer(menu->frontBg) + TILEMAP_INDEX(menuItem->xTile, menuItem->yTile));
 
     // return 0; // BUG?
 }
@@ -226,7 +226,7 @@ u8 GenericSelection_BackToUM(ProcPtr proc) {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
     HideMoveRangeGraphics();
 
@@ -272,7 +272,7 @@ u8 GenericSelection_BackToUM_CamWait(ProcPtr proc) {
 
     HideMoveRangeGraphics();
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
     Proc_Start(gProcScr_BackToUnitMenu, PROC_TREE_3);
 
@@ -283,7 +283,7 @@ u8 ItemMenu_ButtonBPressed(struct MenuProc* menu, struct MenuItemProc* menuItem)
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
     StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gBmSt.cursorTarget.x - gBmSt.camera.x, 1, 22);
 
@@ -929,7 +929,7 @@ u8 ItemCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     ResetIconGraphics();
     LoadIconPalettes(4);
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
     proc = StartOrphanMenu(&gItemSelectMenuDef);
 
@@ -1014,7 +1014,7 @@ int Menu_SwitchOut_DoNothing(struct MenuProc* menu, struct MenuItemProc* menuIte
 }
 
 void sub_80234AC(int x, int y) {
-    Font_InitForUI(&gUnknown_02002774, (void*)VRAM + 0x4000, 0x200, 0);
+    InitTextFont(&gUnknown_02002774, (void*)VRAM + 0x4000, 0x200, 0);
 
     TileMap_CopyRect(gBG0TilemapBuffer + 0x2B, gBmFrameTmap0, 9, 19);
     TileMap_CopyRect(gBG1TilemapBuffer + 0x2B, gUnknown_0200422C, 9, 19);
@@ -1023,13 +1023,13 @@ void sub_80234AC(int x, int y) {
 }
 
 void ItemSubMenuEnd(struct MenuProc* menu) {
-    SetFont(0);
+    SetTextFont(0);
 
     return;
 }
 
 u8 MenuCommand_SelectNo(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    SetFont(NULL);
+    SetTextFont(NULL);
 
     TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + 0x2B, 9, 19);
     TileMap_CopyRect(gUnknown_0200422C, gBG1TilemapBuffer + 0x2B, 9, 19);
@@ -1040,8 +1040,8 @@ u8 MenuCommand_SelectNo(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 }
 
 u8 sub_8023538(struct MenuProc* menu) {
-    SetFont(NULL);
-    Font_ResetAllocation();
+    SetTextFont(NULL);
+    ResetTextFont();
 
     EndAllMenus();
 
@@ -1156,9 +1156,9 @@ u8 ItemSubMenu_UseItem(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     PlaySoundEffect(0x6A);
 
-    SetFont(NULL);
+    SetTextFont(NULL);
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
     EndAllMenus();
 
@@ -1823,9 +1823,9 @@ int sub_8024260(ProcPtr proc, struct SelectTarget* target) {
 
     CallARM_FillTileRect(gBG1TilemapBuffer + 0x42, gUnknown_085A0D4C, 0x1000);
 
-    pos = (0x38 - GetStringTextWidth(GetStringFromIndex(GetUnit(gActionData.targetIndex)->pCharacterData->nameTextId))) / 2;
+    pos = (0x38 - GetStringTextLen(GetStringFromIndex(GetUnit(gActionData.targetIndex)->pCharacterData->nameTextId))) / 2;
 
-    DrawTextInline(0, gBG0TilemapBuffer + 0x63, 0, pos, 7, GetStringFromIndex(GetUnit(gActionData.targetIndex)->pCharacterData->nameTextId));
+    PutDrawText(0, gBG0TilemapBuffer + 0x63, 0, pos, 7, GetStringFromIndex(GetUnit(gActionData.targetIndex)->pCharacterData->nameTextId));
 
     PutFace80x72_Core(gBG0TilemapBuffer + 0x63 + 0x40, GetUnitPortraitId(GetUnit(gActionData.targetIndex)), 0x200, 5);
 
@@ -2320,8 +2320,8 @@ u8 ItemMenu_Is1stCommandAvailable(const struct MenuItemDef* def, int number) {
 }
 
 int ItemMenu_Draw1stCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    Text_InsertString(&menuItem->text, 16, 0, GetItemName(gBmSt.itemUnk2C));
-    Text_Draw(&menuItem->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItem->xTile, menuItem->yTile));
+    Text_InsertDrawString(&menuItem->text, 16, 0, GetItemName(gBmSt.itemUnk2C));
+    PutText(&menuItem->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItem->xTile, menuItem->yTile));
 
     return 0;
 }

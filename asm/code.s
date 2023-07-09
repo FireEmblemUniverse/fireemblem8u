@@ -234,16 +234,16 @@ _0808EB46:
 	ldr r1, _0808EBC0  @ 0x06017800
 	mov r0, sp
 	movs r2, #0x12
-	bl InitSomeOtherGraphicsRelatedStruct
+	bl InitSpriteTextFont
 	mov r0, sp
-	bl SetFont
+	bl SetTextFont
 	adds r0, r4, #0
-	bl Text_Init3
+	bl InitSpriteText
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_80046B4
+	bl SpriteText_DrawBackgroundExt
 	movs r0, #0
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 	movs r0, #0x30
 	adds r1, r5, #0
 	bl GetStringTextCenteredPos
@@ -251,10 +251,10 @@ _0808EB46:
 	adds r0, r4, #0
 	movs r2, #0
 	adds r3, r5, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	movs r0, #0
-	bl SetFont
-	ldr r0, _0808EBC4  @ Pal_UIFont
+	bl SetTextFont
+	ldr r0, _0808EBC4  @ Pal_Text
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -274,7 +274,7 @@ _0808EBB6:
 	bx r0
 	.align 2, 0
 _0808EBC0: .4byte 0x06017800
-_0808EBC4: .4byte Pal_UIFont
+_0808EBC4: .4byte Pal_Text
 _0808EBC8: .4byte gUnknown_085A643C
 _0808EBCC: .4byte gUnknown_085A638C
 _0808EBD0: .4byte 0x06017900
@@ -350,13 +350,13 @@ _0808EC24:
 	bge _0808EC8A
 _0808EC58:
 	movs r0, #1
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 	ldr r0, [r6, #0x2c]
 	add r2, sp, #8
 	add r1, sp, #4
 	bl sub_808F428
 	movs r0, #0
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 	ldr r1, [sp, #4]
 	adds r0, r1, #7
 	cmp r0, #0
@@ -542,9 +542,9 @@ _0808EDE6:
 	adds r1, r6, #0
 	bl StartParallelWorker
 	ldr r0, [r6, #0x30]
-	bl SetFont
+	bl SetTextFont
 	movs r0, #1
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 	mov r3, r9
 	movs r0, #0
 	ldrsb r0, [r3, r0]
@@ -559,10 +559,10 @@ _0808EE10:
 	adds r4, #0x34
 	adds r4, r4, r0
 	ldr r0, [r4]
-	bl Text_Init3
+	bl InitSpriteText
 	ldr r0, [r4]
 	movs r1, #0xb
-	bl Text_SetColorId
+	bl Text_SetColor
 	adds r5, #1
 	mov r7, r9
 	movs r0, #0
@@ -576,7 +576,7 @@ _0808EE38:
 	adds r0, r6, #0
 	bl sub_808F2BC
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	bl sub_808EA3C
 	movs r1, #1
 	ands r1, r0
@@ -934,7 +934,7 @@ sub_808F0EC: @ 0x0808F0EC
 	movs r4, #0
 	strb r4, [r0]
 	movs r0, #1
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 	adds r1, r5, #0
 	adds r1, #0x59
 	strb r4, [r1]
@@ -944,7 +944,7 @@ sub_808F0EC: @ 0x0808F0EC
 	ldr r0, [r5, #0x2c]
 	bl sub_808F358
 	movs r0, #0
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 	adds r0, r5, #0
 	bl sub_808FFC4
 	pop {r4, r5}
@@ -1073,9 +1073,9 @@ _0808F214:
 	ldr r0, [r4, #0x30]
 	adds r1, r7, #0
 	adds r2, r5, #0
-	bl InitSomeOtherGraphicsRelatedStruct
+	bl InitSpriteTextFont
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	ldr r0, _0808F26C  @ gPal_HelpTextBox
 	lsls r1, r5, #5
 	movs r2, #0x20
@@ -1166,7 +1166,7 @@ sub_808F2BC: @ 0x0808F2BC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x30]
-	bl SetFont
+	bl SetTextFont
 	adds r0, r5, #0
 	adds r0, #0x5c
 	ldrb r0, [r0]
@@ -1184,7 +1184,7 @@ _0808F2DA:
 	adds r0, r0, r1
 	ldr r0, [r0]
 	movs r1, #0
-	bl Text_80046B4
+	bl SpriteText_DrawBackgroundExt
 	adds r4, #1
 	adds r0, r5, #0
 	adds r0, #0x5c
@@ -1198,7 +1198,7 @@ _0808F2DA:
 	ble _0808F2DA
 _0808F300:
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -1210,7 +1210,7 @@ sub_808F30C: @ 0x0808F30C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x30]
-	bl SetFont
+	bl SetTextFont
 	adds r0, r5, #0
 	adds r0, #0x5c
 	ldrb r0, [r0]
@@ -1228,7 +1228,7 @@ _0808F32A:
 	adds r0, r0, r1
 	ldr r0, [r0]
 	movs r1, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r4, #1
 	adds r0, r5, #0
 	adds r0, #0x5c
@@ -1259,7 +1259,7 @@ sub_808F358: @ 0x0808F358
 	movs r6, #0
 	ldrb r5, [r7]
 	movs r0, #1
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 _0808F370:
 	ldrb r0, [r4]
 	cmp r0, #7
@@ -1304,7 +1304,7 @@ _0808F3B0:
 _0808F3B4:
 	adds r0, r4, #0
 	mov r1, sp
-	bl GetCharTextWidth
+	bl GetCharTextLen
 	adds r4, r0, #0
 	ldr r0, [sp]
 	adds r6, r6, r0
@@ -1381,7 +1381,7 @@ sub_808F428: @ 0x0808F428
 	str r5, [r1]
 	str r5, [r7]
 	movs r0, #1
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 _0808F444:
 	ldrb r2, [r4]
 	cmp r2, #0x19
@@ -1505,7 +1505,7 @@ _0808F57E:
 _0808F582:
 	adds r0, r4, #0
 	mov r1, sp
-	bl GetCharTextWidth
+	bl GetCharTextLen
 	adds r4, r0, #0
 	ldr r0, [sp]
 	adds r5, r5, r0
@@ -1987,7 +1987,7 @@ _0808F906:
 	strb r0, [r1]
 _0808F90E:
 	ldr r0, [r6, #0x30]
-	bl SetFont
+	bl SetTextFont
 	ldr r0, _0808F940  @ gUnknown_03005398
 	ldrb r0, [r0]
 	cmp r0, #0
@@ -2500,7 +2500,7 @@ _0808FDEA:
 	adds r0, r4, r0
 	ldr r0, [r0]
 	movs r1, #0xc
-	bl Text_SetColorId
+	bl Text_SetColor
 	b _0808FE26
 _0808FE0E:
 	adds r5, r6, #0
@@ -2513,7 +2513,7 @@ _0808FE0E:
 	adds r0, r4, r0
 	ldr r0, [r0]
 	movs r1, #0xb
-	bl Text_SetColorId
+	bl Text_SetColor
 _0808FE26:
 	movs r0, #0
 	ldrsb r0, [r5, r0]
@@ -2521,7 +2521,7 @@ _0808FE26:
 	adds r0, r4, r0
 	ldr r0, [r0]
 	ldr r1, [r6, #0x2c]
-	bl Text_AppendChar
+	bl Text_DrawCharacter
 	str r0, [r6, #0x2c]
 	bl GetTextDisplaySpeed
 	cmp r0, #1
@@ -2547,7 +2547,7 @@ _0808FE5E:
 	b _0808F99A
 _0808FE68:
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	ldr r0, _0808FE84  @ gUnknown_03005398
 	ldrb r0, [r0]
 	cmp r0, #0
@@ -2926,14 +2926,14 @@ sub_80900EC: @ 0x080900EC
 	mov r0, r8
 	movs r1, #0x10
 	adds r2, r6, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r0, [r5, #4]
 	bl GetStringFromIndex
 	adds r3, r0, #0
 	mov r0, r8
 	movs r1, #0x38
 	adds r2, r6, #0
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	ldr r0, _08090148  @ gUnknown_08A01EC4
 	adds r1, r7, #0
 	bl Proc_StartBlocking
@@ -3096,7 +3096,7 @@ sub_8090238: @ 0x08090238
 	bl TileMap_FillRect
 	ldr r4, _080902C4  @ gUnknown_0200E150
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	movs r7, #0
 	mov r8, r4
 	mov sl, r5
@@ -3117,22 +3117,22 @@ _08090276:
 	ldr r4, _080902C4  @ gUnknown_0200E150
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	ldr r0, _080902CC  @ 0x000004FD
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	cmp r7, #5
 	bne _080902D0
 	cmp r6, #0
 	beq _080902D0
 	adds r0, r4, #0
 	mov r1, sl
-	bl Text_Draw
+	bl PutText
 	adds r1, r6, #0
 	adds r1, #0x6f
 	mov r0, sl
@@ -3149,17 +3149,17 @@ _080902CC: .4byte 0x000004FD
 _080902D0:
 	mov r0, r8
 	movs r1, #4
-	bl Text_Advance
+	bl Text_Skip
 	ldr r1, _080902F4  @ gUnknown_08A17C4C
 	adds r0, r5, r1
 	ldr r0, [r0]
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	mov r0, r8
-	bl Text_AppendString
+	bl Text_DrawString
 	mov r0, r8
 	ldr r1, _080902F8  @ gUnknown_02023D12
-	bl Text_Draw
+	bl PutText
 	b _08090306
 	.align 2, 0
 _080902F4: .4byte gUnknown_08A17C4C
@@ -3615,7 +3615,7 @@ sub_8090620: @ 0x08090620
 	bl Proc_End
 	ldr r0, [r4, #0x44]
 	bl Proc_End
-	bl EndGreenTextColorManager
+	bl EndGreenText
 	ldr r2, _08090660  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21
@@ -4577,8 +4577,8 @@ sub_8090D80: @ 0x08090D80
 	bl SetInterrupt_LCDVCountMatch
 	movs r0, #0
 	bl SetupBackgrounds
-	bl Font_InitForUIDefault
-	bl Font_ResetAllocation
+	bl ResetText
+	bl ResetTextFont
 	bl ResetIconGraphics
 	bl SetupMapSpritesPalettes
 	movs r4, #0
@@ -4589,7 +4589,7 @@ sub_8090D80: @ 0x08090D80
 	bl CpuFastSet
 	bl LoadObjUIGfx
 	mov r0, r8
-	bl NewGreenTextColorManager
+	bl StartGreenText
 	mov r0, r8
 	adds r0, #0x3b
 	strb r4, [r0]
@@ -4733,18 +4733,18 @@ _08090F02:
 	ldr r1, _08090F9C  @ gUnknown_0200E060
 	adds r0, r0, r1
 	movs r1, #5
-	bl Text_Init
+	bl InitText
 	adds r0, r5, #0
 	movs r1, #8
-	bl Text_Allocate
+	bl InitTextDb
 	adds r0, r6, #0
 	adds r0, #8
 	adds r0, r7, r0
 	movs r1, #7
-	bl Text_Init
+	bl InitText
 	mov r0, r9
 	movs r1, #5
-	bl Text_Init
+	bl InitText
 	movs r2, #0x18
 	add r9, r2
 	adds r5, #0x18
@@ -4754,13 +4754,13 @@ _08090F02:
 	ble _08090F02
 	ldr r0, _08090FA0  @ gUnknown_0200E140
 	movs r1, #4
-	bl Text_Init
+	bl InitText
 	ldr r0, _08090FA4  @ gUnknown_0200E148
 	movs r1, #0x14
-	bl Text_Init
+	bl InitText
 	ldr r0, _08090FA8  @ gUnknown_0200E150
 	movs r1, #8
-	bl Text_Init
+	bl InitText
 	ldr r1, [sp, #0x14]
 	ldrb r0, [r1]
 	bl sub_8090238
@@ -4809,21 +4809,21 @@ _08090FBE:
 	strb r1, [r0]
 	ldr r4, _08091014  @ gUnknown_0200E140
 	adds r0, r4, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r4, #0
 	movs r1, #4
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r0, r4, #0
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	ldr r0, _08091018  @ 0x000004E5
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	ldr r1, _0809101C  @ gUnknown_02023DEE
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 	ldr r1, _08091020  @ gUnknown_0200F15C
 	movs r2, #0xff
 	adds r0, r1, #0
@@ -6432,7 +6432,7 @@ _08091C52:
 	beq _08091C62
 	bl Proc_End
 _08091C62:
-	bl EndGreenTextColorManager
+	bl EndGreenText
 	ldr r0, _08091CB0  @ gBG0TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
@@ -6455,7 +6455,7 @@ _08091C62:
 	movs r1, #0x7f
 	ands r0, r1
 	strb r0, [r2, #1]
-	bl Font_ResetAllocation
+	bl ResetTextFont
 	bl ResetIconGraphics
 	pop {r4}
 	pop {r0}
@@ -7160,7 +7160,7 @@ sub_80921CC: @ 0x080921CC
 	bl TileMap_FillRect
 	ldr r0, _08092214  @ gUnknown_0200E148
 	mov r8, r0
-	bl Text_Clear
+	bl ClearText
 	cmp r4, #5
 	bne _08092218
 	movs r5, #0
@@ -7203,10 +7203,10 @@ _0809223E:
 	ldrb r1, [r4, #8]
 	subs r1, #0x40
 	adds r0, r7, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r0, r7, #0
 	movs r1, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	mov r0, r8
 	adds r0, #4
 	adds r0, r6, r0
@@ -7214,7 +7214,7 @@ _0809223E:
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r7, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	adds r4, #0x10
 	adds r6, #0x10
 	adds r5, #1
@@ -7226,7 +7226,7 @@ _0809223E:
 _08092274:
 	ldr r0, _08092294  @ gUnknown_0200E148
 	mov r1, r9
-	bl Text_Draw
+	bl PutText
 _0809227C:
 	movs r0, #4
 	bl BG_EnableSyncByMask
@@ -7258,16 +7258,16 @@ sub_8092298: @ 0x08092298
 	adds r0, r4, #0
 	movs r1, #2
 	adds r2, r3, #0
-	bl sub_8004B88
+	bl PutNumber
 	adds r0, r4, #2
 	movs r1, #0
 	movs r2, #0x16
-	bl DrawSpecialUiChar
+	bl PutSpecialChar
 	adds r4, #4
 	adds r0, r4, #0
 	movs r1, #2
 	adds r2, r6, #0
-	bl sub_8004B88
+	bl PutNumber
 _080922CE:
 	cmp r5, #0
 	beq _080922DA
@@ -7334,10 +7334,10 @@ sub_80922F0: @ 0x080922F0
 	ldr r0, _08092390  @ gUnknown_0200E060
 	adds r5, r4, r0
 	adds r0, r5, #0
-	bl Text_Clear
+	bl ClearText
 	adds r0, r5, #0
 	movs r1, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	bl CheckInLinkArena
 	lsls r0, r0, #0x18
 	mov r8, r4
@@ -7358,7 +7358,7 @@ sub_80922F0: @ 0x080922F0
 	beq _08092394
 	adds r0, r5, #0
 	movs r1, #4
-	bl Text_SetColorId
+	bl Text_SetColor
 	b _0809239E
 	.align 2, 0
 _0809238C: .4byte gUnknown_0200D6E0
@@ -7367,7 +7367,7 @@ _08092394:
 	ldr r0, _08092414  @ gUnknown_0200E060
 	add r0, r8
 	mov r1, r9
-	bl Text_SetColorId
+	bl Text_SetColor
 _0809239E:
 	ldr r4, _08092414  @ gUnknown_0200E060
 	add r4, r8
@@ -7381,13 +7381,13 @@ _0809239E:
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	ldr r3, [sp, #0x30]
 	lsls r1, r3, #6
 	add r1, sl
 	adds r1, #6
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 _080923CA:
 	ldr r4, [sp, #0x2c]
 	lsls r5, r4, #1
@@ -7396,11 +7396,11 @@ _080923CA:
 	mov r8, r0
 	ldr r6, _0809241C  @ gUnknown_0200E098
 	adds r0, r0, r6
-	bl Text_Clear
+	bl ClearText
 	adds r0, r6, #0
 	adds r0, #8
 	add r0, r8
-	bl Text_Clear
+	bl ClearText
 	ldr r0, [sp, #0x30]
 	lsls r4, r0, #6
 	mov r1, sl
@@ -7461,13 +7461,13 @@ _0809243C:
 	str r3, [sp]
 	str r2, [sp, #4]
 	movs r2, #0
-	bl DrawTextInline
+	bl PutDrawText
 	adds r4, #8
 	adds r5, r5, r4
 	mov r4, r9
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl Text_SetColorId
+	bl Text_SetColor
 	mov r1, r8
 	ldr r0, [r1]
 	ldr r0, [r0]
@@ -7486,7 +7486,7 @@ _0809243C:
 	adds r0, r5, #0
 	adds r2, r4, #0
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	b _0809251A
 	.align 2, 0
 _080924B0: .4byte gUnknown_0200D6E0
@@ -7508,7 +7508,7 @@ _080924BC:
 	adds r0, r5, #0
 	adds r2, r4, #0
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	adds r4, r7, #0
 	adds r4, #0x1e
 	mov r1, r8
@@ -7539,7 +7539,7 @@ _0809251A:
 	ldr r1, _08092550  @ gUnknown_0200E0A8
 	adds r5, r0, r1
 	adds r0, r5, #0
-	bl Text_Clear
+	bl ClearText
 	ldr r0, _08092554  @ gUnknown_0200D6E0
 	ldr r6, [sp, #0x4c]
 	adds r0, r6, r0
@@ -7583,7 +7583,7 @@ _08092568:
 	adds r0, r5, #0
 	movs r2, #4
 	movs r3, #8
-	bl DrawTextInline
+	bl PutDrawText
 	b _08092BC6
 _08092584:
 	movs r0, #0xbe
@@ -7596,7 +7596,7 @@ _08092584:
 	adds r0, r5, #0
 	movs r2, #1
 	movs r3, #4
-	bl DrawTextInline
+	bl PutDrawText
 	b _08092BC6
 _080925A0:
 	ldr r1, _0809265C  @ gUnknown_0200D6E0
@@ -7624,7 +7624,7 @@ _080925A0:
 	str r3, [sp, #4]
 	mov r2, r8
 	movs r3, #4
-	bl DrawTextInline
+	bl PutDrawText
 	adds r3, r7, #0
 	adds r3, #0x22
 	movs r1, #2
@@ -7638,7 +7638,7 @@ _080925E6:
 	movs r2, #8
 	ldrsb r2, [r0, r2]
 	adds r0, r3, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r3, r7, #0
 	adds r3, #0x28
 	movs r1, #2
@@ -7651,7 +7651,7 @@ _08092602:
 	ldr r0, [r0]
 	ldrb r2, [r0, #9]
 	adds r0, r3, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r5, r7, #0
 	adds r5, #0x2e
 	movs r4, #2
@@ -7666,12 +7666,12 @@ _0809261C:
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r0, r7, #0
 	adds r0, #0x30
 	mov r1, r8
 	movs r2, #0x16
-	bl DrawSpecialUiChar
+	bl PutSpecialChar
 	adds r4, r7, #0
 	adds r4, #0x34
 	movs r5, #2
@@ -7686,7 +7686,7 @@ _08092648:
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	b _08092BC6
 	.align 2, 0
 _0809265C: .4byte gUnknown_0200D6E0
@@ -7717,7 +7717,7 @@ _0809268A:
 	adds r2, r0, #0
 	mov r0, r8
 	adds r1, r6, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r7, r5, #0
 	adds r7, #0x18
 	ldr r0, [r4]
@@ -7737,7 +7737,7 @@ _080926B4:
 	adds r2, r0, #0
 	adds r0, r7, #0
 	adds r1, r6, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r7, r5, #0
 	adds r7, #0x1e
 	ldr r0, [r4]
@@ -7757,7 +7757,7 @@ _080926DE:
 	adds r2, r0, #0
 	adds r0, r7, #0
 	adds r1, r6, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r7, r5, #0
 	adds r7, #0x24
 	ldr r0, [r4]
@@ -7774,7 +7774,7 @@ _08092702:
 	adds r2, r0, #0
 	adds r0, r7, #0
 	adds r1, r6, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r7, r5, #0
 	adds r7, #0x2a
 	ldr r0, [r4]
@@ -7794,7 +7794,7 @@ _0809272C:
 	adds r2, r0, #0
 	adds r0, r7, #0
 	adds r1, r6, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r7, r5, #0
 	adds r7, #0x30
 	ldr r0, [r4]
@@ -7814,7 +7814,7 @@ _08092756:
 	adds r2, r0, #0
 	adds r0, r7, #0
 	adds r1, r6, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	ldr r0, [r4]
 	ldr r0, [r0]
 	bl GetUnitAffinityIcon
@@ -7827,7 +7827,7 @@ _08092756:
 	adds r0, #0x34
 	movs r1, #2
 	movs r2, #0x14
-	bl DrawSpecialUiChar
+	bl PutSpecialChar
 	b _08092BC6
 	.align 2, 0
 _08092788: .4byte gUnknown_0200D6E0
@@ -7866,7 +7866,7 @@ _0809279A:
 	str r5, [sp]
 	str r3, [sp, #4]
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	b _0809284C
 	.align 2, 0
 _080927DC: .4byte gUnknown_0200D6E0
@@ -7894,7 +7894,7 @@ _080927E8:
 	movs r3, #0
 	str r3, [sp]
 	str r5, [sp, #4]
-	bl DrawTextInline
+	bl PutDrawText
 	adds r4, #0x10
 	ldr r0, [r7]
 	ldr r0, [r0]
@@ -7932,7 +7932,7 @@ _0809285E:
 	movs r6, #4
 	ldrsh r2, [r0, r6]
 	adds r0, r3, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r3, r5, #0
 	adds r3, #0x2c
 	movs r1, #2
@@ -7945,7 +7945,7 @@ _0809287E:
 	movs r6, #6
 	ldrsh r2, [r0, r6]
 	adds r0, r3, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r1, r5, #0
 	adds r1, #0x34
 	movs r3, #2
@@ -7959,7 +7959,7 @@ _08092898:
 	ldrsh r2, [r0, r4]
 	adds r0, r1, #0
 	adds r1, r3, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	b _08092BC6
 	.align 2, 0
 _080928A8: .4byte gUnknown_0200E098
@@ -7994,7 +7994,7 @@ _080928B0:
 	str r3, [sp]
 	str r5, [sp, #4]
 	movs r3, #2
-	bl DrawTextInline
+	bl PutDrawText
 	b _08092924
 	.align 2, 0
 _080928F4: .4byte gUnknown_0200D6E0
@@ -8017,7 +8017,7 @@ _080928FC:
 	str r5, [sp]
 	str r3, [sp, #4]
 	movs r3, #2
-	bl DrawTextInline
+	bl PutDrawText
 _08092924:
 	mov r8, r4
 	ldr r7, [sp, #0x54]
@@ -8043,7 +8043,7 @@ _08092938:
 	asrs r0, r0, #0x18
 	adds r2, r2, r0
 	adds r0, r3, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r3, r7, #0
 	adds r3, #0x1a
 	movs r5, #2
@@ -8067,7 +8067,7 @@ _08092964:
 	adds r2, r2, r0
 	adds r0, r3, #0
 	adds r1, r5, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	adds r5, r7, #0
 	adds r5, #0x20
 	movs r6, #2
@@ -8082,7 +8082,7 @@ _08092994:
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl DrawDecNumber
+	bl PutNumberOrBlank
 	ldr r0, [r4]
 	ldr r0, [r0]
 	bl GetUnitStatusName
@@ -8103,7 +8103,7 @@ _08092994:
 	str r3, [sp]
 	str r4, [sp, #4]
 	movs r3, #2
-	bl DrawTextInline
+	bl PutDrawText
 	b _08092BC6
 	.align 2, 0
 _080929D8: .4byte 0x00000536
@@ -8147,7 +8147,7 @@ _08092A24:
 	adds r0, #8
 	ldr r2, [r0]
 	adds r0, r3, #0
-	bl DrawSpecialUiChar
+	bl PutSpecialChar
 	adds r0, r6, #1
 	lsls r0, r0, #0x18
 	lsrs r6, r0, #0x18
@@ -8177,7 +8177,7 @@ _08092A48:
 	adds r0, r6, #0
 	adds r0, #0x10
 	add r0, r8
-	bl Text_Clear
+	bl ClearText
 	movs r6, #0
 	ldr r0, [sp, #0x40]
 	cmp r4, r0
@@ -8249,7 +8249,7 @@ _08092A92:
 	mov r3, r8
 	lsrs r2, r3, #0x1f
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	b _08092B56
 	.align 2, 0
 _08092B10: .4byte gUnknown_0200D6E0
@@ -8281,7 +8281,7 @@ _08092B18:
 	str r3, [sp, #4]
 	movs r2, #1
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 _08092B56:
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
@@ -8334,7 +8334,7 @@ _08092B94:
 	str r3, [sp, #4]
 	lsrs r2, r6, #0x1f
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18

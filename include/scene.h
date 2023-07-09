@@ -95,7 +95,7 @@ int GetTalkChoiceResult(void);
 int SetTalkChoiceResult(int);
 void SetTalkNumber(int);
 void SetTalkUnkStr(const char* str);
-void PrintStringToTexts(struct TextHandle** texts, const char* str, u16* tm, int unk);
+void PrintStringToTexts(struct Text** texts, const char* str, u16* tm, int unk);
 // ??? TalkPutSpriteText_OnIdle(???);
 // ??? ClearPrimaryHBlank(???);
 // ??? TalkPutSpriteText_OnEnd(???);

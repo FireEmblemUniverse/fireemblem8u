@@ -117,16 +117,16 @@ void FortuneSubMenu_Unused_SetAvailableOptions(struct PrepProcA1962C* proc) {
 void FortuneSubMenu_Unused_SetupText(struct PrepProcA1962C* proc) {
     int i;
 
-    struct TextHandle* th = gPrepItemTexts;
+    struct Text* th = gPrepItemTexts;
 
-    SetFontGlyphSet(0);
-    SetFont(0);
+    SetTextFontGlyphs(0);
+    SetTextFont(0);
 
     TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 0xA), 31, 10, 0);
 
     for (i = 0; i < 4; i++) {
-        Text_Clear(th);
-        DrawTextInline(
+        ClearText(th);
+        PutDrawText(
             th++,
             gBG0TilemapBuffer + TILEMAP_INDEX(0x144 + (i & 1) * 14, (i >> 1) * 2),
             proc->unk_30[i] != 0 ? 0 : 1,
@@ -138,8 +138,8 @@ void FortuneSubMenu_Unused_SetupText(struct PrepProcA1962C* proc) {
 
     th = gPrepItemTexts + 0x1e;
 
-    Text_Clear(th);
-    DrawTextInline(
+    ClearText(th);
+    PutDrawText(
         th,
         gBG0TilemapBuffer + 0x16,
         0,

@@ -3976,7 +3976,7 @@ struct Glyph gUnknown_0858F6AC =
     },
 };
 
-struct Glyph *gUnknown_0858F6F4[] =
+struct Glyph *TextGlyphs_Talk[] =
 {
     NULL,
     NULL,

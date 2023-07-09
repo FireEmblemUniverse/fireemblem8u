@@ -26,12 +26,12 @@ extern struct Win1H gUnknown_02012F58[][160];
 extern struct Win1H* gUnknown_02013458[];
 
 //! FE8U = 0x080977AC
-void sub_80977AC(struct TextHandle* th, u16* tm, int color, int x, const char* str) {
-    Text_Clear(th);
-    Text_SetColorId(th, color);
-    Text_SetXCursor(th, x);
-    Text_AppendString(th, str);
-    Text_Draw(th, tm);
+void sub_80977AC(struct Text* th, u16* tm, int color, int x, const char* str) {
+    ClearText(th);
+    Text_SetColor(th, color);
+    Text_SetCursor(th, x);
+    Text_DrawString(th, str);
+    PutText(th, tm);
 
     return;
 }

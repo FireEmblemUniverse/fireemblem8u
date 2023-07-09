@@ -79,12 +79,12 @@ s8 BattleUnit_ShouldDisplayWRankUp(struct BattleUnit *u) {
 }
 
 void _InitFontForUIDefault(void) {
-    Font_InitForUIDefault();
+    ResetText();
 }
 
 void MapAnim_Cleanup(void) {
     MU_AllRestartAnimations();
-	Font_ResetAllocation();
+	ResetTextFont();
 	DeleteBattleAnimInfoThing();
 	InitBmBgLayers();
 	LoadUiFrameGraphics();

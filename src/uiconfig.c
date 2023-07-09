@@ -40,13 +40,13 @@ struct ConfigScreen {
     /* 34 */ s16 unk_34;
     /* 36 */ u8 unk_36;
     /* 37 */ s8 unk_37; // some flags / state var
-    /* 38 */ struct TextHandle unk_38[6]; // size: 0x30
+    /* 38 */ struct Text unk_38[6]; // size: 0x30
 
-    /* 68 */ struct TextHandle unk_68;
-    /* 70 */ struct TextHandle unk_70[6];
+    /* 68 */ struct Text unk_68;
+    /* 70 */ struct Text unk_70[6];
 
-    /* A0 */ struct TextHandle unk_a0;
-    /* A8 */ struct TextHandle unk_a8;
+    /* A0 */ struct Text unk_a0;
+    /* A8 */ struct Text unk_a8;
 };
 
 struct ConfigProc {
@@ -379,11 +379,11 @@ void DrawGameOptionIcon(int a, int b) {
 void DrawGameOptionHelpText(void) {
     const char* str;
 
-    Text_Clear(&gConfigUiState->unk_a8);
+    ClearText(&gConfigUiState->unk_a8);
 
     str = GetStringFromIndex(gGameOptions[gGameOptionsUiOrder[gConfigUiState->unk_2a]].selectors[GetSelectedOptionValue()].helpTextId);
 
-    DrawTextInline(&gConfigUiState->unk_a8, gBG0TilemapBuffer + 0x244, 0, 0, 22, str);
+    PutDrawText(&gConfigUiState->unk_a8, gBG0TilemapBuffer + 0x244, 0, 0, 22, str);
 
     return;
 }
@@ -392,11 +392,11 @@ void DrawGameOptionHelpText(void) {
 void DrawGameOptionText(int selectedIdx, int textIdx, int y) {
     const char* str;
 
-    Text_Clear(&gConfigUiState->unk_38[textIdx]);
+    ClearText(&gConfigUiState->unk_38[textIdx]);
 
     str = GetStringFromIndex(gGameOptions[gGameOptionsUiOrder[selectedIdx]].msgId);
 
-    DrawTextInline(&gConfigUiState->unk_38[textIdx], gBG1TilemapBuffer + 4 + y * 0x20, 0, 0, 9, str);
+    PutDrawText(&gConfigUiState->unk_38[textIdx], gBG1TilemapBuffer + 4 + y * 0x20, 0, 0, 9, str);
 
     return;
 }
@@ -409,7 +409,7 @@ void DrawOptionValueTexts(int selectedIdx, int textIdx, int y) {
 
     int x = gGameOptions[optionIdx].selectors[0].xPos / 8;
 
-    Text_Clear(&gConfigUiState->unk_70[textIdx]);
+    ClearText(&gConfigUiState->unk_70[textIdx]);
 
     for (i = 0; i < 4; i++) {
 
@@ -417,7 +417,7 @@ void DrawOptionValueTexts(int selectedIdx, int textIdx, int y) {
             break;
         }
 
-        Text_InsertString(
+        Text_InsertDrawString(
             &gConfigUiState->unk_70[textIdx],
             gGameOptions[optionIdx].selectors[i].xPos - 0x70,
             (i == GetGameOption(optionIdx)) ? 2 : 1,
@@ -426,7 +426,7 @@ void DrawOptionValueTexts(int selectedIdx, int textIdx, int y) {
 
     }
 
-    Text_Draw(&gConfigUiState->unk_70[textIdx], gBG1TilemapBuffer + (y * 0x20 + (x)));
+    PutText(&gConfigUiState->unk_70[textIdx], gBG1TilemapBuffer + (y * 0x20 + (x)));
 
     return;
 }
@@ -493,7 +493,7 @@ void Config_Init(struct ConfigProc* proc) {
     gConfigUiState->unk_37 &= ~1;
     gConfigUiState->unk_37 &= ~2;
 
-    Font_InitForUIDefault();
+    ResetText();
 
     sub_80156BC();
 
@@ -550,16 +550,16 @@ void Config_Init(struct ConfigProc* proc) {
     Decompress(gUnknown_08A079B4, gGenericBuffer + 0x80);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer + 0x80, 0x1000);
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
-    Text_Init(&gConfigUiState->unk_a8, 22);
+    InitText(&gConfigUiState->unk_a8, 22);
 
     DrawGameOptionHelpText();
 
     PrepStartSideBarScroll(proc, 224, 47, 0x7200, 1);
 
-    Text_Init(&gConfigUiState->unk_68, 9);
-    Text_Init(&gConfigUiState->unk_a0, 14);
+    InitText(&gConfigUiState->unk_68, 9);
+    InitText(&gConfigUiState->unk_a0, 14);
 
 
     for (; i < 6; i++) {
@@ -567,8 +567,8 @@ void Config_Init(struct ConfigProc* proc) {
 
         DrawGameOptionIcon(i, 5);
 
-        Text_Init(&gConfigUiState->unk_38[i], 9);
-        Text_Init(&gConfigUiState->unk_70[i], 14);
+        InitText(&gConfigUiState->unk_38[i], 9);
+        InitText(&gConfigUiState->unk_70[i], 14);
 
         DrawGameOptionText(i, i, y);
         DrawOptionValueTexts(i, i, y);

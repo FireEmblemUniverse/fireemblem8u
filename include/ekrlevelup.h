@@ -49,8 +49,8 @@ extern CONST_DATA unsigned *EkrLvupMsgsStr[];
 extern CONST_DATA unsigned *EkrLvupMsgsMag[];
 extern const u16 sEfxLvupPartsPos[];
 
-extern struct TextHandle gTextEkrlvupMsg[EKRLVUP_STAT_MAX];
-extern struct TextHandle gTextEkrlvupValue[EKRLVUP_STAT_MAX];
+extern struct Text gTextEkrlvupMsg[EKRLVUP_STAT_MAX];
+extern struct Text gTextEkrlvupValue[EKRLVUP_STAT_MAX];
 extern struct ProcEkrLevelup *gpProcEkrLevelup;
 extern u32 gUnknown_020200B8[8];
 extern ProcPtr gpProcEfxPartsofScroll;

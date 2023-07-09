@@ -158,7 +158,7 @@ static void ConvertToFullwidthJapaneseFont(unsigned char *src, unsigned char *de
 	}
 }
 
-static void SetFontPalette(struct Image *image)
+static void SetTextFontPalette(struct Image *image)
 {
 	image->hasPalette = true;
 
@@ -197,7 +197,7 @@ void ReadLatinFont(char *path, struct Image *image)
 
 	free(buffer);
 
-	SetFontPalette(image);
+	SetTextFontPalette(image);
 }
 
 void WriteLatinFont(char *path, struct Image *image)
@@ -251,7 +251,7 @@ void ReadHalfwidthJapaneseFont(char *path, struct Image *image)
 
 	free(buffer);
 
-	SetFontPalette(image);
+	SetTextFontPalette(image);
 }
 
 void WriteHalfwidthJapaneseFont(char *path, struct Image *image)
@@ -300,7 +300,7 @@ void ReadFullwidthJapaneseFont(char *path, struct Image *image)
 
 	free(buffer);
 
-	SetFontPalette(image);
+	SetTextFontPalette(image);
 }
 
 void WriteFullwidthJapaneseFont(char *path, struct Image *image)

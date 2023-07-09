@@ -3515,7 +3515,7 @@ _0800EFBC:
 	movs r1, #0x10
 	orrs r0, r1
 	strb r0, [r2, #1]
-	bl Font_LoadForUI
+	bl InitSystemTextFont
 	bl sub_80156D4
 _0800EFE2:
 	ldr r3, _0800F0BC  @ gLCDControlBuffer

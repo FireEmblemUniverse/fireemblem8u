@@ -9,7 +9,7 @@ void sub_80CDA4C(struct MenuProc *proc)
     int i;
     for (i = 0; i < proc->itemCount; i++)
         if (proc->menuItems[i]->def->onDraw == 0)
-            Text_SetXCursor(&proc->menuItems[i]->text, 0);
+            Text_SetCursor(&proc->menuItems[i]->text, 0);
 }
 
 int PromoSubConfirm_OnInit(struct MenuProc *proc)
@@ -22,7 +22,7 @@ int PromoSubConfirm_OnEnd(struct MenuProc *proc)
 {
     TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 4), 0xA, 6, 0);
     TileMap_FillRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 8, 4), 0xA, 6, 0);
-    SetFont(&gFontClassChg);
+    SetTextFont(&gFontClassChg);
     sub_80CDA4C(proc->proc_parent);
     RedrawMenu(proc->proc_parent);
     SyncMenuBgs(proc);
@@ -53,7 +53,7 @@ CONST_DATA struct MenuItemDef MenuItem_PromoSubConfirm[] = {
     {
         "　決定",
         0x23,   /* Change */
-        0, TEXT_COLOR_NORMAL, 0,
+        0, TEXT_COLOR_SYSTEM_WHITE, 0,
         MenuAlwaysEnabled,
         NULL,
         PromoSubConfirmMenuOnSelect,
@@ -62,7 +62,7 @@ CONST_DATA struct MenuItemDef MenuItem_PromoSubConfirm[] = {
     {
         "　やめる",
         0x24,   /* Cancel */
-        0, TEXT_COLOR_NORMAL, 1,
+        0, TEXT_COLOR_SYSTEM_WHITE, 1,
         MenuAlwaysEnabled,
         NULL,
         PromoSubConfirmMenuOnSelect,

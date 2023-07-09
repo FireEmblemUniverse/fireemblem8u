@@ -20,7 +20,7 @@ struct ProcCmd sProc_MenuMain[] =
 {
     PROC_REPEAT(Menu_OnIdle),
 
-    PROC_CALL(EndGreenTextColorManager),
+    PROC_CALL(EndGreenText),
     PROC_END
 };
 
@@ -32,7 +32,7 @@ struct ProcCmd sProc_Menu[] =
 
     PROC_WHILE_EXISTS(gProcScr_CamMove),
 
-    PROC_CALL(NewGreenTextColorManager),
+    PROC_CALL(StartGreenText),
     PROC_CALL(RedrawMenu),
 
     PROC_CALL(Menu_OnInit),
@@ -221,7 +221,7 @@ struct MenuProc* StartMenuCore(
             item->yTile = yTileInner;
 
             if (!(proc->state & MENU_STATE_NOTSHOWN))
-                Text_Init(&item->text, rect.w - 1);
+                InitText(&item->text, rect.w - 1);
 
             yTileInner += 2;
         }
@@ -331,17 +331,17 @@ void RedrawMenu(struct MenuProc* proc)
         }
 
         if (item->def->color)
-            Text_SetColorId(&item->text, item->def->color);
+            Text_SetColor(&item->text, item->def->color);
 
         if (item->availability == MENU_DISABLED)
-            Text_SetColorId(&item->text, TEXT_COLOR_GRAY);
+            Text_SetColor(&item->text, TEXT_COLOR_SYSTEM_GRAY);
 
         if (!item->def->nameMsgId)
-            Text_AppendString(&item->text, item->def->name);
+            Text_DrawString(&item->text, item->def->name);
         else
-            Text_AppendString(&item->text, GetStringFromIndex(item->def->nameMsgId));
+            Text_DrawString(&item->text, GetStringFromIndex(item->def->nameMsgId));
 
-        Text_Draw(
+        PutText(
             &item->text,
             TILEMAP_LOCATED(BG_GetMapBuffer(proc->frontBg), item->xTile, item->yTile));
     }

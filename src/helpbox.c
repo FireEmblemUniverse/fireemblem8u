@@ -19,7 +19,7 @@ struct HelpBoxScrollProc {
     /* 2C */ const char* unk_2c;
     /* 30 */ struct Font* unk_30;
 
-    /* 34 */ struct TextHandle* unk_34[9]; // unknown size; 3?
+    /* 34 */ struct Text* unk_34[9]; // unknown size; 3?
 
     /* 58 */ int unk_58;
     /* 5C */ s16 unk_5c;
@@ -58,7 +58,7 @@ struct HelpBox8A01760Proc {
 
     /* 2C */ const char* unk_2c;
     /* 30 */ struct Font* unk_30;
-    /* 34 */ struct TextHandle* unk_34[5];
+    /* 34 */ struct Text* unk_34[5];
 
     /* 48 */ s16 unk_48;
     /* 4A */ s16 unk_4a;
@@ -89,7 +89,7 @@ struct HelpBox8A01800Proc {
 
 struct Struct203E794 {
     /* 00 */ struct Font font;
-    /* 16 */ struct TextHandle text[3];
+    /* 16 */ struct Text text[3];
     /* 30 */ u16 unk_30;
 };
 
@@ -121,7 +121,7 @@ extern u16 gPal_HelpTextBox[];
 
 struct Struct0203E7E8 {
     /* 00 */ struct Font unk_00;
-    /* 18 */ struct TextHandle unk_18[5];
+    /* 18 */ struct Text unk_18[5];
     /* 40 */ u16 unk_40;
     /* 42 */ u16 unk_42;
 };
@@ -167,13 +167,13 @@ void LoadHelpBoxGfx(void* vram, int palId) {
     Decompress(gGfx_HelpTextBox4, vram + 0xf60);
     Decompress(gGfx_HelpTextBox5, vram + 0x1360);
 
-    InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E794.font, vram, palId);
+    InitSpriteTextFont(&gUnknown_0203E794.font, vram, palId);
 
-    Text_Init3(&gUnknown_0203E794.text[0]);
-    Text_Init3(&gUnknown_0203E794.text[1]);
-    Text_Init3(&gUnknown_0203E794.text[2]);
+    InitSpriteText(&gUnknown_0203E794.text[0]);
+    InitSpriteText(&gUnknown_0203E794.text[1]);
+    InitSpriteText(&gUnknown_0203E794.text[2]);
 
-    SetFont(0);
+    SetTextFont(0);
 
     CopyToPaletteBuffer(gUnknown_0859EF40, palId * 0x20, 0x20);
 
@@ -201,14 +201,14 @@ void sub_80898C4(void* vram, int palId) {
     Decompress(gGfx_HelpTextBox4, vram + 0xf60);
     Decompress(gGfx_HelpTextBox5, vram + 0x1360);
 
-    InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E794.font, vram, palId);
+    InitSpriteTextFont(&gUnknown_0203E794.font, vram, palId);
 
-    Text_Init3(&gUnknown_0203E794.text[0]);
-    Text_Init3(&gUnknown_0203E794.text[1]);
+    InitSpriteText(&gUnknown_0203E794.text[0]);
+    InitSpriteText(&gUnknown_0203E794.text[1]);
 
-    gUnknown_0203E794.text[2].unk4 = 0;
+    gUnknown_0203E794.text[2].tile_width = 0;
 
-    SetFont(0);
+    SetTextFont(0);
 
     CopyToPaletteBuffer(gUnknown_0859EF40, palId * 0x20, 0x20);
 
@@ -343,13 +343,13 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
 
 //! FE8U = 0x08089C40
 int DrawHelpBoxWeaponLabels(int item) {
-    Text_InsertString(&gUnknown_0203E794.text[0], 0, 8, GetWeaponTypeDisplayString(GetItemType(item)));
-    Text_InsertString(&gUnknown_0203E794.text[0], 47, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
-    Text_InsertString(&gUnknown_0203E794.text[0], 97, 8, GetStringFromIndex(0x502)); // TODO: msg id "Wt"
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 0, 8, GetWeaponTypeDisplayString(GetItemType(item)));
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 47, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 97, 8, GetStringFromIndex(0x502)); // TODO: msg id "Wt"
 
-    Text_InsertString(&gUnknown_0203E794.text[1], 0, 8, GetStringFromIndex(0x503)); // TODO: msg id "Mt"
-    Text_InsertString(&gUnknown_0203E794.text[1], 47, 8, GetStringFromIndex(0x4F4)); // TODO: msg id "Hit[.]}"
-    Text_InsertString(&gUnknown_0203E794.text[1], 97, 8, GetStringFromIndex(0x501)); // TODO: msg id "Crit"
+    Text_InsertDrawString(&gUnknown_0203E794.text[1], 0, 8, GetStringFromIndex(0x503)); // TODO: msg id "Mt"
+    Text_InsertDrawString(&gUnknown_0203E794.text[1], 47, 8, GetStringFromIndex(0x4F4)); // TODO: msg id "Hit[.]}"
+    Text_InsertDrawString(&gUnknown_0203E794.text[1], 97, 8, GetStringFromIndex(0x501)); // TODO: msg id "Crit"
 
     return 2;
 }
@@ -357,31 +357,31 @@ int DrawHelpBoxWeaponLabels(int item) {
 //! FE8U = 0x08089CD4
 void DrawHelpBoxWeaponStats(int item) {
 
-    Text_InsertString(&gUnknown_0203E794.text[0], 32, 7, GetItemDisplayRankString(item));
-    Text_InsertString(&gUnknown_0203E794.text[0], 67, 7, GetItemDisplayRangeString(item));
-    Text_InsertNumberOr2Dashes(&gUnknown_0203E794.text[0], 129, 7, GetItemWeight(item));
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 32, 7, GetItemDisplayRankString(item));
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 67, 7, GetItemDisplayRangeString(item));
+    Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[0], 129, 7, GetItemWeight(item));
 
-    Text_InsertNumberOr2Dashes(&gUnknown_0203E794.text[1], 32, 7, GetItemMight(item));
-    Text_InsertNumberOr2Dashes(&gUnknown_0203E794.text[1], 81, 7, GetItemHit(item));
-    Text_InsertNumberOr2Dashes(&gUnknown_0203E794.text[1], 129, 7, GetItemCrit(item));
+    Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[1], 32, 7, GetItemMight(item));
+    Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[1], 81, 7, GetItemHit(item));
+    Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[1], 129, 7, GetItemCrit(item));
 
     return;
 }
 
 //! FE8U = 0x08089D50
 int DrawHelpBoxStaffLabels(int item) {
-    Text_InsertString(&gUnknown_0203E794.text[0], 0, 8, GetStringFromIndex(0x509)); // TODO: msg id "Staff[.]"
-    Text_InsertString(&gUnknown_0203E794.text[0], 30, 7, GetItemDisplayRankString(item));
-    Text_InsertString(&gUnknown_0203E794.text[0], 48, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
-    Text_InsertString(&gUnknown_0203E794.text[0], 70, 7, GetItemDisplayRangeString(item));
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 0, 8, GetStringFromIndex(0x509)); // TODO: msg id "Staff[.]"
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 30, 7, GetItemDisplayRankString(item));
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 48, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 70, 7, GetItemDisplayRangeString(item));
 
     return 1;
 }
 
 //! FE8U = 0x08089DB0
 void DrawHelpBoxSaveMenuLabels(void) {
-    Text_InsertString(&gUnknown_0203E794.text[0], 0, 8, GetStringFromIndex(0x147)); // TODO: msg id "Base"
-    Text_InsertString(&gUnknown_0203E794.text[0], 90, 8, GetStringFromIndex(0x148)); // TODO: msg id "LV"
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 0, 8, GetStringFromIndex(0x147)); // TODO: msg id "Base"
+    Text_InsertDrawString(&gUnknown_0203E794.text[0], 90, 8, GetStringFromIndex(0x148)); // TODO: msg id "LV"
 
     return;
 }
@@ -393,17 +393,17 @@ void DrawHelpBoxSaveMenuStats(void) {
     char* str = sub_80AA768();
 
     if (str != 0) {
-        Text_InsertString(&gUnknown_0203E794.text[0], 26, 7, str);
+        Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, str);
     } else {
-        Text_InsertString(&gUnknown_0203E794.text[0], 26, 7, GetStringFromIndex(0x538));
+        Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, GetStringFromIndex(0x538));
     }
 
     level = sub_80AA744();
 
     if (level >= 0) {
-        Text_InsertNumberOr2Dashes(&gUnknown_0203E794.text[0], 116, 7, level);
+        Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[0], 116, 7, level);
     } else {
-        Text_InsertString(&gUnknown_0203E794.text[0], 108, 7, GetStringFromIndex(0x535));
+        Text_InsertDrawString(&gUnknown_0203E794.text[0], 108, 7, GetStringFromIndex(0x535));
     }
 
     return;
@@ -421,7 +421,7 @@ void HelpBoxTextScroll_OnLoop(struct HelpBoxScrollProc* proc) {
 
     proc->unk_5e = proc->unk_60;
 
-    SetFont(proc->unk_30);
+    SetTextFont(proc->unk_30);
 
     for (i = 0; i < proc->unk_62; i++) {
 
@@ -444,7 +444,7 @@ void HelpBoxTextScroll_OnLoop(struct HelpBoxScrollProc* proc) {
                 continue;
 
             default:
-                proc->unk_2c = Text_AppendChar(proc->unk_34[proc->unk_5c], proc->unk_2c);
+                proc->unk_2c = Text_DrawCharacter(proc->unk_34[proc->unk_5c], proc->unk_2c);
 
                 continue;
         }
@@ -452,7 +452,7 @@ void HelpBoxTextScroll_OnLoop(struct HelpBoxScrollProc* proc) {
     }
 
 _08089EE0:
-    SetFont(0);
+    SetTextFont(0);
 
     return;
 }
@@ -466,14 +466,14 @@ struct ProcCmd CONST_DATA gProcScr_HelpBoxTextScroll[] = {
 void sub_8089EEC(struct HelpBoxScrollProc* proc) {
     int i;
 
-    SetFont(proc->unk_30);
+    SetTextFont(proc->unk_30);
 
     for (i = 0; i < 6; i++) {
-        struct TextHandle* th;
+        struct Text* th;
 _08089EF8:
         th = proc->unk_34[i];
 
-        Text_SetXCursor(th, GetStringTextCenteredPos(th->unk4 * 8, proc->unk_2c));
+        Text_SetCursor(th, GetStringTextCenteredPos(th->tile_width * 8, proc->unk_2c));
 
         while (1) {
             switch (*proc->unk_2c) {
@@ -497,14 +497,14 @@ _08089EF8:
                     continue;
 
                 default:
-                    proc->unk_2c = Text_AppendChar(th, proc->unk_2c);
+                    proc->unk_2c = Text_DrawCharacter(th, proc->unk_2c);
                     continue;
             }
         }
     }
 
 _08089F4C:
-    SetFont(proc->unk_30);
+    SetTextFont(proc->unk_30);
     return;
 }
 
@@ -518,8 +518,8 @@ struct ProcCmd CONST_DATA gUnknown_08A01638[] = {
 void sub_8089F58(struct HelpBox8A01650Proc* proc) {
     int item = proc->unk_58;
 
-    SetFont(&gUnknown_0203E794.font);
-    SetFontGlyphSet(0);
+    SetTextFont(&gUnknown_0203E794.font);
+    SetTextFontGlyphs(0);
 
     switch (GetHelpBoxItemInfoKind(item)) {
         case 0:
@@ -542,7 +542,7 @@ void sub_8089F58(struct HelpBox8A01650Proc* proc) {
             break;
     }
 
-    SetFont(0);
+    SetTextFont(0);
 
     Proc_Break(proc);
 
@@ -553,7 +553,7 @@ void sub_8089F58(struct HelpBox8A01650Proc* proc) {
 void sub_8089FCC(struct HelpBox8A01650Proc* proc) {
     int item = proc->unk_58;
 
-    SetFont(&gUnknown_0203E794.font);
+    SetTextFont(&gUnknown_0203E794.font);
 
     switch (GetHelpBoxItemInfoKind(item)) {
         case 1:
@@ -565,7 +565,7 @@ void sub_8089FCC(struct HelpBox8A01650Proc* proc) {
             break;
     }
 
-    SetFont(0);
+    SetTextFont(0);
 
     Proc_Break(proc);
 
@@ -577,15 +577,15 @@ void sub_808A00C(struct HelpBox8A01650Proc* proc) {
     struct HelpBoxScrollProc* otherProc;
     int textSpeed;
 
-    SetFont(&gUnknown_0203E794.font);
+    SetTextFont(&gUnknown_0203E794.font);
 
-    SetFontGlyphSet(1);
+    SetTextFontGlyphs(1);
 
-    Text_SetColorId(&gUnknown_0203E794.text[0], 6);
-    Text_SetColorId(&gUnknown_0203E794.text[1], 6);
-    Text_SetColorId(&gUnknown_0203E794.text[2], 6);
+    Text_SetColor(&gUnknown_0203E794.text[0], 6);
+    Text_SetColor(&gUnknown_0203E794.text[1], 6);
+    Text_SetColor(&gUnknown_0203E794.text[2], 6);
 
-    SetFont(0);
+    SetTextFont(0);
 
     Proc_EndEach(gProcScr_HelpBoxTextScroll);
 
@@ -655,16 +655,16 @@ void StartHelpBoxTextInit(int item, int msgId) {
 //! FE8U = 0x0808A118
 void ClearHelpBoxText(void) {
 
-    SetFont(&gUnknown_0203E794.font);
+    SetTextFont(&gUnknown_0203E794.font);
 
-    sub_80045FC(&gUnknown_0203E794.text[0]);
-    sub_80045FC(&gUnknown_0203E794.text[1]);
-    sub_80045FC(&gUnknown_0203E794.text[2]);
+    SpriteText_DrawBackground(&gUnknown_0203E794.text[0]);
+    SpriteText_DrawBackground(&gUnknown_0203E794.text[1]);
+    SpriteText_DrawBackground(&gUnknown_0203E794.text[2]);
 
     Proc_EndEach(gProcScr_HelpBoxTextScroll);
     Proc_EndEach(gUnknown_08A01650);
 
-    SetFont(0);
+    SetTextFont(0);
 
     return;
 }
@@ -762,11 +762,11 @@ void sub_808A200(const struct HelpBoxInfo* info) {
 
     proc->mid = info->mid;
 
-    SetFontGlyphSet(1);
+    SetTextFontGlyphs(1);
 
-    sub_8003FAC(GetStringFromIndex(proc->mid), &wTextBox, &hTextBox);
+    GetStringTextBox(GetStringFromIndex(proc->mid), &wTextBox, &hTextBox);
 
-    SetFontGlyphSet(0);
+    SetTextFontGlyphs(0);
 
     sub_808A384(proc, wTextBox, hTextBox);
     sub_808A3C4(proc, info->xDisplay, info->yDisplay);
@@ -992,7 +992,7 @@ void sub_808A530(int a, int b) {
     int* ptr, *r4;
     int i, j, k;
 
-    ptr = (int*)((((0x3FF & gUnknown_0203E7E8.unk_40) + gUnknown_0203E7E8.unk_18[0].unk0) * 0x20) + 0x06010000);
+    ptr = (int*)((((0x3FF & gUnknown_0203E7E8.unk_40) + gUnknown_0203E7E8.unk_18[0].chr_position) * 0x20) + 0x06010000);
 
     for (i = 0; i < b*2; i++) {
         r4 = ptr;
@@ -1056,18 +1056,18 @@ void sub_808A5D0(void* param_1, int param_2) {
     ClearAllTalkFlags();
 
     if (!(GetDialogueBoxConfig() & 1)) {
-        InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E7E8.unk_00, param_1, param_2);
+        InitSpriteTextFont(&gUnknown_0203E7E8.unk_00, param_1, param_2);
 
-        Text_Init3(&gUnknown_0203E7E8.unk_18[0]);
-        Text_Init3(&gUnknown_0203E7E8.unk_18[1]);
-        Text_Init3(&gUnknown_0203E7E8.unk_18[2]);
+        InitSpriteText(&gUnknown_0203E7E8.unk_18[0]);
+        InitSpriteText(&gUnknown_0203E7E8.unk_18[1]);
+        InitSpriteText(&gUnknown_0203E7E8.unk_18[2]);
 
         if ((GetDialogueBoxConfig() & 0x10) && !(GetDialogueBoxConfig() & 0x20)) {
-            Text_Init3(&gUnknown_0203E7E8.unk_18[3]);
-            Text_Init3(&gUnknown_0203E7E8.unk_18[4]);
+            InitSpriteText(&gUnknown_0203E7E8.unk_18[3]);
+            InitSpriteText(&gUnknown_0203E7E8.unk_18[4]);
         }
 
-        SetFont(0);
+        SetTextFont(0);
 
         if (GetDialogueBoxConfig() & 0x10) {
             CopyToPaletteBuffer(gPal_YellowTextBox, param_2 * 0x20, 0x20);
@@ -1076,15 +1076,15 @@ void sub_808A5D0(void* param_1, int param_2) {
         }
 
     } else {
-        InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E7E8.unk_00, param_1, param_2);
+        InitSpriteTextFont(&gUnknown_0203E7E8.unk_00, param_1, param_2);
 
         for (iVar4 = 0; iVar4 < ((u16)GetDialogueBoxConfig() >> 8); iVar4++) {
-            Text_Init3(&gUnknown_0203E7E8.unk_18[iVar4]);
+            InitSpriteText(&gUnknown_0203E7E8.unk_18[iVar4]);
         }
 
-        SetFont(0);
+        SetTextFont(0);
 
-        CopyToPaletteBuffer(Pal_UIFont, param_2 * 0x20, 0x20);
+        CopyToPaletteBuffer(Pal_Text, param_2 * 0x20, 0x20);
     }
 
     if (&param_1)
@@ -1178,7 +1178,7 @@ void sub_808A8AC(void) {
         PlaySoundEffect(0x2E7);
     }
 
-    SetFontGlyphSet(0);
+    SetTextFontGlyphs(0);
     sub_808A9F0();
 
     return;
@@ -1436,7 +1436,7 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
                 break;
 
             default:
-                str = GetCharTextWidth(str, &charWidth);
+                str = GetCharTextLen(str, &charWidth);
                 w += charWidth;
 
                 continue;
@@ -1458,7 +1458,7 @@ void sub_808AB98(const char* str, u8* xOut) {
 
     *xOut = x;
 
-    SetFontGlyphSet(1);
+    SetTextFontGlyphs(1);
 
     while (1) {
         switch (*it) {
@@ -1489,7 +1489,7 @@ void sub_808AB98(const char* str, u8* xOut) {
 
 
             default:
-                it = GetCharTextWidth(it, &charWidth);
+                it = GetCharTextLen(it, &charWidth);
                 x += charWidth;
 
                 continue;
@@ -1531,14 +1531,14 @@ void sub_808AC0C(int x, int y, int msg) {
 
     proc->mid = msg;
 
-    SetFontGlyphSet(1);
+    SetTextFontGlyphs(1);
 
     // ??
     GetStringFromIndex(proc->mid);
 
     sub_808AADC(sub_800A2A4(), &wInner, &hInner);
 
-    SetFontGlyphSet(0);
+    SetTextFontGlyphs(0);
 
     sub_808A838(proc, wInner, hInner);
 
@@ -1683,14 +1683,14 @@ void sub_808B0F8(void) {
 //! FE8U = 0x0808B11C
 void sub_808B11C(struct HelpBox8A01760Proc* proc) {
 
-    sub_80045FC(&gUnknown_0203E7E8.unk_18[0]);
-    sub_80045FC(&gUnknown_0203E7E8.unk_18[1]);
-    sub_80045FC(&gUnknown_0203E7E8.unk_18[2]);
+    SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[0]);
+    SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[1]);
+    SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[2]);
 
     if (GetDialogueBoxConfig() & 0x10) {
         if (!(GetDialogueBoxConfig() & 0x20)) {
-            sub_80045FC(&gUnknown_0203E7E8.unk_18[3]);
-            sub_80045FC(&gUnknown_0203E7E8.unk_18[4]);
+            SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[3]);
+            SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[4]);
         }
     }
 
@@ -1721,7 +1721,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
 
     sub_808B0F8();
 
-    SetFont(proc->unk_30);
+    SetTextFont(proc->unk_30);
 
     for (i = 0; i < iVar5; i++) {
         struct HelpBoxProc* r3;
@@ -1931,16 +1931,16 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
         }
 
         if (GetDialogueBoxConfig() & 1) {
-            Text_SetColorId(proc->unk_34[proc->unk_48], 1);
+            Text_SetColor(proc->unk_34[proc->unk_48], 1);
         } else {
             if (proc->unk_59 != 0) {
-                Text_SetColorId(proc->unk_34[proc->unk_48], 10);
+                Text_SetColor(proc->unk_34[proc->unk_48], 10);
             } else {
-                Text_SetColorId(proc->unk_34[proc->unk_48], 6);
+                Text_SetColor(proc->unk_34[proc->unk_48], 6);
             }
         }
 
-        proc->unk_2c = Text_AppendChar(proc->unk_34[proc->unk_48], proc->unk_2c);
+        proc->unk_2c = Text_DrawCharacter(proc->unk_34[proc->unk_48], proc->unk_2c);
 
         if (GetTextDisplaySpeed() != 1 || (GetGameClock() & 1) != 0) {
 
@@ -1952,7 +1952,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
         }
     }
 _0808B772:
-    SetFont(0);
+    SetTextFont(0);
 
     return;
 }
@@ -1974,7 +1974,7 @@ void sub_808B7B8(struct HelpBox8A01760Proc* proc) {
     proc->unk_58++;
 
     if (proc->unk_58 == 16) {
-        Text_SetXCursor(&gUnknown_0203E7E8.unk_18[proc->unk_48], 0);
+        Text_SetCursor(&gUnknown_0203E7E8.unk_18[proc->unk_48], 0);
         Proc_Break(proc);
     }
 
@@ -2003,8 +2003,8 @@ void sub_808B844(ProcPtr proc) {
     Proc_Goto(Proc_Find(gProcScr_BoxDialogue), 3);
     Proc_Break(proc);
 
-    SetFont(NULL);
-    SetFontGlyphSet(0);
+    SetTextFont(NULL);
+    SetTextFontGlyphs(0);
 
     return;
 }
@@ -2091,27 +2091,27 @@ s8 sub_808B904(void) {
 void sub_808B928(struct HelpBox8A01800Proc* proc) {
     struct HelpBox8A01760Proc* otherProc;
 
-    SetFont(&gUnknown_0203E7E8.unk_00);
-    SetFontGlyphSet(0);
-    SetFontGlyphSet(1);
+    SetTextFont(&gUnknown_0203E7E8.unk_00);
+    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(1);
 
     if ((GetDialogueBoxConfig() & 1) == 0) {
-        Text_SetColorId(&gUnknown_0203E7E8.unk_18[0], 6);
-        Text_SetColorId(&gUnknown_0203E7E8.unk_18[1], 6);
-        Text_SetColorId(&gUnknown_0203E7E8.unk_18[2], 6);
+        Text_SetColor(&gUnknown_0203E7E8.unk_18[0], 6);
+        Text_SetColor(&gUnknown_0203E7E8.unk_18[1], 6);
+        Text_SetColor(&gUnknown_0203E7E8.unk_18[2], 6);
         if (((GetDialogueBoxConfig() & 0x10) != 0) && ((GetDialogueBoxConfig() & 0x20) == 0)) {
-            Text_SetColorId(&gUnknown_0203E7E8.unk_18[3], 6);
-            Text_SetColorId(&gUnknown_0203E7E8.unk_18[4], 6);
+            Text_SetColor(&gUnknown_0203E7E8.unk_18[3], 6);
+            Text_SetColor(&gUnknown_0203E7E8.unk_18[4], 6);
         }
     } else {
         int i;
 
         for (i = 0; i < (int)((u32)(GetDialogueBoxConfig() << 0x10) >> 0x18); i++) {
-            Text_SetColorId(&gUnknown_0203E7E8.unk_18[i], 0);
+            Text_SetColor(&gUnknown_0203E7E8.unk_18[i], 0);
         }
     }
 
-    SetFont(NULL);
+    SetTextFont(NULL);
 
     Proc_EndEach(gProcScr_BoxDialogueInterpreter);
     otherProc = Proc_Start(gProcScr_BoxDialogueInterpreter, PROC_TREE_3);
@@ -2176,27 +2176,27 @@ void sub_808BA60(int msgId, int x, int y) {
 
 //! FE8U = 0x0808BAA4
 void sub_808BAA4(void) {
-    SetFont(&gUnknown_0203E7E8.unk_00);
+    SetTextFont(&gUnknown_0203E7E8.unk_00);
 
     if (!(GetDialogueBoxConfig() & 1)) {
-        sub_80045FC(&gUnknown_0203E7E8.unk_18[0]);
-        sub_80045FC(&gUnknown_0203E7E8.unk_18[1]);
-        sub_80045FC(&gUnknown_0203E7E8.unk_18[2]);
+        SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[0]);
+        SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[1]);
+        SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[2]);
         if (((GetDialogueBoxConfig() & 0x10) != 0) && ((GetDialogueBoxConfig() & 0x20) == 0)) {
-            sub_80045FC(&gUnknown_0203E7E8.unk_18[3]);
-            sub_80045FC(&gUnknown_0203E7E8.unk_18[4]);
+            SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[3]);
+            SpriteText_DrawBackground(&gUnknown_0203E7E8.unk_18[4]);
         }
     } else {
         int i;
         for (i = 0; i < (int)((u32)(GetDialogueBoxConfig() << 0x10) >> 0x18); i++) {
-            Text_80046B4(&gUnknown_0203E7E8.unk_18[i], 0);
+            SpriteText_DrawBackgroundExt(&gUnknown_0203E7E8.unk_18[i], 0);
         }
     }
 
     Proc_EndEach(gProcScr_BoxDialogueInterpreter);
     Proc_EndEach(gUnknown_08A01800);
 
-    SetFont(NULL);
+    SetTextFont(NULL);
 
     return;
 }

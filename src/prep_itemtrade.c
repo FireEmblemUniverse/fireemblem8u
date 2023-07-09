@@ -25,7 +25,7 @@ struct PrepMenuTradeProc {
     /* 40 */ int unk_40; // Starting item slot for right unit? Seems to be used when starting trade from "List"
 };
 
-extern struct TextHandle gPrepItemScreenTexts[];
+extern struct Text gPrepItemScreenTexts[];
 
 //! FE8U = 0x0809B538
 void PrepItemTrade_ApplyItemSwap(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSlotB) {
@@ -151,7 +151,7 @@ s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc* proc) {
 }
 
 //! FE8U = 0x0809B74C
-void DrawPrepScreenItems(u16* tm, struct TextHandle* th, struct Unit* unit, u8 checkPrepUsability) {
+void DrawPrepScreenItems(u16* tm, struct Text* th, struct Unit* unit, u8 checkPrepUsability) {
     s8 isUsable;
     int i;
     int itemCount;
@@ -169,17 +169,17 @@ void DrawPrepScreenItems(u16* tm, struct TextHandle* th, struct Unit* unit, u8 c
             isUsable = IsItemDisplayUsable(unit, item);
         }
 
-        Text_Clear(th);
-        DrawTextInline(
+        ClearText(th);
+        PutDrawText(
             th,
             tm + i * 0x40 + 2,
-            !isUsable ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL,
+            !isUsable ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE,
             0,
             0,
             GetItemName(item)
         );
 
-        DrawDecNumber(tm + i * 0x40 + 0xB, isUsable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemUses(item));
+        PutNumberOrBlank(tm + i * 0x40 + 0xB, isUsable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
         DrawIcon(tm + i * 0x40, GetItemIconId(item), 0x4000);
 
         th++;
@@ -227,7 +227,7 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
     BG_Fill(BG_GetMapBuffer(1), 0);
     BG_Fill(BG_GetMapBuffer(2), 0);
 
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
@@ -242,8 +242,8 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
     RestartMuralBackground();
 
     for (i = 0; i < 5; i++) {
-        Text_Allocate(gPrepItemScreenTexts + 0 + i, 7);
-        Text_Allocate(gPrepItemScreenTexts + 5 + i, 7);
+        InitTextDb(gPrepItemScreenTexts + 0 + i, 7);
+        InitTextDb(gPrepItemScreenTexts + 5 + i, 7);
     }
 
     proc->selectedItemSlot = 0xff;
@@ -269,10 +269,10 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
     BG_EnableSyncByMask(7);
 
     str = GetStringFromIndex(proc->units[0]->pCharacterData->nameTextId);
-    DrawTextInline(0, gBG0TilemapBuffer, 0, ((48 - GetStringTextWidth(str)) / 2), 6, str);
+    PutDrawText(0, gBG0TilemapBuffer, 0, ((48 - GetStringTextLen(str)) / 2), 6, str);
 
     str = GetStringFromIndex(proc->units[1]->pCharacterData->nameTextId);
-    DrawTextInline(0, gBG0TilemapBuffer + 0x18, 0, ((48 - GetStringTextWidth(str)) / 2), 6, str);
+    PutDrawText(0, gBG0TilemapBuffer + 0x18, 0, ((48 - GetStringTextLen(str)) / 2), 6, str);
 
     DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gPrepItemScreenTexts + 0, proc->units[0], 0);
     DrawPrepScreenItems(gBG0TilemapBuffer + 0x130, gPrepItemScreenTexts + 5, proc->units[1], 0);

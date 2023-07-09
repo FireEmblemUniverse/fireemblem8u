@@ -212,8 +212,8 @@ void EventEngine_OnUpdate(struct EventEngineProc* proc) {
 }
 
 void EventEngine_OnEnd(struct EventEngineProc* proc) {
-    SetFont(NULL);
-    Font_LoadForUI();
+    SetTextFont(NULL);
+    InitSystemTextFont();
     LoadUiFrameGraphics();
 
     switch (proc->execType) {

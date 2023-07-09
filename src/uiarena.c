@@ -320,11 +320,11 @@ void StartArenaDialogue(int msgId, ProcPtr proc) {
 void DrawArenaOpponentDetailsText(ProcPtr proc) {
 
     DrawUiFrame2(7, 9, 0x10, 6, 0);
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
     PutString(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 10), 0, GetStringFromIndex(gMid_Lv));
-    sub_8004B88(TILEMAP_LOCATED(gBG0TilemapBuffer, 12, 10), 2, gArenaState.opponentUnit->level);
+    PutNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 12, 10), 2, gArenaState.opponentUnit->level);
     PutString(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 12), 0, GetStringFromIndex(gArenaState.opponentUnit->pCharacterData->nameTextId));
     PutString(TILEMAP_LOCATED(gBG0TilemapBuffer, 15, 10), 0, GetStringFromIndex(gArenaState.opponentUnit->pClassData->nameTextId));
     PutString(TILEMAP_LOCATED(gBG0TilemapBuffer, 15, 12), 0, GetItemName(gArenaState.opponentWeapon));

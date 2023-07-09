@@ -21,7 +21,7 @@
 extern u16 gBmFrameTmap0[];
 
 extern u16 gUnknown_0200300C[8][16];
-extern struct TextHandle gaBattleForecastTextStructs[6];
+extern struct Text gaBattleForecastTextStructs[6];
 
 extern u16 gTSA_BattleForecastStandard[];
 extern u16 gTSA_BattleForecastExtended[];
@@ -43,9 +43,9 @@ struct BattleForecastProc {
     /* 34 */ s8 needContentUpdate;
     /* 35 */ s8 side; // -1 is left, +1 is right
     /* 36 */ s8 unk_36;
-    /* 38 */ struct TextHandle unitNameTextA;
-    /* 40 */ struct TextHandle unitNameTextB;
-    /* 48 */ struct TextHandle itemNameText;
+    /* 38 */ struct Text unitNameTextA;
+    /* 40 */ struct Text unitNameTextB;
+    /* 48 */ struct Text itemNameText;
     /* 50 */ s8 hitCountA;
     /* 51 */ s8 hitCountB;
     /* 52 */ s8 isEffectiveA;
@@ -131,11 +131,11 @@ void InitBattleForecastLabels() {
     for (i = 0; i < 6; ++i) {
         int textIndex;
 
-        Text_Init(gaBattleForecastTextStructs + i, 4);
+        InitText(gaBattleForecastTextStructs + i, 4);
 
         textIndex = sBattleForecastLabelStringIndexes[i];
 
-        Text_InsertString(
+        Text_InsertDrawString(
             gaBattleForecastTextStructs + i,
             GetStringTextCenteredPos(0x20, GetStringFromIndex(textIndex)),
             3,
@@ -146,22 +146,22 @@ void InitBattleForecastLabels() {
     return;
 }
 
-void PutBattleForecastUnitName(u16* dest, struct TextHandle* text, struct Unit* unit) {
+void PutBattleForecastUnitName(u16* dest, struct Text* text, struct Unit* unit) {
     char* str = GetStringFromIndex(unit->pCharacterData->nameTextId);
     int position = GetStringTextCenteredPos(48, str);
 
-    Text_Clear(text);
-    DrawTextInline(text, dest, 0, position, 0, str);
+    ClearText(text);
+    PutDrawText(text, dest, 0, position, 0, str);
 
     return;
 }
 
-void PutBattleForecastItemName(u16* dest, struct TextHandle* text, int itemIdx) {
+void PutBattleForecastItemName(u16* dest, struct Text* text, int itemIdx) {
     char* str = GetItemName(itemIdx);
     int position = GetStringTextCenteredPos(56, str);
 
-    Text_Clear(text);
-    DrawTextInline(text, dest, 0, position, 0, str);
+    ClearText(text);
+    PutDrawText(text, dest, 0, position, 0, str);
 
     return;
 }
@@ -266,14 +266,14 @@ void DrawBattleForecastContentsStandard(struct BattleForecastProc* proc) {
     }
 
     if (gBattleTarget.hpInitial > 99) {
-        sub_8004BB4(gBmFrameTmap0 + 0x62, 2, 0xFF);
+        PutNumberTwoChr(gBmFrameTmap0 + 0x62, 2, 0xFF);
     } else {
-        sub_8004BB4(gBmFrameTmap0 + 0x62, 2, gBattleTarget.hpInitial);
+        PutNumberTwoChr(gBmFrameTmap0 + 0x62, 2, gBattleTarget.hpInitial);
     }
 
-    sub_8004BB4(gBmFrameTmap0 + 0xA2, 2, damage);
-    sub_8004BB4(gBmFrameTmap0 + 0xA2 + 0x40, 2, gBattleTarget.battleEffectiveHitRate);
-    sub_8004BB4(gBmFrameTmap0 + 0xA2 + 0x80, 2, gBattleTarget.battleEffectiveCritRate);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA2, 2, damage);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA2 + 0x40, 2, gBattleTarget.battleEffectiveHitRate);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA2 + 0x80, 2, gBattleTarget.battleEffectiveCritRate);
 
     damage = gBattleActor.battleAttack - gBattleTarget.battleDefense;
 
@@ -296,20 +296,20 @@ void DrawBattleForecastContentsStandard(struct BattleForecastProc* proc) {
     }
 
     if (gBattleActor.hpInitial > 99) {
-        sub_8004BB4(gBmFrameTmap0 + 0xA8 - 0x40, 2, 0xFF);
+        PutNumberTwoChr(gBmFrameTmap0 + 0xA8 - 0x40, 2, 0xFF);
     } else {
-        sub_8004BB4(gBmFrameTmap0 + 0xA8 - 0x40, 2, gBattleActor.hpInitial);
+        PutNumberTwoChr(gBmFrameTmap0 + 0xA8 - 0x40, 2, gBattleActor.hpInitial);
     }
 
-    sub_8004BB4(gBmFrameTmap0 + 0xA8, 2, damage);
-    sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0x40, 2, gBattleActor.battleEffectiveHitRate);
-    sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0x80, 2, critRate);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA8, 2, damage);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0x40, 2, gBattleActor.battleEffectiveHitRate);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0x80, 2, critRate);
 
-    DrawSpecialUiStr(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
+    PutTwoSpecialChar(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
 
-    Text_Draw(gaBattleForecastTextStructs, gBmFrameTmap0  + 0xA8 - 5);
-    Text_Draw(gaBattleForecastTextStructs + 1, gBmFrameTmap0  + 0xA8 + 0x3B);
-    Text_Draw(gaBattleForecastTextStructs + 2, gBmFrameTmap0  + 0xA8 + 0x7B);
+    PutText(gaBattleForecastTextStructs, gBmFrameTmap0  + 0xA8 - 5);
+    PutText(gaBattleForecastTextStructs + 1, gBmFrameTmap0  + 0xA8 + 0x3B);
+    PutText(gaBattleForecastTextStructs + 2, gBmFrameTmap0  + 0xA8 + 0x7B);
 
     DrawIcon(gBmFrameTmap0 + 0xA8 + 0xBF, GetItemIconId(gBattleTarget.weaponBefore), 0x4000);
 
@@ -336,36 +336,36 @@ void DrawBattleForecastContentsExtended(struct BattleForecastProc* proc) {
     }
 
     if (gBattleTarget.hpInitial > 99) {
-        sub_8004BB4(gBmFrameTmap0 + 0x62, 2, 0xFF);
+        PutNumberTwoChr(gBmFrameTmap0 + 0x62, 2, 0xFF);
     } else {
-        sub_8004BB4(gBmFrameTmap0 + 0x62, 2, gBattleTarget.hpInitial);
+        PutNumberTwoChr(gBmFrameTmap0 + 0x62, 2, gBattleTarget.hpInitial);
     }
 
-    sub_8004BB4(gBmFrameTmap0 + 0xA2, 2, gBattleTarget.battleAttack);
-    sub_8004BB4(gBmFrameTmap0 + 0xA2 + 0x40, 2, gBattleTarget.battleDefense);
-    sub_8004BB4(gBmFrameTmap0 + 0xA2 + 0x80, 2, gBattleTarget.battleEffectiveHitRate);
-    sub_8004BB4(gBmFrameTmap0 + 0xA2 + 0xC0, 2, gBattleTarget.battleEffectiveCritRate);
-    sub_8004BB4(gBmFrameTmap0 + 0xA2 + 0x100, 2, gBattleTarget.battleSpeed);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA2, 2, gBattleTarget.battleAttack);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA2 + 0x40, 2, gBattleTarget.battleDefense);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA2 + 0x80, 2, gBattleTarget.battleEffectiveHitRate);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA2 + 0xC0, 2, gBattleTarget.battleEffectiveCritRate);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA2 + 0x100, 2, gBattleTarget.battleSpeed);
 
     if (gBattleActor.hpInitial > 99) {
-        sub_8004BB4(gBmFrameTmap0 + 0xA2 - 0x3A, 2, 0xFF);
+        PutNumberTwoChr(gBmFrameTmap0 + 0xA2 - 0x3A, 2, 0xFF);
     } else {
-        sub_8004BB4(gBmFrameTmap0 + 0xA2 - 0x3A, 2, gBattleActor.hpInitial);
+        PutNumberTwoChr(gBmFrameTmap0 + 0xA2 - 0x3A, 2, gBattleActor.hpInitial);
     }
 
-    sub_8004BB4(gBmFrameTmap0 + 0xA8, 2, gBattleActor.battleAttack);
-    sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0x40, 2, gBattleActor.battleDefense);
-    sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0x80, 2, gBattleActor.battleEffectiveHitRate);
-    sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0xC0, 2, gBattleActor.battleEffectiveCritRate);
-    sub_8004BB4(gBmFrameTmap0 + 0xA8 + 0x100, 2, gBattleActor.battleSpeed);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA8, 2, gBattleActor.battleAttack);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0x40, 2, gBattleActor.battleDefense);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0x80, 2, gBattleActor.battleEffectiveHitRate);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0xC0, 2, gBattleActor.battleEffectiveCritRate);
+    PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0x100, 2, gBattleActor.battleSpeed);
 
-    DrawSpecialUiStr(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
+    PutTwoSpecialChar(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
 
-    Text_Draw(gaBattleForecastTextStructs + 3, gBmFrameTmap0 + 0xA8 - 5);
-    Text_Draw(gaBattleForecastTextStructs + 4, gBmFrameTmap0 + 0xA8 + 0x3B);
-    Text_Draw(gaBattleForecastTextStructs + 1, gBmFrameTmap0 + 0xA8 + 0x7B);
-    Text_Draw(gaBattleForecastTextStructs + 2, gBmFrameTmap0 + 0xA8 + 0xBB);
-    Text_Draw(gaBattleForecastTextStructs + 5, gBmFrameTmap0 + 0xA8 + 0xFB);
+    PutText(gaBattleForecastTextStructs + 3, gBmFrameTmap0 + 0xA8 - 5);
+    PutText(gaBattleForecastTextStructs + 4, gBmFrameTmap0 + 0xA8 + 0x3B);
+    PutText(gaBattleForecastTextStructs + 1, gBmFrameTmap0 + 0xA8 + 0x7B);
+    PutText(gaBattleForecastTextStructs + 2, gBmFrameTmap0 + 0xA8 + 0xBB);
+    PutText(gaBattleForecastTextStructs + 5, gBmFrameTmap0 + 0xA8 + 0xFB);
 
     DrawIcon(gBmFrameTmap0 + 0xA8 + 0x13F, GetItemIconId(gBattleTarget.weaponBefore), 0x4000);
 
@@ -430,7 +430,7 @@ void BattleForecast_Init(struct BattleForecastProc* proc) {
     Copy2dChr(gGenericBuffer, (void*)0x06015D00, 4, 2);
     CopyToPaletteBuffer(gBattleForecast_x2x4Pal, 0x240, 0x20);
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
     ResetIconGraphics_();
 
@@ -438,9 +438,9 @@ void BattleForecast_Init(struct BattleForecastProc* proc) {
 
     InitBattleForecastLabels();
 
-    Text_Allocate(&proc->unitNameTextA, 6);
-    Text_Allocate(&proc->unitNameTextB, 6);
-    Text_Allocate(&proc->itemNameText, 7);
+    InitTextDb(&proc->unitNameTextA, 6);
+    InitTextDb(&proc->unitNameTextB, 6);
+    InitTextDb(&proc->itemNameText, 7);
 
     BG_SetPosition(1, 0, -1);
 
@@ -709,7 +709,7 @@ void NewBattleForecast() {
     struct BattleForecastProc* proc;
 
     if (gPlaySt.cfgBattleForecastType == 2) {
-        Font_ResetAllocation();
+        ResetTextFont();
         return;
     }
 

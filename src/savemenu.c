@@ -340,7 +340,7 @@ void SaveMenu_Init(void) {
 void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
     int i;
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
     LoadUiFrameGraphics();
     LoadObjUIGfx();
@@ -1490,7 +1490,7 @@ void sub_80AA30C(struct SaveMenuProc* proc) {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
 
-    Font_ResetAllocation();
+    ResetTextFont();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
 

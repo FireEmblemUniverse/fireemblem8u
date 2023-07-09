@@ -12,7 +12,7 @@ struct SubtitleHelpProc {
 
     /* 2C */ const char* string;
     /* 30 */ struct Font font;
-    /* 48 */ struct TextHandle text[2];
+    /* 48 */ struct Text text[2];
     /* 58 */ s16 textOffset;
     /* 5A */ s16 textShowCnt;
     /* 5C */ s16 textNum;
@@ -48,16 +48,16 @@ void InitSubtitleHelpText(struct SubtitleHelpProc* proc) {
 
     iter = proc->string;
 
-    InitSomeOtherGraphicsRelatedStruct(&proc->font, OBJ_VRAM0 + 0x4800, 0x14);
-    SetFontGlyphSet(1);
+    InitSpriteTextFont(&proc->font, OBJ_VRAM0 + 0x4800, 0x14);
+    SetTextFontGlyphs(1);
 
     CopyToPaletteBuffer(gUnknown_0859EF20, 0x280, 0x20);
 
     for (line = 0; line < 2; line++) {
-        Text_Init3(proc->text + line);
+        InitSpriteText(proc->text + line);
 
-        Text_80046B4(proc->text + line, 0);
-        Text_SetColorId(proc->text + line, 0);
+        SpriteText_DrawBackgroundExt(proc->text + line, 0);
+        Text_SetColor(proc->text + line, 0);
     }
 
     line = 0;
@@ -65,24 +65,24 @@ void InitSubtitleHelpText(struct SubtitleHelpProc* proc) {
     if (iter != 0) {
         while (*iter > 1) {
 
-            iter = Text_AppendChar(proc->text + line, iter);
+            iter = Text_DrawCharacter(proc->text + line, iter);
 
-            if (Text_GetXCursor(proc->text + line) > 0xE0) {
+            if (Text_GetCursor(proc->text + line) > 0xE0) {
 
                 iter -= 2;
                 line++;
 
-                GetCharTextWidth(iter, &width);
+                GetCharTextLen(iter, &width);
 
-                Text_SetXCursor(proc->text + line, (Text_GetXCursor(proc->text) - width) - 0xC0);
+                Text_SetCursor(proc->text + line, (Text_GetCursor(proc->text) - width) - 0xC0);
             }
         }
 
-        proc->textCount = ((GetStringTextWidth(proc->string) + 16) >> 5) + 1;
+        proc->textCount = ((GetStringTextLen(proc->string) + 16) >> 5) + 1;
         proc->textNum = proc->textCount - 1;
     }
 
-    SetFont(0);
+    SetTextFont(0);
 
     return;
 }

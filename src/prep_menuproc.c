@@ -338,10 +338,10 @@ void sub_8096C34(int a1, int a2)
     }
     r8 = _r8;
 
-    DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x4, 0x0), 2, r7);
-    DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x4, 0x2), 2, r5);
-    DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x4, 0x4), 2, r6);
-    DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x4, 0x6), 2, r8);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x4, 0x0), 2, r7);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x4, 0x2), 2, r5);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x4, 0x4), 2, r6);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x4, 0x6), 2, r8);
     BG_EnableSyncByMask(1);
 }
 
@@ -535,7 +535,7 @@ void SetPrepScreenMenuItem(int index, const void* func, int color, int msg, int 
     	proc->cmds[i]->color = color;
     	proc->cmds[i]->msg = msg;
     	proc->cmds[i]->msg_rtext = msg_rtext;
-        Text_Init(&proc->cmds[i]->text, 7);
+        InitText(&proc->cmds[i]->text, 7);
         proc->max_index++;
     }
 }
@@ -596,9 +596,9 @@ void DrawPrepScreenMenuFrameAt(int x, int y)
         if (proc->max_index > 1) {
             for (i = 0; i < proc->max_index; i++) {
                 cmd = proc->cmds[i];
-                Text_Clear(&cmd->text);
+                ClearText(&cmd->text);
     
-                DrawTextInline(
+                PutDrawText(
     				&cmd->text,
     				TILEMAP_LOCATED(gBG0TilemapBuffer, x + 2, y + 2 * i + 1),
     				1 & cmd->color,
@@ -625,9 +625,9 @@ void SetPrepScreenMenuPosition(int x, int y)
         if (proc->max_index > 1) {
             for (i = 0; i < proc->max_index; i++) {
                 cmd = proc->cmds[i];
-                Text_Clear(&cmd->text);
+                ClearText(&cmd->text);
     
-                DrawTextInline(
+                PutDrawText(
     				&cmd->text,
     				TILEMAP_LOCATED(gBG0TilemapBuffer, x + 2, y + 2 * i + 1),
     				1 & cmd->color,

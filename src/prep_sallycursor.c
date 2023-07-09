@@ -527,7 +527,7 @@ void PrepMapMenu_OnEnd() {
 
 void PrepScreenProc_StartMapMenu(struct ProcPrepSallyCursor* proc) {
     LoadHelpBoxGfx(0, -1);
-    Font_InitForUIDefault();
+    ResetText();
     EndPlayerPhaseSideWindows();
     HideMoveRangeGraphics();
 

@@ -93,7 +93,7 @@ void PromoTrainee_InitScreen(struct ProcPromoTraineeEvent *proc)
         proc->face = 0;
 
     ResetFaces();
-    Font_InitForUIDefault();
+    ResetText();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
     gLCDControlBuffer.bg0cnt.priority = 0;
