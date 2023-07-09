@@ -58,8 +58,8 @@ void AgbMain()
 
     SetInterrupt_LCDVBlank(OnVBlank);
     sub_80BC81C();
-    SetLang(1);
-    Font_InitForUIDefault();
+    SetLang(LANG_ENGLISH);
+    ResetText();
     StartGame();
 
     // perform the game loop.

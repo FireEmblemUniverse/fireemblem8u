@@ -33,7 +33,7 @@ int Return2or3BySecondParity(void)
     unsigned short minutes;
     unsigned short seconds;
 
-    ComputeDisplayTime(GetGameClock(),&hours,&minutes,&seconds);
+    FormatTime(GetGameClock(),&hours,&minutes,&seconds);
     if ((seconds & 1) == 0) {
         retVal = 2;
     }
@@ -51,7 +51,7 @@ int Return3or2BySecondParity(void)
     unsigned short minutes;
     unsigned short seconds;
 
-    ComputeDisplayTime(GetGameClock(),&hours,&minutes,&seconds);
+    FormatTime(GetGameClock(),&hours,&minutes,&seconds);
     if ((seconds & 1) != 0) {
         retVal = 2;
     }
@@ -119,16 +119,16 @@ void DummyFunction2(void)
 
 void DebugPrintWithProc(struct DebugPrintProc *proc)
 {
-    struct TextHandle textHandler;
+    struct Text Textr;
 
     int x = proc->x;
     int y = proc->y;
     int width = proc->width;
     const char *text = proc->text;
-    Text_Init(&textHandler, width);
-    Text_AppendString(&textHandler, text);
+    InitText(&Textr, width);
+    Text_DrawString(&Textr, text);
     DrawUiFrame2(x, y, width + 2, 4, 0);
-    Text_Draw(&textHandler, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 1));
+    PutText(&Textr, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 1));
     BG_EnableSyncByMask(3);
 }
 
@@ -194,11 +194,11 @@ int sub_801BB98(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
         }
     }
 
-    Text_Clear(&menuItemProc->text);
+    ClearText(&menuItemProc->text);
 
     // BUG: Text ID is used without "GetStringFromIndex"
-    Text_InsertString(&menuItemProc->text, 0, TEXT_COLOR_NORMAL, (const char *)gSoundRoomTable[menuItemProc->itemNumber].nameTextId);
-    Text_Draw(&menuItemProc->text,  gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
+    Text_InsertDrawString(&menuItemProc->text, 0, TEXT_COLOR_SYSTEM_WHITE, (const char *)gSoundRoomTable[menuItemProc->itemNumber].nameTextId);
+    PutText(&menuItemProc->text,  gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
 
     // return 0; // BUG
 }
@@ -223,11 +223,11 @@ int sub_801BC1C(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
     }
 
     if (gKeyStatusPtr->repeatedKeys & (DPAD_RIGHT | DPAD_LEFT)) {
-        Text_Clear(&menuItemProc->text);
+        ClearText(&menuItemProc->text);
 
         // BUG: Text ID is used without "GetStringFromIndex"
-        Text_InsertString(&menuItemProc->text, 0, TEXT_COLOR_NORMAL, (const char *)gSoundRoomTable[menuItemProc->itemNumber].nameTextId);
-        Text_Draw(&menuItemProc->text,  gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
+        Text_InsertDrawString(&menuItemProc->text, 0, TEXT_COLOR_SYSTEM_WHITE, (const char *)gSoundRoomTable[menuItemProc->itemNumber].nameTextId);
+        PutText(&menuItemProc->text,  gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
     }
 
     return 0;
@@ -251,10 +251,10 @@ int CONST_DATA gTextIds_OnOff[] = {
 int DebugMapMenu_DisplayInfoDraw(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
     struct DebugPrintProc* debugPrintProc = Proc_Find(ProcScr_DebugMonitor);
 
-    Text_Clear(&menuItemProc->text);
-    Text_InsertString(&menuItemProc->text, 8, TEXT_COLOR_NORMAL, GetStringFromIndex(menuItemProc->def->nameMsgId));
-    Text_InsertString(&menuItemProc->text, 64, TEXT_COLOR_BLUE, GetStringFromIndex(gTextIds_OnOff[debugPrintProc->unk_66]));
-    Text_Draw(&menuItemProc->text,  gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
+    ClearText(&menuItemProc->text);
+    Text_InsertDrawString(&menuItemProc->text, 8, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(menuItemProc->def->nameMsgId));
+    Text_InsertDrawString(&menuItemProc->text, 64, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(gTextIds_OnOff[debugPrintProc->unk_66]));
+    PutText(&menuItemProc->text,  gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
 
     return 0;
 }
@@ -290,10 +290,10 @@ int DebugMenu_WeatherDraw(struct MenuProc* menuProc, struct MenuItemProc* menuIt
 
     struct DebugPrintProc* debugPrintProc = Proc_Find(ProcScr_DebugMonitor);
 
-    Text_Clear(&menuItemProc->text);
-    Text_InsertString(&menuItemProc->text, 8, TEXT_COLOR_NORMAL, GetStringFromIndex(menuItemProc->def->nameMsgId));
-    Text_InsertString(&menuItemProc->text, 64, TEXT_COLOR_BLUE, GetStringFromIndex((weatherTextIds[debugPrintProc->unk_58 % 7])));
-    Text_Draw(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
+    ClearText(&menuItemProc->text);
+    Text_InsertDrawString(&menuItemProc->text, 8, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(menuItemProc->def->nameMsgId));
+    Text_InsertDrawString(&menuItemProc->text, 64, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex((weatherTextIds[debugPrintProc->unk_58 % 7])));
+    PutText(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
 
     return 0;
 }
@@ -362,11 +362,11 @@ u8 DebugMenu_WeatherEffect(struct MenuProc* menuProc, struct MenuItemProc* menuI
 
 //! FE8U = 0x0801BF00
 int DebugMenu_ClearDraw(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
-    Text_Clear(&menuItemProc->text);
-    Text_InsertString(&menuItemProc->text, 8, TEXT_COLOR_NORMAL, GetStringFromIndex(menuItemProc->def->nameMsgId));
-    Text_InsertString(&menuItemProc->text, 72, TEXT_COLOR_BLUE, GetStringFromIndex(0x6b8)); // TODO: msgid "Clears"
-    Text_InsertNumberOr2Dashes(&menuItemProc->text, 64, TEXT_COLOR_BLUE, GetGlobalCompletionCount() + 1);
-    Text_Draw(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
+    ClearText(&menuItemProc->text);
+    Text_InsertDrawString(&menuItemProc->text, 8, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(menuItemProc->def->nameMsgId));
+    Text_InsertDrawString(&menuItemProc->text, 72, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(0x6b8)); // TODO: msgid "Clears"
+    Text_InsertDrawNumberOrBlank(&menuItemProc->text, 64, TEXT_COLOR_SYSTEM_BLUE, GetGlobalCompletionCount() + 1);
+    PutText(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
 
     return 0;
 }
@@ -653,10 +653,10 @@ u8 DebugContinueMenu_ContinueChapter(struct MenuProc* menuProc, struct MenuItemP
 
 //! FE8U = 0x0801C3D4
 int DebugMenu_FogDraw(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
-    Text_Clear(&menuItemProc->text);
-    Text_InsertString(&menuItemProc->text, 8, TEXT_COLOR_NORMAL, GetStringFromIndex(menuItemProc->def->nameMsgId));
-    Text_InsertString(&menuItemProc->text, 64, TEXT_COLOR_BLUE, GetStringFromIndex(gTextIds_OnOff[(gPlaySt.chapterVisionRange != 0)]));
-    Text_Draw(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
+    ClearText(&menuItemProc->text);
+    Text_InsertDrawString(&menuItemProc->text, 8, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(menuItemProc->def->nameMsgId));
+    Text_InsertDrawString(&menuItemProc->text, 64, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(gTextIds_OnOff[(gPlaySt.chapterVisionRange != 0)]));
+    PutText(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
     return 0;
 }
 
@@ -720,12 +720,12 @@ int DebugChargeMenu_Draw(struct MenuProc* param_1, struct MenuItemProc* menuItem
         state = gPlaySt.debugControlRed;
     }
 
-    Text_Clear(&menuItemProc->text);
+    ClearText(&menuItemProc->text);
 
-    Text_InsertString(&menuItemProc->text, 4, TEXT_COLOR_NORMAL, GetStringFromIndex(factionTextIds[menuItemProc->itemNumber]));
-    Text_InsertString(&menuItemProc->text, 30, TEXT_COLOR_BLUE, GetStringFromIndex(controlTypeTextIds[state]));
+    Text_InsertDrawString(&menuItemProc->text, 4, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(factionTextIds[menuItemProc->itemNumber]));
+    Text_InsertDrawString(&menuItemProc->text, 30, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(controlTypeTextIds[state]));
 
-    Text_Draw(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
+    PutText(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
 
     return 0;
 }

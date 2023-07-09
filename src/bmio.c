@@ -1181,7 +1181,7 @@ void InitMoreBMapGraphics(void) {
     RefreshUnitSprites();
     SetupMapSpritesPalettes();
     ForceSyncUnitSpriteSheet();
-    Font_LoadForUI();
+    InitSystemTextFont();
 }
 
 void RefreshBMapGraphics(void) {

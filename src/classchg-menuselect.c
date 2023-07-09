@@ -63,7 +63,7 @@ u8 ClassChgMenuItem_OnSelect(struct MenuProc *pmenu, struct MenuItemProc *pmitem
             break;
         }
 
-        Font_InitForUI(&gFontClassChgMenu, (void *)BG_VRAM + 0x1000, 0x80, 0x5);
+        InitTextFont(&gFontClassChgMenu, (void *)BG_VRAM + 0x1000, 0x80, 0x5);
         TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 9, 4), 0xA, 0x6, 0);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
         StartMenuExt(&Menu_PromoSubConfirm, 2, 0, 0, 0, pmenu);
@@ -105,17 +105,17 @@ void ClassChgMenuOnDrawCore(struct MenuProc *pmenu, struct MenuItemProc *pmitem,
     u8 unused_stack[32];
     u16 *mapbuf;
     if (pmitem->def->color)
-        Text_SetColorId(&pmitem->text, pmitem->def->color);
+        Text_SetColor(&pmitem->text, pmitem->def->color);
 
     if (pmitem->availability == MENU_DISABLED)
-        Text_SetColorId(&pmitem->text, TEXT_COLOR_GRAY);
+        Text_SetColor(&pmitem->text, TEXT_COLOR_SYSTEM_GRAY);
 
-    sub_8003E00(&pmitem->text, 0, 20);
-    Text_SetXCursor(&pmitem->text, 8);
-    Text_AppendString(&pmitem->text, str);
+    ClearTextPart(&pmitem->text, 0, 20);
+    Text_SetCursor(&pmitem->text, 8);
+    Text_DrawString(&pmitem->text, str);
     mapbuf = BG_GetMapBuffer(pmenu->frontBg);
 
-    Text_Draw(&pmitem->text, &mapbuf[pmitem->yTile * 32 + pmitem->xTile]);
+    PutText(&pmitem->text, &mapbuf[pmitem->yTile * 32 + pmitem->xTile]);
 }
 
 int ClassChgMenuItem_OnTextDraw(struct MenuProc *pmenu, struct MenuItemProc *pmitem)
@@ -168,7 +168,7 @@ CONST_DATA struct MenuItemDef gMenuItem_PromoSel[] = {
         "　第１兵種",
         0,
         0x6DC,  /* Discard items. Important[NL]items cannot be discarded. */
-        TEXT_COLOR_NORMAL,
+        TEXT_COLOR_SYSTEM_WHITE,
         0,
         MenuAlwaysEnabled,
         ClassChgMenuItem_OnTextDraw,
@@ -181,7 +181,7 @@ CONST_DATA struct MenuItemDef gMenuItem_PromoSel[] = {
         "　第２兵種",
         0,
         0x6DC,  /* Discard items. Important[NL]items cannot be discarded. */
-        TEXT_COLOR_NORMAL,
+        TEXT_COLOR_SYSTEM_WHITE,
         1,
         MenuAlwaysEnabled,
         ClassChgMenuItem_OnTextDraw,
@@ -194,7 +194,7 @@ CONST_DATA struct MenuItemDef gMenuItem_PromoSel[] = {
         "　第３兵種",
         0,
         0x6DC,  /* Discard items. Important[NL]items cannot be discarded. */
-        TEXT_COLOR_NORMAL,
+        TEXT_COLOR_SYSTEM_WHITE,
         2,
         ClassChgMenuItem_3rdUsability,
         ClassChgMenuItem_OnTextDraw,
@@ -241,11 +241,11 @@ CONST_DATA struct MenuRect ClassChgMenuRect = {
 void ClassChgMenuExec(struct ProcClassChgMenuSel *proc)
 {
     proc->unk4C = 0;
-    Font_ResetAllocation();
-    Font_InitForUIDefault();
-    SetFontGlyphSet(0);
-    Font_InitForUI(&gFontClassChg, (void *)BG_VRAM + 0x1400, 160, 5);
-    SetFont(&gFontClassChg);
+    ResetTextFont();
+    ResetText();
+    SetTextFontGlyphs(0);
+    InitTextFont(&gFontClassChg, (void *)BG_VRAM + 0x1400, 160, 5);
+    SetTextFont(&gFontClassChg);
     proc->pmenu = StartMenuCore(
 		&gMenuDef_PromoSel,
 		ClassChgMenuRect,

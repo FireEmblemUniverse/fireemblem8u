@@ -100,7 +100,7 @@ struct StatScreenSt
     /* 0C */ struct Unit* unit;
     /* 10 */ struct MUProc* mu;
     /* 14 */ const struct HelpBoxInfo* help;
-    /* 18 */ struct TextHandle text[STATSCREEN_TEXT_MAX];
+    /* 18 */ struct Text text[STATSCREEN_TEXT_MAX];
 };
 
 enum

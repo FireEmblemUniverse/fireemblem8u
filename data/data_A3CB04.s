@@ -1565,7 +1565,7 @@ gUnknown_08A3E8B8:  @ 0x08A3E8B8
         .word sub_80C0CF4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word NewGreenTextColorManager
+        .word StartGreenText
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80C0C44

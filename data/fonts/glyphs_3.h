@@ -1506,7 +1506,7 @@ struct Glyph gUnknown_08590AFC =
     },
 };
 
-struct Glyph *gUnknown_08590B44[] =
+struct Glyph *TextGlyphs_Special[] =
 {
     &gUnknown_0858FAF4,
     &gUnknown_0858FB3C,

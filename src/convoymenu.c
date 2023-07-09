@@ -119,9 +119,9 @@ int SendToConvoyMenu_Draw(struct MenuProc* proc_menu, struct MenuItemProc* proc_
 int MenuCommand_DrawExtraItem(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
     u16 item = gBmSt.itemUnk2C;
-    struct TextHandle* text = &proc_cmd->text;
+    struct Text* text = &proc_cmd->text;
 
-    Text_SetColorId(text, TEXT_COLOR_BLUE);
+    Text_SetColor(text, TEXT_COLOR_SYSTEM_BLUE);
     DrawItemMenuLineNoColor(text, item,
             TILEMAP_LOCATED(gBG0TilemapBuffer, proc_cmd->xTile, proc_cmd->yTile));
     BG_EnableSyncByMask(BG0_SYNC_BIT);

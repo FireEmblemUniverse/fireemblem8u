@@ -472,7 +472,7 @@ SetupGraphicSystemsForWorldMap: @ 0x080B8D5C
 	movs r0, #6
 	bl GetSaveWriteAddr
 	bl LoadLegacyUiFrameGraphics
-	bl Font_InitForUIDefault
+	bl ResetText
 	bl ResetFaces
 	ldr r0, _080B8E0C  @ gUnknown_08A3D728
 	bl SetupFaceGfxData
@@ -581,8 +581,8 @@ sub_80B8E60: @ 0x080B8E60
 	ldr r1, _080B8F9C  @ 0x06005000
 	bl Decompress
 	bl LoadUiFrameGraphics
-	bl Font_InitForUIDefault
-	bl Font_ResetAllocation
+	bl ResetText
+	bl ResetTextFont
 	ldr r4, _080B8FA0  @ gLCDControlBuffer
 	ldrb r1, [r4, #1]
 	movs r0, #0x21
@@ -7957,7 +7957,7 @@ _080BC43C:
 	ldm r6!, {r0}
 	adds r0, #0x34
 	movs r1, #0
-	bl Text_SetXCursor
+	bl Text_SetCursor
 	adds r4, #1
 	ldrb r0, [r5]
 	cmp r4, r0
@@ -7980,7 +7980,7 @@ sub_80BC454: @ 0x080BC454
 	ldr r1, _080BC484  @ 0x06001000
 	movs r2, #0x80
 	movs r3, #0
-	bl Font_InitForUI
+	bl InitTextFont
 	ldr r0, _080BC488  @ gUnknown_08A3E124
 	ldr r1, _080BC48C  @ gUnknown_08A3E148
 	ldr r1, [r1]
@@ -8084,7 +8084,7 @@ sub_80BC4F4: @ 0x080BC4F4
 	bne _080BC51E
 	adds r0, r4, #0
 	movs r1, #4
-	bl Text_SetColorId
+	bl Text_SetColor
 _080BC51E:
 	adds r0, r5, #0
 	adds r0, #0x3d
@@ -8093,14 +8093,14 @@ _080BC51E:
 	bne _080BC530
 	adds r0, r4, #0
 	movs r1, #1
-	bl Text_SetColorId
+	bl Text_SetColor
 _080BC530:
 	ldr r0, [r5, #0x30]
 	ldrh r0, [r0, #4]
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 	adds r0, r6, #0
 	adds r0, #0x64
 	ldrb r0, [r0]
@@ -8117,7 +8117,7 @@ _080BC530:
 	lsls r0, r0, #1
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl Text_Draw
+	bl PutText
 _080BC566:
 	pop {r4, r5, r6}
 	pop {r1}
@@ -8181,7 +8181,7 @@ sub_80BC5B4: @ 0x080BC5B4
 	ldr r1, _080BC5E8  @ 0x06001000
 	movs r2, #0x80
 	movs r3, #0
-	bl Font_InitForUI
+	bl InitTextFont
 	ldr r0, [r4, #8]
 	asrs r0, r0, #8
 	movs r2, #2

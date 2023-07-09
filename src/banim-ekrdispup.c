@@ -243,10 +243,10 @@ void EfxPrepareScreenFx(void)
 {
     const char *str;
 
-    CopyToPaletteBuffer(Pal_UIFont, 0x40, 0x20);
-    CopyToPaletteBuffer(Pal_UIFont, 0x60, 0x20);
-    Font_InitForUI(&gSomeFontStruct, (void *)0x6001880, 0xC4, 2);
-    Font_SetSomeSpecialDrawingRoutine();
+    CopyToPaletteBuffer(Pal_Text, 0x40, 0x20);
+    CopyToPaletteBuffer(Pal_Text, 0x60, 0x20);
+    InitTextFont(&gSomeFontStruct, (void *)0x6001880, 0xC4, 2);
+    SetTextDrawNoClear();
     LZ77UnCompVram(gUnknown_08801C14, (void *)0x6001000);
 
     /* left unit name */
@@ -255,10 +255,10 @@ void EfxPrepareScreenFx(void)
     else
         str = GetStringFromIndex(gpEkrBattleUnitLeft->unit.pCharacterData->nameTextId);
 
-    Text_Init(&gTextEkrlvupMsg[0], 7);
-    Text_SetXCursor(&gTextEkrlvupMsg[0], GetStringTextCenteredPos(0x38, str));
+    InitText(&gTextEkrlvupMsg[0], 7);
+    Text_SetCursor(&gTextEkrlvupMsg[0], GetStringTextCenteredPos(0x38, str));
     LZ77UnCompVram(Img_EfxLeftNameBox, (void *)0x6001880);
-    Text_AppendString(&gTextEkrlvupMsg[0], str);
+    Text_DrawString(&gTextEkrlvupMsg[0], str);
 
     /* left unit item */
     if (gEkrPairSideVaild[EKR_POS_L] == false)
@@ -266,10 +266,10 @@ void EfxPrepareScreenFx(void)
     else
         str = GetItemName(gpEkrBattleUnitLeft->weaponBefore);
 
-    Text_Init(&gTextEkrlvupMsg[2], 8);
-    Text_SetXCursor(&gTextEkrlvupMsg[2], GetStringTextCenteredPos(0x40, str));
+    InitText(&gTextEkrlvupMsg[2], 8);
+    Text_SetCursor(&gTextEkrlvupMsg[2], GetStringTextCenteredPos(0x40, str));
     LZ77UnCompVram(Img_EfxLeftItemBox, (void *)0x6001A40);
-    Text_AppendString(&gTextEkrlvupMsg[2], str);
+    Text_DrawString(&gTextEkrlvupMsg[2], str);
 
     /* right unit name */
     if (gEkrPairSideVaild[EKR_POS_R] == false)
@@ -277,10 +277,10 @@ void EfxPrepareScreenFx(void)
     else
         str = GetStringFromIndex(gpEkrBattleUnitRight->unit.pCharacterData->nameTextId);
 
-    Text_Init(&gTextEkrlvupMsg[3], 7);
-    Text_SetXCursor(&gTextEkrlvupMsg[3], GetStringTextCenteredPos(0x38, str));
+    InitText(&gTextEkrlvupMsg[3], 7);
+    Text_SetCursor(&gTextEkrlvupMsg[3], GetStringTextCenteredPos(0x38, str));
     LZ77UnCompVram(Img_EfxRightNameBox, (void *)0x6001C40);
-    Text_AppendString(&gTextEkrlvupMsg[3], str);
+    Text_DrawString(&gTextEkrlvupMsg[3], str);
 
     /* right unit item */
     if (gEkrPairSideVaild[EKR_POS_R] == false)
@@ -288,10 +288,10 @@ void EfxPrepareScreenFx(void)
     else
         str = GetItemName(gpEkrBattleUnitRight->weaponBefore);
 
-    Text_Init(&gTextEkrlvupMsg[1], 8);
-    Text_SetXCursor(&gTextEkrlvupMsg[1], GetStringTextCenteredPos(0x3E, str));
+    InitText(&gTextEkrlvupMsg[1], 8);
+    Text_SetCursor(&gTextEkrlvupMsg[1], GetStringTextCenteredPos(0x3E, str));
     LZ77UnCompVram(Img_EfxRightItemBox, (void *)0x6001E00);
-    Text_AppendString(&gTextEkrlvupMsg[1], str);
+    Text_DrawString(&gTextEkrlvupMsg[1], str);
 
     BG_Fill(gBG0TilemapBuffer, 0x80);
     sub_8070E94(gUnknown_08802508, gBG0TilemapBuffer + 0x1E, 2, 20, -1, -1);

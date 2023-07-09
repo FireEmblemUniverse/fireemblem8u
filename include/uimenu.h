@@ -86,7 +86,7 @@ struct MenuItemProc
 
     /* 30 */ const struct MenuItemDef* def;
 
-    /* 34 */ struct TextHandle text;
+    /* 34 */ struct Text text;
 
     /* 3C */ s8 itemNumber;
     /* 3D */ u8 availability;

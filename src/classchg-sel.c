@@ -110,20 +110,20 @@ void ClassChgSelDrawPidName(struct ProcPromoSel *proc) {
     char *string;
 
     DrawUiFrame(gBG2TilemapBuffer, 2, 1, 10, 6, 0, 1);
-    SetFontGlyphSet(0);
-    SetFont(0);
+    SetTextFontGlyphs(0);
+    SetTextFont(0);
 
-    DrawTextInline(
+    PutDrawText(
         NULL,
         TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 2),
-        TEXT_COLOR_NORMAL, 0, 0x8,
+        TEXT_COLOR_SYSTEM_WHITE, 0, 0x8,
         GetStringFromIndex(GetClassData(proc->jid[0])->nameTextId)
     );
 
-    DrawTextInline(
+    PutDrawText(
         NULL,
         TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 4),
-        TEXT_COLOR_NORMAL, 0, 0x8,
+        TEXT_COLOR_SYSTEM_WHITE, 0, 0x8,
         GetStringFromIndex(GetClassData(proc->jid[1])->nameTextId)
     );
 }
@@ -278,8 +278,8 @@ void Make6C_PromotionMenuSelect(struct ProcPromoSel* proc) {
 void sub_80CCF60(struct ProcPromoSel *proc) {
     u16 tmp;
 
-    Font_ResetAllocation();
-    Font_InitForUIDefault();
+    ResetTextFont();
+    ResetText();
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     InitTalk(0x100, 2, 0);

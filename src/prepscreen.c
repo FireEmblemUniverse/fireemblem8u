@@ -241,13 +241,13 @@ void InitPrepScreenMainMenu(struct ProcAtMenu* proc)
         SetPrepScreenMenuItem(
             PREP_MAINMENU_UNIT,
             PrepScreenMenu_OnPickUnits,
-            TEXT_COLOR_NORMAL,
+            TEXT_COLOR_SYSTEM_WHITE,
             0x574, 0);
 
         SetPrepScreenMenuItem(
             PREP_MAINMENU_ITEM,
             PrepScreenMenu_OnItems,
-            TEXT_COLOR_NORMAL,
+            TEXT_COLOR_SYSTEM_WHITE,
             0x576, 0);
 
         AtMenu_AddPrepScreenSupportMenuItem(proc);
@@ -256,19 +256,19 @@ void InitPrepScreenMainMenu(struct ProcAtMenu* proc)
             SetPrepScreenMenuItem(
                 PREP_MAINMENU_CHECKMAP,
                 PrepScreenMenu_OnCheckMap,
-                TEXT_COLOR_NORMAL,
+                TEXT_COLOR_SYSTEM_WHITE,
                 0x578, 0);
         } else {
             SetPrepScreenMenuItem(
                 PREP_MAINMENU_CHECKMAP,
                 PrepScreenMenu_OnCheckMap,
-                TEXT_COLOR_GRAY,
+                TEXT_COLOR_SYSTEM_GRAY,
                 0x578, 0);
         }
 
-        color = TEXT_COLOR_NORMAL;
+        color = TEXT_COLOR_SYSTEM_WHITE;
         if (!CanPrepScreenSave())
-            color = TEXT_COLOR_GRAY;
+            color = TEXT_COLOR_SYSTEM_GRAY;
         
         SetPrepScreenMenuItem(
             PREP_MAINMENU_SAVE,
@@ -280,19 +280,19 @@ void InitPrepScreenMainMenu(struct ProcAtMenu* proc)
         SetPrepScreenMenuItem(
             PREP_MAINMENU_UNIT,
             PrepScreenMenu_OnPickUnits,
-            TEXT_COLOR_NORMAL,
+            TEXT_COLOR_SYSTEM_WHITE,
             0x574, 0);
 
         SetPrepScreenMenuItem(
             PREP_MAINMENU_ITEM,
             PrepScreenMenu_OnItems,
-            TEXT_COLOR_NORMAL,
+            TEXT_COLOR_SYSTEM_WHITE,
             0x576, 0);
 
         SetPrepScreenMenuItem(
             PREP_MAINMENU_UNK3,
             sub_8095284,
-            TEXT_COLOR_NORMAL,
+            TEXT_COLOR_SYSTEM_WHITE,
             0x75C, 0);
     }
 
@@ -565,14 +565,14 @@ void Prep_DrawChapterGoal(int VRAM_offset, int pal)
     int msg;
     const char *str;
     struct Font font;
-    struct TextHandle th;
+    struct Text th;
 
-    InitSomeOtherGraphicsRelatedStruct(&font, OBJ_VRAM0 + VRAM_offset, pal);
-    ApplyPalette(Pal_UIFont, 0x10 + pal);
-    Text_Init3(&th);
-    SetFont(&font);
-    SetFontGlyphSet(0);
-    Text_80046B4(&th, 0);
+    InitSpriteTextFont(&font, OBJ_VRAM0 + VRAM_offset, pal);
+    ApplyPalette(Pal_Text, 0x10 + pal);
+    InitSpriteText(&th);
+    SetTextFont(&font);
+    SetTextFontGlyphs(0);
+    SpriteText_DrawBackgroundExt(&th, 0);
 
     if (2 != GetChapterThing())
         msg = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowTextId;
@@ -581,10 +581,10 @@ void Prep_DrawChapterGoal(int VRAM_offset, int pal)
 
     str = GetStringFromIndex(msg);
 
-    Text_InsertString(
+    Text_InsertDrawString(
         &th,
         GetStringTextCenteredPos(0x60, str),
         0, str);
 
-    SetFont(0);
+    SetTextFont(0);
 }

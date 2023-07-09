@@ -19,7 +19,7 @@
 #include "prepscreen.h"
 
 s8 CheckInLinkArena();
-extern struct TextHandle gPrepUnitTexts[];
+extern struct Text gPrepUnitTexts[];
 
 void PrepUnit_DrawUnitListNames(struct ProcPrepUnit *proc, int line)
 {
@@ -28,7 +28,7 @@ void PrepUnit_DrawUnitListNames(struct ProcPrepUnit *proc, int line)
     struct Unit * unit;
 
     /**
-     * It use 14 TextHandles to store 6 line of 12 Units;
+     * It use 14 Texts to store 6 line of 12 Units;
      */
 
     i = 0;
@@ -43,17 +43,17 @@ void PrepUnit_DrawUnitListNames(struct ProcPrepUnit *proc, int line)
 
         unit = GetUnitFromPrepList(itext);
 
-        color = TEXT_COLOR_NORMAL;
+        color = TEXT_COLOR_SYSTEM_WHITE;
         if (!CheckInLinkArena() && IsCharacterForceDeployed(unit->pCharacterData->number))
-            color = TEXT_COLOR_GREEN;
+            color = TEXT_COLOR_SYSTEM_GREEN;
         else if (unit->state & US_NOT_DEPLOYED)
-            color = TEXT_COLOR_GRAY;
+            color = TEXT_COLOR_SYSTEM_GRAY;
 
         ilist = _line * 2 + i;
 
-        Text_Clear(&gPrepUnitTexts[ilist]);
+        ClearText(&gPrepUnitTexts[ilist]);
 
-        DrawTextInline(
+        PutDrawText(
             &gPrepUnitTexts[ilist],
             TILEMAP_LOCATED( gBG2TilemapBuffer, 0x10 + i * 7, val % 0x20),
             color,
@@ -117,19 +117,19 @@ void PrepUnit_InitTexts()
 {
     int i;
 
-    Font_InitForUIDefault();
+    ResetText();
 
     /* 0x00 ~ 0x0D (size = 14): unit name */
     for (i = 0; i < 14; i++)
-        Text_Init(&gPrepUnitTexts[i], 5);
+        InitText(&gPrepUnitTexts[i], 5);
     
     /* 0x0E ~ 0x12 (size = 5):  item name */
     for (i = 0; i < 5; i++)
-        Text_Init(&gPrepUnitTexts[i + 0xE], 7);
+        InitText(&gPrepUnitTexts[i + 0xE], 7);
     
-    Text_Init(&gPrepUnitTexts[0x13], 7);
-    Text_Init(&gPrepUnitTexts[0x14], 10);
-    Text_Init(&gPrepUnitTexts[0x15], 12);
+    InitText(&gPrepUnitTexts[0x13], 7);
+    InitText(&gPrepUnitTexts[0x14], 10);
+    InitText(&gPrepUnitTexts[0x15], 12);
 }
 
 void PrepUnit_InitGfx()
@@ -164,21 +164,21 @@ void PrepUnit_DrawLeftUnitName(struct Unit *unit)
 {
     TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 3), 6, 1, 0);
     PutFaceChibi(GetUnitPortraitId(unit), TILEMAP_LOCATED(gBG0TilemapBuffer, 1, 1), 0x270, 2, 0);
-    Text_Clear(&gPrepUnitTexts[0x13]);
-    DrawTextInline(
+    ClearText(&gPrepUnitTexts[0x13]);
+    PutDrawText(
         &gPrepUnitTexts[0x13],
         TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 1),
-        TEXT_COLOR_NORMAL,
+        TEXT_COLOR_SYSTEM_WHITE,
         GetStringTextCenteredPos(0x38, GetStringFromIndex(unit->pCharacterData->nameTextId)),
         0,
         GetStringFromIndex(unit->pCharacterData->nameTextId)
     );
 
-    DrawSpecialUiStr(TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 3), 3, 0x24, 0x25);
-    DrawSpecialUiChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 9, 3), 3, 0x1D);
+    PutTwoSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 3), 3, 0x24, 0x25);
+    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 9, 3), 3, 0x1D);
 
-    DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 3), 2, unit->level);
-    DrawDecNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 3), 2, unit->exp);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 3), 2, unit->level);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 3), 2, unit->exp);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
 
@@ -204,22 +204,22 @@ void PrepUnit_DrawUnitItems(struct Unit *unit)
             TILEREF(0, BGPAL_ICONS)
         );
 
-        Text_Clear(&gPrepUnitTexts[i + 0xE]);
+        ClearText(&gPrepUnitTexts[i + 0xE]);
 
-        DrawTextInline(
+        PutDrawText(
             &gPrepUnitTexts[i + 0xE],
             TILEMAP_LOCATED( gBG0TilemapBuffer, 3, 5 + 2 * i),
             IsItemDisplayUsable(unit, item)
-                ? TEXT_COLOR_NORMAL
-                : TEXT_COLOR_GRAY,
+                ? TEXT_COLOR_SYSTEM_WHITE
+                : TEXT_COLOR_SYSTEM_GRAY,
             0, 0, GetItemName(item)
         );
 
-        DrawDecNumber(
+        PutNumberOrBlank(
             TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 5 + 2 * i),
             IsItemDisplayUsable(unit, item)
-                ? TEXT_COLOR_BLUE
-                : TEXT_COLOR_GRAY,
+                ? TEXT_COLOR_SYSTEM_BLUE
+                : TEXT_COLOR_SYSTEM_GRAY,
             GetItemUses(item)
         );
 
@@ -231,48 +231,48 @@ void PrepUnit_DrawUnitItems(struct Unit *unit)
 void PrepUnit_DrawPickLeftBar(struct ProcPrepUnit *proc, s8 val)
 {
     if (0 == val) {
-        Text_Clear(&gPrepUnitTexts[0x15]);
-        DrawTextInline(
+        ClearText(&gPrepUnitTexts[0x15]);
+        PutDrawText(
             &gPrepUnitTexts[0x15],
             TILEMAP_LOCATED(gBG0TilemapBuffer, 0xD, 0x1),
-            TEXT_COLOR_NORMAL,
+            TEXT_COLOR_SYSTEM_WHITE,
             6, 0,
             GetStringFromIndex(0x5A1)   /* Pick */
         );
 
-        DrawTextInline(
+        PutDrawText(
             &gPrepUnitTexts[0x15],
             TILEMAP_LOCATED(gBG0TilemapBuffer, 0xD, 0x1),
-            TEXT_COLOR_NORMAL,
+            TEXT_COLOR_SYSTEM_WHITE,
             0x29, 0,
             GetStringFromIndex(0x5A2)   /* Units Left */
         );
     }
 
     TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x10, 0x1), 1, 1, 0);
-    DrawDecNumber(
+    PutNumberOrBlank(
         TILEMAP_LOCATED(gBG0TilemapBuffer, 0x11, 1),
         proc->cur_counter == proc->max_counter
-            ? TEXT_COLOR_GRAY
-            : TEXT_COLOR_BLUE,
+            ? TEXT_COLOR_SYSTEM_GRAY
+            : TEXT_COLOR_SYSTEM_BLUE,
         proc->max_counter - proc->cur_counter
     );
 
     TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x18, 0x1), 4, 1, 0);
-    DrawDecNumber(
+    PutNumberOrBlank(
         TILEMAP_LOCATED(gBG0TilemapBuffer, 0x19, 1),
         proc->cur_counter == proc->max_counter
-            ? TEXT_COLOR_GREEN
-            : TEXT_COLOR_BLUE,
+            ? TEXT_COLOR_SYSTEM_GREEN
+            : TEXT_COLOR_SYSTEM_BLUE,
         proc->cur_counter
     );
 
-    DrawSpecialUiChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1A, 1), 0, 0x16);
-    DrawDecNumber(
+    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1A, 1), 0, 0x16);
+    PutNumberOrBlank(
         TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1C, 1),
         proc->cur_counter == proc->max_counter
-            ? TEXT_COLOR_GREEN
-            : TEXT_COLOR_BLUE,
+            ? TEXT_COLOR_SYSTEM_GREEN
+            : TEXT_COLOR_SYSTEM_BLUE,
         proc->max_counter
     );
 
@@ -471,7 +471,7 @@ void ProcPrepUnit_InitScreen(struct ProcPrepUnit *proc)
         PrepUnit_DrawUnitListNames(proc, proc->yDiff_cur / 0x10 + i);
 
     PrepUnit_DrawPickLeftBar(proc, 0);
-    NewGreenTextColorManager(proc);
+    StartGreenText(proc);
     LoadHelpBoxGfx(BG_SCREEN_ADDR(0x29), 5);
     RestartMuralBackground();
 }

@@ -90,8 +90,8 @@ void sub_80A199C(struct SupportScreenProc*, int);
 int GetSupportScreenPartnerCount(int);
 void StartSupportUnitSubScreen(s8, int, ProcPtr);
 
-extern struct TextHandle gPrepItemTexts[];
-extern struct TextHandle gUnknown_02013590[];
+extern struct Text gPrepItemTexts[];
+extern struct Text gUnknown_02013590[];
 
 extern int sSupportScreenUnitCount;
 extern u16 gUnknown_020136F4[];
@@ -385,7 +385,7 @@ int sub_80A0F6C(s8 flag, int idx) {
 
 //! FE8U = 0x080A0FE8
 void DrawSupportScreenText(void) {
-    struct TextHandle* th;
+    struct Text* th;
     int perc;
     const char* str;
 
@@ -393,35 +393,35 @@ void DrawSupportScreenText(void) {
 
     perc = GetTotalSupportCollection();
 
-    Text_Init(th - 1, 16);
-    Text_Init(th + 0, 9);
-    Text_Clear(th - 1);
+    InitText(th - 1, 16);
+    InitText(th + 0, 9);
+    ClearText(th - 1);
 
     str = GetStringFromIndex(0x5AD); // TODO: msgid "Select Character"
-    Text_InsertString(th - 1, (s16)GetStringTextCenteredPos(128, str), 0, str);
+    Text_InsertDrawString(th - 1, (s16)GetStringTextCenteredPos(128, str), 0, str);
 
-    Text_Draw(th - 1, TILEMAP_LOCATED(gBG0TilemapBuffer, 7, 18));
+    PutText(th - 1, TILEMAP_LOCATED(gBG0TilemapBuffer, 7, 18));
 
-    Text_Clear(th + 0);
-    Text_InsertString(
+    ClearText(th + 0);
+    Text_InsertDrawString(
         th + 0,
         0,
         perc == 100 ? 4 : 0,
         GetStringFromIndex(0x5AA) // TODO: msgid "Success[.]"
     );
 
-    Text_SetXCursor(th + 0, 52);
-    Text_SetColorId(th + 0, perc == 100 ? 4 : 2);
-    Text_AppendNumberOr2Dashes(th + 0, perc);
+    Text_SetCursor(th + 0, 52);
+    Text_SetColor(th + 0, perc == 100 ? 4 : 2);
+    Text_DrawNumberOrBlank(th + 0, perc);
 
-    Text_InsertString(
+    Text_InsertDrawString(
         th + 0,
         60,
         perc == 100 ? 4 : 0,
         GetStringFromIndex(0x5AE) // TODO: msgid "%[.]"
     );
 
-    Text_Draw(th + 0, TILEMAP_LOCATED(gBG0TilemapBuffer, 7, 18) - 500);
+    PutText(th + 0, TILEMAP_LOCATED(gBG0TilemapBuffer, 7, 18) - 500);
 
     BG_EnableSyncByMask(1);
 
@@ -548,7 +548,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 
     ResetFaces();
 
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
     LoadUiFrameGraphicsTo(0x4000, -1);
     LoadObjUIGfx();
@@ -604,7 +604,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     SetBlendTargetA(1, 1, 1, 1, 1);
 
     for (i = 0; i <= 20; i++) {
-        Text_Init(gPrepItemTexts + i, 5);
+        InitText(gPrepItemTexts + i, 5);
     }
 
     DrawSupportScreenText();
@@ -635,7 +635,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
         sub_80A199C(proc, i);
     }
 
-    NewGreenTextColorManager((void*)proc);
+    StartGreenText((void*)proc);
 
     proc->helpTextActive = 0;
 
@@ -894,14 +894,14 @@ void sub_80A199C(struct SupportScreenProc* proc, int param_2) {
     int x;
     int y;
     int color;
-    struct TextHandle* textPtr;
+    struct Text* textPtr;
 
-    SetFontGlyphSet(0);
-    SetFont(0);
+    SetTextFontGlyphs(0);
+    SetTextFont(0);
 
     textPtr = gPrepItemTexts + ((param_2 * 3) % 0x15);
     for (i = 0, j = (param_2 * 3); i < 3; textPtr++, j++, i++) {
-        Text_Clear(textPtr);
+        ClearText(textPtr);
 
         if ((j) < GetSupportScreenUnitCount()) {
             x = ((i) % 3) * 8;
@@ -919,15 +919,15 @@ void sub_80A199C(struct SupportScreenProc* proc, int param_2) {
                     break;
             }
 
-            Text_SetXCursor(textPtr, 0);
-            Text_SetColorId(textPtr, color);
+            Text_SetCursor(textPtr, 0);
+            Text_SetColor(textPtr, color);
 
-            Text_AppendString(
+            Text_DrawString(
                 textPtr,
                 GetStringFromIndex(gCharacterData[GetSupportScreenCharIdAt((j)) - 1].nameTextId)
             );
 
-            Text_Draw(
+            PutText(
                 textPtr,
                 gBG2TilemapBuffer + TILEMAP_INDEX(x, y)
             );
@@ -1071,15 +1071,15 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
 
     if (proc->partnerState[idx] == 0) {
         for (i = 0; i < 5; i++) {
-            DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x10 + i, _y = idx * 2 + 3), 1, 0x14);
+            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x10 + i, _y = idx * 2 + 3), 1, 0x14);
         }
 
         for (i = 0; i < 2; i++) {
-            DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x16 + i, _y = idx * 2 + 3), 1, 0x14);
+            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x16 + i, _y = idx * 2 + 3), 1, 0x14);
         }
 
         for (i = 0; i < 3; i++) {
-            DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, _y = idx * 2 + 3), 1, 0x14);
+            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, _y = idx * 2 + 3), 1, 0x14);
         }
     } else {
         int color = 0;
@@ -1091,7 +1091,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
             color = 1;
         }
 
-        DrawTextInline(
+        PutDrawText(
             0,
             gUnknown_02023CC8 + (_y = ((idx * 2) + 3) * 0x20),
             color,
@@ -1115,10 +1115,10 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
                     color = 0;
                 }
 
-                DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
+                PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
             }
 
-            DrawSpecialUiChar(gBG2TilemapBuffer + 0x1B + (((idx * 2) + 3) * 0x20), 1, 0x14);
+            PutSpecialChar(gBG2TilemapBuffer + 0x1B + (((idx * 2) + 3) * 0x20), 1, 0x14);
         } else {
 
             for (i = 0; i < 3; i++) {
@@ -1129,7 +1129,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
                     color = 0;
                 }
 
-                DrawSpecialUiChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
+                PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
             }
         }
     }
@@ -1140,47 +1140,47 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
 void DrawSupportSubScreenRemainingText(struct SubScreenProc* proc) {
     const char* str;
     struct Font font;
-    struct TextHandle th;
+    struct Text th;
 
-    InitSomeOtherGraphicsRelatedStruct(&font, (void*)0x06015000, 0xe);
-    CopyToPaletteBuffer(Pal_UIFont, 0x3c0, 0x20);
+    InitSpriteTextFont(&font, (void*)0x06015000, 0xe);
+    CopyToPaletteBuffer(Pal_Text, 0x3c0, 0x20);
 
-    Text_Init3(&th);
+    InitSpriteText(&th);
 
-    SetFont(&font);
-    SetFontGlyphSet(0);
+    SetTextFont(&font);
+    SetTextFontGlyphs(0);
 
-    Text_80046B4(&th, 0);
+    SpriteText_DrawBackgroundExt(&th, 0);
 
     str = GetStringFromIndex(gCharacterData[GetSupportScreenCharIdAt(proc->unitIdx) - 1].nameTextId);
 
-    Text_InsertString(
+    Text_InsertDrawString(
         &th,
         GetStringTextCenteredPos(40, str),
-        TEXT_COLOR_NORMAL,
+        TEXT_COLOR_SYSTEM_WHITE,
         str
     );
 
-    Text_InsertString(
+    Text_InsertDrawString(
         &th,
         48,
-        proc->remainingSupports == 0 ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL,
+        proc->remainingSupports == 0 ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE,
         GetStringFromIndex(0x5AB) // TODO: msgid "Remaining[.]"
     );
 
-    Text_InsertString(
+    Text_InsertDrawString(
         &th,
         96,
-        proc->remainingSupports == 0 ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL,
+        proc->remainingSupports == 0 ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE,
         GetStringFromIndex(0x5AC) // TODO: msgid "x[.]"
     );
 
-    Text_SetXCursor(&th, sub_80AEBEC(proc->remainingSupports) * 8 + 96);
+    Text_SetCursor(&th, sub_80AEBEC(proc->remainingSupports) * 8 + 96);
 
-    Text_SetColorId(&th, (proc->remainingSupports == 0) ? TEXT_COLOR_GRAY : TEXT_COLOR_BLUE);
-    Text_AppendNumberOr2Dashes(&th, proc->remainingSupports);
+    Text_SetColor(&th, (proc->remainingSupports == 0) ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE);
+    Text_DrawNumberOrBlank(&th, proc->remainingSupports);
 
-    SetFont(0);
+    SetTextFont(0);
 
     return;
 }
@@ -1356,7 +1356,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 1;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
 
     LoadUiFrameGraphics();
@@ -1366,7 +1366,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     sub_80A221C();
     LoadIconPalettes(0xd);
 
-    NewGreenTextColorManager((void*)proc);
+    StartGreenText((void*)proc);
 
     if (!proc->fromPrepScreen) {
         gPlaySt.cfgTextSpeed = 1; // TODO: Text speed constants
@@ -1516,7 +1516,7 @@ void sub_80A25F8(struct SubScreenProc* proc) {
 
     ResetFaces();
 
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
     LoadLegacyUiFrameGraphics();
     LoadObjUIGfx();
@@ -1687,7 +1687,7 @@ void SupportSubScreen_SwapPageIn_FromLeft(struct SubScreenProc* proc) {
 //! FE8U = 0x080A29C0
 void SupportSubScreen_ReinitAfterSwapPage(struct SubScreenProc* proc) {
     ResetFaces();
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
 
     BG_Fill(gBG0TilemapBuffer, 0);

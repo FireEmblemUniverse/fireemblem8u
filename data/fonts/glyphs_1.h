@@ -4002,7 +4002,7 @@ struct Glyph gUnknown_0858C7A4 =
     },
 };
 
-struct Glyph *gUnknown_0858C7EC[] =
+struct Glyph *TextGlyphs_System[] =
 {
     NULL,
     NULL,

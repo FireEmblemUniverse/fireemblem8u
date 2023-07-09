@@ -110,7 +110,7 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
     const char *str;
     int width1, width2, width3, width_popupbox, width5, xcursor, tmp, tmpr0;
 
-    struct TextHandle *text;
+    struct Text *text;
     struct Anim *anim;
 
     static u32 instr_unit[6] = {
@@ -124,72 +124,72 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
 
     LZ77UnCompVram(gUnknown_08803B30, (void *)BG_VRAM + 0x2000);
     LZ77UnCompWram(gUnknown_08803CD0, (void *)gEkrTsaBuffer);
-    Font_InitForUI(&gSomeFontStruct, (void *)BG_VRAM + 0x2100, 0x108, 1);
-    Font_SetSomeSpecialDrawingRoutine();
+    InitTextFont(&gSomeFontStruct, (void *)BG_VRAM + 0x2100, 0x108, 1);
+    SetTextDrawNoClear();
     CpuFastCopy(gUnknown_08803CB0, PAL_BG(0x1), 0x20);
 
     if (type == 0) {
         /*  [.] */
         str = GetStringFromIndex(0x01);
-        width1 = GetStringTextWidth(str);
+        width1 = GetStringTextLen(str);
         width2 = width1 + 0x10;
 
         /* Weapon Level increased.[.] */
         str = GetStringFromIndex(0x02);
-        width3 = GetStringTextWidth(str) + width2;
+        width3 = GetStringTextLen(str) + width2;
     } else if (type == 1) {
         width1 = 0;
         str = GetItemNameWithArticle(priv, 1);
-        width2 = GetStringTextWidth(str) + 0x10;
+        width2 = GetStringTextLen(str) + 0x10;
 
         /* broke! */
         str = GetStringFromIndex(0x03);
-        width3 = GetStringTextWidth(str) + width2 + 0x04;
+        width3 = GetStringTextLen(str) + width2 + 0x04;
     } else {
         width1 = 0;
         width2 = 0x10;
 
         /* You can now use  */
         str = GetStringFromIndex(0x0D);
-        width3 = GetStringTextWidth(str) + 0x10;
+        width3 = GetStringTextLen(str) + 0x10;
     }
 
     width_popupbox = (width3 + 7) >> 3;
     MakeBattlePopupTileMapFromTSA(gBG1TilemapBuffer, width_popupbox);
 
     text = &gTextEkrlvupMsg[0];
-    Text_Init(text, width_popupbox);
+    InitText(text, width_popupbox);
     xcursor = (width_popupbox * 8 - width3) >> 1;
-    Text_SetXCursor(text, xcursor);
+    Text_SetCursor(text, xcursor);
     LZ77UnCompVram(gUnknown_08803BD0, (void *)BG_VRAM + 0x2100);
 
     if (type == 0) {
         /*  [.] */
         str = GetStringFromIndex(0x01);
-        Text_SetColorId(text, TEXT_COLOR_NORMAL);
-        Text_AppendString(text, str);
+        Text_SetColor(text, TEXT_COLOR_SYSTEM_WHITE);
+        Text_DrawString(text, str);
 
-        Text_Advance(text, 0x10);
+        Text_Skip(text, 0x10);
 
         /* Weapon Level increased.[.] */
         str = GetStringFromIndex(0x02);
-        Text_SetColorId(text, TEXT_COLOR_NORMAL);
-        Text_AppendString(text, str);
+        Text_SetColor(text, TEXT_COLOR_SYSTEM_WHITE);
+        Text_DrawString(text, str);
     } else if (type == 1) {
         str = GetItemNameWithArticle(priv, 1);
-        Text_SetColorId(text, TEXT_COLOR_GRAY);
-        Text_AppendString(text, str);
-        Text_Advance(text, 0x14);
+        Text_SetColor(text, TEXT_COLOR_SYSTEM_GRAY);
+        Text_DrawString(text, str);
+        Text_Skip(text, 0x14);
 
         /* broke! */
         str = GetStringFromIndex(0x03);
-        Text_SetColorId(text, TEXT_COLOR_NORMAL);
-        Text_AppendString(text, str);
+        Text_SetColor(text, TEXT_COLOR_SYSTEM_WHITE);
+        Text_DrawString(text, str);
     } else {
         /* You can now use  */
         str = GetStringFromIndex(0x0D);
-        Text_SetColorId(text, TEXT_COLOR_NORMAL);
-        Text_AppendString(text, str);
+        Text_SetColor(text, TEXT_COLOR_SYSTEM_WHITE);
+        Text_DrawString(text, str);
     }
 
     width5 = (0xE0 - (width_popupbox + 2) * 8) / 2;

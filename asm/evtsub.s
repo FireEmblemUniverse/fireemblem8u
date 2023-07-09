@@ -570,7 +570,7 @@ sub_8011BA4: @ 0x08011BA4
 	lsls r1, r1, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _08011C84  @ Pal_UIFont
+	ldr r0, _08011C84  @ Pal_Text
 	ldr r1, [r7, #0x3c]
 	adds r1, #0x11
 	lsls r1, r1, #5
@@ -582,7 +582,7 @@ sub_8011BA4: @ 0x08011BA4
 	adds r1, r1, r2
 	bl Decompress
 	mov r0, sl
-	bl GetStringTextWidth
+	bl GetStringTextLen
 	adds r6, r0, #0
 	adds r4, r6, #0
 	cmp r6, #0
@@ -598,17 +598,17 @@ _08011C1A:
 	ldr r2, [r7, #0x3c]
 	adds r2, #0x12
 	mov r0, sp
-	bl InitSomeOtherGraphicsRelatedStruct
+	bl InitSpriteTextFont
 	mov r0, sp
-	bl SetFont
+	bl SetTextFont
 	add r5, sp, #0x18
 	adds r0, r5, #0
-	bl Text_Init3
+	bl InitSpriteText
 	adds r0, r5, #0
 	movs r1, #0
-	bl Text_80046B4
+	bl SpriteText_DrawBackgroundExt
 	movs r0, #0
-	bl SetFontGlyphSet
+	bl SetTextFontGlyphs
 	adds r4, #3
 	lsls r4, r4, #3
 	adds r0, r4, #0
@@ -618,9 +618,9 @@ _08011C1A:
 	adds r0, r5, #0
 	movs r2, #0
 	mov r3, sl
-	bl Text_InsertString
+	bl Text_InsertDrawString
 	movs r0, #0
-	bl SetFont
+	bl SetTextFont
 	add sp, #0x20
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -632,7 +632,7 @@ _08011C1A:
 	.align 2, 0
 _08011C7C: .4byte gUnknown_085924D8
 _08011C80: .4byte gUnknown_08A4D0CC
-_08011C84: .4byte Pal_UIFont
+_08011C84: .4byte Pal_Text
 _08011C88: .4byte gUnknown_08A4CF2C
 _08011C8C: .4byte 0x06010000
 _08011C90: .4byte 0x06010400
@@ -1483,7 +1483,7 @@ sub_8012324: @ 0x08012324
 	movs r0, #0
 	bl SetupBackgrounds
 	bl sub_80141B0
-	bl Font_LoadForUI
+	bl InitSystemTextFont
 	bl sub_80156D4
 	pop {r0}
 	bx r0

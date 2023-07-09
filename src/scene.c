@@ -146,14 +146,14 @@ int SetActiveTalkFace(int);
 void sub_8007854(ProcPtr);
 void MoveTalkFace(int, int);
 void StartTalkWaitForInput(ProcPtr parent, int x, int y);
-void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct TextHandle* text, u16* tm, int defaultChoice, int color, ProcPtr parent);
+void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16* tm, int defaultChoice, int color, ProcPtr parent);
 
 
 #define TALK_TEXT_BY_LINE(line) (sTalkText + ((line) + sTalkState->topTextNum) % sTalkState->lines)
 
 static struct TalkState sTalkStateCore;
 struct TalkState* CONST_DATA sTalkState = &sTalkStateCore;
-static struct TextHandle sTalkText[3];
+static struct Text sTalkText[3];
 static int sTalkChoiceResult;
 static struct Font sTalkFont;
 
@@ -454,14 +454,14 @@ void sub_80067E8(void) {
 void InitTalk(int chr, int lines, s8 unpackBubble) {
     int i;
 
-    Font_InitForUI(&sTalkFont, (void*)(0x6000000 + GetBackgroundTileDataOffset(0) + (0x3FF & chr) * 0x20), chr, 2);
+    InitTextFont(&sTalkFont, (void*)(0x6000000 + GetBackgroundTileDataOffset(0) + (0x3FF & chr) * 0x20), chr, 2);
     SetInitTalkTextFont();
 
     sTalkState->lines = lines;
 
     for (i = 0; i < lines; i++) {
-        Text_Init(sTalkText + i, 0x1e);
-        Text_SetColorId(sTalkText + i, 1);
+        InitText(sTalkText + i, 0x1e);
+        Text_SetColor(sTalkText + i, 1);
     }
 
     if (unpackBubble != 0) {
@@ -478,10 +478,10 @@ void InitTalk(int chr, int lines, s8 unpackBubble) {
 void InitSpriteTalk(int chr, int lines, int palId) {
     int i;
 
-    InitSomeOtherGraphicsRelatedStruct(&sTalkFont, (void*)(0x06010000 + (0x3FF & chr) * 0x20), palId);
+    InitSpriteTextFont(&sTalkFont, (void*)(0x06010000 + (0x3FF & chr) * 0x20), palId);
 
-    SetFont(&sTalkFont);
-    SetFontGlyphSet(1);
+    SetTextFont(&sTalkFont);
+    SetTextFontGlyphs(1);
 
     CopyToPaletteBuffer(gUnknown_0859EF20, (palId + 0x10) * 0x20, 0x20);
 
@@ -492,11 +492,11 @@ void InitSpriteTalk(int chr, int lines, int palId) {
     sTalkState->lines = lines;
 
     for (i = 0; i < lines; i++) {
-        Text_Init3(sTalkText + i);
+        InitSpriteText(sTalkText + i);
 
-        sub_800465C(sTalkText + i);
-        Text_SetColorId(sTalkText + i, 0);
-        Text_SetXCursor(sTalkText + i, 4);
+        SpriteText_Clear(sTalkText + i);
+        Text_SetColor(sTalkText + i, 0);
+        Text_SetCursor(sTalkText + i, 4);
     }
 
     return;
@@ -504,14 +504,14 @@ void InitSpriteTalk(int chr, int lines, int palId) {
 
 //! FE8U = 0x08006964
 void sub_8006964(void) {
-    CopyToPaletteBuffer(Pal_UIFont, 0x40, 0x20);
+    CopyToPaletteBuffer(Pal_Text, 0x40, 0x20);
     return;
 }
 
 //! FE8U = 0x08006978
 void SetInitTalkTextFont(void) {
-    SetFont(&sTalkFont);
-    Font_LoadForDialogue();
+    SetTextFont(&sTalkFont);
+    InitTalkTextFont();
 
     return;
 }
@@ -628,7 +628,7 @@ void SetTalkPrintColor(int color) {
     sTalkState->printColor = color;
 
     for (i = 0; i < sTalkState->lines; i++) {
-        Text_SetColorId(sTalkText + i, sTalkState->printColor);
+        Text_SetColor(sTalkText + i, sTalkState->printColor);
     }
 
     return;
@@ -741,7 +741,7 @@ void Talk_OnIdle(ProcPtr proc) {
                     }
                 }
 
-                sTalkState->str = Text_AppendChar(TALK_TEXT_BY_LINE(sTalkState->lineActive), sTalkState->str);
+                sTalkState->str = Text_DrawCharacter(TALK_TEXT_BY_LINE(sTalkState->lineActive), sTalkState->str);
 
                 if (!CheckTalkFlag(TALK_FLAG_SILENT)) {
                     if (CheckTalkFlag(TALK_FLAG_7)) {
@@ -797,7 +797,7 @@ s8 TalkPrepNextChar(ProcPtr proc) {
     }
 
     if (!sTalkState->putLines) {
-        Text_Draw(
+        PutText(
             TALK_TEXT_BY_LINE(sTalkState->lineActive),
             gBG0TilemapBuffer + TILEMAP_INDEX(sTalkState->xText, sTalkState->yText + sTalkState->lineActive * 2)
         );
@@ -852,14 +852,14 @@ void sub_8006F00(void) {
 
     if (sTalkState->printColor == 1) {
         for (i = 0; i < sTalkState->lines; i++) {
-            Text_SetColorId(TALK_TEXT_BY_LINE(i), 4);
+            Text_SetColor(TALK_TEXT_BY_LINE(i), 4);
         }
 
         sTalkState->printColor = 4;
     } else {
 
         for (i = 0; i < sTalkState->lines; i++) {
-            Text_SetColorId(TALK_TEXT_BY_LINE(i), 1);
+            Text_SetColor(TALK_TEXT_BY_LINE(i), 1);
         }
 
         sTalkState->printColor = 1;
@@ -875,7 +875,7 @@ void sub_8006F8C(int flag) {
         CopyToPaletteBuffer(gUnknown_0859EFE0, 0x40, 0x20);
     } else {
         CopyToPaletteBuffer(gUnknown_089E84D4, 0x60, 0x20);
-        CopyToPaletteBuffer(Pal_UIFont, 0x40, 0x20);
+        CopyToPaletteBuffer(Pal_Text, 0x40, 0x20);
     }
     return;
 }
@@ -906,7 +906,7 @@ int TalkInterpret(ProcPtr proc) {
             if (sTalkState->str[1] == 0x40) {
                 sTalkState->str += 2;
 
-                Text_Advance(TALK_TEXT_BY_LINE(sTalkState->lineActive), 6);
+                Text_Skip(TALK_TEXT_BY_LINE(sTalkState->lineActive), 6);
 
                 if (sTalkState->instantScroll || sTalkState->printDelay <= 0) {
                     return 2;
@@ -959,7 +959,7 @@ int TalkInterpret(ProcPtr proc) {
             // _08007314
             StartTalkWaitForInput(
                 proc,
-                sTalkState->xText * 8 + Text_GetXCursor(TALK_TEXT_BY_LINE(sTalkState->lineActive)) + 4,
+                sTalkState->xText * 8 + Text_GetCursor(TALK_TEXT_BY_LINE(sTalkState->lineActive)) + 4,
                 sTalkState->yText * 8 + sTalkState->lineActive * 16 + 8
             );
 
@@ -1169,7 +1169,7 @@ int TalkInterpret(ProcPtr proc) {
                     sTalkState->printColor = *++sTalkState->str;
 
                     for (i = 0; i < sTalkState->lines; i++) {
-                        Text_SetColorId(sTalkText + i, sTalkState->printColor);
+                        Text_SetColor(sTalkText + i, sTalkState->printColor);
                     }
 
                     sTalkState->str++;
@@ -1636,16 +1636,16 @@ void TalkShiftClearAll_OnIdle(struct Proc* proc) {
 }
 
 //! FE8U = 0x08007DE8
-void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct TextHandle* text, u16* tm, int defaultChoice, int color, ProcPtr parent) {
+void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16* tm, int defaultChoice, int color, ProcPtr parent) {
     struct TalkChoiceProc* proc;
 
-    int x = Text_GetXCursor(text) + 16;
+    int x = Text_GetCursor(text) + 16;
 
-    Text_InsertString(text, x, color, GetStringFromIndex(choices[0].msgid));
+    Text_InsertDrawString(text, x, color, GetStringFromIndex(choices[0].msgid));
 
-    Text_InsertString(text, x + 40, color, GetStringFromIndex(choices[1].msgid));
+    Text_InsertDrawString(text, x + 40, color, GetStringFromIndex(choices[1].msgid));
 
-    Text_Draw(text, tm);
+    PutText(text, tm);
 
     TalkBgSync(1);
 
@@ -1743,7 +1743,7 @@ void TalkShiftClear_OnIdle(struct Proc* proc) {
         BG_SetPosition(0, 0, 0);
 
         for (i = 0; i < sTalkState->lines - 1; i++) {
-            Text_Draw(
+            PutText(
                 TALK_TEXT_BY_LINE(i),
                 gBG0TilemapBuffer + TILEMAP_INDEX(sTalkState->xText, sTalkState->yText + 2 * i)
             );
@@ -1756,8 +1756,8 @@ void TalkShiftClear_OnIdle(struct Proc* proc) {
             0
         );
 
-        Text_Clear(TALK_TEXT_BY_LINE(sTalkState->lines - 1));
-        Text_SetColorId(
+        ClearText(TALK_TEXT_BY_LINE(sTalkState->lines - 1));
+        Text_SetColor(
             TALK_TEXT_BY_LINE(sTalkState->lines - 1),
             sTalkState->printColor
         );
@@ -1786,14 +1786,14 @@ void sub_8008108(void) {
     sTalkState->lineActive--;
 
     if (CheckTalkFlag(TALK_FLAG_7)) {
-        sub_800465C(sTalkText + 1);
-        Text_SetColorId(sTalkText + 1, 0);
+        SpriteText_Clear(sTalkText + 1);
+        Text_SetColor(sTalkText + 1, 0);
     } else {
-        sub_80045FC(sTalkText + 1);
-        Text_SetColorId(sTalkText + 1, 6);
+        SpriteText_DrawBackground(sTalkText + 1);
+        Text_SetColor(sTalkText + 1, 6);
     }
 
-    Text_SetXCursor(sTalkText + 1, 4);
+    Text_SetCursor(sTalkText + 1, 4);
 
     return;
 }
@@ -1805,9 +1805,9 @@ void sub_800815C(void) {
     sTalkState->lineActive = 0;
 
     for (i = 0; i < 2; i++) {
-        sub_800465C(sTalkText + i);
-        Text_SetColorId(sTalkText + i, 0);
-        Text_SetXCursor(sTalkText + i, 4);
+        SpriteText_Clear(sTalkText + i);
+        Text_SetColor(sTalkText + i, 0);
+        Text_SetCursor(sTalkText + i, 4);
     }
 
     return;
@@ -1847,8 +1847,8 @@ void ClearPutTalkText(void) {
     sTalkState->topTextNum = 0;
 
     for (i = 0; i < sTalkState->lines; i++) {
-        Text_Clear(sTalkText + i);
-        Text_SetColorId(sTalkText + i, sTalkState->printColor);
+        ClearText(sTalkText + i);
+        Text_SetColor(sTalkText + i, sTalkState->printColor);
     }
 
     return;
@@ -1863,8 +1863,8 @@ void ClearTalkText(void) {
     sTalkState->topTextNum = 0;
 
     for (i = 0; i < sTalkState->lines; i++) {
-        Text_Clear(sTalkText + i);
-        Text_SetColorId(sTalkText + i, sTalkState->printColor);
+        ClearText(sTalkText + i);
+        Text_SetColor(sTalkText + i, sTalkState->printColor);
     }
 
     return;
@@ -2287,7 +2287,7 @@ void SetTalkUnkStr(const char* str) {
     return;
 }
 
-void PrintStringToTexts(struct TextHandle** texts, const char* str, u16* tm, int unk) {
+void PrintStringToTexts(struct Text** texts, const char* str, u16* tm, int unk) {
     int uh;
 
     int line = 0;
@@ -2301,7 +2301,7 @@ void PrintStringToTexts(struct TextHandle** texts, const char* str, u16* tm, int
                 break;
 
             case 1:
-                Text_Draw(texts[line], tm + line * 0x40);
+                PutText(texts[line], tm + line * 0x40);
 
                 line++;
                 str++;
@@ -2317,11 +2317,11 @@ void PrintStringToTexts(struct TextHandle** texts, const char* str, u16* tm, int
             break;
         }
 
-        str = Text_AppendChar(texts[line], str);
+        str = Text_DrawCharacter(texts[line], str);
         continue;
     }
 
-    Text_Draw(texts[line], tm + line * 0x40);
+    PutText(texts[line], tm + line * 0x40);
 
     return;
 }
@@ -2342,7 +2342,7 @@ void TalkPutSpriteText_OnIdle(struct Proc* proc) {
         proc->x,
         proc->y,
         gSprite_TalkTextFront,
-        (0x3FF & proc->unk52) | ((sTalkFont.paletteNum & 0xf) << 0xc)
+        (0x3FF & proc->unk52) | ((sTalkFont.palid & 0xf) << 0xc)
     );
 
     return;
@@ -2542,7 +2542,7 @@ int GetStrTalkLen(const char* str, s8 isBubbleOpen) {
 
                     case 0x20:
                         // _08008EA8
-                        currentLineLen += GetStringTextWidth(GetTacticianName());
+                        currentLineLen += GetStringTextLen(GetTacticianName());
 
                         str++;
                         break;
@@ -2603,7 +2603,7 @@ int GetStrTalkLen(const char* str, s8 isBubbleOpen) {
                     }
                 }
 
-                str = GetCharTextWidth(str, &chrLen);
+                str = GetCharTextLen(str, &chrLen);
 
                 currentLineLen += chrLen;
         }

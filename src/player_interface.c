@@ -19,7 +19,7 @@
 struct PlayerInterfaceProc {
     PROC_HEADER;
 
-    struct TextHandle unk_2c[2];
+    struct Text unk_2c[2];
 
     s8 unk_3c;
     s8 unk_3d;
@@ -824,10 +824,10 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     str = GetStringFromIndex(unit->pCharacterData->nameTextId);
     pos = GetStringTextCenteredPos(0x38, str);
 
-    Text_Clear(proc->unk_2c);
-    Text_SetParameters(proc->unk_2c, pos, 5);
-    Text_AppendString(proc->unk_2c, str);
-    Text_Draw(proc->unk_2c, gBmFrameTmap0 + 0x25);
+    ClearText(proc->unk_2c);
+    Text_SetParams(proc->unk_2c, pos, 5);
+    Text_DrawString(proc->unk_2c, str);
+    PutText(proc->unk_2c, gBmFrameTmap0 + 0x25);
 
     faceId = GetUnitMiniPortraitId(unit);
 
@@ -921,13 +921,13 @@ void sub_808C750(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     nameStr = GetStringFromIndex(unit->pCharacterData->nameTextId);
     pos = GetStringTextCenteredPos(0x38, nameStr);
 
-    Text_Clear(proc->unk_2c);
+    ClearText(proc->unk_2c);
 
-    Text_SetParameters(proc->unk_2c, pos, 5);
+    Text_SetParams(proc->unk_2c, pos, 5);
 
-    Text_AppendString(proc->unk_2c, nameStr);
+    Text_DrawString(proc->unk_2c, nameStr);
 
-    Text_Draw(
+    PutText(
         proc->unk_2c,
         gBG0TilemapBuffer + TILEMAP_INDEX(x + gUnknown_08A01848[unk], y + gUnknown_08A0184E[unk])
     );
@@ -983,10 +983,10 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
 
     num = GetStringTextCenteredPos(0x28, str);
 
-    Text_Clear(proc->unk_2c);
-    Text_SetParameters(proc->unk_2c, num, 0);
-    Text_AppendString(proc->unk_2c, str);
-    Text_Draw(proc->unk_2c, gUnknown_02003FAC + 0x41);
+    ClearText(proc->unk_2c);
+    Text_SetParams(proc->unk_2c, num, 0);
+    Text_DrawString(proc->unk_2c, str);
+    PutText(proc->unk_2c, gUnknown_02003FAC + 0x41);
 
     CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Something, 0x2100);
 
@@ -1037,7 +1037,7 @@ void TerrainDisplay_Init(struct PlayerInterfaceProc* proc) {
     proc->unk_58 = 0;
     proc->unk_50 = 1;
 
-    Text_Allocate(proc->unk_2c, 5);
+    InitTextDb(proc->unk_2c, 5);
 
     return;
 }
@@ -1110,7 +1110,7 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
 
 void MMB_Init(struct PlayerInterfaceProc* proc) {
     proc->quadrant = -1;
-    Text_Allocate(proc->unk_2c, 7);
+    InitTextDb(proc->unk_2c, 7);
     proc->unk_58 = 0;
     proc->isRetracting = 0;
 
@@ -1205,7 +1205,7 @@ void MMB_CheckForUnit(struct PlayerInterfaceProc* proc) {
 
 void BurstDisplay_Init(struct PlayerInterfaceProc* proc) {
 
-    Text_Allocate(proc->unk_2c, 7);
+    InitTextDb(proc->unk_2c, 7);
     proc->unk_4b = 0;
     proc->unk_55 = 0;
     proc->unk_58 = 0;
@@ -1312,7 +1312,7 @@ void InitPlayerPhaseInterface() {
 
     LoadIconPalette(1, 2);
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
     if (gPlaySt.cfgDisableTerrainDisplay == 0) {
         Proc_Start(gProcScr_TerrainDisplay, PROC_TREE_3);
@@ -1397,13 +1397,13 @@ void sub_808D200(struct PlayerInterfaceProc* proc) {
 
     if (proc->unk_44 == 0) {
         CallARM_FillTileRect(gUnknown_020044D4, gTSA_GoalBox_OneLine, 0x1000);
-        Text_Draw(proc->unk_2c, gUnknown_02004054 + 0x21);
+        PutText(proc->unk_2c, gUnknown_02004054 + 0x21);
     }
 
     if (proc->unk_44 == 1) {
         CallARM_FillTileRect(gUnknown_020044D4, gTSA_GoalBox_TwoLines, 0x1000);
-        Text_Draw(&proc->unk_2c[0], gUnknown_02004054 + 0x21);
-        Text_Draw(&proc->unk_2c[1], gUnknown_02004054 + 0x61);
+        PutText(&proc->unk_2c[0], gUnknown_02004054 + 0x21);
+        PutText(&proc->unk_2c[1], gUnknown_02004054 + 0x61);
     }
 
     return;
@@ -1415,20 +1415,20 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
     int turnNumber;
     int lastTurnNumber;
     char* str;
-    struct TextHandle* th;
+    struct Text* th;
 
     proc->unk_58 = 0;
     proc->isRetracting = 0;
     proc->unk_50 = 0;
     proc->quadrant = -1;
 
-    Text_Init(&proc->unk_2c[0], 8);
-    Text_Init(&proc->unk_2c[1], 8);
+    InitText(&proc->unk_2c[0], 8);
+    InitText(&proc->unk_2c[1], 8);
 
-    NewGreenTextColorManager((struct Proc*)proc);
+    StartGreenText((struct Proc*)proc);
 
-    Text_Clear(&proc->unk_2c[0]);
-    Text_Clear(&proc->unk_2c[1]);
+    ClearText(&proc->unk_2c[0]);
+    ClearText(&proc->unk_2c[1]);
 
     if (GetChapterThing() != 2) {
         goalTextId = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowTextId;
@@ -1437,7 +1437,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
     }
 
     str = GetStringFromIndex(goalTextId);
-    Text_InsertString(&proc->unk_2c[0], GetStringTextCenteredPos(0x40, str), 0, str);
+    Text_InsertDrawString(&proc->unk_2c[0], GetStringTextCenteredPos(0x40, str), 0, str);
 
     if (GetChapterThing() != 2) {
         goalWindowType = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowDataType;
@@ -1454,12 +1454,12 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
             return;
 
         case 1:
-            Text_InsertString(&proc->unk_2c[1], 0x10, 0, GetStringFromIndex(0x1C1)); // TODO: msgid "Left"
+            Text_InsertDrawString(&proc->unk_2c[1], 0x10, 0, GetStringFromIndex(0x1C1)); // TODO: msgid "Left"
 
             if (gPlaySt.chapterVisionRange != 0) {
-                Text_InsertString(&proc->unk_2c[1], 0x28, 1, GetStringFromIndex(0x535));
+                Text_InsertDrawString(&proc->unk_2c[1], 0x28, 1, GetStringFromIndex(0x535));
             } else {
-                Text_InsertNumberOr2Dashes(&proc->unk_2c[1], 0x30, 2, CountUnitsByFaction(FACTION_RED));
+                Text_InsertDrawNumberOrBlank(&proc->unk_2c[1], 0x30, 2, CountUnitsByFaction(FACTION_RED));
             }
 
             break;
@@ -1476,15 +1476,15 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
                 if (turnNumber >= -1) {
             _0808D3DC:
                     str = GetStringFromIndex(0x1C3); // TODO: msgid "Last Turn[.]"
-                    Text_InsertString(&proc->unk_2c[1], GetStringTextCenteredPos(0x40, str), 4, str);
+                    Text_InsertDrawString(&proc->unk_2c[1], GetStringTextCenteredPos(0x40, str), 4, str);
 
                     break;
                 }
             }
 
-            Text_InsertNumberOr2Dashes(&proc->unk_2c[1], 0xA, 2, gPlaySt.chapterTurnNumber);
+            Text_InsertDrawNumberOrBlank(&proc->unk_2c[1], 0xA, 2, gPlaySt.chapterTurnNumber);
 
-            Text_InsertString(&proc->unk_2c[1], 0x12, 0, GetStringFromIndex(0x539)); // TODO: msgid "/[.]"
+            Text_InsertDrawString(&proc->unk_2c[1], 0x12, 0, GetStringFromIndex(0x539)); // TODO: msgid "/[.]"
 
             th = &proc->unk_2c[1];
 
@@ -1494,9 +1494,9 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
                 lastTurnNumber = -1;
             }
 
-            Text_InsertNumberOr2Dashes(th, 0x22, 2, lastTurnNumber);
+            Text_InsertDrawNumberOrBlank(th, 0x22, 2, lastTurnNumber);
 
-            Text_InsertString(&proc->unk_2c[1], 0x2A, 0, GetStringFromIndex(0x1C2)); // TODO: msgid "Turn"
+            Text_InsertDrawString(&proc->unk_2c[1], 0x2A, 0, GetStringFromIndex(0x1C2)); // TODO: msgid "Turn"
 
             break;
         default:

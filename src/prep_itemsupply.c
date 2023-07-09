@@ -49,7 +49,7 @@ struct GMapBaseMenuProc* sub_80C4048(void);
 
 struct Struct02013648 {
     /* 00 */ struct Font font;
-    /* 18 */ struct TextHandle th[16];
+    /* 18 */ struct Text th[16];
 };
 
 extern struct Struct02013648 gUnknown_02013648;
@@ -113,26 +113,26 @@ void StoreConvoyWeaponIconGraphics(int vramOffset, int pal) {
 }
 
 //! FE8U = 0x0809D300
-void sub_809D300(struct TextHandle* textBase, u16* tm, int yLines, struct Unit* unit) {
+void sub_809D300(struct Text* textBase, u16* tm, int yLines, struct Unit* unit) {
     int i;
 
     TileMap_FillRect(tm, 12, 31, 0);
 
     if (gUnknown_02012F56 == 0) {
-        Text_Clear(textBase);
-        Text_InsertString(textBase, 0, 1, GetStringFromIndex(0x5a8)); // TODO: msgid "Nothing[.]"
-        Text_Draw(textBase, tm + 3);
+        ClearText(textBase);
+        Text_InsertDrawString(textBase, 0, 1, GetStringFromIndex(0x5a8)); // TODO: msgid "Nothing[.]"
+        PutText(textBase, tm + 3);
         return;
     }
 
     for (i = yLines; (i < yLines + 7) && (i < gUnknown_02012F56); i++) {
-        struct TextHandle* th = textBase + (i & 7);
+        struct Text* th = textBase + (i & 7);
         int item = gPrepScreenItemList[i].item;
         int unusable = !IsItemDisplayUsable(unit, item);
 
-        Text_Clear(th);
+        ClearText(th);
 
-        Text_InsertString(
+        Text_InsertDrawString(
             th,
             0,
             unusable,
@@ -141,9 +141,9 @@ void sub_809D300(struct TextHandle* textBase, u16* tm, int yLines, struct Unit* 
 
         DrawIcon(tm + TILEMAP_INDEX(1, i*2 & 0x1f), GetItemIconId(item), 0x4000);
 
-        Text_Draw(th, tm + TILEMAP_INDEX(3, i*2 & 0x1f));
+        PutText(th, tm + TILEMAP_INDEX(3, i*2 & 0x1f));
 
-        DrawDecNumber(tm + TILEMAP_INDEX(12, i*2 & 0x1f), !unusable ? 2 : 1, GetItemUses(item));
+        PutNumberOrBlank(tm + TILEMAP_INDEX(12, i*2 & 0x1f), !unusable ? 2 : 1, GetItemUses(item));
     }
 
     return;
@@ -162,22 +162,22 @@ void sub_809D418(u16* tm, int yLines) {
 }
 
 //! FE8U = 0x0809D47C
-void sub_809D47C(struct TextHandle* textBase, u16* tm, int yLines, struct Unit* unit) {
+void sub_809D47C(struct Text* textBase, u16* tm, int yLines, struct Unit* unit) {
     if (gUnknown_02012F56 > yLines) {
         int y = (yLines * 2) & 0x1f;
-        struct TextHandle* th = textBase + (yLines & 7);
+        struct Text* th = textBase + (yLines & 7);
         int item = gPrepScreenItemList[yLines].item;
         int unusable = !IsItemDisplayUsable(unit, item);
 
         int offset = TILEMAP_INDEX(0, y);
         TileMap_FillRect(tm + offset, 12, 1, 0);
 
-        Text_Clear(th);
-        Text_InsertString(th, 0, unusable, GetItemName(item));
+        ClearText(th);
+        Text_InsertDrawString(th, 0, unusable, GetItemName(item));
         DrawIcon(tm + offset + 1, GetItemIconId(item), 0x4000);
-        Text_Draw(th, tm + offset + 3);
+        PutText(th, tm + offset + 3);
 
-        DrawDecNumber(tm + offset + 12, !unusable ? 2 : 1,  GetItemUses(item));
+        PutNumberOrBlank(tm + offset + 12, !unusable ? 2 : 1,  GetItemUses(item));
     }
 
     return;
@@ -247,10 +247,10 @@ void PrepItemSupply_Init(struct PrepItemSupplyProc* proc) {
 
 //! FE8U = 0x0809D608
 void sub_809D608(void) {
-    InitSomeOtherGraphicsRelatedStruct(&gUnknown_02013648.font, (void*)0x06011000, 0xb);
-    CopyToPaletteBuffer(Pal_UIFont, 0x360, 0x20);
-    Text_Init3(&gUnknown_02013648.th[0xf]);
-    SetFont(NULL);
+    InitSpriteTextFont(&gUnknown_02013648.font, (void*)0x06011000, 0xb);
+    CopyToPaletteBuffer(Pal_Text, 0x360, 0x20);
+    InitSpriteText(&gUnknown_02013648.th[0xf]);
+    SetTextFont(NULL);
     return;
 }
 
@@ -259,15 +259,15 @@ u8 GetConvoyItemCount_(void);
 //! FE8U = 0x0809D644
 void sub_809D644(struct PrepItemSupplyProc* proc) {
     int color;
-    struct TextHandle* th;
+    struct Text* th;
 
     int convoyItemCount = GetConvoyItemCount_();
     int unitItemCount = GetUnitItemCount(proc->unit);
 
-    SetFont(&gUnknown_02013648.font);
-    SetFontGlyphSet(0);
+    SetTextFont(&gUnknown_02013648.font);
+    SetTextFontGlyphs(0);
 
-    Text_80046B4(&gUnknown_02013648.th[0xf], 0);
+    SpriteText_DrawBackgroundExt(&gUnknown_02013648.th[0xf], 0);
     th = &gUnknown_02013648.th[0xf];
 
     color = 0;
@@ -275,41 +275,41 @@ void sub_809D644(struct PrepItemSupplyProc* proc) {
         color = 1;
     }
 
-    Text_InsertString(
+    Text_InsertDrawString(
         th,
         0,
         color,
         GetStringFromIndex(0x59E) // TODO: msgid "Give"
     );
 
-    Text_InsertString(
+    Text_InsertDrawString(
         &gUnknown_02013648.th[0xf],
         0x40,
         unitItemCount == UNIT_ITEM_COUNT ? 1 : 0,
         GetStringFromIndex(0x59F) // TODO: msgid "Take"
     );
 
-    SetFont(NULL);
+    SetTextFont(NULL);
 
     return;
 }
 
 //! FE8U = 0x0809D6CC
 void sub_809D6CC(void) {
-    SetFont(NULL);
+    SetTextFont(NULL);
     TileMap_FillRect(gBG0TilemapBuffer + 0x34, 12, 1, 0);
 
-    DrawTextInline(&gUnknown_02013648.th[0], gBG0TilemapBuffer + 0x34 + 0x6d, 0, 2, 0, GetStringFromIndex(0x598));
+    PutDrawText(&gUnknown_02013648.th[0], gBG0TilemapBuffer + 0x34 + 0x6d, 0, 2, 0, GetStringFromIndex(0x598));
     PutFaceChibi(FID_SUPPLY, gBG0TilemapBuffer + 0x34 - 0x13, 0x270, 2, 1);
-    DrawTextInline(&gUnknown_02013648.th[0] + 1, gBG0TilemapBuffer + 0x34 - 1, 0, 4, 0, GetStringFromIndex(0x5a0));
+    PutDrawText(&gUnknown_02013648.th[0] + 1, gBG0TilemapBuffer + 0x34 - 1, 0, 4, 0, GetStringFromIndex(0x5a0));
 
-    sub_8004B88(
+    PutNumber(
         gBG0TilemapBuffer + 0x34 + 5,
         (GetConvoyItemCount_() == CONVOY_ITEM_COUNT) ? 4 : 2,
         GetConvoyItemCount_()
     );
-    DrawSpecialUiChar(gBG0TilemapBuffer + 0x34 + 6, 0, 0x16);
-    sub_8004B88(gBG0TilemapBuffer + 0x34 + 9, 2, 100);
+    PutSpecialChar(gBG0TilemapBuffer + 0x34 + 6, 0, 0x16);
+    PutNumber(gBG0TilemapBuffer + 0x34 + 9, 2, 100);
 
     BG_EnableSyncByMask(1);
 
@@ -385,7 +385,7 @@ void sub_809D914(struct PrepItemSupplyProc* proc) {
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     ResetFaces();
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
@@ -456,20 +456,20 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc* proc) {
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
     SetSpecialColorEffectsParameters(0, 0, 0, 8);
-    NewGreenTextColorManager(proc);
+    StartGreenText(proc);
     StartHelpPromptSprite(195, 147, 9, proc);
 
-    Text_Init(&gUnknown_02013648.th[0], 4);
-    Text_Init(&gUnknown_02013648.th[1], 4);
+    InitText(&gUnknown_02013648.th[0], 4);
+    InitText(&gUnknown_02013648.th[1], 4);
 
     sub_809D608();
 
     for (i = 0; i < UNIT_ITEM_COUNT; i++) {
-        Text_Init(&gUnknown_02013648.th[2 + i], 7);
+        InitText(&gUnknown_02013648.th[2 + i], 7);
     }
 
     for (i = 0; i < 8; i++) {
-        Text_Allocate(&gUnknown_02013648.th[7 + i], 7);
+        InitTextDb(&gUnknown_02013648.th[7 + i], 7);
     }
 
     SetPrimaryHBlankHandler(NULL);

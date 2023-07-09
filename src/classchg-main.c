@@ -78,7 +78,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
     parent = proc->proc_parent;
     if (parent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
         ResetFaces();
-        Font_InitForUIDefault();
+        ResetText();
         LoadUiFrameGraphics();
         LoadObjUIGfx();
         gLCDControlBuffer.bg0cnt.priority = 0;
@@ -90,7 +90,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
         struct ProcPromoHandler *gparent = parent->proc_parent;
 
         SetupBackgrounds(0);
-        EndGreenTextColorManager();
+        EndGreenText();
         gparent->game_lock = GetGameLock();
         EndHelpPromptSprite();
         EndSmallBrownNameBoxes();
@@ -98,7 +98,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
         EndFaceById(0);
         sub_80ACA84(0);
         ResetFaces();
-        Font_InitForUIDefault();
+        ResetText();
         LoadUiFrameGraphics();
         LoadObjUIGfx();
         gLCDControlBuffer.bg0cnt.priority = 0;
@@ -173,7 +173,7 @@ void PromoMain_HandlePrepEndEffect(struct ProcPromoMain *proc)
             RefreshUnitSprites();
             SetupMapSpritesPalettes();
             ForceSyncUnitSpriteSheet();
-            Font_LoadForUI();
+            InitSystemTextFont();
             break;
     }
 }

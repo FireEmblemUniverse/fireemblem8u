@@ -146,7 +146,7 @@ void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc)
     int i;
     struct BattleUnit *bunit, *bunit2;
     struct Unit *unit;
-    struct TextHandle *th;
+    struct Text *th;
 
     if (proc->ais_main == NULL) {
         bunit2 = gpEkrBattleUnitLeft;
@@ -204,7 +204,7 @@ void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc)
         gEkrLvupPostStatus[EKRLVUP_STAT_CON] = bunit->unit.pClassData->baseCon + bunit->unit.pCharacterData->baseCon;
     }
 
-    Font_InitForUI(&gSomeFontStruct, BG_CHR_ADDR(0x146), 0x146, 0);
+    InitTextFont(&gSomeFontStruct, BG_CHR_ADDR(0x146), 0x146, 0);
 
     for (i = 0; i < EKRLVUP_STAT_MAX; i++) {
         const char *str;
@@ -213,67 +213,67 @@ void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc)
         else
             str = GetStringFromIndex(*EkrLvupMsgsMag[i]);
 
-        Text_Init(&gTextEkrlvupMsg[i], 3);
-        Text_SetXCursor(&gTextEkrlvupMsg[i], 0);
-        Text_SetColorId(&gTextEkrlvupMsg[i], TEXT_COLOR_GOLD);
-        Text_AppendString(&gTextEkrlvupMsg[i], str);
-        Text_Draw(&gTextEkrlvupMsg[i], gBG2TilemapBuffer + sEfxLvupPartsPos[i]);
+        InitText(&gTextEkrlvupMsg[i], 3);
+        Text_SetCursor(&gTextEkrlvupMsg[i], 0);
+        Text_SetColor(&gTextEkrlvupMsg[i], TEXT_COLOR_SYSTEM_GOLD);
+        Text_DrawString(&gTextEkrlvupMsg[i], str);
+        PutText(&gTextEkrlvupMsg[i], gBG2TilemapBuffer + sEfxLvupPartsPos[i]);
     }
 
     for (i = 0; i < EKRLVUP_STAT_MAX; i++) {
-        Text_Init(&gTextEkrlvupValue[i], 2);
-        Text_SetXCursor(&gTextEkrlvupValue[i], 8);
-        Text_SetColorId(&gTextEkrlvupValue[i], TEXT_COLOR_BLUE);
-        Text_AppendDecNumber(&gTextEkrlvupValue[i], gEkrLvupBaseStatus[i]);
-        Text_Draw(&gTextEkrlvupValue[i], gBG2TilemapBuffer + 3 + sEfxLvupPartsPos[i]);
+        InitText(&gTextEkrlvupValue[i], 2);
+        Text_SetCursor(&gTextEkrlvupValue[i], 8);
+        Text_SetColor(&gTextEkrlvupValue[i], TEXT_COLOR_SYSTEM_BLUE);
+        Text_DrawNumber(&gTextEkrlvupValue[i], gEkrLvupBaseStatus[i]);
+        PutText(&gTextEkrlvupValue[i], gBG2TilemapBuffer + 3 + sEfxLvupPartsPos[i]);
     }
 
     /* class */
     th = &gTextEkrlvupValue[EKRLVUP_STAT_CLASS];
-    Text_Init(th, 8);
-    Text_AppendString(th,
+    InitText(th, 8);
+    Text_DrawString(th,
         GetStringFromIndex(gpEkrLvupUnit->pClassData->nameTextId));
-    Text_Draw(th, TILEMAP_LOCATED(gBG2TilemapBuffer, 3, 7));
+    PutText(th, TILEMAP_LOCATED(gBG2TilemapBuffer, 3, 7));
 
     /* level msg */
     th = &gTextEkrlvupValue[EKRLVUP_STAT_LV_MSG];
-    Text_Init(th, 3);
-    Text_SetColorId(th, TEXT_COLOR_GOLD);
-    Text_AppendString(th, GetStringFromIndex(gMid_Lv));
-    Text_Draw(th, TILEMAP_LOCATED(gBG2TilemapBuffer, 10, 7));
+    InitText(th, 3);
+    Text_SetColor(th, TEXT_COLOR_SYSTEM_GOLD);
+    Text_DrawString(th, GetStringFromIndex(gMid_Lv));
+    PutText(th, TILEMAP_LOCATED(gBG2TilemapBuffer, 10, 7));
 
     /* level value */
     th = &gTextEkrlvupValue[EKRLVUP_STAT_LV_VAL];
-    Text_Init(th, 2);
-    Text_SetXCursor(th, 8);
-    Text_SetColorId(th, TEXT_COLOR_BLUE);
-    Text_AppendDecNumber(th, gEkrLvupPreLevel);
-    Text_Draw(th, TILEMAP_LOCATED(gBG2TilemapBuffer, 13, 7));
+    InitText(th, 2);
+    Text_SetCursor(th, 8);
+    Text_SetColor(th, TEXT_COLOR_SYSTEM_BLUE);
+    Text_DrawNumber(th, gEkrLvupPreLevel);
+    PutText(th, TILEMAP_LOCATED(gBG2TilemapBuffer, 13, 7));
 }
 
 void EkrLvup_DrawUpdatedStatus(struct ProcEkrLevelup *proc, int index)
 {
-    Text_Clear(&gTextEkrlvupValue[index]);
-    Text_SetXCursor(&gTextEkrlvupValue[index], 8);
-    Text_SetColorId(&gTextEkrlvupValue[index], TEXT_COLOR_BLUE);
-    Text_AppendDecNumber(&gTextEkrlvupValue[index], gEkrLvupBaseStatus[index]);
-    Text_Draw(&gTextEkrlvupValue[index], gBG2TilemapBuffer + 3 + sEfxLvupPartsPos[index]);
+    ClearText(&gTextEkrlvupValue[index]);
+    Text_SetCursor(&gTextEkrlvupValue[index], 8);
+    Text_SetColor(&gTextEkrlvupValue[index], TEXT_COLOR_SYSTEM_BLUE);
+    Text_DrawNumber(&gTextEkrlvupValue[index], gEkrLvupBaseStatus[index]);
+    PutText(&gTextEkrlvupValue[index], gBG2TilemapBuffer + 3 + sEfxLvupPartsPos[index]);
 }
 
 void EkrLvup_DrawUnitName(struct ProcEkrLevelup *proc)
 {
-    Text_Clear(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME]);
-    Text_AppendString(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME], GetStringFromIndex(gpEkrLvupUnit->pClassData->nameTextId));
-    Text_Draw(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME], TILEMAP_LOCATED(gBG2TilemapBuffer, 2, 7));
+    ClearText(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME]);
+    Text_DrawString(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME], GetStringFromIndex(gpEkrLvupUnit->pClassData->nameTextId));
+    PutText(&gTextEkrlvupValue[EKRLVUP_STAT_PNAME], TILEMAP_LOCATED(gBG2TilemapBuffer, 2, 7));
 }
 
 void EkrLvup_DrawPreLevelValue(struct ProcEkrLevelup *proc)
 {
-    Text_Clear(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL]);
-    Text_SetXCursor(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], 8);
-    Text_SetColorId(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], TEXT_COLOR_BLUE);
-    Text_AppendDecNumber(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], gEkrLvupPreLevel);
-    Text_Draw(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], TILEMAP_LOCATED(gBG2TilemapBuffer, 13, 7));
+    ClearText(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL]);
+    Text_SetCursor(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], 8);
+    Text_SetColor(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], TEXT_COLOR_SYSTEM_BLUE);
+    Text_DrawNumber(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], gEkrLvupPreLevel);
+    PutText(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], TILEMAP_LOCATED(gBG2TilemapBuffer, 13, 7));
 }
 
 void NewEkrLevelup(struct Anim *ais)

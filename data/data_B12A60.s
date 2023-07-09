@@ -196,7 +196,7 @@ ProcScr_E_Guide1:  @ 0x08B12C64
         .word sub_80CECB0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word NewGreenTextColorManager
+        .word StartGreenText
         @ PROC_CALL
         .short 0x2, 0x0
         .word StartFastFadeFromBlack
@@ -217,7 +217,7 @@ ProcScr_E_Guide1:  @ 0x08B12C64
         .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
-        .word EndGreenTextColorManager
+        .word EndGreenText
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80CF448
@@ -261,9 +261,9 @@ ProcScr_E_Guide2:  @ 0x08B12D1C
     @ PROC_CALL(sub_80CECB0)
     .short 0x2, 0x0
     .word sub_80CECB0
-    @ PROC_CALL(NewGreenTextColorManager)
+    @ PROC_CALL(StartGreenText)
     .short 0x2, 0x0
-    .word NewGreenTextColorManager
+    .word StartGreenText
     @ PROC_CALL(StartFastFadeFromBlack)
     .short 0x2, 0x0
     .word StartFastFadeFromBlack
@@ -282,9 +282,9 @@ ProcScr_E_Guide2:  @ 0x08B12D1C
     @ PROC_REPEAT(WaitForFade)
     .short 0x3, 0x0
     .word WaitForFade
-    @ PROC_CALL(EndGreenTextColorManager)
+    @ PROC_CALL(EndGreenText)
     .short 0x2, 0x0
-    .word EndGreenTextColorManager
+    .word EndGreenText
     @ PROC_CALL(sub_80CF448)
     .short 0x2, 0x0
     .word sub_80CF448

@@ -24,12 +24,12 @@
 */
 
 struct Struct020038C8 {
-    struct TextHandle text[4][8];
+    struct Text text[4][8];
     u8 idk[0x40];
 };
 
 extern struct Struct020038C8 gUnknown_020038C8[2];
-extern struct TextHandle gUnknown_02003B48[8];
+extern struct Text gUnknown_02003B48[8];
 
 extern struct Struct030017A0 gDungeonState;
 
@@ -112,19 +112,19 @@ void DungeonRecordUi_InitText() {
     for (r5 = 0; r5 < 2; r5++) {
         for (r4 = 0; r4 < 4; r4++) {
             for (r2 = 0; r2 < 8; r2++) {
-                gUnknown_020038C8[r5].text[r4][r2].unk0 |= 0xFFFF;
+                gUnknown_020038C8[r5].text[r4][r2].chr_position |= 0xFFFF;
             }
         }
     }
 
     for (r5 = 0; r5 < 2; r5++) {
         for (r4 = 0; r4 < 8; r4++) {
-            gUnknown_020038C8[r5].text[4][r4].unk0 |= 0xFFFF;
+            gUnknown_020038C8[r5].text[4][r4].chr_position |= 0xFFFF;
         }
     }
 
     for (r5 = 0; r5 < 8; r5++) {
-        gUnknown_02003B48[r5].unk0 |= 0xFFFF;
+        gUnknown_02003B48[r5].chr_position |= 0xFFFF;
     }
 
     return;
@@ -599,7 +599,7 @@ struct DungeonUiTextLutEntry {
     /* 03 */ s8 y;
 };
 
-void DrawDungeonRecordUiLabels(struct TextHandle* th) {
+void DrawDungeonRecordUiLabels(struct Text* th) {
     char* str;
     struct DungeonUiTextLutEntry* iter;
 
@@ -619,10 +619,10 @@ void DrawDungeonRecordUiLabels(struct TextHandle* th) {
     while (iter->msgId != 0) {
         str = GetStringFromIndex(iter->msgId);
 
-        Text_Init(th, strlen(str));
-        Text_SetParameters(th, 0, 0);
-        Text_AppendString(th, str);
-        Text_Draw(th, &gBG0TilemapBuffer[TILEMAP_INDEX(iter->x, iter->y)]);
+        InitText(th, strlen(str));
+        Text_SetParams(th, 0, 0);
+        Text_DrawString(th, str);
+        PutText(th, &gBG0TilemapBuffer[TILEMAP_INDEX(iter->x, iter->y)]);
 
         iter++;
     }
@@ -630,7 +630,7 @@ void DrawDungeonRecordUiLabels(struct TextHandle* th) {
     return;
 }
 
-struct TextHandle* DrawNumberText(struct TextHandle* th, u16 number, u8 places, s8 x, s8 y, u8 colorId) {
+struct Text* DrawNumberText(struct Text* th, u16 number, u8 places, s8 x, s8 y, u8 colorId) {
     int i;
     u8 shouldDraw;
     u8 digits[8];
@@ -648,10 +648,10 @@ struct TextHandle* DrawNumberText(struct TextHandle* th, u16 number, u8 places, 
         }
 
         if (shouldDraw || (i == 0)) {
-            Text_Init(th, 1);
-            Text_SetParameters(th, 0, colorId);
-            Text_AppendDecNumber(th, digits[i]);
-            Text_Draw(th, &gBG0TilemapBuffer[TILEMAP_INDEX(x - i, y)]);
+            InitText(th, 1);
+            Text_SetParams(th, 0, colorId);
+            Text_DrawNumber(th, digits[i]);
+            PutText(th, &gBG0TilemapBuffer[TILEMAP_INDEX(x - i, y)]);
         }
 
         th++;
@@ -660,7 +660,7 @@ struct TextHandle* DrawNumberText(struct TextHandle* th, u16 number, u8 places, 
     return th;
 }
 
-struct TextHandle* DrawNumberText_WithReset(struct TextHandle* th, u16 number, u8 numTiles, s8 x, s8 y, u8 colorId) {
+struct Text* DrawNumberText_WithReset(struct Text* th, u16 number, u8 numTiles, s8 x, s8 y, u8 colorId) {
     int i;
     u8 shouldDraw;
     u8 digits[8];
@@ -673,8 +673,8 @@ struct TextHandle* DrawNumberText_WithReset(struct TextHandle* th, u16 number, u
     shouldDraw = 0;
 
     for (i = numTiles - 1; i >= 0; i--) {
-        if (th->unk0 != 0xFFFF) {
-            Text_Clear(th);
+        if (th->chr_position != 0xFFFF) {
+            ClearText(th);
         }
 
         if (digits[i] != 0) {
@@ -682,13 +682,13 @@ struct TextHandle* DrawNumberText_WithReset(struct TextHandle* th, u16 number, u
         }
 
         if (shouldDraw || (i == 0)) {
-            if (th->unk0 == 0xFFFF) {
-                Text_Init(th, 1);
+            if (th->chr_position == 0xFFFF) {
+                InitText(th, 1);
             }
 
-            Text_SetParameters(th, 0, colorId);
-            Text_AppendDecNumber(th, digits[i]);
-            Text_Draw(th, &gBG0TilemapBuffer[TILEMAP_INDEX(x - i, y)]);
+            Text_SetParams(th, 0, colorId);
+            Text_DrawNumber(th, digits[i]);
+            PutText(th, &gBG0TilemapBuffer[TILEMAP_INDEX(x - i, y)]);
         }
 
         th++;
@@ -697,13 +697,13 @@ struct TextHandle* DrawNumberText_WithReset(struct TextHandle* th, u16 number, u
     return th;
 }
 
-void sub_8038668(struct TextHandle* th, u8 count) {
+void sub_8038668(struct Text* th, u8 count) {
     int i;
 
     for (i = count - 1; i >= 0; i--) {
 
-        if (th->unk0 != 0xFFFF) {
-            Text_Clear(th);
+        if (th->chr_position != 0xFFFF) {
+            ClearText(th);
         }
 
         th++;
@@ -712,14 +712,14 @@ void sub_8038668(struct TextHandle* th, u8 count) {
     return;
 }
 
-struct TextHandle* DrawTimeText(struct TextHandle* th, int time, s8 xBase, s8 yBase, u8 colorId) {
+struct Text* DrawTimeText(struct Text* th, int time, s8 xBase, s8 yBase, u8 colorId) {
     s8 xOffset;
     const char* str;
     u16 hours;
     u16 minutes;
     u16 seconds;
 
-    ComputeDisplayTime(time * 60, &hours, &minutes, &seconds);
+    FormatTime(time * 60, &hours, &minutes, &seconds);
 
     xOffset = xBase + 0xF9;
 
@@ -737,10 +737,10 @@ struct TextHandle* DrawTimeText(struct TextHandle* th, int time, s8 xBase, s8 yB
 
     str = GetStringFromIndex(0x20D); // :[.]
 
-    Text_Init(th, 1);
-    Text_SetParameters(th, 2, colorId);
-    Text_AppendChar(th, str);
-    Text_Draw(th, &gBG0TilemapBuffer[TILEMAP_INDEX(xOffset, yBase)]);
+    InitText(th, 1);
+    Text_SetParams(th, 2, colorId);
+    Text_DrawCharacter(th, str);
+    PutText(th, &gBG0TilemapBuffer[TILEMAP_INDEX(xOffset, yBase)]);
 
     th++;
 
@@ -760,10 +760,10 @@ struct TextHandle* DrawTimeText(struct TextHandle* th, int time, s8 xBase, s8 yB
 
     str = GetStringFromIndex(0x20D); // :[.]
 
-    Text_Init(th, 1);
-    Text_SetParameters(th, 2, colorId);
-    Text_AppendChar(th, str);
-    Text_Draw(th, &gBG0TilemapBuffer[TILEMAP_INDEX(xOffset, yBase)]);
+    InitText(th, 1);
+    Text_SetParams(th, 2, colorId);
+    Text_DrawCharacter(th, str);
+    PutText(th, &gBG0TilemapBuffer[TILEMAP_INDEX(xOffset, yBase)]);
 
     th++;
 
@@ -783,14 +783,14 @@ struct TextHandle* DrawTimeText(struct TextHandle* th, int time, s8 xBase, s8 yB
     return th;
 }
 
-struct TextHandle* DrawTimeText_WithReset(struct TextHandle* th, int time, s8 xBase, s8 yBase, u8 colorId, s8 drawPunctuation) {
+struct Text* DrawTimeText_WithReset(struct Text* th, int time, s8 xBase, s8 yBase, u8 colorId, s8 drawPunctuation) {
     s8 xOffset;
     const char* str;
     u16 hours;
     u16 minutes;
     u16 seconds;
 
-    ComputeDisplayTime(time * 60, &hours, &minutes, &seconds);
+    FormatTime(time * 60, &hours, &minutes, &seconds);
 
     xOffset = xBase + 0xF9;
 
@@ -808,16 +808,16 @@ struct TextHandle* DrawTimeText_WithReset(struct TextHandle* th, int time, s8 xB
 
     str = GetStringFromIndex(0x20D); // :[.]
 
-    if (th->unk0 != 0xFFFF) {
-        Text_Clear(th);
+    if (th->chr_position != 0xFFFF) {
+        ClearText(th);
     } else {
-        Text_Init(th, 1);
+        InitText(th, 1);
     }
 
     if (drawPunctuation) {
-        Text_SetParameters(th, 2, colorId);
-        Text_AppendChar(th, str);
-        Text_Draw(th, &gBG0TilemapBuffer[TILEMAP_INDEX(xOffset, yBase)]);
+        Text_SetParams(th, 2, colorId);
+        Text_DrawCharacter(th, str);
+        PutText(th, &gBG0TilemapBuffer[TILEMAP_INDEX(xOffset, yBase)]);
     }
 
     th++;
@@ -838,16 +838,16 @@ struct TextHandle* DrawTimeText_WithReset(struct TextHandle* th, int time, s8 xB
 
     str = GetStringFromIndex(0x20D); // :[.]
 
-    if (th->unk0 != 0xFFFF) {
-        Text_Clear(th);
+    if (th->chr_position != 0xFFFF) {
+        ClearText(th);
     } else {
-        Text_Init(th, 1);
+        InitText(th, 1);
     }
 
     if (drawPunctuation) {
-        Text_SetParameters(th, 2, colorId);
-        Text_AppendChar(th, str);
-        Text_Draw(th, &gBG0TilemapBuffer[TILEMAP_INDEX(xOffset, yBase)]);
+        Text_SetParams(th, 2, colorId);
+        Text_DrawCharacter(th, str);
+        PutText(th, &gBG0TilemapBuffer[TILEMAP_INDEX(xOffset, yBase)]);
     }
 
     th++;
@@ -869,13 +869,13 @@ struct TextHandle* DrawTimeText_WithReset(struct TextHandle* th, int time, s8 xB
 }
 
 extern struct Font gUnknown_020038AC;
-extern struct TextHandle gUnknown_02003B70;
+extern struct Text gUnknown_02003B70;
 
 void DrawDungeonRecordUiText(ProcPtr proc) {
     int time;
     struct Dungeon currentDungeon;
     struct Dungeon recordDungeon;
-    struct TextHandle text;
+    struct Text text;
 
     CpuCopy32(&gDungeonState.current, &currentDungeon, sizeof(struct Dungeon));
 
@@ -888,13 +888,13 @@ void DrawDungeonRecordUiText(ProcPtr proc) {
 
     SetGameTime(time);
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
-    Font_InitForUI(&gUnknown_020038AC, (void *)(VRAM + 0x20) + GetBackgroundTileDataOffset(0), 1, 0);
-    SetFont(&gUnknown_020038AC);
-    Font_LoadForUI();
+    InitTextFont(&gUnknown_020038AC, (void *)(VRAM + 0x20) + GetBackgroundTileDataOffset(0), 1, 0);
+    SetTextFont(&gUnknown_020038AC);
+    InitSystemTextFont();
 
-    NewGreenTextColorManager(proc);
+    StartGreenText(proc);
 
     DrawDungeonRecordUiLabels(&text);
 
@@ -1050,7 +1050,7 @@ void DungeonRecordUi_KeyListener(ProcPtr proc) {
 void EndDungeonRecordUi() {
     sub_80AB77C();
 
-    EndGreenTextColorManager();
+    EndGreenText();
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -1065,7 +1065,7 @@ void EndDungeonRecordUi() {
     gLCDControlBuffer.dispcnt.bg3_on = 0;
     gLCDControlBuffer.dispcnt.obj_on = 0;
 
-    Font_InitForUIDefault();
+    ResetText();
 
     CpuFastFill(0, gPaletteBuffer, 0x400);
 
@@ -1074,7 +1074,7 @@ void EndDungeonRecordUi() {
     return;
 }
 
-void sub_8038F78(struct TextHandle* th) {
+void sub_8038F78(struct Text* th) {
     int i;
     int bgOffset;
 
@@ -1083,11 +1083,11 @@ void sub_8038F78(struct TextHandle* th) {
     i = 0;
 
     while (i < 8) {
-        if (th->unk0 == 0xFFFF) {
+        if (th->chr_position == 0xFFFF) {
             CpuFastFill(0, (void *)((BG_VRAM + 0x12000) + (0x20 * i)), 32);
             CpuFastFill(0, (void *)((BG_VRAM + 0x12400) + (0x20 * i)), 32);
         } else {
-            int base = (BG_VRAM + (th->unk0 * 0x40));
+            int base = (BG_VRAM + (th->chr_position * 0x40));
             int src = bgOffset + base;
 
             src += 0x20;
@@ -1165,7 +1165,7 @@ void sub_803901C(struct BMDifficultyProc* proc) {
     return;
 }
 
-extern struct TextHandle gUnknown_02003B08;
+extern struct Text gUnknown_02003B08;
 
 void sub_80390D4(struct BMDifficultyProc* proc) {
     int pos[2];

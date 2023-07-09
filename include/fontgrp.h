@@ -1,28 +1,32 @@
 #ifndef GUARD_FONTGRP_H
 #define GUARD_FONTGRP_H
 
-struct TextHandle
-{
-    u16 unk0;
+#include "global.h"
+
+struct Text {
+    u16 chr_position;
     u8 x;
     u8 colorId;
-    u8 unk4;
-    s8 unk5;
-    u8 unk6;
-    u8 unk7;
+    u8 tile_width;
+    s8 db_enabled;
+    u8 db_id;
+    u8 is_printing;
 };
 
 
-struct Glyph
-{
+struct Glyph {
     struct Glyph *sjisNext;  // (only used in Shift-JIS fonts) next element in linked list
     u8 sjisByte1;            // (only used in Shift-JIS fonts) second byte of character
     u8 width;                // width of the glyph in pixels
     u32 bitmap[16];          // image data of the glyph (16x16 pixels, 2 bits per pixel)
 };
 
-struct Font
-{
+enum langaguge_index {
+    LANG_JAPANESE,
+    LANG_ENGLISH,
+};
+
+struct Font {
     /*0x00*/ u8 *vramDest;
              // pointer to table of glyph structs
              // In ASCII fonts, there is just one byte per character, so the glyph
@@ -31,29 +35,105 @@ struct Font
              // this array is a linked list. byte2 - 0x40 is the index of the head
              // of the list, and the list is traversed until a matching byte1 is found.
     /*0x04*/ struct Glyph **glyphs;
-    /*0x08*/ void (*drawGlyph)(struct TextHandle *, struct Glyph *);
-    /*0x0C*/ void *(*getVramTileOffset)(struct TextHandle *);
-    /*0x10*/ u16 unk10;
-    /*0x12*/ u16 unk12;
-    /*0x14*/ u16 paletteNum;
-    /*0x16*/ u8 isAscii;
+    /*0x08*/ void (*drawGlyph)(struct Text *, struct Glyph *);
+    /*0x0C*/ void *(*get_draw_dest)(struct Text *);
+    /*0x10*/ u16 tileref;
+    /*0x12*/ u16 chr_counter;
+    /*0x14*/ u16 palid;
+    /*0x16*/ u8 lang;
 };
 
-struct TextBatch
-{
-    struct TextHandle *unk0;
-    u8 unk4;
+struct TextInitInfo {
+    struct Text *text;
+    u8 width;
 };
 
 enum {
-    // TODO: maybe use names that also reflect meaning for dialogue colors (this is ui colors)
+    TEXT_GLYPHS_SYSTEM,
+    TEXT_GLYPHS_TALK,
+};
 
-    TEXT_COLOR_NORMAL = 0,
-    TEXT_COLOR_GRAY   = 1,
-    TEXT_COLOR_BLUE   = 2,
-    TEXT_COLOR_GOLD   = 3,
-    TEXT_COLOR_GREEN  = 4,
-    TEXT_COLOR_BLACK  = 5,
+enum text_colors {
+    TEXT_COLOR_0123 = 0,
+    TEXT_COLOR_0456 = 1,
+    TEXT_COLOR_0789 = 2,
+    TEXT_COLOR_0ABC = 3,
+    TEXT_COLOR_0DEF = 4,
+    TEXT_COLOR_0030 = 5,
+    TEXT_COLOR_4DEF = 6,
+    TEXT_COLOR_456F = 7,
+    TEXT_COLOR_47CF = 8,
+    TEXT_COLOR_MASK = 9,
+
+    TEXT_COLOR_COUNT,
+
+    TEXT_COLOR_SYSTEM_WHITE = TEXT_COLOR_0123,
+    TEXT_COLOR_SYSTEM_GRAY  = TEXT_COLOR_0456,
+    TEXT_COLOR_SYSTEM_BLUE  = TEXT_COLOR_0789,
+    TEXT_COLOR_SYSTEM_GOLD  = TEXT_COLOR_0ABC,
+    TEXT_COLOR_SYSTEM_GREEN = TEXT_COLOR_0DEF,
+    TEXT_COLOR_SYSTEM_BLACK = TEXT_COLOR_0030,
+
+    // TEXT_COLOR_TALK_...
+};
+
+enum text_special_char {
+    TEXT_SPECIAL_BIGNUM_0,
+    TEXT_SPECIAL_BIGNUM_1,
+    TEXT_SPECIAL_BIGNUM_2,
+    TEXT_SPECIAL_BIGNUM_3,
+    TEXT_SPECIAL_BIGNUM_4,
+    TEXT_SPECIAL_BIGNUM_5,
+    TEXT_SPECIAL_BIGNUM_6,
+    TEXT_SPECIAL_BIGNUM_7,
+    TEXT_SPECIAL_BIGNUM_8,
+    TEXT_SPECIAL_BIGNUM_9,
+    TEXT_SPECIAL_SMALLNUM_0,
+    TEXT_SPECIAL_SMALLNUM_1,
+    TEXT_SPECIAL_SMALLNUM_2,
+    TEXT_SPECIAL_SMALLNUM_3,
+    TEXT_SPECIAL_SMALLNUM_4,
+    TEXT_SPECIAL_SMALLNUM_5,
+    TEXT_SPECIAL_SMALLNUM_6,
+    TEXT_SPECIAL_SMALLNUM_7,
+    TEXT_SPECIAL_SMALLNUM_8,
+    TEXT_SPECIAL_SMALLNUM_9,
+    TEXT_SPECIAL_DASH,
+    TEXT_SPECIAL_PLUS,
+    TEXT_SPECIAL_SLASH,
+    TEXT_SPECIAL_TILDE,
+    TEXT_SPECIAL_S,
+    TEXT_SPECIAL_A,
+    TEXT_SPECIAL_B,
+    TEXT_SPECIAL_C,
+    TEXT_SPECIAL_D,
+    TEXT_SPECIAL_E,
+    TEXT_SPECIAL_G,
+    TEXT_SPECIAL_K, // NOTE: this is an E? used as statscreen exp label and equip marker
+    TEXT_SPECIAL_COLON,
+    TEXT_SPECIAL_DOT,
+    TEXT_SPECIAL_HP_A,
+    TEXT_SPECIAL_HP_B,
+    TEXT_SPECIAL_LV_A,
+    TEXT_SPECIAL_LV_B,
+    TEXT_SPECIAL_ARROW,
+    TEXT_SPECIAL_HEART,
+    TEXT_SPECIAL_100_A,
+    TEXT_SPECIAL_100_B,
+    TEXT_SPECIAL_PERCENT,
+    // TODO: rest
+
+    TEXT_SPECIAL_NOTHING = 0xFF,
+};
+
+struct TextPrintProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct Text * text;
+    /* 30 */ char const * str;
+    /* 34 */ s8 interval;
+    /* 35 */ s8 clock;
+    /* 36 */ s8 char_per_tick;
 };
 
 extern char gUnknown_02028E44[9];
@@ -79,78 +159,81 @@ void SetupDebugFontForOBJ(int a, int objPalNum);
 // ??? sub_8003C44(???);
 int GetLang(void);
 void SetLang(int);
-void Font_InitForUIDefault(void);
-void Font_InitForUI(struct Font *a, void *b, int c, int d);
-void SetFontGlyphSet(int a);
-void Font_ResetAllocation(void);
-void SetFont(struct Font *a);
-void Text_Init(struct TextHandle *a, int tileWidth);
-void Text_Allocate(struct TextHandle *th, int tileWidth);
-void InitTextBatch(const struct TextBatch* a);
-void Text_Clear(struct TextHandle* a);
-void sub_8003E00(struct TextHandle *th, int b, int c);
-// ??? sub_8003E40(???);
-int Text_GetXCursor(struct TextHandle *th);
-void Text_SetXCursor(struct TextHandle *th, int x);
-void Text_Advance(struct TextHandle *th, int x);
-void Text_SetColorId(struct TextHandle *th, int colorId);
-int Text_GetColorId(struct TextHandle *th);
-void Text_SetParameters(struct TextHandle* th, int x, int colorId);
-void Text_Draw(struct TextHandle* th, u16* dest);
-void Text_DrawBlank(struct TextHandle *th, u16 *dest);
-int GetStringTextWidth(const char *str);
-const char *GetCharTextWidth(const char *str, u32 *pWidth);
+void ResetText(void);
+void InitTextFont(struct Font *a, void *b, int c, int d);
+void SetTextFontGlyphs(int a);
+void ResetTextFont(void);
+void SetTextFont(struct Font *a);
+void InitText(struct Text *a, int tileWidth);
+void InitTextDb(struct Text *th, int tileWidth);
+void InitTextInitInfo(const struct TextInitInfo* a);
+void ClearText(struct Text* a);
+void ClearTextPart(struct Text *th, int b, int c);
+// ??? Text_GetChrOffset(???);
+int Text_GetCursor(struct Text *th);
+void Text_SetCursor(struct Text *th, int x);
+void Text_Skip(struct Text *th, int x);
+void Text_SetColor(struct Text *th, int colorId);
+int Text_GetColor(struct Text *th);
+void Text_SetParams(struct Text* th, int x, int colorId);
+void PutText(struct Text* th, u16* dest);
+void PutBlankText(struct Text *th, u16 *dest);
+int GetStringTextLen(const char *str);
+const char *GetCharTextLen(const char *str, u32 *pWidth);
 int GetStringTextCenteredPos(int x, const char* str);
-void sub_8003FAC(const char* str, int* outWidth, int* outHeight);
-char *String_GetEnd(char *);
-void Text_AppendString(struct TextHandle *th, const char* str);
-void Text_AppendDecNumber(struct TextHandle *th, int n);
-void sub_80040C0(struct TextHandle *th, int n);
-void Text_AppendNumberOr2Dashes(struct TextHandle *th, int n);
-const char *Text_AppendChar(struct TextHandle *a, const char *b);
-void *GetVRAMPointerForTextMaybe(struct TextHandle *a);
-// ??? GetGlyphColorLUT(???);
-// ??? Font_StandardGlyphDrawer(???);
-// ??? Font_SpecializedGlyphDrawer(???);
-void Font_LoadForUI(void);
-void Font_LoadForDialogue(void);
-void Font_SetSomeSpecialDrawingRoutine(void);
-void DrawTextInline(struct TextHandle* text, u16* dest, int colorId, int x, int tileWidth, const char* string);
-void Text_InsertString(struct TextHandle *th, int x, int colorId, const char *str);
-void Text_InsertNumberOr2Dashes(struct TextHandle *th, int x, int colorId, int n);
-void Text_AppendStringASCII(struct TextHandle *text, const char *str);
-const char *Text_AppendCharASCII(struct TextHandle *text, const char *str);
-const char *GetCharTextWidthASCII(const char *str, u32 *width);
-int GetStringTextWidthASCII(const char *str);
-// ??? sub_8004598(???);
-void InitSomeOtherGraphicsRelatedStruct(struct Font *font, void *vramDest, int c);
-void Text_Init3(struct TextHandle *th);
-void sub_80045FC(struct TextHandle*);
-void sub_800465C(struct TextHandle *th);
-void Text_80046B4(struct TextHandle *th, u32 b);
-void *sub_80046E0(struct TextHandle *);
-void sub_8004700(struct TextHandle *, struct Glyph *);
-// ??? sub_80048B0(???);
-// ??? sub_8004924(???);
-// ??? sub_800496C(???);
-// ??? sub_8004974(???);
-// ??? sub_8004984(???);
-void NewGreenTextColorManager(ProcPtr parent);
-void EndGreenTextColorManager(void);
-// ??? sub_80049E0(???);
-// ??? sub_8004A34(???);
-// ??? sub_8004A90(???);
-// ??? sub_8004ACC(???);
-void DrawSpecialUiChar(u16 *a, int b, int c);
-// ??? sub_8004B48(???);
-void sub_8004B88(u16 *a, int b, int c);
-void DrawDecNumber(u16* a, int b, int c);
-void sub_8004BB4(u16 *a, int b, int c);
-void sub_8004BE4(u16* a, int b, int c);
-void sub_8004BF0(int a, u16 *b);
-// ??? sub_8004C1C(???);
-void sub_8004C68(u16 *a, int b, int c, u8 d);
-void DrawSpecialUiStr(u16 *a, int b, int c, int d);
+void GetStringTextBox(const char* str, int* outWidth, int* outHeight);
+char *GetStringLineEnd(char *str);
+void Text_DrawString(struct Text *th, const char* str);
+void Text_DrawNumber(struct Text *th, int n);
+void Text_DrawNumberOrSpace(struct Text *th, int n);
+void Text_DrawNumberOrBlank(struct Text *th, int n);
+const char *Text_DrawCharacter(struct Text *a, const char *b);
+void *GetTextDrawDest(struct Text *a);
+// ??? GetColorLut(???);
+// ??? DrawTextGlyph(???);
+// ??? DrawTextGlyphNoClear(???);
+void InitSystemTextFont(void);
+void InitTalkTextFont(void);
+void SetTextDrawNoClear(void);
+void PutDrawText(struct Text* text, u16* dest, int colorId, int x, int tileWidth, const char* string);
+void Text_InsertDrawString(struct Text *th, int x, int colorId, const char *str);
+void Text_InsertDrawNumberOrBlank(struct Text *th, int x, int colorId, int n);
+void Text_DrawStringASCII(struct Text *text, const char *str);
+const char *Text_DrawCharacterAscii(struct Text *text, const char *str);
+const char *GetCharTextLenASCII(const char *str, u32 *width);
+int GetStringTextLenASCII(const char *str);
+// ??? nop_8004598(???);
+void InitSpriteTextFont(struct Font *font, void *vramDest, int c);
+void InitSpriteText(struct Text *th);
+void SpriteText_DrawBackground(struct Text*);
+void SpriteText_Clear(struct Text *th);
+void SpriteText_DrawBackgroundExt(struct Text *th, u32 b);
+void *GetSpriteTextDrawDest(struct Text *);
+void DrawSpriteTextGlyph(struct Text *, struct Glyph *);
+// ??? TextPrint_OnLoop(???);
+// ??? StartTextPrint(???);
+// ??? IsTextPrinting(???);
+// ??? EndTextPrinting(???);
+// ??? GreenText_OnLoop(???);
+void StartGreenText(ProcPtr parent);
+void EndGreenText(void);
+// ??? DrawSpecialCharGlyph_old(???);
+// ??? DrawSpecialCharGlyph(???);
+// ??? AddSpecialChar(???);
+// ??? GetSpecialCharChr(???);
+void PutSpecialChar(u16 *a, int b, int c);
+// ??? PutNumberExt(???);
+void PutNumber(u16 *a, int b, int c);
+void PutNumberOrBlank(u16* a, int b, int c);
+void PutNumberTwoChr(u16 *a, int b, int c);
+void PutNumberSmall(u16* a, int b, int c);
+void PutNumberBonus(int a, u16 *b);
+// ??? SpecialCharTest(???);
+void PutTime(u16 * tm, int color, int time, bool always_display_punctuation);
+void PutTwoSpecialChar(u16 *a, int b, int c, int d);
+void PutNumber2Digit(u16 *tm, int color, int number);
+void PutNumber2DigitSmall(u16 *tm, int color, int number);
+void PutNumber2DigitExt(u16 *tm, int color, int number, int id_zero);
 // ??? sub_8004D7C(???);
 // ??? sub_8004DB8(???);
 // ??? sub_8004DF8(???);

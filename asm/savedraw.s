@@ -71,7 +71,7 @@ sub_80AA7EC: @ 0x080AA7EC
 	add r1, sp, #4
 	adds r2, r4, #0
 	adds r3, r5, #0
-	bl ComputeDisplayTime
+	bl FormatTime
 	b _080AA858
 _080AA83A:
 	adds r0, r4, #0
@@ -87,7 +87,7 @@ _080AA83A:
 	add r1, sp, #4
 	adds r2, r4, #0
 	adds r3, r5, #0
-	bl ComputeDisplayTime
+	bl FormatTime
 _080AA858:
 	mov sl, r4
 	mov r1, r8

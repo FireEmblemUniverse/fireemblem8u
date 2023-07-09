@@ -276,7 +276,7 @@ sub_80CE148: @ 0x080CE148
 	bne _080CE1A8
 	adds r0, r1, #0
 	adds r0, #0xec
-	bl Text_Clear
+	bl ClearText
 	ldr r0, _080CE1B4  @ 0x000005D4
 	bl GetStringFromIndex
 	adds r3, r0, #0
@@ -288,7 +288,7 @@ sub_80CE148: @ 0x080CE148
 	str r3, [sp, #4]
 	movs r2, #0
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	ldr r0, [r4]
 	adds r4, r0, #0
 	adds r4, #0xec
@@ -307,7 +307,7 @@ sub_80CE148: @ 0x080CE148
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Text_AppendString
+	bl Text_DrawString
 _080CE1A8:
 	add sp, #8
 	pop {r4}
@@ -333,7 +333,7 @@ sub_80CE1C0: @ 0x080CE1C0
 	adds r1, #0x7c
 	ldr r0, [r4]
 	adds r0, r0, r1
-	bl Text_Clear
+	bl ClearText
 	ldr r4, [r4]
 	adds r0, r4, #0
 	adds r0, #0x30
@@ -377,7 +377,7 @@ _080CE210:
 	str r3, [sp, #4]
 	movs r2, #0
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	add sp, #8
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -514,7 +514,7 @@ sub_80CE2FC: @ 0x080CE2FC
 	adds r6, #0xb4
 	ldr r0, [r5]
 	adds r0, r0, r6
-	bl Text_Clear
+	bl ClearText
 	ldr r0, _080CE380  @ gUnknown_08B19E0C
 	mov r8, r0
 	ldr r0, [r5]
@@ -552,7 +552,7 @@ _080CE342:
 	str r3, [sp, #4]
 	adds r2, r7, #0
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	add sp, #8
 	pop {r3}
 	mov r8, r3
@@ -582,7 +582,7 @@ sub_80CE388: @ 0x080CE388
 	adds r6, #0xb4
 	ldr r0, [r5]
 	adds r0, r0, r6
-	bl Text_Clear
+	bl ClearText
 	ldr r0, _080CE40C  @ gUnknown_08B19E0C
 	mov r8, r0
 	ldr r0, [r5]
@@ -620,7 +620,7 @@ _080CE3CE:
 	str r3, [sp, #4]
 	adds r2, r7, #0
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	add sp, #8
 	pop {r3}
 	mov r8, r3
@@ -748,7 +748,7 @@ _080CE4D8:
 	mov r1, sl
 	ldr r0, [r1]
 	adds r0, r0, r7
-	bl Text_Clear
+	bl ClearText
 	mov r2, sl
 	ldr r0, [r2]
 	adds r0, #0x68
@@ -794,7 +794,7 @@ _080CE51A:
 	str r3, [sp, #4]
 	mov r2, r9
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	ldr r0, [sp, #8]
 	adds r0, #2
 	str r0, [sp, #8]
@@ -881,7 +881,7 @@ _080CE5DA:
 _080CE5DE:
 	adds r0, r1, #0
 	mov r1, sp
-	bl GetCharTextWidth
+	bl GetCharTextLen
 	adds r1, r0, #0
 	b _080CE5CC
 _080CE5EA:
@@ -966,7 +966,7 @@ _080CE672:
 	strb r7, [r0]
 	ldr r0, [r5]
 	adds r0, #0xb4
-	bl Text_Clear
+	bl ClearText
 	ldr r0, _080CE6C4  @ gUnknown_08B19E0C
 	mov r1, r8
 	lsls r4, r1, #1
@@ -984,7 +984,7 @@ _080CE672:
 	str r3, [sp, #4]
 	movs r2, #3
 	movs r3, #2
-	bl DrawTextInline
+	bl PutDrawText
 	ldrh r0, [r4, #4]
 	bl GetStringFromIndex
 	adds r6, r0, #0
@@ -1009,7 +1009,7 @@ _080CE6CC:
 	adds r4, #0xbc
 	ldr r0, [r5]
 	adds r0, r0, r4
-	bl Text_Clear
+	bl ClearText
 	ldr r0, [r5]
 	adds r2, r0, r4
 	mov r1, r8
@@ -1034,7 +1034,7 @@ _080CE6F8:
 	adds r0, r2, #0
 	movs r2, #0
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 _080CE71A:
 	movs r1, #1
 	add r8, r1
@@ -1387,7 +1387,7 @@ _080CE9B2:
 	adds r4, #0xbc
 	ldr r0, [r5]
 	adds r0, r0, r4
-	bl Text_Clear
+	bl ClearText
 	ldr r0, [r5]
 	adds r0, r0, r4
 	ldr r1, _080CE9E4  @ gUnknown_0202393E
@@ -1396,7 +1396,7 @@ _080CE9B2:
 	str r6, [sp, #4]
 	movs r2, #0
 	movs r3, #0
-	bl DrawTextInline
+	bl PutDrawText
 	movs r0, #0
 	str r0, [r7, #0x34]
 	add sp, #8
@@ -1968,20 +1968,20 @@ sub_80CECB0: @ 0x080CECB0
 	movs r1, #0x40
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	bl Font_ResetAllocation
+	bl ResetTextFont
 	ldr r0, [r5]
 	adds r0, #0xec
 	movs r1, #0x16
-	bl Text_Init
+	bl InitText
 	bl sub_80CE148
 	ldr r0, [r5]
 	adds r0, #0xac
 	movs r1, #9
-	bl Text_Init
+	bl InitText
 	ldr r0, [r5]
 	adds r0, #0xe4
 	movs r1, #0x12
-	bl Text_Init
+	bl InitText
 	movs r6, #0xb4
 	movs r4, #0x7c
 	movs r2, #5
@@ -1990,11 +1990,11 @@ _080CEE44:
 	ldr r0, [r5]
 	adds r0, r0, r4
 	movs r1, #9
-	bl Text_Init
+	bl InitText
 	ldr r0, [r5]
 	adds r0, r0, r6
 	movs r1, #0x12
-	bl Text_Init
+	bl InitText
 	adds r6, #8
 	adds r4, #8
 	movs r0, #1

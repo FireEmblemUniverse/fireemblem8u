@@ -47,7 +47,7 @@ struct EndingBattleTextProc {
     /* 3C */ int pauseTimer;
     /* 40 */ int defaultPauseDelay;
     /* 44 */ const char* str;
-    /* 48 */ struct TextHandle* textHandle;
+    /* 48 */ struct Text* Text;
 };
 
 struct FinScreenProc {
@@ -319,8 +319,8 @@ u16* CONST_DATA gUnknown_08A3D348[] = {
     gUnknown_02001FA0,
 };
 
-extern struct TextHandle gUnknown_020027A0[];
-struct TextHandle* gUnknown_08A3D358 = gUnknown_020027A0;
+extern struct Text gUnknown_020027A0[];
+struct Text* gUnknown_08A3D358 = gUnknown_020027A0;
 
 // forward declarations
 void StartSoloEndingBattleDisplay(struct CharacterEndingEnt*, struct Unit*, struct CharacterEndingProc*);
@@ -475,15 +475,15 @@ void sub_80B689C(int a, int b) {
 void sub_80B6920(void) {
     int i;
 
-    Font_InitForUIDefault();
+    ResetText();
 
     for (i = 0; i < 2; i++) {
-        Text_Init(gUnknown_08A3D358 + 5 + i, 15);
-        Text_Init(gUnknown_08A3D358 + 7 + i, 10);
+        InitText(gUnknown_08A3D358 + 5 + i, 15);
+        InitText(gUnknown_08A3D358 + 7 + i, 10);
     }
 
     for (i = 0; i < 5; i++) {
-        Text_Init(gUnknown_08A3D358 + i, 26);
+        InitText(gUnknown_08A3D358 + i, 26);
     }
 
     return;
@@ -810,15 +810,15 @@ void SoloEndingBattleDisp_Init(struct EndingBattleDisplayProc* proc) {
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidA));
 
-    DrawTextInline(gUnknown_08A3D358 + 5, gUnknown_08A3D348[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
+    PutDrawText(gUnknown_08A3D358 + 5, gUnknown_08A3D348[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
-    DrawTextInline(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0, 0, GetStringFromIndex(0x51F));
-    DrawTextInline(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
-    DrawTextInline(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
+    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0, 0, GetStringFromIndex(0x51F));
+    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
+    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    sub_8004B88(gUnknown_08A3D348[0] + 0x31 + sub_80AEBEC(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
-    sub_8004B88(gUnknown_08A3D348[0] + 0x35 + sub_80AEBEC(proc->winAmounts[0]), 2, proc->winAmounts[0]);
-    sub_8004B88(gUnknown_08A3D348[0] + 0x39 + sub_80AEBEC(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x31 + sub_80AEBEC(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x35 + sub_80AEBEC(proc->winAmounts[0]), 2, proc->winAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x39 + sub_80AEBEC(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
 
     StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 0x1a0, 0x38, 0x502);
 
@@ -901,26 +901,26 @@ void sub_80B6F34(struct EndingBattleDisplayProc* proc) {
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidA));
 
-    DrawTextInline(gUnknown_08A3D358 + 5, gUnknown_08A3D348[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
+    PutDrawText(gUnknown_08A3D358 + 5, gUnknown_08A3D348[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
-    DrawTextInline(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0, 0, GetStringFromIndex(0x51F));
-    DrawTextInline(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
-    DrawTextInline(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
+    PutDrawText(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0, 0, GetStringFromIndex(0x51F));
+    PutDrawText(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
+    PutDrawText(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    sub_8004B88(gUnknown_08A3D348[0] + 0x31 + sub_80AEBEC(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
-    sub_8004B88(gUnknown_08A3D348[0] + 0x35 + sub_80AEBEC(proc->winAmounts[0]), 2, proc->winAmounts[0]);
-    sub_8004B88(gUnknown_08A3D348[0] + 0x39 + sub_80AEBEC(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x31 + sub_80AEBEC(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x35 + sub_80AEBEC(proc->winAmounts[0]), 2, proc->winAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x39 + sub_80AEBEC(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidB));
-    DrawTextInline(gUnknown_08A3D358 + 6, gUnknown_08A3D348[0] + 0x22E, 0, GetStringTextCenteredPos(0x78, str), 0, str);
+    PutDrawText(gUnknown_08A3D358 + 6, gUnknown_08A3D348[0] + 0x22E, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
-    DrawTextInline(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0, 0, GetStringFromIndex(0x51F));
-    DrawTextInline(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0x20, 0, GetStringFromIndex(0x520));
-    DrawTextInline(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0x40, 0, GetStringFromIndex(0x521));
+    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0, 0, GetStringFromIndex(0x51F));
+    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0x20, 0, GetStringFromIndex(0x520));
+    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    sub_8004B88(gUnknown_08A3D348[0] + 0x221 + sub_80AEBEC(proc->battleAmounts[1]), 2, proc->battleAmounts[1]);
-    sub_8004B88(gUnknown_08A3D348[0] + 0x225 + sub_80AEBEC(proc->winAmounts[1]), 2, proc->winAmounts[1]);
-    sub_8004B88(gUnknown_08A3D348[0] + 0x229 + sub_80AEBEC(proc->lossAmounts[1]), 2, proc->lossAmounts[1]);
+    PutNumber(gUnknown_08A3D348[0] + 0x221 + sub_80AEBEC(proc->battleAmounts[1]), 2, proc->battleAmounts[1]);
+    PutNumber(gUnknown_08A3D348[0] + 0x225 + sub_80AEBEC(proc->winAmounts[1]), 2, proc->winAmounts[1]);
+    PutNumber(gUnknown_08A3D348[0] + 0x229 + sub_80AEBEC(proc->lossAmounts[1]), 2, proc->lossAmounts[1]);
 
     proc->unk_34 = 0;
 
@@ -1006,22 +1006,22 @@ void StartPairedEndingBattleDisplay(struct CharacterEndingEnt* endingEnt, struct
 }
 
 //! FE8U = 0x080B72C4
-void EndingBattleText_Init(struct EndingBattleTextProc* proc) {
+void EndingBattleInitText(struct EndingBattleTextProc* proc) {
     int i;
 
-    proc->textHandle = gUnknown_08A3D358;
+    proc->Text = gUnknown_08A3D358;
 
     proc->defaultPauseDelay = 4;
     proc->pauseTimer = 4;
 
-    Text_SetXCursor(proc->textHandle, 0);
-    Text_SetColorId(proc->textHandle, 0);
+    Text_SetCursor(proc->Text, 0);
+    Text_SetColor(proc->Text, 0);
 
     for (i = 0; i < 5; i++) {
         int offset = 0xc0 + i * 0x40;
 
-        Text_Clear(gUnknown_08A3D358 + i);
-        Text_Draw(gUnknown_08A3D358 + i, gBG0TilemapBuffer + 2 + offset);
+        ClearText(gUnknown_08A3D358 + i);
+        PutText(gUnknown_08A3D358 + i, gBG0TilemapBuffer + 2 + offset);
     }
 
     BG_EnableSyncByMask(1);
@@ -1052,7 +1052,7 @@ void EndingBattleText_Loop(struct EndingBattleTextProc* proc) {
         return;
     }
 
-    SetFont(NULL);
+    SetTextFont(NULL);
 
     switch (*proc->str) {
         case 0x00: // [X]
@@ -1061,11 +1061,11 @@ void EndingBattleText_Loop(struct EndingBattleTextProc* proc) {
 
         case 0x01: // [NL]
             proc->str++;
-            proc->textHandle++;
+            proc->Text++;
             proc->pauseTimer += 16;
 
-            Text_SetXCursor(proc->textHandle, 0);
-            Text_SetColorId(proc->textHandle, 0);
+            Text_SetCursor(proc->Text, 0);
+            Text_SetColor(proc->Text, 0);
 
             break;
 
@@ -1096,7 +1096,7 @@ void EndingBattleText_Loop(struct EndingBattleTextProc* proc) {
         case 0x02: // [NL2]
         case 0x03: // [A]
         default:
-            proc->str = Text_AppendChar(proc->textHandle, proc->str);
+            proc->str = Text_DrawCharacter(proc->Text, proc->str);
     }
 
     // TODO: Is this a bug? Seems to overwrite any pauses with the default delay of 4 frames...
@@ -1107,7 +1107,7 @@ void EndingBattleText_Loop(struct EndingBattleTextProc* proc) {
 
 struct ProcCmd CONST_DATA gProcScr_EndingBattleDisplay_Text[] = {
     PROC_SLEEP(0),
-    PROC_CALL(EndingBattleText_Init),
+    PROC_CALL(EndingBattleInitText),
     PROC_REPEAT(EndingBattleText_Loop),
 
     PROC_END,
@@ -1449,7 +1449,7 @@ void sub_80B7648(struct EndingTurnRecordProc* proc) {
     gLCDControlBuffer.dispcnt.obj_on = 0;
 
     SetDefaultColorEffects();
-    Font_InitForUIDefault();
+    ResetText();
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
     gLCDControlBuffer.dispcnt.win1_on = 0;
@@ -1463,7 +1463,7 @@ void sub_80B7648(struct EndingTurnRecordProc* proc) {
     return;
 }
 
-struct TextHandle* CONST_DATA gUnknown_08A3D674 = gUnknown_020027A0;
+struct Text* CONST_DATA gUnknown_08A3D674 = gUnknown_020027A0;
 
 //! FE8U = 0x080B770C
 void sub_80B770C(void) {
@@ -1493,17 +1493,17 @@ void sub_80B770C(void) {
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 
     for (i = 0; i < 9; i++) {
-        Text_Init(gUnknown_08A3D674 + i, 5);
-        Text_Init(gUnknown_08A3D674 + 9 + i, 13);
+        InitText(gUnknown_08A3D674 + i, 5);
+        InitText(gUnknown_08A3D674 + 9 + i, 13);
     }
 
-    Text_Init(gUnknown_08A3D674 + 18, 4);
-    Text_Init(gUnknown_08A3D674 + 19, 2);
+    InitText(gUnknown_08A3D674 + 18, 4);
+    InitText(gUnknown_08A3D674 + 19, 2);
 
-    Text_AppendString(gUnknown_08A3D674 + 18, GetStringFromIndex(0x15D));
+    Text_DrawString(gUnknown_08A3D674 + 18, GetStringFromIndex(0x15D));
 
-    Text_SetColorId(gUnknown_08A3D674 + 19, 3);
-    Text_AppendString(gUnknown_08A3D674 + 19, GetStringFromIndex(0x157));
+    Text_SetColor(gUnknown_08A3D674 + 19, 3);
+    Text_DrawString(gUnknown_08A3D674 + 19, GetStringFromIndex(0x157));
 
     return;
 }
@@ -1527,15 +1527,15 @@ int sub_80B7800(struct ChapterStats* param_1, int param_2) {
     TileMap_FillRect(gBG1TilemapBuffer + TILEMAP_INDEX(0, r7), 0x1f, 1, 0);
     BG_EnableSyncByMask(2);
 
-    Text_Clear(gUnknown_08A3D674 + sp0C);
-    Text_Clear(gUnknown_08A3D674 + 9 + sp0C);
+    ClearText(gUnknown_08A3D674 + sp0C);
+    ClearText(gUnknown_08A3D674 + 9 + sp0C);
 
     if ((u32)param_1 == -1) {
         r4 = GetGameTotalTurnCount();
 
-        DrawTextInline(gUnknown_08A3D674 + 9 + sp0C, gBG1TilemapBuffer + ({r6 + 0xC;}), 3, 0, 0, GetStringFromIndex(0x15f));
-        sub_8004B88(gBG1TilemapBuffer + ({r6 + 0x17;}), 2, r4);
-        Text_Draw(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + ({r6 + 0x18;}));
+        PutDrawText(gUnknown_08A3D674 + 9 + sp0C, gBG1TilemapBuffer + ({r6 + 0xC;}), 3, 0, 0, GetStringFromIndex(0x15f));
+        PutNumber(gBG1TilemapBuffer + ({r6 + 0x17;}), 2, r4);
+        PutText(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + ({r6 + 0x18;}));
 
         return 0;
     }
@@ -1545,25 +1545,25 @@ int sub_80B7800(struct ChapterStats* param_1, int param_2) {
         r9 = GetROMChapterStruct(sl)->prepScreenNumber >> 1;
         switch (sl) {
             case 0:
-                DrawTextInline(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x15a)); // TODO: msgid "Prologue"
+                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x15a)); // TODO: msgid "Prologue"
                 break;
 
             case 21:
             case 22:
             case 34:
             case 35:
-                DrawTextInline(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x159)); // TODO: msgid "Final[.]"
+                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x159)); // TODO: msgid "Final[.]"
                 break;
 
             case 5:
-                Text_Draw(gUnknown_08A3D674 + 0x13, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7));
-                sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (1  + var), r7), 2, r9);
-                DrawTextInline(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (2 + var), r7), 2, 0, 0, GetStringFromIndex(0x158));
+                PutText(gUnknown_08A3D674 + 0x13, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7));
+                PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (1  + var), r7), 2, r9);
+                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (2 + var), r7), 2, 0, 0, GetStringFromIndex(0x158));
                 break;
 
             default:
-                DrawTextInline(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x0157));
-                sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (1 + var), r7), 2, r9);
+                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x0157));
+                PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (1 + var), r7), 2, r9);
                 break;
         }
 
@@ -1583,9 +1583,9 @@ int sub_80B7800(struct ChapterStats* param_1, int param_2) {
                 break;
         }
 
-        DrawTextInline(gUnknown_08A3D674 + 9 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(5 + var, r7), 0, 0, 0, GetStringFromIndex(GetROMChapterStruct(sl)->chapTitleTextId));
-        sub_8004B88(gBG1TilemapBuffer + TILEMAP_INDEX(0x14 + var, r7), 2, uVar10);
-        Text_Draw(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + TILEMAP_INDEX(0x15 + var, r7));
+        PutDrawText(gUnknown_08A3D674 + 9 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(5 + var, r7), 0, 0, 0, GetStringFromIndex(GetROMChapterStruct(sl)->chapTitleTextId));
+        PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(0x14 + var, r7), 2, uVar10);
+        PutText(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + TILEMAP_INDEX(0x15 + var, r7));
     }
 
     return sp10;

@@ -42,7 +42,7 @@ void ResetPrepMenuDescTexts()
 {
     int i = 0;
     for (i = 0; i < 5; i++)
-        Text_Clear(&gPrepMainMenuTexts[i + 5]);
+        ClearText(&gPrepMainMenuTexts[i + 5]);
 
     TileMap_FillRect(
         TILEMAP_LOCATED(gBG2TilemapBuffer, 0xD, 0x6),
@@ -53,7 +53,7 @@ void ResetPrepMenuDescTexts()
 
 void ParsePrepMenuDescTexts(int msg)
 {
-    struct TextHandle *th = &gPrepMainMenuTexts[5];
+    struct Text *th = &gPrepMainMenuTexts[5];
     const char *str = GetStringFromIndex(msg);
 
     while (1) {
@@ -66,7 +66,7 @@ void ParsePrepMenuDescTexts(int msg)
             continue;
         }
 
-        str = Text_AppendChar(th, str);
+        str = Text_DrawCharacter(th, str);
     }
 }
 
@@ -76,7 +76,7 @@ void DrawPrepMenuDescTexts()
 
     base_line = CheckInLinkArena() ? 1 : 0;
     for (i = 0; i < 5; i++) {
-        Text_Draw(
+        PutText(
             &gPrepMainMenuTexts[i + 5],
             TILEMAP_LOCATED(gBG2TilemapBuffer, 0xD, 2 * i - base_line + 7));
     }
@@ -133,7 +133,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     int i;
 
     SetupBackgrounds(gBgConfig_ItemUseScreen);
-    Font_InitForUIDefault();
+    ResetText();
     LoadUiFrameGraphics();
     LoadHelpBoxGfx(NULL, 0xE);
     SetDispEnable(0, 0, 0, 0, 0);
@@ -149,10 +149,10 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     BG_Fill(gBG2TilemapBuffer, 0);
 
     for (i = 0; i < 5; i++)
-        Text_Init(&gPrepMainMenuTexts[i + 5], 0xE);
+        InitText(&gPrepMainMenuTexts[i + 5], 0xE);
     for (i = 0; i < 4; i++)
-        Text_Init(&gPrepMainMenuTexts[i + 1], 0x8);
-    Text_Init(&gPrepMainMenuTexts[0], 0xA);
+        InitText(&gPrepMainMenuTexts[i + 1], 0x8);
+    InitText(&gPrepMainMenuTexts[0], 0xA);
 
     /* "Preparations" */
     Decompress(gUnknown_08A1A4C8, (void*)0x6014800);
@@ -242,7 +242,7 @@ void sub_8095F54(struct ProcAtMenu *proc)
 {
     int i, unk2F, tile;
 
-    struct TextHandle *th = &gPrepMainMenuTexts[1];
+    struct Text *th = &gPrepMainMenuTexts[1];
     int height = sub_80950C4(proc->unk_2F);
     DrawUiFrame2(3, 5, 9, 2 * height + 2, 1);
 
@@ -252,11 +252,11 @@ void sub_8095F54(struct ProcAtMenu *proc)
         unk2F = proc->unk_2F >> i;
 
         if (1 & unk2F) {
-            Text_Clear(th);
-            DrawTextInline(
+            ClearText(th);
+            PutDrawText(
                 th,
                 (void*)TILEMAP_LOCATED(gBG0TilemapBuffer, 4, 0) + tile,
-                TEXT_COLOR_NORMAL,
+                TEXT_COLOR_SYSTEM_WHITE,
                 0, 0, GetStringFromIndex(gUnknown_08A196BC[i]));
 
             th++;

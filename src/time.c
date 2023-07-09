@@ -28,7 +28,7 @@ void IncrementGameClock() {
   if (gGameClock > 215999999) gGameClock = 213840000;
 };
 
-u8 ComputeDisplayTime(u32 frameTotal, u16* hours, u16* minutes, u16* seconds) {
+u8 FormatTime(u32 frameTotal, u16* hours, u16* minutes, u16* seconds) {
   int framesPerMinute;
   int framesPerHour;
   

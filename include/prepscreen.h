@@ -110,7 +110,7 @@ struct ProcPrepMenuItem {
 	/* 38 */ u8 color;
 	/* 39 */ u8 index;
 	/* 3A */ u8 pad_3A[0x3C - 0x3A];
-	/* 3C */ struct TextHandle text;
+	/* 3C */ struct Text text;
 };
 
 struct ProcPrepMenu {
@@ -213,9 +213,9 @@ enum prepitem_textindex {
     TEXT_PREPITEM_DESC3 = 29,
 };
 
-extern struct TextHandle gPrepItemTexts[32];
+extern struct Text gPrepItemTexts[32];
 
-extern struct TextHandle gPrepMainMenuTexts[9];
+extern struct Text gPrepMainMenuTexts[9];
 extern u8 gPrepUnitPool[];
 extern u8 gBanimScrRight[];
 extern struct PrepUnitList gPrepUnitList;
@@ -613,7 +613,7 @@ void PrepItemDrawPopupBox(int x, int y, int w, int h, int oam2);
 // ??? PrepItemScreen_GiveAll(???);
 // ??? PrepItemTrade_ApplyItemSwap(???);
 // ??? PrepItemTrade_DpadKeyHandler(???);
-void DrawPrepScreenItems(u16*, struct TextHandle*, struct Unit*, u8);
+void DrawPrepScreenItems(u16*, struct Text*, struct Unit*, u8);
 void DrawPrepScreenItemIcons(u16* tm, struct Unit* unit);
 // ??? PrepItemTrade_Init(???);
 // ??? PrepItemTrade_Loop_MainKeyHandler(???);

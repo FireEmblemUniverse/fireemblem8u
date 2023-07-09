@@ -20,8 +20,8 @@ struct UnitInfoWindowProc {
 
     /* 2C */ struct Unit* unit;
 
-    /* 30 */ struct TextHandle name;
-    /* 38 */ struct TextHandle lines[LINES_MAX];
+    /* 30 */ struct Text name;
+    /* 38 */ struct Text lines[LINES_MAX];
 
     /* 60 */ u8 x;
     /* 61 */ u8 y;
@@ -72,7 +72,7 @@ void UnitInfoWindow_OnLoop(struct UnitInfoWindowProc* proc) {
 struct UnitInfoWindowProc* NewUnitInfoWindow(ProcPtr parent) {
     struct UnitInfoWindowProc* proc = Proc_Start(gProcScr_UnitInfoWindow, parent);
 
-    Text_Allocate(&proc->name, 6);
+    InitTextDb(&proc->name, 6);
 
     ResetIconGraphics();
     LoadIconPalettes(4);
@@ -82,7 +82,7 @@ struct UnitInfoWindowProc* NewUnitInfoWindow(ProcPtr parent) {
 
 //! FE8U = 0x080347D4
 void UnitInfoWindow_PositionUnitName(struct UnitInfoWindowProc* proc) {
-    if (GetStringTextWidth(GetStringFromIndex(proc->unit->pCharacterData->nameTextId)) < 40) {
+    if (GetStringTextLen(GetStringFromIndex(proc->unit->pCharacterData->nameTextId)) < 40) {
         proc->xUnitSprite = 4;
         proc->xNameText = 24;
     } else {
@@ -157,14 +157,14 @@ struct UnitInfoWindowProc* UnitInfoWindow_DrawBase(struct UnitInfoWindowProc* pr
         gBG1TilemapBuffer[TILEMAP_INDEX(x+width-1, y+2)] = src[11];
     }
 
-    Text_Clear(&proc->name);
+    ClearText(&proc->name);
 
     UnitInfoWindow_PositionUnitName(proc);
 
-    Text_SetXCursor(&proc->name, proc->xNameText);
-    Text_AppendString(&proc->name, GetStringFromIndex(unit->pCharacterData->nameTextId));
+    Text_SetCursor(&proc->name, proc->xNameText);
+    Text_DrawString(&proc->name, GetStringFromIndex(unit->pCharacterData->nameTextId));
 
-    Text_Draw(&proc->name, gBG0TilemapBuffer + TILEMAP_INDEX(x+3, y+1));
+    PutText(&proc->name, gBG0TilemapBuffer + TILEMAP_INDEX(x+3, y+1));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -182,34 +182,34 @@ int GetUnitInfoWindowX(struct Unit* unit, int width) {
 }
 
 //! FE8U = 0x080349FC
-void DrawUnitHpText(struct TextHandle* text, struct Unit* unit) {
-    Text_Clear(text);
+void DrawUnitHpText(struct Text* text, struct Unit* unit) {
+    ClearText(text);
 
-    Text_InsertString(text, 0, 3, GetStringFromIndex(0x4E9)); // TODO: msgid "HP"
-    Text_InsertString(text, 40, 3, GetStringFromIndex(0x539)); // TODO: msgid "/[.]"
+    Text_InsertDrawString(text, 0, 3, GetStringFromIndex(0x4E9)); // TODO: msgid "HP"
+    Text_InsertDrawString(text, 40, 3, GetStringFromIndex(0x539)); // TODO: msgid "/[.]"
 
-    Text_InsertNumberOr2Dashes(text, 32, 2, GetUnitCurrentHp(unit));
-    Text_InsertNumberOr2Dashes(text, 56, 2, GetUnitMaxHp(unit));
+    Text_InsertDrawNumberOrBlank(text, 32, 2, GetUnitCurrentHp(unit));
+    Text_InsertDrawNumberOrBlank(text, 56, 2, GetUnitMaxHp(unit));
 
     return;
 }
 
 //! FE8U = 0x08034A5C
-void DrawUnitConText(struct TextHandle* text, struct Unit* unit) {
-    Text_Clear(text);
+void DrawUnitConText(struct Text* text, struct Unit* unit) {
+    ClearText(text);
 
-    Text_InsertString(text, 0, 3, GetStringFromIndex(0x4F7)); // TODO: msgid "Con[.]"
-    Text_InsertNumberOr2Dashes(text, 56, 2, UNIT_CON(unit));
+    Text_InsertDrawString(text, 0, 3, GetStringFromIndex(0x4F7)); // TODO: msgid "Con[.]"
+    Text_InsertDrawNumberOrBlank(text, 56, 2, UNIT_CON(unit));
 
     return;
 }
 
 //! FE8U = 0x08034AA4
-void DrawUnitAidText(struct TextHandle* text, struct Unit* unit) {
-    Text_Clear(text);
+void DrawUnitAidText(struct Text* text, struct Unit* unit) {
+    ClearText(text);
 
-    Text_InsertString(text, 0, 3, GetStringFromIndex(0x4f8)); // TODO: msgid "Aid[.]"
-    Text_InsertNumberOr2Dashes(text, 56, 2, GetUnitAid(unit));
+    Text_InsertDrawString(text, 0, 3, GetStringFromIndex(0x4f8)); // TODO: msgid "Aid[.]"
+    Text_InsertDrawNumberOrBlank(text, 56, 2, GetUnitAid(unit));
 
     return;
 }
@@ -225,44 +225,44 @@ void PutUnitAidIconForTextAt(struct Unit* unit, int x, int y) {
 }
 
 //! FE8U = 0x08034B10
-void DrawUnitStatusText(struct TextHandle* text, struct Unit* unit) {
-    Text_Clear(text);
+void DrawUnitStatusText(struct Text* text, struct Unit* unit) {
+    ClearText(text);
 
-    Text_InsertString(text, 0, 3, GetStringFromIndex(0x4FA)); // TODO: msgid "Cond"
-    Text_InsertString(text, 24, 2, GetUnitStatusName(unit));
+    Text_InsertDrawString(text, 0, 3, GetStringFromIndex(0x4FA)); // TODO: msgid "Cond"
+    Text_InsertDrawString(text, 24, 2, GetUnitStatusName(unit));
 
     return;
 }
 
 //! FE8U = 0x08034B48
-void DrawUnitResChangeText(struct TextHandle* text, struct Unit* unit, int bonus) {
-    Text_Clear(text);
+void DrawUnitResChangeText(struct Text* text, struct Unit* unit, int bonus) {
+    ClearText(text);
 
-    Text_InsertString(text, 0, 3, GetStringFromIndex(0x4f0)); // TODO: msgid "Res[.]"
-    Text_InsertString(text, 40, 3, GetStringFromIndex(0x53A));
+    Text_InsertDrawString(text, 0, 3, GetStringFromIndex(0x4f0)); // TODO: msgid "Res[.]"
+    Text_InsertDrawString(text, 40, 3, GetStringFromIndex(0x53A));
 
-    Text_InsertNumberOr2Dashes(text, 56, 2, GetUnitResistance(unit) + bonus);
-    Text_InsertNumberOr2Dashes(text, 32, 2, GetUnitResistance(unit));
+    Text_InsertDrawNumberOrBlank(text, 56, 2, GetUnitResistance(unit) + bonus);
+    Text_InsertDrawNumberOrBlank(text, 32, 2, GetUnitResistance(unit));
 
     return;
 }
 
 //! FE8U = 0x08034BAC
-void DrawUnitResUnkText(struct TextHandle* text, struct Unit* unit, int unused) {
-    Text_Clear(text);
+void DrawUnitResUnkText(struct Text* text, struct Unit* unit, int unused) {
+    ClearText(text);
 
-    Text_InsertString(text, 0, 3, GetStringFromIndex(0x4f0)); // TODO: msgid "Res[.]"
-    Text_InsertNumberOr2Dashes(text, 56, 2, GetUnitResistance(unit));
+    Text_InsertDrawString(text, 0, 3, GetStringFromIndex(0x4f0)); // TODO: msgid "Res[.]"
+    Text_InsertDrawNumberOrBlank(text, 56, 2, GetUnitResistance(unit));
 
     return;
 }
 
 //! FE8U = 0x08034BE4
-void DrawAccuracyText(struct TextHandle* text, int accuracy) {
-    Text_Clear(text);
+void DrawAccuracyText(struct Text* text, int accuracy) {
+    ClearText(text);
 
-    Text_InsertString(text, 0, 3, GetStringFromIndex(0x4F4)); // TODO: msgid "Hit[.]"
-    Text_InsertNumberOr2Dashes(text, 56, 2, accuracy);
+    Text_InsertDrawString(text, 0, 3, GetStringFromIndex(0x4F4)); // TODO: msgid "Hit[.]"
+    Text_InsertDrawNumberOrBlank(text, 56, 2, accuracy);
 
     return;
 }
@@ -274,7 +274,7 @@ void StartUnitInventoryInfoWindow(ProcPtr parent) {
     struct UnitInfoWindowProc* proc = NewUnitInfoWindow(parent);
 
     for (i = 0; i < LINES_MAX; i++) {
-        Text_Allocate(proc->lines + i, 7);
+        InitTextDb(proc->lines + i, 7);
     }
 
     return;
@@ -297,11 +297,11 @@ void RefreshUnitInventoryInfoWindow(struct Unit* unit) {
     if (itemCount == 0) {
         int offset;
 
-        Text_Clear(proc->lines + 0);
-        Text_InsertString(proc->lines + 0, 0, 1, GetStringFromIndex(0x5a8)); // TODO: msgid "Nothing[.]"
+        ClearText(proc->lines + 0);
+        Text_InsertDrawString(proc->lines + 0, 0, 1, GetStringFromIndex(0x5a8)); // TODO: msgid "Nothing[.]"
 
         offset = TILEMAP_INDEX(xPos+3, 0+3);
-        Text_Draw(proc->lines + 0, gBG0TilemapBuffer + offset);
+        PutText(proc->lines + 0, gBG0TilemapBuffer + offset);
 
         return;
     }
@@ -311,11 +311,11 @@ void RefreshUnitInventoryInfoWindow(struct Unit* unit) {
 
         int item = unit->items[i];
 
-        Text_Clear(proc->lines + i);
-        Text_AppendString(proc->lines + i, GetItemName(item));
+        ClearText(proc->lines + i);
+        Text_DrawString(proc->lines + i, GetItemName(item));
 
-        Text_Draw(proc->lines + i, gBG0TilemapBuffer + TILEMAP_INDEX(xPos+3, yPos));
-        DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(xPos+11, yPos), 2, GetItemUses(item));
+        PutText(proc->lines + i, gBG0TilemapBuffer + TILEMAP_INDEX(xPos+3, yPos));
+        PutNumberOrBlank(gBG0TilemapBuffer + TILEMAP_INDEX(xPos+11, yPos), 2, GetItemUses(item));
         DrawIcon(gBG0TilemapBuffer + TILEMAP_INDEX(xPos+1, yPos), GetItemIconId(item), 0x4000);
     }
 
@@ -341,14 +341,14 @@ void RefreshUnitStealInventoryInfoWindow(struct Unit* unit) {
         int item = unit->items[i];
         s8 stealable = IsItemStealable(item);
 
-        Text_Clear(proc->lines + i);
+        ClearText(proc->lines + i);
 
-        Text_SetColorId(proc->lines + i, stealable ? 0 : 1);
-        Text_AppendString(proc->lines + i, GetItemName(item));
+        Text_SetColor(proc->lines + i, stealable ? 0 : 1);
+        Text_DrawString(proc->lines + i, GetItemName(item));
 
-        Text_Draw(proc->lines + i, gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 3, yPos));
+        PutText(proc->lines + i, gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 3, yPos));
 
-        DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 11, yPos), stealable ? 2 : 1, GetItemUses(item));
+        PutNumberOrBlank(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 11, yPos), stealable ? 2 : 1, GetItemUses(item));
         DrawIcon(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 1, yPos), GetItemIconId(item), 0x4000);
     }
 
@@ -376,18 +376,18 @@ void RefreshHammerneUnitInfoWindow(struct Unit* unit) {
 
         color = IsItemHammernable(item) ? 0 : 1;
 
-        Text_Clear(proc->lines + i);
+        ClearText(proc->lines + i);
 
-        Text_SetColorId(proc->lines + i, color);
-        Text_AppendString(proc->lines + i, GetItemName(item));
+        Text_SetColor(proc->lines + i, color);
+        Text_DrawString(proc->lines + i, GetItemName(item));
 
-        Text_Draw(proc->lines + i, gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 3, yPos));
-        DrawSpecialUiChar(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 12, yPos), color, 0x16);
+        PutText(proc->lines + i, gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 3, yPos));
+        PutSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 12, yPos), color, 0x16);
 
         color = IsItemHammernable(item) ? 2 : 1;
 
-        DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 11, yPos), color, GetItemUses(item));
-        DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 14, yPos), color, GetItemMaxUses(item));
+        PutNumberOrBlank(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 11, yPos), color, GetItemUses(item));
+        PutNumberOrBlank(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 14, yPos), color, GetItemMaxUses(item));
 
         DrawIcon(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 1, yPos), GetItemIconId(item), 0x4000);
     }
@@ -400,7 +400,7 @@ void RefreshHammerneUnitInfoWindow(struct Unit* unit) {
 //! FE8U = 0x08034F9C
 void StartUnitHpInfoWindow(ProcPtr parent) {
     struct UnitInfoWindowProc* proc = NewUnitInfoWindow(parent);
-    Text_Allocate(proc->lines + 0, 8);
+    InitTextDb(proc->lines + 0, 8);
 
     return;
 }
@@ -414,7 +414,7 @@ void RefreshUnitHpInfoWindow(struct Unit* unit) {
     struct UnitInfoWindowProc* proc = UnitInfoWindow_DrawBase(0, unit, x, 0, 10, 1);
 
     DrawUnitHpText(proc->lines + 0, unit);
-    Text_Draw(proc->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
+    PutText(proc->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
 
     return;
 }
@@ -423,8 +423,8 @@ void RefreshUnitHpInfoWindow(struct Unit* unit) {
 void StartUnitHpStatusInfoWindow(ProcPtr parent) {
     struct UnitInfoWindowProc* proc = NewUnitInfoWindow(parent);
 
-    Text_Allocate(proc->lines + 0, 8);
-    Text_Allocate(proc->lines + 1, 8);
+    InitTextDb(proc->lines + 0, 8);
+    InitTextDb(proc->lines + 1, 8);
 
     return;
 }
@@ -437,10 +437,10 @@ void RefreshUnitHpStatusInfoWindow(struct Unit* unit) {
     struct UnitInfoWindowProc* proc = UnitInfoWindow_DrawBase(0, unit, x, 0, 10, 2);
 
     DrawUnitHpText(proc->lines + 0, unit);
-    Text_Draw(proc->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
+    PutText(proc->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
 
     DrawUnitStatusText(proc->lines + 1, unit);
-    Text_Draw(proc->lines + 1, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 5));
+    PutText(proc->lines + 1, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 5));
 
     return;
 }
@@ -449,7 +449,7 @@ void RefreshUnitHpStatusInfoWindow(struct Unit* unit) {
 void StartUnitResChangeInfoWindow(ProcPtr parent) {
     struct UnitInfoWindowProc* proc = NewUnitInfoWindow(parent);
 
-    Text_Allocate(proc->lines + 0, 8);
+    InitTextDb(proc->lines + 0, 8);
 
     return;
 }
@@ -462,7 +462,7 @@ void RefreshUnitResChangeInfoWindow(struct Unit* unit) {
     struct UnitInfoWindowProc* proc = UnitInfoWindow_DrawBase(0, unit, x, y, 10, 1);
 
     DrawUnitResChangeText(proc->lines + 0, unit, 7 - unit->barrierDuration);
-    Text_Draw(proc->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
+    PutText(proc->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
 
     return;
 }
@@ -471,8 +471,8 @@ void RefreshUnitResChangeInfoWindow(struct Unit* unit) {
 void StartUnitStaffOffenseInfoWindow(ProcPtr parent) {
     struct UnitInfoWindowProc* proc = NewUnitInfoWindow(parent);
 
-    Text_Allocate(proc->lines + 0, 8);
-    Text_Allocate(proc->lines + 1, 8);
+    InitTextDb(proc->lines + 0, 8);
+    InitTextDb(proc->lines + 1, 8);
 
     return;
 }
@@ -485,10 +485,10 @@ void RefreshUnitStaffOffenseInfoWindow(struct Unit* unit, int hit) {
     struct UnitInfoWindowProc* proc = UnitInfoWindow_DrawBase(0, unit, x, 0, 10, 2);
 
     DrawUnitResUnkText(proc->lines + 0, unit, 7 - unit->barrierDuration);
-    Text_Draw(proc->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
+    PutText(proc->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
 
     DrawAccuracyText(proc->lines + 1, hit);
-    Text_Draw(proc->lines + 1, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 5));
+    PutText(proc->lines + 1, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 5));
 
     return;
 }
@@ -497,10 +497,10 @@ void RefreshUnitStaffOffenseInfoWindow(struct Unit* unit, int hit) {
 void StartUnitRescueInfoWindowsCore(ProcPtr parent) {
 
     sRescueUnitInfoWindows[0] = NewUnitInfoWindow(parent);
-    Text_Allocate(sRescueUnitInfoWindows[0]->lines + 0, 8);
+    InitTextDb(sRescueUnitInfoWindows[0]->lines + 0, 8);
 
     sRescueUnitInfoWindows[1] = NewUnitInfoWindow(parent);
-    Text_Allocate(sRescueUnitInfoWindows[1]->lines + 0, 8);
+    InitTextDb(sRescueUnitInfoWindows[1]->lines + 0, 8);
 
     return;
 }
@@ -528,14 +528,14 @@ void RefreshUnitRescueInfoWindows(struct Unit* unit) {
     UnitInfoWindow_DrawBase(sRescueUnitInfoWindows[0], gActiveUnit, x, y, 10, 1);
 
     DrawUnitAidText(sRescueUnitInfoWindows[0]->lines + 0, gActiveUnit);
-    Text_Draw(sRescueUnitInfoWindows[0]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
+    PutText(sRescueUnitInfoWindows[0]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
 
     PutUnitAidIconForTextAt(gActiveUnit, x + 1, y + 3);
 
     UnitInfoWindow_DrawBase(sRescueUnitInfoWindows[1], unit, x, y + 6, 10, 1);
 
     DrawUnitConText(sRescueUnitInfoWindows[1]->lines + 0, unit);
-    Text_Draw(sRescueUnitInfoWindows[1]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 6 + 3));
+    PutText(sRescueUnitInfoWindows[1]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 6 + 3));
 
     MoveSpriteRefresher(0, (x + 4) * 8, (y + 4) * 8 + 7);
 
@@ -556,14 +556,14 @@ void RefreshUnitTakeInfoWindows(struct Unit* unit) {
     UnitInfoWindow_DrawBase(sRescueUnitInfoWindows[0], gActiveUnit, x, y, 10, 1);
 
     DrawUnitAidText(sRescueUnitInfoWindows[0]->lines + 0, gActiveUnit);
-    Text_Draw(sRescueUnitInfoWindows[0]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
+    PutText(sRescueUnitInfoWindows[0]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
 
     PutUnitAidIconForTextAt(gActiveUnit, x + 1, y + 3);
 
     UnitInfoWindow_DrawBase(sRescueUnitInfoWindows[1], rescue, x, y + 6, 10, 1);
 
     DrawUnitConText(sRescueUnitInfoWindows[1]->lines + 0, rescue);
-    Text_Draw(sRescueUnitInfoWindows[1]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 6 + 3));
+    PutText(sRescueUnitInfoWindows[1]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 6 + 3));
 
     MoveSpriteRefresher(0, (x + 4) * 8, (y + 4) * 8 + 7);
 
@@ -594,12 +594,12 @@ void RefreshUnitGiveInfoWindows(struct Unit* unit) {
     UnitInfoWindow_DrawBase(sRescueUnitInfoWindows[0], rescue, x, y, 10, 1);
 
     DrawUnitConText(sRescueUnitInfoWindows[0]->lines + 0, rescue);
-    Text_Draw(sRescueUnitInfoWindows[0]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
+    PutText(sRescueUnitInfoWindows[0]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3));
 
     UnitInfoWindow_DrawBase(sRescueUnitInfoWindows[1], unit, x, y + 6, 10, 1);
 
     DrawUnitAidText(sRescueUnitInfoWindows[1]->lines + 0, unit);
-    Text_Draw(sRescueUnitInfoWindows[1]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 6 + 3));
+    PutText(sRescueUnitInfoWindows[1]->lines + 0, gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 6 + 3));
 
     PutUnitAidIconForTextAt(unit, x + 1, y + 6 + 3);
 

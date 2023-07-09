@@ -324,21 +324,21 @@ struct ProcCmd CONST_DATA gProcScr_08A394D0[] = {
     PROC_REPEAT(sub_80B5378),
 };
 
-extern struct TextHandle gShopItemTexts[6];
+extern struct Text gShopItemTexts[6];
 
 extern struct ShopState sShopState;
 extern int gUnknown_0203EFB4; // TODO: Is this meant to be part of ShopState?
 struct ShopState* CONST_DATA gShopState = &sShopState;
 
-struct TextHandle gText_GoldBox;
+struct Text gText_GoldBox;
 
 // forward declaration
 void StartShopScreen(struct Unit*, u16*, u8, ProcPtr);
 void UpdateShopItemCounts(struct BmShopProc*);
 void sub_80B4F04(struct BmShopProc*);
 void sub_80B505C(struct BmShopProc*);
-void sub_80B5164(struct TextHandle*, int, struct Unit*, u16*);
-void DrawShopItemLine(struct TextHandle*, int, struct Unit*, u16*);
+void sub_80B5164(struct Text*, int, struct Unit*, u16*);
+void DrawShopItemLine(struct Text*, int, struct Unit*, u16*);
 void sub_80B55AC(u16, u16, u16, u16, int, ShopFunc, struct BmShopProc*);
 void sub_80B5604(void);
 int sub_80B5698(void);
@@ -553,12 +553,12 @@ void sub_80B43BC(struct BmShopProc* proc, int itemIndex) {
 
     int index = DivRem(itemIndex, 6);
 
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    Text_Clear(&gShopItemTexts[index]);
+    ClearText(&gShopItemTexts[index]);
 
     item = proc->shopItems[itemIndex];
 
@@ -574,12 +574,12 @@ void sub_80B4418(struct BmShopProc* proc, int itemIndex) {
 
     int index = DivRem(itemIndex, 6);
 
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    Text_Clear(&gShopItemTexts[index]);
+    ClearText(&gShopItemTexts[index]);
 
     item = proc->shopItems[itemIndex];
 
@@ -1102,7 +1102,7 @@ void ShopProc_Init(struct BmShopProc* proc) {
     StartUiGoldBox(proc);
 
     for (i = 0; i <= 5; i++) {
-        Text_Init(&gShopItemTexts[i], 20);
+        InitText(&gShopItemTexts[i], 20);
     }
 
     sub_80B4F90(proc);
@@ -1179,12 +1179,12 @@ void StartUiGoldBox(ProcPtr parent) {
 }
 
 void InitGoldBoxText(u16* tm) {
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
-    Text_Init(&gText_GoldBox, 1);
+    InitText(&gText_GoldBox, 1);
 
-    DrawSpecialUiChar(tm, 3, 30);
+    PutSpecialChar(tm, 3, 30);
 
     return;
 }
@@ -1203,11 +1203,11 @@ void sub_80B4EB4(u16* tm, int num) {
 }
 
 void DisplayGoldBoxText(u16* tm) {
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
     sub_80B4EB4(tm, 6);
-    sub_8004B88(tm, 2, GetPartyGoldAmount());
+    PutNumber(tm, 2, GetPartyGoldAmount());
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
@@ -1223,11 +1223,11 @@ void sub_80B4F04(struct BmShopProc* parent) {
     proc = Proc_Start(gProcScr_08A39478, PROC_TREE_3);
     proc->unk_54 = parent;
 
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
     for (i = parent->unk_5f; i < parent->unk_5f + 5; i++) {
-        Text_DrawBlank(&gShopItemTexts[DivRem(i, 6)], gBG2TilemapBuffer + TILEMAP_INDEX(7, ((i * 2) & 0x1F)));
+        PutBlankText(&gShopItemTexts[DivRem(i, 6)], gBG2TilemapBuffer + TILEMAP_INDEX(7, ((i * 2) & 0x1F)));
     }
 
     BG_SetPosition(2, 0, (((parent->unk_5f) << 0x14) + 0xFFB80000) >> 0x10);
@@ -1242,12 +1242,12 @@ void sub_80B4F90(struct BmShopProc* proc) {
     int index;
     int i;
 
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
     for (i = proc->unk_5f; i < proc->unk_5f + 5; i++) {
         index = DivRem(i, 6);
-        Text_Clear(&gShopItemTexts[index]);
+        ClearText(&gShopItemTexts[index]);
     }
 
     for (i = proc->unk_5f; i < proc->unk_5f + 5; i++) {
@@ -1286,11 +1286,11 @@ void sub_80B505C(struct BmShopProc* parent) {
     proc = Proc_Start(gProcScr_08A39488, PROC_TREE_3);
     proc->unk_54 = parent;
 
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
     for (i = 0; i < 5; i++) {
-        Text_DrawBlank(&gShopItemTexts[DivRem(i, 6)], gBG2TilemapBuffer + TILEMAP_INDEX(7, ((i * 2) & 0x1F)));
+        PutBlankText(&gShopItemTexts[DivRem(i, 6)], gBG2TilemapBuffer + TILEMAP_INDEX(7, ((i * 2) & 0x1F)));
     }
 
     BG_SetPosition(2, 0, 0x0000FFB8);
@@ -1304,12 +1304,12 @@ void sub_80B50C8(struct BmShopProc* proc) {
     int i;
     int index;
 
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
 
     for (i = 0; i < 5; i++) {
         index = DivRem(i, 6);
-        Text_Clear(&gShopItemTexts[index]);
+        ClearText(&gShopItemTexts[index]);
     }
 
     for (i = 0; i < 5; i++) {
@@ -1339,7 +1339,7 @@ void sub_80B5148(struct BmShop2Proc* proc) {
     return;
 }
 
-void sub_80B5164(struct TextHandle* th, int item, struct Unit* unit, u16* dst) {
+void sub_80B5164(struct Text* th, int item, struct Unit* unit, u16* dst) {
     u8 visible;
 
     int price = GetItemPurchasePrice(unit, item);
@@ -1352,7 +1352,7 @@ void sub_80B5164(struct TextHandle* th, int item, struct Unit* unit, u16* dst) {
 
     DrawItemMenuLine(th, item, visible, dst);
 
-    sub_8004B88(
+    PutNumber(
         dst + 0x11,
         (int)GetPartyGoldAmount() >= price
             ? 2
@@ -1363,14 +1363,14 @@ void sub_80B5164(struct TextHandle* th, int item, struct Unit* unit, u16* dst) {
     return;
 }
 
-void DrawShopItemLine(struct TextHandle* th, int item, struct Unit* unit, u16* dst) {
+void DrawShopItemLine(struct Text* th, int item, struct Unit* unit, u16* dst) {
 
     DrawItemMenuLine(th, item, IsItemDisplayUsable(unit, item), dst);
 
     if (IsItemSellable(item) != 0) {
-        sub_8004B88(dst + 0x11, 2, GetItemSellPrice(item));
+        PutNumber(dst + 0x11, 2, GetItemSellPrice(item));
     } else {
-        Text_InsertString(th, 0x5C, 2, GetStringFromIndex(0x537));
+        Text_InsertDrawString(th, 0x5C, 2, GetStringFromIndex(0x537));
     }
 
     return;
@@ -1434,7 +1434,7 @@ void sub_80B52CC(void) {
 
     BG_EnableSyncByMask(0xF);
 
-    Font_InitForUIDefault();
+    ResetText();
     LoadUiFrameGraphics();
 
     ResetIconGraphics_();

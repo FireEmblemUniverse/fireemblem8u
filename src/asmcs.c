@@ -903,8 +903,8 @@ void CallRouteSplitMenu(ProcPtr proc)
 {
     ClearBg0Bg1();
     SetDispEnable(1, 1, 1, 1, 1);
-    SetFont(0);
-    Font_LoadForUI();
+    SetTextFont(0);
+    InitSystemTextFont();
     LoadUiFrameGraphics();
     StartMenu(&gUnknown_089F36A0, proc);
 }
@@ -913,13 +913,13 @@ int MenuCommand_DrawRouteSplit(struct MenuProc* menu, struct MenuItemProc* menu_
 {
     const char *str = GetStringFromIndex(menu_item->def->nameMsgId);
 
-    Text_SetParameters(&menu_item->text, 0, TEXT_COLOR_NORMAL);
-    Text_AppendString(&menu_item->text, str);
-    Text_Draw(
+    Text_SetParams(&menu_item->text, 0, TEXT_COLOR_SYSTEM_WHITE);
+    Text_DrawString(&menu_item->text, str);
+    PutText(
         &menu_item->text,
         TILEMAP_LOCATED(gBG0TilemapBuffer, menu_item->xTile + 1, menu_item->yTile)
     );
-    Font_InitForUIDefault();
+    ResetText();
     return 0;
 }
 

@@ -1173,7 +1173,7 @@ extern u8 gUnknown_0200A300[];
 extern u8 gUnknown_0200C300[];
 extern u8 gUnknown_0200CB00[];
 
-extern struct TextHandle gUnknown_0201FB28[6];
+extern struct Text gUnknown_0201FB28[6];
 
 extern u8 gUnknown_0201DB28[];
 
@@ -1241,9 +1241,9 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     SetDefaultColorEffects();
 
-    Font_ResetAllocation();
+    ResetTextFont();
 
-    Font_InitForUIDefault();
+    ResetText();
 
     gLCDControlBuffer.bg0cnt.priority = 2;
     gLCDControlBuffer.bg1cnt.priority = 2;
@@ -1278,22 +1278,22 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     for (i = 0; i <= 5; i++) {
 
-        Text_Init(&gUnknown_0201FB28[i], 3);
+        InitText(&gUnknown_0201FB28[i], 3);
 
-        Text_Clear(&gUnknown_0201FB28[i]);
+        ClearText(&gUnknown_0201FB28[i]);
 
-        Text_SetColorId(&gUnknown_0201FB28[i], 3);
-        Text_SetXCursor(&gUnknown_0201FB28[i], 0);
+        Text_SetColor(&gUnknown_0201FB28[i], 3);
+        Text_SetCursor(&gUnknown_0201FB28[i], 0);
 
         if (hasMagicRank != 0) {
-            Text_AppendString(&gUnknown_0201FB28[i], GetStringFromIndex(hack.hack_2d[1][i]));
+            Text_DrawString(&gUnknown_0201FB28[i], GetStringFromIndex(hack.hack_2d[1][i]));
         } else {
-            Text_AppendString(&gUnknown_0201FB28[i], GetStringFromIndex(hack.hack_4d[0][i][1][-1]));
+            Text_DrawString(&gUnknown_0201FB28[i], GetStringFromIndex(hack.hack_4d[0][i][1][-1]));
         }
 
-        Text_Draw(&gUnknown_0201FB28[i], buffer + 0x21 + (i * 0x40));
+        PutText(&gUnknown_0201FB28[i], buffer + 0x21 + (i * 0x40));
 
-        sub_8004B88(buffer + 0x25 + (i * 0x40), 0, proc->unk_40[i]);
+        PutNumber(buffer + 0x25 + (i * 0x40), 0, proc->unk_40[i]);
     }
 
     r5 = 0;

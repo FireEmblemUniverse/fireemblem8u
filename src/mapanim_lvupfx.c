@@ -22,13 +22,13 @@ void PutManimLevelUpFrame(int actor_id, int x, int y)
 
     PutString(
         TILEMAP_LOCATED(gBG0TilemapBuffer, x + 2, y),
-        TEXT_COLOR_NORMAL,
+        TEXT_COLOR_SYSTEM_WHITE,
         GetStringFromIndex(gManimSt.actor[actor_id].unit->pClassData->nameTextId));
 
     for (i = 0; gManimLevelUpLabelInfoList[i].x != 0xFF; i++) {
         PutStringCentered(
             TILEMAP_LOCATED(gBG0TilemapBuffer, x + gManimLevelUpLabelInfoList[i].x, y + gManimLevelUpLabelInfoList[i].y),
-            TEXT_COLOR_GOLD, 3,
+            TEXT_COLOR_SYSTEM_GOLD, 3,
             GetStringFromIndex(*gManimLevelUpLabelInfoList[i].msg[UnitHasMagicRank(gManimSt.actor[actor_id].unit) == true]));
     }
 
@@ -37,9 +37,9 @@ void PutManimLevelUpFrame(int actor_id, int x, int y)
 
 void PutManimLevelUpStat(int actor_id, int x, int y, int stat_num, bool after_gain)
 {
-    DrawDecNumber(
+    PutNumberOrBlank(
         TILEMAP_LOCATED(gBG0TilemapBuffer, x + gManimLevelUpLabelInfoList[stat_num].x + 4, y + gManimLevelUpLabelInfoList[stat_num].y),
-        TEXT_COLOR_BLUE,
+        TEXT_COLOR_SYSTEM_BLUE,
         GetManimLevelUpBaseStat(actor_id, stat_num) + (after_gain ? GetManimLevelUpStatGain(actor_id, stat_num) : 0));
 }
 

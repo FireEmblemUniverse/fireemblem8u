@@ -29,11 +29,11 @@ struct WmSellProc {
 
 struct Unknown02013648 {
     /* 00 */ struct Font font;
-    /* 18 */ struct TextHandle textA;
-    /* 20 */ struct TextHandle textB;
-    /* 28 */ struct TextHandle textArray[5];
+    /* 18 */ struct Text textA;
+    /* 20 */ struct Text textB;
+    /* 28 */ struct Text textArray[5];
     /* 50 */ u8 _pad[0x90-0x50];
-    /* 90 */ struct TextHandle textC;
+    /* 90 */ struct Text textC;
 };
 
 extern struct Unknown02013648 gUnknown_02013648;
@@ -103,21 +103,21 @@ void WmSell_Init(struct WmSellProc* proc) {
 
 //! FE8U = 0x0809FE68
 void sub_809FE68(void) {
-    InitSomeOtherGraphicsRelatedStruct(&gUnknown_02013648.font, (void*)0x06011000, 11);
-    CopyToPaletteBuffer(Pal_UIFont, 0x360, 0x20);
+    InitSpriteTextFont(&gUnknown_02013648.font, (void*)0x06011000, 11);
+    CopyToPaletteBuffer(Pal_Text, 0x360, 0x20);
 
-    Text_Init3(&gUnknown_02013648.textC);
+    InitSpriteText(&gUnknown_02013648.textC);
 
-    SetFont(&gUnknown_02013648.font);
-    SetFontGlyphSet(0);
+    SetTextFont(&gUnknown_02013648.font);
+    SetTextFontGlyphs(0);
 
-    Text_80046B4(&gUnknown_02013648.textC, 0);
+    SpriteText_DrawBackgroundExt(&gUnknown_02013648.textC, 0);
 
-    Text_InsertString(&gUnknown_02013648.textC, 0, 0, GetStringFromIndex(0x059C)); // TODO msgid "Sell     Quit[.]"
-    Text_InsertString(&gUnknown_02013648.textC, 64, 0, GetStringFromIndex(0x059B)); // TODO msgid "Sell?[.]"
-    Text_InsertString(&gUnknown_02013648.textC, 128, 3, GetStringFromIndex(0x059D)); // TODO msgid "Value[.]"
+    Text_InsertDrawString(&gUnknown_02013648.textC, 0, 0, GetStringFromIndex(0x059C)); // TODO msgid "Sell     Quit[.]"
+    Text_InsertDrawString(&gUnknown_02013648.textC, 64, 0, GetStringFromIndex(0x059B)); // TODO msgid "Sell?[.]"
+    Text_InsertDrawString(&gUnknown_02013648.textC, 128, 3, GetStringFromIndex(0x059D)); // TODO msgid "Value[.]"
 
-    SetFont(0);
+    SetTextFont(0);
 
     return;
 }
@@ -149,14 +149,14 @@ void WmSell_DrawItemGoldValue(int item) {
         u16 sellPrice = GetItemSellPrice(item);
 
         if ((sellPrice == 0) || (GetItemAttributes(item) & IA_UNSELLABLE)) {
-            DrawSpecialUiChar(gBG0TilemapBuffer + 0x134 + 5, 1, 0x14);
-            DrawSpecialUiChar(gBG0TilemapBuffer + 0x134 + 6, 1, 0x14);
-            DrawSpecialUiChar(gBG0TilemapBuffer + 0x134 + 7, 1, 0x14);
+            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 5, 1, 0x14);
+            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 6, 1, 0x14);
+            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 7, 1, 0x14);
         } else {
-            sub_8004B88(gBG0TilemapBuffer + 0x134 + 6, 2, sellPrice);
+            PutNumber(gBG0TilemapBuffer + 0x134 + 6, 2, sellPrice);
         }
 
-        DrawSpecialUiChar(gBG0TilemapBuffer + 0x13B, 3, 0x1e);
+        PutSpecialChar(gBG0TilemapBuffer + 0x13B, 3, 0x1e);
     }
 
     BG_EnableSyncByMask(1);
@@ -168,8 +168,8 @@ void WmSell_DrawItemGoldValue(int item) {
 void WmSell_DrawPartyFunds(void) {
     TileMap_FillRect(gBG0TilemapBuffer + 0xF4, 10, 1, 0);
 
-    sub_8004B88(gBG0TilemapBuffer + 0xF4 + 0x146, 2, GetPartyGoldAmount());
-    DrawSpecialUiChar(gBG0TilemapBuffer + 0xF4 + 0x147, 3, 0x1e);
+    PutNumber(gBG0TilemapBuffer + 0xF4 + 0x146, 2, GetPartyGoldAmount());
+    PutSpecialChar(gBG0TilemapBuffer + 0xF4 + 0x147, 3, 0x1e);
 
     BG_EnableSyncByMask(1);
 
@@ -178,11 +178,11 @@ void WmSell_DrawPartyFunds(void) {
 
 //! FE8U = 0x080A007C
 void WmSell_PutSupplyFaceAndText(void) {
-    SetFont(0);
+    SetTextFont(0);
 
     TileMap_FillRect(gBG0TilemapBuffer + 0x34, 12, 1, 0);
 
-    DrawTextInline(&gUnknown_02013648.textA, gBG0TilemapBuffer + 0x34 + 0x6d, 0, 2, 0, GetStringFromIndex(0x598)); // TODO msgid "Supply"
+    PutDrawText(&gUnknown_02013648.textA, gBG0TilemapBuffer + 0x34 + 0x6d, 0, 2, 0, GetStringFromIndex(0x598)); // TODO msgid "Supply"
     PutFaceChibi(FID_SUPPLY, gBG0TilemapBuffer + 0x34 - 0x13, 0x270, 2, 1);
 
     BG_EnableSyncByMask(1);
@@ -209,7 +209,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
 
     ResetFaces();
 
-    Font_InitForUIDefault();
+    ResetText();
     ResetIconGraphics_();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
@@ -268,19 +268,19 @@ void WmSell_Setup(struct WmSellProc* proc) {
 
     SetSpecialColorEffectsParameters(0, 8, 8, 8);
 
-    NewGreenTextColorManager((struct Proc*)proc);
+    StartGreenText((struct Proc*)proc);
 
     StartHelpPromptSprite(120, 140, 2, (struct Proc*)proc);
     StartDrawPrepFundsSprite(165, 128, 10, proc);
     ShowPrepFundsSpriteAt(165, 128);
 
-    Text_Init(&gUnknown_02013648.textA, 4);
-    Text_Init(&gUnknown_02013648.textB, 2);
+    InitText(&gUnknown_02013648.textA, 4);
+    InitText(&gUnknown_02013648.textB, 2);
 
     sub_809FE68();
 
     for (i = 0; i < 5; i++) {
-        Text_Init(&gUnknown_02013648.textArray[i], 7);
+        InitText(&gUnknown_02013648.textArray[i], 7);
     }
 
     SetPrimaryHBlankHandler(0);

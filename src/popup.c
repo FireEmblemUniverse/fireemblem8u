@@ -62,13 +62,13 @@ struct ProcCmd CONST_DATA sProcScr_PopupUpdateIcon[] = {
 
 struct PopupInstruction CONST_DATA gPopup_GotItem[] = {
     POPUP_SOUND(0x5A),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x008),                   /* Got */
-    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_BLUE),
     POPUP_ITEM_STR,
     POPUP_SPACE(1),
     POPUP_ITEM_ICON,
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_SPACE(1),
     POPUP_MSG(0x022),                   /* .[.] */
     POPUP_END
@@ -76,12 +76,12 @@ struct PopupInstruction CONST_DATA gPopup_GotItem[] = {
 
 struct PopupInstruction CONST_DATA gPopup_ItemWasPilfered[] = {
     POPUP_SOUND(0x5C),
-    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_BLUE),
     POPUP_ITEM_STR_CAP,
     POPUP_SPACE(1),
     POPUP_ITEM_ICON,
     POPUP_SPACE(1),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x009),                   /* was pilfered.[.] */
     POPUP_END
 };
@@ -97,60 +97,60 @@ struct ProcCmd CONST_DATA sProcScr_GotItem[] = {
 
 struct PopupInstruction CONST_DATA gPopup_GotGold[] = {
     POPUP_SOUND(0x5A),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x005),                   /* Got */
-    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_BLUE),
     POPUP_NUM,
     POPUP_SPACE(3),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x006),                   /* gold.[.] */
     POPUP_END
 };
 
 struct PopupInstruction CONST_DATA gPopup_GoldWasStole[] = {
     POPUP_SOUND(0x5C),
-    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_BLUE),
     POPUP_NUM,
     POPUP_SPACE(3),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x007),                   /* gold was stolen. */
     POPUP_END
 };
 
 struct PopupInstruction CONST_DATA gPopup_StoleItem[] = {
     POPUP_SOUND(0x5A),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x00A),                   /* Stole */
-    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_BLUE),
     POPUP_ITEM_STR,
     POPUP_SPACE(1),
     POPUP_ITEM_ICON,
     POPUP_SPACE(1),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x022),                   /* .[.] */
     POPUP_END
 };
 
 struct PopupInstruction CONST_DATA gPopup_ItemStolen[] = {
     POPUP_SOUND(0x5C),
-    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_BLUE),
     POPUP_ITEM_STR_CAP,
     POPUP_SPACE(1),
     POPUP_ITEM_ICON,
     POPUP_SPACE(1),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x00B),                   /* was stolen.[.] */
     POPUP_END
 };
 
 struct PopupInstruction CONST_DATA gPopup_WpnBroken[] = {
     POPUP_SOUND(0x5C),
-    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_BLUE),
     POPUP_ITEM_STR_CAP,
     POPUP_SPACE(1),
     POPUP_ITEM_ICON,
     POPUP_SPACE(1),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x003),                   /* broke! */
     POPUP_END
 };
@@ -165,11 +165,11 @@ struct PopupInstruction CONST_DATA gPopup_WRankUp[] = {
 
 struct PopupInstruction CONST_DATA gPopup_NewAlly[] = {
     POPUP_SOUND(0x5A),
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_MSG(0x00E),                   /* You can now use */
-    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_BLUE),
     POPUP_UNIT_NAME,
-    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_COLOR(TEXT_COLOR_SYSTEM_WHITE),
     POPUP_SPACE(1),
     POPUP_MSG(0x022),                   /* .[.] */
     POPUP_END
@@ -206,31 +206,31 @@ int ParsePopupInstAndGetLen(struct PopupProc *proc)
             break;
 
         case POPUP_OP_MSG:
-            len += GetStringTextWidth(
+            len += GetStringTextLen(
                 GetStringFromIndex(inst->data));
             break;
 
         case POPUP_OP_STR:
-            len += GetStringTextWidth((char*)inst->data);
+            len += GetStringTextLen((char*)inst->data);
             break;
 
         case POPUP_OP_UNIT_NAME:
-            len += GetStringTextWidth(
+            len += GetStringTextLen(
                 GetStringFromIndex(gpPopupUnit->pCharacterData->nameTextId));
             break;
 
         case POPUP_OP_ITEM_NAME:
-            len += GetStringTextWidth(
+            len += GetStringTextLen(
                 GetItemName(gPopupItem));
             break;
 
         case POPUP_OP_ITEM_STR_CAP:
-            len += GetStringTextWidth(
+            len += GetStringTextLen(
                 GetItemNameWithArticle(gPopupItem, 1));
             break;
 
         case POPUP_OP_ITEM_STR:
-            len += GetStringTextWidth(
+            len += GetStringTextLen(
                 GetItemNameWithArticle(gPopupItem, 0));
             break;
 
@@ -247,53 +247,53 @@ int ParsePopupInstAndGetLen(struct PopupProc *proc)
     return len;
 }
 
-void GeneratePopupText(const struct PopupInstruction *inst, struct TextHandle th)
+void GeneratePopupText(const struct PopupInstruction *inst, struct Text th)
 {
     char str[0x10];
-    struct TextHandle text = th;
+    struct Text text = th;
 
     for ( ;POPUP_OP_END != inst->opcode; inst++) {
         switch (inst->opcode) {
         case POPUP_OP_NUM:
             String_FromNumber(gPopupNumber, str);
-            Text_AppendString(&text, str);
+            Text_DrawString(&text, str);
             break;
 
         case POPUP_OP_WTYPE_ICON:
         case POPUP_OP_ITEM_ICON:
-            Text_Advance(&text, 0x10);
+            Text_Skip(&text, 0x10);
             break;
 
         case POPUP_OP_COLOR:
-            Text_SetColorId(&text, inst->data);
+            Text_SetColor(&text, inst->data);
             break;
 
         case POPUP_OP_MSG:
-            Text_AppendString(&text, GetStringFromIndex(inst->data));
+            Text_DrawString(&text, GetStringFromIndex(inst->data));
             break;
 
         case POPUP_OP_STR:
-            Text_AppendString(&text, (char*)inst->data);
+            Text_DrawString(&text, (char*)inst->data);
             break;
 
         case POPUP_OP_UNIT_NAME:
-            Text_AppendString(&text, GetStringFromIndex(gpPopupUnit->pCharacterData->nameTextId));
+            Text_DrawString(&text, GetStringFromIndex(gpPopupUnit->pCharacterData->nameTextId));
             break;
 
         case POPUP_OP_ITEM_NAME:
-            Text_AppendString(&text, GetItemName(gPopupItem));
+            Text_DrawString(&text, GetItemName(gPopupItem));
             break;
 
         case POPUP_OP_ITEM_STR_CAP:
-            Text_AppendString(&text, GetItemNameWithArticle(gPopupItem, 1));
+            Text_DrawString(&text, GetItemNameWithArticle(gPopupItem, 1));
             break;
 
         case POPUP_OP_ITEM_STR:
-            Text_AppendString(&text, GetItemNameWithArticle(gPopupItem, 0));
+            Text_DrawString(&text, GetItemNameWithArticle(gPopupItem, 0));
             break;
 
         case POPUP_OP_SPACE:
-            Text_Advance(&text, inst->data);
+            Text_Skip(&text, inst->data);
 
         default:
             break;
@@ -307,7 +307,7 @@ void PopupProc_Init(struct PopupProc *proc)
 {
     proc->xTileParam = -1;
     proc->yTileParam = -1;
-    proc->textColorId = TEXT_COLOR_NORMAL;
+    proc->textColorId = TEXT_COLOR_SYSTEM_WHITE;
     proc->iconId = -1;
     proc->iconX = 0;
     proc->soundId = 0;
@@ -315,7 +315,7 @@ void PopupProc_Init(struct PopupProc *proc)
 
 void PopupProc_PrepareGfx(struct PopupProc *proc)
 {
-    Font_InitForUI(0, GetBackgroundTileDataOffset(0) +
+    InitTextFont(0, GetBackgroundTileDataOffset(0) +
                    BG_SCREEN_ADDR(4), 0x100, 0);
     ResetIconGraphics();
     LoadUiFrameGraphics();
@@ -357,7 +357,7 @@ void PopupIconUpdateProc_Loop(struct PopupIconUpdateProc *proc)
 
 void PopupProc_GfxDraw(struct PopupProc *proc)
 {
-    struct TextHandle th;
+    struct Text th;
     int icon_pos;
     int tile_len;
     int x_pos, y_pos;
@@ -394,16 +394,16 @@ void PopupProc_GfxDraw(struct PopupProc *proc)
     proc->yTileSize = 3;
     proc->iconX += icon_pos;
 
-    Text_Init(&th, tile_len);
-    Text_SetColorId(&th, proc->textColorId);
-    Text_SetXCursor(&th, icon_pos);
+    InitText(&th, tile_len);
+    Text_SetColor(&th, proc->textColorId);
+    Text_SetCursor(&th, icon_pos);
     GeneratePopupText(proc->pDefinition, th);
 
     if (0xFFFF != proc->iconId)
         LoadIconObjectGraphics(proc->iconId, proc->iconObjTileId);
 
-    Text_Draw(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x_pos + 1, y_pos + 1));
-    Font_InitForUIDefault();
+    PutText(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x_pos + 1, y_pos + 1));
+    ResetText();
 
     if (0xFFFF != proc->iconId) {
         struct PopupIconUpdateProc *child =
@@ -606,7 +606,7 @@ void NewPopup_VerySimple(u32 msg, u32 sound_index, ProcPtr parent)
     gPopupInst[0].data   = sound_index;
 
     gPopupInst[1].opcode = POPUP_OP_COLOR;
-    gPopupInst[1].data   = TEXT_COLOR_NORMAL;
+    gPopupInst[1].data   = TEXT_COLOR_SYSTEM_WHITE;
 
     gPopupInst[2].opcode = POPUP_OP_MSG;
     gPopupInst[2].data   = msg;

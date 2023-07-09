@@ -39,7 +39,7 @@ struct HelpBoxScrollProc {
     /* 2C */ const char* unk_2c;
     /* 30 */ struct Font* unk_30;
 
-    /* 34 */ struct TextHandle* unk_34[9]; // unknown size; 3?
+    /* 34 */ struct Text* unk_34[9]; // unknown size; 3?
 
     /* 58 */ int unk_58;
     /* 5C */ s16 unk_5c;
@@ -54,17 +54,17 @@ void sub_8089EEC(struct HelpBoxScrollProc* proc);
 //! FE8U = 0x0808DB34
 void PutSioErrorMessage(void) {
     int i;
-    struct TextHandle th[3];
+    struct Text th[3];
     struct HelpBoxScrollProc localProcSt;
 
     struct HelpBoxScrollProc* proc = &localProcSt;
 
-    Font_InitForUIDefault();
-    Font_LoadForDialogue();
+    ResetText();
+    InitTalkTextFont();
 
     for (i = 0; i < 3; i++) {
-        Text_Init(&th[i], 22);
-        Text_SetColorId(&th[i], 0);
+        InitText(&th[i], 22);
+        Text_SetColor(&th[i], 0);
     }
 
     proc->unk_30 = NULL;
@@ -85,9 +85,9 @@ void PutSioErrorMessage(void) {
 
     sub_8089EEC(proc);
 
-    Text_Draw(&th[0], gBG0TilemapBuffer + TILEMAP_INDEX(4,  6));
-    Text_Draw(&th[1], gBG0TilemapBuffer + TILEMAP_INDEX(4,  9));
-    Text_Draw(&th[2], gBG0TilemapBuffer + TILEMAP_INDEX(4, 11));
+    PutText(&th[0], gBG0TilemapBuffer + TILEMAP_INDEX(4,  6));
+    PutText(&th[1], gBG0TilemapBuffer + TILEMAP_INDEX(4,  9));
+    PutText(&th[2], gBG0TilemapBuffer + TILEMAP_INDEX(4, 11));
 
     BG_EnableSyncByMask(1);
 

@@ -44,8 +44,8 @@ gPal_NotMapSprite:  @ 0x0859EEC0
 gPal_MapSpriteSepia:  @ 0x0859EEE0
 	.incbin "baserom.gba", 0x59EEE0, 0x20
 
-	.global Pal_UIFont
-Pal_UIFont:  @ 0x0859EF00
+	.global Pal_Text
+Pal_Text:  @ 0x0859EF00
 	.incbin "baserom.gba", 0x59EF00, 0x20
 
 	.global gUnknown_0859EF20
@@ -64,8 +64,8 @@ gPal_HelpTextBox:  @ 0x0859EF60
 gPal_YellowTextBox:  @ 0x0859EF80
 	.incbin "baserom.gba", 0x59EF80, 0x40
 
-	.global gUnknown_0859EFC0
-gUnknown_0859EFC0:  @ 0x0859EFC0
+	.global Pal_GreenTextColors
+Pal_GreenTextColors:  @ 0x0859EFC0
 	.incbin "baserom.gba", 0x59EFC0, 0x20
 
 	.global gUnknown_0859EFE0
