@@ -35,7 +35,7 @@ void Loop6C_efxThunder(struct ProcEfx *proc)
     }
 
     if (cur == (frame + 4)) {
-        animc->state3 |= 0x9;
+        animc->state3 |= ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED;
         StartBattleAnimHitEffectsDefault(animc, proc->hitted);
         PlaySFX(0xF5, 0x100, animc->xPosition, 1);
 

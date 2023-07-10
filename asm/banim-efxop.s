@@ -90,14 +90,14 @@ sub_806E95C: @ 0x0806E95C
 	bl GetAnimPosition
 	cmp r0, #0
 	bne _0806E978
-	ldr r0, _0806E974  @ gUnknown_080DAF1D
+	ldr r0, _0806E974  @ BanimTypesPosLeft
 	ldrb r1, [r0]
 	ldrh r0, [r4, #2]
 	b _0806E97E
 	.align 2, 0
-_0806E974: .4byte gUnknown_080DAF1D
+_0806E974: .4byte BanimTypesPosLeft
 _0806E978:
-	ldr r0, _0806E9B0  @ gUnknown_080DAF22
+	ldr r0, _0806E9B0  @ BanimTypesPosRight
 	ldrb r0, [r0]
 	ldrh r1, [r4, #2]
 _0806E97E:
@@ -125,7 +125,7 @@ _0806E97E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806E9B0: .4byte gUnknown_080DAF22
+_0806E9B0: .4byte BanimTypesPosRight
 
 	THUMB_FUNC_END sub_806E95C
 

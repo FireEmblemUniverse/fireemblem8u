@@ -1,24 +1,8 @@
     .section .rodata
 
-	.global gBanimRoundScripts
-gBanimRoundScripts:  @ 0x080DAEF0
-	.incbin "baserom.gba", 0xDAEF0, 0x28
-
-	.global BanimScr_080DAF18
-BanimScr_080DAF18:  @ 0x080DAF18
-	.incbin "baserom.gba", 0xDAF18, 0x5
-
-	.global gUnknown_080DAF1D
-gUnknown_080DAF1D:  @ 0x080DAF1D
-	.incbin "baserom.gba", 0xDAF1D, 0x5
-
-	.global gUnknown_080DAF22
-gUnknown_080DAF22:  @ 0x080DAF22
-	.incbin "baserom.gba", 0xDAF22, 0x6
-
-	.global gUnknown_080DAF28
-gUnknown_080DAF28:  @ 0x080DAF28
-	.incbin "baserom.gba", 0xDAF28, 0x38
+	.global gUnknown_080DAF34
+gUnknown_080DAF34:  @ 0x080DAF34
+	.incbin "baserom.gba", 0xDAF34, 0x2C
 
 	.global gUnknown_080DAF60
 gUnknown_080DAF60:  @ 0x080DAF60

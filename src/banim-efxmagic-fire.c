@@ -63,7 +63,7 @@ void Loop6C_efxFire(struct ProcEfx *proc)
     }
 
     if (time == r7) {
-        animc->state3 |= 0x9;
+        animc->state3 |= ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED;
         StartBattleAnimHitEffectsDefault(animc, proc->hitted);
 
         if (proc->hitted != EKR_HITTED)

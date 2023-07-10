@@ -693,6 +693,46 @@ extern struct ProcCmd ProcScr_efxSkillCommonBG[];
 // extern ??? ProcScr_efxopMistyrain
 // extern ??? ProcScr_efxopMyrrh
 
+// extern ??? gUnknown_080DF644
+// extern ??? gUnknown_080DF6A8
+// extern ??? gUnknown_080DF6C6
+// extern ??? gUnknown_080DF730
+// extern ??? gUnknown_080DF748
+// extern ??? gUnknown_080DF7CE
+// extern ??? gUnknown_080DF866
+// extern ??? gUnknown_080DF898
+// extern ??? gUnknown_080DF954
+// extern ??? gUnknown_080DF9BE
+extern u16 gUnknown_080E1164[];
+// extern ??? gUnknown_080E1394
+// extern ??? gUnknown_080E13A2
+// extern ??? gUnknown_080E13B4
+// extern ??? gUnknown_080E13D4
+// extern ??? gUnknown_080E13F4
+// extern ??? gUnknown_080E143A
+// extern ??? gUnknown_080E1488
+// extern ??? sEfxLvupPartsPos
+// extern ??? gUnknown_080E162A
+// extern ??? gUnknown_080E1664
+// extern ??? gUnknown_080E169A
+// extern ??? gUnknown_080E16DC
+// extern ??? gUnknown_080E1732
+// extern ??? gUnknown_080E1740
+// extern ??? gUnknown_080E17C0
+// extern ??? gUnknown_080E2164
+// extern ??? gUnknown_080E2B54
+// extern ??? gUnknown_080E3B78
+// extern ??? gUnknown_080E4530
+// extern ??? gUnknown_080E4EFC
+// extern ??? gUnknown_080E58A4
+// extern ??? gUnknown_080E5BC4
+// extern ??? gUnknown_080E5F98
+// extern ??? gUnknown_080E63CC
+// extern ??? gUnknown_080E678C
+// extern ??? gUnknown_080E6CC4
+// extern ??? gUnknown_080E7400
+// extern ??? gUnknown_080E7B8C
+
 // ??? sub_806B534(???);
 // ??? sub_806B64C(???);
 // ??? sub_806B664(???);

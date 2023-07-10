@@ -350,15 +350,15 @@ void EfxDKUpdateFrontAnimPostion(struct ProcEfxDKfx *proc)
     int val1, val2, val3, val4;
 
     if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
-        val1 = gEkrXPosBase[0] - gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
-        val2 = gEkrYPosBase[0] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
+        val1 = gEkrXPosReal[0] - gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
+        val2 = gEkrYPosReal[0] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
     } else {
-        val1 = gEkrXPosBase[0] + gEkrBg2QuakeVec.x - gEkrBgXOffset;
-        val2 = gEkrYPosBase[0] - gEkrBg2QuakeVec.y;
+        val1 = gEkrXPosReal[0] + gEkrBg2QuakeVec.x - gEkrBgXOffset;
+        val2 = gEkrYPosReal[0] - gEkrBg2QuakeVec.y;
     }
 
-    val3 = gEkrXPosBase[1] + gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
-    val4 = gEkrYPosBase[1] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
+    val3 = gEkrXPosReal[1] + gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
+    val4 = gEkrYPosReal[1] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:
@@ -382,15 +382,15 @@ void EfxDKUpdateFrontAnimPostion(struct ProcEfxDKfx *proc)
 void sub_8076C10(struct ProcEfxDKBody1 *proc)
 {
     proc->timer = 0;
-    proc->xPos = gEkrXPosBase[0];
-    proc->yPos = gEkrYPosBase[0];
+    proc->xPos = gEkrXPosReal[0];
+    proc->yPos = gEkrYPosReal[0];
     proc->unk64 = 0;
 }
 
 void sub_8076C34(struct ProcEfxDKBody1 *proc)
 {
-    gEkrXPosBase[0] = proc->xPos;
-    gEkrYPosBase[0] = proc->yPos;
+    gEkrXPosReal[0] = proc->xPos;
+    gEkrYPosReal[0] = proc->yPos;
     EfxDKUpdateFrontAnimPostion(proc->fxproc);
 }
 
@@ -425,8 +425,8 @@ void sub_8076C54(struct ProcEfxDKBody1 *proc)
         gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0,  16, proc->timer, 0x1E);
     }
 
-    gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
-    gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
+    gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
+    gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
 
     EfxDKUpdateFrontAnimPostion(proc->fxproc);
 
@@ -445,8 +445,8 @@ void sub_8076D60(struct ProcEfxDKBody1 *proc)
 
     EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
-    gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
-    gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
+    gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
+    gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
 
     EfxDKUpdateFrontAnimPostion(proc->fxproc);
 
@@ -470,8 +470,8 @@ void sub_8076E00(struct ProcEfxDKBody1 *proc)
 
     EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
-    gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
-    gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
+    gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
+    gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
 
     EfxDKUpdateFrontAnimPostion(proc->fxproc);
 
@@ -489,8 +489,8 @@ void sub_8076E84(struct ProcEfxDKBody1 *proc)
 
     EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
-    gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
-    gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
+    gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
+    gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
 
     EfxDKUpdateFrontAnimPostion(proc->fxproc);
 
@@ -504,14 +504,14 @@ void sub_8076E84(struct ProcEfxDKBody1 *proc)
 void sub_8076F08(struct ProcEfxDKBody1 *proc)
 {
     proc->timer = 0;
-    proc->xPos = gEkrXPosBase[0];
-    proc->yPos = gEkrYPosBase[0];
+    proc->xPos = gEkrXPosReal[0];
+    proc->yPos = gEkrYPosReal[0];
 }
 
 void sub_8076F28(struct ProcEfxDKBody1 *proc)
 {
-    gEkrXPosBase[0] = proc->xPos;
-    gEkrYPosBase[0] = proc->yPos;
+    gEkrXPosReal[0] = proc->xPos;
+    gEkrYPosReal[0] = proc->yPos;
     EfxDKUpdateFrontAnimPostion(proc->fxproc);
 }
 
@@ -522,8 +522,8 @@ void sub_8076F48(struct ProcEfxDKBody1 *proc)
 
     EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
-    gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
-    gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
+    gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
+    gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
 
     EfxDKUpdateFrontAnimPostion(proc->fxproc);
 
@@ -546,8 +546,8 @@ void sub_8076FD4(struct ProcEfxDKBody1 *proc)
 
     EkrDragonBgSetPostion(gEkrBgXOffset, 0);
 
-    gEkrXPosBase[0] = proc->xPos + gEkrXQuakeOff;
-    gEkrYPosBase[0] = proc->yPos + gEkrYQuakeOff;
+    gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
+    gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
 
     EfxDKUpdateFrontAnimPostion(proc->fxproc);
 
@@ -782,8 +782,8 @@ void EkrDemoKingAtkMain(struct ProcEfxDKBody4 *proc)
     struct ProcEfxDKfx *fxproc;
     struct ProcEfxDKBody1 *bdproc;
 
-    if (proc->anim->state3 & 0x20)
-        if (!(proc->anim->state3 & 0x40))
+    if (proc->anim->state3 & ANIM_BIT3_BLOCKING)
+        if (!(proc->anim->state3 & ANIM_BIT3_BLOCKEND))
             return;
 
     Proc_Break(proc);
@@ -957,8 +957,8 @@ ProcPtr NewProc087F4518(struct Anim *anim)
 CONST_DATA struct ProcCmd ProcScr_ekrDragonTunkFace[] = {
     PROC_NAME("ekrDragonTunkFace"),
     PROC_SET_END_CB(sub_8077678),
-    PROC_CALL(sub_807759C),
-    PROC_REPEAT(sub_80775E8),
+    PROC_CALL(EkrDragonTunkFaceRegisterAnim),
+    PROC_REPEAT(EkrDragonTunkFaceIdle),
     PROC_REPEAT(sub_807766C),
     PROC_END
 };
@@ -971,13 +971,13 @@ ProcPtr NewEkrDragonTunkFace(struct Anim *anim)
     return proc;
 }
 
-void sub_807759C(struct ProcEfxDKfx *proc)
+void EkrDragonTunkFaceRegisterAnim(struct ProcEfxDKfx *proc)
 {
     struct Anim *anim;
 
-    const u32 *scr = BanimScr_087F4184;
-    SpellFx_RegisterObjPal(Pal_088017E0, 0x20);
-    SpellFx_RegisterObjGfx(Img_087FF488, 0x2000);
+    const u32 *scr = BanimScr_DemoKingTunkFace;
+    SpellFx_RegisterObjPal(Pal_DemoKingTunkFace, 0x20);
+    SpellFx_RegisterObjGfx(Img_DemoKingTunkFace, 0x2000);
     anim = EfxAnimCreate2(proc->anim, scr, scr, scr, scr);
     proc->anim2 = anim;
     anim->xPosition = proc->unk32;
@@ -985,7 +985,7 @@ void sub_807759C(struct ProcEfxDKfx *proc)
     proc->timer = 0;
 }
 
-void sub_80775E8(struct ProcEfxDKfx *proc)
+void EkrDragonTunkFaceIdle(struct ProcEfxDKfx *proc)
 {
     struct Anim *anim = proc->anim2;
 
@@ -996,17 +996,17 @@ void sub_80775E8(struct ProcEfxDKfx *proc)
         proc->timer = 0;
         AnimDelete(proc->anim2);
         Proc_Break(proc);
-        sub_8077620(proc);
+        EkrDragonTunkFaceRegisterAnim2(proc);
     }
 }
 
-void sub_8077620(struct ProcEfxDKfx *proc)
+void EkrDragonTunkFaceRegisterAnim2(struct ProcEfxDKfx *proc)
 {
     struct Anim *anim;
 
     const u32 *scr = BanimScr_087F4314;
-    SpellFx_RegisterObjPal(Pal_088017E0, 0x20);
-    SpellFx_RegisterObjGfx(Img_0880064C, 0x2000);
+    SpellFx_RegisterObjPal(Pal_DemoKingTunkFace, 0x20);
+    SpellFx_RegisterObjGfx(Img_DemoKingTunkFace2, 0x2000);
     anim = EfxAnimCreate2(proc->anim, scr, scr, scr, scr);
     proc->anim2 = anim;
     anim->xPosition = proc->unk32;
@@ -1079,7 +1079,7 @@ void sub_807773C(int arg1, int arg2)
 
 CONST_DATA struct ProcCmd ProcScr_ekrDragonTunk[] = {
     PROC_NAME("ekrDragonTunk"),
-    PROC_REPEAT(sub_80777E0),
+    PROC_REPEAT(DemonKingDeadWhiteOut),
     PROC_REPEAT(sub_807789C),
     PROC_REPEAT(sub_8077AA8),
     PROC_END
@@ -1102,7 +1102,7 @@ ProcPtr NewEkrDragonTunk(struct Anim *anim)
     return proc;
 }
 
-void sub_80777E0(struct ProcEkrDragonTunk *proc)
+void DemonKingDeadWhiteOut(struct ProcEkrDragonTunk *proc)
 {
     if (++proc->timer1 == 0x1) {
         NewEkrWhiteOUT(3, 2, 3);
@@ -1311,10 +1311,10 @@ void sub_8077C54(s16 x, s16 y)
 
     BG_SetPosition(BG_3, x, y);
 
-    ix1 = gEkrXPosBase[0] - x - gEkrBgXOffset;
-    iy1 = gEkrYPosBase[0] - y;
-    ix2 = gEkrXPosBase[1] + x - gEkrBgXOffset;
-    iy2 = gEkrYPosBase[1] - y;
+    ix1 = gEkrXPosReal[0] - x - gEkrBgXOffset;
+    iy1 = gEkrYPosReal[0] - y;
+    ix2 = gEkrXPosReal[1] + x - gEkrBgXOffset;
+    iy2 = gEkrYPosReal[1] - y;
 
     SetEkrFrontAnimPostion(0, ix1, iy1);
     SetEkrFrontAnimPostion(1, ix2, iy2);

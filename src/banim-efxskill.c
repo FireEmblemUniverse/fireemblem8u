@@ -13,14 +13,14 @@ static inline void EfxSkillSetAnimState(struct Anim *anim)
     anim1 = gAnims[GetAnimPosition(anim) * 2];
     anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
-    anim->state3 |= 0x20;
-    anim->state |= 0x8;
+    anim->state3 |= ANIM_BIT3_BLOCKING;
+    anim->state |= ANIM_BIT_FROZEN;
 
-    anim1->state3 |= 0x20;
-    anim1->state |= 0x8;
+    anim1->state3 |= ANIM_BIT3_BLOCKING;
+    anim1->state |= ANIM_BIT_FROZEN;
 
-    anim2->state3 |= 0x20;
-    anim2->state |= 0x8;
+    anim2->state3 |= ANIM_BIT3_BLOCKING;
+    anim2->state |= ANIM_BIT_FROZEN;
 }
 
 static inline void EfxSkillResetAnimState(struct Anim *anim)
@@ -30,14 +30,14 @@ static inline void EfxSkillResetAnimState(struct Anim *anim)
     anim1 = gAnims[GetAnimPosition(anim) * 2];
     anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
-    anim->state3 |= 0x40;
-    anim->state &= ~0x8;
+    anim->state3 |= ANIM_BIT3_BLOCKEND;
+    anim->state &= ~ANIM_BIT_FROZEN;
 
-    anim1->state3 |= 0x40;
-    anim1->state &= ~0x8;
+    anim1->state3 |= ANIM_BIT3_BLOCKEND;
+    anim1->state &= ~ANIM_BIT_FROZEN;
 
-    anim2->state3 |= 0x40;
-    anim2->state &= ~0x8;
+    anim2->state3 |= ANIM_BIT3_BLOCKEND;
+    anim2->state &= ~ANIM_BIT_FROZEN;
 }
 
 struct ProcCmd ProcScr_efxSkillType01BG[] = {
@@ -310,7 +310,7 @@ void sub_806E8A4(struct ProcEfxSkill *proc)
     }
 
     if (proc->timer == (val + 0xA)) {
-        anim->state3 |= 0x40;
+        anim->state3 |= ANIM_BIT3_BLOCKEND;
         Proc_Break(proc);
     }
 }

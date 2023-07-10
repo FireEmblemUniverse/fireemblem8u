@@ -122,7 +122,7 @@ sub_80534AC: @ 0x080534AC
 	ldr r3, _080534DC  @ gAnims
 	ldr r4, [r3]
 	negs r1, r1
-	ldr r2, _080534E0  @ gEkrXPosBase
+	ldr r2, _080534E0  @ gEkrXPosReal
 	ldrh r0, [r2]
 	adds r0, r0, r1
 	strh r0, [r4, #2]
@@ -143,7 +143,7 @@ sub_80534AC: @ 0x080534AC
 	bx r0
 	.align 2, 0
 _080534DC: .4byte gAnims
-_080534E0: .4byte gEkrXPosBase
+_080534E0: .4byte gEkrXPosReal
 
 	THUMB_FUNC_END sub_80534AC
 
@@ -601,13 +601,13 @@ sub_805382C: @ 0x0805382C
 	ldr r0, _080538AC  @ 0x00007FFF
 	cmp r1, r0
 	bne _080538C0
-	ldr r3, _080538B0  @ gEkrXPosBase
+	ldr r3, _080538B0  @ gEkrXPosReal
 	movs r4, #0
 	ldrsh r2, [r3, r4]
 	ldr r0, _080538B4  @ gEkrBgXOffset
 	ldr r1, [r0]
 	subs r6, r2, r1
-	ldr r2, _080538B8  @ gEkrYPosBase
+	ldr r2, _080538B8  @ gEkrYPosReal
 	movs r4, #2
 	ldrsh r0, [r3, r4]
 	subs r4, r0, r1
@@ -647,9 +647,9 @@ _0805389E:
 	b _080539D2
 	.align 2, 0
 _080538AC: .4byte 0x00007FFF
-_080538B0: .4byte gEkrXPosBase
+_080538B0: .4byte gEkrXPosReal
 _080538B4: .4byte gEkrBgXOffset
-_080538B8: .4byte gEkrYPosBase
+_080538B8: .4byte gEkrYPosReal
 _080538BC: .4byte gUnknown_0201773C
 _080538C0:
 	movs r4, #0
@@ -684,7 +684,7 @@ _08053900:
 	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053920
-	ldr r4, _0805391C  @ gEkrXPosBase
+	ldr r4, _0805391C  @ gEkrXPosReal
 	movs r2, #0
 	ldrsh r1, [r4, r2]
 	movs r3, #0
@@ -693,9 +693,9 @@ _08053900:
 	b _0805392C
 	.align 2, 0
 _08053918: .4byte gEkrBg2QuakeVec
-_0805391C: .4byte gEkrXPosBase
+_0805391C: .4byte gEkrXPosReal
 _08053920:
-	ldr r4, _0805398C  @ gEkrXPosBase
+	ldr r4, _0805398C  @ gEkrXPosReal
 	movs r2, #0
 	ldrsh r1, [r4, r2]
 	movs r3, #0
@@ -705,7 +705,7 @@ _0805392C:
 	ldr r3, _08053990  @ gEkrBgXOffset
 	ldr r0, [r3]
 	subs r6, r1, r0
-	ldr r2, _08053994  @ gEkrYPosBase
+	ldr r2, _08053994  @ gEkrYPosReal
 	movs r1, #0
 	ldrsh r0, [r2, r1]
 	mov r8, r0
@@ -748,9 +748,9 @@ _0805392C:
 	bl SetEkrFrontAnimPostion
 	b _080539D2
 	.align 2, 0
-_0805398C: .4byte gEkrXPosBase
+_0805398C: .4byte gEkrXPosReal
 _08053990: .4byte gEkrBgXOffset
-_08053994: .4byte gEkrYPosBase
+_08053994: .4byte gEkrYPosReal
 _08053998: .4byte gEkrBg2QuakeVec
 _0805399C: .4byte gEkrDistanceType
 _080539A0:
@@ -889,7 +889,7 @@ _08053A98:
 	bl GetAnimPosition
 	ldr r1, _08053AC8  @ gEkrBgXOffset
 	ldr r1, [r1]
-	ldr r2, _08053ACC  @ gUnknown_02000030
+	ldr r2, _08053ACC  @ gEkrXPosBase
 	lsls r0, r0, #1
 	adds r0, r0, r2
 	ldrh r0, [r0]
@@ -908,7 +908,7 @@ _08053A98:
 	b _08053ADE
 	.align 2, 0
 _08053AC8: .4byte gEkrBgXOffset
-_08053ACC: .4byte gUnknown_02000030
+_08053ACC: .4byte gEkrXPosBase
 _08053AD0: .4byte gUnknown_085C7338
 _08053AD4:
 	movs r0, #0xb0
@@ -1080,13 +1080,13 @@ _08053C36:
 	ldr r0, _08053CDC  @ gUnknown_0201FADC
 	bl sub_805AE58
 _08053C46:
-	ldr r3, _08053CE0  @ gEkrXPosBase
+	ldr r3, _08053CE0  @ gEkrXPosReal
 	movs r4, #0
 	ldrsh r2, [r3, r4]
 	ldr r0, _08053CD8  @ gEkrBgXOffset
 	ldr r1, [r0]
 	subs r6, r2, r1
-	ldr r2, _08053CE4  @ gEkrYPosBase
+	ldr r2, _08053CE4  @ gEkrYPosReal
 	movs r5, #2
 	ldrsh r0, [r3, r5]
 	subs r4, r0, r1
@@ -1149,8 +1149,8 @@ _08053CCE:
 	.align 2, 0
 _08053CD8: .4byte gEkrBgXOffset
 _08053CDC: .4byte gUnknown_0201FADC
-_08053CE0: .4byte gEkrXPosBase
-_08053CE4: .4byte gEkrYPosBase
+_08053CE0: .4byte gEkrXPosReal
+_08053CE4: .4byte gEkrYPosReal
 _08053CE8: .4byte gUnknown_02017740
 _08053CEC: .4byte gEkrBg0QuakeVec
 _08053CF0:
@@ -1196,7 +1196,7 @@ _08053D1C:
 	bl GetAnimPosition
 	ldr r1, _08053D74  @ gEkrBgXOffset
 	ldr r1, [r1]
-	ldr r2, _08053D78  @ gUnknown_02000030
+	ldr r2, _08053D78  @ gEkrXPosBase
 	lsls r0, r0, #1
 	adds r0, r0, r2
 	ldrh r0, [r0]
@@ -1218,7 +1218,7 @@ _08053D1C:
 	.align 2, 0
 _08053D70: .4byte gUnknown_02023F68
 _08053D74: .4byte gEkrBgXOffset
-_08053D78: .4byte gUnknown_02000030
+_08053D78: .4byte gEkrXPosBase
 _08053D7C: .4byte gEkrBg2QuakeVec
 _08053D80:
 	ldr r0, _08053E40  @ gEkrBg2QuakeVec
@@ -1296,7 +1296,7 @@ _08053E18:
 	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _08053E54
-	ldr r4, _08053E48  @ gEkrXPosBase
+	ldr r4, _08053E48  @ gEkrXPosReal
 	mov ip, r4
 	movs r5, #0
 	ldrsh r1, [r4, r5]
@@ -1307,18 +1307,18 @@ _08053E18:
 	ldr r4, _08053E4C  @ gEkrBgXOffset
 	ldr r0, [r4]
 	subs r6, r1, r0
-	ldr r3, _08053E50  @ gEkrYPosBase
+	ldr r3, _08053E50  @ gEkrYPosReal
 	movs r0, #0
 	ldrsh r1, [r3, r0]
 	b _08053E70
 	.align 2, 0
 _08053E40: .4byte gEkrBg2QuakeVec
 _08053E44: .4byte gEkrBg0QuakeVec
-_08053E48: .4byte gEkrXPosBase
+_08053E48: .4byte gEkrXPosReal
 _08053E4C: .4byte gEkrBgXOffset
-_08053E50: .4byte gEkrYPosBase
+_08053E50: .4byte gEkrYPosReal
 _08053E54:
-	ldr r6, _08053EBC  @ gEkrXPosBase
+	ldr r6, _08053EBC  @ gEkrXPosReal
 	mov ip, r6
 	movs r0, #0
 	ldrsh r1, [r6, r0]
@@ -1329,7 +1329,7 @@ _08053E54:
 	ldr r4, _08053EC4  @ gEkrBgXOffset
 	ldr r0, [r4]
 	subs r6, r1, r0
-	ldr r3, _08053EC8  @ gEkrYPosBase
+	ldr r3, _08053EC8  @ gEkrYPosReal
 	movs r5, #0
 	ldrsh r1, [r3, r5]
 _08053E70:
@@ -1370,10 +1370,10 @@ _08053E70:
 	bl SetEkrFrontAnimPostion
 	b _08053F02
 	.align 2, 0
-_08053EBC: .4byte gEkrXPosBase
+_08053EBC: .4byte gEkrXPosReal
 _08053EC0: .4byte gEkrBg2QuakeVec
 _08053EC4: .4byte gEkrBgXOffset
-_08053EC8: .4byte gEkrYPosBase
+_08053EC8: .4byte gEkrYPosReal
 _08053ECC: .4byte gEkrDistanceType
 _08053ED0:
 	cmp r0, #0

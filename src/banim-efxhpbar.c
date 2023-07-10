@@ -482,8 +482,8 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
 
     if (gEfxNoDmgBgShakeOff[proc->pos] == -1) {
         if (GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL) {
-            anim1->xPosition = gEkrXPosBase[GetAnimPosition(proc->anim5C)] - gEkrBgXOffset;
-            anim2->xPosition = gEkrXPosBase[GetAnimPosition(proc->anim60)] - gEkrBgXOffset;
+            anim1->xPosition = gEkrXPosReal[GetAnimPosition(proc->anim5C)] - gEkrBgXOffset;
+            anim2->xPosition = gEkrXPosReal[GetAnimPosition(proc->anim60)] - gEkrBgXOffset;
         }
 
         Proc_Break(proc);
@@ -494,8 +494,8 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
             val1 = gEfxNoDmgBgShakeOff[proc->pos];
 
         if (GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL) {
-            anim1->xPosition = gEkrXPosBase[GetAnimPosition(proc->anim5C)] - (s32)gEkrBgXOffset + val1;
-            anim2->xPosition = gEkrXPosBase[GetAnimPosition(proc->anim60)] - (s32)gEkrBgXOffset + val1;
+            anim1->xPosition = gEkrXPosReal[GetAnimPosition(proc->anim5C)] - (s32)gEkrBgXOffset + val1;
+            anim2->xPosition = gEkrXPosReal[GetAnimPosition(proc->anim60)] - (s32)gEkrBgXOffset + val1;
         }
         proc->pos++;
     }
