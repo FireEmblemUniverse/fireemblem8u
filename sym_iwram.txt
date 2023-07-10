@@ -152,7 +152,7 @@
 . = 0x004FA0; gUnknown_03004FA0 = .;
 . = 0x004FA4; gUnknown_03004FA4 = .;
 . = 0x004FA8; gEkrXQuakeOff = .;
-. = 0x004FAC; gUnknown_03004FAC = .;
+. = 0x004FAC; gBanimDebugCurrentIndex = .;
 . = 0x004FB0; gEkrYQuakeOff = .;
 . = 0x004FC0;
 . = ALIGN(4); src/mapanim_debug.o(.bss);

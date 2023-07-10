@@ -382,6 +382,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrutils.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
+        . = ALIGN(4); src/banim-ekrmain.o(.rodata);
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic.o(.rodata);
         . = ALIGN(4); data/const_data_DAF18.o(.rodata);
@@ -542,6 +543,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrutils.o(.data);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); data/banim-ekrbattlectrl.o(.data);
+        . = ALIGN(4); src/banim-ekrmain.o(.data);
         . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
         . = ALIGN(4); src/banim-efxmagic.o(.data);
         . = ALIGN(4); data/banim-efxmagic-5D5028.o(.data);

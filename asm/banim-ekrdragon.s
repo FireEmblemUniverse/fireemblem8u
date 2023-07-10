@@ -60,7 +60,7 @@ EkrDragonQuakeMain: @ 0x080703C4
 	ldrh r2, [r4, #2]
 	movs r0, #3
 	bl BG_SetPosition
-	ldr r0, _0807055C  @ gEkrXPosBase
+	ldr r0, _0807055C  @ gEkrXPosReal
 	ldrh r1, [r0]
 	ldrh r0, [r4]
 	subs r1, r1, r0
@@ -68,18 +68,18 @@ EkrDragonQuakeMain: @ 0x080703C4
 	ldr r5, [r2]
 	subs r1, r1, r5
 	lsls r1, r1, #0x10
-	ldr r3, _08070564  @ gEkrYPosBase
+	ldr r3, _08070564  @ gEkrYPosReal
 	ldrh r2, [r3]
 	ldrh r3, [r4, #2]
 	subs r2, r2, r3
 	lsls r2, r2, #0x10
-	ldr r4, _0807055C  @ gEkrXPosBase
+	ldr r4, _0807055C  @ gEkrXPosReal
 	ldrh r4, [r4, #2]
 	adds r0, r0, r4
 	subs r0, r0, r5
 	lsls r0, r0, #0x10
 	lsrs r5, r0, #0x10
-	ldr r7, _08070564  @ gEkrYPosBase
+	ldr r7, _08070564  @ gEkrYPosReal
 	ldrh r0, [r7, #2]
 	subs r0, r0, r3
 	lsls r0, r0, #0x10
@@ -146,7 +146,7 @@ _08070498:
 	bl BG_SetPosition
 	ldr r7, _08070560  @ gEkrBgXOffset
 	ldr r2, [r7]
-	ldr r0, _0807055C  @ gEkrXPosBase
+	ldr r0, _0807055C  @ gEkrXPosReal
 	ldrh r1, [r0]
 	subs r1, r1, r2
 	lsls r1, r1, #0x10
@@ -154,7 +154,7 @@ _08070498:
 	subs r0, r0, r2
 	lsls r0, r0, #0x10
 	lsrs r5, r0, #0x10
-	ldr r2, _08070564  @ gEkrYPosBase
+	ldr r2, _08070564  @ gEkrYPosReal
 	ldrh r4, [r2, #2]
 	lsrs r3, r1, #0x10
 	mov r8, r3
@@ -193,9 +193,9 @@ _08070544:
 	.align 2, 0
 _08070554: .4byte gEkrBg2QuakeVec
 _08070558: .4byte gEkrBg0QuakeVec
-_0807055C: .4byte gEkrXPosBase
+_0807055C: .4byte gEkrXPosReal
 _08070560: .4byte gEkrBgXOffset
-_08070564: .4byte gEkrYPosBase
+_08070564: .4byte gEkrYPosReal
 
 	THUMB_FUNC_END EkrDragonQuakeMain
 

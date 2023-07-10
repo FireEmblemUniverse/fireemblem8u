@@ -152,14 +152,14 @@ TSA1_EfxSelfThunderBG15:
 TSA1_EfxSelfThunderBG16:
 	.incbin "baserom.gba", 0x7FDDC8, 0x7FF488 - 0x7FDDC8
 
-	.global Img_087FF488
-Img_087FF488:  @ 0x087FF488
+	.global Img_DemoKingTunkFace
+Img_DemoKingTunkFace:  @ 0x087FF488
 	.incbin "baserom.gba", 0x7FF488, 0x11C4
 
-	.global Img_0880064C
-Img_0880064C:  @ 0x0880064C
+	.global Img_DemoKingTunkFace2
+Img_DemoKingTunkFace2:  @ 0x0880064C
 	.incbin "baserom.gba", 0x80064C, 0x1194
 
-	.global Pal_088017E0
-Pal_088017E0:  @ 0x088017E0
+	.global Pal_DemoKingTunkFace
+Pal_DemoKingTunkFace:  @ 0x088017E0
 	.incbin "baserom.gba", 0x8017E0, 0x20

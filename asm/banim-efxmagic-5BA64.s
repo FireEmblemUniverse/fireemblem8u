@@ -387,7 +387,7 @@ _0805BD42:
 	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _0805BD60
-	ldr r4, _0805BD5C  @ gEkrXPosBase
+	ldr r4, _0805BD5C  @ gEkrXPosReal
 	ldrh r0, [r4]
 	ldrh r1, [r5]
 	subs r0, r0, r1
@@ -395,9 +395,9 @@ _0805BD42:
 	.align 2, 0
 _0805BD54: .4byte gEkrBg2QuakeVec
 _0805BD58: .4byte gEkrBg0QuakeVec
-_0805BD5C: .4byte gEkrXPosBase
+_0805BD5C: .4byte gEkrXPosReal
 _0805BD60:
-	ldr r4, _0805BE78  @ gEkrXPosBase
+	ldr r4, _0805BE78  @ gEkrXPosReal
 	ldrh r0, [r5]
 	ldrh r3, [r4]
 	adds r0, r0, r3
@@ -407,7 +407,7 @@ _0805BD68:
 	subs r0, r0, r1
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
-	ldr r2, _0805BE80  @ gEkrYPosBase
+	ldr r2, _0805BE80  @ gEkrYPosReal
 	ldrh r0, [r2]
 	ldrh r1, [r5, #2]
 	subs r0, r0, r1
@@ -529,9 +529,9 @@ _0805BE6A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805BE78: .4byte gEkrXPosBase
+_0805BE78: .4byte gEkrXPosReal
 _0805BE7C: .4byte gEkrBgXOffset
-_0805BE80: .4byte gEkrYPosBase
+_0805BE80: .4byte gEkrYPosReal
 _0805BE84: .4byte gEkrBg2QuakeVec
 _0805BE88: .4byte gEfxBgSemaphore
 _0805BE8C: .4byte gEkrBg0QuakeVec

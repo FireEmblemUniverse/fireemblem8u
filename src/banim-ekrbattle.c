@@ -21,8 +21,8 @@ EWRAM_DATA int gEkrDebugTimer = 0;
 EWRAM_DATA int gEkrDebugUnk1 = 0;
 EWRAM_DATA int gEkrDebugUnk2 = 0;
 EWRAM_DATA int gEkrDebugUnk3 = 0;
-EWRAM_DATA s16 gEkrXPosBase[2] = {0};
-EWRAM_DATA s16 gEkrYPosBase[2] = {0};
+EWRAM_DATA s16 gEkrXPosReal[2] = {0};
+EWRAM_DATA s16 gEkrYPosReal[2] = {0};
 
 void SetBanimLinkArenaFlag(int flag)
 {
@@ -165,7 +165,7 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
     }
 
     InitBothAIS();
-    sub_8070B3C();
+    RegisterEkrDragonStatusType();
     SetAnimStateHiddenForDragon();
 
     gEkrDebugUnk3 = 1;
@@ -372,22 +372,22 @@ void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc)
 
     if (gEkrPairSideVaild[0] == true) {
         anim = gAnims[0];
-        anim->state3 = 0x8000;
-        anim->state2 |= 0x4000;
+        anim->state3 = ANIM_BIT3_NEW_ROUND_START;
+        anim->state2 |= ANIM_BIT2_STOP;
 
         anim = gAnims[1];
-        anim->state3 = 0x8000;
-        anim->state2 |= 0x4000;
+        anim->state3 = ANIM_BIT3_NEW_ROUND_START;
+        anim->state2 |= ANIM_BIT2_STOP;
     }
 
     if (gEkrPairSideVaild[1] == true) {
         anim = gAnims[2];
-        anim->state3 = 0x8000;
-        anim->state2 |= 0x4000;
+        anim->state3 = ANIM_BIT3_NEW_ROUND_START;
+        anim->state2 |= ANIM_BIT2_STOP;
 
         anim = gAnims[3];
-        anim->state3 = 0x8000;
-        anim->state2 |= 0x4000;
+        anim->state3 = ANIM_BIT3_NEW_ROUND_START;
+        anim->state2 |= ANIM_BIT2_STOP;
     }
 
     gBanimDoneFlag[0] = false;

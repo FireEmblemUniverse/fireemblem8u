@@ -1,7 +1,7 @@
 . = 0x000000;
 . = ALIGN(4); src/banim-ekrbattle.o(ewram_data);
-. = 0x000030; gUnknown_02000030 = .;
-. = 0x000034; gUnknown_02000034 = .;
+. = 0x000030; gEkrXPosBase = .;
+. = 0x000034; gEkrYPosBase = .;
 . = 0x000038; gEkrBg0QuakeVec = .;
 . = 0x00003C; gUnknown_0200003C = .;
 . = 0x000044; gUnknown_02000044 = .;
@@ -12,7 +12,7 @@
 . = 0x000064; gpProcEkrBattle = .;
 . = 0x000068; gpProcEkrGauge = .;
 . = 0x00006C; gpProcEkrDispUP = .;
-. = 0x000088; gUnknown_02000088 = .;
+. = 0x000088; gBanimImgSheetBuf = .;
 . = 0x000280; gMinimapWinBuf = .;
 . = 0x000500; gMinimapFrontWinBuf = .;
 . = 0x000504; gMinimapBackWinBuf = .;

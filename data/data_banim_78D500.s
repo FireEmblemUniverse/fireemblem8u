@@ -1140,8 +1140,8 @@ gUnknown_087A73F4:  @ 0x087A73F4
 gUnknown_087F3C54:  @ 0x087F3C54
 	.incbin "baserom.gba", 0x7F3C54, 0x530
 
-	.global BanimScr_087F4184
-BanimScr_087F4184:  @ 0x087F4184
+	.global BanimScr_DemoKingTunkFace
+BanimScr_DemoKingTunkFace:  @ 0x087F4184
     .4byte gUnknown_087F3C54 + 0x3ee
     .4byte 0x70000000 + gUnknown_087F3C54 + 0x4a3
     .4byte 0x8400010d

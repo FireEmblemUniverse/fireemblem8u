@@ -209,7 +209,7 @@ sub_805A5A8: @ 0x0805A5A8
 	bl GetAISLayerId
 	cmp r0, #0
 	bne _0805A5FA
-	ldr r0, _0805A604  @ gBanimRoundScripts
+	ldr r0, _0805A604  @ BanimDefaultModeConfig
 	ldrb r1, [r0, #0x18]
 	movs r2, #6
 	ldrsh r0, [r5, r2]
@@ -247,7 +247,7 @@ _0805A5FA:
 	bx r0
 	.align 2, 0
 _0805A600: .4byte banim_data
-_0805A604: .4byte gBanimRoundScripts
+_0805A604: .4byte BanimDefaultModeConfig
 _0805A608: .4byte 0x000057F0
 
 	THUMB_FUNC_END sub_805A5A8
@@ -263,7 +263,7 @@ sub_805A60C: @ 0x0805A60C
 	adds r4, r0, #0
 	ldr r0, _0805A694  @ banim_data
 	mov r9, r0
-	ldr r2, _0805A698  @ gBanimRoundScripts
+	ldr r2, _0805A698  @ BanimDefaultModeConfig
 	ldrh r1, [r4, #0xa]
 	lsls r1, r1, #2
 	adds r0, r1, r2
@@ -323,7 +323,7 @@ _0805A67C:
 	b _0805A6B2
 	.align 2, 0
 _0805A694: .4byte banim_data
-_0805A698: .4byte gBanimRoundScripts
+_0805A698: .4byte BanimDefaultModeConfig
 _0805A69C: .4byte BanimScr_085B9D5C
 _0805A6A0: .4byte 0x000057F0
 _0805A6A4:
@@ -472,7 +472,7 @@ sub_805A7B4: @ 0x0805A7B4
 	adds r7, r0, #0
 	ldr r0, _0805A82C  @ banim_data
 	mov sl, r0
-	ldr r2, _0805A830  @ gBanimRoundScripts
+	ldr r2, _0805A830  @ BanimDefaultModeConfig
 	ldrh r0, [r7, #0xa]
 	lsls r0, r0, #2
 	adds r1, r0, r2
@@ -526,7 +526,7 @@ _0805A816:
 	b _0805A84A
 	.align 2, 0
 _0805A82C: .4byte banim_data
-_0805A830: .4byte gBanimRoundScripts
+_0805A830: .4byte BanimDefaultModeConfig
 _0805A834: .4byte BanimScr_085B9D5C
 _0805A838: .4byte 0x000057F0
 _0805A83C:

@@ -1,9 +1,5 @@
 	.section .data
 
-	.global BanimScr_085B9D5C
-BanimScr_085B9D5C:  @ 0x085B9D5C
-	.incbin "baserom.gba", 0x5B9D5C, 0x10
-
 	.global gUnknown_085B9D6C
 gUnknown_085B9D6C:  @ 0x085B9D6C
     .4byte gUnknown_085B9E4C + 0xc

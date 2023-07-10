@@ -947,7 +947,7 @@ EfxTriangleQUAKEMain: @ 0x080758D4
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	bl sub_8051B5C
-	ldr r3, _08075A40  @ gEkrXPosBase
+	ldr r3, _08075A40  @ gEkrXPosReal
 	mov r9, r3
 	ldrh r5, [r4]
 	ldrh r0, [r3]
@@ -956,7 +956,7 @@ EfxTriangleQUAKEMain: @ 0x080758D4
 	mov sl, r2
 	ldr r0, [r2]
 	subs r1, r1, r0
-	ldr r3, _08075A48  @ gEkrYPosBase
+	ldr r3, _08075A48  @ gEkrYPosReal
 	mov r8, r3
 	ldrh r2, [r3]
 	ldrh r3, [r4, #2]
@@ -1065,9 +1065,9 @@ _08075A2A:
 	.align 2, 0
 _08075A38: .4byte gEkrBg2QuakeVec
 _08075A3C: .4byte gEkrBg0QuakeVec
-_08075A40: .4byte gEkrXPosBase
+_08075A40: .4byte gEkrXPosReal
 _08075A44: .4byte gEkrBgXOffset
-_08075A48: .4byte gEkrYPosBase
+_08075A48: .4byte gEkrYPosReal
 _08075A4C: .4byte gEfxBgSemaphore
 
 	THUMB_FUNC_END EfxTriangleQUAKEMain

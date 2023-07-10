@@ -102,10 +102,10 @@ void efxYushaSpinShieldOBJ_806CD14(struct ProcEfxOBJ *proc)
 
 void efxYushaSpinShieldOBJ_806CD7C(struct ProcEfxOBJ *proc)
 {
-    if (!(proc->anim->state3 & 0x4))
+    if (!(proc->anim->state3 & ANIM_BIT3_0004))
         return;
 
-    if (!(proc->anim->state3 & 0x8))
+    if (!(proc->anim->state3 & ANIM_BIT3_HIT_EFFECT_APPLIED))
         return;
 
     proc->timer = 0;
@@ -647,8 +647,8 @@ void EfxKingPikaMain(struct ProcEfx *proc)
         struct Anim *anim1 = gAnims[GetAnimPosition(anim) * 2];
         struct Anim *anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
-        anim1->state3 |= 0x40;
-        anim2->state3 |= 0x40;
+        anim1->state3 |= ANIM_BIT3_BLOCKEND;
+        anim2->state3 |= ANIM_BIT3_BLOCKEND;
         Proc_Break(proc);
     }
 }
@@ -678,8 +678,8 @@ void EfxFlashFXMain(struct ProcEfx *proc)
         struct Anim *anim1 = gAnims[GetAnimPosition(anim) * 2];
         struct Anim *anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
-        anim1->state3 |= 0x40;
-        anim2->state3 |= 0x40;
+        anim1->state3 |= ANIM_BIT3_BLOCKEND;
+        anim2->state3 |= ANIM_BIT3_BLOCKEND;
         Proc_Break(proc);
     }
 }
@@ -759,16 +759,16 @@ void NewEfxSpecalEffect(struct Anim *anim)
             anim1 = gAnims[GetAnimPosition(anim) * 2];
             anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
-            anim1->state3 |= 0x40;
-            anim2->state3 |= 0x40;
+            anim1->state3 |= ANIM_BIT3_BLOCKEND;
+            anim2->state3 |= ANIM_BIT3_BLOCKEND;
             return;
         }
     } else {
         anim1 = gAnims[GetAnimPosition(anim) * 2];
         anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
 
-        anim1->state3 |= 0x40;
-        anim2->state3 |= 0x40;
+        anim1->state3 |= ANIM_BIT3_BLOCKEND;
+        anim2->state3 |= ANIM_BIT3_BLOCKEND;
         return;
     }
 
@@ -814,8 +814,8 @@ void EfxSRankWeaponEffectMain(struct ProcEfx *proc)
         anim1 = gAnims[GetAnimPosition(proc->anim) * 2];
         anim2 = gAnims[GetAnimPosition(proc->anim) * 2 + 1];
         
-        anim1->state3 |= 0x40;
-        anim2->state3 |= 0x40;
+        anim1->state3 |= ANIM_BIT3_BLOCKEND;
+        anim2->state3 |= ANIM_BIT3_BLOCKEND;
         Proc_Break(proc);
     }
 }
@@ -1052,10 +1052,10 @@ void sub_806DFA4(struct ProcEfxOBJ *proc)
 {
     proc->anim2->xPosition = proc->anim->xPosition;
 
-    if (!(proc->anim->state3 & 0x4))
+    if (!(proc->anim->state3 & ANIM_BIT3_0004))
         return;
 
-    if (!(proc->anim->state3 & 0x8))
+    if (!(proc->anim->state3 & ANIM_BIT3_HIT_EFFECT_APPLIED))
         return;
 
     Proc_Break(proc);
@@ -1239,8 +1239,8 @@ void sub_806E290(struct ProcEfxOBJ *proc)
         _anim1 = gAnims[GetAnimPosition(proc->anim) * 2];
         _anim2 = gAnims[GetAnimPosition(proc->anim) * 2 + 1];
 
-        _anim1->state3 |= 0x40;
-        _anim2->state3 |= 0x40;
+        _anim1->state3 |= ANIM_BIT3_BLOCKEND;
+        _anim2->state3 |= ANIM_BIT3_BLOCKEND;
         Proc_Break(proc);
     }
 }

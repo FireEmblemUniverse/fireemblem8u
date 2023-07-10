@@ -574,10 +574,10 @@ void sub_8055A64(struct ProcEfxSpdQuake *proc)
 
 void sub_8055B38(struct ProcEfxSpdQuake *proc)
 {
-    int x1 = gEkrXPosBase[0] - gEkrBgXOffset;
-    int x2 = gEkrYPosBase[0];
-    int y1 = gEkrXPosBase[1] - gEkrBgXOffset;
-    int y2 = gEkrYPosBase[1];
+    int x1 = gEkrXPosReal[0] - gEkrBgXOffset;
+    int x2 = gEkrYPosReal[0];
+    int y1 = gEkrXPosReal[1] - gEkrBgXOffset;
+    int y2 = gEkrYPosReal[1];
 
     SetEkrFrontAnimPostion(EKR_POS_L, x1, x2);
     SetEkrFrontAnimPostion(EKR_POS_R, y1, y2);

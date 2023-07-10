@@ -93,7 +93,7 @@ struct Anim* AnimCreate_unused(const void* frameData)
 
     anim->commandQueueSize = 0;
 
-    anim->pUnk2C = NULL;
+    anim->pImgSheetBuf = NULL;
     anim->pSpriteDataPool = NULL;
     anim->pUnk40 = NULL;
     anim->pUnk44 = NULL;
@@ -128,7 +128,7 @@ struct Anim* AnimCreate(const void* frameData, u16 displayPriority)
 
     anim->commandQueueSize = 0;
 
-    anim->pUnk2C = NULL;
+    anim->pImgSheetBuf = NULL;
     anim->pSpriteDataPool = NULL;
     anim->pUnk40 = NULL;
     anim->pUnk44 = NULL;

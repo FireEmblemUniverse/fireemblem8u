@@ -152,6 +152,23 @@ s16 GetBattleAnimRoundTypeFlags(int);
 
 extern u8 gEfxHpLut[];
 
+enum banim_mode_index {
+    BANIM_MODE_NORMAL_ATK,
+    BANIM_MODE_NORMAL_ATK_PRIORITY_L,
+    BANIM_MODE_CRIT_ATK,
+    BANIM_MODE_CRIT_ATK_PRIORITY_L,
+    BANIM_MODE_RANGED_ATK,
+    BANIM_MODE_RANGED_CRIT_ATK,
+    BANIM_MODE_CLOSE_DODGE,
+    BANIM_MODE_RANGED_DODGE,
+    BANIM_MODE_STANDING,
+    BANIM_MODE_STANDING2,
+    BANIM_MODE_RANGED_STANDING,
+    BANIM_MODE_MISSED_ATK,
+
+    BANIM_MODE_INVALID = -1,
+};
+
 struct BanimRoundScript {
     u8 frame_front;
     u8 priority_front;
@@ -159,8 +176,8 @@ struct BanimRoundScript {
     u8 priority_back;
 };
 
-// extern const struct BanimRoundScript gBanimRoundScripts[ANIM_ROUND_MAX * 4];
-extern const u8 gBanimRoundScripts[ANIM_ROUND_MAX * 4];
+// extern const struct BanimRoundScript BanimDefaultModeConfig[ANIM_ROUND_MAX * 4];
+extern const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4];
 
 struct ProcEkrSubAnimeEmulator {
     PROC_HEADER;
@@ -186,10 +203,10 @@ extern struct Font gSomeFontStruct;
 extern void *gUnknown_02000010[2];
 extern int gEkrDebugUnk2;
 extern int gEkrDebugUnk3;
-extern s16 gEkrXPosBase[2];
-extern s16 gEkrYPosBase[2];
-extern u16 gUnknown_02000030[];
-extern u16 gUnknown_02000034[];
+extern s16 gEkrXPosReal[2];
+extern s16 gEkrYPosReal[2];
+extern u16 gEkrXPosBase[];
+extern u16 gEkrYPosBase[];
 extern struct Vec2 gEkrBg0QuakeVec;
 extern void *gUnknown_0200003C[2];
 extern void *gUnknown_02000044[2];
@@ -199,7 +216,7 @@ extern int *gpBanimModesLeft;
 extern int *gpBanimModesRight;
 extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
-extern u8 gUnknown_02000088[];
+extern u8 gBanimImgSheetBuf[];
 extern u8 gUnknown_02002088[];
 
 extern int gBanimLinkArenaFlag;
@@ -339,6 +356,153 @@ extern struct ProcCmd ProcScr_ekrUnitMainMini[];
 extern struct ProcCmd gProc_ekrTogiInit[];
 extern struct ProcCmd gProc_ekrTogiEnd[];
 extern struct ProcCmd gProc_ekrTogiColor[];
+
+extern const s16 gEfxNoDmgBgShakeOff[];
+// extern ??? gUnknown_080DA4BA
+extern CONST_DATA struct Vec2 gUnknown_080DA4DC[];
+// extern ??? gUnknown_080DA526
+extern CONST_DATA struct Vec2 gUnknown_080DA570[];
+// extern ??? gUnknown_080DA5BA
+// extern ??? gUnknown_080DA604
+// extern ??? gUnknown_080DA66E
+// extern ??? gUnknown_080DA9F8
+// extern ??? gUnknown_080DAA8E
+// extern ??? gUnknown_080DAC58
+// extern ??? gUnknown_080DAC82
+extern const u16 gUnknown_080DACDA[];
+extern const u16 gUnknown_080DAD0A[];
+// extern ??? gUnknown_080DAE8C
+// extern ??? gUnknown_080DAE96
+// extern ??? gUnknown_080DAEA0
+// extern ??? gUnknown_080DAEAA
+// extern ??? gUnknown_080DAEB4
+// extern ??? gUnknown_080DAEBE
+// extern ??? gUnknown_080DAEC8
+// extern ??? gUnknown_080DAED2
+// extern ??? gUnknown_080DAEDC
+// extern ??? gUnknown_080DAEE6
+extern const u8 BattleTypeToAnimModeEndOfDodge[5];
+extern const u8 BanimTypesPosLeft[5];
+extern const u8 BanimTypesPosRight[5];
+extern const u16 BanimLeftDefaultPos[5];
+// extern ??? gUnknown_080DAF60
+// extern ??? gUnknown_080DB026
+// extern ??? gUnknown_080DC85C
+// extern ??? gUnknown_080DC956
+// extern ??? gUnknown_080DCA5C
+// extern ??? gUnknown_080DCB78
+// extern ??? gUnknown_080DCBD4
+extern const u16 gUnknown_080DCCA6[];
+extern const u16 gUnknown_080DCCC0[];
+extern const u16 gUnknown_080DCD26[];
+extern const u16 gUnknown_080DCD72[];
+extern const u16 gUnknown_080DCDE4[];
+// extern ??? gUnknown_080DCE6E
+// extern ??? gUnknown_080DCEEC
+// extern ??? gUnknown_080DCF7E
+// extern ??? gUnknown_080DD024
+// extern ??? gUnknown_080DD044
+// extern ??? gUnknown_080DD094
+// extern ??? gUnknown_080DD0C6
+// extern ??? gUnknown_080DD186
+// extern ??? gUnknown_080DD1F4
+// extern ??? gUnknown_080DD252
+// extern ??? gUnknown_080DD288
+// extern ??? gUnknown_080DD328
+// extern ??? gUnknown_080DD4D4
+// extern ??? gUnknown_080DD542
+// extern ??? gUnknown_080DD550
+// extern ??? gUnknown_080DD5D2
+// extern ??? gUnknown_080DD5D8
+// extern ??? gUnknown_080DD67A
+// extern ??? gUnknown_080DD70C
+// extern ??? gUnknown_080DD76A
+// extern ??? gUnknown_080DD8C6
+// extern ??? gUnknown_080DD8CC
+// extern ??? gUnknown_080DD8D2
+// extern ??? gUnknown_080DD8D8
+// extern ??? gUnknown_080DD8EE
+// extern ??? gUnknown_080DD930
+// extern ??? gUnknown_080DD972
+// extern ??? gUnknown_080DD9A4
+// extern ??? gUnknown_080DDA3E
+// extern ??? gUnknown_080DDA50
+// extern ??? gUnknown_080DDA58
+// extern ??? gUnknown_080DDA70
+// extern ??? gUnknown_080DDB82
+// extern ??? gUnknown_080DDB9A
+// extern ??? gUnknown_080DDC8A
+// extern ??? gUnknown_080DDCE6
+// extern ??? gUnknown_080DDD58
+// extern ??? gUnknown_080DDE9E
+// extern ??? gUnknown_080DDF3A
+// extern ??? gUnknown_080DE03C
+// extern ??? gUnknown_080DE050
+// extern ??? gUnknown_080DE086
+// extern ??? gUnknown_080DE0CE
+// extern ??? gUnknown_080DE106
+// extern ??? gUnknown_080DE150
+// extern ??? gUnknown_080DE1CE
+// extern ??? gUnknown_080DE24C
+// extern ??? gUnknown_080DE284
+// extern ??? gUnknown_080DE2B8
+// extern ??? gUnknown_080DE2E2
+// extern ??? gUnknown_080DE346
+// extern ??? gUnknown_080DE374
+// extern ??? gUnknown_080DE3A6
+// extern ??? gUnknown_080DE3DA
+// extern ??? gUnknown_080DE3F8
+// extern ??? gUnknown_080DE47E
+// extern ??? gUnknown_080DE4E6
+// extern ??? gUnknown_080DE526
+// extern ??? gUnknown_080DE552
+// extern ??? gUnknown_080DE58E
+// extern ??? gUnknown_080DE5E4
+// extern ??? gUnknown_080DE624
+// extern ??? gUnknown_080DE65C
+// extern ??? gUnknown_080DE6F0
+// extern ??? gUnknown_080DE710
+// extern ??? gUnknown_080DE748
+// extern ??? gUnknown_080DE792
+// extern ??? gUnknown_080DE8A0
+// extern ??? gUnknown_080DE8C0
+// extern ??? gUnknown_080DE8DC
+// extern ??? gUnknown_080DE900
+// extern ??? gUnknown_080DE924
+// extern ??? gUnknown_080DE974
+// extern ??? gUnknown_080DE9EA
+// extern ??? gUnknown_080DEA4A
+// extern ??? gUnknown_080DEA74
+// extern ??? gUnknown_080DEA96
+// extern ??? gUnknown_080DEAAA
+// extern ??? gUnknown_080DEAFA
+// extern ??? gUnknown_080DEB6A
+// extern ??? gUnknown_080DEBC8
+// extern ??? gUnknown_080DEBF8
+// extern ??? gUnknown_080DEC0C
+// extern ??? gUnknown_080DEC30
+// extern ??? gUnknown_080DECBA
+// extern ??? gUnknown_080DEDBC
+// extern ??? gUnknown_080DEDFA
+// extern ??? gUnknown_080DEE40
+// extern ??? gUnknown_080DEEC2
+// extern ??? gUnknown_080DEF20
+// extern ??? gUnknown_080DEF78
+// extern ??? gUnknown_080DEFD0
+// extern ??? gUnknown_080DF042
+// extern ??? gUnknown_080DF080
+// extern ??? gUnknown_080DF0E0
+extern const u16 gUnknown_080DF188[];
+extern const u16 gUnknown_080DF1EE[];
+extern const u16 gUnknown_080DF26A[];
+extern const u16 gUnknown_080DF2DC[];
+extern const u16 gUnknown_080DF386[];
+extern const u16 gUnknown_080DF39C[];
+extern const u16 gUnknown_080DF3A2[];
+extern const u16 gUnknown_080DF3C4[];
+extern const u16 gUnknown_080DF4F4[];
+extern const u16 gUnknown_080DF546[];
+extern const u16 gUnknown_080DF568[];
 
 void SetBanimLinkArenaFlag(int unk);
 int GetBanimLinkArenaFlag(void);
@@ -596,7 +760,7 @@ void sub_8059970(u32 *, int);
 int GetBanimPalette(int banim_id, enum ekr_battle_unit_position pos);
 void UpdateBanimFrame(void);
 void InitBothAIS(void);
-void BattleAnimationAISInit(int, int);
+void InitBattleAnimFrame(int, int);
 void InitLeftAnim(int);
 void InitRightAnim(int);
 void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int);

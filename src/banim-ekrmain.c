@@ -11,6 +11,98 @@
 
 extern struct Anim *gAnims[4];
 
+CONST_DATA u32 BanimScr_085B9D5C[4] = {
+    /**
+     * ANINS_IS_NOT_FORCESPRITE = true
+     * ANINS_GET_TYPE = ANIM_INS_TYPE_FRAME
+     * ANINS_FRAME_GET_DELAY = 0x1
+     */
+    0x86000001,
+    0x00000000,
+
+    /**
+     * pSpriteData = 0x57F0
+     */
+    0x000057F0,
+
+    /**
+     * ANINS_IS_NOT_FORCESPRITE = true
+     * ANINS_GET_TYPE = ANIM_INS_TYPE_STOP
+     */
+    0x80000000
+};
+
+const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4] = {
+    /**
+     * 00: front mode
+     * 01: front priority
+     * 02: back mode
+     * 03: back priority
+    */
+
+    /* ANIM_ROUND_HIT_CLOSE */
+    BANIM_MODE_NORMAL_ATK, 0x64, BANIM_MODE_NORMAL_ATK_PRIORITY_L, 0x3C,
+
+    /* ANIM_ROUND_CRIT_CLOSE */
+    BANIM_MODE_CRIT_ATK, 0x64, BANIM_MODE_CRIT_ATK_PRIORITY_L, 0x3C,
+
+    /* ANIM_ROUND_NONCRIT_FAR */
+    BANIM_MODE_RANGED_ATK, 0x64, BANIM_MODE_INVALID, 0x3C,
+
+    /* ANIM_ROUND_CRIT_FAR */
+    BANIM_MODE_RANGED_CRIT_ATK, 0x64, BANIM_MODE_INVALID, 0x3C,
+
+    /* ANIM_ROUND_TAKING_MISS_CLOSE */
+    BANIM_MODE_CLOSE_DODGE, 0x28, BANIM_MODE_INVALID, 0x28,
+
+    /* ANIM_ROUND_TAKING_MISS_FAR */
+    BANIM_MODE_RANGED_DODGE, 0x28, BANIM_MODE_INVALID, 0x28,
+
+    /* ANIM_ROUND_TAKING_HIT_CLOSE */
+    BANIM_MODE_STANDING, 0x50, BANIM_MODE_INVALID, 0x28,
+
+    /* ANIM_ROUND_STANDING */
+    BANIM_MODE_STANDING2, 0x50, BANIM_MODE_INVALID, 0x28,
+
+    /* ANIM_ROUND_TAKING_HIT_FAR */
+    BANIM_MODE_RANGED_STANDING, 0x50, BANIM_MODE_INVALID, 0x28,
+
+    /* ANIM_ROUND_MISS_CLOSE */
+    BANIM_MODE_MISSED_ATK, 0x64, BANIM_MODE_INVALID, 0x28,
+};
+
+const u8 BattleTypeToAnimModeEndOfDodge[5] = {
+    [EKR_DISTANCE_CLOSE]     = BANIM_MODE_CLOSE_DODGE,
+    [EKR_DISTANCE_FAR]       = BANIM_MODE_STANDING,
+    [EKR_DISTANCE_FARFAR]    = BANIM_MODE_STANDING,
+    [EKR_DISTANCE_3]         = BANIM_MODE_CLOSE_DODGE,
+    [EKR_DISTANCE_PROMOTION] = BANIM_MODE_CLOSE_DODGE
+};
+
+const u8 BanimTypesPosLeft[5] = {
+    [EKR_DISTANCE_CLOSE]     = 0x5C,
+    [EKR_DISTANCE_FAR]       = 0x44,
+    [EKR_DISTANCE_FARFAR]    = 0x44,
+    [EKR_DISTANCE_3]         = 0x78,
+    [EKR_DISTANCE_PROMOTION] = 0x5C
+};
+
+const u8 BanimTypesPosRight[5] = {
+    [EKR_DISTANCE_CLOSE]     = 0x94,
+    [EKR_DISTANCE_FAR]       = 0xAC,
+    [EKR_DISTANCE_FARFAR]    = 0xAC,
+    [EKR_DISTANCE_3]         = 0x78,
+    [EKR_DISTANCE_PROMOTION] = 0x94
+};
+
+const u16 BanimLeftDefaultPos[5] = {
+    [EKR_DISTANCE_CLOSE]     = 0x00,
+    [EKR_DISTANCE_FAR]       = 0x20,
+    [EKR_DISTANCE_FARFAR]    = 0xF0,
+    [EKR_DISTANCE_3]         = 0x00,
+    [EKR_DISTANCE_PROMOTION] = 0x00
+};
+
 void AnimScrAdvance(struct Anim *anim)
 {
     u32 inst;
@@ -57,8 +149,8 @@ void RegisterAISSheetGraphics(struct Anim *anim)
 {
     void *mmap;
     mmap = (void *)0x06010000 + (anim->oam2Base & 0x3FF) * 0x20;
-    LZ77UnCompWram(anim->pImgSheet, anim->pUnk2C);
-    RegisterDataMove(anim->pUnk2C, mmap, 0x2000);
+    LZ77UnCompWram(anim->pImgSheet, anim->pImgSheetBuf);
+    RegisterDataMove(anim->pImgSheetBuf, mmap, 0x2000);
 }
 
 void sub_8059970(u32 *buf, int pos)
@@ -208,15 +300,15 @@ void InitBothAIS(void)
     case EKR_DISTANCE_CLOSE:
     case EKR_DISTANCE_3:
     case EKR_DISTANCE_PROMOTION:
-        BattleAnimationAISInit(6, 6);
+        InitBattleAnimFrame(ANIM_ROUND_TAKING_HIT_CLOSE, ANIM_ROUND_TAKING_HIT_CLOSE);
         break;
 
     case EKR_DISTANCE_FAR:
-        BattleAnimationAISInit(8, 8);
+        InitBattleAnimFrame(ANIM_ROUND_TAKING_HIT_FAR, ANIM_ROUND_TAKING_HIT_FAR);
         break;
 
     case EKR_DISTANCE_FARFAR:
-        BattleAnimationAISInit(8, 8);
+        InitBattleAnimFrame(ANIM_ROUND_TAKING_HIT_FAR, ANIM_ROUND_TAKING_HIT_FAR);
 
         if (GetEkrSomePosMaybe() == EKR_POS_L) {
             anim1 = gAnims[2];
@@ -241,7 +333,7 @@ void InitBothAIS(void)
     gEfxPairHpBufOffset[1] = 0;
 }
 
-void BattleAnimationAISInit(int a, int b)
+void InitBattleAnimFrame(int round_type_left, int round_type_right)
 {
     gAnims[0] = NULL;
     gAnims[1] = NULL;
@@ -249,34 +341,35 @@ void BattleAnimationAISInit(int a, int b)
     gAnims[3] = NULL;
 
     if (gEkrPairSideVaild[EKR_POS_L] == true)
-        InitLeftAnim(a);
+        InitLeftAnim(round_type_left);
 
     if (gEkrPairSideVaild[EKR_POS_R] == true)
-        InitRightAnim(b);
-    
-    if (gEkrDistanceType == 4) {
-        gAnims[0]->state |= 0x2;
-        gAnims[1]->state |= 0x2;
+        InitRightAnim(round_type_right);
+
+    /* Hide the left anim on init promotion */
+    if (gEkrDistanceType == EKR_DISTANCE_PROMOTION) {
+        gAnims[0]->state |= ANIM_BIT_HIDDEN;
+        gAnims[1]->state |= ANIM_BIT_HIDDEN;
     }
 }
 
-void InitLeftAnim(int arg)
+void InitLeftAnim(int round_type)
 {
     struct Anim *anim;
-    u32 frame_front = gBanimRoundScripts[arg * 4 + 0];
-    u32 priority_front = gBanimRoundScripts[arg * 4 + 1];
-    u32 frame_back = gBanimRoundScripts[arg * 4 + 2];
-    u32 priority_back = gBanimRoundScripts[arg * 4 + 3];
-    u32 r4 = gUnknown_080DAF1D[gEkrDistanceType];
+    u32 frame_front = BanimDefaultModeConfig[round_type * 4 + 0];
+    u32 priority_front = BanimDefaultModeConfig[round_type * 4 + 1];
+    u32 frame_back = BanimDefaultModeConfig[round_type * 4 + 2];
+    u32 priority_back = BanimDefaultModeConfig[round_type * 4 + 3];
+    u32 r4 = BanimTypesPosLeft[gEkrDistanceType];
 
     void *array[2];
     array[0] = &&label1;
     array[1] = &&label2;
 
-    gUnknown_02000030[0] = -gUnknown_080DAF28[gEkrDistanceType];
-    gUnknown_02000034[0] = 0;
-    gEkrXPosBase[0] = gUnknown_02000030[0] + r4;
-    gEkrYPosBase[0] = 0x58;
+    gEkrXPosBase[0] = -BanimLeftDefaultPos[gEkrDistanceType];
+    gEkrYPosBase[0] = 0;
+    gEkrXPosReal[0] = gEkrXPosBase[0] + r4;
+    gEkrYPosReal[0] = 0x58;
 
 label1:
     {
@@ -285,13 +378,13 @@ label1:
         if (frame_front == 0xFF)
             scr = BanimScr_085B9D5C;
         do anim = AnimCreate(scr, priority_front); while (0);
-        anim->xPosition = gEkrXPosBase[0] - gEkrBgXOffset;
-        anim->yPosition = gEkrYPosBase[0];
+        anim->xPosition = gEkrXPosReal[0] - gEkrBgXOffset;
+        anim->yPosition = gEkrYPosReal[0];
         anim->oam2Base = 0x7A00;
-        anim->state2 |= 0x400;
+        anim->state2 |= ANIM_BIT2_0400 | ANIM_BIT2_BACK_FRAME;
         anim->nextRoundId = 0x0;
-        anim->currentRoundType = arg;
-        anim->pUnk2C = gUnknown_02000088;
+        anim->currentRoundType = round_type;
+        anim->pImgSheetBuf = gBanimImgSheetBuf;
         anim->pSpriteDataPool = gBanimOaml;
         gAnims[0] = anim;
     }
@@ -303,35 +396,35 @@ label2:
         if (frame_back == 0xFF)
             scr = BanimScr_085B9D5C;
         anim = AnimCreate(scr, priority_back);
-        anim->xPosition = gEkrXPosBase[0] - gEkrBgXOffset;
-        anim->yPosition = gEkrYPosBase[0];
+        anim->xPosition = gEkrXPosReal[0] - gEkrBgXOffset;
+        anim->yPosition = gEkrYPosReal[0];
         anim->oam2Base = 0x7A00;
-        anim->state2 |= 0x500;
+        anim->state2 |= ANIM_BIT2_0400 | ANIM_BIT2_FRONT_FRAME;
         anim->nextRoundId = 0x0;
-        anim->currentRoundType = arg;
-        anim->pUnk2C = gUnknown_02000088;
+        anim->currentRoundType = round_type;
+        anim->pImgSheetBuf = gBanimImgSheetBuf;
         anim->pSpriteDataPool = gBanimOaml;
         gAnims[1] = anim;
     }
 }
 
-void InitRightAnim(int arg)
+void InitRightAnim(int round_type)
 {
     struct Anim *anim;
-    u32 frame_front = gBanimRoundScripts[arg * 4 + 0];
-    u32 priority_front = gBanimRoundScripts[arg * 4 + 1];
-    u32 frame_back = gBanimRoundScripts[arg * 4 + 2];
-    u32 priority_back = gBanimRoundScripts[arg * 4 + 3];
-    u32 r2 = gUnknown_080DAF22[gEkrDistanceType];
+    u32 frame_front = BanimDefaultModeConfig[round_type * 4 + 0];
+    u32 priority_front = BanimDefaultModeConfig[round_type * 4 + 1];
+    u32 frame_back = BanimDefaultModeConfig[round_type * 4 + 2];
+    u32 priority_back = BanimDefaultModeConfig[round_type * 4 + 3];
+    u32 r2 = BanimTypesPosRight[gEkrDistanceType];
 
     void *array[2];
     array[0] = &&label1;
     array[1] = &&label2;
     
-    gUnknown_02000030[1] = 0;
-    gUnknown_02000034[1] = 0;
-    gEkrXPosBase[1] = r2;
-    gEkrYPosBase[1] = 0x58;
+    gEkrXPosBase[1] = 0;
+    gEkrYPosBase[1] = 0;
+    gEkrXPosReal[1] = r2;
+    gEkrYPosReal[1] = 0x58;
 
 label1:
     {
@@ -340,13 +433,13 @@ label1:
         if (frame_front == 0xFF)
             scr = BanimScr_085B9D5C;
         do anim = AnimCreate(scr, priority_front); while (0);
-        anim->xPosition = gEkrXPosBase[1] - gEkrBgXOffset;
-        anim->yPosition = gEkrYPosBase[1];
+        anim->xPosition = gEkrXPosReal[1] - gEkrBgXOffset;
+        anim->yPosition = gEkrYPosReal[1];
         anim->oam2Base = 0x9B00;
-        anim->state2 |= 0x600;
+        anim->state2 |= ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
         anim->nextRoundId = 0x0;
-        anim->currentRoundType = arg;
-        anim->pUnk2C = gUnknown_02002088;
+        anim->currentRoundType = round_type;
+        anim->pImgSheetBuf = gUnknown_02002088;
         anim->pSpriteDataPool = gBanimOamr2;
         gAnims[2] = anim;
     }
@@ -358,13 +451,13 @@ label2:
         if (frame_back == 0xFF)
             scr = BanimScr_085B9D5C;
         anim = AnimCreate(scr, priority_back);
-        anim->xPosition = gEkrXPosBase[1] - gEkrBgXOffset;
-        anim->yPosition = gEkrYPosBase[1];
+        anim->xPosition = gEkrXPosReal[1] - gEkrBgXOffset;
+        anim->yPosition = gEkrYPosReal[1];
         anim->oam2Base = 0x9B00;
-        anim->state2 |= 0x700;
+        anim->state2 |= ANIM_BIT2_FRONT_FRAME | ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
         anim->nextRoundId = 0x0;
-        anim->currentRoundType = arg;
-        anim->pUnk2C = gUnknown_02002088;
+        anim->currentRoundType = round_type;
+        anim->pImgSheetBuf = gUnknown_02002088;
         anim->pSpriteDataPool = gBanimOamr2;
         gAnims[3] = anim;
     }
@@ -376,11 +469,11 @@ void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
     const u32 *scr;
 
     if (GetAISLayerId(anim) == 0) {
-        frame    = gBanimRoundScripts[4 * type + 0];
-        priority = gBanimRoundScripts[4 * type + 1];
+        frame    = BanimDefaultModeConfig[4 * type + 0];
+        priority = BanimDefaultModeConfig[4 * type + 1];
     } else {
-        frame    = gBanimRoundScripts[4 * type + 2];
-        priority = gBanimRoundScripts[4 * type + 3];
+        frame    = BanimDefaultModeConfig[4 * type + 2];
+        priority = BanimDefaultModeConfig[4 * type + 3];
     }
 
     if (frame != 0xFF) {
@@ -403,7 +496,7 @@ void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
     anim->oam2Base &= ~0xC00;
     anim->oam2Base |= 0x800;
     anim->timer = 0;
-    anim->state2 &= 0x700;
+    anim->state2 &= ANIM_BIT2_FRONT_FRAME | ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
     anim->currentRoundType = type;
     anim->commandQueueSize = 0;
     anim->pSpriteDataPool = gBanimOaml + GetAnimPosition(anim) * 0x5800 / 4;
@@ -413,7 +506,7 @@ void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
 
 int GetAISLayerId(struct Anim *anim)
 {
-    if (!(anim->state2 & 0x100))
+    if (!(anim->state2 & ANIM_BIT2_FRONT_FRAME))
         return 0;
 
     return 1;
@@ -421,7 +514,7 @@ int GetAISLayerId(struct Anim *anim)
 
 int GetAnimPosition(struct Anim *anim)
 {
-    if (!(anim->state2 & 0x200))
+    if (!(anim->state2 & ANIM_BIT2_POS_RIGHT))
         return EKR_POS_L;
 
     return EKR_POS_R;

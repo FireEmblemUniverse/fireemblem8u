@@ -150,13 +150,13 @@ _0805696E:
 UnitKakudai1: @ 0x08056974
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	ldr r1, _08056AE4  @ BanimScr_080DAF18
+	ldr r1, _08056AE4  @ BattleTypeToAnimModeEndOfDodge
 	ldr r0, _08056AE8  @ gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	adds r0, r0, r1
 	ldrb r2, [r0]
-	ldr r1, _08056AEC  @ gBanimRoundScripts
+	ldr r1, _08056AEC  @ BanimDefaultModeConfig
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	ldrb r6, [r0]
@@ -241,7 +241,7 @@ _08056A0A:
 	ldr r2, _08056B14  @ gBanimOaml
 	adds r1, r1, r2
 	str r1, [r4, #0x54]
-	ldr r1, _08056B18  @ gUnknown_02000088
+	ldr r1, _08056B18  @ gBanimImgSheetBuf
 	bl LZ77UnCompWram
 _08056A32:
 	movs r1, #2
@@ -277,7 +277,7 @@ _08056A66:
 	bl LZ77UnCompWram
 _08056A72:
 	ldr r1, _08056B38  @ 0x06014000
-	ldr r0, _08056B18  @ gUnknown_02000088
+	ldr r0, _08056B18  @ gBanimImgSheetBuf
 	movs r2, #0x80
 	lsls r2, r2, #7
 	bl RegisterDataMove
@@ -306,14 +306,14 @@ _08056A72:
 	lsls r0, r0, #4
 	adds r0, #8
 	strh r0, [r4, #0x3c]
-	ldr r1, _08056B40  @ gUnknown_080DAF1D
+	ldr r1, _08056B40  @ BanimTypesPosLeft
 	ldr r2, _08056AE8  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	adds r0, r0, r1
 	ldrb r5, [r0]
 	strh r5, [r4, #0x36]
-	ldr r1, _08056B44  @ gUnknown_080DAF22
+	ldr r1, _08056B44  @ BanimTypesPosRight
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	adds r0, r0, r1
@@ -323,7 +323,7 @@ _08056A72:
 	ldr r0, [r0]
 	cmp r0, #0
 	bne _08056B50
-	ldr r0, _08056B4C  @ gUnknown_080DAF28
+	ldr r0, _08056B4C  @ BanimLeftDefaultPos
 	movs r5, #0
 	ldrsh r1, [r2, r5]
 	lsls r1, r1, #1
@@ -333,9 +333,9 @@ _08056A72:
 	strh r0, [r4, #0x38]
 	b _08056B60
 	.align 2, 0
-_08056AE4: .4byte BanimScr_080DAF18
+_08056AE4: .4byte BattleTypeToAnimModeEndOfDodge
 _08056AE8: .4byte gEkrDistanceType
-_08056AEC: .4byte gBanimRoundScripts
+_08056AEC: .4byte BanimDefaultModeConfig
 _08056AF0: .4byte gEkrBattleEndFlag
 _08056AF4: .4byte gAnims
 _08056AF8: .4byte gpEkrBattleUnitRight
@@ -346,7 +346,7 @@ _08056B08: .4byte gEkrPairSideVaild
 _08056B0C: .4byte gpBanimModesLeft
 _08056B10: .4byte gBanimScrLeft
 _08056B14: .4byte gBanimOaml
-_08056B18: .4byte gUnknown_02000088
+_08056B18: .4byte gBanimImgSheetBuf
 _08056B1C: .4byte gpBanimModesRight
 _08056B20: .4byte gBanimScrRight
 _08056B24: .4byte gBanimOamr2
@@ -356,12 +356,12 @@ _08056B30: .4byte gUnknown_02001088
 _08056B34: .4byte gUnknown_02003088
 _08056B38: .4byte 0x06014000
 _08056B3C: .4byte gEkrPairBmLoc
-_08056B40: .4byte gUnknown_080DAF1D
-_08056B44: .4byte gUnknown_080DAF22
+_08056B40: .4byte BanimTypesPosLeft
+_08056B44: .4byte BanimTypesPosRight
 _08056B48: .4byte gEkrPos2Maybe
-_08056B4C: .4byte gUnknown_080DAF28
+_08056B4C: .4byte BanimLeftDefaultPos
 _08056B50:
-	ldr r0, _08056B6C  @ gUnknown_080DAF28
+	ldr r0, _08056B6C  @ BanimLeftDefaultPos
 	movs r3, #0
 	ldrsh r1, [r2, r3]
 	lsls r1, r1, #1
@@ -376,7 +376,7 @@ _08056B60:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08056B6C: .4byte gUnknown_080DAF28
+_08056B6C: .4byte BanimLeftDefaultPos
 
 	THUMB_FUNC_END UnitKakudai1
 

@@ -113,12 +113,12 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
     struct Text *text;
     struct Anim *anim;
 
-    static u32 instr_unit[6] = {
+    static u32 anim_sprit[6] = {
         0x40000000, 0, 0, 1, 0, 0
     };
 
     static u32 anim_instr[2] = {
-        (uintptr_t)instr_unit + 1,
+        (uintptr_t)anim_sprit + 1,
         0x80000000
     };
 
