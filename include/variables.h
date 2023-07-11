@@ -1111,7 +1111,7 @@ extern u8 CONST_DATA gUnknown_088ADF2A[]; // Some bow effectiveness list
 extern u8 CONST_DATA gUnknown_088ADF39[]; // Slayer effectiveness list
 extern u8 CONST_DATA gItemUseJidList_HeroCrest[]; // Hero Crest class list
 extern u8 CONST_DATA gItemUseJidList_KnightCrest[]; // Knight Crest class list
-extern u8 CONST_DATA gItemUseJidList_OrionsBlot[]; // Orion's Bolt class list
+extern u8 CONST_DATA gItemUseJidList_OrionsBolt[]; // Orion's Bolt class list
 extern u8 CONST_DATA gItemUseJidList_ElysianWhip[]; // Elysian Whip class list
 extern u8 CONST_DATA gItemUseJidList_GuidRing[]; // Guiding ring class list
 extern u8 CONST_DATA gItemUseJidList_MasterSeal[]; // Master seal class list
