@@ -546,7 +546,7 @@ s8 CanUnitUsePromotionItem(struct Unit* unit, int item)
         break;
 
     case ITEM_ORIONSBOLT:
-        classList = gItemUseJidList_OrionsBlot;
+        classList = gItemUseJidList_OrionsBolt;
         break;
 
     case ITEM_ELYSIANWHIP:

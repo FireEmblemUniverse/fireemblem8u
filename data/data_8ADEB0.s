@@ -24,8 +24,8 @@ gItemUseJidList_HeroCrest:  @ 0x088ADF57
 gItemUseJidList_KnightCrest:  @ 0x088ADF5E
 	.incbin "baserom.gba", 0x8ADF5E, 0x6
 
-	.global gItemUseJidList_OrionsBlot
-gItemUseJidList_OrionsBlot:  @ 0x088ADF64
+	.global gItemUseJidList_OrionsBolt
+gItemUseJidList_OrionsBolt:  @ 0x088ADF64
 	.incbin "baserom.gba", 0x8ADF64, 0x3
 
 	.global gItemUseJidList_ElysianWhip
