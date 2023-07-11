@@ -176,7 +176,7 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     sub_80AD4A0(0x280, 2);
     sub_80AF350(proc);
     sub_80AF3C8(proc);
-    PrepStartSideBarScroll(proc, 0xd8, 0x48, 0x1000, 3);
+    StartMenuScrollBarExt(proc, 0xd8, 0x48, 0x1000, 3);
     sub_80AF338(proc);
 
     Decompress(gUnknown_08A2C908, (void*)0x06004000);
@@ -426,7 +426,7 @@ void sub_80AFAB4(struct SoundRoomProc* proc) {
     sub_80AC844(gUnknown_08A212D8, 0xc, 0, 2, proc->unk_3e + 0xc, 0, 0x10, 0x20);
     sub_80AC844(gUnknown_08A212D8, 0, 0, 0, proc->unk_3e + 0xf, 6, 10, 2);
 
-    sub_80976AC(proc->unk_3e * 8 + 0xd8, 0x48);
+    PutMenuScrollBarAt(proc->unk_3e * 8 + 0xd8, 0x48);
 
     BG_EnableSyncByMask(7);
 

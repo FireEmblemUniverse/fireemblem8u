@@ -3741,22 +3741,22 @@ sub_80906F8: @ 0x080906F8
 	adds r0, #0x3a
 	strb r1, [r0]
 	adds r0, r5, #0
-	bl Make6CMenuScroll
+	bl StartMenuScrollBar
 	str r0, [r5, #0x34]
 	movs r0, #0xe0
 	movs r1, #0x40
-	bl sub_80976AC
+	bl PutMenuScrollBarAt
 	ldr r0, [r5, #0x2c]
 	ldrh r1, [r0, #0x3e]
 	ldr r0, _08090778  @ gUnknown_0200F158
 	ldrb r2, [r0]
 	movs r0, #0xa
 	movs r3, #6
-	bl sub_80976CC
+	bl UpdateMenuScrollBarConfig
 	movs r0, #0xe4
 	lsls r0, r0, #7
 	movs r1, #1
-	bl InitPrepSideBarImg
+	bl InitMenuScrollBarImg
 	bl ForceSyncUnitSpriteSheet
 	movs r0, #7
 	strh r0, [r5, #0x3e]
@@ -3846,7 +3846,7 @@ _080907AC:
 	ldrb r2, [r0]
 	movs r0, #0xa
 	movs r3, #6
-	bl sub_80976CC
+	bl UpdateMenuScrollBarConfig
 	ldr r5, [r6, #0x2c]
 	adds r0, r5, #0
 	adds r0, #0x29

@@ -431,13 +431,13 @@ void BonusClaim_Init(struct BonusClaimProc* proc) {
 
     StartGreenText(proc);
 
-    Make6CMenuScroll(proc);
+    StartMenuScrollBar(proc);
 
-    sub_80976AC(200, 0x40);
+    PutMenuScrollBarAt(200, 0x40);
 
-    InitPrepSideBarImg(0x200, 2);
+    InitMenuScrollBarImg(0x200, 2);
 
-    sub_80976CC(8, proc->unk_2c, *gpBonusClaimItemCount, 5);
+    UpdateMenuScrollBarConfig(8, proc->unk_2c, *gpBonusClaimItemCount, 5);
 
     sub_80AC9C0(proc);
 
@@ -562,7 +562,7 @@ void BonusClaim_Loop_MainKeyHandler(struct BonusClaimProc* proc) {
 
     BG_SetPosition(2, -40, (proc->unk_2c - 56) & 0xff);
 
-    sub_80976CC(8, proc->unk_2c, *gpBonusClaimItemCount, 5);
+    UpdateMenuScrollBarConfig(8, proc->unk_2c, *gpBonusClaimItemCount, 5);
 
     return;
 }

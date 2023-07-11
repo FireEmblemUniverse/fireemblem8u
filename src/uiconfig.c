@@ -461,7 +461,7 @@ void DrawConfigUiSprites(void) {
         }
     }
 
-    sub_80976CC(10, gConfigUiState->unk_2e, (u16)gConfigUiState->unk_34, 6);
+    UpdateMenuScrollBarConfig(10, gConfigUiState->unk_2e, (u16)gConfigUiState->unk_34, 6);
 
     return;
 }
@@ -556,7 +556,7 @@ void Config_Init(struct ConfigProc* proc) {
 
     DrawGameOptionHelpText();
 
-    PrepStartSideBarScroll(proc, 224, 47, 0x7200, 1);
+    StartMenuScrollBarExt(proc, 224, 47, 0x7200, 1);
 
     InitText(&gConfigUiState->unk_68, 9);
     InitText(&gConfigUiState->unk_a0, 14);
@@ -1032,7 +1032,7 @@ void Config_Loop_KeyHandler(struct ConfigProc* proc) {
 
 //! FE8U: 0x080B2464
 s8 sub_80B2464(struct ConfigProc* proc) {
-    Delete6CMenuScroll();
+    EndMenuScrollBar();
 
     EndMuralBackground();
 

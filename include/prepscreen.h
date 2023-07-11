@@ -257,11 +257,11 @@ extern CONST_DATA u16 *objs_8A18614[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepSpecialCharEff[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepScreenMenuDummyItem[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepMenu[];
-// extern ??? gUnknown_08A18744
-// extern ??? gUnknown_08A1874C
-// extern ??? gUnknown_08A18754
-// extern ??? gUnknown_08A1879C
-// extern ??? gUnknown_08A187F0
+// extern ??? gSprite_MenuScrollContainer
+// extern ??? gSprite_MenuScroll_TopDecal
+// extern ??? gSprite_MenuScroll_BottomDecal
+// extern ??? gMenuScrollBarSegmentSprites
+// extern ??? gMenuScrollArrowSprites
 // extern ??? ProcScr_menu_scroll
 // extern ??? ProcScr_SallyCir
 // extern ??? ProcScr_ViewCounter
@@ -296,8 +296,8 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepItemListScreen[];
 extern int gUnknown_08A196BC[]; /* msg lists */
 // extern ??? gUnknown_08A196D0
 extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycursor
-// extern ??? Img_PrepWindowSideBar
-// extern ??? Pal_PrepWindowSideBar
+extern u8 Img_MenuScrollBar[];
+extern u16 Pal_MenuScrollBar[];
 // extern ??? gUnknown_08A19CCC
 extern u16 gUnknown_08A1A084[]; // pal
 // extern ??? gUnknown_08A1A0A4
@@ -505,16 +505,16 @@ int PrepScreenMenuExists();
 void ShowPrepScreenMenuFrozenHand();
 // ??? ShowPrepScreenMenuActiveHand(???);
 void EnablePrepScreenMenu();
-// ??? sub_80973B0(???);
-// ??? sub_80973E4(???);
-// ??? sub_809764C(???);
+// ??? MenuScroll_Init(???);
+// ??? MenuScroll_Loop(???);
+// ??? LockMenuScrollBar(???);
 void sub_8097668(void);
-void Delete6CMenuScroll(void);
-ProcPtr Make6CMenuScroll(ProcPtr);
-void sub_80976AC(int, int);
-void sub_80976CC(u8, u16, u16, u8);
-void InitPrepSideBarImg(int, int);
-ProcPtr PrepStartSideBarScroll(ProcPtr, int, int, int, int);
+void EndMenuScrollBar(void);
+ProcPtr StartMenuScrollBar(ProcPtr);
+void PutMenuScrollBarAt(int, int);
+void UpdateMenuScrollBarConfig(u8, u16, u16, u8);
+void InitMenuScrollBarImg(int, int);
+ProcPtr StartMenuScrollBarExt(ProcPtr, int, int, int, int);
 // ??? sub_80977AC(???);
 // ??? sub_80977EC(???);
 // ??? SallyCir_OnHBlank(???);

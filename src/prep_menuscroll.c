@@ -21,114 +21,114 @@ struct MenuScrollBarProc {
     /* 3B */ u8 bottomArrowFrameIdx;
 };
 
-u16 CONST_DATA gUnknown_08A18744[] = {
+u16 CONST_DATA gSprite_MenuScrollContainer[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, 0,
 };
 
-u16 CONST_DATA gUnknown_08A1874C[] = {
+u16 CONST_DATA gSprite_MenuScroll_TopDecal[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(9),
 };
 
-u16 CONST_DATA gUnknown_08A18754[] = {
+u16 CONST_DATA gSprite_MenuScroll_BottomDecal[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_VFLIP, OAM2_CHR(9),
 };
 
-u16 CONST_DATA gSprite_08A1875C[] = {
+u16 CONST_DATA gSprite_MenuScrollSegmentA[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(1),
 };
 
-u16 CONST_DATA gSprite_08A18764[] = {
+u16 CONST_DATA gSprite_MenuScrollSegmentB[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(2),
 };
 
-u16 CONST_DATA gSprite_08A1876C[] = {
+u16 CONST_DATA gSprite_MenuScrollSegmentC[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(3),
 };
 
-u16 CONST_DATA gSprite_08A18774[] = {
+u16 CONST_DATA gSprite_MenuScrollSegmentD[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(4),
 };
 
-u16 CONST_DATA gSprite_08A1877C[] = {
+u16 CONST_DATA gSprite_MenuScrollSegmentE[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(5),
 };
 
-u16 CONST_DATA gSprite_08A18784[] = {
+u16 CONST_DATA gSprite_MenuScrollSegmentF[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(6),
 };
 
-u16 CONST_DATA gSprite_08A1878C[] = {
+u16 CONST_DATA gSprite_MenuScrollSegmentG[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(7),
 };
 
-u16 CONST_DATA gSprite_08A18794[] = {
+u16 CONST_DATA gSprite_MenuScrollSegmentH[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(8),
 };
 
-const u16* CONST_DATA gUnknown_08A1879C[] = {
-    NULL,
-    gSprite_08A1875C,
-    gSprite_08A18764,
-    gSprite_08A1876C,
-    gSprite_08A18774,
-    gSprite_08A1877C,
-    gSprite_08A18784,
-    gSprite_08A1878C,
-    gSprite_08A18794,
+const u16* CONST_DATA gMenuScrollBarSegmentSprites[] = {
+    NULL, // No sprite if segment is empty
+    gSprite_MenuScrollSegmentA,
+    gSprite_MenuScrollSegmentB,
+    gSprite_MenuScrollSegmentC,
+    gSprite_MenuScrollSegmentD,
+    gSprite_MenuScrollSegmentE,
+    gSprite_MenuScrollSegmentF,
+    gSprite_MenuScrollSegmentG,
+    gSprite_MenuScrollSegmentH, // Full segment
 };
 
-u16 CONST_DATA gSprite_08A187C0[] = {
+u16 CONST_DATA gSprite_MenuScrollArrowA[] = {
     1,
-    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xA),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(10),
 };
 
-u16 CONST_DATA gSprite_08A187C8[] = {
+u16 CONST_DATA gSprite_MenuScrollArrowB[] = {
     1,
-    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xB),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(11),
 };
 
-u16 CONST_DATA gSprite_08A187D0[] = {
+u16 CONST_DATA gSprite_MenuScrollArrowC[] = {
     1,
-    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xC),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(12),
 };
 
-u16 CONST_DATA gSprite_08A187D8[] = {
+u16 CONST_DATA gSprite_MenuScrollArrowD[] = {
     1,
-    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xD),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(13),
 };
 
-u16 CONST_DATA gSprite_08A187E0[] = {
+u16 CONST_DATA gSprite_MenuScrollArrowE[] = {
     1,
-    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xE),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(14),
 };
 
-u16 CONST_DATA gSprite_08A187E8[] = {
+u16 CONST_DATA gSprite_MenuScrollArrowF[] = {
     1,
-    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xF),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(15),
 };
 
-const u16* CONST_DATA gUnknown_08A187F0[] = {
-    gSprite_08A187C0,
-    gSprite_08A187C8,
-    gSprite_08A187D0,
-    gSprite_08A187D8,
-    gSprite_08A187E0,
-    gSprite_08A187E8,
+const u16* CONST_DATA gMenuScrollArrowSprites[] = {
+    gSprite_MenuScrollArrowA,
+    gSprite_MenuScrollArrowB,
+    gSprite_MenuScrollArrowC,
+    gSprite_MenuScrollArrowD,
+    gSprite_MenuScrollArrowE,
+    gSprite_MenuScrollArrowF,
 };
 
 //! FE8U = 0x080973B0
-void sub_80973B0(struct MenuScrollBarProc* proc) {
+void MenuScroll_Init(struct MenuScrollBarProc* proc) {
     proc->xBase = 0;
     proc->yBase = 0;
     proc->numSegments = 0;
@@ -144,7 +144,7 @@ void sub_80973B0(struct MenuScrollBarProc* proc) {
 }
 
 //! FE8U = 0x080973E4
-void sub_80973E4(struct MenuScrollBarProc* proc) {
+void MenuScroll_Loop(struct MenuScrollBarProc* proc) {
     u32 r7;
     int r2;
     u32 sp04;
@@ -165,7 +165,7 @@ void sub_80973E4(struct MenuScrollBarProc* proc) {
             4,
             proc->xBase + 1,
             proc->yBase + ({1 + 8 * i;}),
-            gUnknown_08A18744,
+            gSprite_MenuScrollContainer,
             oam2
         );
     }
@@ -183,7 +183,7 @@ void sub_80973E4(struct MenuScrollBarProc* proc) {
                     4,
                     proc->xBase + OAM1_VFLIP + 1,
                     proc->yBase - 8,
-                    gUnknown_08A187F0[(proc->topArrowFrameIdx >> 3)],
+                    gMenuScrollArrowSprites[(proc->topArrowFrameIdx >> 3)],
                     oam2
                 );
             }
@@ -194,7 +194,7 @@ void sub_80973E4(struct MenuScrollBarProc* proc) {
                     4,
                     proc->xBase + 1,
                     proc->yBase + ({(sp04 * currentSegment >> 0x14) + 1;}) + i * 8,
-                    gUnknown_08A1879C[8],
+                    gMenuScrollBarSegmentSprites[8],
                     oam2
                 );
             }
@@ -208,7 +208,7 @@ void sub_80973E4(struct MenuScrollBarProc* proc) {
                         4,
                         proc->xBase + 1,
                         ({r2 + 1;}) + proc->yBase + i * 8,
-                        gUnknown_08A1879C[var],
+                        gMenuScrollBarSegmentSprites[var],
                         oam2
                     );
                 }
@@ -219,7 +219,7 @@ void sub_80973E4(struct MenuScrollBarProc* proc) {
                         4,
                         proc->xBase + 1,
                         ({(sp04 * currentSegment >> 0x14) + 1;}) + proc->yBase + i * 8,
-                        gUnknown_08A1879C[(sp08 >> 0x10) & 7],
+                        gMenuScrollBarSegmentSprites[(sp08 >> 0x10) & 7],
                         oam2
                     );
                 }
@@ -228,27 +228,25 @@ void sub_80973E4(struct MenuScrollBarProc* proc) {
                     4,
                     proc->xBase + 1,
                     proc->numSegments * 8 + proc->yBase + 2,
-                    gUnknown_08A187F0[proc->bottomArrowFrameIdx >> 3],
+                    gMenuScrollArrowSprites[proc->bottomArrowFrameIdx >> 3],
                     oam2
                 );
             }
         }
 
-        // top decal
         PutSpriteExt(
             4,
             proc->xBase + 1,
             proc->yBase - 7,
-            gUnknown_08A1874C,
+            gSprite_MenuScroll_TopDecal,
             oam2
         );
 
-        // bottom decal
         PutSpriteExt(
             4,
             proc->xBase + 1,
             proc->yBase + ({proc->numSegments * 8 + 1;}),
-            gUnknown_08A18754,
+            gSprite_MenuScroll_BottomDecal,
             oam2
         );
     }
@@ -282,12 +280,12 @@ void sub_80973E4(struct MenuScrollBarProc* proc) {
 struct ProcCmd CONST_DATA ProcScr_menu_scroll[] = {
     PROC_NAME("menu_scroll"),
 
-    PROC_CALL(sub_80973B0),
+    PROC_CALL(MenuScroll_Init),
 
     // fallthrough
 
 PROC_LABEL(0),
-    PROC_REPEAT(sub_80973E4),
+    PROC_REPEAT(MenuScroll_Loop),
 
     // fallthrough
 
@@ -298,7 +296,7 @@ PROC_LABEL(1),
 };
 
 //! FE8U = 0x0809764C
-void sub_809764C(void) {
+void LockMenuScrollBar(void) {
     struct MenuScrollBarProc* proc = Proc_Find(ProcScr_menu_scroll);
 
     if (proc) {
@@ -320,18 +318,18 @@ void sub_8097668(void) {
 }
 
 //! FE8U = 0x08097684
-void Delete6CMenuScroll(void) {
+void EndMenuScrollBar(void) {
     Proc_End(Proc_Find(ProcScr_menu_scroll));
     return;
 }
 
 //! FE8U = 0x08097698
-ProcPtr Make6CMenuScroll(ProcPtr parent) {
+ProcPtr StartMenuScrollBar(ProcPtr parent) {
     return Proc_Start(ProcScr_menu_scroll, parent);
 }
 
 //! FE8U = 0x080976AC
-void sub_80976AC(int x, int y) {
+void PutMenuScrollBarAt(int x, int y) {
     struct MenuScrollBarProc* proc = Proc_Find(ProcScr_menu_scroll);
 
     if (proc) {
@@ -343,12 +341,12 @@ void sub_80976AC(int x, int y) {
 }
 
 //! FE8U = 0x080976CC
-void sub_80976CC(u8 segments, u16 param_2, u16 totalRows, u8 visibleRows) {
+void UpdateMenuScrollBarConfig(u8 segments, u16 currentSegment, u16 totalRows, u8 visibleRows) {
     struct MenuScrollBarProc* proc = Proc_Find(ProcScr_menu_scroll);
 
     if (proc) {
         proc->numSegments = segments;
-        proc->currentSegment = param_2;
+        proc->currentSegment = currentSegment;
         proc->numTotalRows = totalRows;
         proc->numVisibleRows = visibleRows;
     }
@@ -356,15 +354,12 @@ void sub_80976CC(u8 segments, u16 param_2, u16 totalRows, u8 visibleRows) {
     return;
 }
 
-extern u8 Img_PrepWindowSideBar[];
-extern u16 Pal_PrepWindowSideBar[];
-
 //! FE8U = 0x08097700
-void InitPrepSideBarImg(int chr, int pal) {
+void InitMenuScrollBarImg(int chr, int pal) {
     struct MenuScrollBarProc* proc;
 
-    CopyToPaletteBuffer(Pal_PrepWindowSideBar, (pal + 0x10) * 0x20, 0x20);
-    Decompress(Img_PrepWindowSideBar, (void *)(0x06010000 + chr));
+    CopyToPaletteBuffer(Pal_MenuScrollBar, (pal + 0x10) * 0x20, 0x20);
+    Decompress(Img_MenuScrollBar, (void *)(0x06010000 + chr));
 
     proc = Proc_Find(ProcScr_menu_scroll);
 
@@ -376,14 +371,14 @@ void InitPrepSideBarImg(int chr, int pal) {
 }
 
 //! FE8U = 0x08097748
-ProcPtr PrepStartSideBarScroll(ProcPtr parent, int x, int y, int chr, int pal) {
+ProcPtr StartMenuScrollBarExt(ProcPtr parent, int x, int y, int chr, int pal) {
     struct MenuScrollBarProc* proc = Proc_Start(ProcScr_menu_scroll, parent);
 
     proc->xBase = x;
     proc->yBase = y;
 
-    CopyToPaletteBuffer(Pal_PrepWindowSideBar, (pal + 0x10) * 0x20, 0x20);
-    Decompress(Img_PrepWindowSideBar, (void *)(0x06010000 + chr));
+    CopyToPaletteBuffer(Pal_MenuScrollBar, (pal + 0x10) * 0x20, 0x20);
+    Decompress(Img_MenuScrollBar, (void *)(0x06010000 + chr));
 
     proc->oam2Chr = chr >> 5;
     proc->oam2Pal = pal << 0xc;

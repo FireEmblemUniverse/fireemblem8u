@@ -401,9 +401,9 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
         UpdatePrepItemScreenFace(0, GetUnitFromPrepList(proc->selectedUnitIdx), 60, 76, 0x0503);
     }
 
-    PrepStartSideBarScroll(proc, 224, 11, 0x200, 4);
+    StartMenuScrollBarExt(proc, 224, 11, 0x200, 4);
 
-    sub_80976CC(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
+    UpdateMenuScrollBarConfig(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
     sub_8097668();
     PrepUpdateSMS();
     SetSpecialColorEffectsParameters(1, 8, 8, 0);
@@ -435,7 +435,7 @@ void PrepItemScreen_OnEnd(struct PrepItemScreenProc* proc) {
     EndMuralBackground_();
     EndHelpPromptSprite();
 
-    Delete6CMenuScroll();
+    EndMenuScrollBar();
 
     EndDrawPrepFundsSprite();
     EndDrawPrepUnitInfoBgSprites();
@@ -711,7 +711,7 @@ void sub_8098FAC(struct PrepItemScreenProc* proc) {
                 2
             );
         }
-        sub_80976CC(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
+        UpdateMenuScrollBarConfig(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
     }
 
     if (((a - proc->unk_34) < 16) && (proc->unk_34 != 0)) {
@@ -726,7 +726,7 @@ void sub_8098FAC(struct PrepItemScreenProc* proc) {
             );
         }
 
-        sub_80976CC(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
+        UpdateMenuScrollBarConfig(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
     }
     return;
 }
@@ -1639,7 +1639,7 @@ void sub_809A08C(struct PrepItemScreenProc* proc) {
     }
 
     BG_SetPosition(2, -40, (proc->unk_34 - 4) & 0xff);
-    sub_80976CC(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
+    UpdateMenuScrollBarConfig(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
     return;
 }
 

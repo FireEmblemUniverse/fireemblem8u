@@ -461,8 +461,8 @@ void ProcPrepUnit_InitScreen(struct ProcPrepUnit *proc)
         (proc->list_num_cur / 2) * 16 + 0x18 - proc->yDiff_cur,
         0x7, 0x800);
 
-    PrepStartSideBarScroll(proc, 0xE0, 0x20, 0x200, 2);
-    sub_80976CC(0xA, proc->yDiff_cur, (PrepGetUnitAmount() - 1) / 2 + 1, 6);
+    StartMenuScrollBarExt(proc, 0xE0, 0x20, 0x200, 2);
+    UpdateMenuScrollBarConfig(0xA, proc->yDiff_cur, (PrepGetUnitAmount() - 1) / 2 + 1, 6);
     StartHelpPromptSprite(0x20, 0x8F, 9, proc);
     PrepUnit_DrawUnitItems(GetUnitFromPrepList(proc->list_num_cur));
     PrepUnit_DrawLeftUnitName(GetUnitFromPrepList(proc->list_num_cur));
@@ -478,7 +478,7 @@ void ProcPrepUnit_InitScreen(struct ProcPrepUnit *proc)
 
 void sub_809B014()
 {
-    Delete6CMenuScroll();
+    EndMenuScrollBar();
     EndAllParallelWorkers();
 	sub_80AD2D4();
 	EndPrepScreenHandCursor();
@@ -595,7 +595,7 @@ void ProcPrepUnit_Idle(struct ProcPrepUnit *proc)
     }
 
     BG_SetPosition(BG_2, 0, proc->yDiff_cur - 0x18);
-    sub_80976CC(0xA, proc->yDiff_cur, (PrepGetUnitAmount() - 1) / 2 + 1, 6);
+    UpdateMenuScrollBarConfig(0xA, proc->yDiff_cur, (PrepGetUnitAmount() - 1) / 2 + 1, 6);
 }
 
 void sub_809B2DC(struct ProcPrepUnit *proc)
