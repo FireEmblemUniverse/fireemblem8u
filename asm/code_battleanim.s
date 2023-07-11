@@ -58,7 +58,7 @@ _0805AEC0:
 	movs r4, #0x1d
 	movs r0, #0x30
 	mov sl, r0
-	ldr r0, _0805AED4  @ gEkrPos2Maybe
+	ldr r0, _0805AED4  @ gEkrInitPosReal
 	ldr r0, [r0]
 	movs r5, #4
 	negs r5, r5
@@ -67,18 +67,18 @@ _0805AECE:
 	bne _0805AF0E
 	b _0805AF0C
 	.align 2, 0
-_0805AED4: .4byte gEkrPos2Maybe
+_0805AED4: .4byte gEkrInitPosReal
 _0805AED8:
 	movs r4, #3
 	movs r1, #0x30
 	mov sl, r1
-	ldr r0, _0805AEE8  @ gEkrPos2Maybe
+	ldr r0, _0805AEE8  @ gEkrInitPosReal
 	ldr r0, [r0]
 	movs r5, #0x1e
 	negs r5, r5
 	b _0805AECE
 	.align 2, 0
-_0805AEE8: .4byte gEkrPos2Maybe
+_0805AEE8: .4byte gEkrInitPosReal
 _0805AEEC:
 	movs r2, #0
 	ldrsh r0, [r7, r2]
@@ -326,8 +326,8 @@ BeginAnimsOnBattle_Arena: @ 0x0805B0A8
 	push {lr}
 	bl NewEkrBattleDeamon
 	bl AnimClearAll
-	bl GetEkrSomePosMaybe
-	ldr r1, _0805B0C8  @ gEkrPos2Maybe
+	bl GetBanimInitPosReal
+	ldr r1, _0805B0C8  @ gEkrInitPosReal
 	str r0, [r1]
 	bl NewEkrTogiInitPROC
 	movs r0, #0
@@ -335,7 +335,7 @@ BeginAnimsOnBattle_Arena: @ 0x0805B0A8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B0C8: .4byte gEkrPos2Maybe
+_0805B0C8: .4byte gEkrInitPosReal
 
 	THUMB_FUNC_END BeginAnimsOnBattle_Arena
 
@@ -377,7 +377,7 @@ sub_805B104: @ 0x0805B104
 	mov r8, r0
 	movs r0, #0
 	bl SetupOAMBufferSplice
-	ldr r1, _0805B178  @ gEkrPos2Maybe
+	ldr r1, _0805B178  @ gEkrInitPosReal
 	ldr r0, _0805B17C  @ gEkrInitialHitSide
 	movs r2, #0
 	ldrsh r0, [r0, r2]
@@ -393,7 +393,7 @@ sub_805B104: @ 0x0805B104
 	movs r2, #0x20
 	bl CpuFastSet
 	subs r4, #0xc0
-	ldr r5, _0805B188  @ gEkrBgPalBackupMaybe
+	ldr r5, _0805B188  @ gEfxPal
 	movs r6, #0x80
 	lsls r6, r6, #1
 	adds r0, r4, #0
@@ -418,11 +418,11 @@ sub_805B104: @ 0x0805B104
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B178: .4byte gEkrPos2Maybe
+_0805B178: .4byte gEkrInitPosReal
 _0805B17C: .4byte gEkrInitialHitSide
 _0805B180: .4byte gUnknown_085BEF94
 _0805B184: .4byte pPalette6Buffer
-_0805B188: .4byte gEkrBgPalBackupMaybe
+_0805B188: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_805B104
 
@@ -493,7 +493,7 @@ sub_805B200: @ 0x0805B200
 	movs r2, #0
 	bl Interpolate
 	adds r5, r0, #0
-	ldr r0, _0805B25C  @ gEkrBgPalBackupMaybe
+	ldr r0, _0805B25C  @ gEfxPal
 	ldr r4, _0805B260  @ gPaletteBuffer
 	movs r2, #0x80
 	lsls r2, r2, #1
@@ -523,7 +523,7 @@ _0805B254:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B25C: .4byte gEkrBgPalBackupMaybe
+_0805B25C: .4byte gEfxPal
 _0805B260: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_805B200
@@ -560,7 +560,7 @@ sub_805B290: @ 0x0805B290
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _0805B2B4  @ gPaletteBuffer
-	ldr r1, _0805B2B8  @ gEkrBgPalBackupMaybe
+	ldr r1, _0805B2B8  @ gEfxPal
 	movs r2, #0x80
 	lsls r2, r2, #1
 	bl CpuFastSet
@@ -575,7 +575,7 @@ sub_805B290: @ 0x0805B290
 	bx r0
 	.align 2, 0
 _0805B2B4: .4byte gPaletteBuffer
-_0805B2B8: .4byte gEkrBgPalBackupMaybe
+_0805B2B8: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_805B290
 
@@ -594,7 +594,7 @@ sub_805B2BC: @ 0x0805B2BC
 	movs r2, #0x10
 	bl Interpolate
 	adds r5, r0, #0
-	ldr r0, _0805B318  @ gEkrBgPalBackupMaybe
+	ldr r0, _0805B318  @ gEfxPal
 	ldr r4, _0805B31C  @ gPaletteBuffer
 	movs r2, #0x80
 	lsls r2, r2, #1
@@ -624,7 +624,7 @@ _0805B310:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B318: .4byte gEkrBgPalBackupMaybe
+_0805B318: .4byte gEfxPal
 _0805B31C: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_805B2BC
@@ -697,7 +697,7 @@ sub_805B394: @ 0x0805B394
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #0

@@ -308,16 +308,16 @@ gUnknown_08802904:  @ 0x08802904
 gUnknown_08802B04:  @ 0x08802B04
 	.incbin "baserom.gba", 0x802B04, 0x80
 
-	.global gUnknown_08802B84
-gUnknown_08802B84:  @ 0x08802B84
+	.global gPalEfxHpBarGreen
+gPalEfxHpBarGreen:  @ 0x08802B84
 	.incbin "baserom.gba", 0x802B84, 0x40
 
 	.global gUnknown_08802BC4
 gUnknown_08802BC4:  @ 0x08802BC4
 	.incbin "baserom.gba", 0x802BC4, 0xC0
 
-	.global gUnknown_08802C84
-gUnknown_08802C84:  @ 0x08802C84
+	.global gPalEfxHpBarPurple
+gPalEfxHpBarPurple:  @ 0x08802C84
 	.incbin "baserom.gba", 0x802C84, 0xA0
 
 	.global gUnknown_08802D24

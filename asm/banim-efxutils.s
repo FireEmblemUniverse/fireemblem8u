@@ -3379,7 +3379,7 @@ _080726C4:
 	ldr r1, _080726FC  @ gUnknown_020200A8
 	movs r0, #1
 	str r0, [r1]
-	ldr r1, _08072700  @ gBanimSomeObjPalIndex
+	ldr r1, _08072700  @ gPalIndexEfxHpBarUnk
 	ldr r0, _08072704  @ gEkrInitialHitSide
 	movs r2, #0
 	ldrsh r0, [r0, r2]
@@ -3402,7 +3402,7 @@ _080726F0: .4byte gpEkrBattleUnitLeft
 _080726F4: .4byte gpEkrBattleUnitRight
 _080726F8: .4byte gBmSt
 _080726FC: .4byte gUnknown_020200A8
-_08072700: .4byte gBanimSomeObjPalIndex
+_08072700: .4byte gPalIndexEfxHpBarUnk
 _08072704: .4byte gEkrInitialHitSide
 _08072708:
 	bl GetBanimLinkArenaFlag

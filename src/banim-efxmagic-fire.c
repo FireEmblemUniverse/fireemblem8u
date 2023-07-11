@@ -87,7 +87,7 @@ void Loop6C_efxFire(struct ProcEfx *proc)
 
     if (time == r9) {
         SpellFx_Finish();
-        EfxSpellCastSet29();
+        RegisterEfxSpellCastEnd();
         Proc_Break(proc);
     }
 }
@@ -112,7 +112,7 @@ void NewEfxFireBG(struct Anim *anim)
 void Loop6C_efxFireBG(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
@@ -136,7 +136,7 @@ void NewEfxFireOBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxFireOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    anim2 = EfxAnimCreate1(anim, gUnknown_085F843C, gUnknown_085F80B4, gUnknown_085F8468, gUnknown_085F80E0);
+    anim2 = EfxCreateFrontAnim(anim, gUnknown_085F843C, gUnknown_085F80B4, gUnknown_085F8468, gUnknown_085F80E0);
     proc->anim2 = anim2;
 
     if (GetAnimPosition(anim) == EKR_POS_L)
@@ -193,7 +193,7 @@ void StartSubSpell_efxFireHITBG(struct Anim *anim)
 void sub_805DE74(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
@@ -260,7 +260,7 @@ void StartSubSpell_efxElfireBGCOL(struct Anim *anim)
 void sub_805DFE8(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *buf = proc->unk4C;
         SpellFx_RegisterBgPal(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
@@ -281,7 +281,7 @@ void StartSubSpell_efxElfireOBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxElfireOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    anim2 = EfxAnimCreate1(anim, gUnknown_08605DF4, gUnknown_08604FD4, gUnknown_08605DF4, gUnknown_08604FD4);
+    anim2 = EfxCreateFrontAnim(anim, gUnknown_08605DF4, gUnknown_08604FD4, gUnknown_08605DF4, gUnknown_08604FD4);
     proc->anim2 = anim2;
 
     if (GetAnimPosition(anim) == EKR_POS_L)

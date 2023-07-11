@@ -39,8 +39,8 @@ void BeginAnimsOnBattleAnimations(void)
 
     NewEkrBattleDeamon();
     AnimClearAll();
-    ret = GetEkrSomePosMaybe();
-    gEkrPos2Maybe = ret;
+    ret = GetBanimInitPosReal();
+    gEkrInitPosReal = ret;
     NewEkrBattleStarting();
 
     gAnims[0] = NULL;
@@ -106,16 +106,16 @@ void ekrBaStart_InitScreen(struct ProcEkrBattleStarting *proc)
 {
     int val;
 
-    proc->unk2C = 0;
-    proc->unk2E = 0xF;
+    proc->timer = 0;
+    proc->terminator = 0xF;
 
     val = (gEkrPairBmLoc[0] + gEkrPairBmLoc[2]) * 8 + 8;
-    proc->unk34 = val;
-    proc->unk32 = val;
+    proc->x2 = val;
+    proc->x1 = val;
 
     val = (gEkrPairBmLoc[1] + gEkrPairBmLoc[3]) * 8 + 8;
-    proc->unk3C = val;
-    proc->unk3A = val;
+    proc->y2 = val;
+    proc->y1 = val;
 
     CpuFastFill(0, gBG2TilemapBuffer, 0x800);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -139,17 +139,17 @@ void ekrBaStart_SreenFailIn(struct ProcEkrBattleStarting *proc)
 {
     int left, top, right, bottom;
     
-    if (proc->unk2C != proc->unk2E)
-        proc->unk2C++;
+    if (proc->timer != proc->terminator)
+        proc->timer++;
 
-    left   = Interpolate(INTERPOLATE_LINEAR, 0,    proc->unk32, proc->unk2C, proc->unk2E);
-    top    = Interpolate(INTERPOLATE_LINEAR, 0,    proc->unk3A, proc->unk2C, proc->unk2E);
-    right  = Interpolate(INTERPOLATE_LINEAR, 0xF0, proc->unk34, proc->unk2C, proc->unk2E);
-    bottom = Interpolate(INTERPOLATE_LINEAR, 0xA0, proc->unk3C, proc->unk2C, proc->unk2E);
+    left   = Interpolate(INTERPOLATE_LINEAR, 0,    proc->x1, proc->timer, proc->terminator);
+    top    = Interpolate(INTERPOLATE_LINEAR, 0,    proc->y1, proc->timer, proc->terminator);
+    right  = Interpolate(INTERPOLATE_LINEAR, 0xF0, proc->x2, proc->timer, proc->terminator);
+    bottom = Interpolate(INTERPOLATE_LINEAR, 0xA0, proc->y2, proc->timer, proc->terminator);
 
     SetWin0Box(left, top, right, bottom);
 
-    if (proc->unk2C == proc->unk2E) {
+    if (proc->timer == proc->terminator) {
         SetWOutLayers(1, 1, 1, 1, 1);
         SetupOAMBufferSplice(0);
         BMapDispSuspend();
@@ -202,20 +202,20 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
     NewEkrNamewinAppear(0, 0xB, 0);
     NewEkrBaseAppear(0, 0xB);
 
-    proc->unk2C = 0;
+    proc->timer = 0;
     Proc_Break(proc);
 }
 
 void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 {
-    if (++proc->unk2C > 0xB) {
+    if (++proc->timer > 0xB) {
         if (gEkrPairSomeTile == 0 || GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
 
             /* In normal battle, here will directly end the proc */
             NewEkrBattle();
             Proc_End(proc);
         } else {
-            proc->unk2C = 0;
+            proc->timer = 0;
             NewEkrBattle();
             Proc_Break(proc);
         }
@@ -224,10 +224,10 @@ void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 
 void ekrBaStart_8055FE8(struct ProcEkrBattleStarting *proc)
 {
-    EkrUpdateSomePalMaybe(Interpolate(0, 4, 0x10, proc->unk2C, 8));
+    EkrUpdateSomePalMaybe(Interpolate(0, 4, 0x10, proc->timer, 8));
 
-    if (++proc->unk2C == 0x9) {
-        proc->unk2C = 0;
+    if (++proc->timer == 0x9) {
+        proc->timer = 0;
         Proc_Break(proc);
     }
 }
@@ -246,14 +246,14 @@ void ekrBaStart_8056024(struct ProcEkrBattleStarting *proc)
 
 void ekrBaStart_8056078(struct ProcEkrBattleStarting *proc)
 {
-    int val = Interpolate(0, 0x10, 0, proc->unk2C, 8);
+    int val = Interpolate(0, 0x10, 0, proc->timer, 8);
 
     PutBanimBgPAL(gEkrPairSomeTile - 1);
     EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, val);
     EnablePaletteSync();
 
-    if (++proc->unk2C == 0x9) {
-        proc->unk2C = 0;
+    if (++proc->timer == 0x9) {
+        proc->timer = 0;
         Proc_Break(proc);
     }
 }

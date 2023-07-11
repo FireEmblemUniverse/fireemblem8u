@@ -131,7 +131,7 @@ void NewEfxSkillType01BG(struct Anim *anim)
 
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk44 = 0;
+    proc->frame = 0;
 
     proc->time_lut = FrameLut_EfxSkill;
     proc->tsa_lut = TsaLut_EfxSkill;
@@ -159,7 +159,7 @@ void EfxSkillType01BGMain(struct ProcEfxSkill *proc)
     u8 i;
     int ret;
 
-    ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
+    ret = EfxAdvanceFrameLut((void *)&proc->timer, (void *)&proc->frame, proc->time_lut);
 
     if (ret >= 0) {
         u16 **tsa = proc->tsa_lut;
@@ -203,15 +203,15 @@ CONST_DATA struct ProcCmd ProcScr_efxSkillCommonBG[] = {
     PROC_END
 };
 
-void NewEfxSkillCommonBG(struct Anim *anim, u8 val)
+void NewEfxSkillCommonBG(struct Anim *anim, u8 debuff)
 {
     struct ProcEfxSkill *proc;
     proc = Proc_Start(ProcScr_efxSkillCommonBG, PROC_TREE_3);
 
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk44 = 0;
-    proc->unk3A = val;
+    proc->frame = 0;
+    proc->caught_debuff = debuff;
 
     proc->time_lut = FrameLut_EfxSkill;
     proc->tsa_lut = TsaLut_EfxSkill;
@@ -241,7 +241,7 @@ void sub_806E638(struct ProcEfxSkill *proc)
     u8 i;
     int ret;
     struct Anim *anim = GetAnimAnotherSide(proc->anim);
-    ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->unk44, proc->time_lut);
+    ret = EfxAdvanceFrameLut((void *)&proc->timer, (void *)&proc->frame, proc->time_lut);
 
     if (ret >= 0) {
         u16 **tsa = proc->tsa_lut;
@@ -264,7 +264,7 @@ void sub_806E638(struct ProcEfxSkill *proc)
     if (ret != -1)
         return;
 
-    if (proc->unk3A == 1)
+    if (proc->caught_debuff == 1)
         SetUnitEfxDebuff(anim, UNIT_STATUS_12);
 
     SpellFx_ClearBG1();
@@ -288,7 +288,7 @@ void sub_806E79C(struct ProcEfxSkill *proc)
 
 void sub_806E868(struct ProcEfxSkill *proc)
 {
-    int val = GetAnimationStartFrameMaybe();
+    int val = EfxGetCamMovDuration();
 
     if (++proc->timer == 1) {
         NewEfxFarAttackWithDistance(proc->anim, -1);
@@ -302,7 +302,7 @@ void sub_806E868(struct ProcEfxSkill *proc)
 void sub_806E8A4(struct ProcEfxSkill *proc)
 {
     struct Anim *anim = GetAnimAnotherSide(proc->anim);
-    int val = GetAnimationStartFrameMaybe();
+    int val = EfxGetCamMovDuration();
 
     if (++proc->timer == 1) {
         NewEfxFarAttackWithDistance(anim, -1);

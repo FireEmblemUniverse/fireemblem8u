@@ -316,7 +316,7 @@ void SetEkrDragonStatusAttrBit13(struct Anim *anim);
 bool CheckEkrDragonDeadEffectMaybe(struct Anim *anim);
 bool CheckEkrDragonStatusAttrBit13(struct Anim *anim);
 void SetAnimStateHiddenForDragon(void);
-// ??? sub_807027C(???);
+void sub_807027C(struct Anim *anim);
 u16 *sub_80702D0(void);
 // ??? sub_80702FC(???);
 // ??? sub_807032C(???);

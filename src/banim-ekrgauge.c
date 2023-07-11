@@ -70,14 +70,14 @@ void NewEkrGauge(void)
     EkrGauge_Clr323A(gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
 
     if (gEkrGaugeHp[0] > 0x50)
-        CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xB), 0x10 * sizeof(u16));
+        CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(0xB), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gBanimSomeObjPalIndex[0] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802B04 + gPalIndexEfxHpBarUnk[0] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
 
     if (gEkrGaugeHp[1] > 0x50)
-        CpuCopy16(gUnknown_08802C84, PAL_OBJ(0xC), 0x10 * sizeof(u16));
+        CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(0xC), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gBanimSomeObjPalIndex[1] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802B04 + gPalIndexEfxHpBarUnk[1] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
 
     gUnknown_0203E1B4[0] = -1;
     gUnknown_0203E1B4[1] = -1;
@@ -86,8 +86,8 @@ void NewEkrGauge(void)
     LZ77UnCompVram(Img_EfxWTAArrow1, (void *)0x6013940);
     LZ77UnCompVram(Img_EfxWTAArrow2, (void *)0x6013D40);
 
-    CpuFastCopy(gUnknown_08802884 + gBanimSomeObjPalIndex[0] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
-    CpuFastCopy(gUnknown_08802884 + gBanimSomeObjPalIndex[1] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
+    CpuFastCopy(gUnknown_08802884 + gPalIndexEfxHpBarUnk[0] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
+    CpuFastCopy(gUnknown_08802884 + gPalIndexEfxHpBarUnk[1] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
 
     EnablePaletteSync();
 

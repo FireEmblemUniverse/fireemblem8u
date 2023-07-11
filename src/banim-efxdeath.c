@@ -43,7 +43,7 @@ void sub_8052DFC(struct ProcEfxDead *proc)
 
     proc->timer = 7;
 
-    if (gEkrDistanceType != EKR_DISTANCE_CLOSE && GetAnimPosition(proc->anim1) != gEkrPos2Maybe) {
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE && GetAnimPosition(proc->anim1) != gEkrInitPosReal) {
         NewEfxFarAttackWithDistance(ais_core1, -1);
         proc->timer = 0;
     }
@@ -122,7 +122,7 @@ void NewEfxDead(struct Anim *anim1, struct Anim *anim2)
     proc->anim1 = anim1;
     proc->anim2 = anim2;
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->terminator = 0;
     DisableEfxStatusUnits(anim1);
 }
 
@@ -143,7 +143,7 @@ void sub_8052FEC(struct ProcEfxDead *proc)
         else
             NewEfxDeadPika(proc->anim1, proc->anim2);
 
-        proc->unk2E = 0x32;
+        proc->terminator = 0x32;
         Proc_Break(proc);
     }
 }
@@ -161,18 +161,18 @@ void sub_8053080(struct ProcEfxDead *proc)
             NewEfxDeadDragonAlpha(proc->anim1, proc->anim2);
             EfxPlaySE(0xD6, 0x100);
             M4aPlayWithPostionCtrl(0xD6, anim->xPosition, 1);
-            proc->unk2E = 0x64;
+            proc->terminator = 0x64;
             return;
         }
 
         NewEfxDeadAlpha(proc->anim1, proc->anim2);
         EfxPlaySE(0xD6, 0x100);
         M4aPlayWithPostionCtrl(0xD6, anim->xPosition, 1);
-        proc->unk2E = 0x32;
+        proc->terminator = 0x32;
         return;
     }
 
-    if (time == proc->unk2E) {
+    if (time == proc->terminator) {
         gEkrHPBarCount--;
         gUnknown_02017734 = 0;
         Proc_Break(proc);
@@ -193,7 +193,7 @@ void NewEfxDeadPika(struct Anim *anim1, struct Anim *anim2)
     proc->anim1 = anim1;
     proc->anim2 = anim2;
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->terminator = 0;
 }
 
 void EfxDeadPikaMain(struct ProcEfxDead *proc)
@@ -206,15 +206,15 @@ void EfxDeadPikaMain(struct ProcEfxDead *proc)
         anim2->state &= ~0x2;
 
         proc->timer = 0;
-        proc->unk2E++;
+        proc->terminator++;
     } else {
         anim1->state |= 0x2;
         anim2->state |= 0x2;
     }
 
-    if (proc->unk2E > 0x5) {
+    if (proc->terminator > 0x5) {
         proc->timer = 0;
-        proc->unk2E = 0;
+        proc->terminator = 0;
         Proc_Break(proc);
     }
 }
@@ -233,7 +233,7 @@ void NewEfxDeadAlpha(struct Anim *anim1, struct Anim *anim2)
     proc->anim1 = anim1;
     proc->anim2 = anim2;
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->terminator = 0;
 
     anim1->drawLayerPriority = 0xA;
     anim2->drawLayerPriority = 0xA;
@@ -293,7 +293,7 @@ void NewEfxDeadDragonAlpha(struct Anim *anim1, struct Anim *anim2)
     EfxDracoZombiePrepareTSA(0, 0, EKR_POS_R);
 
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->terminator = 0;
 
     SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0x0);
     SetBlendTargetA(0, 0, 0, 1, 0);

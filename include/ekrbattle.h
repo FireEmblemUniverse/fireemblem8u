@@ -82,9 +82,9 @@ struct ProcEfxSpdQuake {
     PROC_HEADER;
 
     /* 29 */ STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ s16 unk2C;
+    /* 2C */ s16 timer;
     /* 2E */ STRUCT_PAD(0x2E, 0x44);
-    /* 44 */ struct Vec2 *unk44;
+    /* 44 */ struct Vec2 *vecs;
     /* 48 */ STRUCT_PAD(0x48, 0x5C);
     /* 5C */ struct Anim *anim;
 };
@@ -96,24 +96,27 @@ void sub_8055B38(struct ProcEfxSpdQuake *proc);
 struct ProcEkrBattleStarting {
     PROC_HEADER;
 
-    /* 29 */ u8 _pad_29[0x2C - 0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
 
-    /* 2C */ s16 unk2C;
-    /* 2E */ s16 unk2E;
-    /* 30 */ u16 unk30;
-    /* 32 */ s16 unk32;
-    /* 34 */ s16 unk34;
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
 
-    /* 36 */ u8 _pad_36[0x3A - 0x36];
+    /* 30 */ STRUCT_PAD(0x30, 0x32);
 
-    /* 3A */ s16 unk3A;
-    /* 3C */ s16 unk3C;
+    /* 32 */ s16 x1;
+    /* 34 */ s16 x2;
+
+    /* 36 */ STRUCT_PAD(0x36, 0x3A);
+
+    /* 3A */ s16 y1;
+    /* 3C */ s16 y2;
 };
 
 struct ProcEkrChienCHR {
     PROC_HEADER;
 
-    /* 29 */ u8 _pad_29[0x5C - 0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x5C);
+
     /* 5C */ struct Anim *anim;
 };
 
@@ -228,7 +231,7 @@ extern short gEkrInitialHitSide;
 extern short gEkrSnowWeather;
 extern short gEkrPairSideVaild[2];
 extern short gEkrInitialPosition[2];
-extern short gBanimSomeObjPalIndex[2];
+extern short gPalIndexEfxHpBarUnk[2];
 extern short gEkrSpellAnimIndex[];
 // extern ??? gUnknown_0203E11A
 extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
@@ -317,15 +320,15 @@ extern struct ProcCmd gProc_efxQuakePure[];
 extern struct ProcCmd gProc_efxHitQuakePure[];
 extern struct ProcCmd gProc_efxQuake[];
 extern struct ProcCmd gProc_efxHitQuake[];
-extern struct ProcCmd gProc_efxFlashBG[];
-extern struct ProcCmd gProc_efxWhiteOUT[];
-extern struct ProcCmd gProc_efxWhiteIN[];
-extern struct ProcCmd gProc_efxBlackOUT[];
-extern struct ProcCmd gProc_efxBlackIN[];
-extern struct ProcCmd gProc_efxFlashHPBar[];
+extern struct ProcCmd ProcScr_efxFlashBG[];
+extern struct ProcCmd ProcScr_efxWhiteOUT[];
+extern struct ProcCmd ProcScr_efxWhiteIN[];
+extern struct ProcCmd ProcScr_efxBlackOUT[];
+extern struct ProcCmd ProcScr_efxBlackIN[];
+extern struct ProcCmd ProcScr_efxFlashHPBar[];
 extern struct ProcCmd ProcScr_efxHPBarColorChange[];
-extern struct ProcCmd gProc_efxFlashUnit[];
-extern struct ProcCmd gProc_efxFlashUnitEffect[];
+extern struct ProcCmd ProcScr_efxFlashUnit[];
+extern struct ProcCmd ProcScr_efxFlashUnitEffectEnd[];
 extern struct ProcCmd ProcScr_efxStatusUnit[];
 extern struct ProcCmd ProcScr_efxWeaponIcon[];
 extern struct ProcCmd ProcScr_efxSpellCast[];
@@ -359,18 +362,18 @@ extern struct ProcCmd gProc_ekrTogiColor[];
 
 extern const s16 gEfxNoDmgBgShakeOff[];
 // extern ??? gUnknown_080DA4BA
-extern CONST_DATA struct Vec2 gUnknown_080DA4DC[];
+extern CONST_DATA struct Vec2 gEfxQuakeVecs[];
 // extern ??? gUnknown_080DA526
-extern CONST_DATA struct Vec2 gUnknown_080DA570[];
+extern CONST_DATA struct Vec2 gEfxQuakeVecs2[];
 // extern ??? gUnknown_080DA5BA
 // extern ??? gUnknown_080DA604
 // extern ??? gUnknown_080DA66E
 // extern ??? gUnknown_080DA9F8
 // extern ??? gUnknown_080DAA8E
-// extern ??? gUnknown_080DAC58
-// extern ??? gUnknown_080DAC82
-extern const u16 gUnknown_080DACDA[];
-extern const u16 gUnknown_080DAD0A[];
+extern const u16 gFrameLut_EfxHPBarColorChange1[];
+extern const u16 gFrameLut_EfxHPBarColorChange2[];
+extern const u16 gFrameLut_EfxStatusUnit[];
+extern const u16 gFrameLut_EfxWeaponIcon[];
 // extern ??? gUnknown_080DAE8C
 // extern ??? gUnknown_080DAE96
 // extern ??? gUnknown_080DAEA0
@@ -587,8 +590,8 @@ void sub_8051BA0(void);
 void EfxClearScreenFx(void);
 void sub_8051E00(void);
 void EfxPrepareScreenFx(void);
-int GetEkrSomePosMaybe(void);
-void sub_8052214(int a, int b);
+int GetBanimInitPosReal(void);
+void SetEkrBg2QuakeVec(int a, int b);
 void EkrEfxStatusClear(void);
 int CheckEkrHitDone(void);
 short EkrEfxIsUnitHittedNow(int pos);
@@ -611,58 +614,6 @@ void NewEfxNoDamageYure(struct Anim *anim1, struct Anim *anim2);
 void NewEfxStatusCHG(struct Anim *anim);
 // ??? EfxStatusCHGMain(???);
 
-void NewEfxFarAttackWithDistance(struct Anim *anim, int arg);
-// ??? sub_80534AC(???);
-// ??? sub_80534E4(???);
-// ??? sub_8053514(???);
-// ??? sub_8053584(???);
-void sub_8053618();
-ProcPtr NewEfxQuakePure(int, int);
-// ??? sub_80536B8(???);
-// ??? NewEfxHitQuakePure(???);
-// ??? nullsub_56(???);
-ProcPtr NewEfxQuake(int);
-// ??? sub_805382C(???);
-void NewEfxHitQuake(struct Anim *anim1, struct Anim *anim2, int);
-// ??? sub_8053BBC(???);
-void StartSpellBG_FLASH(struct Anim *anim, int);
-// ??? sub_8053F4C(???);
-void NewEfxFlashBG(struct Anim *anim, int);
-// ??? sub_8053FC4(???);
-// ??? sub_8053FE4(???);
-// ??? sub_805401C(???);
-// ??? sub_8054030(???);
-// ??? sub_8054054(???);
-// ??? sub_80540B0(???);
-// ??? sub_8054120(???);
-// ??? sub_8054134(???);
-// ??? sub_8054158(???);
-// ??? sub_80541B4(???);
-// ??? sub_8054224(???);
-// ??? sub_8054238(???);
-// ??? sub_805425C(???);
-// ??? sub_80542B8(???);
-// ??? sub_8054328(???);
-// ??? sub_805433C(???);
-// ??? sub_8054360(???);
-// ??? sub_80543BC(???);
-// ??? sub_805442C(???);
-void NewEfxFlashHPBar(struct Anim *anim, int a, int b);
-// ??? sub_8054478(???);
-// ??? sub_8054498(???);
-// ??? sub_805452C(???);
-void NewEfxHPBarColorChange(struct Anim *anim);
-void EndEfxHPBarColorChange(void);
-void EfxHPBarColorChangeSet29(void);
-void EfxHPBarColorChangeClear29(void);
-// ??? sub_80546E4(???);
-void NewEfxFlashUnit(struct Anim *anim, int a, int b, int c);
-// ??? sub_8054818(???);
-// ??? sub_8054888(???);
-// ??? sub_80548E0(???);
-// ??? sub_8054930(???);
-// ??? sub_80549BC(???);
-
 void sub_805515C(void);
 void SpellFx_Begin(void);
 void SpellFx_Finish(void);
@@ -675,8 +626,8 @@ void sub_8055288(struct Anim *anim, int type);
 void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b);
 // ??? StartBattleAnimResireHitEffects(???);
 // ??? sub_8055518(???);
-struct Anim *EfxAnimCreate1(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4);
-struct Anim *EfxAnimCreate2(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4);
+struct Anim *EfxCreateFrontAnim(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4);
+struct Anim *EfxCreateBackAnim(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4);
 // ??? sub_805560C(???);
 void SpellFx_WriteBgMap(struct Anim *anim, const u16 *src1, const u16 *src2);
 // ??? sub_80556F0(???);
@@ -688,9 +639,9 @@ void SpellFx_RegisterBgPal(const u16 *pal, u32 size);
 // ??? sub_8055860(???);
 // ??? sub_805588C(???);
 // ??? sub_80558BC(???);
-s16 SpellFx_InterpretBgAnimScript(s16 *ptime, s16 *pcount, const s16 lut[]);
+s16 EfxAdvanceFrameLut(s16 *ptime, s16 *pcount, const s16 lut[]);
 // ??? sub_8055980(???);
-int GetAnimationStartFrameMaybe(void);
+int EfxGetCamMovDuration(void);
 // ??? sub_80559B0(???);
 void sub_80559D0(u32 val);
 void SetEkrFrontAnimPostion(int type, s16, s16);

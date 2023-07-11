@@ -201,7 +201,7 @@ void sub_8055518(struct Anim *anim, int type)
     }
 }
 
-struct Anim *EfxAnimCreate1(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
+struct Anim *EfxCreateFrontAnim(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
 {
     struct Anim *anim1;
 
@@ -238,7 +238,7 @@ struct Anim *EfxAnimCreate1(struct Anim *anim, const u32 *scr1, const u32 *scr2,
     }
 }
 
-struct Anim *EfxAnimCreate2(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
+struct Anim *EfxCreateBackAnim(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
 {
     struct Anim *anim1;
 
@@ -402,7 +402,7 @@ void sub_80558BC(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
     EnablePaletteSync();
 }
 
-s16 SpellFx_InterpretBgAnimScript(s16 *ptime, s16 *pcount, const s16 lut[])
+s16 EfxAdvanceFrameLut(s16 *ptime, s16 *pcount, const s16 lut[])
 {
     u16 uframe;
     u16 count;
@@ -459,7 +459,7 @@ void sub_8055980(void)
     gUnknown_0201775C = true;
 }
 
-int GetAnimationStartFrameMaybe(void)
+int EfxGetCamMovDuration(void)
 {
     if (gEkrDistanceType == EKR_DISTANCE_FARFAR)
         return 0x18;
@@ -528,15 +528,15 @@ void NewEfxspdquake(struct Anim *anim)
     struct ProcEfxSpdQuake *proc;
     proc = Proc_Start(ProcScr_efxSPDQuake, PROC_TREE_1);
     proc->anim = anim;
-    proc->unk2C = 0;
-    proc->unk44 = gUnknown_080DA4DC;
+    proc->timer = 0;
+    proc->vecs = gEfxQuakeVecs;
 }
 
 void sub_8055A64(struct ProcEfxSpdQuake *proc)
 {
-    struct Vec2 *unk44 = proc->unk44;
-    s16 dx = unk44[proc->unk2C].x;
-    s16 dy = unk44[proc->unk2C].y;
+    struct Vec2 *vecs = proc->vecs;
+    s16 dx = vecs[proc->timer].x;
+    s16 dy = vecs[proc->timer].y;
     struct Anim *anim;
 
     anim = gAnims[0];
@@ -561,15 +561,15 @@ void sub_8055A64(struct ProcEfxSpdQuake *proc)
     }
 
     if (Get0201FAC8() == 2) {
-        proc->unk44 = gUnknown_080DA570;
-        proc->unk2C = 0;
+        proc->vecs = gEfxQuakeVecs2;
+        proc->timer = 0;
         Set0201FAC8(3);
         return;
     }
 
-    ++proc->unk2C;
-    if (unk44[proc->unk2C].x == 0x7FFF)
-        proc->unk2C = 0;
+    ++proc->timer;
+    if (vecs[proc->timer].x == 0x7FFF)
+        proc->timer = 0;
 }
 
 void sub_8055B38(struct ProcEfxSpdQuake *proc)

@@ -268,23 +268,23 @@ void NewEkrPopup(void)
         gpProcEkrPopup = proc = Proc_Start(ProcScr_ekrPopup2, PROC_TREE_3);
         gEkrPopupEnded = 0;
 
-        proc->unk44 = -1;
-        proc->unk48 = -1;
+        proc->lbuff = -1;
+        proc->ldebuf = -1;
 
         for (i = 0; i < 8; i++) {
             gpEkrBattleUnitRight = gpEkrBattleUnitRight;
             if (gpEkrBattleUnitRight->unit.ranks[i] == 0) {
                 if (gpEkrBattleUnitLeft->unit.ranks[i] != 0) {
-                    if (proc->unk44 == -1)
-                        proc->unk44 = i;
+                    if (proc->lbuff == -1)
+                        proc->lbuff = i;
                     else
-                        proc->unk48 = i;
+                        proc->ldebuf = i;
                 }
             }
             gpEkrBattleUnitLeft = gpEkrBattleUnitLeft;
         }
 
-        if (proc->unk44 != -1) {
+        if (proc->lbuff != -1) {
             Sound_SetSEVolume(0x80);
         } else {
             gEkrPopupEnded = true;
@@ -296,28 +296,28 @@ void NewEkrPopup(void)
         gEkrPopupEnded = 0;
     
         proc->timer = 0;
-        proc->unk48 = 0;
-        proc->unk44 = 0;
-        proc->unk50 = 0;
-        proc->unk4C = 0;
+        proc->ldebuf = 0;
+        proc->lbuff = 0;
+        proc->rdebuf = 0;
+        proc->rbuf = 0;
     
-        if (gBanimSomeObjPalIndex[EKR_POS_L] == false) {
+        if (gPalIndexEfxHpBarUnk[EKR_POS_L] == false) {
             if (HasBattleUnitGainedWeaponLevel(gpEkrBattleUnitLeft) == true)
-                proc->unk44 = gpEkrBattleUnitLeft->weaponBefore;
+                proc->lbuff = gpEkrBattleUnitLeft->weaponBefore;
     
             if (DidBattleUnitBreakWeapon(gpEkrBattleUnitLeft) == true)
-                proc->unk48 = gpEkrBattleUnitLeft->weaponBefore;
+                proc->ldebuf = gpEkrBattleUnitLeft->weaponBefore;
         }
     
-        if (gBanimSomeObjPalIndex[EKR_POS_R] == false) {
+        if (gPalIndexEfxHpBarUnk[EKR_POS_R] == false) {
             if (HasBattleUnitGainedWeaponLevel(gpEkrBattleUnitRight) == true)
-                proc->unk4C = gpEkrBattleUnitRight->weaponBefore;
+                proc->rbuf = gpEkrBattleUnitRight->weaponBefore;
     
             if (DidBattleUnitBreakWeapon(gpEkrBattleUnitRight) == true)
-                proc->unk50 = gpEkrBattleUnitRight->weaponBefore;
+                proc->rdebuf = gpEkrBattleUnitRight->weaponBefore;
         }
     
-        if (proc->unk44 + proc->unk48 + proc->unk4C + proc->unk50 == 0) {
+        if (proc->lbuff + proc->ldebuf + proc->rbuf + proc->rdebuf == 0) {
             gEkrPopupEnded = true;
             DeleteAnimsOnPopup();
         } else {
@@ -336,12 +336,12 @@ void ekrPopup_DrawWRankUp(struct ProcEkrPopup *proc)
 {
     u32 priv;
 
-    priv = proc->unk44;
+    priv = proc->lbuff;
     if (priv != 0) {
         DrawBattlePopup(proc, 0, priv);
         EfxPlaySound5AVol100();
         proc->timer = 0;
-        proc->unk2E = 0x60;
+        proc->terminator = 0x60;
     }
 
     Proc_Break(proc);
@@ -349,12 +349,12 @@ void ekrPopup_DrawWRankUp(struct ProcEkrPopup *proc)
 
 void ekrPopup_WaitWRankUp(struct ProcEkrPopup *proc)
 {
-    if (proc->unk44 == 0) {
+    if (proc->lbuff == 0) {
         Proc_Break(proc);
         return;
     }
     
-    if (++proc->timer > proc->unk2E) {
+    if (++proc->timer > proc->terminator) {
         AnimDelete(proc->anim);
         SpellFx_ClearBG1();
         Proc_Break(proc);
@@ -363,13 +363,13 @@ void ekrPopup_WaitWRankUp(struct ProcEkrPopup *proc)
 
 void ekrPopup_DrawWRankUp2(struct ProcEkrPopup *proc)
 {
-    u32 priv = proc->unk4C;
+    u32 priv = proc->rbuf;
     if (priv != 0) {
         DrawBattlePopup(proc, 0, priv);
         EfxPlaySound5AVol100();
         
         proc->timer = 0;
-        proc->unk2E = 0x60;
+        proc->terminator = 0x60;
     }
 
     Proc_Break(proc);
@@ -377,12 +377,12 @@ void ekrPopup_DrawWRankUp2(struct ProcEkrPopup *proc)
 
 void ekrPopup_WaitWRankUp2(struct ProcEkrPopup *proc)
 {
-    if (proc->unk4C == 0) {
+    if (proc->rbuf == 0) {
         Proc_Break(proc);
         return;
     }
 
-    if (++proc->timer > proc->unk2E) {
+    if (++proc->timer > proc->terminator) {
         AnimDelete(proc->anim);
         SpellFx_ClearBG1();
         Proc_Break(proc);
@@ -391,13 +391,13 @@ void ekrPopup_WaitWRankUp2(struct ProcEkrPopup *proc)
 
 void ekrPopup_DrawWpnBroke(struct ProcEkrPopup *proc)
 {
-    u32 priv = proc->unk48;
+    u32 priv = proc->ldebuf;
     if (priv != 0) {
         DrawBattlePopup(proc, 1, priv);
         EfxPlaySound5CVol100();
         
         proc->timer = 0;
-        proc->unk2E = 0x6C;
+        proc->terminator = 0x6C;
     }
 
     Proc_Break(proc);
@@ -405,12 +405,12 @@ void ekrPopup_DrawWpnBroke(struct ProcEkrPopup *proc)
 
 void ekrPopup_WaitWpnBroke(struct ProcEkrPopup *proc)
 {
-    if (proc->unk48 == 0) {
+    if (proc->ldebuf == 0) {
         Proc_Break(proc);
         return;
     }
 
-    if (++proc->timer > proc->unk2E) {
+    if (++proc->timer > proc->terminator) {
         AnimDelete(proc->anim);
         SpellFx_ClearBG1();
         Proc_Break(proc);
@@ -419,13 +419,13 @@ void ekrPopup_WaitWpnBroke(struct ProcEkrPopup *proc)
 
 void ekrPopup_DrawWpnBroke2(struct ProcEkrPopup *proc)
 {
-    u32 priv = proc->unk50;
+    u32 priv = proc->rdebuf;
     if (priv != 0) {
         DrawBattlePopup(proc, 1, priv);
         EfxPlaySound5CVol100();
         
         proc->timer = 0;
-        proc->unk2E = 0x6C;
+        proc->terminator = 0x6C;
     }
 
     Proc_Break(proc);
@@ -433,12 +433,12 @@ void ekrPopup_DrawWpnBroke2(struct ProcEkrPopup *proc)
 
 void ekrPopup_WaitWpnBroke2(struct ProcEkrPopup *proc)
 {
-    if (proc->unk50 == 0) {
+    if (proc->rdebuf == 0) {
         Proc_Break(proc);
         return;
     }
 
-    if (++proc->timer > proc->unk2E) {
+    if (++proc->timer > proc->terminator) {
         proc->timer = 0;
         AnimDelete(proc->anim);
         SpellFx_ClearBG1();
@@ -468,17 +468,17 @@ void sub_8076250(struct ProcEkrPopup *proc)
 {
     u32 priv;
 
-    priv = proc->unk44;
+    priv = proc->lbuff;
     if (priv == -1) {
         Proc_Goto(proc, 0x1);
         return;
     }
 
-    if (proc->unk4C != 0) {
+    if (proc->rbuf != 0) {
         DrawBattlePopup(proc, 2, priv);
         EfxPlaySound5AVol100();
         proc->timer = 0;
-        proc->unk2E = 0x60;
+        proc->terminator = 0x60;
     }
 
     Proc_Break(proc);
@@ -486,12 +486,12 @@ void sub_8076250(struct ProcEkrPopup *proc)
 
 void sub_8076290(struct ProcEkrPopup *proc)
 {
-    if (proc->unk50 == 0) {
+    if (proc->rdebuf == 0) {
         Proc_Break(proc);
         return;
     }
 
-    if (++proc->timer > proc->unk2E) {
+    if (++proc->timer > proc->terminator) {
         proc->timer = 0;
         AnimDelete(proc->anim);
         SpellFx_ClearBG1();
@@ -503,17 +503,17 @@ void sub_80762D0(struct ProcEkrPopup *proc)
 {
     u32 priv;
 
-    priv = proc->unk48;
+    priv = proc->ldebuf;
     if (priv == -1) {
         Proc_Goto(proc, 0x5);
         return;
     }
 
-    if (proc->unk4C != 0) {
+    if (proc->rbuf != 0) {
         DrawBattlePopup(proc, 2, priv);
         EfxPlaySound5AVol100();
         proc->timer = 0;
-        proc->unk2E = 0x60;
+        proc->terminator = 0x60;
     }
 
     Proc_Break(proc);

@@ -273,14 +273,14 @@ _080535CA:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _080535F4
-	ldr r1, _080535F0  @ gEkrPos2Maybe
+	ldr r1, _080535F0  @ gEkrInitPosReal
 	movs r0, #1
 	b _080535F8
 	.align 2, 0
 _080535EC: .4byte gEkrBgXOffset
-_080535F0: .4byte gEkrPos2Maybe
+_080535F0: .4byte gEkrInitPosReal
 _080535F4:
-	ldr r1, _08053610  @ gEkrPos2Maybe
+	ldr r1, _08053610  @ gEkrInitPosReal
 	movs r0, #0
 _080535F8:
 	str r0, [r1]
@@ -295,7 +295,7 @@ _08053606:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08053610: .4byte gEkrPos2Maybe
+_08053610: .4byte gEkrInitPosReal
 _08053614: .4byte gUnknown_02017748
 
 	THUMB_FUNC_END sub_8053584
@@ -400,7 +400,7 @@ sub_80536B8: @ 0x080536B8
 	adds r0, r1, #0
 	movs r3, #2
 	ldrsh r1, [r2, r3]
-	bl sub_8052214
+	bl SetEkrBg2QuakeVec
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]
@@ -422,12 +422,12 @@ _080536F8:
 	ldrsh r0, [r3, r1]
 	movs r2, #2
 	ldrsh r1, [r3, r2]
-	bl sub_8052214
+	bl SetEkrBg2QuakeVec
 	b _08053710
 _08053708:
 	movs r0, #0
 	movs r1, #0
-	bl sub_8052214
+	bl SetEkrBg2QuakeVec
 _08053710:
 	pop {r4}
 	pop {r0}
@@ -511,14 +511,14 @@ _0805379C:
 	.align 2, 0
 _080537A8: .4byte gUnknown_080DA4BA
 _080537AC:
-	ldr r0, _080537B8  @ gUnknown_080DA4DC
+	ldr r0, _080537B8  @ gEfxQuakeVecs
 	str r0, [r2, #0x44]
 	adds r1, r2, #0
 	adds r1, #0x29
 	movs r0, #0
 	b _08053816
 	.align 2, 0
-_080537B8: .4byte gUnknown_080DA4DC
+_080537B8: .4byte gEfxQuakeVecs
 _080537BC:
 	ldr r0, _080537C8  @ gUnknown_080DA526
 	str r0, [r2, #0x44]
@@ -529,14 +529,14 @@ _080537BC:
 	.align 2, 0
 _080537C8: .4byte gUnknown_080DA526
 _080537CC:
-	ldr r0, _080537D8  @ gUnknown_080DA570
+	ldr r0, _080537D8  @ gEfxQuakeVecs2
 	str r0, [r2, #0x44]
 	adds r1, r2, #0
 	adds r1, #0x29
 	movs r0, #0
 	b _08053816
 	.align 2, 0
-_080537D8: .4byte gUnknown_080DA570
+_080537D8: .4byte gEfxQuakeVecs2
 _080537DC:
 	ldr r0, _080537E8  @ gUnknown_080DA5BA
 	str r0, [r2, #0x44]
@@ -637,7 +637,7 @@ sub_805382C: @ 0x0805382C
 	bl BG_SetPosition
 	movs r0, #0
 	movs r1, #0
-	bl sub_8052214
+	bl SetEkrBg2QuakeVec
 _0805389E:
 	ldr r1, _080538BC  @ gUnknown_0201773C
 	movs r0, #0
@@ -656,7 +656,7 @@ _080538C0:
 	ldrsh r0, [r2, r4]
 	movs r3, #2
 	ldrsh r1, [r2, r3]
-	bl sub_8052214
+	bl SetEkrBg2QuakeVec
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
 	strh r0, [r7, #0x2c]
@@ -819,12 +819,12 @@ _080539F4:
 	beq _08053A5C
 	cmp r6, #1
 	bne _08053A2C
-	ldr r0, _08053A28  @ gUnknown_080DA4DC
+	ldr r0, _08053A28  @ gEfxQuakeVecs
 	b _08053A5E
 	.align 2, 0
 _08053A20: .4byte gUnknown_02017740
 _08053A24: .4byte gProc_efxHitQuake
-_08053A28: .4byte gUnknown_080DA4DC
+_08053A28: .4byte gEfxQuakeVecs
 _08053A2C:
 	cmp r6, #2
 	bne _08053A38
@@ -835,10 +835,10 @@ _08053A34: .4byte gUnknown_080DA526
 _08053A38:
 	cmp r6, #3
 	bne _08053A44
-	ldr r0, _08053A40  @ gUnknown_080DA570
+	ldr r0, _08053A40  @ gEfxQuakeVecs2
 	b _08053A5E
 	.align 2, 0
-_08053A40: .4byte gUnknown_080DA570
+_08053A40: .4byte gEfxQuakeVecs2
 _08053A44:
 	cmp r6, #4
 	bne _08053A50
@@ -1035,7 +1035,7 @@ sub_8053BBC: @ 0x08053BBC
 _08053BDC:
 	movs r0, #0
 	movs r1, #0
-	bl sub_8052214
+	bl SetEkrBg2QuakeVec
 	ldr r0, _08053C10  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
@@ -1185,7 +1185,7 @@ _08053D1C:
 	ldrsh r5, [r0, r3]
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_8052214
+	bl SetEkrBg2QuakeVec
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
 	strh r0, [r7, #0x2c]

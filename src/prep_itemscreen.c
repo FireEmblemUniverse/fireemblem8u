@@ -294,7 +294,7 @@ void PrepItemScreen_HideFunds(void) {
     return;
 }
 
-extern u16 gUnknown_02022C08[];
+extern u16 gPalEfxHpBarLeft[];
 
 //! FE8U = 0x08098620
 void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
@@ -381,7 +381,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     BG_EnableSyncByMask(7);
 
     SetupMapSpritesPalettes();
-    CpuFastFill(0, gUnknown_02022C08, 0x20);
+    CpuFastFill(0, gPalEfxHpBarLeft, 0x20);
 
     ForceSyncUnitSpriteSheet();
 

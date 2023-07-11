@@ -299,8 +299,8 @@ void EfxPrepareScreenFx(void)
     sub_8070D04(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gBanimSomeObjPalIndex[0], 0), PAL_BG(0x2), 0x20);
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gBanimSomeObjPalIndex[1], 0), PAL_BG(0x3), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gPalIndexEfxHpBarUnk[0], 0), PAL_BG(0x2), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gPalIndexEfxHpBarUnk[1], 0), PAL_BG(0x3), 0x20);
     EnablePaletteSync();
 
     gEkrBg0QuakeVec.x = 0;
@@ -308,20 +308,20 @@ void EfxPrepareScreenFx(void)
     BG_SetPosition(BG_0, 0, 0);
 }
 
-int GetEkrSomePosMaybe(void)
+int GetBanimInitPosReal(void)
 {
     int quote1, quote2;
 
     switch (gEkrDistanceType) {
-    case 1:
+    case EKR_DISTANCE_FAR:
         return gEkrInitialHitSide;
 
-    case 0:
-    case 3:
-    case 4:
+    case EKR_DISTANCE_CLOSE:
+    case EKR_DISTANCE_3:
+    case EKR_DISTANCE_PROMOTION:
         return EKR_POS_R;
 
-    case 2:
+    case EKR_DISTANCE_FARFAR:
     default:
         quote2 = false;
         quote1 = false;
@@ -340,7 +340,7 @@ int GetEkrSomePosMaybe(void)
     }
 }
 
-void sub_8052214(int a, int b)
+void SetEkrBg2QuakeVec(int a, int b)
 {
     gEkrBg2QuakeVec.x = a;
     gEkrBg2QuakeVec.y = b;
@@ -360,7 +360,7 @@ void EkrEfxStatusClear(void)
     gUnknown_02017754 = 0;
     gUnknown_02017758 = 0;
     gUnknown_0201775C = 0;
-    sub_8052214(0, 0);
+    SetEkrBg2QuakeVec(0, 0);
     gUnknown_02017764[0] = 0;
     gUnknown_02017764[1] = 0;
     gUnknown_02017768[0] = 0;
@@ -372,5 +372,5 @@ void EkrEfxStatusClear(void)
     gpProcEfxStatusUnits[EKR_POS_R] = NULL;
 
     gpProcEfxSpellCast = NULL;
-    gpProcEfxHPBarColorChange = 0;
+    gpProcEfxHPBarColorChange = NULL;
 }

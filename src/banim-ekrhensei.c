@@ -9,14 +9,6 @@
 #include "bmlib.h"
 #include "bm.h"
 
-struct ProcEkrHensei {
-    PROC_HEADER;
-
-    /* 29 */ STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ s16 unk2C;
-    /* 2E */ s16 unk2E;
-};
-
 int CheckBanimHensei(void)
 {
     if (gBattleStats.config & BATTLE_CONFIG_PROMOTION_PREP)
@@ -30,8 +22,8 @@ void BeginAnimsOnBattle_Hensei(void)
     int pos;
     NewEkrBattleDeamon();
     AnimClearAll();
-    pos = GetEkrSomePosMaybe();
-    gEkrPos2Maybe = pos;
+    pos = GetBanimInitPosReal();
+    gEkrInitPosReal = pos;
     NewEkrHenseiInitPROC();
     SetPrimaryHBlankHandler(NULL);
 }
@@ -73,7 +65,7 @@ void sub_8076380(struct ProcEkrHensei *proc)
     NewEkrBattle();
 
     PutBanimBG(gEkrPairSomeTile - 1);
-    CpuFastCopy(PAL_BG(0), gEkrBgPalBackupMaybe, 0x400);
+    CpuFastCopy(PAL_BG(0), gEfxPal, 0x400);
     EkrMaybePalFadeWithVal(PAL_BG(0), 0, 0x20, 0x10);
     EnablePaletteSync();
     Proc_Break(proc);
@@ -84,20 +76,20 @@ void sub_80763E0(struct ProcEkrHensei *proc)
     EkrGauge_Set4C();
     EkrDispUpSet4C();
 
-    proc->unk2C = 0;
-    proc->unk2E = 0x10;
+    proc->timer = 0;
+    proc->terminator = 0x10;
     Proc_Break(proc);
 }
 
 void sub_8076400(struct ProcEkrHensei *proc)
 {
-    int color = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->unk2C, proc->unk2E);
+    int color = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, proc->terminator);
 
-    CpuFastCopy(gEkrBgPalBackupMaybe, PAL_BG(0), 0x400);
+    CpuFastCopy(gEfxPal, PAL_BG(0), 0x400);
     EkrMaybePalFadeWithVal(PAL_BG(0), 0, 0x20, color);
     EnablePaletteSync();
 
-    if (++proc->unk2C == (proc->unk2E + 1))
+    if (++proc->timer == (proc->terminator + 1))
         Proc_Break(proc);
 }
 
@@ -125,23 +117,23 @@ void NewEkrHenseiEnd(void)
 
 void sub_8076484(struct ProcEkrHensei *proc)
 {
-    CpuFastCopy(PAL_BG(0), gEkrBgPalBackupMaybe, 0x400);
+    CpuFastCopy(PAL_BG(0), gEfxPal, 0x400);
 
-    proc->unk2C = 0;
-    proc->unk2E = 0x10;
+    proc->timer = 0;
+    proc->terminator = 0x10;
 
     Proc_Break(proc);
 }
 
 void sub_80764B0(struct ProcEkrHensei *proc)
 {
-    int color = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->unk2C, proc->unk2E);
+    int color = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, proc->terminator);
 
-    CpuFastCopy(gEkrBgPalBackupMaybe, PAL_BG(0), 0x400);
+    CpuFastCopy(gEfxPal, PAL_BG(0), 0x400);
     EkrMaybePalFadeWithVal(PAL_BG(0), 0, 0x20, color);
     EnablePaletteSync();
 
-    if (++proc->unk2C == (proc->unk2E + 1))
+    if (++proc->timer == (proc->terminator + 1))
         Proc_Break(proc);
 }
 

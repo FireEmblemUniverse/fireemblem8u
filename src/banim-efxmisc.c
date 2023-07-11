@@ -55,7 +55,7 @@ void NewEfxYushaSpinShieldOBJ(struct Anim *anim, int r1)
         scr2 = gUnknown_085EE398;
     }
 
-    anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
+    anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
 
     /**
@@ -183,7 +183,7 @@ void NewEfxHurtmutEff00OBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxHurtmutEff00OBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->anim2 = EfxAnimCreate1(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
+    proc->anim2 = EfxCreateFrontAnim(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
 }
 
 void efxHurtmutEff00OBJ_806CEC4(struct ProcEfxOBJ *proc)
@@ -236,7 +236,7 @@ void NewEfxHurtmutEff01OBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxHurtmutEff01OBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->anim2 = EfxAnimCreate1(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
+    proc->anim2 = EfxCreateFrontAnim(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
 }
 
 void efxHurtmutEff01OBJ_806CFC4(struct ProcEfxOBJ *proc)
@@ -380,7 +380,7 @@ void NewEfxMagfcastBG(struct Anim *anim, u32 type)
 void EfxMagfcastBGMain(struct ProcEfxBG *proc)
 {
     s16 ret;
-    ret = SpellFx_InterpretBgAnimScript(
+    ret = EfxAdvanceFrameLut(
         (void *)&proc->timer,
         (void *)&proc->frame,
         proc->frame_config
@@ -465,7 +465,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
             scr2 = gUnknown_085F18FC;
     }
 
-    proc->anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
+    proc->anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
 
     terrain = gEkrPairTerrainID[GetAnimPosition(proc->anim)];
     switch (terrain) {
@@ -594,7 +594,7 @@ void NewEfxLokmsunaOBJ(struct Anim *anim)
 
     scr1 = gUnknown_087584B8;
     scr2 = gUnknown_087585DC;
-    anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
+    anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
 
     /* oam2_data::pal = 0 */
@@ -639,7 +639,7 @@ void EfxKingPikaMain(struct ProcEfx *proc)
     }
 
     if (time == 0xA) {
-        StartSpellBG_FLASH(anim, 0x14);
+        NewEfxFlashBgWhite(anim, 0x14);
         return;
     }
 
@@ -670,7 +670,7 @@ void EfxFlashFXMain(struct ProcEfx *proc)
     int time = ++proc->timer;
 
     if (time == 0x1) {
-        StartSpellBG_FLASH(anim, 0x5);
+        NewEfxFlashBgWhite(anim, 0x5);
         return;
     }
 
@@ -695,8 +695,8 @@ void NewEfxSongOBJ2(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxSongOBJ2, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = 0x28;
-    proc->anim2 = EfxAnimCreate1(anim, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4);
+    proc->terminator = 0x28;
+    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4);
     SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
     SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
     PlaySFX(0xEE, 0x100, proc->anim->xPosition, 0x1);
@@ -707,7 +707,7 @@ void EfxSongOBJ2Main(struct ProcEfxOBJ *proc)
     if (++proc->timer == 0x18)
         PlaySFX(0xEE, 0x100, proc->anim->xPosition, 0x1);
 
-    if (proc->timer > proc->unk2E) {
+    if (proc->timer > proc->terminator) {
         AnimDelete(proc->anim2);
         gEfxBgSemaphore--;
         Proc_Break(proc);
@@ -722,8 +722,8 @@ void NewEfxDanceOBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxDanceOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = 0x19;
-    proc->anim2 = EfxAnimCreate1(anim, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484);
+    proc->terminator = 0x19;
+    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484);
     SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
     SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
     PlaySFX(0xE1, 0x100, proc->anim->xPosition, 0x1);
@@ -731,7 +731,7 @@ void NewEfxDanceOBJ(struct Anim *anim)
 
 void EfxDanceOBJMain(struct ProcEfxOBJ *proc)
 {
-    if (++proc->timer > proc->unk2E) {
+    if (++proc->timer > proc->terminator) {
         AnimDelete(proc->anim2);
         gEfxBgSemaphore--;
         Proc_Break(proc);
@@ -949,7 +949,7 @@ void NewEfxMagdhisEffectBG(struct Anim *anim, int arg1)
 void EfxMagdhisEffectBGMain(struct ProcEfxBG *proc)
 {
     s16 ret;
-    ret = SpellFx_InterpretBgAnimScript(
+    ret = EfxAdvanceFrameLut(
         (void *)&proc->timer,
         (void *)&proc->frame,
         proc->frame_config
@@ -1031,7 +1031,7 @@ void NewEfxMantBatabata(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxMantBatabata, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
+    anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
     gUnknown_02000010[GetAnimPosition(proc->anim)] = proc->anim2;
 
@@ -1096,12 +1096,12 @@ void EfxChillEffectMain(struct ProcEfx *proc)
     }
 
     if (time == 0x3) {
-        NewEfxFlashBG(proc->anim, 0x5);
+        NewEfxFlashBgBlack(proc->anim, 0x5);
         return;
     }
 
     if (time == 0x11) {
-        NewEfxFlashBG(proc->anim, 0x5);
+        NewEfxFlashBgBlack(proc->anim, 0x5);
         return;
     }
 
@@ -1131,7 +1131,7 @@ void NewEfxChillEffectBG(struct Anim *anim)
 void EfxChillEffectBGMain(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
@@ -1164,7 +1164,7 @@ void sub_806E158(struct ProcEfxBGCOL *proc)
     u16 i;
     u16 pal[0x10];
 
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *src = proc->unk4C;
         u16 *ptr = pal;
@@ -1209,7 +1209,7 @@ void NewEfxChillAnime(struct Anim *anim, int arg1)
     proc = Proc_Start(ProcScr_efxChillAnime, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    anim2 = EfxAnimCreate1(anim, scr2, scr1, scr2, scr1);
+    anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
     gUnknown_02000010[GetAnimPosition(proc->anim)] = proc->anim2;
 

@@ -15,7 +15,7 @@ CONST_DATA struct ProcCmd ProcScr_efxWeaponIcon[] = {
     PROC_END
 };
 
-const u16 gUnknown_080DAD0A[] = {
+const u16 gFrameLut_EfxWeaponIcon[] = {
     0x0, 0x1,
     0x4, 0x2,
     0x7, 0x1,
@@ -35,13 +35,13 @@ void NewEfxWeaponIcon(s16 effective1, s16 effective2)
     struct ProcEfxWeaponIcon *proc;
     proc = Proc_Start(ProcScr_efxWeaponIcon, PROC_TREE_3);
 
-    proc->unk2C = 0;
-    proc->unk44 = 0;
-    proc->unk48 = gUnknown_080DAD0A;
+    proc->timer = 0;
+    proc->frame = 0;
+    proc->frame_lut = gFrameLut_EfxWeaponIcon;
     proc->unk4C = 0;
-    proc->unk50 = 0;
-    proc->unk54 = effective1;
-    proc->unk58 = effective2;
+    proc->invalid = false;
+    proc->eff1 = effective1;
+    proc->eff2 = effective2;
 
     gpProcEfxWeaponIcon = proc;
 }
@@ -54,44 +54,44 @@ void EndProcEfxWeaponIcon(void)
     }
 }
 
-void EfxWeaponIconSet50(void)
+void DisableEfxWeaponIcon(void)
 {
 #if BUGFIX
     if (!gpProcEfxWeaponIcon)
         return;
 #endif
 
-    gpProcEfxWeaponIcon->unk50 = true;
+    gpProcEfxWeaponIcon->invalid = true;
 }
 
-void EfxWeaponIconClear50(void)
+void EnableEfxWeaponIcon(void)
 {
 #if BUGFIX
     if (!gpProcEfxWeaponIcon)
         return;
 #endif
 
-    gpProcEfxWeaponIcon->unk50 = false;
+    gpProcEfxWeaponIcon->invalid = false;
 }
 
 void sub_8054F10(struct ProcEfxWeaponIcon *proc)
 {
     int ret;
 
-    if (true == proc->unk50)
+    if (true == proc->invalid)
         return;
     
     ResetIconGraphics_();
-    ret = SpellFx_InterpretBgAnimScript(&proc->unk2C, (s16 *)&proc->unk44, proc->unk48);
+    ret = EfxAdvanceFrameLut(&proc->timer, (s16 *)&proc->frame, proc->frame_lut);
     if (ret >= 0)
         proc->unk4C = ret;
-    
-    if (proc->unk54 != 0) {
+
+    if (proc->eff1 != 0) {
         LoadIconPalette(0, 0x1D);
         sub_807132C(PAL_BG(0), 0x1D, 0x1, proc->unk4C);
     }
 
-    if (proc->unk58 != 0) {
+    if (proc->eff2 != 0) {
         LoadIconPalette(0, 0x1E);
         sub_807132C(PAL_BG(0), 0x1E, 0x1, proc->unk4C);
     }
@@ -103,10 +103,10 @@ void sub_8054F78(struct ProcEfxWeaponIcon *proc)
 {
     ResetIconGraphics_();
 
-    if (proc->unk54 != 0)
+    if (proc->eff1 != 0)
         LoadIconPalette(0, 0x1D);
     
-    if (proc->unk58 != 0)
+    if (proc->eff2 != 0)
         LoadIconPalette(0, 0x1E);
     
     EnablePaletteSync();
@@ -129,9 +129,9 @@ void NewEfxSpellCast(void)
         return;
     
     proc = Proc_Start(ProcScr_efxSpellCast, PROC_TREE_4);
-    proc->unk29 = 0;
-    proc->unk2C = 0;
-    proc->unk2E = 4;
+    proc->done = 0;
+    proc->timer = 0;
+    proc->terminator = 4;
 
     if (NULL == gpProcEfxSpellCast)
         CpuFastCopy(PAL_BG(0x6), gPalBackupEkrUnitMaybe, 0x140);
@@ -141,12 +141,12 @@ void NewEfxSpellCast(void)
     gpProcEfxSpellCast = proc;
 }
 
-void EfxSpellCastSet29(void)
+void RegisterEfxSpellCastEnd(void)
 {
     if (NULL == gpProcEfxSpellCast)
         return;
     
-    gpProcEfxSpellCast->unk29 = true;
+    gpProcEfxSpellCast->done = true;
 }
 
 void EndEfxSpellCast(void)
@@ -168,13 +168,13 @@ void EndEfxSpellCast(void)
 
 void sub_8055038(struct ProcEfxSpellCast *proc)
 {
-    int val = Interpolate(INTERPOLATE_LINEAR, 0, 0x8, proc->unk2C, proc->unk2E);
+    int val = Interpolate(INTERPOLATE_LINEAR, 0, 0x8, proc->timer, proc->terminator);
     
     CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_BG(0x6), 0x140);
     EkrMaybePalFadeWithVal(PAL_BG(0x0), 0x6, 0xA, val);
     EnablePaletteSync();
 
-    if (++proc->unk2C == (proc->unk2E + 1))
+    if (++proc->timer == (proc->terminator + 1))
         Proc_Break(proc);
 }
 
@@ -183,21 +183,21 @@ void sub_805509C(struct ProcEfxSpellCast *proc)
     CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_BG(0x6), 0x140);
     EkrMaybePalFadeWithVal(PAL_BG(0x0), 0x6, 0xA, 0x8);
 
-    if (true == proc->unk29) {
-        proc->unk2C = 0;
+    if (true == proc->done) {
+        proc->timer = 0;
         Proc_Break(proc);
     }
 }
 
 void sub_80550DC(struct ProcEfxSpellCast *proc)
 {
-    int val = Interpolate(INTERPOLATE_LINEAR, 0x8, 0, proc->unk2C, proc->unk2E);
+    int val = Interpolate(INTERPOLATE_LINEAR, 0x8, 0, proc->timer, proc->terminator);
 
     CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_BG(0x6), 0x140);
     EkrMaybePalFadeWithVal(PAL_BG(0x0), 0x6, 0xA, val);
     EnablePaletteSync();
 
-    if (++proc->unk2C == (proc->unk2E + 1)) {
+    if (++proc->timer == (proc->terminator + 1)) {
         gpProcEfxSpellCast = NULL;
         CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_BG(0x6), 0x140);
         EnablePaletteSync();
