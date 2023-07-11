@@ -20,7 +20,7 @@ CONST_DATA struct ProcCmd ProcScr_efxStatusUnit[] = {
     PROC_END
 };
 
-const u16 gUnknown_080DACDA[] = {
+const u16 gFrameLut_EfxStatusUnit[] = {
     0, 0x14,
     0x4, 0x6,
     0x8, 0x5,
@@ -46,15 +46,15 @@ void NewEfxStatusUnit(struct Anim *anim)
 
     proc->invalid = 0;
     proc->anim = anim;
-    proc->unk2C = 0;
-    proc->unk44 = 0;
-    proc->unk48 = gUnknown_080DACDA;
+    proc->timer = 0;
+    proc->frame = 0;
+    proc->frame_lut = gFrameLut_EfxStatusUnit;
     proc->debuff = unit->statusIndex;
 
     if (gEkrDebugModeMaybe == 1)
         proc->debuff = UNIT_STATUS_NONE;
 
-    proc->unk50 = 0;
+    proc->debuf_bak = 0;
     proc->blue = 0;
     proc->green = 0;
     proc->red = 0;
@@ -134,14 +134,14 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
     if (GettUnitEfxDebuff(proc->anim) == UNIT_STATUS_NONE || proc->invalid == true)
         return;
 
-    if (proc->debuff != proc->unk50) {
-        proc->unk2C = 0;
-        proc->unk44 = 0;
-        proc->unk50 = proc->debuff;
+    if (proc->debuff != proc->debuf_bak) {
+        proc->timer = 0;
+        proc->frame = 0;
+        proc->debuf_bak = proc->debuff;
     }
 
     /* seems like a interpolate-style function ? */
-    ret = SpellFx_InterpretBgAnimScript((void *)&proc->unk2C, (void *)&proc->unk44, proc->unk48);
+    ret = EfxAdvanceFrameLut((void *)&proc->timer, (void *)&proc->frame, proc->frame_lut);
     if (ret >= 0) {
         switch (proc->debuff) {
         case UNIT_STATUS_POISON:

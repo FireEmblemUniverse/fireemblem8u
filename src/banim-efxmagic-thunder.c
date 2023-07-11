@@ -21,7 +21,7 @@ void StartSpellAnimThunder(struct Anim *anim)
 void Loop6C_efxThunder(struct ProcEfx *proc)
 {
     struct Anim *animc = GetAnimAnotherSide(proc->anim);
-    int cur, frame = GetAnimationStartFrameMaybe();
+    int cur, frame = EfxGetCamMovDuration();
 
     if (++proc->timer == 1)
         NewEfxFarAttackWithDistance(proc->anim, -1);
@@ -50,7 +50,7 @@ void Loop6C_efxThunder(struct ProcEfx *proc)
     
     if (cur == (frame + 0x60)) {
         SpellFx_Finish();
-        EfxSpellCastSet29();
+        RegisterEfxSpellCastEnd();
         Proc_Break(proc);
     }
 }
@@ -83,7 +83,7 @@ void EfxThunderBGMain(struct ProcEfxBG *proc)
     int val, ret;
 
     val = 0;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
@@ -122,7 +122,7 @@ void NewEfxThunderBGCOL(struct Anim *anim)
 void sub_805D9F8(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *buf = proc->unk4C;
         SpellFx_RegisterBgPal(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
@@ -143,7 +143,7 @@ void NewEfxThunderOBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxThunderOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->anim2 = EfxAnimCreate1(anim, gUnknown_085F5550, gUnknown_085F4A24, gUnknown_085F5550, gUnknown_085F4A24);
+    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_085F5550, gUnknown_085F4A24, gUnknown_085F5550, gUnknown_085F4A24);
 
     SpellFx_RegisterObjPal(gUnknown_085F3F40, 0x20);
     SpellFx_RegisterObjGfx(gUnknown_085F3AA8, 0x1000);

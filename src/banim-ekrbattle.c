@@ -157,7 +157,7 @@ void nullsub_36(void)
 void ekrBattle_Init(struct ProcEkrBattle *proc)
 {
     gEkrBgXOffset = 0;
-    if (gEkrPos2Maybe == 0) {
+    if (gEkrInitPosReal == 0) {
         if (gEkrDistanceType == EKR_DISTANCE_FAR)
             gEkrBgXOffset = -0x20;
         else
@@ -318,8 +318,8 @@ void ekrBattleWaitDragonIntro(struct ProcEkrBattle *proc)
 
 void ekrBattlePostEkrDragonIntro(struct ProcEkrBattle *proc)
 {
-    if (gEkrInitialHitSide != gEkrPos2Maybe) {
-        NewEfxFarAttackWithDistance(gAnims[gEkrPos2Maybe * 2], -1);
+    if (gEkrInitialHitSide != gEkrInitPosReal) {
+        NewEfxFarAttackWithDistance(gAnims[gEkrInitPosReal * 2], -1);
         proc->timer = 0;
         proc->proc_idleCb = (ProcFunc)ekrBattle_8050290;
     } else
@@ -546,11 +546,11 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
     else
         pos = EKR_POS_R;
 
-    if (pos != gEkrPos2Maybe)
+    if (pos != gEkrInitPosReal)
         proc->speedup = ret;
 
     if (proc->speedup == true)
-        NewEfxFarAttackWithDistance(gAnims[gEkrPos2Maybe * 2], -1);
+        NewEfxFarAttackWithDistance(gAnims[gEkrInitPosReal * 2], -1);
 }
 
 /**

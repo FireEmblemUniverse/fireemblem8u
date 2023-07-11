@@ -722,7 +722,7 @@ _08056650:
 	strh r2, [r5, #0x34]
 	movs r0, #0x68
 	strh r0, [r5, #0x3c]
-	ldr r0, _080566B4  @ gEkrPos2Maybe
+	ldr r0, _080566B4  @ gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r0, #1
 	bne _080566A2
@@ -744,7 +744,7 @@ _080566A2:
 	.align 2, 0
 _080566AC: .4byte gProc_EkrBaseKaiten
 _080566B0: .4byte gEkrPairBmLoc
-_080566B4: .4byte gEkrPos2Maybe
+_080566B4: .4byte gEkrInitPosReal
 _080566B8: .4byte BanimLeftDefaultPos
 _080566BC: .4byte gEkrDistanceType
 _080566C0: .4byte gUnknown_085B9BE4
@@ -814,7 +814,7 @@ _080566FE:
 	strh r0, [r5, #0x34]
 	movs r0, #0x68
 	strh r0, [r5, #0x3c]
-	ldr r0, _08056778  @ gEkrPos2Maybe
+	ldr r0, _08056778  @ gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r0, #0
 	bne _08056760
@@ -837,7 +837,7 @@ _08056760:
 _0805676C: .4byte gUnknown_085B9CA4
 _08056770: .4byte gProc_EkrBaseKaiten
 _08056774: .4byte gEkrPairBmLoc
-_08056778: .4byte gEkrPos2Maybe
+_08056778: .4byte gEkrInitPosReal
 _0805677C: .4byte BanimLeftDefaultPos
 _08056780: .4byte gEkrDistanceType
 _08056784: .4byte gUnknown_085B9C04

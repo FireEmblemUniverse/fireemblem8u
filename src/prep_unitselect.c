@@ -154,7 +154,7 @@ void PrepUnit_InitGfx()
 void PrepUnit_InitSMS(struct ProcPrepUnit *proc)
 {
     SetupMapSpritesPalettes();
-    CpuFastFill(0, gUnknown_02022C08, 0x20);
+    CpuFastFill(0, gPalEfxHpBarLeft, 0x20);
     MakePrepUnitList();
     PrepAutoCapDeployUnits(proc->proc_parent);
     PrepUpdateSMS();

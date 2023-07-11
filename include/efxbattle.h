@@ -60,7 +60,7 @@ struct ProcEfxOBJ {
     /* 29 */ u8 unk29;
     STRUCT_PAD(0x2A, 0x2C);
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
+    /* 2E */ s16 terminator;
     STRUCT_PAD(0x30, 0x5C);
     /* 5C */ struct Anim *anim;
     /* 60 */ struct Anim *anim2;
@@ -159,6 +159,47 @@ struct Struct20200E0 {
 };
 extern struct Struct20200E0 gUnknown_020200E0;
 
+struct ProcEfxFlashing {
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+
+    STRUCT_PAD(0x2A, 0x2C);
+
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ s16 terminator2;
+
+    STRUCT_PAD(0x32, 0x5C);
+
+    /* 5C */ struct Anim *anim;
+};
+
+struct ProcEfxHPBarColorChange {
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+
+    STRUCT_PAD(0x2A, 0x2C);
+
+    /* 2C */ s16 timer1;
+    /* 2E */ s16 timer2;
+    /* 30 */ s16 terminator2;
+
+    STRUCT_PAD(0x32, 0x44);
+
+    /* 44 */ u32 frame1;
+    /* 48 */ const u16 * frame_lut1;
+    /* 4C */ u32 frame2;
+    /* 50 */ const u16 * frame_lut2;
+    /* 54 */ u32 unk54;
+    /* 58 */ u32 unk58;
+    /* 5C */ struct Anim *anim;
+};
+
+
+extern struct ProcEfxHPBarColorChange * gpProcEfxHPBarColorChange;
+
 struct ProcEfxHPBar {
     PROC_HEADER;
 
@@ -184,7 +225,7 @@ struct ProcEfxDead {
 
     /* 29 */ STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
+    /* 2E */ s16 terminator;
     /* 30 */ STRUCT_PAD(0x30, 0x5C);
     /* 5C */ struct Anim *anim1;
     /* 60 */ struct Anim *anim2;
@@ -210,16 +251,16 @@ struct ProcEfxStatusUnit {
     PROC_HEADER;
     /* 29 */ u8 invalid;
     /* 2A */ u8 _pad_2A[0x2C - 0x2A];
-    /* 2C */ u16 unk2C;
+    /* 2C */ u16 timer;
     /* 2E */ u8 _pad_2D[0x32 - 0x2E];
     /* 32 */ s16 red;
     /* 34 */ s16 green;
     /* 36 */ s16 blue;
     /* 38 */ u8 _pad_38[0x44 - 0x38];
-    /* 44 */ u32 unk44;
-    /* 48 */ const u16 *unk48;
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 *frame_lut;
     /* 4C */ u32 debuff;
-    /* 50 */ u32 unk50;
+    /* 50 */ u32 debuf_bak;
 
     /* 54 */ u8 _pad_54[0x5C - 0x54];
     /* 5C */ struct Anim *anim;
@@ -242,38 +283,38 @@ struct ProcEfxWeaponIcon {
     PROC_HEADER;
 
     /* 29 */ STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ s16 unk2C;
+    /* 2C */ s16 timer;
     /* 2E */ STRUCT_PAD(0x2E, 0x44);
-    /* 44 */ u32 unk44;
-    /* 48 */ const u16 *unk48;
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 *frame_lut;
     /* 4C */ u32 unk4C;
-    /* 50 */ u32 unk50;
-    /* 54 */ int unk54;
-    /* 58 */ int unk58;
+    /* 50 */ u32 invalid;
+    /* 54 */ int eff1;
+    /* 58 */ int eff2;
 };
 
 extern struct ProcEfxWeaponIcon *gpProcEfxWeaponIcon;
 
 void NewEfxWeaponIcon(s16 a, s16 b);
 void EndProcEfxWeaponIcon(void);
-void EfxWeaponIconSet50(void);
-void EfxWeaponIconClear50(void);
+void DisableEfxWeaponIcon(void);
+void EnableEfxWeaponIcon(void);
 void sub_8054F10(struct ProcEfxWeaponIcon *proc);
 void sub_8054F78(struct ProcEfxWeaponIcon *proc);
 
 struct ProcEfxSpellCast {
     PROC_HEADER;
 
-    /* 29 */ u8 unk29;
+    /* 29 */ u8 done;
     /* 2A */ STRUCT_PAD(0x2A, 0x2C);
-    /* 2C */ s16 unk2C;
-    /* 2E */ s16 unk2E;
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
 };
 
 extern struct ProcEfxSpellCast *gpProcEfxSpellCast;
 
 void NewEfxSpellCast(void);
-void EfxSpellCastSet29(void);
+void RegisterEfxSpellCastEnd(void);
 void EndEfxSpellCast(void);
 void sub_8055038(struct ProcEfxSpellCast *proc);
 void sub_805509C(struct ProcEfxSpellCast *proc);
@@ -285,15 +326,14 @@ struct ProcEfxSkill {
     /* 29 */ STRUCT_PAD(0x29, 0x2C);
 
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
 
-    /* 30 */ STRUCT_PAD(0x30, 0x3A);
+    /* 2E */ STRUCT_PAD(0x2E, 0x3A);
 
-    /* 3A */ s16 unk3A;
+    /* 3A */ s16 caught_debuff;
 
     /* 3C */ STRUCT_PAD(0x3C, 0x44);
 
-    /* 44 */ u32 unk44;
+    /* 44 */ u32 frame;
     /* 48 */ const u16 *time_lut;
     /* 4C */ u16 **tsa_lut;
     /* 50 */ u16 **tsa_cur;
@@ -374,7 +414,7 @@ struct ProcEfxDamageMojiEffectOBJ {
 
     STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
+    /* 2E */ s16 terminator;
     STRUCT_PAD(0x30, 0x5C);
     /* 5C */ struct Anim *anim;
     /* 60 */ struct ProcEkrSubAnimeEmulator *sub_proc;
@@ -391,7 +431,15 @@ struct ProcEfxSRankSCR2 {
     /* 5C */ struct ProcEfx *seff_scr1;
 };
 
-extern u16 gEkrBgPalBackupMaybe[];
+struct ProcEkrHensei {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+};
+
+extern u16 gEfxPal[];
 // extern ??? gUnknown_02016828
 extern u16 gObjBuf_EkrSideHitDmgCrit[];
 // extern ??? gUnknown_02016DC8
@@ -409,7 +457,7 @@ extern u32 gUnknown_02017734;
 extern u32 gEkrDeadEventExist;
 extern u32 gUnknown_0201773C;
 extern u32 gUnknown_02017740;
-extern u32 gEkrPos2Maybe;
+extern u32 gEkrInitPosReal;
 extern u32 gUnknown_02017748;
 extern u32 gEfxBgSemaphore;
 extern u32 gUnknown_02017750;
@@ -420,7 +468,6 @@ struct Vec2 gEkrBg2QuakeVec;
 extern short gUnknown_02017764[2];
 extern short gUnknown_02017768[2];
 
-extern u32 gpProcEfxHPBarColorChange;
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 extern u8 gEkrImgBuffer[];
 extern u16 gUnknown_02019490[];
@@ -467,12 +514,12 @@ extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201F160
 // extern ??? gUnknown_0201F198
 // extern ??? gUnknown_0201F19C
-// extern ??? gUnknown_0201F948
-// extern ??? gUnknown_0201F978
-// extern ??? gUnknown_0201F9A8
-// extern ??? gUnknown_0201FA08
-// extern ??? gUnknown_0201FA38
-// extern ??? gUnknown_0201FA68
+extern u8 gUnknown_0201F948[];
+extern u8 gUnknown_0201F978[];
+extern u16 gUnknown_0201F9A8[];
+extern u8 gUnknown_0201FA08[];
+extern u8 gUnknown_0201FA38[];
+extern u16 gUnknown_0201FA68[];
 extern int gUnknown_0201FAC8;
 // extern ??? gEkrWindowAppearExist
 // extern ??? gEkrNamewinAppearExist
@@ -732,6 +779,566 @@ extern u16 gUnknown_080E1164[];
 // extern ??? gUnknown_080E6CC4
 // extern ??? gUnknown_080E7400
 // extern ??? gUnknown_080E7B8C
+
+extern char gNopStr[];
+// extern ??? gUnknown_085B9E4C
+extern u16 gUnknown_085BA0B8[];
+// extern ??? gUnknown_085BA2E0
+// extern ??? gUnknown_085BA300
+// extern ??? gUnknown_085BA320
+extern u16 gUnknown_085BB0C8[];
+extern u16 gUnknown_085BB2DC[];
+// extern ??? gUnknown_085BC188
+// extern ??? gUnknown_085BE7F4
+// extern ??? gUnknown_085BEF94
+// extern ??? gUnknown_085C48AC
+// extern ??? gUnknown_085C5994
+// extern ??? gUnknown_085C6054
+// extern ??? gUnknown_085C60D4
+// extern ??? gUnknown_085C6730
+// extern ??? gUnknown_085C71E4
+// extern ??? gUnknown_085C72AC
+// extern ??? gUnknown_085C7338
+// extern ??? gUnknown_085C73B8
+// extern ??? gUnknown_085C7438
+extern u16 *gUnknown_085C81A4[];
+extern u16 *gUnknown_085C8218[];
+// extern ??? gUnknown_085C8278
+// extern ??? gUnknown_085C9270
+// extern ??? gUnknown_085C92A0
+// extern ??? gUnknown_085C92D0
+// extern ??? gUnknown_085C92EC
+// extern ??? gUnknown_085C9328
+extern u16 gUnknown_085CFB70[];
+extern u16 gUnknown_085D0820[];
+extern u16 gUnknown_085D0A20[];
+extern u16 gUnknown_085D0CE0[];
+extern u16 gUnknown_085D0FD0[];
+extern u16 gUnknown_085D1470[];
+
+// extern ??? gUnknown_085D99EC
+// extern ??? gUnknown_085D9A1C
+// extern ??? gUnknown_085D9A2C
+// extern ??? gUnknown_085D9A94
+// extern ??? gUnknown_085D9AFC
+// extern ??? gUnknown_085D9B64
+// extern ??? gUnknown_085D9B74
+// extern ??? gUnknown_085D9BA4
+// extern ??? gUnknown_085D9BB4
+// extern ??? gUnknown_085D9C00
+// extern ??? gUnknown_085D9C4C
+// extern ??? gUnknown_085D9C5C
+// extern ??? gUnknown_085DA05C
+// extern ??? gUnknown_085DA364
+// extern ??? gUnknown_085DA3C0
+// extern ??? gUnknown_085DA3E0
+// extern ??? gUnknown_085DA6FC
+// extern ??? gUnknown_085DA758
+// extern ??? gUnknown_085DA778
+// extern ??? gUnknown_085DA7AC
+// extern ??? gUnknown_085DA854
+// extern ??? gUnknown_085DA864
+// extern ??? gUnknown_085DA8E0
+// extern ??? gUnknown_085DA8F0
+// extern ??? gUnknown_085DA900
+// extern ??? gUnknown_085DAB30
+// extern ??? gUnknown_085DAB50
+// extern ??? gUnknown_085DAD6C
+// extern ??? gUnknown_085DAD8C
+// extern ??? gUnknown_085DAFA4
+// extern ??? gUnknown_085DAFC4
+// extern ??? gUnknown_085DB1E0
+// extern ??? gUnknown_085DB200
+// extern ??? gUnknown_085DB42C
+// extern ??? gUnknown_085DB44C
+// extern ??? gUnknown_085DB694
+// extern ??? gUnknown_085DB6B4
+// extern ??? gUnknown_085DB8EC
+// extern ??? gUnknown_085DB90C
+// extern ??? gUnknown_085DBB70
+// extern ??? gUnknown_085DBB90
+// extern ??? gUnknown_085DBE00
+// extern ??? gUnknown_085DBE20
+// extern ??? gUnknown_085DC050
+// extern ??? gUnknown_085DC244
+// extern ??? gUnknown_085DC498
+// extern ??? gUnknown_085DC6F8
+// extern ??? gUnknown_085DC958
+// extern ??? gUnknown_085DCA5C
+// extern ??? gUnknown_085DCAF8
+extern u16 gUnknown_085DCB10[];
+extern u16 gUnknown_085DCC84[];
+extern u32 gUnknown_085DD484[];
+extern u32 gUnknown_085DD4B4[];
+// extern ??? gUnknown_085DDC64
+// extern ??? gUnknown_085DE964
+extern u16 gUnknown_085DE984[];
+extern u16 gUnknown_085DF224[];
+extern u16 gUnknown_085DFA08[];
+// extern ??? gUnknown_085DFA28
+// extern ??? gUnknown_085DFA48
+// extern ??? gUnknown_085DFA68
+// extern ??? gUnknown_085E067C
+// extern ??? gUnknown_085E12DC
+extern u32 gUnknown_085E15F4[];
+extern u32 gUnknown_085E163C[];
+extern u32 gUnknown_085E1960[];
+extern u32 gUnknown_085E19A8[];
+extern u32 gUnknown_085E1C48[];
+extern u32 gUnknown_085E1C58[];
+extern u32 gUnknown_085E1EA4[];
+extern u32 gUnknown_085E1EB4[];
+// extern ??? gUnknown_085E2A24
+// extern ??? gUnknown_085E35DC
+// extern ??? gUnknown_085E420C
+// extern ??? gUnknown_085E4E3C
+// extern ??? gUnknown_085E5A78
+// extern ??? gUnknown_085E5AE4
+extern u16 gUnknown_085E7028[];
+extern u16 gUnknown_085E8108[];
+extern u16 gUnknown_085E8308[];
+extern u16 gUnknown_085E87A8[];
+extern u16 gUnknown_085E8C04[];
+extern u16 gUnknown_085E8CC4[];
+extern u16 gUnknown_085E8CE4[];
+extern u16 gUnknown_085E8D88[];
+extern u16 gUnknown_085E9150[];
+extern u32 gUnknown_085EAB58[];
+extern u32 gUnknown_085EAC5C[];
+extern u32 gUnknown_085EAC84[];
+extern u32 gUnknown_085EBDF8[];
+extern u32 gUnknown_085EBEFC[];
+extern u32 gUnknown_085EBF24[];
+extern u32 gUnknown_085ED0C8[];
+extern u32 gUnknown_085ED1CC[];
+extern u32 gUnknown_085ED1F4[];
+extern u32 gUnknown_085EE398[];
+extern u32 gUnknown_085EE49C[];
+extern u32 gUnknown_085EE4C4[];
+extern u16 gUnknown_085EE4F8[];
+extern u16 gUnknown_085EF24C[];
+extern u16 gUnknown_085F0190[];
+extern u16 gUnknown_085F0E04[];
+extern u16 gUnknown_085F11B0[];
+extern u16 gUnknown_085F1620[];
+extern u16 gUnknown_085F1640[];
+extern u16 gUnknown_085F1660[];
+extern u32 gUnknown_085F1710[];
+extern u32 gUnknown_085F17B4[];
+extern u32 gUnknown_085F1858[];
+extern u32 gUnknown_085F18FC[];
+extern u32 gUnknown_085F19A0[];
+extern u32 gUnknown_085F1A44[];
+extern u32 gUnknown_085F1BD8[];
+extern u32 gUnknown_085F1D6C[];
+extern u32 gUnknown_085F1F18[];
+extern u32 gUnknown_085F20C4[];
+extern u32 gUnknown_085F2270[];
+extern u32 gUnknown_085F2418[];
+extern u32 gUnknown_085F24F4[];
+extern u32 gUnknown_085F25D8[];
+extern u32 gUnknown_085F26E0[];
+extern u32 gUnknown_085F27E4[];
+extern u32 gUnknown_085F29C0[];
+extern u32 gUnknown_085F2C3C[];
+extern u32 gUnknown_085F2D44[];
+extern u32 gUnknown_085F2DAC[];
+extern u16 gUnknown_085F2DC0[];
+extern u16 gUnknown_085F367C[];
+extern u16 gUnknown_085F3AA8[];
+extern u16 gUnknown_085F3F40[];
+extern u32 gUnknown_085F4A24[];
+extern u32 gUnknown_085F5550[];
+extern u16 gUnknown_085F5638[];
+extern u16 gUnknown_085F6230[];
+extern u16 gUnknown_085F7768[];
+extern u16 gUnknown_085F7D64[];
+extern u32 gUnknown_085F80B4[];
+extern u32 gUnknown_085F80E0[];
+extern u32 gUnknown_085F843C[];
+extern u32 gUnknown_085F8468[];
+extern u16 gUnknown_0860108C[];
+extern u16 gUnknown_08602B94[];
+extern u16 gUnknown_08603B50[];
+extern u16 gUnknown_08603D50[];
+extern u16 gUnknown_08603F98[];
+extern u16 gUnknown_08604210[];
+extern u32 gUnknown_08604FD4[];
+extern u32 gUnknown_08605DF4[];
+// extern ??? gUnknown_08608838
+// extern ??? gUnknown_0860A5D4
+// extern ??? gUnknown_086101DC
+// extern ??? gUnknown_08617F04
+// extern ??? gUnknown_08618BBC
+// extern ??? gUnknown_0861ACB8
+// extern ??? gUnknown_0861AD24
+// extern ??? gUnknown_0861AD84
+// extern ??? gUnknown_0861AD8C
+// extern ??? gUnknown_08621960
+// extern ??? gUnknown_08622F2C
+// extern ??? gUnknown_086234D8
+// extern ??? gUnknown_08623A9C
+// extern ??? gUnknown_08625094
+// extern ??? gUnknown_08625148
+// extern ??? gUnknown_086267D8
+// extern ??? gUnknown_0862688C
+// extern ??? gUnknown_0862A2D0
+// extern ??? gUnknown_0862A2F0
+// extern ??? gUnknown_0862C82C
+// extern ??? gUnknown_0862CC2C
+// extern ??? gUnknown_0862D06C
+// extern ??? gUnknown_0862D424
+// extern ??? gUnknown_0862D6A8
+// extern ??? gUnknown_0862D6E0
+// extern ??? gUnknown_0862D82C
+// extern ??? gUnknown_0862DC24
+// extern ??? gUnknown_0862DC58
+// extern ??? gUnknown_0862DCE0
+// extern ??? gUnknown_08636640
+// extern ??? gUnknown_08641D64
+// extern ??? gUnknown_08641D84
+// extern ??? gUnknown_08645DD8
+// extern ??? gUnknown_08645F44
+// extern ??? gUnknown_08646510
+// extern ??? gUnknown_0864E790
+// extern ??? gUnknown_0864E7B0
+// extern ??? gUnknown_086508DC
+// extern ??? gUnknown_08650DA8
+// extern ??? gUnknown_08651240
+// extern ??? gUnknown_0865163C
+// extern ??? gUnknown_086517DC
+// extern ??? gUnknown_08651AE4
+// extern ??? gUnknown_08651DE0
+// extern ??? gUnknown_08651DF4
+// extern ??? gUnknown_08652554
+// extern ??? gUnknown_08652734
+// extern ??? gUnknown_086568F4
+// extern ??? gUnknown_08656914
+// extern ??? gUnknown_0865AF3C
+// extern ??? gUnknown_0865BAB8
+// extern ??? gUnknown_0865BAD8
+// extern ??? gUnknown_0865C77C
+// extern ??? gUnknown_0865C7A8
+// extern ??? gUnknown_0865C7D4
+// extern ??? gUnknown_0866EFF0
+// extern ??? gUnknown_0866F2B4
+// extern ??? gUnknown_0866F58C
+// extern ??? gUnknown_0866F5E4
+// extern ??? gUnknown_0866F774
+// extern ??? gUnknown_086700D4
+// extern ??? gUnknown_086702D4
+// extern ??? gUnknown_08670528
+// extern ??? gUnknown_08670548
+// extern ??? gUnknown_08670D40
+// extern ??? gUnknown_086716A0
+// extern ??? gUnknown_08672000
+// extern ??? gUnknown_08672220
+// extern ??? gUnknown_08675114
+// extern ??? gUnknown_086751A4
+// extern ??? gUnknown_086766C0
+// extern ??? gUnknown_08676734
+// extern ??? gUnknown_08677CC0
+// extern ??? gUnknown_08677D34
+// extern ??? gUnknown_08678720
+// extern ??? gUnknown_08678920
+// extern ??? gUnknown_08678B20
+// extern ??? gUnknown_0867B5A4
+// extern ??? gUnknown_0867EE04
+// extern ??? gUnknown_0867EEB4
+// extern ??? gUnknown_086808A0
+// extern ??? gUnknown_08680DC0
+// extern ??? gUnknown_08680FFC
+// extern ??? gUnknown_086810B8
+// extern ??? gUnknown_08684908
+// extern ??? gUnknown_086849B8
+// extern ??? gUnknown_08684AB8
+// extern ??? gUnknown_086852D8
+// extern ??? gUnknown_086861A4
+// extern ??? gUnknown_08686F84
+// extern ??? gUnknown_0868716C
+// extern ??? gUnknown_0868718C
+// extern ??? gUnknown_0868C168
+// extern ??? gUnknown_0868C2E8
+// extern ??? gUnknown_0868C338
+// extern ??? gUnknown_0868C358
+// extern ??? gUnknown_0868C7F0
+// extern ??? gUnknown_0868CC10
+// extern ??? gUnknown_0868D2B4
+// extern ??? gUnknown_0868D2C8
+// extern ??? gUnknown_0868D2DC
+// extern ??? gUnknown_0868D2F0
+// extern ??? gUnknown_0868D304
+// extern ??? gUnknown_0868D678
+// extern ??? gUnknown_0868D684
+// extern ??? gUnknown_0868D690
+// extern ??? gUnknown_0868D69C
+// extern ??? gUnknown_0868D6A8
+// extern ??? gUnknown_0868D6D0
+// extern ??? gUnknown_0868DF5C
+// extern ??? gUnknown_0868E46C
+// extern ??? gUnknown_08692524
+// extern ??? gUnknown_08692674
+// extern ??? gUnknown_086926E0
+// extern ??? gUnknown_08692B10
+// extern ??? gUnknown_086937C0
+// extern ??? gUnknown_086945C4
+// extern ??? gUnknown_08695B10
+// extern ??? gUnknown_08696840
+// extern ??? gUnknown_086A06A8
+// extern ??? gUnknown_086A1CE0
+// extern ??? gUnknown_086A21F4
+// extern ??? gUnknown_086A2614
+// extern ??? gUnknown_086A2724
+// extern ??? gUnknown_086A273C
+// extern ??? gUnknown_086A2844
+// extern ??? gUnknown_086A285C
+// extern ??? gUnknown_086A2874
+// extern ??? gUnknown_086A2CE8
+// extern ??? gUnknown_086A2DBC
+// extern ??? gUnknown_086A2DD0
+// extern ??? gUnknown_086A2E98
+// extern ??? gUnknown_086A2EAC
+// extern ??? gUnknown_086A66D8
+// extern ??? gUnknown_086B52CC
+// extern ??? gUnknown_086B5580
+// extern ??? gUnknown_086B58DC
+// extern ??? gUnknown_086B5974
+// extern ??? gUnknown_086B5984
+// extern ??? gUnknown_086B598C
+// extern ??? gUnknown_086B5A2C
+// extern ??? gUnknown_086B5A4C
+// extern ??? gUnknown_086B5EAC
+// extern ??? gUnknown_086BC824
+// extern ??? gUnknown_086BD260
+// extern ??? gUnknown_086BD76C
+// extern ??? gUnknown_086BDA5C
+// extern ??? gUnknown_086C790C
+// extern ??? gUnknown_086C792C
+// extern ??? gUnknown_086C794C
+// extern ??? gUnknown_086C90A4
+// extern ??? gUnknown_086C93FC
+// extern ??? gUnknown_086C95C0
+// extern ??? gUnknown_086C978C
+// extern ??? gUnknown_086D8A94
+// extern ??? gUnknown_086D9C40
+// extern ??? gUnknown_086DA33C
+// extern ??? gUnknown_086DA920
+// extern ??? gUnknown_086E7EB0
+// extern ??? gUnknown_086E91B8
+// extern ??? gUnknown_086E9D40
+// extern ??? gUnknown_086EA3EC
+// extern ??? gUnknown_086EAE14
+// extern ??? gUnknown_086EAE24
+// extern ??? gUnknown_086FDA44
+// extern ??? gUnknown_086FE938
+// extern ??? gUnknown_086FF3A4
+// extern ??? gUnknown_086FF5EC
+// extern ??? gUnknown_086FFD3C
+// extern ??? gUnknown_087013A0
+// extern ??? gUnknown_087197E4
+// extern ??? gUnknown_08720D84
+// extern ??? gUnknown_08723208
+// extern ??? gUnknown_08724424
+// extern ??? gUnknown_087246D8
+// extern ??? gUnknown_08725AD0
+// extern ??? gUnknown_08725AF0
+// extern ??? gUnknown_08725DAC
+// extern ??? gUnknown_08725DCC
+// extern ??? gUnknown_08726FF4
+// extern ??? gUnknown_087270B4
+// extern ??? gUnknown_08727510
+// extern ??? gUnknown_0872796C
+// extern ??? gUnknown_08727C48
+// extern ??? gUnknown_0872865C
+// extern ??? gUnknown_08728920
+// extern ??? gUnknown_08728C04
+// extern ??? gUnknown_08728C5C
+// extern ??? gUnknown_0872972C
+// extern ??? gUnknown_0872987C
+// extern ??? gUnknown_08729FDC
+// extern ??? gUnknown_0872A1BC
+// extern ??? gUnknown_0872CE60
+// extern ??? gUnknown_0872DA04
+// extern ??? gUnknown_0872DE04
+// extern ??? gUnknown_0872DFEC
+// extern ??? gUnknown_0872E024
+// extern ??? gUnknown_0872E24C
+// extern ??? gUnknown_0872E25C
+// extern ??? gUnknown_0872E64C
+// extern ??? gUnknown_0872E7EC
+extern u16 gUnknown_0872E998[];
+// extern ??? gUnknown_0872FA04
+// extern ??? gUnknown_0872FA84
+// extern ??? gUnknown_0872FEB8
+// extern ??? gUnknown_087302A4
+// extern ??? gUnknown_08730324
+// extern ??? gUnknown_08730780
+// extern ??? gUnknown_087312BC
+// extern ??? gUnknown_08731348
+// extern ??? gUnknown_087313C8
+// extern ??? gUnknown_08732228
+// extern ??? gUnknown_08732368
+// extern ??? gUnknown_087327C4
+// extern ??? gUnknown_0873313C
+// extern ??? gUnknown_0874394C
+extern u32 gUnknown_087456E8[];
+extern u32 gUnknown_08746508[];
+extern u32 gUnknown_0874670C[];
+// extern ??? gUnknown_08750268
+// extern ??? gUnknown_08751808
+// extern ??? gUnknown_08751DB4
+// extern ??? gUnknown_08752020
+// extern ??? gUnknown_08754870
+// extern ??? gUnknown_08755FD4
+// extern ??? gUnknown_08758134
+extern u16 gUnknown_08758218[];
+extern u32 gUnknown_087584B8[];
+extern u32 gUnknown_087585DC[];
+// extern ??? gEkrDracoZombiTsaSetLut
+extern struct ProcCmd ProcScr_EkrDracoZombie[];
+extern struct ProcCmd ProcScr_ekrDragonQuake[];
+extern struct ProcCmd ProcScr_ekrWhiteINOUT[];
+// extern ??? gUnknown_08758720
+// extern ??? gUnknown_08758740
+// extern ??? ProcScr_EkrMyrrh
+extern struct ProcCmd ProcScr_EkrMyrrh[];
+extern short gUnknown_0875879C[];
+// extern ??? gUnknown_08758A1C
+extern struct ProcCmd ProcScr_ekrsubAnimeEmulator[];
+extern struct ProcCmd ProcScr_efxSoundSE[];
+// extern ??? gUnknown_08758A60
+// extern ??? gUnknown_08758D20
+// extern ??? gUnknown_08758D3C
+// extern ??? gUnknown_08758D58
+// extern ??? gUnknown_08758D74
+// extern ??? gUnknown_08758E00
+// extern ??? gUnknown_08758E8C
+// extern ??? gUnknown_08758F18
+// extern ??? gUnknown_08758FA4
+// extern ??? ProcScr_efxClasschg
+// extern ??? ProcScr_efxClasschgBG
+// extern ??? gUnknown_08759000
+// extern ??? gUnknown_08759094
+// extern ??? gUnknown_08759128
+// extern ??? ProcScr_efxClasschgBGSE00
+// extern ??? ProcScr_efxClasschgBGSE01
+// extern ??? ProcScr_efxClasschgOBJGain
+// extern ??? ProcScr_efxClasschgOBJDrop
+// extern ??? ProcScr_efxClasschgOBJDiffusion
+// extern ??? ProcScr_efxClasschgFIN
+// extern ??? ProcScr_efxClasschgCLONE
+// extern ??? ProcScr_efxBlackInOutUnit
+// extern ??? ProcScr_efxWhiteInOutUnit
+// extern ??? ProcScr_efxClasschgRST
+extern struct FaceVramEntry gUnknown_087592CC[4];
+// extern ??? EkrLvupMsgsStr
+// extern ??? EkrLvupMsgsMag
+// extern ??? ProcScr_EkrLevelup
+// extern ??? ProcScr_EfxPartsofScroll
+// extern ??? ProcScr_EfxPartsofScroll2
+// extern ??? gUnknown_0875941C
+// extern ??? ProcScr_Efxleveluphb
+// extern ??? ProcScr_Efxlvupbg
+// extern ??? gUnknown_0875949C
+// extern ??? gUnknown_087594C8
+// extern ??? ProcScr_efxLvupBG2
+// extern ??? gUnknown_0875950C
+// extern ??? ProcScr_efxLvupOBJ2
+// extern ??? ProcScr_efxLvupBGCOL
+// extern ??? ProcScr_EkrLvupApfx
+// extern ??? ProcScr_eobjLvup
+
+// extern ??? gUnknown_08759B34
+// extern ??? gUnknown_08759E68
+// extern ??? gUnknown_08759F00
+// extern ??? gUnknown_08759F90
+// extern ??? gUnknown_0875A020
+// extern ??? gUnknown_0875A0AC
+// extern ??? gUnknown_0875A19C
+// extern ??? gUnknown_0875A314
+// extern ??? gUnknown_0875A468
+// extern ??? gUnknown_0875A730
+extern u16 *gBattleBGDataTable[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrPopup[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrPopup2[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrHenseiInit[];
+extern CONST_DATA struct ProcCmd ProcScr_ekrHenseiEnd[];
+
+extern u16 gUnknown_08801C14[];
+extern u16 Img_EfxLeftNameBox[];
+extern u16 Img_EfxLeftItemBox[];
+extern u16 Img_EfxRightNameBox[];
+extern u16 Img_EfxRightItemBox[];
+extern u8 gUnknown_0880210C[];
+extern u8 gUnknown_088021C0[];
+extern u8 gUnknown_08802274[];
+extern u8 gUnknown_08802348[];
+extern u8 gUnknown_08802428[];
+extern u8 gUnknown_08802508[];
+extern u16 gUnknown_08802558[];
+extern u16 Img_EfxSideHitDmgCrit[];
+extern u16 Img_EfxWTAArrow1[];
+extern u16 Img_EfxWTAArrow2[];
+extern u16 gUnknown_088026E4[];
+extern u16 gUnknown_08802884[];
+extern u16 gUnknown_08802904[];
+extern u16 gUnknown_08802B04[];
+extern u16 gPalEfxHpBarGreen[];
+extern u16 gUnknown_08802BC4[];
+extern u16 gPalEfxHpBarPurple[];
+extern u16 gUnknown_08802D24[];
+
+void NewEfxFarAttackWithDistance(struct Anim *anim, int arg);
+// ??? sub_80534AC(???);
+// ??? sub_80534E4(???);
+// ??? sub_8053514(???);
+// ??? sub_8053584(???);
+void sub_8053618();
+ProcPtr NewEfxQuakePure(int, int);
+// ??? sub_80536B8(???);
+// ??? NewEfxHitQuakePure(???);
+// ??? nullsub_56(???);
+ProcPtr NewEfxQuake(int);
+// ??? sub_805382C(???);
+void NewEfxHitQuake(struct Anim *anim1, struct Anim *anim2, int);
+// ??? sub_8053BBC(???);
+void NewEfxFlashBgWhite(struct Anim * anim, int duartion);
+void NewEfxFlashBgRed(struct Anim * anim, int duartion);
+void NewEfxFlashBgBlack(struct Anim * anim, int duartion);
+void NewEfxFlashBgDirectly(struct Anim * anim, int duartion);
+void EfxFlashBgMain(struct ProcEfxFlashing * proc);
+void EfxFlashRestorePalSync(struct ProcEfxFlashing * proc);
+void NewEfxWhiteOUT(struct Anim * anim, int duartion, int duartion2);
+void EfxWhiteOutMain1(struct ProcEfxFlashing * proc);
+void EfxWhiteOutMain2(struct ProcEfxFlashing * proc);
+void EfxWhiteOutRestorePalSync(struct ProcEfxFlashing * proc);
+void NewEfxWhiteIN(struct Anim * anim, int duartion, int duartion2);
+void EfxWhiteInMain1(struct ProcEfxFlashing * proc);
+void EfxWhiteInMain2(struct ProcEfxFlashing * proc);
+void EfxWhiteInRestorePalSync(struct ProcEfxFlashing * proc);
+void NewEfxBlackOUT(struct Anim * anim, int duartion, int duartion2);
+void EfxBlackOutMain1(struct ProcEfxFlashing * proc);
+void EfxBlackOutMain2(struct ProcEfxFlashing * proc);
+void EfxBlackOutRestorePalSync(struct ProcEfxFlashing * proc);
+void NewEfxBlackIN(struct Anim * anim, int duartion, int duartion2);
+void EfxBlackInMain1(struct ProcEfxFlashing * proc);
+void EfxBlackInMain2(struct ProcEfxFlashing * proc);
+void EfxBlackInRestorePalSync(struct ProcEfxFlashing * proc);
+void NewEfxFlashHPBar(struct Anim * anim, int duartion, int duartion2);
+void EfxFlashHPBarDelay(struct ProcEfxFlashing * proc);
+void EfxFlashHPBarMain1(struct ProcEfxFlashing * proc);
+void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc);
+void NewEfxHPBarColorChange(struct Anim * anim);
+void EndEfxHPBarColorChange(void);
+void EfxHPBarColorChangeSet29(void);
+void EfxHPBarColorChangeClear29(void);
+void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc);
+void NewEfxFlashUnit(struct Anim * anim, int a, int b, int c);
+void EfxFlashUnitMain(struct ProcEfxFlashing * proc);
+void EfxFlashUnitRestorePal(struct ProcEfxFlashing * proc);
+void NewEfxFlashUnitEffectEnd(struct Anim * anim, int dura1, int dura2, int c);
+void EfxFlashUnitEffectMain(struct ProcEfxFlashing * proc);
+void EfxFlashUnitEffectRestorePal(struct ProcEfxFlashing * proc);
 
 // ??? sub_806B534(???);
 // ??? sub_806B64C(???);

@@ -919,7 +919,7 @@ _0805773E:
 	negs r0, r0
 	ands r0, r1
 	bl GetAllegienceId
-	ldr r1, _080579E0  @ gBanimSomeObjPalIndex
+	ldr r1, _080579E0  @ gPalIndexEfxHpBarUnk
 	strh r0, [r1]
 _08057758:
 	ldr r5, [sp, #0x28]
@@ -932,7 +932,7 @@ _08057758:
 	negs r0, r0
 	ands r0, r1
 	bl GetAllegienceId
-	ldr r1, _080579E0  @ gBanimSomeObjPalIndex
+	ldr r1, _080579E0  @ gPalIndexEfxHpBarUnk
 	strh r0, [r1, #2]
 _08057772:
 	ldr r1, _080579E4  @ gEkrPids
@@ -1267,7 +1267,7 @@ _080579D2:
 	b _08057A1E
 	.align 2, 0
 _080579DC: .4byte gAnims
-_080579E0: .4byte gBanimSomeObjPalIndex
+_080579E0: .4byte gPalIndexEfxHpBarUnk
 _080579E4: .4byte gEkrPids
 _080579E8: .4byte gEkrPairHit
 _080579EC: .4byte 0x0000FFFF

@@ -319,7 +319,7 @@ _08056A72:
 	adds r0, r0, r1
 	ldrb r3, [r0]
 	strh r3, [r4, #0x38]
-	ldr r0, _08056B48  @ gEkrPos2Maybe
+	ldr r0, _08056B48  @ gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r0, #0
 	bne _08056B50
@@ -358,7 +358,7 @@ _08056B38: .4byte 0x06014000
 _08056B3C: .4byte gEkrPairBmLoc
 _08056B40: .4byte BanimTypesPosLeft
 _08056B44: .4byte BanimTypesPosRight
-_08056B48: .4byte gEkrPos2Maybe
+_08056B48: .4byte gEkrInitPosReal
 _08056B4C: .4byte BanimLeftDefaultPos
 _08056B50:
 	ldr r0, _08056B6C  @ BanimLeftDefaultPos

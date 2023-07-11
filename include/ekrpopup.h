@@ -8,12 +8,12 @@ struct ProcEkrPopup {
 
     /* 2E */ STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
+    /* 2E */ s16 terminator;
     /* 30 */ STRUCT_PAD(0x30, 0x44);
-    /* 44 */ int unk44;
-    /* 48 */ int unk48;
-    /* 4C */ int unk4C;
-    /* 50 */ int unk50;
+    /* 44 */ int lbuff;
+    /* 48 */ int ldebuf;
+    /* 4C */ int rbuf;
+    /* 50 */ int rdebuf;
     /* 54 */ STRUCT_PAD(0x54, 0x60);
     /* 60 */ struct Anim *anim;
 };

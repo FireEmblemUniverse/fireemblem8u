@@ -322,7 +322,7 @@ void EkrLvup_OnPrepare(struct ProcEkrLevelup *proc)
     }
 
     if (timer == 73) {
-        EfxSpellCastSet29();
+        RegisterEfxSpellCastEnd();
         return;
     }
 
@@ -358,7 +358,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     buf->unk10 = gEkrSnowWeather;
 
     if (gEkrDistanceType == 2) {
-        if (gEkrPos2Maybe == 0)
+        if (gEkrInitPosReal == 0)
             buf->unk06 = -1;
         else
             buf->unk00 = -1;
@@ -416,7 +416,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     DisableEfxStatusUnits(proc->ais_main);
     DisableEfxStatusUnits(proc->ais_core);
 
-    EfxWeaponIconSet50();
+    DisableEfxWeaponIcon();
     EfxHPBarColorChangeSet29();
 
     SetWinEnable(0, 0, 0);
@@ -482,7 +482,7 @@ void EkrLvup_InitPalette(struct ProcEkrLevelup *proc)
         proc->unk_4C = -2;
         proc->unk_50 = -4;
 
-        CpuFastCopy(PAL_BG(0), gEkrBgPalBackupMaybe, 0x400);
+        CpuFastCopy(PAL_BG(0), gEfxPal, 0x400);
 
         Proc_Break(proc);
     }
@@ -515,7 +515,7 @@ void EkrLvup_PutWindowOnScreen(struct ProcEkrLevelup *proc)
 
     gFaces[0]->yPos = EKR_LVUP_UI_BASE - pos;
 
-    CpuFastCopy(gEkrBgPalBackupMaybe, PAL_BG(0), 0x400);
+    CpuFastCopy(gEfxPal, PAL_BG(0), 0x400);
     EkrMaybePalFadeWithVal(PAL_BG(0), 2, 4, pal);
     EkrMaybePalFadeWithVal(PAL_BG(0), 0x13, 0xC, pal);
     EnablePaletteSync();
@@ -693,7 +693,7 @@ void EkrLvup_PutWindowOffScreen(struct ProcEkrLevelup *proc)
 
     gFaces[0]->yPos = EKR_LVUP_UI_BASE - pos;
 
-    CpuFastCopy(gEkrBgPalBackupMaybe, PAL_BG(0), 0x400);
+    CpuFastCopy(gEfxPal, PAL_BG(0), 0x400);
     EkrMaybePalFadeWithVal(PAL_BG(0), 2, 4, pal);
     EkrMaybePalFadeWithVal(PAL_BG(0), 0x13, 0xC, pal);
     EnablePaletteSync();
@@ -772,7 +772,7 @@ void EkrLvup_OnEnd(struct ProcEkrLevelup *proc)
 
     EnableEfxStatusUnits(proc->ais_main);
     EnableEfxStatusUnits(proc->ais_core);
-    EfxWeaponIconClear50();
+    EnableEfxWeaponIcon();
     EfxHPBarColorChangeClear29();
     proc->finished = true;
 }

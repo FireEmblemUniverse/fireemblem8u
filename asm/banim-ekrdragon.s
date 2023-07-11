@@ -249,7 +249,7 @@ sub_80705A8: @ 0x080705A8
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08070610  @ gPaletteBuffer
-	ldr r4, _08070614  @ gEkrBgPalBackupMaybe
+	ldr r4, _08070614  @ gEfxPal
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -285,7 +285,7 @@ _08070608:
 	bx r0
 	.align 2, 0
 _08070610: .4byte gPaletteBuffer
-_08070614: .4byte gEkrBgPalBackupMaybe
+_08070614: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_80705A8
 
@@ -294,7 +294,7 @@ sub_8070618: @ 0x08070618
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, _08070668  @ gPaletteBuffer
-	ldr r4, _0807066C  @ gEkrBgPalBackupMaybe
+	ldr r4, _0807066C  @ gEfxPal
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -329,7 +329,7 @@ _08070662:
 	bx r0
 	.align 2, 0
 _08070668: .4byte gPaletteBuffer
-_0807066C: .4byte gEkrBgPalBackupMaybe
+_0807066C: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_8070618
 
@@ -348,7 +348,7 @@ sub_8070670: @ 0x08070670
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _080706D8  @ gPaletteBuffer
-	ldr r4, _080706DC  @ gEkrBgPalBackupMaybe
+	ldr r4, _080706DC  @ gEfxPal
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -384,7 +384,7 @@ _080706D0:
 	bx r0
 	.align 2, 0
 _080706D8: .4byte gPaletteBuffer
-_080706DC: .4byte gEkrBgPalBackupMaybe
+_080706DC: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_8070670
 

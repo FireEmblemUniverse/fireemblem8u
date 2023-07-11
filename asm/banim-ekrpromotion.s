@@ -153,7 +153,7 @@ _08072AFE:
 	bne _08072B16
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xa
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	movs r0, #1
 	movs r1, #0
 	movs r2, #8
@@ -251,7 +251,7 @@ _08072BC4:
 	bl SetAnimStateUnHidden
 	ldr r0, [r4, #0x5c]
 	movs r1, #8
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #0x20
@@ -271,11 +271,11 @@ _08072BEC:
 	adds r0, r2, #0
 	orrs r1, r0
 	strh r1, [r5, #8]
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r5, #0
 	movs r1, #0xa
 	movs r2, #0x46
-	bl sub_8054134
+	bl NewEfxWhiteIN
 	b _08072C94
 	.align 2, 0
 _08072C14: .4byte 0x0000F3FF
@@ -606,7 +606,7 @@ sub_8072E60: @ 0x08072E60
 	adds r1, r5, #0
 	adds r1, #0x44
 	ldr r2, [r5, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -768,7 +768,7 @@ NewEfxClasschgOBJGain: @ 0x08072F84
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x60]
 	ldr r0, _08072FC8  @ gUnknown_08792194
 	movs r1, #0x20
@@ -818,7 +818,7 @@ NewEfxClasschgOBJDrop: @ 0x08072FE8
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x60]
 	ldr r0, _0807302C  @ gUnknown_08792194
 	movs r1, #0x20
@@ -880,7 +880,7 @@ _08073074:
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x60]
 	ldr r0, _080730A4  @ gUnknown_08792194
 	movs r1, #0x20

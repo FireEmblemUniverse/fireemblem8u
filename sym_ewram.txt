@@ -149,7 +149,7 @@
 . = 0x0146F4; gUnknown_020146F4 = .;
 . = 0x014DC8; gUnknown_02014DC8 = .;
 . = 0x014EF4; gUnknown_02014EF4 = .;
-. = 0x0165C8; gEkrBgPalBackupMaybe = .;
+. = 0x0165C8; gEfxPal = .;
 . = 0x016828; gUnknown_02016828 = .;
 . = 0x0169C8; gObjBuf_EkrSideHitDmgCrit = .;
 . = 0x016DC8; gUnknown_02016DC8 = .;
@@ -173,7 +173,7 @@
 . = 0x017738; gEkrDeadEventExist = .;
 . = 0x01773C; gUnknown_0201773C = .;
 . = 0x017740; gUnknown_02017740 = .;
-. = 0x017744; gEkrPos2Maybe = .;
+. = 0x017744; gEkrInitPosReal = .;
 . = 0x017748; gUnknown_02017748 = .;
 . = 0x01774C; gEfxBgSemaphore = .;
 . = 0x017750; gUnknown_02017750 = .;
@@ -307,8 +307,8 @@
 . = 0x022BA8; gUnknown_02022BA8 = .;
 . = 0x022BC8; gUnknown_02022BC8 = .;
 . = 0x022BE8; gUnknown_02022BE8 = .;
-. = 0x022C08; gUnknown_02022C08 = .;
-. = 0x022C28; gUnknown_02022C28 = .;
+. = 0x022C08; gPalEfxHpBarLeft = .;
+. = 0x022C28; gPalEfxHpBarRight = .;
 . = 0x022C48; gUnknown_02022C48 = .;
 . = 0x022C68; gUnknown_02022C68 = .;
 . = 0x022CA8; gBG0TilemapBuffer = .;
@@ -465,7 +465,7 @@
 . = 0x03E108; gEkrInitialPosition = .;
 . = 0x03E10C; gEkrPairBanimID = .;
 . = 0x03E110; gBattleInitSide = .;
-. = 0x03E114; gBanimSomeObjPalIndex = .;
+. = 0x03E114; gPalIndexEfxHpBarUnk = .;
 . = 0x03E118; gEkrSpellAnimIndex = .;
 . = 0x03E11A; gUnknown_0203E11A = .;
 . = 0x03E11C; gBanimTerrainIndexMaybe = .;

@@ -94,7 +94,7 @@ void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon *proc)
 
         if (gEkrDracoZombiTsaSetLut[proc->tcounter].tsa == NULL) {
             proc->timer = 0;
-            StartSpellBG_FLASH(proc->anim, 0x10);
+            NewEfxFlashBgWhite(proc->anim, 0x10);
             NewEkrDragonQuakeTree3(NULL, 0x2D, 0xB);
             Proc_Break(proc);
             return;

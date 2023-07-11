@@ -137,36 +137,36 @@ gUnknown_085B9C64:  @ 0x085B9C64
 
 	.global gUnknown_085B9C84
 gUnknown_085B9C84:  @ 0x085B9C84
-    .4byte gUnknown_080DAD0A + 0x8c
+    .4byte gFrameLut_EfxWeaponIcon + 0x8c
     .4byte 0
-    .4byte gUnknown_080DAD0A + 0x9c
+    .4byte gFrameLut_EfxWeaponIcon + 0x9c
     .4byte 0
-    .4byte gUnknown_080DAD0A + 0x7c
+    .4byte gFrameLut_EfxWeaponIcon + 0x7c
     .4byte 0
-    .4byte gUnknown_080DAD0A + 0xac
+    .4byte gFrameLut_EfxWeaponIcon + 0xac
     .4byte 0
 
 	.global gUnknown_085B9CA4
 gUnknown_085B9CA4:  @ 0x085B9CA4
-    .4byte gUnknown_080DAD0A + 0xcc
-    .4byte gUnknown_080DAD0A + 0xfc
-    .4byte gUnknown_080DAD0A + 0xfc
-    .4byte gUnknown_080DAD0A + 0xfc
-    .4byte gUnknown_080DAD0A + 0x12c
-    .4byte gUnknown_080DAD0A + 0x10c
-    .4byte gUnknown_080DAD0A + 0x10c
-    .4byte gUnknown_080DAD0A + 0x10c
+    .4byte gFrameLut_EfxWeaponIcon + 0xcc
+    .4byte gFrameLut_EfxWeaponIcon + 0xfc
+    .4byte gFrameLut_EfxWeaponIcon + 0xfc
+    .4byte gFrameLut_EfxWeaponIcon + 0xfc
+    .4byte gFrameLut_EfxWeaponIcon + 0x12c
+    .4byte gFrameLut_EfxWeaponIcon + 0x10c
+    .4byte gFrameLut_EfxWeaponIcon + 0x10c
+    .4byte gFrameLut_EfxWeaponIcon + 0x10c
 
 	.global gUnknown_085B9CC4
 gUnknown_085B9CC4:  @ 0x085B9CC4
-    .4byte gUnknown_080DAD0A + 0xbc
-    .4byte gUnknown_080DAD0A + 0xdc
-    .4byte gUnknown_080DAD0A + 0xdc
-    .4byte gUnknown_080DAD0A + 0xdc
-    .4byte gUnknown_080DAD0A + 0x11c
-    .4byte gUnknown_080DAD0A + 0xec
-    .4byte gUnknown_080DAD0A + 0xec
-    .4byte gUnknown_080DAD0A + 0xec
+    .4byte gFrameLut_EfxWeaponIcon + 0xbc
+    .4byte gFrameLut_EfxWeaponIcon + 0xdc
+    .4byte gFrameLut_EfxWeaponIcon + 0xdc
+    .4byte gFrameLut_EfxWeaponIcon + 0xdc
+    .4byte gFrameLut_EfxWeaponIcon + 0x11c
+    .4byte gFrameLut_EfxWeaponIcon + 0xec
+    .4byte gFrameLut_EfxWeaponIcon + 0xec
+    .4byte gFrameLut_EfxWeaponIcon + 0xec
 
 	.global ProcScr_ekrUnitKakudai
 ProcScr_ekrUnitKakudai:  @ 0x085B9CE4

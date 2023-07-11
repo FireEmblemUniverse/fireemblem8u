@@ -721,7 +721,7 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx *proc)
         }
     }
 
-    ret = SpellFx_InterpretBgAnimScript((void *)&proc->timer, (void *)&proc->frame, (const s16 *)proc->frame_lut);
+    ret = EfxAdvanceFrameLut((void *)&proc->timer, (void *)&proc->frame, (const s16 *)proc->frame_lut);
     if (ret >= 0) {
         LZ77UnCompWram(proc->tsa_set[ret], gEkrTsaBuffer);
         sub_806FBB8();
@@ -978,7 +978,7 @@ void EkrDragonTunkFaceRegisterAnim(struct ProcEfxDKfx *proc)
     const u32 *scr = BanimScr_DemoKingTunkFace;
     SpellFx_RegisterObjPal(Pal_DemoKingTunkFace, 0x20);
     SpellFx_RegisterObjGfx(Img_DemoKingTunkFace, 0x2000);
-    anim = EfxAnimCreate2(proc->anim, scr, scr, scr, scr);
+    anim = EfxCreateBackAnim(proc->anim, scr, scr, scr, scr);
     proc->anim2 = anim;
     anim->xPosition = proc->unk32;
     anim->yPosition = proc->unk3A;
@@ -1007,7 +1007,7 @@ void EkrDragonTunkFaceRegisterAnim2(struct ProcEfxDKfx *proc)
     const u32 *scr = BanimScr_087F4314;
     SpellFx_RegisterObjPal(Pal_DemoKingTunkFace, 0x20);
     SpellFx_RegisterObjGfx(Img_DemoKingTunkFace2, 0x2000);
-    anim = EfxAnimCreate2(proc->anim, scr, scr, scr, scr);
+    anim = EfxCreateBackAnim(proc->anim, scr, scr, scr, scr);
     proc->anim2 = anim;
     anim->xPosition = proc->unk32;
     anim->yPosition = proc->unk3A;
@@ -1247,9 +1247,9 @@ void NewEkrWhiteOUT(int a, int b, int c)
 void EkrWhiteOutFadeIn(struct ProcEkrWhiteOUT *proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, proc->max_time1);
-    CpuFastCopy(gPaletteBuffer, gEkrBgPalBackupMaybe, PLTT_SIZE);
-    sub_807132C(gEkrBgPalBackupMaybe, 0, 0x20, ret);
-    CpuFastCopy(gEkrBgPalBackupMaybe, (u16 *)PLTT, PLTT_SIZE);
+    CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
+    sub_807132C(gEfxPal, 0, 0x20, ret);
+    CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
     if (++proc->timer > proc->max_time1) {
@@ -1260,9 +1260,9 @@ void EkrWhiteOutFadeIn(struct ProcEkrWhiteOUT *proc)
 
 void EkrWhiteOutDelay(struct ProcEkrWhiteOUT *proc)
 {
-    CpuFastCopy(gPaletteBuffer, gEkrBgPalBackupMaybe, PLTT_SIZE);
-    sub_807132C(gEkrBgPalBackupMaybe, 0, 0x20, 0x10);
-    CpuFastCopy(gEkrBgPalBackupMaybe, (u16 *)PLTT, PLTT_SIZE);
+    CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
+    sub_807132C(gEfxPal, 0, 0x20, 0x10);
+    CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
     if (++proc->timer > proc->max_time2) {
@@ -1274,9 +1274,9 @@ void EkrWhiteOutDelay(struct ProcEkrWhiteOUT *proc)
 void EkrWhiteOutFadeOut(struct ProcEkrWhiteOUT *proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0x0, proc->timer, proc->max_time3);
-    CpuFastCopy(gPaletteBuffer, gEkrBgPalBackupMaybe, PLTT_SIZE);
-    sub_807132C(gEkrBgPalBackupMaybe, 0, 0x20, ret);
-    CpuFastCopy(gEkrBgPalBackupMaybe, (u16 *)PLTT, PLTT_SIZE);
+    CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
+    sub_807132C(gEfxPal, 0, 0x20, ret);
+    CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
     if (++proc->timer > proc->max_time3) {

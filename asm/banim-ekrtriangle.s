@@ -28,7 +28,7 @@ _080751E2:
 	bne _080751F2
 	adds r0, r5, #0
 	movs r1, #6
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 _080751F2:
 	movs r3, #0x2c
 	ldrsh r0, [r4, r3]
@@ -60,7 +60,7 @@ _08075226:
 	bne _08075236
 	adds r0, r5, #0
 	movs r1, #6
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 _08075236:
 	movs r3, #0x2c
 	ldrsh r0, [r4, r3]
@@ -173,7 +173,7 @@ sub_8075308: @ 0x08075308
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -244,7 +244,7 @@ _0807539A:
 	adds r0, r7, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x60]
 	ldr r4, _080753EC  @ gUnknown_0201A790
 	adds r0, r6, #0
@@ -390,7 +390,7 @@ _080754B8:
 	bne _080754D0
 	ldr r0, [r5, #0x5c]
 	movs r1, #4
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	ldr r0, [r5, #0x5c]
 	movs r1, #0xa
 	bl sub_807589C
@@ -427,7 +427,7 @@ _08075504:
 	bne _0807551C
 	ldr r0, [r5, #0x5c]
 	movs r1, #4
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	ldr r0, [r5, #0x5c]
 	movs r1, #0xa
 	bl sub_807589C
@@ -507,7 +507,7 @@ _080755AC:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r1, r0, #0
 	str r1, [r5, #0x60]
 	ldr r0, _080755F4  @ 0x00008840
@@ -567,7 +567,7 @@ _08075638:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r1, r0, #0
 	str r1, [r5, #0x64]
 	ldr r0, _080756A8  @ 0x0000A880
@@ -740,7 +740,7 @@ _080757A4:
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r1, r0, #0
 	str r1, [r4, #0x60]
 	cmp r5, #0

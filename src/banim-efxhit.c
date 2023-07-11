@@ -43,10 +43,10 @@ void NewEfxDamageMojiEffectOBJ(struct Anim *anim, int hitted)
     proc->timer = 0;
 
     if (hitted == 0) {
-        proc->unk2E = 0x32;
+        proc->terminator = 0x32;
         buf = gUnknown_085C81A4;
     } else {
-        proc->unk2E = 0x32;
+        proc->terminator = 0x32;
         buf = gUnknown_085C8218;
     }
 
@@ -63,7 +63,7 @@ void efxDamageMojiEffectOBJMain(struct ProcEfxDamageMojiEffectOBJ *proc)
 {
     proc->sub_proc->unk32 = proc->anim->xPosition;
 
-    if (++proc->timer > proc->unk2E) {
+    if (++proc->timer > proc->terminator) {
         Proc_End(proc->sub_proc);
         Proc_Break(proc);
     }
@@ -135,7 +135,7 @@ void NewEfxCriricalEffectBGCOL(struct Anim *anim)
 void efxCriricalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *pal = proc->unk4C;
         SpellFx_RegisterBgPal(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
@@ -172,7 +172,7 @@ void efxNormalEffectMain(struct ProcEfx *proc)
     time = ++proc->timer;
 
     if (time == 1) {
-        StartSpellBG_FLASH(proc->anim, 0x4);
+        NewEfxFlashBgWhite(proc->anim, 0x4);
         return;
     }
 
@@ -214,7 +214,7 @@ void NewEfxNormalEffectBG(struct Anim *anim)
 void efxNormalEffectBGMain(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;
@@ -288,7 +288,7 @@ void NewEfxPierceCriticalEffectBGCOL(struct Anim *anim)
 void efxPierceCriticalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 *pal = proc->unk4C;
         SpellFx_RegisterBgPal(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
@@ -318,7 +318,7 @@ void efxPierceNormalEffectMain(struct ProcEfx *proc)
     time = ++proc->timer;
 
     if (time == 0x1) {
-        StartSpellBG_FLASH(proc->anim, 0x4);
+        NewEfxFlashBgWhite(proc->anim, 0x4);
         return;
     }
 
@@ -360,7 +360,7 @@ void NewEfxPierceNormalEffectBG(struct Anim *anim)
 void efxPierceNormalEffectBGMain(struct ProcEfxBG *proc)
 {
     int ret;
-    ret = SpellFx_InterpretBgAnimScript((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
+    ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
         u16 **buf1 = proc->unk4C;
         u16 **buf2 = proc->unk50;

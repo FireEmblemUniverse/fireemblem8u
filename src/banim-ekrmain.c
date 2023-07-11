@@ -206,7 +206,7 @@ void UpdateBanimFrame(void)
 
     if (gEkrPairSideVaild[EKR_POS_L] == true) {
         bid = gEkrPairBanimID2[EKR_POS_L];
-        bid_pal = gBanimSomeObjPalIndex[EKR_POS_L];
+        bid_pal = gPalIndexEfxHpBarUnk[EKR_POS_L];
         bside = gBattleInitSide[EKR_POS_L];
 
         LZ77UnCompWram(banim[bid].script, gBanimScrLeft);
@@ -235,7 +235,7 @@ void UpdateBanimFrame(void)
 
     if (gEkrPairSideVaild[EKR_POS_R] == true) {
         bid = gEkrPairBanimID2[EKR_POS_R];
-        bid_pal = gBanimSomeObjPalIndex[EKR_POS_R];
+        bid_pal = gPalIndexEfxHpBarUnk[EKR_POS_R];
         bside = gBattleInitSide[EKR_POS_R];
 
         LZ77UnCompWram(banim[bid].script, gBanimScrRight);
@@ -310,7 +310,7 @@ void InitBothAIS(void)
     case EKR_DISTANCE_FARFAR:
         InitBattleAnimFrame(ANIM_ROUND_TAKING_HIT_FAR, ANIM_ROUND_TAKING_HIT_FAR);
 
-        if (GetEkrSomePosMaybe() == EKR_POS_L) {
+        if (GetBanimInitPosReal() == EKR_POS_L) {
             anim1 = gAnims[2];
             anim1->xPosition = 0x180;
 

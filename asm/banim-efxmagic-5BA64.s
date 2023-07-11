@@ -730,7 +730,7 @@ sub_805BFDC: @ 0x0805BFDC
 	ldr r0, _0805C034  @ gUnknown_085DA3C0
 	str r0, [sp]
 	adds r0, r4, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
@@ -874,7 +874,7 @@ sub_805C104: @ 0x0805C104
 	str r2, [sp]
 	adds r0, r4, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
@@ -1071,7 +1071,7 @@ sub_805C29C: @ 0x0805C29C
 	ldr r0, [r5, #0x5c]
 	bl GetAnimAnotherSide
 	adds r6, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r4, r0, #0
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -1175,7 +1175,7 @@ sub_805C358: @ 0x0805C358
 	ldr r0, _0805C3B4  @ gUnknown_085DA864
 	str r0, [sp]
 	adds r0, r5, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r4, #0x60]
 	ldr r0, _0805C3B8  @ gUnknown_085DA05C
 	movs r1, #0x20
@@ -1783,7 +1783,7 @@ _0805C8CC:
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	adds r0, r6, #0
@@ -2033,7 +2033,7 @@ sub_805CAC4: @ 0x0805CAC4
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -2111,7 +2111,7 @@ sub_805CB40: @ 0x0805CB40
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r4, #0x60]
 	lsls r5, r5, #5
 	ldr r0, _0805CBA0  @ gUnknown_08754870
@@ -2463,7 +2463,7 @@ sub_805CE1C: @ 0x0805CE1C
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	ldrh r0, [r6, #4]
@@ -2573,7 +2573,7 @@ sub_805CF04: @ 0x0805CF04
 	ldr r0, [r4, #0x5c]
 	bl GetAnimAnotherSide
 	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -2604,7 +2604,7 @@ _0805CF32:
 	bl sub_805CFC0
 	ldr r0, [r4, #0x5c]
 	movs r1, #6
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	ldrh r0, [r5, #0x10]
 	movs r1, #9
 	orrs r0, r1
@@ -2643,7 +2643,7 @@ _0805CF9A:
 	cmp r1, r0
 	bne _0805CFB6
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 _0805CFB6:
@@ -2683,7 +2683,7 @@ _0805CFF0:
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r4, #0x60]
 	ldr r0, _0805D028  @ gUnknown_085DE964
 	movs r1, #0x20
@@ -2876,7 +2876,7 @@ _0805D17C:
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, _0805D1B8  @ gEkrDistanceType
@@ -3091,13 +3091,13 @@ sub_805D328: @ 0x0805D328
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
 	blt _0805D368
 	ldr r0, [r4, #0x4c]
-	ldr r4, _0805D364  @ gEkrBgPalBackupMaybe
+	ldr r4, _0805D364  @ gEfxPal
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
@@ -3111,7 +3111,7 @@ sub_805D328: @ 0x0805D328
 	bl SpellFx_RegisterBgPal
 	b _0805D37E
 	.align 2, 0
-_0805D364: .4byte gEkrBgPalBackupMaybe
+_0805D364: .4byte gEfxPal
 _0805D368:
 	movs r0, #1
 	negs r0, r0
@@ -3214,7 +3214,7 @@ _0805D428:
 	cmp r0, #0x3c
 	bne _0805D43E
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 _0805D43E:
@@ -3243,7 +3243,7 @@ sub_805D444: @ 0x0805D444
 	str r2, [sp]
 	adds r0, r4, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r6, r0, #0
 	str r6, [r5, #0x60]
 	adds r0, r4, #0
@@ -3440,7 +3440,7 @@ sub_805D5EC: @ 0x0805D5EC
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -3515,7 +3515,7 @@ sub_805D680: @ 0x0805D680
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -3570,7 +3570,7 @@ sub_805D6CC: @ 0x0805D6CC
 	str r3, [sp]
 	adds r0, r6, #0
 	adds r1, r2, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	movs r0, #0x14

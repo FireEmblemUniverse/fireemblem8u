@@ -39,7 +39,7 @@ sub_8066550: @ 0x08066550
 	ldr r0, [r6, #0x5c]
 	bl GetAnimAnotherSide
 	adds r4, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r7, r0, #0
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -130,7 +130,7 @@ _0806660A:
 _08066624:
 	adds r0, r4, #0
 	movs r1, #4
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	negs r1, r1
@@ -194,7 +194,7 @@ _080666A6:
 	orrs r0, r1
 	strh r0, [r4, #0x10]
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r6, #0
 	bl Proc_Break
 _080666C4:
@@ -280,7 +280,7 @@ sub_8066758: @ 0x08066758
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -385,7 +385,7 @@ sub_806683C: @ 0x0806683C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	lsrs r5, r0, #0x10
 	ldr r0, _08066868  @ gEkrDistanceType
@@ -558,7 +558,7 @@ sub_806699C: @ 0x0806699C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -676,7 +676,7 @@ sub_8066A94: @ 0x08066A94
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -772,7 +772,7 @@ sub_8066B40: @ 0x08066B40
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08066BB4  @ gPaletteBuffer
-	ldr r4, _08066BB8  @ gEkrBgPalBackupMaybe
+	ldr r4, _08066BB8  @ gEfxPal
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -801,7 +801,7 @@ sub_8066B40: @ 0x08066B40
 	ldr r0, [r7, #0x5c]
 	movs r1, #0
 	movs r2, #0x20
-	bl sub_8054134
+	bl NewEfxWhiteIN
 	adds r0, r7, #0
 	bl Proc_Break
 _08066BAA:
@@ -811,7 +811,7 @@ _08066BAA:
 	bx r0
 	.align 2, 0
 _08066BB4: .4byte gPaletteBuffer
-_08066BB8: .4byte gEkrBgPalBackupMaybe
+_08066BB8: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_8066B40
 
@@ -874,7 +874,7 @@ sub_8066C1C: @ 0x08066C1C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -997,7 +997,7 @@ sub_8066CB8: @ 0x08066CB8
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -1124,7 +1124,7 @@ sub_8066DB0: @ 0x08066DB0
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -1270,7 +1270,7 @@ sub_8066EC8: @ 0x08066EC8
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -1398,7 +1398,7 @@ sub_8066FC4: @ 0x08066FC4
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -1535,7 +1535,7 @@ sub_80670DC: @ 0x080670DC
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r5, r4, #0
@@ -1947,7 +1947,7 @@ sub_8067400: @ 0x08067400
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r4, #0x60]
 	strh r5, [r0, #2]
 	strh r6, [r0, #4]
@@ -2053,7 +2053,7 @@ sub_8067510: @ 0x08067510
 	ldr r0, [r4, #0x5c]
 	bl GetAnimAnotherSide
 	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -2130,7 +2130,7 @@ _080675B8:
 	cmp r1, r0
 	bne _080675CE
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 _080675CE:
@@ -2211,7 +2211,7 @@ sub_8067660: @ 0x08067660
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r6, r0, #0x10
 	cmp r6, #0
@@ -2296,7 +2296,7 @@ sub_80676E4: @ 0x080676E4
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r4, #0x60]
 	ldrh r1, [r0, #4]
 	adds r1, #0xc
@@ -2393,7 +2393,7 @@ sub_80677D4: @ 0x080677D4
 	ldr r0, [r4, #0x5c]
 	bl GetAnimAnotherSide
 	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -2467,7 +2467,7 @@ _08067870:
 	cmp r1, r0
 	bne _08067886
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 _08067886:
@@ -2547,7 +2547,7 @@ sub_8067914: @ 0x08067914
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -2681,7 +2681,7 @@ sub_8067A30: @ 0x08067A30
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -2773,7 +2773,7 @@ sub_8067AA0: @ 0x08067AA0
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x60]
 	ldrh r1, [r0, #4]
 	adds r1, #0x18
@@ -2873,7 +2873,7 @@ Loop6C_efxNaglfar: @ 0x08067BB8
 	ldr r0, [r7, #0x5c]
 	bl GetAnimAnotherSide
 	adds r4, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r5, r0, #0
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
@@ -2949,7 +2949,7 @@ _08067C5A:
 _08067C62:
 	adds r0, r4, #0
 	movs r1, #2
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	b _08067DBC
 _08067C6C:
 	adds r0, r5, #0
@@ -2989,7 +2989,7 @@ _08067CAC:
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x1e
-	bl sub_8054030
+	bl NewEfxWhiteOUT
 	b _08067DBC
 _08067CC0:
 	adds r0, r5, #0
@@ -3012,7 +3012,7 @@ _08067CC0:
 	adds r0, r4, #0
 	movs r1, #0x1e
 	movs r2, #0
-	bl sub_8054134
+	bl NewEfxWhiteIN
 	b _08067DBC
 	.align 2, 0
 _08067CF0: .4byte gLCDControlBuffer
@@ -3030,7 +3030,7 @@ _08067CF4:
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x14
-	bl sub_8054134
+	bl NewEfxWhiteIN
 	adds r0, r4, #0
 	movs r1, #0x4c
 	bl sub_8068314
@@ -3105,7 +3105,7 @@ _08067DA4:
 	cmp r1, r0
 	bne _08067DBC
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r7, #0
 	bl Proc_Break
 _08067DBC:
@@ -3175,7 +3175,7 @@ Loop6C_efxNaglfarBG: @ 0x08067E1C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -3268,7 +3268,7 @@ Loop6C_efxNaglfarBG2: @ 0x08067EE8
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -3368,7 +3368,7 @@ sub_8067FB8: @ 0x08067FB8
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -3463,7 +3463,7 @@ sub_806807C: @ 0x0806807C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -3575,7 +3575,7 @@ sub_80680EC: @ 0x080680EC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r3, r0, #0
 	str r3, [r4, #0x60]
 	mov r2, r9
@@ -3722,7 +3722,7 @@ sub_806823C: @ 0x0806823C
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x60]
 	ldrh r1, [r0, #4]
 	adds r1, #0x18
@@ -4235,7 +4235,7 @@ sub_8068638: @ 0x08068638
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, _08068678  @ gPaletteBuffer
-	ldr r4, _0806867C  @ gEkrBgPalBackupMaybe
+	ldr r4, _0806867C  @ gEfxPal
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r1, r4, #0
@@ -4261,7 +4261,7 @@ sub_8068638: @ 0x08068638
 	bx r0
 	.align 2, 0
 _08068678: .4byte gPaletteBuffer
-_0806867C: .4byte gEkrBgPalBackupMaybe
+_0806867C: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_8068638
 
@@ -4281,7 +4281,7 @@ sub_8068680: @ 0x08068680
 	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0806872C  @ gPaletteBuffer
-	ldr r4, _08068730  @ gEkrBgPalBackupMaybe
+	ldr r4, _08068730  @ gEfxPal
 	movs r6, #0x80
 	lsls r6, r6, #1
 	adds r1, r4, #0
@@ -4347,7 +4347,7 @@ _08068724:
 	bx r0
 	.align 2, 0
 _0806872C: .4byte gPaletteBuffer
-_08068730: .4byte gEkrBgPalBackupMaybe
+_08068730: .4byte gEfxPal
 _08068734: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_8068680
@@ -4368,7 +4368,7 @@ sub_8068738: @ 0x08068738
 	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _080687C8  @ gPaletteBuffer
-	ldr r4, _080687CC  @ gEkrBgPalBackupMaybe
+	ldr r4, _080687CC  @ gEfxPal
 	movs r6, #0x80
 	lsls r6, r6, #1
 	adds r1, r4, #0
@@ -4420,7 +4420,7 @@ _080687C0:
 	bx r0
 	.align 2, 0
 _080687C8: .4byte gPaletteBuffer
-_080687CC: .4byte gEkrBgPalBackupMaybe
+_080687CC: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_8068738
 
@@ -4573,7 +4573,7 @@ _080688F0:
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, _0806892C  @ gEkrDistanceType
@@ -4788,13 +4788,13 @@ sub_8068A9C: @ 0x08068A9C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
 	blt _08068ADC
 	ldr r0, [r4, #0x4c]
-	ldr r4, _08068AD8  @ gEkrBgPalBackupMaybe
+	ldr r4, _08068AD8  @ gEfxPal
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
@@ -4808,7 +4808,7 @@ sub_8068A9C: @ 0x08068A9C
 	bl SpellFx_RegisterBgPal
 	b _08068AF2
 	.align 2, 0
-_08068AD8: .4byte gEkrBgPalBackupMaybe
+_08068AD8: .4byte gEfxPal
 _08068ADC:
 	movs r0, #1
 	negs r0, r0
@@ -4937,7 +4937,7 @@ sub_8068BB8: @ 0x08068BB8
 	ldr r0, [r4, #0x5c]
 	bl GetAnimAnotherSide
 	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -5005,7 +5005,7 @@ _08068C42:
 	bne _08068C8C
 	adds r0, r5, #0
 	movs r1, #0xa
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	bl GetBanimDragonStatusType
 	cmp r0, #1
 	beq _08068C68
@@ -5041,7 +5041,7 @@ _08068C8C:
 	cmp r0, #0
 	beq _08068D14
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 	b _08068D14
@@ -5087,7 +5087,7 @@ _08068CFE:
 	cmp r1, r0
 	bne _08068D14
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 _08068D14:
@@ -5652,7 +5652,7 @@ sub_8069100: @ 0x08069100
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	mov r8, r0
@@ -5945,7 +5945,7 @@ sub_806935C: @ 0x0806935C
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -6046,7 +6046,7 @@ _08069416:
 	adds r1, r6, #0
 	adds r1, #0x44
 	ldr r2, [r6, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -6183,7 +6183,7 @@ sub_8069530: @ 0x08069530
 	str r0, [sp, #4]
 	ldr r0, _08069564  @ gPaletteBuffer
 	mov r9, r0
-	ldr r1, _08069568  @ gEkrBgPalBackupMaybe
+	ldr r1, _08069568  @ gEfxPal
 	mov r8, r1
 	ldr r0, [sp, #4]
 	adds r0, #0x4c
@@ -6201,7 +6201,7 @@ sub_8069530: @ 0x08069530
 	b _08069582
 	.align 2, 0
 _08069564: .4byte gPaletteBuffer
-_08069568: .4byte gEkrBgPalBackupMaybe
+_08069568: .4byte gEfxPal
 _0806956C:
 	cmp r1, #0x18
 	ble _08069574
@@ -6349,7 +6349,7 @@ _080696B2:
 	lsls r1, r1, #0x13
 	movs r2, #0x80
 	lsls r2, r2, #1
-	ldr r0, _080696EC  @ gEkrBgPalBackupMaybe
+	ldr r0, _080696EC  @ gEfxPal
 	bl CpuFastSet
 	bl DisablePaletteSync
 	ldr r7, [sp, #8]
@@ -6373,7 +6373,7 @@ _080696D4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080696EC: .4byte gEkrBgPalBackupMaybe
+_080696EC: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_8069530
 
@@ -6671,7 +6671,7 @@ _080698F6:
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
@@ -7008,7 +7008,7 @@ sub_8069B68: @ 0x08069B68
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r7, #0x60]
 	movs r0, #0x68
@@ -7098,7 +7098,7 @@ sub_8069C18: @ 0x08069C18
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r7, #0x60]
 	movs r0, #0x78
@@ -7451,7 +7451,7 @@ sub_8069F00: @ 0x08069F00
 	ldr r0, [r4, #0x5c]
 	bl GetAnimAnotherSide
 	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -7498,7 +7498,7 @@ _08069F64:
 	bne _08069F76
 	adds r0, r5, #0
 	movs r1, #0xa
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	b _08069FFE
 _08069F76:
 	adds r0, r2, #0
@@ -7560,7 +7560,7 @@ _08069FE8:
 	cmp r1, r0
 	bne _08069FFE
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 _08069FFE:
@@ -7580,7 +7580,7 @@ sub_806A008: @ 0x0806A008
 	adds r1, r6, #0
 	adds r1, #0x44
 	ldr r2, [r6, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -7759,7 +7759,7 @@ _0806A174:
 	adds r0, r7, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	ldr r1, _0806A1E8  @ gUnknown_085D87DC
@@ -8155,7 +8155,7 @@ sub_806A47C: @ 0x0806A47C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -9180,7 +9180,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x60]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -9193,7 +9193,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x64]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -9206,7 +9206,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x68]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -9219,7 +9219,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x44]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -9232,7 +9232,7 @@ _0806AC36:
 	adds r1, r4, #0
 	adds r2, r4, #0
 	adds r3, r4, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	str r0, [r5, #0x48]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -9518,7 +9518,7 @@ sub_806AF30: @ 0x0806AF30
 	ldr r0, [r4, #0x5c]
 	bl GetAnimAnotherSide
 	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -9602,7 +9602,7 @@ _0806AFD6:
 	cmp r0, #0
 	beq _0806B07A
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 	b _0806B07A
@@ -9617,7 +9617,7 @@ _0806AFF8:
 	bl StartSpellThing_MagicQuake
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xa
-	bl StartSpellBG_FLASH
+	bl NewEfxFlashBgWhite
 	b _0806B07A
 _0806B014:
 	adds r0, r2, #0
@@ -9656,7 +9656,7 @@ _0806B058:
 	adds r0, r2, r3
 	cmp r1, r0
 	bne _0806B068
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	b _0806B07A
 _0806B068:
 	ldr r3, _0806B084  @ 0x0000012B
@@ -9707,7 +9707,7 @@ sub_806B0AC: @ 0x0806B0AC
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -9819,7 +9819,7 @@ sub_806B194: @ 0x0806B194
 	adds r1, r6, #0
 	adds r1, #0x44
 	ldr r2, [r6, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -9987,7 +9987,7 @@ sub_806B2C0: @ 0x0806B2C0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r5, r0, #0
 	str r5, [r4, #0x60]
 	ldr r0, [r4, #0x5c]
@@ -10042,7 +10042,7 @@ sub_806B344: @ 0x0806B344
 	sub sp, #0xc
 	str r0, [sp, #4]
 	ldr r7, _0806B370  @ gPaletteBuffer
-	ldr r6, _0806B374  @ gEkrBgPalBackupMaybe
+	ldr r6, _0806B374  @ gEfxPal
 	adds r0, #0x4c
 	movs r2, #0
 	ldrsh r1, [r0, r2]
@@ -10058,7 +10058,7 @@ sub_806B344: @ 0x0806B344
 	b _0806B390
 	.align 2, 0
 _0806B370: .4byte gPaletteBuffer
-_0806B374: .4byte gEkrBgPalBackupMaybe
+_0806B374: .4byte gEfxPal
 _0806B378:
 	cmp r1, #0xc
 	ble _0806B382
@@ -10189,7 +10189,7 @@ _0806B49E:
 	bgt _0806B4A6
 	b _0806B3A2
 _0806B4A6:
-	ldr r0, _0806B4E0  @ gEkrBgPalBackupMaybe
+	ldr r0, _0806B4E0  @ gEfxPal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -10217,7 +10217,7 @@ _0806B4C8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806B4E0: .4byte gEkrBgPalBackupMaybe
+_0806B4E0: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_806B344
 
@@ -10270,7 +10270,7 @@ sub_806B534: @ 0x0806B534
 	ldr r0, [r4, #0x5c]
 	bl GetAnimAnotherSide
 	adds r5, r0, #0
-	bl GetAnimationStartFrameMaybe
+	bl EfxGetCamMovDuration
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -10389,7 +10389,7 @@ _0806B630:
 	cmp r1, r0
 	bne _0806B646
 	bl SpellFx_Finish
-	bl EfxSpellCastSet29
+	bl RegisterEfxSpellCastEnd
 	adds r0, r4, #0
 	bl Proc_Break
 _0806B646:
@@ -10451,7 +10451,7 @@ sub_806B680: @ 0x0806B680
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
@@ -10532,7 +10532,7 @@ sub_806B73C: @ 0x0806B73C
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -10651,7 +10651,7 @@ sub_806B830: @ 0x0806B830
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -10789,7 +10789,7 @@ sub_806B940: @ 0x0806B940
 	sub sp, #0xc
 	str r0, [sp, #4]
 	ldr r6, _0806B980  @ gPaletteBuffer
-	ldr r5, _0806B984  @ gEkrBgPalBackupMaybe
+	ldr r5, _0806B984  @ gEfxPal
 	adds r0, #0x4c
 	movs r1, #0
 	ldrsh r3, [r0, r1]
@@ -10814,7 +10814,7 @@ _0806B96E:
 	mov pc, r0
 	.align 2, 0
 _0806B980: .4byte gPaletteBuffer
-_0806B984: .4byte gEkrBgPalBackupMaybe
+_0806B984: .4byte gEfxPal
 _0806B988: .4byte _0806B98C
 _0806B98C: @ jump table
 	.4byte _0806BA00 @ case 0
@@ -10917,7 +10917,7 @@ _0806BA7E:
 	bgt _0806BA86
 	b _0806B96E
 _0806BA86:
-	ldr r0, _0806BAB0  @ gEkrBgPalBackupMaybe
+	ldr r0, _0806BAB0  @ gEfxPal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -10936,7 +10936,7 @@ _0806BA86:
 	bl Proc_Break
 	b _0806BABA
 	.align 2, 0
-_0806BAB0: .4byte gEkrBgPalBackupMaybe
+_0806BAB0: .4byte gEfxPal
 _0806BAB4:
 	adds r0, r1, #1
 	mov r3, r8
@@ -10960,7 +10960,7 @@ sub_806BACC: @ 0x0806BACC
 	push {r7}
 	mov r8, r0
 	ldr r5, _0806BAF0  @ gPaletteBuffer
-	ldr r4, _0806BAF4  @ gEkrBgPalBackupMaybe
+	ldr r4, _0806BAF4  @ gEfxPal
 	ldrh r0, [r5]
 	strh r0, [r4]
 	movs r6, #0
@@ -10975,7 +10975,7 @@ _0806BADE:
 	mov pc, r0
 	.align 2, 0
 _0806BAF0: .4byte gPaletteBuffer
-_0806BAF4: .4byte gEkrBgPalBackupMaybe
+_0806BAF4: .4byte gEfxPal
 _0806BAF8: .4byte _0806BAFC
 _0806BAFC: @ jump table
 	.4byte _0806BB70 @ case 0
@@ -11037,7 +11037,7 @@ _0806BBA0:
 	adds r6, r1, #0
 	cmp r6, #0x1f
 	ble _0806BADE
-	ldr r0, _0806BBD8  @ gEkrBgPalBackupMaybe
+	ldr r0, _0806BBD8  @ gEfxPal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -11060,7 +11060,7 @@ _0806BBC6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806BBD8: .4byte gEkrBgPalBackupMaybe
+_0806BBD8: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_806BACC
 
@@ -11196,7 +11196,7 @@ sub_806BC98: @ 0x0806BC98
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl EfxAnimCreate1
+	bl EfxCreateFrontAnim
 	adds r4, r0, #0
 	str r4, [r7, #0x60]
 	ldr r0, [r7, #0x5c]
@@ -11626,7 +11626,7 @@ sub_806C050: @ 0x0806C050
 	adds r1, r6, #0
 	adds r1, #0x44
 	ldr r2, [r6, #0x48]
-	bl SpellFx_InterpretBgAnimScript
+	bl EfxAdvanceFrameLut
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -11751,7 +11751,7 @@ sub_806C14C: @ 0x0806C14C
 sub_806C154: @ 0x0806C154
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	ldr r2, _0806C1A4  @ gEkrBgPalBackupMaybe
+	ldr r2, _0806C1A4  @ gEfxPal
 	movs r1, #0
 	adds r6, r2, #0
 	adds r4, r5, #0
@@ -11789,7 +11789,7 @@ _0806C16C:
 	bl Proc_Break
 	b _0806C1B0
 	.align 2, 0
-_0806C1A4: .4byte gEkrBgPalBackupMaybe
+_0806C1A4: .4byte gEfxPal
 _0806C1A8: .4byte 0x00007FFF
 _0806C1AC:
 	adds r0, r1, #1
@@ -11808,7 +11808,7 @@ sub_806C1B8: @ 0x0806C1B8
 	push {r7}
 	mov r8, r0
 	ldr r5, _0806C1DC  @ gPaletteBuffer
-	ldr r4, _0806C1E0  @ gEkrBgPalBackupMaybe
+	ldr r4, _0806C1E0  @ gEfxPal
 	ldrh r0, [r5]
 	strh r0, [r4]
 	movs r7, #0
@@ -11823,7 +11823,7 @@ _0806C1CA:
 	mov pc, r0
 	.align 2, 0
 _0806C1DC: .4byte gPaletteBuffer
-_0806C1E0: .4byte gEkrBgPalBackupMaybe
+_0806C1E0: .4byte gEfxPal
 _0806C1E4: .4byte _0806C1E8
 _0806C1E8: @ jump table
 	.4byte _0806C260 @ case 0
@@ -11886,7 +11886,7 @@ _0806C290:
 	adds r7, r1, #0
 	cmp r7, #0x1f
 	ble _0806C1CA
-	ldr r0, _0806C2C0  @ gEkrBgPalBackupMaybe
+	ldr r0, _0806C2C0  @ gEfxPal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -11904,7 +11904,7 @@ _0806C290:
 	bl Proc_Break
 	b _0806C2C8
 	.align 2, 0
-_0806C2C0: .4byte gEkrBgPalBackupMaybe
+_0806C2C0: .4byte gEfxPal
 _0806C2C4:
 	adds r0, r1, #1
 	strh r0, [r6]
@@ -11927,7 +11927,7 @@ sub_806C2D4: @ 0x0806C2D4
 	sub sp, #0xc
 	str r0, [sp, #4]
 	ldr r6, _0806C314  @ gPaletteBuffer
-	ldr r5, _0806C318  @ gEkrBgPalBackupMaybe
+	ldr r5, _0806C318  @ gEfxPal
 	adds r0, #0x4c
 	movs r1, #0
 	ldrsh r3, [r0, r1]
@@ -11952,7 +11952,7 @@ _0806C302:
 	mov pc, r0
 	.align 2, 0
 _0806C314: .4byte gPaletteBuffer
-_0806C318: .4byte gEkrBgPalBackupMaybe
+_0806C318: .4byte gEfxPal
 _0806C31C: .4byte _0806C320
 _0806C320: @ jump table
 	.4byte _0806C398 @ case 0
@@ -12056,7 +12056,7 @@ _0806C416:
 	bgt _0806C41E
 	b _0806C302
 _0806C41E:
-	ldr r0, _0806C448  @ gEkrBgPalBackupMaybe
+	ldr r0, _0806C448  @ gEfxPal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -12075,7 +12075,7 @@ _0806C41E:
 	bl Proc_Break
 	b _0806C452
 	.align 2, 0
-_0806C448: .4byte gEkrBgPalBackupMaybe
+_0806C448: .4byte gEfxPal
 _0806C44C:
 	adds r0, r1, #1
 	mov r3, r8
@@ -12115,7 +12115,7 @@ sub_806C478: @ 0x0806C478
 	sub sp, #0xc
 	str r0, [sp, #4]
 	ldr r6, _0806C4B8  @ gPaletteBuffer
-	ldr r5, _0806C4BC  @ gEkrBgPalBackupMaybe
+	ldr r5, _0806C4BC  @ gEfxPal
 	adds r0, #0x4c
 	movs r1, #0
 	ldrsh r3, [r0, r1]
@@ -12140,7 +12140,7 @@ _0806C4A6:
 	mov pc, r0
 	.align 2, 0
 _0806C4B8: .4byte gPaletteBuffer
-_0806C4BC: .4byte gEkrBgPalBackupMaybe
+_0806C4BC: .4byte gEfxPal
 _0806C4C0: .4byte _0806C4C4
 _0806C4C4: @ jump table
 	.4byte _0806C53C @ case 0
@@ -12244,7 +12244,7 @@ _0806C5BA:
 	bgt _0806C5C2
 	b _0806C4A6
 _0806C5C2:
-	ldr r0, _0806C5EC  @ gEkrBgPalBackupMaybe
+	ldr r0, _0806C5EC  @ gEfxPal
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -12263,7 +12263,7 @@ _0806C5C2:
 	bl Proc_Break
 	b _0806C5F6
 	.align 2, 0
-_0806C5EC: .4byte gEkrBgPalBackupMaybe
+_0806C5EC: .4byte gEfxPal
 _0806C5F0:
 	adds r0, r1, #1
 	mov r3, r8
