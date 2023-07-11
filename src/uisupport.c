@@ -625,9 +625,9 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 
     StartParallelWorker(DrawSupportScreenUnitSprites, proc);
 
-    PrepStartSideBarScroll(proc, 0xd8, 0x2d, 0x200, 4);
+    StartMenuScrollBarExt(proc, 0xd8, 0x2d, 0x200, 4);
 
-    sub_80976CC(10, proc->unk_34, ((GetSupportScreenUnitCount() - 1) / 3) + 1, 6);
+    UpdateMenuScrollBarConfig(10, proc->unk_34, ((GetSupportScreenUnitCount() - 1) / 3) + 1, 6);
 
     sub_8097668();
 
@@ -794,7 +794,7 @@ void SupportScreen_Loop_KeyHandler(struct SupportScreenProc* proc) {
             proc->unk_40 = 0;
         }
 
-        sub_80976CC(10, proc->unk_34, ((GetSupportScreenUnitCount() - 1) / 3) + 1, 6);
+        UpdateMenuScrollBarConfig(10, proc->unk_34, ((GetSupportScreenUnitCount() - 1) / 3) + 1, 6);
 
         BG_SetPosition(2, 0x0000FFD8, (proc->unk_34 - 36) & 0xff);
         return;

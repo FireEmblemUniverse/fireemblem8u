@@ -252,7 +252,7 @@ _080CE11A:
 	ldrb r2, [r0]
 	movs r0, #0xa
 	movs r3, #6
-	bl sub_80976CC
+	bl UpdateMenuScrollBarConfig
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -2024,7 +2024,7 @@ _080CEE44:
 	ldr r0, [sp, #4]
 	movs r1, #0xe0
 	movs r2, #0x2f
-	bl PrepStartSideBarScroll
+	bl StartMenuScrollBarExt
 	ldr r0, _080CEED0  @ gpBuf
 	ldr r0, [r0]
 	adds r1, r0, #0
@@ -2037,7 +2037,7 @@ _080CEE44:
 	ldrb r2, [r0]
 	movs r0, #0xa
 	movs r3, #6
-	bl sub_80976CC
+	bl UpdateMenuScrollBarConfig
 	bl sub_8097668
 	add sp, #8
 	pop {r3, r4, r5}
@@ -2266,7 +2266,7 @@ _080CF04A:
 	ldrb r0, [r0]
 	movs r1, #0
 	bl sub_80CE5F0
-	bl sub_809764C
+	bl LockMenuScrollBar
 	b _080CF43A
 	.align 2, 0
 _080CF090: .4byte gUnknown_08B19E0C
@@ -2760,7 +2760,7 @@ sub_80CF448: @ 0x080CF448
 	bl EndMuralBackground
 	ldr r0, _080CF45C  @ gUnknown_08B12B1C
 	bl Proc_EndEach
-	bl Delete6CMenuScroll
+	bl EndMenuScrollBar
 	pop {r0}
 	bx r0
 	.align 2, 0

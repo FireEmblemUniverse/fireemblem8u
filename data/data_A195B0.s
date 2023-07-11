@@ -4,12 +4,12 @@
 gUnknown_08A199C8:  @ 0x08A199C8
 	.incbin "baserom.gba", 0xA199C8, 0x244
 
-	.global Img_PrepWindowSideBar
-Img_PrepWindowSideBar:  @ 0x08A19C0C
+	.global Img_MenuScrollBar
+Img_MenuScrollBar:  @ 0x08A19C0C
 	.incbin "baserom.gba", 0xA19C0C, 0xA0
 
-	.global Pal_PrepWindowSideBar
-Pal_PrepWindowSideBar:  @ 0x08A19CAC
+	.global Pal_MenuScrollBar
+Pal_MenuScrollBar:  @ 0x08A19CAC
 	.incbin "baserom.gba", 0xA19CAC, 0x20
 
 	.global gUnknown_08A19CCC

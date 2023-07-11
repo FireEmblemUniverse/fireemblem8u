@@ -7715,7 +7715,7 @@ sub_80AF338: @ 0x080AF338
 	asrs r2, r2, #2
 	movs r0, #8
 	movs r3, #5
-	bl sub_80976CC
+	bl UpdateMenuScrollBarConfig
 	pop {r0}
 	bx r0
 

@@ -141,7 +141,7 @@ void List_PutHighlightedCategorySprites(struct PrepItemListProc* proc) {
     PutSprite(4, x, 24, gUnknown_08A19608[proc->currentPage], 0x4280);
     PutSprite(4, x, 24, gUnknown_08A195F8, 0x4280);
 
-    sub_80976CC(0xc, proc->yOffsetPerPage[proc->currentPage], gUnknown_02012F56, 7);
+    UpdateMenuScrollBarConfig(0xc, proc->yOffsetPerPage[proc->currentPage], gUnknown_02012F56, 7);
 
     return;
 }
@@ -236,7 +236,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     Decompress(gUnknown_08A19CCC, (void*)0x06015000);
     CopyToPaletteBuffer(gUnknown_08A1A084, 0x280, 0x20);
 
-    PrepStartSideBarScroll(proc, 225, 47, 0x5800, 9);
+    StartMenuScrollBarExt(proc, 225, 47, 0x5800, 9);
     sub_8097668();
     SomethingPrepListRelated(proc->unit, proc->currentPage, 3);
     sub_809F5F4(proc);
