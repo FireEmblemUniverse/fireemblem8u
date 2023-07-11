@@ -2,6 +2,478 @@
 
 	.SYNTAX UNIFIED
 
+	THUMB_FUNC_START NewEkrBaseKaiten
+NewEkrBaseKaiten: @ 0x0805649C
+	push {r4, r5, r6, r7, lr}
+	sub sp, #4
+	adds r7, r0, #0
+	movs r0, #0
+	movs r1, #0xa
+	movs r2, #6
+	movs r3, #0
+	bl SetSpecialColorEffectsParameters
+	movs r4, #0
+	str r4, [sp]
+	movs r0, #0
+	movs r1, #0
+	movs r2, #0
+	movs r3, #0
+	bl SetBlendTargetA
+	str r4, [sp]
+	movs r0, #0
+	movs r1, #0
+	movs r2, #1
+	movs r3, #1
+	bl SetBlendTargetB
+	ldr r1, _080564F8  @ gLCDControlBuffer
+	adds r1, #0x3d
+	ldrb r0, [r1]
+	movs r2, #0x20
+	orrs r0, r2
+	strb r0, [r1]
+	ldr r0, _080564FC  @ gEkrPairBmLoc
+	movs r1, #0
+	ldrsh r3, [r0, r1]
+	movs r4, #4
+	ldrsh r2, [r0, r4]
+	cmp r3, r2
+	bne _08056500
+	movs r2, #2
+	ldrsh r1, [r0, r2]
+	movs r3, #6
+	ldrsh r0, [r0, r3]
+	movs r4, #2
+	cmp r1, r0
+	blt _0805652C
+	movs r4, #6
+	b _0805652C
+	.align 2, 0
+_080564F8: .4byte gLCDControlBuffer
+_080564FC: .4byte gEkrPairBmLoc
+_08056500:
+	movs r4, #2
+	ldrsh r1, [r0, r4]
+	movs r4, #6
+	ldrsh r0, [r0, r4]
+	cmp r1, r0
+	bne _08056516
+	movs r4, #4
+	cmp r3, r2
+	bge _0805652C
+	movs r4, #0
+	b _0805652C
+_08056516:
+	cmp r3, r2
+	bge _08056524
+	movs r4, #1
+	cmp r1, r0
+	blt _0805652C
+	movs r4, #7
+	b _0805652C
+_08056524:
+	movs r4, #3
+	cmp r1, r0
+	blt _0805652C
+	movs r4, #5
+_0805652C:
+	ldr r0, _08056540  @ gEkrDistanceType
+	movs r1, #0
+	ldrsh r0, [r0, r1]
+	cmp r0, #3
+	bgt _08056544
+	cmp r0, #1
+	bge _08056550
+	cmp r0, #0
+	beq _08056548
+	b _08056550
+	.align 2, 0
+_08056540: .4byte gEkrDistanceType
+_08056544:
+	cmp r0, #4
+	bne _08056550
+_08056548:
+	ldr r0, _0805654C  @ gUnknown_085B9B84
+	b _08056552
+	.align 2, 0
+_0805654C: .4byte gUnknown_085B9B84
+_08056550:
+	ldr r0, _08056584  @ gUnknown_085B9BA4
+_08056552:
+	lsls r1, r4, #2
+	adds r0, r1, r0
+	ldr r0, [r0]
+	adds r6, r1, #0
+	ldr r1, _08056588  @ 0x06010000
+	bl LZ77UnCompVram
+	ldr r0, _0805658C  @ gUnknown_080DC85C
+	ldr r1, _08056590  @ gPaletteBuffer + 0x280
+	movs r2, #1
+	bl CpuFastSet
+	bl EnablePaletteSync
+	ldr r0, _08056594  @ gEkrDistanceType
+	movs r2, #0
+	ldrsh r0, [r0, r2]
+	cmp r0, #4
+	bls _0805657A
+	b _08056856
+_0805657A:
+	lsls r0, r0, #2
+	ldr r1, _08056598  @ _0805659C
+	adds r0, r0, r1
+	ldr r0, [r0]
+	mov pc, r0
+	.align 2, 0
+_08056584: .4byte gUnknown_085B9BA4
+_08056588: .4byte 0x06010000
+_0805658C: .4byte gUnknown_080DC85C
+_08056590: .4byte gPaletteBuffer + 0x280
+_08056594: .4byte gEkrDistanceType
+_08056598: .4byte _0805659C
+_0805659C: @ jump table
+	.4byte _080565B0 @ case 0
+	.4byte _08056650 @ case 1
+	.4byte _08056650 @ case 2
+	.4byte _080567BC @ case 3
+	.4byte _080565B0 @ case 4
+_080565B0:
+	ldr r0, _08056600  @ gProc_EkrBaseKaiten
+	movs r1, #3
+	bl Proc_Start
+	adds r5, r0, #0
+	str r7, [r5, #0x44]
+	adds r1, r5, #0
+	adds r1, #0x29
+	movs r0, #0
+	strb r0, [r1]
+	strh r0, [r5, #0x2c]
+	movs r0, #0xb
+	strh r0, [r5, #0x2e]
+	ldr r2, _08056604  @ gEkrPairBmLoc
+	movs r3, #0
+	ldrsh r0, [r2, r3]
+	movs r4, #4
+	ldrsh r1, [r2, r4]
+	adds r0, r0, r1
+	lsls r0, r0, #3
+	adds r0, #8
+	strh r0, [r5, #0x32]
+	movs r1, #2
+	ldrsh r0, [r2, r1]
+	movs r3, #6
+	ldrsh r1, [r2, r3]
+	adds r0, r0, r1
+	lsls r0, r0, #3
+	adds r0, #8
+	strh r0, [r5, #0x3a]
+	movs r0, #0x78
+	strh r0, [r5, #0x34]
+	movs r0, #0x68
+	strh r0, [r5, #0x3c]
+	ldr r0, [r5, #0x44]
+	cmp r0, #0
+	bne _0805660C
+	ldr r0, _08056608  @ gUnknown_085B9BC4
+	b _0805660E
+	.align 2, 0
+_08056600: .4byte gProc_EkrBaseKaiten
+_08056604: .4byte gEkrPairBmLoc
+_08056608: .4byte gUnknown_085B9BC4
+_0805660C:
+	ldr r0, _0805663C  @ gUnknown_085B9C24
+_0805660E:
+	adds r0, r6, r0
+	ldr r0, [r0]
+	movs r1, #0x64
+	bl AnimCreate
+	adds r2, r0, #0
+	str r2, [r5, #0x5c]
+	movs r0, #0x90
+	lsls r0, r0, #7
+	strh r0, [r2, #8]
+	ldr r0, [r2, #0x1c]
+	movs r1, #0x80
+	lsls r1, r1, #3
+	orrs r0, r1
+	str r0, [r2, #0x1c]
+	ldr r0, [r5, #0x44]
+	cmp r0, #0
+	bne _08056640
+	ldrh r0, [r5, #0x32]
+	strh r0, [r2, #2]
+	ldrh r0, [r5, #0x3a]
+	b _08056646
+	.align 2, 0
+_0805663C: .4byte gUnknown_085B9C24
+_08056640:
+	ldrh r0, [r5, #0x34]
+	strh r0, [r2, #2]
+	ldrh r0, [r5, #0x3c]
+_08056646:
+	strh r0, [r2, #4]
+	ldr r0, _0805664C  @ gUnknown_085B9C84
+	b _0805684A
+	.align 2, 0
+_0805664C: .4byte gUnknown_085B9C84
+_08056650:
+	ldr r0, _080566AC  @ gProc_EkrBaseKaiten
+	movs r1, #3
+	bl Proc_Start
+	adds r5, r0, #0
+	str r7, [r5, #0x44]
+	adds r1, r5, #0
+	adds r1, #0x29
+	movs r0, #0
+	strb r0, [r1]
+	strh r0, [r5, #0x2c]
+	movs r0, #0xb
+	strh r0, [r5, #0x2e]
+	ldr r1, _080566B0  @ gEkrPairBmLoc
+	movs r4, #0
+	ldrsh r0, [r1, r4]
+	lsls r0, r0, #4
+	adds r0, #8
+	strh r0, [r5, #0x32]
+	movs r2, #2
+	ldrsh r0, [r1, r2]
+	lsls r0, r0, #4
+	adds r0, #8
+	strh r0, [r5, #0x3a]
+	movs r2, #0x48
+	strh r2, [r5, #0x34]
+	movs r0, #0x68
+	strh r0, [r5, #0x3c]
+	ldr r0, _080566B4  @ gEkrInitPosReal
+	ldr r0, [r0]
+	cmp r0, #1
+	bne _080566A2
+	ldr r1, _080566B8  @ BanimLeftDefaultPos
+	ldr r0, _080566BC  @ gEkrDistanceType
+	movs r3, #0
+	ldrsh r0, [r0, r3]
+	lsls r0, r0, #1
+	adds r0, r0, r1
+	ldrh r0, [r0]
+	subs r0, r2, r0
+	strh r0, [r5, #0x34]
+_080566A2:
+	ldr r0, [r5, #0x44]
+	cmp r0, #0
+	bne _080566C4
+	ldr r0, _080566C0  @ gUnknown_085B9BE4
+	b _080566C6
+	.align 2, 0
+_080566AC: .4byte gProc_EkrBaseKaiten
+_080566B0: .4byte gEkrPairBmLoc
+_080566B4: .4byte gEkrInitPosReal
+_080566B8: .4byte BanimLeftDefaultPos
+_080566BC: .4byte gEkrDistanceType
+_080566C0: .4byte gUnknown_085B9BE4
+_080566C4:
+	ldr r0, _080566F4  @ gUnknown_085B9C44
+_080566C6:
+	adds r0, r6, r0
+	ldr r0, [r0]
+	movs r1, #0x64
+	bl AnimCreate
+	adds r2, r0, #0
+	str r2, [r5, #0x5c]
+	movs r0, #0x90
+	lsls r0, r0, #7
+	strh r0, [r2, #8]
+	ldr r0, [r2, #0x1c]
+	movs r1, #0x80
+	lsls r1, r1, #3
+	orrs r0, r1
+	str r0, [r2, #0x1c]
+	ldr r0, [r5, #0x44]
+	cmp r0, #0
+	bne _080566F8
+	ldrh r0, [r5, #0x32]
+	strh r0, [r2, #2]
+	ldrh r0, [r5, #0x3a]
+	b _080566FE
+	.align 2, 0
+_080566F4: .4byte gUnknown_085B9C44
+_080566F8:
+	ldrh r0, [r5, #0x34]
+	strh r0, [r2, #2]
+	ldrh r0, [r5, #0x3c]
+_080566FE:
+	strh r0, [r2, #4]
+	ldr r0, _0805676C  @ gUnknown_085B9CA4
+	adds r0, r6, r0
+	ldr r0, [r0]
+	str r0, [r5, #0x60]
+	movs r4, #0
+	strh r4, [r5, #0x3e]
+	strh r4, [r5, #0x36]
+	ldr r0, _08056770  @ gProc_EkrBaseKaiten
+	movs r1, #3
+	bl Proc_Start
+	adds r5, r0, #0
+	str r7, [r5, #0x44]
+	adds r1, r5, #0
+	adds r1, #0x29
+	movs r0, #1
+	strb r0, [r1]
+	strh r4, [r5, #0x2c]
+	movs r0, #0xb
+	strh r0, [r5, #0x2e]
+	ldr r1, _08056774  @ gEkrPairBmLoc
+	movs r4, #4
+	ldrsh r0, [r1, r4]
+	lsls r0, r0, #4
+	adds r0, #8
+	strh r0, [r5, #0x32]
+	movs r2, #6
+	ldrsh r0, [r1, r2]
+	lsls r0, r0, #4
+	adds r0, #8
+	strh r0, [r5, #0x3a]
+	movs r0, #0xa8
+	strh r0, [r5, #0x34]
+	movs r0, #0x68
+	strh r0, [r5, #0x3c]
+	ldr r0, _08056778  @ gEkrInitPosReal
+	ldr r0, [r0]
+	cmp r0, #0
+	bne _08056760
+	ldr r1, _0805677C  @ BanimLeftDefaultPos
+	ldr r0, _08056780  @ gEkrDistanceType
+	movs r3, #0
+	ldrsh r0, [r0, r3]
+	lsls r0, r0, #1
+	adds r0, r0, r1
+	ldrh r0, [r0]
+	adds r0, #0xa8
+	strh r0, [r5, #0x34]
+_08056760:
+	ldr r0, [r5, #0x44]
+	cmp r0, #0
+	bne _08056788
+	ldr r0, _08056784  @ gUnknown_085B9C04
+	b _0805678A
+	.align 2, 0
+_0805676C: .4byte gUnknown_085B9CA4
+_08056770: .4byte gProc_EkrBaseKaiten
+_08056774: .4byte gEkrPairBmLoc
+_08056778: .4byte gEkrInitPosReal
+_0805677C: .4byte BanimLeftDefaultPos
+_08056780: .4byte gEkrDistanceType
+_08056784: .4byte gUnknown_085B9C04
+_08056788:
+	ldr r0, _080567B8  @ gUnknown_085B9C64
+_0805678A:
+	adds r0, r6, r0
+	ldr r0, [r0]
+	movs r1, #0x64
+	bl AnimCreate
+	adds r2, r0, #0
+	str r2, [r5, #0x5c]
+	movs r0, #0x90
+	lsls r0, r0, #7
+	strh r0, [r2, #8]
+	ldr r0, [r2, #0x1c]
+	movs r1, #0x80
+	lsls r1, r1, #3
+	orrs r0, r1
+	str r0, [r2, #0x1c]
+	ldr r0, [r5, #0x44]
+	cmp r0, #0
+	bne _08056840
+	ldrh r0, [r5, #0x32]
+	strh r0, [r2, #2]
+	ldrh r0, [r5, #0x3a]
+	b _08056846
+	.align 2, 0
+_080567B8: .4byte gUnknown_085B9C64
+_080567BC:
+	ldr r0, _08056800  @ gProc_EkrBaseKaiten
+	movs r1, #3
+	bl Proc_Start
+	adds r5, r0, #0
+	str r7, [r5, #0x44]
+	adds r1, r5, #0
+	adds r1, #0x29
+	movs r0, #0
+	strb r0, [r1]
+	strh r0, [r5, #0x2c]
+	movs r0, #0xb
+	strh r0, [r5, #0x2e]
+	ldr r1, _08056804  @ gEkrPairBmLoc
+	movs r4, #4
+	ldrsh r0, [r1, r4]
+	lsls r0, r0, #4
+	adds r0, #8
+	strh r0, [r5, #0x32]
+	movs r2, #6
+	ldrsh r0, [r1, r2]
+	lsls r0, r0, #4
+	adds r0, #8
+	strh r0, [r5, #0x3a]
+	movs r0, #0x78
+	strh r0, [r5, #0x34]
+	movs r0, #0x68
+	strh r0, [r5, #0x3c]
+	ldr r0, [r5, #0x44]
+	cmp r0, #0
+	bne _0805680C
+	ldr r0, _08056808  @ gUnknown_085B9C04
+	b _0805680E
+	.align 2, 0
+_08056800: .4byte gProc_EkrBaseKaiten
+_08056804: .4byte gEkrPairBmLoc
+_08056808: .4byte gUnknown_085B9C04
+_0805680C:
+	ldr r0, _0805683C  @ gUnknown_085B9C64
+_0805680E:
+	adds r0, r6, r0
+	ldr r0, [r0]
+	movs r1, #0x64
+	bl AnimCreate
+	adds r2, r0, #0
+	str r2, [r5, #0x5c]
+	movs r0, #0x90
+	lsls r0, r0, #7
+	strh r0, [r2, #8]
+	ldr r0, [r2, #0x1c]
+	movs r1, #0x80
+	lsls r1, r1, #3
+	orrs r0, r1
+	str r0, [r2, #0x1c]
+	ldr r0, [r5, #0x44]
+	cmp r0, #0
+	bne _08056840
+	ldrh r0, [r5, #0x32]
+	strh r0, [r2, #2]
+	ldrh r0, [r5, #0x3a]
+	b _08056846
+	.align 2, 0
+_0805683C: .4byte gUnknown_085B9C64
+_08056840:
+	ldrh r0, [r5, #0x34]
+	strh r0, [r2, #2]
+	ldrh r0, [r5, #0x3c]
+_08056846:
+	strh r0, [r2, #4]
+	ldr r0, _08056860  @ gUnknown_085B9CC4
+_0805684A:
+	adds r0, r6, r0
+	ldr r0, [r0]
+	str r0, [r5, #0x60]
+	movs r0, #0
+	strh r0, [r5, #0x3e]
+	strh r0, [r5, #0x36]
+_08056856:
+	add sp, #4
+	pop {r4, r5, r6, r7}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08056860: .4byte gUnknown_085B9CC4
+
+	THUMB_FUNC_END NewEkrBaseKaiten
+
 	THUMB_FUNC_START sub_8056864
 sub_8056864: @ 0x08056864
 	push {r4, r5, r6, lr}
