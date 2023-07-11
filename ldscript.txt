@@ -210,7 +210,7 @@ SECTIONS
         src/prepscreen.o(.text);
         src/prep_atmenu.o(.text);
         src/prep_menuproc.o(.text);
-        asm/prep_menuscroll.o(.text);
+        src/prep_menuscroll.o(.text);
         src/prep_sallycir.o(.text);
         src/prep_utils.o(.text);
         src/prep_itemscreen.o(.text);
@@ -411,7 +411,7 @@ SECTIONS
         . = ALIGN(4); src/player_interface.o(.rodata);
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); src/prep_atmenu.o(.rodata);
-        . = ALIGN(4); data/const_data_205BD0.o(.rodata);
+        . = ALIGN(4); src/prep_menuscroll.o(.rodata);
         . = ALIGN(4); src/prep_sallycir.o(.rodata);
         . = ALIGN(4); src/prep_utils.o(.rodata);
         . = ALIGN(4); src/prep_itemscreen.o(.rodata);
@@ -627,7 +627,7 @@ SECTIONS
         . = ALIGN(4); data/data_A167C8.o(.data);
         . = ALIGN(4); src/prep_atmenu.o(.data);
         . = ALIGN(4); src/prep_menuproc.o(.data);
-        . = ALIGN(4); data/data_prep_menuscroll.o(.data);
+        . = ALIGN(4); src/prep_menuscroll.o(.data);
         . = ALIGN(4); src/prep_sallycir.o(.data);
         . = ALIGN(4); src/prep_utils.o(.data);
         . = ALIGN(4); src/prep_itemscreen.o(.data);
