@@ -112,6 +112,44 @@ struct ProcEkrBattleStarting {
     /* 3C */ s16 y2;
 };
 
+void NewEkrBattleStarting(void);
+void ekrBaStart_InitScreen(struct ProcEkrBattleStarting * proc);
+void ekrBaStart_SreenFailIn(struct ProcEkrBattleStarting * proc);
+void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting * proc);
+void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting * proc);
+void ekrBaStart_8055FE8(struct ProcEkrBattleStarting * proc);
+void ekrBaStart_8056024(struct ProcEkrBattleStarting * proc);
+void ekrBaStart_8056078(struct ProcEkrBattleStarting * proc);
+
+struct ProcEkrBattleEnding {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+
+    /* 30 */ STRUCT_PAD(0x30, 0x32);
+
+    /* 32 */ s16 x1;
+    /* 34 */ s16 x2;
+
+    /* 36 */ STRUCT_PAD(0x36, 0x3A);
+
+    /* 3A */ s16 y1;
+    /* 3C */ s16 y2;
+};
+
+void NewEkrbattleending(void);
+void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc);
+void ekrBattleEnding_8056170(struct ProcEkrBattleEnding * proc);
+void ekrBattleEnding_80561C8(struct ProcEkrBattleEnding * proc);
+void ekrBattleEnding_8056228(struct ProcEkrBattleEnding * proc);
+void ekrBattleEnding_8056288(struct ProcEkrBattleEnding * proc);
+void ekrBattleEnding_8056310(struct ProcEkrBattleEnding * proc);
+void ekrBattleEnding_8056390(struct ProcEkrBattleEnding * proc);
+void ekrBattleEnding_8056484(struct ProcEkrBattleEnding * proc);
+
 struct ProcEkrChienCHR {
     PROC_HEADER;
 
@@ -334,7 +372,7 @@ extern struct ProcCmd ProcScr_efxWeaponIcon[];
 extern struct ProcCmd ProcScr_efxSpellCast[];
 extern struct ProcCmd ProcScr_efxSPDQuake[];
 extern struct ProcCmd ProcScr_ekrBattleStarting[];
-extern struct ProcCmd gProc_ekrbattleendin[];
+extern struct ProcCmd ProcScr_ekrBattleEnding[];
 // extern ??? gProc_EkrBaseKaiten
 // extern ??? gUnknown_085B9B84
 // extern ??? gUnknown_085B9BA4
@@ -653,33 +691,17 @@ s8 sub_8055BC4(void);
 void BeginAnimsOnBattleAnimations(void);
 void EkrMainEndExec(void);
 void MainUpdate_8055C68(void);
-void NewEkrBattleStarting(void);
-// ??? ekrBaStart_InitScreen(???);
-// ??? ekrBaStart_SreenFailIn(???);
-// ??? ekrBaStart_InitBattleScreen(???);
-// ??? ekrBaStart_ExecEkrBattle6C(???);
-// ??? ekrBaStart_8055FE8(???);
-// ??? ekrBaStart_8056024(???);
-// ??? ekrBaStart_8056078(???);
-void NewEkrbattleending(void);
-// ??? ekrBattleEnding_80560F0(???);
-// ??? ekrBattleEnding_8056170(???);
-// ??? ekrBattleEnding_80561C8(???);
-// ??? ekrBattleEnding_8056228(???);
-// ??? ekrBattleEnding_8056288(???);
-// ??? ekrBattleEnding_8056310(???);
-// ??? ekrBattleEnding_8056390(???);
-// ??? ekrBattleEnding_8056484(???);
-void NewEkrBaseKaiten(struct Anim *anim);
+
+void NewEkrBaseKaiten(int identifier);
 // ??? sub_8056864(???);
-void NewEkrUnitKakudai(struct Anim *anim);
+void NewEkrUnitKakudai(int identifier);
 // ??? UnitKakudai1(???);
 // ??? UnitKakudai2(???);
 // ??? sub_8056D18(???);
-void NewEkrWindowAppear(int, int);
+void NewEkrWindowAppear(int identifier, int);
 bool DoesEkrWindowAppearExist(void);
 // ??? sub_8056D90(???);
-void NewEkrNamewinAppear(int, int, int);
+void NewEkrNamewinAppear(int identifier, int, int);
 bool CheckEkrNamewinAppearUnexist(void);
 // ??? sub_8056E7C(???);
 // ??? sub_8056EA4(???);

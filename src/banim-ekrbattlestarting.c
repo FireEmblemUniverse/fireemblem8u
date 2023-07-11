@@ -196,8 +196,8 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
     }
 
     EfxClearScreenFx();
-    NewEkrUnitKakudai(NULL);
-    NewEkrBaseKaiten(NULL);
+    NewEkrUnitKakudai(0);
+    NewEkrBaseKaiten(0);
     NewEkrWindowAppear(0, 0xB);
     NewEkrNamewinAppear(0, 0xB, 0);
     NewEkrBaseAppear(0, 0xB);

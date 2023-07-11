@@ -1,39 +1,5 @@
 	.section .data
 
-	.global gProc_ekrbattleendin
-gProc_ekrbattleendin:  @ 0x085B9B1C
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dad68
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ekrBattleEnding_80560F0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ekrBattleEnding_8056170
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ekrBattleEnding_80561C8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ekrBattleEnding_8056228
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ekrBattleEnding_8056288
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ekrBattleEnding_8056310
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ekrBattleEnding_8056390
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ekrBattleEnding_8056484
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gProc_EkrBaseKaiten
 gProc_EkrBaseKaiten:  @ 0x085B9B6C
         @ PROC_NAME
