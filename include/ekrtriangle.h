@@ -2,32 +2,89 @@
 
 #include "global.h"
 #include "proc.h"
+#include "efxbattle.h"
+
+enum ekrtriangle_types {
+    EKR_TRI_JTYPE_DEFAULT = 0,
+    EKR_TRI_JTYPE_PROMOTED,
+
+    EKR_TRI_WTYPE_DEFAULT = 0,
+    EKR_TRI_WTYPE_ALTERNATIVE,
+    EKR_TRI_WTYPE_ALTERNATIVE2,
+};
 
 struct ProcEkrTriangle {
     PROC_HEADER;
 
     /* 29 */ STRUCT_PAD(0x29, 0x5C);
-    /* 5C */ struct Anim *anim;
+    /* 5C */ struct Anim * anim;
 };
 
-struct ProcEkrTriPegasusKnight {
+struct ProcEkrTriClass {
     PROC_HEADER;
 
     /* 2E */ STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ STRUCT_PAD(0x2E, 0x44);
-    /* 44 */ int ekr1;
-    /* 48 */ int ekr2;
-    /* 4C */ int banim1;
-    /* 50 */ int banim2;
+    /* 44 */ int etype1;
+    /* 48 */ int etype2;
+    /* 4C */ int ewtype1;
+    /* 50 */ int ewtype2;
     /* 54 */ STRUCT_PAD(0x54, 0x5C);
+    /* 5C */ struct Anim * anim;
+};
+
+struct ProcEkrTriPegasusKnightBG {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ s16 unk30;
+    STRUCT_PAD(0x32, 0x44);
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 *frame_config;
+    /* 4C */ const u16 **unk4C;
+    /* 50 */ const u16 **unk50;
+    STRUCT_PAD(0x54, 0x5C);
     /* 5C */ struct Anim *anim;
+};
+
+struct ProcEkrTriArmorKnightOBJ2 {
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    /* 2A */ u8 unk2A;
+    STRUCT_PAD(0x2B, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ s16 unk30;
+    /* 32 */ s16 unk32;
+    /* 34 */ s16 unk34;
+    STRUCT_PAD(0x36, 0x5C);
+    /* 5C */ struct Anim * anim;
+    /* 60 */ struct Anim * anim2;
+    /* 64 */ struct Anim * anim3;
+};
+
+struct ProcEfxTriagnleQUAKE {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+
+    STRUCT_PAD(0x30, 0x5C);
+
+    /* 5C */ struct Anim * anim;
+    /* 60 */ ProcPtr qproc;
 };
 
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriangle[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnight[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnightBG[];
-// extern ??? gUnknown_087595EC
+extern CONST_DATA const u16 * gUnknown_087595EC[];
 extern CONST_DATA struct ProcCmd ProcScr_EkrTriPegasusKnightOBJ[];
 extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnight[];
 extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnightOBJ[];
@@ -37,19 +94,19 @@ extern CONST_DATA struct ProcCmd ProcScr_EfxTriangleQUAKE[];
 bool CheckEkrTriangleInvalid(void);
 void nullsub_18(void);
 void NewEkrTriangle(struct Anim *anim);
-// ??? EkrTriangleMain(???);
-ProcPtr NewEkrTriPegasusKnight(struct Anim *anim, int ekr1, int ekr2, int banim1, int banim2);
-// ??? sub_80751BC(???);
-// ??? NewEkrTriPegasusKnightBG(???);
-// ??? sub_8075308(???);
-// ??? sub_8075350(???);
-// ??? sub_80753FC(???);
-void NewEkrTriArmorKnight(struct Anim *anim, int ekr1, int ekr2, int banim1, int banim2);
-// ??? sub_807545C(???);
-// ??? sub_8075538(???);
-// ??? sub_80756BC(???);
-// ??? sub_8075718(???);
-// ??? sub_8075828(???);
-// ??? sub_8075874(???);
-// ??? sub_807589C(???);
-// ??? EfxTriangleQUAKEMain(???);
+void EkrTriangleMain(struct ProcEkrTriangle * proc);
+ProcPtr NewEkrTriPegasusKnight(struct Anim *anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
+void EkrTriPegasusKnightMain(struct ProcEkrTriClass * proc);
+void NewEkrTriPegasusKnightBG(struct Anim * anim, u32 pos, u32 etype, u32 ewtype);
+void EkrTriPegasusKnightBgMain(struct ProcEkrTriPegasusKnightBG * proc);
+void NewEkrTriPegasusKnightOBJ(struct Anim * anim, u32 pos, u32 etype, u32 ewtype);
+void EkrTriPegasusKnightObjMain(struct ProcEfxOBJ * proc);
+ProcPtr NewEkrTriArmorKnight(struct Anim *anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
+void EkrTriArmorKnightMain(struct ProcEkrTriClass * proc);
+void NewEkrTriArmorKnightOBJ(struct Anim *anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
+void EkrTriArmorKnightObjMain(struct ProcEfxOBJ * proc);
+void NewEkrTriArmorKnightOBJ2(struct Anim * anim, u32 pos, u32 etype, u32 ewtype);
+void EkrTriArmorKnightObj2Main1(struct ProcEkrTriArmorKnightOBJ2 * proc);
+void EkrTriArmorKnightObj2Main2(struct ProcEkrTriArmorKnightOBJ2 * proc);
+void NewEfxTriangleQUAKE(struct Anim * anim, int duration);
+void EfxTriangleQUAKEMain(struct ProcEfxTriagnleQUAKE * proc);

@@ -128,7 +128,7 @@ extern u16 pPalette2Buffer[];
 // extern ??? gUnknown_02022B68
 extern u16 gUnknown_02022B88[];
 extern u16 gUnknown_02022BA4[];
-// extern ??? gUnknown_02022BA8
+extern u16 gUnknown_02022BA8[];
 extern u16 gUnknown_02022BC8[];
 // extern ??? gUnknown_02022BE8
 extern u16 gPalEfxHpBarLeft[];

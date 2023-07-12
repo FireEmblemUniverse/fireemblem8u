@@ -1,17 +1,5 @@
 	.section .rodata
 
-	.global gUnknown_080E1708
-gUnknown_080E1708:  @ 0x080E1708
-	.incbin "baserom.gba", 0xE1708, 0x2A
-
-	.global gUnknown_080E1732
-gUnknown_080E1732:  @ 0x080E1732
-	.incbin "baserom.gba", 0xE1732, 0xE
-
-	.global gUnknown_080E1740
-gUnknown_080E1740:  @ 0x080E1740
-	.incbin "baserom.gba", 0xE1740, 0x80
-
 	.global gUnknown_080E17C0
 gUnknown_080E17C0:  @ 0x080E17C0
 	.incbin "baserom.gba", 0xE17C0, 0x9A4
@@ -22,7 +10,31 @@ gUnknown_080E2164:  @ 0x080E2164
 
 	.global gUnknown_080E2B54
 gUnknown_080E2B54:  @ 0x080E2B54
-	.incbin "baserom.gba", 0xE2B54, 0x1024
+	.incbin "baserom.gba", 0xE2B54, 0xE3554 - 0xE2B54
+
+	.global gUnknown_080E3554
+gUnknown_080E3554:  @ 0x080E3554
+	.incbin "baserom.gba", 0xE3554, 0xE3668 - 0xE3554
+
+	.global gUnknown_080E3668
+gUnknown_080E3668:  @ 0x080E3668
+	.incbin "baserom.gba", 0xE3668, 0xE378C - 0xE3668
+
+	.global gUnknown_080E378C
+gUnknown_080E378C:  @ 0x080E378C
+	.incbin "baserom.gba", 0xE378C, 0xE3864 - 0xE378C
+
+	.global gUnknown_080E3864
+gUnknown_080E3864:  @ 0x080E3864
+	.incbin "baserom.gba", 0xE3864, 0xE3980 - 0xE3864
+
+	.global gUnknown_080E3980
+gUnknown_080E3980:  @ 0x080E3980
+	.incbin "baserom.gba", 0xE3980, 0xE3AA4 - 0xE3980
+
+	.global gUnknown_080E3AA4
+gUnknown_080E3AA4:  @ 0x080E3AA4
+	.incbin "baserom.gba", 0xE3AA4, 0xE3B78 - 0xE3AA4
 
 	.global gUnknown_080E3B78
 gUnknown_080E3B78:  @ 0x080E3B78

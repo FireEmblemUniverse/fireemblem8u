@@ -569,9 +569,9 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
     gUnknown_030053E0.u0c = 0x4;
     gUnknown_030053E0.u12 = 0x1;
     gUnknown_030053E0.buf = gBG1TilemapBuffer;
-    gUnknown_030053E0.u18 = gEkrImgBuffer;
+    gUnknown_030053E0.u18 = gEkrBuf1;
     gUnknown_030053E0.u1c = (void *)gEkrTsaBuffer;
-    gUnknown_030053E0.u20 = gUnknown_0201A790;
+    gUnknown_030053E0.u20 = gEkrBuf2;
     gUnknown_030053E0.u24 = sub_80CD34C;
 
     sub_806E8F0();

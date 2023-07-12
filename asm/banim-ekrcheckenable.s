@@ -589,7 +589,7 @@ _08057486:
 	adds r1, #0x4a
 	ldrh r1, [r1]
 	bl SomethingFilterBattleAnimId
-	ldr r1, _080575B8  @ gBanimCharacterTSAs
+	ldr r1, _080575B8  @ gBanimCharacterPals
 	str r0, [r1]
 _080574A2:
 	ldr r3, [sp, #0x28]
@@ -603,7 +603,7 @@ _080574A2:
 	adds r1, #0x4a
 	ldrh r1, [r1]
 	bl SomethingFilterBattleAnimId
-	ldr r1, _080575B8  @ gBanimCharacterTSAs
+	ldr r1, _080575B8  @ gBanimCharacterPals
 	str r0, [r1, #4]
 _080574BE:
 	ldr r7, _080575BC  @ gEkrPairTerrainID
@@ -724,7 +724,7 @@ _080575A8: .4byte gEkrPairBanimID
 _080575AC: .4byte gBattleInitSide
 _080575B0: .4byte 0x0000FFFF
 _080575B4: .4byte gUnknown_0895E0A4
-_080575B8: .4byte gBanimCharacterTSAs
+_080575B8: .4byte gBanimCharacterPals
 _080575BC: .4byte gEkrPairTerrainID
 _080575C0: .4byte gBanimTerrainIndexMaybe
 _080575C4: .4byte gPlaySt

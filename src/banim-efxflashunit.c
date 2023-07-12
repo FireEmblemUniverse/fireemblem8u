@@ -184,14 +184,8 @@ void EfxHPBarColorChangeClear29(void)
 void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
 {
     int ret;
-
-#if NONMATCHING
-    u8 * buf1, * buf2, * buf3;
-#else
-    register u8 * buf1 asm("r2");
-    register u8 * buf2 asm("r3");
-    register u8 * buf3 asm("r5");
-#endif
+    u8 *buf1, *buf2;
+    u16 *buf3;
 
     if (proc->unk29 == true)
         return;
@@ -207,14 +201,14 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
     if (gEkrGaugeHp[EKR_POS_L] <= 80)
     {
         buf1 = gUnknown_0201F948;
-        buf2 = &gUnknown_0201F948[0x30];
-        buf3 = &gUnknown_0201F948[0x60];
+        buf2 = gUnknown_0201F978;
+        buf3 = gUnknown_0201F9A8;
 
         sub_80715F4(
             gPalEfxHpBarLeft,
-            buf1,
-            buf2,
-            buf3,
+            gUnknown_0201F948,
+            gUnknown_0201F978,
+            gUnknown_0201F9A8,
             0x10, proc->unk54, 5);
     }
     else
@@ -223,8 +217,8 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
     if (gEkrGaugeHp[EKR_POS_R] <= 80)
     {
         buf1 = gUnknown_0201FA08;
-        buf2 = &gUnknown_0201FA08[0x30];
-        buf3 = &gUnknown_0201FA08[0x60];
+        buf2 = gUnknown_0201FA38;
+        buf3 = gUnknown_0201FA68;
 
         sub_80715F4(
             gPalEfxHpBarRight,
