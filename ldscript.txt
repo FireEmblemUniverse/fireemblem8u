@@ -174,7 +174,6 @@ SECTIONS
         src/banim-ekrlvup.o(.text);
         asm/banim-efxlvup.o(.text);
         src/banim-ekrtriangle.o(.text);
-        asm/banim-ekrtriangle.o(.text);
         src/banim-ekrpopup.o(.text);
         src/banim-ekrhensei.o(.text);
         src/banim-ekrdragon-demonking.o(.text);

@@ -188,12 +188,11 @@
 . = 0x017778; gpProcEfxSpellCast = .;
 . = 0x01777C; gpProcEfxHPBarColorChange = .;
 . = 0x017780; gEkrHitEfxBool = .;
-. = 0x017790; gEkrImgBuffer = .;
+. = 0x017790; gEkrBuf1 = .;
 . = 0x019490; gUnknown_02019490 = .;
 . = 0x019790; gEkrTsaBuffer = .;
 . = 0x019D00; gUnknown_02019D00 = .;
-. = 0x01A790; gUnknown_0201A790 = .;
-. = 0x01AF90; gUnknown_0201AF90 = .;
+. = 0x01A790; gEkrBuf2 = .;
 . = 0x01AFC0; gUnknown_0201AFC0 = .;
 . = 0x01AFF0; gUnknown_0201AFF0 = .;
 . = 0x01B0D8; gUnknown_0201B0D8 = .;
@@ -479,7 +478,7 @@
 . = 0x03E18C; gpEkrBattleUnitRight = .;
 . = 0x03E190; gEkrPids = .;
 . = 0x03E194; gpEkrTriangleUnits = .;
-. = 0x03E19C; gBanimCharacterTSAs = .;
+. = 0x03E19C; gBanimCharacterPals = .;
 . = 0x03E1A4; gUnknown_0203E1A4 = .;
 . = 0x03E1AC; gEkrGaugeHp = .;
 . = 0x03E1B0; gEkrPairMaxHP = .;

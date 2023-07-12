@@ -58,12 +58,14 @@ struct ProcEfxOBJ {
     PROC_HEADER;
 
     /* 29 */ u8 unk29;
-    STRUCT_PAD(0x2A, 0x2C);
+    /* 2A */ u8 unk2A;
+    STRUCT_PAD(0x2B, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
     STRUCT_PAD(0x30, 0x5C);
-    /* 5C */ struct Anim *anim;
-    /* 60 */ struct Anim *anim2;
+    /* 5C */ struct Anim * anim;
+    /* 60 */ struct Anim * anim2;
+    /* 64 */ struct Anim * anim3;
 };
 
 struct ProcEkrDispUP {
@@ -469,11 +471,10 @@ extern short gUnknown_02017764[2];
 extern short gUnknown_02017768[2];
 
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
-extern u8 gEkrImgBuffer[];
+extern u8 gEkrBuf1[];
 extern u16 gUnknown_02019490[];
 extern u16 gEkrTsaBuffer[0x1000 / 2];
-extern u8 gUnknown_0201A790[];
-// extern ??? gUnknown_0201AF90
+extern u8 gEkrBuf2[];
 // extern ??? gUnknown_0201AFC0
 // extern ??? gUnknown_0201AFF0
 // extern ??? gUnknown_0201B0D8
@@ -763,22 +764,31 @@ extern u16 gUnknown_080E1164[];
 // extern ??? gUnknown_080E1664
 // extern ??? gUnknown_080E169A
 // extern ??? gUnknown_080E16DC
-// extern ??? gUnknown_080E1732
-// extern ??? gUnknown_080E1740
-// extern ??? gUnknown_080E17C0
-// extern ??? gUnknown_080E2164
-// extern ??? gUnknown_080E2B54
-// extern ??? gUnknown_080E3B78
-// extern ??? gUnknown_080E4530
-// extern ??? gUnknown_080E4EFC
-// extern ??? gUnknown_080E58A4
-// extern ??? gUnknown_080E5BC4
-// extern ??? gUnknown_080E5F98
-// extern ??? gUnknown_080E63CC
-// extern ??? gUnknown_080E678C
-// extern ??? gUnknown_080E6CC4
-// extern ??? gUnknown_080E7400
-// extern ??? gUnknown_080E7B8C
+extern const s16 FrameLut_EkrTriPegagusBG1[];
+extern const s16 FrameLut_EkrTriPegagusBG2[];
+extern const u16 gUnknown_080E17C0[];
+extern const u16 gUnknown_080E2164[];
+extern const u16 gUnknown_080E2B54[];
+
+/* Imgs */
+extern const u16 gUnknown_080E3554[];
+extern const u16 gUnknown_080E3668[];
+extern const u16 gUnknown_080E378C[];
+extern const u16 gUnknown_080E3864[];
+extern const u16 gUnknown_080E3980[];
+extern const u16 gUnknown_080E3AA4[];
+
+extern const u16 gUnknown_080E3B78[];
+extern const u16 gUnknown_080E4530[];
+extern const u16 gUnknown_080E4EFC[];
+extern const u16 gUnknown_080E58A4[];
+extern const u16 gUnknown_080E5BC4[];
+extern const u16 gUnknown_080E5F98[];
+extern const u16 gUnknown_080E63CC[];
+extern const u16 gUnknown_080E678C[];
+extern const u16 gUnknown_080E6CC4[];
+extern const u16 gUnknown_080E7400[];
+extern const u16 gUnknown_080E7B8C[];
 
 extern char gNopStr[];
 // extern ??? gUnknown_085B9E4C
@@ -1248,16 +1258,16 @@ extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? ProcScr_EkrLvupApfx
 // extern ??? ProcScr_eobjLvup
 
-// extern ??? gUnknown_08759B34
-// extern ??? gUnknown_08759E68
-// extern ??? gUnknown_08759F00
-// extern ??? gUnknown_08759F90
-// extern ??? gUnknown_0875A020
-// extern ??? gUnknown_0875A0AC
-// extern ??? gUnknown_0875A19C
-// extern ??? gUnknown_0875A314
-// extern ??? gUnknown_0875A468
-// extern ??? gUnknown_0875A730
+extern u32 gUnknown_08759B34[];
+extern u32 gUnknown_08759E68[];
+extern u32 gUnknown_08759F00[];
+extern u32 gUnknown_08759F90[];
+extern u32 gUnknown_0875A020[];
+extern u32 gUnknown_0875A0AC[];
+extern u32 gUnknown_0875A19C[];
+extern u32 gUnknown_0875A314[];
+extern u32 gUnknown_0875A468[];
+extern u32 gUnknown_0875A730[];
 extern u16 *gBattleBGDataTable[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrPopup[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrPopup2[];

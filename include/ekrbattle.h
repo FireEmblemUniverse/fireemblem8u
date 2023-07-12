@@ -279,7 +279,7 @@ extern short gEfxPairHpBufOffset[];
 extern short gEkrPairBanimID2[];
 extern u8 gEkrPids[2];
 extern struct Unit *gpEkrTriangleUnits[2];
-extern char *gBanimCharacterTSAs[2];
+extern char *gBanimCharacterPals[2];
 extern int gUnknown_0203E1A4[2];
 extern short gEkrGaugeHp[2];
 extern short gEkrPairMaxHP[2];

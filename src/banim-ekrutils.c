@@ -343,8 +343,8 @@ void sub_805576C(struct Anim *anim, const u16 *src, int a, int b)
 void SpellFx_RegisterObjGfx(const u16 *img, u32 size)
 {
     u16 *dst = OBJ_VRAM0 + 0x0800;
-    LZ77UnCompWram(img, gUnknown_0201A790);
-    RegisterDataMove(gUnknown_0201A790, dst, size);
+    LZ77UnCompWram(img, gEkrBuf2);
+    RegisterDataMove(gEkrBuf2, dst, size);
 }
 
 void SpellFx_RegisterObjPal(const u16 *pal, u32 size)
@@ -356,8 +356,8 @@ void SpellFx_RegisterObjPal(const u16 *pal, u32 size)
 void SpellFx_RegisterBgGfx(const u16 *img, u32 size)
 {
     u16 *dst = (void *)BG_VRAM + 0x2000;
-    LZ77UnCompWram(img, gEkrImgBuffer);
-    RegisterDataMove(gEkrImgBuffer, dst, size);
+    LZ77UnCompWram(img, gEkrBuf1);
+    RegisterDataMove(gEkrBuf1, dst, size);
 }
 
 void SpellFx_RegisterBgPal(const u16 *pal, u32 size)
