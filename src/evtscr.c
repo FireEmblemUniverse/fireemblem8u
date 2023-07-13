@@ -149,15 +149,24 @@ u8 Event05_SetSlot(struct EventEngineProc * proc)
     return EV_RET_DEFAULT;
 }
 
-#if NONMATCHING
-
 u8 Event06_SlotOperation(struct EventEngineProc * proc)
 {
-    int sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
+    u32 reg1, reg2, reg3;
+    u8 sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
     u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-    u8 reg1 = arg & 0xF;
-    u8 reg2 = ((arg << 0x10) >> 0x14) & 0xF;
-    u8 reg3 = ((arg << 0x10) >> 0x18) & 0xF;
+#ifndef NONMATCHING
+    u8 argLow;
+    asm("":::"memory");
+    argLow = arg;
+    reg1 = argLow % 0x10;
+    ++arg; --arg;
+    reg2 = (arg >> 4) % 0x10;
+    reg3 = (arg >> 8) % 0x10;
+#else
+    reg1 = arg % 0x10;
+    reg2 = (arg >> 4) % 0x10;
+    reg3 = (arg >> 8) % 0x10;
+#endif
 
     switch (sub_cmd)
     {
@@ -208,14 +217,15 @@ u8 Event06_SlotOperation(struct EventEngineProc * proc)
 
 u8 Event07_SlotQueueOperations(struct EventEngineProc * proc)
 {
-    const u16 * scr = proc->pEventCurrent;
-    int sub_cmd = EVT_SUB_CMD(scr);
-    u16 slot;
+    const u16 *scr = proc->pEventCurrent;
+    u8 sub_cmd = EVT_SUB_CMD(scr);
+    s16 slot;
 
     switch (sub_cmd)
     {
     case EVSUBCMD_SENQUEUE:
-        SlotQueuePush(gEventSlots[EVT_CMD_ARGV(scr)[0]]);
+        slot = EVT_CMD_ARGV(scr)[0];
+        SlotQueuePush(gEventSlots[slot]);
         break;
 
     case EVSUBCMD_SDEQUEUE_S1:
@@ -224,274 +234,12 @@ u8 Event07_SlotQueueOperations(struct EventEngineProc * proc)
 
     case EVSUBCMD_SDEQUEUE:
         slot = EVT_CMD_ARGV(scr)[0];
-        gEventSlots[(s16)slot] = SlotQueuePop();
+        gEventSlots[slot] = SlotQueuePop();
         break;
     }
 
     return EV_RET_DEFAULT;
 }
-
-#else
-
-NAKEDFUNC
-u8 Event06_SlotOperation(struct EventEngineProc * proc)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        ldr r2, [r0, #0x38]\n\
-        ldrb r0, [r2]\n\
-        movs r1, #0xf\n\
-        adds r4, r1, #0\n\
-        ands r4, r0\n\
-        ldrh r0, [r2, #2]\n\
-        adds r3, r1, #0\n\
-        ands r3, r0\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r5, r0, #0x14\n\
-        ands r5, r1\n\
-        lsrs r6, r0, #0x18\n\
-        ands r6, r1\n\
-        cmp r4, #9\n\
-        bls _0800D7B6\n\
-        b _0800D910\n\
-    _0800D7B6:\n\
-        lsls r0, r4, #2\n\
-        ldr r1, _0800D7C0  @ _0800D7C4\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        mov pc, r0\n\
-        .align 2, 0\n\
-    _0800D7C0: .4byte _0800D7C4\n\
-    _0800D7C4: @ jump table\n\
-        .4byte _0800D7EC @ case 0\n\
-        .4byte _0800D808 @ case 1\n\
-        .4byte _0800D824 @ case 2\n\
-        .4byte _0800D844 @ case 3\n\
-        .4byte _0800D860 @ case 4\n\
-        .4byte _0800D880 @ case 5\n\
-        .4byte _0800D89C @ case 6\n\
-        .4byte _0800D8B8 @ case 7\n\
-        .4byte _0800D8D4 @ case 8\n\
-        .4byte _0800D8F0 @ case 9\n\
-    _0800D7EC:\n\
-        ldr r2, _0800D804  @ gEventSlots\n\
-        lsls r3, r3, #2\n\
-        adds r3, r3, r2\n\
-        lsls r1, r5, #2\n\
-        adds r1, r1, r2\n\
-        lsls r0, r6, #2\n\
-        adds r0, r0, r2\n\
-        ldr r1, [r1]\n\
-        ldr r0, [r0]\n\
-        adds r1, r1, r0\n\
-        b _0800D904\n\
-        .align 2, 0\n\
-    _0800D804: .4byte gEventSlots\n\
-    _0800D808:\n\
-        ldr r2, _0800D820  @ gEventSlots\n\
-        lsls r3, r3, #2\n\
-        adds r3, r3, r2\n\
-        lsls r1, r5, #2\n\
-        adds r1, r1, r2\n\
-        lsls r0, r6, #2\n\
-        adds r0, r0, r2\n\
-        ldr r1, [r1]\n\
-        ldr r0, [r0]\n\
-        subs r1, r1, r0\n\
-        b _0800D904\n\
-        .align 2, 0\n\
-    _0800D820: .4byte gEventSlots\n\
-    _0800D824:\n\
-        ldr r2, _0800D840  @ gEventSlots\n\
-        lsls r3, r3, #2\n\
-        adds r3, r3, r2\n\
-        lsls r1, r5, #2\n\
-        adds r1, r1, r2\n\
-        lsls r0, r6, #2\n\
-        adds r0, r0, r2\n\
-        ldr r1, [r1]\n\
-        ldr r0, [r0]\n\
-        muls r0, r1, r0\n\
-        str r0, [r3]\n\
-        movs r0, #0\n\
-        b _0800D912\n\
-        .align 2, 0\n\
-    _0800D840: .4byte gEventSlots\n\
-    _0800D844:\n\
-        ldr r2, _0800D85C  @ gEventSlots\n\
-        lsls r4, r3, #2\n\
-        adds r4, r4, r2\n\
-        lsls r0, r5, #2\n\
-        adds r0, r0, r2\n\
-        lsls r1, r6, #2\n\
-        adds r1, r1, r2\n\
-        ldr r0, [r0]\n\
-        ldr r1, [r1]\n\
-        bl __udivsi3\n\
-        b _0800D876\n\
-        .align 2, 0\n\
-    _0800D85C: .4byte gEventSlots\n\
-    _0800D860:\n\
-        ldr r2, _0800D87C  @ gEventSlots\n\
-        lsls r4, r3, #2\n\
-        adds r4, r4, r2\n\
-        lsls r0, r5, #2\n\
-        adds r0, r0, r2\n\
-        lsls r1, r6, #2\n\
-        adds r1, r1, r2\n\
-        ldr r0, [r0]\n\
-        ldr r1, [r1]\n\
-        bl __umodsi3\n\
-    _0800D876:\n\
-        str r0, [r4]\n\
-        movs r0, #0\n\
-        b _0800D912\n\
-        .align 2, 0\n\
-    _0800D87C: .4byte gEventSlots\n\
-    _0800D880:\n\
-        ldr r2, _0800D898  @ gEventSlots\n\
-        lsls r3, r3, #2\n\
-        adds r3, r3, r2\n\
-        lsls r1, r5, #2\n\
-        adds r1, r1, r2\n\
-        lsls r0, r6, #2\n\
-        adds r0, r0, r2\n\
-        ldr r1, [r1]\n\
-        ldr r0, [r0]\n\
-        ands r1, r0\n\
-        b _0800D904\n\
-        .align 2, 0\n\
-    _0800D898: .4byte gEventSlots\n\
-    _0800D89C:\n\
-        ldr r2, _0800D8B4  @ gEventSlots\n\
-        lsls r3, r3, #2\n\
-        adds r3, r3, r2\n\
-        lsls r1, r5, #2\n\
-        adds r1, r1, r2\n\
-        lsls r0, r6, #2\n\
-        adds r0, r0, r2\n\
-        ldr r1, [r1]\n\
-        ldr r0, [r0]\n\
-        orrs r1, r0\n\
-        b _0800D904\n\
-        .align 2, 0\n\
-    _0800D8B4: .4byte gEventSlots\n\
-    _0800D8B8:\n\
-        ldr r2, _0800D8D0  @ gEventSlots\n\
-        lsls r3, r3, #2\n\
-        adds r3, r3, r2\n\
-        lsls r1, r5, #2\n\
-        adds r1, r1, r2\n\
-        lsls r0, r6, #2\n\
-        adds r0, r0, r2\n\
-        ldr r1, [r1]\n\
-        ldr r0, [r0]\n\
-        eors r1, r0\n\
-        b _0800D904\n\
-        .align 2, 0\n\
-    _0800D8D0: .4byte gEventSlots\n\
-    _0800D8D4:\n\
-        ldr r2, _0800D8EC  @ gEventSlots\n\
-        lsls r3, r3, #2\n\
-        adds r3, r3, r2\n\
-        lsls r1, r5, #2\n\
-        adds r1, r1, r2\n\
-        lsls r0, r6, #2\n\
-        adds r0, r0, r2\n\
-        ldr r1, [r1]\n\
-        ldr r0, [r0]\n\
-        lsls r1, r0\n\
-        b _0800D904\n\
-        .align 2, 0\n\
-    _0800D8EC: .4byte gEventSlots\n\
-    _0800D8F0:\n\
-        ldr r2, _0800D90C  @ gEventSlots\n\
-        lsls r3, r3, #2\n\
-        adds r3, r3, r2\n\
-        lsls r1, r5, #2\n\
-        adds r1, r1, r2\n\
-        lsls r0, r6, #2\n\
-        adds r0, r0, r2\n\
-        ldr r1, [r1]\n\
-        ldr r0, [r0]\n\
-        lsrs r1, r0\n\
-    _0800D904:\n\
-        str r1, [r3]\n\
-        movs r0, #0\n\
-        b _0800D912\n\
-        .align 2, 0\n\
-    _0800D90C: .4byte gEventSlots\n\
-    _0800D910:\n\
-        movs r0, #6\n\
-    _0800D912:\n\
-        pop {r4, r5, r6}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-NAKEDFUNC
-u8 Event07_SlotQueueOperations(struct EventEngineProc * proc)
-{
-    asm("\
-	.syntax unified\n\
-        push {r4, lr}\n\
-        ldr r1, [r0, #0x38]\n\
-        ldrb r0, [r1]\n\
-        movs r2, #0xf\n\
-        ands r2, r0\n\
-        adds r0, r2, #0\n\
-        cmp r2, #1\n\
-        beq _0800D950\n\
-        cmp r2, #1\n\
-        bgt _0800D932\n\
-        cmp r2, #0\n\
-        beq _0800D938\n\
-        b _0800D970\n\
-    _0800D932:\n\
-        cmp r0, #2\n\
-        beq _0800D960\n\
-        b _0800D970\n\
-    _0800D938:\n\
-        ldr r0, _0800D94C  @ gEventSlots\n\
-        movs r2, #2\n\
-        ldrsh r1, [r1, r2]\n\
-        lsls r1, r1, #2\n\
-        adds r1, r1, r0\n\
-        ldr r0, [r1]\n\
-        bl SlotQueuePush\n\
-        b _0800D970\n\
-        .align 2, 0\n\
-    _0800D94C: .4byte gEventSlots\n\
-    _0800D950:\n\
-        ldr r0, _0800D95C  @ gEventSlots\n\
-        ldr r0, [r0, #4]\n\
-        bl SlotQueuePush\n\
-        b _0800D970\n\
-        .align 2, 0\n\
-    _0800D95C: .4byte gEventSlots\n\
-    _0800D960:\n\
-        ldrh r4, [r1, #2]\n\
-        bl SlotQueuePop\n\
-        ldr r2, _0800D978  @ gEventSlots\n\
-        lsls r1, r4, #0x10\n\
-        asrs r1, r1, #0xe\n\
-        adds r1, r1, r2\n\
-        str r0, [r1]\n\
-    _0800D970:\n\
-        movs r0, #0\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _0800D978: .4byte gEventSlots\n\
-	.syntax divided\n\
-    ");
-}
-
-#endif
 
 u8 Event08_Label(struct EventEngineProc * proc)
 {
@@ -574,23 +322,18 @@ u8 Event0B_(struct EventEngineProc * proc)
     return EV_RET_DEFAULT;
 }
 
-#if NONMATCHING
-
 u8 Event0C_Branch(struct EventEngineProc * proc)
 {
-    int sub_cmd;
-    u16 arg1;
-    u16 arg2;
-    int val1;
-    int val2;
+    u8 sub_cmd;
+    int val1, val2;
 
     sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
 
-    arg1 = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    arg2 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    val1 = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    val2 = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-    val1 = gEventSlots[arg1];
-    val2 = gEventSlots[arg2];
+    val1 = gEventSlots[val1];
+    val2 = gEventSlots[val2];
 
     switch (sub_cmd)
     {
@@ -637,138 +380,18 @@ u8 Event0C_Branch(struct EventEngineProc * proc)
 
 u8 Event0D_AsmCall(struct EventEngineProc * proc)
 {
-    u8 _cmd_mask;
+    u32 _cmd_mask;
     u8 _cmd;
     void (* func)(struct EventEngineProc *);
 
-    _cmd = *(const u8 *)(proc->pEventCurrent);
+    _cmd = *proc->pEventCurrent;
     _cmd_mask = 0xF;
 
     func = (void *)EVT_CMD_ARG_PTR(proc->pEventCurrent);
 
-    if ((_cmd & _cmd_mask) == 0x1 && ((proc->evStateBits >> 2) & 0x1))
+    if ((_cmd_mask &= _cmd) == 0x1 && ((proc->evStateBits >> 2) & 0x1))
         return EV_RET_DEFAULT;
 
     func(proc);
     return EV_RET_2;
 }
-
-#else
-
-NAKEDFUNC
-u8 Event0C_Branch(struct EventEngineProc * proc)
-{
-    asm("\
-	.syntax unified\n\
-        push {r4, r5, lr}\n\
-        adds r4, r0, #0\n\
-        ldr r0, [r4, #0x38]\n\
-        ldrb r1, [r0]\n\
-        movs r5, #0xf\n\
-        ands r5, r1\n\
-        ldrh r3, [r0, #4]\n\
-        ldrh r2, [r0, #6]\n\
-        ldr r1, _0800DAA4  @ gEventSlots\n\
-        lsls r0, r3, #2\n\
-        adds r0, r0, r1\n\
-        ldr r3, [r0]\n\
-        lsls r0, r2, #2\n\
-        adds r0, r0, r1\n\
-        ldr r2, [r0]\n\
-        cmp r5, #5\n\
-        bhi _0800DAF6\n\
-        lsls r0, r5, #2\n\
-        ldr r1, _0800DAA8  @ _0800DAAC\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        mov pc, r0\n\
-        .align 2, 0\n\
-    _0800DAA4: .4byte gEventSlots\n\
-    _0800DAA8: .4byte _0800DAAC\n\
-    _0800DAAC: @ jump table\n\
-        .4byte _0800DAC4 @ case 0\n\
-        .4byte _0800DACA @ case 1\n\
-        .4byte _0800DAD0 @ case 2\n\
-        .4byte _0800DAD6 @ case 3\n\
-        .4byte _0800DADC @ case 4\n\
-        .4byte _0800DAE2 @ case 5\n\
-    _0800DAC4:\n\
-        cmp r3, r2\n\
-        beq _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DACA:\n\
-        cmp r3, r2\n\
-        bne _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DAD0:\n\
-        cmp r3, r2\n\
-        bge _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DAD6:\n\
-        cmp r3, r2\n\
-        bgt _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DADC:\n\
-        cmp r3, r2\n\
-        ble _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DAE2:\n\
-        cmp r3, r2\n\
-        bge _0800DAF2\n\
-    _0800DAE6:\n\
-        adds r0, r4, #0\n\
-        bl Event09_Goto\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        b _0800DAF8\n\
-    _0800DAF2:\n\
-        movs r0, #0\n\
-        b _0800DAF8\n\
-    _0800DAF6:\n\
-        movs r0, #6\n\
-    _0800DAF8:\n\
-        pop {r4, r5}\n\
-        pop {r1}\n\
-        bx r1\n\
-	.syntax divided\n\
-    ");
-}
-
-NAKEDFUNC
-u8 Event0D_AsmCall(struct EventEngineProc * proc)
-{
-    asm("\
-	.syntax unified\n\
-        push {r4, lr}\n\
-        adds r4, r0, #0\n\
-        ldr r0, [r4, #0x38]\n\
-        ldrb r2, [r0]\n\
-        movs r1, #0xf\n\
-        ldrh r3, [r0, #4]\n\
-        ldrh r0, [r0, #6]\n\
-        lsls r0, r0, #0x10\n\
-        orrs r3, r0\n\
-        ands r1, r2\n\
-        cmp r1, #1\n\
-        bne _0800DB28\n\
-        ldrh r0, [r4, #0x3c]\n\
-        lsrs r0, r0, #2\n\
-        movs r1, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _0800DB28\n\
-        movs r0, #0\n\
-        b _0800DB30\n\
-    _0800DB28:\n\
-        adds r0, r4, #0\n\
-        bl _call_via_r3\n\
-        movs r0, #2\n\
-    _0800DB30:\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-	.syntax divided\n\
-    ");
-}
-
-#endif
