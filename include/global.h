@@ -6,6 +6,7 @@
 #include "gba/gba.h"
 
 #define CONST_DATA __attribute__((section(".data")))
+#define NAKEDFUNC __attribute__((naked))
 
 #include "types.h"
 #include "variables.h"

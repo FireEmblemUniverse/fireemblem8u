@@ -20,6 +20,7 @@
 #include "prepscreen.h"
 #include "bmshop.h"
 #include "bmlib.h"
+#include "mapanim.h"
 #include "constants/faces.h"
 #include "constants/items.h"
 

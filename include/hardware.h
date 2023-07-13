@@ -160,7 +160,7 @@ void BG_SetPosition(u16 a, u16 b, u16 c);
 // ??? sub_800151C(???);
 // ??? sub_8001530(???);
 void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits);
-// ??? sub_800159C(???);
+void sub_800159C(u16 *a1, u16 *a2, s16 a3, s16 a4, u16 a5);
 // ??? sub_80016C4(???);
 void MaybeResetSomePal(void);
 void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d);

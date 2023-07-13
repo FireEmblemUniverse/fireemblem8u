@@ -20,6 +20,7 @@
 #include "bmsave.h"
 #include "bmlib.h"
 #include "ev_triggercheck.h"
+#include "mapanim.h"
 
 #include "bmmind.h"
 

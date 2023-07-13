@@ -18,6 +18,7 @@
 #include "bmsave.h"
 #include "bmlib.h"
 #include "scene.h"
+#include "mapanim.h"
 
 extern struct ProcCmd gProcScr_ArenaUiMain[];
 extern struct ProcCmd gProcScr_ArenaUiResults[];
