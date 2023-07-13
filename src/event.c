@@ -19,35 +19,7 @@
 void sub_800E640(struct EventEngineProc*);
 
 static bool8 EventEngine_CanStartSkip(struct EventEngineProc*);
-static void  EventEngine_StartSkip(struct EventEngineProc*);
-static void  sub_800D488(struct EventEngineProc*);
 static void  CallNextQueuedEvent(void); // local
-
-#define EVENT_SLOT_COUNT 0xE
-
-struct EnqueuedEventCall {
-    const u16* events;
-    u8 execType;
-    s8 isUsed;
-};
-
-extern unsigned gEventSlots[EVENT_SLOT_COUNT]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
-extern unsigned gEventSlotQueue[]; // event slot queue (just an array)
-
-extern unsigned gEventSlotCounter;
-
-// TODO: better
-extern struct EnqueuedEventCall gEventCallQueue[]; // gEventCallQueue
-
-extern struct ProcCmd gUnknown_030005B0[4];
-
-extern const struct ProcCmd gProc_StdEventEngine[]; // map event engine proc
-extern const struct ProcCmd gProc_BattleEventEngine[]; // battle (?) event engine proc
-
-extern const EventFuncType gEventLoCmdTable[]; // regular event functions
-extern const EventFuncType gEventHiCmdTable[]; // gmap event functions
-
-extern const struct ProcCmd gUnknown_08591DD8[]; // map event engine "witness lock" (alive while map event engine is)
 
 // TODO: actual events
 
@@ -554,7 +526,7 @@ s8 GetEventTriggerState(u16 triggerId) {
     return TRUE;
 }
 
-struct Proc* sub_800D4D4(struct Proc* parent, ProcFunc init, ProcFunc loop, ProcFunc dest) {
+ProcPtr MergeGenericProc(ProcPtr parent, ProcFunc init, ProcFunc loop, ProcFunc dest) {
     struct ProcCmd code[] = {
         PROC_SET_END_CB(dest),
         PROC_CALL(init),
@@ -562,8 +534,8 @@ struct Proc* sub_800D4D4(struct Proc* parent, ProcFunc init, ProcFunc loop, Proc
         PROC_END
     };
 
-    memcpy(gUnknown_030005B0, code, sizeof code);
-    return Proc_Start(gUnknown_030005B0, parent);
+    memcpy(gGenericProc, code, sizeof code);
+    return Proc_Start(gGenericProc, parent);
 }
 
 void sub_800D524(void) {} // nullsub

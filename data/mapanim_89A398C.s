@@ -1,41 +1,5 @@
 	.section .data
 
-	.global gUnknown_089A398C
-gUnknown_089A398C:  @ 0x089A398C
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807CE18
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807CE78
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807D09C
-        @ PROC_SLEEP
-        .short 0xe, 0x14
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807DA2C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089A39C4
-gUnknown_089A39C4:  @ 0x089A39C4
-@ replacing .incbin "baserom.gba", 0x009a39c4, 0x1c
-.4byte gUnknown_089B80C4 + 0x20
-.4byte gUnknown_089B80C4 + 0x7c
-.4byte gUnknown_089B80C4 + 0xe0
-.4byte gUnknown_089B80C4 + 0x150
-.4byte gUnknown_089B80C4 + 0x1c8
-.4byte gUnknown_089B80C4 + 0x22c
-.4byte gUnknown_089B80C4 + 0x298
-
 	.global gUnknown_089A39E0
 gUnknown_089A39E0:  @ 0x089A39E0
         @ PROC_SLEEP

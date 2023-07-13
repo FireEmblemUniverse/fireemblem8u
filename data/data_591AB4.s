@@ -389,18 +389,18 @@ gEvent_GameOver:  @ 0x08592104
     .4byte sub_8085374
     .4byte 0x120
 
-	.global gUnknown_08592114
-gUnknown_08592114:  @ 0x08592114
+	.global gEvent_08592114
+gEvent_08592114:  @ 0x08592114
 @ Replacing .incbin "baserom.gba", 0x592114, 0x98
     .4byte 0x000a0320
     .4byte 0x00000c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_08592114 + 0x2c
+    .4byte gEvent_08592114 + 0x2c
     .4byte 0x00010920
     .4byte 0x00000820
     .4byte 0x00000a40
-    .4byte gUnknown_08592114 + 0x5c
+    .4byte gEvent_08592114 + 0x5c
     .4byte 0x00010820
     .4byte 0x00000120
     .4byte 0x00080320

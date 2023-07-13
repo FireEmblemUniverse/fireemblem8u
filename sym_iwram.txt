@@ -27,7 +27,7 @@
 . = 0x0004F0; gEventSlotQueue = .;
 . = 0x000568; gEventSlotCounter = .;
 . = 0x000570; gUnknown_03000570 = .;
-. = 0x0005B0; gUnknown_030005B0 = .;
+. = 0x0005B0; gGenericProc = .;
 . = 0x0005D0; src/popup.o(.bss);
 . = 0x0005FC; gUnknown_030005FC = .;
 . = 0x000600; gUnknown_03000600 = .;
@@ -75,7 +75,7 @@
 . = 0x001C38; gUnitDef1 = .;
 . = 0x001C48; gUnknown_03001C48 = .;
 . = 0x001C50; gUnitDef2 = .;
-. = 0x001C68; gUnknown_03001C68 = .;
+. = 0x001C68; gUnitDefEggHatching = .;
 . = 0x001C74; gUnknown_03001C74 = .;
 . = 0x001C7C; gUnknown_03001C7C = .;
 . = 0x001C80; gActiveEventRegistry = .;

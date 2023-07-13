@@ -1,5 +1,5 @@
 #include "global.h"
-
+#include "mapanim.h"
 #include "bmunit.h"
 #include "mu.h"
 

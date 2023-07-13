@@ -4812,7 +4812,7 @@ sub_8081950: @ 0x08081950
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl sub_807CD18
+	bl NewMapAnimPoisonAnim2
 	pop {r0}
 	bx r0
 	.align 2, 0

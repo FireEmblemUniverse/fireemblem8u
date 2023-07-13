@@ -22,6 +22,7 @@
 #include "bmsave.h"
 #include "ekrbattle.h"
 #include "bmbattle.h"
+#include "mapanim.h"
 
 struct WeaponTriangleRule {
     s8 attackerWeaponType;

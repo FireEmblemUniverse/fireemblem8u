@@ -174,7 +174,7 @@ u8 *GetPermanentFlagBits();
 int GetPermanentFlagBitsSize();
 u8 *GetChapterFlagBits();
 int GetChapterFlagBitsSize();;
-// ??? sub_8083DD8(???);
+void sub_8083DD8(int a, u8 b);
 // ??? CheckTutorialEvent(???);
 // ??? RunTutorialEvent(???);
 s8 RunPhaseSwitchEvents(void);
