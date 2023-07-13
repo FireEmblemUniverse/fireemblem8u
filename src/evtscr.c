@@ -322,23 +322,18 @@ u8 Event0B_(struct EventEngineProc * proc)
     return EV_RET_DEFAULT;
 }
 
-#if NONMATCHING
-
 u8 Event0C_Branch(struct EventEngineProc * proc)
 {
-    int sub_cmd;
-    u16 arg1;
-    u16 arg2;
-    int val1;
-    int val2;
+    u8 sub_cmd;
+    int val1, val2;
 
     sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
 
-    arg1 = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    arg2 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    val1 = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    val2 = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-    val1 = gEventSlots[arg1];
-    val2 = gEventSlots[arg2];
+    val1 = gEventSlots[val1];
+    val2 = gEventSlots[val2];
 
     switch (sub_cmd)
     {
@@ -382,89 +377,6 @@ u8 Event0C_Branch(struct EventEngineProc * proc)
         return EV_RET_ERR;
     }
 }
-
-#else
-
-NAKEDFUNC
-u8 Event0C_Branch(struct EventEngineProc * proc)
-{
-    asm("\
-	.syntax unified\n\
-        push {r4, r5, lr}\n\
-        adds r4, r0, #0\n\
-        ldr r0, [r4, #0x38]\n\
-        ldrb r1, [r0]\n\
-        movs r5, #0xf\n\
-        ands r5, r1\n\
-        ldrh r3, [r0, #4]\n\
-        ldrh r2, [r0, #6]\n\
-        ldr r1, _0800DAA4  @ gEventSlots\n\
-        lsls r0, r3, #2\n\
-        adds r0, r0, r1\n\
-        ldr r3, [r0]\n\
-        lsls r0, r2, #2\n\
-        adds r0, r0, r1\n\
-        ldr r2, [r0]\n\
-        cmp r5, #5\n\
-        bhi _0800DAF6\n\
-        lsls r0, r5, #2\n\
-        ldr r1, _0800DAA8  @ _0800DAAC\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        mov pc, r0\n\
-        .align 2, 0\n\
-    _0800DAA4: .4byte gEventSlots\n\
-    _0800DAA8: .4byte _0800DAAC\n\
-    _0800DAAC: @ jump table\n\
-        .4byte _0800DAC4 @ case 0\n\
-        .4byte _0800DACA @ case 1\n\
-        .4byte _0800DAD0 @ case 2\n\
-        .4byte _0800DAD6 @ case 3\n\
-        .4byte _0800DADC @ case 4\n\
-        .4byte _0800DAE2 @ case 5\n\
-    _0800DAC4:\n\
-        cmp r3, r2\n\
-        beq _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DACA:\n\
-        cmp r3, r2\n\
-        bne _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DAD0:\n\
-        cmp r3, r2\n\
-        bge _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DAD6:\n\
-        cmp r3, r2\n\
-        bgt _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DADC:\n\
-        cmp r3, r2\n\
-        ble _0800DAE6\n\
-        b _0800DAF2\n\
-    _0800DAE2:\n\
-        cmp r3, r2\n\
-        bge _0800DAF2\n\
-    _0800DAE6:\n\
-        adds r0, r4, #0\n\
-        bl Event09_Goto\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        b _0800DAF8\n\
-    _0800DAF2:\n\
-        movs r0, #0\n\
-        b _0800DAF8\n\
-    _0800DAF6:\n\
-        movs r0, #6\n\
-    _0800DAF8:\n\
-        pop {r4, r5}\n\
-        pop {r1}\n\
-        bx r1\n\
-	.syntax divided\n\
-    ");
-}
-
-#endif
 
 u8 Event0D_AsmCall(struct EventEngineProc * proc)
 {
