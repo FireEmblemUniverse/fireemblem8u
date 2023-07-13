@@ -205,32 +205,6 @@ u8 Event06_SlotOperation(struct EventEngineProc * proc)
         return EV_RET_ERR;
     }
 }
-
-u8 Event07_SlotQueueOperations(struct EventEngineProc * proc)
-{
-    const u16 * scr = proc->pEventCurrent;
-    int sub_cmd = EVT_SUB_CMD(scr);
-    u16 slot;
-
-    switch (sub_cmd)
-    {
-    case EVSUBCMD_SENQUEUE:
-        SlotQueuePush(gEventSlots[EVT_CMD_ARGV(scr)[0]]);
-        break;
-
-    case EVSUBCMD_SDEQUEUE_S1:
-        SlotQueuePush(gEventSlots[0x1]);
-        break;
-
-    case EVSUBCMD_SDEQUEUE:
-        slot = EVT_CMD_ARGV(scr)[0];
-        gEventSlots[(s16)slot] = SlotQueuePop();
-        break;
-    }
-
-    return EV_RET_DEFAULT;
-}
-
 #else
 
 NAKEDFUNC
@@ -431,67 +405,33 @@ u8 Event06_SlotOperation(struct EventEngineProc * proc)
         .syntax divided\n\
     ");
 }
+#endif
 
-NAKEDFUNC
 u8 Event07_SlotQueueOperations(struct EventEngineProc * proc)
 {
-    asm("\
-	.syntax unified\n\
-        push {r4, lr}\n\
-        ldr r1, [r0, #0x38]\n\
-        ldrb r0, [r1]\n\
-        movs r2, #0xf\n\
-        ands r2, r0\n\
-        adds r0, r2, #0\n\
-        cmp r2, #1\n\
-        beq _0800D950\n\
-        cmp r2, #1\n\
-        bgt _0800D932\n\
-        cmp r2, #0\n\
-        beq _0800D938\n\
-        b _0800D970\n\
-    _0800D932:\n\
-        cmp r0, #2\n\
-        beq _0800D960\n\
-        b _0800D970\n\
-    _0800D938:\n\
-        ldr r0, _0800D94C  @ gEventSlots\n\
-        movs r2, #2\n\
-        ldrsh r1, [r1, r2]\n\
-        lsls r1, r1, #2\n\
-        adds r1, r1, r0\n\
-        ldr r0, [r1]\n\
-        bl SlotQueuePush\n\
-        b _0800D970\n\
-        .align 2, 0\n\
-    _0800D94C: .4byte gEventSlots\n\
-    _0800D950:\n\
-        ldr r0, _0800D95C  @ gEventSlots\n\
-        ldr r0, [r0, #4]\n\
-        bl SlotQueuePush\n\
-        b _0800D970\n\
-        .align 2, 0\n\
-    _0800D95C: .4byte gEventSlots\n\
-    _0800D960:\n\
-        ldrh r4, [r1, #2]\n\
-        bl SlotQueuePop\n\
-        ldr r2, _0800D978  @ gEventSlots\n\
-        lsls r1, r4, #0x10\n\
-        asrs r1, r1, #0xe\n\
-        adds r1, r1, r2\n\
-        str r0, [r1]\n\
-    _0800D970:\n\
-        movs r0, #0\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _0800D978: .4byte gEventSlots\n\
-	.syntax divided\n\
-    ");
-}
+    const u16 *scr = proc->pEventCurrent;
+    u8 sub_cmd = EVT_SUB_CMD(scr);
+    s16 slot;
 
-#endif
+    switch (sub_cmd)
+    {
+    case EVSUBCMD_SENQUEUE:
+        slot = EVT_CMD_ARGV(scr)[0];
+        SlotQueuePush(gEventSlots[slot]);
+        break;
+
+    case EVSUBCMD_SDEQUEUE_S1:
+        SlotQueuePush(gEventSlots[0x1]);
+        break;
+
+    case EVSUBCMD_SDEQUEUE:
+        slot = EVT_CMD_ARGV(scr)[0];
+        gEventSlots[slot] = SlotQueuePop();
+        break;
+    }
+
+    return EV_RET_DEFAULT;
+}
 
 u8 Event08_Label(struct EventEngineProc * proc)
 {
