@@ -141,9 +141,7 @@ u8 Event04_CheckRandom(struct EventEngineProc * proc)
 u8 Event05_SetSlot(struct EventEngineProc * proc)
 {
     u16 index = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-
-    /* u32 arg1, todo for getting a better format */
-    u32 value = *((u32 *)(EVT_CMD_ARGV(proc->pEventCurrent) + 1));
+    u32 value = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
     gEventSlots[index] = value;
     return EV_RET_DEFAULT;
@@ -275,7 +273,7 @@ u8 Event09_Goto(struct EventEngineProc * proc)
 u8 Event0A_Call(struct EventEngineProc * proc)
 {
     s8 i;
-    int dst = EVT_CMD_ARG_PTR(proc->pEventCurrent);
+    int dst = EVT_CMD_ARG32_BE(proc->pEventCurrent);
 
     if (dst < 0)
         dst = gEventSlots[2];
@@ -298,9 +296,7 @@ u8 Event0B_(struct EventEngineProc * proc)
 {
     int sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
     u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-
-    /* u32 arg1, todo for getting a better format */
-    int ptr = *((u32 *)(EVT_CMD_ARGV(proc->pEventCurrent) + 1));
+    int ptr = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
     if (ptr < 0)
         ptr = gEventSlots[0x02];
@@ -387,7 +383,7 @@ u8 Event0D_AsmCall(struct EventEngineProc * proc)
     _cmd = *proc->pEventCurrent;
     _cmd_mask = 0xF;
 
-    func = (void *)EVT_CMD_ARG_PTR(proc->pEventCurrent);
+    func = (void *)EVT_CMD_ARG32_BE(proc->pEventCurrent);
 
     if ((_cmd_mask &= _cmd) == 0x1 && ((proc->evStateBits >> 2) & 0x1))
         return EV_RET_DEFAULT;

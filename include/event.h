@@ -125,7 +125,8 @@ enum EventCmdIndex {
 
 #define EVT_CMD_LEN(scr) ((*((const u16 *)(scr)) >> 0x4) & 0xF)
 #define EVT_CMD_ARGV(scr) ((const s16 *)(scr) + 1)
-#define EVT_CMD_ARG_PTR(scr) ((u16)EVT_CMD_ARGV(scr)[1] | ((u16)EVT_CMD_ARGV(scr)[2] << 0x10))
+#define EVT_CMD_ARG32_BE(scr) ((u16)EVT_CMD_ARGV(scr)[1] | ((u16)EVT_CMD_ARGV(scr)[2] << 0x10))
+#define EVT_CMD_ARG32_LE(scr) (*((u32 *)(EVT_CMD_ARGV(scr) + 1)))
 
 enum EventCmdSubIndex {
 
