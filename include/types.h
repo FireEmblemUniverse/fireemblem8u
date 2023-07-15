@@ -506,8 +506,8 @@ struct GMapData
     /* 04 */ short yCamera;
     /* 08 */ u32 unk08;
     /* 0C */ u32 unk0C;
-    /* 10 */ struct GMUnit unk10[8];
-    /* 30 */ struct GMNode unk30[0x1C];
+    /* 10 */ struct GMUnit units[8];
+    /* 30 */ struct GMNode nodes[0x1C];
     /* A0 */ int unk_a0; // pad?
     /* A4 */ struct OpenPaths routeData;
     /* C8 */ u8 unk_c8; // entry node id?
