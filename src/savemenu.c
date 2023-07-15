@@ -167,7 +167,7 @@ int LoadSaveMenuHelpText(int slot) {
         gUnknown_0203EF64.unk_01 = unit.level;
 
         ReadWorldMapStuff(&saveBase->wmStuff, &mapData);
-        gUnknown_0203EF64.unk_02 = mapData.unk10[0].location;
+        gUnknown_0203EF64.unk_02 = mapData.units[0].location;
 
         return 2;
     }

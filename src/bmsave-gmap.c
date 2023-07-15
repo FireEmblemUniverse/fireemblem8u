@@ -21,11 +21,11 @@ void WriteWorldMapNodes(struct GMapData* pGMapData, u8* nodeFlags) {
 
             switch (j) {
                 case 0:
-                    r3 = pGMapData->unk30[i].state & 1;
+                    r3 = pGMapData->nodes[i].state & 1;
                     break;
 
                 case 1:
-                    r3 = pGMapData->unk30[i].state & 2;
+                    r3 = pGMapData->nodes[i].state & 2;
                     break;
             }
 
@@ -56,17 +56,17 @@ void ReadWorldMapNodes(struct GMapData* pGMapData, u8* nodeFlags) {
             switch (j) {
                 case 0:
                     if (nodeFlags[idx] & bit) {
-                        pGMapData->unk30[i].state |= 1;
+                        pGMapData->nodes[i].state |= 1;
                     } else {
-                        pGMapData->unk30[i].state &= ~1;
+                        pGMapData->nodes[i].state &= ~1;
                     }
                     break;
 
                 case 1:
                     if (nodeFlags[idx] & bit) {
-                        pGMapData->unk30[i].state |= 2;
+                        pGMapData->nodes[i].state |= 2;
                     } else {
-                        pGMapData->unk30[i].state &= ~2;
+                        pGMapData->nodes[i].state &= ~2;
                     }
                     break;
             }
@@ -133,10 +133,10 @@ void WriteWorldMapUnits(struct GMapData* pGMapData, u16* param_2) {
     union Unk_80A6FBC unaff_r5;
 
     for (i = 0; i < 7; i++) {
-        unaff_r5.pat1.unk0_0 = pGMapData->unk10[i].state & 1;
-        unaff_r5.pat1.unk0_1 = pGMapData->unk10[i].location;
-        unaff_r5.pat1.unk0_7 = (pGMapData->unk10[i].state >> 1) & 1;
-        unaff_r5.pat1.unk1 = pGMapData->unk10[i].id;
+        unaff_r5.pat1.unk0_0 = pGMapData->units[i].state & 1;
+        unaff_r5.pat1.unk0_1 = pGMapData->units[i].location;
+        unaff_r5.pat1.unk0_7 = (pGMapData->units[i].state >> 1) & 1;
+        unaff_r5.pat1.unk1 = pGMapData->units[i].id;
         {
             union Unk_80A6FBC *ptr = &unaff_r5;
             param_2[i] = ptr->pat2;
@@ -157,19 +157,19 @@ void ReadWorldMapUnits(struct GMapData* param_1, u16* param_2) {
         ptr->pat2 = param_2[i];
 
         if (sp.pat1.unk0_0) {
-            param_1->unk10[i].state |= 1;
+            param_1->units[i].state |= 1;
         } else {
-            param_1->unk10[i].state &= ~1;
+            param_1->units[i].state &= ~1;
         }
 
-        param_1->unk10[i].location = sp.pat1.unk0_1;
+        param_1->units[i].location = sp.pat1.unk0_1;
 
         if (sp.pat1.unk0_7) {
-            param_1->unk10[i].id = sp.pat1.unk1;
-            param_1->unk10[i].state |= 2;
+            param_1->units[i].id = sp.pat1.unk1;
+            param_1->units[i].state |= 2;
         } else {
-            param_1->unk10[i].id = sp.pat1.unk1;
-            param_1->unk10[i].state &= ~2;
+            param_1->units[i].id = sp.pat1.unk1;
+            param_1->units[i].state &= ~2;
         }
     }
 

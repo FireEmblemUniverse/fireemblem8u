@@ -318,7 +318,7 @@ void PidStatsRecordDefeatInfo(u8 pid, u8 killerPid, int deathCause)
     switch (type) {
     case 2:
         bwl->deathSkirm = true;
-        bwl->deathLoc = gGMData.unk10[0].location;
+        bwl->deathLoc = gGMData.units[0].location;
         break;
 
 

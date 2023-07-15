@@ -1575,9 +1575,9 @@ extern u8 gUnknown_08A40B14[]; // tsa
 // extern ??? gUnknown_08A95F64
 // extern ??? gUnknown_08A95FE4
 // extern ??? gUnknown_08A96064
-// extern ??? gUnknown_08A96308
-// extern ??? gUnknown_08A97410
-// extern ??? gUnknown_08A97A40
+extern u8 gUnknown_08A96308[]; // gfx -> world map tiles
+extern u8 gUnknown_08A97410[]; // tsa
+extern u16 gUnknown_08A97A40[]; // pal
 // extern ??? gUnknown_08A97A60
 // extern ??? gUnknown_08A97A80
 // extern ??? gUnknown_08A97ACC
@@ -1585,8 +1585,8 @@ extern u8 gUnknown_08A40B14[]; // tsa
 // extern ??? gUnknown_08A97C98
 // extern ??? gUnknown_08A97E28
 // extern ??? gUnknown_08A97E48
-// extern ??? gUnknown_08A97ED8
-// extern ??? gUnknown_08A97FA4
+extern u8 gUnknown_08A97ED8[]; // gfx
+extern u16 gUnknown_08A97FA4[]; // pal
 // extern ??? gUnknown_08A986C0
 // extern ??? gUnknown_08A98BF8
 // extern ??? gUnknown_08A98CFC
@@ -1613,7 +1613,7 @@ extern u8 gUnknown_08A40B14[]; // tsa
 // extern ??? gUnknown_08AA114C
 // extern ??? gUnknown_08AA1190
 // extern ??? gUnknown_08AA11B0
-// extern ??? gUnknown_08AA11D0
+extern u8 gUnknown_08AA11D0[]; // tsa?
 // extern ??? gUnknown_08AA1280
 // extern ??? gUnknown_08AA188C
 // extern ??? gUnknown_08AA18AC
