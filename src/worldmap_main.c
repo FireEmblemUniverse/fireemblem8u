@@ -225,25 +225,19 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
 
     if (proc->unk_40 < sub_80BD29C() - 1)
     {
-        if (sub_80BD29C() - proc->unk_40 == 2)
+#ifdef NONMATCHING
+        int var = sub_80BD29C() - proc->unk_40;
+#else
+        register int var asm("r0") = sub_80BD29C() - proc->unk_40;
+#endif
+        if (var == 2)
         {
             int location = sub_80BD28C(proc->unk_40 + 1);
-
-            #if NONMATCHING
-                int state = gGMData.nodes[location].state;
-                int two = 2;
-            #else
-                register int state asm("r1") = gGMData.nodes[location].state;
-                register int two asm("r0") = 2;
-            #endif
-
-            if ((two & state) != 0)
+            if (gGMData.nodes[location].state & 2
+                && sub_80BD28C(proc->unk_40 + 1)[gUnknown_082060B0].placementFlag != 3)
             {
-                if (sub_80BD28C(proc->unk_40 + 1)[gUnknown_082060B0].placementFlag != 3)
-                {
-                    proc->unk_3e = sub_80BD28C(proc->unk_40 + 1);
-                    Proc_Goto(proc, 14);
-                }
+                proc->unk_3e = sub_80BD28C(proc->unk_40 + 1);
+                Proc_Goto(proc, 14);
             }
         }
         else
