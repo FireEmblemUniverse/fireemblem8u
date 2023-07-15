@@ -260,6 +260,8 @@ void PidStatsRecordLoseData(u8 pid)
 {
     struct SaveBlockInfo buf;
     int chunk_index;
+    struct SuspendSaveBlock *ssb;
+    struct GameSaveBlock *gsb;
     
     if (IsSramWorking()) {
 
@@ -290,13 +292,15 @@ void PidStatsRecordLoseData(u8 pid)
         PidStatsAddFavval(pid, -0x80);
     
         chunk_index = GetLastSuspendSaveId() + SAVE_ID_SUSPEND;
-    
-        WriteAndVerifySramFast(bwl, GetSaveWriteAddr(chunk_index) + 0x19E4 + pid * sizeof(struct UnitUsageStats), 1);
+
+        ssb = GetSaveWriteAddr(chunk_index);
+        WriteAndVerifySramFast(bwl, &ssb->pidStats[pid - 1], 1);
     
         ReadSaveBlockInfo(&buf, chunk_index);
         WriteSaveBlockInfo(&buf, chunk_index);
     
-        WriteAndVerifySramFast(bwl, GetSaveWriteAddr(gPlaySt.gameSaveSlot) + 0x083C + pid * sizeof(struct UnitUsageStats), 3);
+        gsb = GetSaveWriteAddr(gPlaySt.gameSaveSlot);
+        WriteAndVerifySramFast(bwl, &gsb->pidStats[pid - 1], 3);
     
         ReadSaveBlockInfo(&buf, gPlaySt.gameSaveSlot);
         WriteSaveBlockInfo(&buf, gPlaySt.gameSaveSlot);
