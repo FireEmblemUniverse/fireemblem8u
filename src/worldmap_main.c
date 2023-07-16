@@ -225,25 +225,19 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
 
     if (proc->unk_40 < sub_80BD29C() - 1)
     {
-        if (sub_80BD29C() - proc->unk_40 == 2)
+#ifdef NONMATCHING
+        int var = sub_80BD29C() - proc->unk_40;
+#else
+        register int var asm("r0") = sub_80BD29C() - proc->unk_40;
+#endif
+        if (var == 2)
         {
             int location = sub_80BD28C(proc->unk_40 + 1);
-
-            #if NONMATCHING
-                int state = gGMData.nodes[location].state;
-                int two = 2;
-            #else
-                register int state asm("r1") = gGMData.nodes[location].state;
-                register int two asm("r0") = 2;
-            #endif
-
-            if ((two & state) != 0)
+            if (gGMData.nodes[location].state & 2
+                && sub_80BD28C(proc->unk_40 + 1)[gUnknown_082060B0].placementFlag != 3)
             {
-                if (sub_80BD28C(proc->unk_40 + 1)[gUnknown_082060B0].placementFlag != 3)
-                {
-                    proc->unk_3e = sub_80BD28C(proc->unk_40 + 1);
-                    Proc_Goto(proc, 14);
-                }
+                proc->unk_3e = sub_80BD28C(proc->unk_40 + 1);
+                Proc_Goto(proc, 14);
             }
         }
         else
@@ -578,189 +572,51 @@ void sub_80B9154(struct WorldMapMainProc * proc)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/EKOwB */
-
 //! FE8U = 0x080B9218
 void sub_80B9218(void)
 {
-    s16 unk[4];
+    s16 a, b, c, d;
+    s16 cough;
 
-    s16 * r2;
-    s16 * r3;
-    s16 * r4;
+    *&a = gGMData.unk08 >> 8;
+    *&b = gGMData.unk0C >> 8;
+    *&c = gGMData.xCamera;
+    *&d = gGMData.yCamera;
 
-    unk[0] = gGMData.unk08 >> 8;
-    r4 = &unk[1];
-    r4[0] = gGMData.unk0C >> 8;
-
-    r2 = &unk[2];
-    r2[0] = gGMData.xCamera;
-    r3 = &unk[3];
-    r3[0] = gGMData.yCamera;
-
-    if ((s16)(unk[0] - r2[0]) < 0x20)
+    cough = a - c;
+    if (cough < 0x20)
     {
-        if ((s16)unk[0] >= 0x20)
-        {
-            r2[0] = unk[0] - 0x20;
-        }
+        if (a >= 0x20)
+            c = a - 0x20;
         else
-        {
-            r2[0] = 0;
-        }
+            c = 0;
     }
-    else if ((s16)(unk[0] - r2[0]) > 0xD0)
+    else if (cough > 0xd0)
     {
-
-        if ((((s16)unk[0] - 0x01BF) == 0) || ((s16)unk[0] < 0x01BF))
-        {
-            r2[0] = unk[0] - 0xd0;
-        }
+        if (a < 0x1c0)
+            c = a - 0xd0;
         else
-        {
-            r2[0] = 0xf0;
-        }
+            c = 0xf0;
     }
 
-    if ((s16)(r4[0] - r3[0]) < 0x20)
+    cough = b - d;
+    if (cough < 0x20)
     {
-        if ((s16)r4[0] >= 0x20)
-        {
-            r3[0] = r4[0] - 0x20;
-        }
+        if (b >= 0x20)
+            d = b - 0x20;
         else
-        {
-            r3[0] = 0;
-        }
+            d = 0;
     }
-    else if ((s16)(r4[0] - r3[0]) > 0x80)
+    else if (cough > 0x80)
     {
-        if (((s16)r4[0] - 0x011F == 0) || ((s16)r4[0] < 0x011F))
-        {
-            r3[0] = r4[0] - 0x80;
-        }
+        if (b < 0x120)
+            d = b - 0x80;
         else
-        {
-            r3[0] = 0xa0;
-        }
+            d = 0xa0;
     }
 
-    gGMData.xCamera = r2[0];
-    gGMData.yCamera = r3[0];
+    gGMData.xCamera = c;
+    gGMData.yCamera = d;
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80B9218(void)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        sub sp, #8\n\
-        mov r2, sp\n\
-        ldr r1, _080B9260  @ gGMData\n\
-        ldr r0, [r1, #8]\n\
-        asrs r0, r0, #8\n\
-        strh r0, [r2]\n\
-        mov r4, sp\n\
-        adds r4, #2\n\
-        ldr r0, [r1, #0xc]\n\
-        asrs r0, r0, #8\n\
-        strh r0, [r4]\n\
-        add r2, sp, #4\n\
-        ldrh r0, [r1, #2]\n\
-        strh r0, [r2]\n\
-        mov r3, sp\n\
-        adds r3, #6\n\
-        ldrh r0, [r1, #4]\n\
-        strh r0, [r3]\n\
-        mov r0, sp\n\
-        ldrh r5, [r0]\n\
-        ldrh r0, [r2]\n\
-        subs r0, r5, r0\n\
-        lsls r0, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        adds r6, r1, #0\n\
-        cmp r0, #0x1f\n\
-        bgt _080B9268\n\
-        lsls r0, r5, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        cmp r0, #0x1f\n\
-        ble _080B9264\n\
-        adds r0, r5, #0\n\
-        subs r0, #0x20\n\
-        b _080B9282\n\
-        .align 2, 0\n\
-    _080B9260: .4byte gGMData\n\
-    _080B9264:\n\
-        movs r0, #0\n\
-        b _080B9282\n\
-    _080B9268:\n\
-        cmp r0, #0xd0\n\
-        ble _080B9284\n\
-        lsls r1, r5, #0x10\n\
-        ldr r0, _080B927C  @ 0x01BF0000\n\
-        cmp r1, r0\n\
-        bgt _080B9280\n\
-        adds r0, r5, #0\n\
-        subs r0, #0xd0\n\
-        b _080B9282\n\
-        .align 2, 0\n\
-    _080B927C: .4byte 0x01BF0000\n\
-    _080B9280:\n\
-        movs r0, #0xf0\n\
-    _080B9282:\n\
-        strh r0, [r2]\n\
-    _080B9284:\n\
-        ldrh r4, [r4]\n\
-        ldrh r0, [r3]\n\
-        subs r0, r4, r0\n\
-        lsls r0, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        cmp r0, #0x1f\n\
-        bgt _080B92A4\n\
-        lsls r0, r4, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        cmp r0, #0x1f\n\
-        ble _080B92A0\n\
-        adds r0, r4, #0\n\
-        subs r0, #0x20\n\
-        b _080B92BE\n\
-    _080B92A0:\n\
-        movs r0, #0\n\
-        b _080B92BE\n\
-    _080B92A4:\n\
-        cmp r0, #0x80\n\
-        ble _080B92C0\n\
-        lsls r1, r4, #0x10\n\
-        ldr r0, _080B92B8  @ 0x011F0000\n\
-        cmp r1, r0\n\
-        bgt _080B92BC\n\
-        adds r0, r4, #0\n\
-        subs r0, #0x80\n\
-        b _080B92BE\n\
-        .align 2, 0\n\
-    _080B92B8: .4byte 0x011F0000\n\
-    _080B92BC:\n\
-        movs r0, #0xa0\n\
-    _080B92BE:\n\
-        strh r0, [r3]\n\
-    _080B92C0:\n\
-        ldrh r0, [r2]\n\
-        strh r0, [r6, #2]\n\
-        ldrh r0, [r3]\n\
-        strh r0, [r6, #4]\n\
-        add sp, #8\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING

@@ -504,8 +504,8 @@ struct GMapData
     /* 01 */ u8 unk01;
     /* 02 */ short xCamera;
     /* 04 */ short yCamera;
-    /* 08 */ u32 unk08;
-    /* 0C */ u32 unk0C;
+    /* 08 */ s32 unk08;
+    /* 0C */ s32 unk0C;
     /* 10 */ struct GMUnit units[8];
     /* 30 */ struct GMNode nodes[0x1C];
     /* A0 */ int unk_a0; // pad?
