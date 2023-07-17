@@ -388,7 +388,7 @@ sub_805B104: @ 0x0805B104
 	bl NewEkrDispUP
 	bl NewEkrBattle
 	ldr r0, _0805B180  @ gUnknown_085BEF94
-	ldr r4, _0805B184  @ pPalette6Buffer
+	ldr r4, _0805B184  @ gPaletteBuffer+0xC0
 	adds r1, r4, #0
 	movs r2, #0x20
 	bl CpuFastSet
@@ -421,7 +421,7 @@ sub_805B104: @ 0x0805B104
 _0805B178: .4byte gEkrInitPosReal
 _0805B17C: .4byte gEkrInitialHitSide
 _0805B180: .4byte gUnknown_085BEF94
-_0805B184: .4byte pPalette6Buffer
+_0805B184: .4byte gPaletteBuffer+0xC0
 _0805B188: .4byte gEfxPal
 
 	THUMB_FUNC_END sub_805B104
@@ -706,7 +706,7 @@ sub_805B394: @ 0x0805B394
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	ldr r1, _0805B3C8  @ pPalette6Buffer
+	ldr r1, _0805B3C8  @ gPaletteBuffer+0xC0
 	movs r2, #0x20
 	bl CpuFastSet
 	bl EnablePaletteSync
@@ -715,7 +715,7 @@ _0805B3C0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B3C8: .4byte pPalette6Buffer
+_0805B3C8: .4byte gPaletteBuffer+0xC0
 
 	THUMB_FUNC_END sub_805B394
 

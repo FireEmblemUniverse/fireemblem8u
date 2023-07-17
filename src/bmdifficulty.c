@@ -18,6 +18,10 @@
 #include "ev_triggercheck.h"
 #include "bmdifficulty.h"
 
+// TODO: move to some constant header and maybe merge with something if that makes sense
+#define BGPAL_BMDIFFICULTY_UNK_0 0
+#define OBPAL_BMDIFFICULTY_UNK_5 5
+
 /*
 * Difficulty mode stuff and also tower/ruins stuff
 * May have been separate files
@@ -588,7 +592,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     sub_80AB760(gUnknown_0200310C);
 
-    CpuFastSet(gPaletteBuffer, gPaletteBuffer + 0x150, 8);
+    CpuFastSet(PAL_BG(BGPAL_BMDIFFICULTY_UNK_0), PAL_OBJ(OBPAL_BMDIFFICULTY_UNK_5), 8);
 
     return;
 }

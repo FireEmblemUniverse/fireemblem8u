@@ -1948,7 +1948,7 @@ sub_80CECB0: @ 0x080CECB0
 	ldr r1, _080CEEF8  @ 0x06011800
 	bl Decompress
 	ldr r0, _080CEEFC  @ gUnknown_08B176CC
-	ldr r4, _080CEF00  @ gUnknown_02020288
+	ldr r4, _080CEF00  @ gGenericBuffer+0x100
 	adds r1, r4, #0
 	bl Decompress
 	movs r2, #0x80
@@ -2060,7 +2060,7 @@ _080CEEF0: .4byte 0x06011000
 _080CEEF4: .4byte gUnknown_08B177C0
 _080CEEF8: .4byte 0x06011800
 _080CEEFC: .4byte gUnknown_08B176CC
-_080CEF00: .4byte gUnknown_02020288
+_080CEF00: .4byte gGenericBuffer+0x100
 _080CEF04: .4byte gPlaySt
 _080CEF08: .4byte gUiFramePaletteA
 _080CEF0C: .4byte gUnknown_08B12B1C

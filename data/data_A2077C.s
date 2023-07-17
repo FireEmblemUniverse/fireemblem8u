@@ -427,17 +427,17 @@ gUnknown_08A212D4:  @ 0x08A212D4
 	.global gUnknown_08A212D8
 gUnknown_08A212D8:  @ 0x08A212D8
 @ replacing .incbin "baserom.gba", 0x00a212d8, 0x4
-.4byte gUnknown_02020988
+.4byte gGenericBuffer+0x800
 
 	.global gUnknown_08A212DC
 gUnknown_08A212DC:  @ 0x08A212DC
 @ replacing .incbin "baserom.gba", 0x00a212dc, 0x4
-.4byte gUnknown_02021188
+.4byte gGenericBuffer+0x1000
 
 	.global gUnknown_08A212E0
 gUnknown_08A212E0:  @ 0x08A212E0
 @ replacing .incbin "baserom.gba", 0x00a212e0, 0x4
-.4byte gUnknown_02021188 + 0x200
+.4byte gGenericBuffer+0x1200
 
 	.global gUnknown_08A212E4
 gUnknown_08A212E4:  @ 0x08A212E4

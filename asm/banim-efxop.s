@@ -336,7 +336,7 @@ sub_806EB2C: @ 0x0806EB2C
 	bl sub_806E954
 	ldrh r1, [r0, #0x10]
 	lsls r1, r1, #5
-	ldr r0, _0806EB50  @ pPalette10Buffer
+	ldr r0, _0806EB50  @ gPaletteBuffer+0x200
 	adds r1, r1, r0
 	adds r0, r4, #0
 	movs r2, #8
@@ -346,7 +346,7 @@ sub_806EB2C: @ 0x0806EB2C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806EB50: .4byte pPalette10Buffer
+_0806EB50: .4byte gPaletteBuffer+0x200
 
 	THUMB_FUNC_END sub_806EB2C
 

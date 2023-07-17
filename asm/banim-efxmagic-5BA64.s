@@ -1941,17 +1941,17 @@ _0805C9EC:
 	bne _0805CA28
 	ldr r0, _0805CA20  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0]
-	ldr r1, _0805CA24  @ gUnknown_02022B88
+	ldr r1, _0805CA24  @ gPaletteBuffer+0x2E0
 	movs r2, #8
 	bl CpuFastSet
 	b _0805CA34
 	.align 2, 0
 _0805CA20: .4byte gpEfxUnitPaletteBackup
-_0805CA24: .4byte gUnknown_02022B88
+_0805CA24: .4byte gPaletteBuffer+0x2E0
 _0805CA28:
 	ldr r0, _0805CA3C  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0, #4]
-	ldr r1, _0805CA40  @ gUnknown_02022BC8
+	ldr r1, _0805CA40  @ gPaletteBuffer+0x320
 	movs r2, #8
 	bl CpuFastSet
 _0805CA34:
@@ -1960,7 +1960,7 @@ _0805CA34:
 	b _0805CA5A
 	.align 2, 0
 _0805CA3C: .4byte gpEfxUnitPaletteBackup
-_0805CA40: .4byte gUnknown_02022BC8
+_0805CA40: .4byte gPaletteBuffer+0x320
 _0805CA44:
 	cmp r0, #0xb3
 	bne _0805CA5A
@@ -2271,17 +2271,17 @@ _0805CC94:
 	bne _0805CCD0
 	ldr r0, _0805CCC8  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0]
-	ldr r1, _0805CCCC  @ gUnknown_02022B88
+	ldr r1, _0805CCCC  @ gPaletteBuffer+0x2E0
 	movs r2, #8
 	bl CpuFastSet
 	b _0805CCDC
 	.align 2, 0
 _0805CCC8: .4byte gpEfxUnitPaletteBackup
-_0805CCCC: .4byte gUnknown_02022B88
+_0805CCCC: .4byte gPaletteBuffer+0x2E0
 _0805CCD0:
 	ldr r0, _0805CCE4  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0, #4]
-	ldr r1, _0805CCE8  @ gUnknown_02022BC8
+	ldr r1, _0805CCE8  @ gPaletteBuffer+0x320
 	movs r2, #8
 	bl CpuFastSet
 _0805CCDC:
@@ -2290,7 +2290,7 @@ _0805CCDC:
 	b _0805CD02
 	.align 2, 0
 _0805CCE4: .4byte gpEfxUnitPaletteBackup
-_0805CCE8: .4byte gUnknown_02022BC8
+_0805CCE8: .4byte gPaletteBuffer+0x320
 _0805CCEC:
 	cmp r0, #0xa5
 	bne _0805CD02

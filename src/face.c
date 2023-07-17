@@ -468,7 +468,7 @@ struct FaceProc* StartFace(int slot, int fid, int x, int y, int disp) {
     info = GetPortraitData(fid);
 
     if (disp & FACE_DISP_BIT_13) {
-        CpuFastFill(0, (gPaletteBuffer + 0x10 * 0x10) + sFaceConfig[slot].paletteId * 0x10, 0x20);
+        CpuFastFill(0, PAL_OBJ(0) + PAL_OFFSET(sFaceConfig[slot].paletteId), 0x20);
         EnablePaletteSync();
     } else {
         CopyToPaletteBuffer(info->pal, (sFaceConfig[slot].paletteId + 0x10) * 0x20, 0x20);
@@ -1419,7 +1419,7 @@ struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp) {
     info = GetPortraitData(fid);
 
     if (disp & FACE_DISP_BIT_13) {
-        CpuFastFill(0, (gPaletteBuffer + 0x10 * 0x10) + sFaceConfig[slot].paletteId * 0x10, 0x20);
+        CpuFastFill(0, PAL_OBJ(0) + PAL_OFFSET(sFaceConfig[slot].paletteId), 0x20);
         EnablePaletteSync();
     } else {
         CopyToPaletteBuffer(info->pal, (sFaceConfig[slot].paletteId + 0x10) * 0x20, 0x20);

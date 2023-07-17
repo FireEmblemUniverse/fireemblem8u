@@ -9705,7 +9705,7 @@ sub_80C10B8: @ 0x080C10B8
 	adds r7, #0x29
 	movs r0, #0x1f
 	mov r8, r0
-	ldr r6, _080C10F0  @ gUnknown_02022B68
+	ldr r6, _080C10F0  @ gPaletteBuffer+0x2C0
 _080C10D8:
 	ldrb r1, [r7]
 	movs r0, #1
@@ -9719,7 +9719,7 @@ _080C10D8:
 	ands r0, r2
 	b _080C1102
 	.align 2, 0
-_080C10F0: .4byte gUnknown_02022B68
+_080C10F0: .4byte gPaletteBuffer+0x2C0
 _080C10F4:
 	adds r1, r5, #0
 	adds r1, #0x20
@@ -15328,7 +15328,7 @@ sub_80C3A28: @ 0x080C3A28
 	ldr r0, [r0, #0x50]
 	adds r0, #0x34
 	ldrb r1, [r0]
-	ldr r2, _080C3A58  @ gUnknown_02022BC8
+	ldr r2, _080C3A58  @ gPaletteBuffer+0x320
 	lsls r1, r1, #1
 	ldr r0, _080C3A5C  @ gUnknown_08AA1930
 	adds r0, r1, r0
@@ -15343,7 +15343,7 @@ sub_80C3A28: @ 0x080C3A28
 	bx r0
 	.align 2, 0
 _080C3A54: .4byte gUnknown_08A3D748
-_080C3A58: .4byte gUnknown_02022BC8
+_080C3A58: .4byte gPaletteBuffer+0x320
 _080C3A5C: .4byte gUnknown_08AA1930
 _080C3A60: .4byte gUnknown_08AA1950
 

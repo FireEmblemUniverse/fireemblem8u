@@ -245,7 +245,7 @@ void GameOverScreen_End(struct ProcGameOverScreen *proc)
 
     SetDispEnable(0, 0, 0, 0, 0);
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 }
 

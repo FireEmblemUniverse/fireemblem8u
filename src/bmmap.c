@@ -681,7 +681,7 @@ void sub_801A278(void) {
     }
 
     // TODO: macro?
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 }
 

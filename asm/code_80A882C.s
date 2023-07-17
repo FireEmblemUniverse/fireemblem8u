@@ -4002,7 +4002,7 @@ sub_80AD950: @ 0x080AD950
 	ldr r2, _080AD990  @ 0x06010000
 	adds r1, r4, r2
 	bl Decompress
-	ldr r0, _080AD994  @ pPalette1Buffer
+	ldr r0, _080AD994  @ gPaletteBuffer+0x20
 	adds r1, r6, #0
 	adds r1, #0x10
 	lsls r1, r1, #5
@@ -4020,7 +4020,7 @@ sub_80AD950: @ 0x080AD950
 _080AD988: .4byte gUnknown_08A20C4C
 _080AD98C: .4byte gUnknown_085B92C4
 _080AD990: .4byte 0x06010000
-_080AD994: .4byte pPalette1Buffer
+_080AD994: .4byte gPaletteBuffer+0x20
 
 	THUMB_FUNC_END sub_80AD950
 

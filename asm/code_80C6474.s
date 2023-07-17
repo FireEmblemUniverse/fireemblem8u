@@ -2074,14 +2074,14 @@ _080C7480:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C74A8  @ gUnknown_08AC1B98
-	ldr r1, _080C74AC  @ gUnknown_02020988
+	ldr r1, _080C74AC  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C7604
 	.align 2, 0
 _080C74A0: .4byte gUnknown_08AC0BD8
 _080C74A4: .4byte 0x06002000
 _080C74A8: .4byte gUnknown_08AC1B98
-_080C74AC: .4byte gUnknown_02020988
+_080C74AC: .4byte gGenericBuffer+0x800
 _080C74B0:
 	ldr r4, _080C74DC  @ gUnknown_08ABB14C
 	movs r0, #2
@@ -2093,7 +2093,7 @@ _080C74B0:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C74E0  @ gUnknown_08ABC074
-	ldr r1, _080C74E4  @ gUnknown_02021188
+	ldr r1, _080C74E4  @ gGenericBuffer+0x1000
 	bl Decompress
 	ldr r0, _080C74E8  @ gUnknown_08AC1C8C
 	movs r2, #0xb0
@@ -2104,7 +2104,7 @@ _080C74B0:
 	.align 2, 0
 _080C74DC: .4byte gUnknown_08ABB14C
 _080C74E0: .4byte gUnknown_08ABC074
-_080C74E4: .4byte gUnknown_02021188
+_080C74E4: .4byte gGenericBuffer+0x1000
 _080C74E8: .4byte gUnknown_08AC1C8C
 _080C74EC:
 	ldr r0, _080C7500  @ gUnknown_08ABE304
@@ -2147,7 +2147,7 @@ _080C7540: .4byte 0x0600A000
 _080C7544: .4byte gUnknown_08ABE120
 _080C7548: .4byte 0x0600C800
 _080C754C:
-	ldr r3, _080C75EC  @ gUnknown_02021188
+	ldr r3, _080C75EC  @ gGenericBuffer+0x1000
 	ldr r0, _080C75F0  @ gPaletteBuffer
 	movs r1, #0
 	movs r4, #0xf1
@@ -2225,7 +2225,7 @@ _080C7586:
 	bl Proc_Break
 	b _080C760A
 	.align 2, 0
-_080C75EC: .4byte gUnknown_02021188
+_080C75EC: .4byte gGenericBuffer+0x1000
 _080C75F0: .4byte gPaletteBuffer
 _080C75F4: .4byte 0x00000FFF
 _080C75F8: .4byte 0x0600F000
@@ -2272,7 +2272,7 @@ sub_80C7618: @ 0x080C7618
 	lsls r1, r1, #1
 	movs r2, #0x20
 	bl StorePaletteToBufferMaybe
-	ldr r0, _080C766C  @ pPaletteEBuffer
+	ldr r0, _080C766C  @ gPaletteBuffer+0x1C0
 	ldr r1, _080C7670  @ 0x00007FFF
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -2290,7 +2290,7 @@ sub_80C7618: @ 0x080C7618
 	b _080C7678
 	.align 2, 0
 _080C7668: .4byte gUnknown_08AB8CAC
-_080C766C: .4byte pPaletteEBuffer
+_080C766C: .4byte gPaletteBuffer+0x1C0
 _080C7670: .4byte 0x00007FFF
 _080C7674:
 	adds r0, r1, #1
@@ -2442,7 +2442,7 @@ _080C778C: .4byte 0x0600C000
 _080C7790:
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
-	ldr r1, _080C7824  @ gUnknown_02021188
+	ldr r1, _080C7824  @ gGenericBuffer+0x1000
 	str r1, [sp]
 	movs r1, #0
 	str r1, [sp, #4]
@@ -2510,7 +2510,7 @@ _080C77BA:
 	bl Proc_Break
 	b _080C7836
 	.align 2, 0
-_080C7824: .4byte gUnknown_02021188
+_080C7824: .4byte gGenericBuffer+0x1000
 _080C7828: .4byte gUnknown_08AA7034
 _080C782C: .4byte gGenericBuffer
 _080C7830:
@@ -3019,7 +3019,7 @@ _080C7BEC:
 	asrs r0, r0, #0x10
 	movs r3, #0x30
 	ldrsh r1, [r6, r3]
-	ldr r2, _080C7CDC  @ gUnknown_02021188
+	ldr r2, _080C7CDC  @ gGenericBuffer+0x1000
 	str r2, [sp]
 	movs r2, #0
 	str r2, [sp, #4]
@@ -3109,7 +3109,7 @@ _080C7C88:
 _080C7CD0: .4byte gUnknown_08AA6BFA
 _080C7CD4: .4byte 0x00002046
 _080C7CD8: .4byte gUnknown_02022188
-_080C7CDC: .4byte gUnknown_02021188
+_080C7CDC: .4byte gGenericBuffer+0x1000
 _080C7CE0: .4byte gGenericBuffer
 _080C7CE4:
 	ldrh r0, [r6, #0x2a]
@@ -3257,14 +3257,14 @@ _080C7E18:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C7E40  @ gUnknown_08AC91F8
-	ldr r1, _080C7E44  @ gUnknown_02020988
+	ldr r1, _080C7E44  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C7F80
 	.align 2, 0
 _080C7E38: .4byte gUnknown_08AC7374
 _080C7E3C: .4byte 0x06002000
 _080C7E40: .4byte gUnknown_08AC91F8
-_080C7E44: .4byte gUnknown_02020988
+_080C7E44: .4byte gGenericBuffer+0x800
 _080C7E48:
 	ldr r4, _080C7E74  @ gUnknown_08AC1DEC
 	movs r0, #2
@@ -3276,7 +3276,7 @@ _080C7E48:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C7E78  @ gUnknown_08AC2B24
-	ldr r1, _080C7E7C  @ gUnknown_02021188
+	ldr r1, _080C7E7C  @ gGenericBuffer+0x1000
 	bl Decompress
 	ldr r0, _080C7E80  @ gUnknown_08AC933C
 	movs r2, #0xb0
@@ -3287,7 +3287,7 @@ _080C7E48:
 	.align 2, 0
 _080C7E74: .4byte gUnknown_08AC1DEC
 _080C7E78: .4byte gUnknown_08AC2B24
-_080C7E7C: .4byte gUnknown_02021188
+_080C7E7C: .4byte gGenericBuffer+0x1000
 _080C7E80: .4byte gUnknown_08AC933C
 _080C7E84:
 	ldr r0, _080C7E98  @ gUnknown_08AC4928
@@ -3330,7 +3330,7 @@ _080C7ED8: .4byte 0x0600A000
 _080C7EDC: .4byte gUnknown_08AC4760
 _080C7EE0: .4byte 0x0600C800
 _080C7EE4:
-	ldr r0, _080C7F6C  @ gUnknown_02021188
+	ldr r0, _080C7F6C  @ gGenericBuffer+0x1000
 	movs r1, #0x80
 	lsls r1, r1, #4
 	adds r4, r0, r1
@@ -3395,7 +3395,7 @@ _080C7F06:
 	bl Proc_Break
 	b _080C7F86
 	.align 2, 0
-_080C7F6C: .4byte gUnknown_02021188
+_080C7F6C: .4byte gGenericBuffer+0x1000
 _080C7F70: .4byte 0x00000FFF
 _080C7F74: .4byte 0x0600F000
 _080C7F78: .4byte gLCDControlBuffer
@@ -3511,7 +3511,7 @@ _080C8054: .4byte 0x0600C000
 _080C8058:
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
-	ldr r1, _080C80E4  @ gUnknown_02021188
+	ldr r1, _080C80E4  @ gGenericBuffer+0x1000
 	str r1, [sp]
 	movs r1, #0
 	str r1, [sp, #4]
@@ -3576,7 +3576,7 @@ _080C807A:
 	bl Proc_Break
 	b _080C80F2
 	.align 2, 0
-_080C80E4: .4byte gUnknown_02021188
+_080C80E4: .4byte gGenericBuffer+0x1000
 _080C80E8: .4byte gGenericBuffer
 _080C80EC:
 	ldrh r0, [r5, #0x2a]
@@ -3974,7 +3974,7 @@ _080C83C6:
 	asrs r0, r0, #0x10
 	movs r3, #0x30
 	ldrsh r1, [r6, r3]
-	ldr r2, _080C84BC  @ gUnknown_02021188
+	ldr r2, _080C84BC  @ gGenericBuffer+0x1000
 	str r2, [sp]
 	movs r2, #0
 	str r2, [sp, #4]
@@ -4066,7 +4066,7 @@ _080C8462:
 _080C84B0: .4byte gUnknown_08AA6C0E
 _080C84B4: .4byte 0x0000206E
 _080C84B8: .4byte gUnknown_02022188
-_080C84BC: .4byte gUnknown_02021188
+_080C84BC: .4byte gGenericBuffer+0x1000
 _080C84C0: .4byte gGenericBuffer
 _080C84C4:
 	ldrh r0, [r6, #0x2a]
@@ -4434,14 +4434,14 @@ _080C876C:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C8794  @ gUnknown_08ACC340
-	ldr r1, _080C8798  @ gUnknown_02020988
+	ldr r1, _080C8798  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C8802
 	.align 2, 0
 _080C878C: .4byte gUnknown_08ACAF70
 _080C8790: .4byte 0x06002000
 _080C8794: .4byte gUnknown_08ACC340
-_080C8798: .4byte gUnknown_02020988
+_080C8798: .4byte gGenericBuffer+0x800
 _080C879C:
 	ldr r0, _080C87BC  @ gBG0TilemapBuffer
 	movs r1, #0
@@ -4579,14 +4579,14 @@ _080C88AC:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C88D4  @ gUnknown_08ACF200
-	ldr r1, _080C88D8  @ gUnknown_02020988
+	ldr r1, _080C88D8  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C88FA
 	.align 2, 0
 _080C88CC: .4byte gUnknown_08ACE0B8
 _080C88D0: .4byte 0x06002000
 _080C88D4: .4byte gUnknown_08ACF200
-_080C88D8: .4byte gUnknown_02020988
+_080C88D8: .4byte gGenericBuffer+0x800
 _080C88DC:
 	ldr r0, _080C8914  @ gBG0TilemapBuffer
 	movs r1, #0
@@ -4691,14 +4691,14 @@ _080C89A4:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C89CC  @ gUnknown_08AD236C
-	ldr r1, _080C89D0  @ gUnknown_02020988
+	ldr r1, _080C89D0  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C89F2
 	.align 2, 0
 _080C89C4: .4byte gUnknown_08AD1048
 _080C89C8: .4byte 0x06002000
 _080C89CC: .4byte gUnknown_08AD236C
-_080C89D0: .4byte gUnknown_02020988
+_080C89D0: .4byte gGenericBuffer+0x800
 _080C89D4:
 	ldr r0, _080C8A04  @ gBG0TilemapBuffer
 	movs r1, #0
@@ -4800,14 +4800,14 @@ _080C8A90:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C8AB8  @ gUnknown_08AD543C
-	ldr r1, _080C8ABC  @ gUnknown_02020988
+	ldr r1, _080C8ABC  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C8ADE
 	.align 2, 0
 _080C8AB0: .4byte gUnknown_08AD423C
 _080C8AB4: .4byte 0x06002000
 _080C8AB8: .4byte gUnknown_08AD543C
-_080C8ABC: .4byte gUnknown_02020988
+_080C8ABC: .4byte gGenericBuffer+0x800
 _080C8AC0:
 	ldr r0, _080C8AF0  @ gBG0TilemapBuffer
 	movs r1, #0
@@ -4909,14 +4909,14 @@ _080C8B7C:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C8BA4  @ gUnknown_08AD88D4
-	ldr r1, _080C8BA8  @ gUnknown_02020988
+	ldr r1, _080C8BA8  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C8BCA
 	.align 2, 0
 _080C8B9C: .4byte gUnknown_08AD72FC
 _080C8BA0: .4byte 0x06002000
 _080C8BA4: .4byte gUnknown_08AD88D4
-_080C8BA8: .4byte gUnknown_02020988
+_080C8BA8: .4byte gGenericBuffer+0x800
 _080C8BAC:
 	ldr r0, _080C8BDC  @ gBG0TilemapBuffer
 	movs r1, #0
@@ -5018,14 +5018,14 @@ _080C8C68:
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, _080C8C90  @ gUnknown_08ADBC0C
-	ldr r1, _080C8C94  @ gUnknown_02020988
+	ldr r1, _080C8C94  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C8CB6
 	.align 2, 0
 _080C8C88: .4byte gUnknown_08ADA31C
 _080C8C8C: .4byte 0x06002000
 _080C8C90: .4byte gUnknown_08ADBC0C
-_080C8C94: .4byte gUnknown_02020988
+_080C8C94: .4byte gGenericBuffer+0x800
 _080C8C98:
 	ldr r0, _080C8CC8  @ gBG0TilemapBuffer
 	movs r1, #0

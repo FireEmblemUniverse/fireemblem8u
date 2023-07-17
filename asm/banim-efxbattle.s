@@ -978,7 +978,7 @@ _08053B56:
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
-	ldr r1, _08053BB0  @ gUnknown_02022B08
+	ldr r1, _08053BB0  @ gPaletteBuffer+0x260
 	movs r2, #8
 	bl CpuFastSet
 	bl EnablePaletteSync
@@ -1008,7 +1008,7 @@ _08053BA0: .4byte 0x06011800
 _08053BA4: .4byte gEkrSpellAnimIndex
 _08053BA8: .4byte gBanimTerrainPaletteMaybe
 _08053BAC: .4byte gUnknown_02016828
-_08053BB0: .4byte gUnknown_02022B08
+_08053BB0: .4byte gPaletteBuffer+0x260
 _08053BB4: .4byte gEkrDistanceType
 _08053BB8: .4byte gEkrBgXOffset
 

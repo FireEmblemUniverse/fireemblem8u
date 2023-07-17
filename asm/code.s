@@ -4583,7 +4583,7 @@ sub_8090D80: @ 0x08090D80
 	bl SetupMapSpritesPalettes
 	movs r4, #0
 	str r4, [sp, #4]
-	ldr r1, _08090E64  @ gPalEfxHpBarLeft
+	ldr r1, _08090E64  @ gPaletteBuffer+0x360
 	ldr r2, _08090E68  @ 0x01000008
 	add r0, sp, #4
 	bl CpuFastSet
@@ -4659,7 +4659,7 @@ _08090E38:
 	b _08090E74
 	.align 2, 0
 _08090E60: .4byte gLCDControlBuffer
-_08090E64: .4byte gPalEfxHpBarLeft
+_08090E64: .4byte gPaletteBuffer+0x360
 _08090E68: .4byte 0x01000008
 _08090E6C: .4byte gPlaySt
 _08090E70:

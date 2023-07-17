@@ -40,7 +40,7 @@ void ReputConvoBg_unused(int index)
     CallARM_FillTileRect(gBG3TilemapBuffer, gConvoBackgroundData[index].tsa, 0x8000);
     ApplyPalettes(gConvoBackgroundData[index].pal, 0x8, 0x8);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
 }
 
 void ResetDialogueScreen(void) // function: MapLevelUp_EndFace
@@ -86,7 +86,7 @@ u16 sub_8010E6C(s16 x, s16 y, s16 counter)
 void sub_8010EE8(int val0, int val1, int val2)
 {
     int var = Interpolate(1, val0, val1, val2, 8);
-    CpuFastCopy(gUnknown_085A7EE8, &gPaletteBuffer[0x12 * 0x10], 0x20);
+    CpuFastCopy(gUnknown_085A7EE8, PAL_OBJ(0x2), 0x20);
     sub_807132C(gPaletteBuffer, 0x12, 1, var);
     EnablePaletteSync();
 }

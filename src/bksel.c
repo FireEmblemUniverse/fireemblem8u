@@ -83,7 +83,7 @@ void InitBattleForecastIconPaletteBuffer() {
     LoadIconPalette(0, 3);
 
     for (i = 1; i < 16; ++i) {
-        int color = gPaletteBuffer[3 * 0x10 + i];
+        int color = gPaletteBuffer[PAL_COLOR_OFFSET(3, i)];
 
         int red = RED_VALUE(color);
 

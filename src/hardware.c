@@ -571,7 +571,7 @@ void sub_80017B4(int a, int b, int c, int d)
 {
     int i;
     int j;
-    int destOffset = a * 16;
+    int destOffset = PAL_OFFSET(a);
     u16 *src = gPaletteBuffer + destOffset;
 
     for (i = 0; i < b; i++)
@@ -742,7 +742,7 @@ void SetupBackgrounds(u16 *bgConfig)
 
     SetupOAMBufferSplice(0);
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     sModifiedPalette = 1;
 
     gLCDControlBuffer.dispcnt.forcedBlank = 0;

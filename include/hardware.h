@@ -9,10 +9,148 @@ enum {
     FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
 };
 
-// Utility macros and constants
+struct DispCnt {
+    u16 mode : 3;
+    u16 cgbMode : 1; // reserved, do not use
+    u16 bmpFrameNum : 1;
+    u16 hblankIntervalFree : 1;
+    u16 obj1dMap : 1;
+    u16 forcedBlank : 1;
+    u16 bg0_on : 1;
+    u16 bg1_on : 1;
+    u16 bg2_on : 1;
+    u16 bg3_on : 1;
+    u16 obj_on : 1;
+    u16 win0_on : 1;
+    u16 win1_on : 1;
+    u16 objWin_on : 1;
+    STRUCT_PAD(0x02, 0x04);
+};
+
+struct DispStat {
+    u16 vblankFlag : 1;
+    u16 hblankFlag : 1;
+    u16 vcountFlag : 1;
+    u16 vblankIrqEnable : 1;
+    u16 hblankIrqEnable : 1;
+    u16 vcountIrqEnable : 1;
+    u16 dummy : 2;
+    u8 vcountCompare;
+    STRUCT_PAD(0x02, 0x04);
+};
+
+struct BgCnt {
+    u16 priority : 2;
+    u16 charBaseBlock : 2;
+    u16 dummy : 2;
+    u16 mosaic : 1;
+    u16 colorMode : 1;
+    u16 screenBaseBlock : 5;
+    u16 areaOverflowMode : 1;
+    u16 screenSize : 2;
+    STRUCT_PAD(0x02, 0x04);
+};
+
+struct WinCnt {
+    u8 win0_enableBg0 : 1;
+    u8 win0_enableBg1 : 1;
+    u8 win0_enableBg2 : 1;
+    u8 win0_enableBg3 : 1;
+    u8 win0_enableObj : 1;
+    u8 win0_enableBlend : 1;
+    u8 : 2;
+
+    u8 win1_enableBg0 : 1;
+    u8 win1_enableBg1 : 1;
+    u8 win1_enableBg2 : 1;
+    u8 win1_enableBg3 : 1;
+    u8 win1_enableObj : 1;
+    u8 win1_enableBlend : 1;
+    u8 : 2;
+
+    u8 wout_enableBg0 : 1;
+    u8 wout_enableBg1 : 1;
+    u8 wout_enableBg2 : 1;
+    u8 wout_enableBg3 : 1;
+    u8 wout_enableObj : 1;
+    u8 wout_enableBlend : 1;
+    u8 : 2;
+
+    u8 wobj_enableBg0 : 1;
+    u8 wobj_enableBg1 : 1;
+    u8 wobj_enableBg2 : 1;
+    u8 wobj_enableBg3 : 1;
+    u8 wobj_enableObj : 1;
+    u8 wobj_enableBlend : 1;
+    u8 : 2;
+};
+
+struct BlendCnt {
+    u16 target1_bg0_on : 1;
+    u16 target1_bg1_on : 1;
+    u16 target1_bg2_on : 1;
+    u16 target1_bg3_on : 1;
+    u16 target1_obj_on : 1;
+    u16 target1_bd_on : 1;
+    u16 effect : 2;
+    u16 target2_bg0_on : 1;
+    u16 target2_bg1_on : 1;
+    u16 target2_bg2_on : 1;
+    u16 target2_bg3_on : 1;
+    u16 target2_obj_on : 1;
+    u16 target2_bd_on : 1;
+    STRUCT_PAD(0x02, 0x04);
+};
+
+struct LCDControlBuffer {
+    /*0x00*/ struct DispCnt dispcnt;
+    /*0x04*/ struct DispStat dispstat;
+    /*0x08*/ STRUCT_PAD(0x08, 0x0C);
+    /*0x0C*/ struct BgCnt bg0cnt;
+    /*0x10*/ struct BgCnt bg1cnt;
+    /*0x14*/ struct BgCnt bg2cnt;
+    /*0x18*/ struct BgCnt bg3cnt;
+    /*0x1C*/ struct BgCoords bgoffset[4];
+    /*0x2C*/ u8 win0_right, win0_left;
+    /*0x2C*/ u8 win1_right, win1_left;
+    /*0x30*/ u8 win0_bottom, win0_top;
+    /*0x30*/ u8 win1_bottom, win1_top;
+    /*0x34*/ struct WinCnt wincnt;
+    /*0x38*/ u16 mosaic;
+             STRUCT_PAD(0x3A, 0x3C);
+    /*0x3C*/ struct BlendCnt bldcnt;
+    /*0x40*/ STRUCT_PAD(0x40, 0x44);
+    /*0x44*/ u8 blendCoeffA;
+    /*0x45*/ u8 blendCoeffB;
+    /*0x46*/ u8 blendY;
+    /*0x48*/ u16 bg2pa;
+    /*0x4A*/ u16 bg2pb;
+    /*0x4C*/ u16 bg2pc;
+    /*0x4E*/ u16 bg2pd;
+    /*0x50*/ u32 bg2x;
+    /*0x54*/ u32 bg2y;
+    /*0x58*/ u16 bg3pa;
+    /*0x5A*/ u16 bg3pb;
+    /*0x5C*/ u16 bg3pc;
+    /*0x5E*/ u16 bg3pd;
+    /*0x60*/ u32 bg3x;
+    /*0x64*/ u32 bg3y;
+    /*0x68*/ s8 colorAddition;
+};
+
+extern struct LCDControlBuffer gLCDControlBuffer;
+
+extern s8 gUnknown_02022288[];
+extern s8 gUnknown_020222A8[];
+
+extern s8 gUnknown_02022308[];
+
 extern u16 gPaletteBuffer[];
 
+// Utility macros and constants
+
 // Some functions only match with one of the macros.
+// NOTE: TILEMAP_INDEX2 is TM_OFFSET in fe6
 #define TILEMAP_INDEX(aX, aY) (0x20 * (aY) + (aX))
 #define TILEMAP_INDEX2(aX, aY) (((aY) << 5) + (aX))
 
@@ -27,7 +165,14 @@ extern u16 gPaletteBuffer[];
 #define BG_CHR_ADDR(n)   (void *)(BG_VRAM + (CHR_SIZE * (n)))
 #define OBJ_CHR_ADDR(n)  (void *)(OBJ_VRAM0 + (CHR_SIZE * (n)))
 
-#define PAL_BUF_COLOR(buf, palid, colornum) buf[(palid) * 0x10 + (colornum)]
+#define PAL_COLOR_OFFSET(palid, colornum) (palid) * 0x10 + (colornum)
+#define PAL_OFFSET(palid) PAL_COLOR_OFFSET((palid), 0)
+#define BGPAL_OFFSET(bgpal) PAL_OFFSET(0x00 + (bgpal))
+#define OBPAL_OFFSET(obpal) PAL_OFFSET(0x10 + (obpal))
+
+#define PAL_BACKDROP_OFFSET PAL_COLOR_OFFSET(0, 0)
+
+#define PAL_BUF_COLOR(buf, palid, colornum) buf[PAL_COLOR_OFFSET((palid), (colornum))]
 #define PAL_COLOR(palid, colornum) PAL_BUF_COLOR(gPaletteBuffer, palid, colornum)
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)

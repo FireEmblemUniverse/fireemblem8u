@@ -420,7 +420,7 @@ void sub_808DE38(struct ChapterStatusProc* proc) {
     int mod;
 
     base = gUnknown_08A2E8F0[0x2F];
-    palPtr = gUnknown_02022BA4;
+    palPtr = PAL_OBJ(7) + 0xE;
 
     mod = RED_VALUE(proc->unk_40 >> 1);
 
@@ -472,7 +472,7 @@ const char* SplitObjectiveTextOnNewline(const char* str) {
 void sub_808DEF0(s8 flag) {
 
     if (flag) {
-        CpuFastFill16(0, gUnknown_02022C48, 0x20);
+        CpuFastFill16(0, PAL_OBJ(0xD), 0x20);
         EnablePaletteSync();
     } else {
         SetupMapSpritesPalettes();

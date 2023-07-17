@@ -589,7 +589,7 @@ void ArchivePalette(int index)
 {
     int i;
     struct PalFadeSt *dst = GetPalFadeSt();
-    u16 *src = &gPaletteBuffer[0x10 * index];
+    u16 *src = &gPaletteBuffer[PAL_OFFSET(index)];
 
     for (i = 0; i < 16; i++)
         dst[index].from_colors[i] = *src++;
@@ -814,9 +814,9 @@ struct PalFadeSt *StartPalFade(u16 const *colors, int pal, int duration, ProcPtr
     struct PalFadeSt * st = sPalFadeSt + pal;
     struct PalFadeProc * proc = Proc_Start(ProcScr_PalFade, parent);
 
-    CpuCopy16(gPaletteBuffer + pal * 0x10, st->from_colors, sizeof(st->from_colors));
+    CpuCopy16(gPaletteBuffer + PAL_OFFSET(pal), st->from_colors, sizeof(st->from_colors));
 
-    st->pal = gPaletteBuffer + pal * 0x10;
+    st->pal = gPaletteBuffer + PAL_OFFSET(pal);
     st->to_colors = colors;
     st->clock = 0;
     st->clock_end = duration;
@@ -874,12 +874,12 @@ void PalFade_OnLoop(struct PalFadeProc * proc)
 
 void SetBlackPal(int palid)
 {
-    CpuCopy16(Pal_AllBlack, gPaletteBuffer + palid * 0x10, 0x20);
+    CpuCopy16(Pal_AllBlack, gPaletteBuffer + PAL_OFFSET(palid), 0x20);
 }
 
 void SetWhitePal(int palid)
 {
-    CpuCopy16(Pal_AllWhite, gPaletteBuffer + palid * 0x10, 0x20);
+    CpuCopy16(Pal_AllWhite, gPaletteBuffer + PAL_OFFSET(palid), 0x20);
 }
 
 void SetAllBlackPals(void)

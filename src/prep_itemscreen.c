@@ -294,8 +294,6 @@ void PrepItemScreen_HideFunds(void) {
     return;
 }
 
-extern u16 gPalEfxHpBarLeft[];
-
 //! FE8U = 0x08098620
 void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     int i;
@@ -342,7 +340,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     BG_Fill(BG_GetMapBuffer(1), 0);
     BG_Fill(BG_GetMapBuffer(2), 0);
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 
     for (i = 0; i < 15; i++) {
@@ -381,7 +379,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     BG_EnableSyncByMask(7);
 
     SetupMapSpritesPalettes();
-    CpuFastFill(0, gPalEfxHpBarLeft, 0x20);
+    CpuFastFill(0, PAL_OBJ(0x0B), 0x20);
 
     ForceSyncUnitSpriteSheet();
 

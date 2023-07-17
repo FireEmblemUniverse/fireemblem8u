@@ -2090,7 +2090,7 @@ void BeginBattleAnimations(void) {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(1 << 2);
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 
     RenderBmMap();

@@ -39,10 +39,6 @@ extern u16 gUnknown_08B18F34[];
 extern u16 gUnknown_08B19854[];
 extern u16 gUnknown_08B196D8[];
 
-extern u16 pPalette4Buffer[];
-
-extern u16 pPalette6Buffer[];
-
 void ChapterIntro_Bg3Scroll_Loop(void);
 
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_Bg3Scroll[] = {
@@ -774,9 +770,9 @@ void ChapterIntro_8020A40(struct ChapterIntroFXProc* proc) {
 
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(pPalette4Buffer, 4, 2, -1);
-    MaybeSmoothChangeSomePal(pPalette4Buffer + 0xA0, 0xE, 2, -1);
-    MaybeSmoothChangeSomePal(pPalette4Buffer + 0xE0, 0x12, 1, -1);
+    MaybeSmoothChangeSomePal(PAL_BG(4), 4, 2, -1);
+    MaybeSmoothChangeSomePal(PAL_BG(0xE), 0xE, 2, -1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(2), 0x12, 1, -1);
 
     return;
 }
@@ -798,7 +794,7 @@ void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc) {
             gLCDControlBuffer.dispcnt.obj_on = 1;
 
             SetBackgroundTileDataOffset(2, 0);
-            gPaletteBuffer[0] = clock;
+            gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
             EnablePaletteSync();
             Proc_Break(proc);
         }
@@ -874,10 +870,10 @@ void ChapterIntro_InitMapDisplay() {
 void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(pPalette6Buffer, 6, 10, 1);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x140, 0x1A, 6, 1);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0xA0, 0x10, 2, 1);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x110, 0x17, 1, 1);
+    MaybeSmoothChangeSomePal(PAL_BG(6), 6, 10, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0xA), 0x1A, 6, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0), 0x10, 2, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(7), 0x17, 1, 1);
 
     CALLARM_MaybeScreenFadeIn();
 
@@ -980,10 +976,10 @@ void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc* proc) {
 
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(gPaletteBuffer, 0, 3, -2);
-    MaybeSmoothChangeSomePal(gPaletteBuffer + 0x40, 4, 2, -2);
-    MaybeSmoothChangeSomePal(gPaletteBuffer + 0xE0, 0xE, 2, -2);
-    MaybeSmoothChangeSomePal(gPaletteBuffer + 0x120, 0x12, 1, -2);
+    MaybeSmoothChangeSomePal(PAL_BG(0), 0, 3, -2);
+    MaybeSmoothChangeSomePal(PAL_BG(4), 4, 2, -2);
+    MaybeSmoothChangeSomePal(PAL_BG(0xE), 0xE, 2, -2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(2), 0x12, 1, -2);
 
     proc->unk_4C = 0xF;
 
@@ -1029,10 +1025,10 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
 
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(pPalette6Buffer, 6, 10, 2);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x140, 0x1A, 6, 2);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0xA0, 0x10, 2, 2);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x110, 0x17, 1, 2);
+    MaybeSmoothChangeSomePal(PAL_BG(6), 6, 10, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0xA), 0x1A, 6, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0), 0x10, 2, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(7), 0x17, 1, 2);
 
     CALLARM_MaybeScreenFadeIn();
 

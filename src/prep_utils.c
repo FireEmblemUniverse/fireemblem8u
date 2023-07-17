@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "hardware.h"
 #include "fontgrp.h"
 #include "bmcontainer.h"
 #include "statscreen.h"

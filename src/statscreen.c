@@ -1421,7 +1421,7 @@ void DisplayPageNameSprite(int pageid)
 
     CpuCopy16(
         gUnknown_08A027FC[pageid] + colorid,
-        gPaletteBuffer + 0x13E,
+        PAL_OBJ(3) + 0xE,
         sizeof(u16));
 
     EnablePaletteSync();
@@ -1657,7 +1657,7 @@ void StatScreen_BlackenScreen(void)
     SetBlendBackdropB(0);
 
     // TODO: ResetBackdropColor macro?
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 }
 
@@ -1829,7 +1829,7 @@ void StatScreen_OnIdle(struct Proc* proc)
         SetBlendBackdropA(1);
 
         // TODO: ResetBackdropColor macro?
-        gPaletteBuffer[0] = 0;
+        gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
         EnablePaletteSync();
 
         Proc_Break(proc);

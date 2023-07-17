@@ -363,7 +363,7 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
     CopyToPaletteBuffer(Pal_SaveScreenSprits, 0x240, 0x100);
     CopyToPaletteBuffer(gUnknown_08A295B4, 0x40, 0x20);
 
-    sub_80AA790(&gPaletteBuffer[0x12 * 0x10], &gPaletteBuffer[0x12 * 0x10] - 0x10, 1);
+    sub_80AA790(PAL_OBJ(0x2), PAL_OBJ(0x2) - 0x10, 1);
     sub_80AA790(gUnknown_08A2C23C, gUnknown_020007A0, 2);
 
     BG_EnableSyncByMask(0xf);
@@ -405,7 +405,7 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
     gLCDControlBuffer.dispcnt.win1_on = 0;
     gLCDControlBuffer.dispcnt.objWin_on = 0;
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 
     sub_80A8A9C(proc);
@@ -1509,7 +1509,7 @@ void sub_80AA30C(struct SaveMenuProc* proc) {
     CopyToPaletteBuffer(Pal_SaveScreenSprits, 0x240, 0x100);
     CopyToPaletteBuffer(gUnknown_08A295B4, 0x40, 0x20);
 
-    sub_80AA790(&gPaletteBuffer[0x12 * 0x10], &gPaletteBuffer[0x12 * 0x10] - 0x10, 1);
+    sub_80AA790(PAL_OBJ(0x2), PAL_OBJ(0x2) - 0x10, 1);
     Decompress(Img_GameMainMenuObjs, (void*)0x06014000);
 
     sub_80AB794();

@@ -704,7 +704,7 @@ sub_8074A94: @ 0x08074A94
 	cmp r3, #0
 	blt _08074ABE
 	ldr r0, [r4, #0x4c]
-	ldr r1, _08074AF0  @ gUnknown_020228AA
+	ldr r1, _08074AF0  @ gPaletteBuffer+2
 	movs r2, #8
 	str r2, [sp]
 	adds r2, r3, #0
@@ -736,7 +736,7 @@ _08074AE6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08074AF0: .4byte gUnknown_020228AA
+_08074AF0: .4byte gPaletteBuffer+2
 _08074AF4: .4byte gUnknown_080E16DC
 _08074AF8: .4byte gUnknown_085C6054
 

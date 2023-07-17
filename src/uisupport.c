@@ -1335,8 +1335,8 @@ void SupportSubScreen_Init(struct SubScreenProc* proc) {
 //! FE8U = 0x080A221C
 void sub_80A221C(void) {
     int i;
-    u16* src = &gPaletteBuffer[0x1C * 0x10];
-    u16* dst = &gPaletteBuffer[0x1D * 0x10];
+    u16* src = PAL_OBJ(0xC);
+    u16* dst = PAL_OBJ(0xD);
 
     for (i = 0; i < 0x10; dst++, src++, i++) {
         *dst = (((*src & 0x1f) >> 1) & 0x1f) + (((*src & 0x3e0) >> 1) & 0x3e0) + (((*src & 0x7c00) >> 1) & 0x7c00);

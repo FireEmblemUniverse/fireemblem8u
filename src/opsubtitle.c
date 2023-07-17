@@ -110,7 +110,7 @@ void sub_80C488C(int bg) {
 
     BG_EnableSyncByMask(1 << bg);
 
-    CpuFastFill(0x08A708A7, gPaletteBuffer + (0xE * 0x10), 0x20);
+    CpuFastFill(0x08A708A7, PAL_BG(0xE), 0x20);
 
     EnablePaletteSync();
 
@@ -371,7 +371,7 @@ void sub_80C4DA0(struct OpSubtitleProc* proc) {
 
         sub_80C4BB4(
             gPal_OpSubtitle,
-            gPaletteBuffer + (3 * 0x10),
+            PAL_BG(3),
             16,
             coeff
         );
@@ -401,12 +401,12 @@ void sub_80C4E18(struct OpSubtitleProc* proc) {
 
         sub_80C4BB4(
             gPal_OpSubtitle,
-            gPaletteBuffer + (3 * 0x10),
+            PAL_BG(3),
             16,
             coeff
         );
     } else {
-        CpuFastFill(0, gPaletteBuffer + (3 * 0x10), 0x20);
+        CpuFastFill(0, PAL_BG(3), 0x20);
 
         proc->timer_2c = 0;
 
@@ -443,12 +443,12 @@ void sub_80C4EC4(struct OpSubtitleProc* proc) {
 
         sub_80C4BB4(
             gPal_OpSubtitle,
-            gPaletteBuffer + (3 * 0x10),
+            PAL_BG(3),
             16,
             coeff
         );
     } else {
-        CpuFastFill(0, gPaletteBuffer + (3 * 0x10), 0x20);
+        CpuFastFill(0, PAL_BG(3), 0x20);
 
         proc->timer_2c = 0;
 
@@ -537,7 +537,7 @@ void sub_80C501C(struct OpSubtitleProc* proc) {
 void sub_80C50A0(struct OpSubtitleProc* proc) {
     sub_80C488C(1);
 
-    CpuFastFill(0, gPaletteBuffer + (0xF * 0x10), 0x20);
+    CpuFastFill(0, PAL_BG(0xF), 0x20);
 
     sub_80C48F0(1);
 
@@ -573,7 +573,7 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
 
         sub_80C4BB4(
             gUnknown_08B1756C,
-            gPaletteBuffer + (0xF * 0x10),
+            PAL_BG(0xF),
             16,
             coeff
         );

@@ -1,3 +1,4 @@
+/* start of ewram overlay */
 . = 0x000000;
 . = ALIGN(4); src/banim-ekrbattle.o(ewram_data);
 . = 0x000030; gEkrXPosBase = .;
@@ -279,37 +280,15 @@
 . = ALIGN(4); src/banim-ekrtriangle.o(ewram_data);
 . = ALIGN(4); src/banim-ekrpopup.o(ewram_data);
 . = 0x020148; gEkrSomePalBuf = .;
-. = 0x020188; gGenericBuffer = .;
-. = 0x020288; gUnknown_02020288 = .;
-. = 0x020988; gUnknown_02020988 = .;
-. = 0x021188; gUnknown_02021188 = .;
+/* end of ewram overlay */
+/* start of ewram data */
+. = 0x020188; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
 . = 0x022188; gUnknown_02022188 = .;
 . = 0x022288; gUnknown_02022288 = .;
 . = 0x0222A8; gUnknown_020222A8 = .;
 . = 0x0222A8; gUnknown_020222A8 = .;
 . = 0x022308; gUnknown_02022308 = .;
 . = 0x0228A8; gPaletteBuffer = .;
-. = 0x0228AA; gUnknown_020228AA = .;
-. = 0x0228C8; pPalette1Buffer = .;
-. = 0x0228E8; pPalette2Buffer = .;
-. = 0x022908; pPalette3Buffer = .;
-. = 0x022928; pPalette4Buffer = .;
-. = 0x022968; pPalette6Buffer = .;
-. = 0x022988; pPalette7Buffer = .;
-. = 0x022A68; pPaletteEBuffer = .;
-. = 0x022A88; pPaletteFBuffer = .;
-. = 0x022AA8; pPalette10Buffer = .;
-. = 0x022B08; gUnknown_02022B08 = .;
-. = 0x022B68; gUnknown_02022B68 = .;
-. = 0x022B88; gUnknown_02022B88 = .;
-. = 0x022BA4; gUnknown_02022BA4 = .;
-. = 0x022BA8; gUnknown_02022BA8 = .;
-. = 0x022BC8; gUnknown_02022BC8 = .;
-. = 0x022BE8; gUnknown_02022BE8 = .;
-. = 0x022C08; gPalEfxHpBarLeft = .;
-. = 0x022C28; gPalEfxHpBarRight = .;
-. = 0x022C48; gUnknown_02022C48 = .;
-. = 0x022C68; gUnknown_02022C68 = .;
 . = 0x022CA8; gBG0TilemapBuffer = .;
 . = 0x022CAE; gUnknown_02022CAE = .;
 . = 0x022CB4; gUnknown_02022CB4 = .;

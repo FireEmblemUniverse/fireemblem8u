@@ -105,36 +105,10 @@ extern u32 gBanimOamr2[];
 // extern ??? gUnknown_0200F15C
 extern char gStringBufferAlt[];
 
-extern u8 gGenericBuffer[0x1000];
-// extern ??? gUnknown_02020208
-// extern ??? gUnknown_02020288
-// extern ??? gUnknown_02020988
-// extern ??? gUnknown_02021188
+// TODO: define this in hardware.c?
+extern u8 gGenericBuffer[0x2000];
 // extern ??? gUnknown_02022188
-extern s8 gUnknown_02022288[];
-extern s8 gUnknown_020222A8[];
-extern s8 gUnknown_02022308[];
-extern u16 gPaletteBuffer[];
-// extern ??? gUnknown_020228AA
-// extern ??? pPalette1Buffer
-extern u16 pPalette2Buffer[];
-// extern ??? pPalette3Buffer
-// extern ??? pPalette4Buffer
-// extern ??? pPalette6Buffer
-// extern ??? pPalette7Buffer
-// extern ??? pPaletteEBuffer
-// extern ??? pPaletteFBuffer
-// extern ??? pPalette10Buffer
-// extern ??? gUnknown_02022B68
-extern u16 gUnknown_02022B88[];
-extern u16 gUnknown_02022BA4[];
-extern u16 gUnknown_02022BA8[];
-extern u16 gUnknown_02022BC8[];
-// extern ??? gUnknown_02022BE8
-extern u16 gPalEfxHpBarLeft[];
-extern u16 gPalEfxHpBarRight[];
-extern u16 gUnknown_02022C48[];
-// extern ??? gUnknown_02022C68
+
 extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CAE
 // extern ??? gUnknown_02022CB4
@@ -366,7 +340,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03002C61
 extern u8 gUnknown_03003060;
 extern void* gUnknown_03003070;
-extern struct Struct03003080 gLCDControlBuffer;
 //extern u16 gUnknown_0300308C[];
 // extern ??? gUnknown_03003090
 // extern ??? gUnknown_03003094
