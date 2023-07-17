@@ -226,7 +226,7 @@ sub_808683C: @ 0x0808683C
 	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
-	ldr r7, _08086914  @ pPalette6Buffer
+	ldr r7, _08086914  @ gPaletteBuffer+0xC0
 	movs r0, #0
 	mov r9, r0
 	movs r1, #0x1f
@@ -333,7 +333,7 @@ _080868E2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08086914: .4byte pPalette6Buffer
+_08086914: .4byte gPaletteBuffer+0xC0
 _08086918: .4byte 0x00000259
 _0808691C: .4byte 0x0029BDDC
 _08086920: .4byte 0xFFFBEDED

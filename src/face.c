@@ -468,10 +468,10 @@ struct FaceProc* StartFace(int slot, int fid, int x, int y, int disp) {
     info = GetPortraitData(fid);
 
     if (disp & FACE_DISP_BIT_13) {
-        CpuFastFill(0, (gPaletteBuffer + 0x10 * 0x10) + sFaceConfig[slot].paletteId * 0x10, 0x20);
+        CpuFastFill(0, PAL_OBJ(0) + PAL_OFFSET(sFaceConfig[slot].paletteId), 0x20);
         EnablePaletteSync();
     } else {
-        CopyToPaletteBuffer(info->pal, (sFaceConfig[slot].paletteId + 0x10) * 0x20, 0x20);
+        ApplyPalette(info->pal, sFaceConfig[slot].paletteId + 0x10);
     }
 
     proc->pFaceInfo = info;
@@ -653,7 +653,7 @@ void UnpackFaceChibiGraphics(int fid, int chr, int pal) {
         const struct FaceData* info = GetPortraitData(fid);
 
         Decompress(info->imgChibi, (void *)(chr * CHR_SIZE + VRAM));
-        CopyToPaletteBuffer(info->pal, pal * 0x20, 0x20);
+        ApplyPalette(info->pal, pal);
     }
     return;
 }
@@ -691,7 +691,7 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal) {
         CpuFastCopy(buffer + 0x100, (void *)((chr + 0x04) * 0x20 + VRAM), 0x80);
         CpuFastCopy(buffer + 0x180, (void *)((chr + 0x24) * 0x20 + VRAM), 0x80);
 
-        CopyToPaletteBuffer(info->pal, (pal + 0x10) * 0x20, 0x20);
+        ApplyPalette(info->pal, pal + 0x10);
     }
 
     return;
@@ -805,13 +805,13 @@ void PutFace80x72_Core(u16* tm, int fid, int chr, int pal) {
 
     info = GetPortraitData(fid);
 
-    CopyToPaletteBuffer(info->pal, pal * 0x20, 0x20);
+    ApplyPalette(info->pal, pal);
 
     if (info->img != 0) {
         int i;
 
         Decompress(info->img, (void *)(chr * 0x20 + VRAM));
-        CopyToPaletteBuffer(info->pal, pal * 0x20, 0x20);
+        ApplyPalette(info->pal, pal);
 
         if (ShouldFaceBeRaised(fid) != 0) {
             PutFace80x72_Raised(tm, (pal << 12) + (0x3FF & chr), info);
@@ -1011,7 +1011,7 @@ void sub_8005F9C(int fid, int pal) {
 
     fid = fid - FID_FACTION_CHIBI;
 
-    CopyToPaletteBuffer(gUnknown_080D77DC[fid], pal * 0x20, 0x20);
+    ApplyPalette(gUnknown_080D77DC[fid], pal);
 
     return;
 }
@@ -1419,10 +1419,10 @@ struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp) {
     info = GetPortraitData(fid);
 
     if (disp & FACE_DISP_BIT_13) {
-        CpuFastFill(0, (gPaletteBuffer + 0x10 * 0x10) + sFaceConfig[slot].paletteId * 0x10, 0x20);
+        CpuFastFill(0, PAL_OBJ(0) + PAL_OFFSET(sFaceConfig[slot].paletteId), 0x20);
         EnablePaletteSync();
     } else {
-        CopyToPaletteBuffer(info->pal, (sFaceConfig[slot].paletteId + 0x10) * 0x20, 0x20);
+        ApplyPalette(info->pal, sFaceConfig[slot].paletteId + 0x10);
     }
 
     proc->pFaceInfo = info;
@@ -1496,7 +1496,7 @@ void sub_8006650(struct UnkFaceProc* proc) {
 
     Decompress(proc->pFaceInfo->img, (void*)(sFaceConfig[proc->pFaceProc->faceSlot].tileOffset + 0x06010000));
 
-    CopyToPaletteBuffer(proc->pFaceInfo->pal, (sFaceConfig[proc->pFaceProc->faceSlot].paletteId + 0x10) * 0x20, 0x20);
+    ApplyPalette(proc->pFaceInfo->pal, sFaceConfig[proc->pFaceProc->faceSlot].paletteId + 0x10);
 
     faceProc = proc->pFaceProc;
     faceProc->pFaceInfo = proc->pFaceInfo;
@@ -1540,7 +1540,7 @@ void sub_80066FC(int offset, int fid) {
 
 //! FE8U = 0x0800671C
 void sub_800671C(int pal, int fid) {
-    CopyToPaletteBuffer(GetPortraitData(fid)->pal, pal * 0x20, 0x20);
+    ApplyPalette(GetPortraitData(fid)->pal, pal);
     return;
 }
 

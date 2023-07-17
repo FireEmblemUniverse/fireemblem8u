@@ -1990,7 +1990,7 @@ sub_80BA100: @ 0x080BA100
 	adds r6, r0, #0
 	ldr r0, [r6, #0x30]
 	lsls r0, r0, #5
-	ldr r1, _080BA194  @ gUnknown_020228AA
+	ldr r1, _080BA194  @ gPaletteBuffer+2
 	adds r5, r0, r1
 	adds r4, r6, #0
 	adds r4, #0x34
@@ -2056,7 +2056,7 @@ _080BA184:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BA194: .4byte gUnknown_020228AA
+_080BA194: .4byte gPaletteBuffer+2
 
 	THUMB_FUNC_END sub_80BA100
 
@@ -2115,7 +2115,7 @@ sub_80BA1F4: @ 0x080BA1F4
 	adds r6, r0, #0
 	ldr r0, [r6, #0x30]
 	lsls r0, r0, #5
-	ldr r1, _080BA284  @ gUnknown_020228AA
+	ldr r1, _080BA284  @ gPaletteBuffer+2
 	adds r5, r0, r1
 	adds r4, r6, #0
 	adds r4, #0x34
@@ -2180,7 +2180,7 @@ _080BA276:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BA284: .4byte gUnknown_020228AA
+_080BA284: .4byte gPaletteBuffer+2
 
 	THUMB_FUNC_END sub_80BA1F4
 
@@ -4543,7 +4543,7 @@ GmapUnitFade_Loop: @ 0x080BB348
 	ldrh r0, [r5, #0x2e]
 	adds r0, #1
 	strh r0, [r5, #0x2e]
-	ldr r6, _080BB398  @ gUnknown_02022BE8
+	ldr r6, _080BB398  @ gPaletteBuffer+0x340
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	ldrh r1, [r5, #0x2c]
@@ -4575,7 +4575,7 @@ _080BB378:
 	ble _080BB378
 	b _080BB3D4
 	.align 2, 0
-_080BB398: .4byte gUnknown_02022BE8
+_080BB398: .4byte gPaletteBuffer+0x340
 _080BB39C:
 	adds r1, r5, #0
 	adds r1, #0x2a
@@ -4649,7 +4649,7 @@ _080BB414:
 	cmp r5, #0
 	blt _080BB444
 	lsls r0, r5, #5
-	ldr r1, _080BB440  @ pPalette10Buffer
+	ldr r1, _080BB440  @ gPaletteBuffer+0x200
 	adds r0, r0, r1
 	movs r2, #0xa0
 	lsls r2, r2, #1
@@ -4659,12 +4659,12 @@ _080BB414:
 	b _080BB454
 	.align 2, 0
 _080BB43C: .4byte gUnknown_08A3DF2C
-_080BB440: .4byte pPalette10Buffer
+_080BB440: .4byte gPaletteBuffer+0x200
 _080BB444:
 	mov r1, sp
 	movs r0, #0
 	strh r0, [r1]
-	ldr r1, _080BB474  @ gUnknown_02022BE8
+	ldr r1, _080BB474  @ gPaletteBuffer+0x340
 	ldr r2, _080BB478  @ 0x01000010
 	mov r0, sp
 	bl CpuSet
@@ -4685,7 +4685,7 @@ _080BB454:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080BB474: .4byte gUnknown_02022BE8
+_080BB474: .4byte gPaletteBuffer+0x340
 _080BB478: .4byte 0x01000010
 
 	THUMB_FUNC_END sub_80BB3E8

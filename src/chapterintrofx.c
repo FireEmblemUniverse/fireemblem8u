@@ -39,10 +39,6 @@ extern u16 gUnknown_08B18F34[];
 extern u16 gUnknown_08B19854[];
 extern u16 gUnknown_08B196D8[];
 
-extern u16 pPalette4Buffer[];
-
-extern u16 pPalette6Buffer[];
-
 void ChapterIntro_Bg3Scroll_Loop(void);
 
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_Bg3Scroll[] = {
@@ -360,7 +356,7 @@ int ChapterIntro_8020010(ProcPtr proc, void* unk_2, int unk_3) {
         unk_2 = (void*)BG_VRAM;
     }
 
-    CopyToPaletteBuffer(gUnknown_08B1754C, unk_3 * 32, 0x40);
+    ApplyPalettes(gUnknown_08B1754C, unk_3, 2);
     Decompress(Img_CommGameBgScreen, unk_2);
 
     ref1 = TILEREF(0, unk_3 & 0xF);
@@ -465,12 +461,12 @@ void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.bg2cnt.areaOverflowMode = 1;
 
     Decompress(gUnknown_08B17B64, BG_CHAR_ADDR(2));
-    CopyToPaletteBuffer(gUnknown_08B18ED4, 0, 0x60);
+    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
 
     sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
 
     Decompress(gUnknown_08B19874, OBJ_VRAM1);
-    CopyToPaletteBuffer(gUnknown_08B19DEC, 0x240, 0x20);
+    ApplyPalette(gUnknown_08B19DEC, 0x12);
 
     ChapterIntro_8020010(proc, 0, 0xE);
 
@@ -740,7 +736,7 @@ void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
     SetBlendTargetB(0, 1, 0, 0, 0);
 
     Decompress(gUnknown_08B18F34, BG_CHAR_ADDR(2));
-    CopyToPaletteBuffer(gUnknown_08B19854, 0x80, 0x20);
+    ApplyPalette(gUnknown_08B19854, 4);
 
     Decompress(gUnknown_08B196D8, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x4000);
@@ -774,9 +770,9 @@ void ChapterIntro_8020A40(struct ChapterIntroFXProc* proc) {
 
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(pPalette4Buffer, 4, 2, -1);
-    MaybeSmoothChangeSomePal(pPalette4Buffer + 0xA0, 0xE, 2, -1);
-    MaybeSmoothChangeSomePal(pPalette4Buffer + 0xE0, 0x12, 1, -1);
+    MaybeSmoothChangeSomePal(PAL_BG(4), 4, 2, -1);
+    MaybeSmoothChangeSomePal(PAL_BG(0xE), 0xE, 2, -1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(2), 0x12, 1, -1);
 
     return;
 }
@@ -798,7 +794,7 @@ void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc) {
             gLCDControlBuffer.dispcnt.obj_on = 1;
 
             SetBackgroundTileDataOffset(2, 0);
-            gPaletteBuffer[0] = clock;
+            gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
             EnablePaletteSync();
             Proc_Break(proc);
         }
@@ -874,10 +870,10 @@ void ChapterIntro_InitMapDisplay() {
 void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(pPalette6Buffer, 6, 10, 1);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x140, 0x1A, 6, 1);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0xA0, 0x10, 2, 1);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x110, 0x17, 1, 1);
+    MaybeSmoothChangeSomePal(PAL_BG(6), 6, 10, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0xA), 0x1A, 6, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0), 0x10, 2, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(7), 0x17, 1, 1);
 
     CALLARM_MaybeScreenFadeIn();
 
@@ -980,10 +976,10 @@ void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc* proc) {
 
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(gPaletteBuffer, 0, 3, -2);
-    MaybeSmoothChangeSomePal(gPaletteBuffer + 0x40, 4, 2, -2);
-    MaybeSmoothChangeSomePal(gPaletteBuffer + 0xE0, 0xE, 2, -2);
-    MaybeSmoothChangeSomePal(gPaletteBuffer + 0x120, 0x12, 1, -2);
+    MaybeSmoothChangeSomePal(PAL_BG(0), 0, 3, -2);
+    MaybeSmoothChangeSomePal(PAL_BG(4), 4, 2, -2);
+    MaybeSmoothChangeSomePal(PAL_BG(0xE), 0xE, 2, -2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(2), 0x12, 1, -2);
 
     proc->unk_4C = 0xF;
 
@@ -1029,10 +1025,10 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
 
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(pPalette6Buffer, 6, 10, 2);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x140, 0x1A, 6, 2);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0xA0, 0x10, 2, 2);
-    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x110, 0x17, 1, 2);
+    MaybeSmoothChangeSomePal(PAL_BG(6), 6, 10, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0xA), 0x1A, 6, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0), 0x10, 2, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(7), 0x17, 1, 2);
 
     CALLARM_MaybeScreenFadeIn();
 

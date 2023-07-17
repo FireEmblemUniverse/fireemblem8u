@@ -97,8 +97,6 @@ extern int sSupportScreenUnitCount;
 extern u16 gUnknown_020136F4[];
 extern u8 gUnknown_0203E884;
 
-extern u16 gUnknown_02023CC8[];
-
 //! FE8U = 0x080A0A94
 int GetSupportScreenUnitCount(void) {
     return sSupportScreenUnitCount;
@@ -444,7 +442,7 @@ extern u16 gPal_SupportMenu[];
 //! FE8U = 0x080A10D0
 void DrawSupportBannerSprites_Init(struct Proc* proc) {
     Decompress(gGfx_SupportMenu, (void*)0x06017800);
-    CopyToPaletteBuffer(gPal_SupportMenu, (proc->unk34 + 16) * 32, 32);
+    ApplyPalette(gPal_SupportMenu, proc->unk34 + 0x10);
     return;
 }
 
@@ -572,7 +570,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 4), gGenericBuffer, 0x1200);
 
     Decompress(gGfx_SupportScreenBanner, (void*)0x06013800);
-    CopyToPaletteBuffer(gPal_SupportScreenBanner, 0x240, 0x20);
+    ApplyPalette(gPal_SupportScreenBanner, 0x12);
 
     BG_EnableSyncByMask(7);
 
@@ -1093,7 +1091,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
 
         PutDrawText(
             0,
-            gUnknown_02023CC8 + (_y = ((idx * 2) + 3) * 0x20),
+            gBG2TilemapBuffer + TILEMAP_INDEX(16, 0) + (_y = ((idx * 2) + 3) * 0x20),
             color,
             0,
             5,
@@ -1101,7 +1099,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
         );
 
         DrawIcon(
-            gUnknown_02023CC8 + TILEMAP_INDEX(6, (idx * 2) + 3),
+            gBG2TilemapBuffer + TILEMAP_INDEX(16, 0) + TILEMAP_INDEX(6, (idx * 2) + 3),
             gCharacterData[GetSupportScreenPartnerCharId(proc->unitIdx, idx) - 1].affinity + 0x79,
             0xe000
         );
@@ -1143,7 +1141,7 @@ void DrawSupportSubScreenRemainingText(struct SubScreenProc* proc) {
     struct Text th;
 
     InitSpriteTextFont(&font, (void*)0x06015000, 0xe);
-    CopyToPaletteBuffer(Pal_Text, 0x3c0, 0x20);
+    ApplyPalette(Pal_Text, 0x1E);
 
     InitSpriteText(&th);
 
@@ -1335,8 +1333,8 @@ void SupportSubScreen_Init(struct SubScreenProc* proc) {
 //! FE8U = 0x080A221C
 void sub_80A221C(void) {
     int i;
-    u16* src = &gPaletteBuffer[0x1C * 0x10];
-    u16* dst = &gPaletteBuffer[0x1D * 0x10];
+    u16* src = PAL_OBJ(0xC);
+    u16* dst = PAL_OBJ(0xD);
 
     for (i = 0; i < 0x10; dst++, src++, i++) {
         *dst = (((*src & 0x1f) >> 1) & 0x1f) + (((*src & 0x3e0) >> 1) & 0x3e0) + (((*src & 0x7c00) >> 1) & 0x7c00);
@@ -1417,8 +1415,8 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     DrawSupportSubScreenRemainingText(proc);
 
     Decompress(gGfx_SupportMenu, (void*)0x06017800);
-    CopyToPaletteBuffer(gPal_SupportMenu, 0x340, 0x20);
-    CopyToPaletteBuffer(Pal_MapBattleInfoNum, 0x240, 0x20);
+    ApplyPalette(gPal_SupportMenu, 0x1A);
+    ApplyPalette(Pal_MapBattleInfoNum, 0x12);
 
     StartParallelWorker(DrawSupportSubScreenSprites, proc);
 

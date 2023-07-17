@@ -110,7 +110,7 @@ void sub_80C488C(int bg) {
 
     BG_EnableSyncByMask(1 << bg);
 
-    CpuFastFill(0x08A708A7, gPaletteBuffer + (0xE * 0x10), 0x20);
+    CpuFastFill(0x08A708A7, PAL_BG(0xE), 0x20);
 
     EnablePaletteSync();
 
@@ -182,7 +182,7 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
     SetBlendTargetB(1, 1, 0, 0, 1);
 
     Decompress(gUnknown_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
-    CopyToPaletteBuffer(gUnknown_08B18ED4, 0, 0x60);
+    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
 
     BG_Fill(gBG2TilemapBuffer, 0);
 
@@ -371,12 +371,12 @@ void sub_80C4DA0(struct OpSubtitleProc* proc) {
 
         sub_80C4BB4(
             gPal_OpSubtitle,
-            gPaletteBuffer + (3 * 0x10),
+            PAL_BG(3),
             16,
             coeff
         );
     } else {
-        CopyToPaletteBuffer(gPal_OpSubtitle, 0x60, 0x20);
+        ApplyPalette(gPal_OpSubtitle, 3);
 
         Proc_Break(proc);
 
@@ -401,12 +401,12 @@ void sub_80C4E18(struct OpSubtitleProc* proc) {
 
         sub_80C4BB4(
             gPal_OpSubtitle,
-            gPaletteBuffer + (3 * 0x10),
+            PAL_BG(3),
             16,
             coeff
         );
     } else {
-        CpuFastFill(0, gPaletteBuffer + (3 * 0x10), 0x20);
+        CpuFastFill(0, PAL_BG(3), 0x20);
 
         proc->timer_2c = 0;
 
@@ -443,12 +443,12 @@ void sub_80C4EC4(struct OpSubtitleProc* proc) {
 
         sub_80C4BB4(
             gPal_OpSubtitle,
-            gPaletteBuffer + (3 * 0x10),
+            PAL_BG(3),
             16,
             coeff
         );
     } else {
-        CpuFastFill(0, gPaletteBuffer + (3 * 0x10), 0x20);
+        CpuFastFill(0, PAL_BG(3), 0x20);
 
         proc->timer_2c = 0;
 
@@ -537,7 +537,7 @@ void sub_80C501C(struct OpSubtitleProc* proc) {
 void sub_80C50A0(struct OpSubtitleProc* proc) {
     sub_80C488C(1);
 
-    CpuFastFill(0, gPaletteBuffer + (0xF * 0x10), 0x20);
+    CpuFastFill(0, PAL_BG(0xF), 0x20);
 
     sub_80C48F0(1);
 
@@ -573,12 +573,12 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
 
         sub_80C4BB4(
             gUnknown_08B1756C,
-            gPaletteBuffer + (0xF * 0x10),
+            PAL_BG(0xF),
             16,
             coeff
         );
     } else {
-        CopyToPaletteBuffer(gUnknown_08B1756C, 0x1e0, 0x20);
+        ApplyPalette(gUnknown_08B1756C, 0xF);
 
         Proc_Break(proc);
 
@@ -597,7 +597,7 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
 void sub_80C51A8(void) {
     sub_80C4D54(2);
 
-    CopyToPaletteBuffer(gPal_OpSubtitle, 0x60, 0x20);
+    ApplyPalette(gPal_OpSubtitle, 3);
     EnablePaletteSync();
 
     return;

@@ -18,6 +18,10 @@
 #include "ev_triggercheck.h"
 #include "bmdifficulty.h"
 
+// TODO: move to some constant header and maybe merge with something if that makes sense
+#define BGPAL_BMDIFFICULTY_UNK_0 0
+#define OBPAL_BMDIFFICULTY_UNK_5 5
+
 /*
 * Difficulty mode stuff and also tower/ruins stuff
 * May have been separate files
@@ -554,7 +558,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     Decompress(gUnknown_08A21658, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
 
-    CopyToPaletteBuffer(gUnknown_08A25DCC, 0x100, 0x100);
+    ApplyPalettes(gUnknown_08A25DCC, 8, 8);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
 
@@ -564,7 +568,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     Decompress(gUnknown_08A268F8, gGenericBuffer);
 
-    CopyToPaletteBuffer(gUnknown_08A268D8, 0xE0, 0x20);
+    ApplyPalette(gUnknown_08A268D8, 7);
 
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x7260);
 
@@ -574,7 +578,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     Decompress(gUnknown_089A27B4, gBG1TilemapBuffer);
 
-    CopyToPaletteBuffer(gUnknown_089A28E0, 0x40, 0x40);
+    ApplyPalettes(gUnknown_089A28E0, 2, 2);
 
     for (i = 0; i < 0x280; i++) {
         gBG1TilemapBuffer[i] = gBG1TilemapBuffer[i] + 0x2200;
@@ -588,7 +592,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     sub_80AB760(gUnknown_0200310C);
 
-    CpuFastSet(gPaletteBuffer, gPaletteBuffer + 0x150, 8);
+    CpuFastSet(PAL_BG(BGPAL_BMDIFFICULTY_UNK_0), PAL_OBJ(OBPAL_BMDIFFICULTY_UNK_5), 8);
 
     return;
 }

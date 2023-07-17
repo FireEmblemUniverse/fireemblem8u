@@ -1421,7 +1421,7 @@ void DisplayPageNameSprite(int pageid)
 
     CpuCopy16(
         gUnknown_08A027FC[pageid] + colorid,
-        gPaletteBuffer + 0x13E,
+        PAL_OBJ(3) + 0xE,
         sizeof(u16));
 
     EnablePaletteSync();
@@ -1543,7 +1543,7 @@ void PageNumCtrl_CheckSlide(struct StatScreenPageNameProc* proc)
 static
 void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc)
 {
-    int baseref = TILEREF(0x240, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(1);
+    int baseref = TILEREF(0x240, STATSCREEN_OBJPAL_4) + OAM2_LAYER(1);
 
     proc->animTimerLeft  += proc->animSpeedLeft;
     proc->animTimerRight += proc->animSpeedRight;
@@ -1583,19 +1583,19 @@ void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc)
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 13,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.pageAmt);
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3) + gStatScreen.pageAmt);
 
     // '/'
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 7,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3));
 
     // page num
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.page + 1);
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3) + gStatScreen.page + 1);
 }
 
 static
@@ -1604,7 +1604,7 @@ void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc)
     PutSprite(11,
         gStatScreen.xDispOff + 64,
         gStatScreen.yDispOff + 131,
-        gObject_32x16, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
+        gObject_32x16, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3));
 }
 
 static
@@ -1625,7 +1625,7 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
             {
                 PutSprite(4,
                     184, 78, gObject_8x8,
-                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescue >> 6]) + OAM2_PRIORITY(2));
+                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescue >> 6]) + OAM2_LAYER(2));
             }
         }
 
@@ -1635,7 +1635,7 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
             {
                 PutSprite(4,
                     10, 86, gObject_8x8,
-                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescue>>6]) + OAM2_PRIORITY(2));
+                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescue>>6]) + OAM2_LAYER(2));
             }
         }
     }
@@ -1657,7 +1657,7 @@ void StatScreen_BlackenScreen(void)
     SetBlendBackdropB(0);
 
     // TODO: ResetBackdropColor macro?
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 }
 
@@ -1829,7 +1829,7 @@ void StatScreen_OnIdle(struct Proc* proc)
         SetBlendBackdropA(1);
 
         // TODO: ResetBackdropColor macro?
-        gPaletteBuffer[0] = 0;
+        gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
         EnablePaletteSync();
 
         Proc_Break(proc);

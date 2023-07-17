@@ -41,7 +41,7 @@ void sub_80895B4(int config, int palId) {
         pal = pal + 0x10;
     }
 
-    CopyToPaletteBuffer(pal, palId * 0x20, 0x20);
+    ApplyPalette(pal, palId);
 
     return;
 }

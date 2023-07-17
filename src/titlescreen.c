@@ -223,16 +223,16 @@ void Title_SetupMainGraphics(struct TitleScreenProc* proc) {
         case 1:
             Decompress(gGfx_TitleMainBackground_2, (void*)0x06003000);
             Decompress(gTsa_TitleMainBackground, gBG1TilemapBuffer);
-            CopyToPaletteBuffer(gPal_TitleMainBackground, 0x1c0, 0x20);
+            ApplyPalette(gPal_TitleMainBackground, 0xE);
 
             for (i = 0; i < 0x280; i++) {
                 gBG1TilemapBuffer[i] += 0xE000;
             }
 
             if (proc->unk_29 != 0) {
-                gPaletteBuffer[0] = 0x7FFF;
+                gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0x7FFF; // White
             } else {
-                gPaletteBuffer[0] = 0;
+                gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
             }
 
             break;
@@ -240,7 +240,7 @@ void Title_SetupMainGraphics(struct TitleScreenProc* proc) {
         case 2:
             Decompress(gGfx_TitleDragonForeground, (void*)0x06005000);
             Decompress(gTsa_TitleDragonForeground, gBG0TilemapBuffer);
-            CopyToPaletteBuffer(gPal_TitleDragonForeground, 0x1e0, 0x20);
+            ApplyPalette(gPal_TitleDragonForeground, 0xF);
 
             for (i = 0; i < 0x280; i++) {
                 gBG0TilemapBuffer[i] += 0xF280;
@@ -257,7 +257,7 @@ void Title_SetupMainGraphics(struct TitleScreenProc* proc) {
 
         case 4:
             Decompress(gGfx_SubtitlePressStart, (void*)0x06013000);
-            CopyToPaletteBuffer(gPal_PressStart, 0x200, 0x80);
+            ApplyPalettes(gPal_PressStart, 0x10, 4);
 
             proc->timer = 0;
 
@@ -311,15 +311,15 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
 
             Decompress(gGfx_08AAFD14, (void*)0x06008000);
             Decompress(gTsa_08AAFF10, (void*)0x0600B000);
-            CopyToPaletteBuffer(gPal_08AB0114, 0, 0x20);
-            gPaletteBuffer[0] = 0x7FFF;
+            ApplyPalette(gPal_08AB0114, 0);
+            gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0x7FFF; // White
 
             goto _080C5A14;
 
         case 1:
             Decompress(gGfx_08AADC08, (void*)0x0600C000);
             Decompress(gTsa_08AAE61C, gBG0TilemapBuffer);
-            CopyToPaletteBuffer(gPal_08AAE8CC, 0x20, 0x20);
+            ApplyPalette(gPal_08AAE8CC, 1);
 
             for (i = 0; i < 0x280; i++) {
                 gBG0TilemapBuffer[i] += 0x1000;
@@ -332,7 +332,7 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
         case 2:
             Decompress(gGfx_08AAE8EC, (void*)0x0600D000);
             Decompress(gTsa_08AAF928, gBG0TilemapBuffer);
-            CopyToPaletteBuffer(gPal_08AAFCF4, 0x40, 0x20);
+            ApplyPalette(gPal_08AAFCF4, 2);
 
             for (i = 0; i < 0x280; i++) {
                 gBG0TilemapBuffer[i] += 0x2080;
@@ -342,9 +342,9 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
 
         case 3:
             Decompress(gGfx_TitleLargeGlowingOrb, (void*)0x06014400);
-            CopyToPaletteBuffer(gPal_TitleLargeGlowingOrb, 0x280, 0x60);
+            ApplyPalettes(gPal_TitleLargeGlowingOrb, 0x14, 3);
             Decompress(gGfx_TitleSmallLightBubbles, (void*)0x06015400);
-            CopyToPaletteBuffer(gPal_TitleSmallLightBubbles, 0x2e0, 0x20);
+            ApplyPalette(gPal_TitleSmallLightBubbles, 0x17);
 
             goto _080C5A14;
 
@@ -388,7 +388,7 @@ void sub_80C5A44(struct TitleScreenProc* proc) {
 
     SetBlendTargetA(1, 1, 1, 1, 1);
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 
     proc->timer = 0;
@@ -460,7 +460,7 @@ void sub_80C5BD4(void) {
     gLCDControlBuffer.dispcnt.bg3_on = 0;
     gLCDControlBuffer.dispcnt.obj_on = 1;
 
-    CpuFastFill(0, &gPaletteBuffer[0xe * 0x10], 0x20);
+    CpuFastFill(0, PAL_BG(0xE), 0x20);
 
     EnablePaletteSync();
 
@@ -470,10 +470,10 @@ void sub_80C5BD4(void) {
 //! FE8U = 0x080C5C64
 void Title_Loop_DrawRedBlueOrbs(struct TitleScreenProc* proc) {
 
-    CopyToPaletteBuffer(gPal_TitleMainBackground, 0x1c0, 0x20);
+    ApplyPalette(gPal_TitleMainBackground, 0xE);
 
     sub_80C69B0(
-        &gPaletteBuffer[0xe * 0x10],
+        PAL_BG(0xE),
         0,
         Interpolate(0, 16, 0, proc->timer, 48)
     );
@@ -559,11 +559,11 @@ void Title_Loop_FlashFxExpand(struct TitleScreenProc* proc) {
         BG_EnableSyncByMask(1);
     }
 
-    CopyToPaletteBuffer(gPal_08AAFCF4, 0x40, 0x20);
-    sub_80C69B0(&gPaletteBuffer[2 * 0x10], 0x7FFF, res);
+    ApplyPalette(gPal_08AAFCF4, 2);
+    sub_80C69B0(PAL_BG(2), 0x7FFF, res);
 
-    CopyToPaletteBuffer(gPal_TitleMainBackground, 0x1c0, 0x20);
-    sub_80C69B0(&gPaletteBuffer[0xe * 0x10], 0x7FFF, res);
+    ApplyPalette(gPal_TitleMainBackground, 0xE);
+    sub_80C69B0(PAL_BG(0xE), 0x7FFF, res);
 
     if (proc->timer == 12) {
         proc->timer = 0;
@@ -582,7 +582,7 @@ void Title_LoadDemonKingOnBg2(void) {
     Decompress(gGfx_TitleDemonKing, (void*)0x06008000);
     Decompress(gTsa_TitleDemonKing, gBG2TilemapBuffer);
 
-    CopyToPaletteBuffer(gPal_TitleDemonKing, 0x60, 0x20);
+    ApplyPalette(gPal_TitleDemonKing, 3);
 
     for (i = 0; i < 0x280; i++) {
         gBG2TilemapBuffer[i] += 0x3000;
@@ -633,11 +633,11 @@ void Title_PrepareMainLogoZoom(void) {
     Decompress(gGfx_08AB0134, (void*)0x06008000);
     Decompress(gTsa_08AB0A20, gBG2TilemapBuffer);
 
-    CopyToPaletteBuffer(gPal_08AB0B24, 0, 0x20);
+    ApplyPalette(gPal_08AB0B24, 0);
 
     BG_EnableSyncByMask(4);
 
-    CpuFastFill(0x7FFF7FFF, &gPaletteBuffer[0xe * 0x10], 0x40);
+    CpuFastFill(0x7FFF7FFF, PAL_BG(0xe), 0x40);
 
     SetBackgroundTileDataOffset(0, 0);
     SetBackgroundMapDataOffset(0, 0x6800);
@@ -836,11 +836,11 @@ void Title_Loop_LightExplosionFx(struct TitleScreenProc* proc) {
 
     res = Interpolate(0, 16, 0, proc->timer, 24);
 
-    CopyToPaletteBuffer(gPal_TitleMainBackground, 0x1c0, 0x20);
-    sub_80C69B0(&gPaletteBuffer[0xe * 0x10], 0x7FFF, res);
+    ApplyPalette(gPal_TitleMainBackground, 0xE);
+    sub_80C69B0(PAL_BG(0xe), 0x7FFF, res);
 
-    CopyToPaletteBuffer(gPal_TitleDragonForeground, 0x1e0, 0x20);
-    sub_80C69B0(&gPaletteBuffer[0xf * 0x10], 0x7FFF, res);
+    ApplyPalette(gPal_TitleDragonForeground, 0xF);
+    sub_80C69B0(PAL_BG(0xf), 0x7FFF, res);
 
     res = Interpolate(0, 0, 63, proc->timer, 24);
     nullsub_23(res, proc->unk_30);
@@ -918,7 +918,7 @@ void Title_RestartProc(struct TitleScreenProc* proc) {
 
     Title_EndSkipFxListener();
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
 
     EnablePaletteSync();
 

@@ -83,7 +83,7 @@ void InitBattleForecastIconPaletteBuffer() {
     LoadIconPalette(0, 3);
 
     for (i = 1; i < 16; ++i) {
-        int color = gPaletteBuffer[3 * 0x10 + i];
+        int color = gPaletteBuffer[PAL_COLOR_OFFSET(3, i)];
 
         int red = RED_VALUE(color);
 
@@ -413,12 +413,12 @@ const u16* GetFactionBattleForecastFramePalette(int faction) {
 
 void InitBattleForecastFramePalettes() {
 
-    CopyToPaletteBuffer(GetFactionBattleForecastFramePalette(UNIT_FACTION(&gBattleActor.unit)), 0x20, 0x20);
+    ApplyPalette(GetFactionBattleForecastFramePalette(UNIT_FACTION(&gBattleActor.unit)), 1);
 
     if (gBattleTarget.unit.index != 0) {
-        CopyToPaletteBuffer(GetFactionBattleForecastFramePalette(UNIT_FACTION(&gBattleTarget.unit)), 0x40, 0x20);
+        ApplyPalette(GetFactionBattleForecastFramePalette(UNIT_FACTION(&gBattleTarget.unit)), 2);
     } else {
-        CopyToPaletteBuffer(GetFactionBattleForecastFramePalette(FACTION_PURPLE), 0x40, 0x20);
+        ApplyPalette(GetFactionBattleForecastFramePalette(FACTION_PURPLE), 2);
     }
 
     return;
@@ -428,7 +428,7 @@ void BattleForecast_Init(struct BattleForecastProc* proc) {
 
     Decompress(gBattleForecast_x2x4Gfx, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void*)0x06015D00, 4, 2);
-    CopyToPaletteBuffer(gBattleForecast_x2x4Pal, 0x240, 0x20);
+    ApplyPalette(gBattleForecast_x2x4Pal, 0x12);
 
     ResetTextFont();
 
@@ -540,7 +540,7 @@ void UpdateBattleForecastEffectivenessPalettes(struct BattleForecastProc* proc) 
         palAnim = 0;
     }
 
-    CopyToPaletteBuffer(gUnknown_0200300C[palAnim], 0x60, 0x20);
+    ApplyPalette(gUnknown_0200300C[palAnim], 3);
 
     if (proc->isEffectiveB != 0) {
         palAnim = palAnimLut[proc->unk_2C & 0x1F];
@@ -548,7 +548,7 @@ void UpdateBattleForecastEffectivenessPalettes(struct BattleForecastProc* proc) 
         palAnim = 0;
     }
 
-    CopyToPaletteBuffer(gUnknown_0200300C[palAnim], 0x80, 0x20);
+    ApplyPalette(gUnknown_0200300C[palAnim], 4);
 
     return;
 }

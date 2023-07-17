@@ -7,6 +7,7 @@
 #include "variables.h"
 #include "functions.h"
 
+#include "hardware.h"
 #include "proc.h"
 #include "event.h"
 #include "bmunit.h"

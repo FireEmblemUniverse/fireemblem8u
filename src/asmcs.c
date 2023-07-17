@@ -593,7 +593,7 @@ void sub_8085C7C(ProcPtr parent, int val)
     }
 
     BG_EnableSyncByMask(3);
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 }
 

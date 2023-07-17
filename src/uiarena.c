@@ -116,7 +116,7 @@ void ArenaUi_Init(ProcPtr proc) {
 
     Decompress(gGfx_ArenaBuildingFront, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
     CallARM_FillTileRect(gBG3TilemapBuffer, gTsa_ArenaBuildingFront, 0xc000);
-    CopyToPaletteBuffer(gPal_ArenaBuildingFront, 0x180, 0x80);
+    ApplyPalettes(gPal_ArenaBuildingFront, 0xC, 4);
 
     BG_EnableSyncByMask(8);
 

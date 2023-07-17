@@ -926,8 +926,8 @@ void ApplyMinimapGraphics(int palId) {
 
     Decompress(gGfx_MinimapTiles, gGenericBuffer);
 
-    CopyToPaletteBuffer(gPal_MinimapTiles, palId * 0x20, 0x20);
-    CopyToPaletteBuffer(gPal_08A1FFD0, (palId + 1) * 0x20, 0x20);
+    ApplyPalette(gPal_MinimapTiles, palId);
+    ApplyPalette(gPal_08A1FFD0, palId + 1);
 
     return;
 }
@@ -940,7 +940,7 @@ void InitMinimapFlashPalette() {
     gMinimapObjectFlashPal = (u16 *)gGenericBuffer;
 
     for (colorNum = 1; colorNum < 16; colorNum++) {
-        int color = gPaletteBuffer[(4 * 0x10) + colorNum];
+        int color = gPaletteBuffer[BGPAL_OFFSET(4) + colorNum];
 
         int red = RED_VALUE(color);
         int green = GREEN_VALUE(color);
@@ -980,7 +980,7 @@ void Minimap_ApplyFlashPalette() {
 
     u8 idx = gUnknown_08205D87[(GetGameClock() >> 2) % sizeof(gUnknown_08205D87)];
 
-    CopyToPaletteBuffer(gMinimapObjectFlashPal + idx * 0x10, 0x80, 0x20);
+    ApplyPalette(gMinimapObjectFlashPal + idx * 0x10, 4);
 
     return;
 }
@@ -1006,7 +1006,7 @@ void Minimap_ApplyViewportFlashColor() {
     g = tmp;
     b = tmp;
 
-    gPaletteBuffer[(0x10) * 0x10 + 0xE] = (b << 10) + (g << 5) + r;
+    gPaletteBuffer[OBPAL_OFFSET(0) + 0xE] = (b << 10) + (g << 5) + r;
     EnablePaletteSync();
 
     return;

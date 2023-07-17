@@ -548,7 +548,7 @@ sub_80707FC: @ 0x080707FC
 	sub sp, #4
 	adds r6, r0, #0
 	ldr r0, [r6, #0x34]
-	ldr r4, _08070870  @ pPalette6Buffer
+	ldr r4, _08070870  @ gPaletteBuffer+0xC0
 	ldr r1, [r6, #0x30]
 	ldr r2, [r6, #0x38]
 	lsls r1, r1, #1
@@ -600,7 +600,7 @@ _08070866:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08070870: .4byte pPalette6Buffer
+_08070870: .4byte gPaletteBuffer+0xC0
 
 	THUMB_FUNC_END sub_80707FC
 

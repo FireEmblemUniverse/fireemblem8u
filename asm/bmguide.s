@@ -282,7 +282,7 @@ sub_80CE148: @ 0x080CE148
 	adds r3, r0, #0
 	ldr r0, [r4]
 	adds r0, #0xec
-	ldr r1, _080CE1B8  @ gUnknown_02023130
+	ldr r1, _080CE1B8  @ gBG0TilemapBuffer+0x488
 	movs r2, #0x16
 	str r2, [sp]
 	str r3, [sp, #4]
@@ -316,7 +316,7 @@ _080CE1A8:
 	.align 2, 0
 _080CE1B0: .4byte gpBuf
 _080CE1B4: .4byte 0x000005D4
-_080CE1B8: .4byte gUnknown_02023130
+_080CE1B8: .4byte gBG0TilemapBuffer+0x488
 _080CE1BC: .4byte gUnknown_08B12B04
 
 	THUMB_FUNC_END sub_80CE148
@@ -370,7 +370,7 @@ _080CE210:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	lsls r1, r7, #6
-	ldr r2, _080CE244  @ gUnknown_020234AC
+	ldr r2, _080CE244  @ gBG1TilemapBuffer+0x004
 	adds r1, r1, r2
 	movs r2, #9
 	str r2, [sp]
@@ -385,7 +385,7 @@ _080CE210:
 	.align 2, 0
 _080CE23C: .4byte gUnknown_08B12B04
 _080CE240: .4byte gpBuf
-_080CE244: .4byte gUnknown_020234AC
+_080CE244: .4byte gBG1TilemapBuffer+0x004
 
 	THUMB_FUNC_END sub_80CE1C0
 
@@ -546,7 +546,7 @@ _080CE342:
 	adds r3, r0, #0
 	ldr r0, [r5]
 	adds r0, r0, r6
-	ldr r1, _080CE384  @ gUnknown_020235FE
+	ldr r1, _080CE384  @ gBG1TilemapBuffer+0x156
 	movs r2, #0x12
 	str r2, [sp]
 	str r3, [sp, #4]
@@ -562,7 +562,7 @@ _080CE342:
 	.align 2, 0
 _080CE37C: .4byte gpBuf
 _080CE380: .4byte gUnknown_08B19E0C
-_080CE384: .4byte gUnknown_020235FE
+_080CE384: .4byte gBG1TilemapBuffer+0x156
 
 	THUMB_FUNC_END sub_80CE2FC
 
@@ -614,7 +614,7 @@ _080CE3CE:
 	adds r3, r0, #0
 	ldr r0, [r5]
 	adds r0, r0, r6
-	ldr r1, _080CE410  @ gUnknown_0202387E
+	ldr r1, _080CE410  @ gBG1TilemapBuffer+0x3D6
 	movs r2, #0x12
 	str r2, [sp]
 	str r3, [sp, #4]
@@ -630,7 +630,7 @@ _080CE3CE:
 	.align 2, 0
 _080CE408: .4byte gpBuf
 _080CE40C: .4byte gUnknown_08B19E0C
-_080CE410: .4byte gUnknown_0202387E
+_080CE410: .4byte gBG1TilemapBuffer+0x3D6
 
 	THUMB_FUNC_END sub_80CE388
 
@@ -787,7 +787,7 @@ _080CE51A:
 	adds r0, r0, r7
 	ldr r2, [sp, #8]
 	lsls r1, r2, #6
-	ldr r2, _080CE584  @ gUnknown_020234BE
+	ldr r2, _080CE584  @ gBG1TilemapBuffer+0x016
 	adds r1, r1, r2
 	movs r2, #0x12
 	str r2, [sp]
@@ -820,7 +820,7 @@ _080CE56C:
 	.align 2, 0
 _080CE57C: .4byte gUnknown_08B19E0C
 _080CE580: .4byte gpBuf
-_080CE584: .4byte gUnknown_020234BE
+_080CE584: .4byte gBG1TilemapBuffer+0x016
 
 	THUMB_FUNC_END sub_80CE414
 
@@ -978,7 +978,7 @@ _080CE672:
 	adds r3, r0, #0
 	ldr r0, [r5]
 	adds r0, #0xb4
-	ldr r1, _080CE6C8  @ gUnknown_020235FC
+	ldr r1, _080CE6C8  @ gBG1TilemapBuffer+0x154
 	movs r2, #0x12
 	str r2, [sp]
 	str r3, [sp, #4]
@@ -996,7 +996,7 @@ _080CE672:
 	.align 2, 0
 _080CE6C0: .4byte gpBuf
 _080CE6C4: .4byte gUnknown_08B19E0C
-_080CE6C8: .4byte gUnknown_020235FC
+_080CE6C8: .4byte gBG1TilemapBuffer+0x154
 _080CE6CC:
 	cmp r8, r7
 	blt _080CE71A
@@ -1026,7 +1026,7 @@ _080CE6F8:
 	movs r0, #0x80
 	lsls r0, r0, #2
 	adds r1, r1, r0
-	ldr r0, _080CE74C  @ gUnknown_020234BE
+	ldr r0, _080CE74C  @ gBG1TilemapBuffer+0x016
 	adds r1, r1, r0
 	movs r0, #0x11
 	str r0, [sp]
@@ -1062,7 +1062,7 @@ _080CE73A:
 	bx r0
 	.align 2, 0
 _080CE748: .4byte gpBuf
-_080CE74C: .4byte gUnknown_020234BE
+_080CE74C: .4byte gBG1TilemapBuffer+0x016
 
 	THUMB_FUNC_END sub_80CE5F0
 
@@ -1390,7 +1390,7 @@ _080CE9B2:
 	bl ClearText
 	ldr r0, [r5]
 	adds r0, r0, r4
-	ldr r1, _080CE9E4  @ gUnknown_0202393E
+	ldr r1, _080CE9E4  @ gBG1TilemapBuffer+0x496
 	movs r2, #0x11
 	str r2, [sp]
 	str r6, [sp, #4]
@@ -1405,7 +1405,7 @@ _080CE9B2:
 	bx r0
 	.align 2, 0
 _080CE9E0: .4byte gpBuf
-_080CE9E4: .4byte gUnknown_0202393E
+_080CE9E4: .4byte gBG1TilemapBuffer+0x496
 
 	THUMB_FUNC_END sub_80CE95C
 
@@ -1948,7 +1948,7 @@ sub_80CECB0: @ 0x080CECB0
 	ldr r1, _080CEEF8  @ 0x06011800
 	bl Decompress
 	ldr r0, _080CEEFC  @ gUnknown_08B176CC
-	ldr r4, _080CEF00  @ gUnknown_02020288
+	ldr r4, _080CEF00  @ gGenericBuffer+0x100
 	adds r1, r4, #0
 	bl Decompress
 	movs r2, #0x80
@@ -2060,7 +2060,7 @@ _080CEEF0: .4byte 0x06011000
 _080CEEF4: .4byte gUnknown_08B177C0
 _080CEEF8: .4byte 0x06011800
 _080CEEFC: .4byte gUnknown_08B176CC
-_080CEF00: .4byte gUnknown_02020288
+_080CEF00: .4byte gGenericBuffer+0x100
 _080CEF04: .4byte gPlaySt
 _080CEF08: .4byte gUiFramePaletteA
 _080CEF0C: .4byte gUnknown_08B12B1C

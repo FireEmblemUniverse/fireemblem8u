@@ -243,8 +243,8 @@ void EfxPrepareScreenFx(void)
 {
     const char *str;
 
-    CopyToPaletteBuffer(Pal_Text, 0x40, 0x20);
-    CopyToPaletteBuffer(Pal_Text, 0x60, 0x20);
+    ApplyPalette(Pal_Text, 2);
+    ApplyPalette(Pal_Text, 3);
     InitTextFont(&gSomeFontStruct, (void *)0x6001880, 0xC4, 2);
     SetTextDrawNoClear();
     LZ77UnCompVram(gUnknown_08801C14, (void *)0x6001000);

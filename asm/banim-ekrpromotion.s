@@ -1214,7 +1214,7 @@ sub_80732E0: @ 0x080732E0
 	bne _08073338
 	ldr r0, _0807332C  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0]
-	ldr r4, _08073330  @ gUnknown_02022B88
+	ldr r4, _08073330  @ gPaletteBuffer+0x2E0
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
@@ -1228,12 +1228,12 @@ sub_80732E0: @ 0x080732E0
 	b _08073356
 	.align 2, 0
 _0807332C: .4byte gpEfxUnitPaletteBackup
-_08073330: .4byte gUnknown_02022B88
+_08073330: .4byte gPaletteBuffer+0x2E0
 _08073334: .4byte 0xFFFFFD20
 _08073338:
 	ldr r0, _0807337C  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0, #4]
-	ldr r4, _08073380  @ gUnknown_02022BC8
+	ldr r4, _08073380  @ gPaletteBuffer+0x320
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
@@ -1264,7 +1264,7 @@ _08073372:
 	bx r0
 	.align 2, 0
 _0807337C: .4byte gpEfxUnitPaletteBackup
-_08073380: .4byte gUnknown_02022BC8
+_08073380: .4byte gPaletteBuffer+0x320
 _08073384: .4byte 0xFFFFFCE0
 
 	THUMB_FUNC_END sub_80732E0
@@ -1325,7 +1325,7 @@ sub_80733C0: @ 0x080733C0
 	bne _08073418
 	ldr r0, _0807340C  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0]
-	ldr r4, _08073410  @ gUnknown_02022B88
+	ldr r4, _08073410  @ gPaletteBuffer+0x2E0
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
@@ -1339,12 +1339,12 @@ sub_80733C0: @ 0x080733C0
 	b _08073436
 	.align 2, 0
 _0807340C: .4byte gpEfxUnitPaletteBackup
-_08073410: .4byte gUnknown_02022B88
+_08073410: .4byte gPaletteBuffer+0x2E0
 _08073414: .4byte 0xFFFFFD20
 _08073418:
 	ldr r0, _0807345C  @ gpEfxUnitPaletteBackup
 	ldr r0, [r0, #4]
-	ldr r4, _08073460  @ gUnknown_02022BC8
+	ldr r4, _08073460  @ gPaletteBuffer+0x320
 	adds r1, r4, #0
 	movs r2, #8
 	bl CpuFastSet
@@ -1375,7 +1375,7 @@ _08073452:
 	bx r0
 	.align 2, 0
 _0807345C: .4byte gpEfxUnitPaletteBackup
-_08073460: .4byte gUnknown_02022BC8
+_08073460: .4byte gPaletteBuffer+0x320
 _08073464: .4byte 0xFFFFFCE0
 
 	THUMB_FUNC_END sub_80733C0

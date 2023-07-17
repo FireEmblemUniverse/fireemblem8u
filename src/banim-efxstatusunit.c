@@ -8,6 +8,8 @@
 #include "mu.h"
 #include "bmudisp.h"
 
+#include "constants/video-banim.h"
+
 /**
  * Debuff unit status flash effect for banim (Unit::statusIndex)
  */
@@ -202,10 +204,10 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
         if (GetAnimPosition(proc->anim) == EKR_POS_L)
-            sub_80715F4(gUnknown_02022B88, gUnknown_020222A8, &gUnknown_020222A8[0x30],
+            sub_80715F4(PAL_OBJ(OBPAL_EFX_UNK_7), gUnknown_020222A8, &gUnknown_020222A8[0x30],
                         &gUnknown_020222A8[0x180], 16, proc->red, 16);
         else
-            sub_80715F4(gUnknown_02022BC8, gUnknown_02022308, &gUnknown_02022308[0x30],
+            sub_80715F4(PAL_OBJ(OBPAL_EFX_UNK_9), gUnknown_02022308, &gUnknown_02022308[0x30],
                         &gUnknown_02022308[0x2A0], 16, proc->red, 16);
 
         RefreshEntityBmMaps();

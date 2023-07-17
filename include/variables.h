@@ -105,104 +105,10 @@ extern u32 gBanimOamr2[];
 // extern ??? gUnknown_0200F15C
 extern char gStringBufferAlt[];
 
-extern u8 gGenericBuffer[0x1000];
-// extern ??? gUnknown_02020208
-// extern ??? gUnknown_02020288
-// extern ??? gUnknown_02020988
-// extern ??? gUnknown_02021188
+// TODO: define this in hardware.c?
+extern u8 gGenericBuffer[0x2000];
 // extern ??? gUnknown_02022188
-extern s8 gUnknown_02022288[];
-extern s8 gUnknown_020222A8[];
-extern s8 gUnknown_02022308[];
-extern u16 gPaletteBuffer[];
-// extern ??? gUnknown_020228AA
-// extern ??? pPalette1Buffer
-extern u16 pPalette2Buffer[];
-// extern ??? pPalette3Buffer
-// extern ??? pPalette4Buffer
-// extern ??? pPalette6Buffer
-// extern ??? pPalette7Buffer
-// extern ??? pPaletteEBuffer
-// extern ??? pPaletteFBuffer
-// extern ??? pPalette10Buffer
-// extern ??? gUnknown_02022B68
-extern u16 gUnknown_02022B88[];
-extern u16 gUnknown_02022BA4[];
-extern u16 gUnknown_02022BA8[];
-extern u16 gUnknown_02022BC8[];
-// extern ??? gUnknown_02022BE8
-extern u16 gPalEfxHpBarLeft[];
-extern u16 gPalEfxHpBarRight[];
-extern u16 gUnknown_02022C48[];
-// extern ??? gUnknown_02022C68
-extern u16 gBG0TilemapBuffer[];
-// extern ??? gUnknown_02022CAE
-// extern ??? gUnknown_02022CB4
-// extern ??? gUnknown_02022CB8
-// extern ??? gUnknown_02022CC6
-// extern ??? gUnknown_02022CCA
-// extern ??? gUnknown_02022CD4
-// extern ??? gUnknown_02022D10
-// extern ??? gUnknown_02022D86
-// extern ??? gUnknown_02022DF2
-// extern ??? gUnknown_02022E00
-// extern ??? gUnknown_02022E2E
-// extern ??? gUnknown_02022E76
-// extern ??? gUnknown_02022F4E
-// extern ??? gUnknown_02022FA8
-// extern ??? gUnknown_02022FBE
-// extern ??? gUnknown_02022FC6
-// extern ??? gUnknown_02022FD4
-extern u16 gUnknown_02022FE8[];
-// extern ??? gUnknown_02023028
-// extern ??? gUnknown_0202306E
-// extern ??? gUnknown_02023084
-// extern ??? gUnknown_020230A8
-// extern ??? gUnknown_020230CA
-// extern ??? gUnknown_02023114
-// extern ??? gUnknown_02023116
-// extern ??? gUnknown_02023130
-extern u16 gBG1TilemapBuffer[];
-// extern ??? gUnknown_020234AC
-// extern ??? gUnknown_020234AE
-// extern ??? gUnknown_020234BE
-// extern ??? gUnknown_020234CA
-// extern ??? gUnknown_020234E2
-// extern ??? gUnknown_020234E4
-// extern ??? gUnknown_020235FC
-// extern ??? gUnknown_020235FE
-// extern ??? gUnknown_020236E4
-// extern ??? gUnknown_0202387E
-// extern ??? gUnknown_020238A8
-// extern ??? gUnknown_020238CA
-// extern ??? gUnknown_0202393E
-// extern ??? gUnknown_020239A8
-// I'm not sure if this is u8 or u16.
-// In text mode, the tilemap entries are 16 bits,
-// while in affine mode, they are 8 bits.
-extern u16 gBG2TilemapBuffer[];
-// extern ??? gUnknown_02023CAA
-// extern ??? gUnknown_02023CC6
-// extern ??? gUnknown_02023CC8
-// extern ??? gUnknown_02023D0C
-// extern ??? gUnknown_02023D12
-// extern ??? gUnknown_02023D88
-// extern ??? gUnknown_02023D9C
-// extern ??? gUnknown_02023DAA
-// extern ??? gUnknown_02023DBA
-// extern ??? gUnknown_02023DE8
-// extern ??? gUnknown_02023DEA
-// extern ??? gUnknown_02023DEE
-// extern ??? gUnknown_02023DF8
-// extern ??? gUnknown_02023E88
-// extern ??? gUnknown_02023EA8
-// extern ??? gUnknown_02023F68
-// extern ??? gUnknown_02023FBA
-extern u16 gBG3TilemapBuffer[];
-extern void *gBGVramTilemapPointers[];
-extern void (*gMainCallback)(void);
-extern struct Struct02024CD4 gFrameTmRegisterConfig;
-extern struct TileDataTransfer gFrameTmRegister[];
+
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
 // extern ??? gUnknown_02026A90
@@ -366,7 +272,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03002C61
 extern u8 gUnknown_03003060;
 extern void* gUnknown_03003070;
-extern struct Struct03003080 gLCDControlBuffer;
 //extern u16 gUnknown_0300308C[];
 // extern ??? gUnknown_03003090
 // extern ??? gUnknown_03003094
@@ -446,8 +351,6 @@ extern const char gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
 extern const char gYearProjectCreated[]; // "_2003..."
 // extern ??? gUnknown_080D74F4
 extern const u16 gUnknown_080D7504[];
-extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
-//extern const s16 gCosLookup[]; // gCosTable
 // extern ??? gUnknown_080D77BC
 // extern ??? gUnknown_080D77DC
 // extern ??? gUnknown_080D77FC
@@ -646,7 +549,6 @@ extern u8 gWMMonsterSpawnsSize;
 // .data variables
 // Everything below this point must not be declared as const.
 
-extern struct KeyStatusBuffer *gKeyStatusPtr;
 extern void *gUnknown_08587938[];
 extern struct BgCnt *gUnknown_08587948[];
 // extern ??? sMusicProc1Script

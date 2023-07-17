@@ -75,7 +75,7 @@ _08051304:
 	str r0, [sp, #0xdc]
 	mov r9, r0
 _0805130A:
-	ldr r4, _08051374  @ gUnknown_02022FE8
+	ldr r4, _08051374  @ gBG0TilemapBuffer+0x340
 	movs r1, #0x80
 	str r1, [sp]
 	adds r0, r4, #0
@@ -126,7 +126,7 @@ _0805135C:
 	adds r2, r3, r0
 	b _0805138A
 	.align 2, 0
-_08051374: .4byte gUnknown_02022FE8
+_08051374: .4byte gBG0TilemapBuffer+0x340
 _08051378: .4byte gUnknown_08802274
 _0805137C: .4byte 0xFFFFFCC0
 _08051380: .4byte gUnknown_08802348

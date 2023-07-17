@@ -439,8 +439,8 @@ void sub_80B6810(void) {
     int i;
     u16* tm;
 
-    CopyToPaletteBuffer(gPal_CharacterEndingMenu, 0x180, 0x40);
-    CopyToPaletteBuffer(gUnknown_08B1754C, 0x1c0, 0x40);
+    ApplyPalettes(gPal_CharacterEndingMenu, 0xC, 2);
+    ApplyPalettes(gUnknown_08B1754C, 0xE, 2);
 
     tm = gBG3TilemapBuffer;
     offset = (((0x8000 - (u32)GetBackgroundTileDataOffset(3)) * 0x8000) >> 0x14) + 0xe000;
@@ -1131,7 +1131,7 @@ void EndEndingBattleText(void) {
 
 //! FE8U = 0x080B745C
 void SetupFinScreenGfx(void) {
-    CopyToPaletteBuffer(gPal_FinScreen, 0x1c0, 0x20);
+    ApplyPalette(gPal_FinScreen, 0xE);
 
     Decompress(gGfx_FinScreen, (void *)0x06001000);
 
@@ -1388,7 +1388,7 @@ void sub_80B75AC(struct EndingTurnRecordProc* proc) {
     gLCDControlBuffer.dispcnt.bg3_on = 1;
     gLCDControlBuffer.dispcnt.obj_on = 1;
 
-    CopyToPaletteBuffer(gUnknown_08A09A5C, 0xa0, 0x20);
+    ApplyPalette(gUnknown_08A09A5C, 5);
 
     Decompress(Img_ChapterIntroFog, (void *)0x06004000);
     CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_085A647C, 0x5200);
@@ -1455,7 +1455,7 @@ void sub_80B7648(struct EndingTurnRecordProc* proc) {
     gLCDControlBuffer.dispcnt.win1_on = 0;
     gLCDControlBuffer.dispcnt.objWin_on = 0;
 
-    CopyToPaletteBuffer(gUnknown_08A40AD4, 0x1c0, 0x40);
+    ApplyPalettes(gUnknown_08A40AD4, 0xE, 2);
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A40B14, 0xe000);
 
     BG_EnableSyncByMask(8);
@@ -1753,12 +1753,12 @@ void sub_80B8014(void) {
     SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
 
     Decompress(gUnknown_08A21658, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
-    CopyToPaletteBuffer(gUnknown_08A25DCC, 0x100, 0x100);
+    ApplyPalettes(gUnknown_08A25DCC, 8, 8);
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
 
     Decompress(gUnknown_08A26380, (void *)(GetBackgroundTileDataOffset(2) + 0x06004C00));
     Decompress(gUnknown_08A268F8, gGenericBuffer);
-    CopyToPaletteBuffer(gUnknown_08A268D8, 0xe0, 0x20);
+    ApplyPalette(gUnknown_08A268D8, 7);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
     BG_EnableSyncByMask(0xc);

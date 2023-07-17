@@ -358,7 +358,7 @@ void UpdateMenuScrollBarConfig(u8 segments, u16 currentSegment, u16 totalRows, u
 void InitMenuScrollBarImg(int chr, int pal) {
     struct MenuScrollBarProc* proc;
 
-    CopyToPaletteBuffer(Pal_MenuScrollBar, (pal + 0x10) * 0x20, 0x20);
+    ApplyPalette(Pal_MenuScrollBar, pal + 0x10);
     Decompress(Img_MenuScrollBar, (void *)(0x06010000 + chr));
 
     proc = Proc_Find(ProcScr_menu_scroll);
@@ -377,7 +377,7 @@ ProcPtr StartMenuScrollBarExt(ProcPtr parent, int x, int y, int chr, int pal) {
     proc->xBase = x;
     proc->yBase = y;
 
-    CopyToPaletteBuffer(Pal_MenuScrollBar, (pal + 0x10) * 0x20, 0x20);
+    ApplyPalette(Pal_MenuScrollBar, pal + 0x10);
     Decompress(Img_MenuScrollBar, (void *)(0x06010000 + chr));
 
     proc->oam2Chr = chr >> 5;

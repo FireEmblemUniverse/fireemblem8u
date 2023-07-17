@@ -132,8 +132,8 @@ void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
     sub_80820D8(
         gManimSt.actor[0].hp_info_y*8,
         gManimSt.actor[0].hp_info_y*8 + 0x20,
-        gPaletteBuffer[0x11],
-        gPaletteBuffer[0x21]);
+        gPaletteBuffer[BGPAL_OFFSET(1) + 1],
+        gPaletteBuffer[BGPAL_OFFSET(2) + 1]);
 }
 
 void sub_807BCA8(struct MAInfoFrameProc* proc)

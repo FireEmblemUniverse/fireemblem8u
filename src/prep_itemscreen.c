@@ -141,7 +141,7 @@ void PrepItemScreen_Init(struct PrepItemScreenProc* proc) {
 //! FE8U = 0x08098448
 void DrawFundsSprite_Init(struct DrawFundsSpriteProc* proc) {
     Decompress(gUnknown_08A1B1FC, (void *)0x06013000);
-    CopyToPaletteBuffer(gUnknown_08A1B638, (proc->pal + 0x10) * 0x20, 0x20);
+    ApplyPalette(gUnknown_08A1B638, proc->pal + 0x10);
     return;
 }
 
@@ -210,7 +210,7 @@ void EndDrawPrepFundsSprite(void) {
 
 //! FE8U = 0x08098514
 void DrawUnitInfoBg_Init(void) {
-    CopyToPaletteBuffer(gUiFramePaletteA, 0x240, 0x20);
+    ApplyPalette(gUiFramePaletteA, 0x12);
     return;
 }
 
@@ -294,8 +294,6 @@ void PrepItemScreen_HideFunds(void) {
     return;
 }
 
-extern u16 gPalEfxHpBarLeft[];
-
 //! FE8U = 0x08098620
 void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     int i;
@@ -326,7 +324,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     ResetIconGraphics_();
     LoadIconPalettes(4);
     LoadUiFrameGraphics();
-    CopyToPaletteBuffer(gUiFramePaletteD, 0x40, 0x20);
+    ApplyPalette(gUiFramePaletteD, 2);
     LoadObjUIGfx();
 
     MakePrepUnitList();
@@ -342,7 +340,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     BG_Fill(BG_GetMapBuffer(1), 0);
     BG_Fill(BG_GetMapBuffer(2), 0);
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 
     for (i = 0; i < 15; i++) {
@@ -381,7 +379,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     BG_EnableSyncByMask(7);
 
     SetupMapSpritesPalettes();
-    CpuFastFill(0, gPalEfxHpBarLeft, 0x20);
+    CpuFastFill(0, PAL_OBJ(0x0B), 0x20);
 
     ForceSyncUnitSpriteSheet();
 
@@ -561,14 +559,14 @@ void PutImg_PrepItemUseUnk(int vram, int pal) {
     };
 
     Decompress(Img_PrepWindow, (void *)(0x6000000 + vram));
-    CopyToPaletteBuffer(Pals_PrepWindow[gPlaySt.cfgWindowColor], pal * 0x20, 0x20);
+    ApplyPalette(Pals_PrepWindow[gPlaySt.cfgWindowColor], pal);
     return;
 }
 
 //! FE8U = 0x08098C8C
 void PutImg_PrepPopupWindow(int vram, int pal) {
     Decompress(Img_PrepPopupWindow, (void *)(0x06010000 + vram));
-    CopyToPaletteBuffer(gUiFramePaletteD, (pal + 0x10) * 0x20, 0x20);
+    ApplyPalette(gUiFramePaletteD, pal + 0x10);
     return;
 }
 
@@ -590,7 +588,7 @@ void sub_8098CC0(struct PrepItemScreenProc* proc) {
 
     Decompress(gUnknown_08A1B8B8, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
-    CopyToPaletteBuffer(gUiFramePaletteD, 0x40, 0x20);
+    ApplyPalette(gUiFramePaletteD, 2);
 
     UpdatePrepItemScreenFace(0, GetUnitFromPrepList(proc->hoverUnitIdx), 60, 76, 0x0503);
 

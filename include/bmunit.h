@@ -175,7 +175,7 @@ struct Unit
     /* 47 */ u8 _u47;
 };
 
-struct UnitDefinition
+struct BITPACKED UnitDefinition
 {
     /* 00 */ u8  charIndex;
     /* 01 */ u8  classIndex;

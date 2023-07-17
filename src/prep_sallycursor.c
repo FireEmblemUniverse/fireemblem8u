@@ -512,7 +512,7 @@ void sub_8033574() {
 }
 
 void sub_8033608() {
-    CopyToPaletteBuffer(gUnknown_08A1B154, 0x240, 0x20);
+    ApplyPalette(gUnknown_08A1B154, 0x12);
     return;
 }
 

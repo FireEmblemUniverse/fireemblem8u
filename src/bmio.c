@@ -302,7 +302,7 @@ void BMapDispSuspend(void) {
         return; // gfx was already blocked, nothing needs to be done.
 
     SetSecondaryHBlankHandler(NULL);
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
     Proc_BlockEachMarked(1);
 }
@@ -598,7 +598,7 @@ void WfxFlamesInitGradientPublic(void) {
 
     for (i = 0; i < 4; ++i) {
         for (j = 0; j < 0x10; ++j) {
-            const int color = gPaletteBuffer[0x10 * (i + BM_BGPAL_TILESET_BASE) + j];
+            const int color = gPaletteBuffer[PAL_COLOR_OFFSET(i + BM_BGPAL_TILESET_BASE, j)];
 
             int r = RED_VALUE(color);
             int g = GREEN_VALUE(color);
@@ -624,7 +624,7 @@ void WfxFlamesInitGradient(void) {
 
     for (i = 0; i < 4; ++i) {
         for (j = 0; j < 0x10; ++j) {
-            const int color = gPaletteBuffer[0x10 * (i + BM_BGPAL_TILESET_BASE) + j];
+            const int color = gPaletteBuffer[PAL_COLOR_OFFSET(i + BM_BGPAL_TILESET_BASE, j)];
 
             int r = RED_VALUE(color);
             int g = GREEN_VALUE(color);
@@ -650,7 +650,7 @@ void WfxFlamesInitParticles(void) {
 
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
     Decompress(gUnknown_085A3A84, OBJ_VRAM0 + 0x18 * 0x20);
-    CopyToPaletteBuffer(gUnknown_085A3AC0, 0x340, 0x20);
+    ApplyPalette(gUnknown_085A3AC0, 0x1A);
 
     for (i = 0; i < 0x10; ++i) {
         sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
@@ -670,14 +670,14 @@ void WfxFlamesUpdateGradient(void) {
     int i, j;
 
     CpuFastCopy(
-        gPaletteBuffer + BM_BGPAL_TILESET_BASE * 0x10,
-        ((u16*)(PLTT)) + BM_BGPAL_TILESET_BASE * 0x10,
+        PAL_BG(BM_BGPAL_TILESET_BASE),
+        ((u16*)(PLTT)) + BGPAL_OFFSET(BM_BGPAL_TILESET_BASE),
 
         0x20 * 4
     );
 
     for (i = 12; i < 16; ++i) {
-        const int color = gPaletteBuffer[(BM_BGPAL_TILESET_BASE + 2) * 0x10 + i];
+        const int color = gPaletteBuffer[PAL_COLOR_OFFSET(BM_BGPAL_TILESET_BASE + 2, i)];
 
         int r = RED_VALUE(color);
         int g = GREEN_VALUE(color);
@@ -775,11 +775,7 @@ void WfxClouds_Init(void) {
         sWeatherEffect.gfxData
     );
 
-    CopyToPaletteBuffer(
-        gUnknown_085A401C,
-        ((0x10 + BM_OBJPAL_10) * 0x10 * sizeof(u16)),
-        0x10 * sizeof(u16)
-    );
+    ApplyPalette(gUnknown_085A401C, 0x10 + BM_OBJPAL_10);
 }
 
 void WfxClouds_VSync(void) {
@@ -1032,7 +1028,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
         StartBMapMain(gameCtrl);
 
     // TODO: MACRO?
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 
     SetBlendTargetA(TRUE, TRUE, TRUE, TRUE, TRUE);
@@ -1068,7 +1064,7 @@ void RestartBattleMap(void) {
     Proc_Start(gProc_MapTask, PROC_TREE_4);
 
     // TODO: MACRO?
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 
     gLCDControlBuffer.dispcnt.bg0_on = TRUE;

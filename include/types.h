@@ -42,55 +42,10 @@ struct BgCoords
     u16 y;
 };
 
-struct Struct03003080
-{
-    /*0x00*/ struct DispCnt dispcnt;
-    /*0x04*/ struct DispStat dispstat;
-    /*0x08*/ u8 filler8[4];
-    /*0x0C*/ struct BgCnt bg0cnt;
-    /*0x10*/ struct BgCnt bg1cnt;
-    /*0x14*/ struct BgCnt bg2cnt;
-    /*0x18*/ struct BgCnt bg3cnt;
-    /*0x1C*/ struct BgCoords bgoffset[4];
-    /*0x2C*/ u8 win0_right, win0_left;
-    /*0x2C*/ u8 win1_right, win1_left;
-    /*0x30*/ u8 win0_bottom, win0_top;
-    /*0x30*/ u8 win1_bottom, win1_top;
-    /*0x34*/ struct WinCnt wincnt;
-    /*0x38*/ u16 mosaic;
-             u8 filler3A[2];
-    /*0x3C*/ struct BlendCnt bldcnt;
-    /*0x40*/ u8 filler40[4];
-    /*0x44*/ u8 blendCoeffA;
-    /*0x45*/ u8 blendCoeffB;
-    /*0x46*/ u8 blendY;
-    /*0x48*/ u16 bg2pa;
-    /*0x4A*/ u16 bg2pb;
-    /*0x4C*/ u16 bg2pc;
-    /*0x4E*/ u16 bg2pd;
-    /*0x50*/ u32 bg2x;
-    /*0x54*/ u32 bg2y;
-    /*0x58*/ u16 bg3pa;
-    /*0x5A*/ u16 bg3pb;
-    /*0x5C*/ u16 bg3pc;
-    /*0x5E*/ u16 bg3pd;
-    /*0x60*/ u32 bg3x;
-    /*0x64*/ u32 bg3y;
-    /*0x68*/ s8 colorAddition;
-};
-
 struct Struct0858791C
 {
     u8 filler0[4];
     u16 unk2;
-};
-
-struct TileDataTransfer
-{
-    const void *src;
-    void *dest;
-    u16 size;
-    u16 mode;
 };
 
 struct OamDataTransfer
@@ -99,27 +54,6 @@ struct OamDataTransfer
     void *dest;
     u16 unk8;
     u16 count;
-};
-
-struct Struct02024CD4
-{
-    int count;
-    int size;
-};
-
-struct KeyStatusBuffer
-{
-    /* 00 */ u8 repeatDelay;     // initial delay before generating auto-repeat presses
-    /* 01 */ u8 repeatInterval;  // time between auto-repeat presses
-    /* 02 */ u8 repeatTimer;     // (decreased by one each frame, reset to repeatDelay when Presses change and repeatInterval when reaches 0)
-    /* 04 */ u16 heldKeys;       // keys that are currently held down
-    /* 06 */ u16 repeatedKeys;   // auto-repeated keys
-    /* 08 */ u16 newKeys;        // keys that went down this frame
-    /* 0A */ u16 prevKeys;       // keys that were held down last frame
-    /* 0C */ u16 LastPressState;
-    /* 0E */ bool16 ABLRPressed; // 1 for Release (A B L R Only), 0 Otherwise
-    /* 10 */ u16 newKeys2;
-    /* 12 */ u16 TimeSinceStartSelect; // Time since last Non-Start Non-Select Button was pressed
 };
 
 typedef void (*InterruptHandler)(void);
@@ -182,14 +116,14 @@ enum BmSt_gameStateBits {
 };
 
 struct PlaySt_30 {
-    int total_gold;
+    s32 total_gold;
 
-    u32 unk_4_00 : 0x14;
-    u32 unk_4_14 : 0x0C;
+    u32 unk_4_00 : 20;
+    u32 unk_4_14 : 12;
 
-    u32 unk_8_1:8;
-    u32 unk_8_2:20; // Used by bmdifficulty (Valni/Lagdou)
-    u32 unk_8_3:4;
+    u32 unk_8_1: 8;
+    u32 unk_8_2: 20; // Used by bmdifficulty (Valni/Lagdou)
+    u32 unk_8_3: 4;
 
     u32 unk_C_00 : 6;
     u32 combatRank : 3;
@@ -201,7 +135,7 @@ struct PlaySt_30 {
     u32 unk_F_00 : 8;
 };
 
-struct PlaySt { // Chapter Data Struct
+struct BITPACKED PlaySt { // Chapter Data Struct
     /* 00 */ u32 time_saved;
     /* 04 */ u32 time_chapter_started;
 
@@ -238,12 +172,12 @@ struct PlaySt { // Chapter Data Struct
     /* 2B */ u8 unk_2B_00 : 0x01;
              u8 unk_2B_01 : 0x07;
 
-    u32 unk_2C_1:1;
-    u32 unk_2C_01 : 0x03;
-    u32 unk_2C_04 : 0x09;
-    u32 unk_2C_0D : 0x0A;
-    u32 unk_2C_2:5;
-    u32 unk_2C_3:4;
+    u32 unk_2C_1 : 1;
+    u32 unk_2C_01 : 3;
+    u32 unk_2C_04 : 9;
+    u32 unk_2C_0D : 10;
+    u32 unk_2C_2 : 5;
+    u32 unk_2C_3 : 4;
 
     struct PlaySt_30 unk_30;
 

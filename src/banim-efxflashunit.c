@@ -7,6 +7,9 @@
 #include "hardware.h"
 #include "bmlib.h"
 
+#include "constants/video-banim.h"
+
+// TODO: move elsewhere
 CONST_DATA struct ProcCmd ProcScr_efxFlashHPBar[] = {
     PROC_NAME("efxFlashHPBar"),
     PROC_MARK(PROC_MARK_A),
@@ -44,16 +47,16 @@ void EfxFlashHPBarMain1(struct ProcEfxFlashing * proc)
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
         if (gEkrGaugeHp[EKR_POS_L] <= 80)
-            CpuCopy16(gPalEfxHpBarGreen, gPalEfxHpBarLeft, 0x20);
+            CpuCopy16(gPalEfxHpBarGreen, PAL_OBJ(OBPAL_EFXHPBAR_L), 0x20);
         else
-            CpuCopy16(gPalEfxHpBarPurple, gPalEfxHpBarLeft, 0x20);
+            CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(OBPAL_EFXHPBAR_L), 0x20);
     }
     else
     {
         if (gEkrGaugeHp[EKR_POS_R] <= 80)
-            CpuCopy16(gPalEfxHpBarGreen, gPalEfxHpBarRight, 0x20);
+            CpuCopy16(gPalEfxHpBarGreen, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
         else
-            CpuCopy16(gPalEfxHpBarPurple, gPalEfxHpBarRight, 0x20);
+            CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
     }
 
     EnablePaletteSync();
@@ -68,17 +71,17 @@ void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc)
     {
         if (gEkrGaugeHp[EKR_POS_L] <= 80)
             CpuCopy16(&PAL_BUF_COLOR(gUnknown_08802B04, gPalIndexEfxHpBarUnk[EKR_POS_L], 0),
-                      gPalEfxHpBarLeft, 0x20);
+                      PAL_OBJ(OBPAL_EFXHPBAR_L), 0x20);
         else
-            CpuCopy16(gPalEfxHpBarPurple, gPalEfxHpBarRight, 0x20); /* Why right? */
+            CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20); /* Why right? */
     }
     else
     {
         if (gEkrGaugeHp[EKR_POS_R] <= 80)
             CpuCopy16(&PAL_BUF_COLOR(gUnknown_08802B04, gPalIndexEfxHpBarUnk[EKR_POS_R], 0),
-                      gPalEfxHpBarRight, 0x20);
+                      PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
         else
-            CpuCopy16(gPalEfxHpBarPurple, gPalEfxHpBarRight, 0x20);
+            CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
     }
 
     EnablePaletteSync();
@@ -205,14 +208,14 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
         buf3 = gUnknown_0201F9A8;
 
         sub_80715F4(
-            gPalEfxHpBarLeft,
+            PAL_OBJ(OBPAL_EFXHPBAR_L),
             gUnknown_0201F948,
             gUnknown_0201F978,
             gUnknown_0201F9A8,
             0x10, proc->unk54, 5);
     }
     else
-        CpuFastCopy(gPalEfxHpBarPurple + proc->unk58 * 0x10, gPalEfxHpBarLeft, 0x20);
+        CpuFastCopy(gPalEfxHpBarPurple + proc->unk58 * 0x10, PAL_OBJ(OBPAL_EFXHPBAR_L), 0x20);
 
     if (gEkrGaugeHp[EKR_POS_R] <= 80)
     {
@@ -221,14 +224,14 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
         buf3 = gUnknown_0201FA68;
 
         sub_80715F4(
-            gPalEfxHpBarRight,
+            PAL_OBJ(OBPAL_EFXHPBAR_R),
             buf1,
             buf2,
             buf3,
             0x10, proc->unk54, 5);
     }
     else
-        CpuFastCopy(gPalEfxHpBarPurple + proc->unk58 * 0x10, gPalEfxHpBarRight, 0x20);
+        CpuFastCopy(gPalEfxHpBarPurple + proc->unk58 * 0x10, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
 
     EnablePaletteSync();
 }
@@ -261,12 +264,12 @@ void EfxFlashUnitMain(struct ProcEfxFlashing * proc)
 
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gUnknown_08802D24, gUnknown_02022B88, 0x20);
+        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
         sub_807027C(proc->anim);
     }
     else
     {
-        CpuFastCopy(gUnknown_08802D24, gUnknown_02022BC8, 0x20);
+        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
         sub_807027C(proc->anim);
     }
 
@@ -280,12 +283,12 @@ void EfxFlashUnitRestorePal(struct ProcEfxFlashing * proc)
 {
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], gUnknown_02022B88, 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
         sub_807035C(proc->anim);
     }
     else
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], gUnknown_02022BC8, 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
         sub_807035C(proc->anim);
     }
 
@@ -325,12 +328,12 @@ void EfxFlashUnitEffectMain(struct ProcEfxFlashing * proc)
 
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gUnknown_08802D24, gUnknown_02022B88, 0x20);
+        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
         sub_807027C(proc->anim);
     }
     else
     {
-        CpuFastCopy(gUnknown_08802D24, gUnknown_02022BC8, 0x20);
+        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
         sub_807027C(proc->anim);
     }
 
@@ -350,12 +353,12 @@ void EfxFlashUnitEffectRestorePal(struct ProcEfxFlashing * proc)
 {
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], gUnknown_02022B88, 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
         sub_807035C(proc->anim);
     }
     else
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], gUnknown_02022BC8, 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
         sub_807035C(proc->anim);
     }
 

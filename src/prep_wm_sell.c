@@ -104,7 +104,7 @@ void WmSell_Init(struct WmSellProc* proc) {
 //! FE8U = 0x0809FE68
 void sub_809FE68(void) {
     InitSpriteTextFont(&gUnknown_02013648.font, (void*)0x06011000, 11);
-    CopyToPaletteBuffer(Pal_Text, 0x360, 0x20);
+    ApplyPalette(Pal_Text, 0x1B);
 
     InitSpriteText(&gUnknown_02013648.textC);
 

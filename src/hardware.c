@@ -3,13 +3,29 @@
 #include "bm.h"
 #include "hardware.h"
 
-EWRAM_DATA struct Struct02024CD4 gFrameTmRegisterConfig = {0};
-EWRAM_DATA struct TileDataTransfer gFrameTmRegister[32] = {0};
+u16 EWRAM_DATA gPaletteBuffer[0x200] = { 0 };
+
+u16 EWRAM_DATA gBG0TilemapBuffer[32 * 32] = { 0 };
+u16 EWRAM_DATA gBG1TilemapBuffer[32 * 32] = { 0 };
+u16 EWRAM_DATA gBG2TilemapBuffer[32 * 32] = { 0 };
+u16 EWRAM_DATA gBG3TilemapBuffer[32 * 32] = { 0 };
+
+void * EWRAM_DATA gBGVramTilemapPointers[4] = { 0 };
+
+void (* EWRAM_DATA gMainCallback)(void) = NULL;
+
+static u32 EWRAM_DATA sPad_Unused_02024CBC = 0;
+
+static struct KeyStatusBuffer EWRAM_DATA sKeyStatusBuffer = { 0 };
+struct KeyStatusBuffer * CONST_DATA gKeyStatusPtr = &sKeyStatusBuffer;
+
+struct Struct02024CD4 EWRAM_DATA gFrameTmRegisterConfig = { 0 };
+struct TileDataTransfer EWRAM_DATA gFrameTmRegister[32] = { 0 };
 
 struct KeyProc {
-    PROC_HEADER
-    /*0x2A*/ s16 filler2A[29];
-    /*0x64*/ s16 unk64;
+    /* 00 */ PROC_HEADER
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ s16 unk64;
 };
 
 //static u8 sModifiedBGs;
@@ -45,6 +61,9 @@ void sub_8000E14(u16 *a, int b, int size, int d)
 
 void FlushLCDControl(void)
 {
+    // NOTE: most of these break strict aliasing rules.
+    // this function needs to be rewritten to be acceptable for modern compiler.
+
     #define COPY_REG(type, reg, src) *(type *)REG_ADDR_##reg = *(type *)src;
 
     COPY_REG(u16, DISPCNT, &gLCDControlBuffer.dispcnt)
@@ -571,7 +590,7 @@ void sub_80017B4(int a, int b, int c, int d)
 {
     int i;
     int j;
-    int destOffset = a * 16;
+    int destOffset = PAL_OFFSET(a);
     u16 *src = gPaletteBuffer + destOffset;
 
     for (i = 0; i < b; i++)
@@ -742,7 +761,7 @@ void SetupBackgrounds(u16 *bgConfig)
 
     SetupOAMBufferSplice(0);
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     sModifiedPalette = 1;
 
     gLCDControlBuffer.dispcnt.forcedBlank = 0;
@@ -775,7 +794,7 @@ void sub_8001C5C(u8 a)
     gUnknown_0300001A = a;
 }
 
-s8 ShouldSkipHSScreen(void)
+bool ShouldSkipHSScreen(void)
 {
     return gUnknown_0300001A;
 }

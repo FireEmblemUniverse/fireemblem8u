@@ -32,7 +32,7 @@ _0807F588: .4byte gUnknown_089A4034
 sub_807F58C: @ 0x0807F58C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0807F5BC  @ pPalette6Buffer
+	ldr r0, _0807F5BC  @ gPaletteBuffer+0xC0
 	ldr r1, _0807F5C0  @ gUnknown_03005110
 	movs r2, #0x50
 	bl CpuFastSet
@@ -52,7 +52,7 @@ _0807F59C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807F5BC: .4byte pPalette6Buffer
+_0807F5BC: .4byte gPaletteBuffer+0xC0
 _0807F5C0: .4byte gUnknown_03005110
 _0807F5C4: .4byte Pal_AllBlack
 

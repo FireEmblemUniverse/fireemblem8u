@@ -645,7 +645,7 @@ void GetMinimugFactionPalette(int faction, int palId) {
             break;
     }
 
-    CopyToPaletteBuffer(pal, palId * 0x20, 0x20);
+    ApplyPalette(pal, palId);
 
     return;
 }
@@ -1308,7 +1308,7 @@ void InitPlayerPhaseInterface() {
 
     CpuFastSet((void*)(VRAM + 0x2EA0), (void*)(VRAM + 0x15D40), 8);
 
-    CopyToPaletteBuffer(gPaletteBuffer, 0x300, 0x20);
+    ApplyPalette(gPaletteBuffer, 0x18);
 
     LoadIconPalette(1, 2);
 

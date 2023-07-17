@@ -441,7 +441,7 @@ _0805A77E:
 	adds r0, r0, r1
 	ldrh r1, [r4, #0x10]
 	lsls r1, r1, #5
-	ldr r2, _0805A7B0  @ pPalette10Buffer
+	ldr r2, _0805A7B0  @ gPaletteBuffer+0x200
 	adds r1, r1, r2
 	movs r2, #8
 	bl CpuFastSet
@@ -458,7 +458,7 @@ _0805A77E:
 	bx r0
 	.align 2, 0
 _0805A7AC: .4byte character_battle_animation_palette_table
-_0805A7B0: .4byte pPalette10Buffer
+_0805A7B0: .4byte gPaletteBuffer+0x200
 
 	THUMB_FUNC_END sub_805A60C
 
@@ -630,7 +630,7 @@ _0805A8FA:
 	adds r0, r0, r1
 	ldrh r1, [r7, #0x10]
 	lsls r1, r1, #5
-	ldr r2, _0805A92C  @ pPalette10Buffer
+	ldr r2, _0805A92C  @ gPaletteBuffer+0x200
 	adds r1, r1, r2
 	movs r2, #8
 	bl CpuFastSet
@@ -645,7 +645,7 @@ _0805A8FA:
 	.align 2, 0
 _0805A924: .4byte 0x000057F0
 _0805A928: .4byte character_battle_animation_palette_table
-_0805A92C: .4byte pPalette10Buffer
+_0805A92C: .4byte gPaletteBuffer+0x200
 
 	THUMB_FUNC_END sub_805A7B4
 
@@ -996,7 +996,7 @@ _0805AB74:
 	movs r0, #2
 	ldrsh r1, [r6, r0]
 	lsls r1, r1, #5
-	ldr r0, _0805ABEC  @ pPalette10Buffer
+	ldr r0, _0805ABEC  @ gPaletteBuffer+0x200
 	adds r1, r1, r0
 	mov r0, r8
 	movs r2, #8
@@ -1018,7 +1018,7 @@ _0805ABA2:
 	movs r0, #8
 	ldrsh r1, [r6, r0]
 	lsls r1, r1, #5
-	ldr r0, _0805ABEC  @ pPalette10Buffer
+	ldr r0, _0805ABEC  @ gPaletteBuffer+0x200
 	adds r1, r1, r0
 	mov r0, r9
 	movs r2, #8
@@ -1040,7 +1040,7 @@ _0805ABE2:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0805ABEC: .4byte pPalette10Buffer
+_0805ABEC: .4byte gPaletteBuffer+0x200
 _0805ABF0: .4byte _0805ABF4
 _0805ABF4: @ jump table
 	.4byte _0805AC28 @ case 0
