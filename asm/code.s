@@ -3088,7 +3088,7 @@ sub_8090238: @ 0x08090238
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	str r0, [sp]
-	ldr r5, _080902C0  @ gUnknown_02023D12
+	ldr r5, _080902C0  @ gBG2TilemapBuffer+0x06A
 	adds r0, r5, #0
 	movs r1, #4
 	movs r2, #1
@@ -3142,7 +3142,7 @@ _08090276:
 	bl DrawIcon
 	b _08090306
 	.align 2, 0
-_080902C0: .4byte gUnknown_02023D12
+_080902C0: .4byte gBG2TilemapBuffer+0x06A
 _080902C4: .4byte gUnknown_0200E150
 _080902C8: .4byte gUnknown_08A17C48
 _080902CC: .4byte 0x000004FD
@@ -3158,12 +3158,12 @@ _080902D0:
 	mov r0, r8
 	bl Text_DrawString
 	mov r0, r8
-	ldr r1, _080902F8  @ gUnknown_02023D12
+	ldr r1, _080902F8  @ gBG2TilemapBuffer+0x06A
 	bl PutText
 	b _08090306
 	.align 2, 0
 _080902F4: .4byte gUnknown_08A17C4C
-_080902F8: .4byte gUnknown_02023D12
+_080902F8: .4byte gBG2TilemapBuffer+0x06A
 _080902FC:
 	adds r5, #0x10
 	adds r1, #0x10
@@ -4821,7 +4821,7 @@ _08090FBE:
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl Text_DrawString
-	ldr r1, _0809101C  @ gUnknown_02023DEE
+	ldr r1, _0809101C  @ gBG2TilemapBuffer+0x146
 	adds r0, r4, #0
 	bl PutText
 	ldr r1, _08091020  @ gUnknown_0200F15C
@@ -4841,7 +4841,7 @@ _08091000:
 	.align 2, 0
 _08091014: .4byte gUnknown_0200E140
 _08091018: .4byte 0x000004E5
-_0809101C: .4byte gUnknown_02023DEE
+_0809101C: .4byte gBG2TilemapBuffer+0x146
 _08091020: .4byte gUnknown_0200F15C
 _08091024:
 	lsls r1, r4, #0x18
@@ -4963,7 +4963,7 @@ _0809104E:
 	orrs r0, r1
 	strb r0, [r7, #0x18]
 	ldr r0, _08091170  @ gUnknown_08A1C7D8
-	ldr r1, _08091174  @ gUnknown_020239A8
+	ldr r1, _08091174  @ gBG1TilemapBuffer+0x500
 	bl Decompress
 	ldr r0, _08091178  @ gUnknown_08A1A084
 	movs r1, #0xf0
@@ -4998,7 +4998,7 @@ _08091164: .4byte gBG0TilemapBuffer
 _08091168: .4byte gUnknown_0200F158
 _0809116C: .4byte gLCDControlBuffer
 _08091170: .4byte gUnknown_08A1C7D8
-_08091174: .4byte gUnknown_020239A8
+_08091174: .4byte gBG1TilemapBuffer+0x500
 _08091178: .4byte gUnknown_08A1A084
 _0809117C: .4byte gUnknown_08A17B08
 
@@ -6678,12 +6678,12 @@ _08091E20:
 	ldrb r0, [r1]
 	mov r2, sl
 	strb r0, [r2]
-	ldr r0, _08091E9C  @ gUnknown_02023DF8
+	ldr r0, _08091E9C  @ gBG2TilemapBuffer+0x150
 	movs r1, #0x16
 	movs r2, #1
 	movs r3, #0
 	bl TileMap_FillRect
-	ldr r0, _08091EA0  @ gUnknown_02022CB8
+	ldr r0, _08091EA0  @ gBG0TilemapBuffer+0x010
 	movs r1, #0x16
 	movs r2, #0x1f
 	movs r3, #0
@@ -6713,8 +6713,8 @@ _08091E8C: .4byte gBG0TilemapBuffer
 _08091E90: .4byte gUnknown_0200D7E0
 _08091E94: .4byte gBG2TilemapBuffer
 _08091E98: .4byte gUnknown_0200DFE0
-_08091E9C: .4byte gUnknown_02023DF8
-_08091EA0: .4byte gUnknown_02022CB8
+_08091E9C: .4byte gBG2TilemapBuffer+0x150
+_08091EA0: .4byte gBG0TilemapBuffer+0x010
 _08091EA4: .4byte gUnknown_0200F15C
 _08091EA8:
 	lsls r1, r4, #0x18
@@ -7254,7 +7254,7 @@ sub_8092298: @ 0x08092298
 	lsrs r5, r2, #0x18
 	cmp r3, #0
 	beq _080922CE
-	ldr r4, _080922E8  @ gUnknown_02023D9C
+	ldr r4, _080922E8  @ gBG2TilemapBuffer+0x0F4
 	adds r0, r4, #0
 	movs r1, #2
 	adds r2, r3, #0
@@ -7271,7 +7271,7 @@ sub_8092298: @ 0x08092298
 _080922CE:
 	cmp r5, #0
 	beq _080922DA
-	ldr r0, _080922EC  @ gUnknown_02023DE8
+	ldr r0, _080922EC  @ gBG2TilemapBuffer+0x140
 	adds r1, r7, #0
 	bl sub_80921CC
 _080922DA:
@@ -7281,8 +7281,8 @@ _080922DA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080922E8: .4byte gUnknown_02023D9C
-_080922EC: .4byte gUnknown_02023DE8
+_080922E8: .4byte gBG2TilemapBuffer+0x0F4
+_080922EC: .4byte gBG2TilemapBuffer+0x140
 
 	THUMB_FUNC_END sub_8092298
 

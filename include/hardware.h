@@ -138,6 +138,20 @@ struct LCDControlBuffer {
     /*0x68*/ s8 colorAddition;
 };
 
+struct KeyStatusBuffer {
+    /* 00 */ u8 repeatDelay;     // initial delay before generating auto-repeat presses
+    /* 01 */ u8 repeatInterval;  // time between auto-repeat presses
+    /* 02 */ u8 repeatTimer;     // (decreased by one each frame, reset to repeatDelay when Presses change and repeatInterval when reaches 0)
+    /* 04 */ u16 heldKeys;       // keys that are currently held down
+    /* 06 */ u16 repeatedKeys;   // auto-repeated keys
+    /* 08 */ u16 newKeys;        // keys that went down this frame
+    /* 0A */ u16 prevKeys;       // keys that were held down last frame
+    /* 0C */ u16 LastPressState;
+    /* 0E */ bool16 ABLRPressed; // 1 for Release (A B L R Only), 0 Otherwise
+    /* 10 */ u16 newKeys2;
+    /* 12 */ u16 TimeSinceStartSelect; // Time since last Non-Start Non-Select Button was pressed
+};
+
 struct Struct02024CD4 {
     int count;
     int size;
@@ -159,6 +173,10 @@ extern s8 gUnknown_02022308[];
 
 extern u16 gPaletteBuffer[];
 
+// In text mode, the tilemap entries are 16 bits,
+// while in affine mode, they are 8 bits.
+// they are defined as u16 for convenience
+
 extern u16 gBG0TilemapBuffer[32 * 32];
 extern u16 gBG1TilemapBuffer[32 * 32];
 extern u16 gBG2TilemapBuffer[32 * 32];
@@ -167,6 +185,11 @@ extern u16 gBG3TilemapBuffer[32 * 32];
 extern void * gBGVramTilemapPointers[4];
 
 extern void (*gMainCallback)(void);
+
+extern struct KeyStatusBuffer * CONST_DATA gKeyStatusPtr;
+
+extern struct Struct02024CD4 gFrameTmRegisterConfig;
+extern struct TileDataTransfer gFrameTmRegister[32];
 
 // Utility macros and constants
 

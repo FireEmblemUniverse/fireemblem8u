@@ -2,6 +2,7 @@
 
 #include "functions.h"
 #include "m4a.h"
+#include "hardware.h"
 #include "soundwrapper.h"
 #include "uiutils.h"
 #include "bmio.h"

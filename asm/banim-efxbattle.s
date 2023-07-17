@@ -1167,7 +1167,7 @@ _08053CF0:
 	lsls r0, r1, #4
 	subs r0, r0, r1
 	lsls r0, r0, #1
-	ldr r1, _08053D70  @ gUnknown_02023F68
+	ldr r1, _08053D70  @ gBG2TilemapBuffer+0x2C0
 	adds r0, r0, r1
 	str r4, [sp]
 	movs r1, #0xf
@@ -1216,7 +1216,7 @@ _08053D1C:
 	strh r0, [r3, #4]
 	b _08053D8C
 	.align 2, 0
-_08053D70: .4byte gUnknown_02023F68
+_08053D70: .4byte gBG2TilemapBuffer+0x2C0
 _08053D74: .4byte gEkrBgXOffset
 _08053D78: .4byte gEkrXPosBase
 _08053D7C: .4byte gEkrBg2QuakeVec

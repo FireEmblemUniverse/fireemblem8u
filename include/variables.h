@@ -109,70 +109,6 @@ extern char gStringBufferAlt[];
 extern u8 gGenericBuffer[0x2000];
 // extern ??? gUnknown_02022188
 
-extern u16 gBG0TilemapBuffer[];
-// extern ??? gUnknown_02022CAE
-// extern ??? gUnknown_02022CB4
-// extern ??? gUnknown_02022CB8
-// extern ??? gUnknown_02022CC6
-// extern ??? gUnknown_02022CCA
-// extern ??? gUnknown_02022CD4
-// extern ??? gUnknown_02022D10
-// extern ??? gUnknown_02022D86
-// extern ??? gUnknown_02022DF2
-// extern ??? gUnknown_02022E00
-// extern ??? gUnknown_02022E2E
-// extern ??? gUnknown_02022E76
-// extern ??? gUnknown_02022F4E
-// extern ??? gUnknown_02022FA8
-// extern ??? gUnknown_02022FBE
-// extern ??? gUnknown_02022FC6
-// extern ??? gUnknown_02022FD4
-extern u16 gUnknown_02022FE8[];
-// extern ??? gUnknown_02023028
-// extern ??? gUnknown_0202306E
-// extern ??? gUnknown_02023084
-// extern ??? gUnknown_020230A8
-// extern ??? gUnknown_020230CA
-// extern ??? gUnknown_02023114
-// extern ??? gUnknown_02023116
-// extern ??? gUnknown_02023130
-extern u16 gBG1TilemapBuffer[];
-// extern ??? gUnknown_020234AC
-// extern ??? gUnknown_020234AE
-// extern ??? gUnknown_020234BE
-// extern ??? gUnknown_020234CA
-// extern ??? gUnknown_020234E2
-// extern ??? gUnknown_020234E4
-// extern ??? gUnknown_020235FC
-// extern ??? gUnknown_020235FE
-// extern ??? gUnknown_020236E4
-// extern ??? gUnknown_0202387E
-// extern ??? gUnknown_020238A8
-// extern ??? gUnknown_020238CA
-// extern ??? gUnknown_0202393E
-// extern ??? gUnknown_020239A8
-// I'm not sure if this is u8 or u16.
-// In text mode, the tilemap entries are 16 bits,
-// while in affine mode, they are 8 bits.
-extern u16 gBG2TilemapBuffer[];
-// extern ??? gUnknown_02023CAA
-// extern ??? gUnknown_02023CC6
-// extern ??? gUnknown_02023CC8
-// extern ??? gUnknown_02023D0C
-// extern ??? gUnknown_02023D12
-// extern ??? gUnknown_02023D88
-// extern ??? gUnknown_02023D9C
-// extern ??? gUnknown_02023DAA
-// extern ??? gUnknown_02023DBA
-// extern ??? gUnknown_02023DE8
-// extern ??? gUnknown_02023DEA
-// extern ??? gUnknown_02023DEE
-// extern ??? gUnknown_02023DF8
-// extern ??? gUnknown_02023E88
-// extern ??? gUnknown_02023EA8
-// extern ??? gUnknown_02023F68
-// extern ??? gUnknown_02023FBA
-
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
 // extern ??? gUnknown_02026A90
@@ -614,7 +550,6 @@ extern u8 gWMMonsterSpawnsSize;
 // .data variables
 // Everything below this point must not be declared as const.
 
-extern struct KeyStatusBuffer *gKeyStatusPtr;
 extern void *gUnknown_08587938[];
 extern struct BgCnt *gUnknown_08587948[];
 // extern ??? sMusicProc1Script

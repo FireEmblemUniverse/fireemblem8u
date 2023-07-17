@@ -4189,13 +4189,13 @@ _080BE746:
 	ldr r0, [sp]
 	cmp r0, #0
 	ble _080BE798
-	ldr r5, _080BE810  @ gUnknown_020238A8
+	ldr r5, _080BE810  @ gBG1TilemapBuffer+0x400
 	adds r0, r5, #0
 	movs r1, #0xd
 	movs r2, #4
 	movs r3, #0
 	bl TileMap_FillRect
-	ldr r6, _080BE814  @ gUnknown_020230A8
+	ldr r6, _080BE814  @ gBG0TilemapBuffer+0x400
 	adds r0, r6, #0
 	movs r1, #0xd
 	movs r2, #4
@@ -4227,13 +4227,13 @@ _080BE798:
 	ldr r1, [sp]
 	cmp r1, #0
 	ble _080BE7EA
-	ldr r5, _080BE824  @ gUnknown_020238CA
+	ldr r5, _080BE824  @ gBG1TilemapBuffer+0x422
 	adds r0, r5, #0
 	movs r1, #0xd
 	movs r2, #4
 	movs r3, #0
 	bl TileMap_FillRect
-	ldr r6, _080BE828  @ gUnknown_020230CA
+	ldr r6, _080BE828  @ gBG0TilemapBuffer+0x422
 	adds r0, r6, #0
 	movs r1, #0xd
 	movs r2, #4
@@ -4274,13 +4274,13 @@ _080BE800: .4byte gBG1TilemapBuffer
 _080BE804: .4byte gBG0TilemapBuffer
 _080BE808: .4byte gUnknown_0201B958
 _080BE80C: .4byte gUnknown_0201B458
-_080BE810: .4byte gUnknown_020238A8
-_080BE814: .4byte gUnknown_020230A8
+_080BE810: .4byte gBG1TilemapBuffer+0x400
+_080BE814: .4byte gBG0TilemapBuffer+0x400
 _080BE818: .4byte gUnknown_0201BBD8
 _080BE81C: .4byte 0xFFFFFC00
 _080BE820: .4byte gUnknown_0201B758
-_080BE824: .4byte gUnknown_020238CA
-_080BE828: .4byte gUnknown_020230CA
+_080BE824: .4byte gBG1TilemapBuffer+0x422
+_080BE828: .4byte gBG0TilemapBuffer+0x422
 
 	THUMB_FUNC_END sub_80BE65C
 
@@ -4313,12 +4313,12 @@ _080BE85C:
 	ble _080BE87C
 	cmp r5, #0
 	bge _080BE87C
-	ldr r0, _080BE8D0  @ gUnknown_020234CA
+	ldr r0, _080BE8D0  @ gBG1TilemapBuffer+0x022
 	movs r1, #0xd
 	movs r2, #9
 	movs r3, #0
 	bl TileMap_FillRect
-	ldr r0, _080BE8D4  @ gUnknown_02022CCA
+	ldr r0, _080BE8D4  @ gBG0TilemapBuffer+0x022
 	movs r1, #0xd
 	movs r2, #9
 	movs r3, #0
@@ -4328,12 +4328,12 @@ _080BE87C:
 	bge _080BE89C
 	cmp r5, #0
 	ble _080BE89C
-	ldr r0, _080BE8D8  @ gUnknown_020238A8
+	ldr r0, _080BE8D8  @ gBG1TilemapBuffer+0x400
 	movs r1, #0xd
 	movs r2, #4
 	movs r3, #0
 	bl TileMap_FillRect
-	ldr r0, _080BE8DC  @ gUnknown_020230A8
+	ldr r0, _080BE8DC  @ gBG0TilemapBuffer+0x400
 	movs r1, #0xd
 	movs r2, #4
 	movs r3, #0
@@ -4343,12 +4343,12 @@ _080BE89C:
 	ble _080BE8BC
 	cmp r5, #0
 	ble _080BE8BC
-	ldr r0, _080BE8E0  @ gUnknown_020238CA
+	ldr r0, _080BE8E0  @ gBG1TilemapBuffer+0x422
 	movs r1, #0xd
 	movs r2, #4
 	movs r3, #0
 	bl TileMap_FillRect
-	ldr r0, _080BE8E4  @ gUnknown_020230CA
+	ldr r0, _080BE8E4  @ gBG0TilemapBuffer+0x422
 	movs r1, #0xd
 	movs r2, #4
 	movs r3, #0
@@ -4361,12 +4361,12 @@ _080BE8BC:
 _080BE8C4: .4byte gUnknown_08A3E448
 _080BE8C8: .4byte gBG1TilemapBuffer
 _080BE8CC: .4byte gBG0TilemapBuffer
-_080BE8D0: .4byte gUnknown_020234CA
-_080BE8D4: .4byte gUnknown_02022CCA
-_080BE8D8: .4byte gUnknown_020238A8
-_080BE8DC: .4byte gUnknown_020230A8
-_080BE8E0: .4byte gUnknown_020238CA
-_080BE8E4: .4byte gUnknown_020230CA
+_080BE8D0: .4byte gBG1TilemapBuffer+0x022
+_080BE8D4: .4byte gBG0TilemapBuffer+0x022
+_080BE8D8: .4byte gBG1TilemapBuffer+0x400
+_080BE8DC: .4byte gBG0TilemapBuffer+0x400
+_080BE8E0: .4byte gBG1TilemapBuffer+0x422
+_080BE8E4: .4byte gBG0TilemapBuffer+0x422
 
 	THUMB_FUNC_END sub_80BE82C
 
@@ -8981,7 +8981,7 @@ sub_80C0A9C: @ 0x080C0A9C
 	bl BattleGenerateUiStats
 	adds r0, r7, #0
 	adds r0, #0x34
-	ldr r4, _080C0B80  @ gUnknown_02022F4E
+	ldr r4, _080C0B80  @ gBG0TilemapBuffer+0x2A6
 	movs r1, #0
 	str r1, [sp]
 	str r5, [sp, #4]
@@ -9056,7 +9056,7 @@ sub_80C0A9C: @ 0x080C0A9C
 	bl PutTwoSpecialChar
 	b _080C0B9A
 	.align 2, 0
-_080C0B80: .4byte gUnknown_02022F4E
+_080C0B80: .4byte gBG0TilemapBuffer+0x2A6
 _080C0B84:
 	movs r0, #0xe1
 	lsls r0, r0, #1
@@ -9072,16 +9072,16 @@ _080C0B9A:
 	bl GetUnitMaxHp
 	cmp r0, #0x63
 	ble _080C0BB8
-	ldr r0, _080C0BB4  @ gUnknown_02023114
+	ldr r0, _080C0BB4  @ gBG0TilemapBuffer+0x46C
 	movs r1, #2
 	movs r2, #0x14
 	movs r3, #0x14
 	bl PutTwoSpecialChar
 	b _080C0BCA
 	.align 2, 0
-_080C0BB4: .4byte gUnknown_02023114
+_080C0BB4: .4byte gBG0TilemapBuffer+0x46C
 _080C0BB8:
-	ldr r4, _080C0C1C  @ gUnknown_02023116
+	ldr r4, _080C0C1C  @ gBG0TilemapBuffer+0x46E
 	ldr r0, [r7, #0x2c]
 	bl GetUnitMaxHp
 	adds r2, r0, #0
@@ -9102,7 +9102,7 @@ _080C0BCA:
 	adds r0, r5, #0
 	movs r1, #5
 	bl Text_Skip
-	ldr r4, _080C0C24  @ gUnknown_02022E2E
+	ldr r4, _080C0C24  @ gBG0TilemapBuffer+0x186
 	movs r0, #0
 	str r0, [sp]
 	str r6, [sp, #4]
@@ -9124,9 +9124,9 @@ _080C0BCA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C0C1C: .4byte gUnknown_02023116
+_080C0C1C: .4byte gBG0TilemapBuffer+0x46E
 _080C0C20: .4byte gGMData
-_080C0C24: .4byte gUnknown_02022E2E
+_080C0C24: .4byte gBG0TilemapBuffer+0x186
 
 	THUMB_FUNC_END sub_80C0A9C
 
@@ -9180,7 +9180,7 @@ _080C0C7A:
 	bl ResetIconGraphics_
 	adds r0, r5, #0
 	bl sub_80C0C28
-	ldr r1, _080C0CB8  @ gUnknown_02023D0C
+	ldr r1, _080C0CB8  @ gBG2TilemapBuffer+0x064
 	movs r3, #0x80
 	lsls r3, r3, #2
 	movs r0, #0xd
@@ -9200,7 +9200,7 @@ _080C0C7A:
 	b _080C0CCA
 	.align 2, 0
 _080C0CB4: .4byte gGMData
-_080C0CB8: .4byte gUnknown_02023D0C
+_080C0CB8: .4byte gBG2TilemapBuffer+0x064
 _080C0CBC: .4byte gUnknown_08A01EE4
 _080C0CC0:
 	ldr r0, _080C0CF0  @ gUnknown_08A01F04
@@ -9435,7 +9435,7 @@ _080C0EB8: .4byte gLCDControlBuffer
 	THUMB_FUNC_START sub_80C0EBC
 sub_80C0EBC: @ 0x080C0EBC
 	push {r4, r5, lr}
-	ldr r4, _080C0EFC  @ gUnknown_0202306E
+	ldr r4, _080C0EFC  @ gBG0TilemapBuffer+0x3C6
 	bl GetGameClock
 	adds r2, r0, #0
 	adds r0, r4, #0
@@ -9460,7 +9460,7 @@ sub_80C0EBC: @ 0x080C0EBC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C0EFC: .4byte gUnknown_0202306E
+_080C0EFC: .4byte gBG0TilemapBuffer+0x3C6
 
 	THUMB_FUNC_END sub_80C0EBC
 
@@ -15609,7 +15609,7 @@ _080C3C26:
 _080C3C5C: .4byte gBG0TilemapBuffer
 _080C3C60: .4byte gUnknown_0201B430
 _080C3C64:
-	ldr r4, _080C3C9C  @ gUnknown_02022CD4
+	ldr r4, _080C3C9C  @ gBG0TilemapBuffer+0x02C
 	adds r0, r4, #0
 	movs r1, #8
 	movs r2, #8
@@ -15635,10 +15635,10 @@ _080C3C64:
 	strb r1, [r0]
 	b _080C3D0C
 	.align 2, 0
-_080C3C9C: .4byte gUnknown_02022CD4
+_080C3C9C: .4byte gBG0TilemapBuffer+0x02C
 _080C3CA0: .4byte gUnknown_0201B458
 _080C3CA4:
-	ldr r4, _080C3CCC  @ gUnknown_02022FA8
+	ldr r4, _080C3CCC  @ gBG0TilemapBuffer+0x300
 	adds r0, r4, #0
 	movs r1, #8
 	movs r2, #8
@@ -15657,10 +15657,10 @@ _080C3CA4:
 	subs r0, #8
 	b _080C3CFE
 	.align 2, 0
-_080C3CCC: .4byte gUnknown_02022FA8
+_080C3CCC: .4byte gBG0TilemapBuffer+0x300
 _080C3CD0: .4byte gUnknown_0201B430
 _080C3CD4:
-	ldr r4, _080C3D18  @ gUnknown_02022FD4
+	ldr r4, _080C3D18  @ gBG0TilemapBuffer+0x32C
 	adds r0, r4, #0
 	movs r1, #8
 	movs r2, #8
@@ -15694,7 +15694,7 @@ _080C3D0C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C3D18: .4byte gUnknown_02022FD4
+_080C3D18: .4byte gBG0TilemapBuffer+0x32C
 _080C3D1C: .4byte gUnknown_0201B458
 _080C3D20: .4byte 0xFFFFFCD4
 

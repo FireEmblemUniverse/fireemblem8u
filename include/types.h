@@ -56,21 +56,6 @@ struct OamDataTransfer
     u16 count;
 };
 
-struct KeyStatusBuffer
-{
-    /* 00 */ u8 repeatDelay;     // initial delay before generating auto-repeat presses
-    /* 01 */ u8 repeatInterval;  // time between auto-repeat presses
-    /* 02 */ u8 repeatTimer;     // (decreased by one each frame, reset to repeatDelay when Presses change and repeatInterval when reaches 0)
-    /* 04 */ u16 heldKeys;       // keys that are currently held down
-    /* 06 */ u16 repeatedKeys;   // auto-repeated keys
-    /* 08 */ u16 newKeys;        // keys that went down this frame
-    /* 0A */ u16 prevKeys;       // keys that were held down last frame
-    /* 0C */ u16 LastPressState;
-    /* 0E */ bool16 ABLRPressed; // 1 for Release (A B L R Only), 0 Otherwise
-    /* 10 */ u16 newKeys2;
-    /* 12 */ u16 TimeSinceStartSelect; // Time since last Non-Start Non-Select Button was pressed
-};
-
 typedef void (*InterruptHandler)(void);
 
 struct Vec2 { short x, y; };

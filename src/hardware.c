@@ -3,6 +3,11 @@
 #include "bm.h"
 #include "hardware.h"
 
+u16 EWRAM_DATA gPaletteBuffer[0x200] = { 0 };
+
+u16 EWRAM_DATA gBG0TilemapBuffer[32 * 32] = { 0 };
+u16 EWRAM_DATA gBG1TilemapBuffer[32 * 32] = { 0 };
+u16 EWRAM_DATA gBG2TilemapBuffer[32 * 32] = { 0 };
 u16 EWRAM_DATA gBG3TilemapBuffer[32 * 32] = { 0 };
 
 void * EWRAM_DATA gBGVramTilemapPointers[4] = { 0 };

@@ -3242,7 +3242,7 @@ sub_805FA28: @ 0x0805FA28
 _0805FA90: .4byte gEkrDistanceType
 _0805FA94: .4byte gBG1TilemapBuffer
 _0805FA98:
-	ldr r0, _0805FAAC  @ gUnknown_020234E2
+	ldr r0, _0805FAAC  @ gBG1TilemapBuffer+0x03A
 	movs r1, #0
 _0805FA9C:
 	str r1, [sp]
@@ -3252,7 +3252,7 @@ _0805FA9C:
 	bl FillBGRect
 	b _0805FACE
 	.align 2, 0
-_0805FAAC: .4byte gUnknown_020234E2
+_0805FAAC: .4byte gBG1TilemapBuffer+0x03A
 _0805FAB0:
 	movs r0, #1
 	negs r0, r0
@@ -4119,7 +4119,7 @@ sub_806013C: @ 0x0806013C
 _08060194: .4byte gEkrDistanceType
 _08060198: .4byte gBG1TilemapBuffer
 _0806019C:
-	ldr r0, _080601B0  @ gUnknown_020234E2
+	ldr r0, _080601B0  @ gBG1TilemapBuffer+0x03A
 	movs r1, #0
 _080601A0:
 	str r1, [sp]
@@ -4129,7 +4129,7 @@ _080601A0:
 	bl FillBGRect
 	b _080601D2
 	.align 2, 0
-_080601B0: .4byte gUnknown_020234E2
+_080601B0: .4byte gBG1TilemapBuffer+0x03A
 _080601B4:
 	movs r0, #1
 	negs r0, r0
@@ -5719,7 +5719,7 @@ _08060E00:
 _08060E3C: .4byte gEkrDistanceType
 _08060E40: .4byte gBG1TilemapBuffer
 _08060E44:
-	ldr r0, _08060E5C  @ gUnknown_020234E2
+	ldr r0, _08060E5C  @ gBG1TilemapBuffer+0x03A
 	movs r1, #0
 	str r1, [sp]
 	movs r1, #3
@@ -5731,7 +5731,7 @@ _08060E54:
 	bl BG_EnableSyncByMask
 	b _08060E7E
 	.align 2, 0
-_08060E5C: .4byte gUnknown_020234E2
+_08060E5C: .4byte gBG1TilemapBuffer+0x03A
 _08060E60:
 	movs r0, #1
 	negs r0, r0
@@ -10884,7 +10884,7 @@ sub_80636D8: @ 0x080636D8
 _08063720: .4byte gEkrDistanceType
 _08063724: .4byte gBG1TilemapBuffer
 _08063728:
-	ldr r0, _0806373C  @ gUnknown_020234E2
+	ldr r0, _0806373C  @ gBG1TilemapBuffer+0x03A
 	movs r1, #0
 _0806372C:
 	str r1, [sp]
@@ -10894,7 +10894,7 @@ _0806372C:
 	bl FillBGRect
 	b _0806375E
 	.align 2, 0
-_0806373C: .4byte gUnknown_020234E2
+_0806373C: .4byte gBG1TilemapBuffer+0x03A
 _08063740:
 	movs r0, #1
 	negs r0, r0
@@ -14754,7 +14754,7 @@ _08065534:
 _08065570: .4byte gEkrDistanceType
 _08065574: .4byte gBG1TilemapBuffer
 _08065578:
-	ldr r0, _08065590  @ gUnknown_020234E2
+	ldr r0, _08065590  @ gBG1TilemapBuffer+0x03A
 	movs r1, #0
 	str r1, [sp]
 	movs r1, #3
@@ -14766,7 +14766,7 @@ _08065588:
 	bl BG_EnableSyncByMask
 	b _080655B2
 	.align 2, 0
-_08065590: .4byte gUnknown_020234E2
+_08065590: .4byte gBG1TilemapBuffer+0x03A
 _08065594:
 	movs r0, #1
 	negs r0, r0

@@ -97,8 +97,6 @@ extern int sSupportScreenUnitCount;
 extern u16 gUnknown_020136F4[];
 extern u8 gUnknown_0203E884;
 
-extern u16 gUnknown_02023CC8[];
-
 //! FE8U = 0x080A0A94
 int GetSupportScreenUnitCount(void) {
     return sSupportScreenUnitCount;
@@ -1093,7 +1091,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
 
         PutDrawText(
             0,
-            gUnknown_02023CC8 + (_y = ((idx * 2) + 3) * 0x20),
+            gBG2TilemapBuffer + TILEMAP_INDEX(16, 0) + (_y = ((idx * 2) + 3) * 0x20),
             color,
             0,
             5,
@@ -1101,7 +1099,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
         );
 
         DrawIcon(
-            gUnknown_02023CC8 + TILEMAP_INDEX(6, (idx * 2) + 3),
+            gBG2TilemapBuffer + TILEMAP_INDEX(16, 0) + TILEMAP_INDEX(6, (idx * 2) + 3),
             gCharacterData[GetSupportScreenPartnerCharId(proc->unitIdx, idx) - 1].affinity + 0x79,
             0xe000
         );

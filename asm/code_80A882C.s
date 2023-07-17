@@ -564,7 +564,7 @@ _080AC02C:
 sub_80AC034: @ 0x080AC034
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
-	ldr r4, _080AC070  @ gUnknown_02022E76
+	ldr r4, _080AC070  @ gBG0TilemapBuffer+0x1CE
 	adds r0, r4, #0
 	movs r1, #0xe
 	movs r2, #0xa
@@ -591,7 +591,7 @@ _080AC052:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AC070: .4byte gUnknown_02022E76
+_080AC070: .4byte gBG0TilemapBuffer+0x1CE
 _080AC074: .4byte 0xFFFFFE56
 
 	THUMB_FUNC_END sub_80AC034
