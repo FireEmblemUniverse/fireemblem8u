@@ -50,7 +50,7 @@ struct EventListCmdInfo {
     /* 04 */ int length;
 };
 
-struct SupportTalkEnt {
+struct BITPACKED SupportTalkEnt {
     /* 00 */ u16 unitA;
     /* 02 */ u16 unitB;
 

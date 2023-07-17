@@ -86,7 +86,7 @@ struct SaveBlockInfo {
     /* 0C */ u32 checksum32;
 };
 
-struct GameRankSaveData {
+struct BITPACKED GameRankSaveData {
     /* 00 */ u32 valid : 0x01;
              u32 unk00_01 : 0x03;
              u32 tacticsRank : 0x03;
@@ -149,22 +149,22 @@ enum
     DEFEAT_CAUSE_7,
 };
 
-struct UnitUsageStats {
-	/* 000 */ unsigned lossAmt     : 8;
-	/* 008 */ unsigned favval      : 16;
-	/* 024 */ unsigned actAmt      : 8;
-	/* 032 */ unsigned statViewAmt : 8;
-	/* 040 */ unsigned deathLoc    : 6;
-	/* 046 */ unsigned deathTurn   : 10;
-	/* 056 */ unsigned deployAmt   : 6;
-	/* 062 */ unsigned moveAmt     : 10;
-	/* 072 */ unsigned deathCause  : 4;
-	/* 076 */ unsigned expGained   : 12;
-	/* 088 */ unsigned winAmt      : 10;
-	/* 098 */ unsigned battleAmt   : 12;
-	/* 110 */ unsigned killerPid   : 9;
-	/* 119 */ unsigned deathSkirm  : 1;
-	/* 120 */ /* 8bit pad */
+struct BITPACKED UnitUsageStats {
+    /* 000 */ unsigned lossAmt     : 8;
+    /* 008 */ unsigned favval      : 16;
+    /* 024 */ unsigned actAmt      : 8;
+    /* 032 */ unsigned statViewAmt : 8;
+    /* 040 */ unsigned deathLoc    : 6;
+    /* 046 */ unsigned deathTurn   : 10;
+    /* 056 */ unsigned deployAmt   : 6;
+    /* 062 */ unsigned moveAmt     : 10;
+    /* 072 */ unsigned deathCause  : 4;
+    /* 076 */ unsigned expGained   : 12;
+    /* 088 */ unsigned winAmt      : 10;
+    /* 098 */ unsigned battleAmt   : 12;
+    /* 110 */ unsigned killerPid   : 9;
+    /* 119 */ unsigned deathSkirm  : 1;
+    /* 120 */ /* 8bit pad */
 };
 
 #define BWL_ARRAY_NUM 0x46
@@ -177,7 +177,7 @@ struct ChapterStats {
 
 #define WIN_ARRAY_NUM 0x30
 
-struct GameSavePackedUnit {       /* Save Data */
+struct BITPACKED GameSavePackedUnit {       /* Save Data */
     /* 00 */ u32 jid      : 7;
              u32 level      : 5;
              u32 exp        : 7;
@@ -218,7 +218,7 @@ enum packed_unit_state_bits {
     PACKED_US_NEW_FRIEND = 1 << 7,
 };
 
-struct SuspendSavePackedUnit {     /* Suspend Data */
+struct BITPACKED SuspendSavePackedUnit {     /* Suspend Data */
     /* 00 */ u8 pid;
     /* 01 */ u8 jid;
     /* 02 */ u8 ai1;

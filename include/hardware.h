@@ -9,7 +9,7 @@ enum {
     FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
 };
 
-struct DispCnt {
+struct BITPACKED DispCnt {
     u16 mode : 3;
     u16 cgbMode : 1; // reserved, do not use
     u16 bmpFrameNum : 1;
@@ -27,7 +27,7 @@ struct DispCnt {
     STRUCT_PAD(0x02, 0x04);
 };
 
-struct DispStat {
+struct BITPACKED DispStat {
     u16 vblankFlag : 1;
     u16 hblankFlag : 1;
     u16 vcountFlag : 1;
@@ -39,7 +39,7 @@ struct DispStat {
     STRUCT_PAD(0x02, 0x04);
 };
 
-struct BgCnt {
+struct BITPACKED BgCnt {
     u16 priority : 2;
     u16 charBaseBlock : 2;
     u16 dummy : 2;
@@ -51,7 +51,7 @@ struct BgCnt {
     STRUCT_PAD(0x02, 0x04);
 };
 
-struct WinCnt {
+struct BITPACKED WinCnt {
     u8 win0_enableBg0 : 1;
     u8 win0_enableBg1 : 1;
     u8 win0_enableBg2 : 1;
@@ -85,7 +85,7 @@ struct WinCnt {
     u8 : 2;
 };
 
-struct BlendCnt {
+struct BITPACKED BlendCnt {
     u16 target1_bg0_on : 1;
     u16 target1_bg1_on : 1;
     u16 target1_bg2_on : 1;
@@ -103,39 +103,39 @@ struct BlendCnt {
 };
 
 struct LCDControlBuffer {
-    /*0x00*/ struct DispCnt dispcnt;
-    /*0x04*/ struct DispStat dispstat;
-    /*0x08*/ STRUCT_PAD(0x08, 0x0C);
-    /*0x0C*/ struct BgCnt bg0cnt;
-    /*0x10*/ struct BgCnt bg1cnt;
-    /*0x14*/ struct BgCnt bg2cnt;
-    /*0x18*/ struct BgCnt bg3cnt;
-    /*0x1C*/ struct BgCoords bgoffset[4];
-    /*0x2C*/ u8 win0_right, win0_left;
-    /*0x2C*/ u8 win1_right, win1_left;
-    /*0x30*/ u8 win0_bottom, win0_top;
-    /*0x30*/ u8 win1_bottom, win1_top;
-    /*0x34*/ struct WinCnt wincnt;
-    /*0x38*/ u16 mosaic;
+    /* 00 */ struct DispCnt dispcnt;
+    /* 04 */ struct DispStat dispstat;
+    /* 08 */ STRUCT_PAD(0x08, 0x0C);
+    /* 0C */ struct BgCnt bg0cnt;
+    /* 10 */ struct BgCnt bg1cnt;
+    /* 14 */ struct BgCnt bg2cnt;
+    /* 18 */ struct BgCnt bg3cnt;
+    /* 1C */ struct BgCoords bgoffset[4];
+    /* 2C */ u8 win0_right, win0_left;
+    /* 2C */ u8 win1_right, win1_left;
+    /* 30 */ u8 win0_bottom, win0_top;
+    /* 30 */ u8 win1_bottom, win1_top;
+    /* 34 */ struct WinCnt wincnt;
+    /* 38 */ u16 mosaic;
              STRUCT_PAD(0x3A, 0x3C);
-    /*0x3C*/ struct BlendCnt bldcnt;
-    /*0x40*/ STRUCT_PAD(0x40, 0x44);
-    /*0x44*/ u8 blendCoeffA;
-    /*0x45*/ u8 blendCoeffB;
-    /*0x46*/ u8 blendY;
-    /*0x48*/ u16 bg2pa;
-    /*0x4A*/ u16 bg2pb;
-    /*0x4C*/ u16 bg2pc;
-    /*0x4E*/ u16 bg2pd;
-    /*0x50*/ u32 bg2x;
-    /*0x54*/ u32 bg2y;
-    /*0x58*/ u16 bg3pa;
-    /*0x5A*/ u16 bg3pb;
-    /*0x5C*/ u16 bg3pc;
-    /*0x5E*/ u16 bg3pd;
-    /*0x60*/ u32 bg3x;
-    /*0x64*/ u32 bg3y;
-    /*0x68*/ s8 colorAddition;
+    /* 3C */ struct BlendCnt bldcnt;
+    /* 40 */ STRUCT_PAD(0x40, 0x44);
+    /* 44 */ u8 blendCoeffA;
+    /* 45 */ u8 blendCoeffB;
+    /* 46 */ u8 blendY;
+    /* 48 */ u16 bg2pa;
+    /* 4A */ u16 bg2pb;
+    /* 4C */ u16 bg2pc;
+    /* 4E */ u16 bg2pd;
+    /* 50 */ u32 bg2x;
+    /* 54 */ u32 bg2y;
+    /* 58 */ u16 bg3pa;
+    /* 5A */ u16 bg3pb;
+    /* 5C */ u16 bg3pc;
+    /* 5E */ u16 bg3pd;
+    /* 60 */ u32 bg3x;
+    /* 64 */ u32 bg3y;
+    /* 68 */ s8 colorAddition;
 };
 
 struct KeyStatusBuffer {
@@ -222,8 +222,6 @@ extern struct TileDataTransfer gFrameTmRegister[32];
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
 #define PAL_BG(palid) (&PAL_BG_COLOR(palid, 0))
 #define PAL_OBJ(palid) (&PAL_OBJ_COLOR(palid, 0))
-
-#define OAM2_PRIORITY(aValue) (((aValue) & 0x3) << 10)
 
 #define BG_SYNC_BIT(aBg) (1 << (aBg))
 

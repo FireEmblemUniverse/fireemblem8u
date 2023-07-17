@@ -116,14 +116,14 @@ enum BmSt_gameStateBits {
 };
 
 struct PlaySt_30 {
-    int total_gold;
+    s32 total_gold;
 
-    u32 unk_4_00 : 0x14;
-    u32 unk_4_14 : 0x0C;
+    u32 unk_4_00 : 20;
+    u32 unk_4_14 : 12;
 
-    u32 unk_8_1:8;
-    u32 unk_8_2:20; // Used by bmdifficulty (Valni/Lagdou)
-    u32 unk_8_3:4;
+    u32 unk_8_1: 8;
+    u32 unk_8_2: 20; // Used by bmdifficulty (Valni/Lagdou)
+    u32 unk_8_3: 4;
 
     u32 unk_C_00 : 6;
     u32 combatRank : 3;
@@ -135,7 +135,7 @@ struct PlaySt_30 {
     u32 unk_F_00 : 8;
 };
 
-struct PlaySt { // Chapter Data Struct
+struct BITPACKED PlaySt { // Chapter Data Struct
     /* 00 */ u32 time_saved;
     /* 04 */ u32 time_chapter_started;
 
@@ -172,12 +172,12 @@ struct PlaySt { // Chapter Data Struct
     /* 2B */ u8 unk_2B_00 : 0x01;
              u8 unk_2B_01 : 0x07;
 
-    u32 unk_2C_1:1;
-    u32 unk_2C_01 : 0x03;
-    u32 unk_2C_04 : 0x09;
-    u32 unk_2C_0D : 0x0A;
-    u32 unk_2C_2:5;
-    u32 unk_2C_3:4;
+    u32 unk_2C_1 : 1;
+    u32 unk_2C_01 : 3;
+    u32 unk_2C_04 : 9;
+    u32 unk_2C_0D : 10;
+    u32 unk_2C_2 : 5;
+    u32 unk_2C_3 : 4;
 
     struct PlaySt_30 unk_30;
 
