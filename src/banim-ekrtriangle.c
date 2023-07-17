@@ -268,7 +268,7 @@ const s16 FrameLut_EkrTriPegagusBG2[0x7] = {
     -1
 };
 
-CONST_DATA const u16 * gUnknown_087595EC[] = {
+CONST_DATA const u16 * TsaLut_EkrTriPegagusBG[] = {
     gUnknown_080E3554,
     gUnknown_080E3668,
     gUnknown_080E378C,
@@ -298,8 +298,8 @@ void NewEkrTriPegasusKnightBG(struct Anim * anim, u32 pos, u32 etype, u32 ewtype
         proc->frame_config = FrameLut_EkrTriPegagusBG2;
     }
 
-    proc->unk4C = gUnknown_087595EC;
-    proc->unk50 = gUnknown_087595EC;
+    proc->tsalut_left = TsaLut_EkrTriPegagusBG;
+    proc->tsalut_right = TsaLut_EkrTriPegagusBG;
 
     LZ77UnCompWram(pal, gEkrBuf1);
     SpellFx_RegisterBgPal((u16 *)gEkrBuf1, 0x20);
@@ -323,8 +323,8 @@ void EkrTriPegasusKnightBgMain(struct ProcEkrTriPegasusKnightBG * proc)
 
     if (ret >= 0)
     {
-        const u16 **buf1 = proc->unk4C;
-        const u16 **buf2 = proc->unk50;
+        const u16 **buf1 = proc->tsalut_left;
+        const u16 **buf2 = proc->tsalut_right;
         SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }
@@ -357,13 +357,13 @@ void NewEkrTriPegasusKnightOBJ(struct Anim * anim, u32 pos, u32 etype, u32 ewtyp
     {
         proc->terminator = 0x12;
         pal = gBanimCharacterPals[EKR_POS_L];
-        scr = gUnknown_08759B34;
+        scr = BanimScr_08759B34;
     }
     else
     {
         proc->terminator = 0x11;
         pal = gBanimCharacterPals[EKR_POS_R];
-        scr = gUnknown_08759E68;
+        scr = BanimScr_08759E68;
     }
 
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
@@ -597,7 +597,7 @@ void NewEkrTriArmorKnightOBJ2(struct Anim * anim, u32 pos, u32 etype, u32 ewtype
 
     if (etype == EKR_TRI_JTYPE_DEFAULT)
     {
-        scr = gUnknown_0875A19C;
+        scr = BanimScr_0875A19C;
         buf = gUnknown_080E678C;
     }
     else
@@ -605,18 +605,18 @@ void NewEkrTriArmorKnightOBJ2(struct Anim * anim, u32 pos, u32 etype, u32 ewtype
         switch (ewtype)
         {
         case EKR_TRI_WTYPE_DEFAULT:
-            scr = gUnknown_0875A314;
+            scr = BanimScr_0875A314;
             buf = gUnknown_080E6CC4;
             break;
 
         case EKR_TRI_WTYPE_ALTERNATIVE:
-            scr = gUnknown_0875A468;
+            scr = BanimScr_0875A468;
             buf = gUnknown_080E7400;
             break;
 
         case EKR_TRI_WTYPE_ALTERNATIVE2:
         default:
-            scr = gUnknown_0875A730;
+            scr = BanimScr_0875A730;
             buf = gUnknown_080E7B8C;
             break;
         }
