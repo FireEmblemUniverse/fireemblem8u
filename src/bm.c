@@ -627,14 +627,14 @@ void LoadObjUIGfx(void) {
     Decompress(gGfx_MiscUiGraphics, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void*)0x06010000, 0x12, 4);
 
-    CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x200, 0x40);
+    ApplyPalettes(gPal_MiscUiGraphics, 0x10, 2);
 
     return;
 }
 
 //! FE8U = 0x080156BC
 void sub_80156BC(void) {
-    CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x200, 0x40);
+    ApplyPalettes(gPal_MiscUiGraphics, 0x10, 2);
     return;
 }
 

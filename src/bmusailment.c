@@ -248,7 +248,7 @@ void StatusHealEffect_OverlayBg_Init() {
     ClearBg0Bg1();
 
     Decompress(gUnknown_08A032AC, (u8*)BG_VRAM + 0x5000);
-    CopyToPaletteBuffer(gUnknown_08A03334, 0x60, 0x20);
+    ApplyPalette(gUnknown_08A03334, 3);
 
     CallARM_FillTileRect(gBG0TilemapBuffer, gUnknown_08A03354, 0x3280);
 
@@ -399,7 +399,7 @@ void StatusHealEffect_PalSpriteAnim_Init(struct UnknownBMUSAilmentProc* proc) {
             break;
     }
 
-    CopyToPaletteBuffer(pal, 0x240, 0x20);
+    ApplyPalette(pal, 0x12);
 
     proc->unk_4C = 0;
 

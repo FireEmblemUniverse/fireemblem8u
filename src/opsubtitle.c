@@ -182,7 +182,7 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
     SetBlendTargetB(1, 1, 0, 0, 1);
 
     Decompress(gUnknown_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
-    CopyToPaletteBuffer(gUnknown_08B18ED4, 0, 0x60);
+    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
 
     BG_Fill(gBG2TilemapBuffer, 0);
 
@@ -376,7 +376,7 @@ void sub_80C4DA0(struct OpSubtitleProc* proc) {
             coeff
         );
     } else {
-        CopyToPaletteBuffer(gPal_OpSubtitle, 0x60, 0x20);
+        ApplyPalette(gPal_OpSubtitle, 3);
 
         Proc_Break(proc);
 
@@ -578,7 +578,7 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
             coeff
         );
     } else {
-        CopyToPaletteBuffer(gUnknown_08B1756C, 0x1e0, 0x20);
+        ApplyPalette(gUnknown_08B1756C, 0xF);
 
         Proc_Break(proc);
 
@@ -597,7 +597,7 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
 void sub_80C51A8(void) {
     sub_80C4D54(2);
 
-    CopyToPaletteBuffer(gPal_OpSubtitle, 0x60, 0x20);
+    ApplyPalette(gPal_OpSubtitle, 3);
     EnablePaletteSync();
 
     return;

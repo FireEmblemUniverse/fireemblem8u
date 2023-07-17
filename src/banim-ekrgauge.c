@@ -125,7 +125,7 @@ void NewEkrGauge(void)
     LoadIconPalette(0, 0x1E);
     LoadIconObjectGraphics(GetItemIconId(gpEkrBattleUnitLeft->weaponBefore), 0x1DC);
     LoadIconObjectGraphics(GetItemIconId(gpEkrBattleUnitRight->weaponBefore), 0x1DE);
-    CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x200, 0x20);
+    ApplyPalette(gPal_MiscUiGraphics, 0x10);
 }
 
 void EndEkrGauge(void)

@@ -442,7 +442,7 @@ extern u16 gPal_SupportMenu[];
 //! FE8U = 0x080A10D0
 void DrawSupportBannerSprites_Init(struct Proc* proc) {
     Decompress(gGfx_SupportMenu, (void*)0x06017800);
-    CopyToPaletteBuffer(gPal_SupportMenu, (proc->unk34 + 16) * 32, 32);
+    ApplyPalette(gPal_SupportMenu, proc->unk34 + 0x10);
     return;
 }
 
@@ -570,7 +570,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 4), gGenericBuffer, 0x1200);
 
     Decompress(gGfx_SupportScreenBanner, (void*)0x06013800);
-    CopyToPaletteBuffer(gPal_SupportScreenBanner, 0x240, 0x20);
+    ApplyPalette(gPal_SupportScreenBanner, 0x12);
 
     BG_EnableSyncByMask(7);
 
@@ -1141,7 +1141,7 @@ void DrawSupportSubScreenRemainingText(struct SubScreenProc* proc) {
     struct Text th;
 
     InitSpriteTextFont(&font, (void*)0x06015000, 0xe);
-    CopyToPaletteBuffer(Pal_Text, 0x3c0, 0x20);
+    ApplyPalette(Pal_Text, 0x1E);
 
     InitSpriteText(&th);
 
@@ -1415,8 +1415,8 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     DrawSupportSubScreenRemainingText(proc);
 
     Decompress(gGfx_SupportMenu, (void*)0x06017800);
-    CopyToPaletteBuffer(gPal_SupportMenu, 0x340, 0x20);
-    CopyToPaletteBuffer(Pal_MapBattleInfoNum, 0x240, 0x20);
+    ApplyPalette(gPal_SupportMenu, 0x1A);
+    ApplyPalette(Pal_MapBattleInfoNum, 0x12);
 
     StartParallelWorker(DrawSupportSubScreenSprites, proc);
 

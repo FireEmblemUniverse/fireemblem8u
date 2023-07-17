@@ -23,9 +23,9 @@ struct Struct02024CD4 EWRAM_DATA gFrameTmRegisterConfig = { 0 };
 struct TileDataTransfer EWRAM_DATA gFrameTmRegister[32] = { 0 };
 
 struct KeyProc {
-    PROC_HEADER
-    /*0x2A*/ s16 filler2A[29];
-    /*0x64*/ s16 unk64;
+    /* 00 */ PROC_HEADER
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ s16 unk64;
 };
 
 //static u8 sModifiedBGs;
@@ -794,7 +794,7 @@ void sub_8001C5C(u8 a)
     gUnknown_0300001A = a;
 }
 
-s8 ShouldSkipHSScreen(void)
+bool ShouldSkipHSScreen(void)
 {
     return gUnknown_0300001A;
 }

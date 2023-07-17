@@ -256,15 +256,15 @@ void UnpackChapterMapGraphics(int chapterId) {
             (void*)(BG_VRAM + 0x20 * 0x600)); // TODO: tile id constant?
 
     // Apply tileset palette
-    CopyToPaletteBuffer(
+    ApplyPalettes(
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.paletteId],
-        0x20 * 6, 0x20 * 10); // TODO: palette id constant?
+        6, 10); // TODO: palette id constant?
 }
 
 void UnpackChapterMapPalette(void) {
-    CopyToPaletteBuffer(
+    ApplyPalettes(
         gChapterDataAssetTable[GetROMChapterStruct(gPlaySt.chapterIndex)->map.paletteId],
-        0x20 * 6, 0x20 * 10); // TODO: palette id constant?
+        6, 10); // TODO: palette id constant?
 }
 
 void InitBaseTilesBmMap(void) {

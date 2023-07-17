@@ -106,7 +106,7 @@ void sub_809D278(int idx, ProcPtr proc) {
 
 //! FE8U = 0x0809D2C4
 void StoreConvoyWeaponIconGraphics(int vramOffset, int pal) {
-    CopyToPaletteBuffer(gUnknown_08A1A3FC, (pal * 0x20), 0x20);
+    ApplyPalette(gUnknown_08A1A3FC, pal);
     Decompress(gUnknown_08A1A0A4, (void*)(0x6000000 + vramOffset));
     Decompress(gUnknown_08A1A23C, (void*)(0x6000200 + vramOffset));
     return;
@@ -248,7 +248,7 @@ void PrepItemSupply_Init(struct PrepItemSupplyProc* proc) {
 //! FE8U = 0x0809D608
 void sub_809D608(void) {
     InitSpriteTextFont(&gUnknown_02013648.font, (void*)0x06011000, 0xb);
-    CopyToPaletteBuffer(Pal_Text, 0x360, 0x20);
+    ApplyPalette(Pal_Text, 0x1B);
     InitSpriteText(&gUnknown_02013648.th[0xf]);
     SetTextFont(NULL);
     return;
@@ -479,7 +479,7 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc* proc) {
     sub_809D8D4(gBG0TilemapBuffer + 0x6F, 0x4000, 6);
 
     Decompress(gUnknown_08A19CCC, (void*)0x06015000);
-    CopyToPaletteBuffer(gUnknown_08A1A084, 0x280, 0x20);
+    ApplyPalette(gUnknown_08A1A084, 0x14);
 
     StartMenuScrollBarExt(proc, 0xe1, 0x2f, 0x5800, 9);
     sub_8097668();

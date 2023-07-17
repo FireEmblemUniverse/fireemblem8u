@@ -308,7 +308,7 @@ void sub_80B65F8(u16* tm, int offset, int palId, int palCount, int idx) {
     // TODO: Seems like this should use the "TILEREF" macro, but the order doesn't match
     CallARM_FillTileRect(tm, cgEnt->tsa, (u16)((palId << 12) + ((u32)(offset << 0x11) >> 0x16)));
 
-    CopyToPaletteBuffer(cgEnt->pal, palId * 0x20, palCount * 0x20);
+    ApplyPalettes(cgEnt->pal, palId, palCount);
 
     if (idx < 0x80) {
         sub_80A4064(NULL, idx);

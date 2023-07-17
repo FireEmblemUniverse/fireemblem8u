@@ -1621,10 +1621,7 @@ void MU_StartFlashFade(struct MUProc* proc, int flashType) {
     proc->pAPHandle->tileBase =
         proc->pMUConfig->objTileIndex + (MU_FADE_OBJ_PAL << 12) + proc->objPriorityBits;
 
-    CopyToPaletteBuffer(
-        PAL_OBJ(proc->pMUConfig->paletteIndex),
-        (0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
-    );
+    ApplyPalette(PAL_OBJ(proc->pMUConfig->paletteIndex), 0x10 + MU_FADE_OBJ_PAL);
 
     StartPalFade(
         sMUFlashColorLookup[flashType],
@@ -1707,10 +1704,7 @@ static void MU_EndFasterApAnim(int argAp) {
 void MU_StartCritFlash(struct MUProc* muProc, int flashType) {
     struct MUFlashEffectProc* proc;
 
-    CopyToPaletteBuffer(
-        sMUFlashColorLookup[flashType],
-        (0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
-    );
+    ApplyPalette(sMUFlashColorLookup[flashType], 0x10 + MU_FADE_OBJ_PAL);
 
     proc = Proc_Start(sProcScr_MUCritFlash, muProc);
 
@@ -1763,10 +1757,7 @@ static void MU_CritFlash_RestorePalette(struct MUFlashEffectProc* proc) {
 void MU_StartHitFlash(struct MUProc* muProc, int flashType) {
     struct MUFlashEffectProc* proc;
 
-    CopyToPaletteBuffer(
-        sMUFlashColorLookup[flashType],
-        (0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
-    );
+    ApplyPalette(sMUFlashColorLookup[flashType], 0x10 + MU_FADE_OBJ_PAL);
 
     muProc->pAPHandle->tileBase =
         (MU_FADE_OBJ_PAL << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
@@ -1812,7 +1803,7 @@ void MU_SetSpecialSprite(struct MUProc* proc, int displayedClassId, const u16* p
         MU_GetGfxBufferById(proc->pMUConfig->muIndex)
     );
 
-    CopyToPaletteBuffer(palette, (0x20 * (0x10 + proc->pMUConfig->paletteIndex)), 0x20);
+    ApplyPalette(palette, 0x10 + proc->pMUConfig->paletteIndex);
 }
 
 void MU_SetPaletteId(struct MUProc* proc, unsigned paletteId) {

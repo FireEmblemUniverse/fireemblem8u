@@ -345,13 +345,13 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
     LoadUiFrameGraphics();
     LoadObjUIGfx();
 
-    CopyToPaletteBuffer(gUnknown_08A25DCC, 0x100, 0x100);
+    ApplyPalettes(gUnknown_08A25DCC, 8, 8);
 
     Decompress(gUnknown_08A21658, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
 
-    CopyToPaletteBuffer(gUnknown_08A268D8, 0xe0, 0x20);
+    ApplyPalette(gUnknown_08A268D8, 7);
 
     Decompress(gUnknown_08A26380, (void*)(GetBackgroundTileDataOffset(3) + 0x06004C00));
 
@@ -360,8 +360,8 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
 
     Decompress(Img_SaveScreenSprits, (void*)0x06010800);
 
-    CopyToPaletteBuffer(Pal_SaveScreenSprits, 0x240, 0x100);
-    CopyToPaletteBuffer(gUnknown_08A295B4, 0x40, 0x20);
+    ApplyPalettes(Pal_SaveScreenSprits, 0x12, 8);
+    ApplyPalette(gUnknown_08A295B4, 2);
 
     sub_80AA790(PAL_OBJ(0x2), PAL_OBJ(0x2) - 0x10, 1);
     sub_80AA790(gUnknown_08A2C23C, gUnknown_020007A0, 2);
@@ -1494,11 +1494,11 @@ void sub_80AA30C(struct SaveMenuProc* proc) {
     LoadUiFrameGraphics();
     LoadObjUIGfx();
 
-    CopyToPaletteBuffer(gUnknown_08A25DCC, 0x100, 0x100);
+    ApplyPalettes(gUnknown_08A25DCC, 8, 8);
 
     Decompress(gUnknown_08A21658, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
-    CopyToPaletteBuffer(gUnknown_08A268D8, 0xe0, 0x20);
+    ApplyPalette(gUnknown_08A268D8, 7);
 
     Decompress(gUnknown_08A26380, (void*)(GetBackgroundTileDataOffset(3) + 0x06004C00));
 
@@ -1506,8 +1506,8 @@ void sub_80AA30C(struct SaveMenuProc* proc) {
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
     Decompress(Img_SaveScreenSprits, (void*)0x06010800);
-    CopyToPaletteBuffer(Pal_SaveScreenSprits, 0x240, 0x100);
-    CopyToPaletteBuffer(gUnknown_08A295B4, 0x40, 0x20);
+    ApplyPalettes(Pal_SaveScreenSprits, 0x12, 8);
+    ApplyPalette(gUnknown_08A295B4, 2);
 
     sub_80AA790(PAL_OBJ(0x2), PAL_OBJ(0x2) - 0x10, 1);
     Decompress(Img_GameMainMenuObjs, (void*)0x06014000);

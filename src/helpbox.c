@@ -175,7 +175,7 @@ void LoadHelpBoxGfx(void* vram, int palId) {
 
     SetTextFont(0);
 
-    CopyToPaletteBuffer(gUnknown_0859EF40, palId * 0x20, 0x20);
+    ApplyPalette(gUnknown_0859EF40, palId);
 
     gUnknown_0203E794.unk_30 = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
 
@@ -210,7 +210,7 @@ void sub_80898C4(void* vram, int palId) {
 
     SetTextFont(0);
 
-    CopyToPaletteBuffer(gUnknown_0859EF40, palId * 0x20, 0x20);
+    ApplyPalette(gUnknown_0859EF40, palId);
 
     gUnknown_0203E794.unk_30 = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
 
@@ -1070,9 +1070,9 @@ void sub_808A5D0(void* param_1, int param_2) {
         SetTextFont(0);
 
         if (GetDialogueBoxConfig() & 0x10) {
-            CopyToPaletteBuffer(gPal_YellowTextBox, param_2 * 0x20, 0x20);
+            ApplyPalette(gPal_YellowTextBox, param_2);
         } else {
-            CopyToPaletteBuffer(gPal_HelpTextBox, param_2 * 0x20, 0x20);
+            ApplyPalette(gPal_HelpTextBox, param_2);
         }
 
     } else {
@@ -1084,7 +1084,7 @@ void sub_808A5D0(void* param_1, int param_2) {
 
         SetTextFont(0);
 
-        CopyToPaletteBuffer(Pal_Text, param_2 * 0x20, 0x20);
+        ApplyPalette(Pal_Text, param_2);
     }
 
     if (&param_1)

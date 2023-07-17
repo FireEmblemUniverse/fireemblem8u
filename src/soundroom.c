@@ -180,15 +180,15 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     sub_80AF338(proc);
 
     Decompress(gUnknown_08A2C908, (void*)0x06004000);
-    CopyToPaletteBuffer(gUnknown_08A01EE4, 0x80, 0x20);
-    CopyToPaletteBuffer(gUnknown_08A01F04, 0xa0, 0x20);
+    ApplyPalette(gUnknown_08A01EE4, 4);
+    ApplyPalette(gUnknown_08A01F04, 5);
     CallARM_FillTileRect(gBG1TilemapBuffer + 0xE1, gUnknown_08A2C4C8, 0x1000);
     CallARM_FillTileRect(gBG1TilemapBuffer + 0xAB, gUnknown_08A2C5A8, 0x1000);
 
     sub_80AF4D0(gBG0TilemapBuffer + 0xCF, proc);
 
     Decompress(gUnknown_08A2D32C, (void*)0x06016000);
-    CopyToPaletteBuffer(gUnknown_08A2E1B8, 0x380, 0x20);
+    ApplyPalette(gUnknown_08A2E1B8, 0x1C);
 
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(2, -4, 0);
@@ -215,7 +215,7 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 
     Decompress(gUnknown_08A2CABC, (void*)0x06012000);
-    CopyToPaletteBuffer(gUnknown_08A2D2CC, 0x260, 0x60);
+    ApplyPalettes(gUnknown_08A2D2CC, 0x13, 3);
 
     DrawSoundRoomSprites(proc);
 
@@ -701,7 +701,7 @@ void sub_80AFF30(void) {
 
     InitSpriteTextFont(&gUnknown_0201F148.font, (void*)vram, 5);
 
-    CopyToPaletteBuffer(Pal_Text, 0x340, 0x40);
+    ApplyPalettes(Pal_Text, 0x1A, 2);
     gPaletteBuffer[0x1A * 0x10] = 0;
 
     EnablePaletteSync();

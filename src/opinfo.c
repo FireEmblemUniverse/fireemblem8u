@@ -455,7 +455,7 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 
     BG_Fill(gBG0TilemapBuffer, 0);
 
-    CopyToPaletteBuffer(gUnknown_08A37300, 0x200, 0x20);
+    ApplyPalette(gUnknown_08A37300, 0x10);
 
     str = sub_80B369C(proc->classReelEnt->classId, NULL);
 
@@ -471,8 +471,8 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
         ptr += 0x40;
     }
 
-    CopyToPaletteBuffer(gUnknown_08A30780, 0x3C0, 0x20);
-    CopyToPaletteBuffer(gUnknown_08A30780, 0x3E0, 0x20);
+    ApplyPalette(gUnknown_08A30780, 0x1E);
+    ApplyPalette(gUnknown_08A30780, 0x1F);
 
     Decompress(gUnknown_08A301B0, (void *)0x06016000);
 
@@ -489,13 +489,13 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 
     Decompress(gUnknown_08A35FD0, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x5040);
-    CopyToPaletteBuffer(gUnknown_08A360C8, 0xA0, 0x20);
+    ApplyPalette(gUnknown_08A360C8, 5);
 
     Decompress(gUnknown_08B17B64, (void *)0x06008000);
 
     sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
 
-    CopyToPaletteBuffer(gUnknown_08B18ED4, 0, 0x60);
+    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
 
     BG_EnableSyncByMask(4);
 
@@ -1256,12 +1256,12 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     BG_SetPosition(3, 0, 0);
 
     Decompress(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
-    CopyToPaletteBuffer(gUnknown_08A3593C, 0xE0, 0x100);
+    ApplyPalettes(gUnknown_08A3593C, 7, 8);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A35488, 0x7000);
 
     Decompress(gUnknown_08A30800, (void *)(GetBackgroundTileDataOffset(2) + 0x6000000));
-    CopyToPaletteBuffer(gUiFramePaletteA, 0xC0, 0x20);
+    ApplyPalette(gUiFramePaletteA, 6);
 
     CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_08A30978, 0x6000);
 
@@ -1634,7 +1634,7 @@ void ClassStatsDisplay_Init(struct OpInfoGaugeDrawProc* proc) {
 
     Decompress(gUnknown_08A36338, (void *)0x06010000);
 
-    CopyToPaletteBuffer(gUnknown_08A372C0, 0x280, 0x40);
+    ApplyPalettes(gUnknown_08A372C0, 0x14, 2);
 
     return;
 }

@@ -466,7 +466,7 @@ void InitTalk(int chr, int lines, s8 unpackBubble) {
 
     if (unpackBubble != 0) {
         Decompress(gUnknown_089E8238, (void*)(GetBackgroundTileDataOffset(1) + 0x06000200));
-        CopyToPaletteBuffer(gUnknown_089E84D4, 0x60, 0x20);
+        ApplyPalette(gUnknown_089E84D4, 3);
     }
 
     sub_80067E8();
@@ -483,7 +483,7 @@ void InitSpriteTalk(int chr, int lines, int palId) {
     SetTextFont(&sTalkFont);
     SetTextFontGlyphs(1);
 
-    CopyToPaletteBuffer(gUnknown_0859EF20, (palId + 0x10) * 0x20, 0x20);
+    ApplyPalette(gUnknown_0859EF20, palId + 0x10);
 
     gPaletteBuffer[((palId + 0x10) * 0x10 + 4)] = 0x00007247;
     gPaletteBuffer[((palId + 0x10) * 0x10 + 0xe)] = 0x000031AE;
@@ -504,7 +504,7 @@ void InitSpriteTalk(int chr, int lines, int palId) {
 
 //! FE8U = 0x08006964
 void sub_8006964(void) {
-    CopyToPaletteBuffer(Pal_Text, 0x40, 0x20);
+    ApplyPalette(Pal_Text, 2);
     return;
 }
 
@@ -871,11 +871,11 @@ void sub_8006F00(void) {
 //! FE8U = 0x08006F8C
 void sub_8006F8C(int flag) {
     if (flag != 0) {
-        CopyToPaletteBuffer(gUnknown_0859F000, 0x60, 0x20);
-        CopyToPaletteBuffer(gUnknown_0859EFE0, 0x40, 0x20);
+        ApplyPalette(gUnknown_0859F000, 3);
+        ApplyPalette(gUnknown_0859EFE0, 2);
     } else {
-        CopyToPaletteBuffer(gUnknown_089E84D4, 0x60, 0x20);
-        CopyToPaletteBuffer(Pal_Text, 0x40, 0x20);
+        ApplyPalette(gUnknown_089E84D4, 3);
+        ApplyPalette(Pal_Text, 2);
     }
     return;
 }

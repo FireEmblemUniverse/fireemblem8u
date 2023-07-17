@@ -350,7 +350,7 @@ void SetupGraphicSystemsForWorldMap(void)
 //! FE8U = 0x080B8E14
 void sub_80B8E14(void)
 {
-    CopyToPaletteBuffer(gUnknown_08A97A40, 0x260, 0x40);
+    ApplyPalettes(gUnknown_08A97A40, 0x13, 2);
     Decompress(gUnknown_08A96308, (void *)0x06011000);
     Decompress(gUnknown_08A97410, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06010280, 0xc, 4);
@@ -372,14 +372,14 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
-    CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x200, 0x40);
-    CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x360, 0x20);
+    ApplyPalettes(gPal_MiscUiGraphics, 0x10, 2);
+    ApplyPalette(gPal_MiscUiGraphics, 0x1B);
     Decompress(gUnknown_08AA11D0, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06015300, 8, 2);
 
     sub_80B8E14();
 
-    CopyToPaletteBuffer(gUnknown_08A97FA4, 0x1c0, 0x20);
+    ApplyPalette(gUnknown_08A97FA4, 0xE);
     Decompress(gUnknown_08A97ED8, (void *)0x06005000);
 
     LoadUiFrameGraphics();

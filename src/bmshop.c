@@ -1149,7 +1149,7 @@ void ShopProc_Init(struct BmShopProc* proc) {
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(0, 0, 0, 0, 0);
 
-    CopyToPaletteBuffer(gUnknown_08B1754C, 0x1C0, 0x20);
+    ApplyPalette(gUnknown_08B1754C, 0xE);
 
     Decompress(Img_CommGameBgScreen, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
 
@@ -1170,7 +1170,7 @@ void StartUiGoldBox(ProcPtr parent) {
     proc->unk_66 = 0x2D;
     proc->unk_68 = 0x4260;
 
-    CopyToPaletteBuffer(gUiFramePaletteA, 0x280, 0x20);
+    ApplyPalette(gUiFramePaletteA, 0x14);
 
     InitGoldBoxText(gBG0TilemapBuffer + 0xDC);
 
@@ -1466,7 +1466,7 @@ void DisplayShopUiArrows(void) {
 
 void UnpackUiVArrowGfx(int index, int palIdx) {
     Decompress(gUnknown_08A1C704, (void *)((0x3FF & index) * 0x20 + 0x06010000));
-    CopyToPaletteBuffer(gUnknown_08A1A084, (palIdx + 0x10) * 0x20, 0x20);
+    ApplyPalette(gUnknown_08A1A084, palIdx + 0x10);
 
     return;
 }

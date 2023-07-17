@@ -541,8 +541,8 @@ void Config_Init(struct ConfigProc* proc) {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_Fill(gBG3TilemapBuffer, 0);
 
-    CopyToPaletteBuffer(gUnknown_08A07A98, 0x80, 0x20);
-    CopyToPaletteBuffer(gUnknown_08A07A98, 0x240, 0x20);
+    ApplyPalette(gUnknown_08A07A98, 4);
+    ApplyPalette(gUnknown_08A07A98, 0x12);
 
     Decompress(gUnknown_08A0733C, (void*)0x06011800);
     Decompress(gUnknown_08A0754C, (void*)0x06004000);

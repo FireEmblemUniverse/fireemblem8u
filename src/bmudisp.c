@@ -350,12 +350,12 @@ void sub_8026618(void) {
 //! FE8U = 0x08026628
 void SetupMapSpritesPalettes(void) {
 
-    CopyToPaletteBuffer(gPal_MapSprite, 0x380, 0x80);
+    ApplyPalettes(gPal_MapSprite, 0x1C, 4);
 
     if (gBmSt.gameStateBits & 0x40) {
-        CopyToPaletteBuffer(gPal_MapSpriteArena, 0x360, 0x20);
+        ApplyPalette(gPal_MapSpriteArena, 0x1B);
     } else {
-        CopyToPaletteBuffer(gPal_NotMapSprite, 0x360, 0x20);
+        ApplyPalette(gPal_NotMapSprite, 0x1B);
     }
 
     return;
@@ -363,7 +363,7 @@ void SetupMapSpritesPalettes(void) {
 
 //! FE8U = 0x08026670
 void sub_8026670(void) {
-    CopyToPaletteBuffer(gPal_MapSpriteSepia, 0x3c0, 0x20);
+    ApplyPalette(gPal_MapSpriteSepia, 0x1E);
 
     return;
 }

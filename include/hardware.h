@@ -10,44 +10,44 @@ enum {
 };
 
 struct BITPACKED DispCnt {
-    u16 mode : 3;
-    u16 cgbMode : 1; // reserved, do not use
-    u16 bmpFrameNum : 1;
-    u16 hblankIntervalFree : 1;
-    u16 obj1dMap : 1;
-    u16 forcedBlank : 1;
-    u16 bg0_on : 1;
-    u16 bg1_on : 1;
-    u16 bg2_on : 1;
-    u16 bg3_on : 1;
-    u16 obj_on : 1;
-    u16 win0_on : 1;
-    u16 win1_on : 1;
-    u16 objWin_on : 1;
+    /* bit  0 */ u16 mode : 3;
+    /* bit  3 */ u16 cgbMode : 1; // reserved, do not use
+    /* bit  4 */ u16 bmpFrameNum : 1;
+    /* bit  5 */ u16 hblankIntervalFree : 1;
+    /* bit  6 */ u16 obj1dMap : 1;
+    /* bit  7 */ u16 forcedBlank : 1;
+    /* bit  8 */ u16 bg0_on : 1;
+    /* bit  9 */ u16 bg1_on : 1;
+    /* bit 10 */ u16 bg2_on : 1;
+    /* bit 11 */ u16 bg3_on : 1;
+    /* bit 12 */ u16 obj_on : 1;
+    /* bit 13 */ u16 win0_on : 1;
+    /* bit 14 */ u16 win1_on : 1;
+    /* bit 15 */ u16 objWin_on : 1;
     STRUCT_PAD(0x02, 0x04);
 };
 
 struct BITPACKED DispStat {
-    u16 vblankFlag : 1;
-    u16 hblankFlag : 1;
-    u16 vcountFlag : 1;
-    u16 vblankIrqEnable : 1;
-    u16 hblankIrqEnable : 1;
-    u16 vcountIrqEnable : 1;
-    u16 dummy : 2;
-    u8 vcountCompare;
+    /* bit  0 */ u16 vblankFlag : 1;
+    /* bit  1 */ u16 hblankFlag : 1;
+    /* bit  2 */ u16 vcountFlag : 1;
+    /* bit  3 */ u16 vblankIrqEnable : 1;
+    /* bit  4 */ u16 hblankIrqEnable : 1;
+    /* bit  5 */ u16 vcountIrqEnable : 1;
+    /* bit  6 */ u16 dummy : 2;
+    /* bit  8 */ u16 vcountCompare : 8;
     STRUCT_PAD(0x02, 0x04);
 };
 
 struct BITPACKED BgCnt {
-    u16 priority : 2;
-    u16 charBaseBlock : 2;
-    u16 dummy : 2;
-    u16 mosaic : 1;
-    u16 colorMode : 1;
-    u16 screenBaseBlock : 5;
-    u16 areaOverflowMode : 1;
-    u16 screenSize : 2;
+    /* bit  0 */ u16 priority : 2;
+    /* bit  2 */ u16 charBaseBlock : 2;
+    /* bit  4 */ u16 dummy : 2;
+    /* bit  6 */ u16 mosaic : 1;
+    /* bit  7 */ u16 colorMode : 1;
+    /* bit  8 */ u16 screenBaseBlock : 5;
+    /* bit 13 */ u16 areaOverflowMode : 1;
+    /* bit 14 */ u16 screenSize : 2;
     STRUCT_PAD(0x02, 0x04);
 };
 
@@ -164,11 +164,8 @@ struct TileDataTransfer {
     u16 mode;
 };
 
-extern struct LCDControlBuffer gLCDControlBuffer;
-
 extern s8 gUnknown_02022288[];
 extern s8 gUnknown_020222A8[];
-
 extern s8 gUnknown_02022308[];
 
 extern u16 gPaletteBuffer[];
@@ -188,8 +185,12 @@ extern void (*gMainCallback)(void);
 
 extern struct KeyStatusBuffer * CONST_DATA gKeyStatusPtr;
 
+extern struct LCDControlBuffer gLCDControlBuffer;
+
 extern struct Struct02024CD4 gFrameTmRegisterConfig;
 extern struct TileDataTransfer gFrameTmRegister[32];
+
+extern SHOULD_BE_CONST s16 gSinLookup[]; // needs to be non-const to match?
 
 // Utility macros and constants
 
@@ -222,6 +223,9 @@ extern struct TileDataTransfer gFrameTmRegister[32];
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
 #define PAL_BG(palid) (&PAL_BG_COLOR(palid, 0))
 #define PAL_OBJ(palid) (&PAL_OBJ_COLOR(palid, 0))
+
+#define SIN(aAngle) (gSinLookup[((aAngle) & 0xFF)])
+#define COS(aAngle) (gSinLookup[0x40 + ((aAngle) & 0xFF)])
 
 #define BG_SYNC_BIT(aBg) (1 << (aBg))
 
@@ -313,16 +317,16 @@ enum {
 // Functions
 
 void CopyToPaletteBuffer(const void* src, int b, int size);
-// ??? sub_8000E14(???);
+void sub_8000E14(u16 *a, int b, int size, int d);
 void FlushLCDControl(void);
-// ??? BG_GetControlBuffer(???);
+struct BgCnt *BG_GetControlBuffer(u16 bg);
 int GetBackgroundTileDataOffset(int bg);
 int GetTileIndex(int bg, int offset);
-// ??? BG_GetTileMapOffset(???);
+int BG_GetTileMapOffset(int bg);
 void SetBackgroundTileDataOffset(int bg, int offset);
 void SetBackgroundMapDataOffset(int bg, int offset);
 void SetBackgroundScreenSize(int bg, int size);
-// ??? BG_SetColorBpp(???);
+void BG_SetColorBpp(int bg, int bitsPerPixel);
 // ??? ApplyColorAddition_ClampMax(???);
 // ??? ApplyColorAddition_ClampMin(???);
 void FlushBackgrounds(void);
@@ -336,53 +340,53 @@ void SetMainUpdateRoutine(void(*)(void));
 void ExecMainUpdate();
 // ??? _UpdateKeyStatus(???);
 void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus);
-// ??? sub_8001414(???);
+void sub_8001414(struct KeyStatusBuffer *keyStatus);
 void ResetKeyStatus(struct KeyStatusBuffer *keyStatus);
 void SetKeyStatus_IgnoreMask(int keys);
 int GetKeyStatus_IgnoreMask(void);
 // ??? KeyStatusSetter_Set(???);
 void NewKeyStatusSetter(int a);
 void BG_SetPosition(u16 a, u16 b, u16 c);
-// ??? sub_80014E8(???);
-// ??? sub_800151C(???);
-// ??? sub_8001530(???);
+void sub_800151C(u8 a, u8 b);
+void sub_800151C(u8 a, u8 b);
+void sub_8001530(u16 *a, u16 *b);
 void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits);
 void sub_800159C(u16 *a1, u16 *a2, s16 a3, s16 a4, u16 a5);
 // ??? sub_80016C4(???);
 void MaybeResetSomePal(void);
 void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d);
 void sub_80017B4(int a, int b, int c, int d);
-// ??? sub_800183C(???);
+void sub_800183C(int a, int b, int c);
 void ColorFadeSetupFromColorToBlack(u8);
 void ColorFadeSetupFromBlack(u8);
 void ColorFadeSetupFromColorToWhite(u8);
 void ColorFadeSetupFromWhite(u8);
-// ??? sub_8001A6C(???);
+void sub_8001A6C(void);
 void SetupBackgrounds(u16 *bgConfig);
 u16* BG_GetMapBuffer(int bg);
 void sub_8001C5C(u8);
-// ??? ShouldSkipHSScreen(???);
+bool ShouldSkipHSScreen(void);
 void SoftResetIfKeyComboPressed();
 void sub_8001CB0(int a);
-// ??? ExecBothHBlankHandlers(???);
-// ??? UpdateHBlankHandlerState(???);
+void ExecBothHBlankHandlers(void);
+void UpdateHBlankHandlerState(void);
 void SetPrimaryHBlankHandler(void (*hblankHandler)(void));
 void SetSecondaryHBlankHandler(void(*)(void));
 int GetBackgroundFromBufferPointer(u16 *ptr);
-// ??? BG_SetPriority(???);
-// ??? BG_GetPriority(???);
+void BG_SetPriority(int bg, int priority);
+int BG_GetPriority(int bg);
 void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
-void SetBlendTargetA(int, int, int, int, int); // SetColorEffectFirstTarget
+void SetBlendTargetA(int, int, int, int, int);
 void SetBlendTargetB(int, int, int, int, int);
-void SetBlendBackdropA(int); // SetColorEffectBackdropFirstTarget
+void SetBlendBackdropA(int);
 void SetBlendBackdropB(int a);
 void SetDefaultColorEffects(void);
 void EnablePaletteSync(void);
 void DisablePaletteSync(void);
 void BG_EnableSyncByMask(int bg);
 void BG_EnableSync(int bg);
-// ??? sub_8001FD0(???);
-// ??? ClearTileRigistry(???);
+void sub_8001FD0(int a);
+void ClearTileRigistry(void);
 void RegisterDataMove(const void *a, void *b, int c);
 void RegisterFillTile(const void *a, void *b, int c);
 void FlushTiles(void);

@@ -926,8 +926,8 @@ void ApplyMinimapGraphics(int palId) {
 
     Decompress(gGfx_MinimapTiles, gGenericBuffer);
 
-    CopyToPaletteBuffer(gPal_MinimapTiles, palId * 0x20, 0x20);
-    CopyToPaletteBuffer(gPal_08A1FFD0, (palId + 1) * 0x20, 0x20);
+    ApplyPalette(gPal_MinimapTiles, palId);
+    ApplyPalette(gPal_08A1FFD0, palId + 1);
 
     return;
 }
@@ -980,7 +980,7 @@ void Minimap_ApplyFlashPalette() {
 
     u8 idx = gUnknown_08205D87[(GetGameClock() >> 2) % sizeof(gUnknown_08205D87)];
 
-    CopyToPaletteBuffer(gMinimapObjectFlashPal + idx * 0x10, 0x80, 0x20);
+    ApplyPalette(gMinimapObjectFlashPal + idx * 0x10, 4);
 
     return;
 }

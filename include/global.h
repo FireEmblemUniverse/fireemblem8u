@@ -34,9 +34,6 @@
 
 #define ABS(aValue) ((aValue) >= 0 ? (aValue) : -(aValue))
 
-#define SIN(aAngle) (gSinLookup[(aAngle&0xFF)])
-#define COS(aAngle) (gSinLookup[0x40 + (aAngle&0xFF)])
-
 #define RECT_DISTANCE(aXA, aYA, aXB, aYB) (ABS((aXA) - (aXB)) + ABS((aYA) - (aYB)))
 
 #define LIMIT_AREA(num, min, max)   \

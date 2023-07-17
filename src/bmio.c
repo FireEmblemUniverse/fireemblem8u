@@ -650,7 +650,7 @@ void WfxFlamesInitParticles(void) {
 
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
     Decompress(gUnknown_085A3A84, OBJ_VRAM0 + 0x18 * 0x20);
-    CopyToPaletteBuffer(gUnknown_085A3AC0, 0x340, 0x20);
+    ApplyPalette(gUnknown_085A3AC0, 0x1A);
 
     for (i = 0; i < 0x10; ++i) {
         sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
@@ -775,11 +775,7 @@ void WfxClouds_Init(void) {
         sWeatherEffect.gfxData
     );
 
-    CopyToPaletteBuffer(
-        gUnknown_085A401C,
-        ((0x10 + BM_OBJPAL_10) * 0x10 * sizeof(u16)),
-        0x10 * sizeof(u16)
-    );
+    ApplyPalette(gUnknown_085A401C, 0x10 + BM_OBJPAL_10);
 }
 
 void WfxClouds_VSync(void) {

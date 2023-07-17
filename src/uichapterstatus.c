@@ -510,13 +510,13 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
 
     ClearBg0Bg1();
 
-    CopyToPaletteBuffer(gUiFramePaletteA, 0x40, 0x60);
+    ApplyPalettes(gUiFramePaletteA, 2, 3);
     Decompress(gUnknown_08A2E5EC, (void*)(BG_VRAM + 0x5800));
     Decompress(gUnknown_08A2E4C4, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x1000);
 
     Decompress(gUnknown_08A2D32C, OBJ_VRAM0 + 0x3000);
-    CopyToPaletteBuffer(gUnknown_08A2E1B8, 0x300, 0x40);
+    ApplyPalettes(gUnknown_08A2E1B8, 0x18, 2);
 
     Decompress(gUnknown_08A2E1F8, OBJ_VRAM0 + 0x3300);
 
@@ -584,7 +584,7 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
 
     StartMuralBackground(proc, 0, 14);
 
-    CopyToPaletteBuffer(gUnknown_08B1754C, 0x1C0, 0x40);
+    ApplyPalettes(gUnknown_08B1754C, 0xE, 2);
 
     StartHelpPromptSprite(200, 18, 2, (struct Proc*)proc);
 
@@ -703,7 +703,7 @@ void sub_808E3D4() {
 }
 
 void ChapterStatus_SetupFont(ProcPtr proc) {
-    CopyToPaletteBuffer(Pal_Text, 0x340, 0x20);
+    ApplyPalette(Pal_Text, 0x1A);
 
     InitSpriteTextFont(&gUnknown_02004BBC.font, OBJ_VRAM0 + 0x7800, 0x1A);
 
@@ -884,8 +884,8 @@ void sub_808E79C(ProcPtr proc) {
 void sub_808E7B4(struct ChapterStatusProc* proc) {
     LoadObjUIGfx();
 
-    CopyToPaletteBuffer(gUnknown_08A2E4A4, 0x280, 0x20);
-    CopyToPaletteBuffer(gUnknown_08A2E8F0, 0x2E0, 0x20);
+    ApplyPalette(gUnknown_08A2E4A4, 0x14);
+    ApplyPalette(gUnknown_08A2E8F0, 0x17);
 
     Decompress(gUnknown_08A2E214, OBJ_VRAM0 + 0x6800);
 

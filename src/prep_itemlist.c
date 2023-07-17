@@ -234,7 +234,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     sub_809D8D4(gBG0TilemapBuffer + 0x6F, 0x4000, 6);
 
     Decompress(gUnknown_08A19CCC, (void*)0x06015000);
-    CopyToPaletteBuffer(gUnknown_08A1A084, 0x280, 0x20);
+    ApplyPalette(gUnknown_08A1A084, 0x14);
 
     StartMenuScrollBarExt(proc, 225, 47, 0x5800, 9);
     sub_8097668();

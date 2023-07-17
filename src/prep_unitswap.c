@@ -1,4 +1,5 @@
 #include "global.h"
+#include "hardware.h"
 #include "bmunit.h"
 #include "proc.h"
 #include "ctc.h"
