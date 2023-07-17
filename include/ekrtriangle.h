@@ -44,8 +44,8 @@ struct ProcEkrTriPegasusKnightBG {
     STRUCT_PAD(0x32, 0x44);
     /* 44 */ u32 frame;
     /* 48 */ const u16 *frame_config;
-    /* 4C */ const u16 **unk4C;
-    /* 50 */ const u16 **unk50;
+    /* 4C */ const u16 **tsalut_left;
+    /* 50 */ const u16 **tsalut_right;
     STRUCT_PAD(0x54, 0x5C);
     /* 5C */ struct Anim *anim;
 };
@@ -84,7 +84,7 @@ struct ProcEfxTriagnleQUAKE {
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriangle[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnight[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnightBG[];
-extern CONST_DATA const u16 * gUnknown_087595EC[];
+extern CONST_DATA const u16 * TsaLut_EkrTriPegagusBG[];
 extern CONST_DATA struct ProcCmd ProcScr_EkrTriPegasusKnightOBJ[];
 extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnight[];
 extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnightOBJ[];

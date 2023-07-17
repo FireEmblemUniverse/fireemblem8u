@@ -1,27 +1,61 @@
 	.section .data
 
-	.incbin "baserom.gba", 0x75966C + 0x18, 0x4C8 - 0x18
+    .global Sprit_08759684
+Sprit_08759684:
+	.incbin "baserom.gba", 0x759684, 0x75975C - 0x759684
 
-	.global gUnknown_08759B34
-gUnknown_08759B34:  @ 0x08759B34
-    .4byte ProcScr_EfxTriangleQUAKE + 0x19
-    .4byte ProcScr_EfxTriangleQUAKE + 0xf2
-    .4byte ProcScr_EfxTriangleQUAKE + 0x1b1
-    .4byte ProcScr_EfxTriangleQUAKE + 0x271
-    .4byte ProcScr_EfxTriangleQUAKE + 0x333
-    .4byte 0x20000000 + ProcScr_EfxTriangleQUAKE + 0x3f2
+    .global Sprit_0875975C
+Sprit_0875975C:
+	.incbin "baserom.gba", 0x75975C, 0x75981C - 0x75975C
+
+    .global Sprit_0875981C
+Sprit_0875981C:
+    .incbin "baserom.gba", 0x75981C, 0x7598DC - 0x75981C
+
+    .global Sprit_087598DC
+Sprit_087598DC:
+    .incbin "baserom.gba", 0x7598DC, 0x75999C - 0x7598DC
+
+    .global Sprit_0875999C
+Sprit_0875999C:
+    .incbin "baserom.gba", 0x75999C, 0x759A5C - 0x75999C
+
+    .global Sprit_08759A5C
+Sprit_08759A5C:
+    .incbin "baserom.gba", 0x759A5C, 0x759B34 - 0x759A5C
+
+	.global BanimScr_08759B34
+BanimScr_08759B34:  @ 0x08759B34
+    .4byte Sprit_08759684 + 1
+    .4byte Sprit_0875975C + 2
+    .4byte Sprit_0875981C + 1
+    .4byte Sprit_087598DC + 1
+    .4byte Sprit_0875999C + 3
+    .4byte 0x20000000 + Sprit_08759A5C + 2
     .4byte 0x80000000
 
-	.global gUnknown_08759B50
-gUnknown_08759B50:  @ 0x08759B50
-	.incbin "baserom.gba", 0x759B50, 0x318
+	.global Sprit_08759B50
+Sprit_08759B50:
+	.incbin "baserom.gba", 0x759B50, 0x759C10 - 0x759B50
 
-	.global gUnknown_08759E68
-gUnknown_08759E68:  @ 0x08759E68
-    .4byte gUnknown_08759B34 + 0x1e
-    .4byte gUnknown_08759B34 + 0xdd
-    .4byte gUnknown_08759B34 + 0x19e
-    .4byte 0x30000000 + gUnknown_08759B34 + 0x25c
+	.global Sprit_08759C10
+Sprit_08759C10:
+	.incbin "baserom.gba", 0x759C10, 0x759CD0 - 0x759C10
+
+	.global Sprit_08759CD0
+Sprit_08759CD0:
+	.incbin "baserom.gba", 0x759CD0, 0x759D90 - 0x759CD0
+
+	.global Sprit_08759D90
+Sprit_08759D90:
+	.incbin "baserom.gba", 0x759D90, 0x759E68 - 0x759D90
+
+	.global BanimScr_08759E68
+BanimScr_08759E68:  @ 0x08759E68
+    .4byte Sprit_08759B50 + 2
+    .4byte Sprit_08759C10 + 1
+    .4byte Sprit_08759CD0 + 2
+    .4byte 0x30000000 + Sprit_08759D90
     .4byte 0x80000000
 
 	.global gUnknown_08759E7C
@@ -42,36 +76,46 @@ gUnknown_0875A020:  @ 0x0875A020
 
 	.global gUnknown_0875A0AC
 gUnknown_0875A0AC:  @ 0x0875A0AC
-	.incbin "baserom.gba", 0x75A0AC, 0xF0
+	.incbin "baserom.gba", 0x75A0AC, 0x75A0B8 - 0x75A0AC
 
-	.global gUnknown_0875A19C
-gUnknown_0875A19C:  @ 0x0875A19C
-@ Replacing .incbin "baserom.gba", 0x75A19C, 0x178
-    .4byte gUnknown_0875A0AC + 0xd
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0xd
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0xd
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0xd
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0xd
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0xd
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0x6d
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0x6d
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0x6d
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0x6d
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0x6d
-    .4byte gUnknown_0875A0AC + 0xd9
-    .4byte gUnknown_0875A0AC + 0x6d
-    .4byte gUnknown_0875A0AC + 0xd9
+Sprit_0875A0B8:
+    .incbin "baserom.gba", 0x75A0B8, 0x75A118 - 0x75A0B8
+
+Sprit_0875A118:
+    .incbin "baserom.gba", 0x75A118, 0x75A184 - 0x75A118
+
+Sprit_0875A184:
+    .incbin "baserom.gba", 0x75A184, 0x75A19C - 0x75A184
+
+	.global BanimScr_0875A19C
+BanimScr_0875A19C:  @ 0x0875A19C
+    .4byte Sprit_0875A0B8 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A0B8 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A0B8 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A0B8 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A0B8 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A0B8 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A118 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A118 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A118 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A118 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A118 + 1
+    .4byte Sprit_0875A184 + 1
+    .4byte Sprit_0875A118 + 1
+    .4byte Sprit_0875A184 + 1
     .4byte 0x80000000
+
+Sprit_875A200:
     .4byte 0x80004000
     .4byte 0xffe00000
     .4byte 0x0000fff0
@@ -102,6 +146,8 @@ gUnknown_0875A19C:  @ 0x0875A19C
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A278:
     .4byte 0x80004000
     .4byte 0xffd90040
     .4byte 0x00000000
@@ -135,6 +181,8 @@ gUnknown_0875A19C:  @ 0x0875A19C
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A2FC:
     .4byte 0x00000000
     .4byte 0x0000001f
     .4byte 0x0000fff8
@@ -142,34 +190,35 @@ gUnknown_0875A19C:  @ 0x0875A19C
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_0875A314
-gUnknown_0875A314:  @ 0x0875A314
-@ Replacing .incbin "baserom.gba", 0x75A314, 0x154
-    .4byte gUnknown_0875A19C + 0x65
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0x65
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0x65
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0x65
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0x65
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0x65
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0xdd
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0xdd
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0xdd
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0xdd
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0xdd
-    .4byte gUnknown_0875A19C + 0x161
-    .4byte gUnknown_0875A19C + 0xdd
-    .4byte gUnknown_0875A19C + 0x161
+	.global BanimScr_0875A314
+BanimScr_0875A314:  @ 0x0875A314
+    .4byte Sprit_875A200 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A200 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A200 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A200 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A200 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A200 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A278 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A278 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A278 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A278 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A278 + 1
+    .4byte Sprit_875A2FC + 1
+    .4byte Sprit_875A278 + 1
+    .4byte Sprit_875A2FC + 1
     .4byte 0x80000000
+
+Sprit_875A378:
     .4byte 0x80004000
     .4byte 0xffe60000
     .4byte 0x0000ffe0
@@ -191,6 +240,8 @@ gUnknown_0875A314:  @ 0x0875A314
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A3CC:
     .4byte 0x80004000
     .4byte 0xffbc0040
     .4byte 0x0000ffe8
@@ -224,6 +275,8 @@ gUnknown_0875A314:  @ 0x0875A314
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A450:
     .4byte 0x00000000
     .4byte 0x0000001f
     .4byte 0x0000fff8
@@ -231,34 +284,35 @@ gUnknown_0875A314:  @ 0x0875A314
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_0875A468
-gUnknown_0875A468:  @ 0x0875A468
-@ Replacing .incbin "baserom.gba", 0x75A468, 0x2C8
-    .4byte gUnknown_0875A314 + 0x65
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0x65
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0x65
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0x65
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0x65
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0x65
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0xb9
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0xb9
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0xb9
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0xb9
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0xb9
-    .4byte gUnknown_0875A314 + 0x13d
-    .4byte gUnknown_0875A314 + 0xb9
-    .4byte gUnknown_0875A314 + 0x13d
+	.global BanimScr_0875A468
+BanimScr_0875A468:  @ 0x0875A468
+    .4byte Sprit_875A378 + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A378 + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A378 + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A378 + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A378 + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A378 + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A3CC + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A3CC + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A3CC + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A3CC + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A3CC + 1
+    .4byte Sprit_875A450 + 1
+    .4byte Sprit_875A3CC + 1
+    .4byte Sprit_875A450 + 1
     .4byte 0x80000000
+
+Sprit_875A4CC:
     .4byte 0x80004000
     .4byte 0xffef0000
     .4byte 0x0000ffe0
@@ -274,6 +328,8 @@ gUnknown_0875A468:  @ 0x0875A468
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A508:
     .4byte 0x80004000
     .4byte 0xffe00040
     .4byte 0x0000ffe1
@@ -310,12 +366,16 @@ gUnknown_0875A468:  @ 0x0875A468
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A598:
     .4byte 0x00000000
     .4byte 0x0000005f
     .4byte 0x0000fff8
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A5B0:
     .4byte 0x80004000
     .4byte 0xffe00040
     .4byte 0x0000ffe1
@@ -352,6 +412,8 @@ gUnknown_0875A468:  @ 0x0875A468
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A640:
     .4byte 0x80004000
     .4byte 0xffe00040
     .4byte 0x0000ffe1
@@ -385,6 +447,8 @@ gUnknown_0875A468:  @ 0x0875A468
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+Sprit_875A6C4:
     .4byte 0x80004000
     .4byte 0xffe00040
     .4byte 0x0000ffe1
@@ -413,31 +477,30 @@ gUnknown_0875A468:  @ 0x0875A468
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_0875A730
-gUnknown_0875A730:  @ 0x0875A730
-@ Replacing .incbin "baserom.gba", 0x75A730, 0x64
-    .4byte gUnknown_0875A468 + 0x65
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x65
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x65
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x65
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x65
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x65
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0xa1
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x149
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x1d9
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x25d
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x25d
-    .4byte gUnknown_0875A468 + 0x131
-    .4byte gUnknown_0875A468 + 0x25d
-    .4byte gUnknown_0875A468 + 0x131
+	.global BanimScr_0875A730
+BanimScr_0875A730:  @ 0x0875A730
+    .4byte Sprit_875A4CC + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A4CC + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A4CC + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A4CC + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A4CC + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A4CC + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A508 + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A5B0 + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A640 + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A6C4 + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A6C4 + 1
+    .4byte Sprit_875A598 + 1
+    .4byte Sprit_875A6C4 + 1
+    .4byte Sprit_875A598 + 1
     .4byte 0x80000000

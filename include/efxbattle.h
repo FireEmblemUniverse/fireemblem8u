@@ -1213,7 +1213,7 @@ extern struct ProcCmd ProcScr_ekrWhiteINOUT[];
 // extern ??? ProcScr_EkrMyrrh
 extern struct ProcCmd ProcScr_EkrMyrrh[];
 extern short gUnknown_0875879C[];
-// extern ??? gUnknown_08758A1C
+extern u16 gUnknown_08758A1C[];
 extern struct ProcCmd ProcScr_ekrsubAnimeEmulator[];
 extern struct ProcCmd ProcScr_efxSoundSE[];
 // extern ??? gUnknown_08758A60
@@ -1258,16 +1258,16 @@ extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? ProcScr_EkrLvupApfx
 // extern ??? ProcScr_eobjLvup
 
-extern u32 gUnknown_08759B34[];
-extern u32 gUnknown_08759E68[];
+extern u32 BanimScr_08759B34[];
+extern u32 BanimScr_08759E68[];
 extern u32 gUnknown_08759F00[];
 extern u32 gUnknown_08759F90[];
 extern u32 gUnknown_0875A020[];
 extern u32 gUnknown_0875A0AC[];
-extern u32 gUnknown_0875A19C[];
-extern u32 gUnknown_0875A314[];
-extern u32 gUnknown_0875A468[];
-extern u32 gUnknown_0875A730[];
+extern u32 BanimScr_0875A19C[];
+extern u32 BanimScr_0875A314[];
+extern u32 BanimScr_0875A468[];
+extern u32 BanimScr_0875A730[];
 extern u16 *gBattleBGDataTable[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrPopup[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrPopup2[];
