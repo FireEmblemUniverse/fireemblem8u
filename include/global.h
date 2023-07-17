@@ -5,7 +5,12 @@
 
 #include "gba/gba.h"
 
+// this is for denoting objects that *should* be const, but weren't in the original source (resulting in them being emitted in the .data section)
 #define CONST_DATA __attribute__((section(".data")))
+
+// this is for denoting objects that *should* be const, but need to not be for functions to match.
+#define SHOULD_BE_CONST
+
 #define NAKEDFUNC __attribute__((naked))
 
 #include "types.h"
@@ -43,7 +48,7 @@
     else if (num > max)             \
         num = max;
 
-#if !MODERN
+#if !defined(MODERN) || !MODERN
 #  define STRUCT_PAD(from, to) unsigned char _pad_ ## from[(to) - (from)]
 #else
 #  define STRUCT_PAD(from, to)

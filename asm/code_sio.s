@@ -15507,7 +15507,7 @@ sub_8048EB8: @ 0x08048EB8
 	bl Interpolate
 	mov sl, r0
 	ldr r4, _08048FB8  @ gSinLookup
-	ldr r2, _08048FBC  @ gCosLookup
+	ldr r2, _08048FBC  @ gSinLookup+0x80
 	movs r1, #0
 	ldrsh r0, [r2, r1]
 	lsls r0, r0, #4
@@ -15533,7 +15533,7 @@ sub_8048EB8: @ 0x08048EB8
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
-	ldr r2, _08048FBC  @ gCosLookup
+	ldr r2, _08048FBC  @ gSinLookup+0x80
 	movs r1, #0
 	ldrsh r0, [r2, r1]
 	lsls r0, r0, #4
@@ -15601,7 +15601,7 @@ _08048FA6:
 	bx r0
 	.align 2, 0
 _08048FB8: .4byte gSinLookup
-_08048FBC: .4byte gCosLookup
+_08048FBC: .4byte gSinLookup+0x80
 _08048FC0: .4byte gObject_32x16
 _08048FC4: .4byte 0x00009350
 _08048FC8: .4byte 0x00009354
@@ -24666,7 +24666,7 @@ _0804D494:
 	movs r0, #4
 	ldr r3, _0804D648  @ gUnknown_085AAA50
 	bl PutSprite
-	ldr r4, _0804D64C  @ gCosLookup
+	ldr r4, _0804D64C  @ gSinLookup+0x80
 	movs r1, #0
 	ldrsh r0, [r4, r1]
 	lsls r0, r0, #4
@@ -24697,7 +24697,7 @@ _0804D494:
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
-	ldr r2, _0804D64C  @ gCosLookup
+	ldr r2, _0804D64C  @ gSinLookup+0x80
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	lsls r0, r0, #4
@@ -24745,7 +24745,7 @@ _0804D544:
 	adds r0, #8
 	strh r0, [r2]
 _0804D556:
-	ldr r1, _0804D64C  @ gCosLookup
+	ldr r1, _0804D64C  @ gSinLookup+0x80
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	lsls r0, r0, #4
@@ -24777,7 +24777,7 @@ _0804D556:
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
-	ldr r3, _0804D64C  @ gCosLookup
+	ldr r3, _0804D64C  @ gSinLookup+0x80
 	movs r1, #0
 	ldrsh r0, [r3, r1]
 	lsls r0, r0, #4
@@ -24861,7 +24861,7 @@ _0804D636:
 	bx r0
 	.align 2, 0
 _0804D648: .4byte gUnknown_085AAA50
-_0804D64C: .4byte gCosLookup
+_0804D64C: .4byte gSinLookup+0x80
 _0804D650: .4byte gSinLookup
 _0804D654: .4byte 0x0000014F
 _0804D658: .4byte gUnknown_085AABB8

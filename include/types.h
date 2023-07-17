@@ -48,26 +48,12 @@ struct Struct0858791C
     u16 unk2;
 };
 
-struct TileDataTransfer
-{
-    const void *src;
-    void *dest;
-    u16 size;
-    u16 mode;
-};
-
 struct OamDataTransfer
 {
     void *src;
     void *dest;
     u16 unk8;
     u16 count;
-};
-
-struct Struct02024CD4
-{
-    int count;
-    int size;
 };
 
 struct KeyStatusBuffer

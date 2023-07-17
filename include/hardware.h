@@ -138,6 +138,18 @@ struct LCDControlBuffer {
     /*0x68*/ s8 colorAddition;
 };
 
+struct Struct02024CD4 {
+    int count;
+    int size;
+};
+
+struct TileDataTransfer {
+    const void *src;
+    void *dest;
+    u16 size;
+    u16 mode;
+};
+
 extern struct LCDControlBuffer gLCDControlBuffer;
 
 extern s8 gUnknown_02022288[];
@@ -146,6 +158,15 @@ extern s8 gUnknown_020222A8[];
 extern s8 gUnknown_02022308[];
 
 extern u16 gPaletteBuffer[];
+
+extern u16 gBG0TilemapBuffer[32 * 32];
+extern u16 gBG1TilemapBuffer[32 * 32];
+extern u16 gBG2TilemapBuffer[32 * 32];
+extern u16 gBG3TilemapBuffer[32 * 32];
+
+extern void * gBGVramTilemapPointers[4];
+
+extern void (*gMainCallback)(void);
 
 // Utility macros and constants
 

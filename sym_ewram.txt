@@ -349,11 +349,7 @@
 . = 0x023EA8; gUnknown_02023EA8 = .;
 . = 0x023F68; gUnknown_02023F68 = .;
 . = 0x023FBA; gUnknown_02023FBA = .;
-. = 0x0244A8; gBG3TilemapBuffer = .;
-. = 0x024CA8; gBGVramTilemapPointers = .;
-. = 0x024CB8; gMainCallback = .;
-. = 0x024CC0;
-. = ALIGN(4); src/main.o(ewram_data);
+. = 0x0244A8;
 . = ALIGN(4); src/hardware.o(ewram_data);
 . = ALIGN(4); src/soundwrapper.o(ewram_data);
 . = ALIGN(4); src/proc.o(ewram_data);

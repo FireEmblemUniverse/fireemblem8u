@@ -3,8 +3,19 @@
 #include "bm.h"
 #include "hardware.h"
 
-EWRAM_DATA struct Struct02024CD4 gFrameTmRegisterConfig = {0};
-EWRAM_DATA struct TileDataTransfer gFrameTmRegister[32] = {0};
+u16 EWRAM_DATA gBG3TilemapBuffer[32 * 32] = { 0 };
+
+void * EWRAM_DATA gBGVramTilemapPointers[4] = { 0 };
+
+void (* EWRAM_DATA gMainCallback)(void) = NULL;
+
+static u32 EWRAM_DATA sPad_Unused_02024CBC = 0;
+
+static struct KeyStatusBuffer EWRAM_DATA sKeyStatusBuffer = { 0 };
+struct KeyStatusBuffer * CONST_DATA gKeyStatusPtr = &sKeyStatusBuffer;
+
+struct Struct02024CD4 EWRAM_DATA gFrameTmRegisterConfig = { 0 };
+struct TileDataTransfer EWRAM_DATA gFrameTmRegister[32] = { 0 };
 
 struct KeyProc {
     PROC_HEADER
@@ -45,6 +56,9 @@ void sub_8000E14(u16 *a, int b, int size, int d)
 
 void FlushLCDControl(void)
 {
+    // NOTE: most of these break strict aliasing rules.
+    // this function needs to be rewritten to be acceptable for modern compiler.
+
     #define COPY_REG(type, reg, src) *(type *)REG_ADDR_##reg = *(type *)src;
 
     COPY_REG(u16, DISPCNT, &gLCDControlBuffer.dispcnt)
