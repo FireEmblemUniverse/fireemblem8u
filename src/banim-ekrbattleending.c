@@ -51,7 +51,7 @@ void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc)
 
     ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, 0x8);
     PutBanimBgPAL(gEkrPairSomeTile - 1);
-    EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, ret);
+    EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, ret);
     EnablePaletteSync();
 
     if (++proc->timer == 0x9) {

@@ -782,7 +782,7 @@ sub_8066B40: @ 0x08066B40
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl sub_807132C
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -4245,7 +4245,7 @@ sub_8068638: @ 0x08068638
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -4291,22 +4291,22 @@ sub_8068680: @ 0x08068680
 	movs r1, #4
 	movs r2, #2
 	adds r3, r5, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r5, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #0x19
 	movs r2, #1
 	adds r3, r5, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -4378,22 +4378,22 @@ sub_8068738: @ 0x08068738
 	movs r1, #4
 	movs r2, #2
 	movs r3, #0x10
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #0x10
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #0x19
 	movs r2, #1
 	adds r3, r5, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -4802,7 +4802,7 @@ sub_8068A9C: @ 0x08068A9C
 	movs r1, #0
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_807132C
+	bl EfxPalWhiteInOut
 	adds r0, r4, #0
 	movs r1, #0x20
 	bl SpellFx_RegisterBgPal
@@ -5116,7 +5116,7 @@ sub_8068D20: @ 0x08068D20
 	ldr r0, _08068D70  @ gPaletteBuffer
 	movs r1, #6
 	movs r2, #0xa
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	bl EnablePaletteSync
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -5186,7 +5186,7 @@ _08068DB4:
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	bl EnablePaletteSync
 _08068DCE:
 	pop {r0}

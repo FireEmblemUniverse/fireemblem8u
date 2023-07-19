@@ -256,7 +256,7 @@ void EkrDragonBaseHideMain(struct ProcEfxDKfx *proc)
 {
     int val = Interpolate(INTERPOLATE_SQUARE, 0, 0x10, proc->timer, 8);
     CpuFastCopy(gEkrSomePalBuf, PAL_BG(4), 0x40);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, val);
+    EfxPalBlackInOut(PAL_BG(0), 4, 2, val);
     EnablePaletteSync();
 
     if (++proc->timer == 0x9) {
@@ -287,7 +287,7 @@ ProcPtr NewEkrDragonBaseAppear(struct Anim *anim)
     FillBGRect(gBG2TilemapBuffer, 0x20, 0x20, 0, 0);
     sub_805AA68(&gUnknown_0201FADC);
     CpuFastCopy(PAL_BG(4), gEkrSomePalBuf, 0x40);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, 0x10);
+    EfxPalBlackInOut(PAL_BG(0), 4, 2, 0x10);
     return proc;
 }
 
@@ -296,7 +296,7 @@ void EkrDragonBaseAppearMain(struct ProcEfxDKfx *proc)
 {
     int val = Interpolate(INTERPOLATE_SQUARE, 0x10, 0, proc->timer, 8);
     CpuFastCopy(gEkrSomePalBuf, PAL_BG(4), 0x40);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, val);
+    EfxPalBlackInOut(PAL_BG(0), 4, 2, val);
     EnablePaletteSync();
 
     if (++proc->timer == 0x9) {
@@ -840,7 +840,7 @@ ProcPtr NewEkrDragonBodvBlack(struct Anim *anim)
 void sub_80772E4(int val)
 {
     CpuFastCopy(gUnknown_080E1164, PAL_BG(4), 0x20);
-    EkrMaybePalFadeWithVal(gPaletteBuffer, 4, 1, val);
+    EfxPalBlackInOut(gPaletteBuffer, 4, 1, val);
 }
 
 void EkrDragonBodyBlackMain(struct ProcEfxDKfx *proc)
@@ -848,8 +848,8 @@ void EkrDragonBodyBlackMain(struct ProcEfxDKfx *proc)
     int ret = Interpolate(INTERPOLATE_RSQUARE, 0, 0x10, proc->timer, 0x8);
     CpuFastCopy(Pal_DemonKingBG, PAL_BG(0x6), 0x20);
     CpuFastCopy(gpEfxUnitPaletteBackup[0], PAL_OBJ(0x7), 0x20);
-    EkrMaybePalFadeWithVal(gPaletteBuffer, 6, 1, ret);
-    EkrMaybePalFadeWithVal(gPaletteBuffer, 0x17, 1, ret);
+    EfxPalBlackInOut(gPaletteBuffer, 6, 1, ret);
+    EfxPalBlackInOut(gPaletteBuffer, 0x17, 1, ret);
     EnablePaletteSync();
 
     if (++proc->timer == 9) {
@@ -1248,7 +1248,7 @@ void EkrWhiteOutFadeIn(struct ProcEkrWhiteOUT *proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, proc->max_time1);
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    sub_807132C(gEfxPal, 0, 0x20, ret);
+    EfxPalWhiteInOut(gEfxPal, 0, 0x20, ret);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -1261,7 +1261,7 @@ void EkrWhiteOutFadeIn(struct ProcEkrWhiteOUT *proc)
 void EkrWhiteOutDelay(struct ProcEkrWhiteOUT *proc)
 {
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    sub_807132C(gEfxPal, 0, 0x20, 0x10);
+    EfxPalWhiteInOut(gEfxPal, 0, 0x20, 0x10);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -1275,7 +1275,7 @@ void EkrWhiteOutFadeOut(struct ProcEkrWhiteOUT *proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0x0, proc->timer, proc->max_time3);
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    sub_807132C(gEfxPal, 0, 0x20, ret);
+    EfxPalWhiteInOut(gEfxPal, 0, 0x20, ret);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 

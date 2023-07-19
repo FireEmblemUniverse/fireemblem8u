@@ -338,26 +338,26 @@ void NewEfxMagfcastBG(struct Anim *anim, u32 type)
     switch (type) {
     case 0:
         proc->frame_config = gUnknown_080DF386;
-        proc->unk4C = gUnknown_085D8FC4;
-        proc->unk50 = gUnknown_085D8FC4;
+        proc->tsal = gUnknown_085D8FC4;
+        proc->tsar = gUnknown_085D8FC4;
         break;
 
     case 1:
         proc->frame_config = gUnknown_080DF39C;
-        proc->unk4C = gUnknown_085D8FC4;
-        proc->unk50 = gUnknown_085D8FC4;
+        proc->tsal = gUnknown_085D8FC4;
+        proc->tsar = gUnknown_085D8FC4;
         break;
 
     case 2:
         proc->frame_config = gUnknown_080DF3A2;
-        proc->unk4C = gUnknown_085D8FDC;
-        proc->unk50 = gUnknown_085D8FDC;
+        proc->tsal = gUnknown_085D8FDC;
+        proc->tsar = gUnknown_085D8FDC;
         break;
 
     case 3:
         proc->frame_config = gUnknown_080DF3C4;
-        proc->unk4C = gUnknown_085D8FDC;
-        proc->unk50 = gUnknown_085D8FDC;
+        proc->tsal = gUnknown_085D8FDC;
+        proc->tsar = gUnknown_085D8FDC;
         EfxPlaySEwithCmdCtrl(anim, anim->commandQueue[anim->commandQueueSize - 1]);
         break;
 
@@ -397,8 +397,8 @@ void EfxMagfcastBGMain(struct ProcEfxBG *proc)
                 BG_SetPosition(BG_1, 0xE8, 0x0);
         }
 
-        tsa1 = proc->unk4C;
-        tsa2 = proc->unk50;
+        tsa1 = proc->tsal;
+        tsa2 = proc->tsar;
 
         SpellFx_WriteBgMap(
             proc->anim,
@@ -932,8 +932,8 @@ void NewEfxMagdhisEffectBG(struct Anim *anim, int arg1)
     proc->unk30 = arg1;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DF4F4;
-    proc->unk4C = gUnknown_085D9274;
-    proc->unk50 = gUnknown_085D9274;
+    proc->tsal = gUnknown_085D9274;
+    proc->tsar = gUnknown_085D9274;
 
     SpellFx_RegisterBgPal(gUnknown_085F0E04, 0x20);
     SpellFx_RegisterBgGfx(gUnknown_085F0190, 0x2000);
@@ -956,8 +956,8 @@ void EfxMagdhisEffectBGMain(struct ProcEfxBG *proc)
     );
 
     if (ret >= 0) {
-        u16 **buf1 = proc->unk4C;
-        u16 **buf2 = proc->unk50;
+        u16 **buf1 = proc->tsal;
+        u16 **buf2 = proc->tsar;
         SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
     }
 
@@ -1122,8 +1122,8 @@ void NewEfxChillEffectBG(struct Anim *anim)
     proc->terminator = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DF546;
-    proc->unk4C = gUnknown_085D92D4;
-    proc->unk50 = gUnknown_085D92D4;
+    proc->tsal = gUnknown_085D92D4;
+    proc->tsar = gUnknown_085D92D4;
     SpellFx_RegisterBgGfx(gUnknown_0872E998, 0x2000);
     BG_SetPosition(BG_1, 0x0, 0x0);
 }
@@ -1133,8 +1133,8 @@ void EfxChillEffectBGMain(struct ProcEfxBG *proc)
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 **buf1 = proc->unk4C;
-        u16 **buf2 = proc->unk50;
+        u16 **buf1 = proc->tsal;
+        u16 **buf2 = proc->tsar;
         SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }

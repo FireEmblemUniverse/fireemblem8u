@@ -227,12 +227,12 @@ extern u16 Tsa_EfxDracoZombie3[];
 extern u16 Tsa_EfxDracoZombie4[];
 extern u16 Tsa_EfxDracoZombie5[];
 extern u16 Pal_EfxDracoZombie[];
-// extern ??? gUnknown_08791D7C
-// extern ??? gUnknown_08791D9C
-// extern ??? gUnknown_08792194
-// extern ??? gUnknown_08792928
-// extern ??? gUnknown_08792958
-// extern ??? gUnknown_08792988
+extern u16 Pal_08791D7C[];
+extern u16 Img_08791D9C[];
+extern u16 Pal_08792194[];
+extern u32 BanimScr_08792928[];
+extern u32 BanimScr_08792958[];
+extern u32 BanimScr_08792988[];
 // extern ??? gUnknown_087A4EEC
 // extern ??? gUnknown_087A5118
 // extern ??? gUnknown_087A5390

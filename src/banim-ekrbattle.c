@@ -8,6 +8,7 @@
 #include "bmbattle.h"
 #include "bmarena.h"
 #include "ekrlevelup.h"
+#include "ekrclasschg.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "ekrpopup.h"
@@ -398,10 +399,10 @@ void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc)
 void ekrBattle_80503EC(struct ProcEkrBattle *proc)
 {
     gEkrDebugUnk3 = 0;
-    proc->proc_idleCb = (ProcFunc)ekrBattle_8050400;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_StartPromotion;
 }
 
-void ekrBattle_8050400(struct ProcEkrBattle *proc)
+void ekrBattle_StartPromotion(struct ProcEkrBattle *proc)
 {
     if (gEkrDistanceType == EKR_DISTANCE_PROMOTION) {
         NewEkrClassChg(gAnims[2]);

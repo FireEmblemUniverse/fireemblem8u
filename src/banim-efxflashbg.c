@@ -92,7 +92,7 @@ void NewEfxWhiteOUT(struct Anim * anim, int duartion, int duartion2)
 void EfxWhiteOutMain1(struct ProcEfxFlashing * proc)
 {
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    sub_807132C(gEfxPal, 0x0, 0x20, 0x0);
+    EfxPalWhiteInOut(gEfxPal, 0x0, 0x20, 0x0);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -107,7 +107,7 @@ void EfxWhiteOutMain2(struct ProcEfxFlashing * proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, proc->terminator2);
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    sub_807132C(gEfxPal, 0x0, 0x20, ret);
+    EfxPalWhiteInOut(gEfxPal, 0x0, 0x20, ret);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -142,7 +142,7 @@ void NewEfxWhiteIN(struct Anim * anim, int duartion, int duartion2)
 void EfxWhiteInMain1(struct ProcEfxFlashing * proc)
 {
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    sub_807132C(gEfxPal, 0x0, 0x20, 0x10);
+    EfxPalWhiteInOut(gEfxPal, 0x0, 0x20, 0x10);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -157,7 +157,7 @@ void EfxWhiteInMain2(struct ProcEfxFlashing * proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0x0, proc->timer, proc->terminator2);
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    sub_807132C(gEfxPal, 0x0, 0x20, ret);
+    EfxPalWhiteInOut(gEfxPal, 0x0, 0x20, ret);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -192,7 +192,7 @@ void NewEfxBlackOUT(struct Anim * anim, int duartion, int duartion2)
 void EfxBlackOutMain1(struct ProcEfxFlashing * proc)
 {
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    EkrMaybePalFadeWithVal(gEfxPal, 0x0, 0x20, 0x0);
+    EfxPalBlackInOut(gEfxPal, 0x0, 0x20, 0x0);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -207,7 +207,7 @@ void EfxBlackOutMain2(struct ProcEfxFlashing * proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, proc->terminator2);
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    EkrMaybePalFadeWithVal(gEfxPal, 0x0, 0x20, ret);
+    EfxPalBlackInOut(gEfxPal, 0x0, 0x20, ret);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -242,7 +242,7 @@ void NewEfxBlackIN(struct Anim * anim, int duartion, int duartion2)
 void EfxBlackInMain1(struct ProcEfxFlashing * proc)
 {
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    EkrMaybePalFadeWithVal(gEfxPal, 0x0, 0x20, 0x10);
+    EfxPalBlackInOut(gEfxPal, 0x0, 0x20, 0x10);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
@@ -257,7 +257,7 @@ void EfxBlackInMain2(struct ProcEfxFlashing * proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0x0, proc->timer, proc->terminator2);
     CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
-    EkrMaybePalFadeWithVal(gEfxPal, 0x0, 0x20, ret);
+    EfxPalBlackInOut(gEfxPal, 0x0, 0x20, ret);
     CpuFastCopy(gEfxPal, (u16 *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 

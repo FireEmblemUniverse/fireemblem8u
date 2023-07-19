@@ -516,8 +516,8 @@ void EkrLvup_PutWindowOnScreen(struct ProcEkrLevelup *proc)
     gFaces[0]->yPos = EKR_LVUP_UI_BASE - pos;
 
     CpuFastCopy(gEfxPal, PAL_BG(0), 0x400);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 2, 4, pal);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 0x13, 0xC, pal);
+    EfxPalBlackInOut(PAL_BG(0), 2, 4, pal);
+    EfxPalBlackInOut(PAL_BG(0), 0x13, 0xC, pal);
     EnablePaletteSync();
 
     if (++proc->timer > 0x14) {
@@ -694,8 +694,8 @@ void EkrLvup_PutWindowOffScreen(struct ProcEkrLevelup *proc)
     gFaces[0]->yPos = EKR_LVUP_UI_BASE - pos;
 
     CpuFastCopy(gEfxPal, PAL_BG(0), 0x400);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 2, 4, pal);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 0x13, 0xC, pal);
+    EfxPalBlackInOut(PAL_BG(0), 2, 4, pal);
+    EfxPalBlackInOut(PAL_BG(0), 0x13, 0xC, pal);
     EnablePaletteSync();
 
     /* Maybe some debug routine? */

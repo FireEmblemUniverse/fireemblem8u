@@ -66,7 +66,7 @@ void sub_8076380(struct ProcEkrHensei *proc)
 
     PutBanimBG(gEkrPairSomeTile - 1);
     CpuFastCopy(PAL_BG(0), gEfxPal, 0x400);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 0, 0x20, 0x10);
+    EfxPalBlackInOut(PAL_BG(0), 0, 0x20, 0x10);
     EnablePaletteSync();
     Proc_Break(proc);
 }
@@ -86,7 +86,7 @@ void sub_8076400(struct ProcEkrHensei *proc)
     int color = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, proc->terminator);
 
     CpuFastCopy(gEfxPal, PAL_BG(0), 0x400);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 0, 0x20, color);
+    EfxPalBlackInOut(PAL_BG(0), 0, 0x20, color);
     EnablePaletteSync();
 
     if (++proc->timer == (proc->terminator + 1))
@@ -130,7 +130,7 @@ void sub_80764B0(struct ProcEkrHensei *proc)
     int color = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, proc->terminator);
 
     CpuFastCopy(gEfxPal, PAL_BG(0), 0x400);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 0, 0x20, color);
+    EfxPalBlackInOut(PAL_BG(0), 0, 0x20, color);
     EnablePaletteSync();
 
     if (++proc->timer == (proc->terminator + 1))
