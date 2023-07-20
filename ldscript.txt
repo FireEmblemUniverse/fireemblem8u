@@ -271,6 +271,7 @@ SECTIONS
         src/worldmap_face.o(.text);
         src/worldmap_main.o(.text);
         asm/code_80B5730.o(.text);
+        asm/worldmap_path.o(.text);
         src/worldmap.o(.text);
         asm/code_80BC8EC.o(.text);
         src/opsubtitle.o(.text);
