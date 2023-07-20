@@ -33,12 +33,12 @@ struct ProcEfxBG {
     /* 30 */ s16 unk30;
     STRUCT_PAD(0x32, 0x44);
     /* 44 */ u32 frame;
-    /* 48 */ const u16 *frame_config;
-    /* 4C */ u16 **unk4C;
-    /* 50 */ u16 **unk50;
-    /* 54 */ u16 **unk54;
-    STRUCT_PAD(0x58, 0x5C);
-    /* 5C */ struct Anim *anim;
+    /* 48 */ const u16 * frame_config;
+    /* 4C */ u16 ** tsal;
+    /* 50 */ u16 ** tsar;
+    /* 54 */ u16 ** img;
+    /* 58 */ u16 ** pal;
+    /* 5C */ struct Anim * anim;
 };
 
 struct ProcEfxBGCOL {
@@ -757,8 +757,8 @@ extern u16 gUnknown_080E1164[];
 // extern ??? gUnknown_080E13B4
 // extern ??? gUnknown_080E13D4
 // extern ??? gUnknown_080E13F4
-// extern ??? gUnknown_080E143A
-// extern ??? gUnknown_080E1488
+extern const u16 FrameLut_080E143A[];
+extern const u16 FrameLut_080E1488[];
 // extern ??? sEfxLvupPartsPos
 // extern ??? gUnknown_080E162A
 // extern ??? gUnknown_080E1664
@@ -1060,8 +1060,8 @@ extern u32 gUnknown_08605DF4[];
 // extern ??? gUnknown_08680FFC
 // extern ??? gUnknown_086810B8
 // extern ??? gUnknown_08684908
-// extern ??? gUnknown_086849B8
-// extern ??? gUnknown_08684AB8
+extern u16 Img_086849B8[];
+extern u16 gUnknown_08684AB8[];
 // extern ??? gUnknown_086852D8
 // extern ??? gUnknown_086861A4
 // extern ??? gUnknown_08686F84
@@ -1225,21 +1225,7 @@ extern struct ProcCmd ProcScr_efxSoundSE[];
 // extern ??? gUnknown_08758E8C
 // extern ??? gUnknown_08758F18
 // extern ??? gUnknown_08758FA4
-// extern ??? ProcScr_efxClasschg
-// extern ??? ProcScr_efxClasschgBG
-// extern ??? gUnknown_08759000
-// extern ??? gUnknown_08759094
-// extern ??? gUnknown_08759128
-// extern ??? ProcScr_efxClasschgBGSE00
-// extern ??? ProcScr_efxClasschgBGSE01
-// extern ??? ProcScr_efxClasschgOBJGain
-// extern ??? ProcScr_efxClasschgOBJDrop
-// extern ??? ProcScr_efxClasschgOBJDiffusion
-// extern ??? ProcScr_efxClasschgFIN
-// extern ??? ProcScr_efxClasschgCLONE
-// extern ??? ProcScr_efxBlackInOutUnit
-// extern ??? ProcScr_efxWhiteInOutUnit
-// extern ??? ProcScr_efxClasschgRST
+
 extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? EkrLvupMsgsStr
 // extern ??? EkrLvupMsgsMag
@@ -1298,7 +1284,7 @@ extern u16 gUnknown_08802BC4[];
 extern u16 gPalEfxHpBarPurple[];
 extern u16 gUnknown_08802D24[];
 
-void NewEfxFarAttackWithDistance(struct Anim *anim, int arg);
+void NewEfxFarAttackWithDistance(struct Anim * anim, int arg);
 // ??? sub_80534AC(???);
 // ??? sub_80534E4(???);
 // ??? sub_8053514(???);
@@ -1310,7 +1296,7 @@ ProcPtr NewEfxQuakePure(int, int);
 // ??? nullsub_56(???);
 ProcPtr NewEfxQuake(int);
 // ??? sub_805382C(???);
-void NewEfxHitQuake(struct Anim *anim1, struct Anim *anim2, int);
+void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int);
 // ??? sub_8053BBC(???);
 void NewEfxFlashBgWhite(struct Anim * anim, int duartion);
 void NewEfxFlashBgRed(struct Anim * anim, int duartion);

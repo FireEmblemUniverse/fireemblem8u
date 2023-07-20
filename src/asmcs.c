@@ -796,7 +796,7 @@ void sub_808622C(struct Proc89EEA28 *proc)
     else
         ApplyPalette(gUnknown_089A232C, 0x12);
 
-    sub_807132C(gPaletteBuffer, 0x12, 1, val);
+    EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, val);
     EnablePaletteSync();
     PutSprite(0, 0x18, 0x40, gUnknown_089EE99C, 0);
 
@@ -818,7 +818,7 @@ void sub_80862C4(struct Proc89EEA28 *proc)
     else
         ApplyPalette(gUnknown_089A232C, 0x12);
 
-    sub_807132C(gPaletteBuffer, 0x12, 1, val);
+    EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, val);
     EnablePaletteSync();
     PutSprite(0, 0x18, 0x40, gUnknown_089EE99C, 0);
 

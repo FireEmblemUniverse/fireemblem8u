@@ -154,7 +154,7 @@ void ekrBaStart_SreenFailIn(struct ProcEkrBattleStarting *proc)
         SetupOAMBufferSplice(0);
         BMapDispSuspend();
         SetWin0Box(0, 0, 0xF0, 0xA0);
-        EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, 0x4);
+        EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, 0x4);
         EnablePaletteSync();
         MU_EndAll();
         Proc_Break(proc);
@@ -240,7 +240,7 @@ void ekrBaStart_8056024(struct ProcEkrBattleStarting *proc)
         gUnknown_0201FAD8 = 0xA;
 
     PutBanimBG(gEkrPairSomeTile - 1);
-    EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, 0x10);
+    EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, 0x10);
     Proc_Break(proc);
 }
 
@@ -249,7 +249,7 @@ void ekrBaStart_8056078(struct ProcEkrBattleStarting *proc)
     int val = Interpolate(0, 0x10, 0, proc->timer, 8);
 
     PutBanimBgPAL(gEkrPairSomeTile - 1);
-    EkrMaybePalFadeWithVal(gPaletteBuffer, 0x6, 0xA, val);
+    EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, val);
     EnablePaletteSync();
 
     if (++proc->timer == 0x9) {

@@ -159,7 +159,7 @@ void EkrDZ_ReloadCustomBg(struct ProcEkrDragon *proc)
     if (CheckEkrDragonStatusAttrBit13(proc->anim) == true) {
         BG_Fill(gBG3TilemapBuffer, 0x6000);
         BG_EnableSyncByMask(BG3_SYNC_BIT);
-        EkrMaybePalFadeWithVal(PAL_BG(0), 6, 1, 0x10);
+        EfxPalBlackInOut(PAL_BG(0), 6, 1, 0x10);
         EnablePaletteSync();
         SetEkrDragonStatusUnk1(0);
 
@@ -174,17 +174,17 @@ void EkrDZ_ReloadCustomBg(struct ProcEkrDragon *proc)
 
     val = Interpolate(INTERPOLATE_RSQUARE, 0, 0x10, proc->timer, 8);
     CpuFastCopy(Pal_EfxDracoZombie, PAL_BG(6), 0x20);
-    EkrMaybePalFadeWithVal(PAL_BG(0), 6, 1, val);
+    EfxPalBlackInOut(PAL_BG(0), 6, 1, val);
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:
         CpuFastCopy(gEkrDragonPalBackup, PAL_BG(4), 0x40);
-        EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, val);
+        EfxPalBlackInOut(PAL_BG(0), 4, 2, val);
         break;
 
     case EKR_DISTANCE_FAR:
         CpuFastCopy(gEkrDragonPalBackup, PAL_BG(4), 0x20);
-        EkrMaybePalFadeWithVal(PAL_BG(0), 4, 1, val);
+        EfxPalBlackInOut(PAL_BG(0), 4, 1, val);
         break;
 
     default:
@@ -227,12 +227,12 @@ void EkrDZ_ReloadCustomBgAndFadeOut(struct ProcEkrDragon *proc)
         switch (gEkrDistanceType) {
         case EKR_DISTANCE_CLOSE:
             CpuFastCopy(gEkrDragonPalBackup, PAL_BG(4), 0x40);
-            EkrMaybePalFadeWithVal(PAL_BG(0), 4, 2, val);
+            EfxPalBlackInOut(PAL_BG(0), 4, 2, val);
             break;
 
         case EKR_DISTANCE_FAR:
             CpuFastCopy(gEkrDragonPalBackup, PAL_BG(4), 0x20);
-            EkrMaybePalFadeWithVal(PAL_BG(0), 4, 1, val);
+            EfxPalBlackInOut(PAL_BG(0), 4, 1, val);
             break;
 
         default:

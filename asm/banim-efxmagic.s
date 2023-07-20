@@ -1162,7 +1162,7 @@ sub_805E9E4: @ 0x0805E9E4
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_807132C
+	bl EfxPalWhiteInOut
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
 	strh r0, [r6, #0x2c]
@@ -1290,7 +1290,7 @@ sub_805EAF0: @ 0x0805EAF0
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x20
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -9663,7 +9663,7 @@ sub_8062D30: @ 0x08062D30
 	ldr r0, _08062E2C  @ gUnknown_0868C338
 	movs r1, #0x20
 	bl SpellFx_RegisterBgPal
-	ldr r0, _08062E30  @ gUnknown_086849B8
+	ldr r0, _08062E30  @ Img_086849B8
 	movs r1, #0x80
 	lsls r1, r1, #6
 	bl SpellFx_RegisterBgGfx
@@ -9756,7 +9756,7 @@ sub_8062D30: @ 0x08062D30
 _08062E24: .4byte gEfxBgSemaphore
 _08062E28: .4byte ProcScr_efxBerserkBG
 _08062E2C: .4byte gUnknown_0868C338
-_08062E30: .4byte gUnknown_086849B8
+_08062E30: .4byte Img_086849B8
 _08062E34: .4byte gUnknown_08684AB8
 _08062E38: .4byte gBG1TilemapBuffer
 _08062E3C: .4byte gLCDControlBuffer

@@ -321,7 +321,7 @@ extern u16 gUnknown_0201FF04[];
 
 // extern ??? gUnknown_020200A8
 // extern ??? gUnknown_020200AC
-// extern ??? gpProcEkrClasshg
+// extern ??? gpProcEkrClasschg
 
 extern struct ProcCmd gProc_ekrBattleDeamon[];
 extern struct ProcCmd gProc_ekrBattle[];
@@ -571,7 +571,7 @@ void ekrBattleExecTriangleAtk(struct ProcEkrBattle *proc);
 void ekrBattleWaitTriangleIdle(struct ProcEkrBattle *proc);
 void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc);
 void ekrBattle_80503EC(struct ProcEkrBattle *proc);
-void ekrBattle_8050400(struct ProcEkrBattle *proc);
+void ekrBattle_StartPromotion(struct ProcEkrBattle *proc);
 void ekrBattle_WaitPromotionIdle(struct ProcEkrBattle *proc);
 void ekrBattleInRoundIdle(struct ProcEkrBattle *proc);
 void ekrBattleOnBattkeEnd(struct ProcEkrBattle *proc);
@@ -789,8 +789,8 @@ void sub_8070FA4(const void *, int, void *, int, int, int, int, int);
 // ??? sub_8071068(???);
 void sub_8071140(void *ptr, int);
 // ??? sub_80711C0(???);
-void EkrMaybePalFadeWithVal(void *pal_buf, int line, int length, int ref);
-void sub_807132C(void *ptr, int, int, int);
+void EfxPalBlackInOut(void *pal_buf, int line, int length, int ref);
+void EfxPalWhiteInOut(void *ptr, int, int, int);
 void EfxSomePalFlash(u16 *pal, int, int, int r, int g, int b);
 void sub_8071468(u16 *pal, u16 *, int);
 void sub_80714DC(u16 *, u8 *, int);
@@ -827,36 +827,7 @@ void sub_807289C(void);
 // ??? sub_807290C(???);
 void PlaySFX(int, int, int, int);
 // ??? sub_80729C0(???);
-bool EkrClasschgFinished(void);
-void EndEkrClasschg(void);
-void NewEkrClassChg(struct Anim *anim);
-// ??? sub_8072A44(???);
-// ??? sub_8072DC0(???);
-// ??? EndEfxStatusUnit(???);
-// ??? sub_8072DD8(???);
-// ??? sub_8072E1C(???);
-// ??? sub_8072E60(???);
-// ??? NewEfxClasschgBGSE00(???);
-// ??? sub_8072EF4(???);
-// ??? NewEfxClasschgBGSE01(???);
-// ??? sub_8072F74(???);
-// ??? NewEfxClasschgOBJGain(???);
-// ??? sub_8072FD0(???);
-// ??? NewEfxClasschgOBJDrop(???);
-// ??? sub_8073034(???);
-// ??? NewEfxClasschgOBJDiffusion(???);
-// ??? sub_80730AC(???);
-// ??? NewEfxClasschgFIN(???);
-// ??? sub_80731C8(???);
-// ??? NewEfxClasschgCLONE(???);
-// ??? sub_8073240(???);
-// ??? sub_80732A4(???);
-// ??? NewEfxBlackInOutUnit(???);
-// ??? sub_80732E0(???);
-// ??? NewEfxWhiteInOutUnit(???);
-// ??? sub_80733C0(???);
-// ??? NewEfxClasschgRST(???);
-// ??? sub_80734AC(???);
+
 ProcPtr NewEfxPartsofScroll(void);
 void sub_8074598(void);
 // ??? nullsub_62(???);

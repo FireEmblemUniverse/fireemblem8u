@@ -3105,7 +3105,7 @@ sub_805D328: @ 0x0805D328
 	movs r1, #0
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_807132C
+	bl EfxPalWhiteInOut
 	adds r0, r4, #0
 	movs r1, #0x20
 	bl SpellFx_RegisterBgPal

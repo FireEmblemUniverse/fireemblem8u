@@ -259,7 +259,7 @@ sub_80705A8: @ 0x080705A8
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl sub_807132C
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -304,7 +304,7 @@ sub_8070618: @ 0x08070618
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_807132C
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -358,7 +358,7 @@ sub_8070670: @ 0x08070670
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl sub_807132C
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0

@@ -22,7 +22,7 @@ extern u16 CONST_DATA gUnknown_085A7EE8[];
 void ClearTalkBubble(void);
 void sub_80067E8(void);
 void sub_8010EE8(int, int, int);
-void sub_807132C(void* ptr, int, int, int);
+void EfxPalWhiteInOut(void* ptr, int, int, int);
 
 void ReputConvoBg_unused(int index)
 {
@@ -87,7 +87,7 @@ void sub_8010EE8(int val0, int val1, int val2)
 {
     int var = Interpolate(1, val0, val1, val2, 8);
     CpuFastCopy(gUnknown_085A7EE8, PAL_OBJ(0x2), 0x20);
-    sub_807132C(gPaletteBuffer, 0x12, 1, var);
+    EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, var);
     EnablePaletteSync();
 }
 

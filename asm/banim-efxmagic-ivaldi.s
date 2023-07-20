@@ -1656,7 +1656,7 @@ sub_80664A8: @ 0x080664A8
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_807132C
+	bl EfxPalWhiteInOut
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
 	strh r0, [r6, #0x2c]

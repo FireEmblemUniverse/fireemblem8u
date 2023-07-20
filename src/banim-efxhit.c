@@ -196,8 +196,8 @@ void NewEfxNormalEffectBG(struct Anim *anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DF1EE;
-    proc->unk4C = gUnknown_085D8DF4;
-    proc->unk50 = gUnknown_085D8DF4;
+    proc->tsal = gUnknown_085D8DF4;
+    proc->tsar = gUnknown_085D8DF4;
     
     SpellFx_RegisterBgPal(gUnknown_085E9150, 0x20);
     SpellFx_RegisterBgGfx(gUnknown_085E8D88, 0x2000);
@@ -216,8 +216,8 @@ void efxNormalEffectBGMain(struct ProcEfxBG *proc)
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 **buf1 = proc->unk4C;
-        u16 **buf2 = proc->unk50;
+        u16 **buf1 = proc->tsal;
+        u16 **buf2 = proc->tsar;
         SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }
@@ -342,8 +342,8 @@ void NewEfxPierceNormalEffectBG(struct Anim *anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DF2DC;
-    proc->unk4C = gUnknown_085D8E9C;
-    proc->unk50 = gUnknown_085D8E9C;
+    proc->tsal = gUnknown_085D8E9C;
+    proc->tsar = gUnknown_085D8E9C;
     
     SpellFx_RegisterBgPal(gUnknown_085D1470, 0x20);
     SpellFx_RegisterBgGfx(gUnknown_085D0FD0, 0x2000);
@@ -362,8 +362,8 @@ void efxPierceNormalEffectBGMain(struct ProcEfxBG *proc)
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 **buf1 = proc->unk4C;
-        u16 **buf2 = proc->unk50;
+        u16 **buf1 = proc->tsal;
+        u16 **buf2 = proc->tsar;
         SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }

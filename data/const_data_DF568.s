@@ -64,12 +64,4 @@ gUnknown_080E13D4:  @ 0x080E13D4
 
 	.global gUnknown_080E13F4
 gUnknown_080E13F4:  @ 0x080E13F4
-	.incbin "baserom.gba", 0xE13F4, 0x46
-
-	.global gUnknown_080E143A
-gUnknown_080E143A:  @ 0x080E143A
-	.incbin "baserom.gba", 0xE143A, 0x4E
-
-	.global gUnknown_080E1488
-gUnknown_080E1488:  @ 0x080E1488
-	.incbin "baserom.gba", 0xE1488, 0x144
+	.incbin "baserom.gba", 0xE13F4, 0xE1420 - 0xE13F4

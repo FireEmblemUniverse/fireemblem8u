@@ -545,8 +545,8 @@ _0807129E:
 
 	THUMB_FUNC_END sub_80711C0
 
-	THUMB_FUNC_START EkrMaybePalFadeWithVal
-EkrMaybePalFadeWithVal: @ 0x080712B0
+	THUMB_FUNC_START EfxPalBlackInOut
+EfxPalBlackInOut: @ 0x080712B0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -612,10 +612,10 @@ _08071320:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END EkrMaybePalFadeWithVal
+	THUMB_FUNC_END EfxPalBlackInOut
 
-	THUMB_FUNC_START sub_807132C
-sub_807132C: @ 0x0807132C
+	THUMB_FUNC_START EfxPalWhiteInOut
+EfxPalWhiteInOut: @ 0x0807132C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -685,7 +685,7 @@ _080713A2:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_807132C
+	THUMB_FUNC_END EfxPalWhiteInOut
 
 	THUMB_FUNC_START EfxSomePalFlash
 EfxSomePalFlash: @ 0x080713B0
@@ -1098,7 +1098,7 @@ EkrUpdateSomePalMaybe: @ 0x0807168C
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	bl EnablePaletteSync
 	pop {r4}
 	pop {r0}

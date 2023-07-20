@@ -101,8 +101,8 @@ void NewEfxFireBG(struct Anim *anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DCD26;
-    proc->unk4C = gUnknown_085D54D0;
-    proc->unk50 = gUnknown_085D5500;
+    proc->tsal = gUnknown_085D54D0;
+    proc->tsar = gUnknown_085D5500;
 
     SpellFx_RegisterBgPal(gUnknown_085F6230, 0x20);
     SpellFx_RegisterBgGfx(gUnknown_085F5638, 0x2000);
@@ -114,8 +114,8 @@ void Loop6C_efxFireBG(struct ProcEfxBG *proc)
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 **buf1 = proc->unk4C;
-        u16 **buf2 = proc->unk50;
+        u16 **buf1 = proc->tsal;
+        u16 **buf2 = proc->tsar;
         SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }
@@ -174,9 +174,9 @@ void StartSubSpell_efxFireHITBG(struct Anim *anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DCD72;
-    proc->unk4C = gUnknown_085D55B4;
-    proc->unk50 = gUnknown_085D55B4;
-    proc->unk54 = gUnknown_085D5560;
+    proc->tsal = gUnknown_085D55B4;
+    proc->tsar = gUnknown_085D55B4;
+    proc->img = gUnknown_085D5560;
 
     SpellFx_RegisterBgPal(gUnknown_0860108C, 0x20);
     SpellFx_SetSomeColorEffect();
@@ -195,9 +195,9 @@ void sub_805DE74(struct ProcEfxBG *proc)
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 **buf1 = proc->unk4C;
-        u16 **buf2 = proc->unk50;
-        SpellFx_RegisterBgGfx(proc->unk54[ret], 0x2000);
+        u16 **buf1 = proc->tsal;
+        u16 **buf2 = proc->tsar;
+        SpellFx_RegisterBgGfx(proc->img[ret], 0x2000);
         SpellFx_WriteBgMap(proc->anim, buf1[ret], buf2[ret]);
         return;
     }

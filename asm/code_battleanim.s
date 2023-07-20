@@ -408,7 +408,7 @@ sub_805B104: @ 0x0805B104
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	bl EnablePaletteSync
 	mov r0, r8
 	bl Proc_Break
@@ -503,7 +503,7 @@ sub_805B200: @ 0x0805B200
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -604,7 +604,7 @@ sub_805B2BC: @ 0x0805B2BC
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl EkrMaybePalFadeWithVal
+	bl EfxPalBlackInOut
 	bl EnablePaletteSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1

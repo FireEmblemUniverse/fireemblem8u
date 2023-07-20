@@ -76117,8 +76117,8 @@ gUnknown_08684908:  @ 0x08684908
     .4byte 0x84000013
     .4byte 0x81000000
 
-	.global gUnknown_086849B8
-gUnknown_086849B8:  @ 0x086849B8
+	.global Img_086849B8
+Img_086849B8:  @ 0x086849B8
 	.incbin "baserom.gba", 0x6849B8, 0x100
 
 	.global gUnknown_08684AB8
