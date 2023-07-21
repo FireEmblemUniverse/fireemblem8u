@@ -241,6 +241,7 @@ extern struct BattleUnit *gpEkrBattleUnitLeft;
 extern struct BattleUnit *gpEkrBattleUnitRight;
 extern struct Font gSomeFontStruct;
 
+extern struct Anim *gAnims[4];
 extern void *gUnknown_02000010[2];
 extern int gEkrDebugUnk2;
 extern int gEkrDebugUnk3;

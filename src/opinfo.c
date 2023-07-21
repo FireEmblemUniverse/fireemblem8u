@@ -1101,7 +1101,7 @@ void sub_80B3740(void) {
     return;
 }
 
-struct Unk2000000 {
+struct OpInfoData {
     u8 unk_00;
     u8 unk_01;
     u16 unk_02;
@@ -1123,7 +1123,7 @@ struct Unk2000000 {
     ProcPtr unk_34;
 };
 
-extern struct Unk2000000 gAnims;
+#define gOpInfoData ((struct OpInfoData *)EWRAM_ENTRY)
 
 struct Unk200A2D8 {
     u16 unk_00;
@@ -1318,21 +1318,21 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     SetTalkPrintDelay(4);
 
-    gAnims.unk_08 = proc->classReelEnt->paletteId;
-    gAnims.unk_02 = 0x104;
-    gAnims.unk_04 = 0x58;
-    gAnims.unk_06 = proc->classReelEnt->banimId;
-    gAnims.unk_0A = 6;
-    gAnims.unk_01 = proc->classReelEnt->unk_06;
-    gAnims.unk_0C = 1;
-    gAnims.unk_0E = 0x180;
-    gAnims.unk_10 = 2;
-    gAnims.unk_1C = &gEkrBg0QuakeVec;
-    gAnims.unk_24 = gUnknown_02002038;
-    gAnims.unk_20 = gUnknown_02007838;
-    gAnims.unk_28 = gUnknown_020078D8;
+    gOpInfoData->unk_08 = proc->classReelEnt->paletteId;
+    gOpInfoData->unk_02 = 0x104;
+    gOpInfoData->unk_04 = 0x58;
+    gOpInfoData->unk_06 = proc->classReelEnt->banimId;
+    gOpInfoData->unk_0A = 6;
+    gOpInfoData->unk_01 = proc->classReelEnt->unk_06;
+    gOpInfoData->unk_0C = 1;
+    gOpInfoData->unk_0E = 0x180;
+    gOpInfoData->unk_10 = 2;
+    gOpInfoData->unk_1C = &gEkrBg0QuakeVec;
+    gOpInfoData->unk_24 = gUnknown_02002038;
+    gOpInfoData->unk_20 = gUnknown_02007838;
+    gOpInfoData->unk_28 = gUnknown_020078D8;
 
-    gAnims.unk_30 = &gUnknown_0200A2D8;
+    gOpInfoData->unk_30 = &gUnknown_0200A2D8;
 
     gUnknown_0200A2D8.unk_00 = proc->classReelEnt->magicFx;
     gUnknown_0200A2D8.unk_02 = proc->classReelEnt->unk_09;
@@ -1350,7 +1350,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     gUnknown_0200A2D8.unk_20 = gUnknown_0200CB00;
     gUnknown_0200A2D8.unk_24 = sub_80B3740;
 
-    NewEkrUnitMainMini(&gAnims);
+    NewEkrUnitMainMini(gOpInfoData);
 
     gUnknown_0201DB00.unk_00 = proc->classReelEnt->unk_0D;
     gUnknown_0201DB00.unk_02 = 10;
@@ -1441,7 +1441,7 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
         proc->unk_2a += 4;
     }
 
-    sub_805A940(&gAnims, proc->unk_46, 88);
+    sub_805A940(gOpInfoData, proc->unk_46, 88);
     sub_805AE40(&gUnknown_0201DB00, proc->unk_46 - 48, 104, proc->unk_46 + 48, 104);
 
     sub_80B40E4(proc->unk_3c, 100);
@@ -1458,35 +1458,35 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
 
         case CLASS_REEL_OP_1:
             // melee normal?
-            gAnims.unk_0A = 0;
-            sub_805A7B4(&gAnims);
+            gOpInfoData->unk_0A = 0;
+            sub_805A7B4(gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_2:
             // melee crit?
-            gAnims.unk_0A = 1;
-            sub_805A7B4(&gAnims);
+            gOpInfoData->unk_0A = 1;
+            sub_805A7B4(gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_3:
         case CLASS_REEL_OP_7:
-            sub_805A990(&gAnims);
+            sub_805A990(gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_4:
             // range normal?
-            gAnims.unk_0A = 2;
-            sub_805A7B4(&gAnims);
+            gOpInfoData->unk_0A = 2;
+            sub_805A7B4(gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_6:
             // melee dodge?
-            gAnims.unk_0A = 4;
-            sub_805A7B4(&gAnims);
+            gOpInfoData->unk_0A = 4;
+            sub_805A7B4(gOpInfoData);
 
             break;
 
@@ -1527,7 +1527,7 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
             break;
 
         case CLASS_REEL_OP_8:
-            if (sub_805A96C(&gAnims) != 0) {
+            if (sub_805A96C(gOpInfoData) != 0) {
                 proc->script++;
                 Proc_Break(proc);
             }
@@ -1544,7 +1544,7 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
     sub_806E920();
     sub_805AE14(&gUnknown_0201DB00);
     sub_806E904();
-    sub_805AA28(&gAnims);
+    sub_805AA28(gOpInfoData);
 
     if (proc->unk_3c != 0) {
         Proc_End(proc->unk_3c);

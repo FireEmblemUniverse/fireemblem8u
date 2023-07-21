@@ -13,7 +13,7 @@
 EWRAM_DATA struct ExtraMapSaveHead gExtraMapSaveHead = {0};
 EWRAM_DATA struct ChapterStats gExtraMapStatus = {0};
 
-CONST_DATA u8 *gpSramExtraData = CART_SRAM + SRAM_OFFSET_6;
+CONST_DATA u8 *gpSramExtraData = CART_SRAM + SRAM_OFFSET_XMAP;
 CONST_DATA struct ExtraMapInfo *gExtraMapInfo = (void *) EWRAM_START + 0x40000 - EWRAM_XMAP_SIZE; // 0x40000 = EWRAM_SIZE
 
 void LoadAndVerfySuspendSave(void)
@@ -99,7 +99,7 @@ bool IsExtraMapAvailable(void)
     if (!IsSramWorking())
         return FALSE;
 
-    ReadSramFast(CART_SRAM + SRAM_OFFSET_6, buf, SRAM_SIZE_6);
+    ReadSramFast(CART_SRAM + SRAM_OFFSET_XMAP, buf, SRAM_SIZE_XMAP);
 
     if (buf->xmap_magic != XMAP_MAGIC)
         return FALSE;

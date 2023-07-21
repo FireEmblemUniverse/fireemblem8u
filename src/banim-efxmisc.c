@@ -11,8 +11,6 @@
 #include "bmbattle.h"
 #include "bmlib.h"
 
-extern struct Anim *gAnims[4];
-
 /**
  * Misc banim effects
  */

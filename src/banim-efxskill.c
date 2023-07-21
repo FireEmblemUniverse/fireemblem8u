@@ -4,8 +4,6 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 
-extern struct Anim *gAnims[4];
-
 static inline void EfxSkillSetAnimState(struct Anim *anim)
 {
     struct Anim *anim1, *anim2;

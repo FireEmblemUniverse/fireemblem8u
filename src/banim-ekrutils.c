@@ -6,8 +6,6 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 
-extern struct Anim *gAnims[4];
-
 void sub_805515C(void)
 {
     return;

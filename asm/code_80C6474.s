@@ -11233,7 +11233,7 @@ sub_80CBF9C: @ 0x080CBF9C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080CBFB8  @ gPaletteBuffer
-	ldr r1, _080CBFBC  @ gAnims
+	ldr r1, _080CBFBC  @ __ewram_start
 	movs r2, #0x80
 	lsls r2, r2, #1
 	bl CpuFastSet
@@ -11244,7 +11244,7 @@ sub_80CBF9C: @ 0x080CBF9C
 	bx r0
 	.align 2, 0
 _080CBFB8: .4byte gPaletteBuffer
-_080CBFBC: .4byte gAnims
+_080CBFBC: .4byte __ewram_start
 
 	THUMB_FUNC_END sub_80CBF9C
 
@@ -11266,7 +11266,7 @@ sub_80CBFC0: @ 0x080CBFC0
 	mov r9, r0
 	movs r3, #0x1f
 	mov r8, r3
-	ldr r4, _080CC03C  @ gAnims
+	ldr r4, _080CC03C  @ __ewram_start
 	mov ip, r4
 _080CBFE4:
 	lsls r2, r6, #1
@@ -11315,7 +11315,7 @@ _080CC01A:
 	b _080CC058
 	.align 2, 0
 _080CC038: .4byte gPaletteBuffer
-_080CC03C: .4byte gAnims
+_080CC03C: .4byte __ewram_start
 _080CC040: .4byte 0x000001FF
 _080CC044:
 	movs r0, #0

@@ -5,8 +5,6 @@
 #include "bmitem.h"
 #include "constants/items.h"
 
-extern struct Anim *gAnims[4];
-
 void EkrPrepareBanimfx(struct Anim *anim, u16 index)
 {
     gEkrPairBanimID2[GetAnimPosition(anim)] = index;

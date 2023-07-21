@@ -14358,7 +14358,7 @@ sub_8048604: @ 0x08048604
 	bne _08048660
 	ldr r1, _08048650  @ ReadSramFast
 	ldr r0, _08048654  @ 0x0E007400
-	ldr r4, _08048658  @ gAnims
+	ldr r4, _08048658  @ __ewram_start (EWRAM_ENTRY)
 	movs r5, #0xc0
 	lsls r5, r5, #4
 	ldr r3, [r1]
@@ -14377,10 +14377,10 @@ _08048648: .4byte gUnknown_0203DB64
 _0804864C: .4byte gUnknown_085A92E0
 _08048650: .4byte ReadSramFast
 _08048654: .4byte 0x0E007400
-_08048658: .4byte gAnims
+_08048658: .4byte __ewram_start @ EWRAM_ENTRY
 _0804865C: .4byte sub_8048524
 _08048660:
-	ldr r0, _08048674  @ gAnims
+	ldr r0, _08048674  @ __ewram_start
 	ldr r1, _08048678  @ sub_8048594
 	adds r2, r6, #0
 	bl sub_8042D70
@@ -14390,7 +14390,7 @@ _0804866A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08048674: .4byte gAnims
+_08048674: .4byte __ewram_start @ EWRAM_ENTRY
 _08048678: .4byte sub_8048594
 
 	THUMB_FUNC_END sub_8048604
@@ -14422,7 +14422,7 @@ _0804869E:
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	beq _080486BC
-	ldr r0, _080486CC  @ gAnims
+	ldr r0, _080486CC  @ __ewram_start
 	ldr r1, _080486D0  @ 0x0E007400
 	movs r2, #0xc0
 	lsls r2, r2, #4
@@ -14435,7 +14435,7 @@ _080486BE:
 	.align 2, 0
 _080486C4: .4byte gPlaySt
 _080486C8: .4byte gUnknown_085A92E0
-_080486CC: .4byte gAnims
+_080486CC: .4byte __ewram_start
 _080486D0: .4byte 0x0E007400
 
 	THUMB_FUNC_END sub_804867C

@@ -9,8 +9,6 @@
 #include "efxbattle.h"
 #include "constants/classes.h"
 
-extern struct Anim *gAnims[4];
-
 CONST_DATA u32 BanimScr_085B9D5C[4] = {
     /**
      * ANINS_IS_NOT_FORCESPRITE = true

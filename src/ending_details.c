@@ -1724,8 +1724,6 @@ void sub_80B7BD8(struct UnkProc* proc) {
     return;
 }
 
-extern u8 gAnims[];
-
 //! FE8U = 0x080B8014
 void sub_80B8014(void) {
     BG_Fill(gBG2TilemapBuffer, 0);
@@ -1762,7 +1760,7 @@ void sub_80B8014(void) {
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
     BG_EnableSyncByMask(0xc);
-    sub_80AB760(gAnims);
+    sub_80AB760(EWRAM_ENTRY);
     StartBgm(0x46, 0);
 
     return;

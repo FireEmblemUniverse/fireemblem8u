@@ -254,11 +254,11 @@ void WriteSaveBlockInfo(struct SaveBlockInfo *chunk, int index)
         break;
 
     case SAVEBLOCK_KIND_ARENA:
-        chunk->size = SRAM_SIZE_5;
+        chunk->size = SRAM_SIZE_MARENA;
         break;
 
     case SAVEBLOCK_KIND_XMAP:
-        chunk->size = SRAM_SIZE_6;
+        chunk->size = SRAM_SIZE_XMAP;
         break;
 
     case (u8)SAVEBLOCK_KIND_INVALID:
@@ -312,11 +312,11 @@ void *GetSaveWriteAddr(int index)
             break;
 
         case SAVE_ID_ARENA:
-            return gSram->offset_5;
+            return &gSram->multiArenaBlock;
             break;
 
         case SAVE_ID_XMAP:
-            return CART_SRAM + SRAM_OFFSET_6;
+            return CART_SRAM + SRAM_OFFSET_XMAP;
             break;
 
         default:
@@ -467,37 +467,37 @@ bool IsExtraSupportViewerEnabled()
     return tmp1 & tmp0;
 }
 
-unsigned int sub_80A3348(void) {
-    unsigned char buf[0x94];
-    int r4 = 0;
-    unsigned char tmp0 = IsGamePlayedThrough();
-
-    if (!tmp0)
+u32 GetRankDataValidBitMap(void)
+{
+    struct GameRankSaveDataPacks buf;
+    u32 attr = 0;
+    u8 ret = IsGamePlayedThrough();
+    if (!ret)
         return 0;
 
-    if (LoadAndVerfyRankData(buf)) {
-        if (buf[0] << 0x1F)
-            r4 = 1;
+    if (LoadAndVerfyRankData(&buf)) {
+        if (buf.pack[0].valid)
+            attr  = 1 << 0x0;
     
-        if (buf[0x18] << 0x1F)
-            r4 |= 2;
+        if (buf.pack[1].valid)
+            attr |= 1 << 0x1;
     
-        if (buf[0x30] << 0x1F)
-            r4 |= 4;
+        if (buf.pack[2].valid)
+            attr |= 1 << 0x2;
     
-        if (buf[0x48] << 0x1F)
-            r4 |= 8;
+        if (buf.pack[3].valid)
+            attr |= 1 << 0x3;
     
-        if (buf[0x60] << 0x1F)
-            r4 |= 0x10;
+        if (buf.pack[4].valid)
+            attr |= 1 << 0x4;
     
-        if (buf[0x78] << 0x1F)
-            r4 |= 0x20;
+        if (buf.pack[5].valid)
+            attr |= 1 << 0x5;
     }
-    return r4;
+    return attr;
 }
 
-bool sub_80A33C4()
+bool IsValidExtraMapAvilable(void)
 {
     struct GlobalSaveInfo buf;
 
@@ -524,12 +524,13 @@ bool IsExtraFreeMapEnabled()
     return false;
 }
 
-bool IsExtraBonusClaimEnabled(void) {
-    unsigned char buf0[0x4C];
-    struct BonusClaimEnt *buf1;
+bool IsExtraBonusClaimEnabled(void)
+{
+    struct PlaySt playSt;
+    struct BonusClaimEnt * buf1;
     int i, ret;
 
-    if (LoadBonusContentData((void*)gGenericBuffer)) {
+    if (LoadBonusContentData((void *)gGenericBuffer)) {
 
         ret = 0;
         buf1 = (void*)gGenericBuffer;
@@ -590,7 +591,7 @@ int GetTotalAverageSupportValue()
     return ret;
 }
 
-int GetTotalGlobalSupportValue(struct GlobalSaveInfo *buf)
+int GetTotalGlobalSupportValue(struct GlobalSaveInfo * buf)
 {
     int i, j, tmp1, tmp2, ret = 0;
     unsigned char *SuppordRecord;
@@ -600,7 +601,6 @@ int GetTotalGlobalSupportValue(struct GlobalSaveInfo *buf)
         buf = &tmp_header;
         ReadGlobalSaveInfo(buf);
     }
-
 
     for (i = 0; i < 0x20; i++) {
         for (j = 0; j < 4; j++) {
@@ -666,10 +666,8 @@ void GetGlobalSupportListFromSave(int unitId, u8* data, struct GlobalSaveInfo* i
     int j;
 
     if (gCharacterData[unitId-1].pSupportData == 0) {
-
-        for (i = 0; i < UNIT_SUPPORT_MAX_COUNT; data++, i++) {
+        for (i = 0; i < UNIT_SUPPORT_MAX_COUNT; data++, i++)
             *data = 0;
-        }
 
         return;
     }
@@ -1213,7 +1211,7 @@ void sub_80A4064(struct bmsave_unkstruct2 *buf, int val)
     sub_80A4000(buf);
 }
 
-void LoadAndVerifySramSaveData()
+void EraseSramDataIfInvalid()
 {
     if (!ReadGlobalSaveInfo(NULL))
         InitGlobalSaveInfodata();

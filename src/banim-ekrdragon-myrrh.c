@@ -14,8 +14,6 @@
 #include "constants/items.h"
 #include "constants/banims.h"
 
-extern struct Anim *gAnims[4];
-
 CONST_DATA struct ProcCmd ProcScr_EkrMyrrh[] = {
     PROC_SLEEP(0x3C),
     PROC_REPEAT(EkrMyr_PrepareBanimfx),
