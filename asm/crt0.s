@@ -2,8 +2,6 @@
 .arm
 
 .include "gba.inc"
-__sp_usr	= 0x03007E00
-__sp_irq	= 0x03007FA0
 
 .global Init
 Init:

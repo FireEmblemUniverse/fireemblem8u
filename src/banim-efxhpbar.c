@@ -13,8 +13,6 @@
 
 /* Banim hp-bar change effect */
 
-extern struct Anim *gAnims[4];
-
 int CheckEkrHitDone(void)
 {
     if (gEkrHPBarCount == 0 && gEfxSpellAnimExists == 0)

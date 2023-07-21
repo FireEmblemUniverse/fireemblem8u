@@ -22,6 +22,8 @@
 
 // helper macros
 
+#define EWRAM_ENTRY ((u8 *)__ewram_start)
+
 #define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
 
 #define RED_VALUE(color) ((color) & 0x1F)

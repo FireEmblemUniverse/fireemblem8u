@@ -46,7 +46,7 @@ void AgbMain()
     InitRN(AdvanceGetLCGRNValue());
     sub_8000D0C();
     sub_80A7374();
-    LoadAndVerifySramSaveData();
+    EraseSramDataIfInvalid();
 
     // initialize sound
     m4aSoundInit();

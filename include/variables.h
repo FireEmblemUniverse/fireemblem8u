@@ -6,6 +6,7 @@
 #include "global.h"
 #include "proc.h"
 
+extern u8 __ewram_start[];
 // extern ??? gAnims
 // extern ??? gMinimapWinBuf
 // extern ??? gMinimapFrontWinBuf

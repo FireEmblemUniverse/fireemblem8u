@@ -11,8 +11,6 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 
-extern struct Anim *gAnims[4];
-
 bool sub_8055BB4(void)
 {
     return PrepareBattleGraphicsMaybe();

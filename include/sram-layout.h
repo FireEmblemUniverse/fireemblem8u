@@ -84,8 +84,8 @@ enum global_sram_blocks {
     SRAM_SIZE_BLOCKINFO = SAVE_ID_MAX * sizeof(struct SaveBlockInfo),
     SRAM_SIZE_SUSPEND   = SUSPENDSAVE_OFFSET_MAX,
     SRAM_SIZE_GAMESAVE  = GAMESAVE_OFFSET_MAX,
-    SRAM_SIZE_5         = 0x874,
-    SRAM_SIZE_6         = 0xC00,
+    SRAM_SIZE_MARENA    = sizeof(struct MultiArenaSaveBlock),
+    SRAM_SIZE_XMAP      = 0xC00,
 };
 
 enum global_sram_memory_map {
@@ -98,9 +98,9 @@ enum global_sram_memory_map {
     SRAM_OFFSET_SAV0      = SRAM_OFFSET_SUS1      + SRAM_SIZE_SUSPEND,
     SRAM_OFFSET_SAV1      = SRAM_OFFSET_SAV0      + SRAM_SIZE_GAMESAVE,
     SRAM_OFFSET_SAV2      = SRAM_OFFSET_SAV1      + SRAM_SIZE_GAMESAVE,
-    SRAM_OFFSET_5         = SRAM_OFFSET_SAV2      + SRAM_SIZE_GAMESAVE,
+    SRAM_OFFSET_MARENA    = SRAM_OFFSET_SAV2      + SRAM_SIZE_GAMESAVE,
 
-    SRAM_OFFSET_END       = SRAM_OFFSET_5         + SRAM_SIZE_5,
+    SRAM_OFFSET_END       = SRAM_OFFSET_MARENA    + SRAM_SIZE_MARENA,
 
-    SRAM_OFFSET_6 = CART_SRAM_SIZE - SRAM_SIZE_6,
+    SRAM_OFFSET_XMAP      = CART_SRAM_SIZE - SRAM_SIZE_XMAP,
 };

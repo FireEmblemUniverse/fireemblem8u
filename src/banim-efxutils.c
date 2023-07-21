@@ -9,8 +9,6 @@
 #include "constants/classes.h"
 #include "constants/items.h"
 
-extern struct Anim *gAnims[4];
-
 void sub_8070D04(u16 * ptr, u16 a, u16 b, int r3, int r4)
 {
     int i, j;

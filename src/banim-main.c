@@ -5,8 +5,6 @@
 #include "efxbattle.h"
 #include "efxmagic.h"
 
-extern struct Anim *gAnims[4];
-
 void BattleAIS_ExecCommands(void)
 {
     int type;

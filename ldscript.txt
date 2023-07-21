@@ -1,4 +1,22 @@
 OUTPUT_ARCH(arm)
+
+MEMORY
+{
+    rom   : ORIGIN = 0x08000000, LENGTH = 32M
+    iwram : ORIGIN = 0x03000000, LENGTH = 32K
+    ewram : ORIGIN = 0x02000000, LENGTH = 256K
+}
+
+__text_start            =       ORIGIN(rom);
+__ewram_start           =       ORIGIN(ewram);
+__eheap_end             =       ORIGIN(ewram) + LENGTH(ewram);
+__ewram_text_start      =       __eheap_end - 0x2000;
+__iwram_start           =       ORIGIN(iwram);
+__iwram_top             =       ORIGIN(iwram) + LENGTH(iwram);;
+__sp_irq                =       __iwram_top - 0x060;
+__sp_usr                =       __sp_irq - 0x1A0;
+__irq_flags             =       0x03007ff8;
+
 ENTRY(Init)
 
 gNumMusicPlayers = 9;
@@ -8,21 +26,21 @@ SECTIONS
 {
     /* TODO: figure out what is COMMON and .bss */
 
-    . = 0x02000000;
+    . = __ewram_start;
     EWRAM (NOLOAD) :
     ALIGN(4)
     {
         INCLUDE "sym_ewram.txt"
     }
 
-    . = 0x03000000;
+    . = __iwram_start;
     IWRAM (NOLOAD) :
     ALIGN(4)
     {
         INCLUDE "sym_iwram.txt"
     }
 
-    . = 0x08000000;
+    . = __text_start;
     ROM :
     ALIGN(4)
     {
