@@ -14,7 +14,7 @@ struct GmRouteProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ int unk_2c;
+    /* 2C */ u32 unk_2c;
     /* 30 */ u8 unk_30;
     /* 31 */ u8 unk_31;
     /* 32 */ u8 unk_32;
@@ -28,7 +28,7 @@ struct GmRouteProc
     /* 3A */ u8 unk_3a;
     /* 3C */ s16 unk_3c;
     /* 3E */ s16 unk_3e;
-    /* 40 */ void * unk_40;
+    /* 40 */ struct OpenPaths * unk_40;
 };
 
 struct GmScreenProc
