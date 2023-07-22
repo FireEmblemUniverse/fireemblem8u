@@ -911,16 +911,16 @@ void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blend
     gLCDControlBuffer.blendY = blendY;
 }
 
-void SetBlendTargetA(int a, int b, int c, int d, int e)
+void SetBlendTargetA(int bg0, int bg1, int bg2, int bg3, int obj)
 {
-    gUnknown_030030BC &= 0xFFE0;
-    gUnknown_030030BC |= (a << 0) | (b << 1) | (c << 2) | (d << 3) | (e << 4);
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~BLDCNT_TARGETA(1, 1, 1, 1, 1);
+    *((u16 *) &gLCDControlBuffer.bldcnt) |= BLDCNT_TARGETA(bg0, bg1, bg2, bg3, obj);
 }
 
-void SetBlendTargetB(int a, int b, int c, int d, int e)
+void SetBlendTargetB(int bg0, int bg1, int bg2, int bg3, int obj)
 {
-    gUnknown_030030BC &= 0xE0FF;
-    gUnknown_030030BC |= (a << 8) | (b << 9) | (c << 10) | (d << 11) | (e << 12);
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~BLDCNT_TARGETB(1, 1, 1, 1, 1);
+    *((u16 *) &gLCDControlBuffer.bldcnt) |= BLDCNT_TARGETB(bg0, bg1, bg2, bg3, obj);
 }
 
 void SetBlendBackdropA(int a)

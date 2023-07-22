@@ -123,12 +123,13 @@ int sub_80BC0F4(struct GmRouteProc * proc)
 {
     s16 x;
     s16 y;
-    int work;
 
     SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
 
-    work = (((gUnknown_030030BC & 0xffc0) | (1 << proc->unk_35)) & 0xC0FF);
-    gUnknown_030030BC = work | 0x800;
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~(BLDCNT_TARGETA(1, 1, 1, 1, 1) | BLDCNT_TGT1_BD);
+    *((u16 *) &gLCDControlBuffer.bldcnt) |= (1 << proc->unk_35);
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~(BLDCNT_TARGETB(1, 1, 1, 1, 1) | BLDCNT_TGT2_BD);
+    *((u16 *) &gLCDControlBuffer.bldcnt) |= BLDCNT_TGT2_BG3;
 
     sub_80BBC54(proc);
     sub_80BBCC8(proc->unk_36, proc->unk_37, proc->unk_35);
@@ -180,8 +181,8 @@ int MapRoute_TransitionEnd(struct GmRouteProc * proc)
 
     SetDefaultColorEffects();
 
-    gUnknown_030030BC = gUnknown_030030BC & 0x0000FFC0;
-    gUnknown_030030BC = gUnknown_030030BC & 0x0000C0FF;
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~(BLDCNT_TARGETA(1, 1, 1, 1, 1) | BLDCNT_TGT1_BD);
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~(BLDCNT_TARGETB(1, 1, 1, 1, 1) | BLDCNT_TGT2_BD);
 
     proc->unk_32 &= ~1;
 
@@ -232,8 +233,8 @@ void MapRoute_80BC2DC(struct GmRouteProc * proc)
 
     SetDefaultColorEffects();
 
-    gUnknown_030030BC = gUnknown_030030BC & 0x0000FFC0;
-    gUnknown_030030BC = gUnknown_030030BC & 0x0000C0FF;
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~(BLDCNT_TARGETA(1, 1, 1, 1, 1) | BLDCNT_TGT1_BD);
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~(BLDCNT_TARGETB(1, 1, 1, 1, 1) | BLDCNT_TGT2_BD);
 
     proc->unk_32 &= ~1;
 
