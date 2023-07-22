@@ -93,10 +93,10 @@ struct GMapPathData
     /* 00 */ void * roadData;
     /* 04 */ u8 start;
     /* 05 */ u8 end;
-    /* 08 */ struct GMapMovementPathData * movementPath;
+    /* 08 */ const struct GMapMovementPathData * movementPath;
 };
 
-extern struct GMapPathData gUnknown_08206674[];
+extern const struct GMapPathData gUnknown_08206674[];
 
 struct GMapNodeData
 {

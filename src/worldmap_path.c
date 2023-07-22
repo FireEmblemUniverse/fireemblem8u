@@ -7,6 +7,9 @@
 #include "soundwrapper.h"
 #include "uimenu.h"
 #include "uiutils.h"
+#include "bmmenu.h"
+
+#include "constants/nodes.h"
 
 #include "worldmap.h"
 
@@ -14,6 +17,370 @@
 void sub_80BBC54(ProcPtr);
 void sub_80BBCC8(int, int, int);
 void sub_80BBDA4(int, int, int, int, int);
+
+const struct GMapMovementPathData gUnknown_082064BC[] =
+{
+    { 1351, 128, 88, },
+    { 2703, 112, 72 },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_082064D4[] =
+{
+    { 2990, 120, 104, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_082064E4[] =
+{
+    { 2048, 184, 184, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_082064F4[] =
+{
+    { 2048, 184, 216, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_08206504[] =
+{
+    { 819, 168, 88, },
+    { 3276, 200, 56, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_0820651C[] =
+{
+    { 1474, 288, 104, },
+    { 3563, 312, 128, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_08206534[] =
+{
+    { 1064, 72, 88, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_08206544[] =
+{
+    { 1638, 72, 192, },
+    { 2580, 56, 208, },
+    { 3276, 56, 224, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_08206564[] =
+{
+    { 1720, 104, 232, },
+    { 2949, 120, 248, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_0820657C[] =
+{
+    { 573, 160, 248, },
+    { 2293, 176, 264, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_08206594[] =
+{
+    { 983, 288, 264, },
+    { 2416, 312, 240, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_082065AC[] =
+{
+    { 1187, 240, 216, },
+    { 2867, 264, 240, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_082065C4[] =
+{
+    { 1884, 256, 200, },
+    { 3809, 216, 160, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_082065DC[] =
+{
+    { 901, 152, 112, },
+    { 3153, 192, 152, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_082065F4[] =
+{
+    { 2457, 360, 200, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_08206604[] =
+{
+    { 303, 392, 80, },
+    { 733, 384, 72, },
+    { 2260, 344, 72, },
+    { 2871, 344, 88, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_0820662C[] =
+{
+    { 901, 408, 104, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_0820663C[] =
+{
+    { 2048, 392, 40, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_0820664C[] =
+{
+    { 942, 248, 56, },
+    { 1638, 264, 40, },
+    { -1, },
+};
+
+const struct GMapMovementPathData gUnknown_08206664[] =
+{
+    { 1351, 344, 88, },
+    { -1, },
+};
+
+extern u8 gUnknown_08A97FC4[];
+extern u8 gUnknown_08A97FF8[];
+extern u8 gUnknown_08A98030[];
+extern u8 gUnknown_08A98054[];
+extern u8 gUnknown_08A9806C[];
+extern u8 gUnknown_08A98090[];
+extern u8 gUnknown_08A980B4[];
+extern u8 gUnknown_08A980DC[];
+extern u8 gUnknown_08A98104[];
+extern u8 gUnknown_08A98144[];
+extern u8 gUnknown_08A98168[];
+extern u8 gUnknown_08A9819C[];
+extern u8 gUnknown_08A981BC[];
+extern u8 gUnknown_08A981F4[];
+extern u8 gUnknown_08A98228[];
+extern u8 gUnknown_08A9827C[];
+extern u8 gUnknown_08A982D4[];
+extern u8 gUnknown_08A98314[];
+extern u8 gUnknown_08A98344[];
+extern u8 gUnknown_08A9836C[];
+extern u8 gUnknown_08A983BC[];
+extern u8 gUnknown_08A983F0[];
+extern u8 gUnknown_08A98448[];
+extern u8 gUnknown_08A9847C[];
+extern u8 gUnknown_08A984D4[];
+extern u8 gUnknown_08A9850C[];
+extern u8 gUnknown_08A98540[];
+extern u8 gUnknown_08A98568[];
+extern u8 gUnknown_08A985A4[];
+extern u8 gUnknown_08A985FC[];
+extern u8 gUnknown_08A9863C[];
+extern u8 gUnknown_08A98694[];
+
+const struct GMapPathData gUnknown_08206674[] =
+{
+    {
+        .roadData = gUnknown_08A97FC4,
+        .start = NODE_BORDER_MULAN,
+        .end = NODE_CASTLE_FRELIA,
+        .movementPath = gUnknown_082064BC,
+    },
+    {
+        .roadData = gUnknown_08A97FF8,
+        .start = NODE_CASTLE_FRELIA,
+        .end = NODE_IDE,
+        .movementPath = gUnknown_082064D4,
+    },
+    {
+        .roadData = gUnknown_08A98030,
+        .start = NODE_IDE,
+        .end = NODE_BORGO_RIDGE,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A98054,
+        .start = NODE_BORGO_RIDGE,
+        .end = NODE_ZAHA_WOODS,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A9806C,
+        .start = NODE_ZAHA_WOODS,
+        .end = NODE_SERAFEW,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A98090,
+        .start = NODE_SERAFEW,
+        .end = NODE_ADLAS_PLAINS,
+        .movementPath = gUnknown_082064E4,
+    },
+    {
+        .roadData = gUnknown_08A980B4,
+        .start = NODE_ADLAS_PLAINS,
+        .end = NODE_RENVALL_07,
+        .movementPath = gUnknown_082064F4,
+    },
+    {
+        .roadData = gUnknown_08A980DC,
+        .start = NODE_ADLAS_PLAINS,
+        .end = NODE_RENVALL_08,
+        .movementPath = gUnknown_082064F4,
+    },
+    {
+        .roadData = gUnknown_08A98104,
+        .start = NODE_BORDER_MULAN,
+        .end = NODE_PORT_KIRIS,
+        .movementPath = gUnknown_08206504,
+    },
+    {
+        .roadData = gUnknown_08A98144,
+        .start = NODE_BORDER_MULAN,
+        .end = NODE_TOWER_OF_VALNI,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A98168,
+        .start = NODE_PORT_KIRIS,
+        .end = NODE_TERAZ_PLATEAU,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A9819C,
+        .start = NODE_TERAZ_PLATEAU,
+        .end = NODE_CAER_PELYN,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A981BC,
+        .start = NODE_CAER_PELYN,
+        .end = NODE_HAMILL_CANYON,
+        .movementPath = gUnknown_0820651C,
+    },
+    {
+        .roadData = gUnknown_08A981F4,
+        .start = NODE_HAMILL_CANYON,
+        .end = NODE_JEHANNA_HALL_0D,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A98228,
+        .start = NODE_CASTLE_FRELIA,
+        .end = NODE_FORT_RIGWALD,
+        .movementPath = gUnknown_08206534,
+    },
+    {
+        .roadData = gUnknown_08A9827C,
+        .start = NODE_FORT_RIGWALD,
+        .end = NODE_BETHROEN,
+        .movementPath = gUnknown_08206544,
+    },
+    {
+        .roadData = gUnknown_08A982D4,
+        .start = NODE_BETHROEN,
+        .end = NODE_TAIZEL,
+        .movementPath = gUnknown_08206564,
+    },
+    {
+        .roadData = gUnknown_08A98314,
+        .start = NODE_TAIZEL,
+        .end = NODE_ZAALBUL_MARSH,
+        .movementPath = gUnknown_0820657C,
+    },
+    {
+        .roadData = gUnknown_08A98344,
+        .start = NODE_ZAALBUL_MARSH,
+        .end = NODE_GRADO_KEEP,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A9836C,
+        .start = NODE_GRADO_KEEP,
+        .end = NODE_JEHANNA_HALL_13,
+        .movementPath = gUnknown_08206594,
+    },
+    {
+        .roadData = gUnknown_08A983BC,
+        .start = NODE_RENVALL_08,
+        .end = NODE_GRADO_KEEP,
+        .movementPath = gUnknown_082065AC,
+    },
+    {
+        .roadData = gUnknown_08A983F0,
+        .start = NODE_JEHANNA_HALL_13,
+        .end = NODE_RENAIS_CASTLE,
+        .movementPath = gUnknown_082065C4,
+    },
+    {
+        .roadData = gUnknown_08A98448,
+        .start = NODE_HAMILL_CANYON,
+        .end = NODE_JEHANNA_HALL_13,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A9847C,
+        .start = NODE_BORDER_MULAN,
+        .end = NODE_RENAIS_CASTLE,
+        .movementPath = gUnknown_082065DC,
+    },
+    {
+        .roadData = gUnknown_08A984D4,
+        .start = NODE_JEHANNA_HALL_13,
+        .end = NODE_NARUBE_RIVER,
+        .movementPath = gUnknown_082065F4,
+    },
+    {
+        .roadData = gUnknown_08A9850C,
+        .start = NODE_NARUBE_RIVER,
+        .end = NODE_NELERAS_PEAK,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A98540,
+        .start = NODE_NELERAS_PEAK,
+        .end = NODE_RAUSTEN_COURT,
+        .movementPath = NULL,
+    },
+    {
+        .roadData = gUnknown_08A98568,
+        .start = NODE_RAUSTEN_COURT,
+        .end = NODE_BLACK_TEMPLE,
+        .movementPath = gUnknown_08206604,
+    },
+    {
+        .roadData = gUnknown_08A985A4,
+        .start = NODE_RAUSTEN_COURT,
+        .end = NODE_LAGDOU_RUINS,
+        .movementPath = gUnknown_0820662C,
+    },
+    {
+        .roadData = gUnknown_08A985FC,
+        .start = NODE_RAUSTEN_COURT,
+        .end = NODE_MELKAEN_COAST,
+        .movementPath = gUnknown_0820663C,
+    },
+    {
+        .roadData = gUnknown_08A9863C,
+        .start = NODE_PORT_KIRIS,
+        .end = NODE_MELKAEN_COAST,
+        .movementPath = gUnknown_0820664C,
+    },
+    {
+        .roadData = gUnknown_08A98694,
+        .start = NODE_DARKLING_WOODS,
+        .end = NODE_BLACK_TEMPLE,
+        .movementPath = gUnknown_08206664,
+    },
+};
 
 //! FE8U = 0x080BBEB4
 void nullsub_38(void)
@@ -243,7 +610,36 @@ void MapRoute_80BC2DC(struct GmRouteProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3DFC4[];
+struct ProcCmd CONST_DATA gUnknown_08A3DFC4[] =
+{
+    PROC_NAME("GmapRoute"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(nullsub_38),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80BBEB8),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80BBF60),
+
+    PROC_GOTO(2),
+
+PROC_LABEL(1),
+    PROC_CALL_2(MapRoute_StartTransition),
+    PROC_CALL_2(sub_80BC0F4),
+    PROC_CALL_2(MapRoute_EnableBGSyncs),
+
+    PROC_REPEAT(MapRoute_TransitionLoop),
+
+    PROC_CALL_2(MapRoute_TransitionEnd),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(2),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080BC3A4
 ProcPtr NewMapRoute(ProcPtr parent, void * b, int c, int d)
@@ -260,7 +656,7 @@ int sub_80BC3D4(int idx)
 {
     int count;
 
-    struct GMapMovementPathData * pMovementPath = idx[gUnknown_08206674].movementPath;
+    const struct GMapMovementPathData * pMovementPath = idx[gUnknown_08206674].movementPath;
 
     if (pMovementPath == NULL)
     {
@@ -348,7 +744,7 @@ int sub_80BC4A0(struct MenuProc * menu)
 }
 
 //! FE8U = 0x080BC4AC
-int sub_80BC4AC(struct MenuProc * menu)
+u8 sub_80BC4AC(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     Proc_Goto(Proc_Find(gUnknown_08A3D748), 3);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
@@ -369,7 +765,7 @@ u8 sub_80BC4DC(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 }
 
 //! FE8U = 0x080BC4F4
-u8 sub_80BC4F4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+int sub_80BC4F4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     if (!(menuProc->state & MENU_STATE_NOTSHOWN))
     {
@@ -387,7 +783,8 @@ u8 sub_80BC4F4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 
         PutText(
             &menuItemProc->text,
-            BG_GetMapBuffer(menuProc->frontBg) + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
+            BG_GetMapBuffer(menuProc->frontBg) + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile)
+        );
     }
 
     // return 0; // BUG?
@@ -413,6 +810,73 @@ u8 sub_80BC59C(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
     Proc_Goto(Proc_Find(gUnknown_08A3D748), 13);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
+
+struct MenuItemDef CONST_DATA MenuItemDef_08A3E04C[] =
+{
+    {
+        .name = "　部隊",
+        .nameMsgId = 0x0645, // TODO: msgid "Unit"
+        .helpMsgId = 0x06DF,
+        .overrideId = 0,
+        .isAvailable = MenuAlwaysEnabled,
+        .onSelected = sub_80BC4C4,
+    },
+
+    {
+        .name = "　状況",
+        .nameMsgId = 0x0646, // TODO: msgid "Status"
+        .helpMsgId = 0x06E0,
+        .overrideId = 1,
+        .isAvailable = MenuAlwaysEnabled,
+        .onSelected = sub_80BC4DC,
+    },
+
+    {
+        .name = "　辞書",
+        .nameMsgId = 0x0647, // TODO: msgid "Guide"
+        .helpMsgId = 0x06E5,
+        .overrideId = 2,
+        .isAvailable = MapMenu_IsGuideCommandAvailable,
+        .onDraw = sub_80BC4F4,
+        .onSelected = sub_80BC56C,
+    },
+
+    {
+        .name = "　設定",
+        .nameMsgId = 0x0648, // TODO: msgid "Options"
+        .helpMsgId = 0x06E1,
+        .overrideId = 3,
+        .isAvailable = MenuAlwaysEnabled,
+        .onSelected = sub_80BC584,
+    },
+
+    {
+        .name = "　記録",
+        .nameMsgId = 0x0649, // TODO: msgid "Save"
+        .helpMsgId = 0x0679,
+        .overrideId = 4,
+        .isAvailable = MenuAlwaysEnabled,
+        .onSelected = sub_80BC59C,
+    },
+
+    { 0 },
+};
+
+struct MenuDef CONST_DATA gUnknown_08A3E124 =
+{
+    .rect = { 1, 1, 6, 0 },
+    .menuItems = MenuItemDef_08A3E04C,
+    .onInit = (void(*)(struct MenuProc *)) sub_80BC490,
+    .onEnd = (void(*)(struct MenuProc *)) sub_80BC4A0,
+    .onBPress = sub_80BC4AC,
+    .onRPress = MenuAutoHelpBoxSelect,
+    .onHelpBox = MenuStdHelpBox,
+};
+
+struct MenuRect CONST_DATA gUnknown_08A3E148 =
+{
+    .x = 1, .y = 1, .w = 7, .h = 0,
+};
 
 extern struct MenuDef gUnknown_08A3E200;
 extern struct MenuRect gUnknown_08A3E224;
@@ -448,14 +912,14 @@ struct MenuProc * sub_80BC5B4(struct WorldMapMainProc * parent)
 }
 
 //! FE8U = 0x080BC634
-u8 sub_80BC634(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+int sub_80BC634(struct MenuProc * menu)
 {
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     return 0;
 }
 
 //! FE8U = 0x080BC644
-u8 sub_80BC644(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+int sub_80BC644(struct MenuProc * menu)
 {
     ClearBg0Bg1();
     return 0;
@@ -470,7 +934,7 @@ u8 sub_80BC650(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 }
 
 //! FE8U = 0x080BC674
-int sub_80BC674(void)
+u8 sub_80BC674(const struct MenuItemDef * def, int number)
 {
     if (gGMData.nodes[gGMData.units[0].location].state & 2)
     {
@@ -486,7 +950,7 @@ int sub_80BC674(void)
 }
 
 //! FE8U = 0x080BC6AC
-int sub_80BC6AC(void)
+u8 sub_80BC6AC(const struct MenuItemDef * def, int number)
 {
     if (gGMData.nodes[gGMData.units[0].location].state & 2)
     {
@@ -502,7 +966,7 @@ int sub_80BC6AC(void)
 }
 
 //! FE8U = 0x080BC6E4
-int sub_80BC6E4(void)
+u8 sub_80BC6E4(const struct MenuItemDef * def, int number)
 {
     if (gGMData.nodes[gGMData.units[0].location].state & 2)
     {
@@ -523,7 +987,7 @@ int sub_80BC6E4(void)
 }
 
 //! FE8U = 0x080BC72C
-int sub_80BC72C(void)
+u8 sub_80BC72C(const struct MenuItemDef * def, int number)
 {
     if (!(gGMData.nodes[gGMData.units[0].location].state & 2))
     {
@@ -534,7 +998,7 @@ int sub_80BC72C(void)
 }
 
 //! FE8U = 0x080BC754
-int sub_80BC754(void)
+u8 sub_80BC754(const struct MenuItemDef * def, int number)
 {
     if (gGMData.nodes[gGMData.units[0].location].state & 2)
     {
@@ -545,36 +1009,98 @@ int sub_80BC754(void)
 }
 
 //! FE8U = 0x080BC77C
-int sub_80BC77C(struct MenuProc * menu)
+u8 sub_80BC77C(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    gGMData.unk_cd = menu->itemCurrent;
+    gGMData.unk_cd = menuProc->itemCurrent;
     Proc_Goto(Proc_Find(gUnknown_08A3D748), 19);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC7A4
-int sub_80BC7A4(struct MenuProc * menu)
+u8 sub_80BC7A4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    gGMData.unk_cd = menu->itemCurrent;
+    gGMData.unk_cd = menuProc->itemCurrent;
     Proc_Goto(Proc_Find(gUnknown_08A3D748), 20);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC7CC
-int sub_80BC7CC(struct MenuProc * menu)
+u8 sub_80BC7CC(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    gGMData.unk_cd = menu->itemCurrent;
+    gGMData.unk_cd = menuProc->itemCurrent;
     Proc_Goto(Proc_Find(gUnknown_08A3D748), 21);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC7F4
-int sub_80BC7F4(struct MenuProc * menu)
+u8 sub_80BC7F4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    gGMData.unk_cd = menu->itemCurrent;
+    gGMData.unk_cd = menuProc->itemCurrent;
     Proc_Goto(Proc_Find(gUnknown_08A3D748), 22);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
+
+struct MenuItemDef CONST_DATA MenuItemDef_08A3E14C[] =
+{
+    {
+        .name = "　武器屋に入る",
+        .nameMsgId = 0x066E, // TODO: msgid " Enter Armory[.]"
+        .helpMsgId = 0x06CF,
+        .overrideId = 0,
+        .isAvailable = sub_80BC674,
+        .onSelected = sub_80BC77C,
+    },
+
+    {
+        .name = "　道具屋に入る",
+        .nameMsgId = 0x066F, // TODO: msgid " Enter Shop[.]"
+        .helpMsgId = 0x06D0,
+        .overrideId = 1,
+        .isAvailable = sub_80BC6AC,
+        .onSelected = sub_80BC7A4,
+    },
+
+    {
+        .name = "　秘密店に入る",
+        .nameMsgId = 0x0670, // TODO: msgid " Enter ? Shop[.]"
+        .helpMsgId = 0x06D1,
+        .overrideId = 2,
+        .isAvailable = sub_80BC6E4,
+        .onSelected = sub_80BC7CC,
+    },
+
+    {
+        .name = "　アイテム整理",
+        .nameMsgId = 0x0671, // TODO: msgid " Manage Items[.]"
+        .helpMsgId = 0x0678,
+        .overrideId = 3,
+        .isAvailable = MenuAlwaysEnabled,
+        .onSelected = sub_80BC7F4,
+    },
+
+    { 0 }, // end
+};
+
+struct MenuDef CONST_DATA gUnknown_08A3E200 =
+{
+    .rect = { 20, 10, 8, 0 },
+    .menuItems = MenuItemDef_08A3E14C,
+    .onInit = (void(*)(struct MenuProc *)) sub_80BC634,
+    .onEnd = (void(*)(struct MenuProc *)) sub_80BC644,
+    .onBPress = sub_80BC650,
+    .onRPress = MenuAutoHelpBoxSelect,
+    .onHelpBox = MenuStdHelpBox,
+};
+
+struct MenuRect CONST_DATA gUnknown_08A3E224 =
+{
+    .x = 19, .y = 1, .w = 10, .h = 0,
+};
+
+struct MenuRect CONST_DATA gUnknown_08A3E228 =
+{
+    .x = 1, .y = 1, .w = 10, .h = 0,
+};
 
 void sub_80BC898(struct OpenPaths *);
 
