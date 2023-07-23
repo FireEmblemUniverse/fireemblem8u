@@ -489,7 +489,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
         sub_80B9114(proc);
     }
 
-    proc->unk_44->unk_4c->unk_31 |= 3;
+    proc->unk_44->unk_4c->flags |= 3;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {

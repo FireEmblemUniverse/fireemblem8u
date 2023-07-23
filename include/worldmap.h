@@ -14,21 +14,21 @@ struct GmRouteProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ u32 unk_2c;
-    /* 30 */ u8 unk_30;
-    /* 31 */ u8 unk_31;
+    /* 2C */ u32 chr;
+    /* 30 */ u8 pal;
+    /* 31 */ u8 flags;
     /* 32 */ u8 unk_32;
     /* 33 */ u8 unk_33;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 unk_35;
-    /* 36 */ s8 unk_36;
-    /* 37 */ s8 unk_37;
-    /* 38 */ s8 unk_38;
-    /* 39 */ s8 unk_39;
-    /* 3A */ u8 unk_3a;
+    /* 34 */ u8 bgA;
+    /* 35 */ u8 bgB;
+    /* 36 */ s8 x1;
+    /* 37 */ s8 y1;
+    /* 38 */ s8 x2;
+    /* 39 */ s8 y2;
+    /* 3A */ u8 bgPriority;
     /* 3C */ s16 unk_3c;
     /* 3E */ s16 unk_3e;
-    /* 40 */ struct OpenPaths * unk_40;
+    /* 40 */ struct OpenPaths * pOpenPaths;
 };
 
 struct GmScreenProc
@@ -90,13 +90,13 @@ struct GMapMovementPathData
 
 struct GMapPathData
 {
-    /* 00 */ void * roadData;
+    /* 00 */ u8 * gfxData;
     /* 04 */ u8 start;
     /* 05 */ u8 end;
     /* 08 */ const struct GMapMovementPathData * movementPath;
 };
 
-extern const struct GMapPathData gUnknown_08206674[];
+extern const struct GMapPathData gWMPathData[];
 
 struct GMapNodeData
 {
@@ -111,9 +111,9 @@ struct GMapNodeData
     /* 09 */ u8 unk_09; // Ephraim 1
     /* 0A */ u8 unk_0a; // Eirika 2
     /* 0B */ u8 unk_0b; // Ephraim 2
-    /* 0C */ u16 * unk_0c; // Armory
-    /* 10 */ u16 * unk_10; // Vendor
-    /* 14 */ u16 * unk_14; // Secret Shop
+    /* 0C */ u16 * armory;
+    /* 10 */ u16 * vendor;
+    /* 14 */ u16 * secretShop;
     /* 18 */ u16 x;
     /* 1A */ u16 y;
     /* 1C */ u16 nameTextId;
@@ -123,6 +123,6 @@ struct GMapNodeData
 
 extern struct GMapNodeData gUnknown_082060B0[];
 
-extern struct ProcCmd gUnknown_08A3D748[];
+extern struct ProcCmd gProcScr_WorldMapMain[];
 
 #endif // GUARD_WORLDMAP_H

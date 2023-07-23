@@ -194,7 +194,7 @@
 . = 0x019790; gEkrTsaBuffer = .;
 . = 0x019D00; gUnknown_02019D00 = .;
 . = 0x01A790; gEkrBuf2 = .;
-. = 0x01AFC0; gUnknown_0201AFC0 = .;
+. = 0x01AFC0; gFont_0201AFC0 = .;
 . = 0x01AFF0; gUnknown_0201AFF0 = .;
 . = 0x01B0D8; gUnknown_0201B0D8 = .;
 . = 0x01B100; gUnknown_0201B100 = .;

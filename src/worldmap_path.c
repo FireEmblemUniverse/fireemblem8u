@@ -181,196 +181,196 @@ extern u8 gUnknown_08A985FC[];
 extern u8 gUnknown_08A9863C[];
 extern u8 gUnknown_08A98694[];
 
-const struct GMapPathData gUnknown_08206674[] =
+const struct GMapPathData gWMPathData[] =
 {
     {
-        .roadData = gUnknown_08A97FC4,
+        .gfxData = gUnknown_08A97FC4,
         .start = NODE_BORDER_MULAN,
         .end = NODE_CASTLE_FRELIA,
         .movementPath = gUnknown_082064BC,
     },
     {
-        .roadData = gUnknown_08A97FF8,
+        .gfxData = gUnknown_08A97FF8,
         .start = NODE_CASTLE_FRELIA,
         .end = NODE_IDE,
         .movementPath = gUnknown_082064D4,
     },
     {
-        .roadData = gUnknown_08A98030,
+        .gfxData = gUnknown_08A98030,
         .start = NODE_IDE,
         .end = NODE_BORGO_RIDGE,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A98054,
+        .gfxData = gUnknown_08A98054,
         .start = NODE_BORGO_RIDGE,
         .end = NODE_ZAHA_WOODS,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A9806C,
+        .gfxData = gUnknown_08A9806C,
         .start = NODE_ZAHA_WOODS,
         .end = NODE_SERAFEW,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A98090,
+        .gfxData = gUnknown_08A98090,
         .start = NODE_SERAFEW,
         .end = NODE_ADLAS_PLAINS,
         .movementPath = gUnknown_082064E4,
     },
     {
-        .roadData = gUnknown_08A980B4,
+        .gfxData = gUnknown_08A980B4,
         .start = NODE_ADLAS_PLAINS,
         .end = NODE_RENVALL_07,
         .movementPath = gUnknown_082064F4,
     },
     {
-        .roadData = gUnknown_08A980DC,
+        .gfxData = gUnknown_08A980DC,
         .start = NODE_ADLAS_PLAINS,
         .end = NODE_RENVALL_08,
         .movementPath = gUnknown_082064F4,
     },
     {
-        .roadData = gUnknown_08A98104,
+        .gfxData = gUnknown_08A98104,
         .start = NODE_BORDER_MULAN,
         .end = NODE_PORT_KIRIS,
         .movementPath = gUnknown_08206504,
     },
     {
-        .roadData = gUnknown_08A98144,
+        .gfxData = gUnknown_08A98144,
         .start = NODE_BORDER_MULAN,
         .end = NODE_TOWER_OF_VALNI,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A98168,
+        .gfxData = gUnknown_08A98168,
         .start = NODE_PORT_KIRIS,
         .end = NODE_TERAZ_PLATEAU,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A9819C,
+        .gfxData = gUnknown_08A9819C,
         .start = NODE_TERAZ_PLATEAU,
         .end = NODE_CAER_PELYN,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A981BC,
+        .gfxData = gUnknown_08A981BC,
         .start = NODE_CAER_PELYN,
         .end = NODE_HAMILL_CANYON,
         .movementPath = gUnknown_0820651C,
     },
     {
-        .roadData = gUnknown_08A981F4,
+        .gfxData = gUnknown_08A981F4,
         .start = NODE_HAMILL_CANYON,
         .end = NODE_JEHANNA_HALL_0D,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A98228,
+        .gfxData = gUnknown_08A98228,
         .start = NODE_CASTLE_FRELIA,
         .end = NODE_FORT_RIGWALD,
         .movementPath = gUnknown_08206534,
     },
     {
-        .roadData = gUnknown_08A9827C,
+        .gfxData = gUnknown_08A9827C,
         .start = NODE_FORT_RIGWALD,
         .end = NODE_BETHROEN,
         .movementPath = gUnknown_08206544,
     },
     {
-        .roadData = gUnknown_08A982D4,
+        .gfxData = gUnknown_08A982D4,
         .start = NODE_BETHROEN,
         .end = NODE_TAIZEL,
         .movementPath = gUnknown_08206564,
     },
     {
-        .roadData = gUnknown_08A98314,
+        .gfxData = gUnknown_08A98314,
         .start = NODE_TAIZEL,
         .end = NODE_ZAALBUL_MARSH,
         .movementPath = gUnknown_0820657C,
     },
     {
-        .roadData = gUnknown_08A98344,
+        .gfxData = gUnknown_08A98344,
         .start = NODE_ZAALBUL_MARSH,
         .end = NODE_GRADO_KEEP,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A9836C,
+        .gfxData = gUnknown_08A9836C,
         .start = NODE_GRADO_KEEP,
         .end = NODE_JEHANNA_HALL_13,
         .movementPath = gUnknown_08206594,
     },
     {
-        .roadData = gUnknown_08A983BC,
+        .gfxData = gUnknown_08A983BC,
         .start = NODE_RENVALL_08,
         .end = NODE_GRADO_KEEP,
         .movementPath = gUnknown_082065AC,
     },
     {
-        .roadData = gUnknown_08A983F0,
+        .gfxData = gUnknown_08A983F0,
         .start = NODE_JEHANNA_HALL_13,
         .end = NODE_RENAIS_CASTLE,
         .movementPath = gUnknown_082065C4,
     },
     {
-        .roadData = gUnknown_08A98448,
+        .gfxData = gUnknown_08A98448,
         .start = NODE_HAMILL_CANYON,
         .end = NODE_JEHANNA_HALL_13,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A9847C,
+        .gfxData = gUnknown_08A9847C,
         .start = NODE_BORDER_MULAN,
         .end = NODE_RENAIS_CASTLE,
         .movementPath = gUnknown_082065DC,
     },
     {
-        .roadData = gUnknown_08A984D4,
+        .gfxData = gUnknown_08A984D4,
         .start = NODE_JEHANNA_HALL_13,
         .end = NODE_NARUBE_RIVER,
         .movementPath = gUnknown_082065F4,
     },
     {
-        .roadData = gUnknown_08A9850C,
+        .gfxData = gUnknown_08A9850C,
         .start = NODE_NARUBE_RIVER,
         .end = NODE_NELERAS_PEAK,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A98540,
+        .gfxData = gUnknown_08A98540,
         .start = NODE_NELERAS_PEAK,
         .end = NODE_RAUSTEN_COURT,
         .movementPath = NULL,
     },
     {
-        .roadData = gUnknown_08A98568,
+        .gfxData = gUnknown_08A98568,
         .start = NODE_RAUSTEN_COURT,
         .end = NODE_BLACK_TEMPLE,
         .movementPath = gUnknown_08206604,
     },
     {
-        .roadData = gUnknown_08A985A4,
+        .gfxData = gUnknown_08A985A4,
         .start = NODE_RAUSTEN_COURT,
         .end = NODE_LAGDOU_RUINS,
         .movementPath = gUnknown_0820662C,
     },
     {
-        .roadData = gUnknown_08A985FC,
+        .gfxData = gUnknown_08A985FC,
         .start = NODE_RAUSTEN_COURT,
         .end = NODE_MELKAEN_COAST,
         .movementPath = gUnknown_0820663C,
     },
     {
-        .roadData = gUnknown_08A9863C,
+        .gfxData = gUnknown_08A9863C,
         .start = NODE_PORT_KIRIS,
         .end = NODE_MELKAEN_COAST,
         .movementPath = gUnknown_0820664C,
     },
     {
-        .roadData = gUnknown_08A98694,
+        .gfxData = gUnknown_08A98694,
         .start = NODE_DARKLING_WOODS,
         .end = NODE_BLACK_TEMPLE,
         .movementPath = gUnknown_08206664,
@@ -415,14 +415,14 @@ void sub_80BBC54(struct GmRouteProc * proc)
 {
     int i;
 
-    u16 oam2Base = (proc->unk_2c / CHR_SIZE) | (proc->unk_30 << 0xc);
+    u16 oam2Base = (proc->chr / CHR_SIZE) | (proc->pal << 0xc);
 
     CpuFill16(0, gUnknown_02019D00, 0x12C0);
 
-    for (i = 0; i < proc->unk_40->openPathsLength; i++)
+    for (i = 0; i < proc->pOpenPaths->openPathsLength; i++)
     {
         sub_80BBBF4(
-            proc->unk_40->openPaths[i][gUnknown_08206674].roadData,
+            proc->pOpenPaths->openPaths[i][gWMPathData].gfxData,
             gUnknown_02019D00,
             60,
             oam2Base
@@ -727,21 +727,21 @@ void nullsub_38(void)
 //! FE8U = 0x080BBEB8
 void sub_80BBEB8(struct GmRouteProc * proc)
 {
-    proc->unk_31 = 4;
+    proc->flags = 4;
     proc->unk_32 = 0;
     proc->unk_33 = -1;
-    proc->unk_34 = 2;
-    proc->unk_35 = 1;
-    proc->unk_3a = BG_GetPriority(BG_1);
+    proc->bgA = 2;
+    proc->bgB = 1;
+    proc->bgPriority = BG_GetPriority(BG_1);
 
-    *&proc->unk_36 = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_34;
-    *&proc->unk_37 = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_36;
+    *&proc->x1 = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_34;
+    *&proc->y1 = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_36;
 
-    proc->unk_39 = -2;
-    proc->unk_38 = -2;
+    proc->y2 = -2;
+    proc->x2 = -2;
 
     sub_80BBC54(proc);
-    proc->unk_31 |= 3;
+    proc->flags |= 3;
 
     return;
 }
@@ -766,48 +766,48 @@ void sub_80BBF60(struct GmRouteProc * proc)
     s16 x;
     s16 y;
 
-    if (!(proc->unk_31 & 4))
+    if (!(proc->flags & 4))
     {
         return;
     }
 
-    proc->unk_38 = proc->unk_36;
-    proc->unk_39 = proc->unk_37;
+    proc->x2 = proc->x1;
+    proc->y2 = proc->y1;
 
     *&x = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_34;
     *&y = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_36;
 
-    proc->unk_36 = x / 8;
-    proc->unk_37 = y / 8;
+    proc->x1 = x / 8;
+    proc->y1 = y / 8;
 
-    if (proc->unk_36 != proc->unk_38 || proc->unk_37 != proc->unk_39)
+    if (proc->x1 != proc->x2 || proc->y1 != proc->y2)
     {
-        if ((ABS(proc->unk_36 - proc->unk_38) >= 2) || (ABS(proc->unk_37 - proc->unk_39) >= 2))
+        if ((ABS(proc->x1 - proc->x2) >= 2) || (ABS(proc->y1 - proc->y2) >= 2))
         {
-            sub_80BBCC8(proc->unk_36, proc->unk_37, proc->unk_34);
-            BG_EnableSync(proc->unk_34);
+            sub_80BBCC8(proc->x1, proc->y1, proc->bgA);
+            BG_EnableSync(proc->bgA);
         }
         else
         {
-            sub_80BBDA4(proc->unk_36, proc->unk_37, proc->unk_38, proc->unk_39, proc->unk_34);
-            BG_EnableSync(proc->unk_34);
+            sub_80BBDA4(proc->x1, proc->y1, proc->x2, proc->y2, proc->bgA);
+            BG_EnableSync(proc->bgA);
         }
     }
 
-    if ((proc->unk_31 & 2) != 0)
+    if (proc->flags & 2)
     {
         sub_80BBC54(proc);
-        proc->unk_31 &= ~2;
+        proc->flags &= ~2;
     }
 
-    if ((proc->unk_31 & 1) != 0)
+    if (proc->flags & 1)
     {
-        sub_80BBCC8(proc->unk_36, proc->unk_37, proc->unk_34);
-        BG_EnableSync(proc->unk_34);
-        proc->unk_31 &= ~1;
+        sub_80BBCC8(proc->x1, proc->y1, proc->bgA);
+        BG_EnableSync(proc->bgA);
+        proc->flags &= ~1;
     }
 
-    BG_SetPosition(proc->unk_34, x & 0x1FF, y & 0xff);
+    BG_SetPosition(proc->bgA, x & 0x1FF, y & 0xff);
 
     return;
 }
@@ -815,8 +815,8 @@ void sub_80BBF60(struct GmRouteProc * proc)
 //! FE8U = 0x080BC0BC
 int MapRoute_StartTransition(struct GmRouteProc * proc)
 {
-    BG_Fill(BG_GetMapBuffer(proc->unk_35), 0);
-    BG_EnableSync(proc->unk_35);
+    BG_Fill(BG_GetMapBuffer(proc->bgB), 0);
+    BG_EnableSync(proc->bgB);
     PlaySoundEffect(0x310);
     return 0;
 }
@@ -827,20 +827,20 @@ int sub_80BC0F4(struct GmRouteProc * proc)
     s16 x;
     s16 y;
 
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendAlpha(0, 0x10);
 
     *((u16 *) &gLCDControlBuffer.bldcnt) &= ~(BLDCNT_TARGETA(1, 1, 1, 1, 1) | BLDCNT_TGT1_BD);
-    *((u16 *) &gLCDControlBuffer.bldcnt) |= (1 << proc->unk_35);
+    *((u16 *) &gLCDControlBuffer.bldcnt) |= (1 << proc->bgB);
     *((u16 *) &gLCDControlBuffer.bldcnt) &= ~(BLDCNT_TARGETB(1, 1, 1, 1, 1) | BLDCNT_TGT2_BD);
     *((u16 *) &gLCDControlBuffer.bldcnt) |= BLDCNT_TGT2_BG3;
 
     sub_80BBC54(proc);
-    sub_80BBCC8(proc->unk_36, proc->unk_37, proc->unk_35);
+    sub_80BBCC8(proc->x1, proc->y1, proc->bgB);
 
     *&x = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_34;
     *&y = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_36;
 
-    BG_SetPosition(proc->unk_35, x & 0x1FF, y & 0xff);
+    BG_SetPosition(proc->bgB, x & 0x1FF, y & 0xff);
 
     return 0;
 }
@@ -848,8 +848,8 @@ int sub_80BC0F4(struct GmRouteProc * proc)
 //! FE8U = 0x080BC184
 int MapRoute_EnableBGSyncs(struct GmRouteProc * proc)
 {
-    BG_SetPriority(proc->unk_35, BG_GetPriority(BG_3));
-    BG_EnableSyncByMask((1 << proc->unk_35) | (1 << proc->unk_34));
+    BG_SetPriority(proc->bgB, BG_GetPriority(BG_3));
+    BG_EnableSyncByMask((1 << proc->bgB) | (1 << proc->bgA));
     return 0;
 }
 
@@ -861,12 +861,12 @@ void MapRoute_TransitionLoop(struct GmRouteProc * proc)
     if (proc->unk_3e < proc->unk_3c)
     {
         int coeff = (proc->unk_3e * 0x10) / proc->unk_3c;
-        SetSpecialColorEffectsParameters(1, coeff, 0x10 - coeff, 0);
+        SetBlendAlpha(coeff, 0x10 - coeff);
     }
     else
     {
-        CpuFastCopy(BG_GetMapBuffer(proc->unk_35), BG_GetMapBuffer(proc->unk_34), 0x800);
-        BG_EnableSync(proc->unk_34);
+        CpuFastCopy(BG_GetMapBuffer(proc->bgB), BG_GetMapBuffer(proc->bgA), 0x800);
+        BG_EnableSync(proc->bgA);
 
         Proc_Break(proc);
     }
@@ -877,10 +877,10 @@ void MapRoute_TransitionLoop(struct GmRouteProc * proc)
 //! FE8U = 0x080BC228
 int MapRoute_TransitionEnd(struct GmRouteProc * proc)
 {
-    BG_SetPosition(proc->unk_35, 0, 0);
-    BG_Fill(BG_GetMapBuffer(proc->unk_35), 0);
-    BG_SetPriority(proc->unk_35, proc->unk_3a);
-    BG_EnableSyncByMask((1 << proc->unk_34) | (1 << proc->unk_35));
+    BG_SetPosition(proc->bgB, 0, 0);
+    BG_Fill(BG_GetMapBuffer(proc->bgB), 0);
+    BG_SetPriority(proc->bgB, proc->bgPriority);
+    BG_EnableSyncByMask((1 << proc->bgA) | (1 << proc->bgB));
 
     SetDefaultColorEffects();
 
@@ -897,7 +897,7 @@ void MapRoute_BeginRouteTransition(struct GmRouteProc * proc, int unk)
 {
     if (unk < 2)
     {
-        proc->unk_31 |= 3;
+        proc->flags |= 3;
         proc->unk_32 &= ~1;
     }
     else
@@ -928,11 +928,11 @@ void MapRoute_80BC2DC(struct GmRouteProc * proc)
 
     sub_80BBC54(proc);
 
-    sub_80BBCC8(x / 8, y / 8, proc->unk_34);
-    BG_SetPosition(proc->unk_35, 0, 0);
-    BG_Fill(BG_GetMapBuffer(proc->unk_35), 0);
-    BG_SetPriority(proc->unk_35, proc->unk_3a);
-    BG_EnableSyncByMask((1 << proc->unk_34) | (1 << proc->unk_35));
+    sub_80BBCC8(x / 8, y / 8, proc->bgA);
+    BG_SetPosition(proc->bgB, 0, 0);
+    BG_Fill(BG_GetMapBuffer(proc->bgB), 0);
+    BG_SetPriority(proc->bgB, proc->bgPriority);
+    BG_EnableSyncByMask((1 << proc->bgA) | (1 << proc->bgB));
 
     SetDefaultColorEffects();
 
@@ -948,7 +948,7 @@ void MapRoute_80BC2DC(struct GmRouteProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3DFC4[] =
+struct ProcCmd CONST_DATA gProcScr_GMapRoute[] =
 {
     PROC_NAME("GmapRoute"),
     PROC_MARK(PROC_MARK_8),
@@ -982,12 +982,12 @@ PROC_LABEL(2),
 // clang-format on
 
 //! FE8U = 0x080BC3A4
-ProcPtr NewMapRoute(ProcPtr parent, void * b, int c, int d)
+ProcPtr StartGMapRoute(ProcPtr parent, struct OpenPaths * pPaths, int c, int d)
 {
-    struct GmRouteProc * proc = Proc_Start(gUnknown_08A3DFC4, parent);
-    proc->unk_2c = c;
-    proc->unk_30 = d;
-    proc->unk_40 = b;
+    struct GmRouteProc * proc = Proc_Start(gProcScr_GMapRoute, parent);
+    proc->chr = c;
+    proc->pal = d;
+    proc->pOpenPaths = pPaths;
     return proc;
 }
 
@@ -996,7 +996,7 @@ int sub_80BC3D4(int idx)
 {
     int count;
 
-    const struct GMapMovementPathData * pMovementPath = idx[gUnknown_08206674].movementPath;
+    const struct GMapMovementPathData * pMovementPath = idx[gWMPathData].movementPath;
 
     if (pMovementPath == NULL)
     {
@@ -1017,8 +1017,8 @@ int sub_80BC3D4(int idx)
 //! FE8U = 0x080BC404
 void sub_80BC404(struct GmRouteProc * proc)
 {
-    BG_Fill(BG_GetMapBuffer(proc->unk_34), 0);
-    BG_EnableSyncByMask((1 << proc->unk_34));
+    BG_Fill(BG_GetMapBuffer(proc->bgA), 0);
+    BG_EnableSyncByMask((1 << proc->bgA));
     return;
 }
 
@@ -1057,55 +1057,55 @@ void sub_80BC428(struct UnknownWorldMapStructA * a)
     return;
 }
 
-extern struct Font gUnknown_0201AFC0;
-extern struct MenuDef gUnknown_08A3E124;
-extern struct MenuRect gUnknown_08A3E148;
+extern struct Font gFont_0201AFC0;
+extern struct MenuDef gMenu_WMGeneralMenu;
+extern struct MenuRect gMenuRect_WMGeneralMenuRect;
 
 //! FE8U = 0x080BC454
-struct MenuProc * sub_80BC454(ProcPtr parent)
+struct MenuProc * StartWMGeneralMenu(ProcPtr parent)
 {
     gGMData.unk01 = 0;
-    InitTextFont(&gUnknown_0201AFC0, (void *)0x06001000, 0x80, 0);
-    return StartMenuAt(&gUnknown_08A3E124, gUnknown_08A3E148, parent);
+    InitTextFont(&gFont_0201AFC0, (void *)0x06001000, 0x80, 0);
+    return StartMenuAt(&gMenu_WMGeneralMenu, gMenuRect_WMGeneralMenuRect, parent);
 }
 
 //! FE8U = 0x080BC490
-int sub_80BC490(struct MenuProc * menu)
+int WMGeneralMenu_OnInit(struct MenuProc * menu)
 {
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     return 0;
 }
 
 //! FE8U = 0x080BC4A0
-int sub_80BC4A0(struct MenuProc * menu)
+int WMGeneralMenu_OnEnd(struct MenuProc * menu)
 {
     ClearBg0Bg1();
     return 0;
 }
 
 //! FE8U = 0x080BC4AC
-u8 sub_80BC4AC(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMGeneralMenu_OnCancel(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 3);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 3);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC4C4
-u8 sub_80BC4C4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnUnitSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 9);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 9);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC4DC
-u8 sub_80BC4DC(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnStatusSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 12);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 12);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC4F4
-int sub_80BC4F4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+int WMMenu_OnGuideDraw(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     if (!(menuProc->state & MENU_STATE_NOTSHOWN))
     {
@@ -1131,27 +1131,27 @@ int sub_80BC4F4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 }
 
 //! FE8U = 0x080BC56C
-u8 sub_80BC56C(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnGuideSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 10);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 10);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC584
-u8 sub_80BC584(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnOptionsSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 11);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 11);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC59C
-u8 sub_80BC59C(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnSaveSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 13);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 13);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
-struct MenuItemDef CONST_DATA MenuItemDef_08A3E04C[] =
+struct MenuItemDef CONST_DATA MenuItemDef_WMGeneralMenu[] =
 {
     {
         .name = "　部隊",
@@ -1159,7 +1159,7 @@ struct MenuItemDef CONST_DATA MenuItemDef_08A3E04C[] =
         .helpMsgId = 0x06DF,
         .overrideId = 0,
         .isAvailable = MenuAlwaysEnabled,
-        .onSelected = sub_80BC4C4,
+        .onSelected = WMMenu_OnUnitSelected,
     },
 
     {
@@ -1168,7 +1168,7 @@ struct MenuItemDef CONST_DATA MenuItemDef_08A3E04C[] =
         .helpMsgId = 0x06E0,
         .overrideId = 1,
         .isAvailable = MenuAlwaysEnabled,
-        .onSelected = sub_80BC4DC,
+        .onSelected = WMMenu_OnStatusSelected,
     },
 
     {
@@ -1177,8 +1177,8 @@ struct MenuItemDef CONST_DATA MenuItemDef_08A3E04C[] =
         .helpMsgId = 0x06E5,
         .overrideId = 2,
         .isAvailable = MapMenu_IsGuideCommandAvailable,
-        .onDraw = sub_80BC4F4,
-        .onSelected = sub_80BC56C,
+        .onDraw = WMMenu_OnGuideDraw,
+        .onSelected = WMMenu_OnGuideSelected,
     },
 
     {
@@ -1187,7 +1187,7 @@ struct MenuItemDef CONST_DATA MenuItemDef_08A3E04C[] =
         .helpMsgId = 0x06E1,
         .overrideId = 3,
         .isAvailable = MenuAlwaysEnabled,
-        .onSelected = sub_80BC584,
+        .onSelected = WMMenu_OnOptionsSelected,
     },
 
     {
@@ -1196,47 +1196,47 @@ struct MenuItemDef CONST_DATA MenuItemDef_08A3E04C[] =
         .helpMsgId = 0x0679,
         .overrideId = 4,
         .isAvailable = MenuAlwaysEnabled,
-        .onSelected = sub_80BC59C,
+        .onSelected = WMMenu_OnSaveSelected,
     },
 
     { 0 },
 };
 
-struct MenuDef CONST_DATA gUnknown_08A3E124 =
+struct MenuDef CONST_DATA gMenu_WMGeneralMenu =
 {
     .rect = { 1, 1, 6, 0 },
-    .menuItems = MenuItemDef_08A3E04C,
-    .onInit = (void(*)(struct MenuProc *)) sub_80BC490,
-    .onEnd = (void(*)(struct MenuProc *)) sub_80BC4A0,
-    .onBPress = sub_80BC4AC,
+    .menuItems = MenuItemDef_WMGeneralMenu,
+    .onInit = (void(*)(struct MenuProc *)) WMGeneralMenu_OnInit,
+    .onEnd = (void(*)(struct MenuProc *)) WMGeneralMenu_OnEnd,
+    .onBPress = WMGeneralMenu_OnCancel,
     .onRPress = MenuAutoHelpBoxSelect,
     .onHelpBox = MenuStdHelpBox,
 };
 
-struct MenuRect CONST_DATA gUnknown_08A3E148 =
+struct MenuRect CONST_DATA gMenuRect_WMGeneralMenuRect =
 {
     .x = 1, .y = 1, .w = 7, .h = 0,
 };
 
-extern struct MenuDef gUnknown_08A3E200;
-extern struct MenuRect gUnknown_08A3E224;
-extern struct MenuRect gUnknown_08A3E228;
+extern struct MenuDef gMenu_WMNodeMenu;
+extern struct MenuRect gMenuRect_WMNodeMenuRectA;
+extern struct MenuRect gMenuRect_WMNodeMenuRectB;
 
-struct MenuProc * sub_80BC5B4(struct WorldMapMainProc * parent)
+struct MenuProc * StartWMNodeMenu(struct WorldMapMainProc * parent)
 {
     struct MenuProc * menuProc;
 
     gGMData.unk01 = 0;
 
-    InitTextFont(&gUnknown_0201AFC0, (void *)0x06001000, 0x80, 0);
+    InitTextFont(&gFont_0201AFC0, (void *)0x06001000, 0x80, 0);
 
     if ((gGMData.unk08 >> 8) - gGMData.xCamera < 152)
     {
-        menuProc = StartMenuAt(&gUnknown_08A3E200, gUnknown_08A3E224, parent);
+        menuProc = StartMenuAt(&gMenu_WMNodeMenu, gMenuRect_WMNodeMenuRectA, parent);
     }
     else
     {
-        menuProc = StartMenuAt(&gUnknown_08A3E200, gUnknown_08A3E228, parent);
+        menuProc = StartMenuAt(&gMenu_WMNodeMenu, gMenuRect_WMNodeMenuRectB, parent);
     }
 
     if (gGMData.unk_cd < menuProc->itemCount)
@@ -1252,36 +1252,36 @@ struct MenuProc * sub_80BC5B4(struct WorldMapMainProc * parent)
 }
 
 //! FE8U = 0x080BC634
-int sub_80BC634(struct MenuProc * menu)
+int WMNodeMenu_OnInit(struct MenuProc * menu)
 {
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     return 0;
 }
 
 //! FE8U = 0x080BC644
-int sub_80BC644(struct MenuProc * menu)
+int WMNodeMenu_OnEnd(struct MenuProc * menu)
 {
     ClearBg0Bg1();
     return 0;
 }
 
 //! FE8U = 0x080BC650
-u8 sub_80BC650(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMNodeMenu_OnCancel(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = 0;
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 3);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 3);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC674
-u8 sub_80BC674(const struct MenuItemDef * def, int number)
+u8 WMMenu_IsArmoryAvailable(const struct MenuItemDef * def, int number)
 {
     if (gGMData.nodes[gGMData.units[0].location].state & 2)
     {
         return MENU_NOTSHOWN;
     }
 
-    if ((gGMData.units[0].location[gUnknown_082060B0].unk_0c[0]) == 0)
+    if ((gGMData.units[0].location[gUnknown_082060B0].armory[0]) == 0)
     {
         return MENU_NOTSHOWN;
     }
@@ -1290,14 +1290,14 @@ u8 sub_80BC674(const struct MenuItemDef * def, int number)
 }
 
 //! FE8U = 0x080BC6AC
-u8 sub_80BC6AC(const struct MenuItemDef * def, int number)
+u8 WMMenu_IsVendorAvailable(const struct MenuItemDef * def, int number)
 {
     if (gGMData.nodes[gGMData.units[0].location].state & 2)
     {
         return MENU_NOTSHOWN;
     }
 
-    if ((gGMData.units[0].location[gUnknown_082060B0].unk_10[0]) == 0)
+    if ((gGMData.units[0].location[gUnknown_082060B0].vendor[0]) == 0)
     {
         return MENU_NOTSHOWN;
     }
@@ -1306,14 +1306,14 @@ u8 sub_80BC6AC(const struct MenuItemDef * def, int number)
 }
 
 //! FE8U = 0x080BC6E4
-u8 sub_80BC6E4(const struct MenuItemDef * def, int number)
+u8 WMMenu_IsSecretShopAvailable(const struct MenuItemDef * def, int number)
 {
     if (gGMData.nodes[gGMData.units[0].location].state & 2)
     {
         return MENU_NOTSHOWN;
     }
 
-    if ((gGMData.units[0].location[gUnknown_082060B0].unk_14[0]) == 0)
+    if ((gGMData.units[0].location[gUnknown_082060B0].secretShop[0]) == 0)
     {
         return MENU_NOTSHOWN;
     }
@@ -1349,46 +1349,46 @@ u8 sub_80BC754(const struct MenuItemDef * def, int number)
 }
 
 //! FE8U = 0x080BC77C
-u8 sub_80BC77C(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnArmorySelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = menuProc->itemCurrent;
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 19);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 19);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC7A4
-u8 sub_80BC7A4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnVendorSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = menuProc->itemCurrent;
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 20);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 20);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC7CC
-u8 sub_80BC7CC(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnSecretShopSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = menuProc->itemCurrent;
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 21);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 21);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC7F4
-u8 sub_80BC7F4(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
+u8 WMMenu_OnManageItemsSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = menuProc->itemCurrent;
-    Proc_Goto(Proc_Find(gUnknown_08A3D748), 22);
+    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 22);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
-struct MenuItemDef CONST_DATA MenuItemDef_08A3E14C[] =
+struct MenuItemDef CONST_DATA MenuItemDef_WMNodeMenu[] =
 {
     {
         .name = "　武器屋に入る",
         .nameMsgId = 0x066E, // TODO: msgid " Enter Armory[.]"
         .helpMsgId = 0x06CF,
         .overrideId = 0,
-        .isAvailable = sub_80BC674,
-        .onSelected = sub_80BC77C,
+        .isAvailable = WMMenu_IsArmoryAvailable,
+        .onSelected = WMMenu_OnArmorySelected,
     },
 
     {
@@ -1396,8 +1396,8 @@ struct MenuItemDef CONST_DATA MenuItemDef_08A3E14C[] =
         .nameMsgId = 0x066F, // TODO: msgid " Enter Shop[.]"
         .helpMsgId = 0x06D0,
         .overrideId = 1,
-        .isAvailable = sub_80BC6AC,
-        .onSelected = sub_80BC7A4,
+        .isAvailable = WMMenu_IsVendorAvailable,
+        .onSelected = WMMenu_OnVendorSelected,
     },
 
     {
@@ -1405,8 +1405,8 @@ struct MenuItemDef CONST_DATA MenuItemDef_08A3E14C[] =
         .nameMsgId = 0x0670, // TODO: msgid " Enter ? Shop[.]"
         .helpMsgId = 0x06D1,
         .overrideId = 2,
-        .isAvailable = sub_80BC6E4,
-        .onSelected = sub_80BC7CC,
+        .isAvailable = WMMenu_IsSecretShopAvailable,
+        .onSelected = WMMenu_OnSecretShopSelected,
     },
 
     {
@@ -1415,42 +1415,42 @@ struct MenuItemDef CONST_DATA MenuItemDef_08A3E14C[] =
         .helpMsgId = 0x0678,
         .overrideId = 3,
         .isAvailable = MenuAlwaysEnabled,
-        .onSelected = sub_80BC7F4,
+        .onSelected = WMMenu_OnManageItemsSelected,
     },
 
     { 0 }, // end
 };
 
-struct MenuDef CONST_DATA gUnknown_08A3E200 =
+struct MenuDef CONST_DATA gMenu_WMNodeMenu =
 {
     .rect = { 20, 10, 8, 0 },
-    .menuItems = MenuItemDef_08A3E14C,
-    .onInit = (void(*)(struct MenuProc *)) sub_80BC634,
-    .onEnd = (void(*)(struct MenuProc *)) sub_80BC644,
-    .onBPress = sub_80BC650,
+    .menuItems = MenuItemDef_WMNodeMenu,
+    .onInit = (void(*)(struct MenuProc *)) WMNodeMenu_OnInit,
+    .onEnd = (void(*)(struct MenuProc *)) WMNodeMenu_OnEnd,
+    .onBPress = WMNodeMenu_OnCancel,
     .onRPress = MenuAutoHelpBoxSelect,
     .onHelpBox = MenuStdHelpBox,
 };
 
-struct MenuRect CONST_DATA gUnknown_08A3E224 =
+struct MenuRect CONST_DATA gMenuRect_WMNodeMenuRectA =
 {
     .x = 19, .y = 1, .w = 10, .h = 0,
 };
 
-struct MenuRect CONST_DATA gUnknown_08A3E228 =
+struct MenuRect CONST_DATA gMenuRect_WMNodeMenuRectB =
 {
     .x = 1, .y = 1, .w = 10, .h = 0,
 };
 
-void sub_80BC898(struct OpenPaths *);
+void GmPathsInit(struct OpenPaths *);
 
 //! FE8U = 0x080BC81C
-void sub_80BC81C(void)
+void GmDataInit(void)
 {
     int i;
 
     CpuFill32(0, &gGMData, 0xd4);
-    sub_80BC898(&gGMData.routeData);
+    GmPathsInit(&gGMData.openPaths);
 
     for (i = 0; i < 7; i++)
     {
@@ -1475,11 +1475,11 @@ void sub_80BC81C(void)
 }
 
 //! FE8U = 0x080BC898
-void sub_80BC898(struct OpenPaths * pPaths)
+void GmPathsInit(struct OpenPaths * pPaths)
 {
     u32 i;
 
-    for (i = 0; i < 0x20; i++)
+    for (i = 0; i < sizeof(pPaths->openPaths); i++)
     {
         pPaths->openPaths[i] = 0xff;
     }
@@ -1490,12 +1490,12 @@ void sub_80BC898(struct OpenPaths * pPaths)
 }
 
 //! FE8U = 0x080BC8BC
-bool SetupNewWMRoute(struct GMapData * pGMapData, struct OpenPaths * routeData, int idx)
+bool AddGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int idx)
 {
-    if (routeData->openPathsLength < sizeof(routeData->openPaths))
+    if (pPaths->openPathsLength < sizeof(pPaths->openPaths))
     {
-        routeData->openPaths[routeData->openPathsLength] = idx;
-        routeData->openPathsLength += 1;
+        pPaths->openPaths[pPaths->openPathsLength] = idx;
+        pPaths->openPathsLength += 1;
         sub_80BCA0C(pGMapData);
         return false;
     }
@@ -1506,38 +1506,38 @@ bool SetupNewWMRoute(struct GMapData * pGMapData, struct OpenPaths * routeData, 
 }
 
 //! FE8U = 0x080BC8EC
-bool WM_RemovePath(struct GMapData * pGMapData, struct OpenPaths * routeData, int idx)
+bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int idx)
 {
     int i;
 
-    if (routeData->openPathsLength <= 0)
+    if (pPaths->openPathsLength <= 0)
     {
         return true;
     }
 
     if (idx < 0)
     {
-        routeData->openPathsLength--;
-        routeData->openPaths[routeData->openPathsLength] = 0xff;
+        pPaths->openPathsLength--;
+        pPaths->openPaths[pPaths->openPathsLength] = 0xff;
         sub_80BCA0C(pGMapData);
         return false;
     }
 
-    for (i = 0; i < routeData->openPathsLength; i++)
+    for (i = 0; i < pPaths->openPathsLength; i++)
     {
         int j;
 
-        if (routeData->openPaths[i] != idx)
+        if (pPaths->openPaths[i] != idx)
         {
             continue;
         }
 
-        for (j = i; j < routeData->openPathsLength - 1; j++)
+        for (j = i; j < pPaths->openPathsLength - 1; j++)
         {
-            routeData->openPaths[j] = routeData->openPaths[j + 1];
+            pPaths->openPaths[j] = pPaths->openPaths[j + 1];
         }
 
-        routeData->openPathsLength--;
+        pPaths->openPathsLength--;
         sub_80BCA0C(pGMapData);
         return false;
     }

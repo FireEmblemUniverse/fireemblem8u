@@ -475,7 +475,7 @@ extern u8 gEkrBuf1[];
 extern u16 gUnknown_02019490[];
 extern u16 gEkrTsaBuffer[0x1000 / 2];
 extern u8 gEkrBuf2[];
-// extern ??? gUnknown_0201AFC0
+// extern ??? gFont_0201AFC0
 // extern ??? gUnknown_0201AFF0
 // extern ??? gUnknown_0201B0D8
 // extern ??? gUnknown_0201B100

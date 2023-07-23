@@ -522,7 +522,7 @@ void GameControl_MasterSwitch(struct GameCtrlProc* proc) {
 
     switch (proc->nextAction) {
         case GAME_ACTION_0:
-            sub_80BC81C();
+            GmDataInit();
 
             // fallthrough
 

@@ -443,7 +443,7 @@ struct GMapData
     /* 10 */ struct GMUnit units[8];
     /* 30 */ struct GMNode nodes[0x1C];
     /* A0 */ int unk_a0; // pad?
-    /* A4 */ struct OpenPaths routeData;
+    /* A4 */ struct OpenPaths openPaths;
     /* C8 */ u8 unk_c8; // entry node id?
     /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
     /* CC */ u8 unk_cc; // used to determine which skirmish enemy block to load

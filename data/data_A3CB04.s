@@ -4,8 +4,8 @@
 gUnknown_08A3D728:  @ 0x08A3D728
 	.incbin "baserom.gba", 0xA3D728, 0x20
 
-	.global gUnknown_08A3D748
-gUnknown_08A3D748:  @ 0x08A3D748
+	.global gProcScr_WorldMapMain
+gProcScr_WorldMapMain:  @ 0x08A3D748
         @ PROC_SET_END_CB
         .short 0x4, 0x0
         .word WorldMap_Destruct
@@ -113,7 +113,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80BC454
+        .word StartWMGeneralMenu
         @ PROC_GOTO
         .short 0xc, 0x3
         .word 0x0
@@ -404,7 +404,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80BC5B4
+        .word StartWMNodeMenu
         @ PROC_SLEEP
         .short 0xe, 0x6
         .word 0x0
@@ -612,7 +612,7 @@ gUnknown_08A3DD50:  @ 0x08A3DD50
         .word 0x0
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
-        .word gUnknown_08A3D748
+        .word gProcScr_WorldMapMain
         @ PROC_END_EACH
         .short 0x9, 0x0
         .word gUnknown_08A20DA4
