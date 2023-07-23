@@ -487,7 +487,7 @@ extern const struct FaceVramEntry gFaceConfig_PrepItemUseScreen[4];
 // extern ??? gUnknown_082060B0
 // extern ??? gUnknown_08206450
 // extern ??? gUnknown_08206498
-// extern ??? gUnknown_08206674
+// extern ??? gWMPathData
 // extern ??? gUnknown_08206868
 // extern ??? gUnknown_082068F4
 // extern ??? gUnknown_082068FC
@@ -1390,7 +1390,7 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gProcScr_WorldMapFaceHolder
 // extern ??? gProcScr_WorldMapFaceCtrl
 // extern ??? gUnknown_08A3D728
-// extern ??? gUnknown_08A3D748
+// extern ??? gProcScr_WorldMapMain
 // extern ??? gUnknown_08A3DD08
 // extern ??? gUnknown_08A3DD20
 // extern ??? gUnknown_08A3DD38
@@ -1402,12 +1402,12 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3DF2C
 // extern ??? gUnknown_08A3DF64
 // extern ??? gUnknown_08A3DF94
-// extern ??? gUnknown_08A3DFC4
-// extern ??? gUnknown_08A3E124
-// extern ??? gUnknown_08A3E148
-// extern ??? gUnknown_08A3E200
-// extern ??? gUnknown_08A3E224
-// extern ??? gUnknown_08A3E228
+// extern ??? gProcScr_GMapRoute
+// extern ??? gMenu_WMGeneralMenu
+// extern ??? gMenuRect_WMGeneralMenuRect
+// extern ??? gMenu_WMNodeMenu
+// extern ??? gMenuRect_WMNodeMenuRectA
+// extern ??? gMenuRect_WMNodeMenuRectB
 // extern ??? gUnknown_08A3E22C
 // extern ??? gUnknown_08A3E23C
 // extern ??? gUnknown_08A3E248

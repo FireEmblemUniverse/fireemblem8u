@@ -10,77 +10,7 @@
 #include "scene.h"
 #include "uiutils.h"
 
-
-// TODO: General worldmap header file
-
-struct GmRouteProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c;
-    /* 30 */ u8 unk_30;
-    /* 31 */ u8 unk_31;
-};
-
-struct GmScreenProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ STRUCT_PAD(0x2a, 0x4c);
-
-    /* 4C */ struct GmRouteProc * unk_4c;
-};
-
-struct GmNodeIconDisplayProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x32);
-
-    /* 32 */ u8 unk_32_0 : 1;
-    /* 32 */ u8 unk_32_1 : 1;
-
-    /* 33 */ u8 unk_33;
-};
-
-struct WorldMapMainProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 unk_29_0 : 1;
-    /* 29 */ u8 unk_29_1 : 1;
-    /* 29 */ u8 unk_29_2 : 1;
-    /* 29 */ u8 unk_29_3 : 1;
-    /* 29 */ u8 unk_29_4 : 1;
-    /* 29 */ u8 unk_29_5 : 1;
-    /* 29 */ u8 unk_29_6 : 1;
-    /* 29 */ u8 unk_29_7 : 1;
-
-    /* 2A */ u8 unk_2a;
-    /* 2C */ int unk_2c;
-    /* 30 */ STRUCT_PAD(0x30, 0x3a);
-
-    /* 3A */ u16 unk_3a;
-    /* 3C */ u16 unk_3c; // pad?
-    /* 3E */ u8 unk_3e;
-    /* 3F */ u8 unk_3f;
-    /* 40 */ s8 unk_40;
-    /* 41 */ s8 unk_41;
-    /* 44 */ struct GmScreenProc * unk_44; // GmapScreen
-    /* 48 */ struct GmNodeIconDisplayProc * unk_48; // GmNodeIconDisplay
-    /* 4C */ ProcPtr unk_4c; // Gmap Unit
-    /* 50 */ ProcPtr unk_50; // Gmap Cursor
-    /* 54 */ ProcPtr unk_54; // Gmap MU
-};
-
-struct GMapNodeROM
-{
-    /* 00 */ u8 placementFlag;
-    /* 01 */ STRUCT_PAD(0x01, 0x18);
-    /* 18 */ u16 x;
-    /* 1A */ u16 y;
-    /* 1C */ STRUCT_PAD(0x1c, 0x20);
-};
-
-extern struct GMapNodeROM gUnknown_082060B0[];
+#include "worldmap.h"
 
 // TODO: Figure out what this is?
 
@@ -559,7 +489,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
         sub_80B9114(proc);
     }
 
-    proc->unk_44->unk_4c->unk_31 |= 3;
+    proc->unk_44->unk_4c->flags |= 3;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {

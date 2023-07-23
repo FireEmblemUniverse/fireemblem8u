@@ -86,8 +86,8 @@ void WriteWorldMapPaths(struct GMapData* pGMapData, u8* pathFlags) {
         pathFlags[i] = 0;
     }
 
-    for (i = 0; i < pGMapData->routeData.openPathsLength; i++) {
-        int path = pGMapData->routeData.openPaths[i];
+    for (i = 0; i < pGMapData->openPaths.openPathsLength; i++) {
+        int path = pGMapData->openPaths.openPaths[i];
 
         int idx = path / 8;
         u8* addr = pathFlags + idx;
@@ -104,13 +104,13 @@ void WriteWorldMapPaths(struct GMapData* pGMapData, u8* pathFlags) {
 void ReadWorldMapPaths(struct GMapData* pGMapData, u8* pathFlags) {
     int i;
 
-    pGMapData->routeData.openPathsLength = 0;
+    pGMapData->openPaths.openPathsLength = 0;
 
     for (i = 0; i < 0x20; i++) {
         int idx = i / 8;
 
         if ((pathFlags[idx] >> (i & 7)) & 1) {
-            SetupNewWMRoute(pGMapData, &pGMapData->routeData, i);
+            AddGmPath(pGMapData, &pGMapData->openPaths, i);
         }
     }
 

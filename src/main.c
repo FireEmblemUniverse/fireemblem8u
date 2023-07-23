@@ -53,7 +53,7 @@ void AgbMain()
     Sound_SetDefaultMaxNumChannels();
 
     SetInterrupt_LCDVBlank(OnVBlank);
-    sub_80BC81C();
+    GmDataInit();
     SetLang(LANG_ENGLISH);
     ResetText();
     StartGame();

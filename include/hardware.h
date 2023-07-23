@@ -314,6 +314,18 @@ enum {
     gLCDControlBuffer.wincnt.wout_enableObj = (obj); \
 }
 
+#define SetBlendAlpha(ca, cb) \
+    SetSpecialColorEffectsParameters(BLEND_EFFECT_ALPHA, (ca), (cb), 0)
+
+#define SetBlendBrighten(cy) \
+    SetSpecialColorEffectsParameters(BLEND_EFFECT_BRIGHTEN, 0, 0, (cy))
+
+#define SetBlendDarken(cy) \
+    SetSpecialColorEffectsParameters(BLEND_EFFECT_DARKEN, 0, 0, (cy))
+
+#define SetBlendNone() \
+    SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0x10, 0, 0)
+
 // Functions
 
 void CopyToPaletteBuffer(const void* src, int b, int size);
