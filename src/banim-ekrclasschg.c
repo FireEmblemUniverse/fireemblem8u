@@ -559,7 +559,7 @@ void NewEfxClasschgFIN(struct Anim * anim, int duration)
     SpellFx_RegisterBgPal(Pal_08791D7C, 0x20);
     SpellFx_RegisterBgGfx(Img_086849B8, 0x2000);
 
-    sub_8070E94(gUnknown_08684AB8, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
+    EfxTmCpyBG(gUnknown_08684AB8, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
     BG_EnableSyncByMask(BG1_SYNC_BIT);
     SpellFx_SetSomeColorEffect();
     SetSpecialColorEffectsParameters(0x1, 0xE, 0x8, 0x0);

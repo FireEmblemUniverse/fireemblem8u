@@ -4,8 +4,8 @@
 gUnknown_0875879C:  @ 0x0875879C
 	.incbin "baserom.gba", 0x75879C, 0x280
 
-	.global gUnknown_08758A1C
-gUnknown_08758A1C:  @ 0x08758A1C
+	.global gEfxTileRefPals_08758A1C
+gEfxTileRefPals_08758A1C:  @ 0x08758A1C
 	.incbin "baserom.gba", 0x758A1C, 0x14
 
 	.global ProcScr_ekrsubAnimeEmulator

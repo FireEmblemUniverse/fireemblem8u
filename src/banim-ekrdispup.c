@@ -131,12 +131,12 @@ void ekrDispUPMain(struct ProcEkrDispUP *proc)
 
     if (val2 > 0) {
         if (proc->unk4C == 0) { 
-            sub_8070E94(&gUnknown_0880210C[val3], &gBG0TilemapBuffer2D[val1][val4], 15, val2, -1, -1);
+            EfxTmCpyBG(&gUnknown_0880210C[val3], &gBG0TilemapBuffer2D[val1][val4], 15, val2, -1, -1);
             sub_8070D04(&gBG0TilemapBuffer2D[val1][val4], 15, val2, 2, 128);
         }
 
         if (proc->unk50 == 0) {
-            sub_8070E94(&gUnknown_088021C0[val3], &gBG0TilemapBuffer2D[val1][r2], r2, val2, -1, -1);
+            EfxTmCpyBG(&gUnknown_088021C0[val3], &gBG0TilemapBuffer2D[val1][r2], r2, val2, -1, -1);
             sub_8070D04(&gBG0TilemapBuffer2D[val1][r2], 15, val2, 3, 128);
         }
     }
@@ -294,7 +294,7 @@ void EfxPrepareScreenFx(void)
     Text_DrawString(&gTextEkrlvupMsg[1], str);
 
     BG_Fill(gBG0TilemapBuffer, 0x80);
-    sub_8070E94(gUnknown_08802508, gBG0TilemapBuffer + 0x1E, 2, 20, -1, -1);
+    EfxTmCpyBG(gUnknown_08802508, gBG0TilemapBuffer + 0x1E, 2, 20, -1, -1);
     sub_8070D04(gBG0TilemapBuffer + 0x1F, 1, 20, 2, 128);
     sub_8070D04(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
     BG_EnableSyncByMask(BG0_SYNC_BIT);

@@ -586,7 +586,7 @@ void ekrBattleExecExpGain(struct ProcEkrBattle *proc)
     gLCDControlBuffer.wincnt.wout_enableBlend = 0;
 
     RegisterDataMove(gUnknown_08802D44, (void *)0x6002000, 0x300);
-    sub_8070E94(gUnknown_08803524, TILEMAP_LOCATED(gBG1TilemapBuffer, 6, 17), 18, 3, 1, 0x100);
+    EfxTmCpyBG(gUnknown_08803524, TILEMAP_LOCATED(gBG1TilemapBuffer, 6, 17), 18, 3, 1, 0x100);
     CpuFastSet(gUnknown_08803590, PAL_BG(1), 8);
     BG_EnableSyncByMask(2);
     EnablePaletteSync();

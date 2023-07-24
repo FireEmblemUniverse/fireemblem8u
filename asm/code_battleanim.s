@@ -120,7 +120,7 @@ _0805AF0E:
 	ldr r0, [sp, #0x10]
 	mov r1, r9
 	movs r3, #0x42
-	bl sub_8070EF4
+	bl EfxTmCpyExt
 	mov r0, sl
 	lsls r2, r0, #1
 	adds r2, r2, r4
@@ -136,7 +136,7 @@ _0805AF0E:
 	ldr r0, [sp, #0x14]
 	mov r1, r9
 	movs r3, #0x42
-	bl sub_8070EF4
+	bl EfxTmCpyExt
 	lsls r0, r5, #1
 	adds r4, r4, r0
 	ldr r2, _0805AF98  @ 0xFFFFFA96
@@ -152,7 +152,7 @@ _0805AF0E:
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_8070EF4
+	bl EfxTmCpyExt
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	add sp, #0x18
@@ -224,7 +224,7 @@ _0805AFF0:
 	str r1, [sp, #8]
 	str r1, [sp, #0xc]
 	movs r3, #0x42
-	bl sub_8070EF4
+	bl EfxTmCpyExt
 	add sp, #0x10
 	pop {r0}
 	bx r0
@@ -278,7 +278,7 @@ sub_805B034: @ 0x0805B034
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_8070EF4
+	bl EfxTmCpyExt
 	movs r0, #8
 	bl BG_EnableSyncByMask
 	add sp, #0x10
@@ -440,7 +440,7 @@ sub_805B18C: @ 0x0805B18C
 	bl LZ77UnCompWram
 	movs r1, #1
 	negs r1, r1
-	ldr r2, _0805B1FC  @ gUnknown_0201D428
+	ldr r2, _0805B1FC  @ gEfxFrameTmap
 	movs r0, #0x2e
 	str r0, [sp]
 	movs r0, #0x14
@@ -451,7 +451,7 @@ sub_805B18C: @ 0x0805B18C
 	str r4, [sp, #0xc]
 	adds r0, r6, #0
 	movs r3, #0x42
-	bl sub_8070EF4
+	bl EfxTmCpyExt
 	movs r0, #0
 	bl sub_805B034
 	movs r0, #8
@@ -474,7 +474,7 @@ _0805B1EC: .4byte gUnknown_085BC188
 _0805B1F0: .4byte 0x06008000
 _0805B1F4: .4byte gUnknown_085BE7F4
 _0805B1F8: .4byte gEkrTsaBuffer
-_0805B1FC: .4byte gUnknown_0201D428
+_0805B1FC: .4byte gEfxFrameTmap
 
 	THUMB_FUNC_END sub_805B18C
 

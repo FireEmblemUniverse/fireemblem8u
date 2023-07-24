@@ -23,7 +23,7 @@ void PutBanimBgTSA(int index)
 {
     int _i = index * 3 + 1;
     LZ77UnCompWram(gBattleBGDataTable[_i], gEkrTsaBuffer);
-    sub_8070E94(gEkrTsaBuffer, gBG3TilemapBuffer, 0x1E, 0x14, 0x6, 0x0);
+    EfxTmCpyBG(gEkrTsaBuffer, gBG3TilemapBuffer, 0x1E, 0x14, 0x6, 0x0);
 }
 
 void PutBanimBgPAL(int index)

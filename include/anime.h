@@ -186,6 +186,6 @@ int GetBattleAnimationId(struct Unit *unit, const void *anim, u16 wpn, u32 *out)
 // ??? sub_8058918(???);
 // ??? sub_805893C(???);
 int SomethingFilterBattleAnimId(s16, u16 item);
-int GetAllegienceId(u8);
+int GetAllegienceId(u32);
 
 #endif // GUARD_ANIME_H

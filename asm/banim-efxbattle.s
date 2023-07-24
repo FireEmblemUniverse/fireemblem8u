@@ -334,7 +334,7 @@ sub_8053618: @ 0x08053618
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_8070EF4
+	bl EfxTmCpyExt
 	movs r0, #4
 	bl BG_EnableSyncByMask
 _08053668:

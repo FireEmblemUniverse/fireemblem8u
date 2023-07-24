@@ -649,7 +649,7 @@ _08065D0C:
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x20
-	bl sub_8070EC4
+	bl EfxTmCpyBgHFlip
 	b _08065D4C
 	.align 2, 0
 _08065D30: .4byte gEkrTsaBuffer
@@ -663,7 +663,7 @@ _08065D38:
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x20
-	bl sub_8070E94
+	bl EfxTmCpyBG
 _08065D4C:
 	movs r0, #2
 	bl BG_EnableSyncByMask

@@ -143,7 +143,7 @@ void EkrDK_PrepareBanimfx(struct ProcEkrDragon *proc)
 void PrepareDemonKingBGFx(struct ProcEkrDragon *proc)
 {
     Fill16_EkrTsaBuffer_(1);
-    sub_80559D0(0x60016001);
+    EfxTmFill(0x60016001);
     BG_Fill(gBG3TilemapBuffer, 1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
     Decompress(Img_DemonKingBG, (void *)0x06008000);
@@ -915,12 +915,12 @@ void sub_8077474(int arg1, int arg2)
 
     Decompress(Tsa_DemonKingBG1, gEkrTsaBuffer);
 
-    sub_8070FA4(&gEkrTsaBuffer[0x3C0], -1,
-        gUnknown_0201D428 + _a1 + 66 * _a2,
+    EfxTmCpyExtHFlip(&gEkrTsaBuffer[0x3C0], -1,
+        gEfxFrameTmap + _a1 + 66 * _a2,
         66, 32, 2, 6, 0);
 
-    sub_8070FA4(gEkrTsaBuffer, -1,
-        gUnknown_0201D428 + _a1 + 66 * (_a2 + 2),
+    EfxTmCpyExtHFlip(gEkrTsaBuffer, -1,
+        gEfxFrameTmap + _a1 + 66 * (_a2 + 2),
         66, 32, 30, 6, 0);
 }
 
@@ -932,7 +932,7 @@ void sub_807750C(int arg1, int arg2)
     int b = arg2 & 7;
 
     BG_SetPosition(BG_3, a, b);
-    sub_8070EF4(gUnknown_0201D428 + _a1 + 66 * _a2, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
+    EfxTmCpyExt(gEfxFrameTmap + _a1 + 66 * _a2, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 }
 
@@ -1052,28 +1052,28 @@ void sub_80776B0(struct ProcEfxDKfx *proc)
     }
 }
 
-void sub_80776D8(int arg1, int arg2, const u16 *tsa)
+void EfxTmDecompress(int xtile, int ytile, const u16 *tsa)
 {
-    int _a1 = arg1 >> 3;
-    int _a2 = arg2 >> 3;
+    int x = xtile >> 3;
+    int y = ytile >> 3;
 
-    sub_80559D0(0);
+    EfxTmFill(0);
     LZ77UnCompWram(tsa, gEkrTsaBuffer);
 
-    sub_8070FA4(gEkrTsaBuffer, -1,
-        gUnknown_0201D428 + _a1 + 66 * _a2,
+    EfxTmCpyExtHFlip(gEkrTsaBuffer, -1,
+        gEfxFrameTmap + x + 66 * y,
         66, 32, 32, 6, 0);
 }
 
-void sub_807773C(int arg1, int arg2)
+void EfxBG3TmSetPosition(int xtile, int ytile)
 {
-    int _a1 = arg1 >> 3;
-    int a = arg1 & 7;
-    int _a2 = arg2 >> 3;
-    int b = arg2 & 7;
+    int x = xtile >> 3;
+    int xbg = xtile & 7;
+    int y = ytile >> 3;
+    int ybg = ytile & 7;
 
-    BG_SetPosition(BG_3, a, b);
-    sub_8070EF4(gUnknown_0201D428 + _a1 + 66 * _a2, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
+    BG_SetPosition(BG_3, xbg, ybg);
+    EfxTmCpyExt(gEfxFrameTmap + x + 66 * y, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 }
 
@@ -1121,8 +1121,8 @@ void DemonKingDeadWhiteOut(struct ProcEkrDragonTunk *proc)
 
     if (proc->timer1 == 0x36) {
         SetAnimStateHidden(GetAnimPosition(proc->anim));
-        sub_80776D8(proc->unk32, -8, Tsa_DemonKingBG1);
-        sub_807773C(0, 0);
+        EfxTmDecompress(proc->unk32, -8, Tsa_DemonKingBG1);
+        EfxBG3TmSetPosition(0, 0);
     }
 
     if (proc->timer1 == 0x64) {
@@ -1139,7 +1139,7 @@ void sub_807789C(struct ProcEkrDragonTunk *proc)
     int _0 = 0;
 
     if (proc->timer2 <=0x18A)
-        sub_807773C(gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
+        EfxBG3TmSetPosition(gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
     
     BG_SetPosition(BG_2, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
     BG_SetPosition(BG_0,
@@ -1180,8 +1180,8 @@ void sub_807789C(struct ProcEkrDragonTunk *proc)
     }
 
     if (proc->timer2 == 0xE7) {
-        sub_80776D8(proc->unk32, -8, Tsa_DemonKingBG2);
-        sub_807773C(0, 0);
+        EfxTmDecompress(proc->unk32, -8, Tsa_DemonKingBG2);
+        EfxBG3TmSetPosition(0, 0);
     }
 
     if (proc->timer2 > 0xE5) {

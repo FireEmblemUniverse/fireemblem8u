@@ -233,7 +233,7 @@ _0806EA62:
 	adds r0, r2, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070EC4
+	bl EfxTmCpyBgHFlip
 	b _0806EA90
 _0806EA7C:
 	ldr r1, [r4, #0x14]
@@ -244,7 +244,7 @@ _0806EA7C:
 	adds r0, r2, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070E94
+	bl EfxTmCpyBG
 _0806EA90:
 	movs r0, #1
 	ldrh r4, [r4, #0x12]
