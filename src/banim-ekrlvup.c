@@ -433,7 +433,7 @@ void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
 
     LZ77UnCompWram(Img_LevelUpBoxFrame, gEkrBuf1);
     LZ77UnCompWram(Tsa_LevelUpBoxFrame, gEkrTsaBuffer);
-    sub_8070E94(gEkrTsaBuffer, TILEMAP_LOCATED(gBG1TilemapBuffer, 0, 0x6), 0x20, 0x14, 1, 0x100);
+    EfxTmCpyBG(gEkrTsaBuffer, TILEMAP_LOCATED(gBG1TilemapBuffer, 0, 0x6), 0x20, 0x14, 1, 0x100);
     RegisterDataMove(gEkrBuf1, (void *)BG_VRAM + 0x2000, 0x8C0);
     CpuFastCopy(Pal_LevelUpBoxFrame, PAL_BG(1), 0x20);
 

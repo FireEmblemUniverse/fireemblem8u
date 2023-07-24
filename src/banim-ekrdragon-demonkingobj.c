@@ -50,7 +50,7 @@ CONST_DATA struct ProcCmd ProcScr_08801810[] = {
 void sub_8077DC8(void)
 {
     Decompress(Tsa_087F45D0, gEkrTsaBuffer);
-    sub_8070E94(gEkrTsaBuffer, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
+    EfxTmCpyBG(gEkrTsaBuffer, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
     BG_EnableSyncByMask(BG1_SYNC_BIT);
     sub_8077EAC(gEkrBgXOffset, 0);
     SetBlackPal(0x1);
@@ -233,9 +233,9 @@ void EfxSelfThunderBGUpdateAnimTSA(struct Anim *anim, const u16 *tsa_close, cons
 
     buffer = gEkrTsaBuffer;
     if (GetAnimPosition(anim) == EKR_POS_L)
-        sub_8070E94(buffer, gBG1TilemapBuffer, 32, 20, 1, 256);
+        EfxTmCpyBG(buffer, gBG1TilemapBuffer, 32, 20, 1, 256);
     else
-        sub_8070EC4(buffer, gBG1TilemapBuffer, 32, 20, 1, 256);
+        EfxTmCpyBgHFlip(buffer, gBG1TilemapBuffer, 32, 20, 1, 256);
     
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }

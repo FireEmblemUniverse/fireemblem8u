@@ -283,9 +283,9 @@ void sub_805560C(struct Anim *anim, const u16 *src1, const u16 *src2)
         buf = src2;
 
     if (GetAnimPosition(anim) == EKR_POS_L)
-        sub_8070EC4(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     else
-        sub_8070E94(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBG(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
@@ -301,9 +301,9 @@ void SpellFx_WriteBgMap(struct Anim *anim, const u16 *src1, const u16 *src2)
     
     buf = gEkrTsaBuffer;
     if (GetAnimPosition(anim) == EKR_POS_L)
-        sub_8070EC4(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     else
-        sub_8070E94(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBG(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
@@ -319,9 +319,9 @@ void sub_80556F0(u8 pos, const u16 *src1, const u16 *src2)
     
     buf = gEkrTsaBuffer;
     if (pos == EKR_POS_L)
-        sub_8070EC4(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     else
-        sub_8070E94(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBG(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
     
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
@@ -331,9 +331,9 @@ void sub_805576C(struct Anim *anim, const u16 *src, int a, int b)
     LZ77UnCompWram(src, gEkrTsaBuffer);
 
     if (GetAnimPosition(anim) == EKR_POS_L)
-        sub_8070EC4(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
+        EfxTmCpyBgHFlip(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
     else
-        sub_8070E94(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
+        EfxTmCpyBG(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
@@ -473,9 +473,9 @@ void sub_80559B0(u32 val)
     CpuFill32(val, dst, 0xB58);
 }
 
-void sub_80559D0(u32 val)
+void EfxTmFill(u32 val)
 {
-    u16 *dst = gUnknown_0201D428;
+    u16 *dst = gEfxFrameTmap;
     CpuFill32(val, dst, 0x2520);
 }
 

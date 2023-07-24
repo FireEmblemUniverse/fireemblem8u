@@ -225,7 +225,7 @@
 . = 0x01C912; gUnknown_0201C912 = .;
 . = 0x01CDD4; gUnknown_0201CDD4 = .;
 . = 0x01CF84; gUnknown_0201CF84 = .;
-. = 0x01D428; gUnknown_0201D428 = .;
+. = 0x01D428; gEfxFrameTmap = .;
 . = 0x01D438; gUnknown_0201D438 = .;
 . = 0x01D46A; gUnknown_0201D46A = .;
 . = 0x01DB00; gUnknown_0201DB00 = .;

@@ -506,7 +506,7 @@ extern u16 gUnknown_0201C8D0[];
 // extern ??? gUnknown_0201C912
 extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
 // extern ??? gUnknown_0201CF84
-extern u16 gUnknown_0201D428[];
+extern u16 gEfxFrameTmap[];
 // extern ??? gUnknown_0201D438
 extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201DB00
@@ -752,9 +752,9 @@ extern struct ProcCmd ProcScr_efxSkillCommonBG[];
 // extern ??? gUnknown_080DF954
 // extern ??? gUnknown_080DF9BE
 extern u16 gUnknown_080E1164[];
-// extern ??? gUnknown_080E1394
-// extern ??? gUnknown_080E13A2
-// extern ??? gUnknown_080E13B4
+extern const u16 gUnknown_080E1394[];
+extern const u16 gUnknown_080E13A2[];
+extern const u16 gUnknown_080E13B4[];
 // extern ??? gUnknown_080E13D4
 // extern ??? gUnknown_080E13F4
 extern const u16 FrameLut_080E143A[];
@@ -1213,7 +1213,7 @@ extern struct ProcCmd ProcScr_ekrWhiteINOUT[];
 // extern ??? ProcScr_EkrMyrrh
 extern struct ProcCmd ProcScr_EkrMyrrh[];
 extern short gUnknown_0875879C[];
-extern u16 gUnknown_08758A1C[];
+extern u16 gEfxTileRefPals_08758A1C[];
 extern struct ProcCmd ProcScr_ekrsubAnimeEmulator[];
 extern struct ProcCmd ProcScr_efxSoundSE[];
 // extern ??? gUnknown_08758A60

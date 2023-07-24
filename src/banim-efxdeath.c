@@ -309,7 +309,7 @@ void NewEfxDeadDragonAlpha(struct Anim *anim1, struct Anim *anim2)
 void EfxDeadDragonAlphaMain(struct ProcEfxDead *proc)
 {
     if (++proc->timer > 0x3C) {
-        sub_80559D0(0);
+        EfxTmFill(0);
         BG_Fill(gBG3TilemapBuffer, 0xF000);
         BG_EnableSyncByMask(BG3_SYNC_BIT);
         SetDefaultColorEffects();

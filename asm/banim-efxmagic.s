@@ -5294,7 +5294,7 @@ sub_8060A9C: @ 0x08060A9C
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_8070E94
+	bl EfxTmCpyBG
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	bl SpellFx_SetSomeColorEffect
@@ -9676,7 +9676,7 @@ sub_8062D30: @ 0x08062D30
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_8070E94
+	bl EfxTmCpyBG
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	bl SpellFx_SetSomeColorEffect
@@ -11723,7 +11723,7 @@ sub_8063D64: @ 0x08063D64
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x20
-	bl sub_8070EC4
+	bl EfxTmCpyBgHFlip
 	b _08063DF8
 	.align 2, 0
 _08063DC8: .4byte gEfxBgSemaphore
@@ -11742,7 +11742,7 @@ _08063DE4:
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x20
-	bl sub_8070E94
+	bl EfxTmCpyBG
 _08063DF8:
 	movs r0, #2
 	bl BG_EnableSyncByMask
@@ -12723,7 +12723,7 @@ sub_8064568: @ 0x08064568
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_8070EC4
+	bl EfxTmCpyBgHFlip
 	b _080645AC
 	.align 2, 0
 _08064590: .4byte gEkrTsaBuffer
@@ -12737,7 +12737,7 @@ _08064598:
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_8070E94
+	bl EfxTmCpyBG
 _080645AC:
 	movs r0, #2
 	bl BG_EnableSyncByMask
@@ -13152,7 +13152,7 @@ _0806489C:
 	str r2, [sp, #4]
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070EC4
+	bl EfxTmCpyBgHFlip
 	b _080648DC
 	.align 2, 0
 _080648BC: .4byte gUnknown_0872FEB8
@@ -13167,7 +13167,7 @@ _080648C8:
 	str r2, [sp, #4]
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070E94
+	bl EfxTmCpyBG
 _080648DC:
 	movs r0, #2
 	bl BG_EnableSyncByMask
@@ -13364,7 +13364,7 @@ _08064A48:
 	str r2, [sp, #4]
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070EC4
+	bl EfxTmCpyBgHFlip
 	b _08064A88
 	.align 2, 0
 _08064A68: .4byte gUnknown_08727510
@@ -13379,7 +13379,7 @@ _08064A74:
 	str r2, [sp, #4]
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070E94
+	bl EfxTmCpyBG
 _08064A88:
 	movs r0, #2
 	bl BG_EnableSyncByMask
@@ -13742,7 +13742,7 @@ sub_8064D00: @ 0x08064D00
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070EC4
+	bl EfxTmCpyBgHFlip
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	bl SpellFx_SetSomeColorEffect
@@ -14386,7 +14386,7 @@ _08065280:
 	str r2, [sp, #4]
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070EC4
+	bl EfxTmCpyBgHFlip
 	b _080652C0
 	.align 2, 0
 _080652A0: .4byte gUnknown_08727510
@@ -14401,7 +14401,7 @@ _080652AC:
 	str r2, [sp, #4]
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_8070E94
+	bl EfxTmCpyBG
 _080652C0:
 	movs r0, #2
 	bl BG_EnableSyncByMask

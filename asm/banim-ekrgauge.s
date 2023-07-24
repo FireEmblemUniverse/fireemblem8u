@@ -105,7 +105,7 @@ _0805130A:
 	adds r1, r5, #0
 	movs r2, #0xf
 	adds r3, r4, #0
-	bl sub_8070E94
+	bl EfxTmCpyBG
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
@@ -151,7 +151,7 @@ _0805138A:
 	adds r1, r5, #0
 	movs r2, #0x10
 	adds r3, r4, #0
-	bl sub_8070E94
+	bl EfxTmCpyBG
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0

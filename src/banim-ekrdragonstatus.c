@@ -101,8 +101,8 @@ void sub_806FAD8(int a, int b)
     _a = a >> 3;
     _b = b >> 3;
 
-    sub_8070FA4(gEkrTsaBuffer, -1,
-        gUnknown_0201D428 + _a + 66 * _b,
+    EfxTmCpyExtHFlip(gEkrTsaBuffer, -1,
+        gEfxFrameTmap + _a + 66 * _b,
         66, 32, 32, 6, 0);
 }
 
@@ -135,7 +135,7 @@ void EkrDragonBgSetPostion(int x, int y)
     buf = gUnknown_0201D46A + _x;
     buf += 66 * _y;
 
-    sub_8070EF4(buf, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
+    EfxTmCpyExt(buf, 66, gBG3TilemapBuffer, 32, 32, 32, -1, -1);
     
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 }
