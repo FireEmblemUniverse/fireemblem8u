@@ -482,241 +482,74 @@ void sub_80BBCC8(int a, int b, int bg)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/lmPNK */
-
 //! FE8U = 0x080BBDA4
-void sub_80BBDA4(int param_1, int param_2, int param_3, int param_4, int param_5)
+void sub_80BBDA4(int a1, int r8, int r4, int r9, int sp20)
 {
-    u16 r3;
-    u16 r1_;
-    u16 r7;
-    u16 r8;
-    u16 r8_;
-    u16 * bgBuf;
-    u16 r1;
-    u16 r2;
-    u16 r6;
     u16 i;
-    u16 * puVar6;
-    u16 * tm;
-    u16 ** newVar;
+    u16 r1, r2;
+    u32 r3;
+    u16 *tm;
+    u16 *puVar6;
+    u16 r6;
+    u32 r7;
+    u16 *bgBuf;
 
-    bgBuf = BG_GetMapBuffer(param_5);
-
-    if (param_1 != param_3)
+    bgBuf = BG_GetMapBuffer(sp20);
+    if (a1 != r4)
     {
-        if (param_1 > param_3)
+        if (a1 > r4)
         {
-            r1 = (param_1 + 0x1e);
-            r2 = param_2;
+            r1 = a1 + 0x1e;
+            r2 = r8;
         }
         else
         {
-            r1 = param_1;
-            r2 = param_2;
+            r1 =  a1;
+            r2 = r8;
         }
-
-        r7 = (r1 & 0x1f);
-
+        r7 = r1 & 0x1f;
+    
         puVar6 = gUnknown_02019D00 + (r2 * 0x3c + r1);
         for (i = 0; i < 0x15; i++)
         {
-            u16 y = ((i + r2));
-            u16 * tm2 = bgBuf + TILEMAP_INDEX(r7, y & 0x1f);
-            *tm2 = *puVar6;
-            puVar6 = puVar6 + 0x3c;
+            tm = bgBuf + TILEMAP_INDEX(r7, (r2 + i) & 0x1f);
+            *tm = *puVar6;
+            puVar6 += 0x3c;
         }
     }
 
-    if (param_2 != param_4)
+    if (r8 != r9)
     {
-        if (param_2 > param_4)
+        if (r8 > r9)
         {
-            r1_ = param_1;
-            r8_ = (param_2 + 0x14);
+            r1 = a1;
+            r2 = r8 + 0x14;
         }
         else
         {
-            r1_ = param_1;
-            r8_ = param_2;
+            r1 = a1;
+            r2 = r8;
         }
+        r7 = r1 & 0x1f;
+        r3 = r2 & 0x1f;
 
-        r3 = (r1 = r8_ & 0x1f);
-        r7 = (r1_ & 0x1f);
-
-        newVar = &bgBuf;
-        puVar6 = gUnknown_02019D00 + (r8_ * 0x3c + r1);
-
-        r1 = (0x20 - r1);
-
-        if (r1 >= 0x1f)
+        puVar6 = gUnknown_02019D00 + (r2 * 0x3c + r1);
+        r6 = 0x20 - r7;
+        if (r6 > 0x1e)
         {
-            tm = bgBuf + TILEMAP_INDEX(r7, r8_);
-            CpuCopy16(puVar6, tm, 0x3E);
+            tm = bgBuf + TILEMAP_INDEX(r7, r3);
+            CpuCopy16(puVar6, tm, 0x3e);
         }
         else
         {
             tm = bgBuf + TILEMAP_INDEX(0, r3);
-            CpuCopy16(puVar6, tm + r7, r1 * 2);
-            CpuCopy16(puVar6 + r1, tm, (0x1f - r1) * 2);
+            CpuCopy16(puVar6, tm + r7, r6 * 2);
+            CpuCopy16(puVar6 + r6, tm, (0x1f - r6) * 2);
         }
     }
 
     return;
 }
-
-#else
-
-__attribute__((naked))
-void sub_80BBDA4(int param_1, int param_2, int param_3, int param_4, int param_5)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        adds r6, r0, #0\n\
-        mov r8, r1\n\
-        adds r4, r2, #0\n\
-        mov r9, r3\n\
-        ldr r0, [sp, #0x20]\n\
-        bl BG_GetMapBuffer\n\
-        mov ip, r0\n\
-        cmp r6, r4\n\
-        beq _080BBE16\n\
-        cmp r6, r4\n\
-        ble _080BBDD4\n\
-        adds r0, r6, #0\n\
-        adds r0, #0x1e\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r1, r0, #0x10\n\
-        mov r2, r8\n\
-        lsls r0, r2, #0x10\n\
-        b _080BBDDC\n\
-    _080BBDD4:\n\
-        lsls r0, r6, #0x10\n\
-        lsrs r1, r0, #0x10\n\
-        mov r3, r8\n\
-        lsls r0, r3, #0x10\n\
-    _080BBDDC:\n\
-        lsrs r2, r0, #0x10\n\
-        movs r7, #0x1f\n\
-        ands r7, r1\n\
-        lsls r0, r2, #4\n\
-        subs r0, r0, r2\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #1\n\
-        ldr r1, _080BBE2C  @ gUnknown_02019D00\n\
-        adds r5, r0, r1\n\
-        movs r1, #0\n\
-        movs r0, #0x1f\n\
-        mov sl, r0\n\
-    _080BBDF6:\n\
-        adds r0, r2, r1\n\
-        mov r3, sl\n\
-        ands r0, r3\n\
-        lsls r0, r0, #5\n\
-        adds r0, r0, r7\n\
-        lsls r0, r0, #1\n\
-        mov r3, ip\n\
-        adds r4, r3, r0\n\
-        ldrh r0, [r5]\n\
-        strh r0, [r4]\n\
-        adds r5, #0x78\n\
-        adds r0, r1, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r1, r0, #0x10\n\
-        cmp r1, #0x14\n\
-        bls _080BBDF6\n\
-    _080BBE16:\n\
-        cmp r8, r9\n\
-        beq _080BBEA0\n\
-        cmp r8, r9\n\
-        ble _080BBE30\n\
-        lsls r0, r6, #0x10\n\
-        lsrs r1, r0, #0x10\n\
-        mov r0, r8\n\
-        adds r0, #0x14\n\
-        lsls r0, r0, #0x10\n\
-        b _080BBE38\n\
-        .align 2, 0\n\
-    _080BBE2C: .4byte gUnknown_02019D00\n\
-    _080BBE30:\n\
-        lsls r0, r6, #0x10\n\
-        lsrs r1, r0, #0x10\n\
-        mov r2, r8\n\
-        lsls r0, r2, #0x10\n\
-    _080BBE38:\n\
-        lsrs r2, r0, #0x10\n\
-        movs r3, #0x1f\n\
-        mov r8, r3\n\
-        adds r7, r1, #0\n\
-        ands r7, r3\n\
-        adds r3, r2, #0\n\
-        mov r0, r8\n\
-        ands r3, r0\n\
-        lsls r0, r2, #4\n\
-        subs r0, r0, r2\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #1\n\
-        ldr r1, _080BBE78  @ gUnknown_02019D00\n\
-        adds r5, r0, r1\n\
-        movs r0, #0x20\n\
-        subs r0, r0, r7\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r6, r0, #0x10\n\
-        cmp r6, #0x1e\n\
-        bls _080BBE7C\n\
-        lsls r0, r3, #5\n\
-        adds r0, r0, r7\n\
-        lsls r0, r0, #1\n\
-        mov r1, ip\n\
-        adds r4, r1, r0\n\
-        adds r0, r5, #0\n\
-        adds r1, r4, #0\n\
-        movs r2, #0x1f\n\
-        bl CpuSet\n\
-        b _080BBEA0\n\
-        .align 2, 0\n\
-    _080BBE78: .4byte gUnknown_02019D00\n\
-    _080BBE7C:\n\
-        lsls r0, r3, #6\n\
-        mov r2, ip\n\
-        adds r4, r2, r0\n\
-        lsls r1, r7, #1\n\
-        adds r1, r4, r1\n\
-        adds r0, r5, #0\n\
-        adds r2, r6, #0\n\
-        bl CpuSet\n\
-        lsls r0, r6, #1\n\
-        adds r0, r5, r0\n\
-        mov r3, r8\n\
-        subs r2, r3, r6\n\
-        ldr r1, _080BBEB0  @ 0x001FFFFF\n\
-        ands r2, r1\n\
-        adds r1, r4, #0\n\
-        bl CpuSet\n\
-    _080BBEA0:\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080BBEB0: .4byte 0x001FFFFF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080BBEB4
 void nullsub_38(void)
