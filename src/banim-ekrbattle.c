@@ -502,7 +502,7 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
         } /* switch */
         break;
 
-    case EKR_DISTANCE_3:
+    case EKR_DISTANCE_MONOCOMBAT:
         if ((gBanimDoneFlag[0] + gBanimDoneFlag[1]) == 1)
             ret = 1;
         break;

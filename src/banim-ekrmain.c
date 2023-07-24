@@ -73,7 +73,7 @@ const u8 BattleTypeToAnimModeEndOfDodge[5] = {
     [EKR_DISTANCE_CLOSE]     = BANIM_MODE_CLOSE_DODGE,
     [EKR_DISTANCE_FAR]       = BANIM_MODE_STANDING,
     [EKR_DISTANCE_FARFAR]    = BANIM_MODE_STANDING,
-    [EKR_DISTANCE_3]         = BANIM_MODE_CLOSE_DODGE,
+    [EKR_DISTANCE_MONOCOMBAT]         = BANIM_MODE_CLOSE_DODGE,
     [EKR_DISTANCE_PROMOTION] = BANIM_MODE_CLOSE_DODGE
 };
 
@@ -81,7 +81,7 @@ const u8 BanimTypesPosLeft[5] = {
     [EKR_DISTANCE_CLOSE]     = 0x5C,
     [EKR_DISTANCE_FAR]       = 0x44,
     [EKR_DISTANCE_FARFAR]    = 0x44,
-    [EKR_DISTANCE_3]         = 0x78,
+    [EKR_DISTANCE_MONOCOMBAT]         = 0x78,
     [EKR_DISTANCE_PROMOTION] = 0x5C
 };
 
@@ -89,7 +89,7 @@ const u8 BanimTypesPosRight[5] = {
     [EKR_DISTANCE_CLOSE]     = 0x94,
     [EKR_DISTANCE_FAR]       = 0xAC,
     [EKR_DISTANCE_FARFAR]    = 0xAC,
-    [EKR_DISTANCE_3]         = 0x78,
+    [EKR_DISTANCE_MONOCOMBAT]         = 0x78,
     [EKR_DISTANCE_PROMOTION] = 0x94
 };
 
@@ -97,7 +97,7 @@ const u16 BanimLeftDefaultPos[5] = {
     [EKR_DISTANCE_CLOSE]     = 0x00,
     [EKR_DISTANCE_FAR]       = 0x20,
     [EKR_DISTANCE_FARFAR]    = 0xF0,
-    [EKR_DISTANCE_3]         = 0x00,
+    [EKR_DISTANCE_MONOCOMBAT]         = 0x00,
     [EKR_DISTANCE_PROMOTION] = 0x00
 };
 
@@ -296,7 +296,7 @@ void InitBothAIS(void)
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:
-    case EKR_DISTANCE_3:
+    case EKR_DISTANCE_MONOCOMBAT:
     case EKR_DISTANCE_PROMOTION:
         InitBattleAnimFrame(ANIM_ROUND_TAKING_HIT_CLOSE, ANIM_ROUND_TAKING_HIT_CLOSE);
         break;

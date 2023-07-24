@@ -202,7 +202,7 @@ void sub_8051E00(void)
 
     case EKR_DISTANCE_FAR:
     case EKR_DISTANCE_FARFAR:
-    case EKR_DISTANCE_3:
+    case EKR_DISTANCE_MONOCOMBAT:
         gUnknown_0200003C[0] = &gUnknown_020145C8[0x800];
         gUnknown_0200003C[1] = &gUnknown_020145C8[0x1800];
         break;
@@ -317,7 +317,7 @@ int GetBanimInitPosReal(void)
         return gEkrInitialHitSide;
 
     case EKR_DISTANCE_CLOSE:
-    case EKR_DISTANCE_3:
+    case EKR_DISTANCE_MONOCOMBAT:
     case EKR_DISTANCE_PROMOTION:
         return EKR_POS_R;
 

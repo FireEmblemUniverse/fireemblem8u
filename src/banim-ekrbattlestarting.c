@@ -171,7 +171,7 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
         case EKR_DISTANCE_FARFAR:
             break;
 
-        case EKR_DISTANCE_3:
+        case EKR_DISTANCE_MONOCOMBAT:
             if (gEkrPairSideVaild[EKR_POS_L] == false) {
                 EkrGauge_Set4C();
                 EkrDispUpSet4C();

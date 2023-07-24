@@ -125,7 +125,7 @@ void efxHPBarMain(struct ProcEfxHPBar *proc)
             switch (gEkrDistanceType) {
             case EKR_DISTANCE_CLOSE:
             case EKR_DISTANCE_FAR:
-            case EKR_DISTANCE_3:
+            case EKR_DISTANCE_MONOCOMBAT:
             case EKR_DISTANCE_PROMOTION:
                 proc->cur = 16;
                 NewEfxFarAttackWithDistance(GetAnimAnotherSide(anim), -1);

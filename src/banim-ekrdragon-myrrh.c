@@ -163,7 +163,7 @@ void RegisterEkrDragonStatusType(void)
     case EKR_DISTANCE_FARFAR:
         break;
 
-    case EKR_DISTANCE_3:
+    case EKR_DISTANCE_MONOCOMBAT:
     case EKR_DISTANCE_PROMOTION:
     default:
         return;
