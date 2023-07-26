@@ -6,6 +6,7 @@
 #include "bmunit.h"
 #include "bmbattle.h"
 #include "hardware.h"
+#include "bmlib.h"
 #include "constants/classes.h"
 #include "constants/items.h"
 

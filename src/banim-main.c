@@ -4,6 +4,7 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "efxmagic.h"
+#include "ctc.h"
 
 void BattleAIS_ExecCommands(void)
 {
@@ -369,7 +370,7 @@ void BattleAIS_ExecCommands(void)
                     if (anim->state3 & ANIM_BIT3_TAKE_BACK_ENABLE) {
                         anim->state3 &= ~ANIM_BIT3_TAKE_BACK_ENABLE;
                         anim->pScrCurrent = anim->pScrCurrent + 1;
-                        anim->oam2Base = (0xF3FF & anim->oam2Base) | 0x400;
+                        anim->oam2Base = (0xF3FF & anim->oam2Base) | OAM2_LAYER(0x1);
                         anim->drawLayerPriority = 0x8C;
                         AnimSort();
                     }

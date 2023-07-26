@@ -158,7 +158,7 @@ sub_80534E4: @ 0x080534E4
 	movs r1, #0x32
 	ldrsh r0, [r4, r1]
 	movs r1, #0
-	bl EkrDragonBgSetPostion
+	bl EkrDragonTmCpyExt
 	movs r1, #0x32
 	ldrsh r0, [r4, r1]
 	bl sub_8053618
@@ -195,7 +195,7 @@ sub_8053514: @ 0x08053514
 	bl sub_80534AC
 	ldr r0, [r5]
 	movs r1, #0
-	bl EkrDragonBgSetPostion
+	bl EkrDragonTmCpyExt
 	ldr r0, [r5]
 	bl sub_8053618
 	bl GetBattleAnimArenaFlag
@@ -250,7 +250,7 @@ sub_8053584: @ 0x08053584
 	bl sub_80534AC
 	ldr r0, [r5]
 	movs r1, #0
-	bl EkrDragonBgSetPostion
+	bl EkrDragonTmCpyExt
 	ldr r0, [r5]
 	bl sub_8053618
 	bl GetBattleAnimArenaFlag
@@ -318,7 +318,7 @@ sub_8053618: @ 0x08053618
 	movs r2, #0
 	bl BG_SetPosition
 	lsls r4, r4, #1
-	ldr r0, _08053670  @ gUnknown_0201C912
+	ldr r0, _08053670  @ gEfxBuf_0201C8D0 + 0x42
 	adds r4, r4, r0
 	movs r0, #0x84
 	lsls r0, r0, #1
@@ -343,7 +343,7 @@ _08053668:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08053670: .4byte gUnknown_0201C912
+_08053670: .4byte gEfxBuf_0201C8D0 + 0x42
 _08053674: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_END sub_8053618

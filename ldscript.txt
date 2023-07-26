@@ -9,8 +9,6 @@ MEMORY
 
 __text_start            =       ORIGIN(rom);
 __ewram_start           =       ORIGIN(ewram);
-__eheap_end             =       ORIGIN(ewram) + LENGTH(ewram);
-__ewram_text_start      =       __eheap_end - 0x2000;
 __iwram_start           =       ORIGIN(iwram);
 __iwram_top             =       ORIGIN(iwram) + LENGTH(iwram);;
 __sp_irq                =       __iwram_top - 0x060;
@@ -26,21 +24,21 @@ SECTIONS
 {
     /* TODO: figure out what is COMMON and .bss */
 
-    . = __ewram_start;
+    . = ORIGIN(ewram);
     EWRAM (NOLOAD) :
     ALIGN(4)
     {
         INCLUDE "sym_ewram.txt"
     }
 
-    . = __iwram_start;
+    . = ORIGIN(iwram);
     IWRAM (NOLOAD) :
     ALIGN(4)
     {
         INCLUDE "sym_iwram.txt"
     }
 
-    . = __text_start;
+    . = ORIGIN(rom);
     ROM :
     ALIGN(4)
     {

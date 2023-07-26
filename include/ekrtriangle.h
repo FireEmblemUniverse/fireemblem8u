@@ -47,7 +47,7 @@ struct ProcEkrTriPegasusKnightBG {
     /* 4C */ const u16 **tsalut_left;
     /* 50 */ const u16 **tsalut_right;
     STRUCT_PAD(0x54, 0x5C);
-    /* 5C */ struct Anim *anim;
+    /* 5C */ struct Anim * anim;
 };
 
 struct ProcEkrTriArmorKnightOBJ2 {
@@ -93,17 +93,17 @@ extern CONST_DATA struct ProcCmd ProcScr_EfxTriangleQUAKE[];
 
 bool CheckEkrTriangleInvalid(void);
 void nullsub_18(void);
-void NewEkrTriangle(struct Anim *anim);
+void NewEkrTriangle(struct Anim * anim);
 void EkrTriangleMain(struct ProcEkrTriangle * proc);
-ProcPtr NewEkrTriPegasusKnight(struct Anim *anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
+ProcPtr NewEkrTriPegasusKnight(struct Anim * anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
 void EkrTriPegasusKnightMain(struct ProcEkrTriClass * proc);
 void NewEkrTriPegasusKnightBG(struct Anim * anim, u32 pos, u32 etype, u32 ewtype);
 void EkrTriPegasusKnightBgMain(struct ProcEkrTriPegasusKnightBG * proc);
 void NewEkrTriPegasusKnightOBJ(struct Anim * anim, u32 pos, u32 etype, u32 ewtype);
 void EkrTriPegasusKnightObjMain(struct ProcEfxOBJ * proc);
-ProcPtr NewEkrTriArmorKnight(struct Anim *anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
+ProcPtr NewEkrTriArmorKnight(struct Anim * anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
 void EkrTriArmorKnightMain(struct ProcEkrTriClass * proc);
-void NewEkrTriArmorKnightOBJ(struct Anim *anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
+void NewEkrTriArmorKnightOBJ(struct Anim * anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);
 void EkrTriArmorKnightObjMain(struct ProcEfxOBJ * proc);
 void NewEkrTriArmorKnightOBJ2(struct Anim * anim, u32 pos, u32 etype, u32 ewtype);
 void EkrTriArmorKnightObj2Main1(struct ProcEkrTriArmorKnightOBJ2 * proc);

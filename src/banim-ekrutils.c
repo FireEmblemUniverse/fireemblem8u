@@ -5,6 +5,8 @@
 #include "bmunit.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "ctc.h"
+#include "constants/video-banim.h"
 
 void sub_805515C(void)
 {
@@ -134,7 +136,7 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
 void StartBattleAnimResireHitEffects(struct Anim *anim, int type)
 {
     int val1, val2, off;
-    struct Anim *animR7, *animR5, *animR8;
+    struct Anim * animR7, * animR5, * animR8;
 
     if (GetAnimPosition(anim) == EKR_POS_L) {
         animR7 = gAnims[2];
@@ -179,9 +181,9 @@ void StartBattleAnimResireHitEffects(struct Anim *anim, int type)
     }
 }
 
-void sub_8055518(struct Anim *anim, int type)
+void sub_8055518(struct Anim * anim, int type)
 {
-    struct Anim *anim1;
+    struct Anim * anim1;
 
     if (GetAnimPosition(anim) == EKR_POS_L)
         anim1 = gAnims[0];
@@ -199,21 +201,21 @@ void sub_8055518(struct Anim *anim, int type)
     }
 }
 
-struct Anim *EfxCreateFrontAnim(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
+struct Anim * EfxCreateFrontAnim(struct Anim * anim, const u32 * scr1, const u32 * scr2, const u32 * scr3, const u32 * scr4)
 {
-    struct Anim *anim1;
+    struct Anim * anim1;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE) {
         if (GetAnimPosition(anim) == EKR_POS_L) {
             anim1 = AnimCreate(scr1, 0x78);
-            anim1->oam2Base = 0x2840;
+            anim1->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x2) + OAM2_CHR(VRAMOFF_BANIM_SPELL_OBJ / 0x20);
             anim1->xPosition = anim->xPosition;
             anim1->yPosition = anim->yPosition;
             return anim1;
         }
         else {
             anim1 = AnimCreate(scr2, 0x78);
-            anim1->oam2Base = 0x2840;
+            anim1->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x2) + OAM2_CHR(VRAMOFF_BANIM_SPELL_OBJ / 0x20);
             anim1->xPosition = anim->xPosition;
             anim1->yPosition = anim->yPosition;
             return anim1;
@@ -221,14 +223,14 @@ struct Anim *EfxCreateFrontAnim(struct Anim *anim, const u32 *scr1, const u32 *s
     } else {
         if (GetAnimPosition(anim) != EKR_POS_L) {
             anim1 = AnimCreate(scr4, 0x78);
-            anim1->oam2Base = 0x2840;
+            anim1->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x2) + OAM2_CHR(VRAMOFF_BANIM_SPELL_OBJ / 0x20);
             anim1->xPosition = anim->xPosition;
             anim1->yPosition = anim->yPosition;
             return anim1;
         }
         else {
             anim1 = AnimCreate(scr3, 0x78);
-            anim1->oam2Base = 0x2840;
+            anim1->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x2) + OAM2_CHR(VRAMOFF_BANIM_SPELL_OBJ / 0x20);
             anim1->xPosition = anim->xPosition;
             anim1->yPosition = anim->yPosition;
             return anim1;
@@ -236,21 +238,21 @@ struct Anim *EfxCreateFrontAnim(struct Anim *anim, const u32 *scr1, const u32 *s
     }
 }
 
-struct Anim *EfxCreateBackAnim(struct Anim *anim, const u32 *scr1, const u32 *scr2, const u32 *scr3, const u32 *scr4)
+struct Anim * EfxCreateBackAnim(struct Anim * anim, const u32 * scr1, const u32 *scr2, const u32 * scr3, const u32 * scr4)
 {
-    struct Anim *anim1;
+    struct Anim * anim1;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE) {
         if (GetAnimPosition(anim) == EKR_POS_L) {
             anim1 = AnimCreate(scr1, 0x14);
-            anim1->oam2Base = 0x2840;
+            anim1->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x2) + OAM2_CHR(VRAMOFF_BANIM_SPELL_OBJ / 0x20);
             anim1->xPosition = anim->xPosition;
             anim1->yPosition = anim->yPosition;
             return anim1;
         }
         else {
             anim1 = AnimCreate(scr2, 0x14);
-            anim1->oam2Base = 0x2840;
+            anim1->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x2) + OAM2_CHR(VRAMOFF_BANIM_SPELL_OBJ / 0x20);
             anim1->xPosition = anim->xPosition;
             anim1->yPosition = anim->yPosition;
             return anim1;
@@ -258,14 +260,14 @@ struct Anim *EfxCreateBackAnim(struct Anim *anim, const u32 *scr1, const u32 *sc
     } else {
         if (GetAnimPosition(anim) != EKR_POS_L) {
             anim1 = AnimCreate(scr4, 0x14);
-            anim1->oam2Base = 0x2840;
+            anim1->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x2) + OAM2_CHR(VRAMOFF_BANIM_SPELL_OBJ / 0x20);
             anim1->xPosition = anim->xPosition;
             anim1->yPosition = anim->yPosition;
             return anim1;
         }
         else {
             anim1 = AnimCreate(scr3, 0x14);
-            anim1->oam2Base = 0x2840;
+            anim1->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x2) + OAM2_CHR(0x800 / 0x20);
             anim1->xPosition = anim->xPosition;
             anim1->yPosition = anim->yPosition;
             return anim1;
@@ -273,9 +275,9 @@ struct Anim *EfxCreateBackAnim(struct Anim *anim, const u32 *scr1, const u32 *sc
     }
 }
 
-void sub_805560C(struct Anim *anim, const u16 *src1, const u16 *src2)
+void sub_805560C(struct Anim * anim, const u16 * src1, const u16 * src2)
 {
-    const u16 *buf;
+    const u16 * buf;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
         buf = src1;
@@ -283,109 +285,111 @@ void sub_805560C(struct Anim *anim, const u16 *src1, const u16 *src2)
         buf = src2;
 
     if (GetAnimPosition(anim) == EKR_POS_L)
-        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 30, 20, OBJPAL_BANIM_SPELL_BG, 0x100);
     else
-        EfxTmCpyBG(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
-    
+        EfxTmCpyBG(buf, gBG1TilemapBuffer, 30, 20, OBJPAL_BANIM_SPELL_BG, 0x100);
+
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void SpellFx_WriteBgMap(struct Anim *anim, const u16 *src1, const u16 *src2)
+void SpellFx_WriteBgMap(struct Anim * anim, const u16 * src1, const u16 * src2)
 {
-    u16 *buf;
+    u16 * buf;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
         LZ77UnCompWram(src1, gEkrTsaBuffer);
     else
         LZ77UnCompWram(src2, gEkrTsaBuffer);
-    
+
     buf = gEkrTsaBuffer;
     if (GetAnimPosition(anim) == EKR_POS_L)
-        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 30, 20, OBJPAL_BANIM_SPELL_BG, 0x100);
     else
-        EfxTmCpyBG(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
-    
+        EfxTmCpyBG(buf, gBG1TilemapBuffer, 30, 20, OBJPAL_BANIM_SPELL_BG, 0x100);
+
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void sub_80556F0(u8 pos, const u16 *src1, const u16 *src2)
+void SpellFx_WriteBgMapUnused(u8 pos, const u16 * src1, const u16 * src2)
 {
-    const u16 *buf;
+    const u16 * buf;
 
     if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
         LZ77UnCompWram(src1, gEkrTsaBuffer);
     else
         LZ77UnCompWram(src2, gEkrTsaBuffer);
-    
+
     buf = gEkrTsaBuffer;
     if (pos == EKR_POS_L)
-        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
+        EfxTmCpyBgHFlip(buf, gBG1TilemapBuffer, 30, 20, OBJPAL_BANIM_SPELL_BG, 0x100);
     else
-        EfxTmCpyBG(buf, gBG1TilemapBuffer, 0x1E, 0x14, 1, 0x100);
-    
+        EfxTmCpyBG(buf, gBG1TilemapBuffer, 30, 20, OBJPAL_BANIM_SPELL_BG, 0x100);
+
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void sub_805576C(struct Anim *anim, const u16 *src, int a, int b)
+void SpellFx_WriteBgMapExt(struct Anim * anim, const u16 * src, int width, int height)
 {
     LZ77UnCompWram(src, gEkrTsaBuffer);
 
     if (GetAnimPosition(anim) == EKR_POS_L)
-        EfxTmCpyBgHFlip(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
+        EfxTmCpyBgHFlip(gEkrTsaBuffer, gBG1TilemapBuffer, width, height, OBJPAL_BANIM_SPELL_BG, 0x100);
     else
-        EfxTmCpyBG(gEkrTsaBuffer, gBG1TilemapBuffer, a, b, 1, 0x100);
+        EfxTmCpyBG(gEkrTsaBuffer, gBG1TilemapBuffer, width, height, OBJPAL_BANIM_SPELL_BG, 0x100);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void SpellFx_RegisterObjGfx(const u16 *img, u32 size)
+void SpellFx_RegisterObjGfx(const u16 * img, u32 size)
 {
-    u16 *dst = OBJ_VRAM0 + 0x0800;
+    u16 * dst = OBJ_VRAM0 + VRAMOFF_BANIM_SPELL_OBJ;
     LZ77UnCompWram(img, gEkrBuf2);
     RegisterDataMove(gEkrBuf2, dst, size);
 }
 
-void SpellFx_RegisterObjPal(const u16 *pal, u32 size)
+void SpellFx_RegisterObjPal(const u16 * pal, u32 size)
 {
-    CpuFastCopy(pal, PAL_OBJ(2), size);
+    CpuFastCopy(pal, PAL_OBJ(OBJPAL_BANIM_SPELL_OBJ), size);
     EnablePaletteSync();
 }
 
-void SpellFx_RegisterBgGfx(const u16 *img, u32 size)
+void SpellFx_RegisterBgGfx(const u16 * img, u32 size)
 {
-    u16 *dst = (void *)BG_VRAM + 0x2000;
+    u16 *dst = (void *)BG_VRAM + VRAMOFF_BANIM_SPELL_BG;
     LZ77UnCompWram(img, gEkrBuf1);
     RegisterDataMove(gEkrBuf1, dst, size);
 }
 
-void SpellFx_RegisterBgPal(const u16 *pal, u32 size)
+void SpellFx_RegisterBgPal(const u16 * pal, u32 size)
 {
-    CpuFastCopy(pal, PAL_BG(1), size);
+    CpuFastCopy(pal, PAL_BG(OBJPAL_BANIM_SPELL_BG), size);
     EnablePaletteSync();
 }
 
-void sub_8055860(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
+void sub_8055860(const u16 * src, u16 * dst, u32 cur, u32 len_src, u32 len_dst)
 {
     u32 i;
-    for (i = 0; i < c; i++, a++) {
-        if (a >= b)
-            a = 0;
+    for (i = 0; i < len_dst; i++, cur++) {
+        if (cur >= len_src)
+            cur = 0;
 
-        dst[i] = src[a];
+        dst[i] = src[cur];
     }
 }
-void sub_805588C(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
+
+void sub_805588C(const u16 * src, u16 * dst, u32 cur, u32 len_src, u32 len_dst)
 {
     u32 i;
-    for (i = 0; i < c; i++, a++) {
-        if (a >= b)
-            a = 0;
+    for (i = 0; i < len_dst; i++, cur++) {
+        if (cur >= len_src)
+            cur = 0;
 
-        dst[i + 0x10] = src[a];
+        dst[i + 0x10] = src[cur];
     }
 
     EnablePaletteSync();
 }
+
 void sub_80558BC(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
 {
     u32 i;
@@ -469,19 +473,19 @@ int EfxGetCamMovDuration(void)
 
 void sub_80559B0(u32 val)
 {
-    u16 *dst = gUnknown_0201C8D0;
-    CpuFill32(val, dst, 0xB58);
+    u16 * dst = gEfxBuf_0201C8D0;
+    CpuFill32(val, dst, sizeof(gEfxBuf_0201C8D0));
 }
 
 void EfxTmFill(u32 val)
 {
-    u16 *dst = gEfxFrameTmap;
-    CpuFill32(val, dst, 0x2520);
+    u16 * dst = gEfxFrameTmap;
+    CpuFill32(val, dst, sizeof(gEfxFrameTmap));
 }
 
 void SetEkrFrontAnimPostion(int pos, s16 x, s16 y)
 {
-    struct Anim *anim;
+    struct Anim * anim;
     u16 ux = x;
     u16 uy = y;
 

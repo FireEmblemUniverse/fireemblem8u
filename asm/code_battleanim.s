@@ -104,7 +104,7 @@ _0805AF0E:
 	negs r1, r1
 	mov r9, r1
 	lsls r2, r4, #1
-	ldr r4, _0805AF94  @ gUnknown_0201CF84
+	ldr r4, _0805AF94  @ gEfxBuf_0201C8D0 + 0x6B4
 	adds r2, r2, r4
 	movs r0, #0xf
 	mov r8, r0
@@ -164,7 +164,7 @@ _0805AF0E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805AF94: .4byte gUnknown_0201CF84
+_0805AF94: .4byte gEfxBuf_0201C8D0 + 0x6B4
 _0805AF98: .4byte 0xFFFFFA96
 _0805AF9C: .4byte gBG2TilemapBuffer
 
@@ -215,7 +215,7 @@ _0805AFF0:
 	movs r1, #1
 	negs r1, r1
 	lsls r2, r2, #1
-	ldr r3, _0805B018  @ gUnknown_0201CF84
+	ldr r3, _0805B018  @ gEfxBuf_0201C8D0 + 0x6B4
 	adds r2, r2, r3
 	movs r3, #0xf
 	str r3, [sp]
@@ -230,7 +230,7 @@ _0805AFF0:
 	bx r0
 	.align 2, 0
 _0805B014: .4byte gUnknown_080DAF60
-_0805B018: .4byte gUnknown_0201CF84
+_0805B018: .4byte gEfxBuf_0201C8D0 + 0x6B4
 
 	THUMB_FUNC_END sub_805AFA0
 

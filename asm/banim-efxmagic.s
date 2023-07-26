@@ -1581,7 +1581,7 @@ sub_805ED44: @ 0x0805ED44
 	ldr r1, [r1]
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805576C
+	bl SpellFx_WriteBgMapExt
 	b _0805ED8E
 _0805ED70:
 	movs r0, #1
@@ -13670,7 +13670,7 @@ sub_8064C80: @ 0x08064C80
 	ldr r1, [r1]
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805576C
+	bl SpellFx_WriteBgMapExt
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80

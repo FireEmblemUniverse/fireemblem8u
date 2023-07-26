@@ -9,7 +9,17 @@ enum
 
 enum
 {
+    OBJPAL_BANIM_SPELL_BG = 1,
     OBJPAL_BANIM_FACE = 3,
+
+   
+    OBJPAL_BANIM_SPELL_OBJ = 0x12 - 0x10,
+};
+
+enum
+{
+    VRAMOFF_BANIM_SPELL_OBJ = 0x0800,
+    VRAMOFF_BANIM_SPELL_BG  = 0x2000,
 };
 
 #define OBPAL_EFX_UNK_7 7

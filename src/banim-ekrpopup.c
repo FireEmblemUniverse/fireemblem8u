@@ -9,6 +9,7 @@
 #include "ekrpopup.h"
 #include "ekrlevelup.h"
 #include "soundwrapper.h"
+#include "ctc.h"
 
 EWRAM_DATA struct ProcEkrPopup *gpProcEkrPopup = NULL;
 EWRAM_DATA int gEkrPopupEnded = false;
@@ -214,7 +215,7 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
 
     anim = AnimCreate(anim_instr, 0x96);
     proc->anim = anim;
-    anim->oam2Base = 0x2440;
+    anim->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x1) + OAM2_CHR(0x0800 / 0x20);
 
     anim->xPosition = width5 + ({ xcursor + 0x10; }) + width1;
     anim->yPosition = 0x38;
