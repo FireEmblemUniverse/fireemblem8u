@@ -378,7 +378,7 @@ label1:
         do anim = AnimCreate(scr, priority_front); while (0);
         anim->xPosition = gEkrXPosReal[0] - gEkrBgXOffset;
         anim->yPosition = gEkrYPosReal[0];
-        anim->oam2Base = 0x7A00;
+        anim->oam2Base = OAM2_PAL(0x7) + OAM2_LAYER(0x2) + OAM2_CHR(0x4000 / 0x20);
         anim->state2 |= ANIM_BIT2_0400 | ANIM_BIT2_BACK_FRAME;
         anim->nextRoundId = 0x0;
         anim->currentRoundType = round_type;
@@ -396,7 +396,7 @@ label2:
         anim = AnimCreate(scr, priority_back);
         anim->xPosition = gEkrXPosReal[0] - gEkrBgXOffset;
         anim->yPosition = gEkrYPosReal[0];
-        anim->oam2Base = 0x7A00;
+        anim->oam2Base = OAM2_PAL(0x7) + OAM2_LAYER(0x2) + OAM2_CHR(0x4000 / 0x20);
         anim->state2 |= ANIM_BIT2_0400 | ANIM_BIT2_FRONT_FRAME;
         anim->nextRoundId = 0x0;
         anim->currentRoundType = round_type;
@@ -433,7 +433,7 @@ label1:
         do anim = AnimCreate(scr, priority_front); while (0);
         anim->xPosition = gEkrXPosReal[1] - gEkrBgXOffset;
         anim->yPosition = gEkrYPosReal[1];
-        anim->oam2Base = 0x9B00;
+        anim->oam2Base = OAM2_PAL(0x9) + OAM2_LAYER(0x2) + OAM2_CHR(0x6000 / 0x20);
         anim->state2 |= ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
         anim->nextRoundId = 0x0;
         anim->currentRoundType = round_type;
@@ -451,7 +451,7 @@ label2:
         anim = AnimCreate(scr, priority_back);
         anim->xPosition = gEkrXPosReal[1] - gEkrBgXOffset;
         anim->yPosition = gEkrYPosReal[1];
-        anim->oam2Base = 0x9B00;
+        anim->oam2Base = OAM2_PAL(0x9) + OAM2_LAYER(0x2) + OAM2_CHR(0x6000 / 0x20);
         anim->state2 |= ANIM_BIT2_FRONT_FRAME | ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
         anim->nextRoundId = 0x0;
         anim->currentRoundType = round_type;

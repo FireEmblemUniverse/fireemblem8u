@@ -4,6 +4,9 @@
 #include "anime.h"
 #include "proc.h"
 
+#define EFX_BG_WIDTH 66
+#define EFX_TILEMAP_LOC(aMap, aX, aY) (aMap + (aX) + EFX_BG_WIDTH * (aY))
+
 struct ProcEfx {
     PROC_HEADER;
 
@@ -19,9 +22,9 @@ struct ProcEfx {
     /* 48 */ u32 unk48;
     /* 4C */ u32 unk4C;
     /* 50 */ u32 unk50;
-    /* 54 */ s16 *unk54;
-    /* 58 */ s16 **unk58;
-    /* 5C */ struct Anim *anim;
+    /* 54 */ s16 * unk54;
+    /* 58 */ s16 ** unk58;
+    /* 5C */ struct Anim * anim;
 };
 
 struct ProcEfxBG {
@@ -51,7 +54,7 @@ struct ProcEfxBGCOL {
     /* 48 */ const u16 *frame_config;
     /* 4C */ void *unk4C;
     STRUCT_PAD(0x50, 0x5C);
-    /* 5C */ struct Anim *anim;
+    /* 5C */ struct Anim * anim;
 };
 
 struct ProcEfxOBJ {
@@ -114,13 +117,13 @@ struct Unknown_030053A0 {
     /* 0C */ u16 u0c;
     /* 0E */ u16 u0e;
     /* 10 */ u16 u10;
-    /* 14 */ struct Anim *anim1;
-    /* 18 */ struct Anim *anim2;
-    /* 1C */ void *u1c;
-    /* 20 */ void *u20;
-    /* 24 */ void *u24;
-    /* 28 */ void *u28;
-    /* 2C */ void *_u2c;
+    /* 14 */ struct Anim * anim1;
+    /* 18 */ struct Anim * anim2;
+    /* 1C */ void * u1c;
+    /* 20 */ void * u20;
+    /* 24 */ void * u24;
+    /* 28 */ void * u28;
+    /* 2C */ void * _u2c;
     /* 30 */ struct Unknown_030053E0 * u30;
 };
 
@@ -132,7 +135,7 @@ struct Unknown_0201FADC {
     /* 14 */ ProcPtr p1;
     /* 18 */ ProcPtr p2;
     /* 1c */ u32 u1c;
-    /* 20 */ u8 *u20;
+    /* 20 */ u8 * u20;
     /* 24 */ u32 _pad_24;
 };
 
@@ -153,11 +156,11 @@ struct Struct20200E0 {
     /* 0C */ u16 unk0C;
     /* 0E */ u16 unk0E;
     /* 10 */ u16 unk10;
-    /* 14 */ void *unk14;
-    /* 18 */ void *unk18;
-    /* 1C */ void *unk1C;
-    /* 20 */ void *unk20;
-    /* 24 */ void *unk24;
+    /* 14 */ void * unk14;
+    /* 18 */ void * unk18;
+    /* 1C */ void * unk1C;
+    /* 20 */ void * unk20;
+    /* 24 */ void * unk24;
 };
 extern struct Struct20200E0 gUnknown_020200E0;
 
@@ -174,7 +177,7 @@ struct ProcEfxFlashing {
 
     STRUCT_PAD(0x32, 0x5C);
 
-    /* 5C */ struct Anim *anim;
+    /* 5C */ struct Anim * anim;
 };
 
 struct ProcEfxHPBarColorChange {
@@ -196,7 +199,7 @@ struct ProcEfxHPBarColorChange {
     /* 50 */ const u16 * frame_lut2;
     /* 54 */ u32 unk54;
     /* 58 */ u32 unk58;
-    /* 5C */ struct Anim *anim;
+    /* 5C */ struct Anim * anim;
 };
 
 
@@ -215,12 +218,12 @@ struct ProcEfxHPBar {
     /* 50 */ int post;
     /* 54 */ int timer;
     /* 58 */ int finished;
-    /* 5C */ struct Anim *anim5C;
-    /* 60 */ struct Anim *anim60;
-    /* 64 */ struct Anim *anim64;
+    /* 5C */ struct Anim * anim5C;
+    /* 60 */ struct Anim * anim60;
+    /* 64 */ struct Anim * anim64;
 };
 
-void ekrDispUPMain(struct ProcEkrDispUP *proc);
+void ekrDispUPMain(struct ProcEkrDispUP * proc);
 
 struct ProcEfxDead {
     PROC_HEADER;
@@ -229,25 +232,25 @@ struct ProcEfxDead {
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
     /* 30 */ STRUCT_PAD(0x30, 0x5C);
-    /* 5C */ struct Anim *anim1;
-    /* 60 */ struct Anim *anim2;
+    /* 5C */ struct Anim * anim1;
+    /* 60 */ struct Anim * anim2;
 };
 
-void NewEfxDeadEvent(struct Anim *anim1, struct Anim *anim2);
-void sub_8052DFC(struct ProcEfxDead *proc);
-void sub_8052E7C(struct ProcEfxDead *proc);
-void sub_8052EAC(struct ProcEfxDead *proc);
-void sub_8052F24(struct ProcEfxDead *proc);
-void sub_8052F84(struct ProcEfxDead *proc);
-void NewEfxDead(struct Anim *anim1, struct Anim *anim2);
-void sub_8052FEC(struct ProcEfxDead *proc);
-void sub_8053080(struct ProcEfxDead *proc);
-void NewEfxDeadPika(struct Anim *anim1, struct Anim *anim2);
-void EfxDeadPikaMain(struct ProcEfxDead *proc);
-void NewEfxDeadAlpha(struct Anim *anim1, struct Anim *anim2);
-void EfxDeadAlphaMain(struct ProcEfxDead *proc);
-void NewEfxDeadDragonAlpha(struct Anim *anim1, struct Anim *anim2);
-void EfxDeadDragonAlphaMain(struct ProcEfxDead *proc);
+void NewEfxDeadEvent(struct Anim * anim1, struct Anim * anim2);
+void sub_8052DFC(struct ProcEfxDead * proc);
+void sub_8052E7C(struct ProcEfxDead * proc);
+void sub_8052EAC(struct ProcEfxDead * proc);
+void sub_8052F24(struct ProcEfxDead * proc);
+void sub_8052F84(struct ProcEfxDead * proc);
+void NewEfxDead(struct Anim * anim1, struct Anim * anim2);
+void sub_8052FEC(struct ProcEfxDead * proc);
+void sub_8053080(struct ProcEfxDead * proc);
+void NewEfxDeadPika(struct Anim * anim1, struct Anim * anim2);
+void EfxDeadPikaMain(struct ProcEfxDead * proc);
+void NewEfxDeadAlpha(struct Anim * anim1, struct Anim * anim2);
+void EfxDeadAlphaMain(struct ProcEfxDead * proc);
+void NewEfxDeadDragonAlpha(struct Anim * anim1, struct Anim * anim2);
+void EfxDeadDragonAlphaMain(struct ProcEfxDead * proc);
 
 struct ProcEfxStatusUnit {
     PROC_HEADER;
@@ -265,21 +268,21 @@ struct ProcEfxStatusUnit {
     /* 50 */ u32 debuf_bak;
 
     /* 54 */ u8 _pad_54[0x5C - 0x54];
-    /* 5C */ struct Anim *anim;
+    /* 5C */ struct Anim * anim;
 };
 
 extern struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2];
 
-void NewEfxStatusUnit(struct Anim *anim);
+void NewEfxStatusUnit(struct Anim * anim);
 // ??? EndEfxStatusUnits(???);
 // ??? DeleteEach6C_efxStatusUnit(???);
-void DisableEfxStatusUnits(struct Anim *anim);
-void EnableEfxStatusUnits(struct Anim *anim);
-void SetUnitEfxDebuff(struct Anim *anim, int debuff);
-u32 GettUnitEfxDebuff(struct Anim *anim);
-void EfxStatusUnitSomePalModify(struct Anim *anim, int, int, int);
-void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc);
-void EfxStatusUnitEnd(struct ProcEfxStatusUnit *proc);
+void DisableEfxStatusUnits(struct Anim * anim);
+void EnableEfxStatusUnits(struct Anim * anim);
+void SetUnitEfxDebuff(struct Anim * anim, int debuff);
+u32 GettUnitEfxDebuff(struct Anim * anim);
+void EfxStatusUnitSomePalModify(struct Anim * anim, int, int, int);
+void EfxStatusUnitMain(struct ProcEfxStatusUnit * proc);
+void EfxStatusUnitEnd(struct ProcEfxStatusUnit * proc);
 
 struct ProcEfxWeaponIcon {
     PROC_HEADER;
@@ -301,8 +304,8 @@ void NewEfxWeaponIcon(s16 a, s16 b);
 void EndProcEfxWeaponIcon(void);
 void DisableEfxWeaponIcon(void);
 void EnableEfxWeaponIcon(void);
-void sub_8054F10(struct ProcEfxWeaponIcon *proc);
-void sub_8054F78(struct ProcEfxWeaponIcon *proc);
+void sub_8054F10(struct ProcEfxWeaponIcon * proc);
+void sub_8054F78(struct ProcEfxWeaponIcon * proc);
 
 struct ProcEfxSpellCast {
     PROC_HEADER;
@@ -313,14 +316,14 @@ struct ProcEfxSpellCast {
     /* 2E */ s16 terminator;
 };
 
-extern struct ProcEfxSpellCast *gpProcEfxSpellCast;
+extern struct ProcEfxSpellCast * gpProcEfxSpellCast;
 
 void NewEfxSpellCast(void);
 void RegisterEfxSpellCastEnd(void);
 void EndEfxSpellCast(void);
-void sub_8055038(struct ProcEfxSpellCast *proc);
-void sub_805509C(struct ProcEfxSpellCast *proc);
-void sub_80550DC(struct ProcEfxSpellCast *proc);
+void sub_8055038(struct ProcEfxSpellCast * proc);
+void sub_805509C(struct ProcEfxSpellCast * proc);
+void sub_80550DC(struct ProcEfxSpellCast * proc);
 
 struct ProcEfxSkill {
     PROC_HEADER;
@@ -336,23 +339,23 @@ struct ProcEfxSkill {
     /* 3C */ STRUCT_PAD(0x3C, 0x44);
 
     /* 44 */ u32 frame;
-    /* 48 */ const u16 *time_lut;
-    /* 4C */ u16 **tsa_lut;
-    /* 50 */ u16 **tsa_cur;
-    /* 54 */ u16 **img_lut;
-    /* 58 */ u16 **pal_lut;
-    /* 5C */ struct Anim *anim;
+    /* 48 */ const u16 * time_lut;
+    /* 4C */ u16 ** tsa_lut;
+    /* 50 */ u16 ** tsa_cur;
+    /* 54 */ u16 ** img_lut;
+    /* 58 */ u16 ** pal_lut;
+    /* 5C */ struct Anim * anim;
 };
 
-void NewEfxSkillType01BG(struct Anim *anim);
-void EfxSkillType01BGMain(struct ProcEfxSkill *proc);
-void NewEfxSkillCommonBG(struct Anim *anim, u8 val);
-void sub_806E610(struct ProcEfxSkill *proc);
-void sub_806E638(struct ProcEfxSkill *proc);
-void sub_806E6E0(struct ProcEfxSkill *proc);
-void sub_806E79C(struct ProcEfxSkill *proc);
-void sub_806E868(struct ProcEfxSkill *proc);
-void sub_806E8A4(struct ProcEfxSkill *proc);
+void NewEfxSkillType01BG(struct Anim * anim);
+void EfxSkillType01BGMain(struct ProcEfxSkill * proc);
+void NewEfxSkillCommonBG(struct Anim * anim, u8 val);
+void sub_806E610(struct ProcEfxSkill * proc);
+void sub_806E638(struct ProcEfxSkill * proc);
+void sub_806E6E0(struct ProcEfxSkill * proc);
+void sub_806E79C(struct ProcEfxSkill * proc);
+void sub_806E868(struct ProcEfxSkill * proc);
+void sub_806E8A4(struct ProcEfxSkill * proc);
 
 extern CONST_DATA u16 Img_EfxSkill1[];
 extern CONST_DATA u16 Img_EfxSkill2[];
@@ -418,7 +421,7 @@ struct ProcEfxDamageMojiEffectOBJ {
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
     STRUCT_PAD(0x30, 0x5C);
-    /* 5C */ struct Anim *anim;
+    /* 5C */ struct Anim * anim;
     /* 60 */ struct ProcEkrSubAnimeEmulator *sub_proc;
 };
 
@@ -502,11 +505,9 @@ extern u8 gEkrBuf2[];
 // extern ??? gUnknown_0201C5D1
 // extern ??? gUnknown_0201C5D4
 extern u16 gPalBackupEkrUnitMaybe[0x40 / sizeof(u16)];
-extern u16 gUnknown_0201C8D0[];
-// extern ??? gUnknown_0201C912
+extern u16 gEfxBuf_0201C8D0[0xB58 / sizeof(u16)];
 extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
-// extern ??? gUnknown_0201CF84
-extern u16 gEfxFrameTmap[];
+extern u16 gEfxFrameTmap[0x2520 / 2];
 // extern ??? gUnknown_0201D438
 extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201DB00
@@ -515,7 +516,7 @@ extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201F160
 // extern ??? gUnknown_0201F198
 // extern ??? gUnknown_0201F19C
-extern u8 gUnknown_0201F948[];
+extern u8 gEfxSomePalBuf[];
 extern u8 gUnknown_0201F978[];
 extern u16 gUnknown_0201F9A8[];
 extern u8 gUnknown_0201FA08[];
@@ -1361,93 +1362,93 @@ void EfxFlashUnitEffectRestorePal(struct ProcEfxFlashing * proc);
 // ??? sub_806C464(???);
 // ??? sub_806C478(???);
 // ??? sub_806C608(???);
-void NewEfxDamageMojiEffect(struct Anim *anim, int hitted);
+void NewEfxDamageMojiEffect(struct Anim * anim, int hitted);
 // ??? efxDamageMojiEffectMain(???);
-void NewEfxDamageMojiEffectOBJ(struct Anim *anim, int hitted);
+void NewEfxDamageMojiEffectOBJ(struct Anim * anim, int hitted);
 // ??? efxDamageMojiEffectOBJMain(???);
-void NewEfxPierceCritical(struct Anim *anim);
+void NewEfxPierceCritical(struct Anim * anim);
 // ??? efxCriricalEffectMain(???);
-void NewEfxCriricalEffectBG(struct Anim *anim);
+void NewEfxCriricalEffectBG(struct Anim * anim);
 // ??? efxCriricalEffectBGMain(???);
-void NewEfxCriricalEffectBGCOL(struct Anim *anim);
+void NewEfxCriricalEffectBGCOL(struct Anim * anim);
 // ??? efxCriricalEffectBGCOLMain(???);
-void NewEfxNormalEffect(struct Anim *anim);
+void NewEfxNormalEffect(struct Anim * anim);
 // ??? efxNormalEffectMain(???);
-void NewEfxNormalEffectBG(struct Anim *anim);
+void NewEfxNormalEffectBG(struct Anim * anim);
 // ??? efxNormalEffectBGMain(???);
-void NewEfxPierceCriticalEffect(struct Anim *anim);
+void NewEfxPierceCriticalEffect(struct Anim * anim);
 // ??? efxPierceCriticalEffectMain(???);
-void NewEfxPierceCriticalEffectBG(struct Anim *anim);
+void NewEfxPierceCriticalEffectBG(struct Anim * anim);
 // ??? efxPierceCriticalEffectBGMain(???);
-void NewEfxPierceCriticalEffectBGCOL(struct Anim *anim);
+void NewEfxPierceCriticalEffectBGCOL(struct Anim * anim);
 // ??? efxPierceCriticalEffectBGCOLMain(???);
-void NewEfxPierceNormalEffect(struct Anim *anim);
+void NewEfxPierceNormalEffect(struct Anim * anim);
 // ??? efxPierceNormalEffectMain(???);
-void NewEfxPierceNormalEffectBG(struct Anim *anim);
+void NewEfxPierceNormalEffectBG(struct Anim * anim);
 // ??? efxPierceNormalEffectBGMain(???);
-void NewEfxYushaSpinShield(struct Anim *anim, int r1);
+void NewEfxYushaSpinShield(struct Anim * anim, int r1);
 // ??? EfxYushaSpinShieldMain(???);
-void NewEfxYushaSpinShieldOBJ(struct Anim *anim, int r1);
+void NewEfxYushaSpinShieldOBJ(struct Anim * anim, int r1);
 // ??? efxYushaSpinShieldOBJ_806CD14(???);
 // ??? efxYushaSpinShieldOBJ_806CD7C(???);
 // ??? efxYushaSpinShieldOBJ_806CDA4(???);
 // ??? efxYushaSpinShieldOBJ_806CE08(???);
-void NewEfxHurtmutEff00(struct Anim *anim);
+void NewEfxHurtmutEff00(struct Anim * anim);
 // ??? EfxHurtmutEff00Main(???);
-void NewEfxHurtmutEff00OBJ(struct Anim *anim);
+void NewEfxHurtmutEff00OBJ(struct Anim * anim);
 // ??? efxHurtmutEff00OBJ_806CEC4(???);
 // ??? efxHurtmutEff00OBJ_806CF10(???);
 // ??? efxHurtmutEff00OBJ_806CF5C(???);
-void NewEfxHurtmutEff01OBJ(struct Anim *anim);
+void NewEfxHurtmutEff01OBJ(struct Anim * anim);
 // ??? efxHurtmutEff01OBJ_806CFC4(???);
 // ??? efxHurtmutEff01OBJ_806D010(???);
 // ??? efxHurtmutEff01OBJ_806D05C(???);
-void NewEfxMagfcast(struct Anim *anim, int type);
+void NewEfxMagfcast(struct Anim * anim, int type);
 // ??? EfxMagfcastMain(???);
-void NewEfxMagfcastBG(struct Anim *anim, u32 type);
+void NewEfxMagfcastBG(struct Anim * anim, u32 type);
 // ??? EfxMagfcastBGMain(???);
-void NewEfxSunakemuri(struct Anim *anim, int type);
+void NewEfxSunakemuri(struct Anim * anim, int type);
 // ??? EfxSunakemuriMain(???);
-void NewEfxSunakemuriOBJ(struct Anim *anim, int type);
+void NewEfxSunakemuriOBJ(struct Anim * anim, int type);
 // ??? EfxSunakemuriOBJMain(???);
-void NewEfxLokmsuna(struct Anim *anim);
+void NewEfxLokmsuna(struct Anim * anim);
 // ??? EfxLokmsunaMain(???);
-void NewEfxLokmsunaOBJ(struct Anim *anim);
+void NewEfxLokmsunaOBJ(struct Anim * anim);
 // ??? EfxLokmsunaIOBJMain(???);
-void NewEfxKingPika(struct Anim *anim);
+void NewEfxKingPika(struct Anim * anim);
 // ??? EfxKingPikaMain(???);
-void NewEfxFlashFX(struct Anim *anim);
+void NewEfxFlashFX(struct Anim * anim);
 // ??? EfxFlashFXMain(???);
 // ??? NewEfxSongOBJ2(???);
 // ??? EfxSongOBJ2Main(???);
 // ??? NewEfxDanceOBJ(???);
 // ??? EfxDanceOBJMain(???);
-void NewEfxSpecalEffect(struct Anim *anim);
+void NewEfxSpecalEffect(struct Anim * anim);
 // ??? sub_806D980(???);
-void NewEfxSRankWeaponEffect(struct Anim *anim);
+void NewEfxSRankWeaponEffect(struct Anim * anim);
 // ??? EfxSRankWeaponEffectMain(???);
-void NewEfxSRankWeaponEffectBG(struct Anim *anim);
+void NewEfxSRankWeaponEffectBG(struct Anim * anim);
 // ??? EfxSRankWeaponEffectBGMain(???);
 void NewEfxSRankWeaponEffectSCR(void);
 // ??? EfxSRankWeaponEffectSCRMain(???);
 void NewEfxSRankWeaponEffectSCR2(struct ProcEfx *seff_scr);
 // ??? EfxSRankWeaponEffectSCR2Main(???);
-void NewEfxMagdhisEffect(struct Anim *anim);
+void NewEfxMagdhisEffect(struct Anim * anim);
 // ??? EfxMagdhisEffectMain(???);
-void NewEfxMagdhisEffectBG(struct Anim *anim, int);
+void NewEfxMagdhisEffectBG(struct Anim * anim, int);
 // ??? EfxMagdhisEffectBGMain(???);
-void NewEfxMantBatabata(struct Anim *anim);
+void NewEfxMantBatabata(struct Anim * anim);
 // ??? sub_806DFA4(???);
 // ??? sub_806DFD0(???);
-void NewEfxChillEffect(struct Anim *anim);
+void NewEfxChillEffect(struct Anim * anim);
 // ??? EfxChillEffectMain(???);
-void NewEfxChillEffectBG(struct Anim *anim);
+void NewEfxChillEffectBG(struct Anim * anim);
 // ??? EfxChillEffectBGMain(???);
-void NewEfxChillEffectBGCOL(struct Anim *anim);
+void NewEfxChillEffectBGCOL(struct Anim * anim);
 // ??? sub_806E158(???);
-void NewEfxChillAnime(struct Anim *anim, int arg1);
+void NewEfxChillAnime(struct Anim * anim, int arg1);
 // ??? sub_806E290(???);
-void nullsub_17(struct Anim *anim);
+void nullsub_17(struct Anim * anim);
 
 // ??? SetGlbProcefxopCur(???);
 // ??? sub_806E948(???);

@@ -38,10 +38,10 @@ void EfxDracoZombiePrepareTSA(int x, int y, s8 pos)
     else
         LZ77UnCompVram(Tsa_EfxDracoZombieBaseLeft, gEkrTsaBuffer);
     
-    sub_806FBB8();
+    EkrDragonTmCpyWithDistance();
 
     x += gEkrBgXOffset;
-    EkrDragonBgSetPostion(x, y);
+    EkrDragonTmCpyExt(x, y);
 }
 
 void EfxDracoZombiePrepareImg(struct ProcEkrDragon *proc)
@@ -101,13 +101,13 @@ void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon *proc)
         }
 
         LZ77UnCompVram(gEkrDracoZombiTsaSetLut[proc->tcounter].tsa, gEkrTsaBuffer);
-        sub_806FBB8();
+        EkrDragonTmCpyWithDistance();
     }
 
     x = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->tcounter].lox, gEkrDracoZombiTsaSetLut[proc->tcounter + 1].lox, proc->timer, gEkrDracoZombiTsaSetLut[proc->tcounter].time);
     y = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->tcounter].loy, gEkrDracoZombiTsaSetLut[proc->tcounter + 1].loy, proc->timer, gEkrDracoZombiTsaSetLut[proc->tcounter].time);
 
-    EkrDragonBgSetPostion(x + gEkrBgXOffset, y);
+    EkrDragonTmCpyExt(x + gEkrBgXOffset, y);
 
     proc->timer++;
     if (proc->timer == gEkrDracoZombiTsaSetLut[proc->tcounter].time) {

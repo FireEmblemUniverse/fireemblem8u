@@ -20,7 +20,7 @@ void sub_8077D30(struct Proc08801800 *proc)
 void sub_8077D38(struct Proc08801800 *proc)
 {
     sub_8077EAC(-gUnknown_03004FA0 + gEkrBgXOffset, -gUnknown_03004FA4);
-    EkrDragonBgSetPostion(-gUnknown_03004FA0 + gEkrBgXOffset, -gUnknown_03004FA4);
+    EkrDragonTmCpyExt(-gUnknown_03004FA0 + gEkrBgXOffset, -gUnknown_03004FA4);
     proc->timer++;
 }
 

@@ -3188,7 +3188,7 @@ Loop6C_efxNaglfarBG: @ 0x08067E1C
 	ldr r1, [r1]
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805576C
+	bl SpellFx_WriteBgMapExt
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
@@ -5968,7 +5968,7 @@ sub_806935C: @ 0x0806935C
 	ldr r1, [r5]
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805576C
+	bl SpellFx_WriteBgMapExt
 	b _080693C4
 _080693A2:
 	movs r0, #6
@@ -6064,7 +6064,7 @@ _08069416:
 	ldr r1, [r4]
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805576C
+	bl SpellFx_WriteBgMapExt
 	b _0806947E
 _08069460:
 	movs r0, #1
@@ -10674,7 +10674,7 @@ sub_806B830: @ 0x0806B830
 	ldr r1, [r5]
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805576C
+	bl SpellFx_WriteBgMapExt
 	b _0806B890
 _0806B876:
 	movs r0, #1

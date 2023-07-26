@@ -138,7 +138,7 @@ void NewEfxHPBarColorChange(struct Anim * anim)
 
     sub_80714DC(
         gUnknown_08802B04 + gPalIndexEfxHpBarUnk[0] * 0x10,
-        gUnknown_0201F948,
+        gEfxSomePalBuf,
         0x10);
 
     sub_80714DC(
@@ -147,7 +147,7 @@ void NewEfxHPBarColorChange(struct Anim * anim)
         0x10);
 
     sub_8071574(
-        gUnknown_0201F948,
+        gEfxSomePalBuf,
         gUnknown_0201F978,
         gUnknown_0201F9A8,
         0x10, 5);
@@ -203,13 +203,13 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
 
     if (gEkrGaugeHp[EKR_POS_L] <= 80)
     {
-        buf1 = gUnknown_0201F948;
+        buf1 = gEfxSomePalBuf;
         buf2 = gUnknown_0201F978;
         buf3 = gUnknown_0201F9A8;
 
         sub_80715F4(
             PAL_OBJ(OBPAL_EFXHPBAR_L),
-            gUnknown_0201F948,
+            gEfxSomePalBuf,
             gUnknown_0201F978,
             gUnknown_0201F9A8,
             0x10, proc->unk54, 5);
