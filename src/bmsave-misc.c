@@ -96,39 +96,43 @@ void sub_80A7360(struct GameRankSaveDataPacks* src, struct GameRankSaveDataPacks
 extern u8 gUnknown_02008000[];
 
 //! FE8U = 0x080A7374
-void sub_80A7374(void) {
+void EraseInvalidSaveData(void)
+{
     int i;
-    struct SaveBlocksEwram* ewram;
-    struct SaveBlocks* sram;
-    struct SaveBlocksEwram* ewram_;
+    struct SaveBlocksEwram * ewram;
+    struct SaveBlocks * sram;
+    struct SaveBlocksEwram * ewram_;
 
     ewram = (void *)EWRAM_ENTRY;
-    sram = (void*)CART_SRAM;
+    sram = (void *)CART_SRAM;
 
     ReadSramFast(&sram->globalSaveInfo, ewram, sizeof(struct GlobalSaveInfo));
 
-    if (ewram->globalSaveInfo.magic32 == 0x00040624) {
+    /* Yeah this is FE8U's magic! */
+    if (ewram->globalSaveInfo.magic32 == SAVEMAGIC32)
         return;
-    }
 
     ewram_ = ewram;
 
     ReadSramFast(sram, ewram_, 0x8000);
 
-    if (ewram_->globalSaveInfo.magic32 != 0x00040603) {
+    /* Which game holds magic32 = 0x040603? */
+    if (ewram_->globalSaveInfo.magic32 != 0x00040603)
         return;
-    }
 
+    /* Erase the GlobalSaveInfo */
     CpuFastFill(0, (void *)ewram + 0x8000, sizeof(struct GlobalSaveInfo));
     CopyGlobalSaveInfo(&ewram_->globalSaveInfo, &((struct SaveBlocksEwram*)((void *)ewram + 0x8000))->globalSaveInfo);
     WriteGlobalSaveInfo(&((struct SaveBlocksEwram*)((void *)ewram + 0x8000))->globalSaveInfo);
 
+    /* Erase the suspand data */
     for (i = 0; i < 2; i++) {
         CpuFastFill(0, (void *)ewram + 0x8000, sizeof(struct SuspendSaveBlock));
         sub_80A72B0(&ewram_->suspendSaveBlocks[i], (void *)ewram + 0x8000);
         WriteAndVerifySramFast((void *)ewram + 0x8000, &sram->suspendSaveBlocks[i], sizeof(struct SuspendSaveBlock));
     }
 
+    /* Erase the save data */
     for (i = 0; i < 3; i++) {
         CpuFastFill(0, gUnknown_02008000, sizeof(struct GameSaveBlock));
         sub_80A72EC(&ewram_->gameSaveBlocks[i], (struct GameSaveBlock*)gUnknown_02008000);
@@ -143,12 +147,12 @@ void sub_80A7374(void) {
     // "bmsave_unkstruct1", flags for sound room data?
     CpuFastFill(0, gUnknown_02008000, sizeof(struct bmsave_unkstruct1));
     sub_80A734C(&ewram_->unkstruct1, (struct bmsave_unkstruct1*)gUnknown_02008000);
-    sub_80A3EA4(gUnknown_02008000);
+    WriteLinkArenaStruct1(gUnknown_02008000);
 
     // "bmsave_unkstruct2", flags for viewing CGs?
     CpuFastFill(0, gUnknown_02008000, sizeof(struct bmsave_unkstruct2));
     sub_80A733C(&ewram_->unkstruct2, (struct bmsave_unkstruct2*)gUnknown_02008000);
-    sub_80A4000((struct bmsave_unkstruct2*)gUnknown_02008000);
+    WriteLinkArenaStruct2((struct bmsave_unkstruct2*)gUnknown_02008000);
 
     CpuFastFill(0, gUnknown_02008000, sizeof(struct bmsave_unkstruct3));
     sub_80A7328(&ewram_->unkstruct3, (struct bmsave_unkstruct3*)gUnknown_02008000);

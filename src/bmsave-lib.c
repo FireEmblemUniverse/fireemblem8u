@@ -53,8 +53,8 @@ void SramInit()
 
     SetSramFastFunc();
     REG_IE |= INTR_FLAG_GAMEPAK;
-    WriteSramFast((u8 *)&buf[0], gSram->unk_73A0, sizeof(gSram->unk_73A0));
-    ReadSramFast(gSram->unk_73A0, &buf[1], sizeof(buf[1]));
+    WriteSramFast((u8 *)&buf[0], gSram->reserved, sizeof(gSram->reserved));
+    ReadSramFast(gSram->reserved, &buf[1], sizeof(buf[1]));
     
     gBoolSramWorking = (buf[1] == buf[0])
                      ? true
@@ -1055,17 +1055,17 @@ void SaveEndgameRankings()
         SaveNewRankData(&new, chapter_mode, difficult);
 }
 
-void sub_80A3E28()
+void EraseLinkArenaStruct1()
 {
-    u16 buf[0x12];
+    struct bmsave_unkstruct1 buf;
     
-    CpuFill16(0, buf, sizeof(buf));
-    sub_80A3EA4(buf);
+    CpuFill16(0, &buf, sizeof(buf));
+    WriteLinkArenaStruct1(&buf);
 }
 
-bool sub_80A3E4C(void *buf)
+bool LoadAndVerfyLinkArenaStruct1(void * buf)
 {
-    struct bmsave_unkstruct1 *_buf = buf;
+    struct bmsave_unkstruct1 * _buf = buf;
     struct bmsave_unkstruct1 tmp;
 
     if (!IsSramWorking())
@@ -1082,16 +1082,16 @@ bool sub_80A3E4C(void *buf)
         return true;
 }
 
-void sub_80A3EA4(void *buf)
+void WriteLinkArenaStruct1(void * buf)
 {
-    struct bmsave_unkstruct1 *_buf = buf;
+    struct bmsave_unkstruct1 * _buf = buf;
 
     _buf->magic1 = Checksum16(buf, sizeof(struct bmsave_unkstruct1) - 4);
 
     WriteAndVerifySramFast(_buf, &gSram->unkstruct1, sizeof(struct bmsave_unkstruct1));
 }
 
-int sub_80A3ED0(void *buf, int val)
+int ModifySaveLinkArenaStruct1A(void * buf, int val)
 {
     struct bmsave_unkstruct1 tmp;
     struct bmsave_unkstruct1 *_buf;
@@ -1099,7 +1099,7 @@ int sub_80A3ED0(void *buf, int val)
 
     if (0 == buf) {
         buf = &tmp;
-        sub_80A3E4C(&tmp);
+        LoadAndVerfyLinkArenaStruct1(&tmp);
     }
 
     _buf = buf;
@@ -1109,7 +1109,7 @@ int sub_80A3ED0(void *buf, int val)
         return 0;
 }
 
-void sub_80A3F08(struct bmsave_unkstruct1 *buf, int val)
+void ModifySaveLinkArenaStruct1B(struct bmsave_unkstruct1 * buf, int val)
 {
     struct bmsave_unkstruct1 tmp;
     u32 _val = val;
@@ -1117,7 +1117,7 @@ void sub_80A3F08(struct bmsave_unkstruct1 *buf, int val)
     if (NULL == buf) {
         buf = &tmp;
         
-        if (!sub_80A3E4C(&tmp))
+        if (!LoadAndVerfyLinkArenaStruct1(&tmp))
             return;
     }
 
@@ -1136,20 +1136,20 @@ void sub_80A3F08(struct bmsave_unkstruct1 *buf, int val)
     else if (0x30 == val)
         buf->unk[2] |= 1 << 0x14;
 
-    sub_80A3EA4(buf);
+    WriteLinkArenaStruct1(buf);
 }
 
-void sub_80A3F84()
+void EraseLinkArenaStruct2()
 {
     struct bmsave_unkstruct2 buf;
     
     CpuFill16(0, (void*)&buf, sizeof(buf));
-    sub_80A4000(&buf);
+    WriteLinkArenaStruct2(&buf);
 }
 
-bool sub_80A3FA8(void *buf)
+bool LoadAndVerfyLinkArenaStruct2(void * buf)
 {
-    struct bmsave_unkstruct2 tmp, *_buf = buf;
+    struct bmsave_unkstruct2 tmp, * _buf = buf;
 
     if (!IsSramWorking())
         return 0;
@@ -1165,24 +1165,24 @@ bool sub_80A3FA8(void *buf)
         return 1;
 }
 
-void sub_80A4000(struct bmsave_unkstruct2 *buf)
+void WriteLinkArenaStruct2(struct bmsave_unkstruct2 * buf)
 {
-    buf->magic1 = Checksum16((u16*)buf, sizeof(struct bmsave_unkstruct2) - 4);
+    buf->magic1 = Checksum16((u16 *)buf, sizeof(struct bmsave_unkstruct2) - 4);
 
     WriteAndVerifySramFast((void*)buf,
                            &gSram->unkstruct2,
                            sizeof(struct bmsave_unkstruct2));
 }
 
-int sub_80A402C(void *buf, int val)
+int ModifySaveLinkArenaStruct2A(void * buf, int val)
 {
     struct bmsave_unkstruct2 tmp;
-    struct bmsave_unkstruct2 *_buf;
+    struct bmsave_unkstruct2 * _buf;
     u32 _val = val;
 
     if (0 == buf) {
         buf = &tmp;
-        sub_80A3FA8(&tmp);
+        LoadAndVerfyLinkArenaStruct2(&tmp);
     }
 
     _buf = buf;
@@ -1192,7 +1192,7 @@ int sub_80A402C(void *buf, int val)
         return 0;
 }
 
-void sub_80A4064(struct bmsave_unkstruct2 *buf, int val)
+void ModifySaveLinkArenaStruct2B(struct bmsave_unkstruct2 * buf, int val)
 {
     struct bmsave_unkstruct2 tmp;
     u32 _val = val;
@@ -1200,7 +1200,7 @@ void sub_80A4064(struct bmsave_unkstruct2 *buf, int val)
     if (NULL == buf) {
         buf = &tmp;
         
-        if (!sub_80A3FA8(&tmp))
+        if (!LoadAndVerfyLinkArenaStruct2(&tmp))
             return;
     }
 
@@ -1208,7 +1208,7 @@ void sub_80A4064(struct bmsave_unkstruct2 *buf, int val)
         return;
 
     buf->unk[val >> 5] |= (1 << (_val % 0x20));
-    sub_80A4000(buf);
+    WriteLinkArenaStruct2(buf);
 }
 
 void EraseSramDataIfInvalid()
@@ -1222,11 +1222,11 @@ void EraseSramDataIfInvalid()
     if (!LoadAndVerfyRankData(NULL))
         EraseSaveRankData();
     
-    if (!sub_80A3E4C(NULL))
-        sub_80A3E28();
+    if (!LoadAndVerfyLinkArenaStruct1(NULL))
+        EraseLinkArenaStruct1();
     
-    if (!sub_80A3FA8(NULL))
-        sub_80A3F84();
+    if (!LoadAndVerfyLinkArenaStruct2(NULL))
+        EraseLinkArenaStruct2();
     
     LoadAndVerfySuspendSave();
 }

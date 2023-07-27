@@ -73,7 +73,7 @@ _080AA588:
 	strb r0, [r2]
 	movs r0, #0
 	movs r1, #0x75
-	bl sub_80A3F08
+	bl ModifySaveLinkArenaStruct1B
 _080AA5B2:
 	mov r1, r8
 	ldr r0, [r1]
@@ -89,7 +89,7 @@ _080AA5B2:
 	strb r0, [r2]
 	movs r0, #0
 	movs r1, #0x76
-	bl sub_80A3F08
+	bl ModifySaveLinkArenaStruct1B
 _080AA5D2:
 	adds r6, #0x14
 	subs r7, #1
