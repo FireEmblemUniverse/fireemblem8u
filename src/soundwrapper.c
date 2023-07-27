@@ -334,7 +334,7 @@ void PlaySong(int songId, struct MusicPlayerInfo *player)
     if (songId < 128)
     {
         sub_80028FC(songId);
-        sub_80A3F08(0, songId);
+        ModifySaveLinkArenaStruct1B(0, songId);
     }
 
     if (player != NULL)

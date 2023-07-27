@@ -293,7 +293,7 @@ void sub_80B65F4(void) {
     return;
 }
 
-void sub_80A4064(void *buf, int val);
+void ModifySaveLinkArenaStruct2B(void *buf, int val);
 
 //! FE8U = 0x080B65F8
 void sub_80B65F8(u16* tm, int offset, int palId, int palCount, int idx) {
@@ -311,7 +311,7 @@ void sub_80B65F8(u16* tm, int offset, int palId, int palCount, int idx) {
     ApplyPalettes(cgEnt->pal, palId, palCount);
 
     if (idx < 0x80) {
-        sub_80A4064(NULL, idx);
+        ModifySaveLinkArenaStruct2B(NULL, idx);
     }
 
     return;

@@ -388,9 +388,9 @@ struct SaveBlocks {
     /* 0x7224 */ struct bmsave_unkstruct1 unkstruct1;
     /* 0x7248 */ struct bmsave_unkstruct2 unkstruct2;
     /* 0x725C */ struct bmsave_unkstruct3 unkstruct3;
-    /* 0x73A0 */ u8 unk_73A0[4];
-    /* 0x73A4 */ u8 unk_73A4[0x5C];
-    /* 0x7400 */ struct ExtraMapSaveHead offset_6; // see bmsave-xmap.c
+    /* 0x73A0 */ u8 reserved[4];
+    /* 0x73A4 */ u8 _pad_[0x7400 - 0x73A4];
+    /* 0x7400 */ struct ExtraMapSaveHead xmap; // see bmsave-xmap.c
 };
 
 // TODO: figure out how these structs work
@@ -492,15 +492,15 @@ void SaveNewRankData(void *buf, int chapter_mode, int difficulty);
 u8 JudgeGameRankSaveData(struct GameRankSaveData *old, struct GameRankSaveData *new);
 void GenerateGameRankSaveData(struct GameRankSaveData *buf, int chapter_mode, int difficulty);
 void SaveEndgameRankings(void);
-void sub_80A3E28(void);
-bool sub_80A3E4C(void *buf);
-void sub_80A3EA4(void *);
-int sub_80A3ED0(void *buf, int val);
-void sub_80A3F84(void);
-bool sub_80A3FA8(void *buf);
-void sub_80A4000(struct bmsave_unkstruct2 *buf);
-int sub_80A402C(void *buf, int val);
-int sub_80A402C(void *buf, int val);
+void EraseLinkArenaStruct1(void);
+bool LoadAndVerfyLinkArenaStruct1(void *buf);
+void WriteLinkArenaStruct1(void *);
+int ModifySaveLinkArenaStruct1A(void *buf, int val);
+void EraseLinkArenaStruct2(void);
+bool LoadAndVerfyLinkArenaStruct2(void *buf);
+void WriteLinkArenaStruct2(struct bmsave_unkstruct2 *buf);
+int ModifySaveLinkArenaStruct2A(void *buf, int val);
+int ModifySaveLinkArenaStruct2A(void *buf, int val);
 void EraseSramDataIfInvalid(void);
 void ClearPidChStatsSaveData(struct GameSaveBlock *sram_dest);
 void ClearPidStats_ret(void);
@@ -512,7 +512,7 @@ void WriteChapterStats(void *sram_dest);
 struct ChapterStats *GetChapterStats(int index);
 bool IsChapterStatsValid(struct ChapterStats *chapter_stats);
 int GetNextChapterStatsSlot(void);
-void sub_80A3F08(struct bmsave_unkstruct1 *buf, int val);
+void ModifySaveLinkArenaStruct1B(struct bmsave_unkstruct1 *buf, int val);
 int GetCurCompleteChapters(void);
 int GetNextChapterStatsEntry(void);
 void RegisterChapterTimeAndTurnCount(struct PlaySt* chData);
@@ -643,6 +643,6 @@ void sub_80A71F8(void*);
 // ??? sub_80A733C(???);
 // ??? sub_80A734C(???);
 // ??? sub_80A7360(???);
-void sub_80A7374();
+void EraseInvalidSaveData();
 
 #endif /* BMSAVE_H */

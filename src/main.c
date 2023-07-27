@@ -45,7 +45,7 @@ void AgbMain()
     SetLCGRNValue(0x42D690E9);
     InitRN(AdvanceGetLCGRNValue());
     sub_8000D0C();
-    sub_80A7374();
+    EraseInvalidSaveData();
     EraseSramDataIfInvalid();
 
     // initialize sound
