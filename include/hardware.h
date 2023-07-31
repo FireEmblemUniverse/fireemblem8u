@@ -9,7 +9,7 @@ enum {
     FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
 };
 
-struct BITPACKED DispCnt {
+struct DispCnt {
     /* bit  0 */ u16 mode : 3;
     /* bit  3 */ u16 cgbMode : 1; // reserved, do not use
     /* bit  4 */ u16 bmpFrameNum : 1;
@@ -25,9 +25,9 @@ struct BITPACKED DispCnt {
     /* bit 14 */ u16 win1_on : 1;
     /* bit 15 */ u16 objWin_on : 1;
     STRUCT_PAD(0x02, 0x04);
-};
+} BITPACKED;
 
-struct BITPACKED DispStat {
+struct DispStat {
     /* bit  0 */ u16 vblankFlag : 1;
     /* bit  1 */ u16 hblankFlag : 1;
     /* bit  2 */ u16 vcountFlag : 1;
@@ -37,9 +37,9 @@ struct BITPACKED DispStat {
     /* bit  6 */ u16 dummy : 2;
     /* bit  8 */ u16 vcountCompare : 8;
     STRUCT_PAD(0x02, 0x04);
-};
+} BITPACKED;
 
-struct BITPACKED BgCnt {
+struct BgCnt {
     /* bit  0 */ u16 priority : 2;
     /* bit  2 */ u16 charBaseBlock : 2;
     /* bit  4 */ u16 dummy : 2;
@@ -49,9 +49,9 @@ struct BITPACKED BgCnt {
     /* bit 13 */ u16 areaOverflowMode : 1;
     /* bit 14 */ u16 screenSize : 2;
     STRUCT_PAD(0x02, 0x04);
-};
+} BITPACKED;
 
-struct BITPACKED WinCnt {
+struct WinCnt {
     u8 win0_enableBg0 : 1;
     u8 win0_enableBg1 : 1;
     u8 win0_enableBg2 : 1;
@@ -83,9 +83,9 @@ struct BITPACKED WinCnt {
     u8 wobj_enableObj : 1;
     u8 wobj_enableBlend : 1;
     u8 : 2;
-};
+} BITPACKED;
 
-struct BITPACKED BlendCnt {
+struct BlendCnt {
     u16 target1_bg0_on : 1;
     u16 target1_bg1_on : 1;
     u16 target1_bg2_on : 1;
@@ -100,7 +100,7 @@ struct BITPACKED BlendCnt {
     u16 target2_obj_on : 1;
     u16 target2_bd_on : 1;
     STRUCT_PAD(0x02, 0x04);
-};
+} BITPACKED;
 
 struct LCDControlBuffer {
     /* 00 */ struct DispCnt dispcnt;

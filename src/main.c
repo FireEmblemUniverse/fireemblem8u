@@ -30,11 +30,23 @@ void AgbMain()
     sub_8001C5C(waitCnt);
     if (waitCnt == TRUE)
         RegisterRamReset(~2);
-    REG_WAITCNT = 0x45B4;
+
+    REG_WAITCNT = WAITCNT_SRAM_4 |          /* SRAM Wait Control          = 4 cycles */
+                  WAITCNT_WS0_N_3 |         /* Wait State 0 First Access  = 3 cycles */
+                  WAITCNT_WS0_S_1 |         /* Wait State 0 Second Access = 1 cycle  */
+                  WAITCNT_WS1_N_3 |         /* Wait State 1 First Access  = 3 cycles */
+                  WAITCNT_WS1_S_1 |         /* Wait State 1 Second Access = 1 cycle  */
+                  WAITCNT_WS2_N_3 |         /* Wait State 2 First Access  = 3 cycles */
+                  WAITCNT_WS2_S_1 |         /* Wait State 2 Second Access = 1 cycle  */
+                  WAITCNT_PHI_OUT_NONE |    /* PHI Terminal Output disabled */
+                  WAITCNT_PREFETCH_ENABLE | /* Game Pak Prefetch Buffer enabled */
+                  WAITCNT_AGB;
+
     StoreIRQToIRAM();
     SetInterrupt_LCDVBlank(NULL);
-    REG_DISPSTAT = 8;
-    REG_IME = 1;
+
+    REG_DISPSTAT = DISPSTAT_VBLANK_INTR;
+    REG_IME = INTR_FLAG_VBLANK;
     ResetKeyStatus(gKeyStatusPtr);
     UpdateKeyStatus(gKeyStatusPtr);
     StoreRoutinesToIRAM();

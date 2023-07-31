@@ -133,9 +133,9 @@ struct PlaySt_30 {
     u32 tacticsRank : 3;
     u32 survivalRank : 3;
     u32 unk_F_00 : 8;
-};
+} BITPACKED;
 
-struct BITPACKED PlaySt { // Chapter Data Struct
+struct PlaySt { // Chapter Data Struct
     /* 00 */ u32 time_saved;
     /* 04 */ u32 time_chapter_started;
 
@@ -212,7 +212,7 @@ struct BITPACKED PlaySt { // Chapter Data Struct
     u8 unk4A_2 : 3;
     u8 unk4A_5 : 4;
     u8 unk4B;
-};
+} BITPACKED;
 
 /**
  * Use with PlaySt field chapterStateBits
