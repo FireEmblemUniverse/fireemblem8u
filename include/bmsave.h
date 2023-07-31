@@ -86,7 +86,7 @@ struct SaveBlockInfo {
     /* 0C */ u32 checksum32;
 };
 
-struct BITPACKED GameRankSaveData {
+struct GameRankSaveData {
     /* 00 */ u32 valid : 0x01;
              u32 unk00_01 : 0x03;
              u32 tacticsRank : 0x03;
@@ -112,7 +112,7 @@ struct BITPACKED GameRankSaveData {
     /* 0C */ char tactician_name[0xB];
 
     /* 17 */ u8 luckydog;
-};
+} BITPACKED;
 
 struct GameRankSaveDataPacks {
     struct GameRankSaveData pack[0x6];
@@ -149,7 +149,7 @@ enum
     DEFEAT_CAUSE_7,
 };
 
-struct BITPACKED UnitUsageStats {
+struct UnitUsageStats {
     /* 000 */ unsigned lossAmt     : 8;
     /* 008 */ unsigned favval      : 16;
     /* 024 */ unsigned actAmt      : 8;
@@ -165,7 +165,7 @@ struct BITPACKED UnitUsageStats {
     /* 110 */ unsigned killerPid   : 9;
     /* 119 */ unsigned deathSkirm  : 1;
     /* 120 */ /* 8bit pad */
-};
+} BITPACKED;
 
 #define BWL_ARRAY_NUM 0x46
 
@@ -177,7 +177,7 @@ struct ChapterStats {
 
 #define WIN_ARRAY_NUM 0x30
 
-struct BITPACKED GameSavePackedUnit {       /* Save Data */
+struct GameSavePackedUnit {       /* Save Data */
     /* 00 */ u32 jid      : 7;
              u32 level      : 5;
              u32 exp        : 7;
@@ -205,7 +205,7 @@ struct BITPACKED GameSavePackedUnit {       /* Save Data */
     /* 15 */ u8 wpnRanks[0x8];
     /* 1D */ u8 supports[UNIT_SUPPORT_MAX_COUNT];
     /* 24 */
-};
+} BITPACKED;
 
 enum packed_unit_state_bits {
     PACKED_US_DEAD       = 1 << 0,
@@ -218,7 +218,7 @@ enum packed_unit_state_bits {
     PACKED_US_NEW_FRIEND = 1 << 7,
 };
 
-struct BITPACKED SuspendSavePackedUnit {     /* Suspend Data */
+struct SuspendSavePackedUnit {     /* Suspend Data */
     /* 00 */ u8 pid;
     /* 01 */ u8 jid;
     /* 02 */ u8 ai1;
@@ -264,7 +264,7 @@ struct BITPACKED SuspendSavePackedUnit {     /* Suspend Data */
     /* 31 */ u8 _u46;
     /* 32 */ u16 ai3And4;
     /* 34 */
-};
+} BITPACKED;
 
 /* link arena */
 

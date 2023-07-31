@@ -175,7 +175,7 @@ struct Unit
     /* 47 */ u8 _u47;
 };
 
-struct BITPACKED UnitDefinition
+struct UnitDefinition
 {
     /* 00 */ u8  charIndex;
     /* 01 */ u8  classIndex;
@@ -198,7 +198,7 @@ struct BITPACKED UnitDefinition
     /* 0C */ u8 items[UNIT_DEFINITION_ITEM_COUNT];
 
     /* 10 */ u8 ai[4];
-};
+} BITPACKED;
 
 enum
 {
