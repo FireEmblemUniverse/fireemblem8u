@@ -53,8 +53,6 @@ static CONST_DATA struct WeaponTriangleRule sWeaponTriangleRules[] = {
     { -1 },
 };
 
-static void UpdateActorFromBattle(void);
-
 static CONST_DATA struct ProcCmd sProcScr_BattleAnimSimpleLock[] = {
     PROC_SLEEP(1),
     PROC_CALL(UpdateActorFromBattle),
@@ -74,72 +72,6 @@ static EWRAM_DATA struct {
     u8 unk01;
     u8 unk02;
 } sUnknown_0203A60C = {};
-
-static void BattleGenerateSimulationInternal(struct Unit* actor, struct Unit* target, int x, int y, int actorWpnSlot);
-static void BattleGenerateRealInternal(struct Unit* actor, struct Unit* target);
-
-static s8 BattleRoll1RN(u16 threshold, s8 simResult);
-static s8 BattleRoll2RN(u16 threshold, s8 simResult);
-
-static void ComputeBattleUnitStats(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void ComputeBattleUnitEffectiveStats(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void ComputeBattleUnitSupportBonuses(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void ComputeBattleUnitDefense(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void ComputeBattleUnitBaseDefense(struct BattleUnit* bu);
-static void ComputeBattleUnitAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void ComputeBattleUnitSpeed(struct BattleUnit* bu);
-static void ComputeBattleUnitHitRate(struct BattleUnit* bu);
-static void ComputeBattleUnitAvoidRate(struct BattleUnit* bu);
-static void ComputeBattleUnitCritRate(struct BattleUnit* bu);
-static void ComputeBattleUnitDodgeRate(struct BattleUnit* bu);
-static void ComputeBattleUnitEffectiveHitRate(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void ComputeBattleUnitEffectiveCritRate(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void ComputeBattleUnitSilencerRate(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void ComputeBattleUnitWeaponRankBonuses(struct BattleUnit* bu);
-static void ComputeBattleUnitStatusBonuses(struct BattleUnit* bu);
-static void ComputeBattleUnitSpecialWeaponStats(struct BattleUnit* attacker, struct BattleUnit* defender);
-
-static s8 BattleGenerateRoundHits(struct BattleUnit* attacker, struct BattleUnit* defender);
-static int GetBattleUnitHitCount(struct BattleUnit* attacker);
-static int BattleCheckBraveEffect(struct BattleUnit* bu);
-
-static s8 BattleCheckTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void BattleUpdateBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void BattleCheckSureShot(struct BattleUnit* attacker);
-static void BattleCheckPierce(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void BattleCheckGreatShield(struct BattleUnit* attacker, struct BattleUnit* defender);
-static s8 BattleCheckSilencer(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void BattleCheckPetrify(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void BattleGenerateHitAttributes(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void BattleGenerateHitTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
-static void BattleGenerateHitEffects(struct BattleUnit* attacker, struct BattleUnit* defender);
-static s8 BattleGenerateHit(struct BattleUnit* attacker, struct BattleUnit* defender);
-
-static int GetStatIncrease(int growth);
-
-static int GetBattleUnitUpdatedWeaponExp(struct BattleUnit* bu);
-
-static int GetUnitExpLevel(struct Unit* unit);
-static int GetUnitRoundExp(struct Unit* actor, struct Unit* target);
-static int GetUnitPowerLevel(struct Unit* unit);
-static int GetUnitClassKillExpBonus(struct Unit* actor, struct Unit* target);
-static int GetUnitExpMultiplier(struct Unit* actor, struct Unit* target);
-static int GetUnitKillExpBonus(struct Unit* actor, struct Unit* target);
-static void ModifyUnitSpecialExp(struct Unit* actor, struct Unit* target, int* exp);
-static int GetBattleUnitExpGain(struct BattleUnit* actor, struct BattleUnit* target);
-static void BattleApplyItemExpGains(void);
-static int GetBattleUnitStaffExp(struct BattleUnit* bu);
-static void BattleApplyMiscActionExpGains(void);
-
-static void BattleApplyReaverEffect(struct BattleUnit* attacker, struct BattleUnit* defender);
-
-static void ComputeBattleObstacleStats(void);
-
-static void BattlePrintDebugUnitInfo(struct BattleUnit* actor, struct BattleUnit* target);
-static void BattlePrintDebugHitInfo(void);
-
-static void BattleGenerateHitScriptedDamage(struct BattleUnit* bu);
-static void BattleUnwindScripted(void);
 
 void BattleGenerateSimulationInternal(struct Unit* actor, struct Unit* target, int x, int y, int actorWpnSlot) {
     InitBattleUnit(&gBattleActor, actor);

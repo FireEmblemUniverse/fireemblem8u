@@ -216,6 +216,74 @@ void UnitLevelUp(struct Unit* unit);
 void BattleHitAdvance(void);
 void BattleHitTerminate(void);
 
+void UpdateActorFromBattle(void);
+
+void BattleGenerateSimulationInternal(struct Unit* actor, struct Unit* target, int x, int y, int actorWpnSlot);
+void BattleGenerateRealInternal(struct Unit* actor, struct Unit* target);
+
+s8 BattleRoll1RN(u16 threshold, s8 simResult);
+s8 BattleRoll2RN(u16 threshold, s8 simResult);
+
+void ComputeBattleUnitStats(struct BattleUnit* attacker, struct BattleUnit* defender);
+void ComputeBattleUnitEffectiveStats(struct BattleUnit* attacker, struct BattleUnit* defender);
+void ComputeBattleUnitSupportBonuses(struct BattleUnit* attacker, struct BattleUnit* defender);
+void ComputeBattleUnitDefense(struct BattleUnit* attacker, struct BattleUnit* defender);
+void ComputeBattleUnitBaseDefense(struct BattleUnit* bu);
+void ComputeBattleUnitAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
+void ComputeBattleUnitSpeed(struct BattleUnit* bu);
+void ComputeBattleUnitHitRate(struct BattleUnit* bu);
+void ComputeBattleUnitAvoidRate(struct BattleUnit* bu);
+void ComputeBattleUnitCritRate(struct BattleUnit* bu);
+void ComputeBattleUnitDodgeRate(struct BattleUnit* bu);
+void ComputeBattleUnitEffectiveHitRate(struct BattleUnit* attacker, struct BattleUnit* defender);
+void ComputeBattleUnitEffectiveCritRate(struct BattleUnit* attacker, struct BattleUnit* defender);
+void ComputeBattleUnitSilencerRate(struct BattleUnit* attacker, struct BattleUnit* defender);
+void ComputeBattleUnitWeaponRankBonuses(struct BattleUnit* bu);
+void ComputeBattleUnitStatusBonuses(struct BattleUnit* bu);
+void ComputeBattleUnitSpecialWeaponStats(struct BattleUnit* attacker, struct BattleUnit* defender);
+
+s8 BattleGenerateRoundHits(struct BattleUnit* attacker, struct BattleUnit* defender);
+int GetBattleUnitHitCount(struct BattleUnit* attacker);
+int BattleCheckBraveEffect(struct BattleUnit* bu);
+
+s8 BattleCheckTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
+void BattleUpdateBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender);
+void BattleCheckSureShot(struct BattleUnit* attacker);
+void BattleCheckPierce(struct BattleUnit* attacker, struct BattleUnit* defender);
+void BattleCheckGreatShield(struct BattleUnit* attacker, struct BattleUnit* defender);
+s8 BattleCheckSilencer(struct BattleUnit* attacker, struct BattleUnit* defender);
+void BattleCheckPetrify(struct BattleUnit* attacker, struct BattleUnit* defender);
+void BattleGenerateHitAttributes(struct BattleUnit* attacker, struct BattleUnit* defender);
+void BattleGenerateHitTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
+void BattleGenerateHitEffects(struct BattleUnit* attacker, struct BattleUnit* defender);
+s8 BattleGenerateHit(struct BattleUnit* attacker, struct BattleUnit* defender);
+
+int GetStatIncrease(int growth);
+
+int GetBattleUnitUpdatedWeaponExp(struct BattleUnit* bu);
+
+int GetUnitExpLevel(struct Unit* unit);
+int GetUnitRoundExp(struct Unit* actor, struct Unit* target);
+int GetUnitPowerLevel(struct Unit* unit);
+int GetUnitClassKillExpBonus(struct Unit* actor, struct Unit* target);
+int GetUnitExpMultiplier(struct Unit* actor, struct Unit* target);
+int GetUnitKillExpBonus(struct Unit* actor, struct Unit* target);
+void ModifyUnitSpecialExp(struct Unit* actor, struct Unit* target, int* exp);
+int GetBattleUnitExpGain(struct BattleUnit* actor, struct BattleUnit* target);
+void BattleApplyItemExpGains(void);
+int GetBattleUnitStaffExp(struct BattleUnit* bu);
+void BattleApplyMiscActionExpGains(void);
+
+void BattleApplyReaverEffect(struct BattleUnit* attacker, struct BattleUnit* defender);
+
+void ComputeBattleObstacleStats(void);
+
+void BattlePrintDebugUnitInfo(struct BattleUnit* actor, struct BattleUnit* target);
+void BattlePrintDebugHitInfo(void);
+
+void BattleGenerateHitScriptedDamage(struct BattleUnit* bu);
+void BattleUnwindScripted(void);
+
 #define BUNIT_IS_OBSTACLE(aBu) (((aBu)->terrainId == TERRAIN_WALL_1B) || ((aBu)->terrainId == TERRAIN_SNAG))
 
 #endif // GUARD_BMBATTLE_H
