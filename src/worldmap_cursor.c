@@ -30,47 +30,14 @@ struct GmapCursorProc
 struct Unknown08206498
 {
     /* 00 */ u16 unk_00;
-    /* 02 */ u16 unk_02;
+    /* 02 */ STRUCT_PAD(0x02, 0x04);
     /* 04 */ void * unk_04;
     /* 08 */ s8 unk_08;
     /* 09 */ s8 unk_09;
     /* 0A */ STRUCT_PAD(0x0A, 0x0C);
 };
 
-extern u8 gUnknown_08206450[2][0x1d];
-extern struct Unknown08206498 gUnknown_08206498[];
 extern u16 gUnknown_08A97ACC[];
-
-//! FE8U = 0x080BBA28
-const char * sub_80BBA28(u32 nodeId)
-{
-    if (nodeId < 0x1d)
-    {
-        return GetStringFromIndex(nodeId[gUnknown_082060B0].nameTextId);
-    }
-
-    return GetStringFromIndex(0x066D);
-}
-
-//! FE8U = 0x080BBA4C
-int sub_80BBA4C(int nodeId)
-{
-    int set;
-
-    switch (gPlaySt.chapterModeIndex)
-    {
-        case CHAPTER_MODE_EIRIKA:
-        default:
-            set = 0;
-            break;
-
-        case CHAPTER_MODE_EPHRAIM:
-            set = 1;
-            break;
-    }
-
-    return gUnknown_08206450[set][nodeId];
-}
 
 //! FE8U = 0x080BBA80
 void nullsub_59(void)
@@ -94,12 +61,28 @@ void GmapCursor_Init(struct GmapCursorProc * proc)
     proc->unk_34 = 0;
     proc->unk_35 = 4;
 
-    gPaletteBuffer[0x14e] = *(gUnknown_08A97ACC + 0);
+    PAL_OBJ_COLOR(4, 14) = *(gUnknown_08A97ACC + 0);
 
     EnablePaletteSync();
 
     return;
 }
+
+const struct Unknown08206498 gUnknown_08206498[] =
+{
+    {
+        .unk_00 = 0,
+        .unk_04 = gObject_16x16,
+        .unk_08 = 0,
+        .unk_09 = 16,
+    },
+    {
+        .unk_00 = 2,
+        .unk_04 = gObject_16x16,
+        .unk_08 = 0,
+        .unk_09 = 16,
+    },
+};
 
 //! FE8U = 0x080BBAD4
 void GmapCursor_Destruct(struct GmapCursorProc * proc)
@@ -112,14 +95,15 @@ void GmapCursor_Destruct(struct GmapCursorProc * proc)
     if (proc->unk_32 > 0)
     {
         u32 chr = proc->unk_2c;
-        struct Unknown08206498 * ptr = &gUnknown_08206498[proc->unk_33];
+        const struct Unknown08206498 * ptr = &gUnknown_08206498[proc->unk_33];
 
         s16 x;
         s16 y;
         *&x = proc->unk_4c->unk_34;
         *&y = proc->unk_4c->unk_36;
 
-        PutSprite(4,
+        PutSprite(
+            4,
             (gGMData.unk08 >> 8) - x - ptr->unk_08,
             (gGMData.unk0C >> 8) - y - ptr->unk_09,
             ptr->unk_04,
@@ -132,12 +116,12 @@ void GmapCursor_Destruct(struct GmapCursorProc * proc)
         {
             proc->unk_34++;
 
-            if (proc->unk_34 > 0xf)
+            if (proc->unk_34 > 15)
             {
                 proc->unk_34 = 0;
             }
 
-            gPaletteBuffer[0x14e] = *(gUnknown_08A97ACC + proc->unk_34);
+            PAL_OBJ_COLOR(4, 14) = *(gUnknown_08A97ACC + proc->unk_34);
 
             EnablePaletteSync();
 
@@ -151,14 +135,31 @@ void GmapCursor_Destruct(struct GmapCursorProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3DF94[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3DF94[] =
+{
+    PROC_NAME("GmapCursor"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(nullsub_59),
+
+    PROC_CALL(GmapCursor_Init),
+    PROC_REPEAT(GmapCursor_Destruct),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BBBC4
 ProcPtr NewGmapCursor(ProcPtr parent, int chr, int pal, ProcPtr pScreenProc)
 {
     struct GmapCursorProc * proc = Proc_Start(gUnknown_08A3DF94, parent);
+
     proc->unk_2c = chr;
     proc->unk_30 = pal;
     proc->unk_4c = pScreenProc;
+
     return proc;
 }

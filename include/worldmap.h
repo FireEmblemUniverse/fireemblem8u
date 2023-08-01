@@ -145,11 +145,27 @@ struct GMapNodeData
     /* 18 */ s16 x;
     /* 1A */ s16 y;
     /* 1C */ u16 nameTextId;
-    /* 1E */ u8 travelFlag;
+    /* 1E */ u8 shipTravelFlag;
     /* 1F */ STRUCT_PAD(0x1F, 0x20);
 };
 
-extern struct GMapNodeData gUnknown_082060B0[];
+extern const struct GMapNodeData gUnknown_082060B0[];
+
+struct NodeIcon
+{
+    /* 00 */ u16 unk_00; // image sheet number
+    /* 02 */ STRUCT_PAD(0x2, 0x4);
+    /* 04 */ void * unk_04; // oam table entry
+    /* 08 */ s8 unk_08;     // center x
+    /* 09 */ s8 unk_09;     // center y
+    /* 0A */ s8 unk_0a;     // width
+    /* 0B */ s8 unk_0b;     // height
+    /* 0C */ s8 unk_0c;     // tcs params??
+    /* 0D */ s8 unk_0d;     // ?
+    /* 0E */ STRUCT_PAD(0xe, 0xf);
+};
+
+extern const struct NodeIcon gUnknown_08205FA0[];
 
 extern struct ProcCmd gProcScr_WorldMapMain[];
 

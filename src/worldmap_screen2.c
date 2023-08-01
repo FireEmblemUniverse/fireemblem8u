@@ -7,22 +7,6 @@
 
 #include "worldmap.h"
 
-struct NodeIcon
-{
-    /* 00 */ u16 unk_00; // image sheet number
-    /* 02 */ STRUCT_PAD(0x2, 0x4);
-    /* 04 */ void * unk_04; // oam table entry
-    /* 08 */ s8 unk_08;     // center x
-    /* 09 */ s8 unk_09;     // center y
-    /* 0A */ s8 unk_0a;     // width
-    /* 0B */ s8 unk_0b;     // height
-    /* 0C */ s8 unk_0c;     // tcs params??
-    /* 0D  */ s8 unk_0d;    // ?
-    /* 0E */ STRUCT_PAD(0xe, 0xf);
-};
-
-extern struct NodeIcon gUnknown_08205FA0[];
-
 //! FE8U = 0x080BB5B0
 int WMLoc_GetChapterId(int idx)
 {
@@ -40,9 +24,9 @@ int WMLoc_GetChapterId(int idx)
 //! FE8U = 0x080BB5E4
 int WMLoc_GetNextLocId(int idx)
 {
-    s8 * unk_08;
+    const s8 * unk_08;
 
-    struct GMapNodeData * node = &idx[gUnknown_082060B0];
+    const struct GMapNodeData * node = &idx[gUnknown_082060B0];
 
     if (CheckFlag(node->unk_06))
     {
@@ -67,9 +51,9 @@ int WMLoc_GetNextLocId(int idx)
 //! FE8U = 0x080BB628
 int sub_80BB628(int unused, int arg1, int arg2, int arg3, int arg4)
 {
-    struct NodeIcon * icon;
+    const struct NodeIcon * icon;
     int i;
-    struct GMapNodeData * node;
+    const struct GMapNodeData * node;
 
     for (i = 0, node = gUnknown_082060B0; i < 0x1d; node++, i++)
     {
@@ -213,8 +197,8 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
     s16 local_2a;
     s16 local_28;
     s16 local_26;
-    struct GMapNodeData * node;
-    struct NodeIcon * icon;
+    const struct GMapNodeData * node;
+    const struct NodeIcon * icon;
     u32 * unk_34;
 
     if (!proc->unk_32_0)
@@ -589,3 +573,67 @@ ProcPtr sub_80BB9A4(ProcPtr parent, int chr, int palId, int unk, ProcPtr pScreen
     proc->unk_38->tileBase = ((proc->unk_2c + 0x1000) / CHR_SIZE) + OAM2_PAL(proc->unk_30) + OAM2_LAYER(2);
     return proc;
 }
+
+//! FE8U = 0x080BBA28
+const char * sub_80BBA28(u32 nodeId)
+{
+    if (nodeId < 0x1d)
+    {
+        return GetStringFromIndex(nodeId[gUnknown_082060B0].nameTextId);
+    }
+
+    return GetStringFromIndex(0x066D);
+}
+
+const u8 gUnknown_08206450[2][0x1d] =
+{
+    {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x1A, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x13,
+        0x14, 0x15, 0x16, 0x17, 0x1B, 0x1C, 0x18, 0x19,
+        0x0E, 0x0F, 0x10, 0x11, 0x12
+    },
+    {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x1A, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x0D,
+        0x13, 0x14, 0x15, 0x16, 0x17, 0x1B, 0x1C, 0x18,
+        0x19, 0x09, 0x0A, 0x0B, 0x0C
+    },
+};
+
+//! FE8U = 0x080BBA4C
+int sub_80BBA4C(int nodeId)
+{
+    int set;
+
+    switch (gPlaySt.chapterModeIndex)
+    {
+        case CHAPTER_MODE_EIRIKA:
+        default:
+            set = 0;
+            break;
+
+        case CHAPTER_MODE_EPHRAIM:
+            set = 1;
+            break;
+    }
+
+    return gUnknown_08206450[set][nodeId];
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3DF64[] =
+{
+    PROC_NAME("GmapScreen"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmapScreen2_Destruct),
+
+    PROC_CALL(GmapScreen2_Init),
+    PROC_REPEAT(GmapScreen2_Loop),
+
+    PROC_END,
+};
+
+// clang-format on

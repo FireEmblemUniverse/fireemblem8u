@@ -63,7 +63,9 @@ void GmapUnit_Init(struct GMapUnitProc * proc)
     return;
 }
 
-extern u8 gUnknown_08205F7C[];
+const u8 gUnknown_08205F7C[] = {
+    0x00, 0x04, 0x08, 0x0C, 0x10, 0x14, 0x18,
+};
 
 //! FE8U = 0x080BAC78
 void GmapUnit_Loop(struct GMapUnitProc * proc)
@@ -93,8 +95,8 @@ void GmapUnit_Loop(struct GMapUnitProc * proc)
 
     if (((u16)(yOam0 + 0x20) < 0xe0) && ((u16)(xOam1 + 0x10) < 0x110))
     {
-        xOam1 = (xOam1)&0x1ff;
-        yOam0 = (yOam0)&0xff;
+        xOam1 = xOam1 & 0x1ff;
+        yOam0 = yOam0 & 0xff;
 
         if (proc->unk_37 == 4)
         {
@@ -141,7 +143,22 @@ int GetPaletteIdForAllegience(int faction)
     }
 }
 
-extern struct ProcCmd gUnknown_08A3DECC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3DECC[] =
+{
+    PROC_NAME("GmapUnit"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmapUnit_Destruct),
+
+    PROC_CALL(GmapUnit_Init),
+    PROC_REPEAT(GmapUnit_Loop),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BADF0
 int NewMapUnit(struct GMapUnitContainerProc * container, u16 classId, int faction)
@@ -463,7 +480,22 @@ void GmapUnitContainer_Init(struct GMapUnitContainerProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3DEFC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3DEFC[] =
+{
+    PROC_NAME("GmapUnit"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmapUnitContainer_Destruct),
+
+    PROC_CALL(GmapUnitContainer_Init),
+    PROC_BLOCK,
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BB1E8
 ProcPtr NewGmapUnitContainer(ProcPtr parent, int layer, int chr)
@@ -597,7 +629,23 @@ void GmapUnitFade_Loop(struct GMapUnitFadeProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3DF2C[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3DF2C[] =
+{
+    PROC_NAME("Gmap Unit Fade"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmapUnitFade_Destruct),
+    PROC_SLEEP(0),
+
+    PROC_CALL(GmapUnitFade_Init),
+    PROC_REPEAT(GmapUnitFade_Loop),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BB3E8
 ProcPtr sub_80BB3E8(int index, int palA, int palB, int arg3, ProcPtr parent)
