@@ -35,20 +35,51 @@ struct GmScreenProc
 {
     /* 00 */ PROC_HEADER;
     /* 29 */ u8 unk_29;
-    /* 2A */ STRUCT_PAD(0x2a, 0x4c);
-
+    /* 2A */ STRUCT_PAD(0x2a, 0x34);
+    /* 34 */ s16 unk_34;
+    /* 36 */ s16 unk_36;
+    /* 38 */ STRUCT_PAD(0x38, 0x4c);
     /* 4C */ struct GmRouteProc * unk_4c;
 };
 
 struct GmNodeIconDisplayProc
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x32);
-
+    /* 2C */ u32 unk_2c;
+    /* 30 */ u8 unk_30;
+    /* 31 */ u8 unk_31;
     /* 32 */ u8 unk_32_0 : 1;
     /* 32 */ u8 unk_32_1 : 1;
-
     /* 33 */ u8 unk_33;
+    /* 34 */ u32* unk_34;
+    /* 38 */ struct APHandle * unk_38;
+    /* 3C */ struct GmScreenProc * unk_3c;
+};
+
+struct GMapUnitProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2A */ u16 unk_2a; // flags; &1 = do display?, &2 = ?, &4 = ?
+    /* 2C */ u16 unk_2c; // AP obj priority node
+    /* 2E */ u16 unk_2e;
+    /* 30 */ int unk_30; // base tile index for SMS gfx?
+    /* 34 */ s8 unk_34; // index within container
+    /* 35 */ u8 unk_35; // Allegience color index
+    /* 36 */ u8 unk_36; // Palette index
+    /* 37 */ s8 unk_37; // current AP anim id (4 initially)
+    /* 38 */ u16 unk_38; // class initially
+    /* 3A */ u16 unk_3a; // class initially
+    /* 3C */ u16 unk_3c; // x
+    /* 3E */ u16 unk_3e; // y
+    /* 40 */ struct APHandle * unk_40; // ap
+};
+
+struct GMapUnitContainerProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int unk_2c;
+    /* 30 */ u8 unk_30;
+    /* 34 */ struct GMapUnitProc * unk_34[7];
 };
 
 struct WorldMapMainProc
@@ -76,7 +107,7 @@ struct WorldMapMainProc
     /* 41 */ s8 unk_41;
     /* 44 */ struct GmScreenProc * unk_44; // GmapScreen
     /* 48 */ struct GmNodeIconDisplayProc * unk_48; // GmNodeIconDisplay
-    /* 4C */ ProcPtr unk_4c; // Gmap Unit
+    /* 4C */ struct GMapUnitContainerProc * unk_4c; // Gmap Unit Container
     /* 50 */ ProcPtr unk_50; // Gmap Cursor
     /* 54 */ ProcPtr unk_54; // Gmap MU
 };
@@ -101,21 +132,18 @@ extern const struct GMapPathData gWMPathData[];
 struct GMapNodeData
 {
     /* 00 */ u8 placementFlag;
-    /* 01 */ s8 unk_01; // skirmish type
-    /* 02 */ u8 unk_02; // pre-clear icon
-    /* 03 */ u8 unk_03; // post-clear icon
-    /* 04 */ u8 unk_04; // chapter ID start
-    /* 05 */ u8 unk_05; // chapter ID end
-    /* 06 */ u16 unk_06; // event condition flag
-    /* 08 */ u8 unk_08; // Eirika 1
-    /* 09 */ u8 unk_09; // Ephraim 1
-    /* 0A */ u8 unk_0a; // Eirika 2
-    /* 0B */ u8 unk_0b; // Ephraim 2
+    /* 01 */ s8 unk_01;  // skirmish type
+    /* 02 */ u8 unk_02;  // pre-clear icon
+    /* 03 */ u8 unk_03;  // post-clear icon
+    /* 04 */ u8 unk_04;  // chapter ID start
+    /* 05 */ u8 unk_05;  // chapter ID end
+    /* 06 */ s16 unk_06; // event condition flag
+    /* 08 */ s8 unk_08[4]; // next destination id
     /* 0C */ u16 * armory;
     /* 10 */ u16 * vendor;
     /* 14 */ u16 * secretShop;
-    /* 18 */ u16 x;
-    /* 1A */ u16 y;
+    /* 18 */ s16 x;
+    /* 1A */ s16 y;
     /* 1C */ u16 nameTextId;
     /* 1E */ u8 travelFlag;
     /* 1F */ STRUCT_PAD(0x1F, 0x20);

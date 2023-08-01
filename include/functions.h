@@ -2172,7 +2172,7 @@ int WMLoc_GetChapterId(int);
 // ??? sub_80BB744(???);
 // ??? GmapScreen2_Loop(???);
 ProcPtr sub_80BB9A4(ProcPtr, int, int, int, ProcPtr);
-char* sub_80BBA28(int); // GetWorldMapNodeName
+const char* sub_80BBA28(u32); // GetWorldMapNodeName
 // ??? sub_80BBA4C(???);
 // ??? nullsub_59(???);
 // ??? GmapCursor_Init(???);
