@@ -794,9 +794,10 @@ extern const u16 gUnknown_080E7B8C[];
 extern char gNopStr[];
 // extern ??? gUnknown_085B9E4C
 extern u16 gUnknown_085BA0B8[];
-// extern ??? gUnknown_085BA2E0
-// extern ??? gUnknown_085BA300
-// extern ??? gUnknown_085BA320
+extern u16 gUnknown_085BA2E0[];
+extern u16 gUnknown_085BA300[];
+extern u16 gUnknown_085BA320[];
+// extern ??? gUnknown_085BA340
 extern u16 gUnknown_085BB0C8[];
 extern u16 gUnknown_085BB2DC[];
 // extern ??? gUnknown_085BC188

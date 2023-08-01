@@ -330,7 +330,7 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
         u16 r4, r6;
         s16 i;
         struct Unit *unit;
-        const void * battle_anim_ptr;
+        const struct BattleAnimDef * battle_anim_ptr;
         u32 battle_anim_id;
         u16 ret;
         if ((s16) p2->sprite[0] <= 0x117) {
@@ -578,33 +578,31 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
     NewEkrUnitMainMini(&gUnknown_030053A0);
 }
 
-u8 LoadClassBattleSprite(s16 *sprite, u16 jid, u16 wpn_before) 
+u8 LoadClassBattleSprite(s16 * out, u16 jid, u16 wpn_before) 
 {
     u8 i;
-    const u16 *anim_instr = GetClassData(jid)->pBattleAnimDef;
+    const struct BattleAnimDef * anim_instr = GetClassData(jid)->pBattleAnimDef;
     u32 item_type = GetItemType(wpn_before);
     u16 expected_type = item_type + 0x100;
     u8 ret;
 
-    *sprite = 0;
+    *out = 0;
     for (i = 0; ; i++) {
-        u16 item = anim_instr[2 * i];
-        if (item == expected_type) {
-            *sprite = anim_instr[2 * i + 1] - 1;
-        }
-        if (anim_instr[2 * i + 1] == 0) {
+        u16 item = anim_instr[i].wtype;
+        if (item == expected_type)
+            *out = anim_instr[i].index - 1;
+
+        if (anim_instr[i].index == 0)
             break;
-        }
     }
 
-    if (*sprite == 0) {
-        u32 key = 0x109;
+    if (*out == 0) {
+        u32 key = SPECIAL_BANIM_WTYPE;
         for (i = 0; ; i++) {
-            if (anim_instr[2 * i] == key) {
-                *sprite = anim_instr[2 * i + 1] - 1;
-            }
+            if (anim_instr[i].wtype == key)
+                *out = anim_instr[i].index - 1;
 
-            if (anim_instr[2 * i + 1] == 0)
+            if (anim_instr[i].index == 0)
                 break;
         }
     }

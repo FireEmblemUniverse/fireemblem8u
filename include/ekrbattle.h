@@ -3,6 +3,7 @@
 #include "global.h"
 #include "proc.h"
 #include "anime.h"
+#include "bmitem.h"
 
 enum ekr_battle_unit_position {
     EKR_POS_L,
@@ -215,6 +216,13 @@ struct BanimRoundScript {
     u8 priority_front;
     u8 frame_back;
     u8 priority_back;
+};
+
+#define SPECIAL_BANIM_WTYPE (0x100 | ITYPE_ITEM)
+
+struct BattleAnimDef {
+    u16 wtype;
+    u16 index;
 };
 
 // extern const struct BanimRoundScript BanimDefaultModeConfig[ANIM_ROUND_MAX * 4];
@@ -713,7 +721,7 @@ void NewEkrBaseAppear(int, int);
 void EkrPrepareBanimfx(struct Anim * anim, u16);
 s16 GetEfxHp(int index);
 // ??? GetEfxHpModMaybe(???);
-// ??? IsItemDisplayedInBattle(???);
+u16 IsItemDisplayedInBattle(u16 item);
 u16 IsWeaponLegency(u16 item);
 // ??? sub_8058B08(???);
 // ??? sub_8058B24(???);

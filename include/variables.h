@@ -244,7 +244,7 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001850
 // extern ??? gUnknown_03001860
 // extern ??? gUnknown_03001864
-// extern ??? gUnknown_030018F0
+extern u16 gUnknown_030018F0[];
 // extern ??? gUnknown_03001A30
 // extern ??? gUnknown_03001A34
 // extern ??? gUnknown_03001C34
