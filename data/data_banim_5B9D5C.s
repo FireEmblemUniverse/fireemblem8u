@@ -123,7 +123,11 @@ gUnknown_085BA300:  @ 0x085BA300
 
 	.global gUnknown_085BA320
 gUnknown_085BA320:  @ 0x085BA320
-	.incbin "baserom.gba", 0x5BA320, 0xDA8
+	.incbin "baserom.gba", 0x5BA320, 0x20
+
+	.global gUnknown_085BA340
+gUnknown_085BA340:  @ 0x085BA340
+	.incbin "baserom.gba", 0x5BA340, 0x5BB0C8 - 0x5BA340
 
 	.global gUnknown_085BB0C8
 gUnknown_085BB0C8:  @ 0x085BB0C8

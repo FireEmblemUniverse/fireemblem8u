@@ -23,18 +23,18 @@ struct Anim {
 
     /* 1C */ u32 oamBase;
 
-    /* 20 */ const u32* pScrCurrent;
-    /* 24 */ const u32* pScrStart;
-    /* 28 */ const void* pImgSheet;
+    /* 20 */ const u32 * pScrCurrent;
+    /* 24 */ const u32 * pScrStart;
+    /* 28 */ const void * pImgSheet;
     /* 2C */ void* pImgSheetBuf;
-    /* 30 */ const void* pSpriteDataPool; // aka "OAM data"
+    /* 30 */ const void * pSpriteDataPool; // aka "OAM data"
 
-    /* 34 */ struct Anim* pPrev;
-    /* 38 */ struct Anim* pNext;
+    /* 34 */ struct Anim * pPrev;
+    /* 38 */ struct Anim * pNext;
 
-    /* 3C */ const void* pSpriteData;
-    /* 40 */ const void* pUnk40;
-    /* 44 */ const void* pUnk44;
+    /* 3C */ const void * pSpriteData;
+    /* 40 */ const void * pUnk40;
+    /* 44 */ const void * pUnk44;
 };
 
 enum Anim_state {
@@ -169,23 +169,23 @@ enum
 
 void AnimUpdateAll(void);
 void AnimClearAll(void);
-struct Anim* AnimCreate_unused(const void* script);
-struct Anim* AnimCreate(const void* script, u16 displayPriority);
+struct Anim * AnimCreate_unused(const void * script);
+struct Anim * AnimCreate(const void* script, u16 displayPriority);
 void AnimSort(void);
-void AnimDelete(struct Anim* anim);
-void AnimDisplay(struct Anim* anim);
+void AnimDelete(struct Anim * anim);
+void AnimDisplay(struct Anim * anim);
 
 bool PrepareBattleGraphicsMaybe(void);
-u16 sub_8057CAC(struct Unit *unit, const void* pBattleAnimDef, u16, int *out);
+u16 sub_8057CAC(struct Unit * unit, const struct BattleAnimDef * pBattleAnimDef, u16, int * out);
 s8 sub_8057DA8(u16, u16);
 s8 sub_8057ED0(u16, u16);
 // ??? GetSpellAnimId(???);
 // ??? sub_80581A0(???);
 void ParseBattleHitToBanimCmd(void);
-int GetBattleAnimationId(struct Unit *unit, const void *anim, u16 wpn, u32 *out);
+u16 GetBattleAnimationId(struct Unit * unit, const struct BattleAnimDef * anim_def, u16 wpn, u32 * out);
 // ??? sub_8058918(???);
 // ??? sub_805893C(???);
-int SomethingFilterBattleAnimId(s16, u16 item);
-int GetAllegienceId(u32);
+u16 * SomethingFilterBattleAnimId(s16 banim_index, u16 item);
+int GetAllegienceId(u32 faction);
 
 #endif // GUARD_ANIME_H
