@@ -1949,8 +1949,8 @@ gUnknown_08A97A60:  @ 0x08A97A60
 gUnknown_08A97A80:  @ 0x08A97A80
 	.incbin "baserom.gba", 0xA97A80, 0x4C
 
-	.global gUnknown_08A97ACC
-gUnknown_08A97ACC:  @ 0x08A97ACC
+	.global gPal_08A97ACC
+gPal_08A97ACC:  @ 0x08A97ACC
 	.incbin "baserom.gba", 0xA97ACC, 0x20
 
 	.global gUnknown_08A97AEC

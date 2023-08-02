@@ -567,8 +567,8 @@ void sub_80BBEB8(struct GmRouteProc * proc)
     proc->bgB = 1;
     proc->bgPriority = BG_GetPriority(BG_1);
 
-    *&proc->x1 = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_34;
-    *&proc->y1 = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_36;
+    *&proc->x1 = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
+    *&proc->y1 = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
 
     proc->y2 = -2;
     proc->x2 = -2;
@@ -607,8 +607,8 @@ void sub_80BBF60(struct GmRouteProc * proc)
     proc->x2 = proc->x1;
     proc->y2 = proc->y1;
 
-    *&x = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_34;
-    *&y = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_36;
+    *&x = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
+    *&y = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
 
     proc->x1 = x / 8;
     proc->y1 = y / 8;
@@ -670,8 +670,8 @@ int sub_80BC0F4(struct GmRouteProc * proc)
     sub_80BBC54(proc);
     sub_80BBCC8(proc->x1, proc->y1, proc->bgB);
 
-    *&x = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_34;
-    *&y = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_36;
+    *&x = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
+    *&y = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
 
     BG_SetPosition(proc->bgB, x & 0x1FF, y & 0xff);
 
@@ -756,8 +756,8 @@ void MapRoute_80BC2DC(struct GmRouteProc * proc)
         return;
     }
 
-    *&x = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_34;
-    *&y = ((struct UnkGmRouteParentProc *)(proc->proc_parent))->unk_36;
+    *&x = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
+    *&y = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
 
     sub_80BBC54(proc);
 
@@ -1114,7 +1114,7 @@ u8 WMMenu_IsArmoryAvailable(const struct MenuItemDef * def, int number)
         return MENU_NOTSHOWN;
     }
 
-    if ((gGMData.units[0].location[gUnknown_082060B0].armory[0]) == 0)
+    if ((gGMData.units[0].location[gWMNodeData].armory[0]) == 0)
     {
         return MENU_NOTSHOWN;
     }
@@ -1130,7 +1130,7 @@ u8 WMMenu_IsVendorAvailable(const struct MenuItemDef * def, int number)
         return MENU_NOTSHOWN;
     }
 
-    if ((gGMData.units[0].location[gUnknown_082060B0].vendor[0]) == 0)
+    if ((gGMData.units[0].location[gWMNodeData].vendor[0]) == 0)
     {
         return MENU_NOTSHOWN;
     }
@@ -1146,7 +1146,7 @@ u8 WMMenu_IsSecretShopAvailable(const struct MenuItemDef * def, int number)
         return MENU_NOTSHOWN;
     }
 
-    if ((gGMData.units[0].location[gUnknown_082060B0].secretShop[0]) == 0)
+    if ((gGMData.units[0].location[gWMNodeData].secretShop[0]) == 0)
     {
         return MENU_NOTSHOWN;
     }

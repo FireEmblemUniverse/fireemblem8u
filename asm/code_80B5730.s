@@ -20,7 +20,7 @@ sub_80B92D0: @ 0x080B92D0
 	cmp r0, #0
 	bne _080B9344
 	lsls r0, r4, #5
-	ldr r1, _080B9310  @ gUnknown_082060B0
+	ldr r1, _080B9310  @ gWMNodeData
 	adds r0, r0, r1
 	ldrb r0, [r0]
 	cmp r0, #3
@@ -34,7 +34,7 @@ sub_80B92D0: @ 0x080B92D0
 	b _080B934E
 	.align 2, 0
 _080B930C: .4byte gGMData
-_080B9310: .4byte gUnknown_082060B0
+_080B9310: .4byte gWMNodeData
 _080B9314:
 	adds r0, r7, #0
 	bl sub_80BD014
@@ -110,7 +110,7 @@ _080B938A:
 	cmp r2, #2
 	bne _080B93CC
 	lsls r0, r4, #5
-	ldr r1, _080B93C8  @ gUnknown_082060B0
+	ldr r1, _080B93C8  @ gWMNodeData
 	adds r0, r0, r1
 	ldrb r0, [r0]
 	cmp r0, #3
@@ -127,7 +127,7 @@ _080B93C0:
 	movs r1, #6
 	b _080B934E
 	.align 2, 0
-_080B93C8: .4byte gUnknown_082060B0
+_080B93C8: .4byte gWMNodeData
 _080B93CC:
 	adds r0, r5, #0
 	movs r1, #6
@@ -431,7 +431,7 @@ _080B95CC:
 	cmp r0, #0
 	beq _080B9600
 	lsls r1, r4, #5
-	ldr r0, _080B9618  @ gUnknown_082060B0
+	ldr r0, _080B9618  @ gWMNodeData
 	adds r1, r1, r0
 	movs r0, #0x18
 	ldrsh r2, [r1, r0]
@@ -459,7 +459,7 @@ _080B9600:
 	bx r1
 	.align 2, 0
 _080B9614: .4byte gGMData
-_080B9618: .4byte gUnknown_082060B0
+_080B9618: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80B95B0
 
@@ -472,7 +472,7 @@ sub_80B961C: @ 0x080B961C
 	mov r8, r0
 	add r2, sp, #8
 	lsls r1, r1, #5
-	ldr r0, _080B96D0  @ gUnknown_082060B0
+	ldr r0, _080B96D0  @ gWMNodeData
 	adds r1, r1, r0
 	ldrh r0, [r1, #0x18]
 	strh r0, [r2]
@@ -553,7 +553,7 @@ _080B969C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B96D0: .4byte gUnknown_082060B0
+_080B96D0: .4byte gWMNodeData
 _080B96D4: .4byte gGMData
 _080B96D8: .4byte 0x000001FF
 
@@ -767,7 +767,7 @@ sub_80B982C: @ 0x080B982C
 	ldr r0, [r0, #0x4c]
 	movs r1, #1
 	negs r1, r1
-	bl MapUnitC_MarkSomething
+	bl MapUnitC_SetGfxNeedsUpdate
 	ldr r2, _080B9878  @ gLCDControlBuffer
 	ldrb r0, [r2, #1]
 	orrs r0, r4
@@ -839,7 +839,7 @@ sub_80B98A8: @ 0x080B98A8
 	ldr r0, [r0, #0x4c]
 	movs r1, #1
 	negs r1, r1
-	bl MapUnitC_MarkSomething
+	bl MapUnitC_SetGfxNeedsUpdate
 	ldr r2, _080B98F4  @ gLCDControlBuffer
 	ldrb r0, [r2, #1]
 	orrs r0, r4
@@ -911,7 +911,7 @@ sub_80B9924: @ 0x080B9924
 	ldr r0, [r0, #0x4c]
 	movs r1, #1
 	negs r1, r1
-	bl MapUnitC_MarkSomething
+	bl MapUnitC_SetGfxNeedsUpdate
 	ldr r2, _080B9970  @ gLCDControlBuffer
 	ldrb r0, [r2, #1]
 	orrs r0, r4
@@ -983,7 +983,7 @@ sub_80B99A0: @ 0x080B99A0
 	ldr r0, [r0, #0x4c]
 	movs r1, #1
 	negs r1, r1
-	bl MapUnitC_MarkSomething
+	bl MapUnitC_SetGfxNeedsUpdate
 	ldr r2, _080B99EC  @ gLCDControlBuffer
 	ldrb r0, [r2, #1]
 	orrs r0, r4
@@ -1201,7 +1201,7 @@ WorldMap_InitChapterTransition: @ 0x080B9B38
 	ldr r5, _080B9B70  @ gGMData
 	ldrb r2, [r5, #0x11]
 	lsls r0, r2, #5
-	ldr r1, _080B9B74  @ gUnknown_082060B0
+	ldr r1, _080B9B74  @ gWMNodeData
 	adds r0, r0, r1
 	ldrb r0, [r0]
 	cmp r0, #3
@@ -1220,7 +1220,7 @@ WorldMap_InitChapterTransition: @ 0x080B9B38
 	b _080B9B86
 	.align 2, 0
 _080B9B70: .4byte gGMData
-_080B9B74: .4byte gUnknown_082060B0
+_080B9B74: .4byte gWMNodeData
 _080B9B78: .4byte gPlaySt
 _080B9B7C:
 	adds r0, r2, #0
@@ -1334,7 +1334,7 @@ _080B9C6C: .4byte gGMData
 _080B9C70:
 	ldrb r1, [r5, #0x11]
 	lsls r1, r1, #5
-	ldr r0, _080B9CAC  @ gUnknown_082060B0
+	ldr r0, _080B9CAC  @ gWMNodeData
 	adds r1, r1, r0
 	movs r2, #0x18
 	ldrsh r0, [r1, r2]
@@ -1362,7 +1362,7 @@ _080B9CA4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B9CAC: .4byte gUnknown_082060B0
+_080B9CAC: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80B9BA4
 
@@ -1466,7 +1466,7 @@ _080B9D58:
 _080B9D60:
 	ldrb r0, [r3, #0x11]
 	lsls r0, r0, #5
-	ldr r1, _080B9D78  @ gUnknown_082060B0
+	ldr r1, _080B9D78  @ gWMNodeData
 	adds r0, r0, r1
 	ldrb r0, [r0]
 	cmp r0, #3
@@ -1476,7 +1476,7 @@ _080B9D60:
 	adds r1, #0x10
 	b _080B9D84
 	.align 2, 0
-_080B9D78: .4byte gUnknown_082060B0
+_080B9D78: .4byte gWMNodeData
 _080B9D7C:
 	adds r1, #4
 	adds r2, #1
@@ -1560,7 +1560,7 @@ sub_80B9DE0: @ 0x080B9DE0
 	ldr r1, _080B9E38  @ gGMData
 	ldrb r0, [r1, #0x11]
 	lsls r0, r0, #5
-	ldr r2, _080B9E3C  @ gUnknown_082060B0
+	ldr r2, _080B9E3C  @ gWMNodeData
 	adds r0, r0, r2
 	ldrh r0, [r0, #0x18]
 	strh r0, [r3]
@@ -1584,7 +1584,7 @@ sub_80B9DE0: @ 0x080B9DE0
 	bx r0
 	.align 2, 0
 _080B9E38: .4byte gGMData
-_080B9E3C: .4byte gUnknown_082060B0
+_080B9E3C: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80B9DE0
 

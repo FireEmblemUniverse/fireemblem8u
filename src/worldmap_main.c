@@ -164,7 +164,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         {
             int location = sub_80BD28C(proc->unk_40 + 1);
             if (gGMData.nodes[location].state & 2
-                && sub_80BD28C(proc->unk_40 + 1)[gUnknown_082060B0].placementFlag != 3)
+                && sub_80BD28C(proc->unk_40 + 1)[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
             {
                 proc->unk_3e = sub_80BD28C(proc->unk_40 + 1);
                 Proc_Goto(proc, 14);
@@ -222,7 +222,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         MapMU_80BE108(proc->unk_54, 0, 0);
 
         location = gGMData.units[0].location;
-        if (location[gUnknown_082060B0].placementFlag == 3)
+        if (location[gWMNodeData].placementFlag == GMAP_NODE_PLACEMENT_DUNGEON)
         {
             Proc_Goto(proc, 14);
         }
@@ -375,7 +375,7 @@ void sub_80B8FEC(struct WorldMapMainProc * proc)
 
     if (id >= 0)
     {
-        proc->unk_48->unk_33 = id;
+        proc->unk_48->nodeId = id;
         proc->unk_48->unk_32_1 = 1;
     }
     else
@@ -412,9 +412,9 @@ void sub_80B9028(struct WorldMapMainProc * proc)
 
         // TODO: This matches but using a Vec2 does not
         a = &unk[0];
-        *a = gGMData.units[i].location[gUnknown_082060B0].x;
+        *a = gGMData.units[i].location[gWMNodeData].x;
         b = &unk[1];
-        *b = gGMData.units[i].location[gUnknown_082060B0].y;
+        *b = gGMData.units[i].location[gWMNodeData].y;
 
         sub_80BE35C(proc->unk_54, i, *a, *b);
 
@@ -455,7 +455,7 @@ void sub_80B9114(struct WorldMapMainProc * proc)
     {
         if (gGMData.nodes[i].state & 2)
         {
-            proc->unk_48->unk_33 = i;
+            proc->unk_48->nodeId = i;
             proc->unk_48->unk_32_1 = 1;
 
             break;

@@ -339,7 +339,7 @@ char* PrepareUnitDefeatLocationString(u16 textIdA, u16 defeatedChapter, u16 text
 
     if (defeatedChapter & 0x8000) {
         defeatedChapter &= 0x7FFF;
-        locationStr = sub_80BBA28(defeatedChapter);
+        locationStr = GetWorldMapNodeName(defeatedChapter);
     } else {
         const s8* it; // TODO: should this be char*?
 

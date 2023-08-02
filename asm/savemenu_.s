@@ -345,7 +345,7 @@ _080AA780: .4byte gUnknown_0203EF64
 _080AA784:
 	movs r0, #2
 	ldrsb r0, [r1, r0]
-	bl sub_80BBA28
+	bl GetWorldMapNodeName
 _080AA78C:
 	pop {r1}
 	bx r1

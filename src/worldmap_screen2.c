@@ -14,10 +14,10 @@ int WMLoc_GetChapterId(int idx)
     {
         case CHAPTER_MODE_EIRIKA:
         default:
-            return idx[gUnknown_082060B0].unk_04;
+            return idx[gWMNodeData].unk_04;
 
         case CHAPTER_MODE_EPHRAIM:
-            return idx[gUnknown_082060B0].unk_05;
+            return idx[gWMNodeData].unk_05;
     }
 }
 
@@ -26,7 +26,7 @@ int WMLoc_GetNextLocId(int idx)
 {
     const s8 * unk_08;
 
-    const struct GMapNodeData * node = &idx[gUnknown_082060B0];
+    const struct GMapNodeData * node = &idx[gWMNodeData];
 
     if (CheckFlag(node->unk_06))
     {
@@ -55,14 +55,14 @@ int sub_80BB628(int unused, int arg1, int arg2, int arg3, int arg4)
     int i;
     const struct GMapNodeData * node;
 
-    for (i = 0, node = gUnknown_082060B0; i < 0x1d; node++, i++)
+    for (i = 0, node = gWMNodeData; i < 0x1d; node++, i++)
     {
-        int r2;
-        int r8;
-        int r5;
-        int r1;
-        int r4;
-        int r6;
+        int xNode;
+        int iconWidth;
+        int xIconCenter;
+        int yNode;
+        int yIconCenter;
+        int iconHeight;
         int x1, x2;
         int y1, y2;
 
@@ -73,27 +73,27 @@ int sub_80BB628(int unused, int arg1, int arg2, int arg3, int arg4)
 
         if (gGMData.nodes[i].state & 2)
         {
-            icon = &gUnknown_08205FA0[node->unk_02];
+            icon = &gWMNodeIconData[node->iconPreClear];
         }
         else
         {
-            icon = &gUnknown_08205FA0[node->unk_03];
+            icon = &gWMNodeIconData[node->iconPostClear];
         }
 
-        r2 = node->x;
-        r8 = icon->unk_0a;
-        r5 = icon->unk_08;
+        xNode = node->x;
+        iconWidth = icon->width;
+        xIconCenter = icon->xCenter;
 
-        x1 = r2 - r5 - arg3;
+        x1 = xNode - xIconCenter - arg3;
 
-        r1 = node->y;
-        r6 = icon->unk_0b;
-        r4 = icon->unk_09;
+        yNode = node->y;
+        iconHeight = icon->height;
+        yIconCenter = icon->yCenter;
 
-        y1 = r1 - r4 - arg4;
+        y1 = yNode - yIconCenter - arg4;
 
-        x2 = r2 + r8 - r5 + arg3;
-        y2 = r1 + r6 - r4 + arg4;
+        x2 = xNode + iconWidth - xIconCenter + arg3;
+        y2 = yNode + iconHeight - yIconCenter + arg4;
 
         if (arg1 < x1)
         {
@@ -138,7 +138,7 @@ void sub_80BB708(struct GmNodeIconDisplayProc * proc)
 //! FE8U = 0x080BB718
 void GmapScreen2_Destruct(struct GmNodeIconDisplayProc * proc)
 {
-    AP_Delete(proc->unk_38);
+    AP_Delete(proc->ap);
     return;
 }
 
@@ -147,11 +147,7 @@ void GmapScreen2_Init(struct GmNodeIconDisplayProc * proc)
 {
     int i;
 
-#if NONMATCHING
     u32 * ptr = proc->unk_34;
-#else
-    u32 * ptr = (void *)proc + 0x34;
-#endif
 
     for (i = 0; i == 0; i++)
     {
@@ -206,7 +202,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         return;
     }
 
-    chr = proc->unk_2c / 0x20;
+    chr = proc->chr / CHR_SIZE;
 
     for (i = 0; i < 0x1d; i++)
     {
@@ -217,62 +213,66 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
             continue;
         }
 
-        node = &i[gUnknown_082060B0];
+        node = &i[gWMNodeData];
 
-        icon = gUnknown_08205FA0 + ((gGMData.nodes[i].state & 2) ? node->unk_02 : node->unk_03);
+        icon = gWMNodeIconData + ((gGMData.nodes[i].state & 2) ? node->iconPreClear : node->iconPostClear);
 
-        x2 = icon->unk_08;
+        x2 = icon->xCenter;
         x1 = (u16)node->x - x2;
-        y2 = icon->unk_09;
+        y2 = icon->yCenter;
         y1 = (u16)node->y - y2;
 
-        unk = sub_80BB744(proc->unk_3c, x1, y1, &local_2c, &local_2a);
+        unk = sub_80BB744(proc->pScreenProc, x1, y1, &local_2c, &local_2a);
 
         if (unk != 0)
         {
             local_2c = local_2c & 0x1FF;
             local_2a = local_2a & 0xff;
 
-            unk_34 = ((u32 *)((void *)proc + 0x34)) + (i / 0x20);
-            if ((*unk_34) & (1 << (i & 0x1f)))
+            if ((proc->unk_34[i / 0x20]) & (1 << (i & 0x1f)))
             {
                 local_2a |= 0x400;
             }
 
             PutSpriteExt(
-                0xc, local_2c, local_2a, icon->unk_04, icon->unk_00 + (chr) + ((proc->unk_30 & 0xf) << 0xc) + 0x800);
+                0xc,
+                local_2c,
+                local_2a,
+                icon->pSpriteData,
+                icon->sheetTileId + (chr) + ((proc->pal & 0xf) << 0xc) + 0x800
+            );
         }
     }
 
-    if ((proc->unk_32_1) != 0)
+    if (proc->unk_32_1)
     {
-        node = &(proc->unk_33[gUnknown_082060B0]);
+        node = &(proc->nodeId[gWMNodeData]);
 
-        icon = gUnknown_08205FA0 + ((gGMData.nodes[proc->unk_33].state & 2) ? node->unk_02 : node->unk_03);
+        icon = gWMNodeIconData + ((gGMData.nodes[proc->nodeId].state & 2) ? node->iconPreClear : node->iconPostClear);
 
-        *&local_28 = proc->unk_3c->unk_34;
-        *&local_26 = proc->unk_3c->unk_36;
+        *&local_28 = proc->pScreenProc->unk_34;
+        *&local_26 = proc->pScreenProc->unk_36;
 
-        local_2c = ((node->x - icon->unk_08) + icon->unk_0c) - local_28;
-        local_2a = ((node->y - icon->unk_09) + icon->unk_0d) - local_26;
+        local_2c = ((node->x - icon->xCenter) + icon->xFlagOrigin) - local_28;
+        local_2a = ((node->y - icon->yCenter) + icon->yFlagOrigin) - local_26;
 
         if (((u16)(local_2a + 0x20) < 0xe0) && ((u16)(local_2c + 0x20) < 0x130))
         {
             int xOam1;
             int yOam0;
-            int state = (gGMData.nodes[proc->unk_33].state);
+
+            int state = (gGMData.nodes[proc->nodeId].state);
             xOam1 = ((state & 2) + (u16)local_2c) & 0x1ff;
 
             yOam0 = (u16)local_2a;
             yOam0 &= 0xff;
 
-            unk_34 = ((u32 *)((void *)proc + 0x34)) + (proc->unk_33 / 0x20);
-            if (((*unk_34)) & (1 << (proc->unk_33 & 0x1f)))
+            if (((proc->unk_34[(proc->nodeId / 0x20)])) & (1 << (proc->nodeId & 0x1f)))
             {
                 yOam0 = (yOam0) | 0x400;
             }
 
-            AP_Update(proc->unk_38, xOam1, yOam0);
+            AP_Update(proc->ap, xOam1, yOam0);
         }
     }
 
@@ -321,7 +321,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         cmp r0, #0\n\
         beq _080BB894\n\
         lsls r1, r7, #5\n\
-        ldr r0, _080BB7F0  @ gUnknown_082060B0\n\
+        ldr r0, _080BB7F0  @ gWMNodeData\n\
         adds r6, r1, r0\n\
         movs r0, #2\n\
         ands r0, r2\n\
@@ -331,12 +331,12 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         b _080BB7F6\n\
         .align 2, 0\n\
     _080BB7EC: .4byte gGMData\n\
-    _080BB7F0: .4byte gUnknown_082060B0\n\
+    _080BB7F0: .4byte gWMNodeData\n\
     _080BB7F4:\n\
         ldrb r0, [r6, #3]\n\
     _080BB7F6:\n\
         lsls r0, r0, #4\n\
-        ldr r1, _080BB8D0  @ gUnknown_08205FA0\n\
+        ldr r1, _080BB8D0  @ gWMNodeIconData\n\
         adds r5, r0, r1\n\
         movs r0, #8\n\
         ldrsb r0, [r5, r0]\n\
@@ -429,7 +429,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         adds r3, #0x33\n\
         ldrb r0, [r3]\n\
         lsls r2, r0, #5\n\
-        ldr r1, _080BB8D8  @ gUnknown_082060B0\n\
+        ldr r1, _080BB8D8  @ gWMNodeData\n\
         adds r6, r2, r1\n\
         ldr r2, _080BB8DC  @ gGMData\n\
         lsls r0, r0, #2\n\
@@ -445,15 +445,15 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         ldrb r0, [r6, #2]\n\
         b _080BB8E2\n\
         .align 2, 0\n\
-    _080BB8D0: .4byte gUnknown_08205FA0\n\
+    _080BB8D0: .4byte gWMNodeIconData\n\
     _080BB8D4: .4byte 0x000001FF\n\
-    _080BB8D8: .4byte gUnknown_082060B0\n\
+    _080BB8D8: .4byte gWMNodeData\n\
     _080BB8DC: .4byte gGMData\n\
     _080BB8E0:\n\
         ldrb r0, [r6, #3]\n\
     _080BB8E2:\n\
         lsls r0, r0, #4\n\
-        ldr r1, _080BB998  @ gUnknown_08205FA0\n\
+        ldr r1, _080BB998  @ gWMNodeIconData\n\
         adds r5, r0, r1\n\
         add r3, sp, #8\n\
         mov r0, r8\n\
@@ -545,7 +545,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _080BB998: .4byte gUnknown_08205FA0\n\
+    _080BB998: .4byte gWMNodeIconData\n\
     _080BB99C: .4byte 0x012F0000\n\
     _080BB9A0: .4byte 0x000001FF\n\
         .syntax divided\n\
@@ -554,35 +554,35 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
 
 #endif
 
-extern struct ProcCmd gUnknown_08A3DF64[];
+extern struct ProcCmd gProcScr_GmNodeIconDisplay[];
 extern u16 gUnknown_08A97AEC[]; // ap
 
 ProcPtr sub_80BB9A4(ProcPtr parent, int chr, int palId, int unk, ProcPtr pScreenProc)
 {
-    struct GmNodeIconDisplayProc * proc = Proc_Start(gUnknown_08A3DF64, parent);
+    struct GmNodeIconDisplayProc * proc = Proc_Start(gProcScr_GmNodeIconDisplay, parent);
 
-    proc->unk_2c = chr;
-    proc->unk_30 = palId;
+    proc->chr = chr;
+    proc->pal = palId;
     proc->unk_31 = unk;
-    proc->unk_3c = pScreenProc;
+    proc->pScreenProc = pScreenProc;
     proc->unk_32_1 = 0;
-    proc->unk_33 = 0;
+    proc->nodeId = 0;
 
-    proc->unk_38 = AP_Create(gUnknown_08A97AEC, 11);
-    AP_SwitchAnimation(proc->unk_38, 1);
-    proc->unk_38->tileBase = ((proc->unk_2c + 0x1000) / CHR_SIZE) + OAM2_PAL(proc->unk_30) + OAM2_LAYER(2);
+    proc->ap = AP_Create(gUnknown_08A97AEC, 11);
+    AP_SwitchAnimation(proc->ap, 1);
+    proc->ap->tileBase = ((proc->chr + 0x1000) / CHR_SIZE) + OAM2_PAL(proc->pal) + OAM2_LAYER(2);
     return proc;
 }
 
 //! FE8U = 0x080BBA28
-const char * sub_80BBA28(u32 nodeId)
+const char * GetWorldMapNodeName(u32 nodeId)
 {
     if (nodeId < 0x1d)
     {
-        return GetStringFromIndex(nodeId[gUnknown_082060B0].nameTextId);
+        return GetStringFromIndex(nodeId[gWMNodeData].nameTextId);
     }
 
-    return GetStringFromIndex(0x066D);
+    return GetStringFromIndex(0x066D); // TODO: msgid "[DashedLine][DashedLine][DashedLine][DashedLine][DashedLine]"
 }
 
 const u8 gUnknown_08206450[2][0x1d] =
@@ -623,7 +623,7 @@ int sub_80BBA4C(int nodeId)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3DF64[] =
+struct ProcCmd CONST_DATA gProcScr_GmNodeIconDisplay[] =
 {
     PROC_NAME("GmapScreen"),
     PROC_MARK(PROC_MARK_8),

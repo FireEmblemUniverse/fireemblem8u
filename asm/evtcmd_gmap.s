@@ -747,7 +747,7 @@ Event84_WM_SETCAMONLOC: @ 0x0800BE4C
 	ldr r0, [r0, #0x38]
 	ldr r1, [r0, #4]
 	lsls r1, r1, #5
-	ldr r0, _0800BE84  @ gUnknown_082060B0
+	ldr r0, _0800BE84  @ gWMNodeData
 	adds r1, r1, r0
 	movs r2, #0x18
 	ldrsh r0, [r1, r2]
@@ -770,7 +770,7 @@ Event84_WM_SETCAMONLOC: @ 0x0800BE4C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800BE84: .4byte gUnknown_082060B0
+_0800BE84: .4byte gWMNodeData
 _0800BE88: .4byte gGMData
 
 	THUMB_FUNC_END Event84_WM_SETCAMONLOC
@@ -786,7 +786,7 @@ Event85_WM_SETCAMONSPRITE: @ 0x0800BE8C
 	adds r0, r0, r4
 	ldrb r1, [r0, #0x11]
 	lsls r1, r1, #5
-	ldr r0, _0800BED0  @ gUnknown_082060B0
+	ldr r0, _0800BED0  @ gWMNodeData
 	adds r1, r1, r0
 	movs r2, #0x18
 	ldrsh r0, [r1, r2]
@@ -809,7 +809,7 @@ Event85_WM_SETCAMONSPRITE: @ 0x0800BE8C
 	bx r1
 	.align 2, 0
 _0800BECC: .4byte gGMData
-_0800BED0: .4byte gUnknown_082060B0
+_0800BED0: .4byte gWMNodeData
 
 	THUMB_FUNC_END Event85_WM_SETCAMONSPRITE
 
@@ -887,7 +887,7 @@ Event87_: @ 0x0800BF38
 	ldrh r6, [r0, #0xa]
 	ldrh r7, [r0, #0xc]
 	lsls r1, r1, #5
-	ldr r0, _0800BF9C  @ gUnknown_082060B0
+	ldr r0, _0800BF9C  @ gWMNodeData
 	adds r1, r1, r0
 	movs r2, #0x18
 	ldrsh r0, [r1, r2]
@@ -922,7 +922,7 @@ _0800BF8A:
 	movs r0, #0
 	b _0800BFC8
 	.align 2, 0
-_0800BF9C: .4byte gUnknown_082060B0
+_0800BF9C: .4byte gWMNodeData
 _0800BFA0: .4byte gGMData
 _0800BFA4:
 	mov r6, r8
@@ -976,7 +976,7 @@ Event88_: @ 0x0800BFD8
 	adds r1, r1, r6
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
-	ldr r0, _0800C04C  @ gUnknown_082060B0
+	ldr r0, _0800C04C  @ gWMNodeData
 	adds r1, r1, r0
 	movs r2, #0x18
 	ldrsh r0, [r1, r2]
@@ -1012,7 +1012,7 @@ _0800C038:
 	b _0800C074
 	.align 2, 0
 _0800C048: .4byte gGMData
-_0800C04C: .4byte gUnknown_082060B0
+_0800C04C: .4byte gWMNodeData
 _0800C050:
 	mov r1, r9
 	lsls r0, r1, #0x10
@@ -1895,7 +1895,7 @@ EventA5_: @ 0x0800C634
 	ands r0, r1
 	cmp r0, #0
 	beq _0800C646
-	bl sub_80BB47C
+	bl EndGmapUnitFade
 _0800C646:
 	bl sub_80BE44C
 	lsls r0, r0, #0x18
@@ -2597,7 +2597,7 @@ EventBC_: @ 0x0800CADC
 	add r2, sp, #8
 	lsls r0, r3, #0x10
 	asrs r0, r0, #0xb
-	ldr r1, _0800CB44  @ gUnknown_082060B0
+	ldr r1, _0800CB44  @ gWMNodeData
 	adds r0, r0, r1
 	ldrh r1, [r0, #0x18]
 	strh r1, [r2]
@@ -2632,7 +2632,7 @@ _0800CB38:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800CB44: .4byte gUnknown_082060B0
+_0800CB44: .4byte gWMNodeData
 
 	THUMB_FUNC_END EventBC_
 

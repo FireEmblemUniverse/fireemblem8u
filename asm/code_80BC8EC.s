@@ -724,7 +724,7 @@ _080BCE5E:
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	lsls r1, r0, #5
-	ldr r0, _080BCF04  @ gUnknown_082060B0
+	ldr r0, _080BCF04  @ gWMNodeData
 	adds r1, r1, r0
 	movs r2, #0x18
 	ldrsh r0, [r1, r2]
@@ -789,7 +789,7 @@ _080BCEBC:
 	b _080BCF60
 	.align 2, 0
 _080BCF00: .4byte gWMPathData
-_080BCF04: .4byte gUnknown_082060B0
+_080BCF04: .4byte gWMNodeData
 _080BCF08:
 	subs r7, r3, #1
 	adds r3, #2
@@ -853,7 +853,7 @@ _080BCF60:
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	lsls r1, r0, #5
-	ldr r0, _080BCFB0  @ gUnknown_082060B0
+	ldr r0, _080BCFB0  @ gWMNodeData
 	adds r1, r1, r0
 	movs r3, #0x18
 	ldrsh r0, [r1, r3]
@@ -876,7 +876,7 @@ _080BCF9A:
 	bx r1
 	.align 2, 0
 _080BCFAC: .4byte gWMPathData
-_080BCFB0: .4byte gUnknown_082060B0
+_080BCFB0: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80BCE34
 
@@ -1102,7 +1102,7 @@ _080BD1B4:
 	movs r5, #0x2e
 _080BD1BE:
 	movs r4, #0
-	ldr r6, _080BD1E8  @ gUnknown_082060B0
+	ldr r6, _080BD1E8  @ gWMNodeData
 _080BD1C2:
 	adds r0, r4, #0
 	bl WMLoc_GetChapterId
@@ -1124,7 +1124,7 @@ _080BD1E4:
 	movs r0, #0
 	b _080BD204
 	.align 2, 0
-_080BD1E8: .4byte gUnknown_082060B0
+_080BD1E8: .4byte gWMNodeData
 _080BD1EC: .4byte gGMData
 _080BD1F0:
 	ldrb r0, [r6, #1]
@@ -1342,7 +1342,7 @@ _080BD314:
 	ldrsb r1, [r5, r1]
 	mov r2, r8
 	lsls r3, r2, #5
-	ldr r2, _080BD370  @ gUnknown_082060B0
+	ldr r2, _080BD370  @ gWMNodeData
 	adds r3, r3, r2
 	movs r4, #0x18
 	ldrsh r2, [r3, r4]
@@ -1355,19 +1355,19 @@ _080BD314:
 	movs r1, #0
 	ldrsb r1, [r5, r1]
 	movs r2, #4
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 	ldr r0, [r6, #0x14]
 	ldr r0, [r0, #0x4c]
 	movs r1, #0
 	ldrsb r1, [r5, r1]
-	bl MapUnitC_MarkSomething
+	bl MapUnitC_SetGfxNeedsUpdate
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BD370: .4byte gUnknown_082060B0
+_080BD370: .4byte gWMNodeData
 
 	THUMB_FUNC_END MapMUPrim_MakeUnitForChar
 
@@ -1403,7 +1403,7 @@ _080BD398:
 	movs r1, #0
 	ldrsb r1, [r4, r1]
 	lsls r3, r7, #5
-	ldr r2, _080BD3E4  @ gUnknown_082060B0
+	ldr r2, _080BD3E4  @ gWMNodeData
 	adds r3, r3, r2
 	movs r6, #0x18
 	ldrsh r2, [r3, r6]
@@ -1416,17 +1416,17 @@ _080BD398:
 	movs r1, #0
 	ldrsb r1, [r4, r1]
 	movs r2, #4
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 	ldr r0, [r5, #0x14]
 	ldr r0, [r0, #0x4c]
 	movs r1, #0
 	ldrsb r1, [r4, r1]
-	bl MapUnitC_MarkSomething
+	bl MapUnitC_SetGfxNeedsUpdate
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BD3E4: .4byte gUnknown_082060B0
+_080BD3E4: .4byte gWMNodeData
 
 	THUMB_FUNC_END MapMUPrim_MakeUnitForClass
 
@@ -1509,7 +1509,7 @@ sub_80BD444: @ 0x080BD444
 	movs r3, #0
 	ldrsb r3, [r0, r3]
 	lsls r3, r3, #5
-	ldr r1, _080BD5A0  @ gUnknown_082060B0
+	ldr r1, _080BD5A0  @ gWMNodeData
 	adds r3, r3, r1
 	movs r2, #0x18
 	ldrsh r0, [r3, r2]
@@ -1536,7 +1536,7 @@ _080BD48E:
 	movs r0, #0
 	ldrsb r0, [r2, r0]
 	lsls r0, r0, #5
-	ldr r3, _080BD5A0  @ gUnknown_082060B0
+	ldr r3, _080BD5A0  @ gWMNodeData
 	adds r0, r0, r3
 	ldrb r1, [r0, #0x1e]
 	movs r4, #1
@@ -1618,7 +1618,7 @@ _080BD4D4:
 	movs r3, #0
 	ldrsb r3, [r5, r3]
 	lsls r3, r3, #5
-	ldr r2, _080BD5A0  @ gUnknown_082060B0
+	ldr r2, _080BD5A0  @ gWMNodeData
 	adds r3, r3, r2
 	movs r5, #0x18
 	ldrsh r2, [r3, r5]
@@ -1639,7 +1639,7 @@ _080BD4D4:
 	ldrb r2, [r2]
 	lsls r2, r2, #0x18
 	asrs r2, r2, #0x18
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 _080BD56E:
 	mov r0, sl
 	str r0, [r6, #0x54]
@@ -1651,7 +1651,7 @@ _080BD56E:
 	adds r2, #0x44
 	adds r3, r6, #0
 	adds r3, #0x46
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	adds r0, r6, #0
 	adds r0, #0x40
 	mov r1, sl
@@ -1665,7 +1665,7 @@ _080BD56E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BD5A0: .4byte gUnknown_082060B0
+_080BD5A0: .4byte gWMNodeData
 _080BD5A4: .4byte gUnknown_0201B3A4
 _080BD5A8: .4byte gUnknown_0201B104
 _080BD5AC: .4byte gUnknown_0201B1E4
@@ -1690,7 +1690,7 @@ sub_80BD5B8: @ 0x080BD5B8
 	adds r4, #2
 	mov r2, sp
 	adds r3, r4, #0
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	mov r0, sp
 	adds r1, r5, #0
 	adds r1, #0x44
@@ -1938,7 +1938,7 @@ _080BD784:
 	ldr r0, [r0, #0x4c]
 	movs r1, #0
 	ldrsb r1, [r7, r1]
-	bl sub_80BAF70
+	bl MapUnitC_GetAnimId
 	cmp r0, r4
 	beq _080BD7C8
 	ldrb r1, [r5]
@@ -1951,12 +1951,12 @@ _080BD784:
 	movs r1, #0
 	ldrsb r1, [r7, r1]
 	adds r2, r4, #0
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 	ldr r0, [r6, #0x14]
 	ldr r0, [r0, #0x4c]
 	movs r1, #0
 	ldrsb r1, [r7, r1]
-	bl MapUnitC_MarkSomething
+	bl MapUnitC_SetGfxNeedsUpdate
 _080BD7C8:
 	ldrb r1, [r5]
 	movs r0, #8
@@ -1971,7 +1971,7 @@ _080BD7C8:
 	adds r4, #2
 	mov r2, sp
 	adds r3, r4, #0
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	mov r0, sp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -1998,7 +1998,7 @@ _080BD80A:
 	adds r2, #0x44
 	adds r3, r6, #0
 	adds r3, #0x46
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 _080BD81E:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -2096,7 +2096,7 @@ _080BD8CC:
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	lsls r0, r0, #5
-	ldr r2, _080BD9D0  @ gUnknown_082060B0
+	ldr r2, _080BD9D0  @ gWMNodeData
 	adds r0, r0, r2
 	ldrb r1, [r0, #0x1e]
 	movs r3, #1
@@ -2131,7 +2131,7 @@ _080BD910:
 	movs r3, #0
 	ldrsb r3, [r5, r3]
 	lsls r3, r3, #5
-	ldr r2, _080BD9D0  @ gUnknown_082060B0
+	ldr r2, _080BD9D0  @ gWMNodeData
 	adds r3, r3, r2
 	movs r7, #0x18
 	ldrsh r2, [r3, r7]
@@ -2159,7 +2159,7 @@ _080BD910:
 	ldrb r2, [r2]
 	lsls r2, r2, #0x18
 	asrs r2, r2, #0x18
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 _080BD95C:
 	ldr r0, _080BD9D4  @ gGMData
 	mov r8, r0
@@ -2185,7 +2185,7 @@ _080BD95C:
 	adds r4, #2
 	mov r2, sp
 	adds r3, r4, #0
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	mov r0, sp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -2219,7 +2219,7 @@ _080BD9C4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BD9D0: .4byte gUnknown_082060B0
+_080BD9D0: .4byte gWMNodeData
 _080BD9D4: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BD830
@@ -2236,7 +2236,7 @@ sub_80BD9D8: @ 0x080BD9D8
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	lsls r0, r0, #5
-	ldr r3, _080BDA74  @ gUnknown_082060B0
+	ldr r3, _080BDA74  @ gWMNodeData
 	adds r0, r0, r3
 	movs r2, #0x18
 	ldrsh r0, [r0, r2]
@@ -2281,7 +2281,7 @@ _080BDA2E:
 	adds r2, #0x44
 	adds r3, r4, #0
 	adds r3, #0x46
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	adds r2, r4, #0
 	adds r2, #0x31
 	movs r0, #0
@@ -2295,7 +2295,7 @@ _080BDA2E:
 	ldrb r2, [r2]
 	lsls r2, r2, #0x18
 	asrs r2, r2, #0x18
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 _080BDA68:
 	adds r0, r4, #0
 	adds r0, #0x40
@@ -2304,7 +2304,7 @@ _080BDA68:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BDA74: .4byte gUnknown_082060B0
+_080BDA74: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80BD9D8
 
@@ -2454,7 +2454,7 @@ _080BDB54:
 	ldrb r2, [r2]
 	lsls r2, r2, #0x18
 	asrs r2, r2, #0x18
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 _080BDBA2:
 	ldrb r1, [r6]
 	movs r0, #8
@@ -2469,7 +2469,7 @@ _080BDBA2:
 	adds r4, #2
 	mov r2, sp
 	adds r3, r4, #0
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	mov r0, sp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -2627,7 +2627,7 @@ _080BDCCA:
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	ldr r2, [sp, #0x20]
-	bl MapUnitC_SetAllegienceColorIndex
+	bl MapUnitC_SetFaction
 	adds r1, r4, #0
 	adds r1, #0x40
 	movs r2, #0
@@ -2773,7 +2773,7 @@ sub_80BDDC4: @ 0x080BDDC4
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	movs r2, #1
-	bl sub_80BAFA4
+	bl MapUnitC_SetDisplayEnabled
 	ldr r0, _080BDDF4  @ gGMData
 	adds r4, r4, r0
 	ldrb r1, [r4, #0x10]
@@ -2801,7 +2801,7 @@ _080BDDFE:
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	movs r2, #1
-	bl sub_80BAFA4
+	bl MapUnitC_SetDisplayEnabled
 	ldr r1, _080BDE38  @ gGMData
 	adds r1, r5, r1
 	ldrb r2, [r1, #0x10]
@@ -2839,7 +2839,7 @@ sub_80BDE3C: @ 0x080BDE3C
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	movs r2, #0
-	bl sub_80BAFA4
+	bl MapUnitC_SetDisplayEnabled
 	ldr r0, _080BDE6C  @ gGMData
 	adds r4, r4, r0
 	ldrb r1, [r4, #0x10]
@@ -2867,7 +2867,7 @@ _080BDE76:
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	movs r2, #0
-	bl sub_80BAFA4
+	bl MapUnitC_SetDisplayEnabled
 	ldr r1, _080BDEB0  @ gGMData
 	adds r1, r6, r1
 	ldrb r2, [r1, #0x10]
@@ -2911,7 +2911,7 @@ sub_80BDEB4: @ 0x080BDEB4
 	movs r0, #0
 	ldrsb r0, [r1, r0]
 	lsls r0, r0, #5
-	ldr r1, _080BDFA0  @ gUnknown_082060B0
+	ldr r1, _080BDFA0  @ gWMNodeData
 	adds r4, r0, r1
 	movs r0, #0x18
 	ldrsh r3, [r4, r0]
@@ -3010,7 +3010,7 @@ _080BDF1A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BDFA0: .4byte gUnknown_082060B0
+_080BDFA0: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80BDEB4
 
@@ -3152,7 +3152,7 @@ sub_80BE080: @ 0x080BE080
 	asrs r1, r1, #0x18
 	lsls r2, r2, #0x18
 	asrs r2, r2, #0x18
-	bl sub_80BAFE0
+	bl MapUnitC_SetBlendEnabled
 	pop {r0}
 	bx r0
 
@@ -3172,7 +3172,7 @@ sub_80BE0A4: @ 0x080BE0A4
 	ldrb r1, [r1]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -3193,7 +3193,7 @@ sub_80BE0C8: @ 0x080BE0C8
 	ldrb r1, [r1]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_80BB008
+	bl MapUnitC_GetLayer
 	pop {r1}
 	bx r1
 
@@ -3213,7 +3213,7 @@ MapMU_SetUnitTCSOAMIndex: @ 0x080BE0E8
 	ldrb r1, [r1]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl MapUnitC_SetTCSOAMIndex
+	bl MapUnitC_SetLayer
 	pop {r0}
 	bx r0
 
@@ -3335,7 +3335,7 @@ _080BE1C0:
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	lsls r0, r0, #5
-	ldr r3, _080BE290  @ gUnknown_082060B0
+	ldr r3, _080BE290  @ gWMNodeData
 	adds r0, r0, r3
 	ldrb r1, [r0, #0x1e]
 	adds r0, r2, #0
@@ -3368,7 +3368,7 @@ _080BE200:
 	movs r3, #0
 	ldrsb r3, [r5, r3]
 	lsls r3, r3, #5
-	ldr r2, _080BE290  @ gUnknown_082060B0
+	ldr r2, _080BE290  @ gWMNodeData
 	adds r3, r3, r2
 	movs r7, #0x18
 	ldrsh r2, [r3, r7]
@@ -3381,7 +3381,7 @@ _080BE200:
 	movs r1, #0
 	ldrsb r1, [r4, r1]
 	movs r2, #4
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 	ldr r0, _080BE294  @ gGMData
 	mov r8, r0
 	adds r0, r6, #0
@@ -3409,7 +3409,7 @@ _080BE200:
 	adds r4, #2
 	mov r2, sp
 	adds r3, r4, #0
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	mov r0, sp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -3429,7 +3429,7 @@ _080BE200:
 	strh r0, [r3, #4]
 	b _080BE30C
 	.align 2, 0
-_080BE290: .4byte gUnknown_082060B0
+_080BE290: .4byte gWMNodeData
 _080BE294: .4byte gGMData
 _080BE298:
 	ldr r0, [r6, #0x14]
@@ -3453,7 +3453,7 @@ _080BE298:
 	movs r1, #0
 	ldrsb r1, [r4, r1]
 	movs r2, #4
-	bl MapUnitC_SetTCSAnim
+	bl MapUnitC_SetAnimId
 	ldrb r1, [r5]
 	movs r0, #8
 	ands r0, r1
@@ -3468,7 +3468,7 @@ _080BE298:
 	adds r4, #2
 	mov r2, sp
 	adds r3, r4, #0
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	mov r0, sp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -3588,7 +3588,7 @@ sub_80BE3A0: @ 0x080BE3A0
 	ldrb r1, [r1]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_80BAF44
+	bl MapUnitC_GetPosition
 	ldrh r0, [r4]
 	subs r0, #6
 	strh r0, [r4]
@@ -3602,7 +3602,7 @@ sub_80BE3A0: @ 0x080BE3A0
 sub_80BE3C8: @ 0x080BE3C8
 	push {r4, lr}
 	lsls r3, r2, #5
-	ldr r2, _080BE3E4  @ gUnknown_082060B0
+	ldr r2, _080BE3E4  @ gWMNodeData
 	adds r3, r3, r2
 	movs r4, #0x18
 	ldrsh r2, [r3, r4]
@@ -3613,7 +3613,7 @@ sub_80BE3C8: @ 0x080BE3C8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BE3E4: .4byte gUnknown_082060B0
+_080BE3E4: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80BE3C8
 
@@ -3680,7 +3680,7 @@ sub_80BE42C: @ 0x080BE42C
 	THUMB_FUNC_START sub_80BE44C
 sub_80BE44C: @ 0x080BE44C
 	push {lr}
-	bl sub_80BB48C
+	bl GetGmapUnitFade
 	cmp r0, #0
 	beq _080BE458
 	movs r0, #1
@@ -4302,7 +4302,7 @@ sub_80BE8E8: @ 0x080BE8E8
 	adds r0, r4, #0
 	bl ClearText
 	adds r0, r5, #0
-	bl sub_80BBA28
+	bl GetWorldMapNodeName
 	adds r5, r0, #0
 	movs r0, #0x40
 	adds r1, r5, #0
@@ -4430,7 +4430,7 @@ sub_80BE9D8: @ 0x080BE9D8
 	cmp r0, #0
 	bne _080BEA56
 	lsls r1, r2, #5
-	ldr r2, _080BEA10  @ gUnknown_082060B0
+	ldr r2, _080BEA10  @ gWMNodeData
 	adds r0, r1, r2
 	ldr r0, [r0, #0xc]
 	ldrh r3, [r0]
@@ -4446,7 +4446,7 @@ sub_80BE9D8: @ 0x080BE9D8
 	b _080BEA2A
 	.align 2, 0
 _080BEA0C: .4byte gGMData
-_080BEA10: .4byte gUnknown_082060B0
+_080BEA10: .4byte gWMNodeData
 _080BEA14: .4byte gUnknown_0201B430
 _080BEA18: .4byte 0x000002BA
 _080BEA1C: .4byte 0x00003231
@@ -6649,21 +6649,21 @@ sub_80BFA1C: @ 0x080BFA1C
 	cmp r0, #0
 	beq _080BFA48
 	lsls r0, r2, #5
-	ldr r1, _080BFA44  @ gUnknown_082060B0
+	ldr r1, _080BFA44  @ gWMNodeData
 	adds r0, r0, r1
 	ldrb r0, [r0, #2]
 	b _080BFA50
 	.align 2, 0
 _080BFA40: .4byte gGMData
-_080BFA44: .4byte gUnknown_082060B0
+_080BFA44: .4byte gWMNodeData
 _080BFA48:
 	lsls r0, r2, #5
-	ldr r1, _080BFA6C  @ gUnknown_082060B0
+	ldr r1, _080BFA6C  @ gWMNodeData
 	adds r0, r0, r1
 	ldrb r0, [r0, #3]
 _080BFA50:
 	lsls r0, r0, #4
-	ldr r1, _080BFA70  @ gUnknown_08205FA0
+	ldr r1, _080BFA70  @ gWMNodeIconData
 	adds r6, r0, r1
 	movs r0, #0xa
 	ldrsb r0, [r6, r0]
@@ -6677,8 +6677,8 @@ _080BFA66:
 	movs r1, #0
 	b _080BFA7A
 	.align 2, 0
-_080BFA6C: .4byte gUnknown_082060B0
-_080BFA70: .4byte gUnknown_08205FA0
+_080BFA6C: .4byte gWMNodeData
+_080BFA70: .4byte gWMNodeIconData
 _080BFA74:
 	movs r1, #1
 	b _080BFA7A
@@ -6696,7 +6696,7 @@ _080BFA7A:
 	adds r5, #0x29
 	ldrb r3, [r5]
 	lsls r3, r3, #5
-	ldr r4, _080BFAE0  @ gUnknown_082060B0
+	ldr r4, _080BFAE0  @ gWMNodeData
 	adds r3, r3, r4
 	movs r1, #0xa
 	ldrsb r1, [r6, r1]
@@ -6736,7 +6736,7 @@ _080BFADA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BFAE0: .4byte gUnknown_082060B0
+_080BFAE0: .4byte gWMNodeData
 _080BFAE4: .4byte gPlaySt
 _080BFAE8: .4byte 0x00000311
 
@@ -9014,7 +9014,7 @@ _080C0BB8:
 _080C0BCA:
 	ldr r0, _080C0C20  @ gGMData
 	bl sub_80BD014
-	bl sub_80BBA28
+	bl GetWorldMapNodeName
 	adds r6, r0, #0
 	movs r0, #0x48
 	adds r1, r6, #0
@@ -10788,7 +10788,7 @@ _080C194C:
 _080C1970:
 	ldrb r0, [r5]
 	lsls r0, r0, #5
-	ldr r1, _080C1A48  @ gUnknown_082060B0
+	ldr r1, _080C1A48  @ gWMNodeData
 	adds r0, r0, r1
 	ldrh r0, [r0, #0x18]
 	mov r2, sl
@@ -10889,7 +10889,7 @@ _080C1A30:
 	.align 2, 0
 _080C1A40: .4byte gPlaySt
 _080C1A44: .4byte 0x00000312
-_080C1A48: .4byte gUnknown_082060B0
+_080C1A48: .4byte gWMNodeData
 _080C1A4C: .4byte gProcScr_WorldMapMain
 _080C1A50: .4byte gUnknown_08A97AEC
 _080C1A54: .4byte gGMData
@@ -11004,7 +11004,7 @@ sub_80C1AF8: @ 0x080C1AF8
 	mov r8, r1
 	adds r5, r0, #0
 	adds r5, #0x10
-	ldr r3, _080C1B58  @ gUnknown_082060B0
+	ldr r3, _080C1B58  @ gWMNodeData
 	mov r9, r3
 	mov r7, sp
 	adds r7, #6
@@ -11041,7 +11041,7 @@ _080C1B42:
 	b _080C1B88
 	.align 2, 0
 _080C1B54: .4byte gGMData
-_080C1B58: .4byte gUnknown_082060B0
+_080C1B58: .4byte gWMNodeData
 _080C1B5C: .4byte gProcScr_WorldMapMain
 _080C1B60:
 	ldr r0, _080C1BDC  @ gProcScr_WorldMapMain
@@ -14044,7 +14044,7 @@ sub_80C3124: @ 0x080C3124
 	ldrh r1, [r4, #0x2c]
 	bl sub_80BE330
 _080C314C:
-	bl sub_80BB47C
+	bl EndGmapUnitFade
 	adds r0, r4, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -14909,7 +14909,7 @@ sub_80C3770: @ 0x080C3770
 	cmp r0, #0
 	blt _080C37EA
 	lsls r0, r0, #5
-	ldr r1, _080C37F8  @ gUnknown_082060B0
+	ldr r1, _080C37F8  @ gWMNodeData
 	adds r0, r0, r1
 	movs r2, #0x18
 	ldrsh r1, [r0, r2]
@@ -14965,7 +14965,7 @@ _080C37EA:
 	bx r0
 	.align 2, 0
 _080C37F4: .4byte gGMData
-_080C37F8: .4byte gUnknown_082060B0
+_080C37F8: .4byte gWMNodeData
 _080C37FC: .4byte 0x0000012F
 _080C3800: .4byte 0x000001FF
 _080C3804: .4byte gObject_8x8
@@ -15957,7 +15957,7 @@ sub_80C3F88: @ 0x080C3F88
 	ldr r1, _080C3FAC  @ gGMData
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
-	ldr r2, _080C3FB0  @ gUnknown_082060B0
+	ldr r2, _080C3FB0  @ gWMNodeData
 	adds r1, r1, r2
 	ldr r1, [r1, #0xc]
 	adds r2, r4, #0
@@ -15967,7 +15967,7 @@ sub_80C3F88: @ 0x080C3F88
 	bx r0
 	.align 2, 0
 _080C3FAC: .4byte gGMData
-_080C3FB0: .4byte gUnknown_082060B0
+_080C3FB0: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80C3F88
 
@@ -15980,7 +15980,7 @@ sub_80C3FB4: @ 0x080C3FB4
 	ldr r1, _080C3FD8  @ gGMData
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
-	ldr r2, _080C3FDC  @ gUnknown_082060B0
+	ldr r2, _080C3FDC  @ gWMNodeData
 	adds r1, r1, r2
 	ldr r1, [r1, #0x10]
 	adds r2, r4, #0
@@ -15990,7 +15990,7 @@ sub_80C3FB4: @ 0x080C3FB4
 	bx r0
 	.align 2, 0
 _080C3FD8: .4byte gGMData
-_080C3FDC: .4byte gUnknown_082060B0
+_080C3FDC: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80C3FB4
 
@@ -16003,7 +16003,7 @@ sub_80C3FE0: @ 0x080C3FE0
 	ldr r1, _080C4004  @ gGMData
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
-	ldr r2, _080C4008  @ gUnknown_082060B0
+	ldr r2, _080C4008  @ gWMNodeData
 	adds r1, r1, r2
 	ldr r1, [r1, #0x14]
 	adds r2, r4, #0
@@ -16013,7 +16013,7 @@ sub_80C3FE0: @ 0x080C3FE0
 	bx r0
 	.align 2, 0
 _080C4004: .4byte gGMData
-_080C4008: .4byte gUnknown_082060B0
+_080C4008: .4byte gWMNodeData
 
 	THUMB_FUNC_END sub_80C3FE0
 

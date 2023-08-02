@@ -1,15 +1,6 @@
 #ifndef GUARD_WORLDMAP_H
 #define GUARD_WORLDMAP_H
 
-struct UnkGmRouteParentProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x34);
-
-    /* 34 */ u16 unk_34;
-    /* 36 */ u16 unk_36;
-};
-
 struct GmRouteProc
 {
     /* 00 */ PROC_HEADER;
@@ -45,33 +36,40 @@ struct GmScreenProc
 struct GmNodeIconDisplayProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ u32 unk_2c;
-    /* 30 */ u8 unk_30;
+    /* 2C */ u32 chr;
+    /* 30 */ u8 pal;
     /* 31 */ u8 unk_31;
     /* 32 */ u8 unk_32_0 : 1;
     /* 32 */ u8 unk_32_1 : 1;
-    /* 33 */ u8 unk_33;
-    /* 34 */ u32* unk_34;
-    /* 38 */ struct APHandle * unk_38;
-    /* 3C */ struct GmScreenProc * unk_3c;
+    /* 33 */ u8 nodeId;
+    /* 34 */ u32 unk_34[1];
+    /* 38 */ struct APHandle * ap;
+    /* 3C */ struct GmScreenProc * pScreenProc;
+};
+
+enum
+{
+    GMAPUNIT_FLAG_DISPLAY   = (1 << 0),
+    GMAPUNIT_FLAG_BLEND     = (1 << 1),
+    GMAPUNIT_FLAG_UPDATEGFX = (1 << 2),
 };
 
 struct GMapUnitProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2A */ u16 unk_2a; // flags; &1 = do display?, &2 = ?, &4 = ?
+    /* 2A */ u16 flags;
     /* 2C */ u16 unk_2c; // AP obj priority node
     /* 2E */ u16 unk_2e;
     /* 30 */ int unk_30; // base tile index for SMS gfx?
-    /* 34 */ s8 unk_34; // index within container
-    /* 35 */ u8 unk_35; // Allegience color index
-    /* 36 */ u8 unk_36; // Palette index
-    /* 37 */ s8 unk_37; // current AP anim id (4 initially)
+    /* 34 */ s8 index; // within container proc
+    /* 35 */ u8 faction;
+    /* 36 */ u8 pal;
+    /* 37 */ s8 animId;
     /* 38 */ u16 unk_38; // class initially
     /* 3A */ u16 unk_3a; // class initially
-    /* 3C */ u16 unk_3c; // x
-    /* 3E */ u16 unk_3e; // y
-    /* 40 */ struct APHandle * unk_40; // ap
+    /* 3C */ u16 x;
+    /* 3E */ u16 y;
+    /* 40 */ struct APHandle * ap;
 };
 
 struct GMapUnitContainerProc
@@ -79,7 +77,7 @@ struct GMapUnitContainerProc
     /* 00 */ PROC_HEADER;
     /* 2C */ int unk_2c;
     /* 30 */ u8 unk_30;
-    /* 34 */ struct GMapUnitProc * unk_34[7];
+    /* 34 */ struct GMapUnitProc * pMapUnitProcs[7];
 };
 
 struct WorldMapMainProc
@@ -129,12 +127,27 @@ struct GMapPathData
 
 extern const struct GMapPathData gWMPathData[];
 
+enum
+{
+    GMAP_NODE_PLACEMENT_PROGRESSION  = 0,
+    GMAP_NODE_PLACEMENT_FRELIA       = 1,
+    GMAP_NODE_PLACEMENT_MONSTERSPAWN = 2,
+    GMAP_NODE_PLACEMENT_DUNGEON      = 3,
+};
+
+enum
+{
+    GMAP_ENCOUNTERS_NONE      = 1,
+    GMAP_ENCOUNTERS_MONSTERS  = 2,
+    GMAP_ENCOUNTERS_DUNGEON   = 3,
+};
+
 struct GMapNodeData
 {
     /* 00 */ u8 placementFlag;
-    /* 01 */ s8 unk_01;  // skirmish type
-    /* 02 */ u8 unk_02;  // pre-clear icon
-    /* 03 */ u8 unk_03;  // post-clear icon
+    /* 01 */ s8 encounters;
+    /* 02 */ u8 iconPreClear;
+    /* 03 */ u8 iconPostClear;
     /* 04 */ u8 unk_04;  // chapter ID start
     /* 05 */ u8 unk_05;  // chapter ID end
     /* 06 */ s16 unk_06; // event condition flag
@@ -149,23 +162,23 @@ struct GMapNodeData
     /* 1F */ STRUCT_PAD(0x1F, 0x20);
 };
 
-extern const struct GMapNodeData gUnknown_082060B0[];
+extern const struct GMapNodeData gWMNodeData[];
 
 struct NodeIcon
 {
-    /* 00 */ u16 unk_00; // image sheet number
+    /* 00 */ u16 sheetTileId;
     /* 02 */ STRUCT_PAD(0x2, 0x4);
-    /* 04 */ void * unk_04; // oam table entry
-    /* 08 */ s8 unk_08;     // center x
-    /* 09 */ s8 unk_09;     // center y
-    /* 0A */ s8 unk_0a;     // width
-    /* 0B */ s8 unk_0b;     // height
-    /* 0C */ s8 unk_0c;     // tcs params??
-    /* 0D */ s8 unk_0d;     // ?
+    /* 04 */ u16 * pSpriteData;
+    /* 08 */ s8 xCenter;
+    /* 09 */ s8 yCenter;
+    /* 0A */ s8 width;
+    /* 0B */ s8 height;
+    /* 0C */ s8 xFlagOrigin;
+    /* 0D */ s8 yFlagOrigin;
     /* 0E */ STRUCT_PAD(0xe, 0xf);
 };
 
-extern const struct NodeIcon gUnknown_08205FA0[];
+extern const struct NodeIcon gWMNodeIconData[];
 
 extern struct ProcCmd gProcScr_WorldMapMain[];
 
