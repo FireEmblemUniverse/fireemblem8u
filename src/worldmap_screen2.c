@@ -171,7 +171,7 @@ s8 sub_80BB744(struct GmScreenProc * proc, s16 xIn, s16 yIn, s16 * xOut, s16 * y
     *xOut = xIn - x;
     *yOut = yIn - y;
 
-    if (((u16)(*yOut + 0x20) < 0xe0) && ((u16)(*xOut + 0x20) < 0x130))
+    if ((*yOut >= -0x20 && *yOut < 0xC0) && (*xOut >= -0x20 && *xOut < 0x110))
     {
         return 1;
     }
@@ -179,14 +179,9 @@ s8 sub_80BB744(struct GmScreenProc * proc, s16 xIn, s16 yIn, s16 * xOut, s16 * y
     return 0;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/jYvd0 */
-
 //! FE8U = 0x080BB798
 void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
 {
-    int unk;
     int chr;
     int i;
     s16 local_2c;
@@ -195,7 +190,6 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
     s16 local_26;
     const struct GMapNodeData * node;
     const struct NodeIcon * icon;
-    u32 * unk_34;
 
     if (!proc->unk_32_0)
     {
@@ -206,8 +200,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
 
     for (i = 0; i < 0x1d; i++)
     {
-        int x1, x2;
-        int y1, y2;
+        s16 x1, y1;
         if (!(gGMData.nodes[i].state & 1))
         {
             continue;
@@ -217,21 +210,17 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
 
         icon = gWMNodeIconData + ((gGMData.nodes[i].state & 2) ? node->iconPreClear : node->iconPostClear);
 
-        x2 = icon->xCenter;
-        x1 = (u16)node->x - x2;
-        y2 = icon->yCenter;
-        y1 = (u16)node->y - y2;
+        x1 = node->x - icon->xCenter;
+        y1 = node->y - icon->yCenter;
 
-        unk = sub_80BB744(proc->pScreenProc, x1, y1, &local_2c, &local_2a);
-
-        if (unk != 0)
+        if (sub_80BB744(proc->pScreenProc, x1, y1, &local_2c, &local_2a))
         {
-            local_2c = local_2c & 0x1FF;
-            local_2a = local_2a & 0xff;
+            local_2c = OAM1_X(local_2c);
+            local_2a = OAM0_Y(local_2a);
 
             if ((proc->unk_34[i / 0x20]) & (1 << (i & 0x1f)))
             {
-                local_2a |= 0x400;
+                local_2a |= OAM0_BLEND;
             }
 
             PutSpriteExt(
@@ -239,7 +228,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
                 local_2c,
                 local_2a,
                 icon->pSpriteData,
-                icon->sheetTileId + (chr) + ((proc->pal & 0xf) << 0xc) + 0x800
+                icon->sheetTileId + (chr) + OAM2_PAL(proc->pal) + OAM2_LAYER(2)
             );
         }
     }
@@ -256,303 +245,28 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         local_2c = ((node->x - icon->xCenter) + icon->xFlagOrigin) - local_28;
         local_2a = ((node->y - icon->yCenter) + icon->yFlagOrigin) - local_26;
 
-        if (((u16)(local_2a + 0x20) < 0xe0) && ((u16)(local_2c + 0x20) < 0x130))
+        if ((local_2a >= -0x20 && local_2a < 0xC0) && (local_2c >= -0x20 && local_2c < 0x110))
         {
-            int xOam1;
-            int yOam0;
-
-            int state = (gGMData.nodes[proc->nodeId].state);
-            xOam1 = ((state & 2) + (u16)local_2c) & 0x1ff;
-
-            yOam0 = (u16)local_2a;
-            yOam0 &= 0xff;
+            s16 xOam1;
+            s16 yOam0;
+#ifndef NONMATCHING
+            asm("":::"memory");
+#endif
+            if (gGMData.nodes[proc->nodeId].state & 2)
+                xOam1 = OAM1_X(local_2c);
+            else
+                xOam1 = OAM1_X(local_2c);
+            yOam0 = OAM0_Y(local_2a);
 
             if (((proc->unk_34[(proc->nodeId / 0x20)])) & (1 << (proc->nodeId & 0x1f)))
-            {
-                yOam0 = (yOam0) | 0x400;
-            }
-
+                yOam0 |= OAM0_BLEND;
+            yOam0++; yOam0--;
             AP_Update(proc->ap, xOam1, yOam0);
         }
     }
 
     return;
 }
-
-#else
-
-__attribute__((naked))
-void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x10\n\
-        mov r8, r0\n\
-        mov r2, r8\n\
-        adds r2, #0x32\n\
-        ldrb r1, [r2]\n\
-        movs r0, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        bne _080BB7B6\n\
-        b _080BB988\n\
-    _080BB7B6:\n\
-        mov r1, r8\n\
-        ldr r0, [r1, #0x2c]\n\
-        lsrs r0, r0, #5\n\
-        mov sl, r0\n\
-        movs r7, #0\n\
-        str r2, [sp, #0xc]\n\
-        add r2, sp, #4\n\
-        mov r9, r2\n\
-    _080BB7C6:\n\
-        ldr r0, _080BB7EC  @ gGMData\n\
-        lsls r1, r7, #2\n\
-        adds r1, r1, r0\n\
-        adds r1, #0x30\n\
-        ldrb r2, [r1]\n\
-        movs r0, #1\n\
-        ands r0, r2\n\
-        cmp r0, #0\n\
-        beq _080BB894\n\
-        lsls r1, r7, #5\n\
-        ldr r0, _080BB7F0  @ gWMNodeData\n\
-        adds r6, r1, r0\n\
-        movs r0, #2\n\
-        ands r0, r2\n\
-        cmp r0, #0\n\
-        beq _080BB7F4\n\
-        ldrb r0, [r6, #2]\n\
-        b _080BB7F6\n\
-        .align 2, 0\n\
-    _080BB7EC: .4byte gGMData\n\
-    _080BB7F0: .4byte gWMNodeData\n\
-    _080BB7F4:\n\
-        ldrb r0, [r6, #3]\n\
-    _080BB7F6:\n\
-        lsls r0, r0, #4\n\
-        ldr r1, _080BB8D0  @ gWMNodeIconData\n\
-        adds r5, r0, r1\n\
-        movs r0, #8\n\
-        ldrsb r0, [r5, r0]\n\
-        ldrh r1, [r6, #0x18]\n\
-        subs r1, r1, r0\n\
-        movs r0, #9\n\
-        ldrsb r0, [r5, r0]\n\
-        ldrh r2, [r6, #0x1a]\n\
-        subs r2, r2, r0\n\
-        mov r3, r8\n\
-        ldr r0, [r3, #0x3c]\n\
-        lsls r1, r1, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        lsls r2, r2, #0x10\n\
-        asrs r2, r2, #0x10\n\
-        mov r4, sp\n\
-        adds r4, #6\n\
-        str r4, [sp]\n\
-        add r3, sp, #4\n\
-        bl sub_80BB744\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        beq _080BB894\n\
-        mov r1, r9\n\
-        ldrh r0, [r1]\n\
-        ldr r2, _080BB8D4  @ 0x000001FF\n\
-        adds r1, r2, #0\n\
-        ands r0, r1\n\
-        mov r3, r9\n\
-        strh r0, [r3]\n\
-        ldrb r3, [r4]\n\
-        strh r3, [r4]\n\
-        adds r0, r7, #0\n\
-        cmp r7, #0\n\
-        bge _080BB844\n\
-        adds r0, #0x1f\n\
-    _080BB844:\n\
-        asrs r0, r0, #5\n\
-        lsls r0, r0, #2\n\
-        mov r2, r8\n\
-        adds r2, #0x34\n\
-        adds r2, r2, r0\n\
-        movs r0, #0x1f\n\
-        ands r0, r7\n\
-        movs r1, #1\n\
-        lsls r1, r0\n\
-        ldr r0, [r2]\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080BB868\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #3\n\
-        adds r0, r1, #0\n\
-        orrs r3, r0\n\
-        strh r3, [r4]\n\
-    _080BB868:\n\
-        mov r2, r9\n\
-        movs r3, #0\n\
-        ldrsh r1, [r2, r3]\n\
-        movs r0, #0\n\
-        ldrsh r2, [r4, r0]\n\
-        ldr r3, [r5, #4]\n\
-        ldrh r4, [r5]\n\
-        add r4, sl\n\
-        mov r0, r8\n\
-        adds r0, #0x30\n\
-        ldrb r5, [r0]\n\
-        movs r0, #0xf\n\
-        ands r0, r5\n\
-        lsls r0, r0, #0xc\n\
-        adds r4, r4, r0\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #4\n\
-        adds r4, r4, r0\n\
-        str r4, [sp]\n\
-        movs r0, #0xc\n\
-        bl PutSpriteExt\n\
-    _080BB894:\n\
-        adds r7, #1\n\
-        cmp r7, #0x1c\n\
-        ble _080BB7C6\n\
-        ldr r2, [sp, #0xc]\n\
-        ldrb r1, [r2]\n\
-        movs r4, #2\n\
-        adds r0, r4, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080BB988\n\
-        mov r3, r8\n\
-        adds r3, #0x33\n\
-        ldrb r0, [r3]\n\
-        lsls r2, r0, #5\n\
-        ldr r1, _080BB8D8  @ gWMNodeData\n\
-        adds r6, r2, r1\n\
-        ldr r2, _080BB8DC  @ gGMData\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r2\n\
-        adds r0, #0x30\n\
-        ldrb r1, [r0]\n\
-        adds r0, r4, #0\n\
-        ands r0, r1\n\
-        mov r9, r2\n\
-        adds r7, r3, #0\n\
-        cmp r0, #0\n\
-        beq _080BB8E0\n\
-        ldrb r0, [r6, #2]\n\
-        b _080BB8E2\n\
-        .align 2, 0\n\
-    _080BB8D0: .4byte gWMNodeIconData\n\
-    _080BB8D4: .4byte 0x000001FF\n\
-    _080BB8D8: .4byte gWMNodeData\n\
-    _080BB8DC: .4byte gGMData\n\
-    _080BB8E0:\n\
-        ldrb r0, [r6, #3]\n\
-    _080BB8E2:\n\
-        lsls r0, r0, #4\n\
-        ldr r1, _080BB998  @ gWMNodeIconData\n\
-        adds r5, r0, r1\n\
-        add r3, sp, #8\n\
-        mov r0, r8\n\
-        ldr r1, [r0, #0x3c]\n\
-        ldrh r0, [r1, #0x34]\n\
-        strh r0, [r3]\n\
-        mov r4, sp\n\
-        adds r4, #0xa\n\
-        ldrh r0, [r1, #0x36]\n\
-        strh r0, [r4]\n\
-        add r2, sp, #4\n\
-        movs r0, #8\n\
-        ldrsb r0, [r5, r0]\n\
-        ldrh r1, [r6, #0x18]\n\
-        subs r1, r1, r0\n\
-        movs r0, #0xc\n\
-        ldrsb r0, [r5, r0]\n\
-        adds r0, r0, r1\n\
-        ldrh r1, [r3]\n\
-        subs r0, r0, r1\n\
-        strh r0, [r2]\n\
-        adds r2, #2\n\
-        movs r0, #9\n\
-        ldrsb r0, [r5, r0]\n\
-        ldrh r1, [r6, #0x1a]\n\
-        subs r1, r1, r0\n\
-        movs r0, #0xd\n\
-        ldrsb r0, [r5, r0]\n\
-        adds r0, r0, r1\n\
-        ldrh r1, [r4]\n\
-        subs r0, r0, r1\n\
-        strh r0, [r2]\n\
-        adds r0, #0x20\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        cmp r0, #0xdf\n\
-        bhi _080BB988\n\
-        add r0, sp, #4\n\
-        ldrh r0, [r0]\n\
-        adds r0, #0x20\n\
-        lsls r0, r0, #0x10\n\
-        ldr r1, _080BB99C  @ 0x012F0000\n\
-        cmp r0, r1\n\
-        bhi _080BB988\n\
-        ldrb r0, [r7]\n\
-        lsls r0, r0, #2\n\
-        add r0, r9\n\
-        adds r0, #0x30\n\
-        ldrb r1, [r0]\n\
-        movs r0, #2\n\
-        ands r0, r1\n\
-        add r0, sp, #4\n\
-        ldrh r0, [r0]\n\
-        ldr r5, _080BB9A0  @ 0x000001FF\n\
-        ands r5, r0\n\
-        ldrb r4, [r2]\n\
-        ldrb r3, [r7]\n\
-        lsrs r0, r3, #5\n\
-        lsls r0, r0, #2\n\
-        mov r2, r8\n\
-        adds r2, #0x34\n\
-        adds r2, r2, r0\n\
-        movs r0, #0x1f\n\
-        ands r3, r0\n\
-        movs r1, #1\n\
-        lsls r1, r3\n\
-        ldr r0, [r2]\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080BB97A\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #3\n\
-        adds r0, r1, #0\n\
-        orrs r4, r0\n\
-    _080BB97A:\n\
-        mov r2, r8\n\
-        ldr r0, [r2, #0x38]\n\
-        adds r1, r5, #0\n\
-        lsls r2, r4, #0x10\n\
-        asrs r2, r2, #0x10\n\
-        bl AP_Update\n\
-    _080BB988:\n\
-        add sp, #0x10\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080BB998: .4byte gWMNodeIconData\n\
-    _080BB99C: .4byte 0x012F0000\n\
-    _080BB9A0: .4byte 0x000001FF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 extern struct ProcCmd gProcScr_GmNodeIconDisplay[];
 extern u16 gUnknown_08A97AEC[]; // ap
