@@ -52,13 +52,13 @@ u32 sub_80BA458(void)
 }
 
 //! FE8U = 0x080BA490
-void sub_80BA490(struct GMapScreenVSyncProc * proc)
+void sub_80BA490(struct GmScreenProc * proc)
 {
     int i;
 
     for (i = 0; i < 0x20; i++)
     {
-        CpuFastCopy(proc->unk_3c + (i * 0xf0), (void *)(0x06008000 + (i * 0x400)), 0x400);
+        CpuFastCopy(proc->unk_3c + (i * 0x780), (void*)(0x06008000 + (i * 0x400)), 0x400);
     }
 
     sub_80BA458();
@@ -317,7 +317,7 @@ void sub_80BA4D0(struct GmScreenProc * proc)
 #endif
 
 //! FE8U = 0x080BA61C
-void sub_80BA61C(struct GMapScreenVSyncProc * proc)
+void GMScreenVSync_Init(struct GMapScreenVSyncProc * proc)
 {
     proc->unk_38 = 0;
     proc->unk_40 = 0;
@@ -325,7 +325,7 @@ void sub_80BA61C(struct GMapScreenVSyncProc * proc)
 }
 
 //! FE8U = 0x080BA628
-void sub_80BA628(struct GMapScreenVSyncProc * proc)
+void GMScreenVSync_Loop(struct GMapScreenVSyncProc * proc)
 {
     int i;
 
@@ -366,8 +366,7 @@ void sub_80BA628(struct GMapScreenVSyncProc * proc)
 }
 
 //! FE8U = 0x080BA6DC
-s8 sub_80BA6DC(
-    struct GMapScreenVSyncProc * proc, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6)
+s8 sub_80BA6DC(struct GMapScreenVSyncProc * proc, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6)
 {
     struct Unknown_3001DA8 * ptr;
 
@@ -390,15 +389,51 @@ s8 sub_80BA6DC(
     return 0;
 }
 
-extern struct ProcCmd gUnknown_08A3DDF4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_GMapScreenVSync[] =
+{
+    PROC_NAME("GMapScreenVSync"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_CALL(GMScreenVSync_Init),
+    PROC_REPEAT(GMScreenVSync_Loop),
+
+    PROC_END,
+};
+
+// clang-format on
+
+// Does not appear to be used; FEBuilder labels part of this as free space
+u8 CONST_DATA gUnused_08A3DE1C[] =
+{
+    0x00, 0x00, 0x78, 0x00, 0xF0, 0x00,
+    0x2C, 0x01, 0xA4, 0x01, 0x1C, 0x02,
+    0x94, 0x02, 0x00, 0x00, 0x00, 0x30,
+    0x00, 0x00, 0x00, 0x30, 0x00, 0x00,
+    0x00, 0xE0, 0x00, 0x00, 0x00, 0x10,
+    0x00, 0x00, 0x00, 0xC6, 0x00, 0x00,
+    0x00, 0x98, 0x00, 0x00, 0x00, 0x96,
+    0x00, 0x00, 0x00, 0x74, 0x00, 0x00,
+    0x00, 0x20, 0x00, 0x00, 0x00, 0xA0,
+    0x00, 0x00, 0x00, 0x30, 0x00, 0x00,
+    0x00, 0x30, 0x00, 0x00, 0x00, 0xE0,
+    0x00, 0x00, 0x00, 0x10, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00,
+};
 
 //! FE8U = 0x080BA718
-ProcPtr NewMapScreenVSynce(u8 * arg0, u16 * arg1, u8 * arg2, void * arg3, void * arg4)
+ProcPtr NewMapScreenVSync(u8 * arg0, u16 * arg1, u8 * arg2, void * arg3, void * arg4)
 {
     struct GMapScreenVSyncProc * proc;
 
-    proc = Proc_Start(gUnknown_08A3DDF4, NULL);
-    if (proc == 0)
+    proc = Proc_Start(gProcScr_GMapScreenVSync, NULL);
+    if (proc == NULL)
     {
         return NULL;
     }
@@ -453,7 +488,7 @@ void MapScreen_Init(struct GmScreenProc * proc)
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 
     proc->unk_48 =
-        NewMapScreenVSynce(proc->unk_3c, proc->unk_40, proc->unk_44, gUnknown_03001DA8, gUnknown_03001DE8);
+        NewMapScreenVSync(proc->unk_3c, proc->unk_40, proc->unk_44, gUnknown_03001DA8, gUnknown_03001DE8);
 
     return;
 }
@@ -906,7 +941,7 @@ void sub_80BAB00(void)
 //! FE8U = 0x080BAB0C
 void sub_80BAB0C(struct GmScreenProc * proc)
 {
-    if ((proc->unk_29_0) == 0)
+    if (!(proc->unk_29_0))
     {
         return;
     }
@@ -959,15 +994,31 @@ void sub_80BAB0C(struct GmScreenProc * proc)
     return;
 }
 
-// TODO: gGMData.openPaths
-extern struct OpenPaths gUnknown_03005324;
+// clang-format off
 
-extern struct ProcCmd gUnknown_08A3DE84[];
+struct ProcCmd CONST_DATA gProcScr_GMapScreen[] =
+{
+    PROC_NAME("GmapScreen"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(MapScreen_OnDelete),
+
+    PROC_CALL(MapScreen_Init),
+    PROC_CALL(sub_80BA490),
+    PROC_CALL(sub_80BA4D0),
+    PROC_CALL(sub_80BAB00),
+
+    PROC_REPEAT(sub_80BAB0C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BABF0
 ProcPtr NewMapScreen(ProcPtr parent)
 {
-    struct GmScreenProc * proc = Proc_Start(gUnknown_08A3DE84, parent);
-    proc->unk_4c = StartGMapRoute(proc, &gUnknown_03005324, 0x5000, 0xe);
+    struct GmScreenProc * proc = Proc_Start(gProcScr_GMapScreen, parent);
+    proc->unk_4c = StartGMapRoute(proc, &gGMData.openPaths, 0x5000, 0xe);
     return proc;
 }

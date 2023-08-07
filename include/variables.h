@@ -1395,8 +1395,8 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3DD20
 // extern ??? gUnknown_08A3DD38
 // extern ??? gUnknown_08A3DD88
-// extern ??? gUnknown_08A3DDF4
-// extern ??? gUnknown_08A3DE84
+// extern ??? gProcScr_GMapScreenVSync
+// extern ??? gProcScr_GMapScreen
 // extern ??? gProcScr_GmapUnit
 // extern ??? gProcScr_GmapUnitContainer
 // extern ??? gProcScr_GmapUnitFade
