@@ -269,6 +269,7 @@ SECTIONS
         src/worldmap_face.o(.text);
         src/worldmap_main.o(.text);
         asm/code_80B5730.o(.text);
+        src/worldmap_screen.o(.text);
         src/worldmap_gmapunit.o(.text);
         src/worldmap_screen2.o(.text);
         src/worldmap_cursor.o(.text);
