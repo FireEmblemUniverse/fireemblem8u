@@ -68,10 +68,6 @@ void sub_80BA490(struct GmScreenProc * proc)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/7LGW6 */
-
 //! FE8U = 0x080BA4D0
 void sub_80BA4D0(struct GmScreenProc * proc)
 {
@@ -110,6 +106,9 @@ void sub_80BA4D0(struct GmScreenProc * proc)
     {
         for (iy = 0; iy < 0x16; r3 = r8, iy++)
         {
+#ifndef NONMATCHING
+            asm("":::"r8");
+#endif
             r5 = r3;
             y = (iy + proc->unk_2e) & 0x1f;
 
@@ -131,190 +130,6 @@ void sub_80BA4D0(struct GmScreenProc * proc)
 
     return;
 }
-
-#else
-
-__attribute__((naked))
-void sub_80BA4D0(struct GmScreenProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #8\n\
-        ldr r1, [r0, #0x40]\n\
-        str r1, [sp]\n\
-        ldr r3, [r0, #0x44]\n\
-        adds r5, r0, #0\n\
-        adds r5, #0x2e\n\
-        movs r2, #0\n\
-        ldrsb r2, [r5, r2]\n\
-        lsls r2, r2, #5\n\
-        adds r4, r0, #0\n\
-        adds r4, #0x2d\n\
-        movs r0, #0\n\
-        ldrsb r0, [r4, r0]\n\
-        lsrs r1, r0, #0x1f\n\
-        adds r0, r0, r1\n\
-        asrs r0, r0, #1\n\
-        adds r2, r2, r0\n\
-        adds r3, r3, r2\n\
-        ldrb r1, [r4]\n\
-        movs r0, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080BA588\n\
-        movs r1, #0\n\
-        str r5, [sp, #4]\n\
-        mov sl, r4\n\
-        movs r2, #0x1f\n\
-        mov r9, r2\n\
-    _080BA512:\n\
-        adds r5, r3, #0\n\
-        ldr r2, [sp, #4]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r2, r0]\n\
-        adds r0, r1, r0\n\
-        mov r2, r9\n\
-        ands r0, r2\n\
-        movs r6, #0\n\
-        movs r2, #0x20\n\
-        adds r2, r2, r5\n\
-        mov r8, r2\n\
-        adds r1, #1\n\
-        mov ip, r1\n\
-        lsls r0, r0, #6\n\
-        ldr r1, [sp]\n\
-        adds r7, r0, r1\n\
-    _080BA532:\n\
-        lsls r1, r6, #1\n\
-        mov r2, sl\n\
-        movs r0, #0\n\
-        ldrsb r0, [r2, r0]\n\
-        adds r4, r1, r0\n\
-        mov r0, r9\n\
-        ands r4, r0\n\
-        lsls r3, r4, #1\n\
-        adds r3, r3, r7\n\
-        ldrh r0, [r3]\n\
-        ldr r1, _080BA584  @ 0x00000FFF\n\
-        ands r1, r0\n\
-        ldrb r2, [r5]\n\
-        movs r0, #0xf0\n\
-        ands r0, r2\n\
-        adds r0, #0x90\n\
-        lsls r0, r0, #8\n\
-        orrs r1, r0\n\
-        strh r1, [r3]\n\
-        adds r5, #1\n\
-        adds r2, r4, #1\n\
-        mov r1, r9\n\
-        ands r2, r1\n\
-        lsls r2, r2, #1\n\
-        adds r2, r2, r7\n\
-        ldrh r0, [r2]\n\
-        ldr r1, _080BA584  @ 0x00000FFF\n\
-        ands r1, r0\n\
-        ldrb r0, [r5]\n\
-        adds r0, #9\n\
-        lsls r0, r0, #0xc\n\
-        orrs r1, r0\n\
-        strh r1, [r2]\n\
-        adds r6, #1\n\
-        cmp r6, #0xf\n\
-        ble _080BA532\n\
-        mov r3, r8\n\
-        mov r1, ip\n\
-        cmp r1, #0x15\n\
-        ble _080BA512\n\
-        b _080BA602\n\
-        .align 2, 0\n\
-    _080BA584: .4byte 0x00000FFF\n\
-    _080BA588:\n\
-        movs r1, #0\n\
-        str r5, [sp, #4]\n\
-        mov sl, r4\n\
-        movs r2, #0x1f\n\
-        mov r9, r2\n\
-    _080BA592:\n\
-        adds r5, r3, #0\n\
-        ldr r2, [sp, #4]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r2, r0]\n\
-        adds r0, r1, r0\n\
-        mov r2, r9\n\
-        ands r0, r2\n\
-        movs r6, #0\n\
-        movs r2, #0x20\n\
-        adds r2, r2, r5\n\
-        mov r8, r2\n\
-        adds r1, #1\n\
-        mov ip, r1\n\
-        lsls r0, r0, #6\n\
-        ldr r1, [sp]\n\
-        adds r7, r0, r1\n\
-    _080BA5B2:\n\
-        lsls r1, r6, #1\n\
-        mov r2, sl\n\
-        movs r0, #0\n\
-        ldrsb r0, [r2, r0]\n\
-        adds r4, r1, r0\n\
-        mov r0, r9\n\
-        ands r4, r0\n\
-        lsls r2, r4, #1\n\
-        adds r2, r2, r7\n\
-        ldrh r0, [r2]\n\
-        ldr r1, _080BA618  @ 0x00000FFF\n\
-        ands r1, r0\n\
-        ldrb r0, [r5]\n\
-        adds r0, #9\n\
-        lsls r0, r0, #0xc\n\
-        orrs r1, r0\n\
-        strh r1, [r2]\n\
-        adds r2, r4, #1\n\
-        mov r1, r9\n\
-        ands r2, r1\n\
-        lsls r2, r2, #1\n\
-        adds r2, r2, r7\n\
-        ldrh r0, [r2]\n\
-        ldr r1, _080BA618  @ 0x00000FFF\n\
-        ands r1, r0\n\
-        ldrb r3, [r5]\n\
-        movs r0, #0xf0\n\
-        ands r0, r3\n\
-        adds r0, #0x90\n\
-        lsls r0, r0, #8\n\
-        orrs r1, r0\n\
-        strh r1, [r2]\n\
-        adds r5, #1\n\
-        adds r6, #1\n\
-        cmp r6, #0xf\n\
-        ble _080BA5B2\n\
-        mov r3, r8\n\
-        mov r1, ip\n\
-        cmp r1, #0x15\n\
-        ble _080BA592\n\
-    _080BA602:\n\
-        movs r0, #8\n\
-        bl BG_EnableSyncByMask\n\
-        add sp, #8\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080BA618: .4byte 0x00000FFF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080BA61C
 void GMScreenVSync_Init(struct GMapScreenVSyncProc * proc)
@@ -513,18 +328,15 @@ void sub_80BA818(ProcPtr proc, int a, int b)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/kdWSC */
-
 //! FE8U = 0x080BA8A0
 void sub_80BA8A0(struct GmScreenProc * proc)
 {
+    s16 r4, r5, r6, r9;
+    s16 a, iVar6;
+    s32 b;
+
     if (proc->unk_2b != proc->unk_2d)
     {
-        s16 x1, y1;
-        s16 x2, y2;
-        s16 r9;
         sub_80BA4D0(proc);
 
         if (ABS(proc->unk_2d - proc->unk_2b) > 1)
@@ -537,37 +349,28 @@ void sub_80BA8A0(struct GmScreenProc * proc)
 
         if (proc->unk_2d > proc->unk_2b)
         {
-            x1 = (proc->unk_2d + 0x1e);
-            x2 = x1 % 0x3c;
+            r4 = (proc->unk_2d + 0x1e);
+            r6 = r4 % 0x3c;
         }
         else
         {
-            x1 = proc->unk_2b;
-            x2 = x1;
+            r6 = proc->unk_2d;
+            r4 = r6;
         }
 
-        y1 = (proc->unk_2e % 0x28);
+        r5 = (proc->unk_2e % 0x28);
 
-        if (y1 + 0x15 < 0x28)
-        {
+        if (r5 + 0x15 < 0x28)
             r9 = 0x15;
-        }
         else
-        {
-            r9 = 0x28 - y1;
-        }
+            r9 = 0x28 - r5;
 
-        sub_80BA6DC(proc->unk_48, x1, y1, x2, proc->unk_2e, 1, r9);
+        sub_80BA6DC(proc->unk_48, r6, r5, r4, proc->unk_2e, 1, r9);
         proc->unk_2b = proc->unk_2d;
     }
 
     if (proc->unk_2c != proc->unk_2e)
     {
-        s16 x1, y1;
-        s16 x2, y2;
-        s16 a;
-        s8 b;
-        s16 iVar6;
         sub_80BA4D0(proc);
 
         if (ABS(proc->unk_2e - proc->unk_2c) > 1)
@@ -580,356 +383,32 @@ void sub_80BA8A0(struct GmScreenProc * proc)
 
         if (proc->unk_2e > proc->unk_2c)
         {
-            x1 = proc->unk_2e + 0x14;
-            x2 = x1 % 0x28;
+            r9 = proc->unk_2e + 0x14;
+            r5 = r9 % 0x28;
         }
         else
         {
-            x1 = proc->unk_2e;
-            x2 = x1;
+            r5 = proc->unk_2e;
+            r9 = r5;
         }
 
         b = (proc->unk_2d - (proc->unk_2d / 32) * 32);
-        y1 = b;
-        y2 = proc->unk_2d % 0x3c;
+        r4 = (s8)b;
+        r6 = proc->unk_2d % 0x3c;
 
-        if (y1 < 1)
-        {
-            sub_80BA6DC(proc->unk_48, y2, x1, y1, x2, 0x1f, 1);
-        }
+        if (r4 < 1)
+            sub_80BA6DC(proc->unk_48, r6, r5, r4, r9, 0x1f, 1);
         else
         {
             s16 tmp;
-            iVar6 = (0x20 - y1);
-            sub_80BA6DC(proc->unk_48, y2, x1, y1, x2, iVar6, 1);
+            iVar6 = (0x20 - r4);
+            sub_80BA6DC(proc->unk_48, r6, r5, r4, r9, iVar6, 1);
             tmp = (0x1f - iVar6);
-            sub_80BA6DC(proc->unk_48, y2 + iVar6, x1, iVar6 + y1, x2, tmp, 1);
+            sub_80BA6DC(proc->unk_48, r6 + iVar6, r5, iVar6 + r4, r9, tmp, 1);
         }
         proc->unk_2c = proc->unk_2e;
     }
 }
-
-#else
-
-__attribute__((naked))
-void sub_80BA8A0(struct GmScreenProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x14\n\
-        adds r7, r0, #0\n\
-        adds r5, r7, #0\n\
-        adds r5, #0x2b\n\
-        adds r4, r7, #0\n\
-        adds r4, #0x2d\n\
-        movs r1, #0\n\
-        ldrsb r1, [r5, r1]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r4, r0]\n\
-        cmp r1, r0\n\
-        beq _080BA9A6\n\
-        adds r0, r7, #0\n\
-        bl sub_80BA4D0\n\
-        movs r2, #0\n\
-        ldrsb r2, [r4, r2]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r5, r0]\n\
-        subs r1, r2, r0\n\
-        cmp r1, #0\n\
-        blt _080BA8DC\n\
-        cmp r1, #1\n\
-        bgt _080BA8E2\n\
-        b _080BA90A\n\
-    _080BA8DC:\n\
-        subs r0, r0, r2\n\
-        cmp r0, #1\n\
-        ble _080BA90A\n\
-    _080BA8E2:\n\
-        ldr r0, [r7, #0x48]\n\
-        adds r4, r7, #0\n\
-        adds r4, #0x2d\n\
-        movs r1, #0\n\
-        ldrsb r1, [r4, r1]\n\
-        adds r5, r7, #0\n\
-        adds r5, #0x2e\n\
-        movs r2, #0\n\
-        ldrsb r2, [r5, r2]\n\
-        bl sub_80BA818\n\
-        ldrb r0, [r4]\n\
-        adds r1, r7, #0\n\
-        adds r1, #0x2b\n\
-        strb r0, [r1]\n\
-        ldrb r1, [r5]\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x2c\n\
-        strb r1, [r0]\n\
-        b _080BAAEE\n\
-    _080BA90A:\n\
-        adds r2, r7, #0\n\
-        adds r2, #0x2d\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x2b\n\
-        movs r3, #0\n\
-        ldrsb r3, [r2, r3]\n\
-        movs r1, #0\n\
-        ldrsb r1, [r0, r1]\n\
-        mov sl, r0\n\
-        mov r8, r2\n\
-        cmp r3, r1\n\
-        ble _080BA938\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x1e\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r4, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        movs r1, #0x3c\n\
-        bl __modsi3\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r6, r0, #0x10\n\
-        b _080BA944\n\
-    _080BA938:\n\
-        mov r1, r8\n\
-        movs r0, #0\n\
-        ldrsb r0, [r1, r0]\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r6, r0, #0x10\n\
-        adds r4, r6, #0\n\
-    _080BA944:\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x2e\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        movs r1, #0x28\n\
-        bl __modsi3\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #8\n\
-        lsrs r5, r0, #0x10\n\
-        asrs r1, r0, #0x10\n\
-        adds r0, r1, #0\n\
-        adds r0, #0x15\n\
-        cmp r0, #0x27\n\
-        bgt _080BA96A\n\
-        movs r2, #0x15\n\
-        mov r9, r2\n\
-        b _080BA974\n\
-    _080BA96A:\n\
-        movs r0, #0x28\n\
-        subs r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov r9, r0\n\
-    _080BA974:\n\
-        ldr r0, [r7, #0x48]\n\
-        lsls r1, r6, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        lsls r2, r5, #0x10\n\
-        asrs r2, r2, #0x10\n\
-        lsls r3, r4, #0x10\n\
-        asrs r3, r3, #0x10\n\
-        adds r4, r7, #0\n\
-        adds r4, #0x2e\n\
-        ldrb r4, [r4]\n\
-        lsls r4, r4, #0x18\n\
-        asrs r4, r4, #0x18\n\
-        str r4, [sp]\n\
-        movs r4, #1\n\
-        str r4, [sp, #4]\n\
-        mov r5, r9\n\
-        lsls r4, r5, #0x10\n\
-        asrs r4, r4, #0x10\n\
-        str r4, [sp, #8]\n\
-        bl sub_80BA6DC\n\
-        mov r1, r8\n\
-        ldrb r0, [r1]\n\
-        mov r2, sl\n\
-        strb r0, [r2]\n\
-    _080BA9A6:\n\
-        adds r2, r7, #0\n\
-        adds r2, #0x2c\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x2e\n\
-        movs r3, #0\n\
-        ldrsb r3, [r2, r3]\n\
-        movs r1, #0\n\
-        ldrsb r1, [r0, r1]\n\
-        str r0, [sp, #0x10]\n\
-        str r2, [sp, #0xc]\n\
-        cmp r3, r1\n\
-        bne _080BA9C0\n\
-        b _080BAAEE\n\
-    _080BA9C0:\n\
-        adds r0, r7, #0\n\
-        bl sub_80BA4D0\n\
-        ldr r3, [sp, #0x10]\n\
-        movs r2, #0\n\
-        ldrsb r2, [r3, r2]\n\
-        ldr r4, [sp, #0xc]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r4, r0]\n\
-        subs r1, r2, r0\n\
-        cmp r1, #0\n\
-        blt _080BA9DE\n\
-        cmp r1, #1\n\
-        bgt _080BA9E4\n\
-        b _080BAA08\n\
-    _080BA9DE:\n\
-        subs r0, r0, r2\n\
-        cmp r0, #1\n\
-        ble _080BAA08\n\
-    _080BA9E4:\n\
-        ldr r0, [r7, #0x48]\n\
-        adds r4, r7, #0\n\
-        adds r4, #0x2d\n\
-        movs r1, #0\n\
-        ldrsb r1, [r4, r1]\n\
-        ldr r5, [sp, #0x10]\n\
-        movs r2, #0\n\
-        ldrsb r2, [r5, r2]\n\
-        bl sub_80BA818\n\
-        ldrb r1, [r4]\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x2b\n\
-        strb r1, [r0]\n\
-        ldrb r0, [r5]\n\
-        ldr r1, [sp, #0xc]\n\
-        strb r0, [r1]\n\
-        b _080BAAEE\n\
-    _080BAA08:\n\
-        ldr r2, [sp, #0x10]\n\
-        movs r1, #0\n\
-        ldrsb r1, [r2, r1]\n\
-        ldr r3, [sp, #0xc]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r3, r0]\n\
-        cmp r1, r0\n\
-        ble _080BAA30\n\
-        adds r0, r1, #0\n\
-        adds r0, #0x14\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r4, r0, #0x10\n\
-        mov r9, r4\n\
-        asrs r0, r0, #0x10\n\
-        movs r1, #0x28\n\
-        bl __modsi3\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r5, r0, #0x10\n\
-        b _080BAA3C\n\
-    _080BAA30:\n\
-        ldr r5, [sp, #0x10]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r5, r0]\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r5, r0, #0x10\n\
-        mov r9, r5\n\
-    _080BAA3C:\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x2d\n\
-        movs r1, #0\n\
-        ldrsb r1, [r0, r1]\n\
-        adds r0, r1, #0\n\
-        cmp r1, #0\n\
-        bge _080BAA4C\n\
-        adds r0, #0x1f\n\
-    _080BAA4C:\n\
-        asrs r0, r0, #5\n\
-        lsls r0, r0, #5\n\
-        subs r0, r1, r0\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #8\n\
-        lsrs r4, r0, #0x10\n\
-        adds r0, r1, #0\n\
-        movs r1, #0x3c\n\
-        bl __modsi3\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #8\n\
-        lsrs r6, r0, #0x10\n\
-        lsls r0, r4, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        mov sl, r0\n\
-        cmp r0, #0\n\
-        bgt _080BAA92\n\
-        ldr r0, [r7, #0x48]\n\
-        lsls r1, r6, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        lsls r2, r5, #0x10\n\
-        asrs r2, r2, #0x10\n\
-        mov r4, r9\n\
-        lsls r3, r4, #0x10\n\
-        asrs r3, r3, #0x10\n\
-        str r3, [sp]\n\
-        movs r3, #0x1f\n\
-        str r3, [sp, #4]\n\
-        movs r3, #1\n\
-        str r3, [sp, #8]\n\
-        mov r3, sl\n\
-        bl sub_80BA6DC\n\
-        b _080BAAE6\n\
-    _080BAA92:\n\
-        movs r4, #0x20\n\
-        mov r0, sl\n\
-        subs r4, r4, r0\n\
-        ldr r0, [r7, #0x48]\n\
-        lsls r6, r6, #0x10\n\
-        asrs r6, r6, #0x10\n\
-        lsls r5, r5, #0x10\n\
-        mov r8, r5\n\
-        mov r1, r8\n\
-        asrs r1, r1, #0x10\n\
-        mov r8, r1\n\
-        mov r2, r9\n\
-        lsls r5, r2, #0x10\n\
-        asrs r5, r5, #0x10\n\
-        str r5, [sp]\n\
-        lsls r4, r4, #0x10\n\
-        asrs r4, r4, #0x10\n\
-        str r4, [sp, #4]\n\
-        movs r3, #1\n\
-        mov r9, r3\n\
-        str r3, [sp, #8]\n\
-        adds r1, r6, #0\n\
-        mov r2, r8\n\
-        mov r3, sl\n\
-        bl sub_80BA6DC\n\
-        movs r1, #0x1f\n\
-        subs r1, r1, r4\n\
-        ldr r0, [r7, #0x48]\n\
-        adds r6, r6, r4\n\
-        add r4, sl\n\
-        str r5, [sp]\n\
-        lsls r1, r1, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        str r1, [sp, #4]\n\
-        mov r5, r9\n\
-        str r5, [sp, #8]\n\
-        adds r1, r6, #0\n\
-        mov r2, r8\n\
-        adds r3, r4, #0\n\
-        bl sub_80BA6DC\n\
-    _080BAAE6:\n\
-        ldr r1, [sp, #0x10]\n\
-        ldrb r0, [r1]\n\
-        ldr r2, [sp, #0xc]\n\
-        strb r0, [r2]\n\
-    _080BAAEE:\n\
-        add sp, #0x14\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080BAB00
 void sub_80BAB00(void)
