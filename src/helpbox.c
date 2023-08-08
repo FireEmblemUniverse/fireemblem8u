@@ -56,9 +56,9 @@ struct HelpBox8A016E0Proc {
 struct HelpBox8A01760Proc {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ const char* unk_2c;
-    /* 30 */ struct Font* unk_30;
-    /* 34 */ struct Text* unk_34[5];
+    /* 2C */ const char * str;
+    /* 30 */ struct Font * unk_30;
+    /* 34 */ struct Text * unk_34[5];
 
     /* 48 */ s16 unk_48;
     /* 4A */ s16 unk_4a;
@@ -601,7 +601,7 @@ void sub_808A00C(struct HelpBox8A01650Proc* proc) {
     // TODO: Unknown? Seems pointless, but needed for match
     GetStringFromIndex(proc->unk_5c);
 
-    otherProc->unk_2c = sub_800A2A4();
+    otherProc->unk_2c = StringInsertSpecialPrefixByCtrl();
 
     otherProc->unk_62 = 1;
 
@@ -1536,7 +1536,7 @@ void sub_808AC0C(int x, int y, int msg) {
     // ??
     GetStringFromIndex(proc->mid);
 
-    sub_808AADC(sub_800A2A4(), &wInner, &hInner);
+    sub_808AADC(StringInsertSpecialPrefixByCtrl(), &wInner, &hInner);
 
     SetTextFontGlyphs(0);
 
@@ -1655,7 +1655,7 @@ void sub_808B09C(struct HelpBox8A01760Proc* proc) {
     proc->unk_50 = helpBoxProc->xBox - 8;
     proc->unk_51 = helpBoxProc->yBox - 8;
 
-    sub_808AB98(proc->unk_2c, &proc->unk_52);
+    sub_808AB98(proc->str, &proc->unk_52);
 
     return;
 }
@@ -1729,7 +1729,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
         int r0;
         int a, b;
 
-        switch (*proc->unk_2c) {
+        switch (*proc->str) {
             case 0x18: // [Yes]
                 sub_808B0D4();
 
@@ -1737,7 +1737,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
 
                 sub_80900EC(gUnknown_08A016D8, proc->unk_34[proc->unk_48], r3->xBoxFinal, r3->yBoxFinal + proc->unk_48 * 16, 6, 1, proc);
 
-                proc->unk_2c++;
+                proc->str++;
                 goto _0808B772;
 
             case 0x19: // [No]
@@ -1747,17 +1747,17 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
 
                 sub_80900EC(gUnknown_08A016D8, proc->unk_34[proc->unk_48], r3->xBoxFinal, r3->yBoxFinal + proc->unk_48 * 16, 6, 2, proc);
 
-                proc->unk_2c++;
+                proc->str++;
                 goto _0808B772;
 
             case 0x80:
-                r1 = proc->unk_2c + 1;
-                proc->unk_2c = r1;
+                r1 = proc->str + 1;
+                proc->str = r1;
 
                 if (*r1 == 0x21) { // [ToggleRed]
                     r0 = proc->unk_59;
                     proc->unk_59 = (r0+1) & 1;
-                    proc->unk_2c++;
+                    proc->str++;
                     i--;
 
                     continue;
@@ -1768,12 +1768,12 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
                     Proc_Goto(proc, 1);
 
                     Proc_EndEach(gUnknown_08A01818);
-                    proc->unk_2c++;
+                    proc->str++;
 
                     goto _0808B772;
 
                 } else if (*r1 == 0x25) { // [ToggleColorInvert]
-                    proc->unk_2c++;
+                    proc->str++;
 
                     goto _0808B772;
                 }
@@ -1788,14 +1788,14 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
 
                 sub_808B0D4();
 
-                proc->unk_2c++;
-                if (*proc->unk_2c == 0x01) {
-                    proc->unk_2c++;
+                proc->str++;
+                if (*proc->str == 0x01) {
+                    proc->str++;
                 }
 
                 if (r4 != 0) {
                     sub_808B11C(proc);
-                    sub_808AADC(proc->unk_2c, &a, &b);
+                    sub_808AADC(proc->str, &a, &b);
 
                     proc->unk_56 = a;
                     proc->unk_57 = b;
@@ -1827,7 +1827,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             case 0x01: // [NL]
                 sub_808B0D4();
 
-                proc->unk_2c++;
+                proc->str++;
 
                 if (proc->unk_55 == (proc->unk_48 + 1)) {
                     // b _0808B1DE
@@ -1844,7 +1844,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             case 0x04: // [....]
                 sub_808B0D4();
 
-                proc->unk_2c++;
+                proc->str++;
 
                 proc->unk_4a = 8;
 
@@ -1853,7 +1853,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             case 0x05: // [.....]
                 sub_808B0D4();
 
-                proc->unk_2c++;
+                proc->str++;
 
                 proc->unk_4a = 0x10;
 
@@ -1862,7 +1862,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             case 0x06: // [......]
                 sub_808B0D4();
 
-                proc->unk_2c++;
+                proc->str++;
 
                 proc->unk_4a = 0x20;
 
@@ -1871,7 +1871,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             case 0x07: // [.......]
                 sub_808B0D4();
 
-                proc->unk_2c++;
+                proc->str++;
 
                 proc->unk_4a = 0x40;
 
@@ -1880,13 +1880,13 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             case 0x02: // [NL2]
                 sub_808B0D4();
 
-                proc->unk_2c++;
+                proc->str++;
 
-                if (*proc->unk_2c == 0x01) { // [NL]
-                    proc->unk_2c++;
+                if (*proc->str == 0x01) { // [NL]
+                    proc->str++;
                 }
 
-                if (*proc->unk_2c == 0x00) { // [X]
+                if (*proc->str == 0x00) { // [X]
                     if ((GetDialogueBoxConfig() & 2) == 0) {
                         Proc_Break(proc);
                     } else {
@@ -1898,7 +1898,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
                     if ((GetDialogueBoxConfig() & 0x10) != 0) {
                         sub_808B11C(proc);
                     } else {
-                        if (*proc->unk_2c != 0) {
+                        if (*proc->str != 0) {
                             proc->unk_58 = 0;
                             Proc_Goto(proc, 5);
                         }
@@ -1914,7 +1914,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
 
                 sub_808B0D4();
 
-                proc->unk_2c++;
+                proc->str++;
 
                 r0 = Proc_Find(gUnknown_08A01740);
 
@@ -1922,7 +1922,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
                 y = r0->yBoxFinal + proc->unk_48 * 16;
                 StartTalkWaitForInput(proc, x, y + 8);
 
-                sub_808AB98(proc->unk_2c, &proc->unk_52);
+                sub_808AB98(proc->str, &proc->unk_52);
 
                 goto _0808B772;
             }
@@ -1940,7 +1940,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             }
         }
 
-        proc->unk_2c = Text_DrawCharacter(proc->unk_34[proc->unk_48], proc->unk_2c);
+        proc->str = Text_DrawCharacter(proc->unk_34[proc->unk_48], proc->str);
 
         if (GetTextDisplaySpeed() != 1 || (GetGameClock() & 1) != 0) {
 
@@ -2126,7 +2126,7 @@ void sub_808B928(struct HelpBox8A01800Proc* proc) {
 
     GetStringFromIndex(proc->unk_5c);
 
-    otherProc->unk_2c = sub_800A2A4();
+    otherProc->str = StringInsertSpecialPrefixByCtrl();
     otherProc->unk_54 = proc->unk_2c;
     otherProc->unk_55 = proc->unk_30;
 

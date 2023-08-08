@@ -296,12 +296,8 @@
 . = ALIGN(4); src/animedrv.o(ewram_data);
 . = ALIGN(4); src/ctc.o(ewram_data);
 . = 0x02A68C; sFaceConfig = .;
-. = 0x02A6AC; gUnknown_0202A6AC = .;
-. = 0x02AC01; gUnknown_0202AC01 = .;
-. = 0x02B156; gUnknown_0202B156 = .;
-. = 0x02B4AC; gUnknown_0202B4AC = .;
-. = 0x02B5AC; gUnknown_0202B5AC = .;
-. = 0x02B6AC; gUnknown_0202B6AC = .;
+. = 0x02A6AC;
+. = ALIGN(4); src/msg.o(ewram_data);
 . = 0x02B6B0; sPalFadeSt = .;
 . = 0x02BCB0; gBmSt = .;
 . = 0x02BCF0; gPlaySt = .;

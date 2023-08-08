@@ -242,13 +242,13 @@ enum PlaySt_chapterModeIndex {
     CHAPTER_MODE_EPHRAIM = 3,
 };
 
-struct TextBuffer0202A6AC
+struct MsgBuffer
 {
-    u8 buffer0202A6AC[0x555];
-    u8 buffer0202AC01[0x555];
-    u8 buffer0202B156[0x356];
-    u8 buffer0202B4AC[0x100];
-    u8 buffer0202B5AC[1];  // unknown length
+    u8 buffer1[0x555];
+    u8 buffer2[0x555];
+    u8 buffer3[0x356];
+    u8 buffer4[0x100];
+    u8 buffer5[0x100];
 };
 
 struct ActionData

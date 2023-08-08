@@ -544,7 +544,7 @@ void GetStringTextBox(const char* _str, int *out_width, int *out_height)
     *out_width = 0;
     *out_height = 0;
 
-    str = sub_800A2A4();
+    str = StringInsertSpecialPrefixByCtrl();
     while (*str != 0 && *str != CHAR_NEWLINE) {
         int width = GetStringTextLen(str);
 
