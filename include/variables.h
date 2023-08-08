@@ -116,12 +116,6 @@ extern u8 gGenericBuffer[0x2000];
 // extern ??? gUnknown_02026E10
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
-extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
-//extern u8 gUnknown_0202AC01[];
-//extern u8 gUnknown_0202B156[];
-extern u8 gUnknown_0202B4AC[];
-// extern ??? gUnknown_0202B5AC
-extern int gUnknown_0202B6AC;
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;
 // extern ??? gUnknown_0202BD30
@@ -580,8 +574,8 @@ extern struct Glyph *TextGlyphs_Special[];
 // extern ??? gUnknown_0859160C
 // extern ??? gUnknown_08591624
 // extern ??? gUnknown_0859163C
-extern const char *gUnknown_08591AA4[][2];
-//extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gUnknown_08591AA4;
+extern const char *gStrPrefix[][2];
+//extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gStrPrefix;
 // extern ??? gUnknown_08591AB4
 
 // extern ??? sProcScr_Popup

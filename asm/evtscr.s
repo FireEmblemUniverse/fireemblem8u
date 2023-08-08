@@ -1127,7 +1127,7 @@ _0800E348: .4byte gUnknown_030004E4
 _0800E34C:
 	adds r0, r7, #0
 	bl GetStringFromIndex
-	bl sub_800A2A4
+	bl StringInsertSpecialPrefixByCtrl
 	add r2, sp, #4
 	mov r1, sp
 	bl sub_808AADC

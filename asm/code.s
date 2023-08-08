@@ -980,7 +980,7 @@ sub_808F128: @ 0x0808F128
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0808F166
-	bl sub_800A2A4
+	bl StringInsertSpecialPrefixByCtrl
 	str r0, [r4, #0x2c]
 _0808F166:
 	adds r0, r4, #0
@@ -1094,7 +1094,7 @@ _0808F214:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0808F254
-	bl sub_800A2A4
+	bl StringInsertSpecialPrefixByCtrl
 	str r0, [r4, #0x2c]
 _0808F254:
 	add sp, #0xc

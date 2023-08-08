@@ -68,7 +68,7 @@ char* GetItemNameWithArticle(int item, s8 capitalize) {
             article = NULL;
 
         result = GetItemName(item);
-        PrependArticleToString(result, article, capitalize);
+        InsertPrefix(result, article, capitalize);
 
         return result;
     }
@@ -88,7 +88,7 @@ inline char* GetItemName(int item) {
     char* result;
 
     result = GetStringFromIndex(GetItemData(ITEM_INDEX(item))->nameTextId);
-    result = FilterSomeTextFromStandardBuffer();
+    result = StrInsertTact();
 
     return result;
 }
