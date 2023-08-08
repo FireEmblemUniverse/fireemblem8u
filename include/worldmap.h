@@ -22,14 +22,50 @@ struct GmRouteProc
     /* 40 */ struct OpenPaths * pOpenPaths;
 };
 
+struct Unknown_3001DA8
+{
+    /* 00 */ s8 unk_00;
+    /* 01 */ s8 unk_01;
+    /* 02 */ s8 unk_02;
+    /* 03 */ s8 unk_03;
+    /* 04 */ s8 unk_04;
+    /* 05 */ s8 unk_05;
+};
+
+struct GMapScreenVSyncProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ u8 * unk_2c;
+    /* 30 */ u16 * unk_30;
+    /* 34 */ u8 * unk_34;
+    /* 38 */ s16 unk_38;
+    /* 3C */ struct Unknown_3001DA8 * unk_3c;
+    /* 40 */ u16 unk_40;
+    /* 44 */ void * unk_44;
+};
+
 struct GmScreenProc
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ STRUCT_PAD(0x2a, 0x34);
+    /* 29 */ u8 unk_29_0 : 1;
+    /* 2A */ u8 unk_2a;
+    /* 2B */ s8 unk_2b;
+    /* 2C */ s8 unk_2c;
+    /* 2D */ s8 unk_2d;
+    /* 2E */ s8 unk_2e;
+    /* 2F */ u8 unk_2f;
+    /* 30 */ u8 unk_30;
+    /* 31 */ u8 unk_31;
+    /* 32 */ u8 unk_32;
+    /* 33 */ u8 unk_33;
     /* 34 */ s16 unk_34;
     /* 36 */ s16 unk_36;
-    /* 38 */ STRUCT_PAD(0x38, 0x4c);
+    /* 38 */ u16 unk_38;
+    /* 3A */ u16 unk_3a;
+    /* 3C */ u8 * unk_3c;
+    /* 40 */ u16 * unk_40;
+    /* 44 */ u8 * unk_44;
+    /* 48 */ struct GMapScreenVSyncProc * unk_48;
     /* 4C */ struct GmRouteProc * unk_4c;
 };
 
@@ -181,5 +217,8 @@ struct NodeIcon
 extern const struct NodeIcon gWMNodeIconData[];
 
 extern struct ProcCmd gProcScr_WorldMapMain[];
+
+void MapRoute_80BC2DC(struct GmRouteProc * proc);
+ProcPtr StartGMapRoute(ProcPtr parent, struct OpenPaths * pPaths, int c, int d);
 
 #endif // GUARD_WORLDMAP_H
