@@ -32,49 +32,6 @@
 #include "constants/classes.h"
 #include "constants/items.h"
 
-struct MoveLimitViewProc {
-    PROC_HEADER;
-    
-    /* 29 */ u8 pad[0x4A-0x29];
-    /* 4A */ s16 unk_4A;
-    /* 4C */ s16 unk_4C;
-};
-
-extern const struct MenuDef gMapMenuDef;
-extern const struct MenuDef gUnitActionMenuDef;
-
-extern u16 gUnknown_08A02F34[];
-extern u16 gUnknown_08A02F94[];
-extern u16 gUnknown_08A02FF4[];
-
-extern u8 gUnknown_08A02EB4[];
-
-void TrySwitchViewedUnit(int, int);
-int GetUnitSelectionValueThing(struct Unit* unit);
-void DisplayMoveRangeGraphics(int config);
-s8 CanMoveActiveUnitTo(int, int);
-
-// code.s
-void PidStatsAddActAmt(u8);
-
-extern struct ProcCmd gProcScr_0859ACE8[];
-
-void PlayerPhase_Suspend(void);
-void PlayerPhase_MainIdle(ProcPtr proc);
-void PlayerPhase_InitUnitMovementSelect(void);
-void PlayerPhase_DisplayDangerZone(void);
-void PlayerPhase_RangeDisplayIdle(ProcPtr proc);
-s8 PlayerPhase_PrepareAction(ProcPtr proc);
-s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
-void PlayerPhase_FinishAction(ProcPtr proc);
-void PlayerPhase_ApplyUnitMovement(ProcPtr proc);
-void PlayerPhase_DisplayUnitMovement(void);
-void PlayerPhase_WaitForUnitMovement(ProcPtr proc);
-void PlayerPhase_ResumeRangeDisplay(ProcPtr proc);
-void PlayerPhase_ReReadGameSaveGfx(void);
-void PlayerPhase_RangeDisplayIdle_ForceAPress(ProcPtr);
-void PlayerPhase_HandleAutoEnd(ProcPtr);
-
 struct ProcCmd CONST_DATA gProcScr_PlayerPhase[] = {
     PROC_NAME("E_PLAYERPHASE"),
     PROC_MARK(PROC_MARK_2),
@@ -193,8 +150,6 @@ PROC_LABEL(3),
 
 };
 
-void MakeMoveunitForActiveUnit(void);
-
 struct ProcCmd CONST_DATA gProcScr_0859ACE8[] = {
     PROC_CALL(MakeMoveunitForActiveUnit),
     PROC_CALL(TryCallSelectEvents),
@@ -215,9 +170,6 @@ u8* CONST_DATA gUnknown_0859AD08[] = {
     gUnknown_08A02C34 + (5 * 4 * 0x20),
 };
 
-void MoveLimitViewChange_OnInit(struct MoveLimitViewProc* proc);
-void MoveLimitViewChange_OnLoop(struct MoveLimitViewProc* proc);
-
 struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] = {
     PROC_NAME("MLVCHC"),
     PROC_MARK(PROC_MARK_1),
@@ -227,10 +179,6 @@ struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] = {
 
     PROC_END,
 };
-
-void MoveLimitView_OnEnd(struct MoveLimitViewProc* proc);
-void MoveLimitView_OnInit(ProcPtr);
-void MoveLimitView_OnLoop(struct MoveLimitViewProc* proc);
 
 struct ProcCmd CONST_DATA sProcScr_MoveLimitView[] = {
     PROC_NAME("E_MOVELIMITVIEW"),
