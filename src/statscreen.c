@@ -27,135 +27,6 @@
 
 #include "statscreen.h"
 
-struct StatScreenEffectProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 pad29[0x38 - 0x29];
-
-    /* 38 */ int direction;
-    /* 3C */ int yDispInit;
-    /* 40 */ int yDispFinal;
-
-    /* 44 */ u8 pad44[0x4A - 0x44];
-
-    /* 4A */ short newItem; // page or unit depending on slide
-    /* 4C */ short timer;
-    /* 4E */ short blendDirection;
-
-    /* 50 */ u8 pad50[0x52 - 0x50];
-
-    /* 52 */ u16   key;
-};
-
-struct StatScreenPageNameProc
-{
-    /* 00 */ PROC_HEADER;
-
-    // Page Num Sprite Control proc only
-    /* 2A */ short xLeftCursor;
-    /* 2C */ short xRightCursor;
-    /* 2E */ u16 animTimerLeft;
-    /* 30 */ u16 animTimerRight;
-    /* 32 */ short animSpeedLeft;
-    /* 34 */ short animSpeedRight;
-
-    // Page Name Sprite Control proc only
-    /* 36 */ u8 pageNum;
-    /* 38 */ short yScale; // 6 == times 1
-};
-
-struct StatScreenInfo
-{
-    /* 00 */ u8  unk00;
-    /* 01 */ u8  unitId;
-    /* 02 */ u16 config;
-};
-
-struct SSTextDispInfo
-{
-    /* 00 */ struct Text* text;
-    /* 04 */ u16* tilemap;
-    /* 08 */ u8 color;
-    /* 09 */ u8 xoff;
-    /* 0C */ const unsigned* mid;
-};
-
-struct HelpPromptSprProc
-{
-    PROC_HEADER;
-
-    /* 2C */ int xDisplay;
-    /* 30 */ int yDisplay;
-    /* 34 */ int tileref;
-};
-
-static void InitTexts(void);
-static void DisplayTexts(const struct SSTextDispInfo* unk);
-static void DisplayLeftPanel(void);
-static void DisplayBwl(void);
-static void DrawStatWithBar(int num, int x, int y, int base, int total, int max);
-static void DisplayPage0(void);
-static void DisplayPage1(void);
-static void DisplaySupportList(void);
-static void DisplayWeaponExp(int num, int x, int y, int wtype);
-static void DisplayPage2(void);
-static void DisplayPage(int pageid);
-static struct Unit* FindNextUnit(struct Unit* u, int direction);
-static void PageSlide_OnLoop(struct StatScreenEffectProc* proc);
-static void PageSlide_OnEnd(struct StatScreenEffectProc* proc);
-static void StartPageSlide(u16 config, int newPage, struct Proc* parent);
-static void GlowBlendCtrl_OnInit(struct StatScreenEffectProc* proc);
-static void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc);
-static void StartGlowBlendCtrl(void);
-static void EndGlowBlendCtrl(struct StatScreenEffectProc* proc);
-static void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc);
-static void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc);
-static void UnitSlide_InitFadeIn(struct StatScreenEffectProc* proc);
-static void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc);
-static void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc);
-static void ClearSlide(struct Proc* proc);
-static void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent);
-void DisplayPageNameSprite(int pageid);
-static void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc);
-void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc);
-static void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc);
-static void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc);
-static void PageNumCtrl_OnInit(struct StatScreenPageNameProc* proc);
-static void PageNumCtrl_CheckSlide(struct StatScreenPageNameProc* proc);
-static void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc);
-static void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc);
-static void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc);
-static void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc);
-static void StatScreen_BlackenScreen(void);
-static void StatScreen_InitDisplay(struct Proc* proc);
-static void StatScreen_Display(struct Proc* proc);
-static void StatScreen_OnIdle(struct Proc* proc);
-static void StatScreen_OnClose(void);
-static void StatScreen_ResumeFromHelp(void);
-static void BgOffCtrl_OnLoop(void);
-static void StartStatScreenHelp(int pageid, struct Proc* proc);
-
-static void HelpBox_OnOpen(struct HelpBoxProc* proc);
-static void HelpBox_OnLoop(struct HelpBoxProc* proc);
-static void HelpBox_OnClose(struct HelpBoxProc* proc);
-static void HelpBox_WaitClose(struct HelpBoxProc* proc);
-static void HbMoveCtrl_OnInitBox(struct HelpBoxProc* proc);
-static void HbMoveCtrl_OnIdle(struct HelpBoxProc* proc);
-static void HbMoveCtrl_OnEnd(struct HelpBoxProc* proc);
-static void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height);
-static void ApplyHelpBoxPosition(struct HelpBoxProc* proc, int x, int y);
-static void HbPopulate_AutoItem(struct HelpBoxProc* proc);
-static void HbLock_OnIdle(struct Proc* proc);
-static void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc);
-
-// TODO: figure out what to do with those
-// (It's in the weird EWRAM overlay area)
-
-extern struct StatScreenSt gStatScreen; // statscreen state
-extern u16 gBmFrameTmap0[0x280]; // bg0 tilemap buffer for stat screen page
-extern u16 gBmFrameTmap1[0x240]; // bg2 tilemap buffer for stat screen page
-
 static struct StatScreenInfo EWRAM_DATA sStatScreenInfo = {};
 
 static struct HelpBoxInfo EWRAM_DATA sMutableHbi = {};
@@ -501,13 +372,11 @@ void SetStatScreenConfig(int config)
     sStatScreenInfo.config = config;
 }
 
-static
 void InitTexts(void)
 {
     InitTextInitInfo(sSSMasterTextInitInfo);
 }
 
-static
 void DisplayTexts(const struct SSTextDispInfo* infos)
 {
     while (infos->text)
@@ -530,7 +399,6 @@ void DisplayTexts(const struct SSTextDispInfo* infos)
     }
 }
 
-static
 void DisplayLeftPanel(void)
 {
     const char* namestr = GetStringFromIndex(UNIT_NAME_ID(gStatScreen.unit));
@@ -603,7 +471,6 @@ void DisplayLeftPanel(void)
     }
 }
 
-static
 void DisplayBwl(void)
 {
     struct UnitUsageStats* stats = GetPidStats(gStatScreen.unit->pCharacterData->number);
@@ -657,7 +524,6 @@ void DisplayBwl(void)
         TEXT_COLOR_SYSTEM_BLUE, stats->lossAmt);
 }
 
-static
 void DrawStatWithBar(int num, int x, int y, int base, int total, int max)
 {
     int diff = total - base;
@@ -678,7 +544,6 @@ void DrawStatWithBar(int num, int x, int y, int base, int total, int max)
         TILEREF(0, STATSCREEN_BGPAL_6), max * 41 / 30, base * 41 / 30, diff * 41 / 30);
 }
 
-static
 void DisplayPage0(void)
 {
     DisplayTexts(sPage0TextInfo);
@@ -838,7 +703,6 @@ void DisplayPage0(void)
     DisplayBwl();
 }
 
-static
 void DisplayPage1(void)
 {
     int i, item;
@@ -947,7 +811,6 @@ void DisplayPage1(void)
     }
 }
 
-static
 void DisplaySupportList(void)
 {
     int yTile = 6, lineNum = 0;
@@ -998,7 +861,6 @@ void DisplaySupportList(void)
     }
 }
 
-static
 void DisplayWeaponExp(int num, int x, int y, int wtype)
 {
     int progress, progressMax, color;
@@ -1026,7 +888,6 @@ void DisplayWeaponExp(int num, int x, int y, int wtype)
         0x22, (progress*34)/(progressMax-1), 0);
 }
 
-static
 void DisplayPage2(void)
 {
     if (UnitHasMagicRank(gStatScreen.unit))
@@ -1053,7 +914,6 @@ void DisplayPage2(void)
     DisplaySupportList();
 }
 
-static
 void DisplayPage(int pageid)
 {
     typedef void(*func_type)(void);
@@ -1072,7 +932,6 @@ void DisplayPage(int pageid)
     funcLut[pageid]();
 }
 
-static
 struct Unit* FindNextUnit(struct Unit* u, int direction)
 {
     int faction = UNIT_FACTION(u);
@@ -1113,7 +972,6 @@ struct Unit* FindNextUnit(struct Unit* u, int direction)
     }
 }
 
-static
 void PageSlide_OnLoop(struct StatScreenEffectProc* proc)
 {
     int off;
@@ -1176,13 +1034,11 @@ void PageSlide_OnLoop(struct StatScreenEffectProc* proc)
         Proc_Break(proc);
 }
 
-static
 void PageSlide_OnEnd(struct StatScreenEffectProc* proc)
 {
     gStatScreen.inTransition = FALSE;
 }
 
-static
 void StartPageSlide(u16 key, int newPage, struct Proc* parent)
 {
     struct StatScreenEffectProc* proc;
@@ -1203,7 +1059,6 @@ void StartPageSlide(u16 key, int newPage, struct Proc* parent)
     gStatScreen.inTransition = TRUE;
 }
 
-static
 void GlowBlendCtrl_OnInit(struct StatScreenEffectProc* proc)
 {
     gLCDControlBuffer.dispcnt.bg0_on = TRUE;
@@ -1221,7 +1076,6 @@ void GlowBlendCtrl_OnInit(struct StatScreenEffectProc* proc)
     SetBlendTargetB(0, 0, 0, 1, 0);
 }
 
-static
 void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc)
 {
     if (proc->blendDirection == 0)
@@ -1238,13 +1092,11 @@ void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc)
     SetSpecialColorEffectsParameters(1, proc->timer >> 3, 0x10, 0);
 }
 
-static
 void StartGlowBlendCtrl(void)
 {
     Proc_Start(gProcScr_SSGlowyBlendCtrl, PROC_TREE_3);
 }
 
-static
 void EndGlowBlendCtrl(struct StatScreenEffectProc* proc)
 {
     Proc_EndEach(gProcScr_SSGlowyBlendCtrl);
@@ -1256,7 +1108,6 @@ void EndGlowBlendCtrl(struct StatScreenEffectProc* proc)
     gLCDControlBuffer.dispcnt.obj_on = TRUE;
 }
 
-static
 void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc)
 {
     gStatScreen.inTransition = TRUE;
@@ -1285,7 +1136,6 @@ void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc)
     }
 }
 
-static
 void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
 {
     SetSpecialColorEffectsParameters(1, proc->timer, 0x10 - proc->timer, 0);
@@ -1301,7 +1151,6 @@ void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
         Proc_Break(proc);
 }
 
-static
 void UnitSlide_InitFadeIn(struct StatScreenEffectProc* proc)
 {
     proc->timer = 1;
@@ -1326,7 +1175,6 @@ void UnitSlide_InitFadeIn(struct StatScreenEffectProc* proc)
     }
 }
 
-static
 void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
 {
     SetSpecialColorEffectsParameters(1, 0x10 - proc->timer, proc->timer, 0);
@@ -1342,7 +1190,6 @@ void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
         Proc_Break(proc);
 }
 
-static
 void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc)
 {
     gStatScreen.unit = GetUnit(proc->newItem);
@@ -1351,7 +1198,6 @@ void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc)
     Proc_Break(proc);
 }
 
-static
 void ClearSlide(struct Proc* proc)
 {
     if (gStatScreen.mu)
@@ -1368,7 +1214,6 @@ void ClearSlide(struct Proc* proc)
     gStatScreen.inTransition = FALSE;
 }
 
-static
 void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent)
 {
     struct StatScreenEffectProc* proc = (void*) Proc_StartBlocking(gProcScr_SSUnitSlide, parent);
@@ -1427,7 +1272,6 @@ void DisplayPageNameSprite(int pageid)
     EnablePaletteSync();
 }
 
-static
 void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
@@ -1459,7 +1303,6 @@ void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc)
     proc->pageNum = gStatScreen.page;
 }
 
-static
 void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
@@ -1484,7 +1327,6 @@ void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc)
     }
 }
 
-static
 void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
@@ -1509,7 +1351,6 @@ void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc)
     }
 }
 
-static
 void PageNumCtrl_OnInit(struct StatScreenPageNameProc* proc)
 {
     proc->xLeftCursor  = PAGENUM_LEFTARROW_X;
@@ -1522,7 +1363,6 @@ void PageNumCtrl_OnInit(struct StatScreenPageNameProc* proc)
     proc->animSpeedLeft = PAGENUM_ANIMSPEED;
 }
 
-static
 void PageNumCtrl_CheckSlide(struct StatScreenPageNameProc* proc)
 {
     if (gStatScreen.pageSlideKey & DPAD_LEFT)
@@ -1540,7 +1380,6 @@ void PageNumCtrl_CheckSlide(struct StatScreenPageNameProc* proc)
     gStatScreen.pageSlideKey = 0;
 }
 
-static
 void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc)
 {
     int baseref = TILEREF(0x240, STATSCREEN_OBJPAL_4) + OAM2_LAYER(1);
@@ -1574,7 +1413,6 @@ void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc)
         gObject_8x16_HFlipped, baseref + 0x5A + (proc->animTimerRight >> 5) % 6);
 }
 
-static
 void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc)
 {
     int chr = 0x289;
@@ -1598,7 +1436,6 @@ void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc)
         gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3) + gStatScreen.page + 1);
 }
 
-static
 void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc)
 {
     PutSprite(11,
@@ -1607,7 +1444,6 @@ void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc)
         gObject_32x16, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3));
 }
 
-static
 void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
 {
     s8 displayIcon = (GetGameClock() % 32) < 20;
@@ -1641,7 +1477,6 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
     }
 }
 
-static
 void StatScreen_BlackenScreen(void)
 {
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
@@ -1661,7 +1496,6 @@ void StatScreen_BlackenScreen(void)
     EnablePaletteSync();
 }
 
-static
 void StatScreen_InitDisplay(struct Proc* proc)
 {
     u16 bgConfig[12] =
@@ -1761,7 +1595,6 @@ void StatScreen_InitDisplay(struct Proc* proc)
     ClearSlide(proc);
 }
 
-static
 void StatScreen_Display(struct Proc* proc)
 {
     // Get portrait id
@@ -1810,7 +1643,6 @@ void StatScreen_Display(struct Proc* proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 }
 
-static
 void StatScreen_OnIdle(struct Proc* proc)
 {
     struct Unit* unit;
@@ -1875,7 +1707,6 @@ void StatScreen_OnIdle(struct Proc* proc)
     }
 }
 
-static
 void StatScreen_OnClose(void)
 {
     gPlaySt.chapterStateBits = (gPlaySt.chapterStateBits &~ 3) | (gStatScreen.page & 3);
@@ -1890,13 +1721,11 @@ void StatScreen_OnClose(void)
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 }
 
-static
 void StatScreen_ResumeFromHelp(void)
 {
     gStatScreen.help = GetLastHelpBoxInfo();
 }
 
-static
 void BgOffCtrl_OnLoop(void)
 {
     int yBg = 0xFF & -gStatScreen.yDispOff;
@@ -2079,7 +1908,6 @@ void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1)
     DisplayHelpBoxObj(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->unk52);
 }
 
-static
 void HelpBox_OnOpen(struct HelpBoxProc* proc)
 {
     struct Proc* found = Proc_Find(gProcScr_HelpPromptSpr);
@@ -2091,7 +1919,6 @@ void HelpBox_OnOpen(struct HelpBoxProc* proc)
         PlaySoundEffect(0x70); // TODO: song ids
 }
 
-static
 void HelpBox_OnLoop(struct HelpBoxProc* proc)
 {
     UpdateHelpBoxDisplay(proc, 5);
@@ -2100,7 +1927,6 @@ void HelpBox_OnLoop(struct HelpBoxProc* proc)
         proc->timer++;
 }
 
-static
 void HelpBox_OnClose(struct HelpBoxProc* proc)
 {
     struct Proc* found = Proc_Find(gProcScr_HelpPromptSpr);
@@ -2117,7 +1943,6 @@ void HelpBox_OnClose(struct HelpBoxProc* proc)
     }
 }
 
-static
 void HelpBox_WaitClose(struct HelpBoxProc* proc)
 {
     UpdateHelpBoxDisplay(proc, 0);
@@ -2303,7 +2128,6 @@ void EndHelpBox(void)
     }
 }
 
-static
 void HbMoveCtrl_OnInitBox(struct HelpBoxProc* proc)
 {
     proc->moveKey = 0;
@@ -2314,7 +2138,6 @@ void HbMoveCtrl_OnInitBox(struct HelpBoxProc* proc)
     StartHelpBoxExt(proc->info, FALSE);
 }
 
-static
 void HbMoveCtrl_OnIdle(struct HelpBoxProc* proc)
 {
     u8 boxMoved = FALSE;
@@ -2348,7 +2171,6 @@ void HbMoveCtrl_OnIdle(struct HelpBoxProc* proc)
     }
 }
 
-static
 void HbMoveCtrl_OnEnd(struct HelpBoxProc* proc)
 {
     CloseHelpBox();
@@ -2375,7 +2197,6 @@ void StartMovingHelpBoxExt(const struct HelpBoxInfo* info, struct Proc* parent, 
     proc->info = info;
 }
 
-static
 void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height)
 {
     width = 0xF0 & (width + 15); // align to 16 pixel multiple
@@ -2414,7 +2235,6 @@ void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height)
     proc->hBoxFinal = height;
 }
 
-static
 void ApplyHelpBoxPosition(struct HelpBoxProc* proc, int x, int y)
 {
     int xSpan = proc->wBoxFinal + 0x10;
@@ -2541,7 +2361,6 @@ int TryRelocateHbRight(struct HelpBoxProc* proc)
     return TRUE;
 }
 
-static
 void HbLock_OnIdle(struct Proc* proc)
 {
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
