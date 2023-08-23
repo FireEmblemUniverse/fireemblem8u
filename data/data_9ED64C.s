@@ -5652,7 +5652,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00101721
     .4byte 0x000a2a21
     .4byte 0x00000d40
-    .4byte sub_808659C
+    .4byte AutolevelSecondaryLord
     .4byte 0x000f3420
     .4byte 0x00000121
     .4byte 0x00090820
@@ -5666,7 +5666,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00101721
     .4byte 0x00172a21
     .4byte 0x00000d40
-    .4byte sub_808659C
+    .4byte AutolevelSecondaryLord
     .4byte 0x00013420
     .4byte 0x00000121
     .4byte gUnknown_08205938 + 0x20
