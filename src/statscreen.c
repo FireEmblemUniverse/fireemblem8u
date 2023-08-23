@@ -27,13 +27,6 @@
 
 #include "statscreen.h"
 
-// TODO: figure out what to do with those
-// (It's in the weird EWRAM overlay area)
-
-extern struct StatScreenSt gStatScreen; // statscreen state
-extern u16 gBmFrameTmap0[0x280]; // bg0 tilemap buffer for stat screen page
-extern u16 gBmFrameTmap1[0x240]; // bg2 tilemap buffer for stat screen page
-
 static struct StatScreenInfo EWRAM_DATA sStatScreenInfo = {};
 
 static struct HelpBoxInfo EWRAM_DATA sMutableHbi = {};
