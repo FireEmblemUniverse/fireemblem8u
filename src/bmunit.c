@@ -1059,10 +1059,10 @@ void UnitBeginAction(struct Unit* unit) {
     gActiveUnitMoveOrigin.y = unit->yPos;
 
     gActionData.subjectIndex = unit->index;
-    gActionData.unitActionType = 0;
+    gActionData.unitActionType = UNIT_ACTION_NONE;
     gActionData.moveCount = 0;
 
-    gBmSt.unk3D = 0;
+    gBmSt.partialActionsTaken = PARTIAL_ACTION_NONE;
     gBmSt.unk3F = 0xFF;
 
     sub_802C334();
@@ -1078,9 +1078,9 @@ void UnitBeginCantoAction(struct Unit* unit) {
     gActiveUnitMoveOrigin.x = unit->xPos;
     gActiveUnitMoveOrigin.y = unit->yPos;
 
-    gActionData.unitActionType = 0;
+    gActionData.unitActionType = UNIT_ACTION_NONE;
 
-    gBmSt.unk3D = 0;
+    gBmSt.partialActionsTaken = PARTIAL_ACTION_NONE;
 
     sub_802C334();
 

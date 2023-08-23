@@ -100,7 +100,7 @@ struct BmSt // Game State Struct
     /* 3A */ u8 altBlendBCa;
     /* 3B */ u8 altBlendBCb;
     /* 3C */ u8 just_resumed;
-    /* 3D */ u8 unk3D;
+    /* 3D */ u8 partialActionsTaken;
     /* 3E */ u8 unk3E;
     /* 3F */ s8 unk3F;
 };
@@ -113,6 +113,15 @@ enum BmSt_gameStateBits {
     BM_FLAG_4 = (1 << 4),
     BM_FLAG_5 = (1 << 5),
     BM_FLAG_LINKARENA = (1 << 6),
+};
+
+enum
+{
+    PARTIAL_ACTION_NONE = 0,
+    PARTIAL_ACTION_RESCUE_TRANSFER = (1 << 0),
+    PARTIAL_ACTION_TRADED = (1 << 1),
+    PARTIAL_ACTION_SUPPLY = (1 << 2),
+    PARTIAL_ACTION_BALLISTA = (1 << 3),
 };
 
 struct PlaySt_30 {
@@ -296,7 +305,7 @@ enum
 
 enum
 {
-    // 0x00?
+    UNIT_ACTION_NONE = 0x00,
     UNIT_ACTION_WAIT = 0x01,
     UNIT_ACTION_COMBAT = 0x02,
     UNIT_ACTION_STAFF = 0x03,
@@ -327,7 +336,7 @@ enum
     UNIT_ACTION_TRADED_SUPPLY = 0x1C,
     UNIT_ACTION_TRADED_1D = 0x1D,
     UNIT_ACTION_TRAPPED = 0x1E,
-    // 0x1F?
+    UNIT_ACTION_1F = 0x1F,
     // 0x20?
     UNIT_ACTION_RIDE_BALLISTA = 0x21,
     UNIT_ACTION_EXIT_BALLISTA = 0x22

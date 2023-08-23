@@ -367,12 +367,11 @@ u8 DropSelection_OnSelect(ProcPtr proc, struct SelectTarget* target) {
 }
 
 u8 TakeUsability(const struct MenuItemDef* def, int number) {
-
     if (gActiveUnit->state & US_HAS_MOVED) {
         return MENU_NOTSHOWN;
     }
 
-    if (gBmSt.unk3D & 1) {
+    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_RESCUE_TRANSFER) {
         return MENU_NOTSHOWN;
     }
 
@@ -401,7 +400,7 @@ u8 GiveUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gBmSt.unk3D & 1) {
+    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_RESCUE_TRANSFER) {
         return MENU_NOTSHOWN;
     }
 
@@ -691,7 +690,7 @@ u8 ItemSubMenu_IsTradeAvailable(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gBmSt.unk3D & 2) {
+    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_TRADED) {
         return MENU_NOTSHOWN;
     }
 
@@ -2191,7 +2190,7 @@ u8 RideCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gBmSt.unk3D & 8) {
+    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_BALLISTA) {
         return MENU_NOTSHOWN;
     }
 
@@ -2224,7 +2223,7 @@ u8 ExitCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gBmSt.unk3D & 8) {
+    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_BALLISTA) {
         return MENU_NOTSHOWN;
     }
 

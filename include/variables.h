@@ -1164,7 +1164,7 @@ extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each pag
 // extern ??? gGfx_YellowTextBox3
 // extern ??? gGfx_YellowTextBox4
 // extern ??? gGfx_YellowTextBox5
-extern u8 CONST_DATA gUnknown_08A02C34[];
+extern u8 CONST_DATA Img_LimitViewSquares[];
 // extern ??? gUnknown_08A02EB4
 // extern ??? gUnknown_08A02F34
 // extern ??? gUnknown_08A02F94

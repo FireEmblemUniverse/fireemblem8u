@@ -209,8 +209,8 @@ gGfx_YellowTextBox4:  @ 0x08A02B3C
 gGfx_YellowTextBox5:  @ 0x08A02BAC
 	.incbin "baserom.gba", 0xA02BAC, 0x88
 
-	.global gUnknown_08A02C34
-gUnknown_08A02C34:  @ 0x08A02C34
+	.global Img_LimitViewSquares
+Img_LimitViewSquares:  @ 0x08A02C34
 	.incbin "baserom.gba", 0xA02C34, 0x280
 
 	.global gUnknown_08A02EB4

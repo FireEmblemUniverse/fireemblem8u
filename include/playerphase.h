@@ -1,54 +1,73 @@
 #ifndef GUARD_PLAYERPHASE_H
 #define GUARD_PLAYERPHASE_H
 
-// ??? PlayerPhase_Suspend(???);
+struct MoveLimitViewProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x4A);
+    /* 4A */ s16 unk_4A;
+    /* 4C */ s16 unk_4C;
+};
+
+enum
+{
+    PLAYER_SELECT_NOUNIT     = 0,
+    PLAYER_SELECT_TURNENDED  = 1,
+    PLAYER_SELECT_CONTROL    = 2,
+    PLAYER_SELECT_NOCONTROL  = 3,
+    PLAYER_SELECT_4          = 4,
+};
+
+enum
+{
+    LIMITVIEW_BLUE   = (1 << 0),
+    LIMITVIEW_RED    = (1 << 1),
+    LIMITVIEW_GREEN  = (1 << 2),
+    // (1 << 3)
+    LIMITVIEW_UNK    = (1 << 4),
+};
+
+void PlayerPhase_Suspend(void);
 void HandlePlayerCursorMovement(void);
-int CanShowUnitStatScreen(struct Unit* unit);
-// ??? PlayerPhase_MainIdle(???);
-void DisplayUnitEffectRange(struct Unit* unit);
-// ??? PlayerPhase_InitUnitMovementSelect(???);
+// s8 CanShowUnitStatScreen(struct Unit * unit);
+void PlayerPhase_MainIdle(ProcPtr proc);
+void DisplayUnitEffectRange(struct Unit * unit);
+void PlayerPhase_InitUnitMovementSelect(void);
 void DisplayActiveUnitEffectRange(ProcPtr proc);
-// ??? PlayerPhase_DisplayDangerZone(???);
-// ??? PlayerPhase_RangeDisplayIdle(???);
+void PlayerPhase_DisplayDangerZone(void);
+void PlayerPhase_RangeDisplayIdle(ProcPtr proc);
 // ??? PlayerPhase_CancelAction(???);
 // ??? PlayerPhase_BackToMove(???);
-// ??? PlayerPhase_PrepareAction(???);
+s8 PlayerPhase_PrepareAction(ProcPtr proc);
 // ??? TryMakeCantoUnit(???);
 s8 RunPotentialWaitEvents(void);
-// ??? EnsureCameraOntoActiveUnitPosition(???);
-// ??? PlayerPhase_FinishAction(???);
+s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
+void PlayerPhase_FinishAction(ProcPtr proc);
 // ??? sub_801D404(???);
 // ??? sub_801D434(???);
-// ??? PlayerPhase_ApplyUnitMovement(???);
-int GetUnitSelectionValueThing(struct Unit* unit);
-// ??? CanMoveActiveUnitTo(???);
-// ??? PlayerPhase_DisplayUnitMovement(???);
-// ??? PlayerPhase_WaitForUnitMovement(???);
-// ??? PlayerPhase_ResumeRangeDisplay(???);
-// ??? PlayerPhase_ReReadGameSaveGfx(???);
-// ??? MakeMoveunitForActiveUnit(???);
-void ClearActiveUnit(struct Unit *);
+void PlayerPhase_ApplyUnitMovement(ProcPtr proc);
+int GetPlayerSelectKind(struct Unit * unit);
+s8 CanMoveActiveUnitTo(int, int);
+void PlayerPhase_DisplayUnitMovement(void);
+void PlayerPhase_WaitForUnitMovement(ProcPtr proc);
+void PlayerPhase_ResumeRangeDisplay(ProcPtr proc);
+void PlayerPhase_ReReadGameSaveGfx(void);
+void MakeMoveunitForActiveUnit(void);
+void ClearActiveUnit(struct Unit * unit);
 // ??? sub_801D7E8(???);
-// ??? PlayerPhase_RangeDisplayIdle_ForceAPress(???);
+void PlayerPhase_RangeDisplayIdle_ForceAPress(ProcPtr);
 // ??? sub_801D834(???);
-// ??? MoveLimitViewChange_OnInit(???);
-// ??? MoveLimitViewChange_OnLoop(???);
-// ??? MoveLimitView_OnInit(???);
-// ??? MoveLimitView_OnLoop(???);
-// ??? MoveLimitView_OnEnd(???);
+void MoveLimitViewChange_OnInit(struct MoveLimitViewProc * proc);
+void MoveLimitViewChange_OnLoop(struct MoveLimitViewProc * proc);
+void MoveLimitView_OnInit(ProcPtr);
+void MoveLimitView_OnLoop(struct MoveLimitViewProc * proc);
+void MoveLimitView_OnEnd(struct MoveLimitViewProc * proc);
 void DisplayMoveRangeGraphics(int flags);
 void HideMoveRangeGraphics(void);
 // ??? TrySetCursorOn(???);
 void TrySwitchViewedUnit(int x, int y);
-// ??? PlayerPhase_HandleAutoEnd(???);
-
-struct MoveLimitViewProc {
-    PROC_HEADER;
-    
-    /* 29 */ u8 pad[0x4A-0x29];
-    /* 4A */ s16 unk_4A;
-    /* 4C */ s16 unk_4C;
-};
+void PlayerPhase_HandleAutoEnd(ProcPtr);
 
 extern const struct MenuDef gMapMenuDef;
 extern const struct MenuDef gUnitActionMenuDef;
@@ -59,39 +78,7 @@ extern u16 gUnknown_08A02FF4[];
 
 extern u8 gUnknown_08A02EB4[];
 
-void TrySwitchViewedUnit(int, int);
-int GetUnitSelectionValueThing(struct Unit* unit);
-void DisplayMoveRangeGraphics(int config);
-s8 CanMoveActiveUnitTo(int, int);
-
-// code.s
-void PidStatsAddActAmt(u8);
-
 extern struct ProcCmd gProcScr_0859ACE8[];
-
-void PlayerPhase_Suspend(void);
-void PlayerPhase_MainIdle(ProcPtr proc);
-void PlayerPhase_InitUnitMovementSelect(void);
-void PlayerPhase_DisplayDangerZone(void);
-void PlayerPhase_RangeDisplayIdle(ProcPtr proc);
-s8 PlayerPhase_PrepareAction(ProcPtr proc);
-s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
-void PlayerPhase_FinishAction(ProcPtr proc);
-void PlayerPhase_ApplyUnitMovement(ProcPtr proc);
-void PlayerPhase_DisplayUnitMovement(void);
-void PlayerPhase_WaitForUnitMovement(ProcPtr proc);
-void PlayerPhase_ResumeRangeDisplay(ProcPtr proc);
-void PlayerPhase_ReReadGameSaveGfx(void);
-void PlayerPhase_RangeDisplayIdle_ForceAPress(ProcPtr);
-void PlayerPhase_HandleAutoEnd(ProcPtr);
-
-void MakeMoveunitForActiveUnit(void);
-void MoveLimitViewChange_OnInit(struct MoveLimitViewProc* proc);
-void MoveLimitViewChange_OnLoop(struct MoveLimitViewProc* proc);
-void MoveLimitView_OnEnd(struct MoveLimitViewProc* proc);
-void MoveLimitView_OnInit(ProcPtr);
-void MoveLimitView_OnLoop(struct MoveLimitViewProc* proc);
-
 extern struct ProcCmd gProcScr_PlayerPhase[];
 
-#endif  // GUARD_PLAYERPHASE_H
+#endif // GUARD_PLAYERPHASE_H

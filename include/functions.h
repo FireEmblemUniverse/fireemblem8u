@@ -145,7 +145,7 @@ void sub_80121D4(void);
 void sub_8012270(struct Unit *, u8, u8);
 void sub_8012324(void);
 int GetChapterAllyUnitCount();
-// ??? InitPlayerUnitPositionsForPrepScreen(???);
+void InitPlayerUnitPositionsForPrepScreen(void);
 void sub_801240C();
 // ??? sub_801247C(???);
 // ??? sub_8012578(???);
