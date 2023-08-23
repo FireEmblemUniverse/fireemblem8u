@@ -937,7 +937,7 @@ u8 Command_EphraimMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
     return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
 }
 
-void sub_808659C()
+void AutolevelSecondaryLord()
 {
     u8 i;
     struct BattleUnit bunit;
