@@ -46,12 +46,60 @@ struct Unknown8A3E448
     /* 03 */ s8 unk_03;
 };
 
-extern u8 gUnknown_08A98EAC[];
-extern u8 gUnknown_08A98F30[];
+extern u8 gUnknown_08A98EAC[]; // tsa
+extern u8 gUnknown_08A98F30[]; // tsa
 
-extern struct Unknown8A3E448 gUnknown_08A3E448[];
-extern s8 gUnknown_08A3E458[];
-extern s8 gUnknown_08A3E45E[];
+struct Unknown8A3E448 CONST_DATA gUnknown_08A3E448[] =
+{
+    {
+        -1,
+        +1,
+        +1,
+        -1,
+    },
+    {
+        -1,
+        -1,
+        -1,
+        -1,
+    },
+    {
+        -1,
+        -1,
+        +1,
+        -1,
+    },
+    {
+        -1,
+        -1,
+        +1,
+        -1,
+    },
+};
+
+// clang-format off
+
+s8 CONST_DATA gUnknown_08A3E458[] =
+{
+    1, 3, 4,
+};
+
+s8 CONST_DATA gUnknown_08A3E45B[] =
+{
+    3, 1, 0,
+};
+
+s8 CONST_DATA gUnknown_08A3E45E[] =
+{
+    3, 7, 9,
+};
+
+s8 CONST_DATA gUnknown_08A3E461[] =
+{
+    6, 2, 0,
+};
+
+// clang-format on
 
 extern u16 gUnknown_0201B430[];
 extern u16 gUnknown_0201B458[];
@@ -66,11 +114,11 @@ extern u16 gUnknown_0201BBD8[];
 // forward declarations
 void sub_80BEF20(struct GMapPIProc *, int);
 
-extern u8 gUnknown_08A9901C[];
-extern u16 gUnknown_08A99120[];
+extern u8 gUnknown_08A9901C[]; // gfx
+extern u16 gUnknown_08A99120[]; // pal
 
-extern u8 gUnknown_08A97A80[];
-extern u16 gUnknown_08A97A60[];
+extern u8 gUnknown_08A97A80[]; // gfx
+extern u16 gUnknown_08A97A60[]; // pal
 
 //! FE8U = 0x080BE65C
 void sub_80BE65C(int index, int height, int kind)
@@ -104,6 +152,7 @@ void sub_80BE65C(int index, int height, int kind)
         TileMap_CopyRect(gUnknown_0201B958 + (height2 - diff) * 0x20, gBG1TilemapBuffer, width, height);
         TileMap_CopyRect(gUnknown_0201B458 + (height2 - diff) * 0x20, gBG0TilemapBuffer, width, height);
     }
+
     if ((a > 0) && (b < 0))
     {
         int diff;
@@ -564,7 +613,6 @@ void sub_80BEDCC(struct GMapPIProc * proc)
 //! FE8U = 0x080BEDD4
 void sub_80BEDD4(struct GMapPIProc * proc)
 {
-    s8 * ptr;
     int height;
     int unk;
 
@@ -573,14 +621,12 @@ void sub_80BEDD4(struct GMapPIProc * proc)
     switch (proc->unk_5e)
     {
         case 0:
-            ptr = gUnknown_08A3E458 + 3;
-            height = ptr[proc->unk_58];
+            height = gUnknown_08A3E45B[proc->unk_58];
             unk = 3;
             break;
 
         case 1:
-            ptr = gUnknown_08A3E45E + 3;
-            height = ptr[proc->unk_58];
+            height = gUnknown_08A3E461[proc->unk_58];
             unk = 3;
             break;
     }
@@ -751,7 +797,32 @@ void sub_80BEFB8(struct GMapPIProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E464[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E464[] =
+{
+    PROC_NAME("PI"),
+    PROC_MARK(PROC_MARK_8),
+    PROC_15,
+    PROC_YIELD,
+
+    PROC_CALL(sub_80BEFB8),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80BEF6C),
+    PROC_REPEAT(sub_80BEBD4),
+    PROC_REPEAT(sub_80BEC58),
+    PROC_REPEAT(sub_80BECB8),
+
+    PROC_CALL(sub_80BEDCC),
+    PROC_REPEAT(sub_80BEDD4),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BF048
 void sub_80BF048(struct Proc * parent)
