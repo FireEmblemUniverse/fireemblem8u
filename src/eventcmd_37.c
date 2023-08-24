@@ -9,13 +9,12 @@
 
 // TODO: Give this a more human name (EventCmd_GiveItem?)
 int Event37_GiveItem(struct EventEngineProc *proc) {
-    u8 currentEventLoBits;
+    u8 subcmd, subcmd_;
     struct Unit *target;
-    u8 currentEventLoBits_;
     s32 gold;
 
-    currentEventLoBits = 0xF & *proc->pEventCurrent;
-    currentEventLoBits_ = currentEventLoBits;
+    subcmd = EVT_SUB_CMD(proc->pEventCurrent);
+    subcmd_ = subcmd;
 
     target = GetUnitStructFromEventParameter(proc->pEventCurrent[1]);
 
@@ -23,7 +22,7 @@ int Event37_GiveItem(struct EventEngineProc *proc) {
         return 6;
     }
 
-    switch (currentEventLoBits) {
+    switch (subcmd) {
         case 0:
             NewPopup_ItemGot(proc, target, gEventSlots[3]);
             break;
@@ -31,7 +30,7 @@ int Event37_GiveItem(struct EventEngineProc *proc) {
             NewPopup_GoldGot(proc, target, gEventSlots[3]);
             break;
         case 2:
-            if (currentEventLoBits_ == 2) {
+            if (subcmd_ == 2) {
                 gold = GetPartyGoldAmount() - gEventSlots[3];
                 if (gold < 0) {
                     gold = 0;
