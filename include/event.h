@@ -254,7 +254,7 @@ void sub_800BB98(void);
 // ??? sub_800BBB4(???);
 // ??? sub_800BBE4(???);
 // ??? HideAllUnits(???);
-struct Unit * GetUnitStructFromEventParameter(s8 pid);
+struct Unit * GetUnitStructFromEventParameter(s16 pid);
 void sub_800BCDC(int); // battle related
 // ??? Event80_(???);
 // ??? Event81_(???);
