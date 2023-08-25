@@ -263,136 +263,29 @@ void PutGMapPIClassName(struct GMapPIProc * proc, int jid)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/GEJwr */
-
 //! FE8U = 0x080BE9D8
 void sub_80BE9D8(struct GMapPIProc * param_1, int param_2)
 {
     if ((gGMData.nodes[param_2].state & 2) == 0)
     {
         if (param_2[gWMNodeData].armory[0] != 0)
-        {
-            u16 * ptr = gUnknown_0201B430;
-            *(ptr + 0x15D) = 0x3231;
-        }
+            gUnknown_0201B430[0x15D] = 0x3231;
         else
-        {
-            u16 * ptr = gUnknown_0201B430;
-            *(ptr + 0x15D) = 0;
-        }
+            gUnknown_0201B430[0x15D] = 0;
 
         if (param_2[gWMNodeData].vendor[0] != 0)
-        {
-            u16 * ptr = gUnknown_0201B430;
-            *(ptr + 0x15E) = 0x3232;
-        }
+            gUnknown_0201B430[0x15E] = 0x3232;
         else
-        {
-            u16 * ptr = gUnknown_0201B430;
-            *(ptr + 0x15E) = 0;
-        }
+            gUnknown_0201B430[0x15E] = 0;
     }
     else
     {
-        u16 * ptr = gUnknown_0201B430;
-        *(ptr + 0x15D) = 0;
-        *(ptr + 0x15E) = 0;
+        gUnknown_0201B430[0x15D] = 0;
+        gUnknown_0201B430[0x15E] = 0;
     }
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_80BE9D8(struct GMapPIProc * param_1, int param_2)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        adds r2, r1, #0\n\
-        ldr r1, _080BEA0C  @ gGMData\n\
-        lsls r0, r2, #2\n\
-        adds r0, r0, r1\n\
-        adds r0, #0x30\n\
-        ldrb r1, [r0]\n\
-        movs r0, #2\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        bne _080BEA56\n\
-        lsls r1, r2, #5\n\
-        ldr r2, _080BEA10  @ gWMNodeData\n\
-        adds r0, r1, r2\n\
-        ldr r0, [r0, #0xc]\n\
-        ldrh r3, [r0]\n\
-        adds r4, r1, #0\n\
-        adds r5, r2, #0\n\
-        cmp r3, #0\n\
-        beq _080BEA20\n\
-        ldr r2, _080BEA14  @ gUnknown_0201B430\n\
-        ldr r0, _080BEA18  @ 0x000002BA\n\
-        adds r1, r2, r0\n\
-        ldr r0, _080BEA1C  @ 0x00003231\n\
-        strh r0, [r1]\n\
-        b _080BEA2A\n\
-        .align 2, 0\n\
-    _080BEA0C: .4byte gGMData\n\
-    _080BEA10: .4byte gWMNodeData\n\
-    _080BEA14: .4byte gUnknown_0201B430\n\
-    _080BEA18: .4byte 0x000002BA\n\
-    _080BEA1C: .4byte 0x00003231\n\
-    _080BEA20:\n\
-        ldr r1, _080BEA40  @ gUnknown_0201B430\n\
-        ldr r2, _080BEA44  @ 0x000002BA\n\
-        adds r0, r1, r2\n\
-        strh r3, [r0]\n\
-        adds r2, r1, #0\n\
-    _080BEA2A:\n\
-        adds r0, r4, r5\n\
-        ldr r0, [r0, #0x10]\n\
-        ldrh r1, [r0]\n\
-        cmp r1, #0\n\
-        beq _080BEA4C\n\
-        movs r3, #0xaf\n\
-        lsls r3, r3, #2\n\
-        adds r1, r2, r3\n\
-        ldr r0, _080BEA48  @ 0x00003232\n\
-        strh r0, [r1]\n\
-        b _080BEA68\n\
-        .align 2, 0\n\
-    _080BEA40: .4byte gUnknown_0201B430\n\
-    _080BEA44: .4byte 0x000002BA\n\
-    _080BEA48: .4byte 0x00003232\n\
-    _080BEA4C:\n\
-        movs r3, #0xaf\n\
-        lsls r3, r3, #2\n\
-        adds r0, r2, r3\n\
-        strh r1, [r0]\n\
-        b _080BEA68\n\
-    _080BEA56:\n\
-        ldr r0, _080BEA70  @ gUnknown_0201B430\n\
-        ldr r2, _080BEA74  @ 0x000002BA\n\
-        adds r1, r0, r2\n\
-        movs r2, #0\n\
-        strh r2, [r1]\n\
-        movs r3, #0xaf\n\
-        lsls r3, r3, #2\n\
-        adds r0, r0, r3\n\
-        strh r2, [r0]\n\
-    _080BEA68:\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080BEA70: .4byte gUnknown_0201B430\n\
-    _080BEA74: .4byte 0x000002BA\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080BEA78
 void sub_80BEA78(struct GMapPIProc * proc)
