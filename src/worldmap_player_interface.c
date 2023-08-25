@@ -18,24 +18,23 @@ struct UnkParentProc
 struct GMapPIProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ struct Text unk_2c;
-    /* 34 */ struct Text unk_34;
+    /* 2C */ struct Text text[2];
     /* 3C */ STRUCT_PAD(0x3C, 0x4C);
-    /* 4C */ s8 unk_4c;
-    /* 4D */ s8 unk_4d;
-    /* 4E */ s8 unk_4e;
-    /* 4F */ s8 unk_4f;
+    /* 4C */ s8 xPrev;
+    /* 4D */ s8 yPrev;
+    /* 4E */ s8 xNew;
+    /* 4F */ s8 yNew;
     /* 50 */ s8 unk_50;
     /* 51 */ STRUCT_PAD(0x51, 0x54);
     /* 54 */ u8 unk_54;
     /* 55 */ u8 unk_55;
     /* 56 */ u8 unk_56;
     /* 57 */ u8 unk_57;
-    /* 58 */ int unk_58;
-    /* 5C */ u16 unk_5c;
-    /* 5E */ u8 unk_5e;
-    /* 5F */ u8 unk_5f;
-    /* 60 */ u8 unk_60;
+    /* 58 */ int showHideCnt;
+    /* 5C */ u16 nodeId;
+    /* 5E */ u8 interfaceKind;
+    /* 5F */ u8 pid;
+    /* 60 */ u8 jid;
 };
 
 struct Unknown8A3E448
@@ -45,9 +44,6 @@ struct Unknown8A3E448
     /* 02 */ s8 unk_02;
     /* 03 */ s8 unk_03;
 };
-
-extern u8 gUnknown_08A98EAC[]; // tsa
-extern u8 gUnknown_08A98F30[]; // tsa
 
 struct Unknown8A3E448 CONST_DATA gUnknown_08A3E448[] =
 {
@@ -79,22 +75,22 @@ struct Unknown8A3E448 CONST_DATA gUnknown_08A3E448[] =
 
 // clang-format off
 
-s8 CONST_DATA gUnknown_08A3E458[] =
+s8 CONST_DATA gGMapPIShowOffsetTableA[] =
 {
     1, 3, 4,
 };
 
-s8 CONST_DATA gUnknown_08A3E45B[] =
+s8 CONST_DATA gGMapPIHideOffsetTableA[] =
 {
     3, 1, 0,
 };
 
-s8 CONST_DATA gUnknown_08A3E45E[] =
+s8 CONST_DATA gGMapPIShowOffsetTableB[] =
 {
     3, 7, 9,
 };
 
-s8 CONST_DATA gUnknown_08A3E461[] =
+s8 CONST_DATA gGMapPIHideOffsetTableB[] =
 {
     6, 2, 0,
 };
@@ -113,12 +109,6 @@ extern u16 gUnknown_0201BBD8[];
 
 // forward declarations
 void sub_80BEF20(struct GMapPIProc *, int);
-
-extern u8 gUnknown_08A9901C[]; // gfx
-extern u16 gUnknown_08A99120[]; // pal
-
-extern u8 gUnknown_08A97A80[]; // gfx
-extern u16 gUnknown_08A97A60[]; // pal
 
 //! FE8U = 0x080BE65C
 void sub_80BE65C(int index, int height, int kind)
@@ -222,42 +212,39 @@ void sub_80BE82C(int index)
 }
 
 //! FE8U = 0x080BE8E8
-void sub_80BE8E8(struct GMapPIProc * proc, int nodeId)
+void PutGMapPINodeName(struct GMapPIProc * proc, int nodeId)
 {
     const char * str;
 
-    ClearText(&proc->unk_2c);
+    ClearText(&proc->text[0]);
     str = GetWorldMapNodeName(nodeId);
-    Text_InsertDrawString(&proc->unk_2c, GetStringTextCenteredPos(0x40, str), 0, str);
+    Text_InsertDrawString(&proc->text[0], GetStringTextCenteredPos(64, str), 0, str);
     return;
 }
 
 //! FE8U = 0x080BE918
-void sub_80BE918(struct GMapPIProc * proc, int pid)
+void PutGMapPICharName(struct GMapPIProc * proc, int pid)
 {
     const char * str;
 
-    ClearText(&proc->unk_34);
+    ClearText(&proc->text[1]);
     str = GetStringFromIndex(gCharacterData[pid - 1].nameTextId);
-    Text_InsertDrawString(&proc->unk_34, GetStringTextCenteredPos(0x44, str), 5, str);
+    Text_InsertDrawString(&proc->text[1], GetStringTextCenteredPos(68, str), 5, str);
     return;
 }
 
 //! FE8U = 0x080BE958
-void sub_80BE958(struct GMapPIProc * proc)
+void PutGMapPIFace(struct GMapPIProc * proc)
 {
     int fid;
 
-    if (proc->unk_5f != 0)
+    if (proc->pid != 0)
     {
-        fid = GetUnitMiniPortraitId(GetUnitFromCharId(proc->unk_5f));
+        fid = GetUnitMiniPortraitId(GetUnitFromCharId(proc->pid));
     }
-    else
+    else if (proc->jid != 0)
     {
-        if (proc->unk_60 != 0)
-        {
-            fid = 0x7F04;
-        }
+        fid = 0x7F04;
     }
 
     PutFaceChibi(fid, gUnknown_0201B7DA, 0x220, 4, 0);
@@ -266,17 +253,19 @@ void sub_80BE958(struct GMapPIProc * proc)
 }
 
 //! FE8U = 0x080BE9A0
-void sub_80BE9A0(struct GMapPIProc * proc, int jid)
+void PutGMapPIClassName(struct GMapPIProc * proc, int jid)
 {
     const char * str;
 
-    ClearText(&proc->unk_34);
+    ClearText(&proc->text[1]);
     str = GetStringFromIndex(GetClassData(jid)->nameTextId);
-    Text_InsertDrawString(&proc->unk_34, GetStringTextCenteredPos(0x44, str), 5, str);
+    Text_InsertDrawString(&proc->text[1], GetStringTextCenteredPos(68, str), 5, str);
     return;
 }
 
 #if NONMATCHING
+
+/* https://decomp.me/scratch/GEJwr */
 
 //! FE8U = 0x080BE9D8
 void sub_80BE9D8(struct GMapPIProc * param_1, int param_2)
@@ -410,11 +399,11 @@ void sub_80BEA78(struct GMapPIProc * proc)
 {
     int level;
 
-    if (proc->unk_5f != 0)
+    if (proc->pid != 0)
     {
-        level = GetUnitFromCharId(proc->unk_5f)->level;
+        level = GetUnitFromCharId(proc->pid)->level;
     }
-    else if (proc->unk_60 != 0)
+    else if (proc->jid != 0)
     {
         level = 0;
     }
@@ -452,7 +441,7 @@ void sub_80BEA78(struct GMapPIProc * proc)
 //! FE8U = 0x080BEB2C
 void sub_80BEB2C(struct GMapPIProc * proc)
 {
-    switch (proc->unk_5e)
+    switch (proc->interfaceKind)
     {
         case 0:
             TileMap_FillRect(gUnknown_0201BBD8, 13, 4, 0);
@@ -468,15 +457,15 @@ void sub_80BEB2C(struct GMapPIProc * proc)
 
             CallARM_FillTileRect(gUnknown_0201BBD8, gUnknown_08A98F30, 0x8000);
 
-            PutText(&proc->unk_34, gUnknown_0201B718 + 0x64);
+            PutText(&proc->text[1], gUnknown_0201B718 + 0x64);
 
             sub_80BEA78(proc);
-            sub_80BE958(proc);
+            PutGMapPIFace(proc);
 
             break;
     }
 
-    PutText(&proc->unk_2c, gUnknown_0201B71C);
+    PutText(&proc->text[0], gUnknown_0201B71C);
 
     return;
 }
@@ -484,7 +473,7 @@ void sub_80BEB2C(struct GMapPIProc * proc)
 //! FE8U = 0x080BEBD4
 void sub_80BEBD4(struct GMapPIProc * proc)
 {
-    proc->unk_58 = 0;
+    proc->showHideCnt = 0;
     proc->unk_55 = 1;
 
     proc->unk_50 = sub_80C089C(0, 0, 0, 0);
@@ -492,11 +481,11 @@ void sub_80BEBD4(struct GMapPIProc * proc)
 
     sub_80BEB2C(proc);
 
-    *&proc->unk_4e = gGMData.unk08 >> 8;
-    *&proc->unk_4f = gGMData.unk0C >> 8;
+    *&proc->xNew = gGMData.unk08 >> 8;
+    *&proc->yNew = gGMData.unk0C >> 8;
 
-    proc->unk_4c = proc->unk_4e;
-    proc->unk_4d = proc->unk_4f;
+    proc->xPrev = proc->xNew;
+    proc->yPrev = proc->yNew;
 
     Proc_Break(proc);
 
@@ -504,31 +493,31 @@ void sub_80BEBD4(struct GMapPIProc * proc)
 }
 
 //! FE8U = 0x080BEC58
-void sub_80BEC58(struct GMapPIProc * proc)
+void GMapPI_ShowLoop(struct GMapPIProc * proc)
 {
     int height;
-    int unk;
+    int maxCnt;
 
-    switch (proc->unk_5e)
+    switch (proc->interfaceKind)
     {
         case 0:
-            height = gUnknown_08A3E458[proc->unk_58];
-            unk = 3;
+            height = gGMapPIShowOffsetTableA[proc->showHideCnt];
+            maxCnt = ARRAY_COUNT(gGMapPIShowOffsetTableA);
             break;
 
         case 1:
-            height = gUnknown_08A3E45E[proc->unk_58];
-            unk = 3;
+            height = gGMapPIShowOffsetTableB[proc->showHideCnt];
+            maxCnt = ARRAY_COUNT(gGMapPIShowOffsetTableB);
             break;
     }
 
-    sub_80BE65C(proc->unk_50, height, proc->unk_5e);
+    sub_80BE65C(proc->unk_50, height, proc->interfaceKind);
 
-    proc->unk_58++;
+    proc->showHideCnt++;
 
-    if (proc->unk_58 == unk)
+    if (proc->showHideCnt == maxCnt)
     {
-        proc->unk_58 = 0;
+        proc->showHideCnt = 0;
         proc->unk_55 = 0;
 
         Proc_Break(proc);
@@ -544,13 +533,13 @@ void sub_80BECB8(struct GMapPIProc * proc)
     int height;
     int index;
 
-    proc->unk_4c = proc->unk_4e;
-    proc->unk_4d = proc->unk_4f;
+    proc->xPrev = proc->xNew;
+    proc->yPrev = proc->yNew;
 
-    proc->unk_4e = gGMData.unk08 >> 8;
-    proc->unk_4f = gGMData.unk0C >> 8;
+    proc->xNew = gGMData.unk08 >> 8;
+    proc->yNew = gGMData.unk0C >> 8;
 
-    if (proc->unk_4e == proc->unk_4c && proc->unk_4f == proc->unk_4d)
+    if (proc->xNew == proc->xPrev && proc->yNew == proc->yPrev)
     {
         return;
     }
@@ -566,27 +555,27 @@ void sub_80BECB8(struct GMapPIProc * proc)
         return;
     }
 
-    if (proc->unk_5c != nodeId)
+    if (proc->nodeId != nodeId)
     {
         sub_80BE82C(proc->unk_50);
         sub_80BEF20(proc, nodeId);
 
         proc->unk_50 = sub_80C089C(0, 0, 0, 0);
 
-        switch (proc->unk_5e)
+        switch (proc->interfaceKind)
         {
             case 0:
-                height = gUnknown_08A3E458[2];
+                height = gGMapPIShowOffsetTableA[2];
                 break;
 
             case 1:
-                height = gUnknown_08A3E45E[2];
+                height = gGMapPIShowOffsetTableB[2];
                 break;
         }
 
-        sub_80BE65C(proc->unk_50, height, proc->unk_5e);
+        sub_80BE65C(proc->unk_50, height, proc->interfaceKind);
 
-        proc->unk_5c = nodeId;
+        proc->nodeId = nodeId;
     }
 
     index = sub_80C089C(0, 0, 0, 0);
@@ -611,33 +600,33 @@ void sub_80BEDCC(struct GMapPIProc * proc)
 }
 
 //! FE8U = 0x080BEDD4
-void sub_80BEDD4(struct GMapPIProc * proc)
+void GMapPI_HideLoop(struct GMapPIProc * proc)
 {
     int height;
-    int unk;
+    int maxCnt;
 
     proc->unk_55 = 1;
 
-    switch (proc->unk_5e)
+    switch (proc->interfaceKind)
     {
         case 0:
-            height = gUnknown_08A3E45B[proc->unk_58];
-            unk = 3;
+            height = gGMapPIHideOffsetTableA[proc->showHideCnt];
+            maxCnt = ARRAY_COUNT(gGMapPIHideOffsetTableA);
             break;
 
         case 1:
-            height = gUnknown_08A3E461[proc->unk_58];
-            unk = 3;
+            height = gGMapPIHideOffsetTableB[proc->showHideCnt];
+            maxCnt = ARRAY_COUNT(gGMapPIHideOffsetTableB);
             break;
     }
 
-    sub_80BE65C(proc->unk_50, height, proc->unk_5e);
+    sub_80BE65C(proc->unk_50, height, proc->interfaceKind);
 
-    proc->unk_58++;
+    proc->showHideCnt++;
 
-    if (proc->unk_58 == unk)
+    if (proc->showHideCnt == maxCnt)
     {
-        proc->unk_58 = 0;
+        proc->showHideCnt = 0;
         proc->unk_55 = 0;
         proc->unk_56 = 0;
         proc->unk_57 = -1;
@@ -648,7 +637,7 @@ void sub_80BEDD4(struct GMapPIProc * proc)
 }
 
 //! FE8U = 0x080BEE48
-int sub_80BEE48(int nodeId, int * faction)
+int GMapPI_GetGMapUnitIndexAndFaction(int nodeId, int * faction)
 {
     int i;
 
@@ -688,32 +677,32 @@ int sub_80BEE48(int nodeId, int * faction)
 }
 
 //! FE8U = 0x080BEE9C
-void sub_80BEE9C(struct GMapPIProc * proc, int nodeId)
+void InitGMapPIInterfaceKind(struct GMapPIProc * proc, int nodeId)
 {
     int faction;
 
-    int index = sub_80BEE48(nodeId, &faction);
+    int index = GMapPI_GetGMapUnitIndexAndFaction(nodeId, &faction);
 
     if (index >= 0)
     {
         if (gGMData.units[index].state & 2)
         {
-            proc->unk_5f = 0;
-            proc->unk_60 = (gGMData.units[index].state & 2) ? gGMData.units[index].id : 0;
+            proc->pid = 0;
+            proc->jid = (gGMData.units[index].state & 2) ? gGMData.units[index].id : 0;
         }
         else
         {
-            proc->unk_5f = gGMData.units[index].id;
-            proc->unk_60 = 0;
+            proc->pid = gGMData.units[index].id;
+            proc->jid = 0;
         }
 
-        proc->unk_5e = 1;
+        proc->interfaceKind = 1;
     }
     else
     {
-        proc->unk_5f = 0;
-        proc->unk_60 = 0;
-        proc->unk_5e = 0;
+        proc->pid = 0;
+        proc->jid = 0;
+        proc->interfaceKind = 0;
     }
 
     sub_80BE5B4(faction, 8);
@@ -724,19 +713,19 @@ void sub_80BEE9C(struct GMapPIProc * proc, int nodeId)
 //! FE8U = 0x080BEF20
 void sub_80BEF20(struct GMapPIProc * proc, int nodeId)
 {
-    sub_80BEE9C(proc, nodeId);
+    InitGMapPIInterfaceKind(proc, nodeId);
 
     sub_80BEB2C(proc);
 
-    sub_80BE8E8(proc, nodeId);
+    PutGMapPINodeName(proc, nodeId);
 
-    if (proc->unk_5f != 0)
+    if (proc->pid != 0)
     {
-        sub_80BE918(proc, proc->unk_5f);
+        PutGMapPICharName(proc, proc->pid);
     }
-    else if (proc->unk_60 != 0)
+    else if (proc->jid != 0)
     {
-        sub_80BE9A0(proc, proc->unk_60);
+        PutGMapPIClassName(proc, proc->jid);
     }
 
     sub_80BE9D8(proc, nodeId);
@@ -761,27 +750,28 @@ void sub_80BEF6C(struct GMapPIProc * proc)
         sub_80BEF20(proc, nodeId);
         Proc_Break(proc);
     }
+
     return;
 }
 
 //! FE8U = 0x080BEFB8
-void sub_80BEFB8(struct GMapPIProc * proc)
+void GMapPI_Init(struct GMapPIProc * proc)
 {
     int nodeId;
     s16 x;
     s16 y;
 
-    proc->unk_58 = 0;
+    proc->showHideCnt = 0;
     proc->unk_56 = 0;
     proc->unk_50 = 0;
     proc->unk_57 = -1;
-    proc->unk_5c = -1;
+    proc->nodeId = -1;
 
-    InitText(&proc->unk_2c, 8);
-    InitText(&proc->unk_34, 8);
+    InitText(&proc->text[0], 8);
+    InitText(&proc->text[1], 8);
 
-    ClearText(&proc->unk_2c);
-    ClearText(&proc->unk_34);
+    ClearText(&proc->text[0]);
+    ClearText(&proc->text[1]);
 
     *&x = gGMData.unk08 >> 8;
     *&y = gGMData.unk0C >> 8;
@@ -790,7 +780,7 @@ void sub_80BEFB8(struct GMapPIProc * proc)
 
     if (nodeId > -1)
     {
-        proc->unk_5c = nodeId;
+        proc->nodeId = nodeId;
         sub_80BEF20(proc, nodeId);
     }
 
@@ -799,23 +789,23 @@ void sub_80BEFB8(struct GMapPIProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3E464[] =
+struct ProcCmd CONST_DATA gProcScr_GMapPlayerInterface[] =
 {
     PROC_NAME("PI"),
     PROC_MARK(PROC_MARK_8),
     PROC_15,
     PROC_YIELD,
 
-    PROC_CALL(sub_80BEFB8),
+    PROC_CALL(GMapPI_Init),
 
 PROC_LABEL(0),
     PROC_REPEAT(sub_80BEF6C),
     PROC_REPEAT(sub_80BEBD4),
-    PROC_REPEAT(sub_80BEC58),
+    PROC_REPEAT(GMapPI_ShowLoop),
     PROC_REPEAT(sub_80BECB8),
 
     PROC_CALL(sub_80BEDCC),
-    PROC_REPEAT(sub_80BEDD4),
+    PROC_REPEAT(GMapPI_HideLoop),
 
     PROC_GOTO(0),
 
@@ -825,7 +815,7 @@ PROC_LABEL(0),
 // clang-format on
 
 //! FE8U = 0x080BF048
-void sub_80BF048(struct Proc * parent)
+void StartWorldMapPlayerInterface(struct Proc * parent)
 {
     SetWinEnable(0, 0, 0);
     SetWOutLayers(1, 1, 1, 1, 1);
@@ -841,15 +831,15 @@ void sub_80BF048(struct Proc * parent)
     SetBlendTargetB(0, 0, 1, 1, 1);
     SetBlendBackdropA(0);
 
-    Decompress(gUnknown_08A9901C, gGenericBuffer);
+    Decompress(gGfx_GMapPI_LevelNums, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06004660, 13, 2);
-    ApplyPalette(gUnknown_08A99120, 5);
+    ApplyPalette(gPal_GMapPI_LevelNums, 5);
 
-    Decompress(gUnknown_08A97A80, (void *)0x06004620);
-    ApplyPalette(gUnknown_08A97A60, 3);
+    Decompress(gGfx_GMapPI_ShopIcons, (void *)0x06004620);
+    ApplyPalette(gPal_GMapPI_ShopIcons, 3);
 
     ResetTextFont();
-    Proc_Start(gUnknown_08A3E464, parent->proc_parent);
+    Proc_Start(gProcScr_GMapPlayerInterface, parent->proc_parent);
 
     return;
 }

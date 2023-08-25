@@ -22,7 +22,7 @@ _080BF158: .4byte gUnknown_08A3E4D4
 	THUMB_FUNC_START sub_80BF15C
 sub_80BF15C: @ 0x080BF15C
 	push {lr}
-	ldr r0, _080BF178  @ gUnknown_08A3E464
+	ldr r0, _080BF178  @ gProcScr_GMapPlayerInterface
 	bl Proc_EndEach
 	ldr r0, _080BF17C  @ gUnknown_08A3E4D4
 	bl Proc_EndEach
@@ -31,7 +31,7 @@ sub_80BF15C: @ 0x080BF15C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BF178: .4byte gUnknown_08A3E464
+_080BF178: .4byte gProcScr_GMapPlayerInterface
 _080BF17C: .4byte gUnknown_08A3E4D4
 
 	THUMB_FUNC_END sub_80BF15C
@@ -10392,7 +10392,7 @@ sub_80C3DAC: @ 0x080C3DAC
 	movs r1, #0xe0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080C3E78  @ gUnknown_08A97A60
+	ldr r0, _080C3E78  @ gPal_GMapPI_ShopIcons
 	movs r1, #0xc8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -10410,7 +10410,7 @@ _080C3E68: .4byte gLCDControlBuffer
 _080C3E6C: .4byte gUnknown_08AA1280
 _080C3E70: .4byte 0x06003C00
 _080C3E74: .4byte gUnknown_08AA188C
-_080C3E78: .4byte gUnknown_08A97A60
+_080C3E78: .4byte gPal_GMapPI_ShopIcons
 _080C3E7C: .4byte gUnknown_08A3EE74
 
 	THUMB_FUNC_END sub_80C3DAC

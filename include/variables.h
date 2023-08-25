@@ -1414,11 +1414,6 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3E3BA
 // extern ??? gUnknown_08A3E412
 // extern ??? gUnknown_08A3E448
-// extern ??? gUnknown_08A3E458
-// extern ??? gUnknown_08A3E45B
-// extern ??? gUnknown_08A3E45E
-// extern ??? gUnknown_08A3E461
-// extern ??? gUnknown_08A3E464
 // extern ??? gUnknown_08A3E4D4
 // extern ??? gUnknown_08A3E4F4
 // extern ??? gUnknown_08A3E52C
@@ -1475,8 +1470,8 @@ extern u8 gUnknown_08A40B14[]; // tsa
 extern u8 gUnknown_08A96308[]; // gfx -> world map tiles
 extern u8 gUnknown_08A97410[]; // tsa
 extern u16 gUnknown_08A97A40[]; // pal
-// extern ??? gUnknown_08A97A60
-// extern ??? gUnknown_08A97A80
+extern u16 gPal_GMapPI_ShopIcons[];
+extern u8 gGfx_GMapPI_ShopIcons[];
 // extern ??? gPal_08A97ACC
 // extern ??? gUnknown_08A97AEC
 // extern ??? gUnknown_08A97C98
@@ -1496,10 +1491,10 @@ extern u16 gUnknown_08A97FA4[]; // pal
 // extern ??? gUnknown_08A98E4C
 // extern ??? gUnknown_08A98E6C
 // extern ??? gUnknown_08A98E8C
-// extern ??? gUnknown_08A98EAC
-// extern ??? gUnknown_08A98F30
-// extern ??? gUnknown_08A9901C
-// extern ??? gUnknown_08A99120
+extern u8 gUnknown_08A98EAC[]; // tsa
+extern u8 gUnknown_08A98F30[]; // tsa
+extern u8 gGfx_GMapPI_LevelNums[];
+extern u16 gPal_GMapPI_LevelNums[];
 // extern ??? gUnknown_08A99140
 // extern ??? gUnknown_08A9DF74
 // extern ??? gUnknown_08A9E4C4

@@ -10,7 +10,7 @@ gUnknown_08A3E4D4:  @ 0x08A3E4D4
         .word DoesBMXFADEExist
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80BF048
+        .word StartWorldMapPlayerInterface
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -1765,12 +1765,12 @@ gUnknown_08A97410:  @ 0x08A97410
 gUnknown_08A97A40:  @ 0x08A97A40
 	.incbin "baserom.gba", 0xA97A40, 0x20
 
-	.global gUnknown_08A97A60
-gUnknown_08A97A60:  @ 0x08A97A60
+	.global gPal_GMapPI_ShopIcons
+gPal_GMapPI_ShopIcons:  @ 0x08A97A60
 	.incbin "baserom.gba", 0xA97A60, 0x20
 
-	.global gUnknown_08A97A80
-gUnknown_08A97A80:  @ 0x08A97A80
+	.global gGfx_GMapPI_ShopIcons
+gGfx_GMapPI_ShopIcons:  @ 0x08A97A80
 	.incbin "baserom.gba", 0xA97A80, 0x4C
 
 	.global gPal_08A97ACC
@@ -1985,12 +1985,12 @@ gUnknown_08A98EAC:  @ 0x08A98EAC
 gUnknown_08A98F30:  @ 0x08A98F30
 	.incbin "baserom.gba", 0xA98F30, 0xEC
 
-	.global gUnknown_08A9901C
-gUnknown_08A9901C:  @ 0x08A9901C
+	.global gGfx_GMapPI_LevelNums
+gGfx_GMapPI_LevelNums:  @ 0x08A9901C
 	.incbin "baserom.gba", 0xA9901C, 0x104
 
-	.global gUnknown_08A99120
-gUnknown_08A99120:  @ 0x08A99120
+	.global gPal_GMapPI_LevelNums
+gPal_GMapPI_LevelNums:  @ 0x08A99120
 	.incbin "baserom.gba", 0xA99120, 0x20
 
 	.global gUnknown_08A99140
