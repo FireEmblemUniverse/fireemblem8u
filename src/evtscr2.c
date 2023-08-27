@@ -13,6 +13,9 @@
 
 #include "event.h"
 
+// temp rodata (TODO: move directly into the various functions that use those)
+const u8 gUnknown_080D793C[3] = { 0x00, 0x40, 0x80 };
+
 // TODO: Give this a more human name (EventCmd_GiveItem?)
 
 //! FE8U = 0x080105A4
@@ -71,10 +74,8 @@ u8 Event38_ChangeActiveUnit(struct EventEngineProc * proc)
     return EV_RET_DEFAULT;
 }
 
-// Event39_ChangeAiScript
-
 //! FE8U = 0x08010644
-u8 Event39_(struct EventEngineProc * proc)
+u8 Event39_ChangeAiScript(struct EventEngineProc * proc)
 {
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
 
@@ -129,10 +130,8 @@ u8 Event39_(struct EventEngineProc * proc)
     return EV_RET_DEFAULT;
 }
 
-// Event3A_DisplayPopup
-
 //! FE8U = 0x080106E4
-u8 Event3A_(struct EventEngineProc * proc)
+u8 Event3A_DisplayPopup(struct EventEngineProc * proc)
 {
     s16 textId;
     u8 subcmd;
@@ -203,13 +202,18 @@ void sub_8010748(struct MapCursorProc * proc)
     return;
 }
 
-extern u16 gUnknown_030004E4[];
-extern struct ProcCmd gUnknown_08591F08[];
+// clang-format off
 
-// Event3B_DisplayCursor
+struct ProcCmd CONST_DATA gUnknown_08591F08[] =
+{
+    PROC_REPEAT(sub_8010748),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0801079C
-u8 Event3B_(struct EventEngineProc * proc)
+u8 Event3B_DisplayCursor(struct EventEngineProc * proc)
 {
     struct MapCursorProc * childProc;
     struct Unit * unit;
@@ -233,8 +237,8 @@ u8 Event3B_(struct EventEngineProc * proc)
 
             if (x < 0 || y < 0)
             {
-                x = gUnknown_030004E4[0];
-                y = gUnknown_030004E4[1];
+                x = ((u16 *)(gEventSlots + 0xB))[0];
+                y = ((u16 *)(gEventSlots + 0xB))[1];
             }
 
             break;
@@ -265,8 +269,6 @@ u8 Event3B_(struct EventEngineProc * proc)
     return EV_RET_DEFAULT;
 }
 
-extern u16 gUnknown_030004E8[];
-
 //! FE8U = 0x08010850
 u8 Event3C_(struct EventEngineProc * proc)
 {
@@ -276,8 +278,8 @@ u8 Event3C_(struct EventEngineProc * proc)
     switch (EVT_SUB_CMD(proc->pEventCurrent))
     {
         case 0:
-            gUnknown_030004E8[0] = gBmSt.playerCursor.x;
-            gUnknown_030004E8[1] = gBmSt.playerCursor.y;
+            ((u16 *)(gEventSlots + 0xC))[0] = gBmSt.playerCursor.x;
+            ((u16 *)(gEventSlots + 0xC))[1] = gBmSt.playerCursor.y;
 
             break;
 
@@ -287,8 +289,8 @@ u8 Event3C_(struct EventEngineProc * proc)
 
             if ((x < 0) || (y < 0))
             {
-                x = gUnknown_030004E4[0];
-                y = gUnknown_030004E4[1];
+                x = ((u16 *)(gEventSlots + 0xB))[0];
+                y = ((u16 *)(gEventSlots + 0xB))[1];
             }
 
             SetCursorMapPosition(x, y);
@@ -299,26 +301,26 @@ u8 Event3C_(struct EventEngineProc * proc)
     return EV_RET_DEFAULT;
 }
 
-extern u8 gUnknown_080D793F[];
-extern u8 gUnknown_080D794E[];
-
 int Get8(void);
 
 //! FE8U = 0x080108AC
 u8 Event3D_(struct EventEngineProc * proc)
 {
-    u8 subcmd;
     u8 i;
     u16 bit;
-    u16 flags;
-    u8 local_30[15];
-    u8 local_20[5];
 
-    memcpy(local_30, gUnknown_080D793F, 0xf);
-    memcpy(local_20, gUnknown_080D794E, 5);
+    u8 gUnknown_080D793F[15] = {
+        0x4F, 0x51, 0x6B, 0x63, 0x64,
+        0x5C, 0x5A, 0x67, 0x37, 0x68,
+        0x69, 0x5B, 0x5F, 0x71, 0x78,
+    };
 
-    subcmd = EVT_SUB_CMD(proc->pEventCurrent);
-    flags = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u8 gUnknown_080D794E[5] = {
+        0x49, 0x4A, 0x4B, 0x4C, 0x4D,
+    };
+
+    u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
+    u16 flags = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     ResetMenuOverrides();
 
@@ -327,11 +329,11 @@ u8 Event3D_(struct EventEngineProc * proc)
     switch (subcmd)
     {
         case 0:
-            for (i = 0; i < 0xf; i++)
+            for (i = 0; i < ARRAY_COUNT(gUnknown_080D793F); i++)
             {
-                if ((flags & bit) != 0)
+                if (flags & bit)
                 {
-                    AddMenuOverride(local_30[i], 1, MenuAlwaysNotShown);
+                    AddMenuOverride(gUnknown_080D793F[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysNotShown);
                 }
 
                 bit <<= 1;
@@ -340,12 +342,12 @@ u8 Event3D_(struct EventEngineProc * proc)
             break;
 
         case 1:
-            for (i = 0; i < 5; i++)
+            for (i = 0; i < ARRAY_COUNT(gUnknown_080D794E); i++)
             {
-                if ((flags & bit) != 0)
+                if (flags & bit)
                 {
-                    AddMenuOverride(local_20[i], 1, MenuAlwaysDisabled);
-                    AddMenuOverride(local_20[i], 2, Get8);
+                    AddMenuOverride(gUnknown_080D794E[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysDisabled);
+                    AddMenuOverride(gUnknown_080D794E[i], MENU_OVERRIDE_ONSELECT, Get8);
                 }
 
                 bit <<= 1;
@@ -428,12 +430,19 @@ void sub_8010A28(struct ScriptedBattleProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08591F18[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08591F18[] =
+{
+    PROC_REPEAT(sub_8010A28),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08010A58
 u8 Event3F_(struct EventEngineProc * proc)
 {
-
     struct BattleHit * hits;
     struct ScriptedBattleProc * childProc;
     struct Unit * unitA;
@@ -522,7 +531,15 @@ void sub_8010B48(struct Event40Proc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08591F28[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08591F28[] =
+{
+    PROC_REPEAT(sub_8010B48),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08010B78
 u8 Event40_(struct EventEngineProc * proc)
@@ -569,8 +586,8 @@ u8 Event41_(struct EventEngineProc * proc)
 
             if (x < 0)
             {
-                x = gUnknown_030004E4[0];
-                y = gUnknown_030004E4[1];
+                x = ((u16 *)(gEventSlots + 0xB))[0];
+                y = ((u16 *)(gEventSlots + 0xB))[1];
             }
 
             if (!(proc->evStateBits & EV_STATE_0040))

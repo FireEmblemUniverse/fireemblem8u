@@ -1522,7 +1522,7 @@ sub_800E640: @ 0x0800E640
 	ldr r0, _0800E664  @ gProcScr_E_FACE
 	bl Proc_EndEach
 	bl ResetFaces
-	bl sub_80067E8
+	bl ClearTalkFaceRefs
 	b _0800E686
 	.align 2, 0
 _0800E664: .4byte gProcScr_E_FACE
@@ -2845,7 +2845,7 @@ Event22_: @ 0x0800F0C8
 	ldr r0, _0800F120  @ gProcScr_E_FACE
 	bl Proc_EndEach
 	bl ResetFaces
-	bl sub_80067E8
+	bl ClearTalkFaceRefs
 	adds r0, r4, #0
 	bl Event24_
 	lsls r0, r0, #0x18

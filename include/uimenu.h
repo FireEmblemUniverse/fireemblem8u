@@ -136,6 +136,20 @@ enum
     MENU_ITEM_NONE = 0,
 };
 
+enum
+{
+    MENU_OVERRIDE_NONE = 0,
+    MENU_OVERRIDE_ISAVAILABLE,
+    MENU_OVERRIDE_ONSELECT,
+};
+
+struct MenuItemOverride
+{
+    /* 00 */ short cmdid;
+    /* 02 */ short kind;
+    /* 04 */ void* func;
+};
+
 // function decls
 
 struct MenuProc* StartOrphanMenuAdjusted(const struct MenuDef* def, int xSubject, int xTileLeft, int xTileRight);

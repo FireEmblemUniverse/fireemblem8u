@@ -440,7 +440,7 @@ extern u16 gUnknown_0859F000[];
 extern u16 gUnknown_0859EFE0[];
 
 //! FE8U = 0x080067E8
-void sub_80067E8(void) {
+void ClearTalkFaceRefs(void) {
     int i;
 
     for (i = 0; i < 8; i++) {
@@ -469,7 +469,7 @@ void InitTalk(int chr, int lines, s8 unpackBubble) {
         ApplyPalette(gUnknown_089E84D4, 3);
     }
 
-    sub_80067E8();
+    ClearTalkFaceRefs();
 
     return;
 }

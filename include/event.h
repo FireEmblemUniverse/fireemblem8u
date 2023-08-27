@@ -104,20 +104,36 @@ extern struct Struct03000570 gUnknown_03000570[];
 
 enum EventCmdIndex
 {
-    EV_CMD_NOP          = 0x00,
-    EV_CMD_END          = 0x01,
-    EV_CMD_EVSET        = 0x02,
-    EV_CMD_EVCHECK      = 0x03,
-    EV_CMD_RANDOMNUMBER = 0x04,
-    EV_CMD_SVAL         = 0x05,
-    EV_CMD_SLOT_OPS     = 0x06,
-    EV_CMD_QUEUE_OPS    = 0x07,
-    EV_CMD_LABEL        = 0x08,
-    EV_CMD_GOTO         = 0x09,
-    EV_CMD_CALL         = 0x0A,
-    EV_CMD_0B           = 0x0B,
-    EV_CMD_BRANCH       = 0x0C,
-    EV_CMD_ASMC         = 0x0D,
+    EV_CMD_NOP              = 0x00,
+    EV_CMD_END              = 0x01,
+    EV_CMD_EVSET            = 0x02,
+    EV_CMD_EVCHECK          = 0x03,
+    EV_CMD_RANDOMNUMBER     = 0x04,
+    EV_CMD_SVAL             = 0x05,
+    EV_CMD_SLOT_OPS         = 0x06,
+    EV_CMD_QUEUE_OPS        = 0x07,
+    EV_CMD_LABEL            = 0x08,
+    EV_CMD_GOTO             = 0x09,
+    EV_CMD_CALL             = 0x0A,
+    EV_CMD_0B               = 0x0B,
+    EV_CMD_BRANCH           = 0x0C,
+    EV_CMD_ASMC             = 0x0D,
+
+    EV_CMD_GIVEITEM         = 0x37,
+    EV_CMD_CHANGEACTIVEUNIT = 0x38,
+    EV_CMD_CHANGEAI         = 0x39,
+    EV_CMD_DISPLAYPOPUP     = 0x3A,
+    EV_CMD_DISPLAYCURSOR    = 0x3B,
+    EV_CMD_3C               = 0x3C,
+    EV_CMD_3D               = 0x3D,
+    EV_CMD_PREPSCREEN       = 0x3E,
+    EV_CMD_3F               = 0x3F,
+    EV_CMD_40               = 0x40,
+    EV_CMD_41               = 0x41,
+    EV_CMD_42               = 0x42,
+    EV_CMD_43               = 0x43,
+    EV_CMD_44               = 0x44,
+    EV_CMD_45               = 0x45,
 };
 
 #define EVT_SUB_CMD(scr) (*((const u8 *)(scr)) & 0xF)
@@ -424,10 +440,10 @@ void sub_800BCDC(int); // battle related
 // ??? Event36_CheckInArea(???);
 // ??? Event37_GiveItem(???);
 // ??? Event38_ChangeActiveUnit(???);
-// ??? Event39_(???);
-// ??? Event3A_(???);
+// ??? Event39_ChangeAiScript(???);
+// ??? Event3A_DisplayPopup(???);
 // ??? sub_8010748(???);
-// ??? Event3B_(???);
+// ??? Event3B_DisplayCursor(???);
 // ??? Event3C_(???);
 // ??? Event3D_(???);
 // ??? Event3E_PrepScreenCall(???);

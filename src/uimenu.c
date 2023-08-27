@@ -682,20 +682,6 @@ void ApplyMenuCursorVScroll(struct MenuProc* proc, int* xRef, int* yRef)
     *yRef -= off;
 }
 
-enum
-{
-    MENU_OVERRIDE_NONE = 0,
-    MENU_OVERRIDE_ISAVAILABLE,
-    MENU_OVERRIDE_ONSELECT,
-};
-
-struct MenuItemOverride
-{
-    /* 00 */ short cmdid;
-    /* 02 */ short kind;
-    /* 04 */ void* func;
-};
-
 static
 struct MenuItemOverride sMenuOverrides[MENU_OVERRIDE_MAX];
 

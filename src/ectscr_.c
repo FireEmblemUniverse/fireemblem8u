@@ -47,7 +47,7 @@ void ResetDialogueScreen(void) // function: MapLevelUp_EndFace
     ClearTalkBubble();
     Proc_EndEach(gProcScr_E_FACE);
     ResetFaces();
-    sub_80067E8();  // Reset dialogue data array?
+    ClearTalkFaceRefs();
 }
 
 /* This is a function related to display cursor (Event3B -> proc-85908<gProc_SetCursorMayBe>) */
