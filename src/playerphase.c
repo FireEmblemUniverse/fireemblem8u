@@ -967,10 +967,9 @@ void MakeMoveunitForActiveUnit() {
     return;
 }
 
-void ClearActiveUnit(ProcPtr proc) {
-    ProcPtr playerPhaseProc;
+void ClearActiveUnit(struct Unit * unit) {
+    ProcPtr playerPhaseProc = Proc_Find(gProcScr_PlayerPhase);
 
-    playerPhaseProc = Proc_Find(gProcScr_PlayerPhase);
     if (!playerPhaseProc) {
         return;
     }
@@ -987,7 +986,7 @@ void ClearActiveUnit(ProcPtr proc) {
     HideMoveRangeGraphics();
     RefreshEntityBmMaps();
     RefreshUnitSprites();
-    UnitBeginAction(proc);
+    UnitBeginAction(unit);
 
     gActiveUnit->state &= ~US_HIDDEN;
 

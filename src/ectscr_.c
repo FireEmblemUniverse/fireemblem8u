@@ -8,6 +8,8 @@
 #include "variables.h"
 #include "bmlib.h"
 #include "bg.h"
+#include "scene.h"
+#include "ekrbattle.h"
 
 struct gfx_set {
     void *gfx;
@@ -16,13 +18,10 @@ struct gfx_set {
 };
 
 extern struct CONST_DATA gfx_set gConvoBackgroundData[];
-extern struct ProcCmd CONST_DATA gProcScr_E_FACE[];
 extern u16 CONST_DATA gUnknown_085921AC[];
 extern u16 CONST_DATA gUnknown_085A7EE8[];
-void ClearTalkBubble(void);
-void sub_80067E8(void);
+
 void sub_8010EE8(int, int, int);
-void EfxPalWhiteInOut(void* ptr, int, int, int);
 
 void ReputConvoBg_unused(int index)
 {

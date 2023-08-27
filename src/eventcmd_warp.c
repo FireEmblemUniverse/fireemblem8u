@@ -3,9 +3,9 @@
 #include "bmfx.h"
 
 
-void StartEventWarpAnim_ret(ProcPtr parent, s16 xCamera, s16 yCamera, s8 xWarp, s8 yWarp)
+void StartEventWarpAnim_ret(ProcPtr parent, s16 x, s16 y, s8 subcmd, s8 flag)
 {
-    StartEventWarpAnim(parent, xCamera, yCamera, xWarp, yWarp);
+    StartEventWarpAnim(parent, x, y, subcmd, flag);
 }
 
 s8 EventWarpAnimExists_ret()

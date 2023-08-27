@@ -142,25 +142,25 @@ void ProcEventWrapAnim_End(struct ProcBmFx *proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
 
-void StartEventWarpAnim(ProcPtr parent, int xCamera, int yCamera, s8 xWarp, s8 yWarp)
+void StartEventWarpAnim(ProcPtr parent, int x, int y, s8 subcmd, s8 flag)
 {
     struct ProcBmFx *proc;
     
     proc = Proc_Start(ProcScr_EventWrapAnim, parent);
-    proc->xPos = xWarp;
-    proc->yPos = yWarp;
+    proc->xPos = subcmd;
+    proc->yPos = flag;
 
-    xCamera = xCamera * 0x10 - gBmSt.camera.x - 0x08;
-    yCamera = yCamera * 0x10 - gBmSt.camera.y - 0x20;
-    BG_SetPosition(0, -xCamera, -yCamera);
+    x = x * 0x10 - gBmSt.camera.x - 0x08;
+    y = y * 0x10 - gBmSt.camera.y - 0x20;
+    BG_SetPosition(0, -x, -y);
 }
 
-void StartEventWarpAnim_unused(ProcPtr parent, int xCamera, int yCamera, s8 xWarp)
+void StartEventWarpAnim_unused(ProcPtr parent, int xCamera, int yCamera, s8 subcmd)
 {
     struct ProcBmFx *proc;
     
     proc = Proc_Start(ProcScr_EventWrapAnim, parent);
-    proc->xPos = xWarp;
+    proc->xPos = subcmd;
 
     BG_SetPosition(0, -xCamera, -yCamera);
     proc->yPos = 1;

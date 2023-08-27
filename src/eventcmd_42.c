@@ -52,7 +52,7 @@ void sub_8012B9C(struct ProcCmd42* proc)
     }
 }
 
-void sub_8012C34(u8 a, u8 b, u8 play_sound)
+void sub_8012C34(u8 a, u8 b, s8 play_sound)
 {
     struct ProcCmd42 *proc;
 
