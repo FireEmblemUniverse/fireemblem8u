@@ -931,13 +931,13 @@ void sub_8049788(void);
 
 // ??? CopyEventMoveToBuffer(???);
 // ??? ClearEventMoveBuffer(???);
-// ??? sub_8079D74(???);
-// ??? sub_8079DDC(???);
+void sub_8079D74(struct Unit *, void *, s16, int);
+void sub_8079DDC(struct Unit *, s8, s8, u8, int);
 // ??? MuCtr_SetupWithEventMoveBuffer(???);
-// ??? MuCtrExists(???);
-// ??? SetAllMOVEUNITField44To1_(???);
+s8 MuCtrExists(void);
+void SetAllMOVEUNITField44To1_(void);
 // ??? sub_8079FA8(???);
-// ??? MoveUnit_(???);
+void MoveUnit_(struct Unit *, s8, s8, int);
 void GetPreferredPositionForUNIT(const struct UnitDefinition* uDef, u8* xOut, u8* yOut, s8 findNearest);
 // ??? sub_807A0E4(???);
 // ??? sub_807A194(???);

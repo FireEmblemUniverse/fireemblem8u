@@ -119,6 +119,15 @@ enum EventCmdIndex
     EV_CMD_BRANCH           = 0x0C,
     EV_CMD_ASMC             = 0x0D,
 
+    EV_CMD_2E               = 0x2E,
+    EV_CMD_MOVEUNIT         = 0x2F,
+    EV_CMD_ENUN             = 0x30,
+    EV_CMD_TOGGLERANGE      = 0x31,
+    EV_CMD_LOADSINGLEUNIT   = 0x32,
+    EV_CMD_CHECKSTATE       = 0x33,
+    EV_CMD_CHANGESTATE      = 0x34,
+    EV_CMD_CHANGECLASS      = 0x35,
+    EV_CMD_CHECKINAREA      = 0x36,
     EV_CMD_GIVEITEM         = 0x37,
     EV_CMD_CHANGEACTIVEUNIT = 0x38,
     EV_CMD_CHANGEAI         = 0x39,
@@ -421,13 +430,13 @@ void sub_800BCDC(int); // battle related
 // ??? ShouldUNITBeLoaded(???);
 // ??? sub_800F5B8(???);
 // ??? sub_800F698(???);
-// ??? LoadUnit_800F704(???);
+void LoadUnit_800F704(struct UnitDefinition *, int, int, s8);
 // ??? sub_800F8A8(???);
 // ??? sub_800F914(???);
 // ??? Event2B_(???);
 // ??? Event2C_LoadUnits(???);
-// ??? TryPrepareEventUnitMovement(???);
-// ??? GetSomeEventEngineMoveRelatedBitfield(???);
+s8 TryPrepareEventUnitMovement(struct EventEngineProc *, s8, s8);
+int GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc *, int);
 // ??? Event2D_(???);
 // ??? Event2E_CheckAt(???);
 // ??? Event2F_MoveUnit(???);
