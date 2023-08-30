@@ -22,14 +22,14 @@ struct EventEngineProc {
 
     /* 44 */ u16 mapSpritePalIdOverride;
 
-    /* 46 */ // pad
+    /* 46 */ STRUCT_PAD(0x46, 0x48);
 
     /* 48 */ const void* pUnitLoadData;
     /* 4C */ s16 unitLoadCount;
 
     /* 4E */ u8  idk4E;
 
-    /* 4F */ u8 _pad_4F[0x54 - 0x4F];
+    /* 4F */ STRUCT_PAD(0x4F, 0x54);
     /* 54 */ struct Unit *unit;
 };
 
@@ -85,7 +85,7 @@ typedef u8(*EventFuncType)(struct EventEngineProc*);
  * QP (D)
  */
 #define EVENT_SLOT_COUNT 0xE
-extern unsigned gEventSlots[EVENT_SLOT_COUNT];
+extern u32 gEventSlots[EVENT_SLOT_COUNT];
 
 struct EnqueuedEventCall {
     const u16* events;
@@ -102,21 +102,47 @@ struct Struct03000570 {
 
 extern struct Struct03000570 gUnknown_03000570[];
 
-enum EventCmdIndex {
-    EV_CMD_NOP = 0,
-    EV_CMD_END,
-    EV_CMD_EVSET,
-    EV_CMD_EVCHECK,
-    EV_CMD_RANDOMNUMBER,
-    EV_CMD_SVAL,
-    EV_CMD_SLOT_OPS,
-    EV_CMD_QUEUE_OPS,
-    EV_CMD_LABEL,
-    EV_CMD_GOTO,
-    EV_CMD_CALL,
-    EV_CMD_0B,
-    EV_CMD_BRANCH,
-    EV_CMD_ASMC,
+enum EventCmdIndex
+{
+    EV_CMD_NOP              = 0x00,
+    EV_CMD_END              = 0x01,
+    EV_CMD_EVSET            = 0x02,
+    EV_CMD_EVCHECK          = 0x03,
+    EV_CMD_RANDOMNUMBER     = 0x04,
+    EV_CMD_SVAL             = 0x05,
+    EV_CMD_SLOT_OPS         = 0x06,
+    EV_CMD_QUEUE_OPS        = 0x07,
+    EV_CMD_LABEL            = 0x08,
+    EV_CMD_GOTO             = 0x09,
+    EV_CMD_CALL             = 0x0A,
+    EV_CMD_0B               = 0x0B,
+    EV_CMD_BRANCH           = 0x0C,
+    EV_CMD_ASMC             = 0x0D,
+
+    EV_CMD_2E               = 0x2E,
+    EV_CMD_MOVEUNIT         = 0x2F,
+    EV_CMD_ENUN             = 0x30,
+    EV_CMD_TOGGLERANGE      = 0x31,
+    EV_CMD_LOADSINGLEUNIT   = 0x32,
+    EV_CMD_CHECKSTATE       = 0x33,
+    EV_CMD_CHANGESTATE      = 0x34,
+    EV_CMD_CHANGECLASS      = 0x35,
+    EV_CMD_CHECKINAREA      = 0x36,
+    EV_CMD_GIVEITEM         = 0x37,
+    EV_CMD_CHANGEACTIVEUNIT = 0x38,
+    EV_CMD_CHANGEAI         = 0x39,
+    EV_CMD_DISPLAYPOPUP     = 0x3A,
+    EV_CMD_DISPLAYCURSOR    = 0x3B,
+    EV_CMD_3C               = 0x3C,
+    EV_CMD_3D               = 0x3D,
+    EV_CMD_PREPSCREEN       = 0x3E,
+    EV_CMD_3F               = 0x3F,
+    EV_CMD_40               = 0x40,
+    EV_CMD_41               = 0x41,
+    EV_CMD_42               = 0x42,
+    EV_CMD_43               = 0x43,
+    EV_CMD_44               = 0x44,
+    EV_CMD_45               = 0x45,
 };
 
 #define EVT_SUB_CMD(scr) (*((const u8 *)(scr)) & 0xF)
@@ -176,8 +202,8 @@ enum EventCmdSubIndex {
 // extern ??? gUnknown_030004E4
 // extern ??? gUnknown_030004E6
 // extern ??? gUnknown_030004E8
-extern unsigned gEventSlotQueue[]; // event slot queue (just an array)
-extern unsigned gEventSlotCounter;
+extern u32 gEventSlotQueue[]; // event slot queue (just an array)
+extern u32 gEventSlotCounter;
 extern struct ProcCmd gGenericProc[4];
 
 extern const struct ProcCmd gProc_StdEventEngine[]; // map event engine proc
@@ -253,7 +279,7 @@ unsigned GetEventSlotCounter(void);
 void sub_800BB98(void);
 // ??? sub_800BBB4(???);
 // ??? sub_800BBE4(???);
-// ??? HideAllUnits(???);
+void HideAllUnits(void);
 struct Unit * GetUnitStructFromEventParameter(s16 pid);
 void sub_800BCDC(int); // battle related
 // ??? Event80_(???);
@@ -404,13 +430,13 @@ void sub_800BCDC(int); // battle related
 // ??? ShouldUNITBeLoaded(???);
 // ??? sub_800F5B8(???);
 // ??? sub_800F698(???);
-// ??? LoadUnit_800F704(???);
+void LoadUnit_800F704(struct UnitDefinition *, int, int, s8);
 // ??? sub_800F8A8(???);
 // ??? sub_800F914(???);
 // ??? Event2B_(???);
 // ??? Event2C_LoadUnits(???);
-// ??? TryPrepareEventUnitMovement(???);
-// ??? GetSomeEventEngineMoveRelatedBitfield(???);
+s8 TryPrepareEventUnitMovement(struct EventEngineProc *, s8, s8);
+int GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc *, int);
 // ??? Event2D_(???);
 // ??? Event2E_CheckAt(???);
 // ??? Event2F_MoveUnit(???);
@@ -423,10 +449,10 @@ void sub_800BCDC(int); // battle related
 // ??? Event36_CheckInArea(???);
 // ??? Event37_GiveItem(???);
 // ??? Event38_ChangeActiveUnit(???);
-// ??? Event39_(???);
-// ??? Event3A_(???);
+// ??? Event39_ChangeAiScript(???);
+// ??? Event3A_DisplayPopup(???);
 // ??? sub_8010748(???);
-// ??? Event3B_(???);
+// ??? Event3B_DisplayCursor(???);
 // ??? Event3C_(???);
 // ??? Event3D_(???);
 // ??? Event3E_PrepScreenCall(???);
@@ -440,5 +466,7 @@ void sub_800BCDC(int); // battle related
 // ??? Event43_(???);
 // ??? Event44_(???);
 // ??? Event45_(???);
+
+#define EVENT_IS_SKIPPING(aEventEngineProc) (((aEventEngineProc)->evStateBits >> 2) & 1)
 
 #endif // GUARD_EVENT_H

@@ -27,7 +27,7 @@ int GetUnitSelectionValueThing(struct Unit* unit);
 // ??? PlayerPhase_ResumeRangeDisplay(???);
 // ??? PlayerPhase_ReReadGameSaveGfx(???);
 // ??? MakeMoveunitForActiveUnit(???);
-void ClearActiveUnit(ProcPtr proc);
+void ClearActiveUnit(struct Unit *);
 // ??? sub_801D7E8(???);
 // ??? PlayerPhase_RangeDisplayIdle_ForceAPress(???);
 // ??? sub_801D834(???);

@@ -14,7 +14,7 @@ enum
     TALK_FLAG_8              = (1 << 8), // disable blend effects?
 };
 
-// ??? sub_80067E8(???);
+void ClearTalkFaceRefs(void);
 void InitTalk(int, int, s8);
 // ??? InitSpriteTalk(???);
 // ??? sub_8006964(???);
