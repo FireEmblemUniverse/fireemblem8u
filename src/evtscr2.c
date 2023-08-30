@@ -713,115 +713,32 @@ u8 Event35_UnitClassChanging(struct EventEngineProc * proc)
     return EV_RET_DEFAULT;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/nnNiQ */
-
 //! FE8U = 0x0801053C
 u8 Event36_CheckInArea(struct EventEngineProc * param_1)
 {
     u16 pid;
-    u8 x1, y1, x2, y2;
-    s8 x1_, y1_, x2_, y2_;
+    s8 x1, y1, x2, y2;
+    u8 ret;
     struct Unit * unit;
 
     pid = EVT_CMD_ARGV(param_1->pEventCurrent)[0];
 
     x1 = EVT_CMD_ARGV(param_1->pEventCurrent)[1];
-    x1_ = x1;
-    y1 = (EVT_CMD_ARGV(param_1->pEventCurrent)[1] >> 8);
-    y1_ = y1;
+    y1 = EVT_CMD_ARGV(param_1->pEventCurrent)[1] >> 8;
 
-    x2 = x1 + (EVT_CMD_ARGV(param_1->pEventCurrent)[2]) - 1;
-    x2_ = x2;
-    y2 = (EVT_CMD_ARGV(param_1->pEventCurrent)[2] >> 8);
-    y2_ = y1 + y2 - 1;
+    x2 = x1 + ((u16 *)EVT_CMD_ARGV(param_1->pEventCurrent))[2] - 1;
+    y2 = y1 + (((u16 *)EVT_CMD_ARGV(param_1->pEventCurrent))[2] >> 8) - 1;
 
     unit = GetUnitStructFromEventParameter(pid);
 
-    gEventSlots[0xc] = 0;
+    gEventSlots[0xc] = ret = 0;
+    if (unit->xPos < x1) return ret;
+    if (x2 >= unit->xPos && unit->yPos >= y1 && y2 >= unit->yPos)
+        gEventSlots[0xc] = 1;
 
-    if (unit->xPos >= x1_)
-    {
-        if (x2_ >= unit->xPos)
-        {
-            if (unit->yPos >= y1_ && y2_ >= unit->yPos)
-            {
-                gEventSlots[0xc] = 1;
-            }
-        }
-
-        return EV_RET_DEFAULT;
-    }
-
-    // BUG? - No explicit return if unit xPos < x1?
+    ret = 0;
+    return ret;
 }
-
-#else
-
-NAKEDFUNC
-u8 Event36_CheckInArea(struct EventEngineProc * param_1)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        ldr r2, [r0, #0x38]\n\
-        ldrh r0, [r2, #4]\n\
-        ldrb r4, [r2, #4]\n\
-        lsrs r0, r0, #8\n\
-        adds r6, r0, #0\n\
-        ldrh r1, [r2, #6]\n\
-        adds r0, r1, r4\n\
-        subs r0, #1\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r5, r0, #0x18\n\
-        lsrs r1, r1, #8\n\
-        adds r1, r1, r6\n\
-        subs r1, #1\n\
-        lsls r1, r1, #0x18\n\
-        lsrs r7, r1, #0x18\n\
-        movs r1, #2\n\
-        ldrsh r0, [r2, r1]\n\
-        bl GetUnitStructFromEventParameter\n\
-        adds r2, r0, #0\n\
-        ldr r3, _080105A0  @ gEventSlots\n\
-        movs r0, #0\n\
-        str r0, [r3, #0x30]\n\
-        movs r1, #0x10\n\
-        ldrsb r1, [r2, r1]\n\
-        lsls r4, r4, #0x18\n\
-        asrs r4, r4, #0x18\n\
-        cmp r1, r4\n\
-        blt _0801059A\n\
-        lsls r0, r5, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, r1\n\
-        blt _08010598\n\
-        movs r1, #0x11\n\
-        ldrsb r1, [r2, r1]\n\
-        lsls r0, r6, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r1, r0\n\
-        blt _08010598\n\
-        lsls r0, r7, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, r1\n\
-        blt _08010598\n\
-        movs r0, #1\n\
-        str r0, [r3, #0x30]\n\
-    _08010598:\n\
-        movs r0, #0\n\
-    _0801059A:\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _080105A0: .4byte gEventSlots\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 // TODO: Give this a more human name (EventCmd_GiveItem?)
 
