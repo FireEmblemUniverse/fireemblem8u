@@ -186,7 +186,7 @@ void sub_80B96F8(struct WorldMapMainProc * proc)
     {
         if (gKeyStatusPtr->newKeys & A_BUTTON)
         {
-            if (sub_80B92D0(proc) != 0)
+            if (sub_80B92D0(proc, nodeId) != 0)
             {
                 PlaySoundEffect(0x6a);
                 return;

@@ -2049,7 +2049,7 @@ void nullsub_22(void);
 // ??? sub_80B9114(???);
 // ??? sub_80B9154(???);
 void sub_80B9218(ProcPtr);
-s8 sub_80B92D0(ProcPtr);
+// ??? sub_80B92D0(???);
 int sub_80B93E0(ProcPtr);
 // ??? sub_80B955C(???);
 int sub_80B95B0(void);

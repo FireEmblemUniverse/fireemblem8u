@@ -218,6 +218,8 @@ extern const struct NodeIcon gWMNodeIconData[];
 
 extern struct ProcCmd gProcScr_WorldMapMain[];
 
+s8 sub_80B92D0(struct WorldMapMainProc *, int);
+
 void MapRoute_80BC2DC(struct GmRouteProc * proc);
 ProcPtr StartGMapRoute(ProcPtr parent, struct OpenPaths * pPaths, int c, int d);
 

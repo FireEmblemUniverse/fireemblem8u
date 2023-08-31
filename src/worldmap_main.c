@@ -163,8 +163,8 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         if (var == 2)
         {
             int location = sub_80BD28C(proc->unk_40 + 1);
-            if (gGMData.nodes[location].state & 2
-                && sub_80BD28C(proc->unk_40 + 1)[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
+            if (gGMData.nodes[location].state & 2 &&
+                sub_80BD28C(proc->unk_40 + 1)[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
             {
                 proc->unk_3e = sub_80BD28C(proc->unk_40 + 1);
                 Proc_Goto(proc, 14);
@@ -548,3 +548,236 @@ void sub_80B9218(ProcPtr proc)
 
     return;
 }
+
+#if NONMATCHING
+
+/* https://decomp.me/scratch/RHZdA */
+
+//! FE8U = 0x080B92D0
+s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
+{
+
+    int iVar4;
+    int uVar5;
+
+    if (gGMData.units[0].location == param_2)
+    {
+        if (((gGMData.nodes[param_2].state & 2) == 0) && (param_2[gWMNodeData].placementFlag != 3))
+        {
+
+            if (sub_80BCA1C(param_2) >= 0)
+            {
+                Proc_Goto(param_1, 16);
+                return 1;
+            }
+            else
+            {
+                iVar4 = sub_80BD014(&gGMData);
+
+                if ((((gPlaySt.chapterStateBits & 4) == 0) && (!gPlaySt.unk42_6)) && (iVar4 == 2))
+                {
+                    return 0;
+                }
+
+                Proc_Goto(param_1, 18);
+                return 1;
+            }
+        }
+        else
+        {
+        _74:
+            param_1->unk_3e = param_2;
+            Proc_Goto(param_1, 14);
+        }
+        return 1;
+    }
+
+    if (sub_80BCCFC(gGMData.units[0].location, param_2, 0) != 0)
+    {
+        if ((sub_80BD29C() == 2))
+        {
+            if ((gGMData.nodes[param_2].state & 2) != 0)
+            {
+                goto _74;
+            }
+            Proc_Goto(param_1, 6);
+        }
+        else
+        {
+            Proc_Goto(param_1, 6);
+        }
+    }
+    else
+    {
+        uVar5 = gGMData.units[0].location;
+        if (sub_80BCCFC(uVar5, param_2, 1) != 0)
+        {
+            if (sub_80BD29C() == 2)
+            {
+                if (param_2[gWMNodeData].placementFlag != 3)
+                {
+                    if ((gGMData.nodes[param_2].state & 2) != 0)
+                    {
+                        goto _74;
+                    }
+                }
+                Proc_Goto(param_1, 6);
+            }
+            else
+            {
+                Proc_Goto(param_1, 6);
+            }
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+#else
+
+NAKEDFUNC
+s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        adds r5, r0, #0\n\
+        adds r4, r1, #0\n\
+        ldr r7, _080B930C  @ gGMData\n\
+        ldrb r0, [r7, #0x11]\n\
+        cmp r0, r4\n\
+        bne _080B9356\n\
+        lsls r0, r4, #2\n\
+        adds r0, r0, r7\n\
+        adds r0, #0x30\n\
+        ldrb r1, [r0]\n\
+        movs r0, #2\n\
+        ands r0, r1\n\
+        cmp r0, #0\n\
+        bne _080B9344\n\
+        lsls r0, r4, #5\n\
+        ldr r1, _080B9310  @ gWMNodeData\n\
+        adds r0, r0, r1\n\
+        ldrb r0, [r0]\n\
+        cmp r0, #3\n\
+        beq _080B9344\n\
+        adds r0, r4, #0\n\
+        bl sub_80BCA1C\n\
+        cmp r0, #0\n\
+        blt _080B9314\n\
+        adds r0, r5, #0\n\
+        movs r1, #0x10\n\
+        b _080B934E\n\
+        .align 2, 0\n\
+    _080B930C: .4byte gGMData\n\
+    _080B9310: .4byte gWMNodeData\n\
+    _080B9314:\n\
+        adds r0, r7, #0\n\
+        bl sub_80BD014\n\
+        adds r3, r0, #0\n\
+        ldr r2, _080B9340  @ gPlaySt\n\
+        ldrb r1, [r2, #0x14]\n\
+        movs r0, #4\n\
+        ands r0, r1\n\
+        cmp r0, #0\n\
+        bne _080B9338\n\
+        adds r0, r2, #0\n\
+        adds r0, #0x42\n\
+        ldrb r0, [r0]\n\
+        lsls r0, r0, #0x1a\n\
+        cmp r0, #0\n\
+        blt _080B9338\n\
+        cmp r3, #2\n\
+        beq _080B93D6\n\
+    _080B9338:\n\
+        adds r0, r5, #0\n\
+        movs r1, #0x12\n\
+        b _080B934E\n\
+        .align 2, 0\n\
+    _080B9340: .4byte gPlaySt\n\
+    _080B9344:\n\
+        adds r0, r5, #0\n\
+        adds r0, #0x3e\n\
+        strb r4, [r0]\n\
+        adds r0, r5, #0\n\
+        movs r1, #0xe\n\
+    _080B934E:\n\
+        bl Proc_Goto\n\
+    _080B9352:\n\
+        movs r0, #1\n\
+        b _080B93D8\n\
+    _080B9356:\n\
+        movs r0, #0x11\n\
+        ldrsb r0, [r7, r0]\n\
+        lsls r1, r4, #0x18\n\
+        asrs r6, r1, #0x18\n\
+        adds r1, r6, #0\n\
+        movs r2, #0\n\
+        bl sub_80BCCFC\n\
+        lsls r0, r0, #0x18\n\
+        cmp r0, #0\n\
+        beq _080B938A\n\
+        bl sub_80BD29C\n\
+        adds r1, r0, #0\n\
+        cmp r1, #2\n\
+        bne _080B9384\n\
+        lsls r0, r4, #2\n\
+        adds r0, r0, r7\n\
+        adds r0, #0x30\n\
+        ldrb r0, [r0]\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        bne _080B9344\n\
+    _080B9384:\n\
+        adds r0, r5, #0\n\
+        movs r1, #6\n\
+        b _080B934E\n\
+    _080B938A:\n\
+        movs r0, #0x11\n\
+        ldrsb r0, [r7, r0]\n\
+        adds r1, r6, #0\n\
+        movs r2, #1\n\
+        bl sub_80BCCFC\n\
+        lsls r0, r0, #0x18\n\
+        cmp r0, #0\n\
+        beq _080B93D6\n\
+        bl sub_80BD29C\n\
+        adds r2, r0, #0\n\
+        cmp r2, #2\n\
+        bne _080B93CC\n\
+        lsls r0, r4, #5\n\
+        ldr r1, _080B93C8  @ gWMNodeData\n\
+        adds r0, r0, r1\n\
+        ldrb r0, [r0]\n\
+        cmp r0, #3\n\
+        beq _080B93C0\n\
+        lsls r0, r4, #2\n\
+        adds r0, r0, r7\n\
+        adds r0, #0x30\n\
+        ldrb r0, [r0]\n\
+        ands r2, r0\n\
+        cmp r2, #0\n\
+        bne _080B9344\n\
+    _080B93C0:\n\
+        adds r0, r5, #0\n\
+        movs r1, #6\n\
+        b _080B934E\n\
+        .align 2, 0\n\
+    _080B93C8: .4byte gWMNodeData\n\
+    _080B93CC:\n\
+        adds r0, r5, #0\n\
+        movs r1, #6\n\
+        bl Proc_Goto\n\
+        b _080B9352\n\
+    _080B93D6:\n\
+        movs r0, #0\n\
+    _080B93D8:\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r1}\n\
+        bx r1\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif
