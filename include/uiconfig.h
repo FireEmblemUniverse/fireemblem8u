@@ -50,6 +50,6 @@ enum {
 // extern ??? gProcScr_DrawConfigUiSprites
 extern struct ProcCmd CONST_DATA gProcScr_Config1[];
 extern struct ProcCmd CONST_DATA gProcScr_Config2[];
-// extern ??? gProcScr_Config3
+extern struct ProcCmd CONST_DATA gProcScr_Config3[];
 
 #endif // GUARD_UI_CONFIG_H

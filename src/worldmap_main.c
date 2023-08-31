@@ -172,9 +172,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         }
         else
         {
-            sub_80BD28C(proc->unk_40 + 1);
-
-            if (sub_80BCA1C() >= 0)
+            if (sub_80BCA1C(sub_80BD28C(proc->unk_40 + 1)) >= 0)
             {
                 Proc_Goto(proc, 17);
                 return;
@@ -503,7 +501,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B9218
-void sub_80B9218(void)
+void sub_80B9218(ProcPtr proc)
 {
     s16 a, b, c, d;
     s16 cough;

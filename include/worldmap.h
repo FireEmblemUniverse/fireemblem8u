@@ -221,4 +221,6 @@ extern struct ProcCmd gProcScr_WorldMapMain[];
 void MapRoute_80BC2DC(struct GmRouteProc * proc);
 ProcPtr StartGMapRoute(ProcPtr parent, struct OpenPaths * pPaths, int c, int d);
 
+void MapUnitC_SetGfxNeedsUpdate(struct GMapUnitContainerProc * container, int index);
+
 #endif // GUARD_WORLDMAP_H

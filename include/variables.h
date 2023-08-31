@@ -1425,7 +1425,7 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3E6E4
 // extern ??? gUnknown_08A3E78C
 // extern ??? gUnknown_08A3E888
-// extern ??? gUnknown_08A3E8B8
+extern struct ProcCmd gUnknown_08A3E8B8[];
 // extern ??? gUnknown_08A3E9A0
 // extern ??? gUnknown_08A3EA00
 // extern ??? gUnknown_08A3EA38
@@ -1802,7 +1802,7 @@ extern u16 gPal_TitleSmallLightBubbles[];
 // extern ??? gUnknown_08B12C14
 // extern ??? gUnknown_08B12C3C
 extern struct ProcCmd CONST_DATA ProcScr_E_Guide1[];
-// extern ??? ProcScr_E_Guide2
+extern struct ProcCmd CONST_DATA ProcScr_E_Guide2[];
 extern u8 Img_CommGameBgScreen[];  // gfx
 extern u16 gUnknown_08B1754C[]; // pal
 extern u16 gUnknown_08B1756C[]; // pal, used in opsubtitle
