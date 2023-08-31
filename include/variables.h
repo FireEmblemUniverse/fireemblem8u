@@ -1385,10 +1385,10 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gProcScr_WorldMapFaceCtrl
 // extern ??? gUnknown_08A3D728
 // extern ??? gProcScr_WorldMapMain
-// extern ??? gUnknown_08A3DD08
-// extern ??? gUnknown_08A3DD20
-// extern ??? gUnknown_08A3DD38
-// extern ??? gUnknown_08A3DD88
+// extern ??? gProcScr_08A3DD08
+// extern ??? gProcScr_08A3DD20
+// extern ??? gProcScr_08A3DD38
+// extern ??? gWMSongTable
 // extern ??? gProcScr_GMapScreenVSync
 // extern ??? gProcScr_GMapScreen
 // extern ??? gProcScr_GmapUnit

@@ -48,7 +48,7 @@ struct WMSongTableEnt
     /* 02 */ u16 ephraim;
 };
 
-extern struct WMSongTableEnt gUnknown_08A3DD88[];
+extern struct WMSongTableEnt gWMSongTable[];
 
 int sub_80BB628(void * unused, int arg1, int arg2, int arg3, int arg4);
 
@@ -429,6 +429,7 @@ void sub_80B9AB0(void)
 void sub_80B9AEC(struct WorldMapMainProc * proc)
 {
     int i;
+
     for (i = 4; i < 7; i++)
     {
         if (gGMData.units[i].id == 0)
@@ -759,11 +760,11 @@ void sub_80B9F54(ProcPtr unused)
                 case CHAPTER_MODE_COMMON:
                 case CHAPTER_MODE_EIRIKA:
                 default:
-                    songId = gUnknown_08A3DD88[mapLocation].eirika;
+                    songId = gWMSongTable[mapLocation].eirika;
                     break;
 
                 case CHAPTER_MODE_EPHRAIM:
-                    songId = gUnknown_08A3DD88[mapLocation].ephraim;
+                    songId = gWMSongTable[mapLocation].ephraim;
                     break;
             }
         }
@@ -807,9 +808,7 @@ void sub_80B9FD4(void)
 //! FE8U = 0x080BA008
 void sub_80BA008(int unk)
 {
-    struct WorldMapMainProc * proc;
-
-    proc = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
     proc->unk_2c = unk;
     Proc_Goto(proc, 0);
 
@@ -836,7 +835,6 @@ s8 sub_80BA054(void)
 //! FE8U = 0x080BA06C
 void sub_80BA06C(struct Proc8A3DD08 * proc)
 {
-
     if (proc->unk_2c > 0)
     {
         proc->unk_2c--;
@@ -859,14 +857,20 @@ void sub_80BA06C(struct Proc8A3DD08 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3DD08[];
+struct ProcCmd CONST_DATA gProcScr_08A3DD08[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_80BA06C),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080BA0B4
 void sub_80BA0B4(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int config)
 {
     struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
 
-    struct Proc8A3DD08 * proc = Proc_Start(gUnknown_08A3DD08, parent);
+    struct Proc8A3DD08 * proc = Proc_Start(gProcScr_08A3DD08, parent);
     proc->unk_2c = timerMaybe; // timer?
     proc->unk_30 = b;
     proc->unk_34 = faceSlot; // face slot
@@ -907,7 +911,13 @@ void sub_80BA100(struct Proc8A3DD30 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3DD20[];
+struct ProcCmd CONST_DATA gProcScr_08A3DD20[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_80BA100),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080BA198
 void sub_80BA198(int color)
@@ -915,7 +925,7 @@ void sub_80BA198(int color)
     int i;
 
     struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
-    struct Proc8A3DD30 * proc = Proc_Start(gUnknown_08A3DD20, parent);
+    struct Proc8A3DD30 * proc = Proc_Start(gProcScr_08A3DD20, parent);
 
     proc->unk_30 = color & 0x1f;
     proc->unk_2c = 0;
@@ -958,7 +968,13 @@ void sub_80BA1F4(struct Proc8A3DD38 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3DD38[];
+struct ProcCmd CONST_DATA gProcScr_08A3DD38[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_80BA1F4),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080BA288
 void sub_80BA288(int color)
@@ -966,7 +982,7 @@ void sub_80BA288(int color)
     int i;
 
     struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
-    struct Proc8A3DD38 * proc = Proc_Start(gUnknown_08A3DD38, parent);
+    struct Proc8A3DD38 * proc = Proc_Start(gProcScr_08A3DD38, parent);
 
     proc->unk_30 = color & 0x1f;
     proc->unk_2c = 0;
@@ -1006,6 +1022,19 @@ void NewWorldMap(void)
 
     return;
 }
+
+struct ProcCmd CONST_DATA gProcScr_WorldMapWrapper[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(NewWorldMap),
+    PROC_YIELD,
+
+    PROC_WHILE_EXISTS(gProcScr_WorldMapMain),
+    PROC_END_EACH(gUnknown_08A20DA4),
+    PROC_YIELD,
+
+    PROC_END,
+};
 
 //! FE8U = 0x080BA334
 void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
@@ -1062,3 +1091,34 @@ void CallChapterWMIntroEvents(ProcPtr proc)
 
     return;
 }
+
+struct WMSongTableEnt CONST_DATA gWMSongTable[] =
+{
+    { 0x04, 0x04, },
+    { 0x04, 0x04, },
+    { 0x04, 0x04, },
+    { 0x04, 0x04, },
+    { 0x04, 0x04, },
+    { 0x04, 0x04, },
+    { 0x04, 0x04, },
+    { 0x04, 0x04, },
+    { 0x04, 0x04, },
+    { 0x05, 0x05, },
+    { 0x05, 0x05, },
+    { 0x05, 0x05, },
+    { 0x05, 0x05, },
+    { 0x05, 0x05, },
+    { 0x06, 0x06, },
+    { 0x06, 0x06, },
+    { 0x06, 0x06, },
+    { 0x06, 0x06, },
+    { 0x06, 0x06, },
+    { 0x04, 0x06, },
+    { 0x05, 0x06, },
+    { 0x07, 0x07, },
+    { 0x07, 0x07, },
+    { 0x07, 0x07, },
+    { 0x07, 0x07, },
+    { 0x2F, 0x2F, },
+    { 0x04, 0x04, },
+};
