@@ -23,7 +23,7 @@ extern u16 gEvent_EphraimModeGameEnd[];
 
 extern struct ProcCmd CONST_DATA gUnknown_08AA7680[]; // pre-intro cutscene
 extern struct ProcCmd CONST_DATA gUnknown_08AA71C8[]; // intro cutscene
-extern struct ProcCmd CONST_DATA gUnknown_08A3DD50[]; // world map wrapper
+extern struct ProcCmd CONST_DATA gProcScr_WorldMapWrapper[];
 
 s8 sub_80099E4(ProcPtr);
 void GameControl_HandleSelectRightL(ProcPtr);
@@ -153,7 +153,7 @@ PROC_LABEL(7),
     PROC_CALL(sub_8009E00),
     PROC_SLEEP(0),
 
-    PROC_START_CHILD_BLOCKING(gUnknown_08A3DD50),
+    PROC_START_CHILD_BLOCKING(gProcScr_WorldMapWrapper),
     PROC_CALL(EndWM),
 
     PROC_CALL(sub_8009E28),

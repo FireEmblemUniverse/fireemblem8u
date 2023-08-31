@@ -12,7 +12,7 @@ struct UnkParentProc
 {
     /* 00 */ PROC_HEADER;
     /* 29 */ STRUCT_PAD(0x29, 0x48);
-    /* 48 */ int unk_48;
+    /* 48 */ void * unk_48;
 };
 
 struct GMapPIProc

@@ -49,7 +49,7 @@ int WMLoc_GetNextLocId(int idx)
 }
 
 //! FE8U = 0x080BB628
-int sub_80BB628(int unused, int arg1, int arg2, int arg3, int arg4)
+int sub_80BB628(void * unused, int arg1, int arg2, int arg3, int arg4)
 {
     const struct NodeIcon * icon;
     int i;
