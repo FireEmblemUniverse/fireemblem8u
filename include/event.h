@@ -305,11 +305,11 @@ unsigned SlotQueuePop(void);
 void SetEventSlotCounter(unsigned value);
 unsigned GetEventSlotCounter(void);
 
-// ??? sub_800B910(???);
-// ??? sub_800B954(???);
-// ??? sub_800B994(???);
-// ??? sub_800B9B8(???);
-// ??? sub_800BA04(???);
+void sub_800B910(int, int, int);
+void sub_800B954(int, int, int);
+void sub_800B994(int, int, int);
+void sub_800B9B8(int, int);
+void sub_800BA04(int, int);
 void sub_800BA34(void);
 void SetSomeRealCamPos(s8 x, s8 y, s8 unk);
 void sub_800BAA8(s16, u8, ProcPtr);
@@ -442,7 +442,7 @@ void sub_800BCDC(int); // battle related
 // ??? Event1B_TEXTSHOW(???);
 // ??? Event1C_TEXTCONT(???);
 // ??? Event1D_TEXTEND(???);
-// void sub_800E640(struct EventEngineProc*);
+void sub_800E640(struct EventEngineProc*);
 // ??? _WhileFace6CExists(???);
 // ??? Event1E_(???);
 // ??? Event1F_(???);
@@ -469,9 +469,9 @@ void sub_800BCDC(int); // battle related
 // ??? sub_800F50C(???);
 // ??? ShouldUNITBeLoaded(???);
 // ??? sub_800F5B8(???);
-// ??? sub_800F698(???);
+void sub_800F698(const struct UnitDefinition* def, s16 count, u8 param);
 void LoadUnit_800F704(const struct UnitDefinition *, u16, s8, s8);
-// ??? sub_800F8A8(???);
+void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
 // ??? sub_800F914(???);
 // ??? Event2B_(???);
 // ??? Event2C_LoadUnits(???);

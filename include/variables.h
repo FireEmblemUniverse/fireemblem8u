@@ -1133,7 +1133,7 @@ extern unsigned CONST_DATA gMid_Dark;
 // extern ??? gUnknown_08A01698
 // extern ??? gUnknown_08A016C8
 // extern ??? gUnknown_08A016D8
-// extern ??? gProcScr_BoxDialogue
+extern struct ProcCmd gProcScr_BoxDialogue[];
 // extern ??? gUnknown_08A01740
 // extern ??? gProcScr_BoxDialogueInterpreter
 // extern ??? gUnknown_08A01800
