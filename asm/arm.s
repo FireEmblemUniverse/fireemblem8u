@@ -9,8 +9,8 @@ _08000228: .4byte gPaletteBuffer @ pool
 _0800022C: .4byte gUnknown_020222A8 @ pool
 _08000230: .4byte gUnknown_02022288 @ pool
 
-	ARM_FUNC_START sub_8000234
-sub_8000234: @ 0x08000234
+	ARM_FUNC_START ARM_MaybeScreenFadeIn
+ARM_MaybeScreenFadeIn: @ 0x08000234
 	push {r4, r5, r6, r7}
 	mov r7, #0x3e0
 _0800023C:
@@ -73,7 +73,7 @@ _080002F4:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_END sub_8000234
+	ARM_FUNC_END ARM_MaybeScreenFadeIn
 
 	ARM_FUNC_START ARM_MoveOBJsOffscreen
 ARM_MoveOBJsOffscreen: @ 0x08000304
@@ -108,8 +108,8 @@ ARM_MoveOBJsOffscreen: @ 0x08000304
 
 	ARM_FUNC_END ARM_MoveOBJsOffscreen
 
-	ARM_FUNC_START ARM_CalcSomeChecksum
-ARM_CalcSomeChecksum: @ 0x08000360
+	ARM_FUNC_START ARM_ComputeChecksum32
+ARM_ComputeChecksum32: @ 0x08000360
 	push {r4, r5, r6, r7}
 	sub r1, r1, #2
 	mov r2, #0
@@ -130,7 +130,7 @@ _08000370:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_END ARM_CalcSomeChecksum
+	ARM_FUNC_END ARM_ComputeChecksum32
 
 	ARM_FUNC_START ARM_FillRect
 ARM_FillRect: @ 0x080003A8
@@ -391,9 +391,10 @@ _08000630:
 	bpl _08000630
 	pop {r4, r5, r6, r7, r8, r9, sl}
 	bx lr
+
 	.align 2, 0
-_080006DC: .4byte gUnknown_0815D488
-_080006E0: .4byte gUnknown_0815A72C
+_080006DC: .4byte gMsgHuffmanTableRoot
+_080006E0: .4byte gMsgHuffmanTable
 
 	ARM_FUNC_END sub_8000620
 

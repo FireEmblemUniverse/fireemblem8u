@@ -6,20 +6,19 @@
 #include "icon.h"
 #include "chapterdata.h"
 #include "bmunit.h"
+#include "bmitemuse.h"
+#include "bmcontainer.h"
 
 #include "bmitem.h"
-
-#define ITEM_INDEX(aItem) ((aItem) & 0xFF)
-#define ITEM_USES(aItem) ((aItem) >> 8)
 
 // TODO: figure out those two inline functions and where they belong
 
 static inline void SetChapterUnk1C(int arg, u8 val) {
-    gUnknown_0202BCF0.unk1C[arg] = val;
+    gPlaySt.unk1C[arg] = val;
 }
 
 static inline int GetChapterUnk1C(int arg) {
-    return gUnknown_0202BCF0.unk1C[arg];
+    return gPlaySt.unk1C[arg];
 }
 
 char* GetItemNameWithArticle(int item, s8 capitalize) {
@@ -69,7 +68,7 @@ char* GetItemNameWithArticle(int item, s8 capitalize) {
             article = NULL;
 
         result = GetItemName(item);
-        PrependArticleToString(result, article, capitalize);
+        InsertPrefix(result, article, capitalize);
 
         return result;
     }
@@ -89,7 +88,7 @@ inline char* GetItemName(int item) {
     char* result;
 
     result = GetStringFromIndex(GetItemData(ITEM_INDEX(item))->nameTextId);
-    result = FilterSomeTextFromStandardBuffer();
+    result = StrInsertTact();
 
     return result;
 }
@@ -406,59 +405,59 @@ s8 CanUnitUseStaffNow(struct Unit* unit, int item) {
 
 // TODO: special character codes
 
-void DrawItemMenuLine(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
-    Text_SetParameters(text, 0, (isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY));
-    Text_AppendString(text, GetItemName(item));
+void DrawItemMenuLine(struct Text* text, int item, s8 isUsable, u16* mapOut) {
+    Text_SetParams(text, 0, (isUsable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
+    Text_DrawString(text, GetItemName(item));
 
-    Text_Draw(text, mapOut + 2);
+    PutText(text, mapOut + 2);
 
-    DrawDecNumber(mapOut + 11, isUsable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemUses(item));
-
-    DrawIcon(mapOut, GetItemIconId(item), 0x4000);
-}
-
-void DrawItemMenuLineLong(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
-    Text_SetParameters(text, 0, (isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY));
-    Text_AppendString(text, GetItemName(item));
-
-    Text_Draw(text, mapOut + 2);
-
-    DrawDecNumber(mapOut + 10, isUsable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemUses(item));
-    DrawDecNumber(mapOut + 13, isUsable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemMaxUses(item));
-    sub_8004B0C(mapOut + 11, isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY, 0x16); // draw special character?
+    PutNumberOrBlank(mapOut + 11, isUsable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
 
     DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
 
-void DrawItemMenuLineNoColor(struct TextHandle* text, int item, u16* mapOut) {
-    Text_SetXCursor(text, 0);
-    Text_AppendString(text, GetItemName(item));
+void DrawItemMenuLineLong(struct Text* text, int item, s8 isUsable, u16* mapOut) {
+    Text_SetParams(text, 0, (isUsable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
+    Text_DrawString(text, GetItemName(item));
 
-    Text_Draw(text, mapOut + 2);
+    PutText(text, mapOut + 2);
 
-    DrawDecNumber(mapOut + 11, Text_GetColorId(text), GetItemUses(item));
+    PutNumberOrBlank(mapOut + 10, isUsable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
+    PutNumberOrBlank(mapOut + 13, isUsable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemMaxUses(item));
+    PutSpecialChar(mapOut + 11, isUsable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY, 0x16); // draw special character?
 
     DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
 
-void DrawItemStatScreenLine(struct TextHandle* text, int item, int nameColor, u16* mapOut) {
+void DrawItemMenuLineNoColor(struct Text* text, int item, u16* mapOut) {
+    Text_SetCursor(text, 0);
+    Text_DrawString(text, GetItemName(item));
+
+    PutText(text, mapOut + 2);
+
+    PutNumberOrBlank(mapOut + 11, Text_GetColor(text), GetItemUses(item));
+
+    DrawIcon(mapOut, GetItemIconId(item), 0x4000);
+}
+
+void DrawItemStatScreenLine(struct Text* text, int item, int nameColor, u16* mapOut) {
     int color;
 
-    Text_Clear(text);
+    ClearText(text);
 
     color = nameColor;
-    Text_SetColorId(text, color);
+    Text_SetColor(text, color);
 
-    Text_AppendString(text, GetItemName(item));
+    Text_DrawString(text, GetItemName(item));
 
-    color = (nameColor == TEXT_COLOR_GRAY) ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL;
-    sub_8004B0C(mapOut + 12, color, 0x16);
+    color = (nameColor == TEXT_COLOR_SYSTEM_GRAY) ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE;
+    PutSpecialChar(mapOut + 12, color, 0x16);
 
-    color = (nameColor != TEXT_COLOR_GRAY) ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY;
-    DrawDecNumber(mapOut + 11, color, GetItemUses(item));
-    DrawDecNumber(mapOut + 14, color, GetItemMaxUses(item));
+    color = (nameColor != TEXT_COLOR_SYSTEM_GRAY) ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY;
+    PutNumberOrBlank(mapOut + 11, color, GetItemUses(item));
+    PutNumberOrBlank(mapOut + 14, color, GetItemMaxUses(item));
 
-    Text_Draw(text, mapOut + 2);
+    PutText(text, mapOut + 2);
 
     DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
@@ -475,7 +474,7 @@ u16 GetItemAfterUse(int item) {
     return item; // return used item
 }
 
-u16 GetUnitEquippedWeapon(struct Unit* unit) {
+u32 GetUnitEquippedWeapon(struct Unit* unit) {
     int i;
 
     for (i = 0; i < UNIT_ITEM_COUNT; ++i)
@@ -531,7 +530,7 @@ s8 IsItemEffectiveAgainst(u16 item, struct Unit* unit) {
 
         return FALSE;
 
-        check_flying_effectiveness_negation: { 
+        check_flying_effectiveness_negation: {
             u32 attributes;
             int i;
 

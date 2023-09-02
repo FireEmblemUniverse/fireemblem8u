@@ -6,10 +6,9 @@
 #include "rng.h"
 #include "mu.h"
 #include "soundwrapper.h"
-
-EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};
-
-struct KeyStatusBuffer *gKeyStatusPtr = &sKeyStatusBuffer;
+#include "gamecontrol.h"
+#include "bm.h"
+#include "bmsave.h"
 
 // uninitialized memory in the original build due to changing this call to no longer use __FILE__.
 const u16 gUninitializedMemory[] = {0x4641, 0x464A, 0x4653, 0x465C};
@@ -31,33 +30,45 @@ void AgbMain()
     sub_8001C5C(waitCnt);
     if (waitCnt == TRUE)
         RegisterRamReset(~2);
-    REG_WAITCNT = 0x45B4;
+
+    REG_WAITCNT = WAITCNT_SRAM_4 |          /* SRAM Wait Control          = 4 cycles */
+                  WAITCNT_WS0_N_3 |         /* Wait State 0 First Access  = 3 cycles */
+                  WAITCNT_WS0_S_1 |         /* Wait State 0 Second Access = 1 cycle  */
+                  WAITCNT_WS1_N_3 |         /* Wait State 1 First Access  = 3 cycles */
+                  WAITCNT_WS1_S_1 |         /* Wait State 1 Second Access = 1 cycle  */
+                  WAITCNT_WS2_N_3 |         /* Wait State 2 First Access  = 3 cycles */
+                  WAITCNT_WS2_S_1 |         /* Wait State 2 Second Access = 1 cycle  */
+                  WAITCNT_PHI_OUT_NONE |    /* PHI Terminal Output disabled */
+                  WAITCNT_PREFETCH_ENABLE | /* Game Pak Prefetch Buffer enabled */
+                  WAITCNT_AGB;
+
     StoreIRQToIRAM();
     SetInterrupt_LCDVBlank(NULL);
-    REG_DISPSTAT = 8;
-    REG_IME = 1;
+
+    REG_DISPSTAT = DISPSTAT_VBLANK_INTR;
+    REG_IME = INTR_FLAG_VBLANK;
     ResetKeyStatus(gKeyStatusPtr);
     UpdateKeyStatus(gKeyStatusPtr);
     StoreRoutinesToIRAM();
-    sub_80A2C3C();
+    SramInit();
     Proc_Init();
     AP_ClearAll();
     MU_Init();
     SetLCGRNValue(0x42D690E9);
     InitRN(AdvanceGetLCGRNValue());
     sub_8000D0C();
-    sub_80A7374();
-    sub_80A40A8();
+    EraseInvalidSaveData();
+    EraseSramDataIfInvalid();
 
     // initialize sound
     m4aSoundInit();
     Sound_SetDefaultMaxNumChannels();
 
-    SetInterrupt_LCDVBlank(GeneralVBlankHandler);
-    sub_80BC81C();
-    SetSomeByte(1);
-    Font_InitForUIDefault();
-    NewGameControl();
+    SetInterrupt_LCDVBlank(OnVBlank);
+    GmDataInit();
+    SetLang(LANG_ENGLISH);
+    ResetText();
+    StartGame();
 
     // perform the game loop.
     while (1)

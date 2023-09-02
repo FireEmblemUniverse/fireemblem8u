@@ -1,6 +1,16 @@
 #ifndef GUARD_TYPES_H
 #define GUARD_TYPES_H
 
+#include "gba/types.h"
+
+#ifndef __STDBOOL_H__
+typedef s8 bool;
+enum { false, true };
+#define false	false
+#define true	true
+#define __bool_true_false_are_defined	1
+#endif /* bool */
+
 // Forward declarations for common types
 struct Proc;
 struct Unit;
@@ -8,9 +18,23 @@ struct Unit;
 // Forward declarations for types that may need to be declared elsewhere later?
 struct BattleUnit; // currently in bmunit.h
 struct UnitDefinition; // currently in bmunit.h
+struct Trap;
+struct BattleHit;
+struct PopupInstruction;
+struct MAInfoFrameProc;
+struct MAExpBarProc;
+struct ProcAtMenu;
+struct PrepUnitList;
+struct Text;
+struct Anim;
 
 // Type definitions for types without any other home :/
-struct BattleHit;
+
+enum glb_pos
+{
+    POS_L,
+    POS_R
+};
 
 struct BgCoords
 {
@@ -18,55 +42,10 @@ struct BgCoords
     u16 y;
 };
 
-struct Struct03003080
-{
-    /*0x00*/ struct DispCnt dispcnt;
-    /*0x04*/ struct DispStat dispstat;
-    /*0x08*/ u8 filler8[4];
-    /*0x0C*/ struct BgCnt bg0cnt;
-    /*0x10*/ struct BgCnt bg1cnt;
-    /*0x14*/ struct BgCnt bg2cnt;
-    /*0x18*/ struct BgCnt bg3cnt;
-    /*0x1C*/ struct BgCoords bgoffset[4];
-    /*0x2C*/ u8 win0_right, win0_left;
-    /*0x2C*/ u8 win1_right, win1_left;
-    /*0x30*/ u8 win0_bottom, win0_top;
-    /*0x30*/ u8 win1_bottom, win1_top;
-    /*0x34*/ struct WinCnt wincnt;
-    /*0x38*/ u16 mosaic;
-             u8 filler3A[2];
-    /*0x3C*/ struct BlendCnt bldcnt;
-    /*0x40*/ u8 filler40[4];
-    /*0x44*/ u8 blendCoeffA;
-    /*0x45*/ u8 blendCoeffB;
-    /*0x46*/ u8 blendY;
-    /*0x48*/ u16 bg2pa;
-    /*0x4A*/ u16 bg2pb;
-    /*0x4C*/ u16 bg2pc;
-    /*0x4E*/ u16 bg2pd;
-    /*0x50*/ u32 bg2x;
-    /*0x54*/ u32 bg2y;
-    /*0x58*/ u16 bg3pa;
-    /*0x5A*/ u16 bg3pb;
-    /*0x5C*/ u16 bg3pc;
-    /*0x5E*/ u16 bg3pd;
-    /*0x60*/ u32 bg3x;
-    /*0x64*/ u32 bg3y;
-    /*0x68*/ s8 colorAddition;
-};
-
 struct Struct0858791C
 {
     u8 filler0[4];
     u16 unk2;
-};
-
-struct TileDataTransfer
-{
-    const void *src;
-    void *dest;
-    u16 size;
-    u16 mode;
 };
 
 struct OamDataTransfer
@@ -77,35 +56,14 @@ struct OamDataTransfer
     u16 count;
 };
 
-struct Struct02024CD4
-{
-    int unk0;
-    int unk4;
-};
-
-struct KeyStatusBuffer
-{
-    u8 repeatDelay;     // initial delay before generating auto-repeat presses
-    u8 repeatInterval;  // time between auto-repeat presses
-    u8 repeatTimer;     // (decreased by one each frame, reset to repeatDelay when Presses change and repeatInterval when reaches 0)
-    u16 heldKeys;       // keys that are currently held down
-    u16 repeatedKeys;   // auto-repeated keys
-    u16 newKeys;        // keys that went down this frame
-    u16 prevKeys;       // keys that were held down last frame
-    u16 LastPressState;
-    bool16 ABLRPressed; // 1 for Release (A B L R Only), 0 Otherwise
-    u16 newKeys2;
-    u16 TimeSinceStartSelect; // Time since last Non-Start Non-Select Button was pressed
-};
-
 typedef void (*InterruptHandler)(void);
 
 struct Vec2 { short x, y; };
 struct Vec2u { u16 x, y; };
 
-struct Struct0202BCB0 // Game State Struct
+struct BmSt // Game State Struct
 {
-    /* 00 */ u8  mainLoopEndedFlag;
+    /* 00 */ s8  mainLoopEndedFlag;
 
     /* 01 */ s8  gameLogicSemaphore;
     /* 02 */ s8  gameGfxSemaphore;
@@ -123,26 +81,63 @@ struct Struct0202BCB0 // Game State Struct
     /* 0C */ struct Vec2 camera;
     /* 10 */ struct Vec2 cameraPrevious;
     /* 14 */ struct Vec2 playerCursor;
-    /* 18 */ struct Vec2 unk18;
-    /* 1C */ struct Vec2 unk1C;
+    /* 18 */ struct Vec2 cursorPrevious;
+    /* 1C */ struct Vec2 cursorTarget;
     /* 20 */ struct Vec2 playerCursorDisplay;
     /* 24 */ struct Vec2u mapRenderOrigin;
-    /* 28 */ struct Vec2 unk28;
+    /* 28 */ struct Vec2 cameraMax;
 
     /* 2C */ u16 itemUnk2C;
     /* 2E */ u16 itemUnk2E;
 
-    /* 30 */ u8 _pad30[0x3C - 0x30];
-
-    /* 3C */ u8 unk3C;
+    /* 30 */ u16 unk30;
+    /* 32 */ s16 unk32;
+    /* 34 */ s16 unk34;
+    /* 36 */ s8 unk36;
+    /* 37 */ s8 unk37;
+    /* 38 */ u8 altBlendACa;
+    /* 39 */ u8 altBlendACb;
+    /* 3A */ u8 altBlendBCa;
+    /* 3B */ u8 altBlendBCb;
+    /* 3C */ u8 just_resumed;
     /* 3D */ u8 unk3D;
     /* 3E */ u8 unk3E;
     /* 3F */ s8 unk3F;
 };
 
-struct Struct0202BCF0 { // Chapter Data Struct
-    /* 00 */ u32 unk0; // a time value
-    /* 04 */ u32 unk4; // a time value
+enum BmSt_gameStateBits {
+    BM_FLAG_0 = (1 << 0),
+    BM_FLAG_1 = (1 << 1),
+    BM_FLAG_2 = (1 << 2),
+    BM_FLAG_3 = (1 << 3),
+    BM_FLAG_4 = (1 << 4),
+    BM_FLAG_5 = (1 << 5),
+    BM_FLAG_LINKARENA = (1 << 6),
+};
+
+struct PlaySt_30 {
+    s32 total_gold;
+
+    u32 unk_4_00 : 20;
+    u32 unk_4_14 : 12;
+
+    u32 unk_8_1: 8;
+    u32 unk_8_2: 20; // Used by bmdifficulty (Valni/Lagdou)
+    u32 unk_8_3: 4;
+
+    u32 unk_C_00 : 6;
+    u32 combatRank : 3;
+    u32 expRank : 3;
+    u32 unk_3D_04 : 3;
+    u32 fundsRank : 3;
+    u32 tacticsRank : 3;
+    u32 survivalRank : 3;
+    u32 unk_F_00 : 8;
+} BITPACKED;
+
+struct PlaySt { // Chapter Data Struct
+    /* 00 */ u32 time_saved;
+    /* 04 */ u32 time_chapter_started;
 
     /* 08 */ u32 partyGoldAmount;
     /* 0C */ u8  gameSaveSlot;
@@ -150,7 +145,7 @@ struct Struct0202BCF0 { // Chapter Data Struct
     /* 0D */ u8  chapterVisionRange; // 0 means no fog
     /* 0E */ s8  chapterIndex;
 
-    /* 0F */ u8  chapterPhaseIndex; // 0x00 = Player phase, 0x40 = NPC phase, 0x80 = Enemy phase (0xC0 = link arena 4th team?)
+    /* 0F */ u8  faction; // 0x00 = Player phase, 0x40 = NPC phase, 0x80 = Enemy phase (0xC0 = link arena 4th team?)
 
     /* 10 */ u16 chapterTurnNumber;
 
@@ -168,74 +163,102 @@ struct Struct0202BCF0 { // Chapter Data Struct
 
     // character identifiers indexed by weapon type.
     // has to do with allowing unusable weapons to be used
-    /* 1C */ u8  unk1C[4];
+    /* 1C */ u8  unk1C[2];
+    /* 1E */ u8 unk1E;
+    /* 1F */ u8 unk1F;
 
-    /* 20 */ char playerName[0x40 - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
+    /* 20 */ char playerName[0x2B - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
+
+    /* 2B */ u8 unk_2B_00 : 0x01;
+             u8 unk_2B_01 : 0x07;
+
+    u32 unk_2C_1 : 1;
+    u32 unk_2C_01 : 3;
+    u32 unk_2C_04 : 9;
+    u32 unk_2C_0D : 10;
+    u32 unk_2C_2 : 5;
+    u32 unk_2C_3 : 4;
+
+    struct PlaySt_30 unk_30;
 
     // option bits
-    u32 unk40_1:1; // 1
-    u32 unk40_2:1; // 1
-    u32 unk40_3:2; // 2
-    u32 unk40_5:1; // 1
+    u32 cfgUnitColor:1; // 1
+    u32 cfgDisableTerrainDisplay:1; // 1
+    u32 cfgUnitDisplayType:2; // 2
+    u32 cfgAutoCursor:1; // 1
     u32 cfgTextSpeed:2;
-    u32 unk40_8:1; // 1
-    u32 unk41_1:1; // 1
-    u32 unk41_2:1; // 1
+    u32 cfgGameSpeed:1; // 1
+    u32 cfgDisableBgm:1; // 1
+    u32 cfgDisableSoundEffects:1; // 1
     u32 cfgWindowColor:2;
     u32 unk41_5:1; // 1
     u32 unk41_6:1; // unk
-    u32 unk41_7:1; // 1
-    u32 unk41_8:1; // 1
-    u32 unk42_1:1; // unk
-    u32 unk42_2:2; // 2
-    u32 unk42_4:2; // 2
-    u32 unk42_6:1; // 1
-    u32 unk42_7:1; // unk
-    u32 unk42_8:2; // 2 (!)
-    u32 unk43_2:2; // 2
+    u32 cfgDisableAutoEndTurns:1; // 1
+    u32 cfgNoSubtitleHelp:1; // 1
+    u32 cfgDisableGoalDisplay:1; // unk
+    u32 cfgAnimationType:2; // 2
+    u32 cfgBattleForecastType:2; // 2
+    u32 cfgController:1; // 1
+    u32 cfgRankDisplay:1; // unk
+    u32 debugControlRed:2; // 2 (!)
+    u32 debugControlGreen:2; // 2
     u32 unk43_4:5; // unk
 
     u8  unk44[0x48 - 0x44];
 
     u16 unk48;
 
-    unsigned unk4A_1 : 1;
-    unsigned unk4A_2 : 3;
-    unsigned unk4A_5 : 4;
+    u8 unk4A_1 : 1;
+    u8 unk4A_2 : 3;
+    u8 unk4A_5 : 4;
     u8 unk4B;
+} BITPACKED;
+
+/**
+ * Use with PlaySt field chapterStateBits
+ */
+
+enum PlaySt_chapterStateBits {
+    PLAY_FLAG_STATSCREENPAGE0 = (1 << 0),
+    PLAY_FLAG_STATSCREENPAGE1 = (1 << 1),
+    PLAY_FLAG_POSTGAME        = (1 << 2),
+    PLAY_FLAG_TUTORIAL        = (1 << 3),
+    PLAY_FLAG_PREPSCREEN      = (1 << 4),
+    PLAY_FLAG_COMPLETE        = (1 << 5),
+    PLAY_FLAG_HARD            = (1 << 6),
+    PLAY_FLAG_7               = (1 << 7),
+
+    PLAY_FLAG_STATSCREENPAGE_SHIFT = 0,
+    PLAY_FLAG_STATSCREENPAGE_MASK = PLAY_FLAG_STATSCREENPAGE0 | PLAY_FLAG_STATSCREENPAGE1,
 };
 
 /**
- * Use with Struct0202BCF0 field chapterStateBits
+ * Use with PlaySt field chapterModeIndex
  */
-enum
-{
-    CHAPTER_FLAG_0          = (1 << 0),
-    CHAPTER_FLAG_1          = (1 << 1),
-    CHAPTER_FLAG_POSTGAME   = (1 << 2),
-    CHAPTER_FLAG_3          = (1 << 3),
-    CHAPTER_FLAG_PREPSCREEN = (1 << 4),
-    CHAPTER_FLAG_5          = (1 << 5),
-    CHAPTER_FLAG_DIFFICULT  = (1 << 6),
-    CHAPTER_FLAG_7          = (1 << 7)
+
+enum PlaySt_chapterModeIndex {
+    CHAPTER_MODE_COMMON = 1,
+    CHAPTER_MODE_EIRIKA = 2,
+    CHAPTER_MODE_EPHRAIM = 3,
 };
 
-struct TextBuffer0202A6AC
+struct MsgBuffer
 {
-    u8 buffer0202A6AC[0x555];
-    u8 buffer0202AC01[0x555];
-    u8 buffer0202B156[0x356];
-    u8 buffer0202B4AC[0x100];
-    u8 buffer0202B5AC[1];  // unknown length
+    u8 buffer1[0x555];
+    u8 buffer2[0x555];
+    u8 buffer3[0x356];
+    u8 buffer4[0x100];
+    u8 buffer5[0x100];
 };
 
 struct ActionData
 {
     // unknown stuff (sometimes RNs are pushed here) (maybe an union?)
     /* 00 */ u16 _u00[3];
-    /* 06 */ u16 unk6;
+    /* 06 */ u16 item;
 
-    /* 08 */ u16 unk08[2];
+    /* 08 */ u16 unk08;
+    /* 0A */ u16 unk0A;
 
     /* 0C */ u8 subjectIndex;
     /* 0D */ u8 targetIndex;
@@ -260,7 +283,7 @@ struct ActionData
 
     /* 18 */ struct BattleHit* scriptedBattleHits;
 
-    /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
+    /* 1C */ u8 _pad_1C[0x38 - 0x1C];
 };
 
 enum
@@ -301,7 +324,7 @@ enum
     UNIT_ACTION_ARENA = 0x19,
     UNIT_ACTION_USE_ITEM = 0x1A,
     UNIT_ACTION_TRADED = 0x1B,
-    // 0x1C?
+    UNIT_ACTION_TRADED_SUPPLY = 0x1C,
     UNIT_ACTION_TRADED_1D = 0x1D,
     UNIT_ACTION_TRAPPED = 0x1E,
     // 0x1F?
@@ -326,19 +349,40 @@ enum
 
 enum
 {
-    GAME_ACTION_3 = 3
+    GAME_ACTION_0 = 0,
+    GAME_ACTION_1 = 1,
+    GAME_ACTION_2 = 2,
+    GAME_ACTION_3 = 3,
+    GAME_ACTION_4 = 4,
+    GAME_ACTION_5 = 5,
+    GAME_ACTION_6 = 6,
+    GAME_ACTION_7 = 7,
+    GAME_ACTION_8 = 8,
+    GAME_ACTION_9 = 9,
+    GAME_ACTION_A = 0xA,
+    GAME_ACTION_B = 0xB,
+    GAME_ACTION_C = 0xC,
 };
 
 enum
 {
-    WEATHER_NONE = 0,
+    WEATHER_FINE = 0,
     WEATHER_SNOW = 1,
     WEATHER_SNOWSTORM = 2,
-    WEATHER_3 = 3,
+    WEATHER_NIGHT = 3,
     WEATHER_RAIN = 4,
     WEATHER_FLAMES = 5,
     WEATHER_SANDSTORM = 6,
     WEATHER_CLOUDS = 7
+};
+
+enum
+{
+    GOAL_TYPE_SEIZE = 0,
+    GOAL_TYPE_DEFEAT_ALL = 1,
+    GOAL_TYPE_DEFENSE = 2,
+    GOAL_TYPE_DEFEAT_BOSS = 3,
+    GOAL_TYPE_SPECIAL = 4,
 };
 
 struct SMSHandle
@@ -354,76 +398,59 @@ struct SMSHandle
     /* 0B */ s8 config;
 };
 
-struct MapAnimActorState
-{
-    /* 00 */ struct Unit* pUnit;
-    /* 04 */ struct BattleUnit* pBattleUnit;
-    /* 08 */ struct MUProc* pMUProc;
-    /* 0C */ u8 u0C;
-    /* 0D */ u8 u0D;
-    /* 0E */ u16 u0E;
-    /* 10 */ u8 u10;
-    /* 11 */ u8 u11;
-    /* 12 */ u8 u12;
-    /* 13 */ u8 u13;
-};
-
-struct MapAnimState
-{
-    /* 00 */ struct MapAnimActorState actors[4];
-
-    /* 50 */ u32* pCurrentRound;
-    /* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
-    /* 58 */ u8 subjectActorId;
-    /* 59 */ u8 targetActorId;
-    /* 5A */ u16 roundBits;
-    /* 5C */ u16 u5C;
-    /* 5E */ u8 actorCount_maybe;
-    /* 5F */ u8 u5F;
-    /* 60 */ u8 u60;
-    /* 61 */ u8 u61;
-};
-
 struct MMSData
 {
     const void* pGraphics;
     const void* pAnimation;
 };
 
-struct ArenaData
-{
-    /* 00 */ struct Unit* playerUnit;
-    /* 04 */ struct Unit* opponentUnit;
-    /* 08 */ short unk08;
-    /* 0A */ u8 unk0A;
-    /* 0B */ u8 unk0B;
-    /* 0C */ u8 range;
-    /* 0D */ u8 playerWpnType;
-    /* 0E */ u8 opponentWpnType;
-    /* 0F */ u8 playerClassId;
-    /* 10 */ u8 opponentClassId;
-    /* 11 */ u8 playerLevel;
-    /* 12 */ u8 oppenentLevel;
-    /* 13 */ s8 playerIsMagic;
-    /* 14 */ s8 opponentIsMagic;
-    /* 16 */ short playerPowerWeight;
-    /* 18 */ short opponentPowerWeight;
-    /* 1A */ u16 playerWeapon;
-    /* 1C */ u16 opponentWeapon;
+struct GMUnit {
+    /* 00 */ u8 state;
+    /* 01 */ u8 location;
+    /* 02 */ s16 id; // character or class ID
+};
+
+struct GMNode {
+    /* 00 */ u8 state;
+};
+
+union GMStateBits {
+    u8 raw;
+    struct {
+        u8 state_0   : 1;
+        u8 state_1   : 1;
+        u8 state_2   : 1;
+        u8 state_3   : 1;
+        u8 state_4_5 : 2;
+        u8 state_6   : 1;
+        u8 state_7   : 1;
+    } __attribute__((packed)) bits;
+} __attribute__((packed));
+
+struct OpenPaths {
+    s8 openPaths[0x20];
+    s8 openPathsLength;
 };
 
 struct GMapData
 {
-    /* 00 */ u8 state;
+    /* 00 */ union GMStateBits state;
     /* 01 */ u8 unk01;
     /* 02 */ short xCamera;
     /* 04 */ short yCamera;
-    /* 08 */ u32 unk08;
-    /* 0C */ u32 unk0C;
-    /* 10 */ struct { u8 state, location; u16 unk; } unk10[4];
-    /* 20 */ struct { u8 state, location; u16 unk; } unk20[4];
-    /* 30 */ struct { u8 unk; } unk30[0x1D];
+    /* 08 */ s32 unk08;
+    /* 0C */ s32 unk0C;
+    /* 10 */ struct GMUnit units[8];
+    /* 30 */ struct GMNode nodes[0x1C];
+    /* A0 */ int unk_a0; // pad?
+    /* A4 */ struct OpenPaths openPaths;
+    /* C8 */ u8 unk_c8; // entry node id?
+    /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
+    /* CC */ u8 unk_cc; // used to determine which skirmish enemy block to load
+    /* CD */ u8 unk_cd;
+    /* CE */ u16 unk_ce;
 };
+
 
 enum
 {
@@ -449,42 +476,7 @@ struct MapChange
     /* 08 */ const void* data;
 };
 
-struct UnitUsageStats
-{
-	/* 000 */ unsigned lossAmt     : 8;
-	/* 008 */ unsigned favval      : 16;
-	/* 024 */ unsigned actAmt      : 8;
-	/* 032 */ unsigned statViewAmt : 8;
-	/* 040 */ unsigned deathLoc    : 6;
-	/* 046 */ unsigned deathTurn   : 10;
-	/* 056 */ unsigned deployAmt   : 6;
-	/* 062 */ unsigned moveAmt     : 10;
-	/* 072 */ unsigned deathCause  : 4;
-	/* 076 */ unsigned expGained   : 12;
-	/* 088 */ unsigned winAmt      : 10;
-	/* 098 */ unsigned battleAmt   : 12;
-	/* 110 */ unsigned killerPid   : 9;
-	/* 119 */ unsigned deathSkirm  : 1;
-	/* 120 */ /* 8bit pad */
-};
-
 enum { UNIT_SUPPORT_MAX_COUNT = 7 };
-
-enum
-{
-    SAVE_BLOCK_SAVE_BASE      = 0,
-    SAVE_BLOCK_SAVE1          = SAVE_BLOCK_SAVE_BASE + 0,
-    SAVE_BLOCK_SAVE2          = SAVE_BLOCK_SAVE_BASE + 1,
-    SAVE_BLOCK_SAVE3          = SAVE_BLOCK_SAVE_BASE + 2,
-
-    SAVE_BLOCK_SUSPEND_BASE   = 3,
-    SAVE_BLOCK_SUSPEND        = SAVE_BLOCK_SUSPEND_BASE + 0,
-    SAVE_BLOCK_SUSPEND_BACKUP = SAVE_BLOCK_SUSPEND_BASE + 1,
-    // TODO: 5 & 6
-};
-
-// TODO: move to bmcontainer.h
-enum { CONVOY_ITEM_COUNT = 100 };
 
 enum
 {
@@ -508,6 +500,24 @@ struct FaceVramEntry
 {
     /* 00 */ u32 tileOffset;
     /* 04 */ u16 paletteId;
+};
+
+struct Struct202B6B0 {
+    u8 _pad00_[0x2A - 0x00];
+    u16 unk2A;
+    u8 _pad2C[0x5A - 0x2C];
+    u16 unk5A;
+    u8 _pad5C[0x8A - 0x5C];
+    u16 unk8A;
+};
+
+struct Struct203E87C {
+    u8 unk00[5];
+};
+
+struct EfxFrameConfig {
+    s16 value;
+    s16 duration;
 };
 
 #endif // GUARD_TYPES_H

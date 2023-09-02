@@ -1,19 +1,23 @@
 #ifndef GUARD_ITEMS_H
 #define GUARD_ITEMS_H
 
-struct ItemStatBonuses {
-    s8 hpBonus;
-    s8 powBonus;
-    s8 sklBonus;
-    s8 spdBonus;
-    s8 defBonus;
-    s8 resBonus;
-    s8 lckBonus;
-    s8 conBonus;
-    s8 movBonus;
+#include "fontgrp.h"
+
+struct ItemStatBonuses
+{
+    /* 00 */ s8 hpBonus;
+    /* 01 */ s8 powBonus;
+    /* 02 */ s8 sklBonus;
+    /* 03 */ s8 spdBonus;
+    /* 04 */ s8 defBonus;
+    /* 05 */ s8 resBonus;
+    /* 06 */ s8 lckBonus;
+    /* 07 */ s8 movBonus;
+    /* 08 */ s8 conBonus;
 };
 
-struct ItemData {
+struct ItemData
+{
     /* 00 */ u16 nameTextId;
     /* 02 */ u16 descTextId;
     /* 04 */ u16 useDescTextId;
@@ -89,6 +93,7 @@ enum {
     ITYPE_ITEM  = 9,
     ITYPE_DRAGN = 10,
 
+    ITYPE_11    = 11,
     ITYPE_12    = 12,
 };
 
@@ -140,7 +145,10 @@ enum {
     WPN_EXP_S = 251,
 };
 
-struct TextHandle;
+#define ITEM_INDEX(aItem) ((aItem) & 0xFF)
+#define ITEM_USES(aItem) ((aItem) >> 8)
+
+extern const struct ItemData gItemData[];
 
 char* GetItemNameWithArticle(int item, s8 capitalize);
 
@@ -156,12 +164,12 @@ s8 CanUnitUseWeapon(struct Unit* unit, int item);
 s8 CanUnitUseWeaponNow(struct Unit* unit, int item);
 s8 CanUnitUseStaff(struct Unit* unit, int item);
 s8 CanUnitUseStaffNow(struct Unit* unit, int item);
-void DrawItemMenuLine(struct TextHandle* text, int item, s8 isGrayed, u16* mapOut);
-void DrawItemMenuLineLong(struct TextHandle* text, int item, s8 isGrayed, u16* mapOut);
-void DrawItemMenuLineNoColor(struct TextHandle* text, int item, u16* mapOut);
-void DrawItemStatScreenLine(struct TextHandle* text, int item, int nameColor, u16* mapOut);
+void DrawItemMenuLine(struct Text* text, int item, s8 isGrayed, u16* mapOut);
+void DrawItemMenuLineLong(struct Text* text, int item, s8 isGrayed, u16* mapOut);
+void DrawItemMenuLineNoColor(struct Text* text, int item, u16* mapOut);
+void DrawItemStatScreenLine(struct Text* text, int item, int nameColor, u16* mapOut);
 u16 GetItemAfterUse(int item);
-u16 GetUnitEquippedWeapon(struct Unit* unit);
+u32 GetUnitEquippedWeapon(struct Unit* unit);
 int GetUnitEquippedWeaponSlot(struct Unit* unit);
 s8 IsItemCoveringRange(int item, int range);
 void EquipUnitItemSlot(struct Unit* unit, int itemSlot);

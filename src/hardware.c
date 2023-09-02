@@ -1,14 +1,31 @@
 #include "global.h"
 #include "proc.h"
+#include "bm.h"
 #include "hardware.h"
 
-EWRAM_DATA struct Struct02024CD4 gUnknown_02024CD4 = {0};
-EWRAM_DATA struct TileDataTransfer gUnknown_02024CDC[32] = {0};
+u16 EWRAM_DATA gPaletteBuffer[0x200] = { 0 };
+
+u16 EWRAM_DATA gBG0TilemapBuffer[32 * 32] = { 0 };
+u16 EWRAM_DATA gBG1TilemapBuffer[32 * 32] = { 0 };
+u16 EWRAM_DATA gBG2TilemapBuffer[32 * 32] = { 0 };
+u16 EWRAM_DATA gBG3TilemapBuffer[32 * 32] = { 0 };
+
+void * EWRAM_DATA gBGVramTilemapPointers[4] = { 0 };
+
+void (* EWRAM_DATA gMainCallback)(void) = NULL;
+
+static u32 EWRAM_DATA sPad_Unused_02024CBC = 0;
+
+static struct KeyStatusBuffer EWRAM_DATA sKeyStatusBuffer = { 0 };
+struct KeyStatusBuffer * CONST_DATA gKeyStatusPtr = &sKeyStatusBuffer;
+
+struct Struct02024CD4 EWRAM_DATA gFrameTmRegisterConfig = { 0 };
+struct TileDataTransfer EWRAM_DATA gFrameTmRegister[32] = { 0 };
 
 struct KeyProc {
-    PROC_HEADER
-    /*0x2A*/ s16 filler2A[29];
-    /*0x64*/ s16 unk64;
+    /* 00 */ PROC_HEADER
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ s16 unk64;
 };
 
 //static u8 sModifiedBGs;
@@ -44,6 +61,9 @@ void sub_8000E14(u16 *a, int b, int size, int d)
 
 void FlushLCDControl(void)
 {
+    // NOTE: most of these break strict aliasing rules.
+    // this function needs to be rewritten to be acceptable for modern compiler.
+
     #define COPY_REG(type, reg, src) *(type *)REG_ADDR_##reg = *(type *)src;
 
     COPY_REG(u16, DISPCNT, &gLCDControlBuffer.dispcnt)
@@ -259,7 +279,7 @@ void SetInterrupt_LCDVCountMatch(InterruptHandler handler)
     }
 }
 
-void sub_8001308(int a)
+void SetNextVCount(int a)
 {
     u16 dispstat = *(u8 *)&REG_DISPSTAT | (a << 8);
     REG_DISPSTAT = dispstat;
@@ -433,244 +453,89 @@ struct UnknownDmaStruct
     u8 unk02[1];
 };
 
-void sub_800154C(u8 *a, struct UnknownDmaStruct *b, u8 c, u8 d)
+void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits)
 {
-    s8 i;
-    u8 *r4 = b->unk02;
-    s8 r6 = *(u32 *)&b->unk00;
+    u8 const* it = (u8 const*) inData + 2;
+    u8* out;
 
-    for (i = *(u32 *)&b->unk00 >> 8; i >= 0; i--)
+    u8 xSize = (*(u32 const*) inData);
+    u8 ySize = (*(u32 const*) inData) >> 8;
+
+    s8 ix, iy;
+
+    for (iy = ySize; iy >= 0; iy--)
     {
-        s8 r1;
-        u8 *r2 = a + (i << d);
+        out = (u8*) outTm + (iy << linebits);
 
-        for (r1 = r6; r1 >= 0; r1--)
-            *r2++ = c + *r4++;
+        for (ix = xSize; ix >= 0; ix--)
+            *out++ = *it++ + base;
     }
 }
 
-#if NONMATCHING
-void sub_800159C(u16 *a, u8 *b, s16 c, s16 d, u16 e)
+void sub_800159C(u16 *a1, u16 *a2, s16 a3, s16 a4, u16 a5) // TODO: handle type of a1
 {
-    s16 sb = c;  // s16?
-    s16 r3 = d;  // s16?
-    s16 ip  = b[0] + 1;
-    s16 sp4 = b[1] + 1;
-    s16 spC = 0;
-    s16 sp8 = 0;  // sp8 = spC = 0
-    s16 r8;  // r4 in the beginning
-    s16 r4;  // r5 in the beginning
+    u16 *dst;
+    s16 r4, r5;
+    s16 ip;
+    s16 sp04;
+    s16 sp08;
+    s16 sp0C;
 
-    u16 *r2;
-    u16 *r3_;
-    int r4_;
-    int r1_;
+    r4 = ((u8 *)a2)[0] + 1;
+    sp04 = ((u8 *)a2)[1];
+    r5 = sp04 + 1;
+    ip = r4;
+    sp04 = r5;
+    ++a2;
+    sp0C = 0;
+    sp08 = 0;
 
-    b += 2;
+    if (a3 + r4 > 0x20)
+        r4 = 0x20 - a3;
 
-    if (c + ip > 32)
-        r8 = 32 - c;
-    else
-        r8 = ip;
-    if (c < 0)
+    if (a3 < 0)
     {
-        sp8 = -c;
-        r8 -= -c;
-        sb = 0;
+        sp08 = -a3;
+        r4 -= sp08;
+        a3 = 0;
     }
-    if (r8 > 0)
-        return;
 
-    if (d + sp4 > 32)
-        r4 = 32 - d;
-    else
-        r4 = sp4;
-    if (d < 0)
-    {
-        spC = -d;
-        r4 -= -d;
-        r3 = 0;
-    }
     if (r4 > 0)
-        return;
-
-    b += ip * (sp4 - (spC + r4)) * 2;
-    a += (r3 + r4 - 1) * 32;
-
-    //r2 = a + sb;
-    for (r4_ = r4 - 1; r4_ >= 0; r4_--)
     {
-        r3_ = (u16 *)b + sp8;
-        r2 = a + sb;
-        for (r1_ = 0; r1_ < r8; r1_++)
-            *r2++ = *r3_++ + e;
-        b += ip;
-        sb -= 64;
+        int i, j;
+        if (a4 + r5 > 0x20)
+            r5 = 0x20 - a4;
+
+        if (a4 < 0)
+        {
+            sp0C = -a4;
+            r5 -= sp0C;
+            a4 = 0;
+        }
+
+        if (r5 > 0)
+        {
+            a2 += ip * (sp04 - (sp0C + r5));
+            dst = a1 + (a4 + r5 - 1) * 0x20 + a3;
+
+            for (i = r5 - 1; i >= 0; --i)
+            {
+                const u16 *src = a2 + sp08;
+                u16 *dst2 = dst;
+
+                for (j = 0; r4 > j; ++j)
+                {
+                    *dst2 = *src + a5;
+                    ++src;
+                    ++dst2;
+                }
+
+                a2 += ip;
+                dst -= 0x20;
+            }
+        }
     }
 }
-#else
-__attribute__((naked))
-void sub_800159C(u16 *a, u16 *b, s16 c, s16 d, u16 e)
-{
-    asm(".syntax unified\n\
-    push {r4, r5, r6, r7, lr}\n\
-    mov r7, sl\n\
-    mov r6, sb\n\
-    mov r5, r8\n\
-    push {r5, r6, r7}\n\
-    sub sp, #0x10\n\
-    str r0, [sp]\n\
-    adds r7, r1, #0\n\
-    ldr r0, [sp, #0x30]\n\
-    lsls r2, r2, #0x10\n\
-    lsls r3, r3, #0x10\n\
-    lsrs r3, r3, #0x10\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r0, r0, #0x10\n\
-    mov sl, r0\n\
-    ldrb r0, [r7]\n\
-    adds r4, r0, #1\n\
-    ldrb r0, [r7, #1]\n\
-    adds r5, r0, #1\n\
-    lsls r0, r4, #0x10\n\
-    lsrs r1, r0, #0x10\n\
-    mov ip, r1\n\
-    lsls r6, r5, #0x10\n\
-    lsrs r1, r6, #0x10\n\
-    str r1, [sp, #4]\n\
-    adds r7, #2\n\
-    movs r1, #0\n\
-    str r1, [sp, #0xc]\n\
-    str r1, [sp, #8]\n\
-    lsrs r1, r2, #0x10\n\
-    mov sb, r1\n\
-    asrs r1, r2, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    adds r0, r1, r0\n\
-    cmp r0, #0x20\n\
-    ble _080015EC\n\
-    movs r0, #0x20\n\
-    subs r0, r0, r1\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r4, r0, #0x10\n\
-_080015EC:\n\
-    cmp r1, #0\n\
-    bge _08001608\n\
-    rsbs r1, r1, #0\n\
-    lsls r1, r1, #0x10\n\
-    lsls r0, r4, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    lsrs r2, r1, #0x10\n\
-    str r2, [sp, #8]\n\
-    asrs r1, r1, #0x10\n\
-    subs r0, r0, r1\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r4, r0, #0x10\n\
-    movs r0, #0\n\
-    mov sb, r0\n\
-_08001608:\n\
-    lsls r0, r4, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    mov r8, r0\n\
-    cmp r0, #0\n\
-    ble _080016B2\n\
-    lsls r0, r3, #0x10\n\
-    asrs r1, r0, #0x10\n\
-    asrs r0, r6, #0x10\n\
-    adds r0, r1, r0\n\
-    cmp r0, #0x20\n\
-    ble _08001626\n\
-    movs r0, #0x20\n\
-    subs r0, r0, r1\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r5, r0, #0x10\n\
-_08001626:\n\
-    cmp r1, #0\n\
-    bge _08001640\n\
-    rsbs r1, r1, #0\n\
-    lsls r1, r1, #0x10\n\
-    lsls r0, r5, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    lsrs r2, r1, #0x10\n\
-    str r2, [sp, #0xc]\n\
-    asrs r1, r1, #0x10\n\
-    subs r0, r0, r1\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r5, r0, #0x10\n\
-    movs r3, #0\n\
-_08001640:\n\
-    lsls r0, r5, #0x10\n\
-    asrs r4, r0, #0x10\n\
-    cmp r4, #0\n\
-    ble _080016B2\n\
-    mov r5, ip\n\
-    ldr r1, [sp, #0xc]\n\
-    lsls r0, r1, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    adds r0, r0, r4\n\
-    ldr r2, [sp, #4]\n\
-    subs r0, r2, r0\n\
-    muls r0, r5, r0\n\
-    lsls r0, r0, #1\n\
-    adds r7, r7, r0\n\
-    lsls r0, r3, #0x10\n\
-    asrs r0, r0, #0x10\n\
-    adds r0, r0, r4\n\
-    subs r0, #1\n\
-    lsls r0, r0, #6\n\
-    ldr r3, [sp]\n\
-    adds r0, r3, r0\n\
-    mov r2, sb\n\
-    lsls r1, r2, #0x10\n\
-    asrs r1, r1, #0xf\n\
-    adds r2, r0, r1\n\
-    subs r1, r4, #1\n\
-    cmp r1, #0\n\
-    blt _080016B2\n\
-    ldr r3, [sp, #8]\n\
-    lsls r0, r3, #0x10\n\
-    asrs r0, r0, #0xf\n\
-    mov sb, r0\n\
-    mov r6, r8\n\
-    lsls r5, r5, #1\n\
-    mov r8, r5\n\
-    mov ip, r6\n\
-_08001688:\n\
-    mov r0, sb\n\
-    adds r3, r7, r0\n\
-    adds r5, r2, #0\n\
-    subs r5, #0x40\n\
-    subs r4, r1, #1\n\
-    cmp r6, #0\n\
-    ble _080016A8\n\
-    mov r1, ip\n\
-_08001698:\n\
-    ldrh r0, [r3]\n\
-    add r0, sl\n\
-    strh r0, [r2]\n\
-    adds r3, #2\n\
-    adds r2, #2\n\
-    subs r1, #1\n\
-    cmp r1, #0\n\
-    bne _08001698\n\
-_080016A8:\n\
-    add r7, r8\n\
-    adds r2, r5, #0\n\
-    adds r1, r4, #0\n\
-    cmp r1, #0\n\
-    bge _08001688\n\
-_080016B2:\n\
-    add sp, #0x10\n\
-    pop {r3, r4, r5}\n\
-    mov r8, r3\n\
-    mov sb, r4\n\
-    mov sl, r5\n\
-    pop {r4, r5, r6, r7}\n\
-    pop {r0}\n\
-    bx r0\n\
-    .syntax divided");
-}
-#endif
 
 void sub_80016C4(u16 *a, struct UnknownDmaStruct *b)
 {
@@ -693,7 +558,7 @@ void sub_80016C4(u16 *a, struct UnknownDmaStruct *b)
     }
 }
 
-void sub_8001710(void)
+void MaybeResetSomePal(void)
 {
     int i;
 
@@ -701,7 +566,7 @@ void sub_8001710(void)
         gUnknown_02022288[i] = 0;
 }
 
-void sub_800172C(u16 *src, int b, int c, int d)
+void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d)
 {
     int i;
     int j;
@@ -725,7 +590,7 @@ void sub_80017B4(int a, int b, int c, int d)
 {
     int i;
     int j;
-    int destOffset = a * 16;
+    int destOffset = PAL_OFFSET(a);
     u16 *src = gPaletteBuffer + destOffset;
 
     for (i = 0; i < b; i++)
@@ -749,7 +614,7 @@ void sub_800183C(int a, int b, int c)
         gUnknown_02022288[i] = c;
 }
 
-void sub_8001860(u8 a)
+void ColorFadeSetupFromColorToBlack(u8 a)
 {
     int i;
     int j;
@@ -766,7 +631,7 @@ void sub_8001860(u8 a)
     }
 }
 
-void sub_80018E4(u8 a)
+void ColorFadeSetupFromBlack(u8 a)
 {
     int i;
     int j;
@@ -783,8 +648,8 @@ void sub_80018E4(u8 a)
     }
 }
 
-// duplicate of sub_8001860
-void sub_8001964(u8 a)
+// duplicate of ColorFadeSetupFromColorToBlack
+void ColorFadeSetupFromColorToWhite(u8 a)
 {
     int i;
     int j;
@@ -801,7 +666,7 @@ void sub_8001964(u8 a)
     }
 }
 
-void sub_80019E8(u8 a)
+void ColorFadeSetupFromWhite(u8 a)
 {
     int i;
     int j;
@@ -891,12 +756,12 @@ void SetupBackgrounds(u16 *bgConfig)
         BG_Fill(BG_GetMapBuffer(bg), 0);
         CpuFastFill16(0, (void *)(VRAM + GetBackgroundTileDataOffset(bg)), 64);
     }
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
     sModifiedBGs |= 0xF;
 
     SetupOAMBufferSplice(0);
 
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     sModifiedPalette = 1;
 
     gLCDControlBuffer.dispcnt.forcedBlank = 0;
@@ -929,7 +794,7 @@ void sub_8001C5C(u8 a)
     gUnknown_0300001A = a;
 }
 
-s8 ShouldSkipHSScreen(void)
+bool ShouldSkipHSScreen(void)
 {
     return gUnknown_0300001A;
 }
@@ -1046,24 +911,24 @@ void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blend
     gLCDControlBuffer.blendY = blendY;
 }
 
-void sub_8001ED0(int a, int b, int c, int d, int e)
+void SetBlendTargetA(int bg0, int bg1, int bg2, int bg3, int obj)
 {
-    gUnknown_030030BC &= 0xFFE0;
-    gUnknown_030030BC |= (a << 0) | (b << 1) | (c << 2) | (d << 3) | (e << 4);
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~BLDCNT_TARGETA(1, 1, 1, 1, 1);
+    *((u16 *) &gLCDControlBuffer.bldcnt) |= BLDCNT_TARGETA(bg0, bg1, bg2, bg3, obj);
 }
 
-void sub_8001F0C(int a, int b, int c, int d, int e)
+void SetBlendTargetB(int bg0, int bg1, int bg2, int bg3, int obj)
 {
-    gUnknown_030030BC &= 0xE0FF;
-    gUnknown_030030BC |= (a << 8) | (b << 9) | (c << 10) | (d << 11) | (e << 12);
+    *((u16 *) &gLCDControlBuffer.bldcnt) &= ~BLDCNT_TARGETB(1, 1, 1, 1, 1);
+    *((u16 *) &gLCDControlBuffer.bldcnt) |= BLDCNT_TARGETB(bg0, bg1, bg2, bg3, obj);
 }
 
-void sub_8001F48(int a)
+void SetBlendBackdropA(int a)
 {
     gLCDControlBuffer.bldcnt.target1_bd_on = a;
 }
 
-void sub_8001F64(int a)
+void SetBlendBackdropB(int a)
 {
     gLCDControlBuffer.bldcnt.target2_bd_on = a;
 }
@@ -1105,48 +970,48 @@ void ClearTileRigistry(void)
 {
     int i;
 
-    gUnknown_02024CD4.unk0 = 0;
-    gUnknown_02024CD4.unk4 = 0;
+    gFrameTmRegisterConfig.count = 0;
+    gFrameTmRegisterConfig.size = 0;
     for (i = 0; i < 32; i++)
     {
-        gUnknown_02024CDC[i].src = 0;
-        gUnknown_02024CDC[i].dest = 0;
-        gUnknown_02024CDC[i].size = 0;
-        gUnknown_02024CDC[i].mode = 0;
+        gFrameTmRegister[i].src = 0;
+        gFrameTmRegister[i].dest = 0;
+        gFrameTmRegister[i].size = 0;
+        gFrameTmRegister[i].mode = 0;
     }
-    gUnknown_02024CDC[0].src = 0;
+    gFrameTmRegister[0].src = 0;
 }
 
-void RegisterTileGraphics(const void *a, void *b, int c)
+void RegisterDataMove(const void *src, void *dst, int size)
 {
-    struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
+    struct TileDataTransfer *ptr = &gFrameTmRegister[gFrameTmRegisterConfig.count];
 
-    ptr->src = a;
-    ptr->dest = b;
-    ptr->size = c;
-    ptr->mode = (c & 0x1F) ? 0 : 1;
-    gUnknown_02024CD4.unk4 += c;
-    gUnknown_02024CD4.unk0++;
+    ptr->src = src;
+    ptr->dest = dst;
+    ptr->size = size;
+    ptr->mode = (size & 0x1F) ? 0 : 1;
+    gFrameTmRegisterConfig.size += size;
+    gFrameTmRegisterConfig.count++;
 }
 
-void RegisterFillTile(void *a, void *b, int c)
+void RegisterFillTile(const void *src, void *dst, int size)
 {
-    struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
+    struct TileDataTransfer *ptr = &gFrameTmRegister[gFrameTmRegisterConfig.count];
 
-    ptr->src = a;
-    ptr->dest = b;
-    ptr->size = c;
+    ptr->src = src;
+    ptr->dest = dst;
+    ptr->size = size;
     ptr->mode = 2;
-    gUnknown_02024CD4.unk4 += c;
-    gUnknown_02024CD4.unk0++;
+    gFrameTmRegisterConfig.size += size;
+    gFrameTmRegisterConfig.count++;
 }
 
 void FlushTiles(void)
 {
-    struct TileDataTransfer *ptr = gUnknown_02024CDC;
+    struct TileDataTransfer *ptr = gFrameTmRegister;
     int i;
 
-    for (i = 0; i < gUnknown_02024CD4.unk0; i++)
+    for (i = 0; i < gFrameTmRegisterConfig.count; i++)
     {
         switch (ptr->mode)
         {

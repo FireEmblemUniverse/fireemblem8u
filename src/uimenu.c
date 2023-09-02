@@ -5,9 +5,11 @@
 #include "soundwrapper.h"
 #include "fontgrp.h"
 #include "proc.h"
+#include "bm.h"
 #include "bmio.h"
 #include "uiutils.h"
 #include "statscreen.h"
+#include "face.h"
 
 #include "uimenu.h"
 
@@ -18,7 +20,7 @@ struct ProcCmd sProc_MenuMain[] =
 {
     PROC_REPEAT(Menu_OnIdle),
 
-    PROC_CALL(EndGreenTextColorManager),
+    PROC_CALL(EndGreenText),
     PROC_END
 };
 
@@ -28,9 +30,9 @@ struct ProcCmd sProc_Menu[] =
     PROC_NAME("E_Menu"),
     PROC_SLEEP(0),
 
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
-    PROC_CALL(NewGreenTextColorManager),
+    PROC_CALL(StartGreenText),
     PROC_CALL(RedrawMenu),
 
     PROC_CALL(Menu_OnInit),
@@ -90,7 +92,7 @@ struct MenuProc* StartOrphanMenuAdjusted(
     return StartMenuAt(def, rect, NULL);
 }
 
-struct MenuProc* StartMenu(const struct MenuDef* def, struct Proc* parent)
+struct MenuProc* StartMenu(const struct MenuDef* def, ProcPtr parent)
 {
     return StartMenuAt(def, def->rect, parent);
 }
@@ -129,7 +131,7 @@ struct MenuProc* StartMenuExt(
     int tileref,
     int frontBg,
     int unk,
-    struct Proc* parent)
+    ProcPtr parent)
 {
     return StartMenuCore(def, def->rect, backBg, tileref, frontBg, unk, parent);
 }
@@ -158,7 +160,7 @@ struct MenuProc* StartOrphanMenuExt(
 struct MenuProc* StartMenuAt(
     const struct MenuDef* def,
     struct MenuRect rect,
-    struct Proc* parent)
+    ProcPtr parent)
 {
     return StartMenuCore(def, rect, 1, TILEREF(0, 0), 0, 0, parent);
 }
@@ -170,7 +172,7 @@ struct MenuProc* StartMenuCore(
     int tileref,
     int frontBg,
     int unk,
-    struct Proc* parent)
+    ProcPtr parent)
 {
     struct MenuProc* proc;
     int i, itemCount;
@@ -190,7 +192,7 @@ struct MenuProc* StartMenuCore(
     }
     else
     {
-        AddSkipThread2();
+        LockGame();
 
         proc = Proc_Start(sProc_Menu, PROC_TREE_3);
         proc->state = MENU_STATE_GAMELOCKING;
@@ -219,7 +221,7 @@ struct MenuProc* StartMenuCore(
             item->yTile = yTileInner;
 
             if (!(proc->state & MENU_STATE_NOTSHOWN))
-                Text_Init(&item->text, rect.w - 1);
+                InitText(&item->text, rect.w - 1);
 
             yTileInner += 2;
         }
@@ -257,7 +259,7 @@ struct Proc* EndMenu(struct MenuProc* proc)
         proc->def->onEnd(proc);
 
     if (proc->state & MENU_STATE_GAMELOCKING)
-        SubSkipThread2();
+        UnlockGame();
 
     Proc_End(proc);
 
@@ -329,17 +331,17 @@ void RedrawMenu(struct MenuProc* proc)
         }
 
         if (item->def->color)
-            Text_SetColorId(&item->text, item->def->color);
+            Text_SetColor(&item->text, item->def->color);
 
         if (item->availability == MENU_DISABLED)
-            Text_SetColorId(&item->text, TEXT_COLOR_GRAY);
+            Text_SetColor(&item->text, TEXT_COLOR_SYSTEM_GRAY);
 
         if (!item->def->nameMsgId)
-            Text_AppendString(&item->text, item->def->name);
+            Text_DrawString(&item->text, item->def->name);
         else
-            Text_AppendString(&item->text, GetStringFromIndex(item->def->nameMsgId));
+            Text_DrawString(&item->text, GetStringFromIndex(item->def->nameMsgId));
 
-        Text_Draw(
+        PutText(
             &item->text,
             TILEMAP_LOCATED(BG_GetMapBuffer(proc->frontBg), item->xTile, item->yTile));
     }
@@ -407,7 +409,7 @@ void Menu_OnIdle(struct MenuProc* proc)
         ClearMenuBgs(proc);
 
     if (actions & MENU_ACT_ENDFACE)
-        DeleteFaceByIndex(0);
+        EndFaceById(0);
 
     if (actions & MENU_ACT_DOOM)
         proc->state |= MENU_STATE_DOOMED;
@@ -553,7 +555,7 @@ u8 MenuStdHelpBox(struct MenuProc* menu, struct MenuItemProc* item)
 
 void Menu_AutoHelpBox_OnInit(struct MenuProc* proc)
 {
-    LoadDialogueBoxGfx(NULL, -1); // TODO: NOPAL constant?
+    LoadHelpBoxGfx(NULL, -1); // TODO: NOPAL constant?
     proc->def->onHelpBox(proc, proc->menuItems[proc->itemCurrent]);
 }
 
@@ -607,7 +609,7 @@ u8 MenuFrozenHelpBox(struct MenuProc* proc, int msgid)
 {
     Proc_GotoScript(proc, sProc_MenuFrozenHelpBox);
 
-    LoadDialogueBoxGfx(NULL, -1); // TODO: default constants?
+    LoadHelpBoxGfx(NULL, -1); // TODO: default constants?
     StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
 }
 
@@ -679,20 +681,6 @@ void ApplyMenuCursorVScroll(struct MenuProc* proc, int* xRef, int* yRef)
 
     *yRef -= off;
 }
-
-enum
-{
-    MENU_OVERRIDE_NONE = 0,
-    MENU_OVERRIDE_ISAVAILABLE,
-    MENU_OVERRIDE_ONSELECT,
-};
-
-struct MenuItemOverride
-{
-    /* 00 */ short cmdid;
-    /* 02 */ short kind;
-    /* 04 */ void* func;
-};
 
 static
 struct MenuItemOverride sMenuOverrides[MENU_OVERRIDE_MAX];

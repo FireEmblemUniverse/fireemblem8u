@@ -218,6 +218,25 @@ enum {
     ITEM_200G              = 0xB9,
     ITEM_BLACKGEM          = 0xBA,
     ITEM_GOLDGEM           = 0xBB,
+
+    ITEM_UNK_BC            = 0xBC,
+    ITEM_UNK_BD            = 0xBD,
+    ITEM_UNK_BE            = 0xBE,
+    ITEM_UNK_BF            = 0xBF,
+    ITEM_UNK_C0            = 0xC0,
+    ITEM_UNK_C1            = 0xC1,
+    ITEM_UNK_C2            = 0xC2,
+    ITEM_UNK_C3            = 0xC3,
+    ITEM_UNK_C4            = 0xC4,
+    ITEM_UNK_C5            = 0xC5,
+    ITEM_UNK_C6            = 0xC6,
+    ITEM_UNK_C7            = 0xC7,
+    ITEM_UNK_C8            = 0xC8,
+    ITEM_UNK_C9            = 0xC9,
+    ITEM_UNK_CA            = 0xCA,
+    ITEM_UNK_CB            = 0xCB,
+    ITEM_UNK_CC            = 0xCC,
+    ITEM_UNK_CD            = 0xCD,
 };
 
 #endif // GUARD_CONSTANTS_ITEMS_H

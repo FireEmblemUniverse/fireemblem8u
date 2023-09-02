@@ -7,3 +7,4 @@ if [ ! -f $map_file ]; then
 fi
 
 perl scripts/calcrom.pl $map_file
+sh scripts/calcfunc.sh

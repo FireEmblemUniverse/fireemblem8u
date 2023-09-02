@@ -40,15 +40,19 @@ def parse_linker_script(filename):
             obj_list.append((obj, sec, comp))
     return obj_list
 
-def convert_binary_to_object(filename, objcopy, is_debug):
-    label = os.path.basename(filename).split(".")
-    # omit extension name .4bpp
-    if label[1] == '4bpp':
-        label = label[0]
+def convert_binary_to_object(filename, objcopy, with_label, is_debug):
+    if with_label:
+        label = os.path.basename(filename).split(".")
+        # omit extension name .4bpp
+        if label[1] == '4bpp':
+            label = label[0]
+        else:
+            label = label[0] + '_' + label[1]
+        cmd = '%s -I binary -O elf32-littlearm -B armv4t -S --add-symbol %s=.data:0 %s %s.o' \
+            % (objcopy, label, filename, filename)
     else:
-        label = label[0] + '_' + label[1]
-    cmd = '%s -I binary -O elf32-littlearm -B armv4t --add-symbol %s=.data:0 %s %s.o' \
-        % (objcopy, label, filename, filename)
+        cmd = '%s -I binary -O elf32-littlearm -B armv4t -S %s %s.o' \
+            % (objcopy, filename, filename)
     if is_debug:
         print(cmd)
     os.system(cmd)
@@ -75,28 +79,49 @@ def link_to_output(outputfile, filename, section, base_addr, ld,
                    is_merge, is_debug):
     if is_merge:
         unique_section = ''
+        symbol_file = ' -R %s.sym.o' % outputfile
     else:
         unique_section = ' --unique=%s' % section
+        symbol_file = ' -R %s.sym.o' % rreplace(outputfile, '.bak.o', '', 1)
     cmd = 'cp %s %s.bak.o' % (outputfile, outputfile)
     if is_debug:
         print(cmd)
     os.system(cmd)
-    cmd = '%s --no-warn-mismatch -e 0x%X -Tdata 0x%X%s -o %s %s.bak.o %s' % (
-        ld, base_addr, base_addr, unique_section, outputfile, outputfile,
-        filename)
+    cmd = '%s --no-warn-mismatch -e 0x%X -Tdata 0x%X%s%s -o %s %s.bak.o %s' % (
+        ld, base_addr, base_addr, unique_section, symbol_file, outputfile,
+        outputfile, filename)
+    if is_debug:
+        print(cmd)
+    os.system(cmd)
+
+def extract_symbol_file(filename, objcopy, is_debug):
+    cmd = '%s --extract-symbol %s %s.sym.o' \
+            % (objcopy, filename, filename)
+    if is_debug:
+        print(cmd)
+    os.system(cmd)
+
+def change_outputfile_type(outputfile, objcopy, is_debug):
+    cmd = 'mv %s %s' % (convert_binary_to_object(
+        dump_binary_from_object(outputfile, '', objcopy, is_debug),
+        objcopy, False, is_debug), outputfile)
     if is_debug:
         print(cmd)
     os.system(cmd)
 
 def dump_binary_from_object(filename, section, objcopy, is_debug):
     index = filename.rfind(".")
-    n_sec = section
-    if n_sec[0] != '.':
-        n_sec = '.' + section
-    if n_sec[-1] != '.':
-        n_sec = section + '.'
-    bin_name = filename[:index] + n_sec + 'bin'
-    cmd = '%s -O binary -j %s %s %s' % (objcopy, section, filename, bin_name)
+    if section == '':
+        bin_name = filename[:index] + '.bin'
+        cmd = '%s -O binary %s %s' % (objcopy, filename, bin_name)
+    else:
+        n_sec = section
+        if n_sec[0] != '.':
+            n_sec = '.' + section
+        if n_sec[-1] != '.':
+            n_sec = section + '.'
+        bin_name = filename[:index] + n_sec + 'bin'
+        cmd = '%s -O binary -j %s %s %s' % (objcopy, section, filename, bin_name)
     if is_debug:
         print(cmd)
     os.system(cmd)
@@ -118,13 +143,13 @@ def process_first_object(filename, section, objcopy, comptype, compressor,
     if is_binary(filename):
         if comptype is not None:
             filename = compress_binary(filename, comptype, compressor, is_debug)
-        filename = convert_binary_to_object(filename, objcopy, is_debug)
+        filename = convert_binary_to_object(filename, objcopy, True, is_debug)
     else:
         if comptype is not None:
             filename = dump_binary_from_object(filename, section, objcopy,
                                                is_debug)
             filename = compress_binary(filename, comptype, compressor, is_debug)
-            filename = convert_binary_to_object(filename, objcopy, is_debug)
+            filename = convert_binary_to_object(filename, objcopy, True, is_debug)
     return filename
 
 def process_input_object(filename, outputfile, section, base_addr, ld, objcopy,
@@ -132,7 +157,7 @@ def process_input_object(filename, outputfile, section, base_addr, ld, objcopy,
     if is_binary(filename):
         if comptype is not None:
             filename = compress_binary(filename, comptype, compressor, is_debug)
-        filename = convert_binary_to_object(filename, objcopy, is_debug)
+        filename = convert_binary_to_object(filename, objcopy, True, is_debug)
     else:
         if comptype is not None:
             cmd = 'cp %s %s.bak.o' % (outputfile, outputfile)
@@ -154,7 +179,7 @@ def process_input_object(filename, outputfile, section, base_addr, ld, objcopy,
                 print(cmd)
             os.system(cmd)
             filename = compress_binary(filename, comptype, compressor, is_debug)
-            filename = convert_binary_to_object(filename, objcopy, is_debug)
+            filename = convert_binary_to_object(filename, objcopy, True, is_debug)
     return filename
 
 def link_objects(obj_list, outputfile, base_addr,
@@ -170,6 +195,8 @@ def link_objects(obj_list, outputfile, base_addr,
     filename = process_first_object(filename, section, objcopy,
                                     comptype, compressor, is_debug)
     link_first_object(outputfile, filename, base_addr, ld, is_debug)
+    extract_symbol_file(outputfile, objcopy, is_debug)
+    change_outputfile_type(outputfile, objcopy, is_debug)
     # link other objects
     for i, obj in enumerate(obj_list[1:]):
         print('Compressing linking (%d/%d): %s'
@@ -182,6 +209,8 @@ def link_objects(obj_list, outputfile, base_addr,
                                         comptype, compressor, is_debug)
         link_to_output(outputfile, filename, section, base_addr, ld, True,
                        is_debug)
+        extract_symbol_file(outputfile, objcopy, is_debug)
+        change_outputfile_type(outputfile, objcopy, is_debug)
 #    cmd = 'cp %s ../%s' % (outputfile, outputfile)
 #    if is_debug:
 #        print(cmd)

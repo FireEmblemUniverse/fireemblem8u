@@ -1,0 +1,62 @@
+name: Build CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential binutils-arm-none-eabi libpng-dev && python -m pip install ttp
+
+    - uses: actions/checkout@v3
+
+    - name: Install agbcc
+      run: git clone https://github.com/pret/agbcc.git && cd agbcc/ && ./build.sh && ./install.sh .. && cd ..
+
+    - name: Build tools
+      run: ./build_tools.sh
+
+    - name: Mock base ROM
+      run: head -c 16M /dev/urandom > baserom.gba
+
+    - name: Build target ROM
+      run: make fireemblem8.gba
+
+    - name: Calculate decomp progress
+      run: scripts/calcrom.sh | tee _site/progress.txt
+
+    - name: Upload decomp progress
+      run: python scripts/upload-progress.py -b "https://progress.deco.mp" -a ${{secrets.PROGRESS_API_KEY}} -p fireemblem8 -v us -t scripts/progress-template.txt _site/progress.txt
+
+    - name: Extract symbol table
+      run: arm-none-eabi-nm -l -n fireemblem8.elf | grep -v '^00' | uniq > _site/symbols.txt
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1

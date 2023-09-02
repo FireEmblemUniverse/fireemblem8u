@@ -306,7 +306,7 @@ MuCtr_SetupWithEventMoveBuffer: @ 0x08079E78
 	mov r2, sl
 	strb r2, [r0]
 	adds r0, r7, #0
-	bl HideUnitSMS
+	bl HideUnitSprite
 	ldr r0, [r7, #0xc]
 	movs r1, #1
 	orrs r0, r1
@@ -330,7 +330,7 @@ MuCtr_SetupWithEventMoveBuffer: @ 0x08079E78
 _08079F30:
 	mov r1, sl
 	lsls r0, r1, #0x18
-	ldr r2, _08079F80  @ gBmMapUnk
+	ldr r2, _08079F80  @ gBmMapOther
 	ldr r1, [r2]
 	asrs r0, r0, #0x16
 	adds r0, r0, r1
@@ -367,7 +367,7 @@ _08079F30:
 	bx r0
 	.align 2, 0
 _08079F7C: .4byte gBmMapUnit
-_08079F80: .4byte gBmMapUnk
+_08079F80: .4byte gBmMapOther
 
 	THUMB_FUNC_END MuCtr_SetupWithEventMoveBuffer
 
@@ -443,7 +443,7 @@ sub_8079FA8: @ 0x08079FA8
 	ands r1, r0
 	str r1, [r5, #0xc]
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 _0807A00C:
 	add sp, #4
 	pop {r4, r5}
@@ -622,7 +622,7 @@ _0807A14C:
 	beq _0807A186
 	ldr r4, [r5, #0x2c]
 	adds r0, r4, #0
-	bl ShowUnitSMS
+	bl ShowUnitSprite
 	ldr r0, [r4, #0xc]
 	movs r1, #2
 	negs r1, r1
@@ -642,7 +642,7 @@ _0807A14C:
 	adds r0, r0, r1
 	ldrb r1, [r4, #0xb]
 	strb r1, [r0]
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 _0807A186:
 	movs r0, #1
 _0807A188:
@@ -751,7 +751,7 @@ _0807A234:
 	adds r0, r4, #0
 	bl UnitFinalizeMovement
 	adds r0, r4, #0
-	bl ShowUnitSMS
+	bl ShowUnitSprite
 	ldr r0, [r4, #0xc]
 	movs r1, #2
 	negs r1, r1
@@ -770,7 +770,7 @@ _0807A234:
 	ldrb r1, [r4, #0xb]
 	strb r1, [r0]
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 _0807A27A:
 	adds r0, r6, #0
 	bl MU_End
@@ -910,7 +910,7 @@ sub_807A358: @ 0x0807A358
 	mov ip, r0
 	movs r1, #0
 	ldrsb r1, [r0, r1]
-	ldr r0, _0807A3C0  @ gBmMapUnk
+	ldr r0, _0807A3C0  @ gBmMapOther
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -945,7 +945,7 @@ sub_807A358: @ 0x0807A358
 	str r1, [sp]
 	b _0807A3E8
 	.align 2, 0
-_0807A3C0: .4byte gBmMapUnk
+_0807A3C0: .4byte gBmMapOther
 _0807A3C4: .4byte 0xFFFF0000
 _0807A3C8: .4byte 0x0000FFFF
 _0807A3CC:
@@ -979,7 +979,7 @@ _0807A3EC:
 	adds r0, #0x41
 	movs r1, #0
 	ldrsb r1, [r0, r1]
-	ldr r0, _0807A488  @ gBmMapUnk
+	ldr r0, _0807A488  @ gBmMapOther
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -1042,13 +1042,13 @@ _0807A46E:
 	b _0807A492
 	.align 2, 0
 _0807A484: .4byte 0x0000FFFE
-_0807A488: .4byte gBmMapUnk
+_0807A488: .4byte gBmMapOther
 _0807A48C:
 	adds r0, r4, #0
 	bl MU_DisableAttractCamera
 _0807A492:
 	adds r0, r6, #0
-	bl HideUnitSMS
+	bl HideUnitSprite
 	ldr r0, [r6, #0xc]
 	movs r1, #1
 	orrs r0, r1
@@ -1070,7 +1070,7 @@ _0807A492:
 	movs r0, #0
 	strb r0, [r1]
 _0807A4C0:
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	mov r0, sp
 	ldrh r0, [r0]
 	ldr r3, [sp, #4]
@@ -1164,7 +1164,7 @@ _0807A554:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0807A5B6
-	ldr r0, _0807A5F8  @ gBmMapUnk
+	ldr r0, _0807A5F8  @ gBmMapOther
 	ldr r0, [r0]
 	adds r0, r3, r0
 	ldr r0, [r0]
@@ -1232,7 +1232,7 @@ _0807A5B6:
 	b _0807A62E
 	.align 2, 0
 _0807A5F4: .4byte gBmMapUnit
-_0807A5F8: .4byte gBmMapUnk
+_0807A5F8: .4byte gBmMapOther
 _0807A5FC: .4byte gBmMapHidden
 _0807A600: .4byte gBmMapRange
 _0807A604:
@@ -1255,7 +1255,7 @@ _0807A604:
 	beq _0807A62E
 	adds r0, r3, #0
 	adds r3, r6, #0
-	bl sub_803BDE0
+	bl AiGetUnitClosestValidPosition
 _0807A62E:
 	add sp, #0x24
 	pop {r3, r4, r5}
@@ -1322,7 +1322,7 @@ _0807A6A4: .4byte gBmMapTerrain
 _0807A6A8:
 	adds r0, r4, #0
 	adds r3, r5, #0
-	bl sub_803BDE0
+	bl AiGetUnitClosestValidPosition
 	ldrb r7, [r5]
 	ldrb r6, [r5, #2]
 	movs r0, #0

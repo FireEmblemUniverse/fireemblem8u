@@ -1,14 +1,12 @@
 #include "global.h"
 #include "icon.h"
+#include "hardware.h"
 
 #define MAX_ICON_COUNT 224
 #define MAX_ICON_GFX_COUNT 32
 
 EWRAM_DATA static struct IconStruct DrawnIconLookupTable[MAX_ICON_COUNT] = {0};
 EWRAM_DATA static u8 IconGFXIDLookupTable[MAX_ICON_GFX_COUNT] = {0};
-extern void CopyToPaletteBuffer(const void *Palette, u32 Dest, u32 Size);
-extern void RegisterTileGraphics(const void *GFX, void *Dest, u32 size);
-extern void RegisterFillTile(const void *GFX, void *Dest, u32 size);
 
 void ResetIconGraphics_()
 {
@@ -23,12 +21,12 @@ void ResetIconGraphics()
 
 void LoadIconPalettes(u32 Dest)
 {
-    CopyToPaletteBuffer(&item_icon_palette, Dest << 5, sizeof(item_icon_palette));
+    ApplyPalettes(item_icon_palette[0], Dest, 2);
 }
 
 void LoadIconPalette(u32 Index, u32 Dest)
 {
-    CopyToPaletteBuffer(item_icon_palette[Index], Dest << 5, 0x20);
+    ApplyPalette(item_icon_palette[Index], Dest);
 }
 
 int GetNextFreeIcon() // Unused
@@ -75,7 +73,7 @@ u16 GetIconTileIndex(int Index)
         DrawnIconLookupTable[Index].References++;
         DrawnIconLookupTable[Index].Index = GetIconGfxIndex(Index) + 1;
 
-        RegisterTileGraphics(
+        RegisterDataMove(
             item_icon_tiles + (Index * 0x80),
             (void*)(VRAM + (0x1FFE0 & (VRAM + 0x20 * GetIconGfxTileIndex(DrawnIconLookupTable[Index].Index)))),
             0x80
@@ -124,7 +122,7 @@ void LoadIconObjectGraphics(int Index, int b)
         pSource = (void *)item_icon_tiles;
         pSource += Index * 0x80;
 
-        RegisterTileGraphics(pSource,        pTarget,         0x40);
-        RegisterTileGraphics(pSource + 0x40, pTarget + 0x400, 0x40);
+        RegisterDataMove(pSource,        pTarget,         0x40);
+        RegisterDataMove(pSource + 0x40, pTarget + 0x400, 0x40);
     }
 }

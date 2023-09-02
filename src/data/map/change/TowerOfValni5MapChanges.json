@@ -1,0 +1,21 @@
+{
+  "name": "TowerOfValni5MapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 6,
+      "y": 9,
+      "w": 1,
+      "h": 1,
+      "tiles": "TowerOfValni5MapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 14,
+      "y": 14,
+      "w": 1,
+      "h": 1,
+      "tiles": "TowerOfValni5MapChanges_change_1"
+    }
+  ]
+}

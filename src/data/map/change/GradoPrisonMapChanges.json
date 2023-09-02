@@ -1,0 +1,13 @@
+{
+  "name": "GradoPrisonMapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 18,
+      "y": 6,
+      "w": 2,
+      "h": 2,
+      "tiles": "GradoPrisonMapChanges_change_0"
+    }
+  ]
+}

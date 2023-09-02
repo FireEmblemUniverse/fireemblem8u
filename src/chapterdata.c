@@ -1,45 +1,48 @@
 #include "global.h"
 #include "chapterdata.h"
 #include "agb_sram.h"
+#include "bmsave.h"
+
+#include "src/data/chapter_settings.h"
 
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
     if (chIndex == 0x7F)
-        return (const struct ROMChapterData*) gUnknown_08A1FB34[0];
+        return gExtraMapInfo->chapter_info;
 
     return gChapterDataTable + chIndex;
 }
 
 const void* GetChapterMapPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
-        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapMainLayerId];
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->map.mainLayerId];
 
-    ReadSramFast(sub_80A6B70(), gUnknown_02020188, sub_80A6B90());
-    return gUnknown_02020188;
+    ReadSramFast(GetExtraMapMapReadAddr(), gGenericBuffer, GetExtraMapMapSize());
+    return gGenericBuffer;
 }
 
 const void* GetChapterMapChangesPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
-        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapChangeLayerId];
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->map.changeLayerId];
 
-    return gUnknown_08A1FB34[1];
+    return gExtraMapInfo->map_change_info;
 }
 
-const void* GetChapterEventDataPointer(unsigned chIndex) {
+const struct ChapterEventGroup* GetChapterEventDataPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
         return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapEventDataId];
 
-    return gUnknown_08A1FB34[2];
+    return gExtraMapInfo->event_info;
 }
 
-const char* sub_80346E0(unsigned chIndex) {
+const char* GetChapterTitle(unsigned chIndex) {
     if (chIndex != 0x7F)
         // ???????????????????
-        return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->unk70));
+        return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->chapTitleTextId));
 
-    return gUnknown_08A1FB34[3];
+    return gExtraMapInfo->chapter_title;
 }
 
-int IsDifficultMode(void) {
-    u8 difficultState = gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_DIFFICULT;
+u8 IsDifficultMode(void) {
+    u8 difficultState = gPlaySt.chapterStateBits & PLAY_FLAG_HARD;
     return difficultState ? TRUE : FALSE;
 }

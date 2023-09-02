@@ -38,6 +38,9 @@ static bool s_noteChanged;
 static bool s_velocityChanged;
 static bool s_inPattern;
 static int s_extendedCommand;
+static int s_memaccOp;
+static int s_memaccParam1;
+static int s_memaccParam2;
 
 void PrintAgbHeader()
 {
@@ -143,6 +146,8 @@ void PrintNote(const Event& event)
 {
     int note = event.note;
     int velocity = g_noteVelocityLUT[event.param1];
+    if (g_MMLCompatible)
+        velocity = event.param1;
     int duration = -1;
 
     if (event.param2 != -1)
@@ -247,6 +252,84 @@ void PrintSeqLoopLabel(const Event& event)
     ResetTrackVars();
 }
 
+void PrintMemAcc(const Event& event)
+{
+    switch (s_memaccOp)
+    {
+    case 0x00:
+        PrintByte("MEMACC, mem_set, 0x%02X, %u", s_memaccParam1, event.param2);
+        break;
+    case 0x01:
+        PrintByte("MEMACC, mem_add, 0x%02X, %u", s_memaccParam1, event.param2);
+        break;
+    case 0x02:
+        PrintByte("MEMACC, mem_sub, 0x%02X, %u", s_memaccParam1, event.param2);
+        break;
+    case 0x03:
+        PrintByte("MEMACC, mem_mem_set, 0x%02X, 0x%02X", s_memaccParam1, event.param2);
+        break;
+    case 0x04:
+        PrintByte("MEMACC, mem_mem_add, 0x%02X, 0x%02X", s_memaccParam1, event.param2);
+        break;
+    case 0x05:
+        PrintByte("MEMACC, mem_mem_sub, 0x%02X, 0x%02X", s_memaccParam1, event.param2);
+        break;
+    // TODO: everything else
+    case 0x06:
+        break;
+    case 0x07:
+        break;
+    case 0x08:
+        break;
+    case 0x09:
+        break;
+    case 0x0A:
+        break;
+    case 0x0B:
+        break;
+    case 0x0C:
+        break;
+    case 0x0D:
+        break;
+    case 0x0E:
+        break;
+    case 0x0F:
+        break;
+    case 0x10:
+        break;
+    case 0x11:
+        break;
+    case 0x46:
+        break;
+    case 0x47:
+        break;
+    case 0x48:
+        break;
+    case 0x49:
+        break;
+    case 0x4A:
+        break;
+    case 0x4B:
+        break;
+    case 0x4C:
+        break;
+    case 0x4D:
+        break;
+    case 0x4E:
+        break;
+    case 0x4F:
+        break;
+    case 0x50:
+        break;
+    case 0x51:
+        break;
+    default:
+        break;
+    }
+
+    PrintWait(event.time);
+}
+
 void PrintExtendedOp(const Event& event)
 {
     // TODO: support for other extended commands
@@ -280,16 +363,19 @@ void PrintControllerOp(const Event& event)
         break;
     case 0x0C:
     case 0x10:
-        // TODO: memacc
+        PrintMemAcc(event);
         break;
     case 0x0D:
-        // TODO: memacc var
+        s_memaccOp = event.param2;
+        PrintWait(event.time);
         break;
     case 0x0E:
-        // TODO: memacc var
+        s_memaccParam1 = event.param2;
+        PrintWait(event.time);
         break;
     case 0x0F:
-        // TODO: memacc var
+        s_memaccParam2 = event.param2;
+        PrintWait(event.time);
         break;
     case 0x11:
         std::fprintf(g_outputFile, "%s_%u_L%u:\n", g_asmLabel.c_str(), g_agbTrack, event.param2);
@@ -332,10 +418,10 @@ void PrintControllerOp(const Event& event)
 
 void PrintAgbTrack(std::vector<Event>& events)
 {
+    if (g_MMLCompatible)
+        std::fprintf(g_outputFile, "\t.align\t2\n");
     std::fprintf(g_outputFile, "\n@**************** Track %u (Midi-Chn.%u) ****************@\n\n", g_agbTrack, g_midiChan + 1);
     std::fprintf(g_outputFile, "%s_%u:\n", g_asmLabel.c_str(), g_agbTrack);
-    PrintWait(g_initialWait);
-    PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
 
     int wholeNoteCount = 0;
     int loopEndBlockNum = 0;
@@ -356,8 +442,34 @@ void PrintAgbTrack(std::vector<Event>& events)
         }
     }
 
-    if (!foundVolBeforeNote)
-        PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
+    bool foundKeyShiftBeforeNote = false;
+
+    for (const Event& event : events)
+    {
+        if (event.type == EventType::Note)
+            break;
+
+        if (event.type == EventType::KeyShift)
+        {
+            foundKeyShiftBeforeNote = true;
+            break;
+        }
+    }
+
+    bool reorderVolAndKeysh = false;
+
+    if (g_MMLCompatible)
+        reorderVolAndKeysh = true;
+    else
+    {
+        if (!foundVolBeforeNote)
+            PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
+
+        PrintWait(g_initialWait);
+
+        if (!foundKeyShiftBeforeNote)
+            PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
+    }
 
     for (unsigned i = 0; events[i].type != EventType::EndOfTrack; i++)
     {
@@ -422,13 +534,23 @@ void PrintAgbTrack(std::vector<Event>& events)
             PrintWait(event.time);
             break;
         case EventType::InstrumentChange:
+	    if (reorderVolAndKeysh && !foundVolBeforeNote)
+                PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
+	    if (reorderVolAndKeysh && !foundKeyShiftBeforeNote && g_KeyshBeforeVoice)
+                PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
             PrintOp(event.time, "VOICE ", "%u", event.param1);
+	    if (reorderVolAndKeysh && !foundKeyShiftBeforeNote && !g_KeyshBeforeVoice)
+                PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
+            reorderVolAndKeysh = false;
             break;
         case EventType::PitchBend:
             PrintOp(event.time, "BEND  ", "c_v%+d", event.param2 - 64);
             break;
         case EventType::Controller:
             PrintControllerOp(event);
+            break;
+        case EventType::KeyShift:
+            PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), event.param2);
             break;
         default:
             PrintWait(event.time);

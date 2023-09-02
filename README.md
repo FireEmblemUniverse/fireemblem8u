@@ -1,6 +1,8 @@
 # Fire Emblem: The Sacred Stones
 
-[![buddy pipeline](https://app.buddy.works/laqieer/fireemblem8u/pipelines/pipeline/242146/badge.svg?token=17a080ae6f8b131ee525769bd14c9c265def2701a1a6e03ec223ca9213c46a9f "buddy pipeline")](https://app.buddy.works/laqieer/fireemblem8u/pipelines/pipeline/242146) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+[FE Decomp Portal](https://laqieer.github.io/fe-decomp-portal/)
 
 This is a disassembly of Fire Emblem: The Sacred Stones (U)[!]
 
@@ -9,32 +11,48 @@ It builds the following ROM:
 
 ### Setting up the repository
 
-* You must have a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
-
-* Install [**devkitARM**](http://devkitpro.org/wiki/Getting_Started/devkitARM).
-
-* Then get the build tools from https://github.com/pret/pokeruby-tools. Copy the `tools/` folder into the repository directory. If you want to build the tools yourself, grab the libpng-devel package and run build_tools.sh instead.
-
-* You can then build fireemblem8 using `make` in the MSYS environment provided with devkitARM.
-
+1. You must have a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
+2. Install [devkitPro](https://devkitpro.org/wiki/Getting_Started) or [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm).
 ```
-sort of how-to for setting up fireemblem8u
-1] setup cygwin or whatever (Windows user)
-2] clone https://github.com/luckytyphlosion/agbcc/tree/new_layout_with_libs somewhere (lets say C:/agbsdk) (be careful to checkout the new_layout_with_libs branch and NOT master!)
-3] cd agbsdk
-4] ./build.sh
-5] cd ..
-6] clone https://github.com/FireEmblemUniverse/fireemblem8u somewhere (lets say C:/fireemblem8u)
-7] cd agbsdk
-8] ./install.sh C:/fireemblem8u
-9] put clean FE8 US ROM into C:/fireemblem8u and name it baserom.gba
-10] ./build_tools.sh in FE repo you cloned
-11] fix Makefile to point to tools/binutils/bin/
-12] make
-
-
-Q1: Help, it said Makefile:1: /base_tools: No such file or directory when I was compiling agbcc!
-A1: You didn't check out the new_layout_with_libs branch. This is a dependency on Devkitpro, which this branch abandons. 
+# for Ubuntu/WSL users
+apt install binutils-arm-none-eabi
+```
+3. Install [agbcc](https://github.com/pret/agbcc) to this project.
+```
+cd /path/to/agbcc
+./build.sh
+./install.sh /path/to/fireemblem8u
+```
+4. Build tools.
+```
+cd /path/to/fireemblem8u
+./build_tools.sh
+```
+5. Build the project.
+```
+make
+```
+6. You will see this for success.
+```
+fireemblem8.gba: OK
 ```
 
-Check branch `remove_tools` if you find it too hard to set up the local build environment.
+Q: `fatal error: png.h: No such file or directory`
+
+A: Install [libpng](http://www.libpng.org/pub/png/libpng.html) to build `tools/gbagfx`.
+
+Q: `make: *** No rule to make target 'baserom.gba', needed by 'xxx'.  Stop.`
+
+A: You must place a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
+
+Q: `unrecognized option '--add-symbol'`
+
+A: Update your devkitPro or embedded toolchain. Read [this](https://github.com/bminor/binutils-gdb/blob/3451a2d7a3501e9c3fc344cbc4950c495f30c16d/binutils/ChangeLog-2015#L120) for more info.
+
+Q: `.dep/src/xxx.d:2: *** missing separator.  Stop.`
+
+A: `rm -rf .dep` or disable [VSCode Extension: Makefile Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools) if installed.
+
+Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
+
+Check [remove_tools](https://github.com/laqieer/fireemblem8u/tree/remove_tools) branch if you don't want to build agbcc and other tools by yourself. It uses docker to make setting up easier. Follow its [README.md](https://github.com/laqieer/fireemblem8u/blob/remove_tools/README.md) instead.

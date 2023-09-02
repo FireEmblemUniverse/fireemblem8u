@@ -1,0 +1,10 @@
+Language: Cpp
+IndentWidth: 4
+PointerAlignment: Middle
+BreakBeforeBraces: Allman
+AccessModifierOffset: -4
+IndentCaseLabels: true
+Cpp11BracedListStyle: false
+SpaceBeforeCpp11BracedList: true
+AlignAfterOpenBracket: AlwaysBreak
+...

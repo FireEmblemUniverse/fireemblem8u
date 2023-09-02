@@ -2,12 +2,14 @@
 
 #include "constants/terrains.h"
 
-#include "rng.h"
 #include "bmitem.h"
-#include "bmunit.h"
 #include "bmmap.h"
-#include "proc.h"
+#include "bmphase.h"
+#include "bmunit.h"
 #include "mu.h"
+#include "proc.h"
+#include "rng.h"
+#include "bmarch.h"
 
 #include "bmidoten.h"
 
@@ -541,7 +543,7 @@ void GenerateUnitCompleteAttackRange(struct Unit* unit)
                     continue; \
                 if (gBmMapUnit[iy][ix]) \
                     continue; \
-                if (gBmMapUnk[iy][ix]) \
+                if (gBmMapOther[iy][ix]) \
                     continue; \
                 block \
             } \
@@ -726,7 +728,7 @@ void GenerateUnitCompleteStaffRange(struct Unit* unit)
                     continue; \
                 if (gBmMapUnit[iy][ix]) \
                     continue; \
-                if (gBmMapUnk[iy][ix]) \
+                if (gBmMapOther[iy][ix]) \
                     continue; \
                 block \
             } \
@@ -774,7 +776,7 @@ void GenerateDangerZoneRange(s8 boolDisplayStaffRange)
 
     BmMapFill(gBmMapRange, 0);
 
-    enemyFaction = IsNotEnemyPhaseMaybe();
+    enemyFaction = GetNonActiveFaction();
 
     for (i = enemyFaction + 1; i < enemyFaction + 0x80; ++i)
     {
@@ -786,7 +788,7 @@ void GenerateDangerZoneRange(s8 boolDisplayStaffRange)
         if (boolDisplayStaffRange && !UnitHasMagicRank(unit))
             continue; // no magic in magic range mode
 
-        if (gUnknown_0202BCF0.chapterVisionRange && (gBmMapFog[unit->yPos][unit->xPos] == 0))
+        if (gPlaySt.chapterVisionRange && (gBmMapFog[unit->yPos][unit->xPos] == 0))
             continue; // in the fog
 
         if (unit->state & US_UNDER_A_ROOF)
@@ -802,7 +804,7 @@ void GenerateDangerZoneRange(s8 boolDisplayStaffRange)
 
         if (prevHasMagicRank != hasMagicRank)
         {
-            BmMapFill(gBmMapUnk, 0);
+            BmMapFill(gBmMapOther, 0);
 
             if (hasMagicRank)
                 GenerateMagicSealMap(1);
@@ -839,7 +841,7 @@ void GenerateMagicSealMap(int value)
     }
 }
 
-inline u8* GetWorkingMoveCosts(void)
+inline s8* GetWorkingMoveCosts(void)
 {
     return gWorkingTerrainMoveCosts;
 }

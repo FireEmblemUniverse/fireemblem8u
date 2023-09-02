@@ -1,0 +1,53 @@
+{
+  "name": "Ch11EphraimTileAnimations",
+  "frames": [
+    {
+      "id": 0,
+      "duration": 28,
+      "size": 4096,
+      "gfx": "Ch11EphraimTileAnimations_frame_0"
+    },
+    {
+      "id": 1,
+      "duration": 28,
+      "size": 4096,
+      "gfx": "Ch11EphraimTileAnimations_frame_1"
+    },
+    {
+      "id": 2,
+      "duration": 28,
+      "size": 4096,
+      "gfx": "Ch11EphraimTileAnimations_frame_2"
+    },
+    {
+      "id": 3,
+      "duration": 28,
+      "size": 4096,
+      "gfx": "Ch11EphraimTileAnimations_frame_3"
+    },
+    {
+      "id": 4,
+      "duration": 28,
+      "size": 4096,
+      "gfx": "Ch11EphraimTileAnimations_frame_4"
+    },
+    {
+      "id": 5,
+      "duration": 28,
+      "size": 4096,
+      "gfx": "Ch11EphraimTileAnimations_frame_5"
+    },
+    {
+      "id": 6,
+      "duration": 28,
+      "size": 4096,
+      "gfx": "Ch11EphraimTileAnimations_frame_6"
+    },
+    {
+      "id": 7,
+      "duration": 28,
+      "size": 4096,
+      "gfx": "Ch11EphraimTileAnimations_frame_7"
+    }
+  ]
+}

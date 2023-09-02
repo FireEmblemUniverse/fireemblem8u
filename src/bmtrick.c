@@ -7,7 +7,30 @@
 #include "chapterdata.h"
 #include "proc.h"
 #include "event.h"
+#include "uiselecttarget.h"
+#include "bmtarget.h"
+#include "bmudisp.h"
+#include "bmusailment.h"
 #include "bmtrick.h"
+
+struct ProcCmd CONST_DATA gProcScr_UpdateTraps[] =
+{
+    PROC_CALL(CountDownTraps),
+    PROC_CALL(sub_802EA00),
+
+    PROC_CALL(GenerateTrapDamageTargets),
+    PROC_CALL(sub_802EA1C),
+
+    PROC_CALL(GenerateDisplayedTrapDamageTargets),
+    PROC_START_CHILD_BLOCKING(gProcScr_TrapDamageDisplay),
+
+    PROC_CALL(ResetCountedDownTraps),
+    PROC_CALL(RefreshEntityBmMaps),
+
+    PROC_CALL(sub_802EA28),
+
+    PROC_END,
+};
 
 static void GenerateFireTileTrapTargets(int x, int y, int damage);
 static void GenerateArrowTrapTargets(int x, int y, int damage);
@@ -170,7 +193,7 @@ void InitMapObstacles(void)
 
                 AddTrap(
                     ix, iy, TRAP_OBSTACLE,
-                    GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapCrackedWallHeath);
+                    GetROMChapterStruct(gPlaySt.chapterIndex)->mapCrackedWallHeath);
 
                 break;
 
@@ -244,7 +267,7 @@ int GetObstacleHpAt(int x, int y)
 
 const struct MapChange* GetMapChange(int id)
 {
-    const struct MapChange* mapChange = GetChapterMapChangesPointer(gUnknown_0202BCF0.chapterIndex);
+    const struct MapChange* mapChange = GetChapterMapChangesPointer(gPlaySt.chapterIndex);
 
     if (!mapChange)
         return NULL;
@@ -264,7 +287,7 @@ int GetMapChangeIdAt(int x, int y)
 {
     int result = -1;
 
-    const struct MapChange* mapChange = GetChapterMapChangesPointer(gUnknown_0202BCF0.chapterIndex);
+    const struct MapChange* mapChange = GetChapterMapChangesPointer(gPlaySt.chapterIndex);
 
     if (!mapChange)
         return result;
@@ -364,7 +387,7 @@ void UpdateRoofedUnits(void)
     }
 
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 }
 
 void GenerateFireTileTrapTargets(int x, int y, int damage)
@@ -623,12 +646,12 @@ void ResetCountedDownTraps(void)
 
 void sub_802EA00(void)
 {
-    int truePhase = gUnknown_0202BCF0.chapterPhaseIndex;
-    gUnknown_0202BCF0.chapterPhaseIndex = FACTION_RED;
+    int truePhase = gPlaySt.faction;
+    gPlaySt.faction = FACTION_RED;
 
     RefreshEntityBmMaps();
 
-    gUnknown_0202BCF0.chapterPhaseIndex = truePhase;
+    gPlaySt.faction = truePhase;
 }
 
 void sub_802EA1C(void)
@@ -640,13 +663,13 @@ void sub_802EA28(void)
 {
     // TODO: EID/FLAG DEFINITIONS
 
-    if (CheckEventId(0x65) || CountAvailableBlueUnits() == 0)
+    if (CheckFlag(0x65) || CountAvailableBlueUnits() == 0)
     {
         CallGameOverEvent();
     }
 
     if (!AreAnyEnemyUnitDead())
-        SetEventId(0x06);
+        SetFlag(0x06);
 }
 
 struct Trap* AddLightRune(int x, int y)

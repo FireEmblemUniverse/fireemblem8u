@@ -1,7 +1,5 @@
 #include "global.h"
 #include "proc.h"
-#include "event.h"
-
 #include "rng.h"
 #include "hardware.h"
 #include "m4a.h"
@@ -15,9 +13,15 @@
 #include "bmidoten.h"
 #include "mu.h"
 #include "chapterdata.h"
+#include "face.h"
+#include "scene.h"
+#include "bm.h"
+#include "bmlib.h"
+#include "bmudisp.h"
+#include "gamecontrol.h"
 
-// temp rodata (TODO: move directly into the various functions that use those)
-const u8 gUnknown_080D793C[3] = { 0x00, 0x40, 0x80 };
+#include "ev_triggercheck.h"
+#include "event.h"
 
 struct Struct03000430 {
     u8 unk00;
@@ -32,21 +36,17 @@ struct Struct03000428 {
     u8 unk05;
 };
 
+// temp rodata (TODO: move directly into the various functions that use those)
+extern u8 gUnknown_080D793C[];
+
 void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
 
-unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc* proc, s8);
-
 void sub_800F698(const struct UnitDefinition* def, s16 count, u8 param);
-u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, int x, int y);
-void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d);
 
-struct Unit* GetUnitFromCharId(int);
+// TODO: Implicit declaration?
 int IsSethLArachelMyrrhInnes(int);
-s8 IsUnitSlotAvailable(int faction);
 
-void MoveUnit_(struct Unit* unit, s8 x, s8 y, u16 flags);
-void sub_8079FA8(struct Unit* unit, const void* redas, unsigned count, u16 flags);
-void sub_8079D74(struct Unit* unit, const void* redas, unsigned count, u16 flags);
+void sub_8079FA8(struct Unit* unit, const void* redas, u32 count, u16 flags);
 
 // TODO: #include "evtcmd_gmap.h" (?)
 void sub_800B910(int, int, int);
@@ -56,45 +56,21 @@ void sub_800B9B8(int, int);
 void sub_800BA04(int, int);
 
 // TODO: #include "hino.h"
-void sub_8013D08(int speed, struct Proc* parent); // aka StartFadeInBlack
-void sub_8013D20(int speed, struct Proc* parent); // aka StartFadeOutBlack
-void sub_8013D38(int speed, struct Proc* parent); // aka StartFadeInWhite
-void sub_8013D50(int speed, struct Proc* parent); // aka StartFadeOutWhite
-void sub_8012890(int, int, int, int, int, struct Proc*); // aka idk
-
-// TODO: #include "face.h"
-void ResetFaces(void);
-u8   Face6CExists(void);
-void sub_8005F38(struct Proc*);
-void sub_80067E8(void);
-void sub_800680C(int, int, int);
-void sub_8006A30(int, int, u16);
-void sub_8006A70(int, int, struct Struct03000430*);
-void sub_8006AA8(int); // set dialog flag
-u8   sub_8006ED8(void);
-void sub_8006EF0(void);
-void sub_80081A8(void);
-u8   sub_80089D0(void);
-int  sub_8008A00(void);
-
-extern const struct ProcCmd gUnknown_08591154[]; // E_FACE proc
+void sub_8012890(int, int, int, int, int, ProcPtr); // aka idk
 
 // ???
-void sub_808A518(u16);
-void sub_808AA04(int, int, u16, struct Proc*);
+void SetDialogueBoxConfig(u16);
 void sub_808AADC(const char*, int*, int*);
 void sub_808E9D8(int);
-void sub_808F128(int, int, int, int, int, void*, int, struct Proc*);
-u8   sub_808F284(void);
 
-extern const struct ProcCmd gUnknown_08A016E0[];
+extern struct ProcCmd gProcScr_BoxDialogue[];
 
 // ????
 
-void sub_80B272C(int, int, int, struct Proc*);
-void sub_80B2780(int, int, int, struct Proc*);
+void sub_80B272C(int, int, int, ProcPtr);
+void sub_80B2780(int, int, int, ProcPtr);
 
-void sub_80B65F8(u16* buf, unsigned offset, int, int, unsigned);
+void sub_80B65F8(u16* buf, u32 offset, int, int, u32);
 
 // local
 
@@ -132,7 +108,7 @@ extern const struct {
     const void* pTileGraphics;
     const void* pTileArrangement;
     const void* pColorPalettes;
-} gUnknown_0895DD1C[]; // TODO: rename to gConvoBackgroundData
+} gConvoBackgroundData[];
 
 // TODO: not use this?
 struct EventCommandHeader {
@@ -141,393 +117,399 @@ struct EventCommandHeader {
     u16 commandId  : 8;
 } __attribute__((packed));
 
-struct EventCallReturnData {
-    const u16* pEventStart;
-    const u16* pEventCurrent;
-};
-
-// void SetEventId(int);
-// void UnsetEventId(int);
-
-extern struct EventCallReturnData gUnknown_03000570[];
 extern u16 gUnknown_08592114[]; // gEvent_PostEnd
 
 void sub_80125C0(struct UnitDefinition*);
 
 extern struct UnitDefinition end[];
 
-const struct UnitDefinition* sub_80833B0(void); // GetChapterEnemyUnitDefinitions
-
 void ClearMapWith(u8** map, u8 value);
 
-extern const struct ProcCmd gUnknown_0859A548[];
-
-u8 Event00_NULL(struct EventEngineProc* proc) {
-    return EVC_ADVANCE_CONTINUE;
+u8 Event00_NULL(struct EventEngineProc * proc)
+{
+    return EV_RET_DEFAULT;
 }
 
-u8 Event01_End(struct EventEngineProc* proc) {
+u8 Event01_End(struct EventEngineProc * proc)
+{
     s8 i;
+    u16 flag;
 
-    if (proc->evStateBits & EV_STATE_ABORT)
-        return EVC_END;
-    
-    if (((struct EventCommandHeader*)(proc->pEventCurrent))->subcommand == 1) {
-        for (i = 0; i < 8; ++i) {
-            gUnknown_03000570[i].pEventStart   = NULL;
-            gUnknown_03000570[i].pEventCurrent = NULL;
+    if ((proc->evStateBits & EV_STATE_ABORT) == 0)
+    {
+        if (EVT_SUB_CMD(proc->pEventCurrent) == EVSUBCMD_ENDB)
+        {
+            for (i = 0; i < 8; i++)
+            {
+                gUnknown_03000570[i].evt1 = NULL;
+                gUnknown_03000570[i].evt2 = NULL;
+            }
+        }
+
+        if (gUnknown_03000570[0].evt1 != NULL)
+        {
+            proc->pEventIdk = gUnknown_03000570[0].evt1;
+            proc->pEventCurrent = gUnknown_03000570[0].evt2;
+
+            for (i = 0; i < 7; i++)
+            {
+                gUnknown_03000570[i].evt1 = gUnknown_03000570[i + 1].evt1;
+                gUnknown_03000570[i].evt2 = gUnknown_03000570[i + 1].evt2;
+            }
+
+            gUnknown_03000570[i].evt1 = NULL;
+            gUnknown_03000570[i].evt2 = NULL;
+            return EV_RET_DEFAULT;
+        }
+
+        switch (proc->execType)
+        {
+        case EV_EXEC_WORLDMAP:
+            proc->execType = EV_EXEC_UNK4;
+            return EV_RET_BREAK;
+
+        case EV_EXEC_CUTSCENE:
+            proc->evStateBits &= ~EV_STATE_SKIPPING;
+            proc->evStateBits |= EV_STATE_NOSKIP;
+
+            proc->execType = EV_EXEC_UNK5;
+
+            proc->pEventIdk = gEvent_08592114;
+            proc->pEventCurrent = gEvent_08592114;
+
+            return EV_RET_1;
+
+        default:
+            return EV_RET_BREAK;
         }
     }
 
-    if (gUnknown_03000570->pEventStart) {
-        proc->pEventIdk     = gUnknown_03000570[0].pEventStart;
-        proc->pEventCurrent = gUnknown_03000570[0].pEventCurrent;
-
-        for (i = 0; i < 7; ++i) {
-            gUnknown_03000570[i].pEventStart   = gUnknown_03000570[i+1].pEventStart;
-            gUnknown_03000570[i].pEventCurrent = gUnknown_03000570[i+1].pEventCurrent;
-        }
-        
-        gUnknown_03000570[i].pEventStart   = NULL;
-        gUnknown_03000570[i].pEventCurrent = NULL;
-
-        return EVC_ADVANCE_CONTINUE;
-    }
-
-    switch (proc->execType) {
-
-    case EV_EXEC_WORLDMAP:
-        proc->execType = EV_EXEC_UNK4;
-        break;
-    
-    case EV_EXEC_CUTSCENE:
-        proc->evStateBits = (proc->evStateBits &~ EV_STATE_SKIPPING) | EV_STATE_NOSKIP;
-        proc->execType = EV_EXEC_UNK5;
-
-        proc->pEventIdk     = gUnknown_08592114;
-        proc->pEventCurrent = gUnknown_08592114;
-
-        return EVC_STOP_CONTINUE;
-
-    }
-
-    return EVC_END;
+    return EV_RET_BREAK;
 }
 
-u8 Event02_EvBitAndIdMod(struct EventEngineProc* proc) {
-    u8 scType, scValue;
-    short index;
+u8 Event02_EvBitAndIdMod(struct EventEngineProc * proc)
+{
+    int sub_cmd_lo = EVT_SUB_CMD_LO(proc->pEventCurrent);
+    int sub_cmd_hi = EVT_SUB_CMD_HI(proc->pEventCurrent);
+    u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
-    scType  = (proc->pEventCurrent[0] & 0x7);
-    scValue = (proc->pEventCurrent[0] & 0xF) >> 3;
-    index   = proc->pEventCurrent[1];
-    
-    if (index < 0)
-        index = gEventSlots[2];
+    if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
+        arg = gEventSlots[2];
 
-    switch (scType) {
-
-    case 0: // Sets/Unsets event bit
-        if (scValue == 0)
-            proc->evStateBits &= ~(1 << index);
-        else
-            proc->evStateBits |= (1 << index);
-        
-        break;
-
-    case 1: // Sets/Unsets trigger
-        if (scValue == 0)
-            UnsetEventId(index);
-        else
-            SetEventId(index);
-
-        break;
-
-    }
-
-    return EVC_ADVANCE_CONTINUE;
-}
-
-u8 Event03_CheckEvBitOrId(struct EventEngineProc* proc) {
-    u8 sc;
-    short index;
-
-    sc    = (*(const u8*)(proc->pEventCurrent)) & 0xF;
-    index = proc->pEventCurrent[1];
-
-    if (index < 0)
-        index = gEventSlots[2];
-    
-    switch (sc) {
-
+    switch (sub_cmd_lo)
+    {
     case 0:
-        if (proc->evStateBits & (1 << index))
-            gEventSlots[0xC] = 1;
+        if (sub_cmd_hi == 0)
+            proc->evStateBits &= ~(1 << (s16)arg); /* EVSUBCMD_EVBIT_F */
         else
-            gEventSlots[0xC] = 0;
-
+            proc->evStateBits |=  (1 << (s16)arg); /* EVSUBCMD_EVBIT_T */
         break;
-    
+
     case 1:
-        if (!CheckEventId(index))
-            gEventSlots[0xC] = 0;
+        if (sub_cmd_hi == 0)
+            ClearFlag((s16)arg); /* EVSUBCMD_ENUF */
         else
-            gEventSlots[0xC] = 1;
-
+            SetFlag((s16)arg); /* EVSUBCMD_ENUT */
         break;
-
     }
 
-    return EVC_ADVANCE_CONTINUE;
+    return EV_RET_DEFAULT;
 }
 
-u8 Event04_CheckRandom(struct EventEngineProc* proc) {
-    unsigned highBound;
-    
-    highBound = *(const u16*)(proc->pEventCurrent + 1);
+u8 Event03_CheckEvBitOrId(struct EventEngineProc * proc)
+{
+    int sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
+    u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    s16 bitck, tst;
 
-    if (highBound == 0)
+    if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
+        arg = gEventSlots[2];
+
+    switch (sub_cmd)
+    {
+    case EVSUBCMD_CHECK_EVBIT:
+        if ((proc->evStateBits >> (s16)arg) & 0x1)
+            gEventSlots[0xC] = true;
+        else
+            gEventSlots[0xC] = false;
+        break;
+
+    case EVSUBCMD_CHECK_EVENTID:
+        tst = arg;
+        if (CheckFlag(tst) == false)
+            gEventSlots[0xC] = false;
+        else
+            gEventSlots[0xC] = true;
+        break;
+    }
+
+    return EV_RET_DEFAULT;
+}
+
+u8 Event04_CheckRandom(struct EventEngineProc * proc)
+{
+    u16 max = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+
+    if (max == 0)
         gEventSlots[0xC] = 0;
     else
-        gEventSlots[0xC] = NextRN_N(highBound+1);
-    
-    return EVC_ADVANCE_CONTINUE;
+        gEventSlots[0xC] = NextRN_N(max + 1);
+
+    return EV_RET_DEFAULT;
 }
 
-u8 Event05_SetSlot(struct EventEngineProc* proc) {
-    unsigned slotIndex, slotValue;
+u8 Event05_SetSlot(struct EventEngineProc * proc)
+{
+    u16 index = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u32 value = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    slotIndex = *(const u16*)(proc->pEventCurrent + 1);
-    slotValue = *(const u32*)(proc->pEventCurrent + 2);
-
-    gEventSlots[slotIndex] = slotValue;
-
-    return EVC_ADVANCE_CONTINUE;
+    gEventSlots[index] = value;
+    return EV_RET_DEFAULT;
 }
 
-u8 Event06_SlotOperation(struct EventEngineProc* proc) {
-    u8 sc, slotSrc1, slotSrc2, slotDest;
+u8 Event06_SlotOperation(struct EventEngineProc * proc)
+{
+    u32 reg1, reg2, reg3;
+    u8 sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
+    u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+#ifndef NONMATCHING
+    u8 argLow;
+    asm("":::"memory");
+    argLow = arg;
+    reg1 = argLow % 0x10;
+    ++arg; --arg;
+    reg2 = (arg >> 4) % 0x10;
+    reg3 = (arg >> 8) % 0x10;
+#else
+    reg1 = arg % 0x10;
+    reg2 = (arg >> 4) % 0x10;
+    reg3 = (arg >> 8) % 0x10;
+#endif
 
-    sc       = (*(const u8*)(proc->pEventCurrent)) & 0xF;
+    switch (sub_cmd)
+    {
+    case EVSUBCMD_SADD:
+        gEventSlots[reg1] = gEventSlots[reg2] + gEventSlots[reg3];
+        return EV_RET_DEFAULT;
+    
+    case EVSUBCMD_SSUB:
+        gEventSlots[reg1] = gEventSlots[reg2] - gEventSlots[reg3];
+        return EV_RET_DEFAULT;
 
-    slotDest = (*(proc->pEventCurrent + 1) >> 0)   & 0xF;
-    slotSrc1 = (*(proc->pEventCurrent + 1) >> 4)   & 0xF;
-    slotSrc2 = (*(proc->pEventCurrent + 1) >> 8)   & 0xF;
+    case EVSUBCMD_SMUL:
+        gEventSlots[reg1] = gEventSlots[reg2] * gEventSlots[reg3];
+        return EV_RET_DEFAULT;
 
-    switch (sc) {
-    
-    case 0: // add
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] + gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 1: // sub
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] - gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 2: // mul
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] * gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 3: // div
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] / gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 4: // mod
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] % gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 5: // and
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] & gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 6: // orr
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] | gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 7: // xor
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] ^ gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 8: // lsl
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] << gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 9: // lsr
-        gEventSlots[slotDest] = gEventSlots[slotSrc1] >> gEventSlots[slotSrc2];
-        return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SDIV:
+        gEventSlots[reg1] = gEventSlots[reg2] / gEventSlots[reg3];
+        return EV_RET_DEFAULT;
+
+    case EVSUBCMD_SMOD:
+        gEventSlots[reg1] = gEventSlots[reg2] % gEventSlots[reg3];
+        return EV_RET_DEFAULT;
+
+    case EVSUBCMD_SAND:
+        gEventSlots[reg1] = gEventSlots[reg2] & gEventSlots[reg3];
+        return EV_RET_DEFAULT;
+
+    case EVSUBCMD_SORR:
+        gEventSlots[reg1] = gEventSlots[reg2] | gEventSlots[reg3];
+        return EV_RET_DEFAULT;
+
+    case EVSUBCMD_SXOR:
+        gEventSlots[reg1] = gEventSlots[reg2] ^ gEventSlots[reg3];
+        return EV_RET_DEFAULT;
+
+    case EVSUBCMD_SLSL:
+        gEventSlots[reg1] = gEventSlots[reg2] << gEventSlots[reg3];
+        return EV_RET_DEFAULT;
+
+    case EVSUBCMD_SLSR:
+        gEventSlots[reg1] = gEventSlots[reg2] >> gEventSlots[reg3];
+        return EV_RET_DEFAULT;
     
     default:
-        return EVC_ERROR;
-
+        return EV_RET_ERR;
     }
 }
 
-u8 Event07_SlotQueueOperations(struct EventEngineProc* proc) {
-    u8 sc;
-    s16 index;
+u8 Event07_SlotQueueOperations(struct EventEngineProc * proc)
+{
+    const u16 *scr = proc->pEventCurrent;
+    u8 sub_cmd = EVT_SUB_CMD(scr);
+    s16 slot;
 
-    sc = (*(const u8*)(proc->pEventCurrent)) & 0xF;
-
-    switch (sc) {
-    
-    case 0: // Push Slot Indexed by Argument
-        index = proc->pEventCurrent[1];
-        SlotQueuePush(gEventSlots[index]);
-        break;
-    
-    case 1: // Push Slot 1
-        SlotQueuePush(gEventSlots[1]);
-        break;
-    
-    case 2: // Pop in Slot Indexed by Argument
-        index = proc->pEventCurrent[1];
-        gEventSlots[index] = SlotQueuePop();
+    switch (sub_cmd)
+    {
+    case EVSUBCMD_SENQUEUE:
+        slot = EVT_CMD_ARGV(scr)[0];
+        SlotQueuePush(gEventSlots[slot]);
         break;
 
+    case EVSUBCMD_SDEQUEUE_S1:
+        SlotQueuePush(gEventSlots[0x1]);
+        break;
+
+    case EVSUBCMD_SDEQUEUE:
+        slot = EVT_CMD_ARGV(scr)[0];
+        gEventSlots[slot] = SlotQueuePop();
+        break;
     }
 
-    return EVC_ADVANCE_CONTINUE;
+    return EV_RET_DEFAULT;
 }
 
-u8 Event08_Label(struct EventEngineProc* proc) {
-    return EVC_ADVANCE_CONTINUE;
+u8 Event08_Label(struct EventEngineProc * proc)
+{
+    return EV_RET_DEFAULT;
 }
 
-u8 Event09_Goto(struct EventEngineProc* proc) {
-    u32 target;
+u8 Event09_Goto(struct EventEngineProc * proc)
+{
+    u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u32 ref = (arg << 0x10) | (EV_CMD_LABEL << 0x08) | 0x20;
+    u32 scr;
+    const u16 * cur;
 
-    // 0x0820 is Label code (0x08) with size 2 and sc 0
-    target = (0x0820) | (proc->pEventCurrent[1] << 16);
+    cur = proc->pEventIdk;
+    proc->pEventCurrent = cur;
+    scr = *(const u32 *)cur;
 
-    // Start label search at current script start
-    proc->pEventCurrent = proc->pEventIdk;
+    if (scr == ref)
+        return EV_RET_DEFAULT;
 
-    // Compares with 32bit value for some reason
-    while (*(const u32*)(proc->pEventCurrent) != target)
-        proc->pEventCurrent += (proc->pEventCurrent[0] >> 4 & 0xF);
+    while (scr != ref)
+    {
+        cur += EVT_CMD_LEN(cur);
+        scr = *(const u32 *)cur;
+    }
 
-    return EVC_ADVANCE_CONTINUE;
+    if (scr == ref)
+        proc->pEventCurrent = cur;
+
+    return EV_RET_DEFAULT;
 }
 
-u8 Event0A_Call(struct EventEngineProc* proc) {
-    intptr_t target;
+u8 Event0A_Call(struct EventEngineProc * proc)
+{
     s8 i;
+    int dst = EVT_CMD_ARG32_BE(proc->pEventCurrent);
 
-    target = proc->pEventCurrent[2] | (proc->pEventCurrent[3] << 16);
+    if (dst < 0)
+        dst = gEventSlots[2];
 
-    if (target < 0)
-        target = gEventSlots[2];
-
-    // TODO: replace 7 by ARRAY_SIZE(gUnknown_03000570)-1 ?
-    for (i = 7; i > 0; --i) {
-        gUnknown_03000570[i].pEventStart   = gUnknown_03000570[i-1].pEventStart;
-        gUnknown_03000570[i].pEventCurrent = gUnknown_03000570[i-1].pEventCurrent;
+    for (i = 7; i > 0; i--)
+    {
+        gUnknown_03000570[i].evt1 = gUnknown_03000570[i - 1].evt1;
+        gUnknown_03000570[i].evt2 = gUnknown_03000570[i - 1].evt2;
     }
 
-    gUnknown_03000570[0].pEventStart   = proc->pEventIdk;
-    gUnknown_03000570[0].pEventCurrent = proc->pEventCurrent;
+    gUnknown_03000570[0].evt1 = proc->pEventIdk;
+    gUnknown_03000570[0].evt2 = proc->pEventCurrent;
 
-    proc->pEventIdk     = (const u16*)(target);
-    proc->pEventCurrent = (const u16*)(target);
-
-    return EVC_UNK4;
+    proc->pEventIdk = (const u16 *)dst;
+    proc->pEventCurrent = (const u16 *)dst;
+    return EV_RET_4;
 }
 
-u8 Event0B_(struct EventEngineProc* proc) {
-    u8 sc;
-    unsigned execType;
-    intptr_t target;
+u8 Event0B_(struct EventEngineProc * proc)
+{
+    int sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
+    u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    int ptr = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    sc       = (*(const u8*)(proc->pEventCurrent)) & 0xF;
+    if (ptr < 0)
+        ptr = gEventSlots[0x02];
 
-    execType = proc->pEventCurrent[1];
-    target   = (*(const u32*)(proc->pEventCurrent + 2));
-
-    if (target < 0)
-        target = gEventSlots[2];
-
-    if (target) {
-        switch (sc) {
-
+    if (ptr != 0)
+    {
+        switch (sub_cmd)
+        {
         case 0:
-            CallEvent((const u16*)(target), proc->execType);
+            CallEvent((const u16 *)ptr, proc->execType);
             break;
 
         case 1:
-            sub_8083DD8((const u16*)(target), execType);
+            sub_8083DD8(ptr, arg);
             break;
-
         }
     }
 
-    return EVC_ADVANCE_CONTINUE;
+    return EV_RET_DEFAULT;
 }
 
-u8 Event0C_Branch(struct EventEngineProc* proc) {
-    u8 sc;
-    int cmp1, cmp2;
+u8 Event0C_Branch(struct EventEngineProc * proc)
+{
+    u8 sub_cmd;
+    int val1, val2;
 
-    sc = (*(const u8*)(proc->pEventCurrent)) & 0xF;
+    sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
 
-    cmp1 = *(proc->pEventCurrent + 2);
-    cmp2 = *(proc->pEventCurrent + 3);
+    val1 = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    val2 = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-    cmp1 = gEventSlots[cmp1];
-    cmp2 = gEventSlots[cmp2];
+    val1 = gEventSlots[val1];
+    val2 = gEventSlots[val2];
 
-    switch (sc) {
+    switch (sub_cmd)
+    {
+    case 0:
+        if (val1 == val2)
+            return Event09_Goto(proc);
+
+        return EV_RET_DEFAULT;
     
-    case 0: // beq
-        if (cmp1 == cmp2)
+    case 1:
+        if (val1 != val2)
             return Event09_Goto(proc);
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 1: // bne
-        if (cmp1 != cmp2)
-            return Event09_Goto(proc);
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 2: // bge
-        if (cmp1 >= cmp2)
-            return Event09_Goto(proc);
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 3: // bgt
-        if (cmp1 > cmp2)
-            return Event09_Goto(proc);
-        return EVC_ADVANCE_CONTINUE;
-    
-    case 4: // ble
-        if (cmp1 <= cmp2)
-            return Event09_Goto(proc);
-        return EVC_ADVANCE_CONTINUE;
 
-    case 5: // blt
-        if (cmp1 < cmp2)
+        return EV_RET_DEFAULT;
+    
+    case 2:
+        if (val1 >= val2)
             return Event09_Goto(proc);
-        return EVC_ADVANCE_CONTINUE;
 
+        return EV_RET_DEFAULT;
+    
+    case 3:
+        if (val1 > val2)
+            return Event09_Goto(proc);
+
+        return EV_RET_DEFAULT;
+    
+    case 4:
+        if (val1 <= val2)
+            return Event09_Goto(proc);
+
+        return EV_RET_DEFAULT;
+    
+    case 5:
+        if (val1 < val2)
+            return Event09_Goto(proc);
+
+        return EV_RET_DEFAULT;
+    
+    default:
+        return EV_RET_ERR;
     }
-
-    return EVC_ERROR;
 }
 
-u8 Event0D_AsmCall(struct EventEngineProc* proc) {
-    typedef void(*ASMCFuncType)(struct EventEngineProc*);
+u8 Event0D_AsmCall(struct EventEngineProc * proc)
+{
+    u32 _cmd_mask;
+    u8 _cmd;
+    void (* func)(struct EventEngineProc *);
 
-    u8 subcode = *(const u8*)(proc->pEventCurrent) & 0xF;
-    
-    ASMCFuncType func = (ASMCFuncType)(
-        (proc->pEventCurrent[2]) |
-        (proc->pEventCurrent[3] << 0x10)
-    );
+    _cmd = *proc->pEventCurrent;
+    _cmd_mask = 0xF;
 
-    if (((subcode & 0xF) == 1) && ((proc->evStateBits >> 2) & 1))
-        return EVC_ADVANCE_CONTINUE;
+    func = (void *)EVT_CMD_ARG32_BE(proc->pEventCurrent);
 
-    (*func)(proc);
+    if ((_cmd_mask &= _cmd) == 0x1 && ((proc->evStateBits >> 2) & 0x1))
+        return EV_RET_DEFAULT;
 
-    return EVC_ADVANCE_YIELD;
+    func(proc);
+    return EV_RET_2;
 }
 
 u8 Event0E_STAL(struct EventEngineProc* proc) {
@@ -552,7 +534,7 @@ u8 Event0E_STAL(struct EventEngineProc* proc) {
         int timeStep = 1;
 
         if ((!(proc->evStateBits & EV_STATE_0040)) && (subcode & 2))
-            if ((gUnknown_0202BCF0.unk40_8) || ((A_BUTTON & gKeyStatusPtr->heldKeys)))
+            if ((gPlaySt.cfgGameSpeed) || ((A_BUTTON & gKeyStatusPtr->heldKeys)))
                 timeStep = 4;
         
         stallTimer = stallTimer - timeStep;
@@ -700,7 +682,7 @@ u8 Event12_(struct EventEngineProc* proc) {
     if (evArgument < 0)
         evArgument = gEventSlots[2];
 
-    Sound_PlaySong80024E4(evArgument, 3, NULL);
+    StartBgmExt(evArgument, 3, NULL);
     return EVC_ADVANCE_YIELD;
 }
 
@@ -718,13 +700,13 @@ u8 Event13_(struct EventEngineProc* proc) {
         if ((proc->evStateBits >> 2) & 1)
             return EVC_ADVANCE_CONTINUE;
 
-        Sound_PlaySong8002574(evArgument, subcode, 0);
+        StartBgmFadeIn(evArgument, subcode, 0);
         return EVC_ADVANCE_YIELD;
     } else {
         if ((proc->evStateBits >> 2) & 1)
             subcode = 1;
         
-        Sound_FadeOut800231C(subcode);
+        Sound_FadeOutBGM(subcode);
         return EVC_ADVANCE_YIELD;
     }
 }
@@ -742,13 +724,13 @@ u8 Event14_(struct EventEngineProc* proc) {
         if (evArgument < 0)
             evArgument = gEventSlots[2];
 
-        sub_8002620(evArgument);
+        OverrideBgm(evArgument);
 
         break;
 
     case 1:
         DeleteAll6CWaitMusicRelated();
-        sub_80026BC(evArgument);
+        _RestoreBgm(evArgument);
 
         break;
 
@@ -766,17 +748,17 @@ u8 Event15_(struct EventEngineProc* proc) {
         if ((proc->evStateBits >> 2) & 1)
             return EVC_ADVANCE_CONTINUE;
 
-        ISuspectThisToBeMusicRelated_8002730(0x100, 0x90, 10, (struct Proc*)(proc));
+        StartBgmVolumeChange(0x100, 0x90, 10, (struct Proc*)(proc));
 
         break;
 
     case 1:
         if ((proc->evStateBits >> 2) & 1) {
-            Sound_SetVolume80022EC(0x100);
+            Sound_SetSEVolume(0x100);
             return EVC_ADVANCE_CONTINUE;
         }
 
-        ISuspectThisToBeMusicRelated_8002730(0x90, 0x100, 10, (struct Proc*)(proc));
+        StartBgmVolumeChange(0x90, 0x100, 10, (struct Proc*)(proc));
 
         break;
 
@@ -796,7 +778,7 @@ u8 Event16_(struct EventEngineProc* proc) {
     if (evArgument < 0)
         evArgument = gEventSlots[2];
 
-    if (!gUnknown_0202BCF0.unk41_2)
+    if (!gPlaySt.cfgDisableSoundEffects)
         m4aSongNumStart(evArgument);
 
     return EVC_ADVANCE_CONTINUE;
@@ -816,7 +798,7 @@ u8 Event17_(struct EventEngineProc* proc) {
     switch (subcode) {
 
     case 0: // FADU
-        sub_8013D20(evArgument, (struct Proc*)(proc)); // StartFadeOutBlack
+        StartLockingFadeFromBlack(evArgument, (struct Proc*)(proc));
 
         proc->evStateBits &= ~EV_STATE_FADEDIN;
 
@@ -829,14 +811,14 @@ u8 Event17_(struct EventEngineProc* proc) {
         return EVC_ADVANCE_YIELD;
 
     case 1: // FADI
-        sub_8013D08(evArgument, (struct Proc*)(proc)); // StartFadeInBlack
+        StartLockingFadeToBlack(evArgument, (struct Proc*)(proc));
 
         proc->evStateBits |= EV_STATE_FADEDIN;
 
         return EVC_ADVANCE_YIELD;
 
     case 2: // FAWU
-        sub_8013D50(evArgument, (struct Proc*)(proc)); // StartFadeOutWhite
+        StartLockingFadeFromWhite(evArgument, (struct Proc*)(proc));
 
         proc->evStateBits &= ~EV_STATE_FADEDIN;
 
@@ -849,7 +831,7 @@ u8 Event17_(struct EventEngineProc* proc) {
         return EVC_ADVANCE_YIELD;
 
     case 3: // FAWI
-        sub_8013D38(evArgument, (struct Proc*)(proc)); // StartFadeInWhite
+        StartLockingFadeToWhite(evArgument, (struct Proc*)(proc));
 
         proc->evStateBits |= EV_STATE_FADEDIN;
 
@@ -924,7 +906,7 @@ u8 Event19_(struct EventEngineProc* proc) {
     switch (subcode) {
 
     case 0: // Check Mode
-        gEventSlots[0xC] = gUnknown_0202BCF0.chapterModeIndex;
+        gEventSlots[0xC] = gPlaySt.chapterModeIndex;
         break;
 
     case 1: // Check (Next?) Chapter Index
@@ -932,7 +914,7 @@ u8 Event19_(struct EventEngineProc* proc) {
         break;
 
     case 2: // Check Difficult Mode
-        if (!(gUnknown_0202BCF0.chapterStateBits & 0x40))
+        if (!(gPlaySt.chapterStateBits & 0x40))
             gEventSlots[0xC] = FALSE;
         else 
             gEventSlots[0xC] = TRUE;
@@ -940,7 +922,7 @@ u8 Event19_(struct EventEngineProc* proc) {
         break;
 
     case 3: // Check Turn Number
-        gEventSlots[0xC] = gUnknown_0202BCF0.chapterTurnNumber;
+        gEventSlots[0xC] = gPlaySt.chapterTurnNumber;
         break;
 
     case 4: // Check ?
@@ -956,7 +938,7 @@ u8 Event19_(struct EventEngineProc* proc) {
         break;
 
     case 7: // Check Some option or difficult mode
-        if (gUnknown_0202BCF0.unk42_6 || (gUnknown_0202BCF0.chapterStateBits & 0x40))
+        if (gPlaySt.cfgController || (gPlaySt.chapterStateBits & 0x40))
             gEventSlots[0xC] = FALSE;
         else
             gEventSlots[0xC] = TRUE;
@@ -968,11 +950,11 @@ u8 Event19_(struct EventEngineProc* proc) {
         break;
 
     case 9: // Check ?
-        gEventSlots[0xC] = sub_80845E4(proc->pEventStart);
+        gEventSlots[0xC] = GetEventTriggerId(proc->pEventStart);
         break;
 
     case 10: // Check ?
-        if (gUnknown_0202BCF0.chapterStateBits & 0x20)
+        if (gPlaySt.chapterStateBits & 0x20)
             gEventSlots[0xC] = TRUE;
         else 
             gEventSlots[0xC] = FALSE;
@@ -991,7 +973,7 @@ u8 Event1A_TEXTSTART(struct EventEngineProc* proc) {
     u8 subcode = 0xF & *(const u8*)(proc->pEventCurrent);
 
     if (subcode != proc->activeTextType && subcode != 5) {
-        sub_8006A7C();
+        EndTalk();
         sub_808F270();
         sub_808BB74();
 
@@ -1023,22 +1005,22 @@ u8 Event1A_TEXTSTART(struct EventEngineProc* proc) {
 
 void sub_800E210(struct EventEngineProc* proc, u16 stringIndex, s8 b) {
     if (b == TRUE)
-        sub_800680C(0x80, 2, 1);
+        InitTalk(0x80, 2, 1);
 
     if ((proc->evStateBits & EV_STATE_0040) == 1) { // ?????
-        proc->overwrittenTextSpeed = gUnknown_0202BCF0.cfgTextSpeed;
-        gUnknown_0202BCF0.cfgTextSpeed = 1;
+        proc->overwrittenTextSpeed = gPlaySt.cfgTextSpeed;
+        gPlaySt.cfgTextSpeed = 1;
     } else {
         proc->overwrittenTextSpeed = 0xFF;
     }
 
-    sub_8006A30(1, 1, stringIndex);
+    StartTalkMsg(1, 1, stringIndex);
 
     if (proc->evStateBits & EV_STATE_0020)
-        sub_8006AA8(4);
+        SetTalkFlag(4);
 
     if (proc->evStateBits & EV_STATE_0040)
-        sub_8006AA8(8);
+        SetTalkFlag(8);
 }
 
 void sub_800E290(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) {
@@ -1055,7 +1037,7 @@ void sub_800E290(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) 
     gLCDControlBuffer.dispcnt.objWin_on = FALSE;
 
     LoadObjUIGfx();
-    sub_800680C(0x80, 0, 1);
+    InitTalk(0x80, 0, 1);
     BG_EnableSyncByMask(1); // bg0
 
     sub_808F128(
@@ -1086,7 +1068,7 @@ void sub_800E31C(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) 
         int boxWidth, boxHeight;
         GetStringFromIndex(stringIndex);
 
-        sub_808AADC(sub_800A2A4(), &boxWidth, &boxHeight);
+        sub_808AADC(StringInsertSpecialPrefixByCtrl(), &boxWidth, &boxHeight);
 
         if (x == (u8)(-1))
             x = (224 - boxWidth) / 2 - 8;
@@ -1101,7 +1083,7 @@ void sub_800E31C(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) 
         flags |= 0x0008;
 
     sub_808AA04(x, y, stringIndex, NULL);
-    sub_808A518(flags);
+    SetDialogueBoxConfig(flags);
 }
 
 #ifdef NONMATCHING
@@ -1199,7 +1181,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
     case 2: // REMA
         proc->evStateBits &= ~EV_STATE_0008;
 
-        sub_8006A7C();
+        EndTalk();
         sub_808F270();
         sub_808BB74();
 
@@ -1362,7 +1344,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
         "ldr r1, _0800E510\n" // 0x0000FFF7
         "ands r1, r0\n"
         "strh r1, [r4, #0x3c]\n"
-        "bl sub_8006A7C\n"
+        "bl EndTalk\n"
         "bl sub_808F270\n"
         "bl sub_808BB74\n"
         "adds r0, r4, #0\n"
@@ -1396,7 +1378,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
 
 u8 Event1C_TEXTCONT(struct EventEngineProc* proc) {
     if (((proc->evStateBits >> 2) & 1)) {
-        sub_8006A7C();
+        EndTalk();
         sub_808F270();
         sub_808BB74();
 
@@ -1405,7 +1387,7 @@ u8 Event1C_TEXTCONT(struct EventEngineProc* proc) {
 
         sub_800E640(proc);
     } else {
-        sub_8006EF0();
+        ResumeTalk();
     }
     
     return EVC_ADVANCE_YIELD;
@@ -1413,7 +1395,7 @@ u8 Event1C_TEXTCONT(struct EventEngineProc* proc) {
 
 u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
     if (((proc->evStateBits >> 2) & 1)) {
-        sub_8006A7C();
+        EndTalk();
         sub_808F270();
         sub_808BB74();
 
@@ -1426,7 +1408,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
     } else {
         unsigned flag = FALSE;
 
-        if ((sub_80089D0() && !sub_8006ED8()) || sub_808F284() || Proc_Find(gUnknown_08A016E0))
+        if ((IsTalkActive() && !IsTalkLocked()) || SomeTalkProcExists() || Proc_Find(gProcScr_BoxDialogue))
             flag = TRUE;
 
         if (flag == TRUE) {
@@ -1456,31 +1438,31 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 
             } // switch (proc->execType)
         } else {
-            gEventSlots[0xC] = sub_8008A00();
+            gEventSlots[0xC] = GetTalkChoiceResult();
         }
     }
 
     if (proc->overwrittenTextSpeed != -1)
-        gUnknown_0202BCF0.cfgTextSpeed = proc->overwrittenTextSpeed;
+        gPlaySt.cfgTextSpeed = proc->overwrittenTextSpeed;
 
     return EVC_ADVANCE_YIELD;
 }
 
 void sub_800E640(struct EventEngineProc* proc) {
     if (proc->evStateBits & EV_STATE_FADEDIN) {
-        sub_80081A8();
-        Proc_EndEach(gUnknown_08591154); // end all faces
+        ClearTalkBubble();
+        Proc_EndEach(gProcScr_E_FACE); // end all faces
         ResetFaces();
-        sub_80067E8();
-    } else if (Face6CExists()) {
-        sub_80081A8();
-        Proc_ForEach(gUnknown_08591154, (ProcFunc) sub_8005F38);
+        ClearTalkFaceRefs();
+    } else if (FaceExists()) {
+        ClearTalkBubble();
+        Proc_ForEach(gProcScr_E_FACE, (ProcFunc) StartFaceFadeOut);
         Proc_StartBlocking(gUnknown_08591DE8, proc);
     }
 }
 
 void _WhileFace6CExists(struct Proc* proc) {
-    if (!Face6CExists())
+    if (!FaceExists())
         Proc_Break(proc);
 }
 
@@ -1504,17 +1486,17 @@ u8 Event1E_(struct EventEngineProc* proc) {
             gUnknown_03000428.unk04 = 1;
             gUnknown_03000428.unk05 = 0;
 
-            sub_800680C(0x80, 2, 1);
+            InitTalk(0x80, 2, 1);
         } else {
             gUnknown_03000428.sub.unk00 = subcode + 8;
             gUnknown_03000428.sub.unk01 = 0x11;
             gUnknown_03000428.sub.unk02 = 1;
             gUnknown_03000428.sub.unk03 = 0;
 
-            sub_80081A8();
+            ClearTalkBubble();
         }
     } else {
-        sub_8006A7C();
+        EndTalk();
         sub_808F270();
         sub_808BB74();
 
@@ -1526,7 +1508,7 @@ u8 Event1E_(struct EventEngineProc* proc) {
         return EVC_ADVANCE_YIELD;
     }
 
-    sub_8006A70(0, 0, &gUnknown_03000428.sub);
+    StartTalk(0, 0, (const char *)&gUnknown_03000428.sub);
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -1551,12 +1533,12 @@ u8 Event1F_(struct EventEngineProc* proc) {
     gUnknown_03000430.unk02 = evY + 10;
     gUnknown_03000430.unk03 = 0;
 
-    sub_8006A70(0, 0, &gUnknown_03000430);
+    StartTalk(0, 0, (const char *)&gUnknown_03000430);
     return EVC_ADVANCE_CONTINUE;
 }
 
 u8 Event20_(struct EventEngineProc* proc) {
-    sub_80081A8();
+    ClearTalkBubble();
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -1587,8 +1569,8 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex) {
 
         // Loading Background Tile Graphics
 
-        CopyDataWithPossibleUncomp(
-            gUnknown_0895DD1C[bgIndex].pTileGraphics,
+        Decompress(
+            gConvoBackgroundData[bgIndex].pTileGraphics,
             (void*)(VRAM + GetBackgroundTileDataOffset(3))
         );
 
@@ -1596,14 +1578,14 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex) {
 
         CallARM_FillTileRect(
             (u16*)(gBG3TilemapBuffer),
-            gUnknown_0895DD1C[bgIndex].pTileArrangement,
+            gConvoBackgroundData[bgIndex].pTileArrangement,
             0x8000 // base palette is bg palette 8
         );
 
         // Loading Background Palettes
 
         CopyToPaletteBuffer(
-            gUnknown_0895DD1C[bgIndex].pColorPalettes,
+            gConvoBackgroundData[bgIndex].pColorPalettes,
             0x100, // bg pal 8
             0x100  // 8 palettes
         );
@@ -1770,8 +1752,8 @@ void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
         SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
 
         // First: BG3; Second: BG2
-        sub_8001ED0(FALSE, FALSE, FALSE, TRUE, FALSE); // SetColorEffectFirstTarget
-        sub_8001F0C(FALSE, FALSE, TRUE, FALSE, FALSE); // SetColorEffectSecondTarget
+        SetBlendTargetA(FALSE, FALSE, FALSE, TRUE, FALSE);
+        SetBlendTargetB(FALSE, FALSE, TRUE, FALSE, FALSE);
 
         // BG0 > BG1 > BG3 > BG2
         gLCDControlBuffer.bg0cnt.priority = 0;
@@ -1785,8 +1767,8 @@ void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
         SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
 
         // First: BG2; Second: BG3|OBJ
-        sub_8001ED0(FALSE, FALSE, TRUE, FALSE, FALSE); // SetColorEffectFirstTarget
-        sub_8001F0C(FALSE, FALSE, FALSE, TRUE, TRUE);  // SetColorEffectSecondTarget
+        SetBlendTargetA(FALSE, FALSE, TRUE, FALSE, FALSE);
+        SetBlendTargetB(FALSE, FALSE, FALSE, TRUE, TRUE);
 
         // BG2 > BG0 > BG1 > BG3
         gLCDControlBuffer.bg0cnt.priority = 1;
@@ -1800,8 +1782,8 @@ void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
         SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
 
         // First: BG2; Second: BG3|OBJ
-        sub_8001ED0(FALSE, FALSE, TRUE, FALSE, FALSE); // SetColorEffectFirstTarget
-        sub_8001F0C(FALSE, FALSE, FALSE, TRUE, TRUE);  // SetColorEffectSecondTarget
+        SetBlendTargetA(FALSE, FALSE, TRUE, FALSE, FALSE);
+        SetBlendTargetB(FALSE, FALSE, FALSE, TRUE, TRUE);
 
         // BG2 > BG0 > BG1 > BG3
         gLCDControlBuffer.bg0cnt.priority = 1;
@@ -1813,8 +1795,8 @@ void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
 
     }
 
-    sub_8001F48(TRUE);
-    sub_8001F64(FALSE);
+    SetBlendBackdropA(TRUE);
+    SetBlendBackdropB(FALSE);
 
     sub_800BA04(0, 6);
 }
@@ -1860,8 +1842,8 @@ void sub_800EC50(struct ConvoBackgroundFadeProc* proc) {
 
         // Loading Background Tile Graphics
 
-        CopyDataWithPossibleUncomp(
-            gUnknown_0895DD1C[proc->bgIndex].pTileGraphics,
+        Decompress(
+            gConvoBackgroundData[proc->bgIndex].pTileGraphics,
             (void*)(VRAM + GetBackgroundTileDataOffset(2))
         );
 
@@ -1869,14 +1851,14 @@ void sub_800EC50(struct ConvoBackgroundFadeProc* proc) {
 
         CallARM_FillTileRect(
             (u16*)(gBG2TilemapBuffer),
-            gUnknown_0895DD1C[proc->bgIndex].pTileArrangement,
+            gConvoBackgroundData[proc->bgIndex].pTileArrangement,
             0 // base palette is bg palette 0
         );
 
         // Loading Background Palettes
 
         CopyToPaletteBuffer(
-            gUnknown_0895DD1C[proc->bgIndex].pColorPalettes,
+            gConvoBackgroundData[proc->bgIndex].pColorPalettes,
             0x000, // bg pal 0
             0x0C0  // 7 palettes
         );
@@ -1926,8 +1908,8 @@ void sub_800ED50(struct ConvoBackgroundFadeProc* proc) {
 
         // Loading Background Tile Graphics
 
-        CopyDataWithPossibleUncomp(
-            gUnknown_0895DD1C[proc->bgIndex].pTileGraphics,
+        Decompress(
+            gConvoBackgroundData[proc->bgIndex].pTileGraphics,
             (void*)(VRAM + GetBackgroundTileDataOffset(3))
         );
 
@@ -1935,14 +1917,14 @@ void sub_800ED50(struct ConvoBackgroundFadeProc* proc) {
 
         CallARM_FillTileRect(
             (u16*)(gBG3TilemapBuffer),
-            gUnknown_0895DD1C[proc->bgIndex].pTileArrangement,
+            gConvoBackgroundData[proc->bgIndex].pTileArrangement,
             0x8000 // base palette is bg palette 8
         );
 
         // Loading Background Palettes
 
         CopyToPaletteBuffer(
-            gUnknown_0895DD1C[proc->bgIndex].pColorPalettes,
+            gConvoBackgroundData[proc->bgIndex].pColorPalettes,
             0x100, // bg pal 8
             0x0C0  // 7 palettes
         );
@@ -1984,13 +1966,13 @@ void sub_800EE54(struct ConvoBackgroundFadeProc* proc) {
     case 3:
     case 4:
     case 5:
-        UnpackChapterMapGraphics(gUnknown_0202BCF0.chapterIndex);
-        AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
+        UnpackChapterMapGraphics(gPlaySt.chapterIndex);
+        AllocWeatherParticles(gPlaySt.chapterWeatherId);
         RenderBmMap();
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
 
         sub_800BCDC(proc->pEventEngine->mapSpritePalIdOverride);
-        SMS_FlushIndirect();
+        ForceSyncUnitSpriteSheet();
 
         Event24_(proc->pEventEngine);
         break;
@@ -2058,7 +2040,7 @@ void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
         gLCDControlBuffer.dispcnt.bg3_on = TRUE;
         gLCDControlBuffer.dispcnt.obj_on = TRUE;
 
-        Font_LoadForUI();
+        InitSystemTextFont();
         sub_80156D4();
 
         break;
@@ -2075,11 +2057,11 @@ void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
 
     SetSpecialColorEffectsParameters(0, 0x10, 0, 0);
 
-    sub_8001ED0(FALSE, FALSE, FALSE, FALSE, FALSE); // SetColorEffectFirstTarget
-    sub_8001F0C(FALSE, FALSE, FALSE, FALSE, FALSE); // SetColorEffectSecondTarget
+    SetBlendTargetA(FALSE, FALSE, FALSE, FALSE, FALSE);
+    SetBlendTargetB(FALSE, FALSE, FALSE, FALSE, FALSE);
 
-    sub_8001F48(TRUE);
-    sub_8001F64(TRUE);
+    SetBlendBackdropA(TRUE);
+    SetBlendBackdropB(TRUE);
 
     sub_800BA34();
 
@@ -2101,12 +2083,12 @@ u8 Event22_(struct EventEngineProc* proc) {
     BG_EnableSyncByMask(1 << 0);
     BG_EnableSyncByMask(1 << 1);
 
-    sub_80081A8();
+    ClearTalkBubble();
 
-    Proc_EndEach(gUnknown_08591154); // end all faces
+    Proc_EndEach(gProcScr_E_FACE); // end all faces
     ResetFaces();
 
-    sub_80067E8();
+    ClearTalkFaceRefs();
 
     return Event24_(proc);
 }
@@ -2151,16 +2133,16 @@ u8 Event25_(struct EventEngineProc* proc) {
     // ensure gfx are unlocked
     Event24_(proc);
 
-    gUnknown_0202BCF0.chapterIndex = chIndex;
+    gPlaySt.chapterIndex = chIndex;
 
     RestartBattleMap();
 
-    gUnknown_0202BCB0.camera.x = sub_8015A40(x * 16);
-    gUnknown_0202BCB0.camera.y = sub_8015A6C(y * 16);
+    gBmSt.camera.x = GetCameraCenteredX(x * 16);
+    gBmSt.camera.y = GetCameraCenteredY(y * 16);
 
     RefreshEntityBmMaps();
     RenderBmMap();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
     RefreshBMapGraphics();
 
     sub_800BCDC(proc->mapSpritePalIdOverride);
@@ -2399,7 +2381,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
     case 1:
         SetNextChapterId(chIndex);
 
-        gUnknown_0202BCF0.unk4A_2 = 1;
+        gPlaySt.unk4A_2 = 1;
 
         SetNextGameActionId(1);
         proc->evStateBits |= EV_STATE_CHANGEGM;
@@ -2409,7 +2391,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
     case 2:
         SetNextChapterId(chIndex);
 
-        gUnknown_0202BCF0.unk4A_2 = 2;
+        gPlaySt.unk4A_2 = 2;
 
         SetNextGameActionId(2);
         proc->evStateBits |= EV_STATE_CHANGEGM;
@@ -2421,7 +2403,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
         break;
 
     case 4:
-        gUnknown_0202BCF0.unk4A_2 = 3;
+        gPlaySt.unk4A_2 = 3;
 
         SetNextGameActionId(3);
         proc->evStateBits |= EV_STATE_CHANGEGM;
@@ -2433,7 +2415,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
     proc->evStateBits |= EV_STATE_CHANGECH;
 
     DeleteAll6CWaitMusicRelated();
-    Sound_FadeOut800231C(4);
+    Sound_FadeOutBGM(4);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -2583,25 +2565,25 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
     unit->yPos = def->yPosition;
 
     if (def->allegiance == 2 && unit->pCharacterData->number >= 0x3C) {
-        if (!gUnknown_0202BCF0.unk42_6) {
-            if (!(gUnknown_0202BCF0.chapterStateBits & 0x40))
+        if (!gPlaySt.cfgController) {
+            if (!(gPlaySt.chapterStateBits & 0x40))
                 UnitApplyBonusLevels(
                     unit,
-                    -GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->easyModeLevelMalus
+                    -GetROMChapterStruct(gPlaySt.chapterIndex)->easyModeLevelMalus
                 );
             else
                 goto hard_mode;
         } else {
-            if (gUnknown_0202BCF0.chapterStateBits & 0x40)
+            if (gPlaySt.chapterStateBits & 0x40)
             hard_mode:
                 UnitApplyBonusLevels(
                     unit,
-                    GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->difficultModeLevelBonus
+                    GetROMChapterStruct(gPlaySt.chapterIndex)->difficultModeLevelBonus
                 );
             else
                 UnitApplyBonusLevels(
                     unit,
-                    -GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->normalModeLevelMalus
+                    -GetROMChapterStruct(gPlaySt.chapterIndex)->normalModeLevelMalus
                 );
         }
     }
@@ -3081,7 +3063,7 @@ u8 Event2C_LoadUnits(struct EventEngineProc* proc) {
         break;
 
     case 3:
-        ud = sub_80833B0();
+        ud = GetChapterEnemyUnitDefinitions();
 
         break;
 
@@ -3092,7 +3074,7 @@ u8 Event2C_LoadUnits(struct EventEngineProc* proc) {
 
     ud = sub_800F914(ud, count, proc->idk4E, subcode == 2, proc->unk4F_7);
 
-    BmMapFill(gBmMapUnk, 0);
+    BmMapFill(gBmMapOther, 0);
 
     if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN)) {
         sub_800F698(ud, count, argument);
@@ -3114,7 +3096,7 @@ u8 Event2C_LoadUnits(struct EventEngineProc* proc) {
 
 u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, int x, int y) {
     if (proc->evStateBits & EV_STATE_UNITCAM) {
-        if (Proc_Find(gUnknown_0859A548))
+        if (Proc_Find(gProcScr_CamMove))
             return FALSE; // Camera proc already exists
 
         if (EnsureCameraOntoPosition((struct Proc*)(proc), x, y))
@@ -3158,53 +3140,3 @@ u8 Event2D_(struct EventEngineProc* proc) {
 
     return EVC_ADVANCE_CONTINUE;
 }
-
-/*
-struct Unit* GetUnitStruct(int id);
-
-u8 Event2E_CheckAt(struct EventEngineProc* proc) {
-    const struct {
-        u8 params;
-        u8 code;
-        u16 evArgument;
-    }* const ev = (const void*)(proc->pEventCurrent);
-
-    u8 subcode = ev->params & 0xF;
-    struct Unit* unit;
-    int x, y; {
-        // I hate this
-        unsigned read = proc->pEventCurrent[1];
-        x = *(const u8*)(proc->pEventCurrent + 1);
-        y = read >> 8;
-    }
-
-    switch (subcode) {
-
-    case 0: {
-        unsigned unitId = gBmMapUnit[y][x];
-
-        if (unitId == 0) {
-            gEventSlots[0xC] = 0;
-            return EVC_ADVANCE_CONTINUE;
-        }
-
-        unit = GetUnitStruct(unitId);
-        break;
-    }
-
-    case 1: {
-        unit = gActiveUnit;
-        break;
-    }
-
-    } // switch (subcode)
-
-    if (!unit) {
-        gEventSlots[0xC] = 0;
-        return EVC_ADVANCE_CONTINUE;
-    }
-
-    gEventSlots[0xC] = unit->pCharacterData->index;
-    return EVC_ADVANCE_CONTINUE;
-}
-*/

@@ -1,42 +1,26 @@
 #include "global.h"
 
+#include "hardware.h"
 #include "proc.h"
 #include "fontgrp.h"
 #include "uiutils.h"
 #include "mu.h"
+#include "bm.h"
 #include "bmio.h"
 #include "bmunit.h"
 #include "bmmap.h"
 #include "uimenu.h"
-
+#include "scene.h"
+#include "ekrbattle.h"
+#include "bmlib.h"
+#include "ev_triggercheck.h"
 #include "event.h"
 
 // TODO: move those where they belong when possible
 void sub_800E640(struct EventEngineProc*);
 
 static bool8 EventEngine_CanStartSkip(struct EventEngineProc*);
-static void  EventEngine_StartSkip(struct EventEngineProc*);
-static void  sub_800D488(struct EventEngineProc*);
 static void  CallNextQueuedEvent(void); // local
-
-struct EnqueuedEventCall {
-    /* 00 */ const u16* events;
-    /* 04 */ u8 execType;
-    /* 05 */ s8 isUsed;
-};
-
-// TODO: better
-extern struct EnqueuedEventCall gEventCallQueue[];
-
-extern struct ProcCmd gUnknown_030005B0[4];
-
-extern const struct ProcCmd gProc_StdEventEngine[]; // map event engine proc
-extern const struct ProcCmd gProc_BattleEventEngine[]; // battle (?) event engine proc
-
-extern const EventFuncType gEventLoCmdTable[]; // regular event functions
-extern const EventFuncType gEventHiCmdTable[]; // gmap event functions
-
-extern const struct ProcCmd gUnknown_08591DD8[]; // map event engine "witness lock" (alive while map event engine is)
 
 // TODO: actual events
 
@@ -142,8 +126,6 @@ extern const u16 gEvent_GameOver[]; /* Game Over Events?
     0120 0000           | ENDA
 */
 
-extern const struct ProcCmd gUnknown_08591540[]; // extern
-
 void _MarkSomethingInMenu(void) {
     FreezeMenu();
 }
@@ -151,7 +133,7 @@ void _MarkSomethingInMenu(void) {
 void EventEngine_OnUpdate(struct EventEngineProc* proc) {
     if (DoesBMXFADEExist())
         return;
-    
+
     if (EventEngine_CanStartSkip(proc) && (gKeyStatusPtr->newKeys & START_BUTTON)) {
         EventEngine_StartSkip(proc);
         return;
@@ -203,16 +185,16 @@ void EventEngine_OnUpdate(struct EventEngineProc* proc) {
 }
 
 void EventEngine_OnEnd(struct EventEngineProc* proc) {
-    SetFont(NULL);
-    Font_LoadForUI();
+    SetTextFont(NULL);
+    InitSystemTextFont();
     LoadUiFrameGraphics();
 
     switch (proc->execType) {
     case EV_EXEC_UNK4:
         break;
-    
+
     case EV_EXEC_UNK5:
-        LoadGameCoreGfx();
+        ReadGameSaveCoreGfx();
         UnpackChapterMapPalette();
         sub_800BCDC(proc->mapSpritePalIdOverride);
 
@@ -223,7 +205,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
         }
 
     case EV_EXEC_GAMEPLAY:
-        SubSkipThread2();
+        UnlockGame();
         ResumeMenu();
         sub_800BB98();
         ClearCutsceneUnits();
@@ -232,13 +214,13 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     }
 
     if (proc->execType != EV_EXEC_QUIET) {
-        sub_8006A7C(); // EndDialogueInterpreter
+        EndTalk();
         sub_808F270(); // End some thing
         sub_808BB74(); // End some more things
 
         if (proc->execType == EV_EXEC_CUTSCENE)
             sub_800BCDC(proc->mapSpritePalIdOverride);
-        
+
         sub_800E640(proc);
     }
 
@@ -273,10 +255,10 @@ void CallNextQueuedEvent(void) {
 
     if (it->isUsed == 1)
         EventEngine_Create(it->events, it->execType);
-    
+
     for (i = 0; i < 15; ++i, ++it)
         *it = *(it + 1);
-    
+
     it->events   = NULL;
     it->execType = 0;
     it->isUsed   = 0;
@@ -323,8 +305,8 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
 
     case EV_EXEC_CUTSCENE:
     case EV_EXEC_GAMEPLAY:
-        proc->chapterIndex = gUnknown_0202BCF0.chapterIndex;
-        AddSkipThread2();
+        proc->chapterIndex = gPlaySt.chapterIndex;
+        LockGame();
         break;
     }
 
@@ -346,7 +328,7 @@ void EventEngine_CreateBattle(const u16* events) {
     proc->overwrittenTextSpeed = -1;
     proc->execType       = EV_EXEC_QUIET;
     proc->activeTextType = 0;
-    
+
     proc->mapSpritePalIdOverride = 0x000;
 
     proc->pUnitLoadData  = NULL;
@@ -356,7 +338,7 @@ void EventEngine_CreateBattle(const u16* events) {
     proc->evStateBits |= EV_STATE_ABORT;
 }
 
-int EventEngineExists(void) {
+s8 EventEngineExists(void) {
     return Proc_Find(gProc_StdEventEngine) ? TRUE : FALSE;
 }
 
@@ -385,7 +367,7 @@ int sub_800D208(void) {
     if (!(proc = Proc_Find(gProc_StdEventEngine)))
         if (!(proc = Proc_Find(gProc_BattleEventEngine)))
             return FALSE;
-    
+
     switch (proc->activeTextType) {
 
     case 0:
@@ -461,8 +443,8 @@ void CallSupportViewerEvent(u16 textIndex) {
 void CallRetreatPromptEvent(void) {
     // Calls Retreat events
     CallEvent(gEvent_SkirmishRetreat, EV_EXEC_CUTSCENE);
-    
-    gEventSlots[0x2] = gUnknown_0202BCF0.chapterIndex;
+
+    gEventSlots[0x2] = gPlaySt.chapterIndex;
 }
 
 void CallSuspendPromptEvent(void) {
@@ -501,7 +483,7 @@ void sub_800D3E4(void) {
     if (!(proc = Proc_Find(gProc_StdEventEngine)))
         if (!(proc = Proc_Find(gProc_BattleEventEngine)))
             return;
-    
+
     proc->evStateBits |= EV_STATE_0008;
 }
 
@@ -515,46 +497,46 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
             if (proc->evStateBits & EV_STATE_FADEDIN)
                 sub_800D488(proc);
             else
-                sub_8013D08(0x40, (struct Proc*)(proc));
-            
+                StartLockingFadeToBlack(0x40, (struct Proc*)(proc));
+
             proc->evStateBits |= EV_STATE_FADEDIN;
         }
     }
 
     if (proc->execType == EV_EXEC_WORLDMAP)
         sub_80BA424();
-    
+
     Proc_BlockEachMarked(5);
 }
 
 void sub_800D488(struct EventEngineProc* unused) {
     sub_80141B0(); // disables layers
-    Proc_EndEach(gUnknown_08591540);
+    Proc_EndEach(gProcScr_TalkOpen);
 }
 
 void SetEventTriggerState(u16 triggerId, bool8 value) {
     if (!value)
-        UnsetEventId(triggerId);
+        ClearFlag(triggerId);
     else
-        SetEventId(triggerId);
+        SetFlag(triggerId);
 }
 
-int GetEventTriggerState(u16 triggerId) {
-    if (!CheckEventId(triggerId))
+s8 GetEventTriggerState(u16 triggerId) {
+    if (!CheckFlag(triggerId))
         return FALSE;
     return TRUE;
 }
 
-struct Proc* sub_800D4D4(struct Proc* parent, ProcFunc init, ProcFunc loop, ProcFunc dest) {
+ProcPtr MergeGenericProc(ProcPtr parent, ProcFunc init, ProcFunc loop, ProcFunc dest) {
     struct ProcCmd code[] = {
         PROC_SET_END_CB(dest),
         PROC_CALL(init),
         PROC_REPEAT(loop),
         PROC_END
     };
-    
-    memcpy(gUnknown_030005B0, code, sizeof code);
-    return Proc_Start(gUnknown_030005B0, parent);
+
+    memcpy(gGenericProc, code, sizeof code);
+    return Proc_Start(gGenericProc, parent);
 }
 
 void sub_800D524(void) {} // nullsub
@@ -567,7 +549,7 @@ void SlotQueuePush(unsigned value) {
 unsigned SlotQueuePop(void) {
     s16 i;
     unsigned result;
-    
+
     result = gEventSlotQueue[0];
 
     gEventSlots[0xD]--;

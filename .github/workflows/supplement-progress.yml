@@ -1,0 +1,37 @@
+name: Supplement progress data for historical commits
+
+on:
+  workflow_dispatch:
+    inputs:
+      range:
+        description: 'Range'
+        required: true
+      beforeBuild:
+        description: 'Before Build'
+        default: 'echo build'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    environment: supplement-progress
+
+    steps:
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential gcc-arm-none-eabi libpng-dev && python -m pip install ttp
+
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install agbcc
+      run: git clone https://github.com/pret/agbcc.git && cd agbcc/ && ./build.sh && ./install.sh .. && cd ..
+
+    - name: Build tools
+      run: ./build_tools.sh
+
+    - name: Mock base ROM
+      run: head -c 16777216 /dev/urandom > baserom.gba
+
+    - name: Supplement progress data
+      run: for commit in `git log --merges --format=%h ${{ inputs.range }}`; do git checkout -f $commit && git checkout ${{ github.ref_name }} scripts && ${{ inputs.beforeBuild }} && make fireemblem8.gba && sh scripts/calcrom.sh > progress.txt && make clean && python scripts/upload-progress.py -b "https://progress.deco.mp" -a ${{secrets.PROGRESS_API_KEY}} -p fireemblem8 -v us -t scripts/progress-template.txt progress.txt; done

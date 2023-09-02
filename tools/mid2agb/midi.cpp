@@ -52,6 +52,7 @@ static std::int32_t s_absoluteTime;
 static int s_blockCount = 0;
 static int s_minNote;
 static int s_maxNote;
+static int s_runningStatus;
 
 void Seek(long offset)
 {
@@ -170,6 +171,7 @@ void StartTrack()
 {
     Seek(s_trackDataStart);
     s_absoluteTime = 0;
+    s_runningStatus = 0;
 }
 
 void SkipEventData()
@@ -181,15 +183,24 @@ void DetermineEventCategory(MidiEventCategory& category, int& typeChan, int& siz
 {
     typeChan = ReadInt8();
 
+    if (typeChan < 0x80)
+    {
+        // If data byte was found, use the running status.
+        ungetc(typeChan, g_inputFile);
+        typeChan = s_runningStatus;
+    }
+
     if (typeChan == 0xFF)
     {
         category = MidiEventCategory::Meta;
         size = 0;
+        s_runningStatus = 0;
     }
     else if (typeChan >= 0xF0)
     {
         category = MidiEventCategory::SysEx;
         size = 0;
+        s_runningStatus = 0;
     }
     else if (typeChan >= 0x80)
     {
@@ -205,6 +216,7 @@ void DetermineEventCategory(MidiEventCategory& category, int& typeChan, int& siz
             size = 2;
             break;
         }
+        s_runningStatus = typeChan;
     }
     else
     {
@@ -421,7 +433,10 @@ bool CheckNoteEnd(Event& event)
 
 void FindNoteEnd(Event& event)
 {
+    // Save the current file position and running status
+    // which get modified by CheckNoteEnd.
     long startPos = ftell(g_inputFile);
+    int savedRunningStatus = s_runningStatus;
 
     event.param2 = 0;
 
@@ -429,6 +444,7 @@ void FindNoteEnd(Event& event)
         ;
 
     Seek(startPos);
+    s_runningStatus = savedRunningStatus;
 }
 
 bool ReadTrackEvent(Event& event)
@@ -507,6 +523,19 @@ bool ReadTrackEvent(Event& event)
     if (category == MidiEventCategory::Meta)
     {
         int metaEventType = ReadInt8();
+
+        if (metaEventType >= 1 && metaEventType <= 7)
+        {
+            if (ReadEventText() == "k")
+            {
+                event.type = EventType::KeyShift;
+                event.param1 = 0;
+                event.param2 = 0;
+                return true;
+            }
+	    return false;
+        }
+
         SkipEventData();
 
         if (metaEventType == 0x2F)
@@ -562,6 +591,15 @@ bool EventCompare(const Event& event1, const Event& event2)
 
     if (event2.type == EventType::Note)
         event2Type += event2.note;
+
+    if (g_MMLCompatible && g_VolBeforeVoice)
+    {
+        if (event2.type == EventType::InstrumentChange && event1.type == EventType::Controller && event1.param1 == 7)
+            return true;
+
+        if (event1.type == EventType::InstrumentChange && event2.type == EventType::Controller && event2.param1 == 7)
+            return false;
+    }
 
     if (event1Type < event2Type)
         return true;
@@ -620,7 +658,8 @@ void ConvertTimes(std::vector<Event>& events)
 
         if (event.type == EventType::Note)
         {
-            event.param1 = g_noteVelocityLUT[event.param1];
+            if (!g_MMLCompatible)
+                event.param1 = g_noteVelocityLUT[event.param1];
 
             std::uint32_t duration = (24 * g_clocksPerBeat * event.param2) / g_midiTimeDiv;
 
@@ -764,7 +803,7 @@ int CalculateCompressionScore(std::vector<Event>& events, int index)
     std::uint8_t lastVelocity = 0x80u;
     EventType lastType = events[index].type;
     std::int32_t lastDuration = 0x80000000;
-    std::uint8_t lastNote = 0x80u;
+    std::uint8_t lastNote = 0x40u;
 
     if (events[index].time > 0)
         score++;
@@ -828,7 +867,7 @@ int CalculateCompressionScore(std::vector<Event>& events, int index)
         lastType = events[i].type;
 
         if (events[i].time)
-            ++score;
+            score++;
     }
 
     return score;
@@ -836,6 +875,12 @@ int CalculateCompressionScore(std::vector<Event>& events, int index)
 
 bool IsCompressionMatch(std::vector<Event>& events, int index1, int index2)
 {
+    if (events[index1].type != events[index2].type ||
+        events[index1].note != events[index2].note ||
+        events[index1].param1 != events[index2].param1 ||
+        events[index1].time != events[index2].time)
+        return false;
+
     index1++;
     index2++;
 

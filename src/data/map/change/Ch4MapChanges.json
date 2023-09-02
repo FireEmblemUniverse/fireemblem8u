@@ -1,0 +1,53 @@
+{
+  "name": "Ch4MapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 7,
+      "y": 0,
+      "w": 3,
+      "h": 3,
+      "tiles": "Ch4MapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 4,
+      "y": 8,
+      "w": 1,
+      "h": 3,
+      "tiles": "Ch4MapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 0,
+      "y": 9,
+      "w": 3,
+      "h": 3,
+      "tiles": "Ch4MapChanges_change_2"
+    },
+    {
+      "id": 3,
+      "x": 8,
+      "y": 2,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch4MapChanges_change_3"
+    },
+    {
+      "id": 4,
+      "x": 4,
+      "y": 8,
+      "w": 1,
+      "h": 3,
+      "tiles": "Ch4MapChanges_change_4"
+    },
+    {
+      "id": 5,
+      "x": 1,
+      "y": 11,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch4MapChanges_change_5"
+    }
+  ]
+}

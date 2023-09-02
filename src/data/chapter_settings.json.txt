@@ -1,0 +1,147 @@
+{{ doNotModifyHeader }}
+
+struct ROMChapterData CONST_DATA gChapterDataTable[] =
+{
+## for chapter in chapters
+    {
+        .internalName = {% if existsIn(chapter, "internalName") %}"{{ chapter.internalName }}"{% else %}NULL{% endif %},
+        .map = {
+            .obj1Id = {% if existsIn(chapter.map, "obj1Id") %}{{ chapter.map.obj1Id }}{% else %}0{% endif %},
+            .obj2Id = {% if existsIn(chapter.map, "obj2Id") %}{{ chapter.map.obj2Id }}{% else %}0{% endif %},
+            .paletteId = {% if existsIn(chapter.map, "paletteId") %}{{ chapter.map.paletteId }}{% else %}0{% endif %},
+            .tileConfigId = {% if existsIn(chapter.map, "tileConfigId") %}{{ chapter.map.tileConfigId }}{% else %}0{% endif %},
+            .mainLayerId = {% if existsIn(chapter.map, "mainLayerId") %}{{ chapter.map.mainLayerId }}{% else %}0{% endif %},
+            .objAnimId = {% if existsIn(chapter.map, "objAnimId") %}{{ chapter.map.objAnimId }}{% else %}0{% endif %},
+            .paletteAnimId = {% if existsIn(chapter.map, "paletteAnimId") %}{{ chapter.map.paletteAnimId }}{% else %}0{% endif %},
+            .changeLayerId = {% if existsIn(chapter.map, "changeLayerId") %}{{ chapter.map.changeLayerId }}{% else %}0{% endif %},
+        },
+        .initialFogLevel = {% if existsIn(chapter, "initialFogLevel") %}{{ chapter.initialFogLevel }}{% else %}0{% endif %},
+        .hasPrepScreen = {% if chapter.hasPrepScreen %}TRUE{% else %}FALSE{% endif %},
+        .chapTitleId = {% if existsIn(chapter, "chapTitleId") %}{{ chapter.chapTitleId }}{% else %}0{% endif %},
+        .chapTitleIdInHectorStory = {% if existsIn(chapter, "chapTitleIdInHectorStory") %}{{ chapter.chapTitleIdInHectorStory }}{% else %}0{% endif %},
+        .initialPosX = {% if existsIn(chapter, "initialPosX") %}{{ chapter.initialPosX }}{% else %}0{% endif %},
+        .initialPosY = {% if existsIn(chapter, "initialPosY") %}{{ chapter.initialPosY }}{% else %}0{% endif %},
+        .initialWeather = WEATHER_{% if existsIn(chapter, "initialWeather") %}{{ upper(chapter.initialWeather) }}{% else %}FINE{% endif %},
+        .battleTileSet = {% if existsIn(chapter, "battleTileSet") %}{{ chapter.battleTileSet }}{% else %}0{% endif %},
+        .easyModeLevelMalus = {% if existsIn(chapter, "easyModeLevelMalus") %}{{ chapter.easyModeLevelMalus }}{% else %}0{% endif %},
+        .difficultModeLevelBonus = {% if existsIn(chapter, "difficultModeLevelBonus") %}{{ chapter.difficultModeLevelBonus }}{% else %}0{% endif %},
+        .normalModeLevelMalus = {% if existsIn(chapter, "normalModeLevelMalus") %}{{ chapter.normalModeLevelMalus }}{% else %}0{% endif %},
+        .mapBgmIds = {
+            [MAP_BGM_BLUE] = {% if existsIn(chapter.bgm, "bluePhase") %}{{ chapter.bgm.bluePhase }}{% else %}0xffff{% endif %},
+            [MAP_BGM_RED] = {% if existsIn(chapter.bgm, "redPhase") %}{{ chapter.bgm.redPhase }}{% else %}0xffff{% endif %},
+            [MAP_BGM_GREEN] = {% if existsIn(chapter.bgm, "greenPhase") %}{{ chapter.bgm.greenPhase }}{% else %}0xffff{% endif %},
+            [MAP_BGM_BLUE_HECTOR] = {% if existsIn(chapter.bgm, "bluePhaseInHectorStory") %}{{ chapter.bgm.bluePhaseInHectorStory }}{% else %}0xffff{% endif %},
+            [MAP_BGM_RED_HECTOR] = {% if existsIn(chapter.bgm, "redPhaseInHectorStory") %}{{ chapter.bgm.redPhaseInHectorStory }}{% else %}0xffff{% endif %},
+            [MAP_BGM_GREEN_HECTOR] = {% if existsIn(chapter.bgm, "greenPhaseInHectorStory") %}{{ chapter.bgm.greenPhaseInHectorStory }}{% else %}0xffff{% endif %},
+            [MAP_BGM_BLUE_GREEN_ALT] = {% if existsIn(chapter.bgm, "blueGreenPhaseAlt") %}{{ chapter.bgm.blueGreenPhaseAlt }}{% else %}0xffff{% endif %},
+            [MAP_BGM_RED_ALT] = {% if existsIn(chapter.bgm, "redPhaseAlt") %}{{ chapter.bgm.redPhaseAlt }}{% else %}0xffff{% endif %},
+            [MAP_BGM_PROLOGUE_LYN] = {% if existsIn(chapter.bgm, "prologueInLynStory") %}{{ chapter.bgm.prologueInLynStory }}{% else %}0xffff{% endif %},
+            [MAP_BGM_PROLOGUE] = {% if existsIn(chapter.bgm, "prologue") %}{{ chapter.bgm.prologue }}{% else %}0xffff{% endif %},
+            [MAP_BGM_PROLOGUE_HECTOR] = {% if existsIn(chapter.bgm, "prologueInHectorStory") %}{{ chapter.bgm.prologueInHectorStory }}{% else %}0xffff{% endif %},
+        },
+        .mapCrackedWallHeath = {% if existsIn(chapter, "mapCrackedWallHeath") %}{{ chapter.mapCrackedWallHeath }}{% else %}0{% endif %},
+        .turnsForTacticsRankAInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.tactics.A.EliwoodStory, "Normal") %}{{ chapter.rank.tactics.A.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.tactics.A.EliwoodStory, "Hard") %}{{ chapter.rank.tactics.A.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .turnsForTacticsRankAInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.tactics.A.HectorStory, "Normal") %}{{ chapter.rank.tactics.A.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.tactics.A.HectorStory, "Hard") %}{{ chapter.rank.tactics.A.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .turnsForTacticsRankBInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.tactics.B.EliwoodStory, "Normal") %}{{ chapter.rank.tactics.B.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.tactics.B.EliwoodStory, "Hard") %}{{ chapter.rank.tactics.B.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .turnsForTacticsRankBInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.tactics.B.HectorStory, "Normal") %}{{ chapter.rank.tactics.B.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.tactics.B.HectorStory, "Hard") %}{{ chapter.rank.tactics.B.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .turnsForTacticsRankCInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.tactics.C.EliwoodStory, "Normal") %}{{ chapter.rank.tactics.C.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.tactics.C.EliwoodStory, "Hard") %}{{ chapter.rank.tactics.C.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .turnsForTacticsRankCInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.tactics.C.HectorStory, "Normal") %}{{ chapter.rank.tactics.C.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.tactics.C.HectorStory, "Hard") %}{{ chapter.rank.tactics.C.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .turnsForTacticsRankDInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.tactics.D.EliwoodStory, "Normal") %}{{ chapter.rank.tactics.D.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.tactics.D.EliwoodStory, "Hard") %}{{ chapter.rank.tactics.D.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .turnsForTacticsRankDInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.tactics.D.HectorStory, "Normal") %}{{ chapter.rank.tactics.D.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.tactics.D.HectorStory, "Hard") %}{{ chapter.rank.tactics.D.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .unk3D = {% if existsIn(chapter, "unk3D") %}{{ chapter.unk3D }}{% else %}0{% endif %},
+        .gainedExpForExpRankAInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.exp.A.EliwoodStory, "Normal") %}{{ chapter.rank.exp.A.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.exp.A.EliwoodStory, "Hard") %}{{ chapter.rank.exp.A.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .gainedExpForExpRankAInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.exp.A.HectorStory, "Normal") %}{{ chapter.rank.exp.A.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.exp.A.HectorStory, "Hard") %}{{ chapter.rank.exp.A.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .gainedExpForExpRankBInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.exp.B.EliwoodStory, "Normal") %}{{ chapter.rank.exp.B.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.exp.B.EliwoodStory, "Hard") %}{{ chapter.rank.exp.B.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .gainedExpForExpRankBInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.exp.B.HectorStory, "Normal") %}{{ chapter.rank.exp.B.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.exp.B.HectorStory, "Hard") %}{{ chapter.rank.exp.B.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .gainedExpForExpRankCInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.exp.C.EliwoodStory, "Normal") %}{{ chapter.rank.exp.C.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.exp.C.EliwoodStory, "Hard") %}{{ chapter.rank.exp.C.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .gainedExpForExpRankCInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.exp.C.HectorStory, "Normal") %}{{ chapter.rank.exp.C.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.exp.C.HectorStory, "Hard") %}{{ chapter.rank.exp.C.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .gainedExpForExpRankDInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.exp.D.EliwoodStory, "Normal") %}{{ chapter.rank.exp.D.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.exp.D.EliwoodStory, "Hard") %}{{ chapter.rank.exp.D.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .gainedExpForExpRankDInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.exp.D.HectorStory, "Normal") %}{{ chapter.rank.exp.D.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.exp.D.HectorStory, "Hard") %}{{ chapter.rank.exp.D.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .unk5E = {% if existsIn(chapter, "unk5E") %}{{ chapter.unk5E }}{% else %}0{% endif %},
+        .goldForFundsRankInEliwoodStory = {
+            [0] = {% if existsIn(chapter.rank.funds.EliwoodStory, "Normal") %}{{ chapter.rank.funds.EliwoodStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.funds.EliwoodStory, "Hard") %}{{ chapter.rank.funds.EliwoodStory.Hard }}{% else %}0{% endif %},
+        },
+        .goldForFundsRankInHectorStory = {
+            [0] = {% if existsIn(chapter.rank.funds.HectorStory, "Normal") %}{{ chapter.rank.funds.HectorStory.Normal }}{% else %}0{% endif %},
+            [1] = {% if existsIn(chapter.rank.funds.HectorStory, "Hard") %}{{ chapter.rank.funds.HectorStory.Hard }}{% else %}0{% endif %},
+        },
+        .chapTitleTextId = {% if existsIn(chapter, "chapTitleTextId") %}{{ chapter.chapTitleTextId }}{% else %}0{% endif %},
+        .chapTitleTextIdInHectorStory = {% if existsIn(chapter, "chapTitleTextIdInHectorStory") %}{{ chapter.chapTitleTextIdInHectorStory }}{% else %}0{% endif %},
+        .mapEventDataId = {% if existsIn(chapter, "mapEventDataId") %}{{ chapter.mapEventDataId }}{% else %}0{% endif %},
+        .gmapEventId = {% if existsIn(chapter, "gmapEventId") %}{{ chapter.gmapEventId }}{% else %}0{% endif %},
+        .divinationTextIdBeginning = {% if existsIn(chapter.divination.text, "beginning") %}{{ chapter.divination.text.beginning }}{% else %}0{% endif %},
+        .divinationTextIdInEliwoodStory = {% if existsIn(chapter.divination.text, "EliwoodStory") %}{{ chapter.divination.text.EliwoodStory }}{% else %}0{% endif %},
+        .divinationTextIdInHectorStory = {% if existsIn(chapter.divination.text, "HectorStory") %}{{ chapter.divination.text.HectorStory }}{% else %}0{% endif %},
+        .divinationTextIdEnding = {% if existsIn(chapter.divination.text, "ending") %}{{ chapter.divination.text.ending }}{% else %}0{% endif %},
+        .divinationPortrait = {% if existsIn(chapter.divination, "portrait") %}{{ chapter.divination.portrait }}{% else %}0{% endif %},
+        .divinationFee = {% if existsIn(chapter.divination, "fee") %}{{ chapter.divination.fee }}{% else %}0{% endif %},
+        .prepScreenNumber = {% if existsIn(chapter, "prepScreenNumber") %}{{ chapter.prepScreenNumber }}{% else %}0{% endif %},
+        .prepScreenNumberInHectorStory = {% if existsIn(chapter, "prepScreenNumberInHectorStory") %}{{ chapter.prepScreenNumberInHectorStory }}{% else %}0{% endif %},
+        .merchantPosX = {% if existsIn(chapter, "merchantPosX") %}{{ chapter.merchantPosX }}{% else %}0xff{% endif %},
+        .merchantPosXInHectorStory = {% if existsIn(chapter, "merchantPosXInHectorStory") %}{{ chapter.merchantPosXInHectorStory }}{% else %}0xff{% endif %},
+        .merchantPosY = {% if existsIn(chapter, "merchantPosY") %}{{ chapter.merchantPosY }}{% else %}0{% endif %},
+        .merchantPosYInHectorStory = {% if existsIn(chapter, "merchantPosYInHectorStory") %}{{ chapter.merchantPosYInHectorStory }}{% else %}0{% endif %},
+        .victorySongEnemyThreshold = {% if existsIn(chapter, "victorySongEnemyThreshold") %}{{ chapter.victorySongEnemyThreshold }}{% else %}0{% endif %},
+        .fadeToBlack = {% if chapter.fadeToBlack %}TRUE{% else %}FALSE{% endif %},
+        .statusObjectiveTextId = {% if existsIn(chapter.goal, "statusObjectiveTextId") %}{{ chapter.goal.statusObjectiveTextId }}{% else %}0{% endif %},
+        .goalWindowTextId = {% if existsIn(chapter.goal, "windowTextId") %}{{ chapter.goal.windowTextId }}{% else %}0{% endif %},
+        .goalWindowDataType = GOAL_TYPE_{% if existsIn(chapter.goal, "windowDataType") %}{{ upper(chapter.goal.windowDataType) }}{% else %}SEIZE{% endif %},
+        .goalWindowEndTurnNumber = {% if existsIn(chapter.goal, "windowEndTurnNumber") %}{{ chapter.goal.windowEndTurnNumber }}{% else %}0{% endif %},
+        .protectCharacterIndex = {% if existsIn(chapter.goal, "protectCharacterIndex") %}{{ chapter.goal.protectCharacterIndex }}{% else %}0{% endif %},
+        .destPosX = {% if existsIn(chapter.goal, "destPosX") %}{{ chapter.goal.destPosX }}{% else %}0xff{% endif %},
+        .destPosY = {% if existsIn(chapter.goal, "destPosY") %}{{ chapter.goal.destPosY }}{% else %}0{% endif %},
+        .unk91 = {% if existsIn(chapter, "unk91") %}{{ chapter.unk91 }}{% else %}0{% endif %},
+        .unk92 = {% if existsIn(chapter, "unk92") %}{{ chapter.unk92 }}{% else %}0{% endif %},
+        .unk93 = {% if existsIn(chapter, "unk93") %}{{ chapter.unk93 }}{% else %}0{% endif %},
+    },
+## endfor
+};

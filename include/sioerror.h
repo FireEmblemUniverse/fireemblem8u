@@ -1,0 +1,10 @@
+#ifndef GUARD_SIOERROR_H
+#define GUARD_SIOERROR_H
+
+// ??? OnVBlank_SioError(???);
+// ??? OnMain_SioErrorWait(???);
+// ??? PutSioErrorMessage(???);
+// ??? OnMain_SioError(???);
+void StartSioErrorScreen(void);
+
+#endif // GUARD_SIOERROR_H

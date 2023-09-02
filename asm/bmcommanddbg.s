@@ -65,7 +65,7 @@ _08034378:
 	lsls r0, r4, #0x18
 	asrs r0, r0, #0x18
 	asrs r1, r7, #0x18
-	bl GetAvailableLocaCommandAt
+	bl GetAvailableTileEventCommand
 	cmp r0, #0x10
 	beq _0803432C
 _08034386:
@@ -138,7 +138,7 @@ _080343EA:
 	lsls r0, r4, #0x18
 	asrs r0, r0, #0x18
 	asrs r1, r6, #0x18
-	bl GetAvailableLocaCommandAt
+	bl GetAvailableTileEventCommand
 	cmp r0, #0x11
 	beq _080343CC
 _0803440A:
@@ -174,12 +174,12 @@ CanUnitUseAttack: @ 0x08034428
 	ldr r4, _08034464  @ gActiveUnit
 	ldr r0, [r4]
 	bl GenerateUnitCompleteAttackRange
-	ldr r1, _08034468  @ gUnknown_02033F3C
+	ldr r1, _08034468  @ gSubjectUnit
 	ldr r0, [r4]
 	str r0, [r1]
 	ldr r0, _0803446C  @ AddUnitToTargetListIfNotAllied
 	bl ForEachUnitInRange
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _0803445A
 	movs r0, #1
@@ -190,7 +190,7 @@ _0803445A:
 	.align 2, 0
 _08034460: .4byte gBmMapRange
 _08034464: .4byte gActiveUnit
-_08034468: .4byte gUnknown_02033F3C
+_08034468: .4byte gSubjectUnit
 _0803446C: .4byte AddUnitToTargetListIfNotAllied
 
 	THUMB_FUNC_END CanUnitUseAttack
@@ -201,7 +201,7 @@ CanActiveUnitUseRescue: @ 0x08034470
 	ldr r0, _08034488  @ gActiveUnit
 	ldr r0, [r0]
 	bl MakeRescueTargetList
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08034484
 	movs r0, #1
@@ -219,7 +219,7 @@ CanActiveUnitUseTrade: @ 0x0803448C
 	ldr r0, _080344A4  @ gActiveUnit
 	ldr r0, [r0]
 	bl MakeTradeTargetList
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _080344A0
 	movs r0, #1
@@ -324,7 +324,7 @@ sub_8034550: @ 0x08034550
 	negs r1, r1
 	bl GetUnitWeaponReachBits
 	adds r7, r0, #0
-	ldr r0, _08034604  @ gBmMapUnk
+	ldr r0, _08034604  @ gBmMapOther
 	ldr r0, [r0]
 	movs r1, #0
 	bl BmMapFill
@@ -385,7 +385,7 @@ _080345B6:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _080345F2
-	ldr r0, _08034604  @ gBmMapUnk
+	ldr r0, _08034604  @ gBmMapOther
 	ldr r0, [r0]
 	adds r0, r5, r0
 	ldr r0, [r0]
@@ -411,7 +411,7 @@ _080345FE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034604: .4byte gBmMapUnk
+_08034604: .4byte gBmMapOther
 _08034608: .4byte gActionData
 _0803460C: .4byte gBmMapSize
 _08034610: .4byte gBmMapMovement

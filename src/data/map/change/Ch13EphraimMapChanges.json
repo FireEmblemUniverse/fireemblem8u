@@ -1,0 +1,45 @@
+{
+  "name": "Ch13EphraimMapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 3,
+      "y": 16,
+      "w": 3,
+      "h": 3,
+      "tiles": "Ch13EphraimMapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 16,
+      "y": 11,
+      "w": 3,
+      "h": 3,
+      "tiles": "Ch13EphraimMapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 4,
+      "y": 18,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch13EphraimMapChanges_change_2"
+    },
+    {
+      "id": 3,
+      "x": 17,
+      "y": 13,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch13EphraimMapChanges_change_3"
+    },
+    {
+      "id": 4,
+      "x": 10,
+      "y": 17,
+      "w": 1,
+      "h": 3,
+      "tiles": "Ch13EphraimMapChanges_change_4"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 #ifndef GUARD_UI_MENU_H
 #define GUARD_UI_MENU_H
 
+#include "fontgrp.h"
+
 // config
 
 enum
@@ -31,13 +33,13 @@ struct MenuItemDef
 
     /* 0C */ u8(*isAvailable)(const struct MenuItemDef*, int number);
 
-    /* 10 */ void(*onDraw)(struct MenuProc*, struct MenuItemProc*);
+    /* 10 */ int(*onDraw)(struct MenuProc*, struct MenuItemProc*);
 
     /* 14 */ u8(*onSelected)(struct MenuProc*, struct MenuItemProc*);
     /* 18 */ u8(*onIdle)(struct MenuProc*, struct MenuItemProc*);
 
-    /* 1C */ void(*onSwitchIn)(struct MenuProc*, struct MenuItemProc*);
-    /* 20 */ void(*onSwitchOut)(struct MenuProc*, struct MenuItemProc*);
+    /* 1C */ int(*onSwitchIn)(struct MenuProc*, struct MenuItemProc*);
+    /* 20 */ int(*onSwitchOut)(struct MenuProc*, struct MenuItemProc*);
 };
 
 struct MenuDef
@@ -51,7 +53,7 @@ struct MenuDef
     /* 14 */ void(*_u14)(struct MenuProc*);
     /* 18 */ u8(*onBPress)(struct MenuProc*, struct MenuItemProc*);
     /* 1C */ u8(*onRPress)(struct MenuProc*);
-    /* 20 */ void(*onHelpBox)(struct MenuProc*, struct MenuItemProc*);
+    /* 20 */ u8(*onHelpBox)(struct MenuProc*, struct MenuItemProc*);
 };
 
 struct MenuProc
@@ -84,9 +86,9 @@ struct MenuItemProc
 
     /* 30 */ const struct MenuItemDef* def;
 
-    /* 34 */ struct TextHandle text;
+    /* 34 */ struct Text text;
 
-    /* 3C */ u8 itemNumber;
+    /* 3C */ s8 itemNumber;
     /* 3D */ u8 availability;
 };
 
@@ -134,18 +136,32 @@ enum
     MENU_ITEM_NONE = 0,
 };
 
+enum
+{
+    MENU_OVERRIDE_NONE = 0,
+    MENU_OVERRIDE_ISAVAILABLE,
+    MENU_OVERRIDE_ONSELECT,
+};
+
+struct MenuItemOverride
+{
+    /* 00 */ short cmdid;
+    /* 02 */ short kind;
+    /* 04 */ void* func;
+};
+
 // function decls
 
 struct MenuProc* StartOrphanMenuAdjusted(const struct MenuDef* def, int xSubject, int xTileLeft, int xTileRight);
-struct MenuProc* StartMenu(const struct MenuDef* def, struct Proc* parent);
+struct MenuProc* StartMenu(const struct MenuDef* def, ProcPtr parent);
 struct MenuProc* StartOrphanMenuAt(const struct MenuDef* def, struct MenuRect rect);
 struct MenuProc* StartOrphanMenu(const struct MenuDef* def);
 struct MenuProc* StartOrphanMenuAdjustedExt(const struct MenuDef* def, int xSubject, int xTileLeft, int xTileRight, int backBg, int tileref, int frontBg, int unk);
-struct MenuProc* StartMenuExt(const struct MenuDef* def, int backBg, int tileref, int frontBg, int unk, struct Proc* parent);
+struct MenuProc* StartMenuExt(const struct MenuDef* def, int backBg, int tileref, int frontBg, int unk, ProcPtr parent);
 struct MenuProc* StartOrphanMenuAtExt(const struct MenuDef* def, struct MenuRect rect, int backBg, int tileref, int frontBg, int unk);
 struct MenuProc* StartOrphanMenuExt(const struct MenuDef* def, int backBg, int tileref, int frontBg, int unk);
-struct MenuProc* StartMenuAt(const struct MenuDef* def, struct MenuRect rect, struct Proc* parent);
-struct MenuProc* StartMenuCore(const struct MenuDef* def, struct MenuRect rect, int backBg, int tileref, int frontBg, int unk, struct Proc* parent);
+struct MenuProc* StartMenuAt(const struct MenuDef* def, struct MenuRect rect, ProcPtr parent);
+struct MenuProc* StartMenuCore(const struct MenuDef* def, struct MenuRect rect, int backBg, int tileref, int frontBg, int unk, ProcPtr parent);
 
 struct Proc* EndMenu(struct MenuProc* proc);
 void EndAllMenus(void);

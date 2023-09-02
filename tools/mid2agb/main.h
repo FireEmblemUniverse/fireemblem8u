@@ -35,5 +35,8 @@ extern int g_reverb;
 extern int g_clocksPerBeat;
 extern bool g_exactGateTime;
 extern bool g_compressionEnabled;
+extern bool g_MMLCompatible;
+extern bool g_KeyshBeforeVoice;
+extern bool g_VolBeforeVoice;
 
 #endif // MAIN_H

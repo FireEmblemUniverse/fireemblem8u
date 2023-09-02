@@ -1,7 +1,10 @@
 #ifndef GUARD_BM_UNIT_H
 #define GUARD_BM_UNIT_H
 
+#include "global.h"
+
 struct SupportData;
+struct BattleAnimDef;
 
 // Config
 enum { UNIT_LEVEL_MAX = 20 };
@@ -20,7 +23,7 @@ struct CharacterData
     /* 06 */ u16 portraitId;
     /* 08 */ u8 miniPortrait;
     /* 09 */ u8 affinity;
-    /* 0A */ u8 _u0A;
+    /* 0A */ u8 sort_order;
 
     /* 0B */ s8 baseLevel;
     /* 0C */ s8 baseHP;
@@ -51,7 +54,9 @@ struct CharacterData
     /* 28 */ u32 attributes;
 
     /* 2C */ const struct SupportData* pSupportData;
-    /* 30 */ void* _pU30;
+    /* 30 */ u8 visit_group;
+
+    /* 31 */ u8 _pad_[0x34 - 0x31];
 };
 
 struct ClassData
@@ -63,7 +68,7 @@ struct ClassData
     /* 06 */ u8 SMSId;
     /* 07 */ u8 slowWalking;
     /* 08 */ u16 defaultPortraitId;
-    /* 0A */ u8 _u0A;
+    /* 0A */ u8 sort_order;
 
     /* 0B */ s8 baseHP;
     /* 0C */ s8 basePow;
@@ -103,16 +108,14 @@ struct ClassData
 
     /* 2C */ u8 baseRanks[8];
 
-    /* 34 */ const void* pBattleAnimDef;
-    /* 38 */ const s8* pMovCostTable[3]; // standard, rain, snow
+    /* 34 */ const struct BattleAnimDef * pBattleAnimDef;
+    /* 38 */ const s8 * pMovCostTable[3]; // standard, rain, snow
 
-    /* 44 */ const s8* pTerrainAvoidLookup;
-    /* 48 */ const s8* pTerrainDefenseLookup;
-    /* 4C */ const s8* pTerrainResistanceLookup;
+    /* 44 */ const s8 * pTerrainAvoidLookup;
+    /* 48 */ const s8 * pTerrainDefenseLookup;
+    /* 4C */ const s8 * pTerrainResistanceLookup;
 
-    //* 44 */ const s8* pTerrainBonusTables[3]; // def, avo, res
-
-    /* 50 */ const void* _pU50;
+    /* 50 */ const void * _pU50;
 };
 
 struct Unit
@@ -122,7 +125,8 @@ struct Unit
 
     /* 08 */ s8 level;
     /* 09 */ u8 exp;
-    /* 0A */ u8 _u0A;
+
+    /* 0A */ u8 aiFlags;
 
     /* 0B */ s8 index;
 
@@ -141,7 +145,7 @@ struct Unit
     /* 19 */ s8 lck;
 
     /* 1A */ s8 conBonus;
-    /* 1B */ u8 rescueOtherUnit;
+    /* 1B */ u8 rescue;
     /* 1C */ u8 ballistaIndex;
     /* 1D */ s8 movBonus;
 
@@ -185,20 +189,16 @@ struct UnitDefinition
     /* 05 */ u16 genMonster : 1; /* 05:4 */
     /* 05 */ u16 itemDrop   : 1; /* 05:5 */
     /* 05 */ u16 sumFlag    : 1; /* 05:6 */
-    /* 05 */ u16 extraData  : 9; /* 05:7 to 06:7 */
+    /* 05 */ u16 unk_05_7   : 1; /* 05:7 */
+    /* 05 */ u16 extraData  : 8;
     /* 07 */ u16 redaCount  : 8;
 
     /* 08 */ const void* redas;
 
     /* 0C */ u8 items[UNIT_DEFINITION_ITEM_COUNT];
 
-    struct {
-        /* 10 */ u8 ai1;
-        /* 11 */ u8 ai2;
-        /* 12 */ u8 ai3;
-        /* 13 */ u8 ai4;
-    } ai;
-};
+    /* 10 */ u8 ai[4];
+} BITPACKED;
 
 enum
 {
@@ -234,7 +234,7 @@ enum
     // = (1 << 24),
     US_BIT25 = (1 << 25),
     US_BIT26 = (1 << 26),
-    // = (1 << 27),
+    US_BIT27 = (1 << 27),
     // = (1 << 28),
     // = (1 << 29),
     // = (1 << 30),
@@ -273,6 +273,14 @@ enum {
     FACTION_GREEN  = 0x40, // ally npc units
     FACTION_RED    = 0x80, // enemy units
     FACTION_PURPLE = 0xC0, // link arena 4th team
+};
+
+enum
+{
+    FACTION_ID_BLUE   = 0,
+    FACTION_ID_GREEN  = 1,
+    FACTION_ID_RED    = 2,
+    FACTION_ID_PURPLE = 3,
 };
 
 enum
@@ -328,11 +336,29 @@ enum
     UNIT_USEBIT_STAFF  = (1 << 1),
 };
 
-// TODO: MOVE ELSEWHERE
-extern const struct ClassData gClassData[]; // gClassData
-extern const struct CharacterData gCharacterData[]; // gCharacterData
+enum unit_affinity_index {
+    UNIT_AFFIN_FIRE = 1,
+    UNIT_AFFIN_THUNDER,
+    UNIT_AFFIN_WIND,
+    UNIT_AFFIN_ICE,
+    UNIT_AFFIN_DARK,
+    UNIT_AFFIN_LIGHT,
+    UNIT_AFFIN_ANIMA,
+};
 
-void ClearUnits(void);
+// TODO: MOVE ELSEWHERE
+extern CONST_DATA struct ClassData gClassData[]; // gClassData
+extern CONST_DATA struct CharacterData gCharacterData[]; // gCharacterData
+extern struct UnitDefinition gUnitDef1;
+extern struct UnitDefinition gUnitDef2;
+extern struct UnitDefinition gUnitDefEggHatching;
+extern struct UnitDefinition gUnitDefSumDK[];
+extern struct Unit gUnitArrayBlue[62];
+extern struct Unit gUnitArrayRed[50];
+extern struct Unit gUnitArrayGreen[20];
+extern CONST_DATA struct Unit *gUnitLookup[0x100];
+
+void InitUnits(void);
 void ClearUnit(struct Unit* unit);
 void CopyUnit(struct Unit* from, struct Unit* to);
 struct Unit* GetFreeUnit(int faction);
@@ -341,14 +367,14 @@ int GetUnitFogViewRange(struct Unit* unit);
 void SetUnitStatus(struct Unit* unit, int statusId);
 void SetUnitStatusExt(struct Unit* unit, int status, int duration);
 int GetUnitSMSId(struct Unit* unit);
-s8 UnitAddItem(struct Unit* unit, int item);
+bool UnitAddItem(struct Unit* unit, int item);
 void UnitClearInventory(struct Unit* unit);
 void UnitRemoveInvalidItems(struct Unit* unit);
 int GetUnitItemCount(struct Unit* unit);
-s8 UnitHasItem(struct Unit* unit, int item);
+bool UnitHasItem(struct Unit* unit, int item);
 int LoadUnits(const struct UnitDefinition* uDef);
 void sub_8017A54(struct Unit* unit);
-s8 CanClassWieldWeaponType(u8 classId, u8 wpnType);
+bool CanClassWieldWeaponType(u8 classId, u8 wpnType);
 struct Unit* LoadUnit(const struct UnitDefinition* uDef);
 void UnitInitFromDefinition(struct Unit* unit, const struct UnitDefinition* uDef);
 void UnitLoadItemsFromDefinition(struct Unit* unit, const struct UnitDefinition* uDef);
@@ -364,7 +390,7 @@ void UnitAutolevelRealistic(struct Unit* unit);
 void UnitCheckStatCaps(struct Unit* unit);
 struct Unit* GetUnitFromCharId(int charId);
 struct Unit* GetUnitFromCharIdAndFaction(int charId, int faction);
-s8 CanUnitRescue(struct Unit* actor, struct Unit* target);
+bool CanUnitRescue(struct Unit* actor, struct Unit* target);
 void UnitRescue(struct Unit* actor, struct Unit* target);
 void UnitDrop(struct Unit* actor, int xTarget, int yTarget);
 s8 UnitGive(struct Unit* actor, struct Unit* target);
@@ -381,22 +407,22 @@ void SetAllUnitNotBackSprite(void); // TODO: better name
 void UnitUpdateUsedItem(struct Unit* unit, int itemSlot);
 int GetUnitAid(struct Unit* unit);
 int GetUnitMagBy2Range(struct Unit* unit);
-s8 UnitHasMagicRank(struct Unit* unit);
+bool UnitHasMagicRank(struct Unit* unit);
 void sub_8018A7C(struct Unit* unit, int x, int y);
 int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain);
 int GetUnitAidIconId(u32 attributes);
 int GetUnitWeaponUsabilityBits(struct Unit* unit);
 int GetCombinedEnemyWeaponUsabilityBits(void);
-s8 CanUnitMove(void);
-s8 IsPositionMagicSealed(int x, int y);
-s8 IsUnitMagicSealed(struct Unit* unit);
+bool CanUnitMove(void);
+bool IsPositionMagicSealed(int x, int y);
+bool IsUnitMagicSealed(struct Unit* unit);
 int GetUnitLastItem(struct Unit* unit);
 const s8* GetUnitMovementCost(struct Unit* unit);
 int GetClassSMSId(int classId);
 void UpdatePrevDeployStates(void);
 void LoadUnitPrepScreenPositions(void);
 void ClearTemporaryUnits(void);
-s8 IsUnitSlotAvailable(int faction);
+bool IsUnitSlotAvailable(int faction);
 void sub_8018F80(void);
 void sub_8018FC0(void);
 u16 CountAvailableBlueUnits(void);
@@ -424,10 +450,10 @@ struct Unit* GetUnit(int id);
 const struct ClassData* GetClassData(int classId);
 const struct CharacterData* GetCharacterData(int charId);
 void UnitRemoveItem(struct Unit* unit, int slot);
-s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
 #define UNIT_IS_VALID(aUnit) ((aUnit) && (aUnit)->pCharacterData)
-
+#define UNIT_CHAR_ID(aUnit) ((aUnit)->pCharacterData->number)
+#define UNIT_CLASS_ID(aUnit) ((aUnit)->pClassData->number)
 #define UNIT_FACTION(aUnit) ((aUnit)->index & 0xC0)
 
 #define UNIT_CATTRIBUTES(aUnit) ((aUnit)->pCharacterData->attributes | (aUnit)->pClassData->attributes)

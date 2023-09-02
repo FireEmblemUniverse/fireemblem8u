@@ -1,0 +1,21 @@
+{
+  "name": "GradoShrineMapChangesPast",
+  "changes": [
+    {
+      "id": 0,
+      "x": 5,
+      "y": 2,
+      "w": 1,
+      "h": 2,
+      "tiles": "GradoShrineMapChangesPast_change_0"
+    },
+    {
+      "id": 1,
+      "x": 9,
+      "y": 2,
+      "w": 1,
+      "h": 2,
+      "tiles": "GradoShrineMapChangesPast_change_1"
+    }
+  ]
+}

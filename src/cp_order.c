@@ -16,12 +16,8 @@ static int BuildAiUnitList(void);
 static void SortAiUnitList(int count);
 static void CpOrderFunc_End(ProcPtr proc);
 
-void sub_8039CAC(ProcPtr proc);
-
-extern ProcFunc gCpDecideMainFunc;
-
 static
-u32* CONST_DATA sUnitPriorityArray = (void*) gUnknown_02020188;
+u32* CONST_DATA sUnitPriorityArray = (void*) gGenericBuffer;
 
 struct ProcCmd CONST_DATA gProcScr_CpOrder[] =
 {
@@ -58,7 +54,7 @@ void CpOrderBerserkInit(ProcPtr proc)
 {
     int i, aiNum = 0;
 
-    u32 faction = gUnknown_0202BCF0.chapterPhaseIndex;
+    u32 faction = gPlaySt.faction;
 
     int factionUnitCountLut[3] = { 62, 20, 50 }; // TODO: named constant for those
 
@@ -83,7 +79,7 @@ void CpOrderBerserkInit(ProcPtr proc)
         gAiState.units[aiNum] = 0;
         gAiState.unitIt = gAiState.units;
 
-        gCpDecideMainFunc = sub_8039CAC;
+        AiDecideMainFunc = AiDecideMain;
 
         Proc_StartBlocking(gProcScr_CpDecide, proc);
     }
@@ -100,7 +96,7 @@ void CpOrderFunc_BeginDecide(ProcPtr proc)
         gAiState.units[unitAmt] = 0;
         gAiState.unitIt = gAiState.units;
 
-        gCpDecideMainFunc = sub_8039CAC;
+        AiDecideMainFunc = AiDecideMain;
 
         Proc_StartBlocking(gProcScr_CpDecide, proc);
     }
@@ -152,7 +148,7 @@ int GetUnitAiPriority(struct Unit* unit)
     if (UNIT_CATTRIBUTES(unit) & (CA_DANCE | CA_PLAY))
         return priority - 149;
 
-    if (!(unit->_u0A & 1))
+    if (!(unit->aiFlags & AI_UNIT_FLAG_0))
     {
         priority += lead << 8;
 
@@ -172,7 +168,7 @@ int BuildAiUnitList(void)
 {
     int i, aiNum = 0;
 
-    u32 faction = gUnknown_0202BCF0.chapterPhaseIndex;
+    u32 faction = gPlaySt.faction;
     u32* prioIt = sUnitPriorityArray;
 
     int factionUnitCountLut[3] = { 62, 20, 50 }; // TODO: named constant for those
@@ -208,7 +204,7 @@ void SortAiUnitList(int count)
 
     if (count <= 1) // Redundant check
         return;
-	++count; --count;
+    ++count; --count;
 
     // this is a bubble sort, I think
 

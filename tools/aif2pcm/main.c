@@ -34,8 +34,8 @@ double ieee754_read_extended (uint8_t*);
 #define FATAL_ERROR(format, ...)           \
 do                                         \
 {                                          \
-    fprintf(stderr, format, __VA_ARGS__);  \
-    exit(1);                               \
+	fprintf(stderr, format, __VA_ARGS__);  \
+	exit(1);                               \
 } while (0)
 
 #else
@@ -43,16 +43,20 @@ do                                         \
 #define FATAL_ERROR(format, ...)            \
 do                                          \
 {                                           \
-    fprintf(stderr, format, ##__VA_ARGS__); \
-    exit(1);                                \
+	fprintf(stderr, format, ##__VA_ARGS__); \
+	exit(1);                                \
 } while (0)
 
 #endif // _MSC_VER
 
 typedef struct {
 	unsigned long num_samples;
-	uint8_t *samples;
+	union {
+		uint8_t *samples8;
+		uint16_t *samples16;
+	};
 	uint8_t midi_note;
+	uint8_t sample_size;
 	bool has_loop;
 	unsigned long loop_offset;
 	double sample_rate;
@@ -62,6 +66,12 @@ typedef struct {
 struct Bytes {
 	unsigned long length;
 	uint8_t *data;
+};
+
+struct Marker {
+	unsigned short id;
+	unsigned long position;
+	// don't care about the name
 };
 
 struct Bytes *read_bytearray(const char *filename)
@@ -167,6 +177,8 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 		FATAL_ERROR("FORM Type is '%s', but it must be AIFF!", chunk_type);
 	}
 
+	struct Marker *markers = NULL;
+	unsigned short num_markers = 0, loop_start = 0, loop_end = 0;
 	unsigned long num_sample_frames = 0;
 
 	// Read all the Chunks to populate the AifData struct.
@@ -200,11 +212,11 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 			num_sample_frames |= (aif->data[pos++] <<  8);
 			num_sample_frames |=  (uint8_t)aif->data[pos++];
 
-			short sample_size = (aif->data[pos++] << 8);
-			sample_size |= (uint8_t)aif->data[pos++];
-			if (sample_size != 8)
+			aif_data->sample_size = (aif->data[pos++] << 8);
+			aif_data->sample_size |= (uint8_t)aif->data[pos++];
+			if (aif_data->sample_size != 8 && aif_data->sample_size != 16)
 			{
-				FATAL_ERROR("sampleSize (%d) in the COMM Chunk must be 8!\n", sample_size);
+				FATAL_ERROR("sampleSize (%d) in the COMM Chunk must be 8 or 16!\n", aif_data->sample_size);
 			}
 
 			double sample_rate = ieee754_read_extended((uint8_t*)(aif->data + pos));
@@ -219,10 +231,17 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 		}
 		else if (strcmp(chunk_name, "MARK") == 0)
 		{
-			unsigned short num_markers = (aif->data[pos++] << 8);
+			num_markers = (aif->data[pos++] << 8);
 			num_markers |= (uint8_t)aif->data[pos++];
 
-			// Read each marker and look for the "START" marker.
+			if (markers)
+			{
+				FATAL_ERROR("More than one MARK Chunk in file!\n");
+			}
+			
+			markers = calloc(num_markers, sizeof(struct Marker));
+
+			// Read each marker.
 			for (int i = 0; i < num_markers; i++)
 			{
 				unsigned short marker_id = (aif->data[pos++] << 8);
@@ -233,28 +252,16 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 				marker_position |= (aif->data[pos++] << 8);
 				marker_position |=  (uint8_t)aif->data[pos++];
 
-				// Marker id is a pascal-style string.
+				// Marker name is a Pascal-style string.
 				uint8_t marker_name_size = aif->data[pos++];
-				char *marker_name = (char *)malloc((marker_name_size + 1) * sizeof(char));
+				// We don't actually need the marker name for anything anymore.
+				/*char *marker_name = (char *)malloc((marker_name_size + 1) * sizeof(char));
 				memcpy(marker_name, &aif->data[pos], marker_name_size);
-				marker_name[marker_name_size] = '\0';
-				pos += marker_name_size;
+				marker_name[marker_name_size] = '\0';*/
+				pos += marker_name_size + !(marker_name_size & 1);
 
-				if (strcmp(marker_name, "START") == 0)
-				{
-					aif_data->loop_offset = marker_position;
-					aif_data->has_loop = true;
-				}
-				else if (strcmp(marker_name, "END") == 0)
-				{
-					if (!aif_data->has_loop) {
-						aif_data->loop_offset = marker_position;
-						aif_data->has_loop = true;
-					}
-					aif_data->num_samples = marker_position;
-				}
-
-				free(marker_name);
+				markers[i].id = marker_id;
+				markers[i].position = marker_position;
 			}
 		}
 		else if (strcmp(chunk_name, "INST") == 0)
@@ -264,19 +271,56 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 			aif_data->midi_note = midi_note;
 
 			// Skip over data we don't need.
-			pos += 19;
+			pos += 7;
+
+			unsigned short loop_type = (aif->data[pos++] << 8);
+			loop_type |= (uint8_t)aif->data[pos++];
+
+			if (loop_type)
+			{
+				loop_start = (aif->data[pos++] << 8);
+				loop_start |= (uint8_t)aif->data[pos++];
+
+				loop_end = (aif->data[pos++] << 8);
+				loop_end |= (uint8_t)aif->data[pos++];
+			}
+			else
+			{
+				// Skip NoLooping sustain loop.
+				pos += 4;
+			}
+			
+			// Skip release loop, we don't need it.
+			pos += 6;
 		}
 		else if (strcmp(chunk_name, "SSND") == 0)
 		{
-			// SKip offset and blockSize
+			// Skip offset and blockSize
 			pos += 8;
 
 			unsigned long num_samples = chunk_size - 8;
-			uint8_t *sample_data = (uint8_t *)malloc(num_samples * sizeof(uint8_t));
-			memcpy(sample_data, &aif->data[pos], num_samples);
-
-			aif_data->samples = sample_data;
-			aif_data->real_num_samples = num_samples;
+			if (aif_data->sample_size == 8)
+			{
+				uint8_t *sample_data = (uint8_t *)malloc(num_samples * sizeof(uint8_t));
+				memcpy(sample_data, &aif->data[pos], num_samples);
+	
+				aif_data->samples8 = sample_data;
+				aif_data->real_num_samples = num_samples;
+			}
+			else
+			{
+				uint16_t *sample_data = (uint16_t *)malloc(num_samples * sizeof(uint16_t));
+				uint16_t *sample_data_swapped = (uint16_t *)malloc(num_samples * sizeof(uint16_t));
+				memcpy(sample_data, &aif->data[pos], num_samples);
+				for (long unsigned i = 0; i < num_samples; i++)
+				{
+					sample_data_swapped[i] = __builtin_bswap16(sample_data[i]);
+				}
+	
+				aif_data->samples16 = sample_data_swapped;
+				aif_data->real_num_samples = num_samples;
+				free(sample_data);
+			}
 			pos += chunk_size - 8;
 		}
 		else
@@ -285,6 +329,41 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 			pos += chunk_size;
 		}
 	}
+	
+	if (markers)
+	{
+		// Resolve loop points.
+		struct Marker *cur_marker = markers;
+	
+		// Grab loop start point.
+		for (int i = 0; i < num_markers; i++, cur_marker++)
+		{
+			if (cur_marker->id == loop_start)
+			{
+				aif_data->loop_offset = cur_marker->position;
+				aif_data->has_loop = true;
+				break;
+			}
+		}
+
+		cur_marker = markers;
+
+		// Grab loop end point.
+		for (int i = 0; i < num_markers; i++, cur_marker++)
+		{
+			if (cur_marker->id == loop_end)
+			{
+				if (cur_marker->position < aif_data->loop_offset) {
+					aif_data->loop_offset = cur_marker->position;
+					aif_data->has_loop = true;
+				}
+				aif_data->num_samples = cur_marker->position;
+				break;
+			}
+		}
+
+		free(markers);
+	}
 }
 
 // This is a table of deltas between sample values in compressed PCM data.
@@ -292,6 +371,12 @@ const int gDeltaEncodingTable[] = {
 	0, 1, 4, 9, 16, 25, 36, 49,
 	-64, -49, -36, -25, -16, -9, -4, -1,
 };
+
+#define POSITIVE_DELTAS_START 0
+#define POSITIVE_DELTAS_END 8
+
+#define NEGATIVE_DELTAS_START 8
+#define NEGATIVE_DELTAS_END 16
 
 struct Bytes *delta_decompress(struct Bytes *delta, unsigned int expected_length)
 {
@@ -360,15 +445,32 @@ struct Bytes *delta_decompress(struct Bytes *delta, unsigned int expected_length
 	return pcm;
 }
 
+#define U8_TO_S8(value) ((value) < 128 ? (value) : (value) - 256)
+#define ABS(value) ((value) >= 0 ? (value) : -(value))
+
 int get_delta_index(uint8_t sample, uint8_t prev_sample)
 {
 	int best_error = INT_MAX;
 	int best_index = -1;
+	int delta_table_start_index;
+	int delta_table_end_index;
+	int sample_signed = U8_TO_S8(sample);
+	int prev_sample_signed = U8_TO_S8(prev_sample);
 
-	for (int i = 0; i < 16; i++)
+    // if we're going up (or equal), only choose positive deltas
+	if (prev_sample_signed <= sample_signed) {
+		delta_table_start_index = POSITIVE_DELTAS_START;
+		delta_table_end_index = POSITIVE_DELTAS_END;
+	} else {
+		delta_table_start_index = NEGATIVE_DELTAS_START;
+		delta_table_end_index = NEGATIVE_DELTAS_END;
+	}
+
+	for (int i = delta_table_start_index; i < delta_table_end_index; i++)
 	{
 		uint8_t new_sample = prev_sample + gDeltaEncodingTable[i];
-		int error = sample > new_sample ? sample - new_sample : new_sample - sample;
+		int new_sample_signed = U8_TO_S8(new_sample);
+		int error = ABS(new_sample_signed - sample_signed);
 
 		if (error < best_error)
 		{
@@ -471,15 +573,28 @@ void aif2pcm(const char *aif_filename, const char *pcm_filename, bool compress)
 	struct Bytes *aif = read_bytearray(aif_filename);
 	AifData aif_data = {0};
 	read_aif(aif, &aif_data);
+	
+	// Convert 16-bit to 8-bit if necessary
+	if (aif_data.sample_size == 16)
+	{
+		aif_data.real_num_samples /= 2;
+		uint8_t *converted_samples = malloc(aif_data.real_num_samples * sizeof(uint8_t));
+		for (unsigned long i = 0; i < aif_data.real_num_samples; i++)
+		{
+			converted_samples[i] = aif_data.samples16[i] >> 8;
+		}
+		free(aif_data.samples16);
+		aif_data.samples8 = converted_samples;
+	}
 
 	int header_size = 0x10;
 	struct Bytes *pcm;
-	struct Bytes output = {0};
+	struct Bytes output = {0,0};
 
 	if (compress)
 	{
 		struct Bytes *input = malloc(sizeof(struct Bytes));
-		input->data = aif_data.samples;
+		input->data = aif_data.samples8;
 		input->length = aif_data.real_num_samples;
 		pcm = delta_compress(input);
 		free(input);
@@ -487,7 +602,7 @@ void aif2pcm(const char *aif_filename, const char *pcm_filename, bool compress)
 	else
 	{
 		pcm = malloc(sizeof(struct Bytes));
-		pcm->data = aif_data.samples;
+		pcm->data = aif_data.samples8;
 		pcm->length = aif_data.real_num_samples;
 	}
 	output.length = header_size + pcm->length;
@@ -510,7 +625,7 @@ void aif2pcm(const char *aif_filename, const char *pcm_filename, bool compress)
 	free(aif);
 	free(pcm);
 	free(output.data);
-	free(aif_data.samples);
+	free(aif_data.samples8);
 }
 
 // Reads a .pcm file containing an array of 8-bit samples and produces an .aif file.
@@ -550,8 +665,8 @@ void pcm2aif(const char *pcm_filename, const char *aif_filename, uint32_t base_n
 		pcm->data += 0x10;
 	}
 
-	aif_data->samples = malloc(pcm->length);
-	memcpy(aif_data->samples, pcm->data, pcm->length);
+	aif_data->samples8 = malloc(pcm->length);
+	memcpy(aif_data->samples8, pcm->data, pcm->length);
 
 	struct Bytes *aif = malloc(sizeof(struct Bytes));
 	aif->length = 54 + 60 + pcm->length;
@@ -738,14 +853,14 @@ void pcm2aif(const char *pcm_filename, const char *aif_filename, uint32_t base_n
 	// Sound Data Chunk soundData
 	for (unsigned int i = 0; i < aif_data->loop_offset; i++)
 	{
-		aif->data[pos++] = aif_data->samples[i];
+		aif->data[pos++] = aif_data->samples8[i];
 	}
 
 	int j = 0;
 	for (unsigned int i = aif_data->loop_offset; i < pcm->length; i++)
 	{
 		int pcm_index = aif_data->loop_offset + (j++ % (pcm->length - aif_data->loop_offset));
-		aif->data[pos++] = aif_data->samples[pcm_index];
+		aif->data[pos++] = aif_data->samples8[pcm_index];
 	}
 
 	aif->length = pos;

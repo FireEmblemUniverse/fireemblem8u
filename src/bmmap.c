@@ -10,6 +10,7 @@
 #include "bmmap.h"
 #include "bmidoten.h"
 #include "bmtrick.h"
+#include "bmlib.h"
 
 static void BmMapInit(void* buffer, u8*** outHandle, int width, int height);
 
@@ -33,13 +34,13 @@ EWRAM_DATA u8** gBmMapMovement = NULL;
 EWRAM_DATA u8** gBmMapRange    = NULL;
 EWRAM_DATA u8** gBmMapFog      = NULL;
 EWRAM_DATA u8** gBmMapHidden   = NULL;
-EWRAM_DATA u8** gBmMapUnk      = NULL;
+EWRAM_DATA u8** gBmMapOther    = NULL;
 
 EWRAM_DATA static u8 sBmMapUnitPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapTerrainPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapFogPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapHiddenPool[MAP_POOL_SIZE] = {};
-EWRAM_DATA static u8 sBmMapUnkPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA static u8 sBmMapOtherPool[MAP_POOL_SIZE] = {};
 
 EWRAM_DATA static u16 sTilesetConfig[0x1000 + 0x200] = {};
 
@@ -63,7 +64,7 @@ void InitChapterMap(int chapterId) {
     BmMapInit(sBmMapRangePool,    &gBmMapRange,    gBmMapSize.x, gBmMapSize.y);
     BmMapInit(sBmMapFogPool,      &gBmMapFog,      gBmMapSize.x, gBmMapSize.y);
     BmMapInit(sBmMapHiddenPool,   &gBmMapHidden,   gBmMapSize.x, gBmMapSize.y);
-    BmMapInit(sBmMapUnkPool, &gBmMapUnk, gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapOtherPool,    &gBmMapOther,    gBmMapSize.x, gBmMapSize.y);
 
     BmMapFill(gBmMapUnit, 0);
     BmMapFill(gBmMapTerrain, 0);
@@ -73,11 +74,11 @@ void InitChapterMap(int chapterId) {
     RefreshTerrainBmMap();
 
     // TODO: chapter id definitions
-    if (gUnknown_0202BCF0.chapterIndex == 0x75)
+    if (gPlaySt.chapterIndex == 0x75)
         sub_8019624();
 }
 
-void InitChapterPreviewMap(int chapterId) {
+void InitMapForMinimap(int chapterId) {
     UnpackChapterMap(gBmMapBuffer, chapterId);
 
     BmMapInit(sBmMapUnitPool,    &gBmMapUnit,    gBmMapSize.x, gBmMapSize.y);
@@ -162,7 +163,7 @@ void sub_8019624(void) {
 }
 
 void sub_8019778(void) {
-    UnpackChapterMap(gBmMapBuffer, gUnknown_0202BCF0.chapterIndex);
+    UnpackChapterMap(gBmMapBuffer, gPlaySt.chapterIndex);
 
     InitBaseTilesBmMap();
     ApplyEnabledMapChanges();
@@ -226,7 +227,7 @@ void BmMapFillEdges(u8** map, u8 value) {
 
 void UnpackChapterMap(void* into, int chapterId) {
     // Decompress map data
-    CopyDataWithPossibleUncomp(
+    Decompress(
         GetChapterMapPointer(chapterId), into);
 
     // Setting map size
@@ -234,36 +235,36 @@ void UnpackChapterMap(void* into, int chapterId) {
     gBmMapSize.y = ((u8*)(into))[1];
 
     // Decompress tileset config
-    CopyDataWithPossibleUncomp(
-        gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapTileConfigId], sTilesetConfig);
+    Decompress(
+        gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.tileConfigId], sTilesetConfig);
 
     // Setting max camera offsets (?) TODO: figure out
-    gUnknown_0202BCB0.unk28.x = gBmMapSize.x*16 - 240;
-    gUnknown_0202BCB0.unk28.y = gBmMapSize.y*16 - 160;
+    gBmSt.cameraMax.x = gBmMapSize.x*16 - 240;
+    gBmSt.cameraMax.y = gBmMapSize.y*16 - 160;
 }
 
 void UnpackChapterMapGraphics(int chapterId) {
     // Decompress tileset graphics (part 1)
-    CopyDataWithPossibleUncomp(
-        gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapObj1Id],
+    Decompress(
+        gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.obj1Id],
         (void*)(BG_VRAM + 0x20 * 0x400)); // TODO: tile id constant?
 
     // Decompress tileset graphics (part 2, if it exists)
-    if (gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapObj2Id])
-        CopyDataWithPossibleUncomp(
-            gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapObj2Id],
+    if (gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.obj2Id])
+        Decompress(
+            gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.obj2Id],
             (void*)(BG_VRAM + 0x20 * 0x600)); // TODO: tile id constant?
 
     // Apply tileset palette
-    CopyToPaletteBuffer(
-        gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapPaletteId],
-        0x20 * 6, 0x20 * 10); // TODO: palette id constant?
+    ApplyPalettes(
+        gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.paletteId],
+        6, 10); // TODO: palette id constant?
 }
 
 void UnpackChapterMapPalette(void) {
-    CopyToPaletteBuffer(
-        gChapterDataAssetTable[GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapPaletteId],
-        0x20 * 6, 0x20 * 10); // TODO: palette id constant?
+    ApplyPalettes(
+        gChapterDataAssetTable[GetROMChapterStruct(gPlaySt.chapterIndex)->map.paletteId],
+        6, 10); // TODO: palette id constant?
 }
 
 void InitBaseTilesBmMap(void) {
@@ -379,13 +380,13 @@ void DisplayMovementViewTile(u16* bg, int xBmMap, int yBmMap, int xTileMap, int 
 void RenderBmMap(void) {
     int ix, iy;
 
-    gUnknown_0202BCB0.mapRenderOrigin.x = gUnknown_0202BCB0.camera.x >> 4;
-    gUnknown_0202BCB0.mapRenderOrigin.y = gUnknown_0202BCB0.camera.y >> 4;
+    gBmSt.mapRenderOrigin.x = gBmSt.camera.x >> 4;
+    gBmSt.mapRenderOrigin.y = gBmSt.camera.y >> 4;
 
     for (iy = (10 - 1); iy >= 0; --iy)
         for (ix = (15 - 1); ix >= 0; --ix)
             DisplayBmTile(gBG3TilemapBuffer, ix, iy,
-                (short) gUnknown_0202BCB0.mapRenderOrigin.x + ix, (short) gUnknown_0202BCB0.mapRenderOrigin.y + iy);
+                (short) gBmSt.mapRenderOrigin.x + ix, (short) gBmSt.mapRenderOrigin.y + iy);
 
     BG_EnableSyncByMask(1 << 3);
     BG_SetPosition(3, 0, 0);
@@ -402,13 +403,13 @@ void RenderBmMapOnBg2(void) {
 
     SetBackgroundTileDataOffset(2, 0x8000);
 
-    gUnknown_0202BCB0.mapRenderOrigin.x = gUnknown_0202BCB0.camera.x >> 4;
-    gUnknown_0202BCB0.mapRenderOrigin.y = gUnknown_0202BCB0.camera.y >> 4;
+    gBmSt.mapRenderOrigin.x = gBmSt.camera.x >> 4;
+    gBmSt.mapRenderOrigin.y = gBmSt.camera.y >> 4;
 
     for (iy = (10 - 1); iy >= 0; --iy)
         for (ix = (15 - 1); ix >= 0; --ix)
             DisplayBmTile(gBG2TilemapBuffer, ix, iy,
-                (short) gUnknown_0202BCB0.mapRenderOrigin.x + ix, (short) gUnknown_0202BCB0.mapRenderOrigin.y + iy);
+                (short) gBmSt.mapRenderOrigin.x + ix, (short) gBmSt.mapRenderOrigin.y + iy);
 
     BG_EnableSyncByMask(1 << 2);
     BG_SetPosition(2, 0, 0);
@@ -417,52 +418,52 @@ void RenderBmMapOnBg2(void) {
 void UpdateBmMapDisplay(void) {
     // TODO: figure out
 
-    if (gUnknown_0202BCB0.camera.x != gUnknown_0202BCB0.cameraPrevious.x) {
-        if (gUnknown_0202BCB0.camera.x > gUnknown_0202BCB0.cameraPrevious.x) {
-            if (((gUnknown_0202BCB0.camera.x - 1) ^ (gUnknown_0202BCB0.cameraPrevious.x - 1)) & 0x10)
+    if (gBmSt.camera.x != gBmSt.cameraPrevious.x) {
+        if (gBmSt.camera.x > gBmSt.cameraPrevious.x) {
+            if (((gBmSt.camera.x - 1) ^ (gBmSt.cameraPrevious.x - 1)) & 0x10)
                 RenderBmMapColumn(15);
         } else {
-            if ((gUnknown_0202BCB0.camera.x ^ gUnknown_0202BCB0.cameraPrevious.x) & 0x10)
+            if ((gBmSt.camera.x ^ gBmSt.cameraPrevious.x) & 0x10)
                 RenderBmMapColumn(0);
         }
     }
 
-    if (gUnknown_0202BCB0.camera.y != gUnknown_0202BCB0.cameraPrevious.y) {
-        if (gUnknown_0202BCB0.camera.y > gUnknown_0202BCB0.cameraPrevious.y) {
-            if (((gUnknown_0202BCB0.camera.y - 1) ^ (gUnknown_0202BCB0.cameraPrevious.y - 1)) & 0x10)
+    if (gBmSt.camera.y != gBmSt.cameraPrevious.y) {
+        if (gBmSt.camera.y > gBmSt.cameraPrevious.y) {
+            if (((gBmSt.camera.y - 1) ^ (gBmSt.cameraPrevious.y - 1)) & 0x10)
                 RenderBmMapLine(10);
         } else {
-            if ((gUnknown_0202BCB0.camera.y ^ gUnknown_0202BCB0.cameraPrevious.y) & 0x10)
+            if ((gBmSt.camera.y ^ gBmSt.cameraPrevious.y) & 0x10)
                 RenderBmMapLine(0);
         }
     }
 
-    gUnknown_0202BCB0.cameraPrevious = gUnknown_0202BCB0.camera;
+    gBmSt.cameraPrevious = gBmSt.camera;
 
     BG_SetPosition(3,
-        gUnknown_0202BCB0.camera.x - gUnknown_0202BCB0.mapRenderOrigin.x * 16,
-        gUnknown_0202BCB0.camera.y - gUnknown_0202BCB0.mapRenderOrigin.y * 16
+        gBmSt.camera.x - gBmSt.mapRenderOrigin.x * 16,
+        gBmSt.camera.y - gBmSt.mapRenderOrigin.y * 16
     );
 
     // TODO: GAME STATE BITS CONSTANTS
-    if (gUnknown_0202BCB0.gameStateBits & 1) {
+    if (gBmSt.gameStateBits & 1) {
         BG_SetPosition(2,
-            gUnknown_0202BCB0.camera.x - gUnknown_0202BCB0.mapRenderOrigin.x * 16,
-            gUnknown_0202BCB0.camera.y - gUnknown_0202BCB0.mapRenderOrigin.y * 16
+            gBmSt.camera.x - gBmSt.mapRenderOrigin.x * 16,
+            gBmSt.camera.y - gBmSt.mapRenderOrigin.y * 16
         );
     }
 }
 
 void RenderBmMapColumn(u16 xOffset) {
-    u16 xBmMap = (gUnknown_0202BCB0.camera.x >> 4) + xOffset;
-    u16 yBmMap = (gUnknown_0202BCB0.camera.y >> 4);
+    u16 xBmMap = (gBmSt.camera.x >> 4) + xOffset;
+    u16 yBmMap = (gBmSt.camera.y >> 4);
 
-    u16 xTileMap = ((gUnknown_0202BCB0.camera.x >> 4) - gUnknown_0202BCB0.mapRenderOrigin.x + xOffset) & 0xF;
-    u16 yTileMap = ((gUnknown_0202BCB0.camera.y >> 4) - gUnknown_0202BCB0.mapRenderOrigin.y);
+    u16 xTileMap = ((gBmSt.camera.x >> 4) - gBmSt.mapRenderOrigin.x + xOffset) & 0xF;
+    u16 yTileMap = ((gBmSt.camera.y >> 4) - gBmSt.mapRenderOrigin.y);
 
     int iy;
 
-    if (!(gUnknown_0202BCB0.gameStateBits & 1)) {
+    if (!(gBmSt.gameStateBits & 1)) {
         for (iy = 10; iy >= 0; --iy) {
             DisplayBmTile(gBG3TilemapBuffer,
                 xTileMap, (yTileMap + iy) & 0xF,
@@ -486,15 +487,15 @@ void RenderBmMapColumn(u16 xOffset) {
 }
 
 void RenderBmMapLine(u16 yOffset) {
-    u16 xBmMap = (gUnknown_0202BCB0.camera.x >> 4);
-    u16 yBmMap = (gUnknown_0202BCB0.camera.y >> 4) + yOffset;
+    u16 xBmMap = (gBmSt.camera.x >> 4);
+    u16 yBmMap = (gBmSt.camera.y >> 4) + yOffset;
 
-    u16 xTileMap = ((gUnknown_0202BCB0.camera.x >> 4) - gUnknown_0202BCB0.mapRenderOrigin.x);
-    u16 yTileMap = ((gUnknown_0202BCB0.camera.y >> 4) - gUnknown_0202BCB0.mapRenderOrigin.y + yOffset) & 0xF;
+    u16 xTileMap = ((gBmSt.camera.x >> 4) - gBmSt.mapRenderOrigin.x);
+    u16 yTileMap = ((gBmSt.camera.y >> 4) - gBmSt.mapRenderOrigin.y + yOffset) & 0xF;
 
     int ix;
 
-    if (!(gUnknown_0202BCB0.gameStateBits & 1)) {
+    if (!(gBmSt.gameStateBits & 1)) {
         for (ix = 15; ix >= 0; --ix) {
             DisplayBmTile(gBG3TilemapBuffer,
                 (xTileMap + ix) & 0xF, yTileMap,
@@ -536,13 +537,13 @@ void RefreshUnitsOnBmMap(void) {
         gBmMapUnit[unit->yPos][unit->xPos] = i;
 
         // If fog is enabled, apply unit vision to fog map
-        if (gUnknown_0202BCF0.chapterVisionRange)
+        if (gPlaySt.chapterVisionRange)
             MapAddInRange(unit->xPos, unit->yPos, GetUnitFogViewRange(unit), 1);
     }
 
     // 2. Red (& Purple) units
 
-    if (gUnknown_0202BCF0.chapterPhaseIndex != FACTION_RED) {
+    if (gPlaySt.faction != FACTION_RED) {
         // 2.1. No red phase
 
         for (i = FACTION_RED + 1; i < FACTION_PURPLE + 6; ++i) {
@@ -559,7 +560,7 @@ void RefreshUnitsOnBmMap(void) {
             if (UNIT_CATTRIBUTES(unit) & CA_MAGICSEAL)
                 MapAddInRange(unit->xPos, unit->yPos, 10, -1);
 
-            if (gUnknown_0202BCF0.chapterVisionRange && !gBmMapFog[unit->yPos][unit->xPos]) {
+            if (gPlaySt.chapterVisionRange && !gBmMapFog[unit->yPos][unit->xPos]) {
                 // If in fog, set unit bit on the hidden map, and set the "hidden in fog" state
 
                 gBmMapHidden[unit->yPos][unit->xPos] |= HIDDEN_BIT_UNIT;
@@ -593,7 +594,7 @@ void RefreshUnitsOnBmMap(void) {
             if (UNIT_CATTRIBUTES(unit) & CA_MAGICSEAL)
                 MapAddInRange(unit->xPos, unit->yPos, 10, -1);
 
-            if (gUnknown_0202BCF0.chapterVisionRange) {
+            if (gPlaySt.chapterVisionRange) {
                 // Update unit state according to fog level
 
                 if (!gBmMapFog[unit->yPos][unit->xPos])
@@ -646,7 +647,7 @@ void RefreshEntityBmMaps(void) {
 
     // 2. Clear fog map, with 1 (visible) if no fog, with 0 (hidden) if yes fog
 
-    BmMapFill(gBmMapFog, !gUnknown_0202BCF0.chapterVisionRange ? 1 : 0);
+    BmMapFill(gBmMapFog, !gPlaySt.chapterVisionRange ? 1 : 0);
 
     // 3. Populate unit, fog & hidden maps
 
@@ -663,7 +664,7 @@ int GetTerrainHealAmount(int terrainId) {
     return gUnknown_0880C744[terrainId];
 }
 
-int GetTerrainUnk(int terrainId) {
+s8 GetTerrainHealsStatus(int terrainId) {
     return gUnknown_0880C785[terrainId];
 }
 
@@ -671,7 +672,7 @@ void sub_801A278(void) {
     const u16* tile = sTilesetConfig;
 
     // TODO: game state bits constants
-    if (!sub_800D208() || (gUnknown_0202BCB0.gameStateBits & 0x10)) {
+    if (!sub_800D208() || (gBmSt.gameStateBits & 0x10)) {
         // TODO: macros?
         RegisterBlankTile(0x400 + (*tile++ & 0x3FF));
         RegisterBlankTile(0x400 + (*tile++ & 0x3FF));
@@ -680,7 +681,7 @@ void sub_801A278(void) {
     }
 
     // TODO: macro?
-    gPaletteBuffer[0] = 0;
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     EnablePaletteSync();
 }
 
@@ -688,7 +689,7 @@ void RevertMapChange(int id) {
     const struct MapChange* mapChange;
     u8 ix, iy;
 
-    CopyDataWithPossibleUncomp(GetChapterMapPointer(gUnknown_0202BCF0.chapterIndex), gBmMapBuffer);
+    Decompress(GetChapterMapPointer(gPlaySt.chapterIndex), gBmMapBuffer);
 
     mapChange = GetMapChange(id);
 

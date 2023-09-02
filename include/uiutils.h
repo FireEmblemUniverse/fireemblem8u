@@ -1,12 +1,6 @@
 #ifndef GUARD_UI_UTILS_H
 #define GUARD_UI_UTILS_H
 
-enum
-{
-    BGPAL_UI_FRAME   = 1,
-    BGPAL_UI_STATBAR = 6,
-};
-
 void UnpackLegacyUiFramePalette(int palId);
 void UnpackUiFramePalette(int palId);
 void UnpackLegacyUiFrameImage(void* dest);

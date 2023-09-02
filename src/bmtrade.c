@@ -8,13 +8,17 @@
 #include "fontgrp.h"
 #include "uiutils.h"
 #include "statscreen.h"
+#include "face.h"
 
+#include "bm.h"
 #include "bmitem.h"
+#include "bmtrade.h"
 #include "bmunit.h"
 
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "event.h"
+#include "ev_triggercheck.h"
 
 enum
 {
@@ -93,7 +97,6 @@ static void TradeMenu_HelpBox_OnEnd(struct Proc* proc);
 static void TradeMenu_TutorialHandCursor_Update(void);
 static void TradeMenu_DoubleTutorialHandCursor_Update(void);
 
-static void StartTradeMenuTutorialHandCursor(void);
 static void StartDoubleTradeMenuTutorialHandCursor(void);
 static void EndTradeMenuTutorialHandCursor(void);
 static void EndDoubleTradeMenuTutorialHandCursor(void);
@@ -130,7 +133,7 @@ enum
 };
 
 // TODO: BM_OVERLAY_DATA?
-extern struct TextHandle gTradeMenuText[2][UNIT_ITEM_COUNT];
+extern struct Text gTradeMenuText[2][UNIT_ITEM_COUNT];
 
 EWRAM_DATA static struct TradeMenuProc* sTradeMenuProc = NULL;
 
@@ -163,10 +166,10 @@ static struct ProcCmd sProcScr_TradeMenu_HighlightUpdater[] = {
 
 CONST_DATA
 static struct ProcCmd sProcScr_TradeMenu[] = {
-    PROC_CALL(AddSkipThread2),
+    PROC_CALL(LockGame),
     PROC_YIELD,
 
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL(TradeMenu_InitItemDisplay),
     PROC_CALL(TradeMenu_InitUnitNameDisplay),
@@ -194,7 +197,7 @@ PROC_LABEL(L_TRADEMENU_END),
     PROC_CALL(TradeMenu_ClearDisplay),
     PROC_CALL(ClearBg0Bg1),
 
-    PROC_CALL(SubSkipThread2),
+    PROC_CALL(UnlockGame),
 
     PROC_END
 };
@@ -256,29 +259,29 @@ void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     int xStart;
 
     // TODO: constants
-    sub_80ADB7C(6, 0x4800, 0x08, 0x800, 0x400, (struct Proc*) (proc));
+    StartSmallBrownNameBoxes(6, 0x4800, 0x08, 0x800, 0x400, (struct Proc*) (proc));
 
-    sub_80ADBFC(0, -40, -1, 1);
-    sub_80ADBFC(1, 184, -1, 0);
+    SmallBrownNameBoxDoSomeConfig(0, -40, -1, 1);
+    SmallBrownNameBoxDoSomeConfig(1, 184, -1, 0);
 
     // TODO: special effect constants
     SetSpecialColorEffectsParameters(1, 12, 6, 0);
 
     // TODO: name functions
-    sub_8001ED0(FALSE, FALSE, FALSE, FALSE, FALSE);
-    sub_8001F0C(TRUE,  TRUE,  TRUE,  TRUE,  TRUE);
+    SetBlendTargetA(FALSE, FALSE, FALSE, FALSE, FALSE);
+    SetBlendTargetB(TRUE,  TRUE,  TRUE,  TRUE,  TRUE);
 
     // TODO: text color constants
 
     str = GetStringFromIndex(UNIT_NAME_ID(proc->units[0]));
-    xStart = ((8 * UNIT_PANEL_WIDTH) - GetStringTextWidth(str)) / 2;
+    xStart = ((8 * UNIT_PANEL_WIDTH) - GetStringTextLen(str)) / 2;
 
-    DrawTextInline(NULL, gBG0TilemapBuffer + TILEMAP_INDEX(0, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
+    PutDrawText(NULL, gBG0TilemapBuffer + TILEMAP_INDEX(0, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
 
     str = GetStringFromIndex(UNIT_NAME_ID(proc->units[1]));
-    xStart = ((8 * UNIT_PANEL_WIDTH) - GetStringTextWidth(str)) / 2;
+    xStart = ((8 * UNIT_PANEL_WIDTH) - GetStringTextLen(str)) / 2;
 
-    DrawTextInline(NULL, gBG0TilemapBuffer + TILEMAP_INDEX(24, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
+    PutDrawText(NULL, gBG0TilemapBuffer + TILEMAP_INDEX(24, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
@@ -328,7 +331,7 @@ void TradeMenu_InitItemText(struct TradeMenuProc* proc)
     {
         for (row = 0; row < UNIT_ITEM_COUNT; ++row)
         {
-            Text_Allocate(&gTradeMenuText[col][row], ITEM_PANEL_WIDTH);
+            InitTextDb(&gTradeMenuText[col][row], ITEM_PANEL_WIDTH);
         }
     }
 }
@@ -348,7 +351,7 @@ void TradeMenu_RefreshItemText(struct TradeMenuProc* proc)
         {
             int item = proc->units[col]->items[row];
 
-            Text_Clear(&gTradeMenuText[col][row]);
+            ClearText(&gTradeMenuText[col][row]);
 
             if (item)
             {
@@ -479,7 +482,7 @@ void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc)
     DrawUiFrame2(1,  8, 14, 12, 0);
     DrawUiFrame2(15, 8, 14, 12, 0);
 
-    sub_8003D20();
+    ResetTextFont();
 
     ResetIconGraphics();
     LoadIconPalettes(4); // TODO: palette id constant
@@ -488,11 +491,11 @@ void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc)
     TradeMenu_RefreshItemText(proc);
 
     // TODO: face display type (arg 5) constants
-    NewFace(0, GetUnitPortraitId(proc->units[0]), 64,  -4, 3);
-    NewFace(1, GetUnitPortraitId(proc->units[1]), 176, -4, 2);
+    StartFace(0, GetUnitPortraitId(proc->units[0]), 64,  -4, 3);
+    StartFace(1, GetUnitPortraitId(proc->units[1]), 176, -4, 2);
 
-    sub_8006458(0, 5);
-    sub_8006458(1, 5);
+    SetFaceBlinkControlById(0, 5);
+    SetFaceBlinkControlById(1, 5);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
@@ -617,11 +620,11 @@ void TradeMenu_OnEndSelected(struct TradeMenuProc* proc)
 
 s8 TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc)
 {
-    if (gUnknown_0202BCB0.unk3F < 0)
+    if (gBmSt.unk3F < 0)
         return TRUE;
 
-    proc->hoverColumn = gUnknown_0202BCB0.unk3F / UNIT_ITEM_COUNT;
-    proc->hoverRow   = gUnknown_0202BCB0.unk3F % UNIT_ITEM_COUNT;
+    proc->hoverColumn = gBmSt.unk3F / UNIT_ITEM_COUNT;
+    proc->hoverRow   = gBmSt.unk3F % UNIT_ITEM_COUNT;
 
     TradeMenu_RefreshSelectableCells(proc);
     Proc_Goto(proc, L_TRADEMENU_SELECTED);
@@ -631,8 +634,8 @@ s8 TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc)
 
 void TradeMenu_ClearDisplay(struct TradeMenuProc* proc)
 {
-    DeleteFaceByIndex(0);
-    DeleteFaceByIndex(1);
+    EndFaceById(0);
+    EndFaceById(1);
 }
 
 void TradeMenu_HelpBox_OnInit(struct Proc* proc)
@@ -652,7 +655,7 @@ void TradeMenu_HelpBox_OnInit(struct Proc* proc)
         tradeMenu->hasItem[tradeMenu->extraColumn][tradeMenu->extraRow] = FALSE;
     }
 
-    LoadDialogueBoxGfx(NULL, -1);
+    LoadHelpBoxGfx(NULL, -1);
 
     StartItemHelpBox(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
@@ -880,7 +883,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc* proc)
         if (gKeyStatusPtr->newKeys & B_BUTTON)
         {
             SetKeyStatus_IgnoreMask(0);
-            UnsetEventId(0x87); // TODO: EID/FLAG DEFINTIONS
+            ClearFlag(0x87); // TODO: EID/FLAG DEFINTIONS
 
             return FALSE;
         }

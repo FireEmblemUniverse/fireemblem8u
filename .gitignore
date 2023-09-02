@@ -1,3 +1,5 @@
+*.sym
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -83,6 +85,7 @@ scripts/__pycache__/*
 # =========================
 
 *.sav
+*.ss[0-9]
 
 
 # Created by https://www.gitignore.io/api/c,vim,tags,linux,macos,clion,emacs,python,windows,eclipse,assembler,visualstudio,visualstudiocode
@@ -932,3 +935,18 @@ MigrationBackup/
 
 # GCC dump (-da -dv)
 gccdump/
+
+# Artifact of dump_sound
+!scripts/dump_sound/Program.cs
+scripts/dump_sound/
+
+# Converted sound samples
+sound/direct_sound_samples/*.bin
+
+# Converted songs
+sound/songs/midi/*.s
+.vscode/settings.json
+
+# Generated source files
+src/msg_data.c
+include/msg_data.h

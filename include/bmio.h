@@ -4,11 +4,31 @@
 enum {
     BM_BGPAL_6 = 6,
     BM_BGPAL_TILESET_BASE = 7,
+
+    BM_BGPAL_BANIM_IFBACK = 1, /* size: 2 */
+    BM_BGPAL_BANIM_UNK4 = 4,
+    BM_BGPAL_BANIM_UNK5 = 5,
+};
+
+enum {
+    BM_BGCHR_BANIM_IFBACK = 1,
+    BM_BGCHR_BANIM_UNK160 = 0x160,
+    BM_BGCHR_BANIM_UNK200 = 0x200,
+
+    BM_OBJCHR_BANIM_EFFECT = 384,
+    BM_OBJCHR_BANIM_EFFECT2 = 448,
 };
 
 enum {
     BM_OBJPAL_1  = 1,
     BM_OBJPAL_10 = 10,
+
+    BM_OBJPAL_BANIM_EFFECT1 = 3,
+    BM_OBJPAL_BANIM_EFFECT2 = 4,
+
+    BM_OBJPAL_BANIM_SPECIALMU = 8, /* size: 2 */
+
+    BM_OBJPAL_UNIT_GRAYED = 15,
 };
 
 struct TileGfxAnim {
@@ -26,6 +46,14 @@ struct TilePalAnim {
 
 struct GameCtrlProc {
     PROC_HEADER;
+
+    /* 29 */ u8 nextAction;
+    /* 2A */ u8 nextChapter;
+    /* 2B */ u8 unk_2B;
+    /* 2C */ u8 unk_2C;
+
+    /* 2E */ u16 unk_2E;
+    /* 30 */ u8 unk_30;
 };
 
 struct BMapMainProc {
@@ -48,9 +76,9 @@ void SetWeather(unsigned weatherId);
 // this may have been two (or more?) source files
 // if this is to be split, this the starting point.
 
-u8 GetTextDisplaySpeed(void);
+int GetTextDisplaySpeed(void);
 int IsFirstPlaythrough(void);
-void InitPlaythroughState(int isDifficult, s8);
+void InitPlayConfig(int isDifficult, s8);
 void StartBattleMap(struct GameCtrlProc* gameCtrl);
 void RestartBattleMap(void);
 void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl);
@@ -66,7 +94,7 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain);
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain);
 void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain);
 void GameCtrl_DeclareCompletedChapter(void);
-void GameCtrl_DeclareCompletedPlaythrough(void);
+void GameCtrl_SavePlayThroughData(void);
 char* GetTacticianName(void);
 void SetTacticianName(const char* newName);
 
