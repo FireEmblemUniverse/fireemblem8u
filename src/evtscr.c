@@ -23,15 +23,8 @@
 #include "ev_triggercheck.h"
 #include "event.h"
 
-struct Struct03000430 {
-    u8 unk00;
-    u8 unk01;
-    u8 unk02;
-    u8 unk03;
-};
-
 struct Struct03000428 {
-    struct Struct03000430 sub;
+    char str[4];
     u8 unk04;
     u8 unk05;
 };
@@ -96,7 +89,7 @@ u8 Event24_(struct EventEngineProc*); // Resume Game Graphics
 extern const struct ProcCmd gUnknown_08591DE8[]; // "face witness"
 
 extern struct Struct03000428 gUnknown_03000428;
-extern struct Struct03000430 gUnknown_03000430;
+extern char gUnknown_03000430[4];
 
 extern const struct ProcCmd gUnknown_08591E58[];
 extern const struct ProcCmd gUnknown_08591E00[];
@@ -110,32 +103,25 @@ extern const struct {
     const void* pColorPalettes;
 } gConvoBackgroundData[];
 
-// TODO: not use this?
-struct EventCommandHeader {
-    u16 subcommand : 4;
-    u16 size       : 4;
-    u16 commandId  : 8;
-} __attribute__((packed));
-
 extern u16 gUnknown_08592114[]; // gEvent_PostEnd
 
 void sub_80125C0(struct UnitDefinition*);
 
 extern struct UnitDefinition end[];
 
-void ClearMapWith(u8** map, u8 value);
-
+//! FE8U = 0x0800D5A0
 u8 Event00_NULL(struct EventEngineProc * proc)
 {
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800D5A4
 u8 Event01_End(struct EventEngineProc * proc)
 {
     s8 i;
     u16 flag;
 
-    if ((proc->evStateBits & EV_STATE_ABORT) == 0)
+    if (!(proc->evStateBits & EV_STATE_ABORT))
     {
         if (EVT_SUB_CMD(proc->pEventCurrent) == EVSUBCMD_ENDB)
         {
@@ -159,14 +145,14 @@ u8 Event01_End(struct EventEngineProc * proc)
 
             gUnknown_03000570[i].evt1 = NULL;
             gUnknown_03000570[i].evt2 = NULL;
-            return EV_RET_DEFAULT;
+            return EVC_ADVANCE_CONTINUE;
         }
 
         switch (proc->execType)
         {
         case EV_EXEC_WORLDMAP:
             proc->execType = EV_EXEC_UNK4;
-            return EV_RET_BREAK;
+            return EVC_END;
 
         case EV_EXEC_CUTSCENE:
             proc->evStateBits &= ~EV_STATE_SKIPPING;
@@ -177,16 +163,17 @@ u8 Event01_End(struct EventEngineProc * proc)
             proc->pEventIdk = gEvent_08592114;
             proc->pEventCurrent = gEvent_08592114;
 
-            return EV_RET_1;
+            return EVC_STOP_CONTINUE;
 
         default:
-            return EV_RET_BREAK;
+            return EVC_END;
         }
     }
 
-    return EV_RET_BREAK;
+    return EVC_END;
 }
 
+//! FE8U = 0x0800D670
 u8 Event02_EvBitAndIdMod(struct EventEngineProc * proc)
 {
     int sub_cmd_lo = EVT_SUB_CMD_LO(proc->pEventCurrent);
@@ -213,9 +200,10 @@ u8 Event02_EvBitAndIdMod(struct EventEngineProc * proc)
         break;
     }
 
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800D6E4
 u8 Event03_CheckEvBitOrId(struct EventEngineProc * proc)
 {
     int sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
@@ -243,9 +231,10 @@ u8 Event03_CheckEvBitOrId(struct EventEngineProc * proc)
         break;
     }
 
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800D754
 u8 Event04_CheckRandom(struct EventEngineProc * proc)
 {
     u16 max = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -255,84 +244,76 @@ u8 Event04_CheckRandom(struct EventEngineProc * proc)
     else
         gEventSlots[0xC] = NextRN_N(max + 1);
 
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800D77C
 u8 Event05_SetSlot(struct EventEngineProc * proc)
 {
     u16 index = EVT_CMD_ARGV(proc->pEventCurrent)[0];
     u32 value = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
     gEventSlots[index] = value;
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800D794
 u8 Event06_SlotOperation(struct EventEngineProc * proc)
 {
-    u32 reg1, reg2, reg3;
     u8 sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
-    u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-#ifndef NONMATCHING
-    u8 argLow;
-    asm("":::"memory");
-    argLow = arg;
-    reg1 = argLow % 0x10;
-    ++arg; --arg;
-    reg2 = (arg >> 4) % 0x10;
-    reg3 = (arg >> 8) % 0x10;
-#else
-    reg1 = arg % 0x10;
-    reg2 = (arg >> 4) % 0x10;
-    reg3 = (arg >> 8) % 0x10;
-#endif
+    u8 slotDest = (((u16)EVT_CMD_ARGV(proc->pEventCurrent)[0]) >> 0) & 0xF;
+    u8 slotSrc1 = (((u16)EVT_CMD_ARGV(proc->pEventCurrent)[0]) >> 4) & 0xF;
+    u8 slotSrc2 = (((u16)EVT_CMD_ARGV(proc->pEventCurrent)[0]) >> 8) & 0xF;
+
 
     switch (sub_cmd)
     {
     case EVSUBCMD_SADD:
-        gEventSlots[reg1] = gEventSlots[reg2] + gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] + gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
     
     case EVSUBCMD_SSUB:
-        gEventSlots[reg1] = gEventSlots[reg2] - gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] - gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
     case EVSUBCMD_SMUL:
-        gEventSlots[reg1] = gEventSlots[reg2] * gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] * gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
     case EVSUBCMD_SDIV:
-        gEventSlots[reg1] = gEventSlots[reg2] / gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] / gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
     case EVSUBCMD_SMOD:
-        gEventSlots[reg1] = gEventSlots[reg2] % gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] % gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
     case EVSUBCMD_SAND:
-        gEventSlots[reg1] = gEventSlots[reg2] & gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] & gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
     case EVSUBCMD_SORR:
-        gEventSlots[reg1] = gEventSlots[reg2] | gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] | gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
     case EVSUBCMD_SXOR:
-        gEventSlots[reg1] = gEventSlots[reg2] ^ gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] ^ gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
     case EVSUBCMD_SLSL:
-        gEventSlots[reg1] = gEventSlots[reg2] << gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] << gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
     case EVSUBCMD_SLSR:
-        gEventSlots[reg1] = gEventSlots[reg2] >> gEventSlots[reg3];
-        return EV_RET_DEFAULT;
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] >> gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
     
     default:
-        return EV_RET_ERR;
+        return EVC_ERROR;
     }
 }
 
+//! FE8U = 0x0800D918
 u8 Event07_SlotQueueOperations(struct EventEngineProc * proc)
 {
     const u16 *scr = proc->pEventCurrent;
@@ -356,14 +337,16 @@ u8 Event07_SlotQueueOperations(struct EventEngineProc * proc)
         break;
     }
 
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800D97C
 u8 Event08_Label(struct EventEngineProc * proc)
 {
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800D980
 u8 Event09_Goto(struct EventEngineProc * proc)
 {
     u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -376,7 +359,7 @@ u8 Event09_Goto(struct EventEngineProc * proc)
     scr = *(const u32 *)cur;
 
     if (scr == ref)
-        return EV_RET_DEFAULT;
+        return EVC_ADVANCE_CONTINUE;
 
     while (scr != ref)
     {
@@ -387,9 +370,10 @@ u8 Event09_Goto(struct EventEngineProc * proc)
     if (scr == ref)
         proc->pEventCurrent = cur;
 
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800D9B8
 u8 Event0A_Call(struct EventEngineProc * proc)
 {
     s8 i;
@@ -409,9 +393,10 @@ u8 Event0A_Call(struct EventEngineProc * proc)
 
     proc->pEventIdk = (const u16 *)dst;
     proc->pEventCurrent = (const u16 *)dst;
-    return EV_RET_4;
+    return EVC_UNK4;
 }
 
+//! FE8U = 0x0800DA2C
 u8 Event0B_(struct EventEngineProc * proc)
 {
     int sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
@@ -435,9 +420,10 @@ u8 Event0B_(struct EventEngineProc * proc)
         }
     }
 
-    return EV_RET_DEFAULT;
+    return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800DA78
 u8 Event0C_Branch(struct EventEngineProc * proc)
 {
     u8 sub_cmd;
@@ -457,43 +443,44 @@ u8 Event0C_Branch(struct EventEngineProc * proc)
         if (val1 == val2)
             return Event09_Goto(proc);
 
-        return EV_RET_DEFAULT;
+        return EVC_ADVANCE_CONTINUE;
     
     case 1:
         if (val1 != val2)
             return Event09_Goto(proc);
 
-        return EV_RET_DEFAULT;
+        return EVC_ADVANCE_CONTINUE;
     
     case 2:
         if (val1 >= val2)
             return Event09_Goto(proc);
 
-        return EV_RET_DEFAULT;
+        return EVC_ADVANCE_CONTINUE;
     
     case 3:
         if (val1 > val2)
             return Event09_Goto(proc);
 
-        return EV_RET_DEFAULT;
+        return EVC_ADVANCE_CONTINUE;
     
     case 4:
         if (val1 <= val2)
             return Event09_Goto(proc);
 
-        return EV_RET_DEFAULT;
+        return EVC_ADVANCE_CONTINUE;
     
     case 5:
         if (val1 < val2)
             return Event09_Goto(proc);
 
-        return EV_RET_DEFAULT;
+        return EVC_ADVANCE_CONTINUE;
     
     default:
-        return EV_RET_ERR;
+        return EVC_ERROR;
     }
 }
 
+//! FE8U = 0x0800DB00
 u8 Event0D_AsmCall(struct EventEngineProc * proc)
 {
     u32 _cmd_mask;
@@ -505,20 +492,21 @@ u8 Event0D_AsmCall(struct EventEngineProc * proc)
 
     func = (void *)EVT_CMD_ARG32_BE(proc->pEventCurrent);
 
-    if ((_cmd_mask &= _cmd) == 0x1 && ((proc->evStateBits >> 2) & 0x1))
-        return EV_RET_DEFAULT;
+    if ((_cmd_mask &= _cmd) == 0x1 && EVENT_IS_SKIPPING(proc))
+        return EVC_ADVANCE_CONTINUE;
 
     func(proc);
-    return EV_RET_2;
+    return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800DB38
 u8 Event0E_STAL(struct EventEngineProc* proc) {
     u8 subcode;
-    short stallTimer;
+    s16 stallTimer;
 
-    subcode = *(const u8*)(proc->pEventCurrent) & 0xF;
+    subcode = EVT_SUB_CMD(proc->pEventCurrent);
 
-    if (((proc->evStateBits >> 0x2) & 1)) {
+    if (EVENT_IS_SKIPPING(proc)) {
         proc->evStallTimer = 0;
         return EVC_ADVANCE_CONTINUE;
     }
@@ -533,8 +521,8 @@ u8 Event0E_STAL(struct EventEngineProc* proc) {
     } else {
         int timeStep = 1;
 
-        if ((!(proc->evStateBits & EV_STATE_0040)) && (subcode & 2))
-            if ((gPlaySt.cfgGameSpeed) || ((A_BUTTON & gKeyStatusPtr->heldKeys)))
+        if (!(proc->evStateBits & EV_STATE_0040) && (subcode & 2))
+            if ((gPlaySt.cfgGameSpeed != 0) || (gKeyStatusPtr->heldKeys & A_BUTTON))
                 timeStep = 4;
         
         stallTimer = stallTimer - timeStep;
@@ -554,12 +542,13 @@ u8 Event0E_STAL(struct EventEngineProc* proc) {
 }
 
 // Counter Operations
+//! FE8U = 0x0800DBE0
 u8 Event0F_(struct EventEngineProc* proc) {
     s8 newValue;
 
-    u8       subcode  = 0xF & (*(const u8*)(proc->pEventCurrent));
-    unsigned argument = proc->pEventCurrent[1];
-    unsigned shift    = 4 * (*(const u8*)(proc->pEventCurrent + 1) % 8);
+    u8  subcode  = EVT_SUB_CMD(proc->pEventCurrent);
+    u16 argument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u32 shift    = 4 * (*(const u8*)(proc->pEventCurrent + 1) % 8);
 
     switch (subcode) {
 
@@ -569,10 +558,13 @@ u8 Event0F_(struct EventEngineProc* proc) {
         return EVC_ADVANCE_CONTINUE;
 
     case 1: // Set
+        #if NONMATCHING
+
         // I can't get that particular part to match so I'll just go with asm
-        
-        // nonmatching C
-        // newValue = (r5 << 0x10) >> 0x18;
+
+        newValue = (r5 << 0x10) >> 0x18;
+
+        #else
 
         asm(
             "lsl r0, %1, #16\n"
@@ -581,6 +573,8 @@ u8 Event0F_(struct EventEngineProc* proc) {
             : "=r"(newValue)
             : "r"(argument)
         );
+
+        #endif
 
         break;
 
@@ -610,10 +604,11 @@ u8 Event0F_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800DC98
 u8 Event10_ModifyEvBit(struct EventEngineProc* proc) {
-    unsigned evArgument = proc->pEventCurrent[1];
+    u16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
-    if (((proc->evStateBits >> 2) & 1) && evArgument)
+    if (EVENT_IS_SKIPPING(proc) && evArgument)
         proc->evStateBits = (proc->evStateBits &~ EV_STATE_SKIPPING) | EV_STATE_FADEDIN;
 
     switch (evArgument) {
@@ -659,9 +654,10 @@ u8 Event10_ModifyEvBit(struct EventEngineProc* proc) {
     } // switch (evArgument)
 }
 
+//! FE8U = 0x0800DD58
 u8 Event11_SetIgnoredKeys(struct EventEngineProc* proc) {
-    u8       subcode = 0xF & *(const u8*)(proc->pEventCurrent);
-    unsigned mask    = proc->pEventCurrent[1];
+    u8  subcode = EVT_SUB_CMD(proc->pEventCurrent);
+    u16 mask    = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     if (subcode == 0)
         SetKeyStatus_IgnoreMask(mask);
@@ -671,13 +667,14 @@ u8 Event11_SetIgnoredKeys(struct EventEngineProc* proc) {
 
 // SOUND EVENT CODES
 
+//! FE8U = 0x0800DD74
 u8 Event12_(struct EventEngineProc* proc) {
-    short evArgument;
+    s16 evArgument;
 
-    if ((proc->evStateBits >> 2) & 1)
+    if (EVENT_IS_SKIPPING(proc))
         return EVC_ADVANCE_CONTINUE;
 
-    evArgument = proc->pEventCurrent[1];
+    evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     if (evArgument < 0)
         evArgument = gEventSlots[2];
@@ -686,24 +683,22 @@ u8 Event12_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800DDB0
 u8 Event13_(struct EventEngineProc* proc) {
-    u8    subcode;
-    short evArgument;
-
-    subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
-    evArgument = proc->pEventCurrent[1];
+    u8  subcode    = EVT_SUB_CMD(proc->pEventCurrent);
+    s16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     if (evArgument < 0)
         evArgument = gEventSlots[2];
 
     if (evArgument != INT16_MAX) {
-        if ((proc->evStateBits >> 2) & 1)
+        if (EVENT_IS_SKIPPING(proc))
             return EVC_ADVANCE_CONTINUE;
 
         StartBgmFadeIn(evArgument, subcode, 0);
         return EVC_ADVANCE_YIELD;
     } else {
-        if ((proc->evStateBits >> 2) & 1)
+        if (EVENT_IS_SKIPPING(proc))
             subcode = 1;
         
         Sound_FadeOutBGM(subcode);
@@ -711,14 +706,15 @@ u8 Event13_(struct EventEngineProc* proc) {
     }
 }
 
+//! FE8U = 0x0800DE14
 u8 Event14_(struct EventEngineProc* proc) {
-    u8 subcode       = 0xF & *(const u8*)(proc->pEventCurrent);
-    short evArgument = proc->pEventCurrent[1];
+    u8  subcode    = EVT_SUB_CMD(proc->pEventCurrent);
+    s16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     switch (subcode) {
 
     case 0:
-        if (((proc->evStateBits >> 2) & 1) || ((proc->evStateBits >> 3) & 1))
+        if (EVENT_IS_SKIPPING(proc) || ((proc->evStateBits >> 3) & 1))
             return EVC_ADVANCE_CONTINUE;
 
         if (evArgument < 0)
@@ -739,26 +735,27 @@ u8 Event14_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800DE74
 u8 Event15_(struct EventEngineProc* proc) {
-    u8 subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+    u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
 
     switch (subcode) {
     
     case 0:
-        if ((proc->evStateBits >> 2) & 1)
+        if (EVENT_IS_SKIPPING(proc))
             return EVC_ADVANCE_CONTINUE;
 
-        StartBgmVolumeChange(0x100, 0x90, 10, (struct Proc*)(proc));
+        StartBgmVolumeChange(0x100, 0x90, 10, proc);
 
         break;
 
     case 1:
-        if ((proc->evStateBits >> 2) & 1) {
+        if (EVENT_IS_SKIPPING(proc)) {
             Sound_SetSEVolume(0x100);
             return EVC_ADVANCE_CONTINUE;
         }
 
-        StartBgmVolumeChange(0x90, 0x100, 10, (struct Proc*)(proc));
+        StartBgmVolumeChange(0x90, 0x100, 10, proc);
 
         break;
 
@@ -767,71 +764,64 @@ u8 Event15_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800DED4
 u8 Event16_(struct EventEngineProc* proc) {
-    short evArgument;
+    s16 evArgument;
 
-    if (((proc->evStateBits >> 2) & 1) || ((proc->evStateBits >> 3) & 1))
+    if (EVENT_IS_SKIPPING(proc) || ((proc->evStateBits >> 3) & 1))
         return EVC_ADVANCE_CONTINUE;
 
-    evArgument = proc->pEventCurrent[1];
+    evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     if (evArgument < 0)
         evArgument = gEventSlots[2];
 
-    if (!gPlaySt.cfgDisableSoundEffects)
-        m4aSongNumStart(evArgument);
+    PlaySoundEffect(evArgument);
 
     return EVC_ADVANCE_CONTINUE;
 }
 
 // Fade
+//! FE8U = 0x0800DF20
 u8 Event17_(struct EventEngineProc* proc) {
-    u8       subcode;
-    unsigned evArgument;
+    u8  subcode;
+    u16 evArgument;
 
-    if ((proc->evStateBits >> 2) & 1)
+    if (EVENT_IS_SKIPPING(proc))
         return EVC_ADVANCE_CONTINUE;
 
-    subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
-    evArgument = proc->pEventCurrent[1];
+    subcode    = EVT_SUB_CMD(proc->pEventCurrent);
+    evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     switch (subcode) {
 
     case 0: // FADU
-        StartLockingFadeFromBlack(evArgument, (struct Proc*)(proc));
+        StartLockingFadeFromBlack(evArgument, proc);
 
         proc->evStateBits &= ~EV_STATE_FADEDIN;
 
-        gLCDControlBuffer.dispcnt.bg0_on = TRUE;
-        gLCDControlBuffer.dispcnt.bg1_on = TRUE;
-        gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-        gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-        gLCDControlBuffer.dispcnt.obj_on = TRUE;
+        SetDispEnable(TRUE, TRUE, TRUE, TRUE, TRUE);
 
         return EVC_ADVANCE_YIELD;
 
     case 1: // FADI
-        StartLockingFadeToBlack(evArgument, (struct Proc*)(proc));
+        StartLockingFadeToBlack(evArgument, proc);
 
         proc->evStateBits |= EV_STATE_FADEDIN;
 
         return EVC_ADVANCE_YIELD;
 
     case 2: // FAWU
-        StartLockingFadeFromWhite(evArgument, (struct Proc*)(proc));
+        StartLockingFadeFromWhite(evArgument, proc);
 
         proc->evStateBits &= ~EV_STATE_FADEDIN;
 
-        gLCDControlBuffer.dispcnt.bg0_on = TRUE;
-        gLCDControlBuffer.dispcnt.bg1_on = TRUE;
-        gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-        gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-        gLCDControlBuffer.dispcnt.obj_on = TRUE;
+        SetDispEnable(TRUE, TRUE, TRUE, TRUE, TRUE);
 
         return EVC_ADVANCE_YIELD;
 
     case 3: // FAWI
-        StartLockingFadeToWhite(evArgument, (struct Proc*)(proc));
+        StartLockingFadeToWhite(evArgument, proc);
 
         proc->evStateBits |= EV_STATE_FADEDIN;
 
@@ -845,24 +835,19 @@ u8 Event17_(struct EventEngineProc* proc) {
 
 // I think this is related to some color filtering effect (?)
 // Messes with palettes
+//! FE8U = 0x0800DFBC
 u8 Event18_(struct EventEngineProc* proc) {
-    unsigned evArgument2, evArgument3, evArgument4, evArgument5;
-    unsigned mask;
-    u8 subcode, evArgumentBitStart, evArgumentBitCount;
+    u32 mask;
 
-    subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+    u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
 
-    {
-        // This is weird but needed to match
-        unsigned read      = proc->pEventCurrent[1];
-        evArgumentBitStart = *(const u8*)(proc->pEventCurrent + 1);
-        evArgumentBitCount = read >> 8;
-    }
+    u8 evArgumentBitStart = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u8 evArgumentBitCount = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
 
-    evArgument2 = proc->pEventCurrent[2];
-    evArgument3 = proc->pEventCurrent[3];
-    evArgument4 = proc->pEventCurrent[4];
-    evArgument5 = proc->pEventCurrent[5];
+    u32 evArgument2 = proc->pEventCurrent[2];
+    u32 evArgument3 = proc->pEventCurrent[3];
+    u32 evArgument4 = proc->pEventCurrent[4];
+    u32 evArgument5 = proc->pEventCurrent[5];
 
     switch (subcode) {
 
@@ -877,7 +862,7 @@ u8 Event18_(struct EventEngineProc* proc) {
     case 2: {
         s8 i;
 
-        if (((proc->evStateBits >> 2) & 1) || (proc->evStateBits & EV_STATE_FADEDIN))
+        if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
             evArgument2 = 0;
 
         mask = 0;
@@ -888,7 +873,7 @@ u8 Event18_(struct EventEngineProc* proc) {
             evArgumentBitStart = tmp + 1;
         }
 
-        sub_8012890(evArgument2, mask, evArgument3, evArgument4, evArgument5, (struct Proc*)(proc));
+        sub_8012890(evArgument2, mask, evArgument3, evArgument4, evArgument5, proc);
 
         return EVC_ADVANCE_YIELD;
     }
@@ -900,8 +885,9 @@ u8 Event18_(struct EventEngineProc* proc) {
 }
 
 // Various Checks
+//! FE8U = 0x0800E070
 u8 Event19_(struct EventEngineProc* proc) {
-    u8 subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+    u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
 
     switch (subcode) {
 
@@ -914,7 +900,7 @@ u8 Event19_(struct EventEngineProc* proc) {
         break;
 
     case 2: // Check Difficult Mode
-        if (!(gPlaySt.chapterStateBits & 0x40))
+        if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
             gEventSlots[0xC] = FALSE;
         else 
             gEventSlots[0xC] = TRUE;
@@ -938,7 +924,7 @@ u8 Event19_(struct EventEngineProc* proc) {
         break;
 
     case 7: // Check Some option or difficult mode
-        if (gPlaySt.cfgController || (gPlaySt.chapterStateBits & 0x40))
+        if (gPlaySt.cfgController || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
             gEventSlots[0xC] = FALSE;
         else
             gEventSlots[0xC] = TRUE;
@@ -954,7 +940,7 @@ u8 Event19_(struct EventEngineProc* proc) {
         break;
 
     case 10: // Check ?
-        if (gPlaySt.chapterStateBits & 0x20)
+        if (gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE)
             gEventSlots[0xC] = TRUE;
         else 
             gEventSlots[0xC] = FALSE;
@@ -969,8 +955,9 @@ u8 Event19_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800E188
 u8 Event1A_TEXTSTART(struct EventEngineProc* proc) {
-    u8 subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+    u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
 
     if (subcode != proc->activeTextType && subcode != 5) {
         EndTalk();
@@ -1017,13 +1004,13 @@ void sub_800E210(struct EventEngineProc* proc, u16 stringIndex, s8 b) {
     StartTalkMsg(1, 1, stringIndex);
 
     if (proc->evStateBits & EV_STATE_0020)
-        SetTalkFlag(4);
+        SetTalkFlag(TALK_FLAG_NOSKIP);
 
     if (proc->evStateBits & EV_STATE_0040)
-        SetTalkFlag(8);
+        SetTalkFlag(TALK_FLAG_NOFAST);
 }
 
-void sub_800E290(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) {
+void sub_800E290(struct EventEngineProc* proc, u16 stringIndex, u32 flags) {
     flags |= 0x0400;
 
     if (proc->evStateBits & EV_STATE_0020)
@@ -1032,13 +1019,11 @@ void sub_800E290(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) 
     if (proc->evStateBits & EV_STATE_0040)
         flags |= 0x2000 | 0x0800 | 0x0020;
 
-    gLCDControlBuffer.dispcnt.win0_on   = FALSE;
-    gLCDControlBuffer.dispcnt.win1_on   = FALSE;
-    gLCDControlBuffer.dispcnt.objWin_on = FALSE;
+    SetWinEnable(FALSE, FALSE, FALSE);
 
     LoadObjUIGfx();
     InitTalk(0x80, 0, 1);
-    BG_EnableSyncByMask(1); // bg0
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     sub_808F128(
         3,
@@ -1054,11 +1039,9 @@ void sub_800E290(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) 
     sub_808E9D8(flags);
 }
 
-void sub_800E31C(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) {
-    u8 x, y;
-
-    x = ((u16*)(gEventSlots + 0xB))[0];
-    y = ((u16*)(gEventSlots + 0xB))[1];
+void sub_800E31C(struct EventEngineProc* proc, u16 stringIndex, u32 flags) {
+    u8 x = ((u16*)(gEventSlots + 0xB))[0];
+    u8 y = ((u16*)(gEventSlots + 0xB))[1];
 
     if (x == (u8)(-1) && y == (u8)(-1)) {
         x = 0;
@@ -1088,8 +1071,9 @@ void sub_800E31C(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) 
 
 #ifdef NONMATCHING
 
-// Not matching yet
+/* https://decomp.me/scratch/SdQQm */
 
+//! FE8U = 0x0800E3C8
 u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
     u8       subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
     short    evArgument = proc->pEventCurrent[1];
@@ -1376,8 +1360,9 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
 
 #endif // !NONMATCHING
 
+//! FE8U = 0x0800E51C
 u8 Event1C_TEXTCONT(struct EventEngineProc* proc) {
-    if (((proc->evStateBits >> 2) & 1)) {
+    if (EVENT_IS_SKIPPING(proc)) {
         EndTalk();
         sub_808F270();
         sub_808BB74();
@@ -1393,8 +1378,9 @@ u8 Event1C_TEXTCONT(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800E560
 u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
-    if (((proc->evStateBits >> 2) & 1)) {
+    if (EVENT_IS_SKIPPING(proc)) {
         EndTalk();
         sub_808F270();
         sub_808BB74();
@@ -1406,7 +1392,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 
         gEventSlots[0xC] = 0;
     } else {
-        unsigned flag = FALSE;
+        u32 flag = FALSE;
 
         if ((IsTalkActive() && !IsTalkLocked()) || SomeTalkProcExists() || Proc_Find(gProcScr_BoxDialogue))
             flag = TRUE;
@@ -1424,7 +1410,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
                 case 0:
                 case 1:
                 case 2:
-                    SetSpecialColorEffectsParameters(1, 0x10, 1, 0);
+                    SetBlendAlpha(0x10, 1);
                     break;
 
                 case 3:
@@ -1448,6 +1434,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800E640
 void sub_800E640(struct EventEngineProc* proc) {
     if (proc->evStateBits & EV_STATE_FADEDIN) {
         ClearTalkBubble();
@@ -1466,32 +1453,33 @@ void _WhileFace6CExists(struct Proc* proc) {
         Proc_Break(proc);
 }
 
+//! FE8U = 0x0800E6B4
 u8 Event1E_(struct EventEngineProc* proc) {
-    u8       subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
-    short    evArgument = proc->pEventCurrent[1];
+    u8  subcode    = EVT_SUB_CMD(proc->pEventCurrent);
+    s16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     if (evArgument == -1)
         evArgument = gEventSlots[2];
 
     if (evArgument != -3) {
         if (evArgument != -2) {
-            if (((proc->evStateBits >> 2) & 1)) // is skipping
+            if (EVENT_IS_SKIPPING(proc))
                 return EVC_ADVANCE_CONTINUE;
 
-            gUnknown_03000428.sub.unk00 = subcode + 8;
-            gUnknown_03000428.sub.unk01 = 0x10;
-            gUnknown_03000428.sub.unk02 = evArgument;
-            gUnknown_03000428.sub.unk03 = 1;
+            gUnknown_03000428.str[0] = subcode + 8;
+            gUnknown_03000428.str[1] = 0x10;
+            gUnknown_03000428.str[2] = evArgument;
+            gUnknown_03000428.str[3] = 1;
 
             gUnknown_03000428.unk04 = 1;
             gUnknown_03000428.unk05 = 0;
 
             InitTalk(0x80, 2, 1);
         } else {
-            gUnknown_03000428.sub.unk00 = subcode + 8;
-            gUnknown_03000428.sub.unk01 = 0x11;
-            gUnknown_03000428.sub.unk02 = 1;
-            gUnknown_03000428.sub.unk03 = 0;
+            gUnknown_03000428.str[0] = subcode + 8;
+            gUnknown_03000428.str[1] = 0x11;
+            gUnknown_03000428.str[2] = 1;
+            gUnknown_03000428.str[3] = 0;
 
             ClearTalkBubble();
         }
@@ -1508,45 +1496,45 @@ u8 Event1E_(struct EventEngineProc* proc) {
         return EVC_ADVANCE_YIELD;
     }
 
-    StartTalk(0, 0, (const char *)&gUnknown_03000428.sub);
+    StartTalk(0, 0, gUnknown_03000428.str);
     return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800E77C
 u8 Event1F_(struct EventEngineProc* proc) {
-    unsigned evX, evY;
+    u8 evX;
+    u8 evY;
 
-    if (((proc->evStateBits >> 2) & 1)) // is skipping
+    if (EVENT_IS_SKIPPING(proc))
         return EVC_ADVANCE_CONTINUE;
 
     if (((proc->evStateBits >> 3) & 1)) // is skipping dialogue?
         return EVC_ADVANCE_CONTINUE;
 
-    {
-        // I wonder if I can get this to be better
-        unsigned read = proc->pEventCurrent[1];
-        evX           = *(const u8*)(proc->pEventCurrent + 1);
-        evY           = read >> 8;
-    }
+    evX = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    evY = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
 
-    gUnknown_03000430.unk00 = evX + 8;
-    gUnknown_03000430.unk01 = 0x80;
-    gUnknown_03000430.unk02 = evY + 10;
-    gUnknown_03000430.unk03 = 0;
+    gUnknown_03000430[0] = evX + 8;
+    gUnknown_03000430[1] = 0x80;
+    gUnknown_03000430[2] = evY + 10;
+    gUnknown_03000430[3] = 0;
 
-    StartTalk(0, 0, (const char *)&gUnknown_03000430);
+    StartTalk(0, 0, gUnknown_03000430);
     return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800E7C4
 u8 Event20_(struct EventEngineProc* proc) {
     ClearTalkBubble();
     return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800E7D0
 u8 sub_800E7D0(u8 mode, u16 bgIndex) {
-    BG_SetPosition(0, 0, 0);
-    BG_SetPosition(1, 0, 0);
-    BG_SetPosition(2, 0, 0);
-    BG_SetPosition(3, 0, 0);
+    BG_SetPosition(BG_0, 0, 0);
+    BG_SetPosition(BG_1, 0, 0);
+    BG_SetPosition(BG_2, 0, 0);
+    BG_SetPosition(BG_3, 0, 0);
 
     switch (mode) {
 
@@ -1577,20 +1565,20 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex) {
         // Loading Background Tile Arrangement
 
         CallARM_FillTileRect(
-            (u16*)(gBG3TilemapBuffer),
+            gBG3TilemapBuffer,
             gConvoBackgroundData[bgIndex].pTileArrangement,
             0x8000 // base palette is bg palette 8
         );
 
         // Loading Background Palettes
 
-        CopyToPaletteBuffer(
+        ApplyPalettes(
             gConvoBackgroundData[bgIndex].pColorPalettes,
-            0x100, // bg pal 8
-            0x100  // 8 palettes
+            8,
+            8
         );
 
-        BG_EnableSyncByMask(1 << 3);
+        BG_EnableSyncByMask(BG3_SYNC_BIT);
         EnablePaletteSync();
 
         gPaletteBuffer[0] = 0;
@@ -1599,14 +1587,14 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex) {
 
     case 2:
         sub_80B65F8(
-            (u16*)(gBG3TilemapBuffer),
-            GetBackgroundTileDataOffset(3),
+            gBG3TilemapBuffer,
+            GetBackgroundTileDataOffset(BG_3),
             8,
             8,
             bgIndex
         );
 
-        BG_EnableSyncByMask(1 << 3);
+        BG_EnableSyncByMask(BG3_SYNC_BIT);
         EnablePaletteSync();
 
         return EVC_ADVANCE_YIELD;
@@ -1617,12 +1605,13 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex) {
     } // switch (mode)
 }
 
+//! FE8U = 0x0800E8CC
 u8 Event21_(struct EventEngineProc* proc) {
-    unsigned evArgument2_a, evArgument2_b, evArgument3;
+    u16 evArgument2_a, evArgument2_b, evArgument3;
     struct ConvoBackgroundFadeProc* otherProc;
 
-    int   subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
-    short evArgument = proc->pEventCurrent[1];
+    int   subcode  = EVT_SUB_CMD(proc->pEventCurrent);
+    s16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     if (evArgument < 0)
         evArgument = gEventSlots[2];
@@ -1633,8 +1622,8 @@ u8 Event21_(struct EventEngineProc* proc) {
         return sub_800E7D0(proc->activeTextType, evArgument);
 
     case 1: {
-        evArgument2_a = proc->pEventCurrent[2];
-        evArgument3   = proc->pEventCurrent[3];
+        evArgument2_a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+        evArgument3   = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
         switch (proc->activeTextType) {
 
@@ -1652,7 +1641,7 @@ u8 Event21_(struct EventEngineProc* proc) {
 
             case 1:
             case 2:
-                if (((proc->evStateBits >> 2) & 1)) // is skipping
+                if (EVENT_IS_SKIPPING(proc))
                     return EVC_ADVANCE_CONTINUE;
 
                 otherProc = Proc_StartBlocking(gUnknown_08591E58, proc);
@@ -1672,7 +1661,7 @@ u8 Event21_(struct EventEngineProc* proc) {
             case 3:
             case 4:
             case 5:
-                if (((proc->evStateBits >> 2) & 1)) // is skipping
+                if (EVENT_IS_SKIPPING(proc))
                     return Event22_(proc); // CLEAN
 
                 otherProc = Proc_StartBlocking(gUnknown_08591EB0, proc);
@@ -1682,7 +1671,7 @@ u8 Event21_(struct EventEngineProc* proc) {
 
             case 1:
             case 2:
-                if (((proc->evStateBits >> 2) & 1)) // is skipping
+                if (EVENT_IS_SKIPPING(proc))
                     return EVC_ADVANCE_CONTINUE;
 
                 otherProc = Proc_StartBlocking(gUnknown_08591E00, proc);
@@ -1706,28 +1695,28 @@ u8 Event21_(struct EventEngineProc* proc) {
     }
 
     case 2: {
-        evArgument2_b = proc->pEventCurrent[2];
-        evArgument3   = proc->pEventCurrent[3];
+        evArgument2_b = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+        evArgument3   = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-        if (((proc->evStateBits >> 2) & 1)) // is skipping
+        if (EVENT_IS_SKIPPING(proc))
             return EVC_ADVANCE_CONTINUE;
 
         if (sub_800E7D0(proc->activeTextType, evArgument) == EVC_ERROR)
             return EVC_ERROR;
 
-        sub_80B2780(evArgument3, 0, evArgument2_b, (struct Proc*)(proc));
+        sub_80B2780(evArgument3, 0, evArgument2_b, proc);
 
         break;
     }
 
     case 3: {
-        evArgument2_b = proc->pEventCurrent[2];
-        evArgument3   = proc->pEventCurrent[3];
+        evArgument2_b = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+        evArgument3   = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-        if (((proc->evStateBits >> 2) & 1)) // is skipping
+        if (EVENT_IS_SKIPPING(proc))
             return EVC_ADVANCE_CONTINUE;
 
-        sub_80B272C(evArgument3, 0, evArgument2_b, (struct Proc*)(proc));
+        sub_80B272C(evArgument3, 0, evArgument2_b, proc);
 
         break;
     }
@@ -1737,19 +1726,16 @@ u8 Event21_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800EA84
 void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
-    gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(FALSE, FALSE, FALSE, TRUE, TRUE);
 
-    BG_SetPosition(2, 0, 0);
+    BG_SetPosition(BG_2, 0, 0);
 
     switch (proc->fadeType) {
 
     case 0:
-        SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+        SetBlendAlpha(0, 0x10);
 
         // First: BG3; Second: BG2
         SetBlendTargetA(FALSE, FALSE, FALSE, TRUE, FALSE);
@@ -1764,7 +1750,7 @@ void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
         break;
 
     case 1:
-        SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+        SetBlendAlpha(0, 0x10);
 
         // First: BG2; Second: BG3|OBJ
         SetBlendTargetA(FALSE, FALSE, TRUE, FALSE, FALSE);
@@ -1779,7 +1765,7 @@ void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
         break;
 
     case 2:
-        SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
+        SetBlendAlpha(0x10, 0);
 
         // First: BG2; Second: BG3|OBJ
         SetBlendTargetA(FALSE, FALSE, TRUE, FALSE, FALSE);
@@ -1792,7 +1778,6 @@ void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
         gLCDControlBuffer.bg3cnt.priority = 3;
 
         break;
-
     }
 
     SetBlendBackdropA(TRUE);
@@ -1801,32 +1786,27 @@ void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
     sub_800BA04(0, 6);
 }
 
+//! FE8U = 0x0800EBB0
 void sub_800EBB0(struct ConvoBackgroundFadeProc* proc) {
     sub_800B910(3, 2, 10);
     sub_800B954(3, 2, 1);
     sub_800B994(8, 0, 6);
     sub_800B9B8(2, -8);
 
-    gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(FALSE, FALSE, TRUE, TRUE, TRUE);
 }
 
+//! FE8U = 0x0800EC00
 void sub_800EC00(struct ConvoBackgroundFadeProc* proc) {
     sub_800B910(2, 3, 10);
     sub_800B954(2, 3, 1);
     sub_800B994(0, 8, 6);
     sub_800B9B8(3, 8);
 
-    gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(FALSE, FALSE, TRUE, TRUE, TRUE);
 }
 
+//! FE8U = 0x0800EC50
 void sub_800EC50(struct ConvoBackgroundFadeProc* proc) {
     switch (proc->unkType) {
 
@@ -1844,26 +1824,26 @@ void sub_800EC50(struct ConvoBackgroundFadeProc* proc) {
 
         Decompress(
             gConvoBackgroundData[proc->bgIndex].pTileGraphics,
-            (void*)(VRAM + GetBackgroundTileDataOffset(2))
+            (void*)(VRAM + GetBackgroundTileDataOffset(BG_2))
         );
 
         // Loading Background Tile Arrangement
 
         CallARM_FillTileRect(
-            (u16*)(gBG2TilemapBuffer),
+            gBG2TilemapBuffer,
             gConvoBackgroundData[proc->bgIndex].pTileArrangement,
             0 // base palette is bg palette 0
         );
 
         // Loading Background Palettes
 
-        CopyToPaletteBuffer(
+        ApplyPalettes(
             gConvoBackgroundData[proc->bgIndex].pColorPalettes,
-            0x000, // bg pal 0
-            0x0C0  // 7 palettes
+            0,
+            6
         );
 
-        BG_EnableSyncByMask(1 << 2);
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
         EnablePaletteSync();
 
         gPaletteBuffer[0] = 0;
@@ -1872,27 +1852,24 @@ void sub_800EC50(struct ConvoBackgroundFadeProc* proc) {
 
     case 2:
         sub_80B65F8(
-            (u16*)(gBG2TilemapBuffer),
-            GetBackgroundTileDataOffset(2),
+            gBG2TilemapBuffer,
+            GetBackgroundTileDataOffset(BG_2),
             0,
             6,
             proc->bgIndex
         );
 
-        BG_EnableSyncByMask(1 << 2);
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
         EnablePaletteSync();
 
         break;
 
     }
 
-    gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(FALSE, FALSE, TRUE, TRUE, TRUE);
 }
 
+//! FE8U = 0x0800ED50
 void sub_800ED50(struct ConvoBackgroundFadeProc* proc) {
     switch (proc->unkType) {
 
@@ -1910,26 +1887,26 @@ void sub_800ED50(struct ConvoBackgroundFadeProc* proc) {
 
         Decompress(
             gConvoBackgroundData[proc->bgIndex].pTileGraphics,
-            (void*)(VRAM + GetBackgroundTileDataOffset(3))
+            (void*)(VRAM + GetBackgroundTileDataOffset(BG_3))
         );
 
         // Loading Background Tile Arrangement
 
         CallARM_FillTileRect(
-            (u16*)(gBG3TilemapBuffer),
+            gBG3TilemapBuffer,
             gConvoBackgroundData[proc->bgIndex].pTileArrangement,
             0x8000 // base palette is bg palette 8
         );
 
         // Loading Background Palettes
 
-        CopyToPaletteBuffer(
+        ApplyPalettes(
             gConvoBackgroundData[proc->bgIndex].pColorPalettes,
-            0x100, // bg pal 8
-            0x0C0  // 7 palettes
+            8,
+            6
         );
 
-        BG_EnableSyncByMask(1 << 3);
+        BG_EnableSyncByMask(BG3_SYNC_BIT);
         EnablePaletteSync();
 
         gPaletteBuffer[0] = 0;
@@ -1938,27 +1915,24 @@ void sub_800ED50(struct ConvoBackgroundFadeProc* proc) {
 
     case 2:
         sub_80B65F8(
-            (u16*)(gBG3TilemapBuffer),
-            GetBackgroundTileDataOffset(3),
+            gBG3TilemapBuffer,
+            GetBackgroundTileDataOffset(BG_3),
             8,
             6,
             proc->bgIndex
         );
 
-        BG_EnableSyncByMask(1 << 3);
+        BG_EnableSyncByMask(BG3_SYNC_BIT);
         EnablePaletteSync();
 
         break;
 
     }
 
-    gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(FALSE, FALSE, TRUE, TRUE, TRUE);
 }
 
+//! FE8U = 0x0800EE54
 void sub_800EE54(struct ConvoBackgroundFadeProc* proc) {
     switch (proc->unkType) {
 
@@ -1983,25 +1957,22 @@ void sub_800EE54(struct ConvoBackgroundFadeProc* proc) {
 
     }
 
-    gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(FALSE, FALSE, TRUE, TRUE, TRUE);
 }
 
+//! FE8U = 0x0800EEE8
 void sub_800EEE8(struct ConvoBackgroundFadeProc* proc) {
-    unsigned currentFadeLevel = (proc->fadeTimer += proc->fadeSpeed) / 16;
+    u32 currentFadeLevel = (proc->fadeTimer += proc->fadeSpeed) / 16;
 
     switch (proc->fadeType) {
 
     case 0:
     case 1:
-        SetSpecialColorEffectsParameters(1, currentFadeLevel, 0x10 - currentFadeLevel, 0);
+        SetBlendAlpha(currentFadeLevel, 0x10 - currentFadeLevel);
         break;
 
     case 2:
-        SetSpecialColorEffectsParameters(1, 0x10 - currentFadeLevel, currentFadeLevel, 0);
+        SetBlendAlpha(0x10 - currentFadeLevel, currentFadeLevel);
         break;
 
     }
@@ -2010,35 +1981,23 @@ void sub_800EEE8(struct ConvoBackgroundFadeProc* proc) {
         Proc_Break(proc);
 }
 
+//! FE8U = 0x0800EF48
 void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
     switch (proc->fadeType) {
 
     case 0:
-        gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg2_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-        gLCDControlBuffer.dispcnt.obj_on = TRUE;
+        SetDispEnable(FALSE, FALSE, FALSE, TRUE, TRUE);
 
         break;
 
     case 1:
-        gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg2_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-        gLCDControlBuffer.dispcnt.obj_on = FALSE;
-
+        SetDispEnable(FALSE, FALSE, FALSE, TRUE, FALSE);
         Event23_(proc->pEventEngine);
 
         break;
 
     case 2:
-        gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg2_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-        gLCDControlBuffer.dispcnt.obj_on = TRUE;
+        SetDispEnable(FALSE, FALSE, FALSE, TRUE, TRUE);
 
         InitSystemTextFont();
         sub_80156D4();
@@ -2053,9 +2012,9 @@ void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    BG_SetPosition(2, 0, 0);
+    BG_SetPosition(BG_2, 0, 0);
 
-    SetSpecialColorEffectsParameters(0, 0x10, 0, 0);
+    SetBlendNone();
 
     SetBlendTargetA(FALSE, FALSE, FALSE, FALSE, FALSE);
     SetBlendTargetB(FALSE, FALSE, FALSE, FALSE, FALSE);
@@ -2066,22 +2025,23 @@ void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
     sub_800BA34();
 
     BG_Fill(gBG2TilemapBuffer, 0);
-    BG_EnableSyncByMask(1 << 2);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
 
     CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(0)), 0x20);
     CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(1)), 0x20);
     CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(2)), 0x20);
 }
 
+//! FE8U = 0x0800F0C8
 u8 Event22_(struct EventEngineProc* proc) {
-    RefreshBMapGraphics(); // ReloadGameCoreGraphics
+    RefreshBMapGraphics();
     sub_800BCDC(proc->mapSpritePalIdOverride);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
 
-    BG_EnableSyncByMask(1 << 0);
-    BG_EnableSyncByMask(1 << 1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
 
     ClearTalkBubble();
 
@@ -2093,6 +2053,7 @@ u8 Event22_(struct EventEngineProc* proc) {
     return Event24_(proc);
 }
 
+//! FE8U = 0x0800F124
 u8 Event23_(struct EventEngineProc* proc) {
     if (!(proc->evStateBits & EV_STATE_GFXLOCKED)) {
         BMapDispSuspend();
@@ -2103,6 +2064,7 @@ u8 Event23_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800F150
 u8 Event24_(struct EventEngineProc* proc) {
     if (proc->evStateBits & EV_STATE_GFXLOCKED) {
         BMapDispResume();
@@ -2113,6 +2075,7 @@ u8 Event24_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800F17C
 u8 Event25_(struct EventEngineProc* proc) {
     u8 x, y;
     short chIndex;
@@ -2150,23 +2113,25 @@ u8 Event25_(struct EventEngineProc* proc) {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
 
-    BG_EnableSyncByMask(1 << 0);
-    BG_EnableSyncByMask(1 << 1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
 
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800F20C
 u8 Event26_CameraControlMaybe(struct EventEngineProc* proc) {
-    s8 x, y;
+    s8 x;
+    s8 y;
 
-    u8 subcode = (0x7 & proc->pEventCurrent[0]);
-    u8 sc2     = (0xF & proc->pEventCurrent[0]) >> 3;
+    u8 subcode = EVT_SUB_CMD_LO(proc->pEventCurrent);
+    u8 sc2     = EVT_SUB_CMD_HI(proc->pEventCurrent);
 
     switch (subcode) {
 
     case 0: // position
-        y = (proc->pEventCurrent[1] >> 8);
-        x = *(const u8*)(proc->pEventCurrent + 1);
+        x = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+        y = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
 
         if (x < 0 || y < 0) {
             x = ((u16*)(gEventSlots + 0xB))[0];
@@ -2189,7 +2154,7 @@ u8 Event26_CameraControlMaybe(struct EventEngineProc* proc) {
 
     } // switch (subcode)
 
-    if (((proc->evStateBits >> 2) & 1) || (proc->evStateBits & EV_STATE_FADEDIN)) {
+    if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN)) {
         SetSomeRealCamPos(x, y, sc2);
         SetCursorMapPosition(x, y);
         RenderBmMap();
@@ -2197,9 +2162,9 @@ u8 Event26_CameraControlMaybe(struct EventEngineProc* proc) {
         return EVC_ADVANCE_CONTINUE;
     } else {
         if (!sc2)
-            EnsureCameraOntoPosition((struct Proc*)(proc), x, y);
+            EnsureCameraOntoPosition(proc, x, y);
         else
-            sub_8015D84((struct Proc*)(proc), x, y);
+            sub_8015D84(proc, x, y);
 
         SetCursorMapPosition(x, y);
 
@@ -2207,14 +2172,15 @@ u8 Event26_CameraControlMaybe(struct EventEngineProc* proc) {
     }
 }
 
+//! FE8U = 0x0800F2D4
 u8 Event27_MapChange(struct EventEngineProc* proc) {
     u8 i;
     u8 count = 1;
 
-    unsigned* mapChangeIt;
+    u32* mapChangeIt;
 
-    u8    subcode     = 0xF & *(const u8*)(proc->pEventCurrent);
-    short mapChangeId = proc->pEventCurrent[1];
+    u8  subcode     = EVT_SUB_CMD(proc->pEventCurrent);
+    s16 mapChangeId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     switch (mapChangeId) {
 
@@ -2244,7 +2210,7 @@ u8 Event27_MapChange(struct EventEngineProc* proc) {
         mapChangeIt = gEventSlotQueue;
 
         mapChangeId = *mapChangeIt++;
-        count = gEventSlots[13]; // qp
+        count = gEventSlots[0xD]; // qp
 
         break;
 
@@ -2257,11 +2223,11 @@ u8 Event27_MapChange(struct EventEngineProc* proc) {
             switch (subcode) {
 
             case 0:
-                TriggerMapChanges(mapChangeId, FALSE, (struct Proc*)(proc));
+                TriggerMapChanges(mapChangeId, FALSE, proc);
                 break;
 
             case 1:
-                sub_800BB48(mapChangeId, FALSE, (struct Proc*)(proc));
+                sub_800BB48(mapChangeId, FALSE, proc);
                 break;
 
             } // switch (subcode)
@@ -2277,11 +2243,11 @@ u8 Event27_MapChange(struct EventEngineProc* proc) {
             switch (subcode) {
 
             case 0:
-                TriggerMapChanges(mapChangeId, doDisplay, (struct Proc*)(proc));
+                TriggerMapChanges(mapChangeId, doDisplay, proc);
                 break;
 
             case 1:
-                sub_800BB48(mapChangeId, doDisplay, (struct Proc*)(proc));
+                sub_800BB48(mapChangeId, doDisplay, proc);
                 break;
 
             } // switch (subcode)
@@ -2294,78 +2260,29 @@ u8 Event27_MapChange(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800F3EC
 u8 Event28_ChangeWeather(struct EventEngineProc* proc) {
     SetWeather(proc->pEventCurrent[1]);
     return EVC_ADVANCE_YIELD;
 }
 
-#ifdef NONMATCHING
-
-void sub_800BAA8(s16, u8);
-
+//! FE8U = 0x0800F3FC
 u8 Event29_SetFogVision(struct EventEngineProc* proc) {
-    const struct {
-        u8  params;
-        u8  code;
-        u16 evArgument;
-    }* const ev = (const void*)(proc->pEventCurrent);
+    u8  doDisplay = EVT_SUB_CMD(proc->pEventCurrent);
+    u16 newVision = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
-    u8    doDisplay = ev->params & 0xF;
-    short newVision = ev->evArgument;
+    if (EVENT_IS_SKIPPING(proc))
+        doDisplay = 0;
 
-    if ((proc->evStateBits >> 2) & 1)
-        doDisplay = FALSE;
+    sub_800BAA8(newVision, doDisplay, proc);
 
-    sub_800BAA8(newVision, doDisplay);
     return EVC_ADVANCE_YIELD;
 }
 
-#else // !NONMATCHING
-
-__attribute__((naked))
-u8 Event29_SetFogVision(struct EventEngineProc* proc) {
-    asm(
-        ".syntax unified\n"
-
-        "push {r4, lr}\n"
-        "adds r2, r0, #0\n"
-        "ldr r1, [r2, #0x38]\n"
-        "ldrb r0, [r1]\n"
-        "movs r3, #0xf\n"
-        "ands r3, r0\n"
-        "ldrh r4, [r1, #2]\n"
-        "ldrh r0, [r2, #0x3c]\n"
-        "lsrs r0, r0, #2\n"
-        "movs r1, #1\n"
-        "ands r0, r1\n"
-        "cmp r0, #0\n"
-        "beq _0800F418\n"
-        "movs r3, #0\n"
-    "_0800F418:\n"
-        "lsls r0, r4, #0x10\n"
-        "asrs r0, r0, #0x10\n"
-        "adds r1, r3, #0\n"
-        "bl sub_800BAA8\n"
-        "movs r0, #2\n"
-        "pop {r4}\n"
-        "pop {r1}\n"
-        "bx r1\n"
-
-        ".syntax divided\n"
-    );
-}
-
-#endif // !NONMATCHING
-
+//! FE8U = 0x0800F42C
 u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
-    const struct {
-        u8 params;
-        u8 code;
-        u16 evArgument;
-    }* const ev = (const void*)(proc->pEventCurrent);
-
-    u8    subcode = ev->params & 0xF;
-    short chIndex = ev->evArgument;
+    u8  subcode = EVT_SUB_CMD(proc->pEventCurrent);
+    s16 chIndex = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     if (chIndex < 0)
         chIndex = gEventSlots[2];
@@ -2373,7 +2290,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
     switch (subcode) {
 
     case 0:
-        SetNextGameActionId(0);
+        SetNextGameActionId(GAME_ACTION_0);
         proc->evStateBits |= EV_STATE_CHANGEGM;
 
         break;
@@ -2383,7 +2300,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
 
         gPlaySt.unk4A_2 = 1;
 
-        SetNextGameActionId(1);
+        SetNextGameActionId(GAME_ACTION_1);
         proc->evStateBits |= EV_STATE_CHANGEGM;
 
         break;
@@ -2393,7 +2310,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
 
         gPlaySt.unk4A_2 = 2;
 
-        SetNextGameActionId(2);
+        SetNextGameActionId(GAME_ACTION_2);
         proc->evStateBits |= EV_STATE_CHANGEGM;
 
         break;
@@ -2405,7 +2322,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
     case 4:
         gPlaySt.unk4A_2 = 3;
 
-        SetNextGameActionId(3);
+        SetNextGameActionId(GAME_ACTION_3);
         proc->evStateBits |= EV_STATE_CHANGEGM;
 
         break;
@@ -2420,24 +2337,26 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
     return EVC_ADVANCE_CONTINUE;
 }
 
-u16 sub_800F50C(const struct UnitDefinition* unitDefition) {
+//! FE8U = 0x0800F50C
+u16 sub_800F50C(const struct UnitDefinition* unitDefinition) {
     u16 result = 0;
 
-    while (unitDefition->charIndex) {
+    while (unitDefinition->charIndex) {
         ++result;
-        ++unitDefition;
+        ++unitDefinition;
     }
 
     return result;
 }
 
+//! FE8U = 0x0800F528
 s8 ShouldUNITBeLoaded(const struct UnitDefinition* unitDefinition, u8 unk) {
     const u8 tmp = unk; // needed to match :/
 
     if (unitDefinition->allegiance == 0 && tmp != 1) {
         struct Unit* unit = GetUnitFromCharId(unitDefinition->charIndex);
 
-        if (unit && (unit->state & 0x00000004)) {
+        if (unit && (unit->state & US_DEAD)) {
             switch (tmp) {
 
             case 0:
@@ -2453,7 +2372,7 @@ s8 ShouldUNITBeLoaded(const struct UnitDefinition* unitDefinition, u8 unk) {
         }
     }
 
-    if (unitDefinition->allegiance != 2)
+    if (unitDefinition->allegiance != FACTION_ID_RED)
         return TRUE;
 
     if (!unitDefinition->sumFlag && !unitDefinition->redaCount) {
@@ -2467,10 +2386,11 @@ s8 ShouldUNITBeLoaded(const struct UnitDefinition* unitDefinition, u8 unk) {
     return FALSE;
 }
 
+//! FE8U = 0x0800F5B8
 void sub_800F5B8(struct EventEngineProc* proc) {
     const struct UnitDefinition* pUnitDefinition = proc->pUnitLoadData;
 
-    short count    = proc->unitLoadCount;
+    s16 count = proc->unitLoadCount;
     u8 param = proc->unitLoadParameter;
 
     u16 something = GetSomeEventEngineMoveRelatedBitfield(proc, TRUE);
@@ -2518,6 +2438,7 @@ void sub_800F698(const struct UnitDefinition* def, s16 count, u8 param) {
     }
 }
 
+//! FE8U = 0x0800F704
 void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
     struct Unit* unit;
 
@@ -2527,9 +2448,9 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
     // u8 allegianceLookup[] = { 0x00, 0x40, 0x80 }; // TODO
 
     if (def->allegiance == 0) {
-        unit = GetUnitFromCharIdAndFaction(def->charIndex, 0x00);
+        unit = GetUnitFromCharIdAndFaction(def->charIndex, FACTION_BLUE);
     } else {
-        unit = GetUnitFromCharIdAndFaction(def->charIndex, 0x00);
+        unit = GetUnitFromCharIdAndFaction(def->charIndex, FACTION_BLUE);
 
         if (unit) {
             UnitChangeFaction(unit, allegianceLookup[def->allegiance]);
@@ -2540,33 +2461,33 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
     if (!unit) {
         unit = LoadUnit(def);
 
-        if ((d == 1) && (def->allegiance == 0))
-            unit->state |= 0x00400000;
-    } else if (def->allegiance == 0) {
+        if ((d == 1) && (def->allegiance == FACTION_ID_BLUE))
+            unit->state |= US_BIT22;
+    } else if (def->allegiance == FACTION_ID_BLUE) {
         s8 x, y;
 
-        unit->state &= ~0x00000002;
+        unit->state &= ~US_UNSELECTABLE;
 
         if (d == 1) {
-            if (unit->state & 0x00000004)
-                unit->state |= 0x00400000;
+            if (unit->state & US_DEAD)
+                unit->state |= US_BIT22;
         } else {
-            if (unit->state & 0x00400000)
-                unit->state &= ~0x00400000;
+            if (unit->state & US_BIT22)
+                unit->state &= ~US_BIT22;
         }
 
         GetPreferredPositionForUNIT(def, &x, &y, 0);
 
-        if ((s8)(unit->xPos) == x && (s8)(unit->yPos) == y)
+        if (unit->xPos == x && unit->yPos == y)
             b &= ~0x0001;
     }
 
     unit->xPos = def->xPosition;
     unit->yPos = def->yPosition;
 
-    if (def->allegiance == 2 && unit->pCharacterData->number >= 0x3C) {
+    if (def->allegiance == FACTION_ID_RED && unit->pCharacterData->number >= 0x3C) {
         if (!gPlaySt.cfgController) {
-            if (!(gPlaySt.chapterStateBits & 0x40))
+            if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
                 UnitApplyBonusLevels(
                     unit,
                     -GetROMChapterStruct(gPlaySt.chapterIndex)->easyModeLevelMalus
@@ -2574,7 +2495,7 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
             else
                 goto hard_mode;
         } else {
-            if (gPlaySt.chapterStateBits & 0x40)
+            if (gPlaySt.chapterStateBits & PLAY_FLAG_HARD)
             hard_mode:
                 UnitApplyBonusLevels(
                     unit,
@@ -2596,6 +2517,7 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
     );
 }
 
+//! FE8U = 0x0800F8A8
 void sub_800F8A8(struct Unit* unit, const struct UnitDefinition* unitDefition, u16 flags, s8 unk) {
     if (!unit)
         return;
@@ -2608,7 +2530,7 @@ void sub_800F8A8(struct Unit* unit, const struct UnitDefinition* unitDefition, u
         return;
     }
 
-    if (unk == 1 || (unit->state & 0x00000080))
+    if (unk == 1 || (unit->state & US_UNDER_A_ROOF))
         sub_8079FA8(unit, unitDefition->redas, unitDefition->redaCount, flags);
     else
         sub_8079D74(unit, unitDefition->redas, unitDefition->redaCount, flags);
@@ -2616,6 +2538,9 @@ void sub_800F8A8(struct Unit* unit, const struct UnitDefinition* unitDefition, u
 
 #if NONMATCHING
 
+/* https://decomp.me/scratch/ygtjL */
+
+//! FE8U = 0x0800F914
 struct UnitDefinition* sub_800F914(const struct UnitDefinition* source, short count, u8 arg2, s8 arg3, s8 arg4) {
     struct UnitDefinition* result;
 
@@ -2994,15 +2919,10 @@ struct UnitDefinition* sub_800F914(const struct UnitDefinition* source, short co
 
 #endif // !NONMATCHING
 
+//! FE8U = 0x0800FB18
 u8 Event2B_(struct EventEngineProc* proc) {
-    const struct {
-        u8 params;
-        u8 code;
-        u16 evArgument;
-    }* const ev = (const void*)(proc->pEventCurrent);
-
-    u8    subcode  = ev->params & 0xF;
-    short argument = ev->evArgument;
+    u8  subcode  = EVT_SUB_CMD(proc->pEventCurrent);
+    s16 argument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     if (argument < 0)
         argument = gEventSlots[2];
@@ -3036,17 +2956,11 @@ u8 Event2B_(struct EventEngineProc* proc) {
     return EVC_ADVANCE_CONTINUE;
 }
 
+//! FE8U = 0x0800FB84
 u8 Event2C_LoadUnits(struct EventEngineProc* proc) {
-    const struct {
-        u8 params;
-        u8 code;
-        u8 evArgument;
-        const struct UnitDefinition* pUnitDefinitions;
-    }* const ev = (const void*)(proc->pEventCurrent);
-
-    u8 subcode  = ev->params & 0xF;
-    u8 argument = ev->evArgument;
-    const struct UnitDefinition* ud = ev->pUnitDefinitions;
+    u8 subcode  = EVT_SUB_CMD(proc->pEventCurrent);
+    u8 argument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    const struct UnitDefinition* ud = (const struct UnitDefinition *)EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
     u16 count = proc->unitLoadCount;
 
@@ -3094,12 +3008,13 @@ u8 Event2C_LoadUnits(struct EventEngineProc* proc) {
     return EVC_ADVANCE_YIELD;
 }
 
+//! FE8U = 0x0800FC90
 u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, int x, int y) {
     if (proc->evStateBits & EV_STATE_UNITCAM) {
         if (Proc_Find(gProcScr_CamMove))
             return FALSE; // Camera proc already exists
 
-        if (EnsureCameraOntoPosition((struct Proc*)(proc), x, y))
+        if (EnsureCameraOntoPosition(proc, x, y))
             return FALSE; // Failed to start camera movement
     }
 
@@ -3109,7 +3024,8 @@ u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, int x, int y) {
     return TRUE; // Yay!
 }
 
-unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc* proc, s8 unk) {
+//! FE8U = 0x0800FCD8
+u32 GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc* proc, s8 unk) {
     u16 result = 0;
 
     // TODO: use some enum constants
@@ -3126,14 +3042,9 @@ unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc* proc, s8 
     return result;
 }
 
+//! FE8U = 0x0800FD0C
 u8 Event2D_(struct EventEngineProc* proc) {
-    const struct {
-        u8 params;
-        u8 code;
-        u16 evArgument;
-    }* const ev = (const void*)(proc->pEventCurrent);
-
-    int palId = ev->evArgument;
+    u16 palId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
     sub_800BCDC(palId);
     proc->mapSpritePalIdOverride = palId;
