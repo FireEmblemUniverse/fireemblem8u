@@ -37,7 +37,7 @@ void sub_8009A84(ProcPtr proc);
 void StartGame(void);
 // ??? GetGameControl(???);
 void SetNextGameActionId(int id);
-// ??? SetNextChapterId(???);
+void SetNextChapterId(int id);
 // ??? HasNextChapter(???);
 void RestartGameAndGoto8(void);
 void RestartGameAndGoto12(void);

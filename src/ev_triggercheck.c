@@ -451,7 +451,7 @@ void* GetChapterAllyUnitDataPointer(void) {
 }
 
 //! FE8U = 0x080833B0
-void* GetChapterEnemyUnitDefinitions(void) {
+const struct UnitDefinition * GetChapterEnemyUnitDefinitions(void) {
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
     void* ret = NULL;
@@ -1811,11 +1811,11 @@ void RegisterEventActivation(u32 script, u16 flag) {
 }
 
 //! FE8U = 0x080845E4
-u16 GetEventTriggerId(int script) {
+u16 GetEventTriggerId(const void * script) {
     s16 i;
 
     for (i = 0; i < gActiveEventRegistry.unk_3c; i++) {
-        if (gActiveEventRegistry.unk_00[i] == script) {
+        if (gActiveEventRegistry.unk_00[i] == (u32)script) {
             return gActiveEventRegistry.unk_28[i];
         }
     }

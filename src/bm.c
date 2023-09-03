@@ -571,7 +571,7 @@ void UndeployEveryone(void) {
 }
 
 //! FE8U = 0x08015588
-void GotoChapterWithoutSave(int chapterId) {
+void GotoChapterWithoutSave(u16 chapterId) {
     gPlaySt.chapterIndex = chapterId;
 
     Proc_Goto(Proc_Find(gProc_BMapMain), 2);

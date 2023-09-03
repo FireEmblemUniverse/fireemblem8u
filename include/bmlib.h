@@ -129,12 +129,12 @@ void SetBlackPal(int);
 // ??? FadeExists(???);
 // ??? StartFadeToBlack(???);
 // ??? StartFadeFromBlack(???);
-void StartLockingFadeToBlack(int speed, ProcPtr parent); // aka NewFadeInBack
+void StartLockingFadeToBlack(int speed, ProcPtr parent);
 void StartLockingFadeFromBlack(int q4_speed, ProcPtr parent);
-// ??? StartLockingFadeToWhite(???);
-// ??? StartLockingFadeFromWhite(???);
+void StartLockingFadeToWhite(int q4_speed, ProcPtr parent);
+void StartLockingFadeFromWhite(int q4_speed, ProcPtr parent);
 void StartMidFadeToBlack(void);
-void StartSlowFadeToBlack(void); // StartSlowFadeToBlack
+void StartSlowFadeToBlack(void);
 void StartFastFadeToBlack(void);
 void StartMidFadeFromBlack(void);
 // ??? StartSlowFadeFromBlack(???);

@@ -165,19 +165,19 @@ void EventEngine_OnUpdate(struct EventEngineProc* proc) {
         evFunc = (evCode < 0x80) ? gEventLoCmdTable[evCode] : gEventHiCmdTable[evCode - 0x80];
 
         switch (evFunc(proc)) {
-        case 0:
+        case EVC_ADVANCE_CONTINUE:
             proc->pEventCurrent += ((*proc->pEventCurrent) >> 4)&0xF;
-        case 1:
-        case 4:
-        case 6:
+        case EVC_STOP_CONTINUE:
+        case EVC_UNK4:
+        case EVC_ERROR:
             break;
-
-        case 2:
+        
+        case EVC_ADVANCE_YIELD:
             proc->pEventCurrent += ((*proc->pEventCurrent) >> 4)&0xF;
-        case 3:
+        case EVC_STOP_YIELD:
             return;
-
-        case 5:
+        
+        case EVC_END:
             Proc_Break(proc);
             return;
         }

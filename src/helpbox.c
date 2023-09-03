@@ -977,7 +977,7 @@ s8 sub_808A4FC(void) {
 }
 
 //! FE8U = 0x0808A518
-void SetDialogueBoxConfig(int config) {
+void SetDialogueBoxConfig(u16 config) {
     gUnknown_0203E7E8.unk_42 = config;
     return;
 }

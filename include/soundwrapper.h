@@ -16,7 +16,7 @@ void StartBgmExt(int songId, int speed, struct MusicPlayerInfo *player);
 void StartBgmFadeIn(int songId, int b, struct MusicPlayerInfo *player);
 void OverrideBgm(int songId);
 void RestoreBgm(void);
-// ??? _RestoreBgm(???);
+void _RestoreBgm(u16 speed);
 void MakeBgmOverridePersist(void);
 void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);
 // ??? MusicVc_OnLoop(???);
