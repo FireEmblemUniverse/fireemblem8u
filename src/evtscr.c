@@ -2487,27 +2487,27 @@ void sub_800F8A8(struct Unit * unit, const struct UnitDefinition * unitDefition,
 
 #if NONMATCHING
 
-/* https://decomp.me/scratch/ygtjL */
+/* https://decomp.me/scratch/IyKOH */
 
 //! FE8U = 0x0800F914
-struct UnitDefinition * sub_800F914(const struct UnitDefinition * source, short count, u8 arg2, s8 arg3, s8 arg4)
+struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count, u8 arg2, s8 arg3, s8 arg4)
 {
-    struct UnitDefinition * result;
-
-    u8 array[0x40];
-    u16 arraySize = 0;
-
+    u8  array[0x40];
+    u16 r;
+    u16 i;
+    u16 arraySize;
+    const struct UnitDefinition * itSource;
     struct
     {
         unsigned loBits, hiBits;
     } mask;
 
-    u16 i = 0;
-
+    arraySize = 0;
+    i = 0;
     if (arg2)
     {
-        const struct UnitDefinition * itSource = source;
-
+        itSource = source;
+        ++i; --i;
         for (; i < count; i++)
         {
             if (itSource->sumFlag)
@@ -2530,67 +2530,67 @@ struct UnitDefinition * sub_800F914(const struct UnitDefinition * source, short 
 
     while (i)
     {
-        unsigned index = array[NextRN_N(arraySize)];
+        r = NextRN_N(arraySize);
+        r = array[r];
 
-        if (!MASK_BIT_GET(index))
+        if (!MASK_BIT_GET(r))
         {
-            MASK_BIT_SET(index);
+            MASK_BIT_SET(r);
             i--;
         }
     }
-
-    result = end;
-
-    for (i = 0; i < count; i++)
-    {
-        if (MASK_BIT_GET(i))
-            continue;
-
-        *result = source[i];
-        result->sumFlag = FALSE;
-        result++;
-    }
+    itSource = source;
+    source = end;
 
     for (i = 0; i < count; i++)
     {
         if (!MASK_BIT_GET(i))
-            continue;
-
-        *result = source[i];
-        result->sumFlag = TRUE;
-        result++;
-    }
-
-    result->charIndex = 0; // marks the end of the unit block
-
-    if (arg4 == TRUE)
-    {
-        result = end;
-
-        for (i = 0; i < count; i++)
         {
-            result->redaCount = 0;
-            result->redas = NULL;
-
-            result++;
+            *source = itSource[i];
+            source->sumFlag = FALSE;
+            source++;
         }
     }
 
-    result = end;
+    for (i = 0; i < count; i++)
+    {
+        if (MASK_BIT_GET(i))
+        {
+            *source = itSource[i];
+            source->sumFlag = TRUE;
+            source++;
+        }
+    }
+
+    source->charIndex = 0; // marks the end of the unit block
+
+    if (arg4 == TRUE)
+    {
+        source = end;
+
+        for (i = 0; i < count; i++)
+        {
+            source->redaCount = 0;
+            source->redas     = NULL;
+            source++;
+        }
+    }
+
+    source = end;
 
     if (arg3 == TRUE)
-        sub_80125C0(result);
+        sub_80125C0(source);
 
 #undef MASK_BIT_GET
 #undef MASK_BIT_SET
 
-    return result;
+    return source;
 }
 
 #else // #if !NONMATCHING
 
 __attribute__((naked))
-struct UnitDefinition * sub_800F914(const struct UnitDefinition * source, short count, u8 arg2, s8 arg3, s8 arg4)
+struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count, u8 arg2, s8 arg3, s8 arg4)
 {
     asm(".syntax unified\n"
 
@@ -2950,7 +2950,7 @@ u8 Event2C_LoadUnits(struct EventEngineProc * proc)
     if (count == 0)
         count = sub_800F50C(ud);
 
-    ud = sub_800F914(ud, count, proc->idk4E, subcode == 2, proc->unk4F_7);
+    ud = sub_800F914((void *)ud, count, proc->idk4E, subcode == 2, proc->unk4F_7);
 
     BmMapFill(gBmMapOther, 0);
 
