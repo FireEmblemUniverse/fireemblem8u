@@ -520,36 +520,22 @@ u8 Event0E_STAL(struct EventEngineProc * proc)
 //! FE8U = 0x0800DBE0
 u8 Event0F_(struct EventEngineProc * proc)
 {
-    s8 newValue;
-
-    u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
-    u16 argument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-    u32 shift = 4 * (*(const u8 *)(proc->pEventCurrent + 1) % 8);
-
-    switch (subcode)
+    do
     {
+        s8 newValue;
+        u8 subcode   = EVT_SUB_CMD(proc->pEventCurrent);
+        u32 argument = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[0];
+        u32 shift    = 4 * (*(const u8*)(proc->pEventCurrent + 1) % 8);
+
+        switch (subcode)
+        {
         case 0: // Check
             gEventSlots[0xC] = (gEventSlotCounter >> shift) & 0xF;
 
             return EVC_ADVANCE_CONTINUE;
 
         case 1: // Set
-#if NONMATCHING
-
-            // I can't get that particular part to match so I'll just go with asm
-
-            newValue = (r5 << 0x10) >> 0x18;
-
-#else
-
-            asm("lsl r0, %1, #16\n"
-                "lsr %0, r0, #24\n"
-
-                : "=r"(newValue)
-                : "r"(argument));
-
-#endif
-
+            newValue = (u16)argument >> 8;
             break;
 
         case 2: // Increment
@@ -568,9 +554,14 @@ u8 Event0F_(struct EventEngineProc * proc)
 
             break;
 
-    } // switch (subcode)
+        } // switch (subcode)
 
-    gEventSlotCounter = ((gEventSlotCounter & ~(0xF << shift)) | ((newValue & 0xF) << shift));
+        argument = ~(0xF << shift);
+        gEventSlotCounter = (
+            (gEventSlotCounter &~ (0xF << shift)) |
+            ((newValue & 0xF) << shift)
+        );
+    } while (0);
 
     return EVC_ADVANCE_CONTINUE;
 }
