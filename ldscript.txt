@@ -503,6 +503,7 @@ SECTIONS
         . = ALIGN(4); src/evtscr.o(.data);
         . = ALIGN(4); data/data_591F38.o(.data);
         . = ALIGN(4); src/popup.o(.data);
+        . = ALIGN(4); src/evtsub.o(.data);
         . = ALIGN(4); data/data_5924D8.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/data_599714.o(.data);

@@ -3805,23 +3805,22 @@ u8 Event39_ChangeAiScript(struct EventEngineProc * proc)
 {
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
 
-    u8 r7 = gEventSlots[1];
-
-    u8 ai1 = (gEventSlots[1] >> 8);
-    u8 ai2 = (gEventSlots[1] >> 16);
+    u8 ai1 = gEventSlots[1];
+    u8 ai2 = (gEventSlots[1] >> 8);
+    u8 unused = (gEventSlots[1] >> 16);
 
     switch (subcmd)
     {
         case 0:
         {
-            u16 unitId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+            u16 pid = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
             if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
             {
-                unitId = gEventSlots[2];
+                pid = gEventSlots[2];
             }
 
-            sub_8011D10(unitId, r7, ai1, ai2);
+            ChangeAiForCharacter(pid, ai1, ai2, unused);
 
             break;
         }
@@ -3847,7 +3846,7 @@ u8 Event39_ChangeAiScript(struct EventEngineProc * proc)
                 unit = NULL;
             }
 
-            sub_8011CCC(unit, r7, ai1, ai2);
+            ChangeUnitAi(unit, ai1, ai2, unused);
 
             break;
         }
@@ -3889,7 +3888,7 @@ u8 Event3A_DisplayPopup(struct EventEngineProc * proc)
         {
             s8 x = EVT_CMD_ARGV(proc->pEventCurrent)[2];
             s8 y = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
-            sub_8011C94(textId, x, y, proc);
+            StartBrownTextBox(textId, x, y, proc);
             break;
         }
     }

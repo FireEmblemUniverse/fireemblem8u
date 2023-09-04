@@ -590,8 +590,8 @@ extern const char *gStrPrefix[][2];
 // extern ??? gPopup_WpnBroken
 // extern ??? gPopup_WRankUp
 // extern ??? gPopup_NewAlly
-// extern ??? gUnknown_085924D8
-// extern ??? gUnknown_08592530
+// extern ??? gProcScr_BrownTextBox
+// extern ??? gProcScr_08592530
 // extern ??? gUnknown_08592568
 // extern ??? gUnknown_08592580
 // extern ??? ProcScr_BoomFogFx
@@ -1461,8 +1461,8 @@ extern u8 gTsa_FinScreen[];
 extern u16 gUnknown_08A40AD4[]; // pal
 extern u8 gUnknown_08A40B14[]; // tsa
 // extern ??? gUnknown_08A40FC8
-// extern ??? gUnknown_08A4CF2C
-// extern ??? gUnknown_08A4D0CC
+// extern ??? gGfx_BrownTextBox
+// extern ??? gPal_BrownTextBox
 // extern ??? gUnknown_08A83364
 // extern ??? gUnknown_08A95F64
 // extern ??? gUnknown_08A95FE4

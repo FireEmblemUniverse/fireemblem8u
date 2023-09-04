@@ -167,94 +167,94 @@ gUnknown_08206B70:  @ 0x08206B70
     .4byte gUnknown_08A40FC8 + 0xba28
     .4byte gUnknown_08A40FC8 + 0x9a0c
     .4byte gUnknown_08A40FC8 + 0xbd78
-    .4byte gUnknown_08A4D0CC + 0x11c
-    .4byte gUnknown_08A4D0CC + 0x6ec
-    .4byte gUnknown_08A4D0CC + 0xeec
-    .4byte gUnknown_08A4D0CC + 0x1710
-    .4byte gUnknown_08A4D0CC + 0x1f74
-    .4byte gUnknown_08A4D0CC + 0x27cc
-    .4byte gUnknown_08A4D0CC + 0x304c
-    .4byte gUnknown_08A4D0CC + 0x38b4
-    .4byte gUnknown_08A4D0CC + 0x4124
-    .4byte gUnknown_08A4D0CC + 0x4984
+    .4byte gPal_BrownTextBox + 0x11c
+    .4byte gPal_BrownTextBox + 0x6ec
+    .4byte gPal_BrownTextBox + 0xeec
+    .4byte gPal_BrownTextBox + 0x1710
+    .4byte gPal_BrownTextBox + 0x1f74
+    .4byte gPal_BrownTextBox + 0x27cc
+    .4byte gPal_BrownTextBox + 0x304c
+    .4byte gPal_BrownTextBox + 0x38b4
+    .4byte gPal_BrownTextBox + 0x4124
+    .4byte gPal_BrownTextBox + 0x4984
     .4byte 0x8A708A7 + 0xf435
     .4byte 0x8A708A7 + 0x1233d
     .4byte 0x00000078
-    .4byte gUnknown_08A4D0CC + 0x518c
-    .4byte gUnknown_08A4D0CC + 0x5918
-    .4byte gUnknown_08A4D0CC + 0x6130
-    .4byte gUnknown_08A4D0CC + 0x6944
-    .4byte gUnknown_08A4D0CC + 0x7150
-    .4byte gUnknown_08A4D0CC + 0x7964
-    .4byte gUnknown_08A4D0CC + 0x81a8
-    .4byte gUnknown_08A4D0CC + 0x8950
-    .4byte gUnknown_08A4D0CC + 0x9144
-    .4byte gUnknown_08A4D0CC + 0x9958
+    .4byte gPal_BrownTextBox + 0x518c
+    .4byte gPal_BrownTextBox + 0x5918
+    .4byte gPal_BrownTextBox + 0x6130
+    .4byte gPal_BrownTextBox + 0x6944
+    .4byte gPal_BrownTextBox + 0x7150
+    .4byte gPal_BrownTextBox + 0x7964
+    .4byte gPal_BrownTextBox + 0x81a8
+    .4byte gPal_BrownTextBox + 0x8950
+    .4byte gPal_BrownTextBox + 0x9144
+    .4byte gPal_BrownTextBox + 0x9958
     .4byte 0x8A708A7 + 0xf8e9
     .4byte 0x8A708A7 + 0x123fd
     .4byte 0x00000078
-    .4byte gUnknown_08A4D0CC + 0xa134
-    .4byte gUnknown_08A4D0CC + 0xa964
-    .4byte gUnknown_08A4D0CC + 0xb1bc
-    .4byte gUnknown_08A4D0CC + 0xba18
-    .4byte gUnknown_08A4D0CC + 0xc28c
-    .4byte gUnknown_08A4D0CC + 0xcb0c
-    .4byte gUnknown_08A4D0CC + 0xd368
-    .4byte gUnknown_08A4D0CC + 0xdb68
-    .4byte gUnknown_08A4D0CC + 0xe2c4
-    .4byte gUnknown_08A4D0CC + 0xea88
+    .4byte gPal_BrownTextBox + 0xa134
+    .4byte gPal_BrownTextBox + 0xa964
+    .4byte gPal_BrownTextBox + 0xb1bc
+    .4byte gPal_BrownTextBox + 0xba18
+    .4byte gPal_BrownTextBox + 0xc28c
+    .4byte gPal_BrownTextBox + 0xcb0c
+    .4byte gPal_BrownTextBox + 0xd368
+    .4byte gPal_BrownTextBox + 0xdb68
+    .4byte gPal_BrownTextBox + 0xe2c4
+    .4byte gPal_BrownTextBox + 0xea88
     .4byte 0x8A708A7 + 0xfd9d
     .4byte 0x8A708A7 + 0x124bd
     .4byte 0x00000078
-    .4byte gUnknown_08A4D0CC + 0xf284
-    .4byte gUnknown_08A4D0CC + 0xfa54
-    .4byte gUnknown_08A4D0CC + 0x1022c
-    .4byte gUnknown_08A4D0CC + 0x109a4
-    .4byte gUnknown_08A4D0CC + 0x111b0
-    .4byte gUnknown_08A4D0CC + 0x119d0
-    .4byte gUnknown_08A4D0CC + 0x12224
-    .4byte gUnknown_08A4D0CC + 0x12a54
-    .4byte gUnknown_08A4D0CC + 0x13220
-    .4byte gUnknown_08A4D0CC + 0x13a58
+    .4byte gPal_BrownTextBox + 0xf284
+    .4byte gPal_BrownTextBox + 0xfa54
+    .4byte gPal_BrownTextBox + 0x1022c
+    .4byte gPal_BrownTextBox + 0x109a4
+    .4byte gPal_BrownTextBox + 0x111b0
+    .4byte gPal_BrownTextBox + 0x119d0
+    .4byte gPal_BrownTextBox + 0x12224
+    .4byte gPal_BrownTextBox + 0x12a54
+    .4byte gPal_BrownTextBox + 0x13220
+    .4byte gPal_BrownTextBox + 0x13a58
     .4byte 0x8A708A7 + 0x10251
     .4byte 0x8A708A7 + 0x1257d
     .4byte 0x00000078
-    .4byte gUnknown_08A4D0CC + 0x142bc
-    .4byte gUnknown_08A4D0CC + 0x14af8
-    .4byte gUnknown_08A4D0CC + 0x1535c
-    .4byte gUnknown_08A4D0CC + 0x15bc0
-    .4byte gUnknown_08A4D0CC + 0x16420
-    .4byte gUnknown_08A4D0CC + 0x16c98
-    .4byte gUnknown_08A4D0CC + 0x17504
-    .4byte gUnknown_08A4D0CC + 0x17d20
-    .4byte gUnknown_08A4D0CC + 0x18550
-    .4byte gUnknown_08A4D0CC + 0x18d68
+    .4byte gPal_BrownTextBox + 0x142bc
+    .4byte gPal_BrownTextBox + 0x14af8
+    .4byte gPal_BrownTextBox + 0x1535c
+    .4byte gPal_BrownTextBox + 0x15bc0
+    .4byte gPal_BrownTextBox + 0x16420
+    .4byte gPal_BrownTextBox + 0x16c98
+    .4byte gPal_BrownTextBox + 0x17504
+    .4byte gPal_BrownTextBox + 0x17d20
+    .4byte gPal_BrownTextBox + 0x18550
+    .4byte gPal_BrownTextBox + 0x18d68
     .4byte 0x8A708A7 + 0x10705
     .4byte 0x8A708A7 + 0x1263d
     .4byte 0x00000078
-    .4byte gUnknown_08A4D0CC + 0x19568
-    .4byte gUnknown_08A4D0CC + 0x19d18
-    .4byte gUnknown_08A4D0CC + 0x1a4fc
-    .4byte gUnknown_08A4D0CC + 0x1acf4
-    .4byte gUnknown_08A4D0CC + 0x1b530
-    .4byte gUnknown_08A4D0CC + 0x1bd6c
-    .4byte gUnknown_08A4D0CC + 0x1c5c8
-    .4byte gUnknown_08A4D0CC + 0x1cdf8
-    .4byte gUnknown_08A4D0CC + 0x1d600
-    .4byte gUnknown_08A4D0CC + 0x1ddb8
+    .4byte gPal_BrownTextBox + 0x19568
+    .4byte gPal_BrownTextBox + 0x19d18
+    .4byte gPal_BrownTextBox + 0x1a4fc
+    .4byte gPal_BrownTextBox + 0x1acf4
+    .4byte gPal_BrownTextBox + 0x1b530
+    .4byte gPal_BrownTextBox + 0x1bd6c
+    .4byte gPal_BrownTextBox + 0x1c5c8
+    .4byte gPal_BrownTextBox + 0x1cdf8
+    .4byte gPal_BrownTextBox + 0x1d600
+    .4byte gPal_BrownTextBox + 0x1ddb8
     .4byte 0x8A708A7 + 0x10bb9
     .4byte 0x8A708A7 + 0x126fd
     .4byte 0x00000078
-    .4byte gUnknown_08A4D0CC + 0x1e4f8
-    .4byte gUnknown_08A4D0CC + 0x1ed0c
-    .4byte gUnknown_08A4D0CC + 0x1f560
-    .4byte gUnknown_08A4D0CC + 0x1fdb4
-    .4byte gUnknown_08A4D0CC + 0x20610
-    .4byte gUnknown_08A4D0CC + 0x20e84
-    .4byte gUnknown_08A4D0CC + 0x21700
-    .4byte gUnknown_08A4D0CC + 0x21f74
-    .4byte gUnknown_08A4D0CC + 0x227c8
-    .4byte gUnknown_08A4D0CC + 0x23018
+    .4byte gPal_BrownTextBox + 0x1e4f8
+    .4byte gPal_BrownTextBox + 0x1ed0c
+    .4byte gPal_BrownTextBox + 0x1f560
+    .4byte gPal_BrownTextBox + 0x1fdb4
+    .4byte gPal_BrownTextBox + 0x20610
+    .4byte gPal_BrownTextBox + 0x20e84
+    .4byte gPal_BrownTextBox + 0x21700
+    .4byte gPal_BrownTextBox + 0x21f74
+    .4byte gPal_BrownTextBox + 0x227c8
+    .4byte gPal_BrownTextBox + 0x23018
     .4byte 0x8A708A7 + 0x1106d
     .4byte 0x8A708A7 + 0x127bd
     .4byte 0x00000078

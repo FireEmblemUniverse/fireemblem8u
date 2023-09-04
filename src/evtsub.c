@@ -22,19 +22,19 @@
 
 #include "constants/items.h"
 
-struct Proc85924D8
+struct BrownTextBoxProc
 {
     /* 00 */ PROC_HEADER;
     /* 29 */ STRUCT_PAD(0x29, 0x30);
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ u32 unk_38;
-    /* 3C */ int unk_3c;
-    /* 40 */ int unk_40;
-    /* 44 */ int unk_44;
-    /* 48 */ u16 unk_48;
+    /* 30 */ int x;
+    /* 34 */ int y;
+    /* 38 */ u32 chr;
+    /* 3C */ int pal;
+    /* 40 */ int textId;
+    /* 44 */ int width;
+    /* 48 */ u16 oam0Attr;
     /* 4A */ STRUCT_PAD(0x4A, 0x4C);
-    /* 4C */ s16 unk_4c;
+    /* 4C */ s16 blendVal;
 };
 
 struct Unknown03000600
@@ -47,63 +47,63 @@ struct Unknown03000600
 extern u16 gUnknown_030005FC;
 extern struct Unknown03000600 gUnknown_03000600[];
 
-extern u16 gUnknown_08A4D0CC[];
-extern u8 gUnknown_08A4CF2C[];
+extern u16 gPal_BrownTextBox[];
+extern u8 gGfx_BrownTextBox[];
 
 // forward declarations
 void sub_801247C(struct Unit *);
 
-extern struct ProcCmd gUnknown_085924D8[];
+extern struct ProcCmd gProcScr_BrownTextBox[];
 
 //! FE8U = 0x08011784
-void sub_8011784(struct Proc85924D8 * proc)
+void BrownTextBox_Loop(struct BrownTextBoxProc * proc)
 {
     int i;
 
-    int oam2A = (((proc->unk_38 + 0x400) & 0x0001FFFF) / CHR_SIZE) | OAM2_PAL((proc->unk_3c + 1));
-    int oam2B = ((proc->unk_38 & 0x0001FFFF) / CHR_SIZE) | OAM2_PAL(proc->unk_3c);
+    int oam2A = (((proc->chr + 0x400) & 0x0001FFFF) / CHR_SIZE) | OAM2_PAL((proc->pal + 1));
+    int oam2B = ((proc->chr & 0x0001FFFF) / CHR_SIZE) | OAM2_PAL(proc->pal);
 
-    PutSpriteExt(4, proc->unk_30, proc->unk_34 + proc->unk_48, gObject_16x8, oam2B);
-    PutSpriteExt(4, proc->unk_30 + (proc->unk_44 - 2) * 8, proc->unk_34 + proc->unk_48, gObject_16x8, oam2B + 4);
-    PutSpriteExt(4, proc->unk_30, proc->unk_34 + 0x18 + proc->unk_48, gObject_16x8, oam2B + 0xd);
+    PutSpriteExt(4, proc->x, proc->y + proc->oam0Attr, gObject_16x8, oam2B);
+    PutSpriteExt(4, proc->x + (proc->width - 2) * 8, proc->y + proc->oam0Attr, gObject_16x8, oam2B + 4);
+    PutSpriteExt(4, proc->x, proc->y + 24 + proc->oam0Attr, gObject_16x8, oam2B + 0xd);
     PutSpriteExt(
-        4, proc->unk_30 + (proc->unk_44 - 2) * 8, proc->unk_34 + 0x18 + proc->unk_48, gObject_16x8, oam2B + 0x11);
+        4, proc->x + (proc->width - 2) * 8, proc->y + 24 + proc->oam0Attr, gObject_16x8, oam2B + 0x11);
 
-    PutSpriteExt(4, proc->unk_30, proc->unk_34 + 8 + proc->unk_48, gObject_8x8, oam2B + 6);
-    PutSpriteExt(4, proc->unk_30, proc->unk_34 + 16 + proc->unk_48, gObject_8x8, oam2B + 11);
-    PutSpriteExt(4, proc->unk_30 + (proc->unk_44 - 1) * 8, proc->unk_34 + 8 + proc->unk_48, gObject_8x8, oam2B + 10);
-    PutSpriteExt(4, proc->unk_30 + (proc->unk_44 - 1) * 8, proc->unk_34 + 16 + proc->unk_48, gObject_8x8, oam2B + 12);
+    PutSpriteExt(4, proc->x, proc->y + 8 + proc->oam0Attr, gObject_8x8, oam2B + 6);
+    PutSpriteExt(4, proc->x, proc->y + 16 + proc->oam0Attr, gObject_8x8, oam2B + 11);
+    PutSpriteExt(4, proc->x + (proc->width - 1) * 8, proc->y + 8 + proc->oam0Attr, gObject_8x8, oam2B + 10);
+    PutSpriteExt(4, proc->x + (proc->width - 1) * 8, proc->y + 16 + proc->oam0Attr, gObject_8x8, oam2B + 12);
 
-    for (i = 2; i < proc->unk_44 - 2; i += 2)
+    for (i = 2; i < proc->width - 2; i += 2)
     {
-        PutSpriteExt(4, proc->unk_30 + i * 8, proc->unk_34 + proc->unk_48, gObject_16x8, oam2B + 2);
+        PutSpriteExt(4, proc->x + i * 8, proc->y + proc->oam0Attr, gObject_16x8, oam2B + 2);
     }
 
-    for (; i < proc->unk_44 - 1; i++)
+    for (; i < proc->width - 1; i++)
     {
-        PutSpriteExt(4, proc->unk_30 + i * 8, proc->unk_34 + proc->unk_48, gObject_8x8, oam2B + 2);
+        PutSpriteExt(4, proc->x + i * 8, proc->y + proc->oam0Attr, gObject_8x8, oam2B + 2);
     }
 
-    for (i = 2; i < proc->unk_44 - 2; i += 2)
+    for (i = 2; i < proc->width - 2; i += 2)
     {
-        PutSpriteExt(4, proc->unk_30 + i * 8, proc->unk_34 + 0x18 + proc->unk_48, gObject_16x8, oam2B + 15);
+        PutSpriteExt(4, proc->x + i * 8, proc->y + 24 + proc->oam0Attr, gObject_16x8, oam2B + 15);
     }
 
-    for (i = 1; i < proc->unk_44 - 2; i += 2)
+    for (i = 1; i < proc->width - 2; i += 2)
     {
-        PutSpriteExt(4, proc->unk_30 + i * 8, proc->unk_34 + 8 + proc->unk_48, gObject_16x8, oam2B + 8);
-        PutSpriteExt(4, proc->unk_30 + i * 8, proc->unk_34 + 16 + proc->unk_48, gObject_16x8, oam2B + 8);
+        PutSpriteExt(4, proc->x + i * 8, proc->y + 8 + proc->oam0Attr, gObject_16x8, oam2B + 8);
+        PutSpriteExt(4, proc->x + i * 8, proc->y + 16 + proc->oam0Attr, gObject_16x8, oam2B + 8);
     }
 
-    for (; i < proc->unk_44 - 1; i++)
+    for (; i < proc->width - 1; i++)
     {
-        PutSpriteExt(4, proc->unk_30 + i * 8, proc->unk_34 + 8 + proc->unk_48, gObject_8x8, oam2B + 8);
-        PutSpriteExt(4, proc->unk_30 + i * 8, proc->unk_34 + 16 + proc->unk_48, gObject_8x8, oam2B + 8);
+        PutSpriteExt(4, proc->x + i * 8, proc->y + 8 + proc->oam0Attr, gObject_8x8, oam2B + 8);
+        PutSpriteExt(4, proc->x + i * 8, proc->y + 16 + proc->oam0Attr, gObject_8x8, oam2B + 8);
     }
 
     for (i = 0; i < 3; i++)
     {
-        PutSpriteExt(0, proc->unk_30 + 8 + (i * 32), proc->unk_34 + 8 + proc->unk_48, gObject_32x16, oam2A + i * 4);
+        PutSpriteExt(0, proc->x + 8 + (i * 32), proc->y + 8 + proc->oam0Attr, gObject_32x16, oam2A + i * 4);
     }
 
     return;
@@ -115,30 +115,44 @@ void nullsub_44(void)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_BrownTextBox[] =
+{
+    PROC_YIELD,
+    PROC_SET_END_CB(nullsub_44),
+
+    PROC_REPEAT(BrownTextBox_Loop),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x08011A1C
-void sub_8011A1C(struct Proc85924D8 * proc, s8 flag)
+void sub_8011A1C(struct BrownTextBoxProc * proc, s8 doBlend)
 {
     if (!proc)
     {
         return;
     }
 
-    if (flag != 0)
+    if (doBlend)
     {
-        proc->unk_48 = 0x400;
+        proc->oam0Attr = OAM0_BLEND;
     }
     else
     {
-        proc->unk_48 = 0;
+        proc->oam0Attr = 0;
     }
 
     return;
 }
 
 //! FE8U = 0x08011A48
-void sub_8011A48(struct Proc85924D8 * proc)
+void sub_8011A48(struct BrownTextBoxProc * proc)
 {
-    proc->unk_4c = 0;
+    proc->blendVal = 0;
 
     SetBlendAlpha(0, 0x10);
 
@@ -148,18 +162,18 @@ void sub_8011A48(struct Proc85924D8 * proc)
     SetBlendBackdropA(1);
     SetBlendBackdropB(1);
 
-    sub_8011A1C(Proc_Find(gUnknown_085924D8), 1);
+    sub_8011A1C(Proc_Find(gProcScr_BrownTextBox), 1);
 
     return;
 }
 
 //! FE8U = 0x08011AA0
-void sub_8011AA0(struct Proc85924D8 * proc)
+void sub_8011AA0(struct BrownTextBoxProc * proc)
 {
     int blendVal;
 
-    proc->unk_4c++;
-    blendVal = proc->unk_4c;
+    proc->blendVal++;
+    blendVal = proc->blendVal;
 
     SetBlendAlpha(blendVal, 0x10 - blendVal);
 
@@ -168,16 +182,28 @@ void sub_8011AA0(struct Proc85924D8 * proc)
         Proc_Break(proc);
         SetBlendNone();
 
-        sub_8011A1C(Proc_Find(gUnknown_085924D8), 0);
+        sub_8011A1C(Proc_Find(gProcScr_BrownTextBox), 0);
     }
 
     return;
 }
 
-//! FE8U = 0x08011AF4
-void sub_8011AF4(struct Proc85924D8 * proc)
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_085924F8[] =
 {
-    proc->unk_4c = 0;
+    PROC_CALL(sub_8011A48),
+    PROC_REPEAT(sub_8011AA0),
+
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x08011AF4
+void sub_8011AF4(struct BrownTextBoxProc * proc)
+{
+    proc->blendVal = 0;
 
     SetBlendAlpha(0x10, 0);
 
@@ -187,24 +213,24 @@ void sub_8011AF4(struct Proc85924D8 * proc)
     SetBlendBackdropA(1);
     SetBlendBackdropB(1);
 
-    sub_8011A1C(Proc_Find(gUnknown_085924D8), 1);
+    sub_8011A1C(Proc_Find(gProcScr_BrownTextBox), 1);
 
     return;
 }
 
 //! FE8U = 0x08011B4C
-void sub_8011B4C(struct Proc85924D8 * proc)
+void sub_8011B4C(struct BrownTextBoxProc * proc)
 {
     int blendVal;
 
-    proc->unk_4c++;
-    blendVal = proc->unk_4c;
+    proc->blendVal++;
+    blendVal = proc->blendVal;
 
     SetBlendAlpha(0x10 - blendVal, blendVal);
 
     if (blendVal == 0x10)
     {
-        Proc_End(Proc_Find(gUnknown_085924D8));
+        Proc_End(Proc_Find(gProcScr_BrownTextBox));
         Proc_Break(proc);
     }
 
@@ -218,8 +244,22 @@ void sub_8011B90(void)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_08592510[] =
+{
+    PROC_CALL(sub_8011AF4),
+    PROC_REPEAT(sub_8011B4C),
+
+    PROC_CALL(sub_8011B90),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x08011BA4
-void sub_8011BA4(int x, int y, int textId, int chr, int pal, ProcPtr parent)
+void StartBrownTextBoxCore(int x, int y, int textId, int chr, int pal, ProcPtr parent)
 {
     struct Font font;
     struct Text text;
@@ -227,28 +267,28 @@ void sub_8011BA4(int x, int y, int textId, int chr, int pal, ProcPtr parent)
     int r6 = 0;
     int r4;
 
-    struct Proc85924D8 * proc = Proc_Start(gUnknown_085924D8, parent);
+    struct BrownTextBoxProc * proc = Proc_Start(gProcScr_BrownTextBox, parent);
     const char * str = GetStringFromIndex(textId);
 
-    proc->unk_30 = x;
-    proc->unk_34 = y;
-    proc->unk_38 = chr;
-    proc->unk_3c = pal;
-    proc->unk_40 = textId;
-    proc->unk_48 = 0;
+    proc->x = x;
+    proc->y = y;
+    proc->chr = chr;
+    proc->pal = pal;
+    proc->textId = textId;
+    proc->oam0Attr = 0;
 
-    ApplyPalette(gUnknown_08A4D0CC, (proc->unk_3c + 0x10));
-    ApplyPalette(Pal_Text, (proc->unk_3c + 0x11));
-    Decompress(gUnknown_08A4CF2C, (void *)(0x06010000 + proc->unk_38));
+    ApplyPalette(gPal_BrownTextBox, (proc->pal + 0x10));
+    ApplyPalette(Pal_Text, (proc->pal + 0x11));
+    Decompress(gGfx_BrownTextBox, (void *)(0x06010000 + proc->chr));
 
     r6 = GetStringTextLen(str);
 
     r4 = r6 / 8;
     r6 = r4 + 5;
 
-    proc->unk_44 = r6;
+    proc->width = r6;
 
-    InitSpriteTextFont(&font, (void *)(proc->unk_38 + 0x06010400), proc->unk_3c + 0x12);
+    InitSpriteTextFont(&font, (void *)(proc->chr + 0x06010400), proc->pal + 0x12);
     SetTextFont(&font);
     InitSpriteText(&text);
     SpriteText_DrawBackgroundExt(&text, 0);
@@ -261,18 +301,35 @@ void sub_8011BA4(int x, int y, int textId, int chr, int pal, ProcPtr parent)
     return;
 }
 
-extern struct ProcCmd gUnknown_08592530[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_08592530[] =
+{
+    PROC_CALL(sub_8011A48),
+    PROC_REPEAT(sub_8011AA0),
+
+    PROC_SLEEP(100),
+
+    PROC_CALL(sub_8011AF4),
+    PROC_REPEAT(sub_8011B4C),
+
+    PROC_CALL(sub_8011B90),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08011C94
-void sub_8011C94(int textId, s16 x, s16 y, ProcPtr parent)
+void StartBrownTextBox(int textId, s16 x, s16 y, ProcPtr parent)
 {
-    sub_8011BA4(x, y, textId, 0x5000, 9, parent);
-    Proc_StartBlocking(gUnknown_08592530, parent);
+    StartBrownTextBoxCore(x, y, textId, 0x5000, 9, parent);
+    Proc_StartBlocking(gProcScr_08592530, parent);
     return;
 }
 
 //! FE8U = 0x08011CCC
-void sub_8011CCC(struct Unit * unit, u8 ai1, u8 ai2, u8 unused)
+void ChangeUnitAi(struct Unit * unit, u8 ai1, u8 ai2, u8 unused)
 {
     if (unit->state & (US_HIDDEN | US_DEAD))
     {
@@ -300,7 +357,7 @@ void sub_8011CCC(struct Unit * unit, u8 ai1, u8 ai2, u8 unused)
 }
 
 //! FE8U = 0x08011D10
-void sub_8011D10(u8 pid, u8 ai1, u8 ai2, u8 unused)
+void ChangeAiForCharacter(u8 pid, u8 ai1, u8 ai2, u8 unused)
 {
     int i;
 
@@ -315,7 +372,7 @@ void sub_8011D10(u8 pid, u8 ai1, u8 ai2, u8 unused)
 
         if (unit->pCharacterData->number == pid)
         {
-            sub_8011CCC(unit, ai1, ai2, unused);
+            ChangeUnitAi(unit, ai1, ai2, unused);
         }
     }
 
@@ -323,10 +380,10 @@ void sub_8011D10(u8 pid, u8 ai1, u8 ai2, u8 unused)
 }
 
 //! FE8U = 0x08011D60
-void sub_8011D60(struct Vec2 * posArray, u8 length, u8 ai1, u8 ai2, u8 unused)
+void ChangeAiForPositions(struct Vec2 * posArray, u8 length, u8 ai1, u8 ai2, u8 unused)
 {
-    s16 j;
     int i;
+    s16 j;
 
     for (i = FACTION_BLUE + 1; i < FACTION_PURPLE; i++)
     {
@@ -349,7 +406,7 @@ void sub_8011D60(struct Vec2 * posArray, u8 length, u8 ai1, u8 ai2, u8 unused)
                 continue;
             }
 
-            sub_8011CCC(unit, ai1, ai2, unused);
+            ChangeUnitAi(unit, ai1, ai2, unused);
         }
     }
 
@@ -499,7 +556,7 @@ void sub_8011F5C(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s8 unk
                 gUnknown_030005FC = unitA->items[0];
                 unitA->items[0] = MakeNewItem(item);
 
-                if (isBallista == 0)
+                if (!isBallista)
                 {
                     sub_8011EC8(unitA, unitB);
                 }
