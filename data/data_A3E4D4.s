@@ -1129,12 +1129,12 @@ gUnknown_08A40B14:  @ 0x08A40B14
 gUnknown_08A40FC8:  @ 0x08A40FC8
 	.incbin "baserom.gba", 0xA40FC8, 0xBF64
 
-	.global gUnknown_08A4CF2C
-gUnknown_08A4CF2C:  @ 0x08A4CF2C
+	.global gGfx_BrownTextBox
+gGfx_BrownTextBox:  @ 0x08A4CF2C
 	.incbin "baserom.gba", 0xA4CF2C, 0x1A0
 
-	.global gUnknown_08A4D0CC
-gUnknown_08A4D0CC:  @ 0x08A4D0CC
+	.global gPal_BrownTextBox
+gPal_BrownTextBox:  @ 0x08A4D0CC
 	.incbin "baserom.gba", 0xA4D0CC, 0x11C
 
 	.align 2, 0

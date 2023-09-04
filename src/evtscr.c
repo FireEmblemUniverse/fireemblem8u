@@ -3805,23 +3805,22 @@ u8 Event39_ChangeAiScript(struct EventEngineProc * proc)
 {
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
 
-    u8 r7 = gEventSlots[1];
-
-    u8 ai1 = (gEventSlots[1] >> 8);
-    u8 ai2 = (gEventSlots[1] >> 16);
+    u8 ai1 = gEventSlots[1];
+    u8 ai2 = (gEventSlots[1] >> 8);
+    u8 unused = (gEventSlots[1] >> 16);
 
     switch (subcmd)
     {
         case 0:
         {
-            u16 unitId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+            u16 pid = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
             if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
             {
-                unitId = gEventSlots[2];
+                pid = gEventSlots[2];
             }
 
-            sub_8011D10(unitId, r7, ai1, ai2);
+            ChangeAiForCharacter(pid, ai1, ai2, unused);
 
             break;
         }
@@ -3847,7 +3846,7 @@ u8 Event39_ChangeAiScript(struct EventEngineProc * proc)
                 unit = NULL;
             }
 
-            sub_8011CCC(unit, r7, ai1, ai2);
+            ChangeUnitAi(unit, ai1, ai2, unused);
 
             break;
         }
@@ -3887,9 +3886,9 @@ u8 Event3A_DisplayPopup(struct EventEngineProc * proc)
 
         case 1:
         {
-            u8 x = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-            u8 y = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
-            sub_8011C94(textId, x, y, proc);
+            s8 x = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+            s8 y = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
+            StartBrownTextBox(textId, x, y, proc);
             break;
         }
     }
@@ -4194,8 +4193,8 @@ u8 Event3F_(struct EventEngineProc * proc)
 
     s16 charIdA = EVT_CMD_ARGV(proc->pEventCurrent)[0];
     s16 charIdB = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u8 unkB = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-    u8 unkC = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
+    u8 weaponId = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    u8 isBallista = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
 
     if (gEventSlots[0xd] == 0)
     {
@@ -4236,7 +4235,7 @@ u8 Event3F_(struct EventEngineProc * proc)
                 Proc_SetMark(proc, PROC_MARK_7);
             }
 
-            sub_8011F5C(unitA, unitB, unkC, unkA, unkB, hits, -subcmd || subcmd);
+            sub_8011F5C(unitA, unitB, isBallista, unkA, weaponId, hits, -subcmd || subcmd);
 
             return EVC_ADVANCE_YIELD;
 

@@ -725,7 +725,7 @@ u16 IsItemDisplayedInBattle(u16 item);
 u16 IsWeaponLegency(u16 item);
 // ??? sub_8058B08(???);
 // ??? sub_8058B24(???);
-// ??? sub_8058B64(???);
+void sub_8058B64(void);
 void sub_8058B70(void);
 bool sub_8058B7C(void);
 // ??? GetEkrHit(???);
