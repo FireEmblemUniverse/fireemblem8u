@@ -70,7 +70,7 @@ SECTIONS
         src/evtscr.o(.text);
         src/ectscr_.o(.text);
         src/popup.o(.text);
-        asm/evtsub.o(.text);
+        src/evtsub.o(.text);
         asm/eventcmd_fade.o(.text);
         src/eventcmd_warp.o(.text);
         asm/shinningstonefx.o(.text);
