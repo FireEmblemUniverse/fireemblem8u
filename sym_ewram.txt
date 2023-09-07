@@ -160,11 +160,7 @@
 . = 0x017448; gUnknown_02017448 = .;
 . = 0x017648; gSomeFontStruct = .;
 . = 0x017660; gTextEkrlvupMsg = .;
-. = 0x017668; gUnknown_02017668 = .;
-. = 0x017670; gUnknown_02017670 = .;
-. = 0x017678; gUnknown_02017678 = .;
 . = 0x0176A0; gTextEkrlvupValue = .;
-. = 0x0176F0; gUnknown_020176F0 = .;
 . = 0x017700; gDecodedEkrHitDmgCritBuf = .;
 . = 0x017724; gEkrBattleEndFlag = .;
 . = 0x017728; gEkrHPBarCount = .;
