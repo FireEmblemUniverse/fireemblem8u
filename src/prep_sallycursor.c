@@ -45,10 +45,6 @@ struct ProcCmd CONST_DATA sProcScr_SALLYCURSORHelpPrompt[] =
     PROC_END,
 };
 
-// clang-format on
-
-// clang-format off
-
 struct ProcCmd CONST_DATA gProcScr_SALLYCURSOR[] =
 {
     PROC_NAME("SALLYCURSOR"),

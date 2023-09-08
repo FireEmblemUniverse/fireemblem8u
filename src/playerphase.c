@@ -152,10 +152,6 @@ PROC_LABEL(3),
     PROC_END,
 };
 
-// clang-format on
-
-// clang-format off
-
 struct ProcCmd CONST_DATA gProcScr_0859ACE8[] =
 {
     PROC_CALL(MakeMoveunitForActiveUnit),
@@ -168,7 +164,8 @@ struct ProcCmd CONST_DATA gProcScr_0859ACE8[] =
 
 // clang-format on
 
-u8 * CONST_DATA gOpenLimitViewImgLut[] = {
+u8 * CONST_DATA gOpenLimitViewImgLut[] =
+{
     NULL,
     NULL,
     Img_LimitViewSquares + (0 * 4 * CHR_SIZE),
@@ -191,10 +188,6 @@ struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] =
 
     PROC_END,
 };
-
-// clang-format on
-
-// clang-format off
 
 struct ProcCmd CONST_DATA sProcScr_MoveLimitView[] =
 {
