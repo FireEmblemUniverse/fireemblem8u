@@ -441,6 +441,28 @@ void sub_807A1FC(struct MuCtrlProc * proc)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_089A2DB0[] =
+{
+    PROC_NAME("E_MuCtr"),
+    PROC_SET_END_CB(sub_807A1FC),
+    PROC_YIELD,
+
+    PROC_WHILE(sub_807A0E4),
+
+PROC_LABEL(0),
+    PROC_WHILE(sub_807A194),
+    PROC_WHILE(sub_807A0E4),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(1),
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x0807A294
 s8 sub_807A294(u8 pid, u16 b)
 {
