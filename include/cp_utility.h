@@ -32,7 +32,7 @@ s8 AiFindPillageLocation(struct Vec2* out, u8* outItemSlot);
 // ??? AiGetChestUnlockItemSlot(???);
 void AiTryMoveTowards(s16, s16, u8, u8, u8);
 void sub_803BBF4(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk);
-// ??? AiGetUnitClosestValidPosition(???);
+s8 AiGetUnitClosestValidPosition(struct Unit* unit, s16 x, s16 y, struct Vec2* out);
 u8 AiGetClassRank(u8 classId);
 s8 AiUnitWithCharIdExists(u16 uid);
 s8 AiIsWithinRectDistance(s16, s16, u8, u8, u8);

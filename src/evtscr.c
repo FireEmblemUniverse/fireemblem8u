@@ -24,6 +24,7 @@
 #include "playerphase.h"
 #include "bmbattle.h"
 #include "popup.h"
+#include "muctrl.h"
 
 #include "ev_triggercheck.h"
 #include "event.h"
@@ -2433,7 +2434,7 @@ void LoadUnit_800F704(const struct UnitDefinition * def, u16 b, s8 quiet, s8 d)
                 unit->state &= ~US_BIT22;
         }
 
-        GetPreferredPositionForUNIT(def, &x, &y, 0);
+        GenUnitDefinitionFinalPosition(def, &x, &y, 0);
 
         if (unit->xPos == x && unit->yPos == y)
             b &= ~0x0001;
@@ -2482,7 +2483,7 @@ void sub_800F8A8(struct Unit * unit, const struct UnitDefinition * unitDefition,
     if (unk == 1 || (unit->state & US_UNDER_A_ROOF))
         sub_8079FA8(unit, unitDefition->redas, unitDefition->redaCount, flags);
     else
-        sub_8079D74(unit, unitDefition->redas, unitDefition->redaCount, flags);
+        MuCtr_StartDefinedMove(unit, unitDefition->redas, unitDefition->redaCount, flags);
 }
 
 #if NONMATCHING
@@ -3184,11 +3185,11 @@ u8 Event2F_MoveUnit(struct EventEngineProc * proc)
 
     if (queue == NULL)
     {
-        sub_8079DDC(unit, xOut, yOut, speed, flags);
+        MuCtr_StartMoveTowards(unit, xOut, yOut, speed, flags);
     }
     else
     {
-        sub_8079D74(unit, queue, gEventSlots[0xD] / 2, flags);
+        MuCtr_StartDefinedMove(unit, queue, gEventSlots[0xD] / 2, flags);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -3199,7 +3200,7 @@ u8 Event30_ENUN(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        SetAllMOVEUNITField44To1_();
+        MU_AllForceSetMaxMoveSpeed_();
     }
 
     if (MuCtrExists() == 1)

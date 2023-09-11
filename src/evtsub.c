@@ -19,6 +19,7 @@
 #include "mapanim.h"
 #include "bmtrick.h"
 #include "ctc.h"
+#include "muctrl.h"
 
 #include "constants/items.h"
 
@@ -785,7 +786,7 @@ void InitPlayerUnitPositionsForPrepScreen(void)
             continue;
         }
 
-        GetPreferredPositionForUNIT(uDef, &x, &y, 0);
+        GenUnitDefinitionFinalPosition(uDef, &x, &y, 0);
 
         unit->xPos = x;
         unit->yPos = y;
@@ -868,7 +869,7 @@ void sub_801247C(struct Unit * unit)
                 continue;
             }
 
-            GetPreferredPositionForUNIT(uDef, &x, &y, 0);
+            GenUnitDefinitionFinalPosition(uDef, &x, &y, 0);
 
             if (unit->xPos != x || unit->yPos != y)
             {
@@ -882,7 +883,7 @@ void sub_801247C(struct Unit * unit)
 
         if (!found)
         {
-            GetPreferredPositionForUNIT(uDef, &x, &y, 0);
+            GenUnitDefinitionFinalPosition(uDef, &x, &y, 0);
             unit->xPos = x;
             unit->yPos = y;
             return;

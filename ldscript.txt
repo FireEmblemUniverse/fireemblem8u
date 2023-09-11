@@ -198,7 +198,7 @@ SECTIONS
         src/spellassoc.o(.text);
         src/monstergen.o(.text);
         src/mu.o(.text);
-        asm/muctrl.o(.text);
+        src/muctrl.o(.text);
         src/mapanim.o(.text);
         src/mapanim_summon.o(.text);
         src/mapanim_api.o(.text);
@@ -433,7 +433,7 @@ SECTIONS
         . = ALIGN(4); src/chapterdata.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_move.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
-        . = ALIGN(4); data/muctrl_rodata.o(.rodata);
+        . = ALIGN(4); src/muctrl.o(.rodata);
         . = ALIGN(4); src/mapanim_api.o(.rodata);
         . = ALIGN(4); src/mapanim_debug.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
@@ -643,7 +643,7 @@ SECTIONS
         . = ALIGN(4); data/data_map_anim_frames.o(.data);
         . = ALIGN(4); data/data_99D6DC.o(.data);
         . = ALIGN(4); src/mu.o(.data);
-        . = ALIGN(4); data/data_9A2DB0.o(.data);
+        . = ALIGN(4); src/muctrl.o(.data);
         . = ALIGN(4); src/unit_icon_move_data.o(.data);
         . = ALIGN(4); src/mapanim.o(.data);
         . = ALIGN(4); src/mapanim_summon.o(.data);

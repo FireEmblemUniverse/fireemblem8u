@@ -30,6 +30,7 @@
 #include "bm.h"
 #include "prepscreen.h"
 #include "bmlib.h"
+#include "muctrl.h"
 
 // hino.s
 void WaitForFade(ProcPtr);
@@ -365,7 +366,7 @@ void sub_80332D0() {
 
     if (uDef->charIndex != 0) {
         while (uDef->charIndex) {
-            GetPreferredPositionForUNIT(uDef, &xTmp, &yTmp, 0);
+            GenUnitDefinitionFinalPosition(uDef, &xTmp, &yTmp, 0);
             gBmMapRange[yTmp][xTmp] = 1;
             uDef++;
         }
@@ -674,7 +675,7 @@ void sub_80338C0() {
     } else {
         uDef = GetChapterAllyUnitDataPointer();
         uDef = uDef + CalcForceDeployedUnitCounts();
-        GetPreferredPositionForUNIT(uDef, &x, &y, 0);
+        GenUnitDefinitionFinalPosition(uDef, &x, &y, 0);
         SetCursorMapPosition(x, y);
     }
 
