@@ -929,25 +929,6 @@ void sub_8049788(void);
 // ??? sub_804E024(???);
 // ??? sub_804E03C(???);
 
-// ??? CopyEventMoveToBuffer(???);
-// ??? ClearEventMoveBuffer(???);
-void sub_8079D74(struct Unit * unit, const struct REDA * redas, s16 count, u16 flags);
-void sub_8079DDC(struct Unit *, s8, s8, u8, u16);
-// ??? MuCtr_SetupWithEventMoveBuffer(???);
-s8 MuCtrExists(void);
-void SetAllMOVEUNITField44To1_(void);
-void sub_8079FA8(struct Unit* unit, const struct REDA * redas, s16 count, u16 flags);
-void MoveUnit_(struct Unit *, s8, s8, u16);
-void GetPreferredPositionForUNIT(const struct UnitDefinition* uDef, u8* xOut, u8* yOut, s8 findNearest);
-// ??? sub_807A0E4(???);
-// ??? sub_807A194(???);
-// ??? sub_807A1FC(???);
-// ??? sub_807A294(???);
-// ??? sub_807A300(???);
-// ??? sub_807A324(???);
-// ??? sub_807A358(???);
-// ??? GetAdjustedPositionForNewUnit(???);
-// ??? sub_807A644(???);
 void _InitFontForUIDefault();
 
 // ??? sub_807F568(???);

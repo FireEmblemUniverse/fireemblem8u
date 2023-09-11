@@ -10,53 +10,12 @@
 #include "rng.h"
 #include "bmtrick.h"
 
+#include "muctrl.h"
+
 /**
 * "MuCtr" proc and related functions
 * Handles REDA Interpretation
 */
-
-struct REDABuffer
-{
-    u8 usedBuffers;
-    struct REDA buf[4][0x10];
-};
-
-struct REDABuffer gUnknown_03001A30;
-
-struct MuCtrlProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct Unit * unit;
-    /* 30 */ struct MUProc * muProc;
-    /* 34 */ const struct REDA * redas;
-    /* 38 */ u16 redaCount;
-    /* 3A */ u16 unk_3a;
-    /* 3C */ s16 delayFrames;
-    /* 3E */ u16 flags;
-    /* 40 */ s8 unk_40;
-    /* 41 */ s8 unk_41;
-    /* 42 */ s8 unk_42;
-    /* 43 */ s8 unk_43;
-    /* 44 */ struct REDA unk_44;
-};
-
-extern struct ProcCmd gUnknown_089A2DB0[];
-
-void MuCtr_SetupWithEventMoveBuffer(struct MuCtrlProc * proc, struct Unit * unit, const struct REDA * redas, s16 count, u16 flags);
-void GetAdjustedPositionForNewUnit(struct Unit *, struct Vec2 *, u16);
-
-void sub_8079FA8(struct Unit * unit, const struct REDA * redas, s16 count, u16 flags);
-
-s8 sub_807A294(u8 pid, u16 b);
-void sub_807A358(struct MuCtrlProc *);
-
-void sub_807A300(struct MuCtrlProc *);
-void sub_807A324(struct MuCtrlProc *);
-u8 * sub_807A644(struct Unit * unit, struct Vec2 * pos, s8 flag);
-
-extern s8 gUnknown_03001C34;
-extern u8 gUnknown_03001C35;
-extern u16 gUnknown_03001C36;
 
 //! FE8U = 0x08079CD8
 struct REDA * CopyEventMoveToBuffer(const struct REDA * redas, u8 count)
@@ -99,9 +58,9 @@ void ClearEventMoveBuffer(const struct REDA * redas)
 }
 
 //! FE8U = 0x08079D74
-void sub_8079D74(struct Unit * unit, const struct REDA * redas, s16 count, u16 flags)
+void MuCtr_StartDefinedMove(struct Unit * unit, const struct REDA * redas, s16 count, u16 flags)
 {
-    struct MuCtrlProc * proc = Proc_Start(gUnknown_089A2DB0, PROC_TREE_5);
+    struct MuCtrlProc * proc = Proc_Start(gProcScr_MuCtrl, PROC_TREE_5);
 
     switch (count)
     {
@@ -119,19 +78,19 @@ void sub_8079D74(struct Unit * unit, const struct REDA * redas, s16 count, u16 f
             break;
     }
 
-    MuCtr_SetupWithEventMoveBuffer(proc, unit, redas, count, flags);
+    MuCtr_InitDefinedMove(proc, unit, redas, count, flags);
 
     return;
 }
 
 //! FE8U = 0x08079DDC
-void sub_8079DDC(struct Unit * unit, s8 x, s8 y, u8 flagsA, u16 flagsB)
+void MuCtr_StartMoveTowards(struct Unit * unit, s8 x, s8 y, u8 flagsA, u16 flagsB)
 {
     struct REDA * reda;
     int x_;
     int y_;
 
-    struct MuCtrlProc * proc = Proc_Start(gUnknown_089A2DB0, PROC_TREE_5);
+    struct MuCtrlProc * proc = Proc_Start(gProcScr_MuCtrl, PROC_TREE_5);
 
     reda = &proc->unk_44;
 
@@ -146,13 +105,13 @@ void sub_8079DDC(struct Unit * unit, s8 x, s8 y, u8 flagsA, u16 flagsB)
     reda->b = 0;
     reda->delayFrames = 0;
 
-    MuCtr_SetupWithEventMoveBuffer(proc, unit, reda, 1, flagsB);
+    MuCtr_InitDefinedMove(proc, unit, reda, 1, flagsB);
 
     return;
 }
 
 //! FE8U = 0x08079E78
-void MuCtr_SetupWithEventMoveBuffer(struct MuCtrlProc * proc, struct Unit * unit, const struct REDA * redas, s16 count, u16 flags)
+void MuCtr_InitDefinedMove(struct MuCtrlProc * proc, struct Unit * unit, const struct REDA * redas, s16 count, u16 flags)
 {
     struct Vec2 pos;
     const struct REDA * reda;
@@ -166,7 +125,7 @@ void MuCtr_SetupWithEventMoveBuffer(struct MuCtrlProc * proc, struct Unit * unit
     pos.x = reda->x;
     pos.y = reda->y;
 
-    GetAdjustedPositionForNewUnit(unit, &pos, flags);
+    AdjustNewUnitPosition(unit, &pos, flags);
 
     proc->unit = unit;
     proc->muProc = MU_Create(unit);
@@ -200,11 +159,11 @@ void MuCtr_SetupWithEventMoveBuffer(struct MuCtrlProc * proc, struct Unit * unit
 //! FE8U = 0x08079F84
 s8 MuCtrExists(void)
 {
-    return Proc_Find(gUnknown_089A2DB0) ? 1 : 0;
+    return Proc_Find(gProcScr_MuCtrl) ? 1 : 0;
 }
 
 //! FE8U = 0x08079F9C
-void SetAllMOVEUNITField44To1_(void)
+void MU_AllForceSetMaxMoveSpeed_(void)
 {
     MU_AllForceSetMaxMoveSpeed();
     return;
@@ -223,7 +182,7 @@ void sub_8079FA8(struct Unit * unit, const struct REDA * redas, s16 count, u16 f
     unit->xPos = pos.x;
     unit->yPos = pos.y;
 
-    GetAdjustedPositionForNewUnit(unit, &pos, flags);
+    AdjustNewUnitPosition(unit, &pos, flags);
 
     unit->xPos = pos.x;
     unit->yPos = pos.y;
@@ -299,7 +258,7 @@ void MoveUnit_(struct Unit * unit, s8 x, s8 y, u16 flags)
 #endif
 
 //! FE8U = 0x0807A054
-void GetPreferredPositionForUNIT(const struct UnitDefinition * def, u8 * xOut, u8 * yOut, s8 findNearest)
+void GenUnitDefinitionFinalPosition(const struct UnitDefinition * def, u8 * xOut, u8 * yOut, s8 findNearest)
 {
     struct Unit * unit;
     const struct REDA * reda;
@@ -322,7 +281,7 @@ void GetPreferredPositionForUNIT(const struct UnitDefinition * def, u8 * xOut, u
         pos.x = reda->x;
         pos.y = reda->y;
 
-        GetAdjustedPositionForNewUnit(unit, &pos, flags);
+        AdjustNewUnitPosition(unit, &pos, flags);
         *xOut = pos.x;
         *yOut = pos.y;
     }
@@ -361,7 +320,7 @@ s8 sub_807A0E4(struct MuCtrlProc * proc)
 
         if (proc->delayFrames < 1)
         {
-            sub_807A358(proc);
+            MuCtr_ExecREDA_807A358(proc);
             return 0;
         }
     }
@@ -409,7 +368,7 @@ s8 sub_807A194(struct MuCtrlProc * proc)
 }
 
 //! FE8U = 0x0807A1FC
-void sub_807A1FC(struct MuCtrlProc * proc)
+void MuCtr_OnEnd(struct MuCtrlProc * proc)
 {
     struct MUProc * muProc = proc->muProc;
     struct Unit * unit = proc->unit;
@@ -443,10 +402,10 @@ void sub_807A1FC(struct MuCtrlProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_089A2DB0[] =
+struct ProcCmd CONST_DATA gProcScr_MuCtrl[] =
 {
     PROC_NAME("E_MuCtr"),
-    PROC_SET_END_CB(sub_807A1FC),
+    PROC_SET_END_CB(MuCtr_OnEnd),
     PROC_YIELD,
 
     PROC_WHILE(sub_807A0E4),
@@ -474,13 +433,13 @@ s8 sub_807A294(u8 pid, u16 b)
     gUnknown_03001C35 = pid;
     gUnknown_03001C34 = 1;
 
-    Proc_ForEach(gUnknown_089A2DB0, (ProcFunc)sub_807A300);
+    Proc_ForEach(gProcScr_MuCtrl, (ProcFunc)sub_807A300);
 
     if ((gUnknown_03001C34 == 0) && (b != 0xFFFF))
     {
         gUnknown_03001C36 = b;
         gUnknown_03001C34 = 0;
-        Proc_ForEach(gUnknown_089A2DB0, (ProcFunc)sub_807A324);
+        Proc_ForEach(gProcScr_MuCtrl, (ProcFunc)sub_807A324);
     }
 
     return gUnknown_03001C34;
@@ -508,7 +467,7 @@ void sub_807A324(struct MuCtrlProc * proc)
 }
 
 //! FE8U = 0x0807A358
-void sub_807A358(struct MuCtrlProc * proc)
+void MuCtr_ExecREDA_807A358(struct MuCtrlProc * proc)
 {
     u8 * commands;
     u8 config;
@@ -585,7 +544,7 @@ void sub_807A358(struct MuCtrlProc * proc)
 }
 
 //! FE8U = 0x0807A4E8
-void GetAdjustedPositionForNewUnit(struct Unit * unit, struct Vec2 * pos, u16 flags)
+void AdjustNewUnitPosition(struct Unit * unit, struct Vec2 * pos, u16 flags)
 {
     struct Vec2 buf[8];
 
