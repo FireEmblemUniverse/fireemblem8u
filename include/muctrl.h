@@ -2,9 +2,9 @@
 #define GUARD_MUCTRL_H
 
 struct REDA {
-    u16 x : 6;
-    u16 y : 6;
-    u16 flags : 6;
+    u32 x : 6;
+    u32 y : 6;
+    u32 flags : 6;
     u8 a;
     u16 b;
     u16 delayFrames;

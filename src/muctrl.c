@@ -199,63 +199,18 @@ void sub_8079FA8(struct Unit * unit, const struct REDA * redas, s16 count, u16 f
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x0807A014
 void MoveUnit_(struct Unit * unit, s8 x, s8 y, u16 flags)
 {
-    struct REDA local_18;
+    struct REDA reda;
 
-    local_18.x = x;
-    local_18.y = y;
+    reda.x = x;
+    reda.y = y;
 
-    sub_8079FA8(unit, &local_18, 1, flags);
+    sub_8079FA8(unit, &reda, 1, flags);
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void MoveUnit_(struct Unit * unit, s8 x, s8 y, u16 flags)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        sub sp, #8\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        lsls r1, r1, #0x18\n\
-        asrs r1, r1, #0x18\n\
-        movs r6, #0x3f\n\
-        ands r1, r6\n\
-        movs r5, #0x40\n\
-        negs r5, r5\n\
-        ldr r4, [sp]\n\
-        ands r4, r5\n\
-        orrs r4, r1\n\
-        lsls r2, r2, #0x18\n\
-        asrs r2, r2, #0x18\n\
-        ands r2, r6\n\
-        lsls r2, r2, #6\n\
-        ldr r1, _0807A050  @ 0xFFFFF03F\n\
-        ands r4, r1\n\
-        orrs r4, r2\n\
-        str r4, [sp]\n\
-        mov r1, sp\n\
-        movs r2, #1\n\
-        bl sub_8079FA8\n\
-        add sp, #8\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0807A050: .4byte 0xFFFFF03F\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x0807A054
 void GenUnitDefinitionFinalPosition(const struct UnitDefinition * def, u8 * xOut, u8 * yOut, s8 findNearest)
