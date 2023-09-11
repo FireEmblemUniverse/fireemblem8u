@@ -171,7 +171,7 @@ void MU_StartMoveScript_Auto(const u8 commands[MU_COMMAND_MAX_COUNT]);
 s8 MU_Exists(void);
 s8 MU_IsAnyActive(void);
 
-int MU_IsActive(struct MUProc* proc);
+s8 MU_IsActive(struct MUProc* proc);
 void MU_StartMoveScript(struct MUProc* proc, const u8 commands[MU_COMMAND_MAX_COUNT]);
 
 struct MUProc* MU_CreateScripted(u16 x, u16 y, u16 classIndex, unsigned palId, const u8 commands[MU_COMMAND_MAX_COUNT]);

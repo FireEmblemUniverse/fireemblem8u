@@ -520,4 +520,13 @@ struct EfxFrameConfig {
     s16 duration;
 };
 
+struct REDA {
+    u16 x : 6;
+    u16 y : 6;
+    u16 flags : 6;
+    u8 a;
+    u16 b;
+    u16 delayFrames;
+};
+
 #endif // GUARD_TYPES_H

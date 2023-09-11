@@ -198,7 +198,7 @@ SECTIONS
         src/spellassoc.o(.text);
         src/monstergen.o(.text);
         src/mu.o(.text);
-        asm/muctrl.o(.text);
+        src/muctrl.o(.text);
         src/mapanim.o(.text);
         src/mapanim_summon.o(.text);
         src/mapanim_api.o(.text);
