@@ -38,8 +38,8 @@ struct SelectInfo
 
     /* 08 */ void(*onUnk08)(ProcPtr proc);
 
-    /* 0C */ void(*onSwitchIn)(ProcPtr proc, struct SelectTarget* target);
-    /* 10 */ void(*onSwitchOut)(ProcPtr proc, struct SelectTarget* target);
+    /* 0C */ u8(*onSwitchIn)(ProcPtr proc, struct SelectTarget* target);
+    /* 10 */ u8(*onSwitchOut)(ProcPtr proc, struct SelectTarget* target);
 
     /* 14 */ u8(*onSelect)(ProcPtr proc, struct SelectTarget* target);
     /* 18 */ u8(*onCancel)(ProcPtr proc, struct SelectTarget* target);

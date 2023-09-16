@@ -258,10 +258,10 @@ void ConvoyMenuProc_ExecBootlegPopup(ProcPtr proc);
 // ??? sub_801E294(???);
 void UpdateMapViewWithFog(int vision_range);
 // ??? FastUpdateMapViewWithFog(???);
-// ??? FillWarpRangeMap(???);
+void FillWarpRangeMap(struct Unit* caster, struct Unit* target);
 // ??? MenuItemPanelProcIdle(???);
-void ForceMenuItemPanel(ProcPtr, struct Unit*, int, int); // StartEquipInfoWindow
-void UpdateMenuItemPanel(int number); // UpdateEquipInfoWindow
+void ForceMenuItemPanel(ProcPtr parent, struct Unit* unit, int x, int y);
+void UpdateMenuItemPanel(int number);
 void EndMenuItemPanel(void);
 // ??? PrepUnitSwapProc_Init(???);
 // ??? PrepUnitSwapProc_MainLoop(???);

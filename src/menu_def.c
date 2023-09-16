@@ -6,6 +6,14 @@
 #include "bmitemuse.h"
 #include "bmmenu.h"
 #include "convoymenu.h"
+#include "uiselecttarget.h"
+#include "bmitemuse.h"
+#include "bksel.h"
+
+#include "menu_def.h"
+
+// we use this to denote when the function signature doesn't quite fit the pointer type in the relevant info struct
+#define MISMATCHED_SIGNATURE(func) ((void *) (func))
 
 #define MenuItemsEnd {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
@@ -189,7 +197,7 @@ CONST_DATA struct MenuItemDef gMapMenuItems[] = {
 };
 
 CONST_DATA struct MenuDef gDebugClearMenuDef = {
-    {1, 6, 0xd, 0},
+    {1, 6, 13, 0},
     0,
     gDebugClearMenuItems,
     0, 0, 0,
@@ -198,7 +206,7 @@ CONST_DATA struct MenuDef gDebugClearMenuDef = {
 };
 
 CONST_DATA struct MenuDef gDebugChargeMenuDef = {
-    {1, 1, 0xa, 0},
+    {1, 1, 10, 0},
     0,
     gDebugChargeMenuItems,
     0, 0, 0,
@@ -207,16 +215,16 @@ CONST_DATA struct MenuDef gDebugChargeMenuDef = {
 };
 
 CONST_DATA struct MenuDef gDebugContinueMenuDef = {
-    {9, 4, 0xc, 0},
+    {9, 4, 12, 0},
     0,
     gDebugContinueMenuItems,
-    (void(*)(struct MenuProc*))DebugContinueMenuInit,
-    (void(*)(struct MenuProc*))DebugContinueMenuEnd,
+    MISMATCHED_SIGNATURE(DebugContinueMenuInit),
+    MISMATCHED_SIGNATURE(DebugContinueMenuEnd),
     0, 0, 0, 0
 };
 
 CONST_DATA struct MenuDef gDebugChuudanMenuDef = {
-    {1, 1, 0xa, 0},
+    {1, 1, 10, 0},
     0,
     gDebugChuudanMenuItems,
     0, 0, 0,
@@ -228,16 +236,16 @@ CONST_DATA struct MenuDef gDebugMenuDef = {
     {1, 1, 15, 0},
     0,
     gDebugMenuItems,
-    (void(*)(struct MenuProc*))DebugMenuInit,
-    (void(*)(struct MenuProc*))0, 
-    (void(*)(struct MenuProc*))0,
+    MISMATCHED_SIGNATURE(DebugMenuInit),
+    NULL, 
+    NULL,
     EndMenuAndClear,
-    (u8(*)(struct MenuProc*))0,
+    NULL,
     0
 };
 
 CONST_DATA struct MenuDef gMenuInfo_RepairItems = {
-    {0, 1, 0x10, 0},
+    {0, 1, 16, 0},
     0,
     gItemUseMenuItems,
     0, 0, 0,
@@ -247,7 +255,7 @@ CONST_DATA struct MenuDef gMenuInfo_RepairItems = {
 };
 
 CONST_DATA struct MenuDef gStealItemMenuDef = {
-    {0xe, 4, 0xe, 0},
+    {14, 4, 14, 0},
     0,
     gStealItemMenuItems,
     0, 0, 0,
@@ -257,7 +265,7 @@ CONST_DATA struct MenuDef gStealItemMenuDef = {
 };
 
 CONST_DATA struct MenuDef gConvoyMenuDef = {
-    {1, 1, 0xe, 0},
+    {1, 1, 14, 0},
     0,
     gConvoyMenuItems,
     0, 0, 0, 0,
@@ -266,7 +274,7 @@ CONST_DATA struct MenuDef gConvoyMenuDef = {
 };
 
 CONST_DATA struct MenuDef gSendToConvoyMenuDef = {
-    {1, 1, 0xe, 0},
+    {1, 1, 14, 0},
     0,
     gSendToConvoyMenuItems,
     0, 0, 0, 0,
@@ -296,7 +304,7 @@ CONST_DATA struct MenuDef gItemSubMenuDef = {
 };
 
 CONST_DATA struct MenuDef gItemMenuDef = {
-    {1, 1, 0xe, 0},
+    {1, 1, 14, 0},
     0,
     gItemMenuItems,
     0, 0, 0,
@@ -306,7 +314,7 @@ CONST_DATA struct MenuDef gItemMenuDef = {
 };
 
 CONST_DATA struct MenuDef gStaffItemSelectMenuDef = {
-    {1, 1, 0xe, 0},
+    {1, 1, 14, 0},
     0,
     gStaffItemSelectMenuItems,
     0, 0, 0,
@@ -316,7 +324,7 @@ CONST_DATA struct MenuDef gStaffItemSelectMenuDef = {
 };
 
 CONST_DATA struct MenuDef gItemSelectMenuDef = {
-    {1, 1, 0xe, 0},
+    {1, 1, 14, 0},
     0,
     gItemSelectMenuItems,
     0, 0, 0,
@@ -326,7 +334,7 @@ CONST_DATA struct MenuDef gItemSelectMenuDef = {
 };
 
 CONST_DATA struct MenuDef gBallistaRangeMenuDef = {
-    {1, 1, 0xe, 0},
+    {1, 1, 14, 0},
     0,
     gBallistaRangeMenuItems,
     0, 0, 0,
@@ -336,7 +344,7 @@ CONST_DATA struct MenuDef gBallistaRangeMenuDef = {
 };
 
 CONST_DATA struct MenuDef gUnknownMenuDef = {
-    {1, 1, 0xe, 0},
+    {1, 1, 14, 0},
     0,
     gUnknownMenuItems,
     0, 0, 0,
@@ -365,3 +373,165 @@ CONST_DATA struct MenuDef gMapMenuDef = {
     MenuStdHelpBox
 };
 
+struct SelectInfo CONST_DATA gSelectInfo_OffensiveStaff =
+{
+    .onInit = MISMATCHED_SIGNATURE(AttackStaffMapSelect_Init),
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = AttackStaffMapSelect_SwitchIn,
+    .onSelect = StaffSelectOnSelect,
+    .onCancel = GenericSelection_BackToUM_CamWait,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Barrier =
+{
+    .onInit = MISMATCHED_SIGNATURE(BarrierMapSelect_Init),
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = BarrierMapSelect_SwitchIn,
+    .onSelect = StaffSelectOnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Restore =
+{
+    .onInit = MISMATCHED_SIGNATURE(RestoreMapSelect_Init),
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = RestoreMapSelect_SwitchIn,
+    .onSelect = StaffSelectOnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Heal =
+{
+    .onInit = HealMapSelect_Init,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = HealMapSelect_SwitchIn,
+    .onSelect = StaffSelectOnSelect,
+    .onCancel = GenericSelection_BackToUM_CamWait,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Dance =
+{
+    .onInit = RefreshMapSelect_Init,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = RefreshMapSelect_SwitchIn,
+    .onSelect = RefreshMapSelect_Select,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_PutTrap =
+{
+    .onEnd = SubtitleMapSelect_End,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_WarpUnit =
+{
+    .onInit = WarpUnitMapSelect_Init,
+    .onEnd = SubtitleMapSelect_End,
+    .onSwitchIn = WarpUnitMapSelect_SwitchIn,
+    .onCancel = GenericSelection_BackToUM_CamWait,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Steal =
+{
+    .onInit = StealMapSelect_Init,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = StealMapSelect_SwitchIn,
+    .onSelect = StealMapSelect_Select,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Summon =
+{
+    .onInit = SummonSelection_OnInit,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = SummonSelection_OnChange,
+    .onSelect = SummonSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Pick =
+{
+    .onInit = PickSelection_OnInit,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSelect = PickSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Support =
+{
+    .onInit = TalkSupportSelection_OnInit,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = TalkSupportSelection_OnChange,
+    .onSelect = SupportSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Talk =
+{
+    .onInit = TalkSupportSelection_OnInit,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = TalkSupportSelection_OnChange,
+    .onSelect = TalkSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Repair =
+{
+    .onInit = RepairSelectOnInit,
+    .onSwitchIn = RepairSelectOnChange,
+    .onSelect = RepairSelectOnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Trade =
+{
+    .onInit = TradeTargetSelection_OnInit,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSwitchIn = TradeSelection_OnChange,
+    .onSelect = TradeSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Attack =
+{
+    .onInit = MISMATCHED_SIGNATURE(NewBattleForecast),
+    .onEnd = MISMATCHED_SIGNATURE(AttackMapSelect_End),
+    .onSwitchIn = AttackMapSelect_SwitchIn,
+    .onSelect = AttackMapSelect_Select,
+    .onCancel = AttackMapSelect_Cancel,
+    .onHelp = MISMATCHED_SIGNATURE(StartBattleForecastHelpBox),
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Give =
+{
+    .onInit = GiveSelection_OnInit,
+    .onSwitchIn = GiveSelection_OnChange,
+    .onSelect = GiveSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Take =
+{
+    .onInit = TakeSelection_OnInit,
+    .onSwitchIn = TakeSelection_OnChange,
+    .onSelect = TakeSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Drop =
+{
+    .onInit = DropSelection_OnConstruction,
+    .onEnd = MISMATCHED_SIGNATURE(ClearBg0Bg1),
+    .onSelect = DropSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+};
+
+struct SelectInfo CONST_DATA gSelectInfo_Rescue =
+{
+    .onInit = RescueSelection_OnConstruction,
+    .onSwitchIn = RescueSelection_OnChange,
+    .onSelect = RescueSelection_OnSelect,
+    .onCancel = GenericSelection_BackToUM,
+    .onHelp = RescueSelection_OnHelp,
+};

@@ -22,6 +22,8 @@
 #include "bm.h"
 #include "unitinfowindow.h"
 #include "ev_triggercheck.h"
+#include "bmmenu.h"
+#include "menu_def.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
@@ -29,64 +31,9 @@
 
 #include "bmitemuse.h"
 
-struct WarpSelectProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 pad29[0x4A - 0x29];
-    /* 4A */ short prevWarpAllowed;
-    /* 4C */ u8 pad4C[0x54 - 0x4C];
-    /* 54 */ struct APHandle* ap;
-};
-
-void StartSubtitleHelp(ProcPtr parent, const char* string);
-void EndSubtitleHelp(void);
-
-void ForceMenuItemPanel(ProcPtr parent, struct Unit* unit, int x, int y);
-void UpdateMenuItemPanel(int number);
-
-void FillWarpRangeMap(struct Unit* caster, struct Unit* target);
-
-static s8 HasSelectTarget(struct Unit* unit, void(*func)(struct Unit*));
-
-static void SetStaffUseAction(struct Unit* unit);
-static void SetItemUseAction(struct Unit* unit);
-
-static void DoUseRescueStaff(struct Unit* unit, void(*func)(struct Unit*));
-static void DoUseSpecialDance(struct Unit* unit, void(*func)(struct Unit*), int msgHelp);
-static void DoUseWarpStaff(struct Unit* unit);
-static void DoUsePutTrap(struct Unit* unit, void(*func)(struct Unit*), int msgHelp);
-static void DoUseRepairStaff(struct Unit* unit);
-static void DoUseHealStaff(struct Unit* unit, void(*func)(struct Unit*));
-static void DoUseRestoreStaff(struct Unit* unit, void(*func)(struct Unit*));
-static void DoUseBarrierStaff(struct Unit* unit);
-static void DoUseAttackStaff(struct Unit* unit, void(*func)(struct Unit*));
-static void DoUseTorchStaff(struct Unit* unit);
-
 extern struct Unit gStatGainSimUnit;
 
-extern struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[]; // go back to unit menu proc
-
-extern const struct MenuDef gMenuInfo_RepairItems;
-
-extern struct SelectInfo CONST_DATA gSelectInfo_OffensiveStaff;
-extern struct SelectInfo CONST_DATA gSelectInfo_Barrier;
-extern struct SelectInfo CONST_DATA gSelectInfo_Restore;
-extern struct SelectInfo CONST_DATA gSelectInfo_Heal;
-extern struct SelectInfo CONST_DATA gSelectInfo_PutTrap;
-extern struct SelectInfo CONST_DATA gSelectInfo_0859D2F8;
-extern struct SelectInfo CONST_DATA gSelectInfo_Repair;
-
-extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
-
-static void WarpSelect_OnEnd(struct WarpSelectProc* proc);
-static void WarpSelect_OnInit(struct WarpSelectProc* proc);
-static void WarpSelect_OnIdle(struct WarpSelectProc* proc);
-static void WarpSelect_OnConfirm(struct WarpSelectProc* proc);
-static void WarpSelect_OnCancel(struct WarpSelectProc* proc);
-
-static void TorchSelect_OnInit(struct WarpSelectProc* proc);
-static void TorchSelect_OnIdle(struct WarpSelectProc* proc);
+// clang-format off
 
 struct ProcCmd CONST_DATA gProcScr_SquareSelectWarp[] =
 {
@@ -139,6 +86,8 @@ PROC_LABEL(100),
 
     PROC_END,
 };
+
+// clang-format on
 
 s8 CanUnitUseItem(struct Unit* unit, int item)
 {
@@ -669,7 +618,7 @@ u8 StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
     gActionData.targetIndex = target->uid;
     SetStaffUseAction(NULL);
 
-    return 0x17; // TODO: Select Return Constants
+    return TARGETSELECTION_ACTION_ENDFAST | TARGETSELECTION_ACTION_END | TARGETSELECTION_ACTION_SE_6A | TARGETSELECTION_ACTION_CLEARBGS;
 }
 
 void DoUseRescueStaff(struct Unit* unit, void(*func)(struct Unit*))
@@ -679,7 +628,7 @@ void DoUseRescueStaff(struct Unit* unit, void(*func)(struct Unit*))
     BmMapFill(gBmMapMovement, -1);
 
     StartSubtitleHelp(
-        NewTargetSelection_Specialized(&gSelectInfo_0859D2F8, StaffSelectOnSelect),
+        NewTargetSelection_Specialized(&gSelectInfo_WarpUnit, StaffSelectOnSelect),
         GetStringFromIndex(0x876)); // TODO: msgid "Select which character to bring next to you."
 }
 
@@ -690,7 +639,7 @@ void DoUseSpecialDance(struct Unit* unit, void(*func)(struct Unit*), int msgHelp
     BmMapFill(gBmMapMovement, -1);
 
     StartSubtitleHelp(
-        NewTargetSelection_Specialized(&gSelectInfo_0859D2F8, StaffSelectOnSelect),
+        NewTargetSelection_Specialized(&gSelectInfo_WarpUnit, StaffSelectOnSelect),
         GetStringFromIndex(msgHelp));
 }
 
@@ -708,7 +657,7 @@ void WarpSelect_OnInit(struct WarpSelectProc* proc)
 
     FillWarpRangeMap(gActiveUnit, GetUnit(gActionData.targetIndex));
 
-    gBmSt.gameStateBits &= ~GMAP_STATE_BIT1;
+    gBmSt.gameStateBits &= ~BM_FLAG_1;
 
     DisplayMoveRangeGraphics(1);
 
@@ -811,7 +760,7 @@ void WarpSelect_OnEnd(struct WarpSelectProc* proc)
     AP_Delete(proc->ap);
 }
 
-static u8 WarpOnSelectTarget(ProcPtr proc, struct SelectTarget* target)
+u8 WarpOnSelectTarget(ProcPtr proc, struct SelectTarget* target)
 {
     EndTargetSelection(proc);
 
@@ -819,7 +768,7 @@ static u8 WarpOnSelectTarget(ProcPtr proc, struct SelectTarget* target)
 
     Proc_Start(gProcScr_SquareSelectWarp, PROC_TREE_3);
 
-    return 4; // TODO: Map Select Return Constants
+    return TARGETSELECTION_ACTION_SE_6A;
 }
 
 void DoUseWarpStaff(struct Unit* unit)
@@ -829,20 +778,20 @@ void DoUseWarpStaff(struct Unit* unit)
     BmMapFill(gBmMapMovement, -1);
 
     StartSubtitleHelp(
-        NewTargetSelection_Specialized(&gSelectInfo_0859D2F8, WarpOnSelectTarget),
+        NewTargetSelection_Specialized(&gSelectInfo_WarpUnit, WarpOnSelectTarget),
         GetStringFromIndex(0x875)); // TODO: msgid "Select character to warp."
 
     PlaySoundEffect(0x6A); // TODO: song ids
 }
 
-static u8 OnSelectPutTrap(ProcPtr proc, struct SelectTarget* target)
+u8 OnSelectPutTrap(ProcPtr proc, struct SelectTarget* target)
 {
     gActionData.xOther = target->x;
     gActionData.yOther = target->y;
 
     SetStaffUseAction(NULL);
 
-    return 0x17; // TODO: Map Select Return Constants
+    return TARGETSELECTION_ACTION_ENDFAST | TARGETSELECTION_ACTION_END | TARGETSELECTION_ACTION_SE_6A | TARGETSELECTION_ACTION_CLEARBGS;
 }
 
 void DoUsePutTrap(struct Unit* unit, void(*func)(struct Unit*), int msgHelp)
@@ -858,7 +807,7 @@ void DoUsePutTrap(struct Unit* unit, void(*func)(struct Unit*), int msgHelp)
     PlaySoundEffect(0x6A); // TODO: song ids
 }
 
-int RepairSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
+u8 RepairSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
 {
     ResetTextFont();
 
@@ -872,11 +821,11 @@ int RepairSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
     // TODO: UNIT_HAS_PORTRAIT macro?
     if (GetPortraitData(GetUnitPortraitId(GetUnit(gActionData.targetIndex)))->img)
     {
-        StartFace(0, GetUnitPortraitId(GetUnit(gActionData.targetIndex)), 184, 12, 2);
+        StartFace(0, GetUnitPortraitId(GetUnit(gActionData.targetIndex)), 184, 12, FACE_96x80);
         SetFaceBlinkControlById(0, 5);
     }
 
-    return 0x17; // TODO: Map Select Return Constants
+    return TARGETSELECTION_ACTION_ENDFAST | TARGETSELECTION_ACTION_END | TARGETSELECTION_ACTION_SE_6A | TARGETSELECTION_ACTION_CLEARBGS;
 }
 
 void DoUseRepairStaff(struct Unit* unit)
@@ -892,7 +841,7 @@ void DoUseRepairStaff(struct Unit* unit)
     PlaySoundEffect(0x6A); // TODO: song ids
 }
 
-int RepairSelectOnChange(ProcPtr proc, struct SelectTarget* target)
+u8 RepairSelectOnChange(ProcPtr proc, struct SelectTarget* target)
 {
     ChangeActiveUnitFacing(target->x, target->y);
     RefreshHammerneUnitInfoWindow(GetUnit(target->uid));
@@ -988,12 +937,12 @@ void DoUseRestoreStaff(struct Unit* unit, void(*func)(struct Unit*))
         GetStringFromIndex(0x877)); // TODO: msgid "Select a character to restore to normal."
 }
 
-int BarrierSelectOnInit(ProcPtr proc)
+int RestoreMapSelect_Init(ProcPtr proc)
 {
     StartUnitHpStatusInfoWindow(proc);
 }
 
-int BarrierSelectOnChange(ProcPtr proc, struct SelectTarget* target)
+u8 RestoreMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target)
 {
     ChangeActiveUnitFacing(target->x, target->y);
     RefreshUnitHpStatusInfoWindow(GetUnit(target->uid));
@@ -1007,15 +956,15 @@ void DoUseBarrierStaff(struct Unit* unit)
 
     StartSubtitleHelp(
         NewTargetSelection(&gSelectInfo_Barrier),
-        GetStringFromIndex(0x879)); // TODO: msgid "Select a character to restore to normal."
+        GetStringFromIndex(0x879)); // TODO: msgid "Select which character's resistance to bolster."
 }
 
-int AttackStaffSelectOnInit(ProcPtr proc)
+int BarrierMapSelect_Init(ProcPtr proc)
 {
     StartUnitResChangeInfoWindow(proc);
 }
 
-int AttackStaffSelectOnChange(ProcPtr proc, struct SelectTarget* target)
+u8 BarrierMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target)
 {
     ChangeActiveUnitFacing(target->x, target->y);
     RefreshUnitResChangeInfoWindow(GetUnit(target->uid));
@@ -1032,12 +981,12 @@ void DoUseAttackStaff(struct Unit* unit, void(*func)(struct Unit*))
         GetStringFromIndex(0x87B)); // TODO: msgid "Select a unit to use the staff on."
 }
 
-int sub_8029CDC(ProcPtr proc)
+int AttackStaffMapSelect_Init(ProcPtr proc)
 {
     StartUnitStaffOffenseInfoWindow(proc);
 }
 
-int sub_8029CE8(ProcPtr proc, struct SelectTarget* target)
+u8 AttackStaffMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target)
 {
     ChangeActiveUnitFacing(target->x, target->y);
 
@@ -1046,7 +995,7 @@ int sub_8029CE8(ProcPtr proc, struct SelectTarget* target)
         GetOffensiveStaffAccuracy(gActiveUnit, GetUnit(target->uid)));
 }
 
-void sub_8029D28(ProcPtr proc)
+void SubtitleMapSelect_End(ProcPtr proc)
 {
     EndSubtitleHelp();
     ClearBg0Bg1();
@@ -1063,7 +1012,7 @@ int sub_8029D38(struct Unit* unit)
 void sub_8029D6C(void)
 {
     StartSubtitleHelp(
-        NewTargetSelection_Specialized(&gSelectInfo_0859D2F8, StaffSelectOnSelect),
+        NewTargetSelection_Specialized(&gSelectInfo_WarpUnit, StaffSelectOnSelect),
         GetStringFromIndex(0x876)); // TODO: msgid "Select which character to bring next to you."
 }
 

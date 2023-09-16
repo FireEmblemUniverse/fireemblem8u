@@ -34,47 +34,18 @@
 #include "bm.h"
 #include "unitinfowindow.h"
 #include "ev_triggercheck.h"
+#include "menu_def.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/terrains.h"
 #include "constants/items.h"
 
-extern const struct MenuDef gUnitActionMenuDef;
-extern const struct MenuDef gBallistaRangeMenuDef;
-extern const struct MenuDef gUnknownMenuDef;
-extern const struct MenuDef gItemMenuDef;
-extern const struct MenuDef gItemSelectMenuDef;
-extern const struct MenuDef gItemSubMenuDef;
-extern const struct MenuDef gYesNoSelectionMenuDef;
-extern const struct MenuDef gStaffItemSelectMenuDef;
-extern const struct MenuDef gStealItemMenuDef;
-
-extern const struct SelectInfo gSelectInfo_Rescue;
-extern const struct SelectInfo gSelectInfo_Drop;
-extern const struct SelectInfo gSelectInfo_Take;
-extern const struct SelectInfo gSelectInfo_Give;
-extern const struct SelectInfo gSelectInfo_0859D3F8;
-extern const struct SelectInfo gSelectInfo_Trade;
-extern const struct SelectInfo gSelectInfo_Talk;
-extern const struct SelectInfo gSelectInfo_Support;
-extern const struct SelectInfo gSelectInfo_Pick;
-extern const struct SelectInfo gSelectInfo_Summon;
-extern const struct SelectInfo gSelectInfo_Steal;
-extern const struct SelectInfo gSelectInfo_Dance;
-
 extern u16 gUnknown_085A0D4C[];
 
 extern s8 gUnknown_080D7C04[4][2];
 
 extern u8 gUnknown_0895F5A4[4][2];
-
-u8 sub_8022B8C(struct MenuProc* menu, struct MenuItemProc* menuItem);
-u8 sub_8022BD8(struct MenuProc* menu, struct MenuItemProc* menuItem);
-void sub_80234AC(int, int);
-
-void BackToUnitMenu_CamWatch(ProcPtr proc);
-void BackToUnitMenu_RestartMenu(void);
 
 struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[] = {
     PROC_CALL(LockGame),
@@ -88,9 +59,6 @@ struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[] = {
 
     PROC_END,
 };
-
-void sub_8022E38(void);
-void sub_8022E54(void);
 
 struct ProcCmd CONST_DATA gProcScr_0859B630[] = {
     PROC_CALL(LockGame),
@@ -220,7 +188,7 @@ u8 EffectWait(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
-u8 GenericSelection_BackToUM(ProcPtr proc) {
+u8 GenericSelection_BackToUM(ProcPtr proc, struct SelectTarget * target) {
     EndTargetSelection(proc);
 
     BG_Fill(gBG2TilemapBuffer, 0);
@@ -263,7 +231,7 @@ void BackToUnitMenu_RestartMenu(void) {
     return;
 }
 
-u8 GenericSelection_BackToUM_CamWait(ProcPtr proc) {
+u8 GenericSelection_BackToUM_CamWait(ProcPtr proc, struct SelectTarget * target) {
 
     EndTargetSelection(proc);
 
@@ -292,7 +260,7 @@ u8 ItemMenu_ButtonBPressed(struct MenuProc* menu, struct MenuItemProc* menuItem)
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
 }
 
-u8 RescueSelection_OnHelp(void) {
+u8 RescueSelection_OnHelp(ProcPtr proc, struct SelectTarget * target) {
     return 0;
 }
 
@@ -559,7 +527,7 @@ u8 UnknownMenu_Selected(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     MakeTargetListForWeapon(gActiveUnit, gActiveUnit->items[0]);
 
-    NewTargetSelection(&gSelectInfo_0859D3F8);
+    NewTargetSelection(&gSelectInfo_Attack);
 
     sub_80832C8();
 
@@ -607,7 +575,7 @@ int BallistaRangeMenu_SwitchOut(struct MenuProc* menu, struct MenuItemProc* menu
     return 0;
 }
 
-u8 sub_8022DF0(ProcPtr proc, struct SelectTarget* target) {
+u8 AttackMapSelect_Select(ProcPtr proc, struct SelectTarget* target) {
 
     if (EventEngineExists() == 1) {
         return 0;
@@ -640,7 +608,7 @@ void sub_8022E54(void) {
     return;
 }
 
-u8 sub_8022E64(void) {
+u8 AttackMapSelect_Cancel(ProcPtr proc, struct SelectTarget * target) {
     if (EventEngineExists() == 1) {
         return 0;
     }
@@ -650,7 +618,7 @@ u8 sub_8022E64(void) {
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B;
 }
 
-int sub_8022E8C(ProcPtr proc, struct SelectTarget* target) {
+u8 AttackMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target) {
 
     struct Unit* unit = GetUnit(target->uid);
 
@@ -675,7 +643,7 @@ int sub_8022E8C(ProcPtr proc, struct SelectTarget* target) {
     return 0;
 }
 
-int sub_8022F10(void) {
+int AttackMapSelect_End(ProcPtr proc) {
 
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -894,7 +862,7 @@ u8 PlayCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
 }
 
-int sub_80232A4(ProcPtr proc, struct SelectTarget* target) {
+u8 RefreshMapSelect_Select(ProcPtr proc, struct SelectTarget* target) {
 
     gActionData.unitActionType = UNIT_ACTION_DANCE;
     gActionData.targetIndex = target->uid;
@@ -1259,7 +1227,7 @@ u8 BallistaRangeMenu_Select(struct MenuProc* menu, struct MenuItemProc* menuItem
 
     FillBallistaRangeMaybe(gActiveUnit);
 
-    NewTargetSelection(&gSelectInfo_0859D3F8);
+    NewTargetSelection(&gSelectInfo_Attack);
 
     return MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_ENDFACE;
 }
@@ -1444,7 +1412,7 @@ u8 TalkCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A;
 }
 
-int TalkSelection_OnSelect(ProcPtr proc, struct SelectTarget* target) {
+u8 TalkSelection_OnSelect(ProcPtr proc, struct SelectTarget* target) {
 
     gActionData.unitActionType = UNIT_ACTION_TALK;
     gActionData.targetIndex = target->uid;
@@ -1794,14 +1762,14 @@ u8 StealCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A;
 }
 
-void StealTargetSelection_OnInit(ProcPtr menu) {
+void StealMapSelect_Init(ProcPtr menu) {
     StartUnitInventoryInfoWindow(menu);
     StartSubtitleHelp(menu, GetStringFromIndex(0x86D)); // TODO: msgid "Select which unit to steal from."
 
     return;
 }
 
-int sub_802423C(ProcPtr proc, struct SelectTarget* target) {
+u8 StealMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
 
     RefreshUnitStealInventoryInfoWindow(GetUnit(target->uid));
@@ -1809,7 +1777,7 @@ int sub_802423C(ProcPtr proc, struct SelectTarget* target) {
     // return 0; // BUG?
 }
 
-int sub_8024260(ProcPtr proc, struct SelectTarget* target) {
+u8 StealMapSelect_Select(ProcPtr proc, struct SelectTarget* target) {
     int pos;
 
     gActionData.targetIndex = target->uid;
@@ -1823,7 +1791,7 @@ int sub_8024260(ProcPtr proc, struct SelectTarget* target) {
 
     CallARM_FillTileRect(gBG1TilemapBuffer + 0x42, gUnknown_085A0D4C, 0x1000);
 
-    pos = (0x38 - GetStringTextLen(GetStringFromIndex(GetUnit(gActionData.targetIndex)->pCharacterData->nameTextId))) / 2;
+    pos = (56 - GetStringTextLen(GetStringFromIndex(GetUnit(gActionData.targetIndex)->pCharacterData->nameTextId))) / 2;
 
     PutDrawText(0, gBG0TilemapBuffer + 0x63, 0, pos, 7, GetStringFromIndex(GetUnit(gActionData.targetIndex)->pCharacterData->nameTextId));
 
@@ -2022,13 +1990,13 @@ u8 BallistaRangeMenuHelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem
     // return 0; // BUG?
 }
 
-void sub_802464C(ProcPtr proc) {
+void HealMapSelect_Init(ProcPtr proc) {
     StartUnitHpInfoWindow(proc);
 
     return;
 }
 
-u8 sub_8024658(ProcPtr proc, struct SelectTarget* target) {
+u8 HealMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target) {
 
     ChangeActiveUnitFacing(target->x, target->y);
 
@@ -2114,7 +2082,6 @@ void TalkSupportSelection_OnInit(ProcPtr menu) {
     return;
 }
 
-
 u8 TalkSupportSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
     RefreshUnitHpInfoWindow(GetUnit(target->uid));
@@ -2122,30 +2089,28 @@ u8 TalkSupportSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
     // return 0; // BUG?
 }
 
-void sub_80247F4(ProcPtr menu) {
+void RefreshMapSelect_Init(ProcPtr menu) {
     StartUnitHpInfoWindow(menu);
     StartSubtitleHelp(menu, GetStringFromIndex(0x870)); // TODO: msgid "Select unit to refresh.[.]"
 
     return;
 }
 
-
-u8 sub_8024814(ProcPtr proc, struct SelectTarget* target) {
+u8 RefreshMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
     RefreshUnitHpInfoWindow(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
 
-void sub_8024838(ProcPtr menu) {
+void WarpUnitMapSelect_Init(ProcPtr menu) {
 
     StartUnitHpInfoWindow(menu);
 
     return;
 }
 
-
-u8 sub_8024844(ProcPtr proc, struct SelectTarget* target) {
+u8 WarpUnitMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
     RefreshUnitHpInfoWindow(GetUnit(target->uid));
 
@@ -2158,9 +2123,7 @@ void SummonSelection_OnInit(ProcPtr menu) {
     return;
 }
 
-
-void SummonSelection_OnChange(void) {
-    return;
+u8 SummonSelection_OnChange(ProcPtr proc, struct SelectTarget * target) {
 }
 
 void sub_8024888(ProcPtr menu) {
