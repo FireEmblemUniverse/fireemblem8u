@@ -542,7 +542,6 @@ SECTIONS
         . = ALIGN(4); src/bmtrick.o(.data);
         . = ALIGN(4); src/bmusemind.o(.data);
         . = ALIGN(4); src/menu_def.o(.data);
-        . = ALIGN(4); data/data_59D238.o(.data);
         . = ALIGN(4); data/data_map_anim.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); src/bmarena.o(.data);
