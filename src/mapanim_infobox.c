@@ -161,8 +161,8 @@ void sub_807BCA8(struct MAInfoFrameProc* proc)
         }
     }
 
-    if (!updated && gManimSt.u5F)
-        gManimSt.u5F = FALSE;
+    if (!updated && gManimSt.hp_changing)
+        gManimSt.hp_changing = FALSE;
 }
 
 void sub_807BD54(struct MAInfoFrameProc* proc, int a)

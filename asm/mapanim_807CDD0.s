@@ -2,8 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_807D0B4
-sub_807D0B4: @ 0x0807D0B4
+	THUMB_FUNC_START MapAnimCallSpellAssocLatonafx
+MapAnimCallSpellAssocLatonafx: @ 0x0807D0B4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _0807D0F4  @ gUnknown_089A39E0
@@ -38,7 +38,7 @@ sub_807D0B4: @ 0x0807D0B4
 _0807D0F4: .4byte gUnknown_089A39E0
 _0807D0F8: .4byte gBmSt
 
-	THUMB_FUNC_END sub_807D0B4
+	THUMB_FUNC_END MapAnimCallSpellAssocLatonafx
 
 	THUMB_FUNC_START sub_807D0FC
 sub_807D0FC: @ 0x0807D0FC

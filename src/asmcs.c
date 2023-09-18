@@ -34,6 +34,7 @@
 #include "ekrbattle.h"
 #include "prepscreen.h"
 #include "ev_triggercheck.h"
+#include "mapanim.h"
 
 struct UnkProc80855A0 {
     PROC_HEADER;

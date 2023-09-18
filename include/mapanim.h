@@ -18,7 +18,7 @@ enum {
 struct MAExpBarProc {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8    pad29[0x64 - 0x29];
+    /* 29 */ u8 pad29[0x64 - 0x29];
     /* 64 */ short expFrom;
     /* 66 */ short expTo;
     /* 68 */ short actorId;
@@ -83,13 +83,16 @@ struct MADebugInfo {
     /* 08 */ struct MADebugInfoEntry infos[2];
 };
 
-struct Unk089A3798 {
-    /* 00 */ u8 a; s8 b, c, d, e; u8 f, g;
+struct Unk089A3798
+{
+    u8 a;
+    s8 b, c, d, e;
+    u8 f, g;
 };
 
 struct MAEffectProc {
     /* 00 */ PROC_HEADER;
-    /* 2C */ struct Unit* unit;
+    /* 2C */ struct Unit * unit;
     /* 30 */ int xDisplay;
     /* 34 */ int yDisplay;
     /* 38 */ u8 pad38[0x40 - 0x38];
@@ -101,8 +104,8 @@ struct MAEffectProc {
     /* 4A */ short unk4A;
     /* 4C */ short unk4C;
     /* 4E */ /* pad */
-    /* 50 */ const void* img;
-    /* 54 */ const void* pal;
+    /* 50 */ const void * img;
+    /* 54 */ const void * pal;
     /* 58 */ u16 unk58;
     /* 5A */ u8 pad5A[0x64 - 0x5A];
     /* 64 */ short unk64;
@@ -164,9 +167,9 @@ struct Unk03005090 {
 };
 
 struct MapAnimActorState {
-    /* 00 */ struct Unit* unit;
-    /* 04 */ struct BattleUnit* bu;
-    /* 08 */ struct MUProc* mu;
+    /* 00 */ struct Unit * unit;
+    /* 04 */ struct BattleUnit * bu;
+    /* 08 */ struct MUProc * mu;
     /* 0C */ u8 hp_max;
     /* 0D */ u8 hp_cur;
     /* 0E */ u16 hp_displayed_q4;
@@ -178,15 +181,15 @@ struct MapAnimActorState {
 struct MapAnimState {
     /* 00 */ struct MapAnimActorState actor[4];
 
-    /* 50 */ struct BattleHit* pCurrentRound;
-    /* 54 */ const struct ProcCmd* specialProcScr;
+    /* 50 */ struct BattleHit * pCurrentRound;
+    /* 54 */ const struct ProcCmd * specialProcScr;
     /* 58 */ u8 subjectActorId;
     /* 59 */ u8 targetActorId;
     /* 5A */ u16 hitAttributes;
     /* 5C */ u8 hitInfo;
-    /* 5D */ u8 hitDamage;
+    /* 5D */ s8 hitDamage;
     /* 5E */ u8 actorCount_maybe;
-    /* 5F */ u8 u5F;
+    /* 5F */ u8 hp_changing;
     /* 60 */ u8 u60;
     /* 61 */ u8 u61;
     /* 62 */ u8 u62;
@@ -203,7 +206,8 @@ struct ManimLevelUpStatGainLabelProc
     /* 2E */ u16 sprite_layer;
 };
 
-struct ManimLevelUpProc {
+struct ManimLevelUpProc
+{
     /* 00 */ PROC_HEADER;
     /* 29 */ STRUCT_PAD(0x29, 0x2E);
     /* 2E */ s16 actor_id;
@@ -221,7 +225,8 @@ struct ManimLevelUpLabelColorProc
     /* 64 */ s16 pal;
 };
 
-struct ManimLevelUpLabelInfo {
+struct ManimLevelUpLabelInfo
+{
     /* 00 */ u8 x;
     /* 01 */ u8 y;
     /* 02 */ STRUCT_PAD(0x02, 0x04);
@@ -328,7 +333,7 @@ extern CONST_DATA struct ProcCmd ProcScr_SpellAssocMonsterStone[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocSilence[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocRestore[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocRepair[];
-extern CONST_DATA struct ProcCmd gUnknown_089A5054[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocUnused[];
 extern CONST_DATA struct ProcCmd ProcScr_PoisonDmgMapEffect[];
 extern CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect1[];
 extern CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect2[];
@@ -379,14 +384,14 @@ extern u16 CONST_DATA Pal_PoisonAnim[];
 // extern ??? gUnknown_089AE4A4
 // extern ??? gUnknown_089AE7A4
 // extern ??? gUnknown_089AE7C4
-// extern ??? gUnknown_089AE804
+extern u8 CONST_DATA gUnknown_089AE804[];
 // extern ??? gUnknown_089AF310
-// extern ??? gUnknown_089AF910
-// extern ??? gUnknown_089AF930
-// extern ??? gUnknown_089AF950
-// extern ??? gUnknown_089AFAC4
-// extern ??? gUnknown_089AFCBC
-// extern ??? gUnknown_089AFF78
+extern u8 CONST_DATA gUnknown_089AF910[];
+extern u8 CONST_DATA gUnknown_089AF930[];
+extern u8 CONST_DATA gUnknown_089AF950[];
+extern u8 CONST_DATA gUnknown_089AFAC4[];
+extern u8 CONST_DATA gUnknown_089AFCBC[];
+extern u8 CONST_DATA gUnknown_089AFF78[];
 // extern ??? gUnknown_089AFFB8
 // extern ??? gUnknown_089AFFF8
 // extern ??? gUnknown_089B03D4
@@ -430,31 +435,7 @@ void DisplayWpnBrokePopup(ProcPtr proc);
 s8 BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit *);
 void DisplayWRankUpPopup(ProcPtr proc);
 s8 BattleUnit_ShouldDisplayWRankUp(struct BattleUnit *);
-
-void PutManimLevelUpFrame(int actor_id, int x, int y);
-void PutManimLevelUpStat(int actor_id, int x, int y, int stat_num, bool after_gain);
-int GetManimLevelUpStatGain(int actor_id, int stat_num);
-int GetManimLevelUpBaseStat(int actor_id, int stat_num);
-// ??? ManimLevelUpStatGainLabel_Finish(???);
-void StartManimLevelUpStatGainLabels(int chr, int pal, int sprite_layer, ProcPtr parent);
-void EndManimLevelUpStatGainLabels(void);
-void StartManimLevelUpStatGainLabelAnim(int x, int y, int stat_num, int stat_gain);
-void StartPrepItemBoostStatGainLabelAnim(int x, int y, int stat_gain);
-void StartManimLevelUp(int actor, ProcPtr parent);
-void InitManimLevelUpWindow(void);
-void ClearManimLevelUpWindow(void);
-void ManimLevelUp_InitMainScreen(struct ManimLevelUpProc *proc);
-void ManimLevelUpLabelColor_Init(struct ManimLevelUpLabelColorProc *proc);
-void ManimLevelUpLabelColor_Loop(struct ManimLevelUpLabelColorProc *proc);
-void ManimLevelUp_ScrollIn(struct ManimLevelUpProc *proc);
-void ManimLevelUp_ScrollOut(struct ManimLevelUpProc *proc);
-void ManimLevelUp_PutStatGainLabels(struct ManimLevelUpProc * proc);
-void ManimLevelUp_DimBgm(struct ManimLevelUpProc * proc);
-void ManimLevelUp_StartLevelUpText(struct ManimLevelUpProc * proc);
-void ManimLevelUp_EndLevelUpText(struct ManimLevelUpProc * proc);
-void ManimLevelUp_RestoreBgm(struct ManimLevelUpProc * proc);
-void ManimLevelUp_Clear(struct ManimLevelUpProc * proc);
-
+void _InitFontForUIDefault();
 void MapAnim_Cleanup(void);
 void MapAnim_AdvanceBattleRound(void);
 void MapAnim_PrepareNextBattleRound(ProcPtr p);
@@ -546,7 +527,7 @@ void sub_807CE18(struct MAEffectProc * proc);
 void sub_807CE78(struct MAEffectProc * proc);
 void sub_807CF30(struct MAEffectProc * proc);
 void sub_807D09C(void);
-// ??? sub_807D0B4(???);
+void MapAnimCallSpellAssocLatonafx(struct Unit * unit);
 // ??? sub_807D0FC(???);
 // ??? sub_807D1B4(???);
 // ??? sub_807D2C8(???);
@@ -559,45 +540,45 @@ void sub_807D09C(void);
 // ??? sub_807D40C(???);
 // ??? sub_807D440(???);
 // ??? sub_807D464(???);
-// ??? sub_807D4D4(???);
+void sub_807D4D4(struct Unit * unit);
 // ??? sub_807D51C(???);
 // ??? sub_807D57C(???);
 // ??? sub_807D670(???);
-// ??? sub_807D688(???);
+void sub_807D688(struct Unit * unit, u8 * unk1, u8 * unk2);
 // ??? sub_807D6D8(???);
 // ??? sub_807D760(???);
 // ??? sub_807D7D8(???);
 // ??? sub_807D818(???);
-// ??? NewMapAnimEffectAnimator(???);
+void NewMapAnimEffectAnimator(struct Unit * unit, u8 * unk1, u8 * unk2, int unk3);
 // ??? sub_807D860(???);
 // ??? sub_807D944(???);
 // ??? sub_807D9B8(???);
 void sub_807DA2C(void);
 // ??? sub_807DA68(???);
-// ??? New6C_SomethingFlashy(???);
+void New6C_SomethingFlashy(struct Unit * unit, int x, int y);
 // ??? sub_807DAE8(???);
 // ??? sub_807DB30(???);
-// ??? sub_807DBA8(???);
+void sub_807DBA8(struct Unit * unit);
 // ??? sub_807DBE4(???);
 // ??? sub_807DCA8(???);
 // ??? sub_807DD0C(???);
 // ??? sub_807DD74(???);
-// ??? sub_807DD80(???);
+void sub_807DD80(struct Unit * unit);
 // ??? sub_807DDC8(???);
-// ??? sub_807DE30(???);
+void sub_807DE30(struct Unit * unit);
 // ??? sub_807DE70(???);
 // ??? sub_807DE80(???);
 // ??? sub_807DEDC(???);
 // ??? sub_807DF5C(???);
 // ??? sub_807DFAC(???);
-// ??? sub_807DFF4(???);
+void sub_807DFF4(struct Unit * unit);
 // ??? sub_807E038(???);
 // ??? sub_807E054(???);
-// ??? sub_807E0D4(???);
+void sub_807E0D4(struct Unit * unit);
 // ??? sub_807E118(???);
 // ??? sub_807E17C(???);
 // ??? sub_807E1B0(???);
-// ??? sub_807E1E4(???);
+void sub_807E1E4(struct Unit * unit);
 // ??? sub_807E22C(???);
 // ??? sub_807E28C(???);
 // ??? sub_807E334(???);
@@ -605,14 +586,14 @@ void sub_807DA2C(void);
 // ??? sub_807E390(???);
 // ??? sub_807E404(???);
 // ??? sub_807E448(???);
-// ??? sub_807E48C(???);
+void sub_807E48C(struct Unit * unit);
 // ??? sub_807E4D0(???);
 // ??? sub_807E584(???);
 // ??? sub_807E5F0(???);
-// ??? sub_807E638(???);
+void sub_807E638(struct Unit * unit);
 // ??? sub_807E67C(???);
 // ??? sub_807E6E0(???);
-// ??? sub_807E760(???);
+void sub_807E760(int, int);
 // ??? sub_807E79C(???);
 // ??? sub_807E7C4(???);
 // ??? sub_807E7E0(???);
@@ -622,5 +603,191 @@ void sub_807E978(void);
 // ??? sub_807EA20(???);
 // ??? sub_807EA50(???);
 // ??? sub_807EA60(???);
+void PutManimLevelUpFrame(int actor_id, int x, int y);
+void PutManimLevelUpStat(int actor_id, int x, int y, int stat_num, bool after_gain);
+int GetManimLevelUpStatGain(int actor_id, int stat_num);
+int GetManimLevelUpBaseStat(int actor_id, int stat_num);
+// ??? ManimLevelUpStatGainLabel_Finish(???);
+void StartManimLevelUpStatGainLabels(int chr, int pal, int sprite_layer, ProcPtr parent);
+void EndManimLevelUpStatGainLabels(void);
+void StartManimLevelUpStatGainLabelAnim(int x, int y, int stat_num, int stat_gain);
+void StartPrepItemBoostStatGainLabelAnim(int x, int y, int stat_gain);
+void StartManimLevelUp(int actor, ProcPtr parent);
+void InitManimLevelUpWindow(void);
+void ClearManimLevelUpWindow(void);
+void ManimLevelUp_InitMainScreen(struct ManimLevelUpProc *proc);
+void ManimLevelUpLabelColor_Init(struct ManimLevelUpLabelColorProc *proc);
+void ManimLevelUpLabelColor_Loop(struct ManimLevelUpLabelColorProc *proc);
+void ManimLevelUp_ScrollIn(struct ManimLevelUpProc *proc);
+void ManimLevelUp_ScrollOut(struct ManimLevelUpProc *proc);
+void ManimLevelUp_PutStatGainLabels(struct ManimLevelUpProc * proc);
+void ManimLevelUp_DimBgm(struct ManimLevelUpProc * proc);
+void ManimLevelUp_StartLevelUpText(struct ManimLevelUpProc * proc);
+void ManimLevelUp_EndLevelUpText(struct ManimLevelUpProc * proc);
+void ManimLevelUp_RestoreBgm(struct ManimLevelUpProc * proc);
+void ManimLevelUp_Clear(struct ManimLevelUpProc * proc);
+void sub_807F568(ProcPtr proc);
+// ??? sub_807F58C(???);
+void sub_807F5C8(ProcPtr proc);
+// ??? sub_807F5EC(???);
+void NewBG0Shaker(void);
+// ??? BG0Shaker_Init(???);
+// ??? BG0Shaker_Loop(???);
+// ??? LoadSparkGfx(???);
+// ??? sub_807F6E8(???);
+// ??? sub_807F724(???);
+// ??? sub_807F758(???);
+// ??? sub_807F788(???);
+//  StartStarRotationEffect(???);
+void StartStarExplosionEffect(int ix, int iy);
+void StartStarImplosionEffect(int ix, int iy);
+// ??? sub_807F878(???);
+// ??? sub_807F89C(???);
+// ??? sub_807F964(???);
+// ??? sub_807FAA0(???);
+// ??? sub_807FBCC(???);
+// ??? sub_807FC58(???);
+// ??? sub_807FCA8(???);
+// ??? sub_807FCC0(???);
+// ??? sub_807FCE4(???);
+// ??? sub_807FDC8(???);
+// ??? sub_807FE0C(???);
+// ??? sub_807FFF0(???);
+// ??? sub_8080014(???);
+// ??? sub_8080038(???);
+// ??? sub_8080050(???);
+// ??? sub_8080138(???);
+// ??? sub_8080288(???);
+// ??? sub_808038C(???);
+// ??? sub_80803D8(???);
+// ??? sub_8080408(???);
+// ??? sub_808044C(???);
+// ??? sub_8080474(???);
+// ??? sub_8080498(???);
+// ??? sub_8080530(???);
+// ??? sub_80805AC(???);
+// ??? sub_8080654(???);
+// ??? sub_8080660(???);
+// ??? sub_8080730(???);
+// ??? sub_80807C8(???);
+// ??? sub_8080890(???);
+// ??? sub_8080900(???);
+// ??? sub_80809D8(???);
+// ??? sub_8080B18(???);
+// ??? sub_8080B84(???);
+// ??? sub_8080BA8(???);
+// ??? sub_8080BD8(???);
+void New6C_SummonGfx(ProcPtr parent, int xMap, int yMap);
+// ??? sub_8080D6C(???);
+// ??? sub_8080DCC(???);
+// ??? sub_8080E84(???);
+void sub_8080E9C(ProcPtr, struct Unit *);
+// ??? sub_8080EE4(???);
+// ??? sub_8080F44(???);
+// ??? sub_8081008(???);
+void sub_8081020(ProcPtr, struct Unit *);
+void sub_8081068(void);
+// ??? sub_8081078(???);
+// ??? sub_8081100(???);
+// ??? sub_80811AC(???);
+void sub_80811D0(ProcPtr, int);
+// ??? sub_80811EC(???);
+// ??? sub_8081208(???);
+// ??? nullsub_58(???);
+const struct ProcCmd * GetItemAnim6CCode(void);
+void MapAnim_AnimateSubjectIdle(ProcPtr proc);
+void MapAnim_SubjectResetAnim(ProcPtr proc);
+void sub_80812C0(void);
+void sub_8081348(void);
+void sub_8081384(void);
+void sub_80813C0(void);
+void MapAnim_BeginSubjectFastAnim(void);
+void MapAnimMoveUnitTowardsTargetExt(struct MUProc * mu1, struct MUProc * mu2);
+void MapAnimMoveUnitAwayFromTargetExt(struct MUProc * mu1, struct MUProc * mu2);
+void MapAnim_MoveSubjectsTowardsTarget(void);
+void MapAnim_MoveSubjectsAwayFromTarget(void);
+void MapAnim_MoveCameraOnSubject(ProcPtr proc);
+void MapAnim_MoveCameraOnTarget(ProcPtr proc);
+void sub_80815EC(ProcPtr proc);
+void MapAnim_BeginRoundSpecificAnims(ProcPtr proc);
+void RegisterMapHpChangeAnim(int mapst_id, int damage);
+void MapAnim_WaitForHPToEndChangingMaybe(ProcPtr proc);
+void MapAnim_PoisonEffectOnTarget(ProcPtr proc);
+void sub_8081950(ProcPtr proc);
+void sub_8081970(ProcPtr proc);
+void MapAnimCallSpellAssocSilence(ProcPtr proc);
+void MapAnimCallSpellAssocBarrier(ProcPtr proc);
+void MapAnimCallSpellAssocLatona(ProcPtr proc);
+void sub_8081A08(ProcPtr proc);
+void MapAnimCallSpellAssocAntitoxin(ProcPtr proc);
+void MapAnimCallSpellAssocPureWater(ProcPtr proc);
+void MapAnimCallSpellAssocElixir(ProcPtr proc);
+void MapAnimCallSpellAssocHeal(ProcPtr proc);
+void MapAnimCallSpellAssocMend(ProcPtr proc);
+void MapAnimCallSpellAssocRecover(ProcPtr proc);
+void MapAnimCallSpellAssocVulenrary(ProcPtr proc);
+void sub_8081B70(ProcPtr proc);
+void sub_8081BCC(ProcPtr proc);
+void MapAnimCallSpellAssocTorch(ProcPtr proc);
+void MapAnimCallSpellAssocUnlock(ProcPtr proc);
+void MapAnimCallSpellAssocBerserk(ProcPtr proc);
+void MapAnimCallSpellAssocRestore(ProcPtr proc);
+void MapAnimCallSpellAssocSleep(ProcPtr proc);
+void MapAnimCallSpellAssocMonsterStone(ProcPtr proc);
+void MapAnimCallSpellAssocRepair(ProcPtr proc);
+void sub_8081CD4(ProcPtr proc);
+void sub_8081CF8(ProcPtr proc);
+void sub_8081D1C(ProcPtr proc);
+void sub_8081D40(ProcPtr proc);
+void sub_8081D84(ProcPtr proc);
+void sub_8081DE0(ProcPtr proc);
+void sub_8081E04(ProcPtr proc);
+void sub_8081E48(ProcPtr proc);
+void sub_8081E54(ProcPtr proc);
+void sub_8081E60(ProcPtr proc);
+
+void sub_8081E78();
+// ??? sub_8081EAC(???);
+// ??? sub_8081F24(???);
+// ??? sub_8081F58(???);
+// ??? sub_8081F64(???);
+// ??? sub_8081FA8(???);
+// ??? sub_8081FFC(???);
+// ??? sub_8082050(???);
+// ??? sub_8082094(???);
+void sub_80820D8(u16, u16, u16, u16);
+// ??? sub_808218C(???);
+// ??? sub_8082228(???);
+// ??? sub_8082268(???);
+// ??? sub_80822AC(???);
+// ??? sub_80822F0(???);
+// ??? sub_8082338(???);
+// ??? sub_8082390(???);
+// ??? sub_80823A0(???);
+// ??? sub_80823BC(???);
+// ??? sub_80823DC(???);
+// ??? sub_80823FC(???);
+// ??? sub_80824C4(???);
+// ??? sub_80825B0(???);
+// ??? sub_80825B8(???);
+// ??? sub_80825E8(???);
+// ??? sub_8082644(???);
+// ??? sub_8082658(???);
+void sub_8082730(int, int, int);
+// ??? sub_8082764(???);
+void sub_808285C();
+// ??? sub_80828A8(???);
+// ??? sub_80828EC(???);
+// ??? sub_808291C(???);
+// ??? sub_808294C(???);
+// ??? sub_80829A4(???);
+// ??? sub_8082A24(???);
+// ??? sub_8082A7C(???);
+// ??? sub_8082AD4(???);
+// ??? sub_8082B2C(???);
+// ??? sub_8082B84(???);
+// ??? sub_8082BEC(???);
+// ??? sub_8082C50(???);
+// ??? sub_8082E40(???);
 
 #endif  // GUARD_MAPANIM_H

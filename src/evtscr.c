@@ -25,6 +25,7 @@
 #include "bmbattle.h"
 #include "popup.h"
 #include "muctrl.h"
+#include "mapanim.h"
 
 #include "ev_triggercheck.h"
 #include "event.h"
