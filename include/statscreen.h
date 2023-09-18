@@ -1,6 +1,9 @@
 #ifndef GUARD_STATSCREEN_H
 #define GUARD_STATSCREEN_H
 
+#include "global.h"
+#include "fontgrp.h"
+
 enum
 {
     // BG palette allocation

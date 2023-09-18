@@ -1,6 +1,9 @@
 #ifndef GUARD_MU_H
 #define GUARD_MU_H
 
+#include "global.h"
+#include "ap.h"
+
 /*
     "MOVEUNIT" proc and related functions.
     Handles managing and displaying moving map sprites.
@@ -103,9 +106,9 @@ struct MUConfig;
 struct MUProc {
     PROC_HEADER;
 
-    /* 2C */ struct Unit* pUnit;
-    /* 30 */ struct APHandle* pAPHandle;
-    /* 34 */ struct MUConfig* pMUConfig;
+    /* 2C */ struct Unit * pUnit;
+    /* 30 */ struct APHandle * pAPHandle;
+    /* 34 */ struct MUConfig * pMUConfig;
     /* 38 */ void* pGfxVRAM;
 
     /* 3C */ u8 muIndex;
