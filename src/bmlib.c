@@ -809,7 +809,7 @@ struct ProcCmd CONST_DATA ProcScr_PalFade[] =
     PROC_END,
 };
 
-struct PalFadeSt *StartPalFade(u16 const *colors, int pal, int duration, ProcPtr parent)
+struct PalFadeSt * StartPalFade(u16 const *colors, int pal, int duration, ProcPtr parent)
 {
     struct PalFadeSt * st = sPalFadeSt + pal;
     struct PalFadeProc * proc = Proc_Start(ProcScr_PalFade, parent);
@@ -898,7 +898,7 @@ void SetAllWhitePals(void)
         SetBlackPal(i);
 }
 
-void FadeToBlack_OnInit(struct Proc *proc)
+void FadeToBlack_OnInit(struct Proc * proc)
 {
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.win1_enableBlend = 1;
@@ -1265,7 +1265,7 @@ void WaitForFade(ProcPtr proc)
         Proc_Break(proc);
 }
 
-void sub_8014084(ProcPtr parent, void *func)
+void sub_8014084(ProcPtr parent, void * func)
 {
     StartFadeCore(3, 0x40, parent, func);
 }
@@ -1288,7 +1288,7 @@ struct FadeKindEnt const gUnknown_080D7964[] =
     { Proc_StartBlocking, ColorFadeSetupFromColorToWhite, +1 }, // to white locking
 };
 
-void StartFadeCore(int kind, int speed, ProcPtr parent, void *end_callback)
+void StartFadeCore(int kind, int speed, ProcPtr parent, void * end_callback)
 {
     ProcPtr (* spawn_proc)(struct ProcCmd const * scr, ProcPtr parent);
     void (* setup_color_fade)(s8 component_step);

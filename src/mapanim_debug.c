@@ -409,7 +409,7 @@ CONST_DATA char* MADebugStrings2[] = {
     NULL
 };
 
-CONST_DATA struct MADebugInfo* pMADebugInfoData = &MADebugInfoData;
+CONST_DATA struct MADebugInfo * pMADebugInfoData = &MADebugInfoData;
 
 CONST_DATA struct ProcCmd ProcScr_MADebug[] = {
     PROC_SLEEP(0x1),

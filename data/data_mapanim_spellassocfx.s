@@ -63,12 +63,8 @@ gUnknown_089A407C:  @ 0x089A407C
 
 	.global gUnknown_089A40AC
 gUnknown_089A40AC:  @ 0x089A40AC
-@ replacing .incbin "baserom.gba", 0x009a40ac, 0x4
+@ replacing .incbin "baserom.gba", 0x009a40ac, 0xF0
 .4byte Pal_089B80C4 + 0x2fc
-
-	.global gUnknown_089A40B0
-gUnknown_089A40B0:  @ 0x089A40B0
-@ replacing .incbin "baserom.gba", 0x009a40b0, 0xec
 .4byte Pal_089B80C4 + 0x1a314
 .4byte Pal_089B80C4 + 0x1aa14
 .4byte Pal_089B80C4 + 0x900
