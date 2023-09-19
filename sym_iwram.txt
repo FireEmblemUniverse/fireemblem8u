@@ -156,8 +156,7 @@
 . = 0x004FB0; gEkrYQuakeOff = .;
 . = 0x004FC0;
 . = ALIGN(4); src/mapanim_debug.o(.bss);
-. = 0x005090; gUnknown_03005090 = .;
-. = 0x005110; gUnknown_03005110 = .;
+. = ALIGN(4); src/mapanim_spellassocfx.o(.bss);
 . = 0x005250; gPermanentFlagBits = .;
 . = 0x005270; gChapterFlagBits = .;
 . = 0x005280; gGMData = .;

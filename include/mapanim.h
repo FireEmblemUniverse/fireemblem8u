@@ -139,7 +139,7 @@ struct MAFrameShakeProc {
     PROC_HEADER;
 
     /* 29 */ u8 pad29[0x64 - 0x29];
-    /* 64 */ short unk64;
+    /* 64 */ short timer;
 };
 
 struct MAStarProc {
@@ -196,6 +196,13 @@ struct MapAnimState {
 };
 
 extern struct MapAnimState gManimSt;
+
+struct Unk089A40AC
+{
+    /* 00 */ const void * unk00;
+    /* 04 */ const u16  * unk04;
+    /* 08 */ const void * unk08;
+};
 
 struct ManimLevelUpStatGainLabelProc
 {
@@ -292,20 +299,19 @@ extern CONST_DATA u16 * ImgLut_089A39C4[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpStatGainLabel[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpLabelColor[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUp[];
-// extern ??? gUnknown_089A4034
-// extern ??? gUnknown_089A404C
-// extern ??? gUnknown_089A4064
-// extern ??? gUnknown_089A407C
-// extern ??? gUnknown_089A40AC
-// extern ??? gUnknown_089A40B0
-// extern ??? gUnknown_089A419C
-// extern ??? gUnknown_089A42BC
-// extern ??? gUnknown_089A434C
-// extern ??? gUnknown_089A4394
+extern CONST_DATA struct ProcCmd gUnknown_089A4034[];
+extern CONST_DATA struct ProcCmd gUnknown_089A404C[];
+extern CONST_DATA struct ProcCmd gUnknown_089A4064[];
+extern CONST_DATA struct ProcCmd gUnknown_089A407C[];
+extern struct Unk089A40AC CONST_DATA gUnknown_089A40AC[];
+extern struct Unk089A40AC CONST_DATA gUnknown_089A419C[];
+extern struct Unk089A40AC CONST_DATA gUnknown_089A42BC[];
+extern CONST_DATA struct ProcCmd gUnknown_089A434C[];
+extern CONST_DATA struct ProcCmd gUnknown_089A4394[];
 // extern ??? gUnknown_089A43D4
 // extern ??? gUnknown_089A43D8
-// extern ??? gUnknown_089A4434
-// extern ??? gUnknown_089A448C
+extern CONST_DATA struct ProcCmd gUnknown_089A4434[];
+extern CONST_DATA struct ProcCmd gUnknown_089A448C[];
 // extern ??? gUnknown_089A44A4
 // extern ??? gUnknown_089A45DC
 // extern ??? gUnknown_089A4644
@@ -382,8 +388,8 @@ extern u16 CONST_DATA Pal_PoisonAnim[];
 // extern ??? gUnknown_089AE224
 // extern ??? gUnknown_089AE484
 // extern ??? gUnknown_089AE4A4
-// extern ??? gUnknown_089AE7A4
-// extern ??? gUnknown_089AE7C4
+extern u8 Img_089AE7A4[];
+extern u16 Pal_089AE7C4[];
 extern u8 CONST_DATA gUnknown_089AE804[];
 // extern ??? gUnknown_089AF310
 extern u8 CONST_DATA gUnknown_089AF910[];
@@ -627,40 +633,40 @@ void ManimLevelUp_EndLevelUpText(struct ManimLevelUpProc * proc);
 void ManimLevelUp_RestoreBgm(struct ManimLevelUpProc * proc);
 void ManimLevelUp_Clear(struct ManimLevelUpProc * proc);
 void sub_807F568(ProcPtr proc);
-// ??? sub_807F58C(???);
+void sub_807F58C(ProcPtr proc);
 void sub_807F5C8(ProcPtr proc);
-// ??? sub_807F5EC(???);
+void sub_807F5EC(ProcPtr proc);
 void NewBG0Shaker(void);
-// ??? BG0Shaker_Init(???);
-// ??? BG0Shaker_Loop(???);
-// ??? LoadSparkGfx(???);
-// ??? sub_807F6E8(???);
-// ??? sub_807F724(???);
-// ??? sub_807F758(???);
-// ??? sub_807F788(???);
-//  StartStarRotationEffect(???);
+void BG0Shaker_Init(struct MAFrameShakeProc * proc);
+void BG0Shaker_Loop(struct MAFrameShakeProc * proc);
+void LoadSparkGfx(void);
+void PutSparkGfx(int x, int y);
+void sub_807F724(int xCenter, int yCenter, int distance, int angle);
+void sub_807F758(struct MAStarProc * proc);
+void sub_807F788(struct MAStarProc * proc);
+void StartStarRotationEffect(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
 void StartStarExplosionEffect(int ix, int iy);
 void StartStarImplosionEffect(int ix, int iy);
-// ??? sub_807F878(???);
-// ??? sub_807F89C(???);
-// ??? sub_807F964(???);
-// ??? sub_807FAA0(???);
-// ??? sub_807FBCC(???);
-// ??? sub_807FC58(???);
-// ??? sub_807FCA8(???);
-// ??? sub_807FCC0(???);
-// ??? sub_807FCE4(???);
-// ??? sub_807FDC8(???);
-// ??? sub_807FE0C(???);
-// ??? sub_807FFF0(???);
-// ??? sub_8080014(???);
-// ??? sub_8080038(???);
+void sub_807F878(ProcPtr proc);
+void sub_807F89C(struct MAEffectProc * proc);
+void sub_807F964(struct MAEffectProc * proc);
+void sub_807FAA0(struct MAEffectProc * proc);
+void sub_807FBCC(struct MAEffectProc * proc);
+void sub_807FC58(struct MAEffectProc * proc);
+void sub_807FCA8(void);
+void sub_807FCC0(ProcPtr proc);
+void sub_807FCE4(struct MAEffectProc * proc);
+void sub_807FDC8(struct MAEffectProc * proc);
+void sub_807FE0C(struct MAEffectProc * proc);
+void sub_807FFF0(void);
+void sub_8080014(ProcPtr proc);
+void sub_8080038(void);
 // ??? sub_8080050(???);
 // ??? sub_8080138(???);
 // ??? sub_8080288(???);
 // ??? sub_808038C(???);
 // ??? sub_80803D8(???);
-// ??? sub_8080408(???);
+void sub_8080408(void);
 // ??? sub_808044C(???);
 // ??? sub_8080474(???);
 // ??? sub_8080498(???);

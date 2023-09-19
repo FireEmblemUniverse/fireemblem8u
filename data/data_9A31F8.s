@@ -177,12 +177,12 @@ gUnknown_089AE484:  @ 0x089AE484
 gUnknown_089AE4A4:  @ 0x089AE4A4
 	.incbin "baserom.gba", 0x9AE4A4, 0x300
 
-	.global gUnknown_089AE7A4
-gUnknown_089AE7A4:  @ 0x089AE7A4
+	.global Img_089AE7A4
+Img_089AE7A4:  @ 0x089AE7A4
 	.incbin "baserom.gba", 0x9AE7A4, 0x20
 
-	.global gUnknown_089AE7C4
-gUnknown_089AE7C4:  @ 0x089AE7C4
+	.global Pal_089AE7C4
+Pal_089AE7C4:  @ 0x089AE7C4
 	.incbin "baserom.gba", 0x9AE7C4, 0x40
 
 	.global gUnknown_089AE804

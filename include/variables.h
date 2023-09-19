@@ -303,9 +303,7 @@ extern int gUnknown_03004FA4;
 extern int gEkrXQuakeOff;
 extern int gBanimDebugCurrentIndex;
 extern int gEkrYQuakeOff;
-// extern ??? MADebugInfo
-// extern ??? gUnknown_03005090
-// extern ??? gUnknown_03005110
+
 // extern ??? gPermanentFlagBits
 // extern ??? gChapterFlagBits
 extern struct GMapData gGMData;
@@ -437,9 +435,9 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205833
 // extern ??? gUnknown_08205846
 // extern ??? gUnknown_08205855
-// extern ??? gUnknown_08205884
-// extern ??? gUnknown_0820588C
-// extern ??? gUnknown_0820588E
+extern const int gUnknown_08205884[];
+extern const u8 gUnknown_0820588C[];
+extern const u8 gUnknown_0820588E[];
 // extern ??? gUnknown_082058A8
 // extern ??? gUnknown_082058B0
 // extern ??? gUnknown_082058B4
