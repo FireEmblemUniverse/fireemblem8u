@@ -17,9 +17,6 @@
 #include "ev_triggercheck.h"
 #include "event.h"
 
-// TODO: move those where they belong when possible
-void sub_800E640(struct EventEngineProc*);
-
 static bool8 EventEngine_CanStartSkip(struct EventEngineProc*);
 static void  CallNextQueuedEvent(void); // local
 

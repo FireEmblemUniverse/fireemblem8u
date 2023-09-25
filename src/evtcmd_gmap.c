@@ -26,15 +26,17 @@ void sub_800B910(u8 bg1, u8 bg2, u8 c)
     return;
 }
 
-extern int gUnknown_080D792C[4];
-
 //! FE8U = 0x0800B954
 void sub_800B954(u8 a, u8 bg, u8 c)
 {
-    int hack[4];
-    memcpy(hack, gUnknown_080D792C, 16);
+    u16 * gUnknown_080D792C[4] = {
+        gBG0TilemapBuffer,
+        gBG1TilemapBuffer,
+        gBG2TilemapBuffer,
+        gBG3TilemapBuffer,
+    };
 
-    CpuFastCopy((void *)hack[a], (void *)hack[bg], c * 0x800);
+    CpuFastCopy(gUnknown_080D792C[a], gUnknown_080D792C[bg], c * 0x800);
     BG_EnableSyncByMask(1 << bg);
 
     return;
@@ -72,18 +74,18 @@ void sub_800B9B8(u8 bg, u8 b)
     return;
 }
 
-extern u16 end[];
+extern u16 gUnknown_0203EFB8[];
 
 //! FE8U = 0x0800BA04
 void sub_800BA04(u8 a, u8 b)
 {
     u16 * palPtr = gPaletteBuffer + a * 0x10;
 
-    u16 * ptr = end;
+    u16 * ptr = gUnknown_0203EFB8;
     *ptr++ = a;
     *ptr++ = b;
 
-    CpuFastCopy(palPtr, end + 2, b * 0x20);
+    CpuFastCopy(palPtr, gUnknown_0203EFB8 + 2, b * 0x20);
 
     return;
 }
@@ -91,7 +93,7 @@ void sub_800BA04(u8 a, u8 b)
 //! FE8U = 0x0800BA34
 void sub_800BA34(void)
 {
-    u16 * ptr = end;
+    u16 * ptr = gUnknown_0203EFB8;
 
     int b = *ptr++;
     int c = *ptr++;
@@ -100,8 +102,6 @@ void sub_800BA34(void)
     EnablePaletteSync();
     return;
 }
-
-void StoreAdjustedCameraPositions(int xIn, int yIn, int * xOut, int * yOut);
 
 //! FE8U = 0x0800BA5C
 void SetSomeRealCamPos(int x, int y, s8 unk)
@@ -180,7 +180,7 @@ void TriggerMapChanges(u16 id, s8 flag, ProcPtr parent)
 }
 
 //! FE8U = 0x0800BB48
-void sub_800BB48(u16 id, s8 flag, ProcPtr parent)
+void UntriggerMapChange(u16 id, s8 flag, ProcPtr parent)
 {
     if (IsMapChangeEnabled(id) != 1)
     {
@@ -209,9 +209,9 @@ void sub_800BB48(u16 id, s8 flag, ProcPtr parent)
 //! FE8U = 0x0800BB98
 void sub_800BB98(void)
 {
-    int found = (int)Proc_Find(gProcScr_BKSEL);
+    s8 found = Proc_Find(gProcScr_BKSEL) != NULL;
 
-    if ((-found | found) < 0)
+    if (found)
     {
         InitBattleForecastFramePalettes();
     }
@@ -317,7 +317,9 @@ struct Unit * GetUnitStructFromEventParameter(s16 pid)
             }
             else
             {
+                #ifndef NONMATCHING
                 asm(""); // :/
+                #endif
                 return NULL;
             }
 
@@ -396,7 +398,7 @@ void sub_800BCDC(u16 palId)
 }
 
 //! FE8U = 0x0800BDCC
-u8 Event80_(struct EventEngineProc * proc)
+u8 Event80_WmSkip_Unsure(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -407,7 +409,7 @@ u8 Event80_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800BDE8
-u8 Event81_(struct EventEngineProc * proc)
+u8 Event81_WmFadeOut(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -420,14 +422,14 @@ u8 Event81_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800BE2C
-u8 Event82_EndWM(struct EventEngineProc * proc)
+u8 Event82_WmEnd(struct EventEngineProc * proc)
 {
     EndWM(proc);
     return EVC_ADVANCE_CONTINUE;
 }
 
 //! FE8U = 0x0800BE38
-u8 Event83_WM_SETCAM(struct EventEngineProc * proc)
+u8 Event83_WmSetCamera(struct EventEngineProc * proc)
 {
     u16 x = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 y = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -439,7 +441,7 @@ u8 Event83_WM_SETCAM(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800BE4C
-u8 Event84_WM_SETCAMONLOC(struct EventEngineProc * proc)
+u8 Event84_WmSetCameraOntoNode(struct EventEngineProc * proc)
 {
     u16 x;
     u16 y;
@@ -455,7 +457,7 @@ u8 Event84_WM_SETCAMONLOC(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800BE8C
-u8 Event85_WM_SETCAMONSPRITE(struct EventEngineProc * proc)
+u8 Event85_WmSetCameraOntoUnit(struct EventEngineProc * proc)
 {
     u16 x;
     u16 y;
@@ -472,7 +474,7 @@ u8 Event85_WM_SETCAMONSPRITE(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800BED4
-u8 Event86_WM_MOVECAM(struct EventEngineProc * proc)
+u8 Event86_WmScrollCamera(struct EventEngineProc * proc)
 {
     s16 xStart = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     s16 yStart = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -497,7 +499,7 @@ u8 Event86_WM_MOVECAM(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800BF38
-u8 Event87_(struct EventEngineProc * proc)
+u8 Event87_WmScrollCameraOntoNode(struct EventEngineProc * proc)
 {
     s16 xEnd;
     s16 yEnd;
@@ -526,7 +528,7 @@ u8 Event87_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800BFD8
-u8 Event88_(struct EventEngineProc * proc)
+u8 Event88_WmScrollCameraOntoUnit(struct EventEngineProc * proc)
 {
     s16 xEnd;
     s16 yEnd;
@@ -556,7 +558,7 @@ u8 Event88_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C084
-u8 Event89_(struct EventEngineProc * proc)
+u8 Event89_WmScrollWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -577,21 +579,21 @@ u8 Event89_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C0B8
-u8 Event8A_(struct EventEngineProc * proc)
+u8 Event8A_WmShowCursor_Unsure(struct EventEngineProc * proc)
 {
     gGMData.unk01 = 1;
     return EVC_ADVANCE_CONTINUE;
 }
 
 //! FE8U = 0x0800C0C8
-void Event8B_(void)
+void Event8B_WmHideCursor_Unsure(void)
 {
     gGMData.unk01 = 0;
     return;
 }
 
 //! FE8U = 0x0800C0D4
-u8 Event8C_(struct EventEngineProc * proc)
+u8 Event8C_WmSetCursor_Unsure(struct EventEngineProc * proc)
 {
     s16 x = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     s16 y = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -603,7 +605,7 @@ u8 Event8C_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C0F0
-u8 Event8D_(struct EventEngineProc * proc)
+u8 Event8D_WmNop(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -614,7 +616,7 @@ u8 Event8D_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C108
-u8 Event8E_(struct EventEngineProc * proc)
+u8 Event8E_WmNop(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -625,7 +627,7 @@ u8 Event8E_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C120
-u8 Event8F_(struct EventEngineProc * proc)
+u8 Event8F_WmNop(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -636,7 +638,7 @@ u8 Event8F_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C138
-u8 Event90_WM_DRAWPATH(struct EventEngineProc * proc)
+u8 Event90_WmAddPathDisplayed(struct EventEngineProc * proc)
 {
     int pathId = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -651,7 +653,7 @@ u8 Event90_WM_DRAWPATH(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C164
-u8 Event91_WM_DRAWPATH_Silent(struct EventEngineProc * proc)
+u8 Event91_WmAddPath(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -666,7 +668,7 @@ u8 Event91_WM_DRAWPATH_Silent(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C198
-u8 Event92_REMOVEPATH(struct EventEngineProc * proc)
+u8 Event92_WmRemovePath(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -681,7 +683,7 @@ u8 Event92_REMOVEPATH(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C1CC
-u8 Event93_(struct EventEngineProc * proc)
+u8 Event93_WmEnableNode(struct EventEngineProc * proc)
 {
     int nodeId = EVT_CMD_ARG32_LE(proc->pEventCurrent);
     gGMData.nodes[nodeId].state |= 1;
@@ -689,7 +691,7 @@ u8 Event93_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C1E8
-u8 Event94_(struct EventEngineProc * proc)
+u8 Event94_WmDisableNode(struct EventEngineProc * proc)
 {
     int nodeId = EVT_CMD_ARG32_LE(proc->pEventCurrent);
     gGMData.nodes[nodeId].state &= ~1;
@@ -697,7 +699,7 @@ u8 Event94_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C204
-u8 Event95_(struct EventEngineProc * proc)
+u8 Event95_WmEnableNodeDisplayed(struct EventEngineProc * proc)
 {
     int nodeId = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -716,7 +718,7 @@ u8 Event95_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C254
-u8 Event96_(struct EventEngineProc * proc)
+u8 Event96_WmEnablePathTargetDisplayed(struct EventEngineProc * proc)
 {
     int nodeId;
     int i;
@@ -751,7 +753,7 @@ u8 Event96_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C2DC
-u8 Event97_(struct EventEngineProc * proc)
+u8 Event97_WmInitNextStoryNode(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -788,7 +790,7 @@ u8 Event97_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C36C
-u8 Event98_(struct EventEngineProc * proc)
+u8 Event98_WmSetNextStoryNodePath(struct EventEngineProc * proc)
 {
     int nodeId;
     int i;
@@ -832,7 +834,7 @@ u8 Event98_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C434
-u8 Event99_(struct EventEngineProc * proc)
+u8 Event99_GmNodeDisplayWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -853,7 +855,7 @@ u8 Event99_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C468
-u8 Event9A_(struct EventEngineProc * proc)
+u8 Event9A_WmSetStoryNodeSilent(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -876,7 +878,7 @@ u8 Event9A_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C4C8
-u8 Event9B_(struct EventEngineProc * proc)
+u8 Event9B_WmSetNextStoryNodeSilentNoFlag(struct EventEngineProc * proc)
 {
     int nodeId = EVT_CMD_ARG32_LE(proc->pEventCurrent);
     gGMData.nodes[nodeId].state |= 2;
@@ -920,7 +922,7 @@ u8 Event9D_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C55C
-u8 Event9E_PUTSPRITE(struct EventEngineProc * proc)
+u8 Event9E_WmSetClassUnit(struct EventEngineProc * proc)
 {
     u16 muId = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 jid = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -933,7 +935,7 @@ u8 Event9E_PUTSPRITE(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C574
-u8 Event9F_(struct EventEngineProc * proc)
+u8 Event9F_WmSetCharUnit(struct EventEngineProc * proc)
 {
     u16 muId = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 pid = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -946,7 +948,7 @@ u8 Event9F_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C58C
-u8 EventA0_REMSPRITE(struct EventEngineProc * proc)
+u8 EventA0_WmRemoveUnit(struct EventEngineProc * proc)
 {
     int muId = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -955,7 +957,7 @@ u8 EventA0_REMSPRITE(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C59C
-u8 EventA1_(struct EventEngineProc * proc)
+u8 EventA1_WmShowUnit(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -964,7 +966,7 @@ u8 EventA1_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C5AC
-u8 EventA2_(struct EventEngineProc * proc)
+u8 EventA2_WmHideUnit(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -973,7 +975,7 @@ u8 EventA2_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C5BC
-u8 EventA3_(struct EventEngineProc * proc)
+u8 EventA3_WmShowUnitFaded(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -993,7 +995,7 @@ u8 EventA3_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C5F8
-u8 EventA4_(struct EventEngineProc * proc)
+u8 EventA4_WmHideUnitFaded(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -1013,7 +1015,7 @@ u8 EventA4_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C634
-u8 EventA5_(struct EventEngineProc * proc)
+u8 EventA5_WmUnitFadeWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1029,7 +1031,7 @@ u8 EventA5_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C65C
-u8 EventA6_(struct EventEngineProc * proc)
+u8 EventA6_WmUnitSetOnNode(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -1045,7 +1047,7 @@ u8 EventA6_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C68C
-u8 EventA7_(struct EventEngineProc * proc)
+u8 EventA7_WmUnitSetPosition(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -1074,7 +1076,7 @@ struct Sub80C33D4
 };
 
 //! FE8U = 0x0800C6C0
-u8 EventA8_(struct EventEngineProc * proc)
+u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
     struct Sub80C33D4 local;
@@ -1135,7 +1137,7 @@ struct Sub80C3378
 };
 
 //! FE8U = 0x0800C754
-u8 EventA9_(struct EventEngineProc * proc)
+u8 EventA9_WmUnitMovePaths(struct EventEngineProc * proc)
 {
     struct Sub80C3378 local;
 
@@ -1170,7 +1172,7 @@ u8 EventA9_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C7B4
-u8 EventAA_(struct EventEngineProc * proc)
+u8 EventAA_WmUnitPauseMove(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -1186,7 +1188,7 @@ u8 EventAA_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C7E4
-u8 EventAB_(struct EventEngineProc * proc)
+u8 EventAB_WmUnitResumeMove(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
@@ -1202,7 +1204,7 @@ u8 EventAB_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C814
-u8 EventAC_(struct EventEngineProc * proc)
+u8 EventAC_WmUnitMoveWait(struct EventEngineProc * proc)
 {
     s16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
 
@@ -1225,7 +1227,7 @@ u8 EventAC_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C85C
-u8 EventAD_(struct EventEngineProc * proc)
+u8 EventAD_WmFadeToDarker(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -1240,7 +1242,7 @@ u8 EventAD_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C884
-u8 EventAE_(struct EventEngineProc * proc)
+u8 EventAE_WmFadeToDarkerWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1257,7 +1259,7 @@ u8 EventAE_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C8B0
-u8 EventAF_(struct EventEngineProc * proc)
+u8 EventAF_WmShowTextBox(struct EventEngineProc * proc)
 {
     u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -1271,7 +1273,7 @@ u8 EventAF_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C8D4
-u8 EventB0_(struct EventEngineProc * proc)
+u8 EventB0_WmHideTextBox_Bugged(struct EventEngineProc * proc)
 {
     u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -1285,7 +1287,7 @@ u8 EventB0_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C8F8
-u8 EventB1_(struct EventEngineProc * proc)
+u8 EventB1_WmTextBoxWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1302,7 +1304,7 @@ u8 EventB1_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C924
-u8 EventB2_(struct EventEngineProc * proc)
+u8 EventB2_WmFancyFade(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -1312,7 +1314,7 @@ u8 EventB2_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C938
-u8 EventB3_(struct EventEngineProc * proc)
+u8 EventB3_WmFancyFadeWait(struct EventEngineProc * proc)
 {
     if (!sub_80C0530())
     {
@@ -1323,7 +1325,7 @@ u8 EventB3_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C950
-u8 EventB4_(struct EventEngineProc * proc)
+u8 EventB4_WmDisplayBigMap(struct EventEngineProc * proc)
 {
     u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -1338,7 +1340,7 @@ u8 EventB4_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C980
-u8 EventB5_(struct EventEngineProc * proc)
+u8 EventB5_WmHideBigMap(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1351,7 +1353,7 @@ u8 EventB5_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C9A0
-u8 EventB6_(struct EventEngineProc * proc)
+u8 EventB6_WmMoveBigMap(struct EventEngineProc * proc)
 {
     u16 r1 = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 r2 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -1369,7 +1371,7 @@ u8 EventB6_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800C9F0
-u8 EventB7_(struct EventEngineProc * proc)
+u8 EventB7_WmBigMapWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1386,7 +1388,7 @@ u8 EventB7_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800CA18
-u8 EventB8_(struct EventEngineProc * proc)
+u8 EventB8_WmShowBigMapHighlight(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 

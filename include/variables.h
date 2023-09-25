@@ -188,7 +188,7 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gExtraMapStatus
 // extern ??? gUnknown_0203EF64
 // extern ??? gUnknown_0203EFB4
-// extern ??? end
+// extern ??? gUnknown_0203EFB8
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
 
