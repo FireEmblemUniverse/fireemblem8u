@@ -1631,14 +1631,12 @@ void nullsub_32(void)
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x0800CCF0
 u8 EventC5_(struct EventEngineProc * proc)
 {
 
-    u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-    u16 b = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    u32 a = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u32 b = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 c = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
     if (EVENT_IS_SKIPPING(proc))
@@ -1658,55 +1656,6 @@ u8 EventC5_(struct EventEngineProc * proc)
 
     return EVC_ADVANCE_CONTINUE;
 }
-
-#else
-
-NAKEDFUNC
-u8 EventC5_(struct EventEngineProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        sub sp, #0xc\n\
-        ldr r1, [r0, #0x38]\n\
-        ldrh r2, [r1, #2]\n\
-        ldrh r4, [r1, #4]\n\
-        ldrh r3, [r1, #6]\n\
-        ldrh r0, [r0, #0x3c]\n\
-        lsrs r1, r0, #2\n\
-        movs r0, #1\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _0800CD10\n\
-        adds r0, r2, #0\n\
-        bl EndFaceById\n\
-        b _0800CD2E\n\
-    _0800CD10:\n\
-        cmp r3, #0\n\
-        beq _0800CD26\n\
-        str r1, [sp]\n\
-        str r1, [sp, #4]\n\
-        str r4, [sp, #8]\n\
-        adds r0, r3, #0\n\
-        movs r1, #7\n\
-        movs r3, #0\n\
-        bl sub_80BA0B4\n\
-        b _0800CD2E\n\
-    _0800CD26:\n\
-        adds r1, r4, #0\n\
-        adds r0, r2, #0\n\
-        bl sub_80B8844\n\
-    _0800CD2E:\n\
-        movs r0, #0\n\
-        add sp, #0xc\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 struct Proc8591C68
 {
