@@ -37,7 +37,7 @@ void SetCursorMapPosition(int, int);
 void UpdateStatArrowSprites(int, int, u8);
 // ??? CamMove_OnInit(???);
 // ??? CamMove_OnLoop(???);
-// ??? StoreAdjustedCameraPositions(???);
+void StoreAdjustedCameraPositions(int xIn, int yIn, int * xOut, int * yOut);
 s8 sub_8015D84(ProcPtr parent, int x, int y);
 s8 EnsureCameraOntoPosition(ProcPtr p, int x, int y);
 s8 IsCameraNotWatchingPosition(int x, int y);

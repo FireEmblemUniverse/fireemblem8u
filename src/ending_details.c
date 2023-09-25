@@ -10,6 +10,7 @@
 #include "bmsave.h"
 #include "ctc.h"
 #include "bmlib.h"
+#include "worldmap.h"
 #include "ending_details.h"
 
 #include "constants/characters.h"
@@ -1801,7 +1802,7 @@ void StartEndingTurnRecordScreen(ProcPtr parent) {
 }
 
 //! FE8U = 0x080B8188
-void sub_80B8188(void) {
+void sub_80B8188(int unusedA, int unusedB, int unusedC) {
     return;
 }
 
@@ -1828,7 +1829,7 @@ void sub_80B8190(u16* dst, u16* src, u8 coeff) {
 }
 
 //! FE8U = 0x080B81FC
-void nullsub_5(void) {
+void nullsub_5(int unused) {
     return;
 }
 

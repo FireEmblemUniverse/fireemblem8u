@@ -113,21 +113,21 @@ gUnknown_08591C68:  @ 0x08591C68
 
 	.global gEventHiCmdTable
 gEventHiCmdTable:  @ 0x08591C98
-    .4byte Event80_, Event81_, Event82_EndWM, Event83_WM_SETCAM
-    .4byte Event84_WM_SETCAMONLOC, Event85_WM_SETCAMONSPRITE, Event86_WM_MOVECAM, Event87_
-    .4byte Event88_, Event89_, Event8A_, Event8B_
-    .4byte Event8C_, Event8D_, Event8E_, Event8F_
-    .4byte Event90_WM_DRAWPATH, Event91_WM_DRAWPATH_Silent, Event92_REMOVEPATH, Event93_
-    .4byte Event94_, Event95_, Event96_, Event97_
-    .4byte Event98_, Event99_, Event9A_, Event9B_
-    .4byte Event9C_, Event9D_, Event9E_PUTSPRITE, Event9F_
-    .4byte EventA0_REMSPRITE, EventA1_, EventA2_, EventA3_
-    .4byte EventA4_, EventA5_, EventA6_, EventA7_
-    .4byte EventA8_, EventA9_, EventAA_, EventAB_
-    .4byte EventAC_, EventAD_, EventAE_, EventAF_
-    .4byte EventB0_, EventB1_, EventB2_, EventB3_
-    .4byte EventB4_, EventB5_, EventB6_, EventB7_
-    .4byte EventB8_, EventB9_, EventBA_, EventBB_
+    .4byte Event80_WmSkip_Unsure, Event81_WmFadeOut, Event82_WmEnd, Event83_WmSetCamera
+    .4byte Event84_WmSetCameraOntoNode, Event85_WmSetCameraOntoUnit, Event86_WmScrollCamera, Event87_WmScrollCameraOntoNode
+    .4byte Event88_WmScrollCameraOntoUnit, Event89_WmScrollWait, Event8A_WmShowCursor_Unsure, Event8B_WmHideCursor_Unsure
+    .4byte Event8C_WmSetCursor_Unsure, Event8D_WmNop, Event8E_WmNop, Event8F_WmNop
+    .4byte Event90_WmAddPathDisplayed, Event91_WmAddPath, Event92_WmRemovePath, Event93_WmEnableNode
+    .4byte Event94_WmDisableNode, Event95_WmEnableNodeDisplayed, Event96_WmEnablePathTargetDisplayed, Event97_WmInitNextStoryNode
+    .4byte Event98_WmSetNextStoryNodePath, Event99_GmNodeDisplayWait, Event9A_WmSetStoryNodeSilent, Event9B_WmSetNextStoryNodeSilentNoFlag
+    .4byte Event9C_, Event9D_, Event9E_WmSetClassUnit, Event9F_WmSetCharUnit
+    .4byte EventA0_WmRemoveUnit, EventA1_WmShowUnit, EventA2_WmHideUnit, EventA3_WmShowUnitFaded
+    .4byte EventA4_WmHideUnitFaded, EventA5_WmUnitFadeWait, EventA6_WmUnitSetOnNode, EventA7_WmUnitSetPosition
+    .4byte EventA8_WmUnitMoveFree, EventA9_WmUnitMovePaths, EventAA_WmUnitPauseMove, EventAB_WmUnitResumeMove
+    .4byte EventAC_WmUnitMoveWait, EventAD_WmFadeToDarker, EventAE_WmFadeToDarkerWait, EventAF_WmShowTextBox
+    .4byte EventB0_WmHideTextBox_Bugged, EventB1_WmTextBoxWait, EventB2_WmFancyFade, EventB3_WmFancyFadeWait
+    .4byte EventB4_WmDisplayBigMap, EventB5_WmHideBigMap, EventB6_WmMoveBigMap, EventB7_WmBigMapWait
+    .4byte EventB8_WmShowBigMapHighlight, EventB9_, EventBA_, EventBB_
     .4byte EventBC_, EventBD_, EventBE_, EventBF_
     .4byte EventC0_, EventC1_SKIPWM, EventC2_, EventC3_
     .4byte EventC4_, EventC5_, EventC6_, EventC7_

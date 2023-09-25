@@ -26,6 +26,7 @@
 #include "popup.h"
 #include "muctrl.h"
 #include "mapanim.h"
+#include "worldmap.h"
 
 #include "ev_triggercheck.h"
 #include "event.h"
@@ -38,7 +39,15 @@ struct Struct03000428
 };
 
 // TODO: Implicit declaration?
+// ev_triggercheck.c
 int IsSethLArachelMyrrhInnes(int);
+
+// evtcmd_gmap.c
+void sub_800B910(int, int, int);
+void sub_800B954(int, int, int);
+void sub_800B994(int, int, int);
+void sub_800B9B8(int, int);
+void sub_800BA04(int, int);
 
 // local
 
@@ -80,7 +89,7 @@ extern const struct
 
 extern u16 gUnknown_08592114[]; // gEvent_PostEnd
 
-extern struct UnitDefinition end[];
+extern struct UnitDefinition gUnknown_0203EFB8[];
 
 //! FE8U = 0x0800D5A0
 u8 Event00_NULL(struct EventEngineProc * proc)
@@ -2154,7 +2163,7 @@ u8 Event27_MapChange(struct EventEngineProc * proc)
                     break;
 
                 case 1:
-                    sub_800BB48(mapChangeId, FALSE, proc);
+                    UntriggerMapChange(mapChangeId, FALSE, proc);
                     break;
 
             } // switch (subcode)
@@ -2177,7 +2186,7 @@ u8 Event27_MapChange(struct EventEngineProc * proc)
                     break;
 
                 case 1:
-                    sub_800BB48(mapChangeId, doDisplay, proc);
+                    UntriggerMapChange(mapChangeId, doDisplay, proc);
                     break;
 
             } // switch (subcode)
@@ -2542,7 +2551,7 @@ struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count,
         }
     }
     itSource = source;
-    source = end;
+    source = gUnknown_0203EFB8;
 
     for (i = 0; i < count; i++)
     {
@@ -2568,7 +2577,7 @@ struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count,
 
     if (arg4 == TRUE)
     {
-        source = end;
+        source = gUnknown_0203EFB8;
 
         for (i = 0; i < count; i++)
         {
@@ -2578,7 +2587,7 @@ struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count,
         }
     }
 
-    source = end;
+    source = gUnknown_0203EFB8;
 
     if (arg3 == TRUE)
         sub_80125C0(source);
@@ -2750,7 +2759,7 @@ struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count,
         "ands r0, r5\n"
         "b _0800FA44\n"
         ".align 2, 0\n"
-    "_0800FA34: .4byte end\n"
+    "_0800FA34: .4byte gUnknown_0203EFB8\n"
     "_0800FA38:\n"
         "adds r1, r3, #0\n"
         "subs r1, #0x20\n"

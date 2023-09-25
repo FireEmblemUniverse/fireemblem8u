@@ -32,6 +32,7 @@
 #include "bmlib.h"
 #include "muctrl.h"
 #include "menu_def.h"
+#include "worldmap.h"
 
 // hino.s
 void WaitForFade(ProcPtr);

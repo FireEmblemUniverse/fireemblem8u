@@ -24,6 +24,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "bmlib.h"
+#include "worldmap.h"
 #include "bmio.h"
 
 // General Battle Map System Stuff, mostly low level hardware stuff but also more

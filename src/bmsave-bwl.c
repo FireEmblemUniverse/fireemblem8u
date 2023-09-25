@@ -4,6 +4,7 @@
 #include "bmbattle.h"
 #include "bmitem.h"
 #include "hardware.h"
+#include "worldmap.h"
 #include "bmsave.h"
 #include "sram-layout.h"
 

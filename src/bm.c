@@ -23,6 +23,7 @@
 #include "bmphase.h"
 #include "bmusailment.h"
 #include "bmsave.h"
+#include "worldmap.h"
 
 #include "bm.h"
 
