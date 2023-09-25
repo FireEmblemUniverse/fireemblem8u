@@ -305,23 +305,23 @@ unsigned SlotQueuePop(void);
 void SetEventSlotCounter(unsigned value);
 unsigned GetEventSlotCounter(void);
 
-void sub_800B910(int, int, int);
-void sub_800B954(int, int, int);
-void sub_800B994(int, int, int);
-void sub_800B9B8(int, int);
-void sub_800BA04(int, int);
+// void sub_800B910(u8, u8, u8);
+// void sub_800B954(u8, u8, u8);
+// void sub_800B994(u8, u8, u8);
+// void sub_800B9B8(u8, u8);
+// void sub_800BA04(u8, u8);
 void sub_800BA34(void);
-void SetSomeRealCamPos(s8 x, s8 y, s8 unk);
-void sub_800BAA8(s16, u8, ProcPtr);
-void TriggerMapChanges(u16 mapChangeId, u8 displayFlag, ProcPtr parent);
-void sub_800BB48(u16 mapChangeId, u8 displayFlag, ProcPtr parent);
+void SetSomeRealCamPos(int x, int y, s8 unk);
+void sub_800BAA8(s16, s8, ProcPtr);
+void TriggerMapChanges(u16 mapChangeId, s8 displayFlag, ProcPtr parent);
+void sub_800BB48(u16 mapChangeId, s8 displayFlag, ProcPtr parent);
 void sub_800BB98(void);
 void sub_800BB98(void);
 // ??? sub_800BBB4(???);
 // ??? sub_800BBE4(???);
 void HideAllUnits(void);
 struct Unit * GetUnitStructFromEventParameter(s16 pid);
-void sub_800BCDC(int); // battle related
+void sub_800BCDC(u16); // battle related
 // ??? Event80_(???);
 // ??? Event81_(???);
 // ??? Event82_EndWM(???);

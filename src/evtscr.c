@@ -26,6 +26,7 @@
 #include "popup.h"
 #include "muctrl.h"
 #include "mapanim.h"
+#include "worldmap.h"
 
 #include "ev_triggercheck.h"
 #include "event.h"
@@ -38,7 +39,15 @@ struct Struct03000428
 };
 
 // TODO: Implicit declaration?
+// ev_triggercheck.c
 int IsSethLArachelMyrrhInnes(int);
+
+// evtcmd_gmap.c
+void sub_800B910(int, int, int);
+void sub_800B954(int, int, int);
+void sub_800B994(int, int, int);
+void sub_800B9B8(int, int);
+void sub_800BA04(int, int);
 
 // local
 

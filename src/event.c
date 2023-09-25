@@ -13,6 +13,7 @@
 #include "scene.h"
 #include "ekrbattle.h"
 #include "bmlib.h"
+#include "worldmap.h"
 #include "ev_triggercheck.h"
 #include "event.h"
 

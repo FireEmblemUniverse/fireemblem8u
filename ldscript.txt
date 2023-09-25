@@ -65,7 +65,7 @@ SECTIONS
         src/gamecontrol.o(.text);
         src/msg.o(.text);
         asm/spline.o(.text);
-        asm/evtcmd_gmap.o(.text);
+        src/evtcmd_gmap.o(.text);
         src/event.o(.text);
         src/evtscr.o(.text);
         src/ectscr_.o(.text);

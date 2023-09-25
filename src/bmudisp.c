@@ -8,6 +8,7 @@
 #include "chapterdata.h"
 #include "ctc.h"
 #include "mu.h"
+#include "worldmap.h"
 
 #include "bmudisp.h"
 #include "bmlib.h"

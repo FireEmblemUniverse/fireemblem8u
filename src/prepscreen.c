@@ -10,6 +10,7 @@
 #include "chapterdata.h"
 #include "constants/items.h"
 #include "bmudisp.h"
+#include "worldmap.h"
 
 #include "prepscreen.h"
 s8 CheckInLinkArena();

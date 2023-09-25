@@ -35,6 +35,7 @@
 #include "unitinfowindow.h"
 #include "ev_triggercheck.h"
 #include "menu_def.h"
+#include "worldmap.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"

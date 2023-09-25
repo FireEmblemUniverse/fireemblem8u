@@ -4,6 +4,7 @@
 #include "bmitem.h"
 #include "chapterdata.h"
 #include "bmunit.h"
+#include "worldmap.h"
 
 #include "bmcontainer.h"
 

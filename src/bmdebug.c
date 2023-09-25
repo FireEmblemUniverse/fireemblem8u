@@ -16,6 +16,7 @@
 #include "bmdebug.h"
 #include "soundroom.h"
 #include "menu_def.h"
+#include "worldmap.h"
 
 #include "constants/faces.h"
 

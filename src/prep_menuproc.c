@@ -15,6 +15,7 @@
 #include "uiutils.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "worldmap.h"
 #include "prepscreen.h"
 #include "classchg.h"
 

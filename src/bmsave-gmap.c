@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "worldmap.h"
 #include "agb_sram.h"
 #include "bmsave.h"
 

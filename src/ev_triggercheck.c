@@ -12,6 +12,7 @@
 #include "event.h"
 #include "bmshop.h"
 #include "bmbattle.h"
+#include "worldmap.h"
 
 #include "ev_triggercheck.h"
 

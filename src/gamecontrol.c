@@ -14,6 +14,7 @@
 #include "ending_details.h"
 #include "bmlib.h"
 #include "ev_triggercheck.h"
+#include "worldmap.h"
 #include "gamecontrol.h"
 
 extern u16 gEvent_8A0035C[];
