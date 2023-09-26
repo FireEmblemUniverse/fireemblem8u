@@ -27,6 +27,9 @@
 #include "bmlib.h"
 #include "bmsave.h"
 #include "prepscreen.h"
+#include "muctrl.h"
+#include "menu_def.h"
+#include "worldmap.h"
 
 #include "constants/characters.h"
 #include "constants/terrains.h"
@@ -352,7 +355,7 @@ void sub_80332D0(void)
     {
         while (uDef->charIndex)
         {
-            GetPreferredPositionForUNIT(uDef, &xTmp, &yTmp, 0);
+            GenUnitDefinitionFinalPosition(uDef, &xTmp, &yTmp, 0);
             gBmMapRange[yTmp][xTmp] = 1;
             uDef++;
         }
@@ -740,7 +743,7 @@ void InitPrepScreenCursorPosition(void)
     {
         const struct UnitDefinition * uDef = GetChapterAllyUnitDataPointer();
         uDef = uDef + CalcForceDeployedUnitCounts();
-        GetPreferredPositionForUNIT(uDef, &x, &y, 0);
+        GenUnitDefinitionFinalPosition(uDef, &x, &y, 0);
         SetCursorMapPosition(x, y);
     }
 

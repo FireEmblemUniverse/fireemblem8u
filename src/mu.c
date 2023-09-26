@@ -795,7 +795,7 @@ s8 MU_IsAnyActive(void) {
     return TRUE;
 }
 
-int MU_IsActive(struct MUProc* proc) {
+s8 MU_IsActive(struct MUProc* proc) {
     if (proc->pMUConfig->muIndex && proc->stateId != MU_STATE_NONACTIVE)
         return TRUE;
 

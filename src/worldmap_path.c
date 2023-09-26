@@ -185,194 +185,258 @@ const struct GMapPathData gWMPathData[] =
 {
     {
         .gfxData = gUnknown_08A97FC4,
-        .start = NODE_BORDER_MULAN,
-        .end = NODE_CASTLE_FRELIA,
+        .node = {
+            [0] = NODE_BORDER_MULAN,
+            [1] = NODE_CASTLE_FRELIA,
+        },
         .movementPath = gUnknown_082064BC,
     },
     {
         .gfxData = gUnknown_08A97FF8,
-        .start = NODE_CASTLE_FRELIA,
-        .end = NODE_IDE,
+        .node = {
+            [0] = NODE_CASTLE_FRELIA,
+            [1] = NODE_IDE,
+        },
         .movementPath = gUnknown_082064D4,
     },
     {
         .gfxData = gUnknown_08A98030,
-        .start = NODE_IDE,
-        .end = NODE_BORGO_RIDGE,
+        .node = {
+            [0] = NODE_IDE,
+            [1] = NODE_BORGO_RIDGE,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A98054,
-        .start = NODE_BORGO_RIDGE,
-        .end = NODE_ZAHA_WOODS,
+        .node = {
+            [0] = NODE_BORGO_RIDGE,
+            [1] = NODE_ZAHA_WOODS,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A9806C,
-        .start = NODE_ZAHA_WOODS,
-        .end = NODE_SERAFEW,
+        .node = {
+            [0] = NODE_ZAHA_WOODS,
+            [1] = NODE_SERAFEW,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A98090,
-        .start = NODE_SERAFEW,
-        .end = NODE_ADLAS_PLAINS,
+        .node = {
+            [0] = NODE_SERAFEW,
+            [1] = NODE_ADLAS_PLAINS,
+        },
         .movementPath = gUnknown_082064E4,
     },
     {
         .gfxData = gUnknown_08A980B4,
-        .start = NODE_ADLAS_PLAINS,
-        .end = NODE_RENVALL_07,
+        .node = {
+            [0] = NODE_ADLAS_PLAINS,
+            [1] = NODE_RENVALL_07,
+        },
         .movementPath = gUnknown_082064F4,
     },
     {
         .gfxData = gUnknown_08A980DC,
-        .start = NODE_ADLAS_PLAINS,
-        .end = NODE_RENVALL_08,
+        .node = {
+            [0] = NODE_ADLAS_PLAINS,
+            [1] = NODE_RENVALL_08,
+        },
         .movementPath = gUnknown_082064F4,
     },
     {
         .gfxData = gUnknown_08A98104,
-        .start = NODE_BORDER_MULAN,
-        .end = NODE_PORT_KIRIS,
+        .node = {
+            [0] = NODE_BORDER_MULAN,
+            [1] = NODE_PORT_KIRIS,
+        },
         .movementPath = gUnknown_08206504,
     },
     {
         .gfxData = gUnknown_08A98144,
-        .start = NODE_BORDER_MULAN,
-        .end = NODE_TOWER_OF_VALNI,
+        .node = {
+            [0] = NODE_BORDER_MULAN,
+            [1] = NODE_TOWER_OF_VALNI,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A98168,
-        .start = NODE_PORT_KIRIS,
-        .end = NODE_TERAZ_PLATEAU,
+        .node = {
+            [0] = NODE_PORT_KIRIS,
+            [1] = NODE_TERAZ_PLATEAU,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A9819C,
-        .start = NODE_TERAZ_PLATEAU,
-        .end = NODE_CAER_PELYN,
+        .node = {
+            [0] = NODE_TERAZ_PLATEAU,
+            [1] = NODE_CAER_PELYN,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A981BC,
-        .start = NODE_CAER_PELYN,
-        .end = NODE_HAMILL_CANYON,
+        .node = {
+            [0] = NODE_CAER_PELYN,
+            [1] = NODE_HAMILL_CANYON,
+        },
         .movementPath = gUnknown_0820651C,
     },
     {
         .gfxData = gUnknown_08A981F4,
-        .start = NODE_HAMILL_CANYON,
-        .end = NODE_JEHANNA_HALL_0D,
+        .node = {
+            [0] = NODE_HAMILL_CANYON,
+            [1] = NODE_JEHANNA_HALL_0D,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A98228,
-        .start = NODE_CASTLE_FRELIA,
-        .end = NODE_FORT_RIGWALD,
+        .node = {
+            [0] = NODE_CASTLE_FRELIA,
+            [1] = NODE_FORT_RIGWALD,
+        },
         .movementPath = gUnknown_08206534,
     },
     {
         .gfxData = gUnknown_08A9827C,
-        .start = NODE_FORT_RIGWALD,
-        .end = NODE_BETHROEN,
+        .node = {
+            [0] = NODE_FORT_RIGWALD,
+            [1] = NODE_BETHROEN,
+        },
         .movementPath = gUnknown_08206544,
     },
     {
         .gfxData = gUnknown_08A982D4,
-        .start = NODE_BETHROEN,
-        .end = NODE_TAIZEL,
+        .node = {
+            [0] = NODE_BETHROEN,
+            [1] = NODE_TAIZEL,
+        },
         .movementPath = gUnknown_08206564,
     },
     {
         .gfxData = gUnknown_08A98314,
-        .start = NODE_TAIZEL,
-        .end = NODE_ZAALBUL_MARSH,
+        .node = {
+            [0] = NODE_TAIZEL,
+            [1] = NODE_ZAALBUL_MARSH,
+        },
         .movementPath = gUnknown_0820657C,
     },
     {
         .gfxData = gUnknown_08A98344,
-        .start = NODE_ZAALBUL_MARSH,
-        .end = NODE_GRADO_KEEP,
+        .node = {
+            [0] = NODE_ZAALBUL_MARSH,
+            [1] = NODE_GRADO_KEEP,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A9836C,
-        .start = NODE_GRADO_KEEP,
-        .end = NODE_JEHANNA_HALL_13,
+        .node = {
+            [0] = NODE_GRADO_KEEP,
+            [1] = NODE_JEHANNA_HALL_13,
+        },
         .movementPath = gUnknown_08206594,
     },
     {
         .gfxData = gUnknown_08A983BC,
-        .start = NODE_RENVALL_08,
-        .end = NODE_GRADO_KEEP,
+        .node = {
+            [0] = NODE_RENVALL_08,
+            [1] = NODE_GRADO_KEEP,
+        },
         .movementPath = gUnknown_082065AC,
     },
     {
         .gfxData = gUnknown_08A983F0,
-        .start = NODE_JEHANNA_HALL_13,
-        .end = NODE_RENAIS_CASTLE,
+        .node = {
+            [0] = NODE_JEHANNA_HALL_13,
+            [1] = NODE_RENAIS_CASTLE,
+        },
         .movementPath = gUnknown_082065C4,
     },
     {
         .gfxData = gUnknown_08A98448,
-        .start = NODE_HAMILL_CANYON,
-        .end = NODE_JEHANNA_HALL_13,
+        .node = {
+            [0] = NODE_HAMILL_CANYON,
+            [1] = NODE_JEHANNA_HALL_13,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A9847C,
-        .start = NODE_BORDER_MULAN,
-        .end = NODE_RENAIS_CASTLE,
+        .node = {
+            [0] = NODE_BORDER_MULAN,
+            [1] = NODE_RENAIS_CASTLE,
+        },
         .movementPath = gUnknown_082065DC,
     },
     {
         .gfxData = gUnknown_08A984D4,
-        .start = NODE_JEHANNA_HALL_13,
-        .end = NODE_NARUBE_RIVER,
+        .node = {
+            [0] = NODE_JEHANNA_HALL_13,
+            [1] = NODE_NARUBE_RIVER,
+        },
         .movementPath = gUnknown_082065F4,
     },
     {
         .gfxData = gUnknown_08A9850C,
-        .start = NODE_NARUBE_RIVER,
-        .end = NODE_NELERAS_PEAK,
+        .node = {
+            [0] = NODE_NARUBE_RIVER,
+            [1] = NODE_NELERAS_PEAK,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A98540,
-        .start = NODE_NELERAS_PEAK,
-        .end = NODE_RAUSTEN_COURT,
+        .node = {
+            [0] = NODE_NELERAS_PEAK,
+            [1] = NODE_RAUSTEN_COURT,
+        },
         .movementPath = NULL,
     },
     {
         .gfxData = gUnknown_08A98568,
-        .start = NODE_RAUSTEN_COURT,
-        .end = NODE_BLACK_TEMPLE,
+        .node = {
+            [0] = NODE_RAUSTEN_COURT,
+            [1] = NODE_BLACK_TEMPLE,
+        },
         .movementPath = gUnknown_08206604,
     },
     {
         .gfxData = gUnknown_08A985A4,
-        .start = NODE_RAUSTEN_COURT,
-        .end = NODE_LAGDOU_RUINS,
+        .node = {
+            [0] = NODE_RAUSTEN_COURT,
+            [1] = NODE_LAGDOU_RUINS,
+        },
         .movementPath = gUnknown_0820662C,
     },
     {
         .gfxData = gUnknown_08A985FC,
-        .start = NODE_RAUSTEN_COURT,
-        .end = NODE_MELKAEN_COAST,
+        .node = {
+            [0] = NODE_RAUSTEN_COURT,
+            [1] = NODE_MELKAEN_COAST,
+        },
         .movementPath = gUnknown_0820663C,
     },
     {
         .gfxData = gUnknown_08A9863C,
-        .start = NODE_PORT_KIRIS,
-        .end = NODE_MELKAEN_COAST,
+        .node = {
+            [0] = NODE_PORT_KIRIS,
+            [1] = NODE_MELKAEN_COAST,
+        },
         .movementPath = gUnknown_0820664C,
     },
     {
         .gfxData = gUnknown_08A98694,
-        .start = NODE_DARKLING_WOODS,
-        .end = NODE_BLACK_TEMPLE,
+        .node = {
+            [0] = NODE_DARKLING_WOODS,
+            [1] = NODE_BLACK_TEMPLE,
+        },
         .movementPath = gUnknown_08206664,
     },
 };

@@ -8,152 +8,137 @@
 #include "bmarch.h"
 #include "bmitem.h"
 #include "bmphase.h"
+#include "cp_common.h"
 #include "cp_utility.h"
 #include "bmbattle.h"
 #include "cp_data.h"
 
 #include "constants/items.h"
 
-struct AiCombatSimulationSt {
-    /* 00 */ u8 xMove;
-    /* 01 */ u8 yMove;
-    /* 02 */ u8 targetId;
-    /* 04 */ u16 itemSlot;
-    /* 08 */ u32 score;
-};
-
-static const struct AiCombatScoreCoefficients* sCombatScoreCoefficients;
-
-void AiFillReversedAttackRangeMap(struct Unit*, u16);
-s8 AiAttemptBallistaCombat(s8 (*isEnemy)(struct Unit* unit), struct AiCombatSimulationSt*);
-s8 AiAttemptStealActionWithinMovement(void);
-s8 AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt*);
-s8 AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt*, u16);
-u32 AiGetCombatPositionScore(int, int, struct AiCombatSimulationSt*);
-s8 AiSimulateBattleAgainstTargetAtPosition(struct AiCombatSimulationSt*);
-void AiComputeCombatScore(struct AiCombatSimulationSt*);
-int AiGetInRangeCombatPositionScoreComponent(int, int, struct Unit*);
+static const struct AiCombatScoreCoefficients * sCombatScoreCoefficients;
 
 //! FE8U = 0x0803D450
-s8 AiAttemptOffensiveAction(s8 (*isEnemy)(struct Unit* unit)) {
+s8 AiAttemptOffensiveAction(s8 (* isEnemy)(struct Unit * unit))
+{
     struct AiCombatSimulationSt tmpResult;
     struct AiCombatSimulationSt finalResult;
 
-    int i;
+    int i, uid;
+    bool ret;
 
     finalResult.targetId = 0;
     finalResult.score = 0;
 
-    if (gActiveUnit->state & US_IN_BALLISTA) {
+    if (gActiveUnit->state & US_IN_BALLISTA)
+    {
         BmMapFill(gBmMapMovement, -1);
         gBmMapMovement[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 
-        if (GetRiddenBallistaAt(gActiveUnit->xPos, gActiveUnit->yPos) != 0) {
-            goto _0803D628;
-        }
+        if (GetRiddenBallistaAt(gActiveUnit->xPos, gActiveUnit->yPos) != 0)
+            goto try_ballist_combat;
 
         TryRemoveUnitFromBallista(gActiveUnit);
-    } else {
-        if (UNIT_CATTRIBUTES(gActiveUnit) & CA_STEAL) {
-
-            if (GetUnitItemCount(gActiveUnit) < UNIT_ITEM_COUNT) {
+    }
+    else
+    {
+        if (UNIT_CATTRIBUTES(gActiveUnit) & CA_STEAL)
+        {
+            if (GetUnitItemCount(gActiveUnit) < UNIT_ITEM_COUNT)
+            {
                 GenerateUnitMovementMap(gActiveUnit);
                 MarkMovementMapEdges();
 
-                if (AiAttemptStealActionWithinMovement() == 1) {
+                if (AiAttemptStealActionWithinMovement() == 1)
                     return 0;
-                }
             }
         }
 
-        if (gAiState.flags & AI_FLAG_1) {
+        if (gAiState.flags & AI_FLAG_1)
+        {
             BmMapFill(gBmMapMovement, -1);
             gBmMapMovement[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
-        } else {
+        }
+        else
             GenerateUnitMovementMap(gActiveUnit);
-        }
 
-        if (UnitHasMagicRank(gActiveUnit)) {
+        if (UnitHasMagicRank(gActiveUnit))
             GenerateMagicSealMap(-1);
-        }
     }
 
     SetWorkingBmMap(gBmMapRange);
 
-    for (i = 0; i < UNIT_ITEM_COUNT; i++) {
+    for (i = 0; i < UNIT_ITEM_COUNT; i++)
+    {
         u16 item = gActiveUnit->items[i];
 
-        if (item == 0) {
+        if (item == 0)
             break;
-        }
 
-        if (item == ITEM_NIGHTMARE) {
+        if (item == ITEM_NIGHTMARE)
             continue;
-        }
 
-        if (!CanUnitUseWeapon(gActiveUnit, item)) {
+        if (!CanUnitUseWeapon(gActiveUnit, item))
             continue;
-        }
 
         tmpResult.itemSlot = i;
 
+        for (uid = 1; uid < 0xC0; uid++)
         {
-            int uid;
-            for (uid = 1; uid < 0xC0; uid++) {
-                struct Unit* unit = GetUnit(uid);
+            struct Unit * unit = GetUnit(uid);
 
-                if (!UNIT_IS_VALID(unit)) {
-                    continue;
-                }
+            if (!UNIT_IS_VALID(unit))
+                continue;
 
-                if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED | US_BIT16)) {
-                    continue;
-                }
+            if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED | US_BIT16))
+                continue;
 
-                if (!isEnemy(unit)) {
-                    continue;
-                }
+            if (!isEnemy(unit))
+                continue;
 
-                if (!AiReachesByBirdsEyeDistance(gActiveUnit, unit, item)) {
-                    continue;
-                }
+            if (!AiReachesByBirdsEyeDistance(gActiveUnit, unit, item))
+                continue;
 
-                AiFillReversedAttackRangeMap(unit, item);
+            AiFillReversedAttackRangeMap(unit, item);
 
-                tmpResult.targetId = unit->index;
+            tmpResult.targetId = unit->index;
 
-                if (!AiSimulateBestBattleAgainstTarget(&tmpResult)) {
-                    continue;
-                }
+            ret = AiSimulateBestBattleAgainstTarget(&tmpResult);
+            if (!ret)
+                continue;
 
-                if (tmpResult.score >= finalResult.score) {
-                    finalResult = tmpResult;
-                    finalResult.itemSlot = i;
-                }
-            }
-        }
-    }
-
-_0803D628:
-    if (UNIT_CATTRIBUTES(gActiveUnit) & CA_BALLISTAE) {
-        if (AiAttemptBallistaCombat(isEnemy, &tmpResult) == 1) {
-            if (tmpResult.score >= finalResult.score) {
+            if (tmpResult.score >= finalResult.score)
+            {
                 finalResult = tmpResult;
+                finalResult.itemSlot = i;
             }
         }
     }
 
-    if ((finalResult.score != 0) || (finalResult.targetId != 0)) {
+try_ballist_combat:
+    if (UNIT_CATTRIBUTES(gActiveUnit) & CA_BALLISTAE)
+    {
+        ret = AiAttemptBallistaCombat(isEnemy, &tmpResult);
+        if (ret == 1)
+            if (tmpResult.score >= finalResult.score)
+                finalResult = tmpResult;
+    }
+
+    if ((finalResult.score != 0) || (finalResult.targetId != 0))
+    {
         AiSetDecision(finalResult.xMove, finalResult.yMove, 1, finalResult.targetId, finalResult.itemSlot, 0, 0);
 
-        if ((s8)finalResult.itemSlot != -1) {
+        if ((s8)finalResult.itemSlot != -1)
             TryRemoveUnitFromBallista(gActiveUnit);
-        }
     }
+
+#if BUGFIX
+    return ret;
+#endif
 }
 
 //! FE8U = 0x0803D6B8
-s8 AiAttemptCombatWithinMovement(s8 (*isEnemy)(struct Unit* unit)) {
+s8 AiAttemptCombatWithinMovement(s8 (* isEnemy)(struct Unit * unit))
+{
     struct AiCombatSimulationSt tmpResult;
     struct AiCombatSimulationSt finalResult;
 
@@ -583,39 +568,37 @@ s8 AiSimulateBattleAgainstTargetAtPosition(struct AiCombatSimulationSt* st) {
 }
 
 //! FE8U = 0x0803DF34
-int AiGetDamageDealtCombatScoreComponent(void) {
+int AiGetDamageDealtCombatScoreComponent(void)
+{
     int score;
 
-    if (gBattleTarget.unit.curHP == 0) {
+    if (gBattleTarget.unit.curHP == 0)
         return 50;
-    }
 
     score = (gBattleActor.battleAttack - gBattleTarget.battleDefense) * gBattleActor.battleEffectiveHitRate;
 
-    if (score < 0) {
+    if (score < 0)
         score = 0;
-    }
 
     score = Div(score, 100);
     score = sCombatScoreCoefficients->coeffDamageDealt * score;
 
-    if (score > 40) {
+    if (score > 40)
         score = 40;
-    }
 
     return score;
 }
 
 //! FE8U = 0x0803DF94
-int AiGetOpponentLowHpScoreComponent(void) {
+int AiGetOpponentLowHpScoreComponent(void)
+{
     int score;
 
     score = 20 - gBattleTarget.unit.curHP;
     score = sCombatScoreCoefficients->coeffLowHpOpponent * score;
 
-    if (score < 0) {
+    if (score < 0)
         score = 0;
-    }
 
     return score;
 }
@@ -626,7 +609,8 @@ struct RangeScore {
     /* 02 */ s8 score;
 };
 
-struct RangeScore CONST_DATA sFriendZoneRangeScoreLut[] = {
+struct RangeScore CONST_DATA sFriendZoneRangeScoreLut[] =
+{
     // one of these entries is bugged!
 
     #define ent(x, y) { (x), (y), 4-(((x)>0?(x):-(x)) + ((y)>0?(y):-(y))) }
@@ -645,8 +629,9 @@ struct RangeScore CONST_DATA sFriendZoneRangeScoreLut[] = {
 };
 
 //! FE8U = 0x0803DFBC
-int AiGetFriendZoneCombatScoreComponent(void) {
-    struct RangeScore* it;
+int AiGetFriendZoneCombatScoreComponent(void)
+{
+    struct RangeScore * it;
     int score = 0;
 
     for (it = sFriendZoneRangeScoreLut; it->x != 0x7f; it++) {
@@ -682,7 +667,8 @@ int AiGetFriendZoneCombatScoreComponent(void) {
 }
 
 //! FE8U = 0x0803E068
-int AiGetTargetClassCombatScoreComponent(void) {
+int AiGetTargetClassCombatScoreComponent(void)
+{
     u8 rank = AiGetClassRank(gBattleTarget.unit.pClassData->number);
 
     int score;
@@ -690,15 +676,15 @@ int AiGetTargetClassCombatScoreComponent(void) {
     score = sCombatScoreCoefficients->classRankBonuses[rank];
     score = sCombatScoreCoefficients->coeffClassRankBonus * score;
 
-    if (score > 20) {
+    if (score > 20)
         score = 20;
-    }
 
     return score;
 }
 
 //! FE8U = 0x0803E09C
-int AiGetTurnCombatScoreComponent(void) {
+int AiGetTurnCombatScoreComponent(void)
+{
     int ret = gPlaySt.chapterTurnNumber;
 
     ret *= sCombatScoreCoefficients->coeffTurnNumber;
@@ -706,19 +692,18 @@ int AiGetTurnCombatScoreComponent(void) {
 }
 
 //! FE8U = 0x0803E0B4
-int AiGetDamageTakenScoreComponent(void) {
+int AiGetDamageTakenScoreComponent(void)
+{
     int score;
 
-    if (gBattleTarget.weapon == 0) {
+    if (gBattleTarget.weapon == 0)
         return -10;
-    }
 
     score = (gBattleTarget.battleAttack - gBattleActor.battleDefense);
     score = gBattleTarget.battleEffectiveHitRate * score;
 
-    if (score < 0) {
+    if (score < 0)
         score = 0;
-    }
 
     score = Div(score, 100);
     score = sCombatScoreCoefficients->coeffDamageTaken * score;
@@ -731,35 +716,36 @@ int AiGetDamageTakenScoreComponent(void) {
 }
 
 //! FE8U = 0x0803E114
-int AiGetDangerScoreComponent(void) {
+int AiGetDangerScoreComponent(void)
+{
     int score;
 
     score = gBmMapOther[gBattleActor.unit.yPos][gBattleActor.unit.xPos] / 8;
     score = sCombatScoreCoefficients->coeffDanger * score;
 
-    if (score > 20) {
+    if (score > 20)
         score = 20;
-    }
 
     return score;
 }
 
 //! FE8U = 0x0803E150
-int AiGetLowHpScoreComponent(void) {
+int AiGetLowHpScoreComponent(void)
+{
     int score;
 
     score = 20 - gBattleActor.unit.curHP;
     score = sCombatScoreCoefficients->coeffLowHpSelf * score;
 
-    if (score < 0) {
+    if (score < 0)
         score = 0;
-    }
 
     return score;
 }
 
 //! FE8U = 0x0803E178
-void AiComputeCombatScore(struct AiCombatSimulationSt* st) {
+void AiComputeCombatScore(struct AiCombatSimulationSt * st)
+{
     int score;
     int backup;
 

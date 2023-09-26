@@ -23,6 +23,7 @@
 #include "bmphase.h"
 #include "bmusailment.h"
 #include "bmsave.h"
+#include "worldmap.h"
 
 #include "bm.h"
 
@@ -416,108 +417,100 @@ u8 GetGameLock(void) {
 }
 
 //! FE8U = 0x0801538C
-void SwitchPhases(void) {
-
+void SwitchPhases(void)
+{
     switch (gPlaySt.faction) {
-        case FACTION_BLUE:
-            gPlaySt.faction = FACTION_RED;
+    case FACTION_BLUE:
+        gPlaySt.faction = FACTION_RED;
 
-            break;
+        break;
 
-        case FACTION_RED:
-            gPlaySt.faction = FACTION_GREEN;
+    case FACTION_RED:
+        gPlaySt.faction = FACTION_GREEN;
 
-            break;
+        break;
 
-        case FACTION_GREEN:
-            gPlaySt.faction = FACTION_BLUE;
+    case FACTION_GREEN:
+        gPlaySt.faction = FACTION_BLUE;
 
-            if (gPlaySt.chapterTurnNumber < 999) {
-                gPlaySt.chapterTurnNumber++;
-            }
+        if (gPlaySt.chapterTurnNumber < 999)
+            gPlaySt.chapterTurnNumber++;
 
-            ProcessTurnSupportExp();
+        ProcessTurnSupportExp();
     }
-
-    return;
 }
 
 //! FE8U = 0x080153D4
-int CallBeginningEvents(void) {
+int CallBeginningEvents(void)
+{
     const struct ChapterEventGroup* pChapterEvents = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
-    if (GetChapterThing() != 2) {
+    if (GetChapterThing() != 2)
         CallEvent(pChapterEvents->beginningSceneEvents, 1);
-    } else {
+    else
         CallEvent(gEvent_SkirmishCommonBeginning, 1);
-    }
 
     return 0;
 }
 
 //! FE8U = 0x08015410
-int BmMain_ChangePhase(void) {
+int BmMain_ChangePhase(void)
+{
 
     ClearActiveFactionGrayedStates();
     RefreshUnitSprites();
     SwitchPhases();
 
-    if (RunPhaseSwitchEvents() == 1) {
+    if (RunPhaseSwitchEvents() == 1)
         return 0;
-    }
 
     return 1;
 }
 
 //! FE8U = 0x08015434
-s8 sub_8015434(void) {
-    if (sub_80832D4() == 1) {
+bool sub_8015434(void)
+{
+    if (sub_80832D4() == 1)
+    {
         sub_80832D0();
-        return 0;
+        return false;
     }
 
-    return 1;
+    return true;
 }
 
 //! FE8U = 0x08015450
-void BmMain_StartPhase(ProcPtr proc) {
-
+void BmMain_StartPhase(ProcPtr proc)
+{
     switch (gPlaySt.faction) {
-        case FACTION_BLUE:
-            Proc_StartBlocking(gProcScr_PlayerPhase, proc);
+    case FACTION_BLUE:
+        Proc_StartBlocking(gProcScr_PlayerPhase, proc);
+        break;
 
-            break;
+    case FACTION_RED:
+        Proc_StartBlocking(gProcScr_CpPhase, proc);
+        break;
 
-        case FACTION_RED:
-            Proc_StartBlocking(gProcScr_CpPhase, proc);
-
-            break;
-
-        case FACTION_GREEN:
-            Proc_StartBlocking(gProcScr_CpPhase, proc);
-
-            break;
+    case FACTION_GREEN:
+        Proc_StartBlocking(gProcScr_CpPhase, proc);
+        break;
     }
 
     Proc_Break(proc);
-
-    return;
 }
 
 //! FE8U = 0x080154A4
-void BmMain_ResumePlayerPhase(ProcPtr proc) {
+void BmMain_ResumePlayerPhase(ProcPtr proc)
+{
     Proc_Goto(Proc_StartBlocking(gProcScr_PlayerPhase, proc), 7);
     Proc_Break(proc);
-
-    return;
 }
 
 //! FE8U = 0x080154C8
-int BmMain_UpdateTraps(ProcPtr proc) {
-
-    if (gPlaySt.faction != FACTION_GREEN) {
+int BmMain_UpdateTraps(ProcPtr proc)
+{
+    if (gPlaySt.faction != FACTION_GREEN)
         return 1;
-    }
 
     Proc_StartBlocking(gProcScr_UpdateTraps, proc);
     DecayTraps();
@@ -526,52 +519,48 @@ int BmMain_UpdateTraps(ProcPtr proc) {
 }
 
 //! FE8U = 0x080154F4
-void BmMain_SuspendBeforePhase(void) {
-
+void BmMain_SuspendBeforePhase(void)
+{
     gActionData.suspendPointType = SUSPEND_POINT_PHASECHANGE;
     WriteSuspendSave(SAVE_ID_SUSPEND);
-
-    return;
 }
 
 //! FE8U = 0x0801550C
-void BmMain_StartIntroFx(ProcPtr proc) {
-    if (gPlaySt.chapterIndex == 0x38) {
+void BmMain_StartIntroFx(ProcPtr proc)
+{
+    if (gPlaySt.chapterIndex == 0x38)
         return;
-    }
 
-    if (gPlaySt.chapterIndex == 0x06 && CheckFlag(0x88)) {
+    if (gPlaySt.chapterIndex == 0x06 && CheckFlag(0x88))
         return;
-    }
 
     Proc_StartBlocking(gProcScr_ChapterIntro, proc);
-
-    return;
 }
 
 //! FE8U = 0x08015544
-void UndeployEveryone(void) {
+void UndeployEveryone(void)
+{
     int i;
 
     ClearFlag(0x84);
 
-    if ((gPlaySt.unk4A_1) == 0) {
-        for (i = 1; i < FACTION_GREEN; i++) {
-            struct Unit* unit = GetUnit(i);
+    if ((gPlaySt.unk4A_1) == 0)
+    {
+        for (i = 1; i < FACTION_GREEN; i++)
+        {
+            struct Unit * unit = GetUnit(i);
 
-            if (!UNIT_IS_VALID(unit)) {
+            if (!UNIT_IS_VALID(unit))
                 continue;
-            }
 
             unit->state &= ~(US_NOT_DEPLOYED);
         }
     }
-
-    return;
 }
 
 //! FE8U = 0x08015588
-void GotoChapterWithoutSave(u16 chapterId) {
+void GotoChapterWithoutSave(u16 chapterId)
+{
     gPlaySt.chapterIndex = chapterId;
 
     Proc_Goto(Proc_Find(gProc_BMapMain), 2);

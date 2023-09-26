@@ -21,6 +21,7 @@
 #include "cp_utility.h"
 #include "bmudisp.h"
 #include "bmsave.h"
+#include "muctrl.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};
@@ -668,7 +669,7 @@ void UnitInitFromDefinition(struct Unit* unit, const struct UnitDefinition* uDef
 
     unit->level = uDef->level;
 
-    GetPreferredPositionForUNIT(uDef, &unit->xPos, &unit->yPos, FALSE);
+    GenUnitDefinitionFinalPosition(uDef, &unit->xPos, &unit->yPos, FALSE);
 
     if (UNIT_IS_GORGON_EGG(unit)) {
         int i;

@@ -74,12 +74,6 @@ int DebugContinueMenuEnd(struct MenuProc*);
 u8 Debug_GetChapterId(int menuItemNumber);
 void nullsub_9();
 
-extern const struct MenuDef gDebugClearMenuDef;
-extern const struct MenuDef gDebugChargeMenuDef;
-extern const struct MenuDef gDebugContinueMenuDef;
-extern const struct MenuDef gDebugChuudanMenuDef;
-extern const struct MenuDef gDebugMenuDef;
-
 extern u8 gDebugChapterModeIndex;
 
 extern struct ProcCmd CONST_DATA ProcScr_DebugMonitor[];

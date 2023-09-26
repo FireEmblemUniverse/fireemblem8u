@@ -188,7 +188,7 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gExtraMapStatus
 // extern ??? gUnknown_0203EF64
 // extern ??? gUnknown_0203EFB4
-// extern ??? end
+// extern ??? gUnknown_0203EFB8
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
 
@@ -239,11 +239,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001860
 // extern ??? gUnknown_03001864
 extern u16 gUnknown_030018F0[];
-// extern ??? gUnknown_03001A30
-// extern ??? gUnknown_03001A34
-// extern ??? gUnknown_03001C34
-// extern ??? gUnknown_03001C35
-// extern ??? gUnknown_03001C36
 // extern ??? gUnitDef1
 // extern ??? gUnknown_03001C48
 // extern ??? gUnitDef2
@@ -308,9 +303,7 @@ extern int gUnknown_03004FA4;
 extern int gEkrXQuakeOff;
 extern int gBanimDebugCurrentIndex;
 extern int gEkrYQuakeOff;
-// extern ??? MADebugInfo
-// extern ??? gUnknown_03005090
-// extern ??? gUnknown_03005110
+
 // extern ??? gPermanentFlagBits
 // extern ??? gChapterFlagBits
 extern struct GMapData gGMData;
@@ -442,9 +435,9 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205833
 // extern ??? gUnknown_08205846
 // extern ??? gUnknown_08205855
-// extern ??? gUnknown_08205884
-// extern ??? gUnknown_0820588C
-// extern ??? gUnknown_0820588E
+extern const int gUnknown_08205884[];
+extern const u8 gUnknown_0820588C[];
+extern const u8 gUnknown_0820588E[];
 // extern ??? gUnknown_082058A8
 // extern ??? gUnknown_082058B0
 // extern ??? gUnknown_082058B4
@@ -646,43 +639,6 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gUnknown_0859BCF4
 // extern ??? gUnknown_0859BD40
 extern struct ProcCmd CONST_DATA gProcScr_UpdateTraps[];
-// extern ??? gUnknown_0859CFB0
-// extern ??? gUnknown_0859CFD4
-// extern ??? gUnknown_0859CFF8
-// extern ??? gUnknown_0859D01C
-// extern ??? gUnknown_0859D040
-// extern ??? gMenuInfo_RepairItems
-// extern ??? gUnknown_0859D088
-// extern ??? gUnknown_0859D0AC
-// extern ??? gUnknown_0859D0D0
-// extern ??? gUnknown_0859D0F4
-// extern ??? gUnknown_0859D118
-// extern ??? gUnknown_0859D13C
-// extern ??? gUnknown_0859D160
-// extern ??? gUnknown_0859D184
-// extern ??? gUnknown_0859D1A8
-// extern ??? gUnknown_0859D1CC
-// extern ??? gUnknown_0859D1F0
-// extern ??? gUnknown_0859D214
-// extern ??? gSelectInfo_OffensiveStaff
-// extern ??? gSelectInfo_Barrier
-// extern ??? gSelectInfo_Restore
-// extern ??? gSelectInfo_Heal
-// extern ??? gSelectInfo_Dance
-// extern ??? gSelectInfo_PutTrap
-// extern ??? gSelectInfo_0859D2F8
-// extern ??? gSelectInfo_Steal
-// extern ??? gSelectInfo_Summon
-// extern ??? gSelectInfo_Pick
-// extern ??? gSelectInfo_Support
-// extern ??? gSelectInfo_Talk
-// extern ??? gSelectInfo_Repair
-// extern ??? gSelectInfo_Trade
-// extern ??? gSelectInfo_0859D3F8
-// extern ??? gSelectInfo_Give
-// extern ??? gSelectInfo_Take
-// extern ??? gSelectInfo_Drop
-// extern ??? gSelectInfo_Rescue
 // extern ??? gProc_MapTask
 // extern ??? gUnknown_0859DBA0
 extern u16 gGfx_MiscUiGraphics[];
@@ -1038,7 +994,6 @@ extern CONST_DATA struct ProcCmd gProcScr_MUBlinkEffect[];
 extern CONST_DATA struct ProcCmd gProcScr_MU_89A2CF8[];
 // extern ??? gUnknown_089A2D10
 // extern ??? gUnknown_089A2D98
-// extern ??? gUnknown_089A2DB0
 #define gMMSDataTable unit_icon_move_table
 extern CONST_DATA struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 

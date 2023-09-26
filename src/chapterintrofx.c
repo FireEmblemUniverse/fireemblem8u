@@ -13,6 +13,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmlib.h"
+#include "worldmap.h"
 
 // arm_call.s
 void CALLARM_MaybeScreenFadeIn();

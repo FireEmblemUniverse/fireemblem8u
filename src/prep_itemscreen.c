@@ -18,6 +18,7 @@
 #include "bmitem.h"
 #include "bmitemuse.h"
 #include "bmcontainer.h"
+#include "worldmap.h"
 
 #include "constants/items.h"
 

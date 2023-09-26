@@ -16,6 +16,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "bmlib.h"
+#include "worldmap.h"
 #include "uichapterstatus.h"
 
 #include "constants/characters.h"

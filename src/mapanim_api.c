@@ -134,7 +134,7 @@ void BeginMapAnimForPoisonDmg(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
-    gManimSt.u5F = 0;
+    gManimSt.hp_changing = 0;
     gManimSt.u62 = 0;
     gManimSt.actorCount_maybe = 1;
 
@@ -149,7 +149,7 @@ void BeginMapAnimForEggDmg(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
-    gManimSt.u5F = 0;
+    gManimSt.hp_changing = 0;
     gManimSt.u62 = 0;
     gManimSt.actorCount_maybe = 1;
 
@@ -164,7 +164,7 @@ void BeginMapAnimForCritAtk(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
-    gManimSt.u5F = 0;
+    gManimSt.hp_changing = 0;
     gManimSt.u62 = 0;
     gManimSt.actorCount_maybe = 1;
 
@@ -179,7 +179,7 @@ void BeginMapAnimForSteal(void)
 {
     gBattleActor.weaponBefore = ITEM_SWORD_IRON;
 
-    gManimSt.u5F = 0;
+    gManimSt.hp_changing = 0;
     gManimSt.u62 = 1;
     gManimSt.actorCount_maybe = 2;
 
@@ -194,7 +194,7 @@ void BeginMapAnimForSummon(void)
 {
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
-    gManimSt.u5F = 0;
+    gManimSt.hp_changing = 0;
     gManimSt.u62 = 2;
     gManimSt.actorCount_maybe = 1;
 
@@ -209,7 +209,7 @@ void BeginMapAnimForSummonDK(void)
 {
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
-    gManimSt.u5F = 0;
+    gManimSt.hp_changing = 0;
     gManimSt.u62 = 2;
     gManimSt.actorCount_maybe = 1;
 
@@ -224,7 +224,7 @@ void BeginMapAnimForDance(void)
 {
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
-    gManimSt.u5F = 0;
+    gManimSt.hp_changing = 0;
     gManimSt.u62 = 2;
     gManimSt.actorCount_maybe = 1;
 
@@ -242,7 +242,7 @@ void BeginBattleMapAnims(void)
         return;
     }
 
-    gManimSt.u5F = 0;
+    gManimSt.hp_changing = 0;
     gManimSt.u62 = 0;
 
     SetupMapAnimSpellData(&gBattleActor, &gBattleTarget, gBattleHitArray);

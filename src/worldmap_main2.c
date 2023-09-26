@@ -240,7 +240,7 @@ void sub_80B9804(ProcPtr proc)
 }
 
 //! FE8U = 0x080B9810
-void sub_80B9810(void)
+void sub_80B9810(ProcPtr unused)
 {
     sub_80C1D70();
     Proc_EndEachMarked(PROC_MARK_8);
@@ -790,7 +790,7 @@ void sub_80B9FC0(void)
 }
 
 //! FE8U = 0x080B9FD4
-void sub_80B9FD4(void)
+void sub_80B9FD4(ProcPtr unused)
 {
     int mapLocation = sub_80BD014(&gGMData);
 

@@ -14,6 +14,7 @@
 #include "bm.h"
 #include "prepscreen.h"
 #include "bmlib.h"
+#include "worldmap.h"
 #include "uiconfig.h"
 
 struct Selector {
