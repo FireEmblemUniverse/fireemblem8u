@@ -1,6 +1,8 @@
 #ifndef GUARD_SAVEMENU_H
 #define GUARD_SAVEMENU_H
 
+#include "fontgrp.h"
+
 enum {
     MAIN_MENU_OPTION_RESUME     = (1 << 0),
     MAIN_MENU_OPTION_RESTART    = (1 << 1),
@@ -60,6 +62,33 @@ struct SaveMenuProc {
     /* 60 */ ProcPtr unk_60;
 };
 
+struct DifficultyMenuSpritesProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 unk_29_0 : 1;
+    /* 29 */ u8 unk_29_1 : 1;
+    /* 2A */ u8 unk_2a;
+    /* 2B */ u8 unk_2b;
+    /* 2C */ s16 unk_2c;
+    /* 2E */ s16 unk_2e;
+    /* 30 */ u16 unk_30;
+    /* 32 */ u16 unk_32;
+    /* 34 */ u16 unk_34;
+    /* 36 */ u16 unk_36;
+    /* 38 */ s16 unk_38;
+    /* 3A */ s16 unk_3a;
+    /* 3C */ s16 unk_3c;
+};
+
+struct DifficultyMenuProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int unk_2c;
+    /* 30 */ u8 unk_30;
+    /* 34 */ struct DifficultyMenuSpritesProc * unk_34;
+    /* 38 */ struct Text unk_38[5];
+};
+
 // ??? sub_80A882C(???);
 // ??? sub_80A8844(???);
 // ??? sub_80A887C(???);
@@ -113,7 +142,7 @@ s8 sub_80A9D20(struct SaveMenuProc*, int);
 void Make6C_savemenu(ProcPtr);
 // ??? sub_80AA4F8(???);
 void Make6C_savemenu2(ProcPtr);
-// ??? savemenu_SetDifficultyChoice(???);
+void savemenu_SetDifficultyChoice(int, int);
 // ??? sub_80AA550(???);
 // ??? sub_80AA614(???);
 // ??? sub_80AA658(???);
@@ -168,8 +197,8 @@ void sub_80ABD88(u8);
 // ??? sub_80ABE3C(???);
 u8 sub_80ABF44(u8 endMask, struct SaveMenuProc * proc);
 void sub_80ABF74(u8);
-// ??? sub_80ABFE0(???);
-// ??? sub_80AC034(???);
+void sub_80ABFE0(struct DifficultyMenuProc *);
+void sub_80AC034(struct DifficultyMenuProc *);
 // ??? sub_80AC078(???);
 // ??? InitDifficultySelectScreen(???);
 // ??? sub_80AC1A8(???);
@@ -182,7 +211,7 @@ void NewNewGameDifficultySelect(ProcPtr);
 // ??? sub_80AC418(???);
 // ??? sub_80AC4F8(???);
 // ??? sub_80AC588(???);
-// ??? sub_80AC680(???);
-// ??? sub_80AC698(???);
+void sub_80AC680(struct DifficultyMenuSpritesProc *, int, int);
+ProcPtr sub_80AC698(ProcPtr);
 
 #endif // GUARD_SAVEMENU_H

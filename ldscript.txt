@@ -255,6 +255,7 @@ SECTIONS
         asm/savemenu_.o(.text);
         asm/savedraw.o(.text);
         src/savedrawcursor.o(.text);
+        src/difficultymenu.o(.text);
         asm/code_80A882C.o(.text);
         src/soundroom.o(.text);
         src/extramenu_unk.o(.text);

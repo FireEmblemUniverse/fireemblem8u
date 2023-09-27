@@ -88,7 +88,7 @@ char* StrInsertTact(void);
 // ??? sub_800B574(???);
 // ??? sub_800B764(???);
 int sub_800B7E0(int, int, int);
-// ??? sub_800B84C(???);
+int sub_800B84C(int, int, int);
 
 // ??? ReputConvoBg_unused(???);
 void ResetDialogueScreen(void);
