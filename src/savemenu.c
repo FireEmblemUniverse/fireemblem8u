@@ -16,12 +16,14 @@
 #include "soundroom.h"
 #include "bonusclaim.h"
 #include "worldmap.h"
+#include "bonusclaim.h"
+
 #include "savemenu.h"
 
 struct Unknown203EF64 {
     u8 unk_00;
-    u8 unk_01;
-    u8 unk_02;
+    s8 unk_01;
+    s8 unk_02;
 };
 
 extern struct Unknown203EF64 gUnknown_0203EF64; // gSaveMenuRTextData
@@ -34,6 +36,21 @@ struct SaveMenu8A20068Proc {
 
     /* 58 */ int msgId;
 };
+
+struct Proc8A204BC
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
+    /* 4C */ s16 unk_4c;
+    /* 4E */ STRUCT_PAD(0x4E, 0x58);
+    /* 58 */ int unk_58;
+    /* 5C */ int unk_5c;
+};
+
+extern struct BonusClaimEnt * gUnknown_08A204B8;
+
+// TODO: Implicit declaration
+int LoadBonusContentData(void *);
 
 extern u16 gUnknown_08A2C23C[];
 extern u16 gUnknown_020007A0[];
@@ -1801,5 +1818,203 @@ PROC_LABEL(15),
 //! FE8U = 0x080AA518
 void Make6C_savemenu2(ProcPtr parent) {
     Proc_StartBlocking(gProcScr_SaveMenu2, parent);
+    return;
+}
+
+//! FE8U = 0x080AA52C
+void savemenu_SetDifficultyChoice(int a, int b)
+{
+    struct SaveMenuProc * proc = Proc_Find(ProcScr_SaveMenu);
+
+    if (proc != 0)
+    {
+        proc->unk_2a = a;
+        proc->unk_3d = b;
+    }
+    return;
+}
+
+//! FE8U = 0x080AA550
+void sub_80AA550(struct Proc8A204BC * proc)
+{
+    int i;
+
+    CpuFill16(0, gUnknown_08A204B8, 0x144);
+
+    if (LoadBonusContentData(gUnknown_08A204B8) == 0)
+    {
+        Proc_Goto(proc, 10);
+        return;
+    }
+
+    proc->unk_5c = 0;
+    proc->unk_58 = 0;
+
+    for (i = 0; i < 0x10; i++)
+    {
+        struct BonusClaimEnt * ent = gUnknown_08A204B8 + i;
+
+        if ((ent->unseen & 3) != 1)
+        {
+            continue;
+        }
+
+        if (gUnknown_08A204B8[i].kind == 3)
+        {
+            proc->unk_58 = 1;
+            gUnknown_08A204B8[i].unseen = (gUnknown_08A204B8[i].unseen & ~3) + 2;
+            ModifySaveLinkArenaStruct1B(NULL, 0x75);
+        }
+
+        ent = gUnknown_08A204B8 + i;
+
+        if (ent->kind == 4)
+        {
+            proc->unk_5c = 1;
+            gUnknown_08A204B8[i].unseen = (gUnknown_08A204B8[i].unseen & ~3) + 2;
+            ModifySaveLinkArenaStruct1B(NULL, 0x76);
+        }
+    }
+
+    if ((proc->unk_58 == 0) && (proc->unk_5c == 0))
+    {
+        Proc_Goto(proc, 10);
+        return;
+    }
+
+    LoadHelpBoxGfx((void *)0x06014000, 9);
+
+    return;
+}
+
+//! FE8U = 0x080AA614
+void sub_80AA614(struct Proc8A204BC * proc)
+{
+
+    if (proc->unk_58 != 0)
+    {
+        proc->unk_4c = 0;
+        StartHelpBoxExt_Unk(0x40, 0x30, 0x893); // TODO: msgid "Sacred Dragon[.][NL]added to[NL]Sound Room"
+        PlaySoundEffect(0x5b);
+        return;
+    }
+
+    Proc_Goto(proc, 0);
+
+    return;
+}
+
+//! FE8U = 0x080AA658
+void sub_80AA658(struct Proc8A204BC * proc)
+{
+
+    if (proc->unk_5c != 0)
+    {
+        proc->unk_4c = 0;
+        StartHelpBoxExt_Unk(0x40, 0x30, 0x894); // TODO: msgid "Palace Silezia[NL]added to[NL]Sound Room"
+        PlaySoundEffect(0x5b);
+        return;
+    }
+
+    Proc_Goto(proc, 1);
+
+    return;
+}
+
+//! FE8U = 0x080AA69C
+void sub_80AA69C(struct Proc8A204BC * proc)
+{
+
+    if (proc->unk_4c > 30)
+    {
+        if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON))
+        {
+            CloseHelpBox();
+            Proc_Break(proc);
+        }
+
+        return;
+    }
+
+    proc->unk_4c++;
+
+    return;
+}
+
+//! FE8U = 0x080AA6D8
+void sub_80AA6D8(void)
+{
+    SaveBonusContentData(gUnknown_08A204B8);
+    return;
+}
+
+extern struct ProcCmd gUnknown_08A204BC[];
+
+//! FE8U = 0x080AA6EC
+void sub_80AA6EC(ProcPtr parent)
+{
+    Proc_StartBlocking(gUnknown_08A204BC, parent);
+    return;
+}
+
+//! FE8U = 0x080AA700
+void sub_80AA700(void)
+{
+    gUnknown_0203EF64.unk_00 = 0;
+    gUnknown_0203EF64.unk_01 = -1;
+    gUnknown_0203EF64.unk_02 = -1;
+    return;
+}
+
+//! FE8U = 0x080AA718
+const char * sub_80AA718(void)
+{
+    if (gUnknown_0203EF64.unk_00 == 0)
+    {
+        return NULL;
+    }
+
+    return GetStringFromIndex(gCharacterData[gUnknown_0203EF64.unk_00 - 1].nameTextId);
+}
+
+//! FE8U = 0x080AA744
+int sub_80AA744(void)
+{
+    if ((gUnknown_0203EF64.unk_00 == 0) || (gUnknown_0203EF64.unk_01 < 0))
+    {
+        return -1;
+    }
+
+    return gUnknown_0203EF64.unk_01;
+}
+
+//! FE8U = 0x080AA768
+const char * sub_80AA768(void)
+{
+    if ((gUnknown_0203EF64.unk_00 == 0) || (gUnknown_0203EF64.unk_02 < 0))
+    {
+        return NULL;
+    }
+
+    return GetWorldMapNodeName(gUnknown_0203EF64.unk_02);
+}
+
+//! FE8U = 0x080AA790
+void sub_80AA790(u16 * src, u16 * dst, int count)
+{
+    u16 * src_;
+
+    count = count * 0x10;
+
+    if (count <= 0)
+    {
+        return;
+    }
+
+    for (src_ = src; count != 0; count--)
+    {
+        *dst++ = *src_++;
+    }
+
     return;
 }

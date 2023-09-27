@@ -391,7 +391,7 @@ void DrawHelpBoxSaveMenuLabels(void) {
 void DrawHelpBoxSaveMenuStats(void) {
     int level;
 
-    char* str = sub_80AA768();
+    const char* str = sub_80AA768();
 
     if (str != 0) {
         Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, str);

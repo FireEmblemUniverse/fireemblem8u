@@ -252,7 +252,6 @@ SECTIONS
         src/bmsave-misc.o(.text);
         src/minimap.o(.text);
         src/savemenu.o(.text);
-        asm/savemenu_.o(.text);
         asm/savedraw.o(.text);
         src/savedrawcursor.o(.text);
         src/difficultymenu.o(.text);

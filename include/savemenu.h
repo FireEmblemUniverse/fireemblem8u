@@ -148,12 +148,12 @@ void savemenu_SetDifficultyChoice(int, int);
 // ??? sub_80AA658(???);
 // ??? sub_80AA69C(???);
 // ??? sub_80AA6D8(???);
-void sub_80AA6EC(struct SaveMenuProc*);
+void sub_80AA6EC(ProcPtr);
 void sub_80AA700(void);
 // ??? sub_80AA718(???);
 int sub_80AA744(void); // GetHeroLevelForSaveMenu
-char* sub_80AA768(void); // GetWMNodeNameForSaveMenu
-void sub_80AA790(void*, void*, int);
+const char * sub_80AA768(void); // GetWMNodeNameForSaveMenu
+void sub_80AA790(u16 *, u16 *, int);
 // ??? sub_80AA7AC(???);
 // ??? sub_80AA7EC(???);
 // ??? sub_80AA9D8(???);
