@@ -14,6 +14,7 @@
 #include "worldmap.h"
 #include "face.h"
 #include "scene.h"
+#include "savemenu.h"
 
 #include "event.h"
 

@@ -38,15 +38,6 @@ struct SaveMenu8A20068Proc {
 extern u16 gUnknown_08A2C23C[];
 extern u16 gUnknown_020007A0[];
 
-
-s8 sub_80A9D20(struct SaveMenuProc*, int);
-void StartSqMask(struct SaveMenuProc*, int, int);
-void sub_80AA6EC(struct SaveMenuProc*);
-s8 sub_80ABA98(struct SaveMenuProc*);
-void sub_80AB83C(struct SaveMenuProc*, u8);
-void sub_80AB89C(struct SaveMenuProc*);
-s8 sub_80AB9FC(struct SaveMenuProc*, int);
-
 //! FE8U = 0x080A882C
 void sub_80A882C(ProcPtr proc) {
     Proc_Goto(proc, 18);
@@ -1736,7 +1727,7 @@ void Make6C_savemenu(ProcPtr parent) {
     proc->unk_42 = 0x100;
     proc->unk_35 = 0;
 
-    gPlaySt.cfgTextSpeed = 2;
+    gPlaySt.config.textSpeed = 2;
 
     return;
 }

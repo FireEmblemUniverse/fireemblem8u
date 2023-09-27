@@ -66,7 +66,7 @@ void sub_80B0674(void) {
 
     u32 flags = (-(gPlaySt.chapterStateBits & 0x40) >> 0x1f) & 4;
 
-    if (gPlaySt.cfgController == 0) {
+    if (gPlaySt.config.controller == 0) {
         if (gPlaySt.chapterModeIndex == CHAPTER_MODE_COMMON) {
             flags |= 0x10;
         }

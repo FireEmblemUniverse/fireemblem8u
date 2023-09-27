@@ -223,7 +223,7 @@ struct ProcCmd CONST_DATA gProcScr_SubtitleHelp[] = {
 
 void StartSubtitleHelp(ProcPtr parent, const char* string) {
 
-    if (gPlaySt.cfgNoSubtitleHelp != 1) {
+    if (gPlaySt.config.noSubtitleHelp != 1) {
         struct SubtitleHelpProc* proc = Proc_Start(gProcScr_SubtitleHelp, parent);
 
         proc->string = string;

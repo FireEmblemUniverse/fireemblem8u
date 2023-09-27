@@ -671,7 +671,7 @@ u8 GetGameOption(u8 index) {
 
     switch (index) {
         case GAME_OPTION_ANIMATION:
-            switch (gPlaySt.cfgAnimationType) {
+            switch (gPlaySt.config.animationType) {
                 case 0:
                     return 0;
                 case 3:
@@ -685,77 +685,77 @@ u8 GetGameOption(u8 index) {
             // fallthrough
 
         case GAME_OPTION_TERRAIN:
-            value = gPlaySt.cfgDisableTerrainDisplay;
+            value = gPlaySt.config.disableTerrainDisplay;
 
             break;
 
         case GAME_OPTION_UNIT:
-            value = gPlaySt.cfgUnitDisplayType;
+            value = gPlaySt.config.unitDisplayType;
 
             break;
 
         case GAME_OPTION_AUTOCURSOR:
-            value = gPlaySt.cfgAutoCursor;
+            value = gPlaySt.config.autoCursor;
 
             break;
 
         case GAME_OPTION_TEXT_SPEED:
-            value = gPlaySt.cfgTextSpeed;
+            value = gPlaySt.config.textSpeed;
 
             break;
 
         case GAME_OPTION_GAME_SPEED:
-            value = gPlaySt.cfgGameSpeed;
+            value = gPlaySt.config.gameSpeed;
 
             break;
 
         case GAME_OPTION_MUSIC:
-            value = gPlaySt.cfgDisableBgm;
+            value = gPlaySt.config.disableBgm;
 
             break;
 
         case GAME_OPTION_SOUND_EFFECTS:
-            value = gPlaySt.cfgDisableSoundEffects;
+            value = gPlaySt.config.disableSoundEffects;
 
             break;
 
         case GAME_OPTION_WINDOW_COLOR:
-            value = gPlaySt.cfgWindowColor;
+            value = gPlaySt.config.windowColor;
 
             break;
 
         case GAME_OPTION_COMBAT:
-            value = gPlaySt.cfgBattleForecastType;
+            value = gPlaySt.config.battleForecastType;
 
             break;
 
         case GAME_OPTION_SUBTITLE_HELP:
-            value = gPlaySt.cfgNoSubtitleHelp;
+            value = gPlaySt.config.noSubtitleHelp;
 
             break;
 
         case GAME_OPTION_AUTOEND_TURNS:
-            value = gPlaySt.cfgDisableAutoEndTurns;
+            value = gPlaySt.config.disableAutoEndTurns;
 
             break;
 
         case GAME_OPTION_UNIT_COLOR:
-            value = gPlaySt.cfgUnitColor;
+            value = gPlaySt.config.unitColor;
 
             break;
 
         case GAME_OPTION_OBJECTIVE:
-            value = gPlaySt.cfgDisableGoalDisplay;
+            value = gPlaySt.config.disableGoalDisplay;
 
             break;
 
         case GAME_OPTION_CONTROLLER:
-            value = gPlaySt.cfgController;
+            value = gPlaySt.config.controller;
 
             break;
 
         case GAME_OPTION_RANK_DISPLAY:
-            value = gPlaySt.cfgRankDisplay;
+            value = gPlaySt.config.rankDisplay;
 
             break;
 
@@ -771,96 +771,96 @@ void SetGameOption(u8 index, u8 newValue) {
         case GAME_OPTION_ANIMATION:
             switch (newValue) {
                 case 0:
-                    gPlaySt.cfgAnimationType = 0;
+                    gPlaySt.config.animationType = 0;
                     return;
 
                 case 1:
-                    gPlaySt.cfgAnimationType = 3;
+                    gPlaySt.config.animationType = 3;
                     return;
 
                 case 2:
-                    gPlaySt.cfgAnimationType = 1;
+                    gPlaySt.config.animationType = 1;
                     return;
 
                 case 3:
-                    gPlaySt.cfgAnimationType = 2;
+                    gPlaySt.config.animationType = 2;
                     return;
             }
 
             // fallthrough
 
         case GAME_OPTION_TERRAIN:
-            gPlaySt.cfgDisableTerrainDisplay = newValue;
+            gPlaySt.config.disableTerrainDisplay = newValue;
 
             break;
 
         case GAME_OPTION_UNIT:
-            gPlaySt.cfgUnitDisplayType = newValue;
+            gPlaySt.config.unitDisplayType = newValue;
 
             break;
 
         case GAME_OPTION_AUTOCURSOR:
-            gPlaySt.cfgAutoCursor = newValue;
+            gPlaySt.config.autoCursor = newValue;
 
             break;
 
         case GAME_OPTION_TEXT_SPEED:
-            gPlaySt.cfgTextSpeed = newValue;
+            gPlaySt.config.textSpeed = newValue;
 
             break;
 
         case GAME_OPTION_GAME_SPEED:
-            gPlaySt.cfgGameSpeed = newValue;
+            gPlaySt.config.gameSpeed = newValue;
 
             break;
 
         case GAME_OPTION_MUSIC:
-            gPlaySt.cfgDisableBgm = newValue;
+            gPlaySt.config.disableBgm = newValue;
 
             break;
 
         case GAME_OPTION_SOUND_EFFECTS:
-            gPlaySt.cfgDisableSoundEffects = newValue;
+            gPlaySt.config.disableSoundEffects = newValue;
 
             break;
 
         case GAME_OPTION_WINDOW_COLOR:
-            gPlaySt.cfgWindowColor = newValue;
+            gPlaySt.config.windowColor = newValue;
 
             break;
 
         case GAME_OPTION_COMBAT:
-            gPlaySt.cfgBattleForecastType = newValue;
+            gPlaySt.config.battleForecastType = newValue;
 
             break;
 
         case GAME_OPTION_SUBTITLE_HELP:
-            gPlaySt.cfgNoSubtitleHelp = newValue;
+            gPlaySt.config.noSubtitleHelp = newValue;
 
             break;
 
         case GAME_OPTION_AUTOEND_TURNS:
-            gPlaySt.cfgDisableAutoEndTurns = newValue;
+            gPlaySt.config.disableAutoEndTurns = newValue;
 
             break;
 
         case GAME_OPTION_UNIT_COLOR:
-            gPlaySt.cfgUnitColor = newValue;
+            gPlaySt.config.unitColor = newValue;
 
             break;
 
         case GAME_OPTION_OBJECTIVE:
-            gPlaySt.cfgDisableGoalDisplay = newValue;
+            gPlaySt.config.disableGoalDisplay = newValue;
 
             break;
 
         case GAME_OPTION_CONTROLLER:
-            gPlaySt.cfgController = newValue;
+            gPlaySt.config.controller = newValue;
 
             break;
 
         case GAME_OPTION_RANK_DISPLAY:
-            gPlaySt.cfgRankDisplay = newValue;
+            gPlaySt.config.rankDisplay = newValue;
 
             break;
 

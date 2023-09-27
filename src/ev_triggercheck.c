@@ -627,7 +627,7 @@ void DisplayDefeatTalkForPid(u8 pid) {
     if (ent) {
         if ((ent->route == 1) && (ent->flag == 0x65)) {
             StartBgm(0x3e, NULL);
-            gPlaySt.cfgDisableBgm = 1;
+            gPlaySt.config.disableBgm = 1;
         } else {
             if (UNIT_FACTION(GetUnitFromCharId(pid)) == FACTION_BLUE) {
                 StartBgm(0x3f, NULL);
@@ -734,7 +734,7 @@ u16 GetSupportTalkSong_(u8 unused, u8 pidA, u8 pidB, int rank) {
 void sub_80837B0(void) {
     SetFlag(0x65);
     StartBgm(0x3e, NULL);
-    gPlaySt.cfgDisableBgm = 1;
+    gPlaySt.config.disableBgm = 1;
     CallGameOverEvent();
 
     return;
@@ -753,7 +753,7 @@ s8 sub_80837D8(void) {
 s8 sub_80837F8(void) {
     int ret = 0;
 
-    if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD) && (gPlaySt.cfgController != 1)) {
+    if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD) && (gPlaySt.config.controller != 1)) {
         ret = CheckFlag(0x87) != 0;
     }
 

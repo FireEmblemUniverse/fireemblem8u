@@ -508,7 +508,7 @@ u8 Event0E_STAL(struct EventEngineProc * proc)
         int timeStep = 1;
 
         if (!(proc->evStateBits & EV_STATE_0040) && (subcode & 2))
-            if ((gPlaySt.cfgGameSpeed != 0) || (gKeyStatusPtr->heldKeys & A_BUTTON))
+            if ((gPlaySt.config.gameSpeed != 0) || (gKeyStatusPtr->heldKeys & A_BUTTON))
                 timeStep = 4;
 
         stallTimer = stallTimer - timeStep;
@@ -914,7 +914,7 @@ u8 Event19_(struct EventEngineProc * proc)
             break;
 
         case 7: // Check Some option or difficult mode
-            if (gPlaySt.cfgController || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
+            if (gPlaySt.config.controller || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
                 gEventSlots[0xC] = FALSE;
             else
                 gEventSlots[0xC] = TRUE;
@@ -989,8 +989,8 @@ void sub_800E210(struct EventEngineProc * proc, u16 stringIndex, s8 b)
 
     if ((proc->evStateBits & EV_STATE_0040) == 1)
     { // ?????
-        proc->overwrittenTextSpeed = gPlaySt.cfgTextSpeed;
-        gPlaySt.cfgTextSpeed = 1;
+        proc->overwrittenTextSpeed = gPlaySt.config.textSpeed;
+        gPlaySt.config.textSpeed = 1;
     }
     else
     {
@@ -1272,7 +1272,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc * proc)
     }
 
     if (proc->overwrittenTextSpeed != -1)
-        gPlaySt.cfgTextSpeed = proc->overwrittenTextSpeed;
+        gPlaySt.config.textSpeed = proc->overwrittenTextSpeed;
 
     return EVC_ADVANCE_YIELD;
 }
@@ -2455,7 +2455,7 @@ void LoadUnit_800F704(const struct UnitDefinition * def, u16 b, s8 quiet, s8 d)
 
     if (def->allegiance == FACTION_ID_RED && unit->pCharacterData->number >= 0x3C)
     {
-        if (!gPlaySt.cfgController)
+        if (!gPlaySt.config.controller)
         {
             if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
                 UnitApplyBonusLevels(unit, -GetROMChapterStruct(gPlaySt.chapterIndex)->easyModeLevelMalus);

@@ -12,6 +12,7 @@
 #include "scene.h"
 #include "bmio.h"
 #include "bmlib.h"
+#include "savemenu.h"
 
 struct HelpBoxScrollProc {
     /* 00 */ PROC_HEADER;
@@ -607,8 +608,8 @@ void sub_808A00C(struct HelpBox8A01650Proc* proc) {
 
     otherProc->unk_5e = 0;
 
-    textSpeed = gPlaySt.cfgTextSpeed;
-    switch (gPlaySt.cfgTextSpeed) {
+    textSpeed = gPlaySt.config.textSpeed;
+    switch (gPlaySt.config.textSpeed) {
         case 0:
             otherProc->unk_60 = 2;
             break;

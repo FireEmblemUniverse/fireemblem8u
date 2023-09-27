@@ -2055,8 +2055,8 @@ int GetBattleAnimType(void) {
     // TODO: battle anim type constants
 
     // If not solo anim, return global type
-    if (gPlaySt.cfgAnimationType != 2)
-        return gPlaySt.cfgAnimationType;
+    if (gPlaySt.config.animationType != 2)
+        return gPlaySt.config.animationType;
 
     // If both units are players, use actor solo anim type
     if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)
