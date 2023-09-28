@@ -16,6 +16,19 @@ extern u8 gUnknown_02000940[];
 extern u8 gUnknown_02000944[];
 extern struct PlaySt_OptionBits gUnknown_02000948[];
 
+struct Unknown_08A209FC
+{
+    s8 a;
+    s8 b;
+};
+
+struct Unknown_08A209FC gUnknown_08A209FC[] =
+{
+    { 0, 0x20, },
+    { 0, 0x40, },
+    { 0, 0x60, },
+};
+
 //! FE8U = 0x080ABC14
 void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
 {
@@ -481,7 +494,12 @@ void sub_80ABF74(u8 param_1)
 
 #endif
 
-extern u16 gUnknown_08A20A08[];
+u16 CONST_DATA gUnknown_08A20A08[] =
+{
+    0x0149, // TODO: msgid "For first-timers.[.][NL]Game rules and[NL]controls will be[NL]explained as you[NL]play.[.]"
+    0x014A, // TODO: msgid "For experienced[.][NL]players. No game-[.][NL]play hints will[.][NL]be provided as[NL]you play.[.]"
+    0x014B, // TODO: msgid "For players seeking[.][NL]a real challenge.[.][NL]No instructions are[.][NL]given & difficulty[NL]is set to high.[.]"
+};
 
 //! FE8U = 0x080ABFE0
 void sub_80ABFE0(struct DifficultyMenuProc * proc)
@@ -550,14 +568,6 @@ extern u16 Pal_DifficultyMenuObjs[];
 extern u8 Img_DifficultyMenuObjs[];
 
 extern u8 gUnknown_08A29558[];
-
-struct Unknown_08A209FC
-{
-    s8 a;
-    s8 b;
-};
-
-extern struct Unknown_08A209FC gUnknown_08A209FC[];
 
 //! FE8U = 0x080AC084
 void InitDifficultySelectScreen(struct DifficultyMenuProc * proc)
@@ -749,7 +759,42 @@ void nullsub_64(void)
     return;
 }
 
-extern struct ProcCmd ProcScr_NewGameDiffilcultySelect[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_NewGameDiffilcultySelect[] =
+{
+    PROC_SET_END_CB(sub_80AC078),
+
+    PROC_CALL(sub_80AD5B4),
+    PROC_YIELD,
+
+    PROC_CALL(sub_80AC1A8),
+    PROC_SLEEP(1),
+
+    PROC_CALL(EnableAllGfx),
+    PROC_CALL_ARG(NewFadeIn, 8),
+    PROC_WHILE(FadeInExists),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80AC288),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_SLEEP(10),
+
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(nullsub_64),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AC3E0
 void NewNewGameDifficultySelect(ProcPtr parent)
@@ -772,7 +817,16 @@ void sub_80AC3F4(struct DifficultyMenuSpritesProc * proc)
 }
 
 extern u8 gUnknown_08A20B14[];
-extern u16 gUnknown_08A20A98[];
+
+// clang-format off
+
+u16 CONST_DATA gUnknown_08A20A98[] =
+{
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x5C) + OAM2_LAYER(1),
+};
+
+// clang-format on
 
 //! FE8U = 0x080AC418
 void sub_80AC418(struct DifficultyMenuSpritesProc * proc)
@@ -933,10 +987,66 @@ void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx)
 
 #endif
 
-extern u16 gUnknown_08A20AA0[];
-extern u16 gUnknown_08A20AAE[];
-extern u16 gUnknown_08A20AC2[];
-extern u16 * gUnknown_08A20B08[];
+// clang-format off
+
+u16 CONST_DATA gUnknown_08A20AA0[] =
+{
+    2,
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x40) + OAM2_LAYER(2),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(64), OAM2_CHR(0x48) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA gUnknown_08A20AAE[] =
+{
+    3,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x50) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(48), OAM2_CHR(0x54) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(80), OAM2_CHR(0x58) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA gUnknown_08A20AC2[] =
+{
+    2,
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x40) + OAM2_LAYER(2),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(64), OAM2_CHR(0x48) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA gSprite_08A20AD0[] =
+{
+    3,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(24), OAM2_CHR(0xC0) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(56), OAM2_CHR(0xC4) + OAM2_LAYER(2),
+    OAM0_SHAPE_16x16 + OAM0_Y(8), OAM1_SIZE_16x16 + OAM1_X(88), OAM2_CHR(0xC8) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA gSprite_08A20AE4[] =
+{
+    2,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0xCA) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0xCE) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA gSprite_08A20AF2[] =
+{
+    3,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x90) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(48), OAM2_CHR(0x94) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(80), OAM2_CHR(0x98) + OAM2_LAYER(2),
+};
+
+u16 * CONST_DATA gUnknown_08A20B08[] =
+{
+    gSprite_08A20AD0,
+    gSprite_08A20AE4,
+    gSprite_08A20AF2,
+};
+
+u8 CONST_DATA gUnknown_08A20B14[] =
+{
+    0, 1, 2, 3, 3, 2, 1, 0,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AC588
 void sub_80AC588(struct DifficultyMenuSpritesProc * proc)
@@ -983,7 +1093,19 @@ void sub_80AC680(struct DifficultyMenuSpritesProc * proc, int param_2, int param
     return;
 }
 
-extern struct ProcCmd gUnknown_08A20B1C[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A20B1C[] =
+{
+    PROC_CALL(sub_80AC3F4),
+    PROC_YIELD,
+
+    PROC_REPEAT(sub_80AC588),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AC698
 ProcPtr sub_80AC698(ProcPtr parent)

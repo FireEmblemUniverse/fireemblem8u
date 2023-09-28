@@ -20,13 +20,16 @@
 
 #include "savemenu.h"
 
-struct Unknown203EF64 {
-    u8 unk_00;
-    s8 unk_01;
-    s8 unk_02;
+#include "constants/characters.h"
+
+struct SaveMenuRTextData
+{
+    u8 pid;
+    s8 level;
+    s8 nodeId;
 };
 
-extern struct Unknown203EF64 gUnknown_0203EF64; // gSaveMenuRTextData
+extern struct SaveMenuRTextData gUnknown_0203EF64; // gSaveMenuRTextData
 
 struct SaveMenu8A20068Proc {
     /* 00 */ PROC_HEADER;
@@ -46,8 +49,6 @@ struct Proc8A204BC
     /* 58 */ int unk_58;
     /* 5C */ int unk_5c;
 };
-
-extern struct BonusClaimEnt * gUnknown_08A204B8;
 
 // TODO: Implicit declaration
 int LoadBonusContentData(void *);
@@ -154,13 +155,14 @@ int LoadSaveMenuHelpText(int slot) {
     ReadGameSavePlaySt(slot, &chapterData);
 
     switch (chapterData.chapterModeIndex) {
-        case 1:
-        case 2:
+        case CHAPTER_MODE_COMMON:
+        case CHAPTER_MODE_EIRIKA:
         default:
-            leaderId = 1;
+            leaderId = CHARACTER_EIRIKA;
             break;
-        case 3:
-            leaderId = 0xF;
+
+        case CHAPTER_MODE_EPHRAIM:
+            leaderId = CHARACTER_EPHRAIM;
             break;
     }
 
@@ -172,11 +174,11 @@ int LoadSaveMenuHelpText(int slot) {
     }
 
     if (i < UNIT_SAVE_AMOUNT_BLUE) {
-        gUnknown_0203EF64.unk_00 = leaderId;
-        gUnknown_0203EF64.unk_01 = unit.level;
+        gUnknown_0203EF64.pid = leaderId;
+        gUnknown_0203EF64.level = unit.level;
 
         ReadWorldMapStuff(&saveBase->wmStuff, &mapData);
-        gUnknown_0203EF64.unk_02 = mapData.units[0].location;
+        gUnknown_0203EF64.nodeId = mapData.units[0].location;
 
         return 2;
     }
@@ -1826,13 +1828,15 @@ void savemenu_SetDifficultyChoice(int a, int b)
 {
     struct SaveMenuProc * proc = Proc_Find(ProcScr_SaveMenu);
 
-    if (proc != 0)
+    if (proc != NULL)
     {
         proc->unk_2a = a;
         proc->unk_3d = b;
     }
     return;
 }
+
+struct BonusClaimEnt * CONST_DATA gUnknown_08A204B8 = gUnknown_02000968;
 
 //! FE8U = 0x080AA550
 void sub_80AA550(struct Proc8A204BC * proc)
@@ -1859,7 +1863,7 @@ void sub_80AA550(struct Proc8A204BC * proc)
             continue;
         }
 
-        if (gUnknown_08A204B8[i].kind == 3)
+        if (gUnknown_08A204B8[i].kind == BONUSKIND_SONG3)
         {
             proc->unk_58 = 1;
             gUnknown_08A204B8[i].unseen = (gUnknown_08A204B8[i].unseen & ~3) + 2;
@@ -1868,7 +1872,7 @@ void sub_80AA550(struct Proc8A204BC * proc)
 
         ent = gUnknown_08A204B8 + i;
 
-        if (ent->kind == 4)
+        if (ent->kind == BONUSKIND_SONG4)
         {
             proc->unk_5c = 1;
             gUnknown_08A204B8[i].unseen = (gUnknown_08A204B8[i].unseen & ~3) + 2;
@@ -1890,7 +1894,6 @@ void sub_80AA550(struct Proc8A204BC * proc)
 //! FE8U = 0x080AA614
 void sub_80AA614(struct Proc8A204BC * proc)
 {
-
     if (proc->unk_58 != 0)
     {
         proc->unk_4c = 0;
@@ -1907,7 +1910,6 @@ void sub_80AA614(struct Proc8A204BC * proc)
 //! FE8U = 0x080AA658
 void sub_80AA658(struct Proc8A204BC * proc)
 {
-
     if (proc->unk_5c != 0)
     {
         proc->unk_4c = 0;
@@ -1924,7 +1926,6 @@ void sub_80AA658(struct Proc8A204BC * proc)
 //! FE8U = 0x080AA69C
 void sub_80AA69C(struct Proc8A204BC * proc)
 {
-
     if (proc->unk_4c > 30)
     {
         if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON))
@@ -1948,7 +1949,35 @@ void sub_80AA6D8(void)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A204BC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A204BC[] =
+{
+    PROC_CALL(sub_80AA550),
+
+    PROC_CALL(sub_80AA614),
+    PROC_REPEAT(sub_80AA69C),
+
+    PROC_SLEEP(16),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_80AA658),
+    PROC_REPEAT(sub_80AA69C),
+
+    PROC_SLEEP(16),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80AA6D8),
+
+    // fallthrough
+
+PROC_LABEL(10),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AA6EC
 void sub_80AA6EC(ProcPtr parent)
@@ -1960,43 +1989,43 @@ void sub_80AA6EC(ProcPtr parent)
 //! FE8U = 0x080AA700
 void sub_80AA700(void)
 {
-    gUnknown_0203EF64.unk_00 = 0;
-    gUnknown_0203EF64.unk_01 = -1;
-    gUnknown_0203EF64.unk_02 = -1;
+    gUnknown_0203EF64.pid = 0;
+    gUnknown_0203EF64.level = -1;
+    gUnknown_0203EF64.nodeId = -1;
     return;
 }
 
 //! FE8U = 0x080AA718
 const char * sub_80AA718(void)
 {
-    if (gUnknown_0203EF64.unk_00 == 0)
+    if (gUnknown_0203EF64.pid == 0)
     {
         return NULL;
     }
 
-    return GetStringFromIndex(gCharacterData[gUnknown_0203EF64.unk_00 - 1].nameTextId);
+    return GetStringFromIndex(gCharacterData[gUnknown_0203EF64.pid - 1].nameTextId);
 }
 
 //! FE8U = 0x080AA744
 int sub_80AA744(void)
 {
-    if ((gUnknown_0203EF64.unk_00 == 0) || (gUnknown_0203EF64.unk_01 < 0))
+    if ((gUnknown_0203EF64.pid == 0) || (gUnknown_0203EF64.level < 0))
     {
         return -1;
     }
 
-    return gUnknown_0203EF64.unk_01;
+    return gUnknown_0203EF64.level;
 }
 
 //! FE8U = 0x080AA768
 const char * sub_80AA768(void)
 {
-    if ((gUnknown_0203EF64.unk_00 == 0) || (gUnknown_0203EF64.unk_02 < 0))
+    if ((gUnknown_0203EF64.pid == 0) || (gUnknown_0203EF64.nodeId < 0))
     {
         return NULL;
     }
 
-    return GetWorldMapNodeName(gUnknown_0203EF64.unk_02);
+    return GetWorldMapNodeName(gUnknown_0203EF64.nodeId);
 }
 
 //! FE8U = 0x080AA790
