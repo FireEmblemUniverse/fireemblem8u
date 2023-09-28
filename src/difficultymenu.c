@@ -173,53 +173,51 @@ extern u16 gUnknown_08A07AEA[];
 extern u16 gUnknown_08A07C0A[];
 extern u16 gUnknown_08A07BEA[];
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/pmTo7 */
-
 //! FE8U = 0x080ABE3C
 void sub_80ABE3C(int param_1, int param_2)
 {
-    s16 * psVar1;
-    int uVar4;
-    u16 * puVar5;
-    int iVar7;
-    u16 * puVar8;
-    int local_24;
+    int r2;
+    u16 *r6;
+    u16 *r8;
+    int r9;
+    u16* ip;
+    // permuter
+    u16 *pickle = gUnknown_08A07BEA;
+    u16 *ketchup = gUnknown_08A07AEA;
 
-    uVar4 = param_1 >> 1 & 0x1f;
-    if (uVar4 > 0x10)
-    {
-        uVar4 = 0x10 - (uVar4 & 0xf);
-    }
+    param_1 = (param_1 >> 1) & 0x1f;
+    if (param_1 > 0x10)
+        param_1 = 0x10 - (param_1 & 0xf);
 
-    for (local_24 = 0; local_24 < 3; local_24++)
+    for (r2 = 0; r2 < 3; r2++)
     {
         int tmp;
-        if (!(gUnknown_02000940[local_24] & 0x40))
-        {
+        if (!(gUnknown_02000940[r2] & 0x40))
             continue;
-        }
 
-        tmp = (local_24 * 0x20 + 0xa0);
-        psVar1 = (s16 *)(tmp + (gPaletteBuffer + 0x109));
+        tmp = (r2 * 0x20 + 0xa0);
+        r8 = &gPaletteBuffer[tmp + 0x109];
 
-        if (local_24 == param_2)
+        if (r2 == param_2)
         {
-            puVar8 = gUnknown_08A07AEA;
-            puVar5 = gUnknown_08A07BEA;
+            ip = ketchup;
+            r6 = pickle;
         }
         else
         {
-            puVar8 = gUnknown_08A07B0A;
-            puVar5 = gUnknown_08A07C0A;
+            ip = gUnknown_08A07B0A;
+            r6 = gUnknown_08A07C0A;
         }
 
-        for (iVar7 = 0; iVar7 < 6; iVar7++)
+        for (r9 = 0; r9 < 7; r9++)
         {
-            psVar1[iVar7] = (((uVar4 * (puVar8[iVar7] & 0x1f) + (0x10 - uVar4) * (puVar5[iVar7] & 0x1f)) >> 4) & 0x1f) +
-                (((uVar4 * (puVar8[iVar7] & 0x3e0) + (0x10 - uVar4) * (puVar5[iVar7] & 0x3e0)) >> 4) & 0x3e0) +
-                (((uVar4 * (puVar8[iVar7] & 0x7c00) + (0x10 - uVar4) * (puVar5[iVar7] & 0x7c00)) >> 4) & 0x7c00);
+            *r8 =
+                ((((*ip & 0x1f) * param_1 + (0x10 - param_1) * (*r6 & 0x1f)) >> 4) & 0x1f) +
+                ((((*ip & 0x3e0) * param_1 + (0x10 - param_1) * (*r6 & 0x3e0)) >> 4) & 0x3e0) +
+                ((((*ip & 0x7c00) * param_1 + (0x10 - param_1) * (*r6 & 0x7c00)) >> 4) & 0x7c00);
+            ++r8;
+            ++ip;
+            ++r6;
         }
     }
 
@@ -227,151 +225,6 @@ void sub_80ABE3C(int param_1, int param_2)
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_80ABE3C(int param_1, int param_2)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #8\n\
-        adds r5, r0, #0\n\
-        str r1, [sp]\n\
-        asrs r5, r5, #1\n\
-        movs r0, #0x1f\n\
-        ands r5, r0\n\
-        cmp r5, #0x10\n\
-        ble _080ABE5E\n\
-        movs r0, #0xf\n\
-        ands r0, r5\n\
-        movs r1, #0x10\n\
-        subs r5, r1, r0\n\
-    _080ABE5E:\n\
-        movs r2, #0\n\
-    _080ABE60:\n\
-        ldr r1, _080ABE90  @ gUnknown_02000940\n\
-        adds r0, r2, r1\n\
-        ldrb r1, [r0]\n\
-        movs r0, #0x40\n\
-        ands r0, r1\n\
-        adds r1, r2, #1\n\
-        str r1, [sp, #4]\n\
-        cmp r0, #0\n\
-        beq _080ABF22\n\
-        lsls r0, r2, #6\n\
-        movs r1, #0xa0\n\
-        lsls r1, r1, #1\n\
-        adds r0, r0, r1\n\
-        ldr r1, _080ABE94  @ gPaletteBuffer + 0x212\n\
-        adds r0, r0, r1\n\
-        mov r8, r0\n\
-        ldr r0, [sp]\n\
-        cmp r2, r0\n\
-        bne _080ABEA0\n\
-        ldr r1, _080ABE98  @ gUnknown_08A07AEA\n\
-        mov ip, r1\n\
-        ldr r6, _080ABE9C  @ gUnknown_08A07BEA\n\
-        b _080ABEA6\n\
-        .align 2, 0\n\
-    _080ABE90: .4byte gUnknown_02000940\n\
-    _080ABE94: .4byte gPaletteBuffer + 0x212\n\
-    _080ABE98: .4byte gUnknown_08A07AEA\n\
-    _080ABE9C: .4byte gUnknown_08A07BEA\n\
-    _080ABEA0:\n\
-        ldr r0, _080ABF3C  @ gUnknown_08A07B0A\n\
-        mov ip, r0\n\
-        ldr r6, _080ABF40  @ gUnknown_08A07C0A\n\
-    _080ABEA6:\n\
-        adds r2, #1\n\
-        str r2, [sp, #4]\n\
-        movs r0, #0x10\n\
-        subs r7, r0, r5\n\
-        movs r1, #0xf8\n\
-        lsls r1, r1, #7\n\
-        mov sl, r1\n\
-        movs r0, #6\n\
-        mov r9, r0\n\
-    _080ABEB8:\n\
-        mov r1, ip\n\
-        ldrh r4, [r1]\n\
-        movs r0, #0x1f\n\
-        ands r0, r4\n\
-        adds r2, r0, #0\n\
-        muls r2, r5, r2\n\
-        ldrh r3, [r6]\n\
-        movs r0, #0x1f\n\
-        ands r0, r3\n\
-        muls r0, r7, r0\n\
-        adds r2, r2, r0\n\
-        asrs r2, r2, #4\n\
-        movs r0, #0x1f\n\
-        ands r2, r0\n\
-        movs r0, #0xf8\n\
-        lsls r0, r0, #2\n\
-        ands r0, r4\n\
-        adds r1, r0, #0\n\
-        muls r1, r5, r1\n\
-        movs r0, #0xf8\n\
-        lsls r0, r0, #2\n\
-        ands r0, r3\n\
-        muls r0, r7, r0\n\
-        adds r1, r1, r0\n\
-        asrs r1, r1, #4\n\
-        movs r0, #0xf8\n\
-        lsls r0, r0, #2\n\
-        ands r1, r0\n\
-        adds r2, r2, r1\n\
-        mov r0, sl\n\
-        ands r0, r4\n\
-        adds r1, r0, #0\n\
-        muls r1, r5, r1\n\
-        mov r0, sl\n\
-        ands r0, r3\n\
-        muls r0, r7, r0\n\
-        adds r1, r1, r0\n\
-        asrs r1, r1, #4\n\
-        mov r0, sl\n\
-        ands r1, r0\n\
-        adds r2, r2, r1\n\
-        mov r1, r8\n\
-        strh r2, [r1]\n\
-        movs r0, #2\n\
-        add r8, r0\n\
-        add ip, r0\n\
-        adds r6, #2\n\
-        movs r1, #1\n\
-        negs r1, r1\n\
-        add r9, r1\n\
-        mov r0, r9\n\
-        cmp r0, #0\n\
-        bge _080ABEB8\n\
-    _080ABF22:\n\
-        ldr r2, [sp, #4]\n\
-        cmp r2, #2\n\
-        ble _080ABE60\n\
-        bl EnablePaletteSync\n\
-        add sp, #8\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080ABF3C: .4byte gUnknown_08A07B0A\n\
-    _080ABF40: .4byte gUnknown_08A07C0A\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080ABF44
 u8 sub_80ABF44(u8 endMask, struct SaveMenuProc * proc)
