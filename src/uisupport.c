@@ -1367,7 +1367,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     StartGreenText((void*)proc);
 
     if (!proc->fromPrepScreen) {
-        gPlaySt.cfgTextSpeed = 1; // TODO: Text speed constants
+        gPlaySt.config.textSpeed = 1; // TODO: Text speed constants
 
         ResetPrepScreenHandCursor(proc);
         sub_80AD4A0(0x600, 1);

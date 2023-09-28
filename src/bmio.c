@@ -919,7 +919,7 @@ void SetWeather(unsigned weatherId) {
 
 int GetTextDisplaySpeed(void) {
     u8 speedLookup[4] = { 8, 4, 1, 0 };
-    return speedLookup[gPlaySt.cfgTextSpeed];
+    return speedLookup[gPlaySt.config.textSpeed];
 }
 
 int IsFirstPlaythrough(void) {
@@ -930,7 +930,7 @@ int IsFirstPlaythrough(void) {
     if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
         return FALSE;
 
-    return gPlaySt.unk41_5;
+    return gPlaySt.config.unk41_5;
 }
 
 void InitPlayConfig(int isDifficult, s8 unk) {
@@ -942,23 +942,23 @@ void InitPlayConfig(int isDifficult, s8 unk) {
         gPlaySt.chapterStateBits |= PLAY_FLAG_HARD;
 
     // TODO: WHAT ARE THOSE
-    gPlaySt.cfgController = unk;
-    gPlaySt.cfgAnimationType = 0;
-    gPlaySt.cfgDisableTerrainDisplay = 0;
-    gPlaySt.cfgUnitDisplayType = 0;
-    gPlaySt.cfgAutoCursor = 0;
-    gPlaySt.cfgTextSpeed = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
-    gPlaySt.cfgGameSpeed = 0;
-    gPlaySt.cfgDisableBgm = 0;
-    gPlaySt.cfgDisableSoundEffects = 0;
-    gPlaySt.cfgWindowColor = 0;
-    gPlaySt.cfgDisableAutoEndTurns = 0;
-    gPlaySt.cfgNoSubtitleHelp = 0;
-    gPlaySt.cfgBattleForecastType = 0;
-    gPlaySt.debugControlRed = 0;
-    gPlaySt.debugControlGreen = 0;
-    gPlaySt.cfgUnitColor = 0;
-    gPlaySt.unk41_5 = 0;
+    gPlaySt.config.controller = unk;
+    gPlaySt.config.animationType = 0;
+    gPlaySt.config.disableTerrainDisplay = 0;
+    gPlaySt.config.unitDisplayType = 0;
+    gPlaySt.config.autoCursor = 0;
+    gPlaySt.config.textSpeed = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
+    gPlaySt.config.gameSpeed = 0;
+    gPlaySt.config.disableBgm = 0;
+    gPlaySt.config.disableSoundEffects = 0;
+    gPlaySt.config.windowColor = 0;
+    gPlaySt.config.disableAutoEndTurns = 0;
+    gPlaySt.config.noSubtitleHelp = 0;
+    gPlaySt.config.battleForecastType = 0;
+    gPlaySt.config.debugControlRed = 0;
+    gPlaySt.config.debugControlGreen = 0;
+    gPlaySt.config.unitColor = 0;
+    gPlaySt.config.unk41_5 = 0;
 }
 
 void ClearBattleMapState(void) {

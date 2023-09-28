@@ -16,6 +16,7 @@
 #include "popup.h"
 #include "bmlib.h"
 #include "ev_triggercheck.h"
+#include "savemenu.h"
 #include "bmdifficulty.h"
 
 // TODO: move to some constant header and maybe merge with something if that makes sense

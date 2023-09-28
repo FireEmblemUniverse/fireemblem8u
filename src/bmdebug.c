@@ -17,6 +17,7 @@
 #include "soundroom.h"
 #include "menu_def.h"
 #include "worldmap.h"
+#include "savemenu.h"
 
 #include "constants/faces.h"
 
@@ -717,9 +718,9 @@ int DebugChargeMenu_Draw(struct MenuProc* param_1, struct MenuItemProc* menuItem
     };
 
     if (menuItemProc->itemNumber != 0) {
-        state = gPlaySt.debugControlGreen;
+        state = gPlaySt.config.debugControlGreen;
     } else {
-        state = gPlaySt.debugControlRed;
+        state = gPlaySt.config.debugControlRed;
     }
 
     ClearText(&menuItemProc->text);
@@ -741,9 +742,9 @@ u8 DebugChargeMenu_Idle(struct MenuProc* menuProc, struct MenuItemProc* menuItem
     }
 
     if (menuItemProc->itemNumber != 0) {
-        state = gPlaySt.debugControlGreen;
+        state = gPlaySt.config.debugControlGreen;
     } else {
-        state = gPlaySt.debugControlRed;
+        state = gPlaySt.config.debugControlRed;
     }
 
     if (gKeyStatusPtr->newKeys & DPAD_LEFT) {
@@ -763,9 +764,9 @@ u8 DebugChargeMenu_Idle(struct MenuProc* menuProc, struct MenuItemProc* menuItem
     }
 
     if (menuItemProc->itemNumber != 0) {
-        gPlaySt.debugControlGreen = state;
+        gPlaySt.config.debugControlGreen = state;
     } else {
-        gPlaySt.debugControlRed = state;
+        gPlaySt.config.debugControlRed = state;
     }
 
     DebugChargeMenu_Draw(menuProc, menuItemProc);

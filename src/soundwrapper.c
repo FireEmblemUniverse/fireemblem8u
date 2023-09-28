@@ -132,7 +132,7 @@ void StartOrChangeBgm(int songId, int speed, struct MusicPlayerInfo *player)
 {
     if (sSoundStatus.unk6 && Sound_GetCurrentSong() == songId)
         return;
-    if (gPlaySt.cfgDisableBgm == 0)
+    if (gPlaySt.config.disableBgm == 0)
     {
         DeleteAll6CWaitMusicRelated();
         if (sSoundStatus.unk6)
@@ -183,7 +183,7 @@ void StartBgmFadeIn(int songId, int duration, struct MusicPlayerInfo *player)
 {
     struct MusicProc *proc;
 
-    if (gPlaySt.cfgDisableBgm == 0)
+    if (gPlaySt.config.disableBgm == 0)
     {
         sSoundStatus.unk6 = TRUE;
         sSoundStatus.unk7 = 0;
@@ -204,7 +204,7 @@ void StartBgmFadeIn(int songId, int duration, struct MusicPlayerInfo *player)
 
 void OverrideBgm(int songId)
 {
-    if (gPlaySt.cfgDisableBgm == 0)
+    if (gPlaySt.config.disableBgm == 0)
     {
         sSoundStatus.unk2 = sSoundStatus.songId;
         if (sSoundStatus.unk7 == 0)
@@ -218,7 +218,7 @@ void OverrideBgm(int songId)
 
 void RestoreBgm(void)
 {
-    if (gPlaySt.cfgDisableBgm == 0 && sSoundStatus.unk2 != 0)
+    if (gPlaySt.config.disableBgm == 0 && sSoundStatus.unk2 != 0)
     {
         m4aMPlayFadeOut(&gMPlayInfo_BGM1, 3);
         m4aMPlayFadeIn(&gMPlayInfo_BGM2, 6);
@@ -231,7 +231,7 @@ void RestoreBgm(void)
 
 void _RestoreBgm(u16 speed)
 {
-    if (gPlaySt.cfgDisableBgm == 0 && sSoundStatus.unk2 != 0)
+    if (gPlaySt.config.disableBgm == 0 && sSoundStatus.unk2 != 0)
     {
         m4aMPlayFadeOut(&gMPlayInfo_BGM1, 3);
         m4aMPlayFadeIn(&gMPlayInfo_BGM2, speed);
@@ -244,7 +244,7 @@ void _RestoreBgm(u16 speed)
 
 void MakeBgmOverridePersist(void)
 {
-    if (gPlaySt.cfgDisableBgm == 0)
+    if (gPlaySt.config.disableBgm == 0)
     {
         sSoundStatus.songId = sSoundStatus.unk2;
         sSoundStatus.unk2 = 0;
@@ -319,7 +319,7 @@ struct ProcCmd gMusicProc3Script[] =
 
 void StartSongDelayed(int songId, int delay, struct MusicPlayerInfo *player)
 {
-    if (gPlaySt.cfgDisableBgm == 0)
+    if (gPlaySt.config.disableBgm == 0)
     {
         struct MusicProc *mproc = Proc_Start(gMusicProc3Script, PROC_TREE_3);
 

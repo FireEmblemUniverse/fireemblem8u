@@ -12,6 +12,7 @@
 #include "scene.h"
 #include "bmio.h"
 #include "bmlib.h"
+#include "savemenu.h"
 
 struct HelpBoxScrollProc {
     /* 00 */ PROC_HEADER;
@@ -390,7 +391,7 @@ void DrawHelpBoxSaveMenuLabels(void) {
 void DrawHelpBoxSaveMenuStats(void) {
     int level;
 
-    char* str = sub_80AA768();
+    const char* str = GetWMNodeNameForSaveMenu();
 
     if (str != 0) {
         Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, str);
@@ -398,7 +399,7 @@ void DrawHelpBoxSaveMenuStats(void) {
         Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, GetStringFromIndex(0x538));
     }
 
-    level = sub_80AA744();
+    level = GetLeaderLevelForSaveMenu();
 
     if (level >= 0) {
         Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[0], 116, 7, level);
@@ -607,8 +608,8 @@ void sub_808A00C(struct HelpBox8A01650Proc* proc) {
 
     otherProc->unk_5e = 0;
 
-    textSpeed = gPlaySt.cfgTextSpeed;
-    switch (gPlaySt.cfgTextSpeed) {
+    textSpeed = gPlaySt.config.textSpeed;
+    switch (gPlaySt.config.textSpeed) {
         case 0:
             otherProc->unk_60 = 2;
             break;

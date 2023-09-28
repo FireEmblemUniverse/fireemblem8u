@@ -88,7 +88,7 @@ void sub_8085374(struct EventEngineProc *proc)
 
 void sub_8085388(struct EventEngineProc *proc)
 {
-    if ((PLAY_FLAG_TUTORIAL & gPlaySt.chapterStateBits) || 0 == gPlaySt.cfgDisableBgm)
+    if ((PLAY_FLAG_TUTORIAL & gPlaySt.chapterStateBits) || 0 == gPlaySt.config.disableBgm)
         Sound_FadeOutBGM(4);
 }
 

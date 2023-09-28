@@ -43,4 +43,6 @@ struct BonusClaimItemEnt {
 // ??? BonusClaim_OnEnd(???);
 void StartBonusClaimScreen(ProcPtr);
 
+extern struct BonusClaimEnt gUnknown_02000968[];
+
 #endif // BONUSCLAIM_H

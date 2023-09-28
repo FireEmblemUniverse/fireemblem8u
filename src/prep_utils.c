@@ -286,7 +286,7 @@ void sub_8097FDC(void) {
     int i;
 
     for (i = 0; i < 0x10; i++) {
-        int pal = gPlaySt.cfgWindowColor;
+        int pal = gPlaySt.config.windowColor;
 
         u16* dst = &gUnknown_02013460[i];
         u16* src = &gUnknown_08A1D448[pal * 0x10 + i];

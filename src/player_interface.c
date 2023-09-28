@@ -1315,23 +1315,23 @@ void InitPlayerPhaseInterface() {
 
     ResetTextFont();
 
-    if (gPlaySt.cfgDisableTerrainDisplay == 0) {
+    if (gPlaySt.config.disableTerrainDisplay == 0) {
         Proc_Start(gProcScr_TerrainDisplay, PROC_TREE_3);
     }
 
     if (gBmSt.gameStateBits & 0x10) {
         Proc_Start(gProcScr_PrepMap_MenuButtonDisplay, PROC_TREE_3);
     } else {
-        if ((gPlaySt.cfgDisableGoalDisplay == 0) && (CheckFlag(0x66) == 0)) {
+        if ((gPlaySt.config.disableGoalDisplay == 0) && (CheckFlag(0x66) == 0)) {
             Proc_Start(gProcScr_GoalDisplay, PROC_TREE_3);
         }
     }
 
-    if (gPlaySt.cfgUnitDisplayType == 0) {
+    if (gPlaySt.config.unitDisplayType == 0) {
         Proc_Start(gProcScr_UnitDisplay_MinimugBox, PROC_TREE_3);
     }
 
-    if (gPlaySt.cfgUnitDisplayType == 1) {
+    if (gPlaySt.config.unitDisplayType == 1) {
         Proc_Start(gProcScr_UnitDisplay_Burst, PROC_TREE_3);
     }
 

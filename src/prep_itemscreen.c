@@ -560,7 +560,7 @@ void PutImg_PrepItemUseUnk(int vram, int pal) {
     };
 
     Decompress(Img_PrepWindow, (void *)(0x6000000 + vram));
-    ApplyPalette(Pals_PrepWindow[gPlaySt.cfgWindowColor], pal);
+    ApplyPalette(Pals_PrepWindow[gPlaySt.config.windowColor], pal);
     return;
 }
 

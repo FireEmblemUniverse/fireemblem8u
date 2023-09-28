@@ -1231,7 +1231,7 @@ void TrySwitchViewedUnit(int x, int y) {
 
 void PlayerPhase_HandleAutoEnd(ProcPtr proc) {
 
-    if (!(gPlaySt.cfgDisableAutoEndTurns) && (GetPhaseAbleUnitCount(gPlaySt.faction) == 0)) {
+    if (!(gPlaySt.config.disableAutoEndTurns) && (GetPhaseAbleUnitCount(gPlaySt.faction) == 0)) {
         Proc_Goto(proc, 3);
     }
 

@@ -135,6 +135,36 @@ struct PlaySt_30 {
     u32 unk_F_00 : 8;
 } BITPACKED;
 
+struct PlaySt_OptionBits {
+    // option bits
+    u32 unitColor:1; // 1
+    u32 disableTerrainDisplay:1; // 1
+    u32 unitDisplayType:2; // 2
+    u32 autoCursor:1; // 1
+    u32 textSpeed:2;
+    u32 gameSpeed:1; // 1
+
+    u32 disableBgm:1; // 1
+    u32 disableSoundEffects:1; // 1
+    u32 windowColor:2;
+    u32 unk41_5:1; // 1
+    u32 unk41_6:1; // unk
+    u32 disableAutoEndTurns:1; // 1
+    u32 noSubtitleHelp:1; // 1
+
+    u32 disableGoalDisplay:1; // unk
+    u32 animationType:2; // 2
+    u32 battleForecastType:2; // 2
+    u32 controller:1; // 1
+    u32 rankDisplay:1; // unk
+
+    u32 debugControlRed:2; // 2 (!)
+    u32 debugControlGreen:2; // 2
+    u32 unk43_4:5; // unk
+
+    u8  unk44[0x48 - 0x44];
+} BITPACKED;
+
 struct PlaySt { // Chapter Data Struct
     /* 00 */ u32 time_saved;
     /* 04 */ u32 time_chapter_started;
@@ -181,30 +211,7 @@ struct PlaySt { // Chapter Data Struct
 
     struct PlaySt_30 unk_30;
 
-    // option bits
-    u32 cfgUnitColor:1; // 1
-    u32 cfgDisableTerrainDisplay:1; // 1
-    u32 cfgUnitDisplayType:2; // 2
-    u32 cfgAutoCursor:1; // 1
-    u32 cfgTextSpeed:2;
-    u32 cfgGameSpeed:1; // 1
-    u32 cfgDisableBgm:1; // 1
-    u32 cfgDisableSoundEffects:1; // 1
-    u32 cfgWindowColor:2;
-    u32 unk41_5:1; // 1
-    u32 unk41_6:1; // unk
-    u32 cfgDisableAutoEndTurns:1; // 1
-    u32 cfgNoSubtitleHelp:1; // 1
-    u32 cfgDisableGoalDisplay:1; // unk
-    u32 cfgAnimationType:2; // 2
-    u32 cfgBattleForecastType:2; // 2
-    u32 cfgController:1; // 1
-    u32 cfgRankDisplay:1; // unk
-    u32 debugControlRed:2; // 2 (!)
-    u32 debugControlGreen:2; // 2
-    u32 unk43_4:5; // unk
-
-    u8  unk44[0x48 - 0x44];
+    struct PlaySt_OptionBits config;
 
     u16 unk48;
 

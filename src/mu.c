@@ -1431,7 +1431,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
 
             if (speed & 0x40)
                 speed ^= 0x40;
-            else if (gPlaySt.cfgGameSpeed || (gKeyStatusPtr->heldKeys & A_BUTTON))
+            else if (gPlaySt.config.gameSpeed || (gKeyStatusPtr->heldKeys & A_BUTTON))
                 speed *= 4;
 
             if (speed > 0x80)
@@ -1443,7 +1443,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
         if (!IsFirstPlaythrough() && (gKeyStatusPtr->heldKeys & A_BUTTON))
             return 0x80;
 
-        if (gPlaySt.cfgGameSpeed)
+        if (gPlaySt.config.gameSpeed)
             return 0x40;
     }
 

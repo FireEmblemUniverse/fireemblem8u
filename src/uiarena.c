@@ -337,14 +337,14 @@ void DrawArenaOpponentDetailsText(ProcPtr proc) {
 void Arena_PlayResultSong(ProcPtr proc) {
     switch (ArenaGetResult()) {
         case 1:
-            if (!gPlaySt.cfgDisableBgm) {
+            if (!gPlaySt.config.disableBgm) {
                 StartBgmCore(0x3a, 0);
             }
 
             break;
 
         default:
-            if (!gPlaySt.cfgDisableBgm) {
+            if (!gPlaySt.config.disableBgm) {
                 StartBgmCore(0x38, 0);
             }
 
