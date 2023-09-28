@@ -150,9 +150,9 @@ void savemenu_SetDifficultyChoice(int, int);
 // ??? sub_80AA6D8(???);
 void sub_80AA6EC(ProcPtr);
 void sub_80AA700(void);
-// ??? sub_80AA718(???);
-int sub_80AA744(void); // GetHeroLevelForSaveMenu
-const char * sub_80AA768(void); // GetWMNodeNameForSaveMenu
+// ??? GetLeaderNameForSaveMenu(???);
+int GetLeaderLevelForSaveMenu(void);
+const char * GetWMNodeNameForSaveMenu(void);
 void sub_80AA790(u16 *, u16 *, int);
 // ??? sub_80AA7AC(???);
 // ??? sub_80AA7EC(???);
@@ -197,21 +197,21 @@ void sub_80ABD88(u8);
 // ??? sub_80ABE3C(???);
 u8 sub_80ABF44(u8 endMask, struct SaveMenuProc * proc);
 void sub_80ABF74(u8);
-void sub_80ABFE0(struct DifficultyMenuProc *);
+void DrawDifficultyModeText(struct DifficultyMenuProc *);
 void sub_80AC034(struct DifficultyMenuProc *);
-// ??? sub_80AC078(???);
+// ??? DifficultySelect_OnEnd(???);
 // ??? InitDifficultySelectScreen(???);
-// ??? sub_80AC1A8(???);
+// ??? DifficultySelect_Init(???);
 // ??? sub_80AC1BC(???);
 // ??? sub_80AC22C(???);
-// ??? sub_80AC288(???);
+// ??? DifficultySelect_Loop_KeyHandler(???);
 // ??? nullsub_64(???);
 void NewNewGameDifficultySelect(ProcPtr);
-// ??? sub_80AC3F4(???);
-// ??? sub_80AC418(???);
+// ??? DrawDifficultySprite_Init(???);
+// ??? DrawDifficultyMenuCursorMaybe(???);
 // ??? sub_80AC4F8(???);
-// ??? sub_80AC588(???);
+// ??? DrawDifficultySprites_Loop(???);
 void sub_80AC680(struct DifficultyMenuSpritesProc *, int, int);
-ProcPtr sub_80AC698(ProcPtr);
+ProcPtr StartDrawDifficultyMenuSprites(ProcPtr);
 
 #endif // GUARD_SAVEMENU_H

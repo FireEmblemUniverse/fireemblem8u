@@ -186,7 +186,7 @@ extern int gUnknown_0203E1E0;
 extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gUnknown_0203E884
 // extern ??? gExtraMapStatus
-// extern ??? gUnknown_0203EF64
+// extern ??? gSaveMenuRTextData
 // extern ??? gUnknown_0203EFB4
 // extern ??? gUnknown_0203EFB8
 // extern ??? gUnknown_03000000
@@ -1224,15 +1224,15 @@ extern u16 gTSA_GoalBox_OneLine[];
 extern u16* gUnknown_08A209E4[];
 extern u16* gUnknown_08A209F0[];
 // extern ??? gUnknown_08A209FC
-// extern ??? gUnknown_08A20A08
-// extern ??? ProcScr_NewGameDiffilcultySelect
-// extern ??? gUnknown_08A20A98
-// extern ??? gUnknown_08A20AA0
-// extern ??? gUnknown_08A20AAE
-// extern ??? gUnknown_08A20AC2
-// extern ??? gUnknown_08A20B08
+// extern ??? gTextIds_DifficultyDescription
+// extern ??? ProcScr_NewGameDifficultySelect
+// extern ??? gSprite_08A20A98
+// extern ??? gSprite_DifficultyMenuSelectModeBg
+// extern ??? gSprite_DifficultyMenuSelectModeText
+// extern ??? gSprite_08A20AC2
+// extern ??? gSpriteArray_08A20B08
 // extern ??? gUnknown_08A20B14
-// extern ??? gUnknown_08A20B1C
+// extern ??? gProcScr_DrawDifficultyMenuSprites
 // extern ??? gUnknown_08A20B3C
 // extern ??? gUnknown_08A20B44
 // extern ??? gUnknown_08A20B4C

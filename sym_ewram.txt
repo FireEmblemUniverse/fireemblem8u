@@ -425,7 +425,7 @@
 . = ALIGN(4); src/bmsave.o(ewram_data);
 . = ALIGN(4); src/bmsave-multiarena.o(ewram_data);
 . = ALIGN(4); src/bmsave-xmap.o(ewram_data);
-. = 0x03EF64; gUnknown_0203EF64 = .;
+. = 0x03EF64; gSaveMenuRTextData = .;
 . = 0x03EF68; gShopItemTexts = .;
 . = 0x03EF98; sShopState = .;
 . = 0x03EFB4; gUnknown_0203EFB4 = .;

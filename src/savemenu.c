@@ -29,7 +29,7 @@ struct SaveMenuRTextData
     s8 nodeId;
 };
 
-extern struct SaveMenuRTextData gUnknown_0203EF64; // gSaveMenuRTextData
+extern struct SaveMenuRTextData gSaveMenuRTextData;
 
 struct SaveMenu8A20068Proc {
     /* 00 */ PROC_HEADER;
@@ -174,11 +174,11 @@ int LoadSaveMenuHelpText(int slot) {
     }
 
     if (i < UNIT_SAVE_AMOUNT_BLUE) {
-        gUnknown_0203EF64.pid = leaderId;
-        gUnknown_0203EF64.level = unit.level;
+        gSaveMenuRTextData.pid = leaderId;
+        gSaveMenuRTextData.level = unit.level;
 
         ReadWorldMapStuff(&saveBase->wmStuff, &mapData);
-        gUnknown_0203EF64.nodeId = mapData.units[0].location;
+        gSaveMenuRTextData.nodeId = mapData.units[0].location;
 
         return 2;
     }
@@ -1989,43 +1989,43 @@ void sub_80AA6EC(ProcPtr parent)
 //! FE8U = 0x080AA700
 void sub_80AA700(void)
 {
-    gUnknown_0203EF64.pid = 0;
-    gUnknown_0203EF64.level = -1;
-    gUnknown_0203EF64.nodeId = -1;
+    gSaveMenuRTextData.pid = 0;
+    gSaveMenuRTextData.level = -1;
+    gSaveMenuRTextData.nodeId = -1;
     return;
 }
 
 //! FE8U = 0x080AA718
-const char * sub_80AA718(void)
+const char * GetLeaderNameForSaveMenu(void)
 {
-    if (gUnknown_0203EF64.pid == 0)
+    if (gSaveMenuRTextData.pid == 0)
     {
         return NULL;
     }
 
-    return GetStringFromIndex(gCharacterData[gUnknown_0203EF64.pid - 1].nameTextId);
+    return GetStringFromIndex(gCharacterData[gSaveMenuRTextData.pid - 1].nameTextId);
 }
 
 //! FE8U = 0x080AA744
-int sub_80AA744(void)
+int GetLeaderLevelForSaveMenu(void)
 {
-    if ((gUnknown_0203EF64.pid == 0) || (gUnknown_0203EF64.level < 0))
+    if ((gSaveMenuRTextData.pid == 0) || (gSaveMenuRTextData.level < 0))
     {
         return -1;
     }
 
-    return gUnknown_0203EF64.level;
+    return gSaveMenuRTextData.level;
 }
 
 //! FE8U = 0x080AA768
-const char * sub_80AA768(void)
+const char * GetWMNodeNameForSaveMenu(void)
 {
-    if ((gUnknown_0203EF64.pid == 0) || (gUnknown_0203EF64.nodeId < 0))
+    if ((gSaveMenuRTextData.pid == 0) || (gSaveMenuRTextData.nodeId < 0))
     {
         return NULL;
     }
 
-    return GetWorldMapNodeName(gUnknown_0203EF64.nodeId);
+    return GetWorldMapNodeName(gSaveMenuRTextData.nodeId);
 }
 
 //! FE8U = 0x080AA790

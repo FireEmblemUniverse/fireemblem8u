@@ -494,7 +494,7 @@ void sub_80ABF74(u8 param_1)
 
 #endif
 
-u16 CONST_DATA gUnknown_08A20A08[] =
+u16 CONST_DATA gTextIds_DifficultyDescription[] =
 {
     0x0149, // TODO: msgid "For first-timers.[.][NL]Game rules and[NL]controls will be[NL]explained as you[NL]play.[.]"
     0x014A, // TODO: msgid "For experienced[.][NL]players. No game-[.][NL]play hints will[.][NL]be provided as[NL]you play.[.]"
@@ -502,7 +502,7 @@ u16 CONST_DATA gUnknown_08A20A08[] =
 };
 
 //! FE8U = 0x080ABFE0
-void sub_80ABFE0(struct DifficultyMenuProc * proc)
+void DrawDifficultyModeText(struct DifficultyMenuProc * proc)
 {
     const char * str;
     struct Text * th;
@@ -514,7 +514,7 @@ void sub_80ABFE0(struct DifficultyMenuProc * proc)
     }
 
     th = proc->unk_38;
-    str = GetStringFromIndex(gUnknown_08A20A08[proc->unk_30]);
+    str = GetStringFromIndex(gTextIds_DifficultyDescription[proc->unk_30]);
 
     while (1)
     {
@@ -554,7 +554,7 @@ void sub_80AC034(struct DifficultyMenuProc * proc)
 }
 
 //! FE8U = 0x080AC078
-void sub_80AC078(struct DifficultyMenuProc * proc)
+void DifficultySelect_OnEnd(struct DifficultyMenuProc * proc)
 {
     ((struct SaveMenuProc *)(proc->proc_parent))->unk_58->unk_29 = 1;
     return;
@@ -602,12 +602,12 @@ void InitDifficultySelectScreen(struct DifficultyMenuProc * proc)
     Decompress(gUnknown_08A29558, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer + 0xd1, gGenericBuffer, 0x1000);
 
-    sub_80ABFE0(proc);
+    DrawDifficultyModeText(proc);
     sub_80AC034(proc);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    proc->unk_34 = sub_80AC698(proc);
+    proc->unk_34 = StartDrawDifficultyMenuSprites(proc);
     proc->unk_30 = 0;
     proc->unk_34->unk_2b = 0;
     proc->unk_34->unk_2c = gUnknown_08A209FC[proc->unk_30].a;
@@ -617,7 +617,7 @@ void InitDifficultySelectScreen(struct DifficultyMenuProc * proc)
 }
 
 //! FE8U = 0x080AC1A8
-void sub_80AC1A8(struct DifficultyMenuProc * proc)
+void DifficultySelect_Init(struct DifficultyMenuProc * proc)
 {
     proc->unk_30 = 0;
     proc->unk_2c = 0;
@@ -674,7 +674,7 @@ void sub_80AC22C(struct DifficultyMenuProc * proc)
 }
 
 //! FE8U = 0x080AC288
-void sub_80AC288(struct DifficultyMenuProc * proc)
+void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
 {
     s8 hasChanged = 0;
 
@@ -710,7 +710,7 @@ void sub_80AC288(struct DifficultyMenuProc * proc)
         PlaySoundEffect(0x66);
         proc->unk_34->unk_2b = proc->unk_30;
         sub_80AC680(proc->unk_34, gUnknown_08A209FC[proc->unk_30].a, gUnknown_08A209FC[proc->unk_30].b);
-        sub_80ABFE0(proc);
+        DrawDifficultyModeText(proc);
         sub_80AC034(proc);
         return;
     }
@@ -761,14 +761,14 @@ void nullsub_64(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_NewGameDiffilcultySelect[] =
+struct ProcCmd CONST_DATA ProcScr_NewGameDifficultySelect[] =
 {
-    PROC_SET_END_CB(sub_80AC078),
+    PROC_SET_END_CB(DifficultySelect_OnEnd),
 
     PROC_CALL(sub_80AD5B4),
     PROC_YIELD,
 
-    PROC_CALL(sub_80AC1A8),
+    PROC_CALL(DifficultySelect_Init),
     PROC_SLEEP(1),
 
     PROC_CALL(EnableAllGfx),
@@ -776,7 +776,7 @@ struct ProcCmd CONST_DATA ProcScr_NewGameDiffilcultySelect[] =
     PROC_WHILE(FadeInExists),
 
 PROC_LABEL(0),
-    PROC_REPEAT(sub_80AC288),
+    PROC_REPEAT(DifficultySelect_Loop_KeyHandler),
 
     // fallthrough
 
@@ -799,12 +799,12 @@ PROC_LABEL(2),
 //! FE8U = 0x080AC3E0
 void NewNewGameDifficultySelect(ProcPtr parent)
 {
-    Proc_StartBlocking(ProcScr_NewGameDiffilcultySelect, parent);
+    Proc_StartBlocking(ProcScr_NewGameDifficultySelect, parent);
     return;
 }
 
 //! FE8U = 0x080AC3F4
-void sub_80AC3F4(struct DifficultyMenuSpritesProc * proc)
+void DrawDifficultySprite_Init(struct DifficultyMenuSpritesProc * proc)
 {
     proc->unk_29_0 = 0;
     proc->unk_29_1 = 0;
@@ -820,7 +820,7 @@ extern u8 gUnknown_08A20B14[];
 
 // clang-format off
 
-u16 CONST_DATA gUnknown_08A20A98[] =
+u16 CONST_DATA gSprite_08A20A98[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x5C) + OAM2_LAYER(1),
@@ -829,7 +829,7 @@ u16 CONST_DATA gUnknown_08A20A98[] =
 // clang-format on
 
 //! FE8U = 0x080AC418
-void sub_80AC418(struct DifficultyMenuSpritesProc * proc)
+void DrawDifficultyMenuCursorMaybe(struct DifficultyMenuSpritesProc * proc)
 {
     if (proc->unk_29_0)
     {
@@ -862,7 +862,7 @@ void sub_80AC418(struct DifficultyMenuSpritesProc * proc)
     }
 
     PutSpriteExt(
-        4, proc->unk_2c, (proc->unk_2e + gUnknown_08A20B14[(proc->unk_2a >> 3) & 7]) & 0xff, gUnknown_08A20A98, 0x3000);
+        4, proc->unk_2c, OAM0_Y(proc->unk_2e + gUnknown_08A20B14[(proc->unk_2a >> 3) & 7]), gSprite_08A20A98, OAM2_PAL(3));
 
     return;
 }
@@ -989,14 +989,14 @@ void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx)
 
 // clang-format off
 
-u16 CONST_DATA gUnknown_08A20AA0[] =
+u16 CONST_DATA gSprite_DifficultyMenuSelectModeBg[] =
 {
     2,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x40) + OAM2_LAYER(2),
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(64), OAM2_CHR(0x48) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gUnknown_08A20AAE[] =
+u16 CONST_DATA gSprite_DifficultyMenuSelectModeText[] =
 {
     3,
     OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x50) + OAM2_LAYER(2),
@@ -1004,7 +1004,7 @@ u16 CONST_DATA gUnknown_08A20AAE[] =
     OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(80), OAM2_CHR(0x58) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gUnknown_08A20AC2[] =
+u16 CONST_DATA gSprite_08A20AC2[] =
 {
     2,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x40) + OAM2_LAYER(2),
@@ -1034,7 +1034,7 @@ u16 CONST_DATA gSprite_08A20AF2[] =
     OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(80), OAM2_CHR(0x98) + OAM2_LAYER(2),
 };
 
-u16 * CONST_DATA gUnknown_08A20B08[] =
+u16 * CONST_DATA gSpriteArray_08A20B08[] =
 {
     gSprite_08A20AD0,
     gSprite_08A20AE4,
@@ -1049,34 +1049,34 @@ u8 CONST_DATA gUnknown_08A20B14[] =
 // clang-format on
 
 //! FE8U = 0x080AC588
-void sub_80AC588(struct DifficultyMenuSpritesProc * proc)
+void DrawDifficultySprites_Loop(struct DifficultyMenuSpritesProc * proc)
 {
     int i;
 
     proc->unk_2a++;
 
-    PutSpriteExt(4, 0x38, 4, gUnknown_08A20AA0, 0x2000);
-    PutSpriteExt(4, 0x38, 4, gUnknown_08A20AAE, 0x4000);
+    PutSpriteExt(4, 56, 4, gSprite_DifficultyMenuSelectModeBg, OAM2_PAL(2));
+    PutSpriteExt(4, 56, 4, gSprite_DifficultyMenuSelectModeText, OAM2_PAL(4));
 
     for (i = 0; i < 3; i++)
     {
         s16 x = 8; // ?
-        s16 y = 0x30 + i * 0x20;
+        s16 y = 48 + i * 32;
 
         if (i == proc->unk_2b)
         {
-            PutSpriteExt(4, x, y, gUnknown_08A20AC2, OAM2_PAL(5 + (i * 2)));
+            PutSpriteExt(4, x, y, gSprite_08A20AC2, OAM2_PAL(5 + (i * 2)));
         }
         else
         {
-            PutSpriteExt(4, x, y, gUnknown_08A20AC2, OAM2_PAL(6 + (i * 2)));
+            PutSpriteExt(4, x, y, gSprite_08A20AC2, OAM2_PAL(6 + (i * 2)));
         }
 
-        PutSpriteExt(4, x, y, gUnknown_08A20B08[i], 0x4000);
+        PutSpriteExt(4, x, y, gSpriteArray_08A20B08[i], OAM2_PAL(4));
     }
 
     sub_80AC4F8(proc->unk_2a, proc->unk_2b);
-    sub_80AC418(proc);
+    DrawDifficultyMenuCursorMaybe(proc);
 
     return;
 }
@@ -1095,12 +1095,12 @@ void sub_80AC680(struct DifficultyMenuSpritesProc * proc, int param_2, int param
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A20B1C[] =
+struct ProcCmd CONST_DATA gProcScr_DrawDifficultyMenuSprites[] =
 {
-    PROC_CALL(sub_80AC3F4),
+    PROC_CALL(DrawDifficultySprite_Init),
     PROC_YIELD,
 
-    PROC_REPEAT(sub_80AC588),
+    PROC_REPEAT(DrawDifficultySprites_Loop),
 
     PROC_END,
 };
@@ -1108,7 +1108,7 @@ struct ProcCmd CONST_DATA gUnknown_08A20B1C[] =
 // clang-format on
 
 //! FE8U = 0x080AC698
-ProcPtr sub_80AC698(ProcPtr parent)
+ProcPtr StartDrawDifficultyMenuSprites(ProcPtr parent)
 {
-    return Proc_Start(gUnknown_08A20B1C, parent);
+    return Proc_Start(gProcScr_DrawDifficultyMenuSprites, parent);
 }

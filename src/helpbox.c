@@ -391,7 +391,7 @@ void DrawHelpBoxSaveMenuLabels(void) {
 void DrawHelpBoxSaveMenuStats(void) {
     int level;
 
-    const char* str = sub_80AA768();
+    const char* str = GetWMNodeNameForSaveMenu();
 
     if (str != 0) {
         Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, str);
@@ -399,7 +399,7 @@ void DrawHelpBoxSaveMenuStats(void) {
         Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, GetStringFromIndex(0x538));
     }
 
-    level = sub_80AA744();
+    level = GetLeaderLevelForSaveMenu();
 
     if (level >= 0) {
         Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[0], 116, 7, level);
