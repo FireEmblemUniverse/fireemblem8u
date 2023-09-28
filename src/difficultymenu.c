@@ -177,13 +177,13 @@ extern u16 gUnknown_08A07BEA[];
 void sub_80ABE3C(int param_1, int param_2)
 {
     int r2;
-    u16 *r6;
-    u16 *r8;
+    u16 * r6;
+    u16 * r8;
     int r9;
-    u16* ip;
+    u16 * ip;
     // permuter
-    u16 *pickle = gUnknown_08A07BEA;
-    u16 *ketchup = gUnknown_08A07AEA;
+    u16 * pickle = gUnknown_08A07BEA;
+    u16 * ketchup = gUnknown_08A07AEA;
 
     param_1 = (param_1 >> 1) & 0x1f;
     if (param_1 > 0x10)
@@ -247,7 +247,7 @@ u8 sub_80ABF44(u8 endMask, struct SaveMenuProc * proc)
 void sub_80ABF74(u8 param_1)
 {
     int r4;
-    void* r6;
+    void * r6;
     int r2;
     int i;
     void * r5;
@@ -655,13 +655,9 @@ void DrawDifficultyMenuCursorMaybe(struct DifficultyMenuSpritesProc * proc)
 
 // TODO: Confirm that this is a 3D array
 // Seems to be palettes for easy, normal, difficult; active / inactive; size 0x10 each
-extern u16 gUnknown_08A29498[3][2][0x10];
+extern u16 gUnknown_08A29498[0x60];
 
 extern u16 gUnknown_08A28088[];
-
-#if NONMATCHING
-
-/* https://decomp.me/scratch/GaYjI */
 
 //! FE8U = 0x080AC4F8
 void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx)
@@ -669,109 +665,23 @@ void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx)
     int i;
     int palId;
     int color;
+    s16 var; // by permuter
 
     for (i = 0; i < 3; i++)
     {
         if (i == selectedIdx)
         {
-            PAL_OBJ_COLOR(5 + i * 2, 1) = gUnknown_08A29498[i][0][1];
+            var = i * 0x20;
+            PAL_OBJ_COLOR(5 + i * 2, 1) = (gUnknown_08A29498 + var)[1];
         }
         else
-        {
-            // inactive
-            u16 * pal = &gUnknown_08A29498[i][1][1];
-            PAL_OBJ_COLOR(6 + i * 2, 1) = *pal;
-        }
+            PAL_OBJ_COLOR(6 + i * 2, 1) = (gUnknown_08A29498 + i * 0x20)[0x10 + 1];
     }
 
     color = (frameMaybe % 0x40) / 4;
-
-    gPaletteBuffer[(((5 + 0x10) * 0x10) + 1) + ((selectedIdx * 2))] = gUnknown_08A28088[color];
-
+    gPaletteBuffer[((5 + 0x10) * 0x10 + 1) + selectedIdx * 0x20] = gUnknown_08A28088[color];
     EnablePaletteSync();
-
-    return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r8\n\
-        push {r7}\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        mov ip, r0\n\
-        lsls r1, r1, #0x18\n\
-        lsrs r3, r1, #0x18\n\
-        movs r2, #0\n\
-        ldr r7, _080AC530  @ gPaletteBuffer\n\
-        ldr r0, _080AC534  @ gUnknown_08A28088\n\
-        mov r8, r0\n\
-        lsls r0, r3, #6\n\
-        ldr r1, _080AC538  @ 0x000002A2\n\
-        adds r0, r0, r1\n\
-        adds r6, r0, r7\n\
-        lsls r1, r3, #6\n\
-        ldr r0, _080AC53C  @ 0x000002C2\n\
-        adds r4, r7, r0\n\
-        ldr r0, _080AC540  @ gUnknown_08A2949A\n\
-        adds r5, r1, r0\n\
-    _080AC522:\n\
-        cmp r2, r3\n\
-        bne _080AC544\n\
-        ldrh r0, [r5]\n\
-        strh r0, [r6]\n\
-        lsls r1, r2, #5\n\
-        b _080AC550\n\
-        .align 2, 0\n\
-    _080AC530: .4byte gPaletteBuffer\n\
-    _080AC534: .4byte gUnknown_08A28088\n\
-    _080AC538: .4byte 0x000002A2\n\
-    _080AC53C: .4byte 0x000002C2\n\
-    _080AC540: .4byte gUnknown_08A2949A\n\
-    _080AC544:\n\
-        lsls r0, r2, #6\n\
-        ldr r1, _080AC580  @ gUnknown_08A294BA\n\
-        adds r0, r0, r1\n\
-        ldrh r0, [r0]\n\
-        strh r0, [r4]\n\
-        lsls r1, r3, #5\n\
-    _080AC550:\n\
-        adds r4, #0x40\n\
-        adds r2, #1\n\
-        cmp r2, #2\n\
-        ble _080AC522\n\
-        movs r0, #0x3f\n\
-        mov r2, ip\n\
-        ands r0, r2\n\
-        lsrs r0, r0, #2\n\
-        ldr r2, _080AC584  @ 0x00000151\n\
-        adds r1, r1, r2\n\
-        lsls r1, r1, #1\n\
-        adds r1, r1, r7\n\
-        lsls r0, r0, #1\n\
-        add r0, r8\n\
-        ldrh r0, [r0]\n\
-        strh r0, [r1]\n\
-        bl EnablePaletteSync\n\
-        pop {r3}\n\
-        mov r8, r3\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080AC580: .4byte gUnknown_08A294BA\n\
-    _080AC584: .4byte 0x00000151\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 // clang-format off
 
