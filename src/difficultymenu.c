@@ -243,26 +243,23 @@ u8 sub_80ABF44(u8 endMask, struct SaveMenuProc * proc)
     return count;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/SDtUT */
-
 //! FE8U = 0x080ABF74
 void sub_80ABF74(u8 param_1)
 {
     int r4;
-    void * r6;
+    void* r6;
     int r2;
     int i;
     void * r5;
+    s16 z; // by decomp permuter
 
-    if ((param_1 & 0x60) != 0)
+    if ((z = param_1) & 0x60)
     {
         r6 = (void *)0x06014000;
         r2 = 0xe;
         r4 = 2;
     }
-    else if ((param_1 & 0x10) != 0)
+    else if (param_1 & 0x10)
     {
         r6 = (void *)0x06014800;
         r2 = 0xe;
@@ -272,80 +269,16 @@ void sub_80ABF74(u8 param_1)
     r5 = (void *)(0x060121C0);
     for (i = 0; i < r4; i++)
     {
-        CpuFastCopy(r6, r5 + i * 0x400, r2 * 0x20);
+        CpuFastCopy(
+            r6,
+            r5 + i * 0x400,
+            r2 * 0x20
+        );
         r6 += 0x400;
     }
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_80ABF74(u8 param_1)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r8\n\
-        push {r7}\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r3, r0, #0x18\n\
-        movs r1, #0x60\n\
-        adds r0, r3, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080ABF94\n\
-        ldr r6, _080ABF90  @ 0x06014000\n\
-        movs r2, #0xe\n\
-        movs r4, #2\n\
-        b _080ABFA6\n\
-        .align 2, 0\n\
-    _080ABF90: .4byte 0x06014000\n\
-    _080ABF94:\n\
-        movs r0, #0x10\n\
-        ands r0, r3\n\
-        cmp r0, #0\n\
-        beq _080ABFA2\n\
-        ldr r6, _080ABFD4  @ 0x06014800\n\
-        movs r2, #0xe\n\
-        movs r4, #2\n\
-    _080ABFA2:\n\
-        cmp r4, #0\n\
-        ble _080ABFC8\n\
-    _080ABFA6:\n\
-        lsls r7, r2, #3\n\
-        ldr r5, _080ABFD8  @ 0x060121C0\n\
-        ldr r0, _080ABFDC  @ 0x001FFFFF\n\
-        mov r8, r0\n\
-    _080ABFAE:\n\
-        adds r0, r6, #0\n\
-        adds r1, r5, #0\n\
-        mov r2, r8\n\
-        ands r2, r7\n\
-        bl CpuFastSet\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #3\n\
-        adds r6, r6, r0\n\
-        adds r5, r5, r0\n\
-        subs r4, #1\n\
-        cmp r4, #0\n\
-        bne _080ABFAE\n\
-    _080ABFC8:\n\
-        pop {r3}\n\
-        mov r8, r3\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080ABFD4: .4byte 0x06014800\n\
-    _080ABFD8: .4byte 0x060121C0\n\
-    _080ABFDC: .4byte 0x001FFFFF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 u16 CONST_DATA gTextIds_DifficultyDescription[] =
 {
