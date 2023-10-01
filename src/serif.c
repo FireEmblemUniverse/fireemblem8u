@@ -16,6 +16,28 @@
 
 extern struct Unknown0203E82C gUnknown_0203E82C;
 
+// clang-format off
+
+u16 CONST_DATA gUnknown_08A01D88[] =
+{
+    6,
+    OAM0_SHAPE_32x8 + OAM0_BLEND, OAM1_SIZE_32x8, OAM2_CHR(0),
+    OAM0_SHAPE_32x8 + OAM0_BLEND, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x4),
+    OAM0_SHAPE_32x8 + OAM0_Y(8) + OAM0_BLEND, OAM1_SIZE_32x8, OAM2_CHR(0x8),
+    OAM0_SHAPE_32x8 + OAM0_Y(8) + OAM0_BLEND, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0xC),
+    OAM0_SHAPE_32x8 + OAM0_Y(16) + OAM0_BLEND, OAM1_SIZE_32x8, OAM2_CHR(0x10),
+    OAM0_SHAPE_32x8 + OAM0_Y(16) + OAM0_BLEND, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x14),
+};
+
+u16 CONST_DATA gUnknown_08A01DAE[] =
+{
+    2,
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16, OAM2_CHR(0),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x4),
+};
+
+// clang-format on
+
 //! FE8U = 0x0808E9D8
 void sub_808E9D8(int flags)
 {
@@ -260,6 +282,7 @@ void sub_808EBD4(struct SerifProc * proc)
         {
             gUnknown_0203E82C.unk_48_00 = proc->unk_58 - 1;
         }
+
         gUnknown_0203E82C.unk_48_05 = proc->unk_5c + proc->unk_58 + 1;
 
         sub_808EA48(1 << ((sub_808EA3C() & 0xc000) >> 0xe), 1 << ((sub_808EA3C() & 0xc000) >> 0xe) ^ 0x1f);
@@ -424,7 +447,50 @@ void sub_808F0EC(struct SerifProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A01DBC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A01DBC[] =
+{
+    PROC_SET_END_CB(sub_808F0C4),
+    PROC_YIELD,
+
+    PROC_CALL(sub_808EBD4),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_808EF64),
+
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_REPEAT(sub_808EF6C),
+
+    // fallthrough
+
+PROC_LABEL(3),
+    PROC_CALL(sub_808F0EC),
+    PROC_REPEAT(sub_808F04C),
+
+    // fallthrough
+
+PROC_LABEL(4),
+    PROC_BLOCK,
+
+    // fallthrough
+
+PROC_LABEL(0),
+    PROC_CALL(sub_808EFA8),
+    PROC_REPEAT(sub_808F008),
+
+    PROC_CALL(sub_808F084),
+    PROC_YIELD,
+
+    // fallthrough
+
+PROC_LABEL(5),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0808F128
 void sub_808F128(int x, int y, int widthMaybe, int heightMaybe, int stringId, void * vram, int pal, ProcPtr parent)
@@ -574,12 +640,10 @@ void sub_808F30C(struct SerifProc * proc)
 //! FE8U = 0x0808F358
 void sub_808F358(const char * str, u8 * wOut, u8 * hOut)
 {
-    int h;
-    int w;
     int charWidth;
 
-    w = 0;
-    h = *hOut;
+    int w = 0;
+    int h = *hOut;
 
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
@@ -767,11 +831,9 @@ s8 sub_808F5A0(const char * str)
     }
 }
 
-extern u16 gUnknown_08A01D88[];
-extern u16 gUnknown_08A01DAE[];
-
 //! FE8U = 0x0808F5C8
-void sub_808F5C8(struct SerifProc * proc) {
+void sub_808F5C8(struct SerifProc * proc)
+{
     int iy;
 
     int x = proc->unk_57 * 8;
@@ -781,7 +843,8 @@ void sub_808F5C8(struct SerifProc * proc) {
     // FAKE
     int oam2Maybe = (int)-(sub_808EA3C() & 0x100) >> 0x1f & 0x400;
 
-    switch (sub_808EA3C() & 0xc000) {
+    switch (sub_808EA3C() & 0xc000)
+    {
         case 0x0000:
             x -= gLCDControlBuffer.bgoffset[BG_0].x;
             y -= gLCDControlBuffer.bgoffset[BG_0].y;
@@ -803,50 +866,42 @@ void sub_808F5C8(struct SerifProc * proc) {
             break;
     }
 
-    if (sub_808EA3C() & 0x10000) {
+    if (sub_808EA3C() & 0x10000)
+    {
         PutSpriteExt(0, OAM1_X(x - 16), OAM0_Y(y - 24), gUnknown_08A01D88, OAM2_CHR(0x3C8) + OAM2_PAL(1));
         PutSpriteExt(0, OAM1_X(x - 8), OAM0_Y(y - 20), gUnknown_08A01DAE, OAM2_CHR(0x3C0) + OAM2_PAL(2));
     }
 
-    for (iy = 0; iy < proc->unk_5c / 2; iy++) {
-        for (ix = 0; ix < proc->unk_5b / 4; ix++) {
+    for (iy = 0; iy < proc->unk_5c / 2; iy++)
+    {
+        for (ix = 0; ix < proc->unk_5b / 4; ix++)
+        {
             PutSpriteExt(
-                2,
-                OAM1_X(x + ix * 0x20),
-                OAM0_Y(y + iy * 0x10),
-                gObject_32x16,
-                proc->unk_50 + ix * 4 + iy * 64 + oam2Maybe
-            );
+                2, OAM1_X(x + ix * 0x20), OAM0_Y(y + iy * 0x10), gObject_32x16,
+                proc->unk_50 + ix * 4 + iy * 64 + oam2Maybe);
         }
     }
 
-    if ((proc->unk_5b % 4) != 0) {
+    if ((proc->unk_5b % 4) != 0)
+    {
         int tmp = proc->unk_5b / 4 * 4;
         x += proc->unk_5b / 4 * 32;
-        
 
-        for (iy = 0; iy < proc->unk_5c / 2; iy++) {
+        for (iy = 0; iy < proc->unk_5c / 2; iy++)
+        {
             // FIXME: The shifts should be a cast to s8, but I can't get it to match that way
-            for (ix = 0; ix < (((proc->unk_5b) - (proc->unk_5b / 4) * 4) << 0x18 >> 0x18); ix++) {
+            for (ix = 0; ix < (((proc->unk_5b) - (proc->unk_5b / 4) * 4) << 0x18 >> 0x18); ix++)
+            {
                 PutSpriteExt(
-                    2,
-                    OAM1_X(x + ix * 8),
-                    OAM0_Y(y + iy * 16),
-                    gObject_8x16,
-                    proc->unk_50 + tmp + ix + iy * 64 + oam2Maybe
-                );
+                    2, OAM1_X(x + ix * 8), OAM0_Y(y + iy * 16), gObject_8x16,
+                    proc->unk_50 + tmp + ix + iy * 64 + oam2Maybe);
             }
         }
     }
 
     PutSpriteExt(
-        2,
-        OAM1_X(x + ix * 0x20),
-        OAM0_Y(y + iy * 0x10),
-        gObject_32x16,
-        proc->unk_50 + ix * 4 + iy * 64 + oam2Maybe
-    );
-    
+        2, OAM1_X(x + ix * 0x20), OAM0_Y(y + iy * 0x10), gObject_32x16, proc->unk_50 + ix * 4 + iy * 64 + oam2Maybe);
+
     return;
 }
 
@@ -899,8 +954,17 @@ s8 sub_808F824(int textCode)
     return 0;
 }
 
-extern int gUnknown_08A01E5C[];
-extern int gUnknown_08A01E54[];
+int CONST_DATA gUnknown_08A01E54[] =
+{
+    0x0847, // TODO: msgid "Ask[.]"
+    0x0848, // TODO: msgid "Exit"
+};
+
+int CONST_DATA gUnknown_08A01E5C[] =
+{
+    0x0843, // TODO: msgid "Yes[.]"
+    0x0844, // TODO: msgid "No"
+};
 
 //! FE8U = 0x0808F8B4
 void sub_808F8B4(struct ProcA01E64 * proc)
@@ -1240,7 +1304,33 @@ void sub_808FF9C(struct ProcA01E64 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A01E64[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A01E64[] =
+{
+    PROC_YIELD,
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_808F8B4),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(sub_808FF10),
+    PROC_REPEAT(sub_808FF18),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_808FF9C),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(99),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0808FFC4
 void sub_808FFC4(struct SerifProc * parent)
@@ -1304,7 +1394,19 @@ void sub_8090014(struct YesNoChoiceProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A01EC4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A01EC4[] =
+{
+    PROC_SLEEP(8),
+
+    PROC_REPEAT(sub_8090014),
+    PROC_SLEEP(5),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080900EC
 void sub_80900EC(int * choiceTextIds, struct Text * th, int x, int y, int color, int defaultChoice, ProcPtr parent)
