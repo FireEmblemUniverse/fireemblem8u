@@ -226,7 +226,8 @@ SECTIONS
         src/player_interface.o(.text);
         src/sioerror.o(.text);
         src/uichapterstatus.o(.text);
-        asm/code.o(.text);
+        src/serif.o(.text);
+        asm/unitlistscreen.o(.text);
         src/prepscreen.o(.text);
         src/prep_atmenu.o(.text);
         src/prep_menuproc.o(.text);

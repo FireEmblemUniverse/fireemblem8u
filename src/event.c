@@ -14,6 +14,7 @@
 #include "ekrbattle.h"
 #include "bmlib.h"
 #include "worldmap.h"
+#include "serif.h"
 #include "ev_triggercheck.h"
 #include "event.h"
 

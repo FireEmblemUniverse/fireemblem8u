@@ -13,6 +13,7 @@
 #include "bmio.h"
 #include "bmlib.h"
 #include "savemenu.h"
+#include "serif.h"
 
 struct HelpBoxScrollProc {
     /* 00 */ PROC_HEADER;

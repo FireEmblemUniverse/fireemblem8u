@@ -19,6 +19,7 @@
 #include "bmlib.h"
 #include "prepscreen.h"
 #include "ev_triggercheck.h"
+#include "serif.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;

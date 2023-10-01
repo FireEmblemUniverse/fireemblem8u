@@ -20,6 +20,7 @@
 #include "bmtrick.h"
 #include "ctc.h"
 #include "muctrl.h"
+#include "serif.h"
 
 #include "constants/items.h"
 

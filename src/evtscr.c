@@ -27,6 +27,7 @@
 #include "muctrl.h"
 #include "mapanim.h"
 #include "worldmap.h"
+#include "serif.h"
 
 #include "ev_triggercheck.h"
 #include "event.h"

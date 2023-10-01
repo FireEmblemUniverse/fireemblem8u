@@ -16,6 +16,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "worldmap.h"
+#include "serif.h"
 #include "prepscreen.h"
 #include "classchg.h"
 

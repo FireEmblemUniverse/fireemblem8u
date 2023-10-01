@@ -11,6 +11,7 @@
 #include "bm.h"
 #include "ap.h"
 #include "bmlib.h"
+#include "serif.h"
 #include "constants/characters.h"
 #include "classchg.h"
 

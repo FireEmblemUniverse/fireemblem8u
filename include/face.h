@@ -111,7 +111,7 @@ void SetFaceBlinkControl(struct FaceProc* proc, int blinkControl);
 void SetFaceBlinkControlById(int faceSlot, int unk);
 // ??? FaceBlinkProc_GenBlinkInterval(???);
 void sub_80064D4(struct FaceProc* proc, int unk);
-// ??? sub_80064DC(???);
+void sub_80064DC(int slot, int unk);
 struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp);
 void sub_8006618(int slot, int x, int y);
 // ??? sub_800662C(???);

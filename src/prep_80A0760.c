@@ -6,6 +6,7 @@
 #include "soundwrapper.h"
 #include "face.h"
 #include "chapterdata.h"
+#include "serif.h"
 #include "prepscreen.h"
 
 /**
