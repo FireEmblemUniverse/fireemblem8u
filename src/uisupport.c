@@ -19,7 +19,7 @@
 #include "bmlib.h"
 #include "prepscreen.h"
 #include "ev_triggercheck.h"
-#include "serif.h"
+#include "cgtext.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -651,7 +651,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 
 //! FE8U = 0x080A1554
 void SupportScreen_OnEnd(ProcPtr proc) {
-    sub_808F270();
+    EndCgText();
     EndAllProcChildren(proc);
     EndMuralBackground_();
     EndFaceById(0);

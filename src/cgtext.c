@@ -12,13 +12,13 @@
 #include "uiutils.h"
 #include "event.h"
 
-#include "serif.h"
+#include "cgtext.h"
 
-extern struct Unknown0203E82C gUnknown_0203E82C;
+extern struct CgTextSt gCgTextSt;
 
 // clang-format off
 
-u16 CONST_DATA gUnknown_08A01D88[] =
+u16 CONST_DATA gSprite_08A01D88[] =
 {
     6,
     OAM0_SHAPE_32x8 + OAM0_BLEND, OAM1_SIZE_32x8, OAM2_CHR(0),
@@ -29,7 +29,7 @@ u16 CONST_DATA gUnknown_08A01D88[] =
     OAM0_SHAPE_32x8 + OAM0_Y(16) + OAM0_BLEND, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x14),
 };
 
-u16 CONST_DATA gUnknown_08A01DAE[] =
+u16 CONST_DATA gSprite_08A01DAE[] =
 {
     2,
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16, OAM2_CHR(0),
@@ -39,61 +39,61 @@ u16 CONST_DATA gUnknown_08A01DAE[] =
 // clang-format on
 
 //! FE8U = 0x0808E9D8
-void sub_808E9D8(int flags)
+void SetCgTextFlags(int flags)
 {
-    gUnknown_0203E82C.unk_48_10 = flags;
+    gCgTextSt.flags = flags;
     return;
 }
 
 //! FE8U = 0x0808E9F0
-void sub_808E9F0(int flag)
+void SetCgTextFlag(int flag)
 {
-    gUnknown_0203E82C.unk_48_10 |= flag & 0x3FFFFF;
+    gCgTextSt.flags |= flag & 0x3FFFFF;
     return;
 }
 
 //! FE8U = 0x0808EA1C
-void sub_808EA1C(int flag)
+void ClearCgTextFlag(int flag)
 {
-    sub_808E9D8(sub_808EA3C() & (flag ^ 0x3FFFFF));
+    SetCgTextFlags(GetCgTextFlags() & (flag ^ 0x3FFFFF));
     return;
 }
 
 //! FE8U = 0x0808EA3C
-u32 sub_808EA3C(void)
+u32 GetCgTextFlags(void)
 {
-    return gUnknown_0203E82C.unk_48_10;
+    return gCgTextSt.flags;
 }
 
 //! FE8U = 0x0808EA48
-void sub_808EA48(u16 a, u16 b)
+void SetCgTextBlendControl(u16 target1, u16 target2)
 {
-    b |= 0x20;
-    gUnknown_0203E82C.unk_4c = a + 0x40 + b * 0x100;
+    target2 |= 0x20;
+    gCgTextSt.bldCnt = target1 + BLDCNT_EFFECT_BLEND + (target2 << 8);
     return;
 }
 
 //! FE8U = 0x0808EA68
-u16 sub_808EA68(void)
+u16 GetCgTextBlendControl(void)
 {
-    return gUnknown_0203E82C.unk_4c;
+    return gCgTextSt.bldCnt;
 }
 
 //! FE8U = 0x0808EA74
-void sub_808EA74(u16 a, u16 b)
+void SetCgTextBlendAlpha(u16 target1, u16 target2)
 {
-    gUnknown_0203E82C.unk_4e = a + (b * 0x100);
+    gCgTextSt.bldAlpha = target1 + (target2 << 8);
     return;
 }
 
 //! FE8U = 0x0808EA8C
-u16 sub_808EA8C(void)
+u16 GetCgTextBlendAlpha(void)
 {
-    return gUnknown_0203E82C.unk_4e;
+    return gCgTextSt.bldAlpha;
 }
 
 //! FE8U = 0x0808EA98
-void sub_808EA98(void)
+void CgText_OnHBlank(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
@@ -102,13 +102,13 @@ void sub_808EA98(void)
         vcount = 0;
     }
 
-    if (vcount == gUnknown_0203E82C.unk_48_00 * 8 - 32)
+    if (vcount == gCgTextSt.unk_48_00 * 8 - 32)
     {
-        REG_BLDCNT = sub_808EA68();
-        REG_BLDALPHA = sub_808EA8C();
+        REG_BLDCNT = GetCgTextBlendControl();
+        REG_BLDALPHA = GetCgTextBlendAlpha();
     }
 
-    if ((vcount == 0) || (vcount == (gUnknown_0203E82C.unk_48_05 * 8 + 4)))
+    if ((vcount == 0) || (vcount == (gCgTextSt.unk_48_05 * 8 + 4)))
     {
         REG_BLDCNT = *((u16 *)&gLCDControlBuffer.bldcnt);
         REG_BLDALPHA = gLCDControlBuffer.blendCoeffA + gLCDControlBuffer.blendCoeffB * 0x100;
@@ -118,7 +118,7 @@ void sub_808EA98(void)
 }
 
 //! FE8U = 0x0808EB0C
-void sub_808EB0C(struct SerifProc * proc)
+void sub_808EB0C(struct CgTextMainProc * proc)
 {
     struct Font font;
     struct Text th;
@@ -126,22 +126,22 @@ void sub_808EB0C(struct SerifProc * proc)
 
     char * iter = buf;
 
-    if ((proc->unk_2c[0] == 0x80) && (proc->unk_2c[1] == 0x23)) // [SetName]
+    if ((proc->str[0] == 0x80) && (proc->str[1] == 0x23)) // [SetName]
     {
-        proc->unk_2c += 2;
+        proc->str += 2;
 
-        while (*proc->unk_2c != 0x01) // [NL]
+        while (*proc->str != 0x01) // [NL]
         {
-            iter[0] = proc->unk_2c[0];
-            iter[1] = proc->unk_2c[1];
-            proc->unk_2c += 2;
+            iter[0] = proc->str[0];
+            iter[1] = proc->str[1];
+            proc->str += 2;
             iter += 2;
         }
 
-        proc->unk_2c++;
+        proc->str++;
         *iter = 0;
 
-        sub_808E9F0(0x10000);
+        SetCgTextFlag(CG_TEXT_FLAG_16);
 
         InitSpriteTextFont(&font, (void *)0x06017800, 0x12);
         SetTextFont(&font);
@@ -163,7 +163,7 @@ void sub_808EB0C(struct SerifProc * proc)
 }
 
 //! FE8U = 0x0808EBD4
-void sub_808EBD4(struct SerifProc * proc)
+void CgText_Init(struct CgTextMainProc * proc)
 {
     int i;
     int x;
@@ -172,71 +172,71 @@ void sub_808EBD4(struct SerifProc * proc)
     int width = 0;
     int height = 0;
 
-    proc->unk_55 = 0;
-    proc->unk_56 = 0;
+    proc->pauseTimer = 0;
+    proc->blendAmt = 0;
 
-    if (sub_808EA3C() >> 0xb & 7)
+    if (GetCgTextFlags() >> 0xb & 7)
     {
-        proc->unk_52 = ((sub_808EA3C() >> 0xb) & 7) - 1;
+        proc->displaySpeed = ((GetCgTextFlags() >> 0xb) & 7) - 1;
     }
     else
     {
-        proc->unk_52 = GetTextDisplaySpeed();
+        proc->displaySpeed = GetTextDisplaySpeed();
     }
 
-    proc->unk_53 = (proc->unk_52 != 0) ? 1 : INT8_MAX;
+    proc->numCharsVisible = (proc->displaySpeed != 0) ? 1 : INT8_MAX;
 
-    proc->unk_54 = 0;
+    proc->thIndex = 0;
     proc->unk_5e = 0;
 
     sub_808EB0C(proc);
 
-    if ((proc->unk_5b < 0) || (proc->unk_5c < 0))
+    if ((proc->boxWidth < 0) || (proc->boxHeight < 0))
     {
         int r1;
 
         SetTextFontGlyphs(TEXT_GLYPHS_TALK);
-        sub_808F428(proc->unk_2c, &width, &height);
+        GetCgTextBoxDimensions(proc->str, &width, &height);
         SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
         r1 = width + 7;
-        proc->unk_5b = r1 / 8;
-        proc->unk_5c = height / 8;
+        proc->boxWidth = r1 / 8;
+        proc->boxHeight = height / 8;
     }
 
-    if (!(sub_808EA3C() & 1))
+    if (!(GetCgTextFlags() & CG_TEXT_FLAG_0))
     {
-        y = proc->unk_58 + ~proc->unk_5c;
-        if (sub_808EA3C() & 2)
+        y = proc->y + ~proc->boxHeight;
+        if (GetCgTextFlags() & CG_TEXT_FLAG_1)
         {
-            x = (proc->unk_57 - proc->unk_5b) - 2;
+            x = (proc->x - proc->boxWidth) - 2;
             PutTalkBubbleTm(
-                (sub_808EA3C() & 0xc000) >> 0xe, (proc->unk_57 - proc->unk_5b) - 2, proc->unk_58 + ~proc->unk_5c,
-                proc->unk_5b + 2, proc->unk_5c + 2);
+                GetCgTextBg(GetCgTextFlags()), (proc->x - proc->boxWidth) - 2, proc->y + ~proc->boxHeight,
+                proc->boxWidth + 2, proc->boxHeight + 2);
 
-            if (!(sub_808EA3C() & 0x400))
+            if (!(GetCgTextFlags() & CG_TEXT_FLAG_10))
             {
-                int kind = (sub_808EA3C() & 0x40000) ? 5 : 3;
-                PutTalkBubbleTail((sub_808EA3C() & 0xc000) >> 0xe, proc->unk_57 - 1, proc->unk_58 - 2, kind);
+                int kind = (GetCgTextFlags() & CG_TEXT_FLAG_18) ? 5 : 3;
+                PutTalkBubbleTail(GetCgTextBg(GetCgTextFlags()), proc->x - 1, proc->y - 2, kind);
             }
         }
         else
         {
-            x = (proc->unk_57) + 1;
+            x = (proc->x) + 1;
             PutTalkBubbleTm(
-                (sub_808EA3C() & 0xc000) >> 0xe, (proc->unk_57) + 1, proc->unk_58 + ~proc->unk_5c, proc->unk_5b + 2,
-                proc->unk_5c + 2);
+                GetCgTextBg(GetCgTextFlags()), (proc->x) + 1, proc->y + ~proc->boxHeight, proc->boxWidth + 2,
+                proc->boxHeight + 2);
 
-            if (!(sub_808EA3C() & 0x400))
+            if (!(GetCgTextFlags() & CG_TEXT_FLAG_10))
             {
-                int kind = (sub_808EA3C() & 0x40000) ? 5 : 2;
-                PutTalkBubbleTail((sub_808EA3C() & 0xc000) >> 0xe, proc->unk_57, proc->unk_58 - 2, kind);
+                int kind = (GetCgTextFlags() & CG_TEXT_FLAG_18) ? 5 : 2;
+                PutTalkBubbleTail(GetCgTextBg(GetCgTextFlags()), proc->x, proc->y - 2, kind);
             }
         }
 
-        if (sub_808EA3C() & 0x10000)
+        if (GetCgTextFlags() & CG_TEXT_FLAG_16)
         {
-            u16 * bg = BG_GetMapBuffer((sub_808EA3C() & 0xc000) >> 0xe);
+            u16 * bg = BG_GetMapBuffer(GetCgTextBg(GetCgTextFlags()));
             TileMap_FillRect(bg + y * 0x20 + x, 6, 0, 0);
         }
 
@@ -246,88 +246,88 @@ void sub_808EBD4(struct SerifProc * proc)
     sub_808F3D8(proc);
     StartParallelWorker(sub_808F5C8, proc);
 
-    SetTextFont(proc->unk_30);
+    SetTextFont(proc->pFont);
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
-    for (i = 0; i <= proc->unk_5c / 2; i++)
+    for (i = 0; i <= proc->boxHeight / 2; i++)
     {
-        InitSpriteText(proc->unk_34[i]);
-        Text_SetColor(proc->unk_34[i], 0xb);
+        InitSpriteText(proc->pTexts[i]);
+        Text_SetColor(proc->pTexts[i], 0xb);
     }
 
-    sub_808F2BC(proc);
+    CgText_ClearSpriteText(proc);
     SetTextFont(NULL);
 
-    if (sub_808EA3C() & 1)
+    if (GetCgTextFlags() & CG_TEXT_FLAG_0)
     {
         Proc_Goto(proc, 3);
     }
     else
     {
-        if (sub_808EA3C() & 0x80)
+        if (GetCgTextFlags() & CG_TEXT_FLAG_7)
         {
-            sub_808EA74(0x10, 1);
+            SetCgTextBlendAlpha(0x10, 1);
             Proc_Goto(proc, 3);
         }
         else
         {
-            sub_808EA74(0, 0x10);
+            SetCgTextBlendAlpha(0, 0x10);
         }
 
-        if (sub_808EA3C() & 0x10000)
+        if (GetCgTextFlags() & CG_TEXT_FLAG_16)
         {
-            gUnknown_0203E82C.unk_48_00 = proc->unk_58 - 5;
+            gCgTextSt.unk_48_00 = proc->y - 5;
         }
         else
         {
-            gUnknown_0203E82C.unk_48_00 = proc->unk_58 - 1;
+            gCgTextSt.unk_48_00 = proc->y - 1;
         }
 
-        gUnknown_0203E82C.unk_48_05 = proc->unk_5c + proc->unk_58 + 1;
+        gCgTextSt.unk_48_05 = proc->boxHeight + proc->y + 1;
 
-        sub_808EA48(1 << ((sub_808EA3C() & 0xc000) >> 0xe), 1 << ((sub_808EA3C() & 0xc000) >> 0xe) ^ 0x1f);
+        SetCgTextBlendControl(1 << GetCgTextBg(GetCgTextFlags()), 1 << GetCgTextBg(GetCgTextFlags()) ^ 0x1f);
 
-        if (!(sub_808EA3C() & 0x80000))
+        if (!(GetCgTextFlags() & CG_TEXT_FLAG_19))
         {
             SetSecondaryHBlankHandler(NULL);
-            SetSecondaryHBlankHandler(sub_808EA98);
+            SetSecondaryHBlankHandler(CgText_OnHBlank);
         }
     }
 
-    BG_SetPosition((sub_808EA3C() & 0xc000) >> 0xe, 0, 0);
+    BG_SetPosition(GetCgTextBg(GetCgTextFlags()), 0, 0);
 
     return;
 }
 
 //! FE8U = 0x0808EF64
-void sub_808EF64(struct SerifProc * proc)
+void CgText_InitBlendAmt(struct CgTextMainProc * proc)
 {
-    proc->unk_56 = 0;
+    proc->blendAmt = 0;
     return;
 }
 
 //! FE8U = 0x0808EF6C
-void sub_808EF6C(struct SerifProc * proc)
+void CgText_LoopFadeIn(struct CgTextMainProc * proc)
 {
-    u16 a;
-    u16 b;
+    u16 target1;
+    u16 target2;
 
-    proc->unk_56++;
+    proc->blendAmt++;
 
-    a = proc->unk_56;
+    target1 = proc->blendAmt;
 
-    if (proc->unk_56 != 0x10)
+    if (proc->blendAmt != 0x10)
     {
-        b = 0x10 - proc->unk_56;
+        target2 = 0x10 - proc->blendAmt;
     }
     else
     {
-        b = 1;
+        target2 = 1;
     }
 
-    sub_808EA74(a, b);
+    SetCgTextBlendAlpha(target1, target2);
 
-    if (proc->unk_56 == 0x10)
+    if (proc->blendAmt == 0x10)
     {
         Proc_Break(proc);
     }
@@ -336,23 +336,23 @@ void sub_808EF6C(struct SerifProc * proc)
 }
 
 //! FE8U = 0x0808EFA8
-void sub_808EFA8(struct SerifProc * proc)
+void CgText_InitFadeOut(struct CgTextMainProc * proc)
 {
-    sub_808F2BC(proc);
+    CgText_ClearSpriteText(proc);
     SetFaceDisplayBitsById(0, GetFaceDisplayBitsById(0) & ~FACE_DISP_TALK_1);
 
-    sub_808FFE8();
+    EndCgTextInterpreter();
 
-    if (sub_808EA3C() & 1)
+    if (GetCgTextFlags() & CG_TEXT_FLAG_0)
     {
         Proc_Goto(proc, 5);
     }
     else
     {
-        proc->unk_56 = 0x10;
+        proc->blendAmt = 0x10;
     }
 
-    if (sub_808EA3C() & 0x20000)
+    if (GetCgTextFlags() & CG_TEXT_FLAG_17)
     {
         StartFaceFadeOut(Proc_Find(gProcScr_E_FACE));
     }
@@ -361,28 +361,29 @@ void sub_808EFA8(struct SerifProc * proc)
 }
 
 //! FE8U = 0x0808F008
-void sub_808F008(struct SerifProc * proc)
+void CgText_LoopFadeOut(struct CgTextMainProc * proc)
 {
-    u16 a;
-    u16 b;
+    u16 target1;
+    u16 target2;
 
-    proc->unk_56--;
+    proc->blendAmt--;
 
-    a = proc->unk_56;
-    if (a != 0x10)
+    target1 = proc->blendAmt;
+
+    if (target1 != 0x10)
     {
-        b = 0x10 - a;
+        target2 = 0x10 - target1;
     }
     else
     {
-        b = 1;
+        target2 = 1;
     }
 
-    sub_808EA74(a, b);
+    SetCgTextBlendAlpha(target1, target2);
 
-    if (proc->unk_56 == 0)
+    if (proc->blendAmt == 0)
     {
-        sub_808EA1C(0x10000);
+        ClearCgTextFlag(CG_TEXT_FLAG_16);
         Proc_Break(proc);
     }
 
@@ -390,85 +391,86 @@ void sub_808F008(struct SerifProc * proc)
 }
 
 //! FE8U = 0x0808F04C
-void sub_808F04C(struct SerifProc * proc)
+void CgText_808F04C(struct CgTextMainProc * proc)
 {
     if (!(gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON)))
     {
         return;
     }
 
-    if (sub_808EA3C() & 0x40)
+    if (GetCgTextFlags() & CG_TEXT_FLAG_6)
     {
         return;
     }
 
-    sub_800D3E4();
-    sub_808FFE8();
+    SetDialogueSkipEvBit();
+    EndCgTextInterpreter();
+
     Proc_Goto(proc, 0);
 
     return;
 }
 
 //! FE8U = 0x0808F084
-void sub_808F084(struct SerifProc * proc)
+void CgText_808F084(struct CgTextMainProc * proc)
 {
-    u16 * bg = BG_GetMapBuffer((sub_808EA3C() & 0xc000) >> 0xe);
-    TileMap_FillRect(bg + (proc->unk_58 - 1) * 32, 31, proc->unk_5c + 1, 0);
+    u16 * bg = BG_GetMapBuffer(GetCgTextBg(GetCgTextFlags()));
+    TileMap_FillRect(bg + (proc->y - 1) * 32, 31, proc->boxHeight + 1, 0);
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
     return;
 }
 
 //! FE8U = 0x0808F0C4
-void sub_808F0C4(struct SerifProc * proc)
+void CgText_OnEnd(struct CgTextMainProc * proc)
 {
     SetFaceDisplayBitsById(0, GetFaceDisplayBitsById(0) & ~FACE_DISP_TALK_1);
-    sub_808F084(proc);
+    CgText_808F084(proc);
     SetSecondaryHBlankHandler(NULL);
     return;
 }
 
 //! FE8U = 0x0808F0EC
-void sub_808F0EC(struct SerifProc * proc)
+void CgText_808F0EC(struct CgTextMainProc * proc)
 {
-    sub_808F2BC(proc);
+    CgText_ClearSpriteText(proc);
 
-    proc->unk_54 = 0;
+    proc->thIndex = 0;
 
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
-    proc->unk_59 = 0;
-    proc->unk_5a = 0;
-    sub_808F358(proc->unk_2c, &proc->unk_59, &proc->unk_5a);
+    proc->textWidth = 0;
+    proc->textHeight = 0;
+    GetCgTextDimensions(proc->str, &proc->textWidth, &proc->textHeight);
 
     SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
-    sub_808FFC4(proc);
+    RestartCgTextInterpreter(proc);
 
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A01DBC[] =
+struct ProcCmd CONST_DATA gProcScr_CgTextMain[] =
 {
-    PROC_SET_END_CB(sub_808F0C4),
+    PROC_SET_END_CB(CgText_OnEnd),
     PROC_YIELD,
 
-    PROC_CALL(sub_808EBD4),
+    PROC_CALL(CgText_Init),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_808EF64),
+    PROC_CALL(CgText_InitBlendAmt),
 
     // fallthrough
 
 PROC_LABEL(2),
-    PROC_REPEAT(sub_808EF6C),
+    PROC_REPEAT(CgText_LoopFadeIn),
 
     // fallthrough
 
 PROC_LABEL(3),
-    PROC_CALL(sub_808F0EC),
-    PROC_REPEAT(sub_808F04C),
+    PROC_CALL(CgText_808F0EC),
+    PROC_REPEAT(CgText_808F04C),
 
     // fallthrough
 
@@ -478,10 +480,10 @@ PROC_LABEL(4),
     // fallthrough
 
 PROC_LABEL(0),
-    PROC_CALL(sub_808EFA8),
-    PROC_REPEAT(sub_808F008),
+    PROC_CALL(CgText_InitFadeOut),
+    PROC_REPEAT(CgText_LoopFadeOut),
 
-    PROC_CALL(sub_808F084),
+    PROC_CALL(CgText_808F084),
     PROC_YIELD,
 
     // fallthrough
@@ -493,22 +495,23 @@ PROC_LABEL(5),
 // clang-format on
 
 //! FE8U = 0x0808F128
-void sub_808F128(int x, int y, int widthMaybe, int heightMaybe, int stringId, void * vram, int pal, ProcPtr parent)
+void StartCgText(int x, int y, int width, int height, int stringId, void * vram, int pal, ProcPtr parent)
 {
     int palTmp;
     int i;
     int mask;
 
-    struct SerifProc * proc = Proc_Find(gUnknown_08A01DBC);
+    struct CgTextMainProc * proc = Proc_Find(gProcScr_CgTextMain);
 
     if (proc)
     {
-        proc->unk_2c = GetStringFromIndex(stringId);
-        if (sub_808F5A0(proc->unk_2c) != 0)
+        proc->str = GetStringFromIndex(stringId);
+        if (DoesStringContainTact(proc->str))
         {
-            proc->unk_2c = StringInsertSpecialPrefixByCtrl();
+            proc->str = StringInsertSpecialPrefixByCtrl();
         }
-        if (proc->unk_56 == 0x10)
+
+        if (proc->blendAmt == 0x10)
         {
             Proc_Goto(proc, 3);
         }
@@ -520,30 +523,30 @@ void sub_808F128(int x, int y, int widthMaybe, int heightMaybe, int stringId, vo
         return;
     }
 
-    if (parent != 0)
+    if (parent)
     {
-        proc = Proc_StartBlocking(gUnknown_08A01DBC, parent);
+        proc = Proc_StartBlocking(gProcScr_CgTextMain, parent);
     }
     else
     {
-        proc = Proc_Start(gUnknown_08A01DBC, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_CgTextMain, PROC_TREE_3);
     }
 
-    sub_808E9D8(0x4000);
+    SetCgTextFlags(CG_TEXT_BG(BG_1));
     ClearAllTalkFlags();
 
-    proc->unk_30 = &gUnknown_0203E82C.unk_00;
+    proc->pFont = &gCgTextSt.font;
 
-    for (i = 0; i <= 5; i++)
+    for (i = 0; i < 6; i++)
     {
-        proc->unk_34[i] = &gUnknown_0203E82C.unk_18[i];
+        proc->pTexts[i] = &gCgTextSt.texts[i];
     }
 
-    proc->unk_57 = x;
-    proc->unk_58 = y;
-    proc->unk_5b = widthMaybe;
-    proc->unk_5c = heightMaybe;
-    proc->unk_4c = vram;
+    proc->x = x;
+    proc->y = y;
+    proc->boxWidth = width;
+    proc->boxHeight = height;
+    proc->vram = vram;
 
     if (pal < 0)
     {
@@ -559,32 +562,32 @@ void sub_808F128(int x, int y, int widthMaybe, int heightMaybe, int stringId, vo
         vram = (void *)0x06013000;
     }
 
-    InitSpriteTextFont(proc->unk_30, (void *)vram, pal);
+    InitSpriteTextFont(proc->pFont, vram, pal);
     SetTextFont(NULL);
 
     ApplyPalette(gPal_HelpTextBox, pal);
-    proc->unk_50 = ((((uintptr_t)vram) << 0x11) >> 0x16) + ((pal & mask) << 0xc);
+    proc->palId = ((((uintptr_t)vram) << 0x11) >> 0x16) + ((pal & mask) << 0xc);
 
-    proc->unk_2c = GetStringFromIndex(stringId);
-    if (sub_808F5A0(proc->unk_2c) != 0)
+    proc->str = GetStringFromIndex(stringId);
+    if (DoesStringContainTact(proc->str) != 0)
     {
-        proc->unk_2c = StringInsertSpecialPrefixByCtrl();
+        proc->str = StringInsertSpecialPrefixByCtrl();
     }
 
     return;
 }
 
 //! FE8U = 0x0808F270
-void sub_808F270(void)
+void EndCgText(void)
 {
-    Proc_End(Proc_Find(gUnknown_08A01DBC));
+    Proc_End(Proc_Find(gProcScr_CgTextMain));
     return;
 }
 
 //! FE8U = 0x0808F284
-s8 SomeTalkProcExists(void)
+s8 CgTextExists(void)
 {
-    if (Proc_Find(gUnknown_08A01DBC))
+    if (Proc_Find(gProcScr_CgTextMain))
     {
         return 1;
     }
@@ -595,7 +598,7 @@ s8 SomeTalkProcExists(void)
 //! FE8U = 0x0808F2A0
 void sub_808F2A0(void)
 {
-    struct SerifProc * proc = Proc_Find(gUnknown_08A01DBC);
+    struct CgTextMainProc * proc = Proc_Find(gProcScr_CgTextMain);
 
     if (proc)
     {
@@ -606,15 +609,15 @@ void sub_808F2A0(void)
 }
 
 //! FE8U = 0x0808F2BC
-void sub_808F2BC(struct SerifProc * proc)
+void CgText_ClearSpriteText(struct CgTextMainProc * proc)
 {
     int i;
 
-    SetTextFont(proc->unk_30);
+    SetTextFont(proc->pFont);
 
-    for (i = 0; i <= proc->unk_5c / 2; i++)
+    for (i = 0; i <= proc->boxHeight / 2; i++)
     {
-        SpriteText_DrawBackgroundExt(proc->unk_34[i], 0);
+        SpriteText_DrawBackgroundExt(proc->pTexts[i], 0);
     }
 
     SetTextFont(NULL);
@@ -623,22 +626,22 @@ void sub_808F2BC(struct SerifProc * proc)
 }
 
 //! FE8U = 0x0808F30C
-void sub_808F30C(struct SerifProc * proc)
+void sub_808F30C(struct CgTextMainProc * proc)
 {
     int i;
 
-    SetTextFont(proc->unk_30);
+    SetTextFont(proc->pFont);
 
-    for (i = 0; i <= proc->unk_5c / 2; i++)
+    for (i = 0; i <= proc->boxHeight / 2; i++)
     {
-        Text_SetCursor(proc->unk_34[i], 0);
+        Text_SetCursor(proc->pTexts[i], 0);
     }
 
     return;
 }
 
 //! FE8U = 0x0808F358
-void sub_808F358(const char * str, u8 * wOut, u8 * hOut)
+void GetCgTextDimensions(const char * str, u8 * wOut, u8 * hOut)
 {
     int charWidth;
 
@@ -695,29 +698,29 @@ void sub_808F358(const char * str, u8 * wOut, u8 * hOut)
 }
 
 //! FE8U = 0x0808F3D8
-void sub_808F3D8(struct SerifProc * proc)
+void sub_808F3D8(struct CgTextMainProc * proc)
 {
-    if (sub_808EA3C() & 1)
+    if (GetCgTextFlags() & CG_TEXT_FLAG_0)
     {
         return;
     }
 
-    if (sub_808EA3C() & 2)
+    if (GetCgTextFlags() & CG_TEXT_FLAG_1)
     {
-        proc->unk_57 += ~proc->unk_5b;
+        proc->x += ~proc->boxWidth;
     }
     else
     {
-        proc->unk_57 += 2;
+        proc->x += 2;
     }
 
-    proc->unk_58 -= proc->unk_5c;
+    proc->y -= proc->boxHeight;
 
     return;
 }
 
 //! FE8U = 0x0808F428
-void sub_808F428(const char * str, int * wOut, int * hOut)
+void GetCgTextBoxDimensions(const char * str, int * wOut, int * hOut)
 {
     int charWidth;
 
@@ -809,7 +812,7 @@ void sub_808F428(const char * str, int * wOut, int * hOut)
 }
 
 //! FE8U = 0x0808F5A0
-s8 sub_808F5A0(const char * str)
+s8 DoesStringContainTact(const char * str)
 {
     while (1)
     {
@@ -832,75 +835,75 @@ s8 sub_808F5A0(const char * str)
 }
 
 //! FE8U = 0x0808F5C8
-void sub_808F5C8(struct SerifProc * proc)
+void sub_808F5C8(struct CgTextMainProc * proc)
 {
     int iy;
 
-    int x = proc->unk_57 * 8;
-    int y = proc->unk_58 * 8;
+    int x = proc->x * 8;
+    int y = proc->y * 8;
     int ix = 0;
 
     // FAKE
-    int oam2Maybe = (int)-(sub_808EA3C() & 0x100) >> 0x1f & 0x400;
+    int oam2Maybe = (int)-(GetCgTextFlags() & 0x100) >> 0x1f & 0x400;
 
-    switch (sub_808EA3C() & 0xc000)
+    switch (GetCgTextFlags() & CG_TEXT_BG_MASK)
     {
-        case 0x0000:
+        case CG_TEXT_BG(BG_0):
             x -= gLCDControlBuffer.bgoffset[BG_0].x;
             y -= gLCDControlBuffer.bgoffset[BG_0].y;
             break;
 
-        case 0x4000:
+        case CG_TEXT_BG(BG_1):
             x -= gLCDControlBuffer.bgoffset[BG_1].x;
             y -= gLCDControlBuffer.bgoffset[BG_1].y;
             break;
 
-        case 0x8000:
+        case CG_TEXT_BG(BG_2):
             x -= gLCDControlBuffer.bgoffset[BG_2].x;
             y -= gLCDControlBuffer.bgoffset[BG_2].y;
             break;
 
-        case 0xc000:
+        case CG_TEXT_BG(BG_3):
             x -= gLCDControlBuffer.bgoffset[BG_3].x;
             y -= gLCDControlBuffer.bgoffset[BG_3].y;
             break;
     }
 
-    if (sub_808EA3C() & 0x10000)
+    if (GetCgTextFlags() & CG_TEXT_FLAG_16)
     {
-        PutSpriteExt(0, OAM1_X(x - 16), OAM0_Y(y - 24), gUnknown_08A01D88, OAM2_CHR(0x3C8) + OAM2_PAL(1));
-        PutSpriteExt(0, OAM1_X(x - 8), OAM0_Y(y - 20), gUnknown_08A01DAE, OAM2_CHR(0x3C0) + OAM2_PAL(2));
+        PutSpriteExt(0, OAM1_X(x - 16), OAM0_Y(y - 24), gSprite_08A01D88, OAM2_CHR(0x3C8) + OAM2_PAL(1));
+        PutSpriteExt(0, OAM1_X(x - 8), OAM0_Y(y - 20), gSprite_08A01DAE, OAM2_CHR(0x3C0) + OAM2_PAL(2));
     }
 
-    for (iy = 0; iy < proc->unk_5c / 2; iy++)
+    for (iy = 0; iy < proc->boxHeight / 2; iy++)
     {
-        for (ix = 0; ix < proc->unk_5b / 4; ix++)
+        for (ix = 0; ix < proc->boxWidth / 4; ix++)
         {
             PutSpriteExt(
                 2, OAM1_X(x + ix * 0x20), OAM0_Y(y + iy * 0x10), gObject_32x16,
-                proc->unk_50 + ix * 4 + iy * 64 + oam2Maybe);
+                proc->palId + ix * 4 + iy * 64 + oam2Maybe);
         }
     }
 
-    if ((proc->unk_5b % 4) != 0)
+    if ((proc->boxWidth % 4) != 0)
     {
-        int tmp = proc->unk_5b / 4 * 4;
-        x += proc->unk_5b / 4 * 32;
+        int tmp = proc->boxWidth / 4 * 4;
+        x += proc->boxWidth / 4 * 32;
 
-        for (iy = 0; iy < proc->unk_5c / 2; iy++)
+        for (iy = 0; iy < proc->boxHeight / 2; iy++)
         {
             // FIXME: The shifts should be a cast to s8, but I can't get it to match that way
-            for (ix = 0; ix < (((proc->unk_5b) - (proc->unk_5b / 4) * 4) << 0x18 >> 0x18); ix++)
+            for (ix = 0; ix < (((proc->boxWidth) - (proc->boxWidth / 4) * 4) << 0x18 >> 0x18); ix++)
             {
                 PutSpriteExt(
                     2, OAM1_X(x + ix * 8), OAM0_Y(y + iy * 16), gObject_8x16,
-                    proc->unk_50 + tmp + ix + iy * 64 + oam2Maybe);
+                    proc->palId + tmp + ix + iy * 64 + oam2Maybe);
             }
         }
     }
 
     PutSpriteExt(
-        2, OAM1_X(x + ix * 0x20), OAM0_Y(y + iy * 0x10), gObject_32x16, proc->unk_50 + ix * 4 + iy * 64 + oam2Maybe);
+        2, OAM1_X(x + ix * 0x20), OAM0_Y(y + iy * 0x10), gObject_32x16, proc->palId + ix * 4 + iy * 64 + oam2Maybe);
 
     return;
 }
@@ -954,45 +957,45 @@ s8 sub_808F824(int textCode)
     return 0;
 }
 
-int CONST_DATA gUnknown_08A01E54[] =
+int CONST_DATA gTextIds_AskExit[] =
 {
     0x0847, // TODO: msgid "Ask[.]"
     0x0848, // TODO: msgid "Exit"
 };
 
-int CONST_DATA gUnknown_08A01E5C[] =
+int CONST_DATA gTextIds_YesNo[] =
 {
     0x0843, // TODO: msgid "Yes[.]"
     0x0844, // TODO: msgid "No"
 };
 
 //! FE8U = 0x0808F8B4
-void sub_808F8B4(struct ProcA01E64 * proc)
+void CgTextInterpreter_Loop_Main(struct CgTextInterpreterProc * proc)
 {
     u16 faceDisp;
     int i;
 
-    struct SerifProc * parent = proc->proc_parent;
+    struct CgTextMainProc * parent = proc->proc_parent;
 
-    int numCharShown = parent->unk_53;
+    int numCharsVisible = parent->numCharsVisible;
 
-    if ((gKeyStatusPtr->newKeys & (DPAD_ANY | A_BUTTON | B_BUTTON)) && !(sub_808EA3C() & 0x20))
+    if ((gKeyStatusPtr->newKeys & (DPAD_ANY | A_BUTTON | B_BUTTON)) && !(GetCgTextFlags() & CG_TEXT_FLAG_5))
     {
-        numCharShown = INT8_MAX;
+        numCharsVisible = INT8_MAX;
     }
     else
     {
-        parent->unk_55--;
+        parent->pauseTimer--;
 
-        if (parent->unk_55 > 0)
+        if (parent->pauseTimer > 0)
         {
             return;
         }
 
-        parent->unk_55 = parent->unk_52;
+        parent->pauseTimer = parent->displaySpeed;
     }
 
-    SetTextFont(parent->unk_30);
+    SetTextFont(parent->pFont);
 
     switch ((u8)gUnknown_03005398)
     {
@@ -1015,38 +1018,38 @@ void sub_808F8B4(struct ProcA01E64 * proc)
             break;
     }
 
-    for (i = 0; i < numCharShown; i++)
+    for (i = 0; i < numCharsVisible; i++)
     {
-        switch (*parent->unk_2c)
+        switch (*parent->str)
         {
             case 0x18: // [Yes]
-                parent->unk_54++;
+                parent->thIndex++;
 
-                sub_80900EC(
-                    (sub_808EA3C() & 0x200) ? gUnknown_08A01E54 : gUnknown_08A01E5C, parent->unk_34[parent->unk_54],
-                    parent->unk_57 * 8, (parent->unk_54 * 2 + parent->unk_58) * 8, 0xb, 1, proc);
+                StartYesNoChoice(
+                    (GetCgTextFlags() & CG_TEXT_FLAG_9) ? gTextIds_AskExit : gTextIds_YesNo, parent->pTexts[parent->thIndex],
+                    parent->x * 8, (parent->thIndex * 2 + parent->y) * 8, 0xb, 1, proc);
 
-                parent->unk_2c++;
+                parent->str++;
                 faceDisp &= ~FACE_DISP_TALK_1;
 
                 goto _0808FE68;
 
             case 0x19: // [No]
-                parent->unk_54++;
+                parent->thIndex++;
 
-                sub_80900EC(
-                    (sub_808EA3C() & 0x200) ? gUnknown_08A01E54 : gUnknown_08A01E5C, parent->unk_34[parent->unk_54],
-                    parent->unk_57 * 8, (parent->unk_54 * 2 + parent->unk_58) * 8, 0xb, 2, proc);
+                StartYesNoChoice(
+                    (GetCgTextFlags() & CG_TEXT_FLAG_9) ? gTextIds_AskExit : gTextIds_YesNo, parent->pTexts[parent->thIndex],
+                    parent->x * 8, (parent->thIndex * 2 + parent->y) * 8, 0xb, 2, proc);
 
-                parent->unk_2c++;
+                parent->str++;
                 faceDisp &= ~FACE_DISP_TALK_1;
 
                 goto _0808FE68;
 
             case 0x00: // [X]
-                if (sub_808EA3C() & 4)
+                if (GetCgTextFlags() & CG_TEXT_FLAG_2)
                 {
-                    sub_808EA1C(4);
+                    ClearCgTextFlag(CG_TEXT_FLAG_2);
                     Proc_Goto(parent, 4);
                 }
                 else
@@ -1060,9 +1063,9 @@ void sub_808F8B4(struct ProcA01E64 * proc)
                 goto _0808FE68;
 
             case 0x01: // [NL]
-                parent->unk_2c++;
+                parent->str++;
 
-                if (parent->unk_54 + 1 >= parent->unk_5c / 2)
+                if (parent->thIndex + 1 >= parent->boxHeight / 2)
                 {
                     parent->unk_5f = 1;
                     Proc_Goto(proc, 1);
@@ -1070,71 +1073,71 @@ void sub_808F8B4(struct ProcA01E64 * proc)
                     goto _0808FE68;
                 }
 
-                parent->unk_54++;
+                parent->thIndex++;
 
                 continue;
 
             case 0x04: // [...]
-                parent->unk_55 = 8;
-                parent->unk_2c++;
+                parent->pauseTimer = 8;
+                parent->str++;
 
                 faceDisp &= ~FACE_DISP_TALK_1;
 
                 goto _0808FE68;
 
             case 0x05: // [....]
-                parent->unk_55 = 16;
-                parent->unk_2c++;
+                parent->pauseTimer = 16;
+                parent->str++;
 
                 faceDisp &= ~FACE_DISP_TALK_1;
 
                 goto _0808FE68;
 
             case 0x06: // [.....]
-                parent->unk_55 = 32;
-                parent->unk_2c++;
+                parent->pauseTimer = 32;
+                parent->str++;
 
                 faceDisp &= ~FACE_DISP_TALK_1;
 
                 goto _0808FE68;
 
             case 0x07: // [......]
-                parent->unk_55 = 128;
-                parent->unk_2c++;
+                parent->pauseTimer = 128;
+                parent->str++;
 
                 faceDisp &= ~FACE_DISP_TALK_1;
 
                 goto _0808FE68;
 
             case 0x16: // [ToggleMouthMove]
-                parent->unk_2c++;
+                parent->str++;
 
                 faceDisp &= ~FACE_DISP_SMILE;
 
                 continue;
 
             case 0x17: // [ToggleSmile]
-                parent->unk_2c++;
+                parent->str++;
 
                 faceDisp |= FACE_DISP_SMILE;
 
                 continue;
 
             case 0x02: // [2NL]
-                parent->unk_2c++;
+                parent->str++;
 
-                if (*parent->unk_2c == 0x01) // [NL]
+                if (*parent->str == 0x01) // [NL]
                 {
-                    parent->unk_2c++;
+                    parent->str++;
                 }
 
-                if (sub_808EA3C() & 8)
+                if (GetCgTextFlags() & CG_TEXT_FLAG_3)
                 {
                     Proc_Goto(proc, 2);
                 }
                 else
                 {
-                    parent->unk_5f = parent->unk_54 + 1;
+                    parent->unk_5f = parent->thIndex + 1;
                     Proc_Goto(proc, 1);
                 }
 
@@ -1144,48 +1147,48 @@ void sub_808F8B4(struct ProcA01E64 * proc)
 
             case 0x03: // [A]
                 faceDisp &= ~FACE_DISP_TALK_1;
-                parent->unk_2c++;
+                parent->str++;
 
-                if (sub_808EA3C() & 0x100)
+                if (GetCgTextFlags() & CG_TEXT_FLAG_8)
                 {
                     StartTalkWaitForInputUnk(
-                        proc, parent->unk_57 * 8 + parent->unk_59 + 4, parent->unk_58 * 8 + parent->unk_5a + 8, 0x400);
+                        proc, parent->x * 8 + parent->textWidth + 4, parent->y * 8 + parent->textHeight + 8, 0x400);
                 }
                 else
                 {
                     StartTalkWaitForInput(
-                        proc, parent->unk_57 * 8 + parent->unk_59 + 4, parent->unk_58 * 8 + parent->unk_5a + 8);
+                        proc, parent->x * 8 + parent->textWidth + 4, parent->y * 8 + parent->textHeight + 8);
                 }
 
-                sub_808F358(parent->unk_2c, &parent->unk_59, &parent->unk_5a);
+                GetCgTextDimensions(parent->str, &parent->textWidth, &parent->textHeight);
 
                 goto _0808FE68;
 
             case 0x80:
-                parent->unk_2c++;
+                parent->str++;
 
-                if (*parent->unk_2c == 0x21) // [ToggleRed]
+                if (*parent->str == 0x21) // [ToggleRed]
                 {
                     parent->unk_5e = 1 - parent->unk_5e;
                 }
 
-                parent->unk_2c++;
+                parent->str++;
 
                 continue;
         }
 
         if (parent->unk_5e != 0)
         {
-            Text_SetColor(parent->unk_34[parent->unk_54], 0xc);
+            Text_SetColor(parent->pTexts[parent->thIndex], 0xc);
         }
         else
         {
-            Text_SetColor(parent->unk_34[parent->unk_54], 0xb);
+            Text_SetColor(parent->pTexts[parent->thIndex], 0xb);
         }
 
-        parent->unk_2c = Text_DrawCharacter(parent->unk_34[parent->unk_54], parent->unk_2c);
+        parent->str = Text_DrawCharacter(parent->pTexts[parent->thIndex], parent->str);
 
-        if ((GetTextDisplaySpeed() != 1) && !(sub_808EA3C() & 0x10))
+        if ((GetTextDisplaySpeed() != 1) && !(GetCgTextFlags() & CG_TEXT_FLAG_4))
         {
             PlaySoundEffect(0x6e);
         }
@@ -1253,20 +1256,20 @@ void sub_808FEA4(int * src, int x, int y)
 }
 
 //! FE8U = 0x0808FF10
-void sub_808FF10(struct ProcA01E64 * proc)
+void CgTextInterpreter_808FF10(struct CgTextInterpreterProc * proc)
 {
     proc->unk_4c = 0;
     return;
 }
 
 //! FE8U = 0x0808FF18
-void sub_808FF18(struct ProcA01E64 * proc)
+void CgTextInterpreter_808FF18(struct CgTextInterpreterProc * proc)
 {
-    struct SerifProc * parent = proc->proc_parent;
+    struct CgTextMainProc * parent = proc->proc_parent;
 
-    int a = (parent->unk_54 + 1) * 2;
+    int a = (parent->thIndex + 1) * 2;
 
-    sub_808FEA4(parent->unk_4c, parent->unk_5b, a);
+    sub_808FEA4(parent->vram, parent->boxWidth, a);
 
     proc->unk_4c++;
 
@@ -1274,13 +1277,13 @@ void sub_808FF18(struct ProcA01E64 * proc)
     {
         sub_808F30C(parent);
 
-        parent->unk_54 -= parent->unk_5f - 1;
+        parent->thIndex -= parent->unk_5f - 1;
 
-        parent->unk_59 = 0;
-        parent->unk_5a = 0;
-        sub_808F358(parent->unk_2c, &parent->unk_59, &parent->unk_5a);
+        parent->textWidth = 0;
+        parent->textHeight = 0;
+        GetCgTextDimensions(parent->str, &parent->textWidth, &parent->textHeight);
 
-        parent->unk_5a = parent->unk_54 * 16 + parent->unk_5a;
+        parent->textHeight = parent->thIndex * 16 + parent->textHeight;
 
         Proc_Break(proc);
     }
@@ -1289,40 +1292,40 @@ void sub_808FF18(struct ProcA01E64 * proc)
 }
 
 //! FE8U = 0x0808FF9C
-void sub_808FF9C(struct ProcA01E64 * proc)
+void CgTextInterpreter_808FF9C(struct CgTextInterpreterProc * proc)
 {
-    struct SerifProc * parent = proc->proc_parent;
+    struct CgTextMainProc * parent = proc->proc_parent;
 
-    sub_808F2BC(parent);
+    CgText_ClearSpriteText(parent);
 
-    parent->unk_54 = 0;
+    parent->thIndex = 0;
 
-    parent->unk_59 = 0;
-    parent->unk_5a = 0;
-    sub_808F358(parent->unk_2c, &parent->unk_59, &parent->unk_5a);
+    parent->textWidth = 0;
+    parent->textHeight = 0;
+    GetCgTextDimensions(parent->str, &parent->textWidth, &parent->textHeight);
 
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A01E64[] =
+struct ProcCmd CONST_DATA gProcScr_CgTextInterpreter[] =
 {
     PROC_YIELD,
 
 PROC_LABEL(0),
-    PROC_REPEAT(sub_808F8B4),
+    PROC_REPEAT(CgTextInterpreter_Loop_Main),
 
     // fallthrough
 
 PROC_LABEL(1),
-    PROC_CALL(sub_808FF10),
-    PROC_REPEAT(sub_808FF18),
+    PROC_CALL(CgTextInterpreter_808FF10),
+    PROC_REPEAT(CgTextInterpreter_808FF18),
 
     PROC_GOTO(0),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_808FF9C),
+    PROC_CALL(CgTextInterpreter_808FF9C),
 
     PROC_GOTO(0),
 
@@ -1333,24 +1336,24 @@ PROC_LABEL(99),
 // clang-format on
 
 //! FE8U = 0x0808FFC4
-void sub_808FFC4(struct SerifProc * parent)
+void RestartCgTextInterpreter(struct CgTextMainProc * parent)
 {
-    Proc_End(Proc_Find(gUnknown_08A01E64));
-    Proc_Start(gUnknown_08A01E64, parent);
+    Proc_End(Proc_Find(gProcScr_CgTextInterpreter));
+    Proc_Start(gProcScr_CgTextInterpreter, parent);
     return;
 }
 
 //! FE8U = 0x0808FFE8
-void sub_808FFE8(void)
+void EndCgTextInterpreter(void)
 {
-    Proc_End(Proc_Find(gUnknown_08A01E64));
+    Proc_End(Proc_Find(gProcScr_CgTextInterpreter));
     return;
 }
 
 //! FE8U = 0x0808FFFC
 s8 sub_808FFFC(void)
 {
-    if (sub_808EA3C() & 4)
+    if (GetCgTextFlags() & CG_TEXT_FLAG_2)
     {
         return 1;
     }
@@ -1359,7 +1362,7 @@ s8 sub_808FFFC(void)
 }
 
 //! FE8U = 0x08090014
-void sub_8090014(struct YesNoChoiceProc * proc)
+void YesNoChoice_Loop_KeyHandler(struct YesNoChoiceProc * proc)
 {
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
@@ -1396,11 +1399,11 @@ void sub_8090014(struct YesNoChoiceProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A01EC4[] =
+struct ProcCmd CONST_DATA gProcScr_YesNoChoice[] =
 {
     PROC_SLEEP(8),
 
-    PROC_REPEAT(sub_8090014),
+    PROC_REPEAT(YesNoChoice_Loop_KeyHandler),
     PROC_SLEEP(5),
 
     PROC_END,
@@ -1409,14 +1412,14 @@ struct ProcCmd CONST_DATA gUnknown_08A01EC4[] =
 // clang-format on
 
 //! FE8U = 0x080900EC
-void sub_80900EC(int * choiceTextIds, struct Text * th, int x, int y, int color, int defaultChoice, ProcPtr parent)
+void StartYesNoChoice(int * choiceTextIds, struct Text * th, int x, int y, int color, int defaultChoice, ProcPtr parent)
 {
     struct YesNoChoiceProc * proc;
 
     Text_InsertDrawString(th, 16, color, GetStringFromIndex(choiceTextIds[0]));
     Text_InsertDrawString(th, 56, color, GetStringFromIndex(choiceTextIds[1]));
 
-    proc = Proc_StartBlocking(gUnknown_08A01EC4, parent);
+    proc = Proc_StartBlocking(gProcScr_YesNoChoice, parent);
     proc->currentChoice = defaultChoice;
     proc->x = x + 16;
     proc->y = y;

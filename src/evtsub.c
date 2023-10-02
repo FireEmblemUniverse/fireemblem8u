@@ -20,7 +20,7 @@
 #include "bmtrick.h"
 #include "ctc.h"
 #include "muctrl.h"
-#include "serif.h"
+#include "cgtext.h"
 
 #include "constants/items.h"
 
@@ -723,7 +723,7 @@ void sub_8012270(struct Unit * unit, u8 jid, u8 item)
 //! FE8U = 0x08012324
 void sub_8012324(void)
 {
-    sub_808F270();
+    EndCgText();
 
     ResetDialogueScreen();
     SetupBackgrounds(NULL);

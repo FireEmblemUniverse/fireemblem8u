@@ -11,7 +11,7 @@
 #include "bm.h"
 #include "ap.h"
 #include "bmlib.h"
-#include "serif.h"
+#include "cgtext.h"
 #include "constants/characters.h"
 #include "classchg.h"
 
@@ -35,15 +35,15 @@ CONST_DATA struct ProcCmd ProcScr_PromoSelectEvent[] = {
     PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(PromoTrainee_Talk1),
-    PROC_WHILE(SomeTalkProcExists),
+    PROC_WHILE(CgTextExists),
     PROC_CALL(PromoTrainee_Talk2),
-    PROC_WHILE(SomeTalkProcExists),
+    PROC_WHILE(CgTextExists),
     PROC_CALL(PromoTrainee_Talk3),
-    PROC_WHILE(SomeTalkProcExists),
+    PROC_WHILE(CgTextExists),
     PROC_CALL(PromoTrainee_Talk4),
-    PROC_WHILE(SomeTalkProcExists),
+    PROC_WHILE(CgTextExists),
     PROC_CALL(PromoTrainee_Talk5),
-    PROC_WHILE(SomeTalkProcExists),
+    PROC_WHILE(CgTextExists),
     PROC_LABEL(3),
     PROC_WHILE(RemovePromoTraineeEventFace),
     PROC_LABEL(2),
@@ -156,8 +156,8 @@ void PromoTrainee_Talk1(struct ProcPromoTraineeEvent *proc)
     }
     StartTalkFace(proc->face, 0xd4, 0x50, 0x82, 0);
 
-    sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
-    sub_808E9D8(0xa);
+    StartCgText(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
+    SetCgTextFlags(CG_TEXT_FLAG_1 | CG_TEXT_FLAG_3);
 
     gFaces[0]->displayBits = FACE_DISP_KIND(2) | FACE_DISP_HLAYER(2);
     b = gFaces[1];
@@ -195,8 +195,8 @@ void PromoTrainee_Talk2(struct ProcPromoTraineeEvent *proc)
         break;
     }
 
-    sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
-    sub_808E9D8(0xa);
+    StartCgText(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
+    SetCgTextFlags(CG_TEXT_FLAG_1 | CG_TEXT_FLAG_3);
 }
 
 void PromoTrainee_Talk3(struct ProcPromoTraineeEvent *proc)
@@ -224,8 +224,8 @@ void PromoTrainee_Talk3(struct ProcPromoTraineeEvent *proc)
         break;
     }
 
-    sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
-    sub_808E9D8(0xa);
+    StartCgText(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
+    SetCgTextFlags(CG_TEXT_FLAG_1 | CG_TEXT_FLAG_3);
 }
 
 void PromoTrainee_Talk4(struct ProcPromoTraineeEvent *proc)
@@ -253,8 +253,8 @@ void PromoTrainee_Talk4(struct ProcPromoTraineeEvent *proc)
         break;
     }
 
-    sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
-    sub_808E9D8(0xa);
+    StartCgText(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
+    SetCgTextFlags(CG_TEXT_FLAG_1 | CG_TEXT_FLAG_3);
 }
 
 void PromoTrainee_Talk5(struct ProcPromoTraineeEvent *proc) {
@@ -286,8 +286,8 @@ void PromoTrainee_Talk5(struct ProcPromoTraineeEvent *proc) {
         return;
     }
     else {
-        sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
-        sub_808E9D8(0xa);
+        StartCgText(0x16, 0x12, 0x12, 4, msgs[i], OBJ_VRAM0 + 0x1800, -1, 0);
+        SetCgTextFlags(CG_TEXT_FLAG_1 | CG_TEXT_FLAG_3);
     }
 }
 

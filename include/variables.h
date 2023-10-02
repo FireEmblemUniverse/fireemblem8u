@@ -182,7 +182,6 @@ extern int gUnknown_0203E1E0;
 // extern ??? gUnknown_0203E7E8
 // extern ??? gUnknown_0203E800
 // extern ??? gUnknown_0203E828
-// extern ??? gUnknown_0203E82C
 extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gUnknown_0203E884
 // extern ??? gExtraMapStatus
@@ -1092,13 +1091,6 @@ extern struct ProcCmd gProcScr_BoxDialogue[];
 // extern ??? gProcScr_BoxDialogueInterpreter
 // extern ??? gUnknown_08A01800
 // extern ??? gUnknown_08A01818
-// extern ??? gUnknown_08A01D88
-// extern ??? gUnknown_08A01DAE
-// extern ??? gUnknown_08A01DBC
-// extern ??? gUnknown_08A01E54
-// extern ??? gUnknown_08A01E5C
-// extern ??? gUnknown_08A01E64
-// extern ??? gUnknown_08A01EC4
 extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
 extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
 extern u8  CONST_DATA gUnknown_08A01F24[]; // img?

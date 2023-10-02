@@ -14,7 +14,7 @@
 #include "ekrbattle.h"
 #include "bmlib.h"
 #include "worldmap.h"
-#include "serif.h"
+#include "cgtext.h"
 #include "ev_triggercheck.h"
 #include "event.h"
 
@@ -214,7 +214,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
 
     if (proc->execType != EV_EXEC_QUIET) {
         EndTalk();
-        sub_808F270(); // End some thing
+        EndCgText(); // End some thing
         sub_808BB74(); // End some more things
 
         if (proc->execType == EV_EXEC_CUTSCENE)
@@ -476,7 +476,7 @@ bool8 EventEngine_CanStartSkip(struct EventEngineProc* proc) { // Events_CanSkip
     return TRUE;
 }
 
-void sub_800D3E4(void) {
+void SetDialogueSkipEvBit(void) {
     struct EventEngineProc* proc;
 
     if (!(proc = Proc_Find(gProc_StdEventEngine)))
