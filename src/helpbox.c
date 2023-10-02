@@ -13,6 +13,7 @@
 #include "bmio.h"
 #include "bmlib.h"
 #include "savemenu.h"
+#include "cgtext.h"
 
 struct HelpBoxScrollProc {
     /* 00 */ PROC_HEADER;
@@ -1736,7 +1737,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
 
                 r3 = Proc_Find(gUnknown_08A01740);
 
-                sub_80900EC(gUnknown_08A016D8, proc->unk_34[proc->unk_48], r3->xBoxFinal, r3->yBoxFinal + proc->unk_48 * 16, 6, 1, proc);
+                StartYesNoChoice(gUnknown_08A016D8, proc->unk_34[proc->unk_48], r3->xBoxFinal, r3->yBoxFinal + proc->unk_48 * 16, 6, 1, proc);
 
                 proc->str++;
                 goto _0808B772;
@@ -1746,7 +1747,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
 
                 r3 = Proc_Find(gUnknown_08A01740);
 
-                sub_80900EC(gUnknown_08A016D8, proc->unk_34[proc->unk_48], r3->xBoxFinal, r3->yBoxFinal + proc->unk_48 * 16, 6, 2, proc);
+                StartYesNoChoice(gUnknown_08A016D8, proc->unk_34[proc->unk_48], r3->xBoxFinal, r3->yBoxFinal + proc->unk_48 * 16, 6, 2, proc);
 
                 proc->str++;
                 goto _0808B772;

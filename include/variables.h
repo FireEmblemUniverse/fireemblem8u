@@ -182,7 +182,6 @@ extern int gUnknown_0203E1E0;
 // extern ??? gUnknown_0203E7E8
 // extern ??? gUnknown_0203E800
 // extern ??? gUnknown_0203E828
-// extern ??? gUnknown_0203E82C
 extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gUnknown_0203E884
 // extern ??? gExtraMapStatus
@@ -268,7 +267,6 @@ extern void* gUnknown_03003070;
 // extern ??? gUnknown_03003098
 // extern ??? gUnknown_030030B4
 // extern ??? gUnknown_030030B6
-extern u16 gUnknown_030030BC;
 // extern ??? gUnknown_030030C8
 // extern ??? gUnknown_030030D8
 // extern ??? gUnknown_030030F0
@@ -656,7 +654,7 @@ extern u16 gPal_MapSpriteSepia[];
 extern u8 Pal_Text[];
 extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40
-// extern ??? gPal_HelpTextBox
+extern u16 gPal_HelpTextBox[];
 // extern ??? gPal_YellowTextBox
 extern u16 Pal_GreenTextColors[];
 // extern ??? gUnknown_0859EFE0
@@ -709,8 +707,8 @@ extern u16 CONST_DATA Img_EventWarp[];
 extern u16 CONST_DATA Pal_EventWarp[];
 extern u16 CONST_DATA Tsa_EventWarp[];
 
-// extern ??? gUnknown_085A638C
-// extern ??? gUnknown_085A643C
+extern u8 gUnknown_085A638C[];
+extern u16 gUnknown_085A643C[];
 extern u8 gUnknown_085A647C[]; // tsa
 
 extern u16 CONST_DATA Img_DanceringFx[];
@@ -1093,13 +1091,6 @@ extern struct ProcCmd gProcScr_BoxDialogue[];
 // extern ??? gProcScr_BoxDialogueInterpreter
 // extern ??? gUnknown_08A01800
 // extern ??? gUnknown_08A01818
-// extern ??? gUnknown_08A01D88
-// extern ??? gUnknown_08A01DAE
-// extern ??? gUnknown_08A01DBC
-// extern ??? gUnknown_08A01E54
-// extern ??? gUnknown_08A01E5C
-// extern ??? gUnknown_08A01E64
-// extern ??? gUnknown_08A01EC4
 extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
 extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
 extern u8  CONST_DATA gUnknown_08A01F24[]; // img?

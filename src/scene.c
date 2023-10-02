@@ -646,7 +646,7 @@ void TalkSkipListener_OnIdle(ProcPtr proc) {
     }
 
     if (!CheckTalkFlag(TALK_FLAG_NOSKIP) && (gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON))) {
-        sub_800D3E4();
+        SetDialogueSkipEvBit();
         SetTalkFaceNoMouthMove(sTalkState->activeFaceSlot);
 
         Proc_End(proc);

@@ -293,7 +293,7 @@ void CallSupportViewerEvent(u16);
 void CallRetreatPromptEvent(void);
 void CallSuspendPromptEvent(void);
 void CallGameOverEvent(void);
-void sub_800D3E4(void);
+void SetDialogueSkipEvBit(void);
 void EventEngine_StartSkip(struct EventEngineProc * proc);
 void sub_800D488(struct EventEngineProc * unused);
 void SetEventTriggerState(u16 triggerId, bool8 value);

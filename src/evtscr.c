@@ -27,6 +27,7 @@
 #include "muctrl.h"
 #include "mapanim.h"
 #include "worldmap.h"
+#include "cgtext.h"
 
 #include "ev_triggercheck.h"
 #include "event.h"
@@ -953,7 +954,7 @@ u8 Event1A_TEXTSTART(struct EventEngineProc * proc)
     if (subcode != proc->activeTextType && subcode != 5)
     {
         EndTalk();
-        sub_808F270();
+        EndCgText();
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
@@ -1022,12 +1023,12 @@ void sub_800E290(struct EventEngineProc * proc, u16 stringIndex, u32 flags)
     InitTalk(0x80, 0, 1);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    sub_808F128(
+    StartCgText(
         3, 0x12, 0x14, 4, stringIndex, OBJ_VRAM0 + 0x1000, -1,
         NULL // parent proc
     );
 
-    sub_808E9D8(flags);
+    SetCgTextFlags(flags);
 }
 
 void sub_800E31C(struct EventEngineProc * proc, u16 stringIndex, u32 flags)
@@ -1175,7 +1176,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
             proc->evStateBits &= ~EV_STATE_0008;
 
             EndTalk();
-            sub_808F270();
+            EndCgText();
             sub_808BB74();
 
             if (proc->execType == EV_EXEC_CUTSCENE)
@@ -1196,7 +1197,7 @@ u8 Event1C_TEXTCONT(struct EventEngineProc * proc)
     if (EVENT_IS_SKIPPING(proc))
     {
         EndTalk();
-        sub_808F270();
+        EndCgText();
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
@@ -1218,7 +1219,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc * proc)
     if (EVENT_IS_SKIPPING(proc))
     {
         EndTalk();
-        sub_808F270();
+        EndCgText();
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
@@ -1232,7 +1233,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc * proc)
     {
         u32 flag = FALSE;
 
-        if ((IsTalkActive() && !IsTalkLocked()) || SomeTalkProcExists() || Proc_Find(gProcScr_BoxDialogue))
+        if ((IsTalkActive() && !IsTalkLocked()) || CgTextExists() || Proc_Find(gProcScr_BoxDialogue))
             flag = TRUE;
 
         if (flag == TRUE)
@@ -1353,7 +1354,7 @@ u8 Event1E_(struct EventEngineProc * proc)
     else
     {
         EndTalk();
-        sub_808F270();
+        EndCgText();
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
