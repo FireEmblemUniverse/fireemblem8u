@@ -7,6 +7,7 @@
 #include "gamecontrol.h"
 #include "bmlib.h"
 #include "bm.h"
+#include "game-introfx.h"
 
 struct TitleScreenProc {
     /* 00 */ PROC_HEADER;

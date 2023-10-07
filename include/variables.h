@@ -1488,35 +1488,7 @@ extern u8 CONST_DATA gTsa_OpSubtitle_03[]; // tsa
 extern u8 CONST_DATA gTsa_OpSubtitle_04[]; // tsa
 extern u8 CONST_DATA gTsa_OpSubtitle_05[]; // tsa
 extern u8 CONST_DATA gTsa_OpSubtitle_06[]; // tsa
-// extern ??? gUnknown_08AA6BFA
-// extern ??? gUnknown_08AA6C0E
-// extern ??? gUnknown_08AA6C22
-// extern ??? gUnknown_08AA6C36
-// extern ??? gUnknown_08AA6C4A
-// extern ??? gUnknown_08AA6C58
-// extern ??? gUnknown_08AA6C66
-// extern ??? gUnknown_08AA6C74
-// extern ??? gUnknown_08AA6C82
-// extern ??? gUnknown_08AA6C8A
-// extern ??? gUnknown_08AA6C92
-// extern ??? gUnknown_08AA6C9A
-// extern ??? gUnknown_08AA6CA4
-// extern ??? gUnknown_08AA6CBC
-// extern ??? gUnknown_08AA6CDC
-// extern ??? gUnknown_08AA6D04
-// extern ??? gUnknown_08AA6D14
-// extern ??? gUnknown_08AA6EA4
-// extern ??? gUnknown_08AA7034
-// extern ??? gUnknown_08AA705C
-// extern ??? gUnknown_08AA707C
-// extern ??? gUnknown_08AA709C
-// extern ??? gUnknown_08AA70BC
-// extern ??? gUnknown_08AA70DC
-// extern ??? gUnknown_08AA70EA
-// extern ??? gUnknown_08AA7116
-// extern ??? gUnknown_08AA712A
-// extern ??? gUnknown_08AA715C
-// extern ??? gUnknown_08AA7194
+
 extern u8 gGfx_TitleMainBackground_1[];
 extern u8 gGfx_TitleMainBackground_2[];
 extern u8 gTsa_TitleMainBackground[];
