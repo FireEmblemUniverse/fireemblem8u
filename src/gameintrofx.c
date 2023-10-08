@@ -4,6 +4,96 @@
 #include "gamecontrol.h"
 #include "game-introfx.h"
 
+CONST_DATA u16 unk_AA6BB8[] = {
+    2,
+    0x0000, 0x4000, 0x0000,
+    0x8000, 0x0010, 0x0004,
+
+    6,
+    0x4000, 0x8000, 0x0000,
+    0x4000, 0x8020, 0x0008,
+    0x4000, 0x8040, 0x0010,
+    0x4000, 0x8060, 0x0018,
+    0x4000, 0x8080, 0x0020,
+    0x0000, 0x40A0, 0x0028,
+
+    2,
+    0x4000, 0x8000, 0x0000,
+    0x0000, 0x4020, 0x0008
+};
+
+CONST_DATA u16 Obj_08AA6BFA[] = {
+    3,
+    0x4000, 0x8000, 0x0000,
+    0x4000, 0x8020, 0x0008,
+    0x0000, 0x4040, 0x0010
+};
+
+CONST_DATA u16 Obj_08AA6C0E[] = {
+    3,
+    0x4000, 0x8000, 0x0000,
+    0x0000, 0x4020, 0x0008,
+    0x8000, 0x0030, 0x000C
+};
+
+CONST_DATA u16 Obj_08AA6C22[] = {
+    3,
+    0x4000, 0xC000, 0x0000,
+    0x4020, 0x4000, 0x0020,
+    0x4020, 0x4020, 0x0024
+};
+
+CONST_DATA u16 Obj_08AA6C36[] = {
+    3,
+    0x4000, 0xD000, 0x0000,
+    0x4020, 0x5000, 0x0024,
+    0x4020, 0x5020, 0x0020
+};
+
+CONST_DATA u16 Obj_08AA6C4A[] = {
+    2,
+    0x0000, 0x8000, 0x0000,
+    0x8000, 0x8020, 0x0010
+};
+
+CONST_DATA u16 Obj_08AA6C58[] = {
+    2,
+    0x8000, 0x9000, 0x0010,
+    0x0000, 0x9010, 0x0000
+};
+
+CONST_DATA u16 Obj_08AA6C66[] = {
+    2,
+    0x4000, 0x8000, 0x0000,
+    0x4010, 0x4000, 0x0008
+};
+
+CONST_DATA u16 Obj_08AA6C74[] = {
+    2,
+    0x4000, 0x9000, 0x0000,
+    0x4010, 0x5000, 0x0008
+};
+
+CONST_DATA u16 Obj_08AA6C82[] = {
+    1,
+    0x0000, 0x4000, 0x0000,
+};
+
+CONST_DATA u16 Obj_08AA6C8A[] = {
+    1,
+    0x0000, 0x5000, 0x0000,
+};
+
+CONST_DATA u16 Obj_08AA6C92[] = {
+    1,
+    0x4000, 0x0000, 0x0000,
+};
+
+CONST_DATA u16 Obj_08AA6C9A[] = {
+    1,
+    0x4000, 0x1000, 0x0000,
+};
+
 void GameIntroPutObjCommon(int ix, int iy, u8 a, u8 b)
 {
     const u16 * obj;
@@ -211,6 +301,12 @@ void GameIntrofxTerminatorMain(struct Proc * proc)
     }
 }
 
+CONST_DATA struct ProcCmd ProcScr_GameIntrofxTerminator[] = {
+    PROC_YIELD,
+    PROC_REPEAT(GameIntrofxTerminatorMain),
+    PROC_END
+};
+
 void NewGameIntrofxTerminator(ProcPtr parent)
 {
     Proc_Start(ProcScr_GameIntrofxTerminator, parent);
@@ -221,20 +317,20 @@ void EndGameIntrofxTerminator(ProcPtr parent)
     Proc_End(Proc_Find(ProcScr_GameIntrofxTerminator));
 }
 
-void StorePaletteToBufferMaybe(const void * src, int offset, int size)
+void CopyToPalGameIntro(const void * src, int offset, int size)
 {
     CopyToPaletteBuffer(src, offset, size);
     gPaletteBuffer[0] = gUnknown_02022188.unk0C;
 }
 
-void sub_80C677C(const u16 * src, u16 * dst)
+void CopyFirstPalDirectly(const u16 * src, u16 * dst)
 {
     int i;
     for (i = 0; i < 20; i++)
         dst[i * 0x20] = src[i * 0x20];
 }
 
-void sub_80C6794(u16 * src, u16 * dst, u8 pal)
+void SetFirstPalDirectly(u16 * src, u16 * dst, u8 pal)
 {
     int i;
     for (i = 0; i < 20; i++)
@@ -245,7 +341,7 @@ void sub_80C6794(u16 * src, u16 * dst, u8 pal)
     }
 }
 
-void sub_80C67C0(u16 * dst)
+void ClearFirstPalDirectly(u16 * dst)
 {
     int oam2 = 0;
     int i = 0x13;
@@ -255,149 +351,37 @@ void sub_80C67C0(u16 * dst)
     } while (--i >= 0);
 }
 
-/* This function need to work a lot */
-/* https://decomp.me/scratch/RdAMR */
-#if NONMATCHING
-
-void sub_80C67D4(u16 a1, u16 a2, int a3, u16 bg, u16 * src1, u16 * src2, u8 a7)
+void TsaModifyFirstPalMaybe(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u16 * src2, s8 flag)
 {
-    s16 i;
-    u16 * tm = BG_GetMapBuffer(bg);
+    u16 * dst;
+    u16 * src;
+    int iVar4;
+    int i;
 
-    if ((s16)a2 != 0)
-        a2 = a2 - 8;
+    dst = BG_GetMapBuffer(bg);
 
-    for (i = a2 / 8 - 1; i < (a1 / 8 - 1); i++)
+    if (start == 0)
+        start -= 8;
+    
+    for (i = (start >> 3) + 1; i < (end >> 3) + 1; i++)
     {
-        if (i > 0x1F && !src2)
+        if (((u32)i >= 0x40) || (i >= 0x20 && src2 == 0))
         {
-            sub_80C67C0(tm + (i % 0x20));
+            ClearFirstPalDirectly(dst + (i & 0x1f));
+            continue;
         }
+
+        if (i < 0x20)
+            src = src1;
         else
-        {
-            u16 * src = src2;
-            if (i <= 0x1F)
-                src = src1;
-
-            if (a7 == 0)
-                sub_80C6794(src + (i % 0x20), tm + (i % 0x20), 0xF);
-        }
+            src = src2;
+        
+        if (flag == 0)
+            CopyFirstPalDirectly(src + (i & 0x1f), dst + (i & 0x1f));
+        else
+            SetFirstPalDirectly(src + (i & 0x1f), dst + (i & 0x1f), 0xf);
     }
-    BG_SetPosition(bg, a1 / 8 + 0x10, 0);
+
+    BG_SetPosition(bg, end + 0x10, 0);
+    return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_80C67D4(u16 a1, u16 a2, int a3, u16 bg, u16 * src1, u16 * src2, u8 a7)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        ldr r2, [sp, #0x24]\n\
-        mov r9, r2\n\
-        ldr r2, [sp, #0x28]\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r6, r0, #0x10\n\
-        lsls r1, r1, #0x10\n\
-        lsrs r4, r1, #0x10\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov sl, r3\n\
-        lsls r2, r2, #0x18\n\
-        lsrs r2, r2, #0x18\n\
-        mov r8, r2\n\
-        mov r0, sl\n\
-        bl BG_GetMapBuffer\n\
-        adds r5, r0, #0\n\
-        lsls r0, r4, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        cmp r0, #0\n\
-        bne _080C680E\n\
-        subs r0, #8\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r4, r0, #0x10\n\
-    _080C680E:\n\
-        lsls r0, r4, #0x10\n\
-        asrs r0, r0, #0x13\n\
-        adds r4, r0, #1\n\
-        lsls r1, r6, #0x10\n\
-        asrs r0, r1, #0x13\n\
-        adds r0, #1\n\
-        adds r6, r1, #0\n\
-        cmp r4, r0\n\
-        bge _080C687E\n\
-        movs r7, #0x1f\n\
-        mov r1, r8\n\
-        lsls r0, r1, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        mov r8, r0\n\
-    _080C682A:\n\
-        cmp r4, #0x3f\n\
-        bhi _080C6838\n\
-        cmp r4, #0x1f\n\
-        ble _080C6846\n\
-        mov r2, r9\n\
-        cmp r2, #0\n\
-        bne _080C6846\n\
-    _080C6838:\n\
-        adds r0, r4, #0\n\
-        ands r0, r7\n\
-        lsls r0, r0, #1\n\
-        adds r0, r5, r0\n\
-        bl sub_80C67C0\n\
-        b _080C6874\n\
-    _080C6846:\n\
-        mov r0, r9\n\
-        cmp r4, #0x1f\n\
-        bgt _080C684E\n\
-        ldr r0, [sp, #0x20]\n\
-    _080C684E:\n\
-        mov r1, r8\n\
-        cmp r1, #0\n\
-        bne _080C6864\n\
-        adds r1, r4, #0\n\
-        ands r1, r7\n\
-        lsls r1, r1, #1\n\
-        adds r0, r0, r1\n\
-        adds r1, r5, r1\n\
-        bl sub_80C677C\n\
-        b _080C6874\n\
-    _080C6864:\n\
-        adds r1, r4, #0\n\
-        ands r1, r7\n\
-        lsls r1, r1, #1\n\
-        adds r0, r0, r1\n\
-        adds r1, r5, r1\n\
-        movs r2, #0xf\n\
-        bl sub_80C6794\n\
-    _080C6874:\n\
-        adds r4, #1\n\
-        asrs r0, r6, #0x13\n\
-        adds r0, #1\n\
-        cmp r4, r0\n\
-        blt _080C682A\n\
-    _080C687E:\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #0xd\n\
-        adds r1, r6, r2\n\
-        lsrs r1, r1, #0x10\n\
-        mov r0, sl\n\
-        movs r2, #0\n\
-        bl BG_SetPosition\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif

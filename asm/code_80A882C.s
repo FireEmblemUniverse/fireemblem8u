@@ -4722,7 +4722,7 @@ sub_80ADE90: @ 0x080ADE90
 	movs r3, #0
 	cmp r0, #2
 	bne _080ADEA6
-	ldr r3, _080ADEDC  @ gUnknown_030030C8
+	ldr r3, _080ADEDC  @ gGameIntroBgAffineDstData
 _080ADEA6:
 	movs r4, #2
 	ldrsh r0, [r3, r4]
@@ -4752,7 +4752,7 @@ _080ADEA6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ADEDC: .4byte gUnknown_030030C8
+_080ADEDC: .4byte gGameIntroBgAffineDstData
 
 	THUMB_FUNC_END sub_80ADE90
 
@@ -4773,7 +4773,7 @@ sub_80ADEE0: @ 0x080ADEE0
 	movs r4, #0
 	cmp r0, #2
 	bne _080ADF00
-	ldr r4, _080ADF44  @ gUnknown_030030C8
+	ldr r4, _080ADF44  @ gGameIntroBgAffineDstData
 _080ADF00:
 	movs r3, #0
 	ldrsh r0, [r4, r3]
@@ -4809,7 +4809,7 @@ _080ADF00:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ADF44: .4byte gUnknown_030030C8
+_080ADF44: .4byte gGameIntroBgAffineDstData
 
 	THUMB_FUNC_END sub_80ADEE0
 
@@ -4884,7 +4884,7 @@ sub_80ADFBC: @ 0x080ADFBC
 	movs r3, #0
 	cmp r0, #2
 	bne _080ADFCA
-	ldr r3, _080ADFF8  @ gUnknown_030030C8
+	ldr r3, _080ADFF8  @ gGameIntroBgAffineDstData
 _080ADFCA:
 	movs r4, #2
 	ldrsh r0, [r3, r4]
@@ -4910,7 +4910,7 @@ _080ADFCA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ADFF8: .4byte gUnknown_030030C8
+_080ADFF8: .4byte gGameIntroBgAffineDstData
 
 	THUMB_FUNC_END sub_80ADFBC
 
@@ -4923,7 +4923,7 @@ sub_80ADFFC: @ 0x080ADFFC
 	movs r4, #0
 	cmp r0, #2
 	bne _080AE00C
-	ldr r4, _080AE040  @ gUnknown_030030C8
+	ldr r4, _080AE040  @ gGameIntroBgAffineDstData
 _080AE00C:
 	movs r3, #0
 	ldrsh r0, [r4, r3]
@@ -4952,7 +4952,7 @@ _080AE00C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AE040: .4byte gUnknown_030030C8
+_080AE040: .4byte gGameIntroBgAffineDstData
 
 	THUMB_FUNC_END sub_80ADFFC
 

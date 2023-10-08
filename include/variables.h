@@ -270,6 +270,7 @@ extern void* gUnknown_03003070;
 // extern ??? gUnknown_030030B6
 extern u16 gUnknown_030030BC;
 // extern ??? gUnknown_030030C8
+// extern ??? gGameIntroBgAffineDstData
 // extern ??? gUnknown_030030D8
 // extern ??? gUnknown_030030F0
 // extern ??? gUnknown_03003128
@@ -1519,12 +1520,12 @@ extern u8 gGfx_TitleLargeGlowingOrb[];
 extern u16 gPal_TitleLargeGlowingOrb[];
 extern u8 gGfx_TitleSmallLightBubbles[];
 extern u16 gPal_TitleSmallLightBubbles[];
-// extern ??? gUnknown_08AB21D8
-// extern ??? gUnknown_08AB5D90
-// extern ??? gUnknown_08AB630C
-// extern ??? gUnknown_08AB632C
-// extern ??? gUnknown_08AB7AC0
-// extern ??? gUnknown_08AB7DB0
+extern u8 img_08AB21D8[];
+extern u8 img_08AB5D90[];
+extern u16 pal_08AB630C[];
+extern u8 img_08AB632C[];
+extern u8 img_08AB7AC0[];
+extern u16 pal_08AB7DB0[];
 // extern ??? gUnknown_08AB7DD0
 // extern ??? gUnknown_08AB87E0
 // extern ??? gUnknown_08AB8CAC
@@ -1692,18 +1693,18 @@ extern u16 gPal_TitleSmallLightBubbles[];
 // extern ??? gUnknown_08AF0E08
 // extern ??? gUnknown_08AF16CC
 // extern ??? gUnknown_08AF1AC8
-// extern ??? gUnknown_08AF1AE8
-// extern ??? gUnknown_08AF1B18
-// extern ??? gUnknown_08AF1B38
-// extern ??? gUnknown_08AF1FB0
-// extern ??? gUnknown_08AF1FD0
-// extern ??? gUnknown_08AF2634
-// extern ??? gUnknown_08AF2654
-// extern ??? gUnknown_08AF310C
+extern u8 gUnknown_08AF1AE8[];
+extern u16 gUnknown_08AF1B18[];
+extern u8 gUnknown_08AF1B38[];
+extern u16 gUnknown_08AF1FB0[];
+extern u8 gUnknown_08AF1FD0[];
+extern u16 gUnknown_08AF2634[];
+extern u8 gUnknown_08AF2654[];
+extern u16 gUnknown_08AF310C[];
 // extern ??? gUnknown_08AF312C
 // extern ??? gUnknown_08AF404C
 // extern ??? gUnknown_08AF4330
-// extern ??? gUnknown_08AF47F0
+// extern ??? pal_08AF47F0
 // extern ??? gUnknown_08B103D8
 // extern ??? gUnknown_08B104D8
 // extern ??? gUnknown_08B10630

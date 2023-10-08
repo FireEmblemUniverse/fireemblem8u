@@ -13,16 +13,16 @@ ProcScr_GameIntro:  @ 0x08AA71C8
     .word 0x0
     @ PROC_CALL
     .short 0x2, 0x0
-    .word sub_80C6C24
+    .word GameIntroInitScreen
     @ PROC_START_CHILD
     .short 0x5, 0x0
-    .word gUnknown_08AA6CDC
+    .word ProcScr_GameIntroBLDALPHA
     @ PROC_WHILE
     .short 0x14, 0x0
-    .word sub_80C6EF8
+    .word GameIntroBldAlphaExists
     @ PROC_CALL
     .short 0x2, 0x0
-    .word sub_80C6F10
+    .word GameIntroUpdateScreen1
     @ PROC_REPEAT
     .short 0x3, 0x0
     .word sub_80C6F70
@@ -37,7 +37,7 @@ ProcScr_GameIntro:  @ 0x08AA71C8
     .word sub_80C73B0
     @ PROC_CALL
     .short 0x2, 0x0
-    .word sub_80C71C0
+    .word NewProc08AA6D04
     @ PROC_REPEAT
     .short 0x3, 0x0
     .word sub_80C76C8

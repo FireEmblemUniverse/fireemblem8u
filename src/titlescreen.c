@@ -9,24 +9,6 @@
 #include "bm.h"
 #include "game-introfx.h"
 
-struct TitleScreenProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ s8 unk_29; // maybe a flag for whether we are coming from the intro sequence?
-    /* 2A */ u16 timer;
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-
-    /* 34 */ u8 _pad[0x4C-0x34];
-
-    /* 4C */ s16 unk_4c;
-    /* 4E */ s16 unk_4e; // unused/pad?
-    /* 50 */ s16 unk_50; // unused/pad?
-    /* 52 */ u16 unk_52;
-};
-
-extern struct BgAffineDstData gUnknown_030030C8;
-
 u16 CONST_DATA gSprite_Title_FireEmblemLogo[] = {
     5,
     0x4000, 0xC000, 0x0000,
@@ -119,7 +101,7 @@ void sub_80C5548(int arg) {
 
     src.alpha = 0;
 
-    BgAffineSet(&src, &gUnknown_030030C8, 1);
+    BgAffineSet(&src, &gGameIntroBgAffineDstData, 1);
 
     return;
 }
@@ -370,7 +352,7 @@ void sub_80C5A44(struct TitleScreenProc* proc) {
 
     SetBackgroundScreenSize(2, 2);
 
-    sub_80C6BF0(8, 0);
+    BgAffineSetGameIntro(8, 0);
 
     gLCDControlBuffer.bg2cnt.areaOverflowMode = 0;
 
@@ -408,7 +390,7 @@ void Title_Loop_DrawRotatingBlueLights(struct TitleScreenProc* proc) {
         res = Interpolate(0, 256, 448, proc->timer - 45, 45);
     }
 
-    sub_80C6BF0(
+    BgAffineSetGameIntro(
         res,
         Interpolate(0, 0, 64, proc->timer, 90)
     );

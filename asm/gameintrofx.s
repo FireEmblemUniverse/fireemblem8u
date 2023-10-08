@@ -99,7 +99,7 @@ _080C694A:
 	ands r0, r6
 	lsls r0, r0, #1
 	adds r0, r7, r0
-	bl sub_80C67C0
+	bl ClearFirstPalDirectly
 	b _080C698A
 _080C6958:
 	mov r0, r9
@@ -117,7 +117,7 @@ _080C6960:
 	lsls r1, r1, #1
 	adds r0, r0, r1
 	adds r1, r7, r1
-	bl sub_80C677C
+	bl CopyFirstPalDirectly
 	b _080C698A
 _080C697A:
 	adds r1, r4, #0
@@ -126,7 +126,7 @@ _080C697A:
 	adds r0, r0, r1
 	adds r1, r7, r1
 	movs r2, #0xf
-	bl sub_80C6794
+	bl SetFirstPalDirectly
 _080C698A:
 	subs r4, #1
 	asrs r0, r5, #0x13

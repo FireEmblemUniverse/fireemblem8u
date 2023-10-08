@@ -3,6 +3,27 @@
 #include "global.h"
 #include "proc.h"
 
+#define ApplyPalettesGameIntro(aSrc, aPalId, aPalCount) CopyToPalGameIntro((aSrc), 0x20 * (aPalId), 0x20 * (aPalCount))
+#define ApplyPaletteGameIntro(aSrc, aPalId) ApplyPalettesGameIntro((aSrc), (aPalId), 1)
+
+struct TitleScreenProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ s8 unk_29; // maybe a flag for whether we are coming from the intro sequence?
+    /* 2A */ u16 timer;
+    /* 2C */ int unk_2c;
+    /* 30 */ int unk_30;
+
+    /* 34 */ u8 _pad[0x4C-0x34];
+
+    /* 4C */ s16 unk_4c;
+    /* 4E */ s16 unk_4e; // unused/pad?
+    /* 50 */ s16 unk_50; // unused/pad?
+    /* 52 */ u16 unk_52;
+};
+
+extern struct BgAffineDstData gGameIntroBgAffineDstData;
+
 struct Struct02022188 {
     /* 00 */ u16 unk00;
     /* 02 */ u16 unk02;
@@ -15,8 +36,40 @@ struct Struct02022188 {
 
 extern struct Struct02022188 gUnknown_02022188;
 
-// extern ??? gUnknown_08AA6BFA
-// extern ??? gUnknown_08AA6C0E
+struct ProcGameIntro {
+    PROC_HEADER;
+
+    /* 2A */ u16 timer;
+    /* 2C */ s16 unk2C;
+    /* 2E */ s16 unk2E;
+    /* 30 */ STRUCT_PAD(0x30, 0x34);
+    /* 34 */ s16 unk34;
+    /* 36 */ s16 unk36;
+    /* 38 */ s16 unk38;
+    /* 3A */ s16 unk3A;
+    /* 3C */ s16 unk3C;
+    /* 3E */ s16 unk3E;
+    /* 40 */ STRUCT_PAD(0x40, 0x46);
+    /* 46 */ u8 unk46;
+};
+
+struct ProcGameIntroFadeIn {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
+    /* 4C */ s16 cur;
+    /* 4E */ STRUCT_PAD(0x4E, 0x64);
+    /* 64 */ s16 max;
+};
+
+struct ProcGameIntroBLDALPHA {
+    PROC_HEADER;
+
+    /* 2A */ u16 timer;
+};
+
+extern CONST_DATA u16 Obj_08AA6BFA[];
+extern CONST_DATA u16 Obj_08AA6C0E[];
 extern CONST_DATA u16 Obj_08AA6C22[];
 extern CONST_DATA u16 Obj_08AA6C36[];
 extern CONST_DATA u16 Obj_08AA6C4A[];
@@ -30,11 +83,11 @@ extern CONST_DATA u16 Obj_08AA6C8A[];
 extern CONST_DATA u16 Obj_08AA6C92[];
 extern CONST_DATA u16 Obj_08AA6C9A[];
 extern CONST_DATA struct ProcCmd ProcScr_GameIntrofxTerminator[];
-// extern ??? gUnknown_08AA6CBC
-// extern ??? gUnknown_08AA6CDC
-// extern ??? gUnknown_08AA6D04
-// extern ??? gUnknown_08AA6D14
-// extern ??? gUnknown_08AA6EA4
+extern CONST_DATA struct ProcCmd ProcScr_GameIntroFadeIn[];
+extern CONST_DATA struct ProcCmd ProcScr_GameIntroBLDALPHA[];
+extern CONST_DATA struct ProcCmd ProcScr_08AA6D04[];
+extern CONST_DATA u8 * imgs_08AA6D14[];
+extern CONST_DATA u16 * tsas_08AA6EA4[];
 // extern ??? gUnknown_08AA7034
 // extern ??? gUnknown_08AA705C
 // extern ??? gUnknown_08AA707C
@@ -47,34 +100,34 @@ extern CONST_DATA struct ProcCmd ProcScr_GameIntrofxTerminator[];
 // extern ??? gUnknown_08AA715C
 // extern ??? gUnknown_08AA7194
 
-// ??? GameIntroPutObjCommon(???);
-// ??? GameIntrofxTerminatorMain(???);
-// ??? NewGameIntrofxTerminator(???);
-// ??? EndGameIntrofxTerminator(???);
-// ??? StorePaletteToBufferMaybe(???);
-// ??? sub_80C677C(???);
-// ??? sub_80C6794(???);
-// ??? sub_80C67C0(???);
-// ??? sub_80C67D4(???);
+void GameIntroPutObjCommon(int ix, int iy, u8 a, u8 b);
+void GameIntrofxTerminatorMain(struct Proc * proc);
+void NewGameIntrofxTerminator(ProcPtr parent);
+void EndGameIntrofxTerminator(ProcPtr parent);
+void CopyToPalGameIntro(const void * src, int offset, int size);
+void CopyFirstPalDirectly(const u16 * src, u16 * dst);
+void SetFirstPalDirectly(u16 * src, u16 * dst, u8 pal);
+void ClearFirstPalDirectly(u16 * dst);
+void TsaModifyFirstPalMaybe(s16 param_1, s16 param_2, u8 param_3, u16 bg, u16* src1, u16* src2, s8 param_7);
 // ??? sub_80C689C(???);
 void sub_80C69B0(u16 *, int, u16);
-// ??? Initialize6CIntroSequence(???);
-// ??? sub_80C6B50(???);
-// ??? sub_80C6B8C(???);
-// ??? sub_80C6BD8(???);
-void sub_80C6BF0(int, int);
-// ??? sub_80C6C24(???);
-// ??? sub_80C6E14(???);
-// ??? sub_80C6E1C(???);
-// ??? Until6C2AIs8Callback(???);
-// ??? sub_80C6EB0(???);
-// ??? sub_80C6EF8(???);
-// ??? sub_80C6F10(???);
-// ??? sub_80C6F70(???);
-// ??? sub_80C7050(???);
-// ??? sub_80C71B0(???);
-// ??? sub_80C71C0(???);
-// ??? sub_80C71D4(???);
+void Initialize6CIntroSequence(struct ProcGameIntro * proc);
+void GameIntroAllBlack(struct ProcGameIntroFadeIn * proc);
+void GameIntroFadeInMain(struct ProcGameIntroFadeIn * proc);
+void NewProcGameIntroFadeIn(int max, ProcPtr parent);
+void BgAffineSetGameIntro(int scaling_radio, int angle);
+void GameIntroInitScreen(struct ProcGameIntro * proc);
+void GameIntroBldAlphaInit(struct ProcGameIntroBLDALPHA * proc);
+void GameIntroBldAlphaUpdateBgPalette(struct ProcGameIntroBLDALPHA * proc);
+void GameIntroBldAlphaDelay(struct ProcGameIntroBLDALPHA * proc);
+void GameIntroBldAlphaMain(struct ProcGameIntroBLDALPHA * proc);
+bool GameIntroBldAlphaExists(void);
+void GameIntroUpdateScreen1(struct ProcGameIntro * proc);
+void sub_80C6F70(struct ProcGameIntro * proc);
+void sub_80C7050(struct ProcGameIntro * proc);
+void Proc08AA6D04Main(void);
+void NewProc08AA6D04(void);
+void EndProc08AA6D04(void);
 // ??? sub_80C71E4(???);
 // ??? sub_80C726C(???);
 // ??? sub_80C72A4(???);
