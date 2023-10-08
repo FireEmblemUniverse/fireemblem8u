@@ -283,7 +283,10 @@ SECTIONS
         asm/code_80BF13C.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
-        asm/code_80C6474.o(.text);
+        src/gameintrofx.o(.text);
+        asm/gameintrofx.o(.text);
+        src/gameintro-main.o(.text);
+        asm/gameintro_80C6474.o(.text);
         src/classchg-main.o(.text);
         src/classchg-handler.o(.text);
         src/classchg-sel.o(.text);
@@ -734,7 +737,12 @@ SECTIONS
         . = ALIGN(4); src/opsubtitle.o(.data);
         . = ALIGN(4); data/data_opsubtitle.o(.data);
         . = ALIGN(4); src/titlescreen.o(.data);
+        . = ALIGN(4); src/gameintrofx.o(.data);
+        . = ALIGN(4); src/gameintro-main.o(.data);
         . = ALIGN(4); data/data_AA6BFA.o(.data);
+        . = ALIGN(4); data/game-introfx.o(.data);
+        . = ALIGN(4); data/data_AA7760.o(.data);
+        . = ALIGN(4); data/data_gameintro_gfx.o(.data);
         . = ALIGN(4); src/classchg-main.o(.data);
         . = ALIGN(4); src/classchg-handler.o(.data);
         . = ALIGN(4); src/classchg-sel.o(.data);

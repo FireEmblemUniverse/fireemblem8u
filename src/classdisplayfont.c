@@ -384,7 +384,7 @@ struct ClassDisplayFont CONST_DATA gClassDisplayFontData[] = {
 };
 
 
-struct ClassDisplayFont* GetClassDisplayFontInfo(char chr) {
+struct ClassDisplayFont * GetClassDisplayFontInfo(char chr) {
 
     if ((u8)(chr - 0x61) < 0x1A) {
         return &gClassDisplayFontData[chr-0x47];

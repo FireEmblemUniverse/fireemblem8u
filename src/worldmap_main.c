@@ -553,7 +553,7 @@ void sub_80B9218(ProcPtr proc)
 s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
 {
     int iVar4;
-    int uVar5;
+    int i;
 
     if (gGMData.units[0].location == param_2)
     {
@@ -602,8 +602,8 @@ s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
     }
     else
     {
-        uVar5 = gGMData.units[0].location;
-        if (sub_80BCCFC(uVar5, param_2, 1) != 0)
+        i = gGMData.units[0].location;
+        if (sub_80BCCFC(i, param_2, 1) != 0)
         {
             if (sub_80BD29C() == 2)
             {
