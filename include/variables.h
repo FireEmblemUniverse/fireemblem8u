@@ -267,7 +267,6 @@ extern void* gUnknown_03003070;
 // extern ??? gUnknown_03003098
 // extern ??? gUnknown_030030B4
 // extern ??? gUnknown_030030B6
-// extern ??? gGameIntroBgAffineDstData
 // extern ??? gUnknown_030030D8
 // extern ??? gUnknown_030030F0
 // extern ??? gUnknown_03003128
