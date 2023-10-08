@@ -610,7 +610,7 @@ void SavePlayThroughData(void)
     /* Maybe flag definition should be modified? */
     difficult = !!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD);
 
-    isTutorial = gPlaySt.cfgController;
+    isTutorial = gPlaySt.config.controller;
 
     if (!ReadGlobalSaveInfo(&info)) {
         InitGlobalSaveInfodata();

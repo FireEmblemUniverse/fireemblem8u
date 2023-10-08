@@ -50,15 +50,11 @@ Img_DifficultyMenuObjs:  @ 0x08A28A0C
 
 	.global Pal_DifficultyMenuObjs
 Pal_DifficultyMenuObjs:  @ 0x08A29418
-	.incbin "baserom.gba", 0xA29418, 0x82
+	.incbin "baserom.gba", 0xA29418, 0x80
 
-	.global gUnknown_08A2949A
-gUnknown_08A2949A:  @ 0x08A2949A
-	.incbin "baserom.gba", 0xA2949A, 0x20
-
-	.global gUnknown_08A294BA
-gUnknown_08A294BA:  @ 0x08A294BA
-	.incbin "baserom.gba", 0xA294BA, 0x9E
+	.global gUnknown_08A29498
+gUnknown_08A29498:  @ 0x08A29498
+	.incbin "baserom.gba", 0xA29498, 0xC0
 
 	.global gUnknown_08A29558
 gUnknown_08A29558:  @ 0x08A29558

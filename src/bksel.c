@@ -708,7 +708,7 @@ void NewBattleForecast() {
 
     struct BattleForecastProc* proc;
 
-    if (gPlaySt.cfgBattleForecastType == 2) {
+    if (gPlaySt.config.battleForecastType == 2) {
         ResetTextFont();
         return;
     }
@@ -720,7 +720,7 @@ void NewBattleForecast() {
         SetKeyStatus_IgnoreMask(GetKeyStatus_IgnoreMask() | A_BUTTON);
     }
 
-    switch (gPlaySt.cfgBattleForecastType) {
+    switch (gPlaySt.config.battleForecastType) {
         case 0:
             proc->frameKind = 1;
             break;

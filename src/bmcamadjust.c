@@ -34,7 +34,7 @@ void GetPlayerStartCursorPosition(int *px, int *py)
         gPlaySt.yCursor = unit->yPos;
     }
 
-    if (1 != gPlaySt.cfgAutoCursor) {
+    if (1 != gPlaySt.config.autoCursor) {
         unit = GetUnitFromCharId(GetPlayerLeaderUnitId());
         *px = unit->xPos;
         *py = unit->yPos;

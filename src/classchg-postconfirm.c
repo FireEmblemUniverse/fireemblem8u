@@ -7,6 +7,7 @@
 #include "bmusemind.h"
 #include "ap.h"
 #include "soundwrapper.h"
+#include "cgtext.h"
 
 CONST_DATA struct ProcCmd ProcScr_ClassChgReal[] = {
     PROC_WHILE(MusicProc4Exists),
@@ -61,7 +62,7 @@ void ExecClassChgReal(struct ProcPromoMain *proc)
     int slot;
     struct ProcPromoHandler *parent = proc->proc_parent;
     gUnknown_03005398 = -1;
-    sub_808F270();
+    EndCgText();
 
     ResetDialogueScreen();
     APProc_DeleteAll();

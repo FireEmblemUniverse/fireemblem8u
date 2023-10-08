@@ -36,7 +36,7 @@ void DeleteAll6CWaitMusicRelated();
 void sub_8002AC8(void);
 
 #define PlaySoundEffect(id) \
-    if (!gPlaySt.cfgDisableSoundEffects) \
+    if (!gPlaySt.config.disableSoundEffects) \
         m4aSongNumStart((id))
 
 extern struct ProcCmd CONST_DATA gMusicProc3Script[];

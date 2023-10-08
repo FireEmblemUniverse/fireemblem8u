@@ -19,6 +19,7 @@
 #include "bmlib.h"
 #include "prepscreen.h"
 #include "ev_triggercheck.h"
+#include "cgtext.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -650,7 +651,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 
 //! FE8U = 0x080A1554
 void SupportScreen_OnEnd(ProcPtr proc) {
-    sub_808F270();
+    EndCgText();
     EndAllProcChildren(proc);
     EndMuralBackground_();
     EndFaceById(0);
@@ -1367,7 +1368,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     StartGreenText((void*)proc);
 
     if (!proc->fromPrepScreen) {
-        gPlaySt.cfgTextSpeed = 1; // TODO: Text speed constants
+        gPlaySt.config.textSpeed = 1; // TODO: Text speed constants
 
         ResetPrepScreenHandCursor(proc);
         sub_80AD4A0(0x600, 1);

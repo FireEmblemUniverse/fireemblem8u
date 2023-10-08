@@ -27,6 +27,7 @@
 #include "muctrl.h"
 #include "mapanim.h"
 #include "worldmap.h"
+#include "cgtext.h"
 
 #include "ev_triggercheck.h"
 #include "event.h"
@@ -508,7 +509,7 @@ u8 Event0E_STAL(struct EventEngineProc * proc)
         int timeStep = 1;
 
         if (!(proc->evStateBits & EV_STATE_0040) && (subcode & 2))
-            if ((gPlaySt.cfgGameSpeed != 0) || (gKeyStatusPtr->heldKeys & A_BUTTON))
+            if ((gPlaySt.config.gameSpeed != 0) || (gKeyStatusPtr->heldKeys & A_BUTTON))
                 timeStep = 4;
 
         stallTimer = stallTimer - timeStep;
@@ -914,7 +915,7 @@ u8 Event19_(struct EventEngineProc * proc)
             break;
 
         case 7: // Check Some option or difficult mode
-            if (gPlaySt.cfgController || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
+            if (gPlaySt.config.controller || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
                 gEventSlots[0xC] = FALSE;
             else
                 gEventSlots[0xC] = TRUE;
@@ -953,7 +954,7 @@ u8 Event1A_TEXTSTART(struct EventEngineProc * proc)
     if (subcode != proc->activeTextType && subcode != 5)
     {
         EndTalk();
-        sub_808F270();
+        EndCgText();
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
@@ -989,8 +990,8 @@ void sub_800E210(struct EventEngineProc * proc, u16 stringIndex, s8 b)
 
     if ((proc->evStateBits & EV_STATE_0040) == 1)
     { // ?????
-        proc->overwrittenTextSpeed = gPlaySt.cfgTextSpeed;
-        gPlaySt.cfgTextSpeed = 1;
+        proc->overwrittenTextSpeed = gPlaySt.config.textSpeed;
+        gPlaySt.config.textSpeed = 1;
     }
     else
     {
@@ -1022,12 +1023,12 @@ void sub_800E290(struct EventEngineProc * proc, u16 stringIndex, u32 flags)
     InitTalk(0x80, 0, 1);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    sub_808F128(
+    StartCgText(
         3, 0x12, 0x14, 4, stringIndex, OBJ_VRAM0 + 0x1000, -1,
         NULL // parent proc
     );
 
-    sub_808E9D8(flags);
+    SetCgTextFlags(flags);
 }
 
 void sub_800E31C(struct EventEngineProc * proc, u16 stringIndex, u32 flags)
@@ -1175,7 +1176,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
             proc->evStateBits &= ~EV_STATE_0008;
 
             EndTalk();
-            sub_808F270();
+            EndCgText();
             sub_808BB74();
 
             if (proc->execType == EV_EXEC_CUTSCENE)
@@ -1196,7 +1197,7 @@ u8 Event1C_TEXTCONT(struct EventEngineProc * proc)
     if (EVENT_IS_SKIPPING(proc))
     {
         EndTalk();
-        sub_808F270();
+        EndCgText();
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
@@ -1218,7 +1219,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc * proc)
     if (EVENT_IS_SKIPPING(proc))
     {
         EndTalk();
-        sub_808F270();
+        EndCgText();
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
@@ -1232,7 +1233,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc * proc)
     {
         u32 flag = FALSE;
 
-        if ((IsTalkActive() && !IsTalkLocked()) || SomeTalkProcExists() || Proc_Find(gProcScr_BoxDialogue))
+        if ((IsTalkActive() && !IsTalkLocked()) || CgTextExists() || Proc_Find(gProcScr_BoxDialogue))
             flag = TRUE;
 
         if (flag == TRUE)
@@ -1272,7 +1273,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc * proc)
     }
 
     if (proc->overwrittenTextSpeed != -1)
-        gPlaySt.cfgTextSpeed = proc->overwrittenTextSpeed;
+        gPlaySt.config.textSpeed = proc->overwrittenTextSpeed;
 
     return EVC_ADVANCE_YIELD;
 }
@@ -1353,7 +1354,7 @@ u8 Event1E_(struct EventEngineProc * proc)
     else
     {
         EndTalk();
-        sub_808F270();
+        EndCgText();
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
@@ -2455,7 +2456,7 @@ void LoadUnit_800F704(const struct UnitDefinition * def, u16 b, s8 quiet, s8 d)
 
     if (def->allegiance == FACTION_ID_RED && unit->pCharacterData->number >= 0x3C)
     {
-        if (!gPlaySt.cfgController)
+        if (!gPlaySt.config.controller)
         {
             if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
                 UnitApplyBonusLevels(unit, -GetROMChapterStruct(gPlaySt.chapterIndex)->easyModeLevelMalus);

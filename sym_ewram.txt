@@ -416,7 +416,7 @@
 . = 0x03E7E8; gUnknown_0203E7E8 = .;
 . = 0x03E800; gUnknown_0203E800 = .;
 . = 0x03E828; gUnknown_0203E828 = .;
-. = 0x03E82C; gUnknown_0203E82C = .;
+. = 0x03E82C; gCgTextSt = .;
 . = 0x03E87C; gUnknown_0203E87C = .;
 . = 0x03E884; gUnknown_0203E884 = .;
 . = 0x03E88E; gBoolSramWorking = .;
@@ -425,7 +425,7 @@
 . = ALIGN(4); src/bmsave.o(ewram_data);
 . = ALIGN(4); src/bmsave-multiarena.o(ewram_data);
 . = ALIGN(4); src/bmsave-xmap.o(ewram_data);
-. = 0x03EF64; gUnknown_0203EF64 = .;
+. = 0x03EF64; gSaveMenuRTextData = .;
 . = 0x03EF68; gShopItemTexts = .;
 . = 0x03EF98; sShopState = .;
 . = 0x03EFB4; gUnknown_0203EFB4 = .;

@@ -564,7 +564,7 @@ s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
             else
             {
                 iVar4 = sub_80BD014(&gGMData);
-                if (!(gPlaySt.chapterStateBits & 4) && !gPlaySt.cfgController && iVar4 == 2)
+                if (!(gPlaySt.chapterStateBits & 4) && !gPlaySt.config.controller && iVar4 == 2)
                     return 0;
 
                 Proc_Goto(param_1, 18);

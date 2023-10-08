@@ -16,6 +16,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "worldmap.h"
+#include "cgtext.h"
 #include "prepscreen.h"
 #include "classchg.h"
 
@@ -28,7 +29,7 @@ s8 HasConvoyAccess_()
 
 void TraineePromo_ResetScreenEffect()
 {
-    sub_808F270();
+    EndCgText();
     ResetDialogueScreen();
     APProc_DeleteAll();
 
@@ -80,7 +81,7 @@ void NullExpForChar100AndResetScreen()
 
 void PrepPromoteDebugMaybe(struct Proc08A184B4 *proc)
 {
-    sub_808F270();
+    EndCgText();
     ResetDialogueScreen();
     APProc_DeleteAll();
 

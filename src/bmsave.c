@@ -114,7 +114,7 @@ void WriteNewGameSave(int index, int isDifficult, int mode, int isTutorial)
         mode = gPlaySt.chapterModeIndex;
 
     if (isTutorial < 0)
-        isTutorial = gPlaySt.cfgController;
+        isTutorial = gPlaySt.config.controller;
 
     SetGameTime(0);
     InitPlayConfig(isDifficult, isTutorial);

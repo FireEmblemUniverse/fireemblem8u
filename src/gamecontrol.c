@@ -15,6 +15,7 @@
 #include "bmlib.h"
 #include "ev_triggercheck.h"
 #include "worldmap.h"
+#include "savemenu.h"
 #include "gamecontrol.h"
 
 extern u16 gEvent_8A0035C[];
@@ -419,7 +420,7 @@ void sub_8009A24(ProcPtr proc) {
     SetupBackgrounds(0);
     sub_80156D4();
 
-    gPlaySt.cfgTextSpeed = 1;
+    gPlaySt.config.textSpeed = 1;
 
     StartMuralBackground(PROC_TREE_3, 0, -1);
 
@@ -625,7 +626,7 @@ void GameCtrlStartExtraMap(ProcPtr proc) {
 void sub_8009CC0(ProcPtr proc) {
     InvalidateSuspendSave(SAVE_ID_SUSPEND);
 
-    gPlaySt.cfgDisableBgm = 0;
+    gPlaySt.config.disableBgm = 0;
 
     return;
 }
@@ -864,21 +865,21 @@ void nullsub_9() {
 }
 
 void GameControl_EnableSoundEffects(ProcPtr proc) {
-    gPlaySt.cfgDisableBgm = 0;
-    gPlaySt.cfgDisableSoundEffects = 0;
+    gPlaySt.config.disableBgm = 0;
+    gPlaySt.config.disableSoundEffects = 0;
 
     return;
 }
 
 void sub_8009FF8(ProcPtr proc) {
 
-    gPlaySt.cfgAnimationType = 0;
-    gPlaySt.cfgTextSpeed = 1;
-    gPlaySt.cfgGameSpeed = 0;
-    gPlaySt.cfgDisableBgm = 0;
-    gPlaySt.cfgDisableSoundEffects = 1;
-    gPlaySt.cfgWindowColor = 0;
-    gPlaySt.cfgUnitColor = 0;
+    gPlaySt.config.animationType = 0;
+    gPlaySt.config.textSpeed = 1;
+    gPlaySt.config.gameSpeed = 0;
+    gPlaySt.config.disableBgm = 0;
+    gPlaySt.config.disableSoundEffects = 1;
+    gPlaySt.config.windowColor = 0;
+    gPlaySt.config.unitColor = 0;
 
     return;
 }

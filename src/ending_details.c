@@ -11,6 +11,7 @@
 #include "ctc.h"
 #include "bmlib.h"
 #include "worldmap.h"
+#include "savemenu.h"
 #include "ending_details.h"
 
 #include "constants/characters.h"
