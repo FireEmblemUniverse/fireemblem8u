@@ -2,107 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80C71E4
-sub_80C71E4: @ 0x080C71E4
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	lsls r1, r0, #0x10
-	lsrs r0, r1, #0x10
-	cmp r0, #0x63
-	bhi _080C7250
-	asrs r1, r1, #0x10
-	movs r0, #0x1f
-	bics r0, r1
-	lsls r0, r0, #6
-	ldr r2, _080C725C  @ 0x0600E800
-	adds r7, r0, r2
-	movs r5, #0x63
-	subs r5, r5, r1
-	ldr r1, _080C7260  @ imgs_08AA6D14
-	lsls r5, r5, #0x10
-	asrs r0, r5, #0x10
-	lsls r4, r0, #2
-	adds r1, r4, r1
-	ldr r6, [r1]
-	movs r1, #0x16
-	bl DivRem
-	adds r1, r0, #0
-	lsls r1, r1, #0xa
-	ldr r0, _080C7264  @ 0x06008000
-	adds r1, r1, r0
-	adds r0, r6, #0
-	bl Decompress
-	ldr r0, _080C7268  @ tsas_08AA6EA4
-	adds r4, r4, r0
-	ldr r4, [r4]
-	movs r6, #0
-	movs r2, #0xfc
-	lsls r2, r2, #8
-	mov r8, r2
-_080C7230:
-	asrs r0, r5, #0x10
-	movs r1, #0x16
-	bl DivRem
-	ldrh r1, [r4]
-	mov r2, r8
-	ands r1, r2
-	lsls r0, r0, #5
-	adds r0, r0, r6
-	orrs r1, r0
-	strh r1, [r7]
-	adds r6, #1
-	adds r7, #2
-	adds r4, #2
-	cmp r6, #0x1d
-	ble _080C7230
-_080C7250:
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C725C: .4byte 0x0600E800
-_080C7260: .4byte imgs_08AA6D14
-_080C7264: .4byte 0x06008000
-_080C7268: .4byte tsas_08AA6EA4
-
-	THUMB_FUNC_END sub_80C71E4
-
-	THUMB_FUNC_START sub_80C726C
-sub_80C726C: @ 0x080C726C
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	asrs r1, r1, #3
-	adds r4, r1, #0
-	adds r4, #0x15
-	asrs r0, r6, #3
-	adds r0, #0x15
-	cmp r4, r0
-	bge _080C728E
-	adds r5, r0, #0
-_080C7280:
-	lsls r0, r4, #0x10
-	asrs r0, r0, #0x10
-	bl sub_80C71E4
-	adds r4, #1
-	cmp r4, r5
-	blt _080C7280
-_080C728E:
-	movs r2, #0x60
-	subs r2, r2, r6
-	lsls r2, r2, #0x10
-	lsrs r2, r2, #0x10
-	movs r0, #2
-	movs r1, #0
-	bl BG_SetPosition
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C726C
-
 	THUMB_FUNC_START sub_80C72A4
 sub_80C72A4: @ 0x080C72A4
 	push {r4, r5, lr}
@@ -2076,7 +1975,7 @@ _080C82B6:
 _080C82B8:
 	lsls r0, r4, #0x10
 	asrs r0, r0, #0x10
-	bl sub_80C71E4
+	bl GameIntro1_UpdateScrollOneLine
 	adds r4, #1
 	cmp r4, #7
 	ble _080C82B8
@@ -2086,7 +1985,7 @@ _080C82C8:
 _080C82CA:
 	lsls r0, r4, #0x10
 	asrs r0, r0, #0x10
-	bl sub_80C71E4
+	bl GameIntro1_UpdateScrollOneLine
 	adds r4, #1
 	cmp r4, #0xf
 	ble _080C82CA
@@ -2096,7 +1995,7 @@ _080C82DA:
 _080C82DC:
 	lsls r0, r4, #0x10
 	asrs r0, r0, #0x10
-	bl sub_80C71E4
+	bl GameIntro1_UpdateScrollOneLine
 	adds r4, #1
 	cmp r4, #0x15
 	ble _080C82DC
@@ -2428,7 +2327,7 @@ sub_80C8564: @ 0x080C8564
 	bl sub_80C72A4
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -2594,7 +2493,7 @@ sub_80C8690: @ 0x080C8690
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -2781,7 +2680,7 @@ sub_80C883C: @ 0x080C883C
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -2893,7 +2792,7 @@ sub_80C8934: @ 0x080C8934
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -3002,7 +2901,7 @@ sub_80C8A20: @ 0x080C8A20
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -3111,7 +3010,7 @@ sub_80C8B0C: @ 0x080C8B0C
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -3220,7 +3119,7 @@ sub_80C8BF8: @ 0x080C8BF8
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -3329,7 +3228,7 @@ sub_80C8CE4: @ 0x080C8CE4
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r4, #0x38]
 	strh r0, [r4, #0x3a]
 	movs r2, #0x9c
@@ -5409,7 +5308,7 @@ sub_80C9E6C: @ 0x080C9E6C
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r4, #0x38]
 	strh r0, [r4, #0x3a]
 	movs r2, #0x9c
@@ -5545,7 +5444,7 @@ sub_80C9F7C: @ 0x080C9F7C
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r4, #0x38]
 	strh r0, [r4, #0x3a]
 	movs r2, #0x9c
@@ -5608,7 +5507,7 @@ sub_80C9FF8: @ 0x080C9FF8
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -5746,7 +5645,7 @@ sub_80CA10C: @ 0x080CA10C
 	adds r6, r0, #0
 	ldrh r0, [r6, #0x38]
 	ldrh r1, [r6, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r6, #0x38]
 	strh r0, [r6, #0x3a]
 	movs r2, #0x9c
@@ -6083,7 +5982,7 @@ sub_80CA3B8: @ 0x080CA3B8
 	bl sub_80CA26C
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	ldrh r0, [r4, #0x38]
 	strh r0, [r4, #0x3a]
 	movs r2, #0x9c
@@ -6249,21 +6148,21 @@ _080CA50C:
 	lsls r0, r0, #1
 	movs r1, #0xc4
 	lsls r1, r1, #1
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	b _080CA53E
 _080CA51A:
 	movs r0, #0xf8
 	lsls r0, r0, #1
 	movs r1, #0xd8
 	lsls r1, r1, #1
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	b _080CA53E
 _080CA528:
 	movs r0, #0x8c
 	lsls r0, r0, #2
 	movs r1, #0xf8
 	lsls r1, r1, #1
-	bl sub_80C726C
+	bl GameIntro1_UpdateScroll
 	b _080CA53E
 _080CA536:
 	movs r0, #0x8c

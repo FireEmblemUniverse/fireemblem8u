@@ -355,7 +355,6 @@ void TsaModifyFirstPalMaybe(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u
 {
     u16 * dst;
     u16 * src;
-    int iVar4;
     int i;
 
     dst = BG_GetMapBuffer(bg);

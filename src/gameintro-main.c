@@ -117,7 +117,7 @@ void GameIntroInitScreen(struct ProcGameIntro * proc)
 
     SetWinEnable(0, 0, 0);
 
-    Decompress(img_08AB21D8, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_2));
+    Decompress(Img_GameIntroWorldMap, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_2));
     Decompress(img_08AB5D90, (void *)BG_VRAM + 0xF000);
     CpuFastFill16(0, gPaletteBuffer, 0x20);
 
@@ -349,22 +349,35 @@ void EndProc08AA6D04(void)
     Proc_EndEach(ProcScr_08AA6D04);
 }
 
-#if 0
-void sub_80C71E4(s16 index)
+void GameIntro1_UpdateScrollOneLine(s16 index)
 {
     int i;
-    u16 * vram, * tsa;
+    s16 _index;
+    u16 * tsa, * vram = (void *)BG_VRAM + 0xE800;
 
     if ((u16)index > 99)
         return;
 
-    vram = ((~index & 0x1F) << 6) + (void *)0x600E800;
+    vram = ((~index & 0x1F) << 6) + (void *)vram;
+    _index = 99 - index;
 
-    Decompress(imgs_08AA6D14[99 - index], (void *)0x6008000 + DivRem(99 - index, 0x16));
+    Decompress(imgs_08AA6D14[_index], (void *)BG_VRAM + 0x8000 + 0x400 * DivRem(_index, 0x16));
 
-    tsa = tsas_08AA6EA4[99 - index];
-
-    for (i = 0; i < 0x1E; i++)
-        vram[i] = (tsa[i] & 0xFC00) | (32 * DivRem(99 - index, 0x16) + i++);
+    tsa = tsas_08AA6EA4[_index];
+    for (i = 0; i < 0x1E;)
+    {
+        *vram = (*tsa & 0xFC00) | (32 * DivRem(_index, 0x16) + i);
+        i++;
+        vram++;
+        tsa++;
+    }
 }
-#endif
+
+void GameIntro1_UpdateScroll(int new, int old)
+{
+    int i;
+    for (i = (old >> 3) + 0x15; i < ((new >> 3) + 0x15); i++)
+        GameIntro1_UpdateScrollOneLine(i);
+
+    BG_SetPosition(2, 0, 0x60 - new);
+}

@@ -1509,7 +1509,7 @@ extern u8 gGfx_TitleLargeGlowingOrb[];
 extern u16 gPal_TitleLargeGlowingOrb[];
 extern u8 gGfx_TitleSmallLightBubbles[];
 extern u16 gPal_TitleSmallLightBubbles[];
-extern u8 img_08AB21D8[];
+extern u8 Img_GameIntroWorldMap[];
 extern u8 img_08AB5D90[];
 extern u16 pal_08AB630C[];
 extern u8 img_08AB632C[];

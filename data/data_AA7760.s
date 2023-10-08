@@ -128,8 +128,9 @@ gGfx_TitleSmallLightBubbles:  @ 0x08AB216C
 gPal_TitleSmallLightBubbles:  @ 0x08AB21B8
 	.incbin "baserom.gba", 0xAB21B8, 0x20
 
-	.global img_08AB21D8
-img_08AB21D8:  @ 0x08AB21D8
+	.global Img_GameIntroWorldMap
+Img_GameIntroWorldMap:  @ 0x08AB21D8
+	#.incbin "graphics/game_intro/world_map.4bpp.lz"
 	.incbin "baserom.gba", 0xAB21D8, 0x3BB8
 
 	.global img_08AB5D90
