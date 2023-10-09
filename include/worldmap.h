@@ -509,7 +509,7 @@ int sub_80BCA1C(int);
 // ??? sub_80BCBAC(???);
 s8 sub_80BCCFC(s8, s8, int);
 // ??? sub_80BCDE4(???);
-// ??? sub_80BCE34(???);
+int sub_80BCE34(int, int, s16, void *, void *, int);
 void sub_80BCFB4(void); // GM_ClearAllStoryLocations
 int sub_80BCFDC(int);
 int sub_80BD014(struct GMapData*); // Get next WM Destination?
