@@ -7,7 +7,7 @@ ProcScr_OpAnim:  @ 0x08AA71C8
     .word 0x0
     @ PROC_CALL
     .short 0x2, 0x0
-    .word Initialize6CIntroSequence
+    .word OpAnimInit
     @ PROC_YIELD
     .short 0xe, 0x0
     .word 0x0

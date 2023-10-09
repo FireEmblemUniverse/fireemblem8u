@@ -108,7 +108,6 @@ extern char gStringBufferAlt[];
 
 // TODO: define this in hardware.c?
 extern u8 gGenericBuffer[0x2000];
-// extern ??? gOpAnimSt
 
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
