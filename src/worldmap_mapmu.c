@@ -209,76 +209,21 @@ s8 sub_80BD5B8(struct GMapMuPrimProc * proc)
     return 0;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/Uq0nS */
-
 //! FE8U = 0x080BD660
 int sub_80BD660(u16 a)
 {
-    if ((a > 0) && (a < 0x1000))
+    if ((u16)(a + 0x4d00) < 0x1a00)
     {
         return 3;
     }
 
-    if ((a > 0x1000) && (a < 0x2000))
+    if (a < 0x3300 || a >= 0x4d00)
     {
-        return (a - 0x4000);
+        return (u16)(a - 0x4000) >> 0xf;
     }
 
     return 2;
 }
-
-#else
-
-NAKEDFUNC
-int sub_80BD660(u16 a)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r1, r0, #0x10\n\
-        adds r3, r1, #0\n\
-        movs r2, #0x9a\n\
-        lsls r2, r2, #7\n\
-        adds r0, r1, r2\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        ldr r2, _080BD67C  @ 0x000019FF\n\
-        cmp r0, r2\n\
-        bhi _080BD680\n\
-        movs r0, #3\n\
-        b _080BD69C\n\
-        .align 2, 0\n\
-    _080BD67C: .4byte 0x000019FF\n\
-    _080BD680:\n\
-        ldr r4, _080BD690  @ 0xFFFFCD00\n\
-        adds r0, r1, r4\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        cmp r0, r2\n\
-        bhi _080BD694\n\
-        movs r0, #2\n\
-        b _080BD69C\n\
-        .align 2, 0\n\
-    _080BD690: .4byte 0xFFFFCD00\n\
-    _080BD694:\n\
-        ldr r1, _080BD6A4  @ 0xFFFFC000\n\
-        adds r0, r3, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x1f\n\
-    _080BD69C:\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _080BD6A4: .4byte 0xFFFFC000\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080BD6A8
 int sub_80BD6A8(struct GMapMuPrimProc * proc)
