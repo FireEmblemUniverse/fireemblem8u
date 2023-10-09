@@ -42,20 +42,6 @@ struct BMDifficultyProc {
     /* 3C */ int unk_3c;
 };
 
-struct Struct0859E7D4 {
-    int x;
-    int y;
-};
-
-struct Struct02003BE8 {
-    /* 00 */ u16 unk_00;
-    /* 02 */ u16 unk_02;
-    /* 04 */ u16* unk_04;
-    /* 08 */ struct Struct0859E7D4* unk_08;
-    /* 0C */ int* unk_0C;
-    /* 10 */ int* unk_10;
-};
-
 int GetCurrentPromotedLevelBonus(void);
 s8 CanUnitSeize(struct Unit* unit);
 // ??? DungeonRecordUi_InitText(???);

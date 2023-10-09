@@ -5,6 +5,7 @@
 #include "soundwrapper.h"
 #include "efxbattle.h"
 #include "bmlib.h"
+#include "spline.h"
 
 /*
 The opening monologue that introduces the Sacred Stones / associated lore.

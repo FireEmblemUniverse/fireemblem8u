@@ -6,6 +6,7 @@
 #include "bmunit.h"
 #include "bmudisp.h"
 #include "ctc.h"
+#include "spline.h"
 
 #include "worldmap.h"
 
@@ -446,7 +447,7 @@ u16 sub_80BB188(struct GMapUnitContainerProc * container, int index)
 }
 
 //! FE8U = 0x080BB194
-u16 sub_80BB194(struct GMapUnitContainerProc * container, int index)
+int sub_80BB194(struct GMapUnitContainerProc * container, int index)
 {
     return container->pMapUnitProcs[index]->unk_3a;
 }

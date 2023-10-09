@@ -12,23 +12,6 @@
 
 #include "worldmap.h"
 
-// TODO: Figure out what this is?
-
-struct UnknownSub80B8BA4
-{
-    /* 00 */ u8 unk_00;
-    /* 01 */ u8 unk_01;
-    /* 02 */ u8 unk_02;
-    /* 03 */ u8 unk_03;
-    /* 04 */ u8 unk_04;
-    /* 06 */ u16 unk_06;
-    /* 08 */ u16 unk_08;
-    /* 0A */ u16 unk_0a;
-    /* 0C */ int unk_0c;
-};
-
-void sub_80BDEB4(ProcPtr, struct UnknownSub80B8BA4 *);
-
 //! FE8U = 0x080B8A18
 void WorldMap_Destruct(struct WorldMapMainProc * proc)
 {
@@ -146,7 +129,7 @@ s8 sub_80B8B60(int location)
 //! FE8U = 0x080B8BA4
 void sub_80B8BA4(struct WorldMapMainProc * proc)
 {
-    struct UnknownSub80B8BA4 a;
+    struct UnknownSub80BDEB4 a;
 
     if (sub_80BE12C(proc->unk_54, 0) != 0)
     {
@@ -183,7 +166,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         {
             int b = sub_80BD28C(proc->unk_40);
             int c = sub_80BD28C(proc->unk_40 + 1);
-            MapMU_80BE108(proc->unk_54, 0, 1);
+            GmMu_80BE108(proc->unk_54, 0, 1);
 
             a.unk_00 = 0;
             a.unk_06 = b;
@@ -217,7 +200,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
 
         proc->unk_29_1 = 0;
         gGMData.units[0].location = sub_80BD28C(proc->unk_40);
-        MapMU_80BE108(proc->unk_54, 0, 0);
+        GmMu_80BE108(proc->unk_54, 0, 0);
 
         location = gGMData.units[0].location;
         if (location[gWMNodeData].placementFlag == GMAP_NODE_PLACEMENT_DUNGEON)
@@ -414,9 +397,9 @@ void sub_80B9028(struct WorldMapMainProc * proc)
         b = &unk[1];
         *b = gGMData.units[i].location[gWMNodeData].y;
 
-        sub_80BE35C(proc->unk_54, i, *a, *b);
+        GmMu_SetPosition(proc->unk_54, i, *a, *b);
 
-        sub_80BDDC4(proc->unk_54, i);
+        GmMu_ShowUnit(proc->unk_54, i);
     }
 
     return;
@@ -432,7 +415,7 @@ void sub_80B90CC(struct WorldMapMainProc * proc)
 
         for (i = 4; i < 7; i++)
         {
-            MapMU_RemoveUnit(proc->unk_54, i);
+            GmMu_RemoveUnit(proc->unk_54, i);
             gGMData.units[i].id = 0;
             gGMData.units[i].state &= ~2;
             gGMData.units[i].state &= ~1;
@@ -475,7 +458,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
     proc->unk_48 = sub_80BB9A4(PROC_TREE_5, 0, 3, 10, proc->unk_44);
     proc->unk_4c = NewGmapUnitContainer(proc->unk_44, 0x280, 0xc);
     proc->unk_50 = NewGmapCursor(PROC_TREE_5, 0x12c0, 4, proc->unk_44);
-    proc->unk_54 = NewMapMU(proc);
+    proc->unk_54 = StartGmMu(proc);
 
     sub_80BCA0C(&gGMData);
     sub_80C368C(proc);

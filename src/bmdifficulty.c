@@ -17,6 +17,8 @@
 #include "bmlib.h"
 #include "ev_triggercheck.h"
 #include "savemenu.h"
+#include "spline.h"
+
 #include "bmdifficulty.h"
 
 // TODO: move to some constant header and maybe merge with something if that makes sense
@@ -75,9 +77,6 @@ const struct Outer080D7FD0 gUnknown_080D7FD0 = {
     0x1A,
     0x11,
 };
-
-// spline.s
-void sub_800A950(struct Struct02003BE8*, int, int*);
 
 int GetCurrentPromotedLevelBonus() {
     if (gPlaySt.chapterStateBits & PLAY_FLAG_HARD) {

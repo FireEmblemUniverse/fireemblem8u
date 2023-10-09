@@ -19,7 +19,10 @@ struct GMapPIProc
 {
     /* 00 */ PROC_HEADER;
     /* 2C */ struct Text text[2];
-    /* 3C */ STRUCT_PAD(0x3C, 0x4C);
+    /* 3C */ STRUCT_PAD(0x3C, 0x40);
+    /* 40 */ u16 * unk_40;
+    /* 44 */ u16 unk_44;
+    /* 46 */ STRUCT_PAD(0x46, 0x4C);
     /* 4C */ s8 xPrev;
     /* 4D */ s8 yPrev;
     /* 4E */ s8 xNew;
@@ -109,6 +112,104 @@ extern u16 gUnknown_0201BBD8[];
 
 // forward declarations
 void sub_80BEF20(struct GMapPIProc *, int);
+
+extern u16 gUnknown_08A98E2C[];
+extern u16 gUnknown_08A98E4C[];
+extern u16 gUnknown_08A98E6C[];
+extern u16 gUnknown_08A98E8C[];
+
+//! FE8U = 0x080BE56C
+void sub_80BE56C(struct GMapPIProc * proc)
+{
+    proc->unk_57 = 0xff;
+    InitTextDb(proc->text, 6);
+    proc->showHideCnt = 0;
+    proc->unk_56 = 0;
+    return;
+}
+
+//! FE8U = 0x080BE594
+int sub_80BE594(int a, int b)
+{
+    if (a < 0)
+    {
+        if (b < 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    else if (b < 0)
+    {
+        return 2;
+    }
+
+    return 3;
+}
+
+//! FE8U = 0x080BE5B4
+void sub_80BE5B4(int faction, int palId)
+{
+    u16 * src;
+
+    switch (faction)
+    {
+        case FACTION_BLUE:
+            src = gUnknown_08A98E2C;
+            break;
+
+        case FACTION_RED:
+            src = gUnknown_08A98E4C;
+            break;
+
+        case FACTION_GREEN:
+            src = gUnknown_08A98E6C;
+            break;
+
+        default:
+            src = gUnknown_08A98E8C;
+            break;
+    }
+
+    ApplyPalette(src, palId);
+
+    return;
+}
+
+//! FE8U = 0x080BE5F8
+void sub_80BE5F8(u16 * src, struct Unit * unit)
+{
+    int level;
+
+    src[0] = 0x180;
+    src[1] = 0x181;
+
+    level = unit->level;
+
+    if (level > 9)
+    {
+        src[2] = (level / 10) + 0x188;
+    }
+
+    src[3] = (level % 10) + 0x188;
+
+    return;
+}
+
+//! FE8U = 0x080BE638
+void sub_80BE638(struct GMapPIProc * proc, struct Unit * unit)
+{
+    if ((proc->unk_44 & 0x3f) == 0)
+    {
+        sub_80BE5F8(proc->unk_40, unit);
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+    }
+
+    return;
+}
 
 //! FE8U = 0x080BE65C
 void sub_80BE65C(int index, int height, int kind)
