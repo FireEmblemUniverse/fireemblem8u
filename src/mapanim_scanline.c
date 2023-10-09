@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "hardware.h"
+#include "bmlib.h"
 #include "mapanim.h"
 
 extern u16 gManimScanlineBufA[DISPLAY_HEIGHT * 2];
@@ -303,5 +304,148 @@ void InitScanlineBuf(u16 * buf)
         *buf++ = DISPLAY_WIDTH | (DISPLAY_WIDTH << 8);
     }
 
+    return;
+}
+
+//! FE8U = 0x080823BC
+void SetScanlineBufWinL(u16 * buf, int x, int y)
+{
+    u16 * tmp;
+
+    if (y < 0 || y >= DISPLAY_HEIGHT)
+    {
+        return;
+    }
+
+    if (x < 0)
+    {
+        x = 0;
+    }
+
+    if (x > DISPLAY_WIDTH)
+    {
+        x = DISPLAY_WIDTH;
+    }
+
+    tmp = buf + y;
+
+    ((u8 *)(tmp))[1] = x;
+    return;
+}
+
+//! FE8U = 0x080823DC
+void SetScanlineBufWinR(u16 * buf, int x, int y)
+{
+    u16 * tmp;
+
+    if (y < 0 || y >= DISPLAY_HEIGHT)
+    {
+        return;
+    }
+
+    if (x < 0)
+    {
+        x = 0;
+    }
+
+    if (x > DISPLAY_WIDTH)
+    {
+        x = DISPLAY_WIDTH;
+    }
+
+    tmp = buf + y;
+
+    ((u8 *)(tmp))[0] = x;
+
+    return;
+}
+
+//! FE8U = 0x080823FC
+void sub_80823FC(u16 * buf, int x, int y, int arg4)
+{
+    int i;
+
+    int var = arg4;
+
+    for (i = 0; var >= i; i++)
+    {
+        SetScanlineBufWinR(buf, x + var, y + i);
+        SetScanlineBufWinR(buf, x + var, y - i);
+        SetScanlineBufWinR(buf, x + i, y + var);
+        SetScanlineBufWinR(buf, x + i, y - var);
+
+        SetScanlineBufWinL(buf, x - var, y + i);
+        SetScanlineBufWinL(buf, x - var, y - i);
+        SetScanlineBufWinL(buf, x - i, y + var);
+        SetScanlineBufWinL(buf, x - i, y - var);
+
+        arg4 -= (i << 1) - 1;
+
+        if (arg4 < 0)
+        {
+            arg4 = arg4 + ((var - 1) << 1);
+            var = var - 1;
+        }
+    }
+
+    return;
+}
+
+//! FE8U = 0x080824C4
+void PrepareGradientScanlineBuf(u16 * buf, u16 yTop, u16 yBottom, u16 colorA, u16 colorB)
+{
+    int i;
+    int scanline;
+    int r, g, b;
+
+    int scanlines = yBottom - yTop;
+
+    scanline = 0;
+
+    for (i = 0; i < DISPLAY_HEIGHT; i++)
+    {
+        if (i < yTop)
+        {
+            *buf++ = colorA;
+            continue;
+        }
+
+        if (i > yBottom)
+        {
+            *buf++ = colorB;
+            continue;
+        }
+
+        r = Interpolate(INTERPOLATE_LINEAR, colorA & 0x001F, colorB & 0x001F, scanline, scanlines);
+        g = Interpolate(INTERPOLATE_LINEAR, colorA & 0x03E0, colorB & 0x03E0, scanline, scanlines);
+        b = Interpolate(INTERPOLATE_LINEAR, colorA & 0x7C00, colorB & 0x7C00, scanline, scanlines);
+
+        *buf++ = (r & 0x001F) | (g & 0x03E0) | (b & 0x7C00);
+
+        scanline++;
+    }
+
+    return;
+}
+
+struct ManimShiftingSineWaveScanlineBufProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ s16 phase;
+};
+
+//! FE8U = 0x080825B0
+void sub_80825B0(struct ManimShiftingSineWaveScanlineBufProc * proc)
+{
+    proc->phase = 0;
+    return;
+}
+
+//! FE8U = 0x080825B8
+void sub_80825B8(struct ManimShiftingSineWaveScanlineBufProc * proc)
+{
+    PrepareSineWaveScanlineBuf(gManimScanlineBufs[1] + DISPLAY_HEIGHT, proc->phase++, 0x10, 8);
+    SwapScanlineBufs();
     return;
 }
