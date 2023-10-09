@@ -63,26 +63,26 @@ tsas_08AA6EA4:  @ 0x08AA6EA4
 .4byte tsa_gameintro58
 .4byte tsa_gameintro59
 .4byte tsa_gameintro60
-.4byte pal_08AF47F0 + 0x10fa4
-.4byte pal_08AF47F0 + 0x1140c
-.4byte pal_08AF47F0 + 0x11880
-.4byte pal_08AF47F0 + 0x11cf8
-.4byte pal_08AF47F0 + 0x12170
-.4byte pal_08AF47F0 + 0x125e4
-.4byte pal_08AF47F0 + 0x12a54
-.4byte pal_08AF47F0 + 0x12ec4
-.4byte pal_08AF47F0 + 0x1333c
-.4byte pal_08AF47F0 + 0x137a4
-.4byte pal_08AF47F0 + 0x13c14
-.4byte pal_08AF47F0 + 0x1408c
-.4byte pal_08AF47F0 + 0x14504
-.4byte pal_08AF47F0 + 0x14970
-.4byte pal_08AF47F0 + 0x14de0
-.4byte pal_08AF47F0 + 0x15258
-.4byte pal_08AF47F0 + 0x156cc
-.4byte pal_08AF47F0 + 0x15b44
-.4byte pal_08AF47F0 + 0x15fb8
-.4byte pal_08AF47F0 + 0x16430
+.4byte tsa_gameintro61
+.4byte tsa_gameintro62
+.4byte tsa_gameintro63
+.4byte tsa_gameintro64
+.4byte tsa_gameintro65
+.4byte tsa_gameintro66
+.4byte tsa_gameintro67
+.4byte tsa_gameintro68
+.4byte tsa_gameintro69
+.4byte tsa_gameintro70
+.4byte tsa_gameintro71
+.4byte tsa_gameintro72
+.4byte tsa_gameintro73
+.4byte tsa_gameintro74
+.4byte tsa_gameintro75
+.4byte tsa_gameintro76
+.4byte tsa_gameintro77
+.4byte tsa_gameintro78
+.4byte tsa_gameintro79
+.4byte tsa_gameintro80
 .4byte pal_08AF47F0 + 0x168a8
 .4byte pal_08AF47F0 + 0x16d18
 .4byte pal_08AF47F0 + 0x1718c
