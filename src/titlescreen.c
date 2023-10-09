@@ -7,7 +7,7 @@
 #include "gamecontrol.h"
 #include "bmlib.h"
 #include "bm.h"
-#include "game-introfx.h"
+#include "opanim.h"
 
 u16 CONST_DATA gSprite_Title_FireEmblemLogo[] = {
     5,
@@ -101,7 +101,7 @@ void sub_80C5548(int arg) {
 
     src.alpha = 0;
 
-    BgAffineSet(&src, &gGameIntroBgAffineDstData, 1);
+    BgAffineSet(&src, &gOpAnimBgAffineDstData, 1);
 
     return;
 }
@@ -352,7 +352,7 @@ void sub_80C5A44(struct TitleScreenProc* proc) {
 
     SetBackgroundScreenSize(2, 2);
 
-    BgAffineSetGameIntro(8, 0);
+    BgAffineSetOpAnim(8, 0);
 
     gLCDControlBuffer.bg2cnt.areaOverflowMode = 0;
 
@@ -390,7 +390,7 @@ void Title_Loop_DrawRotatingBlueLights(struct TitleScreenProc* proc) {
         res = Interpolate(0, 256, 448, proc->timer - 45, 45);
     }
 
-    BgAffineSetGameIntro(
+    BgAffineSetOpAnim(
         res,
         Interpolate(0, 0, 64, proc->timer, 90)
     );

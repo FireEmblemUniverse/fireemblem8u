@@ -128,13 +128,13 @@ gGfx_TitleSmallLightBubbles:  @ 0x08AB216C
 gPal_TitleSmallLightBubbles:  @ 0x08AB21B8
 	.incbin "baserom.gba", 0xAB21B8, 0x20
 
-	.global Img_GameIntroWorldMap
-Img_GameIntroWorldMap:  @ 0x08AB21D8
+	.global Img_OpAnimWorldMap
+Img_OpAnimWorldMap:  @ 0x08AB21D8
 	#.incbin "graphics/game_intro/world_map.4bpp.lz"
 	.incbin "baserom.gba", 0xAB21D8, 0x3BB8
 
-	.global Tsa_GameIntroWorldMap
-Tsa_GameIntroWorldMap:  @ 0x08AB5D90
+	.global Tsa_OpAnimWorldMap
+Tsa_OpAnimWorldMap:  @ 0x08AB5D90
 	.incbin "baserom.gba", 0xAB5D90, 0x57C
 
 	.global pal_08AB630C
@@ -153,16 +153,16 @@ img_08AB7AC0:  @ 0x08AB7AC0
 pal_08AB7DB0:  @ 0x08AB7DB0
 	.incbin "baserom.gba", 0xAB7DB0, 0x20
 
-	.global gUnknown_08AB7DD0
-gUnknown_08AB7DD0:  @ 0x08AB7DD0
+	.global Img_08AB7DD0
+Img_08AB7DD0:  @ 0x08AB7DD0
 	.incbin "baserom.gba", 0xAB7DD0, 0xA10
 
 	.global gUnknown_08AB87E0
 gUnknown_08AB87E0:  @ 0x08AB87E0
 	.incbin "baserom.gba", 0xAB87E0, 0x4CC
 
-	.global gUnknown_08AB8CAC
-gUnknown_08AB8CAC:  @ 0x08AB8CAC
+	.global Pal_08AB8CAC
+Pal_08AB8CAC:  @ 0x08AB8CAC
 	.incbin "baserom.gba", 0xAB8CAC, 0x20
 
 	.global gUnknown_08AB8CCC
@@ -221,8 +221,8 @@ gUnknown_08AC1878:  @ 0x08AC1878
 gUnknown_08AC1B98:  @ 0x08AC1B98
 	.incbin "baserom.gba", 0xAC1B98, 0xF4
 
-	.global gUnknown_08AC1C8C
-gUnknown_08AC1C8C:  @ 0x08AC1C8C
+	.global Pal_08AC1C8C
+Pal_08AC1C8C:  @ 0x08AC1C8C
 	.incbin "baserom.gba", 0xAC1C8C, 0x160
 
 	.global gUnknown_08AC1DEC

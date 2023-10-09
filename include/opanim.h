@@ -3,8 +3,8 @@
 #include "global.h"
 #include "proc.h"
 
-#define ApplyPalettesGameIntro(aSrc, aPalId, aPalCount) CopyToPalGameIntro((aSrc), 0x20 * (aPalId), 0x20 * (aPalCount))
-#define ApplyPaletteGameIntro(aSrc, aPalId) ApplyPalettesGameIntro((aSrc), (aPalId), 1)
+#define ApplyPalettesOpAnim(aSrc, aPalId, aPalCount) CopyToPalOpAnim((aSrc), 0x20 * (aPalId), 0x20 * (aPalCount))
+#define ApplyPaletteOpAnim(aSrc, aPalId) ApplyPalettesOpAnim((aSrc), (aPalId), 1)
 
 struct TitleScreenProc {
     /* 00 */ PROC_HEADER;
@@ -22,27 +22,28 @@ struct TitleScreenProc {
     /* 52 */ u16 unk_52;
 };
 
-extern struct BgAffineDstData gGameIntroBgAffineDstData;
+extern struct BgAffineDstData gOpAnimBgAffineDstData;
 
-struct Struct02022188 {
-    /* 00 */ u16 unk00;
-    /* 02 */ u16 unk02;
+struct OpAnimSt {
+    /* 00 */ s16 unk00;
+    /* 02 */ s16 unk02;
     /* 04 */ u16 unk04;
     /* 06 */ u16 unk06;
-    /* 08 */ u16 unk08;
+    /* 08 */ s16 unk08;
     /* 0A */ s16 unk0A;
     /* 0C */ u16 unk0C;
 };
 
-extern struct Struct02022188 gUnknown_02022188;
+extern struct OpAnimSt gOpAnimSt;
 
-struct ProcGameIntro {
+struct ProcOpAnim {
     PROC_HEADER;
 
     /* 2A */ u16 timer;
     /* 2C */ s16 unk2C;
     /* 2E */ s16 unk2E;
-    /* 30 */ STRUCT_PAD(0x30, 0x34);
+    /* 30 */ s16 unk30;
+    /* 32 */ s16 unk32;
     /* 34 */ s16 unk34;
     /* 36 */ s16 unk36;
     /* 38 */ s16 unk38;
@@ -53,7 +54,7 @@ struct ProcGameIntro {
     /* 46 */ u8 unk46;
 };
 
-struct ProcGameIntroFadeIn {
+struct ProcOpAnimFadeIn {
     PROC_HEADER;
 
     /* 29 */ STRUCT_PAD(0x29, 0x4C);
@@ -62,10 +63,17 @@ struct ProcGameIntroFadeIn {
     /* 64 */ s16 max;
 };
 
-struct ProcGameIntroBLDALPHA {
+struct ProcOpAnimBLDALPHA {
     PROC_HEADER;
 
     /* 2A */ u16 timer;
+};
+
+struct Proc08AA7034 {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
+    /* 4C */ s16 timer;
 };
 
 extern CONST_DATA u16 Obj_08AA6BFA[];
@@ -82,13 +90,13 @@ extern CONST_DATA u16 Obj_08AA6C82[];
 extern CONST_DATA u16 Obj_08AA6C8A[];
 extern CONST_DATA u16 Obj_08AA6C92[];
 extern CONST_DATA u16 Obj_08AA6C9A[];
-extern CONST_DATA struct ProcCmd ProcScr_GameIntrofxTerminator[];
-extern CONST_DATA struct ProcCmd ProcScr_GameIntroFadeIn[];
-extern CONST_DATA struct ProcCmd ProcScr_GameIntroBLDALPHA[];
+extern CONST_DATA struct ProcCmd ProcScr_OpAnimfxTerminator[];
+extern CONST_DATA struct ProcCmd ProcScr_OpAnimFadeIn[];
+extern CONST_DATA struct ProcCmd ProcScr_OpAnimBLDALPHA[];
 extern CONST_DATA struct ProcCmd ProcScr_08AA6D04[];
 extern CONST_DATA u8 * imgs_08AA6D14[100];
 extern CONST_DATA u16 * tsas_08AA6EA4[100];
-// extern ??? gUnknown_08AA7034
+extern CONST_DATA struct ProcCmd ProcScr_08AA7034[];
 // extern ??? gUnknown_08AA705C
 // extern ??? gUnknown_08AA707C
 // extern ??? gUnknown_08AA709C
@@ -301,46 +309,47 @@ extern CONST_DATA u16 tsa_gameintro97[];
 extern CONST_DATA u16 tsa_gameintro98[];
 extern CONST_DATA u16 tsa_gameintro99[];
 extern CONST_DATA u16 tsa_gameintro100[];
+extern u16 pal_08B103D8[];
 
-void GameIntroPutObjCommon(int ix, int iy, u8 a, u8 b);
-void GameIntrofxTerminatorMain(struct Proc * proc);
-void NewGameIntrofxTerminator(ProcPtr parent);
-void EndGameIntrofxTerminator(ProcPtr parent);
-void CopyToPalGameIntro(const void * src, int offset, int size);
+void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b);
+void OpAnimfxTerminatorMain(struct Proc * proc);
+void NewOpAnimfxTerminator(ProcPtr parent);
+void EndOpAnimfxTerminator(ProcPtr parent);
+void CopyToPalOpAnim(const void * src, int offset, int size);
 void CopyFirstPalDirectly(const u16 * src, u16 * dst);
 void SetFirstPalDirectly(u16 * src, u16 * dst, u8 pal);
 void ClearFirstPalDirectly(u16 * dst);
-void TsaModifyFirstPalMaybe(s16 param_1, s16 param_2, u8 param_3, u16 bg, u16* src1, u16* src2, s8 param_7);
-// ??? sub_80C689C(???);
+void TsaModifyFirstPalMaybe(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
+void sub_80C689C(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
 void sub_80C69B0(u16 *, int, u16);
-void Initialize6CIntroSequence(struct ProcGameIntro * proc);
-void GameIntroAllBlack(struct ProcGameIntroFadeIn * proc);
-void GameIntroFadeInMain(struct ProcGameIntroFadeIn * proc);
-void NewProcGameIntroFadeIn(int max, ProcPtr parent);
-void BgAffineSetGameIntro(int scaling_radio, int angle);
-void SetupGameIntroWorldMapfx(struct ProcGameIntro * proc);
-void GameIntroBldAlphaInit(struct ProcGameIntroBLDALPHA * proc);
-void GameIntroBldAlphaUpdateBgPalette(struct ProcGameIntroBLDALPHA * proc);
-void GameIntroBldAlphaDelay(struct ProcGameIntroBLDALPHA * proc);
-void GameIntroBldAlphaMain(struct ProcGameIntroBLDALPHA * proc);
-bool GameIntroBldAlphaExists(void);
-void GameIntroUpdateScreen1(struct ProcGameIntro * proc);
-void sub_80C6F70(struct ProcGameIntro * proc);
-void sub_80C7050(struct ProcGameIntro * proc);
+void Initialize6CIntroSequence(struct ProcOpAnim * proc);
+void OpAnimAllBlack(struct ProcOpAnimFadeIn * proc);
+void OpAnimFadeInMain(struct ProcOpAnimFadeIn * proc);
+void NewProcOpAnimFadeIn(int max, ProcPtr parent);
+void BgAffineSetOpAnim(int scaling_radio, int angle);
+void SetupOpAnimWorldMapfx(struct ProcOpAnim * proc);
+void OpAnimBldAlphaInit(struct ProcOpAnimBLDALPHA * proc);
+void OpAnimBldAlphaUpdateBgPalette(struct ProcOpAnimBLDALPHA * proc);
+void OpAnimBldAlphaDelay(struct ProcOpAnimBLDALPHA * proc);
+void OpAnimBldAlphaMain(struct ProcOpAnimBLDALPHA * proc);
+bool OpAnimBldAlphaExists(void);
+void OpAnimUpdateScreen1(struct ProcOpAnim * proc);
+void sub_80C6F70(struct ProcOpAnim * proc);
+void sub_80C7050(struct ProcOpAnim * proc);
 void Proc08AA6D04Main(void);
 void NewProc08AA6D04(void);
 void EndProc08AA6D04(void);
-void GameIntro1_UpdateScrollOneLine(s16 index);
-void GameIntro1_UpdateScroll(int new, int old);
-// ??? sub_80C72A4(???);
-// ??? sub_80C73B0(???);
-// ??? sub_80C7610(???);
-// ??? sub_80C7618(???);
-// ??? sub_80C7680(???);
-// ??? sub_80C76C8(???);
-// ??? sub_80C7844(???);
-// ??? sub_80C78BC(???);
-// ??? sub_80C7900(???);
+void OpAnim1_UpdateScrollOneLine(s16 index);
+void OpAnim1_UpdateScroll(int new, int old);
+void sub_80C72A4(u8 type);
+void sub_80C73B0(struct ProcOpAnim * proc);
+void Proc08AA7034_Init(struct Proc08AA7034 * proc);
+void Proc08AA7034_Main(struct Proc08AA7034 * proc);
+void GameIntoCharCgFlyInMaybe(int xOam1, int yOam0);
+void sub_80C76C8(struct ProcOpAnim * proc);
+void OpAnimHBlank1(void);
+void OpAnimHBlank2(void);
+void sub_80C7900(struct ProcOpAnim * proc);
 // ??? sub_80C79F4(???);
 // ??? sub_80C7A84(???);
 // ??? sub_80C7AE8(???);

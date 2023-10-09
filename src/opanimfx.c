@@ -2,7 +2,7 @@
 #include "ctc.h"
 #include "hardware.h"
 #include "gamecontrol.h"
-#include "game-introfx.h"
+#include "opanim.h"
 
 CONST_DATA u16 unk_AA6BB8[] = {
     2,
@@ -94,7 +94,7 @@ CONST_DATA u16 Obj_08AA6C9A[] = {
     0x4000, 0x1000, 0x0000,
 };
 
-void GameIntroPutObjCommon(int ix, int iy, u8 a, u8 b)
+void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b)
 {
     const u16 * obj;
     int oam2_chr;
@@ -291,36 +291,36 @@ void GameIntroPutObjCommon(int ix, int iy, u8 a, u8 b)
     PutSpriteExt(0, ix, iy, obj, oam2);
 }
 
-void GameIntrofxTerminatorMain(struct Proc * proc)
+void OpAnimfxTerminatorMain(struct Proc * proc)
 {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON))
     {
         SetNextGameActionId(GAME_ACTION_2);
-        gUnknown_02022188.unk0C = 0;
+        gOpAnimSt.unk0C = 0;
         Proc_Goto(proc->proc_parent, 99);
     }
 }
 
-CONST_DATA struct ProcCmd ProcScr_GameIntrofxTerminator[] = {
+CONST_DATA struct ProcCmd ProcScr_OpAnimfxTerminator[] = {
     PROC_YIELD,
-    PROC_REPEAT(GameIntrofxTerminatorMain),
+    PROC_REPEAT(OpAnimfxTerminatorMain),
     PROC_END
 };
 
-void NewGameIntrofxTerminator(ProcPtr parent)
+void NewOpAnimfxTerminator(ProcPtr parent)
 {
-    Proc_Start(ProcScr_GameIntrofxTerminator, parent);
+    Proc_Start(ProcScr_OpAnimfxTerminator, parent);
 }
 
-void EndGameIntrofxTerminator(ProcPtr parent)
+void EndOpAnimfxTerminator(ProcPtr parent)
 {
-    Proc_End(Proc_Find(ProcScr_GameIntrofxTerminator));
+    Proc_End(Proc_Find(ProcScr_OpAnimfxTerminator));
 }
 
-void CopyToPalGameIntro(const void * src, int offset, int size)
+void CopyToPalOpAnim(const void * src, int offset, int size)
 {
     CopyToPaletteBuffer(src, offset, size);
-    gPaletteBuffer[0] = gUnknown_02022188.unk0C;
+    gPaletteBuffer[0] = gOpAnimSt.unk0C;
 }
 
 void CopyFirstPalDirectly(const u16 * src, u16 * dst)

@@ -2,907 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80C72A4
-sub_80C72A4: @ 0x080C72A4
-	push {r4, r5, lr}
-	sub sp, #4
-	adds r4, r0, #0
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	bl SetDefaultColorEffects
-	cmp r4, #0
-	bne _080C72DC
-	ldr r2, _080C72D8  @ gLCDControlBuffer
-	ldrb r1, [r2, #1]
-	movs r0, #2
-	negs r0, r0
-	ands r0, r1
-	movs r1, #3
-	negs r1, r1
-	ands r0, r1
-	movs r1, #4
-	orrs r0, r1
-	movs r1, #9
-	negs r1, r1
-	ands r0, r1
-	subs r1, #8
-	ands r0, r1
-	strb r0, [r2, #1]
-	b _080C737C
-	.align 2, 0
-_080C72D8: .4byte gLCDControlBuffer
-_080C72DC:
-	ldr r4, _080C73A4  @ gLCDControlBuffer
-	ldrb r2, [r4, #0xc]
-	movs r1, #4
-	negs r1, r1
-	adds r0, r1, #0
-	ands r0, r2
-	strb r0, [r4, #0xc]
-	ldrb r2, [r4, #0x10]
-	adds r0, r1, #0
-	ands r0, r2
-	movs r2, #1
-	orrs r0, r2
-	strb r0, [r4, #0x10]
-	ldrb r0, [r4, #0x14]
-	ands r1, r0
-	movs r0, #2
-	orrs r1, r0
-	strb r1, [r4, #0x14]
-	ldrb r0, [r4, #0x18]
-	movs r1, #3
-	orrs r0, r1
-	strb r0, [r4, #0x18]
-	ldrb r0, [r4, #1]
-	orrs r0, r2
-	movs r1, #3
-	negs r1, r1
-	ands r0, r1
-	subs r1, #2
-	ands r0, r1
-	subs r1, #4
-	ands r0, r1
-	subs r1, #8
-	ands r0, r1
-	strb r0, [r4, #1]
-	movs r1, #0x80
-	lsls r1, r1, #7
-	movs r0, #1
-	bl SetBackgroundTileDataOffset
-	movs r1, #0xf0
-	lsls r1, r1, #8
-	movs r0, #1
-	bl SetBackgroundMapDataOffset
-	movs r5, #0
-	str r5, [sp]
-	movs r0, #0
-	movs r1, #1
-	movs r2, #0
-	movs r3, #0
-	bl SetBlendTargetA
-	str r5, [sp]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #1
-	movs r3, #0
-	bl SetBlendTargetB
-	ldr r0, _080C73A8  @ pal_08AF47F0
-	movs r1, #0x80
-	lsls r1, r1, #1
-	movs r2, #0x80
-	bl CopyToPalGameIntro
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	ldrb r1, [r4, #1]
-	movs r0, #0x21
-	negs r0, r0
-	ands r0, r1
-	movs r1, #0x41
-	negs r1, r1
-	ands r0, r1
-	movs r1, #0x7f
-	ands r0, r1
-	strb r0, [r4, #1]
-_080C737C:
-	movs r1, #0x80
-	lsls r1, r1, #8
-	movs r0, #2
-	bl SetBackgroundTileDataOffset
-	movs r1, #0xe8
-	lsls r1, r1, #8
-	movs r0, #2
-	bl SetBackgroundMapDataOffset
-	ldr r0, _080C73AC  @ gUnknown_08B103D8
-	movs r2, #0x80
-	lsls r2, r2, #1
-	movs r1, #0
-	bl CopyToPalGameIntro
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C73A4: .4byte gLCDControlBuffer
-_080C73A8: .4byte pal_08AF47F0
-_080C73AC: .4byte gUnknown_08B103D8
-
-	THUMB_FUNC_END sub_80C72A4
-
-	THUMB_FUNC_START sub_80C73B0
-sub_80C73B0: @ 0x080C73B0
-	push {r4, r5, r6, r7, lr}
-	adds r5, r0, #0
-	ldrh r0, [r5, #0x2a]
-	cmp r0, #6
-	bls _080C73BC
-	b _080C7604
-_080C73BC:
-	lsls r0, r0, #2
-	ldr r1, _080C73C8  @ _080C73CC
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_080C73C8: .4byte _080C73CC
-_080C73CC: @ jump table
-	.4byte _080C73E8 @ case 0
-	.4byte _080C7454 @ case 1
-	.4byte _080C7480 @ case 2
-	.4byte _080C74B0 @ case 3
-	.4byte _080C74EC @ case 4
-	.4byte _080C7510 @ case 5
-	.4byte _080C754C @ case 6
-_080C73E8:
-	ldr r4, _080C743C  @ gUnknown_08AB7DD0
-	movs r0, #3
-	bl GetBackgroundTileDataOffset
-	adds r1, r0, #0
-	ldr r0, _080C7440  @ 0x06002000
-	adds r1, r1, r0
-	adds r0, r4, #0
-	bl Decompress
-	ldr r0, _080C7444  @ gUnknown_08AB87E0
-	ldr r1, _080C7448  @ gBG3TilemapBuffer
-	bl Decompress
-	ldr r0, _080C744C  @ gPaletteBuffer
-	ldr r1, _080C7450  @ 0x00007FFF
-	movs r2, #0xe1
-	lsls r2, r2, #1
-	adds r0, r0, r2
-	movs r2, #0xe
-_080C7410:
-	strh r1, [r0]
-	adds r0, #2
-	subs r2, #1
-	cmp r2, #0
-	bge _080C7410
-	movs r4, #0xe1
-	lsls r4, r4, #8
-	adds r3, r4, #0
-	ldr r1, _080C7448  @ gBG3TilemapBuffer
-	movs r2, #0xa0
-	lsls r2, r2, #2
-_080C7426:
-	ldrh r4, [r1]
-	adds r0, r3, r4
-	strh r0, [r1]
-	adds r1, #2
-	subs r2, #1
-	cmp r2, #0
-	bne _080C7426
-	movs r0, #8
-	bl BG_EnableSyncByMask
-	b _080C7604
-	.align 2, 0
-_080C743C: .4byte gUnknown_08AB7DD0
-_080C7440: .4byte 0x06002000
-_080C7444: .4byte gUnknown_08AB87E0
-_080C7448: .4byte gBG3TilemapBuffer
-_080C744C: .4byte gPaletteBuffer
-_080C7450: .4byte 0x00007FFF
-_080C7454:
-	ldr r4, _080C7474  @ gUnknown_08ABF168
-	movs r0, #0
-	bl GetBackgroundTileDataOffset
-	adds r1, r0, #0
-	movs r0, #0xc0
-	lsls r0, r0, #0x13
-	adds r1, r1, r0
-	adds r0, r4, #0
-	bl Decompress
-	ldr r0, _080C7478  @ gUnknown_08AC1878
-	ldr r1, _080C747C  @ gGenericBuffer
-	bl Decompress
-	b _080C7604
-	.align 2, 0
-_080C7474: .4byte gUnknown_08ABF168
-_080C7478: .4byte gUnknown_08AC1878
-_080C747C: .4byte gGenericBuffer
-_080C7480:
-	ldr r4, _080C74A0  @ gUnknown_08AC0BD8
-	movs r0, #0
-	bl GetBackgroundTileDataOffset
-	adds r1, r0, #0
-	ldr r2, _080C74A4  @ 0x06002000
-	adds r1, r1, r2
-	adds r0, r4, #0
-	bl Decompress
-	ldr r0, _080C74A8  @ gUnknown_08AC1B98
-	ldr r1, _080C74AC  @ gGenericBuffer+0x800
-	bl Decompress
-	b _080C7604
-	.align 2, 0
-_080C74A0: .4byte gUnknown_08AC0BD8
-_080C74A4: .4byte 0x06002000
-_080C74A8: .4byte gUnknown_08AC1B98
-_080C74AC: .4byte gGenericBuffer+0x800
-_080C74B0:
-	ldr r4, _080C74DC  @ gUnknown_08ABB14C
-	movs r0, #2
-	bl GetBackgroundTileDataOffset
-	adds r1, r0, #0
-	movs r3, #0xc0
-	lsls r3, r3, #0x13
-	adds r1, r1, r3
-	adds r0, r4, #0
-	bl Decompress
-	ldr r0, _080C74E0  @ gUnknown_08ABC074
-	ldr r1, _080C74E4  @ gGenericBuffer+0x1000
-	bl Decompress
-	ldr r0, _080C74E8  @ gUnknown_08AC1C8C
-	movs r2, #0xb0
-	lsls r2, r2, #1
-	movs r1, #0
-	bl CopyToPalGameIntro
-	b _080C7604
-	.align 2, 0
-_080C74DC: .4byte gUnknown_08ABB14C
-_080C74E0: .4byte gUnknown_08ABC074
-_080C74E4: .4byte gGenericBuffer+0x1000
-_080C74E8: .4byte gUnknown_08AC1C8C
-_080C74EC:
-	ldr r0, _080C7500  @ gUnknown_08ABE304
-	ldr r1, _080C7504  @ 0x06008000
-	bl Decompress
-	ldr r0, _080C7508  @ gUnknown_08ABEF70
-	ldr r1, _080C750C  @ 0x0600C000
-	bl Decompress
-	b _080C7604
-	.align 2, 0
-_080C7500: .4byte gUnknown_08ABE304
-_080C7504: .4byte 0x06008000
-_080C7508: .4byte gUnknown_08ABEF70
-_080C750C: .4byte 0x0600C000
-_080C7510:
-	ldr r0, _080C753C  @ gUnknown_08ABD348
-	ldr r1, _080C7540  @ 0x0600A000
-	bl Decompress
-	ldr r0, _080C7544  @ gUnknown_08ABE120
-	ldr r4, _080C7548  @ 0x0600C800
-	adds r1, r4, #0
-	bl Decompress
-	movs r0, #0x80
-	lsls r0, r0, #1
-	adds r1, r0, #0
-	movs r2, #0xa0
-	lsls r2, r2, #2
-_080C752C:
-	ldrh r3, [r4]
-	adds r0, r1, r3
-	strh r0, [r4]
-	adds r4, #2
-	subs r2, #1
-	cmp r2, #0
-	bne _080C752C
-	b _080C7604
-	.align 2, 0
-_080C753C: .4byte gUnknown_08ABD348
-_080C7540: .4byte 0x0600A000
-_080C7544: .4byte gUnknown_08ABE120
-_080C7548: .4byte 0x0600C800
-_080C754C:
-	ldr r3, _080C75EC  @ gGenericBuffer+0x1000
-	ldr r0, _080C75F0  @ gPaletteBuffer
-	movs r1, #0
-	movs r4, #0xf1
-	lsls r4, r4, #1
-	adds r0, r0, r4
-	movs r2, #0xe
-_080C755A:
-	strh r1, [r0]
-	adds r0, #2
-	subs r2, #1
-	cmp r2, #0
-	bge _080C755A
-	movs r0, #0x80
-	lsls r0, r0, #4
-	adds r4, r3, r0
-	movs r2, #0x80
-	lsls r2, r2, #2
-	adds r0, r3, #0
-	adds r1, r4, #0
-	bl CpuFastSet
-	adds r7, r4, #0
-	ldr r6, _080C75F4  @ 0x00000FFF
-	movs r2, #0xf0
-	lsls r2, r2, #8
-	adds r4, r2, #0
-	adds r3, r7, #0
-	movs r2, #0xa0
-	lsls r2, r2, #2
-_080C7586:
-	ldrh r1, [r3]
-	adds r0, r6, #0
-	ands r0, r1
-	orrs r0, r4
-	strh r0, [r3]
-	adds r3, #2
-	subs r2, #1
-	cmp r2, #0
-	bne _080C7586
-	ldr r1, _080C75F8  @ 0x0600F000
-	movs r2, #0xa0
-	lsls r2, r2, #1
-	adds r0, r7, #0
-	bl CpuFastSet
-	bl EnablePaletteSync
-	ldr r2, _080C75FC  @ gLCDControlBuffer
-	ldrb r1, [r2, #1]
-	movs r0, #2
-	negs r0, r0
-	ands r0, r1
-	movs r1, #2
-	orrs r0, r1
-	movs r1, #4
-	orrs r0, r1
-	movs r1, #8
-	orrs r0, r1
-	movs r1, #0x10
-	orrs r0, r1
-	strb r0, [r2, #1]
-	movs r0, #0
-	strh r0, [r5, #0x2a]
-	strh r0, [r5, #0x30]
-	strh r0, [r5, #0x32]
-	ldr r1, _080C7600  @ gUnknown_02022188
-	strh r0, [r1]
-	strh r0, [r1, #2]
-	strh r0, [r1, #4]
-	movs r2, #0xa0
-	strh r2, [r1, #6]
-	strh r0, [r1, #0xc]
-	movs r1, #0x80
-	lsls r1, r1, #8
-	movs r0, #2
-	bl SetBackgroundTileDataOffset
-	adds r0, r5, #0
-	bl Proc_Break
-	b _080C760A
-	.align 2, 0
-_080C75EC: .4byte gGenericBuffer+0x1000
-_080C75F0: .4byte gPaletteBuffer
-_080C75F4: .4byte 0x00000FFF
-_080C75F8: .4byte 0x0600F000
-_080C75FC: .4byte gLCDControlBuffer
-_080C7600: .4byte gUnknown_02022188
-_080C7604:
-	ldrh r0, [r5, #0x2a]
-	adds r0, #1
-	strh r0, [r5, #0x2a]
-_080C760A:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C73B0
-
-	THUMB_FUNC_START sub_80C7610
-sub_80C7610: @ 0x080C7610
-	adds r0, #0x4c
-	movs r1, #0
-	strh r1, [r0]
-	bx lr
-
-	THUMB_FUNC_END sub_80C7610
-
-	THUMB_FUNC_START sub_80C7618
-sub_80C7618: @ 0x080C7618
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	adds r6, r0, #0
-	adds r5, r6, #0
-	adds r5, #0x4c
-	movs r0, #0
-	ldrsh r3, [r5, r0]
-	movs r0, #0x20
-	str r0, [sp]
-	movs r0, #0
-	movs r1, #0x10
-	movs r2, #0
-	bl Interpolate
-	adds r4, r0, #0
-	ldr r0, _080C7668  @ gUnknown_08AB8CAC
-	movs r1, #0xe0
-	lsls r1, r1, #1
-	movs r2, #0x20
-	bl CopyToPalGameIntro
-	ldr r0, _080C766C  @ gPaletteBuffer+0x1C0
-	ldr r1, _080C7670  @ 0x00007FFF
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	adds r2, r4, #0
-	bl sub_80C69B0
-	ldrh r1, [r5]
-	movs r2, #0
-	ldrsh r0, [r5, r2]
-	cmp r0, #0x20
-	bne _080C7674
-	movs r0, #0
-	strh r0, [r5]
-	adds r0, r6, #0
-	bl Proc_Break
-	b _080C7678
-	.align 2, 0
-_080C7668: .4byte gUnknown_08AB8CAC
-_080C766C: .4byte gPaletteBuffer+0x1C0
-_080C7670: .4byte 0x00007FFF
-_080C7674:
-	adds r0, r1, #1
-	strh r0, [r5]
-_080C7678:
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C7618
-
-	THUMB_FUNC_START sub_80C7680
-sub_80C7680: @ 0x080C7680
-	push {r4, r5, r6, r7, lr}
-	sub sp, #4
-	adds r7, r0, #0
-	adds r5, r1, #0
-	movs r4, #0
-	movs r6, #4
-_080C768C:
-	lsls r1, r4, #5
-	str r6, [sp]
-	movs r0, #0
-	adds r2, r5, #0
-	ldr r3, _080C76C0  @ gObject_32x8
-	bl PutSpriteExt
-	adds r4, #1
-	cmp r4, #7
-	ble _080C768C
-	movs r4, #0
-	movs r5, #0
-_080C76A4:
-	lsls r2, r4, #5
-	str r5, [sp]
-	movs r0, #0
-	adds r1, r7, #0
-	ldr r3, _080C76C4  @ gObject_8x32
-	bl PutSpriteExt
-	adds r4, #1
-	cmp r4, #7
-	ble _080C76A4
-	add sp, #4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C76C0: .4byte gObject_32x8
-_080C76C4: .4byte gObject_8x32
-
-	THUMB_FUNC_END sub_80C7680
-
-	THUMB_FUNC_START sub_80C76C8
-sub_80C76C8: @ 0x080C76C8
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	sub sp, #0xc
-	adds r5, r0, #0
-	movs r0, #7
-	bl BG_EnableSyncByMask
-	ldrh r0, [r5, #0x2a]
-	cmp r0, #0x10
-	bhi _080C77BA
-	adds r3, r0, #0
-	movs r0, #0x10
-	str r0, [sp]
-	movs r0, #4
-	movs r1, #0
-	movs r2, #0x80
-	bl Interpolate
-	adds r6, r0, #0
-	ldrh r0, [r5, #0x2a]
-	subs r0, #0xc
-	cmp r0, #4
-	bhi _080C7770
-	lsls r0, r0, #2
-	ldr r1, _080C7704  @ _080C7708
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_080C7704: .4byte _080C7708
-_080C7708: @ jump table
-	.4byte _080C771C @ case 0
-	.4byte _080C7730 @ case 1
-	.4byte _080C7750 @ case 2
-	.4byte _080C7770 @ case 3
-	.4byte _080C7790 @ case 4
-_080C771C:
-	lsls r0, r6, #0x10
-	asrs r0, r0, #0x10
-	ldr r1, _080C772C  @ 0x0600C800
-	str r1, [sp]
-	movs r1, #0
-	str r1, [sp, #4]
-	str r1, [sp, #8]
-	b _080C7782
-	.align 2, 0
-_080C772C: .4byte 0x0600C800
-_080C7730:
-	ldr r0, _080C7744  @ gUnknown_08ABC22C
-	ldr r1, _080C7748  @ 0x06008000
-	bl Decompress
-	lsls r0, r6, #0x10
-	asrs r0, r0, #0x10
-	movs r2, #0x30
-	ldrsh r1, [r5, r2]
-	ldr r2, _080C774C  @ 0x0600C800
-	b _080C777A
-	.align 2, 0
-_080C7744: .4byte gUnknown_08ABC22C
-_080C7748: .4byte 0x06008000
-_080C774C: .4byte 0x0600C800
-_080C7750:
-	ldr r0, _080C7768  @ gUnknown_08ABD174
-	ldr r4, _080C776C  @ 0x0600C000
-	adds r1, r4, #0
-	bl Decompress
-	lsls r0, r6, #0x10
-	asrs r0, r0, #0x10
-	str r4, [sp]
-	movs r1, #0
-	str r1, [sp, #4]
-	str r1, [sp, #8]
-	b _080C7782
-	.align 2, 0
-_080C7768: .4byte gUnknown_08ABD174
-_080C776C: .4byte 0x0600C000
-_080C7770:
-	lsls r0, r6, #0x10
-	asrs r0, r0, #0x10
-	movs r2, #0x30
-	ldrsh r1, [r5, r2]
-	ldr r2, _080C778C  @ 0x0600C000
-_080C777A:
-	str r2, [sp]
-	movs r2, #0
-	str r2, [sp, #4]
-	str r2, [sp, #8]
-_080C7782:
-	movs r2, #0x88
-	movs r3, #2
-	bl TsaModifyFirstPalMaybe
-	b _080C77B8
-	.align 2, 0
-_080C778C: .4byte 0x0600C000
-_080C7790:
-	lsls r0, r6, #0x10
-	asrs r0, r0, #0x10
-	ldr r1, _080C7824  @ gGenericBuffer+0x1000
-	str r1, [sp]
-	movs r1, #0
-	str r1, [sp, #4]
-	str r1, [sp, #8]
-	movs r2, #0x88
-	movs r3, #2
-	bl TsaModifyFirstPalMaybe
-	movs r1, #0x80
-	lsls r1, r1, #7
-	movs r0, #2
-	bl SetBackgroundTileDataOffset
-	ldr r0, _080C7828  @ gUnknown_08AA7034
-	adds r1, r5, #0
-	bl Proc_Start
-_080C77B8:
-	strh r6, [r5, #0x30]
-_080C77BA:
-	ldrh r0, [r5, #0x2a]
-	subs r4, r0, #5
-	cmp r4, #0
-	blt _080C7830
-	movs r0, #0x10
-	str r0, [sp]
-	movs r0, #4
-	movs r1, #0
-	movs r2, #0x90
-	adds r3, r4, #0
-	bl Interpolate
-	adds r6, r0, #0
-	lsls r0, r6, #0x10
-	asrs r0, r0, #0x10
-	movs r2, #0x32
-	ldrsh r1, [r5, r2]
-	ldr r7, _080C782C  @ gGenericBuffer
-	str r7, [sp]
-	movs r2, #0x80
-	lsls r2, r2, #4
-	adds r2, r2, r7
-	mov r9, r2
-	str r2, [sp, #4]
-	movs r2, #1
-	str r2, [sp, #8]
-	movs r2, #0xc8
-	movs r3, #1
-	bl sub_80C689C
-	movs r0, #0
-	mov r8, r0
-	strh r6, [r5, #0x32]
-	cmp r4, #0x10
-	bne _080C7830
-	movs r1, #0x32
-	ldrsh r0, [r5, r1]
-	str r7, [sp]
-	mov r2, r9
-	str r2, [sp, #4]
-	mov r1, r8
-	str r1, [sp, #8]
-	movs r1, #0
-	movs r2, #0xc8
-	movs r3, #0
-	bl sub_80C689C
-	mov r2, r8
-	strh r2, [r5, #0x2a]
-	adds r0, r5, #0
-	bl Proc_Break
-	b _080C7836
-	.align 2, 0
-_080C7824: .4byte gGenericBuffer+0x1000
-_080C7828: .4byte gUnknown_08AA7034
-_080C782C: .4byte gGenericBuffer
-_080C7830:
-	ldrh r0, [r5, #0x2a]
-	adds r0, #1
-	strh r0, [r5, #0x2a]
-_080C7836:
-	add sp, #0xc
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C76C8
-
-	THUMB_FUNC_START sub_80C7844
-sub_80C7844: @ 0x080C7844
-	push {r4, lr}
-	ldr r0, _080C78A0  @ 0x04000006
-	ldrh r0, [r0]
-	adds r3, r0, #0
-	subs r0, r3, #1
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	cmp r0, #0x9f
-	bls _080C7870
-	ldr r2, _080C78A4  @ 0x0400000C
-	ldrh r1, [r2]
-	ldr r0, _080C78A8  @ 0x0000C0FF
-	ands r0, r1
-	movs r4, #0xf0
-	lsls r4, r4, #5
-	adds r1, r4, #0
-	orrs r0, r1
-	strh r0, [r2]
-	ldr r1, _080C78AC  @ 0x04000050
-	ldr r2, _080C78B0  @ 0x00000C46
-	adds r0, r2, #0
-	strh r0, [r1]
-_080C7870:
-	ldr r1, _080C78B4  @ gUnknown_02022188
-	movs r4, #8
-	ldrsh r0, [r1, r4]
-	cmp r3, r0
-	beq _080C787E
-	cmp r0, #0
-	bne _080C7898
-_080C787E:
-	ldr r2, _080C78A4  @ 0x0400000C
-	ldrh r1, [r2]
-	ldr r0, _080C78A8  @ 0x0000C0FF
-	ands r0, r1
-	movs r3, #0xe8
-	lsls r3, r3, #5
-	adds r1, r3, #0
-	orrs r0, r1
-	strh r0, [r2]
-	ldr r1, _080C78AC  @ 0x04000050
-	ldr r4, _080C78B8  @ 0x00000C42
-	adds r0, r4, #0
-	strh r0, [r1]
-_080C7898:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C78A0: .4byte 0x04000006
-_080C78A4: .4byte 0x0400000C
-_080C78A8: .4byte 0x0000C0FF
-_080C78AC: .4byte 0x04000050
-_080C78B0: .4byte 0x00000C46
-_080C78B4: .4byte gUnknown_02022188
-_080C78B8: .4byte 0x00000C42
-
-	THUMB_FUNC_END sub_80C7844
-
-	THUMB_FUNC_START sub_80C78BC
-sub_80C78BC: @ 0x080C78BC
-	push {lr}
-	ldr r0, _080C78EC  @ 0x04000006
-	ldrh r0, [r0]
-	adds r2, r0, #0
-	subs r0, r2, #1
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	cmp r0, #0x9f
-	bls _080C78D6
-	ldr r1, _080C78F0  @ 0x04000050
-	ldr r3, _080C78F4  @ 0x00000C46
-	adds r0, r3, #0
-	strh r0, [r1]
-_080C78D6:
-	ldr r0, _080C78F8  @ gUnknown_02022188
-	movs r1, #0xa
-	ldrsh r0, [r0, r1]
-	cmp r2, r0
-	bne _080C78E8
-	ldr r1, _080C78F0  @ 0x04000050
-	ldr r2, _080C78FC  @ 0x00000CCF
-	adds r0, r2, #0
-	strh r0, [r1]
-_080C78E8:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C78EC: .4byte 0x04000006
-_080C78F0: .4byte 0x04000050
-_080C78F4: .4byte 0x00000C46
-_080C78F8: .4byte gUnknown_02022188
-_080C78FC: .4byte 0x00000CCF
-
-	THUMB_FUNC_END sub_80C78BC
-
-	THUMB_FUNC_START sub_80C7900
-sub_80C7900: @ 0x080C7900
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #8
-	str r0, [sp, #4]
-	ldr r0, _080C79E4  @ sub_80C7844
-	bl SetPrimaryHBlankHandler
-	ldr r7, _080C79E8  @ gLCDControlBuffer
-	ldrb r2, [r7, #1]
-	movs r0, #0x20
-	orrs r2, r0
-	subs r0, #0x61
-	ands r2, r0
-	movs r0, #0x7f
-	ands r2, r0
-	ldr r1, _080C79EC  @ gUnknown_030030B4
-	ldrb r3, [r1]
-	movs r0, #1
-	mov r9, r0
-	mov r1, r9
-	orrs r3, r1
-	movs r6, #2
-	orrs r3, r6
-	movs r0, #4
-	mov r8, r0
-	mov r1, r8
-	orrs r3, r1
-	movs r5, #8
-	orrs r3, r5
-	movs r4, #0x10
-	orrs r3, r4
-	movs r0, #0x35
-	adds r0, r0, r7
-	mov ip, r0
-	ldrb r0, [r0]
-	mov r1, r9
-	orrs r0, r1
-	orrs r0, r6
-	movs r1, #5
-	negs r1, r1
-	ands r0, r1
-	orrs r0, r5
-	orrs r0, r4
-	mov r1, ip
-	strb r0, [r1]
-	movs r0, #0x36
-	adds r0, r0, r7
-	mov sl, r0
-	ldrb r1, [r0]
-	movs r0, #2
-	negs r0, r0
-	ands r0, r1
-	orrs r0, r6
-	mov r1, r8
-	orrs r0, r1
-	orrs r0, r5
-	orrs r0, r4
-	mov r1, r9
-	orrs r2, r1
-	orrs r2, r6
-	mov r1, r8
-	orrs r2, r1
-	orrs r2, r5
-	orrs r2, r4
-	strb r2, [r7, #1]
-	movs r1, #0x20
-	orrs r3, r1
-	ldr r1, _080C79EC  @ gUnknown_030030B4
-	strb r3, [r1]
-	movs r1, #0x20
-	orrs r0, r1
-	mov r1, sl
-	strb r0, [r1]
-	adds r0, r7, #0
-	adds r0, #0x2d
-	movs r4, #0
-	strb r4, [r0]
-	adds r0, #4
-	strb r4, [r0]
-	ldr r0, _080C79F0  @ gUnknown_02022188
-	ldrh r1, [r0]
-	adds r0, r7, #0
-	adds r0, #0x2c
-	strb r1, [r0]
-	adds r1, r7, #0
-	adds r1, #0x30
-	movs r0, #0xa0
-	strb r0, [r1]
-	movs r1, #0xf0
-	lsls r1, r1, #8
-	movs r0, #2
-	bl SetBackgroundMapDataOffset
-	str r4, [sp]
-	movs r0, #0
-	movs r1, #1
-	movs r2, #1
-	movs r3, #0
-	bl SetBlendTargetA
-	ldr r0, [sp, #4]
-	bl Proc_Break
-	add sp, #8
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C79E4: .4byte sub_80C7844
-_080C79E8: .4byte gLCDControlBuffer
-_080C79EC: .4byte gUnknown_030030B4
-_080C79F0: .4byte gUnknown_02022188
-
-	THUMB_FUNC_END sub_80C7900
-
 	THUMB_FUNC_START sub_80C79F4
 sub_80C79F4: @ 0x080C79F4
 	push {r4, r5, r6, r7, lr}
@@ -915,7 +14,7 @@ sub_80C79F4: @ 0x080C79F4
 	movs r1, #0
 	movs r2, #0xf0
 	bl Interpolate
-	ldr r4, _080C7A6C  @ gUnknown_02022188
+	ldr r4, _080C7A6C  @ gOpAnimSt
 	movs r6, #0
 	strh r0, [r4]
 	ldrh r3, [r7, #0x2a]
@@ -925,6 +24,7 @@ sub_80C79F4: @ 0x080C79F4
 	movs r2, #0xa0
 	bl Interpolate
 	strh r0, [r4, #2]
+
 	ldr r2, _080C7A70  @ gLCDControlBuffer
 	adds r0, r2, #0
 	adds r0, #0x2d
@@ -938,6 +38,7 @@ sub_80C79F4: @ 0x080C79F4
 	adds r1, #0x30
 	movs r0, #0xa0
 	strb r0, [r1]
+
 	movs r1, #0
 	ldrsh r0, [r4, r1]
 	movs r2, #2
@@ -950,11 +51,11 @@ _080C7A48:
 	ble _080C7A4E
 	movs r1, #0x88
 _080C7A4E:
-	bl sub_80C7680
+	bl GameIntoCharCgFlyInMaybe
 	ldrh r0, [r7, #0x2a]
 	cmp r0, #0x10
 	bne _080C7A78
-	ldr r0, _080C7A74  @ sub_80C78BC
+	ldr r0, _080C7A74  @ OpAnimHBlank2
 	bl SetPrimaryHBlankHandler
 	movs r0, #0
 	strh r0, [r7, #0x2a]
@@ -962,9 +63,9 @@ _080C7A4E:
 	bl Proc_Break
 	b _080C7A7C
 	.align 2, 0
-_080C7A6C: .4byte gUnknown_02022188
+_080C7A6C: .4byte gOpAnimSt
 _080C7A70: .4byte gLCDControlBuffer
-_080C7A74: .4byte sub_80C78BC
+_080C7A74: .4byte OpAnimHBlank2
 _080C7A78:
 	adds r0, #1
 	strh r0, [r7, #0x2a]
@@ -988,11 +89,11 @@ sub_80C7A84: @ 0x080C7A84
 	movs r1, #0xa0
 	movs r2, #0x78
 	bl Interpolate
-	ldr r1, _080C7AD0  @ gUnknown_02022188
+	ldr r1, _080C7AD0  @ gOpAnimSt
 	strh r0, [r1, #6]
 	movs r0, #0xe8
 	movs r1, #0x88
-	bl sub_80C7680
+	bl GameIntoCharCgFlyInMaybe
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xe
 	bls _080C7ABC
@@ -1013,7 +114,7 @@ _080C7ABC:
 	bl Proc_Break
 	b _080C7AE0
 	.align 2, 0
-_080C7AD0: .4byte gUnknown_02022188
+_080C7AD0: .4byte gOpAnimSt
 _080C7AD4: .4byte Obj_08AA6BFA
 _080C7AD8: .4byte 0x00002046
 _080C7ADC:
@@ -1034,7 +135,7 @@ sub_80C7AE8: @ 0x080C7AE8
 	adds r4, r0, #0
 	movs r0, #0xe8
 	movs r1, #0x88
-	bl sub_80C7680
+	bl GameIntoCharCgFlyInMaybe
 	ldr r3, _080C7B60  @ Obj_08AA6BFA
 	ldr r0, _080C7B64  @ 0x0000205A
 	str r0, [sp]
@@ -1134,7 +235,7 @@ _080C7BA8:
 	movs r1, #0x78
 	movs r2, #0xa0
 	bl Interpolate
-	ldr r4, _080C7CD8  @ gUnknown_02022188
+	ldr r4, _080C7CD8  @ gOpAnimSt
 	strh r0, [r4, #6]
 	movs r2, #0x80
 	lsls r2, r2, #1
@@ -1148,7 +249,7 @@ _080C7BA8:
 	ldrsh r1, [r4, r0]
 	adds r1, #0x10
 	adds r0, r5, #0
-	bl sub_80C7680
+	bl GameIntoCharCgFlyInMaybe
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x10
 	bne _080C7BEC
@@ -1265,7 +366,7 @@ _080C7C88:
 	.align 2, 0
 _080C7CD0: .4byte Obj_08AA6BFA
 _080C7CD4: .4byte 0x00002046
-_080C7CD8: .4byte gUnknown_02022188
+_080C7CD8: .4byte gOpAnimSt
 _080C7CDC: .4byte gGenericBuffer+0x1000
 _080C7CE0: .4byte gGenericBuffer
 _080C7CE4:
@@ -1439,7 +540,7 @@ _080C7E48:
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	b _080C7F80
 	.align 2, 0
 _080C7E74: .4byte gUnknown_08AC1DEC
@@ -1537,7 +638,7 @@ _080C7F06:
 	strh r2, [r6, #0x2a]
 	strh r2, [r6, #0x30]
 	strh r2, [r6, #0x32]
-	ldr r1, _080C7F7C  @ gUnknown_02022188
+	ldr r1, _080C7F7C  @ gOpAnimSt
 	movs r0, #0xf0
 	strh r0, [r1]
 	strh r2, [r1, #2]
@@ -1556,7 +657,7 @@ _080C7F6C: .4byte gGenericBuffer+0x1000
 _080C7F70: .4byte 0x00000FFF
 _080C7F74: .4byte 0x0600F000
 _080C7F78: .4byte gLCDControlBuffer
-_080C7F7C: .4byte gUnknown_02022188
+_080C7F7C: .4byte gOpAnimSt
 _080C7F80:
 	ldrh r0, [r6, #0x2a]
 	adds r0, #1
@@ -1755,7 +856,7 @@ sub_80C8100: @ 0x080C8100
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	ldr r0, _080C8178  @ sub_80C7844
+	ldr r0, _080C8178  @ OpAnimHBlank1
 	bl SetPrimaryHBlankHandler
 	ldr r2, _080C817C  @ gLCDControlBuffer
 	ldrb r0, [r2, #1]
@@ -1777,7 +878,7 @@ sub_80C8100: @ 0x080C8100
 	movs r1, #0x10
 	orrs r0, r1
 	strb r0, [r2, #1]
-	ldr r0, _080C8180  @ gUnknown_02022188
+	ldr r0, _080C8180  @ gOpAnimSt
 	ldrh r0, [r0]
 	adds r1, r2, #0
 	adds r1, #0x2d
@@ -1809,9 +910,9 @@ sub_80C8100: @ 0x080C8100
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C8178: .4byte sub_80C7844
+_080C8178: .4byte OpAnimHBlank1
 _080C817C: .4byte gLCDControlBuffer
-_080C8180: .4byte gUnknown_02022188
+_080C8180: .4byte gOpAnimSt
 
 	THUMB_FUNC_END sub_80C8100
 
@@ -1827,7 +928,7 @@ sub_80C8184: @ 0x080C8184
 	movs r1, #0xf0
 	movs r2, #0
 	bl Interpolate
-	ldr r4, _080C81FC  @ gUnknown_02022188
+	ldr r4, _080C81FC  @ gOpAnimSt
 	movs r6, #0
 	strh r0, [r4]
 	ldrh r3, [r7, #0x2a]
@@ -1863,11 +964,11 @@ _080C81DA:
 	ble _080C81E0
 	movs r1, #0x88
 _080C81E0:
-	bl sub_80C7680
+	bl GameIntoCharCgFlyInMaybe
 	ldrh r0, [r7, #0x2a]
 	cmp r0, #0x10
 	bne _080C8208
-	ldr r0, _080C8204  @ sub_80C78BC
+	ldr r0, _080C8204  @ OpAnimHBlank2
 	bl SetPrimaryHBlankHandler
 	movs r0, #0
 	strh r0, [r7, #0x2a]
@@ -1875,9 +976,9 @@ _080C81E0:
 	bl Proc_Break
 	b _080C820C
 	.align 2, 0
-_080C81FC: .4byte gUnknown_02022188
+_080C81FC: .4byte gOpAnimSt
 _080C8200: .4byte gLCDControlBuffer
-_080C8204: .4byte sub_80C78BC
+_080C8204: .4byte OpAnimHBlank2
 _080C8208:
 	adds r0, #1
 	strh r0, [r7, #0x2a]
@@ -1901,11 +1002,11 @@ sub_80C8214: @ 0x080C8214
 	movs r1, #0xa0
 	movs r2, #0x78
 	bl Interpolate
-	ldr r1, _080C8260  @ gUnknown_02022188
+	ldr r1, _080C8260  @ gOpAnimSt
 	strh r0, [r1, #6]
 	movs r0, #8
 	movs r1, #0x88
-	bl sub_80C7680
+	bl GameIntoCharCgFlyInMaybe
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xe
 	bls _080C824C
@@ -1926,7 +1027,7 @@ _080C824C:
 	bl Proc_Break
 	b _080C8270
 	.align 2, 0
-_080C8260: .4byte gUnknown_02022188
+_080C8260: .4byte gOpAnimSt
 _080C8264: .4byte Obj_08AA6C0E
 _080C8268: .4byte 0x0000206E
 _080C826C:
@@ -1947,7 +1048,7 @@ sub_80C8278: @ 0x080C8278
 	adds r5, r0, #0
 	movs r0, #8
 	movs r1, #0x88
-	bl sub_80C7680
+	bl GameIntoCharCgFlyInMaybe
 	ldr r3, _080C82A8  @ Obj_08AA6C0E
 	ldr r0, _080C82AC  @ 0x0000207C
 	str r0, [sp]
@@ -1975,7 +1076,7 @@ _080C82B6:
 _080C82B8:
 	lsls r0, r4, #0x10
 	asrs r0, r0, #0x10
-	bl GameIntro1_UpdateScrollOneLine
+	bl OpAnim1_UpdateScrollOneLine
 	adds r4, #1
 	cmp r4, #7
 	ble _080C82B8
@@ -1985,7 +1086,7 @@ _080C82C8:
 _080C82CA:
 	lsls r0, r4, #0x10
 	asrs r0, r0, #0x10
-	bl GameIntro1_UpdateScrollOneLine
+	bl OpAnim1_UpdateScrollOneLine
 	adds r4, #1
 	cmp r4, #0xf
 	ble _080C82CA
@@ -1995,7 +1096,7 @@ _080C82DA:
 _080C82DC:
 	lsls r0, r4, #0x10
 	asrs r0, r0, #0x10
-	bl GameIntro1_UpdateScrollOneLine
+	bl OpAnim1_UpdateScrollOneLine
 	adds r4, #1
 	cmp r4, #0x15
 	ble _080C82DC
@@ -2090,7 +1191,7 @@ _080C8384:
 	movs r1, #0x78
 	movs r2, #0xa0
 	bl Interpolate
-	ldr r4, _080C84B8  @ gUnknown_02022188
+	ldr r4, _080C84B8  @ gOpAnimSt
 	strh r0, [r4, #6]
 	ldrh r3, [r6, #0x2a]
 	str r5, [sp]
@@ -2103,7 +1204,7 @@ _080C8384:
 	ldrsh r1, [r4, r0]
 	adds r1, #0x10
 	adds r0, r5, #0
-	bl sub_80C7680
+	bl GameIntoCharCgFlyInMaybe
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x10
 	bne _080C83C6
@@ -2222,7 +1323,7 @@ _080C8462:
 	.align 2, 0
 _080C84B0: .4byte Obj_08AA6C0E
 _080C84B4: .4byte 0x0000206E
-_080C84B8: .4byte gUnknown_02022188
+_080C84B8: .4byte gOpAnimSt
 _080C84BC: .4byte gGenericBuffer+0x1000
 _080C84C0: .4byte gGenericBuffer
 _080C84C4:
@@ -2327,7 +1428,7 @@ sub_80C8564: @ 0x080C8564
 	bl sub_80C72A4
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -2493,7 +1594,7 @@ sub_80C8690: @ 0x080C8690
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -2680,7 +1781,7 @@ sub_80C883C: @ 0x080C883C
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -2792,7 +1893,7 @@ sub_80C8934: @ 0x080C8934
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -2901,7 +2002,7 @@ sub_80C8A20: @ 0x080C8A20
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -3010,7 +2111,7 @@ sub_80C8B0C: @ 0x080C8B0C
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -3119,7 +2220,7 @@ sub_80C8BF8: @ 0x080C8BF8
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -3228,7 +2329,7 @@ sub_80C8CE4: @ 0x080C8CE4
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r4, #0x38]
 	strh r0, [r4, #0x3a]
 	movs r2, #0x9c
@@ -3302,11 +2403,11 @@ _080C8D78:
 	ldrh r0, [r7, #0x3e]
 	adds r0, #1
 	strh r0, [r7, #0x3e]
-	ldr r0, _080C8DC4  @ gUnknown_08B103D8
+	ldr r0, _080C8DC4  @ pal_08B103D8
 	movs r2, #0x80
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldrh r3, [r7, #0x2a]
 	movs r0, #0x26
 	str r0, [sp]
@@ -3336,7 +2437,7 @@ _080C8DA0:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_080C8DC4: .4byte gUnknown_08B103D8
+_080C8DC4: .4byte pal_08B103D8
 _080C8DC8: .4byte gPaletteBuffer
 _080C8DCC: .4byte _080C8DD0
 _080C8DD0: @ jump table
@@ -3351,22 +2452,22 @@ _080C8DE4:
 	lsls r1, r1, #2
 	adds r0, r4, #0
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	movs r1, #0x98
 	lsls r1, r1, #2
 	adds r0, r4, #0
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	movs r1, #0xa8
 	lsls r1, r1, #2
 	adds r0, r4, #0
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	movs r1, #0xb8
 	lsls r1, r1, #2
 	adds r0, r4, #0
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	b _080C8EA0
 	.align 2, 0
 _080C8E18: .4byte gUnknown_08ADBE78
@@ -3378,7 +2479,7 @@ _080C8E1C:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C8E48  @ gUnknown_08ADC3C0
 	ldr r1, _080C8E4C  @ 0x06010F00
 	bl Decompress
@@ -3397,7 +2498,7 @@ _080C8E50:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C8E7C  @ gUnknown_08ADCCB8
 	ldr r1, _080C8E80  @ 0x06012D00
 	bl Decompress
@@ -3416,7 +2517,7 @@ _080C8E84:
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C8EC0  @ gUnknown_08ADD6EC
 	ldr r1, _080C8EC4  @ 0x06014B00
 	bl Decompress
@@ -3506,7 +2607,7 @@ _080C8F3A:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C8F64  @ gUnknown_08ADE080
 	ldr r1, _080C8F68  @ 0x06010F00
 	bl Decompress
@@ -3525,7 +2626,7 @@ _080C8F6C:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C8F98  @ gUnknown_08ADF58C
 	ldr r1, _080C8F9C  @ 0x06012D00
 	bl Decompress
@@ -3544,7 +2645,7 @@ _080C8FA0:
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C8FCC  @ gUnknown_08ADEB1C
 	ldr r1, _080C8FD0  @ 0x06014B00
 	bl Decompress
@@ -3563,7 +2664,7 @@ _080C8FD4:
 	movs r1, #0xb0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9010  @ gUnknown_08AE00E4
 	ldr r1, _080C9014  @ 0x06016900
 	bl Decompress
@@ -3645,7 +2746,7 @@ _080C907C:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C90A8  @ gUnknown_08AE0A48
 	ldr r1, _080C90AC  @ 0x06010F00
 	bl Decompress
@@ -3664,7 +2765,7 @@ _080C90B0:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C90EC  @ gUnknown_08AE12BC
 	ldr r1, _080C90F0  @ 0x06012D00
 	bl Decompress
@@ -3752,7 +2853,7 @@ _080C9162:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C918C  @ gUnknown_08AE1D00
 	ldr r1, _080C9190  @ 0x06010F00
 	bl Decompress
@@ -3771,7 +2872,7 @@ _080C9194:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C91C0  @ gUnknown_08AE281C
 	ldr r1, _080C91C4  @ 0x06012D00
 	bl Decompress
@@ -3790,7 +2891,7 @@ _080C91C8:
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9204  @ gUnknown_08AE33D4
 	ldr r1, _080C9208  @ 0x06014B00
 	bl Decompress
@@ -3878,7 +2979,7 @@ _080C927A:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C92A4  @ gUnknown_08AE3E54
 	ldr r1, _080C92A8  @ 0x06010F00
 	bl Decompress
@@ -3897,7 +2998,7 @@ _080C92AC:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C92D8  @ gUnknown_08AE4940
 	ldr r1, _080C92DC  @ 0x06012D00
 	bl Decompress
@@ -3916,7 +3017,7 @@ _080C92E0:
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C931C  @ gUnknown_08AE53C8
 	ldr r1, _080C9320  @ 0x06014B00
 	bl Decompress
@@ -3998,7 +3099,7 @@ _080C9388:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C93B4  @ gUnknown_08AE5D54
 	ldr r1, _080C93B8  @ 0x06010F00
 	bl Decompress
@@ -4017,7 +3118,7 @@ _080C93BC:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C93F8  @ gUnknown_08AE6648
 	ldr r1, _080C93FC  @ 0x06012D00
 	bl Decompress
@@ -4107,7 +3208,7 @@ _080C9472:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C949C  @ gUnknown_08AE6FA8
 	ldr r1, _080C94A0  @ 0x06010F00
 	bl Decompress
@@ -4126,7 +3227,7 @@ _080C94A4:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C94D0  @ gUnknown_08AE8AB8
 	ldr r1, _080C94D4  @ 0x06012D00
 	bl Decompress
@@ -4145,7 +3246,7 @@ _080C94D8:
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9504  @ gUnknown_08AE78B0
 	ldr r1, _080C9508  @ 0x06014B00
 	bl Decompress
@@ -4164,7 +3265,7 @@ _080C950C:
 	movs r1, #0xb0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9548  @ gUnknown_08AE819C
 	ldr r1, _080C954C  @ 0x06016900
 	bl Decompress
@@ -4246,7 +3347,7 @@ _080C95B4:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C95E0  @ gUnknown_08AE9364
 	ldr r1, _080C95E4  @ 0x06010F00
 	bl Decompress
@@ -4265,7 +3366,7 @@ _080C95E8:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9624  @ gUnknown_08AE9CA4
 	ldr r1, _080C9628  @ 0x06012D00
 	bl Decompress
@@ -4353,7 +3454,7 @@ _080C969A:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C96C4  @ gUnknown_08AED0A4
 	ldr r1, _080C96C8  @ 0x06010F00
 	bl Decompress
@@ -4372,7 +3473,7 @@ _080C96CC:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C96F8  @ gUnknown_08AED95C
 	ldr r1, _080C96FC  @ 0x06012D00
 	bl Decompress
@@ -4391,7 +3492,7 @@ _080C9700:
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C973C  @ gUnknown_08AEE218
 	ldr r1, _080C9740  @ 0x06014B00
 	bl Decompress
@@ -4481,7 +3582,7 @@ _080C97B6:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C97E0  @ gUnknown_08AEA7A8
 	ldr r1, _080C97E4  @ 0x06010F00
 	bl Decompress
@@ -4500,7 +3601,7 @@ _080C97E8:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9814  @ gUnknown_08AEB1B8
 	ldr r1, _080C9818  @ 0x06012D00
 	bl Decompress
@@ -4519,7 +3620,7 @@ _080C981C:
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9848  @ gUnknown_08AEBCEC
 	ldr r1, _080C984C  @ 0x06014B00
 	bl Decompress
@@ -4538,7 +3639,7 @@ _080C9850:
 	movs r1, #0xb0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C988C  @ gUnknown_08AEC724
 	ldr r1, _080C9890  @ 0x06016900
 	bl Decompress
@@ -4626,7 +3727,7 @@ _080C9902:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C992C  @ gUnknown_08AEEBB0
 	ldr r1, _080C9930  @ 0x06010F00
 	bl Decompress
@@ -4645,7 +3746,7 @@ _080C9934:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9960  @ gUnknown_08AEF580
 	ldr r1, _080C9964  @ 0x06012D00
 	bl Decompress
@@ -4664,7 +3765,7 @@ _080C9968:
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C99A4  @ gUnknown_08AEFDC8
 	ldr r1, _080C99A8  @ 0x06014B00
 	bl Decompress
@@ -4746,7 +3847,7 @@ _080C9A10:
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9A3C  @ gUnknown_08AF09E4
 	ldr r1, _080C9A40  @ 0x06010F00
 	bl Decompress
@@ -4765,7 +3866,7 @@ _080C9A44:
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r0, _080C9A80  @ gUnknown_08AF16CC
 	ldr r1, _080C9A84  @ 0x06012D00
 	bl Decompress
@@ -4863,11 +3964,11 @@ sub_80C9AFC: @ 0x080C9AFC
 	movs r2, #0x10
 	bl Interpolate
 	adds r4, r0, #0
-	ldr r0, _080C9B50  @ gUnknown_08B103D8
+	ldr r0, _080C9B50  @ pal_08B103D8
 	movs r2, #0x80
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	ldr r5, _080C9B54  @ gPaletteBuffer
 	lsls r6, r4, #0x10
 	movs r4, #7
@@ -4883,7 +3984,7 @@ _080C9B26:
 	ldrh r0, [r7, #0x2a]
 	cmp r0, #0x30
 	bne _080C9B60
-	ldr r0, _080C9B5C  @ gUnknown_02022188
+	ldr r0, _080C9B5C  @ gOpAnimSt
 	movs r2, #0
 	ldr r1, _080C9B58  @ 0x00007FFF
 	strh r1, [r0, #0xc]
@@ -4892,10 +3993,10 @@ _080C9B26:
 	bl Proc_Break
 	b _080C9B64
 	.align 2, 0
-_080C9B50: .4byte gUnknown_08B103D8
+_080C9B50: .4byte pal_08B103D8
 _080C9B54: .4byte gPaletteBuffer
 _080C9B58: .4byte 0x00007FFF
-_080C9B5C: .4byte gUnknown_02022188
+_080C9B5C: .4byte gOpAnimSt
 _080C9B60:
 	adds r0, #1
 	strh r0, [r7, #0x2a]
@@ -4994,7 +4095,7 @@ sub_80C9C08: @ 0x080C9C08
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	adds r1, r4, #0
 	adds r1, #0x47
 	movs r2, #0
@@ -5037,7 +4138,7 @@ sub_80C9C5C: @ 0x080C9C5C
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	adds r0, r4, #0
 	adds r0, #0x47
 	movs r2, #0
@@ -5078,7 +4179,7 @@ sub_80C9CAC: @ 0x080C9CAC
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	adds r1, r4, #0
 	adds r1, #0x47
 	movs r2, #0
@@ -5120,7 +4221,7 @@ sub_80C9CFC: @ 0x080C9CFC
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	adds r0, r4, #0
 	adds r0, #0x47
 	movs r2, #0
@@ -5162,7 +4263,7 @@ sub_80C9D4C: @ 0x080C9D4C
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	adds r1, r4, #0
 	adds r1, #0x47
 	movs r2, #0
@@ -5206,7 +4307,7 @@ sub_80C9DA0: @ 0x080C9DA0
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	adds r0, r4, #0
 	adds r0, #0x47
 	movs r2, #0
@@ -5308,7 +4409,7 @@ sub_80C9E6C: @ 0x080C9E6C
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r4, #0x38]
 	strh r0, [r4, #0x3a]
 	movs r2, #0x9c
@@ -5368,11 +4469,11 @@ _080C9EDE:
 sub_80C9EE8: @ 0x080C9EE8
 	push {r4, lr}
 	sub sp, #4
-	ldr r0, _080C9F74  @ gUnknown_08B103D8
+	ldr r0, _080C9F74  @ pal_08B103D8
 	movs r2, #0x80
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
@@ -5432,7 +4533,7 @@ sub_80C9EE8: @ 0x080C9EE8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C9F74: .4byte gUnknown_08B103D8
+_080C9F74: .4byte pal_08B103D8
 _080C9F78: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_80C9EE8
@@ -5444,7 +4545,7 @@ sub_80C9F7C: @ 0x080C9F7C
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r4, #0x38]
 	strh r0, [r4, #0x3a]
 	movs r2, #0x9c
@@ -5507,7 +4608,7 @@ sub_80C9FF8: @ 0x080C9FF8
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x38]
 	ldrh r1, [r5, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	movs r2, #0x9c
@@ -5645,7 +4746,7 @@ sub_80CA10C: @ 0x080CA10C
 	adds r6, r0, #0
 	ldrh r0, [r6, #0x38]
 	ldrh r1, [r6, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r6, #0x38]
 	strh r0, [r6, #0x3a]
 	movs r2, #0x9c
@@ -5982,7 +5083,7 @@ sub_80CA3B8: @ 0x080CA3B8
 	bl sub_80CA26C
 	ldrh r0, [r4, #0x38]
 	ldrh r1, [r4, #0x3a]
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	ldrh r0, [r4, #0x38]
 	strh r0, [r4, #0x3a]
 	movs r2, #0x9c
@@ -6148,21 +5249,21 @@ _080CA50C:
 	lsls r0, r0, #1
 	movs r1, #0xc4
 	lsls r1, r1, #1
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	b _080CA53E
 _080CA51A:
 	movs r0, #0xf8
 	lsls r0, r0, #1
 	movs r1, #0xd8
 	lsls r1, r1, #1
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	b _080CA53E
 _080CA528:
 	movs r0, #0x8c
 	lsls r0, r0, #2
 	movs r1, #0xf8
 	lsls r1, r1, #1
-	bl GameIntro1_UpdateScroll
+	bl OpAnim1_UpdateScroll
 	b _080CA53E
 _080CA536:
 	movs r0, #0x8c
@@ -6177,7 +5278,7 @@ _080CA53E:
 	movs r1, #0xa
 	movs r2, #4
 	movs r3, #9
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA550:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x8d
@@ -6186,7 +5287,7 @@ _080CA550:
 	movs r1, #0x28
 	movs r2, #4
 	movs r3, #7
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA562:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x8c
@@ -6195,7 +5296,7 @@ _080CA562:
 	movs r1, #0x3a
 	movs r2, #3
 	movs r3, #3
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA574:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x8b
@@ -6204,7 +5305,7 @@ _080CA574:
 	movs r1, #0
 	movs r2, #4
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA586:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x8a
@@ -6213,7 +5314,7 @@ _080CA586:
 	movs r1, #0x10
 	movs r2, #4
 	movs r3, #5
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA598:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x89
@@ -6222,7 +5323,7 @@ _080CA598:
 	movs r1, #0x1a
 	movs r2, #3
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA5AA:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x88
@@ -6231,7 +5332,7 @@ _080CA5AA:
 	movs r1, #0x2a
 	movs r2, #3
 	movs r3, #4
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA5BC:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x87
@@ -6240,7 +5341,7 @@ _080CA5BC:
 	movs r1, #0
 	movs r2, #4
 	movs r3, #0
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA5CE:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x86
@@ -6249,7 +5350,7 @@ _080CA5CE:
 	movs r1, #0x10
 	movs r2, #4
 	movs r3, #0xb
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA5E0:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x85
@@ -6258,7 +5359,7 @@ _080CA5E0:
 	movs r1, #0x1e
 	movs r2, #3
 	movs r3, #3
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA5F2:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x84
@@ -6267,7 +5368,7 @@ _080CA5F2:
 	movs r1, #0x2e
 	movs r2, #2
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA604:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x83
@@ -6276,7 +5377,7 @@ _080CA604:
 	movs r1, #2
 	movs r2, #4
 	movs r3, #2
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA616:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x82
@@ -6285,7 +5386,7 @@ _080CA616:
 	movs r1, #0x18
 	movs r2, #4
 	movs r3, #9
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA628:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x81
@@ -6294,7 +5395,7 @@ _080CA628:
 	movs r1, #0x22
 	movs r2, #3
 	movs r3, #5
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA63A:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x80
@@ -6303,7 +5404,7 @@ _080CA63A:
 	movs r1, #0x44
 	movs r2, #2
 	movs r3, #0
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA64C:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x7f
@@ -6312,7 +5413,7 @@ _080CA64C:
 	movs r1, #2
 	movs r2, #4
 	movs r3, #7
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA65E:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x7e
@@ -6321,7 +5422,7 @@ _080CA65E:
 	movs r1, #0x18
 	movs r2, #4
 	movs r3, #2
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA670:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x7d
@@ -6330,7 +5431,7 @@ _080CA670:
 	movs r1, #0x26
 	movs r2, #3
 	movs r3, #0
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA682:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x7b
@@ -6339,7 +5440,7 @@ _080CA682:
 	movs r1, #0x32
 	movs r2, #2
 	movs r3, #5
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA694:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x79
@@ -6348,7 +5449,7 @@ _080CA694:
 	movs r1, #6
 	movs r2, #4
 	movs r3, #0
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA6A6:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x77
@@ -6357,7 +5458,7 @@ _080CA6A6:
 	movs r1, #0x16
 	movs r2, #4
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA6B8:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x75
@@ -6366,7 +5467,7 @@ _080CA6B8:
 	movs r1, #0x16
 	movs r2, #3
 	movs r3, #3
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA6CA:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x73
@@ -6375,7 +5476,7 @@ _080CA6CA:
 	movs r1, #0x48
 	movs r2, #2
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA6DC:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x71
@@ -6384,7 +5485,7 @@ _080CA6DC:
 	movs r1, #6
 	movs r2, #4
 	movs r3, #0xa
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA6EE:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x6f
@@ -6393,7 +5494,7 @@ _080CA6EE:
 	movs r1, #0x14
 	movs r2, #4
 	movs r3, #8
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA700:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x6d
@@ -6402,7 +5503,7 @@ _080CA700:
 	movs r1, #0x2e
 	movs r2, #3
 	movs r3, #4
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA712:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x6b
@@ -6411,7 +5512,7 @@ _080CA712:
 	movs r1, #0x4a
 	movs r2, #2
 	movs r3, #4
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA724:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x69
@@ -6420,7 +5521,7 @@ _080CA724:
 	movs r1, #8
 	movs r2, #4
 	movs r3, #6
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA736:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x67
@@ -6429,7 +5530,7 @@ _080CA736:
 	movs r1, #0x1a
 	movs r2, #4
 	movs r3, #2
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA748:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x65
@@ -6438,7 +5539,7 @@ _080CA748:
 	movs r1, #0x32
 	movs r2, #3
 	movs r3, #2
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA75A:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x62
@@ -6447,7 +5548,7 @@ _080CA75A:
 	movs r1, #0x4e
 	movs r2, #2
 	movs r3, #0
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA76C:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x5f
@@ -6456,7 +5557,7 @@ _080CA76C:
 	movs r1, #0xa
 	movs r2, #4
 	movs r3, #4
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA77E:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x5c
@@ -6465,7 +5566,7 @@ _080CA77E:
 	movs r1, #0x28
 	movs r2, #4
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA790:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x59
@@ -6474,7 +5575,7 @@ _080CA790:
 	movs r1, #0x36
 	movs r2, #3
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA7A2:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x55
@@ -6483,7 +5584,7 @@ _080CA7A2:
 	movs r1, #0x32
 	movs r2, #2
 	movs r3, #2
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA7B4:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x51
@@ -6492,7 +5593,7 @@ _080CA7B4:
 	movs r1, #0x48
 	movs r2, #1
 	movs r3, #0
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA7C6:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x4c
@@ -6501,7 +5602,7 @@ _080CA7C6:
 	movs r1, #0x28
 	movs r2, #4
 	movs r3, #0
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA7D8:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x47
@@ -6510,7 +5611,7 @@ _080CA7D8:
 	movs r1, #0x54
 	movs r2, #1
 	movs r3, #2
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA7EA:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x41
@@ -6519,7 +5620,7 @@ _080CA7EA:
 	movs r1, #0x64
 	movs r2, #1
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA7FC:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x37
@@ -6528,7 +5629,7 @@ _080CA7FC:
 	movs r1, #0x7e
 	movs r2, #0
 	movs r3, #1
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA80E:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x31
@@ -6537,7 +5638,7 @@ _080CA80E:
 	movs r1, #0x78
 	movs r2, #0
 	movs r3, #2
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA820:
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x1d
@@ -6546,7 +5647,7 @@ _080CA820:
 	movs r1, #0x70
 	movs r2, #0
 	movs r3, #0
-	bl GameIntroPutObjCommon
+	bl OpAnimPutObjCommon
 _080CA832:
 	ldrh r0, [r6, #0x2a]
 	adds r4, r0, #0
@@ -6580,11 +5681,11 @@ _080CA832:
 _080CA870:
 	cmp r4, #0x5f
 	bhi _080CA8A8
-	ldr r0, _080CA918  @ gUnknown_08B103D8
+	ldr r0, _080CA918  @ pal_08B103D8
 	movs r2, #0x80
 	lsls r2, r2, #1
 	movs r1, #0
-	bl CopyToPalGameIntro
+	bl CopyToPalOpAnim
 	movs r0, #0x5f
 	str r0, [sp]
 	movs r0, #4
@@ -6657,7 +5758,7 @@ _080CA900:
 	b _080CA924
 	.align 2, 0
 _080CA914: .4byte gLCDControlBuffer
-_080CA918: .4byte gUnknown_08B103D8
+_080CA918: .4byte pal_08B103D8
 _080CA91C: .4byte gPaletteBuffer
 _080CA920:
 	adds r0, #1
@@ -9134,7 +8235,7 @@ sub_80CBD7C: @ 0x080CBD7C
 	bl EndProc08AA6D04
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
-	bl EndGameIntrofxTerminator
+	bl EndOpAnimfxTerminator
 	ldr r4, _080CBDCC  @ gLCDControlBuffer
 	ldrb r1, [r4]
 	movs r0, #0x41
@@ -9142,7 +8243,7 @@ sub_80CBD7C: @ 0x080CBD7C
 	ands r0, r1
 	strb r0, [r4]
 	ldr r1, _080CBDD0  @ gPaletteBuffer
-	ldr r0, _080CBDD4  @ gUnknown_02022188
+	ldr r0, _080CBDD4  @ gOpAnimSt
 	ldrh r0, [r0, #0xc]
 	strh r0, [r1]
 	bl EnablePaletteSync
@@ -9166,7 +8267,7 @@ sub_80CBD7C: @ 0x080CBD7C
 	.align 2, 0
 _080CBDCC: .4byte gLCDControlBuffer
 _080CBDD0: .4byte gPaletteBuffer
-_080CBDD4: .4byte gUnknown_02022188
+_080CBDD4: .4byte gOpAnimSt
 
 	THUMB_FUNC_END sub_80CBD7C
 
