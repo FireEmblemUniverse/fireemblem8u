@@ -646,83 +646,163 @@ tsa_gameintro80:
 
 	.global img_gameintro81
 img_gameintro81:
-	.incbin "baserom.gba", 0xB0AC5C, 0xB0B0D4 - 0xB0AC5C
+	.incbin "baserom.gba", 0xB0AC5C, 0xB0B098 - 0xB0AC5C
+
+	.global tsa_gameintro81
+tsa_gameintro81:
+	.incbin "baserom.gba", 0xB0B098, 0xB0B0D4 - 0xB0B098
 
 	.global img_gameintro82
 img_gameintro82:
-	.incbin "baserom.gba", 0xB0B0D4, 0xB0B544 - 0xB0B0D4
+	.incbin "baserom.gba", 0xB0B0D4, 0xB0B508 - 0xB0B0D4
+
+	.global tsa_gameintro82
+tsa_gameintro82:
+	.incbin "baserom.gba", 0xB0B508, 0xB0B544 - 0xB0B508
 
 	.global img_gameintro83
 img_gameintro83:
-	.incbin "baserom.gba", 0xB0B544, 0xB0B9B8 - 0xB0B544
+	.incbin "baserom.gba", 0xB0B544, 0xB0B97C - 0xB0B544
+
+	.global tsa_gameintro83
+tsa_gameintro83:
+	.incbin "baserom.gba", 0xB0B97C, 0xB0B9B8 - 0xB0B97C
 
 	.global img_gameintro84
 img_gameintro84:
-	.incbin "baserom.gba", 0xB0B9B8, 0xB0BE30 - 0xB0B9B8
+	.incbin "baserom.gba", 0xB0B9B8, 0xB0BDF4 - 0xB0B9B8
+
+	.global tsa_gameintro84
+tsa_gameintro84:
+	.incbin "baserom.gba", 0xB0BDF4, 0xB0BE30 - 0xB0BDF4
 
 	.global img_gameintro85
 img_gameintro85:
-	.incbin "baserom.gba", 0xB0BE30, 0xB0C2A4 - 0xB0BE30
+	.incbin "baserom.gba", 0xB0BE30, 0xB0C268 - 0xB0BE30
+
+	.global tsa_gameintro85
+tsa_gameintro85:
+	.incbin "baserom.gba", 0xB0C268, 0xB0C2A4 - 0xB0C268
 
 	.global img_gameintro86
 img_gameintro86:
-	.incbin "baserom.gba", 0xB0C2A4, 0xB0C718 - 0xB0C2A4
+	.incbin "baserom.gba", 0xB0C2A4, 0xB0C6DC - 0xB0C2A4
+
+	.global tsa_gameintro86
+tsa_gameintro86:
+	.incbin "baserom.gba", 0xB0C6DC, 0xB0C718 - 0xB0C6DC
 
 	.global img_gameintro87
 img_gameintro87:
-	.incbin "baserom.gba", 0xB0C718, 0xB0CB88 - 0xB0C718
+	.incbin "baserom.gba", 0xB0C718, 0xB0CB4C - 0xB0C718
+
+	.global tsa_gameintro87
+tsa_gameintro87:
+	.incbin "baserom.gba", 0xB0CB4C, 0xB0CB88 - 0xB0CB4C
 
 	.global img_gameintro88
 img_gameintro88:
-	.incbin "baserom.gba", 0xB0CB88, 0xB0CFFC - 0xB0CB88
+	.incbin "baserom.gba", 0xB0CB88, 0xB0CFC0 - 0xB0CB88
+
+	.global tsa_gameintro88
+tsa_gameintro88:
+	.incbin "baserom.gba", 0xB0CFC0, 0xB0CFFC - 0xB0CFC0
 
 	.global img_gameintro89
 img_gameintro89:
-	.incbin "baserom.gba", 0xB0CFFC, 0xB0D434 - 0xB0CFFC
+	.incbin "baserom.gba", 0xB0CFFC, 0xB0D3F8 - 0xB0CFFC
+
+	.global tsa_gameintro89
+tsa_gameintro89:
+	.incbin "baserom.gba", 0xB0D3F8, 0xB0D434 - 0xB0D3F8
 
 	.global img_gameintro90
 img_gameintro90:
-	.incbin "baserom.gba", 0xB0D434, 0xB0D89C - 0xB0D434
+	.incbin "baserom.gba", 0xB0D434, 0xB0D860 - 0xB0D434
+
+	.global tsa_gameintro90
+tsa_gameintro90:
+	.incbin "baserom.gba", 0xB0D860, 0xB0D89C - 0xB0D860
 
 	.global img_gameintro91
 img_gameintro91:
-	.incbin "baserom.gba", 0xB0D89C, 0xB0DCE4 - 0xB0D89C
+	.incbin "baserom.gba", 0xB0D89C, 0xB0DCA8 - 0xB0D89C
+
+	.global tsa_gameintro91
+tsa_gameintro91:
+	.incbin "baserom.gba", 0xB0DCA8, 0xB0DCE4 - 0xB0DCA8
 
 	.global img_gameintro92
 img_gameintro92:
-	.incbin "baserom.gba", 0xB0DCE4, 0xB0E110 - 0xB0DCE4
+	.incbin "baserom.gba", 0xB0DCE4, 0xB0E0D4 - 0xB0DCE4
+
+	.global tsa_gameintro92
+tsa_gameintro92:
+	.incbin "baserom.gba", 0xB0E0D4, 0xB0E110 - 0xB0E0D4
 
 	.global img_gameintro93
 img_gameintro93:
-	.incbin "baserom.gba", 0xB0E110, 0xB0E584 - 0xB0E110
+	.incbin "baserom.gba", 0xB0E110, 0xB0E548 - 0xB0E110
+
+	.global tsa_gameintro93
+tsa_gameintro93:
+	.incbin "baserom.gba", 0xB0E548, 0xB0E584 - 0xB0E548
 
 	.global img_gameintro94
 img_gameintro94:
-	.incbin "baserom.gba", 0xB0E584, 0xB0E9E0 - 0xB0E584
+	.incbin "baserom.gba", 0xB0E584, 0xB0E9A4 - 0xB0E584
+
+	.global tsa_gameintro94
+tsa_gameintro94:
+	.incbin "baserom.gba", 0xB0E9A4, 0xB0E9E0 - 0xB0E9A4
 
 	.global img_gameintro95
 img_gameintro95:
-	.incbin "baserom.gba", 0xB0E9E0, 0xB0EE54 - 0xB0E9E0
+	.incbin "baserom.gba", 0xB0E9E0, 0xB0EE18 - 0xB0E9E0
+
+	.global tsa_gameintro95
+tsa_gameintro95:
+	.incbin "baserom.gba", 0xB0EE18, 0xB0EE54 - 0xB0EE18
 
 	.global img_gameintro96
 img_gameintro96:
-	.incbin "baserom.gba", 0xB0EE54, 0xB0F2A0 - 0xB0EE54
+	.incbin "baserom.gba", 0xB0EE54, 0xB0F264 - 0xB0EE54
+
+	.global tsa_gameintro96
+tsa_gameintro96:
+	.incbin "baserom.gba", 0xB0F264, 0xB0F2A0 - 0xB0F264
 
 	.global img_gameintro97
 img_gameintro97:
-	.incbin "baserom.gba", 0xB0F2A0, 0xB0F718 - 0xB0F2A0
+	.incbin "baserom.gba", 0xB0F2A0, 0xB0F6DC - 0xB0F2A0
+
+	.global tsa_gameintro97
+tsa_gameintro97:
+	.incbin "baserom.gba", 0xB0F6DC, 0xB0F718 - 0xB0F6DC
 
 	.global img_gameintro98
 img_gameintro98:
-	.incbin "baserom.gba", 0xB0F718, 0xB0FB1C - 0xB0F718
+	.incbin "baserom.gba", 0xB0F718, 0xB0FAE0 - 0xB0F718
+
+	.global tsa_gameintro98
+tsa_gameintro98:
+	.incbin "baserom.gba", 0xB0FAE0, 0xB0FB1C - 0xB0FAE0
 
 	.global img_gameintro99
 img_gameintro99:
-	.incbin "baserom.gba", 0xB0FB1C, 0xB0FF6C - 0xB0FB1C
+	.incbin "baserom.gba", 0xB0FB1C, 0xB0FF30 - 0xB0FB1C
+
+	.global tsa_gameintro99
+tsa_gameintro99:
+	.incbin "baserom.gba", 0xB0FF30, 0xB0FF6C - 0xB0FF30
 
 	.global img_gameintro100
 img_gameintro100:
-	.incbin "baserom.gba", 0xB0FF6C, 0xB103D8 - 0xB0FF6C
+	.incbin "baserom.gba", 0xB0FF6C, 0xB1039C - 0xB0FF6C
+
+	.global tsa_gameintro100
+tsa_gameintro100:
+	.incbin "baserom.gba", 0xB1039C, 0xB103D8 - 0xB1039C
 
 	.global gUnknown_08B103D8
 gUnknown_08B103D8:  @ 0x08B103D8
