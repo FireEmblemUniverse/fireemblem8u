@@ -125,13 +125,11 @@ int sub_80BD41C(int a, int b)
     return Sqrt((a * a + b * b) * 16) / 5;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/KK4bT */
-
 //! FE8U = 0x080BD444
 void GmMuPrim_80BD444(struct GMapMuPrimProc * proc)
 {
+    struct Struct02003BE8 * unkSplineStruct;
+
     if (proc->unk_50 < 0)
     {
         proc->unk_50 = sub_80BD41C(
@@ -139,232 +137,36 @@ void GmMuPrim_80BD444(struct GMapMuPrimProc * proc)
             proc->unk_2e[gWMNodeData].y - proc->unk_2d[gWMNodeData].y);
     }
 
-    if ((proc->unk_2d[gWMNodeData].shipTravelFlag & 1))
-    {
-        if (proc->unk_2e[gWMNodeData].shipTravelFlag & 1)
-        {
-            sub_80BB0E0(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 0x50);
-        }
-    }
+    if (proc->unk_2d[gWMNodeData].shipTravelFlag & 1
+        && proc->unk_2e[gWMNodeData].shipTravelFlag & 1)
+        sub_80BB0E0(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 0x50);
 
-    do {
-        struct Struct02003BE8 * unkSplineStruct = &gUnknown_0201B3A4[proc->unk_2a];
 
-        unkSplineStruct->unk_00 = 2;
-        unkSplineStruct->unk_04 = gUnknown_0201B104 + proc->unk_2a * 0x10;
-        unkSplineStruct->unk_08 = gUnknown_0201B1E4 + proc->unk_2a * 8;
-        unkSplineStruct->unk_0C = gUnknown_08A3E22C;
-        unkSplineStruct->unk_10 = gUnknown_08A3E23C;
+    unkSplineStruct = &gUnknown_0201B3A4[proc->unk_2a];
 
-        unkSplineStruct->unk_02 = sub_80BCE34(proc->unk_2b, proc->unk_2e, proc->unk_50, unkSplineStruct->unk_04, unkSplineStruct->unk_08, 4);
+    unkSplineStruct->unk_00 = 0;
+    unkSplineStruct->unk_00 = 2;
+    unkSplineStruct->unk_04 = gUnknown_0201B104 + proc->unk_2a * 0x10;
+    unkSplineStruct->unk_08 = gUnknown_0201B1E4 + proc->unk_2a * 8;
+    unkSplineStruct->unk_0C = gUnknown_08A3E22C;
+    unkSplineStruct->unk_10 = gUnknown_08A3E23C;
+    unkSplineStruct->unk_02 = sub_80BCE34(proc->unk_2d, proc->unk_2e, proc->unk_50, unkSplineStruct->unk_04, unkSplineStruct->unk_08, 4);
 
-        MapUnitC_SetPosition(
-            ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_2d[gWMNodeData].x,
-            proc->unk_2d[gWMNodeData].y + 6);
 
-        if (proc->unk_31 >= 0)
-        {
-            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_31);
-        }
+    MapUnitC_SetPosition(
+        ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_2d[gWMNodeData].x,
+        proc->unk_2d[gWMNodeData].y + 6);
 
-        proc->unk_54 = 0;
-        MapUnitC_GetPosition(
-            ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &proc->unk_44, &proc->unk_46);
-        proc->unk_40 = 0;
-    } while (0);
+    if (proc->unk_31 >= 0)
+        MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_31);
+
+    proc->unk_54 = 0;
+    MapUnitC_GetPosition(
+        ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &proc->unk_44, &proc->unk_46);
+    proc->unk_40 = 0;
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void GmMuPrim_80BD444(struct GMapMuPrimProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #8\n\
-        adds r6, r0, #0\n\
-        ldr r0, [r6, #0x50]\n\
-        cmp r0, #0\n\
-        bge _080BD48E\n\
-        adds r0, r6, #0\n\
-        adds r0, #0x2e\n\
-        movs r3, #0\n\
-        ldrsb r3, [r0, r3]\n\
-        lsls r3, r3, #5\n\
-        ldr r1, _080BD5A0  @ gWMNodeData\n\
-        adds r3, r3, r1\n\
-        movs r2, #0x18\n\
-        ldrsh r0, [r3, r2]\n\
-        adds r2, r6, #0\n\
-        adds r2, #0x2d\n\
-        ldrb r2, [r2]\n\
-        lsls r2, r2, #0x18\n\
-        asrs r2, r2, #0x18\n\
-        lsls r2, r2, #5\n\
-        adds r2, r2, r1\n\
-        movs r4, #0x18\n\
-        ldrsh r1, [r2, r4]\n\
-        subs r0, r0, r1\n\
-        movs r5, #0x1a\n\
-        ldrsh r1, [r3, r5]\n\
-        movs r3, #0x1a\n\
-        ldrsh r2, [r2, r3]\n\
-        subs r1, r1, r2\n\
-        bl sub_80BD41C\n\
-        str r0, [r6, #0x50]\n\
-    _080BD48E:\n\
-        adds r2, r6, #0\n\
-        adds r2, #0x2d\n\
-        movs r0, #0\n\
-        ldrsb r0, [r2, r0]\n\
-        lsls r0, r0, #5\n\
-        ldr r3, _080BD5A0  @ gWMNodeData\n\
-        adds r0, r0, r3\n\
-        ldrb r1, [r0, #0x1e]\n\
-        movs r4, #1\n\
-        adds r0, r4, #0\n\
-        ands r0, r1\n\
-        movs r5, #0x2e\n\
-        adds r5, r5, r6\n\
-        mov r8, r5\n\
-        mov r9, r2\n\
-        adds r7, r6, #0\n\
-        adds r7, #0x2b\n\
-        cmp r0, #0\n\
-        beq _080BD4D4\n\
-        movs r0, #0\n\
-        ldrsb r0, [r5, r0]\n\
-        lsls r0, r0, #5\n\
-        adds r0, r0, r3\n\
-        ldrb r1, [r0, #0x1e]\n\
-        adds r0, r4, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080BD4D4\n\
-        ldr r0, [r6, #0x14]\n\
-        ldr r0, [r0, #0x4c]\n\
-        movs r1, #0\n\
-        ldrsb r1, [r7, r1]\n\
-        movs r2, #0x50\n\
-        bl sub_80BB0E0\n\
-    _080BD4D4:\n\
-        adds r1, r6, #0\n\
-        adds r1, #0x2a\n\
-        movs r0, #0\n\
-        ldrsb r0, [r1, r0]\n\
-        lsls r5, r0, #2\n\
-        adds r5, r5, r0\n\
-        lsls r5, r5, #2\n\
-        ldr r0, _080BD5A4  @ gUnknown_0201B3A4\n\
-        adds r5, r5, r0\n\
-        movs r0, #0\n\
-        mov sl, r0\n\
-        movs r0, #2\n\
-        strh r0, [r5]\n\
-        movs r3, #0\n\
-        ldrsb r3, [r1, r3]\n\
-        lsls r3, r3, #5\n\
-        ldr r0, _080BD5A8  @ gUnknown_0201B104\n\
-        adds r3, r3, r0\n\
-        str r3, [r5, #4]\n\
-        movs r4, #0\n\
-        ldrsb r4, [r1, r4]\n\
-        lsls r4, r4, #6\n\
-        ldr r0, _080BD5AC  @ gUnknown_0201B1E4\n\
-        adds r4, r4, r0\n\
-        str r4, [r5, #8]\n\
-        ldr r0, _080BD5B0  @ gUnknown_08A3E22C\n\
-        str r0, [r5, #0xc]\n\
-        ldr r0, _080BD5B4  @ gUnknown_08A3E23C\n\
-        str r0, [r5, #0x10]\n\
-        mov r1, r9\n\
-        movs r0, #0\n\
-        ldrsb r0, [r1, r0]\n\
-        mov r2, r8\n\
-        movs r1, #0\n\
-        ldrsb r1, [r2, r1]\n\
-        ldr r2, [r6, #0x50]\n\
-        lsls r2, r2, #0x10\n\
-        asrs r2, r2, #0x10\n\
-        str r4, [sp]\n\
-        movs r4, #4\n\
-        str r4, [sp, #4]\n\
-        bl sub_80BCE34\n\
-        strh r0, [r5, #2]\n\
-        ldr r0, [r6, #0x14]\n\
-        ldr r0, [r0, #0x4c]\n\
-        adds r4, r7, #0\n\
-        movs r1, #0\n\
-        ldrsb r1, [r4, r1]\n\
-        mov r5, r9\n\
-        movs r3, #0\n\
-        ldrsb r3, [r5, r3]\n\
-        lsls r3, r3, #5\n\
-        ldr r2, _080BD5A0  @ gWMNodeData\n\
-        adds r3, r3, r2\n\
-        movs r5, #0x18\n\
-        ldrsh r2, [r3, r5]\n\
-        movs r5, #0x1a\n\
-        ldrsh r3, [r3, r5]\n\
-        adds r3, #6\n\
-        bl MapUnitC_SetPosition\n\
-        adds r2, r6, #0\n\
-        adds r2, #0x31\n\
-        movs r0, #0\n\
-        ldrsb r0, [r2, r0]\n\
-        cmp r0, #0\n\
-        blt _080BD56E\n\
-        ldr r0, [r6, #0x14]\n\
-        ldr r0, [r0, #0x4c]\n\
-        movs r1, #0\n\
-        ldrsb r1, [r4, r1]\n\
-        ldrb r2, [r2]\n\
-        lsls r2, r2, #0x18\n\
-        asrs r2, r2, #0x18\n\
-        bl MapUnitC_SetAnimId\n\
-    _080BD56E:\n\
-        mov r0, sl\n\
-        str r0, [r6, #0x54]\n\
-        ldr r0, [r6, #0x14]\n\
-        ldr r0, [r0, #0x4c]\n\
-        movs r1, #0\n\
-        ldrsb r1, [r7, r1]\n\
-        adds r2, r6, #0\n\
-        adds r2, #0x44\n\
-        adds r3, r6, #0\n\
-        adds r3, #0x46\n\
-        bl MapUnitC_GetPosition\n\
-        adds r0, r6, #0\n\
-        adds r0, #0x40\n\
-        mov r1, sl\n\
-        strh r1, [r0]\n\
-        add sp, #8\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080BD5A0: .4byte gWMNodeData\n\
-    _080BD5A4: .4byte gUnknown_0201B3A4\n\
-    _080BD5A8: .4byte gUnknown_0201B104\n\
-    _080BD5AC: .4byte gUnknown_0201B1E4\n\
-    _080BD5B0: .4byte gUnknown_08A3E22C\n\
-    _080BD5B4: .4byte gUnknown_08A3E23C\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080BD5B8
 s8 sub_80BD5B8(struct GMapMuPrimProc * proc)
@@ -407,76 +209,21 @@ s8 sub_80BD5B8(struct GMapMuPrimProc * proc)
     return 0;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/Uq0nS */
-
 //! FE8U = 0x080BD660
 int sub_80BD660(u16 a)
 {
-    if ((a > 0) && (a < 0x1000))
+    if ((u16)(a + 0x4d00) < 0x1a00)
     {
         return 3;
     }
 
-    if ((a > 0x1000) && (a < 0x2000))
+    if (a < 0x3300 || a >= 0x4d00)
     {
-        return (a - 0x4000);
+        return (u16)(a - 0x4000) >> 0xf;
     }
 
     return 2;
 }
-
-#else
-
-NAKEDFUNC
-int sub_80BD660(u16 a)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r1, r0, #0x10\n\
-        adds r3, r1, #0\n\
-        movs r2, #0x9a\n\
-        lsls r2, r2, #7\n\
-        adds r0, r1, r2\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        ldr r2, _080BD67C  @ 0x000019FF\n\
-        cmp r0, r2\n\
-        bhi _080BD680\n\
-        movs r0, #3\n\
-        b _080BD69C\n\
-        .align 2, 0\n\
-    _080BD67C: .4byte 0x000019FF\n\
-    _080BD680:\n\
-        ldr r4, _080BD690  @ 0xFFFFCD00\n\
-        adds r0, r1, r4\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        cmp r0, r2\n\
-        bhi _080BD694\n\
-        movs r0, #2\n\
-        b _080BD69C\n\
-        .align 2, 0\n\
-    _080BD690: .4byte 0xFFFFCD00\n\
-    _080BD694:\n\
-        ldr r1, _080BD6A4  @ 0xFFFFC000\n\
-        adds r0, r3, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x1f\n\
-    _080BD69C:\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _080BD6A4: .4byte 0xFFFFC000\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080BD6A8
 int sub_80BD6A8(struct GMapMuPrimProc * proc)
