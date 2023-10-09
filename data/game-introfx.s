@@ -13,7 +13,7 @@ ProcScr_GameIntro:  @ 0x08AA71C8
     .word 0x0
     @ PROC_CALL
     .short 0x2, 0x0
-    .word GameIntroInitScreen
+    .word SetupGameIntroWorldMapfx
     @ PROC_START_CHILD
     .short 0x5, 0x0
     .word ProcScr_GameIntroBLDALPHA

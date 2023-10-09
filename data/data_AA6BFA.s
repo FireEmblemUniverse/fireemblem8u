@@ -1,122 +1,18 @@
     .section .data
 
-	.global imgs_08AA6D14
-imgs_08AA6D14:  @ 0x08AA6D14
-@ replacing .incbin "baserom.gba", 0x00aa6d14, 0x190
-.4byte img_gameintro1
-.4byte img_gameintro2
-.4byte img_gameintro3
-.4byte img_gameintro4
-.4byte img_gameintro5
-.4byte img_gameintro6
-.4byte img_gameintro7
-.4byte img_gameintro8
-.4byte img_gameintro9
-.4byte img_gameintro10
-.4byte img_gameintro11
-.4byte img_gameintro12
-.4byte img_gameintro13
-.4byte pal_08AF47F0 + 0x3a5c
-.4byte pal_08AF47F0 + 0x3ed4
-.4byte pal_08AF47F0 + 0x4348
-.4byte pal_08AF47F0 + 0x47c0
-.4byte pal_08AF47F0 + 0x4c38
-.4byte pal_08AF47F0 + 0x50b0
-.4byte pal_08AF47F0 + 0x5528
-.4byte pal_08AF47F0 + 0x59a0
-.4byte pal_08AF47F0 + 0x5e18
-.4byte pal_08AF47F0 + 0x6290
-.4byte pal_08AF47F0 + 0x6708
-.4byte pal_08AF47F0 + 0x6b80
-.4byte pal_08AF47F0 + 0x6ff8
-.4byte pal_08AF47F0 + 0x7470
-.4byte pal_08AF47F0 + 0x78e4
-.4byte pal_08AF47F0 + 0x7d58
-.4byte pal_08AF47F0 + 0x81c4
-.4byte pal_08AF47F0 + 0x8638
-.4byte pal_08AF47F0 + 0x8aac
-.4byte pal_08AF47F0 + 0x8f10
-.4byte pal_08AF47F0 + 0x9374
-.4byte pal_08AF47F0 + 0x97e4
-.4byte pal_08AF47F0 + 0x9c58
-.4byte pal_08AF47F0 + 0xa0cc
-.4byte pal_08AF47F0 + 0xa540
-.4byte pal_08AF47F0 + 0xa9b8
-.4byte pal_08AF47F0 + 0xae28
-.4byte pal_08AF47F0 + 0xb290
-.4byte pal_08AF47F0 + 0xb6f8
-.4byte pal_08AF47F0 + 0xbb68
-.4byte pal_08AF47F0 + 0xbfe0
-.4byte pal_08AF47F0 + 0xc458
-.4byte pal_08AF47F0 + 0xc8c8
-.4byte pal_08AF47F0 + 0xcd3c
-.4byte pal_08AF47F0 + 0xd1b4
-.4byte pal_08AF47F0 + 0xd628
-.4byte pal_08AF47F0 + 0xda90
-.4byte pal_08AF47F0 + 0xdf04
-.4byte pal_08AF47F0 + 0xe36c
-.4byte pal_08AF47F0 + 0xe7dc
-.4byte pal_08AF47F0 + 0xec48
-.4byte pal_08AF47F0 + 0xf0bc
-.4byte pal_08AF47F0 + 0xf52c
-.4byte pal_08AF47F0 + 0xf9a4
-.4byte pal_08AF47F0 + 0xfe1c
-.4byte pal_08AF47F0 + 0x10294
-.4byte pal_08AF47F0 + 0x10700
-.4byte pal_08AF47F0 + 0x10b74
-.4byte pal_08AF47F0 + 0x10fe0
-.4byte pal_08AF47F0 + 0x11448
-.4byte pal_08AF47F0 + 0x118bc
-.4byte pal_08AF47F0 + 0x11d34
-.4byte pal_08AF47F0 + 0x121ac
-.4byte pal_08AF47F0 + 0x12620
-.4byte pal_08AF47F0 + 0x12a90
-.4byte pal_08AF47F0 + 0x12f00
-.4byte pal_08AF47F0 + 0x13378
-.4byte pal_08AF47F0 + 0x137e0
-.4byte pal_08AF47F0 + 0x13c50
-.4byte pal_08AF47F0 + 0x140c8
-.4byte pal_08AF47F0 + 0x14540
-.4byte pal_08AF47F0 + 0x149ac
-.4byte pal_08AF47F0 + 0x14e1c
-.4byte pal_08AF47F0 + 0x15294
-.4byte pal_08AF47F0 + 0x15708
-.4byte pal_08AF47F0 + 0x15b80
-.4byte pal_08AF47F0 + 0x15ff4
-.4byte pal_08AF47F0 + 0x1646c
-.4byte pal_08AF47F0 + 0x168e4
-.4byte pal_08AF47F0 + 0x16d54
-.4byte pal_08AF47F0 + 0x171c8
-.4byte pal_08AF47F0 + 0x17640
-.4byte pal_08AF47F0 + 0x17ab4
-.4byte pal_08AF47F0 + 0x17f28
-.4byte pal_08AF47F0 + 0x18398
-.4byte pal_08AF47F0 + 0x1880c
-.4byte pal_08AF47F0 + 0x18c44
-.4byte pal_08AF47F0 + 0x190ac
-.4byte pal_08AF47F0 + 0x194f4
-.4byte pal_08AF47F0 + 0x19920
-.4byte pal_08AF47F0 + 0x19d94
-.4byte pal_08AF47F0 + 0x1a1f0
-.4byte pal_08AF47F0 + 0x1a664
-.4byte pal_08AF47F0 + 0x1aab0
-.4byte pal_08AF47F0 + 0x1af28
-.4byte pal_08AF47F0 + 0x1b32c
-.4byte pal_08AF47F0 + 0x1b77c
-
 	.global tsas_08AA6EA4
 tsas_08AA6EA4:  @ 0x08AA6EA4
 @ replacing .incbin "baserom.gba", 0x00aa6ea4, 0x190
-.4byte pal_08AF47F0 + 0x4ac
-.4byte pal_08AF47F0 + 0x910
-.4byte pal_08AF47F0 + 0xd88
-.4byte pal_08AF47F0 + 0x11fc
-.4byte pal_08AF47F0 + 0x166c
-.4byte pal_08AF47F0 + 0x1adc
-.4byte pal_08AF47F0 + 0x1f54
-.4byte pal_08AF47F0 + 0x23cc
-.4byte pal_08AF47F0 + 0x2844
-.4byte pal_08AF47F0 + 0x2cbc
+.4byte tsa_gameintro1
+.4byte tsa_gameintro2
+.4byte tsa_gameintro3
+.4byte tsa_gameintro4
+.4byte tsa_gameintro5
+.4byte tsa_gameintro6
+.4byte tsa_gameintro7
+.4byte tsa_gameintro8
+.4byte tsa_gameintro9
+.4byte tsa_gameintro10
 .4byte pal_08AF47F0 + 0x3134
 .4byte pal_08AF47F0 + 0x35a8
 .4byte pal_08AF47F0 + 0x3a20

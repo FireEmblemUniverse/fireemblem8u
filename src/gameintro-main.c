@@ -83,7 +83,7 @@ void BgAffineSetGameIntro(int scaling_radio, int angle)
     BgAffineSet(&data, &gGameIntroBgAffineDstData, 1);
 }
 
-void GameIntroInitScreen(struct ProcGameIntro * proc)
+void SetupGameIntroWorldMapfx(struct ProcGameIntro * proc)
 {
     int i;
     u16 * vram;
@@ -118,7 +118,7 @@ void GameIntroInitScreen(struct ProcGameIntro * proc)
     SetWinEnable(0, 0, 0);
 
     Decompress(Img_GameIntroWorldMap, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_2));
-    Decompress(img_08AB5D90, (void *)BG_VRAM + 0xF000);
+    Decompress(Tsa_GameIntroWorldMap, (void *)BG_VRAM + 0xF000);
     CpuFastFill16(0, gPaletteBuffer, 0x20);
 
     BG_Fill(gBG0TilemapBuffer, 0);
@@ -349,13 +349,116 @@ void EndProc08AA6D04(void)
     Proc_EndEach(ProcScr_08AA6D04);
 }
 
+CONST_DATA u8 * imgs_08AA6D14[100] = {
+    img_gameintro1,
+    img_gameintro2,
+    img_gameintro3,
+    img_gameintro4,
+    img_gameintro5,
+    img_gameintro6,
+    img_gameintro7,
+    img_gameintro8,
+    img_gameintro9,
+    img_gameintro10,
+    img_gameintro11,
+    img_gameintro12,
+    img_gameintro13,
+    img_gameintro14,
+    img_gameintro15,
+    img_gameintro16,
+    img_gameintro17,
+    img_gameintro18,
+    img_gameintro19,
+    img_gameintro20,
+    img_gameintro21,
+    img_gameintro22,
+    img_gameintro23,
+    img_gameintro24,
+    img_gameintro25,
+    img_gameintro26,
+    img_gameintro27,
+    img_gameintro28,
+    img_gameintro29,
+    img_gameintro30,
+    img_gameintro31,
+    img_gameintro32,
+    img_gameintro33,
+    img_gameintro34,
+    img_gameintro35,
+    img_gameintro36,
+    img_gameintro37,
+    img_gameintro38,
+    img_gameintro39,
+    img_gameintro40,
+    img_gameintro41,
+    img_gameintro42,
+    img_gameintro43,
+    img_gameintro44,
+    img_gameintro45,
+    img_gameintro46,
+    img_gameintro47,
+    img_gameintro48,
+    img_gameintro49,
+    img_gameintro50,
+    img_gameintro51,
+    img_gameintro52,
+    img_gameintro53,
+    img_gameintro54,
+    img_gameintro55,
+    img_gameintro56,
+    img_gameintro57,
+    img_gameintro58,
+    img_gameintro59,
+    img_gameintro60,
+    img_gameintro61,
+    img_gameintro62,
+    img_gameintro63,
+    img_gameintro64,
+    img_gameintro65,
+    img_gameintro66,
+    img_gameintro67,
+    img_gameintro68,
+    img_gameintro69,
+    img_gameintro70,
+    img_gameintro71,
+    img_gameintro72,
+    img_gameintro73,
+    img_gameintro74,
+    img_gameintro75,
+    img_gameintro76,
+    img_gameintro77,
+    img_gameintro78,
+    img_gameintro79,
+    img_gameintro80,
+    img_gameintro81,
+    img_gameintro82,
+    img_gameintro83,
+    img_gameintro84,
+    img_gameintro85,
+    img_gameintro86,
+    img_gameintro87,
+    img_gameintro88,
+    img_gameintro89,
+    img_gameintro90,
+    img_gameintro91,
+    img_gameintro92,
+    img_gameintro93,
+    img_gameintro94,
+    img_gameintro95,
+    img_gameintro96,
+    img_gameintro97,
+    img_gameintro98,
+    img_gameintro99,
+    img_gameintro100,
+};
+
 void GameIntro1_UpdateScrollOneLine(s16 index)
 {
     int i;
     s16 _index;
     u16 * tsa, * vram = (void *)BG_VRAM + 0xE800;
 
-    if ((u16)index > 99)
+    if (index < 0 || index > 99)
         return;
 
     vram = ((~index & 0x1F) << 6) + (void *)vram;

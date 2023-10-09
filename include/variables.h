@@ -1510,7 +1510,7 @@ extern u16 gPal_TitleLargeGlowingOrb[];
 extern u8 gGfx_TitleSmallLightBubbles[];
 extern u16 gPal_TitleSmallLightBubbles[];
 extern u8 Img_GameIntroWorldMap[];
-extern u8 img_08AB5D90[];
+extern u8 Tsa_GameIntroWorldMap[];
 extern u16 pal_08AB630C[];
 extern u8 img_08AB632C[];
 extern u8 img_08AB7AC0[];
@@ -1693,7 +1693,7 @@ extern u16 gUnknown_08AF310C[];
 // extern ??? gUnknown_08AF312C
 // extern ??? gUnknown_08AF404C
 // extern ??? gUnknown_08AF4330
-// extern ??? pal_08AF47F0
+
 // extern ??? gUnknown_08B103D8
 // extern ??? gUnknown_08B104D8
 // extern ??? gUnknown_08B10630

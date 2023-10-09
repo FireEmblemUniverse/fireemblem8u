@@ -133,8 +133,8 @@ Img_GameIntroWorldMap:  @ 0x08AB21D8
 	#.incbin "graphics/game_intro/world_map.4bpp.lz"
 	.incbin "baserom.gba", 0xAB21D8, 0x3BB8
 
-	.global img_08AB5D90
-img_08AB5D90:  @ 0x08AB5D90
+	.global Tsa_GameIntroWorldMap
+Tsa_GameIntroWorldMap:  @ 0x08AB5D90
 	.incbin "baserom.gba", 0xAB5D90, 0x57C
 
 	.global pal_08AB630C
