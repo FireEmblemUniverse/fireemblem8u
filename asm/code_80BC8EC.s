@@ -1258,10 +1258,4 @@ _080BD2A4: .4byte gUnknown_0201B0D8
 
 	THUMB_FUNC_END sub_80BD29C
 
-	THUMB_FUNC_START nullsub_37
-nullsub_37: @ 0x080BD2A8
-	bx lr
-
-	THUMB_FUNC_END nullsub_37
-
 .align 2, 0

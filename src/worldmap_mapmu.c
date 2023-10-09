@@ -29,8 +29,6 @@ struct UnknownSub80B8BA4
     /* 0C */ int unk_0c;
 };
 
-extern u8 gUnknown_08A3E2F0[];
-
 extern struct Struct02003BE8 gUnknown_0201B3A4[];
 
 extern int gUnknown_08A3E22C[];
@@ -38,6 +36,12 @@ extern int gUnknown_08A3E23C[];
 
 extern u16 gUnknown_0201B104[];
 extern struct Struct0859E7D4 gUnknown_0201B1E4[];
+
+//! FE8U = 0x080BD2A8
+void nullsub_37(void)
+{
+    return;
+}
 
 //! FE8U = 0x080BD2AC
 int GetCharacterClassId(int pid)
@@ -718,7 +722,35 @@ void nullsub_49(void)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E248[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E248[] =
+{
+    PROC_NAME("Gmap MU prim"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(nullsub_37),
+    PROC_CALL(sub_80BD410),
+
+PROC_LABEL(0),
+    PROC_REPEAT(nullsub_70),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80BD444),
+    PROC_REPEAT(sub_80BD830),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_80BD9D8),
+    PROC_REPEAT(sub_80BDA78),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BDC04
 void MapMU_FillPrim(struct GMapMuProc * proc)
@@ -733,13 +765,37 @@ void MapMU_FillPrim(struct GMapMuProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E2C0[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E2C0[] =
+{
+    PROC_NAME("Gmap MU"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(nullsub_49),
+    PROC_CALL(MapMU_FillPrim),
+
+    PROC_BLOCK,
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BDC28
 ProcPtr NewMapMU(ProcPtr parent)
 {
     return Proc_Start(gUnknown_08A3E2C0, parent);
 }
+
+// clang-format off
+
+u8 CONST_DATA gUnknown_08A3E2F0[] =
+{
+    8, 9, 9, 9, 9, 9, 9,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BDC3C
 void MapMU_SetUnit(struct GMapMuProc * muProc, int index, u8 useClass, int id, int faction, int nodeId)
@@ -1297,3 +1353,52 @@ void MapMU_SetUnitChar(ProcPtr muProc, int index, int pid, int faction, int node
     MapMU_SetUnit(muProc, index, 0, pid, faction, nodeId);
     return;
 }
+
+// clang-format off
+
+u16 CONST_DATA gUnknown_08A3E2F8[] =
+{
+    0x0010, 0x0002,
+    0x0096, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+    0x0097, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+};
+
+u16 CONST_DATA gUnknown_08A3E31C[] =
+{
+    0x0020, 0x0002,
+    0x00A4, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+    0x00A5, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+};
+
+u16 CONST_DATA gUnknown_08A3E360[] =
+{
+    0x0015, 0x0003,
+    0x009A, 0x0000, 0x0000, 0x009B, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+    0x009C, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+    0x0000,
+};
+
+u16 CONST_DATA gUnknown_08A3E38E[] =
+{
+    0x0014, 0x0001,
+    0x00A0, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+};
+
+u16 CONST_DATA gUnknown_08A3E3BA[] =
+{
+    0x0014, 0x0001,
+    0x00A6, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+    // Should this be split?
+    0x0014, 0x0001,
+    0x02E0, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+};
+
+u16 CONST_DATA gUnknown_08A3E412[] =
+{
+    0x0018, 0x0001,
+    0x030F, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+    0x030E, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+    0x0000,
+};
+
+// clang-format on
