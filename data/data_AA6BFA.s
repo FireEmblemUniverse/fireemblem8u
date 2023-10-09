@@ -33,36 +33,36 @@ tsas_08AA6EA4:  @ 0x08AA6EA4
 .4byte tsa_gameintro28
 .4byte tsa_gameintro29
 .4byte tsa_gameintro30
-.4byte pal_08AF47F0 + 0x8a70
-.4byte pal_08AF47F0 + 0x8ed4
-.4byte pal_08AF47F0 + 0x9338
-.4byte pal_08AF47F0 + 0x97a8
-.4byte pal_08AF47F0 + 0x9c1c
-.4byte pal_08AF47F0 + 0xa090
-.4byte pal_08AF47F0 + 0xa504
-.4byte pal_08AF47F0 + 0xa97c
-.4byte pal_08AF47F0 + 0xadec
-.4byte pal_08AF47F0 + 0xb254
-.4byte pal_08AF47F0 + 0xb6bc
-.4byte pal_08AF47F0 + 0xbb2c
-.4byte pal_08AF47F0 + 0xbfa4
-.4byte pal_08AF47F0 + 0xc41c
-.4byte pal_08AF47F0 + 0xc88c
-.4byte pal_08AF47F0 + 0xcd00
-.4byte pal_08AF47F0 + 0xd178
-.4byte pal_08AF47F0 + 0xd5ec
-.4byte pal_08AF47F0 + 0xda54
-.4byte pal_08AF47F0 + 0xdec8
-.4byte pal_08AF47F0 + 0xe330
-.4byte pal_08AF47F0 + 0xe7a0
-.4byte pal_08AF47F0 + 0xec0c
-.4byte pal_08AF47F0 + 0xf080
-.4byte pal_08AF47F0 + 0xf4f0
-.4byte pal_08AF47F0 + 0xf968
-.4byte pal_08AF47F0 + 0xfde0
-.4byte pal_08AF47F0 + 0x10258
-.4byte pal_08AF47F0 + 0x106c4
-.4byte pal_08AF47F0 + 0x10b38
+.4byte tsa_gameintro31
+.4byte tsa_gameintro32
+.4byte tsa_gameintro33
+.4byte tsa_gameintro34
+.4byte tsa_gameintro35
+.4byte tsa_gameintro36
+.4byte tsa_gameintro37
+.4byte tsa_gameintro38
+.4byte tsa_gameintro39
+.4byte tsa_gameintro40
+.4byte tsa_gameintro41
+.4byte tsa_gameintro42
+.4byte tsa_gameintro43
+.4byte tsa_gameintro44
+.4byte tsa_gameintro45
+.4byte tsa_gameintro46
+.4byte tsa_gameintro47
+.4byte tsa_gameintro48
+.4byte tsa_gameintro49
+.4byte tsa_gameintro50
+.4byte tsa_gameintro51
+.4byte tsa_gameintro52
+.4byte tsa_gameintro53
+.4byte tsa_gameintro54
+.4byte tsa_gameintro55
+.4byte tsa_gameintro56
+.4byte tsa_gameintro57
+.4byte tsa_gameintro58
+.4byte tsa_gameintro59
+.4byte tsa_gameintro60
 .4byte pal_08AF47F0 + 0x10fa4
 .4byte pal_08AF47F0 + 0x1140c
 .4byte pal_08AF47F0 + 0x11880
