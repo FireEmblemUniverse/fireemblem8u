@@ -990,7 +990,7 @@ u8 EventA3_WmShowUnitFaded(struct EventEngineProc * proc)
     }
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    sub_80BE40C(worldMapProc->unk_54, a, b);
+    GmMu_StartFadeIn(worldMapProc->unk_54, a, b);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -1010,7 +1010,7 @@ u8 EventA4_WmHideUnitFaded(struct EventEngineProc * proc)
     }
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    sub_80BE42C(worldMapProc->unk_54, a, b);
+    GmMu_StartFadeOut(worldMapProc->unk_54, a, b);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -1023,7 +1023,7 @@ u8 EventA5_WmUnitFadeWait(struct EventEngineProc * proc)
         EndGmapUnitFade();
     }
 
-    if (!sub_80BE44C())
+    if (!GmUnitFadeExists())
     {
         return EVC_ADVANCE_YIELD;
     }
@@ -1042,7 +1042,7 @@ u8 EventA6_WmUnitSetOnNode(struct EventEngineProc * proc)
     gGMData.units[unitId].location = nodeId;
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    sub_80BE3C8(worldMapProc->unk_54, unitId, nodeId);
+    GmMu_SetNode(worldMapProc->unk_54, unitId, nodeId);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -1052,12 +1052,12 @@ u8 EventA7_WmUnitSetPosition(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    s16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    s16 b = EVT_CMD_ARGV(proc->pEventCurrent)[3];
-    s16 c = EVT_CMD_ARGV(proc->pEventCurrent)[4];
+    s16 index = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    s16 x = EVT_CMD_ARGV(proc->pEventCurrent)[3];
+    s16 y = EVT_CMD_ARGV(proc->pEventCurrent)[4];
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    sub_80BE35C(worldMapProc->unk_54, a, b, c);
+    GmMu_SetPosition(worldMapProc->unk_54, index, x, y);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -1087,12 +1087,12 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
     u16 r8;
     u16 r9;
 
-    s16 r5 = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    s16 index = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 r2 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
     u16 r3 = EVT_CMD_ARGV(proc->pEventCurrent)[3];
     u16 ip = EVT_CMD_ARGV(proc->pEventCurrent)[4];
-    u16 r6 = EVT_CMD_ARGV(proc->pEventCurrent)[5];
-    u16 r7 = EVT_CMD_ARGV(proc->pEventCurrent)[6];
+    u16 x = EVT_CMD_ARGV(proc->pEventCurrent)[5];
+    u16 y = EVT_CMD_ARGV(proc->pEventCurrent)[6];
 
     r9 = EVT_CMD_ARGV(proc->pEventCurrent)[7];
     r4 = EVT_CMD_ARGV(proc->pEventCurrent)[8];
@@ -1101,22 +1101,22 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
     if (EVENT_IS_SKIPPING(proc))
     {
         worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        sub_80BE35C(worldMapProc->unk_54, r5, r6, r7);
+        GmMu_SetPosition(worldMapProc->unk_54, index, x, y);
 
         if ((r4 & 2) != 0)
         {
-            sub_80BF570(r5);
+            sub_80BF570(index);
         }
     }
     else
     {
-        local.unk_00 = r5;
+        local.unk_00 = index;
         local.unk_01 = r2;
         local.unk_02 = 0;
         local.unk_06 = r3;
         local.unk_08 = ip;
-        local.unk_0a = r6;
-        local.unk_0c = r7;
+        local.unk_0a = x;
+        local.unk_0c = y;
         local.unk_10 = r9;
         local.unk_0e = r8;
         sub_80C33D4(&local, r4, 0);
@@ -1177,12 +1177,12 @@ u8 EventAA_WmUnitPauseMove(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    s16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    s16 index = EVT_CMD_ARGV(proc->pEventCurrent)[1];
 
     if (!EVENT_IS_SKIPPING(proc))
     {
         worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        sub_80BE054(worldMapProc->unk_54, a);
+        GmMu_PauseMovement(worldMapProc->unk_54, index);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1193,12 +1193,12 @@ u8 EventAB_WmUnitResumeMove(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    s16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    s16 index = EVT_CMD_ARGV(proc->pEventCurrent)[1];
 
     if (!EVENT_IS_SKIPPING(proc))
     {
         worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        sub_80BE068(worldMapProc->unk_54, a);
+        GmMu_ResumeMovement(worldMapProc->unk_54, index);
     }
 
     return EVC_ADVANCE_CONTINUE;

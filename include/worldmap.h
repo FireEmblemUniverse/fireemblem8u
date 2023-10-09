@@ -116,7 +116,8 @@ struct GMapUnitContainerProc
     /* 34 */ struct GMapUnitProc * pMapUnitProcs[7];
 };
 
-struct GMapMuPrimProc_Unk_34 {
+struct GMapMuPrimProc_Unk_34
+{
     s8 a;
     s8 b;
     STRUCT_PAD(0x2, 0x4);
@@ -134,12 +135,12 @@ struct GMapMuPrimProc
     s8 unk_2a;
     s8 unk_2b;
     u8 unk_2c;
-    s8 unk_2d;
-    s8 unk_2e;
+    s8 unk_2d; // node ID?
+    s8 unk_2e; // node ID?
     s8 unk_2f;
     u8 unk_30;
-    s8 unk_31;
-    s8 unk_32;
+    s8 unk_31; // anim ID?
+    s8 unk_32; // anim ID?
     struct GMapMuPrimProc_Unk_34 unk_34[3];
     s16 unk_40;
     s16 unk_42;
@@ -157,6 +158,37 @@ struct GMapMuProc
 {
     PROC_HEADER;
     struct GMapMuPrimProc * unk_2c[7];
+};
+
+// used as input to "sub_80BDEB4" in "worldmap_mapmu.c"
+struct UnknownSub80BDEB4
+{
+    /* 00 */ u8 unk_00;
+    /* 01 */ u8 unk_01;
+    /* 02 */ u8 unk_02;
+    /* 03 */ u8 unk_03;
+    /* 04 */ u8 unk_04;
+    /* 06 */ u16 unk_06;
+    /* 08 */ u16 unk_08;
+    /* 0A */ u16 unk_0a;
+    /* 0C */ int unk_0c;
+};
+
+// used as input to "sub_80BDFA4" in "worldmap_mapmu.c"
+struct UnknownSub80BDFA4
+{
+    /* 00 */ u8 unk_00;
+    /* 01 */ u8 unk_01;
+    /* 02 */ u8 unk_02;
+    /* 03 */ u8 unk_03;
+    /* 04 */ u8 unk_04;
+    /* 05 */ u8 unk_05;
+    /* 06 */ u16 unk_06;
+    /* 08 */ u16 unk_08;
+    /* 0A */ u16 unk_0a;
+    /* 0C */ u16 unk_0c;
+    /* 0E */ u16 unk_0e;
+    /* 10 */ int unk_10;
 };
 
 struct WorldMapMainProc
@@ -490,49 +522,49 @@ void sub_80BD270(struct GMapData*, void*);
 // ??? sub_80BD284(???);
 int sub_80BD28C(int);
 int sub_80BD29C(void);
-// ??? nullsub_37(???);
+// ??? GmMuPrim_OnEnd_Null(???);
 // ??? GetCharacterClassId(???);
 // ??? MapMUPrim_MakeUnitForChar(???);
 // ??? MapMUPrim_MakeUnitForClass(???);
 void MapMUPrim_RemoveLinkedMapUnit(struct GMapMuPrimProc *);
-// ??? sub_80BD410(???);
-// ??? nullsub_70(???);
+// ??? GmMuPrim_OnInit(???);
+// ??? GmMuPrim_Loop_Null(???);
 // ??? sub_80BD41C(???);
-// ??? sub_80BD444(???);
+// ??? GmMuPrim_80BD444(???);
 // ??? sub_80BD5B8(???);
 // ??? sub_80BD660(???);
 // ??? sub_80BD6A8(???);
 // ??? sub_80BD740(???);
-// ??? sub_80BD830(???);
-// ??? sub_80BD9D8(???);
-// ??? sub_80BDA78(???);
-// ??? nullsub_49(???);
-// ??? MapMU_FillPrim(???);
-ProcPtr NewMapMU(ProcPtr);
-// ??? MapMU_SetUnit(???);
-void MapMU_RemoveUnit(struct GMapMuProc *, int);
+// ??? GmMuPrim_80BD830(???);
+// ??? GmMuPrim_80BD9D8(???);
+// ??? GmMuPrim_80BDA78(???);
+// ??? GmMu_OnEnd_Null(???);
+// ??? GmMu_OnInit(???);
+ProcPtr StartGmMu(ProcPtr);
+// ??? GmMu_SetUnit(???);
+void GmMu_RemoveUnit(struct GMapMuProc *, int);
 // ??? sub_80BDD94(???);
-void sub_80BDDC4(struct GMapMuProc *, int);
-// ??? sub_80BDE3C(???);
-// ??? sub_80BDEB4(???);
+void GmMu_ShowUnit(struct GMapMuProc *, int);
+// ??? GmMu_HideUnit(???);
+void sub_80BDEB4(struct GMapMuProc *, struct UnknownSub80BDEB4 *);
 // ??? sub_80BDFA4(???);
-void sub_80BE054(struct GMapMuProc *, int); // GmMu_PauseMovement
-void sub_80BE068(struct GMapMuProc *, int); // GmMu_ResumeMovement
+void GmMu_PauseMovement(struct GMapMuProc *, int);
+void GmMu_ResumeMovement(struct GMapMuProc *, int);
 // ??? sub_80BE080(???);
 void sub_80BE0A4(struct GMapMuProc *, int, s16*, s16*);
 // ??? sub_80BE0C8(???);
-void MapMU_SetUnitTCSOAMIndex(struct GMapMuProc *, int, int);
-void MapMU_80BE108(struct GMapMuProc *, int, s8);
+void GmMu_SetSpriteLayer(struct GMapMuProc *, int, int);
+void GmMu_80BE108(struct GMapMuProc *, int, s8);
 s8 sub_80BE12C(struct GMapMuProc *, int);
 // ??? sub_80BE194(???);
 // ??? sub_80BE330(???);
-void sub_80BE35C(struct GMapMuProc *, int, s16, s16); // GmMu_SetPosition
-void sub_80BE3A0(struct GMapMuProc *, int, s16*, s16*);
-void sub_80BE3C8(struct GMapMuProc *, int, int); // GmMu_SetNode
+void GmMu_SetPosition(struct GMapMuProc *, int, s16, s16);
+void GmMu_GetPosition(struct GMapMuProc *, int, s16 *, s16 *);
+void GmMu_SetNode(struct GMapMuProc *, int, int);
 // ??? sub_80BE3E8(???);
-void sub_80BE40C(struct GMapMuProc *, int, int); // GmMu_StartFadeIn
-void sub_80BE42C(struct GMapMuProc *, int, int); // GmMu_StartFadeOut
-s8 sub_80BE44C(void); // GmUnitFadeExists
+void GmMu_StartFadeIn(struct GMapMuProc *, int, int);
+void GmMu_StartFadeOut(struct GMapMuProc *, int, int);
+s8 GmUnitFadeExists(void);
 void sub_80BE45C(struct GMapMuPrimProc *);
 void MapMU_SetUnitClass(ProcPtr, int, int, int, int);
 void MapMU_SetUnitChar(ProcPtr, int, int, int, int);

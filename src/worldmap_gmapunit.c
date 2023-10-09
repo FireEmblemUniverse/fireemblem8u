@@ -6,6 +6,7 @@
 #include "bmunit.h"
 #include "bmudisp.h"
 #include "ctc.h"
+#include "spline.h"
 
 #include "worldmap.h"
 

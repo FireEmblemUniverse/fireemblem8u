@@ -587,7 +587,7 @@ void sub_80B9A34(struct WorldMapMainProc * proc)
 //! FE8U = 0x080B9A58
 void sub_80B9A58(struct WorldMapMainProc * proc)
 {
-    MapMU_80BE108(proc->unk_54, 0, 0);
+    GmMu_80BE108(proc->unk_54, 0, 0);
     gPlaySt.chapterIndex = WMLoc_GetChapterId(gGMData.units[0].location);
     gGMData.unk01 = 0;
     sub_80C07D4(0, sub_80BCA1C(gGMData.units[0].location), proc);
@@ -633,7 +633,7 @@ void sub_80B9AEC(struct WorldMapMainProc * proc)
         }
 
         gGMData.unk_cc = i - 4;
-        MapMU_RemoveUnit(proc->unk_54, i);
+        GmMu_RemoveUnit(proc->unk_54, i);
     }
 
     return;
@@ -642,7 +642,7 @@ void sub_80B9AEC(struct WorldMapMainProc * proc)
 //! FE8U = 0x080B9B38
 void WorldMap_InitChapterTransition(struct WorldMapMainProc * proc)
 {
-    MapMU_80BE108(proc->unk_54, 0, 0);
+    GmMu_80BE108(proc->unk_54, 0, 0);
 
     if (gGMData.units[0].location[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
     {
@@ -837,7 +837,7 @@ void sub_80B9DE0(struct WorldMapMainProc * proc)
     s16 x;
     s16 y;
 
-    sub_80BE3A0(proc->unk_54, 0, &x, &y);
+    GmMu_GetPosition(proc->unk_54, 0, &x, &y);
     sub_80C168C(x, y);
 
     *&x = gGMData.units[0].location[gWMNodeData].x;

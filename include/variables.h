@@ -1349,9 +1349,9 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gMenuRect_WMNodeMenuRectB
 // extern ??? gUnknown_08A3E22C
 // extern ??? gUnknown_08A3E23C
-// extern ??? gUnknown_08A3E248
-// extern ??? gUnknown_08A3E2C0
-// extern ??? gUnknown_08A3E2F0
+// extern ??? gProcScr_GMapMuPrim
+// extern ??? gProcScr_GMapMu
+// extern ??? gGMapMuSpriteLayerLut
 // extern ??? gUnknown_08A3E2F8
 // extern ??? gUnknown_08A3E31C
 // extern ??? gUnknown_08A3E360

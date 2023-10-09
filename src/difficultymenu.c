@@ -9,6 +9,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "ctc.h"
+#include "spline.h"
 
 #include "savemenu.h"
 

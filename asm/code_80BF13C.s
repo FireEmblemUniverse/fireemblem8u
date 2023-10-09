@@ -580,7 +580,7 @@ WM_RemoveUnit: @ 0x080BF538
 	bl Proc_Find
 	ldr r0, [r0, #0x54]
 	adds r1, r4, #0
-	bl MapMU_RemoveUnit
+	bl GmMu_RemoveUnit
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -597,7 +597,7 @@ sub_80BF554: @ 0x080BF554
 	bl Proc_Find
 	ldr r0, [r0, #0x54]
 	adds r1, r4, #0
-	bl sub_80BDDC4
+	bl GmMu_ShowUnit
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -614,7 +614,7 @@ sub_80BF570: @ 0x080BF570
 	bl Proc_Find
 	ldr r0, [r0, #0x54]
 	adds r1, r4, #0
-	bl sub_80BDE3C
+	bl GmMu_HideUnit
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -2770,7 +2770,7 @@ _080C0560:
 	ldrb r1, [r1]
 	adds r2, r4, #0
 	adds r3, r6, #0
-	bl sub_80BE3A0
+	bl GmMu_GetPosition
 	ldrh r0, [r5]
 	strh r0, [r4, #0x10]
 	ldrh r1, [r5, #2]
@@ -2922,7 +2922,7 @@ _080C064A:
 	asrs r4, r4, #0x10
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl sub_80BE35C
+	bl GmMu_SetPosition
 	adds r6, #4
 	adds r7, #1
 	cmp r7, #1
@@ -2948,7 +2948,7 @@ _080C06B0:
 	ldrsh r2, [r4, r3]
 	movs r6, #2
 	ldrsh r3, [r4, r6]
-	bl sub_80BE35C
+	bl GmMu_SetPosition
 	adds r4, #4
 	adds r7, #1
 	cmp r7, #1
@@ -2992,7 +2992,7 @@ _080C0706:
 	ldrb r1, [r1]
 	add r2, sp, #8
 	adds r3, r6, #0
-	bl sub_80BE3A0
+	bl GmMu_GetPosition
 	add r1, sp, #8
 	lsls r0, r5, #0x10
 	asrs r0, r0, #0x10
@@ -5485,7 +5485,7 @@ _080C19EE:
 	bl Proc_Find
 	ldr r0, [r0, #0x54]
 	adds r1, r4, #0
-	bl sub_80BDDC4
+	bl GmMu_ShowUnit
 	adds r5, #4
 	ldr r3, [sp, #0x14]
 	adds r3, #4
@@ -5580,7 +5580,7 @@ _080C1ABA:
 	bl Proc_Find
 	ldr r0, [r0, #0x54]
 	adds r1, r4, #4
-	bl MapMU_RemoveUnit
+	bl GmMu_RemoveUnit
 	adds r4, #1
 	cmp r4, #2
 	ble _080C1ABA
@@ -5706,12 +5706,12 @@ _080C1B88:
 	movs r1, #0
 	ldrsh r3, [r7, r1]
 	adds r1, r6, #0
-	bl sub_80BE35C
+	bl GmMu_SetPosition
 	adds r0, r4, #0
 	bl Proc_Find
 	ldr r0, [r0, #0x54]
 	adds r1, r6, #0
-	bl sub_80BDDC4
+	bl GmMu_ShowUnit
 _080C1BC6:
 	adds r5, #4
 	adds r6, #1
@@ -6653,7 +6653,7 @@ _080C229C:
 	bne _080C22B4
 	ldr r0, [r6, #0x54]
 	adds r1, r5, #0
-	bl MapMU_RemoveUnit
+	bl GmMu_RemoveUnit
 _080C22B4:
 	adds r4, #4
 	adds r5, #1
@@ -6685,7 +6685,7 @@ _080C22E2:
 	bl Proc_Find
 	ldr r0, [r0, #0x54]
 	movs r1, #0
-	bl sub_80BDE3C
+	bl GmMu_HideUnit
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -6707,7 +6707,7 @@ sub_80C22FC: @ 0x080C22FC
 	bl Proc_Find
 	ldr r0, [r0, #0x54]
 	movs r1, #0
-	bl sub_80BDDC4
+	bl GmMu_ShowUnit
 _080C2318:
 	pop {r0}
 	bx r0
@@ -8695,7 +8695,7 @@ _080C3178:
 	ldrsh r2, [r4, r3]
 	movs r5, #0x36
 	ldrsh r3, [r4, r5]
-	bl sub_80BE35C
+	bl GmMu_SetPosition
 _080C318E:
 	adds r0, r4, #0
 	adds r0, #0x2a
@@ -8801,7 +8801,7 @@ sub_80C3220: @ 0x080C3220
 	ldr r0, [r0, #0x54]
 	ldrh r1, [r4, #0x2c]
 	movs r2, #0x1e
-	bl sub_80BE40C
+	bl GmMu_StartFadeIn
 	ldrh r0, [r4, #0x2c]
 	bl sub_80BF554
 	pop {r4}
@@ -8821,7 +8821,7 @@ sub_80C3244: @ 0x080C3244
 	ldr r0, [r0, #0x54]
 	ldrh r1, [r4, #0x2c]
 	movs r2, #0x1e
-	bl sub_80BE42C
+	bl GmMu_StartFadeOut
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -8834,7 +8834,7 @@ _080C3260: .4byte gProcScr_WorldMapMain
 sub_80C3264: @ 0x080C3264
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80BE44C
+	bl GmUnitFadeExists
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080C3278
@@ -9613,7 +9613,7 @@ sub_80C380C: @ 0x080C380C
 	movs r1, #0
 	add r2, sp, #4
 	adds r3, r4, #0
-	bl sub_80BE3A0
+	bl GmMu_GetPosition
 	add r0, sp, #4
 	movs r2, #0
 	ldrsh r1, [r0, r2]
@@ -9714,7 +9714,7 @@ _080C38E2:
 	mov r1, r9
 	ldr r2, [sp, #0x1c]
 	mov r3, sl
-	bl sub_80BE3A0
+	bl GmMu_GetPosition
 	ldr r3, [sp, #0x1c]
 	movs r0, #0
 	ldrsh r1, [r3, r0]
