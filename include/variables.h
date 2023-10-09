@@ -108,7 +108,7 @@ extern char gStringBufferAlt[];
 
 // TODO: define this in hardware.c?
 extern u8 gGenericBuffer[0x2000];
-// extern ??? gUnknown_02022188
+// extern ??? gOpAnimSt
 
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
@@ -261,14 +261,6 @@ extern u16 gUnknown_030018F0[];
 // extern ??? gUnknown_03002C61
 extern u8 gUnknown_03003060;
 extern void* gUnknown_03003070;
-//extern u16 gUnknown_0300308C[];
-// extern ??? gUnknown_03003090
-// extern ??? gUnknown_03003094
-// extern ??? gUnknown_03003098
-// extern ??? gUnknown_030030B4
-// extern ??? gUnknown_030030B6
-// extern ??? gUnknown_030030D8
-// extern ??? gUnknown_030030F0
 // extern ??? gUnknown_03003128
 extern u16 gUnknown_0300312C;
 // extern ??? gUnknown_03003130
@@ -277,17 +269,17 @@ extern u16 gUnknown_03003140[];
 extern u32 gUnknown_03003240[];
 // extern ??? gUnknown_03003540
 // extern ??? gUnknown_03003740
-extern u32 *gUnknown_03003744;
-extern void (*sHBlankHandler2)(void);
+extern u32 * gUnknown_03003744;
+extern void (* sHBlankHandler2)(void);
 // extern ??? gUnknown_03003750
 // extern ??? gUnknown_03004150
 // extern ??? gUnknown_03004154
-extern u16* gUnknown_03004158;
+extern u16 * gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
 // extern ??? gUnknown_03004990
 // extern ??? gStatGainSimUnit
-extern struct Unit* gActiveUnit;
+extern struct Unit * gActiveUnit;
 // extern ??? gUnknown_03004E70
 // extern ??? gUnknown_03004E74
 // extern ??? gUnknown_03004E80
@@ -1509,30 +1501,30 @@ extern u8 gGfx_TitleLargeGlowingOrb[];
 extern u16 gPal_TitleLargeGlowingOrb[];
 extern u8 gGfx_TitleSmallLightBubbles[];
 extern u16 gPal_TitleSmallLightBubbles[];
-extern u8 img_08AB21D8[];
-extern u8 img_08AB5D90[];
+extern u8 Img_OpAnimWorldMap[];
+extern u8 Tsa_OpAnimWorldMap[];
 extern u16 pal_08AB630C[];
 extern u8 img_08AB632C[];
 extern u8 img_08AB7AC0[];
 extern u16 pal_08AB7DB0[];
-// extern ??? gUnknown_08AB7DD0
-// extern ??? gUnknown_08AB87E0
-// extern ??? gUnknown_08AB8CAC
+extern u8 Img_08AB7DD0[];
+extern u8 gUnknown_08AB87E0[];
+extern u16 Pal_08AB8CAC[];
 // extern ??? gUnknown_08AB8CCC
 // extern ??? gUnknown_08AB942C
-// extern ??? gUnknown_08ABB14C
-// extern ??? gUnknown_08ABC074
-// extern ??? gUnknown_08ABC22C
-// extern ??? gUnknown_08ABD174
-// extern ??? gUnknown_08ABD348
-// extern ??? gUnknown_08ABE120
-// extern ??? gUnknown_08ABE304
-// extern ??? gUnknown_08ABEF70
-// extern ??? gUnknown_08ABF168
-// extern ??? gUnknown_08AC0BD8
-// extern ??? gUnknown_08AC1878
-// extern ??? gUnknown_08AC1B98
-// extern ??? gUnknown_08AC1C8C
+extern u8 gUnknown_08ABB14C[];
+extern u8 gUnknown_08ABC074[];
+extern u8 gUnknown_08ABC22C[];
+extern u8 gUnknown_08ABD174[];
+extern u8 gUnknown_08ABD348[];
+extern u8 gUnknown_08ABE120[];
+extern u8 gUnknown_08ABE304[];
+extern u8 gUnknown_08ABEF70[];
+extern u8 gUnknown_08ABF168[];
+extern u8 gUnknown_08AC0BD8[];
+extern u8 gUnknown_08AC1878[];
+extern u8 gUnknown_08AC1B98[];
+extern u16 Pal_08AC1C8C[];
 // extern ??? gUnknown_08AC1DEC
 // extern ??? gUnknown_08AC2B24
 // extern ??? gUnknown_08AC2CB4
@@ -1693,8 +1685,7 @@ extern u16 gUnknown_08AF310C[];
 // extern ??? gUnknown_08AF312C
 // extern ??? gUnknown_08AF404C
 // extern ??? gUnknown_08AF4330
-// extern ??? pal_08AF47F0
-// extern ??? gUnknown_08B103D8
+
 // extern ??? gUnknown_08B104D8
 // extern ??? gUnknown_08B10630
 // extern ??? gUnknown_08B10ABC

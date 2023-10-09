@@ -278,7 +278,7 @@
 /* end of ewram overlay */
 /* start of ewram data */
 . = 0x020188; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
-. = 0x022188; gUnknown_02022188 = .;
+. = 0x022188; gOpAnimSt = .;
 . = 0x022288; gUnknown_02022288 = .;
 . = 0x0222A8; gUnknown_020222A8 = .;
 . = 0x0222A8; gUnknown_020222A8 = .;

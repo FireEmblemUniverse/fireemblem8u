@@ -1,7 +1,7 @@
 	.section .data
 
-    .global ProcScr_GameIntro
-ProcScr_GameIntro:  @ 0x08AA71C8
+    .global ProcScr_OpAnim
+ProcScr_OpAnim:  @ 0x08AA71C8
     @ PROC_YIELD
     .short 0xe, 0x0
     .word 0x0
@@ -13,16 +13,16 @@ ProcScr_GameIntro:  @ 0x08AA71C8
     .word 0x0
     @ PROC_CALL
     .short 0x2, 0x0
-    .word GameIntroInitScreen
+    .word SetupOpAnimWorldMapfx
     @ PROC_START_CHILD
     .short 0x5, 0x0
-    .word ProcScr_GameIntroBLDALPHA
+    .word ProcScr_OpAnimBLDALPHA
     @ PROC_WHILE
     .short 0x14, 0x0
-    .word GameIntroBldAlphaExists
+    .word OpAnimBldAlphaExists
     @ PROC_CALL
     .short 0x2, 0x0
-    .word GameIntroUpdateScreen1
+    .word OpAnimUpdateScreen1
     @ PROC_REPEAT
     .short 0x3, 0x0
     .word sub_80C6F70
@@ -456,8 +456,8 @@ ProcScr_GameIntro:  @ 0x08AA71C8
     .short 0x0, 0x0
     .word 0x0
 
-    .global ProcScr_GameIntroHealthSafetyScreen
-ProcScr_GameIntroHealthSafetyScreen:  @ 0x08AA7680
+    .global ProcScr_OpAnimHealthSafetyScreen
+ProcScr_OpAnimHealthSafetyScreen:  @ 0x08AA7680
     @ PROC_YIELD
     .short 0xe, 0x0
     .word 0x0

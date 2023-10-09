@@ -104,13 +104,7 @@
 . = 0x003070; gUnknown_03003070 = .;
 . = 0x003070; gUnknown_03003070 = .;
 . = 0x003080; gLCDControlBuffer = .;
-. = 0x00308C; gUnknown_0300308C = .;
-. = 0x003090; gUnknown_03003090 = .;
-. = 0x003094; gUnknown_03003094 = .;
-. = 0x003098; gUnknown_03003098 = .;
-. = 0x0030B4; gUnknown_030030B4 = .;
-. = 0x0030B6; gUnknown_030030B6 = .;
-. = 0x0030C8; gGameIntroBgAffineDstData = .;
+. = 0x0030C8; gOpAnimBgAffineDstData = .;
 . = 0x0030D8; gUnknown_030030D8 = .;
 . = 0x0030F0; gIRQHandlers = .;
 . = 0x003128; gUnknown_03003128 = .;
