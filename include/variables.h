@@ -1503,14 +1503,14 @@ extern u16 gPal_TitleSmallLightBubbles[];
 extern u8 Img_OpAnimWorldMap[];
 extern u8 Tsa_OpAnimWorldMap[];
 extern u16 pal_08AB630C[];
-extern u8 img_08AB632C[];
-extern u8 img_08AB7AC0[];
-extern u16 pal_08AB7DB0[];
-extern u8 Img_08AB7DD0[];
-extern u8 gUnknown_08AB87E0[];
-extern u16 Pal_08AB8CAC[];
-// extern ??? gUnknown_08AB8CCC
-// extern ??? gUnknown_08AB942C
+extern u8 Img_OpAnimWorldMapFog[];
+extern u8 Tsa_OpAnimWorldMapFog[];
+extern u16 Pal_OpAnimWorldMapFog[];
+extern u8 Img_OpAnimCharacterBG[];
+extern u8 Tsa_OpAnimCharacterBG[];
+extern u16 Pal_OpAnimCharacterBG[];
+// extern ??? Img_OpAnimGenericCharacterBG
+// extern ??? Tsa_OpAnimGenericCharacterBG
 extern u8 Img_OpAnimEphraim[];
 extern u8 Tsa_OpAnimEphraim[];
 extern u8 Img_OpAnimEphraimBlur1[];
@@ -1591,13 +1591,13 @@ extern u16 Pal_OpAnimSaleh2[];
 // extern ??? gUnknown_08AE04D4
 // extern ??? gUnknown_08AE04F4
 // extern ??? gUnknown_08AE0A48
-// extern ??? gUnknown_08AE0D74
+// extern ??? Pal_OpAnimFaceVanessaShadow
 // extern ??? gUnknown_08AE0D94
 // extern ??? gUnknown_08AE12BC
 // extern ??? gUnknown_08AE1634
-// extern ??? gUnknown_08AE1654
-// extern ??? gUnknown_08AE1D00
-// extern ??? gUnknown_08AE20C4
+// extern ??? Img_OpAnimFaceVanessa
+// extern ??? Img_OpAnimFaceVanessaShadow
+// extern ??? Pal_OpAnimFaceVanessa
 // extern ??? gUnknown_08AE20E4
 // extern ??? gUnknown_08AE281C
 // extern ??? gUnknown_08AE2BF4
@@ -1645,7 +1645,7 @@ extern u16 Pal_OpAnimSaleh2[];
 // extern ??? gUnknown_08AEB56C
 // extern ??? gUnknown_08AEB58C
 // extern ??? gUnknown_08AEBCEC
-// extern ??? gUnknown_08AEC048
+// extern ??? Pal_OpAnimFaceValterShadow
 // extern ??? gUnknown_08AEC068
 // extern ??? gUnknown_08AEC724
 // extern ??? gUnknown_08AECAC0
@@ -1658,32 +1658,32 @@ extern u16 Pal_OpAnimSaleh2[];
 // extern ??? gUnknown_08AEDCA0
 // extern ??? gUnknown_08AEE218
 // extern ??? gUnknown_08AEE564
-// extern ??? gUnknown_08AEE584
-// extern ??? gUnknown_08AEEBB0
-// extern ??? gUnknown_08AEEECC
+// extern ??? Img_OpAnimFaceValter
+// extern ??? Img_OpAnimFaceValterShadow
+// extern ??? Pal_OpAnimFaceValter
 // extern ??? gUnknown_08AEEEEC
 // extern ??? gUnknown_08AEF580
 // extern ??? gUnknown_08AEF880
 // extern ??? gUnknown_08AEF8A0
 // extern ??? gUnknown_08AEFDC8
-// extern ??? gUnknown_08AF0130
+// extern ??? Pal_OpAnimFaceVigardeShadow
 // extern ??? gUnknown_08AF0150
 // extern ??? gUnknown_08AF09E4
 // extern ??? gUnknown_08AF0DE8
-// extern ??? gUnknown_08AF0E08
-// extern ??? gUnknown_08AF16CC
-// extern ??? gUnknown_08AF1AC8
-extern u8 gUnknown_08AF1AE8[];
-extern u16 gUnknown_08AF1B18[];
-extern u8 gUnknown_08AF1B38[];
-extern u16 gUnknown_08AF1FB0[];
-extern u8 gUnknown_08AF1FD0[];
-extern u16 gUnknown_08AF2634[];
-extern u8 gUnknown_08AF2654[];
-extern u16 gUnknown_08AF310C[];
-// extern ??? gUnknown_08AF312C
-// extern ??? gUnknown_08AF404C
-// extern ??? gUnknown_08AF4330
+// extern ??? Img_OpAnimFaceVigarde
+// extern ??? Img_OpAnimFaceVigardeShadow
+// extern ??? Pal_OpAnimFaceVigarde
+extern u8 Img_OpAnimSplitLine[];
+extern u16 Pal_OpAnimSplitLine[];
+extern u8 Img_opanim_unk1[];
+extern u16 Pal_opanim_unk1[];
+extern u8 Img_OpAnimEphEirikaName[];
+extern u16 Pal_OpAnimEphEirikaName[];
+extern u8 Img_OpAnimDivlEye[];
+extern u16 Pal_OpAnimDivlEye[];
+// extern ??? Img_OpAnimShinningRing
+// extern ??? Tsa_OpAnimShinningRing
+// extern ??? Tsa_OpAnimShinningRingBlinking
 
 // extern ??? gUnknown_08B104D8
 // extern ??? gUnknown_08B10630

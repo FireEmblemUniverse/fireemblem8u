@@ -1429,7 +1429,7 @@ _080C86D8: @ jump table
 	.4byte _080C87CC @ case 4
 	.4byte _080C87E0 @ case 5
 _080C86F0:
-	ldr r4, _080C8730  @ gUnknown_08AB8CCC
+	ldr r4, _080C8730  @ Img_OpAnimGenericCharacterBG
 	movs r0, #3
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1437,7 +1437,7 @@ _080C86F0:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C8738  @ gUnknown_08AB942C
+	ldr r0, _080C8738  @ Tsa_OpAnimGenericCharacterBG
 	ldr r4, _080C873C  @ gBG3TilemapBuffer
 	adds r1, r4, #0
 	bl Decompress
@@ -1458,9 +1458,9 @@ _080C8718:
 	bl BG_EnableSyncByMask
 	b _080C8802
 	.align 2, 0
-_080C8730: .4byte gUnknown_08AB8CCC
+_080C8730: .4byte Img_OpAnimGenericCharacterBG
 _080C8734: .4byte 0x06002000
-_080C8738: .4byte gUnknown_08AB942C
+_080C8738: .4byte Tsa_OpAnimGenericCharacterBG
 _080C873C: .4byte gBG3TilemapBuffer
 _080C8740:
 	ldr r4, _080C8760  @ Img_OpAnimJoshua
@@ -1518,15 +1518,15 @@ _080C87C0: .4byte gBG1TilemapBuffer
 _080C87C4: .4byte 0x0600D800
 _080C87C8: .4byte 0x01000400
 _080C87CC:
-	ldr r0, _080C87D8  @ gUnknown_08AF312C
+	ldr r0, _080C87D8  @ Img_OpAnimShinningRing
 	ldr r1, _080C87DC  @ 0x06004000
 	bl Decompress
 	b _080C8802
 	.align 2, 0
-_080C87D8: .4byte gUnknown_08AF312C
+_080C87D8: .4byte Img_OpAnimShinningRing
 _080C87DC: .4byte 0x06004000
 _080C87E0:
-	ldr r0, _080C8820  @ gUnknown_08AF404C
+	ldr r0, _080C8820  @ Tsa_OpAnimShinningRing
 	ldr r4, _080C8824  @ 0x0600F000
 	adds r1, r4, #0
 	bl Decompress
@@ -1557,7 +1557,7 @@ _080C8802:
 	bl Proc_Break
 	b _080C8834
 	.align 2, 0
-_080C8820: .4byte gUnknown_08AF404C
+_080C8820: .4byte Tsa_OpAnimShinningRing
 _080C8824: .4byte 0x0600F000
 _080C8828: .4byte gUnknown_08AA705C
 _080C882C: .4byte gUnknown_08AA707C
@@ -2540,7 +2540,7 @@ _080C907C:
 	ldr r0, _080C909C  @ gUnknown_08AE04F4
 	ldr r1, _080C90A0  @ 0x06010000
 	bl Decompress
-	ldr r0, _080C90A4  @ gUnknown_08AE0D74
+	ldr r0, _080C90A4  @ Pal_OpAnimFaceVanessaShadow
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -2552,7 +2552,7 @@ _080C907C:
 	.align 2, 0
 _080C909C: .4byte gUnknown_08AE04F4
 _080C90A0: .4byte 0x06010000
-_080C90A4: .4byte gUnknown_08AE0D74
+_080C90A4: .4byte Pal_OpAnimFaceVanessaShadow
 _080C90A8: .4byte gUnknown_08AE0A48
 _080C90AC: .4byte 0x06010F00
 _080C90B0:
@@ -2644,23 +2644,23 @@ _080C915C:
 	beq _080C91C8
 	b _080C91E4
 _080C9162:
-	ldr r0, _080C9180  @ gUnknown_08AE1654
+	ldr r0, _080C9180  @ Img_OpAnimFaceVanessa
 	ldr r1, _080C9184  @ 0x06010000
 	bl Decompress
-	ldr r0, _080C9188  @ gUnknown_08AE20C4
+	ldr r0, _080C9188  @ Pal_OpAnimFaceVanessa
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl CopyToPalOpAnim
-	ldr r0, _080C918C  @ gUnknown_08AE1D00
+	ldr r0, _080C918C  @ Img_OpAnimFaceVanessaShadow
 	ldr r1, _080C9190  @ 0x06010F00
 	bl Decompress
 	b _080C91E4
 	.align 2, 0
-_080C9180: .4byte gUnknown_08AE1654
+_080C9180: .4byte Img_OpAnimFaceVanessa
 _080C9184: .4byte 0x06010000
-_080C9188: .4byte gUnknown_08AE20C4
-_080C918C: .4byte gUnknown_08AE1D00
+_080C9188: .4byte Pal_OpAnimFaceVanessa
+_080C918C: .4byte Img_OpAnimFaceVanessaShadow
 _080C9190: .4byte 0x06010F00
 _080C9194:
 	ldr r0, _080C91B4  @ gUnknown_08AE20E4
@@ -3414,7 +3414,7 @@ _080C981C:
 	ldr r0, _080C983C  @ gUnknown_08AEB58C
 	ldr r1, _080C9840  @ 0x06013C00
 	bl Decompress
-	ldr r0, _080C9844  @ gUnknown_08AEC048
+	ldr r0, _080C9844  @ Pal_OpAnimFaceValterShadow
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -3426,7 +3426,7 @@ _080C981C:
 	.align 2, 0
 _080C983C: .4byte gUnknown_08AEB58C
 _080C9840: .4byte 0x06013C00
-_080C9844: .4byte gUnknown_08AEC048
+_080C9844: .4byte Pal_OpAnimFaceValterShadow
 _080C9848: .4byte gUnknown_08AEBCEC
 _080C984C: .4byte 0x06014B00
 _080C9850:
@@ -3518,23 +3518,23 @@ _080C98FC:
 	beq _080C9968
 	b _080C9984
 _080C9902:
-	ldr r0, _080C9920  @ gUnknown_08AEE584
+	ldr r0, _080C9920  @ Img_OpAnimFaceValter
 	ldr r1, _080C9924  @ 0x06010000
 	bl Decompress
-	ldr r0, _080C9928  @ gUnknown_08AEEECC
+	ldr r0, _080C9928  @ Pal_OpAnimFaceValter
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl CopyToPalOpAnim
-	ldr r0, _080C992C  @ gUnknown_08AEEBB0
+	ldr r0, _080C992C  @ Img_OpAnimFaceValterShadow
 	ldr r1, _080C9930  @ 0x06010F00
 	bl Decompress
 	b _080C9984
 	.align 2, 0
-_080C9920: .4byte gUnknown_08AEE584
+_080C9920: .4byte Img_OpAnimFaceValter
 _080C9924: .4byte 0x06010000
-_080C9928: .4byte gUnknown_08AEEECC
-_080C992C: .4byte gUnknown_08AEEBB0
+_080C9928: .4byte Pal_OpAnimFaceValter
+_080C992C: .4byte Img_OpAnimFaceValterShadow
 _080C9930: .4byte 0x06010F00
 _080C9934:
 	ldr r0, _080C9954  @ gUnknown_08AEEEEC
@@ -3559,7 +3559,7 @@ _080C9968:
 	ldr r0, _080C9998  @ gUnknown_08AEF8A0
 	ldr r1, _080C999C  @ 0x06013C00
 	bl Decompress
-	ldr r0, _080C99A0  @ gUnknown_08AF0130
+	ldr r0, _080C99A0  @ Pal_OpAnimFaceVigardeShadow
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -3579,7 +3579,7 @@ _080C9984:
 	.align 2, 0
 _080C9998: .4byte gUnknown_08AEF8A0
 _080C999C: .4byte 0x06013C00
-_080C99A0: .4byte gUnknown_08AF0130
+_080C99A0: .4byte Pal_OpAnimFaceVigardeShadow
 _080C99A4: .4byte gUnknown_08AEFDC8
 _080C99A8: .4byte 0x06014B00
 _080C99AC:
@@ -3657,15 +3657,15 @@ _080C9A38: .4byte gUnknown_08AF0DE8
 _080C9A3C: .4byte gUnknown_08AF09E4
 _080C9A40: .4byte 0x06010F00
 _080C9A44:
-	ldr r0, _080C9A74  @ gUnknown_08AF0E08
+	ldr r0, _080C9A74  @ Img_OpAnimFaceVigarde
 	ldr r1, _080C9A78  @ 0x06011E00
 	bl Decompress
-	ldr r0, _080C9A7C  @ gUnknown_08AF1AC8
+	ldr r0, _080C9A7C  @ Pal_OpAnimFaceVigarde
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl CopyToPalOpAnim
-	ldr r0, _080C9A80  @ gUnknown_08AF16CC
+	ldr r0, _080C9A80  @ Img_OpAnimFaceVigardeShadow
 	ldr r1, _080C9A84  @ 0x06012D00
 	bl Decompress
 _080C9A60:
@@ -3678,10 +3678,10 @@ _080C9A60:
 	bl Proc_Break
 	b _080C9A8C
 	.align 2, 0
-_080C9A74: .4byte gUnknown_08AF0E08
+_080C9A74: .4byte Img_OpAnimFaceVigarde
 _080C9A78: .4byte 0x06011E00
-_080C9A7C: .4byte gUnknown_08AF1AC8
-_080C9A80: .4byte gUnknown_08AF16CC
+_080C9A7C: .4byte Pal_OpAnimFaceVigarde
+_080C9A80: .4byte Img_OpAnimFaceVigardeShadow
 _080C9A84: .4byte 0x06012D00
 _080C9A88:
 	adds r0, #1
@@ -7972,7 +7972,7 @@ _080CBCFE:
 	ldrh r0, [r1, #0x2a]
 	cmp r0, #1
 	bne _080CBD28
-	ldr r0, _080CBD5C  @ gUnknown_08AF4330
+	ldr r0, _080CBD5C  @ Tsa_OpAnimShinningRingBlinking
 	ldr r4, _080CBD60  @ 0x0600F000
 	adds r1, r4, #0
 	bl Decompress
@@ -8008,7 +8008,7 @@ _080CBD4C: .4byte 0x00000828
 _080CBD50: .4byte gUnknown_08AA7194
 _080CBD54: .4byte 0x000020F0
 _080CBD58: .4byte 0x00003168
-_080CBD5C: .4byte gUnknown_08AF4330
+_080CBD5C: .4byte Tsa_OpAnimShinningRingBlinking
 _080CBD60: .4byte 0x0600F000
 _080CBD64:
 	adds r0, #1

@@ -18,15 +18,15 @@ void OpAnimInit(struct ProcOpAnim * proc)
     gLCDControlBuffer.dispcnt.obj1dMap = 1;
     SetDispEnable(0, 0, 0, 0, 0);
 
-    Decompress(gUnknown_08AF1AE8, OBJ_VRAM0 + 0x0000);
-    Decompress(gUnknown_08AF1B38, OBJ_VRAM0 + 0x0100);
-    Decompress(gUnknown_08AF1FD0, OBJ_VRAM0 + 0x08C0);
-    Decompress(gUnknown_08AF2654, OBJ_VRAM0 + 0x1140);
+    Decompress(Img_OpAnimSplitLine, OBJ_VRAM0 + 0x0000);
+    Decompress(Img_opanim_unk1, OBJ_VRAM0 + 0x0100);
+    Decompress(Img_OpAnimEphEirikaName, OBJ_VRAM0 + 0x08C0);
+    Decompress(Img_OpAnimDivlEye, OBJ_VRAM0 + 0x1140);
 
-    CopyToPalOpAnim(gUnknown_08AF1B18, 0x200, 0x20);
-    CopyToPalOpAnim(gUnknown_08AF1FB0, 0x220, 0x20);
-    CopyToPalOpAnim(gUnknown_08AF2634, 0x240, 0x20);
-    CopyToPalOpAnim(gUnknown_08AF310C, 0x260, 0x20);
+    CopyToPalOpAnim(Pal_OpAnimSplitLine, 0x200, 0x20);
+    CopyToPalOpAnim(Pal_opanim_unk1, 0x220, 0x20);
+    CopyToPalOpAnim(Pal_OpAnimEphEirikaName, 0x240, 0x20);
+    CopyToPalOpAnim(Pal_OpAnimDivlEye, 0x260, 0x20);
 
     CpuFastFill16(-1, OBJ_VRAM0 + 0x7800, 0x800);
     SetNextGameActionId(GAME_ACTION_3);
@@ -124,11 +124,11 @@ void SetupOpAnimWorldMapfx(struct ProcOpAnim * proc)
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    Decompress(img_08AB632C, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_1));
-    ApplyPaletteOpAnim(pal_08AB7DB0, 2);
+    Decompress(Img_OpAnimWorldMapFog, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_1));
+    ApplyPaletteOpAnim(Pal_OpAnimWorldMapFog, 2);
 
     vram = (void *)BG_VRAM + 0xE800;
-    Decompress(img_08AB7AC0, vram);
+    Decompress(Tsa_OpAnimWorldMapFog, vram);
 
     for (i = 0; i < 0x400;)
     {
@@ -629,8 +629,8 @@ void OpAnimPreparefxEphraim(struct ProcOpAnim * proc)
 
     switch (proc->timer) {
     case 0:
-        Decompress(Img_08AB7DD0, (void *)BG_VRAM + 0x2000 + GetBackgroundTileDataOffset(BG_3));
-        Decompress(gUnknown_08AB87E0, gBG3TilemapBuffer);
+        Decompress(Img_OpAnimCharacterBG, (void *)BG_VRAM + 0x2000 + GetBackgroundTileDataOffset(BG_3));
+        Decompress(Tsa_OpAnimCharacterBG, gBG3TilemapBuffer);
 
         for (i = 1; i < 0x10; ++i)
             gPaletteBuffer[0xe0 + i] = RGB_WHITE;
@@ -714,7 +714,7 @@ void OpAnimMergeBGProcInit(struct Proc08AA7034 * proc)
 void OpAnimMergeBGProcUpdateBgPalette(struct Proc08AA7034 * proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, 0x20);
-    ApplyPaletteOpAnim(Pal_08AB8CAC, 14);
+    ApplyPaletteOpAnim(Pal_OpAnimCharacterBG, 14);
     sub_80C69B0(PAL_BG(14), 0x7FFF, ret);
 
     if (proc->timer == 0x20)
