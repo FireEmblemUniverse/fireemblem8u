@@ -213,6 +213,7 @@ SECTIONS
         src/mapanim_spellassocfx.o(.text);
         asm/code_mapanim_spellassocfx.o(.text);
         src/mapanim_spellassoc.o(.text);
+        src/mapanim_scanline.o(.text);
         asm/code_mapanim.o(.text);
         src/ev_triggercheck.o(.text);
         src/uidebug.o(.text);
