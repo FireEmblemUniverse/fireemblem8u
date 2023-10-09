@@ -2,8 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80C7B80
-sub_80C7B80: @ 0x080C7B80
+	THUMB_FUNC_START OpAnimEphraimExit
+OpAnimEphraimExit: @ 0x080C7B80
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -47,7 +47,7 @@ _080C7BA8:
 	ldrsh r1, [r4, r0]
 	adds r1, #0x10
 	adds r0, r5, #0
-	bl GameIntoCharCgFlyInMaybe
+	bl OpAnimDrawSplitLine
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x10
 	bne _080C7BEC
@@ -180,10 +180,10 @@ _080C7CEA:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80C7B80
+	THUMB_FUNC_END OpAnimEphraimExit
 
-	THUMB_FUNC_START sub_80C7CF8
-sub_80C7CF8: @ 0x080C7CF8
+	THUMB_FUNC_START OpAnimPreparefxEirika
+OpAnimPreparefxEirika: @ 0x080C7CF8
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -286,7 +286,7 @@ _080C7DE0: .4byte gBG0TilemapBuffer
 _080C7DE4: .4byte gBG1TilemapBuffer
 _080C7DE8: .4byte gBG2TilemapBuffer
 _080C7DEC:
-	ldr r4, _080C7E0C  @ gUnknown_08AC5614
+	ldr r4, _080C7E0C  @ Img_OpAnimEirikaClose1
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -295,16 +295,16 @@ _080C7DEC:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C7E10  @ gUnknown_08AC8DDC
+	ldr r0, _080C7E10  @ Tsa_OpAnimEirikaClose
 	ldr r1, _080C7E14  @ gGenericBuffer
 	bl Decompress
 	b _080C7F80
 	.align 2, 0
-_080C7E0C: .4byte gUnknown_08AC5614
-_080C7E10: .4byte gUnknown_08AC8DDC
+_080C7E0C: .4byte Img_OpAnimEirikaClose1
+_080C7E10: .4byte Tsa_OpAnimEirikaClose
 _080C7E14: .4byte gGenericBuffer
 _080C7E18:
-	ldr r4, _080C7E38  @ gUnknown_08AC7374
+	ldr r4, _080C7E38  @ Img_OpAnimEirikaClose2
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -312,17 +312,17 @@ _080C7E18:
 	adds r1, r1, r2
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C7E40  @ gUnknown_08AC91F8
+	ldr r0, _080C7E40  @ Tsa_OpAnimEirikaClose2
 	ldr r1, _080C7E44  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C7F80
 	.align 2, 0
-_080C7E38: .4byte gUnknown_08AC7374
+_080C7E38: .4byte Img_OpAnimEirikaClose2
 _080C7E3C: .4byte 0x06002000
-_080C7E40: .4byte gUnknown_08AC91F8
+_080C7E40: .4byte Tsa_OpAnimEirikaClose2
 _080C7E44: .4byte gGenericBuffer+0x800
 _080C7E48:
-	ldr r4, _080C7E74  @ gUnknown_08AC1DEC
+	ldr r4, _080C7E74  @ Img_OpAnimEirika
 	movs r0, #2
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -331,38 +331,38 @@ _080C7E48:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C7E78  @ gUnknown_08AC2B24
+	ldr r0, _080C7E78  @ Tsa_OpAnimEirika
 	ldr r1, _080C7E7C  @ gGenericBuffer+0x1000
 	bl Decompress
-	ldr r0, _080C7E80  @ gUnknown_08AC933C
+	ldr r0, _080C7E80  @ Pal_OpAnimEirikaBlur
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
 	bl CopyToPalOpAnim
 	b _080C7F80
 	.align 2, 0
-_080C7E74: .4byte gUnknown_08AC1DEC
-_080C7E78: .4byte gUnknown_08AC2B24
+_080C7E74: .4byte Img_OpAnimEirika
+_080C7E78: .4byte Tsa_OpAnimEirika
 _080C7E7C: .4byte gGenericBuffer+0x1000
-_080C7E80: .4byte gUnknown_08AC933C
+_080C7E80: .4byte Pal_OpAnimEirikaBlur
 _080C7E84:
-	ldr r0, _080C7E98  @ gUnknown_08AC4928
+	ldr r0, _080C7E98  @ Img_OpAnimEirikaBlur3
 	ldr r1, _080C7E9C  @ 0x06008000
 	bl Decompress
-	ldr r0, _080C7EA0  @ gUnknown_08AC5420
+	ldr r0, _080C7EA0  @ Tsa_OpAnimEirikaBlur3
 	ldr r1, _080C7EA4  @ 0x0600C000
 	bl Decompress
 	b _080C7F80
 	.align 2, 0
-_080C7E98: .4byte gUnknown_08AC4928
+_080C7E98: .4byte Img_OpAnimEirikaBlur3
 _080C7E9C: .4byte 0x06008000
-_080C7EA0: .4byte gUnknown_08AC5420
+_080C7EA0: .4byte Tsa_OpAnimEirikaBlur3
 _080C7EA4: .4byte 0x0600C000
 _080C7EA8:
-	ldr r0, _080C7ED4  @ gUnknown_08AC3BC8
+	ldr r0, _080C7ED4  @ Img_OpAnimEirikaBlur2
 	ldr r1, _080C7ED8  @ 0x0600A000
 	bl Decompress
-	ldr r0, _080C7EDC  @ gUnknown_08AC4760
+	ldr r0, _080C7EDC  @ Tsa_OpAnimEirikaBlur2
 	ldr r4, _080C7EE0  @ 0x0600C800
 	adds r1, r4, #0
 	bl Decompress
@@ -381,9 +381,9 @@ _080C7EC4:
 	bne _080C7EC4
 	b _080C7F80
 	.align 2, 0
-_080C7ED4: .4byte gUnknown_08AC3BC8
+_080C7ED4: .4byte Img_OpAnimEirikaBlur2
 _080C7ED8: .4byte 0x0600A000
-_080C7EDC: .4byte gUnknown_08AC4760
+_080C7EDC: .4byte Tsa_OpAnimEirikaBlur2
 _080C7EE0: .4byte 0x0600C800
 _080C7EE4:
 	ldr r0, _080C7F6C  @ gGenericBuffer+0x1000
@@ -466,7 +466,7 @@ _080C7F86:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80C7CF8
+	THUMB_FUNC_END OpAnimPreparefxEirika
 
 	THUMB_FUNC_START sub_80C7F90
 sub_80C7F90: @ 0x080C7F90
@@ -518,7 +518,7 @@ _080C7FE4:
 	.align 2, 0
 _080C7FF4: .4byte 0x0600C800
 _080C7FF8:
-	ldr r0, _080C800C  @ gUnknown_08AC2CB4
+	ldr r0, _080C800C  @ Img_OpAnimEirikaBlur1
 	ldr r1, _080C8010  @ 0x06008000
 	bl Decompress
 	lsls r0, r6, #0x10
@@ -528,11 +528,11 @@ _080C7FF8:
 	ldr r2, _080C8014  @ 0x0600C800
 	b _080C8042
 	.align 2, 0
-_080C800C: .4byte gUnknown_08AC2CB4
+_080C800C: .4byte Img_OpAnimEirikaBlur1
 _080C8010: .4byte 0x06008000
 _080C8014: .4byte 0x0600C800
 _080C8018:
-	ldr r0, _080C8030  @ gUnknown_08AC3A2C
+	ldr r0, _080C8030  @ Tsa_OpAnimEirikaBlur1
 	ldr r4, _080C8034  @ 0x0600C000
 	adds r1, r4, #0
 	bl Decompress
@@ -544,7 +544,7 @@ _080C8018:
 	str r1, [sp, #8]
 	b _080C804A
 	.align 2, 0
-_080C8030: .4byte gUnknown_08AC3A2C
+_080C8030: .4byte Tsa_OpAnimEirikaBlur1
 _080C8034: .4byte 0x0600C000
 _080C8038:
 	lsls r0, r6, #0x10
@@ -762,7 +762,7 @@ _080C81DA:
 	ble _080C81E0
 	movs r1, #0x88
 _080C81E0:
-	bl GameIntoCharCgFlyInMaybe
+	bl OpAnimDrawSplitLine
 	ldrh r0, [r7, #0x2a]
 	cmp r0, #0x10
 	bne _080C8208
@@ -804,7 +804,7 @@ sub_80C8214: @ 0x080C8214
 	strh r0, [r1, #6]
 	movs r0, #8
 	movs r1, #0x88
-	bl GameIntoCharCgFlyInMaybe
+	bl OpAnimDrawSplitLine
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xe
 	bls _080C824C
@@ -846,7 +846,7 @@ sub_80C8278: @ 0x080C8278
 	adds r5, r0, #0
 	movs r0, #8
 	movs r1, #0x88
-	bl GameIntoCharCgFlyInMaybe
+	bl OpAnimDrawSplitLine
 	ldr r3, _080C82A8  @ Obj_08AA6C0E
 	ldr r0, _080C82AC  @ 0x0000207C
 	str r0, [sp]
@@ -1002,7 +1002,7 @@ _080C8384:
 	ldrsh r1, [r4, r0]
 	adds r1, #0x10
 	adds r0, r5, #0
-	bl GameIntoCharCgFlyInMaybe
+	bl OpAnimDrawSplitLine
 	ldrh r0, [r6, #0x2a]
 	cmp r0, #0x10
 	bne _080C83C6
@@ -1463,7 +1463,7 @@ _080C8734: .4byte 0x06002000
 _080C8738: .4byte gUnknown_08AB942C
 _080C873C: .4byte gBG3TilemapBuffer
 _080C8740:
-	ldr r4, _080C8760  @ gUnknown_08AC949C
+	ldr r4, _080C8760  @ Img_OpAnimJoshua
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1472,16 +1472,16 @@ _080C8740:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C8764  @ gUnknown_08ACBF58
+	ldr r0, _080C8764  @ Tsa_OpAnimJoshua2
 	ldr r1, _080C8768  @ gGenericBuffer
 	bl Decompress
 	b _080C8802
 	.align 2, 0
-_080C8760: .4byte gUnknown_08AC949C
-_080C8764: .4byte gUnknown_08ACBF58
+_080C8760: .4byte Img_OpAnimJoshua
+_080C8764: .4byte Tsa_OpAnimJoshua2
 _080C8768: .4byte gGenericBuffer
 _080C876C:
-	ldr r4, _080C878C  @ gUnknown_08ACAF70
+	ldr r4, _080C878C  @ Img_OpAnimJoshua2
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1494,7 +1494,7 @@ _080C876C:
 	bl Decompress
 	b _080C8802
 	.align 2, 0
-_080C878C: .4byte gUnknown_08ACAF70
+_080C878C: .4byte Img_OpAnimJoshua2
 _080C8790: .4byte 0x06002000
 _080C8794: .4byte gUnknown_08ACC340
 _080C8798: .4byte gGenericBuffer+0x800
@@ -1608,7 +1608,7 @@ _080C887A:
 	beq _080C88DC
 	b _080C88FA
 _080C8880:
-	ldr r4, _080C88A0  @ gUnknown_08ACC540
+	ldr r4, _080C88A0  @ Img_OpAnimLArachel
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1617,16 +1617,16 @@ _080C8880:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C88A4  @ gUnknown_08ACEED0
+	ldr r0, _080C88A4  @ Tsa_OpAnimLArachel
 	ldr r1, _080C88A8  @ gGenericBuffer
 	bl Decompress
 	b _080C88FA
 	.align 2, 0
-_080C88A0: .4byte gUnknown_08ACC540
-_080C88A4: .4byte gUnknown_08ACEED0
+_080C88A0: .4byte Img_OpAnimLArachel
+_080C88A4: .4byte Tsa_OpAnimLArachel
 _080C88A8: .4byte gGenericBuffer
 _080C88AC:
-	ldr r4, _080C88CC  @ gUnknown_08ACE0B8
+	ldr r4, _080C88CC  @ Img_OpAnimLArachel2
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1634,14 +1634,14 @@ _080C88AC:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C88D4  @ gUnknown_08ACF200
+	ldr r0, _080C88D4  @ Tsa_OpAnimLArachelLeft
 	ldr r1, _080C88D8  @ gGenericBuffer+0x800
 	bl Decompress
 	b _080C88FA
 	.align 2, 0
-_080C88CC: .4byte gUnknown_08ACE0B8
+_080C88CC: .4byte Img_OpAnimLArachel2
 _080C88D0: .4byte 0x06002000
-_080C88D4: .4byte gUnknown_08ACF200
+_080C88D4: .4byte Tsa_OpAnimLArachelLeft
 _080C88D8: .4byte gGenericBuffer+0x800
 _080C88DC:
 	ldr r0, _080C8914  @ gBG0TilemapBuffer
@@ -1720,7 +1720,7 @@ _080C8972:
 	beq _080C89D4
 	b _080C89F2
 _080C8978:
-	ldr r4, _080C8998  @ gUnknown_08ACF474
+	ldr r4, _080C8998  @ Img_OpAnimCharacterSeth
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1729,16 +1729,16 @@ _080C8978:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C899C  @ gUnknown_08AD206C
+	ldr r0, _080C899C  @ Tsa_OpAnimCharacterSeth
 	ldr r1, _080C89A0  @ gGenericBuffer
 	bl Decompress
 	b _080C89F2
 	.align 2, 0
-_080C8998: .4byte gUnknown_08ACF474
-_080C899C: .4byte gUnknown_08AD206C
+_080C8998: .4byte Img_OpAnimCharacterSeth
+_080C899C: .4byte Tsa_OpAnimCharacterSeth
 _080C89A0: .4byte gGenericBuffer
 _080C89A4:
-	ldr r4, _080C89C4  @ gUnknown_08AD1048
+	ldr r4, _080C89C4  @ Img_OpAnimCharacterSeth2
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1751,7 +1751,7 @@ _080C89A4:
 	bl Decompress
 	b _080C89F2
 	.align 2, 0
-_080C89C4: .4byte gUnknown_08AD1048
+_080C89C4: .4byte Img_OpAnimCharacterSeth2
 _080C89C8: .4byte 0x06002000
 _080C89CC: .4byte gUnknown_08AD236C
 _080C89D0: .4byte gGenericBuffer+0x800
@@ -1829,7 +1829,7 @@ _080C8A5E:
 	beq _080C8AC0
 	b _080C8ADE
 _080C8A64:
-	ldr r4, _080C8A84  @ gUnknown_08AD2614
+	ldr r4, _080C8A84  @ Img_OpAnimMyrrh
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1838,16 +1838,16 @@ _080C8A64:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C8A88  @ gUnknown_08AD5094
+	ldr r0, _080C8A88  @ Tsa_OpAnimMyrrh2
 	ldr r1, _080C8A8C  @ gGenericBuffer
 	bl Decompress
 	b _080C8ADE
 	.align 2, 0
-_080C8A84: .4byte gUnknown_08AD2614
-_080C8A88: .4byte gUnknown_08AD5094
+_080C8A84: .4byte Img_OpAnimMyrrh
+_080C8A88: .4byte Tsa_OpAnimMyrrh2
 _080C8A8C: .4byte gGenericBuffer
 _080C8A90:
-	ldr r4, _080C8AB0  @ gUnknown_08AD423C
+	ldr r4, _080C8AB0  @ Img_OpAnimMyrrh2
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1860,7 +1860,7 @@ _080C8A90:
 	bl Decompress
 	b _080C8ADE
 	.align 2, 0
-_080C8AB0: .4byte gUnknown_08AD423C
+_080C8AB0: .4byte Img_OpAnimMyrrh2
 _080C8AB4: .4byte 0x06002000
 _080C8AB8: .4byte gUnknown_08AD543C
 _080C8ABC: .4byte gGenericBuffer+0x800
@@ -1938,7 +1938,7 @@ _080C8B4A:
 	beq _080C8BAC
 	b _080C8BCA
 _080C8B50:
-	ldr r4, _080C8B70  @ gUnknown_08AD563C
+	ldr r4, _080C8B70  @ Img_OpAnimSaleh
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1947,16 +1947,16 @@ _080C8B50:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C8B74  @ gUnknown_08AD8518
+	ldr r0, _080C8B74  @ Tsa_OpAnimSaleh2
 	ldr r1, _080C8B78  @ gGenericBuffer
 	bl Decompress
 	b _080C8BCA
 	.align 2, 0
-_080C8B70: .4byte gUnknown_08AD563C
-_080C8B74: .4byte gUnknown_08AD8518
+_080C8B70: .4byte Img_OpAnimSaleh
+_080C8B74: .4byte Tsa_OpAnimSaleh2
 _080C8B78: .4byte gGenericBuffer
 _080C8B7C:
-	ldr r4, _080C8B9C  @ gUnknown_08AD72FC
+	ldr r4, _080C8B9C  @ Img_OpAnimSaleh2
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -1969,7 +1969,7 @@ _080C8B7C:
 	bl Decompress
 	b _080C8BCA
 	.align 2, 0
-_080C8B9C: .4byte gUnknown_08AD72FC
+_080C8B9C: .4byte Img_OpAnimSaleh2
 _080C8BA0: .4byte 0x06002000
 _080C8BA4: .4byte gUnknown_08AD88D4
 _080C8BA8: .4byte gGenericBuffer+0x800
@@ -2047,7 +2047,7 @@ _080C8C36:
 	beq _080C8C98
 	b _080C8CB6
 _080C8C3C:
-	ldr r4, _080C8C5C  @ gUnknown_08AD8B08
+	ldr r4, _080C8C5C  @ Img_OpAnimTethys
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -2056,16 +2056,16 @@ _080C8C3C:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _080C8C60  @ gUnknown_08ADB804
+	ldr r0, _080C8C60  @ Tsa_OpAnimTethys
 	ldr r1, _080C8C64  @ gGenericBuffer
 	bl Decompress
 	b _080C8CB6
 	.align 2, 0
-_080C8C5C: .4byte gUnknown_08AD8B08
-_080C8C60: .4byte gUnknown_08ADB804
+_080C8C5C: .4byte Img_OpAnimTethys
+_080C8C60: .4byte Tsa_OpAnimTethys
 _080C8C64: .4byte gGenericBuffer
 _080C8C68:
-	ldr r4, _080C8C88  @ gUnknown_08ADA31C
+	ldr r4, _080C8C88  @ Img_OpAnimTethys2
 	movs r0, #0
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -2078,7 +2078,7 @@ _080C8C68:
 	bl Decompress
 	b _080C8CB6
 	.align 2, 0
-_080C8C88: .4byte gUnknown_08ADA31C
+_080C8C88: .4byte Img_OpAnimTethys2
 _080C8C8C: .4byte 0x06002000
 _080C8C90: .4byte gUnknown_08ADBC0C
 _080C8C94: .4byte gGenericBuffer+0x800
@@ -3889,7 +3889,7 @@ sub_80C9C08: @ 0x080C9C08
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80C9B6C
-	ldr r0, _080C9C54  @ gUnknown_08ACC3E0
+	ldr r0, _080C9C54  @ Pal_OpAnimJoshua
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
@@ -3922,7 +3922,7 @@ sub_80C9C08: @ 0x080C9C08
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C9C54: .4byte gUnknown_08ACC3E0
+_080C9C54: .4byte Pal_OpAnimJoshua
 _080C9C58: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9C08
@@ -3932,7 +3932,7 @@ sub_80C9C5C: @ 0x080C9C5C
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80C9B6C
-	ldr r0, _080C9CA4  @ gUnknown_08ACF314
+	ldr r0, _080C9CA4  @ Pal_OpAnimLArachel
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
@@ -3963,7 +3963,7 @@ sub_80C9C5C: @ 0x080C9C5C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C9CA4: .4byte gUnknown_08ACF314
+_080C9CA4: .4byte Pal_OpAnimLArachel
 _080C9CA8: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9C5C
@@ -3973,7 +3973,7 @@ sub_80C9CAC: @ 0x080C9CAC
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80C9B6C
-	ldr r0, _080C9CF4  @ gUnknown_08AD24B4
+	ldr r0, _080C9CF4  @ Pal_OpAnimCharacterSeth
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
@@ -4005,7 +4005,7 @@ sub_80C9CAC: @ 0x080C9CAC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C9CF4: .4byte gUnknown_08AD24B4
+_080C9CF4: .4byte Pal_OpAnimCharacterSeth
 _080C9CF8: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9CAC
@@ -4015,7 +4015,7 @@ sub_80C9CFC: @ 0x080C9CFC
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80C9B6C
-	ldr r0, _080C9D44  @ gUnknown_08AD54DC
+	ldr r0, _080C9D44  @ Pal_OpAnimMyrrh2
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
@@ -4047,7 +4047,7 @@ sub_80C9CFC: @ 0x080C9CFC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C9D44: .4byte gUnknown_08AD54DC
+_080C9D44: .4byte Pal_OpAnimMyrrh2
 _080C9D48: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9CFC
@@ -4057,7 +4057,7 @@ sub_80C9D4C: @ 0x080C9D4C
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80C9B6C
-	ldr r0, _080C9D98  @ gUnknown_08AD89A8
+	ldr r0, _080C9D98  @ Pal_OpAnimSaleh2
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
@@ -4091,7 +4091,7 @@ sub_80C9D4C: @ 0x080C9D4C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C9D98: .4byte gUnknown_08AD89A8
+_080C9D98: .4byte Pal_OpAnimSaleh2
 _080C9D9C: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9D4C
@@ -4101,7 +4101,7 @@ sub_80C9DA0: @ 0x080C9DA0
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80C9B6C
-	ldr r0, _080C9DE8  @ gUnknown_08ADBD18
+	ldr r0, _080C9DE8  @ Pal_OpAnimTethys
 	movs r2, #0xb0
 	lsls r2, r2, #1
 	movs r1, #0
@@ -4132,7 +4132,7 @@ sub_80C9DA0: @ 0x080C9DA0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C9DE8: .4byte gUnknown_08ADBD18
+_080C9DE8: .4byte Pal_OpAnimTethys
 _080C9DEC: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9DA0

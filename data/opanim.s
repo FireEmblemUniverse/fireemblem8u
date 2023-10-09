@@ -34,31 +34,31 @@ ProcScr_OpAnim:  @ 0x08AA71C8
     .word 0x0
     @ PROC_REPEAT
     .short 0x3, 0x0
-    .word sub_80C73B0
+    .word OpAnimPreparefxEphraim
     @ PROC_CALL
     .short 0x2, 0x0
     .word NewProc08AA6D04
     @ PROC_REPEAT
     .short 0x3, 0x0
-    .word sub_80C76C8
+    .word OpAnimEphraimfxFlyIn
     @ PROC_REPEAT
     .short 0x3, 0x0
     .word sub_80C7900
     @ PROC_REPEAT
     .short 0x3, 0x0
-    .word sub_80C79F4
+    .word OpAnim1AdvanceSplitLine
     @ PROC_REPEAT
     .short 0x3, 0x0
-    .word sub_80C7A84
+    .word OpAnimEphraimMergeShadow
     @ PROC_REPEAT
     .short 0x3, 0x0
-    .word sub_80C7AE8
+    .word OpAnimEphraimDisplayName
     @ PROC_REPEAT
     .short 0x3, 0x0
-    .word sub_80C7B80
+    .word OpAnimEphraimExit
     @ PROC_REPEAT
     .short 0x3, 0x0
-    .word sub_80C7CF8
+    .word OpAnimPreparefxEirika
     @ PROC_REPEAT
     .short 0x3, 0x0
     .word sub_80C7F90

@@ -622,7 +622,7 @@ void sub_80C72A4(u8 type)
     ApplyPalettesOpAnim(pal_08B103D8, 0, 8);
 }
 
-void sub_80C73B0(struct ProcOpAnim * proc)
+void OpAnimPreparefxEphraim(struct ProcOpAnim * proc)
 {
     int i;
     u16 * dst;
@@ -642,30 +642,30 @@ void sub_80C73B0(struct ProcOpAnim * proc)
         break;
 
     case 1:
-        Decompress(gUnknown_08ABF168, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_0));
-        Decompress(gUnknown_08AC1878, gGenericBuffer);
+        Decompress(Img_OpAnimEphraimClose1, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_0));
+        Decompress(Tsa_OpAnimEphraimClose, gGenericBuffer);
         break;
 
     case 2:
-        Decompress(gUnknown_08AC0BD8, (void *)BG_VRAM + 0x2000 + GetBackgroundTileDataOffset(BG_0));
-        Decompress(gUnknown_08AC1B98, gGenericBuffer + 0x800);
+        Decompress(Img_OpAnimEphraimClose2, (void *)BG_VRAM + 0x2000 + GetBackgroundTileDataOffset(BG_0));
+        Decompress(Tsa_OpAnimEphraimClose2, gGenericBuffer + 0x800);
         break;
 
     case 3:
-        Decompress(gUnknown_08ABB14C, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_2));
-        Decompress(gUnknown_08ABC074, gGenericBuffer + 0x1000);
-        ApplyPalettesOpAnim(Pal_08AC1C8C, 0, 11);
+        Decompress(Img_OpAnimEphraim, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_2));
+        Decompress(Tsa_OpAnimEphraim, gGenericBuffer + 0x1000);
+        ApplyPalettesOpAnim(Pal_OpAnimEphraimBlur, 0, 11);
         break;
 
     case 4:
-        Decompress(gUnknown_08ABE304, (void *)BG_VRAM + 0x8000);
-        Decompress(gUnknown_08ABEF70, (void *)BG_VRAM + 0xC000);
+        Decompress(Img_OpAnimEphraimBlur3, (void *)BG_VRAM + 0x8000);
+        Decompress(Tsa_OpAnimEphraimBlur3, (void *)BG_VRAM + 0xC000);
         break;
 
     case 5:
     {
-        Decompress(gUnknown_08ABD348, (void *)BG_VRAM + 0xA000);
-        Decompress(gUnknown_08ABE120, (void *)BG_VRAM + 0xC800);
+        Decompress(Img_OpAnimEphraimBlur2, (void *)BG_VRAM + 0xA000);
+        Decompress(Tsa_OpAnimEphraimBlur2, (void *)BG_VRAM + 0xC800);
 
         dst = (void *)BG_VRAM + 0xC800;
         for (i = 0; i < 0x280; ++i)
@@ -678,7 +678,7 @@ void sub_80C73B0(struct ProcOpAnim * proc)
         for (i = 1; i < 0x10; ++i)
             gPaletteBuffer[0xf0 + i] = RGB_BLACK;
 
-        CpuFastCopy((u16 *)(gGenericBuffer + 0x1000), (u16 *)(gGenericBuffer + 0x1000) + 0x400, 0x800);
+        CpuFastCopy((u16 *)(gGenericBuffer + 0x1000), (u16 *)(gGenericBuffer + 0x1000) + 0x800 / 2, 0x800);
         dst = (u16 *)(gGenericBuffer + 0x1000) + 0x400;
         for (i = 0; i < 0x280; ++i)
             dst[i] = (dst[i] & 0xFFF) | 0xF000;
@@ -706,12 +706,12 @@ void sub_80C73B0(struct ProcOpAnim * proc)
     proc->timer++;
 }
 
-void Proc08AA7034_Init(struct Proc08AA7034 * proc)
+void OpAnimMergeBGProcInit(struct Proc08AA7034 * proc)
 {
     proc->timer = 0;
 }
 
-void Proc08AA7034_Main(struct Proc08AA7034 * proc)
+void OpAnimMergeBGProcUpdateBgPalette(struct Proc08AA7034 * proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, 0x20);
     ApplyPaletteOpAnim(Pal_08AB8CAC, 14);
@@ -726,13 +726,13 @@ void Proc08AA7034_Main(struct Proc08AA7034 * proc)
     proc->timer++;
 }
 
-CONST_DATA struct ProcCmd ProcScr_08AA7034[] = {
-    PROC_CALL(Proc08AA7034_Init),
-    PROC_REPEAT(Proc08AA7034_Main),
+CONST_DATA struct ProcCmd ProcScr_OpAnimMergeBG[] = {
+    PROC_CALL(OpAnimMergeBGProcInit),
+    PROC_REPEAT(OpAnimMergeBGProcUpdateBgPalette),
     PROC_END
 };
 
-void GameIntoCharCgFlyInMaybe(int xOam1, int yOam0)
+void OpAnimDrawSplitLine(int xOam1, int yOam0)
 {
     int i;
     for (i = 0; i < 8; i++)
@@ -742,7 +742,7 @@ void GameIntoCharCgFlyInMaybe(int xOam1, int yOam0)
         PutSpriteExt(0, xOam1, i << 5, gObject_8x32, 0);
 }
 
-void sub_80C76C8(struct ProcOpAnim * proc)
+void OpAnimEphraimfxFlyIn(struct ProcOpAnim * proc)
 {
     int val, ret;
 
@@ -757,12 +757,12 @@ void sub_80C76C8(struct ProcOpAnim * proc)
             break;
 
         case 13:
-            Decompress(gUnknown_08ABC22C, (void *)BG_VRAM + 0x8000);
+            Decompress(Img_OpAnimEphraimBlur1, (void *)BG_VRAM + 0x8000);
             TsaModifyFirstPalMaybe(ret, proc->unk30, 0x88, BG_2, (void *)BG_VRAM + 0xC800, NULL, 0);
             break;
 
         case 14:
-            Decompress(gUnknown_08ABD174, (void *)BG_VRAM + 0xC000);
+            Decompress(Tsa_OpAnimEphraimBlur1, (void *)BG_VRAM + 0xC000);
             TsaModifyFirstPalMaybe(ret, 0, 0x88, BG_2, (void *)BG_VRAM + 0xC000, NULL, 0);
             break;
 
@@ -774,7 +774,7 @@ void sub_80C76C8(struct ProcOpAnim * proc)
         case 16:
             TsaModifyFirstPalMaybe(ret, 0, 0x88, BG_2, (void *)(gGenericBuffer + 0x1000), NULL, 0);
             SetBackgroundTileDataOffset(BG_2, 0x4000);
-            Proc_Start(ProcScr_08AA7034, proc);
+            Proc_Start(ProcScr_OpAnimMergeBG, proc);
             break;
         }
         proc->unk30 = ret;
@@ -848,7 +848,7 @@ void sub_80C7900(struct ProcOpAnim * proc)
     Proc_Break(proc);
 }
 
-void sub_80C79F4(struct ProcOpAnim * proc)
+void OpAnim1AdvanceSplitLine(struct ProcOpAnim * proc)
 {
     int x, y;
 
@@ -869,7 +869,7 @@ void sub_80C79F4(struct ProcOpAnim * proc)
     if (y > 0x88)
         y = 0x88;
 
-    GameIntoCharCgFlyInMaybe(x, y);
+    OpAnimDrawSplitLine(x, y);
 
     if (proc->timer == 0x10)
     {
@@ -881,12 +881,12 @@ void sub_80C79F4(struct ProcOpAnim * proc)
     proc->timer++;
 }
 
-void sub_80C7A84(struct ProcOpAnim * proc)
+void OpAnimEphraimMergeShadow(struct ProcOpAnim * proc)
 {
     gOpAnimSt.unk06 =
         Interpolate(4, 0xA0, 0x78, proc->timer, 0x10);
 
-    GameIntoCharCgFlyInMaybe(0xE8, 0x88);
+    OpAnimDrawSplitLine(0xE8, 0x88);
 
     if (proc->timer > 0xE)
         PutSpriteExt(1, 0x98, 0x88, Obj_08AA6BFA, 0x2046);
@@ -900,11 +900,11 @@ void sub_80C7A84(struct ProcOpAnim * proc)
     proc->timer++;
 }
 
-void sub_80C7AE8(struct ProcOpAnim * proc)
+void OpAnimEphraimDisplayName(struct ProcOpAnim * proc)
 {
     int i;
 
-    GameIntoCharCgFlyInMaybe(0xE8, 0x88);
+    OpAnimDrawSplitLine(0xE8, 0x88);
     PutSpriteExt(1, 0x98, 0x88, Obj_08AA6BFA, 0x205A);
 
     if (proc->timer == 0x38)
@@ -926,7 +926,7 @@ void sub_80C7AE8(struct ProcOpAnim * proc)
 
 /* WIP */
 #if 0
-void sub_80C7B80(struct ProcOpAnim * proc)
+void OpAnimEphraimExit(struct ProcOpAnim * proc)
 {
     BG_EnableSyncByMask(BG2_SYNC_BIT | BG0_SYNC_BIT);
 

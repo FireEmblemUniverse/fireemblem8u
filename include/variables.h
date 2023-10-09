@@ -1511,62 +1511,62 @@ extern u8 gUnknown_08AB87E0[];
 extern u16 Pal_08AB8CAC[];
 // extern ??? gUnknown_08AB8CCC
 // extern ??? gUnknown_08AB942C
-extern u8 gUnknown_08ABB14C[];
-extern u8 gUnknown_08ABC074[];
-extern u8 gUnknown_08ABC22C[];
-extern u8 gUnknown_08ABD174[];
-extern u8 gUnknown_08ABD348[];
-extern u8 gUnknown_08ABE120[];
-extern u8 gUnknown_08ABE304[];
-extern u8 gUnknown_08ABEF70[];
-extern u8 gUnknown_08ABF168[];
-extern u8 gUnknown_08AC0BD8[];
-extern u8 gUnknown_08AC1878[];
-extern u8 gUnknown_08AC1B98[];
-extern u16 Pal_08AC1C8C[];
-// extern ??? gUnknown_08AC1DEC
-// extern ??? gUnknown_08AC2B24
-// extern ??? gUnknown_08AC2CB4
-// extern ??? gUnknown_08AC3A2C
-// extern ??? gUnknown_08AC3BC8
-// extern ??? gUnknown_08AC4760
-// extern ??? gUnknown_08AC4928
-// extern ??? gUnknown_08AC5420
-// extern ??? gUnknown_08AC5614
-// extern ??? gUnknown_08AC7374
-// extern ??? gUnknown_08AC8DDC
-// extern ??? gUnknown_08AC91F8
-// extern ??? gUnknown_08AC933C
-// extern ??? gUnknown_08AC949C
-// extern ??? gUnknown_08ACAF70
-// extern ??? gUnknown_08ACBF58
+extern u8 Img_OpAnimEphraim[];
+extern u8 Tsa_OpAnimEphraim[];
+extern u8 Img_OpAnimEphraimBlur1[];
+extern u8 Tsa_OpAnimEphraimBlur1[];
+extern u8 Img_OpAnimEphraimBlur2[];
+extern u8 Tsa_OpAnimEphraimBlur2[];
+extern u8 Img_OpAnimEphraimBlur3[];
+extern u8 Tsa_OpAnimEphraimBlur3[];
+extern u8 Img_OpAnimEphraimClose1[];
+extern u8 Img_OpAnimEphraimClose2[];
+extern u8 Tsa_OpAnimEphraimClose[];
+extern u8 Tsa_OpAnimEphraimClose2[];
+extern u16 Pal_OpAnimEphraimBlur[];
+extern u8 Img_OpAnimEirika[];
+extern u8 Tsa_OpAnimEirika[];
+extern u8 Img_OpAnimEirikaBlur1[];
+extern u8 Tsa_OpAnimEirikaBlur1[];
+extern u8 Img_OpAnimEirikaBlur2[];
+extern u8 Tsa_OpAnimEirikaBlur2[];
+extern u8 Img_OpAnimEirikaBlur3[];
+extern u8 Tsa_OpAnimEirikaBlur3[];
+extern u8 Img_OpAnimEirikaClose1[];
+extern u8 Img_OpAnimEirikaClose2[];
+extern u8 Tsa_OpAnimEirikaClose[];
+extern u8 Tsa_OpAnimEirikaClose2[];
+extern u16 Pal_OpAnimEirikaBlur[];
+extern u8 Img_OpAnimJoshua[];
+extern u8 Img_OpAnimJoshua2[];
+extern u8 Tsa_OpAnimJoshua2[];
 // extern ??? gUnknown_08ACC340
-// extern ??? gUnknown_08ACC3E0
-// extern ??? gUnknown_08ACC540
-// extern ??? gUnknown_08ACE0B8
-// extern ??? gUnknown_08ACEED0
-// extern ??? gUnknown_08ACF200
-// extern ??? gUnknown_08ACF314
-// extern ??? gUnknown_08ACF474
-// extern ??? gUnknown_08AD1048
-// extern ??? gUnknown_08AD206C
-// extern ??? gUnknown_08AD236C
-// extern ??? gUnknown_08AD24B4
-// extern ??? gUnknown_08AD2614
-// extern ??? gUnknown_08AD423C
-// extern ??? gUnknown_08AD5094
-// extern ??? gUnknown_08AD543C
-// extern ??? gUnknown_08AD54DC
-// extern ??? gUnknown_08AD563C
-// extern ??? gUnknown_08AD72FC
-// extern ??? gUnknown_08AD8518
-// extern ??? gUnknown_08AD88D4
-// extern ??? gUnknown_08AD89A8
-// extern ??? gUnknown_08AD8B08
-// extern ??? gUnknown_08ADA31C
-// extern ??? gUnknown_08ADB804
+extern u16 Pal_OpAnimJoshua[];
+extern u8 Img_OpAnimLArachel[];
+extern u8 Img_OpAnimLArachel2[];
+extern u8 Tsa_OpAnimLArachel[];
+extern u8 Tsa_OpAnimLArachelLeft[];
+extern u16 Pal_OpAnimLArachel[];
+extern u8 Img_OpAnimCharacterSeth[];
+extern u8 Img_OpAnimCharacterSeth2[];
+extern u8 Tsa_OpAnimCharacterSeth[];
+extern u8 gUnknown_08AD236C[];
+extern u16 Pal_OpAnimCharacterSeth[];
+extern u8 Img_OpAnimMyrrh[];
+extern u8 Img_OpAnimMyrrh2[];
+extern u8 Tsa_OpAnimMyrrh2[];
+extern u8 gUnknown_08AD543C[];
+extern u16 Pal_OpAnimMyrrh2[];
+extern u8 Img_OpAnimSaleh[];
+extern u8 Img_OpAnimSaleh2[];
+extern u8 Tsa_OpAnimSaleh2[];
+extern u8 gUnknown_08AD88D4[];
+extern u16 Pal_OpAnimSaleh2[];
+// extern ??? Img_OpAnimTethys
+// extern ??? Img_OpAnimTethys2
+// extern ??? Tsa_OpAnimTethys
 // extern ??? gUnknown_08ADBC0C
-// extern ??? gUnknown_08ADBD18
+// extern ??? Pal_OpAnimTethys
 // extern ??? gUnknown_08ADBE78
 // extern ??? gUnknown_08ADBE98
 // extern ??? gUnknown_08ADC3C0

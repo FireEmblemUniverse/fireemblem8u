@@ -96,7 +96,7 @@ extern CONST_DATA struct ProcCmd ProcScr_OpAnimBLDALPHA[];
 extern CONST_DATA struct ProcCmd ProcScr_08AA6D04[];
 extern CONST_DATA u8 * imgs_08AA6D14[100];
 extern CONST_DATA u16 * tsas_08AA6EA4[100];
-extern CONST_DATA struct ProcCmd ProcScr_08AA7034[];
+extern CONST_DATA struct ProcCmd ProcScr_OpAnimMergeBG[];
 // extern ??? gUnknown_08AA705C
 // extern ??? gUnknown_08AA707C
 // extern ??? gUnknown_08AA709C
@@ -342,19 +342,19 @@ void EndProc08AA6D04(void);
 void OpAnim1_UpdateScrollOneLine(s16 index);
 void OpAnim1_UpdateScroll(int new, int old);
 void sub_80C72A4(u8 type);
-void sub_80C73B0(struct ProcOpAnim * proc);
-void Proc08AA7034_Init(struct Proc08AA7034 * proc);
-void Proc08AA7034_Main(struct Proc08AA7034 * proc);
-void GameIntoCharCgFlyInMaybe(int xOam1, int yOam0);
-void sub_80C76C8(struct ProcOpAnim * proc);
+void OpAnimPreparefxEphraim(struct ProcOpAnim * proc);
+void OpAnimMergeBGProcInit(struct Proc08AA7034 * proc);
+void OpAnimMergeBGProcUpdateBgPalette(struct Proc08AA7034 * proc);
+void OpAnimDrawSplitLine(int xOam1, int yOam0);
+void OpAnimEphraimfxFlyIn(struct ProcOpAnim * proc);
 void OpAnimHBlank1(void);
 void OpAnimHBlank2(void);
 void sub_80C7900(struct ProcOpAnim * proc);
-// ??? sub_80C79F4(???);
-// ??? sub_80C7A84(???);
-// ??? sub_80C7AE8(???);
-// ??? sub_80C7B80(???);
-// ??? sub_80C7CF8(???);
+void OpAnim1AdvanceSplitLine(struct ProcOpAnim * proc);
+void OpAnimEphraimMergeShadow(struct ProcOpAnim * proc);
+void OpAnimEphraimDisplayName(struct ProcOpAnim * proc);
+void OpAnimEphraimExit(struct ProcOpAnim * proc);
+// ??? OpAnimPreparefxEirika(???);
 // ??? sub_80C7F90(???);
 // ??? sub_80C8100(???);
 // ??? sub_80C8184(???);
