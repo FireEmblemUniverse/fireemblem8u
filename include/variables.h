@@ -170,9 +170,9 @@ extern int gUnknown_0203E1E0;
 // extern ??? gpProcefxopCur
 // extern ??? gUnknown_0203E1EC
 // extern ??? gUnknown_0203E1F8
-// extern ??? gUnknown_0203E254
-// extern ??? gUnknown_0203E754
-// extern ??? gUnknown_0203E75C
+// extern ??? gManimScanlineBufA
+// extern ??? gManimScanlineBufs
+// extern ??? gManimActiveScanlineBuf
 // extern ??? gUnknown_0203E78C
 // extern ??? gUnknown_0203E794
 // extern ??? gUnknown_0203E7AC

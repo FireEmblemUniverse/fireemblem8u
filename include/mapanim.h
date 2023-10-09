@@ -761,19 +761,19 @@ void sub_8081F64(void);
 // ??? sub_8081FFC(???);
 // ??? sub_8082050(???);
 // ??? sub_8082094(???);
-void sub_80820D8(u16, u16, u16, u16); // StartManimFrameGradientScanlineEffect
+void StartManimFrameGradientScanlineEffect(u16, u16, u16, u16);
 // ??? sub_808218C(???);
-// ??? sub_8082228(???); // PrepareSineWaveScanlineBuf
+// ??? PrepareSineWaveScanlineBuf(???);
 // ??? sub_8082268(???);
 // ??? sub_80822AC(???);
 // ??? sub_80822F0(???);
-void sub_8082338(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int yStart, int yEnd); // PrepareSineWaveScanlineBufExt
-void sub_8082390(void); // SwapScanlineBufs
-void sub_80823A0(u16 *); // InitScanlineBuf
-void sub_80823BC(u16 * buf, int x, int y); // SetScanlineBufWinL
-void sub_80823DC(u16 * buf, int x, int y); // SetScanlineBufWinR
+void PrepareSineWaveScanlineBufExt(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int yStart, int yEnd);
+void SwapScanlineBufs(void);
+void InitScanlineBuf(u16 *);
+void SetScanlineBufWinL(u16 * buf, int x, int y);
+void SetScanlineBufWinR(u16 * buf, int x, int y);
 void sub_80823FC(u16 *, int, int, int);
-void sub_80824C4(u16 *, u16, u16, u16, u16); // PrepareGradientScanlineBuf
+void PrepareGradientScanlineBuf(u16 *, u16, u16, u16, u16);
 // ??? sub_80825B0(???);
 // ??? sub_80825B8(???);
 // ??? sub_80825E8(???);

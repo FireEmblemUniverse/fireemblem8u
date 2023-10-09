@@ -3,22 +3,23 @@
 #include "hardware.h"
 #include "mapanim.h"
 
-extern u16 gUnknown_0203E254[DISPLAY_HEIGHT * 2]; // gManimScanlineBufA
+extern u16 gManimScanlineBufA[DISPLAY_HEIGHT * 2];
+// TODO: gManimScanlineBufB
 
-extern u16 * gUnknown_0203E754[]; // gManimScanlineBufs
+extern u16 * gManimScanlineBufs[];
 
-extern u16 * gUnknown_0203E75C; // gManimActiveScanlineBuf
+extern u16 * gManimActiveScanlineBuf;
 
 //! FE8U = 0x08081E78
 void sub_8081E78(void)
 {
-    sub_80823A0(gUnknown_0203E254);
-    sub_80823A0(gUnknown_0203E254 + 0x140);
+    InitScanlineBuf(gManimScanlineBufA);
+    InitScanlineBuf(gManimScanlineBufA + 0x140);
 
-    gUnknown_0203E754[0] = gUnknown_0203E254;
-    gUnknown_0203E754[1] = gUnknown_0203E254 + 0x140;
+    gManimScanlineBufs[0] = gManimScanlineBufA;
+    gManimScanlineBufs[1] = gManimScanlineBufA + 0x140;
 
-    gUnknown_0203E75C = gUnknown_0203E254;
+    gManimActiveScanlineBuf = gManimScanlineBufA;
 
     return;
 }
@@ -39,9 +40,9 @@ void sub_8081EAC(void)
 //! FE8U = 0x08081F24
 void sub_8081F24(int x, int y, int arg3)
 {
-    sub_80823A0(gUnknown_0203E754[1]);
-    sub_80823FC(gUnknown_0203E754[1], x, y, arg3);
-    sub_8082390();
+    InitScanlineBuf(gManimScanlineBufs[1]);
+    sub_80823FC(gManimScanlineBufs[1], x, y, arg3);
+    SwapScanlineBufs();
     return;
 }
 
@@ -59,7 +60,7 @@ void sub_8081F64(void)
 
     if (vcount >= DISPLAY_HEIGHT)
     {
-        gUnknown_0203E75C = gUnknown_0203E754[0];
+        gManimActiveScanlineBuf = gManimScanlineBufs[0];
         vcount = 0;
     }
     else
@@ -67,7 +68,7 @@ void sub_8081F64(void)
         vcount++;
     }
 
-    REG_WIN0H = gUnknown_0203E75C[vcount];
+    REG_WIN0H = gManimActiveScanlineBuf[vcount];
 
     return;
 }
@@ -79,7 +80,7 @@ void sub_8081FA8(void)
 
     if (vcount >= DISPLAY_HEIGHT)
     {
-        gUnknown_0203E75C = gUnknown_0203E754[0];
+        gManimActiveScanlineBuf = gManimScanlineBufs[0];
         vcount = 0;
     }
     else
@@ -87,8 +88,8 @@ void sub_8081FA8(void)
         vcount++;
     }
 
-    REG_WIN0H = gUnknown_0203E75C[vcount];
-    REG_BG2HOFS = gUnknown_0203E75C[DISPLAY_HEIGHT + vcount];
+    REG_WIN0H = gManimActiveScanlineBuf[vcount];
+    REG_BG2HOFS = gManimActiveScanlineBuf[DISPLAY_HEIGHT + vcount];
 
     return;
 }
@@ -100,7 +101,7 @@ void sub_8081FFC(void)
 
     if (vcount >= DISPLAY_HEIGHT)
     {
-        gUnknown_0203E75C = gUnknown_0203E754[0];
+        gManimActiveScanlineBuf = gManimScanlineBufs[0];
         vcount = 0;
     }
     else
@@ -108,8 +109,8 @@ void sub_8081FFC(void)
         vcount++;
     }
 
-    ((vu16 *)PLTT)[0x10 * (1 + 0) + 1] = gUnknown_0203E75C[vcount];
-    ((vu16 *)PLTT)[0x10 * (1 + 1) + 1] = gUnknown_0203E75C[DISPLAY_HEIGHT + vcount];
+    ((vu16 *)PLTT)[0x10 * (1 + 0) + 1] = gManimActiveScanlineBuf[vcount];
+    ((vu16 *)PLTT)[0x10 * (1 + 1) + 1] = gManimActiveScanlineBuf[DISPLAY_HEIGHT + vcount];
 
     return;
 }
@@ -121,7 +122,7 @@ void sub_8082050(void)
 
     if (vcount >= DISPLAY_HEIGHT)
     {
-        gUnknown_0203E75C = gUnknown_0203E754[0];
+        gManimActiveScanlineBuf = gManimScanlineBufs[0];
         vcount = 0;
     }
     else
@@ -129,7 +130,7 @@ void sub_8082050(void)
         vcount++;
     }
 
-    REG_BLDALPHA = gUnknown_0203E75C[vcount];
+    REG_BLDALPHA = gManimActiveScanlineBuf[vcount];
 
     return;
 }
@@ -141,7 +142,7 @@ void sub_8082094(void)
 
     if (vcount >= DISPLAY_HEIGHT)
     {
-        gUnknown_0203E75C = gUnknown_0203E754[0];
+        gManimActiveScanlineBuf = gManimScanlineBufs[0];
         vcount = 0;
     }
     else
@@ -149,26 +150,26 @@ void sub_8082094(void)
         vcount++;
     }
 
-    *(vu16 *)0x04000054 = gUnknown_0203E75C[vcount];
+    *(vu16 *)0x04000054 = gManimActiveScanlineBuf[vcount];
 
     return;
 }
 
 //! FE8U = 0x080820D8
-void sub_80820D8(u16 yTop, u16 yBottom, u16 colorArg3, u16 colorArg4)
+void StartManimFrameGradientScanlineEffect(u16 yTop, u16 yBottom, u16 colorArg3, u16 colorArg4)
 {
     // clang-format off
     #define RGB_HALVED(color, component_mask) \
         ((((component_mask) & (color)) >> 1) & (component_mask))
     // clang-format on
 
-    sub_80824C4(
-        gUnknown_0203E754[1], yTop, yBottom, colorArg3,
+    PrepareGradientScanlineBuf(
+        gManimScanlineBufs[1], yTop, yBottom, colorArg3,
         RGB_HALVED(colorArg3, 0x1F) | RGB_HALVED(colorArg3, 0x1F << 5) | RGB_HALVED(colorArg3, 0x1F << 10));
-    sub_80824C4(
-        gUnknown_0203E754[1] + DISPLAY_HEIGHT, yTop, yBottom, colorArg4,
+    PrepareGradientScanlineBuf(
+        gManimScanlineBufs[1] + DISPLAY_HEIGHT, yTop, yBottom, colorArg4,
         RGB_HALVED(colorArg4, 0x1F) | RGB_HALVED(colorArg4, 0x1F << 5) | RGB_HALVED(colorArg4, 0x1F << 10));
-    sub_8082390();
+    SwapScanlineBufs();
 
     SetPrimaryHBlankHandler(sub_8081FFC);
 
@@ -184,7 +185,7 @@ void sub_808218C(int x, int y, int a, int b, u8 * unk)
 {
     int var;
 
-    sub_80823A0(gUnknown_0203E754[1]);
+    InitScanlineBuf(gManimScanlineBufs[1]);
 
     for (; *unk != 0xFF && y >= 0; y--)
     {
@@ -193,8 +194,8 @@ void sub_808218C(int x, int y, int a, int b, u8 * unk)
 
         if (var > 0)
         {
-            sub_80823DC(gUnknown_0203E754[1], x + var - 1, y);
-            sub_80823BC(gUnknown_0203E754[1], x - var, y);
+            SetScanlineBufWinR(gManimScanlineBufs[1], x + var - 1, y);
+            SetScanlineBufWinL(gManimScanlineBufs[1], x - var, y);
         }
     }
 
@@ -202,8 +203,8 @@ void sub_808218C(int x, int y, int a, int b, u8 * unk)
     {
         while (y >= 0)
         {
-            sub_80823DC(gUnknown_0203E754[1], x + var - 1, y);
-            sub_80823BC(gUnknown_0203E754[1], x - var, y);
+            SetScanlineBufWinR(gManimScanlineBufs[1], x + var - 1, y);
+            SetScanlineBufWinL(gManimScanlineBufs[1], x - var, y);
             y--;
         }
     }
@@ -212,7 +213,7 @@ void sub_808218C(int x, int y, int a, int b, u8 * unk)
 }
 
 //! FE8U = 0x08082228
-void sub_8082228(u16 * buf, s16 phase, s16 amplitude, s16 frequency)
+void PrepareSineWaveScanlineBuf(u16 * buf, s16 phase, s16 amplitude, s16 frequency)
 {
     int i;
 
@@ -270,7 +271,7 @@ void sub_80822F0(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int arg5)
 }
 
 //! FE8U = 0x08082338
-void sub_8082338(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int yStart, int yEnd)
+void PrepareSineWaveScanlineBufExt(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int yStart, int yEnd)
 {
     int i;
 
@@ -283,17 +284,17 @@ void sub_8082338(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int yStart,
 }
 
 //! FE8U = 0x08082390
-void sub_8082390(void)
+void SwapScanlineBufs(void)
 {
-    u16 * tmp = gUnknown_0203E754[0];
-    gUnknown_0203E754[0] = gUnknown_0203E754[1];
-    gUnknown_0203E754[1] = tmp;
+    u16 * tmp = gManimScanlineBufs[0];
+    gManimScanlineBufs[0] = gManimScanlineBufs[1];
+    gManimScanlineBufs[1] = tmp;
 
     return;
 }
 
 //! FE8U = 0x080823A0
-void sub_80823A0(u16 * buf)
+void InitScanlineBuf(u16 * buf)
 {
     int i;
 
