@@ -839,7 +839,19 @@ void StartWorldMapPlayerInterface(struct Proc * parent)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E4D4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E4D4[] =
+{
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_WHILE(DoesBMXFADEExist),
+    PROC_CALL(StartWorldMapPlayerInterface),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BF13C
 ProcPtr sub_80BF13C(ProcPtr parent)

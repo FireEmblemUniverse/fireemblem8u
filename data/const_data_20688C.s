@@ -1,16 +1,6 @@
 
     .section .rodata
 
-	.global gAsciiStr_GmapMoveCursor
-gAsciiStr_GmapMoveCursor:  @ 0x0820688C
-	.asciz "Gmap Move Cursor"
-	.align 2, 0
-
-	.global gAsciiStr_GmapScrollManage
-gAsciiStr_GmapScrollManage:  @ 0x082068A0
-	.asciz "Gmap Scroll Manage"
-	.align 2, 0
-
 	.global gAsciiStr_GmapPalFade
 gAsciiStr_GmapPalFade:  @ 0x082068B4
 	.asciz "Gmap Pal Fade"

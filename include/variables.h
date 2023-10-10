@@ -1352,8 +1352,8 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3E412
 // extern ??? gUnknown_08A3E448
 // extern ??? gUnknown_08A3E4D4
-// extern ??? gUnknown_08A3E4F4
-// extern ??? gUnknown_08A3E52C
+// extern ??? gProcScr_GmMoveCursor
+// extern ??? gProcScr_GmScrollManage
 // extern ??? gUnknown_08A3E55C
 // extern ??? gUnknown_08A3E594
 // extern ??? gUnknown_08A3E5E4

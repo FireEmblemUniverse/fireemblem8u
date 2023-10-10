@@ -19,7 +19,7 @@
 #include "event.h"
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
-s8 sub_80BF3F4(void);
+s8 FindGmScrollManage(void);
 
 //! FE8U = 0x0800B910
 void sub_800B910(u8 bg1, u8 bg2, u8 c)
@@ -497,7 +497,7 @@ u8 Event86_WmScrollCamera(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80BF404(xStart, yStart, xEnd, yEnd, speed, delay);
+    StartGmScroll(xStart, yStart, xEnd, yEnd, speed, delay);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -526,7 +526,7 @@ u8 Event87_WmScrollCameraOntoNode(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80BF404(xStart, yStart, xEnd, yEnd, speed, delay);
+    StartGmScroll(xStart, yStart, xEnd, yEnd, speed, delay);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -556,7 +556,7 @@ u8 Event88_WmScrollCameraOntoUnit(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80BF404(xStart, yStart, xEnd, yEnd, speed, delay);
+    StartGmScroll(xStart, yStart, xEnd, yEnd, speed, delay);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -566,15 +566,15 @@ u8 Event89_WmScrollWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        if (sub_80BF3F4())
+        if (FindGmScrollManage())
         {
-            sub_80BF4A8();
+            EndGmScroll();
         }
 
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (!sub_80BF3F4())
+    if (!FindGmScrollManage())
     {
         return EVC_ADVANCE_YIELD;
     }

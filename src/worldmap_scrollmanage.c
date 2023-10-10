@@ -4,7 +4,7 @@
 
 #include "worldmap.h"
 
-struct ProcA3E4F4
+struct GMapMoveCursorProc
 {
     /* 00 */ PROC_HEADER;
     /* 2A */ s16 unk_2a;
@@ -49,7 +49,7 @@ struct GmScrollInfo
 };
 
 //! FE8U = 0x080BF180
-void sub_80BF180(struct ProcA3E4F4 * proc)
+void GmMoveCursor_OnEnd(struct GMapMoveCursorProc * proc)
 {
     gGMData.unk08 = proc->unk_38;
     gGMData.unk0C = proc->unk_3c;
@@ -57,14 +57,14 @@ void sub_80BF180(struct ProcA3E4F4 * proc)
 }
 
 //! FE8U = 0x080BF190
-void sub_80BF190(struct ProcA3E4F4 * proc)
+void GmMoveCursor_OnInit(struct GMapMoveCursorProc * proc)
 {
     proc->unk_2c = 0;
     return;
 }
 
 //! FE8U = 0x080BF198
-void sub_80BF198(struct ProcA3E4F4 * proc)
+void GmMoveCursor_OnLoop(struct GMapMoveCursorProc * proc)
 {
     proc->unk_2c++;
 
@@ -87,20 +87,36 @@ void sub_80BF198(struct ProcA3E4F4 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E4F4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_GmMoveCursor[] =
+{
+    PROC_NAME("Gmap Move Cursor"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmMoveCursor_OnEnd),
+
+    PROC_CALL(GmMoveCursor_OnInit),
+    PROC_YIELD,
+    PROC_REPEAT(GmMoveCursor_OnLoop),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BF210
-ProcPtr sub_80BF210(struct Vec2 * posA, struct Vec2 * posB, int c, int d, ProcPtr parent)
+ProcPtr StartGmMoveCursor(struct Vec2 * posA, struct Vec2 * posB, int c, int d, ProcPtr parent)
 {
-    struct ProcA3E4F4 * proc;
+    struct GMapMoveCursorProc * proc;
 
     if (parent)
     {
-        proc = Proc_Start(gUnknown_08A3E4F4, parent);
+        proc = Proc_Start(gProcScr_GmMoveCursor, parent);
     }
     else
     {
-        proc = Proc_Start(gUnknown_08A3E4F4, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_GmMoveCursor, PROC_TREE_3);
     }
 
     if (posA == NULL)
@@ -135,13 +151,13 @@ ProcPtr sub_80BF210(struct Vec2 * posA, struct Vec2 * posB, int c, int d, ProcPt
 }
 
 //! FE8U = 0x080BF294
-s8 sub_80BF294(void)
+s8 GmMoveCursorExists(void)
 {
-    return (Proc_Find(gUnknown_08A3E4F4)) ? 1 : 0;
+    return (Proc_Find(gProcScr_GmMoveCursor)) ? 1 : 0;
 }
 
 //! FE8U = 0x080BF2AC
-void sub_80BF2AC(struct GMapScrollManageProc * proc)
+void GmScrollManage_OnEnd(struct GMapScrollManageProc * proc)
 {
     gGMData.xCamera = proc->unk_3a;
     gGMData.yCamera = proc->unk_3c;
@@ -155,14 +171,14 @@ void sub_80BF2AC(struct GMapScrollManageProc * proc)
 }
 
 //! FE8U = 0x080BF2D0
-void sub_80BF2D0(struct GMapScrollManageProc * proc)
+void GmScrollManage_OnInit(struct GMapScrollManageProc * proc)
 {
     proc->unk_44 = 0;
     return;
 }
 
 //! FE8U = 0x080BF2D8
-void sub_80BF2D8(struct GMapScrollManageProc * proc)
+void GmScrollManage_OnLoop(struct GMapScrollManageProc * proc)
 {
     if (proc->unk_48 > 0)
     {
@@ -196,15 +212,29 @@ void sub_80BF2D8(struct GMapScrollManageProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E52C[];
+// clang-format off
 
-// StartGmScrollManage
+struct ProcCmd CONST_DATA gProcScr_GmScrollManage[] =
+{
+    PROC_NAME("Gmap Scroll Manage"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmScrollManage_OnEnd),
+
+    PROC_CALL(GmScrollManage_OnInit),
+    PROC_REPEAT(GmScrollManage_OnLoop),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x080BF370
-ProcPtr sub_80BF370(struct GmScrollInfo * input, ProcPtr parent)
+ProcPtr StartGmScrollManage(struct GmScrollInfo * input, ProcPtr parent)
 {
     u16 r1;
 
-    struct GMapScrollManageProc * proc = Proc_Start(gUnknown_08A3E52C, parent);
+    struct GMapScrollManageProc * proc = Proc_Start(gProcScr_GmScrollManage, parent);
 
     if ((input->unk_0a < 0) || (input->unk_0c < 0))
     {
@@ -247,13 +277,13 @@ ProcPtr sub_80BF370(struct GmScrollInfo * input, ProcPtr parent)
 // TODO: definition doesn't match usage
 
 //! FE8U = 0x080BF3F4
-ProcPtr sub_80BF3F4(void)
+ProcPtr FindGmScrollManage(void)
 {
-    return (Proc_Find(gUnknown_08A3E52C));
+    return (Proc_Find(gProcScr_GmScrollManage));
 }
 
 //! FE8U = 0x080BF404
-void sub_80BF404(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 delay)
+void StartGmScroll(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 delay)
 {
     struct GmScrollInfo info;
 
@@ -269,7 +299,7 @@ void sub_80BF404(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 dela
     info.unk_14 = speed;
     info.unk_18 = delay;
 
-    sub_80BF370(&info, worldMapProc);
+    StartGmScrollManage(&info, worldMapProc);
 
     ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_50->unk_32--;
 
@@ -284,10 +314,10 @@ int sub_80BF490(void)
 }
 
 //! FE8U = 0x080BF4A8
-void sub_80BF4A8(void)
+void EndGmScroll(void)
 {
     struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    Proc_EndEach(gUnknown_08A3E52C);
+    Proc_EndEach(gProcScr_GmScrollManage);
 
     worldMapProc->unk_30 |= 1;
 

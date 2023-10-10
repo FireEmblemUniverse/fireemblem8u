@@ -80,7 +80,7 @@ void sub_80B8A7C(struct WorldMapMainProc * proc)
         {
             unk = 75;
         }
-        sub_80BF404(-1, -1, x2, y2, unk, 0);
+        StartGmScroll(-1, -1, x2, y2, unk, 0);
     }
 
     return;

@@ -14,7 +14,7 @@
 #include "worldmap.h"
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
-s8 sub_80BF3F4(void);
+s8 FindGmScrollManage(void);
 
 extern u16 * gUnknown_088B39EC[];
 extern u16 * gUnknown_088B3AD8[];
@@ -334,7 +334,7 @@ void sub_80B961C(ProcPtr proc, int nodeId)
         unk = 10;
     }
 
-    sub_80BF404(-1, -1, xOut, yOut, unk, 0);
+    StartGmScroll(-1, -1, xOut, yOut, unk, 0);
 
     gGMData.unk01 = 0;
 
@@ -346,7 +346,7 @@ void sub_80B961C(ProcPtr proc, int nodeId)
 //! FE8U = 0x080B96DC
 void sub_80B96DC(ProcPtr proc)
 {
-    if (!sub_80BF3F4())
+    if (!FindGmScrollManage())
     {
         Proc_Break(proc);
     }
