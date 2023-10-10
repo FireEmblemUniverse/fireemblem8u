@@ -22,11 +22,11 @@ CONST_DATA u16 unk_AA6BB8[] = {
     0x0000, 0x4020, 0x0008
 };
 
-CONST_DATA u16 Obj_08AA6BFA[] = {
+CONST_DATA u16 Obj_OpAnimEphEirikaName[] = {
     3,
-    0x4000, 0x8000, 0x0000,
-    0x4000, 0x8020, 0x0008,
-    0x0000, 0x4040, 0x0010
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(0x00), OAM2_CHR(0x000 / 0x20),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(0x20), OAM2_CHR(0x100 / 0x20),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(0x40), OAM2_CHR(0x200 / 0x20)
 };
 
 CONST_DATA u16 Obj_08AA6C0E[] = {
@@ -347,7 +347,7 @@ void ClearFirstPalDirectly(u16 * dst)
     int i = 0x13;
     do {
         *dst = oam2;
-        dst += 0x20;
+        dst += OAM2_CHR(0x400 / 0x20);
     } while (--i >= 0);
 }
 
@@ -380,7 +380,5 @@ void TsaModifyFirstPalMaybe(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u
         else
             SetFirstPalDirectly(src + (i & 0x1f), dst + (i & 0x1f), 0xf);
     }
-
     BG_SetPosition(bg, end + 0x10, 0);
-    return;
 }

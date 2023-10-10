@@ -289,6 +289,7 @@ SECTIONS
         asm/opanimfx.o(.text);
         src/opanim-main.o(.text);
         asm/opanim_80C6474.o(.text);
+        src/opanim-healthsafetyscreen.o(.text);
         src/classchg-main.o(.text);
         src/classchg-handler.o(.text);
         src/classchg-sel.o(.text);
@@ -747,6 +748,7 @@ SECTIONS
         . = ALIGN(4); src/opanim-main.o(.data);
         . = ALIGN(4); data/data_AA6BFA.o(.data);
         . = ALIGN(4); data/opanim.o(.data);
+        . = ALIGN(4); src/opanim-healthsafetyscreen.o(.data);
         . = ALIGN(4); data/data_AA7760.o(.data);
         . = ALIGN(4); data/data_opanim_gfx.o(.data);
         . = ALIGN(4); src/classchg-main.o(.data);

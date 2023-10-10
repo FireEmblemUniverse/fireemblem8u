@@ -191,14 +191,14 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gLCGRNValue
 
 // time.c/hardware.c
-// extern ??? gUnknown_0300000C
+// extern ??? gKeyComboResetEN
 extern u8 sModifiedBGs;  // BGs that need copying
 extern s8 sModifiedPalette;
 extern u16 gUnknown_03000010;
 // extern ??? gUnknown_03000014
 extern u8 gUnknown_03000018;
 extern u8 gUnknown_03000019;
-extern u8 gUnknown_0300001A;
+extern bool gSoftwareResetFlag;
 extern struct OamDataTransfer gUnknown_03000020;
 extern struct OamDataTransfer gUnknown_03000030;
 
@@ -1685,16 +1685,16 @@ extern u16 Pal_OpAnimDivlEye[];
 // extern ??? Tsa_OpAnimShinningRing
 // extern ??? Tsa_OpAnimShinningRingBlinking
 
-// extern ??? gUnknown_08B104D8
-// extern ??? gUnknown_08B10630
-// extern ??? gUnknown_08B10ABC
-// extern ??? gUnknown_08B10ADC
-// extern ??? gUnknown_08B10CA4
-// extern ??? gUnknown_08B11864
-// extern ??? gUnknown_08B118C4
-// extern ??? gUnknown_08B11C0C
-// extern ??? gUnknown_08B11D0C
-// extern ??? gUnknown_08B125F4
+extern u8 Tsa_08B104D8[];
+extern u8 Img_08B10630[];
+extern u16 gUnknown_08B10ABC[];
+extern u8 Tsa_08B10ADC[];
+extern u8 Img_08B10CA4[];
+extern u16 gUnknown_08B11864[];
+extern u8 Tsa_OpAnimHleathSafetyScreenBG1[];
+extern u8 Tsa_OpAnimHleathSafetyScreenBG0[];
+extern u8 Img_OpAnimHleathSafetyScreen[];
+extern u16 gUnknown_08B125F4[];
 /* #include classchg.h */
 // extern ??? gpBuf
 // extern ??? gUnknown_08B12AA8

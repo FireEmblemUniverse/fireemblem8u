@@ -789,19 +789,19 @@ u16* BG_GetMapBuffer(int bg)
     return sBgTilemapBuffers[bg];
 }
 
-void sub_8001C5C(u8 a)
+void SetSoftwareResetFlag(u8 a)
 {
-    gUnknown_0300001A = a;
+    gSoftwareResetFlag = a;
 }
 
-bool ShouldSkipHSScreen(void)
+int IsSoftwareReset(void)
 {
-    return gUnknown_0300001A;
+    return gSoftwareResetFlag;
 }
 
 void SoftResetIfKeyComboPressed(void)
 {
-    if ((u8)sub_8000D18() != 0)
+    if ((u8)CheckCanKeyComboReset() != 0)
     {
         if (gKeyStatusPtr->heldKeys == (L_BUTTON | R_BUTTON | A_BUTTON | B_BUTTON))
             SoftReset(0);

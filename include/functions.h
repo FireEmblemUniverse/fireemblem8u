@@ -29,9 +29,9 @@ void IrqMain(void);
 // ??? DummyIRQRoutine(???);
 void SetIRQHandler(int index, void *irq);
 
-// ??? sub_8000D00(???);
-void sub_8000D0C();
-int sub_8000D18(void);
+void EnableKeyComboResetEN();
+void DisableKeyComboResetEN();
+int CheckCanKeyComboReset(void);
 u32 GetGameClock(void);
 void SetGameTime(int newTime);
 void IncrementGameClock(void);
