@@ -116,6 +116,27 @@ struct GMapUnitContainerProc
     /* 34 */ struct GMapUnitProc * pMapUnitProcs[7];
 };
 
+struct GmapCursorProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ u32 chr;
+    /* 30 */ u8 pal;
+    /* 31 */ u8 unk_31; // set to 0 on init and unreferenced
+    /* 32 */ s8 unk_32;
+    /* 33 */ s8 frameIdx;
+    /* 34 */ u8 unk_34;
+    /* 35 */ u8 unk_35;
+    /* 36 */ STRUCT_PAD(0x36, 0x37);
+    /* 38 */ int unk_38;
+    /* 3C */ int unk_3c;
+    /* 40 */ int unk_40;
+    /* 44 */ int unk_44;
+    /* 48 */ u16 unk_48;
+
+    /* 4C */ struct GmScreenProc * pScreenProc;
+};
+
 struct GMapMuPrimProc_Unk_34
 {
     s8 a;
@@ -206,7 +227,8 @@ struct WorldMapMainProc
 
     /* 2A */ u8 unk_2a;
     /* 2C */ int unk_2c;
-    /* 30 */ STRUCT_PAD(0x30, 0x3a);
+    /* 30 */ int unk_30;
+    /* 34 */ STRUCT_PAD(0x34, 0x3a);
 
     /* 3A */ u16 unk_3a;
     /* 3C */ u16 unk_3c; // pad?
@@ -217,7 +239,7 @@ struct WorldMapMainProc
     /* 44 */ struct GmScreenProc * unk_44; // GmapScreen
     /* 48 */ struct GmNodeIconDisplayProc * unk_48; // GmNodeIconDisplay
     /* 4C */ struct GMapUnitContainerProc * unk_4c; // Gmap Unit Container
-    /* 50 */ ProcPtr unk_50; // Gmap Cursor
+    /* 50 */ struct GmapCursorProc * unk_50; // Gmap Cursor
     /* 54 */ ProcPtr unk_54; // Gmap MU
 };
 
@@ -593,21 +615,21 @@ void sub_80BE5B4(int, int);
 // ??? sub_80BEF6C(???);
 // ??? GMapPI_Init(???);
 // ??? StartWorldMapPlayerInterface(???);
-void sub_80BF13C(void);
+ProcPtr sub_80BF13C(ProcPtr);
 void sub_80BF15C(void);
-// ??? sub_80BF180(???);
-// ??? sub_80BF190(???);
-// ??? sub_80BF198(???);
-// ??? sub_80BF210(???);
-// ??? sub_80BF294(???);
-// ??? sub_80BF2AC(???);
-// ??? sub_80BF2D0(???);
-// ??? sub_80BF2D8(???);
-// ??? sub_80BF370(???);
-s8 sub_80BF3F4(void);
-void sub_80BF404(int, int, int, int, s16, int);
+// ??? GmMoveCursor_OnEnd(???);
+// ??? GmMoveCursor_OnInit(???);
+// ??? GmMoveCursor_OnLoop(???);
+// ??? StartGmMoveCursor(???);
+// ??? GmMoveCursorExists(???);
+// ??? GmScrollManage_OnEnd(???);
+// ??? GmScrollManage_OnInit(???);
+// ??? GmScrollManage_OnLoop(???);
+// ??? StartGmScrollManage(???);
+// s8 FindGmScrollManage(void);
+void StartGmScroll(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 delay);
 // ??? sub_80BF490(???);
-void sub_80BF4A8(void);
+void EndGmScroll(void);
 void WM_PutClassSprite(int, int, int, int);
 void WM_PutCharSprite(int, int, int, int);
 void WM_RemoveUnit(int);
@@ -674,7 +696,7 @@ int sub_80C0834(int, int, s16, s16, int);
 void GetWMCenteredCameraPosition(int, int, s16*, s16*);
 int sub_80C089C(int, int, int, int);
 int sub_80C0960(int chIndex);
-// ??? sub_80C09B8(???);
+void sub_80C09B8(void);
 // ??? sub_80C09EC(???);
 // ??? sub_80C0A10(???);
 // ??? sub_80C0A44(???);

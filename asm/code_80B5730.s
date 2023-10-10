@@ -42,7 +42,7 @@ _080B9414:
 	strb r0, [r5]
 	b _080B954A
 _080B9426:
-	bl sub_80BF294
+	bl GmMoveCursorExists
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080B9432
@@ -200,7 +200,7 @@ _080B952A:
 	add r1, sp, #4
 	mov r2, r8
 	movs r3, #0
-	bl sub_80BF210
+	bl StartGmMoveCursor
 _080B954A:
 	add sp, #8
 	pop {r3}

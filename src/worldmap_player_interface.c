@@ -5,6 +5,7 @@
 #include "bmunit.h"
 #include "face.h"
 #include "bmlib.h"
+#include "uiutils.h"
 
 #include "worldmap.h"
 
@@ -834,6 +835,40 @@ void StartWorldMapPlayerInterface(struct Proc * parent)
 
     ResetTextFont();
     Proc_Start(gProcScr_GMapPlayerInterface, parent->proc_parent);
+
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E4D4[] =
+{
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_WHILE(DoesBMXFADEExist),
+    PROC_CALL(StartWorldMapPlayerInterface),
+
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x080BF13C
+ProcPtr sub_80BF13C(ProcPtr parent)
+{
+    ResetText();
+    sub_80C09B8();
+    return Proc_Start(gUnknown_08A3E4D4, parent);
+}
+
+//! FE8U = 0x080BF15C
+void sub_80BF15C(void)
+{
+    Proc_EndEach(gProcScr_GMapPlayerInterface);
+    Proc_EndEach(gUnknown_08A3E4D4);
+
+    SetDefaultColorEffects();
+    ClearBg0Bg1();
 
     return;
 }
