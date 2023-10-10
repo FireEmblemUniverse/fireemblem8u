@@ -198,7 +198,7 @@ extern u16 gUnknown_03000010;
 // extern ??? gUnknown_03000014
 extern u8 gUnknown_03000018;
 extern u8 gUnknown_03000019;
-extern bool gUnknown_0300001A;
+extern bool gSoftwareResetFlag;
 extern struct OamDataTransfer gUnknown_03000020;
 extern struct OamDataTransfer gUnknown_03000030;
 

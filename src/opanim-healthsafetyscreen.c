@@ -9,7 +9,8 @@
 
 void TryTickHSScreenExit(struct ProcOpAnimHS * proc)
 {
-    if (proc->status == 2 || ShouldSkipHSScreen())
+    /* If not software-reset, HS screen cannot skip */
+    if (proc->status == 2 || IsSoftwareReset())
     {
         if (gKeyStatusPtr->newKeys & 0xA)
             Proc_Goto(proc, 0);
@@ -303,7 +304,7 @@ void SetOpAnimHsStatus2(struct ProcOpAnimHS * proc)
 
 void PrepareHealthAndSafetyScreen(struct ProcOpAnimHS * proc)
 {
-    if (ShouldSkipHSScreen() == true)
+    if (IsSoftwareReset() == true)
     {
         Proc_Goto(proc, 0x3E7);
         return;

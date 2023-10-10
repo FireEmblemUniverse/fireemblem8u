@@ -21,15 +21,16 @@ void StoreIRQToIRAM();
 
 void AgbMain()
 {
-    int waitCnt;
+    int sw_rst;
 
     // clear RAM
     DmaFill32(3, 0, (void *)IWRAM_START, 0x7F80); // reset the area for the IWRAM ARM section.
     CpuFastFill(0, (void *)EWRAM_START, 0x40000);    
 
-    waitCnt = (REG_WAITCNT != 0);
-    sub_8001C5C(waitCnt);
-    if (waitCnt == TRUE)
+    /* maybe WAITCNT will not reset after SW_RST? */
+    sw_rst = (REG_WAITCNT != 0);
+    SetSoftwareResetFlag(sw_rst);
+    if (sw_rst == TRUE)
         RegisterRamReset(~2);
 
     REG_WAITCNT = WAITCNT_SRAM_4 |          /* SRAM Wait Control          = 4 cycles */

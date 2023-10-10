@@ -789,14 +789,14 @@ u16* BG_GetMapBuffer(int bg)
     return sBgTilemapBuffers[bg];
 }
 
-void sub_8001C5C(u8 a)
+void SetSoftwareResetFlag(u8 a)
 {
-    gUnknown_0300001A = a;
+    gSoftwareResetFlag = a;
 }
 
-int ShouldSkipHSScreen(void)
+int IsSoftwareReset(void)
 {
-    return gUnknown_0300001A;
+    return gSoftwareResetFlag;
 }
 
 void SoftResetIfKeyComboPressed(void)
