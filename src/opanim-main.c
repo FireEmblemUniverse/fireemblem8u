@@ -736,10 +736,12 @@ void OpAnimDrawSplitLine(int xOam1, int yOam0)
 {
     int i;
     for (i = 0; i < 8; i++)
-        PutSpriteExt(0, i << 5, yOam0, gObject_32x8, 4);
+        PutSpriteExt(0, i << 5, yOam0, gObject_32x8,
+            OAM2_PAL(0) + OAM2_LAYER(0) + OAM2_CHR(0x80 / 0x20));
 
     for (i = 0; i < 8; i++)
-        PutSpriteExt(0, xOam1, i << 5, gObject_8x32, 0);
+        PutSpriteExt(0, xOam1, i << 5, gObject_8x32,
+            OAM2_PAL(0) + OAM2_LAYER(0) + OAM2_CHR(0x0 / 0x20));
 }
 
 void OpAnimEphraimfxFlyIn(struct ProcOpAnim * proc)
@@ -889,7 +891,7 @@ void OpAnimEphraimMergeShadow(struct ProcOpAnim * proc)
     OpAnimDrawSplitLine(0xE8, 0x88);
 
     if (proc->timer > 0xE)
-        PutSpriteExt(1, 0x98, 0x88, Obj_08AA6BFA, 0x2046);
+        PutSpriteExt(1, 0x98, 0x88, Obj_OpAnimEphEirikaName, OAM2_PAL(2) + OAM2_CHR(0x8C0 / 0x20));
 
     if (proc->timer == 0x10)
     {
@@ -905,7 +907,7 @@ void OpAnimEphraimDisplayName(struct ProcOpAnim * proc)
     int i;
 
     OpAnimDrawSplitLine(0xE8, 0x88);
-    PutSpriteExt(1, 0x98, 0x88, Obj_08AA6BFA, 0x205A);
+    PutSpriteExt(1, 0x98, 0x88, Obj_OpAnimEphEirikaName, OAM2_PAL(2) + OAM2_CHR(0xB40 / 0x20));
 
     if (proc->timer == 0x38)
     {
@@ -924,19 +926,64 @@ void OpAnimEphraimDisplayName(struct ProcOpAnim * proc)
     proc->timer++;
 }
 
-/* WIP */
-#if 0
 void OpAnimEphraimExit(struct ProcOpAnim * proc)
 {
+    int time, time1, time2, ret;
+
     BG_EnableSyncByMask(BG2_SYNC_BIT | BG0_SYNC_BIT);
 
-    if (proc->timer < 1)
-        PutSpriteExt(1, 0x98, 0x88, Obj_08AA6BFA, 0x2046);
+    if (proc->timer < 2)
+        PutSpriteExt(1, 0x98, 0x88, Obj_OpAnimEphEirikaName, 0x2046);
 
-    if (proc->timer < 0x10)
+    if (proc->timer < 0x11)
     {
         gOpAnimSt.unk06 =
             Interpolate(1, 0x78, 0xA0, proc->timer, 0x10);
+
+        ret = Interpolate(1, 0xE8, 0x100, proc->timer, 0x10);
+        OpAnimDrawSplitLine(ret, gOpAnimSt.unk06 + 0x10);
+
+        if (proc->timer == 0x10)
+            SetPrimaryHBlankHandler(NULL);
     }
+
+    time  = proc->timer;
+    time1 = time - 4;
+
+    if (time1 >= 0)
+    {
+        if (time1 <= 0x18)
+        {
+            ret = Interpolate(1, proc->unk34, 0x170, time1, 0x18);
+            TsaModifyFirstPalMaybe(ret, proc->unk30, 0x88, BG_2, (void *)gGenericBuffer + 0x1000, NULL, 1);
+            proc->unk30 = ret;
+        }
+
+        time2 = -0xB + time;
+        if (time2 >= 0)
+        {
+            if (time1 == 0x18)
+            {
+                SetBlendTargetA(1, 0, 0, 0, 0);
+                SetBlendTargetB(0, 0, 0, 1, 0);
+            }
+
+            if (time1 > 0x17)
+            {
+                ret = Interpolate(0, 0x10, 0, time - 0x1B, 0x8);
+                SetSpecialColorEffectsParameters(1, ret, 0x10 - ret, 8);
+            }
+            ret = Interpolate(1, proc->unk36, 0x180, time2, 0x18);
+            sub_80C689C(ret, proc->unk32, 0xC8, BG_0, (void *)gGenericBuffer, (void *)(gGenericBuffer + 0x800), 0);
+            proc->unk32 = ret;
+
+            if (time2 == 0x18)
+            {
+                proc->timer = 0;
+                Proc_Break(proc);
+                return;
+            }
+        }
+    }
+    proc->timer++;
 }
-#endif

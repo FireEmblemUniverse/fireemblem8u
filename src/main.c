@@ -57,7 +57,7 @@ void AgbMain()
     MU_Init();
     SetLCGRNValue(0x42D690E9);
     InitRN(AdvanceGetLCGRNValue());
-    sub_8000D0C();
+    DisableKeyComboResetEN();
     EraseInvalidSaveData();
     EraseSramDataIfInvalid();
 

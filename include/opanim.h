@@ -6,6 +6,8 @@
 #define ApplyPalettesOpAnim(aSrc, aPalId, aPalCount) CopyToPalOpAnim((aSrc), 0x20 * (aPalId), 0x20 * (aPalCount))
 #define ApplyPaletteOpAnim(aSrc, aPalId) ApplyPalettesOpAnim((aSrc), (aPalId), 1)
 
+#define gPaletteOpAnimHsBackup ((u16 *)__ewram_start)
+
 struct TitleScreenProc {
     /* 00 */ PROC_HEADER;
 
@@ -27,8 +29,8 @@ extern struct BgAffineDstData gOpAnimBgAffineDstData;
 struct OpAnimSt {
     /* 00 */ s16 x;
     /* 02 */ s16 y;
-    /* 04 */ u16 unk04;
-    /* 06 */ u16 unk06;
+    /* 04 */ s16 unk04;
+    /* 06 */ s16 unk06;
     /* 08 */ s16 unk08;
     /* 0A */ s16 unk0A;
     /* 0C */ u16 pal;
@@ -44,14 +46,23 @@ struct ProcOpAnim {
     /* 2E */ s16 unk2E;
     /* 30 */ s16 unk30;
     /* 32 */ s16 unk32;
-    /* 34 */ s16 unk34;
-    /* 36 */ s16 unk36;
+    /* 34 */ u16 unk34;
+    /* 36 */ u16 unk36;
     /* 38 */ s16 unk38;
     /* 3A */ s16 unk3A;
     /* 3C */ s16 unk3C;
     /* 3E */ s16 unk3E;
     /* 40 */ STRUCT_PAD(0x40, 0x46);
     /* 46 */ u8 unk46;
+};
+
+struct ProcOpAnimHS {
+    PROC_HEADER;
+
+    /* 2C */ int status;
+    /* 30 */ int palette_timer;
+    /* 34 */ int delay_timer;
+    /* 38 */ int unk38;
 };
 
 struct ProcOpAnimFadeIn {
@@ -76,7 +87,7 @@ struct Proc08AA7034 {
     /* 4C */ s16 timer;
 };
 
-extern CONST_DATA u16 Obj_08AA6BFA[];
+extern CONST_DATA u16 Obj_OpAnimEphEirikaName[];
 extern CONST_DATA u16 Obj_08AA6C0E[];
 extern CONST_DATA u16 Obj_08AA6C22[];
 extern CONST_DATA u16 Obj_08AA6C36[];
@@ -424,19 +435,19 @@ void OpAnimEphraimExit(struct ProcOpAnim * proc);
 // ??? sub_80CBA64(???);
 // ??? sub_80CBC40(???);
 // ??? sub_80CBD7C(???);
-// ??? sub_80CBDD8(???);
+// ??? TryTickHSScreenExit(???);
 // ??? sub_80CBE0C(???);
-// ??? sub_80CBEF8(???);
+// ??? OpAnimHS_BrightenPalette(???);
 // ??? sub_80CBF9C(???);
 // ??? sub_80CBFC0(???);
-// ??? sub_80CC074(???);
+// ??? GameEarlyStartDelay(???);
 // ??? sub_80CC098(???);
 // ??? sub_80CC0FC(???);
 // ??? sub_80CC13C(???);
 // ??? sub_80CC1A0(???);
-// ??? sub_80CC1E0(???);
-// ??? sub_80CC1E8(???);
-// ??? sub_80CC1F0(???);
+// ??? SetOpAnimHsStatus0(???);
+// ??? SetOpAnimHsStatus1(???);
+// ??? SetOpAnimHsStatus2(???);
 // ??? PrepareHealthAndSafetyScreen(???);
 // ??? sub_80CC2F4(???);
 // ??? sub_80CC32C(???);

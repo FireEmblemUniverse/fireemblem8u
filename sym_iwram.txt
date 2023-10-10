@@ -1,7 +1,7 @@
 . = ALIGN(4); src/rng.o(.bss);
 
 /* hardware.c*/
-. = 0x00000C; gUnknown_0300000C = .;
+. = 0x00000C; gKeyComboResetEN = .;
 . = 0x00000D; sModifiedBGs = .;
 . = 0x00000E; sModifiedPalette = .;
 . = 0x000010; gUnknown_03000010 = .;

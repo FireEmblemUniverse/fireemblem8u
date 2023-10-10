@@ -377,7 +377,7 @@ void sub_8001A6C(void);
 void SetupBackgrounds(u16 *bgConfig);
 u16* BG_GetMapBuffer(int bg);
 void sub_8001C5C(u8);
-bool ShouldSkipHSScreen(void);
+int ShouldSkipHSScreen(void);
 void SoftResetIfKeyComboPressed();
 void sub_8001CB0(int a);
 void ExecBothHBlankHandlers(void);

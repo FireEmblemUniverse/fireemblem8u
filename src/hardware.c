@@ -794,14 +794,14 @@ void sub_8001C5C(u8 a)
     gUnknown_0300001A = a;
 }
 
-bool ShouldSkipHSScreen(void)
+int ShouldSkipHSScreen(void)
 {
     return gUnknown_0300001A;
 }
 
 void SoftResetIfKeyComboPressed(void)
 {
-    if ((u8)sub_8000D18() != 0)
+    if ((u8)CheckCanKeyComboReset() != 0)
     {
         if (gKeyStatusPtr->heldKeys == (L_BUTTON | R_BUTTON | A_BUTTON | B_BUTTON))
             SoftReset(0);
