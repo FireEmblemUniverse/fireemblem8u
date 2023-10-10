@@ -296,7 +296,7 @@ void OpAnimfxTerminatorMain(struct Proc * proc)
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON))
     {
         SetNextGameActionId(GAME_ACTION_2);
-        gOpAnimSt.unk0C = 0;
+        gOpAnimSt.pal = 0;
         Proc_Goto(proc->proc_parent, 99);
     }
 }
@@ -320,7 +320,7 @@ void EndOpAnimfxTerminator(ProcPtr parent)
 void CopyToPalOpAnim(const void * src, int offset, int size)
 {
     CopyToPaletteBuffer(src, offset, size);
-    gPaletteBuffer[0] = gOpAnimSt.unk0C;
+    gPaletteBuffer[0] = gOpAnimSt.pal;
 }
 
 void CopyFirstPalDirectly(const u16 * src, u16 * dst)
