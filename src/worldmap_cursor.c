@@ -5,27 +5,6 @@
 
 #include "worldmap.h"
 
-struct GmapCursorProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ u32 chr;
-    /* 30 */ u8 pal;
-    /* 31 */ u8 unk_31; // set to 0 on init and unreferenced
-    /* 32 */ s8 unk_32;
-    /* 33 */ s8 frameIdx;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 unk_35;
-    /* 36 */ STRUCT_PAD(0x36, 0x37);
-    /* 38 */ int unk_38;
-    /* 3C */ int unk_3c;
-    /* 40 */ int unk_40;
-    /* 44 */ int unk_44;
-    /* 48 */ u16 unk_48;
-
-    /* 4C */ struct GmScreenProc * pScreenProc;
-};
-
 struct Unknown08206498
 {
     /* 00 */ u16 unk_00;

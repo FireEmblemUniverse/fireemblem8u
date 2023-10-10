@@ -13,6 +13,9 @@
 
 #include "worldmap.h"
 
+// TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
+s8 sub_80BF3F4(void);
+
 extern u16 * gUnknown_088B39EC[];
 extern u16 * gUnknown_088B3AD8[];
 

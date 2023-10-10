@@ -18,6 +18,9 @@
 
 #include "event.h"
 
+// TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
+s8 sub_80BF3F4(void);
+
 //! FE8U = 0x0800B910
 void sub_800B910(u8 bg1, u8 bg2, u8 c)
 {
