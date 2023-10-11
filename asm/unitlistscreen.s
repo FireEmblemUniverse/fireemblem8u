@@ -2017,7 +2017,7 @@ _0809104E:
 	lsls r1, r1, #1
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _0809117C  @ gUnknown_08A17B08
+	ldr r0, _0809117C  @ ProcScr_bmview
 	mov r1, r8
 	bl Proc_Start
 	mov r1, r8
@@ -2047,7 +2047,7 @@ _0809116C: .4byte gLCDControlBuffer
 _08091170: .4byte gUnknown_08A1C7D8
 _08091174: .4byte gBG1TilemapBuffer+0x500
 _08091178: .4byte gUnknown_08A1A084
-_0809117C: .4byte gUnknown_08A17B08
+_0809117C: .4byte ProcScr_bmview
 
 	THUMB_FUNC_END sub_8090D80
 
@@ -4044,7 +4044,7 @@ _080920C0: .4byte gBG2TilemapBuffer
 	THUMB_FUNC_START sub_80920C4
 sub_80920C4: @ 0x080920C4
 	push {lr}
-	ldr r0, _080920D8  @ gUnknown_08A177A0
+	ldr r0, _080920D8  @ ProcScr_bmenu
 	movs r1, #3
 	bl Proc_Start
 	adds r0, #0x39
@@ -4053,7 +4053,7 @@ sub_80920C4: @ 0x080920C4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080920D8: .4byte gUnknown_08A177A0
+_080920D8: .4byte ProcScr_bmenu
 
 	THUMB_FUNC_END sub_80920C4
 
@@ -4063,14 +4063,14 @@ sub_80920DC: @ 0x080920DC
 	adds r1, r0, #0
 	cmp r1, #0
 	bne _080920F4
-	ldr r0, _080920F0  @ gUnknown_08A178C0
+	ldr r0, _080920F0  @ ProcScr_bmenu2
 	movs r1, #3
 	bl Proc_Start
 	b _080920FA
 	.align 2, 0
-_080920F0: .4byte gUnknown_08A178C0
+_080920F0: .4byte ProcScr_bmenu2
 _080920F4:
-	ldr r0, _08092118  @ gUnknown_08A178C0
+	ldr r0, _08092118  @ ProcScr_bmenu2
 	bl Proc_StartBlocking
 _080920FA:
 	adds r4, r0, #0
@@ -4088,7 +4088,7 @@ _080920FA:
 	movs r0, #5
 	b _08092124
 	.align 2, 0
-_08092118: .4byte gUnknown_08A178C0
+_08092118: .4byte ProcScr_bmenu2
 _0809211C:
 	bl GetChapterAllyUnitCount
 	adds r1, r4, #0
@@ -4138,14 +4138,14 @@ sub_8092164: @ 0x08092164
 	adds r1, r0, #0
 	cmp r1, #0
 	bne _0809217C
-	ldr r0, _08092178  @ gUnknown_08A178C0
+	ldr r0, _08092178  @ ProcScr_bmenu2
 	movs r1, #3
 	bl Proc_Start
 	b _08092182
 	.align 2, 0
-_08092178: .4byte gUnknown_08A178C0
+_08092178: .4byte ProcScr_bmenu2
 _0809217C:
-	ldr r0, _08092190  @ gUnknown_08A178C0
+	ldr r0, _08092190  @ ProcScr_bmenu2
 	bl Proc_StartBlocking
 _08092182:
 	adds r1, r0, #0
@@ -4155,7 +4155,7 @@ _08092182:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08092190: .4byte gUnknown_08A178C0
+_08092190: .4byte ProcScr_bmenu2
 
 	THUMB_FUNC_END sub_8092164
 
@@ -4165,14 +4165,14 @@ sub_8092194: @ 0x08092194
 	adds r1, r0, #0
 	cmp r1, #0
 	bne _080921AC
-	ldr r0, _080921A8  @ gUnknown_08A17A30
+	ldr r0, _080921A8  @ ProcScr_bmenu3
 	movs r1, #3
 	bl Proc_Start
 	b _080921B2
 	.align 2, 0
-_080921A8: .4byte gUnknown_08A17A30
+_080921A8: .4byte ProcScr_bmenu3
 _080921AC:
-	ldr r0, _080921C8  @ gUnknown_08A17A30
+	ldr r0, _080921C8  @ ProcScr_bmenu3
 	bl Proc_StartBlocking
 _080921B2:
 	adds r4, r0, #0
@@ -4185,7 +4185,7 @@ _080921B2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080921C8: .4byte gUnknown_08A17A30
+_080921C8: .4byte ProcScr_bmenu3
 
 	THUMB_FUNC_END sub_8092194
 

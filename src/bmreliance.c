@@ -113,7 +113,7 @@ s8 CanUnitSupportNow(struct Unit* unit, int num)
 {
     int exp, maxExp;
 
-    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_EXTRA_MAP)
         return FALSE;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_TUTORIAL)
@@ -181,7 +181,7 @@ void ProcessTurnSupportExp(void)
     if (gPlaySt.chapterTurnNumber == 1)
         return;
 
-    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_EXTRA_MAP)
         return;
 
     for (i = 1; i < 0x40; ++i)

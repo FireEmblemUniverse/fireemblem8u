@@ -282,7 +282,7 @@ void PidStatsRecordLoseData(u8 pid)
         if (BM_FLAG_5 & gBmSt.gameStateBits)
             return;
     
-        if (PLAY_FLAG_7 & gPlaySt.chapterStateBits)
+        if (PLAY_FLAG_EXTRA_MAP & gPlaySt.chapterStateBits)
             return;
     
         if (bwl->lossAmt >= 200)

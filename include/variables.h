@@ -194,7 +194,7 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gKeyComboResetEN
 extern u8 sModifiedBGs;  // BGs that need copying
 extern s8 sModifiedPalette;
-extern u16 gUnknown_03000010;
+extern u16 gKeyStatusIgnoredSt;
 // extern ??? gUnknown_03000014
 extern u8 gUnknown_03000018;
 extern u8 gUnknown_03000019;
@@ -758,14 +758,14 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gUnknown_085AA2FC
 // extern ??? gUnknown_085AA4CC
 // extern ??? gUnknown_085AA5BC
-// extern ??? gUnknown_085AA6BC
+// extern ??? ProcScr_SIOMAIN
 // extern ??? gUnknown_085AA75C
 // extern ??? gUnknown_085AA7B4
 // extern ??? gUnknown_085AA7EC
 // extern ??? gUnknown_085AA824
 // extern ??? gUnknown_085AA83C
 // extern ??? gUnknown_085AA854
-// extern ??? gUnknown_085AA86C
+// extern ??? ProcScr_SIOWARP
 // extern ??? ProcScr_SIOWARPFX
 // extern ??? gUnknown_085AA914
 // extern ??? gUnknown_085AA954
@@ -990,17 +990,17 @@ extern CONST_DATA struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 // extern ??? gUnknown_089ED67C
 // extern ??? gUnknown_089ED694
 // extern ??? gUnknown_089ED6AC
-extern struct ProcCmd gUnknown_089EDF78[];
-extern struct ProcCmd gUnknown_089EDFD8[];
+extern struct ProcCmd ProcScr_BmGameOver[];
+extern struct ProcCmd ProcScr_ForceAsyncButtonB[];
 extern struct ProcCmd gUnknown_089EE000[];
-extern struct ProcCmd gUnknown_089EE030[];
-extern struct ProcCmd gUnknown_089EE048[];
-extern struct ProcCmd gUnknown_089EE068[];
-extern struct ProcCmd gUnknown_089EE088[];
-extern const u16 gUnknown_089EE99C[];
+extern struct ProcCmd ProcScr_089EE030[];
+extern struct ProcCmd ProcScr_089EE048[];
+extern struct ProcCmd ProcScr_089EE068[];
+extern struct ProcCmd ProcScr_089EE088[];
+extern const u16 Obj_089EE99C[];
 extern u16 CONST_DATA *gUnknown_089EE9B0[];    /* images */
 extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */
-extern struct ProcCmd gUnknown_089EE9E0[];
+extern struct ProcCmd ProcScr_089EE9E0[];
 extern struct ProcCmd gUnknown_089EEA28[];
 extern const struct MenuDef gUnknown_089F36A0;
 // extern ??? gUnknown_089FF480
@@ -1160,11 +1160,11 @@ extern u16 gTSA_TerrainBox_Destructable[];
 extern u16 gUnknown_08A176B4[];
 extern u16 gTSA_GoalBox_TwoLines[];
 extern u16 gTSA_GoalBox_OneLine[];
-// extern ??? gUnknown_08A177A0
-// extern ??? gUnknown_08A178C0
+// extern ??? ProcScr_bmenu
+// extern ??? ProcScr_bmenu2
 // extern ??? gUnknown_08A17990
-// extern ??? gUnknown_08A17A30
-// extern ??? gUnknown_08A17B08
+// extern ??? ProcScr_bmenu3
+// extern ??? ProcScr_bmview
 // extern ??? gUnknown_08A17B30
 // extern ??? gUnknown_08A17B36
 // extern ??? gUnknown_08A17B58
@@ -1180,9 +1180,9 @@ extern u16 gTSA_GoalBox_OneLine[];
 // extern ??? gpSramExtraData
 // extern ??? gBgConfig_SaveMenu
 // extern ??? gProcScr_08A20068
-// extern ??? gProcScr_08A20098
+// extern ??? ProcScr_CallExtraMap
 // extern ??? ProcScr_SaveMenu
-// extern ??? gProcScr_SaveMenu2
+// extern ??? gProcScr_SaveMenuPostChapter
 // extern ??? gUnknown_08A204B8
 // extern ??? gUnknown_08A204BC
 // extern ??? gUnknown_08A2051C
@@ -1293,8 +1293,8 @@ extern u8 gUnknown_08A2E4C4[]; // TSA
 extern u8 gUnknown_08A2E5EC[]; // Gfx
 extern u16 gUnknown_08A2E8F0[]; // Pal
 // extern ??? gUnknown_08A2E950
-// extern ??? gUnknown_08A2EE90
-// extern ??? gUnknown_08A2EEC0
+// extern ??? ProcScr_ColFadeOut
+// extern ??? ProcScr_ColFadeIn
 extern u8 gUnknown_08A301B0[]; // gfx?
 extern u16 gUnknown_08A30780[]; // pal
 extern u8 gUnknown_08A30800[]; // gfx

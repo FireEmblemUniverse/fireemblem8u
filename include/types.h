@@ -233,7 +233,7 @@ enum PlaySt_chapterStateBits {
     PLAY_FLAG_PREPSCREEN      = (1 << 4),
     PLAY_FLAG_COMPLETE        = (1 << 5),
     PLAY_FLAG_HARD            = (1 << 6),
-    PLAY_FLAG_7               = (1 << 7),
+    PLAY_FLAG_EXTRA_MAP               = (1 << 7),
 
     PLAY_FLAG_STATSCREENPAGE_SHIFT = 0,
     PLAY_FLAG_STATSCREENPAGE_MASK = PLAY_FLAG_STATSCREENPAGE0 | PLAY_FLAG_STATSCREENPAGE1,
@@ -356,14 +356,14 @@ enum
 
 enum
 {
-    GAME_ACTION_0 = 0,
-    GAME_ACTION_1 = 1,
-    GAME_ACTION_2 = 2,
-    GAME_ACTION_3 = 3,
+    GAME_ACTION_EVENT_RETURN = 0, /* Return form event command */
+    GAME_ACTION_CLASS_REEL = 1,
+    GAME_ACTION_USR_SKIPPED = 2,  /* User press button A/B/START to skip op-anim */
+    GAME_ACTION_PLAYED_THROUGH = 3, /* Return if game played through */
     GAME_ACTION_4 = 4,
     GAME_ACTION_5 = 5,
     GAME_ACTION_6 = 6,
-    GAME_ACTION_7 = 7,
+    GAME_ACTION_EXTRA_MAP = 7,
     GAME_ACTION_8 = 8,
     GAME_ACTION_9 = 9,
     GAME_ACTION_A = 0xA,

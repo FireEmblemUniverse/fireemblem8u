@@ -5141,7 +5141,7 @@ sub_80AEB28: @ 0x080AEB28
 	movs r0, #0
 	str r0, [sp]
 	movs r2, #0
-	bl sub_80029E8
+	bl CallSomeSoundMaybe
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -5158,7 +5158,7 @@ sub_80AEB44: @ 0x080AEB44
 	str r1, [sp]
 	adds r1, r2, #0
 	movs r3, #0x20
-	bl sub_80029E8
+	bl CallSomeSoundMaybe
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -5683,7 +5683,7 @@ sub_80AEEC4: @ 0x080AEEC4
 	movs r0, #0
 	movs r2, #0
 	movs r3, #0x78
-	bl sub_80029E8
+	bl CallSomeSoundMaybe
 	adds r4, #0x3f
 	movs r0, #1
 	strb r0, [r4]

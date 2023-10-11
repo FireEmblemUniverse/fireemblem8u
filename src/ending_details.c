@@ -1636,7 +1636,7 @@ void sub_80B7BD8(struct UnkProc* proc) {
     PutSpriteExt(2, 0x18, 0x14, gUnknown_08A3D540, 0x9480);
     PutSpriteExt(2, 0x10, 0x80, gUnknown_08A3D5B4, 0x6480);
 
-    if (gPlaySt.chapterStateBits & PLAY_FLAG_7) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_EXTRA_MAP) {
         PutSpriteExt(2, 0x10, 0x38, gUnknown_08A3D560, 0x8480);
         PutSpriteExt(2, 0x80, 0x38, gUnknown_08A3D56E, 0x8480);
         PutSpriteExt(2, 0x10, 0x58, gUnknown_08A3D58A, 0x8480);

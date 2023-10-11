@@ -5267,7 +5267,7 @@ _08043D38: .4byte gUnknown_0203DB7C
 sub_8043D3C: @ 0x08043D3C
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08043D58  @ gUnknown_08A178C0
+	ldr r0, _08043D58  @ ProcScr_bmenu2
 	bl Proc_Find
 	cmp r0, #0
 	bne _08043D50
@@ -5278,7 +5278,7 @@ _08043D50:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08043D58: .4byte gUnknown_08A178C0
+_08043D58: .4byte ProcScr_bmenu2
 
 	THUMB_FUNC_END sub_8043D3C
 
@@ -9191,13 +9191,13 @@ _08045C10: .4byte gUnknown_0203DA24
 	THUMB_FUNC_START New6C_SIOMAIN2
 New6C_SIOMAIN2: @ 0x08045C14
 	push {lr}
-	ldr r0, _08045C24  @ gUnknown_085AA6BC
+	ldr r0, _08045C24  @ ProcScr_SIOMAIN2
 	movs r1, #2
 	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08045C24: .4byte gUnknown_085AA6BC
+_08045C24: .4byte ProcScr_SIOMAIN2
 
 	THUMB_FUNC_END New6C_SIOMAIN2
 
@@ -9205,7 +9205,7 @@ _08045C24: .4byte gUnknown_085AA6BC
 sub_8045C28: @ 0x08045C28
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	ldr r0, _08045C60  @ gUnknown_085AA6BC
+	ldr r0, _08045C60  @ ProcScr_SIOMAIN2
 	bl Proc_Find
 	cmp r0, #0
 	bne _08045C5A
@@ -9231,7 +9231,7 @@ _08045C5A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08045C60: .4byte gUnknown_085AA6BC
+_08045C60: .4byte ProcScr_SIOMAIN2
 _08045C64: .4byte gUnknown_0203DA24
 
 	THUMB_FUNC_END sub_8045C28
@@ -14630,8 +14630,8 @@ sub_8048838: @ 0x08048838
 
 	THUMB_FUNC_END sub_8048838
 
-	THUMB_FUNC_START sub_8048850
-sub_8048850: @ 0x08048850
+	THUMB_FUNC_START CallEraseSaveEvent
+CallEraseSaveEvent: @ 0x08048850
 	push {lr}
 	ldr r0, _08048860  @ gUnknown_085A9F48
 	movs r1, #3
@@ -14641,7 +14641,7 @@ sub_8048850: @ 0x08048850
 	.align 2, 0
 _08048860: .4byte gUnknown_085A9F48
 
-	THUMB_FUNC_END sub_8048850
+	THUMB_FUNC_END CallEraseSaveEvent
 
 	THUMB_FUNC_START sub_8048864
 sub_8048864: @ 0x08048864
@@ -22059,7 +22059,7 @@ _0804C144: .4byte gBG2TilemapBuffer
 sub_804C148: @ 0x0804C148
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0804C174  @ gUnknown_085AA86C
+	ldr r0, _0804C174  @ ProcScr_SIOWARP
 	movs r1, #2
 	bl Proc_Start
 	ldr r2, [r4, #0x2c]
@@ -22079,7 +22079,7 @@ sub_804C148: @ 0x0804C148
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804C174: .4byte gUnknown_085AA86C
+_0804C174: .4byte ProcScr_SIOWARP
 
 	THUMB_FUNC_END sub_804C148
 
@@ -22160,7 +22160,7 @@ sub_804C1D8: @ 0x0804C1D8
 sub_804C1E4: @ 0x0804C1E4
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0804C204  @ gUnknown_085AA86C
+	ldr r0, _0804C204  @ ProcScr_SIOWARP
 	bl Proc_Find
 	negs r1, r0
 	orrs r1, r0
@@ -22173,7 +22173,7 @@ _0804C1FC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804C204: .4byte gUnknown_085AA86C
+_0804C204: .4byte ProcScr_SIOWARP
 
 	THUMB_FUNC_END sub_804C1E4
 

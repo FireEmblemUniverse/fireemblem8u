@@ -174,7 +174,7 @@ u8 MapMenu_DangerZone_UnusedEffect(void) {
 
 u8 sub_8022724(void) {
 
-    Make6C_savemenu2(PROC_TREE_3);
+    Make6C_SaveMenuPostChapter(PROC_TREE_3);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }

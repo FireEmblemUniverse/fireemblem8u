@@ -1526,7 +1526,7 @@ u8 EventBF_(struct EventEngineProc * proc)
 {
     sub_80B9FD4(Proc_Find(gProcScr_WorldMapMain));
     sub_80B9810(Proc_Find(gProcScr_WorldMapMain));
-    Make6C_savemenu2(proc);
+    Make6C_SaveMenuPostChapter(proc);
 
     return EVC_ADVANCE_YIELD;
 }

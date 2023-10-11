@@ -1,7 +1,7 @@
     .section .data
 
-	.global gUnknown_08A2EE90
-gUnknown_08A2EE90:  @ 0x08A2EE90
+	.global ProcScr_ColFadeOut
+ProcScr_ColFadeOut:  @ 0x08A2EE90
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205e74
@@ -22,8 +22,8 @@ gUnknown_08A2EE90:  @ 0x08A2EE90
         .word 0x0
 
 
-	.global gUnknown_08A2EEC0
-gUnknown_08A2EEC0:  @ 0x08A2EEC0
+	.global ProcScr_ColFadeIn
+ProcScr_ColFadeIn:  @ 0x08A2EEC0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205e80

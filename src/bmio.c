@@ -927,7 +927,7 @@ int IsFirstPlaythrough(void) {
     if (!tmp)
         return TRUE;
 
-    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_EXTRA_MAP)
         return FALSE;
 
     return gPlaySt.config.unk41_5;
@@ -1359,8 +1359,9 @@ void GameCtrl_DeclareCompletedChapter(void) {
     gPlaySt.chapterStateBits |= PLAY_FLAG_COMPLETE;
 }
 
-void GameCtrl_SavePlayThroughData(void) {
-    SetNextGameActionId(GAME_ACTION_3);
+void GameCtrl_SavePlayThroughData(void)
+{
+    SetNextGameActionId(GAME_ACTION_PLAYED_THROUGH);
     SavePlayThroughData();
 }
 

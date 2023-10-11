@@ -243,7 +243,7 @@ s8 StartSoundRoomSong(struct SoundRoomProc* proc, int index, int flagsMaybe) {
 
     proc->unk_32 = index;
     proc->unk_2c = 1;
-    sub_80029E8(gSoundRoomTable[index].bgmId, 0x100, 0x100, flagsMaybe, 0);
+    CallSomeSoundMaybe(gSoundRoomTable[index].bgmId, 0x100, 0x100, flagsMaybe, 0);
 
     return 1;
 }
@@ -255,7 +255,7 @@ void StopSoundRoomSong(struct SoundRoomProc* proc) {
     }
 
     proc->unk_2c = 0;
-    sub_80029E8(0, 0x100, 0, 0x18, 0);
+    CallSomeSoundMaybe(0, 0x100, 0, 0x18, 0);
     proc->unk_2f = 0;
     proc->shuffleActive = 0;
 
@@ -393,7 +393,7 @@ void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc* proc) {
 //! FE8U = 0x080AFA64
 void SoundRoomUi_RestartTitleMusic(struct SoundRoomProc* proc) {
     if (MusicProc4Exists() == 0) {
-        sub_80029E8(0x43, 0, 0xc0, 0x18, 0);
+        CallSomeSoundMaybe(0x43, 0, 0xc0, 0x18, 0);
         Proc_Break(proc);
     }
 

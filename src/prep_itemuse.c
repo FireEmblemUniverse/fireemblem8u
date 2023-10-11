@@ -731,7 +731,7 @@ void PrepItemUse_ResetBgmAfterPromo(struct ProcPrepItemUse *proc)
 
 void sub_809CCE0(void)
 {
-    sub_80029E8(0, 0x100, 0, 0x10, NULL);
+    CallSomeSoundMaybe(0, 0x100, 0, 0x10, NULL);
 }
 
 void StartPrepItemUseScreen(struct Unit *unit, ProcPtr parent)

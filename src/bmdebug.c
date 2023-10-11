@@ -91,7 +91,7 @@ void Loop6C_WaitForSelectPress(struct Proc *proc)
 
 void SetNewKeyStatusWith16(void)
 {
-    NewKeyStatusSetter(DPAD_RIGHT);
+    AsnycKeyStatus(DPAD_RIGHT);
 }
 
 struct ProcCmd CONST_DATA gProcScr_0859A9EC[] = {
@@ -577,7 +577,7 @@ u8 sub_801C2E4(void) {
 
 //! FE8U = 0x0801C2F8
 u8 sub_801C2F8(void) {
-    Make6C_savemenu2(PROC_TREE_3);
+    Make6C_SaveMenuPostChapter(PROC_TREE_3);
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }
 

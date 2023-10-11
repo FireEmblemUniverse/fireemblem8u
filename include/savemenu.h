@@ -30,12 +30,12 @@ struct SaveMenuProc {
     /* 00 */ PROC_HEADER;
     /* 29 */ u8 unk_29; // seems to be related to scrolling frame counter when scrolling from "resume" to "chapter options"
     /* 2A */ u8 unk_2a; // difficulty
-    /* 2B */ u8 unk_2b; // main menu current index
-    /* 2C */ u8 unk_2c; // save file menu current index
+    /* 2B */ u8 menu_index; // main menu current index
+    /* 2C */ u8 save_slot; // save file menu current index
     /* 2D */ u8 unk_2d; // static cursor index, 0xff if not showing any
     /* 2E */ u8 unk_2e; // ??
     /* 2F */ u8 unk_2f; // horizontal offset for menu
-    /* 30 */ u8 unk_30; // main screen active menu options (bitfield)
+    /* 30 */ u8 active_options; // main screen active menu options (bitfield)
     /* 31 */ u8 unk_31; // # menu options
     /* 32 */ u8 unk_32; // extras menu current index
     /* 33 */ u8 unk_33;
@@ -49,7 +49,7 @@ struct SaveMenuProc {
     /* 3F */ u8 unk_3f;
     /* 40 */ u8 unk_40;
     /* 41 */ u8 unk_41;
-    /* 42 */ u16 unk_42;
+    /* 42 */ u16 action_flag;
     /* 44 */ u16 unk_44;
     /* 46 */ u16 unk_46;
 
@@ -90,24 +90,24 @@ struct DifficultyMenuProc
 };
 
 // ??? sub_80A882C(???);
-// ??? sub_80A8844(???);
+// ??? SaveMenuIndexToValidBitfile(???);
 // ??? sub_80A887C(???);
 // ??? sub_80A88B8(???);
 // ??? sub_80A88E0(???);
 // ??? LoadSaveMenuHelpText(???);
-// ??? sub_80A89E4(???);
+// ??? SaveMenuPostChapterHandleHelpBox(???);
 // ??? sub_80A8A9C(???);
 // ??? sub_80A8AF0(???);
 // ??? SaveMenu_Init(???);
 // ??? ProcSaveMenu_InitScreen(???);
 // ??? SaveMenu_LoadExtraMenuGraphics(???);
-// ??? sub_80A8F8C(???);
-// ??? sub_80A8FD0(???);
+// ??? SaveMenuInit(???);
+// ??? SaveMenuInitUnused(???);
 // ??? sub_80A9014(???);
 // ??? Loop6C_savemenu(???);
-// ??? sub_80A9250(???);
+// ??? SaveMenuWriteNewGame(???);
 // ??? sub_80A9290(???);
-// ??? sub_80A9494(???);
+// ??? SaveMenuPostChapterIDLE(???);
 // ??? sub_80A96D0(???);
 // ??? sub_80A96DC(???);
 // ??? sub_80A96EC(???);
@@ -125,10 +125,10 @@ s8 sub_80A9D20(struct SaveMenuProc*, int);
 // ??? sub_80A9DFC(???);
 // ??? sub_80A9E1C(???);
 // ??? sub_80AA018(???);
-// ??? sub_80AA030(???);
-// ??? sub_80AA100(???);
-// ??? sub_80AA118(???);
-// ??? StartTrialMapMaybe(???);
+// ??? PostSaveMenuHandler(???);
+// ??? ExtraMapStartSomeBgm(???);
+// ??? ExecExtraMap(???);
+// ??? CallExtraMap(???);
 // ??? sub_80AA158(???);
 // ??? sub_80AA1BC(???);
 // ??? sub_80AA1EC(???);
@@ -139,9 +139,9 @@ s8 sub_80A9D20(struct SaveMenuProc*, int);
 // ??? sub_80AA47C(???);
 // ??? sub_80AA49C(???);
 // ??? sub_80AA4B4(???);
-void Make6C_savemenu(ProcPtr);
+void Make6C_SaveMenuNewGame(ProcPtr);
 // ??? sub_80AA4F8(???);
-void Make6C_savemenu2(ProcPtr);
+void Make6C_SaveMenuPostChapter(ProcPtr);
 void savemenu_SetDifficultyChoice(int, int);
 // ??? sub_80AA550(???);
 // ??? sub_80AA614(???);
@@ -185,7 +185,7 @@ void sub_80AB83C(struct SaveMenuProc*, s8);
 // ??? AddMainMenuOption(???);
 // ??? AddExtraMenuOption(???);
 void sub_80AB89C(struct SaveMenuProc*);
-u8 sub_80AB98C(u8, int, int);
+u8 SaveMenuModifySaveSlot(u8, int, int);
 s8 sub_80AB9FC(struct SaveMenuProc*, int);
 s8 sub_80ABA98(struct SaveMenuProc*);
 // ??? SqMask_Loop(???);
@@ -195,7 +195,7 @@ void StartSqMask(struct SaveMenuProc*, int, int);
 void sub_80ABC14(u8, struct SaveMenuProc*);
 void sub_80ABD88(u8);
 // ??? sub_80ABE3C(???);
-u8 sub_80ABF44(u8 endMask, struct SaveMenuProc * proc);
+u8 SaveMenuGetValidMenuAmt(u8 endMask, struct SaveMenuProc * proc);
 void sub_80ABF74(u8);
 void DrawDifficultyModeText(struct DifficultyMenuProc *);
 void sub_80AC034(struct DifficultyMenuProc *);

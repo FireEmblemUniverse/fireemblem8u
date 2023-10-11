@@ -44,18 +44,6 @@ struct TilePalAnim {
     /* 06 */ u8          colorStart;
 };
 
-struct GameCtrlProc {
-    PROC_HEADER;
-
-    /* 29 */ u8 nextAction;
-    /* 2A */ u8 nextChapter;
-    /* 2B */ u8 unk_2B;
-    /* 2C */ u8 unk_2C;
-
-    /* 2E */ u16 unk_2E;
-    /* 30 */ u8 unk_30;
-};
-
 struct BMapMainProc {
     PROC_HEADER;
 

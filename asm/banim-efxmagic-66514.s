@@ -343,7 +343,7 @@ sub_80667E0: @ 0x080667E0
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08066828  @ gUnknown_085D7B8C
+	ldr r0, _08066828  @ ProcScr_efxMaohFlashBG2
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -369,7 +369,7 @@ sub_80667E0: @ 0x080667E0
 	bx r0
 	.align 2, 0
 _08066824: .4byte gEfxBgSemaphore
-_08066828: .4byte gUnknown_085D7B8C
+_08066828: .4byte ProcScr_efxMaohFlashBG2
 _0806682C: .4byte gUnknown_080DE6F0
 _08066830: .4byte gUnknown_085D7BA4
 _08066834: .4byte gUnknown_085D7BB0
@@ -614,7 +614,7 @@ sub_8066A0C: @ 0x08066A0C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08066A4C  @ gUnknown_085D7C58
+	ldr r0, _08066A4C  @ ProcScr_efxMaohFlashBG4
 	movs r1, #3
 	bl Proc_Start
 	adds r1, r0, #0
@@ -638,7 +638,7 @@ sub_8066A0C: @ 0x08066A0C
 	b _08066A70
 	.align 2, 0
 _08066A48: .4byte gEfxBgSemaphore
-_08066A4C: .4byte gUnknown_085D7C58
+_08066A4C: .4byte ProcScr_efxMaohFlashBG4
 _08066A50: .4byte gUnknown_080DE748
 _08066A54: .4byte gEkrDistanceType
 _08066A58: .4byte gUnknown_085D7CD0
@@ -740,7 +740,7 @@ sub_8066B14: @ 0x08066B14
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08066B3C  @ gUnknown_085D7D30
+	ldr r0, _08066B3C  @ ProcScr_efxMaohFlashWOUT
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -752,7 +752,7 @@ sub_8066B14: @ 0x08066B14
 	bx r0
 	.align 2, 0
 _08066B38: .4byte gEfxBgSemaphore
-_08066B3C: .4byte gUnknown_085D7D30
+_08066B3C: .4byte ProcScr_efxMaohFlashWOUT
 
 	THUMB_FUNC_END sub_8066B14
 
@@ -838,7 +838,7 @@ sub_8066BD4: @ 0x08066BD4
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08066C0C  @ gUnknown_085D7D58
+	ldr r0, _08066C0C  @ ProcScr_efxMaohFlashBGCOL
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -858,7 +858,7 @@ sub_8066BD4: @ 0x08066BD4
 	bx r0
 	.align 2, 0
 _08066C08: .4byte gEfxBgSemaphore
-_08066C0C: .4byte gUnknown_085D7D58
+_08066C0C: .4byte ProcScr_efxMaohFlashBGCOL
 _08066C10: .4byte gUnknown_080DE792
 _08066C14: .4byte gUnknown_087F3C54
 _08066C18: .4byte gUnknown_08603B50
@@ -980,7 +980,7 @@ sub_8066CB8: @ 0x08066CB8
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08066D3C  @ gUnknown_085D7D78
+	ldr r0, _08066D3C  @ ProcScr_efxMaohFlashEyeROBJ2
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -1014,7 +1014,7 @@ sub_8066CB8: @ 0x08066CB8
 	.align 2, 0
 _08066D34: .4byte gUnknown_080DE8A0
 _08066D38: .4byte gEfxBgSemaphore
-_08066D3C: .4byte gUnknown_085D7D78
+_08066D3C: .4byte ProcScr_efxMaohFlashEyeROBJ2
 _08066D40:
 	movs r0, #0
 	bl sub_8066C74
@@ -1107,7 +1107,7 @@ sub_8066DB0: @ 0x08066DB0
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08066E34  @ gUnknown_085D7D90
+	ldr r0, _08066E34  @ ProcScr_efxMaohFlashEyeLOBJ2
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -1141,7 +1141,7 @@ sub_8066DB0: @ 0x08066DB0
 	.align 2, 0
 _08066E2C: .4byte gUnknown_080DE8C0
 _08066E30: .4byte gEfxBgSemaphore
-_08066E34: .4byte gUnknown_085D7D90
+_08066E34: .4byte ProcScr_efxMaohFlashEyeLOBJ2
 _08066E38:
 	movs r0, #0
 	bl sub_8066C74
@@ -1252,7 +1252,7 @@ sub_8066EC8: @ 0x08066EC8
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _08066F50  @ gUnknown_085D7DA8
+	ldr r0, _08066F50  @ ProcScr_efxMaohFlashEyeOBJ1
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -1287,7 +1287,7 @@ sub_8066EC8: @ 0x08066EC8
 	.align 2, 0
 _08066F48: .4byte gUnknown_080DE8DC
 _08066F4C: .4byte gEfxBgSemaphore
-_08066F50: .4byte gUnknown_085D7DA8
+_08066F50: .4byte ProcScr_efxMaohFlashEyeOBJ1
 _08066F54:
 	movs r0, #0
 	bl sub_8066C74

@@ -344,7 +344,7 @@ _08086924: .4byte 0xFFC71C6D
 	THUMB_FUNC_START sub_8086928
 sub_8086928: @ 0x08086928
 	push {lr}
-	bl Make6C_savemenu2
+	bl Make6C_SaveMenuPostChapter
 	pop {r0}
 	bx r0
 

@@ -347,12 +347,12 @@ void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus)
 
     keys &= KEYS_MASK;
     if ((keys & (A_BUTTON | B_BUTTON | START_BUTTON | SELECT_BUTTON)) != (A_BUTTON | B_BUTTON | START_BUTTON | SELECT_BUTTON))
-        keys &= ~gUnknown_03000010;
+        keys &= ~gKeyStatusIgnoredSt;
     _UpdateKeyStatus(keyStatus, keys);
 }
 
 // unreferenced
-void sub_8001414(struct KeyStatusBuffer *keyStatus)
+void SnycKeyStatus(struct KeyStatusBuffer *keyStatus)
 {
     keyStatus->newKeys = 0;
     keyStatus->repeatedKeys = 0;
@@ -368,60 +368,57 @@ void ResetKeyStatus(struct KeyStatusBuffer *keyStatus)
     keyStatus->newKeys = 0;
     keyStatus->repeatTimer = 0;
     keyStatus->TimeSinceStartSelect = 0;
-    gUnknown_03000010 = 0;
+    gKeyStatusIgnoredSt = 0;
 }
 
 void SetKeyStatus_IgnoreMask(int a)
 {
-    gUnknown_03000010 = a;
+    gKeyStatusIgnoredSt = a;
 }
 
 int GetKeyStatus_IgnoreMask(void)
 {
-    return gUnknown_03000010;
+    return gKeyStatusIgnoredSt;
 }
 
-void KeyStatusSetter_Set(struct Proc *proc)
+void AsnycKeyStatusExt(struct KeyProc * proc)
 {
-    struct KeyProc *kproc = (struct KeyProc *)proc;
-    gKeyStatusPtr->newKeys = kproc->unk64;
-    gKeyStatusPtr->repeatedKeys = kproc->unk64;
-    gKeyStatusPtr->heldKeys = kproc->unk64;
+    gKeyStatusPtr->newKeys = proc->unk64;
+    gKeyStatusPtr->repeatedKeys = proc->unk64;
+    gKeyStatusPtr->heldKeys = proc->unk64;
 }
 
-static struct ProcCmd sKeyStatusSetterProc[] =
+CONST_DATA struct ProcCmd ProcScr_AsnycKeyStatus[] =
 {
     PROC_SLEEP(1),
-    PROC_CALL(KeyStatusSetter_Set),
+    PROC_CALL(AsnycKeyStatusExt),
     PROC_END,
 };
 
-void NewKeyStatusSetter(int a)
+void AsnycKeyStatus(int key)
 {
-    struct KeyProc *kproc = Proc_Start(sKeyStatusSetterProc, PROC_TREE_1);
-
-    kproc->unk64 = a;
+    struct KeyProc * kproc = Proc_Start(ProcScr_AsnycKeyStatus, PROC_TREE_1);
+    kproc->unk64 = key;
 }
 
-void BG_SetPosition(u16 a, u16 b, u16 c)
+void BG_SetPosition(u16 bg, u16 x, u16 y)
 {
-    switch (a)
-    {
-    case 0:
-        gLCDControlBuffer.bgoffset[0].x = b;
-        gLCDControlBuffer.bgoffset[0].y = c;
+    switch (bg) {
+    case BG_0:
+        gLCDControlBuffer.bgoffset[0].x = x;
+        gLCDControlBuffer.bgoffset[0].y = y;
         break;
-    case 1:
-        gLCDControlBuffer.bgoffset[1].x = b;
-        gLCDControlBuffer.bgoffset[1].y = c;
+    case BG_1:
+        gLCDControlBuffer.bgoffset[1].x = x;
+        gLCDControlBuffer.bgoffset[1].y = y;
         break;
-    case 2:
-        gLCDControlBuffer.bgoffset[2].x = b;
-        gLCDControlBuffer.bgoffset[2].y = c;
+    case BG_2:
+        gLCDControlBuffer.bgoffset[2].x = x;
+        gLCDControlBuffer.bgoffset[2].y = y;
         break;
-    case 3:
-        gLCDControlBuffer.bgoffset[3].x = b;
-        gLCDControlBuffer.bgoffset[3].y = c;
+    case BG_3:
+        gLCDControlBuffer.bgoffset[3].x = x;
+        gLCDControlBuffer.bgoffset[3].y = y;
         break;
     }
 }

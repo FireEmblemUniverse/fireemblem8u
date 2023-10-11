@@ -24,6 +24,7 @@
 #include "bmusailment.h"
 #include "bmsave.h"
 #include "worldmap.h"
+#include "eventcall.h"
 
 #include "bm.h"
 

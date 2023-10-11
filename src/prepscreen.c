@@ -27,7 +27,7 @@ void PrepScreenMenu_OnItems(struct ProcAtMenu* proc) {
 
 void PrepScreenMenu_OnSupport(struct ProcAtMenu* proc) {
     proc->state = 4;
-    sub_80029E8(0x37, 0x100, 0x100, 0x20, 0);
+    CallSomeSoundMaybe(0x37, 0x100, 0x100, 0x20, 0);
     Proc_Goto(proc, 0xA);
 }
 
@@ -209,7 +209,7 @@ void AtMenu_AddPrepScreenSupportMenuItem(struct ProcAtMenu *proc)
     int color = 0;
 
     proc->unk_2F = 0;
-    if (0 != (PLAY_FLAG_7 & gPlaySt.chapterStateBits))
+    if (0 != (PLAY_FLAG_EXTRA_MAP & gPlaySt.chapterStateBits))
         return;
 
     for (i = 0; i < 4; i++) {

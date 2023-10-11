@@ -158,7 +158,7 @@ struct ProcCmd gProcScr_WorldMapMain[] = {
   PROC_REPEAT(WaitForFade),
   PROC_CALL(sub_80B9FD4),
   PROC_CALL(sub_80B9810),
-  PROC_CALL(Make6C_savemenu2),
+  PROC_CALL(Make6C_SaveMenuPostChapter),
   PROC_YIELD,
   PROC_CALL(sub_80B9154),
   PROC_GOTO(0x17),
