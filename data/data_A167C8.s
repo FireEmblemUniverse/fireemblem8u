@@ -100,8 +100,8 @@ gTSA_GoalBox_TwoLines:  @ 0x08A176BC
 gTSA_GoalBox_OneLine:  @ 0x08A17744
 	.incbin "baserom.gba", 0xA17744, 0x5C
 
-	.global gUnknown_08A177A0
-gUnknown_08A177A0:  @ 0x08A177A0
+	.global ProcScr_bmenu
+ProcScr_bmenu:  @ 0x08A177A0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205b74
@@ -212,8 +212,8 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word 0x0
 
 
-	.global gUnknown_08A178C0
-gUnknown_08A178C0:  @ 0x08A178C0
+	.global ProcScr_bmenu2
+ProcScr_bmenu2:  @ 0x08A178C0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205b74
@@ -358,8 +358,8 @@ gUnknown_08A17990:  @ 0x08A17990
         .word 0x0
 
 
-	.global gUnknown_08A17A30
-gUnknown_08A17A30:  @ 0x08A17A30
+	.global ProcScr_bmenu3
+ProcScr_bmenu3:  @ 0x08A17A30
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205b74
@@ -443,8 +443,8 @@ gUnknown_08A17A30:  @ 0x08A17A30
         .word 0x0
 
 
-	.global gUnknown_08A17B08
-gUnknown_08A17B08:  @ 0x08A17B08
+	.global ProcScr_bmview
+ProcScr_bmview:  @ 0x08A17B08
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205b7c

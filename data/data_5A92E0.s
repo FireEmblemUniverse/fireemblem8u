@@ -857,8 +857,8 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_085A9BA0
-gUnknown_085A9BA0:  @ 0x085A9BA0
+	.global ProcScr_SIOTERM
+ProcScr_SIOTERM:  @ 0x085A9BA0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d9e94
@@ -1013,8 +1013,8 @@ gUnknown_085A9BA0:  @ 0x085A9BA0
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_085A9D38
-gUnknown_085A9D38:  @ 0x085A9D38
+	.global ProcScr_SIORESULT
+ProcScr_SIORESULT:  @ 0x085A9D38
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d9eb4
@@ -1792,8 +1792,8 @@ gUnknown_085AA5BC:  @ 0x085AA5BC
         .word 0x0
 
 
-	.global gUnknown_085AA6BC
-gUnknown_085AA6BC:  @ 0x085AA6BC
+	.global ProcScr_SIOMAIN2
+ProcScr_SIOMAIN2:  @ 0x085AA6BC
         @ PROC_15
         .short 0x15, 0x0
         .word 0x0
@@ -1970,8 +1970,8 @@ gUnknown_085AA83C:  @ 0x085AA83C
 gUnknown_085AA854:  @ 0x085AA854
     .incbin "baserom.gba", 0x5AA854, 0x18
 
-	.global gUnknown_085AA86C
-gUnknown_085AA86C:  @ 0x085AA86C
+	.global ProcScr_SIOWARP
+ProcScr_SIOWARP:  @ 0x085AA86C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80d9fc4

@@ -36,104 +36,86 @@
 #include "ev_triggercheck.h"
 #include "mapanim.h"
 
-struct UnkProc80855A0 {
-    PROC_HEADER;
-    /* 29 */ u8 _pad_29[0x4D - 0x29];
-    /* 4D */ u8 unk4D;
+#include "eventcall.h"
+
+CONST_DATA struct ProcCmd ProcScr_BmGameOver[] = {
+    PROC_SLEEP(0x1E),
+    PROC_CALL(GameOver_FadeOutCurrentBgm),
+    PROC_SLEEP(0xA),
+    PROC_CALL(StartSlowFadeToBlack),
+    PROC_SLEEP(0x50),
+    PROC_CALL(MU_EndAll),
+    PROC_CALL(SkilGameOverForToturialExtraMap),
+    PROC_CALL(StartGameOverScreen),
+    PROC_YIELD,
+
+PROC_LABEL(0x0),
+    PROC_CALL(PostGameOverHandler),
+    PROC_END
 };
 
-struct Proc8085618 {
-    PROC_HEADER;
-    /* 29 */ u8 _pad_29[0x4C - 0x29];
-    /* 4C */ s8 unk4C;
-};
-
-struct Proc89EE068 {
-    PROC_HEADER;
-    /* 29 */ u8 _pad_29[0x54 - 0x29];
-    /* 54 */ ProcPtr unk_proc;
-};
-
-struct Proc89EE088 {
-    PROC_HEADER;
-    /* 29 */ u8 _pad_29[0x2C - 0x29];
-    /* 2C */ u32 count;
-};
-
-struct Proc89EE9E0 {
-    PROC_HEADER;
-    /* 29 */ u8 _pad_29[0x4C - 0x29];
-    /* 4C */ s16 timer;
-    /* 4E */ u8 _pad_4E[0x52 - 0x4E];
-    /* 52 */ u16 count;
-    /* 54 */ u8 _pad_54[0x64 - 0x54];
-    /* 64 */ s16 mode;
-};
-
-struct Proc89EEA28 {
-    PROC_HEADER;
-    /* 29 */ u8 _pad_29[0x4C - 0x29];
-    /* 4C */ s16 timer;
-    /* 4E */ u8 _pad_4E[0x52 - 0x4E];
-    /* 52 */ u16 count;
-    /* 54 */ u8 _pad_54[0x64 - 0x54];
-    /* 64 */ s16 mode;
-};
-
-
-void sub_8085374(struct EventEngineProc *proc)
+void EventCallGameOverExt(ProcPtr proc)
 {
-    Proc_StartBlocking(gUnknown_089EDF78, proc);
+    Proc_StartBlocking(ProcScr_BmGameOver, proc);
 }
 
-void sub_8085388(struct EventEngineProc *proc)
+void GameOver_FadeOutCurrentBgm(ProcPtr proc)
 {
     if ((PLAY_FLAG_TUTORIAL & gPlaySt.chapterStateBits) || 0 == gPlaySt.config.disableBgm)
         Sound_FadeOutBGM(4);
 }
 
-void sub_80853B0(struct EventEngineProc *proc)
+void SkilGameOverForToturialExtraMap(ProcPtr proc)
 {
-    if ((PLAY_FLAG_TUTORIAL | PLAY_FLAG_7) & gPlaySt.chapterStateBits)
+    if ((PLAY_FLAG_TUTORIAL | PLAY_FLAG_EXTRA_MAP) & gPlaySt.chapterStateBits)
         Proc_Goto(proc, 0);
 }
 
-void sub_80853D0(struct EventEngineProc *proc)
+void PostGameOverHandler(ProcPtr proc)
 {
-    SetNextGameActionId(GAME_ACTION_0);
+    SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
     EndBMapMain();
     DeleteEventEngines();
 }
 
-int sub_80853E4()
+int CheckWaitAction_unused(void)
 {
     return UNIT_ACTION_WAIT == gActionData.unitActionType;
 }
 
-void sub_80853FC()
+void UnsetKeyIgnoreMask(void)
 {
     SetKeyStatus_IgnoreMask(0);
 }
 
-void sub_8085408()
+void AsnycKeyStatus_ButtonB(void)
 {
-    NewKeyStatusSetter(2);
+    AsnycKeyStatus(B_BUTTON);
 }
 
-void sub_8085414(struct EventEngineProc *proc)
+CONST_DATA struct ProcCmd ProcScr_ForceAsyncButtonB[] = {
+    PROC_SLEEP(0x1C),
+    PROC_CALL(AsnycKeyStatus_ButtonB),
+    PROC_SLEEP(0x8),
+    PROC_CALL(UnsetKeyIgnoreMask),
+    PROC_END
+};
+
+void NewForceAsyncButtonB(ProcPtr proc)
 {
-    Proc_Start(gUnknown_089EDFD8, PROC_TREE_4);
+    Proc_Start(ProcScr_ForceAsyncButtonB, PROC_TREE_4);
 }
 
-void sub_8085428(struct EventEngineProc *proc)
+void HideAllAlliesExceptLeader(void)
 {
-    struct Unit *leader = GetUnitFromCharId(GetPlayerLeaderUnitId());
+    struct Unit * leader = GetUnitFromCharId(GetPlayerLeaderUnitId());
     int i;
 
     int x = leader->xPos;
     int y = leader->yPos;
 
-    for (i = 1; i < FACTION_GREEN; i++) {
+    for (i = 1; i < FACTION_GREEN; i++)
+    {
         struct Unit *unit = GetUnit(i);
 
         if (!UNIT_IS_VALID(unit))
@@ -147,18 +129,18 @@ void sub_8085428(struct EventEngineProc *proc)
         
         if ((US_RESCUING | US_RESCUED) & unit->state)
             continue;
-        
+
         unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
     }
-
     RefreshUnitSprites();
 }
 
 void ResetAllPlayerUnitState(void)
 {
     int i;
-    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
-        struct Unit *unit = GetUnit(i);
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++)
+    {
+        struct Unit * unit = GetUnit(i);
 
         if (!UNIT_IS_VALID(unit))
             continue;
@@ -183,38 +165,40 @@ void ResetAllPlayerUnitState(void)
     MU_EndAll();
 }
 
-void sub_80854E4(struct EventEngineProc *proc)
+void TryLockParentProc(ProcPtr proc)
 {
-    sub_8097D54(proc->proc_parent);
+    struct Proc * _proc = proc;
+    TryLockProc(_proc->proc_parent);
 }
 
-void sub_80854F0(struct EventEngineProc *proc)
+void TryUnlockParentProc(ProcPtr proc)
 {
-    sub_8097D68(proc->proc_parent);
+    struct Proc * _proc = proc;
+    TryUnlockProc(_proc->proc_parent);
 }
 
-void sub_80854FC(struct EventEngineProc *proc)
+void ResetAllBG(void)
 {
     SetupBackgrounds(NULL);
     SetDispEnable(0, 0, 0, 0, 0);
 }
 
-void sub_808552C(struct EventEngineProc *proc)
+void SwapUnitStatsChar100(void)
 {
     SwapUnitStats(GetUnitFromCharId(0x100), GetUnitFromCharId(0x100));
 }
 
-void sub_8085550(struct EventEngineProc *proc)
+void sub_8085550(ProcPtr proc)
 {
     sub_800915C(-1, 2, 0x20, 4, 0x180, 0x180, 0x180, proc);
 }
 
-void sub_8085578(struct EventEngineProc *proc)
+void sub_8085578(ProcPtr proc)
 {
     sub_800915C(-1, 2, 0x20, 4, 0x200, 0x140, 0x140, proc);
 }
 
-void sub_80855A0(struct UnkProc80855A0 *proc)
+void sub_80855A0(struct UnkProc80855A0 * proc)
 {
     proc->unk4D = 1;
     SetSpecialColorEffectsParameters(3, 0, 0, 16);
@@ -222,45 +206,62 @@ void sub_80855A0(struct UnkProc80855A0 *proc)
     SetBlendBackdropA(1);
 }
 
-void sub_80855D4(struct EventEngineProc *proc)
+void sub_80855D4(void)
 {
     SetDispEnable(0, 0, 0, 0, 0);
 }
 
-void sub_80855F8(struct EventEngineProc *proc)
+void sub_80855F8(void)
 {
     SetDispEnable(1, 1, 1, 1, 1);
 }
 
-void sub_8085618(struct EventEngineProc *proc)
-{
-    struct Proc8085618 *parent = proc->proc_parent;
+CONST_DATA struct ProcCmd gUnknown_089EE000[] = {
+    PROC_YIELD,
 
-    if (-1 == parent->unk4C) {
+PROC_LABEL(0),
+    PROC_REPEAT(sub_8085618),
+
+PROC_LABEL(1),
+    PROC_REPEAT(sub_8085670),
+    PROC_END
+};
+
+void sub_8085618(struct Proc * proc)
+{
+    struct Proc8085618 * parent = proc->proc_parent;
+
+    if (-1 == parent->unk4C)
+    {
         if (GetGameClock() % 2)
             gBmSt.camera.x ^= 2;
-    } else {
+    } else
+    {
         if (GetGameClock() % 2)
             BG_SetPosition(3, GetGameClock() & 2, 0);
     }
 }
 
-void sub_8085670(struct EventEngineProc *proc)
+void sub_8085670(struct Proc * proc)
 {
-    struct Proc8085618 *parent = proc->proc_parent;
+    struct Proc8085618 * parent = proc->proc_parent;
 
-    if (-1 == parent->unk4C) {
-        if (GetGameClock() % 2) {
-            (u16)gBmSt.camera.x &= 0xFFFD;
+    if (-1 == parent->unk4C)
+    {
+        if (GetGameClock() % 2)
+        {
+            (u16)gBmSt.camera.x &= (u16)~2;
             gBmSt.camera.x ^= 1;
         }
-    } else {
+    }
+    else
+    {
         if (GetGameClock() % 2)
             BG_SetPosition(3, sub_80AEA24(3) ^ 1, 0);
     }
 }
 
-void sub_80856D0(struct EventEngineProc *proc)
+void sub_80856D0(struct EventEngineProc * proc)
 {
     struct Proc8085618 *parent = proc->proc_parent;
 
@@ -276,17 +277,23 @@ void sub_80856D0(struct EventEngineProc *proc)
     }
 }
 
-void sub_8085728(struct EventEngineProc *parent)
+CONST_DATA struct ProcCmd ProcScr_089EE030[] = {
+    PROC_YIELD,
+    PROC_REPEAT(sub_80856D0),
+    PROC_END
+};
+
+void sub_8085728(ProcPtr parent)
 {
-    ProcPtr proc = Proc_Find(gUnknown_089EE030);
+    ProcPtr proc = Proc_Find(ProcScr_089EE030);
     if (!proc)
-        proc = Proc_Start(gUnknown_089EE030, parent);
+        proc = Proc_Start(ProcScr_089EE030, parent);
 
     Proc_Goto(proc, 0);
     PlaySoundEffect(0x26A);
 }
 
-void sub_808576C(struct EventEngineProc *parent)
+void sub_808576C(ProcPtr parent)
 {
     ProcPtr proc = Proc_Find(gUnknown_089EE000);
     if (!proc) {
@@ -296,7 +303,7 @@ void sub_808576C(struct EventEngineProc *parent)
     Proc_Goto(proc, 0);
 }
 
-void sub_80857B0(struct EventEngineProc *parent)
+void sub_80857B0(ProcPtr parent)
 {
     ProcPtr proc = Proc_Find(gUnknown_089EE000);
     if (!proc) {
@@ -306,7 +313,7 @@ void sub_80857B0(struct EventEngineProc *parent)
     Proc_Goto(proc, 1);
 }
 
-void sub_80857F4(struct EventEngineProc *parent)
+void sub_80857F4(ProcPtr parent)
 {
     ProcPtr proc = Proc_Find(gUnknown_089EE000);
     if (!proc)
@@ -314,7 +321,7 @@ void sub_80857F4(struct EventEngineProc *parent)
     Proc_Goto(proc, 0);
 }
 
-void sub_808581C(struct EventEngineProc *parent)
+void sub_808581C(ProcPtr parent)
 {
     ProcPtr proc = Proc_Find(gUnknown_089EE000);
     if (!proc)
@@ -322,56 +329,67 @@ void sub_808581C(struct EventEngineProc *parent)
     Proc_Goto(proc, 1);
 }
 
-void sub_8085844(struct EventEngineProc *parent)
+void sub_8085844(ProcPtr parent)
 {
     (u16)gBmSt.camera.x &= 0xFFFC;
     Proc_EndEach(gUnknown_089EE000);
     Sound_FadeOutSE(4);
 }
 
-void sub_808586C(struct EventEngineProc *parent)
+CONST_DATA struct ProcCmd ProcScr_089EE048[] = {
+    PROC_YIELD,
+    PROC_CALL(sub_8085894),
+    PROC_REPEAT(sub_808589C),
+    PROC_END
+};
+
+void sub_808586C(void)
 {
     (u16)gBmSt.camera.y &= 0xFFFC;
-    Proc_EndEach(gUnknown_089EE030);
+    Proc_EndEach(ProcScr_089EE030);
     Sound_FadeOutSE(4);
 }
 
-void sub_8085894(struct EventEngineProc *proc)
+void sub_8085894(struct Proc * proc)
 {
-    proc->unitLoadCount = 0;
+    proc->unk4C = 0;
 }
 
-void sub_808589C(struct EventEngineProc *proc)
+void sub_808589C(struct Proc * proc)
 {
-    struct Proc8085618 *parent = proc->proc_parent;
+    struct Proc8085618 * parent = proc->proc_parent;
 
-    if (-1 == parent->unk4C) {
-        if (GetGameClock() % 2) {
+    if (-1 == parent->unk4C)
+    {
+        if (GetGameClock() % 2)
+        {
             (u16)gBmSt.camera.x &= 0xFFFD;
             gBmSt.camera.x ^= 1;
         }
-    } else {
+    } else
+    {
         if (GetGameClock() % 2)
             BG_SetPosition(3, sub_80AEA24(3) ^ 1, 0);
     }
 
-    if (0x10 == ++proc->unitLoadCount) {
+    if (0x10 == ++proc->unk4C)
+    {
         Proc_Break(proc);
         Sound_FadeOutSE(4);
     }
 }
 
-void sub_808591C(struct EventEngineProc *proc)
+void sub_808591C(struct EventEngineProc * proc)
 {
-    Proc_Start(gUnknown_089EE048, proc);
+    Proc_Start(ProcScr_089EE048, proc);
     PlaySoundEffect(0x26A);
 }
 
-void sub_8085948(struct EventEngineProc *proc)
+void sub_8085948(struct EventEngineProc * proc)
 {
     (u16)gBmSt.camera.y &= 0xFFFC;
     Sound_FadeOutSE(4);
-    Proc_EndEach(gUnknown_089EE048);
+    Proc_EndEach(ProcScr_089EE048);
 }
 
 void SetEventId_0x84(ProcPtr proc)
@@ -384,14 +402,14 @@ void UnsetEventId_0x84(ProcPtr proc)
     ClearFlag(0x84);
 }
 
-void sub_8085988(struct EventEngineProc *proc)
+void sub_8085988(struct EventEngineProc * proc)
 {
     proc->unitLoadCount = 0;
 }
 
-void sub_8085990(struct EventEngineProc *proc)
+void sub_8085990(struct EventEngineProc * proc)
 {
-    struct Unit *unit = proc->unit;
+    struct Unit * unit = proc->unit;
     int count = proc->unitLoadCount;
     sub_8026C1C(unit, count);
     
@@ -403,10 +421,17 @@ void sub_8085990(struct EventEngineProc *proc)
     }    
 }
 
-void sub_80859D0(ProcPtr *proc, ProcPtr parent)
+CONST_DATA struct ProcCmd ProcScr_089EE068[] = {
+    PROC_YIELD,
+    PROC_CALL(sub_8085988),
+    PROC_REPEAT(sub_8085990),
+    PROC_END
+};
+
+void sub_80859D0(ProcPtr proc, ProcPtr parent)
 {
     struct Proc89EE068 *_proc;
-    _proc = Proc_Start(gUnknown_089EE068, parent);
+    _proc = Proc_Start(ProcScr_089EE068, parent);
     _proc->unk_proc = proc;
 }
 
@@ -415,7 +440,7 @@ void nullsub_20(ProcPtr proc)
     return;
 }
 
-void sub_80859EC(struct Proc89EE088 *proc)
+void sub_80859EC(struct Proc89EE088 * proc)
 {
     proc->count = 0;
     sub_8081E78();
@@ -437,7 +462,7 @@ void sub_80859EC(struct Proc89EE088 *proc)
     PlaySoundEffect(0x269);
 }
 
-void sub_8085ACC(struct Proc89EE088 *proc)
+void sub_8085ACC(struct Proc89EE088 * proc)
 {
     int val0, val1, val2, val3, count, max_count;
     
@@ -463,7 +488,7 @@ void sub_8085ACC(struct Proc89EE088 *proc)
         Proc_Break(proc);
 }
 
-void sub_8085B30(struct Proc89EE088 *proc)
+void sub_8085B30(struct Proc89EE088 * proc)
 {
     ApplyMapChangesById(1);
     EnableMapChange(1);
@@ -474,7 +499,7 @@ void sub_8085B30(struct Proc89EE088 *proc)
 }
 
 /* https://decomp.me/scratch/sgFDG */
-void sub_8085B58(struct Proc89EE088 *proc)
+void sub_8085B58(struct Proc89EE088 * proc)
 {
     int val0, val1, val3, val4, val5, count, max_count;
 #ifndef NONMATCHING
@@ -493,7 +518,7 @@ void sub_8085B58(struct Proc89EE088 *proc)
     val4 = 0x4000;
     val2 = val5 / val4;
 
-    val3 = (int)((proc->count *  0x10) *proc->count) / val4;
+    val3 = (int)((proc->count *  0x10) * proc->count) / val4;
     val0 = 0x10 - val3;
 
     sub_8082730(0x78, 0x30, val2);
@@ -505,7 +530,7 @@ void sub_8085B58(struct Proc89EE088 *proc)
         Proc_Break(proc);
 }
 
-void sub_8085BB4(struct Proc89EE088 *proc)
+void sub_8085BB4(void)
 {
     SetPrimaryHBlankHandler(0);
     SetSpecialColorEffectsParameters(0, 0, 0, 0);
@@ -515,9 +540,19 @@ void sub_8085BB4(struct Proc89EE088 *proc)
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 }
 
-void sub_8085BFC(struct EventEngineProc *proc)
+CONST_DATA struct ProcCmd ProcScr_089EE088[] = {
+    PROC_YIELD,
+    PROC_SET_END_CB(sub_8085BB4),
+    PROC_CALL(sub_80859EC),
+    PROC_REPEAT(sub_8085ACC),
+    PROC_CALL(sub_8085B30),
+    PROC_REPEAT(sub_8085B58),
+    PROC_END
+};
+
+void sub_8085BFC(struct EventEngineProc * proc)
 {
-    Proc_StartBlocking(gUnknown_089EE088, proc);
+    Proc_StartBlocking(ProcScr_089EE088, proc);
 }
 
 void sub_8085C10()
@@ -557,7 +592,7 @@ void sub_8085C70(ProcPtr proc)
 
 void sub_8085C7C(ProcPtr parent, int val)
 {
-    struct Proc89EE9E0 *proc = Proc_StartBlocking(gUnknown_089EE9E0, parent);
+    struct Proc89EE9E0 * proc = Proc_StartBlocking(ProcScr_089EE9E0, parent);
 
 #ifndef NONMATCHING
     asm("add r2, r0, #0");
@@ -620,7 +655,7 @@ void sub_8085E08(int index, int mode)
         *buf += val;
 }
 
-void sub_8085E48(struct Proc89EE9E0 *proc)
+void sub_8085E48(struct Proc89EE9E0 * proc)
 {
     if (0 == proc->mode)
         StartBgm(0x3D, 0);
@@ -631,7 +666,7 @@ void sub_8085E48(struct Proc89EE9E0 *proc)
     proc->timer = 0;
 }
 
-void sub_8085E94(struct Proc89EE9E0 *proc)
+void sub_8085E94(struct Proc89EE9E0 * proc)
 {
     int iy, ix;
     struct Proc89EEA28 *child;
@@ -678,7 +713,7 @@ void nullsub_30()
     return;
 }
 
-void sub_8085F88(struct Proc89EE9E0 *proc)
+void sub_8085F88(struct Proc89EE9E0 * proc)
 {
     int iy, ix;
 
@@ -722,7 +757,7 @@ void sub_8085F88(struct Proc89EE9E0 *proc)
     }
 }
 
-void sub_808609C(struct Proc89EE9E0 *proc)
+void sub_808609C(struct Proc89EE9E0 * proc)
 {
     switch (proc->timer) {
         case 0:
@@ -747,7 +782,7 @@ void sub_808609C(struct Proc89EE9E0 *proc)
     proc->timer++;
 }
 
-void sub_8086100(struct Proc89EE9E0 *proc)
+void sub_8086100(struct Proc89EE9E0 * proc)
 {
     BG_SetPosition(0, 0, 0);
     BG_Fill(gBG0TilemapBuffer, 0);
@@ -756,12 +791,12 @@ void sub_8086100(struct Proc89EE9E0 *proc)
     SetDefaultColorEffects();
 }
 
-void sub_8086134(struct Proc89EEA28 *proc)
+void sub_8086134(struct Proc89EEA28 * proc)
 {
     proc->timer = 0;
 }
 
-void sub_808613C(struct Proc89EEA28 *proc)
+void sub_808613C(struct Proc89EEA28 * proc)
 {
     int val1 = Interpolate(0, -24, 0, proc->timer, 0x10);
     int val2 = Interpolate(0, 2, 0x100, proc->timer, 0x10);
@@ -776,7 +811,7 @@ void sub_808613C(struct Proc89EEA28 *proc)
     
     PutSprite(
         0, 0x1FF & (val1 + 0x18), 0x40,
-        gUnknown_089EE99C, 0
+        Obj_089EE99C, 0
     );
 
     if (0x10 == proc->timer) {
@@ -788,7 +823,7 @@ void sub_808613C(struct Proc89EEA28 *proc)
     proc->timer++;
 }
 
-void sub_808622C(struct Proc89EEA28 *proc)
+void sub_808622C(struct Proc89EEA28 * proc)
 {
     int val = Interpolate(0, 0, 0x10, proc->timer, 8);
 
@@ -799,7 +834,7 @@ void sub_808622C(struct Proc89EEA28 *proc)
 
     EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, val);
     EnablePaletteSync();
-    PutSprite(0, 0x18, 0x40, gUnknown_089EE99C, 0);
+    PutSprite(0, 0x18, 0x40, Obj_089EE99C, 0);
 
     if (8 == proc->timer) {
         proc->timer = 0;
@@ -810,7 +845,7 @@ void sub_808622C(struct Proc89EEA28 *proc)
     proc->timer++;
 }
 
-void sub_80862C4(struct Proc89EEA28 *proc)
+void sub_80862C4(struct Proc89EEA28 * proc)
 {
     int val = Interpolate(0, 0x10, 0, proc->timer, 8);
 
@@ -821,7 +856,7 @@ void sub_80862C4(struct Proc89EEA28 *proc)
 
     EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, val);
     EnablePaletteSync();
-    PutSprite(0, 0x18, 0x40, gUnknown_089EE99C, 0);
+    PutSprite(0, 0x18, 0x40, Obj_089EE99C, 0);
 
     if (8 == proc->timer) {
         proc->timer = 0;
@@ -832,7 +867,7 @@ void sub_80862C4(struct Proc89EEA28 *proc)
     proc->timer++;
 }
 
-void sub_808635C(struct Proc89EEA28 *proc)
+void sub_808635C(struct Proc89EEA28 * proc)
 {
     WriteOAMRotScaleData(
         0,
@@ -841,10 +876,10 @@ void sub_808635C(struct Proc89EEA28 *proc)
         Div(+SIN(0) * 0x10, 0x100),
         Div(+COS(0) * 0x10, 0x100)
     );
-    PutSprite(0, 0x18, 0x40, gUnknown_089EE99C, 0);
+    PutSprite(0, 0x18, 0x40, Obj_089EE99C, 0);
 
     if (0x20 == proc->timer)
-        Proc_BreakEach(gUnknown_089EE9E0);
+        Proc_BreakEach(ProcScr_089EE9E0);
 
     proc->timer++;
 }

@@ -236,7 +236,7 @@ void ClassReel_ButtonPress_GoToTitle(struct OpInfoProc* proc) {
     gLCDControlBuffer.dispcnt.bg3_on = 0;
     gLCDControlBuffer.dispcnt.obj_on = 0;
 
-    SetNextGameActionId(GAME_ACTION_0);
+    SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
 
     Proc_Goto(proc, 5);
 
@@ -250,14 +250,13 @@ void sub_80B2904(struct OpInfoProc* proc) {
             proc->classReelEnt = GetClassReelEntry(proc->classSet, proc->index);
 
             if (proc->classReelEnt == 0) {
-                SetNextGameActionId(GAME_ACTION_1);
+                SetNextGameActionId(GAME_ACTION_CLASS_REEL);
                 Proc_Goto(proc, 4);
             } else {
                 proc->index++;
                 proc->mode = 1;
                 StartClassNameIntro(proc, proc->classReelEnt);
             }
-
             break;
 
         case 3:

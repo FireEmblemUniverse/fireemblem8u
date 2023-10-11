@@ -916,7 +916,7 @@ _080AAED8:
 	adds r0, #0x30
 	ldrb r0, [r0]
 	adds r1, r6, #0
-	bl sub_80A8844
+	bl SaveMenuIndexToValidBitfile
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_80A88B8
@@ -1040,7 +1040,7 @@ _080AAFC2:
 	adds r0, #0x32
 	ldrb r0, [r0]
 	adds r1, r6, #0
-	bl sub_80A8844
+	bl SaveMenuIndexToValidBitfile
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_80A88B8

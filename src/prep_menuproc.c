@@ -76,7 +76,7 @@ void NullExpForChar100AndResetScreen()
 
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
     SetDispEnable(0, 0, 0, 0, 0);
-    sub_80029E8(0x34, 0x100, 0x100, 0x20, NULL);
+    CallSomeSoundMaybe(0x34, 0x100, 0x100, 0x20, NULL);
 }
 
 void PrepPromoteDebugMaybe(struct Proc08A184B4 *proc)
@@ -98,7 +98,7 @@ void PrepPromoteDebugMaybe(struct Proc08A184B4 *proc)
 
 void sub_8096668()
 {
-    sub_80029E8(0, 0x100, 0, 0x20, NULL);
+    CallSomeSoundMaybe(0, 0x100, 0, 0x20, NULL);
 }
 
 void NewPrepScreenTraineePromotionManager()

@@ -228,19 +228,17 @@ void sub_80ABE3C(int param_1, int param_2)
 }
 
 //! FE8U = 0x080ABF44
-u8 sub_80ABF44(u8 endMask, struct SaveMenuProc * proc)
+u8 SaveMenuGetValidMenuAmt(u8 endMask, struct SaveMenuProc * proc)
 {
-    int mask;
-    int count = 0;
+    int mask, count = 0;
 
     for (mask = 1; mask < endMask; mask <<= 1)
     {
-        if ((proc->unk_30 & mask) != 0)
+        if ((proc->active_options & mask) != 0)
         {
             count++;
         }
     }
-
     return count;
 }
 
@@ -277,8 +275,6 @@ void sub_80ABF74(u8 param_1)
         );
         r6 += 0x400;
     }
-
-    return;
 }
 
 u16 CONST_DATA gTextIds_DifficultyDescription[] =

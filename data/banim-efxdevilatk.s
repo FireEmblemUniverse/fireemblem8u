@@ -236,8 +236,8 @@ gUnknown_085D7B0C:  @ 0x085D7B0C
     .4byte gUnknown_087A61EC + 0x422a0
     .4byte gUnknown_087A61EC + 0x422c0
 
-	.global gUnknown_085D7B8C
-gUnknown_085D7B8C:  @ 0x085D7B8C
+	.global ProcScr_efxMaohFlashBG2
+ProcScr_efxMaohFlashBG2:  @ 0x085D7B8C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de6e0
@@ -328,8 +328,8 @@ gUnknown_085D7C44:  @ 0x085D7C44
     .4byte gUnknown_087A61EC + 0x4b474
     .4byte gUnknown_087A61EC + 0x4b494
 
-	.global gUnknown_085D7C58
-gUnknown_085D7C58:  @ 0x085D7C58
+	.global ProcScr_efxMaohFlashBG4
+ProcScr_efxMaohFlashBG4:  @ 0x085D7C58
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de738
@@ -407,8 +407,8 @@ gUnknown_085D7D10:  @ 0x085D7D10
     .4byte gUnknown_087A61EC + 0x48274
     .4byte gUnknown_087A61EC + 0x48294
 
-	.global gUnknown_085D7D30
-gUnknown_085D7D30:  @ 0x085D7D30
+	.global ProcScr_efxMaohFlashWOUT
+ProcScr_efxMaohFlashWOUT:  @ 0x085D7D30
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de76c
@@ -426,8 +426,8 @@ gUnknown_085D7D30:  @ 0x085D7D30
         .word 0x0
 
 
-	.global gUnknown_085D7D58
-gUnknown_085D7D58:  @ 0x085D7D58
+	.global ProcScr_efxMaohFlashBGCOL
+ProcScr_efxMaohFlashBGCOL:  @ 0x085D7D58
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de780
@@ -442,8 +442,8 @@ gUnknown_085D7D58:  @ 0x085D7D58
         .word 0x0
 
 
-	.global gUnknown_085D7D78
-gUnknown_085D7D78:  @ 0x085D7D78
+	.global ProcScr_efxMaohFlashEyeROBJ2
+ProcScr_efxMaohFlashEyeROBJ2:  @ 0x085D7D78
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de888
@@ -455,8 +455,8 @@ gUnknown_085D7D78:  @ 0x085D7D78
         .word 0x0
 
 
-	.global gUnknown_085D7D90
-gUnknown_085D7D90:  @ 0x085D7D90
+	.global ProcScr_efxMaohFlashEyeLOBJ2
+ProcScr_efxMaohFlashEyeLOBJ2:  @ 0x085D7D90
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de8a8
@@ -468,8 +468,8 @@ gUnknown_085D7D90:  @ 0x085D7D90
         .word 0x0
 
 
-	.global gUnknown_085D7DA8
-gUnknown_085D7DA8:  @ 0x085D7DA8
+	.global ProcScr_efxMaohFlashEyeOBJ1
+ProcScr_efxMaohFlashEyeOBJ1:  @ 0x085D7DA8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80de8c8

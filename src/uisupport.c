@@ -816,9 +816,9 @@ void SupportScreen_StartUnitSubMenu(struct SupportScreenProc* proc) {
 //! FE8U = 0x080A1930
 void SupportScreen_RestartSourceScreenMusic(struct SupportScreenProc* proc) {
     if (!proc->fromPrepScreen) {
-        sub_80029E8(0x43, 0x100, 0xc0, 0x18, 0);
+        CallSomeSoundMaybe(0x43, 0x100, 0xc0, 0x18, 0);
     } else {
-        sub_80029E8(0x34, 0x100, 0x100, 0x18, 0);
+        CallSomeSoundMaybe(0x34, 0x100, 0x100, 0x18, 0);
     }
 
     return;
@@ -1773,9 +1773,9 @@ void SupportSubScreen_PrepareSupportConvo(struct SubScreenProc* proc) {
     );
 
     if (proc->songId == 0) {
-        sub_80029E8(9, 0x100, 0x80, 0x10, 0);
+        CallSomeSoundMaybe(9, 0x100, 0x80, 0x10, 0);
     } else {
-        sub_80029E8(proc->songId, 0x100, 0x100, 0x10, 0);
+        CallSomeSoundMaybe(proc->songId, 0x100, 0x100, 0x10, 0);
     }
 
     return;
@@ -1785,9 +1785,9 @@ void SupportSubScreen_PrepareSupportConvo(struct SubScreenProc* proc) {
 void sub_80A2BD0(struct SubScreenProc* proc) {
 
     if (proc->songId == 0) {
-        sub_80029E8(9, 0x80, 0x100, 0x10, 0);
+        CallSomeSoundMaybe(9, 0x80, 0x100, 0x10, 0);
     } else {
-        sub_80029E8(9, 0x100, 0x100, 0x10, 0);
+        CallSomeSoundMaybe(9, 0x100, 0x100, 0x10, 0);
     }
 
     return;

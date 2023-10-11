@@ -15,9 +15,11 @@
 #include "bm.h"
 #include "bmlib.h"
 #include "prepscreen.h"
+#include "eventcall.h"
+
 s8 CheckInLinkArena();
 
-void PrepAtMenu_OnInit(struct ProcAtMenu *proc)
+void PrepAtMenu_OnInit(struct ProcAtMenu * proc)
 {
     PrepSetLatestCharId(0);
     proc->xDiff = 0;
@@ -84,13 +86,13 @@ void DrawPrepMenuDescTexts()
     BG_EnableSyncByMask(0x4);
 }
 
-void PrepMenuDescOnInit(struct ProcPrepMenuDesc *proc)
+void PrepMenuDescOnInit(struct ProcPrepMenuDesc * proc)
 {
     proc->unk4C = 0;
     ResetPrepMenuDescTexts();
 }
 
-void PrepMenuDescOnParse(struct ProcPrepMenuDesc *proc)
+void PrepMenuDescOnParse(struct ProcPrepMenuDesc * proc)
 {
     ParsePrepMenuDescTexts(proc->msg);
 }
@@ -102,7 +104,7 @@ void PrepMenuDescOnDraw()
 
 void sub_8095C00(int msg, ProcPtr parent)
 {
-    struct ProcPrepMenuDesc *proc;
+    struct ProcPrepMenuDesc * proc;
 
     proc = Proc_Find(ProcScr_PrepMenuDescHandler);
     if (proc)
@@ -112,7 +114,7 @@ void sub_8095C00(int msg, ProcPtr parent)
     proc->msg = msg;
 }
 
-void sub_8095C2C(struct ProcAtMenu *proc)
+void sub_8095C2C(struct ProcAtMenu * proc)
 {
     sub_80AD2D4();
     EndPrepSpecialCharEffect();
@@ -203,7 +205,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     DrawPrepMenuDescTexts();
 }
 
-void EndPrepAtMenuIfNoUnitAvailable(struct ProcAtMenu *proc)
+void EndPrepAtMenuIfNoUnitAvailable(struct ProcAtMenu * proc)
 {
     int i;
     u8 counter;
@@ -228,7 +230,7 @@ void EndPrepAtMenuIfNoUnitAvailable(struct ProcAtMenu *proc)
     }
 }
 
-void sub_8095F2C(struct ProcAtMenu *proc)
+void sub_8095F2C(struct ProcAtMenu * proc)
 {
     int val = GetActivePrepMenuItemIndex();
 
@@ -238,7 +240,7 @@ void sub_8095F2C(struct ProcAtMenu *proc)
     }
 }
 
-void sub_8095F54(struct ProcAtMenu *proc)
+void sub_8095F54(struct ProcAtMenu * proc)
 {
     int i, unk2F, tile;
 
@@ -274,14 +276,14 @@ void CleanupPrepMenuScreen(ProcPtr proc)
     BG_EnableSyncByMask(0x3);
 }
 
-void sub_8096004(struct ProcAtMenu *proc)
+void sub_8096004(struct ProcAtMenu * proc)
 {
     ShowPrepScreenMenuFrozenHand();
     sub_8095F54(proc);
     ShowPrepScreenHandCursor(0x1C, proc->hand_pos * 16 + 0x30, 7, 0x400);
 }
 
-void AtMenu_CtrlLoop(struct ProcAtMenu *proc)
+void AtMenu_CtrlLoop(struct ProcAtMenu * proc)
 {
     const int msg_list[] = {
         0x5B8,
@@ -306,7 +308,7 @@ void AtMenu_CtrlLoop(struct ProcAtMenu *proc)
             PlaySoundEffect(0x6A);
 
             if (2 == sub_8095094(proc->hand_pos, proc->unk_2F))
-                sub_80029E8(0x37, 0x100, 0x100, 0x20, NULL);
+                CallSomeSoundMaybe(0x37, 0x100, 0x100, 0x20, NULL);
 
             proc->state = 4;
             Proc_Goto(proc, 8);
@@ -359,7 +361,7 @@ void AtMenu_CtrlLoop(struct ProcAtMenu *proc)
     }
 }
 
-void AtMenuSetUnitStateAndEndFlag(struct ProcAtMenu *proc)
+void AtMenuSetUnitStateAndEndFlag(struct ProcAtMenu * proc)
 {
     int i;
     struct Unit *unit;
@@ -375,7 +377,7 @@ void AtMenuSetUnitStateAndEndFlag(struct ProcAtMenu *proc)
     proc->end_prep = 1;
 }
 
-void AtMenu_ResetScreenEffect(struct ProcAtMenu *proc)
+void AtMenu_ResetScreenEffect(struct ProcAtMenu * proc)
 {
     EndMuralBackground_();
     EndPrepSpecialCharEffect();
@@ -388,7 +390,7 @@ void AtMenu_ResetScreenEffect(struct ProcAtMenu *proc)
         nullsub_20(proc);
 }
 
-void AtMenu_ResetBmUiEffect(struct ProcAtMenu *proc)
+void AtMenu_ResetBmUiEffect(struct ProcAtMenu * proc)
 {
     ReorderPlayerUnitsBasedOnDeployment();
 
@@ -403,7 +405,7 @@ void AtMenu_ResetBmUiEffect(struct ProcAtMenu *proc)
     RefreshUnitSprites();
 }
 
-void AtMenu_StartSubmenu(struct ProcAtMenu *proc)
+void AtMenu_StartSubmenu(struct ProcAtMenu * proc)
 {
     sub_8095C2C(proc);
 
@@ -435,7 +437,7 @@ void AtMenu_StartSubmenu(struct ProcAtMenu *proc)
     Proc_Break(proc);
 }
 
-void AtMenu_OnSubmenuEnd(struct ProcAtMenu *proc)
+void AtMenu_OnSubmenuEnd(struct ProcAtMenu * proc)
 {
     if (3 == proc->state)
         StartBgmVolumeChange(0x80, 0x100, 0x20, NULL);

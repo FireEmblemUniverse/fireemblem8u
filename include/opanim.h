@@ -11,9 +11,9 @@
 struct TitleScreenProc {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ s8 unk_29; // maybe a flag for whether we are coming from the intro sequence?
+    /* 29 */ s8 mode; // maybe a flag for whether we are coming from the intro sequence?
     /* 2A */ u16 timer;
-    /* 2C */ int unk_2c;
+    /* 2C */ int timer_idle;
     /* 30 */ int unk_30;
 
     /* 34 */ u8 _pad[0x4C-0x34];

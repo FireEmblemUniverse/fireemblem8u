@@ -1567,7 +1567,7 @@ u8 Event21_(struct EventEngineProc * proc)
             if (sub_800E7D0(proc->activeTextType, evArgument) == EVC_ERROR)
                 return EVC_ERROR;
 
-            sub_80B2780(evArgument3, 0, evArgument2_b, proc);
+            NewColFadeIn(evArgument3, 0, evArgument2_b, proc);
 
             break;
         }
@@ -1580,7 +1580,7 @@ u8 Event21_(struct EventEngineProc * proc)
             if (EVENT_IS_SKIPPING(proc))
                 return EVC_ADVANCE_CONTINUE;
 
-            sub_80B272C(evArgument3, 0, evArgument2_b, proc);
+            NewColFadeOut(evArgument3, 0, evArgument2_b, proc);
 
             break;
         }
@@ -2233,7 +2233,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
     switch (subcode)
     {
         case 0:
-            SetNextGameActionId(GAME_ACTION_0);
+            SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
             proc->evStateBits |= EV_STATE_CHANGEGM;
 
             break;
@@ -2243,7 +2243,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
 
             gPlaySt.unk4A_2 = 1;
 
-            SetNextGameActionId(GAME_ACTION_1);
+            SetNextGameActionId(GAME_ACTION_CLASS_REEL);
             proc->evStateBits |= EV_STATE_CHANGEGM;
 
             break;
@@ -2253,7 +2253,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
 
             gPlaySt.unk4A_2 = 2;
 
-            SetNextGameActionId(GAME_ACTION_2);
+            SetNextGameActionId(GAME_ACTION_USR_SKIPPED);
             proc->evStateBits |= EV_STATE_CHANGEGM;
 
             break;
@@ -2264,10 +2264,8 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
 
         case 4:
             gPlaySt.unk4A_2 = 3;
-
-            SetNextGameActionId(GAME_ACTION_3);
+            SetNextGameActionId(GAME_ACTION_PLAYED_THROUGH);
             proc->evStateBits |= EV_STATE_CHANGEGM;
-
             break;
 
     } // switch (subcode)

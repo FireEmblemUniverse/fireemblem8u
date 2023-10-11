@@ -60,7 +60,7 @@ void EnablePrepScreenMenu(ProcPtr);
 void PidStatsSubFavval100(u8);
 void PidStatsAddDeployAmt(u8);
 void sub_80B9FC0();
-void Make6C_savemenu2(ProcPtr);
+void Make6C_SaveMenuPostChapter(ProcPtr);
 void NewPrepScreenTraineePromotionManager(ProcPtr);
 int PrepScreenTraineePromotionManagerExists(ProcPtr);
 int CheckInLinkArena();
@@ -1011,7 +1011,7 @@ void StartPrepSaveScreen(ProcPtr proc) {
 
     StartBgmVolumeChange(0x100, 0x80, 0x20, 0);
     sub_801240C();
-    Make6C_savemenu2(proc);
+    Make6C_SaveMenuPostChapter(proc);
 
     return;
 }
@@ -1032,7 +1032,7 @@ void sub_8034194() {
         return;
     }
 
-    sub_80029E8(0x34, 0x100, 0x100, 0x18, 0);
+    CallSomeSoundMaybe(0x34, 0x100, 0x100, 0x18, 0);
 
     return;
 }
@@ -1062,7 +1062,7 @@ void sub_8034200() {
 void ShrinkPlayerUnits() {
     int i;
 
-    if (!(PLAY_FLAG_7 & gPlaySt.chapterStateBits)) {
+    if (!(PLAY_FLAG_EXTRA_MAP & gPlaySt.chapterStateBits)) {
         return;
     }
 

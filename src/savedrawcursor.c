@@ -19,9 +19,9 @@ struct SaveDrawCursorProc {
     /* 00 */ PROC_HEADER;
 
     /* 2A */ u16 unk_2a;
-    /* 2C */ u8 unk_2c;
+    /* 2C */ u8 save_slot;
     /* 2E */ s16 unk_2e;
-    /* 30 */ s16 unk_30;
+    /* 30 */ s16 active_options;
     /* 32 */ s16 unk_32;
     /* 34 */ s16 unk_34;
     /* 36 */ u8 unk_36;
@@ -34,8 +34,8 @@ struct SaveDrawCursorProc {
 struct SaveMenuUnusedProc {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
+    /* 2C */ int save_slot;
+    /* 30 */ int active_options;
     /* 34 */ struct SaveDrawCursorProc* unk_34;
 };
 
@@ -98,14 +98,14 @@ void SaveDrawCursor_Init(struct SaveDrawCursorProc* proc) {
 
     proc->unk_2a = 0;
     proc->unk_2e = 0;
-    proc->unk_30 = 0;
+    proc->active_options = 0;
     proc->unk_32 = 0;
     proc->unk_34 = 0;
 
     proc->unk_37 = 0;
     proc->unk_38 = 0;
     proc->unk_3a = 0;
-    proc->unk_2c = 0;
+    proc->save_slot = 0;
     return;
 }
 
@@ -125,17 +125,17 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc* proc) {
 
     proc->unk_2a++;
 
-    if (proc->unk_2c < 4) {
-        proc->unk_2c++;
+    if (proc->save_slot < 4) {
+        proc->save_slot++;
     }
 
     if (proc->unk_36 != 0) {
         yOam0 = proc->unk_32;
         xOam1 = proc->unk_2e;
 
-        if (proc->unk_2c < 4) {
+        if (proc->save_slot < 4) {
             yOam0 = (proc->unk_32 - proc->unk_34) / 2 + proc->unk_34;
-            xOam1 = (proc->unk_2e - proc->unk_30) / 2 + proc->unk_30;
+            xOam1 = (proc->unk_2e - proc->active_options) / 2 + proc->active_options;
         }
 
         if (proc->unk_3a == 0) {
@@ -145,7 +145,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc* proc) {
         }
 
         proc->unk_34 = proc->unk_32;
-        proc->unk_30 = proc->unk_2e;
+        proc->active_options = proc->unk_2e;
 
         if (proc->unk_3a == 0) {
             PutSpriteExt(
@@ -175,9 +175,9 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc* proc) {
             );
         }
 
-        proc->unk_2c = 0;
+        proc->save_slot = 0;
     } else {
-        if (proc->unk_2c == 4) {
+        if (proc->save_slot == 4) {
             proc->unk_36 = 0;
         }
     }
@@ -403,7 +403,7 @@ int CONST_DATA gUnknown_08A20720[] = {
 
 //! FE8U = 0x080AB83C
 void sub_80AB83C(struct SaveMenuProc* proc, s8 flag) {
-    sub_80AB7BC(gUnknown_08A20720[sub_80A88B8(proc->unk_42)], flag);
+    sub_80AB7BC(gUnknown_08A20720[sub_80A88B8(proc->action_flag)], flag);
 
     if (flag == 0) {
         proc->unk_36 = 0;
@@ -414,7 +414,7 @@ void sub_80AB83C(struct SaveMenuProc* proc, s8 flag) {
 
 //! FE8U = 0x080AB874
 void AddMainMenuOption(struct SaveMenuProc* proc, int option) {
-    proc->unk_30 |= option;
+    proc->active_options |= option;
     proc->unk_31++;
     return;
 }
@@ -433,7 +433,7 @@ void sub_80AB89C(struct SaveMenuProc* proc) {
     int count = 0;
 
     proc->unk_31 = 0;
-    proc->unk_30 = 0;
+    proc->active_options = 0;
 
     if (proc->unk_44 == 0x100) {
         AddMainMenuOption(proc, MAIN_MENU_OPTION_RESUME);
@@ -483,7 +483,7 @@ void sub_80AB89C(struct SaveMenuProc* proc) {
     }
 
     if (proc->unk_32 != 0) {
-        proc->unk_30 |= MAIN_MENU_OPTION_EXTRAS;
+        proc->active_options |= MAIN_MENU_OPTION_EXTRAS;
         proc->unk_31++;
     }
 
@@ -491,7 +491,7 @@ void sub_80AB89C(struct SaveMenuProc* proc) {
 }
 
 //! FE8U = 0x080AB98C
-u8 sub_80AB98C(u8 slot, int b, int c) {
+u8 SaveMenuModifySaveSlot(u8 slot, int b, int c) {
     u8 i;
     s8 castB = b;
     s8 castC = c;
@@ -530,9 +530,9 @@ s8 sub_80AB9FC(struct SaveMenuProc* proc, int b) {
     s8 castB = b;
     s8 flag = 0;
 
-    u8 previous = proc->unk_2c;
+    u8 previous = proc->save_slot;
 
-    switch (proc->unk_42) {
+    switch (proc->action_flag) {
         case 0x80:
             flag = 1;
             break;
@@ -557,26 +557,26 @@ s8 sub_80AB9FC(struct SaveMenuProc* proc, int b) {
     }
 
     if (castB >= 1) {
-        if (proc->unk_2c == 2) {
-            proc->unk_2c = 0;
+        if (proc->save_slot == 2) {
+            proc->save_slot = 0;
         } else {
-            proc->unk_2c++;
+            proc->save_slot++;
         }
     } else {
-        if (proc->unk_2c == 0) {
-            proc->unk_2c = 2;
+        if (proc->save_slot == 0) {
+            proc->save_slot = 2;
         } else {
-            proc->unk_2c--;
+            proc->save_slot--;
         }
     }
 
-    if (proc->unk_42 == 0x40) {
+    if (proc->action_flag == 0x40) {
         return 1;
     }
 
-    proc->unk_2c = sub_80AB98C(proc->unk_2c, flag, castB);
+    proc->save_slot = SaveMenuModifySaveSlot(proc->save_slot, flag, castB);
 
-    if (previous == proc->unk_2c) {
+    if (previous == proc->save_slot) {
         return 0;
     }
 
@@ -586,7 +586,7 @@ s8 sub_80AB9FC(struct SaveMenuProc* proc, int b) {
 //! FE8U = 0x080ABA98
 s8 sub_80ABA98(struct SaveMenuProc* proc) {
 
-    if ((proc->unk_42 & proc->unk_30) != 0) {
+    if ((proc->action_flag & proc->active_options) != 0) {
         return 1;
     }
 

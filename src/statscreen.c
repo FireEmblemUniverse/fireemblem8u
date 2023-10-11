@@ -484,7 +484,7 @@ void DisplayBwl(void)
     if (gPlaySt.chapterStateBits & PLAY_FLAG_TUTORIAL)
         return;
 
-    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_EXTRA_MAP)
         return;
 
     if (IsFirstPlaythrough() == TRUE)

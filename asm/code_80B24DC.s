@@ -323,14 +323,14 @@ _080B2728: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_80B2608
 
-	THUMB_FUNC_START sub_80B272C
-sub_80B272C: @ 0x080B272C
+	THUMB_FUNC_START NewColFadeOut
+NewColFadeOut: @ 0x080B272C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
 	adds r4, r2, #0
 	adds r1, r3, #0
-	ldr r0, _080B2758  @ gUnknown_08A2EE90
+	ldr r0, _080B2758  @ ProcScr_ColFadeOut
 	bl Proc_StartBlocking
 	adds r1, r0, #0
 	adds r0, #0x64
@@ -347,7 +347,7 @@ sub_80B272C: @ 0x080B272C
 	beq _080B2762
 	b _080B2778
 	.align 2, 0
-_080B2758: .4byte gUnknown_08A2EE90
+_080B2758: .4byte ProcScr_ColFadeOut
 _080B275C:
 	cmp r6, #2
 	beq _080B2770
@@ -372,16 +372,16 @@ _080B2778:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80B272C
+	THUMB_FUNC_END NewColFadeOut
 
-	THUMB_FUNC_START sub_80B2780
-sub_80B2780: @ 0x080B2780
+	THUMB_FUNC_START NewColFadeIn
+NewColFadeIn: @ 0x080B2780
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
 	adds r4, r2, #0
 	adds r1, r3, #0
-	ldr r0, _080B27B0  @ gUnknown_08A2EEC0
+	ldr r0, _080B27B0  @ ProcScr_ColFadeIn
 	bl Proc_StartBlocking
 	mov ip, r0
 	adds r0, #0x64
@@ -399,7 +399,7 @@ sub_80B2780: @ 0x080B2780
 	beq _080B27BA
 	b _080B27DA
 	.align 2, 0
-_080B27B0: .4byte gUnknown_08A2EEC0
+_080B27B0: .4byte ProcScr_ColFadeIn
 _080B27B4:
 	cmp r6, #2
 	beq _080B27CE
@@ -458,6 +458,6 @@ _080B280A:
 _080B2810: .4byte gUnknown_02014EF4
 _080B2814: .4byte gPaletteBuffer
 
-	THUMB_FUNC_END sub_80B2780
+	THUMB_FUNC_END NewColFadeIn
 
 .align 2, 0

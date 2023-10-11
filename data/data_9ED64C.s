@@ -1,174 +1,7 @@
     .section .data
 
-	.global gForceDeploymentList
-gForceDeploymentList:  @ 0x089ED64C
-	.incbin "baserom.gba", 0x9ED64C, 0x28
-
-	.global gPidList_SethLArachelMyrrhInnes
-gPidList_SethLArachelMyrrhInnes:  @ 0x089ED674
-	.incbin "baserom.gba", 0x9ED674, 0x8
-
-	.global gUnknown_089ED67C
-gUnknown_089ED67C:  @ 0x089ED67C
-	.incbin "baserom.gba", 0x9ED67C, 0x18
-
-	.global gUnknown_089ED694
-gUnknown_089ED694:  @ 0x089ED694
-	.incbin "baserom.gba", 0x9ED694, 0x18
-
-	.global gUnknown_089ED6AC
-gUnknown_089ED6AC:  @ 0x089ED6AC
-    .incbin "baserom.gba", 0x9ED6AC, 0x8CC
-
-	.global gUnknown_089EDF78
-gUnknown_089EDF78:  @ 0x089EDF78
-        @ PROC_SLEEP
-        .short 0xe, 0x1e
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8085388
-        @ PROC_SLEEP
-        .short 0xe, 0xa
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word StartSlowFadeToBlack
-        @ PROC_SLEEP
-        .short 0xe, 0x50
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MU_EndAll
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80853B0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word StartGameOverScreen
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80853D0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089EDFD8
-gUnknown_089EDFD8:  @ 0x089EDFD8
-        @ PROC_SLEEP
-        .short 0xe, 0x1c
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8085408
-        @ PROC_SLEEP
-        .short 0xe, 0x8
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80853FC
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089EE000
-gUnknown_089EE000:  @ 0x089EE000
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8085618
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8085670
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089EE030
-gUnknown_089EE030:  @ 0x089EE030
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80856D0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089EE048
-gUnknown_089EE048:  @ 0x089EE048
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8085894
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_808589C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089EE068
-gUnknown_089EE068:  @ 0x089EE068
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8085988
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8085990
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089EE088
-gUnknown_089EE088:  @ 0x089EE088
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_8085BB4
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80859EC
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8085ACC
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8085B30
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8085B58
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
+	.global gEvent_Unk
+gEvent_Unk:
 @ Replacing .incbin "baserom.gba", 0x9EE088 + 0x38, 0x914 - 0x38
     .4byte 0x00001927
     .4byte 0x00000c40
@@ -229,14 +62,14 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0x00000c40
     .4byte 0x0002000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00000820
     .4byte 0x00000120
     .4byte 0xffff3325
     .4byte 0x00000c40
     .4byte 0x0002000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00000820
     .4byte 0x00000120
     .4byte 0x00001929
@@ -266,7 +99,7 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0x00000820
     .4byte 0x004c0620
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x160
+    .4byte ProcScr_089EE088 + 0x160
     .4byte 0x00000120
     .4byte 0x00001927
     .4byte 0x00000c41
@@ -276,7 +109,7 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0x0000000c
     .4byte 0x003c0620
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x160
+    .4byte ProcScr_089EE088 + 0x160
     .4byte 0x00000820
     .4byte 0x00000120
     .4byte 0x00041020
@@ -296,7 +129,7 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0x00000c40
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00000120
     .4byte 0x00080320
@@ -319,12 +152,12 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0x00101720
     .4byte 0x00000120
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00320620
     .4byte 0xffff1b20
     .4byte 0x00001d20
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00000120
     .4byte 0x00011020
     .4byte 0xfffe2720
@@ -333,17 +166,17 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x2f4
+    .4byte ProcScr_089EE088 + 0x2f4
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x2f4
+    .4byte ProcScr_089EE088 + 0x2f4
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x2f4
+    .4byte ProcScr_089EE088 + 0x2f4
     .4byte 0x00000120
     .4byte 0x00011020
     .4byte 0xffff3325
@@ -549,7 +382,7 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0x00000c41
     .4byte 0x0003000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x5f4
+    .4byte ProcScr_089EE088 + 0x5f4
     .4byte 0x00010920
     .4byte 0x00000820
     .4byte 0x00420620
@@ -560,7 +393,7 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0x00000c41
     .4byte 0x0003000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x5f4
+    .4byte ProcScr_089EE088 + 0x5f4
     .4byte 0x00010920
     .4byte 0x00000820
     .4byte 0x00420620
@@ -738,14 +571,14 @@ gUnknown_089EE088:  @ 0x089EE088
     .4byte 0xffff2a21
     .4byte 0x00000120
 
-	.global gUnknown_089EE99C
-gUnknown_089EE99C:  @ 0x089EE99C
+	.global Obj_089EE99C
+Obj_089EE99C:  @ 0x089EE99C
 	.incbin "baserom.gba", 0x9EE99C, 0x14
 
 	.global gUnknown_089EE9B0
 gUnknown_089EE9B0:  @ 0x089EE9B0
 @ replacing .incbin "baserom.gba", 0x009ee9b0, 0x18
-.4byte gUnknown_0895F5A5 + 0x3e137
+.4byte gUnknown_0899D6DC
 .4byte gUnknown_0895F5A5 + 0x3ebff
 .4byte gUnknown_0895F5A5 + 0x3f79f
 .4byte gUnknown_0895F5A5 + 0x4022f
@@ -762,8 +595,8 @@ gUnknown_089EE9C8:  @ 0x089EE9C8
 .4byte gUnknown_0895F5A5 + 0x4200f
 .4byte gUnknown_0895F5A5 + 0x421a7
 
-	.global gUnknown_089EE9E0
-gUnknown_089EE9E0:  @ 0x089EE9E0
+	.global ProcScr_089EE9E0
+ProcScr_089EE9E0:  @ 0x089EE9E0
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -889,7 +722,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00001b22
     .4byte 0x00001521
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00010820
     .4byte 0x00020722
     .4byte 0x00020722
@@ -898,7 +731,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00001b22
     .4byte 0x00001521
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00020820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -919,7 +752,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x794
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00001927
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -942,7 +775,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x0000090d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00182f40
     .4byte 0x04040002
@@ -957,7 +790,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x854
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00002f48
     .4byte 0x05040001
     .4byte 0x00003020
@@ -1080,7 +913,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000907
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -1113,7 +946,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000908
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x4e0
     .4byte 0x00003020
@@ -1131,7 +964,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000909
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00002f42
     .4byte 0x00000045
     .4byte 0x00003020
@@ -1215,7 +1048,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0xe00
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00000120
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x178
@@ -1269,7 +1102,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09181b20
     .4byte 0x00001d20
     .4byte 0x00101721
@@ -1312,27 +1145,27 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x67c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x98c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x9b0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0xbe8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0xc48
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001a23
@@ -1376,7 +1209,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x888
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x00000120
     .4byte 0x00070228
     .4byte 0x00001120
@@ -1398,7 +1231,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x900
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xfffb3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -1488,7 +1321,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0xa44
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x03fe1120
     .4byte 0x00000120
     .4byte 0x00070228
@@ -1644,7 +1477,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0xcb8
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x00000120
     .4byte 0x00070228
     .4byte 0x00001120
@@ -1666,7 +1499,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0xd30
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xfffe3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -1719,7 +1552,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000929
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x730
     .4byte 0x00003020
@@ -1734,7 +1567,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x0000092a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00002f40
     .4byte 0x03020046
     .4byte 0x00003020
@@ -1766,7 +1599,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x11fc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00002f40
     .4byte 0x02020046
     .4byte 0x000b0540
@@ -1803,7 +1636,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x0000092c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001b22
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x5c8
@@ -1818,18 +1651,18 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x334
+    .4byte ProcScr_089EE088 + 0x334
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x13c0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x000b0229
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x1694
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00131220
@@ -1856,20 +1689,20 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x1420
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x1668
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00311220
     .4byte 0x00020540
     .4byte 0x00000026
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00033322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -1917,7 +1750,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x0000093b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -1927,14 +1760,14 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x0000093c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x114
+    .4byte ProcScr_089EE088 + 0x114
     .4byte 0x000b0221
     .4byte 0x00070228
     .4byte 0x00000120
@@ -1942,7 +1775,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6e0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00833b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -2011,7 +1844,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x1274
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x00000120
     .4byte 0x00070228
     .4byte 0x00001120
@@ -2033,7 +1866,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x12ec
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xffdf3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -2118,7 +1951,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x1400
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00002f40
     .4byte 0x01080004
     .4byte 0x00003020
@@ -2172,7 +2005,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x14f8
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x03fe1120
     .4byte 0x00000120
     .4byte 0x00070228
@@ -2195,7 +2028,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x1574
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xfdff3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -2304,7 +2137,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x1708
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x00000120
     .4byte 0x00070228
     .4byte 0x00001120
@@ -2326,7 +2159,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x1780
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xfffe3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -2372,7 +2205,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000018
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09541b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -2411,7 +2244,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000956
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00473b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -2448,11 +2281,11 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000958
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x1d68
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00002c40
     .4byte gUnknown_088B3AD8 + 0x7f4
     .4byte 0x00003020
@@ -2476,7 +2309,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x1d88
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00053b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -2492,13 +2325,13 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x1da8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2270
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00311220
@@ -2511,7 +2344,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09621b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -2519,16 +2352,16 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00000820
     .4byte 0x00020540
     .4byte 0x00000004
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09631b20
     .4byte 0x00001d20
     .4byte 0x00041721
@@ -2577,11 +2410,11 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x00000120
     .4byte 0x00301420
     .4byte 0x00210e20
@@ -2616,7 +2449,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000969
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00010920
     .4byte 0x00000820
@@ -2626,7 +2459,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x0000096a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00010820
     .4byte 0x00000a40
@@ -2642,7 +2475,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x0000096b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -2657,7 +2490,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x0000096c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -2669,11 +2502,11 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x998
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x272c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001a23
@@ -2742,7 +2575,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x1de0
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x00000120
     .4byte 0x00070228
     .4byte 0x00001120
@@ -2764,7 +2597,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x1e58
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xfff73d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -2823,7 +2656,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x1f44
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0x010a1120
     .4byte 0x00000120
     .4byte 0x00010b41
@@ -2878,7 +2711,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x2000
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x00000120
     .4byte 0x00070228
     .4byte 0x00001120
@@ -2900,7 +2733,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x2078
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xfffb3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -2958,7 +2791,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x2140
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x00000120
     .4byte 0x00070228
     .4byte 0x00001120
@@ -2980,7 +2813,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x21b8
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xffdf3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -3000,7 +2833,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x1d48
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00003d20
     .4byte 0x00000b40
     .4byte gUnknown_089EEA28 + 0x2790
@@ -3047,7 +2880,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x22a4
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x03fe1120
     .4byte 0x00000120
     .4byte 0x00070228
@@ -3070,7 +2903,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x2320
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xffef3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -3121,7 +2954,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x23ec
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0x010a1120
     .4byte 0x00000120
     .4byte 0x00010b41
@@ -3178,7 +3011,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x24ac
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x03fe1120
     .4byte 0x00000120
     .4byte 0x00070228
@@ -3263,7 +3096,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x2600
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x66c
+    .4byte ProcScr_089EE088 + 0x66c
     .4byte 0x00000120
     .4byte 0x00070228
     .4byte 0x00001120
@@ -3285,7 +3118,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte gUnknown_089EEA28 + 0x267c
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x70c
+    .4byte ProcScr_089EE088 + 0x70c
     .4byte 0xffbf3d20
     .4byte 0x010a1120
     .4byte 0x00000120
@@ -3305,7 +3138,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x276c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00003d20
     .4byte 0x00070228
     .4byte 0x00000120
@@ -3356,14 +3189,14 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000018
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x098b1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x098c1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -3379,7 +3212,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2b78
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00001927
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -3394,11 +3227,11 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2cc4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x334
+    .4byte ProcScr_089EE088 + 0x334
     .4byte 0x00101721
     .4byte 0x00002c40
     .4byte gUnknown_088B3AD8 + 0xa9c
@@ -3428,11 +3261,11 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2c30
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2ca4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00002620
@@ -3451,20 +3284,20 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2c68
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00002f48
     .4byte 0x04020009
     .4byte 0x00003020
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2c88
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2d5c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00311220
@@ -3477,7 +3310,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000028
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09951b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -3485,18 +3318,18 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000009
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00010920
     .4byte 0x00000820
     .4byte 0x00020540
     .4byte 0x00000009
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x00010820
     .4byte 0x00020540
     .4byte 0x00000029
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09961b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -3509,7 +3342,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09971b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -3581,7 +3414,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x2d38
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x07072628
@@ -3598,7 +3431,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x0005000a
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x314
+    .4byte ProcScr_089EE088 + 0x314
     .4byte 0x003c0e20
     .4byte 0x00003b22
     .4byte 0x00001a20
@@ -3619,7 +3452,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00080008
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x314
+    .4byte ProcScr_089EE088 + 0x314
     .4byte 0x003c0e20
     .4byte 0x00003b22
     .4byte 0x00001a23
@@ -3723,7 +3556,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000023
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09a31b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -3751,7 +3584,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09a51b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -3759,7 +3592,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x3238
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00101721
     .4byte 0x00002220
     .4byte 0x00002620
@@ -3808,7 +3641,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x3258
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00013b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -3819,7 +3652,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x327c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00000a40
     .4byte gEvent_OpenChest + 0x30
     .4byte 0x00002620
@@ -3835,7 +3668,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x329c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00080229
     .4byte 0x00070228
     .4byte 0x00000120
@@ -3869,7 +3702,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00133322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -3892,7 +3725,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000018
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00133322
     .4byte 0x000b0c40
     .4byte 0x0000000c
@@ -3930,7 +3763,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000018
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09b11b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -3958,7 +3791,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009b4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00020920
     .4byte 0x00000820
     .4byte 0x00020540
@@ -3966,7 +3799,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009b2
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00020920
     .4byte 0x00010820
     .4byte 0x00020540
@@ -3974,7 +3807,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009b3
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00020820
     .4byte 0x00041421
     .4byte 0x00012c40
@@ -3988,7 +3821,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009b5
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -4000,20 +3833,20 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x11b0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00080221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x114c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001a23
@@ -4082,7 +3915,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009ba
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x0020342f
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x1e64
@@ -4093,7 +3926,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000005
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09bb1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -4115,7 +3948,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009bc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00002f40
     .4byte 0x0409004a
     .4byte 0x00003020
@@ -4130,7 +3963,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009bd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -4185,7 +4018,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00241220
     .4byte 0x09be1b20
     .4byte 0x00001d20
@@ -4202,7 +4035,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1ef0
     .4byte 0x00003020
@@ -4268,7 +4101,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x398c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x12052620
     .4byte 0x00091220
     .4byte 0x000d3b21
@@ -4281,18 +4114,18 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x38f4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00101721
     .4byte 0x00020540
     .4byte 0x00000020
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x00020540
     .4byte 0x00000005
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x000d3322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -4321,7 +4154,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000005
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09cb1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -4346,7 +4179,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009cd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -4356,7 +4189,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x3918
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001520
@@ -4365,7 +4198,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009ce
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -4380,7 +4213,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009cf
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -4395,7 +4228,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009d0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
     .4byte 0x00030540
@@ -4420,12 +4253,12 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x3938
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00131220
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1d88
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x100e3b20
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -4438,13 +4271,13 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1dc4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1e00
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001a23
@@ -4562,7 +4395,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000022
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00251220
     .4byte 0x09d81b20
     .4byte 0x00001d20
@@ -4586,7 +4419,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009d9
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00002f40
     .4byte 0x0409000f
     .4byte 0x00080e22
@@ -4625,7 +4458,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000010
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09db1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -4637,7 +4470,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000010
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09e11b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -4692,7 +4525,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000021
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09e31b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -4706,13 +4539,13 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000001a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09e41b20
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x7fff1326
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00090228
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x29dc
@@ -4727,13 +4560,13 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0xffff2f48
     .4byte 0x0805fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00020540
     .4byte 0x000000f9
     .4byte 0xffff2f48
     .4byte 0x0806fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00002f42
     .4byte 0x00000001
     .4byte 0x00002f42
@@ -4745,7 +4578,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000001a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09e51b20
     .4byte 0x00001d20
     .4byte 0x00261220
@@ -4755,42 +4588,42 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000001a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09e61b20
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00020540
     .4byte 0x0000001a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09e71b20
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0xffff2f40
     .4byte 0x051400fb
     .4byte 0x00020540
     .4byte 0x0000004b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00020540
     .4byte 0x000000f9
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x05132628
     .4byte 0x00020540
     .4byte 0x0000004b
     .4byte 0xffff2f48
     .4byte 0x0613fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00020540
     .4byte 0x000000f9
     .4byte 0xffff2f48
     .4byte 0x0614fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x004b3b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -4799,36 +4632,36 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009e8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x003c0e20
     .4byte 0x00020540
     .4byte 0x000000f9
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00020540
     .4byte 0x000000fb
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0b152628
     .4byte 0x00020540
     .4byte 0x000000f9
     .4byte 0xffff2f48
     .4byte 0x0c1afffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00020540
     .4byte 0x000000fb
     .4byte 0xffff2f48
     .4byte 0x0c19fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00f93b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
     .4byte 0x00020540
     .4byte 0x0000001e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09e91b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -4836,7 +4669,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x40bc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00000a40
     .4byte gEvent_OpenChest + 0x30
     .4byte 0x00000120
@@ -4850,7 +4683,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x000000b0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x114
+    .4byte ProcScr_089EE088 + 0x114
     .4byte 0x00181220
     .4byte 0x00f92621
     .4byte 0x00f93b21
@@ -4883,7 +4716,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00001b22
     .4byte 0x00040820
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00630820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -4891,7 +4724,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000001a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00fa3322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -4932,7 +4765,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x000009f3
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -4942,7 +4775,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x412c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00002220
@@ -4955,7 +4788,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000001a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09ea1b20
     .4byte 0x00001d20
     .4byte 0x00093322
@@ -4984,7 +4817,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x2a18
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00251220
@@ -5007,7 +4840,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000021
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x09f61b20
     .4byte 0x00001d20
     .4byte 0x00043322
@@ -5076,7 +4909,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte gUnknown_089EEA28 + 0x4494
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x38
+    .4byte ProcScr_089EE088 + 0x38
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x004c2629
@@ -5126,7 +4959,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000a05
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00002f42
     .4byte 0x00000042
@@ -5177,7 +5010,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000a06
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -5187,7 +5020,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000a07
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -5232,14 +5065,14 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000010
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a081b20
     .4byte 0x00001d20
     .4byte 0x7fff1324
     .4byte 0x00001c20
     .4byte 0x00001d20
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x3c74
     .4byte 0x00003020
@@ -5282,7 +5115,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000a0a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x000b0540
     .4byte 0x00100013
     .4byte 0x00002f42
@@ -5330,14 +5163,14 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00013b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
     .4byte 0x00020540
     .4byte 0x00000010
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a0c1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -5375,7 +5208,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000010
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a101b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -5416,20 +5249,20 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000c0221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x3b70
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x3bc0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x140e2620
@@ -5444,7 +5277,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000005
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c021b20
     .4byte 0x00001d20
     .4byte 0x7fff1328
@@ -5510,7 +5343,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x00000005
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c051b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -5520,7 +5353,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c061b20
     .4byte 0x00001d20
     .4byte 0x00101721
@@ -5528,14 +5361,14 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c071b20
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c081b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -5545,7 +5378,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c091b20
     .4byte 0x00001d20
     .4byte 0x00251220
@@ -5565,7 +5398,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c0e1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -5578,7 +5411,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00291220
     .4byte 0x0c0f1b20
     .4byte 0x00001d20
@@ -5622,7 +5455,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c101b20
     .4byte 0x00001d20
     .4byte 0x00030920
@@ -5633,7 +5466,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c111b20
     .4byte 0x00001d20
     .4byte 0x00030920
@@ -5644,7 +5477,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c121b20
     .4byte 0x00001d20
     .4byte 0x00030820
@@ -5659,7 +5492,7 @@ gUnknown_089EEA28:  @ 0x089EEA28
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0c131b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -5919,7 +5752,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a191b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -5940,7 +5773,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a1a1b20
     .4byte 0x00001d20
     .4byte 0x00001520
@@ -5961,7 +5794,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a1b1b20
     .4byte 0x00001d20
     .4byte 0x00041421
@@ -6035,7 +5868,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a1d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x4224
     .4byte 0x00003020
@@ -6044,7 +5877,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00101721
     .4byte 0x00c5342f
     .4byte 0x0000342a
@@ -6158,7 +5991,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a221b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -6187,7 +6020,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a23
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x7fff1324
     .4byte 0x00102f42
     .4byte 0x00030002
@@ -6218,7 +6051,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a24
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x47c4
     .4byte 0x00003020
@@ -6228,7 +6061,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00261220
     .4byte 0x0a251b20
     .4byte 0x00001d20
@@ -6242,7 +6075,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a261b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -6282,7 +6115,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a29
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00021421
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -6297,7 +6130,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a2a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -6349,43 +6182,43 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x4490
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x44b8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x44f4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x4530
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x456c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x45a8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x45e4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00123b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -6400,7 +6233,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x4648
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x002e1220
@@ -6452,7 +6285,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a2c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x5c6c
     .4byte 0x00003020
@@ -6463,7 +6296,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a2d1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -6486,7 +6319,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00101720
     .4byte 0x000b3b21
     .4byte 0x003c0e20
@@ -6497,7 +6330,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a2e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00002620
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x506c
@@ -6523,7 +6356,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a2f1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -6550,7 +6383,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a31
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -6558,7 +6391,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00070540
     .4byte 0x00000002
     .4byte 0x00143320
@@ -6584,11 +6417,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000014
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00020540
     .4byte 0x00000015
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00020c40
     .4byte 0x00000007
     .4byte 0x00010540
@@ -6609,7 +6442,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000016
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x0000342a
     .4byte 0x0000342c
     .4byte 0x0000342b
@@ -6627,7 +6460,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a36
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00102f40
     .4byte 0x1e030043
     .4byte 0x000b0540
@@ -6653,7 +6486,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00311220
     .4byte 0x0a371b20
     .4byte 0x00001d20
@@ -6663,7 +6496,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000010
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a381b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -6671,7 +6504,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00153322
     .4byte 0x000a0c40
     .4byte 0x0000000c
@@ -6682,7 +6515,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a3a1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -6778,16 +6611,16 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x501c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00000820
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x4f40
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x4fb8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001520
@@ -6796,7 +6629,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a43
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -6806,7 +6639,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a44
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -6816,20 +6649,20 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a45
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x4f04
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000e0221
     .4byte 0x000d0540
     .4byte 0x00000000
@@ -6860,7 +6693,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00010000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x5f4
+    .4byte ProcScr_089EE088 + 0x5f4
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00162621
@@ -6884,7 +6717,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a461b20
     .4byte 0x00001d20
     .4byte 0x7fff1324
@@ -6895,7 +6728,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00153322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -6907,7 +6740,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a47
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00010920
     .4byte 0x00000820
     .4byte 0x00002f42
@@ -6921,7 +6754,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a48
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00010820
     .4byte 0x000d0540
     .4byte 0x00000000
@@ -6960,7 +6793,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000027
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a491b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -6975,7 +6808,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000027
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00193322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -7003,11 +6836,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000019
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00020540
     .4byte 0x0000001a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x0000342a
     .4byte 0x0000342c
     .4byte 0x0000342b
@@ -7028,7 +6861,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001520
     .4byte 0x0a4e1b20
     .4byte 0x00001d20
@@ -7054,7 +6887,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a4f1b20
     .4byte 0x00001d20
     .4byte 0x00281220
@@ -7062,7 +6895,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00002f40
     .4byte 0x000d0017
     .4byte 0x00003020
@@ -7092,7 +6925,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a501b20
     .4byte 0x00001d20
     .4byte 0x00261220
@@ -7100,7 +6933,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00002f42
     .4byte 0x00030043
     .4byte 0x00003020
@@ -7240,13 +7073,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6230
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00b43920
@@ -7255,7 +7088,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010500
     .4byte 0x00af3920
@@ -7270,7 +7103,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00ae3920
@@ -7279,19 +7112,19 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6258
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x62a8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x62f8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00471220
@@ -7317,7 +7150,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00023b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -7416,7 +7249,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001520
     .4byte 0x0a5a1b20
     .4byte 0x00001d20
@@ -7446,7 +7279,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a5b1b20
     .4byte 0x00001d20
     .4byte 0x00010920
@@ -7457,7 +7290,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a5c1b20
     .4byte 0x00001d20
     .4byte 0x00010820
@@ -7479,7 +7312,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000004
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a5d1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -7488,7 +7321,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x002b1220
     .4byte 0x0a5e1b20
     .4byte 0x00001d20
@@ -7502,7 +7335,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000003
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a5f1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -7512,7 +7345,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000003
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a601b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -7521,7 +7354,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x002b1220
     .4byte 0x0a611b20
     .4byte 0x00001d20
@@ -7535,7 +7368,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000003
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a621b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -7549,7 +7382,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a63
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -7580,7 +7413,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a67
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00090920
     .4byte 0x00010820
     .4byte 0x00020540
@@ -7588,7 +7421,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a64
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00090920
     .4byte 0x00020820
     .4byte 0x00020540
@@ -7596,7 +7429,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a65
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00090920
     .4byte 0x00030820
     .4byte 0x00020540
@@ -7604,7 +7437,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a66
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00090820
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x6af8
@@ -7616,43 +7449,43 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00070221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6a44
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6cec
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00080221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6c60
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6d14
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6cb0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x6aa8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
@@ -7662,7 +7495,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a681b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -7681,7 +7514,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a691b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -7704,7 +7537,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00251220
     .4byte 0x0a6a1b20
     .4byte 0x00001d20
@@ -7716,7 +7549,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a6b1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -7732,7 +7565,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00860321
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -7757,7 +7590,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a6c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x7460
     .4byte 0x00003020
@@ -7802,7 +7635,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00021421
     .4byte 0x0a6d1b20
     .4byte 0x00001d20
@@ -7820,7 +7653,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a751b20
     .4byte 0x00001d20
     .4byte 0x00010920
@@ -7828,7 +7661,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a761b20
     .4byte 0x00001d20
     .4byte 0x00010820
@@ -7856,7 +7689,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a781b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -7864,7 +7697,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00311420
     .4byte 0x00210e20
     .4byte 0x001a3322
@@ -7932,13 +7765,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000030
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x002e1220
     .4byte 0x0a7d1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -7986,11 +7819,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x71cc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x72a8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x004f3b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -8009,31 +7842,31 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x72e4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x7320
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x7370
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x73ac
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00141220
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x73e8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x000e3b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -8073,7 +7906,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000030
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a821b20
     .4byte 0x00001d20
     .4byte 0x00251220
@@ -8081,7 +7914,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00102f40
     .4byte 0x04090001
     .4byte 0x00102f40
@@ -8136,7 +7969,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a84
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x000c0229
     .4byte 0x000e0229
     .4byte 0x00070228
@@ -8206,7 +8039,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x00261220
     .4byte 0x0000342a
     .4byte 0x0000342c
@@ -8226,7 +8059,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000a8b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00102f42
     .4byte 0x00030053
     .4byte 0x00003020
@@ -8258,7 +8091,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a8d1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -8292,7 +8125,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x0809fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x000f0e20
     .4byte 0x00002f42
     .4byte 0x00020040
@@ -8308,7 +8141,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0040342f
     .4byte 0x7fff1324
     .4byte 0x00012c41
@@ -8329,7 +8162,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00203322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -8388,7 +8221,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000002a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00321220
     .4byte 0x0a921b20
     .4byte 0x00001d20
@@ -8407,7 +8240,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000002a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00203322
     .4byte 0x000a0c40
     .4byte 0x0000000c
@@ -8443,7 +8276,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000030
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0a961b20
     .4byte 0x00001d20
     .4byte 0x00101721
@@ -8493,32 +8326,32 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x8530
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x85e4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000c0221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x8558
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x02000f21
     .4byte 0x000e0221
     .4byte 0x00070228
@@ -8526,7 +8359,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x85a8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000e0221
     .4byte 0x00000f20
@@ -8539,7 +8372,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -8554,7 +8387,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00010000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x5f4
+    .4byte ProcScr_089EE088 + 0x5f4
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00261220
@@ -8568,7 +8401,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000030
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b171b20
     .4byte 0x00001d20
     .4byte 0x00041721
@@ -8586,14 +8419,14 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x1215fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00573b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
     .4byte 0x00020540
     .4byte 0x00000030
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b181b20
     .4byte 0x00001d20
     .4byte 0x00101721
@@ -8629,7 +8462,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b1b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000a40
@@ -8641,7 +8474,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000030
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -8689,7 +8522,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000027
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b291b20
     .4byte 0x00001d20
     .4byte 0x002d1420
@@ -8710,7 +8543,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000027
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x002b1220
     .4byte 0x0b2b1b20
     .4byte 0x00001d20
@@ -8724,7 +8557,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b36
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -8739,7 +8572,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b37
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -8749,7 +8582,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b38
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -8805,41 +8638,41 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x904c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x9088
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x90c4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x9100
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x9128
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x922c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00813920
@@ -8851,153 +8684,153 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x0000000f
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81b50c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81b50820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000062
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81c50c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81c50820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000089
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81d50c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81d50820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000054
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81e50c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81e50820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000048
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81f50c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81f50820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000063
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x82050c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x82050820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000073
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x82150c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x82150820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000031
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x82250c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x82250820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000051
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x82350c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x82350820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -9017,7 +8850,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x0000342a
     .4byte 0x00000a40
     .4byte gEvent_OpenChest + 0x30
@@ -9037,7 +8870,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b391b20
     .4byte 0x00001d20
     .4byte 0x00251220
@@ -9053,7 +8886,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b3a1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -9094,7 +8927,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b3b1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -9119,13 +8952,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x0b07fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00020540
     .4byte 0x00000057
     .4byte 0xffff2f48
     .4byte 0x0b08fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x9dd8
     .4byte 0x00003020
@@ -9137,7 +8970,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b3c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00102f42
     .4byte 0x00000080
     .4byte 0x00102f42
@@ -9186,7 +9019,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000010
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -9208,7 +9041,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -9244,15 +9077,15 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b41
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00020540
     .4byte 0x00000057
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00101721
     .4byte 0x0000342a
     .4byte 0x0000342c
@@ -9272,7 +9105,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b491b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -9296,7 +9129,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b4a1b20
     .4byte 0x00001d20
     .4byte 0x00041721
@@ -9374,7 +9207,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b501b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -9437,7 +9270,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000002e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x002b1326
     .4byte 0x0b521b20
     .4byte 0x00001d20
@@ -9452,7 +9285,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000002e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b531b20
     .4byte 0x00001d20
     .4byte 0x02eb1620
@@ -9489,7 +9322,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000002e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b551b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -9717,13 +9550,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x98a8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x008f3920
@@ -9736,26 +9569,26 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x9768
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x97e0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x1b132620
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x9830
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x9880
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x98d0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
@@ -9809,7 +9642,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b64
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x0f0b2628
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0xa9e8
@@ -9820,7 +9653,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000019
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b651b20
     .4byte 0x00001d20
     .4byte 0x7fff1321
@@ -9835,7 +9668,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x0e08fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00403b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -9847,7 +9680,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000019
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b661b20
     .4byte 0x00001d20
     .4byte 0x002d1220
@@ -9860,13 +9693,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00001c20
     .4byte 0x00001d20
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00010920
     .4byte 0x00000820
     .4byte 0x00020540
     .4byte 0x00000019
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b671b20
     .4byte 0x00001d20
     .4byte 0x002d1220
@@ -9879,19 +9712,19 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00001c20
     .4byte 0x00001d20
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00010820
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x060f2628
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0xffff2f48
     .4byte 0x0614fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00000a40
     .4byte gEvent_OpenChest + 0x30
     .4byte 0x00000120
@@ -10026,7 +9859,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000021
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x0000342a
     .4byte 0x0000342c
     .4byte 0x0000342b
@@ -10039,7 +9872,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x070cfffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00100e20
     .4byte 0x00042f42
     .4byte 0x00020040
@@ -10090,7 +9923,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000019
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -10105,11 +9938,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00150820
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0040342f
     .4byte 0x00002f42
     .4byte 0x0002000f
@@ -10127,7 +9960,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001f
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001520
     .4byte 0x00001920
     .4byte 0x00010540
@@ -10161,7 +9994,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001f
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -10216,31 +10049,31 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xa704
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xa790
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xa7cc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xa808
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x05000f21
     .4byte 0x000e0221
     .4byte 0x00070228
@@ -10248,7 +10081,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xa754
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000e0221
     .4byte 0x00000f20
@@ -10261,7 +10094,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -10273,14 +10106,14 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00011200
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x5f4
+    .4byte ProcScr_089EE088 + 0x5f4
     .4byte 0x00010540
     .4byte 0x000d0012
     .4byte 0x00000721
     .4byte 0x00020540
     .4byte 0x00010e00
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x5f4
+    .4byte ProcScr_089EE088 + 0x5f4
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00012c40
@@ -10291,7 +10124,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00000a40
     .4byte gUnknown_089F36A0 + 0x47cc
     .4byte 0x00000120
@@ -10299,7 +10132,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000032
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -10341,7 +10174,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b7c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x0f0c2628
     .4byte 0x003c0e20
     .4byte 0x1b002620
@@ -10352,7 +10185,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000032
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b7d1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -10383,7 +10216,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x0b12fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00403b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -10396,7 +10229,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00002f40
     .4byte 0x0d100001
     .4byte 0x00100e22
@@ -10433,7 +10266,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x0413fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00002f42
     .4byte 0x00010001
     .4byte 0x00003020
@@ -10463,13 +10296,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0xffff2f48
     .4byte 0x0113fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
@@ -10485,7 +10318,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0xb984
     .4byte 0x00003020
@@ -10501,7 +10334,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000032
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b8a1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -10520,61 +10353,61 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00080221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xba88
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000a0221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xbac4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000c0221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xbb00
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xbb50
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000e0221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xbb78
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xbbb4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
@@ -10708,13 +10541,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x1508fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00020540
     .4byte 0x0000008d
     .4byte 0xffff2f48
     .4byte 0x1506fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -10807,7 +10640,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b97
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000a40
@@ -10820,7 +10653,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -10875,7 +10708,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000002f
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x002b1220
     .4byte 0x0ba01b20
     .4byte 0x00001d20
@@ -10912,7 +10745,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000012
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00311220
     .4byte 0x0ba11b20
     .4byte 0x00001d20
@@ -10966,7 +10799,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000012
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -10990,13 +10823,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xcc18
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xcc40
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001923
@@ -11008,7 +10841,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xcc68
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -11021,7 +10854,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xcca4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -11034,7 +10867,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xcce0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -11047,20 +10880,20 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xcd1c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xcd58
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xcdbc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
@@ -11078,7 +10911,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00000a40
     .4byte gEvent_OpenChest + 0x30
     .4byte 0x000a0229
@@ -11098,7 +10931,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000031
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -11127,7 +10960,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000031
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -11178,7 +11011,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000bad
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00102f40
     .4byte 0x0b0b0040
     .4byte 0x00003020
@@ -11208,7 +11041,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000034
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0bb61b20
     .4byte 0x00001d20
     .4byte 0x00101721
@@ -11219,7 +11052,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000033
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0bb31b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -11240,7 +11073,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000031
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001920
     .4byte 0x00010540
     .4byte 0x00000002
@@ -11276,11 +11109,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xd83c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xd878
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -11293,18 +11126,18 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xd8a0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xd8dc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x03000f21
     .4byte 0x000a0221
     .4byte 0x00070228
@@ -11312,7 +11145,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xd904
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000a0221
     .4byte 0x00000f20
@@ -11325,7 +11158,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000c0221
     .4byte 0x06010f21
     .4byte 0x00070228
@@ -11347,7 +11180,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xd940
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00010f20
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -11359,7 +11192,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000e0221
     .4byte 0x06020f21
     .4byte 0x00070228
@@ -11381,7 +11214,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xd990
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020f20
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -11393,7 +11226,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00100221
     .4byte 0x0d030f21
     .4byte 0x00070228
@@ -11436,7 +11269,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xd9e0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00030f20
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -11454,26 +11287,26 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xda30
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xda80
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xdabc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xdae4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xdb0c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000a40
@@ -11489,7 +11322,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000006c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x006c342f
     .4byte 0x00101721
     .4byte 0x00012c40
@@ -11570,7 +11403,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x4f0
+    .4byte ProcScr_089EE088 + 0x4f0
     .4byte 0x0040342f
     .4byte 0x001e0e20
     .4byte 0x006c3242
@@ -11583,7 +11416,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x120bfffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x4b4
+    .4byte ProcScr_089EE088 + 0x4b4
     .4byte 0x0a061862
     .4byte 0x01000008
     .4byte 0x01000100
@@ -11631,7 +11464,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0040342f
     .4byte 0x00001a20
     .4byte 0x0bc71b20
@@ -11647,7 +11480,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000b0221
     .4byte 0x01000f21
     .4byte 0x00070228
@@ -11655,7 +11488,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xe12c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000b0221
     .4byte 0x00000f20
@@ -11668,7 +11501,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000c0221
     .4byte 0x01010f21
     .4byte 0x00070228
@@ -11676,7 +11509,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xe1a4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00010f23
     .4byte 0x000c0221
     .4byte 0x00010f20
@@ -11689,7 +11522,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000d0221
     .4byte 0x0a020f21
     .4byte 0x00070228
@@ -11697,7 +11530,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xe208
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020f23
     .4byte 0x000d0221
     .4byte 0x00020f20
@@ -11710,7 +11543,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00b13920
@@ -12377,11 +12210,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000019
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x334
+    .4byte ProcScr_089EE088 + 0x334
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x334
+    .4byte ProcScr_089EE088 + 0x334
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000a40
@@ -12392,7 +12225,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000034
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0bf51b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -12542,7 +12375,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aa11b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -12574,7 +12407,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000027
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aa21b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -12585,7 +12418,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000025
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aa31b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -12631,7 +12464,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000aa4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00102f42
     .4byte 0x0002005a
     .4byte 0x00003020
@@ -12643,7 +12476,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000aa5
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00102f42
     .4byte 0x0003005a
     .4byte 0x000d0540
@@ -12671,7 +12504,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000aa6
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00082f42
     .4byte 0x00020012
     .4byte 0x00003020
@@ -12706,7 +12539,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000aa7
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00102f40
     .4byte 0x0f170083
     .4byte 0x00102f40
@@ -12748,7 +12581,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000aa8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00120229
     .4byte 0x000c0229
@@ -12760,7 +12593,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000027
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aac1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -12768,7 +12601,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000012
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x00002220
     .4byte 0x09112628
     .4byte 0x0000342a
@@ -12791,7 +12624,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000027
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aad1b20
     .4byte 0x00001d20
     .4byte 0x7fff1322
@@ -12805,14 +12638,14 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000025
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aae1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00020540
     .4byte 0x00000018
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00001520
     .4byte 0x0aaf1b20
     .4byte 0x00001d20
@@ -12876,7 +12709,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00813920
@@ -12887,7 +12720,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xec3c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00000f23
     .4byte 0x00120221
     .4byte 0x00000f20
@@ -12900,7 +12733,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x02010f21
     .4byte 0x000c0221
     .4byte 0x00070228
@@ -12908,7 +12741,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xec8c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00010f23
     .4byte 0x000c0221
     .4byte 0x00010f20
@@ -12925,7 +12758,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xecb4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020f23
     .4byte 0x00100221
     .4byte 0x00020f20
@@ -12938,7 +12771,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x01030f21
     .4byte 0x00001927
     .4byte 0x00000c41
@@ -12954,7 +12787,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xecf0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00030f23
     .4byte 0x000e0221
     .4byte 0x00030f20
@@ -12994,7 +12827,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000ab4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001520
     .4byte 0x01004220
     .4byte 0x00780e20
@@ -13008,7 +12841,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ab51b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13043,7 +12876,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ab61b20
     .4byte 0x00001d20
     .4byte 0x7fff1322
@@ -13053,7 +12886,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00001c20
     .4byte 0x00001d20
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x0000342b
     .4byte 0x00222d20
     .4byte 0x00012c40
@@ -13099,7 +12932,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00162620
     .4byte 0x00101720
     .4byte 0x00012c41
@@ -13126,7 +12959,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ab81b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13147,7 +12980,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000012
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ab91b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13245,7 +13078,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000012
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ac01b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13255,7 +13088,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x0000342c
     .4byte 0x00101720
     .4byte 0x000f2621
@@ -13266,7 +13099,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ac11b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13280,7 +13113,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x0000342a
     .4byte 0x0000342c
     .4byte 0x0000342b
@@ -13293,7 +13126,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000012
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ac21b20
     .4byte 0x00001d20
     .4byte 0x7fff1324
@@ -13332,7 +13165,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000ac4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x0000342b
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0xf8d4
@@ -13347,7 +13180,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000ac5
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00041421
     .4byte 0x000d0540
     .4byte 0x00000000
@@ -13388,7 +13221,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ac61b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13431,7 +13264,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000aca
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -13446,7 +13279,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000acb
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -13461,7 +13294,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000acc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -13471,14 +13304,14 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000acd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xf53c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000a40
@@ -13494,11 +13327,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xf5c8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0xf654
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x002e1220
@@ -13548,7 +13381,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000acf
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x10814
     .4byte 0x00003020
@@ -13558,7 +13391,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000008
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ad01b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13584,7 +13417,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000057
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0057342f
     .4byte 0x00000a40
     .4byte gEvent_OpenChest + 0x30
@@ -13597,7 +13430,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000008
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ad21b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13641,7 +13474,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000008
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ad41b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13670,7 +13503,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000008
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ad61b20
     .4byte 0x00001d20
     .4byte 0x00041721
@@ -13689,11 +13522,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000019
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00020540
     .4byte 0x0000001a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00730229
     .4byte 0x00192a22
     .4byte 0x00000120
@@ -13720,25 +13553,25 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1074c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x10788
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x10850
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1088c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x108c8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00010540
@@ -13749,21 +13582,21 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x10918
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x10954
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x109b8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x109f4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00010540
@@ -13793,7 +13626,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000008
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0adb1b20
     .4byte 0x00001d20
     .4byte 0x00041721
@@ -13813,7 +13646,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000adc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00102f40
     .4byte 0x0c080017
     .4byte 0x00003020
@@ -13844,7 +13677,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000ade
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x7fff1324
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x11234
@@ -13862,7 +13695,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000008
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0adf1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -13890,7 +13723,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x0111fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00533b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -13901,7 +13734,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000057
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0057342f
     .4byte 0x00182f40
     .4byte 0x00110053
@@ -13917,22 +13750,22 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x11004
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x001e0e22
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x11090
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x001e0e22
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x110e0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x001e0e22
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1111c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x001e0e22
     .4byte 0x000f2621
     .4byte 0x000f3b21
@@ -13964,13 +13797,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000016
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x418
+    .4byte ProcScr_089EE088 + 0x418
     .4byte 0x00010920
     .4byte 0x00000820
     .4byte 0x00020540
     .4byte 0x00000016
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x00010820
     .4byte 0x0000342a
     .4byte 0x0000342c
@@ -14007,7 +13840,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000ae4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00011120
     .4byte 0x00102f40
     .4byte 0x0c14001e
@@ -14023,7 +13856,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ae51b20
     .4byte 0x00001d20
     .4byte 0x00321220
@@ -14038,7 +13871,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000007
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0ae61b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -14064,12 +13897,12 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000ae8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00021421
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x10fdc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001520
@@ -14078,32 +13911,32 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000ae9
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1116c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x111a8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x111d0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x111f8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00531220
@@ -14118,7 +13951,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aea1b20
     .4byte 0x00001d20
     .4byte 0x002b1220
@@ -14129,7 +13962,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000002
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aeb1b20
     .4byte 0x00001d20
     .4byte 0x00291220
@@ -14188,7 +14021,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000021
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aed1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -14210,7 +14043,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aee1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -14232,7 +14065,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000021
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0aef1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -14260,7 +14093,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000021
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0af21b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -14277,11 +14110,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00020540
     .4byte 0x0000000f
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x114
+    .4byte ProcScr_089EE088 + 0x114
     .4byte 0x00001520
     .4byte 0x00001a20
     .4byte 0x0af31b20
@@ -14297,11 +14130,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00020540
     .4byte 0x0000001d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x114
+    .4byte ProcScr_089EE088 + 0x114
     .4byte 0x00001520
     .4byte 0x00001a20
     .4byte 0x0af41b20
@@ -14342,7 +14175,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000af8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -14357,7 +14190,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000af9
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -14369,25 +14202,25 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x117ec
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x11814
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1183c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x11878
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00010540
@@ -14500,7 +14333,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0040342f
     .4byte 0x00101721
     .4byte 0x00012c40
@@ -14524,7 +14357,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000001c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x534
+    .4byte ProcScr_089EE088 + 0x534
     .4byte 0x0000342a
     .4byte 0x0000342c
     .4byte 0x0000342b
@@ -14547,7 +14380,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000006b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x4f0
+    .4byte ProcScr_089EE088 + 0x4f0
     .4byte 0x006b342f
     .4byte 0x0a061862
     .4byte 0x01000008
@@ -14592,7 +14425,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000011
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b061b20
     .4byte 0x00001d20
     .4byte 0x002d1220
@@ -14600,12 +14433,12 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x23c
+    .4byte ProcScr_089EE088 + 0x23c
     .4byte 0x7fff1322
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0040342f
     .4byte 0x000f3b21
     .4byte 0x003c0e20
@@ -14658,7 +14491,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000017
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b091b20
     .4byte 0x00001d20
     .4byte 0x7fff1328
@@ -14689,7 +14522,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b0a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x13168
     .4byte 0x00003020
@@ -14701,7 +14534,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b0b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x131a4
     .4byte 0x00003020
@@ -14715,7 +14548,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000002d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b0c1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -14745,7 +14578,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000017
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b0d1b20
     .4byte 0x00001d20
     .4byte 0x00101721
@@ -14772,14 +14605,14 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000002c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b0e1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
     .4byte 0x00020540
     .4byte 0x0000002c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b0f1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -14855,7 +14688,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12994
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000a40
     .4byte gUnknown_089F36A0 + 0x89ac
     .4byte 0x00070228
@@ -14863,41 +14696,41 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x129bc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12cc8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x129f8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12d04
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12a34
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12d40
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12a70
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12d7c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x02000f21
@@ -14915,7 +14748,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12aac
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000d0221
     .4byte 0x00000f20
@@ -14928,11 +14761,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12ae8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12b38
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x01010f21
@@ -14942,11 +14775,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12ae8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x12b38
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00010f23
     .4byte 0x00100221
     .4byte 0x00010f20
@@ -14990,7 +14823,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000030
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b191b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -15006,7 +14839,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x0205fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00403b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -15016,11 +14849,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b1a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0040342f
     .4byte 0x00002f42
     .4byte 0x00030066
@@ -15061,7 +14894,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b1c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000a40
@@ -15075,7 +14908,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b36
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00000a40
     .4byte gUnknown_08591F28 + 0x18
@@ -15090,7 +14923,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b37
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -15100,7 +14933,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b38
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00001521
     .4byte 0x00070228
     .4byte 0x00000120
@@ -15148,37 +14981,37 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1383c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x13878
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x138b4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x13904
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x139cc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00813920
@@ -15190,153 +15023,153 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x0000000f
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81610c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81610820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000062
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81710c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81710820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000089
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81810c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81810820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000054
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81910c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81910820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000048
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81a10c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81a10820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000063
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81b10c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81b10820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000073
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81c10c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81c10820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000031
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81d10c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81d10820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0xffff3328
     .4byte 0x00c20620
     .4byte 0x00030540
     .4byte 0x00000051
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x594
+    .4byte ProcScr_089EE088 + 0x594
     .4byte 0x81e10c41
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x81e10820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -15356,7 +15189,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00000a40
     .4byte gEvent_OpenChest + 0x30
     .4byte 0x000e0229
@@ -15369,19 +15202,19 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x140d4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x140fc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00903920
@@ -15392,11 +15225,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x13fbc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x13f6c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000e0221
     .4byte 0x00000f20
@@ -15409,7 +15242,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x008f3920
@@ -15423,11 +15256,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x14034
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x14070
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00010f23
     .4byte 0x000d0221
     .4byte 0x00010f20
@@ -15459,31 +15292,31 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x144d0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1455c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x14598
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x145d4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x05000f21
     .4byte 0x000e0221
     .4byte 0x00070228
@@ -15491,7 +15324,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x14520
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000e0221
     .4byte 0x00000f20
@@ -15504,7 +15337,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -15516,14 +15349,14 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00011200
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x5f4
+    .4byte ProcScr_089EE088 + 0x5f4
     .4byte 0x00010540
     .4byte 0x000d0012
     .4byte 0x00000721
     .4byte 0x00020540
     .4byte 0x00010e00
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x5f4
+    .4byte ProcScr_089EE088 + 0x5f4
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00012c40
@@ -15534,7 +15367,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00000a40
     .4byte gUnknown_089F36A0 + 0x47cc
     .4byte 0x00080229
@@ -15559,7 +15392,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0xffff2f48
     .4byte 0x0b12fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00403b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -15572,7 +15405,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x0040342f
     .4byte 0x00002f42
     .4byte 0x00010001
@@ -15612,13 +15445,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0xffff2f48
     .4byte 0x0213fffd
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x470
+    .4byte ProcScr_089EE088 + 0x470
     .4byte 0x00403b21
     .4byte 0x003c0e20
     .4byte 0x00003b22
@@ -15647,7 +15480,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000040
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x153d4
     .4byte 0x00003020
@@ -15664,7 +15497,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000032
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0b8a1b20
     .4byte 0x00001d20
     .4byte 0x00001b22
@@ -15683,61 +15516,61 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00080221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x154d8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000a0221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x15514
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000c0221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x15550
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x155a0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000e0221
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x155c8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x15604
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
@@ -15760,7 +15593,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000b98
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x288
+    .4byte ProcScr_089EE088 + 0x288
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000a40
@@ -15770,13 +15603,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x16548
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x16570
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00001923
@@ -15788,7 +15621,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x16598
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -15801,7 +15634,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x165d4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -15814,7 +15647,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x16610
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -15827,20 +15660,20 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1664c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x16688
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x166ec
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
@@ -15858,7 +15691,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000001
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1c0
+    .4byte ProcScr_089EE088 + 0x1c0
     .4byte 0x00000a40
     .4byte gEvent_OpenChest + 0x30
     .4byte 0x000a0229
@@ -15905,7 +15738,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000034
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x0bb91b20
     .4byte 0x00001d20
     .4byte 0x00101721
@@ -15921,11 +15754,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x170b4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x170f0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
@@ -15938,18 +15771,18 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x17118
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x17154
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x03000f21
     .4byte 0x000a0221
     .4byte 0x00070228
@@ -15957,7 +15790,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1717c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000a0221
     .4byte 0x00000f20
@@ -15970,7 +15803,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000c0221
     .4byte 0x06010f21
     .4byte 0x00070228
@@ -15992,7 +15825,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x171b8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00010f20
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -16004,7 +15837,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000e0221
     .4byte 0x06020f21
     .4byte 0x00070228
@@ -16026,7 +15859,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x17208
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020f20
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -16038,7 +15871,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00100221
     .4byte 0x0d030f21
     .4byte 0x00070228
@@ -16081,7 +15914,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x17258
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00030f20
     .4byte 0x00000c41
     .4byte 0x0000000c
@@ -16099,26 +15932,26 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x172a8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x172f8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x17334
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1735c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00000820
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x17384
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x214
+    .4byte ProcScr_089EE088 + 0x214
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000a40
@@ -16126,7 +15959,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000006c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x494
+    .4byte ProcScr_089EE088 + 0x494
     .4byte 0x006c342f
     .4byte 0x00101721
     .4byte 0x00012c40
@@ -16170,7 +16003,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000b0221
     .4byte 0x01000f21
     .4byte 0x00070228
@@ -16178,7 +16011,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x17970
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x000b0221
     .4byte 0x00000f20
@@ -16191,7 +16024,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000c0221
     .4byte 0x01010f21
     .4byte 0x00070228
@@ -16199,7 +16032,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x179e8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00010f23
     .4byte 0x000c0221
     .4byte 0x00010f20
@@ -16212,7 +16045,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x000d0221
     .4byte 0x0a020f21
     .4byte 0x00070228
@@ -16220,7 +16053,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x17a4c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020f23
     .4byte 0x000d0221
     .4byte 0x00020f20
@@ -16233,7 +16066,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00b13920
@@ -16251,7 +16084,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16270,7 +16103,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x17ca4
     .4byte 0x00003020
@@ -16282,18 +16115,18 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x868
+    .4byte ProcScr_089EE088 + 0x868
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00030540
     .4byte 0x00000025
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16312,7 +16145,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x17ef4
     .4byte 0x00003020
@@ -16325,18 +16158,18 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x868
+    .4byte ProcScr_089EE088 + 0x868
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00030540
     .4byte 0x00000026
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00b93920
@@ -16349,13 +16182,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x180fc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16374,7 +16207,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x18214
     .4byte 0x00003020
@@ -16384,24 +16217,24 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000067
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0xfc
+    .4byte ProcScr_089EE088 + 0xfc
     .4byte 0x00020540
     .4byte 0x00000073
     .4byte 0x00030540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x868
+    .4byte ProcScr_089EE088 + 0x868
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00030540
     .4byte 0x00000027
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16420,7 +16253,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x18500
     .4byte 0x00003020
@@ -16432,18 +16265,18 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x868
+    .4byte ProcScr_089EE088 + 0x868
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00030540
     .4byte 0x00000028
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16462,7 +16295,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1876c
     .4byte 0x00003020
@@ -16474,24 +16307,24 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x868
+    .4byte ProcScr_089EE088 + 0x868
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00030540
     .4byte 0x00000029
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x18ab4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16510,7 +16343,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x18ba4
     .4byte 0x00003020
@@ -16520,24 +16353,24 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000069
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0xfc
+    .4byte ProcScr_089EE088 + 0xfc
     .4byte 0x00020540
     .4byte 0x00000076
     .4byte 0x00030540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x868
+    .4byte ProcScr_089EE088 + 0x868
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00030540
     .4byte 0x0000002a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16556,7 +16389,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x18f94
     .4byte 0x00003020
@@ -16571,19 +16404,19 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x868
+    .4byte ProcScr_089EE088 + 0x868
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00030540
     .4byte 0x0000002b
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00aa3320
     .4byte 0x00000c40
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00000820
     .4byte 0x10092620
     .4byte 0x00002720
@@ -16593,7 +16426,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00010c40
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00010820
     .4byte 0x0d112620
     .4byte 0x00012720
@@ -16603,7 +16436,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020c40
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00020820
     .4byte 0x04172620
     .4byte 0x00022720
@@ -16614,7 +16447,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030c40
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00030820
     .4byte 0x000c2620
     .4byte 0x00032720
@@ -16625,7 +16458,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00040c40
     .4byte 0x0000000c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x14c
+    .4byte ProcScr_089EE088 + 0x14c
     .4byte 0x00040820
     .4byte 0x00052620
     .4byte 0x00042720
@@ -16635,25 +16468,25 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x19228
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x19264
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x192a0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16672,7 +16505,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x19390
     .4byte 0x00003020
@@ -16682,18 +16515,18 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000006e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0xfc
+    .4byte ProcScr_089EE088 + 0xfc
     .4byte 0x00020540
     .4byte 0x00000024
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x8f4
+    .4byte ProcScr_089EE088 + 0x8f4
     .4byte 0x00000120
     .4byte 0x00000d40
     .4byte sub_8085C58
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16712,7 +16545,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1969c
     .4byte 0x00003020
@@ -16724,24 +16557,24 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x0000002f
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x199e4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x19a20
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00b93920
@@ -16753,7 +16586,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16772,7 +16605,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x19b10
     .4byte 0x00003020
@@ -16784,12 +16617,12 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000030
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00b93920
@@ -16804,7 +16637,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16823,7 +16656,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x19fd4
     .4byte 0x00003020
@@ -16835,42 +16668,42 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000031
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1a380
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1a3a8
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1a3e4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1a40c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1a434
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16889,7 +16722,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1a54c
     .4byte 0x00003020
@@ -16899,13 +16732,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1a844
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1a86c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
@@ -16913,12 +16746,12 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000032
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16937,7 +16770,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1a95c
     .4byte 0x00003020
@@ -16947,36 +16780,36 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000068
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0xfc
+    .4byte ProcScr_089EE088 + 0xfc
     .4byte 0x00020540
     .4byte 0x0000002e
     .4byte 0x00030540
     .4byte 0x00000033
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1abf0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1ac18
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1ac40
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -16995,7 +16828,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1ad44
     .4byte 0x00003020
@@ -17007,36 +16840,36 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000034
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b0b4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b0f0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b12c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b168
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -17055,7 +16888,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1b29c
     .4byte 0x00003020
@@ -17068,42 +16901,42 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000006a
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0xfc
+    .4byte ProcScr_089EE088 + 0xfc
     .4byte 0x00020540
     .4byte 0x0000002e
     .4byte 0x00030540
     .4byte 0x00000035
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b4e0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b508
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b544
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b56c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x03000f21
     .4byte 0x00080221
     .4byte 0x00070228
@@ -17111,7 +16944,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b594
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00000f23
     .4byte 0x00080221
     .4byte 0x00000f20
@@ -17124,7 +16957,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x03010f21
     .4byte 0x000a0221
     .4byte 0x00070228
@@ -17132,7 +16965,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b5bc
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00010f23
     .4byte 0x000a0221
     .4byte 0x00010f20
@@ -17145,7 +16978,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x05020f21
     .4byte 0x000c0221
     .4byte 0x00070228
@@ -17153,7 +16986,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b5e4
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00020f23
     .4byte 0x000c0221
     .4byte 0x00020f20
@@ -17166,13 +16999,13 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1b60c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -17191,7 +17024,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1b6fc
     .4byte 0x00003020
@@ -17207,12 +17040,12 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000036
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x02030f21
     .4byte 0x00080221
     .4byte 0x00070228
@@ -17220,7 +17053,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1ba44
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00030f23
     .4byte 0x00080221
     .4byte 0x00030f20
@@ -17233,7 +17066,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x02040f21
     .4byte 0x000a0221
     .4byte 0x00070228
@@ -17241,7 +17074,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1ba6c
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00040f23
     .4byte 0x000a0221
     .4byte 0x00040f20
@@ -17254,7 +17087,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x02050f21
     .4byte 0x000c0221
     .4byte 0x00070228
@@ -17262,7 +17095,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1ba94
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00050f23
     .4byte 0x000c0221
     .4byte 0x00050f20
@@ -17275,7 +17108,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010300
     .4byte 0x00bd3920
@@ -17286,7 +17119,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1bad0
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00060f23
     .4byte 0x000e0221
     .4byte 0x00060f20
@@ -17675,7 +17508,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -17694,7 +17527,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1bbac
     .4byte 0x00003020
@@ -17707,12 +17540,12 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00030540
     .4byte 0x00000037
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x898
+    .4byte ProcScr_089EE088 + 0x898
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x00010540
     .4byte 0x00010000
     .4byte 0x00bd3920
@@ -17721,7 +17554,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x130
+    .4byte ProcScr_089EE088 + 0x130
     .4byte 0x03070f21
     .4byte 0x00080221
     .4byte 0x00070228
@@ -17729,7 +17562,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1bf30
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x1ec
+    .4byte ProcScr_089EE088 + 0x1ec
     .4byte 0x00070f23
     .4byte 0x00080221
     .4byte 0x00070f20
@@ -17742,7 +17575,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -17761,7 +17594,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00012c40
     .4byte gUnknown_088B3AD8 + 0x1c00c
     .4byte 0x00003020
@@ -17771,11 +17604,11 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000006d
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0xfc
+    .4byte ProcScr_089EE088 + 0xfc
     .4byte 0x00020540
     .4byte 0x0000002e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x8f4
+    .4byte ProcScr_089EE088 + 0x8f4
     .4byte 0x00000120
     .4byte 0x00880321
     .4byte 0x801c0c40
@@ -17787,7 +17620,7 @@ gUnknown_089F36A0:  @ 0x089F36A0
     .4byte 0x00020540
     .4byte 0x0000000e
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x260
+    .4byte ProcScr_089EE088 + 0x260
     .4byte 0x00033322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -18016,7 +17849,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18035,7 +17868,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00010540
     .4byte 0x00000000
     .4byte 0x00000721
@@ -18052,7 +17885,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18071,7 +17904,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00010540
     .4byte 0x00000000
     .4byte 0x00000721
@@ -18082,7 +17915,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18101,7 +17934,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00010540
     .4byte 0x00000000
     .4byte 0x00000721
@@ -18124,7 +17957,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18143,7 +17976,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000011
@@ -18151,7 +17984,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18170,7 +18003,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00010540
     .4byte 0x00000000
     .4byte 0x00000721
@@ -18190,7 +18023,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18209,7 +18042,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00002920
     .4byte 0x00000120
     .4byte 0x00020540
@@ -18218,7 +18051,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18237,7 +18070,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00010540
     .4byte 0x00000000
     .4byte 0x00000721
@@ -18263,7 +18096,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18282,7 +18115,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00010540
     .4byte 0x00000000
     .4byte 0x00000721
@@ -18299,7 +18132,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00020540
     .4byte 0x00000000
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7a0
+    .4byte ProcScr_089EE088 + 0x7a0
     .4byte 0x000d0540
     .4byte 0x00000000
     .4byte 0x00010540
@@ -18318,7 +18151,7 @@ gEvent_SkirmishCommonEnd:  @ 0x089FFD64
     .4byte 0x00000005
     .4byte 0x00000721
     .4byte 0x00000a40
-    .4byte gUnknown_089EE088 + 0x7c4
+    .4byte ProcScr_089EE088 + 0x7c4
     .4byte 0x00000120
     .4byte 0x00020540
     .4byte 0x00000004

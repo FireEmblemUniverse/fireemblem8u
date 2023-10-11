@@ -73,23 +73,19 @@ void StartViewCounter(u16 frames, ProcPtr parent) {
 }
 
 //! FE8U = 0x08097D54
-void sub_8097D54(ProcPtr proc) {
-    struct Proc* proc_ = (struct Proc*)proc;
-    if (proc_ != 0) {
+void TryLockProc(ProcPtr proc)
+{
+    struct Proc * proc_ = proc;
+    if (proc_ != 0)
         proc_->proc_lockCnt++;
-    }
-
-    return;
 }
 
 //! FE8U = 0x08097D68
-void sub_8097D68(ProcPtr proc) {
-    struct Proc* proc_ = (struct Proc*)proc;
-    if (proc_ != 0 && proc_->proc_lockCnt != 0) {
+void TryUnlockProc(ProcPtr proc)
+{
+    struct Proc* proc_ = proc;
+    if (proc_ != 0 && proc_->proc_lockCnt != 0)
         proc_->proc_lockCnt--;
-    }
-
-    return;
 }
 
 //! FE8U = 0x08097D80

@@ -3,7 +3,7 @@
 #include "ev_triggercheck.h"
 #include "constants/characters.h"
 
-struct SupportTalkEnt CONST_DATA gSupportTalkList[] = {
+CONST_DATA struct SupportTalkEnt gSupportTalkList[] = {
     { CHARACTER_EIRIKA,   CHARACTER_EPHRAIM,  0x0C53, 0x0C54, 0x0C55, },
     { CHARACTER_EIRIKA,   CHARACTER_SETH,     0x0C56, 0x0C57, 0x0C58, },
     { CHARACTER_EIRIKA,   CHARACTER_SALEH,    0x0C65, 0x0C66, 0x0C67, },
@@ -89,4 +89,25 @@ struct SupportTalkEnt CONST_DATA gSupportTalkList[] = {
     { CHARACTER_DUESSEL,  CHARACTER_KNOLL,    0x0D49, 0x0D4A, 0x0D4B, },
 
     { 0xFFFF,             0x0000,             0x0000, 0x0000, 0x0000, }
+};
+
+CONST_DATA struct ForceDeploymentEnt gForceDeploymentList[] = {
+    {CHARACTER_EIRIKA,  CHAPTER_MODE_COMMON,  -1  },
+    {CHARACTER_EIRIKA,  CHAPTER_MODE_EIRIKA,  -1  },
+    {CHARACTER_EPHRAIM, CHAPTER_MODE_EPHRAIM, -1  },
+    {CHARACTER_ARTUR,   -1,                    4  },
+    {CHARACTER_NATASHA, -1,                    6  },
+    {CHARACTER_TANA,    -1,                    10 },
+    {CHARACTER_SALEH,   -1,                    12 },
+    {CHARACTER_EPHRAIM, CHAPTER_MODE_EIRIKA,   21 },
+    {CHARACTER_EIRIKA,  CHAPTER_MODE_EPHRAIM,  34 },
+    {-1, 0, 0},
+};
+
+CONST_DATA u8 gPidList_SethLArachelMyrrhInnes[] = {
+    CHARACTER_SETH,
+    CHARACTER_LARACHEL,
+    CHARACTER_INNES,
+    CHARACTER_MYRRH,
+    CHARACTER_NONE
 };

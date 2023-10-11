@@ -422,7 +422,7 @@ static struct ProcCmd sMusicProc4Script[] =
     PROC_END,
 };
 
-void sub_80029E8(int songId, int b, int c, int d, ProcPtr parent)
+void CallSomeSoundMaybe(int songId, int b, int c, int d, ProcPtr parent)
 {
     struct MusicProc *mproc;
 

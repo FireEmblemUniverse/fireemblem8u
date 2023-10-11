@@ -16,6 +16,7 @@
 
 #include "ev_triggercheck.h"
 
+#include "constants/characters.h"
 #include "constants/items.h"
 
 #define EVT_CMD_LO(cmd) (((cmd) & 0x0000FFFF))
@@ -98,9 +99,10 @@ void StartEventFromInfo(struct EventInfo* info, u8 execType) {
 }
 
 //! FE8U = 0x08082EC4
-struct EventInfo* SearchAvailableEvent(struct EventInfo* info) {
-    int* len;
-    struct EventListCmdInfo* cmdInfo;
+struct EventInfo * SearchAvailableEvent(struct EventInfo * info)
+{
+    int * len;
+    struct EventListCmdInfo * cmdInfo;
 
     info->script = 0;
     info->flag = 0;
@@ -1918,20 +1920,18 @@ struct DefeatTalkEnt* GetDefeatTalkEntry(u16 pid) {
 }
 
 //! FE8U = 0x08084748
-struct SupportTalkEnt* GetSupportTalkEntry(u16 pidA, u16 pidB) {
-    struct SupportTalkEnt* it;
+struct SupportTalkEnt * GetSupportTalkEntry(u16 pidA, u16 pidB)
+{
+    struct SupportTalkEnt * it;
 
-    for (it = gSupportTalkList; it->unitA != 0xFFFF; it++) {
-
-        if ((pidA == it->unitA) && (pidB == it->unitB)) {
+    for (it = gSupportTalkList; it->unitA != 0xFFFF; it++)
+    {
+        if ((pidA == it->unitA) && (pidB == it->unitB))
             return it;
-        }
 
-        if ((pidB == it->unitA) && (pidA == it->unitB)) {
+        if ((pidB == it->unitA) && (pidA == it->unitB))
             return it;
-        }
     }
-
     return NULL;
 }
 
@@ -1985,37 +1985,34 @@ struct SupportTalkEnt* GetSupportTalkList(void) {
 }
 
 //! FE8U = 0x08084800
-s8 IsCharacterForceDeployed_(u16 pid) {
-    struct ForceDeploymentEnt* it;
+bool IsCharacterForceDeployed_(u16 pid)
+{
+    struct ForceDeploymentEnt * it;
 
-    for (it = gForceDeploymentList; it->pid != 0xFFFF; it++) {
-        if (it->route != 0xFF && it->route != gPlaySt.chapterModeIndex) {
+    for (it = gForceDeploymentList; it->pid != (u16)-1; it++)
+    {
+        if (it->route != 0xFF && it->route != gPlaySt.chapterModeIndex)
             continue;
-        }
 
-        if (it->chapter != 0xFF && it->chapter != gPlaySt.chapterIndex) {
+        if (it->chapter != 0xFF && it->chapter != gPlaySt.chapterIndex)
             continue;
-        }
 
-        if (pid != it->pid) {
+        if (pid != it->pid)
             continue;
-        }
 
-        return 1;
+        return true;
     }
-
-    return 0;
+    return false;
 }
 
 //! FE8U = 0x08084858
-s8 IsSethLArachelMyrrhInnes(u16 pid) {
-    u8* it;
+bool IsSethLArachelMyrrhInnes(u16 pid)
+{
+    u8 * it;
 
-    for (it = gPidList_SethLArachelMyrrhInnes; *it != 0; it++) {
-        if (*it == pid) {
-            return 1;
-        }
-    }
+    for (it = gPidList_SethLArachelMyrrhInnes; *it != CHARACTER_NONE; it++)
+        if (*it == pid)
+            return true;
 
-    return 0;
+    return false;
 }

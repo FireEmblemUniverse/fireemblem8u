@@ -1478,11 +1478,11 @@ void sub_8006618(int slot, int x, int y) {
 void sub_800662C(struct UnkFaceProc* proc) {
 
     if (proc->pFaceProc->pBlinkProc) {
-        sub_8097D54(proc->pFaceProc->pBlinkProc);
+        TryLockProc(proc->pFaceProc->pBlinkProc);
     }
 
     if (proc->pFaceProc->unk_44) {
-        sub_8097D54(proc->pFaceProc->unk_44);
+        TryLockProc(proc->pFaceProc->unk_44);
     }
 
     return;
@@ -1512,11 +1512,11 @@ void sub_80066A8(struct UnkFaceProc* proc) {
 
         Proc_Goto(proc->pFaceProc->pBlinkProc, 0);
 
-        sub_8097D68(proc->pFaceProc->pBlinkProc);
+        TryUnlockProc(proc->pFaceProc->pBlinkProc);
     }
 
     if (proc->pFaceProc->unk_44) {
-        sub_8097D68(proc->pFaceProc->unk_44);
+        TryUnlockProc(proc->pFaceProc->unk_44);
     }
 
     return;

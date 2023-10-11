@@ -295,7 +295,7 @@ void OpAnimfxTerminatorMain(struct Proc * proc)
 {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON))
     {
-        SetNextGameActionId(GAME_ACTION_2);
+        SetNextGameActionId(GAME_ACTION_USR_SKIPPED);
         gOpAnimSt.pal = 0;
         Proc_Goto(proc->proc_parent, 99);
     }
