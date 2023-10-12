@@ -162,7 +162,7 @@ SECTIONS
         src/banim-ekrutils.o(.text);
         src/banim-ekrbattlestarting.o(.text);
         src/banim-ekrbattleending.o(.text);
-        asm/banim-ekrintro.o(.text);
+        src/banim-ekrbattleintro.o(.text);
         asm/banim-ekrcheckenable.o(.text);
         src/banim-ekrcmd.o(.text);
         src/banim-main.o(.text);
@@ -420,6 +420,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrutils.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleending.o(.rodata);
+        . = ALIGN(4); src/banim-ekrbattleintro.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
         . = ALIGN(4); src/banim-ekrmain.o(.rodata);
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
@@ -597,7 +598,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrutils.o(.data);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); src/banim-ekrbattleending.o(.data);
-        . = ALIGN(4); data/banim-ekrbattlectrl.o(.data);
+        . = ALIGN(4); src/banim-ekrbattleintro.o(.data);
         . = ALIGN(4); src/banim-ekrmain.o(.data);
         . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
         . = ALIGN(4); src/banim-efxmagic.o(.data);

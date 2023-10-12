@@ -24,18 +24,18 @@ extern u16 *gMinimapObjectFlashPal;
 // extern ??? gUnknown_02000C78
 // extern ??? gUnknown_02000F00
 // extern ??? gBmMapBuffer
-// extern ??? gUnknown_02001088
+extern u8 gEkrKakudaiSomeBufLeft[];
 // extern ??? gUnknown_02001180
 // extern ??? gUnknown_02001184
 // extern ??? gUnknown_02001188
 // extern ??? gConvoyItemCount
 // extern ??? gUnknown_02002038
-// extern ??? gUnknown_02002088
+// extern ??? gBanimRightImgSheetBuf
 extern struct Font gUnknown_02002774;
 // extern ??? gaBattleForecastTextStructs
 // extern ??? gUnknown_02002FF4
 // extern ??? gUnknown_0200300C
-// extern ??? gUnknown_02003088
+extern u8 gEkrKakudaiSomeBufRight[];
 // extern ??? gUnknown_0200310C
 // extern ??? gUnknown_020038AC
 // extern ??? gUnknown_020038C4

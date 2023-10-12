@@ -7,6 +7,7 @@
 #include "banim_data.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "banim_data.h"
 #include "constants/classes.h"
 
 CONST_DATA u32 BanimScr_085B9D5C[4] = {
@@ -70,35 +71,35 @@ const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4] = {
 };
 
 const u8 BattleTypeToAnimModeEndOfDodge[5] = {
-    [EKR_DISTANCE_CLOSE]     = BANIM_MODE_CLOSE_DODGE,
-    [EKR_DISTANCE_FAR]       = BANIM_MODE_STANDING,
-    [EKR_DISTANCE_FARFAR]    = BANIM_MODE_STANDING,
-    [EKR_DISTANCE_MONOCOMBAT]         = BANIM_MODE_CLOSE_DODGE,
-    [EKR_DISTANCE_PROMOTION] = BANIM_MODE_CLOSE_DODGE
+    [EKR_DISTANCE_CLOSE]      = BANIM_MODE_CLOSE_DODGE,
+    [EKR_DISTANCE_FAR]        = BANIM_MODE_STANDING,
+    [EKR_DISTANCE_FARFAR]     = BANIM_MODE_STANDING,
+    [EKR_DISTANCE_MONOCOMBAT] = BANIM_MODE_CLOSE_DODGE,
+    [EKR_DISTANCE_PROMOTION]  = BANIM_MODE_CLOSE_DODGE
 };
 
 const u8 BanimTypesPosLeft[5] = {
-    [EKR_DISTANCE_CLOSE]     = 0x5C,
-    [EKR_DISTANCE_FAR]       = 0x44,
-    [EKR_DISTANCE_FARFAR]    = 0x44,
-    [EKR_DISTANCE_MONOCOMBAT]         = 0x78,
-    [EKR_DISTANCE_PROMOTION] = 0x5C
+    [EKR_DISTANCE_CLOSE]      = 0x5C,
+    [EKR_DISTANCE_FAR]        = 0x44,
+    [EKR_DISTANCE_FARFAR]     = 0x44,
+    [EKR_DISTANCE_MONOCOMBAT] = 0x78,
+    [EKR_DISTANCE_PROMOTION]  = 0x5C
 };
 
 const u8 BanimTypesPosRight[5] = {
-    [EKR_DISTANCE_CLOSE]     = 0x94,
-    [EKR_DISTANCE_FAR]       = 0xAC,
-    [EKR_DISTANCE_FARFAR]    = 0xAC,
-    [EKR_DISTANCE_MONOCOMBAT]         = 0x78,
-    [EKR_DISTANCE_PROMOTION] = 0x94
+    [EKR_DISTANCE_CLOSE]      = 0x94,
+    [EKR_DISTANCE_FAR]        = 0xAC,
+    [EKR_DISTANCE_FARFAR]     = 0xAC,
+    [EKR_DISTANCE_MONOCOMBAT] = 0x78,
+    [EKR_DISTANCE_PROMOTION]  = 0x94
 };
 
 const u16 BanimLeftDefaultPos[5] = {
-    [EKR_DISTANCE_CLOSE]     = 0x00,
-    [EKR_DISTANCE_FAR]       = 0x20,
-    [EKR_DISTANCE_FARFAR]    = 0xF0,
-    [EKR_DISTANCE_MONOCOMBAT]         = 0x00,
-    [EKR_DISTANCE_PROMOTION] = 0x00
+    [EKR_DISTANCE_CLOSE]      = 0x00,
+    [EKR_DISTANCE_FAR]        = 0x20,
+    [EKR_DISTANCE_FARFAR]     = 0xF0,
+    [EKR_DISTANCE_MONOCOMBAT] = 0x00,
+    [EKR_DISTANCE_PROMOTION]  = 0x00
 };
 
 void AnimScrAdvance(struct Anim *anim)
@@ -195,8 +196,8 @@ void UpdateBanimFrame(void)
 {
     int val1;
     int bid, bid_pal, bside;
-    BattleAnimCharaPal *cbapt = character_battle_animation_palette_table;
-    BattleAnim *banim = banim_data;
+    struct BattleAnimCharaPal * cbapt = character_battle_animation_palette_table;
+    struct BattleAnim * banim = banim_data;
 
     ++banim; --banim;
     gpImgSheet[1] = NULL;
@@ -382,7 +383,7 @@ label1:
         anim->state2 |= ANIM_BIT2_0400 | ANIM_BIT2_BACK_FRAME;
         anim->nextRoundId = 0x0;
         anim->currentRoundType = round_type;
-        anim->pImgSheetBuf = gBanimImgSheetBuf;
+        anim->pImgSheetBuf = gBanimLeftImgSheetBuf;
         anim->pSpriteDataPool = gBanimOaml;
         gAnims[0] = anim;
     }
@@ -400,7 +401,7 @@ label2:
         anim->state2 |= ANIM_BIT2_0400 | ANIM_BIT2_FRONT_FRAME;
         anim->nextRoundId = 0x0;
         anim->currentRoundType = round_type;
-        anim->pImgSheetBuf = gBanimImgSheetBuf;
+        anim->pImgSheetBuf = gBanimLeftImgSheetBuf;
         anim->pSpriteDataPool = gBanimOaml;
         gAnims[1] = anim;
     }
@@ -437,7 +438,7 @@ label1:
         anim->state2 |= ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
         anim->nextRoundId = 0x0;
         anim->currentRoundType = round_type;
-        anim->pImgSheetBuf = gUnknown_02002088;
+        anim->pImgSheetBuf = gBanimRightImgSheetBuf;
         anim->pSpriteDataPool = gBanimOamr2;
         gAnims[2] = anim;
     }
@@ -455,7 +456,7 @@ label2:
         anim->state2 |= ANIM_BIT2_FRONT_FRAME | ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
         anim->nextRoundId = 0x0;
         anim->currentRoundType = round_type;
-        anim->pImgSheetBuf = gUnknown_02002088;
+        anim->pImgSheetBuf = gBanimRightImgSheetBuf;
         anim->pSpriteDataPool = gBanimOamr2;
         gAnims[3] = anim;
     }

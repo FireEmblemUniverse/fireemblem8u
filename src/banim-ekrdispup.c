@@ -55,7 +55,7 @@ void EkrDispUpSet50(void)
     gpProcEkrDispUP->unk50 = 1;
 }
 
-void EkrDispUP_8051B48(u32 a, u32 b)
+void EkrDispUP_8051B48(u16 a, u16 b)
 {
     gpProcEkrDispUP->unk32 = a;
     gpProcEkrDispUP->unk3A = b;
@@ -189,9 +189,9 @@ void EfxClearScreenFx(void)
 
 void sub_8051E00(void)
 {
-    struct Unknown_0201FADC *unk0201FADC = &gUnknown_0201FADC;
-    BattleAnimTerrain *terrain1 = &battle_terrain_table[gBanimTerrainIndexMaybe[0]];
-    BattleAnimTerrain *terrain2 = &battle_terrain_table[gBanimTerrainIndexMaybe[1]];
+    struct Unknown_0201FADC * unk0201FADC = &gUnknown_0201FADC;
+    struct BattleAnimTerrain * terrain1 = &battle_terrain_table[gBanimTerrainIndexMaybe[0]];
+    struct BattleAnimTerrain * terrain2 = &battle_terrain_table[gBanimTerrainIndexMaybe[1]];
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:

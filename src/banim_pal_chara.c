@@ -5,7 +5,7 @@
 #include "banim_data.h"
 
 __attribute__((section(".data.banim_pal_ptr_table")))
-BattleAnimCharaPal character_battle_animation_palette_table[] = {
+struct BattleAnimCharaPal character_battle_animation_palette_table[] = {
 	{"mer", banim_pal_mer}, // 0
 	{"ame", banim_pal_ame}, // 1
 	{"gil", banim_pal_gil}, // 2

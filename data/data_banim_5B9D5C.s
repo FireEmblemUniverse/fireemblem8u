@@ -1494,6 +1494,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global AnimScr_EkrBaseKaiten1
+AnimScr_EkrBaseKaiten1:
     .4byte gUnknown_085D1470 + 0x9c9
     .4byte gUnknown_085D1470 + 0x9ed
     .4byte gUnknown_085D1470 + 0xa35
@@ -1503,6 +1506,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0xc09
     .4byte gUnknown_085D1470 + 0xcbd
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten2
+AnimScr_EkrBaseKaiten2:
     .4byte gUnknown_085D1470 + 0xcbd
     .4byte gUnknown_085D1470 + 0xc09
     .4byte gUnknown_085D1470 + 0xba9
@@ -2298,6 +2304,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global AnimScr_EkrBaseKaiten3
+AnimScr_EkrBaseKaiten3:
     .4byte gUnknown_085D1470 + 0xe01
     .4byte gUnknown_085D1470 + 0xe25
     .4byte gUnknown_085D1470 + 0xe79
@@ -2306,6 +2315,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x104d
     .4byte gUnknown_085D1470 + 0x1125
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten4
+AnimScr_EkrBaseKaiten4:
     .4byte gUnknown_085D1470 + 0x122d
     .4byte gUnknown_085D1470 + 0x1251
     .4byte gUnknown_085D1470 + 0x1281
@@ -2315,6 +2327,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x14e5
     .4byte gUnknown_085D1470 + 0x158d
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten5
+AnimScr_EkrBaseKaiten5:
     .4byte gUnknown_085D1470 + 0x122d
     .4byte gUnknown_085D1470 + 0x164d
     .4byte gUnknown_085D1470 + 0x167d
@@ -2324,6 +2339,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x18e1
     .4byte gUnknown_085D1470 + 0x1989
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten6
+AnimScr_EkrBaseKaiten6:
     .4byte gUnknown_085D1470 + 0x1125
     .4byte gUnknown_085D1470 + 0x104d
     .4byte gUnknown_085D1470 + 0xf99
@@ -2332,6 +2350,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0xe25
     .4byte gUnknown_085D1470 + 0xe01
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten7
+AnimScr_EkrBaseKaiten7:
     .4byte gUnknown_085D1470 + 0x158d
     .4byte gUnknown_085D1470 + 0x14e5
     .4byte gUnknown_085D1470 + 0x1425
@@ -2341,6 +2362,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x1251
     .4byte gUnknown_085D1470 + 0x122d
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten8
+AnimScr_EkrBaseKaiten8:
     .4byte gUnknown_085D1470 + 0x1989
     .4byte gUnknown_085D1470 + 0x18e1
     .4byte gUnknown_085D1470 + 0x1821
@@ -2854,6 +2878,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global AnimScr_EkrBaseKaiten9
+AnimScr_EkrBaseKaiten9:
     .4byte gUnknown_085D1470 + 0x1b1a
     .4byte gUnknown_085D1470 + 0x1b32
     .4byte gUnknown_085D1470 + 0x21f2
@@ -2863,6 +2890,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x1dd1
     .4byte gUnknown_085D1470 + 0x1d35
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten10
+AnimScr_EkrBaseKaiten10:
     .4byte gUnknown_085D1470 + 0x1b1a
     .4byte gUnknown_085D1470 + 0x1e9e
     .4byte gUnknown_085D1470 + 0x2276
@@ -2872,6 +2902,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x2125
     .4byte gUnknown_085D1470 + 0x2089
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten11
+AnimScr_EkrBaseKaiten11:
     .4byte gUnknown_085D1470 + 0x1d35
     .4byte gUnknown_085D1470 + 0x1dd1
     .4byte gUnknown_085D1470 + 0x1c99
@@ -2881,6 +2914,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x1b32
     .4byte gUnknown_085D1470 + 0x1b1a
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten12
+AnimScr_EkrBaseKaiten12:
     .4byte gUnknown_085D1470 + 0x2089
     .4byte gUnknown_085D1470 + 0x2125
     .4byte gUnknown_085D1470 + 0x1fed
@@ -3766,6 +3802,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global AnimScr_EkrBaseKaiten13
+AnimScr_EkrBaseKaiten13:
     .4byte gUnknown_085D1470 + 0x238a
     .4byte gUnknown_085D1470 + 0x23a2
     .4byte gUnknown_085D1470 + 0x2eb2
@@ -3775,6 +3814,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x24e5
     .4byte gUnknown_085D1470 + 0x258d
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten14
+AnimScr_EkrBaseKaiten14:
     .4byte gUnknown_085D1470 + 0x238a
     .4byte gUnknown_085D1470 + 0x264e
     .4byte gUnknown_085D1470 + 0x2f4e
@@ -3784,6 +3826,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x27b5
     .4byte gUnknown_085D1470 + 0x2869
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten15
+AnimScr_EkrBaseKaiten15:
     .4byte gUnknown_085D1470 + 0x238a
     .4byte gUnknown_085D1470 + 0x2936
     .4byte gUnknown_085D1470 + 0x2ff6
@@ -3793,6 +3838,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x2a91
     .4byte gUnknown_085D1470 + 0x2b45
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten16
+AnimScr_EkrBaseKaiten16:
     .4byte gUnknown_085D1470 + 0x238a
     .4byte gUnknown_085D1470 + 0x2c12
     .4byte gUnknown_085D1470 + 0x309e
@@ -3802,6 +3850,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x2d49
     .4byte gUnknown_085D1470 + 0x2df1
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten17
+AnimScr_EkrBaseKaiten17:
     .4byte gUnknown_085D1470 + 0x258d
     .4byte gUnknown_085D1470 + 0x24e5
     .4byte gUnknown_085D1470 + 0x2455
@@ -3811,6 +3862,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x23a2
     .4byte gUnknown_085D1470 + 0x238a
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten18
+AnimScr_EkrBaseKaiten18:
     .4byte gUnknown_085D1470 + 0x2869
     .4byte gUnknown_085D1470 + 0x27b5
     .4byte gUnknown_085D1470 + 0x270d
@@ -3820,6 +3874,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x264e
     .4byte gUnknown_085D1470 + 0x238a
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten19
+AnimScr_EkrBaseKaiten19:
     .4byte gUnknown_085D1470 + 0x2b45
     .4byte gUnknown_085D1470 + 0x2a91
     .4byte gUnknown_085D1470 + 0x29e9
@@ -3829,6 +3886,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x2936
     .4byte gUnknown_085D1470 + 0x238a
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten20
+AnimScr_EkrBaseKaiten20:
     .4byte gUnknown_085D1470 + 0x2df1
     .4byte gUnknown_085D1470 + 0x2d49
     .4byte gUnknown_085D1470 + 0x2cb9
@@ -4288,6 +4348,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global AnimScr_EkrBaseKaiten21
+AnimScr_EkrBaseKaiten21:
     .4byte gUnknown_085D1470 + 0x325a
     .4byte gUnknown_085D1470 + 0x37fa
     .4byte gUnknown_085D1470 + 0x3272
@@ -4297,6 +4360,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x33cd
     .4byte gUnknown_085D1470 + 0x3481
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten22
+AnimScr_EkrBaseKaiten22:
     .4byte gUnknown_085D1470 + 0x325a
     .4byte gUnknown_085D1470 + 0x37fa
     .4byte gUnknown_085D1470 + 0x354e
@@ -4306,6 +4372,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x3691
     .4byte gUnknown_085D1470 + 0x3739
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten23
+AnimScr_EkrBaseKaiten23:
     .4byte gUnknown_085D1470 + 0x3481
     .4byte gUnknown_085D1470 + 0x33cd
     .4byte gUnknown_085D1470 + 0x3325
@@ -4315,6 +4384,9 @@ gUnknown_085D1470:  @ 0x085D1470
     .4byte gUnknown_085D1470 + 0x37fa
     .4byte gUnknown_085D1470 + 0x325a
     .4byte 0x80000000
+
+	.global AnimScr_EkrBaseKaiten24
+AnimScr_EkrBaseKaiten24:
     .4byte gUnknown_085D1470 + 0x3739
     .4byte gUnknown_085D1470 + 0x3691
     .4byte gUnknown_085D1470 + 0x3601

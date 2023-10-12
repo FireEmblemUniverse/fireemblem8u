@@ -652,7 +652,7 @@ void EkrLvup_MainAnime(struct ProcEkrLevelup *proc)
 
                 if (proc->index == EKRLVUP_STAT_HP) {
                     gEkrPairMaxHP[1] = gEkrLvupBaseStatus[proc->index];
-                    gUnknown_0203E1B4[1] = -1;
+                    gBanimSomeHp[1] = -1;
                 }
                 proc->timer = 0;
                 break;

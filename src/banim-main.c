@@ -4,6 +4,7 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "efxmagic.h"
+#include "banim_data.h"
 #include "ctc.h"
 
 void BattleAIS_ExecCommands(void)
@@ -271,16 +272,11 @@ void BattleAIS_ExecCommands(void)
 
 #ifndef NONMATCHING
                             {
-                                struct UnkStruct {
-                                    const u32 *unk0;
-                                    const u32 *unk1;
-                                    u32 unk2;
-                                };
                                 register const void *_ptr asm("r4");
                                 register u32 r1 asm("r1");
-                                struct UnkStruct *unk = (void *)(idx + gBanimScrLeft + GetAnimPosition(anim) * 0x2A00);
+                                struct BanimModeData * unk = (void *)(idx + gBanimScrLeft + GetAnimPosition(anim) * 0x2A00);
 
-                                anim1->pImgSheet = unk->unk1;
+                                anim1->pImgSheet = unk->img;
                                 _ptr = anim1->pSpriteDataPool;
                                 _ptr += r1 = unk->unk2;
                                 anim1->pSpriteData = _ptr;
@@ -289,20 +285,15 @@ void BattleAIS_ExecCommands(void)
                             }
 #else
                             {
-                                struct UnkStruct {
-                                    const u32 *unk0;
-                                    const u32 *unk1;
-                                    u32 unk2;
-                                };
-                                struct UnkStruct *unk = (void *)(idx + gBanimScrLeft + GetAnimPosition(anim) * 0x2A00);
+                                struct BanimModeData * unk = (void *)(idx + gBanimScrLeft + GetAnimPosition(anim) * 0x2A00);
 
-                                anim1->pImgSheet = unk->unk1;
+                                anim1->pImgSheet = unk->img;
                                 anim1->pSpriteData = anim1->pSpriteDataPool + unk->unk2;
                                 anim2->pSpriteData = anim2->pSpriteDataPool + 0x57F0;
                             }
 #endif
 
-                            if (gUnknown_0203E1A4[GetAnimPosition(anim)] == 0) {
+                            if (gUnknown_0203E1A4[GetAnimPosition(anim)] == NULL) {
                                 if (gpImgSheet[GetAnimPosition(anim1)] != anim1->pImgSheet) {
                                     NewEkrChienCHR(anim1);
                                     gpImgSheet[GetAnimPosition(anim1)] = anim1->pImgSheet;
@@ -661,7 +652,7 @@ void BattleAIS_ExecCommands(void)
         // _080596E0
         if (type & ANIM_BIT2_FRAME) {
             if (GetAISLayerId(anim) == 0) {
-                if (gUnknown_0203E1A4[GetAnimPosition(anim)] == 0)
+                if (gUnknown_0203E1A4[GetAnimPosition(anim)] == NULL)
                     if (!(anim->state3 & ANIM_BIT3_4000))
                         if (gpImgSheet[GetAnimPosition(anim)] != anim->pImgSheet) {
                             RegisterAISSheetGraphics(anim);

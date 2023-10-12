@@ -13,7 +13,7 @@
 . = 0x000064; gpProcEkrBattle = .;
 . = 0x000068; gpProcEkrGauge = .;
 . = 0x00006C; gpProcEkrDispUP = .;
-. = 0x000088; gBanimImgSheetBuf = .;
+. = 0x000088; gBanimLeftImgSheetBuf = .;
 . = 0x000280; gMinimapWinBuf = .;
 . = 0x000500; gMinimapFrontWinBuf = .;
 . = 0x000504; gMinimapBackWinBuf = .;
@@ -33,7 +33,7 @@
 . = 0x000F00; gUnknown_02000F00 = .;
 . = 0x000FA0; gUnknown_02000FA0 = .;
 . = 0x001000; gBmMapBuffer = .;
-. = 0x001088; gUnknown_02001088 = .;
+. = 0x001088; gEkrKakudaiSomeBufLeft = .;
 . = 0x001168; gUnknown_02001168 = .;
 . = 0x001180; gUnknown_02001180 = .;
 . = 0x001184; gUnknown_02001184 = .;
@@ -45,7 +45,7 @@
 . = 0x001F70; gConvoyItemCount = .;
 . = 0x001FA0; gUnknown_02001FA0 = .;
 . = 0x002038; gUnknown_02002038 = .;
-. = 0x002088; gUnknown_02002088 = .;
+. = 0x002088; gBanimRightImgSheetBuf = .;
 . = 0x002774; gUnknown_02002774 = .;
 . = 0x00278C; gTradeMenuText = .;
 . = 0x0027A0; gUnknown_020027A0 = .;
@@ -53,7 +53,7 @@
 . = 0x002FDC; gaBattleForecastTextStructs = .;
 . = 0x002FF4; gUnknown_02002FF4 = .;
 . = 0x00300C; gUnknown_0200300C = .;
-. = 0x003088; gUnknown_02003088 = .;
+. = 0x003088; gEkrKakudaiSomeBufRight = .;
 . = 0x00310C; gUnknown_0200310C = .;
 . = 0x0038AC; gUnknown_020038AC = .;
 . = 0x0038C4; gUnknown_020038C4 = .;
@@ -236,9 +236,8 @@
 . = 0x01FA38; gUnknown_0201FA38 = .;
 . = 0x01FA68; gUnknown_0201FA68 = .;
 . = 0x01FAC8; gUnknown_0201FAC8 = .;
-. = 0x01FACC; gEkrWindowAppearExist = .;
-. = 0x01FAD0; gEkrNamewinAppearExist = .;
-. = 0x01FAD4; gProcEkrBaseAppearExist = .;
+. = 0x01FACC;
+. = ALIGN(4); src/banim-ekrbattleintro.o(ewram_data);
 . = 0x01FAD8; gUnknown_0201FAD8 = .;
 . = 0x01FADC; gUnknown_0201FADC = .;
 . = 0x01FB04; gBanimDoneFlag = .;
@@ -387,7 +386,7 @@
 . = 0x03E1A4; gUnknown_0203E1A4 = .;
 . = 0x03E1AC; gEkrGaugeHp = .;
 . = 0x03E1B0; gEkrPairMaxHP = .;
-. = 0x03E1B4; gUnknown_0203E1B4 = .;
+. = 0x03E1B4; gBanimSomeHp = .;
 . = 0x03E1B8; gEkrPairHit = .;
 . = 0x03E1BC; gEkrPairDmgPair = .;
 . = 0x03E1C0; gEkrPairCritPair = .;
