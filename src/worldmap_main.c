@@ -9,6 +9,8 @@
 #include "mu.h"
 #include "scene.h"
 #include "uiutils.h"
+#include "m4a.h"
+#include "soundwrapper.h"
 
 #include "worldmap.h"
 
@@ -611,4 +613,115 @@ s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
     }
 
     return 0;
+}
+
+//! FE8U = 0x080B93E0
+void sub_80B93E0(struct WorldMapMainProc * proc)
+{
+    s16 xCursorPrev;
+    s16 yCursorPrev;
+    s16 xCursorNew;
+    s16 yCursorNew;
+    int keys;
+    int speedMaybe;
+    struct Vec2 pos;
+
+    if (gKeyStatusPtr->heldKeys & B_BUTTON)
+    {
+        speedMaybe = 2;
+        proc->unk_2a = 0;
+    }
+    else
+    {
+        speedMaybe = 4;
+    }
+
+    if (proc->unk_2a > 0)
+    {
+        proc->unk_2a--;
+        return;
+    }
+
+    if (GmMoveCursorExists())
+    {
+        return;
+    }
+
+    do
+    {
+        if (gKeyStatusPtr->heldKeys & B_BUTTON)
+        {
+            keys = gKeyStatusPtr->heldKeys & DPAD_ANY;
+            proc->unk_2a = 10;
+        }
+        else if (gKeyStatusPtr->newKeys & DPAD_ANY)
+        {
+            proc->unk_2a = 10;
+            keys = gKeyStatusPtr->newKeys & DPAD_ANY;
+        }
+        else
+        {
+            keys = gKeyStatusPtr->heldKeys & DPAD_ANY;
+            proc->unk_2a = 0;
+        }
+
+        if (keys == 0)
+        {
+            return;
+        }
+    } while (0);
+
+    xCursorPrev = ((gGMData.unk08 >> 8) / 16);
+    yCursorPrev = ((gGMData.unk0C >> 8) / 16);
+
+    xCursorNew = xCursorPrev;
+    yCursorNew = yCursorPrev;
+
+    if (keys & DPAD_RIGHT)
+    {
+        xCursorNew++;
+    }
+    else if (keys & DPAD_LEFT)
+    {
+        xCursorNew--;
+    }
+
+    if (keys & DPAD_DOWN)
+    {
+        yCursorNew++;
+    }
+    else if (keys & DPAD_UP)
+    {
+        yCursorNew--;
+    }
+
+    if (xCursorNew < 1)
+    {
+        xCursorNew = 1;
+    }
+    else if (xCursorNew > 28)
+    {
+        xCursorNew = 28;
+    }
+
+    if (yCursorNew < 1)
+    {
+        yCursorNew = 1;
+    }
+    else if (yCursorNew > 18)
+    {
+        yCursorNew = 18;
+    }
+
+    if ((xCursorPrev != xCursorNew) || (yCursorPrev != yCursorNew))
+    {
+        PlaySoundEffect(0x65);
+
+        pos.x = xCursorNew * 16 + 8;
+        pos.y = yCursorNew * 16 + 8;
+
+        StartGmMoveCursor(0, &pos, speedMaybe, 0, proc);
+    }
+
+    return;
 }
