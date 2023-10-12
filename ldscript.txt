@@ -271,7 +271,6 @@ SECTIONS
         src/ending_details.o(.text);
         src/worldmap_face.o(.text);
         src/worldmap_main.o(.text);
-        src/worldmap_main2.o(.text);
         src/worldmap_screen.o(.text);
         src/worldmap_gmapunit.o(.text);
         src/worldmap_screen2.o(.text);
@@ -730,8 +729,7 @@ SECTIONS
         . = ALIGN(4); src/cg.o(.data);
         . = ALIGN(4); src/ending_details.o(.data);
         . = ALIGN(4); src/worldmap_face.o(.data);
-        . = ALIGN(4); data/data_A3CB04.o(.data);
-        . = ALIGN(4); src/worldmap_main2.o(.data);
+        . = ALIGN(4); src/worldmap_main.o(.data);
         . = ALIGN(4); src/worldmap_screen.o(.data);
         . = ALIGN(4); src/worldmap_gmapunit.o(.data);
         . = ALIGN(4); src/worldmap_screen2.o(.data);

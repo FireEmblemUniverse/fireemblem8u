@@ -312,6 +312,14 @@ struct NodeIcon
 
 extern const struct NodeIcon gWMNodeIconData[];
 
+struct WMSongTableEnt
+{
+    /* 00 */ u16 eirika;
+    /* 02 */ u16 ephraim;
+};
+
+extern struct WMSongTableEnt gWMSongTable[];
+
 extern struct ProcCmd gProcScr_WorldMapMain[];
 
 // ??? WorldMapFaceHolder_Init(???);
