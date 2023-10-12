@@ -172,7 +172,6 @@ void HbPopulate_SSCharacter(struct HelpBoxProc* proc);
 void HbPopulate_SSClass(struct HelpBoxProc* proc);
 void HbRedirect_SSSupports(struct HelpBoxProc* proc);
 
-// extern
 void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1);
 
 void StartHelpBox(int x, int y, int mid);
@@ -185,7 +184,6 @@ void EndHelpBox(void);
 void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent);
 void StartMovingHelpBoxExt(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y);
 
-// extern
 void SetHelpBoxInitPosition(struct HelpBoxProc* proc, int x, int y);
 void ResetHelpBoxInitSize(struct HelpBoxProc* proc);
 int GetHelpBoxItemInfoKind(int item);
