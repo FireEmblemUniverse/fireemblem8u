@@ -27,13 +27,12 @@
 
 #include "statscreen.h"
 
-static struct StatScreenInfo EWRAM_DATA sStatScreenInfo = {};
+struct StatScreenInfo EWRAM_DATA sStatScreenInfo = {};
 
-static struct HelpBoxInfo EWRAM_DATA sMutableHbi = {};
-static const struct HelpBoxInfo* EWRAM_DATA sLastHbi = NULL;
-static struct Vec2 EWRAM_DATA sHbOrigin = {};
+struct HelpBoxInfo EWRAM_DATA sMutableHbi = {};
+const struct HelpBoxInfo* EWRAM_DATA sLastHbi = NULL;
+struct Vec2 EWRAM_DATA sHbOrigin = {};
 
-static
 struct SSTextDispInfo const sPage0TextInfo[] =
 {
     { gStatScreen.text + STATSCREEN_TEXT_SKLLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 3),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Skl },
@@ -51,7 +50,6 @@ struct SSTextDispInfo const sPage0TextInfo[] =
     { }, // end
 };
 
-static
 struct SSTextDispInfo const sPage1TextInfo[] =
 {
     { gStatScreen.text + STATSCREEN_TEXT_BSATKLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 13), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Atk },
@@ -63,7 +61,6 @@ struct SSTextDispInfo const sPage1TextInfo[] =
     { }, // end
 };
 
-static
 struct SSTextDispInfo const sPage2TextInfo_Physical[] =
 {
     { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Sword },
@@ -74,7 +71,6 @@ struct SSTextDispInfo const sPage2TextInfo_Physical[] =
     { }, // end
 };
 
-static
 struct SSTextDispInfo const sPage2TextInfo_Magical[] =
 {
     { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Anima },
@@ -85,7 +81,6 @@ struct SSTextDispInfo const sPage2TextInfo_Magical[] =
     { }, // end
 };
 
-static
 struct TextInitInfo CONST_DATA sSSMasterTextInitInfo[] =
 {
     { gStatScreen.text + STATSCREEN_TEXT_CHARANAME,  7  },
@@ -127,7 +122,6 @@ struct TextInitInfo CONST_DATA sSSMasterTextInitInfo[] =
     { }, // end
 };
 
-static
 s8 CONST_DATA sPageSlideOffsetLut[] = // stat screen page transition draw offset lut
 {
     // transition page out
@@ -180,7 +174,7 @@ struct ProcCmd CONST_DATA gProcScr_SSUnitSlide[] =
     PROC_END,
 };
 
-static u16 CONST_DATA sSprite_Page0Name[] =
+u16 CONST_DATA sSprite_Page0Name[] =
 {
     3,
     0x4104, 0x9008, TILEREF(0, 0),
@@ -188,14 +182,14 @@ static u16 CONST_DATA sSprite_Page0Name[] =
     0x4104, 0x9048, TILEREF(8, 0),
 };
 
-static u16 CONST_DATA sSprite_Page1Name[] =
+u16 CONST_DATA sSprite_Page1Name[] =
 {
     2,
     0x4104, 0x901E, TILEREF(0, 0),
     0x4104, 0x903E, TILEREF(4, 0),
 };
 
-static u16 CONST_DATA sSprite_Page2Name[] =
+u16 CONST_DATA sSprite_Page2Name[] =
 {
     5,
     0x4108, 0x9004, TILEREF(6,  0),
@@ -205,7 +199,7 @@ static u16 CONST_DATA sSprite_Page2Name[] =
     0x0100, 0x5020, TILEREF(4,  0),
 };
 
-static u16 CONST_DATA sSprite_PageNameBack[] =
+u16 CONST_DATA sSprite_PageNameBack[] =
 {
     6,
     0x4002, 0x8000, TILEREF(0, 0),
@@ -216,14 +210,14 @@ static u16 CONST_DATA sSprite_PageNameBack[] =
     0x4002, 0x904A, TILEREF(0, 0),
 };
 
-static u16 const* CONST_DATA sPageNameSpriteLut[] =
+u16 const* CONST_DATA sPageNameSpriteLut[] =
 {
     sSprite_Page0Name,
     sSprite_Page1Name,
     sSprite_Page2Name,
 };
 
-static u16 CONST_DATA sPageNameChrOffsetLut[] = { 0, 64, 14 }; // tile offsets within an image
+u16 CONST_DATA sPageNameChrOffsetLut[] = { 0, 64, 14 }; // tile offsets within an image
 
 struct ProcCmd CONST_DATA gProcScr_SSPageNameCtrl[] =
 {
@@ -341,7 +335,6 @@ struct ProcCmd CONST_DATA gProcScr_HelpBoxLock[] =
     PROC_END,
 };
 
-static
 u16 CONST_DATA sSprite_MetaHelp[] = // 'R is info'
 {
     2,

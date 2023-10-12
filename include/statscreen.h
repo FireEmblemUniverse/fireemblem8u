@@ -172,7 +172,7 @@ void HbPopulate_SSCharacter(struct HelpBoxProc* proc);
 void HbPopulate_SSClass(struct HelpBoxProc* proc);
 void HbRedirect_SSSupports(struct HelpBoxProc* proc);
 
-// static
+// extern
 void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1);
 
 void StartHelpBox(int x, int y, int mid);
@@ -185,7 +185,7 @@ void EndHelpBox(void);
 void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent);
 void StartMovingHelpBoxExt(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y);
 
-// static
+// extern
 void SetHelpBoxInitPosition(struct HelpBoxProc* proc, int x, int y);
 void ResetHelpBoxInitSize(struct HelpBoxProc* proc);
 int GetHelpBoxItemInfoKind(int item);
@@ -205,10 +205,10 @@ void MoveHelpPromptSprite(int x, int y);
 
 const struct HelpBoxInfo* GetLastHelpBoxInfo(void);
 
-extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss0Pow; // page 0 root help
-extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss1CharName; // hardcoded thing bad
-extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss1Item0; // page 1 root help
-extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss2Rank0; // page 2 root help
+extern struct HelpBoxInfo gHelpInfo_Ss0Pow; // page 0 root help
+extern struct HelpBoxInfo gHelpInfo_Ss1CharName; // hardcoded thing bad
+extern struct HelpBoxInfo gHelpInfo_Ss1Item0; // page 1 root help
+extern struct HelpBoxInfo gHelpInfo_Ss2Rank0; // page 2 root help
                                                          //
 struct StatScreenEffectProc
 {
@@ -338,5 +338,42 @@ void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc);
 extern struct StatScreenSt gStatScreen; // statscreen state
 extern u16 gBmFrameTmap0[0x280]; // bg0 tilemap buffer for stat screen page
 extern u16 gBmFrameTmap1[0x240]; // bg2 tilemap buffer for stat screen page
+
+extern struct StatScreenInfo sStatScreenInfo;
+extern struct HelpBoxInfo sMutableHbi;
+extern const struct HelpBoxInfo* sLastHbi;
+extern struct Vec2 sHbOrigin;
+
+extern const struct SSTextDispInfo sPage0TextInfo[];
+
+extern const struct SSTextDispInfo sPage0TextInfo[];
+extern const struct SSTextDispInfo sPage1TextInfo[];
+extern const struct SSTextDispInfo sPage2TextInfo_Physical[];
+extern const struct SSTextDispInfo sPage2TextInfo_Magical[];
+extern struct TextInitInfo sSSMasterTextInitInfo[];
+extern s8 sPageSlideOffsetLut[];
+extern struct ProcCmd gProcScr_SSPageSlide[];
+extern struct ProcCmd gProcScr_SSGlowyBlendCtrl[];
+extern struct ProcCmd gProcScr_SSUnitSlide[];
+
+extern u16 sSprite_Page0Name[];
+extern u16 sSprite_Page1Name[];
+extern u16 sSprite_Page2Name[];
+extern u16 sSprite_PageNameBack[];
+extern const u16 *sPageNameSpriteLut[];
+extern u16 sSprite_PageNameBack[];
+extern const u16 *sPageNameSpriteLut[];
+extern u16 sPageNameChrOffsetLut[];
+
+extern struct ProcCmd gProcScr_SSPageNameCtrl[];
+extern struct ProcCmd gProcScr_SSPageNumCtrl[];
+extern struct ProcCmd gProcScr_SSBgOffsetCtrl[];
+extern struct ProcCmd gProcScr_StatScreen[];
+extern struct ProcCmd gProcScr_HelpBox[];
+extern struct ProcCmd gProcScr_HelpBoxMoveCtrl[];
+extern struct ProcCmd gProcScr_HelpBoxLock[];
+
+extern u16 sSprite_MetaHelp[];
+extern struct ProcCmd gProcScr_HelpPromptSpr[];
 
 #endif // GUARD_STATSCREEN_H
