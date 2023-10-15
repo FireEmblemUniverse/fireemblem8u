@@ -42,10 +42,6 @@ void GmPalFade_Init(struct GmapPalFadeProc * proc)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/K21xg */
-
 //! FE8U = 0x080BF5DC
 void GmPalFade_Loop(struct GmapPalFadeProc * proc)
 {
@@ -56,15 +52,20 @@ void GmPalFade_Loop(struct GmapPalFadeProc * proc)
     if (proc->unk_30 < proc->unk_2c)
     {
         int scale = proc->unk_30 * 0x40 / proc->unk_2c;
+        u16 red, green, blue;
+        s32 v38, v3c;
 
         for (i = 0; i < proc->unk_34; i++)
         {
-            u16 red =
-                RED_VALUE(proc->unk_38[i]) + ((RED_VALUE(proc->unk_3c[i]) - RED_VALUE(proc->unk_38[i])) * scale / 0x40);
-            u16 green = GREEN_VALUE(proc->unk_38[i]) +
-                ((GREEN_VALUE(proc->unk_3c[i]) - GREEN_VALUE(proc->unk_38[i])) * scale / 0x40);
-            u16 blue = BLUE_VALUE(proc->unk_38[i]) +
-                ((BLUE_VALUE(proc->unk_3c[i]) - BLUE_VALUE(proc->unk_38[i])) * scale / 0x40);
+            v38 = RED_VALUE(proc->unk_38[i]);
+            v3c = RED_VALUE(proc->unk_3c[i]);
+            red = v38 + ((v3c - v38) * scale / 0x40);
+            v38 = GREEN_VALUE(proc->unk_38[i]);
+            v3c = GREEN_VALUE(proc->unk_3c[i]);
+            green = v38 + ((v3c - v38) * scale / 0x40);
+            v38 = BLUE_VALUE(proc->unk_38[i]);
+            v3c = BLUE_VALUE(proc->unk_3c[i]);
+            blue = v38 + ((v3c - v38) * scale / 0x40);
 
             proc->unk_40[i] = (blue << 10) + (green << 5) + red;
         }
@@ -79,135 +80,6 @@ void GmPalFade_Loop(struct GmapPalFadeProc * proc)
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void GmPalFade_Loop(struct GmapPalFadeProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        adds r5, r0, #0\n\
-        ldr r0, [r5, #0x30]\n\
-        adds r0, #1\n\
-        str r0, [r5, #0x30]\n\
-        ldr r1, [r5, #0x2c]\n\
-        cmp r0, r1\n\
-        bge _080BF69A\n\
-        lsls r0, r0, #6\n\
-        bl __divsi3\n\
-        mov r9, r0\n\
-        movs r7, #0\n\
-        adds r0, r5, #0\n\
-        adds r0, #0x34\n\
-        mov sl, r0\n\
-        ldrb r0, [r0]\n\
-        cmp r7, r0\n\
-        bge _080BF6AE\n\
-        movs r1, #0x1f\n\
-        mov ip, r1\n\
-    _080BF60E:\n\
-        ldr r0, [r5, #0x38]\n\
-        lsls r6, r7, #1\n\
-        adds r0, r6, r0\n\
-        ldrh r3, [r0]\n\
-        movs r2, #0x1f\n\
-        ands r2, r3\n\
-        ldr r0, [r5, #0x3c]\n\
-        adds r0, r6, r0\n\
-        ldrh r1, [r0]\n\
-        movs r0, #0x1f\n\
-        ands r0, r1\n\
-        subs r0, r0, r2\n\
-        mov r4, r9\n\
-        muls r4, r0, r4\n\
-        adds r0, r4, #0\n\
-        cmp r0, #0\n\
-        bge _080BF632\n\
-        adds r0, #0x3f\n\
-    _080BF632:\n\
-        asrs r0, r0, #6\n\
-        adds r0, r2, r0\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov r8, r0\n\
-        lsls r4, r3, #0x10\n\
-        lsrs r2, r4, #0x15\n\
-        mov r0, ip\n\
-        ands r2, r0\n\
-        lsls r3, r1, #0x10\n\
-        lsrs r0, r3, #0x15\n\
-        mov r1, ip\n\
-        ands r0, r1\n\
-        subs r0, r0, r2\n\
-        mov r1, r9\n\
-        muls r1, r0, r1\n\
-        adds r0, r1, #0\n\
-        cmp r0, #0\n\
-        bge _080BF65A\n\
-        adds r0, #0x3f\n\
-    _080BF65A:\n\
-        asrs r0, r0, #6\n\
-        adds r0, r2, r0\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r1, r0, #0x10\n\
-        lsrs r2, r4, #0x1a\n\
-        mov r4, ip\n\
-        ands r2, r4\n\
-        lsrs r0, r3, #0x1a\n\
-        ands r0, r4\n\
-        subs r0, r0, r2\n\
-        mov r3, r9\n\
-        muls r3, r0, r3\n\
-        adds r0, r3, #0\n\
-        cmp r0, #0\n\
-        bge _080BF67A\n\
-        adds r0, #0x3f\n\
-    _080BF67A:\n\
-        asrs r0, r0, #6\n\
-        adds r0, r2, r0\n\
-        lsls r0, r0, #0x10\n\
-        ldr r2, [r5, #0x40]\n\
-        adds r2, r6, r2\n\
-        lsrs r0, r0, #6\n\
-        lsls r1, r1, #5\n\
-        adds r0, r0, r1\n\
-        add r0, r8\n\
-        strh r0, [r2]\n\
-        adds r7, #1\n\
-        mov r4, sl\n\
-        ldrb r4, [r4]\n\
-        cmp r7, r4\n\
-        blt _080BF60E\n\
-        b _080BF6AE\n\
-    _080BF69A:\n\
-        ldr r0, [r5, #0x3c]\n\
-        ldr r1, [r5, #0x40]\n\
-        adds r2, r5, #0\n\
-        adds r2, #0x34\n\
-        ldrb r2, [r2]\n\
-        bl CpuSet\n\
-        adds r0, r5, #0\n\
-        bl Proc_Break\n\
-    _080BF6AE:\n\
-        bl EnablePaletteSync\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 // clang-format off
 
