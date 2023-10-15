@@ -282,6 +282,9 @@ SECTIONS
         src/worldmap_mapmu.o(.text);
         src/worldmap_player_interface.o(.text);
         src/worldmap_scrollmanage.o(.text);
+        src/worldmap_draw.o(.text);
+        src/worldmap_palette_fade.o(.text);
+        src/worldmap_entry.o(.text);
         asm/code_80BF13C.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);

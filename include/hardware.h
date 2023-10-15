@@ -99,7 +99,7 @@ struct BlendCnt {
     u16 target2_bg3_on : 1;
     u16 target2_obj_on : 1;
     u16 target2_bd_on : 1;
-    STRUCT_PAD(0x02, 0x04);
+    u32 _unused;
 } BITPACKED;
 
 struct LCDControlBuffer {
@@ -119,7 +119,6 @@ struct LCDControlBuffer {
     /* 38 */ u16 mosaic;
              STRUCT_PAD(0x3A, 0x3C);
     /* 3C */ struct BlendCnt bldcnt;
-    /* 40 */ STRUCT_PAD(0x40, 0x44);
     /* 44 */ u8 blendCoeffA;
     /* 45 */ u8 blendCoeffB;
     /* 46 */ u8 blendY;
