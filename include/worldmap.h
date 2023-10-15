@@ -225,7 +225,7 @@ struct WorldMapMainProc
     /* 29 */ u8 unk_29_6 : 1;
     /* 29 */ u8 unk_29_7 : 1;
 
-    /* 2A */ u8 unk_2a;
+    /* 2A */ s8 unk_2a;
     /* 2C */ int unk_2c;
     /* 30 */ int unk_30;
     /* 34 */ STRUCT_PAD(0x34, 0x3a);
@@ -312,6 +312,14 @@ struct NodeIcon
 
 extern const struct NodeIcon gWMNodeIconData[];
 
+struct WMSongTableEnt
+{
+    /* 00 */ u16 eirika;
+    /* 02 */ u16 ephraim;
+};
+
+extern struct WMSongTableEnt gWMSongTable[];
+
 extern struct ProcCmd gProcScr_WorldMapMain[];
 
 // ??? WorldMapFaceHolder_Init(???);
@@ -348,7 +356,7 @@ void sub_80B8FD4(void);
 void sub_80B9154(struct WorldMapMainProc *proc);
 void sub_80B9218(ProcPtr);
 s8 sub_80B92D0(struct WorldMapMainProc *, int);
-int sub_80B93E0(ProcPtr);
+void sub_80B93E0(struct WorldMapMainProc *);
 // ??? sub_80B955C(???);
 int sub_80B95B0(void);
 // ??? sub_80B961C(???);
@@ -620,8 +628,8 @@ void sub_80BF15C(void);
 // ??? GmMoveCursor_OnEnd(???);
 // ??? GmMoveCursor_OnInit(???);
 // ??? GmMoveCursor_OnLoop(???);
-// ??? StartGmMoveCursor(???);
-// ??? GmMoveCursorExists(???);
+ProcPtr StartGmMoveCursor(struct Vec2 * posA, struct Vec2 * posB, int c, int d, ProcPtr parent);
+s8 GmMoveCursorExists(void);
 // ??? GmScrollManage_OnEnd(???);
 // ??? GmScrollManage_OnInit(???);
 // ??? GmScrollManage_OnLoop(???);
