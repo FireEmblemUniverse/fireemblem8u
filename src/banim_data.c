@@ -1,6 +1,6 @@
 #include "banim_data.h"
 __attribute__((section(".data.banim_array")))
-BattleAnim banim_data[] = {
+struct BattleAnim banim_data[] = {
 	{"lorm_sp1", &banim_lorm_sp1_modes_bin, &banim_lorm_sp1_motion_o, &banim_lorm_sp1_oam_r_bin, &banim_lorm_sp1_oam_l_bin, &banim_lorm_sp1_agbpal}, // 0x0
 	{"lorm_sp1", &banim_lorm_sp1_2_modes_bin, &banim_lorm_sp1_2_motion_o, &banim_lorm_sp1_2_oam_r_bin, &banim_lorm_sp1_2_oam_l_bin, &banim_lorm_sp1_2_agbpal}, // 0x1
 	{"lorf_sw1", &banim_lorf_sw1_modes_bin, &banim_lorf_sw1_motion_o, &banim_lorf_sw1_oam_r_bin, &banim_lorf_sw1_oam_l_bin, &banim_lorf_sw1_agbpal}, // 0x2

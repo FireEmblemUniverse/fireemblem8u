@@ -274,8 +274,8 @@ struct ProcEfxStatusUnit {
 extern struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2];
 
 void NewEfxStatusUnit(struct Anim * anim);
-// ??? EndEfxStatusUnits(???);
-// ??? DeleteEach6C_efxStatusUnit(???);
+void EndEfxStatusUnits(struct Anim *anim);
+void DeleteEach6C_efxStatusUnit(void);
 void DisableEfxStatusUnits(struct Anim * anim);
 void EnableEfxStatusUnits(struct Anim * anim);
 void SetUnitEfxDebuff(struct Anim * anim, int debuff);
@@ -447,7 +447,7 @@ struct ProcEkrHensei {
 extern u16 gEfxPal[];
 // extern ??? gUnknown_02016828
 extern u16 gObjBuf_EkrSideHitDmgCrit[];
-// extern ??? gUnknown_02016DC8
+extern u16 gUnknown_02016DC8[];
 // extern ??? gUnknown_02016E48
 // extern ??? gUnknown_02017048
 // extern ??? gUnknown_02017248
@@ -523,9 +523,7 @@ extern u8 gUnknown_0201FA08[];
 extern u8 gUnknown_0201FA38[];
 extern u16 gUnknown_0201FA68[];
 extern int gUnknown_0201FAC8;
-// extern ??? gEkrWindowAppearExist
-// extern ??? gEkrNamewinAppearExist
-// extern ??? gProcEkrBaseAppearExist
+
 extern u32 gUnknown_0201FAD8;
 
 // extern ??? ProcScr_efxMaohFlash
@@ -827,6 +825,30 @@ extern u16 gUnknown_085D0A20[];
 extern u16 gUnknown_085D0CE0[];
 extern u16 gUnknown_085D0FD0[];
 extern u16 gUnknown_085D1470[];
+extern u32 AnimScr_EkrBaseKaiten1[];
+extern u32 AnimScr_EkrBaseKaiten3[];
+extern u32 AnimScr_EkrBaseKaiten4[];
+extern u32 AnimScr_EkrBaseKaiten5[];
+extern u32 AnimScr_EkrBaseKaiten9[];
+extern u32 AnimScr_EkrBaseKaiten10[];
+extern u32 AnimScr_EkrBaseKaiten11[];
+extern u32 AnimScr_EkrBaseKaiten12[];
+extern u32 AnimScr_EkrBaseKaiten13[];
+extern u32 AnimScr_EkrBaseKaiten14[];
+extern u32 AnimScr_EkrBaseKaiten15[];
+extern u32 AnimScr_EkrBaseKaiten16[];
+extern u32 AnimScr_EkrBaseKaiten17[];
+extern u32 AnimScr_EkrBaseKaiten18[];
+extern u32 AnimScr_EkrBaseKaiten19[];
+extern u32 AnimScr_EkrBaseKaiten20[];
+extern u32 AnimScr_EkrBaseKaiten21[];
+extern u32 AnimScr_EkrBaseKaiten22[];
+extern u32 AnimScr_EkrBaseKaiten23[];
+extern u32 AnimScr_EkrBaseKaiten24[];
+extern u32 AnimScr_EkrBaseKaiten8[];
+extern u32 AnimScr_EkrBaseKaiten7[];
+extern u32 AnimScr_EkrBaseKaiten6[];
+extern u32 AnimScr_EkrBaseKaiten2[];
 
 // extern ??? gUnknown_085D99EC
 // extern ??? gUnknown_085D9A1C
@@ -1286,6 +1308,27 @@ extern u16 gUnknown_08802BC4[];
 extern u16 gPalEfxHpBarPurple[];
 extern u16 gUnknown_08802D24[];
 
+void EkrEfxStatusClear(void);
+int CheckEkrHitDone(void);
+short EkrEfxIsUnitHittedNow(int pos);
+void NewEfxHPBar(struct Anim * anim);
+void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar * proc);
+void efxHPBarMain(struct ProcEfxHPBar * proc);
+void efxHPBarWaitForFarFarCamMoveMaybe(struct ProcEfxHPBar * proc);
+void NewEfxHPBarResire(struct Anim * anim);
+void EfxHPBarResire_80526C8(struct ProcEfxHPBar * proc);
+void EfxHPBarResire_8052788(struct ProcEfxHPBar * proc);
+void EfxHPBarResire_805282C(struct ProcEfxHPBar * proc);
+void NewEfxAvoid(struct Anim * anim);
+void EfxAvoidMain(struct ProcEfxHPBar * proc);
+void NewEfxHPBarLive(struct Anim * anim);
+void EfxHPBarLiveMain(struct ProcEfxHPBar * proc);
+void NewEfxNoDmage(struct Anim * anim1, struct Anim * anim2, int death);
+void EfxNoDamageMain(struct ProcEfxHPBar * proc);
+void NewEfxNoDamageYure(struct Anim * anim1, struct Anim * anim2);
+void EfxNoDamageYureMain(struct ProcEfxHPBar * proc);
+void NewEfxStatusCHG(struct Anim * anim);
+void EfxStatusCHGMain(struct ProcEfxHPBar * proc);
 void NewEfxFarAttackWithDistance(struct Anim * anim, int arg);
 // ??? sub_80534AC(???);
 // ??? sub_80534E4(???);
@@ -1420,14 +1463,14 @@ void NewEfxKingPika(struct Anim * anim);
 // ??? EfxKingPikaMain(???);
 void NewEfxFlashFX(struct Anim * anim);
 // ??? EfxFlashFXMain(???);
-// ??? NewEfxSongOBJ2(???);
-// ??? EfxSongOBJ2Main(???);
-// ??? NewEfxDanceOBJ(???);
-// ??? EfxDanceOBJMain(???);
+void NewEfxSongOBJ2(struct Anim * anim);
+void EfxSongOBJ2Main(struct ProcEfxOBJ * proc);
+void NewEfxDanceOBJ(struct Anim * anim);
+void EfxDanceOBJMain(struct ProcEfxOBJ * proc);
 void NewEfxSpecalEffect(struct Anim * anim);
-// ??? sub_806D980(???);
+void sub_806D980(ProcPtr proc);
 void NewEfxSRankWeaponEffect(struct Anim * anim);
-// ??? EfxSRankWeaponEffectMain(???);
+void EfxSRankWeaponEffectMain(struct ProcEfx * proc);
 void NewEfxSRankWeaponEffectBG(struct Anim * anim);
 // ??? EfxSRankWeaponEffectBGMain(???);
 void NewEfxSRankWeaponEffectSCR(void);

@@ -202,10 +202,10 @@ void ekrBattleMain(struct ProcEkrBattle *proc)
 
 void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc)
 {
-    if (DoesEkrWindowAppearExist() != true)
+    if (CheckEkrWindowAppearUnexist() != true)
         return;
 
-    EkrGauge_Set2A();
+    EnableEkrGauge();
     sub_8051B90();
     CpuFastFill(0, gBG0TilemapBuffer, 0x800);
     BG_SetPosition(BG_0, gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
@@ -234,7 +234,7 @@ void ekrBattleWaitPreEvent(struct ProcEkrBattle *proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     NewEkrWindowAppear(0, 7);
     NewEkrNamewinAppear(0, 7, 0);
-    EkrGauge_Clr2A();
+    DisableEkrGauge();
     sub_8051BA0();
     EkrGauge_Clr4C50();
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050134;
@@ -242,7 +242,7 @@ void ekrBattleWaitPreEvent(struct ProcEkrBattle *proc)
 
 void ekrBattle_8050134(struct ProcEkrBattle *proc)
 {
-    if (DoesEkrWindowAppearExist() == true) {
+    if (CheckEkrWindowAppearUnexist() == true) {
         proc->proc_idleCb = (ProcFunc)ekrBattlePrepareDragonIntro;
         proc->timer = 0;
     }

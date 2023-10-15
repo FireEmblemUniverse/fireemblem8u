@@ -892,8 +892,8 @@ _08071808: .4byte gUnknown_080E13F4
 
 	THUMB_FUNC_END sub_80717F0
 
-	THUMB_FUNC_START EkrEfxHandleUnitHittedEffect
-EkrEfxHandleUnitHittedEffect: @ 0x0807180C
+	THUMB_FUNC_START EkrGetUnitSpriteDataMaybe
+EkrGetUnitSpriteDataMaybe: @ 0x0807180C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -1079,7 +1079,7 @@ _08071984: .4byte 0xFFFF0000
 _08071988: .4byte 0xFFFF0004
 _0807198C: .4byte 0xC1FFFFFF
 
-	THUMB_FUNC_END EkrEfxHandleUnitHittedEffect
+	THUMB_FUNC_END EkrGetUnitSpriteDataMaybe
 
 	THUMB_FUNC_START EfxPlaySE
 EfxPlaySE: @ 0x08071990

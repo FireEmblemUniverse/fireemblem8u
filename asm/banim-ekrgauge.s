@@ -163,7 +163,7 @@ _080513BE:
 	movs r0, #1
 	bl BG_EnableSyncByMask
 _080513C4:
-	ldr r3, _08051424  @ gUnknown_0203E1B4
+	ldr r3, _08051424  @ gBanimSomeHp
 	ldr r0, _08051428  @ gEkrGaugeHp
 	movs r4, #0
 	ldrsh r2, [r3, r4]
@@ -212,7 +212,7 @@ _080513EE:
 	.align 2, 0
 _0805141C: .4byte gUnknown_08802428
 _08051420: .4byte gBG0TilemapBuffer
-_08051424: .4byte gUnknown_0203E1B4
+_08051424: .4byte gBanimSomeHp
 _08051428: .4byte gEkrGaugeHp
 _0805142C: .4byte gEkrPairMaxHP
 _08051430: .4byte gEkrDistanceType
@@ -447,7 +447,7 @@ _080515D8:
 	lsls r2, r2, #1
 	str r3, [sp]
 	movs r3, #0x80
-	bl EkrEfxHandleUnitHittedEffect
+	bl EkrGetUnitSpriteDataMaybe
 _08051602:
 	mov r1, sl
 	ldr r0, [r1, #0x4c]
@@ -507,7 +507,7 @@ _08051654:
 	lsls r2, r2, #1
 	str r3, [sp]
 	movs r3, #0x80
-	bl EkrEfxHandleUnitHittedEffect
+	bl EkrGetUnitSpriteDataMaybe
 _0805167E:
 	mov r1, sl
 	ldr r0, [r1, #0x50]

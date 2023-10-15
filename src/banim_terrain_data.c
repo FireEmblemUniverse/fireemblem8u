@@ -3,7 +3,7 @@
 #include "banim_data.h"
 
 __attribute__((section(".data.banim_terrain_ptr_table")))
-BattleAnimTerrain battle_terrain_table[] = {
+struct BattleAnimTerrain battle_terrain_table[] = {
 	{"heichi1", battle_terrain_heichi1_tileset, battle_terrain_heichi1_pal, 0}, // 0
 	{"arechi1", battle_terrain_arechi1_tileset, battle_terrain_arechi1_pal, 0}, // 1
 	{"jyoumon1", battle_terrain_jyoumon1_tileset, battle_terrain_jyoumon1_pal, 0}, // 2

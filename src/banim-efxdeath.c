@@ -62,8 +62,8 @@ void sub_8052E7C(struct ProcEfxDead *proc)
 
 void sub_8052EAC(struct ProcEfxDead *proc)
 {
-    if (DoesEkrWindowAppearExist() == true) {
-        EkrGauge_Set2A();
+    if (CheckEkrWindowAppearUnexist() == true) {
+        EnableEkrGauge();
         sub_8051B90();
 
         CpuFastFill(0, gBG0TilemapBuffer, 0x800);
@@ -90,7 +90,7 @@ void sub_8052F24(struct ProcEfxDead *proc)
         NewEkrWindowAppear(0, 7);
         NewEkrNamewinAppear(0, 7, 0);
 
-        EkrGauge_Clr2A();
+        DisableEkrGauge();
         sub_8051BA0();
         EkrGauge_Clr4C50();
         Proc_Break(proc);
@@ -99,7 +99,7 @@ void sub_8052F24(struct ProcEfxDead *proc)
 
 void sub_8052F84(struct ProcEfxDead *proc)
 {
-    if (DoesEkrWindowAppearExist() == true) {
+    if (CheckEkrWindowAppearUnexist() == true) {
         gEkrDeadEventExist = false;
         Proc_Break(proc);
     }

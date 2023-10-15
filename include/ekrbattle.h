@@ -57,7 +57,7 @@ struct ProcEkrGauge {
     PROC_HEADER;
 
     /* 29 */ u8 battle_init;           /* 1 in battle-starting and 0 after battle started */
-    /* 2A */ u8 unk2A;
+    /* 2A */ u8 valid;
     /* 2B */ u8 _pad_2B[0x32 - 0x2B];
     /* 32 */ s16 unk32;
     /* 34 */ u8 _pad_34[0x3A - 0x34];
@@ -150,6 +150,105 @@ void ekrBattleEnding_8056288(struct ProcEkrBattleEnding * proc);
 void ekrBattleEnding_8056310(struct ProcEkrBattleEnding * proc);
 void ekrBattleEnding_8056390(struct ProcEkrBattleEnding * proc);
 void ekrBattleEnding_8056484(struct ProcEkrBattleEnding * proc);
+
+struct ProcEkrBaseKaiten {
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    /* 2A */ u16 unk2A;
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ u16 unk30;
+
+    /* 32 */ s16 x1;
+    /* 34 */ s16 x2;
+    /* 36 */ s16 unk36;
+
+    /* 38 */ STRUCT_PAD(0x38, 0x3A);
+
+    /* 3A */ s16 y1;
+    /* 3C */ s16 y2;
+    /* 3E */ s16 unk3E;
+
+    /* 40 */ STRUCT_PAD(0x40, 0x44);
+
+    /* 44 */ int type;
+
+    /* 48 */ STRUCT_PAD(0x48, 0x5C);
+
+    /* 5C */ struct Anim * anim;
+    /* 60 */ const u16 * unk60;
+};
+
+void NewEkrBaseKaiten(int identifier);
+void EkrBaseKaitenMain(struct ProcEkrBaseKaiten * proc);
+
+struct ProcUnitKakudai {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ u16 unk30;
+
+    /* 32 */ s16 x1;
+    /* 34 */ s16 x2;
+    /* 36 */ s16 left_pos;
+    /* 38 */ s16 right_pos;
+    /* 3A */ s16 y1;
+    /* 3C */ s16 y2;
+
+    /* 3E */ STRUCT_PAD(0x3E, 0x44);
+
+    /* 44 */ int type;
+
+    /* 48 */ STRUCT_PAD(0x48, 0x4C);
+
+    /* 4C */ u32 valid_l;
+    /* 50 */ u32 valid_r;
+    /* 54 */ void * pOaml;
+    /* 58 */ void * pOamr;
+};
+
+void NewEkrUnitKakudai(int identifier);
+void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc);
+void UnitKakudaiMain(struct ProcUnitKakudai * proc);
+void UnitKakudaiEndNop(struct ProcUnitKakudai * proc);
+
+struct ProcEkrIntroWindow {
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ s16 ymax;
+
+    /* 32 */ STRUCT_PAD(0x32, 0x44);
+
+    /* 44 */ int type;
+    /* 48 */ int ymax_name;
+};
+
+void NewEkrWindowAppear(int identifier, int);
+bool CheckEkrWindowAppearUnexist(void);
+void EkrWindowAppearMain(struct ProcEkrIntroWindow * proc);
+void NewEkrNamewinAppear(int identifier, int duration, int delay);
+bool CheckEkrNamewinAppearUnexist(void);
+void EkrNamewinAppearDelay(struct ProcEkrIntroWindow * proc);
+void EkrNamewinAppearMain(struct ProcEkrIntroWindow * proc);
+void NewEkrBaseAppear(int identifier, int duration);
+bool CheckEkrBaseAppearUnexist(void);
+void EkrBaseAppearMain(struct ProcEkrIntroWindow * proc);
+
+extern struct ProcCmd ProcScr_ekrWindowAppear[];
+extern struct ProcCmd ProcScr_ekrNamewinAppear[];
+extern struct ProcCmd ProcScr_ekrBaseAppear[];
+
+extern int gEkrWindowAppearExist;
+extern int gEkrNamewinAppearExist;
+extern int gProcEkrBaseAppearExist;
 
 struct ProcEkrChienCHR {
     PROC_HEADER;
@@ -266,8 +365,8 @@ extern int *gpBanimModesLeft;
 extern int *gpBanimModesRight;
 extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
-extern u8 gBanimImgSheetBuf[];
-extern u8 gUnknown_02002088[];
+extern u8 gBanimLeftImgSheetBuf[];
+extern u8 gBanimRightImgSheetBuf[];
 
 extern int gBanimLinkArenaFlag;
 extern int gBattleDeamonActive;
@@ -289,10 +388,10 @@ extern short gEkrPairBanimID2[];
 extern u8 gEkrPids[2];
 extern struct Unit *gpEkrTriangleUnits[2];
 extern char *gBanimCharacterPals[2];
-extern int gUnknown_0203E1A4[2];
+extern void * gUnknown_0203E1A4[2];
 extern short gEkrGaugeHp[2];
 extern short gEkrPairMaxHP[2];
-extern short gUnknown_0203E1B4[2];
+extern short gBanimSomeHp[2];
 extern short gEkrPairHit[2];
 extern short gEkrPairDmgPair[2];
 extern short gEkrPairCritPair[2];
@@ -335,9 +434,9 @@ extern u16 gUnknown_0201FF04[];
 extern struct ProcCmd gProc_ekrBattleDeamon[];
 extern struct ProcCmd gProc_ekrBattle[];
 extern struct ProcCmd ProcScr_ekrLvupFan[];
-extern struct ProcCmd gProc_ekrGauge[];
+extern struct ProcCmd ProcScr_ekrGauge[];
 // extern ??? gUnknown_085B93D0
-// extern ??? gUnknown_085B940C
+extern u8 gUnknown_085B940C[];
 // extern ??? gUnknown_085B9424
 // extern ??? gUnknown_085B949C
 // extern ??? gUnknown_085B94F0
@@ -382,22 +481,20 @@ extern struct ProcCmd ProcScr_efxSpellCast[];
 extern struct ProcCmd ProcScr_efxSPDQuake[];
 extern struct ProcCmd ProcScr_ekrBattleStarting[];
 extern struct ProcCmd ProcScr_ekrBattleEnding[];
-// extern ??? gProc_EkrBaseKaiten
-// extern ??? gUnknown_085B9B84
-// extern ??? gUnknown_085B9BA4
-// extern ??? gUnknown_085B9BC4
-// extern ??? gUnknown_085B9BE4
-// extern ??? gUnknown_085B9C04
-// extern ??? gUnknown_085B9C24
-// extern ??? gUnknown_085B9C44
-// extern ??? gUnknown_085B9C64
-// extern ??? gUnknown_085B9C84
-// extern ??? gUnknown_085B9CA4
-// extern ??? gUnknown_085B9CC4
-// extern ??? ProcScr_ekrUnitKakudai
-extern struct ProcCmd gProc_ekrWindowAppear[];
-extern struct ProcCmd gProc_ekrNamewinAppear[];
-extern struct ProcCmd ProcScr_ekrBaseAppear[];
+extern struct ProcCmd ProcScr_EkrBaseKaiten[];
+extern const u8 * CONST_DATA Imgs_085B9B84[];
+extern const u8 * CONST_DATA Imgs_085B9BA4[];
+extern u32 * AnimScrs_085B9BC4[];
+extern u32 * AnimScrs_085B9BE4[];
+extern u32 * AnimScrs_085B9C04[];
+extern u32 * AnimScrs_085B9C24[];
+extern u32 * AnimScrs_085B9C44[];
+extern u32 * AnimScrs_085B9C64[];
+extern const u16 * CONST_DATA gUnknown_085B9C84[];
+extern const u16 * CONST_DATA gUnknown_085B9CA4[];
+extern const u16 * CONST_DATA gUnknown_085B9CC4[];
+extern struct ProcCmd ProcScr_ekrUnitKakudai[];
+
 extern u32 BanimScr_085B9D5C[4];
 extern void *gUnknown_085B9D6C[];
 extern struct ProcCmd gProc_ekrChienCHR[];
@@ -437,7 +534,12 @@ extern const u8 BanimTypesPosRight[5];
 extern const u16 BanimLeftDefaultPos[5];
 // extern ??? gUnknown_080DAF60
 // extern ??? gUnknown_080DB026
-// extern ??? gUnknown_080DC85C
+extern const u8 Img_080DB034[];
+extern const u8 Img_080DB538[];
+extern const u8 Img_080DB9C4[];
+extern const u8 Img_080DBE1C[];
+extern const u8 Img_080DC350[];
+extern const u16 gUnknown_080DC85C[2];
 // extern ??? gUnknown_080DC956
 // extern ??? gUnknown_080DCA5C
 // extern ??? gUnknown_080DCB78
@@ -613,23 +715,22 @@ void EkrGauge_Set4C50(void);
 void EkrGauge_Set4C(void);
 void EkrGauge_Set50(void);
 void EkrGauge_Setup44(u16 val);
-void EkrGauge_Clr323A(int x, int y);
+void EkrGauge_Clr323A(s16 x, s16 y);
 void EkrGauge_Setxy323A(s16 x, s16 y);
-// ??? EkrGauge_SetInitFlag(???);
+void EkrGauge_SetInitFlag(void);
 void EkrGauge_ClrInitFlag(void);
-void EkrGauge_Set2A(void);
-void EkrGauge_Clr2A(void);
-// ??? sub_8051238(???);
+void EnableEkrGauge(void);
+void DisableEkrGauge(void);
+void sub_8051238(struct EkrGaugeStruct1 *buf, int a, int b);
 void ekrGaugeMain(struct ProcEkrGauge * proc);
 void NewEkrDispUP(void);
-// ??? EndEkrDispUP(???);
+void EndEkrDispUP(void);
 void EkrDispUpClear4C50(void);
-// ??? EkrDispUpSet4C50(???);
 void EkrDispUpSet4C(void);
 void EkrDispUpSet50(void);
-void EkrDispUP_8051B48(u32, u32);
+void EkrDispUP_8051B48(u16, u16);
 void sub_8051B5C(u16 a, u16 b);
-// ??? sub_8051B70(???);
+void sub_8051B70(void);
 void sub_8051B80(void);
 void sub_8051B90(void);
 void sub_8051BA0(void);
@@ -639,27 +740,6 @@ void sub_8051E00(void);
 void EfxPrepareScreenFx(void);
 int GetBanimInitPosReal(void);
 void SetEkrBg2QuakeVec(int a, int b);
-void EkrEfxStatusClear(void);
-int CheckEkrHitDone(void);
-short EkrEfxIsUnitHittedNow(int pos);
-void NewEfxHPBar(struct Anim * anim);
-// ??? EfxHp_BarDeclineWithDeathJudge(???);
-// ??? efxHPBarMain(???);
-// ??? efxHPBarWaitForFarFarCamMoveMaybe(???);
-void NewEfxHPBarResire(struct Anim * anim);
-// ??? EfxHPBarResire_80526C8(???);
-// ??? EfxHPBarResire_8052788(???);
-// ??? EfxHPBarResire_805282C(???);
-void NewEfxAvoid(struct Anim * anim);
-// ??? EfxAvoidMain(???);
-// ??? NewEfxHPBarLive(???);
-// ??? EfxHPBarLiveMain(???);
-void NewEfxNoDmage(struct Anim * anim1, struct Anim * anim2, int death);
-// ??? EfxNoDamageMain(???);
-void NewEfxNoDamageYure(struct Anim * anim1, struct Anim * anim2);
-// ??? EfxNoDamageYureMain(???);
-void NewEfxStatusCHG(struct Anim * anim);
-// ??? EfxStatusCHGMain(???);
 
 void sub_805515C(void);
 void SpellFx_Begin(void);
@@ -700,23 +780,6 @@ s8 sub_8055BC4(void);
 void BeginAnimsOnBattleAnimations(void);
 void EkrMainEndExec(void);
 void MainUpdate_8055C68(void);
-
-void NewEkrBaseKaiten(int identifier);
-// ??? sub_8056864(???);
-void NewEkrUnitKakudai(int identifier);
-// ??? UnitKakudai1(???);
-// ??? UnitKakudai2(???);
-// ??? sub_8056D18(???);
-void NewEkrWindowAppear(int identifier, int);
-bool DoesEkrWindowAppearExist(void);
-// ??? sub_8056D90(???);
-void NewEkrNamewinAppear(int identifier, int, int);
-bool CheckEkrNamewinAppearUnexist(void);
-// ??? sub_8056E7C(???);
-// ??? sub_8056EA4(???);
-void NewEkrBaseAppear(int, int);
-// ??? CheckEkrBaseAppearExist(???);
-// ??? EndEkrBaseAppear(???);
 
 void EkrPrepareBanimfx(struct Anim * anim, u16);
 s16 GetEfxHp(int index);
@@ -811,7 +874,7 @@ void EkrUpdateSomePalMaybe(int);
 
 // ??? sub_80717D4(???);
 // ??? sub_80717F0(???);
-// ??? EkrEfxHandleUnitHittedEffect(???);
+void EkrGetUnitSpriteDataMaybe(void * scr, void * buf, s16, s16, int);
 void EfxPlaySE(int, int);
 // ??? Loop6C_efxSoundSE(???);
 void DoM4aSongNumStop(int);
