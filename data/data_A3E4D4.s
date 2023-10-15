@@ -1,147 +1,5 @@
     .section .data
 
-	.global gUnknown_08A3E55C
-gUnknown_08A3E55C:  @ 0x08A3E55C
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x82068b4
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word nullsub_50
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BF5C4
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80BF5DC
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08A3E594
-gUnknown_08A3E594:  @ 0x08A3E594
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x82068c4
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_80BF804
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BF890
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BFA1C
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BF8CC
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80BF988
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08A3E5E4
-gUnknown_08A3E5E4:  @ 0x08A3E5E4
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x82068d4
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_80BFB4C
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BFB90
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BFBCC
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80BFC44
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08A3E624
-gUnknown_08A3E624:  @ 0x08A3E624
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x82068d4
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word nullsub_48
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BFD80
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_BLOCK
-        .short 0x10, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BFEF8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C0080
-        @ PROC_GOTO
-        .short 0xc, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80BFFD0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C0144
-        @ PROC_GOTO
-        .short 0xc, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x3
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_08A3E6AC
 gUnknown_08A3E6AC:  @ 0x08A3E6AC
         @ PROC_NAME
@@ -1942,16 +1800,16 @@ gUnknown_08A9DF74:  @ 0x08A9DF74
 gUnknown_08A9E4C4:  @ 0x08A9E4C4
 	.incbin "baserom.gba", 0xA9E4C4, 0x80
 
-	.global gUnknown_08A9E544
-gUnknown_08A9E544:  @ 0x08A9E544
+	.global gImg_08A9E544
+gImg_08A9E544:  @ 0x08A9E544
 	.incbin "baserom.gba", 0xA9E544, 0x78
 
-	.global gUnknown_08A9E5BC
-gUnknown_08A9E5BC:  @ 0x08A9E5BC
+	.global gPal_08A9E5BC
+gPal_08A9E5BC:  @ 0x08A9E5BC
 	.incbin "baserom.gba", 0xA9E5BC, 0x20
 
-	.global gUnknown_08A9E5DC
-gUnknown_08A9E5DC:  @ 0x08A9E5DC
+	.global gTsa_08A9E5DC
+gTsa_08A9E5DC:  @ 0x08A9E5DC
 	.incbin "baserom.gba", 0xA9E5DC, 0xAC
 
 	.global gUnknown_08A9E688

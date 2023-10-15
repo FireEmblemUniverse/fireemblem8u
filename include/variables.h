@@ -1353,10 +1353,10 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3E4D4
 // extern ??? gProcScr_GmMoveCursor
 // extern ??? gProcScr_GmScrollManage
-// extern ??? gUnknown_08A3E55C
-// extern ??? gUnknown_08A3E594
-// extern ??? gUnknown_08A3E5E4
-// extern ??? gUnknown_08A3E624
+// extern ??? gProcScr_GmapPalFade
+// extern ??? gProcScr_GmapBaseEntry
+// extern ??? gProcScr_GmapMuEntry1
+// extern ??? gProcScr_GmapMuEntry2
 // extern ??? gUnknown_08A3E6AC
 // extern ??? gUnknown_08A3E6E4
 // extern ??? gUnknown_08A3E78C
@@ -1434,9 +1434,9 @@ extern u16 gPal_GMapPI_LevelNums[];
 // extern ??? gUnknown_08A99140
 // extern ??? gUnknown_08A9DF74
 // extern ??? gUnknown_08A9E4C4
-// extern ??? gUnknown_08A9E544
-// extern ??? gUnknown_08A9E5BC
-// extern ??? gUnknown_08A9E5DC
+// extern ??? gImg_08A9E544
+// extern ??? gPal_08A9E5BC
+// extern ??? gTsa_08A9E5DC
 // extern ??? gUnknown_08A9E688
 // extern ??? gUnknown_08AA114C
 // extern ??? gUnknown_08AA1190

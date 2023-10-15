@@ -46,12 +46,12 @@ struct GmapMuEntryProc
 
 extern u8 gUnknown_0201BE30;
 
-extern u16 gUnknown_08A9E5BC[];
-extern u8 gUnknown_08A9E544[];
-extern u8 gUnknown_08A9E5DC[];
+extern u16 gPal_08A9E5BC[];
+extern u8 gImg_08A9E544[];
+extern u8 gTsa_08A9E5DC[];
 
 //! FE8U = 0x080BF7B4
-void sub_80BF7B4(struct BlendStruct * blend)
+void RememberBlendState(struct BlendStruct * blend)
 {
     blend->blendCnt = gLCDControlBuffer.bldcnt;
     blend->blendCoeffA = gLCDControlBuffer.blendCoeffA;
@@ -62,7 +62,7 @@ void sub_80BF7B4(struct BlendStruct * blend)
 }
 
 //! FE8U = 0x080BF7DC
-void sub_80BF7DC(struct BlendStruct * blend)
+void RestoreBlendState(struct BlendStruct * blend)
 {
     gLCDControlBuffer.bldcnt = blend->blendCnt;
     gLCDControlBuffer.blendCoeffA = blend->blendCoeffA;
@@ -73,7 +73,7 @@ void sub_80BF7DC(struct BlendStruct * blend)
 }
 
 //! FE8U = 0x080BF804
-void sub_80BF804(struct GmapBaseEntryProc * proc)
+void GmapBaseEntry_OnEnd(struct GmapBaseEntryProc * proc)
 {
     ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_34[(proc->unk_29 / 0x20)] &=
         ~(1 << (proc->unk_29 % 0x20));
@@ -88,15 +88,15 @@ void sub_80BF804(struct GmapBaseEntryProc * proc)
     }
 
     sub_80C13D8();
-    sub_80BF7DC(&proc->unk_30);
+    RestoreBlendState(&proc->unk_30);
 
     return;
 }
 
 //! FE8U = 0x080BF890
-void sub_80BF890(struct GmapBaseEntryProc * proc)
+void GmapBaseEntry_Init(struct GmapBaseEntryProc * proc)
 {
-    sub_80BF7B4(&proc->unk_30);
+    RememberBlendState(&proc->unk_30);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(1, 1, 1, 1, 0);
@@ -108,7 +108,7 @@ void sub_80BF890(struct GmapBaseEntryProc * proc)
 }
 
 //! FE8U = 0x080BF8CC
-void sub_80BF8CC(struct GmapBaseEntryProc * proc)
+void GmapBaseEntry_80BF8CC(struct GmapBaseEntryProc * proc)
 {
     gGMData.nodes[proc->unk_29].state |= 1;
 
@@ -141,7 +141,7 @@ void sub_80BF8CC(struct GmapBaseEntryProc * proc)
 }
 
 //! FE8U = 0x080BF988
-void sub_80BF988(struct GmapBaseEntryProc * proc)
+void GmapBaseEntry_80BF988(struct GmapBaseEntryProc * proc)
 {
     proc->unk_2c--;
 
@@ -177,7 +177,7 @@ void sub_80BF988(struct GmapBaseEntryProc * proc)
 }
 
 //! FE8U = 0x080BFA1C
-void sub_80BFA1C(struct GmapBaseEntryProc * proc)
+void GmapBaseEntry_80BFA1C(struct GmapBaseEntryProc * proc)
 {
     const struct NodeIcon * nodeIcon;
     struct ProcA3EA38 * otherProc;
@@ -219,20 +219,41 @@ void sub_80BFA1C(struct GmapBaseEntryProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E594[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_GmapBaseEntry[] =
+{
+    PROC_NAME("Gmap Base Entry"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmapBaseEntry_OnEnd),
+
+    PROC_CALL(GmapBaseEntry_Init),
+    PROC_YIELD,
+
+    PROC_CALL(GmapBaseEntry_80BFA1C),
+    PROC_YIELD,
+
+    PROC_CALL(GmapBaseEntry_80BF8CC),
+    PROC_REPEAT(GmapBaseEntry_80BF988),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BFAEC
-ProcPtr sub_80BFAEC(int a, int b, ProcPtr parent)
+ProcPtr StartGmBaseEntry(int a, int b, ProcPtr parent)
 {
     struct GmapBaseEntryProc * proc;
 
     if (parent != 0)
     {
-        proc = Proc_StartBlocking(gUnknown_08A3E594, parent);
+        proc = Proc_StartBlocking(gProcScr_GmapBaseEntry, parent);
     }
     else
     {
-        proc = Proc_Start(gUnknown_08A3E594, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_GmapBaseEntry, PROC_TREE_3);
     }
 
     proc->unk_29 = a;
@@ -242,16 +263,16 @@ ProcPtr sub_80BFAEC(int a, int b, ProcPtr parent)
 }
 
 //! FE8U = 0x080BFB24
-void sub_80BFB24(void)
+void EndGmBaseEntry(void)
 {
-    Proc_EndEach(gUnknown_08A3E594);
+    Proc_EndEach(gProcScr_GmapBaseEntry);
     return;
 }
 
 //! FE8U = 0x080BFB34
-s8 sub_80BFB34(void)
+s8 GmBaseEntryExists(void)
 {
-    return Proc_Find(gUnknown_08A3E594) ? 1 : 0;
+    return Proc_Find(gProcScr_GmapBaseEntry) ? 1 : 0;
 }
 
 //! FE8U = 0x080BFB4C
@@ -262,7 +283,7 @@ void sub_80BFB4C(struct GmapBaseEntryProc * proc)
     gGMData.units[proc->unk_29].state |= 1;
 
     sub_80C13D8();
-    sub_80BF7DC(&proc->unk_30);
+    RestoreBlendState(&proc->unk_30);
 
     return;
 }
@@ -270,7 +291,7 @@ void sub_80BFB4C(struct GmapBaseEntryProc * proc)
 //! FE8U = 0x080BFB90
 void sub_80BFB90(struct GmapBaseEntryProc * proc)
 {
-    sub_80BF7B4(&proc->unk_30);
+    RememberBlendState(&proc->unk_30);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(1, 1, 1, 1, 0);
@@ -338,10 +359,29 @@ void sub_80BFC44(struct GmapBaseEntryProc * proc)
         sub_80BE080(((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->unk_54, proc->unk_29, 0);
         Proc_Break(proc);
     }
+
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E5E4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_GmapMuEntry1[] =
+{
+    PROC_NAME("Gmap Mu Entry"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(sub_80BFB4C),
+
+    PROC_CALL(sub_80BFB90),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80BFBCC),
+    PROC_REPEAT(sub_80BFC44),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BFCC8
 ProcPtr sub_80BFCC8(int a, int b, ProcPtr parent)
@@ -350,11 +390,11 @@ ProcPtr sub_80BFCC8(int a, int b, ProcPtr parent)
 
     if (parent)
     {
-        proc = Proc_StartBlocking(gUnknown_08A3E5E4, parent);
+        proc = Proc_StartBlocking(gProcScr_GmapMuEntry1, parent);
     }
     else
     {
-        proc = Proc_Start(gUnknown_08A3E5E4, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_GmapMuEntry1, PROC_TREE_3);
     }
 
     proc->unk_29 = a;
@@ -366,25 +406,25 @@ ProcPtr sub_80BFCC8(int a, int b, ProcPtr parent)
 //! FE8U = 0x080BFD00
 void sub_80BFD00(void)
 {
-    Proc_EndEach(gUnknown_08A3E5E4);
+    Proc_EndEach(gProcScr_GmapMuEntry1);
     return;
 }
 
 //! FE8U = 0x080BFD10
 s8 sub_80BFD10(void)
 {
-    return Proc_Find(gUnknown_08A3E5E4) ? 1 : 0;
+    return Proc_Find(gProcScr_GmapMuEntry1) ? 1 : 0;
 }
 
 //! FE8U = 0x080BFD28
 void sub_80BFD28(void)
 {
-    ApplyPalette(gUnknown_08A9E5BC, 2);
+    ApplyPalette(gPal_08A9E5BC, 2);
     EnablePaletteSync();
 
-    Decompress(gUnknown_08A9E544, (void *)0x06004C00);
-    Decompress(gUnknown_08A9E5DC, gGenericBuffer);
-    CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, 0x00002260);
+    Decompress(gImg_08A9E544, (void *)0x06004C00);
+    Decompress(gTsa_08A9E5DC, gGenericBuffer);
+    CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, 0x2260);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
@@ -392,13 +432,13 @@ void sub_80BFD28(void)
 }
 
 //! FE8U = 0x080BFD7C
-void nullsub_48(void)
+void GmMuEntry_OnEnd_Null(void)
 {
     return;
 }
 
 //! FE8U = 0x080BFD80
-void sub_80BFD80(struct GmapMuEntryProc * proc)
+void GmMuEntry_Init(struct GmapMuEntryProc * proc)
 {
     proc->unk_29_0 = 0;
     proc->unk_2b = 0;
@@ -430,9 +470,9 @@ void sub_80BFDA0(struct GmapMuEntryProc * proc, int unused)
     {
         palA[i] = 0x10 - proc->unk_2a;
 
-        r = ((proc->unk_2a - i) * -6 / proc->unk_2a) + 0xd;
-        g = ((proc->unk_2a - i) * -10 / proc->unk_2a) + 0x11;
-        b = ((proc->unk_2a - i) * -7 / proc->unk_2a) + 0x17;
+        r = ((proc->unk_2a - i) * -6 / proc->unk_2a) + 13;
+        g = ((proc->unk_2a - i) * -10 / proc->unk_2a) + 17;
+        b = ((proc->unk_2a - i) * -7 / proc->unk_2a) + 23;
         palB[i] = (b << 10) + (g << 5) + r;
     }
 
@@ -441,9 +481,9 @@ void sub_80BFDA0(struct GmapMuEntryProc * proc, int unused)
         j = DISPLAY_HEIGHT - (proc->unk_2b - i);
         palA[j] = proc->unk_2b + 200;
 
-        r = (i * -6 / proc->unk_2b) + 0xd;
-        g = (i * -10 / proc->unk_2b) + 0x11;
-        b = (i * -7 / proc->unk_2b) + 0x17;
+        r = (i * -6 / proc->unk_2b) + 13;
+        g = (i * -10 / proc->unk_2b) + 17;
+        b = (i * -7 / proc->unk_2b) + 23;
         palB[j] = (b << 10) + (g << 5) + r;
     }
 
@@ -453,7 +493,7 @@ void sub_80BFDA0(struct GmapMuEntryProc * proc, int unused)
 }
 
 //! FE8U = 0x080BFEF8
-void sub_80BFEF8(struct GmapMuEntryProc * proc)
+void GmMuEntry_80BFEF8(struct GmapMuEntryProc * proc)
 {
     u16 * buf;
     sub_80BFD28();
@@ -485,7 +525,7 @@ void sub_80BFEF8(struct GmapMuEntryProc * proc)
 }
 
 //! FE8U = 0x080BFFD0
-void sub_80BFFD0(struct GmapMuEntryProc * proc)
+void GmMuEntry_80BFFD0(struct GmapMuEntryProc * proc)
 {
     u16 * buf;
     sub_80BFD28();
@@ -513,7 +553,7 @@ void sub_80BFFD0(struct GmapMuEntryProc * proc)
 }
 
 //! FE8U = 0x080C0080
-void sub_80C0080(struct GmapMuEntryProc * proc)
+void GmMuEntry_80C0080(struct GmapMuEntryProc * proc)
 {
     int unk;
 
@@ -546,7 +586,7 @@ void sub_80C0080(struct GmapMuEntryProc * proc)
 }
 
 //! FE8U = 0x080C0144
-void sub_80C0144(struct GmapMuEntryProc * proc)
+void GmMuEntry_80C0144(struct GmapMuEntryProc * proc)
 {
     int unk;
 
@@ -575,48 +615,79 @@ void sub_80C0144(struct GmapMuEntryProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E624[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_GmapMuEntry2[] =
+{
+    PROC_NAME("Gmap Mu Entry"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmMuEntry_OnEnd_Null),
+
+    PROC_CALL(GmMuEntry_Init),
+    PROC_YIELD,
+
+PROC_LABEL(0),
+    PROC_BLOCK,
+
+PROC_LABEL(1),
+    PROC_CALL(GmMuEntry_80BFEF8),
+    PROC_REPEAT(GmMuEntry_80C0080),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(1),
+    PROC_CALL(GmMuEntry_80BFFD0),
+    PROC_REPEAT(GmMuEntry_80C0144),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(3),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C01DC
-ProcPtr NewMapMuEntry(ProcPtr parent)
+ProcPtr StartGmapMuEntry(ProcPtr parent)
 {
     struct GmapMuEntryProc * proc;
     if (parent)
     {
-        proc = Proc_StartBlocking(gUnknown_08A3E624, parent);
+        proc = Proc_StartBlocking(gProcScr_GmapMuEntry2, parent);
     }
     else
     {
-        proc = Proc_Start(gUnknown_08A3E624, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_GmapMuEntry2, PROC_TREE_3);
     }
 
     // return proc; // BUG
 }
 
 //! FE8U = 0x080C0200
-void sub_80C0200(void)
+void EndGmMuEntry(void)
 {
-    Proc_EndEach(gUnknown_08A3E624);
+    Proc_EndEach(gProcScr_GmapMuEntry2);
     return;
 }
 
 //! FE8U = 0x080C0210
-s8 sub_80C0210(void)
+s8 GmMuEntryExists(void)
 {
-    return Proc_Find(gUnknown_08A3E624) ? 1 : 0;
+    return Proc_Find(gProcScr_GmapMuEntry2) ? 1 : 0;
 }
 
 //! FE8U = 0x080C0228
-s8 sub_80C0228(void)
+s8 GetGmMuEntryFlag(void)
 {
-    struct GmapMuEntryProc * proc = Proc_Find(gUnknown_08A3E624);
+    struct GmapMuEntryProc * proc = Proc_Find(gProcScr_GmapMuEntry2);
     return proc->unk_29_0;
 }
 
 //! FE8U = 0x080C0240
-s8 sub_80C0240(int a, int b)
+s8 GmMuEntryStartShow(int a, int b)
 {
-    struct GmapMuEntryProc * proc = Proc_Find(gUnknown_08A3E624);
+    struct GmapMuEntryProc * proc = Proc_Find(gProcScr_GmapMuEntry2);
 
     if (proc->unk_29_0)
     {
@@ -637,9 +708,9 @@ s8 sub_80C0240(int a, int b)
 }
 
 //! FE8U = 0x080C02A4
-s8 sub_80C02A4(int a, int b)
+s8 GmMuEntryStartHide(int a, int b)
 {
-    struct GmapMuEntryProc * proc = Proc_Find(gUnknown_08A3E624);
+    struct GmapMuEntryProc * proc = Proc_Find(gProcScr_GmapMuEntry2);
 
     if (proc->unk_29_0)
     {

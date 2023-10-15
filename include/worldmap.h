@@ -639,29 +639,29 @@ void sub_80BF15C(void);
 void StartGmScroll(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 delay);
 // ??? sub_80BF490(???);
 void EndGmScroll(void);
-void WM_PutClassSprite(int, int, int, int);
-void WM_PutCharSprite(int, int, int, int);
-void WM_RemoveUnit(int);
-void sub_80BF554(int); // ShowGmUnit
-void sub_80BF570(int); // HideGmUnit
-void WM_DrawPath(int, int);
-// ??? nullsub_50(???);
-// ??? sub_80BF5C4(???);
-// ??? sub_80BF5DC(???);
-// ??? sub_80BF6C0(???);
-s8 sub_80BF730(void); // GmPalFadeActive
-void sub_80BF748(void); // EndGmPalFade
-ProcPtr sub_80BF788(ProcPtr, int); // StartGmPalFade_
-// ??? sub_80BF7B4(???);
-// ??? sub_80BF7DC(???);
-// ??? sub_80BF804(???);
-// ??? sub_80BF890(???);
-// ??? sub_80BF8CC(???);
-// ??? sub_80BF988(???);
-// ??? sub_80BFA1C(???);
-ProcPtr sub_80BFAEC(int, int, ProcPtr); // StartWMapBaseEntry
-void sub_80BFB24(void); // EndGmBaseEntry
-s8 sub_80BFB34(void); // GmBaseEntryExists
+void SetGmClassUnit(int, int, int, int);
+void SetGmCharUnit(int, int, int, int);
+void RemoveGmUnit(int);
+void ShowGmUnit(int);
+void HideGmUnit(int);
+void AddAndDrawGmPath(int, int);
+// ??? GmPalFade_OnEnd_Null(???);
+// ??? GmPalFade_Init(???);
+// ??? GmPalFade_Loop(???);
+// ??? StartGmPalFade(???);
+s8 IsGmPalFadeActive(void);
+void EndGmPalFade(void);
+ProcPtr StartGmPalFade_(ProcPtr, int);
+// ??? RememberBlendState(???);
+// ??? RestoreBlendState(???);
+// ??? GmapBaseEntry_OnEnd(???);
+// ??? GmapBaseEntry_Init(???);
+// ??? GmapBaseEntry_80BF8CC(???);
+// ??? GmapBaseEntry_80BF988(???);
+// ??? GmapBaseEntry_80BFA1C(???);
+ProcPtr StartGmBaseEntry(int, int, ProcPtr);
+void EndGmBaseEntry(void);
+s8 GmBaseEntryExists(void);
 // ??? sub_80BFB4C(???);
 // ??? sub_80BFB90(???);
 // ??? sub_80BFBCC(???);
@@ -670,19 +670,19 @@ s8 sub_80BFB34(void); // GmBaseEntryExists
 // ??? sub_80BFD00(???);
 // ??? sub_80BFD10(???);
 void sub_80BFD28(void);
-// ??? nullsub_48(???);
-// ??? sub_80BFD80(???);
+// ??? GmMuEntry_OnEnd_Null(???);
+// ??? GmMuEntry_Init(???);
 // ??? sub_80BFDA0(???);
-// ??? sub_80BFEF8(???);
-// ??? sub_80BFFD0(???);
-// ??? sub_80C0080(???);
-// ??? sub_80C0144(???);
-ProcPtr NewMapMuEntry(ProcPtr);
-void sub_80C0200(void);
-// ??? sub_80C0210(???);
-s8 sub_80C0228(void);
-s8 sub_80C0240(int, int); // GmMuEntryStartShow
-s8 sub_80C02A4(int, int); // GmMuEntryStartHide
+// ??? GmMuEntry_80BFEF8(???);
+// ??? GmMuEntry_80BFFD0(???);
+// ??? GmMuEntry_80C0080(???);
+// ??? GmMuEntry_80C0144(???);
+ProcPtr StartGmapMuEntry(ProcPtr);
+void EndGmMuEntry(void);
+// ??? GmMuEntryExists(???);
+s8 GetGmMuEntryFlag(void);
+s8 GmMuEntryStartShow(int, int);
+s8 GmMuEntryStartHide(int, int);
 // ??? sub_80C0308(???);
 // ??? sub_80C0358(???);
 // ??? sub_80C040C(???);

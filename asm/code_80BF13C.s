@@ -3034,7 +3034,7 @@ _080C19EE:
 	ldrb r3, [r5]
 	adds r0, r4, #0
 	movs r2, #1
-	bl WM_PutClassSprite
+	bl SetGmClassUnit
 	ldr r0, _080C1A54  @ gGMData
 	lsls r1, r4, #2
 	adds r1, r1, r0
@@ -6266,7 +6266,7 @@ _080C318E:
 	cmp r0, #0
 	beq _080C31A2
 	ldrh r0, [r4, #0x2c]
-	bl sub_80BF570
+	bl HideGmUnit
 _080C31A2:
 	pop {r4, r5}
 	pop {r0}
@@ -6364,7 +6364,7 @@ sub_80C3220: @ 0x080C3220
 	movs r2, #0x1e
 	bl GmMu_StartFadeIn
 	ldrh r0, [r4, #0x2c]
-	bl sub_80BF554
+	bl ShowGmUnit
 	pop {r4}
 	pop {r0}
 	bx r0

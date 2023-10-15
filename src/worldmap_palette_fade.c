@@ -16,7 +16,7 @@ struct GmapPalFadeProc
     /* 40 */ u16 * unk_40;
 };
 
-struct InputStruct
+struct GmPalFadeInput
 {
     /* 00 */ u16 * unk_00;
     /* 04 */ u16 * unk_04;
@@ -29,13 +29,13 @@ extern u16 gUnknown_08A95FE4[];
 extern u16 gUnknown_08A95F64[];
 
 //! FE8U = 0x080BF5C0
-void nullsub_50(void)
+void GmPalFade_OnEnd_Null(void)
 {
     return;
 }
 
 //! FE8U = 0x080BF5C4
-void sub_80BF5C4(struct GmapPalFadeProc * proc)
+void GmPalFade_Init(struct GmapPalFadeProc * proc)
 {
     proc->unk_30 = 0;
     proc->unk_40 = gPaletteBuffer + proc->unk_35;
@@ -47,7 +47,7 @@ void sub_80BF5C4(struct GmapPalFadeProc * proc)
 /* https://decomp.me/scratch/K21xg */
 
 //! FE8U = 0x080BF5DC
-void sub_80BF5DC(struct GmapPalFadeProc * proc)
+void GmPalFade_Loop(struct GmapPalFadeProc * proc)
 {
     int i;
 
@@ -83,7 +83,7 @@ void sub_80BF5DC(struct GmapPalFadeProc * proc)
 #else
 
 NAKEDFUNC
-void sub_80BF5DC(struct GmapPalFadeProc * proc)
+void GmPalFade_Loop(struct GmapPalFadeProc * proc)
 {
     asm("\n\
         .syntax unified\n\
@@ -209,21 +209,37 @@ void sub_80BF5DC(struct GmapPalFadeProc * proc)
 
 #endif
 
-extern struct ProcCmd gUnknown_08A3E55C[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_GmapPalFade[] =
+{
+    PROC_NAME("Gmap Pal Fade"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmPalFade_OnEnd_Null),
+    PROC_YIELD,
+
+    PROC_CALL(GmPalFade_Init),
+    PROC_REPEAT(GmPalFade_Loop),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080BF6C0
-ProcPtr sub_80BF6C0(ProcPtr parent, struct InputStruct * input)
+ProcPtr StartGmPalFade(ProcPtr parent, struct GmPalFadeInput * input)
 {
     if (input->unk_0c >= 1)
     {
         struct GmapPalFadeProc * proc;
         if (parent)
         {
-            proc = Proc_StartBlocking(gUnknown_08A3E55C, parent);
+            proc = Proc_StartBlocking(gProcScr_GmapPalFade, parent);
         }
         else
         {
-            proc = Proc_Start(gUnknown_08A3E55C, PROC_TREE_3);
+            proc = Proc_Start(gProcScr_GmapPalFade, PROC_TREE_3);
         }
 
         proc->unk_2c = input->unk_0c;
@@ -242,31 +258,31 @@ ProcPtr sub_80BF6C0(ProcPtr parent, struct InputStruct * input)
 }
 
 //! FE8U = 0x080BF730
-s8 sub_80BF730(void)
+s8 IsGmPalFadeActive(void)
 {
-    return (Proc_Find(gUnknown_08A3E55C)) ? 1 : 0;
+    return (Proc_Find(gProcScr_GmapPalFade)) ? 1 : 0;
 }
 
 //! FE8U = 0x080BF748
-void sub_80BF748(void)
+void EndGmPalFade(void)
 {
-    struct GmapPalFadeProc * proc = Proc_Find(gUnknown_08A3E55C);
+    struct GmapPalFadeProc * proc = Proc_Find(gProcScr_GmapPalFade);
     if (proc)
     {
         CpuCopy16(proc->unk_3c, gPaletteBuffer + proc->unk_35, proc->unk_34 * 2);
 
         EnablePaletteSync();
 
-        Proc_EndEach(gUnknown_08A3E55C);
+        Proc_EndEach(gProcScr_GmapPalFade);
     }
 
     return;
 }
 
 //! FE8U = 0x080BF788
-ProcPtr sub_80BF788(ProcPtr parent, int unk)
+ProcPtr StartGmPalFade_(ProcPtr parent, int unk)
 {
-    struct InputStruct input;
+    struct GmPalFadeInput input;
 
     input.unk_00 = gUnknown_08A95FE4;
     input.unk_04 = gUnknown_08A95F64;
@@ -274,5 +290,5 @@ ProcPtr sub_80BF788(ProcPtr parent, int unk)
     input.unk_08 = 64;
     input.unk_0c = unk;
 
-    return sub_80BF6C0(parent, &input);
+    return StartGmPalFade(parent, &input);
 }
