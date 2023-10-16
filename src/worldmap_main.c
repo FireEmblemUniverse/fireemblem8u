@@ -1485,7 +1485,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
     sub_80B895C();
     sub_80C3660();
     EndWMFaceCtrl();
-    sub_80C0200();
+    EndGmMuEntry();
     sub_80C2460();
     sub_80C1F5C();
 
@@ -1532,7 +1532,7 @@ void WorldMap_WaitForChapterIntroEvents(ProcPtr proc)
     sub_80B895C();
     sub_80C3660();
     EndWMFaceCtrl();
-    sub_80C0200();
+    EndGmMuEntry();
     sub_80C2460();
     sub_80C1F5C();
     Proc_Break(proc);
@@ -2072,8 +2072,7 @@ void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
     }
 
     StartWMFaceCtrl(proc);
-
-    NewMapMuEntry(0);
+    StartGmapMuEntry(NULL);
 
     return;
 }
@@ -2085,7 +2084,7 @@ void CallChapterWMIntroEvents(ProcPtr proc)
     {
         CallEvent(gUnknown_088B3AD8[GetROMChapterStruct(gPlaySt.chapterIndex)->gmapEventId], 0);
         StartWMFaceCtrl(proc);
-        NewMapMuEntry(0);
+        StartGmapMuEntry(NULL);
     }
 
     return;

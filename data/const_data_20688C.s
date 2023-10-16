@@ -1,21 +1,6 @@
 
     .section .rodata
 
-	.global gAsciiStr_GmapPalFade
-gAsciiStr_GmapPalFade:  @ 0x082068B4
-	.asciz "Gmap Pal Fade"
-	.align 2, 0
-
-	.global gAsciiStr_GmapBaseEntry
-gAsciiStr_GmapBaseEntry:  @ 0x082068C4
-	.asciz "Gmap Base Entry"
-	.align 2, 0
-
-	.global gAsciiStr_GmapMUEntry
-gAsciiStr_GmapMUEntry:  @ 0x082068D4
-	.asciz "Gmap Mu Entry"
-	.align 2, 0
-
 	.global gAsciiStr_GmapLineFade
 gAsciiStr_GmapLineFade:  @ 0x082068E4
 	.asciz "Gmap Line Fade"

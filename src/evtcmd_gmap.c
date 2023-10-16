@@ -648,11 +648,11 @@ u8 Event90_WmAddPathDisplayed(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        WM_DrawPath(pathId, 0);
+        AddAndDrawGmPath(pathId, 0);
         return EVC_ADVANCE_CONTINUE;
     }
 
-    WM_DrawPath(pathId, 0x1e);
+    AddAndDrawGmPath(pathId, 0x1e);
     return EVC_ADVANCE_YIELD;
 }
 
@@ -715,7 +715,7 @@ u8 Event95_WmEnableNodeDisplayed(struct EventEngineProc * proc)
 
     if (!(gGMData.nodes[nodeId].state & 1))
     {
-        sub_80BFAEC(nodeId, 0, 0);
+        StartGmBaseEntry(nodeId, 0, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -750,7 +750,7 @@ u8 Event96_WmEnablePathTargetDisplayed(struct EventEngineProc * proc)
     }
     else
     {
-        sub_80BFAEC(nodeId, 0, 0);
+        StartGmBaseEntry(nodeId, 0, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -784,7 +784,7 @@ u8 Event97_WmInitNextStoryNode(struct EventEngineProc * proc)
     {
         if (!(gGMData.nodes[nodeId].state & 1))
         {
-            sub_80BFAEC(nodeId, 0, 0);
+            StartGmBaseEntry(nodeId, 0, NULL);
             sub_80BCFB4();
             gGMData.nodes[nodeId].state |= 2;
         }
@@ -829,7 +829,7 @@ u8 Event98_WmSetNextStoryNodePath(struct EventEngineProc * proc)
     }
     else
     {
-        sub_80BFAEC(nodeId, 0, 0);
+        StartGmBaseEntry(nodeId, 0, NULL);
         sub_80BCFB4();
         gGMData.nodes[nodeId].state |= 2;
     }
@@ -842,15 +842,15 @@ u8 Event99_GmNodeDisplayWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        if (sub_80BFB34())
+        if (GmBaseEntryExists())
         {
-            sub_80BFB24();
+            EndGmBaseEntry();
         }
 
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (!sub_80BFB34())
+    if (!GmBaseEntryExists())
     {
         return EVC_ADVANCE_YIELD;
     }
@@ -933,7 +933,7 @@ u8 Event9E_WmSetClassUnit(struct EventEngineProc * proc)
     u16 allegiance = EVT_CMD_ARGV(proc->pEventCurrent)[3];
     u16 nodeId = EVT_CMD_ARGV(proc->pEventCurrent)[4];
 
-    WM_PutClassSprite(muId, jid, allegiance, nodeId);
+    SetGmClassUnit(muId, jid, allegiance, nodeId);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -946,7 +946,7 @@ u8 Event9F_WmSetCharUnit(struct EventEngineProc * proc)
     u16 allegiance = EVT_CMD_ARGV(proc->pEventCurrent)[3];
     u16 nodeId = EVT_CMD_ARGV(proc->pEventCurrent)[4];
 
-    WM_PutCharSprite(muId, pid, allegiance, nodeId);
+    SetGmCharUnit(muId, pid, allegiance, nodeId);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -956,25 +956,25 @@ u8 EventA0_WmRemoveUnit(struct EventEngineProc * proc)
 {
     int muId = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    WM_RemoveUnit(muId);
+    RemoveGmUnit(muId);
     return EVC_ADVANCE_CONTINUE;
 }
 
 //! FE8U = 0x0800C59C
 u8 EventA1_WmShowUnit(struct EventEngineProc * proc)
 {
-    int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
+    int index = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    sub_80BF554(a);
+    ShowGmUnit(index);
     return EVC_ADVANCE_CONTINUE;
 }
 
 //! FE8U = 0x0800C5AC
 u8 EventA2_WmHideUnit(struct EventEngineProc * proc)
 {
-    int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
+    int index = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    sub_80BF570(a);
+    HideGmUnit(index);
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -983,17 +983,17 @@ u8 EventA3_WmShowUnitFaded(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    u16 index = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     s16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80BF554(a);
+        ShowGmUnit(index);
         return EVC_ADVANCE_CONTINUE;
     }
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_StartFadeIn(worldMapProc->unk_54, a, b);
+    GmMu_StartFadeIn(worldMapProc->unk_54, index, b);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -1003,17 +1003,17 @@ u8 EventA4_WmHideUnitFaded(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    u16 index = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     s16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80BF570(a);
+        HideGmUnit(index);
         return EVC_ADVANCE_CONTINUE;
     }
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_StartFadeOut(worldMapProc->unk_54, a, b);
+    GmMu_StartFadeOut(worldMapProc->unk_54, index, b);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -1108,7 +1108,7 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
 
         if ((r4 & 2) != 0)
         {
-            sub_80BF570(index);
+            HideGmUnit(index);
         }
     }
     else
@@ -1158,7 +1158,7 @@ u8 EventA9_WmUnitMovePaths(struct EventEngineProc * proc)
 
         if ((r2 & 2) != 0)
         {
-            sub_80BF570(r3);
+            HideGmUnit(r3);
         }
     }
     else
@@ -1237,11 +1237,11 @@ u8 EventAD_WmFadeToDarker(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80BF788(0, 0);
+        StartGmPalFade_(NULL, 0);
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80BF788(0, a);
+    StartGmPalFade_(NULL, a);
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -1250,11 +1250,11 @@ u8 EventAE_WmFadeToDarkerWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80BF748();
+        EndGmPalFade();
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (!sub_80BF730())
+    if (!IsGmPalFadeActive())
     {
         return EVC_ADVANCE_YIELD;
     }
@@ -1270,7 +1270,7 @@ u8 EventAF_WmShowTextBox(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        sub_80C0240(a, b);
+        GmMuEntryStartShow(a, b);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1284,7 +1284,7 @@ u8 EventB0_WmHideTextBox_Bugged(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        sub_80C02A4(a, b);
+        GmMuEntryStartHide(a, b);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1295,11 +1295,11 @@ u8 EventB1_WmTextBoxWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C0200();
+        EndGmMuEntry();
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (!sub_80C0228())
+    if (!GetGmMuEntryFlag())
     {
         return EVC_ADVANCE_YIELD;
     }
@@ -1571,7 +1571,7 @@ u8 EventC3_(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    WM_PutCharSprite(unitId, pid, -1, nodeId);
+    SetGmCharUnit(unitId, pid, -1, nodeId);
 
     return EVC_ADVANCE_CONTINUE;
 }
