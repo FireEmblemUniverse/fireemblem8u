@@ -403,9 +403,9 @@
 . = 0x03E1EC; gUnknown_0203E1EC = .;
 . = 0x03E1F0; gManimSt = .;
 . = 0x03E1F8; gUnknown_0203E1F8 = .;
-. = 0x03E254; gUnknown_0203E254 = .;
-. = 0x03E754; gUnknown_0203E754 = .;
-. = 0x03E75C; gUnknown_0203E75C = .;
+. = 0x03E254; gManimScanlineBufA = .;
+. = 0x03E754; gManimScanlineBufs = .;
+. = 0x03E75C; gManimActiveScanlineBuf = .;
 . = 0x03E764; src/statscreen.o(ewram_data);
 . = ALIGN(4); gUnknown_0203E78C = .;
 . = 0x03E794; gUnknown_0203E794 = .;

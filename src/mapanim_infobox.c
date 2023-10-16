@@ -129,7 +129,7 @@ void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
 
     sub_8081E78();
 
-    sub_80820D8(
+    StartManimFrameGradientScanlineEffect(
         gManimSt.actor[0].hp_info_y*8,
         gManimSt.actor[0].hp_info_y*8 + 0x20,
         gPaletteBuffer[BGPAL_OFFSET(1) + 1],

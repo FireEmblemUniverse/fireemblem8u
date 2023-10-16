@@ -3413,10 +3413,10 @@ _080C1CB8:
 	ands r0, r1
 	cmp r0, #0
 	beq _080C1CE4
-	ldr r1, _080C1CF4  @ gUnknown_0203E75C
+	ldr r1, _080C1CF4  @ gManimActiveScanlineBuf
 	cmp r3, #0
 	bne _080C1CD8
-	ldr r0, _080C1CF8  @ gUnknown_0203E754
+	ldr r0, _080C1CF8  @ gManimScanlineBufs
 	ldr r0, [r0]
 	str r0, [r1]
 _080C1CD8:
@@ -3433,8 +3433,8 @@ _080C1CE4:
 	.align 2, 0
 _080C1CEC: .4byte gUnknown_0201C5D1
 _080C1CF0: .4byte gUnknown_0201BE30
-_080C1CF4: .4byte gUnknown_0203E75C
-_080C1CF8: .4byte gUnknown_0203E754
+_080C1CF4: .4byte gManimActiveScanlineBuf
+_080C1CF8: .4byte gManimScanlineBufs
 _080C1CFC: .4byte 0x04000040
 
 	THUMB_FUNC_END sub_80C1BF8
