@@ -162,7 +162,7 @@ SECTIONS
         src/banim-ekrutils.o(.text);
         src/banim-ekrbattlestarting.o(.text);
         src/banim-ekrbattleending.o(.text);
-        asm/banim-ekrintro.o(.text);
+        src/banim-ekrbattleintro.o(.text);
         asm/banim-ekrcheckenable.o(.text);
         src/banim-ekrcmd.o(.text);
         src/banim-main.o(.text);
@@ -271,8 +271,6 @@ SECTIONS
         src/ending_details.o(.text);
         src/worldmap_face.o(.text);
         src/worldmap_main.o(.text);
-        asm/code_80B5730.o(.text);
-        src/worldmap_main2.o(.text);
         src/worldmap_screen.o(.text);
         src/worldmap_gmapunit.o(.text);
         src/worldmap_screen2.o(.text);
@@ -423,6 +421,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrutils.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleending.o(.rodata);
+        . = ALIGN(4); src/banim-ekrbattleintro.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
         . = ALIGN(4); src/banim-ekrmain.o(.rodata);
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
@@ -602,7 +601,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrutils.o(.data);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); src/banim-ekrbattleending.o(.data);
-        . = ALIGN(4); data/banim-ekrbattlectrl.o(.data);
+        . = ALIGN(4); src/banim-ekrbattleintro.o(.data);
         . = ALIGN(4); src/banim-ekrmain.o(.data);
         . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
         . = ALIGN(4); src/banim-efxmagic.o(.data);
@@ -736,8 +735,7 @@ SECTIONS
         . = ALIGN(4); src/cg.o(.data);
         . = ALIGN(4); src/ending_details.o(.data);
         . = ALIGN(4); src/worldmap_face.o(.data);
-        . = ALIGN(4); data/data_A3CB04.o(.data);
-        . = ALIGN(4); src/worldmap_main2.o(.data);
+        . = ALIGN(4); src/worldmap_main.o(.data);
         . = ALIGN(4); src/worldmap_screen.o(.data);
         . = ALIGN(4); src/worldmap_gmapunit.o(.data);
         . = ALIGN(4); src/worldmap_screen2.o(.data);

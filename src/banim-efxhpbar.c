@@ -68,7 +68,7 @@ void NewEfxHPBar(struct Anim *anim)
     gEkrHitEfxBool[GetAnimPosition(proc->anim60)] = 1;
 }
 
-void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar *proc)
+void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar * proc)
 {
     struct Anim *anim1 = gAnims[GetAnimPosition(proc->anim60) * 2];
     struct Anim *anim2 = gAnims[GetAnimPosition(proc->anim60) * 2 + 1];
@@ -112,7 +112,7 @@ void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar *proc)
         proc->timer = 0x1E;
 }
 
-void efxHPBarMain(struct ProcEfxHPBar *proc)
+void efxHPBarMain(struct ProcEfxHPBar * proc)
 {
     struct Anim *anim;
 
@@ -142,7 +142,7 @@ void efxHPBarMain(struct ProcEfxHPBar *proc)
     }
 }
 
-void efxHPBarWaitForFarFarCamMoveMaybe(struct ProcEfxHPBar *proc)
+void efxHPBarWaitForFarFarCamMoveMaybe(struct ProcEfxHPBar * proc)
 {
     if (++proc->pos == (proc->cur - 4)) {
         GetAnimAnotherSide(proc->anim64);
@@ -195,7 +195,7 @@ void NewEfxHPBarResire(struct Anim *anim)
     gEkrHitEfxBool[GetAnimPosition(proc->anim60)] = 1;
 }
 
-void EfxHPBarResire_80526C8(struct ProcEfxHPBar *proc)
+void EfxHPBarResire_80526C8(struct ProcEfxHPBar * proc)
 {
     GetAnimPosition(proc->anim60);
     GetAnimPosition(proc->anim60);
@@ -230,7 +230,7 @@ void EfxHPBarResire_80526C8(struct ProcEfxHPBar *proc)
         proc->timer = 0x54;
 }
 
-void EfxHPBarResire_8052788(struct ProcEfxHPBar *proc)
+void EfxHPBarResire_8052788(struct ProcEfxHPBar * proc)
 {
     int val1;
     s16 val2;
@@ -261,7 +261,7 @@ void EfxHPBarResire_8052788(struct ProcEfxHPBar *proc)
     gEkrHitEfxBool[GetAnimPosition(proc->anim5C)] = 2;
 }
 
-void EfxHPBarResire_805282C(struct ProcEfxHPBar *proc)
+void EfxHPBarResire_805282C(struct ProcEfxHPBar * proc)
 {
     struct Anim *anim1, *anim2, *anim3, *anim4;
 
@@ -340,13 +340,13 @@ void NewEfxAvoid(struct Anim *anim)
     M4aPlayWithPostionCtrl(0xD7, anim->xPosition, 1);
 }
 
-void EfxAvoidMain(struct ProcEfxHPBar *proc)
+void EfxAvoidMain(struct ProcEfxHPBar * proc)
 {
     if (++proc->pos == 0x1E)
         Proc_Break(proc);
 }
 
-void NewEfxHPBarLive(struct Anim *anim)
+void NewEfxHPBarLive(struct Anim * anim)
 {
     int val1;
     s16 val2;
@@ -390,7 +390,7 @@ void NewEfxHPBarLive(struct Anim *anim)
     gEkrHitEfxBool[GetAnimPosition(proc->anim5C)] = 2;
 }
 
-void EfxHPBarLiveMain(struct ProcEfxHPBar *proc)
+void EfxHPBarLiveMain(struct ProcEfxHPBar * proc)
 {
     struct Anim *anim = proc->anim60;
 
@@ -446,7 +446,7 @@ void NewEfxNoDmage(struct Anim *anim1, struct Anim *anim2, int death)
     }
 }
 
-void EfxNoDamageMain(struct ProcEfxHPBar *proc)
+void EfxNoDamageMain(struct ProcEfxHPBar * proc)
 {
     s32 val;
     struct Anim *anim = GetAnimAnotherSide(proc->anim5C);
@@ -463,7 +463,7 @@ void EfxNoDamageMain(struct ProcEfxHPBar *proc)
     }
 }
 
-void NewEfxNoDamageYure(struct Anim *anim1, struct Anim *anim2)
+void NewEfxNoDamageYure(struct Anim * anim1, struct Anim * anim2)
 {
     struct ProcEfxHPBar *proc = Proc_Start(ProcScr_efxNoDamageYure, PROC_TREE_3);
     proc->anim5C = anim1;
@@ -472,7 +472,7 @@ void NewEfxNoDamageYure(struct Anim *anim1, struct Anim *anim2)
     proc->cur = 0;
 }
 
-void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
+void EfxNoDamageYureMain(struct ProcEfxHPBar * proc)
 {
     s16 val1;
     struct Anim *anim1 = proc->anim5C;
@@ -499,7 +499,7 @@ void EfxNoDamageYureMain(struct ProcEfxHPBar *proc)
     }
 }
 
-void NewEfxStatusCHG(struct Anim *anim)
+void NewEfxStatusCHG(struct Anim * anim)
 {
     struct ProcEfxHPBar *proc;
 
@@ -511,7 +511,7 @@ void NewEfxStatusCHG(struct Anim *anim)
     }
 }
 
-void EfxStatusCHGMain(struct ProcEfxHPBar *proc)
+void EfxStatusCHGMain(struct ProcEfxHPBar * proc)
 {
     if (++proc->pos == 0x11)
         Proc_Break(proc);

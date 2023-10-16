@@ -39,10 +39,10 @@ void NewEkrDragonManakete(struct Anim *anim)
     proc->timer = 0;
 }
 
-void EkrMyr_PrepareBanimfx(struct ProcEkrDragon *proc)
+void EkrMyr_PrepareBanimfx(struct ProcEkrDragon * proc)
 {
-    BattleAnim *banim = banim_data;
-    struct Anim *anim = proc->anim;
+    struct BattleAnim * banim = banim_data;
+    struct Anim * anim = proc->anim;
     proc->timer = 0;
 
     EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_INTRO - 1);
@@ -82,7 +82,7 @@ void EkrMyr_TrigerForPrepared(struct ProcEkrDragon *proc)
     Proc_Break(proc);
 }
 
-void EkrMyr_InBattleIdle(struct ProcEkrDragon *proc)
+void EkrMyr_InBattleIdle(struct ProcEkrDragon * proc)
 {
     u16 attr = GetEkrDragonStatusAttr(proc->anim);
     if (attr & EKRDRGON_ATTR_BANIMFINISH) {
@@ -91,10 +91,10 @@ void EkrMyr_InBattleIdle(struct ProcEkrDragon *proc)
     }
 }
 
-void EkrMyr_ReturnToLoli(struct ProcEkrDragon *proc)
+void EkrMyr_ReturnToLoli(struct ProcEkrDragon * proc)
 {
-    struct Anim *anim = proc->anim;
-    BattleAnim *banim = banim_data;
+    struct Anim * anim = proc->anim;
+    struct BattleAnim * banim = banim_data;
 
     if (GetEfxHp(2 * gEfxPairHpBufOffset[GetAnimPosition(anim)] + GetAnimPosition(anim)) <= 0) {
 
