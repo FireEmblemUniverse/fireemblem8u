@@ -387,7 +387,7 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
     proc->unk_3d = 0;
 
     for (i = 0; i < 4; i++) {
-        WriteOAMRotScaleData(
+        SetObjAffine(
             i,
             Div(+COS(0) * 16, 0x100),
             Div(-SIN(0) * 16, 0x100),
@@ -870,7 +870,7 @@ void sub_80A96EC(struct SaveMenuProc* proc) {
     }
 
     if (proc->unk_29 == 0x10) {
-        WriteOAMRotScaleData(
+        SetObjAffine(
             proc->save_slot,
             Div(+COS(0) * 16, 0x100),
             Div(-SIN(0) * 16, 0x100),
@@ -879,7 +879,7 @@ void sub_80A96EC(struct SaveMenuProc* proc) {
         );
     } else {
         if ((proc->unk_29 <= 7)) {
-            WriteOAMRotScaleData(
+            SetObjAffine(
                 proc->save_slot,
                 Div(+COS(0) * 16, 0x100),
                 Div(-SIN(0) * 16, (proc->unk_29 * -0x20) + 0x100),
@@ -887,7 +887,7 @@ void sub_80A96EC(struct SaveMenuProc* proc) {
                 Div(+COS(0) * 16, (proc->unk_29 * -0x20) + 0x100)
             );
         } else if ((proc->unk_29 < 0x10)) {
-            WriteOAMRotScaleData(
+            SetObjAffine(
                 proc->save_slot,
                 Div(+COS(0) * 16, 0x100),
                 Div(-SIN(0) * 16, (proc->unk_29 * 0x20) - 0xE0),

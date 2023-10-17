@@ -4300,7 +4300,7 @@ _080C149E:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -4390,7 +4390,7 @@ _080C154A:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	ldr r0, [r7, #0x2c]
 	subs r0, #8
 	lsls r0, r0, #0x10
@@ -9963,14 +9963,14 @@ sub_80C3EC8: @ 0x080C3EC8
 sub_80C3EDC: @ 0x080C3EDC
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8002264
+	bl IsBgmPlaying
 	adds r1, r4, #0
 	adds r1, #0x30
 	strb r0, [r1]
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080C3EF6
-	bl Sound_GetCurrentSong
+	bl GetCurrentBgmSong
 	str r0, [r4, #0x34]
 _080C3EF6:
 	adds r0, r4, #0

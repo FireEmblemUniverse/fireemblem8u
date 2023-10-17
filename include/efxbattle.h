@@ -475,7 +475,7 @@ extern short gUnknown_02017768[2];
 
 extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 extern u8 gEkrBuf1[];
-extern u16 gUnknown_02019490[];
+extern u16 gEkrBarfxBuf[];
 extern u16 gEkrTsaBuffer[0x1000 / 2];
 extern u8 gEkrBuf2[];
 // extern ??? gFont_0201AFC0
@@ -516,7 +516,7 @@ extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201F160
 // extern ??? gUnknown_0201F198
 // extern ??? gUnknown_0201F19C
-extern u8 gEfxSomePalBuf[];
+extern u8 gEfxSplitedColorBuf[];
 extern u8 gUnknown_0201F978[];
 extern u16 gUnknown_0201F9A8[];
 extern u8 gUnknown_0201FA08[];
@@ -751,9 +751,9 @@ extern struct ProcCmd ProcScr_efxSkillCommonBG[];
 // extern ??? gUnknown_080DF954
 // extern ??? gUnknown_080DF9BE
 extern u16 gUnknown_080E1164[];
-extern const u16 gUnknown_080E1394[];
-extern const u16 gUnknown_080E13A2[];
-extern const u16 gUnknown_080E13B4[];
+extern const u16 gBarfxTileConf1[];
+extern const u16 gBarfxTileConf2[];
+extern const u16 gBarfxTileConf3[];
 // extern ??? gUnknown_080E13D4
 // extern ??? gUnknown_080E13F4
 extern const u16 FrameLut_080E143A[];
@@ -792,9 +792,9 @@ extern const u16 gUnknown_080E7B8C[];
 extern char gNopStr[];
 // extern ??? gUnknown_085B9E4C
 extern u16 gUnknown_085BA0B8[];
-extern u16 gUnknown_085BA2E0[];
-extern u16 gUnknown_085BA300[];
-extern u16 gUnknown_085BA320[];
+extern u16 Pal_085BA2E0[];
+extern u16 Pal_085BA300[];
+extern u16 Pal_085BA320[];
 // extern ??? gUnknown_085BA340
 extern u16 gUnknown_085BB0C8[];
 extern u16 gUnknown_085BB2DC[];
@@ -811,8 +811,8 @@ extern u16 gUnknown_085BB2DC[];
 // extern ??? gUnknown_085C7338
 // extern ??? gUnknown_085C73B8
 // extern ??? gUnknown_085C7438
-extern u16 *gUnknown_085C81A4[];
-extern u16 *gUnknown_085C8218[];
+extern u32 AnimScr_085C81A4[];
+extern u32 AnimScr_085C8218[];
 // extern ??? gUnknown_085C8278
 // extern ??? gUnknown_085C9270
 // extern ??? gUnknown_085C92A0

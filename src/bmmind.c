@@ -677,7 +677,7 @@ void BATTLE_HandleCombatDeaths(struct CombatActionProc* proc) {
 void sub_80328B0(void) {
     int bgmIdx = GetCurrentMapMusicIndex();
 
-    if (Sound_GetCurrentSong() != bgmIdx) {
+    if (GetCurrentBgmSong() != bgmIdx) {
         StartBgmExt(bgmIdx, 6, NULL);
     }
 

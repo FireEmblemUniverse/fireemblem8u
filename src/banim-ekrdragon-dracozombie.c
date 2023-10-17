@@ -24,7 +24,7 @@ void Fill16_EkrTsaBuffer(u32 val)
 
 void EkrDZ_CustomBgFadeIn(struct ProcEkrDragon *proc)
 {
-    EkrUpdateSomePalMaybe(Interpolate(INTERPOLATE_SQUARE, 4, 0x10, proc->timer, 8));
+    EfxChapterMapFadeOUT(Interpolate(INTERPOLATE_SQUARE, 4, 0x10, proc->timer, 8));
     if (++proc->timer == 0x9) {
         proc->timer = 0;
         Proc_Break(proc);
@@ -219,7 +219,7 @@ void EkrDZ_ReloadCustomBgAndFadeOut(struct ProcEkrDragon *proc)
     }
 
     val = Interpolate(INTERPOLATE_RSQUARE, 0x10, 4, proc->timer, 8);
-    EkrUpdateSomePalMaybe(val);
+    EfxChapterMapFadeOUT(val);
 
     if (CheckEkrDragonStatusAttrBit13(proc->anim) == false) {
         val = Interpolate(INTERPOLATE_RSQUARE, 0x10, 0, proc->timer, 8);

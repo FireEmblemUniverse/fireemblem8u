@@ -136,28 +136,28 @@ void NewEfxHPBarColorChange(struct Anim * anim)
     proc->unk58 = 0;
     proc->unk29 = 0;
 
-    sub_80714DC(
+    EfxSplitColor(
         gUnknown_08802B04 + gPalIndexEfxHpBarUnk[0] * 0x10,
-        gEfxSomePalBuf,
+        gEfxSplitedColorBuf,
         0x10);
 
-    sub_80714DC(
+    EfxSplitColor(
         gUnknown_08802BC4 + gPalIndexEfxHpBarUnk[0] * 0x10,
         gUnknown_0201F978,
         0x10);
 
     sub_8071574(
-        gEfxSomePalBuf,
+        gEfxSplitedColorBuf,
         gUnknown_0201F978,
         gUnknown_0201F9A8,
         0x10, 5);
 
-    sub_80714DC(
+    EfxSplitColor(
         gUnknown_08802B04 + gPalIndexEfxHpBarUnk[1] * 0x10,
         gUnknown_0201FA08,
         0x10);
 
-    sub_80714DC(
+    EfxSplitColor(
         gUnknown_08802BC4 + gPalIndexEfxHpBarUnk[1] * 0x10,
         gUnknown_0201FA38,
         0x10);
@@ -203,16 +203,18 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
 
     if (gEkrGaugeHp[EKR_POS_L] <= 80)
     {
-        buf1 = gEfxSomePalBuf;
+        buf1 = gEfxSplitedColorBuf;
         buf2 = gUnknown_0201F978;
         buf3 = gUnknown_0201F9A8;
 
-        sub_80715F4(
+        EfxDecodeSplitedPalette(
             PAL_OBJ(OBPAL_EFXHPBAR_L),
-            gEfxSomePalBuf,
-            gUnknown_0201F978,
-            gUnknown_0201F9A8,
-            0x10, proc->unk54, 5);
+            (s8 *)gEfxSplitedColorBuf,
+            (s8 *)gUnknown_0201F978,
+            (s16 *)gUnknown_0201F9A8,
+            0x10,
+            proc->unk54,
+            5);
     }
     else
         CpuFastCopy(gPalEfxHpBarPurple + proc->unk58 * 0x10, PAL_OBJ(OBPAL_EFXHPBAR_L), 0x20);
@@ -223,12 +225,13 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
         buf2 = gUnknown_0201FA38;
         buf3 = gUnknown_0201FA68;
 
-        sub_80715F4(
+        EfxDecodeSplitedPalette(
             PAL_OBJ(OBPAL_EFXHPBAR_R),
-            buf1,
-            buf2,
-            buf3,
-            0x10, proc->unk54, 5);
+            (s8 *)buf1,
+            (s8 *)buf2,
+            (s16 *)buf3,
+            0x10, proc->unk54,
+            5);
     }
     else
         CpuFastCopy(gPalEfxHpBarPurple + proc->unk58 * 0x10, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);

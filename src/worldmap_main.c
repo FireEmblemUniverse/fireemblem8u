@@ -1761,7 +1761,7 @@ void sub_80B9F54(ProcPtr unused)
         }
     }
 
-    if (Sound_GetCurrentSong() != songId)
+    if (GetCurrentBgmSong() != songId)
     {
         OverrideBgm(songId);
     }

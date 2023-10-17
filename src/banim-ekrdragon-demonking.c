@@ -94,7 +94,7 @@ void EkrDKStartBaseHide(struct ProcEkrDragon * proc)
 
 void EkrDK_CustomBgFadeIn(struct ProcEkrDragon * proc)
 {
-    EkrUpdateSomePalMaybe(Interpolate(INTERPOLATE_SQUARE, 4, 0x10, proc->timer, 8));
+    EfxChapterMapFadeOUT(Interpolate(INTERPOLATE_SQUARE, 4, 0x10, proc->timer, 8));
     if (++proc->timer == 0x9) {
         proc->timer = 0;
         Proc_Break(proc);
@@ -210,7 +210,7 @@ void EkrDK_ReloadTerrainEtc(struct ProcEkrDragon * proc)
     NewEkrDragonBaseAppear(proc->anim);
     BG_Fill(gBG3TilemapBuffer, 0x601F);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
-    EkrUpdateSomePalMaybe(0x10);
+    EfxChapterMapFadeOUT(0x10);
     Proc_Break(proc);
 }
 
@@ -221,7 +221,7 @@ void EkrDK_ReloadCustomBgAndFadeOut(struct ProcEkrDragon * proc)
         RenderBmMap();
     }
 
-    EkrUpdateSomePalMaybe(Interpolate(INTERPOLATE_RSQUARE, 0x10, 4, proc->timer, 8));
+    EfxChapterMapFadeOUT(Interpolate(INTERPOLATE_RSQUARE, 0x10, 4, proc->timer, 8));
 
     if (++proc->timer == 0x9) {
         proc->timer = 0;

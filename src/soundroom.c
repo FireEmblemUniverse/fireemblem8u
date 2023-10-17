@@ -765,7 +765,7 @@ void sub_80B0088(int y, u16 unk) {
     if (unk > 32) {
         y &= 0xff;
 
-        WriteOAMRotScaleData(
+        SetObjAffine(
             0,
             Div(+COS(0) * 16, 256),
             Div(-SIN(0) * 16, unk),

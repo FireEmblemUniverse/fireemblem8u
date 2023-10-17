@@ -1,26 +1,5 @@
 	.section .data
 
-	.global gUnknown_0875879C
-gUnknown_0875879C:  @ 0x0875879C
-	.incbin "baserom.gba", 0x75879C, 0x280
-
-	.global gEfxTileRefPals_08758A1C
-gEfxTileRefPals_08758A1C:  @ 0x08758A1C
-	.incbin "baserom.gba", 0x758A1C, 0x14
-
-	.global ProcScr_ekrsubAnimeEmulator
-ProcScr_ekrsubAnimeEmulator:  @ 0x08758A30
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e13c0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EkrsubAnimeEmulatorMain
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_efxSoundSE
 ProcScr_efxSoundSE:  @ 0x08758A48
         @ PROC_NAME

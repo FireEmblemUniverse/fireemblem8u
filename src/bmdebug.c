@@ -189,7 +189,7 @@ int sub_801BB98(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
 
     menuItemProc->itemNumber = 0;
 
-    songId = Sound_GetCurrentSong();
+    songId = GetCurrentBgmSong();
     for (i = 0; i < unk; i++) {
         if (songId == i) {
             menuItemProc->itemNumber = i;

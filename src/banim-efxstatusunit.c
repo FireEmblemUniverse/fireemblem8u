@@ -63,12 +63,12 @@ void NewEfxStatusUnit(struct Anim *anim)
     gpProcEfxStatusUnits[GetAnimPosition(anim)] = proc;
 
     if (GetAnimPosition(anim) == EKR_POS_L) {
-        sub_80714DC(gpEfxUnitPaletteBackup[EKR_POS_L], &gUnknown_020222A8[0], 0x10);
-        sub_807151C(gpEfxUnitPaletteBackup[EKR_POS_L], &gUnknown_020222A8[0x30], 0x10);
+        EfxSplitColor(gpEfxUnitPaletteBackup[EKR_POS_L], &gUnknown_020222A8[0], 0x10);
+        EfxSplitColorPetrify(gpEfxUnitPaletteBackup[EKR_POS_L], &gUnknown_020222A8[0x30], 0x10);
         sub_8071574(&gUnknown_020222A8[0], &gUnknown_020222A8[0x30], (void *)&gUnknown_020222A8[0x180], 0x10, 0x10);
     } else {
-        sub_80714DC(gpEfxUnitPaletteBackup[EKR_POS_R], &gUnknown_02022308[0], 0x10);
-        sub_807151C(gpEfxUnitPaletteBackup[EKR_POS_R], &gUnknown_02022308[0x30], 0x10);
+        EfxSplitColor(gpEfxUnitPaletteBackup[EKR_POS_R], &gUnknown_02022308[0], 0x10);
+        EfxSplitColorPetrify(gpEfxUnitPaletteBackup[EKR_POS_R], &gUnknown_02022308[0x30], 0x10);
         sub_8071574(&gUnknown_02022308[0], &gUnknown_02022308[0x30], (void *)&gUnknown_02022308[0x2A0], 0x10, 0x10);
     }
 }
@@ -204,11 +204,19 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
         if (GetAnimPosition(proc->anim) == EKR_POS_L)
-            sub_80715F4(PAL_OBJ(OBPAL_EFX_UNK_7), gUnknown_020222A8, &gUnknown_020222A8[0x30],
-                        &gUnknown_020222A8[0x180], 16, proc->red, 16);
+            EfxDecodeSplitedPalette(
+                PAL_OBJ(OBPAL_EFX_UNK_7),
+                (s8 *)gUnknown_020222A8,
+                (s8 *)&gUnknown_020222A8[0x30],
+                (s16 *)&gUnknown_020222A8[0x180],
+                16, proc->red, 16);
         else
-            sub_80715F4(PAL_OBJ(OBPAL_EFX_UNK_9), gUnknown_02022308, &gUnknown_02022308[0x30],
-                        &gUnknown_02022308[0x2A0], 16, proc->red, 16);
+            EfxDecodeSplitedPalette(
+                PAL_OBJ(OBPAL_EFX_UNK_9),
+                (s8 *)gUnknown_02022308,
+                (s8 *)&gUnknown_02022308[0x30],
+                (s16 *)&gUnknown_02022308[0x2A0],
+                16, proc->red, 16);
 
         RefreshEntityBmMaps();
         RefreshUnitSprites();

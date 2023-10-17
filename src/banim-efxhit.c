@@ -36,7 +36,8 @@ void efxDamageMojiEffectMain(struct ProcEfx *proc)
 
 void NewEfxDamageMojiEffectOBJ(struct Anim *anim, int hitted)
 {
-    u16 **buf, val1;
+    u16 val1;
+    u32 * anim_scr;
     struct ProcEfxDamageMojiEffectOBJ *proc;
     proc = Proc_Start(ProcScr_efxDamageMojiEffectOBJ, PROC_TREE_3);
     proc->anim = anim;
@@ -44,24 +45,24 @@ void NewEfxDamageMojiEffectOBJ(struct Anim *anim, int hitted)
 
     if (hitted == 0) {
         proc->terminator = 0x32;
-        buf = gUnknown_085C81A4;
+        anim_scr = AnimScr_085C81A4;
     } else {
         proc->terminator = 0x32;
-        buf = gUnknown_085C8218;
+        anim_scr = AnimScr_085C8218;
     }
 
     val1 = GetAnimPosition(anim) == EKR_POS_L ? 0x6100 : 0x5100;
     proc->sub_proc = NewEkrsubAnimeEmulator(
         anim->xPosition,
         anim->yPosition - 0x28,
-        buf,
-        2, val1, 0, 3
+        anim_scr,
+        2, val1, 0, PROC_TREE_3
     );
 }
 
 void efxDamageMojiEffectOBJMain(struct ProcEfxDamageMojiEffectOBJ *proc)
 {
-    proc->sub_proc->unk32 = proc->anim->xPosition;
+    proc->sub_proc->x1 = proc->anim->xPosition;
 
     if (++proc->timer > proc->terminator) {
         Proc_End(proc->sub_proc);
@@ -69,10 +70,10 @@ void efxDamageMojiEffectOBJMain(struct ProcEfxDamageMojiEffectOBJ *proc)
     }
 }
 
-void NewEfxPierceCritical(struct Anim *anim)
+void NewEfxPierceCritical(struct Anim * anim)
 {
-    struct ProcEfx *proc;
-    struct Anim *anim1 = GetAnimAnotherSide(anim);
+    struct ProcEfx * proc;
+    struct Anim * anim1 = GetAnimAnotherSide(anim);
     int is_pierce;
 
     is_pierce = GetBattleAnimRoundTypeFlags((anim1->nextRoundId - 1) * 2 + GetAnimPosition(anim1)) & ANIM_ROUND_PIERCE;

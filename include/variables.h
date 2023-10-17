@@ -190,18 +190,6 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
 
-// time.c/hardware.c
-// extern ??? gKeyComboResetEN
-extern u8 sModifiedBGs;  // BGs that need copying
-extern s8 sModifiedPalette;
-extern u16 gKeyStatusIgnoredSt;
-// extern ??? gUnknown_03000014
-extern u8 gUnknown_03000018;
-extern u8 gUnknown_03000019;
-extern bool gSoftwareResetFlag;
-extern struct OamDataTransfer gUnknown_03000020;
-extern struct OamDataTransfer gUnknown_03000030;
-
 // extern ??? sAPArray
 
 // extern ??? gPopupInst
@@ -259,21 +247,19 @@ extern u16 gUnknown_030018F0[];
 // extern ??? SoundMainRAM_Buffer
 // extern ??? gUnknown_03002C61
 extern u8 gUnknown_03003060;
-extern void* gUnknown_03003070;
+extern void* gOamLoPutIt;
 // extern ??? gUnknown_03003128
-extern u16 gUnknown_0300312C;
+extern u16 gOamAffinePutId;
 // extern ??? gUnknown_03003130
 extern void (*sHBlankHandler1)(void);
-extern u16 gUnknown_03003140[];
-extern u32 gUnknown_03003240[];
-// extern ??? gUnknown_03003540
+extern u16 gOam[];
 // extern ??? gUnknown_03003740
-extern u32 * gUnknown_03003744;
+extern u32 * gOamHiPutIt;
 extern void (* sHBlankHandler2)(void);
 // extern ??? gUnknown_03003750
 // extern ??? gUnknown_03004150
 // extern ??? gUnknown_03004154
-extern u16 * gUnknown_03004158;
+extern u16 * gOamAffinePutIt;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
 // extern ??? gUnknown_03004990
@@ -851,18 +837,18 @@ extern const u8  gUnkUiFrameImage[];
 extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_085B92C4
 
-extern u8 gUnknown_08802D44[];
-extern u16 gUnknown_088030C4[];
-extern u16 gUnknown_088033C4[];
-extern u16 gUnknown_08803524[];
-extern u16 gUnknown_08803590[];
+extern u8 Img_EkrExpBar[];
+extern u16 Img_EkrExpBarChange[];
+extern u16 Img_BarNumfx[];
+extern u16 Tsa_EkrExpBar[];
+extern u16 Pal_ExpBar[];
 extern u16 Img_LevelUpBoxFrame[];
 extern u16 Tsa_LevelUpBoxFrame[];
 extern u16 Pal_LevelUpBoxFrame[];
-extern u16 gUnknown_08803B30[];
+extern u16 Img_EkrPopup[];
 extern u16 gUnknown_08803BD0[];
-extern u16 gUnknown_08803CB0[];
-extern u16 gUnknown_08803CD0[];
+extern u16 Pal_EkrPopup[];
+extern u16 Tsa_EkrPopup[];
 // extern ??? gCharacterData
 extern const s8 gUnknown_0880B90C[]; // terrainId to ? lookup
 extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
@@ -1685,16 +1671,16 @@ extern u16 Pal_OpAnimDivlEye[];
 // extern ??? Tsa_OpAnimShinningRing
 // extern ??? Tsa_OpAnimShinningRingBlinking
 
-extern u8 Tsa_08B104D8[];
-extern u8 Img_08B10630[];
-extern u16 gUnknown_08B10ABC[];
-extern u8 Tsa_08B10ADC[];
-extern u8 Img_08B10CA4[];
-extern u16 gUnknown_08B11864[];
+extern u8 Tsa_GameIntroNintendo[];
+extern u8 Img_GameIntroNintendo[];
+extern u16 Pal_GameIntroNintendo[];
+extern u8 Tsa_IntelligentSystems[];
+extern u8 Img_IntelligentSystems[];
+extern u16 Pal_IntelligentSystems[];
 extern u8 Tsa_OpAnimHleathSafetyScreenBG1[];
 extern u8 Tsa_OpAnimHleathSafetyScreenBG0[];
 extern u8 Img_OpAnimHleathSafetyScreen[];
-extern u16 gUnknown_08B125F4[];
+extern u16 Pal_OpAnimHleathSafetyScreen[];
 /* #include classchg.h */
 // extern ??? gpBuf
 // extern ??? gUnknown_08B12AA8

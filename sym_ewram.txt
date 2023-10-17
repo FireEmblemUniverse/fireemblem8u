@@ -186,7 +186,7 @@
 . = 0x01777C; gpProcEfxHPBarColorChange = .;
 . = 0x017780; gEkrHitEfxBool = .;
 . = 0x017790; gEkrBuf1 = .;
-. = 0x019490; gUnknown_02019490 = .;
+. = 0x019490; gEkrBarfxBuf = .;
 . = 0x019790; gEkrTsaBuffer = .;
 . = 0x019D00; gUnknown_02019D00 = .;
 . = 0x01A790; gEkrBuf2 = .;
@@ -229,7 +229,7 @@
 . = 0x01F198; gUnknown_0201F198 = .;
 . = 0x01F19C; gUnknown_0201F19C = .;
 
-. = 0x01F948; gEfxSomePalBuf = .;
+. = 0x01F948; gEfxSplitedColorBuf = .;
 . = 0x01F978; gUnknown_0201F978 = .;
 . = 0x01F9A8; gUnknown_0201F9A8 = .;
 . = 0x01FA08; gUnknown_0201FA08 = .;

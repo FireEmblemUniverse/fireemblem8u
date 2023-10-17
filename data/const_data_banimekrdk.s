@@ -45,23 +45,3 @@ gUnknown_080DF9BE:  @ 0x080DF9BE
 	.global gUnknown_080E1164
 gUnknown_080E1164:  @ 0x080E1164
 	.incbin "baserom.gba", 0xE1164, 0x230
-
-	.global gUnknown_080E1394
-gUnknown_080E1394:  @ 0x080E1394
-	.incbin "baserom.gba", 0xE1394, 0xE
-
-	.global gUnknown_080E13A2
-gUnknown_080E13A2:  @ 0x080E13A2
-	.incbin "baserom.gba", 0xE13A2, 0x12
-
-	.global gUnknown_080E13B4
-gUnknown_080E13B4:  @ 0x080E13B4
-	.incbin "baserom.gba", 0xE13B4, 0x20
-
-	.global gUnknown_080E13D4
-gUnknown_080E13D4:  @ 0x080E13D4
-	.incbin "baserom.gba", 0xE13D4, 0x20
-
-	.global gUnknown_080E13F4
-gUnknown_080E13F4:  @ 0x080E13F4
-	.incbin "baserom.gba", 0xE13F4, 0xE1420 - 0xE13F4

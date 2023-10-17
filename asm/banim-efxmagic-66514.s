@@ -5173,7 +5173,7 @@ sub_8068D9C: @ 0x08068D9C
 	cmp r0, #0
 	bne _08068DB4
 	movs r0, #4
-	bl EkrUpdateSomePalMaybe
+	bl EfxChapterMapFadeOUT
 	b _08068DCE
 	.align 2, 0
 _08068DB0: .4byte gEkrPairSomeTile
@@ -8366,7 +8366,7 @@ _0806A5C2:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -8589,7 +8589,7 @@ _0806A750:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -9285,7 +9285,7 @@ _0806AC36:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	mov r2, r9
 	movs r1, #0
 	ldrsh r0, [r2, r1]
@@ -9327,7 +9327,7 @@ _0806AC36:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	mov r2, r9
 	movs r1, #0
 	ldrsh r0, [r2, r1]
@@ -9369,7 +9369,7 @@ _0806AC36:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	mov r2, r9
 	movs r1, #0
 	ldrsh r0, [r2, r1]
@@ -9411,7 +9411,7 @@ _0806AC36:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	mov r2, r9
 	movs r1, #0
 	ldrsh r0, [r2, r1]
@@ -9453,7 +9453,7 @@ _0806AC36:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	ldr r0, _0806AEEC  @ gUnknown_086B58DC
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
@@ -11550,7 +11550,7 @@ _0806BF56:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	mov r2, sl
 	movs r1, #0
 	ldrsh r0, [r2, r1]
@@ -11595,7 +11595,7 @@ _0806BF56:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	ldr r0, _0806C048  @ gUnknown_086B58DC
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal

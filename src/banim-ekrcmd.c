@@ -81,7 +81,7 @@ int sub_805893C(struct UnkStruct2_sub_805893C * arg)
     return val - 1;
 }
 
-u16 * SomethingFilterBattleAnimId(s16 index, u16 item)
+u16 * FilterBattleAnimCharacterPalette(s16 index, u16 item)
 {
     switch (index)
     {
@@ -92,13 +92,13 @@ u16 * SomethingFilterBattleAnimId(s16 index, u16 item)
         switch (GetItemIndex(item))
         {
         case ITEM_BALLISTA_REGULAR:
-            return gUnknown_085BA300;
+            return Pal_085BA300;
 
         case ITEM_BALLISTA_LONG:
-            return gUnknown_085BA2E0;
+            return Pal_085BA2E0;
 
         case ITEM_BALLISTA_KILLER:
-            return gUnknown_085BA320;
+            return Pal_085BA320;
 
         default:
             return NULL;

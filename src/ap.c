@@ -184,7 +184,7 @@ void AP_QueueObjRotScale(struct APHandle* handle) {
     it    = handle->pCurrentRotScale + 1;         // rotscale data start
 
     for (i = 0; i < count; it += 3, i++) {
-        WriteOAMRotScaleData(
+        SetObjAffine(
             handle->rotScaleIndex + i,  // oam rotscale index
 
             Div(+COS(it[0])*16, it[1]), // pa

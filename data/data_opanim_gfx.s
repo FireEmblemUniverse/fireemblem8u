@@ -1573,28 +1573,28 @@ tsa_opanim100:
 pal_08B103D8:  @ 0x08B103D8
 	.incbin "baserom.gba", 0xB103D8, 0x100
 
-	.global Tsa_08B104D8
-Tsa_08B104D8:  @ 0x08B104D8
+	.global Tsa_GameIntroNintendo
+Tsa_GameIntroNintendo:  @ 0x08B104D8
 	.incbin "baserom.gba", 0xB104D8, 0x158
 
-	.global Img_08B10630
-Img_08B10630:  @ 0x08B10630
+	.global Img_GameIntroNintendo
+Img_GameIntroNintendo:  @ 0x08B10630
 	.incbin "baserom.gba", 0xB10630, 0x48C
 
-	.global gUnknown_08B10ABC
-gUnknown_08B10ABC:  @ 0x08B10ABC
+	.global Pal_GameIntroNintendo
+Pal_GameIntroNintendo:  @ 0x08B10ABC
 	.incbin "baserom.gba", 0xB10ABC, 0x20
 
-	.global Tsa_08B10ADC
-Tsa_08B10ADC:  @ 0x08B10ADC
+	.global Tsa_IntelligentSystems
+Tsa_IntelligentSystems:  @ 0x08B10ADC
 	.incbin "baserom.gba", 0xB10ADC, 0x1C8
 
-	.global Img_08B10CA4
-Img_08B10CA4:  @ 0x08B10CA4
+	.global Img_IntelligentSystems
+Img_IntelligentSystems:  @ 0x08B10CA4
 	.incbin "baserom.gba", 0xB10CA4, 0xBC0
 
-	.global gUnknown_08B11864
-gUnknown_08B11864:  @ 0x08B11864
+	.global Pal_IntelligentSystems
+Pal_IntelligentSystems:  @ 0x08B11864
 	.incbin "baserom.gba", 0xB11864, 0x60
 
 	.global Tsa_OpAnimHleathSafetyScreenBG1
@@ -1609,6 +1609,6 @@ Tsa_OpAnimHleathSafetyScreenBG0:  @ 0x08B11C0C
 Img_OpAnimHleathSafetyScreen:  @ 0x08B11D0C
 	.incbin "baserom.gba", 0xB11D0C, 0x8E8
 
-	.global gUnknown_08B125F4
-gUnknown_08B125F4:  @ 0x08B125F4
+	.global Pal_OpAnimHleathSafetyScreen
+Pal_OpAnimHleathSafetyScreen:  @ 0x08B125F4
 	.incbin "baserom.gba", 0xB125F4, 0x20

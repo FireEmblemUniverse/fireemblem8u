@@ -355,7 +355,7 @@ void OnVBlank(void) {
 
     Proc_Run(gProcTreeRootArray[0]);
 
-    FlushPrimaryOAM();
+    SyncLoOam();
 
     if (gBmSt.mainLoopEndedFlag) {
         gBmSt.mainLoopEndedFlag = 0;
@@ -363,7 +363,7 @@ void OnVBlank(void) {
         FlushLCDControl();
         FlushBackgrounds();
         FlushTiles();
-        FlushSecondaryOAM();
+        SyncHiOam();
     }
 
     m4aSoundMain();

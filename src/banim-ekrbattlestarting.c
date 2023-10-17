@@ -149,7 +149,7 @@ void ekrBaStart_SreenFailIn(struct ProcEkrBattleStarting *proc)
 
     if (proc->timer == proc->terminator) {
         SetWOutLayers(1, 1, 1, 1, 1);
-        SetupOAMBufferSplice(0);
+        InitOam(0);
         BMapDispSuspend();
         SetWin0Box(0, 0, 0xF0, 0xA0);
         EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, 0x4);
@@ -222,7 +222,7 @@ void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 
 void ekrBaStart_8055FE8(struct ProcEkrBattleStarting *proc)
 {
-    EkrUpdateSomePalMaybe(Interpolate(0, 4, 0x10, proc->timer, 8));
+    EfxChapterMapFadeOUT(Interpolate(0, 4, 0x10, proc->timer, 8));
 
     if (++proc->timer == 0x9) {
         proc->timer = 0;

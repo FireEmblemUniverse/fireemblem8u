@@ -15126,7 +15126,7 @@ sub_8048B78: @ 0x08048B78
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 _08048C0C:
 	adds r0, r7, #0
 	adds r0, #0x40
@@ -15546,7 +15546,7 @@ sub_8048EB8: @ 0x08048EB8
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 _08048F4A:
 	ldr r0, [r7, #0x2c]
 	movs r2, #0x80
@@ -15680,7 +15680,7 @@ sub_8048FD4: @ 0x08048FD4
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 _0804906A:
 	ldr r0, [r7, #0x2c]
 	movs r2, #0x80
@@ -23219,7 +23219,7 @@ _0804C966:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	ldr r3, _0804CA04  @ gUnknown_080DA0FA
 	movs r0, #0x80
 	lsls r0, r0, #8
@@ -24711,7 +24711,7 @@ _0804D494:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	ldr r1, [r7, #0x38]
 	movs r0, #1
 	negs r0, r0
@@ -24791,7 +24791,7 @@ _0804D556:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	adds r3, r4, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 _0804D5BE:
 	ldr r1, [r7, #0x2c]
 	subs r1, #0x30

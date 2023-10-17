@@ -35,21 +35,21 @@ void ProcMAExpBar_OnDraw(struct MAExpBarProc* proc)
     // TODO: BM_BGCHR_...?
 
     RegisterDataMove(
-        gUnknown_08802D44,
+        Img_EkrExpBar,
         (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 512 * 0x20,
         13 * 0x20);
 
     RegisterDataMove(
-        gUnknown_088030C4,
+        Img_EkrExpBarChange,
         (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 525 * 0x20,
         24 * 0x20);
 
     RegisterDataMove(
-        gUnknown_088033C4,
+        Img_BarNumfx,
         (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 549 * 0x20,
         11 * 0x20);
 
-    ApplyPalette(gUnknown_08803590, BM_BGPAL_BANIM_UNK5);
+    ApplyPalette(Pal_ExpBar, BM_BGPAL_BANIM_UNK5);
 
     CallARM_FillTileRect(
         TILEMAP_LOCATED(gBG0TilemapBuffer, 6, 8),

@@ -17,19 +17,19 @@ void TryTickHSScreenExit(struct ProcOpAnimHS * proc)
     }
 }
 
-void sub_80CBE0C(struct ProcOpAnimHS * proc)
+void GameIntroPrepareNintendofx(struct ProcOpAnimHS * proc)
 {
     Sound_FadeOutBGM(1);
     SetupBackgrounds(NULL);
     SetPrimaryHBlankHandler(NULL);
     SetDispEnable(0, 0, 0, 0, 0);
 
-    Decompress(Img_08B10630, (void *)VRAM);
-    Decompress(Tsa_08B104D8, gGenericBuffer);
+    Decompress(Img_GameIntroNintendo, (void *)VRAM);
+    Decompress(Tsa_GameIntroNintendo, gGenericBuffer);
     CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, 0);
 
-    Decompress(Img_08B10CA4, (void *)VRAM + 0x2000);
-    Decompress(Tsa_08B10ADC, gGenericBuffer);
+    Decompress(Img_IntelligentSystems, (void *)VRAM + 0x2000);
+    Decompress(Tsa_IntelligentSystems, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1100);
 
     CpuFastFill16(0, gPaletteBuffer, 0x400);
@@ -108,14 +108,14 @@ void GameEarlyStartDelay(struct ProcOpAnimHS * proc)
     TryTickHSScreenExit(proc);
 }
 
-void sub_80CC098(struct ProcOpAnimHS * proc)
+void GameIntroNintendoFadeIN(struct ProcOpAnimHS * proc)
 {
     if (proc->palette_timer == 0)
     {
         SetDispEnable(1, 0, 0, 0, 0);
     }
     proc->palette_timer++;
-    OpAnimHS_BrightenPalette(gUnknown_08B10ABC, 0, 1, proc->palette_timer, 0x1E);
+    OpAnimHS_BrightenPalette(Pal_GameIntroNintendo, 0, 1, proc->palette_timer, 0x1E);
 
     if (proc->palette_timer > 0x1D)
     {
@@ -125,10 +125,10 @@ void sub_80CC098(struct ProcOpAnimHS * proc)
     TryTickHSScreenExit(proc);
 }
 
-void sub_80CC0FC(struct ProcOpAnimHS * proc)
+void GameIntroNintendoFadeOUT(struct ProcOpAnimHS * proc)
 {
     proc->palette_timer++;
-    OpAnimHS_BrightenPalette(gUnknown_08B10ABC, 0, 1, 0x1E - proc->palette_timer, 0x1E);
+    OpAnimHS_BrightenPalette(Pal_GameIntroNintendo, 0, 1, 0x1E - proc->palette_timer, 0x1E);
 
     if (proc->palette_timer > 0x1D)
     {
@@ -138,14 +138,14 @@ void sub_80CC0FC(struct ProcOpAnimHS * proc)
     TryTickHSScreenExit(proc);
 }
 
-void sub_80CC13C(struct ProcOpAnimHS * proc)
+void GameIntroIntelligentSystemsFadeIN(struct ProcOpAnimHS * proc)
 {
     if (proc->palette_timer == 0)
     {
         SetDispEnable(0, 1, 0, 0, 0);
     }
     proc->palette_timer++;
-    OpAnimHS_BrightenPalette(gUnknown_08B11864, 1, 3, proc->palette_timer, 0x1E);
+    OpAnimHS_BrightenPalette(Pal_IntelligentSystems, 1, 3, proc->palette_timer, 0x1E);
 
     if (proc->palette_timer > 0x1D)
     {
@@ -155,10 +155,10 @@ void sub_80CC13C(struct ProcOpAnimHS * proc)
     TryTickHSScreenExit(proc);
 }
 
-void sub_80CC1A0(struct ProcOpAnimHS * proc)
+void GameIntroIntelligentSystemsFadeOUT(struct ProcOpAnimHS * proc)
 {
     proc->palette_timer++;
-    OpAnimHS_BrightenPalette(gUnknown_08B11864, 1, 3, 0x28 - proc->palette_timer, 0x28);
+    OpAnimHS_BrightenPalette(Pal_IntelligentSystems, 1, 3, 0x28 - proc->palette_timer, 0x28);
 
     if (proc->palette_timer > 0x27)
     {
@@ -210,10 +210,10 @@ void PrepareHealthAndSafetyScreen(struct ProcOpAnimHS * proc)
     SetKeyStatus_IgnoreMask(0x3FF);
 }
 
-void sub_80CC2F4(struct ProcOpAnimHS * proc)
+void GameIntroHealthSafetyFadeIN(struct ProcOpAnimHS * proc)
 {
     proc->palette_timer++;
-    OpAnimHS_BrightenPalette(gUnknown_08B125F4, 0, 1, proc->palette_timer, 0x1E);
+    OpAnimHS_BrightenPalette(Pal_OpAnimHleathSafetyScreen, 0, 1, proc->palette_timer, 0x1E);
 
     if (proc->palette_timer > 0x1D)
     {
@@ -222,7 +222,7 @@ void sub_80CC2F4(struct ProcOpAnimHS * proc)
     }
 }
 
-void sub_80CC32C(struct ProcOpAnimHS * proc)
+void GameIntroHealthSafetyWaitButton(struct ProcOpAnimHS * proc)
 {
     s16 val;
 
@@ -252,10 +252,10 @@ void sub_80CC32C(struct ProcOpAnimHS * proc)
     }
 }
 
-void sub_80CC430(struct ProcOpAnimHS * proc)
+void GameIntroHealthSafetyFadeOUT(struct ProcOpAnimHS * proc)
 {
     proc->palette_timer++;
-    OpAnimHS_BrightenPalette(gUnknown_08B125F4, 0, 1, 0x1E - proc->palette_timer, 0x1E);
+    OpAnimHS_BrightenPalette(Pal_OpAnimHleathSafetyScreen, 0, 1, 0x1E - proc->palette_timer, 0x1E);
 
     if (proc->palette_timer > 0x1D)
     {
@@ -268,24 +268,30 @@ CONST_DATA struct ProcCmd ProcScr_GameEarlyStartUI[] = {
     PROC_YIELD,
     PROC_CALL(SetOpAnimHsStatus0),
     PROC_CALL(PrepareHealthAndSafetyScreen),
-    PROC_REPEAT(sub_80CC2F4),
+
+    /* "Warning-Health and Safety" */
+    PROC_REPEAT(GameIntroHealthSafetyFadeIN),
     PROC_REPEAT(GameEarlyStartDelay),
-    PROC_REPEAT(sub_80CC32C),
-    PROC_REPEAT(sub_80CC430),
+    PROC_REPEAT(GameIntroHealthSafetyWaitButton),
+    PROC_REPEAT(GameIntroHealthSafetyFadeOUT),
     PROC_REPEAT(GameEarlyStartDelay),
 
 PROC_LABEL(0x3E7),
-    PROC_CALL(sub_80CBE0C),
+
+    /* "Nintendo" */
+    PROC_CALL(GameIntroPrepareNintendofx),
     PROC_CALL(SetOpAnimHsStatus1),
-    PROC_REPEAT(sub_80CC098),
+    PROC_REPEAT(GameIntroNintendoFadeIN),
     PROC_REPEAT(GameEarlyStartDelay),
-    PROC_REPEAT(sub_80CC0FC),
+    PROC_REPEAT(GameIntroNintendoFadeOUT),
     PROC_REPEAT(GameEarlyStartDelay),
     PROC_CALL(EnableKeyComboResetEN),
+
+    /* Intelligent Systems */
     PROC_CALL(SetOpAnimHsStatus2),
-    PROC_REPEAT(sub_80CC13C),
+    PROC_REPEAT(GameIntroIntelligentSystemsFadeIN),
     PROC_REPEAT(GameEarlyStartDelay),
-    PROC_REPEAT(sub_80CC1A0),
+    PROC_REPEAT(GameIntroIntelligentSystemsFadeOUT),
     PROC_REPEAT(GameEarlyStartDelay),
     PROC_GOTO(0x1),
 

@@ -330,14 +330,31 @@ extern const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4];
 struct ProcEkrSubAnimeEmulator {
     PROC_HEADER;
 
-    STRUCT_PAD(0x29, 0x2E);
-    /* 2E */ s16 unk2E;
+    /* 29 */ u8 type;
+    /* 2A */ u8 valid;
+    /* 2C */ s16 timer;
+    /* 2E */ s16 scr_cur;
+
     STRUCT_PAD(0x30, 0x32);
-    /* 32 */ s16 unk32;
+
+    /* 32 */ s16 x1;
+    /* 34 */ s16 x2;
+
+    STRUCT_PAD(0x36, 0x3A);
+
+    /* 3A */ s16 y1;
+    /* 3C */ s16 y2;
+
+    STRUCT_PAD(0x3E, 0x44);
+
+    /* 44 */ u32 * anim_scr;
+    /* 48 */ void * sprite;
+    /* 4C */ int oam2Base;
+    /* 50 */ int oamBase;
 };
 
-struct ProcEkrSubAnimeEmulator *NewEkrsubAnimeEmulator(int x, int y, u16 *buf[], int, int, int, int);
-// ??? EkrsubAnimeEmulatorMain(???);
+struct ProcEkrSubAnimeEmulator * NewEkrsubAnimeEmulator(int x, int y, u32 * anim_scr, int type, int oam2Base, int oamBase, ProcPtr parent);
+void EkrsubAnimeEmulatorMain(struct ProcEkrSubAnimeEmulator * proc);
 
 extern int gEkrDebugTimer, gEkrDebugUnk1;
 
@@ -859,17 +876,17 @@ void EfxTmCpyBgHFlip(const u16 * tsa, u16 * tm, u16 width, u16 height, int pal, 
 void EfxTmCpyExt(const u16 * src, s16 src_width, u16 * dst, s16 dst_width, u16 width, u16 hight, int pal, int chr);
 void EfxTmCpyExtHFlip(const u16 * src, s16 src_width, u16 * dst, s16 dst_width, u16 width, u16 hight, int pal, int chr);
 void sub_8071068(u16 * tm, int arg1, int arg2);
-void sub_8071140(u16 * tm, int);
-// ??? sub_80711C0(???);
-void EfxPalBlackInOut(void * pal_buf, int line, int length, int ref);
-void EfxPalWhiteInOut(void * ptr, int, int, int);
-void EfxSomePalFlash(u16 * pal, int, int, int r, int g, int b);
-void sub_8071468(u16 * pal, u16 *, int);
-void sub_80714DC(u16 *, u8 *, int);
-void sub_807151C(u16 *, u8 *, int);
-void sub_8071574(s8 *, s8 *, u16 *, int, int);
-void sub_80715F4(void *, void *, void *, void *, int, int, int);
-void EkrUpdateSomePalMaybe(int);
+void EkrModifyBarfx(u16 * tm, int);
+bool EkrPalModifyUnused(u16 * src1, u16 * src2, u16 * dst, u16 a, u16 b, u16 c);
+void EfxPalBlackInOut(u16 * pal_buf, int line, int length, int ref);
+void EfxPalWhiteInOut(u16 * pal_buf, int line, int length, int ref);
+void EfxSomePalFlash(u16 * pal_buf, int line, int length, int r0, int g0, int b0);
+void EfxPalModifyPetrifyEffect(u16 * pal_buf, int line, int length);
+void EfxSplitColor(u16 * src, u8 * dst, u32 length);
+void EfxSplitColorPetrify(u16 * src, u8 * dst, u32 length);
+void sub_8071574(s8 * src1, s8 * src2, u16 * pal, u32 length, int ref);
+void EfxDecodeSplitedPalette(u16 * dst, s8 * src1, s8 * src2, s16 * src3, u32 length, int ref, int unk);
+void EfxChapterMapFadeOUT(int);
 // ??? sub_80716B0(???);
 
 // ??? sub_80717D4(???);

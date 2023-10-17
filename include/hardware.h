@@ -164,6 +164,25 @@ struct TileDataTransfer {
     u16 mode;
 };
 
+struct OamSection {
+    u16 * buf;
+    void * oam;
+    u16 offset;
+    u16 count;
+};
+
+extern struct OamSection sOamHi;
+extern struct OamSection sOamLo;
+
+// extern ??? gKeyComboResetEN
+extern u8 sModifiedBGs;  // BGs that need copying
+extern s8 sModifiedPalette;
+extern u16 gKeyStatusIgnoredSt;
+// extern ??? gUnknown_03000014
+extern u8 gUnknown_03000018;
+extern u8 gUnknown_03000019;
+extern bool gSoftwareResetFlag;
+
 extern s8 gUnknown_02022288[];
 extern s8 gUnknown_020222A8[];
 extern s8 gUnknown_02022308[];
@@ -402,10 +421,10 @@ void ClearTileRigistry(void);
 void RegisterDataMove(const void *a, void *b, int c);
 void RegisterFillTile(const void *a, void *b, int c);
 void FlushTiles(void);
-void SetupOAMBufferSplice(int a);
-void FlushSecondaryOAM(void);
-void FlushPrimaryOAM(void);
-void WriteOAMRotScaleData(int index, s16 pa, s16 pb, s16 pc, s16 pd);
+void InitOam(int a);
+void SyncHiOam(void);
+void SyncLoOam(void);
+void SetObjAffine(int index, s16 pa, s16 pb, s16 pc, s16 pd);
 // ??? sub_80021E4(???);
 int GetPrimaryOAMSize(void);
 

@@ -489,14 +489,14 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
     }
 
     if (gpEkrBattleUnitRight->unit.statusIndex == UNIT_STATUS_PETRIFY || gpEkrBattleUnitRight->unit.statusIndex == UNIT_STATUS_13)
-        sub_8071468(gPaletteBuffer, (void *)0x19, 1);
+        EfxPalModifyPetrifyEffect(gPaletteBuffer, 0x19, 1);
 
     if (gpEkrBattleUnitLeft->unit.statusIndex == UNIT_STATUS_PETRIFY || gpEkrBattleUnitLeft->unit.statusIndex == UNIT_STATUS_13)
-        sub_8071468(gPaletteBuffer, (void *)0x17, 1);
+        EfxPalModifyPetrifyEffect(gPaletteBuffer, 0x17, 1);
 
     if (proc->type == 0)
         if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
-            sub_8071468(gPaletteBuffer, (void *)0x17, 1);
+            EfxPalModifyPetrifyEffect(gPaletteBuffer, 0x17, 1);
 
     if (gEkrPairSideVaild[POS_L] == true)
     {

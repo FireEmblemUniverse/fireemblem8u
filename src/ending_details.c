@@ -1644,7 +1644,7 @@ void sub_80B7BD8(struct UnkProc* proc) {
 
         for (i = 0; i < 3; i++) {
             if (proc->unk_4c[i] > 0x10) {
-                WriteOAMRotScaleData(
+                SetObjAffine(
                     i,
                     Div(+COS(0) * 16, proc->unk_4c[i]),
                     Div(-SIN(0) * 16, 0x100),
@@ -1663,7 +1663,7 @@ void sub_80B7BD8(struct UnkProc* proc) {
         }
 
         if (proc->unk_4c[i] > 0x10) {
-            WriteOAMRotScaleData(
+            SetObjAffine(
                 i,
                 Div(+COS(0) * 16, proc->unk_4c[i]),
                 Div(-SIN(0) * 16, 0x100),
@@ -1688,7 +1688,7 @@ void sub_80B7BD8(struct UnkProc* proc) {
 
         for (i = 0; i < 5; i++) {
             if (proc->unk_4c[i] > 0x10) {
-                WriteOAMRotScaleData(
+                SetObjAffine(
                     i,
                     Div(+COS(0) * 16, proc->unk_4c[i]),
                     Div(-SIN(0) * 16, 0x100),
@@ -1707,7 +1707,7 @@ void sub_80B7BD8(struct UnkProc* proc) {
         }
 
         if (proc->unk_4c[i] > 0x10) {
-            WriteOAMRotScaleData(
+            SetObjAffine(
                 i,
                 Div(+COS(0) * 16, proc->unk_4c[i]),
                 Div(-SIN(0) * 16, 0x100),
