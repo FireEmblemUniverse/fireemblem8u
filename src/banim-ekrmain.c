@@ -10,25 +10,9 @@
 #include "banim_data.h"
 #include "constants/classes.h"
 
-CONST_DATA u32 BanimScr_085B9D5C[4] = {
-    /**
-     * ANINS_IS_NOT_FORCESPRITE = true
-     * ANINS_GET_TYPE = ANIM_INS_TYPE_FRAME
-     * ANINS_FRAME_GET_DELAY = 0x1
-     */
-    0x86000001,
-    0x00000000,
-
-    /**
-     * pSpriteData = 0x57F0
-     */
-    0x000057F0,
-
-    /**
-     * ANINS_IS_NOT_FORCESPRITE = true
-     * ANINS_GET_TYPE = ANIM_INS_TYPE_STOP
-     */
-    0x80000000
+CONST_DATA AnimScr BanimScr_DefaultAnim[] = {
+    ANIMSCR_FRAME(1, NULL, 0x57F0),
+    ANIMSCR_BLOCKED
 };
 
 const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4] = {
@@ -109,7 +93,7 @@ void AnimScrAdvance(struct Anim *anim)
     if (CheckRound1(anim->currentRoundType) == false)
         return;
 
-    if (anim->pScrCurrent == BanimScr_085B9D5C)
+    if (anim->pScrCurrent == BanimScr_DefaultAnim)
         return;
 
     while (1) {
@@ -376,7 +360,7 @@ label1:
         u32 idx = gpBanimModesLeft[frame_front];
         void *scr = gBanimScrLeft + idx;
         if (frame_front == 0xFF)
-            scr = BanimScr_085B9D5C;
+            scr = BanimScr_DefaultAnim;
         do anim = AnimCreate(scr, priority_front); while (0);
         anim->xPosition = gEkrXPosReal[0] - gEkrBgXOffset;
         anim->yPosition = gEkrYPosReal[0];
@@ -394,7 +378,7 @@ label2:
         u32 idx = gpBanimModesLeft[frame_back];
         void *scr = gBanimScrLeft + idx;
         if (frame_back == 0xFF)
-            scr = BanimScr_085B9D5C;
+            scr = BanimScr_DefaultAnim;
         anim = AnimCreate(scr, priority_back);
         anim->xPosition = gEkrXPosReal[0] - gEkrBgXOffset;
         anim->yPosition = gEkrYPosReal[0];
@@ -431,7 +415,7 @@ label1:
         u32 idx = gpBanimModesRight[frame_front];
         void *scr = gBanimScrRight + idx;
         if (frame_front == 0xFF)
-            scr = BanimScr_085B9D5C;
+            scr = BanimScr_DefaultAnim;
         do anim = AnimCreate(scr, priority_front); while (0);
         anim->xPosition = gEkrXPosReal[1] - gEkrBgXOffset;
         anim->yPosition = gEkrYPosReal[1];
@@ -449,7 +433,7 @@ label2:
         u32 idx = gpBanimModesRight[frame_back];
         void *scr = gBanimScrRight + idx;
         if (frame_back == 0xFF)
-            scr = BanimScr_085B9D5C;
+            scr = BanimScr_DefaultAnim;
         anim = AnimCreate(scr, priority_back);
         anim->xPosition = gEkrXPosReal[1] - gEkrBgXOffset;
         anim->yPosition = gEkrYPosReal[1];
@@ -487,8 +471,8 @@ void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
         anim->pScrStart = scr;
         anim->pScrCurrent = scr;
     } else {
-        anim->pScrStart = BanimScr_085B9D5C;
-        anim->pScrCurrent = BanimScr_085B9D5C;
+        anim->pScrStart = BanimScr_DefaultAnim;
+        anim->pScrCurrent = BanimScr_DefaultAnim;
         anim->state3 = 0;
     }
 

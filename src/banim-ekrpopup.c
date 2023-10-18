@@ -106,6 +106,27 @@ void MakeBattlePopupTileMapFromTSA(u16 *tm, u16 width)
     tm[0x63 + i] = ekrTsaBuf[0x67] + constant;
 }
 
+CONST_DATA struct AnimSpriteData AnimSprite_EkrPopup[] = {
+    {
+        .header = 0x40000000,
+        .as =
+        {
+            .object =
+            {
+                .oam2 = 0x0,
+                .x = 0x0,
+                .y = 0x0
+            }
+        }
+    },
+    ANIM_SPRITE_END
+};
+
+CONST_DATA AnimScr AnimScr_EkrPopup[2] = {
+    ANIMSCR_FORCE_SPRITE(AnimSprite_EkrPopup, 1),
+    ANIMSCR_BLOCKED
+};
+
 void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
 {
     const char *str;
@@ -113,17 +134,6 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
 
     struct Text *text;
     struct Anim *anim;
-
-    static u16 anim_sprit[12] = {
-        0x0000, 0x4000, 0x0000, 0x0000,
-        0x0000, 0x0000, 0x0001, 0x0000,
-        0x0000, 0x0000, 0x0000, 0x0000
-    };
-
-    static u32 anim_instr[2] = {
-        (uintptr_t)anim_sprit + 1,
-        0x80000000
-    };
 
     LZ77UnCompVram(Img_EkrPopup, (void *)BG_VRAM + 0x2000);
     LZ77UnCompWram(Tsa_EkrPopup, (void *)gEkrTsaBuffer);
@@ -215,7 +225,7 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
         width5 = tmpr0 + width3;
     }
 
-    anim = AnimCreate(anim_instr, 0x96);
+    anim = AnimCreate(AnimScr_EkrPopup, 0x96);
     proc->anim = anim;
     anim->oam2Base = OAM2_PAL(0x2) + OAM2_LAYER(0x1) + OAM2_CHR(0x0800 / 0x20);
 

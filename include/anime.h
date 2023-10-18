@@ -108,6 +108,8 @@ struct AnimSpriteData {
     } as;
 };
 
+#define ANIM_SPRITE_END {.header = 1}
+
 enum {
     ANIM_MAX_COUNT = 50,
 };
@@ -131,33 +133,9 @@ enum {
 };
 
 // TODO: add macro helpers for writing animation scripts.
-
 #define ANIM_IS_DISABLED(anim) ((anim)->state == 0)
 
-#define ANINS_IS_NOT_FORCESPRITE(instruction) ((instruction) & 0x80000000)
-#define ANINS_IS_PTRINS(instruction) ((instruction) & 0x40000000)
-
-#define ANINS_FORCESPRITE_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000003))
-#define ANINS_FORCESPRITE_GET_DELAY(instruction) ((((instruction) >> 26) & 0x1C) + ((instruction) & 3))
-
-#define ANINS_PTRINS_GET_TYPE(instruction) (0x3 & ((instruction) >> 28))
-#define ANINS_PTRINS_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000000))
-
-#define ANINS_GET_TYPE(instruction) (0x3F & ((instruction) >> 24))
-
-#define ANINS_WAIT_GET_DELAY(instruction) ((instruction) & 0xFFFF)
-
-#define ANINS_MOVE_GET_XOFF(instruction) (((int) ((instruction) << 24)) >> 24)
-#define ANINS_MOVE_GET_YOFF(instruction) (((int) ((instruction) << 16)) >> 24)
-#define ANINS_MOVE_GET_DELAY(instruction) (((instruction) >> 16) & 0xFF)
-
-#define ANINS_COMMAND_GET_ID(instruction) (0xFF & (instruction))
-
-#define ANINS_FRAME_GET_DELAY(instruction) ((instruction) & 0xFFFF)
-#define ANINS_FRAME_GET_UNK(instruction) ((instruction) >> 16) & 0xFF
-
-enum
-{
+enum anim_inst_type {
     ANIM_INS_TYPE_STOP    = 0,
     ANIM_INS_TYPE_END     = 1,
     ANIM_INS_TYPE_LOOP    = 2,
@@ -166,6 +144,40 @@ enum
     ANIM_INS_TYPE_COMMAND = 5,
     ANIM_INS_TYPE_FRAME   = 6,
 };
+
+#define ANFMT_FORCESPRITE 0x00000000
+#define ANFMT_NOT_FORCESPRITE 0x80000000
+#define ANFMT_PTRINS 0x40000000
+#define ANFMT_INST_TYPE(type) (((type) & 0x3F) << 24)
+#define ANIMFMT_OAM_DURATION(duration) (((duration) & 3) + ((duration & 0x3C) << 26))
+
+#define ANINS_IS_NOT_FORCESPRITE(instruction) ((instruction) & ANFMT_NOT_FORCESPRITE)
+#define ANINS_IS_PTRINS(instruction) ((instruction) & ANFMT_PTRINS)
+#define ANINS_FORCESPRITE_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000003))
+#define ANINS_FORCESPRITE_GET_DELAY(instruction) ((((instruction) >> 26) & 0x1C) + ((instruction) & 3))
+#define ANINS_PTRINS_GET_TYPE(instruction) (0x3 & ((instruction) >> 28))
+#define ANINS_PTRINS_GET_ADDRESS(instruction) ((void*) ((instruction) &~ 0xF0000000))
+#define ANINS_GET_TYPE(instruction) (0x3F & ((instruction) >> 24))
+#define ANINS_WAIT_GET_DELAY(instruction) ((instruction) & 0xFFFF)
+#define ANINS_MOVE_GET_XOFF(instruction) (((int) ((instruction) << 24)) >> 24)
+#define ANINS_MOVE_GET_YOFF(instruction) (((int) ((instruction) << 16)) >> 24)
+#define ANINS_MOVE_GET_DELAY(instruction) (((instruction) >> 16) & 0xFF)
+#define ANINS_COMMAND_GET_ID(instruction) (0xFF & (instruction))
+#define ANINS_FRAME_GET_DELAY(instruction) ((instruction) & 0xFFFF)
+#define ANINS_FRAME_GET_UNK(instruction) ((instruction) >> 16) & 0xFF
+
+/* Anim Script commands */
+typedef u32 AnimScr;
+#define ANIMSCR_FRAME(delay, img, oam2) \
+    (ANFMT_NOT_FORCESPRITE + ANFMT_INST_TYPE(ANIM_INS_TYPE_FRAME) + ((delay) & 0xFFFF)), \
+    (AnimScr)(img), \
+    (AnimScr)(oam2)
+
+#define ANIMSCR_BLOCKED \
+    (ANFMT_NOT_FORCESPRITE + ANFMT_INST_TYPE(ANIM_INS_TYPE_STOP))
+
+#define ANIMSCR_FORCE_SPRITE(anim_sprite, duration) \
+    (ANFMT_FORCESPRITE + (AnimScr)(anim_sprite) + ANIMFMT_OAM_DURATION(duration))
 
 void AnimUpdateAll(void);
 void AnimClearAll(void);

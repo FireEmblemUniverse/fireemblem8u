@@ -293,7 +293,7 @@ sub_805A60C: @ 0x0805A60C
 	adds r1, r0, r3
 	ldr r2, [r1, #0xc]
 	ldr r3, [r4, #0x28]
-	ldr r7, _0805A69C  @ BanimScr_085B9D5C
+	ldr r7, _0805A69C  @ BanimScr_DefaultAnim
 	cmp r5, #0xff
 	beq _0805A66A
 	lsls r0, r5, #2
@@ -301,7 +301,7 @@ sub_805A60C: @ 0x0805A60C
 	ldr r0, [r0]
 	adds r7, r3, r0
 _0805A66A:
-	ldr r0, _0805A69C  @ BanimScr_085B9D5C
+	ldr r0, _0805A69C  @ BanimScr_DefaultAnim
 	str r0, [sp]
 	cmp r6, #0xff
 	beq _0805A67C
@@ -324,7 +324,7 @@ _0805A67C:
 	.align 2, 0
 _0805A694: .4byte banim_data
 _0805A698: .4byte BanimDefaultModeConfig
-_0805A69C: .4byte BanimScr_085B9D5C
+_0805A69C: .4byte BanimScr_DefaultAnim
 _0805A6A0: .4byte 0x000057F0
 _0805A6A4:
 	ldr r5, [r4, #0x24]
@@ -494,7 +494,7 @@ sub_805A7B4: @ 0x0805A7B4
 	adds r1, r0, r2
 	ldr r2, [r1, #0xc]
 	ldr r3, [r7, #0x28]
-	ldr r0, _0805A834  @ BanimScr_085B9D5C
+	ldr r0, _0805A834  @ BanimScr_DefaultAnim
 	mov r8, r0
 	cmp r4, #0xff
 	beq _0805A804
@@ -504,7 +504,7 @@ sub_805A7B4: @ 0x0805A7B4
 	adds r0, r0, r3
 	mov r8, r0
 _0805A804:
-	ldr r0, _0805A834  @ BanimScr_085B9D5C
+	ldr r0, _0805A834  @ BanimScr_DefaultAnim
 	mov r9, r0
 	cmp r5, #0xff
 	beq _0805A816
@@ -527,7 +527,7 @@ _0805A816:
 	.align 2, 0
 _0805A82C: .4byte banim_data
 _0805A830: .4byte BanimDefaultModeConfig
-_0805A834: .4byte BanimScr_085B9D5C
+_0805A834: .4byte BanimScr_DefaultAnim
 _0805A838: .4byte 0x000057F0
 _0805A83C:
 	ldr r4, [r7, #0x24]

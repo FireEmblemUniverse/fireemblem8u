@@ -512,7 +512,7 @@ extern const u16 * CONST_DATA gUnknown_085B9CA4[];
 extern const u16 * CONST_DATA gUnknown_085B9CC4[];
 extern struct ProcCmd ProcScr_ekrUnitKakudai[];
 
-extern u32 BanimScr_085B9D5C[4];
+extern AnimScr BanimScr_DefaultAnim[];
 extern void *gUnknown_085B9D6C[];
 extern struct ProcCmd gProc_ekrChienCHR[];
 extern struct ProcCmd gProc_efxAnimeDrvProc[];
