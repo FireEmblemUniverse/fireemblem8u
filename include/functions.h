@@ -178,7 +178,7 @@ void VramCopy(u8 *src, u8 *dst, int size);
 void PutTmLinear(u16 *src, u16 *dst, int size, u16 tileref);
 // ??? GetTmOffsetById(???);
 // ??? sub_8014A78(???);
-// ??? RerangeSomething(???);
+int RerangeSomething(int);
 void PlaySeSpacial(unsigned, int);
 void sub_8014B88(int, int);
 // ??? sub_8014BA0(???);

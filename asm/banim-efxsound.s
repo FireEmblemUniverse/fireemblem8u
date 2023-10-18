@@ -2,493 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80717D4
-sub_80717D4: @ 0x080717D4
-	lsrs r1, r0, #0x1e
-	movs r2, #0xc0
-	lsls r2, r2, #8
-	ands r2, r0
-	ldr r0, _080717EC  @ gUnknown_080E13D4
-	lsls r1, r1, #1
-	lsrs r2, r2, #0xb
-	adds r1, r1, r2
-	adds r1, r1, r0
-	movs r2, #0
-	ldrsh r0, [r1, r2]
-	bx lr
-	.align 2, 0
-_080717EC: .4byte gUnknown_080E13D4
-
-	THUMB_FUNC_END sub_80717D4
-
-	THUMB_FUNC_START sub_80717F0
-sub_80717F0: @ 0x080717F0
-	lsrs r1, r0, #0x1e
-	movs r2, #0xc0
-	lsls r2, r2, #8
-	ands r2, r0
-	ldr r0, _08071808  @ gUnknown_080E13F4
-	lsls r1, r1, #1
-	lsrs r2, r2, #0xb
-	adds r1, r1, r2
-	adds r1, r1, r0
-	movs r2, #0
-	ldrsh r0, [r1, r2]
-	bx lr
-	.align 2, 0
-_08071808: .4byte gUnknown_080E13F4
-
-	THUMB_FUNC_END sub_80717F0
-
-	THUMB_FUNC_START EkrGetUnitSpriteDataMaybe
-EkrGetUnitSpriteDataMaybe: @ 0x0807180C
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	sub sp, #8
-	adds r6, r1, #0
-	lsls r2, r2, #0x10
-	lsrs r2, r2, #0x10
-	mov r8, r2
-	adds r7, r0, #0
-	ldr r1, _08071984  @ 0xFFFF0000
-	ldr r0, [sp, #4]
-	ands r0, r1
-	str r0, [sp, #4]
-	lsls r3, r3, #0x10
-	mov r9, r3
-	mov r0, r8
-	orrs r0, r3
-	str r0, [sp]
-	ldr r4, _08071988  @ 0xFFFF0004
-	adds r1, r6, #0
-	stm r1!, {r4}
-	mov r0, sp
-	movs r2, #1
-	movs r3, #2
-	bl ObjAffineSet
-	adds r5, r6, #0
-	adds r5, #0xc
-	str r4, [r6, #0xc]
-	adds r1, r6, #0
-	adds r1, #0x10
-	mov r0, sp
-	movs r2, #1
-	movs r3, #2
-	bl ObjAffineSet
-	ldrh r0, [r5, #4]
-	negs r0, r0
-	strh r0, [r5, #4]
-	ldrh r0, [r5, #6]
-	negs r0, r0
-	strh r0, [r5, #6]
-	adds r5, #0xc
-	str r4, [r6, #0x18]
-	adds r1, r6, #0
-	adds r1, #0x1c
-	mov r0, sp
-	movs r2, #1
-	movs r3, #2
-	bl ObjAffineSet
-	ldrh r0, [r5, #8]
-	negs r0, r0
-	strh r0, [r5, #8]
-	ldrh r0, [r5, #0xa]
-	negs r0, r0
-	strh r0, [r5, #0xa]
-	adds r5, #0xc
-	str r4, [r6, #0x24]
-	adds r1, r6, #0
-	adds r1, #0x28
-	mov r0, sp
-	movs r2, #1
-	movs r3, #2
-	bl ObjAffineSet
-	ldrh r0, [r5, #4]
-	negs r0, r0
-	strh r0, [r5, #4]
-	ldrh r0, [r5, #6]
-	negs r0, r0
-	strh r0, [r5, #6]
-	ldrh r0, [r5, #8]
-	negs r0, r0
-	strh r0, [r5, #8]
-	ldrh r0, [r5, #0xa]
-	negs r0, r0
-	strh r0, [r5, #0xa]
-	adds r6, #0x30
-	ldr r0, [r7]
-	cmp r0, #1
-	beq _08071964
-	mov r1, r8
-	lsls r0, r1, #0x10
-	asrs r0, r0, #0x10
-	mov r8, r0
-	mov r2, r9
-	asrs r5, r2, #0x10
-_080718BE:
-	ldr r2, [r7]
-	movs r0, #0x80
-	lsls r0, r0, #0x15
-	ands r0, r2
-	negs r0, r0
-	asrs r1, r0, #0x1f
-	movs r0, #0x80
-	lsls r0, r0, #0x12
-	ands r1, r0
-	movs r0, #0x80
-	lsls r0, r0, #0x16
-	ands r0, r2
-	cmp r0, #0
-	beq _080718E0
-	movs r3, #0x80
-	lsls r3, r3, #0x13
-	adds r1, r1, r3
-_080718E0:
-	ldr r0, _0807198C  @ 0xC1FFFFFF
-	ands r0, r2
-	movs r3, #0x80
-	lsls r3, r3, #1
-	adds r1, r1, r3
-	adds r0, r0, r1
-	str r0, [r6]
-	ldrh r0, [r7, #4]
-	strh r0, [r6, #4]
-	adds r0, r2, #0
-	bl sub_80717D4
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	asrs r4, r4, #0x11
-	lsls r1, r4, #8
-	adds r0, r1, #0
-	mov r1, r8
-	bl Div
-	subs r1, r4, r0
-	movs r2, #6
-	ldrsh r0, [r7, r2]
-	subs r4, r0, r1
-	lsls r1, r0, #8
-	adds r0, r1, #0
-	mov r1, r8
-	bl Div
-	adds r1, r0, #0
-	movs r3, #6
-	ldrsh r0, [r7, r3]
-	subs r1, r0, r1
-	subs r4, r4, r1
-	strh r4, [r6, #6]
-	ldr r0, [r7]
-	bl sub_80717F0
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	asrs r4, r4, #0x11
-	lsls r1, r4, #8
-	adds r0, r1, #0
-	adds r1, r5, #0
-	bl Div
-	subs r1, r4, r0
-	movs r2, #8
-	ldrsh r0, [r7, r2]
-	subs r4, r0, r1
-	lsls r1, r0, #8
-	adds r0, r1, #0
-	adds r1, r5, #0
-	bl Div
-	adds r1, r0, #0
-	movs r3, #8
-	ldrsh r0, [r7, r3]
-	subs r1, r0, r1
-	subs r4, r4, r1
-	strh r4, [r6, #8]
-	adds r6, #0xc
-	adds r7, #0xc
-	ldr r0, [r7]
-	cmp r0, #1
-	bne _080718BE
-_08071964:
-	ldr r0, [r7]
-	str r0, [r6]
-	ldrh r0, [r7, #4]
-	strh r0, [r6, #4]
-	ldrh r0, [r7, #6]
-	strh r0, [r6, #6]
-	ldrh r0, [r7, #8]
-	strh r0, [r6, #8]
-	add sp, #8
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08071984: .4byte 0xFFFF0000
-_08071988: .4byte 0xFFFF0004
-_0807198C: .4byte 0xC1FFFFFF
-
-	THUMB_FUNC_END EkrGetUnitSpriteDataMaybe
-
-	THUMB_FUNC_START EfxPlaySE
-EfxPlaySE: @ 0x08071990
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	adds r5, r1, #0
-	ldr r0, _080719D0  @ gBmSt
-	ldrb r1, [r0, #4]
-	movs r0, #0x20
-	ands r0, r1
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	cmp r4, #0
-	bne _080719E6
-	bl sub_8071AA4
-	cmp r0, #0
-	bne _080719D8
-	bl sub_8071A98
-	adds r0, r5, #0
-	bl Sound_SetBGMVolume
-	ldr r0, _080719D4  @ gPlaySt
-	adds r0, #0x41
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _080719E6
-	lsls r0, r6, #0x10
-	lsrs r0, r0, #0x10
-	bl m4aSongNumStart
-	b _080719E6
-	.align 2, 0
-_080719D0: .4byte gBmSt
-_080719D4: .4byte gPlaySt
-_080719D8:
-	ldr r0, _080719EC  @ ProcScr_efxSoundSE
-	movs r1, #3
-	bl Proc_Start
-	str r5, [r0, #0x44]
-	str r6, [r0, #0x48]
-	strh r4, [r0, #0x2c]
-_080719E6:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080719EC: .4byte ProcScr_efxSoundSE
-
-	THUMB_FUNC_END EfxPlaySE
-
-	THUMB_FUNC_START Loop6C_efxSoundSE
-Loop6C_efxSoundSE: @ 0x080719F0
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #5
-	bne _08071A0A
-	adds r0, r4, #0
-	bl Proc_Break
-	b _08071A38
-_08071A0A:
-	bl sub_8071AA4
-	cmp r0, #0
-	bne _08071A38
-	bl sub_8071A98
-	ldr r0, [r4, #0x44]
-	bl Sound_SetBGMVolume
-	ldr r0, _08071A40  @ gPlaySt
-	adds r0, #0x41
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _08071A32
-	ldr r0, [r4, #0x48]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bl m4aSongNumStart
-_08071A32:
-	adds r0, r4, #0
-	bl Proc_Break
-_08071A38:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08071A40: .4byte gPlaySt
-
-	THUMB_FUNC_END Loop6C_efxSoundSE
-
-	THUMB_FUNC_START DoM4aSongNumStop
-DoM4aSongNumStop: @ 0x08071A44
-	push {lr}
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bl m4aSongNumStop
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END DoM4aSongNumStop
-
-	THUMB_FUNC_START sub_8071A54
-sub_8071A54: @ 0x08071A54
-	push {r4, lr}
-	adds r4, r0, #0
-	adds r2, r1, #0
-	ldr r0, _08071A78  @ gBmSt
-	ldrb r1, [r0, #4]
-	movs r0, #0x20
-	ands r0, r1
-	cmp r0, #0
-	bne _08071A72
-	adds r0, r2, #0
-	bl Sound_SetSEVolume
-	adds r0, r4, #0
-	bl OverrideBgm
-_08071A72:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08071A78: .4byte gBmSt
-
-	THUMB_FUNC_END sub_8071A54
-
-	THUMB_FUNC_START StopBGM1
-StopBGM1: @ 0x08071A7C
-	push {lr}
-	ldr r0, _08071A88  @ gMPlayInfo_BGM1
-	bl m4aMPlayStop
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08071A88: .4byte gMPlayInfo_BGM1
-
-	THUMB_FUNC_END StopBGM1
-
-	THUMB_FUNC_START sub_8071A8C
-sub_8071A8C: @ 0x08071A8C
-	ldr r1, _08071A94  @ gUnknown_020200AC
-	movs r0, #0
-	str r0, [r1]
-	bx lr
-	.align 2, 0
-_08071A94: .4byte gUnknown_020200AC
-
-	THUMB_FUNC_END sub_8071A8C
-
-	THUMB_FUNC_START sub_8071A98
-sub_8071A98: @ 0x08071A98
-	ldr r1, _08071AA0  @ gUnknown_020200AC
-	movs r0, #1
-	str r0, [r1]
-	bx lr
-	.align 2, 0
-_08071AA0: .4byte gUnknown_020200AC
-
-	THUMB_FUNC_END sub_8071A98
-
-	THUMB_FUNC_START sub_8071AA4
-sub_8071AA4: @ 0x08071AA4
-	ldr r0, _08071AAC  @ gUnknown_020200AC
-	ldr r0, [r0]
-	bx lr
-	.align 2, 0
-_08071AAC: .4byte gUnknown_020200AC
-
-	THUMB_FUNC_END sub_8071AA4
-
-	THUMB_FUNC_START M4aPlayWithPostionCtrl
-M4aPlayWithPostionCtrl: @ 0x08071AB0
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	adds r6, r1, #0
-	ldr r0, _08071ADC  @ gBmSt
-	ldrb r1, [r0, #4]
-	movs r0, #0x20
-	ands r0, r1
-	cmp r0, #0
-	bne _08071B58
-	cmp r2, #0
-	beq _08071B28
-	cmp r6, #0x77
-	bgt _08071AE0
-	adds r0, r6, #0
-	muls r0, r6, r0
-	movs r1, #0x78
-	bl Div
-	adds r5, r0, #0
-	subs r5, #0x78
-	b _08071AF4
-	.align 2, 0
-_08071ADC: .4byte gBmSt
-_08071AE0:
-	movs r0, #0xf0
-	subs r0, r0, r6
-	adds r1, r0, #0
-	muls r1, r0, r1
-	adds r0, r1, #0
-	movs r1, #0x78
-	bl Div
-	movs r1, #0x78
-	subs r5, r1, r0
-_08071AF4:
-	ldr r2, _08071B1C  @ gMPlayTable
-	ldr r1, _08071B20  @ gSongTable
-	lsls r0, r4, #3
-	adds r0, r0, r1
-	ldrh r1, [r0, #4]
-	lsls r0, r1, #1
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	adds r0, r0, r2
-	ldr r4, [r0]
-	adds r0, r4, #0
-	bl m4aMPlayImmInit
-	ldr r1, _08071B24  @ 0x0000FFFF
-	lsls r2, r5, #0x18
-	asrs r2, r2, #0x18
-	adds r0, r4, #0
-	bl m4aMPlayPanpotControl
-	b _08071B58
-	.align 2, 0
-_08071B1C: .4byte gMPlayTable
-_08071B20: .4byte gSongTable
-_08071B24: .4byte 0x0000FFFF
-_08071B28:
-	ldr r2, _08071B60  @ gMPlayTable
-	ldr r1, _08071B64  @ gSongTable
-	lsls r0, r4, #3
-	adds r0, r0, r1
-	ldrh r1, [r0, #4]
-	lsls r0, r1, #1
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	adds r0, r0, r2
-	ldr r4, [r0]
-	adds r0, r4, #0
-	bl m4aMPlayImmInit
-	ldr r5, _08071B68  @ 0x0000FFFF
-	adds r0, r6, #0
-	bl RerangeSomething
-	adds r2, r0, #0
-	lsls r2, r2, #0x18
-	asrs r2, r2, #0x18
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl m4aMPlayPanpotControl
-_08071B58:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08071B60: .4byte gMPlayTable
-_08071B64: .4byte gSongTable
-_08071B68: .4byte 0x0000FFFF
-
-	THUMB_FUNC_END M4aPlayWithPostionCtrl
-
 	THUMB_FUNC_START EfxPlaySEwithCmdCtrl
 EfxPlaySEwithCmdCtrl: @ 0x08071B6C
 	push {r4, r5, r6, r7, lr}
@@ -685,7 +198,7 @@ _08071DB8:
 	movs r5, #0xd1
 	b _08072222
 _08071DBC:
-	ldr r1, _08071DCC  @ gUnknown_08758D20
+	ldr r1, _08071DCC  @ gBanimSongTable1
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -694,9 +207,9 @@ _08071DBC:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_08071DCC: .4byte gUnknown_08758D20
+_08071DCC: .4byte gBanimSongTable1
 _08071DD0:
-	ldr r1, _08071DE0  @ gUnknown_08758D3C
+	ldr r1, _08071DE0  @ gBanimSongTable2
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -705,9 +218,9 @@ _08071DD0:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_08071DE0: .4byte gUnknown_08758D3C
+_08071DE0: .4byte gBanimSongTable2
 _08071DE4:
-	ldr r1, _08071DF4  @ gUnknown_08758D58
+	ldr r1, _08071DF4  @ gBanimSongTable3
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -716,9 +229,9 @@ _08071DE4:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_08071DF4: .4byte gUnknown_08758D58
+_08071DF4: .4byte gBanimSongTable3
 _08071DF8:
-	ldr r1, _08071E08  @ gUnknown_08758D74
+	ldr r1, _08071E08  @ gBanimSongTable4
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -727,7 +240,7 @@ _08071DF8:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_08071E08: .4byte gUnknown_08758D74
+_08071E08: .4byte gBanimSongTable4
 _08071E0C:
 	mov r0, r9
 	bl sub_8072504
@@ -953,7 +466,7 @@ _08071FCA:
 	bgt _08071FE8
 	cmp r0, #0xbc
 	blt _08071FE8
-	ldr r0, _08071FE4  @ gUnknown_08758D20
+	ldr r0, _08071FE4  @ gBanimSongTable1
 	lsls r1, r4, #2
 	adds r1, r1, r0
 	ldr r1, [r1]
@@ -962,9 +475,9 @@ _08071FCA:
 	b _08072198
 	.align 2, 0
 _08071FE0: .4byte gEkrPairBanimID2
-_08071FE4: .4byte gUnknown_08758D20
+_08071FE4: .4byte gBanimSongTable1
 _08071FE8:
-	ldr r1, _08071FF8  @ gUnknown_08758D20
+	ldr r1, _08071FF8  @ gBanimSongTable1
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -973,7 +486,7 @@ _08071FE8:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_08071FF8: .4byte gUnknown_08758D20
+_08071FF8: .4byte gBanimSongTable1
 _08071FFC:
 	ldr r5, _08072008  @ 0x00000265
 _08071FFE:
@@ -1103,7 +616,7 @@ _080720C0:
 	.align 2, 0
 _080720C4: .4byte 0x00000327
 _080720C8:
-	ldr r1, _080720D8  @ gUnknown_08758E00
+	ldr r1, _080720D8  @ gBanimSongTable5
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -1112,7 +625,7 @@ _080720C8:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_080720D8: .4byte gUnknown_08758E00
+_080720D8: .4byte gBanimSongTable5
 _080720DC:
 	ldr r5, _080720E0  @ 0x0000032A
 	b _08072222
@@ -1128,7 +641,7 @@ _080720EC:
 	lsls r5, r5, #2
 	b _08072222
 _080720F2:
-	ldr r1, _08072104  @ gUnknown_08758E8C
+	ldr r1, _08072104  @ gBanimSongTable6
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -1137,7 +650,7 @@ _080720F2:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_08072104: .4byte gUnknown_08758E8C
+_08072104: .4byte gBanimSongTable6
 _08072108:
 	ldr r5, _0807210C  @ 0x0000032E
 	b _08072222
@@ -1177,7 +690,7 @@ _0807213E:
 	.align 2, 0
 _08072144: .4byte 0x00000321
 _08072148:
-	ldr r1, _08072158  @ gUnknown_08758F18
+	ldr r1, _08072158  @ gBanimSongTable7
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -1186,9 +699,9 @@ _08072148:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_08072158: .4byte gUnknown_08758F18
+_08072158: .4byte gBanimSongTable7
 _0807215C:
-	ldr r1, _0807216C  @ gUnknown_08758FA4
+	ldr r1, _0807216C  @ gBanimSongTable8
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	ldr r1, [r0]
@@ -1197,7 +710,7 @@ _0807215C:
 	lsls r0, r0, #1
 	b _08072198
 	.align 2, 0
-_0807216C: .4byte gUnknown_08758FA4
+_0807216C: .4byte gBanimSongTable8
 _08072170:
 	movs r5, #0xf0
 	lsls r5, r5, #2
@@ -1217,7 +730,7 @@ _08072188:
 	lsls r5, r5, #2
 	b _08072222
 _0807218E:
-	ldr r0, _080721A0  @ gUnknown_08758D20
+	ldr r0, _080721A0  @ gBanimSongTable1
 	lsls r1, r4, #2
 	adds r1, r1, r0
 	ldr r1, [r1]
@@ -1227,9 +740,9 @@ _08072198:
 	ldrh r5, [r0]
 	b _08072222
 	.align 2, 0
-_080721A0: .4byte gUnknown_08758D20
+_080721A0: .4byte gBanimSongTable1
 _080721A4:
-	ldr r0, _080721B4  @ gUnknown_08758D20
+	ldr r0, _080721B4  @ gBanimSongTable1
 	lsls r1, r4, #2
 	adds r1, r1, r0
 	ldr r1, [r1]
@@ -1238,9 +751,9 @@ _080721A4:
 	ldrh r5, [r0, #4]
 	b _08072222
 	.align 2, 0
-_080721B4: .4byte gUnknown_08758D20
+_080721B4: .4byte gBanimSongTable1
 _080721B8:
-	ldr r0, _080721C8  @ gUnknown_08758D20
+	ldr r0, _080721C8  @ gBanimSongTable1
 	lsls r1, r4, #2
 	adds r1, r1, r0
 	ldr r1, [r1]
@@ -1249,9 +762,9 @@ _080721B8:
 	ldrh r5, [r0, #8]
 	b _08072222
 	.align 2, 0
-_080721C8: .4byte gUnknown_08758D20
+_080721C8: .4byte gBanimSongTable1
 _080721CC:
-	ldr r0, _080721DC  @ gUnknown_08758D20
+	ldr r0, _080721DC  @ gBanimSongTable1
 	lsls r1, r4, #2
 	adds r1, r1, r0
 	ldr r1, [r1]
@@ -1260,7 +773,7 @@ _080721CC:
 	ldrh r5, [r0, #0xc]
 	b _08072222
 	.align 2, 0
-_080721DC: .4byte gUnknown_08758D20
+_080721DC: .4byte gBanimSongTable1
 _080721E0:
 	ldr r5, _080721E4  @ 0x00000322
 	b _08072222
@@ -1852,7 +1365,7 @@ _08072710:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x39
-	bl sub_8071A54
+	bl EfxOverrideBgm
 	b _08072892
 _0807271C:
 	ldr r0, _08072734  @ gEkrDistanceType
@@ -1863,7 +1376,7 @@ _0807271C:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x23
-	bl sub_8071A54
+	bl EfxOverrideBgm
 	b _08072892
 	.align 2, 0
 _08072734: .4byte gEkrDistanceType
@@ -1912,7 +1425,7 @@ _0807277E:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x1f
-	bl sub_8071A54
+	bl EfxOverrideBgm
 	b _08072892
 	.align 2, 0
 _08072790: .4byte gEkrPairSideVaild
@@ -1927,7 +1440,7 @@ _08072794:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x55
-	bl sub_8071A54
+	bl EfxOverrideBgm
 	b _08072892
 _080727B0:
 	bl SetFlag82
@@ -1963,7 +1476,7 @@ _080727E4:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl sub_8071A54
+	bl EfxOverrideBgm
 	b _08072892
 	.align 2, 0
 _080727F8: .4byte gEkrPairSideVaild
@@ -1993,7 +1506,7 @@ _08072822:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x20
-	bl sub_8071A54
+	bl EfxOverrideBgm
 	b _08072892
 	.align 2, 0
 _08072834: .4byte gBattleStats
@@ -2038,7 +1551,7 @@ _08072878:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r6, #0
-	bl sub_8071A54
+	bl EfxOverrideBgm
 	b _08072892
 _0807288C:
 	ldr r1, _08072898  @ gUnknown_020200A8
@@ -2154,15 +1667,15 @@ _08072944:
 	movs r0, #6
 	ldrsh r5, [r6, r0]
 	ldr r0, [r6]
-	bl sub_80717D4
+	bl GetAnimSpriteRotScaleX
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x11
 	adds r5, r5, r0
 	ldr r0, [r6]
-	bl sub_80717D4
+	bl GetAnimSpriteRotScaleX
 	adds r4, r0, #0
 	ldr r0, [r6]
-	bl sub_80717F0
+	bl GetAnimSpriteRotScaleY
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	lsls r0, r0, #0x10

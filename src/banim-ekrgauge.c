@@ -413,7 +413,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
         anim->oamBase = 0x200;
         anim->xPosition = anim->xPosition - 8;
         anim->yPosition = anim->yPosition - 8;
-        EkrGetUnitSpriteDataMaybe(gUnknown_085B940C, sprite_data, 0x100, 0x80, 1);
+        BanimUpdateSpriteRotScale(gUnknown_085B940C, sprite_data, 0x100, 0x80, 1);
     }
 
     if (proc->unk4C == 0)
@@ -436,7 +436,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
         anim->oamBase = 0x200;
         anim->xPosition = anim->xPosition - 8;
         anim->yPosition = anim->yPosition - 8;
-        EkrGetUnitSpriteDataMaybe(gUnknown_085B940C, sprite_data, 0x100, 0x80, 1);
+        BanimUpdateSpriteRotScale(gUnknown_085B940C, sprite_data, 0x100, 0x80, 1);
     }
 
     if (proc->unk50 == 0)
