@@ -1276,7 +1276,7 @@ void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
 
-    WriteOAMRotScaleData(
+    SetObjAffine(
         8,  // oam rotscale index
 
         Div(+COS(0) * 16, 0x100), // pa
@@ -1307,7 +1307,7 @@ void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
 
-    WriteOAMRotScaleData(
+    SetObjAffine(
         8,  // oam rotscale index
 
         Div(+COS(0) * 16, 0x100), // pa
@@ -1331,7 +1331,7 @@ void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
 
-    WriteOAMRotScaleData(
+    SetObjAffine(
         8,  // oam rotscale index
 
         Div(+COS(0) * 16, 0x100), // pa

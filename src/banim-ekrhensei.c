@@ -56,7 +56,7 @@ CONST_DATA struct ProcCmd ProcScr_ekrHenseiInit[] = {
 
 void sub_8076380(struct ProcEkrHensei *proc)
 {
-    SetupOAMBufferSplice(0);
+    InitOam(0);
     EfxClearScreenFx();
     UpdateBanimFrame();
 

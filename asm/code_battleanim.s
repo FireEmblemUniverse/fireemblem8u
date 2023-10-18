@@ -376,7 +376,7 @@ sub_805B104: @ 0x0805B104
 	push {r6}
 	mov r8, r0
 	movs r0, #0
-	bl SetupOAMBufferSplice
+	bl InitOam
 	ldr r1, _0805B178  @ gEkrInitPosReal
 	ldr r0, _0805B17C  @ gEkrInitialHitSide
 	movs r2, #0

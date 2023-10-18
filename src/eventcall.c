@@ -801,7 +801,7 @@ void sub_808613C(struct Proc89EEA28 * proc)
     int val1 = Interpolate(0, -24, 0, proc->timer, 0x10);
     int val2 = Interpolate(0, 2, 0x100, proc->timer, 0x10);
 
-    WriteOAMRotScaleData(
+    SetObjAffine(
         0,
         Div(+COS(0) * 0x10, 0x100),
         Div(-SIN(0) * 0x10, val2),
@@ -869,7 +869,7 @@ void sub_80862C4(struct Proc89EEA28 * proc)
 
 void sub_808635C(struct Proc89EEA28 * proc)
 {
-    WriteOAMRotScaleData(
+    SetObjAffine(
         0,
         Div(+COS(0) * 0x10, 0x100),
         Div(-SIN(0) * 0x10, 0x100),

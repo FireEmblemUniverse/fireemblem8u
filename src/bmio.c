@@ -335,15 +335,15 @@ void AllocWeatherParticles(unsigned weatherId) {
     case WEATHER_SNOWSTORM:
     case WEATHER_RAIN:
     case WEATHER_SANDSTORM:
-        SetupOAMBufferSplice(0x20);
+        InitOam(0x20);
         break;
 
     case WEATHER_FLAMES:
-        SetupOAMBufferSplice(0x10);
+        InitOam(0x10);
         break;
 
     default:
-        SetupOAMBufferSplice(0);
+        InitOam(0);
         break;
 
     } // switch (weatherId)

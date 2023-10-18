@@ -78,7 +78,7 @@ void ekrBattleEnding_8056170(struct ProcEkrBattleEnding * proc)
     }
 
     UnpackChapterMapGraphics(gPlaySt.chapterIndex);
-    EkrUpdateSomePalMaybe(0x10);
+    EfxChapterMapFadeOUT(0x10);
     RenderBmMap();
     BG_SetPosition(BG_3, 0, 0);
     Proc_Break(proc);
@@ -101,7 +101,7 @@ void ekrBattleEnding_80561C8(struct ProcEkrBattleEnding * proc)
         break;
     }
 
-    EkrUpdateSomePalMaybe(Interpolate(INTERPOLATE_LINEAR, 0x10, 0x4, proc->timer, 0x8));
+    EfxChapterMapFadeOUT(Interpolate(INTERPOLATE_LINEAR, 0x10, 0x4, proc->timer, 0x8));
 
     if (++proc->timer == 0x9) {
         proc->timer = 0;

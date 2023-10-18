@@ -215,7 +215,7 @@ _0800045C:
 	bx lr
 
 	.align 2, 0
-_08000490: .4byte gUnknown_03003744 @ pool
+_08000490: .4byte gOamHiPutIt @ pool
 
 	ARM_FUNC_END ARM_FillTileRect
 
@@ -264,7 +264,7 @@ _08000528:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000530: .4byte gUnknown_03003070 @ pool
+_08000530: .4byte gOamLoPutIt @ pool
 
 	ARM_FUNC_END IRAMARM_CopyToSecondaryOAM
 

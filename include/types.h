@@ -48,14 +48,6 @@ struct Struct0858791C
     u16 unk2;
 };
 
-struct OamDataTransfer
-{
-    void *src;
-    void *dest;
-    u16 unk8;
-    u16 count;
-};
-
 typedef void (*InterruptHandler)(void);
 
 struct Vec2 { short x, y; };

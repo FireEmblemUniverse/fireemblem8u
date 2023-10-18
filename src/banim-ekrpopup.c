@@ -114,8 +114,10 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
     struct Text *text;
     struct Anim *anim;
 
-    static u32 anim_sprit[6] = {
-        0x40000000, 0, 0, 1, 0, 0
+    static u16 anim_sprit[12] = {
+        0x0000, 0x4000, 0x0000, 0x0000,
+        0x0000, 0x0000, 0x0001, 0x0000,
+        0x0000, 0x0000, 0x0000, 0x0000
     };
 
     static u32 anim_instr[2] = {
@@ -123,11 +125,11 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
         0x80000000
     };
 
-    LZ77UnCompVram(gUnknown_08803B30, (void *)BG_VRAM + 0x2000);
-    LZ77UnCompWram(gUnknown_08803CD0, (void *)gEkrTsaBuffer);
+    LZ77UnCompVram(Img_EkrPopup, (void *)BG_VRAM + 0x2000);
+    LZ77UnCompWram(Tsa_EkrPopup, (void *)gEkrTsaBuffer);
     InitTextFont(&gSomeFontStruct, (void *)BG_VRAM + 0x2100, 0x108, 1);
     SetTextDrawNoClear();
-    CpuFastCopy(gUnknown_08803CB0, PAL_BG(0x1), 0x20);
+    CpuFastCopy(Pal_EkrPopup, PAL_BG(0x1), 0x20);
 
     if (type == 0) {
         /*  [.] */

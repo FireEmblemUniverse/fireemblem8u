@@ -1,19 +1,33 @@
 #ifndef GUARD_SOUNDWRAPPER_H
 #define GUARD_SOUNDWRAPPER_H
 
-int Sound_GetCurrentSong(void);
-// ??? sub_8002264(???);
+#include "global.h"
+#include "proc.h"
+
+struct SoundSt {
+    u8 filler0[2];
+    u16 unk2;
+    u16 songId;
+    s8 is_song_playing;
+    s8 unk7;
+    s8 maxChannels;
+};
+
+extern struct SoundSt gSoundSt;
+
+int GetCurrentBgmSong(void);
+// ??? IsBgmPlaying(???);
 // ??? Sound_SetBGMVolume(???);
 void Sound_SetSEVolume(int vol);
 void Sound_FadeOutBGM(int speed);
 // ??? Sound_FadeOutBGMAlt(???);
 void Sound_FadeOutSE(int speed);
-void StartBgmCore(int songId, struct MusicPlayerInfo *player);
-// ??? StartOrChangeBgm(???);
-void StartBgm(int songId, struct MusicPlayerInfo *player);
-void StartBgmExt(int songId, int speed, struct MusicPlayerInfo *player);
-// ??? sub_80024F0(???);
-void StartBgmFadeIn(int songId, int b, struct MusicPlayerInfo *player);
+void StartBgmCore(int songId, struct MusicPlayerInfo * player);
+void StartOrChangeBgm(int songId, int speed, struct MusicPlayerInfo * player);
+void StartBgm(int songId, struct MusicPlayerInfo * player);
+void StartBgmExt(int songId, int speed, struct MusicPlayerInfo * player);
+void MusicFi_OnLoop(ProcPtr proc);
+void StartBgmFadeIn(int songId, int b, struct MusicPlayerInfo * player);
 void OverrideBgm(int songId);
 void RestoreBgm(void);
 void _RestoreBgm(u16 speed);

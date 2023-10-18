@@ -756,7 +756,7 @@ void SetupBackgrounds(u16 *bgConfig)
     InitBmBgLayers();
     sModifiedBGs |= 0xF;
 
-    SetupOAMBufferSplice(0);
+    InitOam(0);
 
     gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
     sModifiedPalette = 1;
@@ -1027,44 +1027,44 @@ void FlushTiles(void)
     ClearTileRigistry();
 }
 
-void SetupOAMBufferSplice(int a)
+void InitOam(int loSz)
 {
-    gUnknown_03000030.src = gUnknown_03003140;
-    gUnknown_03000030.dest = (void *)OAM;
-    gUnknown_03000030.unk8 = 0;
-    gUnknown_03000030.count = a;
+    sOamLo.buf = gOam;
+    sOamLo.oam = (void *) OAM;
+    sOamLo.offset = 0;
+    sOamLo.count = loSz;
 
-    gUnknown_03000020.src = gUnknown_03003140 + a * 4;
-    gUnknown_03000020.dest = (void *)(OAM + a * 8);
-    gUnknown_03000020.unk8 = a * 8;
-    gUnknown_03000020.count = 128 - a;
+    sOamHi.buf = gOam + loSz * 4;
+    sOamHi.oam = (void *) OAM + loSz * 8;
+    sOamHi.offset = loSz * 8;
+    sOamHi.count = 0x80 - loSz;
 }
 
-void FlushSecondaryOAM(void)
+void SyncHiOam(void)
 {
-    CpuFastCopy(gUnknown_03000020.src, gUnknown_03000020.dest, gUnknown_03000020.count * 8);
-    ClearOAMBuffer(gUnknown_03000020.src, gUnknown_03000020.count);
-    gUnknown_03003744 = gUnknown_03000020.src;
-    gUnknown_03004158 = gUnknown_03003140;
-    gUnknown_0300312C = 0;
+    CpuFastCopy(sOamHi.buf, sOamHi.oam, sOamHi.count * 8);
+    ClearOAMBuffer(sOamHi.buf, sOamHi.count);
+    gOamHiPutIt = (u32 *)sOamHi.buf;
+    gOamAffinePutIt = gOam;
+    gOamAffinePutId = 0;
 }
 
-void FlushPrimaryOAM(void)
+void SyncLoOam(void)
 {
-    if (gUnknown_03000030.count != 0)
+    if (sOamLo.count != 0)
     {
-        CpuFastCopy(gUnknown_03000030.src, gUnknown_03000030.dest, gUnknown_03000030.count * 8);
-        ClearOAMBuffer(gUnknown_03000030.src, gUnknown_03000030.count);
-        gUnknown_03003070 = gUnknown_03000030.src;
+        CpuFastCopy(sOamLo.buf, sOamLo.oam, sOamLo.count * 8);
+        ClearOAMBuffer(sOamLo.buf, sOamLo.count);
+        gOamLoPutIt = sOamLo.buf;
     }
 }
 
-void WriteOAMRotScaleData(int index, s16 pa, s16 pb, s16 pc, s16 pd)
+void SetObjAffine(int index, s16 pa, s16 pb, s16 pc, s16 pd)
 {
-    gUnknown_03003140[index * 16 + 3] = pa;
-    gUnknown_03003140[index * 16 + 7] = pb;
-    gUnknown_03003140[index * 16 + 11] = pc;
-    gUnknown_03003140[index * 16 + 15] = pd;
+    gOam[index * 16 + 3] = pa;
+    gOam[index * 16 + 7] = pb;
+    gOam[index * 16 + 11] = pc;
+    gOam[index * 16 + 15] = pd;
 }
 
 struct UnknownDmaStruct2
@@ -1077,18 +1077,18 @@ struct UnknownDmaStruct2
 
 void sub_80021E4(struct UnknownDmaStruct2 *a, int b, int c)
 {
-    while (a->unk0 != 1 && gUnknown_03003744 < gUnknown_03003240)
+    while (a->unk0 != 1 && gOamHiPutIt < (u32 *)(gOam + 0x80))
     {
         int x = (a->unk6 + b) & 0x1FF;
         int y = (a->unk8 + c) & 0xFF;
 
-        *(u32 *)gUnknown_03003744++ = a->unk0 | (x << 16) | (y);
-        *(u16 *)gUnknown_03003744++ = a->unk4;
+        *(u32 *)gOamHiPutIt++ = a->unk0 | (x << 16) | (y);
+        *(u16 *)gOamHiPutIt++ = a->unk4;
         a++;
     }
 }
 
 int GetPrimaryOAMSize(void)
 {
-    return gUnknown_03000030.count;
+    return sOamLo.count;
 }

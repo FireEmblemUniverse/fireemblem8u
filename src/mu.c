@@ -972,7 +972,7 @@ static void MU_FogBumpFx_FirstFrame(struct MUFogBumpFxProc* proc) {
 
     // TODO: maybe a macro that takes angle/xScale/yScale?
 
-    WriteOAMRotScaleData(
+    SetObjAffine(
         0,  // oam rotscale index
 
         Div(+COS(0) * 16, 0x200), // pa
@@ -990,7 +990,7 @@ static void MU_FogBumpFx_TransitionInLoop(struct MUFogBumpFxProc* proc) {
 
     scale = Interpolate(5, 0x200, 0x100, proc->timer, 8);
 
-    WriteOAMRotScaleData(
+    SetObjAffine(
         0,  // oam rotscale index
 
         Div(+COS(0) * 16, scale), // pa

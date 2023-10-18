@@ -588,7 +588,7 @@ _08057486:
 	ldr r1, [sp, #8]
 	adds r1, #0x4a
 	ldrh r1, [r1]
-	bl SomethingFilterBattleAnimId
+	bl FilterBattleAnimCharacterPalette
 	ldr r1, _080575B8  @ gBanimCharacterPals
 	str r0, [r1]
 _080574A2:
@@ -602,7 +602,7 @@ _080574A2:
 	ldr r1, [sp, #0xc]
 	adds r1, #0x4a
 	ldrh r1, [r1]
-	bl SomethingFilterBattleAnimId
+	bl FilterBattleAnimCharacterPalette
 	ldr r1, _080575B8  @ gBanimCharacterPals
 	str r0, [r1, #4]
 _080574BE:

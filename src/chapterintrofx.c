@@ -498,7 +498,7 @@ void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc) {
     if (proc->unk_64 < 0x65) {
         int uVar8 = Interpolate(4, 0x140, 0x40, proc->unk_64, 100);
 
-        WriteOAMRotScaleData(
+        SetObjAffine(
             0,
             Div(+COS(0) * 16, uVar8),
             Div(-SIN(0) * 16, uVar8),
@@ -584,7 +584,7 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
     if (proc->unk_64 < 0x47) {
         var = Interpolate(4, 0x140, 0x10, proc->unk_64, 0x46);
 
-        WriteOAMRotScaleData(
+        SetObjAffine(
             1,
             Div(+COS(0) * 16, var),
             Div(-SIN(0) * 16, var),
@@ -600,7 +600,7 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
     if (proc->unk_66 < 0x47) {
         var = Interpolate(4, 0x140, 0x10, proc->unk_66, 0x46);
 
-        WriteOAMRotScaleData(
+        SetObjAffine(
             2,
             Div(+COS(0) * 16, var),
             Div(-SIN(0) * 16, var),
@@ -616,7 +616,7 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
     if (proc->unk_68 < 0x47) {
         var = Interpolate(4, 0x140, 0x10, proc->unk_68, 0x46);
 
-        WriteOAMRotScaleData(
+        SetObjAffine(
             3,
             Div(+COS(0) * 16, var),
             Div(-SIN(0) * 16, var),

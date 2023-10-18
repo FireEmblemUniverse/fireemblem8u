@@ -348,7 +348,7 @@ void AnimInsert(struct Anim* anim)
 
 void AnimDisplayPrivate(struct Anim* anim)
 {
-    unsigned baseAffineId = gUnknown_0300312C;
+    unsigned baseAffineId = gOamAffinePutId;
 
     const struct AnimSpriteData* oamData = anim->pSpriteData;
     const struct AnimSpriteData* it;
@@ -361,23 +361,23 @@ void AnimDisplayPrivate(struct Anim* anim)
 
     if ((oamData->header &~ 0xFFFF) == 0xFFFF0000)
     {
-        for (i = oamData->header & 0xFFFF; i != 0; gUnknown_0300312C++, --i, oamData++)
+        for (i = oamData->header & 0xFFFF; i != 0; gOamAffinePutId++, --i, oamData++)
         {
-            gUnknown_03004158[3] = oamData->as.affine.pa;
-            gUnknown_03004158 += 4;
+            gOamAffinePutIt[3] = oamData->as.affine.pa;
+            gOamAffinePutIt += 4;
 
-            gUnknown_03004158[3] = oamData->as.affine.pb;
-            gUnknown_03004158 += 4;
+            gOamAffinePutIt[3] = oamData->as.affine.pb;
+            gOamAffinePutIt += 4;
 
-            gUnknown_03004158[3] = oamData->as.affine.pc;
-            gUnknown_03004158 += 4;
+            gOamAffinePutIt[3] = oamData->as.affine.pc;
+            gOamAffinePutIt += 4;
 
-            gUnknown_03004158[3] = oamData->as.affine.pd;
-            gUnknown_03004158 += 4;
+            gOamAffinePutIt[3] = oamData->as.affine.pd;
+            gOamAffinePutIt += 4;
         }
     }
 
-    for (it = oamData; it->header != 1 && gUnknown_03003744 < (u32*) (gUnknown_03003140) + 0x100; ++it)
+    for (it = oamData; it->header != 1 && (void *)gOamHiPutIt < (void *)((u32*) (gOam) + 0x100); ++it)
     {
         x = it->as.object.x + anim->xPosition;
         y = it->as.object.y + anim->yPosition;
@@ -403,8 +403,8 @@ void AnimDisplayPrivate(struct Anim* anim)
         i = i + anim->oamBase;
 
         // ugh
-        *gUnknown_03003744++ = (it->header + i) | (x << 16) | (y);
-        *(u16*)(gUnknown_03003744++) = (it->as.object.oam2 & 0xF3FF) + anim->oam2Base;
+        *gOamHiPutIt++ = (it->header + i) | (x << 16) | (y);
+        *(u16*)(gOamHiPutIt++) = (it->as.object.oam2 & 0xF3FF) + anim->oam2Base;
     }
 }
 

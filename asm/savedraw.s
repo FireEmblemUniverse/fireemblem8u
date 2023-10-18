@@ -380,25 +380,25 @@ sub_80AAA78: @ 0x080AAA78
 	adds r1, r4, #0
 	movs r2, #0
 	movs r3, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	str r4, [sp]
 	movs r0, #1
 	adds r1, r4, #0
 	movs r2, #0
 	movs r3, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	str r4, [sp]
 	movs r0, #2
 	adds r1, r4, #0
 	movs r2, #0
 	movs r3, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	str r4, [sp]
 	movs r0, #3
 	adds r1, r4, #0
 	movs r2, #0
 	movs r3, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 	strh r7, [r6, #0x2a]
 	adds r0, r6, #0
 	bl StartSaveDrawCursor
@@ -754,7 +754,7 @@ _080AAD1C:
 	mov r1, r8
 	adds r2, r6, #0
 	adds r3, r5, #0
-	bl WriteOAMRotScaleData
+	bl SetObjAffine
 _080AADB0:
 	ldr r1, [r7, #0x14]
 	adds r1, #0x44

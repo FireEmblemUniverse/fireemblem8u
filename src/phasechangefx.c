@@ -173,7 +173,7 @@ void PhaseIntroText_PutText(struct PhaseIntroSubProc *proc)
 
 void PhaseIntroInitText(struct PhaseIntroSubProc *proc)
 {
-    if (Sound_GetCurrentSong() != GetCurrentMapMusicIndex())
+    if (GetCurrentBgmSong() != GetCurrentMapMusicIndex())
         Sound_FadeOutBGM(4);
 
     PlaySoundEffect(0x73);
@@ -285,7 +285,7 @@ void PhaseIntroUnk_Loop(struct PhaseIntroSubProc *proc)
         break;
     }
 
-    WriteOAMRotScaleData(
+    SetObjAffine(
         0,
         Div(COS(0) * 0x10, 0x100),
         Div(-SIN(0) * 0x10, val),

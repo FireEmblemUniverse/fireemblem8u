@@ -221,11 +221,12 @@ void UpdateBanimFrame(void)
         CpuFastCopy(&PAL_BUF_COLOR(gBanimPal1, bid_pal, 0), PAL_OBJ(0x7), 0x20);
         CpuFastCopy(gBanimCharacterPals[0], PAL_OBJ(0x8), 0x20);
 
+        /* WTF a horrible bug... */
         if (gBattleActor.unit.statusIndex == 0xB || gBattleActor.unit.statusIndex == 0xD)
-            sub_8071468(gPaletteBuffer, PAL_OBJ(0x7), 0x1);
+            EfxPalModifyPetrifyEffect(gPaletteBuffer, (int)PAL_OBJ(0x7), 0x1);
 
         if (gBattleTarget.unit.statusIndex == 0xB || gBattleTarget.unit.statusIndex == 0xD)
-            sub_8071468(gPaletteBuffer, PAL_OBJ(0x8), 0x1);
+            EfxPalModifyPetrifyEffect(gPaletteBuffer, (int)PAL_OBJ(0x8), 0x1);
 
         EnablePaletteSync();
         LZ77UnCompWram(banim[bid].oam_l, gBanimOaml);

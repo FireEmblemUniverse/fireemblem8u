@@ -372,7 +372,7 @@ void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset) {
         xScale = 8;
     }
 
-    WriteOAMRotScaleData(
+    SetObjAffine(
         charId,
         Div(+COS(0) << 4, xScale),
         Div(-SIN(0) << 4, yScale),
@@ -965,7 +965,7 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
     if (proc->unk_64 < 71) {
         scale = Interpolate(4, 0x120, 0x10, proc->unk_64, 70);
 
-        WriteOAMRotScaleData(
+        SetObjAffine(
             21,
             Div(+COS(0) << 4, scale),
             Div(-SIN(0) << 4, scale),
@@ -981,7 +981,7 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
     if (proc->unk_66 < 71) {
         scale = Interpolate(0, 0x120, 0x10, proc->unk_66, 70);
 
-        WriteOAMRotScaleData(
+        SetObjAffine(
             22,
             Div(+COS(0) << 4, scale),
             Div(-SIN(0) << 4, scale),
@@ -997,7 +997,7 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
     if (proc->unk_68 < 71) {
         scale = Interpolate(1, 0x120, 0x10, proc->unk_68, 70);
 
-        WriteOAMRotScaleData(
+        SetObjAffine(
             23,
             Div(+COS(0) << 4, scale),
             Div(-SIN(0) << 4, scale),
