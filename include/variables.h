@@ -204,14 +204,7 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gUnknown_03001788
 // extern ??? gDungeonState
 // extern ??? gUnknown_030017AC
-// extern ??? gUnknown_030017E0
-// extern ??? gUnknown_030017E4
-// extern ??? gUnknown_030017E8
-// extern ??? gUnknown_030017EC
-// extern ??? gUnknown_030017F0
-// extern ??? gUnknown_030017F2
-// extern ??? gUnknown_030017F8
-// extern ??? gUnknown_03001800
+
 // extern ??? gUnknown_03001808
 // extern ??? gUnknown_0300180C
 // extern ??? gUnknown_03001810

@@ -1,76 +1,63 @@
 #include "sio_core.h"
 
+#include "sioerror.h"
 #include "soundwrapper.h"
 
 #include <string.h> // memcpy, TODO: remvoe
 
-struct Unknown_0203DA24
-{
-    // TODO: this layout is very temporary
-    STRUCT_PAD(0x00, 0x9C);
-    u8 unk_9C[5];
-    u8 unk_A1[15][15];
-};
+struct SioSt EWRAM_DATA gSioStInstance = { 0 };
 
-extern u16 gUnknown_0203C624[0x200];
-extern u16 gUnknown_0203CA24[0x200][4];
-extern struct Unknown_0203DA24 gUnknown_0203DA24;
+struct SioSt * SHOULD_BE_CONST gSioSt = &gSioStInstance;
 
-extern struct SioSt * SHOULD_BE_CONST gUnknown_085A92E0;
-extern struct ProcCmd gUnknown_085A92E4[];
-extern struct ProcCmd gUnknown_085A9304[];
+u16 EWRAM_DATA gSioOutgoing[0x200] = { 0 };
+u16 EWRAM_DATA gSioIncoming[0x200][4] = { 0 };
 
-extern u8 gUnknown_030017E0;
-extern u32 gUnknown_030017E4;
-extern struct SioPending * gUnknown_030017E8;
-extern u32 gUnknown_030017EC;
-extern u16 gUnknown_030017F0;
-extern u16 gUnknown_030017F2;
-extern u16 gUnknown_030017F8[4];
-extern u16 gUnknown_03001800[4];
+static u8 sSioCnt;
+static int sSioId;
+static struct SioPending * sUnknown_030017E8;
+static u32 sUnknown_030017EC;
 
+static u16 sSendCursor;
+static u16 sWriteCursor;
+static u16 sReadCursor[4];
+static u16 sRecvCursor[4];
+
+// COMMON
 extern u32 gUnknown_03004E70;
 extern u32 gUnknown_03004E74;
-extern u32 gUnknown_03004F08;
-extern struct SioMessage gUnknown_03004F0C;
+extern u32 gSioStateId;
+extern struct SioMessage gSioMsgBuf;
 extern u8 gUnknown_03004F20[SIO_MAX_PACKET];
 
-void sub_80419DC(void); // int handler
-void sub_8041D68(void); // int handler
-void sub_8042980(int arg_0);
-void StartSioErrorScreen(void);
-bool sub_80421E4(void);
-struct SioData * sub_8042694(u32 * out);
-s16 sub_80422B8(const void * src, u16 len);
-bool sub_8042194(u8 playerId);
-int sub_8042568(u16 * word, int arg_1);
-s16 sub_80423B0(s8 playerId, void * dst);
-void sub_8042620(struct SioData * data);
-bool sub_80421BC(u8 playerId);
+// clang-format off
 
-// lazy
-#define gSioStateId gUnknown_03004F08
-#define sSioCnt gUnknown_030017E0
-#define sSioId gUnknown_030017E4
-#define gSioSt gUnknown_085A92E0
-#define gSioIncoming gUnknown_0203CA24
-#define sRecvCursor gUnknown_03001800
-#define sReadCursor gUnknown_030017F8
-#define sSendCursor gUnknown_030017F0
-#define sWriteCursor gUnknown_030017F2
-#define gSioOutgoing gUnknown_0203C624
-#define gSioMsgBuf gUnknown_03004F0C
-#define gProcScr_SioBigSend gUnknown_085A92E4
-#define gProcScr_SioBigReceive gUnknown_085A9304
+struct ProcCmd CONST_DATA gProcScr_SioBigSend[] =
+{
+    PROC_YIELD,
+    PROC_CALL(sub_8042B08),
+    PROC_REPEAT(sub_8042B68),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gProcScr_SioBigReceive[] =
+{
+    PROC_YIELD,
+    PROC_CALL(sub_8042BD8),
+    PROC_REPEAT(sub_8042C00),
+    PROC_REPEAT(sub_8042C44),
+    PROC_END,
+};
+
+// clang-format on
 
 // TODO: what to do here? This is improvable
-struct Sio
+struct SioRegs
 {
     u16 siocnt;
     u16 siodata;
 };
 
-#define SIO ((struct Sio *)(&REG_SIOCNT))
+#define SIO ((struct SioRegs *)(&REG_SIOCNT))
 
 int sub_80415B0(void)
 {
@@ -238,7 +225,7 @@ void sub_8041898(void)
     sub_8042980(0);
     sub_8041718();
 
-    gUnknown_030017EC = 0;
+    sUnknown_030017EC = 0;
 }
 
 void sub_8041900(void)
@@ -595,14 +582,14 @@ void sub_8041DC4(void)
                                     (message->param == (u16)(gSioSt->selfSeq + 1)))
                                 {
                                     gSioSt->unk_00F |= 1 << (message->sender >> 4);
-                                    gUnknown_030017E8->unk_00 = gSioSt->unk_00F;
+                                    sUnknown_030017E8->unk_00 = gSioSt->unk_00F;
 
                                     if ((gSioSt->unk_00F & gSioSt->unk_009) == gSioSt->unk_009)
                                     {
                                         gSioSt->selfSeq++;
                                         gSioSt->pendingSend[gSioSt->nextPendingSend].packet.head.kind = 0;
                                         gSioSt->nextPendingSend++;
-                                        gSioSt->nextPendingSend &= 31;
+                                        gSioSt->nextPendingSend &= (SIO_MAX_PENDING_SEND - 1);
                                         gSioSt->unk_02E = 0;
                                         gSioSt->unk_010 = gSioSt->unk_011 = gSioSt->unk_00F = 0;
                                     }
@@ -751,7 +738,7 @@ bool sub_804226C(void)
     return FALSE;
 }
 
-s16 sub_80422B8(const void * src, u16 len)
+s16 SioSend(const void * src, u16 len)
 {
 #define SRC_U16 ((u16 const *)src)
 
@@ -1005,23 +992,21 @@ void SioQueuePendingRecvData(struct SioData * data)
     }
 
     gSioSt->nextPendingRecv += 1;
-    gSioSt->nextPendingRecv &= 15;
+    gSioSt->nextPendingRecv &= (SIO_MAX_PENDING_RECV - 1);
 }
 
 struct SioData * sub_8042694(u32 * out)
 {
-    // TODO: clean up
-
     if (gSioSt->pendingSend[gSioSt->nextPendingSend].packet.head.kind != SIO_MSG_DATA)
         return NULL;
 
-    gUnknown_030017E8 = &gSioSt->pendingSend[gSioSt->nextPendingSend];
+    sUnknown_030017E8 = &gSioSt->pendingSend[gSioSt->nextPendingSend];
 
     *out = gSioSt->pendingSend[gSioSt->nextPendingSend].packet.len;
     return &gSioSt->pendingSend[gSioSt->nextPendingSend].packet;
 }
 
-int sub_80426F4(u8 const * src, u16 len)
+int SioEmitData(u8 const * src, u16 len)
 {
     // TODO: clean up
 
@@ -1030,7 +1015,7 @@ int sub_80426F4(u8 const * src, u16 len)
 
     struct SioData * dat;
 
-    gUnknown_030017EC = 1;
+    sUnknown_030017EC = 1;
 
     gSioSt->pendingSend[gSioSt->nextPendingWrite].unk_00 = 0;
     dat = &gSioSt->pendingSend[gSioSt->nextPendingWrite].packet;
@@ -1050,14 +1035,14 @@ int sub_80426F4(u8 const * src, u16 len)
     result = gSioSt->nextPendingWrite;
 
     gSioSt->nextPendingWrite += 1;
-    gSioSt->nextPendingWrite &= 31;
+    gSioSt->nextPendingWrite &= (SIO_MAX_PENDING_SEND - 1);
 
-    gUnknown_030017EC = 0;
+    sUnknown_030017EC = 0;
 
     return result;
 }
 
-int sub_804279C(void * dst, u8 * outSenderId, bool (*verify)(void *))
+int SioReceiveData(void * dst, u8 * outSenderId, bool (*verify)(void *))
 {
     u8 i;
     u8 sender_id;
@@ -1078,10 +1063,10 @@ int sub_804279C(void * dst, u8 * outSenderId, bool (*verify)(void *))
         dat->head.kind = 0;
 
         gSioSt->nextPendingRead += 1;
-        gSioSt->nextPendingRead &= 15;
+        gSioSt->nextPendingRead &= (SIO_MAX_PENDING_RECV - 1);
 
         // recursion!
-        return sub_804279C(dst, outSenderId, verify);
+        return SioReceiveData(dst, outSenderId, verify);
     }
     else
     {
@@ -1101,10 +1086,10 @@ int sub_804279C(void * dst, u8 * outSenderId, bool (*verify)(void *))
             dat->head.kind = 0;
 
             gSioSt->nextPendingRead += 1;
-            gSioSt->nextPendingRead &= 15;
+            gSioSt->nextPendingRead &= (SIO_MAX_PENDING_RECV - 1);
 
             // recursion!
-            return sub_804279C(dst, outSenderId, verify);
+            return SioReceiveData(dst, outSenderId, verify);
         }
         else
         {
@@ -1115,7 +1100,7 @@ int sub_804279C(void * dst, u8 * outSenderId, bool (*verify)(void *))
             gSioSt->seq[dat->head.sender] += 1;
 
             gSioSt->nextPendingRead += 1;
-            gSioSt->nextPendingRead &= 15;
+            gSioSt->nextPendingRead &= (SIO_MAX_PENDING_RECV - 1);
 
             *outSenderId = sender_id;
 

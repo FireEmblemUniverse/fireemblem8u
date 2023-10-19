@@ -7,6 +7,9 @@
 
 #define SIO_MAX_PACKET 0x80
 
+#define SIO_MAX_PENDING_SEND 0x20
+#define SIO_MAX_PENDING_RECV 0x10
+
 enum
 {
     SIO_MSG_84 = 0x84, // sound ?
@@ -115,8 +118,8 @@ struct SioSt
     /* 0030 */ u16 unk_030;
     /* 0032 */ u16 buf[SIO_MAX_PACKET];
     /* 0132 */ STRUCT_PAD(0x132, 0x134); // implicit
-    /* 0134 */ struct SioPending pendingSend[0x20];
-    /* 0594 */ struct SioPending pendingRecv[0x10];
+    /* 0134 */ struct SioPending pendingSend[SIO_MAX_PENDING_SEND];
+    /* 0594 */ struct SioPending pendingRecv[SIO_MAX_PENDING_RECV];
     /* 1B74 */ u8 nextPendingSend;
     /* 1B75 */ u8 nextPendingWrite;
     /* 1B76 */ u8 nextPendingRead;
@@ -128,15 +131,6 @@ struct SioSt
 };
 
 #define SIO_MAX_DATA (SIO_MAX_PACKET - offsetof(struct SioData, bytes))
-
-#define SioSend sub_80422B8
-#define SioSend16 sub_8042568
-#define SioQueuePendingRecvData sub_8042620
-#define SioEmitData sub_80426F4
-#define SioReceiveData sub_804279C
-#define StartSioBigSend sub_8042CF0
-#define StartSioBigReceive sub_8042D70
-#define IsSioBigTransferActive sub_8042D9C
 
 int sub_80415B0(void);
 int sub_80416D0(void);
@@ -180,5 +174,32 @@ void sub_8042C44(struct SioBigReceiveProc * proc);
 int StartSioBigSend(void * data, u32 len, void (*func)(struct SioBigSendProc *), u8 arg_3, ProcPtr parent);
 void StartSioBigReceive(void * data, void (*func)(struct SioBigReceiveProc *), ProcPtr parent);
 bool IsSioBigTransferActive(void);
+
+extern struct SioSt * SHOULD_BE_CONST gSioSt;
+
+extern u16 EWRAM_DATA gSioOutgoing[0x200];
+extern u16 EWRAM_DATA gSioIncoming[0x200][4];
+
+extern u32 gUnknown_03004E70;
+extern u32 gUnknown_03004E74;
+extern u32 gSioStateId;
+extern struct SioMessage gSioMsgBuf;
+extern u8 gUnknown_03004F20[SIO_MAX_PACKET];
+
+extern struct ProcCmd CONST_DATA gProcScr_SioBigSend[];
+extern struct ProcCmd CONST_DATA gProcScr_SioBigReceive[];
+
+// TODO: NOTE: the following is probably not part of sio_core but some other sio file
+
+struct Unknown_0203DA24
+{
+    // TODO: this layout is very temporary, hopefully
+    // +0x0C is TextHandles
+    STRUCT_PAD(0x00, 0x9C);
+    u8 unk_9C[5];
+    u8 unk_A1[15][15];
+};
+
+extern struct Unknown_0203DA24 gUnknown_0203DA24;
 
 #endif // GUARD_SIO_H

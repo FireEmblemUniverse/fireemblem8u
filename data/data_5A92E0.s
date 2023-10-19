@@ -1,44 +1,5 @@
     .section .data
 
-	.global gUnknown_085A92E0
-gUnknown_085A92E0:  @ 0x085A92E0
-    .4byte gUnknown_0203AAA0 + 0x4
-
-	.global gUnknown_085A92E4
-gUnknown_085A92E4:  @ 0x085A92E4
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8042B08
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8042B68
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_085A9304
-gUnknown_085A9304:  @ 0x085A9304
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8042BD8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8042C00
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8042C44
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_SIOCON
 ProcScr_SIOCON:  @ 0x085A932C
         @ PROC_NAME
