@@ -506,7 +506,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
         break;
     
     case TERRAIN_BRIDGE_14:
-        if (sub_80723A4(proc->anim) != EKR_POS_L)
+        if (IsAnimSoundInPositionMaybe(proc->anim) != EKR_POS_L)
             SpellFx_RegisterObjPal(gUnknown_085F1620, 0x20);
         else
             SpellFx_RegisterObjPal(gUnknown_085F1640, 0x20);

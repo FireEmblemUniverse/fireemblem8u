@@ -40,7 +40,7 @@ void Loop6C_efxThunder(struct ProcEfx *proc)
         PlaySFX(0xF5, 0x100, animc->xPosition, 1);
 
         if (proc->hitted == EKR_HITTED)
-            sub_8072450(animc);
+            EfxPlayHittedSFX(animc);
         
         return;
     }

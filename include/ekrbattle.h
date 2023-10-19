@@ -377,8 +377,6 @@ void DoM4aSongNumStop(int);
 void UnregisterEfxSoundSeExist(void);
 void RegisterEfxSoundSeExist(void);
 int CheckEfxSoundSeExist(void);
-void M4aPlayWithPostionCtrl(int, int, int);
-void EfxPlaySEwithCmdCtrl(struct Anim * anim, int);
 
 extern int gEkrDebugTimer, gEkrDebugUnk1;
 
@@ -916,11 +914,20 @@ int GetAnimSpriteRotScaleX(u32 header);
 int GetAnimSpriteRotScaleY(u32 header);
 void BanimUpdateSpriteRotScale(void * src, struct AnimSpriteData * out, s16 x, s16 y, int unused);
 
-u16 sub_8072258(u16 terrain);
-int sub_80723A4(struct Anim * anim);
-u16 sub_80723D4(u16 basecon);
-s16 sub_8072400(struct Anim * anim);
-void sub_8072450(struct Anim * anim);
+void M4aPlayWithPostionCtrl(int, int, int);
+void EfxPlaySEwithCmdCtrl(struct Anim * anim, int);
+u16 GetEfxSoundType1FromTerrain(u16 terrain);
+int IsAnimSoundInPositionMaybe(struct Anim * anim);
+u16 GetEfxSoundType2FromBaseCon(u16 basecon);
+
+enum efx_hp_change_type {
+    EFX_HPT_CHANGED = 0,
+    EFX_HPT_DEFEATED = 1,
+    EFX_HPT_NOT_CHANGE = 2
+};
+
+s16 GetEfxHpChangeType(struct Anim * anim);
+void EfxPlayHittedSFX(struct Anim * anim);
 void sub_8072504(struct Anim * anim);
 // ??? sub_8072548(???);
 // ??? sub_8072570(???);

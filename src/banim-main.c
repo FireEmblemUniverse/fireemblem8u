@@ -221,7 +221,7 @@ void BattleAIS_ExecCommands(void)
                         anim1 = GetAnimAnotherSide(anim);
                         type = GetAnimRoundTypeAnotherSide(anim);
                         if (CheckRoundMiss(type) == false) {
-                            if (sub_8072400(anim1) != 2) {
+                            if (GetEfxHpChangeType(anim1) != EFX_HPT_NOT_CHANGE) {
                                 if (GetRoundFlagByAnim(anim) & ANIM_ROUND_SILENCER)
                                     NewEfxChillEffect(anim1);
                                 else
@@ -380,7 +380,7 @@ void BattleAIS_ExecCommands(void)
                             StartBattleAnimHitEffectsDefault(anim1, CheckRoundMiss(type));
                         }
 
-                        if (sub_8072400(anim1) != 2) {
+                        if (GetEfxHpChangeType(anim1) != EFX_HPT_NOT_CHANGE) {
                             if (GetRoundFlagByAnim(anim) & ANIM_ROUND_SILENCER)
                                 NewEfxChillEffect(anim1);
                             else

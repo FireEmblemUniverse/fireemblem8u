@@ -142,7 +142,7 @@ _0805E1E4:
 	cmp r0, #0
 	bne _0805E228
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805E228
 _0805E20C:
 	adds r0, r6, #0
@@ -904,7 +904,7 @@ _0805E7F6:
 	cmp r0, #0
 	bne _0805E848
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805E848
 	.align 2, 0
 _0805E828: .4byte 0x00000119
@@ -1484,7 +1484,7 @@ _0805EC80:
 	cmp r0, #0
 	bne _0805ECCC
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805ECCC
 _0805ECAA:
 	adds r0, r2, #0
@@ -1895,7 +1895,7 @@ _0805EFB8:
 	cmp r0, #0
 	bne _0805EFFE
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805EFFE
 _0805EFE8:
 	adds r0, r2, #0
@@ -2484,7 +2484,7 @@ _0805F468:
 	cmp r0, #0
 	bne _0805F4A8
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805F4A8
 _0805F490:
 	adds r0, r6, #0
@@ -3106,7 +3106,7 @@ _0805F93E:
 	cmp r0, #0
 	bne _0805F9A0
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805F9A0
 	.align 2, 0
 _0805F980: .4byte 0x00000121
@@ -3456,7 +3456,7 @@ _0805FC12:
 	cmp r0, #0
 	bne _0805FC88
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805FC88
 	.align 2, 0
 _0805FC54: .4byte 0x00000101
@@ -3871,7 +3871,7 @@ _0805FF62:
 	cmp r0, #0
 	bne _0805FFAA
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805FFAA
 _0805FF90:
 	adds r0, r3, #0
@@ -4419,7 +4419,7 @@ _080603B8:
 	cmp r0, #0
 	bne _08060438
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _08060438
 	.align 2, 0
 _080603FC: .4byte 0x000002E2
@@ -5217,7 +5217,7 @@ _08060A04:
 	cmp r0, #0
 	bne _08060A94
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _08060A94
 	.align 2, 0
 _08060A4C: .4byte 0x00000133
@@ -10672,7 +10672,7 @@ _0806354A:
 	cmp r0, #0
 	bne _08063588
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _08063588
 _08063572:
 	adds r0, r6, #0
@@ -11389,7 +11389,7 @@ _08063B02:
 	cmp r0, #0
 	bne _08063B62
 	adds r0, r6, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _08063B62
 _08063B32:
 	adds r0, r5, #0
@@ -12584,7 +12584,7 @@ _08064444:
 	adds r0, r4, #0
 	bl StartBattleAnimHitEffectsDefault
 	adds r0, r4, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 _0806446E:
 	movs r0, #0x2c
 	ldrsh r1, [r5, r0]
@@ -14042,7 +14042,7 @@ _08064F86:
 	cmp r0, #0
 	bne _08064FFE
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _08064FFE
 _08064FB6:
 	adds r0, r2, #0

@@ -78,7 +78,7 @@ void Loop6C_efxFire(struct ProcEfx *proc)
             StartSubSpell_efxElfireBGCOL(animc);
             StartSubSpell_efxElfireOBJ(animc);
         }
-        sub_8072450(animc);
+        EfxPlayHittedSFX(animc);
         return;
     }
 

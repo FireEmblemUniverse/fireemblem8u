@@ -185,7 +185,7 @@ _0806592A:
 	cmp r0, #0
 	bne _080659A4
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _080659A4
 	.align 2, 0
 _0806595C: .4byte 0x00000107

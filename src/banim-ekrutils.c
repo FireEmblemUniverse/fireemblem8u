@@ -84,8 +84,8 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
 
     switch (type) {
     case EKR_HITTED:
-        roundt1 = GetBattleAnimRoundTypeFlags((animr7->nextRoundId - 1) * 2 + GetAnimPosition(animr7));
-        roundt2 = GetBattleAnimRoundTypeFlags((animr5->nextRoundId - 1) * 2 + GetAnimPosition(animr5));
+        roundt1 = GetRoundFlagByAnim(animr7);
+        roundt2 = GetRoundFlagByAnim(animr5);
 
         if (roundt1 & ANIM_ROUND_POISON) {
             if (GettUnitEfxDebuff(animr7) == UNIT_STATUS_NONE)

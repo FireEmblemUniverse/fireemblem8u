@@ -76,7 +76,7 @@ void NewEfxPierceCritical(struct Anim * anim)
     struct Anim * anim1 = GetAnimAnotherSide(anim);
     int is_pierce;
 
-    is_pierce = GetBattleAnimRoundTypeFlags((anim1->nextRoundId - 1) * 2 + GetAnimPosition(anim1)) & ANIM_ROUND_PIERCE;
+    is_pierce = GetRoundFlagByAnim(anim1) & ANIM_ROUND_PIERCE;
     if (is_pierce != 0) {
         NewEfxPierceCriticalEffect(anim);
     } else {
@@ -155,7 +155,7 @@ void NewEfxNormalEffect(struct Anim *anim)
     int is_pierce;
 
     SpellFx_ClearBG1Position();
-    is_pierce = GetBattleAnimRoundTypeFlags((anim->nextRoundId - 1) * 2 + GetAnimPosition(anim)) & ANIM_ROUND_PIERCE;
+    is_pierce = GetRoundFlagByAnim(anim) & ANIM_ROUND_PIERCE;
     if (is_pierce != 0) {
         NewEfxPierceNormalEffect(anim);
     } else {

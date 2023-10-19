@@ -155,7 +155,7 @@ _08066636:
 	cmp r0, #0
 	bne _0806669C
 	adds r0, r4, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	adds r0, r4, #0
 	movs r1, #0x78
 	movs r2, #0xa
@@ -2459,7 +2459,7 @@ _08067848:
 	cmp r0, #0
 	bne _08067886
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _08067886
 _08067870:
 	adds r0, r2, #0
@@ -4528,7 +4528,7 @@ _08068884:
 	cmp r0, #0
 	bne _080688B6
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _080688B6
 _080688A8:
 	cmp r0, #0x82
@@ -5027,7 +5027,7 @@ _08068C68:
 	cmp r0, #0
 	bne _08068D14
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _08068D14
 _08068C8C:
 	movs r3, #0x9a
@@ -7550,7 +7550,7 @@ _08069FBC:
 	cmp r0, #0
 	bne _08069FFE
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _08069FFE
 	.align 2, 0
 _08069FE4: .4byte 0x00000123
@@ -9589,7 +9589,7 @@ _0806AFAE:
 	cmp r0, #0
 	bne _0806B07A
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0806B07A
 _0806AFD6:
 	adds r0, r2, #0
@@ -10381,7 +10381,7 @@ _0806B608:
 	cmp r0, #0
 	bne _0806B646
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0806B646
 _0806B630:
 	adds r0, r2, #0

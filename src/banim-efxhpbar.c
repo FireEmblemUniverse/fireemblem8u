@@ -27,14 +27,13 @@ short EkrEfxIsUnitHittedNow(int pos)
 }
 
 /* During dmage, cause hp bar change value effect */
-void NewEfxHPBar(struct Anim *anim)
+void NewEfxHPBar(struct Anim * anim)
 {
     int val1;
     s16 val2;
-    struct ProcEfxHPBar *proc;
-    int ais_id = GetAnimPosition(anim);
+    struct ProcEfxHPBar * proc;
 
-    if (ANIM_ROUND_GREAT_SHIELD & GetBattleAnimRoundTypeFlags((anim->nextRoundId - 1) * 2 + ais_id) || gEkrHPBarCount != 0)
+    if (ANIM_ROUND_GREAT_SHIELD & GetRoundFlagByAnim(anim) || gEkrHPBarCount != 0)
         return;
 
     gEkrHPBarCount = 1;
@@ -419,13 +418,12 @@ void EfxHPBarLiveMain(struct ProcEfxHPBar * proc)
         proc->timer = 0x1E;
 }
 
-void NewEfxNoDmage(struct Anim *anim1, struct Anim *anim2, int death)
+void NewEfxNoDmage(struct Anim * anim1, struct Anim * anim2, int death)
 {
-    struct BattleUnit *bu;
-    struct ProcEfxHPBar *proc;
-    int ais_id = GetAnimPosition(anim1);
+    struct BattleUnit * bu;
+    struct ProcEfxHPBar * proc;
 
-    if (ANIM_ROUND_GREAT_SHIELD & GetBattleAnimRoundTypeFlags((anim1->nextRoundId - 1) * 2 + ais_id))
+    if (ANIM_ROUND_GREAT_SHIELD & GetRoundFlagByAnim(anim1))
         return;
 
     if (GetAnimPosition(anim1) == 0)
@@ -449,7 +447,7 @@ void NewEfxNoDmage(struct Anim *anim1, struct Anim *anim2, int death)
 void EfxNoDamageMain(struct ProcEfxHPBar * proc)
 {
     s32 val;
-    struct Anim *anim = GetAnimAnotherSide(proc->anim5C);
+    struct Anim * anim = GetAnimAnotherSide(proc->anim5C);
 
     ++proc->pos;
     val = proc->pos;
