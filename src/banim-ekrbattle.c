@@ -125,7 +125,7 @@ void InBattleMainRoutine(void)
 void MainUpdateEkrBattle(void)
 {
     ClearSprites();
-    sub_8071A8C();
+    UnregisterEfxSoundSeExist();
 
     if (GetGameLock() == 0)
         Proc_Run(gProcTreeRootArray[2]);

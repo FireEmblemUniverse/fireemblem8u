@@ -447,7 +447,7 @@ _080515D8:
 	lsls r2, r2, #1
 	str r3, [sp]
 	movs r3, #0x80
-	bl EkrGetUnitSpriteDataMaybe
+	bl BanimUpdateSpriteRotScale
 _08051602:
 	mov r1, sl
 	ldr r0, [r1, #0x4c]
@@ -507,7 +507,7 @@ _08051654:
 	lsls r2, r2, #1
 	str r3, [sp]
 	movs r3, #0x80
-	bl EkrGetUnitSpriteDataMaybe
+	bl BanimUpdateSpriteRotScale
 _0805167E:
 	mov r1, sl
 	ldr r0, [r1, #0x50]

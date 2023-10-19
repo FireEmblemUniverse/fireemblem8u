@@ -470,10 +470,10 @@ extern u32 gUnknown_02017754;
 extern u32 gUnknown_02017758;
 extern u32 gUnknown_0201775C;
 struct Vec2 gEkrBg2QuakeVec;
-extern short gUnknown_02017764[2];
-extern short gUnknown_02017768[2];
+extern s16 gUnknown_02017764[2];
+extern s16 gUnknown_02017768[2];
 
-extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
+extern s16 gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 extern u8 gEkrBuf1[];
 extern u16 gEkrBarfxBuf[];
 extern u16 gEkrTsaBuffer[0x1000 / 2];
@@ -754,8 +754,8 @@ extern u16 gUnknown_080E1164[];
 extern const u16 gBarfxTileConf1[];
 extern const u16 gBarfxTileConf2[];
 extern const u16 gBarfxTileConf3[];
-// extern ??? gUnknown_080E13D4
-// extern ??? gUnknown_080E13F4
+extern const s16 gAnimSpriteRotScalePosX[];
+extern const s16 gAnimSpriteRotScalePosY[];
 extern const u16 FrameLut_080E143A[];
 extern const u16 FrameLut_080E1488[];
 // extern ??? sEfxLvupPartsPos
@@ -1236,19 +1236,19 @@ extern struct ProcCmd ProcScr_ekrWhiteINOUT[];
 // extern ??? gUnknown_08758740
 // extern ??? ProcScr_EkrMyrrh
 extern struct ProcCmd ProcScr_EkrMyrrh[];
-extern short gUnknown_0875879C[];
+extern s16 gUnknown_0875879C[];
 extern u16 gEfxTileRefPals_08758A1C[];
 extern struct ProcCmd ProcScr_ekrsubAnimeEmulator[];
 extern struct ProcCmd ProcScr_efxSoundSE[];
 // extern ??? gUnknown_08758A60
-// extern ??? gUnknown_08758D20
-// extern ??? gUnknown_08758D3C
-// extern ??? gUnknown_08758D58
-// extern ??? gUnknown_08758D74
-// extern ??? gUnknown_08758E00
-// extern ??? gUnknown_08758E8C
-// extern ??? gUnknown_08758F18
-// extern ??? gUnknown_08758FA4
+extern u16 * gBanimSongTable1[];
+extern u16 * gBanimSongTable2[];
+extern u16 * gBanimSongTable3[];
+extern u16 * gBanimSongTable4[];
+extern u16 * gBanimSongTable5[];
+extern u16 * gBanimSongTable6[];
+extern u16 * gBanimSongTable7[];
+extern u16 * gBanimSongTable8[];
 
 extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? EkrLvupMsgsStr

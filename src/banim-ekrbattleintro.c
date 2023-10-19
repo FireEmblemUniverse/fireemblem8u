@@ -550,7 +550,7 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
 void UnitKakudaiMain(struct ProcUnitKakudai * proc)
 {
     u16 ret1, x, y;
-    u8 sprite_data[0x300];
+    struct AnimSpriteData sprite_data[0x40];
     struct Anim _anim;
     struct Anim * anim = &_anim;
 
@@ -569,7 +569,7 @@ void UnitKakudaiMain(struct ProcUnitKakudai * proc)
 
     if (proc->valid_l == 1)
     {
-        EkrGetUnitSpriteDataMaybe(proc->pOaml, sprite_data, ret1, ret1, 0);
+        BanimUpdateSpriteRotScale(proc->pOaml, sprite_data, ret1, ret1, 0);
 
         if (proc->type == 0)
         {
@@ -592,7 +592,7 @@ void UnitKakudaiMain(struct ProcUnitKakudai * proc)
 
     if (proc->valid_r == 1)
     {
-        EkrGetUnitSpriteDataMaybe(proc->pOamr, sprite_data, ret1, ret1, 1);
+        BanimUpdateSpriteRotScale(proc->pOamr, sprite_data, ret1, ret1, 1);
 
         if (proc->type == 0)
         {

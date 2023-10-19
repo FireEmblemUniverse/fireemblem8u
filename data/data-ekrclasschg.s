@@ -1,24 +1,11 @@
 	.section .data
 
-	.global ProcScr_efxSoundSE
-ProcScr_efxSoundSE:  @ 0x08758A48
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80e1414
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word Loop6C_efxSoundSE
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_08758A60
 gUnknown_08758A60:  @ 0x08758A60
 	.incbin "baserom.gba", 0x758A60, 0x2C0
 
-	.global gUnknown_08758D20
-gUnknown_08758D20:  @ 0x08758D20
+	.global gBanimSongTable1
+gBanimSongTable1:  @ 0x08758D20
     .4byte gUnknown_08758A60 + 0x100
     .4byte gUnknown_08758A60 + 0x110
     .4byte gUnknown_08758A60 + 0x120
@@ -27,8 +14,8 @@ gUnknown_08758D20:  @ 0x08758D20
     .4byte gUnknown_08758A60 + 0x150
     .4byte gUnknown_08758A60 + 0x160
 
-	.global gUnknown_08758D3C
-gUnknown_08758D3C:  @ 0x08758D3C
+	.global gBanimSongTable2
+gBanimSongTable2:  @ 0x08758D3C
     .4byte gUnknown_08758A60 + 0x170
     .4byte gUnknown_08758A60 + 0x180
     .4byte gUnknown_08758A60 + 0x190
@@ -37,8 +24,8 @@ gUnknown_08758D3C:  @ 0x08758D3C
     .4byte gUnknown_08758A60 + 0x1c0
     .4byte gUnknown_08758A60 + 0x1d0
 
-	.global gUnknown_08758D58
-gUnknown_08758D58:  @ 0x08758D58
+	.global gBanimSongTable3
+gBanimSongTable3:  @ 0x08758D58
     .4byte gUnknown_08758A60 + 0x1e0
     .4byte gUnknown_08758A60 + 0x1f0
     .4byte gUnknown_08758A60 + 0x200
@@ -47,8 +34,8 @@ gUnknown_08758D58:  @ 0x08758D58
     .4byte gUnknown_08758A60 + 0x230
     .4byte gUnknown_08758A60 + 0x240
 
-	.global gUnknown_08758D74
-gUnknown_08758D74:  @ 0x08758D74
+	.global gBanimSongTable4
+gBanimSongTable4:  @ 0x08758D74
 @ Replacing .incbin "baserom.gba", 0x758D74, 0x8C
     .4byte gUnknown_08758A60 + 0x250
     .4byte gUnknown_08758A60 + 0x260
@@ -86,16 +73,16 @@ gUnknown_08758D74:  @ 0x08758D74
     .4byte 0x03750374
     .4byte 0x03750374
 
-	.global gUnknown_08758E00
-gUnknown_08758E00:  @ 0x08758E00
+	.global gBanimSongTable5
+gBanimSongTable5:  @ 0x08758E00
 @ Replacing .incbin "baserom.gba", 0x758E00, 0x8C
-    .4byte gUnknown_08758D74 + 0x1c
-    .4byte gUnknown_08758D74 + 0x2c
-    .4byte gUnknown_08758D74 + 0x3c
-    .4byte gUnknown_08758D74 + 0x4c
-    .4byte gUnknown_08758D74 + 0x5c
-    .4byte gUnknown_08758D74 + 0x6c
-    .4byte gUnknown_08758D74 + 0x7c
+    .4byte gBanimSongTable4 + 0x1c
+    .4byte gBanimSongTable4 + 0x2c
+    .4byte gBanimSongTable4 + 0x3c
+    .4byte gBanimSongTable4 + 0x4c
+    .4byte gBanimSongTable4 + 0x5c
+    .4byte gBanimSongTable4 + 0x6c
+    .4byte gBanimSongTable4 + 0x7c
     .4byte 0x033b033a
     .4byte 0x033b033a
     .4byte 0x033b033a
@@ -125,16 +112,16 @@ gUnknown_08758E00:  @ 0x08758E00
     .4byte 0x03770376
     .4byte 0x03770376
 
-	.global gUnknown_08758E8C
-gUnknown_08758E8C:  @ 0x08758E8C
+	.global gBanimSongTable6
+gBanimSongTable6:  @ 0x08758E8C
 @ Replacing .incbin "baserom.gba", 0x758E8C, 0x8C
-    .4byte gUnknown_08758E00 + 0x1c
-    .4byte gUnknown_08758E00 + 0x2c
-    .4byte gUnknown_08758E00 + 0x3c
-    .4byte gUnknown_08758E00 + 0x4c
-    .4byte gUnknown_08758E00 + 0x5c
-    .4byte gUnknown_08758E00 + 0x6c
-    .4byte gUnknown_08758E00 + 0x7c
+    .4byte gBanimSongTable5 + 0x1c
+    .4byte gBanimSongTable5 + 0x2c
+    .4byte gBanimSongTable5 + 0x3c
+    .4byte gBanimSongTable5 + 0x4c
+    .4byte gBanimSongTable5 + 0x5c
+    .4byte gBanimSongTable5 + 0x6c
+    .4byte gBanimSongTable5 + 0x7c
     .4byte 0x03350334
     .4byte 0x03350334
     .4byte 0x03350334
@@ -164,16 +151,16 @@ gUnknown_08758E8C:  @ 0x08758E8C
     .4byte 0x03710370
     .4byte 0x03710370
 
-	.global gUnknown_08758F18
-gUnknown_08758F18:  @ 0x08758F18
+	.global gBanimSongTable7
+gBanimSongTable7:  @ 0x08758F18
 @ Replacing .incbin "baserom.gba", 0x758F18, 0x8C
-    .4byte gUnknown_08758E8C + 0x1c
-    .4byte gUnknown_08758E8C + 0x2c
-    .4byte gUnknown_08758E8C + 0x3c
-    .4byte gUnknown_08758E8C + 0x4c
-    .4byte gUnknown_08758E8C + 0x5c
-    .4byte gUnknown_08758E8C + 0x6c
-    .4byte gUnknown_08758E8C + 0x7c
+    .4byte gBanimSongTable6 + 0x1c
+    .4byte gBanimSongTable6 + 0x2c
+    .4byte gBanimSongTable6 + 0x3c
+    .4byte gBanimSongTable6 + 0x4c
+    .4byte gBanimSongTable6 + 0x5c
+    .4byte gBanimSongTable6 + 0x6c
+    .4byte gBanimSongTable6 + 0x7c
     .4byte 0x03370336
     .4byte 0x03370336
     .4byte 0x03370336
@@ -203,12 +190,12 @@ gUnknown_08758F18:  @ 0x08758F18
     .4byte 0x03730372
     .4byte 0x03730372
 
-	.global gUnknown_08758FA4
-gUnknown_08758FA4:  @ 0x08758FA4
-    .4byte gUnknown_08758F18 + 0x1c
-    .4byte gUnknown_08758F18 + 0x2c
-    .4byte gUnknown_08758F18 + 0x3c
-    .4byte gUnknown_08758F18 + 0x4c
-    .4byte gUnknown_08758F18 + 0x5c
-    .4byte gUnknown_08758F18 + 0x6c
-    .4byte gUnknown_08758F18 + 0x7c
+	.global gBanimSongTable8
+gBanimSongTable8:  @ 0x08758FA4
+    .4byte gBanimSongTable7 + 0x1c
+    .4byte gBanimSongTable7 + 0x2c
+    .4byte gBanimSongTable7 + 0x3c
+    .4byte gBanimSongTable7 + 0x4c
+    .4byte gBanimSongTable7 + 0x5c
+    .4byte gBanimSongTable7 + 0x6c
+    .4byte gBanimSongTable7 + 0x7c
