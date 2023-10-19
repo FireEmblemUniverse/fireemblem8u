@@ -163,7 +163,7 @@ void sub_8041718(void)
         gSioSt->buf[i] = 0;
     }
 
-    for (j = 0; j < 0x20; j++)
+    for (j = 0; j < SIO_MAX_PENDING_SEND; j++)
     {
         struct SioPending * ent = &gSioSt->pendingSend[j];
 
@@ -174,7 +174,7 @@ void sub_8041718(void)
             ent->packet.bytes[i] = 0;
     }
 
-    for (j = 0; j < 0x10; j++)
+    for (j = 0; j < SIO_MAX_PENDING_RECV; j++)
     {
         struct SioPending * ent = &gSioSt->pendingRecv[j];
 
@@ -714,8 +714,7 @@ int sub_8042238(void)
     }
     else
     {
-        // NOTE: 0x20 was 8 in mgfembp
-        return 0x20 + gSioSt->nextPendingWrite - gSioSt->nextPendingSend;
+        return SIO_MAX_PENDING_SEND + gSioSt->nextPendingWrite - gSioSt->nextPendingSend;
     }
 }
 
