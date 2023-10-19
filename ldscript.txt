@@ -143,6 +143,7 @@ SECTIONS
         src/cp_0803E2F4.o(.text);
         src/cp_staff.o(.text);
         src/cpextra_80407F0.o(.text);
+        src/sio_core.o(.text);
         asm/code_sio.o(.text);
         src/uiutils.o(.text);
         src/uimenu.o(.text);
