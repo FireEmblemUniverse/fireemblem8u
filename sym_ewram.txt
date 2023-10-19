@@ -324,10 +324,8 @@
 . = 0x03AA94; gAiDecision = .;
 . = 0x03AAA0;
 . = ALIGN(4); src/cp_0803E2F4.o(ewram_data);
-. = 0x03C624; gUnknown_0203C624 = .;
-. = 0x03CA24; gUnknown_0203CA24 = .;
+. = ALIGN(4); src/sio_core.o(ewram_data);
 . = 0x03DA24; gUnknown_0203DA24 = .;
-. = 0x03DA30; gUnknown_0203DA30 = .;
 . = 0x03DA78; gUnknown_0203DA78 = .;
 . = 0x03DA88; gUnknown_0203DA88 = .;
 . = 0x03DAB0; gUnknown_0203DAB0 = .;

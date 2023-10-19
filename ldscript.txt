@@ -143,6 +143,7 @@ SECTIONS
         src/cp_0803E2F4.o(.text);
         src/cp_staff.o(.text);
         src/cpextra_80407F0.o(.text);
+        src/sio_core.o(.text);
         asm/code_sio.o(.text);
         src/uiutils.o(.text);
         src/uimenu.o(.text);
@@ -586,6 +587,7 @@ SECTIONS
         . = ALIGN(4); src/cp_0803E2F4.o(.data);
         . = ALIGN(4); src/cp_staff.o(.data);
         . = ALIGN(4); src/cpextra_80407F0.o(.data);
+        . = ALIGN(4); src/sio_core.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
         . = ALIGN(4); src/uimenu.o(.data);

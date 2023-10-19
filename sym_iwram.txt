@@ -42,15 +42,8 @@
 . = 0x0017C8;
 . = ALIGN(4); src/cp_script.o(.bss);
 . = ALIGN(4); src/cp_battle.o(.bss);
-. = 0x0017E0; gUnknown_030017E0 = .;
-. = 0x0017E4; gUnknown_030017E4 = .;
-. = 0x0017E8; gUnknown_030017E8 = .;
-. = 0x0017EC; gUnknown_030017EC = .;
-. = 0x0017F0; gUnknown_030017F0 = .;
-. = 0x0017F2; gUnknown_030017F2 = .;
-. = 0x0017F8; gUnknown_030017F8 = .;
-. = 0x001800; gUnknown_03001800 = .;
-. = 0x001808; gUnknown_03001808 = .;
+. = ALIGN(4); src/sio_core.o(.bss);
+. = ALIGN(4); gUnknown_03001808 = .;
 . = 0x00180C; gUnknown_0300180C = .;
 . = 0x001810; gUnknown_03001810 = .;
 . = 0x001818; gUnknown_03001818 = .;
@@ -135,8 +128,8 @@
 . = 0x004E74; gUnknown_03004E74 = .;
 . = 0x004E80; gUnknown_03004E80 = .;
 . = 0x004E86; gUnknown_03004E86 = .;
-. = 0x004F08; gUnknown_03004F08 = .;
-. = 0x004F0C; gUnknown_03004F0C = .;
+. = 0x004F08; gSioStateId = .;
+. = 0x004F0C; gSioMsgBuf = .;
 . = 0x004F10; AiDecideMainFunc = .;
 . = 0x004F20; gUnknown_03004F20 = .;
 . = 0x004FA0; gUnknown_03004FA0 = .;
