@@ -829,11 +829,15 @@ void EfxPlayCriticalHittedSFX(struct Anim * anim)
 
 int EfxCheckRetaliation(int is_retaliation)
 {
+    int ret;
     struct BattleHit * hit = gBattleHitArray;
-    u32 hit_info = hit->info;
-    u32 unk = (-(hit_info & BATTLE_HIT_INFO_RETALIATION)) >> 0x1F;
 
-    if (is_retaliation == unk)
+    if (hit->info & BATTLE_HIT_INFO_RETALIATION)
+        ret = true;
+    else
+        ret = false;
+
+    if (is_retaliation == ret)
         return true;
 
     return false;
@@ -962,8 +966,8 @@ void EkrPlayMainBGM(void)
     ret = false;
     if (UNIT_CLASS_ID(&bur->unit) == CLASS_DANCER)
     {
-        u16 unk2 = gBattleStats.config & 0x40;
-        ret = (u32)(-unk2) >> 0x1F;
+        if (gBattleStats.config & 0x40)
+            ret = true;
 
         if (gBattleStats.config & 0x200)
             ret = true;
