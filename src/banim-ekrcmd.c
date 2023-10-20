@@ -203,7 +203,7 @@ u16 IsWeaponLegency(u16 item)
     }
 }
 
-bool sub_8058B08(u16 item)
+s16 EkrCheckWeaponSieglindeSiegmund(u16 item)
 {
     switch (GetItemIndex(item)) {
     case ITEM_SWORD_SIEGLINDE:
@@ -215,7 +215,7 @@ bool sub_8058B08(u16 item)
     }
 }
 
-bool sub_8058B24(u16 round)
+bool EkrCheckAttackRound(u16 round)
 {
     int i;
     s16 cur;
@@ -223,19 +223,19 @@ bool sub_8058B24(u16 round)
     for (i = round; i < 0x14; i = i + 2) {
         cur = gAnimRoundData[i];
         
-        if (cur == 0)
+        if (cur == ANIM_ROUND_HIT_CLOSE)
             return true;
 
-        if (cur == 1)
+        if (cur == ANIM_ROUND_CRIT_CLOSE)
             return true;
 
-        if (cur == 2)
+        if (cur == ANIM_ROUND_NONCRIT_FAR)
             return true;
 
-        if (cur == 3)
+        if (cur == ANIM_ROUND_CRIT_FAR)
             return true;
 
-        if (cur == 9)
+        if (cur == ANIM_ROUND_MISS_CLOSE)
             return true;
     }
 

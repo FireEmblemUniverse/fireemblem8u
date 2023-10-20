@@ -3,8 +3,13 @@
 #include "anime.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "bmbattle.h"
+#include "ev_triggercheck.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "constants/characters.h"
+#include "constants/classes.h"
+#include "constants/items.h"
 #include "constants/terrains.h"
 
 CONST_DATA struct ProcCmd ProcScr_efxSoundSE[] = {
@@ -147,7 +152,7 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
     val2 = GetEfxSoundType2FromBaseCon(basecon);
 
     songid = (u16)-1;
-    sound_pos = sub_807290C(anim) + anim->xPosition;
+    sound_pos = GetProperAnimSoundLocation(anim) + anim->xPosition;
     volume = 0x100;
 
     switch (cmd) {
@@ -176,7 +181,7 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         break;
 
     case 31:
-        sub_8072504(anim2);
+        EfxPlayCriticalHittedSFX(anim2);
 
         if (GetEfxHpChangeType(anim2) != EFX_HPT_NOT_CHANGE)
         {
@@ -204,11 +209,11 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         default:
             break;
         }
-        sound_pos = anim2->xPosition + sub_807290C(anim2);
+        sound_pos = anim2->xPosition + GetProperAnimSoundLocation(anim2);
         break;
 
     case 32:
-        sub_8072504(anim2);
+        EfxPlayCriticalHittedSFX(anim2);
         if (GetEfxHpChangeType(anim2) != EFX_HPT_NOT_CHANGE)
         {
             if (GetRoundFlagByAnim(anim) & ANIM_ROUND_PIERCE)
@@ -235,11 +240,11 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         default:
             break;
         }
-        sound_pos = anim2->xPosition + sub_807290C(anim2);
+        sound_pos = anim2->xPosition + GetProperAnimSoundLocation(anim2);
         break;
 
     case 33:
-        sub_8072504(anim2);
+        EfxPlayCriticalHittedSFX(anim2);
 
         if (GetEfxHpChangeType(anim2) != EFX_HPT_NOT_CHANGE)
         {
@@ -267,7 +272,7 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         default:
             break;
         }
-        sound_pos = anim2->xPosition + sub_807290C(anim2);
+        sound_pos = anim2->xPosition + GetProperAnimSoundLocation(anim2);
         break;
 
     case 34:
@@ -712,7 +717,7 @@ u16 GetEfxSoundType1FromTerrain(u16 terrain)
 
 int IsAnimSoundInPositionMaybe(struct Anim * anim)
 {
-    int sound_pos = sub_807290C(anim) + anim->xPosition;
+    int sound_pos = GetProperAnimSoundLocation(anim) + anim->xPosition;
     if (GetAnimPosition(anim) == POS_L)
     {
         if (sound_pos > 0x58)
@@ -772,7 +777,7 @@ void EfxPlayHittedSFX(struct Anim * anim)
     int songid = (u16)-1;
     s16 _songid;
 
-    sub_8072504(anim);
+    EfxPlayCriticalHittedSFX(anim);
 
     if (GetEfxHpChangeType(animr) != EFX_HPT_NOT_CHANGE && (GetRoundFlagByAnim(anim) & ANIM_ROUND_PIERCE))
     {
@@ -804,4 +809,307 @@ void EfxPlayHittedSFX(struct Anim * anim)
         EfxPlaySE(_songid, 0x100);
         M4aPlayWithPostionCtrl(_songid, anim->xPosition, 1);
     }
+}
+
+void EfxPlayCriticalHittedSFX(struct Anim * anim)
+{
+    struct Anim * animr = GetAnimAnotherSide(anim);
+
+    switch (GetEfxHpChangeType(anim)) {
+    case EFX_HPT_CHANGED:
+    case EFX_HPT_DEFEATED:
+        if (CheckRoundCrit(animr) == true)
+        {
+            EfxPlaySE(0xD8, 0x100);
+            M4aPlayWithPostionCtrl(0xD8, anim->xPosition, 1);
+        }
+        break;
+    }
+}
+
+int EfxCheckRetaliation(int is_retaliation)
+{
+    struct BattleHit * hit = gBattleHitArray;
+    u32 hit_info = hit->info;
+    u32 unk = (-(hit_info & BATTLE_HIT_INFO_RETALIATION)) >> 0x1F;
+
+    if (is_retaliation == unk)
+        return true;
+
+    return false;
+}
+
+int EfxCheckStaffType(int weapon)
+{
+    int ret;
+
+    if (!weapon)
+        return 0;
+
+    switch (GetItemIndex(weapon)) {
+    case ITEM_STAFF_HEAL:
+    case ITEM_STAFF_MEND:
+    case ITEM_STAFF_RECOVER:
+    case ITEM_STAFF_PHYSIC:
+    case ITEM_STAFF_FORTIFY:
+    case ITEM_STAFF_RESTORE:
+    case ITEM_STAFF_REPAIR:
+    case ITEM_STAFF_BARRIER:
+    case ITEM_STAFF_LATONA:
+        return 2;
+
+    case ITEM_STAFF_SILENCE:
+    case ITEM_STAFF_SLEEP:
+    case ITEM_STAFF_BERSERK:
+        return 1;
+
+    default:
+        return 0;
+    }
+}
+
+
+void EkrPlayMainBGM(void)
+{
+    int ret, songid, songid2, pid, staff_type;
+    struct BattleUnit * bu, * bul, * bur, ** pbul, ** pbur;
+
+    pbul = &gpEkrBattleUnitLeft;
+    pbur = &gpEkrBattleUnitRight;
+
+    bul = *pbul;
+    bur = *pbur;
+
+    if (gBmSt.gameStateBits & BM_FLAG_5)
+    {
+        gEkrMainBgmPlaying = 0;
+        return;
+    }
+
+    gEkrMainBgmPlaying = 1;
+
+    songid = gPalIndexEfxHpBarUnk[gEkrInitialHitSide] != 1 ? 0x19 : 0x1A;
+
+    if (GetBattleAnimArenaFlag() == 1)
+    {
+        Sound_SetDefaultMaxNumChannels();
+        EfxOverrideBgm(0x39, 0x100);
+        return;
+    }
+
+    if (GetBanimLinkArenaFlag() == 1)
+    {
+        EfxOverrideBgm(0x39, 0x100);
+        return;
+    }
+
+    if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
+    {
+        EfxOverrideBgm(0x23, 0x100);
+        return;
+    }
+
+    ret = false;
+    if (EkrCheckWeaponSieglindeSiegmund(bur->weaponBefore) == true)
+        ret = true;
+
+    if (!EkrCheckAttackRound(1))
+        ret = false;
+
+    if (gEkrPairSideVaild[POS_L] == false)
+        ret = false;
+
+    pid = UNIT_CHAR_ID(&bul->unit);
+    if (pid == CHARACTER_LYON)
+        ret = false;
+
+    if (pid == CHARACTER_LYON_FINAL)
+        ret = false;
+
+    if (pid == CHARACTER_FOMORTIIS)
+        ret = false;
+
+    if (ret == true)
+    {
+        EfxOverrideBgm(0x1F, 0x100);
+        return;
+    }
+
+    if (pid == CHARACTER_FOMORTIIS)
+    {
+        if (CheckFlag82() == true)
+        {
+            EfxOverrideBgm(0x55, 0x100);
+            return;
+        }
+        SetFlag82();
+    }
+
+    songid2 = GetBanimBossBGM(&bul->unit);
+
+    if (UNIT_FACTION(GetUnitFromCharId(UNIT_CHAR_ID(&bul->unit))) == FACTION_BLUE)
+        songid2 = -1;
+
+    if (gEkrPairSideVaild[POS_L] == false)
+        songid2 = -1;
+
+    if (songid2 != -1)
+    {
+        EfxOverrideBgm(songid2, 0x100);
+        return;
+    }
+
+    ret = false;
+    if (UNIT_CLASS_ID(&bur->unit) == CLASS_DANCER)
+    {
+        u16 unk2 = gBattleStats.config & 0x40;
+        ret = (u32)(-unk2) >> 0x1F;
+
+        if (gBattleStats.config & 0x200)
+            ret = true;
+    }
+
+    if (ret == true)
+    {
+        EfxOverrideBgm(0x20, 0x100);
+        return;
+    }
+
+    if (EfxCheckRetaliation(POS_L) == true)
+        staff_type = EfxCheckStaffType(gBattleActor.weaponBefore);
+    else if (EfxCheckRetaliation(POS_R) == true)
+        staff_type = EfxCheckStaffType(gBattleTarget.weaponBefore);
+    else
+        staff_type = 0;
+
+
+    switch (staff_type) {
+    case 2:
+        songid = 0x22;
+        break;
+
+    case 1:
+        songid = 0x21;
+        break;
+
+    default:
+        break;
+    }
+
+    if (songid != -1)
+    {
+        EfxOverrideBgm(songid, 0x100);
+        return;
+    }
+    gEkrMainBgmPlaying = false;
+}
+
+void EkrTryRestoreBGM(void)
+{
+    if (CheckBanimHensei() == true || gBmSt.gameStateBits & BM_FLAG_5 || gEkrMainBgmPlaying == false)
+    {
+        MakeBgmOverridePersist();
+        return;
+    }
+
+    RestoreBgm();
+}
+
+CONST_DATA int gBanimBossBGMs[32 * 2] = {
+    CHARACTER_ONEILL, 0x1B,
+    CHARACTER_BREGUET, 0x1B,
+    CHARACTER_BONE, 0x1B,
+    CHARACTER_BAZBA, 0x1B,
+    CHARACTER_ENTOUMBED_CH4, 0x1B,
+    CHARACTER_SAAR, 0x1B,
+    CHARACTER_NOVALA, 0x1B,
+    CHARACTER_MURRAY, 0x1B,
+    CHARACTER_TIRADO, 0x1C,
+    CHARACTER_BINKS, 0x1B,
+    CHARACTER_PABLO, 0x1B,
+    CHARACTER_WIGHT_CHUnk, 0x1B,
+    CHARACTER_DEATHGOYLE_CHUnk, 0x1B,
+    CHARACTER_MAELDUIN_CHUnk, 0x1B,
+    CHARACTER_AIAS, 0x1B,
+    CHARACTER_CARLYLE, 0x1C,
+    CHARACTER_ZONTA, 0x1B,
+    CHARACTER_GHEB, 0x1B,
+    CHARACTER_BERAN, 0x1B,
+    CHARACTER_CYCLOPS_CHUnk, 0x1B,
+    CHARACTER_SELENA, 0x1C,
+    CHARACTER_VIGARDE, 0x1C,
+    CHARACTER_CAELLACH, 0x1C,
+    CHARACTER_VALTER, 0x1C,
+    CHARACTER_ORSON, 0x1C,
+    CHARACTER_LYON, 0x1D,
+    CHARACTER_GORGON_CHUnk, 0x1C,
+    CHARACTER_RIEV, 0x1C,
+    CHARACTER_MORVA, 0x1C,
+    CHARACTER_LYON_FINAL, 0x1D,
+    CHARACTER_FOMORTIIS, 0x1E,
+    -1, -1
+};
+
+int GetBanimBossBGM(struct Unit * unit)
+{
+    int i, pid = UNIT_CHAR_ID(unit);
+    for (i = 0; gBanimBossBGMs[i] != -1; i = i + 2)
+    {
+        if (pid == gBanimBossBGMs[i])
+            break;
+    }
+    return gBanimBossBGMs[i + 1];
+}
+
+int GetProperAnimSoundLocation(struct Anim * anim)
+{
+    int i, header, val2, val1;
+    u32 ret;
+    const struct AnimSpriteData * anim_sprite, * it;
+
+    anim_sprite = anim->pSpriteData;
+    header = anim_sprite->header;
+
+    if ((header & 0xFFFF0000) == 0xFFFF0000)
+        for (val2 = (header & 0x0000FFFF); val2 != 0; val2--, anim_sprite++);
+
+    it = anim_sprite;
+    val2 = 0;
+    val1 = 0;
+
+    for (; it->header != 1; it++)
+    {
+        int a, b, c;
+        
+        a = it->as.object.x;
+        a += (GetAnimSpriteRotScaleX(it->header) << 0x10) >> 0x11;
+        b = GetAnimSpriteRotScaleX(it->header);
+        c = GetAnimSpriteRotScaleY(it->header);
+
+        val1 += ((s16)b) * ((s16)c) * a;
+        val2 += ((s16)b) * ((s16)c);
+    }
+
+    if (val2 == 0)
+        ret = 0x7FFFFFFF;
+    else
+        ret = Div(val1, val2);
+
+    val1 = ret;
+
+    asm("":::"memory");
+    ret = val1;
+    return val1;
+}
+
+void PlaySFX(int songid, int volume, int locate, int type)
+{
+    EfxPlaySE(songid, volume);
+    M4aPlayWithPostionCtrl(songid, locate, type);
+}
+
+void PlaySfxAutomatically(int songid, int volume, struct Anim * anim)
+{
+    EfxPlaySE(songid, volume);
+    M4aPlayWithPostionCtrl(songid, GetProperAnimSoundLocation(anim), 1);
 }

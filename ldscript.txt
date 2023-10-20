@@ -187,7 +187,6 @@ SECTIONS
         src/banim-ekrdragon-myrrh.o(.text);
         src/banim-efxutils.o(.text);
         src/banim-efxsound.o(.text);
-        asm/banim-efxsound.o(.text);
         src/banim-ekrclasschg.o(.text);
         src/banim-ekrlvup.o(.text);
         asm/banim-efxlvup.o(.text);
@@ -632,7 +631,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrdragon-myrrh.o(.data);
         . = ALIGN(4); src/banim-efxutils.o(.data);
         . = ALIGN(4); src/banim-efxsound.o(.data);
-        . = ALIGN(4); data/data-ekrclasschg.o(.data);
+        . = ALIGN(4); src/banim-efxsound-data.o(.data);
         . = ALIGN(4); src/banim-ekrclasschg.o(.data);
         . = ALIGN(4); src/banim-ekrlvup.o(.data);
         . = ALIGN(4); data/banim-efxlvup.o(.data);

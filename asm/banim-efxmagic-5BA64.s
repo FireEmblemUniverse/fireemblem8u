@@ -1009,7 +1009,7 @@ sub_805C21C: @ 0x0805C21C
 	cmp r0, #8
 	bne _0805C25C
 	ldr r0, [r4, #0x60]
-	bl sub_807290C
+	bl GetProperAnimSoundLocation
 	ldr r1, [r4, #0x60]
 	ldrh r2, [r1, #2]
 	adds r2, r2, r0

@@ -80,7 +80,7 @@ void NewEkrBattle(void)
     gEkrDebugUnk3 = 0;
 
     if (0 == gEkrDebugModeMaybe)
-        sub_80726AC();
+        EkrPlayMainBGM();
 }
 
 void InBattleMainRoutine(void)
@@ -882,7 +882,7 @@ void ekrBattle_PostDragonStatusEffect(struct ProcEkrBattle *proc)
 
     if (gEkrDebugModeMaybe == 0) {
         NewEkrNamewinAppear(2, 7, 0);
-        sub_807289C();
+        EkrTryRestoreBGM();
     }
 
     proc->proc_idleCb = (ProcFunc)nullsub_69;

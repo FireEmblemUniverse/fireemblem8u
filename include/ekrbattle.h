@@ -372,11 +372,18 @@ struct ProcEfxSoundSE {
 void EfxPlaySE(int songid, int volume);
 void Loop6C_efxSoundSE(struct ProcEfxSoundSE * proc);
 void DoM4aSongNumStop(int);
-// ??? EfxOverrideBgm(???);
-// ??? StopBGM1(???);
+void EfxOverrideBgm(int songid, int volume);
+void StopBGM1(void);
 void UnregisterEfxSoundSeExist(void);
 void RegisterEfxSoundSeExist(void);
 int CheckEfxSoundSeExist(void);
+
+/**
+ * 00: PID
+ * 04: songid
+ * size = 08
+ */
+extern int gBanimBossBGMs[];
 
 extern int gEkrDebugTimer, gEkrDebugUnk1;
 
@@ -466,7 +473,7 @@ extern u16 gUnknown_0201FDC4[];
 extern u16 gUnknown_0201FF04[];
 // extern ??? gUnknown_02020044
 
-extern int gUnknown_020200A8;
+extern int gEkrMainBgmPlaying;
 extern int gEfxSoundSeExist;
 // extern ??? gpProcEkrClasschg
 
@@ -825,8 +832,8 @@ s16 GetEfxHp(int index);
 // ??? GetEfxHpModMaybe(???);
 u16 IsItemDisplayedInBattle(u16 item);
 u16 IsWeaponLegency(u16 item);
-// ??? sub_8058B08(???);
-// ??? sub_8058B24(???);
+s16 EkrCheckWeaponSieglindeSiegmund(u16 item);
+bool EkrCheckAttackRound(u16 round);
 void sub_8058B64(void);
 void sub_8058B70(void);
 bool sub_8058B7C(void);
@@ -928,15 +935,15 @@ enum efx_hp_change_type {
 
 s16 GetEfxHpChangeType(struct Anim * anim);
 void EfxPlayHittedSFX(struct Anim * anim);
-void sub_8072504(struct Anim * anim);
-// ??? sub_8072548(???);
-// ??? sub_8072570(???);
-void sub_80726AC(void);
-void sub_807289C(void);
-// ??? sub_80728D0(???);
-int sub_807290C(struct Anim * anim);
+void EfxPlayCriticalHittedSFX(struct Anim * anim);
+int EfxCheckRetaliation(int is_retaliation);
+int EfxCheckStaffType(int weapon);
+void EkrPlayMainBGM(void);
+void EkrTryRestoreBGM(void);
+int GetBanimBossBGM(struct Unit * unit);
+int GetProperAnimSoundLocation(struct Anim * anim);
 void PlaySFX(int, int, int, int);
-// ??? sub_80729C0(???);
+void PlaySfxAutomatically(int songid, int volume, struct Anim * anim);
 
 ProcPtr NewEfxPartsofScroll(void);
 void sub_8074598(void);

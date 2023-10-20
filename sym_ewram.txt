@@ -259,7 +259,7 @@
 . = 0x020044; gUnknown_02020044 = .;
 . = 0x020048;
 . = ALIGN(4); src/banim-ekrdragonstatus.o(ewram_data);
-. = 0x0200A8; gUnknown_020200A8 = .;
+. = 0x0200A8; gEkrMainBgmPlaying = .;
 . = 0x0200AC; gEfxSoundSeExist = .;
 . = 0x0200B0; gpProcEkrClasschg = .;
 . = 0x0200B4; gpProcEkrLevelup = .;
