@@ -1827,18 +1827,18 @@ u16 GetEventTriggerId(const void * script) {
 }
 
 //! FE8U = 0x08084628
-void SetFlag82(void) {
+void SetFlag82(void)
+{
     SetFlag(0x82);
-    return;
 }
 
 //! FE8U = 0x08084634
-s8 CheckFlag82(void) {
-    if (CheckFlag(0x82)) {
-        return 1;
-    }
+bool CheckFlag82(void)
+{
+    if (CheckFlag(0x82))
+        return true;
 
-    return 0;
+    return false;
 }
 
 //! FE8U = 0x0808464C

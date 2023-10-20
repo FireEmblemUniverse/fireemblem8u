@@ -1240,7 +1240,6 @@ extern s16 gUnknown_0875879C[];
 extern u16 gEfxTileRefPals_08758A1C[];
 extern struct ProcCmd ProcScr_ekrsubAnimeEmulator[];
 extern struct ProcCmd ProcScr_efxSoundSE[];
-// extern ??? gUnknown_08758A60
 extern u16 * gBanimSongTable1[];
 extern u16 * gBanimSongTable2[];
 extern u16 * gBanimSongTable3[];

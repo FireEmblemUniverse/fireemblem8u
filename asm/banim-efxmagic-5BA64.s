@@ -666,7 +666,7 @@ sub_805BF40: @ 0x0805BF40
 	adds r0, r6, #0
 	bl StartBattleAnimHitEffectsDefault
 	adds r0, r6, #0
-	bl sub_8072400
+	bl GetEfxHpChangeType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
@@ -689,7 +689,7 @@ _0805BFB2:
 	cmp r0, #0
 	bne _0805BFD6
 	adds r0, r6, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805BFD6
 _0805BFC0:
 	movs r1, #0x2c
@@ -1009,7 +1009,7 @@ sub_805C21C: @ 0x0805C21C
 	cmp r0, #8
 	bne _0805C25C
 	ldr r0, [r4, #0x60]
-	bl sub_807290C
+	bl GetProperAnimSoundLocation
 	ldr r1, [r4, #0x60]
 	ldrh r2, [r1, #2]
 	adds r2, r2, r0
@@ -1108,7 +1108,7 @@ sub_805C29C: @ 0x0805C29C
 	adds r0, r6, #0
 	bl StartBattleAnimHitEffectsDefault
 	adds r0, r6, #0
-	bl sub_8072400
+	bl GetEfxHpChangeType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
@@ -1131,7 +1131,7 @@ _0805C326:
 	cmp r0, #0
 	bne _0805C350
 	adds r0, r6, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805C350
 _0805C334:
 	movs r3, #0x2c
@@ -1707,7 +1707,7 @@ sub_805C7E4: @ 0x0805C7E4
 	adds r0, r6, #0
 	bl StartBattleAnimHitEffectsDefault
 	adds r0, r6, #0
-	bl sub_8072400
+	bl GetEfxHpChangeType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
@@ -1730,7 +1730,7 @@ _0805C862:
 	cmp r0, #0
 	bne _0805C886
 	adds r0, r6, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805C886
 _0805C870:
 	movs r3, #0x2c
@@ -2401,7 +2401,7 @@ _0805CDB0:
 	adds r0, r6, #0
 	bl StartBattleAnimHitEffectsDefault
 	adds r0, r6, #0
-	bl sub_8072400
+	bl GetEfxHpChangeType
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
@@ -2424,7 +2424,7 @@ _0805CDF4:
 	cmp r0, #0
 	bne _0805CE14
 	adds r0, r6, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805CE14
 _0805CE02:
 	cmp r0, #0x3e
@@ -2617,7 +2617,7 @@ _0805CF32:
 	cmp r0, #0
 	bne _0805CFB6
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805CFB6
 	.align 2, 0
 _0805CF7C: .4byte 0x0000010D
@@ -2831,7 +2831,7 @@ _0805D110:
 	cmp r0, #0
 	bne _0805D142
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805D142
 _0805D134:
 	cmp r0, #0x82
@@ -3206,7 +3206,7 @@ _0805D400:
 	cmp r0, #0
 	bne _0805D43E
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805D43E
 _0805D428:
 	cmp r0, #0x32
@@ -3376,7 +3376,7 @@ _0805D558:
 	cmp r0, #0
 	bne _0805D596
 	adds r0, r5, #0
-	bl sub_8072450
+	bl EfxPlayHittedSFX
 	b _0805D596
 	.align 2, 0
 _0805D580: .4byte 0x0000011F
