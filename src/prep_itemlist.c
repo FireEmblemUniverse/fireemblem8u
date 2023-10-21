@@ -41,10 +41,6 @@ void sub_809D300(void*, void*, int, void*);
 void sub_809D418(u16*, int);
 void sub_809D47C(struct Text*, u16*, int, struct Unit*);
 void sub_809D8D4(u16*, int, int);
-void sub_80ACD7C(int, int, int, int);
-void sub_80ACDA4(int);
-void sub_80ACCE0(ProcPtr);
-void sub_80ACCF4(int, int, int);
 
 void StoreConvoyWeaponIconGraphics(int, int);
 

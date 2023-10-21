@@ -610,8 +610,8 @@ extern struct ProcCmd CONST_DATA gProcScr_UpdateTraps[];
 // extern ??? gUnknown_0859DBA0
 extern u16 gGfx_MiscUiGraphics[];
 extern u16 gPal_MiscUiGraphics[];
-// extern ??? gUnknown_0859EDB0
-// extern ??? gUnknown_0859EDEC
+extern u8 gUnknown_0859EDB0[];
+extern u8 gUnknown_0859EDEC[];
 // extern ??? gUnknown_0859EE20
 // extern ??? gUnknown_0859EE40
 // extern ??? gUnknown_0859EE60

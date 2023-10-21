@@ -87,9 +87,6 @@ void sub_80AFF30(void);
 void DrawSoundRoomSongTitle(int);
 ProcPtr DrawSoundRoomSprites(ProcPtr);
 
-// TODO: Move elsewhere?
-void sub_80AC844(void*, int, int, int, int, int, int, int);
-
 // TODO: Decompile these next
 s8 sub_80AECEC(struct SoundRoomProc*, int);
 void sub_80AED64(struct SoundRoomProc*);

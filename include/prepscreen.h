@@ -330,7 +330,7 @@ extern u8 gUnknown_08A1BBD0[]; // tsa?
 // extern ??? gUnknown_08A1BD40
 // extern ??? gUnknown_08A1BD60
 extern u8 gUnknown_08A1C704[]; // arrow gfx
-// extern ??? gUnknown_08A1C7D8
+extern u8 gUnknown_08A1C7D8[];
 // extern ??? gUnknown_08A1C8B4
 // extern ??? gUnknown_08A1CD68
 // extern ??? gUnknown_08A1CDC4
