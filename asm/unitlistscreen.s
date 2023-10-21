@@ -821,7 +821,7 @@ sub_80906F8: @ 0x080906F8
 	strh r1, [r0]
 	subs r0, #2
 	strh r1, [r0]
-	ldr r0, _0809077C  @ gUnknown_08A1C7D8
+	ldr r0, _0809077C  @ gImg_UiSpinningArrow_Horizontal
 	ldr r1, _08090780  @ 0x06010280
 	bl Decompress
 	pop {r4, r5}
@@ -829,7 +829,7 @@ sub_80906F8: @ 0x080906F8
 	bx r0
 	.align 2, 0
 _08090778: .4byte gUnknown_0200F158
-_0809077C: .4byte gUnknown_08A1C7D8
+_0809077C: .4byte gImg_UiSpinningArrow_Horizontal
 _08090780: .4byte 0x06010280
 
 	THUMB_FUNC_END sub_80906F8
@@ -2009,7 +2009,7 @@ _0809104E:
 	movs r1, #3
 	orrs r0, r1
 	strb r0, [r7, #0x18]
-	ldr r0, _08091170  @ gUnknown_08A1C7D8
+	ldr r0, _08091170  @ gImg_UiSpinningArrow_Horizontal
 	ldr r1, _08091174  @ gBG1TilemapBuffer+0x500
 	bl Decompress
 	ldr r0, _08091178  @ gUnknown_08A1A084
@@ -2044,7 +2044,7 @@ _0809104E:
 _08091164: .4byte gBG0TilemapBuffer
 _08091168: .4byte gUnknown_0200F158
 _0809116C: .4byte gLCDControlBuffer
-_08091170: .4byte gUnknown_08A1C7D8
+_08091170: .4byte gImg_UiSpinningArrow_Horizontal
 _08091174: .4byte gBG1TilemapBuffer+0x500
 _08091178: .4byte gUnknown_08A1A084
 _0809117C: .4byte ProcScr_bmview

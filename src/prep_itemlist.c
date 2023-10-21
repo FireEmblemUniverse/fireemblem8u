@@ -182,7 +182,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
 
     BG_EnableSyncByMask(7);
 
-    sub_80AC9C0(proc);
+    StartUiCursorHand(proc);
 
     ResetPrepScreenHandCursor(proc);
     sub_80AD4A0(0x600, 1);
@@ -249,10 +249,10 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
     DrawPrepScreenItems(gBG0TilemapBuffer + 0x6F + 0xb3, gUnknown_02013660 + 2, proc->unit, 0);
     sub_809EBF0();
 
-    sub_80ACCE0(proc);
-    sub_80ACCF4(0, 0x280, 2);
-    sub_80ACD7C(0x78, 0x18, 0xe9, 0x18);
-    sub_80ACD60(3);
+    StartUiSpinningArrows(proc);
+    LoadUiSpinningArrowGfx(0, 0x280, 2);
+    SetUiSpinningArrowPositions(0x78, 0x18, 0xe9, 0x18);
+    SetUiSpinningArrowConfig(3);
 
     StartParallelWorker(List_PutHighlightedCategorySprites, proc);
 
@@ -559,7 +559,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc* proc) {
                 }
 
                 if (gPrepScreenItemList[idx].pid == 0) {
-                    sub_80AC9D4(
+                    SetUiCursorHandConfig(
                         0,
                         0x80,
                         proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage],
@@ -590,7 +590,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc* proc) {
         }
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT) {
-            sub_80ACDA4(0);
+            SetUiSpinningArrowFastMaybe(0);
             PlaySoundEffect(0x67);
             Proc_Goto(proc, 3);
             proc->unk_32 = 0;
@@ -599,7 +599,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc* proc) {
         }
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) {
-            sub_80ACDA4(1);
+            SetUiSpinningArrowFastMaybe(1);
             PlaySoundEffect(0x67);
             Proc_Goto(proc, 4);
             proc->unk_32 = 0;

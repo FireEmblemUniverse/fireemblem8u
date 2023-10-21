@@ -144,12 +144,12 @@ gUnknown_08A1BD40:  @ 0x08A1BD40
 gUnknown_08A1BD60:  @ 0x08A1BD60
 	.incbin "baserom.gba", 0xA1BD60, 0x9A4
 
-	.global gUnknown_08A1C704
-gUnknown_08A1C704:  @ 0x08A1C704
+	.global gImg_UiSpinningArrow_Vertical
+gImg_UiSpinningArrow_Vertical:  @ 0x08A1C704
 	.incbin "baserom.gba", 0xA1C704, 0xD4
 
-	.global gUnknown_08A1C7D8
-gUnknown_08A1C7D8:  @ 0x08A1C7D8
+	.global gImg_UiSpinningArrow_Horizontal
+gImg_UiSpinningArrow_Horizontal:  @ 0x08A1C7D8
 	.incbin "baserom.gba", 0xA1C7D8, 0xDC
 
 	.global gUnknown_08A1C8B4

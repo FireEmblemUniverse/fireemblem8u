@@ -411,7 +411,7 @@ void sub_809AE10(struct ProcPrepUnit *proc)
     if ((dif + 5) < amt)
         msk |= 2;
 
-    sub_80ACD60(msk);
+    SetUiSpinningArrowConfig(msk);
 }
 
 void ProcPrepUnit_OnInit(struct ProcPrepUnit *proc)
@@ -483,7 +483,7 @@ void sub_809B014()
 	sub_80AD2D4();
 	EndPrepScreenHandCursor();
 	EndHelpPromptSprite();
-	sub_80ACDDC();
+	EndUiSpinningArrows();
 	EndMuralBackground_();
 }
 

@@ -610,8 +610,8 @@ extern struct ProcCmd CONST_DATA gProcScr_UpdateTraps[];
 // extern ??? gUnknown_0859DBA0
 extern u16 gGfx_MiscUiGraphics[];
 extern u16 gPal_MiscUiGraphics[];
-extern u8 gUnknown_0859EDB0[];
-extern u8 gUnknown_0859EDEC[];
+extern u8 gImg_UiCursorHandTop[];
+extern u8 gImg_UiCursorHandBottom[];
 // extern ??? gUnknown_0859EE20
 // extern ??? gUnknown_0859EE40
 // extern ??? gUnknown_0859EE60
@@ -1193,12 +1193,12 @@ extern u16* gUnknown_08A209F0[];
 // extern ??? gSpriteArray_08A20B08
 // extern ??? gUnknown_08A20B14
 // extern ??? gProcScr_DrawDifficultyMenuSprites
-// extern ??? gUnknown_08A20B3C
-// extern ??? gUnknown_08A20B44
-// extern ??? gUnknown_08A20B4C
-// extern ??? gUnknown_08A20B7C
-// extern ??? gUnknown_08A20B8A
-// extern ??? gUnknown_08A20B94
+// extern ??? gSprite_UiCursorHand_08A20B3C
+// extern ??? gSprite_UiCursorHand_08A20B44
+// extern ??? gProcScr_UiCursorHand
+// extern ??? gSprite_UiSpinningArrows_Horizontal
+// extern ??? gSprite_UiSpinningArrows_Vertical
+// extern ??? gProcScr_UiSpinningArrows
 // extern ??? ProcScr_ParallelFiniteLoop
 // extern ??? gUnknown_08A20BD4
 // extern ??? ProcScr_ParallelWorker

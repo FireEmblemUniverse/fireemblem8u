@@ -329,8 +329,8 @@ extern u8 gUnknown_08A1BBD0[]; // tsa?
 // extern ??? gUnknown_08A1BD00
 // extern ??? gUnknown_08A1BD40
 // extern ??? gUnknown_08A1BD60
-extern u8 gUnknown_08A1C704[]; // arrow gfx
-extern u8 gUnknown_08A1C7D8[];
+extern u8 gImg_UiSpinningArrow_Vertical[]; // arrow gfx
+extern u8 gImg_UiSpinningArrow_Horizontal[];
 // extern ??? gUnknown_08A1C8B4
 // extern ??? gUnknown_08A1CD68
 // extern ??? gUnknown_08A1CDC4
