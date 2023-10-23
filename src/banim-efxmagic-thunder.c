@@ -107,7 +107,7 @@ void EfxThunderBGMain(struct ProcEfxBG *proc)
     }
 }
 
-void NewEfxThunderBGCOL(struct Anim *anim)
+void NewEfxThunderBGCOL(struct Anim * anim)
 {
     struct ProcEfxBGCOL *proc;
     gEfxBgSemaphore++;
@@ -116,16 +116,16 @@ void NewEfxThunderBGCOL(struct Anim *anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DCCC0;
-    proc->unk4C = gUnknown_085F367C;
+    proc->pal = gUnknown_085F367C;
 }
 
-void sub_805D9F8(struct ProcEfxBGCOL *proc)
+void sub_805D9F8(struct ProcEfxBGCOL * proc)
 {
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 *buf = proc->unk4C;
-        SpellFx_RegisterBgPal(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
+        u16 * pal = proc->pal;
+        SpellFx_RegisterBgPal(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
         return;
     }
 

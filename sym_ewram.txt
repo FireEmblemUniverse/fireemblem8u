@@ -248,12 +248,12 @@
 . = 0x01FB28; gUnknown_0201FB28 = .;
 . = 0x01FB2C; gUnknown_0201FB2C = .;
 . = 0x01FB30; gUnknown_0201FB30 = .;
-. = 0x01FB34; gUnknown_0201FB34 = .;
+. = 0x01FB34; gpEkrLvupBg2ScrollOffset = .;
 . = 0x01FB38; gUnknown_0201FB38 = .;
 . = 0x01FC78; gUnknown_0201FC78 = .;
 . = 0x01FDB8; gUnknown_0201FDB8 = .;
 . = 0x01FDBC; gUnknown_0201FDBC = .;
-. = 0x01FDC0; gUnknown_0201FDC0 = .;
+. = 0x01FDC0; gpEkrLvupBg1ScrollOffset = .;
 . = 0x01FDC4; gUnknown_0201FDC4 = .;
 . = 0x01FF04; gUnknown_0201FF04 = .;
 . = 0x020044; gUnknown_02020044 = .;

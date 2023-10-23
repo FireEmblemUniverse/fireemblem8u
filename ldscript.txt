@@ -171,6 +171,7 @@ SECTIONS
         asm/banim-ekrmainmini.o(.text);
         src/banim-ekrmainmini.o(.text);
         asm/code_battleanim.o(.text);
+        asm/banim-ekrarena.o(.text);
         src/banim-efxmagic.o(.text);
         asm/banim-efxmagic-5BA64.o(.text);
         src/banim-efxmagic-thunder.o(.text);
@@ -190,6 +191,7 @@ SECTIONS
         src/banim-efxsound.o(.text);
         src/banim-ekrclasschg.o(.text);
         src/banim-ekrlvup.o(.text);
+        src/banim-efxlvup.o(.text);
         asm/banim-efxlvup.o(.text);
         src/banim-ekrtriangle.o(.text);
         src/banim-ekrpopup.o(.text);
@@ -436,7 +438,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_efxutils.o(.rodata);
         . = ALIGN(4); src/banim-ekrclasschg.o(.rodata);
         . = ALIGN(4); src/banim-ekrlvup.o(.rodata);
-        . = ALIGN(4); data/banim-ekrlvup-const.o(.rodata);
+        . = ALIGN(4); src/banim-efxlvup.o(.rodata);
         . = ALIGN(4); src/banim-ekrtriangle.o(.rodata);
         . = ALIGN(4); data/const_data_E162A.o(.rodata);
         . = ALIGN(4); src/banim-ekrpopup.o(.rodata);
@@ -636,6 +638,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxsound-data.o(.data);
         . = ALIGN(4); src/banim-ekrclasschg.o(.data);
         . = ALIGN(4); src/banim-ekrlvup.o(.data);
+        . = ALIGN(4); src/banim-efxlvup.o(.data);
         . = ALIGN(4); data/banim-efxlvup.o(.data);
         . = ALIGN(4); src/banim-ekrtriangle.o(.data);
         . = ALIGN(4); data/banim-ekrtriangle.o(.data);

@@ -104,26 +104,6 @@ CONST_DATA struct ProcCmd ProcScr_EkrLevelup[] = {
     PROC_END
 };
 
-const char aEfxPartsofScroll[] = "efxPartsofScroll";
-const char aEfxPartsofScroll2[] = "efxPartsofScroll2";
-const char aEfxleveluphb[] = "efxLevelupHB";
-const char aEfxlvupbg[] = "efxLvupBG";
-const u16 gUnknown_080E162A[] = {
-    0, 1,
-    1, 1,
-    2, 1,
-    3, 1,
-    4, 1,
-    5, 1,
-    6, 1,
-    7, 1,
-    8, 1,
-    9, 1,
-    10, 1,
-    -1
-};
-const char aEfxlvupbg2[] = "efxLvupBG2";
-
 /**
  * section.text
  */

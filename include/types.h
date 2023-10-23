@@ -55,7 +55,7 @@ struct Vec2u { u16 x, y; };
 
 struct BmSt // Game State Struct
 {
-    /* 00 */ s8  mainLoopEndedFlag;
+    /* 00 */ s8  sync_hardware;
 
     /* 01 */ s8  gameLogicSemaphore;
     /* 02 */ s8  gameGfxSemaphore;

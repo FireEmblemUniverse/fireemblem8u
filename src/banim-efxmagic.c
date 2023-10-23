@@ -310,35 +310,35 @@ void EfxRestWINMain(struct ProcEfx *proc)
 void EfxMagicHBlank_805B724(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK))
-        REG_BG1HOFS = *gUnknown_0201FDC0++;
+        REG_BG1HOFS = *gpEkrLvupBg1ScrollOffset++;
 }
 
 void EfxMagicHBlank_805B750(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK))
-        REG_BG1VOFS = *gUnknown_0201FDC0++;
+        REG_BG1VOFS = *gpEkrLvupBg1ScrollOffset++;
 }
 
 void EfxMagicHBlank_805B77C(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
-        REG_BG2VOFS = *gUnknown_0201FB34++;
-        REG_BG1HOFS = *gUnknown_0201FDC0++;
+        REG_BG2VOFS = *gpEkrLvupBg2ScrollOffset++;
+        REG_BG1HOFS = *gpEkrLvupBg1ScrollOffset++;
     }
 }
 
 void EfxMagicHBlank_805B7BC(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
-        REG_BG2VOFS = *gUnknown_0201FB34++;
-        REG_BG1VOFS = *gUnknown_0201FDC0++;
+        REG_BG2VOFS = *gpEkrLvupBg2ScrollOffset++;
+        REG_BG1VOFS = *gpEkrLvupBg1ScrollOffset++;
     }
 }
 
 void EfxMagicHBlank_805B7FC(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
-        REG_BG2VOFS = *gUnknown_0201FB34++;
+        REG_BG2VOFS = *gpEkrLvupBg2ScrollOffset++;
     }
 }
 
@@ -368,7 +368,7 @@ void NewEfxRestWINH(struct Anim *anim, int a, u16 b, u32 c)
 
         gUnknown_0201FB2C = 0;
         gUnknown_0201FB30 = gUnknown_0201FB38;
-        gUnknown_0201FB34 = gUnknown_0201FB38;
+        gpEkrLvupBg2ScrollOffset = gUnknown_0201FB38;
     }
 
     buf = gUnknown_0201FDC4;
@@ -380,7 +380,7 @@ void NewEfxRestWINH(struct Anim *anim, int a, u16 b, u32 c)
         *buf = b;
 
     gUnknown_0201FDB8 = 0;
-    gUnknown_0201FDC0 = gUnknown_0201FDBC = gUnknown_0201FDC4;
+    gpEkrLvupBg1ScrollOffset = gUnknown_0201FDBC = gUnknown_0201FDC4;
 
     switch (c) {
     case 0:
@@ -415,7 +415,7 @@ void sub_805B94C(ProcPtr proc)
 
 void sub_805B958(struct ProcEfx *proc)
 {
-    if (gBmSt.mainLoopEndedFlag != false) {
+    if (gBmSt.sync_hardware != false) {
         if (proc->unk48 == 0x2) {
             if (gUnknown_0201FB2C == 1) {
                 gUnknown_0201FB2C = 0;
@@ -435,8 +435,8 @@ void sub_805B958(struct ProcEfx *proc)
         }
     }
 
-    gUnknown_0201FB34 = gUnknown_0201FB30;
-    gUnknown_0201FDC0 = gUnknown_0201FDBC;
+    gpEkrLvupBg2ScrollOffset = gUnknown_0201FB30;
+    gpEkrLvupBg1ScrollOffset = gUnknown_0201FDBC;
 
     if (++proc->timer == proc->unk44) {
         gEfxBgSemaphore--;

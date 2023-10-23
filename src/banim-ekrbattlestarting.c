@@ -90,7 +90,7 @@ void MainUpdate_8055C68(void)
 
     PushSpriteLayerObjects(0xD);
 
-    gBmSt.mainLoopEndedFlag = true;
+    gBmSt.sync_hardware = true;
     gBmSt.prevVCount = REG_VCOUNT;
     VBlankIntrWait();
 }

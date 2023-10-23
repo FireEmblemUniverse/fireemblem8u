@@ -130,7 +130,7 @@ void NewEfxCriricalEffectBGCOL(struct Anim *anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DF188;
-    proc->unk4C = gUnknown_085E8108;
+    proc->pal = gUnknown_085E8108;
 }
 
 void efxCriricalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
@@ -138,7 +138,7 @@ void efxCriricalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 *pal = proc->unk4C;
+        u16 *pal = proc->pal;
         SpellFx_RegisterBgPal(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
         return;
     }
@@ -275,7 +275,7 @@ void efxPierceCriticalEffectBGMain(struct ProcEfxBG *proc)
     }
 }
 
-void NewEfxPierceCriticalEffectBGCOL(struct Anim *anim)
+void NewEfxPierceCriticalEffectBGCOL(struct Anim * anim)
 {
     struct ProcEfxBGCOL *proc;
     proc = Proc_Start(ProcScr_efxPierceCriticalEffectBGCOL, PROC_TREE_3);
@@ -283,15 +283,15 @@ void NewEfxPierceCriticalEffectBGCOL(struct Anim *anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DF26A;
-    proc->unk4C = gUnknown_085D0820;
+    proc->pal = gUnknown_085D0820;
 }
 
-void efxPierceCriticalEffectBGCOLMain(struct ProcEfxBGCOL *proc)
+void efxPierceCriticalEffectBGCOLMain(struct ProcEfxBGCOL * proc)
 {
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 *pal = proc->unk4C;
+        u16 * pal = proc->pal;
         SpellFx_RegisterBgPal(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
         return;
     }
