@@ -852,9 +852,9 @@ void NewEfxSRankWeaponEffectSCR(void)
  void EfxSRankWeaponEffectSCRMain(struct ProcEfx *proc)
 {
     u32 i;
-    u16 *dst = !gUnknown_0201FDB8
-        ? gUnknown_0201FF04
-        : gUnknown_0201FDC4;
+    u16 *dst = !gEkrBg1ScrollFlip
+        ? gpEkrLvupBg1ScrollOffsetTable2
+        : gpEkrLvupBg1ScrollOffsetTable1;
 
     for (i = 0; i < 160; dst++, i++) {
         if (i < 120) {

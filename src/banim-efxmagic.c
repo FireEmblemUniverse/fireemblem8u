@@ -144,10 +144,10 @@ void efxRestRSTMain(struct ProcEfx *proc)
     u32 i;
     u16 *buf;
 
-    if (gUnknown_0201FDB8 == 0)
-        buf = gUnknown_0201FF04;
+    if (gEkrBg1ScrollFlip == 0)
+        buf = gpEkrLvupBg1ScrollOffsetTable2;
     else
-        buf = gUnknown_0201FDC4;
+        buf = gpEkrLvupBg1ScrollOffsetTable1;
 
     val1 = proc->unk2E;
     proc->unk2E += proc->unk50;
@@ -180,9 +180,9 @@ void NewEfxTwobaiRST(struct Anim *anim, int unk44)
     proc->unk44 = unk44;
 
     for (i = 0; i < 0x78; i++)
-        gUnknown_0201FDC4[i] = -(i / 2);
+        gpEkrLvupBg1ScrollOffsetTable1[i] = -(i / 2);
 
-    buf = gUnknown_0201FF04;
+    buf = gpEkrLvupBg1ScrollOffsetTable2;
     for (j = 0; j < 0x78; buf++, j++)
         *buf = -(j / 2);
 }
@@ -223,10 +223,10 @@ void DummvRSTMain(struct ProcEfx *proc)
     u32 i;
     u16 *buf;
 
-    if (gUnknown_0201FDB8 == 0)
-        buf = gUnknown_0201FF04;
+    if (gEkrBg1ScrollFlip == 0)
+        buf = gpEkrLvupBg1ScrollOffsetTable2;
     else
-        buf = gUnknown_0201FDC4;
+        buf = gpEkrLvupBg1ScrollOffsetTable1;
 
     for (i = 0; i < 0x78; i++)
         buf[i] = gLCDControlBuffer.bgoffset[1].x;
@@ -275,10 +275,10 @@ void EfxRestWINMain(struct ProcEfx *proc)
     u16 *buf;
     s16 *buf2, *base;
 
-    if (gUnknown_0201FB2C == 0)
-        buf = gUnknown_0201FC78;
+    if (gEkrBg2ScrollFlip == 0)
+        buf = gpEkrLvupBg2ScrollOffsetTable2;
     else
-        buf = gUnknown_0201FB38;
+        buf = gpEkrLvupBg2ScrollOffsetTable1;
 
     base = proc->unk54;
     val2 = base[proc->unk2E];
@@ -358,29 +358,29 @@ void NewEfxRestWINH(struct Anim *anim, int a, u16 b, u32 c)
     gEfxBgSemaphore++;
 
     if (c == 2) {
-        buf = gUnknown_0201FB38;
+        buf = gpEkrLvupBg2ScrollOffsetTable1;
         for (i = 0; i < 0xA0; buf++, i++)
             *buf = b;
 
-        buf = gUnknown_0201FC78;
+        buf = gpEkrLvupBg2ScrollOffsetTable2;
         for (i = 0; i < 0xA0; buf++, i++)
             *buf = b;
 
-        gUnknown_0201FB2C = 0;
-        gUnknown_0201FB30 = gUnknown_0201FB38;
-        gpEkrLvupBg2ScrollOffset = gUnknown_0201FB38;
+        gEkrBg2ScrollFlip = 0;
+        gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable1;
+        gpEkrLvupBg2ScrollOffset = gpEkrLvupBg2ScrollOffsetTable1;
     }
 
-    buf = gUnknown_0201FDC4;
+    buf = gpEkrLvupBg1ScrollOffsetTable1;
     for (i = 0; i < 0xA0; buf++, i++)
         *buf = b;
 
-    buf = gUnknown_0201FF04;
+    buf = gpEkrLvupBg1ScrollOffsetTable2;
     for (i = 0; i < 0xA0; buf++, i++)
         *buf = b;
 
-    gUnknown_0201FDB8 = 0;
-    gpEkrLvupBg1ScrollOffset = gUnknown_0201FDBC = gUnknown_0201FDC4;
+    gEkrBg1ScrollFlip = 0;
+    gpEkrLvupBg1ScrollOffset = gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable1;
 
     switch (c) {
     case 0:
@@ -417,26 +417,26 @@ void sub_805B958(struct ProcEfx *proc)
 {
     if (gBmSt.sync_hardware != false) {
         if (proc->unk48 == 0x2) {
-            if (gUnknown_0201FB2C == 1) {
-                gUnknown_0201FB2C = 0;
-                gUnknown_0201FB30 = gUnknown_0201FB38;
+            if (gEkrBg2ScrollFlip == 1) {
+                gEkrBg2ScrollFlip = 0;
+                gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable1;
             } else {
-                gUnknown_0201FB2C = 1;
-                gUnknown_0201FB30 = gUnknown_0201FC78;
+                gEkrBg2ScrollFlip = 1;
+                gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable2;
             }
         }
 
-        if (gUnknown_0201FDB8 == 1) {
-            gUnknown_0201FDB8 = 0;
-            gUnknown_0201FDBC = gUnknown_0201FDC4;
+        if (gEkrBg1ScrollFlip == 1) {
+            gEkrBg1ScrollFlip = 0;
+            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable1;
         } else {
-            gUnknown_0201FDB8 = 1;
-            gUnknown_0201FDBC = gUnknown_0201FF04;
+            gEkrBg1ScrollFlip = 1;
+            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable2;
         }
     }
 
-    gpEkrLvupBg2ScrollOffset = gUnknown_0201FB30;
-    gpEkrLvupBg1ScrollOffset = gUnknown_0201FDBC;
+    gpEkrLvupBg2ScrollOffset = gpEkrLvupBg2ScrollOffsetStart;
+    gpEkrLvupBg1ScrollOffset = gpEkrLvupBg1ScrollOffsetStart;
 
     if (++proc->timer == proc->unk44) {
         gEfxBgSemaphore--;

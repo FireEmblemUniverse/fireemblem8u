@@ -391,7 +391,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
 
     gpProcEfxPartsofScroll = NewEfxPartsofScroll();
     gpProcEfxleveluphb = NewEfxleveluphb();
-    sub_8074598();
+    EfxUpdatePartsofScroll();
     EkrGauge_Setup44(2);
     DisableEfxStatusUnits(proc->ais_main);
     DisableEfxStatusUnits(proc->ais_core);

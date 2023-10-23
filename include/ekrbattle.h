@@ -461,16 +461,16 @@ extern u32 gEkrBgXOffset;
 extern const void *gpImgSheet[2];
 // extern ??? gUnknown_0201FB24
 // extern ??? gUnknown_0201FB28
-extern int gUnknown_0201FB2C;
-extern u16 *gUnknown_0201FB30;
+extern int gEkrBg2ScrollFlip;
+extern u16 *gpEkrLvupBg2ScrollOffsetStart;
 extern u16 *gpEkrLvupBg2ScrollOffset;
-extern u16 gUnknown_0201FB38[];
-extern u16 gUnknown_0201FC78[];
-extern int gUnknown_0201FDB8;
-extern u16 *gUnknown_0201FDBC;
+extern u16 gpEkrLvupBg2ScrollOffsetTable1[];
+extern u16 gpEkrLvupBg2ScrollOffsetTable2[];
+extern int gEkrBg1ScrollFlip;
+extern u16 *gpEkrLvupBg1ScrollOffsetStart;
 extern u16 *gpEkrLvupBg1ScrollOffset;
-extern u16 gUnknown_0201FDC4[];
-extern u16 gUnknown_0201FF04[];
+extern u16 gpEkrLvupBg1ScrollOffsetTable1[];
+extern u16 gpEkrLvupBg1ScrollOffsetTable2[];
 // extern ??? gUnknown_02020044
 
 extern int gEkrMainBgmPlaying;

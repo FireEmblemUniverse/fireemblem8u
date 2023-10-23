@@ -23,17 +23,17 @@ ProcPtr NewEfxPartsofScroll(void)
     return proc;
 }
 
-void sub_8074598(void)
+void EfxUpdatePartsofScroll(void)
 {
     u32 i;
 
-    u16 * buf1 = (gUnknown_0201FDB8 == 0)
-               ? gUnknown_0201FC78
-               : gUnknown_0201FB38;
+    u16 * buf1 = (gEkrBg1ScrollFlip == 0)
+               ? gpEkrLvupBg2ScrollOffsetTable2
+               : gpEkrLvupBg2ScrollOffsetTable1;
 
-    u16 * buf2 = (gUnknown_0201FDB8 == 0)
-               ? gUnknown_0201FF04
-               : gUnknown_0201FDC4;
+    u16 * buf2 = (gEkrBg1ScrollFlip == 0)
+               ? gpEkrLvupBg1ScrollOffsetTable2
+               : gpEkrLvupBg1ScrollOffsetTable1;
 
     for (i = 0; i < 0xA0; i++)
     {
@@ -67,7 +67,7 @@ void EfxPartsofScrollCallBack(ProcPtr proc)
 
 void EfxPartsofScrollMain(ProcPtr proc)
 {
-    sub_8074598();
+    EfxUpdatePartsofScroll();
 }
 
 CONST_DATA struct ProcCmd ProcScr_EfxPartsofScroll2[] = {
@@ -101,13 +101,13 @@ CONST_DATA s16 gUnknown_0875941C[] = {
 
 void EfxPartsofScroll2Main(ProcPtr proc)
 {
-    u16 * buf1 = (gUnknown_0201FDB8 == 0)
-               ? gUnknown_0201FC78
-               : gUnknown_0201FB38;
+    u16 * buf1 = (gEkrBg1ScrollFlip == 0)
+               ? gpEkrLvupBg2ScrollOffsetTable2
+               : gpEkrLvupBg2ScrollOffsetTable1;
 
-    u16 * buf2 = (gUnknown_0201FDB8 == 0)
-               ? gUnknown_0201FF04
-               : gUnknown_0201FDC4;
+    u16 * buf2 = (gEkrBg1ScrollFlip == 0)
+               ? gpEkrLvupBg1ScrollOffsetTable2
+               : gpEkrLvupBg1ScrollOffsetTable1;
 
     u32 i = 0;
 
@@ -163,35 +163,36 @@ ProcPtr NewEfxleveluphb(void)
 
     gEfxBgSemaphore++;
 
-    buf = gUnknown_0201FB38;
+    buf = gpEkrLvupBg2ScrollOffsetTable1;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    buf = gUnknown_0201FC78;
+    buf = gpEkrLvupBg2ScrollOffsetTable2;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    buf = gUnknown_0201FDC4;
+    buf = gpEkrLvupBg1ScrollOffsetTable1;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    buf = gUnknown_0201FF04;
+    buf = gpEkrLvupBg1ScrollOffsetTable2;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    gUnknown_0201FB2C = 0;
+    gEkrBg2ScrollFlip = 0;
     v = ProcScr_Efxleveluphb; // by permuter
-    gUnknown_0201FDB8 = 0;
+
+    gEkrBg1ScrollFlip = 0;
 #ifndef NONMATCHING
     asm("":::"v7"); // by me
 #endif
-    buf = gUnknown_0201FB38;
-    gUnknown_0201FB30 = buf;
-    buf = gUnknown_0201FDC4;
-    gUnknown_0201FDBC = buf;
-    buf = gUnknown_0201FB30;
+    buf = gpEkrLvupBg2ScrollOffsetTable1;
+    gpEkrLvupBg2ScrollOffsetStart = buf;
+    buf = gpEkrLvupBg1ScrollOffsetTable1;
+    gpEkrLvupBg1ScrollOffsetStart = buf;
+    buf = gpEkrLvupBg2ScrollOffsetStart;
     gpEkrLvupBg2ScrollOffset = buf;
-    buf = gUnknown_0201FDBC;
+    buf = gpEkrLvupBg1ScrollOffsetStart;
     gpEkrLvupBg1ScrollOffset = buf;
 
     proc = Proc_Start(v, PROC_TREE_VSYNC);
@@ -213,30 +214,30 @@ void EfxleveluphbMain(ProcPtr proc)
 {
     if (gBmSt.sync_hardware != false)
     {
-        if (gUnknown_0201FB2C == 1)
+        if (gEkrBg2ScrollFlip == 1)
         {
-            gUnknown_0201FB2C = 0;
-            gUnknown_0201FB30 = gUnknown_0201FB38;
+            gEkrBg2ScrollFlip = 0;
+            gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable1;
         }
         else
         {
-            gUnknown_0201FB2C = 1;
-            gUnknown_0201FB30 = gUnknown_0201FC78;
+            gEkrBg2ScrollFlip = 1;
+            gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable2;
         }
     
-        if (gUnknown_0201FDB8 == 1)
+        if (gEkrBg1ScrollFlip == 1)
         {
-            gUnknown_0201FDB8 = 0;
-            gUnknown_0201FDBC = gUnknown_0201FDC4;
+            gEkrBg1ScrollFlip = 0;
+            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable1;
         }
         else
         {
-            gUnknown_0201FDB8 = 1;
-            gUnknown_0201FDBC = gUnknown_0201FF04;
+            gEkrBg1ScrollFlip = 1;
+            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable2;
         }
     }
-    gpEkrLvupBg2ScrollOffset = gUnknown_0201FB30;
-    gpEkrLvupBg1ScrollOffset = gUnknown_0201FDBC;
+    gpEkrLvupBg2ScrollOffset = gpEkrLvupBg2ScrollOffsetStart;
+    gpEkrLvupBg1ScrollOffset = gpEkrLvupBg1ScrollOffsetStart;
 }
 
 void EkrLvupHBlank(void)
@@ -538,5 +539,11 @@ void EkrLvupApfxMain(struct ProcEkrLvupApfx * proc)
     CopyToPaletteBuffer(colors + new_color_offset + 0x20, (0x10 + proc->pal + 1) * 0x20 + 0x12, 0x20 - 0x12);
 }
 #endif
+
+CONST_DATA struct ProcCmd ProcScr_EkrLvupApfx[] = {
+    PROC_CALL(EkrLvupApfxInit),
+    PROC_REPEAT(EkrLvupApfxMain),
+    PROC_END
+};
 
 const char aeobjLvup[] = "eobjLvup";
