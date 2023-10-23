@@ -46,6 +46,29 @@ enum ekr_lvup_status_index {
     EKRLVUP_STAT_LVPRE_VAL
 };
 
+struct Struct20200E0_14 {
+    /* 00 */ u8 _pad_00[0x4C - 0x0];
+    /* 4C */ int unk4C;
+};
+
+struct Struct20200E0 {
+    /* 00 */ u16 unk00;
+    /* 02 */ u16 unk02;
+    /* 04 */ u16 unk04;
+    /* 06 */ u16 unk06;
+    /* 08 */ u16 unk08;
+    /* 0A */ u16 unk0A;
+    /* 0C */ u16 unk0C;
+    /* 0E */ u16 unk0E;
+    /* 10 */ u16 unk10;
+    /* 14 */ void * unk14;
+    /* 18 */ void * unk18;
+    /* 1C */ void * unk1C;
+    /* 20 */ void * unk20;
+    /* 24 */ void * unk24;
+};
+extern struct Struct20200E0 gUnknown_020200E0;
+
 struct ProcEkrLvupApfx {
     /* 00 */ PROC_HEADER;
     /* 29 */ STRUCT_PAD(0x29, 0x2C);
@@ -72,7 +95,7 @@ extern u16 gEkrLvupBaseStatus[EKRLVUP_STAT_MAX];
 extern u16 gEkrLvupPostStatus[EKRLVUP_STAT_MAX];
 extern u16 gEkrLvupScrollPos1;
 extern u16 gEkrLvupScrollPos2;
-// extern ??? gpProcEkrLvupApfx
+extern ProcPtr gpProcEkrLvupApfx;
 extern int gEkrTriangleInvalid;
 
 bool CheckEkrLvupDone(void);

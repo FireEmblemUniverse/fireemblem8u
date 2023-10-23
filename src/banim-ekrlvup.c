@@ -19,6 +19,11 @@ void sub_805AE40(void *, s16, s16, s16, s16);
  * section.ewramdata
  */
 
+EWRAM_DATA struct ProcEkrLevelup * gpProcEkrLevelup = NULL;
+EWRAM_DATA u32 gUnknown_020200B8[8] = {0};
+EWRAM_DATA ProcPtr gpProcEfxPartsofScroll = NULL;
+EWRAM_DATA ProcPtr gpProcEfxleveluphb = NULL;
+EWRAM_DATA struct Struct20200E0 gUnknown_020200E0 = {0};
 EWRAM_DATA struct Unit *gpEkrLvupUnit = NULL;
 EWRAM_DATA struct BattleUnit *gpEkrLvupBattleUnit = NULL;
 EWRAM_DATA u16 gEkrLvupPreLevel = 0;
@@ -27,6 +32,7 @@ EWRAM_DATA u16 gEkrLvupBaseStatus[EKRLVUP_STAT_MAX] = {0};
 EWRAM_DATA u16 gEkrLvupPostStatus[EKRLVUP_STAT_MAX] = {0};
 EWRAM_DATA u16 gEkrLvupScrollPos1 = 0;
 EWRAM_DATA u16 gEkrLvupScrollPos2 = 0;
+EWRAM_DATA ProcPtr gpProcEkrLvupApfx = NULL;
 
 /**
  * section.data

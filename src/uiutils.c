@@ -225,7 +225,7 @@ void UnpackUiFrameBuffered(int id)
         id = gPlaySt.config.windowColor;
 
     bufSize = GetDataSize(sUiFrameImageLookup[id]);
-    bufAddr = gUnknown_02022288 - bufSize;
+    bufAddr = gPalUnk - bufSize;
 
     Decompress(sUiFrameImageLookup[id], bufAddr);
     RegisterDataMove(bufAddr, BG_CHAR_ADDR(0), bufSize);

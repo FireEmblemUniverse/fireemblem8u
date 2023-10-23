@@ -16,6 +16,8 @@ void sub_805AA68(void *);
 void sub_805AE14(void *);
 void sub_805AE40(void *, s16, s16, s16, s16);
 
+EWRAM_DATA u16 gEkrSomePalBuf[0x20] = {0};
+
 CONST_DATA struct ProcCmd ProcScr_EkrDK[] = {
     PROC_YIELD,
     PROC_REPEAT(EkrDKStartBaseHide),

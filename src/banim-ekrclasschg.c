@@ -9,6 +9,8 @@
 #include "hardware.h"
 #include "proc.h"
 
+EWRAM_DATA struct ProcEkrClasschg * gpProcEkrClasschg = NULL;
+
 bool EkrClasschgFinished(void)
 {
     if (gpProcEkrClasschg->done == true)

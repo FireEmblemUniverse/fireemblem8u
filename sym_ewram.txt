@@ -246,39 +246,21 @@
 . = 0x01FB1C; gpImgSheet = .;
 . = 0x01FB24; gUnknown_0201FB24 = .;
 . = 0x01FB28; gUnknown_0201FB28 = .;
-. = 0x01FB2C; gEkrBg2ScrollFlip = .;
-. = 0x01FB30; gpEkrLvupBg2ScrollOffsetStart = .;
-. = 0x01FB34; gpEkrLvupBg2ScrollOffset = .;
-. = 0x01FB38; gpEkrLvupBg2ScrollOffsetTable1 = .;
-. = 0x01FC78; gpEkrLvupBg2ScrollOffsetTable2 = .;
-. = 0x01FDB8; gEkrBg1ScrollFlip = .;
-. = 0x01FDBC; gpEkrLvupBg1ScrollOffsetStart = .;
-. = 0x01FDC0; gpEkrLvupBg1ScrollOffset = .;
-. = 0x01FDC4; gpEkrLvupBg1ScrollOffsetTable1 = .;
-. = 0x01FF04; gpEkrLvupBg1ScrollOffsetTable2 = .;
-. = 0x020044; gUnknown_02020044 = .;
-. = 0x020048;
+. = 0x01FB2C;
+. = ALIGN(4); src/banim-efxlvup.o(ewram_data);
 . = ALIGN(4); src/banim-ekrdragonstatus.o(ewram_data);
-. = 0x0200A8; gEkrMainBgmPlaying = .;
-. = 0x0200AC; gEfxSoundSeExist = .;
-. = 0x0200B0; gpProcEkrClasschg = .;
-. = 0x0200B4; gpProcEkrLevelup = .;
-. = 0x0200B8; gUnknown_020200B8 = .;
-. = 0x0200D8; gpProcEfxPartsofScroll = .;
-. = 0x0200DC; gpProcEfxleveluphb = .;
-. = 0x0200E0; gUnknown_020200E0 = .;
-. = 0x020108;
+. = ALIGN(4); src/banim-efxsound.o(ewram_data);
+. = ALIGN(4); src/banim-ekrclasschg.o(ewram_data);
 . = ALIGN(4); src/banim-ekrlvup.o(ewram_data);
-. = 0x020138; gpProcEkrLvupApfx = .;
-. = 0x02013C;
 . = ALIGN(4); src/banim-ekrtriangle.o(ewram_data);
 . = ALIGN(4); src/banim-ekrpopup.o(ewram_data);
-. = 0x020148; gEkrSomePalBuf = .;
+. = ALIGN(4); src/banim-ekrdragon-demonking.o(ewram_data);
+
 /* end of ewram overlay */
 /* start of ewram data */
 . = 0x020188; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
 . = 0x022188; gOpAnimSt = .;
-. = 0x022288; gUnknown_02022288 = .;
+. = 0x022288; gPalUnk = .;
 . = 0x0222A8; gUnknown_020222A8 = .;
 . = 0x0222A8; gUnknown_020222A8 = .;
 . = 0x022308; gUnknown_02022308 = .;

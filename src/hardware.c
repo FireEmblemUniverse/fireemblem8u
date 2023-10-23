@@ -560,7 +560,7 @@ void MaybeResetSomePal(void)
     int i;
 
     for (i = 31; i >= 0; i--)
-        gUnknown_02022288[i] = 0;
+        gPalUnk[i] = 0;
 }
 
 void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d)
@@ -572,7 +572,7 @@ void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d)
 
     for (i = 0; i < c; i++)
     {
-        gUnknown_02022288[b + i] = d;
+        gPalUnk[b + i] = d;
         for (j = 0; j < 16; j++)
         {
             gUnknown_020222A8[destOffset++] = RED_VALUE(*src) + r3;
@@ -592,7 +592,7 @@ void sub_80017B4(int a, int b, int c, int d)
 
     for (i = 0; i < b; i++)
     {
-        gUnknown_02022288[a + i] = d;
+        gPalUnk[a + i] = d;
         for (j = 0; j < 16; j++)
         {
             gUnknown_020222A8[destOffset++] = RED_VALUE(*src) + c;
@@ -608,7 +608,7 @@ void sub_800183C(int a, int b, int c)
     int i;
 
     for (i = a; i < a + b; i++)
-        gUnknown_02022288[i] = c;
+        gPalUnk[i] = c;
 }
 
 void ColorFadeSetupFromColorToBlack(u8 a)
@@ -618,7 +618,7 @@ void ColorFadeSetupFromColorToBlack(u8 a)
 
     for (i = 31; i >= 0; i--)
     {
-        gUnknown_02022288[i] = a;
+        gPalUnk[i] = a;
         for (j = 0; j < 16; j++)
         {
             gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
@@ -635,7 +635,7 @@ void ColorFadeSetupFromBlack(u8 a)
 
     for (i = 31; i >= 0; i--)
     {
-        gUnknown_02022288[i] = a;
+        gPalUnk[i] = a;
         for (j = 0; j < 16; j++)
         {
             gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]);
@@ -653,7 +653,7 @@ void ColorFadeSetupFromColorToWhite(u8 a)
 
     for (i = 31; i >= 0; i--)
     {
-        gUnknown_02022288[i] = a;
+        gPalUnk[i] = a;
         for (j = 0; j < 16; j++)
         {
             gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
@@ -670,7 +670,7 @@ void ColorFadeSetupFromWhite(u8 a)
 
     for (i = 31; i >= 0; i--)
     {
-        gUnknown_02022288[i] = a;
+        gPalUnk[i] = a;
         for (j = 0; j < 16; j++)
         {
             gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
@@ -690,13 +690,13 @@ void sub_8001A6C(void)
 
     for (i = 31; i >= 0; i--)
     {
-        if (gUnknown_02022288[i] != 0)
+        if (gPalUnk[i] != 0)
         {
             for (j = 15; j >= 0; j--)
             {
-                gUnknown_020222A8[(i * 16 + j) * 3 + 0] += gUnknown_02022288[i];
-                gUnknown_020222A8[(i * 16 + j) * 3 + 1] += gUnknown_02022288[i];
-                gUnknown_020222A8[(i * 16 + j) * 3 + 2] += gUnknown_02022288[i];
+                gUnknown_020222A8[(i * 16 + j) * 3 + 0] += gPalUnk[i];
+                gUnknown_020222A8[(i * 16 + j) * 3 + 1] += gPalUnk[i];
+                gUnknown_020222A8[(i * 16 + j) * 3 + 2] += gPalUnk[i];
 
                 r4 = gUnknown_020222A8[(i * 16 + j) * 3 + 0] - 32;
                 if (r4 > 31)

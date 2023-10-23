@@ -6,6 +6,20 @@
 #include "hardware.h"
 #include "mapanim.h"
 
+EWRAM_DATA int gEkrBg2ScrollFlip = 0;
+EWRAM_DATA u16 * gpEkrLvupBg2ScrollOffsetStart = NULL;
+EWRAM_DATA u16 * gpEkrLvupBg2ScrollOffset = NULL;
+EWRAM_DATA u16 gpEkrLvupBg2ScrollOffsetTable1[160] = {0};
+EWRAM_DATA u16 gpEkrLvupBg2ScrollOffsetTable2[160] = {0};
+
+EWRAM_DATA int gEkrBg1ScrollFlip = 0;
+EWRAM_DATA u16 * gpEkrLvupBg1ScrollOffsetStart = NULL;
+EWRAM_DATA u16 * gpEkrLvupBg1ScrollOffset = NULL;
+EWRAM_DATA u16 gpEkrLvupBg1ScrollOffsetTable1[160] = {0};
+EWRAM_DATA u16 gpEkrLvupBg1ScrollOffsetTable2[160] = {0};
+
+EWRAM_DATA int gUnknown_02020044 = 0;
+
 CONST_DATA struct ProcCmd ProcScr_EfxPartsofScroll[] = {
     PROC_NAME("efxPartsofScroll"),
     PROC_SET_END_CB(EfxPartsofScrollCallBack),
