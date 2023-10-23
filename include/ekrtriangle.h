@@ -81,6 +81,8 @@ struct ProcEfxTriagnleQUAKE {
     /* 60 */ ProcPtr qproc;
 };
 
+extern int gEkrTriangleInvalid;
+
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriangle[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnight[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnightBG[];

@@ -2,50 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START EkrLvupApfxMain
-EkrLvupApfxMain: @ 0x08074B40
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r1, _08074B8C  @ Pal_ManimLevelUpStatGainCycling
-	ldrh r0, [r5, #0x2e]
-	adds r4, r0, #1
-	strh r4, [r5, #0x2e]
-	movs r0, #3
-	ands r0, r4
-	cmp r0, #0
-	bne _08074B86
-	lsls r4, r4, #0x10
-	asrs r4, r4, #0x12
-	movs r0, #0xf
-	ands r4, r0
-	lsls r4, r4, #1
-	adds r4, r4, r1
-	movs r0, #0x2c
-	ldrsh r1, [r5, r0]
-	adds r1, #0x10
-	lsls r1, r1, #5
-	adds r1, #0x12
-	adds r0, r4, #0
-	movs r2, #0xe
-	bl CopyToPaletteBuffer
-	adds r4, #0x40
-	movs r0, #0x2c
-	ldrsh r1, [r5, r0]
-	adds r1, #0x11
-	lsls r1, r1, #5
-	adds r1, #0x12
-	adds r0, r4, #0
-	movs r2, #0xe
-	bl CopyToPaletteBuffer
-_08074B86:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08074B8C: .4byte Pal_ManimLevelUpStatGainCycling
-
-	THUMB_FUNC_END EkrLvupApfxMain
-
 	THUMB_FUNC_START NewEkrLvupApfx
 NewEkrLvupApfx: @ 0x08074B90
 	push {r4, r5, lr}

@@ -534,16 +534,14 @@ void EkrLvupApfxInit(struct ProcEkrLvupApfx * proc)
     proc->clock = 0;
 }
 
-#if 0
 void EkrLvupApfxMain(struct ProcEkrLvupApfx * proc)
 {
     int new_color_offset;
+    u16 * colors = Pal_ManimLevelUpStatGainCycling;
 
-    u16 *colors = Pal_ManimLevelUpStatGainCycling;
+    ++proc->clock;
 
-    proc->clock++;
-
-    if ((proc->clock % 4) != 0)
+    if (proc->clock & 3)
         return;
 
     new_color_offset = (proc->clock >> 2) & 0xF;
@@ -552,7 +550,6 @@ void EkrLvupApfxMain(struct ProcEkrLvupApfx * proc)
     CopyToPaletteBuffer(colors + new_color_offset + 0x00, (0x10 + proc->pal + 0) * 0x20 + 0x12, 0x20 - 0x12);
     CopyToPaletteBuffer(colors + new_color_offset + 0x20, (0x10 + proc->pal + 1) * 0x20 + 0x12, 0x20 - 0x12);
 }
-#endif
 
 CONST_DATA struct ProcCmd ProcScr_EkrLvupApfx[] = {
     PROC_CALL(EkrLvupApfxInit),
