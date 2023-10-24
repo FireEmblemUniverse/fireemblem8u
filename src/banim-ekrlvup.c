@@ -32,7 +32,7 @@ EWRAM_DATA u16 gEkrLvupBaseStatus[EKRLVUP_STAT_MAX] = {0};
 EWRAM_DATA u16 gEkrLvupPostStatus[EKRLVUP_STAT_MAX] = {0};
 EWRAM_DATA u16 gEkrLvupScrollPos1 = 0;
 EWRAM_DATA u16 gEkrLvupScrollPos2 = 0;
-EWRAM_DATA ProcPtr gpProcEkrLvupApfx = NULL;
+EWRAM_DATA int gEkrLvupApfxUnexist = false;
 
 /**
  * section.data
@@ -423,9 +423,9 @@ void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
     RegisterDataMove(gEkrBuf1, (void *)BG_VRAM + 0x2000, 0x8C0);
     CpuFastCopy(Pal_LevelUpBoxFrame, PAL_BG(1), 0x20);
 
-    LZ77UnCompWram(gUnknown_085BB0C8, gEkrBuf2);
+    LZ77UnCompWram(Img_LvupApfx, gEkrBuf2);
     RegisterDataMove(gEkrBuf2, OBJ_VRAM0 + 0x1400, 0xC00);
-    CpuFastCopy(gUnknown_085BB2DC, PAL_OBJ(1), 0x20);
+    CpuFastCopy(Pal_LvupApfx, PAL_OBJ(1), 0x20);
 
     EnablePaletteSync();
 

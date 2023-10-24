@@ -775,8 +775,8 @@ extern u16 Pal_085BA2E0[];
 extern u16 Pal_085BA300[];
 extern u16 Pal_085BA320[];
 // extern ??? gUnknown_085BA340
-extern u16 gUnknown_085BB0C8[];
-extern u16 gUnknown_085BB2DC[];
+extern u16 Img_LvupApfx[];
+extern u16 Pal_LvupApfx[];
 // extern ??? gUnknown_085BC188
 // extern ??? gUnknown_085BE7F4
 // extern ??? gUnknown_085BEF94
@@ -817,12 +817,12 @@ extern AnimScr AnimScr_EfxLvupOBJ2[];
 // extern ??? gUnknown_085C7438
 extern u32 AnimScr_085C81A4[];
 extern u32 AnimScr_085C8218[];
-// extern ??? gUnknown_085C8278
-// extern ??? gUnknown_085C9270
-// extern ??? gUnknown_085C92A0
-// extern ??? gUnknown_085C92D0
-// extern ??? gUnknown_085C92EC
-// extern ??? gUnknown_085C9328
+extern u8 Img_EkrLvupNumBig[];
+extern AnimScr gUnknown_085C9270[];
+extern AnimScr gUnknown_085C92A0[];
+extern AnimScr gUnknown_085C92D0[];
+extern AnimScr gUnknown_085C92EC[];
+extern AnimScr gUnknown_085C9328[];
 extern u16 gUnknown_085CFB70[];
 extern u16 gUnknown_085D0820[];
 extern u16 gUnknown_085D0A20[];

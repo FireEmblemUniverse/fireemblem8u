@@ -76,6 +76,33 @@ struct ProcEkrLvupApfx {
     /* 2E */ s16 clock;
 };
 
+struct ProcEobjLvup {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+
+    /* 2C */ s16 timer;
+    /* 2E */ s16 chr1;
+    /* 30 */ s16 chr2;
+    /* 32 */ s16 x;
+
+    STRUCT_PAD(0x34, 0x3A);
+
+    /* 3A */ s16 y;
+
+    STRUCT_PAD(0x3C, 0x44);
+
+    /* 44 */ int chr;
+    /* 48 */ int pal;
+    /* 4C */ int index;
+    /* 50 */ int diff;
+
+    STRUCT_PAD(0x54, 0x5C);
+
+    /* 5C */ struct Anim * anim;
+    /* 60 */ struct ProcEkrSubAnimeEmulator * child1, * child2;
+};
+
 extern CONST_DATA unsigned * EkrLvupMsgsStr[];
 extern CONST_DATA unsigned * EkrLvupMsgsMag[];
 extern const u16 sEfxLvupPartsPos[];
@@ -95,7 +122,7 @@ extern u16 gEkrLvupBaseStatus[EKRLVUP_STAT_MAX];
 extern u16 gEkrLvupPostStatus[EKRLVUP_STAT_MAX];
 extern u16 gEkrLvupScrollPos1;
 extern u16 gEkrLvupScrollPos2;
-extern ProcPtr gpProcEkrLvupApfx;
+extern int gEkrLvupApfxUnexist;
 
 bool CheckEkrLvupDone(void);
 void EndEkrLevelUp(void);
@@ -147,11 +174,11 @@ void Loop6C1_EfxLvupBGCOL(struct ProcEfxBGCOL * proc);
 void Loop6C2_EfxLvupBGCOL(struct ProcEfxBGCOL * proc);
 void EkrLvupApfxInit(struct ProcEkrLvupApfx * proc);
 void EkrLvupApfxMain(struct ProcEkrLvupApfx * proc);
-void NewEkrLvupApfx(int index, int pal);
+void NewEkrLvupApfx(int chr, int pal);
 void EkrLvupApfxEndEach(void);
-// ??? sub_8074C10(???);
-// ??? sub_8074C78(???);
+void PutEkrLvupStatGainLabelGfx1(int stat_num, int stat_gain);
+void PutEkrLvupStatGainLabelGfx2(int chr, int stat_gain);
 void BanimDrawStatupAp(int, int, int, int, int, int);
-// ??? sub_8074E6C(???);
-// ??? sub_8074EDC(???);
-// ??? sub_8074F14(???);
+void sub_8074E6C(struct ProcEobjLvup * proc);
+void sub_8074EDC(struct ProcEobjLvup * proc);
+void sub_8074F14(struct ProcEobjLvup * proc);

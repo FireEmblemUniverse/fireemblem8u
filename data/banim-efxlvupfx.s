@@ -1,12 +1,14 @@
 	.section .data
 
-	.global gUnknown_085BB0C8
-gUnknown_085BB0C8:  @ 0x085BB0C8
-	.incbin "baserom.gba", 0x5BB0C8, 0x214
+	.global Img_LvupApfx
+Img_LvupApfx:  @ 0x085BB0C8
+	.incbin "./graphics/lvup/LvupAp.4bpp.lz"
 
-	.global gUnknown_085BB2DC
-gUnknown_085BB2DC:  @ 0x085BB2DC
-	.incbin "baserom.gba", 0x5BB2DC, 0xEAC
+	.global Pal_LvupApfx
+Pal_LvupApfx:  @ 0x085BB2DC
+	.incbin "./graphics/lvup/LvupAp.gbapal", 0x0, 0x20
+
+    .incbin "baserom.gba", 0x5BB2FC, 0x5BC188 - 0x5BB2FC
 
 	.global gUnknown_085BC188
 gUnknown_085BC188:  @ 0x085BC188

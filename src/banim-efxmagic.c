@@ -145,9 +145,9 @@ void efxRestRSTMain(struct ProcEfx *proc)
     u16 *buf;
 
     if (gEkrBg1ScrollFlip == 0)
-        buf = gpEkrLvupBg1ScrollOffsetTable2;
+        buf = gpEkrLvupBg1ScrollOffsetList2;
     else
-        buf = gpEkrLvupBg1ScrollOffsetTable1;
+        buf = gpEkrLvupBg1ScrollOffsetList1;
 
     val1 = proc->unk2E;
     proc->unk2E += proc->unk50;
@@ -180,9 +180,9 @@ void NewEfxTwobaiRST(struct Anim *anim, int unk44)
     proc->unk44 = unk44;
 
     for (i = 0; i < 0x78; i++)
-        gpEkrLvupBg1ScrollOffsetTable1[i] = -(i / 2);
+        gpEkrLvupBg1ScrollOffsetList1[i] = -(i / 2);
 
-    buf = gpEkrLvupBg1ScrollOffsetTable2;
+    buf = gpEkrLvupBg1ScrollOffsetList2;
     for (j = 0; j < 0x78; buf++, j++)
         *buf = -(j / 2);
 }
@@ -224,9 +224,9 @@ void DummvRSTMain(struct ProcEfx *proc)
     u16 *buf;
 
     if (gEkrBg1ScrollFlip == 0)
-        buf = gpEkrLvupBg1ScrollOffsetTable2;
+        buf = gpEkrLvupBg1ScrollOffsetList2;
     else
-        buf = gpEkrLvupBg1ScrollOffsetTable1;
+        buf = gpEkrLvupBg1ScrollOffsetList1;
 
     for (i = 0; i < 0x78; i++)
         buf[i] = gLCDControlBuffer.bgoffset[1].x;
@@ -371,16 +371,16 @@ void NewEfxRestWINH(struct Anim *anim, int a, u16 b, u32 c)
         gpEkrLvupBg2ScrollOffset = gpEkrLvupBg2ScrollOffsetTable1;
     }
 
-    buf = gpEkrLvupBg1ScrollOffsetTable1;
+    buf = gpEkrLvupBg1ScrollOffsetList1;
     for (i = 0; i < 0xA0; buf++, i++)
         *buf = b;
 
-    buf = gpEkrLvupBg1ScrollOffsetTable2;
+    buf = gpEkrLvupBg1ScrollOffsetList2;
     for (i = 0; i < 0xA0; buf++, i++)
         *buf = b;
 
     gEkrBg1ScrollFlip = 0;
-    gpEkrLvupBg1ScrollOffset = gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable1;
+    gpEkrLvupBg1ScrollOffset = gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList1;
 
     switch (c) {
     case 0:
@@ -428,10 +428,10 @@ void sub_805B958(struct ProcEfx *proc)
 
         if (gEkrBg1ScrollFlip == 1) {
             gEkrBg1ScrollFlip = 0;
-            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable1;
+            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList1;
         } else {
             gEkrBg1ScrollFlip = 1;
-            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable2;
+            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList2;
         }
     }
 

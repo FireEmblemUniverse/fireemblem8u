@@ -11538,10 +11538,10 @@ sub_8063C40: @ 0x08063C40
 	bne _08063C56
 	ldr r5, _08063CAC  @ gpEkrLvupBg2ScrollOffsetTable2
 _08063C56:
-	ldr r3, _08063CB0  @ gpEkrLvupBg1ScrollOffsetTable1
+	ldr r3, _08063CB0  @ gpEkrLvupBg1ScrollOffsetList1
 	cmp r0, #0
 	bne _08063C5E
-	ldr r3, _08063CB4  @ gpEkrLvupBg1ScrollOffsetTable2
+	ldr r3, _08063CB4  @ gpEkrLvupBg1ScrollOffsetList2
 _08063C5E:
 	movs r4, #0
 	movs r6, #0
@@ -11582,8 +11582,8 @@ _08063C72:
 _08063CA4: .4byte gEkrBg1ScrollFlip
 _08063CA8: .4byte gpEkrLvupBg2ScrollOffsetTable1
 _08063CAC: .4byte gpEkrLvupBg2ScrollOffsetTable2
-_08063CB0: .4byte gpEkrLvupBg1ScrollOffsetTable1
-_08063CB4: .4byte gpEkrLvupBg1ScrollOffsetTable2
+_08063CB0: .4byte gpEkrLvupBg1ScrollOffsetList1
+_08063CB4: .4byte gpEkrLvupBg1ScrollOffsetList2
 _08063CB8: .4byte gUnknown_085D7030
 _08063CBC: .4byte 0x0000FF90
 _08063CC0:
@@ -12958,10 +12958,10 @@ sub_8064720: @ 0x08064720
 	bne _08064736
 	ldr r5, _08064784  @ gpEkrLvupBg2ScrollOffsetTable2
 _08064736:
-	ldr r4, _08064788  @ gpEkrLvupBg1ScrollOffsetTable1
+	ldr r4, _08064788  @ gpEkrLvupBg1ScrollOffsetList1
 	cmp r0, #0
 	bne _0806473E
-	ldr r4, _0806478C  @ gpEkrLvupBg1ScrollOffsetTable2
+	ldr r4, _0806478C  @ gpEkrLvupBg1ScrollOffsetList2
 _0806473E:
 	movs r3, #0
 	movs r0, #0
@@ -12998,8 +12998,8 @@ _0806474E:
 _0806477C: .4byte gEkrBg1ScrollFlip
 _08064780: .4byte gpEkrLvupBg2ScrollOffsetTable1
 _08064784: .4byte gpEkrLvupBg2ScrollOffsetTable2
-_08064788: .4byte gpEkrLvupBg1ScrollOffsetTable1
-_0806478C: .4byte gpEkrLvupBg1ScrollOffsetTable2
+_08064788: .4byte gpEkrLvupBg1ScrollOffsetList1
+_0806478C: .4byte gpEkrLvupBg1ScrollOffsetList2
 _08064790: .4byte gUnknown_085D7298
 _08064794: .4byte 0x0000FF80
 _08064798:

@@ -192,7 +192,6 @@ SECTIONS
         src/banim-ekrclasschg.o(.text);
         src/banim-ekrlvup.o(.text);
         src/banim-efxlvup.o(.text);
-        asm/banim-efxlvup.o(.text);
         src/banim-ekrtriangle.o(.text);
         src/banim-ekrpopup.o(.text);
         src/banim-ekrhensei.o(.text);
@@ -639,7 +638,6 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrclasschg.o(.data);
         . = ALIGN(4); src/banim-ekrlvup.o(.data);
         . = ALIGN(4); src/banim-efxlvup.o(.data);
-        . = ALIGN(4); data/banim-efxlvup.o(.data);
         . = ALIGN(4); src/banim-ekrtriangle.o(.data);
         . = ALIGN(4); data/banim-ekrtriangle.o(.data);
         . = ALIGN(4); data/data_btl_bg.o(.data);

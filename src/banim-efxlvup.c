@@ -1,10 +1,13 @@
 #include "global.h"
+#include "proc.h"
 #include "anime.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "ekrlevelup.h"
 #include "hardware.h"
 #include "mapanim.h"
+#include "ctc.h"
+#include "bmlib.h"
 
 EWRAM_DATA int gEkrBg2ScrollFlip = 0;
 EWRAM_DATA u16 * gpEkrLvupBg2ScrollOffsetStart = NULL;
@@ -15,8 +18,8 @@ EWRAM_DATA u16 gpEkrLvupBg2ScrollOffsetTable2[160] = {0};
 EWRAM_DATA int gEkrBg1ScrollFlip = 0;
 EWRAM_DATA u16 * gpEkrLvupBg1ScrollOffsetStart = NULL;
 EWRAM_DATA u16 * gpEkrLvupBg1ScrollOffset = NULL;
-EWRAM_DATA u16 gpEkrLvupBg1ScrollOffsetTable1[160] = {0};
-EWRAM_DATA u16 gpEkrLvupBg1ScrollOffsetTable2[160] = {0};
+EWRAM_DATA u16 gpEkrLvupBg1ScrollOffsetList1[160] = {0};
+EWRAM_DATA u16 gpEkrLvupBg1ScrollOffsetList2[160] = {0};
 
 EWRAM_DATA int gUnknown_02020044 = 0;
 
@@ -46,8 +49,8 @@ void EfxUpdatePartsofScroll(void)
                : gpEkrLvupBg2ScrollOffsetTable1;
 
     u16 * buf2 = (gEkrBg1ScrollFlip == 0)
-               ? gpEkrLvupBg1ScrollOffsetTable2
-               : gpEkrLvupBg1ScrollOffsetTable1;
+               ? gpEkrLvupBg1ScrollOffsetList2
+               : gpEkrLvupBg1ScrollOffsetList1;
 
     for (i = 0; i < 0xA0; i++)
     {
@@ -120,8 +123,8 @@ void EfxPartsofScroll2Main(ProcPtr proc)
                : gpEkrLvupBg2ScrollOffsetTable1;
 
     u16 * buf2 = (gEkrBg1ScrollFlip == 0)
-               ? gpEkrLvupBg1ScrollOffsetTable2
-               : gpEkrLvupBg1ScrollOffsetTable1;
+               ? gpEkrLvupBg1ScrollOffsetList2
+               : gpEkrLvupBg1ScrollOffsetList1;
 
     u32 i = 0;
 
@@ -185,11 +188,11 @@ ProcPtr NewEfxleveluphb(void)
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    buf = gpEkrLvupBg1ScrollOffsetTable1;
+    buf = gpEkrLvupBg1ScrollOffsetList1;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    buf = gpEkrLvupBg1ScrollOffsetTable2;
+    buf = gpEkrLvupBg1ScrollOffsetList2;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
@@ -202,7 +205,7 @@ ProcPtr NewEfxleveluphb(void)
 #endif
     buf = gpEkrLvupBg2ScrollOffsetTable1;
     gpEkrLvupBg2ScrollOffsetStart = buf;
-    buf = gpEkrLvupBg1ScrollOffsetTable1;
+    buf = gpEkrLvupBg1ScrollOffsetList1;
     gpEkrLvupBg1ScrollOffsetStart = buf;
     buf = gpEkrLvupBg2ScrollOffsetStart;
     gpEkrLvupBg2ScrollOffset = buf;
@@ -242,12 +245,12 @@ void EfxleveluphbMain(ProcPtr proc)
         if (gEkrBg1ScrollFlip == 1)
         {
             gEkrBg1ScrollFlip = 0;
-            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable1;
+            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList1;
         }
         else
         {
             gEkrBg1ScrollFlip = 1;
-            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetTable2;
+            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList2;
         }
     }
     gpEkrLvupBg2ScrollOffset = gpEkrLvupBg2ScrollOffsetStart;
@@ -557,4 +560,340 @@ CONST_DATA struct ProcCmd ProcScr_EkrLvupApfx[] = {
     PROC_END
 };
 
-const char aeobjLvup[] = "eobjLvup";
+void NewEkrLvupApfx(int chr, int pal)
+{
+    int pal_bank;
+    const u16 * pal_src;
+    struct ProcEkrLvupApfx * proc;
+
+    Decompress(Img_ManimLevelUpStatGain, OBJ_VRAM0 + OAM2_CHR(chr) * CHR_SIZE);
+
+    pal_src = Pal_ManimLevelUp;
+    pal_bank = pal + 0x10;
+    ApplyPalette(pal_src, pal + 0x10);
+
+    pal_bank = pal + 0x11;
+    ApplyPalette(pal_src, pal_bank);
+
+    proc = Proc_Start(ProcScr_EkrLvupApfx, PROC_TREE_3);
+    proc->pal = pal;
+    gEkrLvupApfxUnexist = false;
+}
+
+void EkrLvupApfxEndEach(void)
+{
+    Proc_EndEach(ProcScr_EkrLvupApfx);
+    gEkrLvupApfxUnexist = true;
+}
+
+void PutEkrLvupStatGainLabelGfx1(int stat_num, int stat_gain)
+{
+    u8 * img = Img_EkrLvupNumBig;
+    register int chr asm("r4");
+    int chr_this_stat;
+
+    chr = (stat_num - 1) * 2;
+
+    chr_this_stat = chr;
+    if (chr < 0)
+        chr_this_stat = -chr;
+
+    VramCopy(img + OAM2_CHR(chr_this_stat) * CHR_SIZE,
+        OBJ_VRAM0 + (OAM2_CHR(stat_gain + 0x2C) << 5), 2 * CHR_SIZE);
+
+    chr_this_stat = chr >= 0 ? chr : -chr;
+    VramCopy(img + OAM2_CHR((chr_this_stat) + 0x20) * CHR_SIZE,
+        OBJ_VRAM0 + (OAM2_CHR(stat_gain + 0x4C) << 5), 2 * CHR_SIZE);
+}
+
+void PutEkrLvupStatGainLabelGfx2(int chr, int stat_gain)
+{
+    int chr_this_stat;
+    int chr_this_stat_2;
+    u8 * img1;
+    u8 * img2;
+
+    img1 = Img_ManimLevelUpStatGainDigits;
+    img2 = Img_EkrLvupNumBig;
+
+    if (chr >= 0)
+    {
+        VramCopy(img2 + 0x18 * CHR_SIZE,
+            OBJ_VRAM0 + (OAM2_CHR(stat_gain + 0x2C) << 5), 2 * CHR_SIZE);
+
+        VramCopy(img2 + 0x38 * CHR_SIZE,
+            OBJ_VRAM0 + (OAM2_CHR(stat_gain + 0x4C) << 5), 2 * CHR_SIZE);
+    }
+    else
+    {
+        VramCopy(img2 + 0x1A * CHR_SIZE,
+            OBJ_VRAM0 + (OAM2_CHR(stat_gain + 0x2C) << 5), 2 * CHR_SIZE);
+
+        VramCopy(img2 + 0x3A * CHR_SIZE,
+            OBJ_VRAM0 + (OAM2_CHR(stat_gain + 0x4C) << 5), 2 * CHR_SIZE);
+    }
+
+    chr_this_stat = chr >= 0 ? chr : -chr;
+    VramCopy(img1 + OAM2_CHR(chr_this_stat) * CHR_SIZE,
+        OBJ_VRAM0 + (OAM2_CHR(stat_gain + 0x2D) << 5), CHR_SIZE);
+
+    chr_this_stat_2 = chr >= 0 ? chr : -chr;
+    VramCopy(img1 + OAM2_CHR((chr_this_stat_2) + 0x20) * CHR_SIZE,
+        OBJ_VRAM0 + (OAM2_CHR(stat_gain + 0x4D) << 5), CHR_SIZE);
+}
+
+CONST_DATA struct ProcCmd ProcScr_eobjLvup[] = {
+    PROC_NAME("eobjLvup"),
+    PROC_REPEAT(sub_8074E6C),
+    PROC_REPEAT(sub_8074EDC),
+    PROC_REPEAT(sub_8074F14),
+    PROC_END
+};
+
+/**
+ * https://decomp.me/scratch/XQtZJ
+ * Quite in process LOL
+ */
+#if NONMATCHING
+
+void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain)
+{
+    struct ProcEobjLvup * proc;
+    int chr2 = chr + 2 * (index - 1);
+    int _pal = pal << 12;
+    int _chr = chr | 0x400;
+    int __oam = _chr | _pal;
+
+    NewEkrsubAnimeEmulator(x - 0x12, y - 0x04, gUnknown_085C9270, 0, __oam, 0, PROC_TREE_5);
+    if (index == 0)
+        return;
+
+    proc = Proc_Start(ProcScr_eobjLvup, PROC_TREE_3);
+
+    if (gain >= 0)
+    {
+        proc->child2 = NewEkrsubAnimeEmulator(x, y, gUnknown_085C92A0, 2, __oam, 0, PROC_TREE_5);
+    }
+    else
+    {
+        int _oam = chr2 | 0x400 | _pal;
+        proc->child1 = NewEkrsubAnimeEmulator(x - 3, y, gUnknown_085C92EC, 2, _oam, 0, PROC_TREE_5);
+
+        _oam = _chr | _pal;
+        proc->child1 = NewEkrsubAnimeEmulator(x, y, gUnknown_085C92D0, 2, _oam, 0, PROC_TREE_5);
+        PutEkrLvupStatGainLabelGfx2(gain, _pal);
+    }
+    proc->x = x;
+    proc->y = y;
+    proc->timer = 0;
+    proc->chr1 = chr;
+    proc->chr2 = chr2;
+    proc->chr = chr;
+    proc->pal = pal;
+    proc->index = index;
+    proc->diff = gain;
+}
+
+#else
+
+NAKEDFUNC
+void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain)
+{
+    asm("\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, r9\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        sub sp, #0x1c\n\
+        str r0, [sp, #0xc]\n\
+        str r1, [sp, #0x10]\n\
+        mov r8, r2\n\
+        mov r9, r3\n\
+        str r0, [sp, #0x14]\n\
+        ldr r0, [sp, #0x3c]\n\
+        subs r0, #1\n\
+        lsls r0, r0, #1\n\
+        ldr r1, [sp, #0xc]\n\
+        adds r0, r1, r0\n\
+        str r0, [sp, #0x18]\n\
+        ldr r3, [sp, #0x10]\n\
+        lsls r6, r3, #0xc\n\
+        adds r7, r1, #0\n\
+        movs r0, #0x80\n\
+        lsls r0, r0, #3\n\
+        orrs r7, r0\n\
+        adds r5, r6, #0\n\
+        orrs r5, r7\n\
+        mov r0, r8\n\
+        subs r0, #0x12\n\
+        mov r1, r9\n\
+        subs r1, #4\n\
+        ldr r2, _08074DD8  @ gUnknown_085C9270\n\
+        str r5, [sp]\n\
+        movs r3, #0\n\
+        mov sl, r3\n\
+        str r3, [sp, #4]\n\
+        movs r3, #5\n\
+        str r3, [sp, #8]\n\
+        movs r3, #0\n\
+        bl NewEkrsubAnimeEmulator\n\
+        ldr r0, [sp, #0x3c]\n\
+        cmp r0, #0\n\
+        beq _08074E52\n\
+        ldr r0, _08074DDC  @ ProcScr_eobjLvup\n\
+        movs r1, #3\n\
+        bl Proc_Start\n\
+        adds r4, r0, #0\n\
+        ldr r1, [sp, #0x40]\n\
+        cmp r1, #0\n\
+        blt _08074DE4\n\
+        ldr r2, _08074DE0  @ gUnknown_085C92A0\n\
+        str r5, [sp]\n\
+        mov r3, sl\n\
+        str r3, [sp, #4]\n\
+        movs r0, #5\n\
+        str r0, [sp, #8]\n\
+        mov r0, r8\n\
+        mov r1, r9\n\
+        movs r3, #2\n\
+        bl NewEkrsubAnimeEmulator\n\
+        str r0, [r4, #0x64]\n\
+        b _08074E2A\n\
+        .align 2, 0\n\
+    _08074DD8: .4byte gUnknown_085C9270\n\
+    _08074DDC: .4byte ProcScr_eobjLvup\n\
+    _08074DE0: .4byte gUnknown_085C92A0\n\
+    _08074DE4:\n\
+        ldr r1, [sp, #0x18]\n\
+        movs r3, #0x80\n\
+        lsls r3, r3, #3\n\
+        orrs r1, r3\n\
+        orrs r1, r6\n\
+        mov r0, r8\n\
+        subs r0, #3\n\
+        ldr r2, _08074E64  @ gUnknown_085C92EC\n\
+        str r1, [sp]\n\
+        mov r1, sl\n\
+        str r1, [sp, #4]\n\
+        movs r3, #5\n\
+        str r3, [sp, #8]\n\
+        mov r1, r9\n\
+        movs r3, #2\n\
+        bl NewEkrsubAnimeEmulator\n\
+        str r0, [r4, #0x60]\n\
+        orrs r6, r7\n\
+        ldr r2, _08074E68  @ gUnknown_085C92D0\n\
+        str r6, [sp]\n\
+        mov r0, sl\n\
+        str r0, [sp, #4]\n\
+        movs r1, #5\n\
+        str r1, [sp, #8]\n\
+        mov r0, r8\n\
+        mov r1, r9\n\
+        movs r3, #2\n\
+        bl NewEkrsubAnimeEmulator\n\
+        str r0, [r4, #0x64]\n\
+        ldr r0, [sp, #0x40]\n\
+        ldr r1, [sp, #0x18]\n\
+        bl PutEkrLvupStatGainLabelGfx2\n\
+    _08074E2A:\n\
+        movs r0, #0\n\
+        mov r3, r8\n\
+        strh r3, [r4, #0x32]\n\
+        mov r1, r9\n\
+        strh r1, [r4, #0x3a]\n\
+        strh r0, [r4, #0x2c]\n\
+        mov r3, sp\n\
+        ldrh r3, [r3, #0x14]\n\
+        strh r3, [r4, #0x2e]\n\
+        mov r0, sp\n\
+        ldrh r0, [r0, #0x18]\n\
+        strh r0, [r4, #0x30]\n\
+        ldr r1, [sp, #0xc]\n\
+        str r1, [r4, #0x44]\n\
+        ldr r3, [sp, #0x10]\n\
+        str r3, [r4, #0x48]\n\
+        ldr r0, [sp, #0x3c]\n\
+        str r0, [r4, #0x4c]\n\
+        ldr r1, [sp, #0x40]\n\
+        str r1, [r4, #0x50]\n\
+    _08074E52:\n\
+        add sp, #0x1c\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _08074E64: .4byte gUnknown_085C92EC\n\
+    _08074E68: .4byte gUnknown_085C92D0\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif
+
+void sub_8074E6C(struct ProcEobjLvup * proc)
+{
+    int oam2;
+    if (proc->diff < 0)
+    {
+        Proc_Break(proc);
+        return;
+    }
+
+    if (++proc->timer == 0xF)
+    {
+        proc->timer = 0;
+
+        {
+            int _pal = proc->pal << 12;
+            int _chr = proc->chr2;
+            int _lay = 0x400;
+            oam2 = _pal | (_chr | _lay);
+        }
+
+        proc->child1 = NewEkrsubAnimeEmulator(
+            proc->x - 3,
+            proc->y,
+            gUnknown_085C9328,
+            2,
+            oam2,
+            0,
+            PROC_TREE_3
+        );
+        PutEkrLvupStatGainLabelGfx1(proc->diff, proc->chr2);
+        Proc_Break(proc);
+    }
+}
+
+void sub_8074EDC(struct ProcEobjLvup * proc)
+{
+    int oam2;
+    if (proc->diff < 0)
+    {
+        Proc_Break(proc);
+        return;
+    }
+
+    if (++proc->timer == 0xF)
+    {
+        proc->timer = 0;
+        PutEkrLvupStatGainLabelGfx2(proc->diff, proc->chr2);
+        Proc_Break(proc);
+    }
+}
+
+void sub_8074F14(struct ProcEobjLvup * proc)
+{
+    if (gEkrLvupApfxUnexist == true)
+    {
+        Proc_End(proc->child1);
+        Proc_End(proc->child2);
+        Proc_Break(proc);
+    }
+}
