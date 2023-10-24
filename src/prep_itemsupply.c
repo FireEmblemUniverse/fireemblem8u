@@ -427,7 +427,7 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc* proc) {
     StartSmallBrownNameBoxes(0xd, 0xe00, 0xf, 0xc00, 0, proc);
     SmallBrownNameBoxDoSomeConfig(0, 0x90, 6, 2);
     GetStringFromIndex(proc->unit->pCharacterData->nameTextId);
-    sub_80AC9C0(proc);
+    StartUiCursorHand(proc);
     ResetPrepScreenHandCursor(proc);
     sub_80AD4A0(0x600, 1);
 
@@ -495,10 +495,10 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc* proc) {
 
     DrawPrepScreenItems(gBG0TilemapBuffer + 0x6F + 0xb3, &gUnknown_02013648.th[2], proc->unit, 0);
     sub_809D6CC();
-    sub_80ACCE0(proc);
-    sub_80ACCF4(0, 0x280, 2);
-    sub_80ACD7C(0x78, 0x18, 0xe9, 0x18);
-    sub_80ACD60(3);
+    StartUiSpinningArrows(proc);
+    LoadUiSpinningArrowGfx(0, 0x280, 2);
+    SetUiSpinningArrowPositions(0x78, 0x18, 0xe9, 0x18);
+    SetUiSpinningArrowConfig(3);
     StartParallelWorker(Supply_PutHighlightedCategorySprites, proc);
 
     return;
@@ -531,7 +531,7 @@ void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc* proc) {
             switch (idx) {
                 case 0:
                     if ((GetConvoyItemCount_() < CONVOY_ITEM_COUNT) && (GetUnitItemCount(proc->unit) > 0)) {
-                        sub_80AC9D4(0, 68, proc->unk_33 * 16 + 36, 2);
+                        SetUiCursorHandConfig(0, 68, proc->unk_33 * 16 + 36, 2);
                         Proc_End(GetParallelWorker(PutGiveTakeBoxSprites));
                         StartParallelWorker(PutGiveSprites, proc);
                         sub_809D278(1, proc);
@@ -544,7 +544,7 @@ void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc* proc) {
                     break;
                 case 1:
                     if (GetUnitItemCount(proc->unit) < UNIT_ITEM_COUNT) {
-                        sub_80AC9D4(0, 68, proc->unk_33 * 16 + 36, 2);
+                        SetUiCursorHandConfig(0, 68, proc->unk_33 * 16 + 36, 2);
                         Proc_End(GetParallelWorker(PutGiveTakeBoxSprites));
                         StartParallelWorker(PutTakeSprites, proc);
                         sub_809D278(2, proc);
@@ -880,7 +880,7 @@ void sub_809E420(struct PrepItemSupplyProc* proc) {
         }
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT) {
-            sub_80ACDA4(0);
+            SetUiSpinningArrowFastMaybe(0);
             PlaySoundEffect(0x67);
             Proc_Goto(proc, 5);
             proc->unk_34 = 0;
@@ -889,7 +889,7 @@ void sub_809E420(struct PrepItemSupplyProc* proc) {
         }
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) {
-            sub_80ACDA4(1);
+            SetUiSpinningArrowFastMaybe(1);
             PlaySoundEffect(0x67);
             Proc_Goto(proc, 6);
             proc->unk_34 = 0;

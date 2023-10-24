@@ -277,7 +277,7 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
     DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gPrepItemScreenTexts + 0, proc->units[0], 0);
     DrawPrepScreenItems(gBG0TilemapBuffer + 0x130, gPrepItemScreenTexts + 5, proc->units[1], 0);
 
-    sub_80AC9C0(proc);
+    StartUiCursorHand(proc);
 
     ResetPrepScreenHandCursor(proc);
     sub_80AD4A0(0x600, 1);
@@ -375,7 +375,7 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
             if (gKeyStatusPtr->newKeys & A_BUTTON) {
                 int itemCount = GetUnitItemCount(proc->units[((proc->cursorItemSlot >> 3) + 1) & 1]);
                 proc->selectedItemSlot = proc->cursorItemSlot;
-                sub_80AC9D4(0, (proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0);
+                SetUiCursorHandConfig(0, (proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0);
                 if (itemCount < 5) {
                     proc->cursorItemSlot = ((proc->cursorItemSlot + 8) & 8) + itemCount;
                 } else {

@@ -431,7 +431,7 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
     );
 
     /* Some hand obj API */
-    sub_80AC9C0(proc);
+    StartUiCursorHand(proc);
     ResetPrepScreenHandCursor(proc);
     sub_80AD4A0(0x600, 1);
 
@@ -490,7 +490,7 @@ void PrepItemUse_CtrlLoop(struct ProcPrepItemUse *proc)
 
         if (CanUnitUseItemPrepScreen(proc->unit, proc->unit->items[proc->slot]) != false) {
             proc->unk34 = proc->slot;
-            sub_80AC9D4(0, 0x10, 0x10 * proc->slot + 72, 0);
+            SetUiCursorHandConfig(0, 0x10, 0x10 * proc->slot + 72, 0);
             proc->pos_subbox = 1;
             PlaySoundEffect(0x6A);
             Proc_Goto(proc, PROC_LABEL_PREPITEMUSE_CONFIRM);

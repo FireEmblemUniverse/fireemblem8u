@@ -439,7 +439,7 @@ void BonusClaim_Init(struct BonusClaimProc* proc) {
 
     UpdateMenuScrollBarConfig(8, proc->unk_2c, *gpBonusClaimItemCount, 5);
 
-    sub_80AC9C0(proc);
+    StartUiCursorHand(proc);
 
     SetupBonusClaimTargets(proc);
 
@@ -622,7 +622,7 @@ void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc* proc) {
     gLCDControlBuffer.win0_right = 200;
     gLCDControlBuffer.win0_bottom = (tmp + 7) * 8;
 
-    sub_80AC9D4(0, 40, proc->menuIndex * 16 + 56 - proc->unk_2c, 1);
+    SetUiCursorHandConfig(0, 40, proc->menuIndex * 16 + 56 - proc->unk_2c, 1);
 
     ShowPrepScreenHandCursor(92, proc->submenuIndex * 16 + 48, 12, 0x800);
 

@@ -8,12 +8,12 @@ gGfx_MiscUiGraphics:  @ 0x0859E8E0
 gPal_MiscUiGraphics:  @ 0x0859ED70
 	.incbin "baserom.gba", 0x59ED70, 0x40
 
-	.global gUnknown_0859EDB0
-gUnknown_0859EDB0:  @ 0x0859EDB0
+	.global gImg_UiCursorHandTop
+gImg_UiCursorHandTop:  @ 0x0859EDB0
 	.incbin "baserom.gba", 0x59EDB0, 0x3C
 
-	.global gUnknown_0859EDEC
-gUnknown_0859EDEC:  @ 0x0859EDEC
+	.global gImg_UiCursorHandBottom
+gImg_UiCursorHandBottom:  @ 0x0859EDEC
 	.incbin "baserom.gba", 0x59EDEC, 0x34
 
 	.global gPal_MapSprite

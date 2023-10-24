@@ -1,59 +1,5 @@
     .section .data
 
-	.global gUnknown_08A20B3C
-gUnknown_08A20B3C:  @ 0x08A20B3C
-	.incbin "baserom.gba", 0xA20B3C, 0x8
-
-	.global gUnknown_08A20B44
-gUnknown_08A20B44:  @ 0x08A20B44
-	.incbin "baserom.gba", 0xA20B44, 0x8
-
-	.global gUnknown_08A20B4C
-gUnknown_08A20B4C:  @ 0x08A20B4C
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80AC904
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80AC930
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_BLOCK
-        .short 0x10, 0x0
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08A20B7C
-gUnknown_08A20B7C:  @ 0x08A20B7C
-	.incbin "baserom.gba", 0xA20B7C, 0xE
-
-	.global gUnknown_08A20B8A
-gUnknown_08A20B8A:  @ 0x08A20B8A
-	.incbin "baserom.gba", 0xA20B8A, 0xA
-
-	.global gUnknown_08A20B94
-gUnknown_08A20B94:  @ 0x08A20B94
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80ACB14
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80ACB34
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_ParallelFiniteLoop
 ProcScr_ParallelFiniteLoop:  @ 0x08A20BB4
         @ PROC_YIELD

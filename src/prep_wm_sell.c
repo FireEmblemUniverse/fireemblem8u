@@ -238,7 +238,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
         72,
         FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_HLAYER(FACE_HLAYER_2) | FACE_DISP_BLEND
     );
-    sub_80AC9C0(proc);
+    StartUiCursorHand(proc);
     ResetPrepScreenHandCursor(proc);
     sub_80AD4A0(0x600, 1);
 
@@ -418,7 +418,7 @@ void sub_80A0570(struct WmSellProc* proc) {
 
     StartParallelWorker(WmSell_DrawSellOptionSpriteText, proc);
 
-    sub_80AC9D4(0, 16, proc->unk_30 * 16 + 72, 2);
+    SetUiCursorHandConfig(0, 16, proc->unk_30 * 16 + 72, 2);
     ShowPrepScreenHandCursor(proc->unk_31 * 32 + 164, 111, 0, 0x400);
     sub_809FDD4(1, proc);
 

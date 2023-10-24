@@ -333,7 +333,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
 
     ResetPrepScreenHandCursor(proc);
     StartParallelWorker(sub_809A274, proc);
-    sub_80AC9C0(proc);
+    StartUiCursorHand(proc);
 
     SetPrimaryHBlankHandler(NULL);
 
@@ -385,13 +385,13 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     ForceSyncUnitSpriteSheet();
 
     Decompress(Img_PrepTextShadow, (void *)0x06013E00);
-    sub_80ACA4C(0, 0, 0, 0xd0, 0x3c);
+    UiCursorHand_80ACA4C(0, 0, 0, 0xd0, 0x3c);
     sub_80AD4A0(0x600, 1);
 
     RestartMuralBackground();
 
     if (proc->selectedUnitIdx != 0xff) {
-        sub_80AC9D4(
+        SetUiCursorHandConfig(
             0,
             ((proc->selectedUnitIdx % 3) * 64) + 24,
             ((proc->selectedUnitIdx / 3) * 16) + 4 - proc->unk_34,
@@ -426,7 +426,7 @@ void PrepItemScreen_OnEnd(struct PrepItemScreenProc* proc) {
     EndAllParallelWorkers();
     EndPrepScreenHandCursor();
 
-    sub_80ACB00();
+    EndUiCursorHand();
 
     EndPrepItemScreenFace(0);
     EndPrepItemScreenFace(1);
@@ -611,7 +611,7 @@ void sub_8098CC0(struct PrepItemScreenProc* proc) {
     );
 
     sub_809A504(proc, 0);
-    sub_80ACAE4();
+    UnblockUiCursorHand();
     sub_80ACAA4();
     StartHelpPromptSprite(120, 140, 9, proc);
 
@@ -703,7 +703,7 @@ void sub_8098FAC(struct PrepItemScreenProc* proc) {
         proc->unk_34 += proc->scrollAmount;
         BG_SetPosition(2, -40, (proc->unk_34 - 4) & 0xff);
         if (proc->selectedUnitIdx != 0xFF) {
-            sub_80AC9D4(
+            SetUiCursorHandConfig(
                 0,
                 ((proc->selectedUnitIdx % 3) * 64) + 24,
                 ((proc->selectedUnitIdx / 3) * 16) + 4 - proc->unk_34,
@@ -717,7 +717,7 @@ void sub_8098FAC(struct PrepItemScreenProc* proc) {
         proc->unk_34 -= proc->scrollAmount;
         BG_SetPosition(2, -40, (proc->unk_34 - 4) & 0xff);
         if (proc->selectedUnitIdx != 0xFF) {
-            sub_80AC9D4(
+            SetUiCursorHandConfig(
                 0,
                 ((proc->selectedUnitIdx % 3) * 64) + 24,
                 ((proc->selectedUnitIdx / 3) * 16) + 4 - proc->unk_34,
@@ -798,7 +798,7 @@ void sub_8099120(struct PrepItemScreenProc* proc) {
                 }
             }
 
-            sub_80AC9D4(
+            SetUiCursorHandConfig(
                 0,
                 ((proc->selectedUnitIdx % 3) * 64) + 24,
                 (proc->selectedUnitIdx / 3) * 16 + 4 - proc->unk_34,
@@ -922,9 +922,9 @@ void sub_80995D4(struct PrepItemScreenProc* proc) {
     );
 
     if (unk != 0) {
-        sub_80ACAC8();
+        BlockUiCursorHand();
     } else {
-        sub_80ACAE4();
+        UnblockUiCursorHand();
     }
 
     sub_8098BE8();
@@ -1203,7 +1203,7 @@ void sub_8099AF8(struct PrepItemScreenProc* proc) {
     UpdatePrepItemScreenFace(0, GetUnitFromPrepList(proc->selectedUnitIdx), 60, 76, 0x0503);
     UpdatePrepItemScreenFace(1, GetUnitFromPrepList(proc->hoverUnitIdx), 180, 76, 0x0502);
 
-    sub_80AC9D4(
+    SetUiCursorHandConfig(
         0,
         ((proc->selectedUnitIdx % 3) * 64) + 24,
         ((proc->selectedUnitIdx / 3) * 16) + 4 - proc->unk_34,
@@ -1212,7 +1212,7 @@ void sub_8099AF8(struct PrepItemScreenProc* proc) {
 
     StartParallelFiniteLoop(sub_8099AA0, 1, (u32)proc);
 
-    sub_80ACAE4();
+    UnblockUiCursorHand();
     HideUnitInfoBgSprites();
     EndHelpPromptSprite();
 
