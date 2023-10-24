@@ -182,7 +182,7 @@ extern u8 gUnknown_03000018;
 extern u8 gUnknown_03000019;
 extern bool gSoftwareResetFlag;
 
-extern s8 gUnknown_02022288[];
+extern s8 gPalUnk[];
 extern s8 gUnknown_020222A8[];
 extern s8 gUnknown_02022308[];
 

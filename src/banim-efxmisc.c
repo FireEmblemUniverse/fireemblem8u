@@ -852,9 +852,9 @@ void NewEfxSRankWeaponEffectSCR(void)
  void EfxSRankWeaponEffectSCRMain(struct ProcEfx *proc)
 {
     u32 i;
-    u16 *dst = !gUnknown_0201FDB8
-        ? gUnknown_0201FF04
-        : gUnknown_0201FDC4;
+    u16 *dst = !gEkrBg1ScrollFlip
+        ? gpEkrLvupBg1ScrollOffsetList2
+        : gpEkrLvupBg1ScrollOffsetList1;
 
     for (i = 0; i < 160; dst++, i++) {
         if (i < 120) {
@@ -1145,15 +1145,15 @@ void EfxChillEffectBGMain(struct ProcEfxBG *proc)
     }
 }
 
-void NewEfxChillEffectBGCOL(struct Anim *anim)
+void NewEfxChillEffectBGCOL(struct Anim * anim)
 {
-    struct ProcEfxBGCOL *proc;
+    struct ProcEfxBGCOL * proc;
     proc = Proc_Start(ProcScr_efxChillEffectBGCOL, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DF568;
-    proc->unk4C = gUnknown_087456E8;
+    proc->pal = gUnknown_087456E8;
 }
 
 void sub_806E158(struct ProcEfxBGCOL *proc)
@@ -1164,8 +1164,8 @@ void sub_806E158(struct ProcEfxBGCOL *proc)
 
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 *src = proc->unk4C;
-        u16 *ptr = pal;
+        u16 * src = proc->pal;
+        u16 * ptr = pal;
         CpuFastCopy(&PAL_BUF_COLOR(src, ret, 0), ptr, 0x20);
 
         for (i = 0; i < 0x10; i++) {

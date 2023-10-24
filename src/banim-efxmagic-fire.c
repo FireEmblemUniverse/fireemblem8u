@@ -244,26 +244,26 @@ void sub_805DF70(struct ProcEfxBG *proc)
     }
 }
 
-void StartSubSpell_efxElfireBGCOL(struct Anim *anim)
+void StartSubSpell_efxElfireBGCOL(struct Anim * anim)
 {
-    struct ProcEfxBGCOL *proc;
+    struct ProcEfxBGCOL * proc;
     gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxElfireBGCOL, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DCDE4;
-    proc->unk4C = gUnknown_08603B50;
+    proc->pal = gUnknown_08603B50;
     SpellFx_RegisterBgPal(gUnknown_08603B50, 0x20);
 }
 
-void sub_805DFE8(struct ProcEfxBGCOL *proc)
+void sub_805DFE8(struct ProcEfxBGCOL * proc)
 {
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0) {
-        u16 *buf = proc->unk4C;
-        SpellFx_RegisterBgPal(&PAL_BUF_COLOR(buf, ret, 0), 0x20);
+        u16 * pal = proc->pal;
+        SpellFx_RegisterBgPal(&PAL_BUF_COLOR(pal, ret, 0), 0x20);
         return;
     }
 

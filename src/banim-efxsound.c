@@ -12,6 +12,9 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
+EWRAM_DATA int gEkrMainBgmPlaying = false;
+EWRAM_DATA int gEfxSoundSeExist = false;
+
 CONST_DATA struct ProcCmd ProcScr_efxSoundSE[] = {
     PROC_NAME("efxSoundSE"),
     PROC_REPEAT(Loop6C_efxSoundSE),

@@ -65,40 +65,43 @@ AnimScr_085C8218:  @ 0x085C8218
     .4byte 0x84000013
     .4byte 0x80000000
 
-	.global gUnknown_085C8278
-gUnknown_085C8278:  @ 0x085C8278
-	.incbin "baserom.gba", 0x5C8278, 0xFF8
+	.global Img_EkrLvupNumBig
+Img_EkrLvupNumBig:  @ 0x085C8278
+    .incbin "baserom.gba", 0x5C8278, 0x5c8a78 - 0x5C8278
+	@.incbin "./graphics/lvup/EkrLvupNumBig.4bpp"
+
+    .incbin "baserom.gba", 0x5c8a78, 0x5C9270 - 0x5c8a78
 
 	.global gUnknown_085C9270
 gUnknown_085C9270:  @ 0x085C9270
 @ Replacing .incbin "baserom.gba", 0x5C9270, 0x30
-    .4byte gUnknown_085C8278 + 0x802
-    .4byte gUnknown_085C8278 + 0x832
-    .4byte gUnknown_085C8278 + 0x87a
-    .4byte gUnknown_085C8278 + 0x8ce
-    .4byte gUnknown_085C8278 + 0x922
-    .4byte gUnknown_085C8278 + 0x976
-    .4byte gUnknown_085C8278 + 0x9ca
-    .4byte gUnknown_085C8278 + 0xa1e
-    .4byte gUnknown_085C8278 + 0xa72
-    .4byte gUnknown_085C8278 + 0xac6
-    .4byte gUnknown_085C8278 + 0xb1a
+    .4byte Img_EkrLvupNumBig + 0x802
+    .4byte Img_EkrLvupNumBig + 0x832
+    .4byte Img_EkrLvupNumBig + 0x87a
+    .4byte Img_EkrLvupNumBig + 0x8ce
+    .4byte Img_EkrLvupNumBig + 0x922
+    .4byte Img_EkrLvupNumBig + 0x976
+    .4byte Img_EkrLvupNumBig + 0x9ca
+    .4byte Img_EkrLvupNumBig + 0xa1e
+    .4byte Img_EkrLvupNumBig + 0xa72
+    .4byte Img_EkrLvupNumBig + 0xac6
+    .4byte Img_EkrLvupNumBig + 0xb1a
     .4byte 0x80000000
 
 	.global gUnknown_085C92A0
 gUnknown_085C92A0:  @ 0x085C92A0
 @ Replacing .incbin "baserom.gba", 0x5C92A0, 0x30
-    .4byte gUnknown_085C8278 + 0xb6d
-    .4byte gUnknown_085C8278 + 0xb91
-    .4byte gUnknown_085C8278 + 0xbc1
-    .4byte gUnknown_085C8278 + 0xbf2
-    .4byte gUnknown_085C8278 + 0xc22
-    .4byte gUnknown_085C8278 + 0xc53
-    .4byte gUnknown_085C8278 + 0xc22
-    .4byte gUnknown_085C8278 + 0xc82
-    .4byte gUnknown_085C8278 + 0xcb1
-    .4byte 0x60000000 + gUnknown_085C8278 + 0xce0
-    .4byte 0x20000000 + gUnknown_085C8278 + 0xd10
+    .4byte Img_EkrLvupNumBig + 0xb6d
+    .4byte Img_EkrLvupNumBig + 0xb91
+    .4byte Img_EkrLvupNumBig + 0xbc1
+    .4byte Img_EkrLvupNumBig + 0xbf2
+    .4byte Img_EkrLvupNumBig + 0xc22
+    .4byte Img_EkrLvupNumBig + 0xc53
+    .4byte Img_EkrLvupNumBig + 0xc22
+    .4byte Img_EkrLvupNumBig + 0xc82
+    .4byte Img_EkrLvupNumBig + 0xcb1
+    .4byte 0x60000000 + Img_EkrLvupNumBig + 0xce0
+    .4byte 0x20000000 + Img_EkrLvupNumBig + 0xd10
     .4byte 0x80000000
 
 	.global gUnknown_085C92D0
@@ -108,37 +111,37 @@ gUnknown_085C92D0:  @ 0x085C92D0
 	.global gUnknown_085C92EC
 gUnknown_085C92EC:  @ 0x085C92EC
 @ Replacing .incbin "baserom.gba", 0x5C92EC, 0x3C
-    .4byte gUnknown_085C8278 + 0xe91
-    .4byte 0x10000000 + gUnknown_085C8278 + 0xd88
+    .4byte Img_EkrLvupNumBig + 0xe91
+    .4byte 0x10000000 + Img_EkrLvupNumBig + 0xd88
     .4byte 0x80000000
-    .4byte gUnknown_085C8278 + 0xda1
-    .4byte gUnknown_085C8278 + 0xdb9
-    .4byte gUnknown_085C8278 + 0xdd1
-    .4byte gUnknown_085C8278 + 0xdea
-    .4byte gUnknown_085C8278 + 0xe02
-    .4byte gUnknown_085C8278 + 0xe1b
-    .4byte gUnknown_085C8278 + 0xe02
-    .4byte gUnknown_085C8278 + 0xe32
-    .4byte gUnknown_085C8278 + 0xe49
-    .4byte 0x60000000 + gUnknown_085C8278 + 0xe60
-    .4byte 0x20000000 + gUnknown_085C8278 + 0xe78
+    .4byte Img_EkrLvupNumBig + 0xda1
+    .4byte Img_EkrLvupNumBig + 0xdb9
+    .4byte Img_EkrLvupNumBig + 0xdd1
+    .4byte Img_EkrLvupNumBig + 0xdea
+    .4byte Img_EkrLvupNumBig + 0xe02
+    .4byte Img_EkrLvupNumBig + 0xe1b
+    .4byte Img_EkrLvupNumBig + 0xe02
+    .4byte Img_EkrLvupNumBig + 0xe32
+    .4byte Img_EkrLvupNumBig + 0xe49
+    .4byte 0x60000000 + Img_EkrLvupNumBig + 0xe60
+    .4byte 0x20000000 + Img_EkrLvupNumBig + 0xe78
     .4byte 0x80000000
 
 	.global gUnknown_085C9328
 gUnknown_085C9328:  @ 0x085C9328
 @ Replacing .incbin "baserom.gba", 0x5C9328, 0x6848
-    .4byte 0x10000000 + gUnknown_085C8278 + 0xe9c
-    .4byte gUnknown_085C8278 + 0xec2
-    .4byte gUnknown_085C8278 + 0xee5
-    .4byte gUnknown_085C8278 + 0xf09
-    .4byte gUnknown_085C8278 + 0xf2d
-    .4byte gUnknown_085C8278 + 0xf51
-    .4byte gUnknown_085C8278 + 0xf69
-    .4byte gUnknown_085C8278 + 0xf8d
-    .4byte gUnknown_085C8278 + 0xfb1
-    .4byte gUnknown_085C8278 + 0xfd5
-    .4byte gUnknown_085C8278 + 0xe91
-    .4byte 0x10000000 + gUnknown_085C8278 + 0xd88
+    .4byte 0x10000000 + Img_EkrLvupNumBig + 0xe9c
+    .4byte Img_EkrLvupNumBig + 0xec2
+    .4byte Img_EkrLvupNumBig + 0xee5
+    .4byte Img_EkrLvupNumBig + 0xf09
+    .4byte Img_EkrLvupNumBig + 0xf2d
+    .4byte Img_EkrLvupNumBig + 0xf51
+    .4byte Img_EkrLvupNumBig + 0xf69
+    .4byte Img_EkrLvupNumBig + 0xf8d
+    .4byte Img_EkrLvupNumBig + 0xfb1
+    .4byte Img_EkrLvupNumBig + 0xfd5
+    .4byte Img_EkrLvupNumBig + 0xe91
+    .4byte 0x10000000 + Img_EkrLvupNumBig + 0xd88
     .4byte 0x80000000
 
 	.global Img_EfxSkill1

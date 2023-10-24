@@ -49,10 +49,12 @@ struct ProcEfxBGCOL {
 
     STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
-    STRUCT_PAD(0x2E, 0x44);
+    /* 2E */ s16 timer2;
+    /* 30 */ s16 terminator;
+    STRUCT_PAD(0x32, 0x44);
     /* 44 */ u32 frame;
-    /* 48 */ const u16 *frame_config;
-    /* 4C */ void *unk4C;
+    /* 48 */ const u16 * frame_config;
+    /* 4C */ void * pal;
     STRUCT_PAD(0x50, 0x5C);
     /* 5C */ struct Anim * anim;
 };
@@ -140,29 +142,6 @@ struct Unknown_0201FADC {
 };
 
 extern struct Unknown_0201FADC gUnknown_0201FADC;
-
-struct Struct20200E0_14 {
-    /* 00 */ u8 _pad_00[0x4C - 0x0];
-    /* 4C */ int unk4C;
-};
-
-struct Struct20200E0 {
-    /* 00 */ u16 unk00;
-    /* 02 */ u16 unk02;
-    /* 04 */ u16 unk04;
-    /* 06 */ u16 unk06;
-    /* 08 */ u16 unk08;
-    /* 0A */ u16 unk0A;
-    /* 0C */ u16 unk0C;
-    /* 0E */ u16 unk0E;
-    /* 10 */ u16 unk10;
-    /* 14 */ void * unk14;
-    /* 18 */ void * unk18;
-    /* 1C */ void * unk1C;
-    /* 20 */ void * unk20;
-    /* 24 */ void * unk24;
-};
-extern struct Struct20200E0 gUnknown_020200E0;
 
 struct ProcEfxFlashing {
     PROC_HEADER;
@@ -758,11 +737,11 @@ extern const s16 gAnimSpriteRotScalePosX[];
 extern const s16 gAnimSpriteRotScalePosY[];
 extern const u16 FrameLut_080E143A[];
 extern const u16 FrameLut_080E1488[];
-// extern ??? sEfxLvupPartsPos
-// extern ??? gUnknown_080E162A
-// extern ??? gUnknown_080E1664
-// extern ??? gUnknown_080E169A
-// extern ??? gUnknown_080E16DC
+extern const u16 sEfxLvupPartsPos[];
+extern const u16 FrameConfig_EfxLvupBG[];
+extern const u16 FrameConfig_EfxLvupBG2[];
+extern const u16 FrameLut_EfxLvupBGCOL[];
+extern const u16 FrameLut2_EfxLvupBGCOL[];
 extern const s16 FrameLut_EkrTriPegagusBG1[];
 extern const s16 FrameLut_EkrTriPegagusBG2[];
 extern const u16 gUnknown_080E17C0[];
@@ -796,29 +775,54 @@ extern u16 Pal_085BA2E0[];
 extern u16 Pal_085BA300[];
 extern u16 Pal_085BA320[];
 // extern ??? gUnknown_085BA340
-extern u16 gUnknown_085BB0C8[];
-extern u16 gUnknown_085BB2DC[];
+extern u16 Img_LvupApfx[];
+extern u16 Pal_LvupApfx[];
 // extern ??? gUnknown_085BC188
 // extern ??? gUnknown_085BE7F4
 // extern ??? gUnknown_085BEF94
-// extern ??? gUnknown_085C48AC
-// extern ??? gUnknown_085C5994
-// extern ??? gUnknown_085C6054
-// extern ??? gUnknown_085C60D4
-// extern ??? gUnknown_085C6730
-// extern ??? gUnknown_085C71E4
+extern u16 Img1_EfxLvupBG[];
+extern u16 Img2_EfxLvupBG[];
+extern u16 Img3_EfxLvupBG[];
+extern u16 Img4_EfxLvupBG[];
+extern u16 Img5_EfxLvupBG[];
+extern u16 Img6_EfxLvupBG[];
+extern u16 Img7_EfxLvupBG[];
+extern u16 Pal_EfxLvupBG[];
+extern u16 Tsa1_EfxLvupBG[];
+extern u16 Tsa1_EfxLvupBG[];
+extern u16 Tsa2_EfxLvupBG[];
+extern u16 Tsa3_EfxLvupBG[];
+extern u16 Tsa4_EfxLvupBG[];
+extern u16 Tsa5_EfxLvupBG[];
+extern u16 Tsa6_EfxLvupBG[];
+extern u16 Tsa7_EfxLvupBG[];
+extern u16 Tsa8_EfxLvupBG[];
+extern u16 Tsa9_EfxLvupBG[];
+extern u16 Tsa10_EfxLvupBG[];
+extern u16 Tsa11_EfxLvupBG[];
+extern u16 Img_EfxLvupBG2[];
+extern u16 Pal_EfxLvupBG2[];
+extern u16 Pal_EfxLvupBGCOL[];
+extern u16 Tsa1_EfxLvupBG2[];
+extern u16 Tsa2_EfxLvupBG2[];
+extern u16 Tsa3_EfxLvupBG2[];
+extern u16 Tsa4_EfxLvupBG2[];
+extern u16 Tsa5_EfxLvupBG2[];
+extern u16 Tsa6_EfxLvupBG2[];
+extern u16 Img_EfxLvupOBJ2[];
+extern AnimScr AnimScr_EfxLvupOBJ2[];
 // extern ??? gUnknown_085C72AC
 // extern ??? gUnknown_085C7338
 // extern ??? gUnknown_085C73B8
 // extern ??? gUnknown_085C7438
 extern u32 AnimScr_085C81A4[];
 extern u32 AnimScr_085C8218[];
-// extern ??? gUnknown_085C8278
-// extern ??? gUnknown_085C9270
-// extern ??? gUnknown_085C92A0
-// extern ??? gUnknown_085C92D0
-// extern ??? gUnknown_085C92EC
-// extern ??? gUnknown_085C9328
+extern u8 Img_EkrLvupNumBig[];
+extern AnimScr gUnknown_085C9270[];
+extern AnimScr gUnknown_085C92A0[];
+extern AnimScr gUnknown_085C92D0[];
+extern AnimScr gUnknown_085C92EC[];
+extern AnimScr gUnknown_085C9328[];
 extern u16 gUnknown_085CFB70[];
 extern u16 gUnknown_085D0820[];
 extern u16 gUnknown_085D0A20[];
@@ -1252,20 +1256,20 @@ extern u16 * gBanimSongTable8[];
 extern struct FaceVramEntry gUnknown_087592CC[4];
 // extern ??? EkrLvupMsgsStr
 // extern ??? EkrLvupMsgsMag
-// extern ??? ProcScr_EkrLevelup
-// extern ??? ProcScr_EfxPartsofScroll
-// extern ??? ProcScr_EfxPartsofScroll2
-// extern ??? gUnknown_0875941C
-// extern ??? ProcScr_Efxleveluphb
-// extern ??? ProcScr_Efxlvupbg
-// extern ??? gUnknown_0875949C
-// extern ??? gUnknown_087594C8
-// extern ??? ProcScr_efxLvupBG2
-// extern ??? gUnknown_0875950C
-// extern ??? ProcScr_efxLvupOBJ2
-// extern ??? ProcScr_efxLvupBGCOL
-// extern ??? ProcScr_EkrLvupApfx
-// extern ??? ProcScr_eobjLvup
+extern CONST_DATA struct ProcCmd ProcScr_EkrLevelup[];
+extern CONST_DATA struct ProcCmd ProcScr_EfxPartsofScroll[];
+extern CONST_DATA struct ProcCmd ProcScr_EfxPartsofScroll2[];
+extern s16 gUnknown_0875941C[];
+extern CONST_DATA struct ProcCmd ProcScr_Efxleveluphb[];
+extern CONST_DATA struct ProcCmd ProcScr_Efxlvupbg[];
+extern u16 * TsaLut_EfxLvupBG[];
+extern u16 * ImgLut_EfxLvupBG[];
+extern CONST_DATA struct ProcCmd ProcScr_efxLvupBG2[];
+extern u16 * TsaLut_EfxLvupBG2[];
+extern CONST_DATA struct ProcCmd ProcScr_efxLvupOBJ2[];
+extern CONST_DATA struct ProcCmd ProcScr_efxLvupBGCOL[];
+extern CONST_DATA struct ProcCmd ProcScr_EkrLvupApfx[];
+extern CONST_DATA struct ProcCmd ProcScr_eobjLvup[];
 
 extern u32 BanimScr_08759B34[];
 extern u32 BanimScr_08759E68[];

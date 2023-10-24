@@ -160,13 +160,13 @@ EfxCircleWINMain: @ 0x0805BB84
 	mov r6, r8
 	push {r6, r7}
 	adds r5, r0, #0
-	ldr r0, _0805BC04  @ gUnknown_0201FB2C
+	ldr r0, _0805BC04  @ gEkrBg2ScrollFlip
 	ldr r0, [r0]
-	ldr r1, _0805BC08  @ gUnknown_0201FB38
+	ldr r1, _0805BC08  @ gpEkrLvupBg2ScrollOffsetTable1
 	mov r8, r1
 	cmp r0, #0
 	bne _0805BB9E
-	ldr r2, _0805BC0C  @ gUnknown_0201FC78
+	ldr r2, _0805BC0C  @ gpEkrLvupBg2ScrollOffsetTable2
 	mov r8, r2
 _0805BB9E:
 	ldr r4, [r5, #0x54]
@@ -225,9 +225,9 @@ _0805BBFC:
 	strh r0, [r7]
 	b _0805BC44
 	.align 2, 0
-_0805BC04: .4byte gUnknown_0201FB2C
-_0805BC08: .4byte gUnknown_0201FB38
-_0805BC0C: .4byte gUnknown_0201FC78
+_0805BC04: .4byte gEkrBg2ScrollFlip
+_0805BC08: .4byte gpEkrLvupBg2ScrollOffsetTable1
+_0805BC0C: .4byte gpEkrLvupBg2ScrollOffsetTable2
 _0805BC10: .4byte 0x0000FFFF
 _0805BC14:
 	ldrh r2, [r5, #0x32]

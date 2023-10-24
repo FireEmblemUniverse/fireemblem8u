@@ -2,7 +2,7 @@
 
 	.global gUnknown_085C72AC
 gUnknown_085C72AC:  @ 0x085C72AC
-    .4byte 0x10000000 + gUnknown_085C71E4 + 0x44
+    .4byte 0x10000000 + AnimScr_EfxLvupOBJ2 + 0x44
     .4byte 0x80000000
 
 	.global gUnknown_085C72B4

@@ -133,7 +133,7 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
     }
 }
 
-void StartBattleAnimResireHitEffects(struct Anim *anim, int type)
+void StartBattleAnimResireHitEffects(struct Anim * anim, int type)
 {
     int val1, val2, off;
     struct Anim * animR7, * animR5, * animR8;

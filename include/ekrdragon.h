@@ -216,7 +216,7 @@ extern CONST_DATA struct EfxSelfThunderBGFrame gEfxSelfThunderBGFrames[];
 // extern ??? gEkrDragonStatusLeft
 // extern ??? gEkrDragonStatusRight
 extern u16 gEkrDragonPalBackup[0x40 / sizeof(u16)];
-extern u8 gEkrSomePalBuf[0x40];
+extern u16 gEkrSomePalBuf[0x20];
 
 extern u16 Img_EfxDracoZombie[];
 extern u16 Tsa_EfxDracoZombieBaseLeft[];

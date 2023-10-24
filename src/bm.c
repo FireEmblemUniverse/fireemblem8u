@@ -357,8 +357,8 @@ void OnVBlank(void) {
 
     SyncLoOam();
 
-    if (gBmSt.mainLoopEndedFlag) {
-        gBmSt.mainLoopEndedFlag = 0;
+    if (gBmSt.sync_hardware) {
+        gBmSt.sync_hardware = 0;
 
         FlushLCDControl();
         FlushBackgrounds();
@@ -392,7 +392,7 @@ void OnGameLoopMain(void) {
     Proc_Run(gProcTreeRootArray[4]);
     PushSpriteLayerObjects(13);
 
-    gBmSt.mainLoopEndedFlag = 1;
+    gBmSt.sync_hardware = 1;
     gBmSt.prevVCount = REG_VCOUNT;
 
     VBlankIntrWait();

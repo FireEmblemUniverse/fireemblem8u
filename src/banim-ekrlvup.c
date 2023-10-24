@@ -19,14 +19,20 @@ void sub_805AE40(void *, s16, s16, s16, s16);
  * section.ewramdata
  */
 
-EWRAM_DATA struct Unit *gpEkrLvupUnit = NULL;
-EWRAM_DATA struct BattleUnit *gpEkrLvupBattleUnit = NULL;
+EWRAM_DATA struct ProcEkrLevelup * gpProcEkrLevelup = NULL;
+EWRAM_DATA u32 gUnknown_020200B8[8] = {0};
+EWRAM_DATA ProcPtr gpProcEfxPartsofScroll = NULL;
+EWRAM_DATA ProcPtr gpProcEfxleveluphb = NULL;
+EWRAM_DATA struct Struct20200E0 gUnknown_020200E0 = {0};
+EWRAM_DATA struct Unit * gpEkrLvupUnit = NULL;
+EWRAM_DATA struct BattleUnit * gpEkrLvupBattleUnit = NULL;
 EWRAM_DATA u16 gEkrLvupPreLevel = 0;
 EWRAM_DATA u16 gEkrLvupPostLevel = 0;
 EWRAM_DATA u16 gEkrLvupBaseStatus[EKRLVUP_STAT_MAX] = {0};
 EWRAM_DATA u16 gEkrLvupPostStatus[EKRLVUP_STAT_MAX] = {0};
 EWRAM_DATA u16 gEkrLvupScrollPos1 = 0;
 EWRAM_DATA u16 gEkrLvupScrollPos2 = 0;
+EWRAM_DATA int gEkrLvupApfxUnexist = false;
 
 /**
  * section.data
@@ -103,26 +109,6 @@ CONST_DATA struct ProcCmd ProcScr_EkrLevelup[] = {
     PROC_REPEAT(EkrLvup_OnEnd),
     PROC_END
 };
-
-const char aEfxPartsofScroll[] = "efxPartsofScroll";
-const char aEfxPartsofScroll2[] = "efxPartsofScroll2";
-const char aEfxleveluphb[] = "efxLevelupHB";
-const char aEfxlvupbg[] = "efxLvupBG";
-const u16 gUnknown_080E162A[] = {
-    0, 1,
-    1, 1,
-    2, 1,
-    3, 1,
-    4, 1,
-    5, 1,
-    6, 1,
-    7, 1,
-    8, 1,
-    9, 1,
-    10, 1,
-    -1
-};
-const char aEfxlvupbg2[] = "efxLvupBG2";
 
 /**
  * section.text
@@ -411,7 +397,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
 
     gpProcEfxPartsofScroll = NewEfxPartsofScroll();
     gpProcEfxleveluphb = NewEfxleveluphb();
-    sub_8074598();
+    EfxUpdatePartsofScroll();
     EkrGauge_Setup44(2);
     DisableEfxStatusUnits(proc->ais_main);
     DisableEfxStatusUnits(proc->ais_core);
@@ -437,9 +423,9 @@ void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
     RegisterDataMove(gEkrBuf1, (void *)BG_VRAM + 0x2000, 0x8C0);
     CpuFastCopy(Pal_LevelUpBoxFrame, PAL_BG(1), 0x20);
 
-    LZ77UnCompWram(gUnknown_085BB0C8, gEkrBuf2);
+    LZ77UnCompWram(Img_LvupApfx, gEkrBuf2);
     RegisterDataMove(gEkrBuf2, OBJ_VRAM0 + 0x1400, 0xC00);
-    CpuFastCopy(gUnknown_085BB2DC, PAL_OBJ(1), 0x20);
+    CpuFastCopy(Pal_LvupApfx, PAL_OBJ(1), 0x20);
 
     EnablePaletteSync();
 
