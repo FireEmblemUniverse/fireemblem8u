@@ -178,7 +178,7 @@ void NewEkrLvupApfx(int chr, int pal);
 void EkrLvupApfxEndEach(void);
 void PutEkrLvupStatGainLabelGfx1(int stat_num, int stat_gain);
 void PutEkrLvupStatGainLabelGfx2(int chr, int stat_gain);
-void BanimDrawStatupAp(int, int, int, int, int, int);
+void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain);
 void sub_8074E6C(struct ProcEobjLvup * proc);
 void sub_8074EDC(struct ProcEobjLvup * proc);
 void sub_8074F14(struct ProcEobjLvup * proc);

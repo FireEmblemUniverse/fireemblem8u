@@ -650,19 +650,22 @@ CONST_DATA struct ProcCmd ProcScr_eobjLvup[] = {
     PROC_END
 };
 
-/**
- * https://decomp.me/scratch/XQtZJ
- * Quite in process LOL
- */
-#if NONMATCHING
-
 void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain)
 {
-    struct ProcEobjLvup * proc;
+    s32 sp14 = chr;
     int chr2 = chr + 2 * (index - 1);
+#ifndef NONMATCHING
+    register int _pal asm("r6") = pal << 12;
+    register struct ProcEobjLvup * proc asm("r4");
+#else
     int _pal = pal << 12;
+    struct ProcEobjLvup * proc;
+#endif
     int _chr = chr | 0x400;
-    int __oam = _chr | _pal;
+    int __oam = _pal;
+
+    if (__oam) { __oam++; __oam--; } // serialize code
+    __oam |= _chr;
 
     NewEkrsubAnimeEmulator(x - 0x12, y - 0x04, gUnknown_085C9270, 0, __oam, 0, PROC_TREE_5);
     if (index == 0)
@@ -676,166 +679,23 @@ void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain)
     }
     else
     {
-        int _oam = chr2 | 0x400 | _pal;
+        int _oam = 0x400 | _pal | chr2;
         proc->child1 = NewEkrsubAnimeEmulator(x - 3, y, gUnknown_085C92EC, 2, _oam, 0, PROC_TREE_5);
 
-        _oam = _chr | _pal;
-        proc->child1 = NewEkrsubAnimeEmulator(x, y, gUnknown_085C92D0, 2, _oam, 0, PROC_TREE_5);
-        PutEkrLvupStatGainLabelGfx2(gain, _pal);
+        _pal |= _chr;
+        proc->child2 = NewEkrsubAnimeEmulator(x, y, gUnknown_085C92D0, 2, _pal, 0, PROC_TREE_5);
+        PutEkrLvupStatGainLabelGfx2(gain, chr2);
     }
     proc->x = x;
     proc->y = y;
     proc->timer = 0;
-    proc->chr1 = chr;
+    proc->chr1 = sp14;
     proc->chr2 = chr2;
     proc->chr = chr;
     proc->pal = pal;
     proc->index = index;
     proc->diff = gain;
 }
-
-#else
-
-NAKEDFUNC
-void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x1c\n\
-        str r0, [sp, #0xc]\n\
-        str r1, [sp, #0x10]\n\
-        mov r8, r2\n\
-        mov r9, r3\n\
-        str r0, [sp, #0x14]\n\
-        ldr r0, [sp, #0x3c]\n\
-        subs r0, #1\n\
-        lsls r0, r0, #1\n\
-        ldr r1, [sp, #0xc]\n\
-        adds r0, r1, r0\n\
-        str r0, [sp, #0x18]\n\
-        ldr r3, [sp, #0x10]\n\
-        lsls r6, r3, #0xc\n\
-        adds r7, r1, #0\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #3\n\
-        orrs r7, r0\n\
-        adds r5, r6, #0\n\
-        orrs r5, r7\n\
-        mov r0, r8\n\
-        subs r0, #0x12\n\
-        mov r1, r9\n\
-        subs r1, #4\n\
-        ldr r2, _08074DD8  @ gUnknown_085C9270\n\
-        str r5, [sp]\n\
-        movs r3, #0\n\
-        mov sl, r3\n\
-        str r3, [sp, #4]\n\
-        movs r3, #5\n\
-        str r3, [sp, #8]\n\
-        movs r3, #0\n\
-        bl NewEkrsubAnimeEmulator\n\
-        ldr r0, [sp, #0x3c]\n\
-        cmp r0, #0\n\
-        beq _08074E52\n\
-        ldr r0, _08074DDC  @ ProcScr_eobjLvup\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r4, r0, #0\n\
-        ldr r1, [sp, #0x40]\n\
-        cmp r1, #0\n\
-        blt _08074DE4\n\
-        ldr r2, _08074DE0  @ gUnknown_085C92A0\n\
-        str r5, [sp]\n\
-        mov r3, sl\n\
-        str r3, [sp, #4]\n\
-        movs r0, #5\n\
-        str r0, [sp, #8]\n\
-        mov r0, r8\n\
-        mov r1, r9\n\
-        movs r3, #2\n\
-        bl NewEkrsubAnimeEmulator\n\
-        str r0, [r4, #0x64]\n\
-        b _08074E2A\n\
-        .align 2, 0\n\
-    _08074DD8: .4byte gUnknown_085C9270\n\
-    _08074DDC: .4byte ProcScr_eobjLvup\n\
-    _08074DE0: .4byte gUnknown_085C92A0\n\
-    _08074DE4:\n\
-        ldr r1, [sp, #0x18]\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #3\n\
-        orrs r1, r3\n\
-        orrs r1, r6\n\
-        mov r0, r8\n\
-        subs r0, #3\n\
-        ldr r2, _08074E64  @ gUnknown_085C92EC\n\
-        str r1, [sp]\n\
-        mov r1, sl\n\
-        str r1, [sp, #4]\n\
-        movs r3, #5\n\
-        str r3, [sp, #8]\n\
-        mov r1, r9\n\
-        movs r3, #2\n\
-        bl NewEkrsubAnimeEmulator\n\
-        str r0, [r4, #0x60]\n\
-        orrs r6, r7\n\
-        ldr r2, _08074E68  @ gUnknown_085C92D0\n\
-        str r6, [sp]\n\
-        mov r0, sl\n\
-        str r0, [sp, #4]\n\
-        movs r1, #5\n\
-        str r1, [sp, #8]\n\
-        mov r0, r8\n\
-        mov r1, r9\n\
-        movs r3, #2\n\
-        bl NewEkrsubAnimeEmulator\n\
-        str r0, [r4, #0x64]\n\
-        ldr r0, [sp, #0x40]\n\
-        ldr r1, [sp, #0x18]\n\
-        bl PutEkrLvupStatGainLabelGfx2\n\
-    _08074E2A:\n\
-        movs r0, #0\n\
-        mov r3, r8\n\
-        strh r3, [r4, #0x32]\n\
-        mov r1, r9\n\
-        strh r1, [r4, #0x3a]\n\
-        strh r0, [r4, #0x2c]\n\
-        mov r3, sp\n\
-        ldrh r3, [r3, #0x14]\n\
-        strh r3, [r4, #0x2e]\n\
-        mov r0, sp\n\
-        ldrh r0, [r0, #0x18]\n\
-        strh r0, [r4, #0x30]\n\
-        ldr r1, [sp, #0xc]\n\
-        str r1, [r4, #0x44]\n\
-        ldr r3, [sp, #0x10]\n\
-        str r3, [r4, #0x48]\n\
-        ldr r0, [sp, #0x3c]\n\
-        str r0, [r4, #0x4c]\n\
-        ldr r1, [sp, #0x40]\n\
-        str r1, [r4, #0x50]\n\
-    _08074E52:\n\
-        add sp, #0x1c\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08074E64: .4byte gUnknown_085C92EC\n\
-    _08074E68: .4byte gUnknown_085C92D0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 void sub_8074E6C(struct ProcEobjLvup * proc)
 {
