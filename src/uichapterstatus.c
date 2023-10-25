@@ -725,11 +725,9 @@ void DrawChapterStatusStatValues() {
 
     PutNumber(gBG0TilemapBuffer + 0x1C0 + 0x4B, 2, GetPartyGoldAmount());
 
-    PutSpecialChar(gBG0TilemapBuffer + 0x1C0 + 0x4C, 3, 30);
-
-    PutTwoSpecialChar(gBG0TilemapBuffer + 0x1C0 - 0x8F, 3, 36, 37);
-
-    PutTwoSpecialChar(gBG0TilemapBuffer + 0x1C0 - 0x4F, 3, 34, 35);
+    PutSpecialChar(gBG0TilemapBuffer + 0x1C0 + 0x4C, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_G);
+    PutTwoSpecialChar(gBG0TilemapBuffer + 0x1C0 - 0x8F, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_LV_A, TEXT_SPECIAL_LV_B);
+    PutTwoSpecialChar(gBG0TilemapBuffer + 0x1C0 - 0x4F, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
@@ -748,8 +746,8 @@ void ChapterStatus_DrawText(struct ChapterStatusProc* proc) {
     PutNumber(gBG1TilemapBuffer + 0xA4, 2, proc->numAllyUnits);
 
     if (gPlaySt.chapterVisionRange != 0) {
-        PutSpecialChar(gBG1TilemapBuffer + 0xA4 + 7, 2, 20);
-        PutSpecialChar(gBG1TilemapBuffer + 0xA4 + 8, 2, 20);
+        PutSpecialChar(gBG1TilemapBuffer + 0xA4 + 7, TEXT_COLOR_SYSTEM_BLUE, TEXT_SPECIAL_DASH);
+        PutSpecialChar(gBG1TilemapBuffer + 0xA4 + 8, TEXT_COLOR_SYSTEM_BLUE, TEXT_SPECIAL_DASH);
     } else {
         PutNumber(gBG1TilemapBuffer + 0xA4 + 7, 2, proc->numEnemyUnits);
     }

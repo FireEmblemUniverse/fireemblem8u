@@ -170,7 +170,7 @@ void DrawPrepScreenItemUseStatLabels(struct Unit *unit)
     );
 
     /* LV */
-    PutTwoSpecialChar(TILEMAP_LOCATED(gBG2TilemapBuffer, 17, 1), 3, 0x24, 0x25);
+    PutTwoSpecialChar(TILEMAP_LOCATED(gBG2TilemapBuffer, 17, 1), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_LV_A, TEXT_SPECIAL_LV_B);
 }
 
 void DrawPrepScreenItemUseStatBars(struct Unit* unit, int mask)

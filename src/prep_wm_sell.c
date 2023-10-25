@@ -149,14 +149,14 @@ void WmSell_DrawItemGoldValue(int item) {
         u16 sellPrice = GetItemSellPrice(item);
 
         if ((sellPrice == 0) || (GetItemAttributes(item) & IA_UNSELLABLE)) {
-            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 5, 1, 0x14);
-            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 6, 1, 0x14);
-            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 7, 1, 0x14);
+            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 5, TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_DASH);
+            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 6, TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_DASH);
+            PutSpecialChar(gBG0TilemapBuffer + 0x134 + 7, TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_DASH);
         } else {
             PutNumber(gBG0TilemapBuffer + 0x134 + 6, 2, sellPrice);
         }
 
-        PutSpecialChar(gBG0TilemapBuffer + 0x13B, 3, 0x1e);
+        PutSpecialChar(gBG0TilemapBuffer + 0x13B, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_G);
     }
 
     BG_EnableSyncByMask(1);
@@ -169,7 +169,7 @@ void WmSell_DrawPartyFunds(void) {
     TileMap_FillRect(gBG0TilemapBuffer + 0xF4, 10, 1, 0);
 
     PutNumber(gBG0TilemapBuffer + 0xF4 + 0x146, 2, GetPartyGoldAmount());
-    PutSpecialChar(gBG0TilemapBuffer + 0xF4 + 0x147, 3, 0x1e);
+    PutSpecialChar(gBG0TilemapBuffer + 0xF4 + 0x147, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_G);
 
     BG_EnableSyncByMask(1);
 

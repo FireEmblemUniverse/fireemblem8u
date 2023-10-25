@@ -418,12 +418,12 @@ void DisplayLeftPanel(void)
         GetStringFromIndex(gStatScreen.unit->pClassData->nameTextId));
 
     // Display Lv/E labels
-    PutTwoSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(1, 15), TEXT_COLOR_SYSTEM_GOLD, 0x24, 0x25);
-    PutSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(5, 15), TEXT_COLOR_SYSTEM_GOLD, 0x1D);
+    PutTwoSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(1, 15), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_LV_A, TEXT_SPECIAL_LV_B);
+    PutSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(5, 15), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_E);
 
     // Display Hp/'/' labels
-    PutTwoSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(1, 17), TEXT_COLOR_SYSTEM_GOLD, 0x22, 0x23);
-    PutSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(5, 17), TEXT_COLOR_SYSTEM_GOLD, 0x16);
+    PutTwoSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(1, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
+    PutSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(5, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_SLASH);
 
     // Display level
     PutNumberOrBlank(gBG0TilemapBuffer + TILEMAP_INDEX(4, 15), TEXT_COLOR_SYSTEM_BLUE,
@@ -439,7 +439,7 @@ void DisplayLeftPanel(void)
     {
         // Display '--' if current hp > 99
         PutTwoSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(3, 17), TEXT_COLOR_SYSTEM_BLUE,
-            0x14, 0x14);
+            TEXT_SPECIAL_DASH, TEXT_SPECIAL_DASH);
     }
     else
     {
@@ -454,7 +454,7 @@ void DisplayLeftPanel(void)
     {
         // Display '--' if max hp > 99
         PutTwoSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(6, 17), TEXT_COLOR_SYSTEM_BLUE,
-            0x14, 0x14);
+            TEXT_SPECIAL_DASH, TEXT_SPECIAL_DASH);
     }
     else
     {
@@ -740,7 +740,7 @@ void DisplayPage1(void)
         {
             PutSpecialChar(
                 gBmFrameTmap0 + TILEMAP_INDEX(16, 1 + i*2),
-                0, 0x35);
+                TEXT_COLOR_SYSTEM_WHITE, TEXT_SPECIAL_35);
 
             CallARM_FillTileRect(
                 gBmFrameTmap1 + TILEMAP_INDEX(1, 2 + i*2),

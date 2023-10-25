@@ -305,7 +305,7 @@ void DrawBattleForecastContentsStandard(struct BattleForecastProc* proc) {
     PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0x40, 2, gBattleActor.battleEffectiveHitRate);
     PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0x80, 2, critRate);
 
-    PutTwoSpecialChar(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
+    PutTwoSpecialChar(gBmFrameTmap0 + 0xA8 - 0x44, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
 
     PutText(gaBattleForecastTextStructs, gBmFrameTmap0  + 0xA8 - 5);
     PutText(gaBattleForecastTextStructs + 1, gBmFrameTmap0  + 0xA8 + 0x3B);
@@ -359,7 +359,7 @@ void DrawBattleForecastContentsExtended(struct BattleForecastProc* proc) {
     PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0xC0, 2, gBattleActor.battleEffectiveCritRate);
     PutNumberTwoChr(gBmFrameTmap0 + 0xA8 + 0x100, 2, gBattleActor.battleSpeed);
 
-    PutTwoSpecialChar(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
+    PutTwoSpecialChar(gBmFrameTmap0 + 0xA8 - 0x44, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
 
     PutText(gaBattleForecastTextStructs + 3, gBmFrameTmap0 + 0xA8 - 5);
     PutText(gaBattleForecastTextStructs + 4, gBmFrameTmap0 + 0xA8 + 0x3B);
