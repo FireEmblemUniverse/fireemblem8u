@@ -174,8 +174,8 @@ void PrepUnit_DrawLeftUnitName(struct Unit *unit)
         GetStringFromIndex(unit->pCharacterData->nameTextId)
     );
 
-    PutTwoSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 3), 3, 0x24, 0x25);
-    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 9, 3), 3, 0x1D);
+    PutTwoSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 3), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_LV_A, TEXT_SPECIAL_LV_B);
+    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 9, 3), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_E);
 
     PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 3), 2, unit->level);
     PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 3), 2, unit->exp);
@@ -267,7 +267,7 @@ void PrepUnit_DrawPickLeftBar(struct ProcPrepUnit *proc, s8 val)
         proc->cur_counter
     );
 
-    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1A, 1), 0, 0x16);
+    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1A, 1), TEXT_COLOR_SYSTEM_WHITE, TEXT_SPECIAL_SLASH);
     PutNumberOrBlank(
         TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1C, 1),
         proc->cur_counter == proc->max_counter

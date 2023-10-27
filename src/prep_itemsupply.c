@@ -308,7 +308,7 @@ void sub_809D6CC(void) {
         (GetConvoyItemCount_() == CONVOY_ITEM_COUNT) ? 4 : 2,
         GetConvoyItemCount_()
     );
-    PutSpecialChar(gBG0TilemapBuffer + 0x34 + 6, 0, 0x16);
+    PutSpecialChar(gBG0TilemapBuffer + 0x34 + 6, TEXT_COLOR_SYSTEM_WHITE, TEXT_SPECIAL_SLASH);
     PutNumber(gBG0TilemapBuffer + 0x34 + 9, 2, 100);
 
     BG_EnableSyncByMask(1);

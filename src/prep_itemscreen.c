@@ -281,7 +281,7 @@ void EndDrawPrepUnitInfoBgSprites(void) {
 void PrepItemScreen_DrawFunds(void) {
     PutText(&gPrepItemScreenTexts[15], TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 17));
     PutNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 27, 17), 2, GetPartyGoldAmount());
-    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 28, 17), 3, 0x1e);
+    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 28, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_G);
     ShowPrepFundsSpriteAt(168, 133);
     BG_EnableSyncByMask(1);
     return;
@@ -895,8 +895,8 @@ void sub_80994C4(struct PrepItemScreenProc* proc) {
     x = GetStringTextCenteredPos(40, str);
     PutDrawText(&gPrepItemScreenTexts[16], TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x9a, 0, x, 0, str);
 
-    PutTwoSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x5b, 3, 0x24, 0x25);
-    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x57, 3, 0x1d);
+    PutTwoSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x5b, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_LV_A, TEXT_SPECIAL_LV_B);
+    PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x57, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_E);
 
     PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x58, 2, unit->level);
     PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9) - 0x55, 2, unit->exp);

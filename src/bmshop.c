@@ -1185,7 +1185,7 @@ void InitGoldBoxText(u16* tm) {
 
     InitText(&gText_GoldBox, 1);
 
-    PutSpecialChar(tm, 3, 30);
+    PutSpecialChar(tm, TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_G);
 
     return;
 }

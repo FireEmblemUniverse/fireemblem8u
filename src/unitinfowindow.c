@@ -382,7 +382,7 @@ void RefreshHammerneUnitInfoWindow(struct Unit* unit) {
         Text_DrawString(proc->lines + i, GetItemName(item));
 
         PutText(proc->lines + i, gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 3, yPos));
-        PutSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 12, yPos), color, 0x16);
+        PutSpecialChar(gBG0TilemapBuffer + TILEMAP_INDEX(xPos + 12, yPos), color, TEXT_SPECIAL_SLASH);
 
         color = IsItemHammernable(item) ? 2 : 1;
 

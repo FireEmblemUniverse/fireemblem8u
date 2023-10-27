@@ -77,53 +77,58 @@ enum text_colors {
     // TEXT_COLOR_TALK_...
 };
 
-enum text_special_char {
-    TEXT_SPECIAL_BIGNUM_0,
-    TEXT_SPECIAL_BIGNUM_1,
-    TEXT_SPECIAL_BIGNUM_2,
-    TEXT_SPECIAL_BIGNUM_3,
-    TEXT_SPECIAL_BIGNUM_4,
-    TEXT_SPECIAL_BIGNUM_5,
-    TEXT_SPECIAL_BIGNUM_6,
-    TEXT_SPECIAL_BIGNUM_7,
-    TEXT_SPECIAL_BIGNUM_8,
-    TEXT_SPECIAL_BIGNUM_9,
-    TEXT_SPECIAL_SMALLNUM_0,
-    TEXT_SPECIAL_SMALLNUM_1,
-    TEXT_SPECIAL_SMALLNUM_2,
-    TEXT_SPECIAL_SMALLNUM_3,
-    TEXT_SPECIAL_SMALLNUM_4,
-    TEXT_SPECIAL_SMALLNUM_5,
-    TEXT_SPECIAL_SMALLNUM_6,
-    TEXT_SPECIAL_SMALLNUM_7,
-    TEXT_SPECIAL_SMALLNUM_8,
-    TEXT_SPECIAL_SMALLNUM_9,
-    TEXT_SPECIAL_DASH,
-    TEXT_SPECIAL_PLUS,
-    TEXT_SPECIAL_SLASH,
-    TEXT_SPECIAL_TILDE,
-    TEXT_SPECIAL_S,
-    TEXT_SPECIAL_A,
-    TEXT_SPECIAL_B,
-    TEXT_SPECIAL_C,
-    TEXT_SPECIAL_D,
-    TEXT_SPECIAL_E,
-    TEXT_SPECIAL_G,
-    TEXT_SPECIAL_K, // NOTE: this is an E? used as statscreen exp label and equip marker
-    TEXT_SPECIAL_COLON,
-    TEXT_SPECIAL_DOT,
-    TEXT_SPECIAL_HP_A,
-    TEXT_SPECIAL_HP_B,
-    TEXT_SPECIAL_LV_A,
-    TEXT_SPECIAL_LV_B,
-    TEXT_SPECIAL_ARROW,
-    TEXT_SPECIAL_HEART,
-    TEXT_SPECIAL_100_A,
-    TEXT_SPECIAL_100_B,
-    TEXT_SPECIAL_PERCENT,
+enum text_special_char
+{
+    TEXT_SPECIAL_BIGNUM_0   = 0x00,
+    TEXT_SPECIAL_BIGNUM_1   = 0x01,
+    TEXT_SPECIAL_BIGNUM_2   = 0x02,
+    TEXT_SPECIAL_BIGNUM_3   = 0x03,
+    TEXT_SPECIAL_BIGNUM_4   = 0x04,
+    TEXT_SPECIAL_BIGNUM_5   = 0x05,
+    TEXT_SPECIAL_BIGNUM_6   = 0x06,
+    TEXT_SPECIAL_BIGNUM_7   = 0x07,
+    TEXT_SPECIAL_BIGNUM_8   = 0x08,
+    TEXT_SPECIAL_BIGNUM_9   = 0x09,
+    TEXT_SPECIAL_SMALLNUM_0 = 0x0A,
+    TEXT_SPECIAL_SMALLNUM_1 = 0x0B,
+    TEXT_SPECIAL_SMALLNUM_2 = 0x0C,
+    TEXT_SPECIAL_SMALLNUM_3 = 0x0D,
+    TEXT_SPECIAL_SMALLNUM_4 = 0x0E,
+    TEXT_SPECIAL_SMALLNUM_5 = 0x0F,
+    TEXT_SPECIAL_SMALLNUM_6 = 0x10,
+    TEXT_SPECIAL_SMALLNUM_7 = 0x11,
+    TEXT_SPECIAL_SMALLNUM_8 = 0x12,
+    TEXT_SPECIAL_SMALLNUM_9 = 0x13,
+    TEXT_SPECIAL_DASH       = 0x14,
+    TEXT_SPECIAL_PLUS       = 0x15,
+    TEXT_SPECIAL_SLASH      = 0x16,
+    TEXT_SPECIAL_TILDE      = 0x17,
+    TEXT_SPECIAL_S          = 0x18,
+    TEXT_SPECIAL_A          = 0x19,
+    TEXT_SPECIAL_B          = 0x1A,
+    TEXT_SPECIAL_C          = 0x1B,
+    TEXT_SPECIAL_D          = 0x1C,
+    TEXT_SPECIAL_E          = 0x1D,
+    TEXT_SPECIAL_G          = 0x1E,
+    TEXT_SPECIAL_K          = 0x1F, // NOTE: this is an E? used as statscreen exp label and equip marker
+    TEXT_SPECIAL_COLON      = 0x20,
+    TEXT_SPECIAL_DOT        = 0x21,
+    TEXT_SPECIAL_HP_A       = 0x22,
+    TEXT_SPECIAL_HP_B       = 0x23,
+    TEXT_SPECIAL_LV_A       = 0x24,
+    TEXT_SPECIAL_LV_B       = 0x25,
+    TEXT_SPECIAL_ARROW      = 0x26,
+    TEXT_SPECIAL_HEART      = 0x27,
+    TEXT_SPECIAL_100_A      = 0x28,
+    TEXT_SPECIAL_100_B      = 0x29,
+    TEXT_SPECIAL_PERCENT    = 0x2A,
+
+
+    TEXT_SPECIAL_35         = 0x35,
+
     // TODO: rest
 
-    TEXT_SPECIAL_NOTHING = 0xFF,
+    TEXT_SPECIAL_NOTHING    = 0xFF,
 };
 
 struct TextPrintProc {
@@ -221,7 +226,7 @@ void EndGreenText(void);
 // ??? DrawSpecialCharGlyph(???);
 // ??? AddSpecialChar(???);
 // ??? GetSpecialCharChr(???);
-void PutSpecialChar(u16 *a, int b, int c);
+void PutSpecialChar(u16 * tm, int color, int id);
 // ??? PutNumberExt(???);
 void PutNumber(u16 *a, int b, int c);
 void PutNumberOrBlank(u16* a, int b, int c);
@@ -230,7 +235,7 @@ void PutNumberSmall(u16* a, int b, int c);
 void PutNumberBonus(int a, u16 *b);
 // ??? SpecialCharTest(???);
 void PutTime(u16 * tm, int color, int time, bool always_display_punctuation);
-void PutTwoSpecialChar(u16 *a, int b, int c, int d);
+void PutTwoSpecialChar(u16 * tm, int color, int id_a, int id_b);
 void PutNumber2Digit(u16 *tm, int color, int number);
 void PutNumber2DigitSmall(u16 *tm, int color, int number);
 void PutNumber2DigitExt(u16 *tm, int color, int number, int id_zero);

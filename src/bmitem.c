@@ -424,7 +424,7 @@ void DrawItemMenuLineLong(struct Text* text, int item, s8 isUsable, u16* mapOut)
 
     PutNumberOrBlank(mapOut + 10, isUsable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
     PutNumberOrBlank(mapOut + 13, isUsable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemMaxUses(item));
-    PutSpecialChar(mapOut + 11, isUsable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY, 0x16); // draw special character?
+    PutSpecialChar(mapOut + 11, isUsable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_SLASH);
 
     DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
@@ -451,7 +451,7 @@ void DrawItemStatScreenLine(struct Text* text, int item, int nameColor, u16* map
     Text_DrawString(text, GetItemName(item));
 
     color = (nameColor == TEXT_COLOR_SYSTEM_GRAY) ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE;
-    PutSpecialChar(mapOut + 12, color, 0x16);
+    PutSpecialChar(mapOut + 12, color, TEXT_SPECIAL_SLASH);
 
     color = (nameColor != TEXT_COLOR_SYSTEM_GRAY) ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY;
     PutNumberOrBlank(mapOut + 11, color, GetItemUses(item));

@@ -1062,23 +1062,23 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
     int unitCharId;
     int partnerCharId;
 
-    int gUnknown_08205C90[3] = {
-        0x1B,
-        0x1A,
-        0x19,
+    int supportLvCharLut[3] = {
+        TEXT_SPECIAL_C,
+        TEXT_SPECIAL_B,
+        TEXT_SPECIAL_A,
     };
 
     if (proc->partnerState[idx] == 0) {
         for (i = 0; i < 5; i++) {
-            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x10 + i, _y = idx * 2 + 3), 1, 0x14);
+            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x10 + i, _y = idx * 2 + 3), TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_DASH);
         }
 
         for (i = 0; i < 2; i++) {
-            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x16 + i, _y = idx * 2 + 3), 1, 0x14);
+            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x16 + i, _y = idx * 2 + 3), TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_DASH);
         }
 
         for (i = 0; i < 3; i++) {
-            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, _y = idx * 2 + 3), 1, 0x14);
+            PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, _y = idx * 2 + 3), TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_DASH);
         }
     } else {
         int color = 0;
@@ -1114,10 +1114,10 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
                     color = 0;
                 }
 
-                PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
+                PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, supportLvCharLut[i]);
             }
 
-            PutSpecialChar(gBG2TilemapBuffer + 0x1B + (((idx * 2) + 3) * 0x20), 1, 0x14);
+            PutSpecialChar(gBG2TilemapBuffer + 0x1B + (((idx * 2) + 3) * 0x20), TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_DASH);
         } else {
 
             for (i = 0; i < 3; i++) {
@@ -1128,7 +1128,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
                     color = 0;
                 }
 
-                PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
+                PutSpecialChar(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, supportLvCharLut[i]);
             }
         }
     }
