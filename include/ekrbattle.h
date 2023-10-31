@@ -285,13 +285,13 @@ enum anim_round_type {
     ANIM_ROUND_DEVIL = 0x8000,    
 };
 
-extern s16 gAnimRoundData[];
+extern u16 gAnimRoundData[];
 s16 GetBattleAnimRoundType(int index);
 s16 GetBattleAnimRoundTypeFlags(int);
 
 #define GetRoundFlagByAnim(aAnim) (GetBattleAnimRoundTypeFlags((aAnim->nextRoundId - 1) * 2 + GetAnimPosition(aAnim)))
 
-extern u8 gEfxHpLut[];
+extern u16 gEfxHpLut[];
 
 enum banim_mode_index {
     BANIM_MODE_NORMAL_ATK,
@@ -428,7 +428,7 @@ extern s16 gEkrSpellAnimIndex[];
 // extern ??? gUnknown_0203E11A
 extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
 extern EWRAM_DATA short gEkrPairBmLoc[4];
-// extern ??? gAnimRoundData
+
 extern s16 gEfxPairHpBufOffset[];
 extern s16 gEkrPairBanimID2[];
 extern u8 gEkrPids[2];
@@ -564,16 +564,16 @@ extern const u16 gFrameLut_EfxHPBarColorChange1[];
 extern const u16 gFrameLut_EfxHPBarColorChange2[];
 extern const u16 gFrameLut_EfxStatusUnit[];
 extern const u16 gFrameLut_EfxWeaponIcon[];
-// extern ??? gUnknown_080DAE8C
-// extern ??? gUnknown_080DAE96
-// extern ??? gUnknown_080DAEA0
-// extern ??? gUnknown_080DAEAA
-// extern ??? gUnknown_080DAEB4
-// extern ??? gUnknown_080DAEBE
-// extern ??? gUnknown_080DAEC8
-// extern ??? gUnknown_080DAED2
-// extern ??? gUnknown_080DAEDC
-// extern ??? gUnknown_080DAEE6
+extern const u16 gUnknown_080DAE8C[];
+extern const u16 gUnknown_080DAE96[];
+extern const u16 gUnknown_080DAEA0[];
+extern const u16 gUnknown_080DAEAA[];
+extern const u16 gUnknown_080DAEB4[];
+extern const u16 gUnknown_080DAEBE[];
+extern const u16 gUnknown_080DAEC8[];
+extern const u16 gUnknown_080DAED2[];
+extern const u16 gUnknown_080DAEDC[];
+extern const u16 gUnknown_080DAEE6[];
 extern const u8 BattleTypeToAnimModeEndOfDodge[5];
 extern const u8 BanimTypesPosLeft[5];
 extern const u8 BanimTypesPosRight[5];

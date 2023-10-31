@@ -165,6 +165,7 @@ SECTIONS
         src/banim-ekrbattleending.o(.text);
         src/banim-ekrbattleintro.o(.text);
         asm/banim-ekrcheckenable.o(.text);
+        src/banim-battleparse.o(.text);
         src/banim-ekrcmd.o(.text);
         src/banim-main.o(.text);
         src/banim-ekrmain.o(.text);
