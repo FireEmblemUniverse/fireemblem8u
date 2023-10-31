@@ -142,23 +142,27 @@ void EkrPrepareBanimfx(struct Anim * anim, u16 index)
 
 s16 GetBattleAnimRoundType(int index)
 {
-    if (gAnimRoundData[index] == -1)
+    s16 * buf = (s16 *)gAnimRoundData;
+    if (buf[index] == -1)
         return -1;
     else
-        return gAnimRoundData[index] & 0xFF;
+        return buf[index] & 0xFF;
 }
 
 s16 GetBattleAnimRoundTypeFlags(int index)
 {
-    if (gAnimRoundData[index] == -1)
+    s16 * buf = (s16 *)gAnimRoundData;
+    if (buf[index] == -1)
         return 0;
     else
-        return gAnimRoundData[index] & 0xFF00;
+        return buf[index] & 0xFF00;
 }
 
 s16 GetEfxHp(int index)
 {
-    return gEfxHpLut[index * 2];
+    u16 * _buf = gEfxHpLut;
+    u8 * buf = (u8 *)&_buf[index];
+    return *buf;
 }
 
 s16 GetEfxHpModMaybe(int index)
