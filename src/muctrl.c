@@ -213,7 +213,7 @@ void MoveUnit_(struct Unit * unit, s8 x, s8 y, u16 flags)
 }
 
 //! FE8U = 0x0807A054
-void GenUnitDefinitionFinalPosition(const struct UnitDefinition * def, u8 * xOut, u8 * yOut, s8 findNearest)
+void GenUnitDefinitionFinalPosition(const struct UnitDefinition * def, s8 * xOut, s8 * yOut, s8 findNearest)
 {
     struct Unit * unit;
     const struct REDA * reda;
