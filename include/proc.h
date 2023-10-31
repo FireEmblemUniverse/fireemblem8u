@@ -152,7 +152,7 @@ void Proc_EndEachMarked(int mark);
 void Proc_EndEach(const struct ProcCmd *script);
 void Proc_BreakEach(const struct ProcCmd* script);
 void Proc_SetRepeatCb(ProcPtr proc, ProcFunc func);
-// ??? Proc_FindAfter(???);
+ProcPtr Proc_FindAfter(struct ProcCmd * script, struct Proc * proc);
 // ??? Proc_FindAfterWithParent(???);
 // ??? sub_80034D4(???);
 // ??? sub_80034FC(???);

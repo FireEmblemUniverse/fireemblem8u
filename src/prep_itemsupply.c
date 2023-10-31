@@ -815,7 +815,7 @@ void sub_809E2C8(struct PrepItemSupplyProc* proc) {
         proc->unit
     );
 
-    StartParallelFiniteLoop(sub_809E2BC, 1, (u32)proc);
+    StartParallelFiniteLoop(sub_809E2BC, 1, proc);
 
     ShowPrepScreenHandCursor(
         0x80,
@@ -1038,7 +1038,7 @@ void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc* proc) {
     ResetIconGraphics_();
     DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.th[2], proc->unit, 0);
     sub_809D300(&gUnknown_02013648.th[7], gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
-    StartParallelFiniteLoop(sub_809E2BC, 1, (u32)proc);
+    StartParallelFiniteLoop(sub_809E2BC, 1, proc);
 
     BG_EnableSyncByMask(4);
 

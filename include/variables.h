@@ -1199,7 +1199,7 @@ extern u16* gUnknown_08A209F0[];
 // extern ??? gSprite_UiSpinningArrows_Vertical
 // extern ??? gProcScr_UiSpinningArrows
 // extern ??? ProcScr_ParallelFiniteLoop
-// extern ??? gUnknown_08A20BD4
+// extern ??? gProcScr_08A20BD4
 // extern ??? ProcScr_ParallelWorker
 // extern ??? ProcScr_SysHandCtrlMaybe
 // extern ??? gUnknown_08A20C4C
@@ -1270,7 +1270,7 @@ extern u16 gUnknown_08A2E4A4[]; // Pal
 extern u8 gUnknown_08A2E4C4[]; // TSA
 extern u8 gUnknown_08A2E5EC[]; // Gfx
 extern u16 gUnknown_08A2E8F0[]; // Pal
-// extern ??? gUnknown_08A2E950
+extern u8 gUnknown_08A2E950[]; // Gfx
 // extern ??? ProcScr_ColFadeOut
 // extern ??? ProcScr_ColFadeIn
 extern u8 gUnknown_08A301B0[]; // gfx?

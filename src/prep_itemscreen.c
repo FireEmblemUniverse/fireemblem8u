@@ -1210,7 +1210,7 @@ void sub_8099AF8(struct PrepItemScreenProc* proc) {
         2
     );
 
-    StartParallelFiniteLoop(sub_8099AA0, 1, (u32)proc);
+    StartParallelFiniteLoop(sub_8099AA0, 1, proc);
 
     UnblockUiCursorHand();
     HideUnitInfoBgSprites();

@@ -1,56 +1,5 @@
     .section .data
 
-	.global ProcScr_ParallelFiniteLoop
-ProcScr_ParallelFiniteLoop:  @ 0x08A20BB4
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80ACDF0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80ACDF8
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08A20BD4
-gUnknown_08A20BD4:  @ 0x08A20BD4
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80ACE3C
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80ACE54
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_BLOCK
-        .short 0x10, 0x0
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_ParallelWorker
-ProcScr_ParallelWorker:  @ 0x08A20C04
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ParallelWorker_OnLoop
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_SysHandCtrlMaybe
 ProcScr_SysHandCtrlMaybe:  @ 0x08A20C1C
         @ PROC_CALL
