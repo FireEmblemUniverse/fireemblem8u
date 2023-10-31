@@ -33,14 +33,14 @@ struct ParallelWorkerProc
 };
 
 //! FE8U = 0x080ACDF0
-void sub_80ACDF0(struct ParallelFiniteLoopProc * proc)
+void ParallelFiniteLoop_Init(struct ParallelFiniteLoopProc * proc)
 {
     proc->count = 0;
     return;
 }
 
 //! FE8U = 0x080ACDF8
-void sub_80ACDF8(struct ParallelFiniteLoopProc * proc)
+void ParallelFiniteLoop_Loop(struct ParallelFiniteLoopProc * proc)
 {
     if (proc->count >= proc->maxCount)
     {
@@ -53,7 +53,19 @@ void sub_80ACDF8(struct ParallelFiniteLoopProc * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_ParallelFiniteLoop[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_ParallelFiniteLoop[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(ParallelFiniteLoop_Init),
+    PROC_REPEAT(ParallelFiniteLoop_Loop),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080ACE20
 void StartParallelFiniteLoop(void * func, int count, ProcPtr parent)
@@ -186,21 +198,34 @@ void sub_80ACE54(struct Proc8A20BD4 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A20BD4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_08A20BD4[] =
+{
+    PROC_CALL(sub_80ACE3C),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80ACE54),
+
+PROC_LABEL(1),
+    PROC_BLOCK,
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AD1AC
 ProcPtr sub_80AD1AC(ProcPtr parent)
 {
-    Proc_End(Proc_Find(gUnknown_08A20BD4));
-    return Proc_Start(gUnknown_08A20BD4, parent);
+    Proc_End(Proc_Find(gProcScr_08A20BD4));
+    return Proc_Start(gProcScr_08A20BD4, parent);
 }
-
-extern u8 gUnknown_08A2E950[];
 
 //! FE8U = 0x080AD1D0
 void sub_80AD1D0(int chr)
 {
-    struct Proc8A20BD4 * proc = Proc_Find(gUnknown_08A20BD4);
+    struct Proc8A20BD4 * proc = Proc_Find(gProcScr_08A20BD4);
 
     if (proc != NULL)
     {
@@ -214,7 +239,7 @@ void sub_80AD1D0(int chr)
 //! FE8U = 0x080AD204
 void sub_80AD204(int index, int x, int y, int width, int height, u16 f)
 {
-    struct Proc8A20BD4 * proc = Proc_Find(gUnknown_08A20BD4);
+    struct Proc8A20BD4 * proc = Proc_Find(gProcScr_08A20BD4);
 
     if (proc != NULL)
     {
@@ -233,7 +258,7 @@ void sub_80AD204(int index, int x, int y, int width, int height, u16 f)
 //! FE8U = 0x080AD26C
 void sub_80AD26C(int index)
 {
-    struct Proc8A20BD4 * proc = Proc_Find(gUnknown_08A20BD4);
+    struct Proc8A20BD4 * proc = Proc_Find(gProcScr_08A20BD4);
 
     if (proc != NULL)
     {
@@ -246,7 +271,7 @@ void sub_80AD26C(int index)
 //! FE8U = 0x080AD28C
 void sub_80AD28C(void)
 {
-    struct Proc8A20BD4 * proc = Proc_Find(gUnknown_08A20BD4);
+    struct Proc8A20BD4 * proc = Proc_Find(gProcScr_08A20BD4);
 
     if (proc != NULL)
     {
@@ -259,7 +284,7 @@ void sub_80AD28C(void)
 //! FE8U = 0x080AD2A8
 void sub_80AD2A8(void)
 {
-    struct Proc8A20BD4 * proc = Proc_Find(gUnknown_08A20BD4);
+    struct Proc8A20BD4 * proc = Proc_Find(gProcScr_08A20BD4);
 
     if (proc != NULL)
     {
@@ -273,7 +298,7 @@ void sub_80AD2A8(void)
 //! FE8U = 0x080AD2D4
 void sub_80AD2D4(void)
 {
-    Proc_End(Proc_Find(gUnknown_08A20BD4));
+    Proc_End(Proc_Find(gProcScr_08A20BD4));
     return;
 }
 
@@ -284,7 +309,17 @@ void ParallelWorker_OnLoop(struct ParallelWorkerProc * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_ParallelWorker[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_ParallelWorker[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(ParallelWorker_OnLoop),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AD2F8
 ProcPtr StartParallelWorker(void * func, ProcPtr parent)
