@@ -558,7 +558,7 @@ void ProcPrepUnit_Idle(struct ProcPrepUnit *proc)
             return;
 
         PrepUnit_DrawUnitItems(GetUnitFromPrepList(proc->list_num_cur));
-        StartParallelFiniteLoop(PrepUnit_DrawLeftUnitNameCur, 1, (u32)proc);
+        StartParallelFiniteLoop(PrepUnit_DrawLeftUnitNameCur, 1, proc);
         PlaySoundEffect(0x65);
     
         if (ShouldPrepUnitMenuScroll(proc)) {

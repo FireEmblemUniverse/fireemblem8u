@@ -1233,7 +1233,7 @@ void SetUiSpinningArrowFastMaybe(int);
 void EndUiSpinningArrows(void);
 // ??? sub_80ACDF0(???);
 // ??? sub_80ACDF8(???);
-void StartParallelFiniteLoop(void *func, int cnt, u32 args);
+void StartParallelFiniteLoop(void * func, int count, ProcPtr parent);
 // ??? sub_80ACE3C(???);
 // ??? sub_80ACE54(???);
 ProcPtr sub_80AD1AC(ProcPtr);

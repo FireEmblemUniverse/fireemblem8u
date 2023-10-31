@@ -314,7 +314,7 @@ void sub_809F150(struct PrepItemListProc* proc) {
 
     BG_EnableSyncByMask(5);
 
-    StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 2, (u32)proc);
+    StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 2, proc);
 
     if (proc->unk_36 == 0) {
         return;
@@ -483,7 +483,7 @@ void sub_809F498(struct PrepItemListProc* proc) {
     );
 
     if (gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].pid != 0) {
-        StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 1, (u32)proc);
+        StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 1, proc);
     }
 
     ShowPrepScreenHandCursor(
@@ -765,7 +765,7 @@ void sub_809FB70(struct PrepItemListProc* proc) {
     sub_809F370(proc);
     DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gUnknown_02013660 + 2, proc->unit, 0);
     sub_809D300(gUnknown_02013660 + 7, gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
-    StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 1, (u32)proc);
+    StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 1, proc);
     BG_EnableSyncByMask(4);
 
     PlaySoundEffect(0x6a);
