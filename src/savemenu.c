@@ -1586,7 +1586,7 @@ PROC_LABEL(1),
     PROC_CALL_ARG(NewFadeOut, 8),
     PROC_WHILE(FadeOutExists),
 
-    PROC_CALL(sub_80AD5B4),
+    PROC_CALL(DisableAllGfx),
 
     PROC_CALL(NewNewGameDifficultySelect),
     PROC_SLEEP(0),

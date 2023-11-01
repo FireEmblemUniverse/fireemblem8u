@@ -1347,7 +1347,7 @@ PROC_LABEL(0),
 
 PROC_LABEL(1),
     PROC_REPEAT(sub_8099120),
-    PROC_CALL(sub_80AD5B4),
+    PROC_CALL(DisableAllGfx),
     PROC_SLEEP(0),
 
     PROC_CALL(PrepItemScreen_StartStatScreen),
@@ -1386,7 +1386,7 @@ PROC_LABEL(4),
 
 PROC_LABEL(5),
     PROC_REPEAT(PrepItemScreen_Loop_MainKeyHandler),
-    PROC_CALL(sub_80AD5B4),
+    PROC_CALL(DisableAllGfx),
     PROC_SLEEP(0),
 
     PROC_CALL(PrepItemScreen_StartStatScreen),

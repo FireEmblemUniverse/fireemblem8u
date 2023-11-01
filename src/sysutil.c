@@ -423,3 +423,13 @@ void configSysHandCursorShadowEnabled(u8 enabled)
     if (proc)
         proc->enable_bmshadow = enabled;
 }
+
+void DisableAllGfx(void)
+{
+    SetDispEnable(0, 0, 0, 0, 0);
+}
+
+void EnableAllGfx(void)
+{
+    SetDispEnable(1, 1, 1, 1, 1);
+}

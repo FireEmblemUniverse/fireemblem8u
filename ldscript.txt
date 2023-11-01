@@ -264,7 +264,8 @@ SECTIONS
         src/cursor_hand.o(.text);
         src/spinning_arrow.o(.text);
         src/sysutil.o(.text);
-        asm/code_80ACDF0.o(.text);
+        asm/sysutil.o(.text);
+        asm/soundromfx.o(.text);
         src/soundroom.o(.text);
         src/extramenu_unk.o(.text);
         src/bonusclaim.o(.text);

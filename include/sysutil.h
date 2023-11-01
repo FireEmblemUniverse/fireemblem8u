@@ -79,7 +79,7 @@ void HideSysHandCursor(void);
 void EndSysHandCursor(void);
 void configSysHandCursorShadowEnabled(u8 enabled);
 
-void sub_80AD5B4(void);
+void DisableAllGfx(void);
 void EnableAllGfx(void);
 // ??? sub_80AD5F8(???);
 // ??? sub_80AD610(???);

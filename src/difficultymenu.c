@@ -548,7 +548,7 @@ struct ProcCmd CONST_DATA ProcScr_NewGameDifficultySelect[] =
 {
     PROC_SET_END_CB(DifficultySelect_OnEnd),
 
-    PROC_CALL(sub_80AD5B4),
+    PROC_CALL(DisableAllGfx),
     PROC_YIELD,
 
     PROC_CALL(DifficultySelect_Init),
