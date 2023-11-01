@@ -5,27 +5,58 @@
 #include "soundwrapper.h"
 #include "m4a.h"
 #include "bm.h"
-
-extern u8 gUnknown_08592628[];
-
-void sub_80AE7C4(void *, int, s16, s16, int, int, int, int, ProcPtr);
+#include "stone_shatter.h"
 
 //! FE8U = 0x08012CE4
-void sub_8012CE4(void)
+void StoneShatterEvent_OnEnd(void)
 {
     SetSpecialColorEffectsParameters(0, 0, 0x10, 0);
     InitBmBgLayers();
     return;
 }
 
-extern struct ProcCmd gUnknown_08592608[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_StoneShatterEvent[] =
+{
+    PROC_YIELD,
+
+    PROC_SET_END_CB(StoneShatterEvent_OnEnd),
+    PROC_WHILE(IsStoneShatterAnimActive),
+
+    PROC_END,
+};
+
+struct Unknown08592628 CONST_DATA gUnknown_08592628[] =
+{
+    {  3, gPal_StoneShatterAnim,           1, 0 },
+    {  1, gImg_StoneShatterAnim,      0x1000, 1 },
+    {  2, gTsa_StoneShatter_081C1900,      0, 1 },
+    {  2, gTsa_StoneShatter_081C194C,      0, 1 },
+    {  2, gTsa_StoneShatter_081C1998,      0, 1 },
+    {  2, gTsa_StoneShatter_081C19E4,      0, 2 },
+    {  2, gTsa_StoneShatter_081C1A30,      0, 3 },
+    {  2, gTsa_StoneShatter_081C1A7C,      0, 3 },
+    {  2, gTsa_StoneShatter_081C1AC8,      0, 4 },
+    {  2, gTsa_StoneShatter_081C1B14,      0, 4 },
+    {  2, gTsa_StoneShatter_081C1B60,      0, 4 },
+    {  2, gTsa_StoneShatter_081C1BAC,      0, 4 },
+    {  2, gTsa_StoneShatter_081C1BF8,      0, 4 },
+    {  2, gTsa_StoneShatter_081C1C44,      0, 4 },
+    {  2, gTsa_StoneShatter_081C1C90,      0, 2 },
+    {  2, gTsa_StoneShatter_081C1CDC,      0, 2 },
+    { 10, NULL,                            0, 0 },
+};
+
+// clang-format on
 
 //! FE8U = 0x08012CFC
-void sub_8012CFC(struct Unit * unit, ProcPtr proc)
+void StartStoneShatterAnim(struct Unit * unit, ProcPtr proc)
 {
     s16 x;
     s16 y;
-    ProcPtr child = Proc_StartBlocking(gUnknown_08592608, proc);
+
+    ProcPtr child = Proc_StartBlocking(gProcScr_StoneShatterEvent, proc);
 
     do
     {
@@ -41,9 +72,9 @@ void sub_8012CFC(struct Unit * unit, ProcPtr proc)
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
 
-    x = (unit->xPos * 0x10 - gBmSt.camera.x - 0x10);
-    y = (unit->yPos * 0x10 - gBmSt.camera.y - 0x18);
-    sub_80AE7C4(gUnknown_08592628, 2, x, y, 0, 0x2000, 0xf, 0, proc);
+    x = (unit->xPos * 16 - gBmSt.camera.x - 16);
+    y = (unit->yPos * 16 - gBmSt.camera.y - 24);
+    StartStoneShatterAnimCore(gUnknown_08592628, BG_2, x, y, 0, 0x2000, 0xf, NULL, proc);
 
     PlaySoundEffect(0x2D6);
 

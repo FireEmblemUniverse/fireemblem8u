@@ -3,43 +3,34 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-struct Unknown08592628
-{
-    /* 00 */ u8 unk_00;
-    /* 04 */ void * unk_04;
-    /* 08 */ u16 unk_08;
-    /* 0A */ u8 unk_0a;
-    /* 0B */ STRUCT_PAD(0x0b, 0x0c);
-};
+#include "stone_shatter.h"
 
-typedef s8 Unk58Func(ProcPtr);
-
-struct StoneShatterProc
+//! FE8U = 0x080AE4D8
+void StoneShatterAnim_Init(struct StoneShatterProc * proc)
 {
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct Unknown08592628 * unk_2c;
-    /* 30 */ u16 unk_30;
-    /* 32 */ u16 unk_32;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 unk_35;
-    /* 36 */ s8 unk_36;
-    /* 37 */ u8 unk_37;
-    /* 38 */ u8 unk_38;
-    /* 39 */ u8 unk_39;
-    /* 3A */ s8 unk_3a;
-    /* 3B */ STRUCT_PAD(0x3b, 0x3c);
-    /* 3C */ int unk_3c;
-    /* 40 */ u32 unk_40;
-    /* 44 */ int unk_44;
-    /* 48 */ u32 unk_48;
-    /* 4C */ int unk_4c;
-    /* 50 */ int unk_50;
-    /* 54 */ int unk_54;
-    /* 58 */ Unk58Func * unk_58;
-};
+    proc->unk_2c = 0;
+    proc->unk_34 = 0;
+    proc->unk_3c = 0;
+    proc->unk_44 = 0;
+    proc->unk_40 = 0;
+    proc->unk_48 = 0;
+    proc->unk_37 = 0;
+    proc->unk_38 = 0;
+    proc->unk_4c = 0;
+    proc->unk_50 = 0;
+    proc->unk_58 = 0;
+    proc->unk_39 = 0;
+    proc->unk_54 = 0;
+    proc->unk_30 = 0;
+    proc->unk_32 = 0;
+    proc->unk_3a = 1;
+    proc->unk_36 = 0;
+
+    return;
+}
 
 //! FE8U = 0x080AE518
-void sub_80AE518(struct StoneShatterProc * proc)
+void StoneShatterAnim_Loop(struct StoneShatterProc * proc)
 {
     struct Unknown08592628 * unk_2c = proc->unk_2c;
 
@@ -196,7 +187,7 @@ void sub_80AE518(struct StoneShatterProc * proc)
 }
 
 //! FE8U = 0x080AE71C
-void sub_80AE71C(struct StoneShatterProc * proc)
+void StoneShatterAnim_Finish(struct StoneShatterProc * proc)
 {
     if (proc->unk_2c->unk_00 == 10)
     {
@@ -208,12 +199,25 @@ void sub_80AE71C(struct StoneShatterProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A20DFC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_StoneShatterAnimFx[] =
+{
+    PROC_CALL(StoneShatterAnim_Init),
+    PROC_YIELD,
+
+    PROC_REPEAT(StoneShatterAnim_Loop),
+    PROC_CALL(StoneShatterAnim_Finish),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AE750
-s8 sub_80AE750(void)
+s8 IsStoneShatterAnimActive(void)
 {
-    if (Proc_Find(gUnknown_08A20DFC))
+    if (Proc_Find(gProcScr_StoneShatterAnimFx))
     {
         return 1;
     }
@@ -224,7 +228,7 @@ s8 sub_80AE750(void)
 //! FE8U = 0x080AE76C
 void sub_80AE76C(void)
 {
-    struct StoneShatterProc * proc = Proc_Find(gUnknown_08A20DFC);
+    struct StoneShatterProc * proc = Proc_Find(gProcScr_StoneShatterAnimFx);
 
     if ((proc != NULL) && (proc->unk_2c->unk_00 == 6))
     {
@@ -235,16 +239,16 @@ void sub_80AE76C(void)
 }
 
 //! FE8U = 0x080AE790
-void sub_80AE790(void)
+void EndStoneShatterAnim(void)
 {
-    Proc_End(Proc_Find(gUnknown_08A20DFC));
+    Proc_End(Proc_Find(gProcScr_StoneShatterAnimFx));
     return;
 }
 
 //! FE8U = 0x080AE7A4
 void sub_80AE7A4(u8 a)
 {
-    struct StoneShatterProc * proc = Proc_Find(gUnknown_08A20DFC);
+    struct StoneShatterProc * proc = Proc_Find(gProcScr_StoneShatterAnimFx);
 
     if (proc != NULL)
     {
@@ -255,17 +259,17 @@ void sub_80AE7A4(u8 a)
 }
 
 //! FE8U = 0x080AE7C4
-void sub_80AE7C4(struct Unknown08592628 * input, int bg, int x, int y, int e, int f, int g, void * func, ProcPtr parent)
+void StartStoneShatterAnimCore(struct Unknown08592628 * input, int bg, int x, int y, int e, int f, int g, void * func, ProcPtr parent)
 {
     struct StoneShatterProc * proc;
 
     if (parent == NULL)
     {
-        proc = Proc_Start(gUnknown_08A20DFC, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_StoneShatterAnimFx, PROC_TREE_3);
     }
     else
     {
-        proc = Proc_Start(gUnknown_08A20DFC, parent);
+        proc = Proc_Start(gProcScr_StoneShatterAnimFx, parent);
     }
 
     proc->unk_2c = input;

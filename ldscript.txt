@@ -534,6 +534,7 @@ SECTIONS
         . = ALIGN(4); src/popup.o(.data);
         . = ALIGN(4); src/evtsub.o(.data);
         . = ALIGN(4); data/data_5924D8.o(.data);
+        . = ALIGN(4); src/eventcmd_44.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/data_599714.o(.data);
         . = ALIGN(4); src/bmlib.o(.data);
@@ -741,6 +742,8 @@ SECTIONS
         . = ALIGN(4); src/spinning_arrow.o(.data);
         . = ALIGN(4); src/code_80ACDF0.o(.data);
         . = ALIGN(4); data/data_A2077C.o(.data);
+        . = ALIGN(4); src/stone_shatter.o(.data);
+        . = ALIGN(4); data/data_A20E24.o(.data);
         . = ALIGN(4); src/soundroom.o(.data);
         . = ALIGN(4); src/extramenu_unk.o(.data);
         . = ALIGN(4); src/bonusclaim.o(.data);
