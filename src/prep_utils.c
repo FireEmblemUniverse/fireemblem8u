@@ -274,7 +274,7 @@ s8 sub_8097F98(struct Unit* unit, int itemSlot) {
     return 0;
 }
 
-extern u16 gUnknown_08A1D448[];
+extern u16 Pal_08A1D448[];
 extern u16 gUnknown_02013460[];
 
 //! FE8U = 0x08097FDC
@@ -285,7 +285,7 @@ void sub_8097FDC(void) {
         int pal = gPlaySt.config.windowColor;
 
         u16* dst = &gUnknown_02013460[i];
-        u16* src = &gUnknown_08A1D448[pal * 0x10 + i];
+        u16* src = &Pal_08A1D448[pal * 0x10 + i];
 
         *dst = *src;
     }

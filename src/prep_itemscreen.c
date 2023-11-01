@@ -19,7 +19,7 @@
 #include "bmitemuse.h"
 #include "bmcontainer.h"
 #include "worldmap.h"
-
+#include "sysutil.h"
 #include "constants/items.h"
 
 #include "prepscreen.h"
@@ -331,7 +331,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
     MakePrepUnitList();
     proc->hoverUnitIdx = UnitGetIndexInPrepList(PrepGetLatestCharId());
 
-    ResetPrepScreenHandCursor(proc);
+    ResetSysHandCursor(proc);
     StartParallelWorker(sub_809A274, proc);
     StartUiCursorHand(proc);
 
@@ -386,7 +386,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc* proc) {
 
     Decompress(Img_PrepTextShadow, (void *)0x06013E00);
     UiCursorHand_80ACA4C(0, 0, 0, 0xd0, 0x3c);
-    sub_80AD4A0(0x600, 1);
+    DisplaySysHandCursorTextShadow(0x600, 1);
 
     RestartMuralBackground();
 
@@ -424,7 +424,7 @@ void PrepItemScreen_OnEnd(struct PrepItemScreenProc* proc) {
     PrepSetLatestCharId(unit->pCharacterData->number);
 
     EndAllParallelWorkers();
-    EndPrepScreenHandCursor();
+    EndSysHandCursor();
 
     EndUiCursorHand();
 
@@ -603,7 +603,7 @@ void sub_8098CC0(struct PrepItemScreenProc* proc) {
 
     proc->unitSelected = 0;
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         (proc->hoverUnitIdx % 3) * 64 + 24,
         ((proc->hoverUnitIdx / 3) * 16) + 4 - proc->unk_34,
         7,
@@ -674,12 +674,12 @@ s8 PrepItemScreen_DpadKeyHandler(struct PrepItemScreenProc* proc) {
 
         if (a - proc->unk_34 > 32 && proc->unk_34 + 48 < b) {
             sub_809A114(proc, (proc->unk_34 >> 4) + 4, 0);
-            SetPrepScreenHandXPos((proc->hoverUnitIdx % 3) * 64 + 24);
+            SetSysHandCursorXPos((proc->hoverUnitIdx % 3) * 64 + 24);
         } else if (a - proc->unk_34 < 0x10 && ({ proc->unk_34 + 0; }) != 0) {
             sub_809A114(proc, (proc->unk_34 >> 4) - 1, 0);
-            SetPrepScreenHandXPos((proc->hoverUnitIdx % 3) * 64 + 24);
+            SetSysHandCursorXPos((proc->hoverUnitIdx % 3) * 64 + 24);
         } else {
-            ShowPrepScreenHandCursor(
+            ShowSysHandCursor(
                 (proc->hoverUnitIdx % 3) * 64 + 24,
                 (proc->hoverUnitIdx / 3) * 16 + 4 - proc->unk_34,
                 7,
@@ -940,7 +940,7 @@ void sub_8099654(struct PrepItemScreenProc* proc) {
     StartParallelWorker(sub_8098BC8, proc);
     StartHelpPromptSprite(120, 140, 9, proc);
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         (proc->popupPromptIdx & 1) * 32 + 144,
         (proc->popupPromptIdx >> 1) * 16 + 84,
         3,
@@ -1131,7 +1131,7 @@ void sub_80996E8(struct PrepItemScreenProc* proc) {
     }
 
     PlaySoundEffect(0x65);
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         (proc->popupPromptIdx & 1) * 32 + 144,
         (proc->popupPromptIdx >> 1) * 16 + 84,
         3,
@@ -1190,7 +1190,7 @@ void sub_8099AF8(struct PrepItemScreenProc* proc) {
 
     proc->unitSelected = 0;
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         ((proc->hoverUnitIdx % 3) * 64) + 24,
         ((proc->hoverUnitIdx / 3) * 16) + 4 - proc->unk_34,
         7,
@@ -1347,7 +1347,7 @@ PROC_LABEL(0),
 
 PROC_LABEL(1),
     PROC_REPEAT(sub_8099120),
-    PROC_CALL(sub_80AD5B4),
+    PROC_CALL(DisableAllGfx),
     PROC_SLEEP(0),
 
     PROC_CALL(PrepItemScreen_StartStatScreen),
@@ -1386,7 +1386,7 @@ PROC_LABEL(4),
 
 PROC_LABEL(5),
     PROC_REPEAT(PrepItemScreen_Loop_MainKeyHandler),
-    PROC_CALL(sub_80AD5B4),
+    PROC_CALL(DisableAllGfx),
     PROC_SLEEP(0),
 
     PROC_CALL(PrepItemScreen_StartStatScreen),

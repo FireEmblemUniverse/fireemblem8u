@@ -18,7 +18,7 @@
 #include "ev_triggercheck.h"
 #include "savemenu.h"
 #include "spline.h"
-
+#include "sysutil.h"
 #include "bmdifficulty.h"
 
 // TODO: move to some constant header and maybe merge with something if that makes sense

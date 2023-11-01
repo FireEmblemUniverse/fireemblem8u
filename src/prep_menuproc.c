@@ -19,6 +19,7 @@
 #include "cgtext.h"
 #include "prepscreen.h"
 #include "classchg.h"
+#include "sysutil.h"
 
 s8 CheckInLinkArena();
 
@@ -356,8 +357,8 @@ void PrepMenu_OnInit(struct ProcPrepMenu *proc)
     proc->cur_index = 0;
     proc->max_index = 0;
 
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x600, 1);
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x600, 1);
 
     proc->on_PressB = 0;
     proc->on_PressStart = 0;
@@ -372,7 +373,7 @@ void PrepMenu_CtrlLoop(struct ProcPrepMenu *proc)
     int xPos = (proc->xPos + 1) * 8 + 4;
     int yPos = (proc->yPos + 1) * 8 + proc->cur_index * 16;
 
-    ShowPrepScreenHandCursor(xPos, yPos, 0x6, 0x400);
+    ShowSysHandCursor(xPos, yPos, 0x6, 0x400);
 
     cmd = proc->cmds[proc->cur_index];
 
@@ -465,7 +466,7 @@ void PrepMenu_ShowFrozenHand(struct ProcPrepMenu *proc)
 
 void PrepMenu_ShowActiveHand(struct ProcPrepMenu *proc)
 {
-    ShowPrepScreenHandCursor((proc->xPos + 1) * 8 + 4,
+    ShowSysHandCursor((proc->xPos + 1) * 8 + 4,
                              (proc->yPos + 1) * 8 + proc->cur_index * 16,
                              6, 0x400);
 }

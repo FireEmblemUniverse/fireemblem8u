@@ -17,6 +17,7 @@
 #include "efxbattle.h"
 #include "ekrbattle.h"
 #include "bmlib.h"
+#include "sysutil.h"
 #include "constants/classes.h"
 
 enum ClassReelScrOpCode {

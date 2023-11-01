@@ -7,6 +7,7 @@
 #include "mapanim.h"
 #include "soundwrapper.h"
 #include "prepscreen.h"
+#include "sysutil.h"
 
 void PrepItemUseBooster_OnDraw(struct ProcPrepItemUseBooster *proc, int x, int y, int msg, int item)
 {
@@ -109,7 +110,7 @@ void PrepItemUseBooster_OnEnd(struct ProcPrepItemUseBooster *proc)
         if (parent->slot >= max)
             parent->slot--;
 
-        ShowPrepScreenHandCursor(0x10, parent->slot * 0x10 + 0x48, 0xB, 0x800);
+        ShowSysHandCursor(0x10, parent->slot * 0x10 + 0x48, 0xB, 0x800);
     }
 
     DrawPrepScreenItems(
@@ -209,7 +210,7 @@ void PrepItemUseJuna_OnEnd(struct ProcPrepItemUseJunaFruit *proc)
         if (parent->slot >= max)
             parent->slot--;
 
-        ShowPrepScreenHandCursor(0x10, parent->slot * 0x10 + 0x48, 0xB, 0x800);
+        ShowSysHandCursor(0x10, parent->slot * 0x10 + 0x48, 0xB, 0x800);
     }
 
     DrawPrepScreenItems(

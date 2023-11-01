@@ -450,8 +450,8 @@ extern const struct FaceVramEntry gFaceConfig_PrepItemUseScreen[4];
 // extern ??? sConvySavePackMask2
 // extern ??? gInitialMultiArenaRankings
 // extern ??? gUnknown_08205D7C
-// extern ??? gUnknown_08205E18
-// extern ??? gUnknown_08205E28
+// extern ??? Objs1_SysBrownBox
+// extern ??? Objs2_SysBrownBox
 // extern ??? gUnknown_08205F28
 // extern ??? gUnknown_08205F7C
 // extern ??? gWMNodeIconData
@@ -845,7 +845,7 @@ extern const u16 gLegacyUiFrameDPalette[];
 extern const u16 gUiBarPaletteD[];
 extern const u8  gUnkUiFrameImage[];
 extern const u16 gUnkUiFramePalettes[];
-// extern ??? gUnknown_085B92C4
+extern u8 Img_SysUntransBox[];
 
 extern u8 Img_EkrExpBar[];
 extern u16 Img_EkrExpBarChange[];
@@ -1216,15 +1216,6 @@ extern u16* gUnknown_08A209F0[];
 // extern ??? gSprite_UiSpinningArrows_Horizontal
 // extern ??? gSprite_UiSpinningArrows_Vertical
 // extern ??? gProcScr_UiSpinningArrows
-// extern ??? ProcScr_ParallelFiniteLoop
-// extern ??? gProcScr_08A20BD4
-// extern ??? ProcScr_ParallelWorker
-// extern ??? ProcScr_SysHandCtrlMaybe
-// extern ??? gUnknown_08A20C4C
-// extern ??? gUnknown_08A20D6C
-// extern ??? gUnknown_08A20D8C
-extern struct ProcCmd CONST_DATA gUnknown_08A20DA4[];
-extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 
 // extern ??? gUnknown_08A20E24
 // extern ??? gUnknown_08A20E44

@@ -8,6 +8,7 @@
 #include "chapterdata.h"
 #include "cgtext.h"
 #include "prepscreen.h"
+#include "sysutil.h"
 
 /**
 * This proc seems to be the "sub-menu" dialogue that pops up when selecting "Fortune" on the prep screen in FE7.

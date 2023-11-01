@@ -13,7 +13,7 @@
 #include "worldmap.h"
 #include "savemenu.h"
 #include "ending_details.h"
-
+#include "sysutil.h"
 #include "constants/characters.h"
 
 struct CharacterEndingProc {

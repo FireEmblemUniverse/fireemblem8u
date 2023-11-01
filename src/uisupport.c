@@ -20,6 +20,7 @@
 #include "prepscreen.h"
 #include "ev_triggercheck.h"
 #include "cgtext.h"
+#include "sysutil.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -609,9 +610,9 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     DrawSupportScreenText();
 
     if (GetSupportScreenUnitCount() != 0) {
-        ResetPrepScreenHandCursor(proc);
-        sub_80AD4A0(0x600, 1);
-        ShowPrepScreenHandCursor(
+        ResetSysHandCursor(proc);
+        DisplaySysHandCursorTextShadow(0x600, 1);
+        ShowSysHandCursor(
             (proc->curIndex % 3) * 64 + 20,
             ((proc->curIndex / 3) - (proc->unk_34 / 16)) * 16 + 36,
             7,
@@ -752,14 +753,14 @@ void SupportScreen_Loop_KeyHandler(struct SupportScreenProc* proc) {
                 if ((var < 0x10) && (proc->unk_34 != 0)) {
                     sub_80A199C(proc, (proc->unk_34 / 16) - 1);
                     proc->unk_40 = -1;
-                    SetPrepScreenHandXPos((proc->curIndex % 3) * 64 + 20);
+                    SetSysHandCursorXPos((proc->curIndex % 3) * 64 + 20);
                 } else if ((var >= 0x50) && (proc->unk_34 != ((((GetSupportScreenUnitCount() - 1) / 3) - 5) * 16))) {
                     sub_80A199C(proc, (proc->unk_34 / 16) + 6);
                     proc->unk_40 = 1;
-                    SetPrepScreenHandXPos((proc->curIndex % 3) * 64 + 20);
+                    SetSysHandCursorXPos((proc->curIndex % 3) * 64 + 20);
                 } else {
 
-                    ShowPrepScreenHandCursor(
+                    ShowSysHandCursor(
                         (proc->curIndex % 3) * 64 + 20,
                         var + 36,
                         7,
@@ -1370,14 +1371,14 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     if (!proc->fromPrepScreen) {
         gPlaySt.config.textSpeed = 1; // TODO: Text speed constants
 
-        ResetPrepScreenHandCursor(proc);
-        sub_80AD4A0(0x600, 1);
-        sub_80AD594(1);
+        ResetSysHandCursor(proc);
+        DisplaySysHandCursorTextShadow(0x600, 1);
+        ConfigSysHandCursorShadowEnabled(1);
 
         proc->unk_3a = -1;
 
         if (proc->unk_3b != 0) {
-            ShowPrepScreenHandCursor(
+            ShowSysHandCursor(
                 (proc->unk_39 & 3) * 8 + 0xc4,
                 ((proc->unk_39 >> 2) & 7) * 16 + 0x18,
                 1,
@@ -1479,7 +1480,7 @@ void SupportSubScreen_Loop_KeyHandler(struct SubScreenProc* proc) {
         }
 
         if (previous != proc->unk_39) {
-            ShowPrepScreenHandCursor(
+            ShowSysHandCursor(
                 (proc->unk_39 & 3) * 8 + 0xc4,
                 ((proc->unk_39 >> 2) & 7) * 16  + 0x18,
                 1,
@@ -1534,7 +1535,7 @@ void SupportSubScreen_StartSwapPage(struct SubScreenProc* proc) {
 
     proc->unk_3a = 0;
 
-    HidePrepScreenHandCursor();
+    HideSysHandCursor();
 
     gLCDControlBuffer.bg0cnt.priority = 1;
     gLCDControlBuffer.bg1cnt.priority = 3;
@@ -1740,7 +1741,7 @@ void SupportSubScreen_EndSwapPage(struct SubScreenProc* proc) {
 
     if (proc->fromPrepScreen == 0) {
         if (proc->unk_3b != 0) {
-            ShowPrepScreenHandCursor(
+            ShowSysHandCursor(
                 (proc->unk_39 & 3) * 8 + 0xc4,
                 (proc->unk_39 >> 2 & 7) * 16 + 0x18,
                 1,

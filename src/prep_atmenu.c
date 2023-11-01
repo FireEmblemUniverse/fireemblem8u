@@ -16,6 +16,7 @@
 #include "bmlib.h"
 #include "prepscreen.h"
 #include "eventcall.h"
+#include "sysutil.h"
 
 s8 CheckInLinkArena();
 
@@ -116,7 +117,7 @@ void sub_8095C00(int msg, ProcPtr parent)
 
 void sub_8095C2C(struct ProcAtMenu * proc)
 {
-    sub_80AD2D4();
+    EndSemiTransBoxs();
     EndPrepSpecialCharEffect();
     EndMuralBackground_();
     proc->cur_cmd = GetActivePrepMenuItemIndex();
@@ -198,8 +199,8 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     }
 
     Prep_DrawChapterGoal(0x5800, 0xB);
-    sub_80AD1AC(proc);
-    sub_80AD1D0(0x6800);
+    NewSemiTransBoxHandler(proc);
+    SemiTransBoxSetGfx(0x6800);
     proc->unk_35 = GetActivePrepMenuItemIndex();
     ParsePrepMenuDescTexts(sub_8095024());
     DrawPrepMenuDescTexts();
@@ -280,7 +281,7 @@ void sub_8096004(struct ProcAtMenu * proc)
 {
     ShowPrepScreenMenuFrozenHand();
     sub_8095F54(proc);
-    ShowPrepScreenHandCursor(0x1C, proc->hand_pos * 16 + 0x30, 7, 0x400);
+    ShowSysHandCursor(0x1C, proc->hand_pos * 16 + 0x30, 7, 0x400);
 }
 
 void AtMenu_CtrlLoop(struct ProcAtMenu * proc)
@@ -356,7 +357,7 @@ void AtMenu_CtrlLoop(struct ProcAtMenu * proc)
         if (proc->do_help)
             StartHelpBox(xPos, yPos, msg_list[sub_8095094(proc->hand_pos, proc->unk_2F)]);
 
-        ShowPrepScreenHandCursor(xPos, yPos, 7, 0x400);
+        ShowSysHandCursor(xPos, yPos, 7, 0x400);
         PlaySoundEffect(0x66);
     }
 }

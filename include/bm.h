@@ -32,7 +32,7 @@ u16 GetCameraAdjustedY(int);
 u16 GetCameraCenteredX(int xMapCoord);
 u16 GetCameraCenteredY(int yMapCoord);
 void PutMapCursor(int x, int y, int kind);
-// ??? sub_8015B88(???);
+void DisplayBmTextShadow(int x, int y);
 void SetCursorMapPosition(int, int);
 void UpdateStatArrowSprites(int, int, u8);
 // ??? CamMove_OnInit(???);

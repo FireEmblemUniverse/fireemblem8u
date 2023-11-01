@@ -3,6 +3,7 @@
 #include "uimenu.h"
 #include "fontgrp.h"
 #include "hardware.h"
+#include "sysutil.h"
 
 void sub_80CDA4C(struct MenuProc *proc)
 {

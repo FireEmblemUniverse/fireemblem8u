@@ -9,7 +9,7 @@
 #include "uiutils.h"
 #include "statscreen.h"
 #include "face.h"
-
+#include "sysutil.h"
 #include "bm.h"
 #include "bmitem.h"
 #include "bmtrade.h"
@@ -259,7 +259,7 @@ void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     int xStart;
 
     // TODO: constants
-    StartSmallBrownNameBoxes(6, 0x4800, 0x08, 0x800, 0x400, (struct Proc*) (proc));
+    StartSysBrownBox(6, 0x4800, 0x08, 0x800, 0x400, (struct Proc*) (proc));
 
     SmallBrownNameBoxDoSomeConfig(0, -40, -1, 1);
     SmallBrownNameBoxDoSomeConfig(1, 184, -1, 0);

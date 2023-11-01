@@ -16,6 +16,7 @@
 #include "statscreen.h"
 #include "constants/video-global.h"
 #include "bmlib.h"
+#include "sysutil.h"
 #include "prepscreen.h"
 
 s8 CheckInLinkArena();
@@ -454,9 +455,9 @@ void ProcPrepUnit_InitScreen(struct ProcPrepUnit *proc)
 
     PrepUnit_InitSMS(proc);
     StartParallelWorker(PrepUnit_DrawSMSAndObjs, proc);
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x600, 0x1);
-    ShowPrepScreenHandCursor(
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x600, 0x1);
+    ShowSysHandCursor(
         (proc->list_num_cur % 2) * 56 + 0x70,
         (proc->list_num_cur / 2) * 16 + 0x18 - proc->yDiff_cur,
         0x7, 0x800);
@@ -480,8 +481,8 @@ void sub_809B014()
 {
     EndMenuScrollBar();
     EndAllParallelWorkers();
-	sub_80AD2D4();
-	EndPrepScreenHandCursor();
+	EndSemiTransBoxs();
+	EndSysHandCursor();
 	EndHelpPromptSprite();
 	EndUiSpinningArrows();
 	EndMuralBackground_();
@@ -567,10 +568,10 @@ void ProcPrepUnit_Idle(struct ProcPrepUnit *proc)
             if (proc->list_num_cur > proc->list_num_pre)
                 PrepUnit_DrawUnitListNames(proc, proc->yDiff_cur / 16 + 6);
 
-            SetPrepScreenHandXPos((1 & proc->list_num_cur) * 56 + 0x70);
+            SetSysHandCursorXPos((1 & proc->list_num_cur) * 56 + 0x70);
         } else {
             proc->list_num_pre = proc->list_num_cur;
-            ShowPrepScreenHandCursor(
+            ShowSysHandCursor(
                 (1 & proc->list_num_pre) * 56 + 0x70,
                 (proc->list_num_pre >> 1) * 16 + 0x18 - proc->yDiff_cur,
                 0x7, 0x800
@@ -634,12 +635,12 @@ void nullsub_21()
 void sub_809B370(struct ProcPrepUnit *proc)
 {
     nullsub_21();
-    ShowPrepScreenHandCursor(0xD0, 0x68, 0, 0x800);
+    ShowSysHandCursor(0xD0, 0x68, 0, 0x800);
 }
 
 void sub_809B388(struct ProcPrepUnit *proc)
 {
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         (proc->list_num_cur % 2) * 56 + 0x70,
         (proc->list_num_cur / 2) * 16 + 0x18 - proc->yDiff_cur,
         0x7, 0x800);

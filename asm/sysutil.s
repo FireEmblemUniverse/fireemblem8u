@@ -2,950 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80AD364
-sub_80AD364: @ 0x080AD364
-	push {r4, r5, lr}
-	sub sp, #4
-	adds r5, r0, #0
-	bl GetGameClock
-	ldr r1, _080AD424  @ gPaletteBuffer
-	ldrh r2, [r5, #0x3a]
-	lsls r2, r2, #5
-	movs r3, #0x87
-	lsls r3, r3, #2
-	adds r2, r2, r3
-	adds r2, r2, r1
-	ldr r1, _080AD428  @ gPlaySt
-	adds r1, #0x41
-	ldrb r1, [r1]
-	lsls r1, r1, #0x1c
-	lsrs r1, r1, #0x1e
-	lsls r1, r1, #4
-	lsrs r0, r0, #2
-	movs r4, #0xf
-	ands r0, r4
-	adds r1, r1, r0
-	lsls r1, r1, #1
-	ldr r0, _080AD42C  @ gUnknown_08A1D448
-	adds r1, r1, r0
-	ldrh r0, [r1]
-	strh r0, [r2]
-	bl EnablePaletteSync
-	ldr r1, [r5, #0x2c]
-	ldr r2, [r5, #0x30]
-	adds r2, #8
-	ldr r3, _080AD430  @ gObject_8x8
-	ldrh r0, [r5, #0x3a]
-	ands r4, r0
-	lsls r4, r4, #0xc
-	ldrh r0, [r5, #0x3c]
-	adds r4, r4, r0
-	ldrh r0, [r5, #0x36]
-	adds r4, r4, r0
-	str r4, [sp]
-	movs r0, #4
-	bl PutSpriteExt
-	movs r4, #1
-	ldrh r3, [r5, #0x38]
-	cmp r4, r3
-	bge _080AD3F2
-_080AD3C4:
-	lsls r0, r4, #3
-	ldr r1, [r5, #0x2c]
-	adds r1, r1, r0
-	ldr r2, [r5, #0x30]
-	adds r2, #8
-	ldrh r3, [r5, #0x3a]
-	movs r0, #0xf
-	ands r0, r3
-	lsls r0, r0, #0xc
-	ldrh r3, [r5, #0x3c]
-	adds r0, r0, r3
-	ldrh r3, [r5, #0x36]
-	adds r0, r0, r3
-	adds r0, #1
-	str r0, [sp]
-	movs r0, #4
-	ldr r3, _080AD430  @ gObject_8x8
-	bl PutSpriteExt
-	adds r4, #1
-	ldrh r0, [r5, #0x38]
-	cmp r4, r0
-	blt _080AD3C4
-_080AD3F2:
-	ldrh r0, [r5, #0x38]
-	lsls r0, r0, #3
-	ldr r1, [r5, #0x2c]
-	adds r1, r1, r0
-	ldr r2, [r5, #0x30]
-	adds r2, #8
-	ldr r3, _080AD430  @ gObject_8x8
-	ldrh r4, [r5, #0x3a]
-	movs r0, #0xf
-	ands r0, r4
-	lsls r0, r0, #0xc
-	ldrh r4, [r5, #0x3c]
-	adds r0, r0, r4
-	ldrh r4, [r5, #0x36]
-	adds r0, r0, r4
-	adds r0, #2
-	str r0, [sp]
-	movs r0, #4
-	bl PutSpriteExt
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD424: .4byte gPaletteBuffer
-_080AD428: .4byte gPlaySt
-_080AD42C: .4byte gUnknown_08A1D448
-_080AD430: .4byte gObject_8x8
-
-	THUMB_FUNC_END sub_80AD364
-
-	THUMB_FUNC_START sub_80AD434
-sub_80AD434: @ 0x080AD434
-	adds r0, #0x35
-	movs r1, #0
-	strb r1, [r0]
-	bx lr
-
-	THUMB_FUNC_END sub_80AD434
-
-	THUMB_FUNC_START sub_80AD43C
-sub_80AD43C: @ 0x080AD43C
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #0x2c]
-	ldr r1, [r4, #0x30]
-	bl DisplayUiHand
-	adds r0, r4, #0
-	adds r0, #0x35
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _080AD45C
-	adds r0, r4, #0
-	bl sub_80AD364
-_080AD45C:
-	adds r0, r4, #0
-	adds r0, #0x34
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _080AD474
-	ldr r0, [r4, #0x2c]
-	ldr r1, [r4, #0x30]
-	adds r1, #2
-	bl sub_8015B88
-_080AD474:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80AD43C
-
-	THUMB_FUNC_START ResetPrepScreenHandCursor
-ResetPrepScreenHandCursor: @ 0x080AD47C
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, _080AD49C  @ ProcScr_SysHandCtrlMaybe
-	adds r0, r4, #0
-	bl Proc_Find
-	bl Proc_End
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl Proc_Start
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080AD49C: .4byte ProcScr_SysHandCtrlMaybe
-
-	THUMB_FUNC_END ResetPrepScreenHandCursor
-
-	THUMB_FUNC_START sub_80AD4A0
-sub_80AD4A0: @ 0x080AD4A0
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	adds r4, r1, #0
-	ldr r0, _080AD4D8  @ ProcScr_SysHandCtrlMaybe
-	bl Proc_Find
-	adds r2, r0, #0
-	cmp r2, #0
-	beq _080AD4D0
-	adds r1, r2, #0
-	adds r1, #0x34
-	movs r0, #0
-	strb r0, [r1]
-	lsls r0, r5, #0xf
-	lsrs r0, r0, #0x14
-	strh r0, [r2, #0x36]
-	movs r0, #0xf
-	ands r4, r0
-	strh r4, [r2, #0x3a]
-	ldr r0, _080AD4DC  @ Img_PrepTextShadow
-	ldr r2, _080AD4E0  @ 0x06010000
-	adds r1, r5, r2
-	bl Decompress
-_080AD4D0:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD4D8: .4byte ProcScr_SysHandCtrlMaybe
-_080AD4DC: .4byte Img_PrepTextShadow
-_080AD4E0: .4byte 0x06010000
-
-	THUMB_FUNC_END sub_80AD4A0
-
-	THUMB_FUNC_START SetPrepScreenHandXPos
-SetPrepScreenHandXPos: @ 0x080AD4E4
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _080AD4FC  @ ProcScr_SysHandCtrlMaybe
-	bl Proc_Find
-	cmp r0, #0
-	beq _080AD4F4
-	str r4, [r0, #0x2c]
-_080AD4F4:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD4FC: .4byte ProcScr_SysHandCtrlMaybe
-
-	THUMB_FUNC_END SetPrepScreenHandXPos
-
-	THUMB_FUNC_START SetPrepScreenHandYPos
-SetPrepScreenHandYPos: @ 0x080AD500
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _080AD518  @ ProcScr_SysHandCtrlMaybe
-	bl Proc_Find
-	cmp r0, #0
-	beq _080AD510
-	str r4, [r0, #0x30]
-_080AD510:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD518: .4byte ProcScr_SysHandCtrlMaybe
-
-	THUMB_FUNC_END SetPrepScreenHandYPos
-
-	THUMB_FUNC_START ShowPrepScreenHandCursor
-ShowPrepScreenHandCursor: @ 0x080AD51C
-	push {r4, r5, r6, r7, lr}
-	adds r5, r0, #0
-	adds r6, r1, #0
-	adds r4, r2, #0
-	lsls r3, r3, #0x10
-	lsrs r7, r3, #0x10
-	ldr r0, _080AD544  @ ProcScr_SysHandCtrlMaybe
-	bl Proc_Find
-	adds r1, r0, #0
-	cmp r1, #0
-	beq _080AD55C
-	str r5, [r1, #0x2c]
-	str r6, [r1, #0x30]
-	cmp r4, #0
-	bne _080AD548
-	adds r0, #0x35
-	strb r4, [r0]
-	b _080AD554
-	.align 2, 0
-_080AD544: .4byte ProcScr_SysHandCtrlMaybe
-_080AD548:
-	adds r2, r1, #0
-	adds r2, #0x35
-	movs r0, #1
-	strb r0, [r2]
-	strh r4, [r1, #0x38]
-	strh r7, [r1, #0x3c]
-_080AD554:
-	adds r0, r1, #0
-	movs r1, #1
-	bl Proc_Goto
-_080AD55C:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END ShowPrepScreenHandCursor
-
-	THUMB_FUNC_START HidePrepScreenHandCursor
-HidePrepScreenHandCursor: @ 0x080AD564
-	push {lr}
-	ldr r0, _080AD57C  @ ProcScr_SysHandCtrlMaybe
-	bl Proc_Find
-	cmp r0, #0
-	beq _080AD576
-	movs r1, #0
-	bl Proc_Goto
-_080AD576:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD57C: .4byte ProcScr_SysHandCtrlMaybe
-
-	THUMB_FUNC_END HidePrepScreenHandCursor
-
-	THUMB_FUNC_START EndPrepScreenHandCursor
-EndPrepScreenHandCursor: @ 0x080AD580
-	push {lr}
-	ldr r0, _080AD590  @ ProcScr_SysHandCtrlMaybe
-	bl Proc_Find
-	bl Proc_End
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD590: .4byte ProcScr_SysHandCtrlMaybe
-
-	THUMB_FUNC_END EndPrepScreenHandCursor
-
-	THUMB_FUNC_START sub_80AD594
-sub_80AD594: @ 0x080AD594
-	push {r4, lr}
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	ldr r0, _080AD5B0  @ ProcScr_SysHandCtrlMaybe
-	bl Proc_Find
-	cmp r0, #0
-	beq _080AD5A8
-	adds r0, #0x34
-	strb r4, [r0]
-_080AD5A8:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD5B0: .4byte ProcScr_SysHandCtrlMaybe
-
-	THUMB_FUNC_END sub_80AD594
-
-	THUMB_FUNC_START sub_80AD5B4
-sub_80AD5B4: @ 0x080AD5B4
-	ldr r2, _080AD5D4  @ gLCDControlBuffer
-	ldrb r1, [r2, #1]
-	movs r0, #2
-	negs r0, r0
-	ands r0, r1
-	movs r1, #3
-	negs r1, r1
-	ands r0, r1
-	subs r1, #2
-	ands r0, r1
-	subs r1, #4
-	ands r0, r1
-	subs r1, #8
-	ands r0, r1
-	strb r0, [r2, #1]
-	bx lr
-	.align 2, 0
-_080AD5D4: .4byte gLCDControlBuffer
-
-	THUMB_FUNC_END sub_80AD5B4
-
-	THUMB_FUNC_START EnableAllGfx
-EnableAllGfx: @ 0x080AD5D8
-	ldr r2, _080AD5F4  @ gLCDControlBuffer
-	ldrb r0, [r2, #1]
-	movs r1, #1
-	orrs r0, r1
-	movs r1, #2
-	orrs r0, r1
-	movs r1, #4
-	orrs r0, r1
-	movs r1, #8
-	orrs r0, r1
-	movs r1, #0x10
-	orrs r0, r1
-	strb r0, [r2, #1]
-	bx lr
-	.align 2, 0
-_080AD5F4: .4byte gLCDControlBuffer
-
-	THUMB_FUNC_END EnableAllGfx
-
-	THUMB_FUNC_START sub_80AD5F8
-sub_80AD5F8: @ 0x080AD5F8
-	push {lr}
-	movs r2, #0
-	movs r1, #3
-	adds r0, #0x50
-_080AD600:
-	strb r2, [r0]
-	subs r0, #0xc
-	subs r1, #1
-	cmp r1, #0
-	bge _080AD600
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80AD5F8
-
-	THUMB_FUNC_START sub_80AD610
-sub_80AD610: @ 0x080AD610
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x10
-	str r0, [sp, #4]
-	movs r1, #0
-_080AD620:
-	lsls r0, r1, #1
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	adds r0, #0x2c
-	ldr r2, [sp, #4]
-	adds r5, r2, r0
-	movs r0, #0
-	ldrsb r0, [r5, r0]
-	adds r1, #1
-	str r1, [sp, #0xc]
-	cmp r0, #0
-	bne _080AD63A
-	b _080AD934
-_080AD63A:
-	ldr r1, [r2, #0x60]
-	movs r0, #0xf
-	ands r1, r0
-	lsls r1, r1, #0xc
-	ldr r0, [r2, #0x5c]
-	adds r0, r0, r1
-	ldrh r3, [r5, #8]
-	adds r0, r0, r3
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	mov r8, r0
-	ldrb r0, [r5, #1]
-	ldrh r2, [r5, #2]
-	ldr r1, _080AD8B8  @ 0x000001FF
-	ands r1, r2
-	ldrh r3, [r5, #4]
-	movs r2, #0xff
-	ands r2, r3
-	mov r3, r8
-	str r3, [sp]
-	ldr r3, _080AD8BC  @ gObject_8x8
-	bl PutSpriteExt
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	ldrb r2, [r5, #6]
-	subs r2, #1
-	lsls r2, r2, #3
-	adds r1, r1, r2
-	ldr r3, _080AD8B8  @ 0x000001FF
-	ands r1, r3
-	movs r2, #0x80
-	lsls r2, r2, #5
-	adds r1, r1, r2
-	ldrh r3, [r5, #4]
-	movs r2, #0xff
-	ands r2, r3
-	mov r3, r8
-	str r3, [sp]
-	ldr r3, _080AD8BC  @ gObject_8x8
-	bl PutSpriteExt
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	ldrb r2, [r5, #6]
-	subs r2, #1
-	lsls r2, r2, #3
-	adds r1, r1, r2
-	ldr r3, _080AD8B8  @ 0x000001FF
-	ands r1, r3
-	movs r2, #0xc0
-	lsls r2, r2, #6
-	adds r1, r1, r2
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	ldrb r3, [r5, #7]
-	subs r3, #1
-	lsls r3, r3, #3
-	adds r2, r2, r3
-	movs r3, #0xff
-	ands r2, r3
-	mov r3, r8
-	str r3, [sp]
-	ldr r3, _080AD8BC  @ gObject_8x8
-	bl PutSpriteExt
-	ldrb r0, [r5, #1]
-	ldrh r2, [r5, #2]
-	ldr r1, _080AD8B8  @ 0x000001FF
-	ands r1, r2
-	movs r2, #0x80
-	lsls r2, r2, #6
-	adds r1, r1, r2
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	ldrb r3, [r5, #7]
-	subs r3, #1
-	lsls r3, r3, #3
-	adds r2, r2, r3
-	movs r3, #0xff
-	ands r2, r3
-	mov r3, r8
-	str r3, [sp]
-	ldr r3, _080AD8BC  @ gObject_8x8
-	bl PutSpriteExt
-	movs r7, #1
-	ldrb r0, [r5, #6]
-	subs r0, #4
-	cmp r7, r0
-	bge _080AD750
-	ldr r0, _080AD8B8  @ 0x000001FF
-	mov sl, r0
-	ldr r1, _080AD8C0  @ gObject_32x8
-	mov r9, r1
-	mov r6, r8
-	adds r6, #1
-_080AD700:
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	lsls r4, r7, #3
-	adds r1, r1, r4
-	mov r3, sl
-	ands r1, r3
-	ldrh r3, [r5, #4]
-	movs r2, #0xff
-	ands r2, r3
-	str r6, [sp]
-	mov r3, r9
-	bl PutSpriteExt
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	adds r1, r1, r4
-	mov r3, sl
-	ands r1, r3
-	movs r2, #0x80
-	lsls r2, r2, #6
-	adds r1, r1, r2
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	ldrb r3, [r5, #7]
-	subs r3, #1
-	lsls r3, r3, #3
-	adds r2, r2, r3
-	movs r3, #0xff
-	ands r2, r3
-	str r6, [sp]
-	mov r3, r9
-	bl PutSpriteExt
-	adds r7, #4
-	ldrb r0, [r5, #6]
-	subs r0, #4
-	cmp r7, r0
-	blt _080AD700
-_080AD750:
-	ldrb r0, [r5, #6]
-	subs r0, #2
-	cmp r7, r0
-	bge _080AD7B4
-	ldr r0, _080AD8B8  @ 0x000001FF
-	mov sl, r0
-	ldr r1, _080AD8C4  @ gObject_16x8
-	mov r9, r1
-	mov r6, r8
-	adds r6, #1
-_080AD764:
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	lsls r4, r7, #3
-	adds r1, r1, r4
-	mov r3, sl
-	ands r1, r3
-	ldrh r3, [r5, #4]
-	movs r2, #0xff
-	ands r2, r3
-	str r6, [sp]
-	mov r3, r9
-	bl PutSpriteExt
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	adds r1, r1, r4
-	mov r3, sl
-	ands r1, r3
-	movs r2, #0x80
-	lsls r2, r2, #6
-	adds r1, r1, r2
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	ldrb r3, [r5, #7]
-	subs r3, #1
-	lsls r3, r3, #3
-	adds r2, r2, r3
-	movs r3, #0xff
-	ands r2, r3
-	str r6, [sp]
-	mov r3, r9
-	bl PutSpriteExt
-	adds r7, #2
-	ldrb r0, [r5, #6]
-	subs r0, #2
-	cmp r7, r0
-	blt _080AD764
-_080AD7B4:
-	ldrb r0, [r5, #6]
-	subs r0, #1
-	cmp r7, r0
-	bge _080AD818
-	ldr r0, _080AD8B8  @ 0x000001FF
-	mov sl, r0
-	ldr r1, _080AD8BC  @ gObject_8x8
-	mov r9, r1
-	mov r6, r8
-	adds r6, #1
-_080AD7C8:
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	lsls r4, r7, #3
-	adds r1, r1, r4
-	mov r3, sl
-	ands r1, r3
-	ldrh r3, [r5, #4]
-	movs r2, #0xff
-	ands r2, r3
-	str r6, [sp]
-	mov r3, r9
-	bl PutSpriteExt
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	adds r1, r1, r4
-	mov r3, sl
-	ands r1, r3
-	movs r2, #0x80
-	lsls r2, r2, #6
-	adds r1, r1, r2
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	ldrb r3, [r5, #7]
-	subs r3, #1
-	lsls r3, r3, #3
-	adds r2, r2, r3
-	movs r3, #0xff
-	ands r2, r3
-	str r6, [sp]
-	mov r3, r9
-	bl PutSpriteExt
-	adds r7, #1
-	ldrb r0, [r5, #6]
-	subs r0, #1
-	cmp r7, r0
-	blt _080AD7C8
-_080AD818:
-	movs r7, #1
-	ldrb r0, [r5, #7]
-	subs r0, #1
-	cmp r7, r0
-	blt _080AD824
-	b _080AD934
-_080AD824:
-	ldr r0, _080AD8B8  @ 0x000001FF
-	mov sl, r0
-	movs r1, #0xff
-	mov r9, r1
-	mov r2, r8
-	adds r2, #9
-	str r2, [sp, #8]
-_080AD832:
-	ldrb r0, [r5, #1]
-	ldrh r2, [r5, #2]
-	mov r1, sl
-	ands r1, r2
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	lsls r4, r7, #3
-	adds r2, r2, r4
-	mov r3, r9
-	ands r2, r3
-	ldr r3, [sp, #8]
-	str r3, [sp]
-	ldr r3, _080AD8BC  @ gObject_8x8
-	bl PutSpriteExt
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	ldrb r2, [r5, #6]
-	subs r2, #1
-	lsls r2, r2, #3
-	adds r1, r1, r2
-	mov r3, sl
-	ands r1, r3
-	movs r2, #0x80
-	lsls r2, r2, #5
-	adds r1, r1, r2
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	adds r2, r2, r4
-	mov r3, r9
-	ands r2, r3
-	ldr r3, [sp, #8]
-	str r3, [sp]
-	ldr r3, _080AD8BC  @ gObject_8x8
-	bl PutSpriteExt
-	movs r6, #1
-	ldrb r0, [r5, #6]
-	subs r0, #4
-	adds r7, #1
-	cmp r6, r0
-	bge _080AD8EE
-_080AD888:
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	lsls r2, r6, #3
-	adds r1, r1, r2
-	mov r3, sl
-	ands r1, r3
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	adds r2, r2, r4
-	mov r3, r9
-	ands r2, r3
-	mov r3, r8
-	adds r3, #5
-	str r3, [sp]
-	ldr r3, _080AD8C0  @ gObject_32x8
-	bl PutSpriteExt
-	adds r6, #4
-	ldrb r0, [r5, #6]
-	subs r0, #4
-	cmp r6, r0
-	blt _080AD888
-	b _080AD8EE
-	.align 2, 0
-_080AD8B8: .4byte 0x000001FF
-_080AD8BC: .4byte gObject_8x8
-_080AD8C0: .4byte gObject_32x8
-_080AD8C4: .4byte gObject_16x8
-_080AD8C8:
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	lsls r2, r6, #3
-	adds r1, r1, r2
-	mov r3, sl
-	ands r1, r3
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	adds r2, r2, r4
-	mov r3, r9
-	ands r2, r3
-	mov r3, r8
-	adds r3, #5
-	str r3, [sp]
-	ldr r3, _080AD8F8  @ gObject_16x8
-	bl PutSpriteExt
-	adds r6, #2
-_080AD8EE:
-	ldrb r0, [r5, #6]
-	subs r0, #2
-	cmp r6, r0
-	blt _080AD8C8
-	b _080AD922
-	.align 2, 0
-_080AD8F8: .4byte gObject_16x8
-_080AD8FC:
-	ldrb r0, [r5, #1]
-	movs r2, #2
-	ldrsh r1, [r5, r2]
-	lsls r2, r6, #3
-	adds r1, r1, r2
-	mov r3, sl
-	ands r1, r3
-	movs r3, #4
-	ldrsh r2, [r5, r3]
-	adds r2, r2, r4
-	mov r3, r9
-	ands r2, r3
-	mov r3, r8
-	adds r3, #5
-	str r3, [sp]
-	ldr r3, _080AD94C  @ gObject_8x8
-	bl PutSpriteExt
-	adds r6, #1
-_080AD922:
-	ldrb r0, [r5, #6]
-	subs r0, #1
-	cmp r6, r0
-	blt _080AD8FC
-	ldrb r0, [r5, #7]
-	subs r0, #1
-	cmp r7, r0
-	bge _080AD934
-	b _080AD832
-_080AD934:
-	ldr r1, [sp, #0xc]
-	cmp r1, #3
-	bgt _080AD93C
-	b _080AD620
-_080AD93C:
-	add sp, #0x10
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD94C: .4byte gObject_8x8
-
-	THUMB_FUNC_END sub_80AD610
-
-	THUMB_FUNC_START sub_80AD950
-sub_80AD950: @ 0x080AD950
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	adds r6, r1, #0
-	adds r1, r2, #0
-	ldr r0, _080AD988  @ gUnknown_08A20C4C
-	bl Proc_Start
-	adds r5, r0, #0
-	ldr r0, _080AD98C  @ gUnknown_085B92C4
-	ldr r2, _080AD990  @ 0x06010000
-	adds r1, r4, r2
-	bl Decompress
-	ldr r0, _080AD994  @ gPaletteBuffer+0x20
-	adds r1, r6, #0
-	adds r1, #0x10
-	lsls r1, r1, #5
-	movs r2, #0x20
-	bl CopyToPaletteBuffer
-	lsls r4, r4, #0xf
-	lsrs r4, r4, #0x14
-	str r4, [r5, #0x5c]
-	str r6, [r5, #0x60]
-	adds r0, r5, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080AD988: .4byte gUnknown_08A20C4C
-_080AD98C: .4byte gUnknown_085B92C4
-_080AD990: .4byte 0x06010000
-_080AD994: .4byte gPaletteBuffer+0x20
-
-	THUMB_FUNC_END sub_80AD950
-
-	THUMB_FUNC_START sub_80AD998
-sub_80AD998: @ 0x080AD998
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	adds r4, r0, #0
-	adds r6, r1, #0
-	adds r7, r2, #0
-	mov r8, r3
-	ldr r0, [sp, #0x20]
-	lsls r0, r0, #0x10
-	lsrs r5, r0, #0x10
-	ldr r0, _080AD9E4  @ gUnknown_08A20C4C
-	bl Proc_Find
-	adds r1, r0, #0
-	cmp r1, #0
-	beq _080AD9D8
-	lsls r0, r4, #1
-	adds r0, r0, r4
-	lsls r0, r0, #2
-	adds r0, #0x2c
-	adds r0, r1, r0
-	movs r1, #1
-	strb r1, [r0]
-	strb r6, [r0, #1]
-	strh r7, [r0, #2]
-	mov r1, r8
-	strh r1, [r0, #4]
-	ldr r1, [sp, #0x18]
-	strb r1, [r0, #6]
-	ldr r1, [sp, #0x1c]
-	strb r1, [r0, #7]
-	strh r5, [r0, #8]
-_080AD9D8:
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AD9E4: .4byte gUnknown_08A20C4C
-
-	THUMB_FUNC_END sub_80AD998
-
-	THUMB_FUNC_START sub_80AD9E8
-sub_80AD9E8: @ 0x080AD9E8
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _080ADA0C  @ gUnknown_08A20C4C
-	bl Proc_Find
-	adds r1, r0, #0
-	cmp r1, #0
-	beq _080ADA06
-	lsls r0, r4, #1
-	adds r0, r0, r4
-	lsls r0, r0, #2
-	adds r0, #0x2c
-	adds r0, r1, r0
-	movs r1, #0
-	strb r1, [r0]
-_080ADA06:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080ADA0C: .4byte gUnknown_08A20C4C
-
-	THUMB_FUNC_END sub_80AD9E8
-
-	THUMB_FUNC_START sub_80ADA10
-sub_80ADA10: @ 0x080ADA10
-	push {lr}
-	ldr r0, _080ADA20  @ gUnknown_08A20C4C
-	bl Proc_Find
-	bl Proc_End
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080ADA20: .4byte gUnknown_08A20C4C
-
-	THUMB_FUNC_END sub_80ADA10
-
-	THUMB_FUNC_START sub_80ADA24
-sub_80ADA24: @ 0x080ADA24
-	push {lr}
-	movs r2, #0
-	adds r0, #0x2c
-	movs r1, #3
-_080ADA2C:
-	strb r2, [r0]
-	strb r2, [r0, #6]
-	adds r0, #8
-	subs r1, #1
-	cmp r1, #0
-	bge _080ADA2C
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80ADA24
-
-	THUMB_FUNC_START sub_80ADA3C
-sub_80ADA3C: @ 0x080ADA3C
+	THUMB_FUNC_START SysBrownBox_Loop
+SysBrownBox_Loop: @ 0x080ADA3C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -954,14 +12,14 @@ sub_80ADA3C: @ 0x080ADA3C
 	sub sp, #0x30
 	mov sl, r0
 	add r1, sp, #4
-	ldr r0, _080ADB24  @ gUnknown_08205E18
+	ldr r0, _080ADB24  @ Objs1_SysBrownBox
 	ldm r0!, {r2, r3, r4}
 	stm r1!, {r2, r3, r4}
 	ldr r0, [r0]
 	str r0, [r1]
 	add r2, sp, #0x14
 	adds r1, r2, #0
-	ldr r0, _080ADB28  @ gUnknown_08205E28
+	ldr r0, _080ADB28  @ Objs2_SysBrownBox
 	ldm r0!, {r3, r5, r7}
 	stm r1!, {r3, r5, r7}
 	ldr r0, [r0]
@@ -1062,8 +120,8 @@ _080ADACA:
 	bl PutSpriteExt
 	b _080ADB58
 	.align 2, 0
-_080ADB24: .4byte gUnknown_08205E18
-_080ADB28: .4byte gUnknown_08205E28
+_080ADB24: .4byte Objs1_SysBrownBox
+_080ADB28: .4byte Objs2_SysBrownBox
 _080ADB2C:
 	mov r0, sl
 	adds r0, #0x50
@@ -1107,10 +165,10 @@ _080ADB6C:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80ADA3C
+	THUMB_FUNC_END SysBrownBox_Loop
 
-	THUMB_FUNC_START StartSmallBrownNameBoxes
-StartSmallBrownNameBoxes: @ 0x080ADB7C
+	THUMB_FUNC_START StartSysBrownBox
+StartSysBrownBox: @ 0x080ADB7C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -1125,8 +183,8 @@ StartSmallBrownNameBoxes: @ 0x080ADB7C
 	lsrs r5, r5, #0x10
 	lsls r6, r6, #0x10
 	lsrs r6, r6, #0x10
-	bl EndSmallBrownNameBoxes
-	ldr r0, _080ADBEC  @ gUnknown_08A20D6C
+	bl EndSysBrownBox
+	ldr r0, _080ADBEC  @ ProcScr_SysBrownBox
 	adds r1, r7, #0
 	bl Proc_Start
 	adds r7, r0, #0
@@ -1163,12 +221,12 @@ StartSmallBrownNameBoxes: @ 0x080ADB7C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ADBEC: .4byte gUnknown_08A20D6C
+_080ADBEC: .4byte ProcScr_SysBrownBox
 _080ADBF0: .4byte gUnknown_08A1B0D8
 _080ADBF4: .4byte 0x06010000
 _080ADBF8: .4byte gUnknown_08A1B154
 
-	THUMB_FUNC_END StartSmallBrownNameBoxes
+	THUMB_FUNC_END StartSysBrownBox
 
 	THUMB_FUNC_START SmallBrownNameBoxDoSomeConfig
 SmallBrownNameBoxDoSomeConfig: @ 0x080ADBFC
@@ -1179,7 +237,7 @@ SmallBrownNameBoxDoSomeConfig: @ 0x080ADBFC
 	adds r5, r1, #0
 	adds r6, r2, #0
 	mov r8, r3
-	ldr r0, _080ADC3C  @ gUnknown_08A20D6C
+	ldr r0, _080ADC3C  @ ProcScr_SysBrownBox
 	bl Proc_Find
 	lsls r4, r4, #3
 	adds r0, r0, r4
@@ -1203,7 +261,7 @@ SmallBrownNameBoxDoSomeConfig: @ 0x080ADBFC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ADC3C: .4byte gUnknown_08A20D6C
+_080ADC3C: .4byte ProcScr_SysBrownBox
 _080ADC40: .4byte 0x000001FF
 
 	THUMB_FUNC_END SmallBrownNameBoxDoSomeConfig
@@ -1212,7 +270,7 @@ _080ADC40: .4byte 0x000001FF
 sub_80ADC44: @ 0x080ADC44
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080ADC64  @ gUnknown_08A20D6C
+	ldr r0, _080ADC64  @ ProcScr_SysBrownBox
 	bl Proc_Find
 	adds r1, r0, #0
 	cmp r1, #0
@@ -1227,7 +285,7 @@ _080ADC5E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ADC64: .4byte gUnknown_08A20D6C
+_080ADC64: .4byte ProcScr_SysBrownBox
 
 	THUMB_FUNC_END sub_80ADC44
 
@@ -1237,7 +295,7 @@ sub_80ADC68: @ 0x080ADC68
 	adds r4, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	ldr r0, _080ADC8C  @ gUnknown_08A20D6C
+	ldr r0, _080ADC8C  @ ProcScr_SysBrownBox
 	bl Proc_Find
 	adds r1, r0, #0
 	cmp r1, #0
@@ -1251,22 +309,22 @@ _080ADC84:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ADC8C: .4byte gUnknown_08A20D6C
+_080ADC8C: .4byte ProcScr_SysBrownBox
 
 	THUMB_FUNC_END sub_80ADC68
 
-	THUMB_FUNC_START EndSmallBrownNameBoxes
-EndSmallBrownNameBoxes: @ 0x080ADC90
+	THUMB_FUNC_START EndSysBrownBox
+EndSysBrownBox: @ 0x080ADC90
 	push {lr}
-	ldr r0, _080ADCA0  @ gUnknown_08A20D6C
+	ldr r0, _080ADCA0  @ ProcScr_SysBrownBox
 	bl Proc_Find
 	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ADCA0: .4byte gUnknown_08A20D6C
+_080ADCA0: .4byte ProcScr_SysBrownBox
 
-	THUMB_FUNC_END EndSmallBrownNameBoxes
+	THUMB_FUNC_END EndSysBrownBox
 
 	THUMB_FUNC_START sub_80ADCA4
 sub_80ADCA4: @ 0x080ADCA4
