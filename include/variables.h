@@ -396,6 +396,24 @@ extern const char gUnknown_080D7954[];
 // extern ??? gMsgHuffmanTable
 // extern ??? gMsgHuffmanTableRoot
 extern const u8 *const gMsgStringTable[];
+
+extern u16 gPal_StoneShatterAnim[];
+extern u8 gImg_StoneShatterAnim[];
+extern u8 gTsa_StoneShatter_081C1900[];
+extern u8 gTsa_StoneShatter_081C194C[];
+extern u8 gTsa_StoneShatter_081C1998[];
+extern u8 gTsa_StoneShatter_081C19E4[];
+extern u8 gTsa_StoneShatter_081C1A30[];
+extern u8 gTsa_StoneShatter_081C1A7C[];
+extern u8 gTsa_StoneShatter_081C1AC8[];
+extern u8 gTsa_StoneShatter_081C1B14[];
+extern u8 gTsa_StoneShatter_081C1B60[];
+extern u8 gTsa_StoneShatter_081C1BAC[];
+extern u8 gTsa_StoneShatter_081C1BF8[];
+extern u8 gTsa_StoneShatter_081C1C44[];
+extern u8 gTsa_StoneShatter_081C1C90[];
+extern u8 gTsa_StoneShatter_081C1CDC[];
+
 extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_0820579C
 // extern ??? gUnknown_08205824
@@ -555,7 +573,7 @@ extern const char *gStrPrefix[][2];
 // extern ??? gUnknown_08592580
 // extern ??? ProcScr_BoomFogFx
 // extern ??? gUnknown_085925F0
-// extern ??? gUnknown_08592608
+// extern ??? gProcScr_StoneShatterEvent
 // extern ??? gUnknown_08592628
 // extern ??? gUnknown_085926F4
 // extern ??? gUnknown_085996F4
@@ -1207,7 +1225,7 @@ extern u16* gUnknown_08A209F0[];
 // extern ??? gUnknown_08A20D8C
 extern struct ProcCmd CONST_DATA gUnknown_08A20DA4[];
 extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
-// extern ??? gUnknown_08A20DFC
+
 // extern ??? gUnknown_08A20E24
 // extern ??? gUnknown_08A20E44
 // extern ??? gSoundRoomTable

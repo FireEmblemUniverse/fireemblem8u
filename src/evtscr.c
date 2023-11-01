@@ -4430,7 +4430,7 @@ u8 Event43_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x08010D28
-u8 Event44_(struct EventEngineProc * proc)
+u8 Event44_BreakingSacredStone(struct EventEngineProc * proc)
 {
     struct Unit * unit;
 
@@ -4445,7 +4445,7 @@ u8 Event44_(struct EventEngineProc * proc)
         return EVC_ERROR;
     }
 
-    sub_8012CFC(unit, proc);
+    StartStoneShatterAnim(unit, proc);
 
     return EVC_ADVANCE_YIELD;
 }
