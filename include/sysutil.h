@@ -18,7 +18,7 @@ void ParallelFiniteLoop_Init(struct ParallelFiniteLoopProc * proc);
 void ParallelFiniteLoop_Loop(struct ParallelFiniteLoopProc * proc);
 void StartParallelFiniteLoop(void * func, int count, ProcPtr parent);
 
-struct SemiTransportWindowProc {
+struct SemiTransparentWindowProc {
     /* 00 */ PROC_HEADER;
     /* 2A */ s16 x[4];
     /* 32 */ s16 y[4];
@@ -29,17 +29,17 @@ struct SemiTransportWindowProc {
     /* 4E */ u16 chr;
 };
 
-extern struct ProcCmd ProcScr_PrepSemiTransportWindow[];
+extern struct ProcCmd ProcScr_PrepSemiTransparentWindow[];
 
-void SemiTransportWindow_Init(struct SemiTransportWindowProc * proc);
-void SemiTransportWindow_Main(struct SemiTransportWindowProc * proc);
-ProcPtr NewSemiTransportWindowHandler(ProcPtr);
-void SemiTransportWindowSetGfx(u32 obj_offset);
-void EnableSemiTransportWindow(int index, int x, int y, int width, int height, u16 oam2);
-void DisableSemiTransportWindow(int index);
-void BlockAllSemiTransportWindows(void);
-void UnblockAllSemiTransportWindows(void);
-void EndSemiTransportWindows(void);
+void SemiTransparentWindow_Init(struct SemiTransparentWindowProc * proc);
+void SemiTransparentWindow_Main(struct SemiTransparentWindowProc * proc);
+ProcPtr NewSemiTransparentWindowHandler(ProcPtr);
+void SemiTransparentWindowSetGfx(u32 obj_offset);
+void EnableSemiTransparentWindow(int index, int x, int y, int width, int height, u16 oam2);
+void DisableSemiTransparentWindow(int index);
+void BlockAllSemiTransparentWindows(void);
+void UnblockAllSemiTransparentWindows(void);
+void EndSemiTransparentWindows(void);
 
 struct ParallelWorkerProc {
     /* 00 */ PROC_HEADER;
@@ -77,18 +77,36 @@ void SetSysHandCursorYPos(int y);
 void ShowSysHandCursor(int x, int y, int shadow_len, u16 chr);
 void HideSysHandCursor(void);
 void EndSysHandCursor(void);
-void configSysHandCursorShadowEnabled(u8 enabled);
+void ConfigSysHandCursorShadowEnabled(u8 enabled);
 
 void DisableAllGfx(void);
 void EnableAllGfx(void);
-// ??? sub_80AD5F8(???);
-// ??? sub_80AD610(???);
-// ??? sub_80AD950(???);
-// ??? sub_80AD998(???);
-// ??? sub_80AD9E8(???);
-// ??? sub_80ADA10(???);
-// ??? sub_80ADA24(???);
-// ??? sub_80ADA3C(???);
+
+struct ConfigUntransparentWindow {
+    bool valid;
+    u8 layer;
+    s16 x, y;
+    u8 width;
+    u8 height;
+    u16 chr;
+} BITPACKED;
+
+struct ProcUntransparentWindow {
+    PROC_HEADER;
+
+    /* 2C */ struct ConfigUntransparentWindow priv[4];
+    /* 5C */ int chr, pal;
+};
+
+void UntransparentWindow_Init(struct ProcUntransparentWindow * proc);
+void UntransparentWindow_Loop(struct ProcUntransparentWindow * proc);
+ProcPtr NewUntransparentWindow(u32 vobj_offset, u32 pal, ProcPtr parent);
+void EnableUnransportWindow(int index, int layer, int x, int y, int w, int h, u16 chr);
+void DisableUntransparentWindow(int index);
+void EndUntransparentWindows(void);
+
+// ??? SmallBrownNameBoxes_Init(???);
+// ??? SmallBrownNameBoxes_Loop(???);
 void StartSmallBrownNameBoxes(int objNode, int tileOffset, int palIndex, int oam2base, int unk, ProcPtr parent);
 void SmallBrownNameBoxDoSomeConfig(int a, int b, int c, int d);
 // ??? sub_80ADC44(???);
@@ -143,8 +161,8 @@ void NewFadeOut(int, ProcPtr);
 // ??? sub_80AE9B0(???);
 int sub_80AEA24(int);
 // ??? sub_80AEA70(???);
-char* sub_80AEABC(const char*, char*); // AppendTextBuffer_080aeabc
-char* sub_80AEADC(int, char*);
+char * sub_80AEABC(const char*, char*); // AppendTextBuffer_080aeabc
+char * sub_80AEADC(int, char*);
 // ??? sub_80AEAE8(???);
 // ??? sub_80AEB1C(???);
 // ??? sub_80AEB28(???);
@@ -159,25 +177,3 @@ int sub_80AEBEC(int number);
 // ??? sub_80AEC7C(???);
 // ??? sub_80AEC90(???);
 int sub_80AEC94(void);
-// ??? sub_80AECB4(???);
-// ??? sub_80AECEC(???);
-// ??? sub_80AED10(???);
-// ??? sub_80AED64(???);
-// ??? sub_80AEEC0(???);
-// ??? sub_80AEEC4(???);
-// ??? sub_80AEEE8(???);
-// ??? sub_80AEF24(???);
-// ??? sub_80AEF64(???);
-// ??? sub_80AF0E0(???);
-// ??? sub_80AF140(???);
-// ??? sub_80AF1A0(???);
-// ??? sub_80AF1D8(???);
-// ??? sub_80AF220(???);
-// ??? nullsub_65(???);
-// ??? sub_80AF22C(???);
-// ??? sub_80AF338(???);
-// ??? sub_80AF350(???);
-// ??? sub_80AF378(???);
-// ??? sub_80AF3C8(???);
-// ??? sub_80AF4D0(???);
-// ??? sub_80AF510(???);

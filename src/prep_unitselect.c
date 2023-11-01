@@ -481,7 +481,7 @@ void sub_809B014()
 {
     EndMenuScrollBar();
     EndAllParallelWorkers();
-	EndSemiTransportWindows();
+	EndSemiTransparentWindows();
 	EndSysHandCursor();
 	EndHelpPromptSprite();
 	EndUiSpinningArrows();

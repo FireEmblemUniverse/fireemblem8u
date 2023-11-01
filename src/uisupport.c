@@ -1373,7 +1373,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
 
         ResetSysHandCursor(proc);
         DisplaySysHandCursorTextShadow(0x600, 1);
-        configSysHandCursorShadowEnabled(1);
+        ConfigSysHandCursorShadowEnabled(1);
 
         proc->unk_3a = -1;
 

@@ -827,7 +827,7 @@ extern const u16 gLegacyUiFrameDPalette[];
 extern const u16 gUiBarPaletteD[];
 extern const u8  gUnkUiFrameImage[];
 extern const u16 gUnkUiFramePalettes[];
-// extern ??? gUnknown_085B92C4
+extern u8 Img_085B92C4[];
 
 extern u8 Img_EkrExpBar[];
 extern u16 Img_EkrExpBarChange[];
@@ -1199,8 +1199,8 @@ extern u16* gUnknown_08A209F0[];
 // extern ??? gSprite_UiSpinningArrows_Vertical
 // extern ??? gProcScr_UiSpinningArrows
 
-// extern ??? gUnknown_08A20C4C
-// extern ??? gUnknown_08A20D6C
+// extern ??? ProcScr_UntransparentWindow
+// extern ??? ProcScr_SmallBrownNameBoxes
 // extern ??? gUnknown_08A20D8C
 extern struct ProcCmd CONST_DATA gUnknown_08A20DA4[];
 extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];

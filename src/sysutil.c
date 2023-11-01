@@ -45,7 +45,7 @@ void StartParallelFiniteLoop(void * func, int count, ProcPtr parent)
 }
 
 //! FE8U = 0x080ACE3C
-void SemiTransportWindow_Init(struct SemiTransportWindowProc * proc)
+void SemiTransparentWindow_Init(struct SemiTransparentWindowProc * proc)
 {
     int i;
     for (i = 0; i < 4; i++)
@@ -53,7 +53,7 @@ void SemiTransportWindow_Init(struct SemiTransportWindowProc * proc)
 }
 
 //! FE8U = 0x080ACE54
-void SemiTransportWindow_Main(struct SemiTransportWindowProc * proc)
+void SemiTransparentWindow_Main(struct SemiTransparentWindowProc * proc)
 {
     int i;
     int j;
@@ -157,12 +157,12 @@ void SemiTransportWindow_Main(struct SemiTransportWindowProc * proc)
     }
 }
 
-struct ProcCmd CONST_DATA ProcScr_PrepSemiTransportWindow[] =
+struct ProcCmd CONST_DATA ProcScr_PrepSemiTransparentWindow[] =
 {
-    PROC_CALL(SemiTransportWindow_Init),
+    PROC_CALL(SemiTransparentWindow_Init),
 
 PROC_LABEL(0),
-    PROC_REPEAT(SemiTransportWindow_Main),
+    PROC_REPEAT(SemiTransparentWindow_Main),
 
 PROC_LABEL(1),
     PROC_BLOCK,
@@ -171,16 +171,16 @@ PROC_LABEL(1),
 };
 
 //! FE8U = 0x080AD1AC
-ProcPtr NewSemiTransportWindowHandler(ProcPtr parent)
+ProcPtr NewSemiTransparentWindowHandler(ProcPtr parent)
 {
-    Proc_End(Proc_Find(ProcScr_PrepSemiTransportWindow));
-    return Proc_Start(ProcScr_PrepSemiTransportWindow, parent);
+    Proc_End(Proc_Find(ProcScr_PrepSemiTransparentWindow));
+    return Proc_Start(ProcScr_PrepSemiTransparentWindow, parent);
 }
 
 //! FE8U = 0x080AD1D0
-void SemiTransportWindowSetGfx(u32 obj_offset)
+void SemiTransparentWindowSetGfx(u32 obj_offset)
 {
-    struct SemiTransportWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransportWindow);
+    struct SemiTransparentWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransparentWindow);
 
     if (proc != NULL)
     {
@@ -190,9 +190,9 @@ void SemiTransportWindowSetGfx(u32 obj_offset)
 }
 
 //! FE8U = 0x080AD204
-void EnableSemiTransportWindow(int index, int x, int y, int width, int height, u16 oam2)
+void EnableSemiTransparentWindow(int index, int x, int y, int width, int height, u16 oam2)
 {
-    struct SemiTransportWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransportWindow);
+    struct SemiTransparentWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransparentWindow);
 
     if (proc != NULL)
     {
@@ -207,9 +207,9 @@ void EnableSemiTransportWindow(int index, int x, int y, int width, int height, u
 }
 
 //! FE8U = 0x080AD26C
-void DisableSemiTransportWindow(int index)
+void DisableSemiTransparentWindow(int index)
 {
-    struct SemiTransportWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransportWindow);
+    struct SemiTransparentWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransparentWindow);
 
     if (proc != NULL)
     {
@@ -218,30 +218,30 @@ void DisableSemiTransportWindow(int index)
 }
 
 //! FE8U = 0x080AD28C
-void BlockAllSemiTransportWindows(void)
+void BlockAllSemiTransparentWindows(void)
 {
-    struct SemiTransportWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransportWindow);
+    struct SemiTransparentWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransparentWindow);
 
     if (proc != NULL)
         Proc_Goto(proc, 1);
 }
 
 //! FE8U = 0x080AD2A8
-void UnblockAllSemiTransportWindows(void)
+void UnblockAllSemiTransparentWindows(void)
 {
-    struct SemiTransportWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransportWindow);
+    struct SemiTransparentWindowProc * proc = Proc_Find(ProcScr_PrepSemiTransparentWindow);
 
     if (proc != NULL)
     {
         Proc_Goto(proc, 0);
-        SemiTransportWindowSetGfx(proc->chr * CHR_SIZE);
+        SemiTransparentWindowSetGfx(proc->chr * CHR_SIZE);
     }
 }
 
 //! FE8U = 0x080AD2D4
-void EndSemiTransportWindows(void)
+void EndSemiTransparentWindows(void)
 {
-    Proc_End(Proc_Find(ProcScr_PrepSemiTransportWindow));
+    Proc_End(Proc_Find(ProcScr_PrepSemiTransparentWindow));
 }
 
 //! FE8U = 0x080AD2E8
@@ -417,7 +417,7 @@ void EndSysHandCursor(void)
     Proc_End(Proc_Find(ProcScr_SysHandCtrl));
 }
 
-void configSysHandCursorShadowEnabled(u8 enabled)
+void ConfigSysHandCursorShadowEnabled(u8 enabled)
 {
     struct SysHandCursorProc * proc = Proc_Find(ProcScr_SysHandCtrl);
     if (proc)
@@ -432,4 +432,175 @@ void DisableAllGfx(void)
 void EnableAllGfx(void)
 {
     SetDispEnable(1, 1, 1, 1, 1);
+}
+
+void UntransparentWindow_Init(struct ProcUntransparentWindow * proc)
+{
+    int i;
+    for (i = 0; i < 4; i++)
+        proc->priv[i].valid = 0;
+}
+
+void UntransparentWindow_Loop(struct ProcUntransparentWindow * proc)
+{
+    int i, j, k;
+    u16 oam2;
+    struct ConfigUntransparentWindow * priv;
+
+    for (i = 0; i < 4; i++)
+    {
+        priv = &proc->priv[i];
+
+        if (priv->valid == 0)
+            continue;
+
+        oam2 = OAM2_PAL(proc->pal) + proc->chr + priv->chr;
+
+        PutSpriteExt(priv->layer, priv->x & 0x1FF, priv->y & 0xFF, gObject_8x8, oam2);
+
+        PutSpriteExt(priv->layer,
+            ((priv->x + (priv->width - 1) * 8) & 0x1FF) + 0x1000,
+            priv->y & 0xFF, gObject_8x8, oam2);
+
+        PutSpriteExt(priv->layer,
+            ((priv->x + (priv->width - 1) * 8) & 0x1FF) + 0x3000,
+            (priv->y + (priv->height - 1) * 8) & 0xFF,
+            gObject_8x8, oam2);
+
+        PutSpriteExt(priv->layer,
+            (priv->x & 0x1FF) + 0x2000,
+            (priv->y + (priv->height - 1) * 8) & 0xFF,
+            gObject_8x8, oam2);
+
+        j = 1;
+
+        for (; j < (priv->width - 4); j = j + 4)
+        {
+            PutSpriteExt(priv->layer,
+                (priv->x + j * 8) & 0x1FF,
+                priv->y & 0xFF,
+                gObject_32x8, oam2 + 1);
+
+            PutSpriteExt(priv->layer,
+                ((priv->x + j * 8) & 0x1FF) + 0x2000,
+                (priv->y + (priv->height - 1) * 8) & 0xFF,
+                gObject_32x8, oam2 + 1);
+        }
+
+        for (; j < (priv->width - 2); j = j + 2)
+        {
+            PutSpriteExt(priv->layer,
+                (priv->x + j * 8) & 0x1FF,
+                priv->y & 0xFF,
+                gObject_16x8, oam2 + 1);
+
+            PutSpriteExt(priv->layer,
+                ((priv->x + j * 8) & 0x1FF) + 0x2000,
+                (priv->y + (priv->height - 1) * 8) & 0xFF,
+                gObject_16x8, oam2 + 1);
+        }
+
+        for (; j < (priv->width - 1); j = j + 1)
+        {
+            PutSpriteExt(priv->layer,
+                (priv->x + j * 8) & 0x1FF,
+                priv->y & 0xFF,
+                gObject_8x8, oam2 + 1);
+
+            PutSpriteExt(priv->layer,
+                ((priv->x + j * 8) & 0x1FF) + 0x2000,
+                (priv->y + (priv->height - 1) * 8) & 0xFF,
+                gObject_8x8, oam2 + 1);
+        }
+
+        j = 1;
+        for (; j < (priv->height - 1); j = j + 1)
+        {
+            PutSpriteExt(priv->layer,
+                priv->x & 0x1FF,
+                (priv->y + j * 8) & 0xFF,
+                gObject_8x8, oam2 + 9);
+
+            PutSpriteExt(priv->layer,
+                ((priv->x + (priv->width - 1) * 8) & 0x1FF) + 0x1000,
+                (priv->y + j * 8) & 0xFF,
+                gObject_8x8, oam2 + 9);
+
+            k = 1;
+            for (; k < (priv->width - 4); k = k + 4)
+            {
+                PutSpriteExt(priv->layer,
+                    (priv->x + k * 8) & 0x1FF,
+                    (priv->y + j * 8) & 0xFF,
+                    gObject_32x8, oam2 + 5);
+            }
+
+            for (; k < (priv->width - 2); k = k + 2)
+            {
+                PutSpriteExt(priv->layer,
+                    (priv->x + k * 8) & 0x1FF,
+                    (priv->y + j * 8) & 0xFF,
+                    gObject_16x8, oam2 + 5);
+            }
+
+            for (; k < (priv->width - 1); k = k + 1)
+            {
+                PutSpriteExt(priv->layer,
+                    (priv->x + k * 8) & 0x1FF,
+                    (priv->y + j * 8) & 0xFF,
+                    gObject_8x8, oam2 + 5);
+            }
+        }
+    }
+}
+
+CONST_DATA struct ProcCmd ProcScr_UntransparentWindow[] = {
+    PROC_CALL(UntransparentWindow_Init),
+    PROC_REPEAT(UntransparentWindow_Loop),
+    PROC_END
+};
+
+ProcPtr NewUntransparentWindow(u32 vobj_offset, u32 pal, ProcPtr parent)
+{
+    struct ProcUntransparentWindow * proc =
+        Proc_Start(ProcScr_UntransparentWindow, parent);
+
+    Decompress(Img_085B92C4, OBJ_VRAM0 + vobj_offset);
+    ApplyPalette(PAL_BG(1), pal + 0x10);
+    proc->chr = (vobj_offset << 0xF) >> 0x14;
+    proc->pal = pal;
+    return proc;
+}
+
+void EnableUnransportWindow(int index, int layer, int x, int y, int w, int h, u16 chr)
+{
+    struct ProcUntransparentWindow * proc = Proc_Find(ProcScr_UntransparentWindow);
+    if (proc)
+    {
+        struct ConfigUntransparentWindow * config = &proc->priv[index];
+        config->valid = true;
+
+        config->layer = layer;
+        config->x = x;
+        config->y = y;
+        config->width = w;
+        config->height = h;
+        config->chr = chr;
+    }
+}
+
+void DisableUntransparentWindow(int index)
+{
+    struct ProcUntransparentWindow * proc = Proc_Find(ProcScr_UntransparentWindow);
+
+    if (proc != NULL)
+    {
+        struct ConfigUntransparentWindow * config = &proc->priv[index];
+        config->valid = false;
+    }
+}
+
+void EndUntransparentWindows(void)
+{
+    Proc_End(Proc_Find(ProcScr_UntransparentWindow));
 }

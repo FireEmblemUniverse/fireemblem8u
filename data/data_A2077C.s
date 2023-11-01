@@ -1,29 +1,18 @@
     .section .data
 
-	.global gUnknown_08A20C4C
-gUnknown_08A20C4C:  @ 0x08A20C4C
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80AD5F8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80AD610
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
 	.incbin "baserom.gba", 0xA20C4C + 0x18, 0x120 - 0x18
 
-	.global gUnknown_08A20D6C
-gUnknown_08A20D6C:  @ 0x08A20D6C
+	.global ProcScr_SmallBrownNameBoxes
+ProcScr_SmallBrownNameBoxes:  @ 0x08A20D6C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80ADA24
+        .word SmallBrownNameBoxes_Init
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80ADA3C
+        .word SmallBrownNameBoxes_Loop
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
