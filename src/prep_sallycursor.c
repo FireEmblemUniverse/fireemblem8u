@@ -33,6 +33,7 @@
 #include "muctrl.h"
 #include "menu_def.h"
 #include "worldmap.h"
+#include "sysutil.h"
 
 // hino.s
 void WaitForFade(ProcPtr);

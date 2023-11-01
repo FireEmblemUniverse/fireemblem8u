@@ -923,7 +923,8 @@ void PutMapCursor(int x, int y, int kind) {
 }
 
 //! FE8U = 0x08015B88
-void sub_8015B88(int x, int y) {
+void DisplayBmTextShadow(int x, int y)
+{
     int frame = (GetGameClock() / 2) % 16;
     u32 oam2 = 2;
 

@@ -15,7 +15,7 @@
 #include "bmsave.h"
 #include "prepscreen.h"
 #include "bmlib.h"
-
+#include "sysutil.h"
 #include "bonusclaim.h"
 
 #include "constants/characters.h"
@@ -425,9 +425,9 @@ void BonusClaim_Init(struct BonusClaimProc* proc) {
 
     BG_SetPosition(2, -40, (proc->unk_2c - 56) & 0xff);
 
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x600, 1);
-    ShowPrepScreenHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x600, 1);
+    ShowSysHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
 
     StartGreenText(proc);
 
@@ -533,7 +533,7 @@ void BonusClaim_Loop_MainKeyHandler(struct BonusClaimProc* proc) {
                     proc->unk_2e = 1;
                     DrawBonusClaimItemText(proc->menuIndex + 1);
                 } else {
-                    ShowPrepScreenHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
+                    ShowSysHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
                 }
             } else {
                 return;
@@ -624,7 +624,7 @@ void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc* proc) {
 
     SetUiCursorHandConfig(0, 40, proc->menuIndex * 16 + 56 - proc->unk_2c, 1);
 
-    ShowPrepScreenHandCursor(92, proc->submenuIndex * 16 + 48, 12, 0x800);
+    ShowSysHandCursor(92, proc->submenuIndex * 16 + 48, 12, 0x800);
 
     for (i = 0; i < sl; th++, i++) {
         int count;
@@ -730,7 +730,7 @@ void BonusClaim_Loop_SelectTargetKeyHandler(struct BonusClaimProc* proc) {
     if (((tmp != proc->submenuIndex) && (-1 < tmp)) && (tmp < proc->targets)) {
         PlaySoundEffect(0x66);
         proc->submenuIndex = tmp;
-        ShowPrepScreenHandCursor(92, proc->submenuIndex * 16 + 48, 12, 0x800);
+        ShowSysHandCursor(92, proc->submenuIndex * 16 + 48, 12, 0x800);
     }
 
     return;
@@ -753,7 +753,7 @@ void BonusClaim_EndSelectTargetSubMenu(struct BonusClaimProc* proc) {
 
     sub_80ACA84(0);
 
-    ShowPrepScreenHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
+    ShowSysHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
 
     return;
 }
@@ -796,7 +796,7 @@ void BonusClaim_DrawItemSentPopup(struct BonusClaimProc* proc) {
     proc->timer = 0;
     sub_80ACA84(0);
 
-    ShowPrepScreenHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
+    ShowSysHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
 
     ClearText(th);
     Text_SetParams(th, 0, TEXT_COLOR_SYSTEM_WHITE);

@@ -15,6 +15,7 @@
 #include "soundwrapper.h"
 #include "prepscreen.h"
 #include "bmlib.h"
+#include "sysutil.h"
 #include "constants/faces.h"
 
 struct WmSellProc {
@@ -239,8 +240,8 @@ void WmSell_Setup(struct WmSellProc* proc) {
         FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_HLAYER(FACE_HLAYER_2) | FACE_DISP_BLEND
     );
     StartUiCursorHand(proc);
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x600, 1);
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x600, 1);
 
     gLCDControlBuffer.dispcnt.win0_on = 1;
     gLCDControlBuffer.dispcnt.win1_on = 0;
@@ -348,7 +349,7 @@ void sub_80A03C4(struct WmSellProc* proc) {
 
     Proc_End(GetParallelWorker(WmSell_DrawSellOptionSpriteText));
 
-    ShowPrepScreenHandCursor(16, proc->unk_30 * 16 + 72, 11, 0x400);
+    ShowSysHandCursor(16, proc->unk_30 * 16 + 72, 11, 0x400);
     sub_809FDD4(0, proc);
 
     return;
@@ -399,7 +400,7 @@ void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
     }
 
     if (WmSell_MainLoop_HandleDpadKeys(proc) != 0) {
-        ShowPrepScreenHandCursor(16, proc->unk_30 * 16 + 72, 11, 0x400);
+        ShowSysHandCursor(16, proc->unk_30 * 16 + 72, 11, 0x400);
         WmSell_DrawItemGoldValue(proc->unit->items[proc->unk_30]);
         if (proc->unk_34 == 1) {
             item = proc->unit->items[proc->unk_30];
@@ -419,7 +420,7 @@ void sub_80A0570(struct WmSellProc* proc) {
     StartParallelWorker(WmSell_DrawSellOptionSpriteText, proc);
 
     SetUiCursorHandConfig(0, 16, proc->unk_30 * 16 + 72, 2);
-    ShowPrepScreenHandCursor(proc->unk_31 * 32 + 164, 111, 0, 0x400);
+    ShowSysHandCursor(proc->unk_31 * 32 + 164, 111, 0, 0x400);
     sub_809FDD4(1, proc);
 
     return;
@@ -494,7 +495,7 @@ void WmSell_OnLoop_ConfirmSellKeyHandler(struct WmSellProc* proc) {
 
     PlaySoundEffect(0x67);
 
-    ShowPrepScreenHandCursor(proc->unk_31 * 32 + 164, 111, 0, 0x400);
+    ShowSysHandCursor(proc->unk_31 * 32 + 164, 111, 0, 0x400);
 
     return;
 }

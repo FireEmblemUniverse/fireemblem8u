@@ -8,6 +8,7 @@
 #include "bmlib.h"
 #include "bm.h"
 #include "opanim.h"
+#include "sysutil.h"
 
 u16 CONST_DATA gSprite_Title_FireEmblemLogo[] = {
     5,

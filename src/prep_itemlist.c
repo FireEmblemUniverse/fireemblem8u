@@ -11,7 +11,7 @@
 #include "uiutils.h"
 #include "m4a.h"
 #include "soundwrapper.h"
-
+#include "sysutil.h"
 #include "prepscreen.h"
 
 struct PrepItemListProc {
@@ -184,8 +184,8 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
 
     StartUiCursorHand(proc);
 
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x600, 1);
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x600, 1);
 
     gLCDControlBuffer.dispcnt.win0_on = 1;
     gLCDControlBuffer.dispcnt.win1_on = 0;
@@ -260,7 +260,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
 
     str = GetStringFromIndex(proc->unit->pCharacterData->nameTextId);
 
-    StartSmallBrownNameBoxes(0xd, 0xe00, 0xf, 0xc00, 0x400, proc);
+    StartSysBrownBox(0xd, 0xe00, 0xf, 0xc00, 0x400, proc);
 
     SmallBrownNameBoxDoSomeConfig(0, -40, -1, 1);
     SmallBrownNameBoxDoSomeConfig(1, 0x98, 6, 2);
@@ -305,7 +305,7 @@ void sub_809F150(struct PrepItemListProc* proc) {
     sub_809D300(gUnknown_02013660 + 7, gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
     DrawPrepScreenItemIcons(gBG0TilemapBuffer + 0x122, proc->unit);
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         0x80,
         proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage],
         0xb,
@@ -486,7 +486,7 @@ void sub_809F498(struct PrepItemListProc* proc) {
         StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 1, proc);
     }
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         0x80,
         proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage],
         0xb,
@@ -520,7 +520,7 @@ void sub_809F5F4(struct PrepItemListProc* proc) {
 
     sub_809F370(proc);
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         0x80,
         proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage],
         0xb,
@@ -677,7 +677,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc* proc) {
                     );
                 }
 
-                ShowPrepScreenHandCursor(
+                ShowSysHandCursor(
                     0x80,
                     proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage],
                     0xb,
@@ -743,7 +743,7 @@ void PrepItemList_SwitchToUnitInventory(struct PrepItemListProc* proc) {
         proc->unitInvIdx = count;
     }
 
-    ShowPrepScreenHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
+    ShowSysHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
 
     return;
 }
@@ -814,7 +814,7 @@ void PrepItemList_Loop_UnitInvKeyHandler(struct PrepItemListProc* proc) {
     }
 
     if (sub_809FA88(proc) != 0) {
-        ShowPrepScreenHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
+        ShowSysHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
         if (proc->unk_36 == 1) {
             item = proc->unit->items[proc->unitInvIdx];
             if (item != 0) {

@@ -17,7 +17,7 @@
 #include "ap.h"
 #include "uiconfig.h"
 #include "savemenu.h"
-
+#include "sysutil.h"
 #include "worldmap.h"
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool

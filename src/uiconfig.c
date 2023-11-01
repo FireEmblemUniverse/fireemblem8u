@@ -16,6 +16,7 @@
 #include "bmlib.h"
 #include "worldmap.h"
 #include "uiconfig.h"
+#include "sysutil.h"
 
 struct Selector {
     /* 00 */ u16 helpTextId;

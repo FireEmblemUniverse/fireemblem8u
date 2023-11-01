@@ -168,8 +168,8 @@ gUnknown_08A1CDC4:  @ 0x08A1CDC4
 gUnknown_08A1D288:  @ 0x08A1D288
 	.incbin "baserom.gba", 0xA1D288, 0x1C0
 
-	.global gUnknown_08A1D448
-gUnknown_08A1D448:  @ 0x08A1D448
+	.global Pal_08A1D448
+Pal_08A1D448:  @ 0x08A1D448
 	.incbin "baserom.gba", 0xA1D448, 0x80
 
 	.global gUnknown_08A1D4C8

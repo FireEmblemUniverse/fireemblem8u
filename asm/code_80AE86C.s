@@ -1608,7 +1608,7 @@ sub_80AF350: @ 0x080AF350
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #2
-	bl ShowPrepScreenHandCursor
+	bl ShowSysHandCursor
 	pop {r0}
 	bx r0
 

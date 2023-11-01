@@ -335,7 +335,7 @@ extern u8 gImg_UiSpinningArrow_Horizontal[];
 // extern ??? gUnknown_08A1CD68
 // extern ??? gUnknown_08A1CDC4
 // extern ??? gUnknown_08A1D288
-// extern ??? gUnknown_08A1D448
+extern u16 Pal_08A1D448[];
 extern u16 CONST_DATA gUnknown_08A1D4C8[];
 extern u8 Img_PrepTextShadow[];
 extern u8 CONST_DATA gUnknown_08A1D510[];

@@ -10,6 +10,7 @@
 #include "soundwrapper.h"
 #include "statscreen.h"
 #include "uiutils.h"
+#include "sysutil.h"
 
 int PromoMain_SetupTraineeEvent_(struct ProcPromoMain *proc);
 bool PromoTraineeEventExists(struct ProcPromoMain *proc);
@@ -93,7 +94,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
         EndGreenText();
         gparent->game_lock = GetGameLock();
         EndHelpPromptSprite();
-        EndSmallBrownNameBoxes();
+        EndSysBrownBox();
         EndAllParallelWorkers();
         EndFaceById(0);
         sub_80ACA84(0);
