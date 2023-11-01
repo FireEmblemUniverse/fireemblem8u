@@ -1,27 +1,5 @@
     .section .data
 
-	.global ProcScr_SysHandCtrlMaybe
-ProcScr_SysHandCtrlMaybe:  @ 0x08A20C1C
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80AD434
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_BLOCK
-        .short 0x10, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80AD43C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_08A20C4C
 gUnknown_08A20C4C:  @ 0x08A20C4C
         @ PROC_CALL

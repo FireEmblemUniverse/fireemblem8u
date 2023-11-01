@@ -79,8 +79,8 @@ void ChapterIntroTitle_End(struct ChapterIntroFXProc *proc)
     BG_EnableSyncByMask(BG2_SYNC_BIT);
     DisableMapPaletteAnimations();
     UnpackChapterMapGraphics(gPlaySt.chapterIndex);
-    SetupMapSpritesPalettes();
-    LoadObjUIGfx();
+    ApplyUnitSpritePalettes();
+    ApplySystemObjectsGraphics();
 
     x = GetCameraCenteredX(GetROMChapterStruct(gPlaySt.chapterIndex)->initialPosX * 0x10);
     _x = (x + 0xF) & 0x1F0;

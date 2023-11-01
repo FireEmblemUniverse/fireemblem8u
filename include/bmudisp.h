@@ -1,8 +1,14 @@
 #ifndef GUARD_BM_UDISP_H
 #define GUARD_BM_UDISP_H
 
+#define UNITSPRITE_MAX 0xD0
+#define UNITSPRITE_SIMULATANEOUS_MAX 100
+
+#define UNITSPRITE_SHEET_LINES 8
+#define UNITSPRITE_SHEET_SIZE (UNITSPRITE_SHEET_LINES * CHR_LINE * CHR_SIZE)
+
 // ??? sub_8026618(???);
-void SetupMapSpritesPalettes(void);
+void ApplyUnitSpritePalettes(void);
 // ??? sub_8026670(???);
 void ResetUnitSprites(void);
 // ??? ResetUnitSpritesB(???);

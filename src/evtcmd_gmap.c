@@ -351,7 +351,7 @@ void sub_800BCDC(u16 palId)
         return;
     }
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     switch (palId & 0xf)
     {

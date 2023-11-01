@@ -7,6 +7,7 @@
 #include "face.h"
 #include "chapterdata.h"
 #include "cgtext.h"
+#include "sysutil.h"
 #include "prepscreen.h"
 
 /**

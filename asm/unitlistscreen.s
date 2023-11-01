@@ -1627,14 +1627,14 @@ sub_8090D80: @ 0x08090D80
 	bl ResetText
 	bl ResetTextFont
 	bl ResetIconGraphics
-	bl SetupMapSpritesPalettes
+	bl ApplyUnitSpritePalettes
 	movs r4, #0
 	str r4, [sp, #4]
 	ldr r1, _08090E64  @ gPaletteBuffer+0x360
 	ldr r2, _08090E68  @ 0x01000008
 	add r0, sp, #4
 	bl CpuFastSet
-	bl LoadObjUIGfx
+	bl ApplySystemObjectsGraphics
 	mov r0, r8
 	bl StartGreenText
 	mov r0, r8

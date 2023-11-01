@@ -31,7 +31,7 @@ void MapEventBattle_OnEnd(void)
     DeleteBattleAnimInfoThing();
     InitBmBgLayers();
     LoadLegacyUiFrameGraphics();
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
 }
 
 /* section.data */

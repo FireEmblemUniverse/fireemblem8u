@@ -8,6 +8,7 @@
 #include "ap.h"
 #include "soundwrapper.h"
 #include "cgtext.h"
+#include "sysutil.h"
 
 CONST_DATA struct ProcCmd ProcScr_ClassChgReal[] = {
     PROC_WHILE(MusicProc4Exists),

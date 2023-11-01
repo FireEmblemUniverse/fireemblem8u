@@ -674,7 +674,7 @@ void TalkSkipListener_OnIdle(ProcPtr proc) {
 void Talk_OnInit(void) {
 
     if (!CheckTalkFlag(TALK_FLAG_SPRITE)) {
-        LoadObjUIGfx();
+        ApplySystemObjectsGraphics();
 
         BG_SetPosition(0, 0, 0);
         BG_SetPosition(1, 0, 0);

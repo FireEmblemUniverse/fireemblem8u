@@ -10,7 +10,7 @@
 #include "soundwrapper.h"
 #include "ctc.h"
 #include "spline.h"
-
+#include "sysutil.h"
 #include "savemenu.h"
 
 extern u8 gUnknown_02000940[];

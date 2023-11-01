@@ -351,7 +351,7 @@ void GameControl_CallEraseSaveEventWithKeyCombo(ProcPtr proc)
 void GameControl_CallEraseMural(ProcPtr proc)
 {
     SetupBackgrounds(0);
-    sub_80156D4();
+    ApplySystemGraphics();
     gPlaySt.config.textSpeed = 1;
     StartMuralBackground(PROC_TREE_3, 0, -1);
 }

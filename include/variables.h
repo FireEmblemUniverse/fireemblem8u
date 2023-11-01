@@ -1198,10 +1198,7 @@ extern u16* gUnknown_08A209F0[];
 // extern ??? gSprite_UiSpinningArrows_Horizontal
 // extern ??? gSprite_UiSpinningArrows_Vertical
 // extern ??? gProcScr_UiSpinningArrows
-// extern ??? ProcScr_ParallelFiniteLoop
-// extern ??? gProcScr_08A20BD4
-// extern ??? ProcScr_ParallelWorker
-// extern ??? ProcScr_SysHandCtrlMaybe
+
 // extern ??? gUnknown_08A20C4C
 // extern ??? gUnknown_08A20D6C
 // extern ??? gUnknown_08A20D8C

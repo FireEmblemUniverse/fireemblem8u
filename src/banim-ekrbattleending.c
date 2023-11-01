@@ -154,7 +154,7 @@ void ekrBattleEnding_8056310(struct ProcEkrBattleEnding * proc)
     BMapDispResume_FromBattleDelayed();
     RefreshUnitSprites();
     ForceSyncUnitSpriteSheet();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     SetSpecialColorEffectsParameters(3, 0, 0, 4);
     SetBlendTargetA(0, 0, 0, 1, 0);

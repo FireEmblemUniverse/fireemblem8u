@@ -16,7 +16,7 @@
 #include "mu.h"
 #include "bmudisp.h"
 #include "bmio.h"
-
+#include "sysutil.h"
 #include "constants/faces.h"
 
 #include "prepscreen.h"
@@ -388,7 +388,7 @@ void sub_809D914(struct PrepItemSupplyProc* proc) {
     ResetText();
     ResetIconGraphics_();
     LoadUiFrameGraphics();
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
 
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(1, 0, 0);
@@ -428,8 +428,8 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc* proc) {
     SmallBrownNameBoxDoSomeConfig(0, 0x90, 6, 2);
     GetStringFromIndex(proc->unit->pCharacterData->nameTextId);
     StartUiCursorHand(proc);
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x600, 1);
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x600, 1);
 
     gLCDControlBuffer.dispcnt.win0_on = 1;
     gLCDControlBuffer.dispcnt.win1_on = 0;
@@ -509,7 +509,7 @@ void sub_809DC70(struct PrepItemSupplyProc* proc) {
     sub_809D278(0, proc);
     sub_80ACA84(0);
     sub_809D644(proc);
-    ShowPrepScreenHandCursor(68, proc->unk_33 * 16 + 36, 4, 0x400);
+    ShowSysHandCursor(68, proc->unk_33 * 16 + 36, 4, 0x400);
     Proc_End(GetParallelWorker(PutGiveSprites));
     Proc_End(GetParallelWorker(PutTakeSprites));
     StartParallelWorker(PutGiveTakeBoxSprites, proc);
@@ -600,7 +600,7 @@ void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc* proc) {
 
     if (idx != proc->unk_33) {
         PlaySoundEffect(0x66);
-        ShowPrepScreenHandCursor(68, proc->unk_33 * 16 + 36, 4, 0x400);
+        ShowSysHandCursor(68, proc->unk_33 * 16 + 36, 4, 0x400);
         if (proc->unk_38 != 0) {
             StartHelpBox(68, proc->unk_33 * 16 + 36, gSupplyHelpTextIndexLookup[proc->unk_33]);
         }
@@ -614,7 +614,7 @@ void sub_809DEFC(struct PrepItemSupplyProc* proc) {
     SomethingPrepListRelated(proc->unit, proc->currentPage, 1);
     sub_809D300(&gUnknown_02013648.th[7], gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
     DrawPrepScreenItemIcons(gBG0TilemapBuffer + 0x122, proc->unit);
-    ShowPrepScreenHandCursor(0x80, proc->idxPerPage[proc->currentPage] * 16 + 0x28 - proc->yOffsetPerPage[proc->currentPage], 0xb, 0x800);
+    ShowSysHandCursor(0x80, proc->idxPerPage[proc->currentPage] * 16 + 0x28 - proc->yOffsetPerPage[proc->currentPage], 0xb, 0x800);
 
     BG_EnableSyncByMask(5);
 
@@ -746,7 +746,7 @@ void sub_809E184(struct PrepItemSupplyProc* proc) {
 
     sub_809E100(proc);
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         0x80,
         proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage],
         0xb,
@@ -817,7 +817,7 @@ void sub_809E2C8(struct PrepItemSupplyProc* proc) {
 
     StartParallelFiniteLoop(sub_809E2BC, 1, proc);
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         0x80,
         proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage],
         0xb,
@@ -963,7 +963,7 @@ void sub_809E420(struct PrepItemSupplyProc* proc) {
                     );
                 }
 
-                ShowPrepScreenHandCursor(
+                ShowSysHandCursor(
                     0x80,
                     proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage],
                     0xb,
@@ -1016,7 +1016,7 @@ s8 sub_809E7A8(struct PrepItemSupplyProc* proc) {
 
 //! FE8U = 0x0809E840
 void PrepItemSupply_SwitchToUnitInventory(struct PrepItemSupplyProc* proc) {
-    ShowPrepScreenHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
+    ShowSysHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
     return;
 }
 
@@ -1053,7 +1053,7 @@ void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc* proc) {
         PlaySoundEffect(0x6a);
         if (unitItemCount <= proc->unitInvIdx) {
             proc->unitInvIdx = unitItemCount - 1;
-            ShowPrepScreenHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
+            ShowSysHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
         }
     }
 
@@ -1098,7 +1098,7 @@ void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc* proc) {
     }
 
     if (sub_809E7A8(proc) != 0) {
-        ShowPrepScreenHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
+        ShowSysHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
         if (proc->unk_38 == 1) {
             item = proc->unit->items[proc->unitInvIdx];
             if (item != 0) {

@@ -12,7 +12,7 @@
 #include "uiutils.h"
 #include "bm.h"
 #include "statscreen.h"
-
+#include "sysutil.h"
 #include "prepscreen.h"
 
 struct PrepMenuTradeProc {
@@ -230,7 +230,7 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
     ResetText();
     ResetIconGraphics_();
     LoadUiFrameGraphics();
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
 
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(1, 0, 0);
@@ -279,9 +279,9 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
 
     StartUiCursorHand(proc);
 
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x600, 1);
-    ShowPrepScreenHandCursor(
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x600, 1);
+    ShowSysHandCursor(
         (proc->cursorItemSlot >> 3) * 0x70 + 0x10,
         (proc->cursorItemSlot & 7) * 0x10 + 0x48,
         0xb,
@@ -356,14 +356,14 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
                 sub_80ACA84(0);
                 proc->cursorItemSlot = proc->selectedItemSlot;
                 proc->selectedItemSlot = 0xff;
-                ShowPrepScreenHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
+                ShowSysHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
                 return;
             }
 
             if (gKeyStatusPtr->newKeys & B_BUTTON) {
                 proc->cursorItemSlot = proc->selectedItemSlot;
                 proc->selectedItemSlot = 0xff;
-                ShowPrepScreenHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
+                ShowSysHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
 
                 PlaySoundEffect(0x6b);
 
@@ -382,7 +382,7 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
                     proc->cursorItemSlot = (proc->cursorItemSlot + 8) & 0xf;
                 }
 
-                ShowPrepScreenHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
+                ShowSysHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
                 PlaySoundEffect(0x6a);
                 return;
             }
@@ -399,7 +399,7 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
         return;
     }
 
-    ShowPrepScreenHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
+    ShowSysHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
 
     if (proc->helpBoxItemSlot == 0xff) {
         return;

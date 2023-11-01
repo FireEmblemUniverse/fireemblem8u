@@ -10,6 +10,7 @@
 #include "soundwrapper.h"
 #include "statscreen.h"
 #include "uiutils.h"
+#include "sysutil.h"
 
 int PromoMain_SetupTraineeEvent_(struct ProcPromoMain *proc);
 bool PromoTraineeEventExists(struct ProcPromoMain *proc);
@@ -80,7 +81,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
         ResetFaces();
         ResetText();
         LoadUiFrameGraphics();
-        LoadObjUIGfx();
+        ApplySystemObjectsGraphics();
         gLCDControlBuffer.bg0cnt.priority = 0;
         gLCDControlBuffer.bg1cnt.priority = 2;
         gLCDControlBuffer.bg2cnt.priority = 1;
@@ -100,7 +101,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
         ResetFaces();
         ResetText();
         LoadUiFrameGraphics();
-        LoadObjUIGfx();
+        ApplySystemObjectsGraphics();
         gLCDControlBuffer.bg0cnt.priority = 0;
         gLCDControlBuffer.bg1cnt.priority = 2;
         gLCDControlBuffer.bg2cnt.priority = 1;
@@ -171,7 +172,7 @@ void PromoMain_HandlePrepEndEffect(struct ProcPromoMain *proc)
         case PROMO_HANDLER_TYPE_PREP:
             BMapDispResume();
             RefreshUnitSprites();
-            SetupMapSpritesPalettes();
+            ApplyUnitSpritePalettes();
             ForceSyncUnitSpriteSheet();
             InitSystemTextFont();
             break;

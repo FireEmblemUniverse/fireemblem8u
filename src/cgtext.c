@@ -11,7 +11,7 @@
 #include "soundwrapper.h"
 #include "uiutils.h"
 #include "event.h"
-
+#include "sysutil.h"
 #include "cgtext.h"
 
 extern struct CgTextSt gCgTextSt;

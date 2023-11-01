@@ -476,7 +476,7 @@ void sub_808DEF0(s8 flag) {
         CpuFastFill16(0, PAL_OBJ(0xD), 0x20);
         EnablePaletteSync();
     } else {
-        SetupMapSpritesPalettes();
+        ApplyUnitSpritePalettes();
     }
 
     return;
@@ -550,7 +550,7 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
 
     proc->numEnemyUnits = CountUnitsByFaction(FACTION_RED);
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     for (i = 0; i < 2; i++) {
         if (proc->units[i] == 0) {
@@ -881,7 +881,7 @@ void sub_808E79C(ProcPtr proc) {
 }
 
 void sub_808E7B4(struct ChapterStatusProc* proc) {
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
 
     ApplyPalette(gUnknown_08A2E4A4, 0x14);
     ApplyPalette(gUnknown_08A2E8F0, 0x17);

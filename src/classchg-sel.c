@@ -197,7 +197,7 @@ void Make6C_PromotionMenuSelect(struct ProcPromoSel* proc) {
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
     LoadUiFrameGraphics();
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
     sub_80CD47C(0, -1, 0xfb * 2, 0x58, 6);
     ClassChgLoadUI();
     sub_80CD408(proc->u50, 0x8c * 2, 0x68);
@@ -264,7 +264,7 @@ void Make6C_PromotionMenuSelect(struct ProcPromoSel* proc) {
     proc->menu_index = 0;
     LoadClassReelFontPalette(proc, pid);
     LoadClassNameInClassReelFont(proc);
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
 
     proc->menu_proc = NewClassChgMenuSelect(proc);
 

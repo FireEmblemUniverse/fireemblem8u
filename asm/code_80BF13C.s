@@ -1352,7 +1352,7 @@ sub_80C0CF4: @ 0x080C0CF4
 	movs r0, #7
 	bl BG_EnableSyncByMask
 	bl ReadGameSaveCoreGfx
-	bl SetupMapSpritesPalettes
+	bl ApplyUnitSpritePalettes
 	ldr r1, _080C0DC0  @ 0x0600B000
 	movs r2, #1
 	negs r2, r2
@@ -3820,7 +3820,7 @@ sub_80C1F6C: @ 0x080C1F6C
 	ldr r0, [r0, #0x48]
 	bl sub_80BB6FC
 	bl sub_80B8E14
-	bl LoadObjUIGfx
+	bl ApplySystemObjectsGraphics
 	ldr r0, _080C1FD4  @ gBG1TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
@@ -4137,7 +4137,7 @@ sub_80C214C: @ 0x080C214C
 	ands r0, r1
 	strb r0, [r2]
 	bl sub_80B8E14
-	bl LoadObjUIGfx
+	bl ApplySystemObjectsGraphics
 	mov r0, r9
 	mov r2, sl
 	strh r0, [r2, #0x2a]

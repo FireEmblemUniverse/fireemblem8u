@@ -18,6 +18,7 @@
 #include "classchg.h"
 #include "bmlib.h"
 #include "worldmap.h"
+#include "sysutil.h"
 #include "prepscreen.h"
 
 bool CheckInLinkArena(void);
@@ -380,8 +381,8 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
     ResetText();
     ResetIconGraphics_();
     LoadUiFrameGraphics();
-    LoadObjUIGfx();
-    SetupMapSpritesPalettes();
+    ApplySystemObjectsGraphics();
+    ApplyUnitSpritePalettes();
 
     BG_SetPosition(BG_0, 0,0);
     BG_SetPosition(BG_1, 0,0);
@@ -432,8 +433,8 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
 
     /* Some hand obj API */
     StartUiCursorHand(proc);
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x600, 1);
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x600, 1);
 
     StartParallelWorker(PrepItemUseParallel_UpdateSMS, proc);
 
@@ -457,7 +458,7 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
         proc->unit, 1
     );
 
-    ShowPrepScreenHandCursor(
+    ShowSysHandCursor(
         (proc->slot >> 3) * 7 * 0x10 + 0x10,
         (proc->slot & 0x7) * 0x10 + 0x48,
         0xB, 0x800
@@ -510,7 +511,7 @@ void PrepItemUse_CtrlLoop(struct ProcPrepItemUse *proc)
     if (!PrepItemUseTryMoveHand(proc))
         return;
 
-    ShowPrepScreenHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
+    ShowSysHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
     DrawPrepScreenItemUseDesc(proc->unit, proc->slot);
 
     if (proc->slot_rtext != 0xFF) {
@@ -573,7 +574,7 @@ void PrepItemUseClearSubBox(void)
 void PrepItemUse_ConfirmWindowInit(struct ProcPrepItemUse *proc)
 {
     PrepItemUseDrawSubBox();
-    ShowPrepScreenHandCursor(proc->pos_subbox * 0x20 + 0x94, 0x78, 0, 0x800);
+    ShowSysHandCursor(proc->pos_subbox * 0x20 + 0x94, 0x78, 0, 0x800);
 }
 
 void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse *proc)
@@ -583,7 +584,7 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse *proc)
     PrepItemDrawPopupBox(0x80, 0x64, 0xC, 0x4, 0xA440);
 
     if (gKeyStatusPtr->newKeys & B_BUTTON) {
-        ShowPrepScreenHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
+        ShowSysHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
         sub_80ACA84(0);
         PrepItemUseClearSubBox();
         PlaySoundEffect(0x6B);
@@ -595,12 +596,12 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse *proc)
         PrepItemUseClearSubBox();
         
         if (proc->pos_subbox == POS_L) {
-            HidePrepScreenHandCursor();
+            HideSysHandCursor();
             PlaySoundEffect(0x6A);
             Proc_Goto(proc, PROC_LABEL_PREPITEMUSE_EXEC_ITEMEFFECT);
             return;
         } else {
-            ShowPrepScreenHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
+            ShowSysHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
             PlaySoundEffect(0x6B);
             sub_80ACA84(0);
             Proc_Break(proc);
@@ -615,7 +616,7 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse *proc)
         proc->pos_subbox = POS_R;
 
     if (old != proc->pos_subbox) {
-        ShowPrepScreenHandCursor(proc->pos_subbox * 0x20 + 0x94, 0x78, 0, 0x800);
+        ShowSysHandCursor(proc->pos_subbox * 0x20 + 0x94, 0x78, 0, 0x800);
         PlaySoundEffect(0x67);
     }
 }

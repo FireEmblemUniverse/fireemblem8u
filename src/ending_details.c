@@ -12,6 +12,7 @@
 #include "bmlib.h"
 #include "worldmap.h"
 #include "savemenu.h"
+#include "sysutil.h"
 #include "ending_details.h"
 
 #include "constants/characters.h"

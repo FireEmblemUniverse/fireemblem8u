@@ -9,7 +9,7 @@
 #include "prepscreen.h"
 #include "bmlib.h"
 #include "ctc.h"
-
+#include "sysutil.h"
 #include "soundroom.h"
 
 struct SoundRoomProc {
@@ -124,7 +124,7 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     ResetTextFont();
     ResetText();
 
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
     LoadUiFrameGraphics();
     InitSystemTextFont();
 
@@ -169,8 +169,8 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     sub_80AED64(proc);
     sub_80AFF30();
     sub_80AF878(proc);
-    ResetPrepScreenHandCursor(proc);
-    sub_80AD4A0(0x280, 2);
+    ResetSysHandCursor(proc);
+    DisplaySysHandCursorTextShadow(0x280, 2);
     sub_80AF350(proc);
     sub_80AF3C8(proc);
     StartMenuScrollBarExt(proc, 0xd8, 0x48, 0x1000, 3);
@@ -444,7 +444,7 @@ void sub_80AFBBC(struct SoundRoomProc* proc) {
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 2, 19), gUnknown_08A2C92C, 0x1200);
     CallARM_FillTileRect((u16*)gUnknown_08A212D4 + 0x321, gUnknown_08A2C7A4, 0x1000);
 
-    HidePrepScreenHandCursor();
+    HideSysHandCursor();
 
     proc->unk_3a = 0;
 

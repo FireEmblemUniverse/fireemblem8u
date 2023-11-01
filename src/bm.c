@@ -573,12 +573,12 @@ void GotoChapterWithoutSave(u16 chapterId)
 }
 
 //! FE8U = 0x080155C4
-void sub_80155C4(void) {
+void sub_80155C4(void)
+{
     u8 flag;
 
-    if (CheckFlag(3)) {
+    if (CheckFlag(3))
         RegisterChapterTimeAndTurnCount(&gPlaySt);
-    }
 
     ComputeChapterRankings();
 
@@ -587,16 +587,13 @@ void sub_80155C4(void) {
     ChapterChangeUnitCleanup();
     StartBattleMap(0);
 
-    if (flag) {
+    if (flag)
         gPlaySt.unk4A_1 = 1;
-    }
-
-    return;
 }
 
 //! FE8U = 0x08015608
-void InitBmBgLayers(void) {
-
+void InitBmBgLayers(void)
+{
     if (gPlaySt.chapterWeatherId == WEATHER_CLOUDS) {
         gLCDControlBuffer.bg0cnt.priority = 0;
         gLCDControlBuffer.bg1cnt.priority = 1;
@@ -613,32 +610,29 @@ void InitBmBgLayers(void) {
 }
 
 //! FE8U = 0x08015680
-void LoadObjUIGfx(void) {
+void ApplySystemObjectsGraphics(void)
+{
     Decompress(gGfx_MiscUiGraphics, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void*)0x06010000, 0x12, 4);
-
     ApplyPalettes(gPal_MiscUiGraphics, 0x10, 2);
-
-    return;
 }
 
 //! FE8U = 0x080156BC
-void sub_80156BC(void) {
+void sub_80156BC(void)
+{
     ApplyPalettes(gPal_MiscUiGraphics, 0x10, 2);
     return;
 }
 
 //! FE8U = 0x080156D4
-void sub_80156D4(void) {
-
+void ApplySystemGraphics(void)
+{
     ResetText();
     LoadLegacyUiFrameGraphics();
     ResetFaces();
     ResetIconGraphics_();
     LoadIconPalettes(4);
-    LoadObjUIGfx();
-
-    return;
+    ApplySystemObjectsGraphics();
 }
 
 //! FE8U = 0x080156F4
@@ -649,7 +643,7 @@ void ReadGameSaveCoreGfx(void) {
     ResetFaces();
     ResetIconGraphics_();
     LoadIconPalettes(4);
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
 
     return;
 }
@@ -923,12 +917,12 @@ void PutMapCursor(int x, int y, int kind) {
 }
 
 //! FE8U = 0x08015B88
-void sub_8015B88(int x, int y) {
+void DisplayBmTextShadow(int x, int y)
+{
     int frame = (GetGameClock() / 2) % 16;
     u32 oam2 = 2;
 
     PutSprite(4, x, y, sMapCursorSpriteLut[frame], oam2);
-    return;
 }
 
 //! FE8U = 0x08015BBC

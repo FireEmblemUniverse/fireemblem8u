@@ -17,7 +17,7 @@
 #include "ap.h"
 #include "uiconfig.h"
 #include "savemenu.h"
-
+#include "sysutil.h"
 #include "worldmap.h"
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
@@ -315,7 +315,7 @@ void SetupGraphicSystemsForWorldMap(void)
     SetupFaceGfxData(gUnknown_08A3D728);
     ResetUnitSprites();
     MU_Init();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     gBmSt.camera.x = 0;
     gBmSt.camera.y = 0;

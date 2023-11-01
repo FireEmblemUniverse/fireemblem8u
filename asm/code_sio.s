@@ -1597,7 +1597,7 @@ _08043968:
 	bl InitSystemTextFont
 	bl ResetTextFont
 	bl sub_8043164
-	bl SetupMapSpritesPalettes
+	bl ApplyUnitSpritePalettes
 	bl ResetUnitSprites
 	bl ForceSyncUnitSpriteSheet
 	ldr r0, [r7, #0x3c]
@@ -8109,7 +8109,7 @@ sub_8046D6C: @ 0x08046D6C
 	ldr r1, _08046DB0  @ gUnknown_0203DA24
 	ldr r0, [r4, #0x48]
 	strb r0, [r1, #4]
-	bl SetupMapSpritesPalettes
+	bl ApplyUnitSpritePalettes
 	bl sub_80496A4
 	movs r0, #1
 	movs r1, #0
@@ -13432,8 +13432,8 @@ sub_80497A0: @ 0x080497A0
 	push {lr}
 	movs r0, #0
 	bl SetupBackgrounds
-	bl sub_80156D4
-	bl SetupMapSpritesPalettes
+	bl ApplySystemGraphics
+	bl ApplyUnitSpritePalettes
 	bl ForceSyncUnitSpriteSheet
 	bl sub_8049788
 	bl InitSystemTextFont
@@ -13551,7 +13551,7 @@ _08049860:
 	strh r4, [r0, #0xc]
 	strh r4, [r0, #0xe]
 	bl ReadGameSaveCoreGfx
-	bl SetupMapSpritesPalettes
+	bl ApplyUnitSpritePalettes
 	bl ResetUnitSprites
 	bl RefreshUnitSprites
 	bl sub_8049788
@@ -13752,7 +13752,7 @@ _08049A26:
 	strb r1, [r4, #2]
 	adds r0, r1, #1
 	strb r0, [r4, #3]
-	bl LoadObjUIGfx
+	bl ApplySystemObjectsGraphics
 	movs r0, #0
 	adds r4, #0x2c
 	movs r1, #3

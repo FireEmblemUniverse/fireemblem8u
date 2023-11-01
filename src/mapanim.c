@@ -88,7 +88,7 @@ void MapAnim_Cleanup(void) {
 	DeleteBattleAnimInfoThing();
 	InitBmBgLayers();
 	LoadUiFrameGraphics();
-	LoadObjUIGfx();
+	ApplySystemObjectsGraphics();
 	if (EventEngineExists())
         MU_EndAll();
 }

@@ -806,7 +806,7 @@ void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc) {
 
 void ChapterIntro_8020AF8() {
     SetupBackgrounds(0);
-    sub_80156D4();
+    ApplySystemGraphics();
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
     RefreshUnitSprites();
     ForceSyncUnitSpriteSheet();
@@ -849,8 +849,8 @@ void ChapterIntro_InitMapDisplay() {
 
     UnpackChapterMapGraphics(gPlaySt.chapterIndex);
 
-    SetupMapSpritesPalettes();
-    LoadObjUIGfx();
+    ApplyUnitSpritePalettes();
+    ApplySystemObjectsGraphics();
 
     var = GetROMChapterStruct(gPlaySt.chapterIndex)->initialPosX;
     var = GetCameraCenteredX(var * 16);

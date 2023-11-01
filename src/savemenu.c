@@ -17,7 +17,7 @@
 #include "bonusclaim.h"
 #include "worldmap.h"
 #include "bonusclaim.h"
-
+#include "sysutil.h"
 #include "savemenu.h"
 
 #include "constants/characters.h"
@@ -352,7 +352,7 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
     ResetTextFont();
 
     LoadUiFrameGraphics();
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
 
     ApplyPalettes(gUnknown_08A25DCC, 8, 8);
 
@@ -1481,7 +1481,7 @@ void sub_80AA30C(struct SaveMenuProc* proc) {
 
     ResetTextFont();
     LoadUiFrameGraphics();
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
 
     ApplyPalettes(gUnknown_08A25DCC, 8, 8);
 

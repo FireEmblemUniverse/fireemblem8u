@@ -263,7 +263,7 @@ SECTIONS
         asm/code_80AC6AC.o(.text);
         src/cursor_hand.o(.text);
         src/spinning_arrow.o(.text);
-        src/code_80ACDF0.o(.text);
+        src/sysutil.o(.text);
         asm/code_80ACDF0.o(.text);
         src/soundroom.o(.text);
         src/extramenu_unk.o(.text);
@@ -737,7 +737,7 @@ SECTIONS
         . = ALIGN(4); src/difficultymenu.o(.data);
         . = ALIGN(4); src/cursor_hand.o(.data);
         . = ALIGN(4); src/spinning_arrow.o(.data);
-        . = ALIGN(4); src/code_80ACDF0.o(.data);
+        . = ALIGN(4); src/sysutil.o(.data);
         . = ALIGN(4); data/data_A2077C.o(.data);
         . = ALIGN(4); src/soundroom.o(.data);
         . = ALIGN(4); src/extramenu_unk.o(.data);

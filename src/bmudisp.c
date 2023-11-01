@@ -349,59 +349,49 @@ void sub_8026618(void) {
 }
 
 //! FE8U = 0x08026628
-void SetupMapSpritesPalettes(void) {
-
+void ApplyUnitSpritePalettes(void)
+{
     ApplyPalettes(gPal_MapSprite, 0x1C, 4);
 
-    if (gBmSt.gameStateBits & 0x40) {
+    if (gBmSt.gameStateBits & BM_FLAG_LINKARENA)
         ApplyPalette(gPal_MapSpriteArena, 0x1B);
-    } else {
+    else
         ApplyPalette(gPal_NotMapSprite, 0x1B);
-    }
-
-    return;
 }
 
 //! FE8U = 0x08026670
-void sub_8026670(void) {
+void sub_8026670(void)
+{
     ApplyPalette(gPal_MapSpriteSepia, 0x1E);
-
-    return;
 }
 
 //! FE8U = 0x08026688
-void ResetUnitSprites(void) {
-
+void ResetUnitSprites(void)
+{
     int i;
 
-    for (i = 0xD0-1; i >= 0; i--) {
-        gSMSGfxIndexLookup[i] |= 0xff;
-    }
+    for (i = UNITSPRITE_MAX - 1; i >= 0; i--)
+        gSMSGfxIndexLookup[i] = 0xff;
 
     gSMS32xGfxIndexCounter = 0;
-    gSMS16xGfxIndexCounter = 0x40-1;
-
-    return;
+    gSMS16xGfxIndexCounter = 0x40 - 1;
 }
 
 //! FE8U = 0x080266BC
-void ResetUnitSpritesB(void) {
-
+void ResetUnitSpritesB(void)
+{
     int i;
 
-    for (i = 0xD0-1; i >= 0; i--) {
-        gSMSGfxIndexLookup[i] |= 0xff;
-    }
+    for (i = UNITSPRITE_MAX - 1; i >= 0; i--)
+        gSMSGfxIndexLookup[i] = 0xff;
 
     gSMS32xGfxIndexCounter = 0;
-    gSMS16xGfxIndexCounter = 0x60-1;
-
-    return;
+    gSMS16xGfxIndexCounter = 0x60 - 1;
 }
 
 //! FE8U = 0x080266F0
-int SMS_80266F0(int smsId, int frameId) {
-
+int SMS_80266F0(int smsId, int frameId)
+{
     int slot = gSomeSMSLookupTable_859B66C[frameId];
 
     Decompress(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
@@ -409,17 +399,14 @@ int SMS_80266F0(int smsId, int frameId) {
     switch (GetInfo(smsId).size) {
         case UNIT_ICON_SIZE_16x16:
             gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
-
             break;
 
         case UNIT_ICON_SIZE_16x32:
             gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
-
             break;
 
         case UNIT_ICON_SIZE_32x32:
             gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
-
             break;
     }
 
@@ -427,66 +414,59 @@ int SMS_80266F0(int smsId, int frameId) {
 }
 
 //! FE8U = 0x0802677C
-int SMS_SomethingGmapUnit(int smsId, int frameId, int slot) {
-
+int SMS_SomethingGmapUnit(int smsId, int frameId, int slot)
+{
     Decompress(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
 
     switch (GetInfo(smsId).size) {
-        case UNIT_ICON_SIZE_16x16:
-            gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
+    case UNIT_ICON_SIZE_16x16:
+        gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
+        break;
 
-            break;
+    case UNIT_ICON_SIZE_16x32:
 
-        case UNIT_ICON_SIZE_16x32:
+        gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
+        break;
 
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
-
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
+        break;
     }
 
     return gSMSGfxIndexLookup[frameId] << 1;
 }
 
 //! FE8U = 0x080267FC
-int UseUnitSprite(u32 id) {
-
-    if (gSMSGfxIndexLookup[id] == 0xFF) {
-
+int UseUnitSprite(u32 id)
+{
+    if (gSMSGfxIndexLookup[id] == 0xFF)
+    {
         Decompress(GetInfo(id).sheet, gpSMSGfxDecompBuffer);
 
         switch (GetInfo(id).size) {
-            case UNIT_ICON_SIZE_16x16:
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x16(gSMS16xGfxIndexCounter, id) / 2;
-                gSMS16xGfxIndexCounter -= 1;
+        case UNIT_ICON_SIZE_16x16:
+            gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x16(gSMS16xGfxIndexCounter, id) / 2;
+            gSMS16xGfxIndexCounter -= 1;
+            break;
 
-                break;
+        case UNIT_ICON_SIZE_16x32:
+            gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x32(gSMS32xGfxIndexCounter, id) / 2;
+            gSMS32xGfxIndexCounter += 2;
+            break;
 
-            case UNIT_ICON_SIZE_16x32:
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x32(gSMS32xGfxIndexCounter, id) / 2;
+        case UNIT_ICON_SIZE_32x32:
+            if ((gSMS32xGfxIndexCounter & 0x1e) == 0x1e)
                 gSMS32xGfxIndexCounter += 2;
 
-                break;
+            gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage32x32(gSMS32xGfxIndexCounter, id) / 2;
+            gSMS32xGfxIndexCounter += 4;
 
-            case UNIT_ICON_SIZE_32x32:
-                if ((gSMS32xGfxIndexCounter & 0x1e) == 0x1e) {
-                    gSMS32xGfxIndexCounter += 2;
-                }
-
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage32x32(gSMS32xGfxIndexCounter, id) / 2;
-                gSMS32xGfxIndexCounter += 4;
-
-                break;
+            break;
         }
 
         gSMSSyncFlag++;
 
     }
-
     return gSMSGfxIndexLookup[id] << 1;
 }
 

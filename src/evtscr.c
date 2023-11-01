@@ -1019,7 +1019,7 @@ void sub_800E290(struct EventEngineProc * proc, u16 stringIndex, u32 flags)
 
     SetWinEnable(FALSE, FALSE, FALSE);
 
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
     InitTalk(0x80, 0, 1);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
@@ -1848,7 +1848,7 @@ void sub_800EF48(struct ConvoBackgroundFadeProc * proc)
             SetDispEnable(FALSE, FALSE, FALSE, TRUE, TRUE);
 
             InitSystemTextFont();
-            sub_80156D4();
+            ApplySystemGraphics();
 
             break;
     }

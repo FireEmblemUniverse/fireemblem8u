@@ -79,7 +79,7 @@ struct ProcCmd CONST_DATA gProcScr_Minimap[] = {
 
     PROC_CALL(LoadUiFrameGraphics),
     PROC_CALL(ResetText),
-    PROC_CALL(LoadObjUIGfx),
+    PROC_CALL(ApplySystemObjectsGraphics),
 
     PROC_CALL(UnlockGame),
 

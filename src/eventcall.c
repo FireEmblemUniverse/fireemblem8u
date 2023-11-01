@@ -35,6 +35,7 @@
 #include "prepscreen.h"
 #include "ev_triggercheck.h"
 #include "mapanim.h"
+#include "sysutil.h"
 
 #include "eventcall.h"
 

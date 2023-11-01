@@ -96,7 +96,7 @@ void PromoTrainee_InitScreen(struct ProcPromoTraineeEvent *proc)
     ResetFaces();
     ResetText();
     LoadUiFrameGraphics();
-    LoadObjUIGfx();
+    ApplySystemObjectsGraphics();
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;
     gLCDControlBuffer.bg2cnt.priority = 1;

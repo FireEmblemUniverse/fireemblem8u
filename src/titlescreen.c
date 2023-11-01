@@ -7,6 +7,7 @@
 #include "gamecontrol.h"
 #include "bmlib.h"
 #include "bm.h"
+#include "sysutil.h"
 #include "opanim.h"
 
 u16 CONST_DATA gSprite_Title_FireEmblemLogo[] = {

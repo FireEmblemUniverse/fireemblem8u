@@ -731,7 +731,7 @@ void sub_8012324(void)
     sub_80141B0();
 
     InitSystemTextFont();
-    sub_80156D4();
+    ApplySystemGraphics();
 
     return;
 }

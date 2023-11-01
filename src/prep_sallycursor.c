@@ -31,6 +31,7 @@
 #include "prepscreen.h"
 #include "bmlib.h"
 #include "muctrl.h"
+#include "sysutil.h"
 #include "menu_def.h"
 #include "worldmap.h"
 

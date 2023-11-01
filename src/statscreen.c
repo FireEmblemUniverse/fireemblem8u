@@ -23,6 +23,7 @@
 #include "bmsave.h"
 #include "prepscreen.h"
 #include "bmlib.h"
+#include "sysutil.h"
 #include "constants/classes.h"
 
 #include "statscreen.h"
@@ -1507,31 +1508,13 @@ void StatScreen_InitDisplay(struct Proc* proc)
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    sub_80156D4();
-    SetupMapSpritesPalettes();
+    ApplySystemGraphics();
+    ApplyUnitSpritePalettes();
 
-    // TODO: port the macros from mapanim wip
-
-    gLCDControlBuffer.dispcnt.win0_on   = TRUE;
-    gLCDControlBuffer.dispcnt.win1_on   = FALSE;
-    gLCDControlBuffer.dispcnt.objWin_on = FALSE;
-
-    gLCDControlBuffer.win0_left   = 96;
-    gLCDControlBuffer.win0_top    = 0;
-    gLCDControlBuffer.win0_right  = 98;
-    gLCDControlBuffer.win0_bottom = 160;
-
-    gLCDControlBuffer.wincnt.win0_enableBg0 = FALSE;
-    gLCDControlBuffer.wincnt.win0_enableBg1 = FALSE;
-    gLCDControlBuffer.wincnt.win0_enableBg2 = FALSE;
-    gLCDControlBuffer.wincnt.win0_enableBg3 = TRUE;
-    gLCDControlBuffer.wincnt.win0_enableObj = TRUE;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = TRUE;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = TRUE;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = TRUE;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = TRUE;
-    gLCDControlBuffer.wincnt.wout_enableObj = TRUE;
+    SetWinEnable(1, 0, 0);
+    SetWin0Box(96, 0, 98, 160);
+    SetWin0Layers(0, 0, 0, 1, 1);
+    SetWOutLayers(1, 1, 1, 1, 1);
 
     gLCDControlBuffer.wincnt.win0_enableBlend = TRUE;
     gLCDControlBuffer.wincnt.win1_enableBlend = TRUE;
