@@ -66,11 +66,11 @@ gUnknown_08A1AC88:  @ 0x08A1AC88
 
 	.global Img_SysBrownBox
 Img_SysBrownBox:  @ 0x08A1B0D8
-	.incbin "baserom.gba", 0xA1B0D8, 0x7C
+	.incbin "./graphics/sysutils/Img_SysBrownBox.4bpp.lz"
 
 	.global Pal_SysBrownBox
 Pal_SysBrownBox:  @ 0x08A1B154
-	.incbin "baserom.gba", 0xA1B154, 0x20
+	.incbin "./graphics/sysutils/Img_SysBrownBox.gbapal", 0x0, 0x20
 
 	.global gPal_SupportScreenBanner
 gPal_SupportScreenBanner:  @ 0x08A1B174

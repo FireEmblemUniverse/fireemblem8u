@@ -40,14 +40,14 @@ void StartParallelFiniteLoop(void * func, int count, ProcPtr parent)
     proc->func = (ParallelWorkerFunc *)func;
 }
 
-void SemiTransBox_Init(struct SemiTransBoxProc * proc)
+void SysBlackBox_Init(struct SysBlackBoxProc * proc)
 {
     int i;
     for (i = 0; i < 4; i++)
         proc->valid[i] = 0;
 }
 
-void SemiTransBox_Main(struct SemiTransBoxProc * proc)
+void SysBlackBox_Main(struct SysBlackBoxProc * proc)
 {
     int i;
     int j;
@@ -151,11 +151,11 @@ void SemiTransBox_Main(struct SemiTransBoxProc * proc)
     }
 }
 
-struct ProcCmd CONST_DATA ProcScr_SysSemiTransBox[] = {
-    PROC_CALL(SemiTransBox_Init),
+struct ProcCmd CONST_DATA ProcScr_SysSysBlackBox[] = {
+    PROC_CALL(SysBlackBox_Init),
 
 PROC_LABEL(0),
-    PROC_REPEAT(SemiTransBox_Main),
+    PROC_REPEAT(SysBlackBox_Main),
 
 PROC_LABEL(1),
     PROC_BLOCK,
@@ -163,15 +163,15 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-ProcPtr NewSemiTransBoxHandler(ProcPtr parent)
+ProcPtr NewSysBlackBoxHandler(ProcPtr parent)
 {
-    Proc_End(Proc_Find(ProcScr_SysSemiTransBox));
-    return Proc_Start(ProcScr_SysSemiTransBox, parent);
+    Proc_End(Proc_Find(ProcScr_SysSysBlackBox));
+    return Proc_Start(ProcScr_SysSysBlackBox, parent);
 }
 
-void SemiTransBoxSetGfx(u32 obj_offset)
+void SysBlackBoxSetGfx(u32 obj_offset)
 {
-    struct SemiTransBoxProc * proc = Proc_Find(ProcScr_SysSemiTransBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
 
     if (proc != NULL)
     {
@@ -180,9 +180,9 @@ void SemiTransBoxSetGfx(u32 obj_offset)
     }
 }
 
-void EnableSemiTransBox(int index, int x, int y, int width, int height, u16 oam2)
+void EnableSysBlackBox(int index, int x, int y, int width, int height, u16 oam2)
 {
-    struct SemiTransBoxProc * proc = Proc_Find(ProcScr_SysSemiTransBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
 
     if (proc != NULL)
     {
@@ -196,33 +196,33 @@ void EnableSemiTransBox(int index, int x, int y, int width, int height, u16 oam2
     }
 }
 
-void DisableSemiTransBox(int index)
+void DisableSysBlackBox(int index)
 {
-    struct SemiTransBoxProc * proc = Proc_Find(ProcScr_SysSemiTransBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
     if (proc != NULL)
         proc->valid[index] = 0;
 }
 
-void BlockAllSemiTransBoxs(void)
+void BlockAllSysBlackBoxs(void)
 {
-    struct SemiTransBoxProc * proc = Proc_Find(ProcScr_SysSemiTransBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
     if (proc != NULL)
         Proc_Goto(proc, 1);
 }
 
-void UnblockAllSemiTransBoxs(void)
+void UnblockAllSysBlackBoxs(void)
 {
-    struct SemiTransBoxProc * proc = Proc_Find(ProcScr_SysSemiTransBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
     if (proc != NULL)
     {
         Proc_Goto(proc, 0);
-        SemiTransBoxSetGfx(proc->chr * CHR_SIZE);
+        SysBlackBoxSetGfx(proc->chr * CHR_SIZE);
     }
 }
 
-void EndSemiTransBoxs(void)
+void EndSysBlackBoxs(void)
 {
-    Proc_End(Proc_Find(ProcScr_SysSemiTransBox));
+    Proc_End(Proc_Find(ProcScr_SysSysBlackBox));
 }
 
 void ParallelWorker_OnLoop(struct ParallelWorkerProc * proc)
@@ -410,18 +410,18 @@ void EnableAllGfx(void)
     SetDispEnable(1, 1, 1, 1, 1);
 }
 
-void UntransBox_Init(struct ProcSysUntransBox * proc)
+void SysGrayBox_Init(struct ProcSysGrayBox * proc)
 {
     int i;
     for (i = 0; i < 4; i++)
         proc->priv[i].valid = 0;
 }
 
-void UntransBox_Loop(struct ProcSysUntransBox * proc)
+void SysGrayBox_Loop(struct ProcSysGrayBox * proc)
 {
     int i, j, k;
     u16 oam2;
-    struct SysUntransBoxConf * priv;
+    struct SysGrayBoxConf * priv;
 
     for (i = 0; i < 4; i++)
     {
@@ -530,18 +530,18 @@ void UntransBox_Loop(struct ProcSysUntransBox * proc)
     }
 }
 
-CONST_DATA struct ProcCmd ProcScr_UntransBox[] = {
-    PROC_CALL(UntransBox_Init),
-    PROC_REPEAT(UntransBox_Loop),
+CONST_DATA struct ProcCmd ProcScr_SysGrayBox[] = {
+    PROC_CALL(SysGrayBox_Init),
+    PROC_REPEAT(SysGrayBox_Loop),
     PROC_END
 };
 
-ProcPtr NewUntransBox(u32 vobj_offset, u32 pal, ProcPtr parent)
+ProcPtr NewSysGrayBox(u32 vobj_offset, u32 pal, ProcPtr parent)
 {
-    struct ProcSysUntransBox * proc =
-        Proc_Start(ProcScr_UntransBox, parent);
+    struct ProcSysGrayBox * proc =
+        Proc_Start(ProcScr_SysGrayBox, parent);
 
-    Decompress(Img_SysUntransBox, OBJ_VRAM0 + vobj_offset);
+    Decompress(Img_SysGrayBox, OBJ_VRAM0 + vobj_offset);
     ApplyPalette(PAL_BG(1), pal + 0x10);
     proc->chr = (vobj_offset << 0xF) >> 0x14;
     proc->pal = pal;
@@ -550,10 +550,10 @@ ProcPtr NewUntransBox(u32 vobj_offset, u32 pal, ProcPtr parent)
 
 void EnableUnransportWindow(int index, int layer, int x, int y, int w, int h, u16 chr)
 {
-    struct ProcSysUntransBox * proc = Proc_Find(ProcScr_UntransBox);
+    struct ProcSysGrayBox * proc = Proc_Find(ProcScr_SysGrayBox);
     if (proc)
     {
-        struct SysUntransBoxConf * config = &proc->priv[index];
+        struct SysGrayBoxConf * config = &proc->priv[index];
         config->valid = true;
 
         config->layer = layer;
@@ -565,20 +565,20 @@ void EnableUnransportWindow(int index, int layer, int x, int y, int w, int h, u1
     }
 }
 
-void DisableUntransBox(int index)
+void DisableSysGrayBox(int index)
 {
-    struct ProcSysUntransBox * proc = Proc_Find(ProcScr_UntransBox);
+    struct ProcSysGrayBox * proc = Proc_Find(ProcScr_SysGrayBox);
 
     if (proc != NULL)
     {
-        struct SysUntransBoxConf * config = &proc->priv[index];
+        struct SysGrayBoxConf * config = &proc->priv[index];
         config->valid = false;
     }
 }
 
-void EndUntransBoxs(void)
+void EndSysGrayBoxs(void)
 {
-    Proc_End(Proc_Find(ProcScr_UntransBox));
+    Proc_End(Proc_Find(ProcScr_SysGrayBox));
 }
 
 void SysBrownBox_Init(struct ProcSysBrownBox * proc)
@@ -783,7 +783,6 @@ void DisableSysBrownBox(int index)
         proc->priv[index].valid = false;
 }
 
-
 void SetSysBrownBoxWidth(int index, u8 width)
 {
     struct ProcSysBrownBox * proc =
@@ -884,7 +883,392 @@ void EndAllProcChildren(ProcPtr p)
     }
 }
 
-void sub_80ADDF8(void)
+void nop_80ADDF8(void)
 {
     return;
+}
+
+void sub_80ADDFC(u8 layer, s16 angle, s16 c, s16 d, s16 e, s16 f)
+{
+    struct BgAffineSrcData data;
+    struct BgAffineDstData * dst;
+
+    if (e <= 4)
+        e = 4;
+
+    if (f <= 4)
+        f = 4;
+
+    data.texX = c * 0x100;
+    data.texY = d * 0x100;
+    data.scrX = 0;
+    data.scrY = 0;
+    data.sx = 0x10000 / e;
+    data.sy = 0x10000 / f;
+    data.alpha = angle * 0x10;
+
+    dst = &gOpAnimBgAffineDstData[1];
+    if (layer == 2)
+        dst = &gOpAnimBgAffineDstData[0];
+
+    BgAffineSet(&data, dst, 1);
+}
+
+void sub_80ADE90(u8 layer, s16 a, s16 b)
+{
+    struct BgAffineDstData * affin = NULL;
+    if (layer == 2)
+        affin = gOpAnimBgAffineDstData;
+
+    affin->pb = (affin->pb * a) >> 8;
+    affin->pd = (affin->pd * a) >> 8;
+    affin->pa = (affin->pa * b) >> 8;
+    affin->pc = (affin->pc * b) >> 8;
+}
+
+void sub_80ADEE0(u8 layer, s16 a, s16 b, s16 c, s16 d)
+{
+    struct BgAffineDstData * affin = NULL;
+    if (layer == 2)
+        affin = gOpAnimBgAffineDstData;
+
+    affin->dx = affin->pa * (-a) + affin->pb * (-b) + c * 0x100;
+    affin->dy = affin->pc * (-a) + affin->pd * (-b) + d * 0x100;
+}
+
+void sub_80ADF48(u8 layer, int angle, int a, int b, int c, int d)
+{
+    struct BgAffineSrcData data;
+    struct BgAffineDstData * dst;
+
+    if (c <= 0x400)
+        c = 0x400;
+
+    if (d <= 0x400)
+        d = 0x400;
+
+    data.texX = a;
+    data.texY = b;
+    data.scrX = 0;
+    data.scrY = 0;
+    data.sx = 0x1000000 / c;
+    data.sy = 0x1000000 / d;
+    data.alpha = angle >> 4;
+
+    dst = &gOpAnimBgAffineDstData[1];
+    if (layer == 2)
+        dst = &gOpAnimBgAffineDstData[0];
+
+    BgAffineSet(&data, dst, 1);
+}
+
+void sub_80ADFBC(u8 layer, int a, int b)
+{
+    struct BgAffineDstData * affin = NULL;
+    if (layer == 2)
+        affin = gOpAnimBgAffineDstData;
+
+    affin->pb = (affin->pb * a) >> 0x10;
+    affin->pd = (affin->pd * a) >> 0x10;
+    affin->pa = (affin->pa * b) >> 0x10;
+    affin->pc = (affin->pc * b) >> 0x10;
+}
+
+void sub_80ADFFC(u8 layer, int a, int b, int c, int d)
+{
+    struct BgAffineDstData * affin = NULL;
+    if (layer == 2)
+        affin = gOpAnimBgAffineDstData;
+
+    affin->dx = ((affin->pa * (-a) + affin->pb * (-b)) >> 8) + c;
+    affin->dy = ((affin->pc * (-a) + affin->pd * (-b)) >> 8) + d;
+}
+
+void sub_80AE044(int a, u16 * buf, int c, int d, int e, int f, int g, int h)
+{
+    int i, ip, r4;
+    u16 * r5, * r6;
+    int r8, sl;
+    int g2;
+
+    r8 = buf[0] / 2;
+    sl = 0x78;
+
+    r6 = buf + 2;
+    r5 = (void *)BG_VRAM + a * 0xA000;
+
+    if (g == 0)
+        return;
+
+    if (h == 0)
+        return;
+
+    if (g == -1)
+    {
+        asm("" ::: "memory");
+        g = buf[0];
+        h = buf[1];
+    }
+
+    c >>= 1;
+    do e >>= 1; while (0); // by me
+    g >>= 1;
+    g <<= 1;
+    g2 = g; // by permuter
+    r6 = r6 + r8 * f + e;
+    r5 = r5 + sl * d + c;
+
+    for (i = 0; i < h; i++)
+    {
+        CpuCopy16(r6, r5, g2);
+        r6 = r6 + r8;
+        r5 = r5 + sl;
+    }
+}
+
+void sub_80AE0F0(int a, int b, int c, int d, int e, u16 f) 
+{
+    int i, r8 = 0x78;
+    u16 * r5 = (void *)BG_VRAM + a * 0xA000;
+
+    if (d == 0)
+        return;
+
+    if (e == 0)
+        return;
+
+    b = b >> 1;
+
+    d = d >> 1;
+    d = d << 1;
+
+    r5 = r5 + r8 * c + b;
+
+    for (i = 0; i < e; i++)
+    {
+        CpuFill16(f, r5, d);
+        r5 = r5 + r8;
+    }
+}
+
+void SetBlankBgColor(int r, int g, int b)
+{
+    r = r & 0x1F;
+    g = g & 0x1F;
+    b = b & 0x1F;
+
+    gPaletteBuffer[0] = ((b << 10) + (g << 5)) + r;
+    EnablePaletteSync();
+}
+
+void FadeInOut_Init(struct ProcFadeInOut * proc)
+{
+    ArchiveCurrentPalettes();
+    proc->timer = 0;
+}
+
+void FadeIn_Loop(struct ProcFadeInOut * proc)
+{
+    int color;
+
+    proc->timer += proc->speed;
+
+    if (proc->white_out != false)
+        color = 0x200 - proc->timer * 2;
+    else
+        color = proc->timer * 2;
+
+    WriteFadedPaletteFromArchive(color, color, color, proc->mask);
+    SetDispEnable(1, 1, 1, 1, 1);
+
+    if (proc->timer == 0x80)
+        Proc_Break(proc);
+}
+
+void FadeOut_Loop(struct ProcFadeInOut * proc)
+{
+    int color;
+
+    proc->timer += proc->speed;
+
+    if (proc->white_out != false)
+        color = 0x100 + proc->timer * 2;
+    else
+        color = 0x100 - proc->timer * 2;
+
+    WriteFadedPaletteFromArchive(color, color, color, proc->mask);
+
+    if (proc->timer == 0x80)
+        Proc_Break(proc);
+}
+
+void FadeInOut_DisableGfx(struct ProcFadeInOut * proc)
+{
+    if (proc->mask == 0xFFFF)
+    {
+        SetDispEnable(0, 0, 0, 0, 1);
+    }
+    else
+    {
+        SetDispEnable(0, 0, 0, 0, 0);
+    }
+}
+
+CONST_DATA struct ProcCmd ProcScr_BmFadeIN[] = {
+    PROC_CALL(FadeInOut_DisableGfx),
+    PROC_YIELD,
+    PROC_CALL(FadeInOut_Init),
+    PROC_REPEAT(FadeIn_Loop),
+    PROC_END
+};
+
+bool FadeInExists(void)
+{
+    return !!Proc_Find(ProcScr_BmFadeIN);
+}
+
+CONST_DATA struct ProcCmd ProcScr_BmFadeOUT[] = {
+    PROC_YIELD,
+    PROC_CALL(EnableAllGfx),
+    PROC_CALL(FadeInOut_Init),
+    PROC_REPEAT(FadeOut_Loop),
+    PROC_CALL(FadeInOut_DisableGfx),
+    PROC_END
+};
+
+bool FadeOutExists(void)
+{
+    return !!Proc_Find(ProcScr_BmFadeOUT);
+}
+
+void NewFadeIn(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_Start(ProcScr_BmFadeIN, PROC_TREE_4);
+
+    proc->white_out = false;
+    proc->speed = speed;
+    proc->mask = -1;
+}
+
+void NewFadeOut(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_Start(ProcScr_BmFadeOUT, PROC_TREE_4);
+
+    proc->white_out = false;
+    proc->speed = speed;
+    proc->mask = -1;
+}
+
+void NewBlockedFadeIn(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_StartBlocking(ProcScr_BmFadeIN, parent);
+
+    proc->white_out = false;
+    proc->speed = speed;
+    proc->mask = -1;
+}
+
+void NewBlockedFadeOut(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_StartBlocking(ProcScr_BmFadeOUT, parent);
+
+    proc->white_out = false;
+    proc->speed = speed;
+    proc->mask = -1;
+}
+
+void NewFadeIn2(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_Start(ProcScr_BmFadeIN, PROC_TREE_4);
+
+    proc->white_out = false;
+    proc->speed = speed;
+    proc->mask = 0xFFFF;
+}
+
+void NewFadeOut2(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_Start(ProcScr_BmFadeOUT, PROC_TREE_4);
+
+    proc->white_out = false;
+    proc->speed = speed;
+    proc->mask = 0xFFFF;
+}
+
+void NewFadeInWhite(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_Start(ProcScr_BmFadeIN, PROC_TREE_4);
+
+    proc->white_out = true;
+    proc->speed = speed;
+    proc->mask = -1;
+}
+
+void NewFadeOutWhite(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_Start(ProcScr_BmFadeOUT, PROC_TREE_4);
+
+    proc->white_out = true;
+    proc->speed = speed;
+    proc->mask = -1;
+}
+
+void NewBlockedFadeInWhite(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_StartBlocking(ProcScr_BmFadeIN, parent);
+
+    proc->white_out = true;
+    proc->speed = speed;
+    proc->mask = -1;
+}
+
+void NewBlockedFadeOutWhite(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_StartBlocking(ProcScr_BmFadeOUT, parent);
+
+    proc->white_out = true;
+    proc->speed = speed;
+    proc->mask = -1;
+}
+
+void NewFadeInWhite2(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_Start(ProcScr_BmFadeIN, PROC_TREE_4);
+
+    proc->white_out = true;
+    proc->speed = speed;
+    proc->mask = 0xFFFF;
+}
+
+void NewFadeOutWhite2(int speed, ProcPtr parent)
+{
+    struct ProcFadeInOut * proc =
+        Proc_Start(ProcScr_BmFadeOUT, PROC_TREE_4);
+
+    proc->white_out = true;
+    proc->speed = speed;
+    proc->mask = 0xFFFF;
+}
+
+void WipeAllPalette(void)
+{
+    CpuFastFill16(0, gPaletteBuffer, 0x400);
+    EnablePaletteSync();
+}
+
+void EndFadeInOut(void)
+{
+    Proc_End(Proc_Find(ProcScr_BmFadeIN));
+    Proc_End(Proc_Find(ProcScr_BmFadeOUT));
 }

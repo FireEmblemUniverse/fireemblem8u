@@ -117,7 +117,7 @@ void sub_8095C00(int msg, ProcPtr parent)
 
 void sub_8095C2C(struct ProcAtMenu * proc)
 {
-    EndSemiTransBoxs();
+    EndSysBlackBoxs();
     EndPrepSpecialCharEffect();
     EndMuralBackground_();
     proc->cur_cmd = GetActivePrepMenuItemIndex();
@@ -199,8 +199,8 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     }
 
     Prep_DrawChapterGoal(0x5800, 0xB);
-    NewSemiTransBoxHandler(proc);
-    SemiTransBoxSetGfx(0x6800);
+    NewSysBlackBoxHandler(proc);
+    SysBlackBoxSetGfx(0x6800);
     proc->unk_35 = GetActivePrepMenuItemIndex();
     ParsePrepMenuDescTexts(sub_8095024());
     DrawPrepMenuDescTexts();

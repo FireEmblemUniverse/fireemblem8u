@@ -264,7 +264,6 @@ SECTIONS
         src/cursor_hand.o(.text);
         src/spinning_arrow.o(.text);
         src/sysutil.o(.text);
-        asm/sysutil.o(.text);
         src/stone_shatter.o(.text);
         asm/code_80AE86C.o(.text);
         src/soundroom.o(.text);
@@ -741,7 +740,6 @@ SECTIONS
         . = ALIGN(4); src/cursor_hand.o(.data);
         . = ALIGN(4); src/spinning_arrow.o(.data);
         . = ALIGN(4); src/sysutil.o(.data);
-        . = ALIGN(4); data/data_A2077C.o(.data);
         . = ALIGN(4); src/stone_shatter.o(.data);
         . = ALIGN(4); data/data_A20E24.o(.data);
         . = ALIGN(4); src/soundroom.o(.data);
