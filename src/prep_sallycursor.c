@@ -516,7 +516,7 @@ void sub_8033574() {
 }
 
 void sub_8033608() {
-    ApplyPalette(gUnknown_08A1B154, 0x12);
+    ApplyPalette(Pal_SysBrownBox, 0x12);
     return;
 }
 

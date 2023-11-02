@@ -292,8 +292,8 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
 
     StartSysBrownBox(0xd, 0xe00, 0xf, 0xc00, 0x400, proc);
 
-    SmallBrownNameBoxDoSomeConfig(0, -0x28, -1, 1);
-    SmallBrownNameBoxDoSomeConfig(1, 0xb8, -1, 0);
+    EnableSysBrownBox(0, -0x28, -1, 1);
+    EnableSysBrownBox(1, 0xb8, -1, 0);
 
     SetSpecialColorEffectsParameters(1, 0xe, 4, 0);
 

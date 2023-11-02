@@ -1751,7 +1751,7 @@ _08090EC4:
 	ldr r1, _08090F8C  @ 0x06015800
 	adds r0, r2, #0
 	bl Decompress
-	ldr r0, _08090F90  @ gUnknown_08A1B154
+	ldr r0, _08090F90  @ Pal_SysBrownBox
 	movs r1, #0xc8
 	lsls r1, r1, #2
 	movs r2, #0x40
@@ -1831,7 +1831,7 @@ _08090F80: .4byte 0x06014800
 _08090F84: .4byte gUnknown_08A1D288
 _08090F88: .4byte gUnknown_08A1CDC4
 _08090F8C: .4byte 0x06015800
-_08090F90: .4byte gUnknown_08A1B154
+_08090F90: .4byte Pal_SysBrownBox
 _08090F94: .4byte gUnknown_08A1C8B4
 _08090F98: .4byte gUnknown_0200E098
 _08090F9C: .4byte gUnknown_0200E060

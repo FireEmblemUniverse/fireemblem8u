@@ -309,8 +309,8 @@ extern u8 CONST_DATA gUnknown_08A1A474[];
 extern u8 CONST_DATA gUnknown_08A1A4C8[];
 // extern ??? gGfx_SupportScreenBanner
 extern u8 CONST_DATA gUnknown_08A1AC88[];
-extern u16 CONST_DATA gUnknown_08A1B0D8[];
-extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycursor
+extern u16 CONST_DATA Img_SysBrownBox[];
+extern u16 CONST_DATA Pal_SysBrownBox[]; // TODO - palette data from sallycursor
 extern u16 CONST_DATA gPal_SupportScreenBanner[];
 extern u16 CONST_DATA gUnknown_08A1B194[];
 extern u8 gUnknown_08A1B1FC[]; // gfx

@@ -62,7 +62,7 @@ void sub_809FDD4(int index, ProcPtr parent) {
 
     StartParallelWorker(WmSell_DrawSupplyDialogueSpriteText, parent);
 
-    sub_80ADD24(
+    NewSysboxText(
         0x7000,
         13,
         GetStringFromIndexInBuffer(gShopSellTextIndexLookup[index], gpShopSellStringBuffer),

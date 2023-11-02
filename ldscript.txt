@@ -479,7 +479,7 @@ SECTIONS
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); src/savemenu.o(.rodata);
         . = ALIGN(4); src/savedrawcursor.o(.rodata);
-        . = ALIGN(4); data/const_data_205DE9.o(.rodata);
+        . = ALIGN(4); src/sysutil.o(.rodata);
         . = ALIGN(4); src/uiconfig.o(.rodata);
         . = ALIGN(4); data/const_data_205E74.o(.rodata);
         . = ALIGN(4); src/opinfo.o(.rodata);

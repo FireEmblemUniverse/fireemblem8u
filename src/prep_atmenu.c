@@ -161,7 +161,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     Decompress(gUnknown_08A1A4C8, (void*)0x6014800);
     /* "Menu", "Start" button */
     Decompress(gUnknown_08A1D510, (void*)0x6016000);
-    ApplyPalettes(gUnknown_08A1B154, 0x19, 2);
+    ApplyPalettes(Pal_SysBrownBox, 0x19, 2);
     
     sub_8095C50(0x7000, 0x6);
     ApplyPalette(gUnknown_08A1D4C8, 0x14);

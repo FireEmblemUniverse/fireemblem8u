@@ -91,7 +91,7 @@ void sub_809D278(int idx, ProcPtr proc) {
 
     StartParallelWorker(sub_809D244, proc);
 
-    sub_80ADD24(
+    NewSysboxText(
         0x7800,
         0xd,
         GetStringFromIndexInBuffer(gSupplyTextIndexLookup[idx], gpPrepItemSupplyStringBuffer),
@@ -425,7 +425,7 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc* proc) {
     BG_EnableSyncByMask(7);
 
     StartSysBrownBox(0xd, 0xe00, 0xf, 0xc00, 0, proc);
-    SmallBrownNameBoxDoSomeConfig(0, 0x90, 6, 2);
+    EnableSysBrownBox(0, 0x90, 6, 2);
     GetStringFromIndex(proc->unit->pCharacterData->nameTextId);
     StartUiCursorHand(proc);
     ResetSysHandCursor(proc);

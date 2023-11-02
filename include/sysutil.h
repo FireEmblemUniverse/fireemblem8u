@@ -2,6 +2,7 @@
 
 #include "global.h"
 #include "proc.h"
+#include "fontgrp.h"
 
 typedef void ParallelWorkerFunc(ProcPtr);
 
@@ -17,12 +18,6 @@ void ParallelFiniteLoop_Init(struct ParallelFiniteLoopProc * proc);
 void ParallelFiniteLoop_Loop(struct ParallelFiniteLoopProc * proc);
 void StartParallelFiniteLoop(void * func, int count, ProcPtr parent);
 
-
-// extern ??? ProcScr_UntransBox
-// extern ??? ProcScr_SysBrownBox
-// extern ??? gUnknown_08A20D8C
-extern struct ProcCmd CONST_DATA gUnknown_08A20DA4[];
-extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 
 struct SemiTransBoxProc {
     /* 00 */ PROC_HEADER;
@@ -102,6 +97,8 @@ struct ProcSysUntransBox {
     /* 5C */ int chr, pal;
 };
 
+extern struct ProcCmd ProcScr_UntransBox[];
+
 void UntransBox_Init(struct ProcSysUntransBox * proc);
 void UntransBox_Loop(struct ProcSysUntransBox * proc);
 ProcPtr NewUntransBox(u32 vobj_offset, u32 pal, ProcPtr parent);
@@ -111,28 +108,47 @@ void EndUntransBoxs(void);
 
 struct SysBrownBoxConf {
     bool valid;
-    u8 layer;
+    u8 frame;
     s16 x, y;
-    u8 width, height;
+    s8 width, height;
 };
 
 struct ProcSysBrownBox {
     PROC_HEADER;
 
     /* 2C */ struct SysBrownBoxConf priv[4];
+    /* 4C */ u16 oam2;
+    /* 4E */ s16 y;
+    /* 50 */ u8 layer;
 };
+
+extern struct ProcCmd ProcScr_SysBrownBox[];
 
 void SysBrownBox_Init(struct ProcSysBrownBox * proc);
 void SysBrownBox_Loop(struct ProcSysBrownBox * proc);
-void StartSysBrownBox(int objNode, int tileOffset, int palIndex, int oam2base, int unk, ProcPtr parent);
-void SmallBrownNameBoxDoSomeConfig(int a, int b, int c, int d);
-// ??? sub_80ADC44(???);
-// ??? sub_80ADC68(???);
+void StartSysBrownBox(int layer, u32 vobj_offset, int pal, u16 oam2, u16 y, ProcPtr parent);
+void EnableSysBrownBox(int index, int x, int y, int frame);
+void DisableSysBrownBox(int index);
+void SetSysBrownBoxWidth(int index, u8 width);
 void EndSysBrownBox(void);
-// ??? sub_80ADCA4(???);
-void sub_80ADD24(int, int, const char*, int, int, int, ProcPtr);
-void EndAllProcChildren(ProcPtr p);
-// ??? sub_80ADDF8(???);
+
+struct ProcSysboxText {
+    PROC_HEADER;
+    /* 2C */ struct Font font;
+    /* 44 */ struct Text texts[2];
+    /* 54 */ const char * str;
+    /* 58 */ u8 line, max_line;
+    /* 5A */ u16 timer, delay, speed;
+    /* 5E */
+};
+
+extern struct ProcCmd ProcScr_SysboxText[];
+
+void SysboxTextMain(struct ProcSysboxText * proc);
+void NewSysboxText(int vobj_offset, int pal, const char * str, int line, int delay, int speed, ProcPtr parent);
+
+void EndAllProcChildren(ProcPtr proc);
+void sub_80ADDF8(void);
 void sub_80ADDFC(int, int, int, int, int, int);
 void sub_80ADE90(int, s16, s16);
 void sub_80ADEE0(int, int, int, int, int);
@@ -162,3 +178,6 @@ void NewFadeOut(int, ProcPtr);
 // ??? sub_80AE468(???);
 // ??? sub_80AE490(???);
 // ??? sub_80AE4B4(???);
+
+extern struct ProcCmd CONST_DATA gUnknown_08A20DA4[];
+extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
