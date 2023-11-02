@@ -262,8 +262,8 @@ void PrepItemList_InitGfx(struct PrepItemListProc* proc) {
 
     StartSysBrownBox(0xd, 0xe00, 0xf, 0xc00, 0x400, proc);
 
-    SmallBrownNameBoxDoSomeConfig(0, -40, -1, 1);
-    SmallBrownNameBoxDoSomeConfig(1, 0x98, 6, 2);
+    EnableSysBrownBox(0, -40, -1, 1);
+    EnableSysBrownBox(1, 0x98, 6, 2);
 
     SetSpecialColorEffectsParameters(1, 0xe, 4, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);

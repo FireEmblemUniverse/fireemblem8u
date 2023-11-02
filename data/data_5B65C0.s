@@ -78,6 +78,6 @@ gUnkUiFrameImage:  @ 0x085B8FF0
 gUnkUiFramePalettes:  @ 0x085B9244
 	.incbin "baserom.gba", 0x5B9244, 0x80
 
-	.global Img_SysUntransBox
-Img_SysUntransBox:  @ 0x085B92C4
-	.incbin "./graphics/sysutils/Img_SysUntransBox.4bpp.lz"
+	.global Img_SysGrayBox
+Img_SysGrayBox:  @ 0x085B92C4
+	.incbin "./graphics/sysutils/Img_SysGrayBox.4bpp.lz"

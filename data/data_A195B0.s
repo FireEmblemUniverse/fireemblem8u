@@ -64,13 +64,13 @@ gGfx_SupportScreenBanner:  @ 0x08A1A8E4
 gUnknown_08A1AC88:  @ 0x08A1AC88
 	.incbin "baserom.gba", 0xA1AC88, 0x450
 
-	.global gUnknown_08A1B0D8
-gUnknown_08A1B0D8:  @ 0x08A1B0D8
-	.incbin "baserom.gba", 0xA1B0D8, 0x7C
+	.global Img_SysBrownBox
+Img_SysBrownBox:  @ 0x08A1B0D8
+	.incbin "./graphics/sysutils/Img_SysBrownBox.4bpp.lz"
 
-	.global gUnknown_08A1B154
-gUnknown_08A1B154:  @ 0x08A1B154
-	.incbin "baserom.gba", 0xA1B154, 0x20
+	.global Pal_SysBrownBox
+Pal_SysBrownBox:  @ 0x08A1B154
+	.incbin "./graphics/sysutils/Img_SysBrownBox.gbapal", 0x0, 0x20
 
 	.global gPal_SupportScreenBanner
 gPal_SupportScreenBanner:  @ 0x08A1B174

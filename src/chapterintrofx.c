@@ -13,6 +13,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmlib.h"
+#include "sysutil.h"
 #include "worldmap.h"
 
 // arm_call.s
@@ -23,10 +24,6 @@ void sub_80895B4(int, int);
 int sub_808979C(struct PlaySt*);
 void sub_808966C(int, int);
 void sub_80896FC(u16*, int, int);
-
-void sub_80ADDFC(int, int, int, int, int, int);
-void sub_80ADE90(int, s16, s16);
-void sub_80ADEE0(int, int, int, int, int);
 
 
 extern u8 Img_CommGameBgScreen[];

@@ -421,7 +421,7 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     StartSysBrownBox(0xD, 0xE00, 0xF, 0xC00, 0, proc);
-    SmallBrownNameBoxDoSomeConfig(0, -0x28, -1, 1);
+    EnableSysBrownBox(0, -0x28, -1, 1);
 
     str = GetStringFromIndex(proc->unit->pCharacterData->nameTextId);
     PutDrawText(

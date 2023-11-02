@@ -2,6 +2,7 @@
 
 #include "global.h"
 #include "proc.h"
+#include "fontgrp.h"
 
 typedef void ParallelWorkerFunc(ProcPtr);
 
@@ -18,13 +19,7 @@ void ParallelFiniteLoop_Loop(struct ParallelFiniteLoopProc * proc);
 void StartParallelFiniteLoop(void * func, int count, ProcPtr parent);
 
 
-// extern ??? ProcScr_UntransBox
-// extern ??? ProcScr_SysBrownBox
-// extern ??? gUnknown_08A20D8C
-extern struct ProcCmd CONST_DATA gUnknown_08A20DA4[];
-extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
-
-struct SemiTransBoxProc {
+struct SysBlackBoxProc {
     /* 00 */ PROC_HEADER;
     /* 2A */ s16 x[4];
     /* 32 */ s16 y[4];
@@ -35,17 +30,17 @@ struct SemiTransBoxProc {
     /* 4E */ u16 chr;
 };
 
-extern struct ProcCmd ProcScr_SysSemiTransBox[];
+extern struct ProcCmd ProcScr_SysSysBlackBox[];
 
-void SemiTransBox_Init(struct SemiTransBoxProc * proc);
-void SemiTransBox_Main(struct SemiTransBoxProc * proc);
-ProcPtr NewSemiTransBoxHandler(ProcPtr);
-void SemiTransBoxSetGfx(u32 obj_offset);
-void EnableSemiTransBox(int index, int x, int y, int width, int height, u16 oam2);
-void DisableSemiTransBox(int index);
-void BlockAllSemiTransBoxs(void);
-void UnblockAllSemiTransBoxs(void);
-void EndSemiTransBoxs(void);
+void SysBlackBox_Init(struct SysBlackBoxProc * proc);
+void SysBlackBox_Main(struct SysBlackBoxProc * proc);
+ProcPtr NewSysBlackBoxHandler(ProcPtr);
+void SysBlackBoxSetGfx(u32 obj_offset);
+void EnableSysBlackBox(int index, int x, int y, int width, int height, u16 oam2);
+void DisableSysBlackBox(int index);
+void BlockAllSysBlackBoxs(void);
+void UnblockAllSysBlackBoxs(void);
+void EndSysBlackBoxs(void);
 
 struct ParallelWorkerProc
 {
@@ -87,7 +82,7 @@ void ConfigSysHandCursorShadowEnabled(u8 enabled);
 void DisableAllGfx(void);
 void EnableAllGfx(void);
 
-struct SysUntransBoxConf {
+struct SysGrayBoxConf {
     bool valid;
     u8 layer;
     s16 x, y;
@@ -95,70 +90,110 @@ struct SysUntransBoxConf {
     u16 chr;
 } BITPACKED;
 
-struct ProcSysUntransBox {
+struct ProcSysGrayBox {
     PROC_HEADER;
 
-    /* 2C */ struct SysUntransBoxConf priv[4];
+    /* 2C */ struct SysGrayBoxConf priv[4];
     /* 5C */ int chr, pal;
 };
 
-void UntransBox_Init(struct ProcSysUntransBox * proc);
-void UntransBox_Loop(struct ProcSysUntransBox * proc);
-ProcPtr NewUntransBox(u32 vobj_offset, u32 pal, ProcPtr parent);
+extern struct ProcCmd ProcScr_SysGrayBox[];
+
+void SysGrayBox_Init(struct ProcSysGrayBox * proc);
+void SysGrayBox_Loop(struct ProcSysGrayBox * proc);
+ProcPtr NewSysGrayBox(u32 vobj_offset, u32 pal, ProcPtr parent);
 void EnableUnransportWindow(int index, int layer, int x, int y, int w, int h, u16 chr);
-void DisableUntransBox(int index);
-void EndUntransBoxs(void);
+void DisableSysGrayBox(int index);
+void EndSysGrayBoxs(void);
 
 struct SysBrownBoxConf {
     bool valid;
-    u8 layer;
+    u8 frame;
     s16 x, y;
-    u8 width, height;
+    s8 width, height;
 };
 
 struct ProcSysBrownBox {
     PROC_HEADER;
 
     /* 2C */ struct SysBrownBoxConf priv[4];
+    /* 4C */ u16 oam2;
+    /* 4E */ s16 y;
+    /* 50 */ u8 layer;
 };
+
+extern struct ProcCmd ProcScr_SysBrownBox[];
 
 void SysBrownBox_Init(struct ProcSysBrownBox * proc);
 void SysBrownBox_Loop(struct ProcSysBrownBox * proc);
-void StartSysBrownBox(int objNode, int tileOffset, int palIndex, int oam2base, int unk, ProcPtr parent);
-void SmallBrownNameBoxDoSomeConfig(int a, int b, int c, int d);
-// ??? sub_80ADC44(???);
-// ??? sub_80ADC68(???);
+void StartSysBrownBox(int layer, u32 vobj_offset, int pal, u16 oam2, u16 y, ProcPtr parent);
+void EnableSysBrownBox(int index, int x, int y, int frame);
+void DisableSysBrownBox(int index);
+void SetSysBrownBoxWidth(int index, u8 width);
 void EndSysBrownBox(void);
-// ??? sub_80ADCA4(???);
-void sub_80ADD24(int, int, const char*, int, int, int, ProcPtr);
-void EndAllProcChildren(ProcPtr p);
-// ??? sub_80ADDF8(???);
-void sub_80ADDFC(int, int, int, int, int, int);
-void sub_80ADE90(int, s16, s16);
-void sub_80ADEE0(int, int, int, int, int);
-// ??? sub_80ADF48(???);
-// ??? sub_80ADFBC(???);
-// ??? sub_80ADFFC(???);
-// ??? sub_80AE044(???);
-// ??? sub_80AE0F0(???);
-void sub_80AE168(int, int, int);
-// ??? FadeInOut_Init(???);
-// ??? FadeIn_Loop(???);
-// ??? FadeOut_Loop(???);
-// ??? FadeInOut_DisableGfx(???);
-void FadeInExists(ProcPtr);
-void FadeOutExists(ProcPtr);
+
+struct ProcSysboxText {
+    PROC_HEADER;
+    /* 2C */ struct Font font;
+    /* 44 */ struct Text texts[2];
+    /* 54 */ const char * str;
+    /* 58 */ u8 line, max_line;
+    /* 5A */ u16 timer, delay, speed;
+    /* 5E */
+};
+
+extern struct ProcCmd ProcScr_SysboxText[];
+
+void SysboxTextMain(struct ProcSysboxText * proc);
+void NewSysboxText(int vobj_offset, int pal, const char * str, int line, int delay, int speed, ProcPtr parent);
+
+void EndAllProcChildren(ProcPtr proc);
+void nop_80ADDF8(void);
+
+/* Some objects scalling routine */
+void sub_80ADDFC(u8 layer, s16 angle, s16, s16, s16, s16);
+void sub_80ADE90(u8, s16, s16);
+void sub_80ADEE0(u8, s16, s16, s16, s16);
+void sub_80ADF48(u8 layer, int angle, int a, int b, int c, int d);
+void sub_80ADFBC(u8 layer, int a, int b);
+void sub_80ADFFC(u8 layer, int a, int b, int c, int d);
+
+/* No idea, maybe some tile map or palette modication */
+void sub_80AE044(int a, u16 * buf, int c, int d, int e, int f, int g, int h);
+void sub_80AE0F0(int a, int b, int c, int d, int e, u16 f) ;
+void SetBlankBgColor(int, int, int);
+
+struct ProcFadeInOut {
+    PROC_HEADER;
+
+    /* 29 */ bool white_out;
+    /* 2C */ int timer;
+    /* 30 */ int speed;
+    /* 34 */ int mask;
+};
+
+extern struct ProcCmd CONST_DATA ProcScr_BmFadeIN[];
+extern struct ProcCmd CONST_DATA ProcScr_BmFadeOUT[];
+
+void FadeInOut_Init(struct ProcFadeInOut * proc);
+void FadeIn_Loop(struct ProcFadeInOut * proc);
+void FadeOut_Loop(struct ProcFadeInOut * proc);
+void FadeInOut_DisableGfx(struct ProcFadeInOut * proc);
+bool FadeInExists(void);
+bool FadeOutExists(void);
 void NewFadeIn(int, ProcPtr);
 void NewFadeOut(int, ProcPtr);
-// ??? sub_80AE318(???);
-// ??? sub_80AE33C(???);
-// ??? sub_80AE360(???);
-// ??? sub_80AE388(???);
-// ??? sub_80AE3B0(???);
-// ??? sub_80AE3D4(???);
-// ??? sub_80AE3F8(???);
-// ??? sub_80AE41C(???);
-// ??? sub_80AE440(???);
-// ??? sub_80AE468(???);
-// ??? sub_80AE490(???);
-// ??? sub_80AE4B4(???);
+void NewFadeIn(int speed, ProcPtr parent);
+void NewFadeOut(int speed, ProcPtr parent);
+void NewBlockedFadeIn(int speed, ProcPtr parent);
+void NewBlockedFadeOut(int speed, ProcPtr parent);
+void NewFadeIn2(int speed, ProcPtr parent);
+void NewFadeOut2(int speed, ProcPtr parent);
+void NewFadeInWhite(int speed, ProcPtr parent);
+void NewFadeOutWhite(int speed, ProcPtr parent);
+void NewBlockedFadeInWhite(int speed, ProcPtr parent);
+void NewBlockedFadeOutWhite(int speed, ProcPtr parent);
+void NewFadeInWhite2(int speed, ProcPtr parent);
+void NewFadeOutWhite2(int speed, ProcPtr parent);
+void WipeAllPalette(void);
+void EndFadeInOut(void);

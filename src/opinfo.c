@@ -224,8 +224,8 @@ void ClassReel_Init(struct OpInfoProc* proc) {
 
 void ClassReel_ButtonPress_GoToTitle(struct OpInfoProc* proc) {
 
-    Proc_End(Proc_Find(gUnknown_08A20DA4));
-    Proc_End(Proc_Find(gUnknown_08A20DCC));
+    Proc_End(Proc_Find(ProcScr_BmFadeIN));
+    Proc_End(Proc_Find(ProcScr_BmFadeOUT));
 
     EndAllProcChildren(proc);
 
@@ -897,11 +897,11 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc* proc) {
     unkC = Interpolate(0, 0, 0xD6, proc->unk_4c, 0x3C);
     unkD = Interpolate(0, 0x10, 0x80, proc->unk_4c, 0x3C);
 
-    sub_80ADDFC(2, proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
+    sub_80ADDFC(2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
 
     sub_80ADE90(2, 0x100, 0x100);
 
-    sub_80ADEE0(2, (s16)unkC, (s16)unkD, 0x50, 0x48);
+    sub_80ADEE0(2, unkC, unkD, 0x50, 0x48);
 
     proc->unk_4e -= 0x40;
 

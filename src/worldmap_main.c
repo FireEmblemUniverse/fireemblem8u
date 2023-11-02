@@ -369,7 +369,7 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
     gLCDControlBuffer.wincnt.win1_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    sub_80AE168(0, 0, 0);
+    SetBlankBgColor(0, 0, 0);
 
     SetSpecialColorEffectsParameters(0, 0, 0, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
@@ -1805,7 +1805,7 @@ void sub_80BA008(int unk)
 //! FE8U = 0x080BA024
 void EndWM(ProcPtr unused)
 {
-    Proc_End(Proc_Find(gUnknown_08A20DA4));
+    Proc_End(Proc_Find(ProcScr_BmFadeIN));
     Proc_End(Proc_Find(gProcScr_WorldMapMain));
     ResetDialogueScreen();
     APProc_DeleteAll();
@@ -2029,7 +2029,7 @@ struct ProcCmd CONST_DATA gProcScr_WorldMapWrapper[] =
     PROC_YIELD,
 
     PROC_WHILE_EXISTS(gProcScr_WorldMapMain),
-    PROC_END_EACH(gUnknown_08A20DA4),
+    PROC_END_EACH(ProcScr_BmFadeIN),
     PROC_YIELD,
 
     PROC_END,

@@ -204,6 +204,7 @@ extern void (*gMainCallback)(void);
 extern struct KeyStatusBuffer * CONST_DATA gKeyStatusPtr;
 
 extern struct LCDControlBuffer gLCDControlBuffer;
+extern struct BgAffineDstData gOpAnimBgAffineDstData[2];
 
 extern struct Struct02024CD4 gFrameTmRegisterConfig;
 extern struct TileDataTransfer gFrameTmRegister[32];

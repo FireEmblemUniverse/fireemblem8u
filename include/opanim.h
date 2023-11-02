@@ -24,8 +24,6 @@ struct TitleScreenProc {
     /* 52 */ u16 unk_52;
 };
 
-extern struct BgAffineDstData gOpAnimBgAffineDstData;
-
 struct OpAnimSt {
     /* 00 */ s16 x;
     /* 02 */ s16 y;

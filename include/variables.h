@@ -845,7 +845,7 @@ extern const u16 gLegacyUiFrameDPalette[];
 extern const u16 gUiBarPaletteD[];
 extern const u8  gUnkUiFrameImage[];
 extern const u16 gUnkUiFramePalettes[];
-extern u8 Img_SysUntransBox[];
+extern u8 Img_SysGrayBox[];
 
 extern u8 Img_EkrExpBar[];
 extern u16 Img_EkrExpBarChange[];
