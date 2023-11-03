@@ -294,11 +294,6 @@ void sub_8097FDC(void)
     return;
 }
 
-struct PrepItemTypePageEnt {
-    /* 00 */ u8 lowerBound;
-    /* 01 */ u8 upperBound;
-};
-
 struct PrepItemTypePageEnt CONST_DATA gPrepItemTypePageLut[] = {
     [0] = { ITYPE_SWORD,  ITYPE_SWORD },
     [1] = { ITYPE_LANCE,  ITYPE_LANCE },

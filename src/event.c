@@ -18,9 +18,6 @@
 #include "ev_triggercheck.h"
 #include "event.h"
 
-static bool8 EventEngine_CanStartSkip(struct EventEngineProc*);
-static void  CallNextQueuedEvent(void); // local
-
 // TODO: actual events
 
 extern const u16 gEvent_DisplayBattleQuote[]; /*
@@ -350,7 +347,7 @@ void DeleteEventEngines(void) {
     Proc_EndEach(gProc_BattleEventEngine);
 }
 
-void sub_800D1E4(struct Proc* proc) {
+void sub_800D1E4(ProcPtr proc) {
     Proc_StartBlocking(gUnknown_08591DD8, proc);
 }
 

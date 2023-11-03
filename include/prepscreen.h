@@ -133,11 +133,6 @@ struct GMapBaseMenuProc {
 
 struct GMapBaseMenuProc* sub_80C4048(void);
 
-struct Struct02013648 {
-    /* 00 */ struct Font font;
-    /* 18 */ struct Text th[16];
-};
-
 struct PrepItemListProc {
     /* 00 */ PROC_HEADER;
     /* 2C */ struct Unit * unit;
@@ -163,19 +158,16 @@ extern u16 gUnknown_02012F56;
 // extern ??? gUnknown_02013458
 // extern ??? gUnknown_02013460
 extern struct Text gPrepItemScreenTexts[16];
-// extern ??? gUnknown_02013590
-// extern ??? gPrepUnitTexts
-// extern ??? gUnknown_02013608
-// extern ??? gUnknown_02013630
-// extern ??? gUnknown_02013640
+extern struct Text gUnknown_02013590[];
+extern struct Text gPrepUnitTexts[];
 // extern ??? gUnknown_02013648
 extern struct Text gUnknown_02013660[16];
 // extern ??? gUnknown_02013668
 // extern ??? gUnknown_02013670
 // extern ??? gUnknown_02013698
 // extern ??? gUnknown_020136D8
-// extern ??? sSupportScreenUnitCount
-// extern ??? gUnknown_020136F4
+extern int sSupportScreenUnitCount;
+extern u16 gUnknown_020136F4[];
 
 extern struct ProcCmd gProcScr_SALLYCURSOR[];
 extern struct ProcCmd gProcScr_SALLYCURSORHelpPrompt[];
@@ -194,24 +186,30 @@ extern CONST_DATA u16 *objs_8A18614[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepSpecialCharEff[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepScreenMenuDummyItem[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepMenu[];
-// extern ??? gSprite_MenuScrollContainer
-// extern ??? gSprite_MenuScroll_TopDecal
-// extern ??? gSprite_MenuScroll_BottomDecal
-// extern ??? gMenuScrollBarSegmentSprites
-// extern ??? gMenuScrollArrowSprites
-// extern ??? ProcScr_menu_scroll
-// extern ??? ProcScr_SallyCir
-// extern ??? ProcScr_ViewCounter
-// extern ??? gProcScr_PrepHelpboxListener
-// extern ??? gPrepItemTypePageLut
-// extern ??? gPrepShopInventory
-// extern ??? gHelpTextIds_PrepItemScreen
-// extern ??? gHelpTextIds_GMapItemScreen
-// extern ??? gSprite_PrepFunds
-// extern ??? gProcScr_DrawPrepFundsSprite
-// extern ??? gSprite_PrepUnitInfoBg
-// extern ??? gProcScr_DrawUnitInfoBgSprites
-// extern ??? ProcScr_PrepItemScreen
+extern CONST_DATA u16 gSprite_MenuScrollContainer[];
+extern CONST_DATA u16 gSprite_MenuScroll_TopDecal[];
+extern CONST_DATA u16 gSprite_MenuScroll_BottomDecal[];
+extern const u16 * CONST_DATA gMenuScrollBarSegmentSprites[];
+extern const u16 * CONST_DATA gMenuScrollArrowSprites[];
+extern CONST_DATA struct ProcCmd ProcScr_menu_scroll[];
+extern CONST_DATA struct ProcCmd ProcScr_SallyCir[];
+extern CONST_DATA struct ProcCmd ProcScr_ViewCounter[];
+extern CONST_DATA struct ProcCmd gProcScr_PrepHelpboxListener[];
+
+struct PrepItemTypePageEnt {
+    /* 00 */ u8 lowerBound;
+    /* 01 */ u8 upperBound;
+};
+
+extern struct PrepItemTypePageEnt CONST_DATA gPrepItemTypePageLut[] ;
+extern u16 CONST_DATA gPrepShopInventory[];
+extern int CONST_DATA gHelpTextIds_PrepItemScreen[];
+extern int CONST_DATA gHelpTextIds_GMapItemScreen[];
+extern CONST_DATA u16 gSprite_PrepFunds[];
+extern CONST_DATA struct ProcCmd gProcScr_DrawPrepFundsSprite[];
+extern CONST_DATA u16 gSprite_PrepUnitInfoBg[];
+extern CONST_DATA struct ProcCmd gProcScr_DrawUnitInfoBgSprites[];
+extern CONST_DATA struct ProcCmd ProcScr_PrepItemScreen[];
 extern CONST_DATA u16 obj_08A18E34[];
 extern CONST_DATA u16 obj_08A18E4E[];
 extern CONST_DATA u16 obj_08A18E62[];
@@ -221,17 +219,18 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepItemTradeScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemUseScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemUseBooster[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemUseJunaFruit[];
-// extern ??? gSupplyTextIndexLookup
-// extern ??? gpPrepItemSupplyStringBuffer
-// extern ??? gSupplyHelpTextIndexLookup
+extern int CONST_DATA gSupplyTextIndexLookup[];
+extern char * CONST_DATA gpPrepItemSupplyStringBuffer;
+extern int CONST_DATA gSupplyHelpTextIndexLookup[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemSupplyScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_BmSupplyScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemListScreen[];
 extern u16 gUnknown_08A195F8[];
 extern u16 * gUnknown_08A19608[];
-// extern ??? gProcScr_FortuneSubMenu
+extern CONST_DATA struct ProcCmd gProcScr_FortuneSubMenu[];
 extern int gUnknown_08A196BC[]; /* msg lists */
-// extern ??? gUnknown_08A196D0
+extern int CONST_DATA gUnknown_08A196D0[];
+extern int CONST_DATA gUnused_08A196E4[];
 extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycursor
 extern u8 Img_MenuScrollBar[];
 extern u16 Pal_MenuScrollBar[];
@@ -262,7 +261,7 @@ extern u8 gUnknown_08A1B9EC[]; // tsa
 extern u16 CONST_DATA Img_PrepItemUseScreen[];
 extern u16 CONST_DATA Tsa_PrepItemUseScreen[];
 extern u8 gUnknown_08A1BBD0[]; // tsa?
-// extern ??? gUnknown_08A1BCC0
+extern u8 gUnknown_08A1BCC0[];
 // extern ??? gUnknown_08A1BD00
 // extern ??? gUnknown_08A1BD40
 extern u16 gUnknown_08A1BD60[];

@@ -135,9 +135,6 @@
 . = 0x013510; gPrepItemScreenTexts = .;
 . = 0x013590; gUnknown_02013590 = .;
 . = 0x013598; gPrepUnitTexts = .;
-. = 0x013608; gUnknown_02013608 = .;
-. = 0x013630; gUnknown_02013630 = .;
-. = 0x013640; gUnknown_02013640 = .;
 . = 0x013648; gUnknown_02013648 = .;
 . = 0x013660; gUnknown_02013660 = .;
 . = 0x013668; gUnknown_02013668 = .;
@@ -409,5 +406,5 @@
 . = 0x03EF98; sShopState = .;
 . = 0x03EFB4; gUnknown_0203EFB4 = .;
 
-. = 0x03EFB8; gUnknown_0203EFB8 = .;
+. = 0x03EFB8; gLoadUnitBuffer = .;
 . = 0x03EFB8; end = .;

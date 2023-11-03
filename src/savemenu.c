@@ -19,6 +19,7 @@
 #include "bonusclaim.h"
 #include "sysutil.h"
 #include "savemenu.h"
+#include "uisupport.h"
 
 #include "constants/characters.h"
 

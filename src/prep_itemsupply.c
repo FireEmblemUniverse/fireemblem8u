@@ -21,15 +21,12 @@
 
 #include "prepscreen.h"
 
+struct Struct02013648 {
+    /* 00 */ struct Font font;
+    /* 18 */ struct Text th[16];
+};
+
 extern struct Struct02013648 gUnknown_02013648;
-
-extern u8 gUnknown_08A1B9EC[]; // tsa
-extern u8 gUnknown_08A1BCC0[]; // tsa
-
-extern u16 gUnknown_08A1BD60[];
-extern u16* gUnknown_08A19608[];
-extern u16 gUnknown_08A195F8[];
-
 
 //! FE8U = 0x0809D244
 void sub_809D244(void)
@@ -217,8 +214,6 @@ void sub_809D608(void)
     return;
 }
 
-u8 GetConvoyItemCount_(void);
-
 //! FE8U = 0x0809D644
 void sub_809D644(struct PrepItemSupplyProc * proc)
 {
@@ -235,9 +230,8 @@ void sub_809D644(struct PrepItemSupplyProc * proc)
     th = &gUnknown_02013648.th[0xf];
 
     color = 0;
-    if ((convoyItemCount == CONVOY_ITEM_COUNT) || (unitItemCount == 0)) {
+    if ((convoyItemCount == CONVOY_ITEM_COUNT) || (unitItemCount == 0))
         color = 1;
-    }
 
     Text_InsertDrawString(
         th,
@@ -254,8 +248,6 @@ void sub_809D644(struct PrepItemSupplyProc * proc)
     );
 
     SetTextFont(NULL);
-
-    return;
 }
 
 //! FE8U = 0x0809D6CC

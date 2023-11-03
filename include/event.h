@@ -235,9 +235,30 @@ enum EventCmdSubIndex {
     EVSUBCMD_BLT = 5,
 };
 
-// extern ??? gUnknown_03000428
-// extern ??? gUnknown_03000430
-// extern ??? gUnknown_03000434
+struct ConvoBackgroundFadeProc
+{
+    PROC_HEADER;
+
+    /* 29 */ u8 fadeType;
+    /* 2A */ u8 unkType;
+
+    /* 2C */ u16 bgIndex;
+    /* 2E */ u16 fadeSpeed;
+    /* 30 */ u16 fadeTimer;
+
+    /* 34 */ struct EventEngineProc * pEventEngine;
+};
+
+struct Struct03000428
+{
+    char str[4];
+    u8 unk04;
+    u8 unk05;
+};
+
+extern struct Struct03000428 gUnknown_03000428;
+extern char gUnknown_03000430[4];
+extern struct Unit * gLoadedUnitBuffer;
 // extern ??? gUnknown_030004E4
 // extern ??? gUnknown_030004E6
 // extern ??? gUnknown_030004E8
@@ -251,40 +272,40 @@ extern const EventFuncType gEventLoCmdTable[]; // regular event functions
 extern const EventFuncType gEventHiCmdTable[]; // gmap event functions
 extern const struct ProcCmd gUnknown_08591DD8[]; // map event engine "witness lock" (alive while map event engine is)
 
-// extern ??? gUnknown_08591DE8
-// extern ??? gUnknown_08591E00
-// extern ??? gUnknown_08591E58
-// extern ??? gUnknown_08591EB0
-// extern ??? gUnknown_08591F08
-// extern ??? gUnknown_08591F18
-// extern ??? gUnknown_08591F28
-// extern ??? gEvent_DisplayBattleQuote
-// extern ??? gEvent_TriggerQueuedTileChanges
-// extern ??? gEvent_OpenChest
-// extern ??? gEvent_MapSupportConversation
-// extern ??? gEvent_SupportViewerConversation
-// extern ??? gEvent_SkirmishRetreat
-// extern ??? gEvent_SuspendPrompt
-// extern ??? gEvent_GameOver
+extern struct ProcCmd gUnknown_08591DE8[]; // "face witness"
+extern struct ProcCmd gUnknown_08591E00[];
+extern struct ProcCmd gUnknown_08591E58[];
+extern struct ProcCmd gUnknown_08591EB0[];
+extern struct ProcCmd CONST_DATA gUnknown_08591F08[];
+extern struct ProcCmd CONST_DATA gUnknown_08591F18[];
+extern struct ProcCmd CONST_DATA gUnknown_08591F28[];
+extern const u16 gEvent_DisplayBattleQuote[];
+extern const u16 gEvent_TriggerQueuedTileChanges[];
+extern const u16 gEvent_OpenChest[];
+extern const u16 gEvent_MapSupportConversation[];
+extern const u16 gEvent_SupportViewerConversation[];
+extern const u16 gEvent_SkirmishRetreat[];
+extern const u16 gEvent_SuspendPrompt[];
+extern const u16 gEvent_GameOver[];
 extern u16 gEvent_08592114[];
-// extern ??? gUnknown_085921AC
+extern u16 CONST_DATA gUnknown_085921AC[];
 
-// ??? _MarkSomethingInMenu(???);
-// ??? EventEngine_OnUpdate(???);
-// ??? EventEngine_OnEnd(???);
-// ??? EnqueueEventCall(???);
-// ??? CallNextQueuedEvent(???);
+void _MarkSomethingInMenu(void);
+void EventEngine_OnUpdate(struct EventEngineProc* proc);
+void EventEngine_OnEnd(struct EventEngineProc* proc);
+void EnqueueEventCall(const u16* events, u8 execType);
+void CallNextQueuedEvent(void);
 void CallEvent(const u16* events, u8 execType);
 struct EventEngineProc* EventEngine_Create(const u16* events, u8 idk);
 void EventEngine_CreateBattle(const u16* events);
 s8 EventEngineExists(void);
 int BattleEventEngineExists(void);
 void DeleteEventEngines(void);
-// ??? sub_800D1E4(???);
+void sub_800D1E4(ProcPtr proc);
 void SetEventSlotC(unsigned value);
-// ??? sub_800D204(???);
+void sub_800D204(void);
 int sub_800D208(void);
-// ??? CallBattleQuoteEvent(???);
+void CallBattleQuoteEvent(u16 textIndex);
 void CallBattleQuoteEventInBattle(u16 textIndex);
 void CallTileChangeEvent(u16 tileChangeIndex);
 void CallChestOpeningEvent(u16 tileChangeIndex, u16 idr);
@@ -293,6 +314,7 @@ void CallSupportViewerEvent(u16);
 void CallRetreatPromptEvent(void);
 void CallSuspendPromptEvent(void);
 void CallGameOverEvent(void);
+bool8 EventEngine_CanStartSkip(struct EventEngineProc* proc);
 void SetDialogueSkipEvBit(void);
 void EventEngine_StartSkip(struct EventEngineProc * proc);
 void sub_800D488(struct EventEngineProc * unused);
@@ -305,11 +327,11 @@ unsigned SlotQueuePop(void);
 void SetEventSlotCounter(unsigned value);
 unsigned GetEventSlotCounter(void);
 
-// void sub_800B910(u8, u8, u8);
-// void sub_800B954(u8, u8, u8);
-// void sub_800B994(u8, u8, u8);
-// void sub_800B9B8(u8, u8);
-// void sub_800BA04(u8, u8);
+// void sub_800B910(u8 bg1, u8 bg2, u8 c);
+// void sub_800B954(u8 a, u8 bg, u8 c);
+// void sub_800B994(u8 a, u8 b, u8 c);
+// void sub_800B9B8(u8 bg, u8 b);
+// void sub_800BA04(u8 a, u8 b);
 void sub_800BA34(void);
 void SetSomeRealCamPos(int x, int y, s8 unk);
 void sub_800BAA8(s16, s8, ProcPtr);
@@ -317,8 +339,8 @@ void TriggerMapChanges(u16 mapChangeId, s8 displayFlag, ProcPtr parent);
 void UntriggerMapChange(u16 mapChangeId, s8 displayFlag, ProcPtr parent);
 void sub_800BB98(void);
 void sub_800BB98(void);
-// ??? sub_800BBB4(???);
-// ??? sub_800BBE4(???);
+s8 sub_800BBB4(u16 pid);
+u16 sub_800BBE4(void);
 void HideAllUnits(void);
 struct Unit * GetUnitStructFromEventParameter(s16 pid);
 void sub_800BCDC(u16); // battle related
@@ -457,10 +479,10 @@ void sub_800E640(struct EventEngineProc*);
 // ??? sub_800EE54(???);
 // ??? sub_800EEE8(???);
 // ??? sub_800EF48(???);
-// ??? Event22_(???);
-// ??? Event23_(???);
-// ??? Event24_(???);
-// ??? Event25_(???);
+u8 Event22_(struct EventEngineProc *); // CLEAN
+u8 Event23_(struct EventEngineProc *); // Lock Game Graphics
+u8 Event24_(struct EventEngineProc *); // Resume Game Graphics
+u8 Event25_(struct EventEngineProc *);
 // ??? Event26_CameraControlMaybe(???);
 // ??? Event27_MapChange(???);
 // ??? Event28_ChangeWeather(???);

@@ -64,16 +64,6 @@ struct EventListCmdInfo CONST_DATA gEventListCmdInfoTable[] = {
     { EvCheck10_,              4, },
 };
 
-extern u8 gChapterFlagBits[];
-extern u8 gPermanentFlagBits[];
-
-struct ActiveEventRegistry {
-    /* 00 */ u32 unk_00[10];
-    /* 28 */ s16 unk_28[10];
-    /* 3C */ s16 unk_3c;
-};
-
-extern struct ActiveEventRegistry gActiveEventRegistry;
 
 //! FE8U = 0x08082E80
 void StartEventFromInfo(struct EventInfo* info, u8 execType) {
@@ -1936,7 +1926,7 @@ struct SupportTalkEnt * GetSupportTalkEntry(u16 pidA, u16 pidB)
 }
 
 //! FE8U = 0x0808478C
-int GetSupportTalkSong(u16 pidA, u16 pidB, u8 rank) {
+u16 GetSupportTalkSong(u16 pidA, u16 pidB, u8 rank) {
     int unk;
 
     struct SupportTalkEnt* ent = GetSupportTalkEntry(pidA, pidB);
@@ -2006,7 +1996,7 @@ bool IsCharacterForceDeployed_(u16 pid)
 }
 
 //! FE8U = 0x08084858
-bool IsSethLArachelMyrrhInnes(u16 pid)
+int IsSethLArachelMyrrhInnes(u16 pid)
 {
     u8 * it;
 

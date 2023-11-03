@@ -1770,7 +1770,7 @@ void sub_809A504(struct PrepItemScreenProc* proc, u8 unk)
 }
 
 //! FE8U = 0x0809A538
-s8 PrepItemScreen_GiveAll(struct Unit * unit)
+bool PrepItemScreen_GiveAll(struct Unit * unit)
 {
     int i;
 
@@ -1783,11 +1783,10 @@ s8 PrepItemScreen_GiveAll(struct Unit * unit)
         UnitRemoveItem(unit, 0);
     }
 
-    if (i > 0) {
-        return 1;
-    }
+    if (i > 0)
+        return true;
 
-    return 0;
+    return false;
 }
 
 // Unused?

@@ -32,65 +32,12 @@
 #include "ev_triggercheck.h"
 #include "event.h"
 
-struct Struct03000428
-{
-    char str[4];
-    u8 unk04;
-    u8 unk05;
-};
-
-// TODO: Implicit declaration?
-// ev_triggercheck.c
-int IsSethLArachelMyrrhInnes(int);
-
-// evtcmd_gmap.c
 void sub_800B910(int, int, int);
 void sub_800B954(int, int, int);
 void sub_800B994(int, int, int);
 void sub_800B9B8(int, int);
 void sub_800BA04(int, int);
-
-// local
-
-struct ConvoBackgroundFadeProc
-{
-    PROC_HEADER;
-
-    /* 29 */ u8 fadeType;
-    /* 2A */ u8 unkType;
-
-    /* 2C */ u16 bgIndex;
-    /* 2E */ u16 fadeSpeed;
-    /* 30 */ u16 fadeTimer;
-
-    /* 34 */ struct EventEngineProc * pEventEngine;
-};
-
-u8 Event22_(struct EventEngineProc *); // CLEAN
-u8 Event23_(struct EventEngineProc *); // Lock Game Graphics
-u8 Event24_(struct EventEngineProc *); // Resume Game Graphics
-
-extern struct Struct03000428 gUnknown_03000428;
-extern char gUnknown_03000430[4];
-extern struct Unit * gUnknown_03000434;
-
-extern struct ProcCmd gUnknown_08591DE8[]; // "face witness"
-extern struct ProcCmd gUnknown_08591E00[];
-extern struct ProcCmd gUnknown_08591E58[];
-extern struct ProcCmd gUnknown_08591EB0[];
-
-// other
-
-extern const struct
-{
-    const void * pTileGraphics;
-    const void * pTileArrangement;
-    const void * pColorPalettes;
-} gConvoBackgroundData[];
-
-extern u16 gUnknown_08592114[]; // gEvent_PostEnd
-
-extern struct UnitDefinition gUnknown_0203EFB8[];
+extern u16 gEvent_PostEnd[]; // gEvent_PostEnd
 
 //! FE8U = 0x0800D5A0
 u8 Event00_NULL(struct EventEngineProc * proc)
@@ -1430,18 +1377,18 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex)
 
             // Loading Background Tile Graphics
 
-            Decompress(gConvoBackgroundData[bgIndex].pTileGraphics, (void *)(VRAM + GetBackgroundTileDataOffset(3)));
+            Decompress(gConvoBackgroundData[bgIndex].gfx, (void *)(VRAM + GetBackgroundTileDataOffset(3)));
 
             // Loading Background Tile Arrangement
 
             CallARM_FillTileRect(
-                gBG3TilemapBuffer, gConvoBackgroundData[bgIndex].pTileArrangement,
+                gBG3TilemapBuffer, gConvoBackgroundData[bgIndex].tsa,
                 0x8000 // base palette is bg palette 8
             );
 
             // Loading Background Palettes
 
-            ApplyPalettes(gConvoBackgroundData[bgIndex].pColorPalettes, 8, 8);
+            ApplyPalettes(gConvoBackgroundData[bgIndex].pal, 8, 8);
 
             BG_EnableSyncByMask(BG3_SYNC_BIT);
             EnablePaletteSync();
@@ -1693,18 +1640,18 @@ void sub_800EC50(struct ConvoBackgroundFadeProc * proc)
             // Loading Background Tile Graphics
 
             Decompress(
-                gConvoBackgroundData[proc->bgIndex].pTileGraphics, (void *)(VRAM + GetBackgroundTileDataOffset(BG_2)));
+                gConvoBackgroundData[proc->bgIndex].gfx, (void *)(VRAM + GetBackgroundTileDataOffset(BG_2)));
 
             // Loading Background Tile Arrangement
 
             CallARM_FillTileRect(
-                gBG2TilemapBuffer, gConvoBackgroundData[proc->bgIndex].pTileArrangement,
+                gBG2TilemapBuffer, gConvoBackgroundData[proc->bgIndex].tsa,
                 0 // base palette is bg palette 0
             );
 
             // Loading Background Palettes
 
-            ApplyPalettes(gConvoBackgroundData[proc->bgIndex].pColorPalettes, 0, 6);
+            ApplyPalettes(gConvoBackgroundData[proc->bgIndex].pal, 0, 6);
 
             BG_EnableSyncByMask(BG2_SYNC_BIT);
             EnablePaletteSync();
@@ -1745,18 +1692,18 @@ void sub_800ED50(struct ConvoBackgroundFadeProc * proc)
             // Loading Background Tile Graphics
 
             Decompress(
-                gConvoBackgroundData[proc->bgIndex].pTileGraphics, (void *)(VRAM + GetBackgroundTileDataOffset(BG_3)));
+                gConvoBackgroundData[proc->bgIndex].gfx, (void *)(VRAM + GetBackgroundTileDataOffset(BG_3)));
 
             // Loading Background Tile Arrangement
 
             CallARM_FillTileRect(
-                gBG3TilemapBuffer, gConvoBackgroundData[proc->bgIndex].pTileArrangement,
+                gBG3TilemapBuffer, gConvoBackgroundData[proc->bgIndex].tsa,
                 0x8000 // base palette is bg palette 8
             );
 
             // Loading Background Palettes
 
-            ApplyPalettes(gConvoBackgroundData[proc->bgIndex].pColorPalettes, 8, 6);
+            ApplyPalettes(gConvoBackgroundData[proc->bgIndex].pal, 8, 6);
 
             BG_EnableSyncByMask(BG3_SYNC_BIT);
             EnablePaletteSync();
@@ -2550,7 +2497,7 @@ struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count,
         }
     }
     itSource = source;
-    source = gUnknown_0203EFB8;
+    source = gLoadUnitBuffer;
 
     for (i = 0; i < count; i++)
     {
@@ -2576,7 +2523,7 @@ struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count,
 
     if (arg4 == TRUE)
     {
-        source = gUnknown_0203EFB8;
+        source = gLoadUnitBuffer;
 
         for (i = 0; i < count; i++)
         {
@@ -2586,7 +2533,7 @@ struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count,
         }
     }
 
-    source = gUnknown_0203EFB8;
+    source = gLoadUnitBuffer;
 
     if (arg3 == TRUE)
         sub_80125C0(source);
@@ -2758,7 +2705,7 @@ struct UnitDefinition * sub_800F914(struct UnitDefinition * source, short count,
         "ands r0, r5\n"
         "b _0800FA44\n"
         ".align 2, 0\n"
-    "_0800FA34: .4byte gUnknown_0203EFB8\n"
+    "_0800FA34: .4byte gLoadUnitBuffer\n"
     "_0800FA38:\n"
         "adds r1, r3, #0\n"
         "subs r1, #0x20\n"
@@ -3246,7 +3193,7 @@ u8 Event31_DisplayEffectRange(struct EventEngineProc * proc)
 
             PlaySoundEffect(0x68);
 
-            gUnknown_03000434 = gActiveUnit;
+            gLoadedUnitBuffer = gActiveUnit;
             gActiveUnit = unit;
 
             HideMoveRangeGraphics();
@@ -3256,10 +3203,10 @@ u8 Event31_DisplayEffectRange(struct EventEngineProc * proc)
 
         case 1:
             HideMoveRangeGraphics();
-            if (gUnknown_03000434 != 0)
+            if (gLoadedUnitBuffer != 0)
             {
-                gActiveUnit = gUnknown_03000434;
-                gUnknown_03000434 = NULL;
+                gActiveUnit = gLoadedUnitBuffer;
+                gLoadedUnitBuffer = NULL;
             }
 
             break;

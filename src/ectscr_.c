@@ -9,16 +9,9 @@
 #include "bmlib.h"
 #include "bg.h"
 #include "scene.h"
+#include "event.h"
 #include "ekrbattle.h"
 
-struct gfx_set {
-    void *gfx;
-    void *tsa;
-    void *pal;
-};
-
-extern struct CONST_DATA gfx_set gConvoBackgroundData[];
-extern u16 CONST_DATA gUnknown_085921AC[];
 extern u16 CONST_DATA gUnknown_085A7EE8[];
 
 void sub_8010EE8(int, int, int);
