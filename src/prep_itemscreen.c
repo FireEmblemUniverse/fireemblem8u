@@ -1803,24 +1803,24 @@ void PrepItemDrawPopupBox(int x, int y, int w, int h, int oam2) {
 }
 
 //! FE8U = 0x0809A504
-void sub_809A504(struct PrepItemScreenProc* proc, u8 unk) {
+void sub_809A504(struct PrepItemScreenProc* proc, u8 unk)
+{
     int i;
 
-    for (i = (proc->unk_34 >> 4); i < (proc->unk_34 >> 4) + 4; i++) {
+    for (i = (proc->unk_34 >> 4); i < (proc->unk_34 >> 4) + 4; i++)
         sub_809A114(proc, i, unk);
-    }
-
-    return;
 }
 
 //! FE8U = 0x0809A538
-s8 PrepItemScreen_GiveAll(struct Unit* unit) {
+s8 PrepItemScreen_GiveAll(struct Unit * unit)
+{
     int i;
 
     int unitItemCount = GetUnitItemCount(unit);
     int convoyItemCount = GetConvoyItemCount_();
 
-    for (i = 0; (i < unitItemCount) && (i + convoyItemCount < CONVOY_ITEM_COUNT); i++) {
+    for (i = 0; (i < unitItemCount) && (i + convoyItemCount < CONVOY_ITEM_COUNT); i++)
+    {
         AddItemToConvoy(unit->items[0]);
         UnitRemoveItem(unit, 0);
     }

@@ -5,24 +5,10 @@
 #include "fontgrp.h"
 #include "bmmap.h"
 #include "bm.h"
+#include "bb.h"
 
-
-struct SubtitleHelpProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ const char* string;
-    /* 30 */ struct Font font;
-    /* 48 */ struct Text text[2];
-    /* 58 */ s16 textOffset;
-    /* 5A */ s16 textShowCnt;
-    /* 5C */ s16 textNum;
-    /* 5E */ s16 textCount;
-};
-
-extern u8 gUnknown_0859EF20[]; // pal
-
-void PutSubtitleHelpText(struct SubtitleHelpProc* proc, int y) {
-
+void PutSubtitleHelpText(struct SubtitleHelpProc * proc, int y)
+{
     static u16 lut[] = {
         0x00,
         0x04, 0x08, 0x0C, 0x10, 0x14, 0x18,
@@ -41,8 +27,9 @@ void PutSubtitleHelpText(struct SubtitleHelpProc* proc, int y) {
     return;
 }
 
-void InitSubtitleHelpText(struct SubtitleHelpProc* proc) {
-    const char* iter;
+void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
+{
+    const char * iter;
     int line;
     int width;
 
@@ -87,8 +74,8 @@ void InitSubtitleHelpText(struct SubtitleHelpProc* proc) {
     return;
 }
 
-void SubtitleHelpDarkenerOnHBlank() {
-
+void SubtitleHelpDarkenerOnHBlank()
+{
     static u8 bldyLut[] = {
         0, 0, 0, 0, 0, 0, 0, 0, // 128 .. 135
         0, 0, 0, 0, 1, 2, 3, 4, // 136 .. 143
@@ -124,25 +111,22 @@ void SubtitleHelpDarkenerOnHBlank() {
     return;
 }
 
-void SubtitleHelpDarkener_Init() {
-
+void SubtitleHelpDarkener_Init()
+{
     gBmSt.altBlendACa = 8;
     SetPrimaryHBlankHandler(SubtitleHelpDarkenerOnHBlank);
 
     return;
 }
 
-void SubtitleHelpDarkener_FadeIn() {
-
-    if (gBmSt.altBlendACa != 0) {
+void SubtitleHelpDarkener_FadeIn()
+{
+    if (gBmSt.altBlendACa != 0)
         gBmSt.altBlendACa--;
-    }
-
-    return;
 }
 
-void SubtitleHelpDarkener_FadeOut(struct SubtitleHelpProc* proc) {
-
+void SubtitleHelpDarkener_FadeOut(struct SubtitleHelpProc * proc)
+{
     gBmSt.altBlendACa++;
 
     if (gBmSt.altBlendACa == 8) {
@@ -164,7 +148,8 @@ struct ProcCmd CONST_DATA gProcScr_SubtitleHelpDarkener[] = {
     PROC_END,
 };
 
-void SubtitleHelp_Init(struct SubtitleHelpProc* proc) {
+void SubtitleHelp_Init(struct SubtitleHelpProc * proc)
+{
     proc->textOffset = 31;
     proc->textShowCnt = 6;
 
@@ -173,8 +158,8 @@ void SubtitleHelp_Init(struct SubtitleHelpProc* proc) {
     return;
 }
 
-void SubtitleHelp_OnEnd() {
-
+void SubtitleHelp_OnEnd(void)
+{
     gBmSt.cameraMax.y -= 16;
 
     CameraMove_8015EDC(0);
@@ -185,8 +170,8 @@ void SubtitleHelp_OnEnd() {
 }
 
 
-void SubtitleHelp_Loop(struct SubtitleHelpProc* proc) {
-
+void SubtitleHelp_Loop(struct SubtitleHelpProc * proc)
+{
     static u8 lut[] = {
         0x90, 0x91, 0x92, 0x94, 0x96, 0x99, 0x9C, 0x00,
     };
@@ -221,7 +206,7 @@ struct ProcCmd CONST_DATA gProcScr_SubtitleHelp[] = {
     PROC_BLOCK,
 };
 
-void StartSubtitleHelp(ProcPtr parent, const char* string) {
+void StartSubtitleHelp(ProcPtr parent, const char * string) {
 
     if (gPlaySt.config.noSubtitleHelp != 1) {
         struct SubtitleHelpProc* proc = Proc_Start(gProcScr_SubtitleHelp, parent);
@@ -247,7 +232,8 @@ s8 IsSubtitleHelpActive() {
     return Proc_Find(gProcScr_SubtitleHelp) != 0;
 }
 
-void sub_8035770(ProcPtr parent, const char* string) {
+void sub_8035770(ProcPtr parent, const char * string)
+{
     struct SubtitleHelpProc* proc;
 
     proc = Proc_Find(gProcScr_SubtitleHelp);

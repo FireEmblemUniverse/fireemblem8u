@@ -215,6 +215,50 @@ enum prepitem_textindex {
 
 extern struct Text gPrepItemTexts[32];
 
+struct PrepItemSupplyProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct Unit* unit;
+    /* 30 */ u8 unk_30;
+    /* 31 */ u8 unitInvIdx;
+    /* 32 */ s8 scrollAmount;
+    /* 33 */ u8 unk_33;
+    /* 34 */ u8 unk_34;
+    /* 35 */ u8 currentPage;
+    /* 36 */ u16 unk_36;
+    /* 38 */ u16 unk_38;
+    /* 3A */ u16 idxPerPage[9];
+    /* 4C */ u16 yOffsetPerPage[9];
+};
+
+// TODO: Move to a common "worldmap.h"
+struct GMapBaseMenuProc {
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 unk_29;
+    /* 2A */ u8 unk_2a;
+    /* 2B */ u8 unk_2b;
+};
+
+struct GMapBaseMenuProc* sub_80C4048(void);
+
+struct Struct02013648 {
+    /* 00 */ struct Font font;
+    /* 18 */ struct Text th[16];
+};
+
+struct PrepItemListProc {
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ u8 unitInvIdx;
+    /* 31 */ s8 scrollAmount;
+    /* 32 */ u8 unk_32;
+    /* 33 */ u8 currentPage; // item type / category
+    /* 34 */ u16 unk_34; // initialized to 0xff and untouched
+    /* 36 */ u16 unk_36; // 1 when helpbox is open, 0 (or 0xff?) when closed
+    /* 38 */ u16 idxPerPage[9];
+    /* 4A */ u16 yOffsetPerPage[9];
+};
+
 extern struct Text gPrepMainMenuTexts[9];
 extern u8 gPrepUnitPool[];
 extern u8 gBanimScrRight[];
@@ -233,7 +277,7 @@ extern u16 gUnknown_02012F56;
 // extern ??? gUnknown_02013630
 // extern ??? gUnknown_02013640
 // extern ??? gUnknown_02013648
-// extern ??? gUnknown_02013660
+extern struct Text gUnknown_02013660[16];
 // extern ??? gUnknown_02013668
 // extern ??? gUnknown_02013670
 // extern ??? gUnknown_02013698
@@ -290,19 +334,19 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepItemUseJunaFruit[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemSupplyScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_BmSupplyScreen[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepItemListScreen[];
-// extern ??? gUnknown_08A195F8
-// extern ??? gUnknown_08A19608
+extern u16 gUnknown_08A195F8[];
+extern u16 * gUnknown_08A19608[];
 // extern ??? gProcScr_FortuneSubMenu
 extern int gUnknown_08A196BC[]; /* msg lists */
 // extern ??? gUnknown_08A196D0
 extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycursor
 extern u8 Img_MenuScrollBar[];
 extern u16 Pal_MenuScrollBar[];
-// extern ??? gUnknown_08A19CCC
+extern u8 gUnknown_08A19CCC[]; // gfx
 extern u16 gUnknown_08A1A084[]; // pal
-// extern ??? gUnknown_08A1A0A4
-// extern ??? gUnknown_08A1A23C
-// extern ??? gUnknown_08A1A3FC
+extern u8 gUnknown_08A1A0A4[]; // gfx
+extern u8 gUnknown_08A1A23C[]; // gfx
+extern u16 gUnknown_08A1A3FC[]; // pal
 extern u8 CONST_DATA gUnknown_08A1A41C[];
 extern u8 CONST_DATA gUnknown_08A1A434[];
 extern u8 CONST_DATA gUnknown_08A1A474[];
@@ -321,14 +365,14 @@ extern u8 CONST_DATA gUnknown_08A1B730[];
 extern u8 CONST_DATA gUnknown_08A1B7C8[];
 extern u8 gUnknown_08A1B8B8[]; // tsa
 extern u8 gUnknown_08A1B990[]; // tsa
-// extern ??? gUnknown_08A1B9EC
+extern u8 gUnknown_08A1B9EC[]; // tsa
 extern u16 CONST_DATA Img_PrepItemUseScreen[];
 extern u16 CONST_DATA Tsa_PrepItemUseScreen[];
 extern u8 gUnknown_08A1BBD0[]; // tsa?
 // extern ??? gUnknown_08A1BCC0
 // extern ??? gUnknown_08A1BD00
 // extern ??? gUnknown_08A1BD40
-// extern ??? gUnknown_08A1BD60
+extern u16 gUnknown_08A1BD60[];
 extern u8 gImg_UiSpinningArrow_Vertical[]; // arrow gfx
 extern u8 gImg_UiSpinningArrow_Horizontal[];
 // extern ??? gUnknown_08A1C8B4
@@ -610,7 +654,7 @@ ProcPtr StartPrepItemScreen(ProcPtr);
 // ??? sub_809A274(???);
 void PrepItemDrawPopupBox(int x, int y, int w, int h, int oam2);
 // ??? sub_809A504(???);
-// ??? PrepItemScreen_GiveAll(???);
+s8 PrepItemScreen_GiveAll(struct Unit * unit);
 // ??? PrepItemTrade_ApplyItemSwap(???);
 // ??? PrepItemTrade_DpadKeyHandler(???);
 void DrawPrepScreenItems(u16*, struct Text*, struct Unit*, u8);
@@ -659,4 +703,63 @@ void StartPrepItemSupplyProc(struct Unit* unit, ProcPtr parent);
 
 void StartWorldMapSellScreen(struct Unit* unit, ProcPtr parent);
 
-void StartPrepItemListScreenProc(struct Unit* unit, ProcPtr parent);
+void sub_809D244(void);
+void sub_809D278(int idx, ProcPtr proc);
+void StoreConvoyWeaponIconGraphics(int, int);
+void sub_809D300(struct Text * textBase, u16 * tm, int yLines, struct Unit * unit);
+void sub_809D418(u16 *, int);
+void sub_809D47C(struct Text *, u16 *, int, struct Unit *);
+void sub_809D47C(struct Text * textBase, u16 * tm, int yLines, struct Unit * unit);
+void PrepItemSupply_OnHBlank(void);
+void PrepItemSupply_Init(struct PrepItemSupplyProc * proc);
+void sub_809D608(void);
+void sub_809D644(struct PrepItemSupplyProc * proc);
+void sub_809D6CC(void);
+void PutGiveTakeBoxSprites(void);
+void PutGiveSprites(void);
+void PutTakeSprites(void);
+void Supply_PutHighlightedCategorySprites(struct PrepItemSupplyProc * proc);
+void sub_809D8D4(u16 * tm, u32 chr, int pal);
+void sub_809D914(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_InitGfx(struct PrepItemSupplyProc * proc);
+void sub_809DC70(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc * proc);
+void sub_809DEFC(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_SwitchPageLeft(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_SwitchPageRight(struct PrepItemSupplyProc * proc);
+void sub_809E100(struct PrepItemSupplyProc * proc);
+void sub_809E184(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_ScrollVertical(struct PrepItemSupplyProc * proc, int amount);
+void sub_809E2BC(void);
+void sub_809E2C8(struct PrepItemSupplyProc * proc);
+void sub_809E420(struct PrepItemSupplyProc * proc);
+s8 sub_809E7A8(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_SwitchToUnitInventory(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc * proc);
+void PrepItemSupply_OnEnd(struct PrepItemSupplyProc * proc);
+void StartPrepItemSupplyProc(struct Unit * unit, ProcPtr parent);
+void sub_809EAF4(void);
+void sub_809EB14(void);
+void StartBmSupply(struct Unit *, ProcPtr);
+void MaybeStartSelectConvoyItemProc(struct Unit *, ProcPtr);
+void PrepItemList_Init(struct PrepItemListProc * proc);
+void sub_809EBF0(void);
+void PrepItemList_DrawCurrentOwnerText(struct PrepItemListProc *);
+void List_PutHighlightedCategorySprites(struct PrepItemListProc *);
+void PrepItemList_InitGfx(struct PrepItemListProc * proc);
+void PrepItemList_OnEnd(struct PrepItemListProc * proc);
+void sub_809F150(struct PrepItemListProc * proc);
+void PrepItemList_SwitchPageLeft(struct PrepItemListProc * proc);
+void PrepItemList_SwitchPageRight(struct PrepItemListProc * proc);
+void sub_809F370(struct PrepItemListProc *);
+void PrepItemList_ScrollVertical(struct PrepItemListProc * proc, int amount);
+void sub_809F498(struct PrepItemListProc * proc);
+void sub_809F5F4(struct PrepItemListProc *);
+void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc * proc);
+s8 sub_809FA88(struct PrepItemListProc * proc);
+void PrepItemList_SwitchToUnitInventory(struct PrepItemListProc * proc);
+void sub_809FB70(struct PrepItemListProc * proc);
+void PrepItemList_Loop_UnitInvKeyHandler(struct PrepItemListProc * proc);
+void PrepItemList_StartTradeScreen(struct PrepItemListProc * proc);
+void StartPrepItemListScreenProc(struct Unit * unit, ProcPtr parent);
