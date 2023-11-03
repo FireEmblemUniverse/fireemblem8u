@@ -266,7 +266,7 @@ void sub_809D6CC(void)
         GetConvoyItemCount_()
     );
     PutSpecialChar(gBG0TilemapBuffer + 0x34 + 6, TEXT_COLOR_SYSTEM_WHITE, TEXT_SPECIAL_SLASH);
-    PutNumber(gBG0TilemapBuffer + 0x34 + 9, 2, 100);
+    PutNumber(gBG0TilemapBuffer + 0x34 + 9, 2, CONVOY_ITEM_COUNT);
 
     BG_EnableSyncByMask(1);
 
@@ -1021,7 +1021,7 @@ void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc * proc)
 
     gActionData.unitActionType = UNIT_ACTION_TRADED_SUPPLY;
 
-    if ((unitItemCount == 0) || (GetConvoyItemCount_() == 100)) {
+    if ((unitItemCount == 0) || (GetConvoyItemCount_() == CONVOY_ITEM_COUNT)) {
         Proc_Goto(proc, 1);
         PlaySoundEffect(0x6b);
     } else {

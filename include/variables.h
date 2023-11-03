@@ -186,7 +186,7 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gExtraMapStatus
 // extern ??? gSaveMenuRTextData
 // extern ??? gUnknown_0203EFB4
-extern struct UnitDefinition gLoadUnitBuffer[];
+
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
 

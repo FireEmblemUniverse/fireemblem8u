@@ -2,6 +2,7 @@
 #define GUARD_EVENT_H
 
 #include "global.h"
+#include "bmunit.h"
 
 struct UnitDefinition;
 
@@ -265,6 +266,7 @@ extern struct Unit * gLoadedUnitBuffer;
 extern u32 gEventSlotQueue[]; // event slot queue (just an array)
 extern u32 gEventSlotCounter;
 extern struct ProcCmd gGenericProc[4];
+extern struct UnitDefinition gLoadUnitBuffer[];
 
 extern const struct ProcCmd gProc_StdEventEngine[]; // map event engine proc
 extern const struct ProcCmd gProc_BattleEventEngine[]; // battle (?) event engine proc

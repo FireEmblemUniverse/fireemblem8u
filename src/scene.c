@@ -15,66 +15,8 @@
 #include "uiutils.h"
 #include "ekrbattle.h"
 #include "bmlib.h"
+#include "bmshop.h"
 #include "scene.h"
-
-struct TalkState
-{
-    /* 00 */ const char* str;
-    /* 04 */ const char* strBackup;
-    /* 08 */ u8 printColor;
-    /* 09 */ u8 lineActive;
-    /* 0A */ u8 lines;
-    /* 0B */ u8 topTextNum;
-    /* 0C */ u8 xText;
-    /* 0D */ u8 yText;
-    /* 0E */ u8 activeWidth;
-    /* 0F */ s8 speakingFaceSlot;
-    /* 10 */ u8 speakingWidth;
-    /* 11 */ u8 activeFaceSlot;
-    /* 12 */ s8 instantScroll;
-    /* 13 */ s8 printDelay;
-    /* 14 */ s8 printClock;
-    /* 15 */ u8 putLines;
-    /* 16 */ u8 unk16;
-    /* 17 */ u8 unk17;
-    /* 18 */ struct FaceProc* faces[8];
-    /* 38 */ void(*unk38)(ProcPtr proc);
-    /* 3C */ u32 userNumber;
-    /* 40 */ char userNumberString[0x20];
-    /* 60 */ char userString[0x20];
-    /* 80 */ u16 config;
-    /* 82 */ u8 unk82;
-    /* 83 */ u8 unk83;
-};
-
-struct TalkDebugProc {
-    PROC_HEADER;
-
-    u8 pad[0x4c-0x29];
-    int unk_4c;
-    int unk_50;
-    int unk_54;
-    int unk_58;
-    int unk_5c;
-    int unk_60;
-    s16 unk_64;
-};
-
-struct ChoiceEntryInfo
-{
-    /* 00 */ u16 msgid;
-    /* 04 */ void(*onSwitchIn)(void);
-};
-
-struct TalkChoiceProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ s16 selectedChoice;
-    /* 2C */ s16 xDisp;
-    /* 2E */ s16 yDisp;
-    /* 30 */ int pad;
-    /* 34 */ const struct ChoiceEntryInfo* choices;
-};
 
 // various bits of the box opening animation
 extern u8 CONST_DATA gUnknown_089E8484[];
@@ -84,30 +26,6 @@ extern u8 CONST_DATA gUnknown_089E8384[];
 extern u8 CONST_DATA gUnknown_089E82E0[];
 extern u8 CONST_DATA gUnknown_089E8238[];
 
-// funcs
-void TalkSkipListener_OnIdle(ProcPtr);
-void Talk_OnEnd(void);
-void Talk_OnInit(void);
-void Talk_OnIdle(ProcPtr);
-void TalkFaceMove_OnInit(struct Proc*);
-void TalkFaceMove_OnIdle(struct Proc*);
-void TalkPause_OnIdle(struct Proc*);
-void TalkWaitForInput_OnIdle(struct Proc*);
-void TalkShiftClearAll_OnInit(struct Proc*);
-void TalkShiftClearAll_OnIdle(struct Proc*);
-void sub_80B42E8(void);
-void sub_80B4308(void);
-void TalkChoice_OnIdle(struct TalkChoiceProc*);
-void TalkShiftClear_OnInit(struct Proc*);
-void TalkShiftClear_OnIdle(struct Proc*);
-void sub_80080D0(ProcPtr);
-void sub_8008108(void);
-void TalkBubbleOpen_OnIdle(struct Proc*);
-void TalkPutSpriteText_OnEnd(void);
-void TalkPutSpriteText_OnIdle(struct Proc*);
-void sub_8008F54(void);
-s8 sub_8008F3C(void);
-void sub_8008FAC(struct TalkDebugProc*);
 void sub_8008FB4(ProcPtr);
 void sub_800903C(ProcPtr);
 void sub_800904C(ProcPtr);
@@ -128,22 +46,21 @@ void InitTalkTextWin(int, int, int, int);
 void StartOpenTalkBubble(void);
 s8 TalkPrepNextChar(ProcPtr);
 s8 TalkSpritePrepNextChar(ProcPtr);
-int TalkInterpret(ProcPtr);
+
 void SetTalkFaceLayer(int, int);
 s8 IsTalkFaceMoving(void);
 void ClearTalkBubble(void);
 void StartTalkOpen(int, ProcPtr);
 s8 TalkHasCorrectBubble(void);
-void SetTalkFaceMouthMove(int);
-void SetTalkFaceNoMouthMove(int);
-int GetStrTalkLen(const char*, s8);
+
+
 void TalkBgSync(int);
 int GetTalkPauseCmdDuration(int);
 void ClearTalkText(void);
 void sub_800815C(void);
 void ClearTalkBubble(void);
 int SetActiveTalkFace(int);
-void sub_8007854(ProcPtr);
+
 void MoveTalkFace(int, int);
 void StartTalkWaitForInput(ProcPtr parent, int x, int y);
 void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16* tm, int defaultChoice, int color, ProcPtr parent);

@@ -1,27 +1,76 @@
 #ifndef GUARD_BMSHOP_H
 #define GUARD_BMSHOP_H
 
+#include "global.h"
+#include "proc.h"
+#include "bmunit.h"
+
 enum {
     SHOP_TYPE_ARMORY        = 0,
     SHOP_TYPE_VENDOR        = 1,
     SHOP_TYPE_SECRET_SHOP   = 2
 };
 
+struct BmShopProc {
+    /* 00 */ PROC_HEADER;
 
-// ??? ShopProc_GetPortraitIndex(???);
-// ??? StartShopDialogue(???);
-// ??? StartDefaultArmoryScreen(???);
+    /* 2C */ struct Unit* unit;
+    /* 30 */ u16 shopItems[20];
+
+    /* 58 */ u16 unk_58;
+
+    /* 5A */ u8 shopItemCount;
+    /* 5B */ u8 unitItemCount;
+    /* 5C */ u8 curIndex;
+    /* 5D */ u8 unk_5d;
+    /* 5E */ u8 unk_5e;
+    /* 5F */ u8 unk_5f; // maybe top visible item in menu?
+    /* 60 */ u8 unk_60;
+    /* 61 */ u8 shopType;
+    /* 62 */ u8 helpTextActive;
+
+    /* 64 */ s16 unk_64;
+    /* 66 */ s16 unk_66;
+    /* 68 */ s16 unk_68;
+};
+
+struct BmShop2Proc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 _pad[0x54-0x29];
+
+    /* 54 */ struct BmShopProc* unk_54;
+};
+
+typedef void (*ShopFunc)(struct BmShopProc*, int);
+
+struct ShopState {
+    /* 00 */ u16 unk_00;
+    /* 02 */ u16 unk_02;
+    /* 04 */ u16 unk_04;
+    /* 06 */ u16 unk_06;
+    /* 08 */ u16 unk_08;
+    /* 0A */ u16 unk_0A;
+    /* 0C */ u16 unk_0C;
+    /* 10 */ int unk_10;
+    /* 14 */ ShopFunc unk_14;
+    /* 18 */ ProcPtr unk_18;
+};
+
+int ShopProc_GetPortraitIndex(struct BmShopProc* proc);
+void StartShopDialogue(int baseMsgId, struct BmShopProc* proc);
+void StartDefaultArmoryScreen(struct Unit* unit, ProcPtr proc);
 void StartArmoryScreenOrphaned(struct Unit* unit, u16* shopItems);
 void StartArmoryScreen(struct Unit* unit, u16* shopItems, ProcPtr parent);
 void StartVendorScreenOrphaned(struct Unit* unit, u16* shopItems);
 void StartVendorScreen(struct Unit* unit, u16* shopItems, ProcPtr parent);
 void StartSecretShopScreenOrphaned(struct Unit* unit, u16* shopItems);
 void StartSecretShopScreen(struct Unit* unit, u16* shopItems, ProcPtr parent);
-// ??? StartArmoryScreen2(???);
-// ??? StartShopScreen(???);
-// ??? UpdateShopItemCounts(???);
-// ??? sub_80B42E8(???);
-// ??? sub_80B4308(???);
+void StartArmoryScreen2(struct Unit* unit, u16* shopItems);
+void StartShopScreen(struct Unit*, u16*, u8, ProcPtr);
+void UpdateShopItemCounts(struct BmShopProc*);
+void sub_80B42E8(void);
+void sub_80B4308(void);
 // ??? sub_80B4328(???);
 // ??? ShopProc_EnterShopDialogue(???);
 // ??? ShopProc_HandleEntryPrompt(???);
@@ -35,8 +84,7 @@ void StartSecretShopScreen(struct Unit* unit, u16* shopItems, ProcPtr parent);
 // ??? ShopProc_HandleSendToConvoyPrompt(???);
 // ??? ShopProc_NoSendToConvoyDialogue(???);
 // ??? ShopProc_AddItemToConvoy(???);
-// ??? ShopProc_SendToConvoyDialogue(???);
-// ??? ShopProc_CheckIfConvoyFull(???);
+void ShopProc_CheckIfConvoyFull(struct BmShopProc * proc);
 // ??? ShopProc_ConvoyFullDialogue(???);
 // ??? ShopProc_AnythingElseDialogue(???);
 // ??? ShopProc_SellDialogue(???);

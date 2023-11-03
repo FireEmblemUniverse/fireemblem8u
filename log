@@ -1,0 +1,1 @@
+cc -E -I tools/agbcc/include -iquote include -iquote . -nostdinc -undef src/bmdebug.c | iconv -f UTF-8 -t CP932 | tools/agbcc/bin/agbcc -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm -ffix-debug-line -g -o src/bmdebug.s

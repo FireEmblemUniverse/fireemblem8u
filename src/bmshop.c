@@ -24,52 +24,6 @@
 #include "constants/faces.h"
 #include "constants/items.h"
 
-struct BmShopProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct Unit* unit;
-    /* 30 */ u16 shopItems[20];
-
-    /* 58 */ u16 unk_58;
-
-    /* 5A */ u8 shopItemCount;
-    /* 5B */ u8 unitItemCount;
-    /* 5C */ u8 curIndex;
-    /* 5D */ u8 unk_5d;
-    /* 5E */ u8 unk_5e;
-    /* 5F */ u8 unk_5f; // maybe top visible item in menu?
-    /* 60 */ u8 unk_60;
-    /* 61 */ u8 shopType;
-    /* 62 */ u8 helpTextActive;
-
-    /* 64 */ s16 unk_64;
-    /* 66 */ s16 unk_66;
-    /* 68 */ s16 unk_68;
-};
-
-struct BmShop2Proc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 _pad[0x54-0x29];
-
-    /* 54 */ struct BmShopProc* unk_54;
-};
-
-typedef void (*ShopFunc)(struct BmShopProc*, int);
-
-struct ShopState {
-    /* 00 */ u16 unk_00;
-    /* 02 */ u16 unk_02;
-    /* 04 */ u16 unk_04;
-    /* 06 */ u16 unk_06;
-    /* 08 */ u16 unk_08;
-    /* 0A */ u16 unk_0A;
-    /* 0C */ u16 unk_0C;
-    /* 10 */ int unk_10;
-    /* 14 */ ShopFunc unk_14;
-    /* 18 */ ProcPtr unk_18;
-};
-
 u16 CONST_DATA gDefaultShopInventory[] = {
     ITEM_SWORD_IRON,
     ITEM_LANCE_IRON,
@@ -139,7 +93,7 @@ void ShopProc_AnythingElseRestartDialogue(struct BmShopProc* proc);
 void ShopProc_AnythingElseContinueDialogue(struct BmShopProc* proc);
 void ShopProc_TryAddItemToInventory(struct BmShopProc* proc);
 void ShopProc_HandleSendToConvoyPrompt(struct BmShopProc* proc);
-void ShopProc_CheckIfConvoyFull(struct BmShopProc* proc);
+
 void ShopProc_ConvoyFullDialogue(struct BmShopProc* proc);
 void ShopProc_AddItemToConvoy(struct BmShopProc* proc);
 void ShopProc_SendToConvoyDialogue(struct BmShopProc* proc);
@@ -334,8 +288,8 @@ struct ShopState* CONST_DATA gShopState = &sShopState;
 struct Text gText_GoldBox;
 
 // forward declaration
-void StartShopScreen(struct Unit*, u16*, u8, ProcPtr);
-void UpdateShopItemCounts(struct BmShopProc*);
+
+
 void sub_80B4F04(struct BmShopProc*);
 void sub_80B505C(struct BmShopProc*);
 void sub_80B5164(struct Text*, int, struct Unit*, u16*);
