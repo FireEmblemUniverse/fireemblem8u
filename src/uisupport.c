@@ -21,6 +21,7 @@
 #include "ev_triggercheck.h"
 #include "cgtext.h"
 #include "sysutil.h"
+#include "prepscreen.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -80,12 +81,6 @@ u16 CONST_DATA gSprite_SupportScreenBanner[] = {
     0x0000, 0x8040, 0x0008,
     0x8000, 0x8060, 0x000C,
 };
-
-extern u8 gUnknown_08A1DB80[];
-
-extern u8 gGfx_SupportScreenBanner[];
-extern u16 gPal_SupportScreenBanner[];
-extern u8 gTsa_SupportSubScreen[];
 
 int GetSupportScreenCharIdAt(int);
 void sub_80A199C(struct SupportScreenProc*, int);
@@ -437,9 +432,6 @@ void SupportScreen_OnInit(struct SupportScreenProc* proc) {
     proc->unk_3c = -1;
     return;
 }
-
-extern u8 gGfx_SupportMenu[];
-extern u16 gPal_SupportMenu[];
 
 //! FE8U = 0x080A10D0
 void DrawSupportBannerSprites_Init(struct Proc* proc) {

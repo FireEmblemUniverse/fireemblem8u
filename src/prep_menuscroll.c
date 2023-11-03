@@ -6,21 +6,6 @@
 
 #include "prepscreen.h"
 
-struct MenuScrollBarProc {
-    /* 00 */ PROC_HEADER;
-    /* 2A */ u16 xBase;
-    /* 2C */ u8 yBase;
-    /* 2D */ u8 numSegments;
-    /* 2E */ u16 currentSegment;
-    /* 30 */ u16 prevSegment;
-    /* 32 */ u16 numTotalRows;
-    /* 34 */ u8 numVisibleRows;
-    /* 36 */ u16 oam2Chr;
-    /* 38 */ u16 oam2Pal;
-    /* 3A */ u8 topArrowFrameIdx;
-    /* 3B */ u8 bottomArrowFrameIdx;
-};
-
 u16 CONST_DATA gSprite_MenuScrollContainer[] = {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, 0,
@@ -128,7 +113,8 @@ const u16* CONST_DATA gMenuScrollArrowSprites[] = {
 };
 
 //! FE8U = 0x080973B0
-void MenuScroll_Init(struct MenuScrollBarProc* proc) {
+void MenuScroll_Init(struct MenuScrollBarProc * proc)
+{
     proc->xBase = 0;
     proc->yBase = 0;
     proc->numSegments = 0;
@@ -296,7 +282,8 @@ PROC_LABEL(1),
 };
 
 //! FE8U = 0x0809764C
-void LockMenuScrollBar(void) {
+void LockMenuScrollBar(void)
+{
     struct MenuScrollBarProc* proc = Proc_Find(ProcScr_menu_scroll);
 
     if (proc) {

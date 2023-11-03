@@ -10,13 +10,6 @@
 * a sub-menu in the prep screen. Unused in FE7/FE8.
 */
 
-struct SallyCirProc {
-    /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ s8 unk_2a;
-    /* 2C */ int unk_2c;
-};
-
 struct Win1H {
     /* 00 */ u8 left;
     /* 01 */ u8 right;
@@ -26,7 +19,8 @@ extern struct Win1H gUnknown_02012F58[][160];
 extern struct Win1H* gUnknown_02013458[];
 
 //! FE8U = 0x080977AC
-void sub_80977AC(struct Text* th, u16* tm, int color, int x, const char* str) {
+void sub_80977AC(struct Text * th, u16 * tm, int color, int x, const char * str)
+{
     ClearText(th);
     Text_SetColor(th, color);
     Text_SetCursor(th, x);
@@ -37,7 +31,8 @@ void sub_80977AC(struct Text* th, u16* tm, int color, int x, const char* str) {
 }
 
 //! FE8U = 0x080977EC
-void sub_80977EC(u8* a, u16* b) {
+void sub_80977EC(u8 * a, u16 * b)
+{
     if (gUnknown_02012F56 == 0) {
         *a = 0;
         *b = 0;
@@ -73,7 +68,8 @@ void sub_80977EC(u8* a, u16* b) {
 }
 
 //! FE8U = 0x08097840
-void SallyCir_OnHBlank(void) {
+void SallyCir_OnHBlank(void)
+{
     u16 vcount = REG_VCOUNT;
 
     if (vcount == 160) {
@@ -95,7 +91,8 @@ void SallyCir_OnHBlank(void) {
 }
 
 //! FE8U = 0x0809788C
-void SallyCir_Init(struct SallyCirProc* proc) {
+void SallyCir_Init(struct SallyCirProc * proc)
+{
     u16 i;
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
@@ -157,7 +154,8 @@ void SallyCir_Init(struct SallyCirProc* proc) {
 }
 
 //! FE8U = 0x080979DC
-void SallyCir_Loop(struct SallyCirProc* proc) {
+void SallyCir_Loop(struct SallyCirProc * proc)
+{
     s16 i;
 
     proc->unk_2c += proc->unk_2a;
@@ -199,7 +197,8 @@ void SallyCir_Loop(struct SallyCirProc* proc) {
 }
 
 //! FE8U = 0x08097AA0
-void SallyCir_OnEnd(void) {
+void SallyCir_OnEnd(void)
+{
     SetPrimaryHBlankHandler(NULL);
     return;
 }
@@ -217,7 +216,8 @@ struct ProcCmd CONST_DATA ProcScr_SallyCir[] = {
 };
 
 //! FE8U = 0x08097AAC
-struct SallyCirProc* StartSallyCirProc(ProcPtr parent, u8 unk) {
+struct SallyCirProc* StartSallyCirProc(ProcPtr parent, u8 unk)
+{
     struct SallyCirProc* proc = Proc_StartBlocking(ProcScr_SallyCir, parent);
     proc->unk_2a = unk;
 
@@ -225,7 +225,8 @@ struct SallyCirProc* StartSallyCirProc(ProcPtr parent, u8 unk) {
 }
 
 //! FE8U = 0x08097ACC
-void sub_8097ACC(struct SallyCirProc* proc) {
+void sub_8097ACC(struct SallyCirProc * proc)
+{
     proc->unk_29 = 0;
 
     gLCDControlBuffer.dispcnt.bg0_on = 1;
@@ -266,7 +267,8 @@ void sub_8097ACC(struct SallyCirProc* proc) {
 }
 
 //! FE8U = 0x08097B98
-void sub_8097B98(struct SallyCirProc* proc) {
+void sub_8097B98(struct SallyCirProc * proc)
+{
     int a;
     int t;
 

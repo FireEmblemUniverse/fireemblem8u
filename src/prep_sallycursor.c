@@ -34,48 +34,14 @@
 #include "menu_def.h"
 #include "worldmap.h"
 #include "sysutil.h"
+#include "savemenu.h"
+#include "bmsave.h"
+#include "bmlib.h"
+#include "eventcall.h"
 
-// hino.s
-void WaitForFade(ProcPtr);
-
-// evtsub.s
-void InitPlayerUnitPositionsForPrepScreen();
-void sub_801240C();
-
-// code.s
-s8 IsCharacterForceDeployed(int);
-void SortPlayerUnitsForPrepScreen();
-u8 CanPrepScreenSave();
-int CalcForceDeployedUnitCounts();
-void StartPrepAtMenu(ProcPtr);
-void PrepAtMenuExists(ProcPtr);
-void StartPrepScreenMenu(ProcPtr);
-void SetPrepScreenMenuOnBPress(const void*);
-void SetPrepScreenMenuOnStartPress(const void*);
-void SetPrepScreenMenuOnEnd(const void*);
-void SetPrepScreenMenuItem(int, const void*, int, int, int);
-void SetPrepScreenMenuSelectedItem(int);
-void DrawPrepScreenMenuFrameAt(int, int);
-int PrepScreenMenuExists();
-void EnablePrepScreenMenu(ProcPtr);
-void PidStatsSubFavval100(u8);
-void PidStatsAddDeployAmt(u8);
-void sub_80B9FC0();
-void Make6C_SaveMenuPostChapter(ProcPtr);
-void NewPrepScreenTraineePromotionManager(ProcPtr);
-int PrepScreenTraineePromotionManagerExists(ProcPtr);
 int CheckInLinkArena();
 
-// asmcs.s
-void nullsub_20(ProcPtr);
-
-
-extern struct Vec2 gActiveUnitMoveOrigin;
-
-extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
-extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
-
-static struct ProcCmd CONST_DATA sProcScr_SALLYCURSORHelpPrompt[] = {
+struct ProcCmd CONST_DATA gProcScr_SALLYCURSORHelpPrompt[] = {
     PROC_CALL(sub_8033548),
     PROC_REPEAT(sub_8033574),
 
@@ -311,7 +277,6 @@ PROC_LABEL(58),
     PROC_END,
 };
 
-
 int GetPlayerLeaderUnitId() {
     int i;
     int unitId;
@@ -521,12 +486,12 @@ void sub_8033608() {
 }
 
 void sub_8033620(ProcPtr proc) {
-    Proc_Start(sProcScr_SALLYCURSORHelpPrompt, proc);
+    Proc_Start(gProcScr_SALLYCURSORHelpPrompt, proc);
 }
 
 void PrepMapMenu_OnEnd() {
     EndHelpPromptSprite();
-    Proc_EndEach(sProcScr_SALLYCURSORHelpPrompt);
+    Proc_EndEach(gProcScr_SALLYCURSORHelpPrompt);
 }
 
 void PrepScreenProc_StartMapMenu(struct ProcPrepSallyCursor* proc) {
