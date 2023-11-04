@@ -25,14 +25,9 @@
 
 #include "bmusemind.h"
 
-extern struct UnitDefinition gUnknown_03001788;
-
-static int sub_802EF70(ProcPtr);
-static int sub_802EF80(void);
-
 s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
-static struct ProcCmd CONST_DATA sProcScr_ExecWarpStaff[] = {
+ struct ProcCmd CONST_DATA ProcScr_ExecWarpStaff[] = {
     PROC_SLEEP(0),
     PROC_CALL_2(sub_802EF70),
     PROC_CALL(sub_802EF80),
@@ -40,18 +35,14 @@ static struct ProcCmd CONST_DATA sProcScr_ExecWarpStaff[] = {
     PROC_END,
 };
 
-static void AfterItemUse_SetTargetStatus(void);
-
-static struct ProcCmd CONST_DATA sProcScr_SetTargetStatus[] = {
+ struct ProcCmd CONST_DATA ProcScr_SetTargetStatus[] = {
     PROC_SLEEP(1),
     PROC_CALL(AfterItemUse_SetTargetStatus),
 
     PROC_END,
 };
 
-static void sub_8030050(void);
-
-static struct ProcCmd CONST_DATA sProcScr_ExecNightmareStaff[] = {
+ struct ProcCmd CONST_DATA ProcScr_ExecNightmareStaff[] = {
     PROC_SLEEP(1),
     PROC_CALL(sub_8030050),
 
@@ -271,7 +262,7 @@ void ExecWarpStaff(ProcPtr proc) {
     BattleApplyItemEffect(proc);
     BeginBattleAnimations();
 
-    Proc_StartBlocking(sProcScr_ExecWarpStaff, proc);
+    Proc_StartBlocking(ProcScr_ExecWarpStaff, proc);
 
     return;
 }
@@ -1059,12 +1050,12 @@ void ActionStaffDoorChestUseItem(ProcPtr proc) {
     }
 
     if (itemId == ITEM_NIGHTMARE) {
-        Proc_StartBlocking(sProcScr_ExecNightmareStaff, proc);
+        Proc_StartBlocking(ProcScr_ExecNightmareStaff, proc);
         return;
     }
 
     if (gBattleTarget.statusOut >= 0) {
-        Proc_StartBlocking(sProcScr_SetTargetStatus, proc);
+        Proc_StartBlocking(ProcScr_SetTargetStatus, proc);
     }
 
     return;
@@ -1086,7 +1077,7 @@ void ActionPick(ProcPtr proc) {
     gBattleTarget.statusOut = -1;
 
     if (gBattleTarget.statusOut >= 0) {
-        Proc_StartBlocking(sProcScr_SetTargetStatus, proc);
+        Proc_StartBlocking(ProcScr_SetTargetStatus, proc);
     }
 
     return;

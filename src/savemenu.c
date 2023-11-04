@@ -1815,7 +1815,7 @@ void savemenu_SetDifficultyChoice(int a, int b)
     return;
 }
 
-struct BonusClaimEnt * CONST_DATA gUnknown_08A204B8 = gUnknown_02000968;
+struct BonusClaimEnt * CONST_DATA gUnknown_08A204B8 = gBonusClaimData;
 
 //! FE8U = 0x080AA550
 void sub_80AA550(struct Proc8A204BC * proc)
