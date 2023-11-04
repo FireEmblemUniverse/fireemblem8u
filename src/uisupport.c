@@ -21,46 +21,8 @@
 #include "ev_triggercheck.h"
 #include "cgtext.h"
 #include "sysutil.h"
-
-struct SupportScreenUnit {
-    /* 00 */ u8 charId;
-    /* 01 */ u8 classId;
-    /* 02 */ u8 supportLevel[UNIT_SUPPORT_MAX_COUNT];
-    /* 09 */ u8 partnerClassId[UNIT_SUPPORT_MAX_COUNT];
-    /* 10 */ s8 partnerIsAlive[UNIT_SUPPORT_MAX_COUNT];
-};
-
-struct SupportScreenProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ int curIndex;
-    /* 3C */ int unk_3c;
-    /* 40 */ s8 unk_40; // possibly direction (up or down)
-    /* 41 */ u8 unk_41; // possibly number of positions to move up or down
-    /* 42 */ s8 fromPrepScreen; // true if from prep screen; false if from title screen
-    /* 43 */ s8 helpTextActive;
-};
-
-struct SubScreenProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ int unitIdx;
-    /* 30 */ int x;
-    /* 34 */ int y;
-    /* 38 */ s8 fromPrepScreen;
-    /* 39 */ u8 unk_39;
-    /* 3A */ u8 unk_3a;
-    /* 3B */ u8 unk_3b;
-    /* 3C */ u8 partnerCount;
-    /* 3D */ u8 remainingSupports;
-    /* 3E */ u8 songId;
-    /* 3F */ u8 partnerState[UNIT_SUPPORT_MAX_COUNT];
-    /* 46 */ u8 supportLevel[UNIT_SUPPORT_MAX_COUNT];
-    /* 4D */ u8 partnerClassId[UNIT_SUPPORT_MAX_COUNT];
-};
+#include "prepscreen.h"
+#include "uisupport.h"
 
 struct SupportScreenUnit* CONST_DATA sSupportScreenUnits = (void*)gStringBufferAlt;
 
@@ -81,22 +43,11 @@ u16 CONST_DATA gSprite_SupportScreenBanner[] = {
     0x8000, 0x8060, 0x000C,
 };
 
-extern u8 gUnknown_08A1DB80[];
-
-extern u8 gGfx_SupportScreenBanner[];
-extern u16 gPal_SupportScreenBanner[];
-extern u8 gTsa_SupportSubScreen[];
-
 int GetSupportScreenCharIdAt(int);
 void sub_80A199C(struct SupportScreenProc*, int);
 int GetSupportScreenPartnerCount(int);
 void StartSupportUnitSubScreen(s8, int, ProcPtr);
 
-extern struct Text gPrepItemTexts[];
-extern struct Text gUnknown_02013590[];
-
-extern int sSupportScreenUnitCount;
-extern u16 gUnknown_020136F4[];
 extern u8 gUnknown_0203E884;
 
 //! FE8U = 0x080A0A94
@@ -437,9 +388,6 @@ void SupportScreen_OnInit(struct SupportScreenProc* proc) {
     proc->unk_3c = -1;
     return;
 }
-
-extern u8 gGfx_SupportMenu[];
-extern u16 gPal_SupportMenu[];
 
 //! FE8U = 0x080A10D0
 void DrawSupportBannerSprites_Init(struct Proc* proc) {

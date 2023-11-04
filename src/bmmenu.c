@@ -37,6 +37,7 @@
 #include "menu_def.h"
 #include "worldmap.h"
 #include "savemenu.h"
+#include "prepscreen.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"

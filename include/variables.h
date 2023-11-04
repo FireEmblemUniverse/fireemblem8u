@@ -186,7 +186,7 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gExtraMapStatus
 // extern ??? gSaveMenuRTextData
 // extern ??? gUnknown_0203EFB4
-// extern ??? gUnknown_0203EFB8
+
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
 
@@ -271,8 +271,8 @@ extern int gEkrXQuakeOff;
 extern int gBanimDebugCurrentIndex;
 extern int gEkrYQuakeOff;
 
-// extern ??? gPermanentFlagBits
-// extern ??? gChapterFlagBits
+extern u8 gPermanentFlagBits[];
+extern u8 gChapterFlagBits[];
 extern struct GMapData gGMData;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
@@ -934,7 +934,7 @@ extern u8 CONST_DATA gItemUseJidList_SolarBrace[]; // Solar Brace class list
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
 // extern ??? gUnknown_088D2058
-// extern ??? gConvoBackgroundData
+extern struct CONST_DATA gfx_set gConvoBackgroundData[];
 extern u8 CONST_DATA gPromoJidLut[][2];
 extern u8 gUnknown_0895E0A4[];
 extern u8 gUnknown_0895EEA4[];

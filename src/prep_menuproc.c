@@ -42,7 +42,7 @@ void TraineePromo_ResetScreenEffect()
     SetBlendTargetA(1, 1, 1, 1, 1);
 }
 
-void DoPromoteAnimForChar100(struct Proc08A184B4 *proc)
+void DoPromoteAnimForChar100(struct Proc08A184B4 * proc)
 {
     struct Unit *unit;
 
@@ -348,7 +348,7 @@ void sub_8096C34(int a1, int a2)
     BG_EnableSyncByMask(1);
 }
 
-void PrepMenu_OnInit(struct ProcPrepMenu *proc)
+void PrepMenu_OnInit(struct ProcPrepMenu * proc)
 {
     int i;
     for (i = 0; i < 8; i++)
@@ -501,7 +501,7 @@ void SetPrepScreenMenuOnStartPress(const void* func)
         proc->on_PressStart = func;
 }
 
-void SetPrepScreenMenuOnEnd(const void* func)
+void SetPrepScreenMenuOnEnd(const void * func)
 {
     struct ProcPrepMenu *proc;
     proc = Proc_Find(ProcScr_PrepMenu);
@@ -643,7 +643,7 @@ void SetPrepScreenMenuPosition(int x, int y)
     }
 }
 
-int GetPrepMenuItemAmt()
+int GetPrepMenuItemAmt(void)
 {
     struct ProcPrepMenu *proc;
     proc = Proc_Find(ProcScr_PrepMenu);

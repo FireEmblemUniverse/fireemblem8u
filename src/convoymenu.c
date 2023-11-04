@@ -14,6 +14,7 @@
 #include "popup.h"
 #include "face.h"
 #include "scene.h"
+#include "prepscreen.h"
 
 struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[] = {
     PROC_CALL_2(ConvoyMenuProc_StarMenu),
@@ -29,17 +30,12 @@ PROC_LABEL(0x63),
     PROC_END
 };
 
-extern EWRAM_DATA u8 gConvoyItemCount;
-extern const struct MenuDef gSendToConvoyMenuDef;
-extern const struct MenuDef gConvoyMenuDef;
-
-
 int ConvoyMenuProc_StarMenu(ProcPtr proc)
 {
     gConvoyItemCount = GetConvoyItemCount();
     LoadIconPalettes(4);
 
-    if (HasConvoyAccess() && (gConvoyItemCount < 100))
+    if (HasConvoyAccess() && (gConvoyItemCount < CONVOY_ITEM_COUNT))
         StartMenu(&gSendToConvoyMenuDef, (ProcPtr)proc);
     else
         StartMenu(&gConvoyMenuDef, (ProcPtr)proc);
@@ -79,12 +75,14 @@ void ConvoyMenuProc_SetupActiveUnit(ProcPtr proc)
 
 void ConvoyMenuProc_ExecBootlegPopup(ProcPtr proc)
 {
-    if (HasConvoyAccess()) {
-        if (gConvoyItemCount < 100)
+    if (HasConvoyAccess())
+    {
+        if (gConvoyItemCount < CONVOY_ITEM_COUNT)
             NewPopup2_SendItem(proc, gActionData.item);
         else
             NewPopup2_DropItem(proc, gActionData.item);
-    } else
+    }
+    else
         NewPopup2_DropItem(proc, gActionData.item);
 }
 
@@ -100,7 +98,7 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
     SetFaceBlinkControlById(0, 5);
     ForceMenuItemPanel(proc, unit, 0xF, 0xA);
 
-    if (HasConvoyAccess() && GetConvoyItemCount() < 100)
+    if (HasConvoyAccess() && GetConvoyItemCount() < CONVOY_ITEM_COUNT)
         /* Your inventory is full. Send an item to Supply.[.] */
         StartSubtitleHelp(proc, GetStringFromIndex(0x867));
     else

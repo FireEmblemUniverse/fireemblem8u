@@ -345,7 +345,7 @@ void PrepItemUseParallel_UpdateSMS(struct ProcPrepItemUse *proc)
     SyncUnitSpriteSheet();
 }
 
-void PrepItemUse_OnInit(struct ProcPrepItemUse *proc)
+void PrepItemUse_OnInit(struct ProcPrepItemUse * proc)
 {
     proc->slot = 0;
     proc->slot_rtext = 0xFF;
@@ -571,13 +571,13 @@ void PrepItemUseClearSubBox(void)
     BG_EnableSyncByMask(4);
 }
 
-void PrepItemUse_ConfirmWindowInit(struct ProcPrepItemUse *proc)
+void PrepItemUse_ConfirmWindowInit(struct ProcPrepItemUse * proc)
 {
     PrepItemUseDrawSubBox();
     ShowSysHandCursor(proc->pos_subbox * 0x20 + 0x94, 0x78, 0, 0x800);
 }
 
-void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse *proc)
+void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse * proc)
 {
     int old = proc->pos_subbox;
 
@@ -621,7 +621,7 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse *proc)
     }
 }
 
-void PrepItemUse_HandleItemEffect(struct ProcPrepItemUse *proc)
+void PrepItemUse_HandleItemEffect(struct ProcPrepItemUse * proc)
 {
     switch (GetItemIndex(proc->unit->items[proc->slot])) {
     case ITEM_HEAVENSEAL:
@@ -648,7 +648,7 @@ void PrepItemUse_HandleItemEffect(struct ProcPrepItemUse *proc)
     }
 }
 
-void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse *proc)
+void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse * proc)
 {
     EndMuralBackground_();
     ResetText();
@@ -689,13 +689,13 @@ void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse *proc)
     BeginBattleAnimations();
 }
 
-void PrepItemUse_ExecPromoDoneUnusedIDLE(struct ProcPrepItemUse *proc)
+void PrepItemUse_ExecPromoDoneUnusedIDLE(struct ProcPrepItemUse * proc)
 {
     if (proc->game_lock == GetGameLock())
         Proc_Break(proc);
 }
 
-void PrepItemUse_PostPromotion(struct ProcPrepItemUse *proc)
+void PrepItemUse_PostPromotion(struct ProcPrepItemUse * proc)
 {
     int max = GetUnitItemCount(proc->unit);
 
@@ -712,7 +712,7 @@ void PrepItemUse_PostPromotion(struct ProcPrepItemUse *proc)
     Proc_Break(proc);
 }
 
-void PrepItemUse_ResetBgmAfterPromo(struct ProcPrepItemUse *proc)
+void PrepItemUse_ResetBgmAfterPromo(struct ProcPrepItemUse * proc)
 {
     Sound_SetSEVolume(0x100);
 

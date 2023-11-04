@@ -15,20 +15,9 @@
 #include "sysutil.h"
 #include "prepscreen.h"
 
-struct PrepMenuTradeProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct Unit* units[2];
-    /* 34 */ int cursorItemSlot; // 0x0-0x4 = left side, 0x8-0xC = right side
-    /* 38 */ int selectedItemSlot;
-    /* 3C */ int helpBoxItemSlot;
-    /* 40 */ int unk_40; // Starting item slot for right unit? Seems to be used when starting trade from "List"
-};
-
-extern struct Text gPrepItemScreenTexts[];
-
 //! FE8U = 0x0809B538
-void PrepItemTrade_ApplyItemSwap(struct Unit* unitA, int itemSlotA, struct Unit* unitB, int itemSlotB) {
+void PrepItemTrade_ApplyItemSwap(struct Unit * unitA, int itemSlotA, struct Unit * unitB, int itemSlotB)
+{
     u16 itemTmp = unitA->items[itemSlotA];
     unitA->items[itemSlotA] = unitB->items[itemSlotB];
     unitB->items[itemSlotB] = itemTmp;
@@ -40,7 +29,8 @@ void PrepItemTrade_ApplyItemSwap(struct Unit* unitA, int itemSlotA, struct Unit*
 }
 
 //! FE8U = 0x0809B564
-s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc* proc) {
+s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc * proc)
+{
     if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT) {
         int itemCount;
 
@@ -202,7 +192,8 @@ void DrawPrepScreenItemIcons(u16* tm, struct Unit* unit) {
 }
 
 //! FE8U = 0x0809B86C
-void PrepItemTrade_Init(struct PrepMenuTradeProc* proc) {
+void PrepItemTrade_Init(struct PrepMenuTradeProc * proc)
+{
     const char* str;
     int i;
 

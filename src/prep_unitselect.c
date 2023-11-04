@@ -20,7 +20,6 @@
 #include "prepscreen.h"
 
 s8 CheckInLinkArena();
-extern struct Text gPrepUnitTexts[];
 
 void PrepUnit_DrawUnitListNames(struct ProcPrepUnit *proc, int line)
 {

@@ -78,26 +78,22 @@ void sub_800B9B8(u8 bg, u8 b)
     return;
 }
 
-extern u16 gUnknown_0203EFB8[];
-
 //! FE8U = 0x0800BA04
 void sub_800BA04(u8 a, u8 b)
 {
     u16 * palPtr = gPaletteBuffer + a * 0x10;
 
-    u16 * ptr = gUnknown_0203EFB8;
+    u16 * ptr = (void *)gLoadUnitBuffer;
     *ptr++ = a;
     *ptr++ = b;
 
-    CpuFastCopy(palPtr, gUnknown_0203EFB8 + 2, b * 0x20);
-
-    return;
+    CpuFastCopy(palPtr, (u16 *)gLoadUnitBuffer + 2, b * 0x20);
 }
 
 //! FE8U = 0x0800BA34
 void sub_800BA34(void)
 {
-    u16 * ptr = gUnknown_0203EFB8;
+    u16 * ptr = (void *)gLoadUnitBuffer;
 
     int b = *ptr++;
     int c = *ptr++;

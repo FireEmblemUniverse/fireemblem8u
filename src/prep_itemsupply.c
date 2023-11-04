@@ -21,32 +21,6 @@
 
 #include "prepscreen.h"
 
-struct PrepItemSupplyProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct Unit* unit;
-    /* 30 */ u8 unk_30;
-    /* 31 */ u8 unitInvIdx;
-    /* 32 */ s8 scrollAmount;
-    /* 33 */ u8 unk_33;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 currentPage;
-    /* 36 */ u16 unk_36;
-    /* 38 */ u16 unk_38;
-    /* 3A */ u16 idxPerPage[9];
-    /* 4C */ u16 yOffsetPerPage[9];
-};
-
-// TODO: Move to a common "worldmap.h"
-struct GMapBaseMenuProc {
-    /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ u8 unk_2a;
-    /* 2B */ u8 unk_2b;
-};
-
-struct GMapBaseMenuProc* sub_80C4048(void);
-
 struct Struct02013648 {
     /* 00 */ struct Font font;
     /* 18 */ struct Text th[16];
@@ -54,28 +28,12 @@ struct Struct02013648 {
 
 extern struct Struct02013648 gUnknown_02013648;
 
-extern u8 gUnknown_08A19CCC[]; // gfx
-extern u16 gUnknown_08A1A084[]; // pal
-extern u8 gUnknown_08A1A0A4[]; // gfx
-extern u8 gUnknown_08A1A23C[]; // gfx
-extern u16 gUnknown_08A1A3FC[]; // pal
-extern u8 gUnknown_08A1B9EC[]; // tsa
-extern u8 gUnknown_08A1BCC0[]; // tsa
-
-extern u16 gUnknown_08A1BD60[];
-extern u16* gUnknown_08A19608[];
-extern u16 gUnknown_08A195F8[];
-
-
 //! FE8U = 0x0809D244
-void sub_809D244(void) {
+void sub_809D244(void)
+{
     int i;
-
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++)
         PutSpriteExt(4, 48 + i * 32, 16, gObject_32x16, 0xDFC0 + i * 4);
-    }
-
-    return;
 }
 
 int CONST_DATA gSupplyTextIndexLookup[] = {
@@ -87,8 +45,8 @@ int CONST_DATA gSupplyTextIndexLookup[] = {
 char* CONST_DATA gpPrepItemSupplyStringBuffer = gStringBufferAlt;
 
 //! FE8U = 0x0809D278
-void sub_809D278(int idx, ProcPtr proc) {
-
+void sub_809D278(int idx, ProcPtr proc)
+{
     StartParallelWorker(sub_809D244, proc);
 
     NewSysboxText(
@@ -113,7 +71,8 @@ void StoreConvoyWeaponIconGraphics(int vramOffset, int pal) {
 }
 
 //! FE8U = 0x0809D300
-void sub_809D300(struct Text* textBase, u16* tm, int yLines, struct Unit* unit) {
+void sub_809D300(struct Text * textBase, u16 * tm, int yLines, struct Unit * unit)
+{
     int i;
 
     TileMap_FillRect(tm, 12, 31, 0);
@@ -162,7 +121,8 @@ void sub_809D418(u16* tm, int yLines) {
 }
 
 //! FE8U = 0x0809D47C
-void sub_809D47C(struct Text* textBase, u16* tm, int yLines, struct Unit* unit) {
+void sub_809D47C(struct Text * textBase, u16 * tm, int yLines, struct Unit * unit)
+{
     if (gUnknown_02012F56 > yLines) {
         int y = (yLines * 2) & 0x1f;
         struct Text* th = textBase + (yLines & 7);
@@ -179,35 +139,34 @@ void sub_809D47C(struct Text* textBase, u16* tm, int yLines, struct Unit* unit) 
 
         PutNumberOrBlank(tm + offset + 12, !unusable ? 2 : 1,  GetItemUses(item));
     }
-
-    return;
 }
 
 //! FE8U = 0x0809D530
-void PrepItemSupply_OnHBlank(void) {
+void PrepItemSupply_OnHBlank(void)
+{
     u16 vcount = REG_VCOUNT + 1;
 
-    if (vcount > DISPLAY_HEIGHT) {
+    if (vcount > DISPLAY_HEIGHT)
         vcount = 0;
-    }
 
-    if (vcount == 12) {
+    if (vcount == 12)
+    {
         REG_BLDCNT = (BLDCNT_TGT1_BG3 | BLDCNT_EFFECT_DARKEN);
         // FIXME: No cast
         *(vu16*)(REG_ADDR_BLDY) = 8;
     }
 
-    if ((vcount == 52) || (vcount == 0)) {
+    if ((vcount == 52) || (vcount == 0))
+    {
         REG_BLDCNT = 0;
         // FIXME: No cast
         *(vu16*)(REG_ADDR_BLDY) = 0;
     }
-
-    return;
 }
 
 //! FE8U = 0x0809D570
-void PrepItemSupply_Init(struct PrepItemSupplyProc* proc) {
+void PrepItemSupply_Init(struct PrepItemSupplyProc * proc)
+{
     int i;
 
     proc->unk_38 = 0;
@@ -246,7 +205,8 @@ void PrepItemSupply_Init(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809D608
-void sub_809D608(void) {
+void sub_809D608(void)
+{
     InitSpriteTextFont(&gUnknown_02013648.font, (void*)0x06011000, 0xb);
     ApplyPalette(Pal_Text, 0x1B);
     InitSpriteText(&gUnknown_02013648.th[0xf]);
@@ -254,10 +214,9 @@ void sub_809D608(void) {
     return;
 }
 
-u8 GetConvoyItemCount_(void);
-
 //! FE8U = 0x0809D644
-void sub_809D644(struct PrepItemSupplyProc* proc) {
+void sub_809D644(struct PrepItemSupplyProc * proc)
+{
     int color;
     struct Text* th;
 
@@ -271,9 +230,8 @@ void sub_809D644(struct PrepItemSupplyProc* proc) {
     th = &gUnknown_02013648.th[0xf];
 
     color = 0;
-    if ((convoyItemCount == CONVOY_ITEM_COUNT) || (unitItemCount == 0)) {
+    if ((convoyItemCount == CONVOY_ITEM_COUNT) || (unitItemCount == 0))
         color = 1;
-    }
 
     Text_InsertDrawString(
         th,
@@ -290,12 +248,11 @@ void sub_809D644(struct PrepItemSupplyProc* proc) {
     );
 
     SetTextFont(NULL);
-
-    return;
 }
 
 //! FE8U = 0x0809D6CC
-void sub_809D6CC(void) {
+void sub_809D6CC(void)
+{
     SetTextFont(NULL);
     TileMap_FillRect(gBG0TilemapBuffer + 0x34, 12, 1, 0);
 
@@ -309,7 +266,7 @@ void sub_809D6CC(void) {
         GetConvoyItemCount_()
     );
     PutSpecialChar(gBG0TilemapBuffer + 0x34 + 6, TEXT_COLOR_SYSTEM_WHITE, TEXT_SPECIAL_SLASH);
-    PutNumber(gBG0TilemapBuffer + 0x34 + 9, 2, 100);
+    PutNumber(gBG0TilemapBuffer + 0x34 + 9, 2, CONVOY_ITEM_COUNT);
 
     BG_EnableSyncByMask(1);
 
@@ -317,7 +274,8 @@ void sub_809D6CC(void) {
 }
 
 //! FE8U = 0x0809D784
-void PutGiveTakeBoxSprites(void) {
+void PutGiveTakeBoxSprites(void)
+{
     PrepItemDrawPopupBox(0x40, 0x21, 5, 4, 0xA840);
     PutSpriteExt(4, 72, 0x25, gObject_32x16, 0xB080);
     PutSpriteExt(4, 72, 0x35, gObject_32x16, 0xB088);
@@ -325,21 +283,24 @@ void PutGiveTakeBoxSprites(void) {
 }
 
 //! FE8U = 0x0809D7D4
-void PutGiveSprites(void) {
+void PutGiveSprites(void)
+{
     PrepItemDrawPopupBox(0x40, 0x21, 5, 2, 0xA840);
     PutSpriteExt(4, 72, 0x25, gObject_32x16, 0xB080);
     return;
 }
 
 //! FE8U = 0x0809D80C
-void PutTakeSprites(void) {
+void PutTakeSprites(void)
+{
     PrepItemDrawPopupBox(0x40, 0x31, 5, 2, 0xA840);
     PutSpriteExt(4, 72, 0x35, gObject_32x16, 0xB088);
     return;
 }
 
 //! FE8U = 0x0809D844
-void Supply_PutHighlightedCategorySprites(struct PrepItemSupplyProc* proc) {
+void Supply_PutHighlightedCategorySprites(struct PrepItemSupplyProc * proc)
+{
     int x = proc->currentPage * 12 + 124;
 
     gPaletteBuffer[0x14D] = *(gUnknown_08A1BD60 + (GetGameClock() >> 2 & 0xf));
@@ -356,21 +317,21 @@ void Supply_PutHighlightedCategorySprites(struct PrepItemSupplyProc* proc) {
 #define TILEREF_(aChar, aPal) (((aPal) << 12) + (aChar))
 
 //! FE8U = 0x0809D8D4
-void sub_809D8D4(s16* tm, u32 chr, int pal) {
+void sub_809D8D4(u16 * tm, u32 chr, int pal)
+{
     int i;
 
     for (i = 0; i < 0xf; i++) {
         tm[i] = TILEREF_(((chr) & 0x1ffff) / 0x20, pal) + i;
         tm[0x20 + i] = TILEREF_(((chr + 0x200) & 0x1ffff) / 0x20, pal) + i;
     }
-
-    return;
 }
 
 #undef TILEREF_
 
 //! FE8U = 0x0809D914
-void sub_809D914(struct PrepItemSupplyProc* proc) {
+void sub_809D914(struct PrepItemSupplyProc * proc)
+{
 
     gLCDControlBuffer.dispcnt.mode = 0;
     SetupBackgrounds(NULL);
@@ -409,7 +370,8 @@ void sub_809D914(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809DA00
-void PrepItemSupply_InitGfx(struct PrepItemSupplyProc* proc) {
+void PrepItemSupply_InitGfx(struct PrepItemSupplyProc * proc)
+{
     int i;
     int unk;
 
@@ -505,7 +467,8 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809DC70
-void sub_809DC70(struct PrepItemSupplyProc* proc) {
+void sub_809DC70(struct PrepItemSupplyProc * proc)
+{
     sub_809D278(0, proc);
     sub_80ACA84(0);
     sub_809D644(proc);
@@ -523,7 +486,8 @@ int CONST_DATA gSupplyHelpTextIndexLookup[] = {
 };
 
 //! FE8U = 0x0809DCD4
-void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc* proc) {
+void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc * proc)
+{
     int idx = proc->unk_33;
 
     if (proc->unk_38 == 0) {
@@ -609,7 +573,8 @@ void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809DEFC
-void sub_809DEFC(struct PrepItemSupplyProc* proc) {
+void sub_809DEFC(struct PrepItemSupplyProc * proc)
+{
     ResetIconGraphics_();
     SomethingPrepListRelated(proc->unit, proc->currentPage, 1);
     sub_809D300(&gUnknown_02013648.th[7], gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
@@ -639,7 +604,8 @@ void sub_809DEFC(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809DFB0
-void PrepItemSupply_SwitchPageLeft(struct PrepItemSupplyProc* proc) {
+void PrepItemSupply_SwitchPageLeft(struct PrepItemSupplyProc * proc)
+{
     int x = 0;
     int four = 4;
 
@@ -674,7 +640,8 @@ void PrepItemSupply_SwitchPageLeft(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809E054
-void PrepItemSupply_SwitchPageRight(struct PrepItemSupplyProc* proc) {
+void PrepItemSupply_SwitchPageRight(struct PrepItemSupplyProc * proc)
+{
     int x;
 
     int four = 4;
@@ -710,7 +677,8 @@ void PrepItemSupply_SwitchPageRight(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809E100
-void sub_809E100(struct PrepItemSupplyProc* proc) {
+void sub_809E100(struct PrepItemSupplyProc * proc)
+{
 
     if (gUnknown_02012F56 == 0) {
         proc->idxPerPage[proc->currentPage] = proc->yOffsetPerPage[proc->currentPage] = 0;
@@ -732,8 +700,8 @@ void sub_809E100(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809E184
-void sub_809E184(struct PrepItemSupplyProc* proc) {
-
+void sub_809E184(struct PrepItemSupplyProc * proc)
+{
     if ((proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage] < 0x38) &&
         (proc->idxPerPage[proc->currentPage] != 0)) {
         proc->idxPerPage[proc->currentPage]++;
@@ -757,7 +725,8 @@ void sub_809E184(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809E218
-void PrepItemSupply_ScrollVertical(struct PrepItemSupplyProc* proc, int amount) {
+void PrepItemSupply_ScrollVertical(struct PrepItemSupplyProc * proc, int amount)
+{
     ResetIconGraphics_();
 
     sub_809D418(gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4);
@@ -781,13 +750,15 @@ void PrepItemSupply_ScrollVertical(struct PrepItemSupplyProc* proc, int amount) 
 }
 
 //! FE8U = 0x0809E2BC
-void sub_809E2BC(void) {
+void sub_809E2BC(void)
+{
     sub_809D6CC();
     return;
 }
 
 //! FE8U = 0x0809E2C8
-void sub_809E2C8(struct PrepItemSupplyProc* proc) {
+void sub_809E2C8(struct PrepItemSupplyProc * proc)
+{
     int count = GetUnitItemCount(proc->unit);
 
     if ((count == UNIT_ITEM_COUNT) || (gUnknown_02012F56 == 0)) {
@@ -839,7 +810,8 @@ void sub_809E2C8(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809E420
-void sub_809E420(struct PrepItemSupplyProc* proc) {
+void sub_809E420(struct PrepItemSupplyProc * proc)
+{
     int idx = proc->idxPerPage[proc->currentPage];
 
     if ((proc->yOffsetPerPage[proc->currentPage] & 0xf) == 0) {
@@ -977,7 +949,8 @@ void sub_809E420(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809E7A8
-s8 sub_809E7A8(struct PrepItemSupplyProc* proc) {
+s8 sub_809E7A8(struct PrepItemSupplyProc * proc)
+{
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_UP) {
         int count = GetUnitItemCount(proc->unit);
@@ -1015,13 +988,15 @@ s8 sub_809E7A8(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809E840
-void PrepItemSupply_SwitchToUnitInventory(struct PrepItemSupplyProc* proc) {
+void PrepItemSupply_SwitchToUnitInventory(struct PrepItemSupplyProc * proc)
+{
     ShowSysHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
     return;
 }
 
 //! FE8U = 0x0809E85C
-void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc* proc) {
+void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc * proc)
+{
     int unitItemCount;
 
     u16 item = proc->unit->items[proc->unitInvIdx];
@@ -1046,7 +1021,7 @@ void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc* proc) {
 
     gActionData.unitActionType = UNIT_ACTION_TRADED_SUPPLY;
 
-    if ((unitItemCount == 0) || (GetConvoyItemCount_() == 100)) {
+    if ((unitItemCount == 0) || (GetConvoyItemCount_() == CONVOY_ITEM_COUNT)) {
         Proc_Goto(proc, 1);
         PlaySoundEffect(0x6b);
     } else {
@@ -1061,7 +1036,8 @@ void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809E974
-void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc* proc) {
+void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc * proc)
+{
     u16 item;
 
     if (proc->unk_38 == 1) {
@@ -1111,8 +1087,8 @@ void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc* proc) {
 }
 
 //! FE8U = 0x0809EA7C
-void PrepItemSupply_OnEnd(struct PrepItemSupplyProc* proc) {
-
+void PrepItemSupply_OnEnd(struct PrepItemSupplyProc * proc)
+{
     if (gGMData.state.bits.state_0) {
         struct GMapBaseMenuProc* pGMapBaseMenuProc = sub_80C4048();
         if (pGMapBaseMenuProc) {
@@ -1192,7 +1168,8 @@ PROC_LABEL(9),
 };
 
 //! FE8U = 0x0809EAD8
-void StartPrepItemSupplyProc(struct Unit* unit, ProcPtr parent) {
+void StartPrepItemSupplyProc(struct Unit * unit, ProcPtr parent)
+{
     struct PrepItemSupplyProc* proc = Proc_StartBlocking(ProcScr_PrepItemSupplyScreen, parent);
     proc->unit = unit;
     proc->unk_30 = 0;
@@ -1200,7 +1177,8 @@ void StartPrepItemSupplyProc(struct Unit* unit, ProcPtr parent) {
 }
 
 //! FE8U = 0x0809EAF4
-void sub_809EAF4(void) {
+void sub_809EAF4(void)
+{
     if (gActiveUnit) {
         MU_EndAll();
         ShowUnitSprite(gActiveUnit);
@@ -1210,7 +1188,8 @@ void sub_809EAF4(void) {
 }
 
 //! FE8U = 0x0809EB14
-void sub_809EB14(void) {
+void sub_809EB14(void)
+{
     if (gActiveUnit) {
         HideUnitSprite(gActiveUnit);
         MU_Create(gActiveUnit);
@@ -1307,7 +1286,8 @@ void StartBmSupply(struct Unit* unit, ProcPtr unused) {
 }
 
 //! FE8U = 0x0809EB58
-void MaybeStartSelectConvoyItemProc(struct Unit* unit, ProcPtr unused) {
+void MaybeStartSelectConvoyItemProc(struct Unit * unit, ProcPtr unused)
+{
     struct PrepItemSupplyProc* proc = Proc_Start(ProcScr_BmSupplyScreen, PROC_TREE_3);
     proc->unit = unit;
     proc->unk_30 = 2;

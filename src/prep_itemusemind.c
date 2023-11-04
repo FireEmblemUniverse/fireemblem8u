@@ -41,7 +41,7 @@ void PrepItemUseBooster_OnDraw(struct ProcPrepItemUseBooster *proc, int x, int y
     proc->height = 2;
 }
 
-void PrepItemUseBooster_OnInit(struct ProcPrepItemUseBooster *proc)
+void PrepItemUseBooster_OnInit(struct ProcPrepItemUseBooster * proc)
 {
     int i, item, msg;
     struct ProcPrepItemUse *parent = proc->proc_parent;
@@ -90,7 +90,7 @@ void PrepItemUseBooster_OnInit(struct ProcPrepItemUseBooster *proc)
     PlaySoundEffect(0x5A);
 }
 
-void PrepItemUseBooster_IDLE(struct ProcPrepItemUseBooster *proc)
+void PrepItemUseBooster_IDLE(struct ProcPrepItemUseBooster * proc)
 {
     PrepItemDrawPopupBox(proc->xpos, proc->ypos, proc->width, proc->height, 0xA440);
 
@@ -98,7 +98,7 @@ void PrepItemUseBooster_IDLE(struct ProcPrepItemUseBooster *proc)
         Proc_Break(proc);
 }
 
-void PrepItemUseBooster_OnEnd(struct ProcPrepItemUseBooster *proc)
+void PrepItemUseBooster_OnEnd(struct ProcPrepItemUseBooster * proc)
 {
     struct ProcPrepItemUse *parent = proc->proc_parent;
     int max = GetUnitItemCount(parent->unit);
@@ -164,7 +164,7 @@ void PrepItemUseJuna_OnDraw(struct ProcPrepItemUseJunaFruit *proc, int x, int y,
     proc->height = 2;
 }
 
-void PrepItemUseJuna_OnInit(struct ProcPrepItemUseJunaFruit *proc)
+void PrepItemUseJuna_OnInit(struct ProcPrepItemUseJunaFruit * proc)
 {
     int item, lv_pre, lv_chg;
     struct ProcPrepItemUse *parent = proc->proc_parent;

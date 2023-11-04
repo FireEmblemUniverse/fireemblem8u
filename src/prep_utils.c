@@ -13,16 +13,11 @@
 
 #include "prepscreen.h"
 
-struct ViewCounterProc {
-    /* 00 */ PROC_HEADER;
-    /* 2A */ u16 targetFrameCount;
-    /* 2C */ u16 counter;
-};
-
 int CheckInLinkArena(void);
 
 //! FE8U = 0x08097CC4
-int sub_8097CC4(void) {
+int sub_8097CC4(void)
+{
     return 0;
 }
 
@@ -32,7 +27,8 @@ u8 GetConvoyItemCount_(void) {
 }
 
 //! FE8U = 0x08097CD8
-void ViewCounter_Loop(struct ViewCounterProc* proc) {
+void ViewCounter_Loop(struct ViewCounterProc * proc)
+{
 
     if (proc->targetFrameCount == proc->counter) {
         gLCDControlBuffer.dispcnt.bg0_on = 1;
@@ -57,7 +53,8 @@ struct ProcCmd CONST_DATA ProcScr_ViewCounter[] = {
 };
 
 //! FE8U = 0x08097D14
-void StartViewCounter(u16 frames, ProcPtr parent) {
+void StartViewCounter(u16 frames, ProcPtr parent)
+{
     struct ViewCounterProc* proc = Proc_Start(ProcScr_ViewCounter, parent);
 
     proc->counter = 0;
@@ -89,7 +86,8 @@ void TryUnlockProc(ProcPtr proc)
 }
 
 //! FE8U = 0x08097D80
-void PrepHbKeyListener_Loop(ProcPtr proc) {
+void PrepHbKeyListener_Loop(ProcPtr proc)
+{
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | DPAD_ANY)) {
         CloseHelpBox();
         Proc_Break(proc);
@@ -118,7 +116,8 @@ ProcPtr StartPrepErrorHelpbox(int x, int y, int msgId, ProcPtr parent) {
 }
 
 //! FE8U = 0x08097DE0
-s8 IsWeaponUsable(struct Unit* unit, int item) {
+s8 IsWeaponUsable(struct Unit * unit, int item)
+{
     if (!CanUnitUseWeapon(unit, item)) {
         return 0;
     }
@@ -131,7 +130,8 @@ s8 IsWeaponUsable(struct Unit* unit, int item) {
 }
 
 //! FE8U = 0x08097E08
-int CountUnitUsableWeapons(struct Unit* unit) {
+int CountUnitUsableWeapons(struct Unit * unit)
+{
     int i;
 
     int count = 0;
@@ -278,7 +278,8 @@ extern u16 Pal_08A1D448[];
 extern u16 gUnknown_02013460[];
 
 //! FE8U = 0x08097FDC
-void sub_8097FDC(void) {
+void sub_8097FDC(void)
+{
     int i;
 
     for (i = 0; i < 0x10; i++) {
@@ -292,11 +293,6 @@ void sub_8097FDC(void) {
 
     return;
 }
-
-struct PrepItemTypePageEnt {
-    /* 00 */ u8 lowerBound;
-    /* 01 */ u8 upperBound;
-};
 
 struct PrepItemTypePageEnt CONST_DATA gPrepItemTypePageLut[] = {
     [0] = { ITYPE_SWORD,  ITYPE_SWORD },
@@ -332,7 +328,8 @@ int GetPrepPageForItem(int item) {
 }
 
 //! FE8U = 0x08098048
-void sub_8098048(int page) {
+void sub_8098048(int page)
+{
     int j;
     int i;
     int k;
@@ -487,7 +484,8 @@ void sub_80982B8(void) {
 }
 
 //! FE8U = 0x080982FC
-void sub_80982FC(void) {
+void sub_80982FC(void)
+{
     u16 i;
 
     ClearSupplyItems();
@@ -500,7 +498,8 @@ void sub_80982FC(void) {
 }
 
 //! FE8U = 0x0809831C
-int sub_809831C(u16 a) {
+int sub_809831C(u16 a)
+{
     int i;
 
     int count = 0;
@@ -515,7 +514,8 @@ int sub_809831C(u16 a) {
 }
 
 //! FE8U = 0x08098344
-int sub_8098344(u16 a, int b) {
+int sub_8098344(u16 a, int b)
+{
     int i;
     int unk = 0;
     for (i = 0; i < 0x10; i++) {
@@ -534,7 +534,8 @@ int sub_8098344(u16 a, int b) {
 }
 
 //! FE8U = 0x08098378
-int sub_8098378(u16 a) {
+int sub_8098378(u16 a)
+{
     int i;
 
     for (i = 0; i < 0x10; i++) {

@@ -18,7 +18,7 @@
 . = 0x000108; src/ap.o(.bss); /* sAPArray = .; */
 . = 0x000428; gUnknown_03000428 = .;
 . = 0x000430; gUnknown_03000430 = .;
-. = 0x000434; gUnknown_03000434 = .;
+. = 0x000434; gLoadedUnitBuffer = .;
 . = 0x000438; gEventCallQueue = .;
 . = 0x0004B8; gEventSlots = .;
 . = 0x0004E4; gUnknown_030004E4 = .;

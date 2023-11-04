@@ -519,4 +519,10 @@ struct EfxFrameConfig {
     s16 duration;
 };
 
+struct gfx_set {
+    void * gfx;
+    void * tsa;
+    void * pal;
+};
+
 #endif // GUARD_TYPES_H
