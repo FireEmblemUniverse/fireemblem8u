@@ -17,11 +17,11 @@ struct GmapLineFadeProc
 extern u8 gUnknown_0201BE30;
 
 //! FE8U = 0x080C0308
-void sub_80C0308(void)
+void GmapLineFade_OnEnd(void)
 {
     gUnknown_0201BE30 &= ~4;
 
-    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+    SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0, 0, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 0, 0);
@@ -33,7 +33,7 @@ void sub_80C0308(void)
 }
 
 //! FE8U = 0x080C0358
-void sub_80C0358(struct GmapLineFadeProc * proc)
+void GmapLineFade_80C0358(struct GmapLineFadeProc * proc)
 {
     u16 * bufA;
     u16 * bufB;
@@ -77,7 +77,7 @@ void sub_80C0358(struct GmapLineFadeProc * proc)
 }
 
 //! FE8U = 0x080C040C
-void sub_80C040C(struct GmapLineFadeProc * proc)
+void GmapLineFade_Init(struct GmapLineFadeProc * proc)
 {
 #ifndef NONMATCHING
     int size = 0x010000A0;
@@ -91,7 +91,7 @@ void sub_80C040C(struct GmapLineFadeProc * proc)
     else
     {
         NewFadeIn(2, 0);
-        proc->unk_2c = 0x32;
+        proc->unk_2c = 50;
     }
 
     proc->unk_2a = 0;
@@ -108,7 +108,7 @@ void sub_80C040C(struct GmapLineFadeProc * proc)
     sub_80C1DD8(0, 0x04000054);
     sub_80C1DE8(0);
 
-    SetSpecialColorEffectsParameters(3, 0x10, 0x10, 0x10);
+    SetSpecialColorEffectsParameters(BLEND_EFFECT_DARKEN, 16, 16, 16);
 
     SetDispEnable(0, 1, 1, 1, 1);
 
@@ -124,13 +124,13 @@ void sub_80C040C(struct GmapLineFadeProc * proc)
 }
 
 //! FE8U = 0x080C04CC
-void sub_80C04CC(struct GmapLineFadeProc * proc)
+void GmapLineFade_Loop(struct GmapLineFadeProc * proc)
 {
     proc->unk_2a++;
 
     if (proc->unk_2a < proc->unk_2c)
     {
-        sub_80C0358(proc);
+        GmapLineFade_80C0358(proc);
     }
     else
     {
@@ -142,17 +142,17 @@ void sub_80C04CC(struct GmapLineFadeProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3E6AC[] =
+struct ProcCmd CONST_DATA gProcScr_GmapLineFade[] =
 {
     PROC_NAME("Gmap Line Fade"),
     PROC_MARK(PROC_MARK_8),
 
-    PROC_SET_END_CB(sub_80C0308),
+    PROC_SET_END_CB(GmapLineFade_OnEnd),
 
-    PROC_CALL(sub_80C040C),
+    PROC_CALL(GmapLineFade_Init),
     PROC_YIELD,
 
-    PROC_REPEAT(sub_80C04CC),
+    PROC_REPEAT(GmapLineFade_Loop),
 
     PROC_END,
 };
@@ -160,17 +160,17 @@ struct ProcCmd CONST_DATA gUnknown_08A3E6AC[] =
 // clang-format on
 
 //! FE8U = 0x080C04F4
-ProcPtr sub_80C04F4(int unk, ProcPtr parent)
+ProcPtr StartGmapLineFade(int unk, ProcPtr parent)
 {
     struct GmapLineFadeProc * proc;
 
     if (parent != NULL)
     {
-        proc = Proc_StartBlocking(gUnknown_08A3E6AC, parent);
+        proc = Proc_StartBlocking(gProcScr_GmapLineFade, parent);
     }
     else
     {
-        proc = Proc_Start(gUnknown_08A3E6AC, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_GmapLineFade, PROC_TREE_3);
     }
 
     proc->unk_29 = unk;
@@ -179,14 +179,14 @@ ProcPtr sub_80C04F4(int unk, ProcPtr parent)
 }
 
 //! FE8U = 0x080C0520
-void sub_80C0520(void)
+void EndGmapLineFade(void)
 {
-    Proc_EndEach(gUnknown_08A3E6AC);
+    Proc_EndEach(gProcScr_GmapLineFade);
     return;
 }
 
 //! FE8U = 0x080C0530
-bool sub_80C0530(void)
+bool IsGmapLineFadeActive(void)
 {
-    return Proc_Find(gUnknown_08A3E6AC) ? TRUE : FALSE;
+    return Proc_Find(gProcScr_GmapLineFade) ? TRUE : FALSE;
 }

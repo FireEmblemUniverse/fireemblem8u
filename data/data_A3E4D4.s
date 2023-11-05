@@ -1268,12 +1268,12 @@ gPal_08A97ACC:  @ 0x08A97ACC
 gUnknown_08A97AEC:  @ 0x08A97AEC
 	.incbin "baserom.gba", 0xA97AEC, 0x1AC
 
-	.global gUnknown_08A97C98
-gUnknown_08A97C98:  @ 0x08A97C98
+	.global gImg_WorldmapNodeRevealEffect
+gImg_WorldmapNodeRevealEffect:  @ 0x08A97C98
 	.incbin "baserom.gba", 0xA97C98, 0x190
 
-	.global gUnknown_08A97E28
-gUnknown_08A97E28:  @ 0x08A97E28
+	.global gPal_WorldmapNodeRevealEffect
+gPal_WorldmapNodeRevealEffect:  @ 0x08A97E28
 	.incbin "baserom.gba", 0xA97E28, 0x20
 
 	.global gUnknown_08A97E48
@@ -1544,12 +1544,12 @@ gUnknown_08AA1930:  @ 0x08AA1930
 gUnknown_08AA1950:  @ 0x08AA1950
 	.incbin "baserom.gba", 0xAA1950, 0x20
 
-	.global gUnknown_08AA1970
-gUnknown_08AA1970:  @ 0x08AA1970
+	.global gImg_WorldmapSkirmish
+gImg_WorldmapSkirmish:  @ 0x08AA1970
 	.incbin "baserom.gba", 0xAA1970, 0x300
 
-	.global gUnknown_08AA1C70
-gUnknown_08AA1C70:  @ 0x08AA1C70
+	.global SpriteAnim_WorldmapSkirmish
+SpriteAnim_WorldmapSkirmish:  @ 0x08AA1C70
 	.incbin "baserom.gba", 0xAA1C70, 0x3D4
 
 	.global gUnknown_08AA2044

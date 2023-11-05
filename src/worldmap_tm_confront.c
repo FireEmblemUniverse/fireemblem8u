@@ -21,13 +21,13 @@ struct GmapTmConfrontProc
 };
 
 //! FE8U = 0x080C0548
-void nullsub_47(void)
+void GmTmConfront_OnEnd(void)
 {
     return;
 }
 
 //! FE8U = 0x080C054C
-void sub_80C054C(struct GmapTmConfrontProc * proc, const struct Vec2 * pPos)
+void GmTmConfront_LoadPositions(struct GmapTmConfrontProc * proc, const struct Vec2 * posArray)
 {
     int i;
 
@@ -35,10 +35,10 @@ void sub_80C054C(struct GmapTmConfrontProc * proc, const struct Vec2 * pPos)
     {
         struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
         GmMu_GetPosition(worldMapProc->unk_54, proc->unk_2e[i], &proc->unk_30[i].x, &proc->unk_30[i].y);
-        proc->unk_40[i].x = pPos[i].x;
-        proc->unk_40[i].y = pPos[i].y;
-        proc->unk_38[i].x = proc->unk_30[i].x + pPos[i].x;
-        proc->unk_38[i].y = proc->unk_30[i].y + pPos[i].y;
+        proc->unk_40[i].x = posArray[i].x;
+        proc->unk_40[i].y = posArray[i].y;
+        proc->unk_38[i].x = proc->unk_30[i].x + posArray[i].x;
+        proc->unk_38[i].y = proc->unk_30[i].y + posArray[i].y;
     }
 
     proc->unk_2a = 0;
@@ -48,7 +48,7 @@ void sub_80C054C(struct GmapTmConfrontProc * proc, const struct Vec2 * pPos)
 
 // clang-format off
 
-const struct Vec2 gUnknown_082068F4[] =
+const struct Vec2 gWmSkirmish_PositionsA[] =
 {
     { -11, 0, },
     { +11, 0, },
@@ -57,16 +57,16 @@ const struct Vec2 gUnknown_082068F4[] =
 // clang-format on
 
 //! FE8U = 0x080C05AC
-void sub_80C05AC(struct GmapTmConfrontProc * proc)
+void GmTmConfront_InitUnitPositionA(struct GmapTmConfrontProc * proc)
 {
-    sub_80C054C(proc, gUnknown_082068F4);
+    GmTmConfront_LoadPositions(proc, gWmSkirmish_PositionsA);
     proc->unk_2c = 16;
     return;
 }
 
 // clang-format off
 
-const struct Vec2 gUnknown_082068FC[] =
+const struct Vec2 gWmSkirmish_PositionsB[] =
 {
     { +3, 0, },
     { -3, 0, },
@@ -75,9 +75,9 @@ const struct Vec2 gUnknown_082068FC[] =
 // clang-format on
 
 //! FE8U = 0x080C05C4
-void sub_80C05C4(struct GmapTmConfrontProc * proc)
+void GmTmConfront_InitUnitPositionB(struct GmapTmConfrontProc * proc)
 {
-    sub_80C054C(proc, gUnknown_082068FC);
+    GmTmConfront_LoadPositions(proc, gWmSkirmish_PositionsB);
     proc->unk_2c = 5;
     PlaySoundEffect(0x313);
     return;
@@ -85,7 +85,7 @@ void sub_80C05C4(struct GmapTmConfrontProc * proc)
 
 // clang-format off
 
-const struct Vec2 gUnknown_08206904[] =
+const struct Vec2 gWmSkirmish_PositionsC[] =
 {
     { -2, 0, },
     { +2, 0, },
@@ -94,15 +94,15 @@ const struct Vec2 gUnknown_08206904[] =
 // clang-format on
 
 //! FE8U = 0x080C05F8
-void sub_80C05F8(struct GmapTmConfrontProc * proc)
+void GmTmConfront_InitUnitPositionC(struct GmapTmConfrontProc * proc)
 {
-    sub_80C054C(proc, gUnknown_08206904);
+    GmTmConfront_LoadPositions(proc, gWmSkirmish_PositionsC);
     proc->unk_2c = 5;
     return;
 }
 
 //! FE8U = 0x080C0610
-void sub_80C0610(struct GmapTmConfrontProc * proc)
+void GmTmConfront_Loop_MoveUnitPositions(struct GmapTmConfrontProc * proc)
 {
     int i;
 
@@ -137,22 +137,21 @@ void sub_80C0610(struct GmapTmConfrontProc * proc)
 }
 
 //! FE8U = 0x080C06F0
-void sub_80C06F0(struct GmapTmConfrontProc * proc)
+void GmTmConfront_StartAnim(struct GmapTmConfrontProc * proc)
 {
     int i;
     s16 x_;
     s16 x;
     s16 y;
 
-    Decompress(gUnknown_08AA1970, (void *)0x06013000);
+    Decompress(gImg_WorldmapSkirmish, (void *)0x06013000);
 
     x_ = 0;
 
     for (i = 0; i < 2; i++)
     {
         GmMu_GetPosition(
-            ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_54, proc->unk_2e[i], &x,
-            &y);
+            ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_54, proc->unk_2e[i], &x, &y);
 
         x_ = x_ + x;
     }
@@ -166,7 +165,7 @@ void sub_80C06F0(struct GmapTmConfrontProc * proc)
 
     if (((u16)y < DISPLAY_HEIGHT) && ((u16)x < DISPLAY_WIDTH))
     {
-        proc->unk_48 = APProc_Create(gUnknown_08AA1C70, x, y, 0x3980, 0, 7);
+        proc->unk_48 = APProc_Create(SpriteAnim_WorldmapSkirmish, x, y, 0x3980, 0, 7);
     }
 
     PlaySoundEffect(0x314);
@@ -175,7 +174,7 @@ void sub_80C06F0(struct GmapTmConfrontProc * proc)
 }
 
 //! FE8U = 0x080C07B8
-void sub_80C07B8(ProcPtr proc)
+void GmTmConfront_WaitForAnim(ProcPtr proc)
 {
     if (!APProc_Exists())
     {
@@ -187,36 +186,35 @@ void sub_80C07B8(ProcPtr proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3E6E4[] =
+struct ProcCmd CONST_DATA gProcScr_GmapTmConfront[] =
 {
     PROC_NAME("Gmap Tm Confront"),
     PROC_MARK(PROC_MARK_8),
 
-    PROC_SET_END_CB(nullsub_47),
+    PROC_SET_END_CB(GmTmConfront_OnEnd),
     PROC_YIELD,
 
-    PROC_CALL(sub_80C05AC),
+    PROC_CALL(GmTmConfront_InitUnitPositionA),
+    PROC_REPEAT(GmTmConfront_Loop_MoveUnitPositions),
 
-    PROC_REPEAT(sub_80C0610),
-    PROC_CALL(sub_80C05C4),
+    PROC_CALL(GmTmConfront_InitUnitPositionB),
     PROC_YIELD,
+    PROC_REPEAT(GmTmConfront_Loop_MoveUnitPositions),
 
-    PROC_REPEAT(sub_80C0610),
-    PROC_CALL(sub_80C05F8),
+    PROC_CALL(GmTmConfront_InitUnitPositionC),
     PROC_YIELD,
+    PROC_REPEAT(GmTmConfront_Loop_MoveUnitPositions),
 
-    PROC_REPEAT(sub_80C0610),
-    PROC_CALL(sub_80C05C4),
+    PROC_CALL(GmTmConfront_InitUnitPositionB),
     PROC_YIELD,
+    PROC_REPEAT(GmTmConfront_Loop_MoveUnitPositions),
 
-    PROC_REPEAT(sub_80C0610),
-    PROC_CALL(sub_80C05F8),
+    PROC_CALL(GmTmConfront_InitUnitPositionC),
     PROC_YIELD,
+    PROC_REPEAT(GmTmConfront_Loop_MoveUnitPositions),
 
-    PROC_REPEAT(sub_80C0610),
-
-    PROC_CALL(sub_80C06F0),
-    PROC_REPEAT(sub_80C07B8),
+    PROC_CALL(GmTmConfront_StartAnim),
+    PROC_REPEAT(GmTmConfront_WaitForAnim),
 
     PROC_END,
 };
@@ -224,17 +222,17 @@ struct ProcCmd CONST_DATA gUnknown_08A3E6E4[] =
 // clang-format on
 
 //! FE8U = 0x080C07D4
-ProcPtr sub_80C07D4(int a, int b, ProcPtr parent)
+ProcPtr StartWorldmapSkirmishAnim(int a, int b, ProcPtr parent)
 {
     struct GmapTmConfrontProc * proc;
 
     if (parent != NULL)
     {
-        proc = Proc_StartBlocking(gUnknown_08A3E6E4, parent);
+        proc = Proc_StartBlocking(gProcScr_GmapTmConfront, parent);
     }
     else
     {
-        proc = Proc_Start(gUnknown_08A3E6E4, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_GmapTmConfront, PROC_TREE_3);
     }
 
     proc->unk_2e[1] = a;
@@ -246,14 +244,14 @@ ProcPtr sub_80C07D4(int a, int b, ProcPtr parent)
 }
 
 //! FE8U = 0x080C080C
-void sub_80C080C(void)
+void EndWorldmapSkirmishAnim(void)
 {
-    Proc_EndEach(gUnknown_08A3E6E4);
+    Proc_EndEach(gProcScr_GmapTmConfront);
     return;
 }
 
 //! FE8U = 0x080C081C
-bool sub_80C081C(void)
+bool IsWorldmapSkirmishAnimActive(void)
 {
-    return Proc_Find(gUnknown_08A3E6E4) ? TRUE : FALSE;
+    return Proc_Find(gProcScr_GmapTmConfront) ? TRUE : FALSE;
 }

@@ -840,7 +840,7 @@ static int sub_80034D4(void)
     return result;
 }
 
-int sub_80034FC(const struct ProcCmd* script)
+int CountProcs(const struct ProcCmd* script)
 {
     struct Proc* proc = sProcArray;
     int i, result = 0;

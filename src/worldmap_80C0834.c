@@ -99,9 +99,6 @@ int sub_80C089C(int a, int b, int c, int d)
     }
 }
 
-extern u8 gWMMonsterSpawnsSize;
-extern u8 gWMMonsterSpawnLocations[];
-
 //! FE8U = 0x080C0960
 int sub_80C0960(int chIndex)
 {

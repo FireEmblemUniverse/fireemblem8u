@@ -87,7 +87,7 @@ void GmapBaseEntry_OnEnd(struct GmapBaseEntryProc * proc)
         ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_32_1 = 1;
     }
 
-    sub_80C13D8();
+    EndGmapEffect();
     RestoreBlendState(&proc->unk_30);
 
     return;
@@ -208,7 +208,7 @@ void GmapBaseEntry_80BFA1C(struct GmapBaseEntryProc * proc)
             break;
     }
 
-    otherProc = sub_80C1370(proc, unk);
+    otherProc = StartGmapEffect(proc, unk);
     otherProc->unk_29_0 = 1;
 
     otherProc->unk_2c = proc->unk_29[gWMNodeData].x + (nodeIcon->width / 2 - nodeIcon->xCenter);
@@ -282,7 +282,7 @@ void sub_80BFB4C(struct GmapBaseEntryProc * proc)
 
     gGMData.units[proc->unk_29].state |= 1;
 
-    sub_80C13D8();
+    EndGmapEffect();
     RestoreBlendState(&proc->unk_30);
 
     return;

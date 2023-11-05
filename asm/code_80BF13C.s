@@ -2621,7 +2621,7 @@ sub_80C2728: @ 0x080C2728
 	ldr r0, [r4, #0x2c]
 	bl AP_Delete
 	ldr r0, _080C274C  @ gUnknown_08A3EC48
-	bl sub_80034FC
+	bl CountProcs
 	cmp r0, #1
 	bne _080C2746
 	bl sub_80C26E0
@@ -2659,7 +2659,7 @@ sub_80C2750: @ 0x080C2750
 	bl SetSpecialColorEffectsParameters
 	strh r4, [r5, #0x30]
 	ldr r0, _080C27A0  @ gUnknown_08A3EC48
-	bl sub_80034FC
+	bl CountProcs
 	cmp r0, #1
 	bgt _080C2798
 	ldr r0, _080C27A4  @ gUnknown_08A9E688
@@ -2825,7 +2825,7 @@ _080C28C0: .4byte gUnknown_08206AF0
 sub_80C28C4: @ 0x080C28C4
 	push {lr}
 	ldr r0, _080C28D8  @ gUnknown_08A3EC48
-	bl sub_80034FC
+	bl CountProcs
 	cmp r0, #1
 	bne _080C28D4
 	bl sub_80C26E0
@@ -2909,7 +2909,7 @@ sub_80C2964: @ 0x080C2964
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080C2988  @ gUnknown_08A3EC48
-	bl sub_80034FC
+	bl CountProcs
 	cmp r0, #1
 	bgt _080C2980
 	movs r0, #0
@@ -3618,7 +3618,7 @@ sub_80C2E70: @ 0x080C2E70
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080C2EA0  @ gUnknown_08A3ED18
-	bl sub_80034FC
+	bl CountProcs
 	cmp r0, #1
 	bne _080C2E82
 	bl sub_80C2E28
@@ -3648,7 +3648,7 @@ sub_80C2EA4: @ 0x080C2EA4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080C2EE0  @ gUnknown_08A3ED18
-	bl sub_80034FC
+	bl CountProcs
 	cmp r0, #1
 	bgt _080C2ED8
 	movs r0, #0
@@ -3834,7 +3834,7 @@ _080C2FE8:
 	beq _080C3034
 	movs r0, #0
 	movs r1, #1
-	bl sub_80C1370
+	bl StartGmapEffect
 	str r0, [r4, #0x34]
 	adds r0, #0x29
 	ldrb r1, [r0]

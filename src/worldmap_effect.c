@@ -83,18 +83,18 @@ u16 CONST_DATA gSprite_08A3E998[] =
 // clang-format on
 
 //! FE8U = 0x080C0FB0
-void sub_80C0FB0(struct GmapEffectProc * proc)
+void GmapEffectPal_OnEnd(struct GmapEffectProc * proc)
 {
-    gLCDControlBuffer.bldcnt = proc->unk_34;
-    gLCDControlBuffer.blendCoeffA = proc->unk_3c;
-    gLCDControlBuffer.blendCoeffB = proc->unk_3d;
-    gLCDControlBuffer.blendY = proc->unk_3e;
+    gLCDControlBuffer.bldcnt = proc->blendControl;
+    gLCDControlBuffer.blendCoeffA = proc->blendCoeffA;
+    gLCDControlBuffer.blendCoeffB = proc->blendCoeffB;
+    gLCDControlBuffer.blendY = proc->blendY;
 
     return;
 }
 
 //! FE8U = 0x080C0FE8
-void sub_80C0FE8(struct GmapEffectProc * proc)
+void GmapEffectPal_Init(struct GmapEffectProc * proc)
 {
     proc->unk_30 = 0;
 
@@ -116,23 +116,23 @@ void sub_80C0FE8(struct GmapEffectProc * proc)
 
     proc->unk_2b_0 = 0;
 
-    proc->unk_34 = gLCDControlBuffer.bldcnt;
-    proc->unk_3c = gLCDControlBuffer.blendCoeffA;
-    proc->unk_3d = gLCDControlBuffer.blendCoeffB;
-    proc->unk_3e = gLCDControlBuffer.blendY;
+    proc->blendControl = gLCDControlBuffer.bldcnt;
+    proc->blendCoeffA = gLCDControlBuffer.blendCoeffA;
+    proc->blendCoeffB = gLCDControlBuffer.blendCoeffB;
+    proc->blendY = gLCDControlBuffer.blendY;
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(1, 1, 1, 1, 0);
     SetBlendBackdropA(0);
     SetBlendBackdropB(0);
 
-    SetSpecialColorEffectsParameters(0, 0x10, 0x10, 0);
+    SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 16, 16, 0);
 
     return;
 }
 
 //! FE8U = 0x080C10B8
-void sub_80C10B8(struct GmapEffectProc * proc)
+void GmapEffectPal_Loop(struct GmapEffectProc * proc)
 {
     int i;
     int idx;
@@ -147,9 +147,9 @@ void sub_80C10B8(struct GmapEffectProc * proc)
 
     pal = &PAL_OBJ_COLOR(6, 0);
 
-    for (i = 0; i < 0x10; i++)
+    for (i = 0; i < 16; i++)
     {
-        if ((proc->unk_29_0) != 0)
+        if (proc->unk_29_0)
         {
             idx = (proc->unk_30 + i) & 0x1f;
         }
@@ -161,7 +161,7 @@ void sub_80C10B8(struct GmapEffectProc * proc)
         }
 
         pal[i] = idx[gUnknown_08A97E48];
-        SetSpecialColorEffectsParameters(0, 0xF - proc->unk_30, 0x10, 0);
+        SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 15 - proc->unk_30, 16, 0);
     }
 
     proc->unk_2c = proc->unk_2e;
@@ -169,9 +169,9 @@ void sub_80C10B8(struct GmapEffectProc * proc)
 
     proc->unk_30++;
 
-    if (proc->unk_30 > 0xf)
+    if (proc->unk_30 > 15)
     {
-        if ((proc->unk_29_1) == 0)
+        if (!(proc->unk_29_1))
         {
             proc->unk_2b_0 = 1;
             Proc_Break(proc);
@@ -187,6 +187,7 @@ void sub_80C10B8(struct GmapEffectProc * proc)
             proc->unk_30 = 0;
 
             proc->unk_2a--;
+
             if (proc->unk_2a == 0)
             {
                 proc->unk_29_1 = 0;
@@ -199,91 +200,95 @@ void sub_80C10B8(struct GmapEffectProc * proc)
 
 struct Unknown8A3E9A0
 {
-    /* 00 */ u16 * unk_00;
-    /* 04 */ u8 unk_04;
-    /* 05 */ s8 unk_05;
-    /* 06 */ s8 unk_06;
+    /* 00 */ u16 * sprite;
+    /* 04 */ u8 oam2;
+    /* 05 */ s8 xOam1;
+    /* 06 */ s8 yOam0;
     STRUCT_PAD(0x07, 0x08);
 };
+
+// clang-format off
 
 struct Unknown8A3E9A0 CONST_DATA gUnknown_08A3E9A0[] =
 {
     {
-        .unk_00 = gSprite_08A3E940,
-        .unk_04 = 68,
-        .unk_05 = -8,
-        .unk_06 = -8,
+        .sprite = gSprite_08A3E940,
+        .oam2 = 68,
+        .xOam1 = -8,
+        .yOam0 = -8,
     },
     {
-        .unk_00 = gSprite_08A3E948,
-        .unk_04 = 68,
-        .unk_05 = 0,
-        .unk_06 = -8,
+        .sprite = gSprite_08A3E948,
+        .oam2 = 68,
+        .xOam1 = 0,
+        .yOam0 = -8,
     },
     {
-        .unk_00 = gSprite_08A3E950,
-        .unk_04 = 68,
-        .unk_05 = -8,
-        .unk_06 = 0,
+        .sprite = gSprite_08A3E950,
+        .oam2 = 68,
+        .xOam1 = -8,
+        .yOam0 = 0,
     },
     {
-        .unk_00 = gSprite_08A3E958,
-        .unk_04 = 68,
-        .unk_05 = 0,
-        .unk_06 = 0,
+        .sprite = gSprite_08A3E958,
+        .oam2 = 68,
+        .xOam1 = 0,
+        .yOam0 = 0,
     },
     {
-        .unk_00 = gSprite_08A3E960,
-        .unk_04 = 4,
-        .unk_05 = -16,
-        .unk_06 = -16,
+        .sprite = gSprite_08A3E960,
+        .oam2 = 4,
+        .xOam1 = -16,
+        .yOam0 = -16,
     },
     {
-        .unk_00 = gSprite_08A3E968,
-        .unk_04 = 4,
-        .unk_05 = 0,
-        .unk_06 = -16,
+        .sprite = gSprite_08A3E968,
+        .oam2 = 4,
+        .xOam1 = 0,
+        .yOam0 = -16,
     },
     {
-        .unk_00 = gSprite_08A3E970,
-        .unk_04 = 4,
-        .unk_05 = -16,
-        .unk_06 = 0,
+        .sprite = gSprite_08A3E970,
+        .oam2 = 4,
+        .xOam1 = -16,
+        .yOam0 = 0,
     },
     {
-        .unk_00 = gSprite_08A3E978,
-        .unk_04 = 4,
-        .unk_05 = 0,
-        .unk_06 = 0,
+        .sprite = gSprite_08A3E978,
+        .oam2 = 4,
+        .xOam1 = 0,
+        .yOam0 = 0,
     },
     {
-        .unk_00 = gSprite_08A3E980,
-        .unk_04 = 0,
-        .unk_05 = -32,
-        .unk_06 = -32,
+        .sprite = gSprite_08A3E980,
+        .oam2 = 0,
+        .xOam1 = -32,
+        .yOam0 = -32,
     },
     {
-        .unk_00 = gSprite_08A3E988,
-        .unk_04 = 0,
-        .unk_05 = 0,
-        .unk_06 = -32,
+        .sprite = gSprite_08A3E988,
+        .oam2 = 0,
+        .xOam1 = 0,
+        .yOam0 = -32,
     },
     {
-        .unk_00 = gSprite_08A3E990,
-        .unk_04 = 0,
-        .unk_05 = -32,
-        .unk_06 = 0,
+        .sprite = gSprite_08A3E990,
+        .oam2 = 0,
+        .xOam1 = -32,
+        .yOam0 = 0,
     },
     {
-        .unk_00 = gSprite_08A3E998,
-        .unk_04 = 0,
-        .unk_05 = 0,
-        .unk_06 = 0,
+        .sprite = gSprite_08A3E998,
+        .oam2 = 0,
+        .xOam1 = 0,
+        .yOam0 = 0,
     },
 };
 
+// clang-format on
+
 //! FE8U = 0x080C119C
-void sub_80C119C(struct GmapEffectProc * proc)
+void GmapEffect_80C119C(struct GmapEffectProc * proc)
 {
     s16 xOam1;
     s16 yOam0;
@@ -307,23 +312,23 @@ void sub_80C119C(struct GmapEffectProc * proc)
     {
         ptr = gUnknown_08A3E9A0 + (u8)proc->unk_2a * 4 + i;
 
-        xOam1 = proc->unk_2c + ptr->unk_05 - x;
-        yOam0 = proc->unk_2e + ptr->unk_06 - y;
+        xOam1 = proc->unk_2c + ptr->xOam1 - x;
+        yOam0 = proc->unk_2e + ptr->yOam0 - y;
         if (((xOam1 + 0x21) > 0 && (xOam1 + 0x21) < 0x112) && ((yOam0 + 0x21) > 0 && (yOam0 + 0x21) < 0xc2))
         {
             int oam2Layer;
             if (gGMData.state.bits.state_3)
             {
                 layer = 0xc;
-                oam2Layer = 0xc00;
+                oam2Layer = OAM2_LAYER(3);
             }
             else
             {
                 layer = 0xd;
-                oam2Layer = 0x800;
+                oam2Layer = OAM2_LAYER(2);
             }
 
-            PutSprite(layer, xOam1, yOam0, ptr->unk_00, ptr->unk_04 + 0x6180 + oam2Layer);
+            PutSprite(layer, xOam1, yOam0, ptr->sprite, ptr->oam2 + OAM2_CHR(0x180) + OAM2_PAL(6) + oam2Layer);
         }
     }
 
@@ -332,15 +337,16 @@ void sub_80C119C(struct GmapEffectProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3EA00[] =
+struct ProcCmd CONST_DATA gProcScr_GmapEffectPal[] =
 {
     PROC_NAME("Gmap Effect Pa"),
     PROC_MARK(PROC_MARK_8),
 
-    PROC_SET_END_CB(sub_80C0FB0),
+    PROC_SET_END_CB(GmapEffectPal_OnEnd),
 
-    PROC_CALL(sub_80C0FE8),
-    PROC_REPEAT(sub_80C10B8),
+    PROC_CALL(GmapEffectPal_Init),
+
+    PROC_REPEAT(GmapEffectPal_Loop),
     PROC_BLOCK,
 
     PROC_END,
@@ -348,34 +354,34 @@ struct ProcCmd CONST_DATA gUnknown_08A3EA00[] =
 
 // clang-format on
 
-extern struct ProcCmd gUnknown_08A3EA38[];
+extern struct ProcCmd gProcScr_GmapEffect[];
 
 //! FE8U = 0x080C128C
-void sub_80C128C(void)
+void GmapEffect_OnEnd(void)
 {
-    if (sub_80034FC(gUnknown_08A3EA38) < 2)
+    if (CountProcs(gProcScr_GmapEffect) < 2)
     {
-        Proc_EndEach(gUnknown_08A3EA00);
+        Proc_EndEach(gProcScr_GmapEffectPal);
     }
 
     return;
 }
 
 //! FE8U = 0x080C12AC
-void sub_80C12AC(struct GmapEffectProc * proc)
+void GmapEffect_Init(struct GmapEffectProc * proc)
 {
-    if (sub_80034FC(gUnknown_08A3EA38) < 2)
+    if (CountProcs(gProcScr_GmapEffect) < 2)
     {
-        ApplyPalette(gUnknown_08A97E28, 0x16);
+        ApplyPalette(gPal_WorldmapNodeRevealEffect, 0x16);
         EnablePaletteSync();
 
-        Decompress(gUnknown_08A97C98, gGenericBuffer);
+        Decompress(gImg_WorldmapNodeRevealEffect, gGenericBuffer);
         Copy2dChr(gGenericBuffer, (void *)0x06013000, 6, 4);
     }
 
-    if (Proc_Find(gUnknown_08A3EA00) == NULL)
+    if (Proc_Find(gProcScr_GmapEffectPal) == NULL)
     {
-        Proc_Start(gUnknown_08A3EA00, proc);
+        Proc_Start(gProcScr_GmapEffectPal, proc);
     }
 
     proc->unk_2e = 0;
@@ -386,11 +392,11 @@ void sub_80C12AC(struct GmapEffectProc * proc)
 }
 
 //! FE8U = 0x080C1324
-void sub_80C1324(struct GmapEffectProc * proc)
+void GmapEffect_Loop(struct GmapEffectProc * proc)
 {
-    struct GmapEffectProc * otherProc = Proc_Find(gUnknown_08A3EA00);
+    struct GmapEffectProc * otherProc = Proc_Find(gProcScr_GmapEffectPal);
 
-    if (otherProc == 0)
+    if (otherProc == NULL)
     {
         Proc_Break(proc);
     }
@@ -402,7 +408,7 @@ void sub_80C1324(struct GmapEffectProc * proc)
 
     if (proc->unk_29_0)
     {
-        sub_80C119C(proc);
+        GmapEffect_80C119C(proc);
     }
 
     return;
@@ -410,16 +416,17 @@ void sub_80C1324(struct GmapEffectProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3EA38[] =
+struct ProcCmd CONST_DATA gProcScr_GmapEffect[] =
 {
     PROC_NAME("Gmap Effect"),
     PROC_MARK(PROC_MARK_8),
 
-    PROC_SET_END_CB(sub_80C128C),
-    PROC_CALL(sub_80C12AC),
+    PROC_SET_END_CB(GmapEffect_OnEnd),
+
+    PROC_CALL(GmapEffect_Init),
     PROC_YIELD,
 
-    PROC_REPEAT(sub_80C1324),
+    PROC_REPEAT(GmapEffect_Loop),
 
     PROC_END,
 };
@@ -427,7 +434,7 @@ struct ProcCmd CONST_DATA gUnknown_08A3EA38[] =
 // clang-format on
 
 //! FE8U = 0x080C1370
-struct GmapEffectProc * sub_80C1370(ProcPtr parent, int unk)
+struct GmapEffectProc * StartGmapEffect(ProcPtr parent, int unk)
 {
     struct GmapEffectProc * proc;
 
@@ -435,22 +442,23 @@ struct GmapEffectProc * sub_80C1370(ProcPtr parent, int unk)
     {
         if (gGMData.state.bits.state_3)
         {
-            proc = Proc_StartBlocking(gUnknown_08A3EA38, parent);
+            // TODO: Was this intended to be non-blocking?
+            proc = Proc_StartBlocking(gProcScr_GmapEffect, parent);
         }
         else
         {
-            proc = Proc_StartBlocking(gUnknown_08A3EA38, parent);
+            proc = Proc_StartBlocking(gProcScr_GmapEffect, parent);
         }
     }
     else
     {
         if (gGMData.state.bits.state_3)
         {
-            proc = Proc_Start(gUnknown_08A3EA38, PROC_TREE_3);
+            proc = Proc_Start(gProcScr_GmapEffect, PROC_TREE_3);
         }
         else
         {
-            proc = Proc_StartBlocking(gUnknown_08A3EA38, PROC_TREE_3);
+            proc = Proc_StartBlocking(gProcScr_GmapEffect, PROC_TREE_3);
         }
     }
 
@@ -467,8 +475,8 @@ void sub_80C13CC(ProcPtr proc)
 }
 
 //! FE8U = 0x080C13D8
-void sub_80C13D8(void)
+void EndGmapEffect(void)
 {
-    Proc_EndEach(gUnknown_08A3EA38);
+    Proc_EndEach(gProcScr_GmapEffect);
     return;
 }

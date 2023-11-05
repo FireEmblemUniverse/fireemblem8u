@@ -18,109 +18,109 @@
 
 #include "worldmap.h"
 
-void sub_80C0A10(struct HelpBoxProc * proc);
-void sub_80C0A44(struct HelpBoxProc * proc);
+void WorldmapStatus_GetCharDescription(struct HelpBoxProc * proc);
+void WorldmapStatus_GetClassDescription(struct HelpBoxProc * proc);
 
 // clang-format off
 
-struct HelpBoxInfo CONST_DATA gUnknown_08A3E78C[] =
+struct HelpBoxInfo CONST_DATA gHelpInfo_WorldmapStatus[] =
 {
     {
         .adjUp = NULL,
-        .adjDown = &gUnknown_08A3E78C[1],
-        .adjLeft = &gUnknown_08A3E78C[6],
+        .adjDown = &gHelpInfo_WorldmapStatus[1],
+        .adjLeft = &gHelpInfo_WorldmapStatus[6],
         .adjRight = NULL,
         .xDisplay = 168,
         .yDisplay = 80,
         .mid = 0x0000,
         .redirect = NULL,
-        .populate = sub_80C0A10,
+        .populate = WorldmapStatus_GetCharDescription,
     },
     {
-        .adjUp = &gUnknown_08A3E78C[0],
-        .adjDown = &gUnknown_08A3E78C[2],
-        .adjLeft = &gUnknown_08A3E78C[7],
+        .adjUp = &gHelpInfo_WorldmapStatus[0],
+        .adjDown = &gHelpInfo_WorldmapStatus[2],
+        .adjLeft = &gHelpInfo_WorldmapStatus[7],
         .adjRight = NULL,
         .xDisplay = 136,
         .yDisplay = 104,
-        .mid = 0x06E8,
+        .mid = 0x06E8, // TODO: msgid "The unit's class. Each class[NL]possesses unique traits."
         .redirect = NULL,
-        .populate = sub_80C0A44,
+        .populate = WorldmapStatus_GetClassDescription,
     },
     {
-        .adjUp = &gUnknown_08A3E78C[1],
-        .adjDown = &gUnknown_08A3E78C[4],
-        .adjLeft = &gUnknown_08A3E78C[8],
-        .adjRight = &gUnknown_08A3E78C[3],
+        .adjUp = &gHelpInfo_WorldmapStatus[1],
+        .adjDown = &gHelpInfo_WorldmapStatus[4],
+        .adjLeft = &gHelpInfo_WorldmapStatus[8],
+        .adjRight = &gHelpInfo_WorldmapStatus[3],
         .xDisplay = 136,
         .yDisplay = 120,
-        .mid = 0x0542,
+        .mid = 0x0542, // TODO: msgid "Unit level. The unit becomes[NL]stronger as it gains levels."
         .redirect = NULL,
         .populate = NULL,
     },
     {
-        .adjUp = &gUnknown_08A3E78C[1],
-        .adjDown = &gUnknown_08A3E78C[4],
-        .adjLeft = &gUnknown_08A3E78C[2],
+        .adjUp = &gHelpInfo_WorldmapStatus[1],
+        .adjDown = &gHelpInfo_WorldmapStatus[4],
+        .adjLeft = &gHelpInfo_WorldmapStatus[2],
         .adjRight = NULL,
         .xDisplay = 168,
         .yDisplay = 120,
-        .mid = 0x0543,
+        .mid = 0x0543, // TODO: msgid "Experience points gained. Gain[NL]100 points to earn a new level.[.]"
         .redirect = NULL,
         .populate = NULL,
     },
     {
-        .adjUp = &gUnknown_08A3E78C[2],
+        .adjUp = &gHelpInfo_WorldmapStatus[2],
         .adjDown = NULL,
-        .adjLeft = &gUnknown_08A3E78C[8],
+        .adjLeft = &gHelpInfo_WorldmapStatus[8],
         .adjRight = NULL,
         .xDisplay = 136,
         .yDisplay = 136,
-        .mid = 0x0544,
+        .mid = 0x0544, // TODO: msgid "Unit hit points. The unit loses[.][NL]consciousness if this reaches 0."
         .redirect = NULL,
         .populate = NULL,
     },
     {
         .adjUp = NULL,
-        .adjDown = &gUnknown_08A3E78C[6],
+        .adjDown = &gHelpInfo_WorldmapStatus[6],
         .adjLeft = NULL,
-        .adjRight = &gUnknown_08A3E78C[0],
+        .adjRight = &gHelpInfo_WorldmapStatus[0],
         .xDisplay = 32,
         .yDisplay = 48,
-        .mid = 0x0676,
+        .mid = 0x0676, // TODO: msgid "The party's next destination.[.]"
         .redirect = NULL,
         .populate = NULL,
     },
     {
-        .adjUp = &gUnknown_08A3E78C[5],
-        .adjDown = &gUnknown_08A3E78C[7],
+        .adjUp = &gHelpInfo_WorldmapStatus[5],
+        .adjDown = &gHelpInfo_WorldmapStatus[7],
         .adjLeft = NULL,
-        .adjRight = &gUnknown_08A3E78C[0],
+        .adjRight = &gHelpInfo_WorldmapStatus[0],
         .xDisplay = 16,
         .yDisplay = 72,
-        .mid = 0x0677,
+        .mid = 0x0677, // TODO: msgid "The current number of units."
         .redirect = NULL,
         .populate = NULL,
     },
     {
-        .adjUp = &gUnknown_08A3E78C[6],
-        .adjDown = &gUnknown_08A3E78C[8],
+        .adjUp = &gHelpInfo_WorldmapStatus[6],
+        .adjDown = &gHelpInfo_WorldmapStatus[8],
         .adjLeft = NULL,
-        .adjRight = &gUnknown_08A3E78C[1],
+        .adjRight = &gHelpInfo_WorldmapStatus[1],
         .xDisplay = 16,
         .yDisplay = 88,
-        .mid = 0x06F3,
+        .mid = 0x06F3, // TODO: msgid "Money on hand."
         .redirect = NULL,
         .populate = NULL,
     },
     {
-        .adjUp = &gUnknown_08A3E78C[7],
+        .adjUp = &gHelpInfo_WorldmapStatus[7],
         .adjDown = NULL,
         .adjLeft = NULL,
-        .adjRight = &gUnknown_08A3E78C[4],
+        .adjRight = &gHelpInfo_WorldmapStatus[4],
         .xDisplay = 24,
         .yDisplay = 120,
-        .mid = 0x06F0,
+        .mid = 0x06F0, // TODO: msgid "Total time played."
         .redirect = NULL,
         .populate = NULL,
     },
@@ -129,51 +129,50 @@ struct HelpBoxInfo CONST_DATA gUnknown_08A3E78C[] =
 // clang-format on
 
 //! FE8U = 0x080C09EC
-void sub_80C09EC(ProcPtr proc)
+void StartWorldmapStatusHelpBox(ProcPtr proc)
 {
     LoadHelpBoxGfx((void *)0x06013000, 9);
-    StartMovingHelpBox(gUnknown_08A3E78C, proc);
+    StartMovingHelpBox(gHelpInfo_WorldmapStatus, proc);
     return;
 }
 
-struct ProcA3E8B8
+struct WorldmapStatusProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ struct Unit * unk_2c;
-    /* 30 */ struct MUProc * unk_30;
-    /* 34 */ struct Text unk_34;
-    /* 3C */ struct Text unk_3c;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ struct MUProc * muProc;
+    /* 34 */ struct Text text[2];
 };
 
-extern struct ProcCmd gUnknown_08A3E8B8[];
+extern struct ProcCmd gProcScr_WorldmapStatusUi[];
 
 //! FE8U = 0x080C0A10
-void sub_80C0A10(struct HelpBoxProc * proc)
+void WorldmapStatus_GetCharDescription(struct HelpBoxProc * proc)
 {
-    struct ProcA3E8B8 * statusProc = Proc_Find(gUnknown_08A3E8B8);
+    struct WorldmapStatusProc * statusProc = Proc_Find(gProcScr_WorldmapStatusUi);
 
-    if (statusProc->unk_2c->pCharacterData->descTextId != 0)
+    if (statusProc->unit->pCharacterData->descTextId)
     {
-        proc->mid = statusProc->unk_2c->pCharacterData->descTextId;
+        proc->mid = statusProc->unit->pCharacterData->descTextId;
     }
     else
     {
-        proc->mid = 0x06BE;
+        proc->mid = 0x06BE; // TODO: msgid "There are no messages for[.][NL]this menu item.[.]"
     }
 
     return;
 }
 
 //! FE8U = 0x080C0A44
-void sub_80C0A44(struct HelpBoxProc * proc)
+void WorldmapStatus_GetClassDescription(struct HelpBoxProc * proc)
 {
-    struct ProcA3E8B8 * statusProc = Proc_Find(gUnknown_08A3E8B8);
-    proc->mid = statusProc->unk_2c->pClassData->descTextId;
+    struct WorldmapStatusProc * statusProc = Proc_Find(gProcScr_WorldmapStatusUi);
+    proc->mid = statusProc->unit->pClassData->descTextId;
     return;
 }
 
 //! FE8U = 0x080C0A64
-int sub_80C0A64(void)
+int WorldmapStatus_CountAllies(void)
 {
     int i;
 
@@ -200,20 +199,20 @@ int sub_80C0A64(void)
 }
 
 //! FE8U = 0x080C0A9C
-void sub_80C0A9C(struct ProcA3E8B8 * proc)
+void PutWorldmapStatusDetails(struct WorldmapStatusProc * proc)
 {
     const char * charName;
     const char * nodeName;
     int x;
 
-    charName = GetStringFromIndex(proc->unk_2c->pCharacterData->nameTextId);
+    charName = GetStringFromIndex(proc->unit->pCharacterData->nameTextId);
     x = GetStringTextCenteredPos(64, charName);
-    BattleGenerateUiStats(proc->unk_2c, GetUnitEquippedWeaponSlot(proc->unk_2c));
-    PutDrawText(&proc->unk_34, TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 10), TEXT_COLOR_SYSTEM_WHITE, x, 0, charName);
+    BattleGenerateUiStats(proc->unit, GetUnitEquippedWeaponSlot(proc->unit));
+    PutDrawText(&proc->text[0], TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 10), TEXT_COLOR_SYSTEM_WHITE, x, 0, charName);
 
     PutDrawText(
         NULL, TILEMAP_LOCATED(gBG0TilemapBuffer, 17, 13), TEXT_COLOR_SYSTEM_WHITE, 0, 7,
-        GetStringFromIndex(proc->unk_2c->pClassData->nameTextId));
+        GetStringFromIndex(proc->unit->pClassData->nameTextId));
 
     PutTwoSpecialChar(
         TILEMAP_LOCATED(gBG0TilemapBuffer, 17, 15), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_LV_A, TEXT_SPECIAL_LV_B);
@@ -223,10 +222,10 @@ void sub_80C0A9C(struct ProcA3E8B8 * proc)
         TILEMAP_LOCATED(gBG0TilemapBuffer, 17, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
     PutSpecialChar(TILEMAP_LOCATED(gBG0TilemapBuffer, 21, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_SLASH);
 
-    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 20, 15), TEXT_COLOR_SYSTEM_BLUE, proc->unk_2c->level);
-    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 23, 15), TEXT_COLOR_SYSTEM_BLUE, proc->unk_2c->exp);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 20, 15), TEXT_COLOR_SYSTEM_BLUE, proc->unit->level);
+    PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 23, 15), TEXT_COLOR_SYSTEM_BLUE, proc->unit->exp);
 
-    if (GetUnitCurrentHp(proc->unk_2c) >= 100)
+    if (GetUnitCurrentHp(proc->unit) >= 100)
     {
         PutTwoSpecialChar(
             TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 17), TEXT_COLOR_SYSTEM_BLUE, TEXT_SPECIAL_DASH, TEXT_SPECIAL_DASH);
@@ -234,40 +233,39 @@ void sub_80C0A9C(struct ProcA3E8B8 * proc)
     else
     {
         PutNumberOrBlank(
-            TILEMAP_LOCATED(gBG0TilemapBuffer, 20, 17), TEXT_COLOR_SYSTEM_BLUE, GetUnitCurrentHp(proc->unk_2c));
+            TILEMAP_LOCATED(gBG0TilemapBuffer, 20, 17), TEXT_COLOR_SYSTEM_BLUE, GetUnitCurrentHp(proc->unit));
     }
 
-    if (GetUnitMaxHp(proc->unk_2c) >= 100)
+    if (GetUnitMaxHp(proc->unit) >= 100)
     {
         PutTwoSpecialChar(
             TILEMAP_LOCATED(gBG0TilemapBuffer, 22, 17), TEXT_COLOR_SYSTEM_BLUE, TEXT_SPECIAL_DASH, TEXT_SPECIAL_DASH);
     }
     else
     {
-        PutNumberOrBlank(
-            TILEMAP_LOCATED(gBG0TilemapBuffer, 23, 17), TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(proc->unk_2c));
+        PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 23, 17), TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(proc->unit));
     }
 
     nodeName = GetWorldMapNodeName(sub_80BD014(&gGMData));
     x = GetStringTextCenteredPos(72, nodeName);
-    Text_Skip(&proc->unk_3c, 5);
+    Text_Skip(&proc->text[1], 5);
 
-    PutDrawText(&proc->unk_3c, TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 6), TEXT_COLOR_SYSTEM_WHITE, x, 0, nodeName);
-    PutNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 12, 9), TEXT_COLOR_SYSTEM_BLUE, sub_80C0A64());
+    PutDrawText(&proc->text[1], TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 6), TEXT_COLOR_SYSTEM_WHITE, x, 0, nodeName);
+    PutNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 12, 9), TEXT_COLOR_SYSTEM_BLUE, WorldmapStatus_CountAllies());
 
     return;
 }
 
 //! FE8U = 0x080C0C28
-void sub_80C0C28(struct ProcA3E8B8 * proc)
+void WorldmapStatus_InitText(struct WorldmapStatusProc * proc)
 {
-    InitText(&proc->unk_34, 8);
-    InitText(&proc->unk_3c, 9);
+    InitText(&proc->text[0], 8);
+    InitText(&proc->text[1], 9);
     return;
 }
 
 //! FE8U = 0x080C0C44
-void sub_80C0C44(struct ProcA3E8B8 * proc)
+void WorldmapStatus_InitDetails(struct WorldmapStatusProc * proc)
 {
     int pid;
     int fid;
@@ -284,10 +282,10 @@ void sub_80C0C44(struct ProcA3E8B8 * proc)
 
     unit = GetUnitFromCharId(pid);
 
-    proc->unk_2c = unit;
+    proc->unit = unit;
 
     fid = GetUnitPortraitId(unit);
-    if (proc->unk_2c->state & US_BIT23)
+    if (proc->unit->state & US_BIT23)
     {
         fid = fid + 1;
     }
@@ -295,7 +293,7 @@ void sub_80C0C44(struct ProcA3E8B8 * proc)
     ResetText();
     ResetIconGraphics_();
 
-    sub_80C0C28(proc);
+    WorldmapStatus_InitText(proc);
 
     PutFace80x72(proc, TILEMAP_LOCATED(gBG2TilemapBuffer, 18, 1), fid, 0x200, 0xd);
 
@@ -309,16 +307,18 @@ void sub_80C0C44(struct ProcA3E8B8 * proc)
     }
 
     MU_EndAll();
-    proc->unk_30 = MU_CreateForUI(proc->unk_2c, 216, 135);
+    proc->muProc = MU_CreateForUI(proc->unit, 216, 135);
 
-    sub_80C0A9C(proc);
+    PutWorldmapStatusDetails(proc);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     return;
 }
 
-u16 CONST_DATA gUnknown_08A3E888[] =
+// clang-format off
+
+u16 CONST_DATA gBgConfig_WorldmapStatus[] =
 {
     0x0000, 0x6000, 0x0000,
     0x0000, 0x6800, 0x0000,
@@ -326,10 +326,12 @@ u16 CONST_DATA gUnknown_08A3E888[] =
     0x8000, 0x7800, 0x0000,
 };
 
+// clang-format on
+
 //! FE8U = 0x080C0CF4
-void sub_80C0CF4(void)
+void WorldmapStatus_InitGfx(void)
 {
-    SetupBackgrounds(gUnknown_08A3E888);
+    SetupBackgrounds(gBgConfig_WorldmapStatus);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -359,7 +361,7 @@ void sub_80C0CF4(void)
 }
 
 //! FE8U = 0x080C0DF0
-void sub_80C0DF0(void)
+void WorldmapStatus_Init(void)
 {
     SetDispEnable(0, 0, 0, 0, 0);
     SetBlendDarken(16);
@@ -373,14 +375,14 @@ void sub_80C0DF0(void)
 }
 
 //! FE8U = 0x080C0E4C
-void sub_80C0E4C(void)
+void WorldmapStatus_OnEnd(void)
 {
     EndMuralBackground();
     return;
 }
 
 //! FE8U = 0x080C0E58
-void sub_80C0E58(void)
+void WorldmapStatus_80C0E58(void)
 {
     gLCDControlBuffer.bg0cnt.priority = 1;
     gLCDControlBuffer.bg1cnt.priority = 3;
@@ -396,7 +398,7 @@ void sub_80C0E58(void)
 }
 
 //! FE8U = 0x080C0EBC
-void sub_80C0EBC(void)
+void WorldmapStatus_PutTimeAndGold(void)
 {
     PutTime(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 15), TEXT_COLOR_SYSTEM_BLUE, GetGameClock(), FALSE);
     PutNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 11), TEXT_COLOR_SYSTEM_BLUE, GetPartyGoldAmount());
@@ -409,10 +411,10 @@ void sub_80C0EBC(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3E8A0[] =
+struct ProcCmd CONST_DATA gProcScr_WmStatus_PutTimeAndGold[] =
 {
     PROC_MARK(PROC_MARK_8),
-    PROC_REPEAT(sub_80C0EBC),
+    PROC_REPEAT(WorldmapStatus_PutTimeAndGold),
 
     PROC_END,
 };
@@ -420,11 +422,11 @@ struct ProcCmd CONST_DATA gUnknown_08A3E8A0[] =
 // clang-format on
 
 //! FE8U = 0x080C0F00
-void sub_80C0F00(ProcPtr proc)
+void WorldmapStatus_Loop_KeyHandler(ProcPtr proc)
 {
     if (gKeyStatusPtr->newKeys & R_BUTTON)
     {
-        sub_80C09EC(proc);
+        StartWorldmapStatusHelpBox(proc);
         return;
     }
 
@@ -447,7 +449,7 @@ void sub_80C0F00(ProcPtr proc)
 }
 
 //! FE8U = 0x080C0FA4
-void sub_80C0FA4(void)
+void WorldmapStatus_80C0FA4(void)
 {
     SetInterrupt_LCDVCountMatch(NULL);
     return;
@@ -455,28 +457,29 @@ void sub_80C0FA4(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3E8B8[] =
+struct ProcCmd CONST_DATA gProcScr_WorldmapStatusUi[] =
 {
     PROC_MARK(PROC_MARK_8),
 
-    PROC_SET_END_CB(sub_80C0E4C),
+    PROC_SET_END_CB(WorldmapStatus_OnEnd),
 
-    PROC_CALL(sub_80C0DF0),
+    PROC_CALL(WorldmapStatus_Init),
 
     PROC_CALL(LockGame),
     PROC_CALL(BMapDispSuspend),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80C0CF4),
+    PROC_CALL(WorldmapStatus_InitGfx),
     PROC_CALL(StartGreenText),
 
-    PROC_CALL(sub_80C0C44),
-    PROC_CALL(sub_80C0E58),
+    PROC_CALL(WorldmapStatus_InitDetails),
+    PROC_CALL(WorldmapStatus_80C0E58),
 
-    PROC_START_CHILD(gUnknown_08A3E8A0),
+    PROC_START_CHILD(gProcScr_WmStatus_PutTimeAndGold),
 
-    PROC_REPEAT(sub_80C0F00),
-    PROC_CALL(sub_80C0FA4),
+    PROC_REPEAT(WorldmapStatus_Loop_KeyHandler),
+
+    PROC_CALL(WorldmapStatus_80C0FA4),
 
     PROC_CALL(MU_EndAll),
 
