@@ -1,22 +1,10 @@
 
     .section .rodata
 
-	.global gAsciiStr_GmapLineFade
-gAsciiStr_GmapLineFade:  @ 0x082068E4
-	.asciz "Gmap Line Fade"
-	.align 2, 0
-
-	.global gUnknown_082068F4
-gUnknown_082068F4:  @ 0x082068F4
-	.incbin "baserom.gba", 0x2068F4, 0x8
-
-	.global gUnknown_082068FC
-gUnknown_082068FC:  @ 0x082068FC
-	.incbin "baserom.gba", 0x2068FC, 0x8
-
-	.global gUnknown_08206904
-gUnknown_08206904:  @ 0x08206904
-	.incbin "baserom.gba", 0x206904, 0x44
+    .global gAsciiStr_GmapSogu
+gAsciiStr_GmapSogu: @ 0x0820693C
+    .asciz "Gmap Sogu"
+    .align 2, 0
 
 	.global gWMMonsterSpawnLocations
 gWMMonsterSpawnLocations:  @ 0x08206948

@@ -155,7 +155,7 @@ void Proc_SetRepeatCb(ProcPtr proc, ProcFunc func);
 ProcPtr Proc_FindAfter(struct ProcCmd * script, struct Proc * proc);
 struct Proc * Proc_FindAfterWithParent(struct Proc * proc, struct Proc * parent);
 // ??? sub_80034D4(???);
-// ??? sub_80034FC(???);
+int CountProcs(const struct ProcCmd * script);
 void Proc_FindBegin(struct ProcFindIterator* it, const struct ProcCmd* script);
 ProcPtr Proc_FindNext(struct ProcFindIterator* it);
 

@@ -18,6 +18,8 @@
 
 #include "event.h"
 
+void GetWMCenteredCameraPosition(s16, s16, s16 *, s16 *);
+
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
 s8 FindGmScrollManage(void);
 
@@ -1308,7 +1310,7 @@ u8 EventB2_WmFancyFade(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    sub_80C04F4(a, 0);
+    StartGmapLineFade(a, NULL);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -1316,7 +1318,7 @@ u8 EventB2_WmFancyFade(struct EventEngineProc * proc)
 //! FE8U = 0x0800C938
 u8 EventB3_WmFancyFadeWait(struct EventEngineProc * proc)
 {
-    if (!sub_80C0530())
+    if (!IsGmapLineFadeActive())
     {
         return EVC_ADVANCE_YIELD;
     }

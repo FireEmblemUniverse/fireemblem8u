@@ -1,6 +1,8 @@
 #ifndef GUARD_WORLDMAP_H
 #define GUARD_WORLDMAP_H
 
+#include "hardware.h"
+
 struct GmRouteProc
 {
     /* 00 */ PROC_HEADER;
@@ -212,13 +214,20 @@ struct UnknownSub80BDFA4
     /* 10 */ int unk_10;
 };
 
-struct ProcA3EA38
+struct GmapEffectProc
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29_0 : 1;
-    /* 2A */ s16 unk_2a;
+    /* 29 */ s8 unk_29_0 : 1;
+    /* 29 */ s8 unk_29_1 : 1;
+    /* 2A */ s8 unk_2a;
+    /* 2B */ s8 unk_2b_0 : 1;
     /* 2C */ s16 unk_2c;
     /* 2E */ s16 unk_2e;
+    /* 30 */ s16 unk_30;
+    /* 34 */ struct BlendCnt blendControl;
+    /* 3C */ u8 blendCoeffA;
+    /* 3D */ u8 blendCoeffB;
+    /* 3E */ u8 blendY;
 };
 
 struct WorldMapMainProc
@@ -329,6 +338,9 @@ struct WMSongTableEnt
 
 extern struct WMSongTableEnt gWMSongTable[];
 
+extern u8 gWMMonsterSpawnsSize;
+extern u8 gWMMonsterSpawnLocations[];
+
 extern struct ProcCmd gProcScr_WorldMapMain[];
 
 // ??? WorldMapFaceHolder_Init(???);
@@ -382,14 +394,14 @@ void sub_80B98A8(struct WorldMapMainProc *proc);
 s8 sub_80B98F8(ProcPtr proc);
 void sub_80B9918(void);
 void sub_80B9924(struct WorldMapMainProc *proc);
-s8 sub_80B9974(ProcPtr proc);
+s8 StartWorldmapStatusScreen(ProcPtr proc);
 void sub_80B9994(void);
 void sub_80B99A0(struct WorldMapMainProc *proc);
 // ??? sub_80B99F0(???);
 void WorldMap_HideEverything(void);
 void sub_80B9A34(struct WorldMapMainProc *proc);
 void sub_80B9A58(struct WorldMapMainProc *proc);
-void sub_80B9A94(ProcPtr proc);
+void Worldmap_WaitForSkirmishAnim(ProcPtr proc);
 void sub_80B9AB0(void);
 void sub_80B9AEC(struct WorldMapMainProc *proc);
 void WorldMap_InitChapterTransition(struct WorldMapMainProc *proc);
@@ -691,53 +703,53 @@ void EndGmMuEntry(void);
 s8 GetGmMuEntryFlag(void);
 s8 GmMuEntryStartShow(int, int);
 s8 GmMuEntryStartHide(int, int);
-// ??? sub_80C0308(???);
-// ??? sub_80C0358(???);
-// ??? sub_80C040C(???);
-// ??? sub_80C04CC(???);
-void sub_80C04F4(int, int); // StartGmapLineFade
-// ??? sub_80C0520(???);
-s8 sub_80C0530(void);
-// ??? nullsub_47(???);
-// ??? sub_80C054C(???);
-// ??? sub_80C05AC(???);
-// ??? sub_80C05C4(???);
-// ??? sub_80C05F8(???);
-// ??? sub_80C0610(???);
-// ??? sub_80C06F0(???);
-// ??? sub_80C07B8(???);
-void sub_80C07D4(int, int, ProcPtr);
-// ??? sub_80C080C(???);
-s8 sub_80C081C(void);
-int sub_80C0834(int, int, s16, s16, int);
-void GetWMCenteredCameraPosition(int, int, s16*, s16*);
+// ??? GmapLineFade_OnEnd(???);
+// ??? GmapLineFade_80C0358(???);
+// ??? GmapLineFade_Init(???);
+// ??? GmapLineFade_Loop(???);
+ProcPtr StartGmapLineFade(int, ProcPtr);
+// ??? EndGmapLineFade(???);
+s8 IsGmapLineFadeActive(void);
+// ??? GmTmConfront_OnEnd(???);
+// ??? GmTmConfront_LoadPositions(???);
+// ??? GmTmConfront_InitUnitPositionA(???);
+// ??? GmTmConfront_InitUnitPositionB(???);
+// ??? GmTmConfront_InitUnitPositionC(???);
+// ??? GmTmConfront_Loop_MoveUnitPositions(???);
+// ??? GmTmConfront_StartAnim(???);
+// ??? GmTmConfront_WaitForAnim(???);
+ProcPtr StartWorldmapSkirmishAnim(int, int, ProcPtr);
+// ??? EndWorldmapSkirmishAnim(???);
+s8 IsWorldmapSkirmishAnimActive(void);
+int sub_80C0834(int, int, int, int, int);
+// void GetWMCenteredCameraPosition(s16, s16, s16 *, s16 *);
 int sub_80C089C(int, int, int, int);
 int sub_80C0960(int chIndex);
 void sub_80C09B8(void);
-// ??? sub_80C09EC(???);
-// ??? sub_80C0A10(???);
-// ??? sub_80C0A44(???);
-// ??? sub_80C0A64(???);
-// ??? sub_80C0A9C(???);
-// ??? sub_80C0C28(???);
-// ??? sub_80C0C44(???);
-// ??? sub_80C0CF4(???);
-// ??? sub_80C0DF0(???);
-// ??? sub_80C0E4C(???);
-// ??? sub_80C0E58(???);
-// ??? sub_80C0EBC(???);
-// ??? sub_80C0F00(???);
-// ??? sub_80C0FA4(???);
-// ??? sub_80C0FB0(???);
-// ??? sub_80C0FE8(???);
-// ??? sub_80C10B8(???);
-// ??? sub_80C119C(???);
-// ??? sub_80C128C(???);
-// ??? sub_80C12AC(???);
-// ??? sub_80C1324(???);
-struct ProcA3EA38 * sub_80C1370(ProcPtr, int);
+// ??? StartWorldmapStatusHelpBox(???);
+// ??? WorldmapStatus_GetCharDescription(???);
+// ??? WorldmapStatus_GetClassDescription(???);
+// ??? WorldmapStatus_CountAllies(???);
+// ??? PutWorldmapStatusDetails(???);
+// ??? WorldmapStatus_InitText(???);
+// ??? WorldmapStatus_InitDetails(???);
+// ??? WorldmapStatus_InitGfx(???);
+// ??? WorldmapStatus_Init(???);
+// ??? WorldmapStatus_OnEnd(???);
+// ??? WorldmapStatus_80C0E58(???);
+// ??? WorldmapStatus_PutTimeAndGold(???);
+// ??? WorldmapStatus_Loop_KeyHandler(???);
+// ??? WorldmapStatus_80C0FA4(???);
+// ??? GmapEffectPal_OnEnd(???);
+// ??? GmapEffectPal_Init(???);
+// ??? GmapEffectPal_Loop(???);
+// ??? GmapEffect_80C119C(???);
+// ??? GmapEffect_OnEnd(???);
+// ??? GmapEffect_Init(???);
+// ??? GmapEffect_Loop(???);
+struct GmapEffectProc * StartGmapEffect(ProcPtr, int);
 // ??? sub_80C13CC(???);
-void sub_80C13D8(void);
+void EndGmapEffect(void);
 // ??? sub_80C13E8(???);
 // ??? sub_80C1470(???);
 // ??? sub_80C1480(???);
@@ -791,7 +803,7 @@ void Make6C_Gmap_RM(s16, s16, int, int);
 void sub_80C2460(void);
 int sub_80C2470(void);
 // ??? sub_80C2488(???);
-// ??? GetWMDisplayPosition(???);
+void GetWMDisplayPosition(s16 *, s16 *);
 void sub_80C24D8(void);
 void sub_80C24F8(void);
 // ??? sub_80C2598(???);

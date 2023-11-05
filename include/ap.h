@@ -44,6 +44,6 @@ ProcPtr APProc_Create(const void * apDefinition, int xPos, int yPos, int tileBas
 // ??? APProc_SetParameters(???);
 void APProc_Delete(struct APProc * proc);
 void APProc_DeleteAll(void);
-int APProc_Exists(void);
+bool APProc_Exists(void);
 
 #endif // GUARD_AP_H
