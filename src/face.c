@@ -925,14 +925,11 @@ void sub_8005D98(struct FaceBlinkProc* proc) {
 }
 
 //! FE8U = 0x08005E98
-void PutFace80x72(struct Proc* proc, u16* bgOut, int fid, int tileId, int palId) {
-
+void PutFace80x72(ProcPtr proc, u16 * bgOut, int fid, int tileId, int palId)
+{
     Proc_EndEach(gProcScr_08591204);
-
     PutFace80x72_Core(bgOut, fid, tileId, palId);
-
     GetPortraitData(fid);
-
     return;
 }
 

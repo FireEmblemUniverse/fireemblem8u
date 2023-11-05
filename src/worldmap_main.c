@@ -23,6 +23,9 @@
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
 s8 FindGmScrollManage(void);
 
+// TODO: Implicit declaration?
+void GetWMCenteredCameraPosition(int, int, s16 *, s16 *);
+
 extern u16 * gUnknown_088B39EC[];
 extern u16 * gUnknown_088B3AD8[];
 

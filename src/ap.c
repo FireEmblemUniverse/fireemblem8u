@@ -389,6 +389,6 @@ void APProc_DeleteAll(void) {
     Proc_EndEach(sProcScr_ApProc);
 }
 
-int APProc_Exists(void) {
+bool APProc_Exists(void) {
     return Proc_Find(sProcScr_ApProc) ? TRUE : FALSE;
 }

@@ -18,6 +18,8 @@
 
 #include "event.h"
 
+void GetWMCenteredCameraPosition(s16, s16, s16 *, s16 *);
+
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
 s8 FindGmScrollManage(void);
 

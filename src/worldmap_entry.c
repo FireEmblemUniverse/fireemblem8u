@@ -180,7 +180,7 @@ void GmapBaseEntry_80BF988(struct GmapBaseEntryProc * proc)
 void GmapBaseEntry_80BFA1C(struct GmapBaseEntryProc * proc)
 {
     const struct NodeIcon * nodeIcon;
-    struct ProcA3EA38 * otherProc;
+    struct GmapEffectProc * otherProc;
     int unk;
 
     if ((gGMData.nodes[proc->unk_29].state & 2) != 0)

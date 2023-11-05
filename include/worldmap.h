@@ -1,6 +1,8 @@
 #ifndef GUARD_WORLDMAP_H
 #define GUARD_WORLDMAP_H
 
+#include "hardware.h"
+
 struct GmRouteProc
 {
     /* 00 */ PROC_HEADER;
@@ -212,13 +214,20 @@ struct UnknownSub80BDFA4
     /* 10 */ int unk_10;
 };
 
-struct ProcA3EA38
+struct GmapEffectProc
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29_0 : 1;
-    /* 2A */ s16 unk_2a;
+    /* 29 */ s8 unk_29_0 : 1;
+    /* 29 */ s8 unk_29_1 : 1;
+    /* 2A */ s8 unk_2a;
+    /* 2B */ s8 unk_2b_0 : 1;
     /* 2C */ s16 unk_2c;
     /* 2E */ s16 unk_2e;
+    /* 30 */ s16 unk_30;
+    /* 34 */ struct BlendCnt unk_34;
+    /* 3C */ u8 unk_3c;
+    /* 3D */ u8 unk_3d;
+    /* 3E */ u8 unk_3e;
 };
 
 struct WorldMapMainProc
@@ -695,7 +704,7 @@ s8 GmMuEntryStartHide(int, int);
 // ??? sub_80C0358(???);
 // ??? sub_80C040C(???);
 // ??? sub_80C04CC(???);
-void sub_80C04F4(int, int); // StartGmapLineFade
+ProcPtr sub_80C04F4(int, ProcPtr); // StartGmapLineFade
 // ??? sub_80C0520(???);
 s8 sub_80C0530(void);
 // ??? nullsub_47(???);
@@ -706,11 +715,11 @@ s8 sub_80C0530(void);
 // ??? sub_80C0610(???);
 // ??? sub_80C06F0(???);
 // ??? sub_80C07B8(???);
-void sub_80C07D4(int, int, ProcPtr);
+ProcPtr sub_80C07D4(int, int, ProcPtr);
 // ??? sub_80C080C(???);
 s8 sub_80C081C(void);
-int sub_80C0834(int, int, s16, s16, int);
-void GetWMCenteredCameraPosition(int, int, s16*, s16*);
+int sub_80C0834(int, int, int, int, int);
+// void GetWMCenteredCameraPosition(s16, s16, s16 *, s16 *);
 int sub_80C089C(int, int, int, int);
 int sub_80C0960(int chIndex);
 void sub_80C09B8(void);
@@ -735,7 +744,7 @@ void sub_80C09B8(void);
 // ??? sub_80C128C(???);
 // ??? sub_80C12AC(???);
 // ??? sub_80C1324(???);
-struct ProcA3EA38 * sub_80C1370(ProcPtr, int);
+struct GmapEffectProc * sub_80C1370(ProcPtr, int);
 // ??? sub_80C13CC(???);
 void sub_80C13D8(void);
 // ??? sub_80C13E8(???);
@@ -791,7 +800,7 @@ void Make6C_Gmap_RM(s16, s16, int, int);
 void sub_80C2460(void);
 int sub_80C2470(void);
 // ??? sub_80C2488(???);
-// ??? GetWMDisplayPosition(???);
+void GetWMDisplayPosition(s16 *, s16 *);
 void sub_80C24D8(void);
 void sub_80C24F8(void);
 // ??? sub_80C2598(???);

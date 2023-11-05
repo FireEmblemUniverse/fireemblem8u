@@ -292,6 +292,11 @@ SECTIONS
         src/worldmap_draw.o(.text);
         src/worldmap_palette_fade.o(.text);
         src/worldmap_entry.o(.text);
+        src/worldmap_line_fade.o(.text);
+        src/worldmap_tm_confront.o(.text);
+        src/worldmap_80C0834.o(.text);
+        src/worldmap_status_ui.o(.text);
+        src/worldmap_effect.o(.text);
         asm/code_80BF13C.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);

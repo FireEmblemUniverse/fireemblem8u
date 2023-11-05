@@ -1402,14 +1402,14 @@ extern u8 gGfx_GMapPI_ShopIcons[];
 // extern ??? gUnknown_08A97E48
 extern u8 gUnknown_08A97ED8[]; // gfx
 extern u16 gUnknown_08A97FA4[]; // pal
-// extern ??? gUnknown_08A986C0
-// extern ??? gUnknown_08A98BF8
-// extern ??? gUnknown_08A98CFC
-// extern ??? gUnknown_08A98D58
-// extern ??? gUnknown_08A98D88
-// extern ??? gUnknown_08A98DA0
-// extern ??? gUnknown_08A98DB8
-// extern ??? gUnknown_08A98DCC
+extern u8 gUnknown_08A986C0[]; // tsa
+extern u8 gUnknown_08A98BF8[]; // gfx
+extern u8 gUnknown_08A98CFC[]; // tsa
+extern u8 gUnknown_08A98D58[]; // tsa
+extern u8 gUnknown_08A98D88[]; // tsa
+extern u8 gUnknown_08A98DA0[]; // tsa
+extern u8 gUnknown_08A98DB8[]; // tsa
+extern u16 gUnknown_08A98DCC[]; // pal
 // extern ??? gUnknown_08A98E2C
 // extern ??? gUnknown_08A98E4C
 // extern ??? gUnknown_08A98E6C
@@ -1434,8 +1434,8 @@ extern u8 gUnknown_08AA11D0[]; // tsa?
 // extern ??? gUnknown_08AA18AC
 // extern ??? gUnknown_08AA1930
 // extern ??? gUnknown_08AA1950
-// extern ??? gUnknown_08AA1970
-// extern ??? gUnknown_08AA1C70
+extern u8 gUnknown_08AA1970[]; // gfx
+extern u8 gUnknown_08AA1C70[]; // ap proc data
 // extern ??? gUnknown_08AA2044
 // extern ??? gUnknown_08AA2084
 // extern ??? gBgConfig_OpSubtitle
