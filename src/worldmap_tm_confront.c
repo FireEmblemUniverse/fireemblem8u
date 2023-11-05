@@ -27,7 +27,7 @@ void nullsub_47(void)
 }
 
 //! FE8U = 0x080C054C
-void sub_80C054C(struct GmapTmConfrontProc * proc, struct Vec2 * pPos)
+void sub_80C054C(struct GmapTmConfrontProc * proc, const struct Vec2 * pPos)
 {
     int i;
 
@@ -46,7 +46,15 @@ void sub_80C054C(struct GmapTmConfrontProc * proc, struct Vec2 * pPos)
     return;
 }
 
-extern struct Vec2 gUnknown_082068F4[];
+// clang-format off
+
+const struct Vec2 gUnknown_082068F4[] =
+{
+    { -11, 0, },
+    { +11, 0, },
+};
+
+// clang-format on
 
 //! FE8U = 0x080C05AC
 void sub_80C05AC(struct GmapTmConfrontProc * proc)
@@ -56,7 +64,15 @@ void sub_80C05AC(struct GmapTmConfrontProc * proc)
     return;
 }
 
-extern struct Vec2 gUnknown_082068FC[];
+// clang-format off
+
+const struct Vec2 gUnknown_082068FC[] =
+{
+    { +3, 0, },
+    { -3, 0, },
+};
+
+// clang-format on
 
 //! FE8U = 0x080C05C4
 void sub_80C05C4(struct GmapTmConfrontProc * proc)
@@ -67,7 +83,15 @@ void sub_80C05C4(struct GmapTmConfrontProc * proc)
     return;
 }
 
-extern struct Vec2 gUnknown_08206904[];
+// clang-format off
+
+const struct Vec2 gUnknown_08206904[] =
+{
+    { -2, 0, },
+    { +2, 0, },
+};
+
+// clang-format on
 
 //! FE8U = 0x080C05F8
 void sub_80C05F8(struct GmapTmConfrontProc * proc)
@@ -161,7 +185,43 @@ void sub_80C07B8(ProcPtr proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E6E4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E6E4[] =
+{
+    PROC_NAME("Gmap Tm Confront"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(nullsub_47),
+    PROC_YIELD,
+
+    PROC_CALL(sub_80C05AC),
+
+    PROC_REPEAT(sub_80C0610),
+    PROC_CALL(sub_80C05C4),
+    PROC_YIELD,
+
+    PROC_REPEAT(sub_80C0610),
+    PROC_CALL(sub_80C05F8),
+    PROC_YIELD,
+
+    PROC_REPEAT(sub_80C0610),
+    PROC_CALL(sub_80C05C4),
+    PROC_YIELD,
+
+    PROC_REPEAT(sub_80C0610),
+    PROC_CALL(sub_80C05F8),
+    PROC_YIELD,
+
+    PROC_REPEAT(sub_80C0610),
+
+    PROC_CALL(sub_80C06F0),
+    PROC_REPEAT(sub_80C07B8),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C07D4
 ProcPtr sub_80C07D4(int a, int b, ProcPtr parent)

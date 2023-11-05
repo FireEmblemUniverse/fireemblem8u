@@ -140,10 +140,27 @@ void sub_80C04CC(struct GmapLineFadeProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3E6AC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E6AC[] =
+{
+    PROC_NAME("Gmap Line Fade"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(sub_80C0308),
+
+    PROC_CALL(sub_80C040C),
+    PROC_YIELD,
+
+    PROC_REPEAT(sub_80C04CC),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C04F4
-ProcPtr sub_80C04F4(int param_1, ProcPtr parent)
+ProcPtr sub_80C04F4(int unk, ProcPtr parent)
 {
     struct GmapLineFadeProc * proc;
 
@@ -156,7 +173,7 @@ ProcPtr sub_80C04F4(int param_1, ProcPtr parent)
         proc = Proc_Start(gUnknown_08A3E6AC, PROC_TREE_3);
     }
 
-    proc->unk_29 = param_1;
+    proc->unk_29 = unk;
 
     return proc;
 }

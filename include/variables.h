@@ -1397,9 +1397,9 @@ extern u16 gPal_GMapPI_ShopIcons[];
 extern u8 gGfx_GMapPI_ShopIcons[];
 // extern ??? gPal_08A97ACC
 // extern ??? gUnknown_08A97AEC
-// extern ??? gUnknown_08A97C98
-// extern ??? gUnknown_08A97E28
-// extern ??? gUnknown_08A97E48
+extern u8 gUnknown_08A97C98[]; // tsa?
+extern u16 gUnknown_08A97E28[]; // pal
+extern u16 gUnknown_08A97E48[]; // pal
 extern u8 gUnknown_08A97ED8[]; // gfx
 extern u16 gUnknown_08A97FA4[]; // pal
 extern u8 gUnknown_08A986C0[]; // tsa

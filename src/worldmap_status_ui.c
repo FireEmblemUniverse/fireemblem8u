@@ -14,10 +14,119 @@
 #include "bmudisp.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "bmio.h"
 
 #include "worldmap.h"
 
-extern struct HelpBoxInfo gUnknown_08A3E78C[];
+void sub_80C0A10(struct HelpBoxProc * proc);
+void sub_80C0A44(struct HelpBoxProc * proc);
+
+// clang-format off
+
+struct HelpBoxInfo CONST_DATA gUnknown_08A3E78C[] =
+{
+    {
+        .adjUp = NULL,
+        .adjDown = &gUnknown_08A3E78C[1],
+        .adjLeft = &gUnknown_08A3E78C[6],
+        .adjRight = NULL,
+        .xDisplay = 168,
+        .yDisplay = 80,
+        .mid = 0x0000,
+        .redirect = NULL,
+        .populate = sub_80C0A10,
+    },
+    {
+        .adjUp = &gUnknown_08A3E78C[0],
+        .adjDown = &gUnknown_08A3E78C[2],
+        .adjLeft = &gUnknown_08A3E78C[7],
+        .adjRight = NULL,
+        .xDisplay = 136,
+        .yDisplay = 104,
+        .mid = 0x06E8,
+        .redirect = NULL,
+        .populate = sub_80C0A44,
+    },
+    {
+        .adjUp = &gUnknown_08A3E78C[1],
+        .adjDown = &gUnknown_08A3E78C[4],
+        .adjLeft = &gUnknown_08A3E78C[8],
+        .adjRight = &gUnknown_08A3E78C[3],
+        .xDisplay = 136,
+        .yDisplay = 120,
+        .mid = 0x0542,
+        .redirect = NULL,
+        .populate = NULL,
+    },
+    {
+        .adjUp = &gUnknown_08A3E78C[1],
+        .adjDown = &gUnknown_08A3E78C[4],
+        .adjLeft = &gUnknown_08A3E78C[2],
+        .adjRight = NULL,
+        .xDisplay = 168,
+        .yDisplay = 120,
+        .mid = 0x0543,
+        .redirect = NULL,
+        .populate = NULL,
+    },
+    {
+        .adjUp = &gUnknown_08A3E78C[2],
+        .adjDown = NULL,
+        .adjLeft = &gUnknown_08A3E78C[8],
+        .adjRight = NULL,
+        .xDisplay = 136,
+        .yDisplay = 136,
+        .mid = 0x0544,
+        .redirect = NULL,
+        .populate = NULL,
+    },
+    {
+        .adjUp = NULL,
+        .adjDown = &gUnknown_08A3E78C[6],
+        .adjLeft = NULL,
+        .adjRight = &gUnknown_08A3E78C[0],
+        .xDisplay = 32,
+        .yDisplay = 48,
+        .mid = 0x0676,
+        .redirect = NULL,
+        .populate = NULL,
+    },
+    {
+        .adjUp = &gUnknown_08A3E78C[5],
+        .adjDown = &gUnknown_08A3E78C[7],
+        .adjLeft = NULL,
+        .adjRight = &gUnknown_08A3E78C[0],
+        .xDisplay = 16,
+        .yDisplay = 72,
+        .mid = 0x0677,
+        .redirect = NULL,
+        .populate = NULL,
+    },
+    {
+        .adjUp = &gUnknown_08A3E78C[6],
+        .adjDown = &gUnknown_08A3E78C[8],
+        .adjLeft = NULL,
+        .adjRight = &gUnknown_08A3E78C[1],
+        .xDisplay = 16,
+        .yDisplay = 88,
+        .mid = 0x06F3,
+        .redirect = NULL,
+        .populate = NULL,
+    },
+    {
+        .adjUp = &gUnknown_08A3E78C[7],
+        .adjDown = NULL,
+        .adjLeft = NULL,
+        .adjRight = &gUnknown_08A3E78C[4],
+        .xDisplay = 24,
+        .yDisplay = 120,
+        .mid = 0x06F0,
+        .redirect = NULL,
+        .populate = NULL,
+    },
+};
+
+// clang-format on
 
 //! FE8U = 0x080C09EC
 void sub_80C09EC(ProcPtr proc)
@@ -49,7 +158,7 @@ void sub_80C0A10(struct HelpBoxProc * proc)
     }
     else
     {
-        proc->mid = 0x000006BE;
+        proc->mid = 0x06BE;
     }
 
     return;
@@ -209,7 +318,13 @@ void sub_80C0C44(struct ProcA3E8B8 * proc)
     return;
 }
 
-extern u16 gUnknown_08A3E888[];
+u16 CONST_DATA gUnknown_08A3E888[] =
+{
+    0x0000, 0x6000, 0x0000,
+    0x0000, 0x6800, 0x0000,
+    0x0000, 0x7000, 0x0000,
+    0x8000, 0x7800, 0x0000,
+};
 
 //! FE8U = 0x080C0CF4
 void sub_80C0CF4(void)
@@ -292,6 +407,18 @@ void sub_80C0EBC(void)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E8A0[] =
+{
+    PROC_MARK(PROC_MARK_8),
+    PROC_REPEAT(sub_80C0EBC),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x080C0F00
 void sub_80C0F00(ProcPtr proc)
 {
@@ -325,3 +452,38 @@ void sub_80C0FA4(void)
     SetInterrupt_LCDVCountMatch(NULL);
     return;
 }
+
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3E8B8[] =
+{
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(sub_80C0E4C),
+
+    PROC_CALL(sub_80C0DF0),
+
+    PROC_CALL(LockGame),
+    PROC_CALL(BMapDispSuspend),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80C0CF4),
+    PROC_CALL(StartGreenText),
+
+    PROC_CALL(sub_80C0C44),
+    PROC_CALL(sub_80C0E58),
+
+    PROC_START_CHILD(gUnknown_08A3E8A0),
+
+    PROC_REPEAT(sub_80C0F00),
+    PROC_CALL(sub_80C0FA4),
+
+    PROC_CALL(MU_EndAll),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(UnlockGame),
+
+    PROC_END,
+};
+
+// clang-format on
