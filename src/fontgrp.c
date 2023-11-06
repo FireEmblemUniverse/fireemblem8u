@@ -735,7 +735,7 @@ void DrawTextGlyph(struct Text *text, struct Glyph *glyph)
     int subx = text->x & 7;
     u32 *bitmap = glyph->bitmap;
 
-    CallARM_Func3(GetColorLut(text->colorId), draw_dest, bitmap, subx);
+    DrawGlyphRam(GetColorLut(text->colorId), draw_dest, bitmap, subx);
     text->x += glyph->width;
 }
 

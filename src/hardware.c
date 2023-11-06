@@ -1,10 +1,12 @@
 #include "global.h"
 #include "proc.h"
 #include "bm.h"
+#include "ctc.h"
 #include "hardware.h"
 
+s8 EWRAM_DATA gFadeComponentStep[0x20] = { 0 };
+s8 EWRAM_DATA gFadeComponents[0x600] = { 0 };
 u16 EWRAM_DATA gPaletteBuffer[0x200] = { 0 };
-
 u16 EWRAM_DATA gBG0TilemapBuffer[32 * 32] = { 0 };
 u16 EWRAM_DATA gBG1TilemapBuffer[32 * 32] = { 0 };
 u16 EWRAM_DATA gBG2TilemapBuffer[32 * 32] = { 0 };
@@ -560,7 +562,7 @@ void MaybeResetSomePal(void)
     int i;
 
     for (i = 31; i >= 0; i--)
-        gPalUnk[i] = 0;
+        gFadeComponentStep[i] = 0;
 }
 
 void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d)
@@ -572,12 +574,12 @@ void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d)
 
     for (i = 0; i < c; i++)
     {
-        gPalUnk[b + i] = d;
+        gFadeComponentStep[b + i] = d;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[destOffset++] = RED_VALUE(*src) + r3;
-            gUnknown_020222A8[destOffset++] = GREEN_VALUE(*src) + r3;
-            gUnknown_020222A8[destOffset++] = BLUE_VALUE(*src) + r3;
+            gFadeComponents[destOffset++] = RED_VALUE(*src) + r3;
+            gFadeComponents[destOffset++] = GREEN_VALUE(*src) + r3;
+            gFadeComponents[destOffset++] = BLUE_VALUE(*src) + r3;
             src++;
         }
     }
@@ -592,12 +594,12 @@ void sub_80017B4(int a, int b, int c, int d)
 
     for (i = 0; i < b; i++)
     {
-        gPalUnk[a + i] = d;
+        gFadeComponentStep[a + i] = d;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[destOffset++] = RED_VALUE(*src) + c;
-            gUnknown_020222A8[destOffset++] = GREEN_VALUE(*src) + c;
-            gUnknown_020222A8[destOffset++] = BLUE_VALUE(*src) + c;
+            gFadeComponents[destOffset++] = RED_VALUE(*src) + c;
+            gFadeComponents[destOffset++] = GREEN_VALUE(*src) + c;
+            gFadeComponents[destOffset++] = BLUE_VALUE(*src) + c;
             src++;
         }
     }
@@ -608,7 +610,7 @@ void sub_800183C(int a, int b, int c)
     int i;
 
     for (i = a; i < a + b; i++)
-        gPalUnk[i] = c;
+        gFadeComponentStep[i] = c;
 }
 
 void ColorFadeSetupFromColorToBlack(u8 a)
@@ -618,12 +620,12 @@ void ColorFadeSetupFromColorToBlack(u8 a)
 
     for (i = 31; i >= 0; i--)
     {
-        gPalUnk[i] = a;
+        gFadeComponentStep[i] = a;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gFadeComponents[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gFadeComponents[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gFadeComponents[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
         }
     }
 }
@@ -635,12 +637,12 @@ void ColorFadeSetupFromBlack(u8 a)
 
     for (i = 31; i >= 0; i--)
     {
-        gPalUnk[i] = a;
+        gFadeComponentStep[i] = a;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]);
-            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]);
-            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]);
+            gFadeComponents[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]);
+            gFadeComponents[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]);
+            gFadeComponents[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]);
         }
     }
 }
@@ -653,12 +655,12 @@ void ColorFadeSetupFromColorToWhite(u8 a)
 
     for (i = 31; i >= 0; i--)
     {
-        gPalUnk[i] = a;
+        gFadeComponentStep[i] = a;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gFadeComponents[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gFadeComponents[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gFadeComponents[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
         }
     }
 }
@@ -670,12 +672,12 @@ void ColorFadeSetupFromWhite(u8 a)
 
     for (i = 31; i >= 0; i--)
     {
-        gPalUnk[i] = a;
+        gFadeComponentStep[i] = a;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
+            gFadeComponents[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
+            gFadeComponents[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
+            gFadeComponents[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
         }
     }
 }
@@ -690,27 +692,27 @@ void sub_8001A6C(void)
 
     for (i = 31; i >= 0; i--)
     {
-        if (gPalUnk[i] != 0)
+        if (gFadeComponentStep[i] != 0)
         {
             for (j = 15; j >= 0; j--)
             {
-                gUnknown_020222A8[(i * 16 + j) * 3 + 0] += gPalUnk[i];
-                gUnknown_020222A8[(i * 16 + j) * 3 + 1] += gPalUnk[i];
-                gUnknown_020222A8[(i * 16 + j) * 3 + 2] += gPalUnk[i];
+                gFadeComponents[(i * 16 + j) * 3 + 0] += gFadeComponentStep[i];
+                gFadeComponents[(i * 16 + j) * 3 + 1] += gFadeComponentStep[i];
+                gFadeComponents[(i * 16 + j) * 3 + 2] += gFadeComponentStep[i];
 
-                r4 = gUnknown_020222A8[(i * 16 + j) * 3 + 0] - 32;
+                r4 = gFadeComponents[(i * 16 + j) * 3 + 0] - 32;
                 if (r4 > 31)
                     r4 = 31;
                 if (r4 < 0)
                     r4 = 0;
 
-                r3 = gUnknown_020222A8[(i * 16 + j) * 3 + 1] - 32;
+                r3 = gFadeComponents[(i * 16 + j) * 3 + 1] - 32;
                 if (r3 > 31)
                     r3 = 31;
                 if (r3 < 0)
                     r3 = 0;
 
-                r1 = gUnknown_020222A8[(i * 16 + j) * 3 + 2] - 32;
+                r1 = gFadeComponents[(i * 16 + j) * 3 + 2] - 32;
                 if (r1 > 31)
                     r1 = 31;
                 if (r1 < 0)
@@ -1069,21 +1071,21 @@ void SetObjAffine(int index, s16 pa, s16 pb, s16 pc, s16 pd)
 
 struct UnknownDmaStruct2
 {
-    int unk0;
-    u16 unk4;
-    s16 unk6;
-    s16 unk8;
+    int attr01;
+    u16 attr2;
+    s16 x;
+    s16 y;
 };
 
-void sub_80021E4(struct UnknownDmaStruct2 *a, int b, int c)
+void sub_80021E4(struct UnknownDmaStruct2 *a, int _x, int _y)
 {
-    while (a->unk0 != 1 && gOamHiPutIt < (u32 *)(gOam + 0x80))
+    while (a->attr01 != 1 && gOamHiPutIt < (u32 *)(gOam + 0x80))
     {
-        int x = (a->unk6 + b) & 0x1FF;
-        int y = (a->unk8 + c) & 0xFF;
+        int x = OBJ_X(a->x + _x);
+        int y = OBJ_Y(a->y + _y);
 
-        *(u32 *)gOamHiPutIt++ = a->unk0 | (x << 16) | (y);
-        *(u16 *)gOamHiPutIt++ = a->unk4;
+        *(u32 *)gOamHiPutIt++ = a->attr01 | (x << 16) | (y);
+        *(u16 *)gOamHiPutIt++ = a->attr2;
         a++;
     }
 }

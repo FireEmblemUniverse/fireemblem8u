@@ -63,13 +63,13 @@ void NewEfxStatusUnit(struct Anim *anim)
     gpProcEfxStatusUnits[GetAnimPosition(anim)] = proc;
 
     if (GetAnimPosition(anim) == EKR_POS_L) {
-        EfxSplitColor(gpEfxUnitPaletteBackup[EKR_POS_L], &gUnknown_020222A8[0], 0x10);
-        EfxSplitColorPetrify(gpEfxUnitPaletteBackup[EKR_POS_L], &gUnknown_020222A8[0x30], 0x10);
-        sub_8071574(&gUnknown_020222A8[0], &gUnknown_020222A8[0x30], (void *)&gUnknown_020222A8[0x180], 0x10, 0x10);
+        EfxSplitColor(gpEfxUnitPaletteBackup[EKR_POS_L], &gFadeComponents[0], 0x10);
+        EfxSplitColorPetrify(gpEfxUnitPaletteBackup[EKR_POS_L], &gFadeComponents[0x30], 0x10);
+        sub_8071574(&gFadeComponents[0], &gFadeComponents[0x30], (void *)&gFadeComponents[0x180], 0x10, 0x10);
     } else {
-        EfxSplitColor(gpEfxUnitPaletteBackup[EKR_POS_R], &gUnknown_02022308[0], 0x10);
-        EfxSplitColorPetrify(gpEfxUnitPaletteBackup[EKR_POS_R], &gUnknown_02022308[0x30], 0x10);
-        sub_8071574(&gUnknown_02022308[0], &gUnknown_02022308[0x30], (void *)&gUnknown_02022308[0x2A0], 0x10, 0x10);
+        EfxSplitColor(gpEfxUnitPaletteBackup[EKR_POS_R], &gFadeComponents[0x60], 0x10);
+        EfxSplitColorPetrify(gpEfxUnitPaletteBackup[EKR_POS_R], &gFadeComponents[0x90], 0x10);
+        sub_8071574(&gFadeComponents[0x60], &gFadeComponents[0x90], (void *)&gFadeComponents[0x300], 0x10, 0x10);
     }
 }
 
@@ -206,16 +206,16 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
         if (GetAnimPosition(proc->anim) == EKR_POS_L)
             EfxDecodeSplitedPalette(
                 PAL_OBJ(OBPAL_EFX_UNK_7),
-                (s8 *)gUnknown_020222A8,
-                (s8 *)&gUnknown_020222A8[0x30],
-                (s16 *)&gUnknown_020222A8[0x180],
+                gFadeComponents,
+                &gFadeComponents[0x30],
+                (s16 *)&gFadeComponents[0x180],
                 16, proc->red, 16);
         else
             EfxDecodeSplitedPalette(
                 PAL_OBJ(OBPAL_EFX_UNK_9),
-                (s8 *)gUnknown_02022308,
-                (s8 *)&gUnknown_02022308[0x30],
-                (s16 *)&gUnknown_02022308[0x2A0],
+                &gFadeComponents[0x60],
+                &gFadeComponents[0x90],
+                (s16 *)&gFadeComponents[0x300],
                 16, proc->red, 16);
 
         RefreshEntityBmMaps();

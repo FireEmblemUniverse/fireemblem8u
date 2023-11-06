@@ -58,71 +58,135 @@ struct FaceProc {
     /* 48 */ struct FaceBlinkProc* pBlinkProc;
 };
 
+struct FaceBlinkProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct FaceProc* pFaceProc;
+
+    /* 30 */ s16 blinkControl;
+    /* 32 */ s16 unk_32;
+    /* 34 */ s16 unk_34;
+
+    /* 38 */ int unk_38;
+    /* 3C */ u16* unk_3c;
+
+    /* 40 */ u16 tileId;
+    /* 42 */ u16 palId;
+    /* 44 */ u16 faceId;
+};
+
+struct DeleteFaceProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 pad[0x54-0x29];
+
+    /* 54 */ struct FaceProc* target;
+};
+
+struct UnkFaceProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct FaceProc* pFaceProc;
+    /* 30 */ const struct FaceData* pFaceInfo;
+    /* 34 */ int faceId;
+};
+
 
 const struct FaceData* GetPortraitData(int fid);
 void ResetFaces(void);
 void SetupFaceGfxData(struct FaceVramEntry*);
-// ??? FindFreeFaceSlot(???);
-// ??? Face_OnInit(???);
-// ??? Face_OnIdle(???);
+int FindFreeFaceSlot(void);
+void Face_OnInit(struct FaceProc* proc);
+void Face_OnIdle(struct FaceProc* proc);
 struct FaceProc* StartFaceAuto(int fid, int x, int y, int disp);
 struct FaceProc* StartFace(int faceSlot, int portraitId, int x, int y, int displayType);
-// ??? EndFace(???);
+void EndFace(struct FaceProc* proc);
 void EndFaceById(int faceSlot);
 int SetFaceDisplayBits(struct FaceProc*, int);
 int SetFaceDisplayBitsById(int slot, int disp);
 int GetFaceDisplayBits(struct FaceProc*);
 int GetFaceDisplayBitsById(int slot);
-// ??? FaceRefreshSprite(???);
-// ??? PutFaceTm(???);
-// ??? UnpackFaceChibiGraphics(???);
+void FaceRefreshSprite(struct FaceProc* proc);
+void PutFaceTm(u16* tm, u8* data, int tileref, s8 isFlipped);
+void UnpackFaceChibiGraphics(int fid, int chr, int pal);
 void PutFaceChibi(int, u16*, int, int, s8);
-// ??? UnpackFaceChibiSprGraphics(???);
-// ??? FaceChibiSpr_OnIdle(???);
-// ??? StartFaceChibiSpr(???);
-// ??? EndFaceChibiSpr(???);
-// ??? PutFace80x72_Standard(???);
-// ??? PutFace80x72_Raised(???);
-// ??? ShouldFaceBeRaised(???);
+void UnpackFaceChibiSprGraphics(int fid, int chr, int pal);
+void FaceChibiSpr_OnIdle(struct FaceProc* proc);
+void StartFaceChibiSpr(int x, int y, int fid, int chr, int pal, s8 isFlipped, ProcPtr parent);
+void EndFaceChibiSpr(void);
+void PutFace80x72_Standard(u16* tm, int tileref, const struct FaceData* info);
+void PutFace80x72_Raised(u16* tm, int tileref, const struct FaceData* info);
+s8 ShouldFaceBeRaised(int fid);
 void PutFace80x72_Core(u16*, int, int, int);
-// ??? sub_8005D64(???);
-// ??? sub_8005D70(???);
-// ??? sub_8005D98(???);
+void sub_8005D64(struct FaceBlinkProc*);
+void sub_8005D70(struct FaceBlinkProc*);
+void sub_8005D98(struct FaceBlinkProc*);
 void PutFace80x72(ProcPtr proc, u16 * bgOut, int fid, int tileId, int palId);
-// ??? EndFacePtr(???);
-// ??? EndFaceIn8Frames(???);
+void EndFacePtr(struct DeleteFaceProc* proc);
+void EndFaceIn8Frames(struct FaceProc* target) ;
 void StartFaceFadeIn(struct FaceProc* proc);
 void StartFaceFadeOut(struct FaceProc* proc);
-// ??? sub_8005F6C(???);
-// ??? sub_8005F9C(???);
-// ??? sub_8005FD4(???);
-// ??? sub_8005FE0(???);
-// ??? sub_8006134(???);
-// ??? sub_800623C(???);
-// ??? sub_8006280(???);
-// ??? sub_80062B8(???);
-// ??? sub_8006324(???);
-// ??? sub_800632C(???);
-// ??? sub_8006370(???);
-// ??? sub_8006378(???);
-// ??? sub_80063BC(???);
-// ??? sub_80063C4(???);
+u8* sub_8005F6C(int);
+void sub_8005F9C(int, int);
+void sub_8005FD4(struct FaceBlinkProc*);
+void sub_8005FE0(struct FaceBlinkProc*);
+void sub_800623C(struct FaceBlinkProc*);
+void sub_8006280(struct FaceBlinkProc*);
+void sub_80062B8(struct FaceBlinkProc*);
+void sub_8006324(struct FaceBlinkProc*);
+void sub_800632C(struct FaceBlinkProc*);
+void sub_8006370(struct FaceBlinkProc*);
+void sub_8006378(struct FaceBlinkProc*);
+void sub_80063BC(struct FaceBlinkProc*);
+void sub_80063C4(struct FaceBlinkProc*);
 void SetFaceBlinkControl(struct FaceProc* proc, int blinkControl);
 void SetFaceBlinkControlById(int faceSlot, int unk);
-// ??? FaceBlinkProc_GenBlinkInterval(???);
+int FaceBlinkProc_GenBlinkInterval(struct FaceBlinkProc* proc);
 void sub_80064D4(struct FaceProc* proc, int unk);
 void sub_80064DC(int slot, int unk);
 struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp);
 void sub_8006618(int slot, int x, int y);
-// ??? sub_800662C(???);
-// ??? sub_8006650(???);
-// ??? sub_80066A8(???);
+void sub_800662C(struct UnkFaceProc* proc);
+void sub_8006650(struct UnkFaceProc* proc);
+void sub_80066A8(struct UnkFaceProc* proc);
 void sub_80066E0(struct FaceProc* parent, int fid);
 void sub_80066FC(int offset, int fid);
 void sub_800671C(int pal, int fid);
 void sub_8006738(u16* a, u16 b, s8 c);
 
+extern const struct FaceData portrait_data[];
 extern struct FaceProc* gFaces[];
+
+// generic minimug images
+extern u8 CONST_DATA gUnknown_08599D34[];
+extern u8 CONST_DATA gUnknown_08599B34[];
+extern u8 CONST_DATA gUnknown_08599734[];
+extern u8 CONST_DATA gUnknown_08599934[];
+
+// generic minimug palettes
+extern u16 CONST_DATA gUnknown_08599F34[];
+extern u16 CONST_DATA gUnknown_08599F54[];
+extern u16 CONST_DATA gUnknown_08599F74[];
+
+extern struct FaceVramEntry CONST_DATA gDefaultFaceConfig[FACE_SLOT_COUNT];
+extern u16 CONST_DATA gSprite_Face64x96[];
+extern u16 CONST_DATA gSprite_Face64x96_Flipped[];
+extern u16 CONST_DATA gSprite_Face96x96[];
+extern u16 CONST_DATA gSprite_Face96x96_Flipped[];
+extern u16 CONST_DATA gSprite_Face80x72[];
+extern u16 CONST_DATA gSprite_Face80x72_Flipped[];
+extern u16 CONST_DATA gSprite_Face96x72[];
+extern u16 CONST_DATA gSprite_Face96x72_Flipped[];
 extern struct ProcCmd gProcScr_E_FACE[];
+extern struct ProcCmd CONST_DATA gProcScr_E_FACE_ExtraFrame[];
+extern u8 CONST_DATA gUnknown_085911C4[];
+extern struct ProcCmd CONST_DATA gProcScr_FaceChibiSpr[];
+extern u16 CONST_DATA Sprite_085911E8[];
+extern u16 CONST_DATA Sprite_085911F6[];
+extern struct ProcCmd CONST_DATA gProcScr_08591204[];
+extern struct ProcCmd CONST_DATA gProcScr_FaceEndIn8Frames[];
+extern struct ProcCmd CONST_DATA gProcScr_0859124C[];
+extern struct ProcCmd CONST_DATA gProcScr_FaceBlink[];
+extern struct ProcCmd CONST_DATA gProcScr_08591304[];
 
 #endif  // GUARD_FACE_H

@@ -182,10 +182,8 @@ extern u8 gUnknown_03000018;
 extern u8 gUnknown_03000019;
 extern bool gSoftwareResetFlag;
 
-extern s8 gPalUnk[];
-extern s8 gUnknown_020222A8[];
-extern s8 gUnknown_02022308[];
-
+extern s8 gFadeComponentStep[];
+extern s8 gFadeComponents[];
 extern u16 gPaletteBuffer[];
 
 // In text mode, the tilemap entries are 16 bits,

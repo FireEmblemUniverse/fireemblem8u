@@ -5,139 +5,184 @@
 	.global ARMCodeToCopy_Start
 ARMCodeToCopy_Start:
 
-_08000228: .4byte gPaletteBuffer @ pool
-_0800022C: .4byte gUnknown_020222A8 @ pool
-_08000230: .4byte gPalUnk @ pool
+.LPal: .4byte gPaletteBuffer @ pool
+.LFadeComponents: .4byte gFadeComponents @ pool
+.LFadeComponentStep: .4byte gFadeComponentStep @ pool
 
-	ARM_FUNC_START ARM_MaybeScreenFadeIn
-ARM_MaybeScreenFadeIn: @ 0x08000234
+	ARM_FUNC_START ColorFadeTick
+ColorFadeTick: @ 0x08000234
 	push {r4, r5, r6, r7}
-	mov r7, #0x3e0
-_0800023C:
-	ldr r0, _08000230
+
+	@ r7 = start offset of next palette
+    @ we start from the end, so palette 0x1F
+	mov r7, 0x20 * 0x1F
+.Lpal_loop:
+	 @ r0 = gFadeComponentStep + pal_idx
+	ldr r0, .LFadeComponentStep
 	add r0, r0, r7, lsr #5
+
+	@ r5 = component step for this palette
 	ldrsb r5, [r0]
+
+	@ skip if step is 0
 	tst r5, r5
-	beq _080002F4
-	ldr r4, _0800022C
+	beq .Lpal_loop_continue
+
+	ldr r4, .LFadeComponents
+
+	@ r4 = r4 + 0x30 + r7 * 1.5
 	lsr r0, r7, #1
 	add r0, r0, r0, lsl #1
 	add r0, r0, #0x30
 	add r4, r4, r0
+
+	@ r6 = start offset of next color
+    @ starting from the end again
 	mov r6, #0x1e
-_08000268:
+.Lcolor_loop:
 	sub r4, r4, #3
+
+	@ the clamp compares could be made branchless with some conditional operations
+    @ eg: subs r0, 0x20 ; movlo r0, 0 ; cmp r0, 0x20 ; movhs r0, 
+
+	@ get, update and clamp red component (r0)
 	ldrb r0, [r4]
 	add r0, r0, r5
 	strb r0, [r4]
 	subs r0, r0, #0x20
-	bpl _08000284
+	bpl 1f
 	mov r0, #0
-_08000284:
+1:
 	cmp r0, #0x20
-	blo _08000290
+	blo 1f
 	mov r0, #0x1f
-_08000290:
+1:
+
+	@ get, update and clamp green component (r1)
 	ldrb r1, [r4, #1]
 	add r1, r1, r5
 	strb r1, [r4, #1]
 	subs r1, r1, #0x20
-	bpl _080002A8
+	bpl 1f
 	mov r1, #0
-_080002A8:
+1:
 	cmp r1, #0x20
-	blo _080002B4
+	blo 1f
 	mov r1, #0x1f
-_080002B4:
+1:
+
+	@ get, update and clamp blue component (r2)
 	ldrb r2, [r4, #2]
 	add r2, r2, r5
 	strb r2, [r4, #2]
 	subs r2, r2, #0x20
-	bpl _080002CC
+	bpl 1f
 	mov r2, #0
-_080002CC:
+1:
 	cmp r2, #0x20
-	blo _080002D8
+	blo 1f
 	mov r2, #0x1f
-_080002D8:
+1:
+
+	@ get combined RGB5 color value
 	add r0, r0, r1, lsl #5
 	add r0, r0, r2, lsl #10
-	ldr r1, _08000228
+
+	@ store updated color to pal buffer
+	ldr r1, .LPal
 	add r1, r1, r6
 	strh r0, [r1, r7]
 	subs r6, r6, #2
-	bpl _08000268
-_080002F4:
+	bpl .Lcolor_loop
+.Lpal_loop_continue:
 	subs r7, r7, #0x20
-	bpl _0800023C
+	bpl .Lpal_loop
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_END ARM_MaybeScreenFadeIn
+	ARM_FUNC_END ColorFadeTick
 
-	ARM_FUNC_START ARM_MoveOBJsOffscreen
-ARM_MoveOBJsOffscreen: @ 0x08000304
-	@ r0 = dest
-	@ r1 = count
+@ void ClearOam(void * buf, int count);
+	ARM_FUNC_START ClearOam
+ClearOam: @ 0x08000304
 	lsr r1, r1, #4
 	sub r1, r1, #1		@ count = count / 16 - 1
+
 	@ set the y-coordinate of each OBJ to 160, which moves it offscreen
 	@ This loop is unrolled to set 16 OBJs each iteration
 	mov r2, #160
 1:
-	str r2, [r0, #8*0]
-	str r2, [r0, #8*1]
-	str r2, [r0, #8*2]
-	str r2, [r0, #8*3]
-	str r2, [r0, #8*4]
-	str r2, [r0, #8*5]
-	str r2, [r0, #8*6]
-	str r2, [r0, #8*7]
-	str r2, [r0, #8*8]
-	str r2, [r0, #8*9]
-	str r2, [r0, #8*10]
-	str r2, [r0, #8*11]
-	str r2, [r0, #8*12]
-	str r2, [r0, #8*13]
-	str r2, [r0, #8*14]
-	str r2, [r0, #8*15]
-	add r0, r0, #8*16
+	str r2, [r0, 8 * 0]
+	str r2, [r0, 8 * 1]
+	str r2, [r0, 8 * 2]
+	str r2, [r0, 8 * 3]
+	str r2, [r0, 8 * 4]
+	str r2, [r0, 8 * 5]
+	str r2, [r0, 8 * 6]
+	str r2, [r0, 8 * 7]
+	str r2, [r0, 8 * 8]
+	str r2, [r0, 8 * 9]
+	str r2, [r0, 8 * 10]
+	str r2, [r0, 8 * 11]
+	str r2, [r0, 8 * 12]
+	str r2, [r0, 8 * 13]
+	str r2, [r0, 8 * 14]
+	str r2, [r0, 8 * 15]
+	add r0, r0, 8 * 16
 	subs r1, r1, #1
 	bpl 1b
 	bx lr
 
-	ARM_FUNC_END ARM_MoveOBJsOffscreen
+	ARM_FUNC_END ClearOam
 
-	ARM_FUNC_START ARM_ComputeChecksum32
-ARM_ComputeChecksum32: @ 0x08000360
+/*
+u32 Checksum32(const u32 * buf, int size)
+{
+	int i;
+	for (i = 0; i < size / 4; i++)
+	{
+		add_acc += data_u32[i];
+		xor_acc ^= data_u32[i];
+	}
+	return (u16)add_acc + ((u16)xor_acc << 0x10);
+}
+*/
+	ARM_FUNC_START Checksum32
+Checksum32: @ 0x08000360
 	push {r4, r5, r6, r7}
-	sub r1, r1, #2
-	mov r2, #0
-	mov r3, #0
-_08000370:
+	sub r1, r1, #2		@ r1 = len
+	mov r2, #0			@ r2 = add_acc
+	mov r3, #0			@ r3 = xor_acc
+1:
 	ldrh r4, [r0]
-	add r2, r2, r4
-	eor r3, r3, r4
+	add r2, r2, r4		@ r2 = add_acc += data_u32[i]
+	eor r3, r3, r4		@ r3 = xor_acc ^= data_u32[i]
 	add r0, r0, #2
 	subs r1, r1, #2
-	bpl _08000370
+	bpl 1b
+
 	mov r0, #0x10000
-	sub r0, r0, #1
+	sub r0, r0, #1		@ 0xFFFF
 	and r2, r2, r0
 	lsl r3, r3, #0x10
 	mov r0, r2
-	add r0, r0, r3
+	add r0, r0, r3		@ return (u16)add_acc + ((u16)xor_acc << 0x10)
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_END ARM_ComputeChecksum32
+	ARM_FUNC_END Checksum32
 
-	ARM_FUNC_START ARM_FillRect
-ARM_FillRect: @ 0x080003A8
-	@ r0 = destination
-	@ r1 = width
-	@ r2 = height
-	@ r3 = fillValue
+/*
+void TmFillRect(u16 * dest, int width, int height, int fillValue)
+{
+	int i, j;
+	for (i = 0; i < height; i++)
+		for (j = 0; j < width; j++)
+			dst[j + 0x20 * i] = fillValue;
+}
+*/
+	ARM_FUNC_START TmFillRect
+TmFillRect: @ 0x080003A8
 	push {r4, r5, r6, r7}
 	mov r4, r0
 	sub r6, r2, #0
@@ -155,89 +200,125 @@ ARM_FillRect: @ 0x080003A8
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_END ARM_FillRect
+	ARM_FUNC_END TmFillRect
 
-	ARM_FUNC_START ARM_CopyRect
-ARM_CopyRect: @ 0x080003E0
+/*
+void TmCopyRect(u16 * src, u16 * dst, int width, int height)
+{
+	int i, j;
+	for (i = 0; i < height; i++)
+		for (j = 0; j < width; j++)
+			dst[j + 0x20 * i] = src[j + 0x20 * i];
+}
+*/
+	ARM_FUNC_START TmCopyRect
+TmCopyRect: @ 0x080003E0
 	push {r4, r5, r6, r7}
 	tst r2, r2
-	beq _08000434
-	bmi _08000434
+	beq .LCopyRectEnd
+	bmi .LCopyRectEnd
 	tst r3, r3
-	beq _08000434
-	bmi _08000434
+	beq .LCopyRectEnd
+	bmi .LCopyRectEnd
 	mov r4, #0x40
 	sub r4, r4, r2, lsl #1
 	sub r6, r3, #1
-_08000408:
+1:
 	sub r5, r2, #1
-_0800040C:
+2:
+	@ *dst++ = *src++
 	ldrh r7, [r0]
 	strh r7, [r1]
 	add r0, r0, #2
 	add r1, r1, #2
 	subs r5, r5, #1
-	bpl _0800040C
+	bpl 2b
 	add r0, r0, r4
 	add r1, r1, r4
 	subs r6, r6, #1
-	bpl _08000408
-_08000434:
+	bpl 1b
+.LCopyRectEnd:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_END ARM_CopyRect
+	ARM_FUNC_END TmCopyRect
 
-	ARM_FUNC_START ARM_FillTileRect
-ARM_FillTileRect: @ 0x0800043C
+/*
+struct TillMapArrangement {
+	u8 width, height;
+	u16 data[];
+};
+
+void TmApplyTsa(u16 * tilemap, const void * _tsa, int tileref)
+{
+	const struct TillMapArrangement * tsa = _tsa;
+	int width  = tsa->width;
+	int height = tsa->height;
+	u16 * src  = tsa->data;
+	u16 * dst  = TILEMAP_LOCATED(tilemap, height, 0); // dest is set from the bottom to top
+
+	int w, h;
+	for (h = 0; h < height; h++)
+	{
+		for (w = 0; w < width; w++)
+			*dst++ = *src++;
+
+		dst = dst - width - 1 - 0x20;
+	}
+}
+*/
+	ARM_FUNC_START TmApplyTsa
+TmApplyTsa: @ 0x0800043C
 	push {r4, r5, r6, r7}
-	ldrb r3, [r1]
-	ldrb r4, [r1, #1]
-	add r1, r1, #2
+	ldrb r3, [r1]		@ r3 = width  = tsa->width
+	ldrb r4, [r1, #1]	@ r4 = height = tsa->height
+	add r1, r1, #2		@ r1 = src    = tsa->data
 	lsl r7, r4, #6
-	add r0, r0, r7
+	add r0, r0, r7		@ dst  = TILEMAP_LOCATED(tilemap, height, 0);
 	mov r6, r4
-_08000458:
+1:
 	mov r5, r3
-_0800045C:
+2:
 	ldrh r7, [r1]
 	add r7, r7, r2
 	strh r7, [r0]
 	add r0, r0, #2
 	add r1, r1, #2
 	subs r5, r5, #1
-	bpl _0800045C
+	bpl 2b
 	sub r0, r0, r3, lsl #1
 	sub r0, r0, #0x42
 	subs r6, r6, #1
-	bpl _08000458
+	bpl 1b
 	pop {r4, r5, r6, r7}
 	bx lr
 
 	.align 2, 0
-_08000490: .4byte gOamHiPutIt @ pool
+	ARM_FUNC_END TmApplyTsa
 
-	ARM_FUNC_END ARM_FillTileRect
-
-	ARM_FUNC_START IRAMARM_CopyToSecondaryOAM
-IRAMARM_CopyToSecondaryOAM: @ 0x08000494
+@ void PutOamHi(int x, int y, u16 const * oam_list, int oam2)
+.LOamHiPutIt: .4byte gOamHiPutIt @ pool
+	ARM_FUNC_START PutOamHi
+PutOamHi: @ 0x08000494
 	push {r4, r5, r6, r7}
-	ldr r7, _08000490
-_0800049C:
-	ldr r5, [r7]
-	ldrh r4, [r2]
+	ldr r7, .LOamHiPutIt
+.LPutOamExt:
+	ldr r5, [r7]				@ r5 = dst
+	ldrh r4, [r2]				@ r4 = count = *oam_list;
 	tst r4, r4
-	beq _08000528
-	bmi _08000528
-	add r2, r2, #2
+	beq .LPutOamEnd
+	bmi .LPutOamEnd
+	add r2, r2, #2				@ src = oam_list + 1;
 	add r6, r5, r4, lsl #3
-	str r6, [r7]
+	str r6, [r7]				@ *pdst = *pdst + count;
 	mov r7, #0x10000
 	sub r7, r7, #1
 	and r0, r0, r7
 	and r1, r1, r7
 	orr r0, r0, r1, lsl #16
-_080004D0:
+.LPutOamLoop:
+	@ ATTR0 = src[0]
+	@ ATTR0::Y = y
 	ldrh r1, [r2]
 	orr r6, r1, r0, lsr #16
 	and r6, r6, #0xff00
@@ -245,6 +326,9 @@ _080004D0:
 	and r7, r7, #0xff
 	orr r6, r6, r7
 	strh r6, [r5]
+
+	@ ATTR1 = src[1]
+	@ ATTR1::X = x
 	ldrh r1, [r2, #2]
 	orr r6, r1, r0
 	and r6, r6, #0xfe00
@@ -253,26 +337,31 @@ _080004D0:
 	lsr r7, r7, #0x17
 	orr r6, r6, r7
 	strh r6, [r5, #2]
+
+	@ ATTR2 = src[2] + oam2
 	ldrh r1, [r2, #4]
 	add r6, r1, r3
 	strh r6, [r5, #4]
-	add r2, r2, #6
-	add r5, r5, #8
+
+	add r2, r2, #6		@ src = src + 3;
+	add r5, r5, #8		@ dst++;
 	subs r4, r4, #1
-	bne _080004D0
-_08000528:
+	bne .LPutOamLoop
+.LPutOamEnd:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000530: .4byte gOamLoPutIt @ pool
+	ARM_FUNC_END PutOamHi
 
-	ARM_FUNC_END IRAMARM_CopyToSecondaryOAM
+.LOamLoPutIt: .4byte gOamLoPutIt @ pool
 
-	ARM_FUNC_START IRAMARM_CopyToPrimaryOAM
-IRAMARM_CopyToPrimaryOAM: @ 0x08000534
+@ void PutOamLo(int x, int y, u16 const * oam_list, int oam2)
+	ARM_FUNC_START PutOamLo
+PutOamLo: @ 0x08000534
 	push {r4, r5, r6, r7}
-	ldr r7, _08000530
-	b _0800049C
+	ldr r7, .LOamLoPutIt
+	b .LPutOamExt
+	ARM_FUNC_END PutOamLo
 
 bitTable:
 	.4byte (1 << 0)
@@ -286,19 +375,20 @@ bitTable:
 
 lt_bitTable: .4byte bitTable @ pool
 
-	ARM_FUNC_END IRAMARM_CopyToPrimaryOAM
-
-	ARM_FUNC_START IRAMARM_Func3_DrawGlyph
-IRAMARM_Func3_DrawGlyph: @ 0x08000564
+@ void DrawGlyph(u16 * pal, u32 * dst, u32 * src, int subx)
+	ARM_FUNC_START DrawGlyph
+DrawGlyph: @ 0x08000564
 	push {r4, r5, r6, r7, r8, r9, sl}
 	mov r9, #0xf
 	mov sl, #0x10000
 	sub sl, sl, #1
 _08000574:
+	@ u64 ref = src[i] * (1 << subx);
 	ldr r4, lt_bitTable  @ bitTable
 	ldr r5, [r4, r3, lsl #2]
 	ldr r4, [r2]
 	umull r5, r6, r4, r5
+
 	mov r7, r5
 	and r7, r7, #0xff
 	ldr r7, [r0, r7, lsl #1]
@@ -310,6 +400,7 @@ _08000574:
 	ldr r4, [r1]
 	orr r4, r4, r7
 	str r4, [r1]
+
 	lsr r7, r5, #0x10
 	and r7, r7, #0xff
 	ldr r7, [r0, r7, lsl #1]
@@ -321,6 +412,7 @@ _08000574:
 	ldr r4, [r1, #0x40]
 	orr r4, r4, r7
 	str r4, [r1, #0x40]
+
 	mov r7, r6
 	and r7, r7, #0xff
 	ldr r7, [r0, r7, lsl #1]
@@ -332,6 +424,7 @@ _08000574:
 	ldr r4, [r1, #0x80]
 	orr r4, r4, r7
 	str r4, [r1, #0x80]
+
 	add r1, r1, #4
 	add r2, r2, #4
 	subs r9, r9, #1
@@ -339,7 +432,7 @@ _08000574:
 	pop {r4, r5, r6, r7, r8, r9, sl}
 	bx lr
 
-	ARM_FUNC_END IRAMARM_Func3_DrawGlyph
+	ARM_FUNC_END DrawGlyph
 
 	ARM_FUNC_START sub_8000620
 sub_8000620: @ 0x08000620
@@ -393,17 +486,17 @@ _08000630:
 	bx lr
 
 	.align 2, 0
-_080006DC: .4byte gMsgHuffmanTableRoot
-_080006E0: .4byte gMsgHuffmanTable
+.LMsgHuffmanTableRoot: .4byte gMsgHuffmanTableRoot
+.LMsgHuffmanTable: .4byte gMsgHuffmanTable
 
 	ARM_FUNC_END sub_8000620
 
-	ARM_FUNC_START IRAMARM_DecompText
-IRAMARM_DecompText: @ 0x080006E4
+	ARM_FUNC_START DecodeString
+DecodeString: @ 0x080006E4
 	push {r4, r5, r6, r7}
 	sub r3, r3, r3
-	ldr r5, _080006E0
-	ldr r7, _080006DC
+	ldr r5, .LMsgHuffmanTable
+	ldr r7, .LMsgHuffmanTableRoot
 	ldr r7, [r7]
 _080006F8:
 	mov r4, r7
@@ -443,30 +536,61 @@ _08000768:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000770: .4byte gWorkingTerrainMoveCosts @ pool
-_08000774: .4byte gMovMapFillState @ pool
-_08000778: .4byte gWorkingBmMap @ pool
-_0800077C: .4byte gBmMapTerrain @ pool
-_08000780: .4byte gBmMapUnit @ pool
+.LWorkingTerrainMoveCosts: .4byte gWorkingTerrainMoveCosts @ pool
+.LMovMapFillState: .4byte gMovMapFillState @ pool
+.LWorkingBmMap: .4byte gWorkingBmMap @ pool
+.LBmMapTerrain: .4byte gBmMapTerrain @ pool
+.LBmMapUnit: .4byte gBmMapUnit @ pool
 
-	ARM_FUNC_END IRAMARM_DecompText
+	ARM_FUNC_END DecodeString
 
-	ARM_FUNC_START IRAMARM_Func5
-IRAMARM_Func5: @ 0x08000784
+/*
+void MapFloodCoreStep(int connexion, int xPos, int yPos)
+{
+	u8 uid1, uid2;
+	struct MovMapFillState * st = &gMovMapFillState;
+	int xsrc = st->src->xPos;
+	int xdst = xsrc + xPos;
+	int ysrc = st->src->yPos;
+	int ydst = ysrc + yPos;
+	u32 cost = gWorkingTerrainMoveCosts[gBmMapTerrain[ydst][xdst]] + gWorkingBmMap[y1][xsrc];
+
+	if (cost > gWorkingBmMap[ydst][xdst])
+		return;
+
+	uid1 = st->hasUnit;
+	uid2 = gBmMapUnit[ydst][xdst];
+	if (uid1 && uid2 && (uid1 ^ uid2) & 0x80) // not allied
+		return;
+
+	if (cost > st->movement)
+		return;
+
+	st->dst->xPos = xdst;
+	st->dst->yPos = ydst;
+	st->dst->connexion = connexion;
+	st->dst->leastMoveCost = cost;
+	sr->dst++;
+
+	gWorkingBmMap[ydst][xdst] = cost;
+}
+*/
+	ARM_FUNC_START MapFloodCoreStep
+MapFloodCoreStep: @ 0x08000784
 	push {r4, r5, r6, r7, r8, r9, sl}
-	ldr r3, _08000774
+	ldr r3, .LMovMapFillState
 	ldr r4, [r3]
 	ldrb r5, [r4]
 	add r1, r1, r5
 	ldrb r6, [r4, #1]
 	add r2, r2, r6
-	ldr r7, _0800077C
+	ldr r7, .LBmMapTerrain
 	ldr r7, [r7]
 	ldr r7, [r7, r2, lsl #2]
 	ldrb r7, [r7, r1]
-	ldr r8, _08000770
+	ldr r8, .LWorkingTerrainMoveCosts
 	ldrb sl, [r8, r7]
-	ldr r7, _08000778
+	ldr r7, .LWorkingBmMap
 	ldr r7, [r7]
 	ldr r9, [r7, r6, lsl #2]
 	ldrb r9, [r9, r5]
@@ -474,11 +598,11 @@ IRAMARM_Func5: @ 0x08000784
 	ldr r9, [r7, r2, lsl #2]
 	ldrb r9, [r9, r1]
 	cmp sl, r9
-	bhs _08000848
+	bhs .LMapFloodCoreStepEnd
 	ldrb r4, [r3, #8]
 	tst r4, r4
 	beq _08000810
-	ldr r7, _08000780
+	ldr r7, .LBmMapUnit
 	ldr r7, [r7]
 	ldr r7, [r7, r2, lsl #2]
 	ldrb r7, [r7, r1]
@@ -487,11 +611,11 @@ IRAMARM_Func5: @ 0x08000784
 	ldrb r4, [r3, #0xa]
 	eor r4, r4, r7
 	ands r4, r4, #0x80
-	bne _08000848
+	bne .LMapFloodCoreStepEnd
 _08000810:
 	ldrb r4, [r3, #9]
 	cmp sl, r4
-	bhi _08000848
+	bhi .LMapFloodCoreStepEnd
 	ldr r4, [r3, #4]
 	strb r1, [r4]
 	strb r2, [r4, #1]
@@ -499,16 +623,16 @@ _08000810:
 	strb sl, [r4, #3]
 	add r4, r4, #4
 	str r4, [r3, #4]
-	ldr r7, _08000778
+	ldr r7, .LWorkingBmMap
 	ldr r7, [r7]
 	ldr r7, [r7, r2, lsl #2]
 	strb sl, [r7, r1]
-_08000848:
+.LMapFloodCoreStepEnd:
 	pop {r4, r5, r6, r7, r8, r9, sl}
 	bx lr
 	.align 2, 0
-_08000850: .4byte gUnknown_030049B0 @ pool
-_08000854: .4byte gUnknown_03004C50 @ pool
+.LMovMapFillStPool1: .4byte gMovMapFillStPool1 @ pool
+.LMovMapFillStPool2: .4byte gMovMapFillStPool2 @ pool
 
 _08000858:
 	b _08000994
@@ -520,25 +644,85 @@ _08000858:
 
 	.4byte _08000858
 
-	ARM_FUNC_END IRAMARM_Func5
+	ARM_FUNC_END MapFloodCoreStep
 
-	ARM_FUNC_START IRAMARM_FillMovementMap
-IRAMARM_FillMovementMap: @ 0x08000874
+/*
+void MapFloodCore(void)
+{
+	int i = 0;
+	while (1)
+	{
+		i = i ^ 1;
+		if (i)
+		{
+			gMovMapFillState.src = gMovMapFillStPool1;
+			gMovMapFillState.dst = gMovMapFillStPool2;
+		}
+		else
+		{
+			gMovMapFillState.src = gMovMapFillStPool2;
+			gMovMapFillState.dst = gMovMapFillStPool1;
+		}
+
+		// 4 is the terminator
+		if (gMovMapFillState.src->connexion == 4)
+			return;
+
+		while (1)
+		{
+			switch (gMovMapFillState.src->connexion) {
+			case 3:
+				MapFloodCoreStep(3, 0, -1);
+				MapFloodCoreStep(0, -1, 0);
+				MapFloodCoreStep(1, 1, 0);
+				break;
+
+			case 2:
+				MapFloodCoreStep(2, 0, 1);
+				MapFloodCoreStep(0, -1, 0);
+				MapFloodCoreStep(1, 1, 0);
+				break;
+
+			case 0:
+				MapFloodCoreStep(3, 0, -1);
+				MapFloodCoreStep(2, 0, 1);
+				MapFloodCoreStep(0, -1, 0);
+				break;
+
+			case 1:
+				MapFloodCoreStep(3, 0, -1);
+				MapFloodCoreStep(2, 0, 1);
+				MapFloodCoreStep(1, 1, 0);
+				break;
+
+			case 4:
+				goto break_internal_loop;
+			}
+
+			gMovMapFillState.dst->connexion = 4;
+			gMovMapFillState.src++;
+		}
+		break_internal_loop:
+	}
+}
+*/
+	ARM_FUNC_START MapFloodCore
+MapFloodCore: @ 0x08000874
 	push {r4, r5, r6, lr}
 	mov r4, #0
-	ldr r5, _08000774  @ gMovMapFillState
-_08000880:
+	ldr r5, .LMovMapFillState  @ gMovMapFillState
+.LMapFloodCoreLoop:
 	eors r4, r4, #1
 	beq _0800089C
-	ldr r0, _08000850  @ gUnknown_030049B0
+	ldr r0, .LMovMapFillStPool1  @ gMovMapFillStPool1
 	str r0, [r5]
-	ldr r0, _08000854  @ gUnknown_03004C50
+	ldr r0, .LMovMapFillStPool2  @ gMovMapFillStPool2
 	str r0, [r5, #4]
 	b _080008AC
 _0800089C:
-	ldr r0, _08000854  @ gUnknown_03004C50
+	ldr r0, .LMovMapFillStPool2  @ gMovMapFillStPool2
 	str r0, [r5]
-	ldr r0, _08000850  @ gUnknown_030049B0
+	ldr r0, .LMovMapFillStPool1  @ gMovMapFillStPool1
 	str r0, [r5, #4]
 _080008AC:
 	ldr r6, [r5]
@@ -561,75 +745,75 @@ _080008E8:
 	mov r0, #3
 	mov r1, #0
 	mvn r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #2
 	mov r1, #0
 	mov r2, #1
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #0
 	mvn r1, #0
 	mov r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #1
 	mov r1, #1
 	mov r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	b _080009F8
 _0800092C:
 	mov r0, #3
 	mov r1, #0
 	mvn r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #0
 	mvn r1, #0
 	mov r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #1
 	mov r1, #1
 	mov r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	b _080009F8
 _08000960:
 	mov r0, #2
 	mov r1, #0
 	mov r2, #1
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #0
 	mvn r1, #0
 	mov r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #1
 	mov r1, #1
 	mov r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	b _080009F8
 _08000994:
 	mov r0, #3
 	mov r1, #0
 	mvn r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #2
 	mov r1, #0
 	mov r2, #1
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #0
 	mvn r1, #0
 	mov r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	b _080009F8
 _080009C8:
 	mov r0, #3
 	mov r1, #0
 	mvn r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #2
 	mov r1, #0
 	mov r2, #1
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 	mov r0, #1
 	mov r1, #1
 	mov r2, #0
-	bl IRAMARM_Func5
+	bl MapFloodCoreStep
 _080009F8:
 	ldr r6, [r5, #4]
 	mov r0, #4
@@ -639,11 +823,11 @@ _080009F8:
 	str r6, [r5]
 	b _080008BC
 _08000A14:
-	b _08000880
+	b .LMapFloodCoreLoop
 _08000A18:
 	pop {r4, r5, r6, lr}
 	bx lr
+	ARM_FUNC_END MapFloodCore
 
 	.global ARMCodeToCopy_End
 ARMCodeToCopy_End:
-	ARM_FUNC_END IRAMARM_FillMovementMap

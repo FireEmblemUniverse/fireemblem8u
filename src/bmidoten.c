@@ -77,8 +77,8 @@ void SetWorkingMoveCosts(const s8 mct[TERRAIN_COUNT])
 
 void GenerateMovementMap(int x, int y, int movement, int unitId)
 {
-    gMovMapFillState.pUnk04 = gUnknown_030049B0;
-    gMovMapFillState.pUnk00 = gUnknown_03004C50;
+    gMovMapFillState.dst = gMovMapFillStPool1;
+    gMovMapFillState.src = gMovMapFillStPool2;
 
     gMovMapFillState.movement = movement;
 
@@ -96,31 +96,31 @@ void GenerateMovementMap(int x, int y, int movement, int unitId)
 
     BmMapFill(gWorkingBmMap, -1);
 
-    gMovMapFillState.pUnk04->xPos = x;
-    gMovMapFillState.pUnk04->yPos = y;
-    gMovMapFillState.pUnk04->connexion = 5;
-    gMovMapFillState.pUnk04->leastMoveCost = 0;
+    gMovMapFillState.dst->xPos = x;
+    gMovMapFillState.dst->yPos = y;
+    gMovMapFillState.dst->connexion = 5;
+    gMovMapFillState.dst->leastMoveCost = 0;
 
     gWorkingBmMap[y][x] = 0;
 
-    gMovMapFillState.pUnk04++;
-    gMovMapFillState.pUnk04->connexion = 4;
+    gMovMapFillState.dst++;
+    gMovMapFillState.dst->connexion = 4;
 
     CallARM_FillMovementMap();
 }
 
 void sub_801A570(int connexion, int x, int y)
 {
-    // This is a C implementation of the ARM (asm) function IRAMARM_Func5
+    // This is a C implementation of the ARM (asm) function MapFloodCoreStep
     // Probably used during testing before switching to the a more "optimal" version.
 
     short tileMovementCost;
 
-    x += gMovMapFillState.pUnk00->xPos;
-    y += gMovMapFillState.pUnk00->yPos;
+    x += gMovMapFillState.src->xPos;
+    y += gMovMapFillState.src->yPos;
 
     tileMovementCost = gWorkingTerrainMoveCosts[gBmMapTerrain[y][x]]
-        + (s8) gWorkingBmMap[(u8) gMovMapFillState.pUnk00->yPos][(u8) gMovMapFillState.pUnk00->xPos];
+        + (s8) gWorkingBmMap[(u8) gMovMapFillState.src->yPos][(u8) gMovMapFillState.src->xPos];
 
     if (tileMovementCost >= gWorkingBmMap[y][x])
         return;
@@ -132,12 +132,12 @@ void sub_801A570(int connexion, int x, int y)
     if (tileMovementCost > gMovMapFillState.movement)
         return;
 
-    gMovMapFillState.pUnk04->xPos = x;
-    gMovMapFillState.pUnk04->yPos = y;
-    gMovMapFillState.pUnk04->connexion = connexion;
-    gMovMapFillState.pUnk04->leastMoveCost = tileMovementCost;
+    gMovMapFillState.dst->xPos = x;
+    gMovMapFillState.dst->yPos = y;
+    gMovMapFillState.dst->connexion = connexion;
+    gMovMapFillState.dst->leastMoveCost = tileMovementCost;
 
-    gMovMapFillState.pUnk04++;
+    gMovMapFillState.dst++;
 
     gWorkingBmMap[y][x] = tileMovementCost;
 }

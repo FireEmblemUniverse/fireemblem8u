@@ -791,7 +791,7 @@ void WriteSwappedSuspendSaveId()
 int SramChecksum32(void *sram_src, int size)
 {
     ReadSramFast(sram_src, gGenericBuffer, size);
-    return ComputeChecksum32((const u16*)gGenericBuffer, size);
+    return ComputeChecksum32((const u32*)gGenericBuffer, size);
 }
 
 bool VerifySaveBlockChecksum(struct SaveBlockInfo *buf)

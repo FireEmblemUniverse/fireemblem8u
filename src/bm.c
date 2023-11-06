@@ -56,6 +56,9 @@ struct UnkMapCursorProc {
     /* 38 */ int duration;
 };
 
+struct PalFadeSt EWRAM_DATA sPalFadeSt[0x20] = { 0 };
+struct BmSt EWRAM_DATA gBmSt = {};
+struct PlaySt EWRAM_DATA gPlaySt = {};
 struct Vec2 EWRAM_DATA sLastCoordMapCursorDrawn = {};
 u32 EWRAM_DATA sLastTimeMapCursorDrawn = 0;
 s8 EWRAM_DATA sCameraAnimTable[0x100] = { 0 };

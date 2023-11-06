@@ -109,25 +109,16 @@ extern char gStringBufferAlt[];
 // TODO: define this in hardware.c?
 extern u8 gGenericBuffer[0x2000];
 
-// extern ??? gUnknown_02026968
-// extern ??? gUnknown_02026A6C
-// extern ??? gUnknown_02026A90
-// extern ??? gUnknown_02026E10
-// extern ??? gUnknown_02028F78
-// extern ??? gUnknown_02029D88
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;
-// extern ??? gUnknown_0202BD30
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
-// extern ??? gUnknown_02030B8C
 extern u8 gWorkingMovementScript[];
 extern u16 gConvoyItemArray[];
 extern struct Unit* sUnitStackBase;
 extern struct Unit* sUnitStackTop;
 extern u8 sUnitStackSize;
 extern struct ActionData gActionData;
-// extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203AA7F
 // extern ??? gUnknown_0203AA80
@@ -648,8 +639,8 @@ extern CONST_DATA u16 Pal_PhaseChangePlayer[];
 // extern ??? Img_PhaseChangeOther
 // extern ??? Pal_PhaseChangeOther
 extern CONST_DATA u16 Img_PhaseChangeSquares[];
-// extern ??? gUnknown_085A0838
-// extern ??? gUnknown_085A08F0
+extern u8 gUnknown_085A0838[]; // tsa
+extern u8 gUnknown_085A08F0[]; // tsa
 // extern ??? gTSA_BattleForecastStandard
 // extern ??? gTSA_BattleForecastExtended
 // extern ??? gBattleForecast_x2x4Gfx

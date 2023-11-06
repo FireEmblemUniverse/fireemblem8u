@@ -7,7 +7,7 @@ ClearOAMBuffer: @ 0x080D7498
 	bx pc
 	nop
 	.ARM
-	b ARM_MoveOBJsOffscreen
+	b ClearOam
 
 	THUMB_FUNC_END ClearOAMBuffer
 
@@ -16,7 +16,7 @@ CallARM_FillTileRect: @ 0x080D74A0
 	bx pc
 	nop
 	.ARM
-	b ARM_FillTileRect
+	b TmApplyTsa
 
 	THUMB_FUNC_END CallARM_FillTileRect
 
@@ -25,7 +25,7 @@ TileMap_FillRect: @ 0x080D74A8
 	bx pc
 	nop
 	.ARM
-	b ARM_FillRect
+	b TmFillRect
 
 	THUMB_FUNC_END TileMap_FillRect
 
@@ -34,7 +34,7 @@ CALLARM_MaybeScreenFadeIn: @ 0x080D74B0
 	bx pc
 	nop
 	.ARM
-	b ARM_MaybeScreenFadeIn
+	b ColorFadeTick
 
 	THUMB_FUNC_END CALLARM_MaybeScreenFadeIn
 
@@ -43,7 +43,7 @@ TileMap_CopyRect: @ 0x080D74B8
 	bx pc
 	nop
 	.ARM
-	b ARM_CopyRect
+	b TmCopyRect
 
 	THUMB_FUNC_END TileMap_CopyRect
 
@@ -52,7 +52,7 @@ ComputeChecksum32: @ 0x080D74C0
 	bx pc
     nop
 	.ARM
-	b ARM_ComputeChecksum32
+	b Checksum32
 
 	THUMB_FUNC_END ComputeChecksum32
 

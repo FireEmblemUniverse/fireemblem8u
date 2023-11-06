@@ -21,7 +21,7 @@ struct SpriteProc
     /* 34 */ u8 pad34[0x50 - 0x34];
     /* 50 */ s16 layer;
     /* 52 */ u16 tileref;
-    /* 54 */ const u16* object;
+    /* 54 */ const u16 * object;
 };
 
 static void SpriteRefresher_OnIdle(struct SpriteProc* proc);
