@@ -6,8 +6,8 @@
 ARMCodeToCopy_Start:
 
 _08000228: .4byte gPaletteBuffer @ pool
-_0800022C: .4byte gUnknown_020222A8 @ pool
-_08000230: .4byte gPalUnk @ pool
+_0800022C: .4byte gFadeComponents @ pool
+_08000230: .4byte gFadeComponentStep @ pool
 
 	ARM_FUNC_START ARM_MaybeScreenFadeIn
 ARM_MaybeScreenFadeIn: @ 0x08000234

@@ -257,11 +257,7 @@
 /* start of ewram data */
 . = 0x020188; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
 . = 0x022188; gOpAnimSt = .;
-. = 0x022288; gPalUnk = .;
-. = 0x0222A8; gUnknown_020222A8 = .;
-. = 0x0222A8; gUnknown_020222A8 = .;
-. = 0x022308; gUnknown_02022308 = .;
-. = 0x0228A8; 
+. = 0x022288;
 . = ALIGN(4); src/hardware.o(ewram_data);
 . = ALIGN(4); src/soundwrapper.o(ewram_data);
 . = ALIGN(4); src/proc.o(ewram_data);
@@ -269,16 +265,8 @@
 . = ALIGN(4); src/fontgrp.o(ewram_data);
 . = ALIGN(4); src/animedrv.o(ewram_data);
 . = ALIGN(4); src/ctc.o(ewram_data);
-. = 0x02A68C; sFaceConfig = .;
-. = 0x02A6AC;
+. = ALIGN(4); src/face.o(ewram_data);
 . = ALIGN(4); src/msg.o(ewram_data);
-. = 0x02B6B0; sPalFadeSt = .;
-. = 0x02BCB0; gBmSt = .;
-. = 0x02BCF0; gPlaySt = .;
-. = 0x02BCFE; gUnknown_0202BCFE = .;
-. = 0x02BD0B; gUnknown_0202BD0B = .;
-. = 0x02BD30; gUnknown_0202BD30 = .;
-. = 0x02BD3A; gUnknown_0202BD3A = .;
 . = ALIGN(4); src/bm.o(ewram_data);
 . = ALIGN(4); src/bmunit.o(ewram_data);
 . = ALIGN(4); src/bmmap.o(ewram_data);
@@ -292,7 +280,6 @@
 . = ALIGN(4); src/bmusort.o(ewram_data);
 . = ALIGN(4); src/bmarena.o(ewram_data);
 . = 0x03A958; gActionData = .;
-. = 0x03A95E; gUnknown_0203A95E = .;
 . = 0x03A974; gUnknown_0203A974 = .;
 . = 0x03A9FC;
 . = ALIGN(4); src/unitinfowindow.o(ewram_data);

@@ -12,74 +12,9 @@
 
 #include "face.h"
 
-struct FaceBlinkProc {
-    /* 00 */ PROC_HEADER;
+struct FaceVramEntry EWRAM_DATA sFaceConfig[4] = { 0 };
 
-    /* 2C */ struct FaceProc* pFaceProc;
-
-    /* 30 */ s16 blinkControl;
-    /* 32 */ s16 unk_32;
-    /* 34 */ s16 unk_34;
-
-    /* 38 */ int unk_38;
-    /* 3C */ u16* unk_3c;
-
-    /* 40 */ u16 tileId;
-    /* 42 */ u16 palId;
-    /* 44 */ u16 faceId;
-};
-
-struct DeleteFaceProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 pad[0x54-0x29];
-
-    /* 54 */ struct FaceProc* target;
-};
-
-struct UnkFaceProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct FaceProc* pFaceProc;
-    /* 30 */ const struct FaceData* pFaceInfo;
-    /* 34 */ int faceId;
-};
-
-// generic minimug images
-extern u8 CONST_DATA gUnknown_08599D34[];
-extern u8 CONST_DATA gUnknown_08599B34[];
-extern u8 CONST_DATA gUnknown_08599734[];
-extern u8 CONST_DATA gUnknown_08599934[];
-
-// generic minimug palettes
-extern u16 CONST_DATA gUnknown_08599F34[];
-extern u16 CONST_DATA gUnknown_08599F54[];
-extern u16 CONST_DATA gUnknown_08599F74[];
-
-// funcs
-void Face_OnInit(struct FaceProc*);
-void Face_OnIdle(struct FaceProc*);
-void FaceChibiSpr_OnIdle(struct FaceProc*);
-void sub_8005D64(struct FaceBlinkProc*);
-void sub_8005D70(struct FaceBlinkProc*);
-void sub_8005D98(struct FaceBlinkProc*);
-void EndFacePtr(struct DeleteFaceProc*);
-void sub_8005FD4(struct FaceBlinkProc*);
-void sub_8005FE0(struct FaceBlinkProc*);
-void sub_800623C(struct FaceBlinkProc*);
-void sub_8006280(struct FaceBlinkProc*);
-void sub_80062B8(struct FaceBlinkProc*);
-void sub_8006324(struct FaceBlinkProc*);
-void sub_800632C(struct FaceBlinkProc*);
-void sub_8006370(struct FaceBlinkProc*);
-void sub_8006378(struct FaceBlinkProc*);
-void sub_80063BC(struct FaceBlinkProc*);
-void sub_80063C4(struct FaceBlinkProc*);
-void sub_800662C(struct UnkFaceProc*);
-void sub_8006650(struct UnkFaceProc*);
-void sub_80066A8(struct UnkFaceProc*);
-
-struct FaceVramEntry CONST_DATA sDefaultFaceConfig[FACE_SLOT_COUNT] =
+struct FaceVramEntry CONST_DATA gDefaultFaceConfig[FACE_SLOT_COUNT] =
 {
     [0] =
     {
@@ -254,14 +189,14 @@ struct ProcCmd CONST_DATA gProcScr_FaceChibiSpr[] =
     PROC_END,
 };
 
-u16 CONST_DATA gUnknown_085911E8[] =
+u16 CONST_DATA Sprite_085911E8[] =
 {
     2,
     OAM0_SHAPE_32x16,              OAM1_SIZE_32x16, OAM2_CHR(0),
     OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16, OAM2_CHR(4),
 };
 
-u16 CONST_DATA gUnknown_085911F6[] =
+u16 CONST_DATA Sprite_085911F6[] =
 {
     2,
     OAM0_SHAPE_32x16,              OAM1_SIZE_32x16 + OAM1_HFLIP, OAM2_CHR(0),
@@ -342,24 +277,6 @@ struct ProcCmd CONST_DATA gProcScr_08591304[] =
     PROC_END,
 };
 
-extern const struct FaceData portrait_data[];
-
-extern struct FaceVramEntry sFaceConfig[];
-extern struct FaceProc* gFaces[];
-
-extern u8 gUnknown_085A0838[]; // tsa
-extern u8 gUnknown_085A08F0[]; // tsa
-
-// forward decl.
-void SetupFaceGfxData(struct FaceVramEntry*);
-int GetFaceDisplayBits(struct FaceProc*);
-int SetFaceDisplayBits(struct FaceProc*, int);
-void FaceRefreshSprite(struct FaceProc*);
-u8* sub_8005F6C(int);
-void sub_8005F9C(int, int);
-int FaceBlinkProc_GenBlinkInterval(struct FaceBlinkProc*);
-
-
 //! FE8U = 0x08005514
 const struct FaceData* GetPortraitData(int fid) {
     return portrait_data + fid - 1;
@@ -383,7 +300,7 @@ void SetupFaceGfxData(struct FaceVramEntry* config) {
     int i;
 
     if (config == 0) {
-        config = sDefaultFaceConfig;
+        config = gDefaultFaceConfig;
     }
 
     for (i = 0; i < FACE_SLOT_COUNT; i++) {
@@ -724,9 +641,9 @@ void StartFaceChibiSpr(int x, int y, int fid, int chr, int pal, s8 isFlipped, Pr
     proc->oam2 = chr + ((pal & 0xF) * 0x1000);
 
     if (isFlipped) {
-       proc->sprite = gUnknown_085911F6;
+       proc->sprite = Sprite_085911F6;
     } else {
-       proc->sprite = gUnknown_085911E8;
+       proc->sprite = Sprite_085911E8;
     }
 
     return;
