@@ -118,10 +118,10 @@
 . = 0x004980; gFaces = .;
 . = 0x004990; gUnknown_03004990 = .;
 . = 0x0049A0; gWorkingBmMap = .;
-. = 0x0049B0; gUnknown_030049B0 = .;
+. = 0x0049B0; gMovMapFillStPool1 = .;
 . = 0x004BB0; gWorkingTerrainMoveCosts = .;
 . = 0x004C00; gStatGainSimUnit = .;
-. = 0x004C50; gUnknown_03004C50 = .;
+. = 0x004C50; gMovMapFillStPool2 = .;
 . = 0x004E50; gActiveUnit = .;
 . = 0x004E60; gMovMapFillState = .;
 . = 0x004E70; gUnknown_03004E70 = .;

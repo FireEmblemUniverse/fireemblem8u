@@ -1,6 +1,7 @@
 #include "global.h"
 #include "proc.h"
 #include "bm.h"
+#include "ctc.h"
 #include "hardware.h"
 
 s8 EWRAM_DATA gFadeComponentStep[0x20] = { 0 };
@@ -1070,21 +1071,21 @@ void SetObjAffine(int index, s16 pa, s16 pb, s16 pc, s16 pd)
 
 struct UnknownDmaStruct2
 {
-    int unk0;
-    u16 unk4;
-    s16 unk6;
-    s16 unk8;
+    int attr01;
+    u16 attr2;
+    s16 x;
+    s16 y;
 };
 
-void sub_80021E4(struct UnknownDmaStruct2 *a, int b, int c)
+void sub_80021E4(struct UnknownDmaStruct2 *a, int _x, int _y)
 {
-    while (a->unk0 != 1 && gOamHiPutIt < (u32 *)(gOam + 0x80))
+    while (a->attr01 != 1 && gOamHiPutIt < (u32 *)(gOam + 0x80))
     {
-        int x = (a->unk6 + b) & 0x1FF;
-        int y = (a->unk8 + c) & 0xFF;
+        int x = OBJ_X(a->x + _x);
+        int y = OBJ_Y(a->y + _y);
 
-        *(u32 *)gOamHiPutIt++ = a->unk0 | (x << 16) | (y);
-        *(u16 *)gOamHiPutIt++ = a->unk4;
+        *(u32 *)gOamHiPutIt++ = a->attr01 | (x << 16) | (y);
+        *(u16 *)gOamHiPutIt++ = a->attr2;
         a++;
     }
 }

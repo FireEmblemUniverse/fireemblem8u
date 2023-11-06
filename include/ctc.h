@@ -2,6 +2,16 @@
 #define GUARD_CTC_H
 
 #include "global.h"
+#include "gba_sprites.h"
+
+struct OAM_Attr0 {
+    u16 Y : 8;
+    u16 OM : 2;
+    u16 GM : 2;
+    u16 Mos : 1;
+    u16 CM : 1;
+    u16 Sh : 2;
+};
 
 #define OAM0_Y(ay)         ((ay) & 0x00FF)
 #define OAM0_AFFINE_ENABLE 0x0100
@@ -77,7 +87,7 @@ void PutSprite(int layer, int x, int y, const u16* object, int oam2);
 void PutSpriteExt(int layer, int xOam1, int yOam0, const u16* object, int oam2);
 void PushSpriteLayerObjects(int layer);
 
-struct SpriteProc* StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, const u16* object, int tileref);
+struct SpriteProc * StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, const u16* object, int tileref);
 void MoveSpriteRefresher(struct SpriteProc* proc, int x, int y);
 
 #endif  // GUARD_CTC_H

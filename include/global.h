@@ -14,6 +14,7 @@
 #define NAKEDFUNC __attribute__((naked))
 
 // HACK: applying this macro seems to allow for bitpacked structs to have the same layout in agbcc and modern GCC
+#define ALIGN(m) __attribute__((aligned (m)))
 #define BITPACKED __attribute__((aligned(4), packed))
 
 #include "types.h"
