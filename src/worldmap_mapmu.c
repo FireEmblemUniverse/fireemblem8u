@@ -9,6 +9,9 @@
 
 #include "constants/classes.h"
 
+// TODO: Implicit declaration?
+void GetWMCenteredCameraPosition(int, int, s16 *, s16 *);
+
 extern u16 gUnknown_08A3E38E[];
 extern u16 gUnknown_08A3E3BA[];
 extern u16 gUnknown_08A3E360[];

@@ -88,7 +88,7 @@ void PutFace80x72_Core(u16*, int, int, int);
 // ??? sub_8005D64(???);
 // ??? sub_8005D70(???);
 // ??? sub_8005D98(???);
-void PutFace80x72(struct Proc* proc, u16* bgOut, int fid, int tileId, int palId);
+void PutFace80x72(ProcPtr proc, u16 * bgOut, int fid, int tileId, int palId);
 // ??? EndFacePtr(???);
 // ??? EndFaceIn8Frames(???);
 void StartFaceFadeIn(struct FaceProc* proc);

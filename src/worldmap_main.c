@@ -23,6 +23,9 @@
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
 s8 FindGmScrollManage(void);
 
+// TODO: Implicit declaration?
+void GetWMCenteredCameraPosition(int, int, s16 *, s16 *);
+
 extern u16 * gUnknown_088B39EC[];
 extern u16 * gUnknown_088B3AD8[];
 
@@ -908,7 +911,7 @@ PROC_LABEL(12),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_80B9810),
-    PROC_CALL_2(sub_80B9974),
+    PROC_CALL_2(StartWorldmapStatusScreen),
     PROC_CALL(sub_80B9154),
     PROC_CALL(sub_80B9994),
     PROC_SLEEP(1),
@@ -947,7 +950,7 @@ PROC_LABEL(16),
     PROC_CALL(sub_80C3E94),
     PROC_SLEEP(30),
     PROC_CALL(sub_80B9A58),
-    PROC_REPEAT(sub_80B9A94),
+    PROC_REPEAT(Worldmap_WaitForSkirmishAnim),
     PROC_SLEEP(20),
     PROC_CALL(sub_80B9AB0),
     PROC_CALL_ARG(NewFadeOut, 16),
@@ -1323,10 +1326,10 @@ void sub_80B9924(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B9974
-s8 sub_80B9974(ProcPtr proc)
+s8 StartWorldmapStatusScreen(ProcPtr proc)
 {
     Proc_BlockEachMarked(PROC_MARK_8);
-    Proc_StartBlocking(gUnknown_08A3E8B8, proc);
+    Proc_StartBlocking(gProcScr_WorldmapStatusUi, proc);
     return 0;
 }
 
@@ -1387,17 +1390,18 @@ void sub_80B9A58(struct WorldMapMainProc * proc)
     GmMu_80BE108(proc->unk_54, 0, 0);
     gPlaySt.chapterIndex = WMLoc_GetChapterId(gGMData.units[0].location);
     gGMData.unk01 = 0;
-    sub_80C07D4(0, sub_80BCA1C(gGMData.units[0].location), proc);
+    StartWorldmapSkirmishAnim(0, sub_80BCA1C(gGMData.units[0].location), proc);
     return;
 }
 
 //! FE8U = 0x080B9A94
-void sub_80B9A94(ProcPtr proc)
+void Worldmap_WaitForSkirmishAnim(ProcPtr proc)
 {
-    if (!sub_80C081C())
+    if (!IsWorldmapSkirmishAnimActive())
     {
         Proc_Break(proc);
     }
+
     return;
 }
 
