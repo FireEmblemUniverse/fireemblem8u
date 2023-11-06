@@ -965,20 +965,20 @@ int GetUnitStaffReachBits(struct Unit* unit) {
     } // switch (range)
 }
 
-int GetConvoyItemCostSum(void) {
+int GetConvoyItemCostSum(void)
+{
     int i, result = 0;
-
-    const u16* convoy = GetConvoyItemArray();
-
-    for (i = 0; (i < CONVOY_ITEM_COUNT) && (*convoy); ++i) {
+    const u16 * convoy = GetConvoyItemArray();
+    for (i = 0; (i < CONVOY_ITEM_COUNT) && (*convoy); ++i)
+    {
         result += GetItemCost(*convoy);
         convoy++;
     }
-
     return result;
 }
 
-int GetUnitItemCostSum(void) {
+int GetUnitItemCostSum(void)
+{
     int i, j, item, result = 0;
 
     for (i = 1; i < 0x40; ++i) {

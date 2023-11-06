@@ -381,7 +381,7 @@ void WriteSupplyItems(void *sram_dest)
     cur = &buf[100];
     var1 = 0;
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < CONVOY_ITEM_COUNT; i++) {
         buf[i] = items[0];
         item_use = ITEM_USES(items[0]) & 0x3F;
         var0 = var1 & 0x7;
@@ -416,7 +416,7 @@ void ReadSupplyItems(const void *sram_src)
     cur = &buf[100];
     var1 = 0;
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < CONVOY_ITEM_COUNT; i++) {
         items[0] = buf[i];
         var0 = var1 & 0x7;
         item_use = (*cur & ~sConvySavePackMask1[var0]) >> var0;
