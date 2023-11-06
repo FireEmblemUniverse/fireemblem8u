@@ -390,5 +390,5 @@ void APProc_DeleteAll(void) {
 }
 
 bool APProc_Exists(void) {
-    return Proc_Find(sProcScr_ApProc) ? TRUE : FALSE;
+    return Proc_Find(ProcScr_ApProc) ? TRUE : FALSE;
 }
