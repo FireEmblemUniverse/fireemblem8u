@@ -179,7 +179,7 @@ int GetBanimPalette(int banim_id, enum ekr_battle_unit_position pos)
 void UpdateBanimFrame(void)
 {
     int val1;
-    int bid, bid_pal, bside;
+    int bid, bid_pal, chara_pal;
     struct BattleAnimCharaPal * cbapt = character_battle_animation_palette_table;
     struct BattleAnim * banim = banim_data;
 
@@ -190,14 +190,14 @@ void UpdateBanimFrame(void)
     if (gEkrPairSideVaild[EKR_POS_L] == true) {
         bid = gEkrPairBanimID2[EKR_POS_L];
         bid_pal = gPalIndexEfxHpBarUnk[EKR_POS_L];
-        bside = gBattleInitSide[EKR_POS_L];
+        chara_pal = gAnimCharaPalIndex[EKR_POS_L];
 
         LZ77UnCompWram(banim[bid].script, gBanimScrLeft);
         gpBanimModesLeft = banim[bid].modes;
         LZ77UnCompWram(banim[GetBanimPalette(bid, 0)].pal, gBanimPal1);
 
-        if (bside != -1) {
-            LZ77UnCompWram(cbapt[bside].pal, gBanimPal1);
+        if (chara_pal != -1) {
+            LZ77UnCompWram(cbapt[chara_pal].pal, gBanimPal1);
             sub_8059970((u32 *)gBanimPal1, 0);
         }
 
@@ -220,14 +220,14 @@ void UpdateBanimFrame(void)
     if (gEkrPairSideVaild[EKR_POS_R] == true) {
         bid = gEkrPairBanimID2[EKR_POS_R];
         bid_pal = gPalIndexEfxHpBarUnk[EKR_POS_R];
-        bside = gBattleInitSide[EKR_POS_R];
+        chara_pal = gAnimCharaPalIndex[EKR_POS_R];
 
         LZ77UnCompWram(banim[bid].script, gBanimScrRight);
         gpBanimModesRight = banim[bid].modes;
         LZ77UnCompWram(banim[GetBanimPalette(bid, 1)].pal, gBanimPal2);
 
-        if (bside != -1) {
-            LZ77UnCompWram(cbapt[bside].pal, gBanimPal2);
+        if (chara_pal != -1) {
+            LZ77UnCompWram(cbapt[chara_pal].pal, gBanimPal2);
             sub_8059970((u32 *)gBanimPal2, 1);
         }
 
@@ -251,8 +251,8 @@ void UpdateBanimFrame(void)
             jid = gpEkrTriangleUnits[0]->pClassData->number;
 
             for (i = 0; i < 7; i++) {
-                if (gUnknown_0895E0A4[i + pid * 7] == jid) {
-                    gBanimCharacterPals[0] = cbapt[gUnknown_0895EEA4[i + pid * 7] - 1].pal;
+                if (gAnimCharaPalConfig[pid][i] == jid) {
+                    gBanimCharacterPals[0] = cbapt[gAnimCharaPalIt[pid][i] - 1].pal;
                     break;
                 }
             }
@@ -267,8 +267,8 @@ void UpdateBanimFrame(void)
             jid = gpEkrTriangleUnits[1]->pClassData->number;
 
             for (i = 0; i < 7; i++) {
-                if (gUnknown_0895E0A4[i + pid * 7] == jid) {
-                    gBanimCharacterPals[1] = cbapt[gUnknown_0895EEA4[i + pid * 7] - 1].pal;
+                if (gAnimCharaPalConfig[pid][i] == jid) {
+                    gBanimCharacterPals[1] = cbapt[gAnimCharaPalIt[pid][i] - 1].pal;
                     break;
                 }
             }

@@ -441,27 +441,27 @@ _08057374: .4byte gEkrDistanceType
 _08057378: .4byte gEkrPairBanimID2
 _0805737C: .4byte gEkrPairBanimID
 _08057380:
-	ldr r0, _08057390  @ gBattleInitSide
-	ldr r1, _08057394  @ gUnknown_0895EEA4
+	ldr r0, _08057390  @ gAnimCharaPalIndex
+	ldr r1, _08057394  @ gAnimCharaPalIt
 	adds r1, r2, r1
 	ldrb r1, [r1]
 	subs r1, #1
 	strh r1, [r0]
 	b _08057448
 	.align 2, 0
-_08057390: .4byte gBattleInitSide
-_08057394: .4byte gUnknown_0895EEA4
+_08057390: .4byte gAnimCharaPalIndex
+_08057394: .4byte gAnimCharaPalIt
 _08057398:
-	ldr r0, _080573A8  @ gBattleInitSide
-	ldr r1, _080573AC  @ gUnknown_0895EEA4
+	ldr r0, _080573A8  @ gAnimCharaPalIndex
+	ldr r1, _080573AC  @ gAnimCharaPalIt
 	adds r1, r2, r1
 	ldrb r1, [r1]
 	subs r1, #1
 	strh r1, [r0, #2]
 	b _08057486
 	.align 2, 0
-_080573A8: .4byte gBattleInitSide
-_080573AC: .4byte gUnknown_0895EEA4
+_080573A8: .4byte gAnimCharaPalIndex
+_080573AC: .4byte gAnimCharaPalIt
 _080573B0:
 	ldr r5, [sp, #0x1c]
 	lsls r0, r5, #0x10
@@ -514,7 +514,7 @@ _080573FC:
 	asrs r3, r5, #0x10
 	cmp r3, #0
 	beq _0805741C
-	ldr r1, _080575AC  @ gBattleInitSide
+	ldr r1, _080575AC  @ gAnimCharaPalIndex
 	ldr r0, _080575B0  @ 0x0000FFFF
 	strh r0, [r1]
 _0805741C:
@@ -526,7 +526,7 @@ _0805741C:
 	ldr r5, [sp, #0xc]
 	adds r5, #0x55
 	str r5, [sp, #0x38]
-	ldr r7, _080575B4  @ gUnknown_0895E0A4
+	ldr r7, _080575B4  @ gAnimCharaPalConfig
 	subs r6, r0, r2
 _08057430:
 	adds r2, r1, r6
@@ -555,13 +555,13 @@ _08057448:
 	asrs r3, r0, #0x10
 	cmp r3, #0
 	beq _08057466
-	ldr r1, _080575AC  @ gBattleInitSide
+	ldr r1, _080575AC  @ gAnimCharaPalIndex
 	ldr r0, _080575B0  @ 0x0000FFFF
 	strh r0, [r1, #2]
 _08057466:
 	movs r1, #0
 	lsls r0, r2, #3
-	ldr r7, _080575B4  @ gUnknown_0895E0A4
+	ldr r7, _080575B4  @ gAnimCharaPalConfig
 	subs r6, r0, r2
 _0805746E:
 	adds r2, r1, r6
@@ -721,9 +721,9 @@ _08057592:
 	.align 2, 0
 _080575A4: .4byte gEkrPairBanimID2
 _080575A8: .4byte gEkrPairBanimID
-_080575AC: .4byte gBattleInitSide
+_080575AC: .4byte gAnimCharaPalIndex
 _080575B0: .4byte 0x0000FFFF
-_080575B4: .4byte gUnknown_0895E0A4
+_080575B4: .4byte gAnimCharaPalConfig
 _080575B8: .4byte gBanimCharacterPals
 _080575BC: .4byte gEkrPairTerrainID
 _080575C0: .4byte gBanimTerrainIndexMaybe

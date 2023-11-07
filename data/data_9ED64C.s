@@ -579,21 +579,21 @@ Obj_089EE99C:  @ 0x089EE99C
 gUnknown_089EE9B0:  @ 0x089EE9B0
 @ replacing .incbin "baserom.gba", 0x009ee9b0, 0x18
 .4byte gUnknown_0899D6DC
-.4byte gUnknown_0895F5A5 + 0x3ebff
-.4byte gUnknown_0895F5A5 + 0x3f79f
-.4byte gUnknown_0895F5A5 + 0x4022f
-.4byte gUnknown_0895F5A5 + 0x40baf
-.4byte gUnknown_0895F5A5 + 0x412bf
+.4byte gUnknown_0899D6DC + 0x0AC8
+.4byte gUnknown_0899D6DC + 0x1668
+.4byte gUnknown_0899D6DC + 0x20F8
+.4byte gUnknown_0899D6DC + 0x2A78
+.4byte gUnknown_0899D6DC + 0x3188
 
 	.global gUnknown_089EE9C8
 gUnknown_089EE9C8:  @ 0x089EE9C8
 @ replacing .incbin "baserom.gba", 0x009ee9c8, 0x18
-.4byte gUnknown_0895F5A5 + 0x418df
-.4byte gUnknown_0895F5A5 + 0x41aab
-.4byte gUnknown_0895F5A5 + 0x41c83
-.4byte gUnknown_0895F5A5 + 0x41e47
-.4byte gUnknown_0895F5A5 + 0x4200f
-.4byte gUnknown_0895F5A5 + 0x421a7
+.4byte gUnknown_0899D6DC + 0x37A8
+.4byte gUnknown_0899D6DC + 0x3974
+.4byte gUnknown_0899D6DC + 0x3B4C
+.4byte gUnknown_0899D6DC + 0x3D10
+.4byte gUnknown_0899D6DC + 0x3ED8
+.4byte gUnknown_0899D6DC + 0x4070
 
 	.global ProcScr_089EE9E0
 ProcScr_089EE9E0:  @ 0x089EE9E0
