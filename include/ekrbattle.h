@@ -388,7 +388,7 @@ extern int gBanimBossBGMs[];
 extern int gEkrDebugTimer, gEkrDebugUnk1;
 
 extern u16 gEkrPairBanimID[2];
-extern s16 gBattleInitSide[2];
+extern s16 gAnimCharaPalIndex[2];
 
 extern struct BattleUnit *gpEkrBattleUnitLeft;
 extern struct BattleUnit *gpEkrBattleUnitRight;

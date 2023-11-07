@@ -316,7 +316,7 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
     struct Anim *anim2;
     struct Unit copied_unit;
     void *tmp;
-    u16 sp58;
+    u16 chara_pal;
     anim1 = gUnknown_030053A0.anim1;
     anim2 = gUnknown_030053A0.anim2;
 
@@ -327,7 +327,7 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
     tmp = &gUnknown_030053A0;
 
     if (a == 1) {
-        u16 r4, r6;
+        u16 _pid, _jid;
         s16 i;
         struct Unit *unit;
         const struct BattleAnimDef * battle_anim_ptr;
@@ -345,9 +345,9 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
         if (proc->stat == 2) {
             EndEfxAnimeDrvProc();
             sub_805AA28(&gUnknown_030053A0);
-            r4 = proc->pid - 1;
-            r6 = proc->jid[proc->menu_index];
-            sp58 = 0xffff;
+            _pid = proc->pid - 1;
+            _jid = proc->jid[proc->menu_index];
+            chara_pal = -1;
             unit = GetUnitFromCharId(proc->pid);
             copied_unit = *unit;
             copied_unit.pClassData = GetClassData(proc->jid[proc->menu_index]);
@@ -358,12 +358,12 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
                 (u16) GetUnitEquippedWeapon(&copied_unit),
                 &battle_anim_id);
             for (i = 0; i <= 6; i++) {
-                if (gUnknown_0895E0A4[i + (s16) r4 * 7] == (s16) r6) {
-                    sp58 = gUnknown_0895EEA4[i + (s16) r4 * 7] - 1;
+                if (gAnimCharaPalConfig[(s16)_pid][i] == (s16) _jid) {
+                    chara_pal = gAnimCharaPalIt[(s16)_pid][i] - 1;
                     break;
                 }
             }
-            sub_80CD47C((s16) ret, (s16) sp58, (s16) (p2->sprite[0] + 0x28), 0x58, 6);
+            sub_80CD47C((s16) ret, (s16) chara_pal, (s16) (p2->sprite[0] + 0x28), 0x58, 6);
             sub_805AE14(&gUnknown_0201FADC);
             sub_80CD408(proc->u50, p2->sprite[0], p2->msg_desc[1]);
         } else {

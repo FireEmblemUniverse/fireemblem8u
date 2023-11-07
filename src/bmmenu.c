@@ -48,7 +48,7 @@ extern u16 gUnknown_085A0D4C[];
 
 extern s8 gUnknown_080D7C04[4][2];
 
-extern u8 gUnknown_0895F5A4[4][2];
+extern u8 gSummonConfig[4][2];
 
 struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[] = {
     PROC_CALL(LockGame),
@@ -1858,7 +1858,7 @@ u8 SummonCommandUsability(const struct MenuItemDef* def, int number) {
 
     for (a = 0; a < 3; a++) {
 
-        if (gActiveUnit->pCharacterData->number == gUnknown_0895F5A4[a][0]) {
+        if (gActiveUnit->pCharacterData->number == gSummonConfig[a][0]) {
             summonerId = a;
             break;
         }
@@ -1875,7 +1875,7 @@ u8 SummonCommandUsability(const struct MenuItemDef* def, int number) {
             continue;
         }
 
-        if (unit->pCharacterData->number != gUnknown_0895F5A4[summonerId][1]) {
+        if (unit->pCharacterData->number != gSummonConfig[summonerId][1]) {
             continue;
         }
 

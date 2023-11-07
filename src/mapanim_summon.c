@@ -30,7 +30,7 @@ void GenerateSummonUnitDef(void)
     // 1. Find summoner number from active unit
     summonerNum = -1;
     for (i = 0; i < 3; ++i) {
-        if (UNIT_CHAR_ID(gActiveUnit) == gUnknown_0895F5A4[i][0]) {
+        if (UNIT_CHAR_ID(gActiveUnit) == gSummonConfig[i][0]) {
             summonerNum = i;
             break;
         }
@@ -47,7 +47,7 @@ void GenerateSummonUnitDef(void)
             struct Unit* unit = GetUnit(i);
 
             if (UNIT_IS_VALID(unit)) {
-                if (UNIT_CHAR_ID(unit) == gUnknown_0895F5A4[summonerNum][1])
+                if (UNIT_CHAR_ID(unit) == gSummonConfig[summonerNum][1])
                     ClearUnit(unit);
             }
         }
@@ -57,7 +57,7 @@ void GenerateSummonUnitDef(void)
     unit = NULL;
 
     // 3.1. Character/Class/Faction/Level/Position
-    gUnitDef1.charIndex       = gUnknown_0895F5A4[summonerNum][1];
+    gUnitDef1.charIndex       = gSummonConfig[summonerNum][1];
     gUnitDef1.classIndex      = CLASS_PHANTOM;
     gUnitDef1.leaderCharIndex = CHARACTER_NONE;
     gUnitDef1.autolevel       = TRUE;
@@ -123,7 +123,7 @@ void GenerateSummonUnitDef(void)
         gUnitDef1.ai[i] = 0;
 
     // 4. Load unit
-    unit = GetUnitFromCharId(gUnknown_0895F5A4[summonerNum][1]);
+    unit = GetUnitFromCharId(gSummonConfig[summonerNum][1]);
 
     if (unit == NULL) {
         struct BattleUnit bu = gBattleActor;
@@ -132,7 +132,7 @@ void GenerateSummonUnitDef(void)
     }
 
     // 5. Set level and weapon ranks
-    unit = GetUnitFromCharId(gUnknown_0895F5A4[summonerNum][1]);
+    unit = GetUnitFromCharId(gSummonConfig[summonerNum][1]);
 
     for (i = 0; i < 4; ++i)
         unit->ranks[i] = 0;

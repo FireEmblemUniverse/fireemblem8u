@@ -331,7 +331,7 @@
 . = 0x03E104; gEkrPairSideVaild = .;
 . = 0x03E108; gEkrInitialPosition = .;
 . = 0x03E10C; gEkrPairBanimID = .;
-. = 0x03E110; gBattleInitSide = .;
+. = 0x03E110; gAnimCharaPalIndex = .;
 . = 0x03E114; gPalIndexEfxHpBarUnk = .;
 . = 0x03E118; gEkrSpellAnimIndex = .;
 . = 0x03E11A; gUnknown_0203E11A = .;

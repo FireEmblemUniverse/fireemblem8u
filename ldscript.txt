@@ -681,7 +681,6 @@ SECTIONS
         . = ALIGN(4); data/data_bg.o(.data);
         . = ALIGN(4); src/ectscr_.o(.data);
         . = ALIGN(4); src/classchg-data.o(.data);
-        . = ALIGN(4); data/data_95DFA4.o(.data);
         . = ALIGN(4); data/data_map_anim_frames.o(.data);
         . = ALIGN(4); data/data_99D6DC.o(.data);
         . = ALIGN(4); src/mu.o(.data);

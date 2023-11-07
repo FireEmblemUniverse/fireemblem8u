@@ -922,9 +922,9 @@ extern u8 CONST_DATA gItemUseJidList_SolarBrace[]; // Solar Brace class list
 // extern ??? gUnknown_088D2058
 extern struct CONST_DATA gfx_set gConvoBackgroundData[];
 extern u8 CONST_DATA gPromoJidLut[][2];
-extern u8 gUnknown_0895E0A4[];
-extern u8 gUnknown_0895EEA4[];
-extern u8 gUnknown_0895F5A4[4][2];
+extern u8 gAnimCharaPalConfig[0x100][7];
+extern u8 gAnimCharaPalIt[0x100][7];
+extern u8 gSummonConfig[4][2];
 // extern ??? gUnknown_0895F5A5
 extern u16 CONST_DATA gUnknown_089A18D4[];      /* a palatte */
 extern u16 CONST_DATA gUnknown_089A18F4[];      /* a image */
