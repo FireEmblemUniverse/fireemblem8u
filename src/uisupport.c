@@ -1123,7 +1123,7 @@ void DrawSupportSubScreenRemainingText(struct SubScreenProc* proc) {
         GetStringFromIndex(0x5AC) // TODO: msgid "x[.]"
     );
 
-    Text_SetCursor(&th, sub_80AEBEC(proc->remainingSupports) * 8 + 96);
+    Text_SetCursor(&th, CountDigits(proc->remainingSupports) * 8 + 96);
 
     Text_SetColor(&th, (proc->remainingSupports == 0) ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE);
     Text_DrawNumberOrBlank(&th, proc->remainingSupports);

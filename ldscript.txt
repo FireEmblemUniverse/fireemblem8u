@@ -749,6 +749,7 @@ SECTIONS
         . = ALIGN(4); src/spinning_arrow.o(.data);
         . = ALIGN(4); src/sysutil.o(.data);
         . = ALIGN(4); src/stone_shatter.o(.data);
+        . = ALIGN(4); src/code_80AE86C.o(.data);
         . = ALIGN(4); data/data_A20E24.o(.data);
         . = ALIGN(4); src/soundroom.o(.data);
         . = ALIGN(4); src/extramenu_unk.o(.data);

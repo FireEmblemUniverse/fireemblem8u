@@ -12,21 +12,21 @@ struct Proc08A20E24
 {
     /* 00 */ PROC_HEADER;
     /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
+    /* 30 */ int targetPalId;
+    /* 34 */ int palCount;
     /* 38 */ int unk_38;
-    /* 3C */ u16 * unk_3c;
-    /* 40 */ u16 * unk_40;
+    /* 3C */ u16 * srcA;
+    /* 40 */ u16 * srcB;
 };
 
-struct Proc08A20E44
+struct BonusClaimHelpBoxProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
+    /* 2C */ int x;
+    /* 30 */ int y;
     /* 34 */ STRUCT_PAD(0x34, 0x58);
 
-    /* 58 */ int unk_58;
+    /* 58 */ int msgId;
 };
 
 // TODO: Implicit declaration
@@ -38,11 +38,11 @@ void sub_80AE86C(struct Proc08A20E24 * proc, int val)
     int i;
     int j;
 
-    u16 * dst = gPaletteBuffer + PAL_COLOR_OFFSET(proc->unk_30, 0);
-    u16 * ptrA = proc->unk_3c;
-    u16 * ptrB = proc->unk_40;
+    u16 * dst = gPaletteBuffer + PAL_COLOR_OFFSET(proc->targetPalId, 0);
+    u16 * ptrA = proc->srcA;
+    u16 * ptrB = proc->srcB;
 
-    for (i = 0; i < proc->unk_34; i++)
+    for (i = 0; i < proc->palCount; i++)
     {
         for (j = 0; j < 0x10; j++)
         {
@@ -51,6 +51,7 @@ void sub_80AE86C(struct Proc08A20E24 * proc, int val)
                 ((((*ptrA & BLUE_MASK) * (0x80 - val) + val * (*ptrB & BLUE_MASK)) >> 7) & BLUE_MASK);
 
             dst++;
+
             ptrA++;
             ptrB++;
         }
@@ -83,19 +84,30 @@ void sub_80AE938(struct Proc08A20E24 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A20E24[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_08A20E24[] =
+{
+    PROC_YIELD,
+    PROC_CALL(sub_80AE930),
+    PROC_REPEAT(sub_80AE938),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AE964
-void sub_80AE964(u16 * palA, u16 * palB, int c, int d, int e, ProcPtr parent)
+void sub_80AE964(u16 * palA, u16 * palB, int c, int targetPalId, int palCount, ProcPtr parent)
 {
-    struct Proc08A20E24 * proc = Proc_Start(gUnknown_08A20E24, parent);
+    struct Proc08A20E24 * proc = Proc_Start(gProcScr_08A20E24, parent);
 
     proc->unk_2c = c;
-    proc->unk_30 = d;
-    proc->unk_34 = e;
+    proc->targetPalId = targetPalId;
+    proc->palCount = palCount;
 
-    proc->unk_3c = palA;
-    proc->unk_40 = palB;
+    proc->srcA = palA;
+    proc->srcB = palB;
 
     return;
 }
@@ -103,7 +115,7 @@ void sub_80AE964(u16 * palA, u16 * palB, int c, int d, int e, ProcPtr parent)
 //! FE8U = 0x080AE99C
 void sub_80AE99C(void)
 {
-    Proc_End(Proc_Find(gUnknown_08A20E24));
+    Proc_End(Proc_Find(gProcScr_08A20E24));
     return;
 }
 
@@ -124,7 +136,7 @@ ProcPtr sub_80AE9B0(u8 * gfx, u16 * pal, const void * apDef, int x, int y, int a
 }
 
 //! FE8U = 0x080AEA24
-int sub_80AEA24(int bg)
+int GetBgXOffset(int bg)
 {
     switch (bg)
     {
@@ -143,7 +155,7 @@ int sub_80AEA24(int bg)
 }
 
 //! FE8U = 0x080AEA70
-int sub_80AEA70(int bg)
+int GetBgYOffset(int bg)
 {
     switch (bg)
     {
@@ -162,36 +174,36 @@ int sub_80AEA70(int bg)
 }
 
 //! FE8U = 0x080AEABC
-char * sub_80AEABC(const char * srcStr, char * dstStr)
+char * AppendTextBuffer_80AEABC(const char * srcStr, char * dstStr)
 {
     strcpy(dstStr, srcStr);
     return dstStr + strlen(srcStr);
 }
 
 //! FE8U = 0x080AEADC
-char * sub_80AEADC(int unk, char * str)
+char * AppendCharAndTerminate(int character, char * str)
 {
-    *str = unk;
+    *str = character;
     str++;
     *str = 0;
     return str;
 }
 
 //! FE8U = 0x080AEAE8
-const char * sub_80AEAE8(char ** a, char ** b)
+const char * sub_80AEAE8(char ** src, char ** dst)
 {
-    const char * res;
+    const char * result;
     int len;
 
-    res = GetCharTextLen(*a, &len);
-    res -= (u32)*a;
+    result = GetCharTextLen(*src, &len);
+    result -= (uintptr_t)*src;
 
-    memcpy(*b, *a, (u32)res);
+    memcpy(*dst, *src, (uintptr_t)result);
 
-    *a = *a + (u32)res;
-    *b = *b + (u32)res;
+    *src = *src + (uintptr_t)result;
+    *dst = *dst + (uintptr_t)result;
 
-    return res;
+    return result;
 }
 
 //! FE8U = 0x080AEB1C
@@ -216,15 +228,15 @@ void sub_80AEB44(int songId)
 }
 
 //! FE8U = 0x080AEB60
-void sub_80AEB60(struct Proc08A20E44 * proc)
+void BonusClaimHelp_Init(struct BonusClaimHelpBoxProc * proc)
 {
     PlaySoundEffect(0x70);
-    StartHelpBox_Unk(proc->unk_2c, proc->unk_30, proc->unk_58);
+    StartHelpBox_Unk(proc->x, proc->y, proc->msgId);
     return;
 }
 
 //! FE8U = 0x080AEB8C
-void sub_80AEB8C(struct Proc08A20E44 * proc)
+void BonusClaimHelp_Loop(struct BonusClaimHelpBoxProc * proc)
 {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON | L_BUTTON | R_BUTTON))
     {
@@ -236,32 +248,47 @@ void sub_80AEB8C(struct Proc08A20E44 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A20E44[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_BonusClaimHelpBox[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(BonusClaimHelp_Init),
+    PROC_SLEEP(8),
+
+    PROC_REPEAT(BonusClaimHelp_Loop),
+    PROC_SLEEP(8),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AEBCC
-void sub_80AEBCC(int x, int y, int msgId, ProcPtr parent)
+void StartBonusClaimHelpBox(int x, int y, int msgId, ProcPtr parent)
 {
-    struct Proc08A20E44 * proc = Proc_StartBlocking(gUnknown_08A20E44, parent);
-    proc->unk_2c = x;
-    proc->unk_30 = y;
-    proc->unk_58 = msgId;
+    struct BonusClaimHelpBoxProc * proc = Proc_StartBlocking(gProcScr_BonusClaimHelpBox, parent);
+    proc->x = x;
+    proc->y = y;
+    proc->msgId = msgId;
 
     return;
 }
 
 //! FE8U = 0x080AEBEC
-int sub_80AEBEC(int number)
+int CountDigits(int number)
 {
-    int num_ = number;
-    int numDivisions = 0;
+    int remainingDigits = number;
+    int digitCount = 0;
 
     do
     {
-        numDivisions++;
-        num_ = (num_ / 10);
-    } while (num_ != 0);
+        digitCount++;
+        remainingDigits = (remainingDigits / 10);
+    } while (remainingDigits != 0);
 
-    return numDivisions;
+    return digitCount;
 }
 
 //! FE8U = 0x080AEC04

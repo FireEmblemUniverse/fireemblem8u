@@ -257,7 +257,7 @@ void sub_8085670(struct Proc * proc)
     else
     {
         if (GetGameClock() % 2)
-            BG_SetPosition(3, sub_80AEA24(3) ^ 1, 0);
+            BG_SetPosition(3, GetBgXOffset(3) ^ 1, 0);
     }
 }
 
@@ -369,7 +369,7 @@ void sub_808589C(struct Proc * proc)
     } else
     {
         if (GetGameClock() % 2)
-            BG_SetPosition(3, sub_80AEA24(3) ^ 1, 0);
+            BG_SetPosition(3, GetBgXOffset(3) ^ 1, 0);
     }
 
     if (0x10 == ++proc->unk4C)

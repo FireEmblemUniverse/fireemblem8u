@@ -336,8 +336,8 @@ char* PrepareUnitDefeatLocationString(u16 textIdA, u16 defeatedChapter, u16 text
 
     u8 count = 0;
 
-    str = sub_80AEABC(GetStringFromIndex(textIdA), str);
-    str = sub_80AEADC(1, str);
+    str = AppendTextBuffer_80AEABC(GetStringFromIndex(textIdA), str);
+    str = AppendCharAndTerminate(1, str);
 
     if (defeatedChapter & 0x8000) {
         defeatedChapter &= 0x7FFF;
@@ -362,9 +362,9 @@ char* PrepareUnitDefeatLocationString(u16 textIdA, u16 defeatedChapter, u16 text
         locationStr = GetStringFromIndex(GetROMChapterStruct(defeatedChapter)->chapTitleTextId);
     }
 
-    str = sub_80AEABC(locationStr, str);
+    str = AppendTextBuffer_80AEABC(locationStr, str);
 
-    str = sub_80AEABC(GetStringFromIndex(textIdB) + count, str);
+    str = AppendTextBuffer_80AEABC(GetStringFromIndex(textIdB) + count, str);
 
     return str;
 }
@@ -818,9 +818,9 @@ void SoloEndingBattleDisp_Init(struct EndingBattleDisplayProc* proc) {
     PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
     PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    PutNumber(gUnknown_08A3D348[0] + 0x31 + sub_80AEBEC(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
-    PutNumber(gUnknown_08A3D348[0] + 0x35 + sub_80AEBEC(proc->winAmounts[0]), 2, proc->winAmounts[0]);
-    PutNumber(gUnknown_08A3D348[0] + 0x39 + sub_80AEBEC(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x31 + CountDigits(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x35 + CountDigits(proc->winAmounts[0]), 2, proc->winAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x39 + CountDigits(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
 
     StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 0x1a0, 0x38, 0x502);
 
@@ -909,9 +909,9 @@ void sub_80B6F34(struct EndingBattleDisplayProc* proc) {
     PutDrawText(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
     PutDrawText(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    PutNumber(gUnknown_08A3D348[0] + 0x31 + sub_80AEBEC(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
-    PutNumber(gUnknown_08A3D348[0] + 0x35 + sub_80AEBEC(proc->winAmounts[0]), 2, proc->winAmounts[0]);
-    PutNumber(gUnknown_08A3D348[0] + 0x39 + sub_80AEBEC(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x31 + CountDigits(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x35 + CountDigits(proc->winAmounts[0]), 2, proc->winAmounts[0]);
+    PutNumber(gUnknown_08A3D348[0] + 0x39 + CountDigits(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidB));
     PutDrawText(gUnknown_08A3D358 + 6, gUnknown_08A3D348[0] + 0x22E, 0, GetStringTextCenteredPos(0x78, str), 0, str);
@@ -920,9 +920,9 @@ void sub_80B6F34(struct EndingBattleDisplayProc* proc) {
     PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0x20, 0, GetStringFromIndex(0x520));
     PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    PutNumber(gUnknown_08A3D348[0] + 0x221 + sub_80AEBEC(proc->battleAmounts[1]), 2, proc->battleAmounts[1]);
-    PutNumber(gUnknown_08A3D348[0] + 0x225 + sub_80AEBEC(proc->winAmounts[1]), 2, proc->winAmounts[1]);
-    PutNumber(gUnknown_08A3D348[0] + 0x229 + sub_80AEBEC(proc->lossAmounts[1]), 2, proc->lossAmounts[1]);
+    PutNumber(gUnknown_08A3D348[0] + 0x221 + CountDigits(proc->battleAmounts[1]), 2, proc->battleAmounts[1]);
+    PutNumber(gUnknown_08A3D348[0] + 0x225 + CountDigits(proc->winAmounts[1]), 2, proc->winAmounts[1]);
+    PutNumber(gUnknown_08A3D348[0] + 0x229 + CountDigits(proc->lossAmounts[1]), 2, proc->lossAmounts[1]);
 
     proc->unk_34 = 0;
 
@@ -1559,13 +1559,13 @@ int sub_80B7800(struct ChapterStats* param_1, int param_2) {
 
             case 5:
                 PutText(gUnknown_08A3D674 + 0x13, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7));
-                PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (1  + var), r7), 2, r9);
-                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (2 + var), r7), 2, 0, 0, GetStringFromIndex(0x158));
+                PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (1  + var), r7), 2, r9);
+                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (2 + var), r7), 2, 0, 0, GetStringFromIndex(0x158));
                 break;
 
             default:
                 PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x0157));
-                PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(sub_80AEBEC(r9) + (1 + var), r7), 2, r9);
+                PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (1 + var), r7), 2, r9);
                 break;
         }
 

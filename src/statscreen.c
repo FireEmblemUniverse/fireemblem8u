@@ -505,15 +505,15 @@ void DisplayBwl(void)
         gBmFrameTmap0 + TILEMAP_INDEX(3, 14));
 
     // Display Battle Amt
-    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(3 + sub_80AEBEC(stats->battleAmt), 14),
+    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(3 + CountDigits(stats->battleAmt), 14),
         TEXT_COLOR_SYSTEM_BLUE, stats->battleAmt);
 
     // Display Win Amt
-    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(7 + sub_80AEBEC(stats->winAmt), 14),
+    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(7 + CountDigits(stats->winAmt), 14),
         TEXT_COLOR_SYSTEM_BLUE, stats->winAmt);
 
     // Display Loss Amt
-    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(11 + sub_80AEBEC(stats->lossAmt), 14),
+    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(11 + CountDigits(stats->lossAmt), 14),
         TEXT_COLOR_SYSTEM_BLUE, stats->lossAmt);
 }
 
