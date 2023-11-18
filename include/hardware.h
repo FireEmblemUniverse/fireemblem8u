@@ -227,6 +227,10 @@ extern SHOULD_BE_CONST s16 gSinLookup[]; // needs to be non-const to match?
 #define BG_CHR_ADDR(n)   (void *)(BG_VRAM + (CHR_SIZE * (n)))
 #define OBJ_CHR_ADDR(n)  (void *)(OBJ_VRAM0 + (CHR_SIZE * (n)))
 
+#define RED_MASK 0x1F
+#define GREEN_MASK (0x1F << 5)
+#define BLUE_MASK (0x1F << 10)
+
 #define PAL_COLOR_OFFSET(palid, colornum) (palid) * 0x10 + (colornum)
 #define PAL_OFFSET(palid) PAL_COLOR_OFFSET((palid), 0)
 #define BGPAL_OFFSET(bgpal) PAL_OFFSET(0x00 + (bgpal))
