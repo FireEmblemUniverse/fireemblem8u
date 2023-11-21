@@ -1,9 +1,236 @@
 #include "global.h"
 #include "bmunit.h"
+#include "bmitem.h"
+#include "spellassoc.h"
 #include "bmbattle.h"
 #include "anime.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "constants/classes.h"
+#include "constants/items.h"
+
+static inline s8 _GetBanimTerrainGround(u16 terrain, u16 tileset)
+{
+    switch (tileset) {
+    case 0x01:
+        return gUnknown_0880C807[terrain];
+
+    case 0x02:
+        return gUnknown_0880C848[terrain];
+
+    case 0x03:
+        return gUnknown_0880C889[terrain];
+
+    case 0x04:
+        return gUnknown_0880C8CA[terrain];
+
+    case 0x05:
+        return gUnknown_0880C90B[terrain];
+
+    case 0x06:
+        return gUnknown_0880C94C[terrain];
+
+    case 0x07:
+        return gUnknown_0880C98D[terrain];
+
+    case 0x08:
+        return gUnknown_0880C9CE[terrain];
+
+    case 0x09:
+        return gUnknown_0880CA0F[terrain];
+
+    case 0x0A:
+        return gUnknown_0880CA50[terrain];
+
+    case 0x0B:
+        return gUnknown_0880CA91[terrain];
+
+    case 0x0C:
+        return gUnknown_0880CAD2[terrain];
+
+    case 0x0D:
+        return gUnknown_0880CB13[terrain];
+
+    case 0x0E:
+        return gUnknown_0880CB54[terrain];
+
+    case 0x0F:
+        return gUnknown_0880CB95[terrain];
+
+    case 0x10:
+        return gUnknown_0880CBD6[terrain];
+
+    case 0x11:
+        return gUnknown_0880CC17[terrain];
+
+    case 0x12:
+        return gUnknown_0880CC58[terrain];
+
+    case 0x13:
+        return gUnknown_0880CC99[terrain];
+
+    case 0x14:
+        return gUnknown_0880CCDA[terrain];
+
+    case 0:
+    default:
+        return gUnknown_0880C7C6[terrain];
+    }
+}
+
+int GetBanimTerrainGround(u16 terrain, u16 tileset)
+{
+    int ret = _GetBanimTerrainGround(terrain, tileset);
+    return ret - 1;
+}
+
+s8 GetBanimBackgroundIndex(u16 terrain, u16 tileset)
+{
+    switch (tileset) {
+    case 0x01:
+        return gBanimBackgroundIndexLut01[terrain];
+
+    case 0x02:
+        return gBanimBackgroundIndexLut02[terrain];
+
+    case 0x03:
+        return gBanimBackgroundIndexLut03[terrain];
+
+    case 0x04:
+        return gBanimBackgroundIndexLut04[terrain];
+
+    case 0x05:
+        return gBanimBackgroundIndexLut05[terrain];
+
+    case 0x06:
+        return gBanimBackgroundIndexLut06[terrain];
+
+    case 0x07:
+        return gBanimBackgroundIndexLut07[terrain];
+
+    case 0x08:
+        return gBanimBackgroundIndexLut08[terrain];
+
+    case 0x09:
+        return gBanimBackgroundIndexLut09[terrain];
+
+    case 0x0A:
+        return gBanimBackgroundIndexLut0A[terrain];
+
+    case 0x0B:
+        return gBanimBackgroundIndexLut0B[terrain];
+
+    case 0x0C:
+        return gBanimBackgroundIndexLut0C[terrain];
+
+    case 0x0D:
+        return gBanimBackgroundIndexLut0D[terrain];
+
+    case 0x0E:
+        return gBanimBackgroundIndexLut0E[terrain];
+
+    case 0x0F:
+        return gBanimBackgroundIndexLut0F[terrain];
+
+    case 0x10:
+        return gBanimBackgroundIndexLut10[terrain];
+
+    case 0x11:
+        return gBanimBackgroundIndexLut11[terrain];
+
+    case 0x12:
+        return gBanimBackgroundIndexLut12[terrain];
+
+    case 0x13:
+        return gBanimBackgroundIndexLut13[terrain];
+
+    case 0x14:
+        return gBanimBackgroundIndexLut14[terrain];
+
+    case 0:
+    default:
+        return gBanimBackgroundIndexLutDefault[terrain];
+    }
+}
+
+s16 GetSpellAnimId(u16 jid, u16 weapon)
+{
+    u16 ret;
+    u16 item = GetItemIndex(weapon);
+    const struct SpellAssoc * it;
+    for (it = gSpellAssocData; it->item != 0xFFFF; it++)
+    {
+        if (it->item == item)
+            break;
+    }
+    ret = it->efx;
+    if (it->efx == 3)
+    {
+        switch (jid) {
+        case CLASS_CAVALIER:
+        case CLASS_CAVALIER_F:
+            ret = 4;
+            break;
+    
+        case CLASS_SOLDIER:
+            ret = 5;
+            break;
+    
+        case CLASS_PALADIN:
+            ret = 0x6;
+            break;
+    
+        case CLASS_PALADIN_F:
+            ret = 0xD;
+            break;
+    
+        case CLASS_PEGASUS_KNIGHT:
+            ret = 0x7;
+            break;
+    
+        case CLASS_FALCON_KNIGHT:
+            ret = 0x8;
+            break;
+    
+        case CLASS_WYVERN_RIDER:
+        case CLASS_WYVERN_RIDER_F:
+            ret = 0x9;
+            break;
+    
+        case CLASS_WYVERN_LORD:
+        case CLASS_WYVERN_LORD_F:
+            ret = 0xA;
+            break;
+    
+        case CLASS_GENERAL:
+        case CLASS_GENERAL_F:
+            ret = 0xB;
+            break;
+    
+        default:
+            break;
+        }
+    }
+    return ret;
+}
+
+void UnsetMapStaffAnim(s16 * out, u16 pos, u16 weapon)
+{
+    u16 item = GetItemIndex(weapon);
+    if (*out == -1)
+        *out = 0;
+
+    if (gEkrInitialHitSide == pos)
+        return;
+
+    switch (item) {
+    case ITEM_STAFF_WARP:
+    case ITEM_STAFF_RESCUE:
+    case ITEM_STAFF_TORCH:
+    case ITEM_STAFF_UNLOCK:
+        *out = 0;
+    }
+}
 
 #if NONMATCHING
 

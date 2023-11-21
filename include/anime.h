@@ -189,13 +189,13 @@ void AnimDisplay(struct Anim * anim);
 
 bool PrepareBattleGraphicsMaybe(void);
 u16 sub_8057CAC(struct Unit * unit, const struct BattleAnimDef * pBattleAnimDef, u16, int * out);
-s8 sub_8057DA8(u16, u16);
-s8 sub_8057ED0(u16, u16);
-// ??? GetSpellAnimId(???);
-// ??? sub_80581A0(???);
+int GetBanimTerrainGround(u16 terrain, u16 tileset);
+s8 GetBanimBackgroundIndex(u16 terrain, u16 tileset);
+s16 GetSpellAnimId(u16 jid, u16 weapon);
+void UnsetMapStaffAnim(s16 * out, u16 pos, u16 weapon);
 void ParseBattleHitToBanimCmd(void);
 u16 GetBattleAnimationId(struct Unit * unit, const struct BattleAnimDef * anim_def, u16 wpn, u32 * out);
-// ??? sub_8058918(???);
+bool CheckBattleHasHit(void);
 // ??? sub_805893C(???);
 u16 * FilterBattleAnimCharacterPalette(s16 banim_index, u16 item);
 int GetAllegienceId(u32 faction);

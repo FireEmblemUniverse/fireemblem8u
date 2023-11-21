@@ -26,9 +26,9 @@ u8 GetSpellAssocCharCount(u16 item)
     return GetSpellAssocStructPtr(item)->count;
 }
 
-u16 GetSpellAssocType(u16 item)
+u16 GetSpellAssocEfxIndex(u16 item)
 {
-    return GetSpellAssocStructPtr(item)->type;
+    return GetSpellAssocStructPtr(item)->efx;
 }
 
 struct ProcCmd *GetSpellAssocAlt6CPointer(u16 item)

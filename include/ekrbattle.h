@@ -418,7 +418,7 @@ extern int gBanimLinkArenaFlag;
 extern int gBattleDeamonActive;
 extern struct ProcEkrBattleDeamon *gpProcEkrBattleDeamon;
 extern s16 gEkrDebugModeMaybe;
-extern s16 gEkrPairSomeTile;
+extern s16 gBanimGackgroundIndex;
 extern s16 gEkrInitialHitSide;
 extern s16 gEkrSnowWeather;
 extern s16 gEkrPairSideVaild[2];
