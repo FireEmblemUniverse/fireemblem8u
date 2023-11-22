@@ -64,11 +64,10 @@ extern u8 gUnknown_08A2C92C[];
 extern u8 gUnknown_08A2C5A8[];
 extern u8 gUnknown_08A2C7A4[];
 
-extern void * gUnknown_08A212D4;
-extern void * gUnknown_08A212D8;
-extern struct Unknown_08A212DC * gUnknown_08A212DC; // 0x02021188, gGenericBuffer + 0x1000
-extern s8 * gUnknown_08A212E0; // 0x02021388, gGenericBuffer + 0x1200
-extern struct SoundInfo * gUnknown_08A21304; // gSoundInfo
+void * CONST_DATA gUnknown_08A212D4 = gGenericBuffer;
+void * CONST_DATA gUnknown_08A212D8 = gGenericBuffer + 0x800;
+struct Unknown_08A212DC * CONST_DATA gUnknown_08A212DC = (void *)(gGenericBuffer + 0x1000);
+s8 * CONST_DATA gUnknown_08A212E0 = gGenericBuffer + 0x1200;
 
 //! FE8U = 0x080AEC7C
 bool sub_80AEC7C(struct SoundRoomProc * proc)
@@ -249,7 +248,19 @@ void sub_80AEEE8(struct Proc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A212E4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A212E4[] =
+{
+    PROC_CALL(sub_80AEEC4),
+    PROC_YIELD,
+
+    PROC_CALL(sub_80AEEE8),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AEF24
 void sub_80AEF24(struct SoundRoomProc * proc)
@@ -430,6 +441,8 @@ void nullsub_65(void)
     return;
 }
 
+struct SoundInfo * CONST_DATA gUnknown_08A21304 = &gSoundInfo;
+
 //! FE8U = 0x080AF22C
 void sub_80AF22C(struct Proc08A21308 * proc)
 {
@@ -570,15 +583,12 @@ void sub_80AF3C8(struct SoundRoomProc * proc)
 
         if (i >= 99)
         {
-            PutNumber(
-                gBG2TilemapBuffer + TILEMAP_INDEX(13 + (i + (i / 4) * -4) * 4, (((i / 4) * 2 + 8) & 0x1f)), color,
-                i + 1);
+            PutNumber(gBG2TilemapBuffer + TILEMAP_INDEX(13 + (i % 4) * 4, (((i / 4) * 2 + 8) & 0x1f)), color, i + 1);
         }
         else
         {
             PutNumber2Digit(
-                gBG2TilemapBuffer + TILEMAP_INDEX(13 + (i + (i / 4) * -4) * 4, (((i / 4) * 2 + 8) & 0x1f)), color,
-                i + 1);
+                gBG2TilemapBuffer + TILEMAP_INDEX(13 + (i % 4) * 4, (((i / 4) * 2 + 8) & 0x1f)), color, i + 1);
         }
     }
 
