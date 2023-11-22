@@ -34,7 +34,7 @@ void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc)
 {
     int ret;
 
-    if (gEkrPairSomeTile == 0) {
+    if (gBanimGackgroundIndex == 0) {
         Proc_Break(proc);
         return;
     }
@@ -50,7 +50,7 @@ void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc)
     }
 
     ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, 0x8);
-    PutBanimBgPAL(gEkrPairSomeTile - 1);
+    PutBanimBgPAL(gBanimGackgroundIndex - 1);
     EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, ret);
     EnablePaletteSync();
 
@@ -62,7 +62,7 @@ void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc)
 
 void ekrBattleEnding_8056170(struct ProcEkrBattleEnding * proc)
 {
-    if (gEkrPairSomeTile == 0) {
+    if (gBanimGackgroundIndex == 0) {
         Proc_Break(proc);
         return;
     }
@@ -86,7 +86,7 @@ void ekrBattleEnding_8056170(struct ProcEkrBattleEnding * proc)
 
 void ekrBattleEnding_80561C8(struct ProcEkrBattleEnding * proc)
 {
-    if (gEkrPairSomeTile == 0) {
+    if (gBanimGackgroundIndex == 0) {
         Proc_Break(proc);
         return;
     }

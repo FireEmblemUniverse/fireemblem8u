@@ -51,7 +51,7 @@ u16 GetBattleAnimationId(struct Unit * unit, const struct BattleAnimDef * anim_d
     return (idx - 1);
 }
 
-bool sub_8058918(void)
+bool CheckBattleHasHit(void)
 {
     const struct BattleHit *bh = &gBattleHitArray[0];
     if (bh->info & BATTLE_HIT_INFO_FINISHES)

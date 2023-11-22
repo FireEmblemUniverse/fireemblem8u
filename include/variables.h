@@ -853,48 +853,50 @@ extern const s8 gUnknown_0880C479[]; // terrainId to ? lookup
 extern const s8 gUnknown_0880C4BA[]; // terrainId to ? lookup
 extern const s8 gUnknown_0880C744[]; // terrainid-to-healamount lookup
 extern const s8 gUnknown_0880C785[]; // terrainid-to-something lookup
-// extern ??? gUnknown_0880C7C6
-// extern ??? gUnknown_0880C807
-// extern ??? gUnknown_0880C848
-// extern ??? gUnknown_0880C889
-// extern ??? gUnknown_0880C8CA
-// extern ??? gUnknown_0880C90B
-// extern ??? gUnknown_0880C94C
-// extern ??? gUnknown_0880C98D
-// extern ??? gUnknown_0880C9CE
-// extern ??? gUnknown_0880CA0F
-// extern ??? gUnknown_0880CA50
-// extern ??? gUnknown_0880CA91
-// extern ??? gUnknown_0880CAD2
-// extern ??? gUnknown_0880CB13
-// extern ??? gUnknown_0880CB54
-// extern ??? gUnknown_0880CB95
-// extern ??? gUnknown_0880CBD6
-// extern ??? gUnknown_0880CC17
-// extern ??? gUnknown_0880CC58
-// extern ??? gUnknown_0880CC99
-// extern ??? gUnknown_0880CCDA
-// extern ??? gUnknown_0880CD1B
-// extern ??? gUnknown_0880CD5C
-// extern ??? gUnknown_0880CD9D
-// extern ??? gUnknown_0880CDDE
-// extern ??? gUnknown_0880CE1F
-// extern ??? gUnknown_0880CE60
-// extern ??? gUnknown_0880CEA1
-// extern ??? gUnknown_0880CEE2
-// extern ??? gUnknown_0880CF23
-// extern ??? gUnknown_0880CF64
-// extern ??? gUnknown_0880CFA5
-// extern ??? gUnknown_0880CFE6
-// extern ??? gUnknown_0880D027
-// extern ??? gUnknown_0880D068
-// extern ??? gUnknown_0880D0A9
-// extern ??? gUnknown_0880D0EA
-// extern ??? gUnknown_0880D12B
-// extern ??? gUnknown_0880D16C
-// extern ??? gUnknown_0880D1AD
-// extern ??? gUnknown_0880D1EE
-// extern ??? gUnknown_0880D22F
+
+extern u8 gUnknown_0880C7C6[];
+extern u8 gUnknown_0880C807[];
+extern u8 gUnknown_0880C848[];
+extern u8 gUnknown_0880C889[];
+extern u8 gUnknown_0880C8CA[];
+extern u8 gUnknown_0880C90B[];
+extern u8 gUnknown_0880C94C[];
+extern u8 gUnknown_0880C98D[];
+extern u8 gUnknown_0880C9CE[];
+extern u8 gUnknown_0880CA0F[];
+extern u8 gUnknown_0880CA50[];
+extern u8 gUnknown_0880CA91[];
+extern u8 gUnknown_0880CAD2[];
+extern u8 gUnknown_0880CB13[];
+extern u8 gUnknown_0880CB54[];
+extern u8 gUnknown_0880CB95[];
+extern u8 gUnknown_0880CBD6[];
+extern u8 gUnknown_0880CC17[];
+extern u8 gUnknown_0880CC58[];
+extern u8 gUnknown_0880CC99[];
+extern u8 gUnknown_0880CCDA[];
+
+extern u8 gBanimBackgroundIndexLutDefault[];
+extern u8 gBanimBackgroundIndexLut01[];
+extern u8 gBanimBackgroundIndexLut02[];
+extern u8 gBanimBackgroundIndexLut03[];
+extern u8 gBanimBackgroundIndexLut04[];
+extern u8 gBanimBackgroundIndexLut05[];
+extern u8 gBanimBackgroundIndexLut06[];
+extern u8 gBanimBackgroundIndexLut07[];
+extern u8 gBanimBackgroundIndexLut08[];
+extern u8 gBanimBackgroundIndexLut09[];
+extern u8 gBanimBackgroundIndexLut0A[];
+extern u8 gBanimBackgroundIndexLut0B[];
+extern u8 gBanimBackgroundIndexLut0C[];
+extern u8 gBanimBackgroundIndexLut0D[];
+extern u8 gBanimBackgroundIndexLut0E[];
+extern u8 gBanimBackgroundIndexLut0F[];
+extern u8 gBanimBackgroundIndexLut10[];
+extern u8 gBanimBackgroundIndexLut11[];
+extern u8 gBanimBackgroundIndexLut12[];
+extern u8 gBanimBackgroundIndexLut13[];
+extern u8 gBanimBackgroundIndexLut14[];
 extern u16 CONST_DATA gUnknown_0880D374[]; // terrainid-to-textid lookup
 // extern ??? gUnknown_088ACBC4
 extern u8 CONST_DATA gUnknown_088ADEF1[]; // Some bow effectiveness list

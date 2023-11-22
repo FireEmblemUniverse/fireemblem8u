@@ -15,7 +15,7 @@ enum wpn_manim_flash_color {
 struct SpellAssoc {
     /* 00 */ u16 item;
     /* 02 */ u8 count;
-    /* 04 */ u16 type;
+    /* 04 */ s16 efx;
     /* 08 */ struct ProcCmd *pcmd_manim;
     /* 0C */ u8 stat;
     /* 0D */ u8 facing;
@@ -26,7 +26,7 @@ extern struct SpellAssoc gSpellAssocData[];
 
 struct SpellAssoc *GetSpellAssocStructPtr(u16 item);
 u8 GetSpellAssocCharCount(u16 item);
-u16 GetSpellAssocType(u16 item);
+u16 GetSpellAssocEfxIndex(u16 item);
 struct ProcCmd *GetSpellAssocAlt6CPointer(u16 item);
 u8 GetSpellAssocReturnBool(int item);
 u8 GetSpellAssocFacing(u16 item);

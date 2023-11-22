@@ -112,88 +112,88 @@ gUnknown_0880CC99:  @ 0x0880CC99
 gUnknown_0880CCDA:  @ 0x0880CCDA
 	.incbin "baserom.gba", 0x80CCDA, 0x41
 
-	.global gUnknown_0880CD1B
-gUnknown_0880CD1B:  @ 0x0880CD1B
+	.global gBanimBackgroundIndexLutDefault
+gBanimBackgroundIndexLutDefault:  @ 0x0880CD1B
 	.incbin "baserom.gba", 0x80CD1B, 0x41
 
-	.global gUnknown_0880CD5C
-gUnknown_0880CD5C:  @ 0x0880CD5C
+	.global gBanimBackgroundIndexLut01
+gBanimBackgroundIndexLut01:  @ 0x0880CD5C
 	.incbin "baserom.gba", 0x80CD5C, 0x41
 
-	.global gUnknown_0880CD9D
-gUnknown_0880CD9D:  @ 0x0880CD9D
+	.global gBanimBackgroundIndexLut02
+gBanimBackgroundIndexLut02:  @ 0x0880CD9D
 	.incbin "baserom.gba", 0x80CD9D, 0x41
 
-	.global gUnknown_0880CDDE
-gUnknown_0880CDDE:  @ 0x0880CDDE
+	.global gBanimBackgroundIndexLut03
+gBanimBackgroundIndexLut03:  @ 0x0880CDDE
 	.incbin "baserom.gba", 0x80CDDE, 0x41
 
-	.global gUnknown_0880CE1F
-gUnknown_0880CE1F:  @ 0x0880CE1F
+	.global gBanimBackgroundIndexLut04
+gBanimBackgroundIndexLut04:  @ 0x0880CE1F
 	.incbin "baserom.gba", 0x80CE1F, 0x41
 
-	.global gUnknown_0880CE60
-gUnknown_0880CE60:  @ 0x0880CE60
+	.global gBanimBackgroundIndexLut05
+gBanimBackgroundIndexLut05:  @ 0x0880CE60
 	.incbin "baserom.gba", 0x80CE60, 0x41
 
-	.global gUnknown_0880CEA1
-gUnknown_0880CEA1:  @ 0x0880CEA1
+	.global gBanimBackgroundIndexLut06
+gBanimBackgroundIndexLut06:  @ 0x0880CEA1
 	.incbin "baserom.gba", 0x80CEA1, 0x41
 
-	.global gUnknown_0880CEE2
-gUnknown_0880CEE2:  @ 0x0880CEE2
+	.global gBanimBackgroundIndexLut07
+gBanimBackgroundIndexLut07:  @ 0x0880CEE2
 	.incbin "baserom.gba", 0x80CEE2, 0x41
 
-	.global gUnknown_0880CF23
-gUnknown_0880CF23:  @ 0x0880CF23
+	.global gBanimBackgroundIndexLut08
+gBanimBackgroundIndexLut08:  @ 0x0880CF23
 	.incbin "baserom.gba", 0x80CF23, 0x41
 
-	.global gUnknown_0880CF64
-gUnknown_0880CF64:  @ 0x0880CF64
+	.global gBanimBackgroundIndexLut09
+gBanimBackgroundIndexLut09:  @ 0x0880CF64
 	.incbin "baserom.gba", 0x80CF64, 0x41
 
-	.global gUnknown_0880CFA5
-gUnknown_0880CFA5:  @ 0x0880CFA5
+	.global gBanimBackgroundIndexLut0A
+gBanimBackgroundIndexLut0A:  @ 0x0880CFA5
 	.incbin "baserom.gba", 0x80CFA5, 0x41
 
-	.global gUnknown_0880CFE6
-gUnknown_0880CFE6:  @ 0x0880CFE6
+	.global gBanimBackgroundIndexLut0B
+gBanimBackgroundIndexLut0B:  @ 0x0880CFE6
 	.incbin "baserom.gba", 0x80CFE6, 0x41
 
-	.global gUnknown_0880D027
-gUnknown_0880D027:  @ 0x0880D027
+	.global gBanimBackgroundIndexLut0C
+gBanimBackgroundIndexLut0C:  @ 0x0880D027
 	.incbin "baserom.gba", 0x80D027, 0x41
 
-	.global gUnknown_0880D068
-gUnknown_0880D068:  @ 0x0880D068
+	.global gBanimBackgroundIndexLut0D
+gBanimBackgroundIndexLut0D:  @ 0x0880D068
 	.incbin "baserom.gba", 0x80D068, 0x41
 
-	.global gUnknown_0880D0A9
-gUnknown_0880D0A9:  @ 0x0880D0A9
+	.global gBanimBackgroundIndexLut0E
+gBanimBackgroundIndexLut0E:  @ 0x0880D0A9
 	.incbin "baserom.gba", 0x80D0A9, 0x41
 
-	.global gUnknown_0880D0EA
-gUnknown_0880D0EA:  @ 0x0880D0EA
+	.global gBanimBackgroundIndexLut0F
+gBanimBackgroundIndexLut0F:  @ 0x0880D0EA
 	.incbin "baserom.gba", 0x80D0EA, 0x41
 
-	.global gUnknown_0880D12B
-gUnknown_0880D12B:  @ 0x0880D12B
+	.global gBanimBackgroundIndexLut10
+gBanimBackgroundIndexLut10:  @ 0x0880D12B
 	.incbin "baserom.gba", 0x80D12B, 0x41
 
-	.global gUnknown_0880D16C
-gUnknown_0880D16C:  @ 0x0880D16C
+	.global gBanimBackgroundIndexLut11
+gBanimBackgroundIndexLut11:  @ 0x0880D16C
 	.incbin "baserom.gba", 0x80D16C, 0x41
 
-	.global gUnknown_0880D1AD
-gUnknown_0880D1AD:  @ 0x0880D1AD
+	.global gBanimBackgroundIndexLut12
+gBanimBackgroundIndexLut12:  @ 0x0880D1AD
 	.incbin "baserom.gba", 0x80D1AD, 0x41
 
-	.global gUnknown_0880D1EE
-gUnknown_0880D1EE:  @ 0x0880D1EE
+	.global gBanimBackgroundIndexLut13
+gBanimBackgroundIndexLut13:  @ 0x0880D1EE
 	.incbin "baserom.gba", 0x80D1EE, 0x41
 
-	.global gUnknown_0880D22F
-gUnknown_0880D22F:  @ 0x0880D22F
+	.global gBanimBackgroundIndexLut14
+gBanimBackgroundIndexLut14:  @ 0x0880D22F
 	.incbin "baserom.gba", 0x80D22F, 0x145
 
 	.global gUnknown_0880D374

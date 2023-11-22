@@ -5167,7 +5167,7 @@ _08068D98: .4byte gUnknown_085D8330
 	THUMB_FUNC_START sub_8068D9C
 sub_8068D9C: @ 0x08068D9C
 	push {lr}
-	ldr r1, _08068DB0  @ gEkrPairSomeTile
+	ldr r1, _08068DB0  @ gBanimGackgroundIndex
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	cmp r0, #0
@@ -5176,7 +5176,7 @@ sub_8068D9C: @ 0x08068D9C
 	bl EfxChapterMapFadeOUT
 	b _08068DCE
 	.align 2, 0
-_08068DB0: .4byte gEkrPairSomeTile
+_08068DB0: .4byte gBanimGackgroundIndex
 _08068DB4:
 	movs r2, #0
 	ldrsh r0, [r1, r2]
