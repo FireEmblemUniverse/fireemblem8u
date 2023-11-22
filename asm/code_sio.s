@@ -11404,7 +11404,7 @@ sub_8048838: @ 0x08048838
 	push {lr}
 	bl InitGlobalSaveInfodata
 	bl EraseSaveRankData
-	bl EraseLinkArenaStruct1
+	bl EraseSoundRoomSaveData
 	bl EraseLinkArenaStruct2
 	pop {r0}
 	bx r0

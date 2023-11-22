@@ -82,7 +82,8 @@ void sub_80A733C(struct bmsave_unkstruct2* src, struct bmsave_unkstruct2* dst) {
 }
 
 //! FE8U = 0x080A734C
-void sub_80A734C(struct bmsave_unkstruct1* src, struct bmsave_unkstruct1* dst) {
+void sub_80A734C(struct SoundRoomSaveData * src, struct SoundRoomSaveData * dst)
+{
     *dst = *src;
     return;
 }
@@ -144,10 +145,9 @@ void EraseInvalidSaveData(void)
     sub_80A7360(&ewram_->gameRankSave, (struct GameRankSaveDataPacks*)gUnknown_02008000);
     SaveRankings(gUnknown_02008000);
 
-    // "bmsave_unkstruct1", flags for sound room data?
-    CpuFastFill(0, gUnknown_02008000, sizeof(struct bmsave_unkstruct1));
-    sub_80A734C(&ewram_->unkstruct1, (struct bmsave_unkstruct1*)gUnknown_02008000);
-    WriteLinkArenaStruct1(gUnknown_02008000);
+    CpuFastFill(0, gUnknown_02008000, sizeof(struct SoundRoomSaveData));
+    sub_80A734C(&ewram_->soundRoomSave, (struct SoundRoomSaveData*)gUnknown_02008000);
+    WriteSoundRoomSaveData((struct SoundRoomSaveData *)gUnknown_02008000);
 
     // "bmsave_unkstruct2", flags for viewing CGs?
     CpuFastFill(0, gUnknown_02008000, sizeof(struct bmsave_unkstruct2));

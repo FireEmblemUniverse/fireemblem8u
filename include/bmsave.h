@@ -120,8 +120,8 @@ struct GameRankSaveDataPacks {
     u16 unk92;
 };
 
-struct bmsave_unkstruct1 {
-    u32 unk[0x8];
+struct SoundRoomSaveData {
+    u32 flags[0x8];
     u16 magic1;
     u16 magic2;
 };
@@ -385,7 +385,7 @@ struct SaveBlocks {
     /* 0x3FC4 */ struct GameSaveBlock gameSaveBlocks[3];
     /* 0x691C */ struct MultiArenaSaveBlock multiArenaBlock;
     /* 0x7190 */ struct GameRankSaveDataPacks gameRankSave;
-    /* 0x7224 */ struct bmsave_unkstruct1 unkstruct1;
+    /* 0x7224 */ struct SoundRoomSaveData soundRoomSave;
     /* 0x7248 */ struct bmsave_unkstruct2 unkstruct2;
     /* 0x725C */ struct bmsave_unkstruct3 unkstruct3;
     /* 0x73A0 */ u8 reserved[4];
@@ -415,7 +415,7 @@ struct SaveBlocksEwram {
     /* 0x3F84 */ struct GameSaveBlockEwram gameSaveBlocks[3];
     /* 0x6870 */ u8 offset_5[0x874];
     /* 0x70E4 */ struct GameRankSaveDataPacks gameRankSave;
-    /* 0x7178 */ struct bmsave_unkstruct1 unkstruct1;
+    /* 0x7178 */ struct SoundRoomSaveData soundRoomSave;
     /* 0x719C */ struct bmsave_unkstruct2 unkstruct2;
     /* 0x71B0 */ struct bmsave_unkstruct3 unkstruct3;
 };
@@ -492,10 +492,10 @@ void SaveNewRankData(void *buf, int chapter_mode, int difficulty);
 u8 JudgeGameRankSaveData(struct GameRankSaveData *old, struct GameRankSaveData *new);
 void GenerateGameRankSaveData(struct GameRankSaveData *buf, int chapter_mode, int difficulty);
 void SaveEndgameRankings(void);
-void EraseLinkArenaStruct1(void);
-bool LoadAndVerfyLinkArenaStruct1(void *buf);
-void WriteLinkArenaStruct1(void *);
-int ModifySaveLinkArenaStruct1A(void *buf, int val);
+void EraseSoundRoomSaveData(void);
+bool LoadAndVerifySoundRoomData(struct SoundRoomSaveData * buf);
+void WriteSoundRoomSaveData(struct SoundRoomSaveData *);
+bool IsSoundRoomSongUnlocked(struct SoundRoomSaveData * buf, int val);
 void EraseLinkArenaStruct2(void);
 bool LoadAndVerfyLinkArenaStruct2(void *buf);
 void WriteLinkArenaStruct2(struct bmsave_unkstruct2 *buf);
@@ -512,7 +512,7 @@ void WriteChapterStats(void *sram_dest);
 struct ChapterStats *GetChapterStats(int index);
 bool IsChapterStatsValid(struct ChapterStats *chapter_stats);
 int GetNextChapterStatsSlot(void);
-void ModifySaveLinkArenaStruct1B(struct bmsave_unkstruct1 *buf, int val);
+void UnlockSoundRoomSong(struct SoundRoomSaveData *buf, int val);
 int GetCurCompleteChapters(void);
 int GetNextChapterStatsEntry(void);
 void RegisterChapterTimeAndTurnCount(struct PlaySt* chData);

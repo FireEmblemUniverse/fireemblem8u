@@ -1055,88 +1055,81 @@ void SaveEndgameRankings()
         SaveNewRankData(&new, chapter_mode, difficult);
 }
 
-void EraseLinkArenaStruct1()
+void EraseSoundRoomSaveData(void)
 {
-    struct bmsave_unkstruct1 buf;
+    struct SoundRoomSaveData buf;
     
     CpuFill16(0, &buf, sizeof(buf));
-    WriteLinkArenaStruct1(&buf);
+    WriteSoundRoomSaveData(&buf);
 }
 
-bool LoadAndVerfyLinkArenaStruct1(void * buf)
+bool LoadAndVerifySoundRoomData(struct SoundRoomSaveData * buf)
 {
-    struct bmsave_unkstruct1 * _buf = buf;
-    struct bmsave_unkstruct1 tmp;
+    struct SoundRoomSaveData tmp;
 
     if (!IsSramWorking())
         return false;
 
     if (NULL == buf)
-        _buf = &tmp;
+        buf = &tmp;
 
-    ReadSramFast(&gSram->unkstruct1, _buf, sizeof(struct bmsave_unkstruct1));
+    ReadSramFast(&gSram->soundRoomSave, buf, sizeof(struct SoundRoomSaveData));
 
-    if (_buf->magic1 != Checksum16(_buf, sizeof(struct bmsave_unkstruct1) - 4))
+    if (buf->magic1 != Checksum16(buf, sizeof(struct SoundRoomSaveData) - 4))
         return false;
     else
         return true;
 }
 
-void WriteLinkArenaStruct1(void * buf)
+void WriteSoundRoomSaveData(struct SoundRoomSaveData * buf)
 {
-    struct bmsave_unkstruct1 * _buf = buf;
-
-    _buf->magic1 = Checksum16(buf, sizeof(struct bmsave_unkstruct1) - 4);
-
-    WriteAndVerifySramFast(_buf, &gSram->unkstruct1, sizeof(struct bmsave_unkstruct1));
+    buf->magic1 = Checksum16(buf, sizeof(struct SoundRoomSaveData) - 4);
+    WriteAndVerifySramFast(buf, &gSram->soundRoomSave, sizeof(struct SoundRoomSaveData));
 }
 
-int ModifySaveLinkArenaStruct1A(void * buf, int val)
+bool IsSoundRoomSongUnlocked(struct SoundRoomSaveData * buf, int val)
 {
-    struct bmsave_unkstruct1 tmp;
-    struct bmsave_unkstruct1 *_buf;
+    struct SoundRoomSaveData tmp;
     u32 _val = val;
 
-    if (0 == buf) {
+    if (buf == NULL) {
         buf = &tmp;
-        LoadAndVerfyLinkArenaStruct1(&tmp);
+        LoadAndVerifySoundRoomData(&tmp);
     }
 
-    _buf = buf;
-    if (1 & (_buf->unk[val >> 5] >> (_val % 0x20)))
-        return 1;
-    else
-        return 0;
+    if ((buf->flags[val >> 5] >> (_val % 0x20)) & 1)
+        return true;
+
+    return false;
 }
 
-void ModifySaveLinkArenaStruct1B(struct bmsave_unkstruct1 * buf, int val)
+void UnlockSoundRoomSong(struct SoundRoomSaveData * buf, int val)
 {
-    struct bmsave_unkstruct1 tmp;
+    struct SoundRoomSaveData tmp;
     u32 _val = val;
     
-    if (NULL == buf) {
+    if (buf == NULL) {
         buf = &tmp;
-        
-        if (!LoadAndVerfyLinkArenaStruct1(&tmp))
+        if (!LoadAndVerifySoundRoomData(&tmp))
             return;
     }
 
-    if (buf->unk[val >> 5] & (1 << (_val % 0x20)))
+    if (buf->flags[val >> 5] & (1 << (_val % 0x20)))
         return;
 
-    buf->unk[val >> 5] |= 1 << (_val % 0x20);
+    buf->flags[val >> 5] |= 1 << (_val % 0x20);
 
     if (0x43 == val)
-        buf->unk[0] |= 4;
+        buf->flags[0] |= 4;
     else if (2 == val)
-        buf->unk[2] |= 8;
+        buf->flags[2] |= 8;
 
     if (0x54 == val)
-        buf->unk[1] |= 1 << 0x10;
+        buf->flags[1] |= 1 << 0x10;
     else if (0x30 == val)
-        buf->unk[2] |= 1 << 0x14;
+        buf->flags[2] |= 1 << 0x14;
 
-    WriteLinkArenaStruct1(buf);
+    WriteSoundRoomSaveData(buf);
 }
 
 void EraseLinkArenaStruct2()
@@ -1222,8 +1215,8 @@ void EraseSramDataIfInvalid()
     if (!LoadAndVerfyRankData(NULL))
         EraseSaveRankData();
     
-    if (!LoadAndVerfyLinkArenaStruct1(NULL))
-        EraseLinkArenaStruct1();
+    if (!LoadAndVerifySoundRoomData(NULL))
+        EraseSoundRoomSaveData();
     
     if (!LoadAndVerfyLinkArenaStruct2(NULL))
         EraseLinkArenaStruct2();

@@ -1846,7 +1846,7 @@ void sub_80AA550(struct Proc8A204BC * proc)
         {
             proc->unk_58 = 1;
             gUnknown_08A204B8[i].unseen = (gUnknown_08A204B8[i].unseen & ~3) + 2;
-            ModifySaveLinkArenaStruct1B(NULL, 0x75);
+            UnlockSoundRoomSong(NULL, 0x75);
         }
 
         ent = gUnknown_08A204B8 + i;
@@ -1855,7 +1855,7 @@ void sub_80AA550(struct Proc8A204BC * proc)
         {
             proc->unk_5c = 1;
             gUnknown_08A204B8[i].unseen = (gUnknown_08A204B8[i].unseen & ~3) + 2;
-            ModifySaveLinkArenaStruct1B(NULL, 0x76);
+            UnlockSoundRoomSong(NULL, 0x76);
         }
     }
 

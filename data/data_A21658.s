@@ -96,12 +96,12 @@ gUnknown_08A2C5A8:  @ 0x08A2C5A8
 gUnknown_08A2C7A4:  @ 0x08A2C7A4
 	.incbin "baserom.gba", 0xA2C7A4, 0x94
 
-	.global gUnknown_08A2C838
-gUnknown_08A2C838:  @ 0x08A2C838
+	.global Img_SoundRoomVolumeGraph
+Img_SoundRoomVolumeGraph:  @ 0x08A2C838
 	.incbin "baserom.gba", 0xA2C838, 0x70
 
-	.global gUnknown_08A2C8A8
-gUnknown_08A2C8A8:  @ 0x08A2C8A8
+	.global Pal_SoundRoomVolumeGraph
+Pal_SoundRoomVolumeGraph:  @ 0x08A2C8A8
 	.incbin "baserom.gba", 0xA2C8A8, 0x60
 
 	.global gUnknown_08A2C908
@@ -112,12 +112,12 @@ gUnknown_08A2C908:  @ 0x08A2C908
 gUnknown_08A2C92C:  @ 0x08A2C92C
 	.incbin "baserom.gba", 0xA2C92C, 0x190
 
-	.global gUnknown_08A2CABC
-gUnknown_08A2CABC:  @ 0x08A2CABC
+	.global Img_SoundRoomUiElements
+Img_SoundRoomUiElements:  @ 0x08A2CABC
 	.incbin "baserom.gba", 0xA2CABC, 0x810
 
-	.global gUnknown_08A2D2CC
-gUnknown_08A2D2CC:  @ 0x08A2D2CC
+	.global Pal_SoundRoomUiElements
+Pal_SoundRoomUiElements:  @ 0x08A2D2CC
 	.incbin "baserom.gba", 0xA2D2CC, 0x60
 
 	.global gUnknown_08A2D32C
