@@ -30,8 +30,6 @@ struct KeyProc {
     /* 64 */ s16 unk64;
 };
 
-//static u8 sModifiedBGs;
-
 void CopyToPaletteBuffer(const void* src, int b, int size)
 {
     if (size & 0x1F)  // size is not a multiple of 32
@@ -40,10 +38,6 @@ void CopyToPaletteBuffer(const void* src, int b, int size)
         CpuFastCopy(src, gPaletteBuffer + (b >> 1), size);
     sModifiedPalette = 1;
 }
-
-#define RED_MASK 0x1F
-#define GREEN_MASK (0x1F << 5)
-#define BLUE_MASK (0x1F << 10)
 
 void sub_8000E14(u16 *a, int b, int size, int d)
 {

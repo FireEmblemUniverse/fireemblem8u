@@ -1205,8 +1205,8 @@ extern u16* gUnknown_08A209F0[];
 // extern ??? gSprite_UiSpinningArrows_Vertical
 // extern ??? gProcScr_UiSpinningArrows
 
-// extern ??? gUnknown_08A20E24
-// extern ??? gUnknown_08A20E44
+// extern ??? gProcScr_08A20E24
+// extern ??? gProcScr_BonusClaimHelpBox
 // extern ??? gSoundRoomTable
 // extern ??? gUnknown_08A212D4
 // extern ??? gUnknown_08A212D8

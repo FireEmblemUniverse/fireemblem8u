@@ -1,42 +1,5 @@
     .section .data
 
-	.global gUnknown_08A20E24
-gUnknown_08A20E24:  @ 0x08A20E24
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80AE930
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80AE938
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-	.global gUnknown_08A20E44
-gUnknown_08A20E44:  @ 0x08A20E44
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80AEB60
-        @ PROC_SLEEP
-        .short 0xe, 0x8
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80AEB8C
-        @ PROC_SLEEP
-        .short 0xe, 0x8
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gSoundRoomTable
 gSoundRoomTable:  @ 0x08A20E74
 	.incbin "baserom.gba", 0xA20E74, 0x460

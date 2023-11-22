@@ -430,7 +430,7 @@ void BonusClaim_Loop_MainKeyHandler(struct BonusClaimProc * proc)
             int itemIdx = gpBonusClaimItemList[curIdx].unk_00;
 
             if (((1 << itemIdx) & GetBonusContentClaimFlags()) != 0) {
-                sub_80AEBCC(-1, -1, 0x88F, proc); // TODO: msgid "Already used"
+                StartBonusClaimHelpBox(-1, -1, 0x88F, proc); // TODO: msgid "Already used"
                 return;
             }
 
@@ -679,7 +679,7 @@ void BonusClaim_Loop_SelectTargetKeyHandler(struct BonusClaimProc * proc)
             return;
         }
 
-        sub_80AEBCC(-1, -1, 0x890, proc);
+        StartBonusClaimHelpBox(-1, -1, 0x890, proc);
         return;
     }
 
