@@ -494,7 +494,7 @@ extern u16 gUnknown_0201D46A[];
 // extern ??? gUnknown_0201F148
 // extern ??? gUnknown_0201F160
 // extern ??? gUnknown_0201F198
-// extern ??? gUnknown_0201F19C
+// extern ??? gSoundRoomVolumeGraphBuffer
 extern u8 gEfxSplitedColorBuf[];
 extern u8 gUnknown_0201F978[];
 extern u16 gUnknown_0201F9A8[];

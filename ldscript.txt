@@ -268,7 +268,6 @@ SECTIONS
         src/sysutil.o(.text);
         src/stone_shatter.o(.text);
         src/code_80AE86C.o(.text);
-        asm/code_80AE86C.o(.text);
         src/soundroom.o(.text);
         src/extramenu_unk.o(.text);
         src/bonusclaim.o(.text);
@@ -752,7 +751,7 @@ SECTIONS
         . = ALIGN(4); src/sysutil.o(.data);
         . = ALIGN(4); src/stone_shatter.o(.data);
         . = ALIGN(4); src/code_80AE86C.o(.data);
-        . = ALIGN(4); data/data_A20E24.o(.data);
+        . = ALIGN(4); src/soundroom_data.o(.data);
         . = ALIGN(4); src/soundroom.o(.data);
         . = ALIGN(4); src/extramenu_unk.o(.data);
         . = ALIGN(4); src/bonusclaim.o(.data);

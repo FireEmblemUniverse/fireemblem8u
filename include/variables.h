@@ -1211,14 +1211,14 @@ extern u16* gUnknown_08A209F0[];
 // extern ??? gUnknown_08A212D4
 // extern ??? gUnknown_08A212D8
 // extern ??? gUnknown_08A212DC
-// extern ??? gUnknown_08A212E0
-// extern ??? gUnknown_08A212E4
-// extern ??? gUnknown_08A21304
-// extern ??? gUnknown_08A21308
+// extern ??? gSoundRoomShuffleBuffer
+// extern ??? gProcScr_SoundRoomSongChange
+// extern ??? gpSoundInfo
+// extern ??? gProcScr_VolumeGraphBuffer
 // extern ??? gProcScr_SoundRoomUi
-// extern ??? gUnknown_08A21440
-// extern ??? gUnknown_08A2144E
-// extern ??? gUnknown_08A2145C
+// extern ??? gSprite_SoundRoom_AButtonPlay
+// extern ??? gSprite_SoundRoom_StartButtonStop
+// extern ??? gSprite_SoundRoom_SelectButtonRandom
 // extern ??? gSprite_RandomModeBanner
 // extern ??? gSprite_MusicPlayer_SeekBar
 // extern ??? gSprite_MusicPlayer_SeekBarIndicator
@@ -1253,12 +1253,12 @@ extern u8 gUnknown_08A295D4[]; // tsa
 // extern ??? gUnknown_08A2C4C8
 // extern ??? gUnknown_08A2C5A8
 // extern ??? gUnknown_08A2C7A4
-// extern ??? gUnknown_08A2C838
-// extern ??? gUnknown_08A2C8A8
+extern u8 Img_SoundRoomVolumeGraph[];
+extern u16 Pal_SoundRoomVolumeGraph[];
 // extern ??? gUnknown_08A2C908
 // extern ??? gUnknown_08A2C92C
-// extern ??? gUnknown_08A2CABC
-// extern ??? gUnknown_08A2D2CC
+// extern ??? Img_SoundRoomUiElements
+// extern ??? Pal_SoundRoomUiElements
 extern u8 gUnknown_08A2D32C[]; // Gfx
 extern u16 gUnknown_08A2E1B8[]; // Pal
 extern u8 gUnknown_08A2E1F8[]; // Gfx

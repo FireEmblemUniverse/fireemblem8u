@@ -185,12 +185,12 @@ int sub_801BB98(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
     int songId;
     int i;
 
-    int unk = sub_80AEC94();
+    int totalSongs = CountTotalSoundRoomSongs();
 
     menuItemProc->itemNumber = 0;
 
     songId = GetCurrentBgmSong();
-    for (i = 0; i < unk; i++) {
+    for (i = 0; i < totalSongs; i++) {
         if (songId == i) {
             menuItemProc->itemNumber = i;
             break;

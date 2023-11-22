@@ -224,7 +224,7 @@
 . = 0x01F148; gUnknown_0201F148 = .;
 . = 0x01F160; gUnknown_0201F160 = .;
 . = 0x01F198; gUnknown_0201F198 = .;
-. = 0x01F19C; gUnknown_0201F19C = .;
+. = 0x01F19C; gSoundRoomVolumeGraphBuffer = .;
 
 . = 0x01F948; gEfxSplitedColorBuf = .;
 . = 0x01F978; gUnknown_0201F978 = .;
