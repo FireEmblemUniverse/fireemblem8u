@@ -6,43 +6,37 @@
 #include "bm.h"
 #include "m4a.h"
 #include "soundwrapper.h"
-#include "prepscreen.h"
 #include "bmlib.h"
 #include "ctc.h"
 #include "sysutil.h"
+#include "bmsave.h"
+
 #include "soundroom.h"
 
-struct SoundRoomProc {
-    /* 00 */ PROC_HEADER;
+// TODO: Implicit declarations
+void PutMenuScrollBarAt(int, int);
+void UpdateMenuScrollBarConfig(int, int, int, int);
+ProcPtr StartMenuScrollBarExt(ProcPtr, int, int, int, int);
 
-    /* 29 */ u8 unk_29; // maybe padding?
-    /* 2A */ u16 bgYOffset;
-    /* 2C */ u16 unk_2c;
-    /* 2E */ u8 unk_2e;
-    /* 2F */ u8 unk_2f;
-    /* 30 */ s8 shuffleActive;
-    /* 31 */ u8 unk_31;
-    /* 32 */ s8 unk_32;
-    /* 33 */ u8 unk_33;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 curIndex;
-    /* 36 */ u8 maxIndex;
-    /* 37 */ s8 unk_37;
-    /* 38 */ u8 unk_38;
-    /* 39 */ u8 unk_39;
-    /* 3A */ u8 unk_3a;
-    /* 3B */ u8 unk_3b;
-    /* 3C */ s8 unk_3c;
-    /* 3D */ s8 unk_3d;
-    /* 3E */ s8 unk_3e;
-    /* 3F */ u8 unk_3f;
-};
-
-struct Proc8A21530 {
+struct Proc08A21308
+{
     /* 00 */ PROC_HEADER;
 
     /* 2C */ int unk_2c;
 };
+
+struct Proc8A21530
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ int unk_2c;
+};
+
+struct Unknown_08A212DC
+{
+    u8 x;
+    u8 y;
+} __attribute__((packed));
 
 struct Unknown201F148 {
     /* 00 */ struct Font font;
@@ -56,9 +50,7 @@ struct Unknown201F148 {
 };
 
 extern struct Unknown201F148 gUnknown_0201F148;
-
-extern u16 gUnknown_0201F198;
-extern u8 gUnknown_0201F19C[];
+extern u8 gUnknown_0201F19C[][0x31];
 
 extern u8 gUnknown_08A2C908[]; // gfx
 extern u16 gUnknown_08A01EE4[]; // pal
@@ -72,50 +64,550 @@ extern u16 gUnknown_08A2E1B8[]; // pal
 extern u8 gUnknown_08A2CABC[]; // gfx
 extern u16 gUnknown_08A2D2CC[]; // pal
 
-extern struct ProcCmd gUnknown_08A21308[];
-
-extern void* gUnknown_08A212D4;
-extern void* gUnknown_08A212D8;
-
 extern u8 gUnknown_08A2C92C[];
 extern u8 gUnknown_08A2C5A8[];
 extern u8 gUnknown_08A2C7A4[];
 
-// forward declarations
-void sub_80AF878(struct SoundRoomProc*);
-void sub_80AFF30(void);
-void DrawSoundRoomSongTitle(int);
-ProcPtr DrawSoundRoomSprites(ProcPtr);
+extern void* gUnknown_08A212D4;
+extern void* gUnknown_08A212D8;
+extern struct Unknown_08A212DC * gUnknown_08A212DC; // 0x02021188, gGenericBuffer + 0x1000
+extern s8 * gUnknown_08A212E0; // 0x02021388, gGenericBuffer + 0x1200
+extern struct SoundInfo * gUnknown_08A21304; // gSoundInfo
 
-// TODO: Decompile these next
-s8 sub_80AECEC(struct SoundRoomProc*, int);
-void sub_80AED64(struct SoundRoomProc*);
-void sub_80AEF24(struct SoundRoomProc*);
-void sub_80AEF64(struct SoundRoomProc*);
-void sub_80AF0E0(struct SoundRoomProc*);
-void sub_80AF140(struct SoundRoomProc*);
-void sub_80AF1D8(void);
-void sub_80AF220(ProcPtr);
-void nullsub_65(void);
-void sub_80AF22C(ProcPtr);
-void sub_80AF338(struct SoundRoomProc*);
-void sub_80AF350(struct SoundRoomProc*);
-int sub_80AF378(struct SoundRoomProc*);
-void sub_80AF3C8(struct SoundRoomProc*);
-void sub_80AF4D0(u16*, struct SoundRoomProc*);
-void sub_80AF510(void);
+//! FE8U = 0x080AEC7C
+bool sub_80AEC7C(struct SoundRoomProc * proc)
+{
+    if (proc->unk_34 == 100)
+    {
+        return TRUE;
+    }
 
-struct ProcCmd CONST_DATA gUnknown_08A21308[] = {
-    PROC_SLEEP(0),
+    return FALSE;
+}
+
+//! FE8U = 0x080AEC90
+bool sub_80AEC90(void)
+{
+    return FALSE;
+}
+
+//! FE8U = 0x080AEC94
+int sub_80AEC94(void)
+{
+    int i = 0;
+
+    do
+    {
+        if (gSoundRoomTable[i].bgmId < 0)
+        {
+            break;
+        }
+
+        i++;
+    } while (1);
+
+    return i;
+}
+
+//! FE8U = 0x080AECB4
+int sub_80AECB4(void)
+{
+    int i = 0;
+    int count = 0;
+
+    do
+    {
+        if (gSoundRoomTable[i].bgmId < 0)
+        {
+            return count;
+        }
+
+        if (gSoundRoomTable[i].displayCondFunc != NULL)
+        {
+            count++;
+        }
+
+        i++;
+    } while (1);
+}
+
+//! FE8U = 0x080AECEC
+bool sub_80AECEC(struct SoundRoomProc * proc, int flag)
+{
+    if ((*(proc->unk_40 + (flag >> 5)) >> (flag & 0x1f)) & 1)
+    {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+//! FE8U = 0x080AED10
+int sub_80AED10(struct SoundRoomProc * proc)
+{
+    int i = 0;
+
+    int result = 0;
+
+    do
+    {
+        if (gSoundRoomTable[i].bgmId < 0)
+        {
+            return result;
+        }
+
+        if (gSoundRoomTable[i].displayCondFunc != NULL)
+        {
+            if ((*(proc->unk_40 + (i >> 5)) >> (i & 0x1f)) & 1)
+            {
+                result = i + 1;
+            }
+        }
+        else
+        {
+            result = i + 1;
+        }
+
+        i++;
+
+    } while (1);
+}
+
+//! FE8U = 0x080AED64
+void sub_80AED64(struct SoundRoomProc * proc)
+{
+    struct bmsave_unkstruct1 saveStruct;
+
+    proc->maxIndex = sub_80AEC94();
+    CpuFill16(0, proc->unk_40, 0x10);
+
+    proc->unk_33 = 0;
+
+    if (LoadAndVerfyLinkArenaStruct1(&saveStruct))
+    {
+        int i;
+        for (i = 0; gSoundRoomTable[i].bgmId > -1; i++)
+        {
+            if (gSoundRoomTable[i].displayCondFunc != NULL)
+            {
+                continue;
+            }
+
+            if ((saveStruct.unk[gSoundRoomTable[i].bgmId >> 5] >> (gSoundRoomTable[i].bgmId & 0x1f)) & 1)
+            {
+                *(proc->unk_40 + (i >> 5)) |= 1 << (i & 0x1f);
+                proc->unk_33++;
+            }
+        }
+
+        proc->unk_34 = (proc->unk_33 * 100) / (proc->maxIndex - sub_80AECB4());
+
+        for (i = 0; gSoundRoomTable[i].bgmId > -1; i++)
+        {
+            if (gSoundRoomTable[i].displayCondFunc == NULL)
+            {
+                continue;
+            }
+
+            if (!((saveStruct.unk[gSoundRoomTable[i].bgmId >> 5] >> (gSoundRoomTable[i].bgmId & 0x1f)) & 1))
+            {
+                if (!gSoundRoomTable[i].displayCondFunc(proc))
+                {
+                    continue;
+                }
+            }
+
+            *(proc->unk_40 + (i >> 5)) |= 1 << (i & 0x1f);
+            proc->unk_33++;
+            proc->unk_2e = 1;
+        }
+    }
+
+    proc->maxIndex = sub_80AED10(proc);
+
+    return;
+}
+
+//! FE8U = 0x080AEEC0
+void sub_80AEEC0(void)
+{
+    return;
+}
+
+//! FE8U = 0x080AEEC4
+void sub_80AEEC4(struct Proc * proc)
+{
+    struct SoundRoomProc * parent = proc->proc_parent;
+    CallSomeSoundMaybe(0, 0x100, 0, 0x78, proc);
+    parent->unk_3f = 1;
+    return;
+}
+
+//! FE8U = 0x080AEEE8
+void sub_80AEEE8(struct Proc * proc)
+{
+    struct SoundRoomProc * parent = proc->proc_parent;
+    StartSoundRoomSong(parent, gUnknown_08A212E0[parent->unk_31], 0);
+    DrawSoundRoomSongTitle(parent->unk_32);
+    parent->unk_3f = 0;
+    return;
+}
+
+extern struct ProcCmd gUnknown_08A212E4[];
+
+//! FE8U = 0x080AEF24
+void sub_80AEF24(struct SoundRoomProc * proc)
+{
+    Proc_Start(gUnknown_08A212E4, proc);
+
+    proc->unk_31++;
+
+    if ((gUnknown_08A212E0[proc->unk_31] == -1) || (proc->unk_31 == 0x80))
+    {
+        proc->unk_31 = 0;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080AEF64
+void sub_80AEF64(struct SoundRoomProc * proc)
+{
+    int seed1;
+    int seed2;
+    int it;
+    int i;
+    int numAvailableSongs;
+
+    for (i = 0; i < 0x80; i++)
+    {
+        gUnknown_08A212E0[i] = -1;
+    }
+
+    seed1 = GetGameClock() & 0x7f;
+    it = seed1;
+    i = 0;
+
+    do
+    {
+        // TODO: Permuter; addition does not seem to match here
+        if ((*(proc->unk_40 - -(it >> 5)) >> (it & 0x1f)) & 1)
+        {
+            gUnknown_08A212E0[i] = it;
+            i++;
+        }
+
+        it = ((it + 1) % 0x80);
+    } while (it != seed1);
+
+    numAvailableSongs = i;
+
+    seed2 = GetGameClock() + 0x7b;
+    for (i = 0; i < 0x100; i++)
+    {
+        int idx1;
+        int idx2;
+
+        seed2 = ((seed2 * 0xd) + 1) % 0x8000;
+        idx1 = (seed2 >> 8) % numAvailableSongs;
+
+        seed2 = ((seed2 * 0xd) + 1) % 0x8000;
+        idx2 = (seed2 >> 8) % numAvailableSongs;
+
+        if (idx1 != idx2)
+        {
+            gUnknown_08A212E0[idx1] = gUnknown_08A212E0[idx1] + gUnknown_08A212E0[idx2];
+            gUnknown_08A212E0[idx2] = gUnknown_08A212E0[idx1] - gUnknown_08A212E0[idx2];
+            gUnknown_08A212E0[idx1] = gUnknown_08A212E0[idx1] - gUnknown_08A212E0[idx2];
+        }
+    }
+
+    proc->unk_31 = 0;
+
+    if ((*(proc->unk_40 + (proc->curIndex >> 5)) >> (proc->curIndex & 0x1f)) & 1)
+    {
+        for (; gUnknown_08A212E0[proc->unk_31] != proc->curIndex; proc->unk_31++)
+        {
+            if (proc->unk_31 == 0x80)
+            {
+                proc->unk_31 = 0;
+                goto _080AF0C4;
+            }
+        }
+    }
+_080AF0C4:
+    proc->shuffleActive = 1;
+    sub_80AEF24(proc);
+
+    return;
+}
+
+//! FE8U = 0x080AF0E0
+bool sub_80AF0E0(struct SoundRoomProc * proc)
+{
+    u8 idx;
+
+    for (idx = (proc->unk_32 + 1) & 0x7f;; idx = (idx + 1), idx &= 0x7f)
+    {
+        if (!(((*(proc->unk_40 + (idx >> 5))) >> (idx & 0x1f)) & 1))
+        {
+            continue;
+        }
+
+        if (StartSoundRoomSong(proc, idx, 0x20))
+        {
+            DrawSoundRoomSongTitle(proc->unk_32);
+            return TRUE;
+        }
+
+        return FALSE;
+    }
+}
+
+//! FE8U = 0x080AF140
+bool sub_80AF140(struct SoundRoomProc * proc)
+{
+    u8 idx;
+
+    for (idx = (proc->unk_32 - 1) & 0x7f;; idx = (idx - 1), idx &= 0x7f)
+    {
+        if (!(((*(proc->unk_40 + (idx >> 5))) >> (idx & 0x1f)) & 1))
+        {
+            continue;
+        }
+
+        if (StartSoundRoomSong(proc, idx, 0x20))
+        {
+            DrawSoundRoomSongTitle(proc->unk_32);
+            return TRUE;
+        }
+
+        return FALSE;
+    }
+}
+
+//! FE8U = 0x080AF1A0
+void sub_80AF1A0(int param_1, int param_2)
+{
+    int i;
+
+    for (i = 0; i < 0x30; i++)
+    {
+        gUnknown_0201F19C[param_1][i] = gUnknown_0201F19C[param_1][i + 1];
+    }
+
+    gUnknown_0201F19C[param_1][0x30] = param_2;
+
+    return;
+}
+
+extern u8 gUnknown_08A2C838[]; // gfx
+extern u16 gUnknown_08A2C8A8[]; // pal
+
+//! FE8U = 0x080AF1D8
+void sub_80AF1D8(void)
+{
+    int i;
+
+    for (i = 0; i < 0x31; i++)
+    {
+        gUnknown_0201F19C[0][i] = 0;
+        gUnknown_0201F19C[1][i] = 0;
+    }
+
+    Decompress(gUnknown_08A2C838, (void *)0x06010800);
+    ApplyPalettes(gUnknown_08A2C8A8, 0x1D, 3);
+
+    return;
+}
+
+//! FE8U = 0x080AF220
+void sub_80AF220(struct Proc08A21308 * proc)
+{
+    proc->unk_2c = 0;
+    return;
+}
+
+//! FE8U = 0x080AF228
+void nullsub_65(void)
+{
+    return;
+}
+
+//! FE8U = 0x080AF22C
+void sub_80AF22C(struct Proc08A21308 * proc)
+{
+    int i;
+
+    u8 r7 = 0;
+    u8 r5 = 0;
+    u8 r8 = -1;
+    u8 ip = -1;
+
+    for (i = 0; i < 0xe0; i++)
+    {
+        gUnknown_08A212DC[i].x = (u8)(gUnknown_08A21304->pcmBuffer[PCM_DMA_BUF_SIZE + proc->unk_2c] - 0x80) >> 1;
+        gUnknown_08A212DC[i].y = 0xf0 - ((u8)((gUnknown_08A21304->pcmBuffer[proc->unk_2c]) - 0x80) >> 1);
+
+        r5 = r5 > gUnknown_08A212DC[i].x ? r5 : gUnknown_08A212DC[i].x;
+        ip = ip < gUnknown_08A212DC[i].x ? ip : gUnknown_08A212DC[i].x;
+
+        r7 = r7 > gUnknown_08A212DC[i].y ? r7 : gUnknown_08A212DC[i].y;
+        r8 = r8 < gUnknown_08A212DC[i].y ? r8 : gUnknown_08A212DC[i].y;
+
+        proc->unk_2c++;
+        if (proc->unk_2c >= PCM_DMA_BUF_SIZE)
+        {
+            proc->unk_2c -= PCM_DMA_BUF_SIZE;
+        }
+    }
+
+    r5 = (r5 - ip) < 0x3f ? r5 - ip : 0x3f;
+    r7 = (r7 - r8) < 0x3f ? r7 - r8 : 0x3f;
+
+    sub_80AF1A0(0, (r5 * 3) / 4);
+    sub_80AF1A0(1, (r7 * 3) / 4);
+
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A21308[] =
+{
+    PROC_YIELD,
     PROC_CALL(sub_80AF220),
 
-    PROC_SLEEP(0),
+    PROC_YIELD,
     PROC_CALL(nullsub_65),
 
     PROC_REPEAT(sub_80AF22C),
 
     PROC_END,
 };
+
+// clang-format on
+
+//! FE8U = 0x080AF338
+void sub_80AF338(struct SoundRoomProc * proc)
+{
+    int currentSegment = proc->bgYOffset;
+    int totalRows = (proc->maxIndex + 3) / 4;
+    UpdateMenuScrollBarConfig(8, currentSegment, totalRows, 5);
+    return;
+}
+
+//! FE8U = 0x080AF350
+void sub_80AF350(struct SoundRoomProc * proc)
+{
+    int x = (proc->curIndex & 3) * 32 + 96;
+    int y = (proc->curIndex >> 2) * 16;
+
+    int r2 = (proc->bgYOffset - 64);
+    y = y - r2;
+    ShowSysHandCursor(x, y, 2, 0x800);
+    return;
+}
+
+//! FE8U = 0x080AF378
+s8 sub_80AF378(struct SoundRoomProc * proc)
+{
+    int adjusted = ((proc->curIndex / 4) * 16 - proc->bgYOffset) / 16;
+
+    if (proc->bgYOffset != 0 && adjusted <= 0)
+    {
+        return -1;
+    }
+
+    if ((proc->bgYOffset / 16) + 5 > (proc->maxIndex - 1) / 4)
+    {
+        return 0;
+    }
+    else if (adjusted < 4)
+    {
+        return 0;
+    }
+    else
+    {
+        return +1;
+    }
+}
+
+//! FE8U = 0x080AF3C8
+void sub_80AF3C8(struct SoundRoomProc * proc)
+{
+    int i;
+    int color;
+
+    int var = ((proc->bgYOffset >> 4) - 1) * 4;
+    BG_Fill(gBG2TilemapBuffer, 0);
+
+    for (i = var; i < (var + 28); i++)
+    {
+        color = TEXT_COLOR_SYSTEM_GRAY;
+
+        if (i < 0)
+        {
+            continue;
+        }
+
+        if (i >= proc->maxIndex)
+        {
+            break;
+        }
+
+        if (sub_80AECEC(proc, i))
+        {
+            color = TEXT_COLOR_SYSTEM_WHITE;
+        }
+        else
+        {
+            if ((gSoundRoomTable[i].displayCondFunc) != 0)
+            {
+                PutTwoSpecialChar(
+                    gBG2TilemapBuffer + TILEMAP_INDEX(12 + (i % 4) * 4, (((i / 4) * 2 + 8) & 0x1f)),
+                    TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_DASH, TEXT_SPECIAL_DASH);
+
+                continue;
+            }
+        }
+
+        if (i >= 99)
+        {
+            PutNumber(
+                gBG2TilemapBuffer + TILEMAP_INDEX(13 + (i + (i / 4) * -4) * 4, (((i / 4) * 2 + 8) & 0x1f)), color,
+                i + 1);
+        }
+        else
+        {
+            PutNumber2Digit(
+                gBG2TilemapBuffer + TILEMAP_INDEX(13 + (i + (i / 4) * -4) * 4, (((i / 4) * 2 + 8) & 0x1f)), color,
+                i + 1);
+        }
+    }
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    return;
+}
+
+void sub_80AF4D0(u16 * tm, struct SoundRoomProc * proc)
+{
+    PutText(&gUnknown_0201F148.th1, tm);
+    PutNumber(tm + 8, (proc->unk_34 == 100) ? TEXT_COLOR_SYSTEM_GREEN : TEXT_COLOR_SYSTEM_BLUE, proc->unk_34);
+    PutText(&gUnknown_0201F148.th4, tm + 9);
+    return;
+}
+
+void sub_80AF510(struct SoundRoomProc * proc)
+{
+    if (proc->unk_2c != 0)
+    {
+        proc->unk_2c++;
+    }
+
+    return;
+}
 
 //! FE8U = 0x080AF524
 void SoundRoomUi_Init(struct SoundRoomProc* proc) {
@@ -626,8 +1118,11 @@ void SoundRoomUi_Loop_ShufflePlayUiSlideOut(struct SoundRoomProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_SoundRoomUi[] = {
-    PROC_SLEEP(0),
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_SoundRoomUi[] =
+{
+    PROC_YIELD,
 
     PROC_CALL(SoundRoomUi_Init),
 
@@ -679,11 +1174,12 @@ PROC_LABEL(3),
     PROC_WHILE(FadeOutExists),
 
     PROC_CALL(SoundRoomUi_OnEnd),
-
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_END,
 };
+
+// clang-format on
 
 //! FE8U = 0x080AFF1C
 ProcPtr StartSoundRoomScreen(ProcPtr parent) {
@@ -769,11 +1265,12 @@ void sub_80B0088(int y, u16 unk) {
             Div(+SIN(0) * 16, 256),
             Div(+COS(0) * 16, unk)
         );
+// clang-format on
 
         for (i = 0; i < 5; i++) {
-            int a = gUnknown_0201F198;
+            int a = gUnknown_0201F148.unk_50;
 
-            PutSpriteExt(4, 36 + i * 32, y + 264, gObject_32x16, i * 4 + gUnknown_0201F198 + 0x1000);
+            PutSpriteExt(4, 36 + i * 32, y + 264, gObject_32x16, i * 4 + gUnknown_0201F148.unk_50 + 0x1000);
         }
 
         for (i = 0; i < 3; i++) {
@@ -825,9 +1322,9 @@ void DrawSoundLevelMeterSprites(int x, int y, int param_3, int param_4) {
 void sub_80B0204(struct Proc8A21530* proc) {
     int i;
 
-    struct SoundRoomProc* parent = ((struct SoundRoomProc*)(proc->proc_parent));
+    struct SoundRoomProc* parent = proc->proc_parent;
 
-    u8* ptr = gUnknown_0201F19C;
+    u8 * ptr = gUnknown_0201F19C[0];
     ptr += 0x30;
 
     for (i = 0; i < 2; i++) {
@@ -839,109 +1336,130 @@ void sub_80B0204(struct Proc8A21530* proc) {
     return;
 }
 
+// clang-format off
+
 // Sound Room Control PlayButton
-u16 CONST_DATA gUnknown_08A21440[] = {
+u16 CONST_DATA gUnknown_08A21440[] =
+{
     2,
-    0x0000, 0x4008, 0x0550,
-    0x4000, 0x8020, 0x0512,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(8), OAM2_CHR(0x150) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x112) + OAM2_LAYER(1),
 };
 
 // Sound Room Control StopButton
-u16 CONST_DATA gUnknown_08A2144E[] = {
+u16 CONST_DATA gUnknown_08A2144E[] =
+{
     2,
-    0x4000, 0x8000, 0x0552,
-    0x4000, 0x8020, 0x0516,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x152) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x116) + OAM2_LAYER(1),
 };
 
 // Sound Room Control RandomMode Button
-u16 CONST_DATA gUnknown_08A2145C[] = {
+u16 CONST_DATA gUnknown_08A2145C[] =
+{
     2,
-    0x4000, 0x8000, 0x0556,
-    0x4000, 0x8020, 0x051A,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x156) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x11A) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA gSprite_RandomModeBanner[] = {
+u16 CONST_DATA gSprite_RandomModeBanner[] =
+{
     5,
-    0x4000, 0x8000, 0x0500,
-    0x4000, 0x8020, 0x0504,
-    0x4000, 0x8040, 0x0508,
-    0x4000, 0x8060, 0x050C,
-    0x0000, 0x4080, 0x0510,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x100) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x104) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x108) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(96), OAM2_CHR(0x10C) + OAM2_LAYER(1),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(128), OAM2_CHR(0x110) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA gSprite_MusicPlayer_SeekBar[] = {
+u16 CONST_DATA gSprite_MusicPlayer_SeekBar[] =
+{
     3,
-    0x4000, 0x4000, 0x0560,
-    0x4000, 0x4020, 0x0564,
-    0x0000, 0x0040, 0x0568,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x160) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x164) + OAM2_LAYER(1),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_X(64), OAM2_CHR(0x168) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA gSprite_MusicPlayer_SeekBarIndicator[] = {
+u16 CONST_DATA gSprite_MusicPlayer_SeekBarIndicator[] =
+{
     1,
-    0x0000, 0x0000, 0x014F,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14F),
 };
 
-u16 CONST_DATA gSprite_MusicPlayer_Time[] = {
+u16 CONST_DATA gSprite_MusicPlayer_Time[] =
+{
     1,
-    0x4000, 0x4000, 0x0140,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x140),
 };
 
-u16 CONST_DATA gSprite_MusicPlayer_Colon[] = {
+u16 CONST_DATA gSprite_MusicPlayer_Colon[] =
+{
     1,
-    0x0000, 0x0000, 0x014E,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14E),
 };
 
-u16 CONST_DATA gSprite_08A214B6[] = {
+u16 CONST_DATA gSprite_08A214B6[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x144),
 };
 
-u16 CONST_DATA gSprite_08A214BE[] = {
+u16 CONST_DATA gSprite_08A214BE[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x145),
 };
 
-u16 CONST_DATA gSprite_08A214C6[] = {
+u16 CONST_DATA gSprite_08A214C6[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x146),
 };
 
-u16 CONST_DATA gSprite_08A214CE[] = {
+u16 CONST_DATA gSprite_08A214CE[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x147),
 };
 
-u16 CONST_DATA gSprite_08A214D6[] = {
+u16 CONST_DATA gSprite_08A214D6[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x148),
 };
 
-u16 CONST_DATA gSprite_08A214DE[] = {
+u16 CONST_DATA gSprite_08A214DE[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x149),
 };
 
-u16 CONST_DATA gSprite_08A214E6[] = {
+u16 CONST_DATA gSprite_08A214E6[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14A),
 };
 
-u16 CONST_DATA gSprite_08A214EE[] = {
+u16 CONST_DATA gSprite_08A214EE[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14B),
 };
 
-u16 CONST_DATA gSprite_08A214F6[] = {
+u16 CONST_DATA gSprite_08A214F6[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14C),
 };
 
-u16 CONST_DATA gSprite_08A214FE[] = {
+u16 CONST_DATA gSprite_08A214FE[] =
+{
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14D),
 };
 
-u16* CONST_DATA gSpriteArray_MusicPlayer_TimeNumbers[] = {
+u16 * CONST_DATA gSpriteArray_MusicPlayer_TimeNumbers[] =
+{
     gSprite_08A214B6,
     gSprite_08A214BE,
     gSprite_08A214C6,
@@ -1032,14 +1550,19 @@ void SoundRoom_DrawSprites_Loop(struct Proc8A21530* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_SoundRoom_DrawSprites[] = {
-    PROC_SLEEP(0),
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_SoundRoom_DrawSprites[] =
+{
+    PROC_YIELD,
 
     PROC_CALL(SoundRoom_DrawSprites_Init),
     PROC_REPEAT(SoundRoom_DrawSprites_Loop),
 
     PROC_END,
 };
+
+// clang-format on
 
 //! FE8U = 0x080B0444
 ProcPtr DrawSoundRoomSprites(ProcPtr parent) {

@@ -1,17 +1,71 @@
 #ifndef GUARD_SOUNDROOM_H
 #define GUARD_SOUNDROOM_H
 
-struct SoundRoomEnt {
+struct SoundRoomProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 unk_29; // maybe padding?
+    /* 2A */ u16 bgYOffset;
+    /* 2C */ u16 unk_2c;
+    /* 2E */ u8 unk_2e;
+    /* 2F */ u8 unk_2f;
+    /* 30 */ s8 shuffleActive;
+    /* 31 */ u8 unk_31;
+    /* 32 */ s8 unk_32;
+    /* 33 */ u8 unk_33;
+    /* 34 */ u8 unk_34;
+    /* 35 */ u8 curIndex;
+    /* 36 */ u8 maxIndex;
+    /* 37 */ s8 unk_37;
+    /* 38 */ u8 unk_38;
+    /* 39 */ u8 unk_39;
+    /* 3A */ u8 unk_3a;
+    /* 3B */ u8 unk_3b;
+    /* 3C */ s8 unk_3c;
+    /* 3D */ s8 unk_3d;
+    /* 3E */ s8 unk_3e;
+    /* 3F */ u8 unk_3f;
+    /* 40 */ u32 unk_40[4];
+};
+
+struct SoundRoomEnt
+{
     /* 00 */ int bgmId;
     /* 04 */ int songLength; // in frames
-    /* 08 */ void* displayCondFunc;
+    /* 08 */ s8 (* displayCondFunc)(ProcPtr proc);
     /* 0C */ int nameTextId;
 };
 
+// ??? sub_80AEC7C(???);
+// ??? sub_80AEC90(???);
+int sub_80AEC94(void);
+// ??? sub_80AECB4(???);
+// ??? sub_80AECEC(???);
+// ??? sub_80AED10(???);
+// ??? sub_80AED64(???);
+// ??? sub_80AEEC0(???);
+// ??? sub_80AEEC4(???);
+// ??? sub_80AEEE8(???);
+// ??? sub_80AEF24(???);
+// ??? sub_80AEF64(???);
+// ??? sub_80AF0E0(???);
+// ??? sub_80AF140(???);
+// ??? sub_80AF1A0(???);
+// ??? sub_80AF1D8(???);
+// ??? sub_80AF220(???);
+// ??? nullsub_65(???);
+// ??? sub_80AF22C(???);
+// ??? sub_80AF338(???);
+// ??? sub_80AF350(???);
+// ??? sub_80AF378(???);
+// ??? sub_80AF3C8(???);
+// ??? sub_80AF4D0(???);
+// ??? sub_80AF510(???);
 // ??? SoundRoomUi_Init(???);
-// ??? StartSoundRoomSong(???);
+s8 StartSoundRoomSong(struct SoundRoomProc * proc, int index, int flagsMaybe);
 // ??? StopSoundRoomSong(???);
-// ??? sub_80AF878(???);
+void sub_80AF878(struct SoundRoomProc *);
 // ??? SoundRoomUi_Loop_MainKeyHandler(???);
 // ??? SoundRoomUi_RestartTitleMusic(???);
 // ??? SoundRoomUi_OnEnd(???);
@@ -26,15 +80,15 @@ struct SoundRoomEnt {
 // ??? SoundRoomUi_Loop_ShufflePlayKeyHandler(???);
 // ??? SoundRoomUi_Loop_ShufflePlayUiSlideOut(???);
 ProcPtr StartSoundRoomScreen(ProcPtr);
-// ??? sub_80AFF30(???);
-// ??? DrawSoundRoomSongTitle(???);
+void sub_80AFF30(void);
+void DrawSoundRoomSongTitle(int index);
 // ??? sub_80B0088(???);
 // ??? DrawSoundLevelMeterSprites(???);
 // ??? sub_80B0204(???);
 // ??? DrawMusicPlayerTime(???);
 // ??? SoundRoom_DrawSprites_Init(???);
 // ??? SoundRoom_DrawSprites_Loop(???);
-// ??? DrawSoundRoomSprites(???);
+ProcPtr DrawSoundRoomSprites(ProcPtr);
 
 extern struct SoundRoomEnt gSoundRoomTable[];
 
