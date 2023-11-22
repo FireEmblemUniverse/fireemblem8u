@@ -38,14 +38,10 @@ struct Unknown_08A212DC
     u8 y;
 } __attribute__((packed));
 
-struct Unknown201F148 {
+struct Unknown201F148
+{
     /* 00 */ struct Font font;
-    /* 18 */ struct Text th1;
-    /* 20 */ struct Text th2;
-    /* 28 */ struct Text th3;
-    /* 30 */ struct Text th[3];
-
-    /* 48 */ struct Text th4;
+    /* 18 */ struct Text text[7];
     /* 50 */ u16 unk_50;
 };
 
@@ -68,8 +64,8 @@ extern u8 gUnknown_08A2C92C[];
 extern u8 gUnknown_08A2C5A8[];
 extern u8 gUnknown_08A2C7A4[];
 
-extern void* gUnknown_08A212D4;
-extern void* gUnknown_08A212D8;
+extern void * gUnknown_08A212D4;
+extern void * gUnknown_08A212D8;
 extern struct Unknown_08A212DC * gUnknown_08A212DC; // 0x02021188, gGenericBuffer + 0x1000
 extern s8 * gUnknown_08A212E0; // 0x02021388, gGenericBuffer + 0x1200
 extern struct SoundInfo * gUnknown_08A21304; // gSoundInfo
@@ -593,9 +589,9 @@ void sub_80AF3C8(struct SoundRoomProc * proc)
 
 void sub_80AF4D0(u16 * tm, struct SoundRoomProc * proc)
 {
-    PutText(&gUnknown_0201F148.th1, tm);
+    PutText(&gUnknown_0201F148.text[0], tm);
     PutNumber(tm + 8, (proc->unk_34 == 100) ? TEXT_COLOR_SYSTEM_GREEN : TEXT_COLOR_SYSTEM_BLUE, proc->unk_34);
-    PutText(&gUnknown_0201F148.th4, tm + 9);
+    PutText(&gUnknown_0201F148.text[6], tm + 9);
     return;
 }
 
@@ -610,7 +606,8 @@ void sub_80AF510(struct SoundRoomProc * proc)
 }
 
 //! FE8U = 0x080AF524
-void SoundRoomUi_Init(struct SoundRoomProc* proc) {
+void SoundRoomUi_Init(struct SoundRoomProc * proc)
+{
     SetupBackgrounds(NULL);
 
     ResetTextFont();
@@ -620,20 +617,14 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     LoadUiFrameGraphics();
     InitSystemTextFont();
 
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 1;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(1, 1, 1, 1, 1);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;
     gLCDControlBuffer.bg2cnt.priority = 1;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    gLCDControlBuffer.dispcnt.win0_on = 0;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    SetWinEnable(0, 0, 0);
 
     RegisterBlankTile(0);
 
@@ -642,7 +633,7 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_Fill(gBG3TilemapBuffer, 0);
 
-    BG_EnableSyncByMask(0xf);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     proc->curIndex = 0;
     proc->unk_37 = 0;
@@ -665,68 +656,54 @@ void SoundRoomUi_Init(struct SoundRoomProc* proc) {
     DisplaySysHandCursorTextShadow(0x280, 2);
     sub_80AF350(proc);
     sub_80AF3C8(proc);
-    StartMenuScrollBarExt(proc, 0xd8, 0x48, 0x1000, 3);
+    StartMenuScrollBarExt(proc, 216, 72, 0x1000, 3);
     sub_80AF338(proc);
 
-    Decompress(gUnknown_08A2C908, (void*)0x06004000);
+    Decompress(gUnknown_08A2C908, (void *)0x06004000);
     ApplyPalette(gUnknown_08A01EE4, 4);
     ApplyPalette(gUnknown_08A01F04, 5);
-    CallARM_FillTileRect(gBG1TilemapBuffer + 0xE1, gUnknown_08A2C4C8, 0x1000);
-    CallARM_FillTileRect(gBG1TilemapBuffer + 0xAB, gUnknown_08A2C5A8, 0x1000);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 7), gUnknown_08A2C4C8, 0x1000);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 11, 5), gUnknown_08A2C5A8, 0x1000);
 
-    sub_80AF4D0(gBG0TilemapBuffer + 0xCF, proc);
+    sub_80AF4D0(TILEMAP_LOCATED(gBG0TilemapBuffer, 15, 6), proc);
 
-    Decompress(gUnknown_08A2D32C, (void*)0x06016000);
+    Decompress(gUnknown_08A2D32C, (void *)0x06016000);
     ApplyPalette(gUnknown_08A2E1B8, 0x1C);
 
-    BG_SetPosition(0, 0, 0);
-    BG_SetPosition(2, -4, 0);
+    BG_SetPosition(BG_0, 0, 0);
+    BG_SetPosition(BG_2, -4, 0);
 
-    gLCDControlBuffer.dispcnt.win0_on = 1;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    SetWinEnable(1, 0, 0);
 
-    gLCDControlBuffer.wincnt.win0_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.win0_enableObj = 1;
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWin0Box(4, 66, 240, 144);
+    SetWOutLayers(1, 1, 0, 1, 1);
 
-    gLCDControlBuffer.win0_left = 4;
-    gLCDControlBuffer.win0_top = 66;
-    gLCDControlBuffer.win0_right = 240;
-    gLCDControlBuffer.win0_bottom = 144;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.wout_enableObj = 1;
-
-    Decompress(gUnknown_08A2CABC, (void*)0x06012000);
+    Decompress(gUnknown_08A2CABC, (void *)0x06012000);
     ApplyPalettes(gUnknown_08A2D2CC, 0x13, 3);
 
     DrawSoundRoomSprites(proc);
 
-    SetSpecialColorEffectsParameters(1, 0xf, 3, 0);
+    SetBlendAlpha(15, 3);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    StartMuralBackground(proc, 0, 0xe);
+    StartMuralBackground(proc, NULL, 0xe);
 
-    StartGreenText((void*)proc);
+    StartGreenText(proc);
+
     sub_80AF1D8();
-
     StartParallelWorker(sub_80AF510, proc);
-
     Proc_Start(gUnknown_08A21308, proc);
 
     return;
 }
 
 //! FE8U = 0x080AF7F4
-s8 StartSoundRoomSong(struct SoundRoomProc* proc, int index, int flagsMaybe) {
-    if (MusicProc4Exists() != 0) {
+s8 StartSoundRoomSong(struct SoundRoomProc * proc, int index, int flagsMaybe)
+{
+    if (MusicProc4Exists())
+    {
         return 0;
     }
 
@@ -738,8 +715,10 @@ s8 StartSoundRoomSong(struct SoundRoomProc* proc, int index, int flagsMaybe) {
 }
 
 //! FE8U = 0x080AF840
-void StopSoundRoomSong(struct SoundRoomProc* proc) {
-    if (MusicProc4Exists() != 0) {
+void StopSoundRoomSong(struct SoundRoomProc * proc)
+{
+    if (MusicProc4Exists())
+    {
         return;
     }
 
@@ -752,10 +731,14 @@ void StopSoundRoomSong(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AF878
-void sub_80AF878(struct SoundRoomProc* proc) {
-    if (sub_80AECEC(proc, proc->curIndex) != 0) {
+void sub_80AF878(struct SoundRoomProc * proc)
+{
+    if (sub_80AECEC(proc, proc->curIndex))
+    {
         DrawSoundRoomSongTitle(proc->curIndex);
-    } else {
+    }
+    else
+    {
         DrawSoundRoomSongTitle(-1);
     }
 
@@ -763,47 +746,59 @@ void sub_80AF878(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AF8A0
-void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc* proc) {
+void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc * proc)
+{
     int moveAmt = 0;
 
-    if (proc->unk_37 == 0) {
+    if (proc->unk_37 == 0)
+    {
 
         u16 keys = gKeyStatusPtr->repeatedKeys;
         proc->unk_38 = 4;
 
-        if (gKeyStatusPtr->heldKeys & L_BUTTON) {
+        if (gKeyStatusPtr->heldKeys & L_BUTTON)
+        {
             keys = gKeyStatusPtr->heldKeys;
             proc->unk_38 = 8;
         }
 
-        if (keys & DPAD_UP) {
+        if (keys & DPAD_UP)
+        {
             moveAmt = -4;
         }
 
-        if (keys & DPAD_DOWN) {
+        if (keys & DPAD_DOWN)
+        {
             moveAmt = +4;
         }
 
-        if (keys & DPAD_LEFT) {
+        if (keys & DPAD_LEFT)
+        {
             u32 tmp = proc->curIndex;
-            if ((tmp & 3) != 0) {
+            if ((tmp & 3) != 0)
+            {
                 moveAmt = -1;
             }
         }
 
-        if (keys & DPAD_RIGHT) {
+        if (keys & DPAD_RIGHT)
+        {
             u32 tmp = proc->curIndex;
-            if ((tmp & 3) < 3) {
+            if ((tmp & 3) < 3)
+            {
                 moveAmt = +1;
             }
         }
 
-        if (moveAmt != 0) {
-            if ((proc->curIndex + moveAmt) < 0) {
+        if (moveAmt != 0)
+        {
+            if ((proc->curIndex + moveAmt) < 0)
+            {
                 return;
             }
 
-            if ((proc->curIndex + moveAmt) >= proc->maxIndex) {
+            if ((proc->curIndex + moveAmt) >= proc->maxIndex)
+            {
                 return;
             }
 
@@ -813,23 +808,29 @@ void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc* proc) {
 
             proc->unk_37 = sub_80AF378(proc);
 
-            if (proc->unk_37 != 0) {
-                if (proc->unk_37 == -1) {
+            if (proc->unk_37 != 0)
+            {
+                if (proc->unk_37 == -1)
+                {
                     Proc_Goto(proc, 10);
                 }
 
-                if (proc->unk_37 == +1) {
+                if (proc->unk_37 == +1)
+                {
                     Proc_Goto(proc, 11);
                 }
 
                 sub_80AF3C8(proc);
-            } else {
+            }
+            else
+            {
                 sub_80AF350(proc);
             }
         }
     }
 
-    if (proc->unk_37 != 0) {
+    if (proc->unk_37 != 0)
+    {
         int tmp;
 
         proc->bgYOffset = proc->unk_37 * proc->unk_38 + proc->bgYOffset;
@@ -837,7 +838,8 @@ void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc* proc) {
         BG_SetPosition(2, -4, proc->bgYOffset & 0xff);
 
         tmp = proc->bgYOffset;
-        if ((tmp & 0xf) == 0) {
+        if ((tmp & 0xf) == 0)
+        {
             proc->unk_37 = 0;
         }
 
@@ -846,13 +848,16 @@ void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc* proc) {
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & START_BUTTON) {
+    if (gKeyStatusPtr->newKeys & START_BUTTON)
+    {
         StopSoundRoomSong(proc);
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & A_BUTTON) {
-        if (sub_80AECEC(proc, proc->curIndex) != 0) {
+    if (gKeyStatusPtr->newKeys & A_BUTTON)
+    {
+        if (sub_80AECEC(proc, proc->curIndex) != 0)
+        {
             StartSoundRoomSong(proc, proc->curIndex, 0x20);
             return;
         }
@@ -861,8 +866,10 @@ void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc* proc) {
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & SELECT_BUTTON) {
-        if (MusicProc4Exists() != 0) {
+    if (gKeyStatusPtr->newKeys & SELECT_BUTTON)
+    {
+        if (MusicProc4Exists())
+        {
             return;
         }
 
@@ -871,7 +878,8 @@ void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc* proc) {
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & B_BUTTON) {
+    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    {
         Proc_Goto(proc, 3);
         return;
     }
@@ -880,8 +888,10 @@ void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFA64
-void SoundRoomUi_RestartTitleMusic(struct SoundRoomProc* proc) {
-    if (MusicProc4Exists() == 0) {
+void SoundRoomUi_RestartTitleMusic(struct SoundRoomProc * proc)
+{
+    if (!MusicProc4Exists())
+    {
         CallSomeSoundMaybe(0x43, 0, 0xc0, 0x18, 0);
         Proc_Break(proc);
     }
@@ -890,7 +900,8 @@ void SoundRoomUi_RestartTitleMusic(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFA94
-void SoundRoomUi_OnEnd(struct SoundRoomProc* proc) {
+void SoundRoomUi_OnEnd(struct SoundRoomProc * proc)
+{
     EndMuralBackground();
     EndAllProcChildren(proc);
     Proc_EndEach(gUnknown_08A21308);
@@ -899,7 +910,8 @@ void SoundRoomUi_OnEnd(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFAB4
-void sub_80AFAB4(struct SoundRoomProc* proc) {
+void sub_80AFAB4(struct SoundRoomProc * proc)
+{
     proc->unk_3c = -proc->unk_3b / 3;
     proc->unk_3d = (-(proc->unk_3b) * 2) / 3;
 
@@ -910,31 +922,32 @@ void sub_80AFAB4(struct SoundRoomProc* proc) {
     BG_Fill(gBG2TilemapBuffer, 0);
 
     sub_80AC844(gUnknown_08A212D4, 0, 7, 1, proc->unk_3d + 1, 7, 10, 0xb);
-    sub_80AC844(gUnknown_08A212D4, 10, 5, 1, proc->unk_3e + 0xb, 5, 0x12, 0xe);
+    sub_80AC844(gUnknown_08A212D4, 10, 5, 1, proc->unk_3e + 11, 5, 0x12, 0xe);
 
-    sub_80AC844(gUnknown_08A212D8, 0xc, 0, 2, proc->unk_3e + 0xc, 0, 0x10, 0x20);
-    sub_80AC844(gUnknown_08A212D8, 0, 0, 0, proc->unk_3e + 0xf, 6, 10, 2);
+    sub_80AC844(gUnknown_08A212D8, 12, 0, 2, proc->unk_3e + 12, 0, 0x10, 0x20);
+    sub_80AC844(gUnknown_08A212D8, 0, 0, 0, proc->unk_3e + 15, 6, 10, 2);
 
-    PutMenuScrollBarAt(proc->unk_3e * 8 + 0xd8, 0x48);
+    PutMenuScrollBarAt(proc->unk_3e * 8 + 216, 72);
 
-    BG_EnableSyncByMask(7);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     return;
 }
 
 //! FE8U = 0x080AFBBC
-void sub_80AFBBC(struct SoundRoomProc* proc) {
+void sub_80AFBBC(struct SoundRoomProc * proc)
+{
     proc->unk_3b = 0;
 
-    CallARM_FillTileRect((u16*)gUnknown_08A212D4 + 0xE0, gUnknown_08A2C4C8, 0x1000);
-    CallARM_FillTileRect((u16*)gUnknown_08A212D4 + 0xAA, gUnknown_08A2C5A8, 0x1000);
+    CallARM_FillTileRect((u16 *)gUnknown_08A212D4 + 0xE0, gUnknown_08A2C4C8, 0x1000);
+    CallARM_FillTileRect((u16 *)gUnknown_08A212D4 + 0xAA, gUnknown_08A2C5A8, 0x1000);
 
     CpuFastCopy(gBG2TilemapBuffer, gUnknown_08A212D8, 0x800);
 
     sub_80AF4D0(gUnknown_08A212D8, proc);
 
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 2, 19), gUnknown_08A2C92C, 0x1200);
-    CallARM_FillTileRect((u16*)gUnknown_08A212D4 + 0x321, gUnknown_08A2C7A4, 0x1000);
+    CallARM_FillTileRect((u16 *)gUnknown_08A212D4 + 0x321, gUnknown_08A2C7A4, 0x1000);
 
     HideSysHandCursor();
 
@@ -944,7 +957,8 @@ void sub_80AFBBC(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFC60
-void SoundRoomUi_Loop_MainUiSlideOut(struct SoundRoomProc* proc) {
+void SoundRoomUi_Loop_MainUiSlideOut(struct SoundRoomProc * proc)
+{
     int tmp;
 
     proc->unk_3a++;
@@ -955,7 +969,8 @@ void SoundRoomUi_Loop_MainUiSlideOut(struct SoundRoomProc* proc) {
 
     sub_80AFAB4(proc);
 
-    if (proc->unk_3b == 24) {
+    if (proc->unk_3b == 24)
+    {
         Proc_Break(proc);
     }
 
@@ -963,23 +978,28 @@ void SoundRoomUi_Loop_MainUiSlideOut(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFC98
-void sub_80AFC98(struct SoundRoomProc* proc) {
+void sub_80AFC98(struct SoundRoomProc * proc)
+{
 
-    if (gKeyStatusPtr->newKeys & (A_BUTTON | SELECT_BUTTON)) {
+    if (gKeyStatusPtr->newKeys & (A_BUTTON | SELECT_BUTTON))
+    {
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & DPAD_LEFT) {
+    if (gKeyStatusPtr->newKeys & DPAD_LEFT)
+    {
         sub_80AF0E0(proc);
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & DPAD_RIGHT) {
+    if (gKeyStatusPtr->newKeys & DPAD_RIGHT)
+    {
         sub_80AF140(proc);
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & B_BUTTON) {
+    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    {
         Proc_Goto(proc, 3);
         return;
     }
@@ -988,14 +1008,16 @@ void sub_80AFC98(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFCE4
-void sub_80AFCE4(struct SoundRoomProc* proc) {
+void sub_80AFCE4(struct SoundRoomProc * proc)
+{
     sub_80AF878(proc);
     proc->unk_3a = 0;
     return;
 }
 
 //! FE8U = 0x080AFCF8
-void SoundRoomUi_Loop_MainUiSlideIn(struct SoundRoomProc* proc) {
+void SoundRoomUi_Loop_MainUiSlideIn(struct SoundRoomProc * proc)
+{
     int tmp;
 
     proc->unk_3a++;
@@ -1007,7 +1029,8 @@ void SoundRoomUi_Loop_MainUiSlideIn(struct SoundRoomProc* proc) {
 
     sub_80AFAB4(proc);
 
-    if (proc->unk_3b == 0) {
+    if (proc->unk_3b == 0)
+    {
         sub_80AF350(proc);
         sub_80AF338(proc);
         Proc_Break(proc);
@@ -1017,7 +1040,8 @@ void SoundRoomUi_Loop_MainUiSlideIn(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFD48
-void sub_80AFD48(struct SoundRoomProc* proc) {
+void sub_80AFD48(struct SoundRoomProc * proc)
+{
     proc->unk_3a = 0;
     proc->unk_2c = 0;
     sub_80AEF64(proc);
@@ -1025,7 +1049,8 @@ void sub_80AFD48(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFD5C
-void SoundRoomUi_Loop_ShufflePlayUiSlideIn(struct SoundRoomProc* proc) {
+void SoundRoomUi_Loop_ShufflePlayUiSlideIn(struct SoundRoomProc * proc)
+{
     int tmp;
 
     proc->unk_3a++;
@@ -1041,9 +1066,10 @@ void SoundRoomUi_Loop_ShufflePlayUiSlideIn(struct SoundRoomProc* proc) {
 
     sub_80AC844(gUnknown_08A212D4, 1, 0x19, 1, 3, proc->unk_3c + 4, 0x18, 3);
 
-    BG_EnableSyncByMask(2);
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
 
-    if (proc->unk_3b == 24) {
+    if (proc->unk_3b == 24)
+    {
         proc->unk_3a = 0;
         Proc_Break(proc);
     }
@@ -1052,39 +1078,48 @@ void SoundRoomUi_Loop_ShufflePlayUiSlideIn(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFDF4
-void SoundRoomUi_Loop_ShufflePlayKeyHandler(struct SoundRoomProc* proc) {
+void SoundRoomUi_Loop_ShufflePlayKeyHandler(struct SoundRoomProc * proc)
+{
 
-    if (proc->unk_3f != 0) {
+    if (proc->unk_3f != 0)
+    {
         return;
     }
 
-    if (proc->shuffleActive != 0) {
-        if (proc->unk_2c >= (gSoundRoomTable[proc->unk_32].songLength)) {
+    if (proc->shuffleActive != 0)
+    {
+        if (proc->unk_2c >= (gSoundRoomTable[proc->unk_32].songLength))
+        {
             sub_80AEF24(proc);
             return;
         }
     }
 
-    if (gKeyStatusPtr->newKeys & DPAD_RIGHT) {
+    if (gKeyStatusPtr->newKeys & DPAD_RIGHT)
+    {
         sub_80AF0E0(proc);
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & DPAD_LEFT) {
+    if (gKeyStatusPtr->newKeys & DPAD_LEFT)
+    {
         sub_80AF140(proc);
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & (START_BUTTON | SELECT_BUTTON)) {
+    if (gKeyStatusPtr->newKeys & (START_BUTTON | SELECT_BUTTON))
+    {
         Proc_Break(proc);
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & A_BUTTON) {
+    if (gKeyStatusPtr->newKeys & A_BUTTON)
+    {
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & B_BUTTON) {
+    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    {
         Proc_Goto(proc, 3);
     }
 
@@ -1092,7 +1127,8 @@ void SoundRoomUi_Loop_ShufflePlayKeyHandler(struct SoundRoomProc* proc) {
 }
 
 //! FE8U = 0x080AFE8C
-void SoundRoomUi_Loop_ShufflePlayUiSlideOut(struct SoundRoomProc* proc) {
+void SoundRoomUi_Loop_ShufflePlayUiSlideOut(struct SoundRoomProc * proc)
+{
     int tmp;
 
     proc->unk_3a++;
@@ -1108,9 +1144,10 @@ void SoundRoomUi_Loop_ShufflePlayUiSlideOut(struct SoundRoomProc* proc) {
 
     sub_80AC844(gUnknown_08A212D4, 1, 0x19, 1, 3, proc->unk_3c + 4, 0x18, 3);
 
-    BG_EnableSyncByMask(2);
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
 
-    if (proc->unk_3b == 0) {
+    if (proc->unk_3b == 0)
+    {
         proc->shuffleActive = 0;
         Proc_Break(proc);
     }
@@ -1182,17 +1219,19 @@ PROC_LABEL(3),
 // clang-format on
 
 //! FE8U = 0x080AFF1C
-ProcPtr StartSoundRoomScreen(ProcPtr parent) {
+ProcPtr StartSoundRoomScreen(ProcPtr parent)
+{
     return Proc_StartBlocking(gProcScr_SoundRoomUi, parent);
 }
 
 //! FE8U = 0x080AFF30
-void sub_80AFF30(void) {
+void sub_80AFF30(void)
+{
     int i;
 
     u32 vram = 0x06014000;
 
-    InitSpriteTextFont(&gUnknown_0201F148.font, (void*)vram, 5);
+    InitSpriteTextFont(&gUnknown_0201F148.font, (void *)vram, 5);
 
     ApplyPalettes(Pal_Text, 0x1A, 2);
     gPaletteBuffer[0x1A * 0x10] = 0;
@@ -1200,11 +1239,12 @@ void sub_80AFF30(void) {
     EnablePaletteSync();
 
     SetTextFont(&gUnknown_0201F148.font);
-    InitSpriteText(&gUnknown_0201F148.th2);
-    InitSpriteText(&gUnknown_0201F148.th3);
+    InitSpriteText(&gUnknown_0201F148.text[1]);
+    InitSpriteText(&gUnknown_0201F148.text[2]);
 
-    for (i = 0; i < 3; i++) {
-        InitSpriteText(&gUnknown_0201F148.th[i]);
+    for (i = 0; i < 3; i++)
+    {
+        InitSpriteText(&gUnknown_0201F148.text[3 + i]);
     }
 
     SetTextFont(NULL);
@@ -1214,37 +1254,41 @@ void sub_80AFF30(void) {
     SetTextFont(NULL);
     SetTextFontGlyphs(0);
 
-    InitText(&gUnknown_0201F148.th1, 5);
-    ClearText(&gUnknown_0201F148.th1);
+    InitText(&gUnknown_0201F148.text[0], 5);
+    ClearText(&gUnknown_0201F148.text[0]);
 
-    Text_InsertDrawString(&gUnknown_0201F148.th1, 0, 0, GetStringFromIndex(0x5AA)); // TODO: msgid "Success[.]"
+    Text_InsertDrawString(&gUnknown_0201F148.text[0], 0, 0, GetStringFromIndex(0x5AA)); // TODO: msgid "Success[.]"
 
-    InitText(&gUnknown_0201F148.th4, 2);
-    ClearText(&gUnknown_0201F148.th4);
+    InitText(&gUnknown_0201F148.text[6], 2);
+    ClearText(&gUnknown_0201F148.text[6]);
 
-    Text_DrawString(&gUnknown_0201F148.th4, GetStringFromIndex(0x5AE)); // TODO: msgid "%[.]"
+    Text_DrawString(&gUnknown_0201F148.text[6], GetStringFromIndex(0x5AE)); // TODO: msgid "%[.]"
 
     return;
 }
 
 //! FE8U = 0x080B0018
-void DrawSoundRoomSongTitle(int index) {
-    const char* str;
+void DrawSoundRoomSongTitle(int index)
+{
+    const char * str;
 
-    if (index == -1) {
+    if (index == -1)
+    {
         str = GetStringFromIndex(0x7D0); // TODO: msgid "?????[.]"
-    } else {
+    }
+    else
+    {
         str = GetStringFromIndex(gSoundRoomTable[index].nameTextId);
     }
 
     SetTextFont(&gUnknown_0201F148.font);
     SetTextFontGlyphs(1);
 
-    SpriteText_DrawBackgroundExt(&gUnknown_0201F148.th2, 0);
+    SpriteText_DrawBackgroundExt(&gUnknown_0201F148.text[1], 0);
 
-    Text_SetCursor(&gUnknown_0201F148.th2, GetStringTextCenteredPos(176, str));
-    Text_SetColor(&gUnknown_0201F148.th2, 0);
-    Text_DrawString(&gUnknown_0201F148.th2, str);
+    Text_SetCursor(&gUnknown_0201F148.text[1], GetStringTextCenteredPos(176, str));
+    Text_SetColor(&gUnknown_0201F148.text[1], 0);
+    Text_DrawString(&gUnknown_0201F148.text[1], str);
 
     SetTextFont(NULL);
 
@@ -1252,12 +1296,15 @@ void DrawSoundRoomSongTitle(int index) {
 }
 
 //! FE8U = 0x080B0088
-void sub_80B0088(int y, u16 unk) {
+void sub_80B0088(int y, u16 unk)
+{
     int i;
 
-    if (unk > 32) {
-        y &= 0xff;
+    if (unk > 32)
+    {
+        y = OAM0_Y(y);
 
+        // clang-format off
         SetObjAffine(
             0,
             Div(+COS(0) * 16, 256),
@@ -1265,15 +1312,17 @@ void sub_80B0088(int y, u16 unk) {
             Div(+SIN(0) * 16, 256),
             Div(+COS(0) * 16, unk)
         );
-// clang-format on
+        // clang-format on
 
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < 5; i++)
+        {
             int a = gUnknown_0201F148.unk_50;
 
             PutSpriteExt(4, 36 + i * 32, y + 264, gObject_32x16, i * 4 + gUnknown_0201F148.unk_50 + 0x1000);
         }
 
-        for (i = 0; i < 3; i++) {
+        for (i = 0; i < 3; i++)
+        {
             PutSpriteExt(4, 24 + i * 64, y + 256, gObject_64x32, 0xcb00 + i * 8);
         }
     }
@@ -1282,53 +1331,61 @@ void sub_80B0088(int y, u16 unk) {
 }
 
 //! FE8U = 0x080B017C
-void DrawSoundLevelMeterSprites(int x, int y, int param_3, int param_4) {
+void DrawSoundLevelMeterSprites(int x, int y, int param_3, int param_4)
+{
     int count = 0;
     int pal = 0xd;
 
-    if (param_4 == 0) {
+    if (param_4 == 0)
+    {
         return;
     }
 
-    y &= 0xff;
+    y = OAM0_Y(y);
 
-    if (param_3 > 7) {
+    if (param_3 > 7)
+    {
         int x_ = x;
 
-        for (; param_3 > 7; ) {
+        for (; param_3 > 7;)
+        {
             param_3 -= 8;
 
-            PutSpriteExt(0, x_ & 0x1FF, y, gObject_8x8, pal * 0x1000 + 0x847);
+            PutSpriteExt(0, OAM1_X(x_), y, gObject_8x8, OAM2_PAL(pal) + OAM2_CHR(0x47) + OAM2_LAYER(2));
 
             x_ += 8;
             count++;
 
-            if (count > 2) {
+            if (count > 2)
+            {
                 pal = 0xe;
             }
 
-            if (count > 4) {
+            if (count > 4)
+            {
                 pal = 0xf;
             }
         }
     }
 
-    PutSpriteExt(0, (count * 8 + x) & 0x1FF, y, gObject_8x8, param_3 + pal * 0x1000 + 0x840);
+    PutSpriteExt(0, OAM1_X(count * 8 + x), y, gObject_8x8, param_3 + OAM2_PAL(pal) + OAM2_CHR(0x40) + OAM2_LAYER(2));
 
     return;
 }
 
 //! FE8U = 0x080B0204
-void sub_80B0204(struct Proc8A21530* proc) {
+void sub_80B0204(struct Proc8A21530 * proc)
+{
     int i;
 
-    struct SoundRoomProc* parent = proc->proc_parent;
+    struct SoundRoomProc * parent = proc->proc_parent;
 
     u8 * ptr = gUnknown_0201F19C[0];
     ptr += 0x30;
 
-    for (i = 0; i < 2; i++) {
-        int a = ptr[i*0x31];
+    for (i = 0; i < 2; i++)
+    {
+        int a = ptr[i * 0x31];
 
         DrawSoundLevelMeterSprites(parent->unk_3d * 8 + 15, 64 + i * 8, a, a);
     }
@@ -1472,78 +1529,69 @@ u16 * CONST_DATA gSpriteArray_MusicPlayer_TimeNumbers[] =
     gSprite_08A214FE,
 };
 
+// clang-format on
+
 //! FE8U = 0x080B0240
-void DrawMusicPlayerTime(int x, int y, int time) {
+void DrawMusicPlayerTime(int x, int y, int time)
+{
     int seconds = time / 60;
     int minutes = seconds / 60;
     int secondsIntoMin = seconds % 60;
 
-    PutSpriteExt(0, x, y, gSprite_MusicPlayer_Time, 0x4000);
+    PutSpriteExt(0, x, y, gSprite_MusicPlayer_Time, OAM2_PAL(4));
+    PutSpriteExt(0, x + 40, y, gSpriteArray_MusicPlayer_TimeNumbers[minutes], OAM2_PAL(4));
+    PutSpriteExt(0, x + 48, y, gSprite_MusicPlayer_Colon, OAM2_PAL(4));
 
-    PutSpriteExt(0, x + 40, y, gSpriteArray_MusicPlayer_TimeNumbers[minutes], 0x4000);
-
-    PutSpriteExt(0, x + 48, y, gSprite_MusicPlayer_Colon, 0x4000);
-
-    if (secondsIntoMin >= 10) {
-        PutSpriteExt(0, x + 56, y, gSpriteArray_MusicPlayer_TimeNumbers[secondsIntoMin / 10], 0x4000);
-    } else {
-        PutSpriteExt(0, x + 56, y, gSpriteArray_MusicPlayer_TimeNumbers[0], 0x4000);
+    if (secondsIntoMin >= 10)
+    {
+        PutSpriteExt(0, x + 56, y, gSpriteArray_MusicPlayer_TimeNumbers[secondsIntoMin / 10], OAM2_PAL(4));
+    }
+    else
+    {
+        PutSpriteExt(0, x + 56, y, gSpriteArray_MusicPlayer_TimeNumbers[0], OAM2_PAL(4));
     }
 
-    PutSpriteExt(0, x + 64, y, gSpriteArray_MusicPlayer_TimeNumbers[secondsIntoMin % 10], 0x4000);
+    PutSpriteExt(0, x + 64, y, gSpriteArray_MusicPlayer_TimeNumbers[secondsIntoMin % 10], OAM2_PAL(4));
 
     return;
 }
 
 //! FE8U = 0x080B031C
-void SoundRoom_DrawSprites_Init(struct Proc8A21530* proc) {
+void SoundRoom_DrawSprites_Init(struct Proc8A21530 * proc)
+{
     proc->unk_2c = 0;
     return;
 }
 
 //! FE8U = 0x080B0324
-void SoundRoom_DrawSprites_Loop(struct Proc8A21530* proc) {
+void SoundRoom_DrawSprites_Loop(struct Proc8A21530 * proc)
+{
 
-    struct SoundRoomProc* parent = ((struct SoundRoomProc*)(proc->proc_parent));
+    struct SoundRoomProc * parent = proc->proc_parent;
 
     sub_80B0088(parent->unk_3c * 8 + 6, 0x100);
 
-    if (parent->shuffleActive != 0) {
-        int y = (parent->unk_3c * 8 + 36) & 0xff;
+    if (parent->shuffleActive != 0)
+    {
+        int y = OAM0_Y(parent->unk_3c * 8 + 36);
 
         // Draw "Random Mode" banner
-        PutSpriteExt(
-            0,
-            4,
-            (((12 - parent->unk_3c) * 8 + 4) & 0xff) + 0x400,
-            gSprite_RandomModeBanner,
-            0x5000
-        );
+        PutSpriteExt(0, 4, OAM0_Y((12 - parent->unk_3c) * 8 + 4) + OAM0_BLEND, gSprite_RandomModeBanner, OAM2_PAL(5));
 
         // Draw "seek bar" for music player
-        PutSpriteExt(
-            0,
-            124,
-            (y + 1) & 0xff,
-            gSprite_MusicPlayer_SeekBar,
-            0x4000
-        );
+        PutSpriteExt(0, 124, OAM0_Y(y + 1), gSprite_MusicPlayer_SeekBar, OAM2_PAL(4));
 
         // Draw indicator at the song's current playback position
         PutSpriteExt(
-            0,
-            parent->unk_2c * 66 / (gSoundRoomTable[parent->unk_32].songLength + 120) + 124,
-            y,
-            gSprite_MusicPlayer_SeekBarIndicator,
-            0x4000
-        );
+            0, parent->unk_2c * 66 / (gSoundRoomTable[parent->unk_32].songLength + 120) + 124, y,
+            gSprite_MusicPlayer_SeekBarIndicator, OAM2_PAL(4));
 
         DrawMusicPlayerTime(48, y, parent->unk_2c);
     }
 
-    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x1FF, 88, gUnknown_08A21440, 0x3000);
-    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x1FF, 104, gUnknown_08A2144E, 0x3000);
-    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x1FF, 120, gUnknown_08A2145C, 0x3000);
+    PutSprite(0xb, OAM1_X(parent->unk_3d * 8 + 17), 88, gUnknown_08A21440, OAM2_PAL(3));
+    PutSprite(0xb, OAM1_X(parent->unk_3d * 8 + 17), 104, gUnknown_08A2144E, OAM2_PAL(3));
+    PutSprite(0xb, OAM1_X(parent->unk_3d * 8 + 17), 120, gUnknown_08A2145C, OAM2_PAL(3));
 
     sub_80B0204(proc);
 
@@ -1565,6 +1613,7 @@ struct ProcCmd CONST_DATA gProcScr_SoundRoom_DrawSprites[] =
 // clang-format on
 
 //! FE8U = 0x080B0444
-ProcPtr DrawSoundRoomSprites(ProcPtr parent) {
+ProcPtr DrawSoundRoomSprites(ProcPtr parent)
+{
     return Proc_Start(gProcScr_SoundRoom_DrawSprites, parent);
 }
