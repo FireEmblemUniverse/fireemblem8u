@@ -30,8 +30,8 @@ _0805C968: .4byte ProcScr_efxSong
 
 	THUMB_FUNC_END StartSpellAnimSong
 
-	THUMB_FUNC_START sub_805C96C
-sub_805C96C: @ 0x0805C96C
+	THUMB_FUNC_START EfxSongMain
+EfxSongMain: @ 0x0805C96C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r5, r0, #0
@@ -143,7 +143,7 @@ _0805CA5A:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_805C96C
+	THUMB_FUNC_END EfxSongMain
 
 	THUMB_FUNC_START sub_805CA64
 sub_805CA64: @ 0x0805CA64
@@ -189,8 +189,8 @@ _0805CAC0: .4byte gUnknown_08754870
 
 	THUMB_FUNC_END sub_805CA64
 
-	THUMB_FUNC_START sub_805CAC4
-sub_805CAC4: @ 0x0805CAC4
+	THUMB_FUNC_START EfxSongBgMain
+EfxSongBgMain: @ 0x0805CAC4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -251,7 +251,7 @@ _0805CB32:
 	.align 2, 0
 _0805CB3C: .4byte gEfxBgSemaphore
 
-	THUMB_FUNC_END sub_805CAC4
+	THUMB_FUNC_END EfxSongBgMain
 
 	THUMB_FUNC_START sub_805CB40
 sub_805CB40: @ 0x0805CB40
