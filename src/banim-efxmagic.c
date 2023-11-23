@@ -18,7 +18,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnimJavelinWyvernRider,
     StartSpellAnimJavelinWyvernLord,
     StartSpellAnimJavelinGenerial,
-    sub_805C72C,
+    StartSpellAnimJavelinUnk,
     StartSpellAnimJavelinPaladinF,
     StartSpellAnimSong,
     StartSpellAnimDance,
@@ -458,3 +458,7 @@ void NewEfxALPHA(struct Anim *anim, int a, int b, int c, int d, int e)
     proc->unk48 = d;
     proc->unk4C = e;
 }
+
+const char aEfxalpha[] = "efxALPHA";
+const char aEfxcirclewin[] = "efxCircleWIN";
+const char aEfxmagicquake[] = "efxMagicQUAKE";

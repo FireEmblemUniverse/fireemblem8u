@@ -2,6 +2,19 @@
 
 #include "global.h"
 #include "anime.h"
+#include "efxbattle.h"
+
+struct ProcEfxMagicOBJ {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    STRUCT_PAD(0x30, 0x5C);
+    /* 5C */ struct Anim * anim;
+    /* 60 */ struct Anim * anim2;
+    /* 64 */ ProcPtr seproc;
+};
 
 typedef void (*SpellAnimFunc)(struct Anim * anim);
 extern CONST_DATA SpellAnimFunc gEkrSpellAnimLut[];
@@ -284,21 +297,21 @@ void NewEfxALPHA(struct Anim * anim, int a, int b, int c, int d, int e);
 // ??? StartSpellThing_MagicQuake(???);
 // ??? Loop6C_efxMagicQUAKE(???);
 void StartSpellAnimDummy(struct Anim * anim);
-// ??? Loop6C_efxDummymagic(???);
+void EfxDummymagicMain(struct ProcEfx * proc);
 void StartSpellAnimHandAxe(struct Anim * anim);
-// ??? sub_805BF40(???);
-// ??? sub_805BFDC(???);
-// ??? sub_805C080(???);
-// ??? sub_805C0DC(???);
-// ??? sub_805C104(???);
-// ??? sub_805C188(???);
-// ??? sub_805C1C8(???);
-// ??? sub_805C20C(???);
-// ??? sub_805C21C(???);
+void EfxTeonoMain(struct ProcEfx * proc);
+void NewEfxTeonoOBJ(struct Anim * anim);
+void EfxTeonoObjMain(struct ProcEfxMagicOBJ * proc);
+void EfxTeonoObjEnd(struct ProcEfxMagicOBJ * proc);
+void NewEfxTeonoOBJ2(struct Anim * anim);
+void EfxTeonoObj2Main(struct ProcEfxMagicOBJ * proc);
+ProcPtr NewEfxTeonoSE(struct Anim * anim, struct Anim * anim2);
+void EfxTeonoSeCallBack(struct ProcEfxMagicOBJ * proc);
+void EfxTeonoSeMain(struct ProcEfxMagicOBJ * proc);
 void StartSpellAnimArrow(struct Anim * anim);
-// ??? sub_805C29C(???);
-// ??? sub_805C358(???);
-// ??? sub_805C3C0(???);
+void EfxArrowMain(struct ProcEfx * proc);
+void NewEfxArrowOBJ(struct Anim * anim);
+void EfxArrowObjMain(struct ProcEfxMagicOBJ * proc);
 void StartSpellAnimJavelin(struct Anim * anim);
 void StartSpellAnimJavelinCavalier(struct Anim * anim);
 void StartSpellAnimJavelinSoldier(struct Anim * anim);
@@ -308,15 +321,15 @@ void StartSpellAnimJavelinFalcon(struct Anim * anim);
 void StartSpellAnimJavelinWyvernRider(struct Anim * anim);
 void StartSpellAnimJavelinWyvernLord(struct Anim * anim);
 void StartSpellAnimJavelinGenerial(struct Anim * anim);
-void sub_805C72C(struct Anim * anim);
+void StartSpellAnimJavelinUnk(struct Anim * anim);
 void StartSpellAnimJavelinPaladinF(struct Anim * anim);
-// ??? sub_805C7E4(???);
-// ??? sub_805C88C(???);
-// ??? sub_805C904(???);
+void EfxTeyariMain(struct ProcEfx * proc);
+void NewEfxTeyariOBJ(struct Anim * anim, int type);
+void EfxTeyariObjMain(struct ProcEfxMagicOBJ * proc);
 void StartSpellAnimSong(struct Anim * anim);
-// ??? sub_805C96C(???);
+// ??? EfxSongMain(???);
 // ??? sub_805CA64(???);
-// ??? sub_805CAC4(???);
+// ??? EfxSongBgMain(???);
 // ??? sub_805CB40(???);
 // ??? sub_805CBA8(???);
 void StartSpellAnimDance(struct Anim * anim);

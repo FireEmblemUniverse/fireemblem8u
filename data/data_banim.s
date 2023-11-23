@@ -1,68 +1,102 @@
 	.section .data
+    .include "animscr.inc"
 
-	.global gUnknown_085D9C5C
-gUnknown_085D9C5C:  @ 0x085D9C5C
-	.incbin "baserom.gba", 0x5D9C5C, 0x400
+	.global Img_TeonoOBJ
+Img_TeonoOBJ:  @ 0x085D9C5C
+	.incbin "./graphics/efxmagic/Img_EfxTeonoOBJ.4bpp.lz"
 
-	.global gUnknown_085DA05C
-gUnknown_085DA05C:  @ 0x085DA05C
-	.incbin "baserom.gba", 0x5DA05C, 0x308
+	.global Pal_TeonoOBJ
+Pal_TeonoOBJ:  @ 0x085DA05C
+	.incbin "./graphics/efxmagic/Img_EfxTeonoOBJ.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DA364
-gUnknown_085DA364:  @ 0x085DA364
+    .global Obj_085DA07C
+Obj_085DA07C:
+AnimSprite_EfxTeonoObj1:
+    ANIM_SPRITE 0x80004000, 0x100 / 0x20, -0x12, -0x04
+    ANIM_SPRITE_END
+
+AnimSprite_EfxTeonoObj2:
+    ANIM_SPRITE 0x80004000, 0x0, -0x29, 0x1
+    ANIM_SPRITE_END
+
+AnimSprite_EfxTeonoObj3:
+    ANIM_SPRITE 0x80004000, 0x80 / 0x20, -0x3B, 0x3
+    ANIM_SPRITE_END
+
+AnimSprite_EfxTeonoObj4:
+    ANIM_SPRITE 0x80004000, 0x100 / 0x20, -0x4B, 0x3
+    ANIM_SPRITE_END
+
+AnimSprite_EfxTeonoObj5:
+    ANIM_SPRITE 0x80004000, 0x0 / 0x20, -0x5B, 0x3
+    ANIM_SPRITE_END
+
+AnimSprite_EfxTeonoObj6:
+    ANIM_SPRITE 0x80004000, 0x80 / 0x20, -0x65, -0x1
+    ANIM_SPRITE_END
+
+AnimSprite_EfxTeonoObj7:
+    ANIM_SPRITE 0x80004000, 0x100 / 0x20, -0x68, -0x4
+    ANIM_SPRITE_END
+
+    .incbin "baserom.gba", 0x5DA124, 0x5DA364 - 0x5DA124
+
+	.global AnimScr_TeonoObjCloseRight
+AnimScr_TeonoObjCloseRight:  @ 0x085DA364
 @ Replacing .incbin "baserom.gba", 0x5DA364, 0x5C
-    .4byte gUnknown_085DA05C + 0x21
-    .4byte gUnknown_085DA05C + 0x3a
-    .4byte gUnknown_085DA05C + 0x51
-    .4byte gUnknown_085DA05C + 0x6a
-    .4byte gUnknown_085DA05C + 0x81
-    .4byte gUnknown_085DA05C + 0x9a
-    .4byte gUnknown_085DA05C + 0xb1
-    .4byte gUnknown_085DA05C + 0xc9
-    .4byte gUnknown_085DA05C + 0xe2
-    .4byte gUnknown_085DA05C + 0xfb
-    .4byte gUnknown_085DA05C + 0x112
-    .4byte gUnknown_085DA05C + 0x136
-    .4byte gUnknown_085DA05C + 0x15a
-    .4byte gUnknown_085DA05C + 0x17d
-    .4byte gUnknown_085DA05C + 0x1a2
-    .4byte gUnknown_085DA05C + 0x1c5
-    .4byte gUnknown_085DA05C + 0x1ea
-    .4byte gUnknown_085DA05C + 0x20d
-    .4byte gUnknown_085DA05C + 0x232
-    .4byte gUnknown_085DA05C + 0x255
-    .4byte gUnknown_085DA05C + 0x27a
-    .4byte gUnknown_085DA05C + 0x29d
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj7, 1
+    .4byte Obj_085DA07C + 0xA9
+    .4byte Obj_085DA07C + 0xC2
+    .4byte Obj_085DA07C + 0xDb
+    .4byte Obj_085DA07C + 0xF2
+    .4byte Obj_085DA07C + 0x116
+    .4byte Obj_085DA07C + 0x13a
+    .4byte Obj_085DA07C + 0x15d
+    .4byte Obj_085DA07C + 0x182
+    .4byte Obj_085DA07C + 0x1A5
+    .4byte Obj_085DA07C + 0x1Ca
+    .4byte Obj_085DA07C + 0x1Ed
+    .4byte Obj_085DA07C + 0x212
+    .4byte Obj_085DA07C + 0x235
+    .4byte Obj_085DA07C + 0x25a
+    .4byte Obj_085DA07C + 0x27d
     .4byte 0x80000000
 
-	.global gUnknown_085DA3C0
-gUnknown_085DA3C0:  @ 0x085DA3C0
+	.global AnimScr_TeonoObjFarRight
+AnimScr_TeonoObjFarRight:  @ 0x085DA3C0
 @ Replacing .incbin "baserom.gba", 0x5DA3C0, 0x20
-    .4byte gUnknown_085DA05C + 0x21
-    .4byte gUnknown_085DA05C + 0x39
-    .4byte gUnknown_085DA05C + 0x51
-    .4byte gUnknown_085DA05C + 0x6a
-    .4byte gUnknown_085DA05C + 0x81
-    .4byte gUnknown_085DA05C + 0x2b6
-    .4byte gUnknown_085DA05C + 0x2ce
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj5, 1
+    .4byte Obj_085DA07C + 0x296
+    .4byte Obj_085DA07C + 0x2Ae
     .4byte 0x80000000
 
-	.global gUnknown_085DA3E0
-gUnknown_085DA3E0:  @ 0x085DA3E0
+	.global AnimScr_TeonoObj2Right
+AnimScr_TeonoObj2Right:  @ 0x085DA3E0
 @ Replacing .incbin "baserom.gba", 0x5DA3E0, 0x31C
-    .4byte gUnknown_085DA05C + 0x2e6
-    .4byte gUnknown_085DA05C + 0x135
-    .4byte gUnknown_085DA05C + 0x15a
-    .4byte gUnknown_085DA05C + 0x17d
-    .4byte gUnknown_085DA05C + 0x1a2
-    .4byte gUnknown_085DA05C + 0x1c6
-    .4byte gUnknown_085DA05C + 0x1e9
-    .4byte gUnknown_085DA05C + 0x20d
-    .4byte gUnknown_085DA05C + 0x232
-    .4byte gUnknown_085DA05C + 0x255
-    .4byte gUnknown_085DA05C + 0x279
-    .4byte gUnknown_085DA05C + 0x29d
+    .4byte Obj_085DA07C + 0x2C6
+    .4byte Obj_085DA07C + 0x115
+    .4byte Obj_085DA07C + 0x13a
+    .4byte Obj_085DA07C + 0x15d
+    .4byte Obj_085DA07C + 0x182
+    .4byte Obj_085DA07C + 0x1A6
+    .4byte Obj_085DA07C + 0x1C9
+    .4byte Obj_085DA07C + 0x1Ed
+    .4byte Obj_085DA07C + 0x212
+    .4byte Obj_085DA07C + 0x235
+    .4byte Obj_085DA07C + 0x259
+    .4byte Obj_085DA07C + 0x27d
     .4byte 0x80000000
+
     .4byte 0x90004000
     .4byte 0xfff20008
     .4byte 0x0000fffc
@@ -250,194 +284,221 @@ gUnknown_085DA3E0:  @ 0x085DA3E0
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_085DA6FC
-gUnknown_085DA6FC:  @ 0x085DA6FC
+	.global AnimScr_TeonoObjCloseLeft
+AnimScr_TeonoObjCloseLeft:  @ 0x085DA6FC
 @ Replacing .incbin "baserom.gba", 0x5DA6FC, 0x5C
-    .4byte gUnknown_085DA3E0 + 0x35
-    .4byte gUnknown_085DA3E0 + 0x4e
-    .4byte gUnknown_085DA3E0 + 0x65
-    .4byte gUnknown_085DA3E0 + 0x7e
-    .4byte gUnknown_085DA3E0 + 0x95
-    .4byte gUnknown_085DA3E0 + 0xae
-    .4byte gUnknown_085DA3E0 + 0xc5
-    .4byte gUnknown_085DA3E0 + 0xdd
-    .4byte gUnknown_085DA3E0 + 0xf6
-    .4byte gUnknown_085DA3E0 + 0x10f
-    .4byte gUnknown_085DA3E0 + 0x126
-    .4byte gUnknown_085DA3E0 + 0x14a
-    .4byte gUnknown_085DA3E0 + 0x16e
-    .4byte gUnknown_085DA3E0 + 0x191
-    .4byte gUnknown_085DA3E0 + 0x1b6
-    .4byte gUnknown_085DA3E0 + 0x1d9
-    .4byte gUnknown_085DA3E0 + 0x1fe
-    .4byte gUnknown_085DA3E0 + 0x221
-    .4byte gUnknown_085DA3E0 + 0x246
-    .4byte gUnknown_085DA3E0 + 0x269
-    .4byte gUnknown_085DA3E0 + 0x28e
-    .4byte gUnknown_085DA3E0 + 0x2b1
+    .4byte AnimScr_TeonoObj2Right + 0x35
+    .4byte AnimScr_TeonoObj2Right + 0x4e
+    .4byte AnimScr_TeonoObj2Right + 0x65
+    .4byte AnimScr_TeonoObj2Right + 0x7e
+    .4byte AnimScr_TeonoObj2Right + 0x95
+    .4byte AnimScr_TeonoObj2Right + 0xae
+    .4byte AnimScr_TeonoObj2Right + 0xc5
+    .4byte AnimScr_TeonoObj2Right + 0xdd
+    .4byte AnimScr_TeonoObj2Right + 0xf6
+    .4byte AnimScr_TeonoObj2Right + 0x10f
+    .4byte AnimScr_TeonoObj2Right + 0x126
+    .4byte AnimScr_TeonoObj2Right + 0x14a
+    .4byte AnimScr_TeonoObj2Right + 0x16e
+    .4byte AnimScr_TeonoObj2Right + 0x191
+    .4byte AnimScr_TeonoObj2Right + 0x1b6
+    .4byte AnimScr_TeonoObj2Right + 0x1d9
+    .4byte AnimScr_TeonoObj2Right + 0x1fe
+    .4byte AnimScr_TeonoObj2Right + 0x221
+    .4byte AnimScr_TeonoObj2Right + 0x246
+    .4byte AnimScr_TeonoObj2Right + 0x269
+    .4byte AnimScr_TeonoObj2Right + 0x28e
+    .4byte AnimScr_TeonoObj2Right + 0x2b1
     .4byte 0x80000000
 
-	.global gUnknown_085DA758
-gUnknown_085DA758:  @ 0x085DA758
+	.global AnimScr_TeonoObjFarLeft
+AnimScr_TeonoObjFarLeft:  @ 0x085DA758
 @ Replacing .incbin "baserom.gba", 0x5DA758, 0x20
-    .4byte gUnknown_085DA3E0 + 0x35
-    .4byte gUnknown_085DA3E0 + 0x4d
-    .4byte gUnknown_085DA3E0 + 0x65
-    .4byte gUnknown_085DA3E0 + 0x7e
-    .4byte gUnknown_085DA3E0 + 0x95
-    .4byte gUnknown_085DA3E0 + 0x2ca
-    .4byte gUnknown_085DA3E0 + 0x2e2
+    .4byte AnimScr_TeonoObj2Right + 0x35
+    .4byte AnimScr_TeonoObj2Right + 0x4d
+    .4byte AnimScr_TeonoObj2Right + 0x65
+    .4byte AnimScr_TeonoObj2Right + 0x7e
+    .4byte AnimScr_TeonoObj2Right + 0x95
+    .4byte AnimScr_TeonoObj2Right + 0x2ca
+    .4byte AnimScr_TeonoObj2Right + 0x2e2
     .4byte 0x80000000
 
-	.global gUnknown_085DA778
-gUnknown_085DA778:  @ 0x085DA778
+	.global AnimScr_TeonoObj2Left
+AnimScr_TeonoObj2Left:  @ 0x085DA778
 @ Replacing .incbin "baserom.gba", 0x5DA778, 0x34
-    .4byte gUnknown_085DA3E0 + 0x2fa
-    .4byte gUnknown_085DA3E0 + 0x149
-    .4byte gUnknown_085DA3E0 + 0x16e
-    .4byte gUnknown_085DA3E0 + 0x191
-    .4byte gUnknown_085DA3E0 + 0x1b6
-    .4byte gUnknown_085DA3E0 + 0x1da
-    .4byte gUnknown_085DA3E0 + 0x1fd
-    .4byte gUnknown_085DA3E0 + 0x221
-    .4byte gUnknown_085DA3E0 + 0x246
-    .4byte gUnknown_085DA3E0 + 0x269
-    .4byte gUnknown_085DA3E0 + 0x28d
-    .4byte gUnknown_085DA3E0 + 0x2b1
+    .4byte AnimScr_TeonoObj2Right + 0x2fa
+    .4byte AnimScr_TeonoObj2Right + 0x149
+    .4byte AnimScr_TeonoObj2Right + 0x16e
+    .4byte AnimScr_TeonoObj2Right + 0x191
+    .4byte AnimScr_TeonoObj2Right + 0x1b6
+    .4byte AnimScr_TeonoObj2Right + 0x1da
+    .4byte AnimScr_TeonoObj2Right + 0x1fd
+    .4byte AnimScr_TeonoObj2Right + 0x221
+    .4byte AnimScr_TeonoObj2Right + 0x246
+    .4byte AnimScr_TeonoObj2Right + 0x269
+    .4byte AnimScr_TeonoObj2Right + 0x28d
+    .4byte AnimScr_TeonoObj2Right + 0x2b1
     .4byte 0x80000000
 
-	.global gUnknown_085DA7AC
-gUnknown_085DA7AC:  @ 0x085DA7AC
-	.incbin "baserom.gba", 0x5DA7AC, 0xA8
+	.global Img_EfxArrowOBJ
+Img_EfxArrowOBJ:  @ 0x085DA7AC
+    .incbin "./graphics/efxmagic/Img_EfxArrowOBJ.4bpp.lz"
 
-	.global gUnknown_085DA854
-gUnknown_085DA854:  @ 0x085DA854
-	.incbin "baserom.gba", 0x5DA854, 0x10
+.global Obj_085DA7E8
+Obj_085DA7E8:
+AnimSprite_EfxArrowObj1:
+    ANIM_SPRITE 0x00004000, 0x000 / 0x20, -0x3D, -0x0E
+    ANIM_SPRITE 0x00000000, 0x040 / 0x20, -0x2D, -0x0E
+    ANIM_SPRITE_END
 
-	.global gUnknown_085DA864
-gUnknown_085DA864:  @ 0x085DA864
-	.incbin "baserom.gba", 0x5DA864, 0x7C
+AnimSprite_EfxArrowObj2:
+    ANIM_SPRITE 0x00004000, 0x000 / 0x20, -0x5D, -0x0E
+    ANIM_SPRITE 0x00000000, 0x040 / 0x20, -0x4D, -0x0E
+    ANIM_SPRITE_END
 
-	.global gUnknown_085DA8E0
-gUnknown_085DA8E0:  @ 0x085DA8E0
+AnimSprite_EfxArrowObj3:
+    ANIM_SPRITE 0x00004000, 0x000 / 0x20, -0x7D, -0x0E
+    ANIM_SPRITE 0x00000000, 0x040 / 0x20, -0x6D, -0x0E
+    ANIM_SPRITE_END
+
+	.global AnimScr_ArrowCloseRight
+AnimScr_ArrowCloseRight:  @ 0x085DA854
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxArrowObj1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxArrowObj2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxArrowObj3, 1
+    ANIMSCR_BLOCKED
+
+	.global AnimScr_ArrowFarRight
+AnimScr_ArrowFarRight:  @ 0x085DA864
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxArrowObj1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxArrowObj2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxArrowObj3, 1
+    ANIMSCR_BLOCKED
+
+	.incbin "baserom.gba", 0x5DA874, 0x6C
+
+	.global AnimScr_ArrowCloseLeft
+AnimScr_ArrowCloseLeft:  @ 0x085DA8E0
 	.incbin "baserom.gba", 0x5DA8E0, 0x10
 
-	.global gUnknown_085DA8F0
-gUnknown_085DA8F0:  @ 0x085DA8F0
+	.global AnimScr_ArrowFarLeft
+AnimScr_ArrowFarLeft:  @ 0x085DA8F0
 	.incbin "baserom.gba", 0x5DA8F0, 0x10
 
-	.global gUnknown_085DA900
-gUnknown_085DA900:  @ 0x085DA900
-	.incbin "baserom.gba", 0x5DA900, 0x230
+	.global Img_SpellJavelin
+Img_SpellJavelin:  @ 0x085DA900
+	.incbin "./graphics/efxmagic/Img_SpellJavelin.4bpp.lz"
 
-	.global gUnknown_085DAB30
-gUnknown_085DAB30:  @ 0x085DAB30
-	.incbin "baserom.gba", 0x5DAB30, 0x20
+	.global Pal_SpellJavelin
+Pal_SpellJavelin:  @ 0x085DAB30
+	.incbin "./graphics/efxmagic/Img_SpellJavelin.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DAB50
-gUnknown_085DAB50:  @ 0x085DAB50
-	.incbin "baserom.gba", 0x5DAB50, 0x21C
+	.global Img_SpellJavelinCavalier
+Img_SpellJavelinCavalier:  @ 0x085DAB50
+	.incbin "./graphics/efxmagic/Img_SpellJavelinCavalier.4bpp.lz"
 
-	.global gUnknown_085DAD6C
-gUnknown_085DAD6C:  @ 0x085DAD6C
-	.incbin "baserom.gba", 0x5DAD6C, 0x20
+	.global Pal_SpellJavelinCavalier
+Pal_SpellJavelinCavalier:  @ 0x085DAD6C
+	.incbin "./graphics/efxmagic/Img_SpellJavelinCavalier.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DAD8C
-gUnknown_085DAD8C:  @ 0x085DAD8C
-	.incbin "baserom.gba", 0x5DAD8C, 0x218
+	.global Img_SpellJavelinSoldier
+Img_SpellJavelinSoldier:  @ 0x085DAD8C
+	.incbin "./graphics/efxmagic/Img_SpellJavelinSoldier.4bpp.lz"
 
-	.global gUnknown_085DAFA4
-gUnknown_085DAFA4:  @ 0x085DAFA4
-	.incbin "baserom.gba", 0x5DAFA4, 0x20
+	.global Pal_SpellJavelinSoldier
+Pal_SpellJavelinSoldier:  @ 0x085DAFA4
+	.incbin "./graphics/efxmagic/Img_SpellJavelinSoldier.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DAFC4
-gUnknown_085DAFC4:  @ 0x085DAFC4
-	.incbin "baserom.gba", 0x5DAFC4, 0x21C
+	.global Img_SpellJavelinPaladin
+Img_SpellJavelinPaladin:  @ 0x085DAFC4
+	.incbin "./graphics/efxmagic/Img_SpellJavelinPaladin.4bpp.lz"
 
-	.global gUnknown_085DB1E0
-gUnknown_085DB1E0:  @ 0x085DB1E0
-	.incbin "baserom.gba", 0x5DB1E0, 0x20
+	.global Pal_SpellJavelinPaladin
+Pal_SpellJavelinPaladin:  @ 0x085DB1E0
+	.incbin "./graphics/efxmagic/Img_SpellJavelinPaladin.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DB200
-gUnknown_085DB200:  @ 0x085DB200
-	.incbin "baserom.gba", 0x5DB200, 0x22C
+	.global Img_SpellJavelinPrgasusKnight
+Img_SpellJavelinPrgasusKnight:  @ 0x085DB200
+	.incbin "./graphics/efxmagic/Img_SpellJavelinPrgasusKnight.4bpp.lz"
 
-	.global gUnknown_085DB42C
-gUnknown_085DB42C:  @ 0x085DB42C
-	.incbin "baserom.gba", 0x5DB42C, 0x20
+	.global Pal_SpellJavelinPrgasusKnight
+Pal_SpellJavelinPrgasusKnight:  @ 0x085DB42C
+	.incbin "./graphics/efxmagic/Img_SpellJavelinPrgasusKnight.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DB44C
-gUnknown_085DB44C:  @ 0x085DB44C
-	.incbin "baserom.gba", 0x5DB44C, 0x248
+	.global Img_SpellJavelinFalcon
+Img_SpellJavelinFalcon:  @ 0x085DB44C
+	.incbin "./graphics/efxmagic/Img_SpellJavelinFalcon.4bpp.lz"
 
-	.global gUnknown_085DB694
-gUnknown_085DB694:  @ 0x085DB694
-	.incbin "baserom.gba", 0x5DB694, 0x20
+	.global Pal_SpellJavelinFalcon
+Pal_SpellJavelinFalcon:  @ 0x085DB694
+	.incbin "./graphics/efxmagic/Img_SpellJavelinFalcon.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DB6B4
-gUnknown_085DB6B4:  @ 0x085DB6B4
-	.incbin "baserom.gba", 0x5DB6B4, 0x238
+	.global Img_SpellJavelinWyvernRider
+Img_SpellJavelinWyvernRider:  @ 0x085DB6B4
+	.incbin "./graphics/efxmagic/Img_SpellJavelinWyvernRider.4bpp.lz"
 
-	.global gUnknown_085DB8EC
-gUnknown_085DB8EC:  @ 0x085DB8EC
-	.incbin "baserom.gba", 0x5DB8EC, 0x20
+	.global Pal_SpellJavelinWyvernRider
+Pal_SpellJavelinWyvernRider:  @ 0x085DB8EC
+	.incbin "./graphics/efxmagic/Img_SpellJavelinWyvernRider.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DB90C
-gUnknown_085DB90C:  @ 0x085DB90C
-	.incbin "baserom.gba", 0x5DB90C, 0x264
+	.global Img_SpellJavelinWyvernLord
+Img_SpellJavelinWyvernLord:  @ 0x085DB90C
+	.incbin "./graphics/efxmagic/Img_SpellJavelinWyvernLord.4bpp.lz"
 
-	.global gUnknown_085DBB70
-gUnknown_085DBB70:  @ 0x085DBB70
-	.incbin "baserom.gba", 0x5DBB70, 0x20
+	.global Pal_SpellJavelinWyvernLord
+Pal_SpellJavelinWyvernLord:  @ 0x085DBB70
+	.incbin "./graphics/efxmagic/Img_SpellJavelinWyvernLord.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DBB90
-gUnknown_085DBB90:  @ 0x085DBB90
-	.incbin "baserom.gba", 0x5DBB90, 0x270
+	.global Img_SpellJavelinGenerial
+Img_SpellJavelinGenerial:  @ 0x085DBB90
+	.incbin "./graphics/efxmagic/Img_SpellJavelinGenerial.4bpp.lz"
 
-	.global gUnknown_085DBE00
-gUnknown_085DBE00:  @ 0x085DBE00
-	.incbin "baserom.gba", 0x5DBE00, 0x20
+	.global Pal_SpellJavelinGenerial
+Pal_SpellJavelinGenerial:  @ 0x085DBE00
+	.incbin "./graphics/efxmagic/Img_SpellJavelinGenerial.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DBE20
-gUnknown_085DBE20:  @ 0x085DBE20
-	.incbin "baserom.gba", 0x5DBE20, 0x230
+	.global Img_SpellJavelinUnk
+Img_SpellJavelinUnk:  @ 0x085DBE20
+	.incbin "./graphics/efxmagic/Img_SpellJavelinUnk.4bpp.lz"
 
-	.global gUnknown_085DC050
-gUnknown_085DC050:  @ 0x085DC050
-	.incbin "baserom.gba", 0x5DC050, 0x1F4
+	.global Pal_SpellJavelinUnk
+Pal_SpellJavelinUnk:  @ 0x085DC050
+	.incbin "./graphics/efxmagic/Img_SpellJavelinUnk.gbapal", 0x0, 0x20
 
-	.global gUnknown_085DC244
-gUnknown_085DC244:  @ 0x085DC244
+    .incbin "baserom.gba", 0x5DC070, 0x1D4
+
+	.global AnimScr_085DC244
+AnimScr_085DC244:  @ 0x085DC244
 @ Replacing .incbin "baserom.gba", 0x5DC244, 0x254
-    .4byte gUnknown_085DC050 + 0x21
-    .4byte gUnknown_085DC050 + 0x45
-    .4byte gUnknown_085DC050 + 0x69
-    .4byte gUnknown_085DC050 + 0x82
-    .4byte gUnknown_085DC050 + 0xa5
-    .4byte gUnknown_085DC050 + 0xca
-    .4byte gUnknown_085DC050 + 0xee
-    .4byte gUnknown_085DC050 + 0x112
-    .4byte gUnknown_085DC050 + 0x135
-    .4byte gUnknown_085DC050 + 0x15a
-    .4byte gUnknown_085DC050 + 0x17e
-    .4byte gUnknown_085DC050 + 0x1a2
-    .4byte gUnknown_085DC050 + 0x1c7
-    .4byte gUnknown_085DC050 + 0x1de
-    .4byte gUnknown_085DC050 + 0x1c6
-    .4byte gUnknown_085DC050 + 0x1de
-    .4byte gUnknown_085DC050 + 0x1c6
-    .4byte gUnknown_085DC050 + 0x1de
-    .4byte gUnknown_085DC050 + 0x1c6
-    .4byte gUnknown_085DC050 + 0x1de
-    .4byte gUnknown_085DC050 + 0x1c5
-    .4byte gUnknown_085DC050 + 0x1de
-    .4byte gUnknown_085DC050 + 0x1c5
-    .4byte gUnknown_085DC050 + 0x1de
-    .4byte gUnknown_085DC050 + 0x1c5
-    .4byte gUnknown_085DC050 + 0x1de
-    .4byte gUnknown_085DC050 + 0x1c5
-    .4byte gUnknown_085DC050 + 0x1de
-    .4byte gUnknown_085DC050 + 0x1c5
+    .4byte Pal_SpellJavelinUnk + 0x21
+    .4byte Pal_SpellJavelinUnk + 0x45
+    .4byte Pal_SpellJavelinUnk + 0x69
+    .4byte Pal_SpellJavelinUnk + 0x82
+    .4byte Pal_SpellJavelinUnk + 0xa5
+    .4byte Pal_SpellJavelinUnk + 0xca
+    .4byte Pal_SpellJavelinUnk + 0xee
+    .4byte Pal_SpellJavelinUnk + 0x112
+    .4byte Pal_SpellJavelinUnk + 0x135
+    .4byte Pal_SpellJavelinUnk + 0x15a
+    .4byte Pal_SpellJavelinUnk + 0x17e
+    .4byte Pal_SpellJavelinUnk + 0x1a2
+    .4byte Pal_SpellJavelinUnk + 0x1c7
+    .4byte Pal_SpellJavelinUnk + 0x1de
+    .4byte Pal_SpellJavelinUnk + 0x1c6
+    .4byte Pal_SpellJavelinUnk + 0x1de
+    .4byte Pal_SpellJavelinUnk + 0x1c6
+    .4byte Pal_SpellJavelinUnk + 0x1de
+    .4byte Pal_SpellJavelinUnk + 0x1c6
+    .4byte Pal_SpellJavelinUnk + 0x1de
+    .4byte Pal_SpellJavelinUnk + 0x1c5
+    .4byte Pal_SpellJavelinUnk + 0x1de
+    .4byte Pal_SpellJavelinUnk + 0x1c5
+    .4byte Pal_SpellJavelinUnk + 0x1de
+    .4byte Pal_SpellJavelinUnk + 0x1c5
+    .4byte Pal_SpellJavelinUnk + 0x1de
+    .4byte Pal_SpellJavelinUnk + 0x1c5
+    .4byte Pal_SpellJavelinUnk + 0x1de
+    .4byte Pal_SpellJavelinUnk + 0x1c5
     .4byte 0x785dc22f
     .4byte 0x84000013
     .4byte 0x80000000
@@ -559,38 +620,38 @@ gUnknown_085DC244:  @ 0x085DC244
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_085DC498
-gUnknown_085DC498:  @ 0x085DC498
+	.global AnimScr_085DC498
+AnimScr_085DC498:  @ 0x085DC498
 @ Replacing .incbin "baserom.gba", 0x5DC498, 0x260
-    .4byte gUnknown_085DC244 + 0x81
-    .4byte gUnknown_085DC244 + 0xa5
-    .4byte gUnknown_085DC244 + 0xc9
-    .4byte gUnknown_085DC244 + 0xe2
-    .4byte gUnknown_085DC244 + 0x105
-    .4byte gUnknown_085DC244 + 0x12a
-    .4byte gUnknown_085DC244 + 0x14e
-    .4byte gUnknown_085DC244 + 0x172
-    .4byte gUnknown_085DC244 + 0x195
-    .4byte gUnknown_085DC244 + 0x1ba
-    .4byte gUnknown_085DC244 + 0x1de
-    .4byte gUnknown_085DC244 + 0x202
-    .4byte gUnknown_085DC244 + 0x227
-    .4byte gUnknown_085DC244 + 0x23e
-    .4byte gUnknown_085DC244 + 0x226
-    .4byte gUnknown_085DC244 + 0x23e
-    .4byte gUnknown_085DC244 + 0x226
-    .4byte gUnknown_085DC244 + 0x23e
-    .4byte gUnknown_085DC244 + 0x226
-    .4byte gUnknown_085DC244 + 0x23e
-    .4byte gUnknown_085DC244 + 0x225
-    .4byte gUnknown_085DC244 + 0x23e
-    .4byte gUnknown_085DC244 + 0x225
-    .4byte gUnknown_085DC244 + 0x23e
-    .4byte gUnknown_085DC244 + 0x225
-    .4byte gUnknown_085DC244 + 0x23e
-    .4byte gUnknown_085DC244 + 0x225
-    .4byte gUnknown_085DC244 + 0x23e
-    .4byte gUnknown_085DC244 + 0x225
+    .4byte AnimScr_085DC244 + 0x81
+    .4byte AnimScr_085DC244 + 0xa5
+    .4byte AnimScr_085DC244 + 0xc9
+    .4byte AnimScr_085DC244 + 0xe2
+    .4byte AnimScr_085DC244 + 0x105
+    .4byte AnimScr_085DC244 + 0x12a
+    .4byte AnimScr_085DC244 + 0x14e
+    .4byte AnimScr_085DC244 + 0x172
+    .4byte AnimScr_085DC244 + 0x195
+    .4byte AnimScr_085DC244 + 0x1ba
+    .4byte AnimScr_085DC244 + 0x1de
+    .4byte AnimScr_085DC244 + 0x202
+    .4byte AnimScr_085DC244 + 0x227
+    .4byte AnimScr_085DC244 + 0x23e
+    .4byte AnimScr_085DC244 + 0x226
+    .4byte AnimScr_085DC244 + 0x23e
+    .4byte AnimScr_085DC244 + 0x226
+    .4byte AnimScr_085DC244 + 0x23e
+    .4byte AnimScr_085DC244 + 0x226
+    .4byte AnimScr_085DC244 + 0x23e
+    .4byte AnimScr_085DC244 + 0x225
+    .4byte AnimScr_085DC244 + 0x23e
+    .4byte AnimScr_085DC244 + 0x225
+    .4byte AnimScr_085DC244 + 0x23e
+    .4byte AnimScr_085DC244 + 0x225
+    .4byte AnimScr_085DC244 + 0x23e
+    .4byte AnimScr_085DC244 + 0x225
+    .4byte AnimScr_085DC244 + 0x23e
+    .4byte AnimScr_085DC244 + 0x225
     .4byte 0x785dc483
     .4byte 0x84000013
     .4byte 0x80000000
@@ -715,38 +776,38 @@ gUnknown_085DC498:  @ 0x085DC498
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_085DC6F8
-gUnknown_085DC6F8:  @ 0x085DC6F8
+	.global AnimScr_085DC6F8
+AnimScr_085DC6F8:  @ 0x085DC6F8
 @ Replacing .incbin "baserom.gba", 0x5DC6F8, 0x260
-    .4byte gUnknown_085DC498 + 0x81
-    .4byte gUnknown_085DC498 + 0x99
-    .4byte gUnknown_085DC498 + 0xc9
-    .4byte gUnknown_085DC498 + 0xed
-    .4byte gUnknown_085DC498 + 0x111
-    .4byte gUnknown_085DC498 + 0x136
-    .4byte gUnknown_085DC498 + 0x159
-    .4byte gUnknown_085DC498 + 0x17e
-    .4byte gUnknown_085DC498 + 0x1a1
-    .4byte gUnknown_085DC498 + 0x1c6
-    .4byte gUnknown_085DC498 + 0x1ea
-    .4byte gUnknown_085DC498 + 0x20e
-    .4byte gUnknown_085DC498 + 0x233
-    .4byte gUnknown_085DC498 + 0x24a
-    .4byte gUnknown_085DC498 + 0x232
-    .4byte gUnknown_085DC498 + 0x24a
-    .4byte gUnknown_085DC498 + 0x232
-    .4byte gUnknown_085DC498 + 0x24a
-    .4byte gUnknown_085DC498 + 0x232
-    .4byte gUnknown_085DC498 + 0x24a
-    .4byte gUnknown_085DC498 + 0x231
-    .4byte gUnknown_085DC498 + 0x24a
-    .4byte gUnknown_085DC498 + 0x231
-    .4byte gUnknown_085DC498 + 0x24a
-    .4byte gUnknown_085DC498 + 0x231
-    .4byte gUnknown_085DC498 + 0x24a
-    .4byte gUnknown_085DC498 + 0x231
-    .4byte gUnknown_085DC498 + 0x24a
-    .4byte gUnknown_085DC498 + 0x231
+    .4byte AnimScr_085DC498 + 0x81
+    .4byte AnimScr_085DC498 + 0x99
+    .4byte AnimScr_085DC498 + 0xc9
+    .4byte AnimScr_085DC498 + 0xed
+    .4byte AnimScr_085DC498 + 0x111
+    .4byte AnimScr_085DC498 + 0x136
+    .4byte AnimScr_085DC498 + 0x159
+    .4byte AnimScr_085DC498 + 0x17e
+    .4byte AnimScr_085DC498 + 0x1a1
+    .4byte AnimScr_085DC498 + 0x1c6
+    .4byte AnimScr_085DC498 + 0x1ea
+    .4byte AnimScr_085DC498 + 0x20e
+    .4byte AnimScr_085DC498 + 0x233
+    .4byte AnimScr_085DC498 + 0x24a
+    .4byte AnimScr_085DC498 + 0x232
+    .4byte AnimScr_085DC498 + 0x24a
+    .4byte AnimScr_085DC498 + 0x232
+    .4byte AnimScr_085DC498 + 0x24a
+    .4byte AnimScr_085DC498 + 0x232
+    .4byte AnimScr_085DC498 + 0x24a
+    .4byte AnimScr_085DC498 + 0x231
+    .4byte AnimScr_085DC498 + 0x24a
+    .4byte AnimScr_085DC498 + 0x231
+    .4byte AnimScr_085DC498 + 0x24a
+    .4byte AnimScr_085DC498 + 0x231
+    .4byte AnimScr_085DC498 + 0x24a
+    .4byte AnimScr_085DC498 + 0x231
+    .4byte AnimScr_085DC498 + 0x24a
+    .4byte AnimScr_085DC498 + 0x231
     .4byte 0x785dc6e3
     .4byte 0x84000013
     .4byte 0x80000000
@@ -871,38 +932,38 @@ gUnknown_085DC6F8:  @ 0x085DC6F8
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_085DC958
-gUnknown_085DC958:  @ 0x085DC958
+	.global AnimScr_085DC958
+AnimScr_085DC958:  @ 0x085DC958
 @ Replacing .incbin "baserom.gba", 0x5DC958, 0x104
-    .4byte gUnknown_085DC6F8 + 0x81
-    .4byte gUnknown_085DC6F8 + 0x99
-    .4byte gUnknown_085DC6F8 + 0xc9
-    .4byte gUnknown_085DC6F8 + 0xed
-    .4byte gUnknown_085DC6F8 + 0x111
-    .4byte gUnknown_085DC6F8 + 0x136
-    .4byte gUnknown_085DC6F8 + 0x159
-    .4byte gUnknown_085DC6F8 + 0x17e
-    .4byte gUnknown_085DC6F8 + 0x1a1
-    .4byte gUnknown_085DC6F8 + 0x1c6
-    .4byte gUnknown_085DC6F8 + 0x1ea
-    .4byte gUnknown_085DC6F8 + 0x20e
-    .4byte gUnknown_085DC6F8 + 0x233
-    .4byte gUnknown_085DC6F8 + 0x24a
-    .4byte gUnknown_085DC6F8 + 0x232
-    .4byte gUnknown_085DC6F8 + 0x24a
-    .4byte gUnknown_085DC6F8 + 0x232
-    .4byte gUnknown_085DC6F8 + 0x24a
-    .4byte gUnknown_085DC6F8 + 0x232
-    .4byte gUnknown_085DC6F8 + 0x24a
-    .4byte gUnknown_085DC6F8 + 0x231
-    .4byte gUnknown_085DC6F8 + 0x24a
-    .4byte gUnknown_085DC6F8 + 0x231
-    .4byte gUnknown_085DC6F8 + 0x24a
-    .4byte gUnknown_085DC6F8 + 0x231
-    .4byte gUnknown_085DC6F8 + 0x24a
-    .4byte gUnknown_085DC6F8 + 0x231
-    .4byte gUnknown_085DC6F8 + 0x24a
-    .4byte gUnknown_085DC6F8 + 0x231
+    .4byte AnimScr_085DC6F8 + 0x81
+    .4byte AnimScr_085DC6F8 + 0x99
+    .4byte AnimScr_085DC6F8 + 0xc9
+    .4byte AnimScr_085DC6F8 + 0xed
+    .4byte AnimScr_085DC6F8 + 0x111
+    .4byte AnimScr_085DC6F8 + 0x136
+    .4byte AnimScr_085DC6F8 + 0x159
+    .4byte AnimScr_085DC6F8 + 0x17e
+    .4byte AnimScr_085DC6F8 + 0x1a1
+    .4byte AnimScr_085DC6F8 + 0x1c6
+    .4byte AnimScr_085DC6F8 + 0x1ea
+    .4byte AnimScr_085DC6F8 + 0x20e
+    .4byte AnimScr_085DC6F8 + 0x233
+    .4byte AnimScr_085DC6F8 + 0x24a
+    .4byte AnimScr_085DC6F8 + 0x232
+    .4byte AnimScr_085DC6F8 + 0x24a
+    .4byte AnimScr_085DC6F8 + 0x232
+    .4byte AnimScr_085DC6F8 + 0x24a
+    .4byte AnimScr_085DC6F8 + 0x232
+    .4byte AnimScr_085DC6F8 + 0x24a
+    .4byte AnimScr_085DC6F8 + 0x231
+    .4byte AnimScr_085DC6F8 + 0x24a
+    .4byte AnimScr_085DC6F8 + 0x231
+    .4byte AnimScr_085DC6F8 + 0x24a
+    .4byte AnimScr_085DC6F8 + 0x231
+    .4byte AnimScr_085DC6F8 + 0x24a
+    .4byte AnimScr_085DC6F8 + 0x231
+    .4byte AnimScr_085DC6F8 + 0x24a
+    .4byte AnimScr_085DC6F8 + 0x231
     .4byte 0x785dc943
     .4byte 0x84000013
     .4byte 0x80000000

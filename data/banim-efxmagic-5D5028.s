@@ -1,167 +1,5 @@
 	.section .data
 
-	.global ProcScr_efxALPHA
-ProcScr_efxALPHA:  @ 0x085D5028
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc8a0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EfxALPHAMain
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxCircleWIN
-ProcScr_efxCircleWIN:  @ 0x085D5040
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc8ac
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EfxCircleWINMain
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxMagicQUAKE
-ProcScr_efxMagicQUAKE:  @ 0x085D5058
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc8bc
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word Loop6C_efxMagicQUAKE
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxDummymagic
-ProcScr_efxDummymagic:  @ 0x085D5070
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc8cc
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word Loop6C_efxDummymagic
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxTeono
-ProcScr_efxTeono:  @ 0x085D5088
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc8dc
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805BF40
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxTeonoOBJ
-ProcScr_efxTeonoOBJ:  @ 0x085D50A0
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc8e8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805C080
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805C0DC
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxTeonoOBJ2
-ProcScr_efxTeonoOBJ2:  @ 0x085D50C0
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc8f4
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805C188
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxTeonoSE
-ProcScr_efxTeonoSE:  @ 0x085D50D8
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc904
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_805C20C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805C21C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxArrow
-ProcScr_efxArrow:  @ 0x085D50F8
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc910
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805C29C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxArrowOBJ
-ProcScr_efxArrowOBJ:  @ 0x085D5110
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc91c
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805C3C0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxTeyari
-ProcScr_efxTeyari:  @ 0x085D5128
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc928
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805C7E4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxTeyariOBJ
-ProcScr_efxTeyariOBJ:  @ 0x085D5140
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dc934
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805C904
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_efxSong
 ProcScr_efxSong:  @ 0x085D5158
         @ PROC_NAME
@@ -169,7 +7,7 @@ ProcScr_efxSong:  @ 0x085D5158
         .word 0x80dc944
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_805C96C
+        .word EfxSongMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -182,7 +20,7 @@ ProcScr_efxSongBG:  @ 0x085D5170
         .word 0x80dc94c
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_805CAC4
+        .word EfxSongBgMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

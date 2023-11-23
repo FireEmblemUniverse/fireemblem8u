@@ -865,43 +865,43 @@ extern u32 AnimScr_EkrBaseKaiten2[];
 // extern ??? gUnknown_085D9BB4
 // extern ??? gUnknown_085D9C00
 // extern ??? gUnknown_085D9C4C
-// extern ??? gUnknown_085D9C5C
-// extern ??? gUnknown_085DA05C
-// extern ??? gUnknown_085DA364
-// extern ??? gUnknown_085DA3C0
-// extern ??? gUnknown_085DA3E0
-// extern ??? gUnknown_085DA6FC
-// extern ??? gUnknown_085DA758
-// extern ??? gUnknown_085DA778
-// extern ??? gUnknown_085DA7AC
-// extern ??? gUnknown_085DA854
-// extern ??? gUnknown_085DA864
-// extern ??? gUnknown_085DA8E0
-// extern ??? gUnknown_085DA8F0
-// extern ??? gUnknown_085DA900
-// extern ??? gUnknown_085DAB30
-// extern ??? gUnknown_085DAB50
-// extern ??? gUnknown_085DAD6C
-// extern ??? gUnknown_085DAD8C
-// extern ??? gUnknown_085DAFA4
-// extern ??? gUnknown_085DAFC4
-// extern ??? gUnknown_085DB1E0
-// extern ??? gUnknown_085DB200
-// extern ??? gUnknown_085DB42C
-// extern ??? gUnknown_085DB44C
-// extern ??? gUnknown_085DB694
-// extern ??? gUnknown_085DB6B4
-// extern ??? gUnknown_085DB8EC
-// extern ??? gUnknown_085DB90C
-// extern ??? gUnknown_085DBB70
-// extern ??? gUnknown_085DBB90
-// extern ??? gUnknown_085DBE00
-// extern ??? gUnknown_085DBE20
-// extern ??? gUnknown_085DC050
-// extern ??? gUnknown_085DC244
-// extern ??? gUnknown_085DC498
-// extern ??? gUnknown_085DC6F8
-// extern ??? gUnknown_085DC958
+extern u16 Img_TeonoOBJ[];
+extern u16 Pal_TeonoOBJ[];
+extern u32 AnimScr_TeonoObjCloseRight[];
+extern u32 AnimScr_TeonoObjFarRight[];
+extern u32 AnimScr_TeonoObj2Right[];
+extern u32 AnimScr_TeonoObjCloseLeft[];
+extern u32 AnimScr_TeonoObjFarLeft[];
+extern u32 AnimScr_TeonoObj2Left[];
+extern u16 Img_EfxArrowOBJ[];
+extern u32 AnimScr_ArrowCloseRight[];
+extern u32 AnimScr_ArrowFarRight[];
+extern u32 AnimScr_ArrowCloseLeft[];
+extern u32 AnimScr_ArrowFarLeft[];
+extern u16 Img_SpellJavelin[];
+extern u16 Pal_SpellJavelin[];
+extern u16 Img_SpellJavelinCavalier[];
+extern u16 Pal_SpellJavelinCavalier[];
+extern u16 Img_SpellJavelinSoldier[];
+extern u16 Pal_SpellJavelinSoldier[];
+extern u16 Img_SpellJavelinPaladin[];
+extern u16 Pal_SpellJavelinPaladin[];
+extern u16 Img_SpellJavelinPrgasusKnight[];
+extern u16 Pal_SpellJavelinPrgasusKnight[];
+extern u16 Img_SpellJavelinFalcon[];
+extern u16 Pal_SpellJavelinFalcon[];
+extern u16 Img_SpellJavelinWyvernRider[];
+extern u16 Pal_SpellJavelinWyvernRider[];
+extern u16 Img_SpellJavelinWyvernLord[];
+extern u16 Pal_SpellJavelinWyvernLord[];
+extern u16 Img_SpellJavelinGenerial[];
+extern u16 Pal_SpellJavelinGenerial[];
+extern u16 Img_SpellJavelinUnk[];
+extern u16 Pal_SpellJavelinUnk[];
+extern u32 AnimScr_085DC244[];
+extern u32 AnimScr_085DC498[];
+extern u32 AnimScr_085DC6F8[];
+extern u32 AnimScr_085DC958[];
 // extern ??? gUnknown_085DCA5C
 // extern ??? gUnknown_085DCAF8
 extern u16 gUnknown_085DCB10[];
