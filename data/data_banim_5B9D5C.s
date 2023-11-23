@@ -1,69 +1,5 @@
 	.section .data
-
-	.global gUnknown_085C74B4
-gUnknown_085C74B4:  @ 0x085C74B4
-	.incbin "baserom.gba", 0x5C74B4, 0x5C81A4 - 0x5C74B4
-
-	.global AnimScr_085C81A4
-AnimScr_085C81A4:  @ 0x085C81A4
-@ Replacing .incbin "baserom.gba", 0x5C81A4, 0x74
-    .4byte gUnknown_085C74B4 + 1
-    .4byte gUnknown_085C74B4 - 0x7C + 0xa1
-    .4byte gUnknown_085C74B4 - 0x7C + 0xc5
-    .4byte gUnknown_085C74B4 - 0x7C + 0xe9
-    .4byte gUnknown_085C74B4 - 0x7C + 0x125
-    .4byte gUnknown_085C74B4 - 0x7C + 0x161
-    .4byte gUnknown_085C74B4 - 0x7C + 0x19d
-    .4byte gUnknown_085C74B4 - 0x7C + 0x1e5
-    .4byte gUnknown_085C74B4 - 0x7C + 0x22d
-    .4byte gUnknown_085C74B4 - 0x7C + 0x275
-    .4byte gUnknown_085C74B4 - 0x7C + 0x2c9
-    .4byte gUnknown_085C74B4 - 0x7C + 0x31d
-    .4byte gUnknown_085C74B4 - 0x7C + 0x371
-    .4byte gUnknown_085C74B4 - 0x7C + 0x3d1
-    .4byte gUnknown_085C74B4 - 0x7C + 0x431
-    .4byte gUnknown_085C74B4 - 0x7C + 0x491
-    .4byte gUnknown_085C74B4 - 0x7C + 0x4fd
-    .4byte gUnknown_085C74B4 - 0x7C + 0x569
-    .4byte gUnknown_085C74B4 - 0x7C + 0x5d5
-    .4byte gUnknown_085C74B4 - 0x7C + 0x64d
-    .4byte gUnknown_085C74B4 - 0x7C + 0x6c5
-    .4byte gUnknown_085C74B4 - 0x7C + 0x73d
-    .4byte gUnknown_085C74B4 - 0x7C + 0x7b5
-    .4byte gUnknown_085C74B4 - 0x7C + 0x82d
-    .4byte 0x70000000 + gUnknown_085C74B4 - 0x7C + 0x8a7
-    .4byte 0x84000013
-    .4byte 0x70000000 + gUnknown_085C74B4 - 0x7C + 0x91f
-    .4byte 0x84000013
-    .4byte 0x80000000
-
-	.global AnimScr_085C8218
-AnimScr_085C8218:  @ 0x085C8218
-@ Replacing .incbin "baserom.gba", 0x5C8218, 0x60
-    .4byte gUnknown_085C74B4 - 0x7C + 0x935
-    .4byte gUnknown_085C74B4 - 0x7C + 0x94d
-    .4byte gUnknown_085C74B4 - 0x7C + 0x965
-    .4byte gUnknown_085C74B4 - 0x7C + 0x97d
-    .4byte gUnknown_085C74B4 - 0x7C + 0x9a1
-    .4byte gUnknown_085C74B4 - 0x7C + 0x9c5
-    .4byte gUnknown_085C74B4 - 0x7C + 0x9e9
-    .4byte gUnknown_085C74B4 - 0x7C + 0xa19
-    .4byte gUnknown_085C74B4 - 0x7C + 0xa49
-    .4byte gUnknown_085C74B4 - 0x7C + 0xa79
-    .4byte gUnknown_085C74B4 - 0x7C + 0xab5
-    .4byte gUnknown_085C74B4 - 0x7C + 0xaf1
-    .4byte gUnknown_085C74B4 - 0x7C + 0xb2d
-    .4byte gUnknown_085C74B4 - 0x7C + 0xb75
-    .4byte gUnknown_085C74B4 - 0x7C + 0xbbd
-    .4byte gUnknown_085C74B4 - 0x7C + 0xc05
-    .4byte gUnknown_085C74B4 - 0x7C + 0xc4d
-    .4byte gUnknown_085C74B4 - 0x7C + 0xc95
-    .4byte gUnknown_085C74B4 - 0x7C + 0xcdd
-    .4byte 0x70000000 + gUnknown_085C74B4 - 0x7C + 0xd27
-    .4byte 0x84000013
-    .4byte 0x70000000 + gUnknown_085C74B4 - 0x7C + 0x91f
-    .4byte 0x84000013
-    .4byte 0x80000000
+    .include "animscr.inc"
 
 	.global Img_EkrLvupNumBig
 Img_EkrLvupNumBig:  @ 0x085C8278
@@ -336,655 +272,72 @@ Tsa_EfxSkillF:
 Tsa_EfxSkill10:
     .incbin "baserom.gba", 0x5CFAC0, 0x5CFB70 - 0x5CFAC0
 
-	.global gUnknown_085CFB70
-gUnknown_085CFB70:  @ 0x085CFB70
+	.global Img_EfxPierceCriticalEffectBG
+Img_EfxPierceCriticalEffectBG:  @ 0x085CFB70
 	.incbin "baserom.gba", 0x5CFB70, 0xCB0
 
-	.global gUnknown_085D0820
-gUnknown_085D0820:  @ 0x085D0820
+	.global Pal_EfxPierceCriticalEffectBG
+Pal_EfxPierceCriticalEffectBG:  @ 0x085D0820
 	.incbin "baserom.gba", 0x5D0820, 0x200
 
-	.global gUnknown_085D0A20
-gUnknown_085D0A20:  @ 0x085D0A20
+	.global TsaL_EfxPierceCriticalEffectBG
+TsaL_EfxPierceCriticalEffectBG:  @ 0x085D0A20
 	.incbin "baserom.gba", 0x5D0A20, 0x2C0
 
-	.global gUnknown_085D0CE0
-gUnknown_085D0CE0:  @ 0x085D0CE0
+	.global TsaR_EfxPierceCriticalEffectBG
+TsaR_EfxPierceCriticalEffectBG:  @ 0x085D0CE0
 	.incbin "baserom.gba", 0x5D0CE0, 0x2F0
 
-	.global gUnknown_085D0FD0
-gUnknown_085D0FD0:  @ 0x085D0FD0
+	.global Img_EfxPierceNormalEffectBG
+Img_EfxPierceNormalEffectBG:  @ 0x085D0FD0
 	.incbin "baserom.gba", 0x5D0FD0, 0x4A0
 
-	.global gUnknown_085D1470
-gUnknown_085D1470:  @ 0x085D1470
-@ Replacing .incbin "baserom.gba", 0x5D1470, 0x39F0
-    .4byte 0x7fff5355
-    .4byte 0x7f007ff8
-    .4byte 0x54007d40
-    .4byte 0x137f3400
-    .4byte 0x001801ff
-    .4byte 0x0007000c
-    .4byte 0x33ec63f7
-    .4byte 0x016012a4
-    .4byte 0x0004b010
-    .4byte 0xf000003f
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0e101
-    .4byte 0x01f001f0
-    .4byte 0x08230472
-    .4byte 0x231c0710
-    .4byte 0x1cf0720c
-    .4byte 0x01a001f0
-    .4byte 0x02000403
-    .4byte 0x01040104
-    .4byte 0x70000200
-    .4byte 0xf01cf003
-    .4byte 0x0501c001
-    .4byte 0x1c040404
-    .4byte 0xf0050004
-    .4byte 0xf001f018
-    .4byte 0x0f040c3b
-    .4byte 0x0508040c
-    .4byte 0x01f0b920
-    .4byte 0xb38001f0
-    .4byte 0x0c020c00
-    .4byte 0x08010c01
-    .4byte 0x03083902
-    .4byte 0x01f03df0
-    .4byte 0x230c2bb1
-    .4byte 0x231f0720
-    .4byte 0x3bf07204
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf0f001f0
-    .4byte 0xf001f001
-    .4byte 0x00012001
-    .4byte 0x0004b010
-    .4byte 0xf000003f
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x07019084
-    .4byte 0xd0040604
-    .4byte 0x60000613
-    .4byte 0xf028f007
-    .4byte 0x040a0001
-    .4byte 0x08410409
-    .4byte 0x00083da0
-    .4byte 0xf00a0009
-    .4byte 0x01f0c128
-    .4byte 0x040d0100
-    .4byte 0x600b040c
-    .4byte 0x000b073d
-    .4byte 0xf00d000c
-    .4byte 0x4001f024
-    .4byte 0x04100401
-    .4byte 0x200e040f
-    .4byte 0x1c000e3d
-    .4byte 0xf010000f
-    .4byte 0x8001f020
-    .4byte 0x47041201
-    .4byte 0x113b2011
-    .4byte 0x1cf01200
-    .4byte 0x01f001f0
-    .4byte 0x270100bc
-    .4byte 0x01f012f0
-    .4byte 0x012001f0
-    .4byte 0x2b71002a
-    .4byte 0x01f03ff0
-    .4byte 0x110cb3b0
-    .4byte 0x1cb3200c
-    .4byte 0xf0081208
-    .4byte 0x8101f03f
-    .4byte 0x200f0c2b
-    .4byte 0x3b200e0c
-    .4byte 0x080f080e
-    .4byte 0xf0087010
-    .4byte 0x4101f07f
-    .4byte 0x0c0c0ca3
-    .4byte 0x3920c30b
-    .4byte 0x0c08a321
-    .4byte 0x3d000d08
-    .4byte 0xf0833ff0
-    .4byte 0x090c0a01
-    .4byte 0x3960080c
-    .4byte 0x080f1b22
-    .4byte 0x200a0809
-    .4byte 0xf03f303d
-    .4byte 0x33936233
-    .4byte 0x39a0060c
-    .4byte 0x07089322
-    .4byte 0x01f03b40
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0f801
-    .4byte 0x01f001f0
-    .4byte 0x017001f0
-    .4byte 0x0004b010
-    .4byte 0xf000003e
-    .4byte 0xf001f001
-    .4byte 0x3001f001
-    .4byte 0x04181401
-    .4byte 0x15f00413
-    .4byte 0x00130170
-    .4byte 0x14f0c114
-    .4byte 0x04170140
-    .4byte 0xf0150416
-    .4byte 0x0140833d
-    .4byte 0x00160015
-    .4byte 0x6016f017
-    .4byte 0x041a0601
-    .4byte 0xf0180419
-    .4byte 0x1801003d
-    .4byte 0x0019000c
-    .4byte 0xa016f01a
-    .4byte 0x10041d01
-    .4byte 0xe01b041c
-    .4byte 0x1c001b3d
-    .4byte 0xf01d6000
-    .4byte 0x1f01e02c
-    .4byte 0x22041e04
-    .4byte 0x223da083
-    .4byte 0x1f001e00
-    .4byte 0x01f028f0
-    .4byte 0x21010088
-    .4byte 0x3ba02004
-    .4byte 0xff210020
-    .4byte 0x01f024f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x6001f0c7
-    .4byte 0x26003301
-    .4byte 0x01f014f0
-    .4byte 0x108701f0
-    .4byte 0x0036083b
-    .4byte 0xf03ff037
-    .4byte 0x9f01f001
-    .4byte 0x0c270120
-    .4byte 0x01f03ff0
-    .4byte 0x3ff001f0
-    .4byte 0xc18801f0
-    .4byte 0x0c200ca3
-    .4byte 0x2108a3a1
-    .4byte 0x3ff0e108
-    .4byte 0x1b0201f0
-    .4byte 0x220c1e0c
-    .4byte 0x22073ba0
-    .4byte 0x1f081e08
-    .4byte 0x3f503d00
-    .4byte 0x428633f0
-    .4byte 0x0c1c0c93
-    .4byte 0x2239a01b
-    .4byte 0x1c1e0893
-    .4byte 0x3d201d08
-    .4byte 0x35f03f10
-    .4byte 0x180c0b23
-    .4byte 0xf0180c19
-    .4byte 0x080b131b
-    .4byte 0x1a700819
-    .4byte 0x01f03d40
-    .4byte 0x160c8303
-    .4byte 0xf0c3150c
-    .4byte 0x08835339
-    .4byte 0xf0170816
-    .4byte 0x33fb533d
-    .4byte 0x39f0130c
-    .4byte 0x1408fb93
-    .4byte 0x01f03bf0
-    .4byte 0x8001f0c0
-    .4byte 0x00000001
-    .4byte 0x0004b010
-    .4byte 0xd0000021
-    .4byte 0x13041401
-    .4byte 0x8c15f004
-    .4byte 0x001301b0
-    .4byte 0x0014f014
-    .4byte 0x18041701
-    .4byte 0xf0150416
-    .4byte 0x1501803d
-    .4byte 0x00301600
-    .4byte 0x2016f017
-    .4byte 0x19041a01
-    .4byte 0xf0186004
-    .4byte 0x1801403d
-    .4byte 0x1a001900
-    .4byte 0x6016f0c1
-    .4byte 0x1c041d01
-    .4byte 0x3df01b04
-    .4byte 0x1b010083
-    .4byte 0x1d001c00
-    .4byte 0x01a016f0
-    .4byte 0x1e041f04
-    .4byte 0x3de02204
-    .4byte 0x1e180022
-    .4byte 0x2cf01f00
-    .4byte 0x042101e0
-    .4byte 0x3be08f20
-    .4byte 0xf0210020
-    .4byte 0xf001f028
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x2401a083
-    .4byte 0x26002500
-    .4byte 0x01f016f0
-    .4byte 0x0001f081
-    .4byte 0x00280824
-    .4byte 0xe13ff029
-    .4byte 0x01f001f0
-    .4byte 0x0c270100
-    .4byte 0x3ff0002c
-    .4byte 0xf001f0ff
-    .4byte 0xf03ff001
-    .4byte 0xf001f01d
-    .4byte 0xf03ff03f
-    .4byte 0x0c210801
-    .4byte 0x1be20c20
-    .4byte 0xe1082108
-    .4byte 0x33f03f70
-    .4byte 0x1e0c9342
-    .4byte 0x3be0220c
-    .4byte 0x1e082207
-    .4byte 0x3d001f08
-    .4byte 0x35f03f30
-    .4byte 0x0c0b2386
-    .4byte 0xe01b0c1c
-    .4byte 0x080b2339
-    .4byte 0x1d081c1c
-    .4byte 0x01f03d20
-    .4byte 0x190c8323
-    .4byte 0xf0180c30
-    .4byte 0x08835339
-    .4byte 0xc31a0819
-    .4byte 0xfb333df0
-    .4byte 0x150c160c
-    .4byte 0xfb9339f0
-    .4byte 0x0816080c
-    .4byte 0x143df017
-    .4byte 0xc8130c73
-    .4byte 0x73d439f0
-    .4byte 0x3b001408
-    .4byte 0x0004b010
-    .4byte 0xb0000020
-    .4byte 0x16041701
-    .4byte 0x04601504
-    .4byte 0x01d015d0
-    .4byte 0x00160015
-    .4byte 0x16f08117
-    .4byte 0x19041a00
-    .4byte 0x3df01804
-    .4byte 0x18018083
-    .4byte 0x1a001900
-    .4byte 0x012016f0
-    .4byte 0x1c041d06
-    .4byte 0x3df01b04
-    .4byte 0x0c1b0140
-    .4byte 0x1d001c00
-    .4byte 0x016016f0
-    .4byte 0x1e18041f
-    .4byte 0x3df02204
-    .4byte 0x00220100
-    .4byte 0x1f00311e
-    .4byte 0x01a016f0
-    .4byte 0xf0200421
-    .4byte 0x01008f3b
-    .4byte 0xf0210020
-    .4byte 0xf001f014
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x2d01808f
-    .4byte 0x14f02e00
-    .4byte 0x01f001f0
-    .4byte 0x2f070100
-    .4byte 0x31003000
-    .4byte 0x01f03ff0
-    .4byte 0x000301f0
-    .4byte 0x0032082f
-    .4byte 0xf03ff032
-    .4byte 0x01f08101
-    .4byte 0x34082d00
-    .4byte 0x3d003500
-    .4byte 0xf03ff0e1
-    .4byte 0x0001f001
-    .4byte 0xf00c2600
-    .4byte 0x01f0ff3f
-    .4byte 0x3ff001f0
-    .4byte 0x1ff03f10
-    .4byte 0x3ff001f0
-    .4byte 0xf0c63f30
-    .4byte 0x0c93421b
-    .4byte 0x15f00c20
-    .4byte 0x38089302
-    .4byte 0x3f500821
-    .4byte 0x0b231df0
-    .4byte 0x610c1e0c
-    .4byte 0x133bf022
-    .4byte 0x081e080b
-    .4byte 0xe13d001f
-    .4byte 0x1df03f10
-    .4byte 0x1c0c8303
-    .4byte 0x19f01b0c
-    .4byte 0x08835386
-    .4byte 0x201d081c
-    .4byte 0x1a01f03d
-    .4byte 0x0c190c0c
-    .4byte 0x9339f018
-    .4byte 0x201908fb
-    .4byte 0x3df01a08
-    .4byte 0x160c1700
-    .4byte 0xf015600c
-    .4byte 0x0873d439
-    .4byte 0x08170816
-    .4byte 0x0004b010
-    .4byte 0xb0000020
-    .4byte 0x19041a01
-    .4byte 0x04601804
-    .4byte 0x01d015d0
-    .4byte 0x00190018
-    .4byte 0x16f0811a
-    .4byte 0x1c041d00
-    .4byte 0x3df01b04
-    .4byte 0x1b018083
-    .4byte 0x1d001c00
-    .4byte 0x012016f0
-    .4byte 0x1e041f06
-    .4byte 0x3df02204
-    .4byte 0x0c220140
-    .4byte 0x1f001e00
-    .4byte 0x016016f0
-    .4byte 0x20630421
-    .4byte 0x01403bf0
-    .4byte 0xf0210020
-    .4byte 0xff01f014
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0c101
-    .4byte 0x00380120
-    .4byte 0xf03a0039
-    .4byte 0x01f0c016
-    .4byte 0x3b0001f0
-    .4byte 0x3d003c00
-    .4byte 0x003e000e
-    .4byte 0xf01af02e
-    .4byte 0x3f01c001
-    .4byte 0x00400000
-    .4byte 0x00420041
-    .4byte 0x3ff0e043
-    .4byte 0x01e001f0
-    .4byte 0x0c250c26
-    .4byte 0x460c0329
-    .4byte 0x48004700
-    .4byte 0x01f03ff0
-    .4byte 0x003ff0c1
-    .4byte 0x4d004c3f
-    .4byte 0x3f204e00
-    .4byte 0xf01ff0ef
-    .4byte 0x523ff001
-    .4byte 0x1bf03f20
-    .4byte 0x01f001f0
-    .4byte 0xf03f30e3
-    .4byte 0x0c0b2317
-    .4byte 0x15f00c20
-    .4byte 0x081c0b43
-    .4byte 0x3f300821
-    .4byte 0x83031bf0
-    .4byte 0x0c301e0c
-    .4byte 0x5319f022
-    .4byte 0x081e0883
-    .4byte 0x3d20c11f
-    .4byte 0x0c1d01f0
-    .4byte 0xf01b0c1c
-    .4byte 0xfb938439
-    .4byte 0x1d081c08
-    .4byte 0x1a003df0
-    .4byte 0x0c190c0c
-    .4byte 0xd439f018
-    .4byte 0x00190873
-    .4byte 0x00081a08
-    .4byte 0x0004b010
-    .4byte 0xb0000020
-    .4byte 0x1c041d01
-    .4byte 0x04601b04
-    .4byte 0x01d015d0
-    .4byte 0x001c001b
-    .4byte 0x16f0811d
-    .4byte 0x1e041f00
-    .4byte 0x3df02204
-    .4byte 0x22018083
-    .4byte 0x1f001e00
-    .4byte 0x012016f0
-    .4byte 0x20042118
-    .4byte 0x01803bf0
-    .4byte 0xff210020
-    .4byte 0x01f014f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf0c001f0
-    .4byte 0x0001f001
-    .4byte 0x00390038
-    .4byte 0x16f0e03a
-    .4byte 0x01f001f0
-    .4byte 0x3c003b00
-    .4byte 0x005b1c00
-    .4byte 0xf03ff05c
-    .4byte 0x3f01e001
-    .4byte 0x00610100
-    .4byte 0x00630062
-    .4byte 0xc03ff064
-    .4byte 0x01e001f0
-    .4byte 0x00670c26
-    .4byte 0x69070068
-    .4byte 0x6b006a00
-    .4byte 0x1ff03f00
-    .4byte 0xf08301f0
-    .4byte 0x6f006e3f
-    .4byte 0x1af07000
-    .4byte 0xf0df01f0
-    .4byte 0x713f2001
-    .4byte 0x01f016f0
-    .4byte 0x3f4001f0
-    .4byte 0x039813f0
-    .4byte 0xf0200c83
-    .4byte 0x08839317
-    .4byte 0xf0c30821
-    .4byte 0x0cfb2315
-    .4byte 0xf0220c1e
-    .4byte 0x08fb933b
-    .4byte 0x1f081e08
-    .4byte 0x1d003df0
-    .4byte 0x0c1c180c
-    .4byte 0xd439f01b
-    .4byte 0x081c0873
-    .4byte 0x00081d00
-    .4byte 0x0004b010
-    .4byte 0xb0000020
-    .4byte 0x1e041f01
-    .4byte 0x04602204
-    .4byte 0x01d015d0
-    .4byte 0x001e0022
-    .4byte 0x16f0861f
-    .4byte 0x20042100
-    .4byte 0x01c03bf0
-    .4byte 0x21003f20
-    .4byte 0x01f014f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf0ff01f0
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xe001f001
-    .4byte 0x01f001f0
-    .4byte 0x003801c0
-    .4byte 0xe0450044
-    .4byte 0x01f016f0
-    .4byte 0x3b0001f0
-    .4byte 0x1c004900
-    .4byte 0xf04b004a
-    .4byte 0xe001f03f
-    .4byte 0x47003f01
-    .4byte 0x503b004f
-    .4byte 0x3f005100
-    .4byte 0x01f01df0
-    .4byte 0x5301b088
-    .4byte 0x3f005400
-    .4byte 0xf7560055
-    .4byte 0x01f01af0
-    .4byte 0x3f2001f0
-    .4byte 0xf016f057
-    .4byte 0xfc01f001
-    .4byte 0x13f03f40
-    .4byte 0x01f001f0
-    .4byte 0xfb4301f0
-    .4byte 0x0c62200c
-    .4byte 0xfbc315f0
-    .4byte 0xf0082108
-    .4byte 0x0c0c1f15
-    .4byte 0xf0220c1e
-    .4byte 0x0873d43b
-    .4byte 0x1f08001e
-    .4byte 0x00000008
-    .4byte 0x0004b010
-    .4byte 0xb0000021
-    .4byte 0x20042101
-    .4byte 0x8313d004
-    .4byte 0x000001f0
-    .4byte 0xf0210020
-    .4byte 0xff01f014
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf0ff01f0
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xfc01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x018001f0
-    .4byte 0x591c0058
-    .4byte 0x16f05a00
-    .4byte 0x01f001f0
-    .4byte 0x00035d00
-    .4byte 0x005f005e
-    .4byte 0xf018f060
-    .4byte 0x01e08b01
-    .4byte 0x00660065
-    .4byte 0x18f05f3b
-    .4byte 0xf08701f0
-    .4byte 0x006c0001
-    .4byte 0xf03f006d
-    .4byte 0xff01f017
-    .4byte 0x3f3001f0
-    .4byte 0x01f013f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x8401f0c6
-    .4byte 0x0c200c73
-    .4byte 0x01f015f0
-    .4byte 0x21080020
-    .4byte 0x00000008
-    .4byte 0x0004b010
-    .4byte 0xf000003f
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf0ff01f0
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf0f801f0
-    .4byte 0xf001f001
-    .4byte 0x7001f001
-    .4byte 0x00000001
+	.global Pal_EfxPierceNormalEffectBG
+Pal_EfxPierceNormalEffectBG:  @ 0x085D1470
+    .incbin "baserom.gba", 0x5D1470, 0x20
+
+	.global Tsa1_EfxPierceNormalEffectBG
+Tsa1_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D1490, 0x5D155C - 0x5D1490
+
+	.global Tsa2_EfxPierceNormalEffectBG
+Tsa2_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D155C, 0x5D1668 - 0x5D155C
+
+	.global Tsa3_EfxPierceNormalEffectBG
+Tsa3_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D1668, 0x5D1790 - 0x5D1668
+
+	.global Tsa4_EfxPierceNormalEffectBG
+Tsa4_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D1790, 0x5D18B4 - 0x5D1790
+
+	.global Tsa5_EfxPierceNormalEffectBG
+Tsa5_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D18B4, 0x5D19DC - 0x5D18B4
+
+	.global Tsa6_EfxPierceNormalEffectBG
+Tsa6_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D19DC, 0x5D1AFC - 0x5D19DC
+
+	.global Tsa7_EfxPierceNormalEffectBG
+Tsa7_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D1AFC, 0x5D1BFC - 0x5D1AFC
+
+	.global Tsa8_EfxPierceNormalEffectBG
+Tsa8_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D1BFC, 0x5D1CDC - 0x5D1BFC
+
+	.global Tsa9_EfxPierceNormalEffectBG
+Tsa9_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D1CDC, 0x5D1DA0 - 0x5D1CDC
+
+	.global TsaA_EfxPierceNormalEffectBG
+TsaA_EfxPierceNormalEffectBG:
+    .incbin "baserom.gba", 0x5D1DA0, 0x5D1E38 - 0x5D1DA0
+
+    .global AnimSprite1_EkrBaseKaiten
+AnimSprite1_EkrBaseKaiten:
     .4byte 0x40000000
     .4byte 0xfff00000
     .4byte 0x0000fff8
@@ -1240,26 +593,26 @@ gUnknown_085D1470:  @ 0x085D1470
 
 	.global AnimScr_EkrBaseKaiten1
 AnimScr_EkrBaseKaiten1:
-    .4byte gUnknown_085D1470 + 0x9c9
-    .4byte gUnknown_085D1470 + 0x9ed
-    .4byte gUnknown_085D1470 + 0xa35
-    .4byte gUnknown_085D1470 + 0xaa1
-    .4byte gUnknown_085D1470 + 0xaf5
-    .4byte gUnknown_085D1470 + 0xba9
-    .4byte gUnknown_085D1470 + 0xc09
-    .4byte gUnknown_085D1470 + 0xcbd
+    ANIMSCR_FORCE_SPRITE AnimSprite1_EkrBaseKaiten, 1
+    .4byte Pal_EfxPierceNormalEffectBG + 0x9ed
+    .4byte Pal_EfxPierceNormalEffectBG + 0xa35
+    .4byte Pal_EfxPierceNormalEffectBG + 0xaa1
+    .4byte Pal_EfxPierceNormalEffectBG + 0xaf5
+    .4byte Pal_EfxPierceNormalEffectBG + 0xba9
+    .4byte Pal_EfxPierceNormalEffectBG + 0xc09
+    .4byte Pal_EfxPierceNormalEffectBG + 0xcbd
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten2
 AnimScr_EkrBaseKaiten2:
-    .4byte gUnknown_085D1470 + 0xcbd
-    .4byte gUnknown_085D1470 + 0xc09
-    .4byte gUnknown_085D1470 + 0xba9
-    .4byte gUnknown_085D1470 + 0xaf5
-    .4byte gUnknown_085D1470 + 0xaa1
-    .4byte gUnknown_085D1470 + 0xa35
-    .4byte gUnknown_085D1470 + 0x9ed
-    .4byte gUnknown_085D1470 + 0x9c9
+    .4byte Pal_EfxPierceNormalEffectBG + 0xcbd
+    .4byte Pal_EfxPierceNormalEffectBG + 0xc09
+    .4byte Pal_EfxPierceNormalEffectBG + 0xba9
+    .4byte Pal_EfxPierceNormalEffectBG + 0xaf5
+    .4byte Pal_EfxPierceNormalEffectBG + 0xaa1
+    .4byte Pal_EfxPierceNormalEffectBG + 0xa35
+    .4byte Pal_EfxPierceNormalEffectBG + 0x9ed
+    .4byte Pal_EfxPierceNormalEffectBG + 0x9c9
     .4byte 0x80000000
     .4byte 0x40000000
     .4byte 0xfff00000
@@ -2050,72 +1403,72 @@ AnimScr_EkrBaseKaiten2:
 
 	.global AnimScr_EkrBaseKaiten3
 AnimScr_EkrBaseKaiten3:
-    .4byte gUnknown_085D1470 + 0xe01
-    .4byte gUnknown_085D1470 + 0xe25
-    .4byte gUnknown_085D1470 + 0xe79
-    .4byte gUnknown_085D1470 + 0xefd
-    .4byte gUnknown_085D1470 + 0xf99
-    .4byte gUnknown_085D1470 + 0x104d
-    .4byte gUnknown_085D1470 + 0x1125
+    .4byte Pal_EfxPierceNormalEffectBG + 0xe01
+    .4byte Pal_EfxPierceNormalEffectBG + 0xe25
+    .4byte Pal_EfxPierceNormalEffectBG + 0xe79
+    .4byte Pal_EfxPierceNormalEffectBG + 0xefd
+    .4byte Pal_EfxPierceNormalEffectBG + 0xf99
+    .4byte Pal_EfxPierceNormalEffectBG + 0x104d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1125
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten4
 AnimScr_EkrBaseKaiten4:
-    .4byte gUnknown_085D1470 + 0x122d
-    .4byte gUnknown_085D1470 + 0x1251
-    .4byte gUnknown_085D1470 + 0x1281
-    .4byte gUnknown_085D1470 + 0x12ed
-    .4byte gUnknown_085D1470 + 0x1359
-    .4byte gUnknown_085D1470 + 0x1425
-    .4byte gUnknown_085D1470 + 0x14e5
-    .4byte gUnknown_085D1470 + 0x158d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x122d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1251
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1281
+    .4byte Pal_EfxPierceNormalEffectBG + 0x12ed
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1359
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1425
+    .4byte Pal_EfxPierceNormalEffectBG + 0x14e5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x158d
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten5
 AnimScr_EkrBaseKaiten5:
-    .4byte gUnknown_085D1470 + 0x122d
-    .4byte gUnknown_085D1470 + 0x164d
-    .4byte gUnknown_085D1470 + 0x167d
-    .4byte gUnknown_085D1470 + 0x16e9
-    .4byte gUnknown_085D1470 + 0x1755
-    .4byte gUnknown_085D1470 + 0x1821
-    .4byte gUnknown_085D1470 + 0x18e1
-    .4byte gUnknown_085D1470 + 0x1989
+    .4byte Pal_EfxPierceNormalEffectBG + 0x122d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x164d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x167d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x16e9
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1755
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1821
+    .4byte Pal_EfxPierceNormalEffectBG + 0x18e1
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1989
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten6
 AnimScr_EkrBaseKaiten6:
-    .4byte gUnknown_085D1470 + 0x1125
-    .4byte gUnknown_085D1470 + 0x104d
-    .4byte gUnknown_085D1470 + 0xf99
-    .4byte gUnknown_085D1470 + 0xefd
-    .4byte gUnknown_085D1470 + 0xe79
-    .4byte gUnknown_085D1470 + 0xe25
-    .4byte gUnknown_085D1470 + 0xe01
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1125
+    .4byte Pal_EfxPierceNormalEffectBG + 0x104d
+    .4byte Pal_EfxPierceNormalEffectBG + 0xf99
+    .4byte Pal_EfxPierceNormalEffectBG + 0xefd
+    .4byte Pal_EfxPierceNormalEffectBG + 0xe79
+    .4byte Pal_EfxPierceNormalEffectBG + 0xe25
+    .4byte Pal_EfxPierceNormalEffectBG + 0xe01
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten7
 AnimScr_EkrBaseKaiten7:
-    .4byte gUnknown_085D1470 + 0x158d
-    .4byte gUnknown_085D1470 + 0x14e5
-    .4byte gUnknown_085D1470 + 0x1425
-    .4byte gUnknown_085D1470 + 0x1359
-    .4byte gUnknown_085D1470 + 0x12ed
-    .4byte gUnknown_085D1470 + 0x1281
-    .4byte gUnknown_085D1470 + 0x1251
-    .4byte gUnknown_085D1470 + 0x122d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x158d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x14e5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1425
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1359
+    .4byte Pal_EfxPierceNormalEffectBG + 0x12ed
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1281
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1251
+    .4byte Pal_EfxPierceNormalEffectBG + 0x122d
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten8
 AnimScr_EkrBaseKaiten8:
-    .4byte gUnknown_085D1470 + 0x1989
-    .4byte gUnknown_085D1470 + 0x18e1
-    .4byte gUnknown_085D1470 + 0x1821
-    .4byte gUnknown_085D1470 + 0x1755
-    .4byte gUnknown_085D1470 + 0x16e9
-    .4byte gUnknown_085D1470 + 0x167d
-    .4byte gUnknown_085D1470 + 0x164d
-    .4byte gUnknown_085D1470 + 0x122d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1989
+    .4byte Pal_EfxPierceNormalEffectBG + 0x18e1
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1821
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1755
+    .4byte Pal_EfxPierceNormalEffectBG + 0x16e9
+    .4byte Pal_EfxPierceNormalEffectBG + 0x167d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x164d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x122d
     .4byte 0x80000000
     .4byte 0x40000000
     .4byte 0xfff80000
@@ -2624,50 +1977,50 @@ AnimScr_EkrBaseKaiten8:
 
 	.global AnimScr_EkrBaseKaiten9
 AnimScr_EkrBaseKaiten9:
-    .4byte gUnknown_085D1470 + 0x1b1a
-    .4byte gUnknown_085D1470 + 0x1b32
-    .4byte gUnknown_085D1470 + 0x21f2
-    .4byte gUnknown_085D1470 + 0x1b79
-    .4byte gUnknown_085D1470 + 0x1bfd
-    .4byte gUnknown_085D1470 + 0x1c99
-    .4byte gUnknown_085D1470 + 0x1dd1
-    .4byte gUnknown_085D1470 + 0x1d35
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1b1a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1b32
+    .4byte Pal_EfxPierceNormalEffectBG + 0x21f2
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1b79
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1bfd
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1c99
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1dd1
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1d35
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten10
 AnimScr_EkrBaseKaiten10:
-    .4byte gUnknown_085D1470 + 0x1b1a
-    .4byte gUnknown_085D1470 + 0x1e9e
-    .4byte gUnknown_085D1470 + 0x2276
-    .4byte gUnknown_085D1470 + 0x1ee5
-    .4byte gUnknown_085D1470 + 0x1f69
-    .4byte gUnknown_085D1470 + 0x1fed
-    .4byte gUnknown_085D1470 + 0x2125
-    .4byte gUnknown_085D1470 + 0x2089
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1b1a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1e9e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2276
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1ee5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1f69
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1fed
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2125
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2089
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten11
 AnimScr_EkrBaseKaiten11:
-    .4byte gUnknown_085D1470 + 0x1d35
-    .4byte gUnknown_085D1470 + 0x1dd1
-    .4byte gUnknown_085D1470 + 0x1c99
-    .4byte gUnknown_085D1470 + 0x1bfd
-    .4byte gUnknown_085D1470 + 0x1b79
-    .4byte gUnknown_085D1470 + 0x21f2
-    .4byte gUnknown_085D1470 + 0x1b32
-    .4byte gUnknown_085D1470 + 0x1b1a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1d35
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1dd1
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1c99
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1bfd
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1b79
+    .4byte Pal_EfxPierceNormalEffectBG + 0x21f2
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1b32
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1b1a
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten12
 AnimScr_EkrBaseKaiten12:
-    .4byte gUnknown_085D1470 + 0x2089
-    .4byte gUnknown_085D1470 + 0x2125
-    .4byte gUnknown_085D1470 + 0x1fed
-    .4byte gUnknown_085D1470 + 0x1f69
-    .4byte gUnknown_085D1470 + 0x1ee5
-    .4byte gUnknown_085D1470 + 0x2276
-    .4byte gUnknown_085D1470 + 0x1e9e
-    .4byte gUnknown_085D1470 + 0x1b1a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2089
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2125
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1fed
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1f69
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1ee5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2276
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1e9e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x1b1a
     .4byte 0x80000000
     .4byte 0x40000000
     .4byte 0xfff80000
@@ -3548,98 +2901,98 @@ AnimScr_EkrBaseKaiten12:
 
 	.global AnimScr_EkrBaseKaiten13
 AnimScr_EkrBaseKaiten13:
-    .4byte gUnknown_085D1470 + 0x238a
-    .4byte gUnknown_085D1470 + 0x23a2
-    .4byte gUnknown_085D1470 + 0x2eb2
-    .4byte gUnknown_085D1470 + 0x23c5
-    .4byte gUnknown_085D1470 + 0x23f5
-    .4byte gUnknown_085D1470 + 0x2455
-    .4byte gUnknown_085D1470 + 0x24e5
-    .4byte gUnknown_085D1470 + 0x258d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x238a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x23a2
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2eb2
+    .4byte Pal_EfxPierceNormalEffectBG + 0x23c5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x23f5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2455
+    .4byte Pal_EfxPierceNormalEffectBG + 0x24e5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x258d
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten14
 AnimScr_EkrBaseKaiten14:
-    .4byte gUnknown_085D1470 + 0x238a
-    .4byte gUnknown_085D1470 + 0x264e
-    .4byte gUnknown_085D1470 + 0x2f4e
-    .4byte gUnknown_085D1470 + 0x2671
-    .4byte gUnknown_085D1470 + 0x26ad
-    .4byte gUnknown_085D1470 + 0x270d
-    .4byte gUnknown_085D1470 + 0x27b5
-    .4byte gUnknown_085D1470 + 0x2869
+    .4byte Pal_EfxPierceNormalEffectBG + 0x238a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x264e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2f4e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2671
+    .4byte Pal_EfxPierceNormalEffectBG + 0x26ad
+    .4byte Pal_EfxPierceNormalEffectBG + 0x270d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x27b5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2869
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten15
 AnimScr_EkrBaseKaiten15:
-    .4byte gUnknown_085D1470 + 0x238a
-    .4byte gUnknown_085D1470 + 0x2936
-    .4byte gUnknown_085D1470 + 0x2ff6
-    .4byte gUnknown_085D1470 + 0x2959
-    .4byte gUnknown_085D1470 + 0x2989
-    .4byte gUnknown_085D1470 + 0x29e9
-    .4byte gUnknown_085D1470 + 0x2a91
-    .4byte gUnknown_085D1470 + 0x2b45
+    .4byte Pal_EfxPierceNormalEffectBG + 0x238a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2936
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2ff6
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2959
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2989
+    .4byte Pal_EfxPierceNormalEffectBG + 0x29e9
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2a91
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2b45
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten16
 AnimScr_EkrBaseKaiten16:
-    .4byte gUnknown_085D1470 + 0x238a
-    .4byte gUnknown_085D1470 + 0x2c12
-    .4byte gUnknown_085D1470 + 0x309e
-    .4byte gUnknown_085D1470 + 0x2c35
-    .4byte gUnknown_085D1470 + 0x2c65
-    .4byte gUnknown_085D1470 + 0x2cb9
-    .4byte gUnknown_085D1470 + 0x2d49
-    .4byte gUnknown_085D1470 + 0x2df1
+    .4byte Pal_EfxPierceNormalEffectBG + 0x238a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2c12
+    .4byte Pal_EfxPierceNormalEffectBG + 0x309e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2c35
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2c65
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2cb9
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2d49
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2df1
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten17
 AnimScr_EkrBaseKaiten17:
-    .4byte gUnknown_085D1470 + 0x258d
-    .4byte gUnknown_085D1470 + 0x24e5
-    .4byte gUnknown_085D1470 + 0x2455
-    .4byte gUnknown_085D1470 + 0x23f5
-    .4byte gUnknown_085D1470 + 0x23c5
-    .4byte gUnknown_085D1470 + 0x2eb2
-    .4byte gUnknown_085D1470 + 0x23a2
-    .4byte gUnknown_085D1470 + 0x238a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x258d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x24e5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2455
+    .4byte Pal_EfxPierceNormalEffectBG + 0x23f5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x23c5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2eb2
+    .4byte Pal_EfxPierceNormalEffectBG + 0x23a2
+    .4byte Pal_EfxPierceNormalEffectBG + 0x238a
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten18
 AnimScr_EkrBaseKaiten18:
-    .4byte gUnknown_085D1470 + 0x2869
-    .4byte gUnknown_085D1470 + 0x27b5
-    .4byte gUnknown_085D1470 + 0x270d
-    .4byte gUnknown_085D1470 + 0x26ad
-    .4byte gUnknown_085D1470 + 0x2671
-    .4byte gUnknown_085D1470 + 0x2f4e
-    .4byte gUnknown_085D1470 + 0x264e
-    .4byte gUnknown_085D1470 + 0x238a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2869
+    .4byte Pal_EfxPierceNormalEffectBG + 0x27b5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x270d
+    .4byte Pal_EfxPierceNormalEffectBG + 0x26ad
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2671
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2f4e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x264e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x238a
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten19
 AnimScr_EkrBaseKaiten19:
-    .4byte gUnknown_085D1470 + 0x2b45
-    .4byte gUnknown_085D1470 + 0x2a91
-    .4byte gUnknown_085D1470 + 0x29e9
-    .4byte gUnknown_085D1470 + 0x2989
-    .4byte gUnknown_085D1470 + 0x2959
-    .4byte gUnknown_085D1470 + 0x2ff6
-    .4byte gUnknown_085D1470 + 0x2936
-    .4byte gUnknown_085D1470 + 0x238a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2b45
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2a91
+    .4byte Pal_EfxPierceNormalEffectBG + 0x29e9
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2989
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2959
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2ff6
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2936
+    .4byte Pal_EfxPierceNormalEffectBG + 0x238a
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten20
 AnimScr_EkrBaseKaiten20:
-    .4byte gUnknown_085D1470 + 0x2df1
-    .4byte gUnknown_085D1470 + 0x2d49
-    .4byte gUnknown_085D1470 + 0x2cb9
-    .4byte gUnknown_085D1470 + 0x2c65
-    .4byte gUnknown_085D1470 + 0x2c35
-    .4byte gUnknown_085D1470 + 0x309e
-    .4byte gUnknown_085D1470 + 0x2c12
-    .4byte gUnknown_085D1470 + 0x238a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2df1
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2d49
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2cb9
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2c65
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2c35
+    .4byte Pal_EfxPierceNormalEffectBG + 0x309e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x2c12
+    .4byte Pal_EfxPierceNormalEffectBG + 0x238a
     .4byte 0x80000000
     .4byte 0x40000000
     .4byte 0xfff80000
@@ -4094,48 +3447,48 @@ AnimScr_EkrBaseKaiten20:
 
 	.global AnimScr_EkrBaseKaiten21
 AnimScr_EkrBaseKaiten21:
-    .4byte gUnknown_085D1470 + 0x325a
-    .4byte gUnknown_085D1470 + 0x37fa
-    .4byte gUnknown_085D1470 + 0x3272
-    .4byte gUnknown_085D1470 + 0x32ad
-    .4byte gUnknown_085D1470 + 0x3835
-    .4byte gUnknown_085D1470 + 0x3325
-    .4byte gUnknown_085D1470 + 0x33cd
-    .4byte gUnknown_085D1470 + 0x3481
+    .4byte Pal_EfxPierceNormalEffectBG + 0x325a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x37fa
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3272
+    .4byte Pal_EfxPierceNormalEffectBG + 0x32ad
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3835
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3325
+    .4byte Pal_EfxPierceNormalEffectBG + 0x33cd
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3481
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten22
 AnimScr_EkrBaseKaiten22:
-    .4byte gUnknown_085D1470 + 0x325a
-    .4byte gUnknown_085D1470 + 0x37fa
-    .4byte gUnknown_085D1470 + 0x354e
-    .4byte gUnknown_085D1470 + 0x3589
-    .4byte gUnknown_085D1470 + 0x38c5
-    .4byte gUnknown_085D1470 + 0x3601
-    .4byte gUnknown_085D1470 + 0x3691
-    .4byte gUnknown_085D1470 + 0x3739
+    .4byte Pal_EfxPierceNormalEffectBG + 0x325a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x37fa
+    .4byte Pal_EfxPierceNormalEffectBG + 0x354e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3589
+    .4byte Pal_EfxPierceNormalEffectBG + 0x38c5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3601
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3691
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3739
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten23
 AnimScr_EkrBaseKaiten23:
-    .4byte gUnknown_085D1470 + 0x3481
-    .4byte gUnknown_085D1470 + 0x33cd
-    .4byte gUnknown_085D1470 + 0x3325
-    .4byte gUnknown_085D1470 + 0x3835
-    .4byte gUnknown_085D1470 + 0x32ad
-    .4byte gUnknown_085D1470 + 0x3272
-    .4byte gUnknown_085D1470 + 0x37fa
-    .4byte gUnknown_085D1470 + 0x325a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3481
+    .4byte Pal_EfxPierceNormalEffectBG + 0x33cd
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3325
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3835
+    .4byte Pal_EfxPierceNormalEffectBG + 0x32ad
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3272
+    .4byte Pal_EfxPierceNormalEffectBG + 0x37fa
+    .4byte Pal_EfxPierceNormalEffectBG + 0x325a
     .4byte 0x80000000
 
 	.global AnimScr_EkrBaseKaiten24
 AnimScr_EkrBaseKaiten24:
-    .4byte gUnknown_085D1470 + 0x3739
-    .4byte gUnknown_085D1470 + 0x3691
-    .4byte gUnknown_085D1470 + 0x3601
-    .4byte gUnknown_085D1470 + 0x38c5
-    .4byte gUnknown_085D1470 + 0x3589
-    .4byte gUnknown_085D1470 + 0x354e
-    .4byte gUnknown_085D1470 + 0x37fa
-    .4byte gUnknown_085D1470 + 0x325a
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3739
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3691
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3601
+    .4byte Pal_EfxPierceNormalEffectBG + 0x38c5
+    .4byte Pal_EfxPierceNormalEffectBG + 0x3589
+    .4byte Pal_EfxPierceNormalEffectBG + 0x354e
+    .4byte Pal_EfxPierceNormalEffectBG + 0x37fa
+    .4byte Pal_EfxPierceNormalEffectBG + 0x325a
     .4byte 0x80000000
