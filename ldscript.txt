@@ -314,7 +314,7 @@ SECTIONS
         src/classchg-menuconfirm.o(.text);
         src/classchg-menuselect.o(.text);
         src/classchg-postconfirm.o(.text);
-        asm/bmguide.o(.text);
+        src/bmguide.o(.text);
         asm/m4a_1.o(.text);
         src/m4a.o(.text);
         asm/libagbsyscall.o(.text);
