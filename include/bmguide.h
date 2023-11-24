@@ -14,19 +14,19 @@ struct GuideEnt
 struct GuideSt
 {
     /* 00 */ STRUCT_PAD(0x00, 0x29);
-    /* 29 */ s8 unk_29;
+    /* 29 */ s8 categoryIdx;
     /* 2A */ s8 unk_2a;
     /* 2B */ s8 unk_2b;
     /* 2C */ s8 unk_2c;
     /* 2D */ u8 unk_2d;
-    /* 2E */ s8 unk_2e;
-    /* 2F */ u8 unk_2f;
-    /* 30 */ u8 unk_30;
+    /* 2E */ s8 detailLinesScrolled;
+    /* 2F */ u8 state;
+    /* 30 */ u8 sortMode;
     /* 31 */ STRUCT_PAD(0x31, 0x3c);
     /* 3C */ u8 unk_3c;
     /* 3D */ u8 unk_3d;
     /* 3E */ u8 unk_3e;
-    /* 3F */ u8 unk_3f;
+    /* 3F */ u8 numDetailLines;
     /* 40 */ u8 unk_40[5];
 
     /* 45 */ STRUCT_PAD(0x45, 0x54);
@@ -55,36 +55,67 @@ struct GuideProc
     /* 38 */ int unk_38;
 };
 
-bool sub_80CDF4C(void); // IsGuideLocked
-// ??? sub_80CDF78(???);
-// ??? sub_80CDF88(???);
-// ??? sub_80CE148(???);
+enum
+{
+    GUIDE_STATE_0 = 0,
+    GUIDE_STATE_1 = 1,
+    GUIDE_STATE_2 = 2,
+};
+
+enum
+{
+    GUIDE_SORT_MODE_TOPIC    = 0,
+    GUIDE_SORT_MODE_CHAPTER  = 1,
+};
+
+enum
+{
+    GUIDE_ACTION_NONE = 0,
+    GUIDE_ACTION_1 = 1,
+    GUIDE_ACTION_A_PRESS = 2,
+    GUIDE_ACTION_CANCEL = 3,
+    GUIDE_ACTION_SORT = 4,
+    GUIDE_ACTION_ADVANCE_TEXT = 5,
+    GUIDE_ACTION_REVERSE_TEXT = 6,
+};
+
+enum
+{
+    GUIDE_DETAILS_STAY = 0,
+    GUIDE_DETAILS_ADVANCE = 1,
+    GUIDE_DETAILS_REVERSE = 2,
+};
+
+bool IsGuideLocked(void);
+// ??? GuideSpriteDraw_Init(???);
+// ??? GuideSpriteDraw_Loop(???);
+// ??? PutGuideBottomBarText(???);
 // ??? sub_80CE1C0(???);
 // ??? sub_80CE248(???);
 // ??? sub_80CE28C(???);
-// ??? sub_80CE2E4(???);
-// ??? sub_80CE2F0(???);
-// ??? sub_80CE2FC(???);
-// ??? sub_80CE388(???);
+// ??? GuideMenuRefresh_SyncBg1(???);
+// ??? GuideMenuRefresh_SyncBg0Bg1(???);
+// ??? GuideEntry_RedrawUp(???);
+// ??? GuideEntry_RedrawDown(???);
 // ??? sub_80CE414(???);
-// ??? sub_80CE588(???);
-// ??? sub_80CE5BC(???);
-// ??? sub_80CE5F0(???);
+// ??? GuideEntry_DrawInitial(???);
+// ??? GetStringNextLine(???);
+// ??? MoveGuideDetailText(???);
 // ??? sub_80CE750(???);
 // ??? sub_80CE858(???);
-// ??? sub_80CE95C(???);
-// ??? sub_80CE9E8(???);
+// ??? GuideDetailsRedraw_Init(???);
+// ??? GuideDetailsRedraw_Loop(???);
 // ??? sub_80CEAE8(???);
 // ??? sub_80CEBA4(???);
 // ??? sub_80CEC68(???);
-// ??? sub_80CECB0(???);
-// ??? sub_80CEF10(???);
-// ??? sub_80CEF48(???);
-// ??? sub_80CEFD4(???);
-// ??? sub_80CF448(???);
+// ??? Guide_Init(???);
+// ??? Guide_SetBlend(???);
+// ??? GetGuideAction(???);
+// ??? Guide_MainLoop(???);
+// ??? Guide_OnEnd(???);
 // ??? sub_80CF460(???);
 bool sub_80CF480(void);
 
-extern struct GuideEnt gUnknown_08B19E0C[];
+extern struct GuideEnt gGuideTable[];
 
 #endif /* BMGUIDE_H */

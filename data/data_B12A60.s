@@ -12,20 +12,20 @@ gUnknown_08B1754C:  @ 0x08B1754C
 gUnknown_08B1756C:  @ 0x08B1756C
 	.incbin "baserom.gba", 0xB1756C, 0x160
 
-	.global gUnknown_08B176CC
-gUnknown_08B176CC:  @ 0x08B176CC
+	.global Tsa_08B176CC
+Tsa_08B176CC:  @ 0x08B176CC
 	.incbin "baserom.gba", 0xB176CC, 0xF4
 
-	.global gUnknown_08B177C0
-gUnknown_08B177C0:  @ 0x08B177C0
+	.global Img_08B177C0
+Img_08B177C0:  @ 0x08B177C0
 	.incbin "baserom.gba", 0xB177C0, 0xA4
 
-	.global gUnknown_08B17864
-gUnknown_08B17864:  @ 0x08B17864
+	.global Img_08B17864
+Img_08B17864:  @ 0x08B17864
 	.incbin "baserom.gba", 0xB17864, 0x2E0
 
-	.global gUnknown_08B17B44
-gUnknown_08B17B44:  @ 0x08B17B44
+	.global Pal_08B17B44
+Pal_08B17B44:  @ 0x08B17B44
 	.incbin "baserom.gba", 0xB17B44, 0x20
 
 	.global gUnknown_08B17B64
@@ -60,7 +60,7 @@ gUnknown_08B19874:  @ 0x08B19874
 gUnknown_08B19DEC:  @ 0x08B19DEC
 	.incbin "baserom.gba", 0xB19DEC, 0x20
 
-	.global gUnknown_08B19E0C
-gUnknown_08B19E0C:  @ 0x08B19E0C
+	.global gGuideTable
+gGuideTable:  @ 0x08B19E0C
 	.incbin "baserom.gba", 0xB19E0C, 0x5928
 

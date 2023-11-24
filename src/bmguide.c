@@ -14,11 +14,11 @@
 
 #include "bmguide.h"
 
-struct GuideSt * CONST_DATA gpBuf = (void *)gGenericBuffer;
+struct GuideSt * CONST_DATA gGuideSt = (void *)gGenericBuffer;
 
 // clang-format off
 
-u16 CONST_DATA gUnknown_08B12AA8[] =
+u16 CONST_DATA gSprite_GuideBannerText[] =
 {
     4,
     OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0xC0),
@@ -27,23 +27,21 @@ u16 CONST_DATA gUnknown_08B12AA8[] =
     OAM0_SHAPE_32x8 + OAM0_Y(8), OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0xCC),
 };
 
-u16 CONST_DATA gUnknown_08B12AC2[] =
+u16 CONST_DATA gSprite_SelectButtonSort[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x92),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x98),
 };
 
-u16 CONST_DATA gUnknown_08B12AD0[] =
+u16 CONST_DATA gSprite_BButtonBack[] =
 {
     2,
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(16), OAM2_CHR(0x96),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x9C),
 };
 
-// clang-format on
-
-int CONST_DATA gUnknown_08B12AE0[] =
+int CONST_DATA gTextIds_GuideCategoriesChapter[] =
 {
     0x05C0, // TODO: msgid "Prologue"
     0x05C1, // TODO: msgid "Chapter 1"
@@ -56,7 +54,7 @@ int CONST_DATA gUnknown_08B12AE0[] =
     0x05C8, // TODO: msgid "Chapter 8"
 };
 
-u16 CONST_DATA gUnknown_08B12B04[] =
+u16 CONST_DATA gTextIds_GuideCategoriesTopic[] =
 {
     0x0000,
     0x05C9, // TODO: msgid "Basic Rules"
@@ -72,10 +70,12 @@ u16 CONST_DATA gUnknown_08B12B04[] =
     0x05D3, // TODO: msgid "Other"
 };
 
-extern u8 gUnknown_08B176CC[]; // tsa
-extern u8 gUnknown_08B177C0[]; // gfx
-extern u8 gUnknown_08B17864[]; // gfx
-extern u16 gUnknown_08B17B44[]; // pal
+// clang-format on
+
+extern u8 Tsa_08B176CC[]; // tsa
+extern u8 Img_08B177C0[]; // gfx
+extern u8 Img_08B17864[]; // gfx
+extern u16 Pal_08B17B44[]; // pal
 
 // TODO: Implicit declarations
 void UpdateMenuScrollBarConfig(int, int, int, int);
@@ -85,9 +85,9 @@ void LockMenuScrollBar(void);
 void EndMenuScrollBar(void);
 
 //! FE8U = 0x080CDF4C
-bool sub_80CDF4C(void)
+bool IsGuideLocked(void)
 {
-    struct GuideEnt * it = gUnknown_08B19E0C;
+    struct GuideEnt * it = gGuideTable;
 
     while (1)
     {
@@ -106,45 +106,46 @@ bool sub_80CDF4C(void)
 }
 
 //! FE8U = 0x080CDF78
-void sub_80CDF78(void)
+void GuideSpriteDraw_Init(void)
 {
     UnpackUiVArrowGfx(0xe0, 3);
     return;
 }
 
 //! FE8U = 0x080CDF88
-void sub_80CDF88(void)
+void GuideSpriteDraw_Loop(void)
 {
     int y1;
     int y2;
 
     GetGameClock();
 
-    PutSprite(3, 16, 8, gUnknown_08B12AA8, OAM2_PAL(2));
+    PutSprite(3, 16, 8, gSprite_GuideBannerText, OAM2_PAL(2));
 
-    if (gpBuf->unk_2f == 0)
+    if (gGuideSt->state == GUIDE_STATE_0)
     {
-        PutSprite(3, 176, 3, gUnknown_08B12AC2, OAM2_PAL(2));
+        PutSprite(3, 176, 3, gSprite_SelectButtonSort, OAM2_PAL(2));
     }
 
-    PutSprite(3, 176, 15, gUnknown_08B12AD0, OAM2_PAL(2));
+    PutSprite(3, 176, 15, gSprite_BButtonBack, OAM2_PAL(2));
 
-    y1 = (gpBuf->unk_29 - gpBuf->unk_2a) * 2 + 5;
-    y2 = (gpBuf->unk_2b - gpBuf->unk_2c) * 2 + 5;
+    y1 = (gGuideSt->categoryIdx - gGuideSt->unk_2a) * 2 + 5;
+    y2 = (gGuideSt->unk_2b - gGuideSt->unk_2c) * 2 + 5;
 
-    switch (gpBuf->unk_2f)
+    switch (gGuideSt->state)
     {
-        case 0:
+        case GUIDE_STATE_0:
             DisplayUiHand(12, y1 * 8);
 
-            if (((gpBuf->unk_30 != 0) ? gpBuf->unk_3c : gpBuf->unk_3d) > 6)
+            if ((gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC ? gGuideSt->unk_3c : gGuideSt->unk_3d) > 6)
             {
-                if (gpBuf->unk_2a != 0)
+                if (gGuideSt->unk_2a != 0)
                 {
                     DisplayUiVArrow(32, 32, OAM2_CHR(0xE0) + OAM2_PAL(3), 1);
                 }
 
-                if (gpBuf->unk_2a < ((gpBuf->unk_30 != 0) ? gpBuf->unk_3c : gpBuf->unk_3d) - 6)
+                if (gGuideSt->unk_2a <
+                    (gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC ? gGuideSt->unk_3c : gGuideSt->unk_3d) - 6)
                 {
                     DisplayUiVArrow(32, 136, OAM2_CHR(0xE0) + OAM2_PAL(3), 0);
                 }
@@ -152,23 +153,23 @@ void sub_80CDF88(void)
 
             break;
 
-        case 1:
+        case GUIDE_STATE_1:
             DisplayFrozenUiHand(12, y1 * 8);
             DisplayUiHand(80, y2 * 8);
 
             break;
 
-        case 2:
+        case GUIDE_STATE_2:
             DisplayFrozenUiHand(12, y1 * 8);
 
-            if (gpBuf->unk_3f > 4)
+            if (gGuideSt->numDetailLines > 4)
             {
-                if ((gpBuf->unk_2e) != 0)
+                if ((gGuideSt->detailLinesScrolled) != 0)
                 {
                     DisplayUiVArrow(144, 56, OAM2_CHR(0xE0) + OAM2_PAL(3), 1);
                 }
 
-                if (gpBuf->unk_2e < gpBuf->unk_3f - 4)
+                if (gGuideSt->detailLinesScrolled < gGuideSt->numDetailLines - 4)
                 {
                     DisplayUiVArrow(144, 128, OAM2_CHR(0xE0) + OAM2_PAL(3), 0);
                 }
@@ -177,25 +178,26 @@ void sub_80CDF88(void)
             break;
     }
 
-    UpdateMenuScrollBarConfig(10, gpBuf->unk_2c * 16, gpBuf->unk_3e, 6);
+    UpdateMenuScrollBarConfig(10, gGuideSt->unk_2c * 16, gGuideSt->unk_3e, 6);
 
     return;
 }
 
 //! FE8U = 0x080CE148
-void sub_80CE148(void)
+void PutGuideBottomBarText(void)
 {
-    if (gpBuf->unk_30 != 0)
+    if (gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC)
     {
         return;
     }
 
-    ClearText(&gpBuf->unk_ec);
+    ClearText(&gGuideSt->unk_ec);
     PutDrawText(
-        &gpBuf->unk_ec, TILEMAP_LOCATED(gBG0TilemapBuffer, 4, 18), TEXT_COLOR_SYSTEM_WHITE, 0, 22,
-        GetStringFromIndex(0x05D4));
+        &gGuideSt->unk_ec, TILEMAP_LOCATED(gBG0TilemapBuffer, 4, 18), TEXT_COLOR_SYSTEM_WHITE, 0, 22,
+        GetStringFromIndex(0x05D4)); // TODO: msgid "About"
 
-    Text_DrawString(&gpBuf->unk_ec, GetStringFromIndex(gUnknown_08B12B04[gpBuf->unk_54[gpBuf->unk_29]]));
+    Text_DrawString(
+        &gGuideSt->unk_ec, GetStringFromIndex(gTextIds_GuideCategoriesTopic[gGuideSt->unk_54[gGuideSt->categoryIdx]]));
 
     return;
 }
@@ -205,13 +207,14 @@ void sub_80CE1C0(int strIndex, int textIndex, int y)
 {
     const char * str;
 
-    ClearText(&gpBuf->unk_7c[textIndex]);
+    ClearText(&gGuideSt->unk_7c[textIndex]);
 
-    str = (gpBuf->unk_30 != 0) ? GetStringFromIndex(gUnknown_08B12AE0[gpBuf->unk_40[strIndex]])
-                               : GetStringFromIndex(gUnknown_08B12B04[gpBuf->unk_54[strIndex]]);
+    str = (gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC)
+        ? GetStringFromIndex(gTextIds_GuideCategoriesChapter[gGuideSt->unk_40[strIndex]])
+        : GetStringFromIndex(gTextIds_GuideCategoriesTopic[gGuideSt->unk_54[strIndex]]);
 
     PutDrawText(
-        &gpBuf->unk_7c[textIndex], TILEMAP_LOCATED(gBG1TilemapBuffer, 2, y), TEXT_COLOR_SYSTEM_WHITE, 0, 9, str);
+        &gGuideSt->unk_7c[textIndex], TILEMAP_LOCATED(gBG1TilemapBuffer, 2, y), TEXT_COLOR_SYSTEM_WHITE, 0, 9, str);
     return;
 }
 
@@ -220,9 +223,9 @@ void sub_80CE248(void)
 {
     int i;
 
-    int a = (gpBuf->unk_30 != 0) ? gpBuf->unk_3c : gpBuf->unk_3d;
+    int a = (gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC) ? gGuideSt->unk_3c : gGuideSt->unk_3d;
 
-    for (i = 0; i <= 5; i++)
+    for (i = 0; i < 6; i++)
     {
         if (i < a)
         {
@@ -260,48 +263,47 @@ void sub_80CE28C(void)
 }
 
 //! FE8U = 0x080CE2E4
-void sub_80CE2E4(void)
+void GuideMenuRefresh_SyncBg1(void)
 {
     BG_EnableSyncByMask(BG1_SYNC_BIT);
     return;
 }
 
 //! FE8U = 0x080CE2F0
-void sub_80CE2F0(void)
+void GuideMenuRefresh_SyncBg0Bg1(void)
 {
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
     return;
 }
 
 //! FE8U = 0x080CE2FC
-void sub_80CE2FC(struct GuideProc * proc)
+void GuideEntry_RedrawUp(struct GuideProc * proc)
 {
     int idx = proc->unk_34;
     int textIdx = idx % 6;
 
-    ClearText(&gpBuf->unk_b4[textIdx]);
+    ClearText(&gGuideSt->unk_b4[textIdx]);
 
     PutDrawText(
-        &gpBuf->unk_b4[textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, 11, 5),
-        CheckFlag(gUnknown_08B19E0C[gpBuf->unk_68[idx]].readFlag) ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GREEN,
-        0, 18, GetStringFromIndex(gUnknown_08B19E0C[gpBuf->unk_68[idx]].itemName));
+        &gGuideSt->unk_b4[textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, 11, 5),
+        CheckFlag(gGuideTable[gGuideSt->unk_68[idx]].readFlag) ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GREEN, 0,
+        18, GetStringFromIndex(gGuideTable[gGuideSt->unk_68[idx]].itemName));
 
     return;
 }
 
 //! FE8U = 0x080CE388
-void sub_80CE388(struct GuideProc * proc)
+void GuideEntry_RedrawDown(struct GuideProc * proc)
 {
-
     int idx = proc->unk_34;
     int textIdx = idx % 6;
 
-    ClearText(&gpBuf->unk_b4[textIdx]);
+    ClearText(&gGuideSt->unk_b4[textIdx]);
 
     PutDrawText(
-        &gpBuf->unk_b4[textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, 11, 15),
-        CheckFlag(gUnknown_08B19E0C[gpBuf->unk_68[idx]].readFlag) ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GREEN,
-        0, 18, GetStringFromIndex(gUnknown_08B19E0C[gpBuf->unk_68[idx]].itemName));
+        &gGuideSt->unk_b4[textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, 11, 15),
+        CheckFlag(gGuideTable[gGuideSt->unk_68[idx]].readFlag) ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GREEN, 0,
+        18, GetStringFromIndex(gGuideTable[gGuideSt->unk_68[idx]].itemName));
 
     return;
 }
@@ -318,54 +320,54 @@ void sub_80CE414(void)
     int y = 5;
     int idx = 0;
 
-    for (r8 = 0, gpBuf->unk_3e = 0; gUnknown_08B19E0C[r8].title != 12; r8++)
+    for (r8 = 0, gGuideSt->unk_3e = 0; gGuideTable[r8].title != 12; r8++)
     {
 
-        if (!CheckFlag(gUnknown_08B19E0C[r8].displayFlag))
+        if (!CheckFlag(gGuideTable[r8].displayFlag))
         {
             continue;
         }
 
-        if (gpBuf->unk_30 != 0)
+        if (gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC)
         {
-            if (gUnknown_08B19E0C[r8].chapterTitle == gpBuf->unk_40[gpBuf->unk_29])
+            if (gGuideTable[r8].chapterTitle == gGuideSt->unk_40[gGuideSt->categoryIdx])
             {
-                gpBuf->unk_68[idx] = r8;
+                gGuideSt->unk_68[idx] = r8;
                 idx++;
             }
         }
         else
         {
-            if (gUnknown_08B19E0C[r8].title == gpBuf->unk_54[gpBuf->unk_29])
+            if (gGuideTable[r8].title == gGuideSt->unk_54[gGuideSt->categoryIdx])
             {
-                gpBuf->unk_68[idx] = r8;
+                gGuideSt->unk_68[idx] = r8;
                 idx++;
             }
         }
     }
 
-    r6 = gpBuf->unk_3e = idx;
+    r6 = gGuideSt->unk_3e = idx;
 
-    r5 = r4 = gpBuf->unk_2c;
+    r5 = r4 = gGuideSt->unk_2c;
 
     for (r8 = 0; r8 <= 5 && r6 != 0; y += 2, r5++, r6--, r4++, r8++)
     {
         r5 = r5 % 6;
 
-        ClearText(&gpBuf->unk_b4[r5]);
+        ClearText(&gGuideSt->unk_b4[r5]);
 
         PutDrawText(
-            &gpBuf->unk_b4[r5], gBG1TilemapBuffer + TILEMAP_INDEX(11, y),
-            (!CheckFlag(gUnknown_08B19E0C[gpBuf->unk_68[r4]].readFlag)) ? TEXT_COLOR_SYSTEM_GREEN
-                                                                        : TEXT_COLOR_SYSTEM_WHITE,
-            0, 18, GetStringFromIndex(gUnknown_08B19E0C[gpBuf->unk_68[r4]].itemName));
+            &gGuideSt->unk_b4[r5], gBG1TilemapBuffer + TILEMAP_INDEX(11, y),
+            (!CheckFlag(gGuideTable[gGuideSt->unk_68[r4]].readFlag)) ? TEXT_COLOR_SYSTEM_GREEN
+                                                                     : TEXT_COLOR_SYSTEM_WHITE,
+            0, 18, GetStringFromIndex(gGuideTable[gGuideSt->unk_68[r4]].itemName));
     }
 
     return;
 }
 
 //! FE8U = 0x080CE588
-void sub_80CE588(void)
+void GuideEntry_DrawInitial(void)
 {
     int ix;
     int iy;
@@ -388,7 +390,7 @@ void sub_80CE588(void)
 }
 
 //! FE8U = 0x080CE5BC
-const char * sub_80CE5BC(const char * str)
+const char * GetStringNextLine(const char * str)
 {
     if (str == NULL)
     {
@@ -422,96 +424,97 @@ const char * sub_80CE5BC(const char * str)
 }
 
 //! FE8U = 0x080CE5F0
-void sub_80CE5F0(int idx, int b)
+void MoveGuideDetailText(int idx, int moveDirection)
 {
-    int unk_2e;
+    int detailLinesScrolled;
     int i;
 
-    int unk_3f = 1;
+    int numDetailLines = 1;
 
-    const char * str = GetStringFromIndex(gUnknown_08B19E0C[idx].details);
+    const char * str = GetStringFromIndex(gGuideTable[idx].details);
     while (1)
     {
-        str = sub_80CE5BC(str);
+        str = GetStringNextLine(str);
         if (str == NULL)
         {
             break;
         }
 
-        unk_3f++;
+        numDetailLines++;
     }
 
-    gpBuf->unk_3f = unk_3f;
+    gGuideSt->numDetailLines = numDetailLines;
 
-    unk_2e = gpBuf->unk_2e;
+    detailLinesScrolled = gGuideSt->detailLinesScrolled;
 
-    if (b != 0)
+    if (moveDirection != GUIDE_DETAILS_STAY)
     {
-        if (unk_3f > 4)
+        if (numDetailLines > 4)
         {
-            if (b == 1)
+            if (moveDirection == GUIDE_DETAILS_ADVANCE)
             {
-                if (unk_2e + 4 <= unk_3f - 4)
+                if (detailLinesScrolled + 4 <= numDetailLines - 4)
                 {
-                    unk_2e = unk_2e + 4;
+                    detailLinesScrolled = detailLinesScrolled + 4;
                 }
                 else
                 {
-                    unk_2e = unk_3f - 4;
+                    detailLinesScrolled = numDetailLines - 4;
                 }
             }
             else
             {
-                if (unk_2e - 4 >= 0)
+                if (detailLinesScrolled - 4 >= 0)
                 {
-                    unk_2e = unk_2e - 4;
+                    detailLinesScrolled = detailLinesScrolled - 4;
                 }
                 else
                 {
-                    unk_2e = 0;
+                    detailLinesScrolled = 0;
                 }
             }
         }
 
-        if ((b != 0) && (gpBuf->unk_2e == unk_2e))
+        if ((moveDirection != GUIDE_DETAILS_STAY) && (gGuideSt->detailLinesScrolled == detailLinesScrolled))
         {
             return;
         }
     }
 
-    sub_80CE588();
+    GuideEntry_DrawInitial();
 
-    gpBuf->unk_2e = unk_2e;
+    gGuideSt->detailLinesScrolled = detailLinesScrolled;
 
-    ClearText(gpBuf->unk_b4);
+    ClearText(gGuideSt->unk_b4);
 
     PutDrawText(
-        gpBuf->unk_b4, TILEMAP_LOCATED(gBG1TilemapBuffer, 10, 5), TEXT_COLOR_SYSTEM_GOLD, 2, 18,
-        GetStringFromIndex(gUnknown_08B19E0C[idx].itemName));
+        gGuideSt->unk_b4, TILEMAP_LOCATED(gBG1TilemapBuffer, 10, 5), TEXT_COLOR_SYSTEM_GOLD, 2, 18,
+        GetStringFromIndex(gGuideTable[idx].itemName));
 
-    str = GetStringFromIndex(gUnknown_08B19E0C[idx].details);
+    str = GetStringFromIndex(gGuideTable[idx].details);
 
-    for (i = 0; i < unk_2e + 4; i++)
+    for (i = 0; i < detailLinesScrolled + 4; i++)
     {
 
         if (i != 0)
         {
-            str = sub_80CE5BC(str);
+            str = GetStringNextLine(str);
             if (str == NULL)
             {
                 break;
             }
         }
 
-        if (i >= unk_2e)
+        if (i >= detailLinesScrolled)
         {
             int off;
             int textIndex = i % 5;
 
-            ClearText(&gpBuf->unk_b4[1 + textIndex]);
+            ClearText(&gGuideSt->unk_b4[1 + textIndex]);
 
             PutDrawText(
-                &gpBuf->unk_b4[1 + textIndex], gBG1TilemapBuffer + 11 + ((((i - unk_2e) % 4) * 0x40) + (off = 0x100)),
+                &gGuideSt->unk_b4[1 + textIndex],
+                gBG1TilemapBuffer + 11 + ((((i - detailLinesScrolled) % 4) * 0x40) + (off = 0x100)),
                 TEXT_COLOR_SYSTEM_WHITE, 0, 17, str);
         }
     }
@@ -521,21 +524,21 @@ void sub_80CE5F0(int idx, int b)
     return;
 }
 
-extern struct ProcCmd gUnknown_08B12BEC[];
+extern struct ProcCmd gProcScr_GuideEntryListRedraw_Up[];
 
 //! FE8U = 0x080CE750
 void sub_80CE750(ProcPtr proc, int b)
 {
     struct GuideProc * child;
-    int iy;
     int ix;
+    int iy;
     register int hm asm("r9") = b;
 
     int off = 0x1a0;
 
-    switch (gpBuf->unk_2f)
+    switch (gGuideSt->state)
     {
-        case 0:
+        case GUIDE_STATE_0:
             for (iy = 0; iy < 5; iy++)
             {
                 for (ix = 0; ix < 8; ix++)
@@ -550,7 +553,7 @@ void sub_80CE750(ProcPtr proc, int b)
 
             break;
 
-        case 1:
+        case GUIDE_STATE_1:
             for (iy = 0; iy < 5; iy++)
             {
                 for (ix = 0; ix < 19; ix++)
@@ -561,7 +564,7 @@ void sub_80CE750(ProcPtr proc, int b)
                 off = off - 0x40;
             }
 
-            child = Proc_Start(gUnknown_08B12BEC, proc);
+            child = Proc_Start(gProcScr_GuideEntryListRedraw_Up, proc);
             child->unk_34 = hm;
     }
 
@@ -570,22 +573,21 @@ void sub_80CE750(ProcPtr proc, int b)
     return;
 }
 
-extern struct ProcCmd gUnknown_08B12C14[];
+extern struct ProcCmd gProcScr_GuideEntryListRedraw_Down[];
 
 //! FE8U = 0x080CE858
 void sub_80CE858(ProcPtr proc, int b)
 {
     struct GuideProc * child;
-    int iy;
     int ix;
+    int iy;
     register int hm asm("r9") = b;
 
     int off = 0xa0;
 
-    switch (gpBuf->unk_2f)
+    switch (gGuideSt->state)
     {
-        case 0:
-        {
+        case GUIDE_STATE_0:
             for (iy = 0; iy < 5; iy++)
             {
                 for (ix = 0; ix < 8; ix++)
@@ -596,11 +598,11 @@ void sub_80CE858(ProcPtr proc, int b)
                 off = off + 0x40;
             }
 
-            sub_80CE1C0(hm, hm % 6, 0xf);
+            sub_80CE1C0(hm, hm % 6, 15);
 
             break;
-        }
-        case 1:
+
+        case GUIDE_STATE_1:
             for (iy = 0; iy < 5; iy++)
             {
                 for (ix = 0; ix < 19; ix++)
@@ -611,7 +613,7 @@ void sub_80CE858(ProcPtr proc, int b)
                 off = off + 0x40;
             }
 
-            child = Proc_Start(gUnknown_08B12C14, proc);
+            child = Proc_Start(gProcScr_GuideEntryListRedraw_Down, proc);
             child->unk_34 = hm;
     }
 
@@ -621,7 +623,7 @@ void sub_80CE858(ProcPtr proc, int b)
 }
 
 //! FE8U = 0x080CE95C
-void sub_80CE95C(struct GuideProc * proc)
+void GuideDetailsRedraw_Init(struct GuideProc * proc)
 {
     int textIdx;
     const char * str;
@@ -629,10 +631,12 @@ void sub_80CE95C(struct GuideProc * proc)
 
     unk_34 = proc->unk_34;
     textIdx = (unk_34 % 5);
-    str = GetStringFromIndex(gUnknown_08B19E0C[gpBuf->unk_68[gpBuf->unk_2b]].details);
+
+    str = GetStringFromIndex(gGuideTable[gGuideSt->unk_68[gGuideSt->unk_2b]].details);
+
     while (unk_34 != 0)
     {
-        str = sub_80CE5BC(str);
+        str = GetStringNextLine(str);
         if (str == NULL)
         {
             break;
@@ -641,9 +645,10 @@ void sub_80CE95C(struct GuideProc * proc)
         unk_34--;
     }
 
-    ClearText(&gpBuf->unk_b4[1 + textIdx]);
+    ClearText(&gGuideSt->unk_b4[1 + textIdx]);
     PutDrawText(
-        &gpBuf->unk_b4[1 + textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, 11, 18), TEXT_COLOR_SYSTEM_WHITE, 0, 17, str);
+        &gGuideSt->unk_b4[1 + textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, 11, 18), TEXT_COLOR_SYSTEM_WHITE, 0, 17,
+        str);
 
     proc->unk_34 = 0;
 
@@ -651,7 +656,7 @@ void sub_80CE95C(struct GuideProc * proc)
 }
 
 //! FE8U = 0x080CE9E8
-void sub_80CE9E8(struct GuideProc * proc)
+void GuideDetailsRedraw_Loop(struct GuideProc * proc)
 {
     int iy;
     int ix;
@@ -729,24 +734,24 @@ void sub_80CEAE8(void)
     for (i = 0; i < 20; i++)
     {
         local[i] = 0;
-        gpBuf->unk_54[i] = 0;
+        gGuideSt->unk_54[i] = 0;
     }
 
     i = 0;
-    r4 = gUnknown_08B19E0C[i].title;
+    r4 = gGuideTable[i].title;
 
-    while (gUnknown_08B19E0C[i].title != 0xc)
+    while (gGuideTable[i].title != 0xc)
     {
-        if (CheckFlag(gUnknown_08B19E0C[i].displayFlag))
+        if (CheckFlag(gGuideTable[i].displayFlag))
         {
             local[r4] = r4;
         }
 
         i++;
-        r4 = gUnknown_08B19E0C[i].title;
+        r4 = gGuideTable[i].title;
     }
 
-    gpBuf->unk_3d = 0;
+    gGuideSt->unk_3d = 0;
 
     for (i = 0; i < 0xc; i++)
     {
@@ -758,21 +763,21 @@ void sub_80CEAE8(void)
             continue;
         }
 
-        if (gpBuf->unk_3d == 0)
+        if (gGuideSt->unk_3d == 0)
         {
-            gpBuf->unk_54[0] = r4;
-            gpBuf->unk_3d++;
+            gGuideSt->unk_54[0] = r4;
+            gGuideSt->unk_3d++;
         }
         else
         {
             r3 = 0;
-            tmp2 = (r3 < gpBuf->unk_3d) && (gpBuf->unk_54[0] == r4);
+            tmp2 = (r3 < gGuideSt->unk_3d) && (gGuideSt->unk_54[0] == r4);
             if (tmp2 != 0)
             {
                 continue;
             }
-            gpBuf->unk_54[gpBuf->unk_3d] = r4;
-            gpBuf->unk_3d++;
+            gGuideSt->unk_54[gGuideSt->unk_3d] = r4;
+            gGuideSt->unk_3d++;
         }
     }
 
@@ -790,27 +795,27 @@ void sub_80CEBA4(void)
     for (i = 0; i < 20; i++)
     {
         local[i] |= 0xff;
-        gpBuf->unk_40[i] = 0;
+        gGuideSt->unk_40[i] = 0;
     }
 
     i = 0;
-    r4 = gUnknown_08B19E0C[i].title;
+    r4 = gGuideTable[i].title;
 
-    while (r4 != 0xc)
+    while (r4 != 12)
     {
-        if (CheckFlag(gUnknown_08B19E0C[i].displayFlag))
+        if (CheckFlag(gGuideTable[i].displayFlag))
         {
-            r4 = gUnknown_08B19E0C[i].chapterTitle;
+            r4 = gGuideTable[i].chapterTitle;
             local[r4] = r4;
         }
 
         i++;
-        r4 = gUnknown_08B19E0C[i].title;
+        r4 = gGuideTable[i].title;
     }
 
-    gpBuf->unk_3c = 0;
+    gGuideSt->unk_3c = 0;
 
-    for (i = 0; i < 0xc; i++)
+    for (i = 0; i < 12; i++)
     {
         int tmp2;
 
@@ -818,23 +823,24 @@ void sub_80CEBA4(void)
         {
             continue;
         }
+
         r4 = local[i];
 
-        if (gpBuf->unk_3c == 0)
+        if (gGuideSt->unk_3c == 0)
         {
-            gpBuf->unk_40[0] = r4;
-            gpBuf->unk_3c++;
+            gGuideSt->unk_40[0] = r4;
+            gGuideSt->unk_3c++;
         }
         else
         {
             r3 = 0;
-            tmp2 = (r3 < gpBuf->unk_3c) && (gpBuf->unk_40[0] == r4);
+            tmp2 = (r3 < gGuideSt->unk_3c) && (gGuideSt->unk_40[0] == r4);
             if (tmp2 != 0)
             {
                 continue;
             }
-            gpBuf->unk_40[gpBuf->unk_3c] = r4;
-            gpBuf->unk_3c++;
+            gGuideSt->unk_40[gGuideSt->unk_3c] = r4;
+            gGuideSt->unk_3c++;
         }
     }
 
@@ -847,16 +853,16 @@ void sub_80CEC68(u16 off)
     int ix;
     int iy;
 
-    int yBase = 0xa0;
+    int yBase = 160;
 
-    for (iy = 0; iy < 0xc; iy++)
+    for (iy = 0; iy < 12; iy++)
     {
         for (ix = 0; ix < 9; ix++)
         {
             gBG2TilemapBuffer[yBase + ix] = off + (gBG2TilemapBuffer[yBase + ix] & 0xFFF);
         }
 
-        yBase += 0x20;
+        yBase += 32;
     }
 
     return;
@@ -864,12 +870,12 @@ void sub_80CEC68(u16 off)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08B12B1C[] =
+struct ProcCmd CONST_DATA gProcScr_Guide_DrawSprites[] =
 {
     PROC_NAME("E_guideSub"),
 
-    PROC_CALL(sub_80CDF78),
-    PROC_REPEAT(sub_80CDF88),
+    PROC_CALL(GuideSpriteDraw_Init),
+    PROC_REPEAT(GuideSpriteDraw_Loop),
 
     PROC_END,
 };
@@ -877,20 +883,20 @@ struct ProcCmd CONST_DATA gUnknown_08B12B1C[] =
 // clang-format on
 
 //! FE8U = 0x080CECB0
-void sub_80CECB0(ProcPtr proc)
+void Guide_Init(ProcPtr proc)
 {
     int i = 0;
 
     SetupBackgrounds(NULL);
 
-    gpBuf->unk_2f = 0;
+    gGuideSt->state = GUIDE_STATE_0;
 
-    gpBuf->unk_30 = CheckFlag(0xb3);
+    gGuideSt->sortMode = CheckFlag(0xb3);
 
-    gpBuf->unk_29 = 0;
-    gpBuf->unk_2a = 0;
-    gpBuf->unk_2b = 0;
-    gpBuf->unk_2c = 0;
+    gGuideSt->categoryIdx = 0;
+    gGuideSt->unk_2a = 0;
+    gGuideSt->unk_2b = 0;
+    gGuideSt->unk_2c = 0;
 
     sub_80CEAE8();
     sub_80CEBA4();
@@ -914,47 +920,48 @@ void sub_80CECB0(ProcPtr proc)
     SetWin0Layers(1, 1, 1, 1, 1);
     SetWOutLayers(1, 0, 1, 1, 1);
 
-    ApplyPalette(gUnknown_08B17B44, 0x12);
-    Decompress(gUnknown_08B17864, (void *)0x06011000);
-    Decompress(gUnknown_08B177C0, (void *)0x06011800);
+    ApplyPalette(Pal_08B17B44, 0x12);
+    Decompress(Img_08B17864, (void *)0x06011000);
+    Decompress(Img_08B177C0, (void *)0x06011800);
 
-    Decompress(gUnknown_08B176CC, gGenericBuffer + 0x100);
+    Decompress(Tsa_08B176CC, gGenericBuffer + 0x100);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer + 0x100, 0x1000);
 
     ApplyPalette(gUiFramePaletteA + (gPlaySt.config.windowColor + 4) * 0x10, 2);
 
     ResetTextFont();
 
-    InitText(&gpBuf->unk_ec, 22);
+    InitText(&gGuideSt->unk_ec, 22);
 
-    sub_80CE148();
+    PutGuideBottomBarText();
 
-    InitText(&gpBuf->unk_ac, 9);
-    InitText(&gpBuf->unk_e4, 18);
+    InitText(&gGuideSt->unk_ac, 9);
+    InitText(&gGuideSt->unk_e4, 18);
 
     for (i = 0; i < 6; i++)
     {
-        InitText(&gpBuf->unk_7c[i], 9);
-        InitText(&gpBuf->unk_b4[i], 18);
+        InitText(&gGuideSt->unk_7c[i], 9);
+        InitText(&gGuideSt->unk_b4[i], 18);
     }
 
     sub_80CE248();
     sub_80CE414();
 
     StartMuralBackgroundExt(proc, 0, 18, 2, 0);
-    Proc_Start(gUnknown_08B12B1C, proc);
+    Proc_Start(gProcScr_Guide_DrawSprites, proc);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     StartMenuScrollBarExt(proc, 224, 47, 0x800, 4);
-    UpdateMenuScrollBarConfig(10, gpBuf->unk_2c * 16, gpBuf->unk_3e, 6);
+    UpdateMenuScrollBarConfig(10, gGuideSt->unk_2c * 16, gGuideSt->unk_3e, 6);
 
     sub_8097668();
 
     return;
 }
 
-void sub_80CEF10(void)
+//! FE8U = 0x080CEF10
+void Guide_SetBlend(void)
 {
     SetBlendAlpha(15, 4);
     SetBlendTargetA(0, 0, 1, 0, 0);
@@ -962,63 +969,64 @@ void sub_80CEF10(void)
     return;
 }
 
-int sub_80CEF48(ProcPtr proc)
+//! FE8U = 0x080CEF48
+int GetGuideAction(ProcPtr proc)
 {
-    switch (gpBuf->unk_2f)
+    switch (gGuideSt->state)
     {
-        case 0:
+        case GUIDE_STATE_0:
             if (gKeyStatusPtr->newKeys & SELECT_BUTTON)
             {
-                return 4;
+                return GUIDE_ACTION_SORT;
             }
 
             // fallthrough
 
-        case 1:
+        case GUIDE_STATE_1:
             if (gKeyStatusPtr->newKeys & A_BUTTON)
             {
-                return 2;
+                return GUIDE_ACTION_A_PRESS;
             }
 
             if (gKeyStatusPtr->newKeys & B_BUTTON)
             {
-                return 3;
+                return GUIDE_ACTION_CANCEL;
             }
 
             break;
 
-        case 2:
+        case GUIDE_STATE_2:
             if (gKeyStatusPtr->newKeys & B_BUTTON)
             {
-                return 3;
+                return GUIDE_ACTION_CANCEL;
             }
 
             if (gKeyStatusPtr->newKeys & (A_BUTTON | DPAD_RIGHT))
             {
-                return 5;
+                return GUIDE_ACTION_ADVANCE_TEXT;
             }
 
             if (gKeyStatusPtr->newKeys & DPAD_LEFT)
             {
-                return 6;
+                return GUIDE_ACTION_REVERSE_TEXT;
             }
     }
 
     if (gKeyStatusPtr->repeatedKeys & (DPAD_UP | DPAD_DOWN))
     {
-        return 1;
+        return GUIDE_ACTION_1;
     }
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08B12B3C[] =
+struct ProcCmd CONST_DATA gProcScr_GuideCategoryRedraw[] =
 {
     PROC_NAME("E_guMenu1ReWrite"),
     PROC_SLEEP(1),
 
     PROC_CALL(sub_80CE28C),
-    PROC_CALL(sub_80CE2E4),
+    PROC_CALL(GuideMenuRefresh_SyncBg1),
     PROC_SLEEP(1),
 
     PROC_CALL(sub_80CE248),
@@ -1027,89 +1035,89 @@ struct ProcCmd CONST_DATA gUnknown_08B12B3C[] =
     PROC_CALL(sub_80CE414),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80CE148),
-    PROC_CALL(sub_80CE2F0),
+    PROC_CALL(PutGuideBottomBarText),
+    PROC_CALL(GuideMenuRefresh_SyncBg0Bg1),
 
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08B12B9C[] =
+struct ProcCmd CONST_DATA gProcScr_GuideEntryListRedraw_Initial[] =
 {
     PROC_NAME("E_guMenu2ReWriteFirst"),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80CE588),
-    PROC_CALL(sub_80CE2E4),
+    PROC_CALL(GuideEntry_DrawInitial),
+    PROC_CALL(GuideMenuRefresh_SyncBg1),
     PROC_SLEEP(1),
 
     PROC_CALL(sub_80CE414),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80CE148),
-    PROC_CALL(sub_80CE2E4),
+    PROC_CALL(PutGuideBottomBarText),
+    PROC_CALL(GuideMenuRefresh_SyncBg1),
 
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08B12BEC[] =
+struct ProcCmd CONST_DATA gProcScr_GuideEntryListRedraw_Up[] =
 {
     PROC_NAME("E_guMenu2ReWriteUp"),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80CE2FC),
-    PROC_CALL(sub_80CE2E4),
+    PROC_CALL(GuideEntry_RedrawUp),
+    PROC_CALL(GuideMenuRefresh_SyncBg1),
 
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08B12C14[] =
+struct ProcCmd CONST_DATA gProcScr_GuideEntryListRedraw_Down[] =
 {
     PROC_NAME("E_guMenu2ReWriteDown"),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80CE388),
-    PROC_CALL(sub_80CE2E4),
+    PROC_CALL(GuideEntry_RedrawDown),
+    PROC_CALL(GuideMenuRefresh_SyncBg1),
 
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08B12C3C[] =
+struct ProcCmd CONST_DATA gProcScr_GuideDetailsRedraw[] =
 {
     PROC_NAME("E_guMess3ReWrite"),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80CE95C),
-    PROC_REPEAT(sub_80CE9E8),
+    PROC_CALL(GuideDetailsRedraw_Init),
+    PROC_REPEAT(GuideDetailsRedraw_Loop),
 
     PROC_END,
 };
 
 // clang-format on
 
-void sub_80CEFD4(struct GuideProc * proc)
+void Guide_MainLoop(struct GuideProc * proc)
 {
     struct GuideProc * proc_ = proc;
     s8 flag = 0;
 
-    switch (sub_80CEF48(proc))
+    switch (GetGuideAction(proc))
     {
-        case 2:
+        case GUIDE_ACTION_A_PRESS:
             PlaySoundEffect(0x6a);
 
-            gpBuf->unk_2f++;
+            gGuideSt->state++;
 
-            switch (gpBuf->unk_2f)
+            switch (gGuideSt->state)
             {
-                case 1:
+                case GUIDE_STATE_1:
                     sub_80CEC68(0x2000);
                     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
                     break;
 
-                case 2:
-                    gpBuf->unk_2e = 0;
-                    SetFlag(gUnknown_08B19E0C[gpBuf->unk_68[gpBuf->unk_2b]].readFlag);
-                    sub_80CE5F0(gpBuf->unk_68[gpBuf->unk_2b], 0);
+                case GUIDE_STATE_2:
+                    gGuideSt->detailLinesScrolled = 0;
+                    SetFlag(gGuideTable[gGuideSt->unk_68[gGuideSt->unk_2b]].readFlag);
+                    MoveGuideDetailText(gGuideSt->unk_68[gGuideSt->unk_2b], GUIDE_DETAILS_STAY);
                     LockMenuScrollBar();
 
                     return;
@@ -1120,32 +1128,30 @@ void sub_80CEFD4(struct GuideProc * proc)
 
             break;
 
-        case 5:
-            sub_80CE5F0(gpBuf->unk_68[gpBuf->unk_2b], 1);
-
+        case GUIDE_ACTION_ADVANCE_TEXT:
+            MoveGuideDetailText(gGuideSt->unk_68[gGuideSt->unk_2b], GUIDE_DETAILS_ADVANCE);
             break;
 
-        case 6:
-            sub_80CE5F0(gpBuf->unk_68[gpBuf->unk_2b], 2);
-
+        case GUIDE_ACTION_REVERSE_TEXT:
+            MoveGuideDetailText(gGuideSt->unk_68[gGuideSt->unk_2b], GUIDE_DETAILS_REVERSE);
             break;
 
-        case 3:
+        case GUIDE_ACTION_CANCEL:
             PlaySoundEffect(0x6b);
 
-            if (gpBuf->unk_2f != 0)
+            if (gGuideSt->state != GUIDE_STATE_0)
             {
-                gpBuf->unk_2f--;
+                gGuideSt->state--;
 
-                switch (gpBuf->unk_2f)
+                switch (gGuideSt->state)
                 {
-                    case 0:
+                    case GUIDE_STATE_0:
                         sub_80CEC68(0x1000);
-                        BG_EnableSyncByMask(4);
+                        BG_EnableSyncByMask(BG2_SYNC_BIT);
                         break;
 
-                    case 1:
-                        Proc_StartBlocking(gUnknown_08B12B9C, proc_);
+                    case GUIDE_STATE_1:
+                        Proc_StartBlocking(gProcScr_GuideEntryListRedraw_Initial, proc_);
                         sub_8097668();
                         return;
 
@@ -1161,11 +1167,11 @@ void sub_80CEFD4(struct GuideProc * proc)
 
             break;
 
-        case 4:
+        case GUIDE_ACTION_SORT:
             PlaySoundEffect(0x6a);
 
-            gpBuf->unk_30 = (gpBuf->unk_30 + 1) & 1;
-            if (gpBuf->unk_30)
+            gGuideSt->sortMode = (gGuideSt->sortMode + 1) & 1;
+            if (gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC)
             {
                 SetFlag(0xb3);
             }
@@ -1174,29 +1180,29 @@ void sub_80CEFD4(struct GuideProc * proc)
                 ClearFlag(0xb3);
             }
 
-            gpBuf->unk_29 = 0;
-            gpBuf->unk_2a = 0;
-            gpBuf->unk_2b = 0;
-            gpBuf->unk_2c = 0;
+            gGuideSt->categoryIdx = 0;
+            gGuideSt->unk_2a = 0;
+            gGuideSt->unk_2b = 0;
+            gGuideSt->unk_2c = 0;
 
-            Proc_StartBlocking(gUnknown_08B12B3C, proc_);
+            Proc_StartBlocking(gProcScr_GuideCategoryRedraw, proc_);
 
             break;
 
-        case 1:
-            switch (gpBuf->unk_2f)
+        case GUIDE_ACTION_1:
+            switch (gGuideSt->state)
             {
-                case 0:
+                case GUIDE_STATE_0:
                     if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
                     {
-                        if (gpBuf->unk_29 != 0)
+                        if (gGuideSt->categoryIdx != 0)
                         {
-                            gpBuf->unk_29--;
+                            gGuideSt->categoryIdx--;
 
-                            if (((gpBuf->unk_29 - gpBuf->unk_2a) < 1) && (gpBuf->unk_2a != 0))
+                            if (((gGuideSt->categoryIdx - gGuideSt->unk_2a) < 1) && (gGuideSt->unk_2a != 0))
                             {
-                                gpBuf->unk_2a--;
-                                sub_80CE750(proc_, gpBuf->unk_29 - 1);
+                                gGuideSt->unk_2a--;
+                                sub_80CE750(proc_, gGuideSt->categoryIdx - 1);
                             }
 
                             flag = 1;
@@ -1209,16 +1215,20 @@ void sub_80CEFD4(struct GuideProc * proc)
                     }
                     else
                     {
-                        if (gpBuf->unk_29 < ((gpBuf->unk_30 ? gpBuf->unk_3c : gpBuf->unk_3d) - 1))
+                        if (gGuideSt->categoryIdx <
+                            ((gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC ? 
+                                gGuideSt->unk_3c : gGuideSt->unk_3d) - 1))
                         {
-                            gpBuf->unk_29++;
+                            gGuideSt->categoryIdx++;
 
-                            if ((gpBuf->unk_29 - gpBuf->unk_2a) > 4)
+                            if ((gGuideSt->categoryIdx - gGuideSt->unk_2a) > 4)
                             {
-                                if (gpBuf->unk_29 < ((gpBuf->unk_30 ? gpBuf->unk_3c : gpBuf->unk_3d) - 1))
+                                if (gGuideSt->categoryIdx <
+                                    ((gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC
+                                        ? gGuideSt->unk_3c : gGuideSt->unk_3d) - 1))
                                 {
-                                    gpBuf->unk_2a++;
-                                    sub_80CE858(proc_, gpBuf->unk_29 + 1);
+                                    gGuideSt->unk_2a++;
+                                    sub_80CE858(proc_, gGuideSt->categoryIdx + 1);
                                 }
                             }
                             flag = 1;
@@ -1230,23 +1240,23 @@ void sub_80CEFD4(struct GuideProc * proc)
                         }
                     }
 
-                    Proc_Start(gUnknown_08B12B9C, proc_);
-                    gpBuf->unk_2b = 0;
-                    gpBuf->unk_2c = 0;
+                    Proc_Start(gProcScr_GuideEntryListRedraw_Initial, proc_);
+                    gGuideSt->unk_2b = 0;
+                    gGuideSt->unk_2c = 0;
 
                     break;
 
-                case 1:
+                case GUIDE_STATE_1:
                     if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
                     {
-                        if (gpBuf->unk_2b != 0)
+                        if (gGuideSt->unk_2b != 0)
                         {
-                            gpBuf->unk_2b--;
+                            gGuideSt->unk_2b--;
 
-                            if ((gpBuf->unk_2b - gpBuf->unk_2c < 1) && (gpBuf->unk_2c != 0))
+                            if ((gGuideSt->unk_2b - gGuideSt->unk_2c < 1) && (gGuideSt->unk_2c != 0))
                             {
-                                gpBuf->unk_2c--;
-                                sub_80CE750(proc_, gpBuf->unk_2b - 1);
+                                gGuideSt->unk_2c--;
+                                sub_80CE750(proc_, gGuideSt->unk_2b - 1);
                             }
 
                             flag = 1;
@@ -1254,14 +1264,14 @@ void sub_80CEFD4(struct GuideProc * proc)
                     }
                     else
                     {
-                        if (gpBuf->unk_2b < (gpBuf->unk_3e - 1))
+                        if (gGuideSt->unk_2b < (gGuideSt->unk_3e - 1))
                         {
-                            gpBuf->unk_2b++;
+                            gGuideSt->unk_2b++;
 
-                            if ((gpBuf->unk_2b - gpBuf->unk_2c > 4) && (gpBuf->unk_2b < gpBuf->unk_3e - 1))
+                            if ((gGuideSt->unk_2b - gGuideSt->unk_2c > 4) && (gGuideSt->unk_2b < gGuideSt->unk_3e - 1))
                             {
-                                gpBuf->unk_2c++;
-                                sub_80CE858(proc_, gpBuf->unk_2b + 1);
+                                gGuideSt->unk_2c++;
+                                sub_80CE858(proc_, gGuideSt->unk_2b + 1);
                             }
 
                             flag = 1;
@@ -1270,27 +1280,26 @@ void sub_80CEFD4(struct GuideProc * proc)
 
                     break;
 
-                case 2:
+                case GUIDE_STATE_2:
                     if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
                     {
-                        if (gpBuf->unk_2e != 0)
+                        if (gGuideSt->detailLinesScrolled != 0)
                         {
-                            gpBuf->unk_2e--;
-                            proc_ = Proc_StartBlocking(gUnknown_08B12C3C, proc_);
-                            proc_->unk_34 = gpBuf->unk_2e;
+                            gGuideSt->detailLinesScrolled--;
+                            proc_ = Proc_StartBlocking(gProcScr_GuideDetailsRedraw, proc_);
+                            proc_->unk_34 = gGuideSt->detailLinesScrolled;
                             proc_->unk_38 = 0;
                             flag = 1;
                         }
                     }
                     else
                     {
-
-                        if (gpBuf->unk_2e < gpBuf->unk_3f - 4)
+                        if (gGuideSt->detailLinesScrolled < gGuideSt->numDetailLines - 4)
                         {
-                            gpBuf->unk_2e++;
+                            gGuideSt->detailLinesScrolled++;
 
-                            proc_ = Proc_StartBlocking(gUnknown_08B12C3C, proc_);
-                            proc_->unk_34 = gpBuf->unk_2e + 3;
+                            proc_ = Proc_StartBlocking(gProcScr_GuideDetailsRedraw, proc_);
+                            proc_->unk_34 = gGuideSt->detailLinesScrolled + 3;
                             proc_->unk_38 = 1;
 
                             flag = 1;
@@ -1310,10 +1319,10 @@ void sub_80CEFD4(struct GuideProc * proc)
 }
 
 //! FE8U = 0x080CF448
-void sub_80CF448(void)
+void Guide_OnEnd(void)
 {
     EndMuralBackground();
-    Proc_EndEach(gUnknown_08B12B1C);
+    Proc_EndEach(gProcScr_Guide_DrawSprites);
     EndMenuScrollBar();
     return;
 }
@@ -1331,25 +1340,26 @@ struct ProcCmd CONST_DATA ProcScr_E_Guide1[] =
     PROC_CALL(BMapDispSuspend),
     PROC_YIELD,
 
-    PROC_CALL(sub_80CECB0),
+    PROC_CALL(Guide_Init),
     PROC_CALL(StartGreenText),
 
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(sub_80CEF10),
-    PROC_REPEAT(sub_80CEFD4),
+    PROC_CALL(Guide_SetBlend),
+    PROC_REPEAT(Guide_MainLoop),
 
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndGreenText),
 
-    PROC_CALL(sub_80CF448),
+    PROC_CALL(Guide_OnEnd),
     PROC_YIELD,
 
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
+
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(UnlockGame),
@@ -1366,21 +1376,21 @@ struct ProcCmd CONST_DATA ProcScr_E_Guide2[] =
     PROC_CALL(BMapDispSuspend),
     PROC_YIELD,
 
-    PROC_CALL(sub_80CECB0),
+    PROC_CALL(Guide_Init),
     PROC_CALL(StartGreenText),
 
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(sub_80CEF10),
-    PROC_REPEAT(sub_80CEFD4),
+    PROC_CALL(Guide_SetBlend),
+    PROC_REPEAT(Guide_MainLoop),
 
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndGreenText),
 
-    PROC_CALL(sub_80CF448),
+    PROC_CALL(Guide_OnEnd),
     PROC_YIELD,
 
     PROC_CALL(BMapDispResume),
@@ -1397,7 +1407,7 @@ void sub_80CF460(void)
 {
     struct GuideEnt * it;
 
-    for (it = gUnknown_08B19E0C; it->title != 0xc; it++)
+    for (it = gGuideTable; it->title != 12; it++)
     {
         SetFlag(it->displayFlag);
     }
@@ -1410,9 +1420,9 @@ bool sub_80CF480(void)
 {
     struct GuideEnt * it;
 
-    for (it = gUnknown_08B19E0C; it->title != 0xc; it++)
+    for (it = gGuideTable; it->title != 12; it++)
     {
-        if ((CheckFlag(it->displayFlag)) && (!CheckFlag(it->readFlag)))
+        if (CheckFlag(it->displayFlag) && !CheckFlag(it->readFlag))
         {
             return FALSE;
         }

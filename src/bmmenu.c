@@ -137,7 +137,7 @@ u8 MapMenu_StatusCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 }
 
 u8 MapMenu_IsGuideCommandAvailable(const struct MenuItemDef* def, int number) {
-    if (sub_80CDF4C()) {
+    if (IsGuideLocked()) {
         return MENU_NOTSHOWN;
     }
 
