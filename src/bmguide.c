@@ -9,83 +9,68 @@
 #include "bmlib.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "bmio.h"
+#include "bm.h"
 
-const char gProcName_E_guideSub[] = "E_guideSub";
-const char gProcName_E_guMenu1ReWrite[] = "E_guMenu1ReWrite";
-const char gProcName_E_guMenu2ReWriteFirst[] = "E_guMenu2ReWriteFirst";
-const char gProcName_E_guMenu2ReWriteUp[] = "E_guMenu2ReWriteUp";
-const char gProcName_E_guMenu2ReWriteDown[] = "E_guMenu2ReWriteDown";
-const char gProcName_E_guMess3ReWrite[] = "E_guMess3ReWrite";
-const char gProcName_E_Guide[] = "E_Guide";
+#include "bmguide.h"
 
-// Pad the data here so that the linker script doesn't need to specify the
-// exact location of data after this file.
-const u8 TextFiller[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+struct GuideSt * CONST_DATA gpBuf = (void *)gGenericBuffer;
 
-struct GuideEnt
+// clang-format off
+
+u16 CONST_DATA gUnknown_08B12AA8[] =
 {
-    /* 00 */ u8 title;
-    /* 01 */ u8 chapterTitle;
-    /* 02 */ u16 itemName;
-    /* 04 */ u16 details;
-    /* 06 */ u16 displayFlag;
-    /* 08 */ u16 readFlag;
+    4,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0xC0),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0xC4),
+    OAM0_SHAPE_32x8 + OAM0_Y(8), OAM1_SIZE_32x8, OAM2_CHR(0xC8),
+    OAM0_SHAPE_32x8 + OAM0_Y(8), OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0xCC),
 };
 
-extern struct GuideEnt gUnknown_08B19E0C[];
-
-struct GuideMenu
+u16 CONST_DATA gUnknown_08B12AC2[] =
 {
-    /* 00 */ STRUCT_PAD(0x00, 0x29);
-    /* 29 */ s8 unk_29;
-    /* 2A */ s8 unk_2a;
-    /* 2B */ s8 unk_2b;
-    /* 2C */ s8 unk_2c;
-    /* 2D */ u8 unk_2d;
-    /* 2E */ s8 unk_2e;
-    /* 2F */ u8 unk_2f;
-    /* 30 */ u8 unk_30;
-    /* 31 */ STRUCT_PAD(0x31, 0x3c);
-    /* 3C */ u8 unk_3c;
-    /* 3D */ u8 unk_3d;
-    /* 3E */ u8 unk_3e;
-    /* 3F */ u8 unk_3f;
-    /* 40 */ u8 unk_40[5];
-
-    /* 45 */ STRUCT_PAD(0x45, 0x54);
-
-    /* 54 */ u8 unk_54[5]; // size unknown
-
-    /* 59 */ STRUCT_PAD(0x59, 0x68);
-
-    /* 68 */ u8 unk_68[5];
-
-    /* 6D */ STRUCT_PAD(0x6d, 0x7c);
-
-    /* 7C */ struct Text unk_7c[6];
-    /* AC */ struct Text unk_ac;
-    /* B4 */ struct Text unk_b4[6];
-    /* E4 */ struct Text unk_e4;
-    /* EC */ struct Text unk_ec;
+    2,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x92),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x98),
 };
 
-
-struct GuideProc
+u16 CONST_DATA gUnknown_08B12AD0[] =
 {
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c;
-    /* 3C */ int unk_3c;
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
+    2,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(16), OAM2_CHR(0x96),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x9C),
 };
 
-extern struct GuideMenu * gpBuf;
+// clang-format on
 
-extern u16 gUnknown_08B12AA8[];
-extern u16 gUnknown_08B12AC2[];
-extern u16 gUnknown_08B12AD0[];
-extern int gUnknown_08B12AE0[];
-extern u16 gUnknown_08B12B04[];
+int CONST_DATA gUnknown_08B12AE0[] =
+{
+    0x05C0, // TODO: msgid "Prologue"
+    0x05C1, // TODO: msgid "Chapter 1"
+    0x05C2, // TODO: msgid "Chapter 2"
+    0x05C3, // TODO: msgid "Chapter 3"
+    0x05C4, // TODO: msgid "Chapter 4"
+    0x05C5, // TODO: msgid "Chapter 5"
+    0x05C6, // TODO: msgid "Chapter 6"
+    0x05C7, // TODO: msgid "Chapter 7"
+    0x05C8, // TODO: msgid "Chapter 8"
+};
+
+u16 CONST_DATA gUnknown_08B12B04[] =
+{
+    0x0000,
+    0x05C9, // TODO: msgid "Basic Rules"
+    0x05CA, // TODO: msgid "Movement"
+    0x05CB, // TODO: msgid "Combat"
+    0x05CC, // TODO: msgid "Rescue"
+    0x05CD, // TODO: msgid "Items"
+    0x05CE, // TODO: msgid "Terrain"
+    0x05CF, // TODO: msgid "Allies"
+    0x05D0, // TODO: msgid "Victory"
+    0x05D1, // TODO: msgid "Save"
+    0x05D2, // TODO: msgid "World Map"
+    0x05D3, // TODO: msgid "Other"
+};
 
 extern u8 gUnknown_08B176CC[]; // tsa
 extern u8 gUnknown_08B177C0[]; // gfx
@@ -877,7 +862,19 @@ void sub_80CEC68(u16 off)
     return;
 }
 
-extern struct ProcCmd gUnknown_08B12B1C[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08B12B1C[] =
+{
+    PROC_NAME("E_guideSub"),
+
+    PROC_CALL(sub_80CDF78),
+    PROC_REPEAT(sub_80CDF88),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080CECB0
 void sub_80CECB0(ProcPtr proc)
@@ -970,7 +967,7 @@ int sub_80CEF48(ProcPtr proc)
     switch (gpBuf->unk_2f)
     {
         case 0:
-            if ((gKeyStatusPtr->newKeys & 4) != 0)
+            if (gKeyStatusPtr->newKeys & SELECT_BUTTON)
             {
                 return 4;
             }
@@ -978,12 +975,12 @@ int sub_80CEF48(ProcPtr proc)
             // fallthrough
 
         case 1:
-            if ((gKeyStatusPtr->newKeys & 1) != 0)
+            if (gKeyStatusPtr->newKeys & A_BUTTON)
             {
                 return 2;
             }
 
-            if ((gKeyStatusPtr->newKeys & 2) != 0)
+            if (gKeyStatusPtr->newKeys & B_BUTTON)
             {
                 return 3;
             }
@@ -991,31 +988,103 @@ int sub_80CEF48(ProcPtr proc)
             break;
 
         case 2:
-            if ((gKeyStatusPtr->newKeys & 2) != 0)
+            if (gKeyStatusPtr->newKeys & B_BUTTON)
             {
                 return 3;
             }
 
-            if ((gKeyStatusPtr->newKeys & 0x11) != 0)
+            if (gKeyStatusPtr->newKeys & (A_BUTTON | DPAD_RIGHT))
             {
                 return 5;
             }
 
-            if ((gKeyStatusPtr->newKeys & 0x20) != 0)
+            if (gKeyStatusPtr->newKeys & DPAD_LEFT)
             {
                 return 6;
             }
     }
 
-    if ((gKeyStatusPtr->repeatedKeys & 0xc0) != 0)
+    if (gKeyStatusPtr->repeatedKeys & (DPAD_UP | DPAD_DOWN))
     {
         return 1;
     }
 }
 
-extern struct ProcCmd gUnknown_08B12B3C[];
-extern struct ProcCmd gUnknown_08B12B9C[];
-extern struct ProcCmd gUnknown_08B12C3C[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08B12B3C[] =
+{
+    PROC_NAME("E_guMenu1ReWrite"),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE28C),
+    PROC_CALL(sub_80CE2E4),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE248),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE414),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE148),
+    PROC_CALL(sub_80CE2F0),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08B12B9C[] =
+{
+    PROC_NAME("E_guMenu2ReWriteFirst"),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE588),
+    PROC_CALL(sub_80CE2E4),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE414),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE148),
+    PROC_CALL(sub_80CE2E4),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08B12BEC[] =
+{
+    PROC_NAME("E_guMenu2ReWriteUp"),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE2FC),
+    PROC_CALL(sub_80CE2E4),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08B12C14[] =
+{
+    PROC_NAME("E_guMenu2ReWriteDown"),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE388),
+    PROC_CALL(sub_80CE2E4),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08B12C3C[] =
+{
+    PROC_NAME("E_guMess3ReWrite"),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80CE95C),
+    PROC_REPEAT(sub_80CE9E8),
+
+    PROC_END,
+};
+
+// clang-format on
 
 void sub_80CEFD4(struct GuideProc * proc)
 {
@@ -1118,7 +1187,7 @@ void sub_80CEFD4(struct GuideProc * proc)
             switch (gpBuf->unk_2f)
             {
                 case 0:
-                    if (gKeyStatusPtr->repeatedKeys & 0x40)
+                    if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
                     {
                         if (gpBuf->unk_29 != 0)
                         {
@@ -1168,7 +1237,7 @@ void sub_80CEFD4(struct GuideProc * proc)
                     break;
 
                 case 1:
-                    if (gKeyStatusPtr->repeatedKeys & 0x40)
+                    if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
                     {
                         if (gpBuf->unk_2b != 0)
                         {
@@ -1202,7 +1271,7 @@ void sub_80CEFD4(struct GuideProc * proc)
                     break;
 
                 case 2:
-                    if (gKeyStatusPtr->repeatedKeys & 0x40)
+                    if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
                     {
                         if (gpBuf->unk_2e != 0)
                         {
@@ -1249,14 +1318,88 @@ void sub_80CF448(void)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_E_Guide1[] =
+{
+    PROC_NAME("E_Guide"),
+
+    PROC_CALL(LockGame),
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(BMapDispSuspend),
+    PROC_YIELD,
+
+    PROC_CALL(sub_80CECB0),
+    PROC_CALL(StartGreenText),
+
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(sub_80CEF10),
+    PROC_REPEAT(sub_80CEFD4),
+
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(EndGreenText),
+
+    PROC_CALL(sub_80CF448),
+    PROC_YIELD,
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WaitForFade),
+    PROC_CALL(UnlockGame),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA ProcScr_E_Guide2[] =
+{
+    PROC_NAME("E_Guide"),
+
+    PROC_CALL(LockGame),
+
+    PROC_CALL(BMapDispSuspend),
+    PROC_YIELD,
+
+    PROC_CALL(sub_80CECB0),
+    PROC_CALL(StartGreenText),
+
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(sub_80CEF10),
+    PROC_REPEAT(sub_80CEFD4),
+
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(EndGreenText),
+
+    PROC_CALL(sub_80CF448),
+    PROC_YIELD,
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(UnlockGame),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x080CF460
 void sub_80CF460(void)
 {
-    struct GuideEnt * ent;
+    struct GuideEnt * it;
 
-    for (ent = gUnknown_08B19E0C; ent->title != 0xc; ent++)
+    for (it = gUnknown_08B19E0C; it->title != 0xc; it++)
     {
-        SetFlag(ent->displayFlag);
+        SetFlag(it->displayFlag);
     }
 
     return;
@@ -1265,11 +1408,11 @@ void sub_80CF460(void)
 //! FE8U = 0x080CF480
 bool sub_80CF480(void)
 {
-    struct GuideEnt * ent;
+    struct GuideEnt * it;
 
-    for (ent = gUnknown_08B19E0C; ent->title != 0xc; ent++)
+    for (it = gUnknown_08B19E0C; it->title != 0xc; it++)
     {
-        if ((CheckFlag(ent->displayFlag)) && (!CheckFlag(ent->readFlag)))
+        if ((CheckFlag(it->displayFlag)) && (!CheckFlag(it->readFlag)))
         {
             return FALSE;
         }
@@ -1277,3 +1420,7 @@ bool sub_80CF480(void)
 
     return TRUE;
 }
+
+// Pad the data here so that the linker script doesn't need to specify the
+// exact location of data after this file.
+const u8 TextFiller[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };

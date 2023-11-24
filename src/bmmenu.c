@@ -38,6 +38,7 @@
 #include "worldmap.h"
 #include "savemenu.h"
 #include "prepscreen.h"
+#include "bmguide.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"

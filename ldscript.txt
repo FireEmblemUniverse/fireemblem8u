@@ -805,6 +805,7 @@ SECTIONS
         . = ALIGN(4); src/classchg-menuconfirm.o(.data);
         . = ALIGN(4); src/classchg-menuselect.o(.data);
         . = ALIGN(4); src/classchg-postconfirm.o(.data);
+        . = ALIGN(4); src/bmguide.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);
