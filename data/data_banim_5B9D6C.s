@@ -109,8 +109,8 @@ gProc_ekrTogiColor:  @ 0x085B9E34
 gUnknown_085B9E4C:  @ 0x085B9E4C
 	.incbin "baserom.gba", 0x5B9E4C, 0x26C
 
-	.global gUnknown_085BA0B8
-gUnknown_085BA0B8:  @ 0x085BA0B8
+	.global Img_NODAMGEMIS
+Img_NODAMGEMIS:  @ 0x085BA0B8
 	.incbin "baserom.gba", 0x5BA0B8, 0x228
 
 	.global Pal_085BA2E0

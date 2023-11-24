@@ -449,48 +449,4 @@ gUnknown_080DF080:  @ 0x080DF080
 
 	.global gUnknown_080DF0E0
 gUnknown_080DF0E0:  @ 0x080DF0E0
-	.incbin "baserom.gba", 0xDF0E0, 0xA8
-
-	.global gUnknown_080DF188
-gUnknown_080DF188:  @ 0x080DF188
-	.incbin "baserom.gba", 0xDF188, 0x66
-
-	.global gUnknown_080DF1EE
-gUnknown_080DF1EE:  @ 0x080DF1EE
-	.incbin "baserom.gba", 0xDF1EE, 0x7C
-
-	.global gUnknown_080DF26A
-gUnknown_080DF26A:  @ 0x080DF26A
-	.incbin "baserom.gba", 0xDF26A, 0x72
-
-	.global gUnknown_080DF2DC
-gUnknown_080DF2DC:  @ 0x080DF2DC
-	.incbin "baserom.gba", 0xDF2DC, 0xAA
-
-	.global gUnknown_080DF386
-gUnknown_080DF386:  @ 0x080DF386
-	.incbin "baserom.gba", 0xDF386, 0x16
-
-	.global gUnknown_080DF39C
-gUnknown_080DF39C:  @ 0x080DF39C
-	.incbin "baserom.gba", 0xDF39C, 0x6
-
-	.global gUnknown_080DF3A2
-gUnknown_080DF3A2:  @ 0x080DF3A2
-	.incbin "baserom.gba", 0xDF3A2, 0x22
-
-	.global gUnknown_080DF3C4
-gUnknown_080DF3C4:  @ 0x080DF3C4
-	.incbin "baserom.gba", 0xDF3C4, 0x130
-
-	.global gUnknown_080DF4F4
-gUnknown_080DF4F4:  @ 0x080DF4F4
-	.incbin "baserom.gba", 0xDF4F4, 0x52
-
-	.global gUnknown_080DF546
-gUnknown_080DF546:  @ 0x080DF546
-	.incbin "baserom.gba", 0xDF546, 0x22
-
-	.global gUnknown_080DF568
-gUnknown_080DF568:  @ 0x080DF568
-	.incbin "baserom.gba", 0xDF568, 0xDF5C4 - 0xDF568
+	.incbin "baserom.gba", 0xDF0E0, 0xDF11C - 0xDF0E0

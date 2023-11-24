@@ -1771,3 +1771,46 @@ ProcScr_efxGorgonBGFinish:  @ 0x085D8CC4
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
+
+	.global gUnknown_085D8CE4
+gUnknown_085D8CE4:  @ 0x085D8CE4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_806C14C
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_806C154
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_806C1B8
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_806C2D4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word EnablePaletteSync
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+
+	.global gUnknown_085D8D14
+gUnknown_085D8D14:  @ 0x085D8D14
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_806C14C
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_806C478
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_806C1B8
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_806C2D4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word EnablePaletteSync
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0

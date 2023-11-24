@@ -1,5 +1,6 @@
 	.section .data
     .include "animscr.inc"
+    .include "gba_sprites.inc"
 
 	.global Img_TeonoOBJ
 Img_TeonoOBJ:  @ 0x085D9C5C
@@ -12,31 +13,31 @@ Pal_TeonoOBJ:  @ 0x085DA05C
     .global Obj_085DA07C
 Obj_085DA07C:
 AnimSprite_EfxTeonoObj1:
-    ANIM_SPRITE 0x80004000, 0x100 / 0x20, -0x12, -0x04
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x100 / 0x20, -0x12, -0x04
     ANIM_SPRITE_END
 
 AnimSprite_EfxTeonoObj2:
-    ANIM_SPRITE 0x80004000, 0x0, -0x29, 0x1
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0, -0x29, 0x1
     ANIM_SPRITE_END
 
 AnimSprite_EfxTeonoObj3:
-    ANIM_SPRITE 0x80004000, 0x80 / 0x20, -0x3B, 0x3
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x80 / 0x20, -0x3B, 0x3
     ANIM_SPRITE_END
 
 AnimSprite_EfxTeonoObj4:
-    ANIM_SPRITE 0x80004000, 0x100 / 0x20, -0x4B, 0x3
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x100 / 0x20, -0x4B, 0x3
     ANIM_SPRITE_END
 
 AnimSprite_EfxTeonoObj5:
-    ANIM_SPRITE 0x80004000, 0x0 / 0x20, -0x5B, 0x3
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0 / 0x20, -0x5B, 0x3
     ANIM_SPRITE_END
 
 AnimSprite_EfxTeonoObj6:
-    ANIM_SPRITE 0x80004000, 0x80 / 0x20, -0x65, -0x1
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x80 / 0x20, -0x65, -0x1
     ANIM_SPRITE_END
 
 AnimSprite_EfxTeonoObj7:
-    ANIM_SPRITE 0x80004000, 0x100 / 0x20, -0x68, -0x4
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x100 / 0x20, -0x68, -0x4
     ANIM_SPRITE_END
 
     .incbin "baserom.gba", 0x5DA124, 0x5DA364 - 0x5DA124
@@ -78,7 +79,7 @@ AnimScr_TeonoObjFarRight:  @ 0x085DA3C0
     ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj5, 1
     .4byte Obj_085DA07C + 0x296
     .4byte Obj_085DA07C + 0x2Ae
-    .4byte 0x80000000
+    ANIMSCR_BLOCKED
 
 	.global AnimScr_TeonoObj2Right
 AnimScr_TeonoObj2Right:  @ 0x085DA3E0
@@ -95,7 +96,7 @@ AnimScr_TeonoObj2Right:  @ 0x085DA3E0
     .4byte Obj_085DA07C + 0x235
     .4byte Obj_085DA07C + 0x259
     .4byte Obj_085DA07C + 0x27d
-    .4byte 0x80000000
+    ANIMSCR_BLOCKED
 
     .4byte 0x90004000
     .4byte 0xfff20008
@@ -347,18 +348,18 @@ Img_EfxArrowOBJ:  @ 0x085DA7AC
 .global Obj_085DA7E8
 Obj_085DA7E8:
 AnimSprite_EfxArrowObj1:
-    ANIM_SPRITE 0x00004000, 0x000 / 0x20, -0x3D, -0x0E
-    ANIM_SPRITE 0x00000000, 0x040 / 0x20, -0x2D, -0x0E
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x000 / 0x20, -0x3D, -0x0E
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x040 / 0x20, -0x2D, -0x0E
     ANIM_SPRITE_END
 
 AnimSprite_EfxArrowObj2:
-    ANIM_SPRITE 0x00004000, 0x000 / 0x20, -0x5D, -0x0E
-    ANIM_SPRITE 0x00000000, 0x040 / 0x20, -0x4D, -0x0E
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x000 / 0x20, -0x5D, -0x0E
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x040 / 0x20, -0x4D, -0x0E
     ANIM_SPRITE_END
 
 AnimSprite_EfxArrowObj3:
-    ANIM_SPRITE 0x00004000, 0x000 / 0x20, -0x7D, -0x0E
-    ANIM_SPRITE 0x00000000, 0x040 / 0x20, -0x6D, -0x0E
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x000 / 0x20, -0x7D, -0x0E
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x040 / 0x20, -0x6D, -0x0E
     ANIM_SPRITE_END
 
 	.global AnimScr_ArrowCloseRight
@@ -7023,8 +7024,8 @@ gUnknown_085E5AE4:  @ 0x085E5AE4
 gUnknown_085E7028:  @ 0x085E7028
 	.incbin "baserom.gba", 0x5E7028, 0x10E0
 
-	.global gUnknown_085E8108
-gUnknown_085E8108:  @ 0x085E8108
+	.global Pal_085E8108
+Pal_085E8108:  @ 0x085E8108
 	.incbin "baserom.gba", 0x5E8108, 0x200
 
 	.global gUnknown_085E8308
@@ -7047,112 +7048,152 @@ gUnknown_085E8CC4:  @ 0x085E8CC4
 gUnknown_085E8CE4:  @ 0x085E8CE4
 	.incbin "baserom.gba", 0x5E8CE4, 0xA4
 
-	.global gUnknown_085E8D88
-gUnknown_085E8D88:  @ 0x085E8D88
+	.global Img_EfxNormalEffectBG
+Img_EfxNormalEffectBG:  @ 0x085E8D88
 	.incbin "baserom.gba", 0x5E8D88, 0x3C8
 
-	.global gUnknown_085E9150
-gUnknown_085E9150:  @ 0x085E9150
-	.incbin "baserom.gba", 0x5E9150, 0x1A08
+	.global Pal_EfxNormalEffectBG
+Pal_EfxNormalEffectBG:  @ 0x085E9150
+	.incbin "baserom.gba", 0x5E9150, 0x20
+
+	.global Tsa1_EfxNormalEffectBG
+Tsa1_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E9170, 0x5E923C - 0x5E9170
+
+	.global Tsa2_EfxNormalEffectBG
+Tsa2_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E923C, 0x5E933C - 0x5E923C
+
+	.global Tsa3_EfxNormalEffectBG
+Tsa3_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E933C, 0x5E944C - 0x5E933C
+
+	.global Tsa4_EfxNormalEffectBG
+Tsa4_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E944C, 0x5E9558 - 0x5E944C
+
+	.global Tsa5_EfxNormalEffectBG
+Tsa5_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E9558, 0x5E965C - 0x5E9558
+
+	.global Tsa6_EfxNormalEffectBG
+Tsa6_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E965C, 0x5E9748 - 0x5E965C
+
+	.global Tsa7_EfxNormalEffectBG
+Tsa7_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E9748, 0x5E981C - 0x5E9748
+
+	.global Tsa8_EfxNormalEffectBG
+Tsa8_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E981C, 0x5E98D8 - 0x5E981C
+
+	.global Tsa9_EfxNormalEffectBG
+Tsa9_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E98D8, 0x5E9980 - 0x5E98D8
+
+	.global TsaA_EfxNormalEffectBG
+TsaA_EfxNormalEffectBG:
+    .incbin "baserom.gba", 0x5E9980, 0x5EAB58 - 0x5E9980
 
 	.global gUnknown_085EAB58
 gUnknown_085EAB58:  @ 0x085EAB58
 @ Replacing .incbin "baserom.gba", 0x5EAB58, 0x104
-    .4byte gUnknown_085E9150 + 0x8c9
-    .4byte gUnknown_085E9150 + 0x8ed
-    .4byte gUnknown_085E9150 + 0x929
-    .4byte gUnknown_085E9150 + 0x965
-    .4byte gUnknown_085E9150 + 0x995
-    .4byte gUnknown_085E9150 + 0x9d1
-    .4byte gUnknown_085E9150 + 0xa0d
-    .4byte gUnknown_085E9150 + 0xa49
-    .4byte gUnknown_085E9150 + 0xa6d
-    .4byte gUnknown_085E9150 + 0xaa9
-    .4byte gUnknown_085E9150 + 0xae5
-    .4byte gUnknown_085E9150 + 0xb21
-    .4byte gUnknown_085E9150 + 0xb5d
-    .4byte gUnknown_085E9150 + 0xb99
-    .4byte gUnknown_085E9150 + 0xbd5
-    .4byte gUnknown_085E9150 + 0xc05
-    .4byte gUnknown_085E9150 + 0xc41
-    .4byte gUnknown_085E9150 + 0xc7d
-    .4byte gUnknown_085E9150 + 0xcb9
-    .4byte gUnknown_085E9150 + 0xce9
-    .4byte gUnknown_085E9150 + 0xd25
-    .4byte gUnknown_085E9150 + 0xd61
-    .4byte gUnknown_085E9150 + 0xd85
-    .4byte gUnknown_085E9150 + 0xdc1
-    .4byte gUnknown_085E9150 + 0xdfd
-    .4byte gUnknown_085E9150 + 0xe39
-    .4byte gUnknown_085E9150 + 0xe75
-    .4byte gUnknown_085E9150 + 0xeb1
-    .4byte gUnknown_085E9150 + 0xeed
-    .4byte gUnknown_085E9150 + 0xf29
-    .4byte gUnknown_085E9150 + 0xf65
-    .4byte gUnknown_085E9150 + 0xfa1
-    .4byte gUnknown_085E9150 + 0xfdd
-    .4byte gUnknown_085E9150 + 0x1019
-    .4byte gUnknown_085E9150 + 0x1055
-    .4byte gUnknown_085E9150 + 0x1091
-    .4byte gUnknown_085E9150 + 0x10c1
-    .4byte gUnknown_085E9150 + 0x10fd
-    .4byte gUnknown_085E9150 + 0x1139
-    .4byte gUnknown_085E9150 + 0x1175
-    .4byte gUnknown_085E9150 + 0x11b1
-    .4byte gUnknown_085E9150 + 0x11ed
-    .4byte gUnknown_085E9150 + 0x1229
-    .4byte gUnknown_085E9150 + 0x1265
-    .4byte gUnknown_085E9150 + 0x12a1
-    .4byte gUnknown_085E9150 + 0x12dd
-    .4byte gUnknown_085E9150 + 0x1319
-    .4byte gUnknown_085E9150 + 0x1355
-    .4byte gUnknown_085E9150 + 0x1391
-    .4byte gUnknown_085E9150 + 0x13cd
-    .4byte gUnknown_085E9150 + 0x140a
-    .4byte gUnknown_085E9150 + 0x1445
-    .4byte gUnknown_085E9150 + 0x1481
-    .4byte gUnknown_085E9150 + 0x14bd
-    .4byte gUnknown_085E9150 + 0x14fa
-    .4byte gUnknown_085E9150 + 0x1535
-    .4byte gUnknown_085E9150 + 0x1571
-    .4byte gUnknown_085E9150 + 0x15ad
-    .4byte gUnknown_085E9150 + 0x15de
-    .4byte gUnknown_085E9150 + 0x1619
-    .4byte gUnknown_085E9150 + 0x1655
-    .4byte gUnknown_085E9150 + 0x1691
-    .4byte gUnknown_085E9150 + 0x16c2
-    .4byte gUnknown_085E9150 + 0x19f2
+    .4byte Pal_EfxNormalEffectBG + 0x8c9
+    .4byte Pal_EfxNormalEffectBG + 0x8ed
+    .4byte Pal_EfxNormalEffectBG + 0x929
+    .4byte Pal_EfxNormalEffectBG + 0x965
+    .4byte Pal_EfxNormalEffectBG + 0x995
+    .4byte Pal_EfxNormalEffectBG + 0x9d1
+    .4byte Pal_EfxNormalEffectBG + 0xa0d
+    .4byte Pal_EfxNormalEffectBG + 0xa49
+    .4byte Pal_EfxNormalEffectBG + 0xa6d
+    .4byte Pal_EfxNormalEffectBG + 0xaa9
+    .4byte Pal_EfxNormalEffectBG + 0xae5
+    .4byte Pal_EfxNormalEffectBG + 0xb21
+    .4byte Pal_EfxNormalEffectBG + 0xb5d
+    .4byte Pal_EfxNormalEffectBG + 0xb99
+    .4byte Pal_EfxNormalEffectBG + 0xbd5
+    .4byte Pal_EfxNormalEffectBG + 0xc05
+    .4byte Pal_EfxNormalEffectBG + 0xc41
+    .4byte Pal_EfxNormalEffectBG + 0xc7d
+    .4byte Pal_EfxNormalEffectBG + 0xcb9
+    .4byte Pal_EfxNormalEffectBG + 0xce9
+    .4byte Pal_EfxNormalEffectBG + 0xd25
+    .4byte Pal_EfxNormalEffectBG + 0xd61
+    .4byte Pal_EfxNormalEffectBG + 0xd85
+    .4byte Pal_EfxNormalEffectBG + 0xdc1
+    .4byte Pal_EfxNormalEffectBG + 0xdfd
+    .4byte Pal_EfxNormalEffectBG + 0xe39
+    .4byte Pal_EfxNormalEffectBG + 0xe75
+    .4byte Pal_EfxNormalEffectBG + 0xeb1
+    .4byte Pal_EfxNormalEffectBG + 0xeed
+    .4byte Pal_EfxNormalEffectBG + 0xf29
+    .4byte Pal_EfxNormalEffectBG + 0xf65
+    .4byte Pal_EfxNormalEffectBG + 0xfa1
+    .4byte Pal_EfxNormalEffectBG + 0xfdd
+    .4byte Pal_EfxNormalEffectBG + 0x1019
+    .4byte Pal_EfxNormalEffectBG + 0x1055
+    .4byte Pal_EfxNormalEffectBG + 0x1091
+    .4byte Pal_EfxNormalEffectBG + 0x10c1
+    .4byte Pal_EfxNormalEffectBG + 0x10fd
+    .4byte Pal_EfxNormalEffectBG + 0x1139
+    .4byte Pal_EfxNormalEffectBG + 0x1175
+    .4byte Pal_EfxNormalEffectBG + 0x11b1
+    .4byte Pal_EfxNormalEffectBG + 0x11ed
+    .4byte Pal_EfxNormalEffectBG + 0x1229
+    .4byte Pal_EfxNormalEffectBG + 0x1265
+    .4byte Pal_EfxNormalEffectBG + 0x12a1
+    .4byte Pal_EfxNormalEffectBG + 0x12dd
+    .4byte Pal_EfxNormalEffectBG + 0x1319
+    .4byte Pal_EfxNormalEffectBG + 0x1355
+    .4byte Pal_EfxNormalEffectBG + 0x1391
+    .4byte Pal_EfxNormalEffectBG + 0x13cd
+    .4byte Pal_EfxNormalEffectBG + 0x140a
+    .4byte Pal_EfxNormalEffectBG + 0x1445
+    .4byte Pal_EfxNormalEffectBG + 0x1481
+    .4byte Pal_EfxNormalEffectBG + 0x14bd
+    .4byte Pal_EfxNormalEffectBG + 0x14fa
+    .4byte Pal_EfxNormalEffectBG + 0x1535
+    .4byte Pal_EfxNormalEffectBG + 0x1571
+    .4byte Pal_EfxNormalEffectBG + 0x15ad
+    .4byte Pal_EfxNormalEffectBG + 0x15de
+    .4byte Pal_EfxNormalEffectBG + 0x1619
+    .4byte Pal_EfxNormalEffectBG + 0x1655
+    .4byte Pal_EfxNormalEffectBG + 0x1691
+    .4byte Pal_EfxNormalEffectBG + 0x16c2
+    .4byte Pal_EfxNormalEffectBG + 0x19f2
     .4byte 0x82000000
 
 	.global gUnknown_085EAC5C
 gUnknown_085EAC5C:  @ 0x085EAC5C
 @ Replacing .incbin "baserom.gba", 0x5EAC5C, 0x28
-    .4byte gUnknown_085E9150 + 0x16fd
-    .4byte gUnknown_085E9150 + 0x1721
-    .4byte gUnknown_085E9150 + 0x1745
-    .4byte gUnknown_085E9150 + 0x1769
-    .4byte gUnknown_085E9150 + 0x178d
-    .4byte gUnknown_085E9150 + 0x17b1
-    .4byte gUnknown_085E9150 + 0x17d5
-    .4byte gUnknown_085E9150 + 0x17f9
-    .4byte gUnknown_085E9150 + 0x181d
+    .4byte Pal_EfxNormalEffectBG + 0x16fd
+    .4byte Pal_EfxNormalEffectBG + 0x1721
+    .4byte Pal_EfxNormalEffectBG + 0x1745
+    .4byte Pal_EfxNormalEffectBG + 0x1769
+    .4byte Pal_EfxNormalEffectBG + 0x178d
+    .4byte Pal_EfxNormalEffectBG + 0x17b1
+    .4byte Pal_EfxNormalEffectBG + 0x17d5
+    .4byte Pal_EfxNormalEffectBG + 0x17f9
+    .4byte Pal_EfxNormalEffectBG + 0x181d
     .4byte 0x82000000
 
 	.global gUnknown_085EAC84
 gUnknown_085EAC84:  @ 0x085EAC84
 @ Replacing .incbin "baserom.gba", 0x5EAC84, 0x1174
-    .4byte gUnknown_085E9150 + 0x1841
-    .4byte gUnknown_085E9150 + 0x1865
-    .4byte gUnknown_085E9150 + 0x1889
-    .4byte gUnknown_085E9150 + 0x18ae
-    .4byte gUnknown_085E9150 + 0x18d2
-    .4byte gUnknown_085E9150 + 0x18f6
-    .4byte gUnknown_085E9150 + 0x191a
-    .4byte gUnknown_085E9150 + 0x193e
-    .4byte gUnknown_085E9150 + 0x1962
-    .4byte gUnknown_085E9150 + 0x1986
-    .4byte gUnknown_085E9150 + 0x19aa
-    .4byte gUnknown_085E9150 + 0x19ce
+    .4byte Pal_EfxNormalEffectBG + 0x1841
+    .4byte Pal_EfxNormalEffectBG + 0x1865
+    .4byte Pal_EfxNormalEffectBG + 0x1889
+    .4byte Pal_EfxNormalEffectBG + 0x18ae
+    .4byte Pal_EfxNormalEffectBG + 0x18d2
+    .4byte Pal_EfxNormalEffectBG + 0x18f6
+    .4byte Pal_EfxNormalEffectBG + 0x191a
+    .4byte Pal_EfxNormalEffectBG + 0x193e
+    .4byte Pal_EfxNormalEffectBG + 0x1962
+    .4byte Pal_EfxNormalEffectBG + 0x1986
+    .4byte Pal_EfxNormalEffectBG + 0x19aa
+    .4byte Pal_EfxNormalEffectBG + 0x19ce
     .4byte 0x82000000
     .4byte 0xb0000000
     .4byte 0x0000001c
