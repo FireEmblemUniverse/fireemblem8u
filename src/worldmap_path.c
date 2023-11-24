@@ -8,6 +8,7 @@
 #include "uimenu.h"
 #include "uiutils.h"
 #include "bmmenu.h"
+#include "bmguide.h"
 
 #include "constants/nodes.h"
 

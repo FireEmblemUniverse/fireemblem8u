@@ -1671,27 +1671,27 @@ extern u8 Tsa_OpAnimHleathSafetyScreenBG0[];
 extern u8 Img_OpAnimHleathSafetyScreen[];
 extern u16 Pal_OpAnimHleathSafetyScreen[];
 /* #include classchg.h */
-// extern ??? gpBuf
-// extern ??? gUnknown_08B12AA8
-// extern ??? gUnknown_08B12AC2
-// extern ??? gUnknown_08B12AD0
-// extern ??? gUnknown_08B12AE0
-// extern ??? gUnknown_08B12B04
-// extern ??? gUnknown_08B12B1C
-// extern ??? gUnknown_08B12B3C
-// extern ??? gUnknown_08B12B9C
-// extern ??? gUnknown_08B12BEC
-// extern ??? gUnknown_08B12C14
-// extern ??? gUnknown_08B12C3C
+// extern ??? gGuideSt
+// extern ??? gSprite_GuideBannerText
+// extern ??? gSprite_SelectButtonSort
+// extern ??? gSprite_BButtonBack
+// extern ??? gTextIds_GuideCategoriesChapter
+// extern ??? gTextIds_GuideCategoriesTopic
+// extern ??? gProcScr_Guide_DrawSprites
+// extern ??? gProcScr_GuideCategoryRedraw
+// extern ??? gProcScr_GuideEntryListRedraw_Initial
+// extern ??? gProcScr_GuideEntryListRedraw_Up
+// extern ??? gProcScr_GuideEntryListRedraw_Down
+// extern ??? gProcScr_GuideDetailsRedraw
 extern struct ProcCmd CONST_DATA ProcScr_E_Guide1[];
 extern struct ProcCmd CONST_DATA ProcScr_E_Guide2[];
 extern u8 Img_CommGameBgScreen[];  // gfx
 extern u16 gUnknown_08B1754C[]; // pal
 extern u16 gUnknown_08B1756C[]; // pal, used in opsubtitle
-// extern ??? gUnknown_08B176CC
-// extern ??? gUnknown_08B177C0
-// extern ??? gUnknown_08B17864
-// extern ??? gUnknown_08B17B44
+// extern ??? Tsa_08B176CC
+// extern ??? Img_08B177C0
+// extern ??? Img_08B17864
+// extern ??? Pal_08B17B44
 extern u8 gUnknown_08B17B64[]; // gfx?
 extern u8 gUnknown_08B18D68[];
 extern u16 gUnknown_08B18ED4[]; // pal
@@ -1700,7 +1700,7 @@ extern u16 gUnknown_08B18ED4[]; // pal
 // extern ??? gUnknown_08B19854
 // extern ??? gUnknown_08B19874
 // extern ??? gUnknown_08B19DEC
-// extern ??? gUnknown_08B19E0C
+// extern ??? gGuideTable
 // extern ??? _impure_ptr
 // extern ??? gUnknown_08B1FA24
 // extern ??? gUnknown_08B1FA38

@@ -314,7 +314,7 @@ SECTIONS
         src/classchg-menuconfirm.o(.text);
         src/classchg-menuselect.o(.text);
         src/classchg-postconfirm.o(.text);
-        asm/bmguide.o(.text);
+        src/bmguide.o(.text);
         asm/m4a_1.o(.text);
         src/m4a.o(.text);
         asm/libagbsyscall.o(.text);
@@ -809,6 +809,7 @@ SECTIONS
         . = ALIGN(4); src/classchg-menuconfirm.o(.data);
         . = ALIGN(4); src/classchg-menuselect.o(.data);
         . = ALIGN(4); src/classchg-postconfirm.o(.data);
+        . = ALIGN(4); src/bmguide.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);
