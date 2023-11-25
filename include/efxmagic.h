@@ -116,12 +116,12 @@ extern struct ProcCmd ProcScr_efxFimbulvetrBGTR[];
 // extern ??? gUnknown_085D58B0
 // extern ??? gUnknown_085D58B8
 // extern ??? gUnknown_085D58D8
-// extern ??? gUnknown_085D58F0
-// extern ??? gUnknown_085D5908
-// extern ??? gUnknown_085D5920
-// extern ??? gUnknown_085D59C4
-// extern ??? ProcScr_efxMistyrainOBJ
-// extern ??? gUnknown_085D5AB0
+extern struct ProcCmd gUnknown_085D58F0[];
+extern struct ProcCmd gUnknown_085D5908[];
+extern u16 * gUnknown_085D5920[];
+extern u16 * gUnknown_085D59C4[];
+extern struct ProcCmd ProcScr_efxMistyrainOBJ[];
+extern struct ProcCmd gUnknown_085D5AB0[];
 // extern ??? ProcScr_efxResire
 // extern ??? ProcScr_efxResireBG
 // extern ??? ProcScr_efxResireBG2
@@ -422,11 +422,11 @@ void sub_805EB98(struct Anim * anim);
 // ??? sub_805EEAC(???);
 void sub_805EED8(struct Anim * anim);
 // ??? sub_805EF14(???);
-// ??? sub_805F004(???);
-// ??? sub_805F0B0(???);
+void sub_805F004(struct Anim * anim);
+void sub_805F0B0(struct Anim * anim);
 // ??? sub_805F140(???);
-// ??? sub_805F1A4(???);
-// ??? sub_805F1E8(???);
+void sub_805F1A4(struct Anim * anim);
+struct ProcEfxOBJ * sub_805F1E8(struct Anim * anim);
 // ??? sub_805F234(???);
 // ??? sub_805F24C(???);
 // ??? sub_805F288(???);

@@ -25,6 +25,8 @@ struct ProcEfx {
     /* 54 */ s16 * unk54;
     /* 58 */ s16 ** unk58;
     /* 5C */ struct Anim * anim;
+    STRUCT_PAD(0x60, 0x64);
+    ProcPtr unk_64;
 };
 
 struct ProcEfxBG {
@@ -1040,18 +1042,18 @@ extern u32 gUnknown_08605DF4[];
 // extern ??? gUnknown_08625148
 // extern ??? gUnknown_086267D8
 // extern ??? gUnknown_0862688C
-// extern ??? gUnknown_0862A2D0
-// extern ??? gUnknown_0862A2F0
-// extern ??? gUnknown_0862C82C
-// extern ??? gUnknown_0862CC2C
-// extern ??? gUnknown_0862D06C
-// extern ??? gUnknown_0862D424
-// extern ??? gUnknown_0862D6A8
+extern u16 gUnknown_0862A2D0[];
+extern u16 gUnknown_0862A2F0[];
+extern u16 gUnknown_0862C82C[];
+extern u16 gUnknown_0862CC2C[];
+extern u16 gUnknown_0862D06C[];
+extern u16 gUnknown_0862D424[];
+extern u32 gUnknown_0862D6A8[];
 // extern ??? gUnknown_0862D6E0
-// extern ??? gUnknown_0862D82C
-// extern ??? gUnknown_0862DC24
-// extern ??? gUnknown_0862DC58
-// extern ??? gUnknown_0862DCE0
+extern u32 gUnknown_0862D82C[];
+extern u32 gUnknown_0862DC24[];
+extern u32 gUnknown_0862DC58[];
+extern u32 gUnknown_0862DCE0[];
 // extern ??? gUnknown_08636640
 // extern ??? gUnknown_08641D64
 // extern ??? gUnknown_08641D84

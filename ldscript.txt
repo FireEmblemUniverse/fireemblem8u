@@ -179,6 +179,8 @@ SECTIONS
         asm/banim-efxmagic-5BA64.o(.text);
         src/banim-efxmagic-thunder.o(.text);
         src/banim-efxmagic-fire.o(.text);
+        asm/banim-efxmagic-5E0E4.o(.text);
+        src/banim-efxmagic-flux.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
