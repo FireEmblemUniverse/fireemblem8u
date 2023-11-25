@@ -179,6 +179,8 @@ SECTIONS
         asm/banim-efxmagic-5BA64.o(.text);
         src/banim-efxmagic-thunder.o(.text);
         src/banim-efxmagic-fire.o(.text);
+        asm/banim-efxmagic-5E0E4.o(.text);
+        src/banim-efxmagic-flux.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
@@ -443,6 +445,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-phywpn.o(.rodata);
+        . = ALIGN(4); data/const_data_efxmagic_DC944.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-flux.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
@@ -641,6 +645,8 @@ SECTIONS
         . = ALIGN(4); data/banim-efxmagic-5D5028.o(.data);
         . = ALIGN(4); data/banim-efxmagic-thunder.o(.data);
         . = ALIGN(4); data/banim-efxmagic-fire.o(.data);
+        . = ALIGN(4); data/banim-efxmagic-5D5658.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-flux.o(.data);
         . = ALIGN(4); data/banim-efxmagic.o(.data);
         . = ALIGN(4); data/banim-efxmagic-ivaldi.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);

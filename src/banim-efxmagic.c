@@ -35,7 +35,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     sub_805E754,
     StartSpellAnimFimbulvetr,
     sub_805EB98,
-    sub_805EED8,
+    StartSpellAnimFlux,
     StartSpellAnimNosferatu,
     sub_805F8B4,
     StartSpellAnimPurge,
