@@ -6,12 +6,16 @@
 #include "efxmagic.h"
 #include "hardware.h"
 
+/**
+ * Spell anim effect for Flux.
+*/
+
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D58F0[] =
+struct ProcCmd CONST_DATA gProcScr_efxMistyrain[] =
 {
     PROC_NAME("efxMistyrain"),
-    PROC_REPEAT(sub_805EF14),
+    PROC_REPEAT(efxMistyRain_Loop_Main),
 
     PROC_END,
 };
@@ -19,7 +23,7 @@ struct ProcCmd CONST_DATA gUnknown_085D58F0[] =
 // clang-format on
 
 //! FE8U = 0x0805EED8
-void sub_805EED8(struct Anim * anim)
+void StartSpellAnimFlux(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -27,7 +31,7 @@ void sub_805EED8(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D58F0, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_efxMistyrain, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -36,7 +40,7 @@ void sub_805EED8(struct Anim * anim)
 }
 
 //! FE8U = 0x0805EF14
-void sub_805EF14(struct ProcEfx * proc)
+void efxMistyRain_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
 
@@ -47,11 +51,11 @@ void sub_805EF14(struct ProcEfx * proc)
     if (proc->timer == 1)
     {
         PlaySFX(0x10a, 0x100, proc->anim->xPosition, 1);
-        sub_805F004(anim);
+        StartSubSpell_efxMistyrainBG(anim);
     }
     else if (proc->timer == 16)
     {
-        sub_805F1A4(proc->anim);
+        StartSubSpell_efxMistyRainOBJ(proc->anim);
     }
     else if (proc->timer == 74)
     {
@@ -61,12 +65,12 @@ void sub_805EF14(struct ProcEfx * proc)
     {
         if (proc->timer == duration + 75)
         {
-            proc->unk_64 = sub_805F1E8(anim);
+            proc->unk_64 = StartSubSpell_efxMistyrainOBJ2(anim);
         }
         else if (proc->timer == duration + 94)
         {
             PlaySFX(0x2E1, 0x100, anim->xPosition, 1);
-            sub_805F0B0(proc->anim);
+            StartSubSpell_efxMistyrainBG2(proc->anim);
         }
         else if (proc->timer == duration + 114)
         {
@@ -97,10 +101,10 @@ void sub_805EF14(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5908[] =
+struct ProcCmd CONST_DATA gProcScr_efxMistyrainBG[] =
 {
     PROC_NAME("efxMistyrainBG"),
-    PROC_REPEAT(sub_805F140),
+    PROC_REPEAT(efxMistyRainBg_Loop),
 
     PROC_END,
 };
@@ -198,10 +202,10 @@ u16 * CONST_DATA gUnknown_085D59C4[] =
 // clang-format on
 
 //! FE8U = 0x0805F004
-void sub_805F004(struct Anim * anim)
+void StartSubSpell_efxMistyrainBG(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD094[] =
+    static const u16 frames[] =
     {
          0, 2,
          1, 2,
@@ -224,11 +228,11 @@ void sub_805F004(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5908, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_efxMistyrainBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD094;
+    proc->frame_config = frames;
     proc->tsar = proc->tsal = gUnknown_085D5920;
     proc->img = gUnknown_085D59C4;
     SpellFx_RegisterBgPal(gUnknown_0862A2D0, 0x20);
@@ -263,10 +267,10 @@ void sub_805F004(struct Anim * anim)
 }
 
 //! FE8U = 0x0805F0B0
-void sub_805F0B0(struct Anim * anim)
+void StartSubSpell_efxMistyrainBG2(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD0C6[] =
+    static const u16 frames[] =
     {
         12, 6,
         13, 2,
@@ -305,18 +309,18 @@ void sub_805F0B0(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5908, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_efxMistyrainBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD0C6;
+    proc->frame_config = frames;
     proc->tsar = proc->tsal = gUnknown_085D5920;
     proc->img = gUnknown_085D59C4;
 
     SpellFx_RegisterBgPal(gUnknown_0862A2F0, 0x20);
     SpellFx_SetSomeColorEffect();
 
-    SetSpecialColorEffectsParameters(1, 10, 7, 0);
+    SetBlendAlpha(10, 7);
 
     if (gEkrDistanceType != 0)
     {
@@ -334,7 +338,7 @@ void sub_805F0B0(struct Anim * anim)
 }
 
 //! FE8U = 0x0805F140
-void sub_805F140(struct ProcEfxBG * proc)
+void efxMistyRainBg_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut(&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -364,15 +368,15 @@ struct ProcCmd CONST_DATA ProcScr_efxMistyrainOBJ[] =
 {
     PROC_NAME("efxMistyrainOBJ"),
 
-    PROC_SET_END_CB(sub_805F234),
+    PROC_SET_END_CB(efxMistyRainObj_OnEnd),
 
-    PROC_REPEAT(sub_805F24C),
+    PROC_REPEAT(efxMistyRainObj_805F24C),
     PROC_SLEEP(32),
 
-    PROC_REPEAT(sub_805F288),
+    PROC_REPEAT(efxMistyRainObj_805F288),
     PROC_SLEEP(11),
 
-    PROC_REPEAT(sub_805F2C4),
+    PROC_REPEAT(efxMistyRainObj_805F2C4),
     PROC_SLEEP(22),
 
     PROC_END,
@@ -381,7 +385,7 @@ struct ProcCmd CONST_DATA ProcScr_efxMistyrainOBJ[] =
 // clang-format on
 
 //! FE8U = 0x0805F1A4
-void sub_805F1A4(struct Anim * anim)
+void StartSubSpell_efxMistyRainOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     u32 * script;
@@ -400,16 +404,16 @@ void sub_805F1A4(struct Anim * anim)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5AB0[] =
+struct ProcCmd CONST_DATA gProcScr_efxMistyrainOBJ2[] =
 {
     PROC_NAME("efxMistyrainOBJ2"),
 
-    PROC_SET_END_CB(sub_805F234),
+    PROC_SET_END_CB(efxMistyRainObj_OnEnd),
 
-    PROC_REPEAT(sub_805F300),
+    PROC_REPEAT(efxMistyRainObj2_805F300),
     PROC_SLEEP(14),
 
-    PROC_REPEAT(sub_805F32C),
+    PROC_REPEAT(efxMistyRainObj2_805F32C),
 
     PROC_END,
 };
@@ -417,14 +421,14 @@ struct ProcCmd CONST_DATA gUnknown_085D5AB0[] =
 // clang-format on
 
 //! FE8U = 0x0805F1E8
-struct ProcEfxOBJ * sub_805F1E8(struct Anim * anim)
+struct ProcEfxOBJ * StartSubSpell_efxMistyrainOBJ2(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     u32 * script;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5AB0, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_efxMistyrainOBJ2, PROC_TREE_3);
     proc->anim = anim;
     GetAnimAnotherSide(anim);
 
@@ -436,7 +440,7 @@ struct ProcEfxOBJ * sub_805F1E8(struct Anim * anim)
 }
 
 //! FE8U = 0x0805F234
-void sub_805F234(struct ProcEfxOBJ * proc)
+void efxMistyRainObj_OnEnd(struct ProcEfxOBJ * proc)
 {
     gEfxBgSemaphore--;
     AnimDelete(proc->anim2);
@@ -444,15 +448,15 @@ void sub_805F234(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F24C
-void sub_805F24C(struct ProcEfxOBJ * proc)
+void efxMistyRainObj_805F24C(struct ProcEfxOBJ * proc)
 {
     proc->anim2->pScrStart = gUnknown_0862D6A8;
     proc->anim2->pScrCurrent = gUnknown_0862D6A8;
 
     proc->anim2->timer = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_0862D424, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_0862C82C, 0x1000);
+    SpellFx_RegisterObjPal(Pal_FluxAnimSprites, 0x20);
+    SpellFx_RegisterObjGfx(Img_FluxAnimSprites_Orb, 0x1000);
 
     Proc_Break(proc);
 
@@ -460,15 +464,15 @@ void sub_805F24C(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F288
-void sub_805F288(struct ProcEfxOBJ * proc)
+void efxMistyRainObj_805F288(struct ProcEfxOBJ * proc)
 {
     proc->anim2->pScrStart = gUnknown_0862D82C;
     proc->anim2->pScrCurrent = gUnknown_0862D82C;
 
     proc->anim2->timer = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_0862D424, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_0862CC2C, 0x1000);
+    SpellFx_RegisterObjPal(Pal_FluxAnimSprites, 0x20);
+    SpellFx_RegisterObjGfx(Img_FluxAnimSprites_Tendrils, 0x1000);
 
     Proc_Break(proc);
 
@@ -476,15 +480,15 @@ void sub_805F288(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F2C4
-void sub_805F2C4(struct ProcEfxOBJ * proc)
+void efxMistyRainObj_805F2C4(struct ProcEfxOBJ * proc)
 {
     proc->anim2->pScrStart = gUnknown_0862DCE0;
     proc->anim2->pScrCurrent = gUnknown_0862DCE0;
 
     proc->anim2->timer = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_0862D424, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_0862D06C, 0x1000);
+    SpellFx_RegisterObjPal(Pal_FluxAnimSprites, 0x20);
+    SpellFx_RegisterObjGfx(Img_FluxAnimSprites_SigilVoid, 0x1000);
 
     Proc_Break(proc);
 
@@ -492,7 +496,7 @@ void sub_805F2C4(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F300
-void sub_805F300(struct ProcEfxOBJ * proc)
+void efxMistyRainObj2_805F300(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
     anim->pScrStart = gUnknown_0862DC24;
@@ -512,7 +516,7 @@ void sub_805F300(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F32C
-void sub_805F32C(struct ProcEfxOBJ * proc)
+void efxMistyRainObj2_805F32C(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 

@@ -1589,10 +1589,10 @@ sub_806F4C0: @ 0x0806F4C0
 	movs r0, #0
 	strh r0, [r1, #6]
 	ldr r0, [r4, #0x5c]
-	ldr r1, _0806F4F0  @ gUnknown_0862D424
+	ldr r1, _0806F4F0  @ Pal_FluxAnimSprites
 	bl sub_806EB2C
 	ldr r0, [r4, #0x5c]
-	ldr r1, _0806F4F4  @ gUnknown_0862C82C
+	ldr r1, _0806F4F4  @ Img_FluxAnimSprites_Orb
 	bl sub_806EAFC
 	adds r0, r4, #0
 	bl Proc_Break
@@ -1601,8 +1601,8 @@ sub_806F4C0: @ 0x0806F4C0
 	bx r0
 	.align 2, 0
 _0806F4EC: .4byte gUnknown_0862D6A8
-_0806F4F0: .4byte gUnknown_0862D424
-_0806F4F4: .4byte gUnknown_0862C82C
+_0806F4F0: .4byte Pal_FluxAnimSprites
+_0806F4F4: .4byte Img_FluxAnimSprites_Orb
 
 	THUMB_FUNC_END sub_806F4C0
 
@@ -1617,10 +1617,10 @@ sub_806F4F8: @ 0x0806F4F8
 	movs r0, #0
 	strh r0, [r1, #6]
 	ldr r0, [r4, #0x5c]
-	ldr r1, _0806F528  @ gUnknown_0862D424
+	ldr r1, _0806F528  @ Pal_FluxAnimSprites
 	bl sub_806EB2C
 	ldr r0, [r4, #0x5c]
-	ldr r1, _0806F52C  @ gUnknown_0862CC2C
+	ldr r1, _0806F52C  @ Img_FluxAnimSprites_Tendrils
 	bl sub_806EAFC
 	adds r0, r4, #0
 	bl Proc_Break
@@ -1629,8 +1629,8 @@ sub_806F4F8: @ 0x0806F4F8
 	bx r0
 	.align 2, 0
 _0806F524: .4byte gUnknown_0862D82C
-_0806F528: .4byte gUnknown_0862D424
-_0806F52C: .4byte gUnknown_0862CC2C
+_0806F528: .4byte Pal_FluxAnimSprites
+_0806F52C: .4byte Img_FluxAnimSprites_Tendrils
 
 	THUMB_FUNC_END sub_806F4F8
 
@@ -1645,10 +1645,10 @@ sub_806F530: @ 0x0806F530
 	movs r0, #0
 	strh r0, [r1, #6]
 	ldr r0, [r4, #0x5c]
-	ldr r1, _0806F560  @ gUnknown_0862D424
+	ldr r1, _0806F560  @ Pal_FluxAnimSprites
 	bl sub_806EB2C
 	ldr r0, [r4, #0x5c]
-	ldr r1, _0806F564  @ gUnknown_0862D06C
+	ldr r1, _0806F564  @ Img_FluxAnimSprites_SigilVoid
 	bl sub_806EAFC
 	adds r0, r4, #0
 	bl Proc_Break
@@ -1657,8 +1657,8 @@ sub_806F530: @ 0x0806F530
 	bx r0
 	.align 2, 0
 _0806F55C: .4byte gUnknown_0862DCE0
-_0806F560: .4byte gUnknown_0862D424
-_0806F564: .4byte gUnknown_0862D06C
+_0806F560: .4byte Pal_FluxAnimSprites
+_0806F564: .4byte Img_FluxAnimSprites_SigilVoid
 
 	THUMB_FUNC_END sub_806F530
 

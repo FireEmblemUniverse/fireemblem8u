@@ -32584,62 +32584,62 @@ Tsa_0862C634:  @ 0x0862C634
 Tsa_0862C730:  @ 0x0862C730
 	.incbin "baserom.gba", 0x62C730, 0xFC    @ 0x62C82C - 0x62C730
 
-	.global gUnknown_0862C82C
-gUnknown_0862C82C:  @ 0x0862C82C
+	.global Img_FluxAnimSprites_Orb
+Img_FluxAnimSprites_Orb:  @ 0x0862C82C
 	.incbin "baserom.gba", 0x62C82C, 0x400
 
-	.global gUnknown_0862CC2C
-gUnknown_0862CC2C:  @ 0x0862CC2C
+	.global Img_FluxAnimSprites_Tendrils
+Img_FluxAnimSprites_Tendrils:  @ 0x0862CC2C
 	.incbin "baserom.gba", 0x62CC2C, 0x440
 
-	.global gUnknown_0862D06C
-gUnknown_0862D06C:  @ 0x0862D06C
+	.global Img_FluxAnimSprites_SigilVoid
+Img_FluxAnimSprites_SigilVoid:  @ 0x0862D06C
 	.incbin "baserom.gba", 0x62D06C, 0x3B8
 
-	.global gUnknown_0862D424
-gUnknown_0862D424:  @ 0x0862D424
+	.global Pal_FluxAnimSprites
+Pal_FluxAnimSprites:  @ 0x0862D424
 	.incbin "baserom.gba", 0x62D424, 0x284
 
 	.global gUnknown_0862D6A8
 gUnknown_0862D6A8:  @ 0x0862D6A8
 @ Replacing .incbin "baserom.gba", 0x62D6A8, 0x38
-    .4byte gUnknown_0862D424 + 0x196
-    .4byte gUnknown_0862D424 + 0x1ba
-    .4byte gUnknown_0862D424 + 0x1de
-    .4byte gUnknown_0862D424 + 0x202
-    .4byte gUnknown_0862D424 + 0x226
-    .4byte gUnknown_0862D424 + 0x24a
-    .4byte gUnknown_0862D424 + 0x23
-    .4byte gUnknown_0862D424 + 0x47
-    .4byte gUnknown_0862D424 + 0x6b
-    .4byte gUnknown_0862D424 + 0x8f
-    .4byte gUnknown_0862D424 + 0xb3
-    .4byte gUnknown_0862D424 + 0xef
-    .4byte gUnknown_0862D424 + 0x12b
+    .4byte Pal_FluxAnimSprites + 0x196
+    .4byte Pal_FluxAnimSprites + 0x1ba
+    .4byte Pal_FluxAnimSprites + 0x1de
+    .4byte Pal_FluxAnimSprites + 0x202
+    .4byte Pal_FluxAnimSprites + 0x226
+    .4byte Pal_FluxAnimSprites + 0x24a
+    .4byte Pal_FluxAnimSprites + 0x23
+    .4byte Pal_FluxAnimSprites + 0x47
+    .4byte Pal_FluxAnimSprites + 0x6b
+    .4byte Pal_FluxAnimSprites + 0x8f
+    .4byte Pal_FluxAnimSprites + 0xb3
+    .4byte Pal_FluxAnimSprites + 0xef
+    .4byte Pal_FluxAnimSprites + 0x12b
     .4byte 0x80000000
 
 	.global gUnknown_0862D6E0
 gUnknown_0862D6E0:  @ 0x0862D6E0
 @ Replacing .incbin "baserom.gba", 0x62D6E0, 0x14C
-    .4byte gUnknown_0862D424 + 0x196
-    .4byte gUnknown_0862D424 + 0x1ba
-    .4byte gUnknown_0862D424 + 0x1de
-    .4byte gUnknown_0862D424 + 0x202
-    .4byte gUnknown_0862D424 + 0x226
-    .4byte gUnknown_0862D424 + 0x24a
-    .4byte gUnknown_0862D424 + 0x23
-    .4byte gUnknown_0862D424 + 0x47
-    .4byte gUnknown_0862D424 + 0x6b
-    .4byte gUnknown_0862D424 + 0x23
-    .4byte gUnknown_0862D424 + 0x47
-    .4byte gUnknown_0862D424 + 0x6b
-    .4byte gUnknown_0862D424 + 0x24a
-    .4byte gUnknown_0862D424 + 0x226
-    .4byte gUnknown_0862D424 + 0x202
-    .4byte gUnknown_0862D424 + 0x1de
-    .4byte gUnknown_0862D424 + 0x1ba
-    .4byte gUnknown_0862D424 + 0x196
-    .4byte gUnknown_0862D424 + 0x26e
+    .4byte Pal_FluxAnimSprites + 0x196
+    .4byte Pal_FluxAnimSprites + 0x1ba
+    .4byte Pal_FluxAnimSprites + 0x1de
+    .4byte Pal_FluxAnimSprites + 0x202
+    .4byte Pal_FluxAnimSprites + 0x226
+    .4byte Pal_FluxAnimSprites + 0x24a
+    .4byte Pal_FluxAnimSprites + 0x23
+    .4byte Pal_FluxAnimSprites + 0x47
+    .4byte Pal_FluxAnimSprites + 0x6b
+    .4byte Pal_FluxAnimSprites + 0x23
+    .4byte Pal_FluxAnimSprites + 0x47
+    .4byte Pal_FluxAnimSprites + 0x6b
+    .4byte Pal_FluxAnimSprites + 0x24a
+    .4byte Pal_FluxAnimSprites + 0x226
+    .4byte Pal_FluxAnimSprites + 0x202
+    .4byte Pal_FluxAnimSprites + 0x1de
+    .4byte Pal_FluxAnimSprites + 0x1ba
+    .4byte Pal_FluxAnimSprites + 0x196
+    .4byte Pal_FluxAnimSprites + 0x26e
     .4byte 0x80000000
     .4byte 0x80000000
     .4byte 0xfff00000

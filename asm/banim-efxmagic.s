@@ -2558,10 +2558,10 @@ sub_8060790: @ 0x08060790
 	strh r1, [r0, #0x2e]
 	movs r1, #0x2c
 	strh r1, [r0, #0x30]
-	ldr r0, _080607D0  @ gUnknown_0862D424
+	ldr r0, _080607D0  @ Pal_FluxAnimSprites
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
-	ldr r0, _080607D4  @ gUnknown_0862C82C
+	ldr r0, _080607D4  @ Img_FluxAnimSprites_Orb
 	movs r1, #0x80
 	lsls r1, r1, #5
 	bl SpellFx_RegisterObjGfx
@@ -2571,8 +2571,8 @@ sub_8060790: @ 0x08060790
 	.align 2, 0
 _080607C8: .4byte gEfxBgSemaphore
 _080607CC: .4byte gUnknown_085D65F4
-_080607D0: .4byte gUnknown_0862D424
-_080607D4: .4byte gUnknown_0862C82C
+_080607D0: .4byte Pal_FluxAnimSprites
+_080607D4: .4byte Img_FluxAnimSprites_Orb
 
 	THUMB_FUNC_END sub_8060790
 

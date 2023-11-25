@@ -1091,10 +1091,10 @@ extern u16 Tsa_0862C438[];
 extern u16 Tsa_0862C534[];
 extern u16 Tsa_0862C634[];
 extern u16 Tsa_0862C730[];
-extern u16 gUnknown_0862C82C[];
-extern u16 gUnknown_0862CC2C[];
-extern u16 gUnknown_0862D06C[];
-extern u16 gUnknown_0862D424[];
+extern u16 Img_FluxAnimSprites_Orb[];
+extern u16 Img_FluxAnimSprites_Tendrils[];
+extern u16 Img_FluxAnimSprites_SigilVoid[];
+extern u16 Pal_FluxAnimSprites[];
 extern u32 gUnknown_0862D6A8[];
 // extern ??? gUnknown_0862D6E0
 extern u32 gUnknown_0862D82C[];
