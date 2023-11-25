@@ -6,7 +6,17 @@
 #include "efxmagic.h"
 #include "hardware.h"
 
-extern struct ProcCmd gUnknown_085D58F0[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D58F0[] =
+{
+    PROC_NAME("efxMistyrain"),
+    PROC_REPEAT(sub_805EF14),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805EED8
 void sub_805EED8(struct Anim * anim)
@@ -85,14 +95,130 @@ void sub_805EF14(struct ProcEfx * proc)
     return;
 }
 
-extern u16 * gUnknown_085D5920[];
-extern u16 * gUnknown_085D59C4[];
+// clang-format off
 
-extern struct ProcCmd gUnknown_085D5908[];
+struct ProcCmd CONST_DATA gUnknown_085D5908[] =
+{
+    PROC_NAME("efxMistyrainBG"),
+    PROC_REPEAT(sub_805F140),
+
+    PROC_END,
+};
+
+u16 * CONST_DATA gUnknown_085D5920[] =
+{
+    Tsa_0862A310,
+    Tsa_0862A40C,
+    Tsa_0862A50C,
+    Tsa_0862A610,
+    Tsa_0862A708,
+    Tsa_0862A814,
+    Tsa_0862A920,
+    Tsa_0862AA40,
+    Tsa_0862AB64,
+    Tsa_0862AC4C,
+    Tsa_0862AD28,
+    Tsa_0862ADE8,
+    Tsa_0862AEA0,
+    Tsa_0862AF48,
+    Tsa_0862B004,
+    Tsa_0862B0DC,
+    Tsa_0862B1BC,
+    Tsa_0862B2AC,
+    Tsa_0862B3A8,
+    Tsa_0862B49C,
+    Tsa_0862B594,
+    Tsa_0862B680,
+    Tsa_0862B764,
+    Tsa_0862B83C,
+    Tsa_0862B90C,
+    Tsa_0862B9D8,
+    Tsa_0862BAA0,
+    Tsa_0862BB54,
+    Tsa_0862BC08,
+    Tsa_0862BCA8,
+    Tsa_0862BD5C,
+    Tsa_0862BE18,
+    Tsa_0862BEF4,
+    Tsa_0862BFDC,
+    Tsa_0862C100,
+    Tsa_0862C220,
+    Tsa_0862C32C,
+    Tsa_0862C438,
+    Tsa_0862C534,
+    Tsa_0862C634,
+    Tsa_0862C730,
+};
+
+u16 * CONST_DATA gUnknown_085D59C4[] =
+{
+    Img_08626944,
+    Img_08626944,
+    Img_08626944,
+    Img_08627514,
+    Img_08627514,
+    Img_08627514,
+    Img_08628224,
+    Img_08628224,
+    Img_08628224,
+    Img_08628224,
+    Img_08628224,
+    Img_08628224,
+    Img_08629480,
+    Img_08629480,
+    Img_08629480,
+    Img_08629480,
+    Img_08629480,
+    Img_08629480,
+    Img_08629B04,
+    Img_08629B04,
+    Img_08629B04,
+    Img_08629B04,
+    Img_0862A060,
+    Img_0862A060,
+    Img_0862A060,
+    Img_0862A060,
+    Img_0862A060,
+    Img_0862A060,
+    Img_0862A060,
+    Img_08628224,
+    Img_08628224,
+    Img_08628224,
+    Img_08628224,
+    Img_08628224,
+    Img_08628224,
+    Img_08627514,
+    Img_08627514,
+    Img_08627514,
+    Img_08626944,
+    Img_08626944,
+    Img_08626944,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F004
 void sub_805F004(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DD094[] =
+    {
+         0, 2,
+         1, 2,
+         2, 2,
+         3, 2,
+         4, 2,
+         5, 2,
+         6, 2,
+         7, 2,
+         8, 2,
+         9, 2,
+        10, 2,
+        11, 2,
+        -1,
+    };
+    // clang-format on
+
     struct LCDControlBuffer * lcd;
     struct ProcEfxBG * proc;
 
@@ -139,6 +265,42 @@ void sub_805F004(struct Anim * anim)
 //! FE8U = 0x0805F0B0
 void sub_805F0B0(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DD0C6[] =
+    {
+        12, 6,
+        13, 2,
+        14, 2,
+        15, 2,
+        16, 2,
+        17, 2,
+        18, 2,
+        19, 2,
+        20, 2,
+        21, 2,
+        22, 2,
+        23, 2,
+        24, 2,
+        25, 2,
+        26, 2,
+        27, 2,
+        28, 2,
+        29, 2,
+        30, 2,
+        31, 2,
+        32, 2,
+        33, 2,
+        34, 2,
+        35, 2,
+        36, 2,
+        37, 2,
+        38, 2,
+        39, 2,
+        40, 2,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -196,7 +358,27 @@ void sub_805F140(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMistyrainOBJ[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxMistyrainOBJ[] =
+{
+    PROC_NAME("efxMistyrainOBJ"),
+
+    PROC_SET_END_CB(sub_805F234),
+
+    PROC_REPEAT(sub_805F24C),
+    PROC_SLEEP(32),
+
+    PROC_REPEAT(sub_805F288),
+    PROC_SLEEP(11),
+
+    PROC_REPEAT(sub_805F2C4),
+    PROC_SLEEP(22),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F1A4
 void sub_805F1A4(struct Anim * anim)
@@ -216,7 +398,23 @@ void sub_805F1A4(struct Anim * anim)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5AB0[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5AB0[] =
+{
+    PROC_NAME("efxMistyrainOBJ2"),
+
+    PROC_SET_END_CB(sub_805F234),
+
+    PROC_REPEAT(sub_805F300),
+    PROC_SLEEP(14),
+
+    PROC_REPEAT(sub_805F32C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F1E8
 struct ProcEfxOBJ * sub_805F1E8(struct Anim * anim)
