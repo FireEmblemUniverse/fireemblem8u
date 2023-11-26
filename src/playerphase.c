@@ -610,37 +610,42 @@ s8 PlayerPhase_PrepareAction(ProcPtr proc) {
 
     switch (gActionData.unitActionType) {
         case 0:
-            if (gBmSt.unk3D != 0) {
-                gActionData.unitActionType = 0x1F;
+            /**
+             * If character has use some action: such as trade with somebody,
+             * then he may get chance to take another action but cannot change to another.
+             * If player want to control other character, the current unit may caught wait action.
+             */
+            if (gBmSt.taken_action != 0) {
+                gActionData.unitActionType = UNIT_ACTION_FORCE_WAIT;
                 break;
             }
 
             PlayerPhase_BackToMove(proc);
             return 1;
 
-        case 27:
-            gBmSt.unk3D |= (1 << 1);
+        case UNIT_ACTION_TRADED:
+            gBmSt.taken_action |= BM_TAKEN_ACTION_TRADE;
             PlayerPhase_CancelAction(proc);
             return 1;
 
-        case 28:
-            gBmSt.unk3D |= (1 << 2);
+        case UNIT_ACTION_TRADED_SUPPLY:
+            gBmSt.taken_action |= BM_TAKEN_ACTION_SUPPLY;
             PlayerPhase_CancelAction(proc);
             return 1;
 
-        case 11:
-        case 12:
-            gBmSt.unk3D |= (1 << 0);
+        case UNIT_ACTION_TAKE:
+        case UNIT_ACTION_GIVE:
+            gBmSt.taken_action |= BM_TAKEN_ACTION_TAKE;
             PlayerPhase_CancelAction(proc);
             return 1;
 
-        case 33:
-        case 34:
-            gBmSt.unk3D |= (1 << 3);
+        case UNIT_ACTION_RIDE_BALLISTA:
+        case UNIT_ACTION_EXIT_BALLISTA:
+            gBmSt.taken_action |= BM_TAKEN_ACTION_BALLISTA;
             PlayerPhase_CancelAction(proc);
             return 1;
 
-        case 29:
+        case UNIT_ACTION_TRADED_1D:
             PlayerPhase_CancelAction(proc);
             return 1;
     }
@@ -810,7 +815,7 @@ void PlayerPhase_ApplyUnitMovement(ProcPtr proc) {
 
     UnitFinalizeMovement(gActiveUnit);
 
-    if ((!(gActiveUnit->state & US_HAS_MOVED) && (gActionData.unitActionType == 0)) && (gBmSt.unk3D == 0)) {
+    if ((!(gActiveUnit->state & US_HAS_MOVED) && (gActionData.unitActionType == 0)) && (gBmSt.taken_action == 0)) {
         gActionData.moveCount = gBmMapMovement[gActionData.yMove][gActionData.xMove];
     }
 
