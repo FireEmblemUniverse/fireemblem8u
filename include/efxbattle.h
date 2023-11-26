@@ -1005,8 +1005,8 @@ extern u32 gUnknown_085F2D44[];
 extern u32 gUnknown_085F2DAC[];
 extern u16 gUnknown_085F2DC0[];
 extern u16 gUnknown_085F367C[];
-extern u16 gUnknown_085F3AA8[];
-extern u16 gUnknown_085F3F40[];
+extern u16 gUnknown_085F3AA8[]; // img
+extern u16 gUnknown_085F3F40[]; // pal
 extern u32 gUnknown_085F4A24[];
 extern u32 gUnknown_085F5550[];
 extern u16 gUnknown_085F5638[];
@@ -1025,8 +1025,8 @@ extern u16 gUnknown_08603F98[];
 extern u16 gUnknown_08604210[];
 extern u32 gUnknown_08604FD4[];
 extern u32 gUnknown_08605DF4[];
-// extern ??? gUnknown_08608838
-// extern ??? gUnknown_0860A5D4
+extern u16 gUnknown_08608838[];
+extern u32 gUnknown_0860A5D4[]; // script
 // extern ??? gUnknown_086101DC
 // extern ??? gUnknown_08617F04
 // extern ??? gUnknown_08618BBC
