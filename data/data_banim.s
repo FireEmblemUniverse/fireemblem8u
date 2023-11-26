@@ -30822,127 +30822,127 @@ gUnknown_0861AD84:  @ 0x0861AD84
 gUnknown_0861AD8C:  @ 0x0861AD8C
 	.incbin "baserom.gba", 0x61AD8C, 0x6BD4
 
-	.global gUnknown_08621960
-gUnknown_08621960:  @ 0x08621960
+	.global Img_AircaliburBg
+Img_AircaliburBg:  @ 0x08621960
 	.incbin "baserom.gba", 0x621960, 0x15CC
 
-	.global gUnknown_08622F2C
-gUnknown_08622F2C:  @ 0x08622F2C
+	.global Pal_AircaliburBg
+Pal_AircaliburBg:  @ 0x08622F2C
 	.incbin "baserom.gba", 0x622F2C, 0xC0    @ 0x622FEC - 0x622F2C
 
-	.global Tsa_08622FEC
-Tsa_08622FEC:  @ 0x08622FEC
+	.global Tsa_AircaliburBg_A
+Tsa_AircaliburBg_A:  @ 0x08622FEC
 	.incbin "baserom.gba", 0x622FEC, 0x188    @ 0x623174 - 0x622FEC
 
-	.global Tsa_08623174
-Tsa_08623174:  @ 0x08623174
+	.global Tsa_AircaliburBg_B
+Tsa_AircaliburBg_B:  @ 0x08623174
 	.incbin "baserom.gba", 0x623174, 0x364    @ 0x6234D8 - 0x623174
 
-	.global gUnknown_086234D8
-gUnknown_086234D8:  @ 0x086234D8
+	.global Img_AircaliburSprites
+Img_AircaliburSprites:  @ 0x086234D8
 	.incbin "baserom.gba", 0x6234D8, 0x5C4
 
-	.global gUnknown_08623A9C
-gUnknown_08623A9C:  @ 0x08623A9C
+	.global Pal_AircaliburSprites
+Pal_AircaliburSprites:  @ 0x08623A9C
 	.incbin "baserom.gba", 0x623A9C, 0x15F8
 
 	.global gUnknown_08625094
 gUnknown_08625094:  @ 0x08625094
 @ Replacing .incbin "baserom.gba", 0x625094, 0xB4
-    .4byte gUnknown_08623A9C + 0x153a
-    .4byte gUnknown_08623A9C + 0x155d
-    .4byte gUnknown_08623A9C + 0x15ca
-    .4byte gUnknown_08623A9C + 0x15e2
-    .4byte gUnknown_08623A9C + 0x95e
-    .4byte gUnknown_08623A9C + 0x976
-    .4byte gUnknown_08623A9C + 0x99a
-    .4byte gUnknown_08623A9C + 0x9be
-    .4byte gUnknown_08623A9C + 0x9e2
-    .4byte gUnknown_08623A9C + 0xa06
-    .4byte gUnknown_08623A9C + 0xa2a
-    .4byte gUnknown_08623A9C + 0xa4e
-    .4byte gUnknown_08623A9C + 0xa72
-    .4byte gUnknown_08623A9C + 0xa96
-    .4byte gUnknown_08623A9C + 0xaba
-    .4byte gUnknown_08623A9C + 0xade
-    .4byte gUnknown_08623A9C + 0xb02
-    .4byte gUnknown_08623A9C + 0xb26
-    .4byte gUnknown_08623A9C + 0xb4a
-    .4byte gUnknown_08623A9C + 0xb6e
-    .4byte gUnknown_08623A9C + 0x22
-    .4byte gUnknown_08623A9C + 0x45
-    .4byte gUnknown_08623A9C + 0x81
-    .4byte gUnknown_08623A9C + 0xd5
-    .4byte gUnknown_08623A9C + 0x129
-    .4byte gUnknown_08623A9C + 0x17d
-    .4byte gUnknown_08623A9C + 0x1e9
-    .4byte gUnknown_08623A9C + 0x249
-    .4byte gUnknown_08623A9C + 0x2aa
-    .4byte gUnknown_08623A9C + 0x2fe
-    .4byte gUnknown_08623A9C + 0x35e
-    .4byte gUnknown_08623A9C + 0x3e2
-    .4byte gUnknown_08623A9C + 0x442
-    .4byte gUnknown_08623A9C + 0x4a2
-    .4byte gUnknown_08623A9C + 0x502
-    .4byte gUnknown_08623A9C + 0x561
-    .4byte gUnknown_08623A9C + 0x615
-    .4byte gUnknown_08623A9C + 0x675
-    .4byte gUnknown_08623A9C + 0x711
-    .4byte gUnknown_08623A9C + 0x7b9
-    .4byte gUnknown_08623A9C + 0x825
-    .4byte gUnknown_08623A9C + 0x891
-    .4byte gUnknown_08623A9C + 0x8cd
-    .4byte gUnknown_08623A9C + 0x921
+    .4byte Pal_AircaliburSprites + 0x153a
+    .4byte Pal_AircaliburSprites + 0x155d
+    .4byte Pal_AircaliburSprites + 0x15ca
+    .4byte Pal_AircaliburSprites + 0x15e2
+    .4byte Pal_AircaliburSprites + 0x95e
+    .4byte Pal_AircaliburSprites + 0x976
+    .4byte Pal_AircaliburSprites + 0x99a
+    .4byte Pal_AircaliburSprites + 0x9be
+    .4byte Pal_AircaliburSprites + 0x9e2
+    .4byte Pal_AircaliburSprites + 0xa06
+    .4byte Pal_AircaliburSprites + 0xa2a
+    .4byte Pal_AircaliburSprites + 0xa4e
+    .4byte Pal_AircaliburSprites + 0xa72
+    .4byte Pal_AircaliburSprites + 0xa96
+    .4byte Pal_AircaliburSprites + 0xaba
+    .4byte Pal_AircaliburSprites + 0xade
+    .4byte Pal_AircaliburSprites + 0xb02
+    .4byte Pal_AircaliburSprites + 0xb26
+    .4byte Pal_AircaliburSprites + 0xb4a
+    .4byte Pal_AircaliburSprites + 0xb6e
+    .4byte Pal_AircaliburSprites + 0x22
+    .4byte Pal_AircaliburSprites + 0x45
+    .4byte Pal_AircaliburSprites + 0x81
+    .4byte Pal_AircaliburSprites + 0xd5
+    .4byte Pal_AircaliburSprites + 0x129
+    .4byte Pal_AircaliburSprites + 0x17d
+    .4byte Pal_AircaliburSprites + 0x1e9
+    .4byte Pal_AircaliburSprites + 0x249
+    .4byte Pal_AircaliburSprites + 0x2aa
+    .4byte Pal_AircaliburSprites + 0x2fe
+    .4byte Pal_AircaliburSprites + 0x35e
+    .4byte Pal_AircaliburSprites + 0x3e2
+    .4byte Pal_AircaliburSprites + 0x442
+    .4byte Pal_AircaliburSprites + 0x4a2
+    .4byte Pal_AircaliburSprites + 0x502
+    .4byte Pal_AircaliburSprites + 0x561
+    .4byte Pal_AircaliburSprites + 0x615
+    .4byte Pal_AircaliburSprites + 0x675
+    .4byte Pal_AircaliburSprites + 0x711
+    .4byte Pal_AircaliburSprites + 0x7b9
+    .4byte Pal_AircaliburSprites + 0x825
+    .4byte Pal_AircaliburSprites + 0x891
+    .4byte Pal_AircaliburSprites + 0x8cd
+    .4byte Pal_AircaliburSprites + 0x921
     .4byte 0x81000000
 
 	.global gUnknown_08625148
 gUnknown_08625148:  @ 0x08625148
 @ Replacing .incbin "baserom.gba", 0x625148, 0x1690
-    .4byte gUnknown_08623A9C + 0x153a
-    .4byte gUnknown_08623A9C + 0x155d
-    .4byte gUnknown_08623A9C + 0x15ca
-    .4byte gUnknown_08623A9C + 0x15e2
-    .4byte gUnknown_08623A9C + 0x95e
-    .4byte gUnknown_08623A9C + 0x976
-    .4byte gUnknown_08623A9C + 0x99a
-    .4byte gUnknown_08623A9C + 0x9be
-    .4byte gUnknown_08623A9C + 0x9e2
-    .4byte gUnknown_08623A9C + 0xa06
-    .4byte gUnknown_08623A9C + 0xa2a
-    .4byte gUnknown_08623A9C + 0xa4e
-    .4byte gUnknown_08623A9C + 0xa72
-    .4byte gUnknown_08623A9C + 0xa96
-    .4byte gUnknown_08623A9C + 0xaba
-    .4byte gUnknown_08623A9C + 0xade
-    .4byte gUnknown_08623A9C + 0xb02
-    .4byte gUnknown_08623A9C + 0xb26
-    .4byte gUnknown_08623A9C + 0xb49
-    .4byte gUnknown_08623A9C + 0xb6d
-    .4byte gUnknown_08623A9C + 0xb91
-    .4byte gUnknown_08623A9C + 0xbd9
-    .4byte gUnknown_08623A9C + 0xc39
-    .4byte gUnknown_08623A9C + 0xc75
-    .4byte gUnknown_08623A9C + 0xcc9
-    .4byte gUnknown_08623A9C + 0xd1d
-    .4byte gUnknown_08623A9C + 0xd71
-    .4byte gUnknown_08623A9C + 0xddd
-    .4byte gUnknown_08623A9C + 0xe3e
-    .4byte gUnknown_08623A9C + 0xe9e
-    .4byte gUnknown_08623A9C + 0xef2
-    .4byte gUnknown_08623A9C + 0xf52
-    .4byte gUnknown_08623A9C + 0xfd6
-    .4byte gUnknown_08623A9C + 0x1036
-    .4byte gUnknown_08623A9C + 0x1096
-    .4byte gUnknown_08623A9C + 0x10f6
-    .4byte gUnknown_08623A9C + 0x1155
-    .4byte gUnknown_08623A9C + 0x11f2
-    .4byte gUnknown_08623A9C + 0x1251
-    .4byte gUnknown_08623A9C + 0x12ed
-    .4byte gUnknown_08623A9C + 0x1395
-    .4byte gUnknown_08623A9C + 0x1401
-    .4byte gUnknown_08623A9C + 0x146d
-    .4byte gUnknown_08623A9C + 0x14a9
-    .4byte gUnknown_08623A9C + 0x14fd
+    .4byte Pal_AircaliburSprites + 0x153a
+    .4byte Pal_AircaliburSprites + 0x155d
+    .4byte Pal_AircaliburSprites + 0x15ca
+    .4byte Pal_AircaliburSprites + 0x15e2
+    .4byte Pal_AircaliburSprites + 0x95e
+    .4byte Pal_AircaliburSprites + 0x976
+    .4byte Pal_AircaliburSprites + 0x99a
+    .4byte Pal_AircaliburSprites + 0x9be
+    .4byte Pal_AircaliburSprites + 0x9e2
+    .4byte Pal_AircaliburSprites + 0xa06
+    .4byte Pal_AircaliburSprites + 0xa2a
+    .4byte Pal_AircaliburSprites + 0xa4e
+    .4byte Pal_AircaliburSprites + 0xa72
+    .4byte Pal_AircaliburSprites + 0xa96
+    .4byte Pal_AircaliburSprites + 0xaba
+    .4byte Pal_AircaliburSprites + 0xade
+    .4byte Pal_AircaliburSprites + 0xb02
+    .4byte Pal_AircaliburSprites + 0xb26
+    .4byte Pal_AircaliburSprites + 0xb49
+    .4byte Pal_AircaliburSprites + 0xb6d
+    .4byte Pal_AircaliburSprites + 0xb91
+    .4byte Pal_AircaliburSprites + 0xbd9
+    .4byte Pal_AircaliburSprites + 0xc39
+    .4byte Pal_AircaliburSprites + 0xc75
+    .4byte Pal_AircaliburSprites + 0xcc9
+    .4byte Pal_AircaliburSprites + 0xd1d
+    .4byte Pal_AircaliburSprites + 0xd71
+    .4byte Pal_AircaliburSprites + 0xddd
+    .4byte Pal_AircaliburSprites + 0xe3e
+    .4byte Pal_AircaliburSprites + 0xe9e
+    .4byte Pal_AircaliburSprites + 0xef2
+    .4byte Pal_AircaliburSprites + 0xf52
+    .4byte Pal_AircaliburSprites + 0xfd6
+    .4byte Pal_AircaliburSprites + 0x1036
+    .4byte Pal_AircaliburSprites + 0x1096
+    .4byte Pal_AircaliburSprites + 0x10f6
+    .4byte Pal_AircaliburSprites + 0x1155
+    .4byte Pal_AircaliburSprites + 0x11f2
+    .4byte Pal_AircaliburSprites + 0x1251
+    .4byte Pal_AircaliburSprites + 0x12ed
+    .4byte Pal_AircaliburSprites + 0x1395
+    .4byte Pal_AircaliburSprites + 0x1401
+    .4byte Pal_AircaliburSprites + 0x146d
+    .4byte Pal_AircaliburSprites + 0x14a9
+    .4byte Pal_AircaliburSprites + 0x14fd
     .4byte 0x81000000
     .4byte 0xffff0001
     .4byte 0xff80ff23

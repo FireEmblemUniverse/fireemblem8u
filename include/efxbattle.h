@@ -1034,12 +1034,12 @@ extern u32 gUnknown_08605DF4[];
 // extern ??? gUnknown_0861AD24
 // extern ??? gUnknown_0861AD84
 // extern ??? gUnknown_0861AD8C
-extern u16 gUnknown_08621960[];
-extern u16 gUnknown_08622F2C[];
-extern u16 Tsa_08622FEC[];
-extern u16 Tsa_08623174[];
-extern u16 gUnknown_086234D8[];
-extern u16 gUnknown_08623A9C[];
+extern u16 Img_AircaliburBg[];
+extern u16 Pal_AircaliburBg[];
+extern u16 Tsa_AircaliburBg_A[];
+extern u16 Tsa_AircaliburBg_B[];
+extern u16 Img_AircaliburSprites[];
+extern u16 Pal_AircaliburSprites[];
 extern u32 gUnknown_08625094[];
 extern u32 gUnknown_08625148[];
 extern u32 gUnknown_086267D8[];

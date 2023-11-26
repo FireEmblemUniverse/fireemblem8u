@@ -8,10 +8,10 @@
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5880[] =
+struct ProcCmd CONST_DATA gProcScr_efxAlacalibur[] =
 {
     PROC_NAME("efxAlacalibur"),
-    PROC_REPEAT(sub_805EBD4),
+    PROC_REPEAT(efxAlacalibur_Loop_Main),
 
     PROC_END,
 };
@@ -19,7 +19,7 @@ struct ProcCmd CONST_DATA gUnknown_085D5880[] =
 // clang-format on
 
 //! FE8U = 0x0805EB98
-void sub_805EB98(struct Anim * anim)
+void StartSpellAnimAircalibur(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -27,7 +27,7 @@ void sub_805EB98(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D5880, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_efxAlacalibur, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
@@ -37,7 +37,7 @@ void sub_805EB98(struct Anim * anim)
 }
 
 //! FE8U = 0x0805EBD4
-void sub_805EBD4(struct ProcEfx * proc)
+void efxAlacalibur_Loop_Main(struct ProcEfx * proc)
 {
     int time;
 
@@ -45,7 +45,7 @@ void sub_805EBD4(struct ProcEfx * proc)
 
     int duration = EfxGetCamMovDuration();
 
-    time = (gEkrDistanceType != 0) ? 0x32 : 0x3a;
+    time = (gEkrDistanceType != 0) ? 50 : 58;
 
     proc->timer++;
 
@@ -65,8 +65,8 @@ void sub_805EBD4(struct ProcEfx * proc)
         {
             sub_805ECD4(anim);
             sub_805ED98(anim);
-            NewEfxALPHA(anim, 6, 5, 0x10, 0, 0);
-            PlaySFX(0x00000109, 0x100, anim->xPosition, 1);
+            NewEfxALPHA(anim, 6, 5, 16, 0, 0);
+            PlaySFX(0x109, 0x100, anim->xPosition, 1);
         }
         else if (proc->timer == time + 8 + duration)
         {
@@ -78,7 +78,7 @@ void sub_805EBD4(struct ProcEfx * proc)
                 EfxPlayHittedSFX(anim);
             }
         }
-        else if ((proc->timer != time + 0xc + duration) && (proc->timer == time + 0xe + duration))
+        else if ((proc->timer != time + 12 + duration) && (proc->timer == time + 14 + duration))
         {
             SpellFx_Finish();
             RegisterEfxSpellCastEnd();
@@ -91,43 +91,45 @@ void sub_805EBD4(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5898[] =
+struct ProcCmd CONST_DATA gProcScr_efxAlacaliburBG[] =
 {
     PROC_NAME("efxAlacaliburBG"),
-    PROC_REPEAT(sub_805ED44),
+    PROC_REPEAT(efxAlacaliburBG_Loop),
 
     PROC_END,
 };
 
 // clang-format on
 
-u16 * CONST_DATA gUnknown_085D58B0[] =
+u16 * CONST_DATA TsaArray_AircaliburBg[] =
 {
-    Tsa_08622FEC,
-    Tsa_08623174,
+    Tsa_AircaliburBg_A,
+    Tsa_AircaliburBg_B,
 };
 
 void sub_805ECD4(struct Anim * anim)
 {
-    static const u16 gUnknown_080DD024[] =
+    // clang-format off
+    static const u16 frames[] =
     {
         0, 2,
         1, 9,
         -1,
     };
+    // clang-format on
 
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5898, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_efxAlacaliburBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD024;
-    proc->tsal = gUnknown_085D58B0;
+    proc->frame_config = frames;
+    proc->tsal = TsaArray_AircaliburBg;
 
-    SpellFx_RegisterBgGfx(gUnknown_08621960, 0x2000);
+    SpellFx_RegisterBgGfx(Img_AircaliburBg, 0x2000);
     SpellFx_SetSomeColorEffect();
 
     if (GetAnimPosition(proc->anim) == 0)
@@ -143,7 +145,7 @@ void sub_805ECD4(struct Anim * anim)
 }
 
 //! FE8U = 0x0805ED44
-void sub_805ED44(struct ProcEfxBG * proc)
+void efxAlacaliburBG_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -168,12 +170,12 @@ void sub_805ED44(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D58B8[] =
+struct ProcCmd CONST_DATA gProcScr_efxAlacaliburBGCOL[] =
 {
     PROC_NAME("efxAlacaliburBGCOL"),
     PROC_MARK(PROC_MARK_A),
 
-    PROC_REPEAT(sub_805EDDC),
+    PROC_REPEAT(efxAlacaliburBGCOL_Loop),
 
     PROC_END,
 };
@@ -183,7 +185,8 @@ struct ProcCmd CONST_DATA gUnknown_085D58B8[] =
 //! FE8U = 0x0805ED98
 void sub_805ED98(struct Anim * anim)
 {
-    static const u16 gUnknown_080DD044[] =
+    // clang-format off
+    static const u16 frames[] =
     {
         2, 1,
         3, 1,
@@ -193,27 +196,28 @@ void sub_805ED98(struct Anim * anim)
         1, 2,
         -1,
     };
+    // clang-format on
 
     struct ProcEfxBGCOL * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D58B8, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_efxAlacaliburBGCOL, PROC_TREE_3);
 
     proc->anim = anim;
     proc->timer = 0;
     proc->timer2 = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD044;
-    proc->pal = gUnknown_08622F2C;
+    proc->frame_config = frames;
+    proc->pal = Pal_AircaliburBg;
 
-    SpellFx_RegisterBgPal(gUnknown_08622F2C, 0x20);
+    SpellFx_RegisterBgPal(Pal_AircaliburBg, 0x20);
 
     return;
 }
 
 //! FE8U = 0x0805EDDC
-void sub_805EDDC(struct ProcEfxBGCOL * proc)
+void efxAlacaliburBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -236,10 +240,10 @@ void sub_805EDDC(struct ProcEfxBGCOL * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D58D8[] =
+struct ProcCmd CONST_DATA gProcScr_efxAlacaliburOBJ[] =
 {
     PROC_NAME("efxAlacaliburOBJ"),
-    PROC_REPEAT(sub_805EEAC),
+    PROC_REPEAT(efxAlacaliburOBJ_Loop),
     PROC_END,
 };
 
@@ -253,7 +257,7 @@ void sub_805EE24(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D58D8, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_efxAlacaliburOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     frontAnim = EfxCreateFrontAnim(anim, gUnknown_086267D8, gUnknown_08625094, gUnknown_0862688C, gUnknown_08625148);
@@ -261,23 +265,23 @@ void sub_805EE24(struct Anim * anim)
 
     if (GetAnimPosition(anim) == 0)
     {
-        frontAnim->xPosition += 0x48;
+        frontAnim->xPosition += 72;
     }
     else
     {
-        frontAnim->xPosition -= 0x48;
+        frontAnim->xPosition -= 72;
     }
 
-    proc->terminator = 0x60;
+    proc->terminator = 96;
 
-    SpellFx_RegisterObjPal(gUnknown_08623A9C, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_086234D8, 0x1000);
+    SpellFx_RegisterObjPal(Pal_AircaliburSprites, 0x20);
+    SpellFx_RegisterObjGfx(Img_AircaliburSprites, 0x1000);
 
     return;
 }
 
 //! FE8U = 0x0805EEAC
-void sub_805EEAC(struct ProcEfxOBJ * proc)
+void efxAlacaliburOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
