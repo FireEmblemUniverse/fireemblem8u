@@ -11177,74 +11177,74 @@ gUnknown_085F2DC0:  @ 0x085F2DC0
 gUnknown_085F367C:  @ 0x085F367C
 	.incbin "baserom.gba", 0x5F367C, 0x42C
 
-	.global gUnknown_085F3AA8
-gUnknown_085F3AA8:  @ 0x085F3AA8
+	.global Img_BoltingSprites
+Img_BoltingSprites:  @ 0x085F3AA8
 	.incbin "baserom.gba", 0x5F3AA8, 0x498
 
-	.global gUnknown_085F3F40
-gUnknown_085F3F40:  @ 0x085F3F40
+	.global Pal_BoltingSprites
+Pal_BoltingSprites:  @ 0x085F3F40
 	.incbin "baserom.gba", 0x5F3F40, 0xAE4
 
 	.global gUnknown_085F4A24
 gUnknown_085F4A24:  @ 0x085F4A24
 @ Replacing .incbin "baserom.gba", 0x5F4A24, 0xB2C
     .4byte 0x385f45ca
-    .4byte gUnknown_085F3F40 + 0xa2
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0xd1
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x13d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x19d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x1fd
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x25d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x2bd
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x31d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x37d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x3dd
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x43d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x49d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x4fd
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x55d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x5bd
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x61d
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x6a1
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x701
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x761
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x7c1
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x821
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x881
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x8e1
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x941
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0x9a1
-    .4byte gUnknown_085F3F40 + 0x689
-    .4byte gUnknown_085F3F40 + 0xa01
-    .4byte gUnknown_085F3F40 + 0x689
+    .4byte Pal_BoltingSprites + 0xa2
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0xd1
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x13d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x19d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x1fd
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x25d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x2bd
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x31d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x37d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x3dd
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x43d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x49d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x4fd
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x55d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x5bd
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x61d
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x6a1
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x701
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x761
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x7c1
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x821
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x881
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x8e1
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x941
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0x9a1
+    .4byte Pal_BoltingSprites + 0x689
+    .4byte Pal_BoltingSprites + 0xa01
+    .4byte Pal_BoltingSprites + 0x689
     .4byte 0x80000000
-    .4byte gUnknown_085F3F40 + 0xa61
+    .4byte Pal_BoltingSprites + 0xa61
     .4byte 0x80000000
-    .4byte gUnknown_085F3F40 + 0xa79
+    .4byte Pal_BoltingSprites + 0xa79
     .4byte 0x80000000
     .4byte 0x10004000
     .4byte 0xfff80000
@@ -22140,168 +22140,168 @@ gUnknown_08604FD4:  @ 0x08604FD4
 gUnknown_08605DF4:  @ 0x08605DF4
 	.incbin "baserom.gba", 0x605DF4, 0x7C    @ 0x605E70 - 0x605DF4
 
-	.global Img_08605E70
-Img_08605E70:  @ 0x08605E70
+	.global Img_BoltingBg_A
+Img_BoltingBg_A:  @ 0x08605E70
 	.incbin "baserom.gba", 0x605E70, 0xBD0    @ 0x606A40 - 0x605E70
 
-	.global Img_08606A40
-Img_08606A40:  @ 0x08606A40
+	.global Img_BoltingBg_B
+Img_BoltingBg_B:  @ 0x08606A40
 	.incbin "baserom.gba", 0x606A40, 0x106C    @ 0x607AAC - 0x606A40
 
-	.global Img_08607AAC
-Img_08607AAC:  @ 0x08607AAC
+	.global Img_BoltingBg_C
+Img_BoltingBg_C:  @ 0x08607AAC
 	.incbin "baserom.gba", 0x607AAC, 0xD8C    @ 0x608838 - 0x607AAC
 
-	.global gUnknown_08608838
-gUnknown_08608838:  @ 0x08608838
+	.global Pal_BoltingBg
+Pal_BoltingBg:  @ 0x08608838
 	.incbin "baserom.gba", 0x608838, 0x60    @ 0x608898 - 0x608838
 
-	.global Tsa_08608898
-Tsa_08608898:  @ 0x08608898
+	.global Tsa_BoltingBg_A
+Tsa_BoltingBg_A:  @ 0x08608898
 	.incbin "baserom.gba", 0x608898, 0x194    @ 0x608A2C - 0x608898
 
-	.global Tsa_08608A2C
-Tsa_08608A2C:  @ 0x08608A2C
+	.global Tsa_BoltingBg_B
+Tsa_BoltingBg_B:  @ 0x08608A2C
 	.incbin "baserom.gba", 0x608A2C, 0x208    @ 0x608C34 - 0x608A2C
 
-	.global Tsa_08608C34
-Tsa_08608C34:  @ 0x08608C34
+	.global Tsa_BoltingBg_C
+Tsa_BoltingBg_C:  @ 0x08608C34
 	.incbin "baserom.gba", 0x608C34, 0x164    @ 0x608D98 - 0x608C34
 
-	.global Tsa_08608D98
-Tsa_08608D98:  @ 0x08608D98
+	.global Tsa_BoltingBg_D
+Tsa_BoltingBg_D:  @ 0x08608D98
 	.incbin "baserom.gba", 0x608D98, 0xE0    @ 0x608E78 - 0x608D98
 
-	.global Tsa_08608E78
-Tsa_08608E78:  @ 0x08608E78
+	.global Tsa_BoltingBg_E
+Tsa_BoltingBg_E:  @ 0x08608E78
 	.incbin "baserom.gba", 0x608E78, 0x118    @ 0x608F90 - 0x608E78
 
-	.global Tsa_08608F90
-Tsa_08608F90:  @ 0x08608F90
+	.global Tsa_BoltingBg_F
+Tsa_BoltingBg_F:  @ 0x08608F90
 	.incbin "baserom.gba", 0x608F90, 0x1AC    @ 0x60913C - 0x608F90
 
-	.global Tsa_0860913C
-Tsa_0860913C:  @ 0x0860913C
+	.global Tsa_BoltingBg_G
+Tsa_BoltingBg_G:  @ 0x0860913C
 	.incbin "baserom.gba", 0x60913C, 0x120    @ 0x60925C - 0x60913C
 
-	.global Tsa_0860925C
-Tsa_0860925C:  @ 0x0860925C
+	.global Tsa_BoltingBg_H
+Tsa_BoltingBg_H:  @ 0x0860925C
 	.incbin "baserom.gba", 0x60925C, 0xEC    @ 0x609348 - 0x60925C
 
-	.global Tsa_08609348
-Tsa_08609348:  @ 0x08609348
+	.global Tsa_BoltingBg_I
+Tsa_BoltingBg_I:  @ 0x08609348
 	.incbin "baserom.gba", 0x609348, 0xE8    @ 0x609430 - 0x609348
 
-	.global Tsa_08609430
-Tsa_08609430:  @ 0x08609430
+	.global Tsa_BoltingBg_J
+Tsa_BoltingBg_J:  @ 0x08609430
 	.incbin "baserom.gba", 0x609430, 0x98    @ 0x6094C8 - 0x609430
 
-	.global Tsa_086094C8
-Tsa_086094C8:  @ 0x086094C8
+	.global Tsa_BoltingBg_K
+Tsa_BoltingBg_K:  @ 0x086094C8
 	.incbin "baserom.gba", 0x6094C8, 0x110C    @ 0x60A5D4 - 0x6094C8
 
 	.global gUnknown_0860A5D4
 gUnknown_0860A5D4:  @ 0x0860A5D4
 @ Replacing .incbin "baserom.gba", 0x60A5D4, 0x5C08
-    .4byte gUnknown_08608838 + 0xe85
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xe9d
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xeb5
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xf09
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xf5d
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xfc9
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xeb5
-    .4byte gUnknown_08608838 + 0x1035
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xf09
-    .4byte gUnknown_08608838 + 0x10ad
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xf5d
-    .4byte gUnknown_08608838 + 0x1125
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0xfc9
-    .4byte gUnknown_08608838 + 0x119d
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1035
-    .4byte gUnknown_08608838 + 0x1215
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1035
-    .4byte gUnknown_08608838 + 0x128d
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x10ad
-    .4byte gUnknown_08608838 + 0x1305
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1125
-    .4byte gUnknown_08608838 + 0x137d
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x119d
-    .4byte gUnknown_08608838 + 0x13f5
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1215
-    .4byte gUnknown_08608838 + 0x146d
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x128d
-    .4byte gUnknown_08608838 + 0x14e5
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1305
-    .4byte gUnknown_08608838 + 0x155d
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x137d
-    .4byte gUnknown_08608838 + 0x15ed
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x13f5
-    .4byte gUnknown_08608838 + 0x1665
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x146d
-    .4byte gUnknown_08608838 + 0x16dd
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x14e5
-    .4byte gUnknown_08608838 + 0x1755
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x155d
-    .4byte gUnknown_08608838 + 0x17cd
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1845
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x15ed
-    .4byte gUnknown_08608838 + 0x18d5
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1665
-    .4byte gUnknown_08608838 + 0x1965
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x16dd
-    .4byte gUnknown_08608838 + 0x1a19
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1755
-    .4byte gUnknown_08608838 + 0x1acd
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x17cd
-    .4byte gUnknown_08608838 + 0x1b81
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1845
-    .4byte gUnknown_08608838 + 0x1c35
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x18d5
-    .4byte gUnknown_08608838 + 0x1ce9
-    .4byte gUnknown_08608838 + 0x15d5
-    .4byte gUnknown_08608838 + 0x1965
-    .4byte gUnknown_08608838 + 0x15d6
-    .4byte gUnknown_08608838 + 0x1a19
-    .4byte gUnknown_08608838 + 0x15d6
-    .4byte gUnknown_08608838 + 0x1acd
-    .4byte gUnknown_08608838 + 0x15d6
-    .4byte gUnknown_08608838 + 0x1b81
-    .4byte gUnknown_08608838 + 0x15d6
-    .4byte gUnknown_08608838 + 0x1c35
-    .4byte gUnknown_08608838 + 0x15d6
-    .4byte gUnknown_08608838 + 0x1ce9
-    .4byte gUnknown_08608838 + 0x15d6
+    .4byte Pal_BoltingBg + 0xe85
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xe9d
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xeb5
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xf09
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xf5d
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xfc9
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xeb5
+    .4byte Pal_BoltingBg + 0x1035
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xf09
+    .4byte Pal_BoltingBg + 0x10ad
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xf5d
+    .4byte Pal_BoltingBg + 0x1125
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0xfc9
+    .4byte Pal_BoltingBg + 0x119d
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1035
+    .4byte Pal_BoltingBg + 0x1215
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1035
+    .4byte Pal_BoltingBg + 0x128d
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x10ad
+    .4byte Pal_BoltingBg + 0x1305
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1125
+    .4byte Pal_BoltingBg + 0x137d
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x119d
+    .4byte Pal_BoltingBg + 0x13f5
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1215
+    .4byte Pal_BoltingBg + 0x146d
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x128d
+    .4byte Pal_BoltingBg + 0x14e5
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1305
+    .4byte Pal_BoltingBg + 0x155d
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x137d
+    .4byte Pal_BoltingBg + 0x15ed
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x13f5
+    .4byte Pal_BoltingBg + 0x1665
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x146d
+    .4byte Pal_BoltingBg + 0x16dd
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x14e5
+    .4byte Pal_BoltingBg + 0x1755
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x155d
+    .4byte Pal_BoltingBg + 0x17cd
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1845
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x15ed
+    .4byte Pal_BoltingBg + 0x18d5
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1665
+    .4byte Pal_BoltingBg + 0x1965
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x16dd
+    .4byte Pal_BoltingBg + 0x1a19
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1755
+    .4byte Pal_BoltingBg + 0x1acd
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x17cd
+    .4byte Pal_BoltingBg + 0x1b81
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1845
+    .4byte Pal_BoltingBg + 0x1c35
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x18d5
+    .4byte Pal_BoltingBg + 0x1ce9
+    .4byte Pal_BoltingBg + 0x15d5
+    .4byte Pal_BoltingBg + 0x1965
+    .4byte Pal_BoltingBg + 0x15d6
+    .4byte Pal_BoltingBg + 0x1a19
+    .4byte Pal_BoltingBg + 0x15d6
+    .4byte Pal_BoltingBg + 0x1acd
+    .4byte Pal_BoltingBg + 0x15d6
+    .4byte Pal_BoltingBg + 0x1b81
+    .4byte Pal_BoltingBg + 0x15d6
+    .4byte Pal_BoltingBg + 0x1c35
+    .4byte Pal_BoltingBg + 0x15d6
+    .4byte Pal_BoltingBg + 0x1ce9
+    .4byte Pal_BoltingBg + 0x15d6
     .4byte 0x80000000
     .4byte 0x001c0010
     .4byte 0xf0000030

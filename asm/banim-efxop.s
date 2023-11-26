@@ -830,17 +830,17 @@ _0806EEF4:
 	adds r0, r0, r1
 	strh r0, [r4, #4]
 	ldr r0, [r6, #0x5c]
-	ldr r1, _0806EF1C  @ gUnknown_085F3F40
+	ldr r1, _0806EF1C  @ Pal_BoltingSprites
 	bl sub_806EB2C
 	ldr r0, [r6, #0x5c]
-	ldr r1, _0806EF20  @ gUnknown_085F3AA8
+	ldr r1, _0806EF20  @ Img_BoltingSprites
 	bl sub_806EAFC
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806EF1C: .4byte gUnknown_085F3F40
-_0806EF20: .4byte gUnknown_085F3AA8
+_0806EF1C: .4byte Pal_BoltingSprites
+_0806EF20: .4byte Img_BoltingSprites
 
 	THUMB_FUNC_END sub_806EEA8
 

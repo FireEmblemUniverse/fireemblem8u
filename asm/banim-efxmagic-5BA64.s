@@ -1660,7 +1660,7 @@ sub_805D644: @ 0x0805D644
 	str r1, [r0, #0x44]
 	ldr r1, _0805D678  @ gUnknown_080DCBD4
 	str r1, [r0, #0x48]
-	ldr r1, _0805D67C  @ gUnknown_08608838
+	ldr r1, _0805D67C  @ Pal_BoltingBg
 	str r1, [r0, #0x4c]
 	pop {r4}
 	pop {r0}
@@ -1669,7 +1669,7 @@ sub_805D644: @ 0x0805D644
 _0805D670: .4byte gEfxBgSemaphore
 _0805D674: .4byte gUnknown_085D53F0
 _0805D678: .4byte gUnknown_080DCBD4
-_0805D67C: .4byte gUnknown_08608838
+_0805D67C: .4byte Pal_BoltingBg
 
 	THUMB_FUNC_END sub_805D644
 

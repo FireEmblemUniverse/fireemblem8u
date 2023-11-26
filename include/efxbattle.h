@@ -1005,8 +1005,8 @@ extern u32 gUnknown_085F2D44[];
 extern u32 gUnknown_085F2DAC[];
 extern u16 gUnknown_085F2DC0[];
 extern u16 gUnknown_085F367C[];
-extern u16 gUnknown_085F3AA8[]; // img
-extern u16 gUnknown_085F3F40[]; // pal
+extern u16 Img_BoltingSprites[];
+extern u16 Pal_BoltingSprites[];
 extern u32 gUnknown_085F4A24[];
 extern u32 gUnknown_085F5550[];
 extern u16 gUnknown_085F5638[];
@@ -1025,21 +1025,21 @@ extern u16 gUnknown_08603F98[];
 extern u16 gUnknown_08604210[];
 extern u32 gUnknown_08604FD4[];
 extern u32 gUnknown_08605DF4[];
-extern u16 Img_08605E70[];
-extern u16 Img_08606A40[];
-extern u16 Img_08607AAC[];
-extern u16 gUnknown_08608838[];
-extern u16 Tsa_08608898[];
-extern u16 Tsa_08608A2C[];
-extern u16 Tsa_08608C34[];
-extern u16 Tsa_08608D98[];
-extern u16 Tsa_08608E78[];
-extern u16 Tsa_08608F90[];
-extern u16 Tsa_0860913C[];
-extern u16 Tsa_0860925C[];
-extern u16 Tsa_08609348[];
-extern u16 Tsa_08609430[];
-extern u16 Tsa_086094C8[];
+extern u16 Img_BoltingBg_A[];
+extern u16 Img_BoltingBg_B[];
+extern u16 Img_BoltingBg_C[];
+extern u16 Pal_BoltingBg[];
+extern u16 Tsa_BoltingBg_A[];
+extern u16 Tsa_BoltingBg_B[];
+extern u16 Tsa_BoltingBg_C[];
+extern u16 Tsa_BoltingBg_D[];
+extern u16 Tsa_BoltingBg_E[];
+extern u16 Tsa_BoltingBg_F[];
+extern u16 Tsa_BoltingBg_G[];
+extern u16 Tsa_BoltingBg_H[];
+extern u16 Tsa_BoltingBg_I[];
+extern u16 Tsa_BoltingBg_J[];
+extern u16 Tsa_BoltingBg_K[];
 extern u32 gUnknown_0860A5D4[]; // script
 // extern ??? gUnknown_086101DC
 // extern ??? gUnknown_08617F04
