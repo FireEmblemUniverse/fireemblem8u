@@ -111,11 +111,11 @@ extern struct ProcCmd ProcScr_efxFimbulvetrBGTR[];
 // extern ??? gUnknown_085D57F8
 // extern ??? gUnknown_085D5820
 // extern ??? gUnknown_085D5860
-// extern ??? gUnknown_085D5880
-// extern ??? gUnknown_085D5898
-// extern ??? gUnknown_085D58B0
-// extern ??? gUnknown_085D58B8
-// extern ??? gUnknown_085D58D8
+extern struct ProcCmd gUnknown_085D5880[];
+extern struct ProcCmd gUnknown_085D5898[];
+extern u16 * gUnknown_085D58B0[];
+extern struct ProcCmd gUnknown_085D58B8[];
+extern struct ProcCmd gUnknown_085D58D8[];
 extern struct ProcCmd gProcScr_efxMistyrain[];
 extern struct ProcCmd gProcScr_efxMistyrainBG[];
 extern u16 * gUnknown_085D5920[];
@@ -414,11 +414,11 @@ void sub_805E754(struct Anim * anim);
 // ??? sub_805EB54(???);
 void sub_805EB98(struct Anim * anim);
 // ??? sub_805EBD4(???);
-// ??? sub_805ECD4(???);
+void sub_805ECD4(struct Anim * anim);
 // ??? sub_805ED44(???);
-// ??? sub_805ED98(???);
+void sub_805ED98(struct Anim * anim);
 // ??? sub_805EDDC(???);
-// ??? sub_805EE24(???);
+void sub_805EE24(struct Anim * anim);
 // ??? sub_805EEAC(???);
 void StartSpellAnimFlux(struct Anim * anim);
 void efxMistyRain_Loop_Main(struct ProcEfx * proc);
