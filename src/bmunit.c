@@ -1064,7 +1064,7 @@ void UnitBeginAction(struct Unit* unit) {
     gActionData.unitActionType = 0;
     gActionData.moveCount = 0;
 
-    gBmSt.unk3D = 0;
+    gBmSt.taken_action = 0;
     gBmSt.unk3F = 0xFF;
 
     sub_802C334();
@@ -1082,7 +1082,7 @@ void UnitBeginCantoAction(struct Unit* unit) {
 
     gActionData.unitActionType = 0;
 
-    gBmSt.unk3D = 0;
+    gBmSt.taken_action = 0;
 
     sub_802C334();
 

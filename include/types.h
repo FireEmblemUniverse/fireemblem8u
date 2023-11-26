@@ -92,7 +92,7 @@ struct BmSt // Game State Struct
     /* 3A */ u8 altBlendBCa;
     /* 3B */ u8 altBlendBCb;
     /* 3C */ u8 just_resumed;
-    /* 3D */ u8 unk3D;
+    /* 3D */ u8 taken_action;
     /* 3E */ u8 unk3E;
     /* 3F */ s8 unk3F;
 };
@@ -105,6 +105,13 @@ enum BmSt_gameStateBits {
     BM_FLAG_4 = (1 << 4),
     BM_FLAG_5 = (1 << 5),   /* Maybe mute battle-anim BGM ? */
     BM_FLAG_LINKARENA = (1 << 6),
+};
+
+enum BmSt_TakenAction {
+    BM_TAKEN_ACTION_TAKE = (1 << 0),
+    BM_TAKEN_ACTION_TRADE = (1 << 1),
+    BM_TAKEN_ACTION_SUPPLY = (1 << 2),
+    BM_TAKEN_ACTION_BALLISTA = (1 << 3),
 };
 
 struct PlaySt_30 {
@@ -326,7 +333,7 @@ enum
     UNIT_ACTION_TRADED_SUPPLY = 0x1C,
     UNIT_ACTION_TRADED_1D = 0x1D,
     UNIT_ACTION_TRAPPED = 0x1E,
-    // 0x1F?
+    UNIT_ACTION_FORCE_WAIT = 0x1F,
     // 0x20?
     UNIT_ACTION_RIDE_BALLISTA = 0x21,
     UNIT_ACTION_EXIT_BALLISTA = 0x22
