@@ -1025,7 +1025,21 @@ extern u16 gUnknown_08603F98[];
 extern u16 gUnknown_08604210[];
 extern u32 gUnknown_08604FD4[];
 extern u32 gUnknown_08605DF4[];
+extern u16 Img_08605E70[];
+extern u16 Img_08606A40[];
+extern u16 Img_08607AAC[];
 extern u16 gUnknown_08608838[];
+extern u16 Tsa_08608898[];
+extern u16 Tsa_08608A2C[];
+extern u16 Tsa_08608C34[];
+extern u16 Tsa_08608D98[];
+extern u16 Tsa_08608E78[];
+extern u16 Tsa_08608F90[];
+extern u16 Tsa_0860913C[];
+extern u16 Tsa_0860925C[];
+extern u16 Tsa_08609348[];
+extern u16 Tsa_08609430[];
+extern u16 Tsa_086094C8[];
 extern u32 gUnknown_0860A5D4[]; // script
 // extern ??? gUnknown_086101DC
 // extern ??? gUnknown_08617F04

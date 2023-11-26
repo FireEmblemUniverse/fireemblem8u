@@ -44,23 +44,19 @@ gUnknown_080DCE6E:  @ 0x080DCE6E
 
 	.global gUnknown_080DCEEC
 gUnknown_080DCEEC:  @ 0x080DCEEC
-	.incbin "baserom.gba", 0xDCEEC, 0x92
+	.incbin "baserom.gba", 0xDCEEC, 0x30
 
-	.global gUnknown_080DCF7E
-gUnknown_080DCF7E:  @ 0x080DCF7E
-	.incbin "baserom.gba", 0xDCF7E, 0x46
-
-	.global gAsciiStr_efxThunderstormOBJ
-gAsciiStr_efxThunderstormOBJ:
-	.asciz "efxThunderstormOBJ"
+	.global gAsciiStr_efxFimbulvetrOBJ
+gAsciiStr_efxFimbulvetrOBJ:
+	.asciz "efxFimbulvetrOBJ"
 	.align 2, 0
 
-	.global gAsciiStr_efxThunderstormCOLOR
-gAsciiStr_efxThunderstormCOLOR:
-	.asciz "efxThunderstormCOLOR"
+	.global gAsciiStr_efxFimbulvetrOBJ2
+gAsciiStr_efxFimbulvetrOBJ2:
+	.asciz "efxFimbulvetrOBJ2"
 	.align 2, 0
 
-	.global gAsciiStr_efxThunderstormDARK
-gAsciiStr_efxThunderstormDARK:
-	.asciz "efxThunderstormDARK"
+	.global gAsciiStr_efxFimbulvetrOBJ2Fall
+gAsciiStr_efxFimbulvetrOBJ2Fall:
+	.asciz "efxFimbulvetrOBJ2Fall"
 	.align 2, 0

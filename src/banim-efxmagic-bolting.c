@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd gUnknown_085D5770[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5770[] =
+{
+    PROC_NAME("efxThunderstorm"),
+    PROC_REPEAT(sub_805E790),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E754
 void sub_805E754(struct Anim * anim)
@@ -72,15 +81,74 @@ void sub_805E790(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5788[];
+// clang-format off
 
-extern u16 gUnknown_080DCF7E[]; // frame config
-extern u16 * gUnknown_085D57A0[]; // img
-extern u16 * gUnknown_085D57CC[]; // tsa
+struct ProcCmd CONST_DATA gUnknown_085D5788[] =
+{
+    PROC_NAME("efxThunderstormBG"),
+    PROC_REPEAT(sub_805E8A4),
+    PROC_END,
+};
+
+u16 * CONST_DATA gUnknown_085D57A0[] =
+{
+    Img_08605E70,
+    Img_08605E70,
+    Img_08605E70,
+    Img_08605E70,
+    Img_08606A40,
+    Img_08606A40,
+    Img_08606A40,
+    Img_08606A40,
+    Img_08606A40,
+    Img_08606A40,
+    Img_08607AAC,
+};
+
+u16 * CONST_DATA gUnknown_085D57CC[] =
+{
+    Tsa_08608898,
+    Tsa_08608A2C,
+    Tsa_08608C34,
+    Tsa_08608D98,
+    Tsa_08608E78,
+    Tsa_08608F90,
+    Tsa_0860913C,
+    Tsa_0860925C,
+    Tsa_08609348,
+    Tsa_08609430,
+    Tsa_086094C8,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E850
 void sub_805E850(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DCF7E[] =
+    {
+         0,  2,
+         1,  2,
+         2,  2,
+         3,  2,
+         7,  8,
+         4,  3,
+         9,  8,
+         7,  1,
+         9,  8,
+         5,  2,
+         9,  8,
+         8,  1,
+         9,  8,
+         6,  2,
+         9,  6,
+         9, 38,
+        10, 38,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -124,7 +192,22 @@ void sub_805E8A4(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D57F8[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D57F8[] =
+{
+    PROC_NAME("efxThunderstormOBJ"),
+
+    PROC_REPEAT(sub_805E924),
+    PROC_SLEEP(100),
+
+    PROC_REPEAT(sub_805E968),
+
+    PROC_END,
+};
+
+// clang-format on
+
 
 //! FE8U = 0x0805E900
 void sub_805E900(struct Anim * anim)
@@ -163,7 +246,25 @@ void sub_805E968(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5820[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5820[] =
+{
+    PROC_NAME("efxThunderstormCOLOR"),
+    PROC_SLEEP(94),
+
+    PROC_REPEAT(sub_805E9B0),
+    PROC_SLEEP(3),
+
+    PROC_REPEAT(sub_805E9E4),
+    PROC_SLEEP(20),
+
+    PROC_REPEAT(sub_805EA4C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E98C
 void sub_805E98C(struct Anim * anim)
@@ -235,7 +336,19 @@ void sub_805EA4C(struct ProcEfxBGCOL * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5860[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5860[] =
+{
+    PROC_NAME("efxThunderstormDARK"),
+
+    PROC_REPEAT(sub_805EAF0),
+    PROC_REPEAT(sub_805EB54),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805EAAC
 void sub_805EAAC(struct Anim * anim, int timer, int terminator)
