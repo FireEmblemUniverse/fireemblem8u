@@ -6,7 +6,17 @@
 #include "efxmagic.h"
 #include "hardware.h"
 
-extern struct ProcCmd gUnknown_085D5880[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5880[] =
+{
+    PROC_NAME("efxAlacalibur"),
+    PROC_REPEAT(sub_805EBD4),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805EB98
 void sub_805EB98(struct Anim * anim)
@@ -79,12 +89,33 @@ void sub_805EBD4(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5898[];
+// clang-format off
 
-extern u16 gUnknown_080DD024[];
+struct ProcCmd CONST_DATA gUnknown_085D5898[] =
+{
+    PROC_NAME("efxAlacaliburBG"),
+    PROC_REPEAT(sub_805ED44),
+
+    PROC_END,
+};
+
+// clang-format on
+
+u16 * CONST_DATA gUnknown_085D58B0[] =
+{
+    Tsa_08622FEC,
+    Tsa_08623174,
+};
 
 void sub_805ECD4(struct Anim * anim)
 {
+    static const u16 gUnknown_080DD024[] =
+    {
+        0, 2,
+        1, 9,
+        -1,
+    };
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -101,11 +132,11 @@ void sub_805ECD4(struct Anim * anim)
 
     if (GetAnimPosition(proc->anim) == 0)
     {
-        BG_SetPosition(1, 0x18, 0);
+        BG_SetPosition(BG_1, 24, 0);
     }
     else
     {
-        BG_SetPosition(1, 0xe8, 0);
+        BG_SetPosition(BG_1, 232, 0);
     }
 
     return;
@@ -119,7 +150,7 @@ void sub_805ED44(struct ProcEfxBG * proc)
     if (ret >= 0)
     {
         u16 ** tsa = proc->tsal;
-        SpellFx_WriteBgMapExt(proc->anim, *(tsa + ret), 0x20, 0x14);
+        SpellFx_WriteBgMapExt(proc->anim, *(tsa + ret), 32, 20);
     }
     else
     {
@@ -135,11 +166,34 @@ void sub_805ED44(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D58B8[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D58B8[] =
+{
+    PROC_NAME("efxAlacaliburBGCOL"),
+    PROC_MARK(PROC_MARK_A),
+
+    PROC_REPEAT(sub_805EDDC),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805ED98
 void sub_805ED98(struct Anim * anim)
 {
+    static const u16 gUnknown_080DD044[] =
+    {
+        2, 1,
+        3, 1,
+        4, 1,
+        5, 1,
+        0, 5,
+        1, 2,
+        -1,
+    };
+
     struct ProcEfxBGCOL * proc;
 
     gEfxBgSemaphore++;
@@ -180,7 +234,16 @@ void sub_805EDDC(struct ProcEfxBGCOL * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D58D8[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D58D8[] =
+{
+    PROC_NAME("efxAlacaliburOBJ"),
+    PROC_REPEAT(sub_805EEAC),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805EE24
 void sub_805EE24(struct Anim * anim)

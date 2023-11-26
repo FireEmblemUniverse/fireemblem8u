@@ -30828,7 +30828,15 @@ gUnknown_08621960:  @ 0x08621960
 
 	.global gUnknown_08622F2C
 gUnknown_08622F2C:  @ 0x08622F2C
-	.incbin "baserom.gba", 0x622F2C, 0x5AC
+	.incbin "baserom.gba", 0x622F2C, 0xC0    @ 0x622FEC - 0x622F2C
+
+	.global Tsa_08622FEC
+Tsa_08622FEC:  @ 0x08622FEC
+	.incbin "baserom.gba", 0x622FEC, 0x188    @ 0x623174 - 0x622FEC
+
+	.global Tsa_08623174
+Tsa_08623174:  @ 0x08623174
+	.incbin "baserom.gba", 0x623174, 0x364    @ 0x6234D8 - 0x623174
 
 	.global gUnknown_086234D8
 gUnknown_086234D8:  @ 0x086234D8

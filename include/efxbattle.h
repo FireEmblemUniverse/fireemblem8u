@@ -1036,6 +1036,8 @@ extern u32 gUnknown_08605DF4[];
 // extern ??? gUnknown_0861AD8C
 extern u16 gUnknown_08621960[];
 extern u16 gUnknown_08622F2C[];
+extern u16 Tsa_08622FEC[];
+extern u16 Tsa_08623174[];
 extern u16 gUnknown_086234D8[];
 extern u16 gUnknown_08623A9C[];
 extern u32 gUnknown_08625094[];
