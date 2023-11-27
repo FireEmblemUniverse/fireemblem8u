@@ -111,11 +111,11 @@ extern struct ProcCmd ProcScr_efxFimbulvetrBGTR[];
 // extern ??? gUnknown_085D57F8
 // extern ??? gUnknown_085D5820
 // extern ??? gUnknown_085D5860
-// extern ??? gUnknown_085D5880
-// extern ??? gUnknown_085D5898
-// extern ??? gUnknown_085D58B0
-// extern ??? gUnknown_085D58B8
-// extern ??? gUnknown_085D58D8
+extern struct ProcCmd gProcScr_efxAlacalibur[];
+extern struct ProcCmd gProcScr_efxAlacaliburBG[];
+extern u16 * TsaArray_AircaliburBg[];
+extern struct ProcCmd gProcScr_efxAlacaliburBGCOL[];
+extern struct ProcCmd gProcScr_efxAlacaliburOBJ[];
 extern struct ProcCmd gProcScr_efxMistyrain[];
 extern struct ProcCmd gProcScr_efxMistyrainBG[];
 extern u16 * gUnknown_085D5920[];
@@ -412,14 +412,14 @@ void sub_805E754(struct Anim * anim);
 // ??? sub_805EAAC(???);
 // ??? sub_805EAF0(???);
 // ??? sub_805EB54(???);
-void sub_805EB98(struct Anim * anim);
-// ??? sub_805EBD4(???);
-// ??? sub_805ECD4(???);
-// ??? sub_805ED44(???);
-// ??? sub_805ED98(???);
-// ??? sub_805EDDC(???);
-// ??? sub_805EE24(???);
-// ??? sub_805EEAC(???);
+void StartSpellAnimAircalibur(struct Anim * anim);
+void efxAlacalibur_Loop_Main(struct ProcEfx * proc);
+void sub_805ECD4(struct Anim * anim);
+void efxAlacaliburBG_Loop(struct ProcEfxBG * proc);
+void sub_805ED98(struct Anim * anim);
+void efxAlacaliburBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void sub_805EE24(struct Anim * anim);
+void efxAlacaliburOBJ_Loop(struct ProcEfxOBJ * proc);
 void StartSpellAnimFlux(struct Anim * anim);
 void efxMistyRain_Loop_Main(struct ProcEfx * proc);
 void StartSubSpell_efxMistyrainBG(struct Anim * anim);
