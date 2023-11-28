@@ -22,7 +22,7 @@ struct Proc89EE068 {
     /* 54 */ ProcPtr unk_proc;
 };
 
-struct Proc89EE088 {
+struct ProcWorldFlush {
     PROC_HEADER;
     /* 29 */ u8 _pad_29[0x2C - 0x29];
     /* 2C */ u32 count;
@@ -87,12 +87,12 @@ void sub_8085988(struct EventEngineProc * proc);
 void sub_8085990(struct EventEngineProc * proc);
 void sub_80859D0(ProcPtr proc, ProcPtr parent);
 void nullsub_20(ProcPtr);
-void sub_80859EC(struct Proc89EE088 * proc);
-void sub_8085ACC(struct Proc89EE088 * proc);
-void sub_8085B30(struct Proc89EE088 * proc);
-void sub_8085B58(struct Proc89EE088 * proc);
-// ??? sub_8085BB4(???);
-// ??? sub_8085BFC(???);
+void WorldFlushInit(struct ProcWorldFlush * proc);
+void WorldFlushOut(struct ProcWorldFlush * proc);
+void WorldFlushReload(struct ProcWorldFlush * proc);
+void WorldFlushIn(struct ProcWorldFlush * proc);
+// ??? WorldFlushCallBack(???);
+void StartWorldFlush(struct EventEngineProc * proc);
 // ??? sub_8085C10(???);
 // ??? sub_8085C24(???);
 // ??? sub_8085C38(???);

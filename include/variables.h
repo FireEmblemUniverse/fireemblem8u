@@ -156,7 +156,7 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
 
-extern int gUnknown_0203E1E0;
+extern int gBattleScriptted;
 // extern ??? gBaArenaFlag
 // extern ??? gpProcefxopCur
 // extern ??? gUnknown_0203E1EC
@@ -187,7 +187,7 @@ extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gpPopupUnit
 // extern ??? gPopupItem
 // extern ??? gPopupNumber
-// extern ??? gUnknown_030005FC
+// extern ??? ItemBackupEvtBattle
 // extern ??? gUnknown_03000600
 // extern ??? gUnknown_03000700
 // extern ??? gUnknown_03000800
@@ -980,7 +980,7 @@ extern struct ProcCmd gUnknown_089EE000[];
 extern struct ProcCmd ProcScr_089EE030[];
 extern struct ProcCmd ProcScr_089EE048[];
 extern struct ProcCmd ProcScr_089EE068[];
-extern struct ProcCmd ProcScr_089EE088[];
+extern struct ProcCmd ProcScr_WorldFlush[];
 extern const u16 Obj_089EE99C[];
 extern u16 CONST_DATA *gUnknown_089EE9B0[];    /* images */
 extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */

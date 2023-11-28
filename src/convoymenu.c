@@ -14,6 +14,7 @@
 #include "popup.h"
 #include "face.h"
 #include "scene.h"
+#include "menuitempanel.h"
 #include "prepscreen.h"
 
 struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[] = {
@@ -93,7 +94,7 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
         return;
 
     gActiveUnit = unit;
-    gBmSt.itemUnk2C = item;
+    gBmSt.um_tmp_item = item;
     StartFace(0, GetUnitPortraitId(unit), 0xB0, 4, 2);
     SetFaceBlinkControlById(0, 5);
     ForceMenuItemPanel(proc, unit, 0xF, 0xA);
@@ -116,7 +117,7 @@ int SendToConvoyMenu_Draw(struct MenuProc* proc_menu, struct MenuItemProc* proc_
 
 int MenuCommand_DrawExtraItem(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
-    u16 item = gBmSt.itemUnk2C;
+    u16 item = gBmSt.um_tmp_item;
     struct Text* text = &proc_cmd->text;
 
     Text_SetColor(text, TEXT_COLOR_SYSTEM_BLUE);
@@ -130,14 +131,14 @@ u8 SendToConvoyMenu_NormalEffect(struct MenuProc* proc_menu, struct MenuItemProc
     AddItemToConvoy(gActiveUnit->items[proc_cmd->itemNumber]);
     gActionData.item = gActiveUnit->items[proc_cmd->itemNumber];
     UnitRemoveItem(gActiveUnit, proc_cmd->itemNumber);
-    UnitAddItem(gActiveUnit, gBmSt.itemUnk2C);
+    UnitAddItem(gActiveUnit, gBmSt.um_tmp_item);
     return MENU_ACT_ENDFACE | MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
 }
 
 u8 MenuCommand_SendItemToConvoy(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
-    AddItemToConvoy(gBmSt.itemUnk2C);
-    gActionData.item = gBmSt.itemUnk2C;
+    AddItemToConvoy(gBmSt.um_tmp_item);
+    gActionData.item = gBmSt.um_tmp_item;
     return MENU_ACT_ENDFACE | MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
 }
 
@@ -153,7 +154,7 @@ u8 SendToConvoyMenu_Selected(struct MenuProc* proc_menu, struct MenuItemProc* pr
 
 u8 SendToConvoyMenu_Selected2(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
-    gActionData.item = gBmSt.itemUnk2C;
+    gActionData.item = gBmSt.um_tmp_item;
     gActionData.unk08 = UNIT_ITEM_COUNT;
     LoadHelpBoxGfx(NULL, -1);
     /* maybe draw hand? */
@@ -170,7 +171,7 @@ u8 SendToConvoyMenu_Idle(struct MenuProc* proc_menu, struct MenuItemProc* proc_c
 
     if (gActionData.unk08 < UNIT_ITEM_COUNT) {
         UnitRemoveItem(gActiveUnit, gActionData.unk08);
-        UnitAddItem(gActiveUnit, gBmSt.itemUnk2C);
+        UnitAddItem(gActiveUnit, gBmSt.um_tmp_item);
     }
 
     return MENU_ACT_ENDFACE | MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;

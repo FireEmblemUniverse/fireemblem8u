@@ -18,6 +18,7 @@
 #include "popup.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "bmbattle.h"
 #include "ev_triggercheck.h"
 
 #include "cp_perform.h"
@@ -212,11 +213,11 @@ void AiStartCombatAction(struct CpPerformProc* proc) {
         gActionData.trapType = trap->extra;
     }
 
-    if ((s8)gAiDecision.itemSlot != -1) {
+    if ((s8)gAiDecision.itemSlot != BU_ISLOT_AUTO) {
         EquipUnitItemSlot(gActiveUnit, gAiDecision.itemSlot);
         gActionData.itemSlotIndex = 0;
     } else {
-        gActionData.itemSlotIndex = 8;
+        gActionData.itemSlotIndex = BU_ISLOT_BALLISTA;
     }
 
     ApplyUnitAction(proc);

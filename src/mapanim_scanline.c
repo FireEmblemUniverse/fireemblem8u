@@ -12,7 +12,7 @@ extern u16 * gManimScanlineBufs[];
 extern u16 * gManimActiveScanlineBuf;
 
 //! FE8U = 0x08081E78
-void sub_8081E78(void)
+void InitScanline(void)
 {
     InitScanlineBuf(gManimScanlineBufA);
     InitScanlineBuf(gManimScanlineBufA + 0x140);

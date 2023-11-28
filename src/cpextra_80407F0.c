@@ -115,7 +115,7 @@ void AiSpecialItemDoorKey(int item) {
     }
 
     if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
-        AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 6, 0, item, 0, 0);
+        AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, UNIT_ACTION_STEAL, 0, item, 0, 0);
     }
 
     return;
@@ -160,7 +160,7 @@ void AiSpecialItemLockpick(int item) {
         }
 
         if ((AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1)) {
-            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 6, 0, item, 0, 0);
+            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, UNIT_ACTION_STEAL, 0, item, 0, 0);
         }
     }
 
@@ -180,7 +180,7 @@ void AiSpecialItemAntitoxin(int item) {
     }
 
     if (AiFindSafestReachableLocation(gActiveUnit, &pos) == 1) {
-        AiSetDecision(pos.x, pos.y, 6, 0, item, 0, 0);
+        AiSetDecision(pos.x, pos.y, UNIT_ACTION_STEAL, 0, item, 0, 0);
     }
 
     return;
@@ -285,7 +285,7 @@ s8 sub_8040C5C() {
 
                     if (gAiDecision.actionPerformed == 1) {
                         if (AiIsWithinRectDistance(posA.x, posA.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
-                            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 0xD, 0, 0, posB.x, posB.y);
+                            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, AI_ACTION_PICK, 0, 0, posB.x, posB.y);
                             return 1;
                         }
                     }
@@ -296,7 +296,7 @@ s8 sub_8040C5C() {
 
                     if (gAiDecision.actionPerformed == 1) {
                         if (AiIsWithinRectDistance(posA.x, posA.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
-                            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 0xD, 0, 0, gAiDecision.xMove, gAiDecision.yMove);
+                            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, AI_ACTION_PICK, 0, 0, gAiDecision.xMove, gAiDecision.yMove);
                             return 1;
                         }
                     }
@@ -631,7 +631,7 @@ s8 AiTryUseNightmareStaff(struct UnknownAiInputA* input) {
 
 s8 AiDecideNightmareStaff() {
 
-    AiSetDecision(gAiState.unk86[1], gAiState.unk86[2], 0xB, gAiState.unk86[3], gAiState.unk86[4], 0, 0);
+    AiSetDecision(gAiState.unk86[1], gAiState.unk86[2], AI_ACTION_DKNIGHTMARE, gAiState.unk86[3], gAiState.unk86[4], 0, 0);
 
     return 1;
 }
@@ -716,7 +716,7 @@ s8 AiTryDKSummon(struct UnknownAiInputB* input) {
 }
 
 s8 AiDecideDKSummon() {
-    AiSetDecision(gAiState.unk86[1], gAiState.unk86[2], 0xC, 0, 0, 0, 0);
+    AiSetDecision(gAiState.unk86[1], gAiState.unk86[2], AI_ACTION_DKSUMMON, 0, 0, 0, 0);
 
     return 1;
 }

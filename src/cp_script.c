@@ -529,7 +529,7 @@ void AiScriptCmd_10_DoLooting(u8* pc) {
                 return;
             }
 
-            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 4, 0, itemSlot, 0, 0);
+            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, AI_ACTION_PILLAGE, 0, itemSlot, 0, 0);
 
             if (gpAiScriptCurrent->unk_03 == 0) {
                 return;
@@ -557,7 +557,7 @@ void AiScriptCmd_11_MoveTowardsSafety(u8* pc) {
     struct Vec2 pos;
 
     if (AiFindSafestReachableLocation(gActiveUnit, &pos) == 1) {
-        AiSetDecision(pos.x, pos.y, 0, 0, 0, 0, 0);
+        AiSetDecision(pos.x, pos.y, AI_ACTION_NONE, 0, 0, 0, 0);
     }
 
     (*pc)++;
@@ -770,7 +770,7 @@ void AiScriptCmd_18_TryAttackSnagWall(u8* pc) {
                 return;
             }
 
-            AiSetDecision(posB.x, posB.y, 1, 0, slot, posA.x, posA.y);
+            AiSetDecision(posB.x, posB.y, AI_ACTION_COMBAT, 0, slot, posA.x, posA.y);
         } else {
             AiTryMoveTowards(posA.x, posA.y, 0, 0xff, 1);
         }

@@ -125,7 +125,7 @@ try_ballist_combat:
 
     if ((finalResult.score != 0) || (finalResult.targetId != 0))
     {
-        AiSetDecision(finalResult.xMove, finalResult.yMove, 1, finalResult.targetId, finalResult.itemSlot, 0, 0);
+        AiSetDecision(finalResult.xMove, finalResult.yMove, AI_ACTION_COMBAT, finalResult.targetId, finalResult.itemSlot, 0, 0);
 
         if ((s8)finalResult.itemSlot != -1)
             TryRemoveUnitFromBallista(gActiveUnit);
@@ -224,7 +224,7 @@ _0803D7EA:
     }
 
     if ((finalResult.score != 0) || (finalResult.targetId != 0)) {
-        AiSetDecision(finalResult.xMove, finalResult.yMove, 1, finalResult.targetId, finalResult.itemSlot, 0, 0);
+        AiSetDecision(finalResult.xMove, finalResult.yMove, AI_ACTION_COMBAT, finalResult.targetId, finalResult.itemSlot, 0, 0);
 
         if ((s8)finalResult.itemSlot != -1) {
             TryRemoveUnitFromBallista(gActiveUnit);
@@ -434,7 +434,7 @@ s8 AiAttemptStealActionWithinMovement(void) {
 
     if (rank != 0xFF) {
         gActiveUnit->_u46++;
-        AiSetDecision(pos.x, pos.y, 3, target, itemSlot, 0, 0);
+        AiSetDecision(pos.x, pos.y, AI_ACTION_STEAL, target, itemSlot, 0, 0);
 
         return 1;
     }

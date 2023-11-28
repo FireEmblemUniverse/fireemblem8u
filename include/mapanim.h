@@ -752,7 +752,7 @@ void sub_8081E48(ProcPtr proc);
 void sub_8081E54(ProcPtr proc);
 void sub_8081E60(ProcPtr proc);
 
-void sub_8081E78();
+void InitScanline();
 // ??? sub_8081EAC(???);
 // ??? sub_8081F24(???);
 // ??? sub_8081F58(???);
@@ -781,7 +781,7 @@ void PrepareGradientScanlineBuf(u16 *, u16, u16, u16, u16);
 // ??? sub_8082658(???);
 void sub_8082730(int, int, int);
 // ??? sub_8082764(???);
-void sub_808285C(void);
+void WorldFlushHBlank(void);
 // ??? sub_80828A8(???);
 // ??? sub_80828EC(???);
 // ??? sub_808291C(???);

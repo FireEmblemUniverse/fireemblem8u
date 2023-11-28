@@ -246,19 +246,19 @@ bool EkrCheckAttackRound(u16 round)
     return false;
 }
 
-void sub_8058B64(void)
+void SetBattleScriptted(void)
 {
-    gUnknown_0203E1E0 = true;
+    gBattleScriptted = true;
 }
 
-void sub_8058B70(void)
+void SetBattleUnscriptted(void)
 {
-    gUnknown_0203E1E0 = false;
+    gBattleScriptted = false;
 }
 
-bool sub_8058B7C(void)
+bool CheckBattleScriptted(void)
 {
-    if (gUnknown_0203E1E0 == false)
+    if (gBattleScriptted == false)
         return false;
     else
         return true;

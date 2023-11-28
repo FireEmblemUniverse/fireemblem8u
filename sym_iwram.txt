@@ -29,7 +29,7 @@
 . = 0x000570; gUnknown_03000570 = .;
 . = 0x0005B0; gGenericProc = .;
 . = 0x0005D0; src/popup.o(.bss);
-. = 0x0005FC; gUnknown_030005FC = .;
+. = 0x0005FC; ItemBackupEvtBattle = .;
 . = 0x000600; gUnknown_03000600 = .;
 . = 0x000700; gUnknown_03000700 = .;
 . = 0x000800; gUnknown_03000800 = .;

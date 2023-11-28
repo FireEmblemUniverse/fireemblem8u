@@ -79,7 +79,7 @@ struct BmSt // Game State Struct
     /* 24 */ struct Vec2u mapRenderOrigin;
     /* 28 */ struct Vec2 cameraMax;
 
-    /* 2C */ u16 itemUnk2C;
+    /* 2C */ u16 um_tmp_item;
     /* 2E */ u16 itemUnk2E;
 
     /* 30 */ u16 unk30;
@@ -307,7 +307,7 @@ enum
     UNIT_ACTION_COMBAT = 0x02,
     UNIT_ACTION_STAFF = 0x03,
     UNIT_ACTION_DANCE = 0x04,
-    // 0x05?
+    UNIT_ACTION_UNK05 = 0x05,
     UNIT_ACTION_STEAL = 0x06,
     UNIT_ACTION_SUMMON = 0x07,
     UNIT_ACTION_SUMMON_DK = 0x08,
@@ -315,7 +315,7 @@ enum
     UNIT_ACTION_DROP = 0x0A,
     UNIT_ACTION_TAKE = 0x0B,
     UNIT_ACTION_GIVE = 0x0C,
-    // 0x0D?
+    UNIT_ACTION_UNK0D = 0x0D,
     UNIT_ACTION_TALK = 0x0E,
     UNIT_ACTION_SUPPORT = 0x0F,
     UNIT_ACTION_VISIT = 0x10,

@@ -39,6 +39,7 @@
 #include "savemenu.h"
 #include "prepscreen.h"
 #include "bmguide.h"
+#include "menuitempanel.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -447,13 +448,13 @@ u8 UnitActionMenu_Attack(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     LoadIconPalettes(4);
 
     if (gActiveUnit->state & US_IN_BALLISTA) {
-        return sub_8022B8C(menu, menuItem);
+        return StartUnitBallistaSelect(menu, menuItem);
     }
 
-    return sub_8022BD8(menu, menuItem);
+    return StartUnitWeaponSelect(menu, menuItem);
 }
 
-u8 sub_8022B8C(struct MenuProc* menu, struct MenuItemProc* menuItem) {
+u8 StartUnitBallistaSelect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     ProcPtr proc = StartOrphanMenu(&gBallistaRangeMenuDef);
 
@@ -465,7 +466,7 @@ u8 sub_8022B8C(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
-u8 sub_8022BD8(struct MenuProc* menu, struct MenuItemProc* menuItem) {
+u8 StartUnitWeaponSelect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     ProcPtr proc = StartOrphanMenu(&gUnknownMenuDef);
 
     if (gActiveUnit->pClassData->number != CLASS_PHANTOM) {
@@ -636,7 +637,7 @@ u8 AttackMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget* target) {
         InitObstacleBattleUnit();
     }
 
-    if (gActionData.itemSlotIndex == 8) {
+    if (gActionData.itemSlotIndex == BU_ISLOT_BALLISTA) {
         BattleGenerateBallistaSimulation(gActiveUnit, unit, gActiveUnit->xPos, gActiveUnit->yPos);
     } else {
         BattleGenerateSimulation(gActiveUnit, unit, -1, -1, gActionData.itemSlotIndex);
@@ -802,7 +803,7 @@ u8 PlayCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    gBmSt.itemUnk2C = ITEM_UNK_CD;
+    gBmSt.um_tmp_item = ITEM_UNK_CD;
 
     return sub_80230F0(def);
 }
@@ -813,7 +814,7 @@ u8 DanceCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    gBmSt.itemUnk2C = ITEM_DANCE;
+    gBmSt.um_tmp_item = ITEM_DANCE;
 
     return sub_80230F0(def);
 }
@@ -1227,7 +1228,7 @@ u8 BallistaRangeMenu_Select(struct MenuProc* menu, struct MenuItemProc* menuItem
 
     ClearBg0Bg1();
 
-    gActionData.itemSlotIndex = 8;
+    gActionData.itemSlotIndex = BU_ISLOT_BALLISTA;
 
     FillBallistaRangeMaybe(gActiveUnit);
 
@@ -1965,7 +1966,7 @@ u8 sub_8024564(ProcPtr proc, struct SelectTarget* target) {
 
 u8 ConvoyMenu_HelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     if (menuItem->itemNumber >= 5) {
-        StartItemHelpBox(menuItem->xTile << 3, menuItem->yTile << 3, gBmSt.itemUnk2C);
+        StartItemHelpBox(menuItem->xTile << 3, menuItem->yTile << 3, gBmSt.um_tmp_item);
         return 0;
     }
 
@@ -2287,7 +2288,7 @@ u8 ItemMenu_Is1stCommandAvailable(const struct MenuItemDef* def, int number) {
 }
 
 int ItemMenu_Draw1stCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    Text_InsertDrawString(&menuItem->text, 16, 0, GetItemName(gBmSt.itemUnk2C));
+    Text_InsertDrawString(&menuItem->text, 16, 0, GetItemName(gBmSt.um_tmp_item));
     PutText(&menuItem->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItem->xTile, menuItem->yTile));
 
     return 0;
@@ -2342,7 +2343,7 @@ u8 ItemMenu_SelectOtherCommands(struct MenuProc* menu, struct MenuItemProc* menu
 
 int ItemMenu_SwitchIn(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     if (menuItem->itemNumber == 0) {
-        UpdateMenuItemPanel(5);
+        UpdateMenuItemPanel(BU_ISLOT_5);
     } else {
         UpdateMenuItemPanel(menuItem->itemNumber - 1);
     }
@@ -2358,7 +2359,7 @@ u8 ItemMenuHelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     int item;
 
     if (menuItem->itemNumber == 0) {
-        item = gBmSt.itemUnk2C;
+        item = gBmSt.um_tmp_item;
     } else {
         item = gActiveUnit->items[menuItem->itemNumber - 1];
     }

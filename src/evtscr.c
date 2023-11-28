@@ -4103,48 +4103,35 @@ struct BattleHit * sub_801098C(void)
     return gUnknown_0203A974;
 }
 
-struct ScriptedBattleProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x58);
-
-    /* 58 */ struct EventEngineProc * unk_58;
-    /* 5C */ STRUCT_PAD(0x5c, 0x64);
-
-    /* 64 */ s16 unk_64;
-};
-
 //! FE8U = 0x08010A28
-void sub_8010A28(struct ScriptedBattleProc * proc)
+void ScriptBattleDeamon(struct ScriptedBattleProc * proc)
 {
-    if (proc->unk_64 == GetGameLock())
+    if (proc->lock == GetGameLock())
     {
-        sub_80121D4();
-        Proc_SetMark(proc->unk_58, PROC_MARK_6);
+        EventBattleReloadBmStatus();
+        Proc_SetMark(proc->evtproc, PROC_MARK_6);
         Proc_Break(proc);
     }
-
-    return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08591F18[] =
+struct ProcCmd CONST_DATA ProcScr_ScriptBattleDeamon[] =
 {
-    PROC_REPEAT(sub_8010A28),
+    PROC_REPEAT(ScriptBattleDeamon),
     PROC_END,
 };
 
 // clang-format on
 
-//! FE8U = 0x08010A58
+/* Script battle */
 u8 Event3F_(struct EventEngineProc * proc)
 {
     struct BattleHit * hits;
     struct ScriptedBattleProc * childProc;
     struct Unit * unitA;
     struct Unit * unitB;
-    s8 unkA;
+    s8 scriptted;
 
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
 
@@ -4181,18 +4168,18 @@ u8 Event3F_(struct EventEngineProc * proc)
 
             if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
             {
-                unkA = 0;
+                scriptted = 0;
             }
             else
             {
-                unkA = 1;
-                childProc = Proc_StartBlocking(gUnknown_08591F18, proc);
-                childProc->unk_58 = proc;
-                childProc->unk_64 = GetGameLock();
+                scriptted = 1;
+                childProc = Proc_StartBlocking(ProcScr_ScriptBattleDeamon, proc);
+                childProc->evtproc = proc;
+                childProc->lock = GetGameLock();
                 Proc_SetMark(proc, PROC_MARK_7);
             }
 
-            sub_8011F5C(unitA, unitB, isBallista, unkA, weaponId, hits, -subcmd || subcmd);
+            StartEventBattle(unitA, unitB, isBallista, scriptted, weaponId, hits, -subcmd || subcmd);
 
             return EVC_ADVANCE_YIELD;
 

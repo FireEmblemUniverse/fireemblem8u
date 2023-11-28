@@ -150,6 +150,9 @@ struct MenuItemOverride
     /* 04 */ void* func;
 };
 
+#define MISMATCHED_SIGNATURE(func) ((void *) (func))
+#define MenuItemsEnd {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+
 // function decls
 
 struct MenuProc* StartOrphanMenuAdjusted(const struct MenuDef* def, int xSubject, int xTileLeft, int xTileRight);

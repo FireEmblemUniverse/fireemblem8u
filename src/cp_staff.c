@@ -216,7 +216,7 @@ void AiStaffHealMendRecover(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
     }
 
     if (xDecision != -1) {
-        AiSetDecision(xDecision, yDecision, 5, targetId, itemIdx, 0, 0);
+        AiSetDecision(xDecision, yDecision, AI_ACTION_STAFF, targetId, itemIdx, 0, 0);
     }
 
     return;
@@ -288,7 +288,7 @@ void AiStaffPhysicRescue(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
     }
 
     if (xDecision != -1) {
-        AiSetDecision(xDecision, yDecision, 5, targetId, itemIdx, 0, 0);
+        AiSetDecision(xDecision, yDecision, AI_ACTION_STAFF, targetId, itemIdx, 0, 0);
     }
 
     return;
@@ -340,7 +340,7 @@ void AiStaffFortify(int itemIdx,  s8 (*isEnemy)(struct Unit* unit)) {
     }
 
     if (bestUnk > 1) {
-        AiSetDecision(xDecision, yDecision, 5, 0, itemIdx, 0, 0);
+        AiSetDecision(xDecision, yDecision, AI_ACTION_STAFF, 0, itemIdx, 0, 0);
     }
 
     return;
@@ -400,7 +400,7 @@ void AiStaffWarp(int itemIdx,  s8 (*isEnemy)(struct Unit* unit)) {
     }
 
     if ((level != 0) && (sub_8040668(&out) != 0)) {
-        AiSetDecision(xDecision, yDecision, 5, targetId, itemIdx, out.x, out.y);
+        AiSetDecision(xDecision, yDecision, AI_ACTION_STAFF, targetId, itemIdx, out.x, out.y);
     }
 
     return;
@@ -460,7 +460,7 @@ void AiStaffRestore(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
     }
 
     if (bestLevel != 0) {
-        AiSetDecision(xDecision, yDecision, 5, targetId, itemIdx, 0, 0);
+        AiSetDecision(xDecision, yDecision, AI_ACTION_STAFF, targetId, itemIdx, 0, 0);
     }
 
     return;
@@ -579,7 +579,7 @@ void AiStaffSilence(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
     }
 
     if (bestUnk != 0) {
-        AiSetDecision(xDecision, yDecision, 5, targetId, itemIdx, 0, 0);
+        AiSetDecision(xDecision, yDecision, AI_ACTION_STAFF, targetId, itemIdx, 0, 0);
     }
 
     return;
@@ -651,7 +651,7 @@ void AiStaffSleepBerserk(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
     }
 
     if (best != 0) {
-        AiSetDecision(xDecision, yDecision, 5, targetId, itemIdx, 0, 0);
+        AiSetDecision(xDecision, yDecision, AI_ACTION_STAFF, targetId, itemIdx, 0, 0);
     }
 
     return;

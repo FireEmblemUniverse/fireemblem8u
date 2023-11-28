@@ -24,6 +24,7 @@
 #include "ev_triggercheck.h"
 #include "bmmenu.h"
 #include "menu_def.h"
+#include "menuitempanel.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"

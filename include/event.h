@@ -257,6 +257,17 @@ struct Struct03000428
     u8 unk05;
 };
 
+struct ScriptedBattleProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x58);
+
+    /* 58 */ struct EventEngineProc * evtproc;
+    /* 5C */ STRUCT_PAD(0x5c, 0x64);
+
+    /* 64 */ s16 lock;
+};
+
 extern struct Struct03000428 gUnknown_03000428;
 extern char gUnknown_03000430[4];
 extern struct Unit * gLoadedUnitBuffer;
@@ -279,7 +290,7 @@ extern struct ProcCmd gUnknown_08591E00[];
 extern struct ProcCmd gUnknown_08591E58[];
 extern struct ProcCmd gUnknown_08591EB0[];
 extern struct ProcCmd CONST_DATA gUnknown_08591F08[];
-extern struct ProcCmd CONST_DATA gUnknown_08591F18[];
+extern struct ProcCmd CONST_DATA ProcScr_ScriptBattleDeamon[];
 extern struct ProcCmd CONST_DATA gUnknown_08591F28[];
 extern const u16 gEvent_DisplayBattleQuote[];
 extern const u16 gEvent_TriggerQueuedTileChanges[];
@@ -521,7 +532,7 @@ unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc *, s8);
 // ??? Event3D_(???);
 // ??? Event3E_PrepScreenCall(???);
 // ??? sub_801098C(???);
-// ??? sub_8010A28(???);
+// ??? ScriptBattleDeamon(???);
 // ??? Event3F_(???);
 // ??? sub_8010B48(???);
 // ??? Event40_(???);

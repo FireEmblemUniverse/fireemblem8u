@@ -440,10 +440,10 @@ void nullsub_20(ProcPtr proc)
     return;
 }
 
-void sub_80859EC(struct Proc89EE088 * proc)
+void WorldFlushInit(struct ProcWorldFlush * proc)
 {
     proc->count = 0;
-    sub_8081E78();
+    InitScanline();
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetWin0Box(0, 0, 0xF0, 0xA0);
     SetWinEnable(1, 0, 0);
@@ -458,11 +458,11 @@ void sub_80859EC(struct Proc89EE088 * proc)
     gLCDControlBuffer.wincnt.wout_enableBlend = 0;
 
     SetSpecialColorEffectsParameters(2, 0, 0, 0);
-    SetPrimaryHBlankHandler(sub_808285C);
+    SetPrimaryHBlankHandler(WorldFlushHBlank);
     PlaySoundEffect(0x269);
 }
 
-void sub_8085ACC(struct Proc89EE088 * proc)
+void WorldFlushOut(struct ProcWorldFlush * proc)
 {
     int val0, val1, val2, val3, count, max_count;
     
@@ -488,7 +488,7 @@ void sub_8085ACC(struct Proc89EE088 * proc)
         Proc_Break(proc);
 }
 
-void sub_8085B30(struct Proc89EE088 * proc)
+void WorldFlushReload(struct ProcWorldFlush * proc)
 {
     ApplyMapChangesById(1);
     EnableMapChange(1);
@@ -499,7 +499,7 @@ void sub_8085B30(struct Proc89EE088 * proc)
 }
 
 /* https://decomp.me/scratch/sgFDG */
-void sub_8085B58(struct Proc89EE088 * proc)
+void WorldFlushIn(struct ProcWorldFlush * proc)
 {
     int val0, val1, val3, val4, val5, count, max_count;
 #ifndef NONMATCHING
@@ -530,7 +530,7 @@ void sub_8085B58(struct Proc89EE088 * proc)
         Proc_Break(proc);
 }
 
-void sub_8085BB4(void)
+void WorldFlushCallBack(void)
 {
     SetPrimaryHBlankHandler(0);
     SetSpecialColorEffectsParameters(0, 0, 0, 0);
@@ -540,19 +540,19 @@ void sub_8085BB4(void)
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 }
 
-CONST_DATA struct ProcCmd ProcScr_089EE088[] = {
+CONST_DATA struct ProcCmd ProcScr_WorldFlush[] = {
     PROC_YIELD,
-    PROC_SET_END_CB(sub_8085BB4),
-    PROC_CALL(sub_80859EC),
-    PROC_REPEAT(sub_8085ACC),
-    PROC_CALL(sub_8085B30),
-    PROC_REPEAT(sub_8085B58),
+    PROC_SET_END_CB(WorldFlushCallBack),
+    PROC_CALL(WorldFlushInit),
+    PROC_REPEAT(WorldFlushOut),
+    PROC_CALL(WorldFlushReload),
+    PROC_REPEAT(WorldFlushIn),
     PROC_END
 };
 
-void sub_8085BFC(struct EventEngineProc * proc)
+void StartWorldFlush(struct EventEngineProc * proc)
 {
-    Proc_StartBlocking(ProcScr_089EE088, proc);
+    Proc_StartBlocking(ProcScr_WorldFlush, proc);
 }
 
 void sub_8085C10()

@@ -522,9 +522,10 @@ void NewPopup_ItemGot(ProcPtr parent, struct Unit *unit, u16 item)
         unit->state |= US_DROP_ITEM;
 }
 
-void NewPopup_GeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent)
+void NewPopup_GeneralItemGot(struct Unit *unit, int item, ProcPtr parent)
 {
-    switch (ITEM_INDEX(item)) {
+    u16 _item = item;
+    switch (ITEM_INDEX(_item)) {
     case ITEM_1G:
     case ITEM_5G:
     case ITEM_10G:
@@ -534,11 +535,11 @@ void NewPopup_GeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent)
     case ITEM_5000G:
     case ITEM_150G:
     case ITEM_200G:
-        NewPopup_GoldGot(parent, unit, GetItemCost(item));
+        NewPopup_GoldGot(parent, unit, GetItemCost(_item));
         break;
 
     default:
-        NewPopup_ItemGot(parent, unit, item);
+        NewPopup_ItemGot(parent, unit, _item);
         break;
     } /* switch item index */
 }
