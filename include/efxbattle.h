@@ -69,7 +69,19 @@ struct ProcEfxOBJ {
     STRUCT_PAD(0x2B, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
-    STRUCT_PAD(0x30, 0x5C);
+    STRUCT_PAD(0x30, 0x32);
+    /* 32 */ u16 unk32;
+    /* 34 */ u16 unk34;
+    /* 36 */ u16 unk36;
+    /* 38 */ u16 unk38;
+    /* 3A */ u16 unk3A;
+    /* 3C */ u16 unk3C;
+    /* 3E */ u16 unk3E;
+    /* 40 */ u16 unk40;
+    /* 42 */ u16 unk42;
+    /* 44 */ int unk44;
+    /* 48 */ int unk48;
+    STRUCT_PAD(0x4C, 0x5C);
     /* 5C */ struct Anim * anim;
     /* 60 */ struct Anim * anim2;
     /* 64 */ struct Anim * anim3;
@@ -1041,13 +1053,13 @@ extern u16 Tsa_BoltingBg_I[];
 extern u16 Tsa_BoltingBg_J[];
 extern u16 Tsa_BoltingBg_K[];
 extern u32 gUnknown_0860A5D4[]; // script
-// extern ??? gUnknown_086101DC
-// extern ??? gUnknown_08617F04
-// extern ??? gUnknown_08618BBC
-// extern ??? gUnknown_0861ACB8
-// extern ??? gUnknown_0861AD24
-// extern ??? gUnknown_0861AD84
-// extern ??? gUnknown_0861AD8C
+extern u16 gUnknown_086101DC[]; // pal
+extern u16 gUnknown_08617F04[]; // pal
+extern u16 gUnknown_08618BBC[]; // img
+extern u32 gUnknown_0861ACB8[]; // script
+extern u8 gUnknown_0861AD24[]; // script
+extern u32 gUnknown_0861AD84[]; // script
+extern u32 gUnknown_0861AD8C[]; // script
 extern u16 Img_AircaliburBg[];
 extern u16 Pal_AircaliburBg[];
 extern u16 Tsa_AircaliburBg_A[];
@@ -1150,7 +1162,7 @@ extern u32 gUnknown_0862DCE0[];
 // extern ??? gUnknown_0866F774
 // extern ??? gUnknown_086700D4
 // extern ??? gUnknown_086702D4
-// extern ??? gUnknown_08670528
+extern u16 gUnknown_08670528[]; // pal
 // extern ??? gUnknown_08670548
 // extern ??? gUnknown_08670D40
 // extern ??? gUnknown_086716A0

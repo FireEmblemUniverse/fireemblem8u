@@ -179,7 +179,7 @@ SECTIONS
         asm/banim-efxmagic-5BA64.o(.text);
         src/banim-efxmagic-thunder.o(.text);
         src/banim-efxmagic-fire.o(.text);
-        asm/banim-efxmagic-5E0E4.o(.text);
+        src/banim-efxmagic-fimbulvetr.o(.text);
         src/banim-efxmagic-bolting.o(.text);
         src/banim-efxmagic-aircalibur.o(.text);
         src/banim-efxmagic-flux.o(.text);
