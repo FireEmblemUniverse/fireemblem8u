@@ -162,7 +162,7 @@ void StartSubSpell_efxThunderstormBG(struct Anim * anim)
     proc->tsar = TsaArray_BoltingBg;
     proc->img = ImgArray_BoltingBg;
 
-    SpellFx_RegisterBgPal(Pal_BoltingBg, 0x20);
+    SpellFx_RegisterBgPal(Pal_BoltingBg, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     return;
@@ -178,7 +178,7 @@ void efxThunderstormBG_Loop(struct ProcEfxBG * proc)
         u16 ** tsaL = proc->tsal;
         u16 ** tsaR = proc->tsar;
         u16 ** img = proc->img;
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
     }
     else
@@ -227,8 +227,8 @@ void efxThunderstormOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->anim2 = EfxCreateFrontAnim(proc->anim, gUnknown_0860A5D4, gUnknown_0860A5D4, gUnknown_0860A5D4, gUnknown_0860A5D4);
 
-    SpellFx_RegisterObjPal(Pal_BoltingSprites, 0x20);
-    SpellFx_RegisterObjGfx(Img_BoltingSprites, 0x1000);
+    SpellFx_RegisterObjPal(Pal_BoltingSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_BoltingSprites, 32 * 4 * CHR_SIZE);
 
     Proc_Break(proc);
 
