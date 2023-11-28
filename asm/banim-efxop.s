@@ -1196,7 +1196,7 @@ sub_806F184: @ 0x0806F184
 	adds r1, r1, r2
 	strh r1, [r0, #4]
 	ldr r0, [r4, #0x5c]
-	ldr r1, _0806F1E0  @ gUnknown_08670528
+	ldr r1, _0806F1E0  @ Pal_FimbulvetrSprites_Snow
 	bl sub_806EB2C
 	ldr r0, [r4, #0x5c]
 	ldr r1, _0806F1E4  @ gUnknown_086702D4
@@ -1207,7 +1207,7 @@ sub_806F184: @ 0x0806F184
 	.align 2, 0
 _0806F1D8: .4byte ProcScr_efxopLiveOBJ
 _0806F1DC: .4byte gUnknown_08675114
-_0806F1E0: .4byte gUnknown_08670528
+_0806F1E0: .4byte Pal_FimbulvetrSprites_Snow
 _0806F1E4: .4byte gUnknown_086702D4
 
 	THUMB_FUNC_END sub_806F184

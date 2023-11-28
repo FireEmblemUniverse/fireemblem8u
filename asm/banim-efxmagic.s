@@ -4838,7 +4838,7 @@ NewEfxLiveOBJ: @ 0x0806196C
 	adds r2, r3, #0
 	bl EfxCreateFrontAnim
 	str r0, [r4, #0x60]
-	ldr r0, _080619C4  @ gUnknown_08670528
+	ldr r0, _080619C4  @ Pal_FimbulvetrSprites_Snow
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
 	ldr r0, _080619C8  @ gUnknown_086702D4
@@ -4853,7 +4853,7 @@ NewEfxLiveOBJ: @ 0x0806196C
 _080619B8: .4byte gEfxBgSemaphore
 _080619BC: .4byte ProcScr_efxLiveOBJ
 _080619C0: .4byte gUnknown_08675114
-_080619C4: .4byte gUnknown_08670528
+_080619C4: .4byte Pal_FimbulvetrSprites_Snow
 _080619C8: .4byte gUnknown_086702D4
 
 	THUMB_FUNC_END NewEfxLiveOBJ
@@ -4885,7 +4885,7 @@ sub_80619CC: @ 0x080619CC
 	adds r2, r3, #0
 	bl EfxCreateFrontAnim
 	str r0, [r4, #0x60]
-	ldr r0, _08061A28  @ gUnknown_08670528
+	ldr r0, _08061A28  @ Pal_FimbulvetrSprites_Snow
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
 	ldr r0, _08061A2C  @ gUnknown_086702D4
@@ -4900,7 +4900,7 @@ sub_80619CC: @ 0x080619CC
 _08061A1C: .4byte gEfxBgSemaphore
 _08061A20: .4byte ProcScr_efxReserveOBJ
 _08061A24: .4byte gUnknown_08675114
-_08061A28: .4byte gUnknown_08670528
+_08061A28: .4byte Pal_FimbulvetrSprites_Snow
 _08061A2C: .4byte gUnknown_086702D4
 
 	THUMB_FUNC_END sub_80619CC

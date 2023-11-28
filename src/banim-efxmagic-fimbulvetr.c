@@ -12,7 +12,7 @@
 struct ProcCmd CONST_DATA ProcScr_efxFimbulvetr[] =
 {
     PROC_NAME("efxFimbulvetr"),
-    PROC_REPEAT(sub_805E120),
+    PROC_REPEAT(efxFimbulvetr_Loop_Main),
 
     PROC_END,
 };
@@ -38,7 +38,7 @@ void StartSpellAnimFimbulvetr(struct Anim * anim)
 }
 
 //! FE8U = 0x0805E120
-void sub_805E120(struct ProcEfx * proc)
+void efxFimbulvetr_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -52,8 +52,8 @@ void sub_805E120(struct ProcEfx * proc)
 
     if (proc->timer == duration + 1)
     {
-        sub_805E230(anim);
-        sub_805E4C4(anim);
+        StartSubSpell_efxFimbulvetrBGTR(anim);
+        StartSubSpell_efxFimbulvetrOBJ2(anim);
         SetBlendAlpha(0, 16);
         NewEfxALPHA(anim, 0, 16, 0, 16, 0);
         PlaySFX(0x122, 0x100, anim->xPosition, 1);
@@ -65,14 +65,14 @@ void sub_805E120(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 85)
     {
-        sub_805E318(anim);
-        sub_805E430(anim);
+        StartSubSpell_efxFimbulvetrBG(anim);
+        StartSubSpell_efxFimbulvetrOBJ(anim);
         NewEfxALPHA(anim, 24, 16, 16, 0, 0);
         PlaySFX(0x123, 0x100, anim->xPosition, 1);
     }
     else if (proc->timer == duration + 88)
     {
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
         if (!proc->hitted)
@@ -95,40 +95,40 @@ void sub_805E120(struct ProcEfx * proc)
 struct ProcCmd CONST_DATA ProcScr_efxFimbulvetrBGTR[] =
 {
     PROC_NAME("efxFimbulvetrBGTR"),
-    PROC_REPEAT(sub_805E2B4),
+    PROC_REPEAT(efxFimbulvetrBGTR_Loop),
 
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D5688[] =
+u16 * CONST_DATA TsaArray_FimbulvetrBg_Tornado[] =
 {
-    Tsa_08617F24,
-    Tsa_08618110,
-    Tsa_086182E8,
-    Tsa_086184B0,
-    Tsa_086186E4,
-    Tsa_0861892C,
+    Tsa_FimbulvetrBg_Tornado_A,
+    Tsa_FimbulvetrBg_Tornado_B,
+    Tsa_FimbulvetrBg_Tornado_C,
+    Tsa_FimbulvetrBg_Tornado_D,
+    Tsa_FimbulvetrBg_Tornado_E,
+    Tsa_FimbulvetrBg_Tornado_F,
 };
 
-u16 * CONST_DATA gUnknown_085D56A0[] =
+u16 * CONST_DATA ImgArray_FimbulvetrBg_Tornado[] =
 {
-    Img_086110E0,
-    Img_086122E8,
-    Img_08613444,
-    Img_086144C8,
-    Img_08615908,
-    Img_08616CC0,
+    Img_FimbulvetrBg_Tornado_A,
+    Img_FimbulvetrBg_Tornado_B,
+    Img_FimbulvetrBg_Tornado_C,
+    Img_FimbulvetrBg_Tornado_D,
+    Img_FimbulvetrBg_Tornado_E,
+    Img_FimbulvetrBg_Tornado_F,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805E230
-void sub_805E230(struct Anim * anim)
+void StartSubSpell_efxFimbulvetrBGTR(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
 
     // clang-format off
-    static const u16 gUnknown_080DCE6E[] =
+    static const u16 frames[] =
     {
          0, 3,
          1, 3,
@@ -167,12 +167,12 @@ void sub_805E230(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCE6E;
-    proc->tsal = gUnknown_085D5688;
-    proc->tsar = gUnknown_085D5688;
-    proc->img = gUnknown_085D56A0;
+    proc->frame_config = frames;
+    proc->tsal = TsaArray_FimbulvetrBg_Tornado;
+    proc->tsar = TsaArray_FimbulvetrBg_Tornado;
+    proc->img = ImgArray_FimbulvetrBg_Tornado;
 
-    SpellFx_RegisterBgPal(gUnknown_08617F04, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_FimbulvetrBg_Tornado, PLTT_SIZE_4BPP);
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
@@ -192,7 +192,7 @@ void sub_805E230(struct Anim * anim)
 }
 
 //! FE8U = 0x0805E2B4
-void sub_805E2B4(struct ProcEfxBG * proc)
+void efxFimbulvetrBGTR_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -220,53 +220,53 @@ void sub_805E2B4(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D56B8[] =
+struct ProcCmd CONST_DATA ProcScr_efxFimbulvetrBG[] =
 {
     PROC_NAME("efxFimbulvetrBG"),
-    PROC_REPEAT(sub_805E39C),
+    PROC_REPEAT(efxFimbulvetrBG_Loop),
 
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D56D0[] =
+u16 * CONST_DATA TsaArray_FimbulvetrBg[] =
 {
-    Tsa_086101FC,
-    Tsa_086102A0,
-    Tsa_08610348,
-    Tsa_08610404,
-    Tsa_086104D8,
-    Tsa_086105D4,
-    Tsa_08610714,
-    Tsa_086108AC,
-    Tsa_08610A80,
-    Tsa_08610C90,
-    Tsa_08610EB0,
+    Tsa_FimbulvetrBg_A,
+    Tsa_FimbulvetrBg_B,
+    Tsa_FimbulvetrBg_C,
+    Tsa_FimbulvetrBg_D,
+    Tsa_FimbulvetrBg_E,
+    Tsa_FimbulvetrBg_F,
+    Tsa_FimbulvetrBg_G,
+    Tsa_FimbulvetrBg_H,
+    Tsa_FimbulvetrBg_I,
+    Tsa_FimbulvetrBg_J,
+    Tsa_FimbulvetrBg_K,
 };
 
-u16 * CONST_DATA gUnknown_085D56FC[] =
+u16 * CONST_DATA ImgArray_FimbulvetrBg[] =
 {
-    Img_0860A764,
-    Img_0860A764,
-    Img_0860A764,
-    Img_0860A764,
-    Img_0860A764,
-    Img_0860A764,
-    Img_0860BA34,
-    Img_0860BA34,
-    Img_0860D2E4,
-    Img_0860E728,
-    Img_0860E728,
+    Img_FimbulvetrBg_A,
+    Img_FimbulvetrBg_A,
+    Img_FimbulvetrBg_A,
+    Img_FimbulvetrBg_A,
+    Img_FimbulvetrBg_A,
+    Img_FimbulvetrBg_A,
+    Img_FimbulvetrBg_B,
+    Img_FimbulvetrBg_B,
+    Img_FimbulvetrBg_C,
+    Img_FimbulvetrBg_D,
+    Img_FimbulvetrBg_D,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805E318
-void sub_805E318(struct Anim * anim)
+void StartSubSpell_efxFimbulvetrBG(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
 
     // clang-format off
-    static const u16 gUnknown_080DCEEC[] =
+    static const u16 frames[] =
     {
          0,  1,
          1,  1,
@@ -285,16 +285,16 @@ void sub_805E318(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D56B8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxFimbulvetrBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCEEC;
-    proc->tsal = gUnknown_085D56D0;
-    proc->tsar = gUnknown_085D56D0;
-    proc->img = gUnknown_085D56FC;
+    proc->frame_config = frames;
+    proc->tsal = TsaArray_FimbulvetrBg;
+    proc->tsar = TsaArray_FimbulvetrBg;
+    proc->img = ImgArray_FimbulvetrBg;
 
-    SpellFx_RegisterBgPal(gUnknown_086101DC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_FimbulvetrBg, PLTT_SIZE_4BPP);
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
@@ -314,7 +314,7 @@ void sub_805E318(struct Anim * anim)
 }
 
 //! FE8U = 0x0805E39C
-void sub_805E39C(struct ProcEfxBG * proc)
+void efxFimbulvetrBG_Loop(struct ProcEfxBG * proc)
 {
     int ret;
 
@@ -356,10 +356,10 @@ void sub_805E39C(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5728[] =
+struct ProcCmd CONST_DATA ProcScr_efxFimbulvetrOBJ[] =
 {
     PROC_NAME("efxFimbulvetrOBJ"),
-    PROC_REPEAT(sub_805E494),
+    PROC_REPEAT(efxFimbulvetrOBJ_Loop),
 
     PROC_END,
 };
@@ -367,27 +367,27 @@ struct ProcCmd CONST_DATA gUnknown_085D5728[] =
 // clang-format on
 
 //! FE8U = 0x0805E430
-void sub_805E430(struct Anim * anim)
+void StartSubSpell_efxFimbulvetrOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5728, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxFimbulvetrOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
     proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_0861ACB8, gUnknown_0861ACB8, gUnknown_0861ACB8, gUnknown_0861ACB8);
     proc->anim2->xPosition += 24;
 
-    SpellFx_RegisterObjPal(gUnknown_08670528, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_08618BBC, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_FimbulvetrSprites_Snow, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_FimbulvetrSprites_Snow, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x0805E494
-void sub_805E494(struct ProcEfxOBJ * proc)
+void efxFimbulvetrOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -403,10 +403,10 @@ void sub_805E494(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5740[] =
+struct ProcCmd CONST_DATA ProcScr_efxFimbulvetrOBJ2[] =
 {
     PROC_NAME("efxFimbulvetrOBJ2"),
-    PROC_REPEAT(sub_805E510),
+    PROC_REPEAT(efxFimbulvetrOBJ2_Loop),
 
     PROC_END,
 };
@@ -414,33 +414,33 @@ struct ProcCmd CONST_DATA gUnknown_085D5740[] =
 // clang-format on
 
 //! FE8U = 0x0805E4C4
-void sub_805E4C4(struct Anim * anim)
+void StartSubSpell_efxFimbulvetrOBJ2(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5740, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxFimbulvetrOBJ2, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 0;
     proc->unk44 = 1;
     proc->unk48 = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_08670528, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_08618BBC, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_FimbulvetrSprites_Snow, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_FimbulvetrSprites_Snow, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x0805E510
-void sub_805E510(struct ProcEfxOBJ * proc)
+void efxFimbulvetrOBJ2_Loop(struct ProcEfxOBJ * proc)
 {
     int i;
 
     for (i = 0; i < 32; i++)
     {
-        sub_805E53C(proc->anim, i);
+        StartSubSpell_efxFimbulvetrOBJ2Fall(proc->anim, i);
     }
 
     gEfxBgSemaphore--;
@@ -452,10 +452,10 @@ void sub_805E510(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5758[] =
+struct ProcCmd CONST_DATA ProcScr_efxFimbulvetrOBJ2Fall[] =
 {
     PROC_NAME("efxFimbulvetrOBJ2Fall"),
-    PROC_REPEAT(sub_805E694),
+    PROC_REPEAT(efxFimbulvetrOBJ2Fall_Loop),
 
     PROC_END,
 };
@@ -463,7 +463,7 @@ struct ProcCmd CONST_DATA gUnknown_085D5758[] =
 // clang-format on
 
 //! FE8U = 0x0805E53C
-void sub_805E53C(struct Anim * anim, int unk)
+void StartSubSpell_efxFimbulvetrOBJ2Fall(struct Anim * anim, int unk)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * anim2;
@@ -472,7 +472,7 @@ void sub_805E53C(struct Anim * anim, int unk)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5758, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxFimbulvetrOBJ2Fall, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 100;
@@ -515,7 +515,7 @@ void sub_805E53C(struct Anim * anim, int unk)
 }
 
 //! FE8U = 0x0805E694
-void sub_805E694(struct ProcEfxOBJ * proc)
+void efxFimbulvetrOBJ2Fall_Loop(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 

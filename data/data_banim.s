@@ -22204,171 +22204,171 @@ Tsa_BoltingBg_K:  @ 0x086094C8
 gUnknown_0860A5D4:  @ 0x0860A5D4
 	.incbin "baserom.gba", 0x60A5D4, 0x190    @ 0x60A764 - 0x60A5D4
 
-	.global Img_0860A764
-Img_0860A764:  @ 0x0860A764
+	.global Img_FimbulvetrBg_A
+Img_FimbulvetrBg_A:  @ 0x0860A764
 	.incbin "baserom.gba", 0x60A764, 0x12D0    @ 0x60BA34 - 0x60A764
 
-	.global Img_0860BA34
-Img_0860BA34:  @ 0x0860BA34
+	.global Img_FimbulvetrBg_B
+Img_FimbulvetrBg_B:  @ 0x0860BA34
 	.incbin "baserom.gba", 0x60BA34, 0x18B0    @ 0x60D2E4 - 0x60BA34
 
-	.global Img_0860D2E4
-Img_0860D2E4:  @ 0x0860D2E4
+	.global Img_FimbulvetrBg_C
+Img_FimbulvetrBg_C:  @ 0x0860D2E4
 	.incbin "baserom.gba", 0x60D2E4, 0x1444    @ 0x60E728 - 0x60D2E4
 
-	.global Img_0860E728
-Img_0860E728:  @ 0x0860E728
+	.global Img_FimbulvetrBg_D
+Img_FimbulvetrBg_D:  @ 0x0860E728
 	.incbin "baserom.gba", 0x60E728, 0x1AB4    @ 0x6101DC - 0x60E728
 
-	.global gUnknown_086101DC
-gUnknown_086101DC:  @ 0x086101DC
+	.global Pal_FimbulvetrBg
+Pal_FimbulvetrBg:  @ 0x086101DC
 	.incbin "baserom.gba", 0x6101DC, 0x20    @ 0x6101FC - 0x6101DC
 
-	.global Tsa_086101FC
-Tsa_086101FC:  @ 0x086101FC
+	.global Tsa_FimbulvetrBg_A
+Tsa_FimbulvetrBg_A:  @ 0x086101FC
 	.incbin "baserom.gba", 0x6101FC, 0xA4    @ 0x6102A0 - 0x6101FC
 
-	.global Tsa_086102A0
-Tsa_086102A0:  @ 0x086102A0
+	.global Tsa_FimbulvetrBg_B
+Tsa_FimbulvetrBg_B:  @ 0x086102A0
 	.incbin "baserom.gba", 0x6102A0, 0xA8    @ 0x610348 - 0x6102A0
 
-	.global Tsa_08610348
-Tsa_08610348:  @ 0x08610348
+	.global Tsa_FimbulvetrBg_C
+Tsa_FimbulvetrBg_C:  @ 0x08610348
 	.incbin "baserom.gba", 0x610348, 0xBC    @ 0x610404 - 0x610348
 
-	.global Tsa_08610404
-Tsa_08610404:  @ 0x08610404
+	.global Tsa_FimbulvetrBg_D
+Tsa_FimbulvetrBg_D:  @ 0x08610404
 	.incbin "baserom.gba", 0x610404, 0xD4    @ 0x6104D8 - 0x610404
 
-	.global Tsa_086104D8
-Tsa_086104D8:  @ 0x086104D8
+	.global Tsa_FimbulvetrBg_E
+Tsa_FimbulvetrBg_E:  @ 0x086104D8
 	.incbin "baserom.gba", 0x6104D8, 0xFC    @ 0x6105D4 - 0x6104D8
 
-	.global Tsa_086105D4
-Tsa_086105D4:  @ 0x086105D4
+	.global Tsa_FimbulvetrBg_F
+Tsa_FimbulvetrBg_F:  @ 0x086105D4
 	.incbin "baserom.gba", 0x6105D4, 0x140    @ 0x610714 - 0x6105D4
 
-	.global Tsa_08610714
-Tsa_08610714:  @ 0x08610714
+	.global Tsa_FimbulvetrBg_G
+Tsa_FimbulvetrBg_G:  @ 0x08610714
 	.incbin "baserom.gba", 0x610714, 0x198    @ 0x6108AC - 0x610714
 
-	.global Tsa_086108AC
-Tsa_086108AC:  @ 0x086108AC
+	.global Tsa_FimbulvetrBg_H
+Tsa_FimbulvetrBg_H:  @ 0x086108AC
 	.incbin "baserom.gba", 0x6108AC, 0x1D4    @ 0x610A80 - 0x6108AC
 
-	.global Tsa_08610A80
-Tsa_08610A80:  @ 0x08610A80
+	.global Tsa_FimbulvetrBg_I
+Tsa_FimbulvetrBg_I:  @ 0x08610A80
 	.incbin "baserom.gba", 0x610A80, 0x210    @ 0x610C90 - 0x610A80
 
-	.global Tsa_08610C90
-Tsa_08610C90:  @ 0x08610C90
+	.global Tsa_FimbulvetrBg_J
+Tsa_FimbulvetrBg_J:  @ 0x08610C90
 	.incbin "baserom.gba", 0x610C90, 0x220    @ 0x610EB0 - 0x610C90
 
-	.global Tsa_08610EB0
-Tsa_08610EB0:  @ 0x08610EB0
+	.global Tsa_FimbulvetrBg_K
+Tsa_FimbulvetrBg_K:  @ 0x08610EB0
 	.incbin "baserom.gba", 0x610EB0, 0x230    @ 0x6110E0 - 0x610EB0
 
-	.global Img_086110E0
-Img_086110E0:  @ 0x086110E0
+	.global Img_FimbulvetrBg_Tornado_A
+Img_FimbulvetrBg_Tornado_A:  @ 0x086110E0
 	.incbin "baserom.gba", 0x6110E0, 0x1208    @ 0x6122E8 - 0x6110E0
 
-	.global Img_086122E8
-Img_086122E8:  @ 0x086122E8
+	.global Img_FimbulvetrBg_Tornado_B
+Img_FimbulvetrBg_Tornado_B:  @ 0x086122E8
 	.incbin "baserom.gba", 0x6122E8, 0x115C    @ 0x613444 - 0x6122E8
 
-	.global Img_08613444
-Img_08613444:  @ 0x08613444
+	.global Img_FimbulvetrBg_Tornado_C
+Img_FimbulvetrBg_Tornado_C:  @ 0x08613444
 	.incbin "baserom.gba", 0x613444, 0x1084    @ 0x6144C8 - 0x613444
 
-	.global Img_086144C8
-Img_086144C8:  @ 0x086144C8
+	.global Img_FimbulvetrBg_Tornado_D
+Img_FimbulvetrBg_Tornado_D:  @ 0x086144C8
 	.incbin "baserom.gba", 0x6144C8, 0x1440    @ 0x615908 - 0x6144C8
 
-	.global Img_08615908
-Img_08615908:  @ 0x08615908
+	.global Img_FimbulvetrBg_Tornado_E
+Img_FimbulvetrBg_Tornado_E:  @ 0x08615908
 	.incbin "baserom.gba", 0x615908, 0x13B8    @ 0x616CC0 - 0x615908
 
-	.global Img_08616CC0
-Img_08616CC0:  @ 0x08616CC0
+	.global Img_FimbulvetrBg_Tornado_F
+Img_FimbulvetrBg_Tornado_F:  @ 0x08616CC0
 	.incbin "baserom.gba", 0x616CC0, 0x1244    @ 0x617F04 - 0x616CC0
 
-	.global gUnknown_08617F04
-gUnknown_08617F04:  @ 0x08617F04
+	.global Pal_FimbulvetrBg_Tornado
+Pal_FimbulvetrBg_Tornado:  @ 0x08617F04
 	.incbin "baserom.gba", 0x617F04, 0x20    @ 0x617F24 - 0x617F04
 
-	.global Tsa_08617F24
-Tsa_08617F24:  @ 0x08617F24
+	.global Tsa_FimbulvetrBg_Tornado_A
+Tsa_FimbulvetrBg_Tornado_A:  @ 0x08617F24
 	.incbin "baserom.gba", 0x617F24, 0x1EC    @ 0x618110 - 0x617F24
 
-	.global Tsa_08618110
-Tsa_08618110:  @ 0x08618110
+	.global Tsa_FimbulvetrBg_Tornado_B
+Tsa_FimbulvetrBg_Tornado_B:  @ 0x08618110
 	.incbin "baserom.gba", 0x618110, 0x1D8    @ 0x6182E8 - 0x618110
 
-	.global Tsa_086182E8
-Tsa_086182E8:  @ 0x086182E8
+	.global Tsa_FimbulvetrBg_Tornado_C
+Tsa_FimbulvetrBg_Tornado_C:  @ 0x086182E8
 	.incbin "baserom.gba", 0x6182E8, 0x1C8    @ 0x6184B0 - 0x6182E8
 
-	.global Tsa_086184B0
-Tsa_086184B0:  @ 0x086184B0
+	.global Tsa_FimbulvetrBg_Tornado_D
+Tsa_FimbulvetrBg_Tornado_D:  @ 0x086184B0
 	.incbin "baserom.gba", 0x6184B0, 0x234    @ 0x6186E4 - 0x6184B0
 
-	.global Tsa_086186E4
-Tsa_086186E4:  @ 0x086186E4
+	.global Tsa_FimbulvetrBg_Tornado_E
+Tsa_FimbulvetrBg_Tornado_E:  @ 0x086186E4
 	.incbin "baserom.gba", 0x6186E4, 0x248    @ 0x61892C - 0x6186E4
 
-	.global Tsa_0861892C
-Tsa_0861892C:  @ 0x0861892C
+	.global Tsa_FimbulvetrBg_Tornado_F
+Tsa_FimbulvetrBg_Tornado_F:  @ 0x0861892C
 	.incbin "baserom.gba", 0x61892C, 0x290    @ 0x618BBC - 0x61892C
 
-	.global gUnknown_08618BBC
-gUnknown_08618BBC:  @ 0x08618BBC
+	.global Img_FimbulvetrSprites_Snow
+Img_FimbulvetrSprites_Snow:  @ 0x08618BBC
 	.incbin "baserom.gba", 0x618BBC, 0x20FC
 
 	.global gUnknown_0861ACB8
 gUnknown_0861ACB8:  @ 0x0861ACB8
 @ Replacing .incbin "baserom.gba", 0x61ACB8, 0x6C
-    .4byte gUnknown_08618BBC + 0x352
-    .4byte gUnknown_08618BBC + 0x3ca
-    .4byte gUnknown_08618BBC + 0x4c6
-    .4byte gUnknown_08618BBC + 0x5da
-    .4byte gUnknown_08618BBC + 0x706
-    .4byte gUnknown_08618BBC + 0x84a
-    .4byte gUnknown_08618BBC + 0x976
-    .4byte gUnknown_08618BBC + 0xaa2
-    .4byte gUnknown_08618BBC + 0xbce
-    .4byte gUnknown_08618BBC + 0xcfa
-    .4byte gUnknown_08618BBC + 0xe1a
-    .4byte gUnknown_08618BBC + 0xf46
-    .4byte gUnknown_08618BBC + 0x1072
-    .4byte gUnknown_08618BBC + 0x1192
-    .4byte gUnknown_08618BBC + 0x12be
-    .4byte gUnknown_08618BBC + 0x13ea
-    .4byte gUnknown_08618BBC + 0x1516
-    .4byte gUnknown_08618BBC + 0x1642
-    .4byte gUnknown_08618BBC + 0x176e
-    .4byte gUnknown_08618BBC + 0x189a
-    .4byte gUnknown_08618BBC + 0x19ba
-    .4byte gUnknown_08618BBC + 0x1ada
-    .4byte gUnknown_08618BBC + 0x1c12
-    .4byte gUnknown_08618BBC + 0x1d32
-    .4byte gUnknown_08618BBC + 0x1e52
-    .4byte gUnknown_08618BBC + 0x1f72
+    .4byte Img_FimbulvetrSprites_Snow + 0x352
+    .4byte Img_FimbulvetrSprites_Snow + 0x3ca
+    .4byte Img_FimbulvetrSprites_Snow + 0x4c6
+    .4byte Img_FimbulvetrSprites_Snow + 0x5da
+    .4byte Img_FimbulvetrSprites_Snow + 0x706
+    .4byte Img_FimbulvetrSprites_Snow + 0x84a
+    .4byte Img_FimbulvetrSprites_Snow + 0x976
+    .4byte Img_FimbulvetrSprites_Snow + 0xaa2
+    .4byte Img_FimbulvetrSprites_Snow + 0xbce
+    .4byte Img_FimbulvetrSprites_Snow + 0xcfa
+    .4byte Img_FimbulvetrSprites_Snow + 0xe1a
+    .4byte Img_FimbulvetrSprites_Snow + 0xf46
+    .4byte Img_FimbulvetrSprites_Snow + 0x1072
+    .4byte Img_FimbulvetrSprites_Snow + 0x1192
+    .4byte Img_FimbulvetrSprites_Snow + 0x12be
+    .4byte Img_FimbulvetrSprites_Snow + 0x13ea
+    .4byte Img_FimbulvetrSprites_Snow + 0x1516
+    .4byte Img_FimbulvetrSprites_Snow + 0x1642
+    .4byte Img_FimbulvetrSprites_Snow + 0x176e
+    .4byte Img_FimbulvetrSprites_Snow + 0x189a
+    .4byte Img_FimbulvetrSprites_Snow + 0x19ba
+    .4byte Img_FimbulvetrSprites_Snow + 0x1ada
+    .4byte Img_FimbulvetrSprites_Snow + 0x1c12
+    .4byte Img_FimbulvetrSprites_Snow + 0x1d32
+    .4byte Img_FimbulvetrSprites_Snow + 0x1e52
+    .4byte Img_FimbulvetrSprites_Snow + 0x1f72
     .4byte 0x82000000
 
 	.global gUnknown_0861AD24
 gUnknown_0861AD24:  @ 0x0861AD24
 @ Replacing .incbin "baserom.gba", 0x61AD24, 0x60
-    .4byte gUnknown_08618BBC + 0x209d
-    .4byte gUnknown_08618BBC + 0x1bf9
+    .4byte Img_FimbulvetrSprites_Snow + 0x209d
+    .4byte Img_FimbulvetrSprites_Snow + 0x1bf9
     .4byte 0x82000000
-    .4byte gUnknown_08618BBC + 0x20b5
-    .4byte gUnknown_08618BBC + 0x1bf9
+    .4byte Img_FimbulvetrSprites_Snow + 0x20b5
+    .4byte Img_FimbulvetrSprites_Snow + 0x1bf9
     .4byte 0x82000000
-    .4byte gUnknown_08618BBC + 0x1bf9
-    .4byte gUnknown_08618BBC + 0x20cd
+    .4byte Img_FimbulvetrSprites_Snow + 0x1bf9
+    .4byte Img_FimbulvetrSprites_Snow + 0x20cd
     .4byte 0x82000000
-    .4byte gUnknown_08618BBC + 0x1bf9
-    .4byte gUnknown_08618BBC + 0x20e5
+    .4byte Img_FimbulvetrSprites_Snow + 0x1bf9
+    .4byte Img_FimbulvetrSprites_Snow + 0x20e5
     .4byte 0x82000000
     .4byte 0x80000000
     .4byte 0xfff00018
@@ -60616,8 +60616,8 @@ gUnknown_086700D4:  @ 0x086700D4
 gUnknown_086702D4:  @ 0x086702D4
 	.incbin "baserom.gba", 0x6702D4, 0x254
 
-	.global gUnknown_08670528
-gUnknown_08670528:  @ 0x08670528
+	.global Pal_FimbulvetrSprites_Snow
+Pal_FimbulvetrSprites_Snow:  @ 0x08670528
 	.incbin "baserom.gba", 0x670528, 0x20
 
 	.global gUnknown_08670548

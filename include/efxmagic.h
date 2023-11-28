@@ -96,14 +96,14 @@ extern struct ProcCmd ProcScr_efxElfireBGCOL[];
 extern struct ProcCmd ProcScr_efxElfireOBJ[];
 extern struct ProcCmd ProcScr_efxFimbulvetr[];
 extern struct ProcCmd ProcScr_efxFimbulvetrBGTR[];
-// extern ??? gUnknown_085D5688
-// extern ??? gUnknown_085D56A0
-// extern ??? gUnknown_085D56B8
-// extern ??? gUnknown_085D56D0
-// extern ??? gUnknown_085D56FC
-// extern ??? gUnknown_085D5728
-// extern ??? gUnknown_085D5740
-// extern ??? gUnknown_085D5758
+// extern ??? TsaArray_FimbulvetrBg_Tornado
+// extern ??? ImgArray_FimbulvetrBg_Tornado
+// extern ??? ProcScr_efxFimbulvetrBG
+// extern ??? TsaArray_FimbulvetrBg
+// extern ??? ImgArray_FimbulvetrBg
+// extern ??? ProcScr_efxFimbulvetrOBJ
+// extern ??? ProcScr_efxFimbulvetrOBJ2
+// extern ??? ProcScr_efxFimbulvetrOBJ2Fall
 // extern ??? gProcScr_efxThunderstorm
 // extern ??? gProcScr_efxThunderstormBG
 extern u16 * ImgArray_BoltingBg[];
@@ -387,17 +387,17 @@ void StartSubSpell_efxElfireBGCOL(struct Anim * anim);
 void StartSubSpell_efxElfireOBJ(struct Anim * anim);
 // ??? sub_805E0B4(???);
 void StartSpellAnimFimbulvetr(struct Anim * anim);
-void sub_805E120(struct ProcEfx * proc);
-void sub_805E230(struct Anim * anim);
-void sub_805E2B4(struct ProcEfxBG * proc);
-void sub_805E318(struct Anim * anim);
-void sub_805E39C(struct ProcEfxBG * proc);
-void sub_805E430(struct Anim * anim);
-void sub_805E494(struct ProcEfxOBJ * proc);
-void sub_805E4C4(struct Anim * anim);
-void sub_805E510(struct ProcEfxOBJ * proc);
-void sub_805E53C(struct Anim * anim, int unk);
-void sub_805E694(struct ProcEfxOBJ * proc);
+void efxFimbulvetr_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxFimbulvetrBGTR(struct Anim * anim);
+void efxFimbulvetrBGTR_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxFimbulvetrBG(struct Anim * anim);
+void efxFimbulvetrBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxFimbulvetrOBJ(struct Anim * anim);
+void efxFimbulvetrOBJ_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxFimbulvetrOBJ2(struct Anim * anim);
+void efxFimbulvetrOBJ2_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxFimbulvetrOBJ2Fall(struct Anim * anim, int unk);
+void efxFimbulvetrOBJ2Fall_Loop(struct ProcEfxOBJ * proc);
 void StartSpellAnimBolting(struct Anim * anim);
 void efxThunderstorm_Loop_Main(struct ProcEfx * proc);
 void StartSubSpell_efxThunderstormBG(struct Anim * anim);
