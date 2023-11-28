@@ -36,27 +36,9 @@ gUnknown_080DCD72:  @ 0x080DCD72
 
 	.global gUnknown_080DCDE4
 gUnknown_080DCDE4:  @ 0x080DCDE4
-	.incbin "baserom.gba", 0xDCDE4, 0x8A
+	.incbin "baserom.gba", 0xDCDE4, 0x58
 
-	.global gUnknown_080DCE6E
-gUnknown_080DCE6E:  @ 0x080DCE6E
-	.incbin "baserom.gba", 0xDCE6E, 0x7E
-
-	.global gUnknown_080DCEEC
-gUnknown_080DCEEC:  @ 0x080DCEEC
-	.incbin "baserom.gba", 0xDCEEC, 0x30
-
-	.global gAsciiStr_efxFimbulvetrOBJ
-gAsciiStr_efxFimbulvetrOBJ:
-	.asciz "efxFimbulvetrOBJ"
-	.align 2, 0
-
-	.global gAsciiStr_efxFimbulvetrOBJ2
-gAsciiStr_efxFimbulvetrOBJ2:
-	.asciz "efxFimbulvetrOBJ2"
-	.align 2, 0
-
-	.global gAsciiStr_efxFimbulvetrOBJ2Fall
-gAsciiStr_efxFimbulvetrOBJ2Fall:
-	.asciz "efxFimbulvetrOBJ2Fall"
+	.global gAsciiStr_efxElfireOBJ
+gAsciiStr_efxElfireOBJ:
+	.asciz "efxElfireOBJ"
 	.align 2, 0
