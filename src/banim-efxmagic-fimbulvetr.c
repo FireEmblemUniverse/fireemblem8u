@@ -7,7 +7,17 @@
 #include "hardware.h"
 #include "ctc.h"
 
-extern struct ProcCmd ProcScr_efxFimbulvetr[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxFimbulvetr[] =
+{
+    PROC_NAME("efxFimbulvetr"),
+    PROC_REPEAT(sub_805E120),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E0E4
 void StartSpellAnimFimbulvetr(struct Anim * anim)
@@ -80,14 +90,76 @@ void sub_805E120(struct ProcEfx * proc)
     return;
 }
 
-extern u16 gUnknown_080DCE6E[]; // script
-extern u16 * gUnknown_085D5688[]; // tsa array
-extern u16 * gUnknown_085D56A0[]; // img array
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxFimbulvetrBGTR[] =
+{
+    PROC_NAME("efxFimbulvetrBGTR"),
+    PROC_REPEAT(sub_805E2B4),
+
+    PROC_END,
+};
+
+u16 * CONST_DATA gUnknown_085D5688[] =
+{
+    Tsa_08617F24,
+    Tsa_08618110,
+    Tsa_086182E8,
+    Tsa_086184B0,
+    Tsa_086186E4,
+    Tsa_0861892C,
+};
+
+u16 * CONST_DATA gUnknown_085D56A0[] =
+{
+    Img_086110E0,
+    Img_086122E8,
+    Img_08613444,
+    Img_086144C8,
+    Img_08615908,
+    Img_08616CC0,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E230
 void sub_805E230(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
+
+    // clang-format off
+    static const u16 gUnknown_080DCE6E[] =
+    {
+         0, 3,
+         1, 3,
+         2, 3,
+         0, 3,
+         1, 3,
+         2, 3,
+         0, 3,
+         1, 3,
+         2, 3,
+         0, 3,
+         1, 3,
+         2, 3,
+         0, 3,
+         1, 3,
+         2, 3,
+         0, 3,
+         1, 3,
+         2, 3,
+         0, 3,
+         1, 3,
+         2, 3,
+         0, 3,
+         1, 3,
+         2, 3,
+         3, 3,
+         4, 3,
+         5, 3,
+        -1,
+    };
+    // clang-format on
 
     gEfxBgSemaphore++;
 
@@ -146,15 +218,70 @@ void sub_805E2B4(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D56B8[];
-extern u16 gUnknown_080DCEEC[]; // frames
-extern u16 * gUnknown_085D56D0[]; // tsa array
-extern u16 * gUnknown_085D56FC[]; // img array
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D56B8[] =
+{
+    PROC_NAME("efxFimbulvetrBG"),
+    PROC_REPEAT(sub_805E39C),
+
+    PROC_END,
+};
+
+u16 * CONST_DATA gUnknown_085D56D0[] =
+{
+    Tsa_086101FC,
+    Tsa_086102A0,
+    Tsa_08610348,
+    Tsa_08610404,
+    Tsa_086104D8,
+    Tsa_086105D4,
+    Tsa_08610714,
+    Tsa_086108AC,
+    Tsa_08610A80,
+    Tsa_08610C90,
+    Tsa_08610EB0,
+};
+
+u16 * CONST_DATA gUnknown_085D56FC[] =
+{
+    Img_0860A764,
+    Img_0860A764,
+    Img_0860A764,
+    Img_0860A764,
+    Img_0860A764,
+    Img_0860A764,
+    Img_0860BA34,
+    Img_0860BA34,
+    Img_0860D2E4,
+    Img_0860E728,
+    Img_0860E728,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E318
 void sub_805E318(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
+
+    // clang-format off
+    static const u16 gUnknown_080DCEEC[] =
+    {
+         0,  1,
+         1,  1,
+         2,  1,
+         3,  1,
+         4,  1,
+         5,  1,
+         6,  1,
+         7,  1,
+         8,  1,
+         9,  1,
+        10, 30,
+        -1,
+    };
+    // clang-format on
 
     gEfxBgSemaphore++;
 
@@ -227,7 +354,17 @@ void sub_805E39C(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5728[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5728[] =
+{
+    PROC_NAME("efxFimbulvetrOBJ"),
+    PROC_REPEAT(sub_805E494),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E430
 void sub_805E430(struct Anim * anim)
@@ -264,7 +401,17 @@ void sub_805E494(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5740[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5740[] =
+{
+    PROC_NAME("efxFimbulvetrOBJ2"),
+    PROC_REPEAT(sub_805E510),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E4C4
 void sub_805E4C4(struct Anim * anim)
@@ -303,7 +450,17 @@ void sub_805E510(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5758[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5758[] =
+{
+    PROC_NAME("efxFimbulvetrOBJ2Fall"),
+    PROC_REPEAT(sub_805E694),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805E53C
 void sub_805E53C(struct Anim * anim, int unk)
