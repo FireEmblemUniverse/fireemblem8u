@@ -344,8 +344,8 @@ _08082858: .4byte gManimScanlineBufs
 
 	THUMB_FUNC_END sub_8082764
 
-	THUMB_FUNC_START sub_808285C
-sub_808285C: @ 0x0808285C
+	THUMB_FUNC_START WorldFlushHBlank
+WorldFlushHBlank: @ 0x0808285C
 	push {lr}
 	ldr r0, _08082874  @ 0x04000006
 	ldrh r0, [r0]
@@ -385,7 +385,7 @@ _0808289C:
 _080828A0: .4byte 0x04000040
 _080828A4: .4byte gManimActiveScanlineBuf
 
-	THUMB_FUNC_END sub_808285C
+	THUMB_FUNC_END WorldFlushHBlank
 
 	THUMB_FUNC_START sub_80828A8
 sub_80828A8: @ 0x080828A8

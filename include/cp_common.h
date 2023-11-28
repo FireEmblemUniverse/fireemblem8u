@@ -177,7 +177,7 @@ s8 sub_803F51C(const void*);
 s8 sub_803F72C(const void*);
 s8 sub_803F790(const void*);
 s8 sub_803F7DC(const void*);
-// ??? sub_803F82C(???);
+s8 AiBallistaRideExit(const void * input);
 s8 sub_803F9A8(const void*);
 // ??? sub_803F9C8(???);
 // ??? GetAiStaffFuncIndex(???);

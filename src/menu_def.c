@@ -12,11 +12,6 @@
 
 #include "menu_def.h"
 
-// we use this to denote when the function signature doesn't quite fit the pointer type in the relevant info struct
-#define MISMATCHED_SIGNATURE(func) ((void *) (func))
-
-#define MenuItemsEnd {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-
 CONST_DATA struct MenuItemDef gDebugClearMenuItems[] = {
     {"ファイルをクリアずみに", 0x6b9, 0, 0, 3, MenuAlwaysEnabled, 0, 0, 0, 0, 0}, // Erase
     {"しますか？", 0x6ba, 0, 0, 4, MenuAlwaysEnabled, 0, 0, 0, 0, 0}, // File?

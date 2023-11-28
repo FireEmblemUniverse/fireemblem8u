@@ -1352,14 +1352,14 @@ _08057A9E:
 	bne _08057AA8
 	movs r4, #1
 _08057AA8:
-	bl sub_8058B7C
+	bl CheckBattleScriptted
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne _08057AB6
 	movs r4, #1
 _08057AB6:
-	bl sub_8058B70
+	bl SetBattleUnscriptted
 	ldr r0, _08057C84  @ gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]

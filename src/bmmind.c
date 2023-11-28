@@ -19,6 +19,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "bmlib.h"
+#include "popup.h"
 #include "ev_triggercheck.h"
 #include "mapanim.h"
 
@@ -26,43 +27,6 @@
 
 #include "constants/items.h"
 #include "constants/terrains.h"
-
-struct AfterDropActionProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 unk_29[0x54-0x29];
-
-    /* 54 */ struct Unit* unit;
-};
-
-struct CombatActionProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 unk_29[0x54-0x29];
-
-    /* 54 */ struct MUProc* unk_54;
-    /* 58 */ u8 unk_58[0x64-0x58];
-
-    /* 64 */ s16 unitIdA;
-    /* 66 */ s16 unitIdB;
-};
-
-struct DeathDropAnimProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct Unit* unit;
-    /* 30 */ int xDrop, yDrop;
-    /* 38 */ short xFrom, yFrom;
-    /* 3C */ short xTo, yTo;
-    /* 40 */ short yOffset;
-    /* 42 */ short ySpeed;
-    /* 44 */ short yAccel;
-    /* 46 */ short clock;
-    /* 48 */ short clockEnd;
-};
-
-static int AfterDrop_CheckTrapAfterDropMaybe(struct AfterDropActionProc* proc);
-static int sub_80321C8(void);
 
 struct ProcCmd CONST_DATA sProcScr_AfterDropAction[] = {
     PROC_SLEEP(0),
@@ -75,10 +39,6 @@ struct ProcCmd CONST_DATA sProcScr_AfterDropAction[] = {
     PROC_END,
 };
 
-static void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc* proc);
-static void DeathDropSpriteAnim_ExecAnyTrap(struct DeathDropAnimProc* proc);
-static void DeathDropSpriteAnim_End(void);
-
 struct ProcCmd CONST_DATA sProcScr_DeathDropAnim[] = {
     PROC_REPEAT(DeathDropSpriteAnim_Loop),
     PROC_CALL(DeathDropSpriteAnim_ExecAnyTrap),
@@ -89,11 +49,6 @@ struct ProcCmd CONST_DATA sProcScr_DeathDropAnim[] = {
 
     PROC_END,
 };
-
-static void BATTLE_PostCombatDeathFades(struct CombatActionProc* proc);
-static bool BATTLE_HandleItemDrop(struct CombatActionProc* proc);
-static void BATTLE_HandleCombatDeaths(struct CombatActionProc* proc);
-void BATTLE_DeleteLinkedMOVEUNIT(struct CombatActionProc* proc);
 
 struct ProcCmd CONST_DATA sProcScr_CombatAction[] = {
     PROC_CALL(BeginBattleAnimations),
@@ -116,9 +71,6 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-static void sub_8032974(ProcPtr proc);
-static void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc);
-
 struct ProcCmd CONST_DATA sProcScr_ArenaAction[] = {
     PROC_SLEEP(0),
     PROC_CALL(sub_8032974),
@@ -135,21 +87,6 @@ PROC_LABEL(1),
 
     PROC_END,
 };
-
-// TODO: Should #include "popup.h", but doing so does not match. Implicit declaration?
-void NewPopup_GeneralItemGot(struct Unit*, int, ProcPtr);
-
-s8 ActionRescue(ProcPtr);
-s8 ActionDrop(ProcPtr);
-s8 ActionVisitAndSeize(ProcPtr);
-s8 ActionCombat(ProcPtr);
-s8 ActionDance(ProcPtr);
-s8 ActionTalk(ProcPtr);
-s8 ActionSupport(ProcPtr);
-s8 ActionSteal(ProcPtr);
-s8 ActionSummon(ProcPtr);
-s8 ActionSummonDK(ProcPtr);
-s8 ActionArena(ProcPtr);
 
 //! FE8U = 0x08031FEC
 void StoreRNStateToActionStruct(void) {

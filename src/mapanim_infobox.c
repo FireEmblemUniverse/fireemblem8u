@@ -127,7 +127,7 @@ void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
         break;
     } // switch (gManimSt.actorCount_maybe)
 
-    sub_8081E78();
+    InitScanline();
 
     StartManimFrameGradientScanlineEffect(
         gManimSt.actor[0].hp_info_y*8,

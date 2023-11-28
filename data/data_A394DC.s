@@ -406,7 +406,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00020540
     .4byte gUnknown_08A3974C + 0x5d8
     .4byte 0x00000a40
-    .4byte ProcScr_089EE088 + 0x38
+    .4byte ProcScr_WorldFlush + 0x38
     .4byte 0x0000a140
     .4byte 0x00000000
     .4byte 0x00011020
@@ -525,7 +525,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00020540
     .4byte gUnknown_08A3974C + 0x7b0
     .4byte 0x00000a40
-    .4byte ProcScr_089EE088 + 0x38
+    .4byte ProcScr_WorldFlush + 0x38
     .4byte 0x0000a140
     .4byte 0x00000000
     .4byte 0x00011020

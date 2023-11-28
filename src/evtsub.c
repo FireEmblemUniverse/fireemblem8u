@@ -46,7 +46,7 @@ struct Unknown03000600
     s8 y;
 };
 
-extern u16 gUnknown_030005FC;
+extern u16 ItemBackupEvtBattle;
 extern struct Unknown03000600 gUnknown_03000600[];
 
 extern u16 gPal_BrownTextBox[];
@@ -416,7 +416,7 @@ void ChangeAiForPositions(struct Vec2 * posArray, u8 length, u8 ai1, u8 ai2, u8 
 }
 
 //! FE8U = 0x08011DF4
-void sub_8011DF4(struct Unit * unitA, struct Unit * unitB)
+void EvtBattleGenerateRealInternal(struct Unit * unitA, struct Unit * unitB)
 {
     InitBattleUnit(&gBattleActor, unitA);
     InitBattleUnit(&gBattleTarget, unitB);
@@ -455,25 +455,21 @@ void sub_8011DF4(struct Unit * unitA, struct Unit * unitB)
 }
 
 //! FE8U = 0x08011EC8
-void sub_8011EC8(struct Unit * unitA, struct Unit * unitB)
+void EvtBattleGenerateReal(struct Unit * unitA, struct Unit * unitB)
 {
     gBattleStats.config = BATTLE_CONFIG_REAL;
-    sub_8011DF4(unitA, unitB);
-
-    return;
+    EvtBattleGenerateRealInternal(unitA, unitB);
 }
 
 //! FE8U = 0x08011EDC
-void sub_8011EDC(struct Unit * unitA, struct Unit * unitB)
+void EvtBattleGenerateBallistaReal(struct Unit * unitA, struct Unit * unitB)
 {
     gBattleStats.config = (BATTLE_CONFIG_REAL | BATTLE_CONFIG_BALLISTA);
-    sub_8011DF4(unitA, unitB);
-
-    return;
+    EvtBattleGenerateRealInternal(unitA, unitB);
 }
 
 //! FE8U = 0x08011EF0
-void sub_8011EF0(s8 useMapAnims)
+void StartScriptBattleAnim(s8 useMapAnims)
 {
     s8 banimEnabled;
 
@@ -503,17 +499,15 @@ void sub_8011EF0(s8 useMapAnims)
         BeginBattleMapAnims();
         gBattleStats.config |= BATTLE_CONFIG_MAPANIMS;
     }
-
-    return;
 }
 
 //! FE8U = 0x08011F5C
-void sub_8011F5C(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s8 unkFlag, u16 item, struct BattleHit * hits, s8 useMapAnims)
+void StartEventBattle(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s8 scripted_hit, u16 item, struct BattleHit * hits, s8 useMapAnims)
 {
     int sp04;
     int tmp;
 
-    sub_8058B64();
+    SetBattleScriptted();
 
     sp04 = 0;
     if (hits == NULL)
@@ -530,18 +524,18 @@ void sub_8011F5C(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s8 unk
     }
     else if (!isBallista)
     {
-        sub_8011EC8(unitA, unitB);
+        EvtBattleGenerateReal(unitA, unitB);
     }
     else
     {
-        sub_8011EDC(unitA, unitB);
+        EvtBattleGenerateBallistaReal(unitA, unitB);
     }
 
     gBattleActor.weaponBefore = gBattleActor.weapon = GetUnitEquippedWeapon(unitA);
     tmp = 0x0000FFFF;
     gBattleTarget.weaponBefore = gBattleTarget.weapon = GetUnitEquippedWeapon(unitB);
 
-    gUnknown_030005FC = tmp;
+    ItemBackupEvtBattle = tmp;
 
     if (item != 0)
     {
@@ -555,16 +549,16 @@ void sub_8011F5C(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s8 unk
             case ITYPE_LIGHT:
             case ITYPE_DARK:
             case ITYPE_11:
-                gUnknown_030005FC = unitA->items[0];
+                ItemBackupEvtBattle = unitA->items[0];
                 unitA->items[0] = MakeNewItem(item);
 
                 if (!isBallista)
                 {
-                    sub_8011EC8(unitA, unitB);
+                    EvtBattleGenerateReal(unitA, unitB);
                 }
                 else
                 {
-                    sub_8011EDC(unitA, unitB);
+                    EvtBattleGenerateBallistaReal(unitA, unitB);
                 }
 
                 gBattleActor.weapon = MakeNewItem(item);
@@ -616,18 +610,19 @@ void sub_8011F5C(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s8 unk
         BattleHitTerminate();
     }
 
-    if (unkFlag == 0)
+    if (scripted_hit == 0)
     {
+        /* Here we can also calc battle real */
         unitA->curHP = gBattleActor.unit.curHP;
         unitB->curHP = gBattleTarget.unit.curHP;
 
-        sub_8058B70();
+        SetBattleUnscriptted();
 
         gActionData.scriptedBattleHits = NULL;
 
-        if (gUnknown_030005FC != 0x0000FFFF)
+        if (ItemBackupEvtBattle != 0x0000FFFF)
         {
-            GetUnit(gBattleActor.unit.index)->items[0] = gUnknown_030005FC;
+            GetUnit(gBattleActor.unit.index)->items[0] = ItemBackupEvtBattle;
         }
     }
     else
@@ -646,17 +641,15 @@ void sub_8011F5C(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s8 unk
             gActionData.unitActionType = UNIT_ACTION_COMBAT;
         }
 
-        sub_8011EF0(useMapAnims);
+        StartScriptBattleAnim(useMapAnims);
 
         gAiDecision.xMove = unitA->xPos;
         gAiDecision.yMove = unitA->yPos;
     }
-
-    return;
 }
 
 //! FE8U = 0x080121D4
-void sub_80121D4(void)
+void EventBattleReloadBmStatus(void)
 {
     struct Unit * unitA;
     struct Unit * unitB;
@@ -670,9 +663,9 @@ void sub_80121D4(void)
     gActionData.scriptedBattleHits = NULL;
     AiRefreshMap();
 
-    if (gUnknown_030005FC != 0x0000FFFF)
+    if (ItemBackupEvtBattle != 0x0000FFFF)
     {
-        unitA->items[0] = gUnknown_030005FC;
+        unitA->items[0] = ItemBackupEvtBattle;
     }
 
     unitA->state &= ~(US_UNSELECTABLE);

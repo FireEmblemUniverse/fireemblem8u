@@ -361,7 +361,7 @@
 . = 0x03E1D4; gEkrPairWTABonus = .;
 . = 0x03E1D8; gEkrPairEffectiveAgainst = .;
 . = 0x03E1DC; gUnknown_0203E1DC = .;
-. = 0x03E1E0; gUnknown_0203E1E0 = .;
+. = 0x03E1E0; gBattleScriptted = .;
 . = 0x03E1E4; gBaArenaFlag = .;
 . = 0x03E1E8; gpProcefxopCur = .;
 . = 0x03E1EC; gUnknown_0203E1EC = .;

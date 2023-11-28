@@ -363,7 +363,7 @@ void SetBattleUnitWeapon(struct BattleUnit* bu, int itemSlot) {
         // borrowed item?
 
         bu->weaponSlotIndex = 0xFF;
-        bu->weapon = gBmSt.itemUnk2C;
+        bu->weapon = gBmSt.um_tmp_item;
 
         break;
 

@@ -325,7 +325,7 @@ void AiRandomMove(void) {
     }
 
     if (xOut >= 0) {
-        AiSetDecision(xOut, yOut, 0 /* AI_ACTION_NONE */, 0, 0, 0, 0);
+        AiSetDecision(xOut, yOut, AI_ACTION_NONE, 0, 0, 0, 0);
     }
 
     return;
@@ -1103,7 +1103,7 @@ void AiTryMoveTowards(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk) {
     }
 
     if (xOut >= 0) {
-        AiSetDecision(xOut, yOut, action, 0, 0, 0, 0);
+        AiSetDecision(xOut, yOut, action, AI_ACTION_NONE, 0, 0, 0);
     }
 
     return;
@@ -1166,7 +1166,7 @@ void sub_803BBF4(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk) {
     }
 
     if (xOut >= 0) {
-        AiSetDecision(xOut, yOut, action, 0, 0, 0, 0);
+        AiSetDecision(xOut, yOut, action, AI_ACTION_NONE, 0, 0, 0);
     }
 
     return;

@@ -9,21 +9,10 @@
 #include "hardware.h"
 #include "uiutils.h"
 #include "bm.h"
+#include "menuitempanel.h"
 #include "functions.h"
 
-struct MenuItemPanelProc{
-	PROC_HEADER;
-	
-	/* 2C */ struct Unit *unit;
-	/* 30 */ u8 x;
-	/* 31 */ u8 y;
-	/* 32 */ u8 IconPalIndex;
-	/* 33 */ s8 ItemSlotIndex;
-	/* 34 */ struct Text text[6];
-	/* 64 */ u8 draw_arrow;
-};
-
-void MenuItemPanelProcIdle(struct MenuItemPanelProc *proc);
+void MenuItemPanelProcIdle(struct MenuItemPanelProc * proc);
 
 struct ProcCmd CONST_DATA gProcCmd_MenuItemPanel[] = {
 	PROC_15,
@@ -31,7 +20,8 @@ struct ProcCmd CONST_DATA gProcCmd_MenuItemPanel[] = {
 	PROC_END,
 };
 
-void MenuItemPanelProcIdle(struct MenuItemPanelProc *proc) {
+void MenuItemPanelProcIdle(struct MenuItemPanelProc * proc)
+{
 	if (0 == proc->draw_arrow)
 		return;
 
@@ -64,10 +54,10 @@ void MenuItemPanelProcIdle(struct MenuItemPanelProc *proc) {
 
 }
 
-void ForceMenuItemPanel(ProcPtr _menu_proc, struct Unit *unit, int x, int y)
+void ForceMenuItemPanel(ProcPtr _menu_proc, struct Unit * unit, int x, int y)
 {
 	struct MenuProc *menu_proc = _menu_proc;
-	struct MenuItemPanelProc *proc;
+	struct MenuItemPanelProc * proc;
 
 	if (NULL == Proc_Find(gProcCmd_MenuItemPanel)) {
 		proc = Proc_Start(gProcCmd_MenuItemPanel, menu_proc);
@@ -92,16 +82,14 @@ void ForceMenuItemPanel(ProcPtr _menu_proc, struct Unit *unit, int x, int y)
 	}
 }
 
-void UpdateMenuItemPanel(int slot) {
-	struct MenuItemPanelProc *proc = Proc_Find(gProcCmd_MenuItemPanel);
-	u16 *bg_base = BG_GetMapBuffer(0) + proc->x + 0x20 * proc->y;
-	struct Text *texts = &proc->text[0];
-	struct Unit *unit = proc->unit;
-	int icon_pal = proc->IconPalIndex;
-
-	int item, color;
-	char *str;
-	int i;
+void UpdateMenuItemPanel(int slot_or_item)
+{
+	struct MenuItemPanelProc * proc = Proc_Find(gProcCmd_MenuItemPanel);
+	u16 * bg_base = BG_GetMapBuffer(0) + proc->x + 0x20 * proc->y;
+	struct Text * texts = &proc->text[0];
+	struct Unit * unit = proc->unit;
+	int i, item, color, icon_pal = proc->IconPalIndex;
+	char * str;
 
 	ClearText(&proc->text[0]);
 	ClearText(&proc->text[1]);
@@ -109,22 +97,22 @@ void UpdateMenuItemPanel(int slot) {
 
 	DrawUiFrame2(proc->x, proc->y, 0xE, 0x8, 0x0);
 
-	switch (slot) {
+	switch (slot_or_item) {
 	case 0:
 	case 1:
 	case 2:
 	case 3:
 	case 4:
-		item = unit->items[slot];
+		item = unit->items[slot_or_item];
 		break;
 
-	case 5:
-		item = gBmSt.itemUnk2C;
+	case BU_ISLOT_5:
+		item = gBmSt.um_tmp_item;
 		break;
 
 	default:
-		item = slot;
-		slot = BU_ISLOT_BALLISTA;
+		item = slot_or_item;
+		slot_or_item = BU_ISLOT_BALLISTA;
 		break;
 	} /* switch slot */
 
@@ -158,9 +146,9 @@ void UpdateMenuItemPanel(int slot) {
 		break;
 	
 	default:
-		BattleGenerateUiStats(unit, slot);
+		BattleGenerateUiStats(unit, slot_or_item);
 
-		if (BU_ISLOT_BALLISTA == slot) {
+		if (BU_ISLOT_BALLISTA == slot_or_item) {
 			gBattleTarget.battleAttack = gBattleActor.battleAttack;
 			gBattleTarget.battleHitRate = gBattleActor.battleHitRate;
 			gBattleTarget.battleCritRate = gBattleActor.battleCritRate;

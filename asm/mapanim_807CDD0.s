@@ -1502,7 +1502,7 @@ _0807DBFC:
 	adds r1, r4, #0
 	bl APProc_Create
 _0807DC60:
-	bl sub_8081E78
+	bl InitScanline
 	bl sub_8081EAC
 	bl sub_807E978
 	movs r0, #1
@@ -2439,7 +2439,7 @@ sub_807E390: @ 0x0807E390
 	ldr r1, [r4, #0x30]
 	movs r0, #0xfd
 	bl PlaySeSpacial
-	bl sub_8081E78
+	bl InitScanline
 	bl sub_8081EAC
 	ldr r0, _0807E3F0  @ sub_8081FA8
 	bl SetPrimaryHBlankHandler
@@ -3043,7 +3043,7 @@ _0807E822:
 	movs r2, #0x20
 	movs r3, #4
 	bl sub_80144CC
-	bl sub_8081E78
+	bl InitScanline
 	bl sub_8081EAC
 	bl sub_807E978
 	movs r0, #1

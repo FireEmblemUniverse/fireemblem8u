@@ -105,7 +105,7 @@ void NewPopup_VerySimple(u32 msg, u32 sound_index, ProcPtr parent);
 
 void NewPopup_ItemGot_unused(struct Unit* unit, u16 item, ProcPtr parent);
 void NewPopup_ItemGot(ProcPtr parent, struct Unit *unit, u16 item);
-void NewPopup_GeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent);
+void NewPopup_GeneralItemGot(struct Unit *unit, int item, ProcPtr parent);
 void NewPopup_GoldGot(ProcPtr parent, struct Unit *unit, int value);
 void NewPopup_ItemStealing(u16 item, ProcPtr parent);
 void NewPopup_WeaponBroke(u16 item, ProcPtr parent);
