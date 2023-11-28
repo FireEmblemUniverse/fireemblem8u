@@ -145,8 +145,8 @@ void NewEfxThunderOBJ(struct Anim *anim)
     proc->timer = 0;
     proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_085F5550, gUnknown_085F4A24, gUnknown_085F5550, gUnknown_085F4A24);
 
-    SpellFx_RegisterObjPal(gUnknown_085F3F40, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085F3AA8, 0x1000);
+    SpellFx_RegisterObjPal(Pal_BoltingSprites, 0x20);
+    SpellFx_RegisterObjGfx(Img_BoltingSprites, 0x1000);
 }
 
 void EfxThunderOBJMain(struct ProcEfxOBJ *proc)

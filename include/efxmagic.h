@@ -104,13 +104,13 @@ extern struct ProcCmd ProcScr_efxFimbulvetrBGTR[];
 // extern ??? gUnknown_085D5728
 // extern ??? gUnknown_085D5740
 // extern ??? gUnknown_085D5758
-// extern ??? gUnknown_085D5770
-// extern ??? gUnknown_085D5788
-// extern ??? gUnknown_085D57A0
-// extern ??? gUnknown_085D57CC
-// extern ??? gUnknown_085D57F8
-// extern ??? gUnknown_085D5820
-// extern ??? gUnknown_085D5860
+// extern ??? gProcScr_efxThunderstorm
+// extern ??? gProcScr_efxThunderstormBG
+extern u16 * ImgArray_BoltingBg[];
+extern u16 * TsaArray_BoltingBg[];
+// extern ??? gProcScr_efxThunderstormOBJ
+// extern ??? gProcScr_efxThunderstormCOLOR
+// extern ??? gProcScr_efxThunderstormDARK
 extern struct ProcCmd gProcScr_efxAlacalibur[];
 extern struct ProcCmd gProcScr_efxAlacaliburBG[];
 extern u16 * TsaArray_AircaliburBg[];
@@ -398,20 +398,20 @@ void StartSpellAnimFimbulvetr(struct Anim * anim);
 // ??? sub_805E510(???);
 // ??? sub_805E53C(???);
 // ??? sub_805E694(???);
-void sub_805E754(struct Anim * anim);
-// ??? sub_805E790(???);
-// ??? sub_805E850(???);
-// ??? sub_805E8A4(???);
-// ??? sub_805E900(???);
-// ??? sub_805E924(???);
-// ??? sub_805E968(???);
-// ??? sub_805E98C(???);
-// ??? sub_805E9B0(???);
-// ??? sub_805E9E4(???);
-// ??? sub_805EA4C(???);
-// ??? sub_805EAAC(???);
-// ??? sub_805EAF0(???);
-// ??? sub_805EB54(???);
+void StartSpellAnimBolting(struct Anim * anim);
+void efxThunderstorm_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxThunderstormBG(struct Anim * anim);
+void efxThunderstormBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxThunderstormOBJ(struct Anim * anim);
+void efxThunderstormOBJ_Loop(struct ProcEfxOBJ * proc);
+void efxThunderstormOBJ_End(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxThunderstormCOLOR(struct Anim * anim);
+void efxThunderstormColor_Loop_A(struct ProcEfxBGCOL * proc);
+void efxThunderstormColor_Loop_B(struct ProcEfxBGCOL * proc);
+void efxThunderstormColor_Loop_C(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxThunderstormDARK(struct Anim * anim, int timer, int terminator);
+void efxThunderstormDark_Loop_A(struct ProcEfxBGCOL * proc);
+void efxThunderstormDark_Loop_B(struct ProcEfxBGCOL * proc);
 void StartSpellAnimAircalibur(struct Anim * anim);
 void efxAlacalibur_Loop_Main(struct ProcEfx * proc);
 void sub_805ECD4(struct Anim * anim);
