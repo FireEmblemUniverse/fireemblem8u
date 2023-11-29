@@ -168,7 +168,7 @@ CONST_DATA struct ProcCmd ProcScr_089A398C[] = {
     PROC_REPEAT(sub_807CE78),
     PROC_CALL(sub_807D09C),
     PROC_SLEEP(0x14),
-    PROC_CALL(sub_807DA2C),
+    PROC_CALL(MapLatonafx_End),
     PROC_END
 };
 

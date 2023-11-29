@@ -154,12 +154,12 @@ void sub_8012C88(void);
 // ??? StoneShatterEvent_OnEnd(???);
 void StartStoneShatterAnim(struct Unit *, ProcPtr);
 
-// ??? DeleteAllPaletteAnimator(???);
+void DeleteAllPaletteAnimator(void);
 // ??? NewPaletteAnimator(???);
-// ??? sub_80144CC(???);
-// ??? NewPaletteAnimator_(???);
+void sub_80144CC(const u16 * pal, int off, int len, int unk, ProcPtr proc);
+void NewPaletteAnimator_(const u16 * pal, int off, int len, int unk, ProcPtr proc);
 // ??? sub_80144FC(???);
-// ??? sub_8014560(???);
+void sub_8014560(u16 * tilemap, int x, int y, int tileref, int, int);
 // ??? sub_80145C8(???);
 // ??? sub_80146A0(???);
 // ??? sub_801474C(???);

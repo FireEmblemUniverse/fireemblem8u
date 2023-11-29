@@ -113,15 +113,15 @@ struct MAEffectProc {
 
 struct MAAnotherProc {
     /* 00 */ PROC_HEADER;
-    /* 2C */ int unk2C;
-    /* 30 */ int unk30;
+    /* 2C */ int x;
+    /* 30 */ int y;
     /* 34 */ u8 pad34[0x44 - 0x34];
-    /* 44 */ short unk44;
+    /* 44 */ short timer;
     /* 46 */ u8 pad46[0x54 - 0x46];
     /* 54 */ int unk54;
-    /* 58 */ int unk58;
+    /* 58 */ int terminator;
     /* 5C */ u8 pad5C[0x64 - 0x5C];
-    /* 64 */ short unk64;
+    /* 64 */ short timer2;
 };
 
 struct MALevelUpProc {
@@ -271,10 +271,11 @@ extern CONST_DATA struct ProcCmd ProcScr_PoisonAnimHandler[];
 extern CONST_DATA struct ProcCmd ProcScr_PoisonAnim2[];
 extern CONST_DATA struct ProcCmd ProcScr_089A398C[];
 extern CONST_DATA u16 * ImgLut_089A39C4[];
-// extern ??? gUnknown_089A39E0
-// extern ??? gUnknown_089A3A18
-// extern ??? gUnknown_089A3A40
-// extern ??? gUnknown_089A3A80
+extern CONST_DATA struct ProcCmd ProcScr_MapLatonafx[];
+extern CONST_DATA s16 MapLatonafxLocation[];
+extern CONST_DATA struct ProcCmd ProcScr_MapLatonaBlinkingfx[];
+extern CONST_DATA struct ProcCmd ProcScr_MapLatonaShiningfx[];
+extern CONST_DATA struct ProcCmd ProcScr_NightMarefx[];
 // extern ??? gUnknown_089A3AB8
 // extern ??? gUnknown_089A3B3C
 // extern ??? gUnknown_089A3B6C
@@ -397,9 +398,9 @@ extern u8 CONST_DATA gUnknown_089AF930[];
 extern u8 CONST_DATA gUnknown_089AF950[];
 extern u8 CONST_DATA gUnknown_089AFAC4[];
 extern u8 CONST_DATA gUnknown_089AFCBC[];
-extern u8 CONST_DATA gUnknown_089AFF78[];
-// extern ??? gUnknown_089AFFB8
-// extern ??? gUnknown_089AFFF8
+extern u16 CONST_DATA Pal_089AFF78[];
+extern u16 CONST_DATA Pal_089AFFB8[];
+extern u8 CONST_DATA gUnknown_089AFFF8[];
 // extern ??? gUnknown_089B03D4
 // extern ??? gUnknown_089B068C
 // extern ??? gUnknown_089B06AC
@@ -420,8 +421,8 @@ extern u8 CONST_DATA gUnknown_089AFF78[];
 // extern ??? gUnknown_089B2748
 // extern ??? gUnknown_089B2880
 // extern ??? gUnknown_089B343C
-// extern ??? gUnknown_089B35D0
-// extern ??? gUnknown_089B4BFC
+extern u16 Img_089B35D0[];
+extern u16 Pal_089B4BFC[];
 // extern ??? gUnknown_089B6AA0
 // extern ??? gUnknown_089B73D4
 extern u16 Img_089B7610[];
@@ -534,32 +535,32 @@ void sub_807CE78(struct MAEffectProc * proc);
 void sub_807CF30(struct MAEffectProc * proc);
 void sub_807D09C(void);
 void MapAnimCallSpellAssocLatonafx(struct Unit * unit);
-// ??? sub_807D0FC(???);
-// ??? sub_807D1B4(???);
-// ??? sub_807D2C8(???);
-// ??? sub_807D2E0(???);
-// ??? sub_807D328(???);
-// ??? sub_807D360(???);
-// ??? sub_807D39C(???);
-// ??? sub_807D3B4(???);
-// ??? sub_807D3CC(???);
-// ??? sub_807D40C(???);
-// ??? sub_807D440(???);
-// ??? sub_807D464(???);
-void sub_807D4D4(struct Unit * unit);
-// ??? sub_807D51C(???);
-// ??? sub_807D57C(???);
-// ??? sub_807D670(???);
-void sub_807D688(struct Unit * unit, u8 * unk1, u8 * unk2);
+void MapLatonafx_Init(struct MAEffectProc * proc);
+void MapLatonafx_InitGfx(struct MAEffectProc * proc);
+void sub_807D2C8(void);
+void MapLatonaBlinkingfx_Init(struct MAEffectProc * proc);
+void MapLatonaBlinkingfx_Main(struct MAEffectProc * proc);
+void NewMapLatonaShiningfx(int, int, int, int, int, ProcPtr parent);
+void MapLatonaShiningfx_End(void);
+void MapLatonaShiningfx_Init(void);
+void MapLatonaShiningfx_Start(struct MAAnotherProc * proc);
+void MapLatonaShiningfx_Loop1(struct MAAnotherProc * proc);
+void MapLatonaShiningfx_Loop2(struct MAAnotherProc * proc);
+void MapLatonaShiningfx_Loop3(struct MAAnotherProc * proc);
+void MapAnimCallSpellAssocNightMarefx(struct Unit * unit);
+void NightMarefx_Init(struct MAEffectProc * proc);
+void NightMarefx_InitGfx(struct MAEffectProc * proc);
+void NightMarefx_CallBlinking(struct MAEffectProc * proc);
+void MapAnimCallSpellAssocAntitoxinPureWaterfx(struct Unit * unit, u8 * unk1, u8 * unk2);
 // ??? sub_807D6D8(???);
 // ??? sub_807D760(???);
 // ??? sub_807D7D8(???);
 // ??? sub_807D818(???);
-void NewMapAnimEffectAnimator(struct Unit * unit, u8 * unk1, u8 * unk2, int unk3);
+void NewMapAnimEffectAnimator(struct Unit * unit, u8 * unk1, u16 * unk2, int unk3);
 // ??? sub_807D860(???);
 // ??? sub_807D944(???);
 // ??? sub_807D9B8(???);
-void sub_807DA2C(void);
+void MapLatonafx_End(void);
 // ??? sub_807DA68(???);
 void New6C_SomethingFlashy(struct Unit * unit, int x, int y);
 // ??? sub_807DAE8(???);
@@ -592,11 +593,11 @@ void sub_807E1E4(struct Unit * unit);
 // ??? sub_807E390(???);
 // ??? sub_807E404(???);
 // ??? sub_807E448(???);
-void sub_807E48C(struct Unit * unit);
+void MapAnimCallSpellAssocSilencefx(struct Unit * unit);
 // ??? sub_807E4D0(???);
 // ??? sub_807E584(???);
 // ??? sub_807E5F0(???);
-void sub_807E638(struct Unit * unit);
+void MapAnimCallSpellAssocBarrierfx(struct Unit * unit);
 // ??? sub_807E67C(???);
 // ??? sub_807E6E0(???);
 void sub_807E760(int, int);
@@ -724,7 +725,7 @@ void sub_8081970(ProcPtr proc);
 void MapAnimCallSpellAssocSilence(ProcPtr proc);
 void MapAnimCallSpellAssocBarrier(ProcPtr proc);
 void MapAnimCallSpellAssocLatona(ProcPtr proc);
-void sub_8081A08(ProcPtr proc);
+void MapAnimCallSpellAssocNightMare(ProcPtr proc);
 void MapAnimCallSpellAssocAntitoxin(ProcPtr proc);
 void MapAnimCallSpellAssocPureWater(ProcPtr proc);
 void MapAnimCallSpellAssocElixir(ProcPtr proc);

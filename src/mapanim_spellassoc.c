@@ -356,12 +356,12 @@ void sub_8081970(ProcPtr proc)
 
 void MapAnimCallSpellAssocSilence(ProcPtr proc)
 {
-    sub_807E48C(gManimSt.actor[gManimSt.targetActorId].unit);
+    MapAnimCallSpellAssocSilencefx(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
 void MapAnimCallSpellAssocBarrier(ProcPtr proc)
 {
-    sub_807E638(gManimSt.actor[gManimSt.targetActorId].unit);
+    MapAnimCallSpellAssocBarrierfx(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
 void MapAnimCallSpellAssocLatona(ProcPtr proc)
@@ -369,51 +369,51 @@ void MapAnimCallSpellAssocLatona(ProcPtr proc)
     MapAnimCallSpellAssocLatonafx(gManimSt.actor[gManimSt.subjectActorId].unit);
 }
 
-void sub_8081A08(ProcPtr proc)
+void MapAnimCallSpellAssocNightMare(ProcPtr proc)
 {
-    sub_807D4D4(gManimSt.actor[gManimSt.subjectActorId].unit);
+    MapAnimCallSpellAssocNightMarefx(gManimSt.actor[gManimSt.subjectActorId].unit);
 }
 
 void MapAnimCallSpellAssocAntitoxin(ProcPtr proc)
 {
-    sub_807D688(gManimSt.actor[gManimSt.subjectActorId].unit,
+    MapAnimCallSpellAssocAntitoxinPureWaterfx(gManimSt.actor[gManimSt.subjectActorId].unit,
         gUnknown_089AE804, gUnknown_089AF930);
 }
 
 void MapAnimCallSpellAssocPureWater(ProcPtr proc)
 {
-    sub_807D688(gManimSt.actor[gManimSt.subjectActorId].unit,
+    MapAnimCallSpellAssocAntitoxinPureWaterfx(gManimSt.actor[gManimSt.subjectActorId].unit,
         gUnknown_089AE804, gUnknown_089AF910);
 }
 
 void MapAnimCallSpellAssocElixir(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AFCBC, gUnknown_089AFF78, 0x8B);
+        gUnknown_089AFCBC, Pal_089AFF78, 0x8B);
 }
 
 void MapAnimCallSpellAssocHeal(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AF950, gUnknown_089AFF78, 0x89);
+        gUnknown_089AF950, Pal_089AFF78, 0x89);
 }
 
 void MapAnimCallSpellAssocMend(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AFAC4, gUnknown_089AFF78, 0x8A);
+        gUnknown_089AFAC4, Pal_089AFF78, 0x8A);
 }
 
 void MapAnimCallSpellAssocRecover(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AFCBC, gUnknown_089AFF78, 0x8B);
+        gUnknown_089AFCBC, Pal_089AFF78, 0x8B);
 }
 
 void MapAnimCallSpellAssocVulenrary(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AF950, gUnknown_089AFF78, 0x89);
+        gUnknown_089AF950, Pal_089AFF78, 0x89);
 }
 
 void sub_8081B70(ProcPtr proc)
@@ -581,7 +581,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocNightMare[] = {
     PROC_CALL(MapAnim_AnimateSubjectIdle),
     PROC_SLEEP(0x1E),
     PROC_SLEEP(0x1A),
-    PROC_CALL(sub_8081A08),
+    PROC_CALL(MapAnimCallSpellAssocNightMare),
     PROC_SLEEP(0x2),
     PROC_SLEEP(0xDC),
     PROC_SLEEP(0xA),
