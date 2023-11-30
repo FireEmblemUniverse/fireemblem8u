@@ -12,7 +12,7 @@
 struct ProcCmd CONST_DATA ProcScr_efxResire[] =
 {
     PROC_NAME("efxResire"),
-    PROC_REPEAT(Loop6C_efxResire),
+    PROC_REPEAT(efxResire_Loop_Main),
     PROC_END,
 };
 
@@ -36,7 +36,7 @@ void StartSpellAnimNosferatu(struct Anim * anim)
 }
 
 //! FE8U = 0x0805F390
-void Loop6C_efxResire(struct ProcEfx * proc)
+void efxResire_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -53,21 +53,21 @@ void Loop6C_efxResire(struct ProcEfx * proc)
         SetBlendAlpha(0, 16);
         NewEfxALPHA(anim, 0, 10, 0, 16, 0);
         NewEfxALPHA(anim, 35, 20, 16, 0, 0);
-        sub_805F53C(anim);
+        StartSubSpell_efxResireBG2(anim);
         PlaySFX(0x124, 0x100, anim->xPosition, 1);
         return;
     }
 
     if (proc->timer == duration + 15)
     {
-        sub_805F838(anim, NewefxRestRST(anim, 42, 15, 0, 2), 30);
+        StartSubSpell_efxResireRST(anim, NewefxRestRST(anim, 42, 15, 0, 2), 30);
         NewEfxRestWINH(anim, 43, gLCDControlBuffer.bgoffset[BG_1].x, 0);
         return;
     }
 
     if (proc->timer == duration + 60)
     {
-        sub_805F4B0(anim, proc->hitted);
+        StartSubSpell_efxResireBG(anim, proc->hitted);
         PlaySFX(0x125, 0x100, anim->xPosition, 1);
         return;
     }
@@ -99,10 +99,10 @@ struct ProcCmd CONST_DATA ProcScr_efxResireBG[] =
 {
     PROC_NAME("efxResireBG"),
 
-    PROC_REPEAT(sub_805F5DC),
-    PROC_REPEAT(sub_805F660),
-    PROC_REPEAT(sub_805F6FC),
-    PROC_REPEAT(sub_805F76C),
+    PROC_REPEAT(efxResireBG_Loop_A),
+    PROC_REPEAT(efxResireBG_Loop_B),
+    PROC_REPEAT(efxResireBG_Loop_C),
+    PROC_REPEAT(efxResireBG_Loop_D),
 
     PROC_END,
 };
@@ -110,68 +110,66 @@ struct ProcCmd CONST_DATA ProcScr_efxResireBG[] =
 struct ProcCmd CONST_DATA ProcScr_efxResireBG2[] =
 {
     PROC_NAME("efxResireBG2"),
-
-    PROC_REPEAT(sub_805F7D4),
-
+    PROC_REPEAT(efxResireBG2_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D5B40[] =
+u16 * CONST_DATA ImgArray_NosferatuBg[] =
 {
-    Img_0862DD0C,
-    Img_0862DD0C,
-    Img_0862DD0C,
-    Img_0862DD0C,
-    Img_0862DD0C,
-    Img_0862DD0C,
-    Img_0862DD0C,
-    Img_0862DD0C,
-    Img_0862E7DC,
-    Img_0862E7DC,
-    Img_0862E7DC,
-    Img_0862F384,
-    Img_0862F384,
-    Img_0862FEDC,
-    Img_0862FEDC,
-    Img_08630990,
-    Img_08630990,
-    Img_08631460,
-    Img_08631460,
-    Img_08631460,
-    Img_08632124,
-    Img_08632124,
-    Img_08632124,
-    Img_08632A28,
-    Img_08632A28,
-    Img_08632A28,
-    Img_08632A28,
-    Img_08632A28,
-    Img_08632F7C,
-    Img_08632F7C,
-    Img_08632F7C,
-    Img_08632F7C,
-    Img_08632F7C,
-    Img_08632F7C,
-    Img_08632F7C,
-    Img_08632F7C,
-    Img_08633894,
-    Img_08633894,
-    Img_08633894,
-    Img_08633894,
-    Img_086344C8,
-    Img_086344C8,
-    Img_086344C8,
-    Img_0863516C,
-    Img_0863516C,
-    Img_0863516C,
-    Img_08635D60,
-    Img_08635D60,
-    Img_08635D60,
-    Img_08635D60,
-    Img_08635D60,
+    Img_NosferatuBg_A,
+    Img_NosferatuBg_A,
+    Img_NosferatuBg_A,
+    Img_NosferatuBg_A,
+    Img_NosferatuBg_A,
+    Img_NosferatuBg_A,
+    Img_NosferatuBg_A,
+    Img_NosferatuBg_A,
+    Img_NosferatuBg_B,
+    Img_NosferatuBg_B,
+    Img_NosferatuBg_B,
+    Img_NosferatuBg_C,
+    Img_NosferatuBg_C,
+    Img_NosferatuBg_D,
+    Img_NosferatuBg_D,
+    Img_NosferatuBg_E,
+    Img_NosferatuBg_E,
+    Img_NosferatuBg_F,
+    Img_NosferatuBg_F,
+    Img_NosferatuBg_F,
+    Img_NosferatuBg_G,
+    Img_NosferatuBg_G,
+    Img_NosferatuBg_G,
+    Img_NosferatuBg_H,
+    Img_NosferatuBg_H,
+    Img_NosferatuBg_H,
+    Img_NosferatuBg_H,
+    Img_NosferatuBg_H,
+    Img_NosferatuBg_I,
+    Img_NosferatuBg_I,
+    Img_NosferatuBg_I,
+    Img_NosferatuBg_I,
+    Img_NosferatuBg_I,
+    Img_NosferatuBg_I,
+    Img_NosferatuBg_I,
+    Img_NosferatuBg_I,
+    Img_NosferatuBg_J,
+    Img_NosferatuBg_J,
+    Img_NosferatuBg_J,
+    Img_NosferatuBg_J,
+    Img_NosferatuBg_K,
+    Img_NosferatuBg_K,
+    Img_NosferatuBg_K,
+    Img_NosferatuBg_L,
+    Img_NosferatuBg_L,
+    Img_NosferatuBg_L,
+    Img_NosferatuBg_M,
+    Img_NosferatuBg_M,
+    Img_NosferatuBg_M,
+    Img_NosferatuBg_M,
+    Img_NosferatuBg_M,
 };
 
-u16 * CONST_DATA gUnknown_085D5C0C[] =
+u16 * CONST_DATA TsaArray_NosferatuBg[] =
 {
     Tsa_08636660,
     Tsa_08636790,
@@ -229,10 +227,10 @@ u16 * CONST_DATA gUnknown_085D5C0C[] =
 // clang-format on
 
 //! FE8U = 0x0805F4B0
-void sub_805F4B0(struct Anim * anim, int unk)
+void StartSubSpell_efxResireBG(struct Anim * anim, int type)
 {
     // clang-format off
-    static const u16 gUnknown_080DD186[] =
+    static const u16 frames[] =
     {
          1, 3,
          2, 2,
@@ -271,15 +269,15 @@ void sub_805F4B0(struct Anim * anim, int unk)
 
     proc = Proc_Start(ProcScr_efxResireBG, PROC_TREE_3);
     proc->anim = anim;
-    proc->unk29 = unk;
+    proc->unk29 = type;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD186;
-    proc->tsal = gUnknown_085D5C0C;
-    proc->tsar = gUnknown_085D5C0C;
-    proc->img = gUnknown_085D5B40;
+    proc->frame_config = frames;
+    proc->tsal = TsaArray_NosferatuBg;
+    proc->tsar = TsaArray_NosferatuBg;
+    proc->img = ImgArray_NosferatuBg;
 
-    SpellFx_RegisterBgPal(gUnknown_08636640, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_NosferatuBg, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
@@ -299,7 +297,7 @@ void sub_805F4B0(struct Anim * anim, int unk)
 
 // clang-format off
 
-const u16 gUnknown_080DD1F4[] =
+const u16 gFrameConfig_080DD1F4[] =
 {
     28, 1,
     29, 1,
@@ -330,10 +328,10 @@ const u16 gUnknown_080DD1F4[] =
 // clang-format on
 
 //! FE8U = 0x0805F53C
-void sub_805F53C(struct Anim * anim)
+void StartSubSpell_efxResireBG2(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD252[] =
+    static const u16 frames[] =
     {
          0, 45,
         -1,
@@ -348,12 +346,12 @@ void sub_805F53C(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD252;
-    proc->tsal = gUnknown_085D5C0C;
-    proc->tsar = gUnknown_085D5C0C;
-    proc->img = gUnknown_085D5B40;
+    proc->frame_config = frames;
+    proc->tsal = TsaArray_NosferatuBg;
+    proc->tsar = TsaArray_NosferatuBg;
+    proc->img = ImgArray_NosferatuBg;
 
-    SpellFx_RegisterBgPal(gUnknown_08636640, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_NosferatuBg, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     SetWinEnable(0, 0, 0);
@@ -374,7 +372,7 @@ void sub_805F53C(struct Anim * anim)
 }
 
 //! FE8U = 0x0805F5DC
-void sub_805F5DC(struct ProcEfxBG * proc)
+void efxResireBG_Loop_A(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -414,11 +412,11 @@ void sub_805F5DC(struct ProcEfxBG * proc)
     return;
 }
 
-extern u16 * gUnknown_085D5C0C[];
-extern u16 * gUnknown_085D5B40[];
+extern u16 * TsaArray_NosferatuBg[];
+extern u16 * ImgArray_NosferatuBg[];
 
 //! FE8U = 0x0805F660
-void sub_805F660(struct ProcEfxBG * proc)
+void efxResireBG_Loop_B(struct ProcEfxBG * proc)
 {
     if (gUnknown_02017750 == 2)
     {
@@ -443,10 +441,10 @@ void sub_805F660(struct ProcEfxBG * proc)
             proc->timer = 0;
             proc->terminator = 0;
             proc->frame = 0;
-            proc->frame_config = gUnknown_080DD1F4;
-            proc->tsal = gUnknown_085D5C0C;
-            proc->tsar = gUnknown_085D5C0C;
-            proc->img = gUnknown_085D5B40;
+            proc->frame_config = gFrameConfig_080DD1F4;
+            proc->tsal = TsaArray_NosferatuBg;
+            proc->tsar = TsaArray_NosferatuBg;
+            proc->img = ImgArray_NosferatuBg;
 
             if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
             {
@@ -462,7 +460,7 @@ void sub_805F660(struct ProcEfxBG * proc)
 }
 
 //! FE8U = 0x0805F6FC
-void sub_805F6FC(struct ProcEfxBG * proc)
+void efxResireBG_Loop_C(struct ProcEfxBG * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
 
@@ -492,7 +490,7 @@ void sub_805F6FC(struct ProcEfxBG * proc)
 }
 
 //! FE8U = 0x0805F76C
-void sub_805F76C(struct ProcEfxBG * proc)
+void efxResireBG_Loop_D(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -524,7 +522,7 @@ void sub_805F76C(struct ProcEfxBG * proc)
 }
 
 //! FE8U = 0x0805F7D4
-void sub_805F7D4(struct ProcEfxBG * proc)
+void efxResireBG2_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -556,23 +554,23 @@ void sub_805F7D4(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5CD8[] =
+struct ProcCmd CONST_DATA ProcScr_efxResireRST[] =
 {
     PROC_NAME("efxResireRST"),
-    PROC_REPEAT(sub_805F868),
+    PROC_REPEAT(efxResireRST_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805F838
-void sub_805F838(struct Anim * anim, ProcPtr b, int c)
+void StartSubSpell_efxResireRST(struct Anim * anim, ProcPtr b, int c)
 {
     struct ProcEfxRST * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5CD8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxResireRST, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->unk2E = c;
@@ -582,7 +580,7 @@ void sub_805F838(struct Anim * anim, ProcPtr b, int c)
 }
 
 //! FE8U = 0x0805F868
-void sub_805F868(struct ProcEfxRST * proc)
+void efxResireRST_Loop(struct ProcEfxRST * proc)
 {
     struct ProcEfx * otherProc = proc->unk64;
 

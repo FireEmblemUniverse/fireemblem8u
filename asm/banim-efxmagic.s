@@ -1347,7 +1347,7 @@ _0806034C:
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #0x1e
-	bl sub_805F838
+	bl StartSubSpell_efxResireRST
 	adds r0, r5, #0
 	movs r1, #0x2b
 	movs r2, #0
@@ -1472,7 +1472,7 @@ sub_8060440: @ 0x08060440
 	ldr r1, _080604A4  @ gUnknown_085D6540
 	str r1, [r0, #0x54]
 	str r2, [r0, #0x58]
-	ldr r0, _080604A8  @ gUnknown_08636640
+	ldr r0, _080604A8  @ Pal_NosferatuBg
 	movs r1, #0x20
 	bl SpellFx_RegisterBgPal
 	bl SpellFx_SetSomeColorEffect
@@ -1496,7 +1496,7 @@ _08060498: .4byte gUnknown_085D64BC
 _0806049C: .4byte gUnknown_080DD5D2
 _080604A0: .4byte gUnknown_085D64D4
 _080604A4: .4byte gUnknown_085D6540
-_080604A8: .4byte gUnknown_08636640
+_080604A8: .4byte Pal_NosferatuBg
 _080604AC: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_8060440

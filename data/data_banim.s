@@ -24345,60 +24345,60 @@ gUnknown_0862DC58:  @ 0x0862DC58
 gUnknown_0862DCE0:  @ 0x0862DCE0
 	.incbin "baserom.gba", 0x62DCE0, 0x2C    @ 0x62DD0C - 0x62DCE0
 
-	.global Img_0862DD0C
-Img_0862DD0C:  @ 0x0862DD0C
+	.global Img_NosferatuBg_A
+Img_NosferatuBg_A:  @ 0x0862DD0C
 	.incbin "baserom.gba", 0x62DD0C, 0xAD0    @ 0x62E7DC - 0x62DD0C
 
-	.global Img_0862E7DC
-Img_0862E7DC:  @ 0x0862E7DC
+	.global Img_NosferatuBg_B
+Img_NosferatuBg_B:  @ 0x0862E7DC
 	.incbin "baserom.gba", 0x62E7DC, 0xBA8    @ 0x62F384 - 0x62E7DC
 
-	.global Img_0862F384
-Img_0862F384:  @ 0x0862F384
+	.global Img_NosferatuBg_C
+Img_NosferatuBg_C:  @ 0x0862F384
 	.incbin "baserom.gba", 0x62F384, 0xB58    @ 0x62FEDC - 0x62F384
 
-	.global Img_0862FEDC
-Img_0862FEDC:  @ 0x0862FEDC
+	.global Img_NosferatuBg_D
+Img_NosferatuBg_D:  @ 0x0862FEDC
 	.incbin "baserom.gba", 0x62FEDC, 0xAB4    @ 0x630990 - 0x62FEDC
 
-	.global Img_08630990
-Img_08630990:  @ 0x08630990
+	.global Img_NosferatuBg_E
+Img_NosferatuBg_E:  @ 0x08630990
 	.incbin "baserom.gba", 0x630990, 0xAD0    @ 0x631460 - 0x630990
 
-	.global Img_08631460
-Img_08631460:  @ 0x08631460
+	.global Img_NosferatuBg_F
+Img_NosferatuBg_F:  @ 0x08631460
 	.incbin "baserom.gba", 0x631460, 0xCC4    @ 0x632124 - 0x631460
 
-	.global Img_08632124
-Img_08632124:  @ 0x08632124
+	.global Img_NosferatuBg_G
+Img_NosferatuBg_G:  @ 0x08632124
 	.incbin "baserom.gba", 0x632124, 0x904    @ 0x632A28 - 0x632124
 
-	.global Img_08632A28
-Img_08632A28:  @ 0x08632A28
+	.global Img_NosferatuBg_H
+Img_NosferatuBg_H:  @ 0x08632A28
 	.incbin "baserom.gba", 0x632A28, 0x554    @ 0x632F7C - 0x632A28
 
-	.global Img_08632F7C
-Img_08632F7C:  @ 0x08632F7C
+	.global Img_NosferatuBg_I
+Img_NosferatuBg_I:  @ 0x08632F7C
 	.incbin "baserom.gba", 0x632F7C, 0x918    @ 0x633894 - 0x632F7C
 
-	.global Img_08633894
-Img_08633894:  @ 0x08633894
+	.global Img_NosferatuBg_J
+Img_NosferatuBg_J:  @ 0x08633894
 	.incbin "baserom.gba", 0x633894, 0xC34    @ 0x6344C8 - 0x633894
 
-	.global Img_086344C8
-Img_086344C8:  @ 0x086344C8
+	.global Img_NosferatuBg_K
+Img_NosferatuBg_K:  @ 0x086344C8
 	.incbin "baserom.gba", 0x6344C8, 0xCA4    @ 0x63516C - 0x6344C8
 
-	.global Img_0863516C
-Img_0863516C:  @ 0x0863516C
+	.global Img_NosferatuBg_L
+Img_NosferatuBg_L:  @ 0x0863516C
 	.incbin "baserom.gba", 0x63516C, 0xBF4    @ 0x635D60 - 0x63516C
 
-	.global Img_08635D60
-Img_08635D60:  @ 0x08635D60
+	.global Img_NosferatuBg_M
+Img_NosferatuBg_M:  @ 0x08635D60
 	.incbin "baserom.gba", 0x635D60, 0x8E0    @ 0x636640 - 0x635D60
 
-	.global gUnknown_08636640
-gUnknown_08636640:  @ 0x08636640
+	.global Pal_NosferatuBg
+Pal_NosferatuBg:  @ 0x08636640
 	.incbin "baserom.gba", 0x636640, 0x20    @ 0x636660 - 0x636640
 
 	.global Tsa_08636660

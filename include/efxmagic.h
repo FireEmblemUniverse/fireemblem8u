@@ -125,9 +125,9 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ProcScr_efxResire
 // extern ??? ProcScr_efxResireBG
 // extern ??? ProcScr_efxResireBG2
-// extern ??? gUnknown_085D5B40
-// extern ??? gUnknown_085D5C0C
-// extern ??? gUnknown_085D5CD8
+// extern ??? ImgArray_NosferatuBg
+// extern ??? TsaArray_NosferatuBg
+// extern ??? ProcScr_efxResireRST
 // extern ??? gUnknown_085D5CF0
 // extern ??? gUnknown_085D5D08
 // extern ??? gUnknown_085D5D20
@@ -434,16 +434,16 @@ void efxMistyRainObj_805F2C4(struct ProcEfxOBJ * proc);
 void efxMistyRainObj2_805F300(struct ProcEfxOBJ * proc);
 void efxMistyRainObj2_805F32C(struct ProcEfxOBJ * proc);
 void StartSpellAnimNosferatu(struct Anim * anim);
-void Loop6C_efxResire(struct ProcEfx * proc);
-void sub_805F4B0(struct Anim * anim, int unk);
-void sub_805F53C(struct Anim * anim);
-void sub_805F5DC(struct ProcEfxBG * proc);
-void sub_805F660(struct ProcEfxBG * proc);
-void sub_805F6FC(struct ProcEfxBG * proc);
-void sub_805F76C(struct ProcEfxBG * proc);
-void sub_805F7D4(struct ProcEfxBG * proc);
-void sub_805F838(struct Anim * anim, ProcPtr b, int c);
-void sub_805F868(struct ProcEfxRST * proc);
+void efxResire_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxResireBG(struct Anim * anim, int unk);
+void StartSubSpell_efxResireBG2(struct Anim * anim);
+void efxResireBG_Loop_A(struct ProcEfxBG * proc);
+void efxResireBG_Loop_B(struct ProcEfxBG * proc);
+void efxResireBG_Loop_C(struct ProcEfxBG * proc);
+void efxResireBG_Loop_D(struct ProcEfxBG * proc);
+void efxResireBG2_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxResireRST(struct Anim * anim, ProcPtr b, int c);
+void efxResireRST_Loop(struct ProcEfxRST * proc);
 void sub_805F8B4(struct Anim * anim);
 // ??? sub_805F8F0(???);
 // ??? sub_805F9A8(???);

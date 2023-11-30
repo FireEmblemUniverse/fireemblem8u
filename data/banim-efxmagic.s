@@ -467,26 +467,26 @@ gUnknown_085D6314:  @ 0x085D6314
 
 	.global gUnknown_085D632C
 gUnknown_085D632C:  @ 0x085D632C
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
 
 	.global gUnknown_085D637C
 gUnknown_085D637C:  @ 0x085D637C
@@ -513,9 +513,9 @@ gUnknown_085D637C:  @ 0x085D637C
 
 	.global gUnknown_085D63CC
 gUnknown_085D63CC:  @ 0x085D63CC
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
 
 	.global gUnknown_085D63D8
 gUnknown_085D63D8:  @ 0x085D63D8
@@ -525,27 +525,27 @@ gUnknown_085D63D8:  @ 0x085D63D8
 
 	.global gUnknown_085D63E4
 gUnknown_085D63E4:  @ 0x085D63E4
-    .4byte gUnknown_08636640 + 0x30a4
-    .4byte gUnknown_08636640 + 0x30a4
-    .4byte gUnknown_08636640 + 0x3658
-    .4byte gUnknown_08636640 + 0x3d20
-    .4byte gUnknown_08636640 + 0x4360
-    .4byte gUnknown_08636640 + 0x4968
-    .4byte gUnknown_08636640 + 0x4fc8
-    .4byte gUnknown_08636640 + 0x5638
-    .4byte gUnknown_08636640 + 0x5c74
-    .4byte gUnknown_08636640 + 0x62bc
-    .4byte gUnknown_08636640 + 0x69c0
-    .4byte gUnknown_08636640 + 0x7178
-    .4byte gUnknown_08636640 + 0x796c
-    .4byte gUnknown_08636640 + 0x8144
-    .4byte gUnknown_08636640 + 0x8960
-    .4byte gUnknown_08636640 + 0x90e0
-    .4byte gUnknown_08636640 + 0x9874
-    .4byte gUnknown_08636640 + 0x9fa8
-    .4byte gUnknown_08636640 + 0x9fa8
-    .4byte gUnknown_08636640 + 0xaa54
-    .4byte gUnknown_08636640 + 0xaa54
+    .4byte Pal_NosferatuBg + 0x30a4
+    .4byte Pal_NosferatuBg + 0x30a4
+    .4byte Pal_NosferatuBg + 0x3658
+    .4byte Pal_NosferatuBg + 0x3d20
+    .4byte Pal_NosferatuBg + 0x4360
+    .4byte Pal_NosferatuBg + 0x4968
+    .4byte Pal_NosferatuBg + 0x4fc8
+    .4byte Pal_NosferatuBg + 0x5638
+    .4byte Pal_NosferatuBg + 0x5c74
+    .4byte Pal_NosferatuBg + 0x62bc
+    .4byte Pal_NosferatuBg + 0x69c0
+    .4byte Pal_NosferatuBg + 0x7178
+    .4byte Pal_NosferatuBg + 0x796c
+    .4byte Pal_NosferatuBg + 0x8144
+    .4byte Pal_NosferatuBg + 0x8960
+    .4byte Pal_NosferatuBg + 0x90e0
+    .4byte Pal_NosferatuBg + 0x9874
+    .4byte Pal_NosferatuBg + 0x9fa8
+    .4byte Pal_NosferatuBg + 0x9fa8
+    .4byte Pal_NosferatuBg + 0xaa54
+    .4byte Pal_NosferatuBg + 0xaa54
 
 	.global gUnknown_085D6438
 gUnknown_085D6438:  @ 0x085D6438
