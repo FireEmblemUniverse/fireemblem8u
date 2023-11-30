@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd ProcScr_efxResire[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxResire[] =
+{
+    PROC_NAME("efxResire"),
+    PROC_REPEAT(Loop6C_efxResire),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F354
 void StartSpellAnimNosferatu(struct Anim * anim)
@@ -84,14 +93,178 @@ void Loop6C_efxResire(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxResireBG[];
-extern u16 gUnknown_080DD186[];
-extern u16 * gUnknown_085D5C0C[];
-extern u16 * gUnknown_085D5B40[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxResireBG[] =
+{
+    PROC_NAME("efxResireBG"),
+
+    PROC_REPEAT(sub_805F5DC),
+    PROC_REPEAT(sub_805F660),
+    PROC_REPEAT(sub_805F6FC),
+    PROC_REPEAT(sub_805F76C),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA ProcScr_efxResireBG2[] =
+{
+    PROC_NAME("efxResireBG2"),
+
+    PROC_REPEAT(sub_805F7D4),
+
+    PROC_END,
+};
+
+u16 * CONST_DATA gUnknown_085D5B40[] =
+{
+    Img_0862DD0C,
+    Img_0862DD0C,
+    Img_0862DD0C,
+    Img_0862DD0C,
+    Img_0862DD0C,
+    Img_0862DD0C,
+    Img_0862DD0C,
+    Img_0862DD0C,
+    Img_0862E7DC,
+    Img_0862E7DC,
+    Img_0862E7DC,
+    Img_0862F384,
+    Img_0862F384,
+    Img_0862FEDC,
+    Img_0862FEDC,
+    Img_08630990,
+    Img_08630990,
+    Img_08631460,
+    Img_08631460,
+    Img_08631460,
+    Img_08632124,
+    Img_08632124,
+    Img_08632124,
+    Img_08632A28,
+    Img_08632A28,
+    Img_08632A28,
+    Img_08632A28,
+    Img_08632A28,
+    Img_08632F7C,
+    Img_08632F7C,
+    Img_08632F7C,
+    Img_08632F7C,
+    Img_08632F7C,
+    Img_08632F7C,
+    Img_08632F7C,
+    Img_08632F7C,
+    Img_08633894,
+    Img_08633894,
+    Img_08633894,
+    Img_08633894,
+    Img_086344C8,
+    Img_086344C8,
+    Img_086344C8,
+    Img_0863516C,
+    Img_0863516C,
+    Img_0863516C,
+    Img_08635D60,
+    Img_08635D60,
+    Img_08635D60,
+    Img_08635D60,
+    Img_08635D60,
+};
+
+u16 * CONST_DATA gUnknown_085D5C0C[] =
+{
+    Tsa_08636660,
+    Tsa_08636790,
+    Tsa_0863683C,
+    Tsa_086368EC,
+    Tsa_086369A4,
+    Tsa_08636A64,
+    Tsa_08636B30,
+    Tsa_08636C10,
+    Tsa_08636CF8,
+    Tsa_08636E00,
+    Tsa_08636F1C,
+    Tsa_08637058,
+    Tsa_086371A8,
+    Tsa_08637300,
+    Tsa_08637458,
+    Tsa_086375AC,
+    Tsa_086376FC,
+    Tsa_0863784C,
+    Tsa_08637984,
+    Tsa_08637AB0,
+    Tsa_08637BCC,
+    Tsa_08637CD8,
+    Tsa_08637DD0,
+    Tsa_08637EBC,
+    Tsa_08637F8C,
+    Tsa_08638048,
+    Tsa_086380FC,
+    Tsa_086381AC,
+    Tsa_08638258,
+    Tsa_08638300,
+    Tsa_086383B4,
+    Tsa_08638474,
+    Tsa_08638540,
+    Tsa_08638608,
+    Tsa_086386D0,
+    Tsa_086387A4,
+    Tsa_08638880,
+    Tsa_08638968,
+    Tsa_08638A5C,
+    Tsa_08638B64,
+    Tsa_08638C6C,
+    Tsa_08638D90,
+    Tsa_08638EB0,
+    Tsa_08638FCC,
+    Tsa_086390DC,
+    Tsa_086391E8,
+    Tsa_086392E8,
+    Tsa_086393D8,
+    Tsa_086394B4,
+    Tsa_08639580,
+    Tsa_08639638,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F4B0
 void sub_805F4B0(struct Anim * anim, int unk)
 {
+    // clang-format off
+    static const u16 gUnknown_080DD186[] =
+    {
+         1, 3,
+         2, 2,
+         3, 2,
+         4, 2,
+         5, 2,
+         6, 2,
+         7, 1,
+         8, 1,
+         9, 1,
+        10, 1,
+        11, 1,
+        12, 1,
+        13, 1,
+        14, 1,
+        15, 1,
+        16, 1,
+        17, 1,
+        18, 1,
+        19, 1,
+        20, 1,
+        21, 1,
+        22, 1,
+        23, 1,
+        24, 1,
+        25, 1,
+        26, 1,
+        27, 1,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -124,14 +297,49 @@ void sub_805F4B0(struct Anim * anim, int unk)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxResireBG2[];
-extern u16 gUnknown_080DD252[];
-extern u16 * gUnknown_085D5C0C[];
-extern u16 * gUnknown_085D5B40[];
+// clang-format off
+
+const u16 gUnknown_080DD1F4[] =
+{
+    28, 1,
+    29, 1,
+    30, 1,
+    31, 1,
+    32, 1,
+    33, 1,
+    34, 1,
+    35, 1,
+    36, 1,
+    37, 1,
+    38, 1,
+    39, 1,
+    40, 1,
+    41, 1,
+    42, 1,
+    43, 1,
+    44, 1,
+    45, 1,
+    46, 1,
+    47, 1,
+    48, 1,
+    49, 1,
+    50, 1,
+    -1,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F53C
 void sub_805F53C(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DD252[] =
+    {
+         0, 45,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -206,7 +414,6 @@ void sub_805F5DC(struct ProcEfxBG * proc)
     return;
 }
 
-extern u16 gUnknown_080DD1F4[];
 extern u16 * gUnknown_085D5C0C[];
 extern u16 * gUnknown_085D5B40[];
 
@@ -347,7 +554,16 @@ void sub_805F7D4(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5CD8[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5CD8[] =
+{
+    PROC_NAME("efxResireRST"),
+    PROC_REPEAT(sub_805F868),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F838
 void sub_805F838(struct Anim * anim, ProcPtr b, int c)
