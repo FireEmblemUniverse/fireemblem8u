@@ -183,6 +183,7 @@ SECTIONS
         src/banim-efxmagic-bolting.o(.text);
         src/banim-efxmagic-aircalibur.o(.text);
         src/banim-efxmagic-flux.o(.text);
+        src/banim-efxmagic-nosferatu.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);

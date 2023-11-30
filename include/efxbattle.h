@@ -32,7 +32,8 @@ struct ProcEfx {
 struct ProcEfxBG {
     PROC_HEADER;
 
-    STRUCT_PAD(0x29, 0x2C);
+    /* 29 */ u8 unk29;
+    STRUCT_PAD(0x2A, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
     /* 30 */ s16 unk30;
@@ -59,6 +60,20 @@ struct ProcEfxBGCOL {
     /* 4C */ void * pal;
     STRUCT_PAD(0x50, 0x5C);
     /* 5C */ struct Anim * anim;
+};
+
+struct ProcEfxRST
+{
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    /* 30 */ s16 unk30;
+    STRUCT_PAD(0x32, 0x5C);
+    /* 5C */ struct Anim * anim;
+    STRUCT_PAD(0x60, 0x64);
+    /* 64 */ ProcPtr unk64;
 };
 
 struct ProcEfxOBJ {
@@ -1163,7 +1178,7 @@ extern u32 gUnknown_0862D82C[];
 extern u32 gUnknown_0862DC24[];
 extern u32 gUnknown_0862DC58[];
 extern u32 gUnknown_0862DCE0[];
-// extern ??? gUnknown_08636640
+extern u16 gUnknown_08636640[];
 // extern ??? gUnknown_08641D64
 // extern ??? gUnknown_08641D84
 // extern ??? gUnknown_08645DD8
