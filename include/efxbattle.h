@@ -32,7 +32,8 @@ struct ProcEfx {
 struct ProcEfxBG {
     PROC_HEADER;
 
-    STRUCT_PAD(0x29, 0x2C);
+    /* 29 */ u8 unk29;
+    STRUCT_PAD(0x2A, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
     /* 30 */ s16 unk30;
@@ -59,6 +60,20 @@ struct ProcEfxBGCOL {
     /* 4C */ void * pal;
     STRUCT_PAD(0x50, 0x5C);
     /* 5C */ struct Anim * anim;
+};
+
+struct ProcEfxRST
+{
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    /* 30 */ s16 unk30;
+    STRUCT_PAD(0x32, 0x5C);
+    /* 5C */ struct Anim * anim;
+    STRUCT_PAD(0x60, 0x64);
+    /* 64 */ ProcPtr unk64;
 };
 
 struct ProcEfxOBJ {
@@ -1163,7 +1178,71 @@ extern u32 gUnknown_0862D82C[];
 extern u32 gUnknown_0862DC24[];
 extern u32 gUnknown_0862DC58[];
 extern u32 gUnknown_0862DCE0[];
-// extern ??? gUnknown_08636640
+extern u16 Img_NosferatuBg_A[];
+extern u16 Img_NosferatuBg_B[];
+extern u16 Img_NosferatuBg_C[];
+extern u16 Img_NosferatuBg_D[];
+extern u16 Img_NosferatuBg_E[];
+extern u16 Img_NosferatuBg_F[];
+extern u16 Img_NosferatuBg_G[];
+extern u16 Img_NosferatuBg_H[];
+extern u16 Img_NosferatuBg_I[];
+extern u16 Img_NosferatuBg_J[];
+extern u16 Img_NosferatuBg_K[];
+extern u16 Img_NosferatuBg_L[];
+extern u16 Img_NosferatuBg_M[];
+extern u16 Pal_NosferatuBg[];
+extern u16 Tsa_08636660[];
+extern u16 Tsa_08636790[];
+extern u16 Tsa_0863683C[];
+extern u16 Tsa_086368EC[];
+extern u16 Tsa_086369A4[];
+extern u16 Tsa_08636A64[];
+extern u16 Tsa_08636B30[];
+extern u16 Tsa_08636C10[];
+extern u16 Tsa_08636CF8[];
+extern u16 Tsa_08636E00[];
+extern u16 Tsa_08636F1C[];
+extern u16 Tsa_08637058[];
+extern u16 Tsa_086371A8[];
+extern u16 Tsa_08637300[];
+extern u16 Tsa_08637458[];
+extern u16 Tsa_086375AC[];
+extern u16 Tsa_086376FC[];
+extern u16 Tsa_0863784C[];
+extern u16 Tsa_08637984[];
+extern u16 Tsa_08637AB0[];
+extern u16 Tsa_08637BCC[];
+extern u16 Tsa_08637CD8[];
+extern u16 Tsa_08637DD0[];
+extern u16 Tsa_08637EBC[];
+extern u16 Tsa_08637F8C[];
+extern u16 Tsa_08638048[];
+extern u16 Tsa_086380FC[];
+extern u16 Tsa_086381AC[];
+extern u16 Tsa_08638258[];
+extern u16 Tsa_08638300[];
+extern u16 Tsa_086383B4[];
+extern u16 Tsa_08638474[];
+extern u16 Tsa_08638540[];
+extern u16 Tsa_08638608[];
+extern u16 Tsa_086386D0[];
+extern u16 Tsa_086387A4[];
+extern u16 Tsa_08638880[];
+extern u16 Tsa_08638968[];
+extern u16 Tsa_08638A5C[];
+extern u16 Tsa_08638B64[];
+extern u16 Tsa_08638C6C[];
+extern u16 Tsa_08638D90[];
+extern u16 Tsa_08638EB0[];
+extern u16 Tsa_08638FCC[];
+extern u16 Tsa_086390DC[];
+extern u16 Tsa_086391E8[];
+extern u16 Tsa_086392E8[];
+extern u16 Tsa_086393D8[];
+extern u16 Tsa_086394B4[];
+extern u16 Tsa_08639580[];
+extern u16 Tsa_08639638[];
 // extern ??? gUnknown_08641D64
 // extern ??? gUnknown_08641D84
 // extern ??? gUnknown_08645DD8

@@ -183,6 +183,7 @@ SECTIONS
         src/banim-efxmagic-bolting.o(.text);
         src/banim-efxmagic-aircalibur.o(.text);
         src/banim-efxmagic-flux.o(.text);
+        src/banim-efxmagic-nosferatu.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
@@ -452,6 +453,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-bolting.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-aircalibur.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-flux.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-nosferatu.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
@@ -654,6 +656,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-bolting.o(.data);
         . = ALIGN(4); src/banim-efxmagic-aircalibur.o(.data);
         . = ALIGN(4); src/banim-efxmagic-flux.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-nosferatu.o(.data);
         . = ALIGN(4); data/banim-efxmagic.o(.data);
         . = ALIGN(4); data/banim-efxmagic-ivaldi.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);

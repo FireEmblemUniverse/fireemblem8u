@@ -41,7 +41,7 @@ void EfxRestWINMain(struct ProcEfx * proc);
 // ??? EfxMagicHBlank_805B77C(???);
 // ??? EfxMagicHBlank_805B7BC(???);
 // ??? EfxMagicHBlank_805B7FC(???);
-void NewEfxRestWINH(struct Anim * anim, int a, u16 b, u32 c);
+void NewEfxRestWINH(struct Anim * anim, int a, s16 b, u32 c);
 void NewEfxRestWINH_(struct Anim * anim, int a, int b);
 
 extern CONST_DATA struct ProcCmd ProcScr_efxALPHA[];
@@ -125,9 +125,9 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ProcScr_efxResire
 // extern ??? ProcScr_efxResireBG
 // extern ??? ProcScr_efxResireBG2
-// extern ??? gUnknown_085D5B40
-// extern ??? gUnknown_085D5C0C
-// extern ??? gUnknown_085D5CD8
+// extern ??? ImgArray_NosferatuBg
+// extern ??? TsaArray_NosferatuBg
+// extern ??? ProcScr_efxResireRST
 // extern ??? gUnknown_085D5CF0
 // extern ??? gUnknown_085D5D08
 // extern ??? gUnknown_085D5D20
@@ -434,16 +434,16 @@ void efxMistyRainObj_805F2C4(struct ProcEfxOBJ * proc);
 void efxMistyRainObj2_805F300(struct ProcEfxOBJ * proc);
 void efxMistyRainObj2_805F32C(struct ProcEfxOBJ * proc);
 void StartSpellAnimNosferatu(struct Anim * anim);
-// ??? Loop6C_efxResire(???);
-// ??? sub_805F4B0(???);
-// ??? sub_805F53C(???);
-// ??? sub_805F5DC(???);
-// ??? sub_805F660(???);
-// ??? sub_805F6FC(???);
-// ??? sub_805F76C(???);
-// ??? sub_805F7D4(???);
-// ??? sub_805F838(???);
-// ??? sub_805F868(???);
+void efxResire_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxResireBG(struct Anim * anim, int unk);
+void StartSubSpell_efxResireBG2(struct Anim * anim);
+void efxResireBG_Loop_A(struct ProcEfxBG * proc);
+void efxResireBG_Loop_B(struct ProcEfxBG * proc);
+void efxResireBG_Loop_C(struct ProcEfxBG * proc);
+void efxResireBG_Loop_D(struct ProcEfxBG * proc);
+void efxResireBG2_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxResireRST(struct Anim * anim, ProcPtr b, int c);
+void efxResireRST_Loop(struct ProcEfxRST * proc);
 void sub_805F8B4(struct Anim * anim);
 // ??? sub_805F8F0(???);
 // ??? sub_805F9A8(???);

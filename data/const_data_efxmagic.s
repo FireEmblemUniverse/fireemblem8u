@@ -1,31 +1,14 @@
     .section .rodata
 
-	.global gAsciiStr_efxResire
-gAsciiStr_efxResire:
-	.asciz "efxResire"
+	.global gAsciiStr_efxLightning
+gAsciiStr_efxLightning:
+	.asciz "efxLightning"
 	.align 2, 0
 
-	.global gAsciiStr_efxResireBG
-gAsciiStr_efxResireBG:
-	.asciz "efxResireBG"
+	.global gAsciiStr_efxLightningBG
+gAsciiStr_efxLightningBG:
+	.asciz "efxLightningBG"
 	.align 2, 0
-
-	.global gAsciiStr_efxResireBG2
-gAsciiStr_efxResireBG2:
-	.asciz "efxResireBG2"
-	.byte 0
-
-	.global gUnknown_080DD186
-gUnknown_080DD186:  @ 0x080DD186
-	.incbin "baserom.gba", 0xDD186, 0x6E
-
-	.global gUnknown_080DD1F4
-gUnknown_080DD1F4:  @ 0x080DD1F4
-	.incbin "baserom.gba", 0xDD1F4, 0x5E
-
-	.global gUnknown_080DD252
-gUnknown_080DD252:  @ 0x080DD252
-	.incbin "baserom.gba", 0xDD252, 0x36
 
 	.global gUnknown_080DD288
 gUnknown_080DD288:  @ 0x080DD288

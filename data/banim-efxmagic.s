@@ -1,174 +1,5 @@
 	.section .data
 
-	.global ProcScr_efxResire
-ProcScr_efxResire:  @ 0x085D5AE0
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dd160
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word Loop6C_efxResire
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxResireBG
-ProcScr_efxResireBG:  @ 0x085D5AF8
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dd16c
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805F5DC
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805F660
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805F6FC
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805F76C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxResireBG2
-ProcScr_efxResireBG2:  @ 0x085D5B28
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dd178
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805F7D4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_085D5B40
-gUnknown_085D5B40:  @ 0x085D5B40
-    .4byte gUnknown_0862DCE0 + 0x2c
-    .4byte gUnknown_0862DCE0 + 0x2c
-    .4byte gUnknown_0862DCE0 + 0x2c
-    .4byte gUnknown_0862DCE0 + 0x2c
-    .4byte gUnknown_0862DCE0 + 0x2c
-    .4byte gUnknown_0862DCE0 + 0x2c
-    .4byte gUnknown_0862DCE0 + 0x2c
-    .4byte gUnknown_0862DCE0 + 0x2c
-    .4byte gUnknown_0862DCE0 + 0xafc
-    .4byte gUnknown_0862DCE0 + 0xafc
-    .4byte gUnknown_0862DCE0 + 0xafc
-    .4byte gUnknown_0862DCE0 + 0x16a4
-    .4byte gUnknown_0862DCE0 + 0x16a4
-    .4byte gUnknown_0862DCE0 + 0x21fc
-    .4byte gUnknown_0862DCE0 + 0x21fc
-    .4byte gUnknown_0862DCE0 + 0x2cb0
-    .4byte gUnknown_0862DCE0 + 0x2cb0
-    .4byte gUnknown_0862DCE0 + 0x3780
-    .4byte gUnknown_0862DCE0 + 0x3780
-    .4byte gUnknown_0862DCE0 + 0x3780
-    .4byte gUnknown_0862DCE0 + 0x4444
-    .4byte gUnknown_0862DCE0 + 0x4444
-    .4byte gUnknown_0862DCE0 + 0x4444
-    .4byte gUnknown_0862DCE0 + 0x4d48
-    .4byte gUnknown_0862DCE0 + 0x4d48
-    .4byte gUnknown_0862DCE0 + 0x4d48
-    .4byte gUnknown_0862DCE0 + 0x4d48
-    .4byte gUnknown_0862DCE0 + 0x4d48
-    .4byte gUnknown_0862DCE0 + 0x529c
-    .4byte gUnknown_0862DCE0 + 0x529c
-    .4byte gUnknown_0862DCE0 + 0x529c
-    .4byte gUnknown_0862DCE0 + 0x529c
-    .4byte gUnknown_0862DCE0 + 0x529c
-    .4byte gUnknown_0862DCE0 + 0x529c
-    .4byte gUnknown_0862DCE0 + 0x529c
-    .4byte gUnknown_0862DCE0 + 0x529c
-    .4byte gUnknown_0862DCE0 + 0x5bb4
-    .4byte gUnknown_0862DCE0 + 0x5bb4
-    .4byte gUnknown_0862DCE0 + 0x5bb4
-    .4byte gUnknown_0862DCE0 + 0x5bb4
-    .4byte gUnknown_0862DCE0 + 0x67e8
-    .4byte gUnknown_0862DCE0 + 0x67e8
-    .4byte gUnknown_0862DCE0 + 0x67e8
-    .4byte gUnknown_0862DCE0 + 0x748c
-    .4byte gUnknown_0862DCE0 + 0x748c
-    .4byte gUnknown_0862DCE0 + 0x748c
-    .4byte gUnknown_0862DCE0 + 0x8080
-    .4byte gUnknown_0862DCE0 + 0x8080
-    .4byte gUnknown_0862DCE0 + 0x8080
-    .4byte gUnknown_0862DCE0 + 0x8080
-    .4byte gUnknown_0862DCE0 + 0x8080
-
-	.global gUnknown_085D5C0C
-gUnknown_085D5C0C:  @ 0x085D5C0C
-    .4byte gUnknown_08636640 + 0x20
-    .4byte gUnknown_08636640 + 0x150
-    .4byte gUnknown_08636640 + 0x1fc
-    .4byte gUnknown_08636640 + 0x2ac
-    .4byte gUnknown_08636640 + 0x364
-    .4byte gUnknown_08636640 + 0x424
-    .4byte gUnknown_08636640 + 0x4f0
-    .4byte gUnknown_08636640 + 0x5d0
-    .4byte gUnknown_08636640 + 0x6b8
-    .4byte gUnknown_08636640 + 0x7c0
-    .4byte gUnknown_08636640 + 0x8dc
-    .4byte gUnknown_08636640 + 0xa18
-    .4byte gUnknown_08636640 + 0xb68
-    .4byte gUnknown_08636640 + 0xcc0
-    .4byte gUnknown_08636640 + 0xe18
-    .4byte gUnknown_08636640 + 0xf6c
-    .4byte gUnknown_08636640 + 0x10bc
-    .4byte gUnknown_08636640 + 0x120c
-    .4byte gUnknown_08636640 + 0x1344
-    .4byte gUnknown_08636640 + 0x1470
-    .4byte gUnknown_08636640 + 0x158c
-    .4byte gUnknown_08636640 + 0x1698
-    .4byte gUnknown_08636640 + 0x1790
-    .4byte gUnknown_08636640 + 0x187c
-    .4byte gUnknown_08636640 + 0x194c
-    .4byte gUnknown_08636640 + 0x1a08
-    .4byte gUnknown_08636640 + 0x1abc
-    .4byte gUnknown_08636640 + 0x1b6c
-    .4byte gUnknown_08636640 + 0x1c18
-    .4byte gUnknown_08636640 + 0x1cc0
-    .4byte gUnknown_08636640 + 0x1d74
-    .4byte gUnknown_08636640 + 0x1e34
-    .4byte gUnknown_08636640 + 0x1f00
-    .4byte gUnknown_08636640 + 0x1fc8
-    .4byte gUnknown_08636640 + 0x2090
-    .4byte gUnknown_08636640 + 0x2164
-    .4byte gUnknown_08636640 + 0x2240
-    .4byte gUnknown_08636640 + 0x2328
-    .4byte gUnknown_08636640 + 0x241c
-    .4byte gUnknown_08636640 + 0x2524
-    .4byte gUnknown_08636640 + 0x262c
-    .4byte gUnknown_08636640 + 0x2750
-    .4byte gUnknown_08636640 + 0x2870
-    .4byte gUnknown_08636640 + 0x298c
-    .4byte gUnknown_08636640 + 0x2a9c
-    .4byte gUnknown_08636640 + 0x2ba8
-    .4byte gUnknown_08636640 + 0x2ca8
-    .4byte gUnknown_08636640 + 0x2d98
-    .4byte gUnknown_08636640 + 0x2e74
-    .4byte gUnknown_08636640 + 0x2f40
-    .4byte gUnknown_08636640 + 0x2ff8
-
-	.global gUnknown_085D5CD8
-gUnknown_085D5CD8:  @ 0x085D5CD8
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80dd258
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_805F868
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_085D5CF0
 gUnknown_085D5CF0:  @ 0x085D5CF0
         @ PROC_NAME
@@ -636,26 +467,26 @@ gUnknown_085D6314:  @ 0x085D6314
 
 	.global gUnknown_085D632C
 gUnknown_085D632C:  @ 0x085D632C
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
 
 	.global gUnknown_085D637C
 gUnknown_085D637C:  @ 0x085D637C
@@ -682,9 +513,9 @@ gUnknown_085D637C:  @ 0x085D637C
 
 	.global gUnknown_085D63CC
 gUnknown_085D63CC:  @ 0x085D63CC
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
-    .4byte gUnknown_08636640 + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
+    .4byte Pal_NosferatuBg + 0xafb4
 
 	.global gUnknown_085D63D8
 gUnknown_085D63D8:  @ 0x085D63D8
@@ -694,27 +525,27 @@ gUnknown_085D63D8:  @ 0x085D63D8
 
 	.global gUnknown_085D63E4
 gUnknown_085D63E4:  @ 0x085D63E4
-    .4byte gUnknown_08636640 + 0x30a4
-    .4byte gUnknown_08636640 + 0x30a4
-    .4byte gUnknown_08636640 + 0x3658
-    .4byte gUnknown_08636640 + 0x3d20
-    .4byte gUnknown_08636640 + 0x4360
-    .4byte gUnknown_08636640 + 0x4968
-    .4byte gUnknown_08636640 + 0x4fc8
-    .4byte gUnknown_08636640 + 0x5638
-    .4byte gUnknown_08636640 + 0x5c74
-    .4byte gUnknown_08636640 + 0x62bc
-    .4byte gUnknown_08636640 + 0x69c0
-    .4byte gUnknown_08636640 + 0x7178
-    .4byte gUnknown_08636640 + 0x796c
-    .4byte gUnknown_08636640 + 0x8144
-    .4byte gUnknown_08636640 + 0x8960
-    .4byte gUnknown_08636640 + 0x90e0
-    .4byte gUnknown_08636640 + 0x9874
-    .4byte gUnknown_08636640 + 0x9fa8
-    .4byte gUnknown_08636640 + 0x9fa8
-    .4byte gUnknown_08636640 + 0xaa54
-    .4byte gUnknown_08636640 + 0xaa54
+    .4byte Pal_NosferatuBg + 0x30a4
+    .4byte Pal_NosferatuBg + 0x30a4
+    .4byte Pal_NosferatuBg + 0x3658
+    .4byte Pal_NosferatuBg + 0x3d20
+    .4byte Pal_NosferatuBg + 0x4360
+    .4byte Pal_NosferatuBg + 0x4968
+    .4byte Pal_NosferatuBg + 0x4fc8
+    .4byte Pal_NosferatuBg + 0x5638
+    .4byte Pal_NosferatuBg + 0x5c74
+    .4byte Pal_NosferatuBg + 0x62bc
+    .4byte Pal_NosferatuBg + 0x69c0
+    .4byte Pal_NosferatuBg + 0x7178
+    .4byte Pal_NosferatuBg + 0x796c
+    .4byte Pal_NosferatuBg + 0x8144
+    .4byte Pal_NosferatuBg + 0x8960
+    .4byte Pal_NosferatuBg + 0x90e0
+    .4byte Pal_NosferatuBg + 0x9874
+    .4byte Pal_NosferatuBg + 0x9fa8
+    .4byte Pal_NosferatuBg + 0x9fa8
+    .4byte Pal_NosferatuBg + 0xaa54
+    .4byte Pal_NosferatuBg + 0xaa54
 
 	.global gUnknown_085D6438
 gUnknown_085D6438:  @ 0x085D6438

@@ -349,7 +349,7 @@ CONST_DATA struct ProcCmd ProcScr_EfxRestWINH[] = {
     PROC_END
 };
 
-void NewEfxRestWINH(struct Anim *anim, int a, u16 b, u32 c)
+void NewEfxRestWINH(struct Anim *anim, int a, s16 b, u32 c)
 {
     u32 i;
     u16 *buf;
