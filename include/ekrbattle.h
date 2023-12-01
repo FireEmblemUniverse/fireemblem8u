@@ -471,7 +471,7 @@ extern u16 * gpEkrLvupBg1ScrollOffsetStart;
 extern u16 * gpEkrLvupBg1ScrollOffset;
 extern u16 gpEkrLvupBg1ScrollOffsetList1[];
 extern u16 gpEkrLvupBg1ScrollOffsetList2[];
-// extern ??? gUnknown_02020044
+extern int gUnknown_02020044;
 
 extern int gEkrMainBgmPlaying;
 extern int gEfxSoundSeExist;
