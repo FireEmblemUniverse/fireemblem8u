@@ -113,15 +113,15 @@ struct MAEffectProc {
 
 struct MAAnotherProc {
     /* 00 */ PROC_HEADER;
-    /* 2C */ int unk2C;
-    /* 30 */ int unk30;
+    /* 2C */ int x;
+    /* 30 */ int y;
     /* 34 */ u8 pad34[0x44 - 0x34];
-    /* 44 */ short unk44;
+    /* 44 */ short timer;
     /* 46 */ u8 pad46[0x54 - 0x46];
     /* 54 */ int unk54;
-    /* 58 */ int unk58;
+    /* 58 */ int terminator;
     /* 5C */ u8 pad5C[0x64 - 0x5C];
-    /* 64 */ short unk64;
+    /* 64 */ short timer2;
 };
 
 struct MALevelUpProc {
@@ -147,23 +147,23 @@ struct MAStarProc {
 
     /* 2A */ short xCenter;
     /* 2C */ short yCenter;
-    /* 2E */ short unk2E;
-    /* 30 */ short unk30;
+    /* 2E */ short lo;
+    /* 30 */ short hi;
 
     /* 29 */ u8    pad32[0x36 - 0x32];
 
-    /* 36 */ u16 unk36;
-    /* 38 */ u16 unk38;
-    /* 3A */ u16 unk3A;
-    /* 3C */ u16 unk3C;
-    /* 3E */ u16 unk3E;
-    /* 40 */ u16 unk40;
+    /* 36 */ u16 distance;
+    /* 38 */ u16 angle;
+    /* 3A */ u16 timer;
+    /* 3C */ u16 start;
+    /* 3E */ u16 end;
+    /* 40 */ u16 terminator;
 };
 
-struct Unk03005090 {
-    /* 00 */ u16 unk00;
-    /* 02 */ u16 unk02;
-    /* 04 */ int pad04;
+struct MapAnimStarfxConf {
+    /* 00 */ u16 distance;
+    /* 02 */ u16 angle;
+    /* 04 */ int _pad_;
 };
 
 struct MapAnimActorState {
@@ -190,18 +190,18 @@ struct MapAnimState {
     /* 5D */ s8 hitDamage;
     /* 5E */ u8 actorCount_maybe;
     /* 5F */ u8 hp_changing;
-    /* 60 */ u8 u60;
-    /* 61 */ u8 u61;
+    /* 60 */ u8 xtarget;
+    /* 61 */ u8 ytarget;
     /* 62 */ u8 u62;
 };
 
 extern struct MapAnimState gManimSt;
 
-struct Unk089A40AC
+struct MapAnimfxConf
 {
-    /* 00 */ const void * unk00;
-    /* 04 */ const u16  * unk04;
-    /* 08 */ const void * unk08;
+    /* 00 */ const void * img;
+    /* 04 */ const u16  * pal;
+    /* 08 */ const void * tsa;
 };
 
 struct ManimLevelUpStatGainLabelProc
@@ -242,6 +242,21 @@ struct ManimLevelUpLabelInfo
 
 extern struct ManimLevelUpLabelInfo CONST_DATA gManimLevelUpLabelInfoList[];
 
+struct Proc8080050
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    /* 2A */ u8 unk2A;
+};
+
+struct Unk082058B4
+{
+    u8 unk00, unk01, unk02;
+};
+
+extern struct Unk082058B4 const gUnknown_082058B4[];
+
 extern CONST_DATA struct MADebugInfo* pMADebugInfoData;
 extern CONST_DATA struct Unk089A3798 gUnknown_089A3798[];
 
@@ -271,10 +286,11 @@ extern CONST_DATA struct ProcCmd ProcScr_PoisonAnimHandler[];
 extern CONST_DATA struct ProcCmd ProcScr_PoisonAnim2[];
 extern CONST_DATA struct ProcCmd ProcScr_089A398C[];
 extern CONST_DATA u16 * ImgLut_089A39C4[];
-// extern ??? gUnknown_089A39E0
-// extern ??? gUnknown_089A3A18
-// extern ??? gUnknown_089A3A40
-// extern ??? gUnknown_089A3A80
+extern CONST_DATA struct ProcCmd ProcScr_MapLatonafx[];
+extern CONST_DATA s16 MapLatonafxLocation[];
+extern CONST_DATA struct ProcCmd ProcScr_MapLatonaBlinkingfx[];
+extern CONST_DATA struct ProcCmd ProcScr_MapLatonaShiningfx[];
+extern CONST_DATA struct ProcCmd ProcScr_NightMarefx[];
 // extern ??? gUnknown_089A3AB8
 // extern ??? gUnknown_089A3B3C
 // extern ??? gUnknown_089A3B6C
@@ -299,19 +315,19 @@ extern CONST_DATA u16 * ImgLut_089A39C4[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpStatGainLabel[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpLabelColor[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUp[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4034[];
-extern CONST_DATA struct ProcCmd gUnknown_089A404C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4064[];
-extern CONST_DATA struct ProcCmd gUnknown_089A407C[];
-extern struct Unk089A40AC CONST_DATA gUnknown_089A40AC[];
-extern struct Unk089A40AC CONST_DATA gUnknown_089A419C[];
-extern struct Unk089A40AC CONST_DATA gUnknown_089A42BC[];
-extern CONST_DATA struct ProcCmd gUnknown_089A434C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4394[];
-// extern ??? gUnknown_089A43D4
-// extern ??? gUnknown_089A43D8
-extern CONST_DATA struct ProcCmd gUnknown_089A4434[];
-extern CONST_DATA struct ProcCmd gUnknown_089A448C[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimStartSpellAssocFade[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSpellAssocResetPal[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimBgShaker[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSpellAssocRotationEffect[];
+extern struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A40AC[];
+extern struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A419C[];
+extern struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A42BC[];
+extern CONST_DATA struct ProcCmd ProcScr_089A434C[];
+extern CONST_DATA struct ProcCmd ProcScr_089A4394[];
+extern struct MapAnimfxConf CONST_DATA gUnknown_089A43D4[];
+extern struct MapAnimfxConf CONST_DATA gUnknown_089A43D8[];
+extern CONST_DATA struct ProcCmd ProcScr_089A4434[];
+extern CONST_DATA struct ProcCmd ProcScr_089A448C[];
 // extern ??? gUnknown_089A44A4
 // extern ??? gUnknown_089A45DC
 // extern ??? gUnknown_089A4644
@@ -397,9 +413,9 @@ extern u8 CONST_DATA gUnknown_089AF930[];
 extern u8 CONST_DATA gUnknown_089AF950[];
 extern u8 CONST_DATA gUnknown_089AFAC4[];
 extern u8 CONST_DATA gUnknown_089AFCBC[];
-extern u8 CONST_DATA gUnknown_089AFF78[];
-// extern ??? gUnknown_089AFFB8
-// extern ??? gUnknown_089AFFF8
+extern u16 CONST_DATA Pal_089AFF78[];
+extern u16 CONST_DATA Pal_089AFFB8[];
+extern u8 CONST_DATA gUnknown_089AFFF8[];
 // extern ??? gUnknown_089B03D4
 // extern ??? gUnknown_089B068C
 // extern ??? gUnknown_089B06AC
@@ -420,8 +436,8 @@ extern u8 CONST_DATA gUnknown_089AFF78[];
 // extern ??? gUnknown_089B2748
 // extern ??? gUnknown_089B2880
 // extern ??? gUnknown_089B343C
-// extern ??? gUnknown_089B35D0
-// extern ??? gUnknown_089B4BFC
+extern u16 Img_089B35D0[];
+extern u16 Pal_089B4BFC[];
 // extern ??? gUnknown_089B6AA0
 // extern ??? gUnknown_089B73D4
 extern u16 Img_089B7610[];
@@ -534,32 +550,32 @@ void sub_807CE78(struct MAEffectProc * proc);
 void sub_807CF30(struct MAEffectProc * proc);
 void sub_807D09C(void);
 void MapAnimCallSpellAssocLatonafx(struct Unit * unit);
-// ??? sub_807D0FC(???);
-// ??? sub_807D1B4(???);
-// ??? sub_807D2C8(???);
-// ??? sub_807D2E0(???);
-// ??? sub_807D328(???);
-// ??? sub_807D360(???);
-// ??? sub_807D39C(???);
-// ??? sub_807D3B4(???);
-// ??? sub_807D3CC(???);
-// ??? sub_807D40C(???);
-// ??? sub_807D440(???);
-// ??? sub_807D464(???);
-void sub_807D4D4(struct Unit * unit);
-// ??? sub_807D51C(???);
-// ??? sub_807D57C(???);
-// ??? sub_807D670(???);
-void sub_807D688(struct Unit * unit, u8 * unk1, u8 * unk2);
+void MapLatonafx_Init(struct MAEffectProc * proc);
+void MapLatonafx_InitGfx(struct MAEffectProc * proc);
+void sub_807D2C8(void);
+void MapLatonaBlinkingfx_Init(struct MAEffectProc * proc);
+void MapLatonaBlinkingfx_Main(struct MAEffectProc * proc);
+void NewMapLatonaShiningfx(int, int, int, int, int, ProcPtr parent);
+void MapLatonaShiningfx_End(void);
+void MapLatonaShiningfx_Init(void);
+void MapLatonaShiningfx_Start(struct MAAnotherProc * proc);
+void MapLatonaShiningfx_Loop1(struct MAAnotherProc * proc);
+void MapLatonaShiningfx_Loop2(struct MAAnotherProc * proc);
+void MapLatonaShiningfx_Loop3(struct MAAnotherProc * proc);
+void MapAnimCallSpellAssocNightMarefx(struct Unit * unit);
+void NightMarefx_Init(struct MAEffectProc * proc);
+void NightMarefx_InitGfx(struct MAEffectProc * proc);
+void NightMarefx_CallBlinking(struct MAEffectProc * proc);
+void MapAnimCallSpellAssocAntitoxinPureWaterfx(struct Unit * unit, u8 * unk1, u8 * unk2);
 // ??? sub_807D6D8(???);
 // ??? sub_807D760(???);
 // ??? sub_807D7D8(???);
 // ??? sub_807D818(???);
-void NewMapAnimEffectAnimator(struct Unit * unit, u8 * unk1, u8 * unk2, int unk3);
+void NewMapAnimEffectAnimator(struct Unit * unit, u8 * unk1, u16 * unk2, int unk3);
 // ??? sub_807D860(???);
 // ??? sub_807D944(???);
 // ??? sub_807D9B8(???);
-void sub_807DA2C(void);
+void MapLatonafx_End(void);
 // ??? sub_807DA68(???);
 void New6C_SomethingFlashy(struct Unit * unit, int x, int y);
 // ??? sub_807DAE8(???);
@@ -592,11 +608,11 @@ void sub_807E1E4(struct Unit * unit);
 // ??? sub_807E390(???);
 // ??? sub_807E404(???);
 // ??? sub_807E448(???);
-void sub_807E48C(struct Unit * unit);
+void MapAnimCallSpellAssocSilencefx(struct Unit * unit);
 // ??? sub_807E4D0(???);
 // ??? sub_807E584(???);
 // ??? sub_807E5F0(???);
-void sub_807E638(struct Unit * unit);
+void MapAnimCallSpellAssocBarrierfx(struct Unit * unit);
 // ??? sub_807E67C(???);
 // ??? sub_807E6E0(???);
 void sub_807E760(int, int);
@@ -632,19 +648,19 @@ void ManimLevelUp_StartLevelUpText(struct ManimLevelUpProc * proc);
 void ManimLevelUp_EndLevelUpText(struct ManimLevelUpProc * proc);
 void ManimLevelUp_RestoreBgm(struct ManimLevelUpProc * proc);
 void ManimLevelUp_Clear(struct ManimLevelUpProc * proc);
-void sub_807F568(ProcPtr proc);
-void sub_807F58C(ProcPtr proc);
-void sub_807F5C8(ProcPtr proc);
-void sub_807F5EC(ProcPtr proc);
+void MapAnimStartSpellAssocFadeExt(ProcPtr proc);
+void SpellAssocFadeMain(ProcPtr proc);
+void MapAnimSpellAssocResetPalExt(ProcPtr proc);
+void SpellAssocResetPalMain(ProcPtr proc);
 void NewBG0Shaker(void);
 void BG0Shaker_Init(struct MAFrameShakeProc * proc);
 void BG0Shaker_Loop(struct MAFrameShakeProc * proc);
 void LoadSparkGfx(void);
 void PutSparkGfx(int x, int y);
-void sub_807F724(int xCenter, int yCenter, int distance, int angle);
-void sub_807F758(struct MAStarProc * proc);
-void sub_807F788(struct MAStarProc * proc);
-void StartStarRotationEffect(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+void PutSparkGfxRotation(int xCenter, int yCenter, int distance, int angle);
+void MapAnimRotation_Init(struct MAStarProc * proc);
+void MapAnimRotation_Main(struct MAStarProc * proc);
+void StartStarRotationEffect(int xCenter, int yCenter, int lo, int hi, int start, int end, int terminator);
 void StartStarExplosionEffect(int ix, int iy);
 void StartStarImplosionEffect(int ix, int iy);
 void sub_807F878(ProcPtr proc);
@@ -714,7 +730,7 @@ void MapAnim_MoveSubjectsTowardsTarget(void);
 void MapAnim_MoveSubjectsAwayFromTarget(void);
 void MapAnim_MoveCameraOnSubject(ProcPtr proc);
 void MapAnim_MoveCameraOnTarget(ProcPtr proc);
-void sub_80815EC(ProcPtr proc);
+void SpellWarpMoveCamera(ProcPtr proc);
 void MapAnim_BeginRoundSpecificAnims(ProcPtr proc);
 void RegisterMapHpChangeAnim(int mapst_id, int damage);
 void MapAnim_WaitForHPToEndChangingMaybe(ProcPtr proc);
@@ -724,7 +740,7 @@ void sub_8081970(ProcPtr proc);
 void MapAnimCallSpellAssocSilence(ProcPtr proc);
 void MapAnimCallSpellAssocBarrier(ProcPtr proc);
 void MapAnimCallSpellAssocLatona(ProcPtr proc);
-void sub_8081A08(ProcPtr proc);
+void MapAnimCallSpellAssocNightMare(ProcPtr proc);
 void MapAnimCallSpellAssocAntitoxin(ProcPtr proc);
 void MapAnimCallSpellAssocPureWater(ProcPtr proc);
 void MapAnimCallSpellAssocElixir(ProcPtr proc);
@@ -732,8 +748,8 @@ void MapAnimCallSpellAssocHeal(ProcPtr proc);
 void MapAnimCallSpellAssocMend(ProcPtr proc);
 void MapAnimCallSpellAssocRecover(ProcPtr proc);
 void MapAnimCallSpellAssocVulenrary(ProcPtr proc);
-void sub_8081B70(ProcPtr proc);
-void sub_8081BCC(ProcPtr proc);
+void SpellWarpStartFlashy(ProcPtr proc);
+void SpellWarpStartFlashyAtNewPos(ProcPtr proc);
 void MapAnimCallSpellAssocTorch(ProcPtr proc);
 void MapAnimCallSpellAssocUnlock(ProcPtr proc);
 void MapAnimCallSpellAssocBerserk(ProcPtr proc);
@@ -741,15 +757,15 @@ void MapAnimCallSpellAssocRestore(ProcPtr proc);
 void MapAnimCallSpellAssocSleep(ProcPtr proc);
 void MapAnimCallSpellAssocMonsterStone(ProcPtr proc);
 void MapAnimCallSpellAssocRepair(ProcPtr proc);
-void sub_8081CD4(ProcPtr proc);
+void SpellWarpStartFlashFade(ProcPtr proc);
 void sub_8081CF8(ProcPtr proc);
-void sub_8081D1C(ProcPtr proc);
-void sub_8081D40(ProcPtr proc);
-void sub_8081D84(ProcPtr proc);
-void sub_8081DE0(ProcPtr proc);
-void sub_8081E04(ProcPtr proc);
-void sub_8081E48(ProcPtr proc);
-void sub_8081E54(ProcPtr proc);
+void SpellWarpMuHide(ProcPtr proc);
+void SpellWarpStartExplosion(ProcPtr proc);
+void SpellWarpStartImplosion(ProcPtr proc);
+void SpellWarpMuShow(ProcPtr proc);
+void SpellWarpSetNewPosition(ProcPtr proc);
+void MapAnimStartSpellAssocFade(ProcPtr proc);
+void MapAnimSpellAssocResetPal(ProcPtr proc);
 void sub_8081E60(ProcPtr proc);
 
 void InitScanline();

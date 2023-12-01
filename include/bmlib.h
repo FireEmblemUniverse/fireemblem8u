@@ -17,7 +17,7 @@ enum interpolate_method {
     INTERPOLATE_RCUBIC,
 };
 
-int Interpolate(int method, int ymin, int ymax, int xcur, int xmax);
+int Interpolate(int method, int lo, int hi, int x, int x_max);
 
 struct PalFadeSt {
     /* 00 */ u16 from_colors[0x10];
