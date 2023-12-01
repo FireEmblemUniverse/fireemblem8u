@@ -147,23 +147,23 @@ struct MAStarProc {
 
     /* 2A */ short xCenter;
     /* 2C */ short yCenter;
-    /* 2E */ short unk2E;
-    /* 30 */ short unk30;
+    /* 2E */ short lo;
+    /* 30 */ short hi;
 
     /* 29 */ u8    pad32[0x36 - 0x32];
 
-    /* 36 */ u16 unk36;
-    /* 38 */ u16 unk38;
-    /* 3A */ u16 unk3A;
-    /* 3C */ u16 unk3C;
-    /* 3E */ u16 unk3E;
-    /* 40 */ u16 unk40;
+    /* 36 */ u16 distance;
+    /* 38 */ u16 angle;
+    /* 3A */ u16 timer;
+    /* 3C */ u16 start;
+    /* 3E */ u16 end;
+    /* 40 */ u16 terminator;
 };
 
-struct Unk03005090 {
-    /* 00 */ u16 unk00;
-    /* 02 */ u16 unk02;
-    /* 04 */ int pad04;
+struct MapAnimStarfxConf {
+    /* 00 */ u16 distance;
+    /* 02 */ u16 angle;
+    /* 04 */ int _pad_;
 };
 
 struct MapAnimActorState {
@@ -190,18 +190,18 @@ struct MapAnimState {
     /* 5D */ s8 hitDamage;
     /* 5E */ u8 actorCount_maybe;
     /* 5F */ u8 hp_changing;
-    /* 60 */ u8 u60;
-    /* 61 */ u8 u61;
+    /* 60 */ u8 xtarget;
+    /* 61 */ u8 ytarget;
     /* 62 */ u8 u62;
 };
 
 extern struct MapAnimState gManimSt;
 
-struct Unk089A40AC
+struct MapAnimfxConf
 {
-    /* 00 */ const void * unk00;
-    /* 04 */ const u16  * unk04;
-    /* 08 */ const void * unk08;
+    /* 00 */ const void * img;
+    /* 04 */ const u16  * pal;
+    /* 08 */ const void * tsa;
 };
 
 struct ManimLevelUpStatGainLabelProc
@@ -241,6 +241,21 @@ struct ManimLevelUpLabelInfo
 };
 
 extern struct ManimLevelUpLabelInfo CONST_DATA gManimLevelUpLabelInfoList[];
+
+struct Proc8080050
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    /* 2A */ u8 unk2A;
+};
+
+struct Unk082058B4
+{
+    u8 unk00, unk01, unk02;
+};
+
+extern struct Unk082058B4 const gUnknown_082058B4[];
 
 extern CONST_DATA struct MADebugInfo* pMADebugInfoData;
 extern CONST_DATA struct Unk089A3798 gUnknown_089A3798[];
@@ -300,19 +315,19 @@ extern CONST_DATA struct ProcCmd ProcScr_NightMarefx[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpStatGainLabel[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpLabelColor[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUp[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4034[];
-extern CONST_DATA struct ProcCmd gUnknown_089A404C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4064[];
-extern CONST_DATA struct ProcCmd gUnknown_089A407C[];
-extern struct Unk089A40AC CONST_DATA gUnknown_089A40AC[];
-extern struct Unk089A40AC CONST_DATA gUnknown_089A419C[];
-extern struct Unk089A40AC CONST_DATA gUnknown_089A42BC[];
-extern CONST_DATA struct ProcCmd gUnknown_089A434C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4394[];
-// extern ??? gUnknown_089A43D4
-// extern ??? gUnknown_089A43D8
-extern CONST_DATA struct ProcCmd gUnknown_089A4434[];
-extern CONST_DATA struct ProcCmd gUnknown_089A448C[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimStartSpellAssocFade[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSpellAssocResetPal[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimBgShaker[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSpellAssocRotationEffect[];
+extern struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A40AC[];
+extern struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A419C[];
+extern struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A42BC[];
+extern CONST_DATA struct ProcCmd ProcScr_089A434C[];
+extern CONST_DATA struct ProcCmd ProcScr_089A4394[];
+extern struct MapAnimfxConf CONST_DATA gUnknown_089A43D4[];
+extern struct MapAnimfxConf CONST_DATA gUnknown_089A43D8[];
+extern CONST_DATA struct ProcCmd ProcScr_089A4434[];
+extern CONST_DATA struct ProcCmd ProcScr_089A448C[];
 // extern ??? gUnknown_089A44A4
 // extern ??? gUnknown_089A45DC
 // extern ??? gUnknown_089A4644
@@ -633,19 +648,19 @@ void ManimLevelUp_StartLevelUpText(struct ManimLevelUpProc * proc);
 void ManimLevelUp_EndLevelUpText(struct ManimLevelUpProc * proc);
 void ManimLevelUp_RestoreBgm(struct ManimLevelUpProc * proc);
 void ManimLevelUp_Clear(struct ManimLevelUpProc * proc);
-void sub_807F568(ProcPtr proc);
-void sub_807F58C(ProcPtr proc);
-void sub_807F5C8(ProcPtr proc);
-void sub_807F5EC(ProcPtr proc);
+void MapAnimStartSpellAssocFadeExt(ProcPtr proc);
+void SpellAssocFadeMain(ProcPtr proc);
+void MapAnimSpellAssocResetPalExt(ProcPtr proc);
+void SpellAssocResetPalMain(ProcPtr proc);
 void NewBG0Shaker(void);
 void BG0Shaker_Init(struct MAFrameShakeProc * proc);
 void BG0Shaker_Loop(struct MAFrameShakeProc * proc);
 void LoadSparkGfx(void);
 void PutSparkGfx(int x, int y);
-void sub_807F724(int xCenter, int yCenter, int distance, int angle);
-void sub_807F758(struct MAStarProc * proc);
-void sub_807F788(struct MAStarProc * proc);
-void StartStarRotationEffect(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+void PutSparkGfxRotation(int xCenter, int yCenter, int distance, int angle);
+void MapAnimRotation_Init(struct MAStarProc * proc);
+void MapAnimRotation_Main(struct MAStarProc * proc);
+void StartStarRotationEffect(int xCenter, int yCenter, int lo, int hi, int start, int end, int terminator);
 void StartStarExplosionEffect(int ix, int iy);
 void StartStarImplosionEffect(int ix, int iy);
 void sub_807F878(ProcPtr proc);
@@ -715,7 +730,7 @@ void MapAnim_MoveSubjectsTowardsTarget(void);
 void MapAnim_MoveSubjectsAwayFromTarget(void);
 void MapAnim_MoveCameraOnSubject(ProcPtr proc);
 void MapAnim_MoveCameraOnTarget(ProcPtr proc);
-void sub_80815EC(ProcPtr proc);
+void SpellWarpMoveCamera(ProcPtr proc);
 void MapAnim_BeginRoundSpecificAnims(ProcPtr proc);
 void RegisterMapHpChangeAnim(int mapst_id, int damage);
 void MapAnim_WaitForHPToEndChangingMaybe(ProcPtr proc);
@@ -733,8 +748,8 @@ void MapAnimCallSpellAssocHeal(ProcPtr proc);
 void MapAnimCallSpellAssocMend(ProcPtr proc);
 void MapAnimCallSpellAssocRecover(ProcPtr proc);
 void MapAnimCallSpellAssocVulenrary(ProcPtr proc);
-void sub_8081B70(ProcPtr proc);
-void sub_8081BCC(ProcPtr proc);
+void SpellWarpStartFlashy(ProcPtr proc);
+void SpellWarpStartFlashyAtNewPos(ProcPtr proc);
 void MapAnimCallSpellAssocTorch(ProcPtr proc);
 void MapAnimCallSpellAssocUnlock(ProcPtr proc);
 void MapAnimCallSpellAssocBerserk(ProcPtr proc);
@@ -742,15 +757,15 @@ void MapAnimCallSpellAssocRestore(ProcPtr proc);
 void MapAnimCallSpellAssocSleep(ProcPtr proc);
 void MapAnimCallSpellAssocMonsterStone(ProcPtr proc);
 void MapAnimCallSpellAssocRepair(ProcPtr proc);
-void sub_8081CD4(ProcPtr proc);
+void SpellWarpStartFlashFade(ProcPtr proc);
 void sub_8081CF8(ProcPtr proc);
-void sub_8081D1C(ProcPtr proc);
-void sub_8081D40(ProcPtr proc);
-void sub_8081D84(ProcPtr proc);
-void sub_8081DE0(ProcPtr proc);
-void sub_8081E04(ProcPtr proc);
-void sub_8081E48(ProcPtr proc);
-void sub_8081E54(ProcPtr proc);
+void SpellWarpMuHide(ProcPtr proc);
+void SpellWarpStartExplosion(ProcPtr proc);
+void SpellWarpStartImplosion(ProcPtr proc);
+void SpellWarpMuShow(ProcPtr proc);
+void SpellWarpSetNewPosition(ProcPtr proc);
+void MapAnimStartSpellAssocFade(ProcPtr proc);
+void MapAnimSpellAssocResetPal(ProcPtr proc);
 void sub_8081E60(ProcPtr proc);
 
 void InitScanline();

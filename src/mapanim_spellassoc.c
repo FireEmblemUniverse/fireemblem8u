@@ -192,11 +192,11 @@ void MapAnim_MoveCameraOnTarget(ProcPtr proc)
     EnsureCameraOntoPosition(proc, unit->xPos, unit->yPos);
 }
 
-void sub_80815EC(ProcPtr proc)
+void SpellWarpMoveCamera(ProcPtr proc)
 {
-    gManimSt.u60 = gBattleTarget.changeHP;
-    gManimSt.u61 = gBattleTarget.changePow;
-    EnsureCameraOntoPosition(proc, gManimSt.u60, gManimSt.u61);
+    gManimSt.xtarget = gBattleTarget.changeHP;
+    gManimSt.ytarget = gBattleTarget.changePow;
+    EnsureCameraOntoPosition(proc, gManimSt.xtarget, gManimSt.ytarget);
 }
 
 void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
@@ -416,26 +416,26 @@ void MapAnimCallSpellAssocVulenrary(ProcPtr proc)
         gUnknown_089AF950, Pal_089AFF78, 0x89);
 }
 
-void sub_8081B70(ProcPtr proc)
+void SpellWarpStartFlashy(ProcPtr proc)
 {
     struct Unit * unit;
 
     PlaySoundEffect(0xB4);
-    gManimSt.u60 = gBattleTarget.changeHP;
-    gManimSt.u61 = gBattleTarget.changePow;
+    gManimSt.xtarget = gBattleTarget.changeHP;
+    gManimSt.ytarget = gBattleTarget.changePow;
 
     unit = gManimSt.actor[gManimSt.targetActorId].unit;
     New6C_SomethingFlashy(unit, unit->xPos, unit->yPos);
 }
 
-void sub_8081BCC(ProcPtr proc)
+void SpellWarpStartFlashyAtNewPos(ProcPtr proc)
 {
     struct Unit * unit;
     unit = gManimSt.actor[gManimSt.targetActorId].unit;
     New6C_SomethingFlashy(
         gManimSt.actor[gManimSt.targetActorId].unit,
-        gManimSt.u60,
-        gManimSt.u61
+        gManimSt.xtarget,
+        gManimSt.ytarget
     );
 }
 
@@ -446,7 +446,7 @@ void MapAnimCallSpellAssocTorch(ProcPtr proc)
 
 void MapAnimCallSpellAssocUnlock(ProcPtr proc)
 {
-    sub_807E760(gManimSt.u60, gManimSt.u61);
+    sub_807E760(gManimSt.xtarget, gManimSt.ytarget);
 }
 
 void MapAnimCallSpellAssocBerserk(ProcPtr proc)
@@ -474,7 +474,7 @@ void MapAnimCallSpellAssocRepair(ProcPtr proc)
     sub_807DE30(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
-void sub_8081CD4(ProcPtr proc)
+void SpellWarpStartFlashFade(ProcPtr proc)
 {
     MU_StartFlashFade(gManimSt.actor[gManimSt.targetActorId].mu, 0);
 }
@@ -484,12 +484,12 @@ void sub_8081CF8(ProcPtr proc)
     MU_8079858(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
-void sub_8081D1C(ProcPtr proc)
+void SpellWarpMuHide(ProcPtr proc)
 {
     MU_Hide(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
-void sub_8081D40(ProcPtr proc)
+void SpellWarpStartExplosion(ProcPtr proc)
 {
     struct Unit * unit = gManimSt.actor[gManimSt.targetActorId].unit;
     StartStarExplosionEffect(
@@ -498,7 +498,7 @@ void sub_8081D40(ProcPtr proc)
     );
 }
 
-void sub_8081D84(ProcPtr proc)
+void SpellWarpStartImplosion(ProcPtr proc)
 {
     struct Unit * unit;
 
@@ -511,33 +511,33 @@ void sub_8081D84(ProcPtr proc)
     );
 }
 
-void sub_8081DE0(ProcPtr proc)
+void SpellWarpMuShow(ProcPtr proc)
 {
     MU_Show(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
-void sub_8081E04(ProcPtr proc)
+void SpellWarpSetNewPosition(ProcPtr proc)
 {
     struct Unit * unit = gManimSt.actor[gManimSt.targetActorId].unit;
     struct MUProc * mu = gManimSt.actor[gManimSt.targetActorId].mu;
 
     MU_SetDisplayPosition(
         mu,
-        gManimSt.u60 * 0x10,
-        gManimSt.u61 * 0x10);
+        gManimSt.xtarget * 0x10,
+        gManimSt.ytarget * 0x10);
 
-    unit->xPos = gManimSt.u60;
-    unit->yPos = gManimSt.u61;
+    unit->xPos = gManimSt.xtarget;
+    unit->yPos = gManimSt.ytarget;
 }
 
-void sub_8081E48(ProcPtr proc)
+void MapAnimStartSpellAssocFade(ProcPtr proc)
 {
-    sub_807F568(proc);
+    MapAnimStartSpellAssocFadeExt(proc);
 }
 
-void sub_8081E54(ProcPtr proc)
+void MapAnimSpellAssocResetPal(ProcPtr proc)
 {
-    sub_807F5C8(proc);
+    MapAnimSpellAssocResetPalExt(proc);
 }
 
 void sub_8081E60(ProcPtr proc)
@@ -576,7 +576,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimDefaultItemEffect[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocNightMare[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_AnimateSubjectIdle),
     PROC_SLEEP(0x1E),
@@ -587,7 +587,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocNightMare[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -595,7 +595,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocNightMare[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocLatona[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_AnimateSubjectIdle),
     PROC_SLEEP(0x1E),
@@ -605,7 +605,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocLatona[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -741,9 +741,9 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocTorch[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocUnlock[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
-    PROC_CALL(sub_80815EC),
+    PROC_CALL(SpellWarpMoveCamera),
     PROC_SLEEP(0x2),
     PROC_CALL(MapAnim_AnimateSubjectIdle),
     PROC_SLEEP(0x1E),
@@ -753,7 +753,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocUnlock[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -761,7 +761,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocUnlock[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocBerserk[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOnTarget),
     PROC_SLEEP(0x2),
@@ -776,7 +776,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocBerserk[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -784,7 +784,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocBerserk[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocSleep[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOnTarget),
     PROC_SLEEP(0x2),
@@ -799,7 +799,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocSleep[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -807,7 +807,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocSleep[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocMonsterStone[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOnTarget),
     PROC_SLEEP(0x2),
@@ -822,7 +822,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocMonsterStone[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -830,7 +830,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocMonsterStone[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocSilence[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOnTarget),
     PROC_SLEEP(0x2),
@@ -845,7 +845,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocSilence[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -853,7 +853,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocSilence[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocRestore[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOnTarget),
     PROC_SLEEP(0x2),
@@ -865,7 +865,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocRestore[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -873,7 +873,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocRestore[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocRepair[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOnTarget),
     PROC_SLEEP(0x2),
@@ -885,7 +885,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocRepair[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -917,7 +917,7 @@ CONST_DATA struct ProcCmd ProcScr_PoisonDmgMapEffect[] = {
 CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect1[] = {
     PROC_CALL(MapAnim_MoveCameraOnTarget),
     PROC_SLEEP(0x2),
-    PROC_CALL(sub_8081CD4),
+    PROC_CALL(SpellWarpStartFlashFade),
     PROC_CALL(MapAnim_BeginRoundSpecificAnims),
     PROC_SLEEP(0x5),
     PROC_REPEAT(MapAnim_WaitForHPToEndChangingMaybe),
@@ -947,7 +947,7 @@ CONST_DATA struct ProcCmd ProcScr_CritAtkMapEffect[] = {
 
 CONST_DATA struct ProcCmd ProcScr_SpellAssocBarrier[] = {
     PROC_CALL(DisableMapPaletteAnimations),
-    PROC_CALL(sub_8081E48),
+    PROC_CALL(MapAnimStartSpellAssocFade),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOnTarget),
     PROC_SLEEP(0x2),
@@ -959,7 +959,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocBarrier[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_SubjectResetAnim),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081E54),
+    PROC_CALL(MapAnimSpellAssocResetPal),
     PROC_SLEEP(0x1),
     PROC_CALL(ResetMapPaletteAnimations),
     PROC_END
@@ -970,23 +970,23 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocWarp[] = {
     PROC_SLEEP(0x2),
     PROC_CALL(MapAnim_AnimateSubjectIdle),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_8081B70),
+    PROC_CALL(SpellWarpStartFlashy),
     PROC_SLEEP(0xA),
-    PROC_CALL(sub_8081CD4),
+    PROC_CALL(SpellWarpStartFlashFade),
     PROC_SLEEP(0x14),
-    PROC_CALL(sub_8081D40),
+    PROC_CALL(SpellWarpStartExplosion),
     PROC_SLEEP(0x2),
-    PROC_CALL(sub_8081D1C),
+    PROC_CALL(SpellWarpMuHide),
     PROC_SLEEP(0x8),
-    PROC_CALL(sub_8081E04),
+    PROC_CALL(SpellWarpSetNewPosition),
     PROC_SLEEP(0x1E),
-    PROC_CALL(sub_80815EC),
+    PROC_CALL(SpellWarpMoveCamera),
     PROC_SLEEP(0x2),
-    PROC_CALL(sub_8081D84),
+    PROC_CALL(SpellWarpStartImplosion),
     PROC_SLEEP(0x28),
-    PROC_CALL(sub_8081BCC),
+    PROC_CALL(SpellWarpStartFlashyAtNewPos),
     PROC_SLEEP(0xA),
-    PROC_CALL(sub_8081DE0),
+    PROC_CALL(SpellWarpMuShow),
     PROC_CALL(sub_8081CF8),
     PROC_SLEEP(0x10),
     PROC_SLEEP(0xA),
