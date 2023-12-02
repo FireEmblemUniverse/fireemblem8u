@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd gUnknown_085D5CF0[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5CF0[] =
+{
+    PROC_NAME("efxLightning"),
+    PROC_REPEAT(sub_805F8F0),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F8B4
 void sub_805F8B4(struct Anim * anim)
@@ -68,16 +77,171 @@ void sub_805F8F0(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5D08[];
+// clang-format off
 
-extern u16 gUnknown_080DD288[];
-extern u16 * gUnknown_085D5E28[];
-extern u16 * gUnknown_085D5D20[];
-extern u16 * gUnknown_085D5DA4[];
+struct ProcCmd CONST_DATA gUnknown_085D5D08[] =
+{
+    PROC_NAME("efxLightningBG"),
+    PROC_REPEAT(sub_805FA28),
+    PROC_END,
+};
+
+u16 * CONST_DATA gUnknown_085D5D20[] =
+{
+    Img_0861AD94,
+    Img_0861AD94,
+    Img_0861AD94,
+    Img_0861B65C,
+    Img_0861B65C,
+    Img_0861B65C,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861C770,
+    Img_0861C770,
+    Img_0861C770,
+    Img_0861D2C4,
+    Img_0861D2C4,
+    Img_0861D2C4,
+    Img_0861DDCC,
+    Img_0861DDCC,
+    Img_0861DDCC,
+    Img_0861DDCC,
+    Img_0861DDCC,
+    Img_0861DDCC,
+    Img_0861DDCC,
+    Img_0861DDCC,
+    Img_0861DDCC,
+    Img_0861E0E4,
+    Img_0861E0E4,
+    Img_0861E0E4,
+    Img_0861ED94,
+    Img_0861ED94,
+    Img_0861ED94,
+    Img_0861ED94,
+    Img_0861ED94,
+};
+
+u16 * CONST_DATA gUnknown_085D5DA4[] =
+{
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7D4,
+    Pal_0861F7D4,
+    Pal_0861F7D4,
+    Pal_0861F7D4,
+    Pal_0861F7D4,
+    Pal_0861F7D4,
+    Pal_0861F7D4,
+    Pal_0861F7D4,
+};
+
+u16 * CONST_DATA gUnknown_085D5E28[] =
+{
+    Tsa_0861F7F4,
+    Tsa_0861F918,
+    Tsa_0861FA38,
+    Tsa_0861FB44,
+    Tsa_0861FC40,
+    Tsa_0861FD28,
+    Tsa_0861FE0C,
+    Tsa_0861FEF0,
+    Tsa_0861FFCC,
+    Tsa_086200AC,
+    Tsa_086201A0,
+    Tsa_08620294,
+    Tsa_08620398,
+    Tsa_086204A0,
+    Tsa_086205B8,
+    Tsa_086206DC,
+    Tsa_086207F0,
+    Tsa_086208A0,
+    Tsa_086209A8,
+    Tsa_08620AE4,
+    Tsa_08620C58,
+    Tsa_08620DF0,
+    Tsa_08620F64,
+    Tsa_08621070,
+    Tsa_08621144,
+    Tsa_086211E4,
+    Tsa_08621304,
+    Tsa_08621420,
+    Tsa_08621534,
+    Tsa_0862162C,
+    Tsa_08621714,
+    Tsa_086217E4,
+    Tsa_086218A8,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805F9A8
 void sub_805F9A8(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DD288[] =
+    {
+        25, 2,
+        26, 2,
+        27, 2,
+        28, 2,
+        29, 2,
+        30, 2,
+        31, 2,
+        32, 2,
+        16, 1,
+        17, 1,
+        18, 1,
+        19, 1,
+        20, 1,
+        21, 1,
+        22, 1,
+        23, 1,
+        24, 1,
+         0, 7,
+         1, 1,
+         2, 1,
+         3, 1,
+         4, 1,
+         5, 1,
+         6, 1,
+         7, 1,
+         8, 1,
+         9, 1,
+        10, 1,
+        11, 1,
+        12, 1,
+        13, 1,
+        14, 1,
+        15, 1,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -152,7 +316,16 @@ void sub_805FA28(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5EAC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5EAC[] =
+{
+    PROC_NAME("efxPurge"),
+    PROC_REPEAT(sub_805FB60),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805FAE0
 void StartSpellAnimPurge(struct Anim * anim)
@@ -267,15 +440,366 @@ void sub_805FB60(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D5EC4[];
-extern u16 gUnknown_080DD328[];
-extern u16 * gUnknown_085D614C[];
-extern u16 * gUnknown_085D5EDC[];
-extern u16 * gUnknown_085D6014[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D5EC4[] =
+{
+    PROC_NAME("efxPurgeBG"),
+    PROC_REPEAT(sub_805FCE0),
+    PROC_END,
+};
+
+u16 * CONST_DATA gUnknown_085D5EDC[] =
+{
+    Img_0861AD94,
+    Img_0861AD94,
+    Img_0861AD94,
+    Img_0861B65C,
+    Img_0861B65C,
+    Img_0861B65C,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861C770,
+    Img_0861C770,
+    Img_0861C770,
+    Img_0861D2C4,
+    Img_0861D2C4,
+    Img_0861D2C4,
+    Img_0861AD94,
+    Img_0861AD94,
+    Img_0861AD94,
+    Img_0861B65C,
+    Img_0861B65C,
+    Img_0861B65C,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861C770,
+    Img_0861C770,
+    Img_0861C770,
+    Img_0861D2C4,
+    Img_0861D2C4,
+    Img_0861D2C4,
+    Img_0861AD94,
+    Img_0861AD94,
+    Img_0861AD94,
+    Img_0861B65C,
+    Img_0861B65C,
+    Img_0861B65C,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861BDAC,
+    Img_0861C770,
+    Img_0861C770,
+    Img_0861C770,
+    Img_0861D2C4,
+    Img_0861D2C4,
+    Img_0861D2C4,
+    Img_0865C8C0,
+    Img_0865C8C0,
+    Img_0865CE1C,
+    Img_0865CE1C,
+    Img_0865D498,
+    Img_0865D498,
+    Img_0865DAE4,
+    Img_0865DAE4,
+    Img_0865E298,
+    Img_0865E298,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    Img_0865E9A0,
+    Img_0865EEBC,
+    Img_0865F7BC,
+    Img_08660170,
+    Img_08660AE4,
+    Img_086614B8,
+    Img_086614B8,
+    Img_086624BC,
+    Img_086624BC,
+    Img_0866330C,
+    Img_08663DF0,
+    Img_08664998,
+    Img_08665534,
+    Img_08665FF4,
+    Img_08666A6C,
+};
+
+u16 * CONST_DATA gUnknown_085D6014[] =
+{
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_0861F7B4,
+    Pal_08667D70,
+    Pal_08667D70,
+    Pal_08667D70,
+    Pal_08667D70,
+    Pal_08667D70,
+    Pal_08667D70,
+    Pal_08667D70,
+    Pal_08667D70,
+    Pal_08667D70,
+    Pal_08667D70,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+    Pal_08667D90,
+};
+
+u16 * CONST_DATA gUnknown_085D614C[] =
+{
+    Tsa_08667DB0,
+    Tsa_08667ED4,
+    Tsa_08667FF4,
+    Tsa_08668100,
+    Tsa_086681FC,
+    Tsa_086682E4,
+    Tsa_086683CC,
+    Tsa_086684AC,
+    Tsa_08668588,
+    Tsa_08668668,
+    Tsa_0866875C,
+    Tsa_08668850,
+    Tsa_08668954,
+    Tsa_08668A5C,
+    Tsa_08668B74,
+    Tsa_08668C98,
+    Tsa_08668DAC,
+    Tsa_08668ED0,
+    Tsa_08668FF4,
+    Tsa_08669104,
+    Tsa_08669204,
+    Tsa_086692EC,
+    Tsa_086693CC,
+    Tsa_086694A8,
+    Tsa_08669584,
+    Tsa_08669668,
+    Tsa_0866975C,
+    Tsa_0866984C,
+    Tsa_08669950,
+    Tsa_08669A58,
+    Tsa_08669B6C,
+    Tsa_08669C90,
+    Tsa_08669DA4,
+    Tsa_08669EC8,
+    Tsa_08669FE8,
+    Tsa_0866A0F4,
+    Tsa_0866A1F0,
+    Tsa_0866A2D8,
+    Tsa_0866A3C0,
+    Tsa_0866A4A0,
+    Tsa_0866A57C,
+    Tsa_0866A65C,
+    Tsa_0866A750,
+    Tsa_0866A844,
+    Tsa_0866A948,
+    Tsa_0866AA50,
+    Tsa_0866AB68,
+    Tsa_0866AC8C,
+    Tsa_0866AD9C,
+    Tsa_0866AFB0,
+    Tsa_0866B16C,
+    Tsa_0866B348,
+    Tsa_0866B54C,
+    Tsa_0866B754,
+    Tsa_0866B968,
+    Tsa_0866BBC8,
+    Tsa_0866BDFC,
+    Tsa_0866C070,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    Tsa_0866C2B8,
+    Tsa_0866C618,
+    Tsa_0866C96C,
+    Tsa_0866CC7C,
+    Tsa_0866CF60,
+    Tsa_0866D230,
+    Tsa_0866D4C8,
+    Tsa_0866D760,
+    Tsa_0866D98C,
+    Tsa_0866DC40,
+    Tsa_0866DF00,
+    Tsa_0866E230,
+    Tsa_0866E580,
+    Tsa_0866E8F8,
+    Tsa_0866EC80,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805FC90
 void sub_805FC90(struct Anim * anim)
 {
+    // clang-format off
+    const static u16 gUnknown_080DD328[] =
+    {
+         0, 1,
+         1, 1,
+         2, 1,
+         3, 1,
+         4, 1,
+         5, 1,
+         6, 1,
+         7, 1,
+         8, 1,
+         9, 1,
+        10, 1,
+        11, 1,
+        12, 1,
+        13, 1,
+        14, 1,
+        15, 5,
+        16, 1,
+        17, 1,
+        18, 1,
+        19, 1,
+        20, 1,
+        21, 1,
+        22, 1,
+        23, 1,
+        24, 1,
+        25, 1,
+        26, 1,
+        27, 1,
+        28, 1,
+        29, 1,
+        30, 1,
+        31, 5,
+        32, 1,
+        33, 1,
+        34, 1,
+        35, 1,
+        36, 1,
+        37, 1,
+        38, 1,
+        39, 1,
+        40, 1,
+        41, 1,
+        42, 1,
+        43, 1,
+        44, 1,
+        45, 1,
+        46, 1,
+        47, 5,
+        48, 1,
+        49, 1,
+        50, 1,
+        51, 1,
+        52, 1,
+        53, 1,
+        54, 1,
+        55, 1,
+        56, 1,
+        57, 1,
+        48, 1,
+        49, 1,
+        50, 1,
+        51, 1,
+        52, 1,
+        53, 1,
+        54, 1,
+        55, 1,
+        56, 1,
+        57, 1,
+        48, 1,
+        49, 1,
+        50, 1,
+        51, 1,
+        52, 1,
+        53, 1,
+        54, 1,
+        55, 1,
+        56, 1,
+        57, 4,
+        63, 2,
+        64, 2,
+        65, 2,
+        66, 2,
+        67, 2,
+        68, 2,
+        69, 2,
+        70, 2,
+        71, 2,
+        72, 2,
+        73, 2,
+        74, 2,
+        75, 2,
+        76, 2,
+        77, 2,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -328,7 +852,17 @@ void sub_805FCE0(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D6284[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D6284[] =
+{
+    PROC_NAME("efxPurgeOBJRND"),
+    PROC_REPEAT(sub_805FD90),
+    PROC_SLEEP(69),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805FD5C
 void sub_805FD5C(struct Anim * anim)
@@ -348,7 +882,20 @@ void sub_805FD5C(struct Anim * anim)
     return;
 }
 
-extern int gUnknown_085D62A4[];
+// clang-format off
+
+int CONST_DATA gUnknown_085D62A4[] =
+{
+    208,  48,
+    160, 144,
+     64,  64,
+    192,  96,
+    128,  48,
+     32,  96,
+     80, 128,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805FD90
 void sub_805FD90(struct ProcEfxOBJ * proc)
@@ -376,11 +923,17 @@ void sub_805FD90(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D62DC[];
+// clang-format off
 
-extern u32 gUnknown_0866F58C[];
-extern u16 gUnknown_0866F2B4[];
-extern u16 gUnknown_0866EFF0[];
+struct ProcCmd CONST_DATA gUnknown_085D62DC[] =
+{
+    PROC_NAME("efxPurgeOBJ"),
+    PROC_SET_END_CB(sub_805FE68),
+    PROC_SLEEP(69),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805FDFC
 void sub_805FDFC(struct Anim * anim, int x, int y)
@@ -420,7 +973,16 @@ void nullsub_41(struct Anim * anim)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D62FC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D62FC[] =
+{
+    PROC_NAME("efxDevine"),
+    PROC_REPEAT(DivineSfxLoop),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805FE84
 void StartSpellAnimDivine(struct Anim * anim)
@@ -438,11 +1000,6 @@ void StartSpellAnimDivine(struct Anim * anim)
 
     return;
 }
-
-void sub_805FFB0(struct Anim *);
-void sub_80601E0(struct Anim *);
-void sub_8060034(struct Anim *);
-void sub_80600B8(struct Anim *);
 
 //! FE8U = 0x0805FEC0
 void DivineSfxLoop(struct ProcEfx * proc)
@@ -511,15 +1068,102 @@ void DivineSfxLoop(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D6314[];
-extern u16 gUnknown_080DD4D4[];
-extern u16 * gUnknown_085D637C[];
-extern u16 * gUnknown_085D632C[];
-extern u16 gUnknown_08641D84[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D6314[] =
+{
+    PROC_NAME("efxDevineBG"),
+    PROC_REPEAT(sub_806013C),
+    PROC_END,
+};
+
+u16 * CONST_DATA gUnknown_085D632C[] =
+{
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+};
+
+u16 * CONST_DATA gUnknown_085D637C[] =
+{
+    Tsa_08644DD0,
+    Tsa_08644E70,
+    Tsa_08644F18,
+    Tsa_08644FC0,
+    Tsa_08645070,
+    Tsa_08645128,
+    Tsa_086451F4,
+    Tsa_086452C0,
+    Tsa_08645394,
+    Tsa_0864546C,
+    Tsa_08645548,
+    Tsa_08645624,
+    Tsa_08645708,
+    Tsa_086457BC,
+    Tsa_08645858,
+    Tsa_086458F4,
+    Tsa_08645990,
+    Tsa_08645A2C,
+    Tsa_08645AC8,
+    Tsa_08645B64,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805FFB0
 void sub_805FFB0(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DD4D4[] =
+    {
+         0, 2,
+         1, 2,
+         2, 2,
+         3, 2,
+         4, 2,
+         5, 2,
+         7, 1,
+         5, 1,
+         7, 1,
+         5, 1,
+         7, 1,
+         5, 1,
+         7, 1,
+         6, 2,
+         7, 2,
+         8, 2,
+         9, 2,
+        10, 2,
+        11, 2,
+        12, 2,
+        13, 2,
+        14, 2,
+        15, 2,
+        16, 2,
+        17, 2,
+        18, 2,
+        19, 2,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -552,13 +1196,37 @@ void sub_805FFB0(struct Anim * anim)
     return;
 }
 
-extern u16 gUnknown_080DD542[];
-extern u16 * gUnknown_085D63D8[];
-extern u16 * gUnknown_085D63CC[];
+// clang-format off
+
+u16 * CONST_DATA gUnknown_085D63CC[] =
+{
+    Img_086415F4,
+    Img_086415F4,
+    Img_086415F4,
+};
+
+u16 * gUnknown_085D63D8[] =
+{
+    Tsa_08645C00,
+    Tsa_08645C9C,
+    Tsa_08645D38,
+};
+
+// clang-format on
 
 //! FE8U = 0x08060034
 void sub_8060034(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DD542[] =
+    {
+         0, 1,
+         1, 1,
+         2, 1,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -591,14 +1259,91 @@ void sub_8060034(struct Anim * anim)
     return;
 }
 
-extern u16 gUnknown_080DD550[];
-extern u16 * gUnknown_085D6438[];
-extern u16 * gUnknown_085D63E4[];
-extern u16 gUnknown_08641D64[];
+// clang-format off
+
+u16 * CONST_DATA gUnknown_085D63E4[] =
+{
+    Img_086396E4,
+    Img_086396E4,
+    Img_08639C98,
+    Img_0863A360,
+    Img_0863A9A0,
+    Img_0863AFA8,
+    Img_0863B608,
+    Img_0863BC78,
+    Img_0863C2B4,
+    Img_0863C8FC,
+    Img_0863D000,
+    Img_0863D7B8,
+    Img_0863DFAC,
+    Img_0863E784,
+    Img_0863EFA0,
+    Img_0863F720,
+    Img_0863FEB4,
+    Img_086405E8,
+    Img_086405E8,
+    Img_08641094,
+    Img_08641094,
+};
+
+u16 * CONST_DATA gUnknown_085D6438[] =
+{
+    Tsa_08641DA4,
+    Tsa_08641F38,
+    Tsa_0864213C,
+    Tsa_0864240C,
+    Tsa_086426DC,
+    Tsa_0864298C,
+    Tsa_08642C40,
+    Tsa_08642ECC,
+    Tsa_08643150,
+    Tsa_086433C4,
+    Tsa_08643658,
+    Tsa_086438E0,
+    Tsa_08643B7C,
+    Tsa_08643E04,
+    Tsa_08644080,
+    Tsa_086442B0,
+    Tsa_08644500,
+    Tsa_08644730,
+    Tsa_08644928,
+    Tsa_08644B0C,
+    Tsa_08644CA8,
+};
+
+// clang-format on
 
 //! FE8U = 0x080600B8
 void sub_80600B8(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DD550[] =
+    {
+         0, 2,
+         1, 2,
+         2, 2,
+         3, 2,
+         4, 2,
+         5, 2,
+         6, 2,
+         7, 2,
+         8, 2,
+         9, 2,
+        10, 2,
+        11, 2,
+        12, 2,
+        13, 2,
+        14, 2,
+        15, 2,
+        16, 2,
+        17, 2,
+        18, 2,
+        19, 2,
+        20, 2,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -608,6 +1353,7 @@ void sub_80600B8(struct Anim * anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DD550;
+
     proc->tsal = gUnknown_085D6438;
     proc->tsar = gUnknown_085D6438;
     proc->img = gUnknown_085D63E4;
@@ -672,10 +1418,16 @@ void sub_806013C(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D648C[];
-extern u32 gUnknown_08646510[];
-extern u16 gUnknown_08645F44[];
-extern u16 gUnknown_08645DD8[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D648C[] =
+{
+    PROC_NAME("efxDevineOBJ"),
+    PROC_REPEAT(sub_8060254),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080601E0
 void sub_80601E0(struct Anim * anim)
