@@ -9,17 +9,17 @@
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5CF0[] =
+struct ProcCmd CONST_DATA ProcScr_efxLightning[] =
 {
     PROC_NAME("efxLightning"),
-    PROC_REPEAT(sub_805F8F0),
+    PROC_REPEAT(efxLightning_Loop_Main),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805F8B4
-void sub_805F8B4(struct Anim * anim)
+void StartSpellAnimLightning(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -27,7 +27,7 @@ void sub_805F8B4(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D5CF0, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxLightning, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -36,7 +36,7 @@ void sub_805F8B4(struct Anim * anim)
 }
 
 //! FE8U = 0x0805F8F0
-void sub_805F8F0(struct ProcEfx * proc)
+void efxLightning_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -51,14 +51,14 @@ void sub_805F8F0(struct ProcEfx * proc)
     if (proc->timer == duration + 1)
     {
         PlaySFX(0x120, 0x100, anim->xPosition, 1);
-        sub_805F9A8(anim);
+        StartSubSpell_efxLightningBG(anim);
     }
     else if (proc->timer == duration + 26)
     {
         PlaySFX(0x00000121, 0x100, anim->xPosition, 1);
         NewEfxFlashBgWhite(proc->anim, 4);
 
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
@@ -79,14 +79,14 @@ void sub_805F8F0(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5D08[] =
+struct ProcCmd CONST_DATA ProcScr_efxLightningBG[] =
 {
     PROC_NAME("efxLightningBG"),
-    PROC_REPEAT(sub_805FA28),
+    PROC_REPEAT(efxLightningBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D5D20[] =
+u16 * CONST_DATA ImgArray_LightningBg[] =
 {
     Img_0861AD94,
     Img_0861AD94,
@@ -123,7 +123,7 @@ u16 * CONST_DATA gUnknown_085D5D20[] =
     Img_0861ED94,
 };
 
-u16 * CONST_DATA gUnknown_085D5DA4[] =
+u16 * CONST_DATA PalArray_LightningBg[] =
 {
     Pal_0861F7B4,
     Pal_0861F7B4,
@@ -160,7 +160,7 @@ u16 * CONST_DATA gUnknown_085D5DA4[] =
     Pal_0861F7D4,
 };
 
-u16 * CONST_DATA gUnknown_085D5E28[] =
+u16 * CONST_DATA TsaArray_LightningBg[] =
 {
     Tsa_0861F7F4,
     Tsa_0861F918,
@@ -200,10 +200,10 @@ u16 * CONST_DATA gUnknown_085D5E28[] =
 // clang-format on
 
 //! FE8U = 0x0805F9A8
-void sub_805F9A8(struct Anim * anim)
+void StartSubSpell_efxLightningBG(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD288[] =
+    static const u16 frames[] =
     {
         25, 2,
         26, 2,
@@ -246,21 +246,21 @@ void sub_805F9A8(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5D08, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxLightningBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD288;
-    proc->tsal = gUnknown_085D5E28;
-    proc->tsar = gUnknown_085D5E28;
-    proc->img = gUnknown_085D5D20;
-    proc->pal = gUnknown_085D5DA4;
+    proc->frame_config = frames;
+    proc->tsal = TsaArray_LightningBg;
+    proc->tsar = TsaArray_LightningBg;
+    proc->img = ImgArray_LightningBg;
+    proc->pal = PalArray_LightningBg;
 
     SpellFx_SetSomeColorEffect();
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        if (GetAnimPosition(proc->anim) == 0)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
         {
             BG_SetPosition(BG_1, 24, 0);
         }
@@ -274,7 +274,7 @@ void sub_805F9A8(struct Anim * anim)
 }
 
 //! FE8U = 0x0805FA28
-void sub_805FA28(struct ProcEfxBG * proc)
+void efxLightningBG_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -289,12 +289,11 @@ void sub_805FA28(struct ProcEfxBG * proc)
         SpellFx_RegisterBgPal(*(pal + ret), PLTT_SIZE_4BPP);
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
 
-        if (gEkrDistanceType != 0)
+        if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
         {
-            int pos = GetAnimPosition(proc->anim);
-            if (pos == 0)
+            if (GetAnimPosition(proc->anim) == EKR_POS_L)
             {
-                FillBGRect(gBG1TilemapBuffer, 3, 20, 0, pos);
+                FillBGRect(gBG1TilemapBuffer, 3, 20, 0, 0);
             }
             else
             {
@@ -318,10 +317,10 @@ void sub_805FA28(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5EAC[] =
+struct ProcCmd CONST_DATA ProcScr_efxPurge[] =
 {
     PROC_NAME("efxPurge"),
-    PROC_REPEAT(sub_805FB60),
+    PROC_REPEAT(efxPurge_Loop_Main),
     PROC_END,
 };
 
@@ -336,7 +335,7 @@ void StartSpellAnimPurge(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D5EAC, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxPurge, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -364,7 +363,7 @@ void sub_805FB24(int location, int type)
 }
 
 //! FE8U = 0x0805FB60
-void sub_805FB60(struct ProcEfx * proc)
+void efxPurge_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -379,8 +378,8 @@ void sub_805FB60(struct ProcEfx * proc)
     if (proc->timer == duration + 1)
     {
         NewEfxFlashBgWhite(anim, 4);
-        sub_805FC90(anim);
-        sub_805FD5C(anim);
+        StartSubSpell_efxPurgeBG(anim);
+        StartSubSpell_efxPurgeOBJRND(anim);
         sub_805FB24(0x30, 0);
         return;
     }
@@ -408,7 +407,7 @@ void sub_805FB60(struct ProcEfx * proc)
     if (proc->timer == duration + 94)
     {
         NewEfxFlashBgWhite(anim, 4);
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
@@ -442,14 +441,14 @@ void sub_805FB60(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5EC4[] =
+struct ProcCmd CONST_DATA ProcScr_efxPurgeBG[] =
 {
     PROC_NAME("efxPurgeBG"),
-    PROC_REPEAT(sub_805FCE0),
+    PROC_REPEAT(efxPurgeBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D5EDC[] =
+u16 * CONST_DATA ImgArray_PurgeBg[] =
 {
     Img_0861AD94,
     Img_0861AD94,
@@ -531,7 +530,7 @@ u16 * CONST_DATA gUnknown_085D5EDC[] =
     Img_08666A6C,
 };
 
-u16 * CONST_DATA gUnknown_085D6014[] =
+u16 * CONST_DATA PalArray_PurgeBg[] =
 {
     Pal_0861F7B4,
     Pal_0861F7B4,
@@ -613,7 +612,7 @@ u16 * CONST_DATA gUnknown_085D6014[] =
     Pal_08667D90,
 };
 
-u16 * CONST_DATA gUnknown_085D614C[] =
+u16 * CONST_DATA TsaArray_PurgeBg[] =
 {
     Tsa_08667DB0,
     Tsa_08667ED4,
@@ -698,10 +697,10 @@ u16 * CONST_DATA gUnknown_085D614C[] =
 // clang-format on
 
 //! FE8U = 0x0805FC90
-void sub_805FC90(struct Anim * anim)
+void StartSubSpell_efxPurgeBG(struct Anim * anim)
 {
     // clang-format off
-    const static u16 gUnknown_080DD328[] =
+    const static u16 frames[] =
     {
          0, 1,
          1, 1,
@@ -804,18 +803,18 @@ void sub_805FC90(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5EC4, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxPurgeBG, PROC_TREE_3);
 
     proc->anim = anim;
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD328;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D614C;
-    proc->tsar = gUnknown_085D614C;
-    proc->img = gUnknown_085D5EDC;
-    proc->pal = gUnknown_085D6014;
+    proc->tsal = TsaArray_PurgeBg;
+    proc->tsar = TsaArray_PurgeBg;
+    proc->img = ImgArray_PurgeBg;
+    proc->pal = PalArray_PurgeBg;
 
     SpellFx_SetSomeColorEffect();
 
@@ -823,7 +822,7 @@ void sub_805FC90(struct Anim * anim)
 }
 
 //! FE8U = 0x0805FCE0
-void sub_805FCE0(struct ProcEfxBG * proc)
+void efxPurgeBG_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -854,10 +853,10 @@ void sub_805FCE0(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D6284[] =
+struct ProcCmd CONST_DATA ProcScr_efxPurgeOBJRND[] =
 {
     PROC_NAME("efxPurgeOBJRND"),
-    PROC_REPEAT(sub_805FD90),
+    PROC_REPEAT(efxPurgeOBJRND_Loop),
     PROC_SLEEP(69),
     PROC_END,
 };
@@ -865,13 +864,13 @@ struct ProcCmd CONST_DATA gUnknown_085D6284[] =
 // clang-format on
 
 //! FE8U = 0x0805FD5C
-void sub_805FD5C(struct Anim * anim)
+void StartSubSpell_efxPurgeOBJRND(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D6284, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxPurgeOBJRND, PROC_TREE_3);
 
     proc->anim = anim;
     proc->timer = 0;
@@ -884,7 +883,7 @@ void sub_805FD5C(struct Anim * anim)
 
 // clang-format off
 
-int CONST_DATA gUnknown_085D62A4[] =
+int CONST_DATA gPurgeAnimSpriteCoordinates[] =
 {
     208,  48,
     160, 144,
@@ -898,7 +897,7 @@ int CONST_DATA gUnknown_085D62A4[] =
 // clang-format on
 
 //! FE8U = 0x0805FD90
-void sub_805FD90(struct ProcEfxOBJ * proc)
+void efxPurgeOBJRND_Loop(struct ProcEfxOBJ * proc)
 {
     if (++proc->timer > proc->unk44)
     {
@@ -907,10 +906,10 @@ void sub_805FD90(struct ProcEfxOBJ * proc)
 
         proc->timer = 0;
 
-        x = gUnknown_085D62A4[proc->terminator * 2];
-        y = gUnknown_085D62A4[proc->terminator * 2 + 1];
+        x = gPurgeAnimSpriteCoordinates[proc->terminator * 2];
+        y = gPurgeAnimSpriteCoordinates[proc->terminator * 2 + 1];
 
-        sub_805FDFC(proc->anim2, x, y);
+        StartSubSpell_efxPurgeOBJ(proc->anim2, x, y);
         sub_805FB24(x, 1);
 
         if (++proc->terminator > proc->unk48)
@@ -925,10 +924,10 @@ void sub_805FD90(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D62DC[] =
+struct ProcCmd CONST_DATA ProcScr_efxPurgeOBJ[] =
 {
     PROC_NAME("efxPurgeOBJ"),
-    PROC_SET_END_CB(sub_805FE68),
+    PROC_SET_END_CB(efxPurgeOBJ_OnEnd),
     PROC_SLEEP(69),
     PROC_END,
 };
@@ -936,14 +935,14 @@ struct ProcCmd CONST_DATA gUnknown_085D62DC[] =
 // clang-format on
 
 //! FE8U = 0x0805FDFC
-void sub_805FDFC(struct Anim * anim, int x, int y)
+void StartSubSpell_efxPurgeOBJ(struct Anim * anim, int x, int y)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D62DC, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxPurgeOBJ, PROC_TREE_3);
     proc->anim = anim;
 
     frontAnim = EfxCreateFrontAnim(anim, gUnknown_0866F58C, gUnknown_0866F58C, gUnknown_0866F58C, gUnknown_0866F58C);
@@ -952,14 +951,14 @@ void sub_805FDFC(struct Anim * anim, int x, int y)
     frontAnim->xPosition = x;
     frontAnim->yPosition = y;
 
-    SpellFx_RegisterObjPal(gUnknown_0866F2B4, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_0866EFF0, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_PurgeSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_PurgeSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x0805FE68
-void sub_805FE68(struct ProcEfxOBJ * proc)
+void efxPurgeOBJ_OnEnd(struct ProcEfxOBJ * proc)
 {
     AnimDelete(proc->anim2);
     gEfxBgSemaphore--;
@@ -968,17 +967,17 @@ void sub_805FE68(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805FE80
-void nullsub_41(struct Anim * anim)
+void StartSpellAnim_805FE80_Null(struct Anim * anim)
 {
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D62FC[] =
+struct ProcCmd CONST_DATA ProcScr_efxDivine[] =
 {
     PROC_NAME("efxDevine"),
-    PROC_REPEAT(DivineSfxLoop),
+    PROC_REPEAT(efxDivine_Loop_Main),
     PROC_END,
 };
 
@@ -993,7 +992,7 @@ void StartSpellAnimDivine(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D62FC, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDivine, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -1002,7 +1001,7 @@ void StartSpellAnimDivine(struct Anim * anim)
 }
 
 //! FE8U = 0x0805FEC0
-void DivineSfxLoop(struct ProcEfx * proc)
+void efxDivine_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -1012,8 +1011,8 @@ void DivineSfxLoop(struct ProcEfx * proc)
     if (proc->timer == 1)
     {
         PlaySFX(0x127, 0x100, proc->anim->xPosition, 1);
-        sub_805FFB0(anim);
-        sub_80601E0(proc->anim);
+        StartSubSpell_efxDivineBG(anim);
+        StartSubSpell_efxDivineOBJ(proc->anim);
         return;
     }
 
@@ -1031,7 +1030,7 @@ void DivineSfxLoop(struct ProcEfx * proc)
 
     if (proc->timer == duration + 70)
     {
-        sub_8060034(anim);
+        StartSubSpell_efxDivineBG_2(anim);
         PlaySFX(0x129, 0x100, anim->xPosition, 1);
         return;
     }
@@ -1044,9 +1043,9 @@ void DivineSfxLoop(struct ProcEfx * proc)
 
     if (proc->timer == duration + 75)
     {
-        sub_80600B8(anim);
+        StartSubSpell_efxDivineBG_3(anim);
 
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
@@ -1070,14 +1069,14 @@ void DivineSfxLoop(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D6314[] =
+struct ProcCmd CONST_DATA ProcScr_efxDivineBG[] =
 {
     PROC_NAME("efxDevineBG"),
-    PROC_REPEAT(sub_806013C),
+    PROC_REPEAT(efxDivineBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D632C[] =
+u16 * CONST_DATA ImgArray_DivineBg[] =
 {
     Img_086415F4,
     Img_086415F4,
@@ -1101,7 +1100,7 @@ u16 * CONST_DATA gUnknown_085D632C[] =
     Img_086415F4,
 };
 
-u16 * CONST_DATA gUnknown_085D637C[] =
+u16 * CONST_DATA TsaArray_DivineBg[] =
 {
     Tsa_08644DD0,
     Tsa_08644E70,
@@ -1128,10 +1127,10 @@ u16 * CONST_DATA gUnknown_085D637C[] =
 // clang-format on
 
 //! FE8U = 0x0805FFB0
-void sub_805FFB0(struct Anim * anim)
+void StartSubSpell_efxDivineBG(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD4D4[] =
+    static const u16 frames[] =
     {
          0, 2,
          1, 2,
@@ -1168,20 +1167,20 @@ void sub_805FFB0(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D6314, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDivineBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD4D4;
-    proc->tsal = gUnknown_085D637C;
-    proc->tsar = gUnknown_085D637C;
-    proc->img = gUnknown_085D632C;
+    proc->frame_config = frames;
+    proc->tsal = TsaArray_DivineBg;
+    proc->tsar = TsaArray_DivineBg;
+    proc->img = ImgArray_DivineBg;
 
-    SpellFx_RegisterBgPal(gUnknown_08641D84, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_DivineBg, PLTT_SIZE_4BPP);
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        if (GetAnimPosition(proc->anim) == 0)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
         {
             BG_SetPosition(BG_1, 232, 0);
         }
@@ -1198,14 +1197,14 @@ void sub_805FFB0(struct Anim * anim)
 
 // clang-format off
 
-u16 * CONST_DATA gUnknown_085D63CC[] =
+u16 * CONST_DATA ImgArray_DivineBg2[] =
 {
     Img_086415F4,
     Img_086415F4,
     Img_086415F4,
 };
 
-u16 * gUnknown_085D63D8[] =
+u16 * TsaArray_DivineBg2[] =
 {
     Tsa_08645C00,
     Tsa_08645C9C,
@@ -1215,10 +1214,10 @@ u16 * gUnknown_085D63D8[] =
 // clang-format on
 
 //! FE8U = 0x08060034
-void sub_8060034(struct Anim * anim)
+void StartSubSpell_efxDivineBG_2(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD542[] =
+    static const u16 frames[] =
     {
          0, 1,
          1, 1,
@@ -1231,20 +1230,20 @@ void sub_8060034(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D6314, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDivineBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD542;
-    proc->tsal = gUnknown_085D63D8;
-    proc->tsar = gUnknown_085D63D8;
-    proc->img = gUnknown_085D63CC;
+    proc->frame_config = frames;
+    proc->tsal = TsaArray_DivineBg2;
+    proc->tsar = TsaArray_DivineBg2;
+    proc->img = ImgArray_DivineBg2;
 
-    SpellFx_RegisterBgPal(gUnknown_08641D84, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_DivineBg, PLTT_SIZE_4BPP);
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        if (GetAnimPosition(proc->anim) == 0)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
         {
             BG_SetPosition(BG_1, 24, 0);
         }
@@ -1261,7 +1260,7 @@ void sub_8060034(struct Anim * anim)
 
 // clang-format off
 
-u16 * CONST_DATA gUnknown_085D63E4[] =
+u16 * CONST_DATA ImgArray_DivineBg3[] =
 {
     Img_086396E4,
     Img_086396E4,
@@ -1286,7 +1285,7 @@ u16 * CONST_DATA gUnknown_085D63E4[] =
     Img_08641094,
 };
 
-u16 * CONST_DATA gUnknown_085D6438[] =
+u16 * CONST_DATA TsaArray_DivineBg3[] =
 {
     Tsa_08641DA4,
     Tsa_08641F38,
@@ -1314,10 +1313,10 @@ u16 * CONST_DATA gUnknown_085D6438[] =
 // clang-format on
 
 //! FE8U = 0x080600B8
-void sub_80600B8(struct Anim * anim)
+void StartSubSpell_efxDivineBG_3(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD550[] =
+    static const u16 frames[] =
     {
          0, 2,
          1, 2,
@@ -1348,21 +1347,21 @@ void sub_80600B8(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D6314, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDivineBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD550;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D6438;
-    proc->tsar = gUnknown_085D6438;
-    proc->img = gUnknown_085D63E4;
+    proc->tsal = TsaArray_DivineBg3;
+    proc->tsar = TsaArray_DivineBg3;
+    proc->img = ImgArray_DivineBg3;
 
-    SpellFx_RegisterBgPal(gUnknown_08641D64, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_DivineBg3, PLTT_SIZE_4BPP);
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        if (GetAnimPosition(proc->anim) == 0)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
         {
             BG_SetPosition(BG_1, 24, 0);
         }
@@ -1378,7 +1377,7 @@ void sub_80600B8(struct Anim * anim)
 }
 
 //! FE8U = 0x0806013C
-void sub_806013C(struct ProcEfxBG * proc)
+void efxDivineBG_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -1391,7 +1390,7 @@ void sub_806013C(struct ProcEfxBG * proc)
         SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
 
-        if (gEkrDistanceType != 0)
+        if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
         {
             int pos = GetAnimPosition(proc->anim);
             if (pos == 0)
@@ -1420,24 +1419,24 @@ void sub_806013C(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D648C[] =
+struct ProcCmd CONST_DATA ProcScr_efxDivineOBJ[] =
 {
     PROC_NAME("efxDevineOBJ"),
-    PROC_REPEAT(sub_8060254),
+    PROC_REPEAT(efxDivineOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080601E0
-void sub_80601E0(struct Anim * anim)
+void StartSubSpell_efxDivineOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D648C, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDivineOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
@@ -1453,14 +1452,14 @@ void sub_80601E0(struct Anim * anim)
         frontAnim->xPosition += 6;
     }
 
-    SpellFx_RegisterObjPal(gUnknown_08645F44, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_08645DD8, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_DivineSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_DivineSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x08060254
-void sub_8060254(struct ProcEfxOBJ * proc)
+void efxDivineOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -1475,13 +1474,13 @@ void sub_8060254(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x08060284
-void sub_8060284(struct Anim * anim)
+void StartSpellAnim_8060284_Null(struct Anim * anim)
 {
     return;
 }
 
 //! FE8U = 0x08060288
-void nullsub_40(struct Anim * anim)
+void StartSpellAnim_8060288_Null(struct Anim * anim)
 {
     return;
 }

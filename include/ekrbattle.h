@@ -596,11 +596,6 @@ extern const u16 gUnknown_080DCD26[];
 extern const u16 gUnknown_080DCD72[];
 extern const u16 gUnknown_080DCDE4[];
 // extern ??? gFrameConfig_080DD1F4
-// extern ??? gUnknown_080DD288
-// extern ??? gUnknown_080DD328
-// extern ??? gUnknown_080DD4D4
-// extern ??? gUnknown_080DD542
-// extern ??? gUnknown_080DD550
 // extern ??? gUnknown_080DD5D2
 // extern ??? gUnknown_080DD5D8
 // extern ??? gUnknown_080DD67A

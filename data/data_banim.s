@@ -24853,12 +24853,12 @@ Img_08641094:  @ 0x08641094
 Img_086415F4:  @ 0x086415F4
 	.incbin "baserom.gba", 0x6415F4, 0x770    @ 0x641D64 - 0x6415F4
 
-	.global gUnknown_08641D64
-gUnknown_08641D64:  @ 0x08641D64
+	.global Pal_DivineBg3
+Pal_DivineBg3:  @ 0x08641D64
 	.incbin "baserom.gba", 0x641D64, 0x20
 
-	.global gUnknown_08641D84
-gUnknown_08641D84:  @ 0x08641D84
+	.global Pal_DivineBg
+Pal_DivineBg:  @ 0x08641D84
 	.incbin "baserom.gba", 0x641D84, 0x20    @ 0x641DA4 - 0x641D84
 
 	.global Tsa_08641DA4
@@ -25037,32 +25037,32 @@ Tsa_08645C9C:  @ 0x08645C9C
 Tsa_08645D38:  @ 0x08645D38
 	.incbin "baserom.gba", 0x645D38, 0xA0    @ 0x645DD8 - 0x645D38
 
-	.global gUnknown_08645DD8
-gUnknown_08645DD8:  @ 0x08645DD8
+	.global Img_DivineSprites
+Img_DivineSprites:  @ 0x08645DD8
 	.incbin "baserom.gba", 0x645DD8, 0x16C
 
-	.global gUnknown_08645F44
-gUnknown_08645F44:  @ 0x08645F44
+	.global Pal_DivineSprites
+Pal_DivineSprites:  @ 0x08645F44
 	.incbin "baserom.gba", 0x645F44, 0x5CC
 
 	.global gUnknown_08646510
 gUnknown_08646510:  @ 0x08646510
 @ Replacing .incbin "baserom.gba", 0x646510, 0x8280
     .4byte 0x786464f9
-    .4byte gUnknown_08645F44 + 0x21
-    .4byte gUnknown_08645F44 + 0xa5
-    .4byte gUnknown_08645F44 + 0x129
-    .4byte gUnknown_08645F44 + 0x195
-    .4byte gUnknown_08645F44 + 0x201
-    .4byte gUnknown_08645F44 + 0x26d
-    .4byte gUnknown_08645F44 + 0x2c1
-    .4byte gUnknown_08645F44 + 0x32d
-    .4byte gUnknown_08645F44 + 0x399
-    .4byte gUnknown_08645F44 + 0x3d5
-    .4byte gUnknown_08645F44 + 0x459
-    .4byte gUnknown_08645F44 + 0x4e9
-    .4byte gUnknown_08645F44 + 0x555
-    .4byte gUnknown_08645F44 + 0x591
+    .4byte Pal_DivineSprites + 0x21
+    .4byte Pal_DivineSprites + 0xa5
+    .4byte Pal_DivineSprites + 0x129
+    .4byte Pal_DivineSprites + 0x195
+    .4byte Pal_DivineSprites + 0x201
+    .4byte Pal_DivineSprites + 0x26d
+    .4byte Pal_DivineSprites + 0x2c1
+    .4byte Pal_DivineSprites + 0x32d
+    .4byte Pal_DivineSprites + 0x399
+    .4byte Pal_DivineSprites + 0x3d5
+    .4byte Pal_DivineSprites + 0x459
+    .4byte Pal_DivineSprites + 0x4e9
+    .4byte Pal_DivineSprites + 0x555
+    .4byte Pal_DivineSprites + 0x591
     .4byte 0x80000000
     .4byte 0x00080010
     .4byte 0x30000020
@@ -33875,36 +33875,36 @@ Tsa_0866E8F8:  @ 0x0866E8F8
 Tsa_0866EC80:  @ 0x0866EC80
 	.incbin "baserom.gba", 0x66EC80, 0x370    @ 0x66EFF0 - 0x66EC80
 
-	.global gUnknown_0866EFF0
-gUnknown_0866EFF0:  @ 0x0866EFF0
+	.global Img_PurgeSprites
+Img_PurgeSprites:  @ 0x0866EFF0
 	.incbin "baserom.gba", 0x66EFF0, 0x2C4
 
-	.global gUnknown_0866F2B4
-gUnknown_0866F2B4:  @ 0x0866F2B4
+	.global Pal_PurgeSprites
+Pal_PurgeSprites:  @ 0x0866F2B4
 	.incbin "baserom.gba", 0x66F2B4, 0x2D8
 
 	.global gUnknown_0866F58C
 gUnknown_0866F58C:  @ 0x0866F58C
 @ Replacing .incbin "baserom.gba", 0x66F58C, 0x58
-    .4byte gUnknown_0866F2B4 + 0x21
-    .4byte gUnknown_0866F2B4 + 0x45
-    .4byte gUnknown_0866F2B4 + 0x69
-    .4byte gUnknown_0866F2B4 + 0x8d
-    .4byte gUnknown_0866F2B4 + 0xb1
-    .4byte gUnknown_0866F2B4 + 0xd5
-    .4byte gUnknown_0866F2B4 + 0xf9
-    .4byte gUnknown_0866F2B4 + 0x11d
-    .4byte gUnknown_0866F2B4 + 0x141
-    .4byte gUnknown_0866F2B4 + 0x165
-    .4byte gUnknown_0866F2B4 + 0x17d
-    .4byte gUnknown_0866F2B4 + 0x1a1
-    .4byte gUnknown_0866F2B4 + 0x1c5
-    .4byte gUnknown_0866F2B4 + 0x1e9
-    .4byte gUnknown_0866F2B4 + 0x20d
-    .4byte gUnknown_0866F2B4 + 0x231
-    .4byte gUnknown_0866F2B4 + 0x255
-    .4byte gUnknown_0866F2B4 + 0x279
-    .4byte gUnknown_0866F2B4 + 0x29d
+    .4byte Pal_PurgeSprites + 0x21
+    .4byte Pal_PurgeSprites + 0x45
+    .4byte Pal_PurgeSprites + 0x69
+    .4byte Pal_PurgeSprites + 0x8d
+    .4byte Pal_PurgeSprites + 0xb1
+    .4byte Pal_PurgeSprites + 0xd5
+    .4byte Pal_PurgeSprites + 0xf9
+    .4byte Pal_PurgeSprites + 0x11d
+    .4byte Pal_PurgeSprites + 0x141
+    .4byte Pal_PurgeSprites + 0x165
+    .4byte Pal_PurgeSprites + 0x17d
+    .4byte Pal_PurgeSprites + 0x1a1
+    .4byte Pal_PurgeSprites + 0x1c5
+    .4byte Pal_PurgeSprites + 0x1e9
+    .4byte Pal_PurgeSprites + 0x20d
+    .4byte Pal_PurgeSprites + 0x231
+    .4byte Pal_PurgeSprites + 0x255
+    .4byte Pal_PurgeSprites + 0x279
+    .4byte Pal_PurgeSprites + 0x29d
     .4byte 0x7866f577
     .4byte 0x84000013
     .4byte 0x80000000
