@@ -1,6 +1,40 @@
 #ifndef GUARD_SCENE_H
 #define GUARD_SCENE_H
 
+enum fe_ch_idx {
+    CHFE_L_X = '\x0',
+    CHFE_L_NL = '\x1',
+    CHFE_L_2NL = '\x2',
+    CHFE_L_A = '\x3',
+    CHFE_L_Pause8 = '\x4',
+    CHFE_L_Pause16 = '\x5',
+    CHFE_L_Pause32 = '\x6',
+    CHFE_L_Pause64 = '\x7',
+    CHFE_L_OpenFarLeft = '\x8',
+    CHFE_L_OpenMidLeft = '\x9',
+    CHFE_L_OpenLeft = '\xA',
+    CHFE_L_OpenRight = '\xB',
+    CHFE_L_OpenMidRight = '\xC',
+    CHFE_L_OpenFarRight = '\xD',
+    CHFE_L_OpenFarFarLeft = '\xE',
+    CHFE_L_OpenFarFarRight = '\xF',
+    CHFE_L_LoadFace = '\x10',
+    CHFE_L_ClearFace = '\x11',
+    CHFE_L_NormalPrint = '\x12',
+    CHFE_L_FastPrint = '\x13',
+    CHFE_L_CloseSpeechFast = '\x14',
+    CHFE_L_CloseSpeechSlow = '\x15',
+    CHFE_L_ToggleMouthMove = '\x16',
+    CHFE_L_ToggleSmile = '\x17',
+    CHFE_L_Yes = '\x18',
+    CHFE_L_No = '\x19',
+    CHFE_L_BuySell = '\x1A',
+    CHFE_L_ShopContinue = '\x1B',
+    CHFE_L_SendToBack = '\x1C',
+    CHFE_L_FastPrint2 = '\x1D',
+    CHFE_L_DEnd = '\x1F',
+};
+
 enum
 {
     TALK_FLAG_INSTANTSHIFT   = (1 << 0),
@@ -103,8 +137,8 @@ void sub_8006F00(void);
 void sub_8006F8C(int flag);
 int TalkInterpret(ProcPtr);
 int SetActiveTalkFace(int);
-void sub_8007844(void);
-void sub_8007854(ProcPtr);
+void SetupFaceGfxDataInBanim(void);
+void TalkLoadFace(ProcPtr);
 ProcPtr StartTalkFace(int, int, int, int, int);
 int GetFaceIdByXPos(int x);
 void SetTalkFaceLayer(int talkFace, int toBack);
@@ -127,7 +161,7 @@ void TalkShiftClear_OnInit(struct Proc*);
 void TalkShiftClear_OnIdle(struct Proc*);
 void sub_80080D0(ProcPtr);
 void sub_8008108(void);
-void sub_800815C(void);
+void TalkFlushAllLine(void);
 int GetTalkPauseCmdDuration(int cmd);
 void ClearTalkBubble(void);
 void ClearPutTalkText(void);
