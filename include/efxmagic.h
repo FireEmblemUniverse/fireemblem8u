@@ -128,28 +128,28 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ImgArray_NosferatuBg
 // extern ??? TsaArray_NosferatuBg
 // extern ??? ProcScr_efxResireRST
-// extern ??? gUnknown_085D5CF0
-// extern ??? gUnknown_085D5D08
-// extern ??? gUnknown_085D5D20
-// extern ??? gUnknown_085D5DA4
-// extern ??? gUnknown_085D5E28
-// extern ??? gUnknown_085D5EAC
-// extern ??? gUnknown_085D5EC4
-// extern ??? gUnknown_085D5EDC
-// extern ??? gUnknown_085D6014
-// extern ??? gUnknown_085D614C
-// extern ??? gUnknown_085D6284
-// extern ??? gUnknown_085D62A4
-// extern ??? gUnknown_085D62DC
-// extern ??? gUnknown_085D62FC
-// extern ??? gUnknown_085D6314
-// extern ??? gUnknown_085D632C
-// extern ??? gUnknown_085D637C
-// extern ??? gUnknown_085D63CC
-// extern ??? gUnknown_085D63D8
-// extern ??? gUnknown_085D63E4
-// extern ??? gUnknown_085D6438
-// extern ??? gUnknown_085D648C
+// extern ??? ProcScr_efxLightning
+// extern ??? ProcScr_efxLightningBG
+// extern ??? ImgArray_LightningBg
+// extern ??? PalArray_LightningBg
+// extern ??? TsaArray_LightningBg
+// extern ??? ProcScr_efxPurge
+// extern ??? ProcScr_efxPurgeBG
+// extern ??? ImgArray_PurgeBg
+// extern ??? PalArray_PurgeBg
+// extern ??? TsaArray_PurgeBg
+// extern ??? ProcScr_efxPurgeOBJRND
+// extern ??? gPurgeAnimSpriteCoordinates
+// extern ??? ProcScr_efxPurgeOBJ
+// extern ??? ProcScr_efxDivine
+// extern ??? ProcScr_efxDivineBG
+// extern ??? ImgArray_DivineBg
+// extern ??? TsaArray_DivineBg
+// extern ??? ImgArray_DivineBg2
+// extern ??? TsaArray_DivineBg2
+// extern ??? ImgArray_DivineBg3
+// extern ??? TsaArray_DivineBg3
+// extern ??? ProcScr_efxDivineOBJ
 // extern ??? gUnknown_085D64A4
 // extern ??? gUnknown_085D64BC
 // extern ??? gUnknown_085D64D4
@@ -444,30 +444,30 @@ void efxResireBG_Loop_D(struct ProcEfxBG * proc);
 void efxResireBG2_Loop(struct ProcEfxBG * proc);
 void StartSubSpell_efxResireRST(struct Anim * anim, ProcPtr b, int c);
 void efxResireRST_Loop(struct ProcEfxRST * proc);
-void sub_805F8B4(struct Anim * anim);
-// ??? sub_805F8F0(???);
-// ??? sub_805F9A8(???);
-// ??? sub_805FA28(???);
+void StartSpellAnimLightning(struct Anim * anim);
+void efxLightning_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxLightningBG(struct Anim * anim);
+void efxLightningBG_Loop(struct ProcEfxBG * proc);
 void StartSpellAnimPurge(struct Anim * anim);
-// ??? sub_805FB24(???);
-// ??? sub_805FB60(???);
-// ??? sub_805FC90(???);
-// ??? sub_805FCE0(???);
-// ??? sub_805FD5C(???);
-// ??? sub_805FD90(???);
-// ??? sub_805FDFC(???);
-// ??? sub_805FE68(???);
-void nullsub_41(struct Anim * anim);
+void sub_805FB24(int location, int type);
+void efxPurge_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxPurgeBG(struct Anim * anim);
+void efxPurgeBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxPurgeOBJRND(struct Anim * anim);
+void efxPurgeOBJRND_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxPurgeOBJ(struct Anim * anim, int x, int y);
+void efxPurgeOBJ_OnEnd(struct ProcEfxOBJ * proc);
+void StartSpellAnim_805FE80_Null(struct Anim * anim);
 void StartSpellAnimDivine(struct Anim * anim);
-// ??? DivineSfxLoop(???);
-// ??? sub_805FFB0(???);
-// ??? sub_8060034(???);
-// ??? sub_80600B8(???);
-// ??? sub_806013C(???);
-// ??? sub_80601E0(???);
-// ??? sub_8060254(???);
-void sub_8060284(struct Anim * anim);
-void nullsub_40(struct Anim * anim);
+void efxDivine_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxDivineBG(struct Anim * anim);
+void StartSubSpell_efxDivineBG_2(struct Anim * anim);
+void StartSubSpell_efxDivineBG_3(struct Anim * anim);
+void efxDivineBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxDivineOBJ(struct Anim * anim);
+void efxDivineOBJ_Loop(struct ProcEfxOBJ * proc);
+void StartSpellAnim_8060284_Null(struct Anim * anim);
+void StartSpellAnim_8060288_Null(struct Anim * anim);
 void sub_806028C(struct Anim * anim);
 // ??? sub_80602C8(???);
 // ??? sub_8060440(???);

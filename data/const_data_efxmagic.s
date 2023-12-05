@@ -1,34 +1,9 @@
     .section .rodata
 
-	.global gAsciiStr_efxLightning
-gAsciiStr_efxLightning:
-	.asciz "efxLightning"
+	.asciz "efxHazymoon"
 	.align 2, 0
 
-	.global gAsciiStr_efxLightningBG
-gAsciiStr_efxLightningBG:
-	.asciz "efxLightningBG"
-	.align 2, 0
-
-	.global gUnknown_080DD288
-gUnknown_080DD288:  @ 0x080DD288
-	.incbin "baserom.gba", 0xDD288, 0xA0
-
-	.global gUnknown_080DD328
-gUnknown_080DD328:  @ 0x080DD328
-	.incbin "baserom.gba", 0xDD328, 0x1AC
-
-	.global gUnknown_080DD4D4
-gUnknown_080DD4D4:  @ 0x080DD4D4
-	.incbin "baserom.gba", 0xDD4D4, 0x6E
-
-	.global gUnknown_080DD542
-gUnknown_080DD542:  @ 0x080DD542
-	.incbin "baserom.gba", 0xDD542, 0xE
-
-	.global gUnknown_080DD550
-gUnknown_080DD550:  @ 0x080DD550
-	.incbin "baserom.gba", 0xDD550, 0x82
+	.asciz "efxHazymoonBG"
 
 	.global gUnknown_080DD5D2
 gUnknown_080DD5D2:  @ 0x080DD5D2
