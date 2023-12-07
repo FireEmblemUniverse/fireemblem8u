@@ -158,6 +158,12 @@ struct HelpBoxInfo
     /* 18 */ void(*populate)(struct HelpBoxProc* proc);
 };
 
+#if !MODERN
+#define DECL_INFO struct HelpBoxInfo CONST_DATA
+#else
+#define DECL_INFO struct HelpBoxInfo const
+#endif
+
 int GetLastStatScreenUid(void);
 void SetLastStatScreenUid(int uid);
 void SetStatScreenConfig(int unk);
@@ -334,8 +340,9 @@ void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc);
 // (It's in the weird EWRAM overlay area)
 
 extern struct StatScreenSt gStatScreen; // statscreen state
-extern u16 gBmFrameTmap0[0x280]; // bg0 tilemap buffer for stat screen page
-extern u16 gBmFrameTmap1[0x240]; // bg2 tilemap buffer for stat screen page
+extern u16 gUiTmScratchA[0x280]; // bg0 tilemap buffer for stat screen page
+extern u16 gUiTmScratchB[0x280]; // bg0 tilemap buffer for stat screen page in fe6
+extern u16 gUiTmScratchC[0x240]; // bg2 tilemap buffer for stat screen page
 
 extern struct StatScreenInfo sStatScreenInfo;
 extern struct HelpBoxInfo sMutableHbi;
@@ -373,5 +380,7 @@ extern struct ProcCmd gProcScr_HelpBoxLock[];
 
 extern u16 sSprite_MetaHelp[];
 extern struct ProcCmd gProcScr_HelpPromptSpr[];
+extern DECL_INFO gHelpInfo_MbpHp;
+extern DECL_INFO gHelpInfo_CbpHp;
 
 #endif // GUARD_STATSCREEN_H

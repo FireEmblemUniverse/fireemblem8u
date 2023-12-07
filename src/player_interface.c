@@ -13,6 +13,7 @@
 #include "face.h"
 #include "bm.h"
 #include "prepscreen.h"
+#include "statscreen.h"
 #include "bmlib.h"
 #include "worldmap.h"
 #include "constants/terrains.h"
@@ -440,11 +441,11 @@ void MMB_Loop_SlideIn(struct PlayerInterfaceProc* proc) {
     width = sMMBSlideInWidthLut[proc->unk_58];
 
     if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0) {
-        TileMap_CopyRect(gBmFrameTmap0 + (13 - width), gBG0TilemapBuffer + tmIndex, width, 6);
-        TileMap_CopyRect(gUnknown_0200422C + (13 - width), gBG1TilemapBuffer + tmIndex, width, 6);
+        TileMap_CopyRect(gUiTmScratchA + (13 - width), gBG0TilemapBuffer + tmIndex, width, 6);
+        TileMap_CopyRect(gUiTmScratchB + (13 - width), gBG1TilemapBuffer + tmIndex, width, 6);
     } else {
-        TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + TILEMAP_INDEX(30 - width, y), width, 6);
-        TileMap_CopyRect(gUnknown_0200422C, gBG1TilemapBuffer + TILEMAP_INDEX(30 - width, y), width, 6);
+        TileMap_CopyRect(gUiTmScratchA, gBG0TilemapBuffer + TILEMAP_INDEX(30 - width, y), width, 6);
+        TileMap_CopyRect(gUiTmScratchB, gBG1TilemapBuffer + TILEMAP_INDEX(30 - width, y), width, 6);
     }
 
     proc->unk_58++;
@@ -489,11 +490,11 @@ void MMB_Loop_SlideOut(struct PlayerInterfaceProc* proc) {
     width = sMMBSlideOutWidthLut[proc->unk_58];
 
     if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0) {
-        TileMap_CopyRect(gBmFrameTmap0 + (13 - width), gBG0TilemapBuffer + tmIndex, width, 6);
-        TileMap_CopyRect(gUnknown_0200422C + (13 - width), gBG1TilemapBuffer + tmIndex, width, 6);
+        TileMap_CopyRect(gUiTmScratchA + (13 - width), gBG0TilemapBuffer + tmIndex, width, 6);
+        TileMap_CopyRect(gUiTmScratchB + (13 - width), gBG1TilemapBuffer + tmIndex, width, 6);
     } else {
-        TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + TILEMAP_INDEX(30 - width, y), width, 6);
-        TileMap_CopyRect(gUnknown_0200422C, gBG1TilemapBuffer + TILEMAP_INDEX(30 - width, y), width, 6);
+        TileMap_CopyRect(gUiTmScratchA, gBG0TilemapBuffer + TILEMAP_INDEX(30 - width, y), width, 6);
+        TileMap_CopyRect(gUiTmScratchB, gBG1TilemapBuffer + TILEMAP_INDEX(30 - width, y), width, 6);
     }
 
     proc->unk_58++;
@@ -526,11 +527,11 @@ void TerrainDisplay_Loop_SlideIn(struct PlayerInterfaceProc* proc) {
     width = sTerrainSlideInWidthLut[proc->unk_58] + 1;
 
     if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0) {
-        TileMap_CopyRect(gBmFrameTmap0 + (327 - width), gBG0TilemapBuffer + 0x1A0, width, 7);
-        TileMap_CopyRect(gUnknown_0200422C + (327 - width), gBG1TilemapBuffer + 0x1A0, width, 7);
+        TileMap_CopyRect(gUiTmScratchA + (327 - width), gBG0TilemapBuffer + 0x1A0, width, 7);
+        TileMap_CopyRect(gUiTmScratchB + (327 - width), gBG1TilemapBuffer + 0x1A0, width, 7);
     } else {
-        TileMap_CopyRect(gUnknown_02003FAC, gBG0TilemapBuffer + (446 - width), width, 7);
-        TileMap_CopyRect(gUnknown_020044AC, gBG1TilemapBuffer + (446 - width), width, 7);
+        TileMap_CopyRect(&gUiTmScratchA[0x140], gBG0TilemapBuffer + (446 - width), width, 7);
+        TileMap_CopyRect(&gUiTmScratchB[0x140], gBG1TilemapBuffer + (446 - width), width, 7);
     }
 
     proc->unk_58++;
@@ -564,11 +565,11 @@ void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc* proc) {
     width = sTerrainSlideOutWidthLut[proc->unk_58];
 
     if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0) {
-        TileMap_CopyRect(gBmFrameTmap0 + (326 - width), gBG0TilemapBuffer + 0x1A0, width, 7);
-        TileMap_CopyRect(gUnknown_0200422C + (326 - width), gBG1TilemapBuffer + 0x1A0, width, 7);
+        TileMap_CopyRect(gUiTmScratchA + (326 - width), gBG0TilemapBuffer + 0x1A0, width, 7);
+        TileMap_CopyRect(gUiTmScratchB + (326 - width), gBG1TilemapBuffer + 0x1A0, width, 7);
     } else {
-        TileMap_CopyRect(gUnknown_02003FAC, gBG0TilemapBuffer + (446 - width), width, 7);
-        TileMap_CopyRect(gUnknown_020044AC, gBG1TilemapBuffer + (446 - width), width, 7);
+        TileMap_CopyRect(&gUiTmScratchA[0x140], gBG0TilemapBuffer + (446 - width), width, 7);
+        TileMap_CopyRect(&gUiTmScratchB[0x140], gBG1TilemapBuffer + (446 - width), width, 7);
     }
 
     proc->unk_58++;
@@ -600,7 +601,7 @@ void sub_808C234(struct PlayerInterfaceProc* proc) {
         y = 14;
     }
 
-    TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + TILEMAP_INDEX(x, y), 13, 6);
+    TileMap_CopyRect(gUiTmScratchA, gBG0TilemapBuffer + TILEMAP_INDEX(x, y), 13, 6);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -617,7 +618,7 @@ void sub_808C288(struct PlayerInterfaceProc* proc) {
         x = 23;
     }
 
-    TileMap_CopyRect(gUnknown_02003FAC, gBG0TilemapBuffer + 0x1A0 + x, 7, 7);
+    TileMap_CopyRect(&gUiTmScratchA[0x140], gBG0TilemapBuffer + 0x1A0 + x, 7, 7);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -820,7 +821,7 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     int pos;
     int faceId;
 
-    CpuFastFill(0, gBmFrameTmap0, 0x180);
+    CpuFastFill(0, gUiTmScratchA, 0x180);
 
     str = GetStringFromIndex(unit->pCharacterData->nameTextId);
     pos = GetStringTextCenteredPos(0x38, str);
@@ -828,7 +829,7 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     ClearText(proc->unk_2c);
     Text_SetParams(proc->unk_2c, pos, 5);
     Text_DrawString(proc->unk_2c, str);
-    PutText(proc->unk_2c, gBmFrameTmap0 + 0x25);
+    PutText(proc->unk_2c, gUiTmScratchA + 0x25);
 
     faceId = GetUnitMiniPortraitId(unit);
 
@@ -836,9 +837,9 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
         faceId = faceId + 1;
     }
 
-    PutFaceChibi(faceId, gBmFrameTmap0 + 0x21, 0xF0, 4, 0);
+    PutFaceChibi(faceId, gUiTmScratchA + 0x21, 0xF0, 4, 0);
 
-    proc->unk_40 = gBmFrameTmap0 + 0x65;
+    proc->unk_40 = gUiTmScratchA + 0x65;
 
     proc->unk_44 = 0;
 
@@ -856,9 +857,9 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
 
     DrawUnitDisplayHpOrStatus(proc, unit);
 
-    DrawHpBar(gUnknown_02003E36, unit, 0x1140);
+    DrawHpBar(&gUiTmScratchA[0x85], unit, 0x1140);
 
-    CallARM_FillTileRect(gUnknown_0200422C, gTSA_MinimugBox, 0x3000);
+    CallARM_FillTileRect(gUiTmScratchB, gTSA_MinimugBox, 0x3000);
 
     GetMinimugFactionPalette(UNIT_FACTION(unit), 3);
 
@@ -977,8 +978,8 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
 
     int terrainId = gBmMapTerrain[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
 
-    TileMap_FillRect(gUnknown_02003FAC, 14, 7, 0);
-    TileMap_FillRect(gUnknown_020044AC, 14, 7, 0);
+    TileMap_FillRect(&gUiTmScratchA[0x140], 14, 7, 0);
+    TileMap_FillRect(&gUiTmScratchB[0x140], 14, 7, 0);
 
     str = GetTerrainName(terrainId);
 
@@ -987,30 +988,30 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
     ClearText(proc->unk_2c);
     Text_SetParams(proc->unk_2c, num, 0);
     Text_DrawString(proc->unk_2c, str);
-    PutText(proc->unk_2c, gUnknown_02003FAC + 0x41);
+    PutText(proc->unk_2c, &gUiTmScratchA[0x140] + 0x41);
 
-    CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Something, 0x2100);
+    CallARM_FillTileRect(&gUiTmScratchA[0x140] + 0x81, gTSA_TerrainBox_Something, 0x2100);
 
     if (gUnknown_0880B90C[terrainId] > 0) {
         StoreNumberStringToSmallBuffer(gUnknown_0880C4BA[terrainId]);
-        PutDigits(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
+        PutDigits(&gUiTmScratchA[0x140] + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
         StoreNumberStringToSmallBuffer(gUnknown_0880C479[terrainId]);
-        PutDigits(gUnknown_02003FAC + 0xA5, gUnknown_02028E44+7, 0x2128, 2);
+        PutDigits(&gUiTmScratchA[0x140] + 0xA5, gUnknown_02028E44+7, 0x2128, 2);
     }
 
     switch (terrainId) {
         case TERRAIN_SNAG:
         case TERRAIN_WALL_1B:
-            CallARM_FillTileRect(gUnknown_020040AE, gTSA_TerrainBox_Destructable, 0x2100);
+            CallARM_FillTileRect(gUiTmScratchA + 0x1C1, gTSA_TerrainBox_Destructable, 0x2100);
 
             num = GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
 
             if (num == 100) {
-                CallARM_FillTileRect(gUnknown_020040AE + 0x23,gUnknown_08A176B4, 0x100);
+                CallARM_FillTileRect(gUiTmScratchA + 0x1C1 + 0x23,gUnknown_08A176B4, 0x100);
             } else {
                 StoreNumberStringToSmallBuffer(num);
-                PutDigits(gUnknown_020040AE + 0x24, gUnknown_02028E44+7, 0x2128, 2);
+                PutDigits(gUiTmScratchA + 0x1C1 + 0x24, gUnknown_02028E44+7, 0x2128, 2);
             }
 
             break;
@@ -1018,18 +1019,16 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
         case TERRAIN_BALLISTA_REGULAR:
         case TERRAIN_BALLISTA_LONG:
         case TERRAIN_BALLISTA_KILLER:
-            CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Ballistae, 0x100);
+            CallARM_FillTileRect(&gUiTmScratchA[0x140] + 0x81, gTSA_TerrainBox_Ballistae, 0x100);
 
             StoreNumberStringToSmallBuffer(GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y));
-            PutDigits(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
+            PutDigits(&gUiTmScratchA[0x140] + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
             break;
 
     }
 
-    CallARM_FillTileRect(gUnknown_020044EC, gTSA_TerrainBox, 0x1000);
-
-    return;
+    CallARM_FillTileRect(&gUiTmScratchB[0x160], gTSA_TerrainBox, 0x1000);
 }
 
 void TerrainDisplay_Init(struct PlayerInterfaceProc* proc) {
@@ -1392,22 +1391,20 @@ int sub_808D1B4() {
 
 void sub_808D200(struct PlayerInterfaceProc* proc) {
 
-    TileMap_FillRect(gUnknown_020044D4, 11, 9, 0);
+    TileMap_FillRect(gUiTmScratchB + 0x154, 11, 9, 0);
 
-    TileMap_FillRect(gUnknown_02004054, 11, 9, 0);
+    TileMap_FillRect(gUiTmScratchA + 0x194, 11, 9, 0);
 
     if (proc->unk_44 == 0) {
-        CallARM_FillTileRect(gUnknown_020044D4, gTSA_GoalBox_OneLine, 0x1000);
-        PutText(proc->unk_2c, gUnknown_02004054 + 0x21);
+        CallARM_FillTileRect(gUiTmScratchB + 0x154, gTSA_GoalBox_OneLine, 0x1000);
+        PutText(proc->unk_2c, gUiTmScratchA + 0x1B5);
     }
 
     if (proc->unk_44 == 1) {
-        CallARM_FillTileRect(gUnknown_020044D4, gTSA_GoalBox_TwoLines, 0x1000);
-        PutText(&proc->unk_2c[0], gUnknown_02004054 + 0x21);
-        PutText(&proc->unk_2c[1], gUnknown_02004054 + 0x61);
+        CallARM_FillTileRect(gUiTmScratchB + 0x154, gTSA_GoalBox_TwoLines, 0x1000);
+        PutText(&proc->unk_2c[0], gUiTmScratchA + 0x1B5);
+        PutText(&proc->unk_2c[1], gUiTmScratchA + 0x1F5);
     }
-
-    return;
 }
 
 void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
@@ -1551,32 +1548,32 @@ void sub_808D514(int param_1, int param_2, int param_3) {
         TileMap_FillRect(gBG1TilemapBuffer, 12, 6, 0);
         TileMap_FillRect(gBG0TilemapBuffer, 12, 6, 0);
 
-        TileMap_CopyRect(gUnknown_02004254 + TILEMAP_INDEX(0, (16 - param_2)), gBG1TilemapBuffer, 12, param_2);
-        TileMap_CopyRect(gUnknown_02003D54 + TILEMAP_INDEX(0, (18 - param_2)), gBG0TilemapBuffer, 12, param_2);
+        TileMap_CopyRect(&gUiTmScratchB[0x14] + TILEMAP_INDEX(0, (16 - param_2)), gBG1TilemapBuffer, 12, param_2);
+        TileMap_CopyRect(&gUiTmScratchA[0x14] + TILEMAP_INDEX(0, (18 - param_2)), gBG0TilemapBuffer, 12, param_2);
     }
 
     if ((x > 0) && (y < 0)) {
         TileMap_FillRect(gBG1TilemapBuffer + 0x13, 12, 6, 0);
         TileMap_FillRect(gBG0TilemapBuffer + 0x13, 12, 6, 0);
 
-        TileMap_CopyRect(gUnknown_02004254 + TILEMAP_INDEX(0, (16 - param_2)), gBG1TilemapBuffer + 0x13, 12, param_2);
-        TileMap_CopyRect(gUnknown_02003D54 + TILEMAP_INDEX(0, (18 - param_2)), gBG0TilemapBuffer + 0x13, 12, param_2);
+        TileMap_CopyRect(&gUiTmScratchB[0x14] + TILEMAP_INDEX(0, (16 - param_2)), gBG1TilemapBuffer + 0x13, 12, param_2);
+        TileMap_CopyRect(&gUiTmScratchA[0x14] + TILEMAP_INDEX(0, (18 - param_2)), gBG0TilemapBuffer + 0x13, 12, param_2);
     }
 
     if ((x < 0) && (y > 0)) {
         TileMap_FillRect(gBG1TilemapBuffer + 0x1C0, 12, 6, 0);
         TileMap_FillRect(gBG0TilemapBuffer + 0x1C0, 12, 6, 0);
 
-        TileMap_CopyRect(gUnknown_020044D4, gBG1TilemapBuffer + 0x1C0 + 0x20 * (({ (1 - param_3) * 2 + 20; }) - param_2) - 0x1C0, 12, param_2);
-        TileMap_CopyRect(gUnknown_02004054, gBG0TilemapBuffer + 0x1C0 + 0x20 * (({ (1 - param_3) * 2 + 20; }) - param_2) - 0x1C0, 12, param_2);
+        TileMap_CopyRect(gUiTmScratchB + 0x154, gBG1TilemapBuffer + 0x1C0 + 0x20 * (({ (1 - param_3) * 2 + 20; }) - param_2) - 0x1C0, 12, param_2);
+        TileMap_CopyRect(gUiTmScratchA + 0x194, gBG0TilemapBuffer + 0x1C0 + 0x20 * (({ (1 - param_3) * 2 + 20; }) - param_2) - 0x1C0, 12, param_2);
     }
 
     if ((x > 0) && (y > 0)) {
         TileMap_FillRect(gBG1TilemapBuffer + 0x1D3, 12, 6, 0);
         TileMap_FillRect(gBG0TilemapBuffer + 0x1D3, 12, 6, 0);
 
-        TileMap_CopyRect(gUnknown_020044D4, gBG1TilemapBuffer + 0x1D3 + 0x20 * (({ (1 - param_3) * 2 + 20; }) - param_2) - 0x1C0, 12, param_2);
-        TileMap_CopyRect(gUnknown_02004054, gBG0TilemapBuffer + 0x1D3 + 0x20 * (({ (1 - param_3) * 2 + 20; }) - param_2) - 0x1C0, 12, param_2);
+        TileMap_CopyRect(gUiTmScratchB + 0x154, gBG1TilemapBuffer + 0x1D3 + 0x20 * (({ (1 - param_3) * 2 + 20; }) - param_2) - 0x1C0, 12, param_2);
+        TileMap_CopyRect(gUiTmScratchA + 0x194, gBG0TilemapBuffer + 0x1D3 + 0x20 * (({ (1 - param_3) * 2 + 20; }) - param_2) - 0x1C0, 12, param_2);
     }
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);

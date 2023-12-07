@@ -203,7 +203,7 @@ void UpdateBanimFrame(void)
 
         gpEfxUnitPaletteBackup[0] = &PAL_BUF_COLOR(gBanimPal1, bid_pal, 0);
         CpuFastCopy(&PAL_BUF_COLOR(gBanimPal1, bid_pal, 0), PAL_OBJ(0x7), 0x20);
-        CpuFastCopy(gBanimCharacterPals[0], PAL_OBJ(0x8), 0x20);
+        CpuFastCopy(gBanimTriAtkPalettes[0], PAL_OBJ(0x8), 0x20);
 
         /* WTF a horrible bug... */
         if (gBattleActor.unit.statusIndex == 0xB || gBattleActor.unit.statusIndex == 0xD)
@@ -233,7 +233,7 @@ void UpdateBanimFrame(void)
 
         gpEfxUnitPaletteBackup[1] = &PAL_BUF_COLOR(gBanimPal2, bid_pal, 0);
         CpuFastCopy(&PAL_BUF_COLOR(gBanimPal2, bid_pal, 0), PAL_OBJ(0x9), 0x20);
-        CpuFastCopy(gBanimCharacterPals[1], PAL_OBJ(0xA), 0x20);
+        CpuFastCopy(gBanimTriAtkPalettes[1], PAL_OBJ(0xA), 0x20);
 
         EnablePaletteSync();
         LZ77UnCompWram(banim[bid].oam_r, gBanimOamr2);
@@ -245,14 +245,14 @@ void UpdateBanimFrame(void)
             u16 pid, jid;
             u16 i;
             u16 idx = sub_8057CAC(gpEkrTriangleUnits[0], gpEkrTriangleUnits[0]->pClassData->pBattleAnimDef, 0, &val1);
-            gBanimCharacterPals[0] = banim[idx].pal;
+            gBanimTriAtkPalettes[0] = banim[idx].pal;
 
             pid = gpEkrTriangleUnits[0]->pCharacterData->number - 1;
             jid = gpEkrTriangleUnits[0]->pClassData->number;
 
             for (i = 0; i < 7; i++) {
                 if (gAnimCharaPalConfig[pid][i] == jid) {
-                    gBanimCharacterPals[0] = cbapt[gAnimCharaPalIt[pid][i] - 1].pal;
+                    gBanimTriAtkPalettes[0] = cbapt[gAnimCharaPalIt[pid][i] - 1].pal;
                     break;
                 }
             }
@@ -261,14 +261,14 @@ void UpdateBanimFrame(void)
             u16 pid, jid;
             u16 i;
             u16 idx = sub_8057CAC(gpEkrTriangleUnits[1], gpEkrTriangleUnits[1]->pClassData->pBattleAnimDef, 0, &val1);
-            gBanimCharacterPals[1] = banim[idx].pal;
+            gBanimTriAtkPalettes[1] = banim[idx].pal;
 
             pid = gpEkrTriangleUnits[1]->pCharacterData->number - 1;
             jid = gpEkrTriangleUnits[1]->pClassData->number;
 
             for (i = 0; i < 7; i++) {
                 if (gAnimCharaPalConfig[pid][i] == jid) {
-                    gBanimCharacterPals[1] = cbapt[gAnimCharaPalIt[pid][i] - 1].pal;
+                    gBanimTriAtkPalettes[1] = cbapt[gAnimCharaPalIt[pid][i] - 1].pal;
                     break;
                 }
             }

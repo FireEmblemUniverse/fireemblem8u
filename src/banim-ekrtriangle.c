@@ -255,14 +255,14 @@ CONST_DATA struct ProcCmd ProcScr_ekrTriPegasusKnightBG[] = {
     PROC_END
 };
 
-const s16 FrameLut_EkrTriPegagusBG1[0x7] = {
+const s16 FrameLut_EkrTriPegagusBGLeft[0x7] = {
     0x03, 0x02,
     0x04, 0x02,
     0x05, 0x01,
     -1
 };
 
-const s16 FrameLut_EkrTriPegagusBG2[0x7] = {
+const s16 FrameLut_EkrTriPegagusBGRight[0x7] = {
     0x00, 0x02,
     0x01, 0x02,
     0x02, 0x01,
@@ -270,18 +270,18 @@ const s16 FrameLut_EkrTriPegagusBG2[0x7] = {
 };
 
 CONST_DATA const u16 * TsaLut_EkrTriPegagusBG[] = {
-    gUnknown_080E3554,
-    gUnknown_080E3668,
-    gUnknown_080E378C,
-    gUnknown_080E3864,
-    gUnknown_080E3980,
-    gUnknown_080E3AA4,
+    Tsa_EkrTriPegagusRightBG1,
+    Tsa_EkrTriPegagusRightBG2,
+    Tsa_EkrTriPegagusRightBG3,
+    Tsa_EkrTriPegagusLeftBG1,
+    Tsa_EkrTriPegagusLeftBG2,
+    Tsa_EkrTriPegagusLeftBG3,
 };
 
 void NewEkrTriPegasusKnightBG(struct Anim * anim, u32 pos, u32 etype, u32 ewtype)
 {
     char * pal;
-    const u16 * buf;
+    const u16 * img;
     struct ProcEkrTriPegasusKnightBG * proc;
     proc = Proc_Start(ProcScr_ekrTriPegasusKnightBG, PROC_TREE_3);
     proc->anim = anim;
@@ -290,13 +290,13 @@ void NewEkrTriPegasusKnightBG(struct Anim * anim, u32 pos, u32 etype, u32 ewtype
 
     if (pos == EKR_POS_L)
     {
-        pal = gBanimCharacterPals[EKR_POS_L];
-        proc->frame_config = FrameLut_EkrTriPegagusBG1;
+        pal = gBanimTriAtkPalettes[EKR_POS_L];
+        proc->frame_config = FrameLut_EkrTriPegagusBGLeft;
     }
     else
     {
-        pal = gBanimCharacterPals[EKR_POS_R];
-        proc->frame_config = FrameLut_EkrTriPegagusBG2;
+        pal = gBanimTriAtkPalettes[EKR_POS_R];
+        proc->frame_config = FrameLut_EkrTriPegagusBGRight;
     }
 
     proc->tsalut_left = TsaLut_EkrTriPegagusBG;
@@ -305,16 +305,16 @@ void NewEkrTriPegasusKnightBG(struct Anim * anim, u32 pos, u32 etype, u32 ewtype
     LZ77UnCompWram(pal, gEkrBuf1);
     SpellFx_RegisterBgPal((u16 *)gEkrBuf1, 0x20);
 
-    buf = gUnknown_080E17C0;
+    img = Img_TriPegasusKnightBG;
     if (etype != EKR_TRI_JTYPE_DEFAULT)
     {
-        buf = gUnknown_080E2B54;
+        img = Img_TriFalconKnightSwordBG;
 
         if (ewtype == EKR_TRI_WTYPE_DEFAULT)
-            buf = gUnknown_080E2164;
+            img = Img_TriFalconKnightLanceBG;
     }
 
-    SpellFx_RegisterBgGfx(buf, 0x2000);
+    SpellFx_RegisterBgGfx(img, 0x2000);
 }
 
 void EkrTriPegasusKnightBgMain(struct ProcEkrTriPegasusKnightBG * proc)
@@ -348,7 +348,7 @@ void NewEkrTriPegasusKnightOBJ(struct Anim * anim, u32 pos, u32 etype, u32 ewtyp
     struct ProcEfxOBJ * proc;
     char * pal;
     u32 * scr;
-    const u16 * buf;
+    const u16 * img;
 
     proc = Proc_Start(ProcScr_EkrTriPegasusKnightOBJ, PROC_TREE_3);
     proc->anim = anim;
@@ -357,30 +357,30 @@ void NewEkrTriPegasusKnightOBJ(struct Anim * anim, u32 pos, u32 etype, u32 ewtyp
     if (pos == EKR_POS_L)
     {
         proc->terminator = 0x12;
-        pal = gBanimCharacterPals[EKR_POS_L];
-        scr = BanimScr_08759B34;
+        pal = gBanimTriAtkPalettes[EKR_POS_L];
+        scr = AnimScr_TriAtkLeft;
     }
     else
     {
         proc->terminator = 0x11;
-        pal = gBanimCharacterPals[EKR_POS_R];
-        scr = BanimScr_08759E68;
+        pal = gBanimTriAtkPalettes[EKR_POS_R];
+        scr = AnimScr_TriAtkRight;
     }
 
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     LZ77UnCompWram(pal, gEkrBuf2);
     SpellFx_RegisterObjPal((u16 *)gEkrBuf2, 0x20);
 
-    buf = gUnknown_080E3B78;
+    img = Img_TriPegasusKnightOBJ;
     if (etype != EKR_TRI_JTYPE_DEFAULT)
     {
-        buf = gUnknown_080E4EFC;
+        img = Img_TriFalconKnightSwordOBJ;
 
         if (ewtype == EKR_TRI_WTYPE_DEFAULT)
-            buf = gUnknown_080E4530;
+            img = Img_TriFalconKnightLanceOBJ;
     }
 
-    SpellFx_RegisterObjGfx(buf, 0x1000);
+    SpellFx_RegisterObjGfx(img, 0x1000);
 }
 
 void EkrTriPegasusKnightObjMain(struct ProcEfxOBJ * proc)
@@ -464,37 +464,37 @@ void NewEkrTriArmorKnightOBJ(struct Anim *anim, u32 etype1, u32 etype2, u32 ewty
     struct Anim * anim2, * anim3;
     char * pal;
     u32 * scr;
-    const u16 * buf;
+    const u16 * img;
 
     proc = Proc_Start(ProcScr_EkrTriArmorKnightOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 0x14;
-    pal = gBanimCharacterPals[0];
+    pal = gBanimTriAtkPalettes[0];
 
     if (etype1 == EKR_TRI_JTYPE_DEFAULT)
     {
-        scr = gUnknown_08759F00;
-        buf = gUnknown_080E58A4;
+        scr = AnimScr_TriKnightOBJ;
+        img = Img_TriKnightOBJ;
     }
     else
     {
         switch (ewtype1)
         {
         case EKR_TRI_WTYPE_DEFAULT:
-            scr = gUnknown_08759F90;
-            buf = gUnknown_080E5BC4;
+            scr = AnimScr_TriGenerialLanceOBJ;
+            img = Img_TriGenerialLanceOBJ;
             break;
 
         case EKR_TRI_WTYPE_ALTERNATIVE:
-            scr = gUnknown_0875A020;
-            buf = gUnknown_080E5F98;
+            scr = AnimScr_TriGenerialAxeOBJ;
+            img = Img_TriGenerialAxeOBJ;
             break;
 
         case EKR_TRI_WTYPE_ALTERNATIVE2:
         default:
-            scr = gUnknown_0875A0AC;
-            buf = gUnknown_080E63CC;
+            scr = AnimScr_TriGenerialHandAxeOBJ;
+            img = Img_TriGenerialHandAxeOBJ;
             break;
         }
     }
@@ -505,32 +505,32 @@ void NewEkrTriArmorKnightOBJ(struct Anim *anim, u32 etype1, u32 etype2, u32 ewty
 
     LZ77UnCompWram(pal, gEkrBuf2);
     CpuFastCopy(gEkrBuf2, PAL_OBJ(0x8), 0x20);
-    LZ77UnCompWram(buf, gEkrBuf2);
+    LZ77UnCompWram(img, gEkrBuf2);
 
-    pal = gBanimCharacterPals[1];
+    pal = gBanimTriAtkPalettes[1];
     if (etype2 == EKR_TRI_JTYPE_DEFAULT)
     {
-        scr = gUnknown_08759F00;
-        buf = gUnknown_080E58A4;
+        scr = AnimScr_TriKnightOBJ;
+        img = Img_TriKnightOBJ;
     }
     else
     {
         switch (ewtype2)
         {
         case EKR_TRI_WTYPE_DEFAULT:
-            scr = gUnknown_08759F90;
-            buf = gUnknown_080E5BC4;
+            scr = AnimScr_TriGenerialLanceOBJ;
+            img = Img_TriGenerialLanceOBJ;
             break;
 
         case EKR_TRI_WTYPE_ALTERNATIVE:
-            scr = gUnknown_0875A020;
-            buf = gUnknown_080E5F98;
+            scr = AnimScr_TriGenerialAxeOBJ;
+            img = Img_TriGenerialAxeOBJ;
             break;
 
         case EKR_TRI_WTYPE_ALTERNATIVE2:
         default:
-            scr = gUnknown_0875A0AC;
-            buf = gUnknown_080E63CC;
+            scr = AnimScr_TriGenerialHandAxeOBJ;
+            img = Img_TriGenerialHandAxeOBJ;
             break;
         }
     }
@@ -541,7 +541,7 @@ void NewEkrTriArmorKnightOBJ(struct Anim *anim, u32 etype1, u32 etype2, u32 ewty
 
     LZ77UnCompWram(pal, &gEkrBuf2[0x800]);
     CpuFastCopy(&gEkrBuf2[0x800], PAL_OBJ(0xA), 0x20);
-    LZ77UnCompWram(buf, &gEkrBuf2[0x800]);
+    LZ77UnCompWram(img, &gEkrBuf2[0x800]);
 
 {
     u16 * dst = OBJ_VRAM0 + 0x800;
@@ -592,33 +592,33 @@ void NewEkrTriArmorKnightOBJ2(struct Anim * anim, u32 pos, u32 etype, u32 ewtype
     proc->unk2A = etype;
 
     if (pos == 0)
-        pal = gBanimCharacterPals[EKR_POS_L];
+        pal = gBanimTriAtkPalettes[EKR_POS_L];
     else
-        pal = gBanimCharacterPals[EKR_POS_R];
+        pal = gBanimTriAtkPalettes[EKR_POS_R];
 
     if (etype == EKR_TRI_JTYPE_DEFAULT)
     {
-        scr = BanimScr_0875A19C;
-        buf = gUnknown_080E678C;
+        scr = AnimScr_TriKnightAtkOBJ;
+        buf = Img_TriKnightAtkOBJ;
     }
     else
     {
         switch (ewtype)
         {
         case EKR_TRI_WTYPE_DEFAULT:
-            scr = BanimScr_0875A314;
-            buf = gUnknown_080E6CC4;
+            scr = AnimScr_TriGenerialLanceAtkOBJ;
+            buf = Img_TriGenerialLanceAtkOBJ;
             break;
 
         case EKR_TRI_WTYPE_ALTERNATIVE:
-            scr = BanimScr_0875A468;
-            buf = gUnknown_080E7400;
+            scr = AnimScr_TriGenerialAxeAtkOBJ;
+            buf = Img_TriGenerialAxeAtkOBJ;
             break;
 
         case EKR_TRI_WTYPE_ALTERNATIVE2:
         default:
-            scr = BanimScr_0875A730;
-            buf = gUnknown_080E7B8C;
+            scr = AnimScr_TriGenerialHandAxeAtkOBJ;
+            buf = Img_TriGenerialHandAxeAtkOBJ;
             break;
         }
     }
