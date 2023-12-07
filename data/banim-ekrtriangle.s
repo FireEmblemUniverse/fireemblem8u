@@ -1,8 +1,28 @@
 	.section .data
 
+    .include "animscr.inc"
+    .include "gba_sprites.inc"
+
     .global Sprit_08759684
 Sprit_08759684:
-	.incbin "baserom.gba", 0x759684, 0x75975C - 0x759684
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0xA20 / 0x20, +0x26, -0x37
+    ANIM_SPRITE ATTR0_TALL,   ATTR1_SIZE_8,  0xA60 / 0x20, +0x36, -0x37
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8,  0xA00 / 0x20, +0x28, -0x3F
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0xA80 / 0x20, +0x30, -0x47
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8,  0xE00 / 0x20, +0x1E, -0x2F
+    ANIM_SPRITE ATTR0_WIDE,   ATTR1_SIZE_16, 0xF60 / 0x20, +0x18, -0x27
+    ANIM_SPRITE ATTR0_WIDE,   ATTR1_SIZE_32, 0x800 / 0x20, +0x07, -0x17
+    ANIM_SPRITE ATTR0_TALL,   ATTR1_SIZE_8,  0x880 / 0x20, +0x27, -0x17
+    ANIM_SPRITE ATTR0_WIDE,   ATTR1_SIZE_32, 0x8A0 / 0x20, +0x00, -0x27
+    ANIM_SPRITE ATTR0_WIDE,   ATTR1_SIZE_32, 0x920 / 0x20, +0x08, -0x37
+    ANIM_SPRITE ATTR0_WIDE,   ATTR1_SIZE_8,  0x9A0 / 0x20, +0x20, -0x1F
+    ANIM_SPRITE ATTR0_WIDE,   ATTR1_SIZE_8,  0xDA0 / 0x20, +0x28, -0x3C
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8,  0x9E0 / 0x20, +0x00, -0x30
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0xAC0 / 0x20, +0x03, -0x4F
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0xB00 / 0x20, +0x03, -0x3F
+    ANIM_SPRITE ATTR0_TALL,   ATTR1_SIZE_8,  0xB40 / 0x20, +0x13, -0x3F
+    ANIM_SPRITE ATTR0_WIDE,   ATTR1_SIZE_8,  0xB60 / 0x20, +0x0B, -0x2F
+	ANIM_SPRITE_END
 
     .global Sprit_0875975C
 Sprit_0875975C:
@@ -24,15 +44,15 @@ Sprit_0875999C:
 Sprit_08759A5C:
     .incbin "baserom.gba", 0x759A5C, 0x759B34 - 0x759A5C
 
-	.global BanimScr_08759B34
-BanimScr_08759B34:  @ 0x08759B34
-    .4byte Sprit_08759684 + 1
-    .4byte Sprit_0875975C + 2
-    .4byte Sprit_0875981C + 1
-    .4byte Sprit_087598DC + 1
-    .4byte Sprit_0875999C + 3
-    .4byte 0x20000000 + Sprit_08759A5C + 2
-    .4byte 0x80000000
+	.global AnimScr_TriAtkLeft
+AnimScr_TriAtkLeft:  @ 0x08759B34
+    ANIMSCR_FORCE_SPRITE Sprit_08759684, 1
+    ANIMSCR_FORCE_SPRITE Sprit_0875975C, 2
+    ANIMSCR_FORCE_SPRITE Sprit_0875981C, 1
+    ANIMSCR_FORCE_SPRITE Sprit_087598DC, 1
+    ANIMSCR_FORCE_SPRITE Sprit_0875999C, 3
+    ANIMSCR_FORCE_SPRITE Sprit_08759A5C, 10
+    ANIMSCR_BLOCKED
 
 	.global Sprit_08759B50
 Sprit_08759B50:
@@ -50,32 +70,32 @@ Sprit_08759CD0:
 Sprit_08759D90:
 	.incbin "baserom.gba", 0x759D90, 0x759E68 - 0x759D90
 
-	.global BanimScr_08759E68
-BanimScr_08759E68:  @ 0x08759E68
-    .4byte Sprit_08759B50 + 2
-    .4byte Sprit_08759C10 + 1
-    .4byte Sprit_08759CD0 + 2
-    .4byte 0x30000000 + Sprit_08759D90
-    .4byte 0x80000000
+	.global AnimScr_TriAtkRight
+AnimScr_TriAtkRight:  @ 0x08759E68
+    ANIMSCR_FORCE_SPRITE Sprit_08759B50, 2
+    ANIMSCR_FORCE_SPRITE Sprit_08759C10, 1
+    ANIMSCR_FORCE_SPRITE Sprit_08759CD0, 2
+    ANIMSCR_FORCE_SPRITE Sprit_08759D90, 12
+    ANIMSCR_BLOCKED
 
 	.global gUnknown_08759E7C
 gUnknown_08759E7C:  @ 0x08759E7C
 	.incbin "baserom.gba", 0x759E7C, 0x84
 
-	.global gUnknown_08759F00
-gUnknown_08759F00:  @ 0x08759F00
+	.global AnimScr_TriKnightOBJ
+AnimScr_TriKnightOBJ:  @ 0x08759F00
 	.incbin "baserom.gba", 0x759F00, 0x90
 
-	.global gUnknown_08759F90
-gUnknown_08759F90:  @ 0x08759F90
+	.global AnimScr_TriGenerialLanceOBJ
+AnimScr_TriGenerialLanceOBJ:  @ 0x08759F90
 	.incbin "baserom.gba", 0x759F90, 0x90
 
-	.global gUnknown_0875A020
-gUnknown_0875A020:  @ 0x0875A020
+	.global AnimScr_TriGenerialAxeOBJ
+AnimScr_TriGenerialAxeOBJ:  @ 0x0875A020
 	.incbin "baserom.gba", 0x75A020, 0x8C
 
-	.global gUnknown_0875A0AC
-gUnknown_0875A0AC:  @ 0x0875A0AC
+	.global AnimScr_TriGenerialHandAxeOBJ
+AnimScr_TriGenerialHandAxeOBJ:  @ 0x0875A0AC
 	.incbin "baserom.gba", 0x75A0AC, 0x75A0B8 - 0x75A0AC
 
 Sprit_0875A0B8:
@@ -87,8 +107,8 @@ Sprit_0875A118:
 Sprit_0875A184:
     .incbin "baserom.gba", 0x75A184, 0x75A19C - 0x75A184
 
-	.global BanimScr_0875A19C
-BanimScr_0875A19C:  @ 0x0875A19C
+	.global AnimScr_TriKnightAtkOBJ
+AnimScr_TriKnightAtkOBJ:  @ 0x0875A19C
     .4byte Sprit_0875A0B8 + 1
     .4byte Sprit_0875A184 + 1
     .4byte Sprit_0875A0B8 + 1
@@ -190,8 +210,8 @@ Sprit_875A2FC:
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global BanimScr_0875A314
-BanimScr_0875A314:  @ 0x0875A314
+	.global AnimScr_TriGenerialLanceAtkOBJ
+AnimScr_TriGenerialLanceAtkOBJ:  @ 0x0875A314
     .4byte Sprit_875A200 + 1
     .4byte Sprit_875A2FC + 1
     .4byte Sprit_875A200 + 1
@@ -284,8 +304,8 @@ Sprit_875A450:
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global BanimScr_0875A468
-BanimScr_0875A468:  @ 0x0875A468
+	.global AnimScr_TriGenerialAxeAtkOBJ
+AnimScr_TriGenerialAxeAtkOBJ:  @ 0x0875A468
     .4byte Sprit_875A378 + 1
     .4byte Sprit_875A450 + 1
     .4byte Sprit_875A378 + 1
@@ -477,8 +497,8 @@ Sprit_875A6C4:
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global BanimScr_0875A730
-BanimScr_0875A730:  @ 0x0875A730
+	.global AnimScr_TriGenerialHandAxeAtkOBJ
+AnimScr_TriGenerialHandAxeAtkOBJ:  @ 0x0875A730
     .4byte Sprit_875A4CC + 1
     .4byte Sprit_875A598 + 1
     .4byte Sprit_875A4CC + 1

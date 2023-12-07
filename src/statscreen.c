@@ -35,48 +35,48 @@ struct Vec2 EWRAM_DATA sHbOrigin = {};
 
 struct SSTextDispInfo const sPage0TextInfo[] =
 {
-    { gStatScreen.text + STATSCREEN_TEXT_SKLLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 3),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Skl },
-    { gStatScreen.text + STATSCREEN_TEXT_SPDLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Spd },
-    { gStatScreen.text + STATSCREEN_TEXT_LCKLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Lck },
-    { gStatScreen.text + STATSCREEN_TEXT_DEFLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Def },
-    { gStatScreen.text + STATSCREEN_TEXT_RESLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 11), TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Res },
-    { gStatScreen.text + STATSCREEN_TEXT_MOVLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 1),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Mov },
-    { gStatScreen.text + STATSCREEN_TEXT_CONLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 3),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Con },
-    { gStatScreen.text + STATSCREEN_TEXT_AIDLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Aid },
-    { gStatScreen.text + STATSCREEN_TEXT_RESCUENAME, gBmFrameTmap0 + TILEMAP_INDEX(9, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Trv },
-    { gStatScreen.text + STATSCREEN_TEXT_AFFINLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Affin },
-    { gStatScreen.text + STATSCREEN_TEXT_STATUS,     gBmFrameTmap0 + TILEMAP_INDEX(9, 11), TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Cnd },
+    { gStatScreen.text + STATSCREEN_TEXT_SKLLABEL,   gUiTmScratchA + TILEMAP_INDEX(1, 3),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Skl },
+    { gStatScreen.text + STATSCREEN_TEXT_SPDLABEL,   gUiTmScratchA + TILEMAP_INDEX(1, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Spd },
+    { gStatScreen.text + STATSCREEN_TEXT_LCKLABEL,   gUiTmScratchA + TILEMAP_INDEX(1, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Lck },
+    { gStatScreen.text + STATSCREEN_TEXT_DEFLABEL,   gUiTmScratchA + TILEMAP_INDEX(1, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Def },
+    { gStatScreen.text + STATSCREEN_TEXT_RESLABEL,   gUiTmScratchA + TILEMAP_INDEX(1, 11), TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Res },
+    { gStatScreen.text + STATSCREEN_TEXT_MOVLABEL,   gUiTmScratchA + TILEMAP_INDEX(9, 1),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Mov },
+    { gStatScreen.text + STATSCREEN_TEXT_CONLABEL,   gUiTmScratchA + TILEMAP_INDEX(9, 3),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Con },
+    { gStatScreen.text + STATSCREEN_TEXT_AIDLABEL,   gUiTmScratchA + TILEMAP_INDEX(9, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Aid },
+    { gStatScreen.text + STATSCREEN_TEXT_RESCUENAME, gUiTmScratchA + TILEMAP_INDEX(9, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Trv },
+    { gStatScreen.text + STATSCREEN_TEXT_AFFINLABEL, gUiTmScratchA + TILEMAP_INDEX(9, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Affin },
+    { gStatScreen.text + STATSCREEN_TEXT_STATUS,     gUiTmScratchA + TILEMAP_INDEX(9, 11), TEXT_COLOR_SYSTEM_GOLD, 0, &gMid_Cnd },
 
     { }, // end
 };
 
 struct SSTextDispInfo const sPage1TextInfo[] =
 {
-    { gStatScreen.text + STATSCREEN_TEXT_BSATKLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 13), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Atk },
-    { gStatScreen.text + STATSCREEN_TEXT_BSHITLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 15), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Hit },
-    { gStatScreen.text + STATSCREEN_TEXT_BSRANGE,    gBmFrameTmap0 + TILEMAP_INDEX(9, 11), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Rng },
-    { gStatScreen.text + STATSCREEN_TEXT_BSCRTLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 13), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Crt },
-    { gStatScreen.text + STATSCREEN_TEXT_BSAVOLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 15), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Avo },
+    { gStatScreen.text + STATSCREEN_TEXT_BSATKLABEL, gUiTmScratchA + TILEMAP_INDEX(2, 13), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Atk },
+    { gStatScreen.text + STATSCREEN_TEXT_BSHITLABEL, gUiTmScratchA + TILEMAP_INDEX(2, 15), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Hit },
+    { gStatScreen.text + STATSCREEN_TEXT_BSRANGE,    gUiTmScratchA + TILEMAP_INDEX(9, 11), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Rng },
+    { gStatScreen.text + STATSCREEN_TEXT_BSCRTLABEL, gUiTmScratchA + TILEMAP_INDEX(9, 13), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Crt },
+    { gStatScreen.text + STATSCREEN_TEXT_BSAVOLABEL, gUiTmScratchA + TILEMAP_INDEX(9, 15), TEXT_COLOR_SYSTEM_GOLD, 6, &gMid_Avo },
 
     { }, // end
 };
 
 struct SSTextDispInfo const sPage2TextInfo_Physical[] =
 {
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Sword },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gBmFrameTmap0 + TILEMAP_INDEX(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Lance },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gBmFrameTmap0 + TILEMAP_INDEX(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Axe },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gBmFrameTmap0 + TILEMAP_INDEX(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Bow },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gUiTmScratchA + TILEMAP_INDEX(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Sword },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gUiTmScratchA + TILEMAP_INDEX(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Lance },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gUiTmScratchA + TILEMAP_INDEX(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Axe },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gUiTmScratchA + TILEMAP_INDEX(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Bow },
 
     { }, // end
 };
 
 struct SSTextDispInfo const sPage2TextInfo_Magical[] =
 {
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Anima },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gBmFrameTmap0 + TILEMAP_INDEX(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Light },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gBmFrameTmap0 + TILEMAP_INDEX(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Dark },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gBmFrameTmap0 + TILEMAP_INDEX(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Staff },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gUiTmScratchA + TILEMAP_INDEX(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Anima },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gUiTmScratchA + TILEMAP_INDEX(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Light },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gUiTmScratchA + TILEMAP_INDEX(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Dark },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gUiTmScratchA + TILEMAP_INDEX(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, &gMid_Staff },
 
     { }, // end
 };
@@ -502,18 +502,18 @@ void DisplayBwl(void)
 
     // Display labels
     PutText(&gStatScreen.text[STATSCREEN_TEXT_BWL],
-        gBmFrameTmap0 + TILEMAP_INDEX(3, 14));
+        gUiTmScratchA + TILEMAP_INDEX(3, 14));
 
     // Display Battle Amt
-    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(3 + CountDigits(stats->battleAmt), 14),
+    PutNumber(gUiTmScratchA + TILEMAP_INDEX(3 + CountDigits(stats->battleAmt), 14),
         TEXT_COLOR_SYSTEM_BLUE, stats->battleAmt);
 
     // Display Win Amt
-    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(7 + CountDigits(stats->winAmt), 14),
+    PutNumber(gUiTmScratchA + TILEMAP_INDEX(7 + CountDigits(stats->winAmt), 14),
         TEXT_COLOR_SYSTEM_BLUE, stats->winAmt);
 
     // Display Loss Amt
-    PutNumber(gBmFrameTmap0 + TILEMAP_INDEX(11 + CountDigits(stats->lossAmt), 14),
+    PutNumber(gUiTmScratchA + TILEMAP_INDEX(11 + CountDigits(stats->lossAmt), 14),
         TEXT_COLOR_SYSTEM_BLUE, stats->lossAmt);
 }
 
@@ -521,10 +521,10 @@ void DrawStatWithBar(int num, int x, int y, int base, int total, int max)
 {
     int diff = total - base;
 
-    PutNumberOrBlank(gBmFrameTmap0 + TILEMAP_INDEX(x, y),
+    PutNumberOrBlank(gUiTmScratchA + TILEMAP_INDEX(x, y),
         (base == max) ? TEXT_COLOR_SYSTEM_GREEN : TEXT_COLOR_SYSTEM_BLUE, base);
 
-    PutNumberBonus(diff, gBmFrameTmap0 + TILEMAP_INDEX(x + 1, y));
+    PutNumberBonus(diff, gUiTmScratchA + TILEMAP_INDEX(x + 1, y));
 
     if (total > 30)
     {
@@ -533,7 +533,7 @@ void DrawStatWithBar(int num, int x, int y, int base, int total, int max)
     }
 
     DrawStatBarGfx(0x401 + num*6, 6,
-        gBmFrameTmap1 + TILEMAP_INDEX(x - 2, y + 1),
+        gUiTmScratchC + TILEMAP_INDEX(x - 2, y + 1),
         TILEREF(0, STATSCREEN_BGPAL_6), max * 41 / 30, base * 41 / 30, diff * 41 / 30);
 }
 
@@ -547,7 +547,7 @@ void DisplayPage0(void)
         // mag
         PutDrawText(
             &gStatScreen.text[STATSCREEN_TEXT_POWLABEL],
-            gBmFrameTmap0 + TILEMAP_INDEX(1, 1),
+            gUiTmScratchA + TILEMAP_INDEX(1, 1),
             TEXT_COLOR_SYSTEM_GOLD, 0, 0,
             GetStringFromIndex(0x4FF)); // Mag
     }
@@ -556,7 +556,7 @@ void DisplayPage0(void)
         // str
         PutDrawText(
             &gStatScreen.text[STATSCREEN_TEXT_POWLABEL],
-            gBmFrameTmap0 + TILEMAP_INDEX(1, 1),
+            gUiTmScratchA + TILEMAP_INDEX(1, 1),
             TEXT_COLOR_SYSTEM_GOLD, 0, 0,
             GetStringFromIndex(0x4FE)); // Str
     }
@@ -618,11 +618,11 @@ void DisplayPage0(void)
         UNIT_CON_MAX(gStatScreen.unit));
 
     // displaying unit aid
-    PutNumberOrBlank(gBmFrameTmap0 + TILEMAP_INDEX(13, 5), TEXT_COLOR_SYSTEM_BLUE,
+    PutNumberOrBlank(gUiTmScratchA + TILEMAP_INDEX(13, 5), TEXT_COLOR_SYSTEM_BLUE,
         GetUnitAid(gStatScreen.unit));
 
     // displaying unit aid icon
-    DrawIcon(gBmFrameTmap0 + TILEMAP_INDEX(14, 5),
+    DrawIcon(gUiTmScratchA + TILEMAP_INDEX(14, 5),
         GetUnitAidIconId(UNIT_CATTRIBUTES(gStatScreen.unit)),
         TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
@@ -658,7 +658,7 @@ void DisplayPage0(void)
         if (gStatScreen.unit->statusIndex != UNIT_STATUS_NONE)
         {
             PutNumberSmall(
-                gBmFrameTmap0 + TILEMAP_INDEX(16, 11),
+                gUiTmScratchA + TILEMAP_INDEX(16, 11),
                 0, gStatScreen.unit->statusDuration);
         }
     }
@@ -689,7 +689,7 @@ void DisplayPage0(void)
     // display affininity icon
 
     DrawIcon(
-        gBmFrameTmap0 + TILEMAP_INDEX(12, 9),
+        gUiTmScratchA + TILEMAP_INDEX(12, 9),
         GetUnitAffinityIcon(gStatScreen.unit),
         TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
@@ -706,7 +706,7 @@ void DisplayPage1(void)
         gGenericBuffer);
 
     CallARM_FillTileRect(
-        gBmFrameTmap1 + TILEMAP_INDEX(1, 11),
+        gUiTmScratchC + TILEMAP_INDEX(1, 11),
         gGenericBuffer, TILEREF(0x40, STATSCREEN_BGPAL_3));
 
     DisplayTexts(sPage1TextInfo);
@@ -727,7 +727,7 @@ void DisplayPage1(void)
             DrawItemStatScreenLine(
                 &gStatScreen.text[STATSCREEN_TEXT_ITEM0 + i],
                 item, color,
-                gBmFrameTmap0 + TILEMAP_INDEX(1, 1 + i*2));
+                gUiTmScratchA + TILEMAP_INDEX(1, 1 + i*2));
         }
     }
 
@@ -739,11 +739,11 @@ void DisplayPage1(void)
         if ((gStatScreen.unit->pClassData->number != CLASS_GORGONEGG2) && (i >= 0))
         {
             PutSpecialChar(
-                gBmFrameTmap0 + TILEMAP_INDEX(16, 1 + i*2),
+                gUiTmScratchA + TILEMAP_INDEX(16, 1 + i*2),
                 TEXT_COLOR_SYSTEM_WHITE, TEXT_SPECIAL_35);
 
             CallARM_FillTileRect(
-                gBmFrameTmap1 + TILEMAP_INDEX(1, 2 + i*2),
+                gUiTmScratchC + TILEMAP_INDEX(1, 2 + i*2),
                 gUnknown_08A02250, TILEREF(0x40, STATSCREEN_BGPAL_3));
 
             item = gStatScreen.unit->items[i];
@@ -753,37 +753,37 @@ void DisplayPage1(void)
     if (!UNIT_IS_GORGON_EGG(gStatScreen.unit))
     {
         PutNumberOrBlank(
-            gBmFrameTmap0 + TILEMAP_INDEX(8,  13),
+            gUiTmScratchA + TILEMAP_INDEX(8,  13),
             TEXT_COLOR_SYSTEM_BLUE, gBattleActor.battleAttack);
 
         PutNumberOrBlank(
-            gBmFrameTmap0 + TILEMAP_INDEX(8,  15),
+            gUiTmScratchA + TILEMAP_INDEX(8,  15),
             TEXT_COLOR_SYSTEM_BLUE, gBattleActor.battleHitRate);
 
         PutNumberOrBlank(
-            gBmFrameTmap0 + TILEMAP_INDEX(15, 13),
+            gUiTmScratchA + TILEMAP_INDEX(15, 13),
             TEXT_COLOR_SYSTEM_BLUE, gBattleActor.battleCritRate);
 
         PutNumberOrBlank(
-            gBmFrameTmap0 + TILEMAP_INDEX(15, 15),
+            gUiTmScratchA + TILEMAP_INDEX(15, 15),
             TEXT_COLOR_SYSTEM_BLUE, gBattleActor.battleAvoidRate);
     }
     else
     {
         PutNumberOrBlank(
-            gBmFrameTmap0 + TILEMAP_INDEX(8,  13),
+            gUiTmScratchA + TILEMAP_INDEX(8,  13),
             TEXT_COLOR_SYSTEM_BLUE, 0xFF);
 
         PutNumberOrBlank(
-            gBmFrameTmap0 + TILEMAP_INDEX(8,  15),
+            gUiTmScratchA + TILEMAP_INDEX(8,  15),
             TEXT_COLOR_SYSTEM_BLUE, 0xFF);
 
         PutNumberOrBlank(
-            gBmFrameTmap0 + TILEMAP_INDEX(15, 13),
+            gUiTmScratchA + TILEMAP_INDEX(15, 13),
             TEXT_COLOR_SYSTEM_BLUE, 0xFF);
 
         PutNumberOrBlank(
-            gBmFrameTmap0 + TILEMAP_INDEX(15, 15),
+            gUiTmScratchA + TILEMAP_INDEX(15, 15),
             TEXT_COLOR_SYSTEM_BLUE, gBattleActor.battleAvoidRate);
 
         item = 0;
@@ -799,8 +799,8 @@ void DisplayPage1(void)
 
     for (i = 0; i < 8; ++i)
     {
-        gBmFrameTmap0[TILEMAP_INDEX(1 + i, 11)] = TILEREF(0x60 + i, STATSCREEN_BGPAL_7);
-        gBmFrameTmap0[TILEMAP_INDEX(1 + i, 12)] = TILEREF(0x68 + i, STATSCREEN_BGPAL_7);
+        gUiTmScratchA[TILEMAP_INDEX(1 + i, 11)] = TILEREF(0x60 + i, STATSCREEN_BGPAL_7);
+        gUiTmScratchA[TILEMAP_INDEX(1 + i, 12)] = TILEREF(0x68 + i, STATSCREEN_BGPAL_7);
     }
 }
 
@@ -826,12 +826,12 @@ void DisplaySupportList(void)
             u8 pid = GetUnitSupporterCharacter(gStatScreen.unit, supportId);
 
             DrawIcon(
-                gBmFrameTmap0 + TILEMAP_INDEX(4, yTile),
+                gUiTmScratchA + TILEMAP_INDEX(4, yTile),
                 GetCharacterAffinityIcon(pid),
                 TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
             PutDrawText(&gStatScreen.text[STATSCREEN_TEXT_SUPPORT0 + lineNum],
-                gBmFrameTmap0 + TILEMAP_INDEX(7, yTile),
+                gUiTmScratchA + TILEMAP_INDEX(7, yTile),
                 textColor, 0, 0,
                 GetStringFromIndex(GetCharacterData(pid)->nameTextId));
 
@@ -843,7 +843,7 @@ void DisplaySupportList(void)
             if (textColor == TEXT_COLOR_SYSTEM_GREEN)
                 rankColor = TEXT_COLOR_SYSTEM_GREEN;
 
-            PutSpecialChar(gBmFrameTmap0 + TILEMAP_INDEX(13, yTile),
+            PutSpecialChar(gUiTmScratchA + TILEMAP_INDEX(13, yTile),
                 rankColor, GetSupportLevelUiChar(level));
 
             yTile += 2;
@@ -861,7 +861,7 @@ void DisplayWeaponExp(int num, int x, int y, int wtype)
     int wexp = gStatScreen.unit->ranks[wtype];
 
     // Display weapon type icon
-    DrawIcon(gBmFrameTmap0 + TILEMAP_INDEX(x, y),
+    DrawIcon(gUiTmScratchA + TILEMAP_INDEX(x, y),
         0x70 + wtype, // TODO: icon id definitions
         TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
@@ -870,14 +870,14 @@ void DisplayWeaponExp(int num, int x, int y, int wtype)
         : TEXT_COLOR_SYSTEM_BLUE;
 
     // Display rank letter
-    PutSpecialChar(gBmFrameTmap0 + TILEMAP_INDEX(x + 4, y),
+    PutSpecialChar(gUiTmScratchA + TILEMAP_INDEX(x + 4, y),
         color,
         GetDisplayRankStringFromExp(wexp));
 
     GetWeaponExpProgressState(wexp, &progress, &progressMax);
 
     DrawStatBarGfx(0x401 + num*6, 5,
-        gBmFrameTmap1 + TILEMAP_INDEX(x + 2, y + 1), TILEREF(0, STATSCREEN_BGPAL_6),
+        gUiTmScratchC + TILEMAP_INDEX(x + 2, y + 1), TILEREF(0, STATSCREEN_BGPAL_6),
         0x22, (progress*34)/(progressMax-1), 0);
 }
 
@@ -919,8 +919,8 @@ void DisplayPage(int pageid)
         DisplayPage0,
     };
 
-    CpuFastFill(0, gBmFrameTmap0, sizeof(gBmFrameTmap0));
-    CpuFastFill(0, gBmFrameTmap1, sizeof(gBmFrameTmap1));
+    CpuFastFill(0, gUiTmScratchA, sizeof(gUiTmScratchA));
+    CpuFastFill(0, gUiTmScratchC, sizeof(gUiTmScratchC));
 
     funcLut[pageid]();
 }
@@ -1009,12 +1009,12 @@ void PageSlide_OnLoop(struct StatScreenEffectProc* proc)
     }
 
     TileMap_CopyRect(
-        gBmFrameTmap0 + srcOff,
+        gUiTmScratchA + srcOff,
         gBG0TilemapBuffer + dstOff + TILEMAP_INDEX(12, 2),
         len, 18);
 
     TileMap_CopyRect(
-        gBmFrameTmap1 + srcOff,
+        gUiTmScratchC + srcOff,
         gBG2TilemapBuffer + dstOff + TILEMAP_INDEX(12, 2),
         len, 18);
 
@@ -1630,8 +1630,8 @@ void StatScreen_Display(struct Proc* proc)
 
     DisplayPage(gStatScreen.page);
 
-    TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
-    TileMap_CopyRect(gBmFrameTmap1, gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
+    TileMap_CopyRect(gUiTmScratchA, gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
+    TileMap_CopyRect(gUiTmScratchC, gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 }
@@ -2449,8 +2449,6 @@ const struct HelpBoxInfo* GetLastHelpBoxInfo(void)
 // = HELP BOX INFO =
 // =================
 
-#define DECL_INFO struct HelpBoxInfo CONST_DATA
-
 // TODO (maybe, eventually): maybe generate this from file(s)?
 
 // Stat Screen Page 0 (Core stats & status) (Ss0)
@@ -2758,13 +2756,12 @@ static DECL_INFO sHelpInfo_08A00FB4 =
 
 // BKSEL (Select Battle Target Window) HELP INFOS
 
-void sub_8037494(struct HelpBoxProc* proc);
-void sub_80374C4(struct HelpBoxProc* proc);
+void HbPopulate_BkselWTriEffA(struct HelpBoxProc* proc);
+void HbPopulate_BkselWTriEffB(struct HelpBoxProc* proc);
 
 // Simple/Modern mode (Mbp)
 
 static DECL_INFO sHelpInfo_08A00FD0;
-extern DECL_INFO gHelpInfo_MbpHp;
 static DECL_INFO sHelpInfo_08A01008;
 static DECL_INFO sHelpInfo_08A01024;
 static DECL_INFO sHelpInfo_08A01040;
@@ -2773,7 +2770,7 @@ static DECL_INFO sHelpInfo_08A0105C;
 static DECL_INFO sHelpInfo_08A00FD0 =
 {
     NULL, &gHelpInfo_MbpHp, NULL, NULL,
-    8, 8, 0, NULL, sub_8037494,
+    8, 8, 0, NULL, HbPopulate_BkselWTriEffA,
 };
 
 DECL_INFO gHelpInfo_MbpHp =
@@ -2803,13 +2800,12 @@ static DECL_INFO sHelpInfo_08A01040 =
 static DECL_INFO sHelpInfo_08A0105C =
 {
     &sHelpInfo_08A01040, NULL, NULL, NULL,
-    56, 88, 0, NULL, sub_80374C4,
+    56, 88, 0, NULL, HbPopulate_BkselWTriEffB,
 };
 
 // Detailed/Classic mode (Cbp)
 
 static DECL_INFO sHelpInfo_08A01078;
-extern DECL_INFO gHelpInfo_CbpHp;
 static DECL_INFO sHelpInfo_08A010B0;
 static DECL_INFO sHelpInfo_08A010CC;
 static DECL_INFO sHelpInfo_08A010E8;
@@ -2820,7 +2816,7 @@ static DECL_INFO sHelpInfo_08A0113C;
 static DECL_INFO sHelpInfo_08A01078 =
 {
     NULL, &gHelpInfo_CbpHp, NULL, NULL,
-    8, 8, 0, NULL, sub_8037494,
+    8, 8, 0, NULL, HbPopulate_BkselWTriEffA,
 };
 
 DECL_INFO gHelpInfo_CbpHp =
@@ -2862,7 +2858,7 @@ static DECL_INFO sHelpInfo_08A01120 =
 static DECL_INFO sHelpInfo_08A0113C =
 {
     &sHelpInfo_08A01120, NULL, NULL, NULL,
-    56, 120, 0, NULL, sub_80374C4,
+    56, 120, 0, NULL, HbPopulate_BkselWTriEffB,
 };
 
 #undef DECL_INFO

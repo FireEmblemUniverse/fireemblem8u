@@ -495,7 +495,7 @@ struct SelectInfo CONST_DATA gSelectInfo_Attack =
     .onSwitchIn = AttackMapSelect_SwitchIn,
     .onSelect = AttackMapSelect_Select,
     .onCancel = AttackMapSelect_Cancel,
-    .onHelp = MISMATCHED_SIGNATURE(StartBattleForecastHelpBox),
+    .onHelp = StartBattleForecastHelpBox,
 };
 
 struct SelectInfo CONST_DATA gSelectInfo_Give =

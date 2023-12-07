@@ -86,10 +86,10 @@ void ProcEventWrapAnim_Init(struct ProcBmFx *proc)
 
     Decompress(Img_EventWarp, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_EventWarp, BGPAL_EVENTWARP_IMG);
-    Decompress(Tsa_EventWarp, gBmFrameTmap0);
+    Decompress(Tsa_EventWarp, gUiTmScratchA);
 
     for (i = 0; i < 0x360; i++)
-        gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_EVENTWARP_IMG);
+        gUiTmScratchA[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_EVENTWARP_IMG);
 
     BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -130,7 +130,7 @@ void ProcEventWrapAnim_Loop(struct ProcBmFx *proc)
         RefreshUnitSprites();
     
     TileMap_CopyRect(
-        TILEMAP_LOCATED(gBmFrameTmap0, x, y),
+        TILEMAP_LOCATED(gUiTmScratchA, x, y),
         gBG0TilemapBuffer, 4, 7);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }

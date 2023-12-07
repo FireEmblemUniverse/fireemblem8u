@@ -46,14 +46,13 @@ struct ChapterStatusProc {
     /* 64 */ u16 unk_64;
 };
 
-extern struct Text gChapterStatusText[2];
-
 struct Struct2004BBC {
     struct Text th;
     struct Font font;
 };
 
-extern struct Struct2004BBC gUnknown_02004BBC;
+EWRAM_DATA struct Text gChapterStatusText[2] = {0};
+EWRAM_DATA struct Struct2004BBC gUnknown_02004BBC = {0};
 
 u16 sSprite_08A01AA4[] = {
     1,

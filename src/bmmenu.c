@@ -989,8 +989,8 @@ int Menu_SwitchOut_DoNothing(struct MenuProc* menu, struct MenuItemProc* menuIte
 void sub_80234AC(int x, int y) {
     InitTextFont(&gUnknown_02002774, (void*)VRAM + 0x4000, 0x200, 0);
 
-    TileMap_CopyRect(gBG0TilemapBuffer + 0x2B, gBmFrameTmap0, 9, 19);
-    TileMap_CopyRect(gBG1TilemapBuffer + 0x2B, gUnknown_0200422C, 9, 19);
+    TileMap_CopyRect(gBG0TilemapBuffer + 0x2B, gUiTmScratchA, 9, 19);
+    TileMap_CopyRect(gBG1TilemapBuffer + 0x2B, gUiTmScratchB, 9, 19);
 
     return;
 }
@@ -1004,8 +1004,8 @@ void ItemSubMenuEnd(struct MenuProc* menu) {
 u8 MenuCommand_SelectNo(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     SetTextFont(NULL);
 
-    TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + 0x2B, 9, 19);
-    TileMap_CopyRect(gUnknown_0200422C, gBG1TilemapBuffer + 0x2B, 9, 19);
+    TileMap_CopyRect(gUiTmScratchA, gBG0TilemapBuffer + 0x2B, 9, 19);
+    TileMap_CopyRect(gUiTmScratchB, gBG1TilemapBuffer + 0x2B, 9, 19);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -1054,8 +1054,8 @@ u8 sub_80235A8(struct MenuProc* menu) {
         return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
     }
 
-    TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + 0x2B, 9, 0x13);
-    TileMap_CopyRect(gUnknown_0200422C, gBG1TilemapBuffer + 0x2B, 9, 0x13);
+    TileMap_CopyRect(gUiTmScratchA, gBG0TilemapBuffer + 0x2B, 9, 0x13);
+    TileMap_CopyRect(gUiTmScratchB, gBG1TilemapBuffer + 0x2B, 9, 0x13);
 
     TileMap_FillRect(gBG0TilemapBuffer + 0x2B - 0xA, 0xE, 0xC, 0);
     TileMap_FillRect(gBG1TilemapBuffer + 0x2B - 0xA, 0xD, 0xC, 0);

@@ -433,7 +433,7 @@ extern s16 gEfxPairHpBufOffset[];
 extern s16 gEkrPairBanimID2[];
 extern u8 gEkrPids[2];
 extern struct Unit *gpEkrTriangleUnits[2];
-extern char *gBanimCharacterPals[2];
+extern char *gBanimTriAtkPalettes[2];
 extern void * gUnknown_0203E1A4[2];
 extern s16 gEkrGaugeHp[2];
 extern s16 gEkrPairMaxHP[2];
