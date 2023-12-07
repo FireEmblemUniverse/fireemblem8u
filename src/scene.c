@@ -57,7 +57,7 @@ s8 TalkHasCorrectBubble(void);
 void TalkBgSync(int);
 int GetTalkPauseCmdDuration(int);
 void ClearTalkText(void);
-void sub_800815C(void);
+void TalkFlushAllLine(void);
 void ClearTalkBubble(void);
 int SetActiveTalkFace(int);
 
@@ -804,16 +804,13 @@ int TalkInterpret(ProcPtr proc) {
 
     while (1) {
         switch (*sTalkState->str) {
-            case 0x12:
-            case 0x13:
-            case 0x14:
+            case CHFE_L_NormalPrint:
+            case CHFE_L_FastPrint:
+            case CHFE_L_CloseSpeechFast:
                 sTalkState->str++;
-
                 sTalkState->activeWidth = 2 + Div(GetStrTalkLen(sTalkState->str, TalkHasCorrectBubble()) + 7, 8);
-
                 continue;
         }
-
         break;
     }
 
@@ -836,7 +833,7 @@ int TalkInterpret(ProcPtr proc) {
 
             return 1;
 
-        case 0x00: // [X]
+        case CHFE_L_X: // [X]
             // _08007298
             if (sTalkState->strBackup == 0) {
                 return 0;
@@ -848,7 +845,7 @@ int TalkInterpret(ProcPtr proc) {
 
             return TalkInterpret(proc);
 
-        case 0x01: // [NL]
+        case CHFE_L_NL: // [NL]
             // _080072AE
             if (sTalkState->putLines == 1 || sTalkState->lineActive == 1) {
                 sTalkState->lineActive++;
@@ -858,10 +855,10 @@ int TalkInterpret(ProcPtr proc) {
             sTalkState->str++;
             return 2;
 
-        case 0x02: // [2NL]
+        case CHFE_L_2NL: // [2NL]
             // _080072CC
             if (CheckTalkFlag(TALK_FLAG_7)) {
-                sub_800815C();
+                TalkFlushAllLine();
                 sTalkState->str++;
             } else if (!CheckTalkFlag(TALK_FLAG_INSTANTSHIFT)) {
                 Proc_StartBlocking(gProcScr_TalkShiftClearAll, proc);
@@ -872,7 +869,7 @@ int TalkInterpret(ProcPtr proc) {
             sTalkState->str++;
             return 3;
 
-        case 0x03: // [A]
+        case CHFE_L_A: // [A]
             // _08007314
             StartTalkWaitForInput(
                 proc,
@@ -884,10 +881,10 @@ int TalkInterpret(ProcPtr proc) {
 
             return 3;
 
-        case 0x04: // [....]
-        case 0x05: // [.....]
-        case 0x06: // [......]
-        case 0x07: // [.......]
+        case CHFE_L_Pause8: // [....]
+        case CHFE_L_Pause16: // [.....]
+        case CHFE_L_Pause32: // [......]
+        case CHFE_L_Pause64: // [.......]
             // _08007350
             if (sTalkState->instantScroll) {
                 sTalkState->str++;
@@ -900,56 +897,58 @@ int TalkInterpret(ProcPtr proc) {
             sTalkState->str++;
             return 3;
 
-        case 0x15: // [CloseSpeechSlow]
+        case CHFE_L_CloseSpeechSlow: // [CloseSpeechSlow]
             // _08007384
             ClearTalkBubble();
             sTalkState->str++;
             return 3;
 
-        case 0x16: // [ToggleMouthMove]
+        case CHFE_L_ToggleMouthMove: // [ToggleMouthMove]
             // _08007394
             sTalkState->unk16 = 1 - sTalkState->unk16;
             sTalkState->str++;
             return 3;
 
-        case 0x17: // [ToggleSmile]
+        case CHFE_L_ToggleSmile: // [ToggleSmile]
             // _080073A0
             sTalkState->unk17 = 1 - sTalkState->unk17;
             sTalkState->str++;
             return 3;
 
-        case 0x10: // [LoadFace]
-            // _080073AC
+        case CHFE_L_LoadFace: // [LoadFace]
+            /**
+             * Load face format:
+             * BYTE position: \x8 ~ \xF
+             * BYTE CHFE_L_LoadFace
+             * SHORT face_id (0xFFFF is active unit)
+             */
             while (1) {
                 switch (*sTalkState->str) {
-                    case 0x08:
-                    case 0x09:
-                    case 0x0A:
-                    case 0x0B:
-                    case 0x0C:
-                    case 0x0D:
-                    case 0x0E:
-                    case 0x0F:
+                    case CHFE_L_OpenFarLeft:
+                    case CHFE_L_OpenMidLeft:
+                    case CHFE_L_OpenLeft:
+                    case CHFE_L_OpenRight:
+                    case CHFE_L_OpenMidRight:
+                    case CHFE_L_OpenFarRight:
+                    case CHFE_L_OpenFarFarLeft:
+                    case CHFE_L_OpenFarFarRight:
                         SetActiveTalkFace(*sTalkState->str - 8);
                         sTalkState->str++;
                         continue;
 
-                    case 0x10:
+                    case CHFE_L_LoadFace:
                         sTalkState->str++;
-
-                        sub_8007854(proc);
-
+                        TalkLoadFace(proc);
                         sTalkState->str++;
                         sTalkState->str++;
                         continue;
                 }
-
                 break;
             }
 
             return 3;
 
-        case 0x11: // [ClearFace]
+        case CHFE_L_ClearFace: // [ClearFace]
             // _080073EC
             if (TalkHasCorrectBubble()) {
                 ClearTalkBubble();
@@ -957,33 +956,30 @@ int TalkInterpret(ProcPtr proc) {
 
             StartFaceFadeOut(sTalkState->faces[sTalkState->activeFaceSlot]);
             sTalkState->faces[sTalkState->activeFaceSlot] = 0;
-
             sTalkState->str++;
-
             NewBlockingTimer(proc, 16);
-
             return 3;
 
-        case 0x1C: // [SendToBack]
+        case CHFE_L_SendToBack: // [SendToBack]
             // _08007430
             SetTalkFlag(TALK_FLAG_4);
             sTalkState->str++;
             return 3;
 
-        case 0x1D: // [FastPrint]
+        case CHFE_L_FastPrint2: // [FastPrint]
             // _08007440
             ClearTalkFlag(TALK_FLAG_4);
             sTalkState->str++;
             return 3;
 
-        case 0x08: // [OpenFarLeft]
-        case 0x09: // [OpenMidLeft]
-        case 0x0A: // [OpenLeft]
-        case 0x0B: // [OpenRight]
-        case 0x0C: // [OpenMidRight]
-        case 0x0D: // [OpenFarRight]
-        case 0x0E: // [OpenFarFarLeft]
-        case 0x0F: // [OpenFarFarRight]
+        case CHFE_L_OpenFarLeft: // [OpenFarLeft]
+        case CHFE_L_OpenMidLeft: // [OpenMidLeft]
+        case CHFE_L_OpenLeft: // [OpenLeft]
+        case CHFE_L_OpenRight: // [OpenRight]
+        case CHFE_L_OpenMidRight: // [OpenMidRight]
+        case CHFE_L_OpenFarRight: // [OpenFarRight]
+        case CHFE_L_OpenFarFarLeft: // [OpenFarFarLeft]
+        case CHFE_L_OpenFarFarRight: // [OpenFarFarRight]
             // _08007450
             SetTalkFaceNoMouthMove(sTalkState->activeFaceSlot);
 
@@ -996,7 +992,7 @@ int TalkInterpret(ProcPtr proc) {
 
             return 3;
 
-        case 0x18: // [Yes]
+        case CHFE_L_Yes: // [Yes]
             // _08007462
             StartTalkChoice(
                 gYesNoTalkChoice,
@@ -1010,7 +1006,7 @@ int TalkInterpret(ProcPtr proc) {
             sTalkState->str++;
             return 3;
 
-        case 0x19: // [No]
+        case CHFE_L_No: // [No]
             // _080074AC
             StartTalkChoice(
                 gYesNoTalkChoice,
@@ -1024,7 +1020,7 @@ int TalkInterpret(ProcPtr proc) {
             sTalkState->str++;
             return 3;
 
-        case 0x1A: // [Buy/Sell]
+        case CHFE_L_BuySell: // [Buy/Sell]
             // _080074F8
             StartTalkChoice(
                 gBuySellTalkChoice,
@@ -1042,7 +1038,7 @@ int TalkInterpret(ProcPtr proc) {
 
             return 3;
 
-        case 0x1B: // [ShopContinue]
+        case CHFE_L_ShopContinue: // [ShopContinue]
             // _08007544
             StartTalkChoice(
                 gBuySellTalkChoice,
@@ -1228,13 +1224,13 @@ int SetActiveTalkFace(int slot) {
 }
 
 //! FE8U = 0x08007844
-void sub_8007844(void) {
+void SetupFaceGfxDataInBanim(void) {
     SetupFaceGfxData(gUnknown_08591390);
     return;
 }
 
 //! FE8U = 0x08007854
-void sub_8007854(ProcPtr proc) {
+void TalkLoadFace(ProcPtr proc) {
     int faceDisp = 0;
     int faceId;
 
@@ -1243,7 +1239,7 @@ void sub_8007854(ProcPtr proc) {
     }
 
     if ((s8)IsBattleDeamonActive()) {
-        sub_8007844();
+        SetupFaceGfxDataInBanim();
     } else {
         faceDisp |= 2;
     }
@@ -1716,7 +1712,7 @@ void sub_8008108(void) {
 }
 
 //! FE8U = 0x0800815C
-void sub_800815C(void) {
+void TalkFlushAllLine(void) {
     int i;
 
     sTalkState->lineActive = 0;

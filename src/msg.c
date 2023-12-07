@@ -5,6 +5,7 @@
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmlib.h"
+#include "scene.h"
 
 EWRAM_DATA struct MsgBuffer sMsgString = {0};
 EWRAM_DATA int sActiveMsg = 0;
@@ -54,34 +55,35 @@ void InsertPrefix(char * str, const char * prefix, bool capital)
         str[i] = _prefix[i];
 }
 
-void SomethingRelatedToText(s8 *a)
+void SetMsgTerminator(signed char * str)
 {
-    s16 r3 = 0;
-    u8 r1;
+    short off = 0;
+    u8 ch;
 
-    while (a[r3] != 0)
+    while (str[off] != 0)
     {
-        r1 = a[r3];
-        if (r1 == '\x10')   /* [LoadFace] */
-            r3 += 2;
+        ch = str[off];
+        if (ch == CHFE_L_LoadFace)   /* [LoadFace] */
+            off += 2;
 
-        if (r1 == '\x80')   /* [HalfCloseEyes] */
-            r3 += 1;
-        r3++;
+        if (ch == '\x80')   /* [HalfCloseEyes] */
+            off += 1;
+        off++;
     }
 
-    r3--;
-    while (r3 >= 0)
+    off--;
+    while (off >= 0)
     {
-        r1 = a[r3];
-        if (r1 != '\x1F')   /* [.] */
+        ch = str[off];
+        if (ch != '\x1F')   /* [.] */
             return;
 
-        r1 = a[r3 - 1];
-        if (r1 != '\x80')   /* [HalfCloseEyes] */
-            a[r3] = '\0';
+        /* <!> [.] --> \x0 */
+        ch = str[off - 1];
+        if (ch != '\x80')   /* [HalfCloseEyes] */
+            str[off] = '\0';
 
-        r3--;
+        off--;
     }
 }
 
@@ -90,7 +92,7 @@ char * GetStringFromIndex(int index)
     if (index == sActiveMsg)
         return sMsgString.buffer1;
     CallARM_DecompText(gMsgStringTable[index], sMsgString.buffer1);
-    SomethingRelatedToText(sMsgString.buffer1);
+    SetMsgTerminator(sMsgString.buffer1);
     sActiveMsg = index;
     return sMsgString.buffer1;
 }
@@ -98,7 +100,7 @@ char * GetStringFromIndex(int index)
 char * GetStringFromIndexInBuffer(int index, char *buffer)
 {
     CallARM_DecompText(gMsgStringTable[index], buffer);
-    SomethingRelatedToText(buffer);
+    SetMsgTerminator(buffer);
     return buffer;
 }
 
