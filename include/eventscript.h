@@ -140,11 +140,31 @@ enum event_sub_cmd_idx {
     EVSUBCMD_19CHECK_EVENTID = 0x9,
     EVSUBCMD_CHECK_POSTGAME = 0xA,
 
+    /* EV_CMD_SETTEXTTYPE */
+    EVSUBCMD_TEXTSTART = 0,
+    EVSUBCMD_REMOVEPORTRAITS = 1,
+    EVSUBCMD_0x1A22 = 2,
+    EVSUBCMD_TUTORIALTEXTBOXSTART = 3,
+    EVSUBCMD_SOLOTEXTBOXSTART = 4,
+    EVSUBCMD_0x1A25 = 5,
+
+    /* EV_CMD_DISPLAYTEXT */
+    EVSUBCMD_TEXTSHOW = 0,
+    EVSUBCMD_TEXTSHOW2 = 1,
+    EVSUBCMD_REMA = 2,
+
     /* EV_CMD_LOADUNIT */
     EVSUBCMD_LOAD1 = 0x0,
     EVSUBCMD_LOAD2 = 0x1,
     EVSUBCMD_LOAD3 = 0x2,
     EVSUBCMD_LOAD4 = 0x3,
+
+    /* EV_CMD_MOVEUNIT */
+    EVSUBCMD_MOVE = 0,
+    EVSUBCMD_MOVEONTO = 1,
+    EVSUBCMD_MOVE_1STEP = 2,
+    EVSUBCMD_MOVEFORCED = 3,
+    EVSUBCMD_MOVE_TO_CLOSE_IF_TERRAIN = 8,
 
     /* EV_CMD_CHANGESTATE */
     EVSUBCMD_REMU = 0x0,
@@ -184,7 +204,8 @@ enum event_sub_cmd_idx {
 #define _EvtAutoCmdLen2(cmd) _EvtArg0(cmd, 2, 0, 0)
 #define _EvtAutoCmdLen4(cmd) _EvtArg0(cmd, 4, 0, 0)
 
-#define EvtEnd ((EventListScr)0)
+#define EvtReturn _EvtArg0(EV_CMD_END, 2, EVSUBCMD_ENDA, 0),
+#define EvtEndAll _EvtArg0(EV_CMD_END, 2, EVSUBCMD_ENDB, 0),
 #define EvtClearEvBits(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_EVBIT_F, (flag)),
 #define EvtSetEvBits(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_EVBIT_T, (flag)),
 #define EvtClearFlag(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_ENUF, (flag)),
@@ -201,8 +222,14 @@ enum event_sub_cmd_idx {
 #define EvtSetVolumeDown _EvtArg0(EV_CMD_BGMVOLUMECHANGE, 2, EVSUBCMD_MUSI, 0),
 #define EvtUnsetVolumeDown _EvtArg0(EV_CMD_BGMVOLUMECHANGE, 2, EVSUBCMD_MUNO, 0),
 #define EvtCheckTutorial _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_TUTORIAL, 0),
+#define EvtTextStart _EvtArg0(EV_CMD_SETTEXTTYPE, 2, EVSUBCMD_TEXTSTART, 0),
+#define EvtTextShow(msg) _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_TEXTSHOW, (msg)),
+#define EvtTextRemoveAll _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_REMA, 0),
+#define EvtTextEnd _EvtAutoCmdLen2(EV_CMD_ENDTEXT),
 #define EvtLoadUnit1(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD1, (restriction)), (EventListScr)(units),
-#define EvtWaitMoveUnit _EvtAutoCmdLen2(EV_CMD_ENUN),
+#define EvtMoveUnit(speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, EVSUBCMD_MOVE, (speed)), _EvtParams4(pid, 0, (x), (y)),
+#define EvtMoveUnitToValidTerrain(speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, EVSUBCMD_MOVE_TO_CLOSE_IF_TERRAIN, (speed)), _EvtParams4(pid, 0, (x), (y)),
+#define EvtWaitUnitMoving _EvtAutoCmdLen2(EV_CMD_ENUN),
 #define EvtSetHpFormSlot1(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_SET_HP, (pid)),
 #define EvtDisplayCursorAtUnit(pid) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_UNIT, (pid)),
 #define EvtEndCursor _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURE, 0),

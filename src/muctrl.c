@@ -170,7 +170,7 @@ void MU_AllForceSetMaxMoveSpeed_(void)
 }
 
 //! FE8U = 0x08079FA8
-void sub_8079FA8(struct Unit * unit, const struct REDA * redas, s16 count, u16 flags)
+void MoveUnitExt(struct Unit * unit, const struct REDA * redas, s16 count, u16 flags)
 {
     struct Vec2 pos;
 
@@ -207,7 +207,7 @@ void MoveUnit_(struct Unit * unit, s8 x, s8 y, u16 flags)
     reda.x = x;
     reda.y = y;
 
-    sub_8079FA8(unit, &reda, 1, flags);
+    MoveUnitExt(unit, &reda, 1, flags);
 
     return;
 }

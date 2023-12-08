@@ -224,9 +224,12 @@ extern struct ForceDeploymentEnt gForceDeploymentList[];
 extern u8 gPidList_SethLArachelMyrrhInnes[];
 
 extern CONST_DATA EventListScr EventScr_RunTutIfEasyMode[];
+extern CONST_DATA EventListScr Event_TextWithBG[];
 
 extern CONST_DATA EventListScr EventScr_Prologue_BeginingScene[];
 extern CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[];
+extern CONST_DATA EventListScr EventScr_Prologue_GiveRapier[];
+extern CONST_DATA EventListScr EventScr_Prologue_ONeillSpawn[];
 extern CONST_DATA EventListScr EventScr_Prologue_OneEmimyLeft[];
 extern CONST_DATA EventListScr EventScr_Prologue_ONeillAttack[];
 extern CONST_DATA EventListScr EventScr_Prologue_EndingScene[];
@@ -234,6 +237,7 @@ extern CONST_DATA EventListScr EventScr_Prologue_9EF1BC[];
 extern CONST_DATA EventListScr EventScr_Prologue_Turn1[];
 extern CONST_DATA EventListScr EventScr_Prologue_Turn2[];
 extern CONST_DATA EventListScr EventScr_Prologue_Turn3[];
+extern CONST_DATA EventListScr EventScr_Prologue_9EF27C[];
 extern CONST_DATA EventListScr EventScr_Prologue_Tutorial0[];
 extern CONST_DATA EventListScr EventScr_Prologue_Tutorial1[];
 extern CONST_DATA EventListScr EventScr_Prologue_Tutorial2[];

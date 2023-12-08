@@ -26,7 +26,7 @@
 . = 0x0004E8; gUnknown_030004E8 = .;
 . = 0x0004F0; gEventSlotQueue = .;
 . = 0x000568; gEventSlotCounter = .;
-. = 0x000570; gUnknown_03000570 = .;
+. = 0x000570; gEventActiveQueue = .;
 . = 0x0005B0; gGenericProc = .;
 . = 0x0005D0; src/popup.o(.bss);
 . = 0x0005FC; ItemBackupEvtBattle = .;

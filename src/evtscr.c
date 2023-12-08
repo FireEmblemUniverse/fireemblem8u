@@ -58,29 +58,28 @@ u8 Event01_End(struct EventEngineProc * proc)
         {
             for (i = 0; i < 8; i++)
             {
-                gUnknown_03000570[i].evt1 = NULL;
-                gUnknown_03000570[i].evt2 = NULL;
+                gEventActiveQueue[i].evt1 = NULL;
+                gEventActiveQueue[i].evt2 = NULL;
             }
         }
 
-        if (gUnknown_03000570[0].evt1 != NULL)
+        if (gEventActiveQueue[0].evt1 != NULL)
         {
-            proc->pEventIdk = gUnknown_03000570[0].evt1;
-            proc->pEventCurrent = gUnknown_03000570[0].evt2;
+            proc->pEventIdk = gEventActiveQueue[0].evt1;
+            proc->pEventCurrent = gEventActiveQueue[0].evt2;
 
             for (i = 0; i < 7; i++)
             {
-                gUnknown_03000570[i].evt1 = gUnknown_03000570[i + 1].evt1;
-                gUnknown_03000570[i].evt2 = gUnknown_03000570[i + 1].evt2;
+                gEventActiveQueue[i].evt1 = gEventActiveQueue[i + 1].evt1;
+                gEventActiveQueue[i].evt2 = gEventActiveQueue[i + 1].evt2;
             }
 
-            gUnknown_03000570[i].evt1 = NULL;
-            gUnknown_03000570[i].evt2 = NULL;
+            gEventActiveQueue[i].evt1 = NULL;
+            gEventActiveQueue[i].evt2 = NULL;
             return EVC_ADVANCE_CONTINUE;
         }
 
-        switch (proc->execType)
-        {
+        switch (proc->execType) {
             case EV_EXEC_WORLDMAP:
                 proc->execType = EV_EXEC_UNK4;
                 return EVC_END;
@@ -314,12 +313,12 @@ u8 Event0A_Call(struct EventEngineProc * proc)
 
     for (i = 7; i > 0; i--)
     {
-        gUnknown_03000570[i].evt1 = gUnknown_03000570[i - 1].evt1;
-        gUnknown_03000570[i].evt2 = gUnknown_03000570[i - 1].evt2;
+        gEventActiveQueue[i].evt1 = gEventActiveQueue[i - 1].evt1;
+        gEventActiveQueue[i].evt2 = gEventActiveQueue[i - 1].evt2;
     }
 
-    gUnknown_03000570[0].evt1 = proc->pEventIdk;
-    gUnknown_03000570[0].evt2 = proc->pEventCurrent;
+    gEventActiveQueue[0].evt1 = proc->pEventIdk;
+    gEventActiveQueue[0].evt2 = proc->pEventCurrent;
 
     proc->pEventIdk = (const u16 *)dst;
     proc->pEventCurrent = (const u16 *)dst;
@@ -896,7 +895,7 @@ u8 Event1A_TEXTSTART(struct EventEngineProc * proc)
 {
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
 
-    if (subcode != proc->activeTextType && subcode != 5)
+    if (subcode != proc->activeTextType && subcode != EVSUBCMD_0x1A25)
     {
         EndTalk();
         EndCgText();
@@ -910,20 +909,19 @@ u8 Event1A_TEXTSTART(struct EventEngineProc * proc)
 
     proc->activeTextType = subcode;
 
-    switch (subcode)
-    {
-        case 0:
-        case 3:
-        case 4:
-        case 5:
-            return EVC_ADVANCE_YIELD;
+    switch (subcode) {
+    case EVSUBCMD_TEXTSTART:
+    case EVSUBCMD_TUTORIALTEXTBOXSTART:
+    case EVSUBCMD_SOLOTEXTBOXSTART:
+    case EVSUBCMD_0x1A25:
+        return EVC_ADVANCE_YIELD;
 
-        case 1:
-        case 2:
-            return Event23_(proc);
+    case EVSUBCMD_REMOVEPORTRAITS:
+    case EVSUBCMD_0x1A22:
+        return Event23_DisaleMapDisp(proc);
 
-        default:
-            return EVC_ERROR;
+    default:
+        return EVC_ERROR;
 
     } // switch (subcode)
 }
@@ -1032,7 +1030,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
     switch (subcode)
     {
 
-        case 0:
+        case EVSUBCMD_TEXTSHOW:
             proc->evStateBits &= ~EV_STATE_0008;
 
             if ((proc->evStateBits >> 2) & 1)
@@ -1075,7 +1073,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
 
             break;
 
-        case 1:
+        case EVSUBCMD_TEXTSHOW2:
             if ((proc->evStateBits >> 2) & 1)
                 break;
 
@@ -1117,7 +1115,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
 
             break;
 
-        case 2: // REMA
+        case EVSUBCMD_REMA: // REMA
             proc->evStateBits &= ~EV_STATE_0008;
 
             EndTalk();
@@ -1785,7 +1783,7 @@ void sub_800EF48(struct ConvoBackgroundFadeProc * proc)
 
         case 1:
             SetDispEnable(FALSE, FALSE, FALSE, TRUE, FALSE);
-            Event23_(proc->pEventEngine);
+            Event23_DisaleMapDisp(proc->pEventEngine);
 
             break;
 
@@ -1927,7 +1925,7 @@ u8 Event22_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800F124
-u8 Event23_(struct EventEngineProc * proc)
+u8 Event23_DisaleMapDisp(struct EventEngineProc * proc)
 {
     if (!(proc->evStateBits & EV_STATE_GFXLOCKED))
     {
@@ -2286,7 +2284,7 @@ void EventLoadUnitWithMovement(struct EventEngineProc * proc)
     s16 count = proc->unitLoadCount;
     u8 param = proc->unitLoadParameter;
 
-    u16 something = GetSomeEventEngineMoveRelatedBitfield(proc, TRUE);
+    u16 something = ModifyMoveUnitFlag(proc, TRUE);
 
     s8 r3 = FALSE;
 
@@ -2435,7 +2433,7 @@ void sub_800F8A8(struct Unit * unit, const struct UnitDefinition * unitDefition,
     }
 
     if (unk == 1 || (unit->state & US_UNDER_A_ROOF))
-        sub_8079FA8(unit, unitDefition->redas, unitDefition->redaCount, flags);
+        MoveUnitExt(unit, unitDefition->redas, unitDefition->redaCount, flags);
     else
         MuCtr_StartDefinedMove(unit, unitDefition->redas, unitDefition->redaCount, flags);
 }
@@ -2946,7 +2944,7 @@ u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y)
 }
 
 //! FE8U = 0x0800FCD8
-u32 GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc * proc, s8 unk)
+u32 ModifyMoveUnitFlag(struct EventEngineProc * proc, s8 unk)
 {
     u16 result = 0;
 
@@ -3056,70 +3054,66 @@ u8 Event2F_MoveUnit(struct EventEngineProc * proc)
         }
     }
 
-    switch (subcmd)
-    {
-        case 0:
-            xOut = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-            yOut = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
+    switch (subcmd) {
+    case EVSUBCMD_MOVE:
+        xOut = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+        yOut = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
 
-            queue = NULL;
+        queue = NULL;
 
-            break;
+        break;
 
-        case 1:
-            targetPid = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-            if (targetPid < 0)
-            {
-                targetPid = 0;
-            }
+    case EVSUBCMD_MOVEONTO:
+        targetPid = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+        if (targetPid < 0)
+        {
+            targetPid = 0;
+        }
 
-            targetUnit = GetUnitStructFromEventParameter(targetPid);
-            if (!targetUnit)
-            {
-                return EVC_ERROR;
-            }
+        targetUnit = GetUnitStructFromEventParameter(targetPid);
+        if (!targetUnit)
+        {
+            return EVC_ERROR;
+        }
 
-            xOut = targetUnit->xPos;
-            yOut = targetUnit->yPos;
+        xOut = targetUnit->xPos;
+        yOut = targetUnit->yPos;
 
-            queue = NULL;
+        queue = NULL;
 
+        break;
+
+    case EVSUBCMD_MOVE_1STEP:
+        direction = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+        xOut = xIn;
+        yOut = yIn;
+
+        switch (direction) {
+        case 3:
+            yOut--;
             break;
 
         case 2:
-            direction = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-            xOut = xIn;
-            yOut = yIn;
-
-            switch (direction)
-            {
-                case 3:
-                    yOut--;
-                    break;
-
-                case 2:
-                    yOut++;
-                    break;
-
-                case 0:
-                    xOut--;
-                    break;
-
-                case 1:
-                    xOut++;
-                    break;
-            }
-
-            queue = NULL;
-
+            yOut++;
             break;
 
-        case 3:
-            queue = gEventSlotQueue;
+        case 0:
+            xOut--;
             break;
+
+        case 1:
+            xOut++;
+            break;
+        }
+        queue = NULL;
+        break;
+
+    case EVSUBCMD_MOVEFORCED:
+        queue = gEventSlotQueue;
+        break;
     }
 
-    flags = GetSomeEventEngineMoveRelatedBitfield(proc, subHi);
+    flags = ModifyMoveUnitFlag(proc, subHi);
 
     BmMapFill(gBmMapOther, 0);
 

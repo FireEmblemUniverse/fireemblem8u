@@ -24,4 +24,18 @@ LABEL(0x0)
     SET_HP(CHARACTER_SETH)
     FlashCursorCHAR(CHARACTER_EIRIKA, 60)
     MUSI
+    Text_BG(0x1D, 0x90D)
+    MUNO
+    MOVE(0x18, CHARACTER_SETH, 4, 4)
+    ENUN
+    FlashCursorCHAR(CHARACTER_SETH, 60)
+    Text(0x90E)
+    SVAL(EVT_SLOT_2, EventScr_Prologue_9EF27C)
+    CALL(EventScr_RunTutIfEasyMode)
+    _WARP(0x0, CHARACTER_EIRIKA, 4, 5)
+    ENUN
+    CALL(EventScr_Prologue_GiveRapier)
+    CALL(EventScr_Prologue_ONeillSpawn)
+    NoFade
+    ENDA
 };

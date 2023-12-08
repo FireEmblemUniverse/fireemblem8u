@@ -127,7 +127,7 @@ struct Struct03000570 {
     const u16 * evt2;
 };
 
-extern struct Struct03000570 gUnknown_03000570[];
+extern struct Struct03000570 gEventActiveQueue[];
 
 #define EVT_SUB_CMD(scr) (*((const u8 *)(scr)) & 0xF)
 #define EVT_SUB_CMD_LO(scr) (*((const u16 *)(scr)) & 0x7)
@@ -395,7 +395,7 @@ void sub_800E640(struct EventEngineProc*);
 // ??? sub_800EEE8(???);
 // ??? sub_800EF48(???);
 u8 Event22_(struct EventEngineProc *); // CLEAN
-u8 Event23_(struct EventEngineProc *); // Lock Game Graphics
+u8 Event23_DisaleMapDisp(struct EventEngineProc *); // Lock Game Graphics
 u8 Event24_(struct EventEngineProc *); // Resume Game Graphics
 u8 Event25_(struct EventEngineProc *);
 // ??? Event26_CameraControlMaybe(???);
@@ -413,7 +413,7 @@ void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
 // ??? Event2B_(???);
 // ??? Event2C_LoadUnits(???);
 u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y);
-unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc *, s8);
+unsigned ModifyMoveUnitFlag(struct EventEngineProc *, s8);
 // ??? Event2D_(???);
 // ??? Event2E_CheckAt(???);
 // ??? Event2F_MoveUnit(???);

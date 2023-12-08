@@ -61,7 +61,7 @@ gEventLoCmdTable:  @ 0x08591B28
     .4byte Event14_, Event15_BgmVolume, Event16_, Event17_
     .4byte Event18_, Event19_, Event1A_TEXTSTART, Event1B_TEXTSHOW
     .4byte Event1C_TEXTCONT, Event1D_TEXTEND, Event1E_, Event1F_
-    .4byte Event20_, Event21_, Event22_, Event23_
+    .4byte Event20_, Event21_, Event22_, Event23_DisaleMapDisp
     .4byte Event24_, Event25_, Event26_CameraControlMaybe, Event27_MapChange
     .4byte Event28_ChangeWeather, Event29_SetFogVision, Event2A_MoveToChapter, Event2B_
     .4byte Event2C_LoadUnits, Event2D_, Event2E_CheckAt, Event2F_MoveUnit

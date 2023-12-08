@@ -150,6 +150,9 @@ EventScr_RunTutIfEasyMode: @ 9EE0C0
     .4byte 0x00000000
     .4byte 0x00101720
     .4byte 0x00000120
+
+.global Event_TextWithBG
+Event_TextWithBG:
     .4byte 0x00000a40
     .4byte ProcScr_WorldFlush + 0x260
     .4byte 0x00320620

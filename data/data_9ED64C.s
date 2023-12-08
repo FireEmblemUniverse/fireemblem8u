@@ -1,10 +1,16 @@
     .section .data
 
-    .incbin "baserom.gba", 0x9EEC44, 0x9EECBC - 0x9EEC44
-
 	.global EventScr_Prologue_RenaisThroneCutscene
 EventScr_Prologue_RenaisThroneCutscene:
-    .incbin "baserom.gba", 0x9EECBC, 0x9EF0D8 - 0x9EECBC
+    .incbin "baserom.gba", 0x9EECBC, 0x9EF060 - 0x9EECBC
+
+	.global EventScr_Prologue_GiveRapier
+EventScr_Prologue_GiveRapier:
+    .incbin "baserom.gba", 0x9EF060, 0x9EF0A4 - 0x9EF060
+
+	.global EventScr_Prologue_ONeillSpawn
+EventScr_Prologue_ONeillSpawn:
+    .incbin "baserom.gba", 0x9EF0A4, 0x9EF0D8 - 0x9EF0A4
 
 	.global EventScr_Prologue_OneEmimyLeft
 EventScr_Prologue_OneEmimyLeft:
@@ -32,7 +38,11 @@ EventScr_Prologue_Turn2:
 
 	.global EventScr_Prologue_Turn3
 EventScr_Prologue_Turn3:
-    .incbin "baserom.gba", 0x9EF254, 0x9EF2B0 - 0x9EF254
+    .incbin "baserom.gba", 0x9EF254, 0x9EF27C - 0x9EF254
+
+	.global EventScr_Prologue_9EF27C
+EventScr_Prologue_9EF27C:
+    .incbin "baserom.gba", 0x9EF27C, 0x9EF2B0 - 0x9EF27C
 
 	.global EventScr_Prologue_Tutorial0
 EventScr_Prologue_Tutorial0:
