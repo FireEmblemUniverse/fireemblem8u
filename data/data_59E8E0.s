@@ -284,6 +284,6 @@ SpritAnim_MineFx:  @ 0x085A7E34
 Pal_MineFx:  @ 0x085A7EC8
 	.incbin "baserom.gba", 0x5A7EC8, 0x20
 
-	.global gUnknown_085A7EE8
-gUnknown_085A7EE8:  @ 0x085A7EE8
+	.global Pal_EventCursorShinning
+Pal_EventCursorShinning:  @ 0x085A7EE8
 	.incbin "baserom.gba", 0x5A7EE8, 0x20

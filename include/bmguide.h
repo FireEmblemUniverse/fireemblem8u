@@ -1,6 +1,10 @@
 #ifndef BMGUIDE_H
 #define BMGUIDE_H
 
+#include "global.h"
+#include "proc.h"
+#include "fontgrp.h"
+
 struct GuideEnt
 {
     /* 00 */ u8 title;
@@ -113,8 +117,8 @@ bool IsGuideLocked(void);
 // ??? GetGuideAction(???);
 // ??? Guide_MainLoop(???);
 // ??? Guide_OnEnd(???);
-// ??? sub_80CF460(???);
-bool sub_80CF480(void);
+void BmGuideTextSetAllGreen(void);
+bool BmGuideTextShowGreenOrNormal(void);
 
 extern struct GuideEnt gGuideTable[];
 

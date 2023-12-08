@@ -21,7 +21,7 @@
 #include "face.h"
 #include "bm.h"
 #include "unitinfowindow.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "bmmenu.h"
 #include "menu_def.h"
 #include "menuitempanel.h"

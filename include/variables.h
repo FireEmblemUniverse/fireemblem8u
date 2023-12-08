@@ -664,7 +664,7 @@ extern u16 CONST_DATA Img_MineFx[];
 extern u16 CONST_DATA SpritAnim_MineFx[];
 extern u16 CONST_DATA Pal_MineFx[];
 
-// extern ??? gUnknown_085A7EE8
+// extern ??? Pal_EventCursorShinning
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide

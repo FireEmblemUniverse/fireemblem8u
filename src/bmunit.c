@@ -1605,7 +1605,7 @@ void ClearCutsceneUnits(void) {
     }
 }
 
-void sub_8019108(void) {
+void RefreshAllies(void) {
     int i;
 
     for (i = 1; i < 0x40; ++i) {

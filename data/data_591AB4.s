@@ -58,7 +58,7 @@ gEventLoCmdTable:  @ 0x08591B28
     .4byte Event08_Label, Event09_Goto, Event0A_Call, Event0B_
     .4byte Event0C_Branch, Event0D_AsmCall, Event0E_STAL, Event0F_
     .4byte Event10_ModifyEvBit, Event11_SetIgnoredKeys, Event12_, Event13_
-    .4byte Event14_, Event15_, Event16_, Event17_
+    .4byte Event14_, Event15_BgmVolume, Event16_, Event17_
     .4byte Event18_, Event19_, Event1A_TEXTSTART, Event1B_TEXTSHOW
     .4byte Event1C_TEXTCONT, Event1D_TEXTEND, Event1E_, Event1F_
     .4byte Event20_, Event21_, Event22_, Event23_

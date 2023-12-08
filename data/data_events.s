@@ -2,78 +2,8 @@
 
     @ 0x089E8584
 
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x7ec
-    .4byte 0x00800001
-    .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x814
-    .4byte 0x00000002
-    .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x82c
-    .4byte 0x00000003
-    .4byte 0x00080002
-    .4byte gUnknown_089EEA28 + 0x704
-    .4byte 0x0080ff01
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00030001
-    .4byte gUnknown_089EEA28 + 0x73c
-    .4byte 0x00000002
-    .4byte 0x00070001
-    .4byte gUnknown_089EEA28 + 0x6b0
-    .4byte 0x00000000
-    .4byte 0x00000001
-    .4byte gEvent_GameOver
-    .4byte 0x00000065
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte gUnknown_089EEA28 + 0x888
-    .4byte gUnknown_089EEA28 + 0x900
-    .4byte gUnknown_089EEA28 + 0x960
-    .4byte gUnknown_089EEA28 + 0x970
-    .4byte gUnknown_089EEA28 + 0xa44
-    .4byte gUnknown_089EEA28 + 0xac4
-    .4byte gUnknown_089EEA28 + 0xae4
-    .4byte gUnknown_089EEA28 + 0xb14
-    .4byte gUnknown_089EEA28 + 0xb44
-    .4byte gUnknown_089EEA28 + 0xb80
-    .4byte gUnknown_089EEA28 + 0xcb8
-    .4byte gUnknown_089EEA28 + 0xd30
-    .4byte gUnknown_089EEA28 + 0xd90
-    .4byte gUnknown_089EEA28 + 0xda0
-    .4byte gUnknown_089EEA28 + 0xdd4
-    .4byte 0x00000000
-
-	.global PrologueEvents
-PrologueEvents:  @ 0x089E863C
-    .4byte gFlagBitMaskLut + 0x10
-    .4byte gFlagBitMaskLut + 0x44
-    .4byte gFlagBitMaskLut + 0x48
-    .4byte gFlagBitMaskLut + 0x4c
-    .4byte gFlagBitMaskLut + 0x74
-    .4byte gFlagBitMaskLut + 0x78
-    .4byte gFlagBitMaskLut + 0x7c
-    .4byte gFlagBitMaskLut + 0x80
-    .4byte gUnknown_089ED6AC + 0x2fc
-    .4byte gUnknown_089ED6AC + 0x7ed
-    .4byte gUnknown_088B3AD8 + 0x13c
-    .4byte gUnknown_088B3AD8 + 0x13c
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte gUnknown_089EEA28 + 0x1c0
-    .4byte gUnknown_089EEA28 + 0x73c
-
-	.global gUnknown_089E868C
-gUnknown_089E868C:  @ 0x089E868C
+	.global EventListScr_Ch1_Turn
+EventListScr_Ch1_Turn:  @ 0x089E868C
     .4byte 0x00000002
     .4byte gUnknown_089EEA28 + 0x1000
     .4byte 0x00000101
@@ -145,7 +75,7 @@ gUnknown_089E868C:  @ 0x089E868C
 
 	.global Ch1Events
 Ch1Events:  @ 0x089E879C
-    .4byte gFlagBitMaskLut + 0x110
+    .4byte EventListScr_Ch1_Turn
     .4byte gFlagBitMaskLut + 0x144
     .4byte gFlagBitMaskLut + 0x188
     .4byte gFlagBitMaskLut + 0x1b0

@@ -13,7 +13,7 @@
 #include "bmsave.h"
 #include "ending_details.h"
 #include "bmlib.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "worldmap.h"
 #include "savemenu.h"
 #include "gamecontrol.h"

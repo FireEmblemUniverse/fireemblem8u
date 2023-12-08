@@ -15,7 +15,7 @@
 #include "bmlib.h"
 #include "worldmap.h"
 #include "cgtext.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "event.h"
 
 // TODO: actual events
@@ -290,7 +290,7 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
 
     proc->pUnitLoadData  = NULL;
     proc->unitLoadCount  = 0;
-    proc->idk4E          = 0;
+    proc->chance          = 0;
 
     if (gLCDControlBuffer.blendY == 0x10)
         proc->evStateBits |= EV_STATE_FADEDIN;
@@ -329,7 +329,7 @@ void EventEngine_CreateBattle(const u16* events) {
 
     proc->pUnitLoadData  = NULL;
     proc->unitLoadCount  = 0;
-    proc->idk4E          = 0;
+    proc->chance          = 0;
 
     proc->evStateBits |= EV_STATE_ABORT;
 }

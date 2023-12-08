@@ -18,7 +18,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "event.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 enum
 {

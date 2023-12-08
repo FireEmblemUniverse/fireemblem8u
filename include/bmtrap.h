@@ -1,6 +1,7 @@
 #ifndef GUARD_BMTRAP_H
 #define GUARD_BMTRAP_H
 
+#include "global.h"
 
 struct TrapData {
     /* 00 */ u8 type;
@@ -25,5 +26,8 @@ s8 sub_8037830(ProcPtr, struct Unit*);
 // ??? LoadTrapData(???);
 void LoadChapterTraps(void);
 void AddGorgonEggTrap(s8 x, s8 y, u8 turnsToHatch, u8 level, u8 unk_05);
+
+extern struct TrapData TrapData_Event_Prologue[];
+extern struct TrapData TrapData_Event_PrologueHard[];
 
 #endif // GUARD_BMTRAP_H

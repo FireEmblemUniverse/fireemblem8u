@@ -143,6 +143,6 @@ gEvent_08592114:  @ 0x08592114
     .4byte 0x00010820
     .4byte 0x00000120
 
-	.global gUnknown_085921AC
-gUnknown_085921AC:  @ 0x085921AC
+	.global Obj_EventShinningCursor
+Obj_EventShinningCursor:  @ 0x085921AC
 	.incbin "baserom.gba", 0x5921AC, 0x1C

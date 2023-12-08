@@ -18,7 +18,7 @@
 #include "bmsave.h"
 #include "bmlib.h"
 #include "prepscreen.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "cgtext.h"
 #include "sysutil.h"
 #include "prepscreen.h"

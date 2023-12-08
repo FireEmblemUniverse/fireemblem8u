@@ -17,7 +17,7 @@
 #include "statscreen.h"
 #include "ap.h"
 #include "proc.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "bmdifficulty.h"
 #include "playerphase.h"
 #include "minimap.h"

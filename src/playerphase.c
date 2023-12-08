@@ -25,7 +25,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmsave.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 #include "playerphase.h"
 

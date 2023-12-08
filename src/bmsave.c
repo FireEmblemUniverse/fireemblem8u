@@ -15,7 +15,7 @@
 #include "bmunit.h"
 #include "bmsave.h"
 #include "sram-layout.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 /* variables */
 EWRAM_DATA u32 gBonusContentClaimFlags = 0;

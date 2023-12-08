@@ -1007,7 +1007,7 @@ int WMMenu_OnGuideDraw(struct MenuProc * menuProc, struct MenuItemProc * menuIte
 {
     if (!(menuProc->state & MENU_STATE_NOTSHOWN))
     {
-        if (!sub_80CF480())
+        if (!BmGuideTextShowGreenOrNormal())
         {
             Text_SetColor(&menuItemProc->text, TEXT_COLOR_SYSTEM_GREEN);
         }

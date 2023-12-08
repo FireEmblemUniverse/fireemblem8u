@@ -33,7 +33,7 @@
 #include "bmsave.h"
 #include "ekrbattle.h"
 #include "prepscreen.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "mapanim.h"
 
 #include "eventcall.h"

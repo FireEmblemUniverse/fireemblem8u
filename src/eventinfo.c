@@ -14,10 +14,12 @@
 #include "bmbattle.h"
 #include "worldmap.h"
 
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
+#include "eventscript.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
+#include "constants/event-flags.h"
 
 #define EVT_CMD_LO(cmd) (((cmd) & 0x0000FFFF))
 #define EVT_CMD_HI(cmd) (((cmd) & 0xFFFF0000) >> 16)
@@ -45,50 +47,45 @@ int EvCheck0F_(struct EventInfo* info);
 int EvCheck10_(struct EventInfo* info);
 
 struct EventListCmdInfo CONST_DATA gEventListCmdInfoTable[] = {
-    { EvCheck00_Always,        1, },
-    { EvCheck01_AFEV,          3, },
-    { EvCheck02_TURN,          3, },
-    { EvCheck03_CHAR,          4, },
-    { EvCheck04_CHARASM,       4, },
-    { EvCheck05_LOCA,          3, },
-    { EvCheck06_VILL,          3, },
-    { EvCheck07_CHES,          3, },
-    { EvCheck08_DOOR,          3, },
-    { EvCheck09_,              3, },
-    { EvCheck0A_SHOP,          3, },
-    { EvCheck0B_AREA,          3, },
-    { EvCheck0C_Never,         3, },
-    { EvCheck0D_Never,         3, },
-    { EvCheck0E_,              3, },
-    { EvCheck0F_,              4, },
-    { EvCheck10_,              4, },
+    [EVT_LIST_CMD_END] =        { EvCheck00_Always,        1, },
+    [EVT_LIST_CMD_FLAG] =       { EvCheck01_AFEV,          3, },
+    [EVT_LIST_CMD_TURN] =       { EvCheck02_TURN,          3, },
+    [EVT_LIST_CMD_CHAR] =       { EvCheck03_CHAR,          4, },
+    [EVT_LIST_CMD_CHARASM] =    { EvCheck04_CHARASM,       4, },
+    [EVT_LIST_CMD_LOCA] =       { EvCheck05_LOCA,          3, },
+    [EVT_LIST_CMD_VILL] =       { EvCheck06_VILL,          3, },
+    [EVT_LIST_CMD_CHES] =       { EvCheck07_CHES,          3, },
+    [EVT_LIST_CMD_DOOR] =       { EvCheck08_DOOR,          3, },
+    [EVT_LIST_CMD_DRAWBRIDGE] = { EvCheck09_,              3, },
+    [EVT_LIST_CMD_SHOP] =       { EvCheck0A_SHOP,          3, },
+    [EVT_LIST_CMD_AREA] =       { EvCheck0B_AREA,          3, },
+    [EVT_LIST_CMD_NEVER_C] =    { EvCheck0C_Never,         3, },
+    [EVT_LIST_CMD_NEVER_D] =    { EvCheck0D_Never,         3, },
+    [EVT_LIST_CMD_E] =          { EvCheck0E_,              3, },
+    [EVT_LIST_CMD_F] =          { EvCheck0F_,              4, },
+    [EVT_LIST_CMD_10] =         { EvCheck10_,              4, },
 };
 
-
-//! FE8U = 0x08082E80
-void StartEventFromInfo(struct EventInfo* info, u8 execType) {
-    if (info->script == 0) {
+void StartEventFromInfo(struct EventInfo * info, u8 execType)
+{
+    if (info->script == 0)
         return;
+
+    SetFlag(info->flag);
+
+    if ((int)info->script != EVENT_NOSCRIPT)
+    {
+        RegisterEventActivation(info->script, info->flag);
+        CallEvent((u16 *)info->script, execType);
+
+        if (CheckFlag(EVFLAG_WIN) != false)
+        {
+            RefreshAllies();
+            SetFlag(EVFLAG_HIDE_BLINKING_ICON);
+        }
     }
-
-    SetFlag((int)info->flag);
-
-    if ((int)info->script == 1) {
-        return;
-    }
-
-    RegisterEventActivation(info->script, info->flag);
-    CallEvent((u16*)info->script, execType);
-
-    if (CheckFlag(3) != 0) {
-        sub_8019108();
-        SetFlag(0x84);
-    }
-
-    return;
 }
 
-//! FE8U = 0x08082EC4
 struct EventInfo * SearchAvailableEvent(struct EventInfo * info)
 {
     int * len;
@@ -100,235 +97,208 @@ struct EventInfo * SearchAvailableEvent(struct EventInfo * info)
     cmdInfo = gEventListCmdInfoTable;
     len = &cmdInfo[0].length;
 
-    for (;;) {
+    for (;;)
+    {
         int cmdId = EVT_CMD_LO(info->listScript[0]);
         int r6 = cmdId;
 
-        if (!CheckFlag(EVT_CMD_HI(info->listScript[0]))) {
-
-            if (cmdInfo[cmdId].func(info) != 1) {
+        if (!CheckFlag(EVT_CMD_HI(info->listScript[0])))
+        {
+            if (cmdInfo[cmdId].func(info) != 1)
+            {
             label:
                 info->listScript += len[r6 << 1];
                 continue;
             }
 
-            if (info->script) {
+            if (info->script)
                 return info;
-            }
 
             break;
         }
-
         goto label;
     }
-
     return NULL;
 }
 
-//! FE8U = 0x08082F28
-struct EventInfo* SearchNextAvailableEvent(struct EventInfo* info) {
-    if (info != NULL) {
+struct EventInfo * SearchNextAvailableEvent(struct EventInfo * info)
+{
+    if (info != NULL)
+    {
         int cmdId = EVT_CMD_LO(info->listScript[0]);
         info->listScript += gEventListCmdInfoTable[cmdId].length;
 
         return SearchAvailableEvent(info);
     }
-
     return NULL;
 }
 
-//! FE8U = 0x08082F58
-s8 EventInfoCheckTalk(struct EventInfo* info, u8 pidA, u8 pidB) {
+bool EventInfoCheckTalk(struct EventInfo * info, u8 pidA, u8 pidB)
+{
     if ((info->pidA == pidA) && (info->pidB == pidB)) {
         info->script = info->listScript[1];
         info->flag = EVT_CMD_HI(info->listScript[0]);
 
-        return 1;
+        return true;
     }
-
-    return 0;
+    return false;
 }
 
-//! FE8U = 0x08082F84
-s8 CheckActiveUnitArea(int x1, int y1, int x2, int y2) {
-    if ((gActiveUnit->xPos >= x1) && (gActiveUnit->xPos <= x2) && (gActiveUnit->yPos >= y1) && (gActiveUnit->yPos <= y2)) {
-        return 1;
-    }
+bool CheckActiveUnitArea(int x1, int y1, int x2, int y2)
+{
+    if ((gActiveUnit->xPos >= x1) && (gActiveUnit->xPos <= x2) && (gActiveUnit->yPos >= y1) && (gActiveUnit->yPos <= y2))
+        return true;
 
-    return 0;
+    return false;
 }
 
-//! FE8U = 0x08082FB8
-s8 CheckAnyBlueUnitArea(int x1, int y1, int x2, int y2) {
+bool CheckAnyBlueUnitArea(int x1, int y1, int x2, int y2)
+{
     int i;
 
-    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
-        struct Unit* unit = GetUnit(i);
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++)
+    {
+        struct Unit * unit = GetUnit(i);
 
-        if (!UNIT_IS_VALID(unit)) {
+        if (!UNIT_IS_VALID(unit))
             continue;
-        }
 
-        if (unit->state & (US_DEAD | US_BIT16)) {
+        if (unit->state & (US_DEAD | US_BIT16))
             continue;
-        }
 
         if ((unit->xPos >= x1) && (unit->xPos <= x2) && (unit->yPos >= y1) && (unit->yPos <= y2)) {
-            return 1;
+            return true;
         }
     }
-
-    return 0;
+    return false;
 }
 
-//! FE8U = 0x08083018
-s8 sub_8083018(void) {
-    if (gPlaySt.faction != FACTION_RED) {
+bool CheckAnyBlueUnitArea1(void)
+{
+    if (gPlaySt.faction != FACTION_RED)
         return 0;
-    }
 
-    if (CheckAnyBlueUnitArea(0, 15, 25, 23)) {
+    if (CheckAnyBlueUnitArea(0, 15, 25, 23))
         return 0;
-    }
 
     return 1;
 }
 
-//! FE8U = 0x08083044
-s8 sub_8083044(void) {
-    if (gPlaySt.faction != FACTION_RED) {
+bool CheckAnyBlueUnitArea2(void)
+{
+    if (gPlaySt.faction != FACTION_RED)
         return 0;
-    }
 
-    if (CheckAnyBlueUnitArea(0, 24, 16, 27)) {
+    if (CheckAnyBlueUnitArea(0, 24, 16, 27))
         return 1;
-    }
 
-    if (CheckAnyBlueUnitArea(0, 21, 2, 23)) {
+    if (CheckAnyBlueUnitArea(0, 21, 2, 23))
         return 1;
-    }
 
-    if (CheckAnyBlueUnitArea(3, 20, 5, 22)) {
+    if (CheckAnyBlueUnitArea(3, 20, 5, 22))
         return 1;
-    }
 
     return 0;
 }
 
-//! FE8U = 0x08083094
-s8 sub_8083094(void) {
+bool CheckAnyBlueUnitArea3(void)
+{
     return CheckAnyBlueUnitArea(12, 21, 31, 24);
 }
 
-//! FE8U = 0x080830AC
-s8 sub_80830AC(void) {
-    if (gPlaySt.faction != FACTION_RED) {
+bool CheckAnyBlueUnitArea4(void)
+{
+    if (gPlaySt.faction != FACTION_RED)
         return 0;
-    }
 
     return CheckAnyBlueUnitArea(17, 21, 31, 35);
 }
 
-//! FE8U = 0x080830D4
-s8 sub_80830D4(void) {
-    if (gPlaySt.faction != FACTION_RED) {
+bool CheckAnyBlueUnitArea5(void)
+{
+    if (gPlaySt.faction != FACTION_RED)
         return 0;
-    }
 
     return CheckAnyBlueUnitArea(0, 15, 8, 18);
 }
 
-//! FE8U = 0x080830FC
-s8 sub_80830FC(void) {
-    if (gPlaySt.faction != FACTION_RED) {
+bool CheckAnyBlueUnitArea6(void)
+{
+    if (gPlaySt.faction != FACTION_RED)
         return 0;
-    }
 
     return CheckAnyBlueUnitArea(0, 24, 12, 27);
 }
 
-//! FE8U = 0x08083124
-s8 sub_8083124(void) {
-    if (gPlaySt.faction != FACTION_RED) {
+bool CheckAnyBlueUnitArea7(void)
+{
+    if (gPlaySt.faction != FACTION_RED)
         return 0;
-    }
 
     return CheckAnyBlueUnitArea(21, 0, 30, 6);
 }
 
-//! FE8U = 0x0808314C
-s8 CheckAnyRedUnitArea(int x1, int y1, int x2, int y2) {
+bool CheckAnyRedUnitArea(int x1, int y1, int x2, int y2)
+{
     int i;
+    for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++)
+    {
+        struct Unit * unit = GetUnit(i);
 
-    for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++) {
-        struct Unit* unit = GetUnit(i);
-
-        if (!UNIT_IS_VALID(unit)) {
+        if (!UNIT_IS_VALID(unit))
             continue;
-        }
 
-        if (unit->state & (US_DEAD | US_BIT16)) {
+        if (unit->state & (US_DEAD | US_BIT16))
             continue;
-        }
 
-        if ((unit->xPos >= x1) && (unit->xPos <= x2) && (unit->yPos >= y1) && (unit->yPos <= y2)) {
-            return 1;
-        }
+        if ((unit->xPos >= x1) && (unit->xPos <= x2) && (unit->yPos >= y1) && (unit->yPos <= y2))
+            return true;
     }
-
-    return 0;
+    return false;
 }
 
-//! FE8U = 0x080831AC
-s8 IsThereClosedChestAt(s8 x, s8 y) {
-    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_CHEST) {
-        return 1;
-    }
+bool IsThereClosedChestAt(s8 x, s8 y)
+{
+    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_CHEST)
+        return true;
 
-    return 0;
+    return false;
 }
 
-//! FE8U = 0x080831C8
-void StartAvailableChestTileEvent(s8 x, s8 y) {
-    if (IsThereClosedChestAt(x, y)) {
+void StartAvailableChestTileEvent(s8 x, s8 y)
+{
+    if (IsThereClosedChestAt(x, y))
         StartAvailableTileEvent(x, y);
-    }
+}
+
+bool IsThereClosedDoorAt(s8 x, s8 y)
+{
+    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_DOOR)
+        return true;
+
+    return false;
+}
+
+void StartAvailableDoorTileEvent(s8 x, s8 y)
+{
+    if (IsThereClosedDoorAt(x, y))
+        StartAvailableTileEvent(x, y);
 
     return;
 }
 
-//! FE8U = 0x080831F0
-s8 IsThereClosedDoorAt(s8 x, s8 y) {
-    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_DOOR) {
-        return 1;
-    }
+bool IsThereTileCommand15(s8 x, s8 y)
+{
+    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_15)
+        return true;
 
-    return 0;
+    return false;
 }
 
-//! FE8U = 0x0808320C
-void StartAvailableDoorTileEvent(s8 x, s8 y) {
-    if (IsThereClosedDoorAt(x, y)) {
-        StartAvailableTileEvent(x, y);
-    }
-
-    return;
-}
-
-//! FE8U = 0x08083234
-s8 sub_8083234(s8 x, s8 y) {
-    if (GetAvailableTileEventCommand(x, y) == TILE_COMMAND_15) {
-        return 1;
-    }
-
-    return 0;
-}
-
-//! FE8U = 0x08083250
-s8 ShouldCallEndEvent(void) {
-    if (GetChapterThing() == 2) {
+bool ShouldCallEndEvent(void)
+{
+    if (GetChapterThing() == 2)
         return 0;
-    }
 
     return CheckWin();
 }
@@ -352,7 +322,7 @@ void CallEndEvent(void) {
         CallEvent(gEvent_SkirmishCommonEnd, 1);
     }
 
-    sub_8019108();
+    RefreshAllies();
     SetFlag(0x84);
 
     return;
@@ -821,31 +791,31 @@ struct EvCheck03 {
 
 //! FE8U = 0x080838AC
 int EvCheck03_CHAR(struct EventInfo* info) {
-    struct EvCheck03* listScript = (void *)info->listScript;
+    struct EvCheck03 * listScript = (void *)info->listScript;
 
     int pidA = listScript->pidA;
     int pidB = listScript->pidB;
     int unk = listScript->unkC;
 
     switch (unk) {
-        case 1:
-            return 0;
-        case 2:
-            return 0;
-        case 3:
-            if ((CheckFlag(listScript->unkE) == 0)) {
-                return 0;
-            }
-            break;
+    case 1:
+        return false;
+    case 2:
+        return false;
+    case 3:
+        if ((CheckFlag(listScript->unkE) == 0))
+            return false;
+
+        break;
     }
 
-    if (((info->pidA == pidA) || (pidA == 0)) && info->pidB == pidB) {
+    if (((info->pidA == pidA) || (pidA == 0)) && info->pidB == pidB)
+    {
         info->script = listScript->script;
         info->flag = EVT_CMD_HI(listScript->unk0);
-        return 1;
+        return true;
     }
-
-    return 0;
+    return false;
 }
 
 struct EvCheck04 {
@@ -1355,11 +1325,11 @@ s8 RunPhaseSwitchEvents(void) {
             type = GOAL_TYPE_DEFEAT_ALL;
         }
 
-        if (((type == GOAL_TYPE_DEFEAT_ALL) || (type == GOAL_TYPE_DEFEAT_BOSS)) && (AreAnyEnemyUnitDead() == 0)) {
+        if (((type == GOAL_TYPE_DEFEAT_ALL) || (type == GOAL_TYPE_DEFEAT_BOSS)) && (AreAnyEnemyUnitDead() == 0))
+        {
+            if (GetChapterThing() == 0)
+                SetFlag(EVFLAG_WIN);
 
-            if (GetChapterThing() == 0) {
-                SetFlag(3);
-            }
             CallEndEvent();
             return 1;
         }
@@ -1795,23 +1765,20 @@ void ClearActiveEventRegistry(void) {
 }
 
 //! FE8U = 0x080845B8
-void RegisterEventActivation(u32 script, u16 flag) {
-    gActiveEventRegistry.unk_00[gActiveEventRegistry.unk_3c] = script;
-    gActiveEventRegistry.unk_28[gActiveEventRegistry.unk_3c] = flag;
-
-    gActiveEventRegistry.unk_3c++;
-    return;
+void RegisterEventActivation(u32 script, u16 flag)
+{
+    gActiveEventRegistry.scripts[gActiveEventRegistry.idx] = script;
+    gActiveEventRegistry.flags[gActiveEventRegistry.idx] = flag;
+    gActiveEventRegistry.idx++;
 }
 
 //! FE8U = 0x080845E4
-u16 GetEventTriggerId(const void * script) {
+u16 GetEventTriggerId(const void * script)
+{
     s16 i;
-
-    for (i = 0; i < gActiveEventRegistry.unk_3c; i++) {
-        if (gActiveEventRegistry.unk_00[i] == (u32)script) {
-            return gActiveEventRegistry.unk_28[i];
-        }
-    }
+    for (i = 0; i < gActiveEventRegistry.idx; i++)
+        if (gActiveEventRegistry.scripts[i] == (u32)script)
+            return gActiveEventRegistry.flags[i];
 
     return 0;
 }

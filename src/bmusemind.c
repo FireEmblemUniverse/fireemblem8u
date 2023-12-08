@@ -21,7 +21,7 @@
 #include "popup.h"
 #include "bmudisp.h"
 #include "classchg.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 #include "bmusemind.h"
 
@@ -536,8 +536,7 @@ void ExecAntitoxinItem(ProcPtr proc) {
     return;
 }
 
-// ExecKeyItem
-void sub_802F510() {
+void ExecKeyItem() {
     int x, y;
 
     UnitUpdateUsedItem(
@@ -994,7 +993,7 @@ void ActionStaffDoorChestUseItem(ProcPtr proc) {
         case ITEM_DOORKEY:
         case ITEM_LOCKPICK:
         case ITEM_CHESTKEY_BUNDLE:
-            sub_802F510();
+            ExecKeyItem();
             break;
         case ITEM_HEROCREST:
         case ITEM_KNIGHTCREST:

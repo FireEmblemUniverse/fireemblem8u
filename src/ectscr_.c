@@ -12,9 +12,9 @@
 #include "event.h"
 #include "ekrbattle.h"
 
-extern u16 CONST_DATA gUnknown_085A7EE8[];
+extern u16 CONST_DATA Pal_EventCursorShinning[];
 
-void sub_8010EE8(int, int, int);
+void ShinningEventCursor(int, int, int);
 
 void ReputConvoBg_unused(int index)
 {
@@ -44,7 +44,7 @@ void ResetDialogueScreen(void) // function: MapLevelUp_EndFace
 }
 
 /* This is a function related to display cursor (Event3B -> proc-85908<gProc_SetCursorMayBe>) */
-u16 sub_8010E6C(s16 x, s16 y, s16 counter)
+u16 EventShinningCursorAdvance(s16 x, s16 y, s16 counter)
 {
     /**
      * I think there maybe a better compile method to handle (x << 0x14) >> 0x10.
@@ -57,15 +57,15 @@ u16 sub_8010E6C(s16 x, s16 y, s16 counter)
     CallARM_PushToSecondaryOAM(
         (tmp_x + 0x200) & 0x1FF,
         (tmp_y + 0x100) & 0xFF,
-        gUnknown_085921AC,
+        Obj_EventShinningCursor,
         0x2822);
 
     if (tmp_counter0 <= 0xF) {
-        sub_8010EE8(0x10, 0x0, tmp_counter0 / 2);
+        ShinningEventCursor(0x10, 0x0, tmp_counter0 / 2);
         tmp_counter0++;
     }
     else {
-        sub_8010EE8(0x0, 0x10, tmp_counter0 / 2 - 0x8);
+        ShinningEventCursor(0x0, 0x10, tmp_counter0 / 2 - 0x8);
         tmp_counter0++;
 
         if (tmp_counter0 > 0x1F)
@@ -75,10 +75,10 @@ u16 sub_8010E6C(s16 x, s16 y, s16 counter)
     return tmp_counter0;
 }
 
-void sub_8010EE8(int val0, int val1, int val2)
+void ShinningEventCursor(int lo, int hi, int cur)
 {
-    int var = Interpolate(1, val0, val1, val2, 8);
-    CpuFastCopy(gUnknown_085A7EE8, PAL_OBJ(0x2), 0x20);
+    int var = Interpolate(1, lo, hi, cur, 8);
+    CpuFastCopy(Pal_EventCursorShinning, PAL_OBJ(0x2), 0x20);
     EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, var);
     EnablePaletteSync();
 }

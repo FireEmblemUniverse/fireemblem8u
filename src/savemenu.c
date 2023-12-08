@@ -12,7 +12,7 @@
 #include "ap.h"
 #include "gamecontrol.h"
 #include "bmlib.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "soundroom.h"
 #include "bonusclaim.h"
 #include "worldmap.h"

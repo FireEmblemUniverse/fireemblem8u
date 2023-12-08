@@ -13,6 +13,7 @@
 #include "bmudisp.h"
 #include "bmlib.h"
 #include "constants/terrains.h"
+#include "constants/event-flags.h"
 
 /**
 * Display standing map sprites and various tile/unit markers
@@ -1124,9 +1125,8 @@ void PutUnitSpriteIconsOam(void) {
     berserkIconFrame = GetGameClock() / 8 % ARRAY_COUNT(sBerserkIconSprites);
     silenceIconFrame = GetGameClock() / 4 % ARRAY_COUNT(sSilenceIconSprites);
 
-    if (CheckFlag(0x84) != 0) {
+    if (CheckFlag(EVFLAG_HIDE_BLINKING_ICON) != 0)
         return;
-    }
 
     PutChapterMarkedTileIconOam();
 
