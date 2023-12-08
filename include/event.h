@@ -5,6 +5,8 @@
 #include "bmunit.h"
 
 struct UnitDefinition;
+typedef uintptr_t EventListScr;
+typedef uintptr_t EventScr;
 
 struct EventEngineProc
 {
@@ -194,6 +196,7 @@ extern struct ProcCmd gUnknown_08591EB0[];
 extern struct ProcCmd CONST_DATA ProcScr_EventDisplayCursor[];
 extern struct ProcCmd CONST_DATA ProcScr_ScriptBattleDeamon[];
 extern struct ProcCmd CONST_DATA gUnknown_08591F28[];
+extern EventScr gEvent_RemoveBGIfNeeded[];
 extern const u16 gEvent_DisplayBattleQuote[];
 extern const u16 gEvent_TriggerQueuedTileChanges[];
 extern const u16 gEvent_OpenChest[];
@@ -364,12 +367,12 @@ void sub_800BCDC(u16); // battle related
 // ??? Event0F_(???);
 // ??? Event10_ModifyEvBit(???);
 // ??? Event11_SetIgnoredKeys(???);
-// ??? Event12_(???);
-// ??? Event13_(???);
+// ??? Event12_StartBGM(???);
+// ??? Event12_BgmFadeIn(???);
 // ??? Event14_(???);
 // ??? Event15_BgmVolume(???);
 // ??? Event16_(???);
-// ??? Event17_(???);
+// ??? Event17_Fade(???);
 // ??? Event18_(???);
 // ??? Event19_(???);
 // ??? Event1A_TEXTSTART(???);
@@ -394,11 +397,11 @@ void sub_800E640(struct EventEngineProc*);
 // ??? sub_800EE54(???);
 // ??? sub_800EEE8(???);
 // ??? sub_800EF48(???);
-u8 Event22_(struct EventEngineProc *); // CLEAN
+u8 Event22_ClearScreen(struct EventEngineProc *); // CLEAN
 u8 Event23_DisaleMapDisp(struct EventEngineProc *); // Lock Game Graphics
-u8 Event24_(struct EventEngineProc *); // Resume Game Graphics
-u8 Event25_(struct EventEngineProc *);
-// ??? Event26_CameraControlMaybe(???);
+u8 Event24_EnableMapDisp(struct EventEngineProc *); // Resume Game Graphics
+u8 Event25_ChangeMap(struct EventEngineProc *);
+// ??? Event26_CameraControl(???);
 // ??? Event27_MapChange(???);
 // ??? Event28_ChangeWeather(???);
 // ??? Event29_SetFogVision(???);
@@ -435,7 +438,7 @@ unsigned ModifyMoveUnitFlag(struct EventEngineProc *, s8);
 // ??? Event3E_PrepScreenCall(???);
 // ??? sub_801098C(???);
 // ??? ScriptBattleDeamon(???);
-// ??? Event3F_(???);
+// ??? Event3F_ScriptBattle(???);
 // ??? sub_8010B48(???);
 // ??? Event40_(???);
 // ??? Event41_(???);

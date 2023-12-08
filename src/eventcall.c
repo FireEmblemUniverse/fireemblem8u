@@ -26,6 +26,7 @@
 #include "ctc.h"
 #include "fontgrp.h"
 #include "uimenu.h"
+#include "bmmind.h"
 #include "uiutils.h"
 #include "bmbattle.h"
 #include "bmitem.h"

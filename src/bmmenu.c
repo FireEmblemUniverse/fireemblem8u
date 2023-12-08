@@ -40,7 +40,7 @@
 #include "prepscreen.h"
 #include "bmguide.h"
 #include "menuitempanel.h"
-
+#include "bmmind.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/terrains.h"

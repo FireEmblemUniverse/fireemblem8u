@@ -6,6 +6,7 @@
 #include "bmbattle.h"
 #include "bmsave.h"
 #include "bmarena.h"
+#include "bmmind.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"

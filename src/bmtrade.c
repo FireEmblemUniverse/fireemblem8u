@@ -14,7 +14,7 @@
 #include "bmitem.h"
 #include "bmtrade.h"
 #include "bmunit.h"
-
+#include "bmmind.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "event.h"

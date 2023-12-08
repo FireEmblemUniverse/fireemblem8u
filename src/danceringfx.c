@@ -7,6 +7,7 @@
 #include "bmunit.h"
 #include "bmbattle.h"
 #include "bmfx.h"
+#include "bmmind.h"
 #include "bmlib.h"
 
 /**

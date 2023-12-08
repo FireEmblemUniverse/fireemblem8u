@@ -22,7 +22,7 @@
 #include "bmudisp.h"
 #include "classchg.h"
 #include "eventinfo.h"
-
+#include "bmmind.h"
 #include "bmusemind.h"
 
 s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);

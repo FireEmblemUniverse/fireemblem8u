@@ -5,7 +5,7 @@
 #include "bmunit.h"
 #include "chapterdata.h"
 #include "eventinfo.h"
-#include "eventscript-stdlib.h"
+#include "ea-stdlib.h"
 #include "constants/event-flags.h"
 
 CONST_DATA EventListScr EventListScr_Prologue_Turn[] = {
@@ -75,8 +75,8 @@ CONST_DATA struct ChapterEventGroup PrologueEvents = {
     .traps            = TrapData_Event_Prologue,
     .extraTrapsInHard = TrapData_Event_PrologueHard,
 
-    .playerUnitsInNormal = UnitDef_Blue_Prologue,
-    .playerUnitsInHard   = UnitDef_Blue_Prologue,
+    .playerUnitsInNormal = UnitDef_Event_PrologueAlly,
+    .playerUnitsInHard   = UnitDef_Event_PrologueAlly,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

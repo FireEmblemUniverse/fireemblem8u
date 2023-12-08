@@ -11,6 +11,7 @@
 #include "bmmenu.h"
 #include "bmitem.h"
 #include "hardware.h"
+#include "bmmind.h"
 #include "popup.h"
 #include "face.h"
 #include "scene.h"

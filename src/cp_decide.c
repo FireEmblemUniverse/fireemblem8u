@@ -10,7 +10,7 @@
 #include "cp_utility.h"
 #include "cp_script.h"
 #include "bmsave.h"
-
+#include "bmmind.h"
 #include "constants/classes.h"
 
 #include "cp_common.h"

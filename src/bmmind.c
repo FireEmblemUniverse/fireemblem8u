@@ -28,6 +28,8 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
+EWRAM_DATA struct ActionData gActionData = { 0 };
+
 struct ProcCmd CONST_DATA sProcScr_AfterDropAction[] = {
     PROC_SLEEP(0),
 
@@ -684,10 +686,8 @@ void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc) {
     return;
 }
 
-extern u8 gUnknown_0203A974[];
-
-//! FE8U = 0x080329C0
-u8* sub_80329C0(u8* r0) {
-    CpuFastCopy(r0, gUnknown_0203A974, 0x1C);
-    return gUnknown_0203A974;
+struct BattleHit * sub_80329C0(struct BattleHit * r0)
+{
+    CpuFastCopy(r0, gActionData.script_hits, 0x1C);
+    return gActionData.script_hits;
 }

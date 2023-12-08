@@ -352,7 +352,6 @@ extern CONST_DATA struct CharacterData gCharacterData[]; // gCharacterData
 extern struct UnitDefinition gUnitDef1;
 extern struct UnitDefinition gUnitDef2;
 extern struct UnitDefinition gUnitDefEggHatching;
-extern struct UnitDefinition UnitDef_Blue_Prologue[];
 extern struct UnitDefinition gUnitDefSumDK[];
 extern struct Unit gUnitArrayBlue[62];
 extern struct Unit gUnitArrayRed[50];

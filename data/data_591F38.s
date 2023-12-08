@@ -2,7 +2,11 @@
 
 	.global gUnknown_08591F38
 gUnknown_08591F38:  @ 0x08591F38
-	.incbin "baserom.gba", 0x591F38, 0x50
+	.incbin "baserom.gba", 0x591F38, 8
+
+	.global gEvent_RemoveBGIfNeeded
+gEvent_RemoveBGIfNeeded:
+	.incbin "baserom.gba", 0x591F40, 0x48
 
 	.global gEvent_DisplayBattleQuote
 gEvent_DisplayBattleQuote:  @ 0x08591F88

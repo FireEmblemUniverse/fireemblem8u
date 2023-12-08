@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "event.h"
+#include "bmunit.h"
 
 enum { EVENT_NOSCRIPT = 1 };
 
@@ -34,9 +35,6 @@ enum {
     TUTORIAL_EVT_TYPE_FORECAST = 5,
     TUTORIAL_EVT_TYPE_PLAYERPHASE = 6,
 };
-
-typedef uintptr_t EventListScr;
-typedef uintptr_t EventScr;
 
 struct EventInfo {
     /* 00 */ EventListScr * listScript;
@@ -253,5 +251,14 @@ extern CONST_DATA EventListScr EventScr_Prologue_TutorialB[];
 extern CONST_DATA EventListScr EventScr_Prologue_TutorialC[];
 extern CONST_DATA EventListScr EventScr_Prologue_TutorialD[];
 extern CONST_DATA EventListScr EventScr_Prologue_TutorialE[];
+
+extern struct UnitDefinition UnitDef_Event_PrologueAlly[];
+extern struct UnitDefinition UnitDef_Event_PrologueThroneRoomUnits[];
+extern struct UnitDefinition UnitDef_Event_PrologueMessager[];
+extern struct UnitDefinition UnitDef_Event_PrologueGradoRoyals[];
+extern struct UnitDefinition UnitDef_Event_PrologueGradoShamans[];
+extern struct UnitDefinition UnitDef_Event_PrologueGradoCavalry[];
+extern struct UnitDefinition UnitDef_Event_PrologueEscapees[];
+extern struct UnitDefinition UnitDef_Event_PrologueValterGroup[];
 
 #endif // GUARD_eventinfo_H

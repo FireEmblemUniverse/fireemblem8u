@@ -257,41 +257,6 @@ struct MsgBuffer
     u8 buffer5[0x100];
 };
 
-struct ActionData
-{
-    // unknown stuff (sometimes RNs are pushed here) (maybe an union?)
-    /* 00 */ u16 _u00[3];
-    /* 06 */ u16 item;
-
-    /* 08 */ u16 unk08;
-    /* 0A */ u16 unk0A;
-
-    /* 0C */ u8 subjectIndex;
-    /* 0D */ u8 targetIndex;
-
-    /* 0E */ u8 xMove;
-    /* 0F */ u8 yMove;
-
-    /* 10 */ u8 moveCount;
-
-    /* 11 */ u8 unitActionType;
-
-    // maybe from this onwards it's an union?
-
-    /* 12 */ u8 itemSlotIndex;
-
-    /* 13 */ u8 xOther;
-    /* 14 */ u8 yOther;
-
-    /* 15 */ u8 trapType;
-
-    /* 16 */ u8 suspendPointType;
-
-    /* 18 */ struct BattleHit* scriptedBattleHits;
-
-    /* 1C */ u8 _pad_1C[0x38 - 0x1C];
-};
-
 enum
 {
     FACING_LEFT  = 0,

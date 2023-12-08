@@ -307,9 +307,37 @@ gUnknown_088B39EC:  @ 0x088B39EC
 gUnknown_088B3AD8:  @ 0x088B3AD8
     .incbin "baserom.gba", 0x8B3AD8, 0x8B3C14 - 0x8B3AD8
 
-	.global UnitDef_Blue_Prologue
-UnitDef_Blue_Prologue:
-    .incbin "baserom.gba", 0x8B3C14, 0x8D1F54 - 0x8B3C14
+	.global UnitDef_Event_PrologueAlly
+UnitDef_Event_PrologueAlly:
+    .incbin "baserom.gba", 0x8B3C14, 0x8B3D18 - 0x8B3C14
+
+	.global UnitDef_Event_PrologueThroneRoomUnits
+UnitDef_Event_PrologueThroneRoomUnits:
+    .incbin "baserom.gba", 0x8B3D18, 0x8B3DCC - 0x8B3D18
+
+	.global UnitDef_Event_PrologueMessager
+UnitDef_Event_PrologueMessager:
+    .incbin "baserom.gba", 0x8B3DCC, 0x8B3DF4 - 0x8B3DCC
+
+	.global UnitDef_Event_PrologueGradoRoyals
+UnitDef_Event_PrologueGradoRoyals:
+    .incbin "baserom.gba", 0x8B3DF4, 0x8B3E30 - 0x8B3DF4
+
+	.global UnitDef_Event_PrologueGradoShamans
+UnitDef_Event_PrologueGradoShamans:
+    .incbin "baserom.gba", 0x8B3E30, 0x8B3E94 - 0x8B3E30
+
+	.global UnitDef_Event_PrologueGradoCavalry
+UnitDef_Event_PrologueGradoCavalry:
+    .incbin "baserom.gba", 0x8B3E94, 0x8B3F68 - 0x8B3E94
+
+	.global UnitDef_Event_PrologueEscapees
+UnitDef_Event_PrologueEscapees:
+    .incbin "baserom.gba", 0x8B3F68, 0x8B3FB8 - 0x8B3F68
+
+	.global UnitDef_Event_PrologueValterGroup
+UnitDef_Event_PrologueValterGroup:
+    .incbin "baserom.gba", 0x8B3FB8, 0x8D1F54 - 0x8B3FB8
 
 	.global gUnitDefSumDK
 gUnitDefSumDK:  @ 0x088D1F54

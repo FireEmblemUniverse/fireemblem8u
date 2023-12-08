@@ -13,7 +13,7 @@
 #include "bmshop.h"
 #include "bmbattle.h"
 #include "worldmap.h"
-
+#include "bmmind.h"
 #include "eventinfo.h"
 #include "eventscript.h"
 

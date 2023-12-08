@@ -15,6 +15,7 @@
 #include "bmcontainer.h"
 #include "mu.h"
 #include "bmudisp.h"
+#include "bmmind.h"
 #include "bmio.h"
 #include "sysutil.h"
 #include "constants/faces.h"

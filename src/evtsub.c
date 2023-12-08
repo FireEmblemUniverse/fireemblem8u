@@ -13,6 +13,7 @@
 #include "bmudisp.h"
 #include "bmmap.h"
 #include "bmitem.h"
+#include "bmmind.h"
 #include "bmbattle.h"
 #include "mu.h"
 #include "ekrbattle.h"

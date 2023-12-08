@@ -1,9 +1,5 @@
     .section .data
 
-	.global EventScr_Prologue_RenaisThroneCutscene
-EventScr_Prologue_RenaisThroneCutscene:
-    .incbin "baserom.gba", 0x9EECBC, 0x9EF060 - 0x9EECBC
-
 	.global EventScr_Prologue_GiveRapier
 EventScr_Prologue_GiveRapier:
     .incbin "baserom.gba", 0x9EF060, 0x9EF0A4 - 0x9EF060

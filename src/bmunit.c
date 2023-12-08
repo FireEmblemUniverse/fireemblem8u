@@ -22,6 +22,7 @@
 #include "bmudisp.h"
 #include "bmsave.h"
 #include "muctrl.h"
+#include "bmmind.h"
 #include "eventcall.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;

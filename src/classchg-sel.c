@@ -14,6 +14,7 @@
 #include "efxbattle.h"
 #include "bmsave.h"
 #include "bm.h"
+#include "bmmind.h"
 #include "bmio.h"
 #include "bmmap.h"
 #include "mu.h"

@@ -8,48 +8,61 @@
 #include "hardware.h"
 #include "mu.h"
 #include "bmlib.h"
+#include "bmmind.h"
 #include "variables.h"
 
+EWRAM_DATA struct PathArrowProc gPathArrowProc = { 0 };
+
+CONST_DATA u16 gPathArrowOAMTable[5][5] = {
+    {0x3AF0, 0x3B04, 0x3B06, 0x3B00, 0x3B02},
+    {0x3AF0, 0x3AF0, 0x3AF8, 0x3B0C, 0x3AFC},
+    {0x3AF2, 0x3AF8, 0x3AF2, 0x3AFA, 0x3B08},
+    {0x3AF4, 0x3B0E, 0x3AFA, 0x3AF4, 0x3AFE},
+    {0x3AF6, 0x3AFC, 0x3B0A, 0x3AFE, 0x3AF6},
+};
+
+CONST_DATA struct PathArrowProc * gpPathArrowProc = &gPathArrowProc;
+
 void SetLastCoords(u16 x, u16 y) {
-    gUnknown_0859DBA0.proc->lastX = x;
-    gUnknown_0859DBA0.proc->lastY = y;
+    gpPathArrowProc->lastX = x;
+    gpPathArrowProc->lastY = y;
 }
 
 #define TERRAIN_AT(x, y) gBmMapTerrain[y][x]
 
 // I could only get a match by inlining the whole loop body into one gross line.
 void CutOffPathLength(s8 newIndex) {
-    if (gUnknown_0859DBA0.proc->pathLen >= newIndex) {
+    if (gpPathArrowProc->pathLen >= newIndex) {
         s8 i;
-        gUnknown_0859DBA0.proc->pathLen = newIndex - 1;
-        gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] =
-            gUnknown_0859DBA0.proc->maxMov;
-        for (i = 1; i <= gUnknown_0859DBA0.proc->pathLen; i++) {
+        gpPathArrowProc->pathLen = newIndex - 1;
+        gpPathArrowProc->pathCosts[gpPathArrowProc->pathLen] =
+            gpPathArrowProc->maxMov;
+        for (i = 1; i <= gpPathArrowProc->pathLen; i++) {
             u8 *costs = GetWorkingMoveCosts();
-            gUnknown_0859DBA0.proc->pathCosts[i] =
-                gUnknown_0859DBA0.proc->pathCosts[i - 1] -
+            gpPathArrowProc->pathCosts[i] =
+                gpPathArrowProc->pathCosts[i - 1] -
                 costs[TERRAIN_AT(
-                    gUnknown_0859DBA0.proc->pathX[i],
-                    gUnknown_0859DBA0.proc->pathY[i])];
+                    gpPathArrowProc->pathX[i],
+                    gpPathArrowProc->pathY[i])];
         }
     }
 }
 
 void AddPointToPathArrowProc(s8 x, s8 y) {
     u8 * costs;
-    gUnknown_0859DBA0.proc->pathLen++;
-    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen] = x;
-    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen] = y;
+    gpPathArrowProc->pathLen++;
+    gpPathArrowProc->pathX[gpPathArrowProc->pathLen] = x;
+    gpPathArrowProc->pathY[gpPathArrowProc->pathLen] = y;
     costs = GetWorkingMoveCosts();
-    gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] =
-        gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen - 1] -
+    gpPathArrowProc->pathCosts[gpPathArrowProc->pathLen] =
+        gpPathArrowProc->pathCosts[gpPathArrowProc->pathLen - 1] -
         costs[gBmMapTerrain[y][x]];
 }
 
 s32 GetPointAlongPath(s8 x, s8 y) {
     s8 i;
-    for (i = 0; i <= gUnknown_0859DBA0.proc->pathLen; i++) {
-        if (gUnknown_0859DBA0.proc->pathX[i] == x && gUnknown_0859DBA0.proc->pathY[i] == y)
+    for (i = 0; i <= gpPathArrowProc->pathLen; i++) {
+        if (gpPathArrowProc->pathX[i] == x && gpPathArrowProc->pathY[i] == y)
             return i;
     }
     return -1;
@@ -77,23 +90,23 @@ void GetPathFromMovementScript(void) {
                 continue;
             case MU_COMMAND_MOVE_LEFT + 1:
                 AddPointToPathArrowProc(
-                    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen] - 1,
-                    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen]);
+                    gpPathArrowProc->pathX[gpPathArrowProc->pathLen] - 1,
+                    gpPathArrowProc->pathY[gpPathArrowProc->pathLen]);
                 break;
             case MU_COMMAND_MOVE_RIGHT + 1:
                 AddPointToPathArrowProc(
-                    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen] + 1,
-                    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen]);
+                    gpPathArrowProc->pathX[gpPathArrowProc->pathLen] + 1,
+                    gpPathArrowProc->pathY[gpPathArrowProc->pathLen]);
                 break;
             case MU_COMMAND_MOVE_UP + 1:
                 AddPointToPathArrowProc(
-                    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen],
-                    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen] - 1);
+                    gpPathArrowProc->pathX[gpPathArrowProc->pathLen],
+                    gpPathArrowProc->pathY[gpPathArrowProc->pathLen] - 1);
                 break;
             case MU_COMMAND_MOVE_DOWN + 1:
                 AddPointToPathArrowProc(
-                    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen],
-                    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen] + 1);
+                    gpPathArrowProc->pathX[gpPathArrowProc->pathLen],
+                    gpPathArrowProc->pathY[gpPathArrowProc->pathLen] + 1);
                 break;
             }
         }
@@ -102,15 +115,15 @@ void GetPathFromMovementScript(void) {
 
 void GetMovementScriptFromPath(void) {
     s8 i;
-    for (i = 1; i <= gUnknown_0859DBA0.proc->pathLen; i++)
+    for (i = 1; i <= gpPathArrowProc->pathLen; i++)
     {
         s8 x, y;
         s8 newX, newY;
         u8 result;
 
 
-        newX = gUnknown_0859DBA0.proc->pathX[i];
-        x = gUnknown_0859DBA0.proc->pathX[i - 1];
+        newX = gpPathArrowProc->pathX[i];
+        x = gpPathArrowProc->pathX[i - 1];
         if (newX < x) {
             gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_LEFT;
         }
@@ -118,7 +131,7 @@ void GetMovementScriptFromPath(void) {
             gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_RIGHT;
         }
 
-        else if (gUnknown_0859DBA0.proc->pathY[i] < gUnknown_0859DBA0.proc->pathY[i - 1]) {
+        else if (gpPathArrowProc->pathY[i] < gpPathArrowProc->pathY[i - 1]) {
             gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_UP;
         }
         else {
@@ -131,9 +144,9 @@ void GetMovementScriptFromPath(void) {
 void GenerateMovementMapForActiveUnit(void) {
     GenerateMovementMapOnWorkingMap(
 		gActiveUnit,
-		gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen],
-		gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen],
-		gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen]);
+		gpPathArrowProc->pathX[gpPathArrowProc->pathLen],
+		gpPathArrowProc->pathY[gpPathArrowProc->pathLen],
+		gpPathArrowProc->pathCosts[gpPathArrowProc->pathLen]);
 }
 
 void ResetPathArrow(void) {
@@ -148,10 +161,10 @@ void ResetPathArrow(void) {
 
 bool8 PathContainsNoCycle(void) {
     s8 i, j;
-    for (i = gUnknown_0859DBA0.proc->pathLen; i > 0; --i) {
+    for (i = gpPathArrowProc->pathLen; i > 0; --i) {
         for (j = i - 1; j >= 0; --j) {
-            if (gUnknown_0859DBA0.proc->pathX[i] == gUnknown_0859DBA0.proc->pathX[j] &&
-                gUnknown_0859DBA0.proc->pathY[i] == gUnknown_0859DBA0.proc->pathY[j])
+            if (gpPathArrowProc->pathX[i] == gpPathArrowProc->pathX[j] &&
+                gpPathArrowProc->pathY[i] == gpPathArrowProc->pathY[j])
             {
                 return 0;
             }
@@ -165,11 +178,11 @@ void PathArrowDisp_Init(u8 a) {
     Decompress(gUnknown_08A03054, (void *) OBJ_VRAM0 + 0x5E00);
     ApplyPalette(gUnknown_08A0328C, 0x13);
     if (a == 0) {
-        gUnknown_0859DBA0.proc->maxMov =
+        gpPathArrowProc->maxMov =
             gActiveUnit->movBonus + gActiveUnit->pClassData->baseMov - gActionData.moveCount;
         CutOffPathLength(0);
         AddPointToPathArrowProc(gActiveUnit->xPos, gActiveUnit->yPos);
-        gUnknown_0859DBA0.proc->pathCosts[0] = gUnknown_0859DBA0.proc->maxMov;
+        gpPathArrowProc->pathCosts[0] = gpPathArrowProc->maxMov;
         // This seems strange. But passing -1 to a signed argument doesn't seem to match
         SetLastCoords(0xFFFF, 0xFFFF);
         UpdatePathArrowWithCursor();
@@ -184,8 +197,8 @@ static inline u8 GetTerrainAtCursor() {
     return TERRAIN_AT(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
 }
 
-#define LAST_X_POINT gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen]
-#define LAST_Y_POINT gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen]
+#define LAST_X_POINT gpPathArrowProc->pathX[gpPathArrowProc->pathLen]
+#define LAST_Y_POINT gpPathArrowProc->pathY[gpPathArrowProc->pathLen]
 
 #define abs(n) (((n) >= 0) ? (n) : -(n))
 
@@ -193,8 +206,8 @@ void UpdatePathArrowWithCursor(void) {
     s8 point;
     s32 pointAlias;
 
-    if (gUnknown_0859DBA0.proc->lastX == gBmSt.playerCursor.x &&
-        gUnknown_0859DBA0.proc->lastY == gBmSt.playerCursor.y)
+    if (gpPathArrowProc->lastX == gBmSt.playerCursor.x &&
+        gpPathArrowProc->lastY == gBmSt.playerCursor.y)
     {
         return;
     }
@@ -209,7 +222,7 @@ void UpdatePathArrowWithCursor(void) {
         CutOffPathLength(point);
         return;
     }
-    if (gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] >=
+    if (gpPathArrowProc->pathCosts[gpPathArrowProc->pathLen] >=
         GetWorkingMoveCosts()[GetTerrainAtCursor()])
     {
         if (abs(LAST_X_POINT - gBmSt.playerCursor.x) +
@@ -220,7 +233,7 @@ void UpdatePathArrowWithCursor(void) {
             return;
         }
     }
-    if (gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] == 0)
+    if (gpPathArrowProc->pathCosts[gpPathArrowProc->pathLen] == 0)
         CutOffPathLength(1);
     SetWorkingBmMap(gBmMapOther);
     GenerateMovementMapForActiveUnit();
@@ -240,26 +253,26 @@ void UpdatePathArrowWithCursor(void) {
 u8 GetDirectionOfPathBeforeIndex(u8 i) {
     if (i == 0)
         return 0;
-    if (gUnknown_0859DBA0.proc->pathX[i - 1] < gUnknown_0859DBA0.proc->pathX[i])
+    if (gpPathArrowProc->pathX[i - 1] < gpPathArrowProc->pathX[i])
         return 3;
-    if (gUnknown_0859DBA0.proc->pathX[i - 1] > gUnknown_0859DBA0.proc->pathX[i])
+    if (gpPathArrowProc->pathX[i - 1] > gpPathArrowProc->pathX[i])
         return 1;
-    if (gUnknown_0859DBA0.proc->pathY[i - 1] < gUnknown_0859DBA0.proc->pathY[i])
+    if (gpPathArrowProc->pathY[i - 1] < gpPathArrowProc->pathY[i])
         return 4;
-    if (gUnknown_0859DBA0.proc->pathY[i - 1] > gUnknown_0859DBA0.proc->pathY[i])
+    if (gpPathArrowProc->pathY[i - 1] > gpPathArrowProc->pathY[i])
         return 2;
 }
 
 u8 GetDirectionOfPathAfterIndex(u8 i) {
-    if (i == gUnknown_0859DBA0.proc->pathLen)
+    if (i == gpPathArrowProc->pathLen)
         return 0;
-    if (gUnknown_0859DBA0.proc->pathX[i] < gUnknown_0859DBA0.proc->pathX[i + 1])
+    if (gpPathArrowProc->pathX[i] < gpPathArrowProc->pathX[i + 1])
         return 1;
-    if (gUnknown_0859DBA0.proc->pathX[i] > gUnknown_0859DBA0.proc->pathX[i + 1])
+    if (gpPathArrowProc->pathX[i] > gpPathArrowProc->pathX[i + 1])
         return 3;
-    if (gUnknown_0859DBA0.proc->pathY[i] < gUnknown_0859DBA0.proc->pathY[i + 1])
+    if (gpPathArrowProc->pathY[i] < gpPathArrowProc->pathY[i + 1])
         return 2;
-    if (gUnknown_0859DBA0.proc->pathY[i] > gUnknown_0859DBA0.proc->pathY[i + 1])
+    if (gpPathArrowProc->pathY[i] > gpPathArrowProc->pathY[i + 1])
         return 4;
 }
 
@@ -278,11 +291,11 @@ u8 PointInCameraBounds(s16 x, s16 y, u8 xBound, u8 yBound) {
 
 void DrawPathArrow(void) {
     s8 i;
-    if (gUnknown_0859DBA0.proc->pathLen == 0)
+    if (gpPathArrowProc->pathLen == 0)
         return;
-    for (i = gUnknown_0859DBA0.proc->pathLen; i >= 0; i--) {
-        s16 xp = 16 * gUnknown_0859DBA0.proc->pathX[i];
-        s16 yp = 16 * gUnknown_0859DBA0.proc->pathY[i];
+    for (i = gpPathArrowProc->pathLen; i >= 0; i--) {
+        s16 xp = 16 * gpPathArrowProc->pathX[i];
+        s16 yp = 16 * gpPathArrowProc->pathY[i];
         if (PointInCameraBounds(xp, yp, 16, 16)) {
             u16 oam2 = PATH_ARROW_OAM_AT(
                 GetDirectionOfPathAfterIndex(i),

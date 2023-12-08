@@ -18,7 +18,7 @@
 #include "bmudisp.h"
 #include "bmsave.h"
 #include "eventinfo.h"
-
+#include "bmmind.h"
 #include "bmtrap.h"
 
 // trapfx.s

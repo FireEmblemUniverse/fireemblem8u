@@ -603,7 +603,7 @@ SECTIONS
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); src/bmarena.o(.data);
         . = ALIGN(4); src/bmmind.o(.data);
-        . = ALIGN(4); data/data_59DB6C.o(.data);
+        . = ALIGN(4); src/bmpatharrowdisp.o(.data);
         . = ALIGN(4); src/prep_sallycursor.o(.data);
         . = ALIGN(4); src/unitinfowindow.o(.data);
         . = ALIGN(4); src/bb.o(.data);

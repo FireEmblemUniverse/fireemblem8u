@@ -4,6 +4,46 @@
 #include "global.h"
 #include "bmunit.h"
 #include "proc.h"
+#include "bmbattle.h"
+
+struct ActionData
+{
+    // unknown stuff (sometimes RNs are pushed here) (maybe an union?)
+    /* 00 */ u16 _u00[3];
+    /* 06 */ u16 item;
+
+    /* 08 */ u16 unk08;
+    /* 0A */ u16 unk0A;
+
+    /* 0C */ u8 subjectIndex;
+    /* 0D */ u8 targetIndex;
+
+    /* 0E */ u8 xMove;
+    /* 0F */ u8 yMove;
+
+    /* 10 */ u8 moveCount;
+
+    /* 11 */ u8 unitActionType;
+
+    // maybe from this onwards it's an union?
+
+    /* 12 */ u8 itemSlotIndex;
+
+    /* 13 */ u8 xOther;
+    /* 14 */ u8 yOther;
+
+    /* 15 */ u8 trapType;
+
+    /* 16 */ u8 suspendPointType;
+
+    /* 18 */ struct BattleHit * scriptedBattleHits;
+
+    /* 1C */ struct BattleHit script_hits[7]; /* equals to sizeof event-queue */
+
+    /* 38 */
+};
+
+extern struct ActionData gActionData;
 
 struct AfterDropActionProc {
     /* 00 */ PROC_HEADER;
@@ -70,7 +110,7 @@ void sub_80328B0(void);
 bool BATTLE_HandleItemDrop(struct CombatActionProc * proc);
 void sub_8032974(ProcPtr proc);
 void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc);
-u8 * sub_80329C0(u8 * r0);
+struct BattleHit * sub_80329C0(struct BattleHit * r0);
 
 extern struct ProcCmd CONST_DATA sProcScr_CombatAction[];
 extern struct ProcCmd CONST_DATA sProcScr_AfterDropAction[];
