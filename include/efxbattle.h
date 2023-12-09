@@ -84,7 +84,7 @@ struct ProcEfxOBJ {
     STRUCT_PAD(0x2B, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
-    STRUCT_PAD(0x30, 0x32);
+    /* 30 */ u16 unk30;
     /* 32 */ u16 unk32;
     /* 34 */ u16 unk34;
     /* 36 */ u16 unk36;
@@ -1216,7 +1216,7 @@ extern u16 Img_FluxAnimSprites_Tendrils[];
 extern u16 Img_FluxAnimSprites_SigilVoid[];
 extern u16 Pal_FluxAnimSprites[];
 extern u32 gUnknown_0862D6A8[];
-// extern ??? gUnknown_0862D6E0
+extern u32 gUnknown_0862D6E0[];
 extern u32 gUnknown_0862D82C[];
 extern u32 gUnknown_0862DC24[];
 extern u32 gUnknown_0862DC58[];
@@ -1354,15 +1354,55 @@ extern u16 Tsa_08645D38[];
 extern u16 Img_DivineSprites[];
 extern u16 Pal_DivineSprites[];
 extern u32 gUnknown_08646510[];
-// extern ??? gUnknown_0864E790
-// extern ??? gUnknown_0864E7B0
-// extern ??? gUnknown_086508DC
-// extern ??? gUnknown_08650DA8
-// extern ??? gUnknown_08651240
-// extern ??? gUnknown_0865163C
-// extern ??? gUnknown_086517DC
-// extern ??? gUnknown_08651AE4
-// extern ??? gUnknown_08651DE0
+extern u16 Img_EclipseBg_A[];
+extern u16 Img_EclipseBg_B[];
+extern u16 Img_EclipseBg_C[];
+extern u16 Img_EclipseBg_D[];
+extern u16 Img_EclipseBg_E[];
+extern u16 Img_EclipseBg_F[];
+extern u16 Img_EclipseBg_G[];
+extern u16 Img_EclipseBg_H[];
+extern u16 Img_EclipseBg_I[];
+extern u16 Img_EclipseBg_J[];
+extern u16 Img_EclipseBg_K[];
+extern u16 Img_EclipseBg_L[];
+extern u16 Img_EclipseBg_M[];
+extern u16 Pal_EclipseBg_B[];
+extern u16 Pal_EclipseBg_C[];
+extern u16 Tsa_EclipseBg_A[];
+extern u16 Tsa_EclipseBg_B[];
+extern u16 Tsa_EclipseBg_C[];
+extern u16 Tsa_EclipseBg_D[];
+extern u16 Tsa_EclipseBg_E[];
+extern u16 Tsa_EclipseBg_F[];
+extern u16 Tsa_EclipseBg_G[];
+extern u16 Tsa_EclipseBg_H[];
+extern u16 Tsa_EclipseBg_I[];
+extern u16 Tsa_EclipseBg_J[];
+extern u16 Tsa_EclipseBg_K[];
+extern u16 Tsa_EclipseBg_L[];
+extern u16 Tsa_EclipseBg_M[];
+extern u16 Tsa_EclipseBg_N[];
+extern u16 Tsa_EclipseBg_O[];
+extern u16 Tsa_EclipseBg_P[];
+extern u16 Tsa_EclipseBg_Q[];
+extern u16 Tsa_EclipseBg_R[];
+extern u16 Tsa_EclipseBg_S[];
+extern u16 Tsa_EclipseBg_T[];
+extern u16 Tsa_EclipseBg_U[];
+extern u16 Tsa_EclipseBg_V[];
+extern u16 Tsa_EclipseBg_W[];
+extern u16 Tsa_EclipseBg_X[];
+extern u16 Tsa_EclipseBg_Y[];
+extern u16 Tsa_EclipseBg_Z[];
+extern u16 Tsa_EclipseBg_AA[];
+extern u16 Img_EclipseSprites_Swirl[];
+extern u16 Img_EclipseSprites_08650DA8[];
+extern u16 Img_EclipseSprites_08651240[];
+extern u16 Pal_EclipseSprites[];
+extern u32 gUnknown_086517DC[];
+extern u32 gUnknown_08651AE4[];
+extern u32 gUnknown_08651DE0[];
 // extern ??? gUnknown_08651DF4
 // extern ??? gUnknown_08652554
 // extern ??? gUnknown_08652734

@@ -16,6 +16,25 @@ struct ProcEfxMagicOBJ {
     /* 64 */ ProcPtr seproc;
 };
 
+struct ProcEfxEclipseBG
+{
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    STRUCT_PAD(0x2A, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ s16 unk30;
+    STRUCT_PAD(0x32, 0x44);
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 * frame_config;
+    /* 4C */ u16 ** tsal;
+    /* 50 */ u16 ** tsar;
+    /* 54 */ u16 ** img;
+    /* 58 */ u16 * pal;
+    /* 5C */ struct Anim * anim;
+};
+
 typedef void (*SpellAnimFunc)(struct Anim * anim);
 extern CONST_DATA SpellAnimFunc gEkrSpellAnimLut[];
 
@@ -150,14 +169,14 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ImgArray_DivineBg3
 // extern ??? TsaArray_DivineBg3
 // extern ??? ProcScr_efxDivineOBJ
-// extern ??? gUnknown_085D64A4
-// extern ??? gUnknown_085D64BC
-// extern ??? gUnknown_085D64D4
-// extern ??? gUnknown_085D6540
+// extern ??? ProcScr_efxHazymoon
+// extern ??? ProcScr_efxHazymoonBG
+// extern ??? TsaArray_EclipseBg
+// extern ??? ImgArray_EclipseBg
 // extern ??? ProcScr_efxHazymoonOBJ2
-// extern ??? gUnknown_085D65F4
-// extern ??? gUnknown_085D660C
-// extern ??? gUnknown_085D6624
+// extern ??? ProcScr_efxHazymoonOBJ3
+// extern ??? gEclipseAnimSpriteCoordinates
+// extern ??? ProcScr_efxHazymoonOBJ3RND
 // extern ??? gUnknown_085D6644
 // extern ??? gUnknown_085D665C
 // extern ??? ProcScr_efxFenrirBGCOL
@@ -468,21 +487,21 @@ void StartSubSpell_efxDivineOBJ(struct Anim * anim);
 void efxDivineOBJ_Loop(struct ProcEfxOBJ * proc);
 void StartSpellAnim_8060284_Null(struct Anim * anim);
 void StartSpellAnim_8060288_Null(struct Anim * anim);
-void sub_806028C(struct Anim * anim);
-// ??? sub_80602C8(???);
-// ??? sub_8060440(???);
-// ??? sub_80604B0(???);
-// ??? sub_8060514(???);
-// ??? sub_806056C(???);
-// ??? sub_80605E8(???);
-// ??? sub_8060664(???);
-// ??? sub_806067C(???);
-// ??? sub_80606D8(???);
-// ??? sub_8060734(???);
-// ??? sub_8060790(???);
-// ??? sub_80607D8(???);
-// ??? sub_8060838(???);
-// ??? sub_806088C(???);
+void StartSpellAnimEclipse(struct Anim * anim);
+void efxHazymoon_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxHazymoonBG_A(struct Anim * anim);
+void StartSubSpell_efxHazymoonBG_B(struct Anim * anim);
+void StartSubSpell_efxHazymoonBG_C(struct Anim * anim);
+void efxHazymoonBG_Loop(struct ProcEfxEclipseBG * proc);
+void StartSubSpell_efxHazymoonOBJ2(struct Anim * anim);
+void efxHazymoonOBJ2_OnEnd(struct ProcEfxOBJ * proc);
+void efxHazymoonOBJ2_Loop_A(struct ProcEfxOBJ * proc);
+void efxHazymoonOBJ2_Loop_B(struct ProcEfxOBJ * proc);
+void efxHazymoonOBJ2_Loop_C(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxHazymoonOBJ3(struct Anim * anim);
+void efxHazymoonOBJ3_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxHazymoonOBJ3RND(struct Anim * anim, int x, int y);
+void efxHazymoonOBJ3RND_OnEnd(struct ProcEfxOBJ * proc);
 void StartSpellAnimFenrir(struct Anim * anim);
 // ??? sub_80608E0(???);
 // ??? sub_8060A9C(???);
