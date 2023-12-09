@@ -25049,188 +25049,188 @@ Pal_DivineSprites:  @ 0x08645F44
 gUnknown_08646510:  @ 0x08646510
 	.incbin "baserom.gba", 0x646510, 0x40    @ 0x646550 - 0x646510
 
-	.global Img_08646550
-Img_08646550:  @ 0x08646550
+	.global Img_EclipseBg_A
+Img_EclipseBg_A:  @ 0x08646550
 	.incbin "baserom.gba", 0x646550, 0x348    @ 0x646898 - 0x646550
 
-	.global Img_08646898
-Img_08646898:  @ 0x08646898
+	.global Img_EclipseBg_B
+Img_EclipseBg_B:  @ 0x08646898
 	.incbin "baserom.gba", 0x646898, 0x8D4    @ 0x64716C - 0x646898
 
-	.global Img_0864716C
-Img_0864716C:  @ 0x0864716C
+	.global Img_EclipseBg_C
+Img_EclipseBg_C:  @ 0x0864716C
 	.incbin "baserom.gba", 0x64716C, 0x103C    @ 0x6481A8 - 0x64716C
 
-	.global Img_086481A8
-Img_086481A8:  @ 0x086481A8
+	.global Img_EclipseBg_D
+Img_EclipseBg_D:  @ 0x086481A8
 	.incbin "baserom.gba", 0x6481A8, 0xC6C    @ 0x648E14 - 0x6481A8
 
-	.global Img_08648E14
-Img_08648E14:  @ 0x08648E14
+	.global Img_EclipseBg_E
+Img_EclipseBg_E:  @ 0x08648E14
 	.incbin "baserom.gba", 0x648E14, 0xC1C    @ 0x649A30 - 0x648E14
 
-	.global Img_08649A30
-Img_08649A30:  @ 0x08649A30
+	.global Img_EclipseBg_F
+Img_EclipseBg_F:  @ 0x08649A30
 	.incbin "baserom.gba", 0x649A30, 0xB58    @ 0x64A588 - 0x649A30
 
-	.global Img_0864A588
-Img_0864A588:  @ 0x0864A588
+	.global Img_EclipseBg_G
+Img_EclipseBg_G:  @ 0x0864A588
 	.incbin "baserom.gba", 0x64A588, 0xB54    @ 0x64B0DC - 0x64A588
 
-	.global Img_0864B0DC
-Img_0864B0DC:  @ 0x0864B0DC
+	.global Img_EclipseBg_H
+Img_EclipseBg_H:  @ 0x0864B0DC
 	.incbin "baserom.gba", 0x64B0DC, 0xAB0    @ 0x64BB8C - 0x64B0DC
 
-	.global Img_0864BB8C
-Img_0864BB8C:  @ 0x0864BB8C
+	.global Img_EclipseBg_I
+Img_EclipseBg_I:  @ 0x0864BB8C
 	.incbin "baserom.gba", 0x64BB8C, 0xA28    @ 0x64C5B4 - 0x64BB8C
 
-	.global Img_0864C5B4
-Img_0864C5B4:  @ 0x0864C5B4
+	.global Img_EclipseBg_J
+Img_EclipseBg_J:  @ 0x0864C5B4
 	.incbin "baserom.gba", 0x64C5B4, 0x8FC    @ 0x64CEB0 - 0x64C5B4
 
-	.global Img_0864CEB0
-Img_0864CEB0:  @ 0x0864CEB0
+	.global Img_EclipseBg_K
+Img_EclipseBg_K:  @ 0x0864CEB0
 	.incbin "baserom.gba", 0x64CEB0, 0x8CC    @ 0x64D77C - 0x64CEB0
 
-	.global Img_0864D77C
-Img_0864D77C:  @ 0x0864D77C
+	.global Img_EclipseBg_L
+Img_EclipseBg_L:  @ 0x0864D77C
 	.incbin "baserom.gba", 0x64D77C, 0x880    @ 0x64DFFC - 0x64D77C
 
-	.global Img_0864DFFC
-Img_0864DFFC:  @ 0x0864DFFC
+	.global Img_EclipseBg_M
+Img_EclipseBg_M:  @ 0x0864DFFC
 	.incbin "baserom.gba", 0x64DFFC, 0x794    @ 0x64E790 - 0x64DFFC
 
-	.global gUnknown_0864E790
-gUnknown_0864E790:  @ 0x0864E790
+	.global Pal_EclipseBg_B
+Pal_EclipseBg_B:  @ 0x0864E790
 	.incbin "baserom.gba", 0x64E790, 0x20
 
-	.global gUnknown_0864E7B0
-gUnknown_0864E7B0:  @ 0x0864E7B0
+	.global Pal_EclipseBg_C
+Pal_EclipseBg_C:  @ 0x0864E7B0
 	.incbin "baserom.gba", 0x64E7B0, 0x20    @ 0x64E7D0 - 0x64E7B0
 
-	.global Tsa_0864E7D0
-Tsa_0864E7D0:  @ 0x0864E7D0
+	.global Tsa_EclipseBg_A
+Tsa_EclipseBg_A:  @ 0x0864E7D0
 	.incbin "baserom.gba", 0x64E7D0, 0x1A4    @ 0x64E974 - 0x64E7D0
 
-	.global Tsa_0864E974
-Tsa_0864E974:  @ 0x0864E974
+	.global Tsa_EclipseBg_B
+Tsa_EclipseBg_B:  @ 0x0864E974
 	.incbin "baserom.gba", 0x64E974, 0xA0    @ 0x64EA14 - 0x64E974
 
-	.global Tsa_0864EA14
-Tsa_0864EA14:  @ 0x0864EA14
+	.global Tsa_EclipseBg_C
+Tsa_EclipseBg_C:  @ 0x0864EA14
 	.incbin "baserom.gba", 0x64EA14, 0xA0    @ 0x64EAB4 - 0x64EA14
 
-	.global Tsa_0864EAB4
-Tsa_0864EAB4:  @ 0x0864EAB4
+	.global Tsa_EclipseBg_D
+Tsa_EclipseBg_D:  @ 0x0864EAB4
 	.incbin "baserom.gba", 0x64EAB4, 0xB4    @ 0x64EB68 - 0x64EAB4
 
-	.global Tsa_0864EB68
-Tsa_0864EB68:  @ 0x0864EB68
+	.global Tsa_EclipseBg_E
+Tsa_EclipseBg_E:  @ 0x0864EB68
 	.incbin "baserom.gba", 0x64EB68, 0xB4    @ 0x64EC1C - 0x64EB68
 
-	.global Tsa_0864EC1C
-Tsa_0864EC1C:  @ 0x0864EC1C
+	.global Tsa_EclipseBg_F
+Tsa_EclipseBg_F:  @ 0x0864EC1C
 	.incbin "baserom.gba", 0x64EC1C, 0xB4    @ 0x64ECD0 - 0x64EC1C
 
-	.global Tsa_0864ECD0
-Tsa_0864ECD0:  @ 0x0864ECD0
+	.global Tsa_EclipseBg_G
+Tsa_EclipseBg_G:  @ 0x0864ECD0
 	.incbin "baserom.gba", 0x64ECD0, 0xDC    @ 0x64EDAC - 0x64ECD0
 
-	.global Tsa_0864EDAC
-Tsa_0864EDAC:  @ 0x0864EDAC
+	.global Tsa_EclipseBg_H
+Tsa_EclipseBg_H:  @ 0x0864EDAC
 	.incbin "baserom.gba", 0x64EDAC, 0xDC    @ 0x64EE88 - 0x64EDAC
 
-	.global Tsa_0864EE88
-Tsa_0864EE88:  @ 0x0864EE88
+	.global Tsa_EclipseBg_I
+Tsa_EclipseBg_I:  @ 0x0864EE88
 	.incbin "baserom.gba", 0x64EE88, 0x114    @ 0x64EF9C - 0x64EE88
 
-	.global Tsa_0864EF9C
-Tsa_0864EF9C:  @ 0x0864EF9C
+	.global Tsa_EclipseBg_J
+Tsa_EclipseBg_J:  @ 0x0864EF9C
 	.incbin "baserom.gba", 0x64EF9C, 0x114    @ 0x64F0B0 - 0x64EF9C
 
-	.global Tsa_0864F0B0
-Tsa_0864F0B0:  @ 0x0864F0B0
+	.global Tsa_EclipseBg_K
+Tsa_EclipseBg_K:  @ 0x0864F0B0
 	.incbin "baserom.gba", 0x64F0B0, 0x114    @ 0x64F1C4 - 0x64F0B0
 
-	.global Tsa_0864F1C4
-Tsa_0864F1C4:  @ 0x0864F1C4
+	.global Tsa_EclipseBg_L
+Tsa_EclipseBg_L:  @ 0x0864F1C4
 	.incbin "baserom.gba", 0x64F1C4, 0x114    @ 0x64F2D8 - 0x64F1C4
 
-	.global Tsa_0864F2D8
-Tsa_0864F2D8:  @ 0x0864F2D8
+	.global Tsa_EclipseBg_M
+Tsa_EclipseBg_M:  @ 0x0864F2D8
 	.incbin "baserom.gba", 0x64F2D8, 0x114    @ 0x64F3EC - 0x64F2D8
 
-	.global Tsa_0864F3EC
-Tsa_0864F3EC:  @ 0x0864F3EC
+	.global Tsa_EclipseBg_N
+Tsa_EclipseBg_N:  @ 0x0864F3EC
 	.incbin "baserom.gba", 0x64F3EC, 0x10C    @ 0x64F4F8 - 0x64F3EC
 
-	.global Tsa_0864F4F8
-Tsa_0864F4F8:  @ 0x0864F4F8
+	.global Tsa_EclipseBg_O
+Tsa_EclipseBg_O:  @ 0x0864F4F8
 	.incbin "baserom.gba", 0x64F4F8, 0xD8    @ 0x64F5D0 - 0x64F4F8
 
-	.global Tsa_0864F5D0
-Tsa_0864F5D0:  @ 0x0864F5D0
+	.global Tsa_EclipseBg_P
+Tsa_EclipseBg_P:  @ 0x0864F5D0
 	.incbin "baserom.gba", 0x64F5D0, 0x110    @ 0x64F6E0 - 0x64F5D0
 
-	.global Tsa_0864F6E0
-Tsa_0864F6E0:  @ 0x0864F6E0
+	.global Tsa_EclipseBg_Q
+Tsa_EclipseBg_Q:  @ 0x0864F6E0
 	.incbin "baserom.gba", 0x64F6E0, 0x168    @ 0x64F848 - 0x64F6E0
 
-	.global Tsa_0864F848
-Tsa_0864F848:  @ 0x0864F848
+	.global Tsa_EclipseBg_R
+Tsa_EclipseBg_R:  @ 0x0864F848
 	.incbin "baserom.gba", 0x64F848, 0x1C4    @ 0x64FA0C - 0x64F848
 
-	.global Tsa_0864FA0C
-Tsa_0864FA0C:  @ 0x0864FA0C
+	.global Tsa_EclipseBg_S
+Tsa_EclipseBg_S:  @ 0x0864FA0C
 	.incbin "baserom.gba", 0x64FA0C, 0x1C4    @ 0x64FBD0 - 0x64FA0C
 
-	.global Tsa_0864FBD0
-Tsa_0864FBD0:  @ 0x0864FBD0
+	.global Tsa_EclipseBg_T
+Tsa_EclipseBg_T:  @ 0x0864FBD0
 	.incbin "baserom.gba", 0x64FBD0, 0x1BC    @ 0x64FD8C - 0x64FBD0
 
-	.global Tsa_0864FD8C
-Tsa_0864FD8C:  @ 0x0864FD8C
+	.global Tsa_EclipseBg_U
+Tsa_EclipseBg_U:  @ 0x0864FD8C
 	.incbin "baserom.gba", 0x64FD8C, 0x1B0    @ 0x64FF3C - 0x64FD8C
 
-	.global Tsa_0864FF3C
-Tsa_0864FF3C:  @ 0x0864FF3C
+	.global Tsa_EclipseBg_V
+Tsa_EclipseBg_V:  @ 0x0864FF3C
 	.incbin "baserom.gba", 0x64FF3C, 0x1B0    @ 0x6500EC - 0x64FF3C
 
-	.global Tsa_086500EC
-Tsa_086500EC:  @ 0x086500EC
+	.global Tsa_EclipseBg_W
+Tsa_EclipseBg_W:  @ 0x086500EC
 	.incbin "baserom.gba", 0x6500EC, 0x1B0    @ 0x65029C - 0x6500EC
 
-	.global Tsa_0865029C
-Tsa_0865029C:  @ 0x0865029C
+	.global Tsa_EclipseBg_X
+Tsa_EclipseBg_X:  @ 0x0865029C
 	.incbin "baserom.gba", 0x65029C, 0x1A4    @ 0x650440 - 0x65029C
 
-	.global Tsa_08650440
-Tsa_08650440:  @ 0x08650440
+	.global Tsa_EclipseBg_Y
+Tsa_EclipseBg_Y:  @ 0x08650440
 	.incbin "baserom.gba", 0x650440, 0x198    @ 0x6505D8 - 0x650440
 
-	.global Tsa_086505D8
-Tsa_086505D8:  @ 0x086505D8
+	.global Tsa_EclipseBg_Z
+Tsa_EclipseBg_Z:  @ 0x086505D8
 	.incbin "baserom.gba", 0x6505D8, 0x190    @ 0x650768 - 0x6505D8
 
-	.global Tsa_08650768
-Tsa_08650768:  @ 0x08650768
+	.global Tsa_EclipseBg_AA
+Tsa_EclipseBg_AA:  @ 0x08650768
 	.incbin "baserom.gba", 0x650768, 0x174    @ 0x6508DC - 0x650768
 
-	.global gUnknown_086508DC
-gUnknown_086508DC:  @ 0x086508DC
+	.global Img_EclipseSprites_Swirl
+Img_EclipseSprites_Swirl:  @ 0x086508DC
 	.incbin "baserom.gba", 0x6508DC, 0x4CC
 
-	.global gUnknown_08650DA8
-gUnknown_08650DA8:  @ 0x08650DA8
+	.global Img_EclipseSprites_08650DA8
+Img_EclipseSprites_08650DA8:  @ 0x08650DA8
 	.incbin "baserom.gba", 0x650DA8, 0x498
 
-	.global gUnknown_08651240
-gUnknown_08651240:  @ 0x08651240
+	.global Img_EclipseSprites_08651240
+Img_EclipseSprites_08651240:  @ 0x08651240
 	.incbin "baserom.gba", 0x651240, 0x3FC
 
-	.global gUnknown_0865163C
-gUnknown_0865163C:  @ 0x0865163C
+	.global Pal_EclipseSprites
+Pal_EclipseSprites:  @ 0x0865163C
 	.incbin "baserom.gba", 0x65163C, 0x1A0
 
 	.global gUnknown_086517DC

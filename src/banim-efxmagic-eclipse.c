@@ -9,17 +9,17 @@
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D64A4[] =
+struct ProcCmd CONST_DATA ProcScr_efxHazymoon[] =
 {
     PROC_NAME("efxHazymoon"),
-    PROC_REPEAT(sub_80602C8),
+    PROC_REPEAT(efxHazymoon_Loop_Main),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0806028C
-void sub_806028C(struct Anim * anim)
+void StartSpellAnimEclipse(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -27,7 +27,7 @@ void sub_806028C(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D64A4, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxHazymoon, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -36,7 +36,7 @@ void sub_806028C(struct Anim * anim)
 }
 
 //! FE8U = 0x080602C8
-void sub_80602C8(struct ProcEfx * proc)
+void efxHazymoon_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -53,8 +53,8 @@ void sub_80602C8(struct ProcEfx * proc)
         SetBlendAlpha(0, 16);
         NewEfxALPHA(anim, 0, 15, 0, 16, 0);
         NewEfxALPHA(anim, 80, 15, 16, 0, 0);
-        sub_8060440(proc->anim);
-        sub_8060790(proc->anim);
+        StartSubSpell_efxHazymoonBG_A(proc->anim);
+        StartSubSpell_efxHazymoonOBJ3(proc->anim);
         PlaySFX(0x138, 0x100, 0x78, 0);
     }
     else if (proc->timer == duration + 70)
@@ -64,7 +64,7 @@ void sub_80602C8(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 120)
     {
-        sub_80604B0(anim);
+        StartSubSpell_efxHazymoonBG_B(anim);
     }
     else if (proc->timer == duration + 125)
     {
@@ -72,13 +72,13 @@ void sub_80602C8(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 151)
     {
-        sub_80605E8(proc->anim);
+        StartSubSpell_efxHazymoonOBJ2(proc->anim);
     }
     else if (proc->timer == duration + 226)
     {
         PlaySFX(0x2E2, 0x100, anim->xPosition, 1);
         NewEfxFlashBgWhite(anim, 10);
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
         if (!proc->hitted)
         {
@@ -87,7 +87,7 @@ void sub_80602C8(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 236)
     {
-        sub_8060514(anim);
+        StartSubSpell_efxHazymoonBG_C(anim);
         NewEfxALPHA(anim, 16, 10, 16, 0, 0);
     }
     else if (proc->timer == duration + 270)
@@ -102,82 +102,82 @@ void sub_80602C8(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D64BC[] =
+struct ProcCmd CONST_DATA ProcScr_efxHazymoonBG[] =
 {
     PROC_NAME("efxHazymoonBG"),
-    PROC_REPEAT(sub_806056C),
+    PROC_REPEAT(efxHazymoonBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D64D4[] =
+u16 * CONST_DATA TsaArray_EclipseBg[] =
 {
-    Tsa_0864E7D0,
-    Tsa_0864E974,
-    Tsa_0864EA14,
-    Tsa_0864EAB4,
-    Tsa_0864EB68,
-    Tsa_0864EC1C,
-    Tsa_0864ECD0,
-    Tsa_0864EDAC,
-    Tsa_0864EE88,
-    Tsa_0864EF9C,
-    Tsa_0864F0B0,
-    Tsa_0864F1C4,
-    Tsa_0864F2D8,
-    Tsa_0864F3EC,
-    Tsa_0864F4F8,
-    Tsa_0864F5D0,
-    Tsa_0864F6E0,
-    Tsa_0864F848,
-    Tsa_0864FA0C,
-    Tsa_0864FBD0,
-    Tsa_0864FD8C,
-    Tsa_0864FF3C,
-    Tsa_086500EC,
-    Tsa_0865029C,
-    Tsa_08650440,
-    Tsa_086505D8,
-    Tsa_08650768,
+    Tsa_EclipseBg_A,
+    Tsa_EclipseBg_B,
+    Tsa_EclipseBg_C,
+    Tsa_EclipseBg_D,
+    Tsa_EclipseBg_E,
+    Tsa_EclipseBg_F,
+    Tsa_EclipseBg_G,
+    Tsa_EclipseBg_H,
+    Tsa_EclipseBg_I,
+    Tsa_EclipseBg_J,
+    Tsa_EclipseBg_K,
+    Tsa_EclipseBg_L,
+    Tsa_EclipseBg_M,
+    Tsa_EclipseBg_N,
+    Tsa_EclipseBg_O,
+    Tsa_EclipseBg_P,
+    Tsa_EclipseBg_Q,
+    Tsa_EclipseBg_R,
+    Tsa_EclipseBg_S,
+    Tsa_EclipseBg_T,
+    Tsa_EclipseBg_U,
+    Tsa_EclipseBg_V,
+    Tsa_EclipseBg_W,
+    Tsa_EclipseBg_X,
+    Tsa_EclipseBg_Y,
+    Tsa_EclipseBg_Z,
+    Tsa_EclipseBg_AA,
 };
 
-u16 * CONST_DATA gUnknown_085D6540[] =
+u16 * CONST_DATA ImgArray_EclipseBg[] =
 {
-    Img_08646550,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_08646898,
-    Img_0864716C,
-    Img_0864716C,
-    Img_0864716C,
-    Img_086481A8,
-    Img_08648E14,
-    Img_08649A30,
-    Img_0864A588,
-    Img_0864B0DC,
-    Img_0864BB8C,
-    Img_0864C5B4,
-    Img_0864CEB0,
-    Img_0864D77C,
-    Img_0864DFFC,
+    Img_EclipseBg_A,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_B,
+    Img_EclipseBg_C,
+    Img_EclipseBg_C,
+    Img_EclipseBg_C,
+    Img_EclipseBg_D,
+    Img_EclipseBg_E,
+    Img_EclipseBg_F,
+    Img_EclipseBg_G,
+    Img_EclipseBg_H,
+    Img_EclipseBg_I,
+    Img_EclipseBg_J,
+    Img_EclipseBg_K,
+    Img_EclipseBg_L,
+    Img_EclipseBg_M,
 };
 
 // clang-format on
 
 //! FE8U = 0x08060440
-void sub_8060440(struct Anim * anim)
+void StartSubSpell_efxHazymoonBG_A(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD5D2[] =
+    static const u16 frames[] =
     {
          0, 100,
         -1,
@@ -188,17 +188,17 @@ void sub_8060440(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D64BC, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxHazymoonBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD5D2;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D64D4;
-    proc->tsar = gUnknown_085D64D4;
+    proc->tsal = TsaArray_EclipseBg;
+    proc->tsar = TsaArray_EclipseBg;
 
-    proc->img = gUnknown_085D6540;
+    proc->img = ImgArray_EclipseBg;
     proc->pal = NULL;
 
     SpellFx_RegisterBgPal(Pal_NosferatuBg, PLTT_SIZE_4BPP);
@@ -210,10 +210,10 @@ void sub_8060440(struct Anim * anim)
 }
 
 //! FE8U = 0x080604B0
-void sub_80604B0(struct Anim * anim)
+void StartSubSpell_efxHazymoonBG_B(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD5D8[] =
+    static const u16 frames[] =
     {
          1, 1,
          2, 1,
@@ -263,20 +263,20 @@ void sub_80604B0(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D64BC, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxHazymoonBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD5D8;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D64D4;
-    proc->tsar = gUnknown_085D64D4;
+    proc->tsal = TsaArray_EclipseBg;
+    proc->tsar = TsaArray_EclipseBg;
 
-    proc->img = gUnknown_085D6540;
+    proc->img = ImgArray_EclipseBg;
     proc->pal = NULL;
 
-    SpellFx_RegisterBgPal(gUnknown_0864E790, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_EclipseBg_B, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     SetBlendAlpha(12, 6);
@@ -285,10 +285,10 @@ void sub_80604B0(struct Anim * anim)
 }
 
 //! FE8U = 0x08060514
-void sub_8060514(struct Anim * anim)
+void StartSubSpell_efxHazymoonBG_C(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD67A[] =
+    static const u16 frames[] =
     {
         14, 3,
         15, 3,
@@ -311,27 +311,27 @@ void sub_8060514(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D64BC, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxHazymoonBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD67A;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D64D4;
-    proc->tsar = gUnknown_085D64D4;
+    proc->tsal = TsaArray_EclipseBg;
+    proc->tsar = TsaArray_EclipseBg;
 
-    proc->img = gUnknown_085D6540;
+    proc->img = ImgArray_EclipseBg;
     proc->pal = NULL;
 
-    SpellFx_RegisterBgPal(gUnknown_0864E7B0, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_EclipseBg_C, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     return;
 }
 
 //! FE8U = 0x0806056C
-void sub_806056C(struct ProcEfxEclipseBG * proc)
+void efxHazymoonBG_Loop(struct ProcEfxEclipseBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -344,7 +344,7 @@ void sub_806056C(struct ProcEfxEclipseBG * proc)
 
         if (proc->pal != *(img + ret))
         {
-            SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
+            SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
         }
 
         proc->pal = *(img + ret);
@@ -371,14 +371,15 @@ struct ProcCmd CONST_DATA ProcScr_efxHazymoonOBJ2[] =
 {
     PROC_NAME("efxHazymoonOBJ2"),
 
-    PROC_SET_END_CB(sub_8060664),
+    PROC_SET_END_CB(efxHazymoonOBJ2_OnEnd),
 
-    PROC_REPEAT(sub_806067C),
-    PROC_REPEAT(sub_80606D8),
-    PROC_REPEAT(sub_8060734),
-    PROC_REPEAT(sub_806067C),
-    PROC_REPEAT(sub_80606D8),
-    PROC_REPEAT(sub_8060734),
+    PROC_REPEAT(efxHazymoonOBJ2_Loop_A),
+    PROC_REPEAT(efxHazymoonOBJ2_Loop_B),
+    PROC_REPEAT(efxHazymoonOBJ2_Loop_C),
+
+    PROC_REPEAT(efxHazymoonOBJ2_Loop_A),
+    PROC_REPEAT(efxHazymoonOBJ2_Loop_B),
+    PROC_REPEAT(efxHazymoonOBJ2_Loop_C),
 
     PROC_END,
 };
@@ -386,7 +387,7 @@ struct ProcCmd CONST_DATA ProcScr_efxHazymoonOBJ2[] =
 // clang-format on
 
 //! FE8U = 0x080605E8
-void sub_80605E8(struct Anim * anim)
+void StartSubSpell_efxHazymoonOBJ2(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * otherAnim;
@@ -399,8 +400,7 @@ void sub_80605E8(struct Anim * anim)
     otherAnim = GetAnimAnotherSide(anim);
     proc->timer = 0;
 
-    frontAnim =
-        EfxCreateFrontAnim(otherAnim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
+    frontAnim = EfxCreateFrontAnim(otherAnim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
     proc->anim2 = frontAnim;
     frontAnim->oam2Base &= ~(0xc00);
     frontAnim->oam2Base |= 0x400;
@@ -420,7 +420,7 @@ void sub_80605E8(struct Anim * anim)
 }
 
 //! FE8U = 0x08060664
-void sub_8060664(struct ProcEfxOBJ * proc)
+void efxHazymoonOBJ2_OnEnd(struct ProcEfxOBJ * proc)
 {
     gEfxBgSemaphore--;
     AnimDelete(proc->anim2);
@@ -428,7 +428,7 @@ void sub_8060664(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0806067C
-void sub_806067C(struct ProcEfxOBJ * proc)
+void efxHazymoonOBJ2_Loop_A(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
@@ -442,8 +442,8 @@ void sub_806067C(struct ProcEfxOBJ * proc)
 
         proc->terminator = 10;
 
-        SpellFx_RegisterObjPal(gUnknown_0865163C, PLTT_SIZE_4BPP);
-        SpellFx_RegisterObjGfx(gUnknown_086508DC, 32 * 4 * CHR_SIZE);
+        SpellFx_RegisterObjPal(Pal_EclipseSprites, PLTT_SIZE_4BPP);
+        SpellFx_RegisterObjGfx(Img_EclipseSprites_Swirl, 32 * 4 * CHR_SIZE);
     }
     else if (proc->timer == proc->terminator)
     {
@@ -455,7 +455,7 @@ void sub_806067C(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x080606D8
-void sub_80606D8(struct ProcEfxOBJ * proc)
+void efxHazymoonOBJ2_Loop_B(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
@@ -469,8 +469,8 @@ void sub_80606D8(struct ProcEfxOBJ * proc)
 
         proc->terminator = 10;
 
-        SpellFx_RegisterObjPal(gUnknown_0865163C, PLTT_SIZE_4BPP);
-        SpellFx_RegisterObjGfx(gUnknown_08650DA8, 32 * 4 * CHR_SIZE);
+        SpellFx_RegisterObjPal(Pal_EclipseSprites, PLTT_SIZE_4BPP);
+        SpellFx_RegisterObjGfx(Img_EclipseSprites_08650DA8, 32 * 4 * CHR_SIZE);
     }
     else if (proc->timer == proc->terminator)
     {
@@ -482,7 +482,7 @@ void sub_80606D8(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x08060734
-void sub_8060734(struct ProcEfxOBJ * proc)
+void efxHazymoonOBJ2_Loop_C(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
@@ -496,8 +496,8 @@ void sub_8060734(struct ProcEfxOBJ * proc)
 
         proc->terminator = 10;
 
-        SpellFx_RegisterObjPal(gUnknown_0865163C, PLTT_SIZE_4BPP);
-        SpellFx_RegisterObjGfx(gUnknown_08651240, 32 * 4 * CHR_SIZE);
+        SpellFx_RegisterObjPal(Pal_EclipseSprites, PLTT_SIZE_4BPP);
+        SpellFx_RegisterObjGfx(Img_EclipseSprites_08651240, 32 * 4 * CHR_SIZE);
     }
     else if (proc->timer == proc->terminator)
     {
@@ -510,29 +510,29 @@ void sub_8060734(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D65F4[] =
+struct ProcCmd CONST_DATA ProcScr_efxHazymoonOBJ3[] =
 {
     PROC_NAME("efxHazymoonOBJ3"),
-    PROC_REPEAT(sub_80607D8),
+    PROC_REPEAT(efxHazymoonOBJ3_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08060790
-void sub_8060790(struct Anim * anim)
+void StartSubSpell_efxHazymoonOBJ3(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D65F4, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxHazymoonOBJ3, PROC_TREE_3);
     proc->anim = anim;
 
     proc->timer = 0;
     proc->terminator = 0;
 
-    proc->unk30 = 0x2c;
+    proc->unk30 = 44;
 
     SpellFx_RegisterObjPal(Pal_FluxAnimSprites, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_FluxAnimSprites_Orb, 32 * 4 * CHR_SIZE);
@@ -542,7 +542,7 @@ void sub_8060790(struct Anim * anim)
 
 // clang-format off
 
-s16 CONST_DATA gUnknown_085D660C[] =
+s16 CONST_DATA gEclipseAnimSpriteCoordinates[] =
 {
     96, 56,
     48, 104,
@@ -555,7 +555,7 @@ s16 CONST_DATA gUnknown_085D660C[] =
 // clang-format on
 
 //! FE8U = 0x080607D8
-void sub_80607D8(struct ProcEfxOBJ * proc)
+void efxHazymoonOBJ3_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -566,10 +566,10 @@ void sub_80607D8(struct ProcEfxOBJ * proc)
 
         proc->timer = 0;
 
-        x = gUnknown_085D660C[proc->terminator * 2];
-        y = gUnknown_085D660C[proc->terminator * 2 + 1];
+        x = gEclipseAnimSpriteCoordinates[proc->terminator * 2];
+        y = gEclipseAnimSpriteCoordinates[proc->terminator * 2 + 1];
 
-        sub_8060838(proc->anim, x, y);
+        StartSubSpell_efxHazymoonOBJ3RND(proc->anim, x, y);
 
         proc->terminator++;
 
@@ -585,10 +585,10 @@ void sub_80607D8(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D6624[] =
+struct ProcCmd CONST_DATA ProcScr_efxHazymoonOBJ3RND[] =
 {
     PROC_NAME("efxHazymoonOBJ3RND"),
-    PROC_SET_END_CB(sub_806088C),
+    PROC_SET_END_CB(efxHazymoonOBJ3RND_OnEnd),
 
     PROC_SLEEP(44),
 
@@ -598,14 +598,14 @@ struct ProcCmd CONST_DATA gUnknown_085D6624[] =
 // clang-format on
 
 //! FE8U = 0x08060838
-void sub_8060838(struct Anim * anim, int x, int y)
+void StartSubSpell_efxHazymoonOBJ3RND(struct Anim * anim, int x, int y)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D6624, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxHazymoonOBJ3RND, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
@@ -619,7 +619,7 @@ void sub_8060838(struct Anim * anim, int x, int y)
 }
 
 //! FE8U = 0x0806088C
-void sub_806088C(struct ProcEfxOBJ * proc)
+void efxHazymoonOBJ3RND_OnEnd(struct ProcEfxOBJ * proc)
 {
     gEfxBgSemaphore--;
     AnimDelete(proc->anim2);

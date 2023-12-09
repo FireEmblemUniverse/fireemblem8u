@@ -42,7 +42,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnim_8060284_Null,
     StartSpellAnimDivine,
     StartSpellAnim_8060288_Null,
-    sub_806028C,
+    StartSpellAnimEclipse,
     StartSpellAnimFenrir,
     StartSpellAnimHeal,
     StartSpellAnimMend,
