@@ -5,6 +5,8 @@
 #include "bmunit.h"
 
 struct UnitDefinition;
+typedef uintptr_t EventListScr;
+typedef uintptr_t EventScr;
 
 struct EventEngineProc
 {
@@ -30,10 +32,10 @@ struct EventEngineProc
     /* 48 */ const struct UnitDefinition* pUnitLoadData;
     /* 4C */ s16 unitLoadCount;
     
-    /* 4E */ u8  idk4E;
+    /* 4E */ u8  chance;
 
     /* 4F */ u8 unitLoadParameter : 7;
-    /* 4F */ u8 unk4F_7 : 1;
+    /* 4F */ u8 diable_REDA : 1;
 
     /* 50 */ STRUCT_PAD(0x50, 0x54);
     /* 54 */ struct Unit *unit;
@@ -81,6 +83,24 @@ enum EventCommandReturnCode
     EVC_ERROR            = 6
 };
 
+enum EventSlotIdx
+{
+    EVT_SLOT_0 = 0,
+    EVT_SLOT_1,
+    EVT_SLOT_2,
+    EVT_SLOT_3,
+    EVT_SLOT_4,
+    EVT_SLOT_5,
+    EVT_SLOT_6,
+    EVT_SLOT_7,
+    EVT_SLOT_8,
+    EVT_SLOT_9,
+    EVT_SLOT_A,
+    EVT_SLOT_B,
+    EVT_SLOT_C,
+    EVT_SLOT_D,
+};
+
 // This will probably be used in evtcmd_gmap/evtscr for defining the event code handler arrays or something
 typedef u8(*EventFuncType)(struct EventEngineProc*);
 
@@ -109,81 +129,7 @@ struct Struct03000570 {
     const u16 * evt2;
 };
 
-extern struct Struct03000570 gUnknown_03000570[];
-
-enum EventCmdIndex
-{
-    EV_CMD_NOP              = 0x00,
-    EV_CMD_END              = 0x01,
-    EV_CMD_EVSET            = 0x02,
-    EV_CMD_EVCHECK          = 0x03,
-    EV_CMD_RANDOMNUMBER     = 0x04,
-    EV_CMD_SVAL             = 0x05,
-    EV_CMD_SLOT_OPS         = 0x06,
-    EV_CMD_QUEUE_OPS        = 0x07,
-    EV_CMD_LABEL            = 0x08,
-    EV_CMD_GOTO             = 0x09,
-    EV_CMD_CALL             = 0x0A,
-    EV_CMD_0B               = 0x0B,
-    EV_CMD_BRANCH           = 0x0C,
-    EV_CMD_ASMC             = 0x0D,
-    EV_CMD_STALL            = 0x0E,
-    EV_CMD_COUNTER          = 0x0F,
-    EV_CMD_EVBITMODIFY      = 0x10,
-    EV_CMD_IGNOREKEYS       = 0x11,
-    EV_CMD_BGMCHANGE_12     = 0x12,
-    EV_CMD_BGMCHANGE_13     = 0x13,
-    EV_CMD_BGMOVERWRITE     = 0x14,
-    EV_CMD_BGMVOLUMECHANGE  = 0x15,
-    EV_CMD_PLAYSE           = 0x16,
-    EV_CMD_FADE             = 0x17,
-    EV_CMD_COLORFADE        = 0x18,
-    EV_CMD_CHECKVARIOUS     = 0x19,
-    EV_CMD_SETTEXTTYPE      = 0x1A,
-    EV_CMD_DISPLAYTEXT      = 0x1B,
-    EV_CMD_CONTINUETEXT     = 0x1C,
-    EV_CMD_ENDTEXT          = 0x1D,
-    EV_CMD_DISPLAYFACE      = 0x1E,
-    EV_CMD_MOVEFACE         = 0x1F,
-    EV_CMD_CLEARTEXTBOX     = 0x20,
-    EV_CMD_SHOWBG           = 0x21,
-    EV_CMD_CLEARSCREEN      = 0x22,
-    EV_CMD_23               = 0x23,
-    EV_CMD_24               = 0x24,
-    EV_CMD_LOMA             = 0x25,
-    EV_CMD_CAMERACONTROL    = 0x26,
-    EV_CMD_27               = 0x27,
-    EV_CMD_CHANGEWEATHER    = 0x28,
-    EV_CMD_CHANGEFOGVISION  = 0x29,
-    EV_CMD_CHANGECHAPTER    = 0x2A,
-    EV_CMD_2B               = 0x2B,
-    EV_CMD_2C               = 0x2C,
-    EV_CMD_2D               = 0x2D,
-    EV_CMD_2E               = 0x2E,
-    EV_CMD_MOVEUNIT         = 0x2F,
-    EV_CMD_ENUN             = 0x30,
-    EV_CMD_TOGGLERANGE      = 0x31,
-    EV_CMD_LOADSINGLEUNIT   = 0x32,
-    EV_CMD_CHECKSTATE       = 0x33,
-    EV_CMD_CHANGESTATE      = 0x34,
-    EV_CMD_CHANGECLASS      = 0x35,
-    EV_CMD_CHECKINAREA      = 0x36,
-    EV_CMD_GIVEITEM         = 0x37,
-    EV_CMD_CHANGEACTIVEUNIT = 0x38,
-    EV_CMD_CHANGEAI         = 0x39,
-    EV_CMD_DISPLAYPOPUP     = 0x3A,
-    EV_CMD_DISPLAYCURSOR    = 0x3B,
-    EV_CMD_3C               = 0x3C,
-    EV_CMD_3D               = 0x3D,
-    EV_CMD_PREPSCREEN       = 0x3E,
-    EV_CMD_3F               = 0x3F,
-    EV_CMD_40               = 0x40,
-    EV_CMD_41               = 0x41,
-    EV_CMD_42               = 0x42,
-    EV_CMD_43               = 0x43,
-    EV_CMD_44               = 0x44,
-    EV_CMD_45               = 0x45,
-};
+extern struct Struct03000570 gEventActiveQueue[];
 
 #define EVT_SUB_CMD(scr) (*((const u8 *)(scr)) & 0xF)
 #define EVT_SUB_CMD_LO(scr) (*((const u16 *)(scr)) & 0x7)
@@ -193,48 +139,6 @@ enum EventCmdIndex
 #define EVT_CMD_ARGV(scr) ((const s16 *)(scr) + 1)
 #define EVT_CMD_ARG32_BE(scr) ((u16)EVT_CMD_ARGV(scr)[1] | ((u16)EVT_CMD_ARGV(scr)[2] << 0x10))
 #define EVT_CMD_ARG32_LE(scr) (*((u32 *)(EVT_CMD_ARGV(scr) + 1)))
-
-enum EventCmdSubIndex {
-
-    /* EV_CMD_END */
-    EVSUBCMD_ENDA = 0,
-    EVSUBCMD_ENDB = 1,
-
-    /* EV_CMD_EVSET */
-    EVSUBCMD_EVBIT_F = 0,
-    EVSUBCMD_EVBIT_T = 8,
-    EVSUBCMD_ENUF = 1,
-    EVSUBCMD_ENUT = 9,
-
-    /* EV_CMD_EVCHECK */
-    EVSUBCMD_CHECK_EVBIT = 0,
-    EVSUBCMD_CHECK_EVENTID = 1,
-
-    /* EV_CMD_SLOT_OPS */
-    EVSUBCMD_SADD = 0,
-    EVSUBCMD_SSUB = 1,
-    EVSUBCMD_SMUL = 2,
-    EVSUBCMD_SDIV = 3,
-    EVSUBCMD_SMOD = 4,
-    EVSUBCMD_SAND = 5,
-    EVSUBCMD_SORR = 6,
-    EVSUBCMD_SXOR = 7,
-    EVSUBCMD_SLSL = 8,
-    EVSUBCMD_SLSR = 9,
-
-    /* EV_CMD_QUEUE_OPS */
-    EVSUBCMD_SENQUEUE = 0,
-    EVSUBCMD_SDEQUEUE_S1 = 1,
-    EVSUBCMD_SDEQUEUE = 2,
-
-    /* EV_CMD_BRANCH */
-    EVSUBCMD_BEQ = 0,
-    EVSUBCMD_BNE = 1,
-    EVSUBCMD_BGE = 2,
-    EVSUBCMD_BGT = 3,
-    EVSUBCMD_BLE = 4,
-    EVSUBCMD_BLT = 5,
-};
 
 struct ConvoBackgroundFadeProc
 {
@@ -289,9 +193,10 @@ extern struct ProcCmd gUnknown_08591DE8[]; // "face witness"
 extern struct ProcCmd gUnknown_08591E00[];
 extern struct ProcCmd gUnknown_08591E58[];
 extern struct ProcCmd gUnknown_08591EB0[];
-extern struct ProcCmd CONST_DATA gUnknown_08591F08[];
+extern struct ProcCmd CONST_DATA ProcScr_EventDisplayCursor[];
 extern struct ProcCmd CONST_DATA ProcScr_ScriptBattleDeamon[];
 extern struct ProcCmd CONST_DATA gUnknown_08591F28[];
+extern EventScr gEvent_RemoveBGIfNeeded[];
 extern const u16 gEvent_DisplayBattleQuote[];
 extern const u16 gEvent_TriggerQueuedTileChanges[];
 extern const u16 gEvent_OpenChest[];
@@ -301,7 +206,7 @@ extern const u16 gEvent_SkirmishRetreat[];
 extern const u16 gEvent_SuspendPrompt[];
 extern const u16 gEvent_GameOver[];
 extern u16 gEvent_08592114[];
-extern u16 CONST_DATA gUnknown_085921AC[];
+extern u16 CONST_DATA Obj_EventShinningCursor[];
 
 void _MarkSomethingInMenu(void);
 void EventEngine_OnUpdate(struct EventEngineProc* proc);
@@ -462,12 +367,12 @@ void sub_800BCDC(u16); // battle related
 // ??? Event0F_(???);
 // ??? Event10_ModifyEvBit(???);
 // ??? Event11_SetIgnoredKeys(???);
-// ??? Event12_(???);
-// ??? Event13_(???);
+// ??? Event12_StartBGM(???);
+// ??? Event12_BgmFadeIn(???);
 // ??? Event14_(???);
-// ??? Event15_(???);
+// ??? Event15_BgmVolume(???);
 // ??? Event16_(???);
-// ??? Event17_(???);
+// ??? Event17_Fade(???);
 // ??? Event18_(???);
 // ??? Event19_(???);
 // ??? Event1A_TEXTSTART(???);
@@ -492,26 +397,26 @@ void sub_800E640(struct EventEngineProc*);
 // ??? sub_800EE54(???);
 // ??? sub_800EEE8(???);
 // ??? sub_800EF48(???);
-u8 Event22_(struct EventEngineProc *); // CLEAN
-u8 Event23_(struct EventEngineProc *); // Lock Game Graphics
-u8 Event24_(struct EventEngineProc *); // Resume Game Graphics
-u8 Event25_(struct EventEngineProc *);
-// ??? Event26_CameraControlMaybe(???);
+u8 Event22_ClearScreen(struct EventEngineProc *); // CLEAN
+u8 Event23_DisaleMapDisp(struct EventEngineProc *); // Lock Game Graphics
+u8 Event24_EnableMapDisp(struct EventEngineProc *); // Resume Game Graphics
+u8 Event25_ChangeMap(struct EventEngineProc *);
+// ??? Event26_CameraControl(???);
 // ??? Event27_MapChange(???);
 // ??? Event28_ChangeWeather(???);
 // ??? Event29_SetFogVision(???);
 // ??? Event2A_MoveToChapter(???);
-// ??? sub_800F50C(???);
+// ??? GetLoadUnitsAmount(???);
 // ??? ShouldUNITBeLoaded(???);
-// ??? sub_800F5B8(???);
-void sub_800F698(const struct UnitDefinition* def, s16 count, u8 param);
+// ??? EventLoadUnitWithMovement(???);
+void EventLoadUnitSliently(const struct UnitDefinition* def, s16 count, u8 param);
 void LoadUnit_800F704(const struct UnitDefinition *, u16, s8, s8);
 void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
-// ??? sub_800F914(???);
+// ??? GetUnitDefinitionFormEventScr(???);
 // ??? Event2B_(???);
 // ??? Event2C_LoadUnits(???);
 u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y);
-unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc *, s8);
+unsigned ModifyMoveUnitFlag(struct EventEngineProc *, s8);
 // ??? Event2D_(???);
 // ??? Event2E_CheckAt(???);
 // ??? Event2F_MoveUnit(???);
@@ -526,14 +431,14 @@ unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc *, s8);
 // ??? Event38_ChangeActiveUnit(???);
 // ??? Event39_ChangeAiScript(???);
 // ??? Event3A_DisplayPopup(???);
-// ??? sub_8010748(???);
+// ??? EventDisplayCursor_Loop(???);
 // ??? Event3B_DisplayCursor(???);
 // ??? Event3C_(???);
 // ??? Event3D_(???);
 // ??? Event3E_PrepScreenCall(???);
 // ??? sub_801098C(???);
 // ??? ScriptBattleDeamon(???);
-// ??? Event3F_(???);
+// ??? Event3F_ScriptBattle(???);
 // ??? sub_8010B48(???);
 // ??? Event40_(???);
 // ??? Event41_(???);

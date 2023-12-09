@@ -5,6 +5,7 @@
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmlib.h"
+#include "bmmind.h"
 #include "scene.h"
 
 EWRAM_DATA struct MsgBuffer sMsgString = {0};

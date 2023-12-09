@@ -1,6 +1,8 @@
 #ifndef GUARD_BMMAP_H
 #define GUARD_BMMAP_H
 
+#include "global.h"
+
 void InitChapterMap(int chapterId);
 void InitMapForMinimap(int chapterId);
 void sub_8019624(void);
@@ -27,16 +29,16 @@ void sub_801A278(void);
 void RevertMapChange(int id);
 
 extern struct Vec2 gBmMapSize;
-extern u8** gBmMapUnit;
-extern u8** gBmMapTerrain;
-extern u8** gBmMapMovement;
-extern u8** gBmMapRange;
-extern u8** gBmMapFog;
-extern u8** gBmMapHidden;
-extern u8** gBmMapOther;
+extern u8 ** gBmMapUnit;
+extern u8 ** gBmMapTerrain;
+extern u8 ** gBmMapMovement;
+extern u8 ** gBmMapRange;
+extern u8 ** gBmMapFog;
+extern u8 ** gBmMapHidden;
+extern u8 ** gBmMapOther;
 
-extern u8*   gTilesetTerrainLookup;
-extern u16** gBmMapBaseTiles;
+extern u8 *   gTilesetTerrainLookup;
+extern u16 ** gBmMapBaseTiles;
 
 enum
 {

@@ -89,13 +89,12 @@ extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
-extern u8 gWorkingMovementScript[];
+extern u8 gWorkingMovementScript[0x40];
 extern u16 gConvoyItemArray[];
 extern struct Unit* sUnitStackBase;
 extern struct Unit* sUnitStackTop;
 extern u8 sUnitStackSize;
-extern struct ActionData gActionData;
-// extern ??? gUnknown_0203A974
+
 // extern ??? gUnknown_0203AA7F
 // extern ??? gUnknown_0203AA80
 // extern ??? gUnknown_0203AA8A
@@ -586,7 +585,6 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gUnknown_0859BD40
 extern struct ProcCmd CONST_DATA gProcScr_UpdateTraps[];
 // extern ??? gProc_MapTask
-// extern ??? gUnknown_0859DBA0
 extern u16 gGfx_MiscUiGraphics[];
 extern u16 gPal_MiscUiGraphics[];
 extern u8 gImg_UiCursorHandTop[];
@@ -664,7 +662,7 @@ extern u16 CONST_DATA Img_MineFx[];
 extern u16 CONST_DATA SpritAnim_MineFx[];
 extern u16 CONST_DATA Pal_MineFx[];
 
-// extern ??? gUnknown_085A7EE8
+// extern ??? Pal_EventCursorShinning
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide

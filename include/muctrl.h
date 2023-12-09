@@ -40,7 +40,7 @@ void MuCtr_StartMoveTowards(struct Unit *, s8, s8, u8, u16);
 void MuCtr_InitDefinedMove(struct MuCtrlProc * proc, struct Unit * unit, const struct REDA * redas, s16 count, u16 flags);
 s8 MuCtrExists(void);
 void MU_AllForceSetMaxMoveSpeed_(void);
-void sub_8079FA8(struct Unit* unit, const struct REDA * redas, s16 count, u16 flags);
+void MoveUnitExt(struct Unit* unit, const struct REDA * redas, s16 count, u16 flags);
 void MoveUnit_(struct Unit *, s8, s8, u16);
 void GenUnitDefinitionFinalPosition(const struct UnitDefinition* uDef, s8* xOut, s8* yOut, s8 findNearest);
 // ??? sub_807A0E4(???);

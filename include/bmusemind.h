@@ -24,7 +24,7 @@ void ExecElixirItem(ProcPtr proc);
 void ExecPureWaterItem(ProcPtr proc);
 void ExecTorchItem(ProcPtr proc);
 void ExecAntitoxinItem(ProcPtr proc);
-void sub_802F510();
+void ExecKeyItem();
 void sub_802F598(struct Unit* unit, int itemIdx, s8 unk);
 void ExecUnitPromotion(struct Unit* unit, u8 classId, int itemIdx, s8 unk);
 void sub_802F73C();

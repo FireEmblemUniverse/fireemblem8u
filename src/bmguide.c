@@ -1,6 +1,6 @@
 #include "global.h"
 
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "bmshop.h"
 #include "fontgrp.h"
 #include "ctc.h"
@@ -1400,10 +1400,7 @@ struct ProcCmd CONST_DATA ProcScr_E_Guide2[] =
     PROC_END,
 };
 
-// clang-format on
-
-//! FE8U = 0x080CF460
-void sub_80CF460(void)
+void BmGuideTextSetAllGreen(void)
 {
     struct GuideEnt * it;
 
@@ -1411,12 +1408,10 @@ void sub_80CF460(void)
     {
         SetFlag(it->displayFlag);
     }
-
     return;
 }
 
-//! FE8U = 0x080CF480
-bool sub_80CF480(void)
+bool BmGuideTextShowGreenOrNormal(void)
 {
     struct GuideEnt * it;
 
@@ -1427,7 +1422,6 @@ bool sub_80CF480(void)
             return FALSE;
         }
     }
-
     return TRUE;
 }
 

@@ -26,6 +26,7 @@
 #include "ctc.h"
 #include "fontgrp.h"
 #include "uimenu.h"
+#include "bmmind.h"
 #include "uiutils.h"
 #include "bmbattle.h"
 #include "bmitem.h"
@@ -33,7 +34,7 @@
 #include "bmsave.h"
 #include "ekrbattle.h"
 #include "prepscreen.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "mapanim.h"
 
 #include "eventcall.h"

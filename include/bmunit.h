@@ -429,7 +429,7 @@ u16 CountAvailableBlueUnits(void);
 u16 CountRedUnits(void);
 u16 CountGreenUnits(void);
 void ClearCutsceneUnits(void);
-void sub_8019108(void);
+void RefreshAllies(void);
 int GetUnitCurrentHp(struct Unit* unit);
 int GetUnitMaxHp(struct Unit* unit);
 int GetUnitPower(struct Unit* unit);

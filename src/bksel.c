@@ -15,7 +15,7 @@
 #include "statscreen.h"
 #include "bm.h"
 #include "bmlib.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "bksel.h"
 
 int GetBattleForecastPanelSide(void)

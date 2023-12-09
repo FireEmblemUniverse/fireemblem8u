@@ -10,6 +10,7 @@
 #include "proc.h"
 #include "rng.h"
 #include "bmarch.h"
+#include "bmmind.h"
 
 #include "bmidoten.h"
 

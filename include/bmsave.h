@@ -7,6 +7,7 @@
 #include "bmtrick.h"
 #include "bmdifficulty.h"
 #include "bonusclaim.h"
+#include "bmmind.h"
 
 enum {
     UNIT_SAVE_AMOUNT_BLUE = 51,

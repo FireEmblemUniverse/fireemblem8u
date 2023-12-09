@@ -20,7 +20,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmlib.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "bmusailment.h"
 
 extern u16 gUnknown_08A032AC[];

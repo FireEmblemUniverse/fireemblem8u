@@ -19,7 +19,7 @@
 #include "bmudisp.h"
 #include "bm.h"
 #include "bmbattle.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 #include "cp_perform.h"
 

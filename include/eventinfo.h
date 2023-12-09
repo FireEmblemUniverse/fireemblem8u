@@ -1,5 +1,11 @@
-#ifndef GUARD_EV_TRIGGERCHECK_H
-#define GUARD_EV_TRIGGERCHECK_H
+#ifndef GUARD_eventinfo_H
+#define GUARD_eventinfo_H
+
+#include "global.h"
+#include "event.h"
+#include "bmunit.h"
+
+enum { EVENT_NOSCRIPT = 1 };
 
 enum
 {
@@ -30,10 +36,8 @@ enum {
     TUTORIAL_EVT_TYPE_PLAYERPHASE = 6,
 };
 
-typedef uintptr_t EventListScr;
-
 struct EventInfo {
-    /* 00 */ EventListScr* listScript;
+    /* 00 */ EventListScr * listScript;
     /* 04 */ u32 script;
     /* 08 */ u32 flag;
     /* 0C */ u32 commandId;
@@ -96,38 +100,38 @@ struct ForceDeploymentEnt {
 void StartEventFromInfo(struct EventInfo* info, u8 execType);
 struct EventInfo* SearchAvailableEvent(struct EventInfo* info);
 struct EventInfo* SearchNextAvailableEvent(struct EventInfo* info);
-s8 EventInfoCheckTalk(struct EventInfo* info, u8 pidA, u8 pidB);
-s8 CheckActiveUnitArea(int x1, int y1, int x2, int y2);
-s8 CheckAnyBlueUnitArea(int x1, int y1, int x2, int y2);
-s8 sub_8083018(void);
-s8 sub_8083044(void);
-s8 sub_8083094(void);
-s8 sub_80830AC(void);
-s8 sub_80830D4(void);
-s8 sub_80830FC(void);
-s8 sub_8083124(void);
-s8 CheckAnyRedUnitArea(int x1, int y1, int x2, int y2);
-s8 IsThereClosedChestAt(s8 x, s8 y);
+bool EventInfoCheckTalk(struct EventInfo * info, u8 pidA, u8 pidB);
+bool CheckActiveUnitArea(int x1, int y1, int x2, int y2);
+bool CheckAnyBlueUnitArea(int x1, int y1, int x2, int y2);
+bool CheckAnyBlueUnitArea1(void);
+bool CheckAnyBlueUnitArea2(void);
+bool CheckAnyBlueUnitArea3(void);
+bool CheckAnyBlueUnitArea4(void);
+bool CheckAnyBlueUnitArea5(void);
+bool CheckAnyBlueUnitArea6(void);
+bool CheckAnyBlueUnitArea7(void);
+bool CheckAnyRedUnitArea(int x1, int y1, int x2, int y2);
+bool IsThereClosedChestAt(s8 x, s8 y);
 void StartAvailableChestTileEvent(s8, s8);
-s8 IsThereClosedDoorAt(s8 x, s8 y);
+bool IsThereClosedDoorAt(s8 x, s8 y);
 void StartAvailableDoorTileEvent(s8, s8);
-s8 sub_8083234(s8 x, s8 y);
-s8 ShouldCallEndEvent(void);
+bool IsThereTileCommand15(s8 x, s8 y);
+bool ShouldCallEndEvent(void);
 void MaybeCallEndEvent_(void);
 void CallEndEvent(void);
-s8 sub_80832C4(void);
-s8 sub_80832C8(void);
-s8 sub_80832CC(void);
-s8 sub_80832D0(void);
-s8 sub_80832D4(void);
-s8 CheckWin(void);
+bool sub_80832C4(void);
+bool sub_80832C8(void);
+bool sub_80832CC(void);
+bool sub_80832D0(void);
+bool sub_80832D4(void);
+bool CheckWin(void);
 void MaybeCallEndEvent(void);
 struct TrapData* GetTrapPointer(void);
 struct TrapData* GetHardModeTrapPointer(void);
 void* GetChapterAllyUnitDataPointer(void);
 const struct UnitDefinition * GetChapterEnemyUnitDefinitions(void);
 void GetChapterSkirmishLeaderClasses(u8 chapterId, u8* list);
-s8 sub_8083424(void);
+bool sub_8083424(void);
 struct BattleTalkEnt* GetAvailableBattleTalk(u8 pid, struct BattleTalkEnt* it);
 bool ShouldCallBattleQuote(u8 charA, u8 charB);
 void CallBattleQuoteEventsIfAny(u8 charA, u8 charB);
@@ -139,8 +143,8 @@ void StartSupportTalk(u8, u8, int);
 void StartSupportViewerTalk(u8, u8, int);
 // ?? GetSupportTalkSong_(u8 unused, u8 pidA, u8 pidB, int rank);
 void sub_80837B0(void);
-s8 sub_80837D8(void);
-s8 sub_80837F8(void);
+bool sub_80837D8(void);
+bool sub_80837F8(void);
 int EvCheck00_Always(struct EventInfo* info);
 // ??? EvCheck01_AFEV(???);
 // ??? EvCheck02_TURN(???);
@@ -165,29 +169,29 @@ void ResetChapterFlags(void);
 // ??? SetPermanentFlag(???);
 // ??? ClearPermanentFlag(???);
 void ResetPermanentFlags(void);
-s8 CheckPermanentFlagFrom(int, void*);
-s8 CheckPermanentFlag(int);
+bool CheckPermanentFlagFrom(int, void*);
+bool CheckPermanentFlag(int);
 void SetFlag(int);
 void ClearFlag(int);
-s8 CheckFlag(int);
+bool CheckFlag(int);
 u8 *GetPermanentFlagBits();
 int GetPermanentFlagBitsSize();
 u8 *GetChapterFlagBits();
 int GetChapterFlagBitsSize();;
 void sub_8083DD8(int a, u8 b);
-s8 RunTutorialEvent(u8 type);
-s8 RunPhaseSwitchEvents(void);
-s8 CheckForCharacterEvents(u8 pidA, u8 pidB);
+bool RunTutorialEvent(u8 type);
+bool RunPhaseSwitchEvents(void);
+bool CheckForCharacterEvents(u8 pidA, u8 pidB);
 void StartCharacterEvent(u8, u8);
 u16 sub_8083FFC(u16 itemId);
 int GetAvailableTileEventCommand(s8, s8);
 void StartAvailableTileEvent(s8, s8);
-s8 CheckForWaitEvents(void);
+bool CheckForWaitEvents(void);
 void RunWaitEvents(void);
-s8 TryCallSelectEvents(void);
-s8 StartDestSelectedEvent(void);
-s8 StartAfterUnitMovedEvent(void);
-s8 CheckBattleForecastTutorialEvent(void);
+bool TryCallSelectEvents(void);
+bool StartDestSelectedEvent(void);
+bool StartAfterUnitMovedEvent(void);
+bool CheckBattleForecastTutorialEvent(void);
 void StartBattleForecastTutorialEvent(void);
 void StartPlayerPhaseStartTutorialEvent(void);
 void ClearActiveEventRegistry(void);
@@ -200,13 +204,13 @@ struct DefeatTalkEnt* GetDefeatTalkEntry(u16);
 struct SupportTalkEnt* GetSupportTalkEntry(u16, u16);
 u16 GetSupportTalkSong(u16, u16, u8);
 struct SupportTalkEnt* GetSupportTalkList();
-s8 IsCharacterForceDeployed_(u16 pid);
+bool IsCharacterForceDeployed_(u16 pid);
 int IsSethLArachelMyrrhInnes(u16 pid);
 
 struct ActiveEventRegistry {
-    /* 00 */ u32 unk_00[10];
-    /* 28 */ s16 unk_28[10];
-    /* 3C */ s16 unk_3c;
+    /* 00 */ u32 scripts[10];
+    /* 28 */ s16 flags[10];
+    /* 3C */ s16 idx;
 };
 
 extern struct ActiveEventRegistry gActiveEventRegistry;
@@ -217,4 +221,44 @@ extern struct SupportTalkEnt gSupportTalkList[];
 extern struct ForceDeploymentEnt gForceDeploymentList[];
 extern u8 gPidList_SethLArachelMyrrhInnes[];
 
-#endif // GUARD_EV_TRIGGERCHECK_H
+extern CONST_DATA EventListScr EventScr_RunTutIfEasyMode[];
+extern CONST_DATA EventListScr Event_TextWithBG[];
+
+extern CONST_DATA EventListScr EventScr_Prologue_BeginingScene[];
+extern CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[];
+extern CONST_DATA EventListScr EventScr_Prologue_GiveRapier[];
+extern CONST_DATA EventListScr EventScr_Prologue_ONeillSpawn[];
+extern CONST_DATA EventListScr EventScr_Prologue_OneEmimyLeft[];
+extern CONST_DATA EventListScr EventScr_Prologue_ONeillAttack[];
+extern CONST_DATA EventListScr EventScr_Prologue_EndingScene[];
+extern CONST_DATA EventListScr EventScr_Prologue_9EF1BC[];
+extern CONST_DATA EventListScr EventScr_Prologue_Turn1[];
+extern CONST_DATA EventListScr EventScr_Prologue_Turn2[];
+extern CONST_DATA EventListScr EventScr_Prologue_Turn3[];
+extern CONST_DATA EventListScr EventScr_Prologue_9EF27C[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial0[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial1[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial2[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial3[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial4[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial5[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial6[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial7[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial8[];
+extern CONST_DATA EventListScr EventScr_Prologue_Tutorial9[];
+extern CONST_DATA EventListScr EventScr_Prologue_TutorialA[];
+extern CONST_DATA EventListScr EventScr_Prologue_TutorialB[];
+extern CONST_DATA EventListScr EventScr_Prologue_TutorialC[];
+extern CONST_DATA EventListScr EventScr_Prologue_TutorialD[];
+extern CONST_DATA EventListScr EventScr_Prologue_TutorialE[];
+
+extern struct UnitDefinition UnitDef_Event_PrologueAlly[];
+extern struct UnitDefinition UnitDef_Event_PrologueThroneRoomUnits[];
+extern struct UnitDefinition UnitDef_Event_PrologueMessager[];
+extern struct UnitDefinition UnitDef_Event_PrologueGradoRoyals[];
+extern struct UnitDefinition UnitDef_Event_PrologueGradoShamans[];
+extern struct UnitDefinition UnitDef_Event_PrologueGradoCavalry[];
+extern struct UnitDefinition UnitDef_Event_PrologueEscapees[];
+extern struct UnitDefinition UnitDef_Event_PrologueValterGroup[];
+
+#endif // GUARD_eventinfo_H

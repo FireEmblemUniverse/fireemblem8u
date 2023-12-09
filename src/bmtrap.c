@@ -17,8 +17,8 @@
 #include "bmusailment.h"
 #include "bmudisp.h"
 #include "bmsave.h"
-#include "ev_triggercheck.h"
-
+#include "eventinfo.h"
+#include "bmmind.h"
 #include "bmtrap.h"
 
 // trapfx.s

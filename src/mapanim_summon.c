@@ -10,6 +10,7 @@
 #include "proc.h"
 #include "soundwrapper.h"
 #include "rng.h"
+#include "bmmind.h"
 #include "constants/classes.h"
 #include "constants/characters.h"
 #include "constants/items.h"

@@ -10,4 +10,12 @@ gUnknown_089ED694:  @ 0x089ED694
 
 	.global gUnknown_089ED6AC
 gUnknown_089ED6AC:  @ 0x089ED6AC
-    .incbin "baserom.gba", 0x9ED6AC, 0x8CC
+    .incbin "baserom.gba", 0x9ED6AC, 0x9ED9A8 - 0x9ED6AC
+
+	.global TrapData_Event_Prologue
+TrapData_Event_Prologue:
+	.incbin "baserom.gba", 0x9ED9A8, 0x9EDE99 - 0x9ED9A8
+
+	.global TrapData_Event_PrologueHard
+TrapData_Event_PrologueHard:
+	.incbin "baserom.gba", 0x9EDE99, 0x9EDF78 - 0x9EDE99

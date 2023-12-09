@@ -16,6 +16,7 @@
 #include "bmio.h"
 #include "face.h"
 #include "bm.h"
+#include "bmmind.h"
 #include "scene.h"
 #include "prepscreen.h"
 #include "bmshop.h"

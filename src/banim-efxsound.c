@@ -4,7 +4,7 @@
 #include "ekrbattle.h"
 #include "efxbattle.h"
 #include "bmbattle.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "constants/characters.h"

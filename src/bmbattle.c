@@ -9,6 +9,7 @@
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmmind.h"
 #include "bmreliance.h"
 #include "chapterdata.h"
 #include "bmtrick.h"

@@ -5,6 +5,7 @@
 #include "constants/classes.h"
 #include "bmio.h"
 #include "bmmap.h"
+#include "bmmind.h"
 #include "bmitem.h"
 #include "mu.h"
 

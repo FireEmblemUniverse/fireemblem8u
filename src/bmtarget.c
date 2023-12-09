@@ -11,7 +11,7 @@
 #include "bmarch.h"
 #include "rng.h"
 #include "bmsave.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 #include "constants/classes.h"
 #include "constants/terrains.h"

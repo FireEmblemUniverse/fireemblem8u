@@ -3,7 +3,7 @@
 #include "ap.h"
 #include "ctc.h"
 #include "hardware.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 #include "worldmap.h"
 

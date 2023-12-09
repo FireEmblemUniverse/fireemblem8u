@@ -45,6 +45,7 @@ EWRAM_DATA static u8 sBmMapOtherPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u16 sTilesetConfig[0x1000 + 0x200] = {};
 
 EWRAM_DATA static u16 sBmBaseTilesPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA u8 gWorkingMovementScript[0x40] = {};
 
 static u8** sInitializingMap;
 

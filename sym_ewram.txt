@@ -248,8 +248,7 @@
 . = ALIGN(4); src/bm.o(ewram_data);
 . = ALIGN(4); src/bmunit.o(ewram_data);
 . = ALIGN(4); src/bmmap.o(ewram_data);
-. = 0x033EFC; gWorkingMovementScript = .;
-. = 0x033F3C; src/bmtarget.o(ewram_data);
+. = ALIGN(4); src/bmtarget.o(ewram_data);
 . = ALIGN(4); src/bmudisp.o(ewram_data);
 . = ALIGN(4); src/bmbattle.o(ewram_data);
 . = ALIGN(4); src/bmtrade.o(ewram_data);
@@ -257,9 +256,8 @@
 . = ALIGN(4); src/bmcontainer.o(ewram_data);
 . = ALIGN(4); src/bmusort.o(ewram_data);
 . = ALIGN(4); src/bmarena.o(ewram_data);
-. = 0x03A958; gActionData = .;
-. = 0x03A974; gUnknown_0203A974 = .;
-. = 0x03A9FC;
+. = ALIGN(4); src/bmmind.o(ewram_data);
+. = ALIGN(4); src/bmpatharrowdisp.o(ewram_data);
 . = ALIGN(4); src/unitinfowindow.o(ewram_data);
 . = 0x03AA04; gAiState = .;
 . = 0x03AA7F; gUnknown_0203AA7F = .;

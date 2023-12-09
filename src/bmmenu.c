@@ -33,14 +33,14 @@
 #include "uiconfig.h"
 #include "bm.h"
 #include "unitinfowindow.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "menu_def.h"
 #include "worldmap.h"
 #include "savemenu.h"
 #include "prepscreen.h"
 #include "bmguide.h"
 #include "menuitempanel.h"
-
+#include "bmmind.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/terrains.h"
@@ -146,7 +146,7 @@ u8 MapMenu_IsGuideCommandAvailable(const struct MenuItemDef* def, int number) {
 }
 
 int MapMenu_GuideCommandDraw(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    if (!sub_80CF480()) {
+    if (!BmGuideTextShowGreenOrNormal()) {
         Text_SetColor(&menuItem->text, 4);
     }
 

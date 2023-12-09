@@ -1,7 +1,7 @@
 #ifndef GUARD_CHAPTERDATA_H
 #define GUARD_CHAPTERDATA_H
 
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 struct ChapterMap {
     u8  obj1Id;

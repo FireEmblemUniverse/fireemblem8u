@@ -2,7 +2,11 @@
 
 	.global gUnknown_08591F38
 gUnknown_08591F38:  @ 0x08591F38
-	.incbin "baserom.gba", 0x591F38, 0x50
+	.incbin "baserom.gba", 0x591F38, 8
+
+	.global gEvent_RemoveBGIfNeeded
+gEvent_RemoveBGIfNeeded:
+	.incbin "baserom.gba", 0x591F40, 0x48
 
 	.global gEvent_DisplayBattleQuote
 gEvent_DisplayBattleQuote:  @ 0x08591F88
@@ -143,6 +147,6 @@ gEvent_08592114:  @ 0x08592114
     .4byte 0x00010820
     .4byte 0x00000120
 
-	.global gUnknown_085921AC
-gUnknown_085921AC:  @ 0x085921AC
+	.global Obj_EventShinningCursor
+Obj_EventShinningCursor:  @ 0x085921AC
 	.incbin "baserom.gba", 0x5921AC, 0x1C

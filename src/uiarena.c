@@ -15,6 +15,7 @@
 #include "event.h"
 #include "bm.h"
 #include "bmio.h"
+#include "bmmind.h"
 #include "bmsave.h"
 #include "bmlib.h"
 #include "scene.h"

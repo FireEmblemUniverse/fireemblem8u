@@ -10,7 +10,7 @@
 #include "bmudisp.h"
 #include "playerphase.h"
 #include "cp_common.h"
-
+#include "bmmind.h"
 #include "bmtrick.h"
 #include "bmio.h"
 #include "fontgrp.h"

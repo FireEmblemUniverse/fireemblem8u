@@ -8,7 +8,7 @@
 #include "proc.h"
 #include "banim_data.h"
 #include "ekrdragon.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 #include "constants/items.h"
 
 /* Banim hp-bar change effect */

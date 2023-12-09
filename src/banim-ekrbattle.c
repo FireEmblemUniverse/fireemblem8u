@@ -14,7 +14,7 @@
 #include "ekrpopup.h"
 #include "ekrdragon.h"
 #include "ekrtriangle.h"
-#include "ev_triggercheck.h"
+#include "eventinfo.h"
 
 EWRAM_DATA struct Anim *gAnims[4] = {NULL};
 EWRAM_DATA void *gUnknown_02000010[2] = {NULL};
