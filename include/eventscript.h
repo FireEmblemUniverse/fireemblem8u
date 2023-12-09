@@ -166,6 +166,13 @@ enum event_sub_cmd_idx {
     EVSUBCMD_TEXTSHOW2 = 1,
     EVSUBCMD_REMA = 2,
 
+    /* EV_CMD_CHANGECHAPTER */
+    EVSUBCMD_MNTS = 0,
+    EVSUBCMD_MNCH = 1,
+    EVSUBCMD_MNC2 = 2,
+    EVSUBCMD_MNC3 = 3,
+    EVSUBCMD_MNC4 = 4,
+
     /* EV_CMD_LOADUNIT */
     EVSUBCMD_LOAD1 = 0x0,
     EVSUBCMD_LOAD2 = 0x1,
@@ -197,6 +204,15 @@ enum event_sub_cmd_idx {
     EVSUBCMD_DISA_IF = 0xE,
     EVSUBCMD_DISA = 0xF,
 
+    /* EV_CMD_GIVEITEM */
+    EVSUBCMD_GIVEITEMTO = 0,
+    EVSUBCMD_GIVEITEMTOMAIN = 1,
+    EVSUBCMD_GIVETOSLOT3 = 2,
+
+    /* EV_CMD_CHANGEAI */
+    EVTSUBCMD_CHAI = 0,
+    EVTSUBCMD_CHAI_AT = 1,
+
     /* EV_CMD_DISPLAYPOPUP */
     EVSUBCMD_POPUP = 0,
     EVSUBCMD_BROWNTEXTBOX = 1,
@@ -213,6 +229,11 @@ enum event_sub_cmd_idx {
     EVSUBCMD_FIGHT_MAP = 1,
     EVSUBCMD_FIGHT_SCRIPT = 2,
 };
+
+#define _EvtSubParam16u8(u8a, u8b) \
+    (((u8a) & 0xFF) + ((u8b & 0xFF) << 8))
+#define _EvtSubParam16u4(u4a, u4b, u4c, u4d) \
+    (((u4a) & 0xF) + ((u4b & 0xF) << 4) + ((u4c & 0xF) << 8) + ((u4d & 0xF) << 12))
 
 #define _EvtParams2(x, y) ((((y) & 0xFFFF) << 16) + ((x) & 0xFFFF))
 #define _EvtParams4(a, b, c, d) ((((d) & 0xFF) << 24) + (((c) & 0xFF) << 16) + (((b) & 0xFF) << 8) + ((a) & 0xFF))
@@ -231,12 +252,15 @@ enum event_sub_cmd_idx {
 #define EvtClearEvBits(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_EVBIT_F, (flag)),
 #define EvtSetEvBits(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_EVBIT_T, (flag)),
 #define EvtClearFlag(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_ENUF, (flag)),
+#define EvtClearFlagAtSlot2 EvtClearFlag(-1)
 #define EvtSetFlag(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_ENUT, (flag)),
 #define EvtSetSlot(slot, value) _EvtArg0(EV_CMD_SVAL, 4, 0, (slot)), (EventListScr)(value),
+#define EvtSlotAdd(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SADD, _EvtSubParam16u4(to, a, b, 0)),
 #define EvtEnqueueFormSlot(slot) _EvtArg0(EV_CMD_QUEUE_OPS, 2, EVSUBCMD_SENQUEUE, (slot)),
 #define EvtEnqueueFormSlot1 _EvtArg0(EV_CMD_QUEUE_OPS, 2, EVSUBCMD_SENQUEUE_S1, 0),
 #define EvtDequeueToSlot(slot) _EvtArg0(EV_CMD_QUEUE_OPS, 2, EVSUBCMD_SDEQUEUE, (slot)),
-#define EvtLabel(label) _EvtAutoCmdLen2(EV_CMD_LABEL),
+#define EvtLabel(label) _EvtArg0(EV_CMD_LABEL, 2, 0, (label)),
+#define EvtGoto(label) _EvtArg0(EV_CMD_GOTO, 2, 0, (label)),
 #define EvtCall(scr) _EvtAutoCmdLen4(EV_CMD_CALL), (EventListScr)(scr),
 #define EvtBNE(label, s1, s2) _EvtArg0(EV_CMD_BRANCH, 4, EVSUBCMD_BNE, (label)), _EvtParams2((s1), (s2)),
 #define EvtAsmCall(func) _EvtAutoCmdLen4(EV_CMD_ASMC), (EventListScr)(func),
@@ -254,13 +278,28 @@ enum event_sub_cmd_idx {
 #define EvtFadeInBlack(speed) _EvtArg0(EV_CMD_FADE, 2, EVSUBCMD_FADI, (speed)),
 #define EvtFadeOutWhite(speed) _EvtArg0(EV_CMD_FADE, 2, EVSUBCMD_FAWU, (speed)),
 #define EvtFadeInWhite(speed) _EvtArg0(EV_CMD_FADE, 2, EVSUBCMD_FAWI, (speed)),
-#define EvtCheckTutorial _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_TUTORIAL, 0),
+#define EvtGetMode _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_MODE, 0),
+#define EvtGetChapterIndex _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_CHAPTER_NUMBER, 0),
+#define EvtGetIsHard _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_HARD, 0),
+#define EvtGetCurrentTurn _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_TURNS, 0),
+#define EvtGetEnemyAmount _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_ENEMIES, 0),
+#define EvtGetNpcAmount _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_OTHERS, 0),
+#define EvtGetSkirmishType _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_SKIRMISH, 0),
+#define EvtGetIsTutorial _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_TUTORIAL, 0),
+#define EvtGetMoney _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_MONEY, 0),
+#define EvtGetTriggeredEid _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_19CHECK_EVENTID, 0),
+#define EvtGetIsGameCompleted _EvtArg0(EV_CMD_CHECKVARIOUS, 2, EVSUBCMD_CHECK_POSTGAME, 0),
 #define EvtTextStart _EvtArg0(EV_CMD_SETTEXTTYPE, 2, EVSUBCMD_TEXTSTART, 0),
 #define EvtTextShow(msg) _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_TEXTSHOW, (msg)),
 #define EvtTextRemoveAll _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_REMA, 0),
 #define EvtTextEnd _EvtAutoCmdLen2(EV_CMD_ENDTEXT),
 #define EvtLoadMap(chapter) _EvtArg0(EV_CMD_LOMA, 2, 0, (chapter)),
-#define EvtMoveCameraTo(x, y) _EvtArg0(EV_CMD_CAMERACONTROL, 2, 0, ((((y) & 0xFF) << 8) + ((x) & 0xFF))),
+#define EvtMoveCameraTo(x, y) _EvtArg0(EV_CMD_CAMERACONTROL, 2, 0, _EvtSubParam16u8((x), (y))),
+#define EvtBackToTitle(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNTS, (chapter)),
+#define EvtChangeChapterWM(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNCH, (chapter)),
+#define EvtChangeChapterBM(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNC2, (chapter)),
+#define EvtChangeChapterNoSave(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNC3, (chapter)),
+#define EvtMoveToGameEnding _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNC4, 0),
 #define EvtLoadUnit1(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD1, (restriction)), (EventListScr)(units),
 #define EvtLoadUnit2(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD2, (restriction)), (EventListScr)(units),
 #define EvtMoveUnit(speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, EVSUBCMD_MOVE, (speed)), _EvtParams4(pid, 0, (x), (y)),
@@ -274,6 +313,11 @@ enum event_sub_cmd_idx {
 #define EvtRemoveAllNpcs _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_CLEN, 0),
 #define EvtRemoveAllEimies _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_CLEE, 0),
 #define EvtRemoveUnit(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_DISA, (pid)),
+#define EvtGiveItemAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTO, (pid)),
+#define EvtGiveMoneymAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTOMAIN, (pid)),
+#define EvtGiveMoneymAtSlot3NoPopup(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVETOSLOT3, (pid)),
+#define EvtChangeAI(pid) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI, (pid)),
+#define EvtChangeAIat(x, y) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI_AT, _EvtSubParam16u8((x), (y))),
 #define EvtDisplayPopupSilently(msg, x, y) _EvtArg0(EV_CMD_DISPLAYPOPUP, 4, EVSUBCMD_BROWNTEXTBOX, (msg)), _EvtParams2((x), (y)),
 #define EvtDisplayCursorAtUnit(pid) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_UNIT, (pid)),
 #define EvtEndCursor _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURE, 0),

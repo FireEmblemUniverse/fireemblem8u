@@ -12,12 +12,15 @@
 #define EVBIT_F EvtClearEvBits
 #define EVBIT_T EvtSetEvBits
 #define ENUF EvtClearFlag
+#define ENUF_SLOT2 EvtClearFlagAtSlot2
 #define ENUT EvtSetFlag
 #define SVAL EvtSetSlot
+#define SADD EvtSlotAdd
 #define SENQUEUE EvtEnqueueFormSlot
 #define SENQUEUE1 EvtEnqueueFormSlot1
 #define SDEQUEUE EvtDequeueToSlot
 #define LABEL EvtLabel
+#define GOTO EvtGoto
 #define CALL EvtCall
 #define BNE EvtBNE
 #define ASMC EvtAsmCall
@@ -35,13 +38,28 @@
 #define FADI EvtFadeInBlack
 #define FAWU EvtFadeOutWhite
 #define FAWI EvtFadeInWhite
-#define CHECK_TUTORIAL EvtCheckTutorial
+#define CHECK_MODE EvtGetMode
+#define CHECK_CHAPTER_NUMBER EvtGetChapterIndex
+#define CHECK_HARD EvtGetIsHard
+#define CHECK_TURNS EvtGetCurrentTurn
+#define CHECK_ENEMIES EvtGetEnemyAmount
+#define CHECK_OTHERS EvtGetNpcAmount
+#define CHECK_SKIRMISH EvtGetSkirmishType
+#define CHECK_TUTORIAL EvtGetIsTutorial
+#define CHECK_MONEY EvtGetMoney
+#define CHECK_EVENTID EvtGetTriggeredEid
+#define CHECK_POSTGAME EvtGetIsGameCompleted
 #define TEXTSTART EvtTextStart
 #define TEXTSHOW EvtTextShow
 #define REMA EvtTextRemoveAll
 #define TEXTEND EvtTextEnd
 #define LOMA EvtLoadMap
 #define CAMERA EvtMoveCameraTo
+#define MNTS EvtBackToTitle
+#define MNCH EvtChangeChapterWM
+#define MNC2 EvtChangeChapterBM
+#define MNC3 EvtChangeChapterNoSave
+#define MNC4 EvtMoveToGameEnding
 #define LOAD1 EvtLoadUnit1
 #define LOAD2 EvtLoadUnit2
 #define MOVE EvtMoveUnit
@@ -55,6 +73,11 @@
 #define CLEN EvtRemoveAllNpcs
 #define CLEE EvtRemoveAllEimies
 #define DISA EvtRemoveUnit
+#define GIVEITEMTO EvtGiveItemAtSlot3
+#define GIVEITEMTOMAIN EvtGiveMoneymAtSlot3         /* what */
+#define GIVETOSLOT3 EvtGiveMoneymAtSlot3NoPopup     /* tf */
+#define CHAI EvtChangeAI
+#define CHAI_AT EvtChangeAIat
 #define BROWNBOXTEXT EvtDisplayPopupSilently
 #define CURSOR_CHAR EvtDisplayCursorAtUnit
 #define CURSOR_FLASHING_CHAR EvtDisplayFlashingCursorAtUnit
@@ -102,6 +125,10 @@
     EvtSetSlot(EVT_SLOT_2, (bg)) \
     EvtSetSlot(EVT_SLOT_3, (msg)) \
     EvtCall(Event_TextWithBG)
+
+#define SetBackground(bg) \
+    SVAL(EVT_SLOT_2, bg) \
+    CALL(EventScr_SetBackground)
 
 /* Code Ailases */
 #define SLOTS_SETFROMQUEUE SDEQUEUE

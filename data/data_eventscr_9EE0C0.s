@@ -140,6 +140,9 @@ EventScr_RunTutIfEasyMode: @ 9EE0C0
     .4byte 0x00002220
     .4byte 0x00101720
     .4byte 0x00000120
+
+.global EventScr_SetBackground
+EventScr_SetBackground:
     .4byte 0x00080320
     .4byte 0x80d20c41
     .4byte 0x0000000c

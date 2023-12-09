@@ -195,50 +195,49 @@ u8 Event06_SlotOperation(struct EventEngineProc * proc)
     u8 slotSrc1 = (((u16)EVT_CMD_ARGV(proc->pEventCurrent)[0]) >> 4) & 0xF;
     u8 slotSrc2 = (((u16)EVT_CMD_ARGV(proc->pEventCurrent)[0]) >> 8) & 0xF;
 
-    switch (sub_cmd)
-    {
-        case EVSUBCMD_SADD:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] + gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    switch (sub_cmd) {
+    case EVSUBCMD_SADD:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] + gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SSUB:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] - gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SSUB:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] - gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SMUL:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] * gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SMUL:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] * gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SDIV:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] / gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SDIV:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] / gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SMOD:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] % gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SMOD:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] % gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SAND:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] & gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SAND:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] & gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SORR:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] | gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SORR:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] | gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SXOR:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] ^ gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SXOR:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] ^ gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SLSL:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] << gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SLSL:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] << gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SLSR:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] >> gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SLSR:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] >> gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        default:
-            return EVC_ERROR;
+    default:
+        return EVC_ERROR;
     }
 }
 
@@ -798,73 +797,69 @@ u8 Event18_(struct EventEngineProc * proc)
     } // switch (subcode)
 }
 
-// Various Checks
-//! FE8U = 0x0800E070
-u8 Event19_(struct EventEngineProc * proc)
+
+u8 Event19_Checks(struct EventEngineProc * proc)
 {
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
+    switch (subcode) {
+    case EVSUBCMD_CHECK_MODE: // Check Mode
+        gEventSlots[0xC] = gPlaySt.chapterModeIndex;
+        break;
 
-    switch (subcode)
-    {
-        case EVSUBCMD_CHECK_MODE: // Check Mode
-            gEventSlots[0xC] = gPlaySt.chapterModeIndex;
-            break;
+    case EVSUBCMD_CHECK_CHAPTER_NUMBER: // Check (Next?) Chapter Index
+        gEventSlots[0xC] = proc->chapterIndex;
+        break;
 
-        case EVSUBCMD_CHECK_CHAPTER_NUMBER: // Check (Next?) Chapter Index
-            gEventSlots[0xC] = proc->chapterIndex;
-            break;
+    case EVSUBCMD_CHECK_HARD: // Check Difficult Mode
+        if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
+            gEventSlots[0xC] = FALSE;
+        else
+            gEventSlots[0xC] = TRUE;
 
-        case EVSUBCMD_CHECK_HARD: // Check Difficult Mode
-            if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
-                gEventSlots[0xC] = FALSE;
-            else
-                gEventSlots[0xC] = TRUE;
+        break;
 
-            break;
+    case EVSUBCMD_CHECK_TURNS: // Check Turn Number
+        gEventSlots[0xC] = gPlaySt.chapterTurnNumber;
+        break;
 
-        case EVSUBCMD_CHECK_TURNS: // Check Turn Number
-            gEventSlots[0xC] = gPlaySt.chapterTurnNumber;
-            break;
+    case EVSUBCMD_CHECK_ENEMIES: // Check Red Unit Count
+        gEventSlots[0xC] = CountRedUnits();
+        break;
 
-        case EVSUBCMD_CHECK_ENEMIES: // Check Red Unit Count
-            gEventSlots[0xC] = CountRedUnits();
-            break;
+    case EVSUBCMD_CHECK_OTHERS: // Check Green Unit Count
+        gEventSlots[0xC] = CountGreenUnits();
+        break;
 
-        case EVSUBCMD_CHECK_OTHERS: // Check Green Unit Count
-            gEventSlots[0xC] = CountGreenUnits();
-            break;
+    case EVSUBCMD_CHECK_SKIRMISH: // Check Chapter Type?
+        gEventSlots[0xC] = GetChapterThing();
+        break;
 
-        case EVSUBCMD_CHECK_SKIRMISH: // Check Chapter Type?
-            gEventSlots[0xC] = GetChapterThing();
-            break;
+    case EVSUBCMD_CHECK_TUTORIAL: // Check Some option or difficult mode
+        if (gPlaySt.config.controller || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
+            gEventSlots[0xC] = FALSE;
+        else
+            gEventSlots[0xC] = TRUE;
 
-        case EVSUBCMD_CHECK_TUTORIAL: // Check Some option or difficult mode
-            if (gPlaySt.config.controller || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
-                gEventSlots[0xC] = FALSE;
-            else
-                gEventSlots[0xC] = TRUE;
+        break;
 
-            break;
+    case EVSUBCMD_CHECK_MONEY: // Check gold
+        gEventSlots[0xC] = GetPartyGoldAmount();
+        break;
 
-        case EVSUBCMD_CHECK_MONEY: // Check gold
-            gEventSlots[0xC] = GetPartyGoldAmount();
-            break;
+    case EVSUBCMD_19CHECK_EVENTID: // Check Event Trigger ID
+        gEventSlots[0xC] = GetEventTriggerId(proc->pEventStart);
+        break;
 
-        case EVSUBCMD_19CHECK_EVENTID: // Check Event Trigger ID
-            gEventSlots[0xC] = GetEventTriggerId(proc->pEventStart);
-            break;
+    case EVSUBCMD_CHECK_POSTGAME: // Check Game Complete
+        if (gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE)
+            gEventSlots[0xC] = TRUE;
+        else
+            gEventSlots[0xC] = FALSE;
 
-        case EVSUBCMD_CHECK_POSTGAME: // Check Game Complete
-            if (gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE)
-                gEventSlots[0xC] = TRUE;
-            else
-                gEventSlots[0xC] = FALSE;
+        break;
 
-            break;
-
-        default:
-            break;
-
+    default:
+        break;
     } // switch (subcode)
 
     return EVC_ADVANCE_CONTINUE;
@@ -2129,43 +2124,42 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
     if (chIndex < 0)
         chIndex = gEventSlots[2];
 
-    switch (subcode)
-    {
-        case 0:
-            SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
-            proc->evStateBits |= EV_STATE_CHANGEGM;
+    switch (subcode) {
+    case EVSUBCMD_MNTS:
+        SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
+        proc->evStateBits |= EV_STATE_CHANGEGM;
 
-            break;
+        break;
 
-        case 1:
-            SetNextChapterId(chIndex);
+    case EVSUBCMD_MNCH:
+        SetNextChapterId(chIndex);
 
-            gPlaySt.unk4A_2 = 1;
+        gPlaySt.unk4A_2 = 1;
 
-            SetNextGameActionId(GAME_ACTION_CLASS_REEL);
-            proc->evStateBits |= EV_STATE_CHANGEGM;
+        SetNextGameActionId(GAME_ACTION_CLASS_REEL);
+        proc->evStateBits |= EV_STATE_CHANGEGM;
 
-            break;
+        break;
 
-        case 2:
-            SetNextChapterId(chIndex);
+    case EVSUBCMD_MNC2:
+        SetNextChapterId(chIndex);
 
-            gPlaySt.unk4A_2 = 2;
+        gPlaySt.unk4A_2 = 2;
 
-            SetNextGameActionId(GAME_ACTION_USR_SKIPPED);
-            proc->evStateBits |= EV_STATE_CHANGEGM;
+        SetNextGameActionId(GAME_ACTION_USR_SKIPPED);
+        proc->evStateBits |= EV_STATE_CHANGEGM;
 
-            break;
+        break;
 
-        case 3:
-            GotoChapterWithoutSave(chIndex);
-            break;
+    case EVSUBCMD_MNC3:
+        GotoChapterWithoutSave(chIndex);
+        break;
 
-        case 4:
-            gPlaySt.unk4A_2 = 3;
-            SetNextGameActionId(GAME_ACTION_PLAYED_THROUGH);
-            proc->evStateBits |= EV_STATE_CHANGEGM;
-            break;
+    case EVSUBCMD_MNC4:
+        gPlaySt.unk4A_2 = 3;
+        SetNextGameActionId(GAME_ACTION_PLAYED_THROUGH);
+        proc->evStateBits |= EV_STATE_CHANGEGM;
+        break;
 
     } // switch (subcode)
 
@@ -3623,40 +3617,34 @@ u8 Event36_CheckInArea(struct EventEngineProc * param_1)
 //! FE8U = 0x080105A4
 u8 Event37_GiveItem(struct EventEngineProc * proc)
 {
+    s32 gold;
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
 
     struct Unit * target = GetUnitStructFromEventParameter(proc->pEventCurrent[1]);
 
     if (!target)
-    {
         return EVC_ERROR;
+
+    switch (subcmd) {
+    case EVSUBCMD_GIVEITEMTO:
+        NewPopup_ItemGot(proc, target, gEventSlots[3]);
+
+        break;
+
+    case EVSUBCMD_GIVEITEMTOMAIN:
+        NewPopup_GoldGot(proc, target, gEventSlots[3]);
+
+        break;
+
+    case EVSUBCMD_GIVETOSLOT3:
+        gold = GetPartyGoldAmount() - gEventSlots[3];
+        if (gold < 0)
+            gold = 0;
+
+        SetPartyGoldAmount(gold);
+
+        break;
     }
-
-    switch (subcmd)
-    {
-        case 0:
-            NewPopup_ItemGot(proc, target, gEventSlots[3]);
-
-            break;
-
-        case 1:
-            NewPopup_GoldGot(proc, target, gEventSlots[3]);
-
-            break;
-
-        case 2:
-        {
-            s32 gold = GetPartyGoldAmount() - gEventSlots[3];
-            if (gold < 0)
-            {
-                gold = 0;
-            }
-            SetPartyGoldAmount(gold);
-
-            break;
-        }
-    }
-
     return EVC_ADVANCE_YIELD;
 }
 
@@ -3685,47 +3673,45 @@ u8 Event39_ChangeAiScript(struct EventEngineProc * proc)
     u8 ai2 = (gEventSlots[1] >> 8);
     u8 unused = (gEventSlots[1] >> 16);
 
-    switch (subcmd)
-    {
-        case 0:
+    struct Unit * unit;
+    s8 x, y;
+    u16 pid;
+
+    switch (subcmd) {
+    case EVTSUBCMD_CHAI:
+        pid = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+        if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
+            pid = gEventSlots[2];
+
+        ChangeAiForCharacter(pid, ai1, ai2, unused);
+
+        break;
+
+    case EVTSUBCMD_CHAI_AT:
+
+#if !BUGFIX
+        /* I think this maybe a bug */
+        x = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+        y = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
+#else
+        x = (EVT_CMD_ARGV(proc->pEventCurrent)[0] & 0x0F);
+        y = (EVT_CMD_ARGV(proc->pEventCurrent)[0] & 0xF0) >> 8;
+#endif
+
+        if (x < 0 || y < 0)
         {
-            u16 pid = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-
-            if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
-            {
-                pid = gEventSlots[2];
-            }
-
-            ChangeAiForCharacter(pid, ai1, ai2, unused);
-
-            break;
+            x = ((u16 *)(gEventSlots + 0xB))[0];
+            y = ((u16 *)(gEventSlots + 0xB))[1];
         }
-        case 1:
-        {
-            struct Unit * unit;
 
-            s8 x = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-            s8 y = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
+        if (gBmMapUnit[y][x] != 0)
+            unit = GetUnit(gBmMapUnit[y][x]);
+        else
+            unit = NULL;
 
-            if (x < 0 || y < 0)
-            {
-                x = ((u16 *)(gEventSlots + 0xB))[0];
-                y = ((u16 *)(gEventSlots + 0xB))[1];
-            }
+        ChangeUnitAi(unit, ai1, ai2, unused);
 
-            if (gBmMapUnit[y][x] != 0)
-            {
-                unit = GetUnit(gBmMapUnit[y][x]);
-            }
-            else
-            {
-                unit = NULL;
-            }
-
-            ChangeUnitAi(unit, ai1, ai2, unused);
-
-            break;
-        }
+        break;
     }
 
     return EVC_ADVANCE_CONTINUE;

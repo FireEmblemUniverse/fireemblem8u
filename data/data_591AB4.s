@@ -59,7 +59,7 @@ gEventLoCmdTable:  @ 0x08591B28
     .4byte Event0C_Branch, Event0D_AsmCall, Event0E_STAL, Event0F_
     .4byte Event10_ModifyEvBit, Event11_SetIgnoredKeys, Event12_StartBGM, Event12_BgmFadeIn
     .4byte Event14_, Event15_BgmVolume, Event16_, Event17_Fade
-    .4byte Event18_, Event19_, Event1A_TEXTSTART, Event1B_TEXTSHOW
+    .4byte Event18_, Event19_Checks, Event1A_TEXTSTART, Event1B_TEXTSHOW
     .4byte Event1C_TEXTCONT, Event1D_TEXTEND, Event1E_, Event1F_
     .4byte Event20_, Event21_, Event22_ClearScreen, Event23_DisaleMapDisp
     .4byte Event24_EnableMapDisp, Event25_ChangeMap, Event26_CameraControl, Event27_MapChange

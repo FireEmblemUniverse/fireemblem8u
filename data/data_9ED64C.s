@@ -1,25 +1,5 @@
     .section .data
 
-	.global EventScr_Prologue_GiveRapier
-EventScr_Prologue_GiveRapier:
-    .incbin "baserom.gba", 0x9EF060, 0x9EF0A4 - 0x9EF060
-
-	.global EventScr_Prologue_ONeillSpawn
-EventScr_Prologue_ONeillSpawn:
-    .incbin "baserom.gba", 0x9EF0A4, 0x9EF0D8 - 0x9EF0A4
-
-	.global EventScr_Prologue_OneEmimyLeft
-EventScr_Prologue_OneEmimyLeft:
-    .incbin "baserom.gba", 0x9EF0D8, 0x9EF12C - 0x9EF0D8
-
-	.global EventScr_Prologue_ONeillAttack
-EventScr_Prologue_ONeillAttack:
-    .incbin "baserom.gba", 0x9EF12C, 0x9EF164 - 0x9EF12C
-
-	.global EventScr_Prologue_EndingScene
-EventScr_Prologue_EndingScene:
-    .incbin "baserom.gba", 0x9EF164, 0x9EF1BC - 0x9EF164
-
 	.global EventScr_Prologue_9EF1BC
 EventScr_Prologue_9EF1BC:
     .incbin "baserom.gba", 0x9EF1BC, 0x9EF214 - 0x9EF1BC
@@ -98,7 +78,11 @@ EventScr_Prologue_TutorialD:
 
 	.global EventScr_Prologue_TutorialE
 EventScr_Prologue_TutorialE:
-    .incbin "baserom.gba", 0x9EF7FC, 0x9F36A0 - 0x9EF7FC
+    .incbin "baserom.gba", 0x9EF7FC, 0x9EF828 - 0x9EF7FC
+
+	.global EventScr_Prologue_9EF828
+EventScr_Prologue_9EF828:
+    .incbin "baserom.gba", 0x9EF828, 0x9F36A0 - 0x9EF828
 
 	.global gUnknown_089F36A0
 gUnknown_089F36A0:  @ 0x089F36A0

@@ -309,7 +309,11 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
 
 	.global UnitDef_Event_PrologueAlly
 UnitDef_Event_PrologueAlly:
-    .incbin "baserom.gba", 0x8B3C14, 0x8B3D18 - 0x8B3C14
+    .incbin "baserom.gba", 0x8B3C14, 0x8B3C50 - 0x8B3C14
+
+	.global UnitDef_Event_PrologueEnemy
+UnitDef_Event_PrologueEnemy:
+    .incbin "baserom.gba", 0x8B3C50, 0x8B3D18 - 0x8B3C50
 
 	.global UnitDef_Event_PrologueThroneRoomUnits
 UnitDef_Event_PrologueThroneRoomUnits:

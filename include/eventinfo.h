@@ -222,6 +222,7 @@ extern struct ForceDeploymentEnt gForceDeploymentList[];
 extern u8 gPidList_SethLArachelMyrrhInnes[];
 
 extern CONST_DATA EventListScr EventScr_RunTutIfEasyMode[];
+extern CONST_DATA EventListScr EventScr_SetBackground[];
 extern CONST_DATA EventListScr Event_TextWithBG[];
 
 extern CONST_DATA EventListScr EventScr_Prologue_BeginingScene[];
@@ -251,8 +252,10 @@ extern CONST_DATA EventListScr EventScr_Prologue_TutorialB[];
 extern CONST_DATA EventListScr EventScr_Prologue_TutorialC[];
 extern CONST_DATA EventListScr EventScr_Prologue_TutorialD[];
 extern CONST_DATA EventListScr EventScr_Prologue_TutorialE[];
+extern CONST_DATA EventListScr EventScr_Prologue_9EF828[];
 
 extern struct UnitDefinition UnitDef_Event_PrologueAlly[];
+extern struct UnitDefinition UnitDef_Event_PrologueEnemy[];
 extern struct UnitDefinition UnitDef_Event_PrologueThroneRoomUnits[];
 extern struct UnitDefinition UnitDef_Event_PrologueMessager[];
 extern struct UnitDefinition UnitDef_Event_PrologueGradoRoyals[];
