@@ -1,21 +1,13 @@
     .section .rodata
 
-	.asciz "efxHazymoon"
+	.asciz "efxFenrir"
 	.align 2, 0
 
-	.asciz "efxHazymoonBG"
+	.asciz "efxFenrirBG"
+	.align 2, 0
 
-	.global gUnknown_080DD5D2
-gUnknown_080DD5D2:  @ 0x080DD5D2
-	.incbin "baserom.gba", 0xDD5D2, 0x6
-
-	.global gUnknown_080DD5D8
-gUnknown_080DD5D8:  @ 0x080DD5D8
-	.incbin "baserom.gba", 0xDD5D8, 0xA2
-
-	.global gUnknown_080DD67A
-gUnknown_080DD67A:  @ 0x080DD67A
-	.incbin "baserom.gba", 0xDD67A, 0x92
+	.asciz "efxFenrirBGCOL"
+	.align 2, 0
 
 	.global gUnknown_080DD70C
 gUnknown_080DD70C:  @ 0x080DD70C
