@@ -25245,16 +25245,16 @@ gUnknown_08651AE4:  @ 0x08651AE4
 gUnknown_08651DE0:  @ 0x08651DE0
 	.incbin "baserom.gba", 0x651DE0, 0x14
 
-	.global gUnknown_08651DF4
-gUnknown_08651DF4:  @ 0x08651DF4
+	.global Img_FenrirBg_Sigils
+Img_FenrirBg_Sigils:  @ 0x08651DF4
 	.incbin "baserom.gba", 0x651DF4, 0x760
 
 	.global gUnknown_08652554
 gUnknown_08652554:  @ 0x08652554
 	.incbin "baserom.gba", 0x652554, 0x1E0
 
-	.global gUnknown_08652734
-gUnknown_08652734:  @ 0x08652734
+	.global Tsa_FenrirBg_Sigils
+Tsa_FenrirBg_Sigils:  @ 0x08652734
 	.incbin "baserom.gba", 0x652734, 0x214    @ 0x652948 - 0x652734
 
 	.global Img_08652948
@@ -25273,8 +25273,8 @@ Img_08654EB0:  @ 0x08654EB0
 Img_08655D2C:  @ 0x08655D2C
 	.incbin "baserom.gba", 0x655D2C, 0xBC8    @ 0x6568F4 - 0x655D2C
 
-	.global gUnknown_086568F4
-gUnknown_086568F4:  @ 0x086568F4
+	.global Pal_FenrirBg
+Pal_FenrirBg:  @ 0x086568F4
 	.incbin "baserom.gba", 0x6568F4, 0x20
 
 	.global gUnknown_08656914
@@ -25485,45 +25485,45 @@ Tsa_0865ABBC:  @ 0x0865ABBC
 Tsa_0865ADC4:  @ 0x0865ADC4
 	.incbin "baserom.gba", 0x65ADC4, 0x178    @ 0x65AF3C - 0x65ADC4
 
-	.global gUnknown_0865AF3C
-gUnknown_0865AF3C:  @ 0x0865AF3C
+	.global Img_FenrirSprites
+Img_FenrirSprites:  @ 0x0865AF3C
 	.incbin "baserom.gba", 0x65AF3C, 0xB7C
 
-	.global gUnknown_0865BAB8
-gUnknown_0865BAB8:  @ 0x0865BAB8
+	.global Pal_FenrirSprites_A
+Pal_FenrirSprites_A:  @ 0x0865BAB8
 	.incbin "baserom.gba", 0x65BAB8, 0x20
 
-	.global gUnknown_0865BAD8
-gUnknown_0865BAD8:  @ 0x0865BAD8
+	.global Pal_FenrirSprites_B
+Pal_FenrirSprites_B:  @ 0x0865BAD8
 	.incbin "baserom.gba", 0x65BAD8, 0xCA4
 
 	.global gUnknown_0865C77C
 gUnknown_0865C77C:  @ 0x0865C77C
 @ Replacing .incbin "baserom.gba", 0x65C77C, 0x2C
-    .4byte gUnknown_0865BAD8 + 0x736
-    .4byte gUnknown_0865BAD8 + 0x706
-    .4byte gUnknown_0865BAD8 + 0x76
-    .4byte gUnknown_0865BAD8 + 0x46
-    .4byte gUnknown_0865BAD8 + 0x22
-    .4byte gUnknown_0865BAD8 + 0x46
-    .4byte gUnknown_0865BAD8 + 0x76
-    .4byte gUnknown_0865BAD8 + 0x706
-    .4byte gUnknown_0865BAD8 + 0x736
+    .4byte Pal_FenrirSprites_B + 0x736
+    .4byte Pal_FenrirSprites_B + 0x706
+    .4byte Pal_FenrirSprites_B + 0x76
+    .4byte Pal_FenrirSprites_B + 0x46
+    .4byte Pal_FenrirSprites_B + 0x22
+    .4byte Pal_FenrirSprites_B + 0x46
+    .4byte Pal_FenrirSprites_B + 0x76
+    .4byte Pal_FenrirSprites_B + 0x706
+    .4byte Pal_FenrirSprites_B + 0x736
     .4byte 0x2865c766
     .4byte 0x80000000
 
 	.global gUnknown_0865C7A8
 gUnknown_0865C7A8:  @ 0x0865C7A8
 @ Replacing .incbin "baserom.gba", 0x65C7A8, 0x2C
-    .4byte gUnknown_0865BAD8 + 0x78a
-    .4byte gUnknown_0865BAD8 + 0x766
-    .4byte gUnknown_0865BAD8 + 0xe2
-    .4byte gUnknown_0865BAD8 + 0xbe
-    .4byte gUnknown_0865BAD8 + 0xa6
-    .4byte gUnknown_0865BAD8 + 0xbe
-    .4byte gUnknown_0865BAD8 + 0xe2
-    .4byte gUnknown_0865BAD8 + 0x766
-    .4byte gUnknown_0865BAD8 + 0x78a
+    .4byte Pal_FenrirSprites_B + 0x78a
+    .4byte Pal_FenrirSprites_B + 0x766
+    .4byte Pal_FenrirSprites_B + 0xe2
+    .4byte Pal_FenrirSprites_B + 0xbe
+    .4byte Pal_FenrirSprites_B + 0xa6
+    .4byte Pal_FenrirSprites_B + 0xbe
+    .4byte Pal_FenrirSprites_B + 0xe2
+    .4byte Pal_FenrirSprites_B + 0x766
+    .4byte Pal_FenrirSprites_B + 0x78a
     .4byte 0x2865c766
     .4byte 0x80000000
 

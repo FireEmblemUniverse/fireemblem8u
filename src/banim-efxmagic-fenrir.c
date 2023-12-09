@@ -10,10 +10,10 @@
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D6644[] =
+struct ProcCmd CONST_DATA ProcScr_efxFenrir[] =
 {
     PROC_NAME("efxFenrir"),
-    PROC_REPEAT(sub_80608E0),
+    PROC_REPEAT(efxFenrir_Loop_Main),
     PROC_END,
 };
 
@@ -28,7 +28,7 @@ void StartSpellAnimFenrir(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D6644, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxFenrir, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -37,7 +37,7 @@ void StartSpellAnimFenrir(struct Anim * anim)
 }
 
 //! FE8U = 0x080608E0
-void sub_80608E0(struct ProcEfx * proc)
+void efxFenrir_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -51,8 +51,8 @@ void sub_80608E0(struct ProcEfx * proc)
 
     if (proc->timer == duration + 1)
     {
-        sub_8060A9C(anim, 100);
-        sub_8060B7C(anim, 100);
+        StartSubSpell_efxFenrirBG(anim, 100);
+        StartSubSpell_efxFenrirBGCOL(anim, 100);
 
         NewefxRestRST(anim, 100, 2, 0x100, 1);
         NewEfxRestWINH_(anim, 105, 0);
@@ -69,12 +69,12 @@ void sub_80608E0(struct ProcEfx * proc)
 
     if (proc->timer == duration + 40)
     {
-        sub_8060C18(anim, 74);
+        StartSubSpell_efxFenrirOBJ(anim, 74);
         PlaySFX(0x131, 0x100, anim->xPosition, 1);
     }
     else if (proc->timer == duration + 110)
     {
-        sub_8060CAC(anim);
+        StartSubSpell_efxFenrirBG2_A(anim);
     }
     else if (proc->timer == duration + 111)
     {
@@ -111,9 +111,9 @@ void sub_80608E0(struct ProcEfx * proc)
     else if (proc->timer == duration + 238)
     {
         NewEfxFlashBgWhite(anim, 10);
-        sub_8060E90(anim);
+        StartSubSpell_efxFenrirOBJ2(anim);
 
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
         PlaySFX(0x133, 0x100, anim->xPosition, 1);
@@ -125,7 +125,7 @@ void sub_80608E0(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 248)
     {
-        sub_8060D3C(anim);
+        StartSubSpell_efxFenrirBG2_B(anim);
         NewEfxALPHA(anim, 18, 8, 16, 0, 0);
     }
     else if ((proc->timer != duration + 290) && (proc->timer == duration + 300))
@@ -140,12 +140,12 @@ void sub_80608E0(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D665C[] =
+struct ProcCmd CONST_DATA ProcScr_efxFenrirBG[] =
 {
     PROC_NAME("efxFenrirBG"),
 
-    PROC_SET_END_CB(sub_8060B2C),
-    PROC_REPEAT(sub_8060B48),
+    PROC_SET_END_CB(efxFenrirBG_OnEnd),
+    PROC_REPEAT(efxFenrirBG_Loop),
 
     PROC_END,
 };
@@ -153,21 +153,21 @@ struct ProcCmd CONST_DATA gUnknown_085D665C[] =
 // clang-format on
 
 //! FE8U = 0x08060A9C
-void sub_8060A9C(struct Anim * anim, int terminator)
+void StartSubSpell_efxFenrirBG(struct Anim * anim, int terminator)
 {
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D665C, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxFenrirBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = terminator;
 
-    SpellFx_RegisterBgGfx(gUnknown_08651DF4, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgGfx(Img_FenrirBg_Sigils, 32 * 8 * CHR_SIZE);
     SpellFx_ClearBG1();
 
-    LZ77UnCompWram(gUnknown_08652734, gEkrTsaBuffer);
+    LZ77UnCompWram(Tsa_FenrirBg_Sigils, gEkrTsaBuffer);
     EfxTmCpyBG(gEkrTsaBuffer, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
 
     BG_EnableSyncByMask(2);
@@ -180,7 +180,7 @@ void sub_8060A9C(struct Anim * anim, int terminator)
 }
 
 //! FE8U = 0x08060B2C
-void sub_8060B2C(void)
+void efxFenrirBG_OnEnd(void)
 {
     SpellFx_ClearBG1();
     gEfxBgSemaphore--;
@@ -189,7 +189,7 @@ void sub_8060B2C(void)
 }
 
 //! FE8U = 0x08060B48
-void sub_8060B48(struct ProcEfxBG * proc)
+void efxFenrirBG_Loop(struct ProcEfxBG * proc)
 {
     gLCDControlBuffer.bgoffset[BG_1].y++;
     gLCDControlBuffer.bgoffset[BG_1].x--;
@@ -211,8 +211,8 @@ struct ProcCmd CONST_DATA ProcScr_efxFenrirBGCOL[] =
     PROC_NAME("efxFenrirBGCOL"),
     PROC_MARK(PROC_MARK_A),
 
-    PROC_SET_END_CB(sub_8060BC4),
-    PROC_REPEAT(sub_8060BD4),
+    PROC_SET_END_CB(efxFenrirBGCOL_OnEnd),
+    PROC_REPEAT(efxFenrirBGCOL_Loop),
 
     PROC_END,
 };
@@ -220,10 +220,10 @@ struct ProcCmd CONST_DATA ProcScr_efxFenrirBGCOL[] =
 // clang-format on
 
 //! FE8U = 0x08060B7C
-void sub_8060B7C(struct Anim * anim, int terminator)
+void StartSubSpell_efxFenrirBGCOL(struct Anim * anim, int terminator)
 {
     // clang-format off
-    static const u16 gUnknown_080DD70C[] =
+    static const u16 frames[] =
     {
          0, 4,
          1, 4,
@@ -255,7 +255,7 @@ void sub_8060B7C(struct Anim * anim, int terminator)
     proc->terminator = terminator;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD70C;
+    proc->frame_config = frames;
 
     proc->pal = gUnknown_08652554;
     SpellFx_RegisterBgPal(gUnknown_08652554, PLTT_SIZE_4BPP);
@@ -264,14 +264,14 @@ void sub_8060B7C(struct Anim * anim, int terminator)
 }
 
 //! FE8U = 0x08060BC4
-void sub_8060BC4(void)
+void efxFenrirBGCOL_OnEnd(void)
 {
     gEfxBgSemaphore--;
     return;
 }
 
 //! FE8U = 0x08060BD4
-void sub_8060BD4(struct ProcEfxBGCOL * proc)
+void efxFenrirBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -293,37 +293,37 @@ void sub_8060BD4(struct ProcEfxBGCOL * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D66A4[] =
+struct ProcCmd CONST_DATA ProcScr_efxFenrirOBJ[] =
 {
     PROC_NAME("efxFenrirOBJ"),
-    PROC_REPEAT(sub_8060C78),
+    PROC_REPEAT(efxFenrirOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08060C18
-void sub_8060C18(struct Anim * anim, int terminator)
+void StartSubSpell_efxFenrirOBJ(struct Anim * anim, int terminator)
 {
     struct ProcEfxOBJ * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D66A4, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxFenrirOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = terminator;
 
     proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_0865C7D4, gUnknown_0865C7D4, gUnknown_0865C7D4, gUnknown_0865C7D4);
 
-    SpellFx_RegisterObjPal(gUnknown_0865BAB8, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_0865AF3C, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_FenrirSprites_A, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_FenrirSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x08060C78
-void sub_8060C78(struct ProcEfxOBJ * proc)
+void efxFenrirOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -342,11 +342,11 @@ void sub_8060C78(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxFenrirBG2[] =
 {
     PROC_NAME("efxFenrirBG2"),
-    PROC_REPEAT(sub_8060DC4),
+    PROC_REPEAT(efxFenrirBG2_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D66D4[] =
+u16 * CONST_DATA ImgArray_FenrirBg[] =
 {
     Img_08652948,
     Img_08652948,
@@ -401,7 +401,7 @@ u16 * CONST_DATA gUnknown_085D66D4[] =
     Img_08655D2C,
 };
 
-u16 * CONST_DATA gUnknown_085D67A0[] =
+u16 * CONST_DATA TsaArray_FenrirBg[] =
 {
     Tsa_08656934,
     Tsa_086569F0,
@@ -459,10 +459,10 @@ u16 * CONST_DATA gUnknown_085D67A0[] =
 // clang-format on
 
 //! FE8U = 0x08060CAC
-void sub_8060CAC(struct Anim * anim)
+void StartSubSpell_efxFenrirBG2_A(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DD76A[] =
+    static const u16 frames[] =
     {
          0, 2,
          1, 2,
@@ -541,21 +541,21 @@ void sub_8060CAC(struct Anim * anim)
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DD76A;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D67A0;
-    proc->tsar = gUnknown_085D67A0;
-    proc->img = gUnknown_085D66D4;
+    proc->tsal = TsaArray_FenrirBg;
+    proc->tsar = TsaArray_FenrirBg;
+    proc->img = ImgArray_FenrirBg;
     proc->pal = NULL;
 
-    SpellFx_RegisterBgPal(gUnknown_086568F4, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_FenrirBg, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     BG_SetPosition(BG_1, 0, 0);
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        if (GetAnimPosition(proc->anim) == 0)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
         {
             BG_SetPosition(BG_1, 24, 0);
         }
@@ -569,7 +569,7 @@ void sub_8060CAC(struct Anim * anim)
 }
 
 //! FE8U = 0x08060D3C
-void sub_8060D3C(struct Anim * anim)
+void StartSubSpell_efxFenrirBG2_B(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
 
@@ -590,9 +590,9 @@ void sub_8060D3C(struct Anim * anim)
     SpellFx_RegisterBgPal(gUnknown_08656914, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        if (GetAnimPosition(proc->anim) == 0)
+        if (GetAnimPosition(proc->anim) == EKR_POS_L)
         {
             BG_SetPosition(BG_1, 24, 0);
         }
@@ -606,7 +606,7 @@ void sub_8060D3C(struct Anim * anim)
 }
 
 //! FE8U = 0x08060DC4
-void sub_8060DC4(struct ProcEfxEclipseBG * proc)
+void efxFenrirBG2_Loop(struct ProcEfxEclipseBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -659,14 +659,14 @@ void sub_8060DC4(struct ProcEfxEclipseBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxFenrirOBJ2[] =
 {
     PROC_NAME("efxFenrirOBJ2"),
-    PROC_REPEAT(sub_8060ED8),
+    PROC_REPEAT(efxFenrirOBJ2_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08060E90
-void sub_8060E90(struct Anim * anim)
+void StartSubSpell_efxFenrirOBJ2(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
 
@@ -678,14 +678,14 @@ void sub_8060E90(struct Anim * anim)
     proc->terminator = 0;
     proc->unk44 = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_0865BAD8, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_0865AF3C, 0x1000);
+    SpellFx_RegisterObjPal(Pal_FenrirSprites_B, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_FenrirSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x08060ED8
-void sub_8060ED8(struct ProcEfxOBJ * proc)
+void efxFenrirOBJ2_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -693,7 +693,7 @@ void sub_8060ED8(struct ProcEfxOBJ * proc)
     {
         proc->timer = 0;
 
-        sub_8060F24(proc->anim, proc->unk44++);
+        StartSubSpell_efxFenrirOBJ2Chiri(proc->anim, proc->unk44++);
 
         proc->terminator++;
 
@@ -709,14 +709,14 @@ void sub_8060ED8(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D6884[] =
+struct ProcCmd CONST_DATA ProcScr_efxFenrirOBJ2Chiri[] =
 {
     PROC_NAME("efxFenrirOBJ2Chiri"),
-    PROC_REPEAT(sub_8060FA4),
+    PROC_REPEAT(efxFenrirOBJ2Chiri_Loop),
     PROC_END,
 };
 
-int CONST_DATA gUnknown_085D689C[] =
+int CONST_DATA gFenrirSpriteAngles[] =
 {
     184, 85, 66, 119, 158, 39, 135, 210,
 };
@@ -724,32 +724,32 @@ int CONST_DATA gUnknown_085D689C[] =
 // clang-format on
 
 //! FE8U = 0x08060F24
-void sub_8060F24(struct Anim * anim, int idx)
+void StartSubSpell_efxFenrirOBJ2Chiri(struct Anim * anim, int idx)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * otherAnim;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D6884, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxFenrirOBJ2Chiri, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 30;
 
-    proc->unk44 = gUnknown_085D689C[idx & 7];
+    proc->unk44 = gFenrirSpriteAngles[idx & 7];
 
     otherAnim = NULL;
 
     switch (idx & 1)
     {
         case 0:
-            otherAnim = AnimCreate(gUnknown_0865C77C, 0x78);
+            otherAnim = AnimCreate(gUnknown_0865C77C, 120);
             proc->anim2 = otherAnim;
 
             break;
 
         case 1:
-            otherAnim = AnimCreate(gUnknown_0865C7A8, 0x78);
+            otherAnim = AnimCreate(gUnknown_0865C7A8, 120);
             proc->anim2 = otherAnim;
 
             break;
@@ -767,14 +767,14 @@ void sub_8060F24(struct Anim * anim, int idx)
 }
 
 //! FE8U = 0x08060FA4
-void sub_8060FA4(struct ProcEfxOBJ * proc)
+void efxFenrirOBJ2Chiri_Loop(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
     int ret = Interpolate(INTERPOLATE_LINEAR, 0, 300, proc->timer, proc->terminator);
 
     int x = (ret * gSinLookup[proc->unk44]) >> 12;
-    int y = (ret * gSinLookup[proc->unk44 + 0x40]) >> 12;
+    int y = (ret * gSinLookup[proc->unk44 + 64]) >> 12;
 
     anim->xPosition = x + proc->unk32;
     anim->yPosition = y + proc->unk3A;
