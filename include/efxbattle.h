@@ -1403,17 +1403,72 @@ extern u16 Pal_EclipseSprites[];
 extern u32 gUnknown_086517DC[];
 extern u32 gUnknown_08651AE4[];
 extern u32 gUnknown_08651DE0[];
-// extern ??? gUnknown_08651DF4
-// extern ??? gUnknown_08652554
-// extern ??? gUnknown_08652734
-// extern ??? gUnknown_086568F4
-// extern ??? gUnknown_08656914
-// extern ??? gUnknown_0865AF3C
-// extern ??? gUnknown_0865BAB8
-// extern ??? gUnknown_0865BAD8
-// extern ??? gUnknown_0865C77C
-// extern ??? gUnknown_0865C7A8
-// extern ??? gUnknown_0865C7D4
+extern u16 gUnknown_08651DF4[];
+extern u16 gUnknown_08652554[];
+extern u16 gUnknown_08652734[];
+extern u16 Img_08652948[];
+extern u16 Img_08653B60[];
+extern u16 Img_08654EB0[];
+extern u16 Img_08655D2C[];
+extern u16 gUnknown_086568F4[];
+extern u16 gUnknown_08656914[];
+extern u16 Tsa_08656934[];
+extern u16 Tsa_086569F0[];
+extern u16 Tsa_08656AAC[];
+extern u16 Tsa_08656B68[];
+extern u16 Tsa_08656C24[];
+extern u16 Tsa_08656CE0[];
+extern u16 Tsa_08656D9C[];
+extern u16 Tsa_08656EA0[];
+extern u16 Tsa_08656FA4[];
+extern u16 Tsa_086570A8[];
+extern u16 Tsa_086571AC[];
+extern u16 Tsa_086572B0[];
+extern u16 Tsa_086573B4[];
+extern u16 Tsa_086574F4[];
+extern u16 Tsa_08657638[];
+extern u16 Tsa_0865777C[];
+extern u16 Tsa_086578C0[];
+extern u16 Tsa_08657A04[];
+extern u16 Tsa_08657B48[];
+extern u16 Tsa_08657CC8[];
+extern u16 Tsa_08657E4C[];
+extern u16 Tsa_08657FD0[];
+extern u16 Tsa_08658130[];
+extern u16 Tsa_08658290[];
+extern u16 Tsa_086583F0[];
+extern u16 Tsa_08658594[];
+extern u16 Tsa_08658738[];
+extern u16 Tsa_086588DC[];
+extern u16 Tsa_08658A4C[];
+extern u16 Tsa_08658BBC[];
+extern u16 Tsa_08658D2C[];
+extern u16 Tsa_08658ED0[];
+extern u16 Tsa_08659074[];
+extern u16 Tsa_08659218[];
+extern u16 Tsa_0865938C[];
+extern u16 Tsa_08659500[];
+extern u16 Tsa_08659674[];
+extern u16 Tsa_08659824[];
+extern u16 Tsa_086599D4[];
+extern u16 Tsa_08659B84[];
+extern u16 Tsa_08659CF8[];
+extern u16 Tsa_08659E6C[];
+extern u16 Tsa_08659FE0[];
+extern u16 Tsa_0865A194[];
+extern u16 Tsa_0865A348[];
+extern u16 Tsa_0865A4FC[];
+extern u16 Tsa_0865A674[];
+extern u16 Tsa_0865A7EC[];
+extern u16 Tsa_0865A964[];
+extern u16 Tsa_0865ABBC[];
+extern u16 Tsa_0865ADC4[];
+extern u16 gUnknown_0865AF3C[];
+extern u16 gUnknown_0865BAB8[];
+extern u16 gUnknown_0865BAD8[];
+extern u32 gUnknown_0865C77C[];
+extern u32 gUnknown_0865C7A8[];
+extern u32 gUnknown_0865C7D4[];
 extern u16 Img_0865C8C0[];
 extern u16 Img_0865CE1C[];
 extern u16 Img_0865D498[];
