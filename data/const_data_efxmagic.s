@@ -1,21 +1,18 @@
     .section .rodata
 
-	.asciz "efxFenrir"
+	.asciz "efxLive"
 	.align 2, 0
 
-	.asciz "efxFenrirBG"
+	.asciz "efxRelive"
 	.align 2, 0
 
-	.asciz "efxFenrirBGCOL"
+	.asciz "efxRecover"
 	.align 2, 0
 
-	.global gUnknown_080DD70C
-gUnknown_080DD70C:  @ 0x080DD70C
-	.incbin "baserom.gba", 0xDD70C, 0x5E
+	.asciz "efxReblow"
+	.align 2, 0
 
-	.global gUnknown_080DD76A
-gUnknown_080DD76A:  @ 0x080DD76A
-	.incbin "baserom.gba", 0xDD76A, 0x15C
+	.asciz "efxLiveBG"
 
 	.global gUnknown_080DD8C6
 gUnknown_080DD8C6:  @ 0x080DD8C6

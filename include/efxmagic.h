@@ -177,16 +177,16 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ProcScr_efxHazymoonOBJ3
 // extern ??? gEclipseAnimSpriteCoordinates
 // extern ??? ProcScr_efxHazymoonOBJ3RND
-// extern ??? gUnknown_085D6644
-// extern ??? gUnknown_085D665C
+// extern ??? ProcScr_efxFenrir
+// extern ??? ProcScr_efxFenrirBG
 // extern ??? ProcScr_efxFenrirBGCOL
-// extern ??? gUnknown_085D66A4
+// extern ??? ProcScr_efxFenrirOBJ
 // extern ??? ProcScr_efxFenrirBG2
-// extern ??? gUnknown_085D66D4
-// extern ??? gUnknown_085D67A0
+// extern ??? ImgArray_FenrirBg
+// extern ??? TsaArray_FenrirBg
 // extern ??? ProcScr_efxFenrirOBJ2
-// extern ??? gUnknown_085D6884
-// extern ??? gUnknown_085D689C
+// extern ??? ProcScr_efxFenrirOBJ2Chiri
+// extern ??? gFenrirSpriteAngles
 // extern ??? ProcScr_efxLive
 // extern ??? ProcScr_efxRelive
 // extern ??? ProcScr_efxRecover
@@ -503,22 +503,22 @@ void efxHazymoonOBJ3_Loop(struct ProcEfxOBJ * proc);
 void StartSubSpell_efxHazymoonOBJ3RND(struct Anim * anim, int x, int y);
 void efxHazymoonOBJ3RND_OnEnd(struct ProcEfxOBJ * proc);
 void StartSpellAnimFenrir(struct Anim * anim);
-// ??? sub_80608E0(???);
-// ??? sub_8060A9C(???);
-// ??? sub_8060B2C(???);
-// ??? sub_8060B48(???);
-// ??? sub_8060B7C(???);
-// ??? sub_8060BC4(???);
-// ??? sub_8060BD4(???);
-// ??? sub_8060C18(???);
-// ??? sub_8060C78(???);
-// ??? sub_8060CAC(???);
-// ??? sub_8060D3C(???);
-// ??? sub_8060DC4(???);
-// ??? sub_8060E90(???);
-// ??? sub_8060ED8(???);
-// ??? sub_8060F24(???);
-// ??? sub_8060FA4(???);
+void efxFenrir_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxFenrirBG(struct Anim * anim, int terminator);
+void efxFenrirBG_OnEnd(void);
+void efxFenrirBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxFenrirBGCOL(struct Anim * anim, int terminator);
+void efxFenrirBGCOL_OnEnd(void);
+void efxFenrirBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxFenrirOBJ(struct Anim * anim, int terminator);
+void efxFenrirOBJ_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxFenrirBG2_A(struct Anim * anim);
+void StartSubSpell_efxFenrirBG2_B(struct Anim * anim);
+void efxFenrirBG2_Loop(struct ProcEfxEclipseBG * proc);
+void StartSubSpell_efxFenrirOBJ2(struct Anim * anim);
+void efxFenrirOBJ2_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxFenrirOBJ2Chiri(struct Anim * anim, int idx);
+void efxFenrirOBJ2Chiri_Loop(struct ProcEfxOBJ * proc);
 void StartSpellAnimHeal(struct Anim * anim);
 // ??? EfxLiveMain(???);
 void StartSpellAnimMend(struct Anim * anim);
