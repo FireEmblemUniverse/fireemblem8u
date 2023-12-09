@@ -84,7 +84,7 @@ struct ProcEfxOBJ {
     STRUCT_PAD(0x2B, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
-    STRUCT_PAD(0x30, 0x32);
+    /* 30 */ u16 unk30;
     /* 32 */ u16 unk32;
     /* 34 */ u16 unk34;
     /* 36 */ u16 unk36;

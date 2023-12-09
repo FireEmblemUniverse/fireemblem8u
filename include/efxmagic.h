@@ -16,6 +16,25 @@ struct ProcEfxMagicOBJ {
     /* 64 */ ProcPtr seproc;
 };
 
+struct ProcEfxEclipseBG
+{
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    STRUCT_PAD(0x2A, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ s16 unk30;
+    STRUCT_PAD(0x32, 0x44);
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 * frame_config;
+    /* 4C */ u16 ** tsal;
+    /* 50 */ u16 ** tsar;
+    /* 54 */ u16 ** img;
+    /* 58 */ u16 * pal;
+    /* 5C */ struct Anim * anim;
+};
+
 typedef void (*SpellAnimFunc)(struct Anim * anim);
 extern CONST_DATA SpellAnimFunc gEkrSpellAnimLut[];
 
@@ -469,20 +488,20 @@ void efxDivineOBJ_Loop(struct ProcEfxOBJ * proc);
 void StartSpellAnim_8060284_Null(struct Anim * anim);
 void StartSpellAnim_8060288_Null(struct Anim * anim);
 void sub_806028C(struct Anim * anim);
-// ??? sub_80602C8(???);
-// ??? sub_8060440(???);
-// ??? sub_80604B0(???);
-// ??? sub_8060514(???);
-// ??? sub_806056C(???);
-// ??? sub_80605E8(???);
-// ??? sub_8060664(???);
-// ??? sub_806067C(???);
-// ??? sub_80606D8(???);
-// ??? sub_8060734(???);
-// ??? sub_8060790(???);
-// ??? sub_80607D8(???);
-// ??? sub_8060838(???);
-// ??? sub_806088C(???);
+void sub_80602C8(struct ProcEfx * proc);
+void sub_8060440(struct Anim * anim);
+void sub_80604B0(struct Anim * anim);
+void sub_8060514(struct Anim * anim);
+void sub_806056C(struct ProcEfxEclipseBG * proc);
+void sub_80605E8(struct Anim * anim);
+void sub_8060664(struct ProcEfxOBJ * proc);
+void sub_806067C(struct ProcEfxOBJ * proc);
+void sub_80606D8(struct ProcEfxOBJ * proc);
+void sub_8060734(struct ProcEfxOBJ * proc);
+void sub_8060790(struct Anim * anim);
+void sub_80607D8(struct ProcEfxOBJ * proc);
+void sub_8060838(struct Anim * anim, int x, int y);
+void sub_806088C(struct ProcEfxOBJ * proc);
 void StartSpellAnimFenrir(struct Anim * anim);
 // ??? sub_80608E0(???);
 // ??? sub_8060A9C(???);
