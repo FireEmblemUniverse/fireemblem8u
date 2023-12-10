@@ -28823,642 +28823,27 @@ gUnknown_08677CC0:  @ 0x08677CC0
 
 	.global gUnknown_08677D34
 gUnknown_08677D34:  @ 0x08677D34
-@ Replacing .incbin "baserom.gba", 0x677D34, 0x9EC
-    .4byte gUnknown_08676734 + 0xb92
-    .4byte gUnknown_08676734 + 0xbaa
-    .4byte gUnknown_08676734 + 0xbce
-    .4byte gUnknown_08676734 + 0xbfe
-    .4byte gUnknown_08676734 + 0xc2e
-    .4byte gUnknown_08676734 + 0xc6a
-    .4byte gUnknown_08676734 + 0xca6
-    .4byte gUnknown_08676734 + 0xce2
-    .4byte gUnknown_08676734 + 0xd1e
-    .4byte gUnknown_08676734 + 0xd5a
-    .4byte gUnknown_08676734 + 0xd96
-    .4byte gUnknown_08676734 + 0xdde
-    .4byte gUnknown_08676734 + 0xe26
-    .4byte gUnknown_08676734 + 0xe7a
-    .4byte gUnknown_08676734 + 0xece
-    .4byte gUnknown_08676734 + 0xf22
-    .4byte gUnknown_08676734 + 0xf76
-    .4byte gUnknown_08676734 + 0xfca
-    .4byte gUnknown_08676734 + 0x1012
-    .4byte gUnknown_08676734 + 0x1042
-    .4byte 0x5867778c
-    .4byte 0x80000000
-    .4byte 0x1867787c
-    .4byte 0x80000000
-    .4byte gUnknown_08676734 + 0x14e
-    .4byte gUnknown_08676734 + 0x172
-    .4byte gUnknown_08676734 + 0x1a2
-    .4byte gUnknown_08676734 + 0x1d2
-    .4byte gUnknown_08676734 + 0x21a
-    .4byte gUnknown_08676734 + 0x262
-    .4byte gUnknown_08676734 + 0x2aa
-    .4byte gUnknown_08676734 + 0x30a
-    .4byte gUnknown_08676734 + 0x36a
-    .4byte gUnknown_08676734 + 0x3ca
-    .4byte gUnknown_08676734 + 0x42a
-    .4byte gUnknown_08676734 + 0x4a1
-    .4byte gUnknown_08676734 + 0x519
-    .4byte gUnknown_08676734 + 0x579
-    .4byte gUnknown_08676734 + 0x5f2
-    .4byte gUnknown_08676734 + 0x66a
-    .4byte gUnknown_08676734 + 0x6be
-    .4byte gUnknown_08676734 + 0x706
-    .4byte gUnknown_08676734 + 0x742
-    .4byte gUnknown_08676734 + 0x772
-    .4byte gUnknown_08676734 + 0x7a2
-    .4byte gUnknown_08676734 + 0x7d2
-    .4byte gUnknown_08676734 + 0x802
-    .4byte gUnknown_08676734 + 0x832
-    .4byte gUnknown_08676734 + 0x862
-    .4byte gUnknown_08676734 + 0x892
-    .4byte 0x38676ff7
-    .4byte 0x38676883
-    .4byte 0x386768a7
-    .4byte 0x386768d7
-    .4byte 0x38676907
-    .4byte 0x3867694f
-    .4byte 0x38676997
-    .4byte 0x386769df
-    .4byte 0x38676a3f
-    .4byte 0x38676a9f
-    .4byte 0x38676aff
-    .4byte 0x38676b5f
-    .4byte 0x38676bd7
-    .4byte 0x38676c4f
-    .4byte 0x38676caf
-    .4byte 0x38677003
-    .4byte 0x3867707b
-    .4byte 0x386770cf
-    .4byte 0x38677123
-    .4byte 0x38677177
-    .4byte 0x386771bf
-    .4byte 0x38677207
-    .4byte 0x3867722b
-    .4byte 0x3867724f
-    .4byte 0x38677273
-    .4byte 0x3867728b
-    .4byte 0x086772a1
-    .4byte 0x38676ff7
-    .4byte 0x80000000
-    .4byte 0x186772c4
-    .4byte 0x80000000
-    .4byte 0x18677000
-    .4byte 0x80000000
-    .4byte 0x0004b010
-    .4byte 0xf0001f3f
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01d001f0
-    .4byte 0x01000000
-    .4byte 0x02000200
-    .4byte 0x04010e04
-    .4byte 0x1df00400
-    .4byte 0x017001f0
-    .4byte 0x04000003
-    .4byte 0x06000500
-    .4byte 0x04030600
-    .4byte 0x04040405
-    .4byte 0xf03df003
-    .4byte 0x01608001
-    .4byte 0x00080007
-    .4byte 0x000a0009
-    .4byte 0x09040a00
-    .4byte 0x07040804
-    .4byte 0xf03bf0e0
-    .4byte 0x0b016001
-    .4byte 0x0d000c00
-    .4byte 0x000e0000
-    .4byte 0x040d040e
-    .4byte 0x0b04380c
-    .4byte 0x01f03bf0
-    .4byte 0x0c083b70
-    .4byte 0x080d0008
-    .4byte 0x0c0e080e
-    .4byte 0x0c0e0c0d
-    .4byte 0xf00c0b0c
-    .4byte 0x6001f021
-    .4byte 0x080008b3
-    .4byte 0x0a080908
-    .4byte 0x070c0a08
-    .4byte 0x0c080c09
-    .4byte 0xf03bf007
-    .4byte 0x002b7101
-    .4byte 0x05080408
-    .4byte 0x06080608
-    .4byte 0x0c050c03
-    .4byte 0xf0030c04
-    .4byte 0x8001f03b
-    .4byte 0x0108a391
-    .4byte 0x02080208
-    .4byte 0x0c011f0c
-    .4byte 0xf039f000
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x000001a0
-    .4byte 0x0004b010
-    .4byte 0xf0001f30
-    .4byte 0x0301f001
-    .4byte 0x00000400
-    .4byte 0x00060005
-    .4byte 0x04050406
-    .4byte 0x0304040e
-    .4byte 0xf021f004
-    .4byte 0x07015001
-    .4byte 0x00080000
-    .4byte 0x000a0009
-    .4byte 0x0904030a
-    .4byte 0x07040804
-    .4byte 0x01f03bf0
-    .4byte 0x0b016080
-    .4byte 0x0d000c00
-    .4byte 0x00000e00
-    .4byte 0x040d040e
-    .4byte 0xe00b040c
-    .4byte 0x01f03bf0
-    .4byte 0x0c083b70
-    .4byte 0x00080d08
-    .4byte 0x0c0e080e
-    .4byte 0x0c0c0c0d
-    .4byte 0xf00c0b38
-    .4byte 0x6001f021
-    .4byte 0x080808b3
-    .4byte 0x0a080900
-    .4byte 0x090c0a08
-    .4byte 0x0c081c0c
-    .4byte 0xf03bf007
-    .4byte 0x082b7101
-    .4byte 0x05080004
-    .4byte 0x06080608
-    .4byte 0x0c0e050c
-    .4byte 0xf0030c04
-    .4byte 0x8001f03b
-    .4byte 0x08000001
-    .4byte 0x08020801
-    .4byte 0x3f010c02
-    .4byte 0x39f0000c
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf0ff01f0
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf0fc01f0
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x0001c001
-    .4byte 0x0004b010
-    .4byte 0xf0001f3f
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xc001f001
-    .4byte 0x017001f0
-    .4byte 0x00010000
-    .4byte 0x02030002
-    .4byte 0x00040104
-    .4byte 0xf01df004
-    .4byte 0x01708001
-    .4byte 0x00040003
-    .4byte 0x00060005
-    .4byte 0x05040600
-    .4byte 0x03040404
-    .4byte 0xf03df0e0
-    .4byte 0x07016001
-    .4byte 0x09000800
-    .4byte 0x000a0000
-    .4byte 0x0409040a
-    .4byte 0x07043808
-    .4byte 0x01f03bf0
-    .4byte 0x000b0160
-    .4byte 0x0d00000c
-    .4byte 0x0e000e00
-    .4byte 0x040e0d04
-    .4byte 0xf00b040c
-    .4byte 0x7001f03b
-    .4byte 0x0c00083b
-    .4byte 0x0e080d08
-    .4byte 0x030c0e08
-    .4byte 0x0c0c0c0d
-    .4byte 0x21f00c0b
-    .4byte 0x608001f0
-    .4byte 0x080808b3
-    .4byte 0x080a0809
-    .4byte 0x090c0a01
-    .4byte 0x070c080c
-    .4byte 0xf0c03bf0
-    .4byte 0x082b7101
-    .4byte 0x08050804
-    .4byte 0x06080006
-    .4byte 0x040c050c
-    .4byte 0xf0e0030c
-    .4byte 0x9101f03b
-    .4byte 0x080108a3
-    .4byte 0x02070802
-    .4byte 0x000c010c
-    .4byte 0x01f039f0
-    .4byte 0xf0ff01f0
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x000001f0
-    .4byte 0x0004b010
-    .4byte 0xf0001f3f
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0f001
-    .4byte 0x01f001f0
-    .4byte 0x000001b0
-    .4byte 0x02000001
-    .4byte 0x01040200
-    .4byte 0xe0040004
-    .4byte 0x01f01df0
-    .4byte 0x00030170
-    .4byte 0x00050004
-    .4byte 0x06000600
-    .4byte 0x04040504
-    .4byte 0xf0030438
-    .4byte 0x6001f03d
-    .4byte 0x08000701
-    .4byte 0x00090000
-    .4byte 0x040a000a
-    .4byte 0x08040e09
-    .4byte 0x3bf00704
-    .4byte 0x016001f0
-    .4byte 0x0c00000b
-    .4byte 0x0e000d00
-    .4byte 0x04030e00
-    .4byte 0x040c040d
-    .4byte 0xf03bf00b
-    .4byte 0x3b708001
-    .4byte 0x0d080c08
-    .4byte 0x00080e08
-    .4byte 0x0c0d0c0e
-    .4byte 0x0c0b0c0c
-    .4byte 0xf021f0e0
-    .4byte 0x08b36001
-    .4byte 0x08090808
-    .4byte 0x0a080a00
-    .4byte 0x080c090c
-    .4byte 0xf007700c
-    .4byte 0x7101f03b
-    .4byte 0x0804082b
-    .4byte 0x06080005
-    .4byte 0x050c0608
-    .4byte 0x0c38040c
-    .4byte 0xf03bf003
-    .4byte 0x08a39101
-    .4byte 0x02010801
-    .4byte 0x010c0208
-    .4byte 0x39f0000c
-    .4byte 0xf001f0ff
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0x01f0ff01
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x000001c0
-    .4byte 0x0004b010
-    .4byte 0x10085420
-    .4byte 0x56085501
-    .4byte 0x08005708
-    .4byte 0x08590858
-    .4byte 0x005b085a
-    .4byte 0x5d085c08
-    .4byte 0x5f085e08
-    .4byte 0x08600800
-    .4byte 0x0c600861
-    .4byte 0x5e0c005f
-    .4byte 0x5c0c5d0c
-    .4byte 0x0c005b0c
-    .4byte 0x0c590c5a
-    .4byte 0x03570c58
-    .4byte 0x550c560c
-    .4byte 0x0110540c
-    .4byte 0x46003900
-    .4byte 0x48084708
-    .4byte 0x00084908
-    .4byte 0x084b084a
-    .4byte 0x084d084c
-    .4byte 0x4f084e00
-    .4byte 0x51085008
-    .4byte 0x08520008
-    .4byte 0x0c520853
-    .4byte 0x50000c51
-    .4byte 0x4e0c4f0c
-    .4byte 0x000c4d0c
-    .4byte 0x0c4b0c4c
-    .4byte 0x0c490c4a
-    .4byte 0x470c4804
-    .4byte 0x3b40460c
-    .4byte 0x39000838
-    .4byte 0x3b083a08
-    .4byte 0x00083c08
-    .4byte 0x083e083d
-    .4byte 0x0840083f
-    .4byte 0x42084100
-    .4byte 0x44084308
-    .4byte 0x08450008
-    .4byte 0x0c430c44
-    .4byte 0x41000c42
-    .4byte 0x3f0c400c
-    .4byte 0x000c3e0c
-    .4byte 0x0c3c0c3d
-    .4byte 0x0c3a0c3b
-    .4byte 0x380c3910
-    .4byte 0x082a3b40
-    .4byte 0x2c00082b
-    .4byte 0x2e082d08
-    .4byte 0x00082f08
-    .4byte 0x08310830
-    .4byte 0x08330832
-    .4byte 0x35083400
-    .4byte 0x37083608
-    .4byte 0x0c360008
-    .4byte 0x0c340c35
-    .4byte 0x32000c33
-    .4byte 0x300c310c
-    .4byte 0x000c2f0c
-    .4byte 0x0c2d0c2e
-    .4byte 0x0c2b0c2c
-    .4byte 0x3b402a40
-    .4byte 0x081d081c
-    .4byte 0x1f00081e
-    .4byte 0x21082008
-    .4byte 0x00082208
-    .4byte 0x08240823
-    .4byte 0x08260825
-    .4byte 0x28082700
-    .4byte 0x28082908
-    .4byte 0x0c27000c
-    .4byte 0x0c250c26
-    .4byte 0x23000c24
-    .4byte 0x210c220c
-    .4byte 0x010c200c
-    .4byte 0x0c1e0c1f
-    .4byte 0x401c0c1d
-    .4byte 0x080e003b
-    .4byte 0x0810080f
-    .4byte 0x12000811
-    .4byte 0x14081308
-    .4byte 0x00081508
-    .4byte 0x08170816
-    .4byte 0x08190818
-    .4byte 0x1b081a00
-    .4byte 0x190c1a08
-    .4byte 0x0c18000c
-    .4byte 0x0c160c17
-    .4byte 0x14000c15
-    .4byte 0x120c130c
-    .4byte 0x040c110c
-    .4byte 0x0c0f0c10
-    .4byte 0x003b100e
-    .4byte 0x00000054
-    .4byte 0x02000100
-    .4byte 0x00000300
-    .4byte 0x00050004
-    .4byte 0x00070006
-    .4byte 0x09000800
-    .4byte 0x0b000a00
-    .4byte 0x000c0000
-    .4byte 0x040c000d
-    .4byte 0x0a04000b
-    .4byte 0x08040904
-    .4byte 0x04000704
-    .4byte 0x04050406
-    .4byte 0x00030404
-    .4byte 0x01040204
-    .4byte 0x54040004
-    .4byte 0x3b100440
-    .4byte 0x000f000e
-    .4byte 0x11000010
-    .4byte 0x13001200
-    .4byte 0x00001400
-    .4byte 0x00160015
-    .4byte 0x00180017
-    .4byte 0x1a001900
-    .4byte 0x1a001b00
-    .4byte 0x04190004
-    .4byte 0x04170418
-    .4byte 0x15000416
-    .4byte 0x13041404
-    .4byte 0x01041204
-    .4byte 0x04100411
-    .4byte 0x400e040f
-    .4byte 0x001c003b
-    .4byte 0x001e001d
-    .4byte 0x2000001f
-    .4byte 0x22002100
-    .4byte 0x00002300
-    .4byte 0x00250024
-    .4byte 0x00270026
-    .4byte 0x29002800
-    .4byte 0x27042800
-    .4byte 0x04260004
-    .4byte 0x04240425
-    .4byte 0x22000423
-    .4byte 0x20042104
-    .4byte 0x04041f04
-    .4byte 0x041d041e
-    .4byte 0x2a3b401c
-    .4byte 0x002b0000
-    .4byte 0x002d002c
-    .4byte 0x2f00002e
-    .4byte 0x31003000
-    .4byte 0x00003200
-    .4byte 0x00340033
-    .4byte 0x00360035
-    .4byte 0x36003700
-    .4byte 0x34043504
-    .4byte 0x04330004
-    .4byte 0x04310432
-    .4byte 0x2f000430
-    .4byte 0x2d042e04
-    .4byte 0x10042c04
-    .4byte 0x402a042b
-    .4byte 0x3900383b
-    .4byte 0x003a0000
-    .4byte 0x003c003b
-    .4byte 0x3e00003d
-    .4byte 0x40003f00
-    .4byte 0x00004100
-    .4byte 0x00430042
-    .4byte 0x00450044
-    .4byte 0x43044400
-    .4byte 0x41044204
-    .4byte 0x04400004
-    .4byte 0x043e043f
-    .4byte 0x3c00043d
-    .4byte 0x3a043b04
-    .4byte 0x40043904
-    .4byte 0x463b4038
-    .4byte 0x48004700
-    .4byte 0x00490000
-    .4byte 0x004b004a
-    .4byte 0x4d00004c
-    .4byte 0x4f004e00
-    .4byte 0x00005000
-    .4byte 0x00520051
-    .4byte 0x04520053
-    .4byte 0x50045100
-    .4byte 0x4e044f04
-    .4byte 0x044d0004
-    .4byte 0x044b044c
-    .4byte 0x4901044a
-    .4byte 0x47044804
-    .4byte 0x3b404604
-    .4byte 0x55005400
-    .4byte 0x57005600
-    .4byte 0x00580000
-    .4byte 0x005a0059
-    .4byte 0x5c00005b
-    .4byte 0x5e005d00
-    .4byte 0x00005f00
-    .4byte 0x00610060
-    .4byte 0x045f0460
-    .4byte 0x5d045e00
-    .4byte 0x5b045c04
-    .4byte 0x045a0004
-    .4byte 0x04580459
-    .4byte 0x56180457
-    .4byte 0x39105504
-    .4byte 0x00623b40
-    .4byte 0x64000063
-    .4byte 0x66006500
-    .4byte 0x00006700
-    .4byte 0x00690068
-    .4byte 0x006b006a
-    .4byte 0x6d006c00
-    .4byte 0x6d006e00
-    .4byte 0x046c0400
-    .4byte 0x046a046b
-    .4byte 0x68040069
-    .4byte 0x66046704
-    .4byte 0x04026504
-    .4byte 0x04630464
-    .4byte 0x543b8062
-    .4byte 0x006f0000
-    .4byte 0x00710070
-    .4byte 0x73000072
-    .4byte 0x75007400
-    .4byte 0x00007600
-    .4byte 0x00780077
-    .4byte 0x007a0079
-    .4byte 0x78047900
-    .4byte 0x76047704
-    .4byte 0x04750400
-    .4byte 0x04730474
-    .4byte 0x71040372
-    .4byte 0x6f047004
-    .4byte 0x3b603930
-    .4byte 0x7b005400
-    .4byte 0x7d007c00
-    .4byte 0x007e0000
-    .4byte 0x0080007f
-    .4byte 0x82000081
-    .4byte 0x84008300
-    .4byte 0x00008500
-    .4byte 0x04830484
-    .4byte 0x04810482
-    .4byte 0x7f048000
-    .4byte 0x7d047e04
-    .4byte 0x047c1804
-    .4byte 0x8039507b
-    .4byte 0x8600543b
-    .4byte 0x00870000
-    .4byte 0x00890088
-    .4byte 0x8b00008a
-    .4byte 0x8d008c00
-    .4byte 0x00008e00
-    .4byte 0x048e008f
-    .4byte 0x008c048d
-    .4byte 0x8a048b04
-    .4byte 0x88048904
-    .4byte 0x0487040c
-    .4byte 0xa0397086
-    .4byte 0x0000543b
-    .4byte 0x00910090
-    .4byte 0x00930092
-    .4byte 0x95009400
-    .4byte 0x97009600
-    .4byte 0x00980000
-    .4byte 0x04960497
-    .4byte 0x94000495
-    .4byte 0x92049304
-    .4byte 0x60049104
-    .4byte 0xc0399090
-    .4byte 0x9900543b
-    .4byte 0x00009a00
-    .4byte 0x009c009b
-    .4byte 0x009e009d
-    .4byte 0xa0009f00
-    .4byte 0x9e049f00
-    .4byte 0x049d0400
-    .4byte 0x049b049c
-    .4byte 0x9904389a
-    .4byte 0x3be039b0
-    .4byte 0x00a10110
-    .4byte 0xa30000a2
-    .4byte 0xa500a400
-    .4byte 0x0000a600
-    .4byte 0x04a404a5
-    .4byte 0x30a204a3
-    .4byte 0x37d0a104
-    .4byte 0x00000100
+	.incbin "baserom.gba", 0x677D34, 0x14C    @ 0x677E80 - 0x677D34
+
+	.global Tsa_08677E80
+Tsa_08677E80:  @ 0x08677E80
+	.incbin "baserom.gba", 0x677E80, 0x10C    @ 0x677F8C - 0x677E80
+
+	.global Tsa_08677F8C
+Tsa_08677F8C:  @ 0x08677F8C
+	.incbin "baserom.gba", 0x677F8C, 0x100    @ 0x67808C - 0x677F8C
+
+	.global Tsa_0867808C
+Tsa_0867808C:  @ 0x0867808C
+	.incbin "baserom.gba", 0x67808C, 0x10C    @ 0x678198 - 0x67808C
+
+	.global Tsa_08678198
+Tsa_08678198:  @ 0x08678198
+	.incbin "baserom.gba", 0x678198, 0x10C    @ 0x6782A4 - 0x678198
+
+	.global Tsa_086782A4
+Tsa_086782A4:  @ 0x086782A4
+	.incbin "baserom.gba", 0x6782A4, 0x47C    @ 0x678720 - 0x6782A4
 
 	.global gUnknown_08678720
 gUnknown_08678720:  @ 0x08678720
@@ -29470,11 +28855,79 @@ gUnknown_08678920:  @ 0x08678920
 
 	.global gUnknown_08678B20
 gUnknown_08678B20:  @ 0x08678B20
-	.incbin "baserom.gba", 0x678B20, 0x2A84
+	.incbin "baserom.gba", 0x678B20, 0xFE4    @ 0x679B04 - 0x678B20
+
+	.global Img_08679B04
+Img_08679B04:  @ 0x08679B04
+	.incbin "baserom.gba", 0x679B04, 0x62C    @ 0x67A130 - 0x679B04
+
+	.global Img_0867A130
+Img_0867A130:  @ 0x0867A130
+	.incbin "baserom.gba", 0x67A130, 0x6F8    @ 0x67A828 - 0x67A130
+
+	.global Img_0867A828
+Img_0867A828:  @ 0x0867A828
+	.incbin "baserom.gba", 0x67A828, 0x620    @ 0x67AE48 - 0x67A828
+
+	.global Img_0867AE48
+Img_0867AE48:  @ 0x0867AE48
+	.incbin "baserom.gba", 0x67AE48, 0x75C    @ 0x67B5A4 - 0x67AE48
 
 	.global gUnknown_0867B5A4
 gUnknown_0867B5A4:  @ 0x0867B5A4
-	.incbin "baserom.gba", 0x67B5A4, 0x3860
+	.incbin "baserom.gba", 0x67B5A4, 0x20    @ 0x67B5C4 - 0x67B5A4
+
+	.global Tsa_0867B5C4
+Tsa_0867B5C4:  @ 0x0867B5C4
+	.incbin "baserom.gba", 0x67B5C4, 0xAC    @ 0x67B670 - 0x67B5C4
+
+	.global Tsa_0867B670
+Tsa_0867B670:  @ 0x0867B670
+	.incbin "baserom.gba", 0x67B670, 0xB4    @ 0x67B724 - 0x67B670
+
+	.global Tsa_0867B724
+Tsa_0867B724:  @ 0x0867B724
+	.incbin "baserom.gba", 0x67B724, 0xC0    @ 0x67B7E4 - 0x67B724
+
+	.global Tsa_0867B7E4
+Tsa_0867B7E4:  @ 0x0867B7E4
+	.incbin "baserom.gba", 0x67B7E4, 0xC8    @ 0x67B8AC - 0x67B7E4
+
+	.global Tsa_0867B8AC
+Tsa_0867B8AC:  @ 0x0867B8AC
+	.incbin "baserom.gba", 0x67B8AC, 0xDC    @ 0x67B988 - 0x67B8AC
+
+	.global Tsa_0867B988
+Tsa_0867B988:  @ 0x0867B988
+	.incbin "baserom.gba", 0x67B988, 0xE0    @ 0x67BA68 - 0x67B988
+
+	.global Tsa_0867BA68
+Tsa_0867BA68:  @ 0x0867BA68
+	.incbin "baserom.gba", 0x67BA68, 0xE8    @ 0x67BB50 - 0x67BA68
+
+	.global Tsa_0867BB50
+Tsa_0867BB50:  @ 0x0867BB50
+	.incbin "baserom.gba", 0x67BB50, 0xF0    @ 0x67BC40 - 0x67BB50
+
+	.global Tsa_0867BC40
+Tsa_0867BC40:  @ 0x0867BC40
+	.incbin "baserom.gba", 0x67BC40, 0x100    @ 0x67BD40 - 0x67BC40
+
+	.global Tsa_0867BD40
+Tsa_0867BD40:  @ 0x0867BD40
+	.incbin "baserom.gba", 0x67BD40, 0x10C    @ 0x67BE4C - 0x67BD40
+
+	.global Tsa_0867BE4C
+Tsa_0867BE4C:  @ 0x0867BE4C
+	.incbin "baserom.gba", 0x67BE4C, 0x120    @ 0x67BF6C - 0x67BE4C
+
+	.global Tsa_0867BF6C
+Tsa_0867BF6C:  @ 0x0867BF6C
+	.incbin "baserom.gba", 0x67BF6C, 0x130    @ 0x67C09C - 0x67BF6C
+
+	.global Tsa_0867C09C
+Tsa_0867C09C:  @ 0x0867C09C
+	.incbin "baserom.gba", 0x67C09C, 0x2D68    @ 0x67EE04 - 0x67C09C
 
 	.global gUnknown_0867EE04
 gUnknown_0867EE04:  @ 0x0867EE04

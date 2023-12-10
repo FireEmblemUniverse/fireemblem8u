@@ -192,22 +192,22 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ProcScr_efxRecover
 // extern ??? ProcScr_efxReblow
 // extern ??? ProcScr_efxLiveBG
-// extern ??? gUnknown_085D6934
-// extern ??? gUnknown_085D6954
+// extern ??? ProcScr_efxLiveBGCOL
+// extern ??? ProcScr_efxLiveALPHA
 // extern ??? ProcScr_efxLiveOBJ
 // extern ??? ProcScr_efxReserveOBJ
 // extern ??? ProcScr_efxReblowOBJ
 // extern ??? ProcScr_efxReserve
 // extern ??? ProcScr_efxReserveBG
-// extern ??? gUnknown_085D69FC
-// extern ??? gUnknown_085D6A0C
-// extern ??? gUnknown_085D6A2C
-// extern ??? gUnknown_085D6A44
-// extern ??? gUnknown_085D6A48
+// extern ??? TsaArray_Fortify
+// extern ??? ProcScr_efxReserveBGCOL
+// extern ??? ProcScr_efxReserveBG2
+// extern ??? TsaArray_FortifyBg2
+// extern ??? ProcScr_efxReserveBGCOL2
 // extern ??? ProcScr_efxRest
-// extern ??? gUnknown_085D6A80
-// extern ??? gUnknown_085D6A98
-// extern ??? gUnknown_085D6ACC
+// extern ??? ProcScr_efxRestBG
+// extern ??? TsaArray_RestoreBg
+// extern ??? ImgArray_RestoreBg
 // extern ??? ProcScr_efxRestOBJ
 // extern ??? gUnknown_085D6B20
 // extern ??? gUnknown_085D6B38
@@ -520,47 +520,47 @@ void efxFenrirOBJ2_Loop(struct ProcEfxOBJ * proc);
 void StartSubSpell_efxFenrirOBJ2Chiri(struct Anim * anim, int idx);
 void efxFenrirOBJ2Chiri_Loop(struct ProcEfxOBJ * proc);
 void StartSpellAnimHeal(struct Anim * anim);
-// ??? EfxLiveMain(???);
+void efxLive_Loop_Main(struct ProcEfx * proc);
 void StartSpellAnimMend(struct Anim * anim);
-// ??? EfxReliveMain(???);
+void efxRelive_Loop_Main(struct ProcEfx * proc);
 void StartSpellAnimRecover(struct Anim * anim);
-// ??? EfxRecoverMain(???);
-void sub_8061420(struct Anim * anim);
-// ??? EfxReblowMain(???);
-// ??? sub_8061594(???);
-// ??? sub_8061650(???);
-// ??? EfxLivebgMain(???);
-// ??? sub_8061774(???);
-// ??? sub_80617E4(???);
-// ??? sub_8061854(???);
-// ??? sub_806189C(???);
-// ??? sub_80618D8(???);
-// ??? sub_80618F4(???);
-// ??? NewEfxLiveOBJ(???);
-// ??? sub_80619CC(???);
-// ??? EfxLiveobjMain(???);
-// ??? sub_8061A64(???);
-// ??? sub_8061A98(???);
-// ??? sub_8061ACC(???);
-// ??? sub_8061B14(???);
-// ??? sub_8061BE4(???);
-void sub_8061C18(struct Anim * anim);
-void sub_8061C48(struct Anim * anim);
-// ??? EfxReserveMain(???);
-// ??? sub_8061D28(???);
-// ??? EfxReservebgMain(???);
-// ??? sub_8061DF8(???);
-// ??? sub_8061E44(???);
-// ??? sub_8061E8C(???);
-// ??? sub_8061F78(???);
-// ??? sub_8062058(???);
-// ??? sub_80620A4(???);
-void sub_80620EC(struct Anim * anim);
-// ??? EfxRestMain(???);
-// ??? sub_80622A0(???);
-// ??? sub_80622F4(???);
-// ??? sub_8062358(???);
-// ??? sub_80623D0(???);
+void efxRecover_Loop_Main(struct ProcEfx * proc);
+void StartSpellAnimPhysic(struct Anim * anim);
+void efxReblow_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxLiveBG_A(struct Anim * anim, u32 kind);
+void StartSubSpell_efxLiveBG_B(struct Anim * anim, u32 kind);
+void efxLiveBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxLiveBGCOL_A(struct Anim * anim, u32 kind);
+void StartSubSpell_efxLiveBGCOL_B(struct Anim * anim, u32 kind);
+void efxLiveBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxLiveALPHA(struct Anim * anim, int timer, int c, int d);
+void efxLiveALPHA_Loop_A(struct ProcEfxALPHA * proc);
+void efxLiveALPHA_Loop_B(struct ProcEfxALPHA * proc);
+void StartSubSpell_efxLiveOBJ(struct Anim * anim);
+void StartSubSpell_efxReserveOBJ(struct Anim * anim);
+void efxLiveOBJ_Loop(struct ProcEfxOBJ * proc);
+void efxReserveOBJ_Loop_A(struct ProcEfxOBJ * proc);
+void efxReserveOBJ_Loop_B(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxReblowOBJ(struct Anim * anim, u32 kind);
+void efxReblowOBJ_Loop_A(struct ProcEfxOBJ * proc);
+void efxReblowOBJ_Loop_B(struct ProcEfxOBJ * proc);
+void StartSpellAnimFortify(struct Anim * anim);
+void StartSpellAnimLatona(struct Anim * anim);
+void efxReserve_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxReserveBG(struct Anim * anim);
+void efxReserveBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxReserveBGCOL(struct Anim * anim, u32 kind);
+void efxReserveBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxReserveBG2(struct Anim * anim);
+void efxReserveBG2_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxReserveBGCOL2(struct Anim * anim, u32 kind);
+void efxReserveBGCOL2_Loop(struct ProcEfxBGCOL * proc);
+void StartSpellAnimRestore(struct Anim * anim);
+void efxRest_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxRestBG(struct Anim * anim);
+void efxRestBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxRestOBJ(struct Anim * anim);
+void efxRestOBJ_Loop(void);
 void StartSpellAnimSilence(struct Anim * anim);
 // ??? sub_806241C(???);
 // ??? sub_8062524(???);
