@@ -1,78 +1,10 @@
     .section .rodata
 
-	.asciz "efxLive"
+	.asciz "efxSilence"
 	.align 2, 0
 
-	.asciz "efxRelive"
-	.align 2, 0
-
-	.asciz "efxRecover"
-	.align 2, 0
-
-	.asciz "efxReblow"
-	.align 2, 0
-
-	.asciz "efxLiveBG"
-
-	.global gUnknown_080DD8C6
-gUnknown_080DD8C6:  @ 0x080DD8C6
-	.incbin "baserom.gba", 0xDD8C6, 0x6
-
-	.global gUnknown_080DD8CC
-gUnknown_080DD8CC:  @ 0x080DD8CC
-	.incbin "baserom.gba", 0xDD8CC, 0x6
-
-	.global gUnknown_080DD8D2
-gUnknown_080DD8D2:  @ 0x080DD8D2
-	.incbin "baserom.gba", 0xDD8D2, 0x6
-
-	.global gUnknown_080DD8D8
-gUnknown_080DD8D8:  @ 0x080DD8D8
-	.incbin "baserom.gba", 0xDD8D8, 0x16
-
-	.global gUnknown_080DD8EE
-gUnknown_080DD8EE:  @ 0x080DD8EE
-	.incbin "baserom.gba", 0xDD8EE, 0x42
-
-	.global gUnknown_080DD930
-gUnknown_080DD930:  @ 0x080DD930
-	.incbin "baserom.gba", 0xDD930, 0x42
-
-	.global gUnknown_080DD972
-gUnknown_080DD972:  @ 0x080DD972
-	.incbin "baserom.gba", 0xDD972, 0x32
-
-	.global gUnknown_080DD9A4
-gUnknown_080DD9A4:  @ 0x080DD9A4
-	.incbin "baserom.gba", 0xDD9A4, 0x9A
-
-	.global gUnknown_080DDA3E
-gUnknown_080DDA3E:  @ 0x080DDA3E
-	.incbin "baserom.gba", 0xDDA3E, 0x12
-
-	.global gUnknown_080DDA50
-gUnknown_080DDA50:  @ 0x080DDA50
-	.incbin "baserom.gba", 0xDDA50, 0x8
-
-	.global gUnknown_080DDA58
-gUnknown_080DDA58:  @ 0x080DDA58
-	.incbin "baserom.gba", 0xDDA58, 0x18
-
-	.global gUnknown_080DDA70
-gUnknown_080DDA70:  @ 0x080DDA70
-	.incbin "baserom.gba", 0xDDA70, 0x112
-
-	.global gUnknown_080DDB82
-gUnknown_080DDB82:  @ 0x080DDB82
-	.incbin "baserom.gba", 0xDDB82, 0x18
-
-	.global gUnknown_080DDB9A
-gUnknown_080DDB9A:  @ 0x080DDB9A
-	.incbin "baserom.gba", 0xDDB9A, 0xF0
-
-	.global gUnknown_080DDC8A
-gUnknown_080DDC8A:  @ 0x080DDC8A
-	.incbin "baserom.gba", 0xDDC8A, 0x5C
+	.asciz "efxSilenceBG"
+	.byte 0
 
 	.global gUnknown_080DDCE6
 gUnknown_080DDCE6:  @ 0x080DDCE6
