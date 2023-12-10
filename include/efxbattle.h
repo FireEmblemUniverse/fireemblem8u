@@ -102,6 +102,19 @@ struct ProcEfxOBJ {
     /* 64 */ struct Anim * anim3;
 };
 
+struct ProcEfxALPHA
+{
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    STRUCT_PAD(0x2A, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    /* 30 */ s16 unk30;
+    STRUCT_PAD(0x32, 0x5C);
+    /* 5C */ struct Anim * anim;
+};
+
 struct ProcEkrDispUP {
     PROC_HEADER;
 

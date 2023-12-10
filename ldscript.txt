@@ -187,6 +187,7 @@ SECTIONS
         src/banim-efxmagic-light.o(.text);
         src/banim-efxmagic-eclipse.o(.text);
         src/banim-efxmagic-fenrir.o(.text);
+        src/banim-efxmagic-healstaves.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
