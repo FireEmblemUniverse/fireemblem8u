@@ -189,6 +189,7 @@ SECTIONS
         src/banim-efxmagic-fenrir.o(.text);
         src/banim-efxmagic-healstaves.o(.text);
         src/banim-efxmagic-effectstaves.o(.text);
+        src/banim-efxmagic-shine.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
