@@ -143,22 +143,21 @@ u8 Event03_CheckEvBitOrId(struct EventEngineProc * proc)
     if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
         arg = gEventSlots[2];
 
-    switch (sub_cmd)
-    {
-        case EVSUBCMD_CHECK_EVBIT:
-            if ((proc->evStateBits >> (s16)arg) & 0x1)
-                gEventSlots[0xC] = true;
-            else
-                gEventSlots[0xC] = false;
-            break;
+    switch (sub_cmd) {
+    case EVSUBCMD_CHECK_EVBIT:
+        if ((proc->evStateBits >> (s16)arg) & 0x1)
+            gEventSlots[0xC] = true;
+        else
+            gEventSlots[0xC] = false;
+        break;
 
-        case EVSUBCMD_CHECK_EVENTID:
-            tst = arg;
-            if (CheckFlag(tst) == false)
-                gEventSlots[0xC] = false;
-            else
-                gEventSlots[0xC] = true;
-            break;
+    case EVSUBCMD_CHECK_EVENTID:
+        tst = arg;
+        if (CheckFlag(tst) == false)
+            gEventSlots[0xC] = false;
+        else
+            gEventSlots[0xC] = true;
+        break;
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -527,46 +526,44 @@ u8 Event10_ModifyEvBit(struct EventEngineProc * proc)
     if (EVENT_IS_SKIPPING(proc) && evArgument)
         proc->evStateBits = (proc->evStateBits & ~EV_STATE_SKIPPING) | EV_STATE_FADEDIN;
 
-    switch (evArgument)
-    {
+    switch (evArgument) {
+    case 0:
+        proc->evStateBits &= ~EV_STATE_NOSKIP;
+        proc->evStateBits &= ~EV_STATE_0020;
+        proc->evStateBits &= ~EV_STATE_0040;
 
-        case 0:
-            proc->evStateBits &= ~EV_STATE_NOSKIP;
-            proc->evStateBits &= ~EV_STATE_0020;
-            proc->evStateBits &= ~EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
+    case 1:
+        proc->evStateBits |= EV_STATE_NOSKIP;
+        proc->evStateBits |= EV_STATE_0020;
+        proc->evStateBits |= EV_STATE_0040;
 
-        case 1:
-            proc->evStateBits |= EV_STATE_NOSKIP;
-            proc->evStateBits |= EV_STATE_0020;
-            proc->evStateBits |= EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
+    case 2:
+        proc->evStateBits &= ~EV_STATE_NOSKIP;
+        proc->evStateBits &= ~EV_STATE_0020;
+        proc->evStateBits |= EV_STATE_0040;
 
-        case 2:
-            proc->evStateBits &= ~EV_STATE_NOSKIP;
-            proc->evStateBits &= ~EV_STATE_0020;
-            proc->evStateBits |= EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
+    case 3:
+        proc->evStateBits |= EV_STATE_NOSKIP;
+        proc->evStateBits &= ~EV_STATE_0020;
+        proc->evStateBits &= ~EV_STATE_0040;
 
-        case 3:
-            proc->evStateBits |= EV_STATE_NOSKIP;
-            proc->evStateBits &= ~EV_STATE_0020;
-            proc->evStateBits &= ~EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
+    case 4:
+        proc->evStateBits |= EV_STATE_NOSKIP;
+        proc->evStateBits |= EV_STATE_0020;
+        proc->evStateBits &= ~EV_STATE_0040;
 
-        case 4:
-            proc->evStateBits |= EV_STATE_NOSKIP;
-            proc->evStateBits |= EV_STATE_0020;
-            proc->evStateBits &= ~EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
-
-        default:
-            return EVC_ERROR;
+    default:
+        return EVC_ERROR;
 
     } // switch (evArgument)
 }
@@ -2911,7 +2908,7 @@ u32 ModifyMoveUnitFlag(struct EventEngineProc * proc, s8 unk)
 }
 
 //! FE8U = 0x0800FD0C
-u8 Event2D_(struct EventEngineProc * proc)
+u8 Event2D_GetPid(struct EventEngineProc * proc)
 {
     u16 palId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
@@ -2956,9 +2953,7 @@ u8 Event2E_CheckAt(struct EventEngineProc * proc)
         gEventSlots[0xC] = 0;
     }
     else
-    {
         gEventSlots[0xC] = unit->pCharacterData->number;
-    }
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -3220,142 +3215,108 @@ u8 Event33_CheckUnitVarious(struct EventEngineProc * proc)
     s16 pid = EVT_CMD_ARGV(proc->pEventCurrent)[0];
     struct Unit * unit = GetUnitStructFromEventParameter(pid);
 
-    switch (subcmd)
-    {
-        case 0:
-            if (unit)
-            {
+    switch (subcmd) {
+    case EVSUBCMD_CHECK_EXISTS:
+        if (unit)
+            gEventSlots[0xC] = 1;
+        else
+            gEventSlots[0xC] = 0;
+
+        break;
+
+    case EVSUBCMD_CHECK_STATUS:
+        if (!unit)
+            return EVC_ERROR;
+
+        gEventSlots[0xC] = unit->pCharacterData->visit_group;
+
+        break;
+
+    case EVSUBCMD_CHECK_ALIVE:
+        if (!unit)
+        {
+            gEventSlots[0xC] = 0;
+            break;
+        }
+
+        if (unit->state & US_DEAD)
+            gEventSlots[0xC] = 0;
+        else
+            gEventSlots[0xC] = 1;
+
+        break;
+
+    case EVSUBCMD_CHECK_DEPLOYED:
+        if (!unit)
+            return EVC_ERROR;
+
+        if (unit->state & US_NOT_DEPLOYED)
+            gEventSlots[0xC] = 0;
+        else
+        {
+            if (unit->xPos >= 0)
                 gEventSlots[0xC] = 1;
-            }
             else
-            {
                 gEventSlots[0xC] = 0;
-            }
+        }
 
+        break;
+
+    case EVSUBCMD_CHECK_ACTIVEID:
+        if (!unit)
+            return EVC_ERROR;
+
+        if (gActiveUnit->pCharacterData->number != pid)
+            gEventSlots[0xC] = 0;
+        else
+            gEventSlots[0xC] = 1;
+
+        break;
+
+    case EVSUBCMD_CHECK_ALLEGIANCE:
+        if (!unit)
+            return EVC_ERROR;
+
+        switch (UNIT_FACTION(unit)) {
+        case FACTION_BLUE:
+            gEventSlots[0xC] = FACTION_ID_BLUE;
             break;
 
-        case 1:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
-
-            gEventSlots[0xC] = unit->pCharacterData->visit_group;
-
+        case FACTION_RED:
+            gEventSlots[0xC] = FACTION_ID_RED;
             break;
 
-        case 2:
-            if (!unit)
-            {
-                gEventSlots[0xC] = 0;
-                break;
-            }
-
-            if (unit->state & US_DEAD)
-            {
-                gEventSlots[0xC] = 0;
-            }
-            else
-            {
-                gEventSlots[0xC] = 1;
-            }
-
+        default:
+            gEventSlots[0xC] = FACTION_ID_GREEN;
             break;
+        }
 
-        case 3:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
+        break;
 
-            if (unit->state & US_NOT_DEPLOYED)
-            {
-                gEventSlots[0xC] = 0;
-            }
-            else
-            {
-                if (unit->xPos >= 0)
-                {
-                    gEventSlots[0xC] = 1;
-                }
-                else
-                {
-                    gEventSlots[0xC] = 0;
-                }
-            }
+    case EVSUBCMD_CHECK_COORDS:
+        if (!unit)
+            return EVC_ERROR;
 
-            break;
+        ((u16 *)(gEventSlots + 0xC))[0] = unit->xPos;
+        ((u16 *)(gEventSlots + 0xC))[1] = unit->yPos;
 
-        case 4:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
+        break;
 
-            if (gActiveUnit->pCharacterData->number != pid)
-            {
-                gEventSlots[0xC] = 0;
-            }
-            else
-            {
-                gEventSlots[0xC] = 1;
-            }
+    case EVSUBCMD_CHECK_CLASS:
+        if (!unit)
+            return EVC_ERROR;
 
-            break;
+        gEventSlots[0xC] = unit->pClassData->number;
 
-        case 5:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
+        break;
 
-            switch (UNIT_FACTION(unit))
-            {
-                case FACTION_BLUE:
-                    gEventSlots[0xC] = FACTION_ID_BLUE;
-                    break;
+    case EVSUBCMD_CHECK_LUCK:
+        if (!unit)
+            return EVC_ERROR;
 
-                case FACTION_RED:
-                    gEventSlots[0xC] = FACTION_ID_RED;
-                    break;
+        gEventSlots[0xC] = GetUnitLuck(unit);
 
-                default:
-                    gEventSlots[0xC] = FACTION_ID_GREEN;
-                    break;
-            }
-
-            break;
-
-        case 6:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
-
-            ((u16 *)(gEventSlots + 0xC))[0] = unit->xPos;
-            ((u16 *)(gEventSlots + 0xC))[1] = unit->yPos;
-
-            break;
-
-        case 7:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
-
-            gEventSlots[0xC] = unit->pClassData->number;
-
-            break;
-
-        case 8:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
-
-            gEventSlots[0xC] = GetUnitLuck(unit);
-
-            break;
+        break;
     }
 
     return EVC_ADVANCE_CONTINUE;

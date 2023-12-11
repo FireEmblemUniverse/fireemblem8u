@@ -416,7 +416,7 @@ void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
 // ??? Event2C_LoadUnits(???);
 u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y);
 unsigned ModifyMoveUnitFlag(struct EventEngineProc *, s8);
-// ??? Event2D_(???);
+// ??? Event2D_GetPid(???);
 // ??? Event2E_CheckAt(???);
 // ??? Event2F_MoveUnit(???);
 // ??? Event30_ENUN(???);

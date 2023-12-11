@@ -12,7 +12,7 @@
 CONST_DATA EventListScr EventScr_Prologue_BeginingScene[] = {
     CALL(EventScr_Prologue_RenaisThroneCutscene)
     SVAL(EVT_SLOT_2, EventScr_Prologue_EirikaAttacked)
-    CALL(EventScr_RunTutIfEasyMode)
+    CALL(EventScr_CallOnTutorialMode)
     CHECK_TUTORIAL
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
     ASMC(BmGuideTextSetAllGreen)
@@ -32,7 +32,7 @@ LABEL(0x0)
     FlashCursor(CHARACTER_SETH, 60)
     Text(0x90E)
     SVAL(EVT_SLOT_2, EventScr_Prologue_ExecTut) /* This scr ends at ENDB! */
-    CALL(EventScr_RunTutIfEasyMode)
+    CALL(EventScr_CallOnTutorialMode)
 
     /* Not exec if tutorial */
     _WARP(0x0, CHARACTER_EIRIKA, 4, 5)
@@ -213,7 +213,7 @@ CONST_DATA EventListScr EventScr_Prologue_GiveRapier[] = {
     GIVEITEMTO(CHARACTER_EIRIKA)
 
     SVAL(EVT_SLOT_2, EventScr_Prologue_9EF828)
-    CALL(EventScr_RunTutIfEasyMode)
+    CALL(EventScr_CallOnTutorialMode)
     ENDA
 };
 
@@ -311,10 +311,10 @@ CONST_DATA EventListScr EventScr_Prologue_EirikaAttacked[] = {
 
 CONST_DATA EventListScr EventScr_Prologue_Turn1[] = {
     SVAL(EVT_SLOT_2, EventScr_Prologue_ONeillSpawn)
-    CALL(EventScr_RunTutIfEasyMode)
+    CALL(EventScr_CallOnTutorialMode)
 
     SVAL(EVT_SLOT_2, EventScr_Prologue_TutMessageTurn1)
-    CALL(EventScr_RunTutIfEasyMode)
+    CALL(EventScr_CallOnTutorialMode)
 
     NoFade
     ENDA
@@ -322,7 +322,7 @@ CONST_DATA EventListScr EventScr_Prologue_Turn1[] = {
 
 CONST_DATA EventListScr EventScr_Prologue_Turn2[] = {
     SVAL(EVT_SLOT_2, EventScr_Prologue_TutMessageTurn2)
-    CALL(EventScr_RunTutIfEasyMode)
+    CALL(EventScr_CallOnTutorialMode)
 
     NoFade
     ENDA
@@ -330,10 +330,10 @@ CONST_DATA EventListScr EventScr_Prologue_Turn2[] = {
 
 CONST_DATA EventListScr EventScr_Prologue_Turn3[] = {
     SVAL(EVT_SLOT_2, EventScr_Prologue_OneillSethBattle)
-    CALL(EventScr_RunTutIfEasyMode)
+    CALL(EventScr_CallOnTutorialMode)
 
     SVAL(EVT_SLOT_2, EventScr_Prologue_TutEirikaAttack)
-    CALL(EventScr_RunTutIfEasyMode)
+    CALL(EventScr_CallOnTutorialMode)
 
     NoFade
     ENDA

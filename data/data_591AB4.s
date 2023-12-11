@@ -64,7 +64,7 @@ gEventLoCmdTable:  @ 0x08591B28
     .4byte Event20_, Event21_, Event22_ClearScreen, Event23_DisaleMapDisp
     .4byte Event24_EnableMapDisp, Event25_ChangeMap, Event26_CameraControl, Event27_MapChange
     .4byte Event28_ChangeWeather, Event29_SetFogVision, Event2A_MoveToChapter, Event2B_
-    .4byte Event2C_LoadUnits, Event2D_, Event2E_CheckAt, Event2F_MoveUnit
+    .4byte Event2C_LoadUnits, Event2D_GetPid, Event2E_CheckAt, Event2F_MoveUnit
     .4byte Event30_ENUN, Event31_DisplayEffectRange, Event32_SpawnSingleUnit, Event33_CheckUnitVarious
     .4byte Event34_MessWithUnitState, Event35_UnitClassChanging, Event36_CheckInArea, Event37_GiveItem
     .4byte Event38_ChangeActiveUnit, Event39_ChangeAiScript, Event3A_DisplayPopup, Event3B_DisplayCursor

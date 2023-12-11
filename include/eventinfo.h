@@ -221,7 +221,13 @@ extern struct SupportTalkEnt gSupportTalkList[];
 extern struct ForceDeploymentEnt gForceDeploymentList[];
 extern u8 gPidList_SethLArachelMyrrhInnes[];
 
-extern CONST_DATA EventListScr EventScr_RunTutIfEasyMode[];
+extern CONST_DATA EventListScr EventScr_CallOnTutorialMode[];
+extern CONST_DATA EventListScr EventScr_CallOnHardMode[];
+extern CONST_DATA EventListScr EventScr_CallOnChapterNumber[];
+extern CONST_DATA EventListScr EventScr_CallIfCommonMode[];
+extern CONST_DATA EventListScr EventScr_CallWithModeCheck[];
+extern CONST_DATA EventListScr EventScr_SetFlagIfPlayedThrough[];
+extern CONST_DATA EventListScr EventScr_ExitWithTriggerEidUnset[];
 extern CONST_DATA EventListScr EventScr_SetBackground[];
 extern CONST_DATA EventListScr Event_TextWithBG[];
 extern CONST_DATA EventListScr EventScr_Prologue_Tutorial0_Exec[];

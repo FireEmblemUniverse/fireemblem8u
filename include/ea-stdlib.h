@@ -15,6 +15,8 @@
 #define ENUF_SLOT2 EvtClearFlagAtSlot2
 #define ENUT EvtSetFlag
 #define SVAL EvtSetSlot
+#define CHECK_EVBIT EventCheckEvbit
+#define CHECK_EVENTID EventCheckFlag
 #define SADD EvtSlotAdd
 #define SENQUEUE EvtEnqueueFormSlot
 #define SENQUEUE1 EvtEnqueueFormSlot1
@@ -22,12 +24,18 @@
 #define LABEL EvtLabel
 #define GOTO EvtGoto
 #define CALL EvtCall
+#define BEQ EvtBEQ
 #define BNE EvtBNE
+#define BGE EvtBGE
+#define BGT EvtBGT
+#define BLE EvtBLE
+#define BLT EvtBLT
 #define ASMC EvtAsmCall
 #define STAL EvtSleep
 #define STAL1 EvtSleepWithCancel
 #define STAL2 EvtSleepWithGameCtrl
 #define STAL3 EvtSleepWithCancelGameCtrl
+#define EVBIT_MODIFY EvtModifyEvBit
 #define IGNORE_KEYS EvtSetKeyIgnore
 #define MUSC EvtStartBgm
 #define MUSCFAST EvtBgmFadeInFast
@@ -51,10 +59,15 @@
 #define CHECK_EVENTID EvtGetTriggeredEid
 #define CHECK_POSTGAME EvtGetIsGameCompleted
 #define TEXTSTART EvtTextStart
+#define REMOVEPORTRAITS EvtTextStartType1
+#define _1A22 EvtTextStartType2
 #define TUTORIALTEXTBOXSTART EvtTextTuorialStart
+#define SOLOTEXTBOXSTART EvtTextStartType4
+#define _1A25 EvtTextStartType5
 #define TEXTSHOW EvtTextShow
 #define REMA EvtTextRemoveAll
 #define TEXTEND EvtTextEnd
+#define CLEAN EvtClearScreen
 #define LOMA EvtLoadMap
 #define CAMERA EvtMoveCameraTo
 #define MNTS EvtBackToTitle
@@ -64,11 +77,22 @@
 #define MNC4 EvtMoveToGameEnding
 #define LOAD1 EvtLoadUnit1
 #define LOAD2 EvtLoadUnit2
+#define CHECK_AT EvtGetPidAt
+#define CHECK_ACTIVE EvrGetActiveUnitPid
 #define MOVE EvtMoveUnit
 #define MOVEONTO EvtMoveUnitToTarget
 #define MOVE_1STEP EvtMoveUnitOneStpe
 #define MOVEFORCED EvtMoveUnitByQueue
 #define _WARP EvtMoveUnitToValidTerrain /* This is an error on EA stdlib */
+#define CHECK_EXISTS EvtCheckUnitExists
+#define CHECK_STATUS EvtGetUnitVisitGroup
+#define CHECK_ALIVE EvtCheckUnitNotDead
+#define CHECK_DEPLOYED EvtCheckUnitDeployed
+#define CHECK_ACTIVEID EvtCheckUnitActive
+#define CHECK_ALLEGIANCE EvtGetUnitFaction
+#define CHECK_COORDS EvtGetUnitPosition
+#define CHECK_CLASS EvtGetUnitJid
+#define CHECK_LUCK EvtGetUnitLuck
 #define ENUN EvtWaitUnitMoving
 #define SET_HP EvtSetUnitHpFormSlot1
 #define SET_ENDTURN EvtSetUnitUnselectable
@@ -103,7 +127,7 @@
 /* Main Code Helpers */
 #define DefeatBoss(event_scr) AFEV(EVFLAG_WIN, (event_scr), EVFLAG_DEFEAT_BOSS)
 #define CauseGameOverIfLordDies AFEV(0, gEvent_GameOver, EVFLAG_GAMEOVER)
-#define NoFade EVBIT_T(0x7)
+#define NoFade EVBIT_T(EV_STATE_SKIPPING | EV_STATE_0002 | EV_STATE_ABORT)
 
 /* Unit Helpers */
 #define FlashCursor(pid, time) \
