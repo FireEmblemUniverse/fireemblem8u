@@ -9,3 +9,4 @@
 #include "bmtrap.h"
 
 #include "events/prologue-eventscript.h"
+#include "events/prologue-tutorials.h"

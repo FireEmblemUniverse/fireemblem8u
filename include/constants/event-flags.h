@@ -11,6 +11,7 @@ enum event_flag_idx {
 
     /* Flag 7 - 40 is free */
     EVFLAG_TMP_7 = 7,
+    EVFLAG_TMP_8 = 8,
 
     EVFLAG_GAMEOVER = 101,
     EVFLAG_OBJWINDOW_DISABLE = 102,

@@ -143,22 +143,21 @@ u8 Event03_CheckEvBitOrId(struct EventEngineProc * proc)
     if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
         arg = gEventSlots[2];
 
-    switch (sub_cmd)
-    {
-        case EVSUBCMD_CHECK_EVBIT:
-            if ((proc->evStateBits >> (s16)arg) & 0x1)
-                gEventSlots[0xC] = true;
-            else
-                gEventSlots[0xC] = false;
-            break;
+    switch (sub_cmd) {
+    case EVSUBCMD_CHECK_EVBIT:
+        if ((proc->evStateBits >> (s16)arg) & 0x1)
+            gEventSlots[0xC] = true;
+        else
+            gEventSlots[0xC] = false;
+        break;
 
-        case EVSUBCMD_CHECK_EVENTID:
-            tst = arg;
-            if (CheckFlag(tst) == false)
-                gEventSlots[0xC] = false;
-            else
-                gEventSlots[0xC] = true;
-            break;
+    case EVSUBCMD_CHECK_EVENTID:
+        tst = arg;
+        if (CheckFlag(tst) == false)
+            gEventSlots[0xC] = false;
+        else
+            gEventSlots[0xC] = true;
+        break;
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -195,50 +194,49 @@ u8 Event06_SlotOperation(struct EventEngineProc * proc)
     u8 slotSrc1 = (((u16)EVT_CMD_ARGV(proc->pEventCurrent)[0]) >> 4) & 0xF;
     u8 slotSrc2 = (((u16)EVT_CMD_ARGV(proc->pEventCurrent)[0]) >> 8) & 0xF;
 
-    switch (sub_cmd)
-    {
-        case EVSUBCMD_SADD:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] + gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    switch (sub_cmd) {
+    case EVSUBCMD_SADD:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] + gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SSUB:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] - gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SSUB:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] - gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SMUL:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] * gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SMUL:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] * gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SDIV:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] / gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SDIV:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] / gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SMOD:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] % gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SMOD:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] % gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SAND:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] & gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SAND:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] & gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SORR:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] | gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SORR:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] | gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SXOR:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] ^ gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SXOR:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] ^ gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SLSL:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] << gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SLSL:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] << gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        case EVSUBCMD_SLSR:
-            gEventSlots[slotDest] = gEventSlots[slotSrc1] >> gEventSlots[slotSrc2];
-            return EVC_ADVANCE_CONTINUE;
+    case EVSUBCMD_SLSR:
+        gEventSlots[slotDest] = gEventSlots[slotSrc1] >> gEventSlots[slotSrc2];
+        return EVC_ADVANCE_CONTINUE;
 
-        default:
-            return EVC_ERROR;
+    default:
+        return EVC_ERROR;
     }
 }
 
@@ -324,29 +322,27 @@ u8 Event0A_Call(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800DA2C
-u8 Event0B_(struct EventEngineProc * proc)
+u8 Event0B_EnqueueCall(struct EventEngineProc * proc)
 {
     int sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
-    u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-    int ptr = EVT_CMD_ARG32_LE(proc->pEventCurrent);
+    u16 exec_type = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    uintptr_t ptr = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    if (ptr < 0)
+    if ((int)ptr < 0)
         ptr = gEventSlots[0x02];
 
     if (ptr != 0)
     {
-        switch (sub_cmd)
-        {
-            case 0:
-                CallEvent((const u16 *)ptr, proc->execType);
-                break;
+        switch (sub_cmd) {
+        case 0:
+            CallEvent((const u16 *)ptr, proc->execType);
+            break;
 
-            case 1:
-                sub_8083DD8(ptr, arg);
-                break;
+        case 1:
+            EnqueueTutEvent(ptr, exec_type);
+            break;
         }
     }
-
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -530,46 +526,44 @@ u8 Event10_ModifyEvBit(struct EventEngineProc * proc)
     if (EVENT_IS_SKIPPING(proc) && evArgument)
         proc->evStateBits = (proc->evStateBits & ~EV_STATE_SKIPPING) | EV_STATE_FADEDIN;
 
-    switch (evArgument)
-    {
+    switch (evArgument) {
+    case 0:
+        proc->evStateBits &= ~EV_STATE_NOSKIP;
+        proc->evStateBits &= ~EV_STATE_0020;
+        proc->evStateBits &= ~EV_STATE_0040;
 
-        case 0:
-            proc->evStateBits &= ~EV_STATE_NOSKIP;
-            proc->evStateBits &= ~EV_STATE_0020;
-            proc->evStateBits &= ~EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
+    case 1:
+        proc->evStateBits |= EV_STATE_NOSKIP;
+        proc->evStateBits |= EV_STATE_0020;
+        proc->evStateBits |= EV_STATE_0040;
 
-        case 1:
-            proc->evStateBits |= EV_STATE_NOSKIP;
-            proc->evStateBits |= EV_STATE_0020;
-            proc->evStateBits |= EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
+    case 2:
+        proc->evStateBits &= ~EV_STATE_NOSKIP;
+        proc->evStateBits &= ~EV_STATE_0020;
+        proc->evStateBits |= EV_STATE_0040;
 
-        case 2:
-            proc->evStateBits &= ~EV_STATE_NOSKIP;
-            proc->evStateBits &= ~EV_STATE_0020;
-            proc->evStateBits |= EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
+    case 3:
+        proc->evStateBits |= EV_STATE_NOSKIP;
+        proc->evStateBits &= ~EV_STATE_0020;
+        proc->evStateBits &= ~EV_STATE_0040;
 
-        case 3:
-            proc->evStateBits |= EV_STATE_NOSKIP;
-            proc->evStateBits &= ~EV_STATE_0020;
-            proc->evStateBits &= ~EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
+    case 4:
+        proc->evStateBits |= EV_STATE_NOSKIP;
+        proc->evStateBits |= EV_STATE_0020;
+        proc->evStateBits &= ~EV_STATE_0040;
 
-        case 4:
-            proc->evStateBits |= EV_STATE_NOSKIP;
-            proc->evStateBits |= EV_STATE_0020;
-            proc->evStateBits &= ~EV_STATE_0040;
+        return EVC_ADVANCE_CONTINUE;
 
-            return EVC_ADVANCE_CONTINUE;
-
-        default:
-            return EVC_ERROR;
+    default:
+        return EVC_ERROR;
 
     } // switch (evArgument)
 }
@@ -798,73 +792,69 @@ u8 Event18_(struct EventEngineProc * proc)
     } // switch (subcode)
 }
 
-// Various Checks
-//! FE8U = 0x0800E070
-u8 Event19_(struct EventEngineProc * proc)
+
+u8 Event19_Checks(struct EventEngineProc * proc)
 {
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
+    switch (subcode) {
+    case EVSUBCMD_CHECK_MODE: // Check Mode
+        gEventSlots[0xC] = gPlaySt.chapterModeIndex;
+        break;
 
-    switch (subcode)
-    {
-        case EVSUBCMD_CHECK_MODE: // Check Mode
-            gEventSlots[0xC] = gPlaySt.chapterModeIndex;
-            break;
+    case EVSUBCMD_CHECK_CHAPTER_NUMBER: // Check (Next?) Chapter Index
+        gEventSlots[0xC] = proc->chapterIndex;
+        break;
 
-        case EVSUBCMD_CHECK_CHAPTER_NUMBER: // Check (Next?) Chapter Index
-            gEventSlots[0xC] = proc->chapterIndex;
-            break;
+    case EVSUBCMD_CHECK_HARD: // Check Difficult Mode
+        if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
+            gEventSlots[0xC] = FALSE;
+        else
+            gEventSlots[0xC] = TRUE;
 
-        case EVSUBCMD_CHECK_HARD: // Check Difficult Mode
-            if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
-                gEventSlots[0xC] = FALSE;
-            else
-                gEventSlots[0xC] = TRUE;
+        break;
 
-            break;
+    case EVSUBCMD_CHECK_TURNS: // Check Turn Number
+        gEventSlots[0xC] = gPlaySt.chapterTurnNumber;
+        break;
 
-        case EVSUBCMD_CHECK_TURNS: // Check Turn Number
-            gEventSlots[0xC] = gPlaySt.chapterTurnNumber;
-            break;
+    case EVSUBCMD_CHECK_ENEMIES: // Check Red Unit Count
+        gEventSlots[0xC] = CountRedUnits();
+        break;
 
-        case EVSUBCMD_CHECK_ENEMIES: // Check Red Unit Count
-            gEventSlots[0xC] = CountRedUnits();
-            break;
+    case EVSUBCMD_CHECK_OTHERS: // Check Green Unit Count
+        gEventSlots[0xC] = CountGreenUnits();
+        break;
 
-        case EVSUBCMD_CHECK_OTHERS: // Check Green Unit Count
-            gEventSlots[0xC] = CountGreenUnits();
-            break;
+    case EVSUBCMD_CHECK_SKIRMISH: // Check Chapter Type?
+        gEventSlots[0xC] = GetChapterThing();
+        break;
 
-        case EVSUBCMD_CHECK_SKIRMISH: // Check Chapter Type?
-            gEventSlots[0xC] = GetChapterThing();
-            break;
+    case EVSUBCMD_CHECK_TUTORIAL: // Check Some option or difficult mode
+        if (gPlaySt.config.controller || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
+            gEventSlots[0xC] = FALSE;
+        else
+            gEventSlots[0xC] = TRUE;
 
-        case EVSUBCMD_CHECK_TUTORIAL: // Check Some option or difficult mode
-            if (gPlaySt.config.controller || (gPlaySt.chapterStateBits & PLAY_FLAG_HARD))
-                gEventSlots[0xC] = FALSE;
-            else
-                gEventSlots[0xC] = TRUE;
+        break;
 
-            break;
+    case EVSUBCMD_CHECK_MONEY: // Check gold
+        gEventSlots[0xC] = GetPartyGoldAmount();
+        break;
 
-        case EVSUBCMD_CHECK_MONEY: // Check gold
-            gEventSlots[0xC] = GetPartyGoldAmount();
-            break;
+    case EVSUBCMD_19CHECK_EVENTID: // Check Event Trigger ID
+        gEventSlots[0xC] = GetEventTriggerId(proc->pEventStart);
+        break;
 
-        case EVSUBCMD_19CHECK_EVENTID: // Check Event Trigger ID
-            gEventSlots[0xC] = GetEventTriggerId(proc->pEventStart);
-            break;
+    case EVSUBCMD_CHECK_POSTGAME: // Check Game Complete
+        if (gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE)
+            gEventSlots[0xC] = TRUE;
+        else
+            gEventSlots[0xC] = FALSE;
 
-        case EVSUBCMD_CHECK_POSTGAME: // Check Game Complete
-            if (gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE)
-                gEventSlots[0xC] = TRUE;
-            else
-                gEventSlots[0xC] = FALSE;
+        break;
 
-            break;
-
-        default:
-            break;
-
+    default:
+        break;
     } // switch (subcode)
 
     return EVC_ADVANCE_CONTINUE;
@@ -2129,43 +2119,42 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
     if (chIndex < 0)
         chIndex = gEventSlots[2];
 
-    switch (subcode)
-    {
-        case 0:
-            SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
-            proc->evStateBits |= EV_STATE_CHANGEGM;
+    switch (subcode) {
+    case EVSUBCMD_MNTS:
+        SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
+        proc->evStateBits |= EV_STATE_CHANGEGM;
 
-            break;
+        break;
 
-        case 1:
-            SetNextChapterId(chIndex);
+    case EVSUBCMD_MNCH:
+        SetNextChapterId(chIndex);
 
-            gPlaySt.unk4A_2 = 1;
+        gPlaySt.save_menu_type = 1;
 
-            SetNextGameActionId(GAME_ACTION_CLASS_REEL);
-            proc->evStateBits |= EV_STATE_CHANGEGM;
+        SetNextGameActionId(GAME_ACTION_CLASS_REEL);
+        proc->evStateBits |= EV_STATE_CHANGEGM;
 
-            break;
+        break;
 
-        case 2:
-            SetNextChapterId(chIndex);
+    case EVSUBCMD_MNC2:
+        SetNextChapterId(chIndex);
 
-            gPlaySt.unk4A_2 = 2;
+        gPlaySt.save_menu_type = 2;
 
-            SetNextGameActionId(GAME_ACTION_USR_SKIPPED);
-            proc->evStateBits |= EV_STATE_CHANGEGM;
+        SetNextGameActionId(GAME_ACTION_USR_SKIPPED);
+        proc->evStateBits |= EV_STATE_CHANGEGM;
 
-            break;
+        break;
 
-        case 3:
-            GotoChapterWithoutSave(chIndex);
-            break;
+    case EVSUBCMD_MNC3:
+        GotoChapterWithoutSave(chIndex);
+        break;
 
-        case 4:
-            gPlaySt.unk4A_2 = 3;
-            SetNextGameActionId(GAME_ACTION_PLAYED_THROUGH);
-            proc->evStateBits |= EV_STATE_CHANGEGM;
-            break;
+    case EVSUBCMD_MNC4:
+        gPlaySt.save_menu_type = 3;
+        SetNextGameActionId(GAME_ACTION_PLAYED_THROUGH);
+        proc->evStateBits |= EV_STATE_CHANGEGM;
+        break;
 
     } // switch (subcode)
 
@@ -2919,7 +2908,7 @@ u32 ModifyMoveUnitFlag(struct EventEngineProc * proc, s8 unk)
 }
 
 //! FE8U = 0x0800FD0C
-u8 Event2D_(struct EventEngineProc * proc)
+u8 Event2D_GetPid(struct EventEngineProc * proc)
 {
     u16 palId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
@@ -2964,9 +2953,7 @@ u8 Event2E_CheckAt(struct EventEngineProc * proc)
         gEventSlots[0xC] = 0;
     }
     else
-    {
         gEventSlots[0xC] = unit->pCharacterData->number;
-    }
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -3228,142 +3215,108 @@ u8 Event33_CheckUnitVarious(struct EventEngineProc * proc)
     s16 pid = EVT_CMD_ARGV(proc->pEventCurrent)[0];
     struct Unit * unit = GetUnitStructFromEventParameter(pid);
 
-    switch (subcmd)
-    {
-        case 0:
-            if (unit)
-            {
+    switch (subcmd) {
+    case EVSUBCMD_CHECK_EXISTS:
+        if (unit)
+            gEventSlots[0xC] = 1;
+        else
+            gEventSlots[0xC] = 0;
+
+        break;
+
+    case EVSUBCMD_CHECK_STATUS:
+        if (!unit)
+            return EVC_ERROR;
+
+        gEventSlots[0xC] = unit->pCharacterData->visit_group;
+
+        break;
+
+    case EVSUBCMD_CHECK_ALIVE:
+        if (!unit)
+        {
+            gEventSlots[0xC] = 0;
+            break;
+        }
+
+        if (unit->state & US_DEAD)
+            gEventSlots[0xC] = 0;
+        else
+            gEventSlots[0xC] = 1;
+
+        break;
+
+    case EVSUBCMD_CHECK_DEPLOYED:
+        if (!unit)
+            return EVC_ERROR;
+
+        if (unit->state & US_NOT_DEPLOYED)
+            gEventSlots[0xC] = 0;
+        else
+        {
+            if (unit->xPos >= 0)
                 gEventSlots[0xC] = 1;
-            }
             else
-            {
                 gEventSlots[0xC] = 0;
-            }
+        }
 
+        break;
+
+    case EVSUBCMD_CHECK_ACTIVEID:
+        if (!unit)
+            return EVC_ERROR;
+
+        if (gActiveUnit->pCharacterData->number != pid)
+            gEventSlots[0xC] = 0;
+        else
+            gEventSlots[0xC] = 1;
+
+        break;
+
+    case EVSUBCMD_CHECK_ALLEGIANCE:
+        if (!unit)
+            return EVC_ERROR;
+
+        switch (UNIT_FACTION(unit)) {
+        case FACTION_BLUE:
+            gEventSlots[0xC] = FACTION_ID_BLUE;
             break;
 
-        case 1:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
-
-            gEventSlots[0xC] = unit->pCharacterData->visit_group;
-
+        case FACTION_RED:
+            gEventSlots[0xC] = FACTION_ID_RED;
             break;
 
-        case 2:
-            if (!unit)
-            {
-                gEventSlots[0xC] = 0;
-                break;
-            }
-
-            if (unit->state & US_DEAD)
-            {
-                gEventSlots[0xC] = 0;
-            }
-            else
-            {
-                gEventSlots[0xC] = 1;
-            }
-
+        default:
+            gEventSlots[0xC] = FACTION_ID_GREEN;
             break;
+        }
 
-        case 3:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
+        break;
 
-            if (unit->state & US_NOT_DEPLOYED)
-            {
-                gEventSlots[0xC] = 0;
-            }
-            else
-            {
-                if (unit->xPos >= 0)
-                {
-                    gEventSlots[0xC] = 1;
-                }
-                else
-                {
-                    gEventSlots[0xC] = 0;
-                }
-            }
+    case EVSUBCMD_CHECK_COORDS:
+        if (!unit)
+            return EVC_ERROR;
 
-            break;
+        ((u16 *)(gEventSlots + 0xC))[0] = unit->xPos;
+        ((u16 *)(gEventSlots + 0xC))[1] = unit->yPos;
 
-        case 4:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
+        break;
 
-            if (gActiveUnit->pCharacterData->number != pid)
-            {
-                gEventSlots[0xC] = 0;
-            }
-            else
-            {
-                gEventSlots[0xC] = 1;
-            }
+    case EVSUBCMD_CHECK_CLASS:
+        if (!unit)
+            return EVC_ERROR;
 
-            break;
+        gEventSlots[0xC] = unit->pClassData->number;
 
-        case 5:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
+        break;
 
-            switch (UNIT_FACTION(unit))
-            {
-                case FACTION_BLUE:
-                    gEventSlots[0xC] = FACTION_ID_BLUE;
-                    break;
+    case EVSUBCMD_CHECK_LUCK:
+        if (!unit)
+            return EVC_ERROR;
 
-                case FACTION_RED:
-                    gEventSlots[0xC] = FACTION_ID_RED;
-                    break;
+        gEventSlots[0xC] = GetUnitLuck(unit);
 
-                default:
-                    gEventSlots[0xC] = FACTION_ID_GREEN;
-                    break;
-            }
-
-            break;
-
-        case 6:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
-
-            ((u16 *)(gEventSlots + 0xC))[0] = unit->xPos;
-            ((u16 *)(gEventSlots + 0xC))[1] = unit->yPos;
-
-            break;
-
-        case 7:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
-
-            gEventSlots[0xC] = unit->pClassData->number;
-
-            break;
-
-        case 8:
-            if (!unit)
-            {
-                return EVC_ERROR;
-            }
-
-            gEventSlots[0xC] = GetUnitLuck(unit);
-
-            break;
+        break;
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -3390,7 +3343,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
     case EVSUBCMD_CLEE:
         break;
 
-    case EVSUBCMD_SET_SOMETHING:
+    case EVSUBCMD_KILL:
     case EVSUBCMD_DISA_IF:
     case EVSUBCMD_DISA:
         if (!unit)
@@ -3501,7 +3454,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         }
         break;
 
-    case EVSUBCMD_SET_SOMETHING:
+    case EVSUBCMD_KILL:
         if (!EVENT_IS_SKIPPING(proc))
         {
             struct MUProc * muProc;
@@ -3623,40 +3576,34 @@ u8 Event36_CheckInArea(struct EventEngineProc * param_1)
 //! FE8U = 0x080105A4
 u8 Event37_GiveItem(struct EventEngineProc * proc)
 {
+    s32 gold;
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
 
     struct Unit * target = GetUnitStructFromEventParameter(proc->pEventCurrent[1]);
 
     if (!target)
-    {
         return EVC_ERROR;
+
+    switch (subcmd) {
+    case EVSUBCMD_GIVEITEMTO:
+        NewPopup_ItemGot(proc, target, gEventSlots[3]);
+
+        break;
+
+    case EVSUBCMD_GIVEITEMTOMAIN:
+        NewPopup_GoldGot(proc, target, gEventSlots[3]);
+
+        break;
+
+    case EVSUBCMD_GIVETOSLOT3:
+        gold = GetPartyGoldAmount() - gEventSlots[3];
+        if (gold < 0)
+            gold = 0;
+
+        SetPartyGoldAmount(gold);
+
+        break;
     }
-
-    switch (subcmd)
-    {
-        case 0:
-            NewPopup_ItemGot(proc, target, gEventSlots[3]);
-
-            break;
-
-        case 1:
-            NewPopup_GoldGot(proc, target, gEventSlots[3]);
-
-            break;
-
-        case 2:
-        {
-            s32 gold = GetPartyGoldAmount() - gEventSlots[3];
-            if (gold < 0)
-            {
-                gold = 0;
-            }
-            SetPartyGoldAmount(gold);
-
-            break;
-        }
-    }
-
     return EVC_ADVANCE_YIELD;
 }
 
@@ -3685,47 +3632,45 @@ u8 Event39_ChangeAiScript(struct EventEngineProc * proc)
     u8 ai2 = (gEventSlots[1] >> 8);
     u8 unused = (gEventSlots[1] >> 16);
 
-    switch (subcmd)
-    {
-        case 0:
+    struct Unit * unit;
+    s8 x, y;
+    u16 pid;
+
+    switch (subcmd) {
+    case EVTSUBCMD_CHAI:
+        pid = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+        if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
+            pid = gEventSlots[2];
+
+        ChangeAiForCharacter(pid, ai1, ai2, unused);
+
+        break;
+
+    case EVTSUBCMD_CHAI_AT:
+
+#if !BUGFIX
+        /* I think this maybe a bug */
+        x = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+        y = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
+#else
+        x = (EVT_CMD_ARGV(proc->pEventCurrent)[0] & 0x0F);
+        y = (EVT_CMD_ARGV(proc->pEventCurrent)[0] & 0xF0) >> 8;
+#endif
+
+        if (x < 0 || y < 0)
         {
-            u16 pid = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-
-            if (EVT_CMD_ARGV(proc->pEventCurrent)[0] < 0)
-            {
-                pid = gEventSlots[2];
-            }
-
-            ChangeAiForCharacter(pid, ai1, ai2, unused);
-
-            break;
+            x = ((u16 *)(gEventSlots + 0xB))[0];
+            y = ((u16 *)(gEventSlots + 0xB))[1];
         }
-        case 1:
-        {
-            struct Unit * unit;
 
-            s8 x = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-            s8 y = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
+        if (gBmMapUnit[y][x] != 0)
+            unit = GetUnit(gBmMapUnit[y][x]);
+        else
+            unit = NULL;
 
-            if (x < 0 || y < 0)
-            {
-                x = ((u16 *)(gEventSlots + 0xB))[0];
-                y = ((u16 *)(gEventSlots + 0xB))[1];
-            }
+        ChangeUnitAi(unit, ai1, ai2, unused);
 
-            if (gBmMapUnit[y][x] != 0)
-            {
-                unit = GetUnit(gBmMapUnit[y][x]);
-            }
-            else
-            {
-                unit = NULL;
-            }
-
-            ChangeUnitAi(unit, ai1, ai2, unused);
-
-            break;
-        }
+        break;
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -3899,26 +3844,38 @@ u8 Event3C_(struct EventEngineProc * proc)
 int Get8(void);
 
 //! FE8U = 0x080108AC
-u8 Event3D_(struct EventEngineProc * proc)
+u8 Event3D_MenuOverride(struct EventEngineProc * proc)
 {
     u8 i;
     u16 bit;
 
-    // clang-format off
-
-    u8 gUnknown_080D793F[15] =
+    u8 UnitMenuOverrideConf[15] =
     {
-        0x4F, 0x51, 0x6B, 0x63, 0x64,
-        0x5C, 0x5A, 0x67, 0x37, 0x68,
-        0x69, 0x5B, 0x5F, 0x71, 0x78,
+        0x4F, /* 攻撃 */
+        0x51, /* 杖 */
+        0x6B, /* 待機 */
+        0x63, /* 救出 */
+        0x64, /* 降ろす */
+        0x5C, /* 訪問 */
+        0x5A, /* 話す */
+        0x67, /* 持ち物 */
+        0x37, /* 捨てる */
+        0x68, /* 交換 */
+        0x69, /* 輸送隊 */
+        0x5B, /* 支援 */
+        0x5F, /* 武器屋 */
+        0x71, /* 設定 */
+        0x78, /* 終了 */
     };
 
-    u8 gUnknown_080D794E[5] =
+    u8 ItemMenuOverrideConf[5] =
     {
-        0x49, 0x4A, 0x4B, 0x4C, 0x4D,
+        0x49, /* unit->items[0] */
+        0x4A, /* unit->items[1] */
+        0x4B, /* unit->items[2] */
+        0x4C, /* unit->items[3] */
+        0x4D, /* unit->items[4] */
     };
-
-    // clang-format on
 
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
     u16 flags = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -3927,39 +3884,32 @@ u8 Event3D_(struct EventEngineProc * proc)
 
     bit = 1;
 
-    switch (subcmd)
-    {
-        case 0:
-            for (i = 0; i < ARRAY_COUNT(gUnknown_080D793F); i++)
+    switch (subcmd) {
+    case EVSUBCMD_DISABLEOPTIONS:
+        for (i = 0; i < ARRAY_COUNT(UnitMenuOverrideConf); i++)
+        {
+            if (flags & bit)
+                AddMenuOverride(UnitMenuOverrideConf[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysNotShown);
+
+            bit <<= 1;
+        }
+        break;
+
+    case EVSUBCMD_DISABLEWEAPONS:
+        for (i = 0; i < ARRAY_COUNT(ItemMenuOverrideConf); i++)
+        {
+            if (flags & bit)
             {
-                if (flags & bit)
-                {
-                    AddMenuOverride(gUnknown_080D793F[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysNotShown);
-                }
-
-                bit <<= 1;
+                AddMenuOverride(ItemMenuOverrideConf[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysDisabled);
+                AddMenuOverride(ItemMenuOverrideConf[i], MENU_OVERRIDE_ONSELECT, Get8);
             }
+            bit <<= 1;
+        }
+        break;
 
-            break;
-
-        case 1:
-            for (i = 0; i < ARRAY_COUNT(gUnknown_080D794E); i++)
-            {
-                if (flags & bit)
-                {
-                    AddMenuOverride(gUnknown_080D794E[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysDisabled);
-                    AddMenuOverride(gUnknown_080D794E[i], MENU_OVERRIDE_ONSELECT, Get8);
-                }
-
-                bit <<= 1;
-            }
-
-            break;
-
-        case 2:
-            break;
+    case 2:
+        break;
     }
-
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -3974,34 +3924,27 @@ u8 Event3E_PrepScreenCall(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0801098C
-struct BattleHit * sub_801098C(void)
+struct BattleHit * GenerateScriptBattleHitFormEventQueue(void)
 {
     u8 i;
-
     u32 * queueIt = gEventSlotQueue;
     struct BattleHit * bhIt = gActionData.script_hits;
 
     for (i = 0; i < gEventSlots[0xd] && ((u8 *)(queueIt))[0] != 0xff; bhIt++, queueIt++, i++)
     {
         bhIt->attributes = ((u16 *)(queueIt))[1];
-
         bhIt->info = 0;
 
         if (i == 0)
-        {
             bhIt->info |= BATTLE_HIT_INFO_BEGIN;
-        }
 
         if (((u8 *)(queueIt))[0] == 1)
-        {
             bhIt->info |= BATTLE_HIT_INFO_RETALIATION;
-        }
 
         bhIt->hpChange = ((u8 *)(queueIt))[1];
     }
 
     bhIt->info = BATTLE_HIT_INFO_END;
-
     return gActionData.script_hits;
 }
 
@@ -4040,34 +3983,24 @@ u8 Event3F_ScriptBattle(struct EventEngineProc * proc)
     u8 isBallista = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
 
     if (gEventSlots[0xd] == 0)
-    {
         hits = NULL;
-    }
     else
-    {
-        hits = sub_801098C();
-    }
+        hits = GenerateScriptBattleHitFormEventQueue();
 
     switch (subcmd) {
     case EVSUBCMD_FIGHT:
     case EVSUBCMD_FIGHT_MAP:
         if (charIdA < 0)
-        {
             charIdA = -2;
-        }
 
         if (charIdB < 0)
-        {
             charIdB = -2;
-        }
 
         unitA = GetUnitStructFromEventParameter(charIdA);
         unitB = GetUnitStructFromEventParameter(charIdB);
 
         if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
-        {
             scriptted = 0;
-        }
         else
         {
             scriptted = 1;

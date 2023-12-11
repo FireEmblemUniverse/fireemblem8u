@@ -176,7 +176,7 @@ u8 DebugMenu_MapEffect(struct MenuProc *menuProc, struct MenuItemProc *menuItemP
     gPlaySt.chapterModeIndex = gDebugChapterModeIndex;
     ChapterChangeUnitCleanup();
     nullsub_9();
-    gPlaySt.unk4A_2 = 2;
+    gPlaySt.save_menu_type = 2;
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }
 

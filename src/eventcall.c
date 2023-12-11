@@ -251,7 +251,7 @@ void sub_8085670(struct Proc * proc)
     {
         if (GetGameClock() % 2)
         {
-            (u16)gBmSt.camera.x &= (u16)~2;
+            (u16)gBmSt.camera.x &= ~2;
             gBmSt.camera.x ^= 1;
         }
     }

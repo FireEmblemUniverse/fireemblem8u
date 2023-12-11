@@ -7,11 +7,12 @@
 #include "eventinfo.h"
 #include "ea-stdlib.h"
 #include "constants/characters.h"
+#include "constants/items.h"
 
 CONST_DATA EventListScr EventScr_Prologue_BeginingScene[] = {
     CALL(EventScr_Prologue_RenaisThroneCutscene)
-    SVAL(EVT_SLOT_2, EventScr_Prologue_9EF1BC)
-    CALL(EventScr_RunTutIfEasyMode)
+    SVAL(EVT_SLOT_2, EventScr_Prologue_EirikaAttacked)
+    CALL(EventScr_CallOnTutorialMode)
     CHECK_TUTORIAL
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
     ASMC(BmGuideTextSetAllGreen)
@@ -30,8 +31,10 @@ LABEL(0x0)
     ENUN
     FlashCursor(CHARACTER_SETH, 60)
     Text(0x90E)
-    SVAL(EVT_SLOT_2, EventScr_Prologue_9EF27C)
-    CALL(EventScr_RunTutIfEasyMode)
+    SVAL(EVT_SLOT_2, EventScr_Prologue_ExecTut) /* This scr ends at ENDB! */
+    CALL(EventScr_CallOnTutorialMode)
+
+    /* Not exec if tutorial */
     _WARP(0x0, CHARACTER_EIRIKA, 4, 5)
     ENUN
     CALL(EventScr_Prologue_GiveRapier)
@@ -197,5 +200,141 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     LOMA(0x0)
     FADU(16)
 
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_GiveRapier[] = {
+    FlashCursor(CHARACTER_SETH, 60)
+    Text(0x90F)
+    CALL(EventScr_RemoveBGIfNeeded)
+
+    /* Give item via slot3 */
+    SVAL(EVT_SLOT_3, ITEM_SWORD_RAPIER)
+    GIVEITEMTO(CHARACTER_EIRIKA)
+
+    SVAL(EVT_SLOT_2, EventScr_Prologue_9EF828)
+    CALL(EventScr_CallOnTutorialMode)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_ONeillSpawn[] = {
+    LOAD1(1, UnitDef_Event_PrologueEnemy)
+    ENUN
+    FlashCursor(CHARACTER_ONEILL, 60)
+    MUSC(0x13)
+    Text(0x910)
+    ENUF(EVFLAG_BGM_CHANGE)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_OneEmimyLeft[] = {
+    CHECK_ENEMIES
+    SVAL(EVT_SLOT_7, 1)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
+
+    CUMO_CHAR(CHARACTER_SETH)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0x913)
+    TEXTEND
+    REMA
+    /* this unsets the event ID so the next turn Oneill will agro (see TURN events) */
+    ENUF(EVFLAG_TMP_8)
+    GOTO(0x1)
+
+LABEL(0x0)
+    CHECK_EVENTID
+    SADD(EVT_SLOT_2, EVT_SLOT_C, EVT_SLOT_0)
+    ENUF_SLOT2
+
+LABEL(0x1)
+    NoFade
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_ONeillAttack[] = {
+    MUSC(0x13)
+    Text(0x914)
+    CHECK_TUTORIAL
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
+
+    /* slot1 saves the (u8)( (AI1 << 8) | AI2 ) */
+    SVAL(EVT_SLOT_1, 0x0)
+    CHAI(CHARACTER_ONEILL)
+
+LABEL(0x0)
+    NoFade
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_EndingScene[] = {
+    MUSC(0x31)
+    SetBackground(0x1D)
+    TEXTSHOW(0x918)
+    TEXTEND
+    FADI(16)
+    REMA
+
+    ENUT(0xE0)
+    ENUT(0xE1)
+    ENUT(0xB7)
+    ENUT(0xB4)
+    ENUT(0xB5)
+    ENUT(0xDC)
+    ENUT(0xB9)
+    ENUT(0xC2)
+    ENUT(0xC3)
+    ENUT(0xE7)
+    ENUT(0xC9)
+
+    MNC2(0x1)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_EirikaAttacked[] = {
+    DISABLEOPTIONS(EVENT_MENUOVERRIDE_OPTIONS | EVENT_MENUOVERRIDE_END)
+    ENUT(0x66) /* Disable objective window */
+    ENUT(0xE0) /* Guide:Suspend */
+    ENUT(0xE1) /* Guide:Save */
+    ENUT(EVFLAG_BGM_CHANGE)
+
+    StartBattle
+    MissedAttack(0, 0)
+    NormalDamage(1, 0)
+    NormalDamage(1, 0)
+    EndAttack
+    FIGHT_SCRIPT
+
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_Turn1[] = {
+    SVAL(EVT_SLOT_2, EventScr_Prologue_ONeillSpawn)
+    CALL(EventScr_CallOnTutorialMode)
+
+    SVAL(EVT_SLOT_2, EventScr_Prologue_TutMessageTurn1)
+    CALL(EventScr_CallOnTutorialMode)
+
+    NoFade
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_Turn2[] = {
+    SVAL(EVT_SLOT_2, EventScr_Prologue_TutMessageTurn2)
+    CALL(EventScr_CallOnTutorialMode)
+
+    NoFade
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_Turn3[] = {
+    SVAL(EVT_SLOT_2, EventScr_Prologue_OneillSethBattle)
+    CALL(EventScr_CallOnTutorialMode)
+
+    SVAL(EVT_SLOT_2, EventScr_Prologue_TutEirikaAttack)
+    CALL(EventScr_CallOnTutorialMode)
+
+    NoFade
     ENDA
 };

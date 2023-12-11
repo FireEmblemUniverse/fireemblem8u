@@ -4,7 +4,6 @@
 #include "global.h"
 #include "bmunit.h"
 
-struct UnitDefinition;
 typedef uintptr_t EventListScr;
 typedef uintptr_t EventScr;
 
@@ -196,7 +195,7 @@ extern struct ProcCmd gUnknown_08591EB0[];
 extern struct ProcCmd CONST_DATA ProcScr_EventDisplayCursor[];
 extern struct ProcCmd CONST_DATA ProcScr_ScriptBattleDeamon[];
 extern struct ProcCmd CONST_DATA gUnknown_08591F28[];
-extern EventScr gEvent_RemoveBGIfNeeded[];
+extern EventScr EventScr_RemoveBGIfNeeded[];
 extern const u16 gEvent_DisplayBattleQuote[];
 extern const u16 gEvent_TriggerQueuedTileChanges[];
 extern const u16 gEvent_OpenChest[];
@@ -360,7 +359,7 @@ void sub_800BCDC(u16); // battle related
 // ??? Event08_Label(???);
 // ??? Event09_Goto(???);
 // ??? Event0A_Call(???);
-// ??? Event0B_(???);
+// ??? Event0B_EnqueueCall(???);
 // ??? Event0C_Branch(???);
 // ??? Event0D_AsmCall(???);
 // ??? Event0E_STAL(???);
@@ -374,7 +373,7 @@ void sub_800BCDC(u16); // battle related
 // ??? Event16_(???);
 // ??? Event17_Fade(???);
 // ??? Event18_(???);
-// ??? Event19_(???);
+// ??? Event19_Checks(???);
 // ??? Event1A_TEXTSTART(???);
 // ??? sub_800E210(???);
 // ??? sub_800E290(???);
@@ -417,7 +416,7 @@ void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
 // ??? Event2C_LoadUnits(???);
 u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y);
 unsigned ModifyMoveUnitFlag(struct EventEngineProc *, s8);
-// ??? Event2D_(???);
+// ??? Event2D_GetPid(???);
 // ??? Event2E_CheckAt(???);
 // ??? Event2F_MoveUnit(???);
 // ??? Event30_ENUN(???);
@@ -434,9 +433,9 @@ unsigned ModifyMoveUnitFlag(struct EventEngineProc *, s8);
 // ??? EventDisplayCursor_Loop(???);
 // ??? Event3B_DisplayCursor(???);
 // ??? Event3C_(???);
-// ??? Event3D_(???);
+// ??? Event3D_MenuOverride(???);
 // ??? Event3E_PrepScreenCall(???);
-// ??? sub_801098C(???);
+// ??? GenerateScriptBattleHitFormEventQueue(???);
 // ??? ScriptBattleDeamon(???);
 // ??? Event3F_ScriptBattle(???);
 // ??? sub_8010B48(???);

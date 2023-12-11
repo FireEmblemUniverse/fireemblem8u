@@ -279,8 +279,8 @@ extern const u16 gUnknown_080D7504[];
 // extern ??? gUnknown_080D7908
 // extern ??? gUnknown_080D792C
 // extern ??? gUnknown_080D793C
-// extern ??? gUnknown_080D793F
-// extern ??? gUnknown_080D794E
+// extern ??? UnitMenuOverrideConf
+// extern ??? ItemMenuOverrideConf
 extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080D7964
 // extern ??? gUnknown_080D79D8
@@ -662,7 +662,7 @@ extern u16 CONST_DATA Img_MineFx[];
 extern u16 CONST_DATA SpritAnim_MineFx[];
 extern u16 CONST_DATA Pal_MineFx[];
 
-// extern ??? Pal_EventCursorShinning
+extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide

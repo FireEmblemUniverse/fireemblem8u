@@ -4,8 +4,8 @@
 gUnknown_08591F38:  @ 0x08591F38
 	.incbin "baserom.gba", 0x591F38, 8
 
-	.global gEvent_RemoveBGIfNeeded
-gEvent_RemoveBGIfNeeded:
+	.global EventScr_RemoveBGIfNeeded
+EventScr_RemoveBGIfNeeded:
 	.incbin "baserom.gba", 0x591F40, 0x48
 
 	.global gEvent_DisplayBattleQuote

@@ -12,9 +12,6 @@
 #include "event.h"
 #include "ekrbattle.h"
 
-extern u16 CONST_DATA Pal_EventCursorShinning[];
-
-void ShinningEventCursor(int, int, int);
 
 void ReputConvoBg_unused(int index)
 {

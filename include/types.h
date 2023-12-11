@@ -215,9 +215,9 @@ struct PlaySt { // Chapter Data Struct
     u16 unk48;
 
     u8 unk4A_1 : 1;
-    u8 unk4A_2 : 3;
-    u8 unk4A_5 : 4;
-    u8 unk4B;
+    u8 save_menu_type : 3;
+    u8 tutorial_exec_type : 4;
+    u8 tutorial_counter;
 } BITPACKED;
 
 /**
