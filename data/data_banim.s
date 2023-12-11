@@ -28977,70 +28977,194 @@ gUnknown_0867EE04:  @ 0x0867EE04
     .4byte 0x84000013
     .4byte 0x81000000
 
-	.global gUnknown_0867EEB4
-gUnknown_0867EEB4:  @ 0x0867EEB4
-	.incbin "baserom.gba", 0x67EEB4, 0x19EC
+	.global Img_SilenceBg
+Img_SilenceBg:  @ 0x0867EEB4
+	.incbin "baserom.gba", 0x67EEB4, 0xAC8    @ 0x67F97C - 0x67EEB4
 
-	.global gUnknown_086808A0
-gUnknown_086808A0:  @ 0x086808A0
+	.global Tsa_0867F97C
+Tsa_0867F97C:  @ 0x0867F97C
+	.incbin "baserom.gba", 0x67F97C, 0xFC    @ 0x67FA78 - 0x67F97C
+
+	.global Tsa_0867FA78
+Tsa_0867FA78:  @ 0x0867FA78
+	.incbin "baserom.gba", 0x67FA78, 0xE8    @ 0x67FB60 - 0x67FA78
+
+	.global Tsa_0867FB60
+Tsa_0867FB60:  @ 0x0867FB60
+	.incbin "baserom.gba", 0x67FB60, 0xE8    @ 0x67FC48 - 0x67FB60
+
+	.global Tsa_0867FC48
+Tsa_0867FC48:  @ 0x0867FC48
+	.incbin "baserom.gba", 0x67FC48, 0xE8    @ 0x67FD30 - 0x67FC48
+
+	.global Tsa_0867FD30
+Tsa_0867FD30:  @ 0x0867FD30
+	.incbin "baserom.gba", 0x67FD30, 0xFC    @ 0x67FE2C - 0x67FD30
+
+	.global Tsa_0867FE2C
+Tsa_0867FE2C:  @ 0x0867FE2C
+	.incbin "baserom.gba", 0x67FE2C, 0xE8    @ 0x67FF14 - 0x67FE2C
+
+	.global Tsa_0867FF14
+Tsa_0867FF14:  @ 0x0867FF14
+	.incbin "baserom.gba", 0x67FF14, 0x98    @ 0x67FFAC - 0x67FF14
+
+	.global Tsa_0867FFAC
+Tsa_0867FFAC:  @ 0x0867FFAC
+	.incbin "baserom.gba", 0x67FFAC, 0xE8    @ 0x680094 - 0x67FFAC
+
+	.global Tsa_08680094
+Tsa_08680094:  @ 0x08680094
+	.incbin "baserom.gba", 0x680094, 0x98    @ 0x68012C - 0x680094
+
+	.global Tsa_0868012C
+Tsa_0868012C:  @ 0x0868012C
+	.incbin "baserom.gba", 0x68012C, 0xE8    @ 0x680214 - 0x68012C
+
+	.global Tsa_08680214
+Tsa_08680214:  @ 0x08680214
+	.incbin "baserom.gba", 0x680214, 0xFC    @ 0x680310 - 0x680214
+
+	.global Tsa_08680310
+Tsa_08680310:  @ 0x08680310
+	.incbin "baserom.gba", 0x680310, 0x98    @ 0x6803A8 - 0x680310
+
+	.global Tsa_086803A8
+Tsa_086803A8:  @ 0x086803A8
+	.incbin "baserom.gba", 0x6803A8, 0xE8    @ 0x680490 - 0x6803A8
+
+	.global Tsa_08680490
+Tsa_08680490:  @ 0x08680490
+	.incbin "baserom.gba", 0x680490, 0x98    @ 0x680528 - 0x680490
+
+	.global Tsa_08680528
+Tsa_08680528:  @ 0x08680528
+	.incbin "baserom.gba", 0x680528, 0xFC    @ 0x680624 - 0x680528
+
+	.global Tsa_08680624
+Tsa_08680624:  @ 0x08680624
+	.incbin "baserom.gba", 0x680624, 0x98    @ 0x6806BC - 0x680624
+
+	.global Tsa_086806BC
+Tsa_086806BC:  @ 0x086806BC
+	.incbin "baserom.gba", 0x6806BC, 0x110    @ 0x6807CC - 0x6806BC
+
+	.global Tsa_086807CC
+Tsa_086807CC:  @ 0x086807CC
+	.incbin "baserom.gba", 0x6807CC, 0xD4    @ 0x6808A0 - 0x6807CC
+
+	.global Img_SilenceSprites
+Img_SilenceSprites:  @ 0x086808A0
 	.incbin "baserom.gba", 0x6808A0, 0x520
 
-	.global gUnknown_08680DC0
-gUnknown_08680DC0:  @ 0x08680DC0
+	.global Pal_Silence
+Pal_Silence:  @ 0x08680DC0
 	.incbin "baserom.gba", 0x680DC0, 0x23C
 
 	.global gUnknown_08680FFC
 gUnknown_08680FFC:  @ 0x08680FFC
 	.incbin "baserom.gba", 0x680FFC, 0xBC
 
-	.global gUnknown_086810B8
-gUnknown_086810B8:  @ 0x086810B8
-	.incbin "baserom.gba", 0x6810B8, 0x3850
+	.global Pal_HammerneBg
+Pal_HammerneBg:  @ 0x086810B8
+	.incbin "baserom.gba", 0x6810B8, 0x20    @ 0x6810D8 - 0x6810B8
+
+	.global Tsa_086810D8
+Tsa_086810D8:  @ 0x086810D8
+	.incbin "baserom.gba", 0x6810D8, 0xAC    @ 0x681184 - 0x6810D8
+
+	.global Tsa_08681184
+Tsa_08681184:  @ 0x08681184
+	.incbin "baserom.gba", 0x681184, 0xB0    @ 0x681234 - 0x681184
+
+	.global Tsa_08681234
+Tsa_08681234:  @ 0x08681234
+	.incbin "baserom.gba", 0x681234, 0xC0    @ 0x6812F4 - 0x681234
+
+	.global Tsa_086812F4
+Tsa_086812F4:  @ 0x086812F4
+	.incbin "baserom.gba", 0x6812F4, 0xC8    @ 0x6813BC - 0x6812F4
+
+	.global Tsa_086813BC
+Tsa_086813BC:  @ 0x086813BC
+	.incbin "baserom.gba", 0x6813BC, 0xD8    @ 0x681494 - 0x6813BC
+
+	.global Tsa_08681494
+Tsa_08681494:  @ 0x08681494
+	.incbin "baserom.gba", 0x681494, 0xDC    @ 0x681570 - 0x681494
+
+	.global Tsa_08681570
+Tsa_08681570:  @ 0x08681570
+	.incbin "baserom.gba", 0x681570, 0xE8    @ 0x681658 - 0x681570
+
+	.global Tsa_08681658
+Tsa_08681658:  @ 0x08681658
+	.incbin "baserom.gba", 0x681658, 0xF0    @ 0x681748 - 0x681658
+
+	.global Tsa_08681748
+Tsa_08681748:  @ 0x08681748
+	.incbin "baserom.gba", 0x681748, 0x100    @ 0x681848 - 0x681748
+
+	.global Tsa_08681848
+Tsa_08681848:  @ 0x08681848
+	.incbin "baserom.gba", 0x681848, 0x10C    @ 0x681954 - 0x681848
+
+	.global Tsa_08681954
+Tsa_08681954:  @ 0x08681954
+	.incbin "baserom.gba", 0x681954, 0x120    @ 0x681A74 - 0x681954
+
+	.global Tsa_08681A74
+Tsa_08681A74:  @ 0x08681A74
+	.incbin "baserom.gba", 0x681A74, 0x130    @ 0x681BA4 - 0x681A74
+
+	.global Tsa_08681BA4
+Tsa_08681BA4:  @ 0x08681BA4
+	.incbin "baserom.gba", 0x681BA4, 0x2D64    @ 0x684908 - 0x681BA4
 
 	.global gUnknown_08684908
 gUnknown_08684908:  @ 0x08684908
 @ Replacing .incbin "baserom.gba", 0x684908, 0xB0
-    .4byte gUnknown_086810B8 + 0xc2a
-    .4byte gUnknown_086810B8 + 0xc42
-    .4byte gUnknown_086810B8 + 0xc66
-    .4byte gUnknown_086810B8 + 0xca2
-    .4byte gUnknown_086810B8 + 0xcf6
-    .4byte gUnknown_086810B8 + 0xd62
-    .4byte gUnknown_086810B8 + 0xde6
-    .4byte gUnknown_086810B8 + 0xe82
-    .4byte gUnknown_086810B8 + 0xf42
-    .4byte gUnknown_086810B8 + 0x1026
-    .4byte gUnknown_086810B8 + 0x112e
-    .4byte gUnknown_086810B8 + 0x125a
-    .4byte gUnknown_086810B8 + 0x13aa
-    .4byte gUnknown_086810B8 + 0x1512
-    .4byte gUnknown_086810B8 + 0x1692
-    .4byte gUnknown_086810B8 + 0x1836
-    .4byte gUnknown_086810B8 + 0x19f2
-    .4byte gUnknown_086810B8 + 0x1bc6
-    .4byte gUnknown_086810B8 + 0x1da6
-    .4byte gUnknown_086810B8 + 0x1f92
-    .4byte gUnknown_086810B8 + 0x217e
-    .4byte gUnknown_086810B8 + 0x235e
-    .4byte gUnknown_086810B8 + 0x2532
-    .4byte gUnknown_086810B8 + 0x26fa
-    .4byte gUnknown_086810B8 + 0x289e
-    .4byte gUnknown_086810B8 + 0x2a1e
-    .4byte gUnknown_086810B8 + 0x2b86
-    .4byte gUnknown_086810B8 + 0x2cd6
-    .4byte gUnknown_086810B8 + 0x2e02
-    .4byte gUnknown_086810B8 + 0x2f0a
-    .4byte gUnknown_086810B8 + 0x2ffa
-    .4byte gUnknown_086810B8 + 0x30d2
-    .4byte gUnknown_086810B8 + 0x3192
-    .4byte gUnknown_086810B8 + 0x322e
-    .4byte gUnknown_086810B8 + 0x32be
-    .4byte gUnknown_086810B8 + 0x3336
-    .4byte gUnknown_086810B8 + 0x3396
-    .4byte gUnknown_086810B8 + 0x33de
-    .4byte gUnknown_086810B8 + 0x341a
-    .4byte gUnknown_086810B8 + 0x344a
-    .4byte gUnknown_086810B8 + 0x346e
+    .4byte Pal_HammerneBg + 0xc2a
+    .4byte Pal_HammerneBg + 0xc42
+    .4byte Pal_HammerneBg + 0xc66
+    .4byte Pal_HammerneBg + 0xca2
+    .4byte Pal_HammerneBg + 0xcf6
+    .4byte Pal_HammerneBg + 0xd62
+    .4byte Pal_HammerneBg + 0xde6
+    .4byte Pal_HammerneBg + 0xe82
+    .4byte Pal_HammerneBg + 0xf42
+    .4byte Pal_HammerneBg + 0x1026
+    .4byte Pal_HammerneBg + 0x112e
+    .4byte Pal_HammerneBg + 0x125a
+    .4byte Pal_HammerneBg + 0x13aa
+    .4byte Pal_HammerneBg + 0x1512
+    .4byte Pal_HammerneBg + 0x1692
+    .4byte Pal_HammerneBg + 0x1836
+    .4byte Pal_HammerneBg + 0x19f2
+    .4byte Pal_HammerneBg + 0x1bc6
+    .4byte Pal_HammerneBg + 0x1da6
+    .4byte Pal_HammerneBg + 0x1f92
+    .4byte Pal_HammerneBg + 0x217e
+    .4byte Pal_HammerneBg + 0x235e
+    .4byte Pal_HammerneBg + 0x2532
+    .4byte Pal_HammerneBg + 0x26fa
+    .4byte Pal_HammerneBg + 0x289e
+    .4byte Pal_HammerneBg + 0x2a1e
+    .4byte Pal_HammerneBg + 0x2b86
+    .4byte Pal_HammerneBg + 0x2cd6
+    .4byte Pal_HammerneBg + 0x2e02
+    .4byte Pal_HammerneBg + 0x2f0a
+    .4byte Pal_HammerneBg + 0x2ffa
+    .4byte Pal_HammerneBg + 0x30d2
+    .4byte Pal_HammerneBg + 0x3192
+    .4byte Pal_HammerneBg + 0x322e
+    .4byte Pal_HammerneBg + 0x32be
+    .4byte Pal_HammerneBg + 0x3336
+    .4byte Pal_HammerneBg + 0x3396
+    .4byte Pal_HammerneBg + 0x33de
+    .4byte Pal_HammerneBg + 0x341a
+    .4byte Pal_HammerneBg + 0x344a
+    .4byte Pal_HammerneBg + 0x346e
     .4byte 0x7868453f
     .4byte 0x84000013
     .4byte 0x81000000
@@ -29053,164 +29177,228 @@ Img_086849B8:  @ 0x086849B8
 gUnknown_08684AB8:  @ 0x08684AB8
 	.incbin "baserom.gba", 0x684AB8, 0x820
 
-	.global gUnknown_086852D8
-gUnknown_086852D8:  @ 0x086852D8
+	.global Img_SleepBg
+Img_SleepBg:  @ 0x086852D8
 	.incbin "baserom.gba", 0x6852D8, 0xECC
 
-	.global gUnknown_086861A4
-gUnknown_086861A4:  @ 0x086861A4
-	.incbin "baserom.gba", 0x6861A4, 0xDE0
+	.global Pal_SleepBg
+Pal_SleepBg:  @ 0x086861A4
+	.incbin "baserom.gba", 0x6861A4, 0x20    @ 0x6861C4 - 0x6861A4
 
-	.global gUnknown_08686F84
-gUnknown_08686F84:  @ 0x08686F84
+	.global Tsa_086861C4
+Tsa_086861C4:  @ 0x086861C4
+	.incbin "baserom.gba", 0x6861C4, 0xDC    @ 0x6862A0 - 0x6861C4
+
+	.global Tsa_086862A0
+Tsa_086862A0:  @ 0x086862A0
+	.incbin "baserom.gba", 0x6862A0, 0xDC    @ 0x68637C - 0x6862A0
+
+	.global Tsa_0868637C
+Tsa_0868637C:  @ 0x0868637C
+	.incbin "baserom.gba", 0x68637C, 0xDC    @ 0x686458 - 0x68637C
+
+	.global Tsa_08686458
+Tsa_08686458:  @ 0x08686458
+	.incbin "baserom.gba", 0x686458, 0xDC    @ 0x686534 - 0x686458
+
+	.global Tsa_08686534
+Tsa_08686534:  @ 0x08686534
+	.incbin "baserom.gba", 0x686534, 0xDC    @ 0x686610 - 0x686534
+
+	.global Tsa_08686610
+Tsa_08686610:  @ 0x08686610
+	.incbin "baserom.gba", 0x686610, 0xDC    @ 0x6866EC - 0x686610
+
+	.global Tsa_086866EC
+Tsa_086866EC:  @ 0x086866EC
+	.incbin "baserom.gba", 0x6866EC, 0xDC    @ 0x6867C8 - 0x6866EC
+
+	.global Tsa_086867C8
+Tsa_086867C8:  @ 0x086867C8
+	.incbin "baserom.gba", 0x6867C8, 0xDC    @ 0x6868A4 - 0x6867C8
+
+	.global Tsa_086868A4
+Tsa_086868A4:  @ 0x086868A4
+	.incbin "baserom.gba", 0x6868A4, 0xDC    @ 0x686980 - 0x6868A4
+
+	.global Tsa_08686980
+Tsa_08686980:  @ 0x08686980
+	.incbin "baserom.gba", 0x686980, 0xDC    @ 0x686A5C - 0x686980
+
+	.global Tsa_08686A5C
+Tsa_08686A5C:  @ 0x08686A5C
+	.incbin "baserom.gba", 0x686A5C, 0xDC    @ 0x686B38 - 0x686A5C
+
+	.global Tsa_08686B38
+Tsa_08686B38:  @ 0x08686B38
+	.incbin "baserom.gba", 0x686B38, 0xDC    @ 0x686C14 - 0x686B38
+
+	.global Tsa_08686C14
+Tsa_08686C14:  @ 0x08686C14
+	.incbin "baserom.gba", 0x686C14, 0xDC    @ 0x686CF0 - 0x686C14
+
+	.global Tsa_08686CF0
+Tsa_08686CF0:  @ 0x08686CF0
+	.incbin "baserom.gba", 0x686CF0, 0xDC    @ 0x686DCC - 0x686CF0
+
+	.global Tsa_08686DCC
+Tsa_08686DCC:  @ 0x08686DCC
+	.incbin "baserom.gba", 0x686DCC, 0xDC    @ 0x686EA8 - 0x686DCC
+
+	.global Tsa_08686EA8
+Tsa_08686EA8:  @ 0x08686EA8
+	.incbin "baserom.gba", 0x686EA8, 0xDC    @ 0x686F84 - 0x686EA8
+
+	.global Img_SleepSprites
+Img_SleepSprites:  @ 0x08686F84
 	.incbin "baserom.gba", 0x686F84, 0x1E8
 
-	.global gUnknown_0868716C
-gUnknown_0868716C:  @ 0x0868716C
+	.global Pal_SleepSprites
+Pal_SleepSprites:  @ 0x0868716C
 	.incbin "baserom.gba", 0x68716C, 0x20
 
-	.global gUnknown_0868718C
-gUnknown_0868718C:  @ 0x0868718C
+	.global Pal_HammerneSprites
+Pal_HammerneSprites:  @ 0x0868718C
 	.incbin "baserom.gba", 0x68718C, 0x4FDC
 
 	.global gUnknown_0868C168
 gUnknown_0868C168:  @ 0x0868C168
 @ Replacing .incbin "baserom.gba", 0x68C168, 0x180
-    .4byte gUnknown_0868718C + 0x23
-    .4byte gUnknown_0868718C + 0x47
-    .4byte gUnknown_0868718C + 0x83
-    .4byte gUnknown_0868718C + 0xef
-    .4byte gUnknown_0868718C + 0x17f
-    .4byte gUnknown_0868718C + 0x233
-    .4byte gUnknown_0868718C + 0x2f3
-    .4byte gUnknown_0868718C + 0x3cb
-    .4byte gUnknown_0868718C + 0x4bb
-    .4byte gUnknown_0868718C + 0x5c3
-    .4byte gUnknown_0868718C + 0x6d7
-    .4byte gUnknown_0868718C + 0x7f7
-    .4byte gUnknown_0868718C + 0x923
-    .4byte gUnknown_0868718C + 0xa43
-    .4byte gUnknown_0868718C + 0xb63
-    .4byte gUnknown_0868718C + 0xc3b
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0xda2
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0xe3e
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0xeda
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0xf76
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0x1006
-    .4byte gUnknown_0868718C + 0x1097
-    .4byte gUnknown_0868718C + 0x10bb
-    .4byte gUnknown_0868718C + 0x10f7
-    .4byte gUnknown_0868718C + 0x1163
-    .4byte gUnknown_0868718C + 0x11f3
-    .4byte gUnknown_0868718C + 0x12a7
-    .4byte gUnknown_0868718C + 0x1367
-    .4byte gUnknown_0868718C + 0x143f
-    .4byte gUnknown_0868718C + 0x1523
-    .4byte gUnknown_0868718C + 0x161f
-    .4byte gUnknown_0868718C + 0x1727
-    .4byte gUnknown_0868718C + 0x183b
-    .4byte gUnknown_0868718C + 0x194f
-    .4byte gUnknown_0868718C + 0x1a63
-    .4byte gUnknown_0868718C + 0x1b77
-    .4byte gUnknown_0868718C + 0x1c4f
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0x1d0e
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0x1daa
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0x1e46
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0x1ee2
-    .4byte gUnknown_0868718C + 0xced
-    .4byte gUnknown_0868718C + 0x1f72
-    .4byte gUnknown_0868718C + 0x2002
-    .4byte gUnknown_0868718C + 0x2032
-    .4byte gUnknown_0868718C + 0x207a
-    .4byte gUnknown_0868718C + 0x20da
-    .4byte gUnknown_0868718C + 0x2152
-    .4byte gUnknown_0868718C + 0x21e2
-    .4byte gUnknown_0868718C + 0x227e
-    .4byte gUnknown_0868718C + 0x2332
-    .4byte gUnknown_0868718C + 0x23f2
-    .4byte gUnknown_0868718C + 0x24be
-    .4byte gUnknown_0868718C + 0x2596
-    .4byte gUnknown_0868718C + 0x267a
-    .4byte gUnknown_0868718C + 0x276a
-    .4byte gUnknown_0868718C + 0x2866
-    .4byte gUnknown_0868718C + 0x296e
-    .4byte gUnknown_0868718C + 0x2a82
-    .4byte gUnknown_0868718C + 0x2ba2
-    .4byte gUnknown_0868718C + 0x2cce
-    .4byte gUnknown_0868718C + 0x2e06
-    .4byte gUnknown_0868718C + 0x2f3e
-    .4byte gUnknown_0868718C + 0x3082
-    .4byte gUnknown_0868718C + 0x31c6
-    .4byte gUnknown_0868718C + 0x3316
-    .4byte gUnknown_0868718C + 0x3466
-    .4byte gUnknown_0868718C + 0x35aa
-    .4byte gUnknown_0868718C + 0x36d6
-    .4byte gUnknown_0868718C + 0x37f6
-    .4byte gUnknown_0868718C + 0x390a
-    .4byte gUnknown_0868718C + 0x3a06
-    .4byte gUnknown_0868718C + 0x3aea
-    .4byte gUnknown_0868718C + 0x3bb6
-    .4byte gUnknown_0868718C + 0x3c6a
-    .4byte gUnknown_0868718C + 0x3d12
-    .4byte gUnknown_0868718C + 0x3da2
-    .4byte gUnknown_0868718C + 0x3e26
-    .4byte gUnknown_0868718C + 0x3e9e
-    .4byte gUnknown_0868718C + 0x3f0a
-    .4byte gUnknown_0868718C + 0x3f6a
-    .4byte gUnknown_0868718C + 0x3fbe
-    .4byte gUnknown_0868718C + 0x4006
-    .4byte gUnknown_0868718C + 0x4042
-    .4byte gUnknown_0868718C + 0x4072
-    .4byte gUnknown_0868718C + 0x4096
+    .4byte Pal_HammerneSprites + 0x23
+    .4byte Pal_HammerneSprites + 0x47
+    .4byte Pal_HammerneSprites + 0x83
+    .4byte Pal_HammerneSprites + 0xef
+    .4byte Pal_HammerneSprites + 0x17f
+    .4byte Pal_HammerneSprites + 0x233
+    .4byte Pal_HammerneSprites + 0x2f3
+    .4byte Pal_HammerneSprites + 0x3cb
+    .4byte Pal_HammerneSprites + 0x4bb
+    .4byte Pal_HammerneSprites + 0x5c3
+    .4byte Pal_HammerneSprites + 0x6d7
+    .4byte Pal_HammerneSprites + 0x7f7
+    .4byte Pal_HammerneSprites + 0x923
+    .4byte Pal_HammerneSprites + 0xa43
+    .4byte Pal_HammerneSprites + 0xb63
+    .4byte Pal_HammerneSprites + 0xc3b
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0xda2
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0xe3e
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0xeda
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0xf76
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0x1006
+    .4byte Pal_HammerneSprites + 0x1097
+    .4byte Pal_HammerneSprites + 0x10bb
+    .4byte Pal_HammerneSprites + 0x10f7
+    .4byte Pal_HammerneSprites + 0x1163
+    .4byte Pal_HammerneSprites + 0x11f3
+    .4byte Pal_HammerneSprites + 0x12a7
+    .4byte Pal_HammerneSprites + 0x1367
+    .4byte Pal_HammerneSprites + 0x143f
+    .4byte Pal_HammerneSprites + 0x1523
+    .4byte Pal_HammerneSprites + 0x161f
+    .4byte Pal_HammerneSprites + 0x1727
+    .4byte Pal_HammerneSprites + 0x183b
+    .4byte Pal_HammerneSprites + 0x194f
+    .4byte Pal_HammerneSprites + 0x1a63
+    .4byte Pal_HammerneSprites + 0x1b77
+    .4byte Pal_HammerneSprites + 0x1c4f
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0x1d0e
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0x1daa
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0x1e46
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0x1ee2
+    .4byte Pal_HammerneSprites + 0xced
+    .4byte Pal_HammerneSprites + 0x1f72
+    .4byte Pal_HammerneSprites + 0x2002
+    .4byte Pal_HammerneSprites + 0x2032
+    .4byte Pal_HammerneSprites + 0x207a
+    .4byte Pal_HammerneSprites + 0x20da
+    .4byte Pal_HammerneSprites + 0x2152
+    .4byte Pal_HammerneSprites + 0x21e2
+    .4byte Pal_HammerneSprites + 0x227e
+    .4byte Pal_HammerneSprites + 0x2332
+    .4byte Pal_HammerneSprites + 0x23f2
+    .4byte Pal_HammerneSprites + 0x24be
+    .4byte Pal_HammerneSprites + 0x2596
+    .4byte Pal_HammerneSprites + 0x267a
+    .4byte Pal_HammerneSprites + 0x276a
+    .4byte Pal_HammerneSprites + 0x2866
+    .4byte Pal_HammerneSprites + 0x296e
+    .4byte Pal_HammerneSprites + 0x2a82
+    .4byte Pal_HammerneSprites + 0x2ba2
+    .4byte Pal_HammerneSprites + 0x2cce
+    .4byte Pal_HammerneSprites + 0x2e06
+    .4byte Pal_HammerneSprites + 0x2f3e
+    .4byte Pal_HammerneSprites + 0x3082
+    .4byte Pal_HammerneSprites + 0x31c6
+    .4byte Pal_HammerneSprites + 0x3316
+    .4byte Pal_HammerneSprites + 0x3466
+    .4byte Pal_HammerneSprites + 0x35aa
+    .4byte Pal_HammerneSprites + 0x36d6
+    .4byte Pal_HammerneSprites + 0x37f6
+    .4byte Pal_HammerneSprites + 0x390a
+    .4byte Pal_HammerneSprites + 0x3a06
+    .4byte Pal_HammerneSprites + 0x3aea
+    .4byte Pal_HammerneSprites + 0x3bb6
+    .4byte Pal_HammerneSprites + 0x3c6a
+    .4byte Pal_HammerneSprites + 0x3d12
+    .4byte Pal_HammerneSprites + 0x3da2
+    .4byte Pal_HammerneSprites + 0x3e26
+    .4byte Pal_HammerneSprites + 0x3e9e
+    .4byte Pal_HammerneSprites + 0x3f0a
+    .4byte Pal_HammerneSprites + 0x3f6a
+    .4byte Pal_HammerneSprites + 0x3fbe
+    .4byte Pal_HammerneSprites + 0x4006
+    .4byte Pal_HammerneSprites + 0x4042
+    .4byte Pal_HammerneSprites + 0x4072
+    .4byte Pal_HammerneSprites + 0x4096
     .4byte 0x81000000
 
 	.global gUnknown_0868C2E8
 gUnknown_0868C2E8:  @ 0x0868C2E8
 @ Replacing .incbin "baserom.gba", 0x68C2E8, 0x50
-    .4byte gUnknown_0868718C + 0x40af
-    .4byte gUnknown_0868718C + 0x4a62
-    .4byte gUnknown_0868718C + 0x4a92
-    .4byte gUnknown_0868718C + 0x4ace
-    .4byte gUnknown_0868718C + 0x4b16
-    .4byte gUnknown_0868718C + 0x4b6a
-    .4byte gUnknown_0868718C + 0x4bca
-    .4byte gUnknown_0868718C + 0x4c36
-    .4byte gUnknown_0868718C + 0x4cae
-    .4byte gUnknown_0868718C + 0x4d32
-    .4byte gUnknown_0868718C + 0x4db6
-    .4byte gUnknown_0868718C + 0x4e22
-    .4byte gUnknown_0868718C + 0x4e82
-    .4byte gUnknown_0868718C + 0x4eee
-    .4byte gUnknown_0868718C + 0x4f36
-    .4byte gUnknown_0868718C + 0x4f72
-    .4byte gUnknown_0868718C + 0x4fa2
+    .4byte Pal_HammerneSprites + 0x40af
+    .4byte Pal_HammerneSprites + 0x4a62
+    .4byte Pal_HammerneSprites + 0x4a92
+    .4byte Pal_HammerneSprites + 0x4ace
+    .4byte Pal_HammerneSprites + 0x4b16
+    .4byte Pal_HammerneSprites + 0x4b6a
+    .4byte Pal_HammerneSprites + 0x4bca
+    .4byte Pal_HammerneSprites + 0x4c36
+    .4byte Pal_HammerneSprites + 0x4cae
+    .4byte Pal_HammerneSprites + 0x4d32
+    .4byte Pal_HammerneSprites + 0x4db6
+    .4byte Pal_HammerneSprites + 0x4e22
+    .4byte Pal_HammerneSprites + 0x4e82
+    .4byte Pal_HammerneSprites + 0x4eee
+    .4byte Pal_HammerneSprites + 0x4f36
+    .4byte Pal_HammerneSprites + 0x4f72
+    .4byte Pal_HammerneSprites + 0x4fa2
     .4byte 0x7868c153
     .4byte 0x84000013
     .4byte 0x81000000
 
-	.global gUnknown_0868C338
-gUnknown_0868C338:  @ 0x0868C338
+	.global Pal_BerserkBg
+Pal_BerserkBg:  @ 0x0868C338
 	.incbin "baserom.gba", 0x68C338, 0x20
 
-	.global gUnknown_0868C358
-gUnknown_0868C358:  @ 0x0868C358
+	.global Img_BerserkSprites_A
+Img_BerserkSprites_A:  @ 0x0868C358
 	.incbin "baserom.gba", 0x68C358, 0x498
 
-	.global gUnknown_0868C7F0
-gUnknown_0868C7F0:  @ 0x0868C7F0
+	.global Img_BerserkSprites_B
+Img_BerserkSprites_B:  @ 0x0868C7F0
 	.incbin "baserom.gba", 0x68C7F0, 0x420
 
-	.global gUnknown_0868CC10
-gUnknown_0868CC10:  @ 0x0868CC10
+	.global Pal_BerserkSprites
+Pal_BerserkSprites:  @ 0x0868CC10
 	.incbin "baserom.gba", 0x68CC10, 0x6A4
 
 	.global gUnknown_0868D2B4
@@ -29263,13 +29451,33 @@ gUnknown_0868D6A8:  @ 0x0868D6A8
     .4byte gUnknown_0868D304 + 0x33a
     .4byte 0x80000000
 
-	.global gUnknown_0868D6D0
-gUnknown_0868D6D0:  @ 0x0868D6D0
+	.global Img_BarrierBg
+Img_BarrierBg:  @ 0x0868D6D0
 	.incbin "baserom.gba", 0x68D6D0, 0x88C
 
-	.global gUnknown_0868DF5C
-gUnknown_0868DF5C:  @ 0x0868DF5C
-	.incbin "baserom.gba", 0x68DF5C, 0x510
+	.global Pal_BarrierBg
+Pal_BarrierBg:  @ 0x0868DF5C
+	.incbin "baserom.gba", 0x68DF5C, 0x40    @ 0x68DF9C - 0x68DF5C
+
+	.global Tsa_0868DF9C
+Tsa_0868DF9C:  @ 0x0868DF9C
+	.incbin "baserom.gba", 0x68DF9C, 0xB8    @ 0x68E054 - 0x68DF9C
+
+	.global Tsa_0868E054
+Tsa_0868E054:  @ 0x0868E054
+	.incbin "baserom.gba", 0x68E054, 0xC4    @ 0x68E118 - 0x68E054
+
+	.global Tsa_0868E118
+Tsa_0868E118:  @ 0x0868E118
+	.incbin "baserom.gba", 0x68E118, 0xF0    @ 0x68E208 - 0x68E118
+
+	.global Tsa_0868E208
+Tsa_0868E208:  @ 0x0868E208
+	.incbin "baserom.gba", 0x68E208, 0x130    @ 0x68E338 - 0x68E208
+
+	.global Tsa_0868E338
+Tsa_0868E338:  @ 0x0868E338
+	.incbin "baserom.gba", 0x68E338, 0x134    @ 0x68E46C - 0x68E338
 
 	.global gUnknown_0868E46C
 gUnknown_0868E46C:  @ 0x0868E46C

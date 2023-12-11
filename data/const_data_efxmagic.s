@@ -1,26 +1,10 @@
     .section .rodata
 
-	.asciz "efxSilence"
+	.asciz "efxShine"
 	.align 2, 0
 
-	.asciz "efxSilenceBG"
+	.asciz "efxShineBG"
 	.byte 0
-
-	.global gUnknown_080DDCE6
-gUnknown_080DDCE6:  @ 0x080DDCE6
-	.incbin "baserom.gba", 0xDDCE6, 0x72
-
-	.global gUnknown_080DDD58
-gUnknown_080DDD58:  @ 0x080DDD58
-	.incbin "baserom.gba", 0xDDD58, 0x146
-
-	.global gUnknown_080DDE9E
-gUnknown_080DDE9E:  @ 0x080DDE9E
-	.incbin "baserom.gba", 0xDDE9E, 0x9C
-
-	.global gUnknown_080DDF3A
-gUnknown_080DDF3A:  @ 0x080DDF3A
-	.incbin "baserom.gba", 0xDDF3A, 0x102
 
 	.global gUnknown_080DE03C
 gUnknown_080DE03C:  @ 0x080DE03C
