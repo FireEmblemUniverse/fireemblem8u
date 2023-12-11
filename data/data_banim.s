@@ -76054,96 +76054,96 @@ gUnknown_08725AF0:  @ 0x08725AF0
 gUnknown_08725DAC:  @ 0x08725DAC
 	.incbin "baserom.gba", 0x725DAC, 0x20
 
-	.global gUnknown_08725DCC
-gUnknown_08725DCC:  @ 0x08725DCC
+	.global Img_ShineBg1
+Img_ShineBg1:  @ 0x08725DCC
 	.incbin "baserom.gba", 0x725DCC, 0x1228
 
-	.global gUnknown_08726FF4
-gUnknown_08726FF4:  @ 0x08726FF4
+	.global Pal_ShineBg_08726FF4
+Pal_ShineBg_08726FF4:  @ 0x08726FF4
 	.incbin "baserom.gba", 0x726FF4, 0xC0
 
-	.global gUnknown_087270B4
-gUnknown_087270B4:  @ 0x087270B4
+	.global Tsa_ShineBg1_Left
+Tsa_ShineBg1_Left:  @ 0x087270B4
 	.incbin "baserom.gba", 0x7270B4, 0x45C
 
-	.global gUnknown_08727510
-gUnknown_08727510:  @ 0x08727510
+	.global Tsa_ShineBg1_Right
+Tsa_ShineBg1_Right:  @ 0x08727510
 	.incbin "baserom.gba", 0x727510, 0x45C
 
-	.global gUnknown_0872796C
-gUnknown_0872796C:  @ 0x0872796C
+	.global Img_ShineBg2
+Img_ShineBg2:  @ 0x0872796C
 	.incbin "baserom.gba", 0x72796C, 0x2DC
 
-	.global gUnknown_08727C48
-gUnknown_08727C48:  @ 0x08727C48
+	.global Pal_ShineBg2
+Pal_ShineBg2:  @ 0x08727C48
 	.incbin "baserom.gba", 0x727C48, 0x20    @ 0x727C68 - 0x727C48
 
-	.global Tsa_08727C68
-Tsa_08727C68:  @ 0x08727C68
+	.global Tsa_ShineBg2_A
+Tsa_ShineBg2_A:  @ 0x08727C68
 	.incbin "baserom.gba", 0x727C68, 0xB0    @ 0x727D18 - 0x727C68
 
-	.global Tsa_08727D18
-Tsa_08727D18:  @ 0x08727D18
+	.global Tsa_ShineBg2_B
+Tsa_ShineBg2_B:  @ 0x08727D18
 	.incbin "baserom.gba", 0x727D18, 0x108    @ 0x727E20 - 0x727D18
 
-	.global Tsa_08727E20
-Tsa_08727E20:  @ 0x08727E20
+	.global Tsa_ShineBg2_C
+Tsa_ShineBg2_C:  @ 0x08727E20
 	.incbin "baserom.gba", 0x727E20, 0x13C    @ 0x727F5C - 0x727E20
 
-	.global Tsa_08727F5C
-Tsa_08727F5C:  @ 0x08727F5C
+	.global Tsa_ShineBg2_D
+Tsa_ShineBg2_D:  @ 0x08727F5C
 	.incbin "baserom.gba", 0x727F5C, 0x174    @ 0x7280D0 - 0x727F5C
 
-	.global Tsa_087280D0
-Tsa_087280D0:  @ 0x087280D0
+	.global Tsa_ShineBg2_E
+Tsa_ShineBg2_E:  @ 0x087280D0
 	.incbin "baserom.gba", 0x7280D0, 0x198    @ 0x728268 - 0x7280D0
 
-	.global Tsa_08728268
-Tsa_08728268:  @ 0x08728268
+	.global Tsa_ShineBg2_F
+Tsa_ShineBg2_F:  @ 0x08728268
 	.incbin "baserom.gba", 0x728268, 0x174    @ 0x7283DC - 0x728268
 
-	.global Tsa_087283DC
-Tsa_087283DC:  @ 0x087283DC
+	.global Tsa_ShineBg2_G
+Tsa_ShineBg2_G:  @ 0x087283DC
 	.incbin "baserom.gba", 0x7283DC, 0x10C    @ 0x7284E8 - 0x7283DC
 
-	.global Tsa_087284E8
-Tsa_087284E8:  @ 0x087284E8
+	.global Tsa_ShineBg2_H
+Tsa_ShineBg2_H:  @ 0x087284E8
 	.incbin "baserom.gba", 0x7284E8, 0xD4    @ 0x7285BC - 0x7284E8
 
-	.global Tsa_087285BC
-Tsa_087285BC:  @ 0x087285BC
+	.global Tsa_ShineBg2_I
+Tsa_ShineBg2_I:  @ 0x087285BC
 	.incbin "baserom.gba", 0x7285BC, 0xA0    @ 0x72865C - 0x7285BC
 
-	.global gUnknown_0872865C
-gUnknown_0872865C:  @ 0x0872865C
+	.global Img_ShineSprites
+Img_ShineSprites:  @ 0x0872865C
 	.incbin "baserom.gba", 0x72865C, 0x2C4
 
-	.global gUnknown_08728920
-gUnknown_08728920:  @ 0x08728920
+	.global Pal_ShineSprites
+Pal_ShineSprites:  @ 0x08728920
 	.incbin "baserom.gba", 0x728920, 0x2E4
 
 	.global gUnknown_08728C04
 gUnknown_08728C04:  @ 0x08728C04
 @ Replacing .incbin "baserom.gba", 0x728C04, 0x58
-    .4byte gUnknown_08728920 + 0x21
-    .4byte gUnknown_08728920 + 0x45
-    .4byte gUnknown_08728920 + 0x69
-    .4byte gUnknown_08728920 + 0x8d
-    .4byte gUnknown_08728920 + 0xb1
-    .4byte gUnknown_08728920 + 0xd5
-    .4byte gUnknown_08728920 + 0xf9
-    .4byte gUnknown_08728920 + 0x11d
-    .4byte gUnknown_08728920 + 0x141
-    .4byte gUnknown_08728920 + 0x165
-    .4byte gUnknown_08728920 + 0x189
-    .4byte gUnknown_08728920 + 0x1ad
-    .4byte gUnknown_08728920 + 0x1d1
-    .4byte gUnknown_08728920 + 0x1f5
-    .4byte gUnknown_08728920 + 0x219
-    .4byte gUnknown_08728920 + 0x23d
-    .4byte gUnknown_08728920 + 0x261
-    .4byte gUnknown_08728920 + 0x285
-    .4byte gUnknown_08728920 + 0x2a9
+    .4byte Pal_ShineSprites + 0x21
+    .4byte Pal_ShineSprites + 0x45
+    .4byte Pal_ShineSprites + 0x69
+    .4byte Pal_ShineSprites + 0x8d
+    .4byte Pal_ShineSprites + 0xb1
+    .4byte Pal_ShineSprites + 0xd5
+    .4byte Pal_ShineSprites + 0xf9
+    .4byte Pal_ShineSprites + 0x11d
+    .4byte Pal_ShineSprites + 0x141
+    .4byte Pal_ShineSprites + 0x165
+    .4byte Pal_ShineSprites + 0x189
+    .4byte Pal_ShineSprites + 0x1ad
+    .4byte Pal_ShineSprites + 0x1d1
+    .4byte Pal_ShineSprites + 0x1f5
+    .4byte Pal_ShineSprites + 0x219
+    .4byte Pal_ShineSprites + 0x23d
+    .4byte Pal_ShineSprites + 0x261
+    .4byte Pal_ShineSprites + 0x285
+    .4byte Pal_ShineSprites + 0x2a9
     .4byte 0x78728bef
     .4byte 0x84000013
     .4byte 0x81000000

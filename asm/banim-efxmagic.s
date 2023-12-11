@@ -2145,7 +2145,7 @@ sub_80649E4: @ 0x080649E4
 	strh r0, [r5, #0x2c]
 	movs r0, #0xc
 	strh r0, [r5, #0x2e]
-	ldr r0, _08064A30  @ gUnknown_08725DCC
+	ldr r0, _08064A30  @ Img_ShineBg1
 	movs r1, #0x80
 	lsls r1, r1, #6
 	bl SpellFx_RegisterBgGfx
@@ -2155,19 +2155,19 @@ sub_80649E4: @ 0x080649E4
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne _08064A40
-	ldr r0, _08064A38  @ gUnknown_087270B4
+	ldr r0, _08064A38  @ Tsa_ShineBg1_Left
 	ldr r1, _08064A3C  @ gEkrTsaBuffer
 	bl LZ77UnCompWram
 	b _08064A48
 	.align 2, 0
 _08064A28: .4byte gEfxBgSemaphore
 _08064A2C: .4byte gUnknown_085D73D8
-_08064A30: .4byte gUnknown_08725DCC
+_08064A30: .4byte Img_ShineBg1
 _08064A34: .4byte gEkrDistanceType
-_08064A38: .4byte gUnknown_087270B4
+_08064A38: .4byte Tsa_ShineBg1_Left
 _08064A3C: .4byte gEkrTsaBuffer
 _08064A40:
-	ldr r0, _08064A68  @ gUnknown_08727510
+	ldr r0, _08064A68  @ Tsa_ShineBg1_Right
 	ldr r1, _08064A6C  @ gEkrTsaBuffer
 	bl LZ77UnCompWram
 _08064A48:
@@ -2186,7 +2186,7 @@ _08064A48:
 	bl EfxTmCpyBgHFlip
 	b _08064A88
 	.align 2, 0
-_08064A68: .4byte gUnknown_08727510
+_08064A68: .4byte Tsa_ShineBg1_Right
 _08064A6C: .4byte gEkrTsaBuffer
 _08064A70: .4byte gBG1TilemapBuffer
 _08064A74:
@@ -3167,7 +3167,7 @@ sub_806521C: @ 0x0806521C
 	strh r0, [r5, #0x2c]
 	movs r0, #5
 	strh r0, [r5, #0x2e]
-	ldr r0, _08065268  @ gUnknown_08725DCC
+	ldr r0, _08065268  @ Img_ShineBg1
 	movs r1, #0x80
 	lsls r1, r1, #6
 	bl SpellFx_RegisterBgGfx
@@ -3177,19 +3177,19 @@ sub_806521C: @ 0x0806521C
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne _08065278
-	ldr r0, _08065270  @ gUnknown_087270B4
+	ldr r0, _08065270  @ Tsa_ShineBg1_Left
 	ldr r1, _08065274  @ gEkrTsaBuffer
 	bl LZ77UnCompWram
 	b _08065280
 	.align 2, 0
 _08065260: .4byte gEfxBgSemaphore
 _08065264: .4byte gUnknown_085D7530
-_08065268: .4byte gUnknown_08725DCC
+_08065268: .4byte Img_ShineBg1
 _0806526C: .4byte gEkrDistanceType
-_08065270: .4byte gUnknown_087270B4
+_08065270: .4byte Tsa_ShineBg1_Left
 _08065274: .4byte gEkrTsaBuffer
 _08065278:
-	ldr r0, _080652A0  @ gUnknown_08727510
+	ldr r0, _080652A0  @ Tsa_ShineBg1_Right
 	ldr r1, _080652A4  @ gEkrTsaBuffer
 	bl LZ77UnCompWram
 _08065280:
@@ -3208,7 +3208,7 @@ _08065280:
 	bl EfxTmCpyBgHFlip
 	b _080652C0
 	.align 2, 0
-_080652A0: .4byte gUnknown_08727510
+_080652A0: .4byte Tsa_ShineBg1_Right
 _080652A4: .4byte gEkrTsaBuffer
 _080652A8: .4byte gBG1TilemapBuffer
 _080652AC:
@@ -3307,7 +3307,7 @@ sub_806533C: @ 0x0806533C
 	str r0, [r1, #0x44]
 	ldr r0, _0806537C  @ gUnknown_080DE3DA
 	str r0, [r1, #0x48]
-	ldr r0, _08065380  @ gUnknown_08726FF4
+	ldr r0, _08065380  @ Pal_ShineBg_08726FF4
 	str r0, [r1, #0x4c]
 	adds r0, #0x60
 	movs r1, #0x20
@@ -3319,7 +3319,7 @@ sub_806533C: @ 0x0806533C
 _08065374: .4byte gEfxBgSemaphore
 _08065378: .4byte gUnknown_085D7550
 _0806537C: .4byte gUnknown_080DE3DA
-_08065380: .4byte gUnknown_08726FF4
+_08065380: .4byte Pal_ShineBg_08726FF4
 
 	THUMB_FUNC_END sub_806533C
 

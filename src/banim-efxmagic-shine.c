@@ -12,7 +12,7 @@
 struct ProcCmd CONST_DATA ProcScr_efxShine[] =
 {
     PROC_NAME("efxShine"),
-    PROC_REPEAT(sub_80634BC),
+    PROC_REPEAT(efxShine_Loop_Main),
     PROC_END,
 };
 
@@ -36,7 +36,7 @@ void StartSpellAnimShine(struct Anim * anim)
 }
 
 //! FE8U = 0x080634BC
-void sub_80634BC(struct ProcEfx * proc)
+void efxShine_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -54,22 +54,22 @@ void sub_80634BC(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 11)
     {
-        sub_806364C(anim);
+        StartSubSpell_efxShineBG2(anim);
         PlaySFX(0x2BC, 0x100, anim->xPosition, 1);
     }
     else if (proc->timer == duration + 23)
     {
         NewEfxFlashBgWhite(anim, 5);
-        sub_80637F8(anim);
+        StartSubSpell_efxShineOBJRND(anim);
     }
     else if (proc->timer == duration + 29)
     {
-        sub_8063590(anim);
-        sub_806376C(anim);
+        StartSubSpell_efxShineBG(anim);
+        StartSubSpell_efxShineBGCOL(anim);
     }
     else if (proc->timer == duration + 30)
     {
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
@@ -93,32 +93,32 @@ void sub_80634BC(struct ProcEfx * proc)
 struct ProcCmd CONST_DATA ProcScr_efxShineBG[] =
 {
     PROC_NAME("efxShineBG"),
-    PROC_REPEAT(sub_80635E8),
+    PROC_REPEAT(efxShineBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D6F24[] =
+u16 * CONST_DATA TsaArray_ShineBg_Left[] =
 {
-    gUnknown_087270B4,
+    Tsa_ShineBg1_Left,
 };
 
-u16 * CONST_DATA gUnknown_085D6F28[] =
+u16 * CONST_DATA TsaArray_ShineBg_Right[] =
 {
-    gUnknown_08727510,
+    Tsa_ShineBg1_Right,
 };
 
-u16 * CONST_DATA gUnknown_085D6F2C[] =
+u16 * CONST_DATA ImgArray_ShineBg[] =
 {
-    gUnknown_08725DCC,
+    Img_ShineBg1,
 };
 
 // clang-format on
 
 //! FE8U = 0x08063590
-void sub_8063590(struct Anim * anim)
+void StartSubSpell_efxShineBG(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE03C[] = {
+    static const u16 frames[] = {
          0, 12,
         -1,
     };
@@ -133,11 +133,11 @@ void sub_8063590(struct Anim * anim)
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE03C;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D6F24;
-    proc->tsar = gUnknown_085D6F28;
-    proc->img = gUnknown_085D6F2C;
+    proc->tsal = TsaArray_ShineBg_Left;
+    proc->tsar = TsaArray_ShineBg_Right;
+    proc->img = ImgArray_ShineBg;
 
     BG_SetPosition(BG_1, 0, 0);
     SpellFx_SetSomeColorEffect();
@@ -146,7 +146,7 @@ void sub_8063590(struct Anim * anim)
 }
 
 //! FE8U = 0x080635E8
-void sub_80635E8(struct ProcEfxBG * proc)
+void efxShineBG_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -177,30 +177,30 @@ void sub_80635E8(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxShineBG2[] =
 {
     PROC_NAME("efxShineBG2"),
-    PROC_REPEAT(sub_80636D8),
+    PROC_REPEAT(efxShineBG2_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D6F48[] =
+u16 * CONST_DATA TsaArray_ShineBg2[] =
 {
-    Tsa_08727C68,
-    Tsa_08727D18,
-    Tsa_08727E20,
-    Tsa_08727F5C,
-    Tsa_087280D0,
-    Tsa_08728268,
-    Tsa_087283DC,
-    Tsa_087284E8,
-    Tsa_087285BC,
+    Tsa_ShineBg2_A,
+    Tsa_ShineBg2_B,
+    Tsa_ShineBg2_C,
+    Tsa_ShineBg2_D,
+    Tsa_ShineBg2_E,
+    Tsa_ShineBg2_F,
+    Tsa_ShineBg2_G,
+    Tsa_ShineBg2_H,
+    Tsa_ShineBg2_I,
 };
 
 // clang-format on
 
 //! FE8U = 0x0806364C
-void sub_806364C(struct Anim * anim)
+void StartSubSpell_efxShineBG2(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE050[] =
+    static const u16 frames[] =
     {
          0, 1,
          1, 1,
@@ -223,13 +223,13 @@ void sub_806364C(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE050;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D6F48;
-    proc->tsar = gUnknown_085D6F48;
+    proc->tsal = TsaArray_ShineBg2;
+    proc->tsar = TsaArray_ShineBg2;
 
-    SpellFx_RegisterBgPal(gUnknown_08727C48, PLTT_SIZE_4BPP);
-    SpellFx_RegisterBgGfx(gUnknown_0872796C, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgPal(Pal_ShineBg2, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgGfx(Img_ShineBg2, 32 * 8 * CHR_SIZE);
 
     if (gEkrDistanceType != 0)
     {
@@ -249,7 +249,7 @@ void sub_806364C(struct Anim * anim)
 }
 
 //! FE8U = 0x080636D8
-void sub_80636D8(struct ProcEfxBG * proc)
+void efxShineBG2_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -292,17 +292,17 @@ struct ProcCmd CONST_DATA ProcScr_efxShineBGCOL[] =
 {
     PROC_NAME("efxShineBGCOL"),
     PROC_MARK(PROC_MARK_A),
-    PROC_REPEAT(sub_80637B0),
+    PROC_REPEAT(efxShineBGCOL_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0806376C
-void sub_806376C(struct Anim * anim)
+void StartSubSpell_efxShineBGCOL(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE086[] =
+    static const u16 frames[] =
     {
          0, 2,
          1, 2,
@@ -323,16 +323,16 @@ void sub_806376C(struct Anim * anim)
     proc->timer = 0;
     proc->timer2 = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE086;
+    proc->frame_config = frames;
 
-    proc->pal = gUnknown_08726FF4;
-    SpellFx_RegisterBgPal(gUnknown_08726FF4, PLTT_SIZE_4BPP);
+    proc->pal = Pal_ShineBg_08726FF4;
+    SpellFx_RegisterBgPal(Pal_ShineBg_08726FF4, PLTT_SIZE_4BPP);
 
     return;
 }
 
 //! FE8U = 0x080637B0
-void sub_80637B0(struct ProcEfxBGCOL * proc)
+void efxShineBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -358,14 +358,14 @@ void sub_80637B0(struct ProcEfxBGCOL * proc)
 struct ProcCmd CONST_DATA ProcScr_efxShineOBJRND[] =
 {
     PROC_NAME("efxShineOBJRND"),
-    PROC_REPEAT(sub_8063840),
+    PROC_REPEAT(efxShineOBJRND_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080637F8
-void sub_80637F8(struct Anim * anim)
+void StartSubSpell_efxShineOBJRND(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     gEfxBgSemaphore++;
@@ -376,15 +376,15 @@ void sub_80637F8(struct Anim * anim)
     proc->terminator = 2;
     proc->unk30 = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_08728920, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_0872865C, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_ShineSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_ShineSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 // clang-format off
 
-s16 CONST_DATA gUnknown_085D6FA4[] =
+s16 CONST_DATA gShineSpriteCoords[] =
 {
     - 4, -54,
     -40, -24,
@@ -395,7 +395,7 @@ s16 CONST_DATA gUnknown_085D6FA4[] =
 // clang-format on
 
 //! FE8U = 0x08063840
-void sub_8063840(struct ProcEfxOBJ * proc)
+void efxShineOBJRND_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -405,15 +405,15 @@ void sub_8063840(struct ProcEfxOBJ * proc)
         int y;
         if (GetAnimPosition(proc->anim) == 0)
         {
-            x = proc->anim->xPosition + gUnknown_085D6FA4[(s16)proc->unk30];
-            y = proc->anim->yPosition + gUnknown_085D6FA4[(s16)proc->unk30 + 1];
-            sub_80638F0(proc->anim, x, y);
+            x = proc->anim->xPosition + gShineSpriteCoords[(s16)proc->unk30];
+            y = proc->anim->yPosition + gShineSpriteCoords[(s16)proc->unk30 + 1];
+            StartSubSpell_efxShineOBJ(proc->anim, x, y);
         }
         else
         {
-            x = proc->anim->xPosition - gUnknown_085D6FA4[(s16)proc->unk30];
-            y = proc->anim->yPosition + gUnknown_085D6FA4[(s16)proc->unk30 + 1];
-            sub_80638F0(proc->anim, x, y);
+            x = proc->anim->xPosition - gShineSpriteCoords[(s16)proc->unk30];
+            y = proc->anim->yPosition + gShineSpriteCoords[(s16)proc->unk30 + 1];
+            StartSubSpell_efxShineOBJ(proc->anim, x, y);
         }
 
         proc->timer = 0;
@@ -435,14 +435,14 @@ void sub_8063840(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxShineOBJ[] =
 {
     PROC_NAME("efxShineOBJ"),
-    PROC_REPEAT(sub_8063948),
+    PROC_REPEAT(efxShineOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080638F0
-void sub_80638F0(struct Anim * anim, int x, int y)
+void StartSubSpell_efxShineOBJ(struct Anim * anim, int x, int y)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -452,7 +452,7 @@ void sub_80638F0(struct Anim * anim, int x, int y)
     proc = Proc_Start(ProcScr_efxShineOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->terminator = 0x46;
+    proc->terminator = 70;
 
     frontAnim = EfxCreateFrontAnim(anim, gUnknown_08728C04, gUnknown_08728C04, gUnknown_08728C04, gUnknown_08728C04);
     proc->anim2 = frontAnim;
@@ -463,7 +463,7 @@ void sub_80638F0(struct Anim * anim, int x, int y)
 }
 
 //! FE8U = 0x08063948
-void sub_8063948(struct ProcEfxOBJ * proc)
+void efxShineOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
