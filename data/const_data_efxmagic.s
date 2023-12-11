@@ -1,22 +1,9 @@
     .section .rodata
 
-	.asciz "efxShine"
+	.asciz "efxLuna"
 	.align 2, 0
 
-	.asciz "efxShineBG"
-	.byte 0
-
-	.global gUnknown_080DE03C
-gUnknown_080DE03C:  @ 0x080DE03C
-	.incbin "baserom.gba", 0xDE03C, 0x14
-
-	.global gUnknown_080DE050
-gUnknown_080DE050:  @ 0x080DE050
-	.incbin "baserom.gba", 0xDE050, 0x36
-
-	.global gUnknown_080DE086
-gUnknown_080DE086:  @ 0x080DE086
-	.incbin "baserom.gba", 0xDE086, 0x48
+	.asciz "efxLunaBG"
 
 	.global gUnknown_080DE0CE
 gUnknown_080DE0CE:  @ 0x080DE0CE

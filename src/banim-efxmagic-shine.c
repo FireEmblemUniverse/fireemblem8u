@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd ProcScr_efxShine[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxShine[] =
+{
+    PROC_NAME("efxShine"),
+    PROC_REPEAT(sub_80634BC),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063480
 void StartSpellAnimShine(struct Anim * anim)
@@ -43,22 +52,22 @@ void sub_80634BC(struct ProcEfx * proc)
     {
         NewEfxFlashBgWhite(anim, 10);
     }
-    else if (proc->timer == duration + 0xb)
+    else if (proc->timer == duration + 11)
     {
         sub_806364C(anim);
-        PlaySFX(700, 0x100, anim->xPosition, 1);
+        PlaySFX(0x2BC, 0x100, anim->xPosition, 1);
     }
-    else if (proc->timer == duration + 0x17)
+    else if (proc->timer == duration + 23)
     {
         NewEfxFlashBgWhite(anim, 5);
         sub_80637F8(anim);
     }
-    else if (proc->timer == duration + 0x1d)
+    else if (proc->timer == duration + 29)
     {
         sub_8063590(anim);
         sub_806376C(anim);
     }
-    else if (proc->timer == duration + 0x1e)
+    else if (proc->timer == duration + 30)
     {
         anim->state3 |= 9;
 
@@ -69,7 +78,7 @@ void sub_80634BC(struct ProcEfx * proc)
             EfxPlayHittedSFX(anim);
         }
     }
-    else if (proc->timer == duration + 0x23)
+    else if (proc->timer == duration + 35)
     {
         SpellFx_Finish();
         RegisterEfxSpellCastEnd();
@@ -79,17 +88,42 @@ void sub_80634BC(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxShineBG[];
+// clang-format off
 
-extern u16 * gUnknown_085D6F24[];
-extern u16 * gUnknown_085D6F28[];
-extern u16 * gUnknown_085D6F2C[];
+struct ProcCmd CONST_DATA ProcScr_efxShineBG[] =
+{
+    PROC_NAME("efxShineBG"),
+    PROC_REPEAT(sub_80635E8),
+    PROC_END,
+};
 
-extern u16 gUnknown_080DE03C[];
+u16 * CONST_DATA gUnknown_085D6F24[] =
+{
+    gUnknown_087270B4,
+};
+
+u16 * CONST_DATA gUnknown_085D6F28[] =
+{
+    gUnknown_08727510,
+};
+
+u16 * CONST_DATA gUnknown_085D6F2C[] =
+{
+    gUnknown_08725DCC,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063590
 void sub_8063590(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE03C[] = {
+         0, 12,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -121,7 +155,7 @@ void sub_80635E8(struct ProcEfxBG * proc)
         u16 ** tsaL = proc->tsal;
         u16 ** tsaR = proc->tsar;
         u16 ** img = proc->img;
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
     }
     else
@@ -138,18 +172,49 @@ void sub_80635E8(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxShineBG2[];
+// clang-format off
 
-extern u16 * gUnknown_085D6F48[];
+struct ProcCmd CONST_DATA ProcScr_efxShineBG2[] =
+{
+    PROC_NAME("efxShineBG2"),
+    PROC_REPEAT(sub_80636D8),
+    PROC_END,
+};
 
-extern u16 gUnknown_0872796C[];
-extern u16 gUnknown_08727C48[];
+u16 * CONST_DATA gUnknown_085D6F48[] =
+{
+    Tsa_08727C68,
+    Tsa_08727D18,
+    Tsa_08727E20,
+    Tsa_08727F5C,
+    Tsa_087280D0,
+    Tsa_08728268,
+    Tsa_087283DC,
+    Tsa_087284E8,
+    Tsa_087285BC,
+};
 
-extern u16 gUnknown_080DE050[];
+// clang-format on
 
 //! FE8U = 0x0806364C
 void sub_806364C(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE050[] =
+    {
+         0, 1,
+         1, 1,
+         2, 1,
+         3, 1,
+         4, 1,
+         5, 1,
+         6, 1,
+         7, 1,
+         8, 1,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -163,18 +228,18 @@ void sub_806364C(struct Anim * anim)
     proc->tsal = gUnknown_085D6F48;
     proc->tsar = gUnknown_085D6F48;
 
-    SpellFx_RegisterBgPal(gUnknown_08727C48, 0x20);
-    SpellFx_RegisterBgGfx(gUnknown_0872796C, 0x2000);
+    SpellFx_RegisterBgPal(gUnknown_08727C48, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgGfx(gUnknown_0872796C, 32 * 8 * CHR_SIZE);
 
     if (gEkrDistanceType != 0)
     {
         if (GetAnimPosition(proc->anim) == 0)
         {
-            BG_SetPosition(BG_1, 0x18, 0);
+            BG_SetPosition(BG_1, 24, 0);
         }
         else
         {
-            BG_SetPosition(BG_1, 0xe8, 0);
+            BG_SetPosition(BG_1, 232, 0);
         }
     }
 
@@ -199,11 +264,11 @@ void sub_80636D8(struct ProcEfxBG * proc)
         {
             if (GetAnimPosition(proc->anim) == 0)
             {
-                FillBGRect(gBG1TilemapBuffer, 3, 0x14, 0, 0);
+                FillBGRect(gBG1TilemapBuffer, 3, 20, 0, 0);
             }
             else
             {
-                FillBGRect(gBG1TilemapBuffer + 0x1d, 3, 0x14, 0, 0);
+                FillBGRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 29, 0), 3, 20, 0, 0);
             }
         }
     }
@@ -221,15 +286,34 @@ void sub_80636D8(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxShineBGCOL[];
+// clang-format off
 
-extern u16 gUnknown_08726FF4[];
+struct ProcCmd CONST_DATA ProcScr_efxShineBGCOL[] =
+{
+    PROC_NAME("efxShineBGCOL"),
+    PROC_MARK(PROC_MARK_A),
+    PROC_REPEAT(sub_80637B0),
+    PROC_END,
+};
 
-extern u16 gUnknown_080DE086[];
+// clang-format on
 
 //! FE8U = 0x0806376C
 void sub_806376C(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE086[] =
+    {
+         0, 2,
+         1, 2,
+         2, 2,
+         3, 2,
+         4, 2,
+         5, 2,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBGCOL * proc;
 
     gEfxBgSemaphore++;
@@ -242,7 +326,7 @@ void sub_806376C(struct Anim * anim)
     proc->frame_config = gUnknown_080DE086;
 
     proc->pal = gUnknown_08726FF4;
-    SpellFx_RegisterBgPal(gUnknown_08726FF4, 0x20);
+    SpellFx_RegisterBgPal(gUnknown_08726FF4, PLTT_SIZE_4BPP);
 
     return;
 }
@@ -255,7 +339,7 @@ void sub_80637B0(struct ProcEfxBGCOL * proc)
     if (ret >= 0)
     {
         u16 * pal = proc->pal;
-        SpellFx_RegisterBgPal(pal + ret * 0x10, 0x20);
+        SpellFx_RegisterBgPal(pal + ret * 0x10, PLTT_SIZE_4BPP);
     }
     else
     {
@@ -269,10 +353,16 @@ void sub_80637B0(struct ProcEfxBGCOL * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxShineOBJRND[];
+// clang-format off
 
-extern u16 gUnknown_08728920[];
-extern u16 gUnknown_0872865C[];
+struct ProcCmd CONST_DATA ProcScr_efxShineOBJRND[] =
+{
+    PROC_NAME("efxShineOBJRND"),
+    PROC_REPEAT(sub_8063840),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080637F8
 void sub_80637F8(struct Anim * anim)
@@ -286,13 +376,23 @@ void sub_80637F8(struct Anim * anim)
     proc->terminator = 2;
     proc->unk30 = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_08728920, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_0872865C, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_08728920, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_0872865C, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
-extern s16 gUnknown_085D6FA4[];
+// clang-format off
+
+s16 CONST_DATA gUnknown_085D6FA4[] =
+{
+    - 4, -54,
+    -40, -24,
+    + 4, + 4,
+    +20, -20,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063840
 void sub_8063840(struct ProcEfxOBJ * proc)
@@ -330,8 +430,16 @@ void sub_8063840(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxShineOBJ[];
-extern u32 gUnknown_08728C04[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxShineOBJ[] =
+{
+    PROC_NAME("efxShineOBJ"),
+    PROC_REPEAT(sub_8063948),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080638F0
 void sub_80638F0(struct Anim * anim, int x, int y)
