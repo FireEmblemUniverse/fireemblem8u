@@ -465,6 +465,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-eclipse.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-fenrir.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-healstaves.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-effectstaves.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
@@ -672,6 +673,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-eclipse.o(.data);
         . = ALIGN(4); src/banim-efxmagic-fenrir.o(.data);
         . = ALIGN(4); src/banim-efxmagic-healstaves.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-effectstaves.o(.data);
         . = ALIGN(4); data/banim-efxmagic.o(.data);
         . = ALIGN(4); data/banim-efxmagic-ivaldi.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);
