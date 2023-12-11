@@ -1266,41 +1266,41 @@ int GetChapterFlagBitsSize(void) {
 }
 
 //! FE8U = 0x08083DD8
-void sub_8083DD8(int a, u8 b) {
+void EnqueueTutEvent(uintptr_t ptr, u8 event_enqueue_type)
+{
     u16 i = 0;
-    u32* tutorialEvents = GetChapterEventDataPointer(gPlaySt.chapterIndex)->tutorialEvents;
+    u32 * tutorialEvents = GetChapterEventDataPointer(gPlaySt.chapterIndex)->tutorialEvents;
 
-    for (; tutorialEvents[i] != 0; i++) {
-        if (tutorialEvents[i] == a) {
-            gPlaySt.unk4B = i + 1;
-            gPlaySt.unk4A_5 = b;
-            return;
+    for (; tutorialEvents[i] != 0; i++)
+    {
+        if (tutorialEvents[i] == ptr)
+        {
+            gPlaySt.tutorial_counter = i + 1;
+            gPlaySt.tutorial_exec_type = event_enqueue_type;
+            break;
         }
     }
-
-    return;
 }
 
-//! FE8U = 0x08083E34
-s8 CheckTutorialEvent(u8 type) {
-    if ((gPlaySt.unk4B != 0) && (gPlaySt.unk4A_5 == type)) {
-        return 1;
-    }
+bool CheckTutorialEvent(u8 type)
+{
+    if ((gPlaySt.tutorial_counter != 0) && (gPlaySt.tutorial_exec_type == type))
+        return true;
 
-    return 0;
+    return false;
 }
 
-//! FE8U = 0x08083E64
-s8 RunTutorialEvent(u8 type) {
-    if ((gPlaySt.unk4B != 0) && (gPlaySt.unk4A_5 == type)) {
-        int unk = gPlaySt.unk4B;
-        CallEvent(((u16**)(GetChapterEventDataPointer(gPlaySt.chapterIndex)->tutorialEvents))[unk - 1], 1);
-        gPlaySt.unk4B = 0;
-        gPlaySt.unk4A_5 = 0;
-        return 1;
+bool RunTutorialEvent(u8 type)
+{
+    int counter;
+    if ((gPlaySt.tutorial_counter != 0) && (gPlaySt.tutorial_exec_type == type)) {
+        counter = gPlaySt.tutorial_counter;
+        CallEvent(((u16**)(GetChapterEventDataPointer(gPlaySt.chapterIndex)->tutorialEvents))[counter - 1], 1);
+        gPlaySt.tutorial_counter = 0;
+        gPlaySt.tutorial_exec_type = 0;
+        return true;
     }
-
-    return 0;
+    return false;
 }
 
 //! FE8U = 0x08083EB8

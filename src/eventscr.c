@@ -323,29 +323,27 @@ u8 Event0A_Call(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800DA2C
-u8 Event0B_(struct EventEngineProc * proc)
+u8 Event0B_EnqueueCall(struct EventEngineProc * proc)
 {
     int sub_cmd = EVT_SUB_CMD(proc->pEventCurrent);
-    u16 arg = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-    int ptr = EVT_CMD_ARG32_LE(proc->pEventCurrent);
+    u16 exec_type = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    uintptr_t ptr = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    if (ptr < 0)
+    if ((int)ptr < 0)
         ptr = gEventSlots[0x02];
 
     if (ptr != 0)
     {
-        switch (sub_cmd)
-        {
-            case 0:
-                CallEvent((const u16 *)ptr, proc->execType);
-                break;
+        switch (sub_cmd) {
+        case 0:
+            CallEvent((const u16 *)ptr, proc->execType);
+            break;
 
-            case 1:
-                sub_8083DD8(ptr, arg);
-                break;
+        case 1:
+            EnqueueTutEvent(ptr, exec_type);
+            break;
         }
     }
-
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -2134,7 +2132,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
     case EVSUBCMD_MNCH:
         SetNextChapterId(chIndex);
 
-        gPlaySt.unk4A_2 = 1;
+        gPlaySt.save_menu_type = 1;
 
         SetNextGameActionId(GAME_ACTION_CLASS_REEL);
         proc->evStateBits |= EV_STATE_CHANGEGM;
@@ -2144,7 +2142,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
     case EVSUBCMD_MNC2:
         SetNextChapterId(chIndex);
 
-        gPlaySt.unk4A_2 = 2;
+        gPlaySt.save_menu_type = 2;
 
         SetNextGameActionId(GAME_ACTION_USR_SKIPPED);
         proc->evStateBits |= EV_STATE_CHANGEGM;
@@ -2156,7 +2154,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_MNC4:
-        gPlaySt.unk4A_2 = 3;
+        gPlaySt.save_menu_type = 3;
         SetNextGameActionId(GAME_ACTION_PLAYED_THROUGH);
         proc->evStateBits |= EV_STATE_CHANGEGM;
         break;
@@ -3384,7 +3382,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
     case EVSUBCMD_CLEE:
         break;
 
-    case EVSUBCMD_SET_SOMETHING:
+    case EVSUBCMD_KILL:
     case EVSUBCMD_DISA_IF:
     case EVSUBCMD_DISA:
         if (!unit)
@@ -3495,7 +3493,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         }
         break;
 
-    case EVSUBCMD_SET_SOMETHING:
+    case EVSUBCMD_KILL:
         if (!EVENT_IS_SKIPPING(proc))
         {
             struct MUProc * muProc;
@@ -3885,26 +3883,38 @@ u8 Event3C_(struct EventEngineProc * proc)
 int Get8(void);
 
 //! FE8U = 0x080108AC
-u8 Event3D_(struct EventEngineProc * proc)
+u8 Event3D_MenuOverride(struct EventEngineProc * proc)
 {
     u8 i;
     u16 bit;
 
-    // clang-format off
-
-    u8 gUnknown_080D793F[15] =
+    u8 UnitMenuOverrideConf[15] =
     {
-        0x4F, 0x51, 0x6B, 0x63, 0x64,
-        0x5C, 0x5A, 0x67, 0x37, 0x68,
-        0x69, 0x5B, 0x5F, 0x71, 0x78,
+        0x4F, /* 攻撃 */
+        0x51, /* 杖 */
+        0x6B, /* 待機 */
+        0x63, /* 救出 */
+        0x64, /* 降ろす */
+        0x5C, /* 訪問 */
+        0x5A, /* 話す */
+        0x67, /* 持ち物 */
+        0x37, /* 捨てる */
+        0x68, /* 交換 */
+        0x69, /* 輸送隊 */
+        0x5B, /* 支援 */
+        0x5F, /* 武器屋 */
+        0x71, /* 設定 */
+        0x78, /* 終了 */
     };
 
-    u8 gUnknown_080D794E[5] =
+    u8 ItemMenuOverrideConf[5] =
     {
-        0x49, 0x4A, 0x4B, 0x4C, 0x4D,
+        0x49, /* unit->items[0] */
+        0x4A, /* unit->items[1] */
+        0x4B, /* unit->items[2] */
+        0x4C, /* unit->items[3] */
+        0x4D, /* unit->items[4] */
     };
-
-    // clang-format on
 
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
     u16 flags = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -3913,39 +3923,32 @@ u8 Event3D_(struct EventEngineProc * proc)
 
     bit = 1;
 
-    switch (subcmd)
-    {
-        case 0:
-            for (i = 0; i < ARRAY_COUNT(gUnknown_080D793F); i++)
+    switch (subcmd) {
+    case EVSUBCMD_DISABLEOPTIONS:
+        for (i = 0; i < ARRAY_COUNT(UnitMenuOverrideConf); i++)
+        {
+            if (flags & bit)
+                AddMenuOverride(UnitMenuOverrideConf[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysNotShown);
+
+            bit <<= 1;
+        }
+        break;
+
+    case EVSUBCMD_DISABLEWEAPONS:
+        for (i = 0; i < ARRAY_COUNT(ItemMenuOverrideConf); i++)
+        {
+            if (flags & bit)
             {
-                if (flags & bit)
-                {
-                    AddMenuOverride(gUnknown_080D793F[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysNotShown);
-                }
-
-                bit <<= 1;
+                AddMenuOverride(ItemMenuOverrideConf[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysDisabled);
+                AddMenuOverride(ItemMenuOverrideConf[i], MENU_OVERRIDE_ONSELECT, Get8);
             }
+            bit <<= 1;
+        }
+        break;
 
-            break;
-
-        case 1:
-            for (i = 0; i < ARRAY_COUNT(gUnknown_080D794E); i++)
-            {
-                if (flags & bit)
-                {
-                    AddMenuOverride(gUnknown_080D794E[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysDisabled);
-                    AddMenuOverride(gUnknown_080D794E[i], MENU_OVERRIDE_ONSELECT, Get8);
-                }
-
-                bit <<= 1;
-            }
-
-            break;
-
-        case 2:
-            break;
+    case 2:
+        break;
     }
-
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -3960,34 +3963,27 @@ u8 Event3E_PrepScreenCall(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0801098C
-struct BattleHit * sub_801098C(void)
+struct BattleHit * GenerateScriptBattleHitFormEventQueue(void)
 {
     u8 i;
-
     u32 * queueIt = gEventSlotQueue;
     struct BattleHit * bhIt = gActionData.script_hits;
 
     for (i = 0; i < gEventSlots[0xd] && ((u8 *)(queueIt))[0] != 0xff; bhIt++, queueIt++, i++)
     {
         bhIt->attributes = ((u16 *)(queueIt))[1];
-
         bhIt->info = 0;
 
         if (i == 0)
-        {
             bhIt->info |= BATTLE_HIT_INFO_BEGIN;
-        }
 
         if (((u8 *)(queueIt))[0] == 1)
-        {
             bhIt->info |= BATTLE_HIT_INFO_RETALIATION;
-        }
 
         bhIt->hpChange = ((u8 *)(queueIt))[1];
     }
 
     bhIt->info = BATTLE_HIT_INFO_END;
-
     return gActionData.script_hits;
 }
 
@@ -4026,34 +4022,24 @@ u8 Event3F_ScriptBattle(struct EventEngineProc * proc)
     u8 isBallista = EVT_CMD_ARGV(proc->pEventCurrent)[2] >> 8;
 
     if (gEventSlots[0xd] == 0)
-    {
         hits = NULL;
-    }
     else
-    {
-        hits = sub_801098C();
-    }
+        hits = GenerateScriptBattleHitFormEventQueue();
 
     switch (subcmd) {
     case EVSUBCMD_FIGHT:
     case EVSUBCMD_FIGHT_MAP:
         if (charIdA < 0)
-        {
             charIdA = -2;
-        }
 
         if (charIdB < 0)
-        {
             charIdB = -2;
-        }
 
         unitA = GetUnitStructFromEventParameter(charIdA);
         unitB = GetUnitStructFromEventParameter(charIdB);
 
         if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
-        {
             scriptted = 0;
-        }
         else
         {
             scriptted = 1;

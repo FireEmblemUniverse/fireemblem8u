@@ -278,7 +278,7 @@ void sub_80A8AF0(void) {
                 gPlaySt.chapterIndex = 0x38;
             } else {
                 if (chapterId != 0x01 && chapterId != 0x0A && chapterId != 0x17) {
-                    if (gPlaySt.unk4A_2 != 2) {
+                    if (gPlaySt.save_menu_type != 2) {
                         if (!(gBmSt.gameStateBits & 0x10)) {
                             gPlaySt.chapterIndex = sub_80BD224(&gGMData);
                         }

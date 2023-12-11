@@ -28,6 +28,7 @@
 #define STAL1 EvtSleepWithCancel
 #define STAL2 EvtSleepWithGameCtrl
 #define STAL3 EvtSleepWithCancelGameCtrl
+#define IGNORE_KEYS EvtSetKeyIgnore
 #define MUSC EvtStartBgm
 #define MUSCFAST EvtBgmFadeInFast
 #define MUSCMID EvtBgmFadeInMiddleSpeed
@@ -50,6 +51,7 @@
 #define CHECK_EVENTID EvtGetTriggeredEid
 #define CHECK_POSTGAME EvtGetIsGameCompleted
 #define TEXTSTART EvtTextStart
+#define TUTORIALTEXTBOXSTART EvtTextTuorialStart
 #define TEXTSHOW EvtTextShow
 #define REMA EvtTextRemoveAll
 #define TEXTEND EvtTextEnd
@@ -68,10 +70,14 @@
 #define MOVEFORCED EvtMoveUnitByQueue
 #define _WARP EvtMoveUnitToValidTerrain /* This is an error on EA stdlib */
 #define ENUN EvtWaitUnitMoving
-#define SET_HP EvtSetHpFormSlot1
+#define SET_HP EvtSetUnitHpFormSlot1
+#define SET_ENDTURN EvtSetUnitUnselectable
+#define _3427 EvtSetUnitHasMoved
 #define CLEA EvtHideAllAlliess
 #define CLEN EvtRemoveAllNpcs
 #define CLEE EvtRemoveAllEimies
+#define KILL EvtKillUnit
+#define DISA_IF EvtWaitUnitDeathFade
 #define DISA EvtRemoveUnit
 #define GIVEITEMTO EvtGiveItemAtSlot3
 #define GIVEITEMTOMAIN EvtGiveMoneymAtSlot3         /* what */
@@ -82,9 +88,11 @@
 #define CURSOR_CHAR EvtDisplayCursorAtUnit
 #define CURSOR_FLASHING_CHAR EvtDisplayFlashingCursorAtUnit
 #define CURE EvtEndCursor
+#define DISABLEOPTIONS EvtOverrideUnitMenu
+#define DISABLEWEAPONS EvtOverrideWeaponMenu
 #define FIGHT EvtStartEventBattle
 #define FIGHT_MAP EvtStartEventMapBattle
-#define FIGHT_SCRIPT EvtStartScriptedBattle
+#define FIGHT_SCRIPT EvtSetScriptedBattle
 
 #define CUMO_CHAR CURSOR_CHAR
 
@@ -134,3 +142,43 @@
 #define SLOTS_SETFROMQUEUE SDEQUEUE
 #define SAVETOQUEUE SENQUEUE1
 #define STQFROMSLOT SENQUEUE1
+
+
+/*************************************************************
+ * None EA stdlib but Mokha macros
+ * Note that this part of macros is not usable in EventAssembler
+ *************************************************************/
+
+#define TutEventExecType0(pid, rect, text1, pos1, text2, pos2, scr_next, scr_this) \
+    SVAL(EVT_SLOT_D, 0) \
+    SVAL(EVT_SLOT_1, (pid)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (rect)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (text1)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (pos1)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (text2)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (pos2)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (scr_next)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (scr_this)) \
+    SAVETOQUEUE \
+    CALL(EventScr_Prologue_Tutorial0_Exec)
+
+#define TutEventExecType1(rect, text, pos, scr_next, scr_this) \
+    SVAL(EVT_SLOT_D, 0) \
+    SVAL(EVT_SLOT_1, (rect)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (text)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (pos)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (scr_next)) \
+    SAVETOQUEUE \
+    SVAL(EVT_SLOT_1, (scr_this)) \
+    SAVETOQUEUE \
+    CALL(EventScr_Prologue_Tutorial1_Exec)

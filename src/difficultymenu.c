@@ -46,7 +46,7 @@ void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
             ReadGameSavePlaySt(slot, &playSt);
 
             r2 = playSt.chapterIndex;
-            if (!(playSt.chapterStateBits & PLAY_FLAG_COMPLETE) && (playSt.unk4A_2 == 4))
+            if (!(playSt.chapterStateBits & PLAY_FLAG_COMPLETE) && (playSt.save_menu_type == 4))
             {
                 LoadSavedWMStuff(slot, &worldMapData);
                 r2 = sub_80BD224(&worldMapData);

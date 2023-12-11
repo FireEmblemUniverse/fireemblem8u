@@ -1009,8 +1009,8 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 
     gPlaySt.unk48 = 0;
     gPlaySt.unk4A_1 = 0;
-    gPlaySt.unk4B = 0;
-    gPlaySt.unk4A_5 = 0;
+    gPlaySt.tutorial_counter = 0;
+    gPlaySt.tutorial_exec_type = 0;
 
     for (i = 1; i < 0x40; ++i) {
         struct Unit* unit = GetUnit(i);

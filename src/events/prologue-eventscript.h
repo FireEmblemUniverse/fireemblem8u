@@ -11,7 +11,7 @@
 
 CONST_DATA EventListScr EventScr_Prologue_BeginingScene[] = {
     CALL(EventScr_Prologue_RenaisThroneCutscene)
-    SVAL(EVT_SLOT_2, EventScr_Prologue_9EF1BC)
+    SVAL(EVT_SLOT_2, EventScr_Prologue_EirikaAttacked)
     CALL(EventScr_RunTutIfEasyMode)
     CHECK_TUTORIAL
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -31,8 +31,10 @@ LABEL(0x0)
     ENUN
     FlashCursor(CHARACTER_SETH, 60)
     Text(0x90E)
-    SVAL(EVT_SLOT_2, EventScr_Prologue_9EF27C)
+    SVAL(EVT_SLOT_2, EventScr_Prologue_ExecTut) /* This scr ends at ENDB! */
     CALL(EventScr_RunTutIfEasyMode)
+
+    /* Not exec if tutorial */
     _WARP(0x0, CHARACTER_EIRIKA, 4, 5)
     ENUN
     CALL(EventScr_Prologue_GiveRapier)
@@ -274,7 +276,6 @@ CONST_DATA EventListScr EventScr_Prologue_EndingScene[] = {
     FADI(16)
     REMA
 
-    /* tons of permanent event IDs */
     ENUT(0xE0)
     ENUT(0xE1)
     ENUT(0xB7)
@@ -288,5 +289,52 @@ CONST_DATA EventListScr EventScr_Prologue_EndingScene[] = {
     ENUT(0xC9)
 
     MNC2(0x1)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_EirikaAttacked[] = {
+    DISABLEOPTIONS(EVENT_MENUOVERRIDE_OPTIONS | EVENT_MENUOVERRIDE_END)
+    ENUT(0x66) /* Disable objective window */
+    ENUT(0xE0) /* Guide:Suspend */
+    ENUT(0xE1) /* Guide:Save */
+    ENUT(EVFLAG_BGM_CHANGE)
+
+    StartBattle
+    MissedAttack(0, 0)
+    NormalDamage(1, 0)
+    NormalDamage(1, 0)
+    EndAttack
+    FIGHT_SCRIPT
+
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_Turn1[] = {
+    SVAL(EVT_SLOT_2, EventScr_Prologue_ONeillSpawn)
+    CALL(EventScr_RunTutIfEasyMode)
+
+    SVAL(EVT_SLOT_2, EventScr_Prologue_TutMessageTurn1)
+    CALL(EventScr_RunTutIfEasyMode)
+
+    NoFade
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_Turn2[] = {
+    SVAL(EVT_SLOT_2, EventScr_Prologue_TutMessageTurn2)
+    CALL(EventScr_RunTutIfEasyMode)
+
+    NoFade
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Prologue_Turn3[] = {
+    SVAL(EVT_SLOT_2, EventScr_Prologue_OneillSethBattle)
+    CALL(EventScr_RunTutIfEasyMode)
+
+    SVAL(EVT_SLOT_2, EventScr_Prologue_TutEirikaAttack)
+    CALL(EventScr_RunTutIfEasyMode)
+
+    NoFade
     ENDA
 };

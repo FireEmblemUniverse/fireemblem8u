@@ -1791,7 +1791,7 @@ void sub_80B9FD4(ProcPtr unused)
     }
 
     gPlaySt.chapterIndex = WMLoc_GetChapterId(mapLocation);
-    gPlaySt.unk4A_2 = 1;
+    gPlaySt.save_menu_type = 1;
 
     return;
 }

@@ -969,10 +969,10 @@ void sub_8034090(ProcPtr proc) {
 }
 
 void StartPrepSaveScreen(ProcPtr proc) {
-    gPlaySt.unk4A_2 = 2;
+    gPlaySt.save_menu_type = 2;
 
     if (!(PLAY_FLAG_COMPLETE & gPlaySt.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {
-        gPlaySt.unk4A_2 = 4;
+        gPlaySt.save_menu_type = 4;
     }
 
     StartBgmVolumeChange(0x100, 0x80, 0x20, 0);
@@ -984,7 +984,7 @@ void StartPrepSaveScreen(ProcPtr proc) {
 
 void sub_8034168() {
     StartBgmVolumeChange(0x80, 0x100, 0x20, 0);
-    gPlaySt.unk4A_2 = 2;
+    gPlaySt.save_menu_type = 2;
     return;
 }
 

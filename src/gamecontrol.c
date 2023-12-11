@@ -559,7 +559,7 @@ void GameControl_PostChapterSwitch(struct GameCtrlProc* proc) {
 }
 
 void sub_8009D1C(struct GameCtrlProc* proc) {
-    if ((gPlaySt.unk4A_2 == 2) || (gPlaySt.unk4A_2 == 4)) {
+    if ((gPlaySt.save_menu_type == 2) || (gPlaySt.save_menu_type == 4)) {
         Proc_Goto(proc, 6);
     }
 

@@ -1006,60 +1006,48 @@ void ClearActiveUnit(struct Unit * unit) {
     return;
 }
 
-void sub_801D7E8() {
+void PlayPhaseForcePressAButtonInRangeDisp(void)
+{
     ProcPtr playerPhaseProc;
 
     playerPhaseProc = Proc_Find(gProcScr_PlayerPhase);
-    if (!playerPhaseProc) {
+    if (!playerPhaseProc)
         return;
-    }
-    
-    if (((struct Proc*)(playerPhaseProc))->proc_idleCb == PlayerPhase_RangeDisplayIdle) {
-        Proc_SetRepeatCb(playerPhaseProc, PlayerPhase_RangeDisplayIdle_ForceAPress);
-    }
 
-    return;
+    if (((struct Proc*)(playerPhaseProc))->proc_idleCb == PlayerPhase_RangeDisplayIdle)
+        Proc_SetRepeatCb(playerPhaseProc, PlayerPhase_RangeDisplayIdle_ForceAPress);
 }
 
-void PlayerPhase_RangeDisplayIdle_ForceAPress(ProcPtr proc) {
-
+void PlayerPhase_RangeDisplayIdle_ForceAPress(ProcPtr proc)
+{
     gKeyStatusPtr->newKeys = A_BUTTON;
     gKeyStatusPtr->repeatedKeys = 0;
 
     PlayerPhase_RangeDisplayIdle(proc);
-
-    return;
 }
 
-void sub_801D834() {
-
-    if (!(UNIT_CATTRIBUTES(gActiveUnit) & CA_CANTO)) {
+void PlayPhaseForceActiveUnitCanto(void)
+{
+    if (!(UNIT_CATTRIBUTES(gActiveUnit) & CA_CANTO))
         return;
-    }
 
-    if (gActiveUnit->state & (US_DEAD | US_HAS_MOVED | US_BIT16)) {
+    if (gActiveUnit->state & (US_DEAD | US_HAS_MOVED | US_BIT16))
         return;
-    }
 
-    if ((gActionData.unitActionType == UNIT_ACTION_COMBAT) || (gActionData.unitActionType == UNIT_ACTION_STAFF)) {
+    if ((gActionData.unitActionType == UNIT_ACTION_COMBAT) || (gActionData.unitActionType == UNIT_ACTION_STAFF))
         return;
-    }
 
-    if (UNIT_MOV(gActiveUnit) <= gActionData.moveCount) {
+    if (UNIT_MOV(gActiveUnit) <= gActionData.moveCount)
         return;
-    }
 
-    if (!CanUnitMove()) {
+    if (!CanUnitMove())
         return;
-    }
 
     gActiveUnit->state |= US_CANTOING;
-
-    return;
 }
 
-void MoveLimitViewChange_OnInit(struct MoveLimitViewProc* proc) {
-
+void MoveLimitViewChange_OnInit(struct MoveLimitViewProc * proc)
+{
     RegisterDataMove(gUnknown_08A02EB4, (u8*)VRAM + 0x5080, 0x80);
 
     if (!(gBmSt.gameStateBits & (1 << 0))) {

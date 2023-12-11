@@ -405,6 +405,9 @@ Event_TextWithBG:
     .4byte 0xffff0221
     .4byte 0x00010820
     .4byte 0x00000120
+
+.global EventScr_Prologue_Tutorial0_Exec
+EventScr_Prologue_Tutorial0_Exec:
     .4byte 0x00001a23
     .4byte 0x00002e21
     .4byte 0x00020722
@@ -445,12 +448,15 @@ Event_TextWithBG:
     .4byte 0x00010820
     .4byte 0x00001b22
     .4byte 0x00000120
+
+.global EventScr_Prologue_Tutorial1_Exec
+EventScr_Prologue_Tutorial1_Exec:
     .4byte 0x00003c20
     .4byte 0x000b0722
     .4byte 0x00000c41
     .4byte 0x000b000c
     .4byte 0x00000d40
-    .4byte sub_801D7E8
+    .4byte PlayPhaseForcePressAButtonInRangeDisp
     .4byte 0x000c0722
     .4byte 0x000c0722
     .4byte 0x00020722
