@@ -1174,7 +1174,7 @@ sub_807DE80: @ 0x0807DE80
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _0807DED8  @ gUnknown_086810B8
+	ldr r0, _0807DED8  @ Pal_HammerneBg
 	movs r1, #0x80
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -1190,7 +1190,7 @@ sub_807DE80: @ 0x0807DE80
 	.align 2, 0
 _0807DED0: .4byte gUnknown_089B0AD0
 _0807DED4: .4byte 0x06002C00
-_0807DED8: .4byte gUnknown_086810B8
+_0807DED8: .4byte Pal_HammerneBg
 
 	THUMB_FUNC_END sub_807DE80
 
@@ -1509,10 +1509,10 @@ sub_807E118: @ 0x0807E118
 	movs r2, #0
 	bl BG_SetPosition
 	bl sub_807E978
-	ldr r0, _0807E168  @ gUnknown_08686F84
+	ldr r0, _0807E168  @ Img_SleepSprites
 	ldr r1, _0807E16C  @ 0x06013800
 	bl Decompress
-	ldr r0, _0807E170  @ gUnknown_0868716C
+	ldr r0, _0807E170  @ Pal_SleepSprites
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -1532,9 +1532,9 @@ sub_807E118: @ 0x0807E118
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807E168: .4byte gUnknown_08686F84
+_0807E168: .4byte Img_SleepSprites
 _0807E16C: .4byte 0x06013800
-_0807E170: .4byte gUnknown_0868716C
+_0807E170: .4byte Pal_SleepSprites
 _0807E174: .4byte gUnknown_089B1A10
 _0807E178: .4byte 0x000041C0
 
@@ -2205,7 +2205,7 @@ sub_807E67C: @ 0x0807E67C
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _0807E6DC  @ gUnknown_0868DF5C
+	ldr r0, _0807E6DC  @ Pal_BarrierBg
 	movs r1, #0x80
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -2221,7 +2221,7 @@ sub_807E67C: @ 0x0807E67C
 	.align 2, 0
 _0807E6D4: .4byte gUnknown_089B2880
 _0807E6D8: .4byte 0x06002C00
-_0807E6DC: .4byte gUnknown_0868DF5C
+_0807E6DC: .4byte Pal_BarrierBg
 
 	THUMB_FUNC_END sub_807E67C
 

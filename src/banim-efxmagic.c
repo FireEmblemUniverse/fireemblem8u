@@ -55,7 +55,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnimSleep,
     StartSpellAnimHammerne,
     StartSpellAnimBerserk,
-    sub_8063214,
+    StartSpellAnimBarrier,
     (void *)NULL,
     StartSpellAnimShine,
     StartSpellAnimLuna,

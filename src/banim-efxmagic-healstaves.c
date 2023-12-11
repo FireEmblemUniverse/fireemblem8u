@@ -1859,8 +1859,8 @@ void StartSubSpell_efxRestOBJ(struct Anim * anim)
         frontAnim->yPosition -= 8;
     }
 
-    SpellFx_RegisterObjPal(gUnknown_0868716C, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_08686F84, 32 * 2 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_SleepSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_SleepSprites, 32 * 2 * CHR_SIZE);
 
     return;
 }
