@@ -35,7 +35,7 @@ LABEL(0x0)
     CALL(EventScr_CallOnTutorialMode)
 
     /* Not exec if tutorial */
-    _WARP(0x0, CHARACTER_EIRIKA, 4, 5)
+    MOVE_CLOSEST(0x0, CHARACTER_EIRIKA, 4, 5)
     ENUN
     CALL(EventScr_Prologue_GiveRapier)
     CALL(EventScr_Prologue_ONeillSpawn)
@@ -85,7 +85,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     SAVETOQUEUE
     SVAL(EVT_SLOT_1, 0x0)
     SAVETOQUEUE
-    MOVEFORCED(CHARACTER_FRANZ)
+    MOVE_DEFINED(CHARACTER_FRANZ)
     ENUN
 
     DISA(CHARACTER_SETH)
@@ -139,7 +139,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     SAVETOQUEUE
     SVAL(EVT_SLOT_1, 0x0)
     SAVETOQUEUE
-    MOVEFORCED(CHARACTER_FRANZ)
+    MOVE_DEFINED(CHARACTER_FRANZ)
     ENUN
     DISA(CHARACTER_FRANZ)
 
@@ -185,7 +185,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     SAVETOQUEUE
     SVAL(EVT_SLOT_1, 0x0)
     SAVETOQUEUE
-    MOVEFORCED(CHARACTER_SETH)
+    MOVE_DEFINED(CHARACTER_SETH)
     ENUN
     DISA(CHARACTER_SETH)
 
@@ -244,7 +244,7 @@ CONST_DATA EventListScr EventScr_Prologue_OneEmimyLeft[] = {
     GOTO(0x1)
 
 LABEL(0x0)
-    CHECK_EVENTID
+    CHECK_EVENTID_
     SADD(EVT_SLOT_2, EVT_SLOT_C, EVT_SLOT_0)
     ENUF_SLOT2
 

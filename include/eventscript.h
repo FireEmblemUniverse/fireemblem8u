@@ -43,7 +43,7 @@ enum event_cmd_idx {
     EV_CMD_24               = 0x24,
     EV_CMD_LOMA             = 0x25,
     EV_CMD_CAMERACONTROL    = 0x26,
-    EV_CMD_27               = 0x27,
+    EV_CMD_TILE_CHANGE      = 0x27,
     EV_CMD_CHANGEWEATHER    = 0x28,
     EV_CMD_CHANGEFOGVISION  = 0x29,
     EV_CMD_CHANGECHAPTER    = 0x2A,
@@ -170,6 +170,16 @@ enum event_sub_cmd_idx {
     EVSUBCMD_TEXTSHOW2 = 1,
     EVSUBCMD_REMA = 2,
 
+    /* EV_CMD_SHOWBG */
+    EVSUBCMD_BACG = 0,
+    EVSUBCMD_0x2141 = 1,
+    EVSUBCMD_2142 = 2,
+    EVSUBCMD_2143 = 3,
+
+    /* EV_CMD_TILE_CHANGE */
+    EVSUBCMD_TILECHANGE = 0,
+    EVSUBCMD_TILEREVERT = 1,
+
     /* EV_CMD_CHANGECHAPTER */
     EVSUBCMD_MNTS = 0,
     EVSUBCMD_MNCH = 1,
@@ -191,8 +201,11 @@ enum event_sub_cmd_idx {
     EVSUBCMD_MOVE = 0,
     EVSUBCMD_MOVEONTO = 1,
     EVSUBCMD_MOVE_1STEP = 2,
-    EVSUBCMD_MOVEFORCED = 3,
-    EVSUBCMD_MOVE_TO_CLOSE_IF_TERRAIN = 8,
+    EVSUBCMD_MOVE_DEFINED = 3,
+    EVSUBCMD_MOVE_CLOSEST = 8,
+    EVSUBCMD_MOVE_NEXTTO = 9,
+    EVSUBCMD_MOVE_1STEP_CLOSEST = 10,
+    EVSUBCMD_MOVE_DEFINED_CLOSEST = 11,
 
     /* EV_CMD_CHECKSTATE */
     EVSUBCMD_CHECK_EXISTS = 0,
@@ -222,6 +235,12 @@ enum event_sub_cmd_idx {
     EVSUBCMD_KILL = 0xD,
     EVSUBCMD_DISA_IF = 0xE,
     EVSUBCMD_DISA = 0xF,
+
+    /* EV_CMD_LOADSINGLEUNIT */
+    EVSUBCMD_SPAWN_ALLY = 0,
+    EVSUBCMD_SPAWN_NPC = 1,
+    EVSUBCMD_SPAWN_ENEMY = 2,
+    EVSUBCMD_SPAWN_CUTSCENE_ALLY = 0xF,
 
     /* EV_CMD_GIVEITEM */
     EVSUBCMD_GIVEITEMTO = 0,
@@ -333,9 +352,12 @@ enum event_sub_cmd_idx {
 #define EvtTextShow(msg) _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_TEXTSHOW, (msg)),
 #define EvtTextRemoveAll _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_REMA, 0),
 #define EvtTextEnd _EvtAutoCmdLen2(EV_CMD_ENDTEXT),
+#define EvtDisplayTextBg(bg) _EvtArg0(EV_CMD_SHOWBG, 4, EVSUBCMD_BACG, (bg)), 0,
 #define EvtClearScreen _EvtAutoCmdLen2(EV_CMD_CLEARSCREEN),
 #define EvtLoadMap(chapter) _EvtArg0(EV_CMD_LOMA, 2, 0, (chapter)),
 #define EvtMoveCameraTo(x, y) _EvtArg0(EV_CMD_CAMERACONTROL, 2, 0, _EvtSubParam16u8((x), (y))),
+#define EvtTriggerMapChange(id) _EvtArg0(EV_CMD_TILE_CHANGE, 2, EVSUBCMD_TILECHANGE, (id)),
+#define EvtRevertMapChange(id) _EvtArg0(EV_CMD_TILE_CHANGE, 2, EVSUBCMD_TILEREVERT, (id)),
 #define EvtBackToTitle(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNTS, (chapter)),
 #define EvtChangeChapterWM(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNCH, (chapter)),
 #define EvtChangeChapterBM(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNC2, (chapter)),
@@ -345,11 +367,10 @@ enum event_sub_cmd_idx {
 #define EvtLoadUnit2(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD2, (restriction)), (EventListScr)(units),
 #define EvtGetPidAt(x, y) _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_AT, _EvtSubParam16u8((x), (y))),
 #define EvrGetActiveUnitPid _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_ACTIVE, 0),
-#define EvtMoveUnit(speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, EVSUBCMD_MOVE, (speed)), _EvtParams4(pid, 0, (x), (y)),
-#define EvtMoveUnitToTarget(speed, pid, pid_target) _EvtArg0(EV_CMD_MOVEUNIT, 4, EVSUBCMD_MOVEONTO, (speed)), _EvtParams2((pid), (pid_target)),
-#define EvtMoveUnitOneStpe(speed, pid, direction) _EvtArg0(EV_CMD_MOVEUNIT, 4, EVSUBCMD_MOVE_1STEP, (speed)), _EvtParams2((pid), (direction)),
-#define EvtMoveUnitByQueue(pid) _EvtArg0(EV_CMD_MOVEUNIT, 4, EVSUBCMD_MOVEFORCED, 0), _EvtParams2((pid), 0),
-#define EvtMoveUnitToValidTerrain(speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, EVSUBCMD_MOVE_TO_CLOSE_IF_TERRAIN, (speed)), _EvtParams4(pid, 0, (x), (y)),
+#define EvtMoveUnit(modify, speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE | (modify) << 3), (speed)), _EvtParams4(pid, 0, (x), (y)),
+#define EvtMoveUnitToTarget(modify, speed, pid, pid_target) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVEONTO | (modify) << 3), (speed)), _EvtParams2((pid), (pid_target)),
+#define EvtMoveUnitOneStep(modify, speed, pid, direction) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE_1STEP | (modify) << 3), (speed)), _EvtParams2((pid), (direction)),
+#define EvtMoveUnitByQueue(modify, pid) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE_DEFINED | (modify) << 3), 0), _EvtParams2((pid), 0),
 #define EvtCheckUnitExists(pid) _EvtArg0(EV_CMD_CHECKSTATE, 2, EVSUBCMD_CHECK_EXISTS, (pid)),
 #define EvtGetUnitVisitGroup(pid) _EvtArg0(EV_CMD_CHECKSTATE, 2, EVSUBCMD_CHECK_STATUS, (pid)),
 #define EvtCheckUnitNotDead(pid) _EvtArg0(EV_CMD_CHECKSTATE, 2, EVSUBCMD_CHECK_ALIVE, (pid)),
@@ -360,6 +381,8 @@ enum event_sub_cmd_idx {
 #define EvtGetUnitJid(pid) _EvtArg0(EV_CMD_CHECKSTATE, 2, EVSUBCMD_CHECK_CLASS, (pid)),
 #define EvtGetUnitLuck(pid) _EvtArg0(EV_CMD_CHECKSTATE, 2, EVSUBCMD_CHECK_LUCK, (pid)),
 #define EvtWaitUnitMoving _EvtAutoCmdLen2(EV_CMD_ENUN),
+#define EvtSetUnitHidden(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_REMU, (pid)),
+#define EvtSetUnitUnhidden(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_REVEAL, (pid)),
 #define EvtSetUnitHpFormSlot1(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_SET_HP, (pid)),
 #define EvtSetUnitUnselectable(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_SET_ENDTURN, (pid)),
 #define EvtSetUnitHasMoved(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_3427, (pid)),
@@ -368,6 +391,7 @@ enum event_sub_cmd_idx {
 #define EvtRemoveAllEimies _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_CLEE, 0),
 #define EvtKillUnit(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_KILL, (pid)),
 #define EvtWaitUnitDeathFade(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_DISA_IF, (pid)),
+#define EvtLoadSingleUnit(faction, pid, x, y) _EvtArg0(EV_CMD_LOADSINGLEUNIT, 4, (faction), (pid)), _EvtParams4((x), (y), 0, 0),
 #define EvtRemoveUnit(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_DISA, (pid)),
 #define EvtGiveItemAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTO, (pid)),
 #define EvtGiveMoneymAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTOMAIN, (pid)),
@@ -377,6 +401,7 @@ enum event_sub_cmd_idx {
 #define EvtDisplayPopupSilently(msg, x, y) _EvtArg0(EV_CMD_DISPLAYPOPUP, 4, EVSUBCMD_BROWNTEXTBOX, (msg)), _EvtParams2((x), (y)),
 #define EvtDisplayCursorAtUnit(pid) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_UNIT, (pid)),
 #define EvtEndCursor _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURE, 0),
+#define EvtDisplayFlashingCursorAt(x, y) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_FLASHING_AT, _EvtSubParam16u8((x), (y))),
 #define EvtDisplayFlashingCursorAtUnit(pid) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_FLASHING_UNIT, (pid)),
 #define EvtOverrideUnitMenu(bitfile) _EvtArg0(EV_CMD_MENUOVERRIDE, 2, EVSUBCMD_DISABLEOPTIONS, (bitfile)),
 #define EvtOverrideWeaponMenu(bitfile) _EvtArg0(EV_CMD_MENUOVERRIDE, 2, EVSUBCMD_DISABLEWEAPONS, (bitfile)),

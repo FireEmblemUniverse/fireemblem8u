@@ -1375,7 +1375,7 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex)
 }
 
 //! FE8U = 0x0800E8CC
-u8 Event21_(struct EventEngineProc * proc)
+u8 Event21_TextBg(struct EventEngineProc * proc)
 {
     u16 evArgument2_a, evArgument2_b, evArgument3;
     struct ConvoBackgroundFadeProc * otherProc;
@@ -1386,88 +1386,79 @@ u8 Event21_(struct EventEngineProc * proc)
     if (evArgument < 0)
         evArgument = gEventSlots[2];
 
-    switch (subcode)
-    {
+    switch (subcode) {
+    case 0:
+        return sub_800E7D0(proc->activeTextType, evArgument);
+
+    case 1:
+        evArgument2_a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+        evArgument3 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+
+        switch (proc->activeTextType) {
         case 0:
-            return sub_800E7D0(proc->activeTextType, evArgument);
-
-        case 1:
-        {
-            evArgument2_a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-            evArgument3 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-
-            switch (proc->activeTextType)
+        case 3:
+        case 4:
+        case 5:
+            switch (evArgument2_a)
             {
 
                 case 0:
                 case 3:
                 case 4:
                 case 5:
-                    switch (evArgument2_a)
-                    {
-
-                        case 0:
-                        case 3:
-                        case 4:
-                        case 5:
-                            return EVC_ERROR;
-
-                        case 1:
-                        case 2:
-                            if (EVENT_IS_SKIPPING(proc))
-                                return EVC_ADVANCE_CONTINUE;
-
-                            otherProc = Proc_StartBlocking(gUnknown_08591E58, proc);
-                            otherProc->fadeType = 1;
-
-                            break;
-
-                    } // switch (a)
-
-                    break;
+                    return EVC_ERROR;
 
                 case 1:
                 case 2:
-                    switch (evArgument2_a)
-                    {
+                    if (EVENT_IS_SKIPPING(proc))
+                        return EVC_ADVANCE_CONTINUE;
 
-                        case 0:
-                        case 3:
-                        case 4:
-                        case 5:
-                            if (EVENT_IS_SKIPPING(proc))
-                                return Event22_ClearScreen(proc); // CLEAN
-
-                            otherProc = Proc_StartBlocking(gUnknown_08591EB0, proc);
-                            otherProc->fadeType = 2;
-
-                            break;
-
-                        case 1:
-                        case 2:
-                            if (EVENT_IS_SKIPPING(proc))
-                                return EVC_ADVANCE_CONTINUE;
-
-                            otherProc = Proc_StartBlocking(gUnknown_08591E00, proc);
-                            otherProc->fadeType = 0;
-
-                            break;
-                    }
+                    otherProc = Proc_StartBlocking(gUnknown_08591E58, proc);
+                    otherProc->fadeType = 1;
 
                     break;
+
+            } // switch (a)
+
+            break;
+
+        case 1:
+        case 2:
+            switch (evArgument2_a) {
+            case 0:
+            case 3:
+            case 4:
+            case 5:
+                if (EVENT_IS_SKIPPING(proc))
+                    return Event22_ClearScreen(proc); // CLEAN
+
+                otherProc = Proc_StartBlocking(gUnknown_08591EB0, proc);
+                otherProc->fadeType = 2;
+
+                break;
+
+            case 1:
+            case 2:
+                if (EVENT_IS_SKIPPING(proc))
+                    return EVC_ADVANCE_CONTINUE;
+
+                otherProc = Proc_StartBlocking(gUnknown_08591E00, proc);
+                otherProc->fadeType = 0;
+
+                break;
             }
+
+            break;
+        }
 
             otherProc->unkType = evArgument2_a;
             otherProc->bgIndex = evArgument;
             otherProc->fadeSpeed = evArgument3;
             otherProc->fadeTimer = 0;
             otherProc->pEventEngine = proc;
-
             break;
-        }
 
         case 2:
-        {
             evArgument2_b = EVT_CMD_ARGV(proc->pEventCurrent)[1];
             evArgument3 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
@@ -1480,10 +1471,8 @@ u8 Event21_(struct EventEngineProc * proc)
             NewColFadeIn(evArgument3, 0, evArgument2_b, proc);
 
             break;
-        }
 
         case 3:
-        {
             evArgument2_b = EVT_CMD_ARGV(proc->pEventCurrent)[1];
             evArgument3 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
@@ -1493,8 +1482,6 @@ u8 Event21_(struct EventEngineProc * proc)
             NewColFadeOut(evArgument3, 0, evArgument2_b, proc);
 
             break;
-        }
-
     } // switch (subcode)
 
     return EVC_ADVANCE_YIELD;
@@ -2012,32 +1999,30 @@ u8 Event27_MapChange(struct EventEngineProc * proc)
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
     s16 mapChangeId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
-    switch (mapChangeId)
-    {
-        case (-1): // "at position in Slot B"
-            mapChangeId = GetMapChangeIdAt(((u16 *)(gEventSlots + 0xB))[0], ((u16 *)(gEventSlots + 0xB))[1]);
+    switch (mapChangeId) {
+    case (-1): // "at position in Slot B"
+        mapChangeId = GetMapChangeIdAt(((u16 *)(gEventSlots + 0xB))[0], ((u16 *)(gEventSlots + 0xB))[1]);
 
-            if (mapChangeId < 0)
-                return EVC_ERROR;
+        if (mapChangeId < 0)
+            return EVC_ERROR;
 
-            break;
+        break;
 
-        case (-2): // "at position of active unit"
-            mapChangeId = GetMapChangeIdAt((u8)(gActiveUnit->xPos), (u8)(gActiveUnit->yPos));
+    case (-2): // "at position of active unit"
+        mapChangeId = GetMapChangeIdAt((u8)(gActiveUnit->xPos), (u8)(gActiveUnit->yPos));
 
-            if (mapChangeId < 0)
-                return EVC_ERROR;
+        if (mapChangeId < 0)
+            return EVC_ERROR;
 
-            break;
+        break;
 
-        case (-3):
-            mapChangeIt = gEventSlotQueue;
+    case (-3):
+        mapChangeIt = gEventSlotQueue;
 
-            mapChangeId = *mapChangeIt++;
-            count = gEventSlots[0xD]; // qp
+        mapChangeId = *mapChangeIt++;
+        count = gEventSlots[0xD]; // qp
 
-            break;
-
+        break;
     } // switch (mapChangeId)
 
     if (proc->evStateBits & EV_STATE_FADEDIN)
@@ -2046,16 +2031,14 @@ u8 Event27_MapChange(struct EventEngineProc * proc)
 
         for (i = 0; i < count; ++i)
         {
-            switch (subcode)
-            {
-                case 0:
-                    TriggerMapChanges(mapChangeId, FALSE, proc);
-                    break;
+            switch (subcode) {
+            case EVSUBCMD_TILECHANGE:
+                TriggerMapChanges(mapChangeId, FALSE, proc);
+                break;
 
-                case 1:
-                    UntriggerMapChange(mapChangeId, FALSE, proc);
-                    break;
-
+            case EVSUBCMD_TILEREVERT:
+                UntriggerMapChange(mapChangeId, FALSE, proc);
+                break;
             } // switch (subcode)
 
             mapChangeId = *mapChangeIt++; // ??? potentially not initialized?
@@ -3051,7 +3034,7 @@ u8 Event2F_MoveUnit(struct EventEngineProc * proc)
         queue = NULL;
         break;
 
-    case EVSUBCMD_MOVEFORCED:
+    case EVSUBCMD_MOVE_DEFINED:
         queue = gEventSlotQueue;
         break;
     }
