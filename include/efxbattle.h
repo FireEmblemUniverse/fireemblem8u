@@ -1772,15 +1772,24 @@ extern u32 gUnknown_08692674[];
 // extern ??? gUnknown_08725AD0
 // extern ??? gUnknown_08725AF0
 // extern ??? gUnknown_08725DAC
-// extern ??? gUnknown_08725DCC
-// extern ??? gUnknown_08726FF4
-// extern ??? gUnknown_087270B4
-// extern ??? gUnknown_08727510
-// extern ??? gUnknown_0872796C
-// extern ??? gUnknown_08727C48
-// extern ??? gUnknown_0872865C
-// extern ??? gUnknown_08728920
-// extern ??? gUnknown_08728C04
+extern u16 Img_ShineBg1[];
+extern u16 Pal_ShineBg_08726FF4[];
+extern u16 Tsa_ShineBg1_Left[];
+extern u16 Tsa_ShineBg1_Right[];
+extern u16 Img_ShineBg2[];
+extern u16 Pal_ShineBg2[];
+extern u16 Tsa_ShineBg2_A[];
+extern u16 Tsa_ShineBg2_B[];
+extern u16 Tsa_ShineBg2_C[];
+extern u16 Tsa_ShineBg2_D[];
+extern u16 Tsa_ShineBg2_E[];
+extern u16 Tsa_ShineBg2_F[];
+extern u16 Tsa_ShineBg2_G[];
+extern u16 Tsa_ShineBg2_H[];
+extern u16 Tsa_ShineBg2_I[];
+extern u16 Img_ShineSprites[];
+extern u16 Pal_ShineSprites[];
+extern u32 gUnknown_08728C04[];
 // extern ??? gUnknown_08728C5C
 // extern ??? gUnknown_0872972C
 // extern ??? gUnknown_0872987C

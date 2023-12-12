@@ -235,14 +235,14 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ProcScr_efxMshieldBGOBJ2
 // extern ??? ProcScr_efxShine
 // extern ??? ProcScr_efxShineBG
-// extern ??? gUnknown_085D6F24
-// extern ??? gUnknown_085D6F28
-// extern ??? gUnknown_085D6F2C
+// extern ??? TsaArray_ShineBg_Left
+// extern ??? TsaArray_ShineBg_Right
+// extern ??? ImgArray_ShineBg
 // extern ??? ProcScr_efxShineBG2
-// extern ??? gUnknown_085D6F48
+// extern ??? TsaArray_ShineBg2
 // extern ??? ProcScr_efxShineBGCOL
 // extern ??? ProcScr_efxShineOBJRND
-// extern ??? gUnknown_085D6FA4
+// extern ??? gShineSpriteCoords
 // extern ??? ProcScr_efxShineOBJ
 // extern ??? ProcScr_efxLuna
 // extern ??? gUnknown_085D6FE4
@@ -610,17 +610,17 @@ void StartSubSpell_efxMshieldBGOBJ(struct Anim * anim);
 void StartSubSpell_efxMshieldBGOBJ2(struct Anim * anim);
 void efxMshieldBGOBJ_OnEnd(struct ProcEfxOBJ * proc);
 void StartSpellAnimShine(struct Anim * anim);
-// ??? sub_80634BC(???);
-// ??? sub_8063590(???);
-// ??? sub_80635E8(???);
-// ??? sub_806364C(???);
-// ??? sub_80636D8(???);
-// ??? sub_806376C(???);
-// ??? sub_80637B0(???);
-// ??? sub_80637F8(???);
-// ??? sub_8063840(???);
-// ??? sub_80638F0(???);
-// ??? sub_8063948(???);
+void efxShine_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxShineBG(struct Anim * anim);
+void efxShineBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxShineBG2(struct Anim * anim);
+void efxShineBG2_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxShineBGCOL(struct Anim * anim);
+void efxShineBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxShineOBJRND(struct Anim * anim);
+void efxShineOBJRND_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxShineOBJ(struct Anim * anim, int x, int y);
+void efxShineOBJ_Loop(struct ProcEfxOBJ * proc);
 void StartSpellAnimLuna(struct Anim * anim);
 // ??? sub_80639B0(???);
 // ??? sub_8063B6C(???);
