@@ -21,7 +21,7 @@ EWRAM_DATA void *gUnknown_02000010[2] = {NULL};
 EWRAM_DATA int gEkrDebugTimer = 0;
 EWRAM_DATA int gEkrDebugUnk1 = 0;
 EWRAM_DATA int gEkrDebugUnk2 = 0;
-EWRAM_DATA int gEkrDebugUnk3 = 0;
+EWRAM_DATA int gCtrlC01Blocking = 0;
 EWRAM_DATA s16 gEkrXPosReal[2] = {0};
 EWRAM_DATA s16 gEkrYPosReal[2] = {0};
 
@@ -77,7 +77,7 @@ void NewEkrBattle(void)
     gEkrDebugTimer = 0;
     gEkrDebugUnk1 = 0;
     gEkrDebugUnk2 = 0;
-    gEkrDebugUnk3 = 0;
+    gCtrlC01Blocking = 0;
 
     if (0 == gEkrDebugModeMaybe)
         EkrPlayMainBGM();
@@ -169,7 +169,7 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
     RegisterEkrDragonStatusType();
     SetAnimStateHiddenForDragon();
 
-    gEkrDebugUnk3 = 1;
+    gCtrlC01Blocking = 1;
 
     if (true == GetBattleAnimArenaFlag())
         proc->timer = 0;
@@ -398,7 +398,7 @@ void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc)
 
 void ekrBattle_80503EC(struct ProcEkrBattle *proc)
 {
-    gEkrDebugUnk3 = 0;
+    gCtrlC01Blocking = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_StartPromotion;
 }
 
