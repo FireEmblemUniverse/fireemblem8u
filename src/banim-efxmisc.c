@@ -100,7 +100,7 @@ void efxYushaSpinShieldOBJ_806CD14(struct ProcEfxOBJ *proc)
 
 void efxYushaSpinShieldOBJ_806CD7C(struct ProcEfxOBJ *proc)
 {
-    if (!(proc->anim->state3 & ANIM_BIT3_0004))
+    if (!(proc->anim->state3 & ANIM_BIT3_C01_BLOCKING_IN_BATTLE))
         return;
 
     if (!(proc->anim->state3 & ANIM_BIT3_HIT_EFFECT_APPLIED))
@@ -1050,7 +1050,7 @@ void sub_806DFA4(struct ProcEfxOBJ *proc)
 {
     proc->anim2->xPosition = proc->anim->xPosition;
 
-    if (!(proc->anim->state3 & ANIM_BIT3_0004))
+    if (!(proc->anim->state3 & ANIM_BIT3_C01_BLOCKING_IN_BATTLE))
         return;
 
     if (!(proc->anim->state3 & ANIM_BIT3_HIT_EFFECT_APPLIED))

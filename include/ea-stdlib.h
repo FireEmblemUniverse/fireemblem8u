@@ -56,7 +56,8 @@
 #define CHECK_SKIRMISH EvtGetSkirmishType
 #define CHECK_TUTORIAL EvtGetIsTutorial
 #define CHECK_MONEY EvtGetMoney
-#define CHECK_EVENTID EvtGetTriggeredEid
+#define CHECK_TRIG_EVENTID EvtGetTriggeredEid
+#define CHECK_EVENTID_ CHECK_TRIG_EVENTID
 #define CHECK_POSTGAME EvtGetIsGameCompleted
 #define TEXTSTART EvtTextStart
 #define REMOVEPORTRAITS EvtTextStartType1
@@ -67,9 +68,12 @@
 #define TEXTSHOW EvtTextShow
 #define REMA EvtTextRemoveAll
 #define TEXTEND EvtTextEnd
+#define BACG EvtDisplayTextBg
 #define CLEAN EvtClearScreen
 #define LOMA EvtLoadMap
 #define CAMERA EvtMoveCameraTo
+#define TILECHANGE EvtTriggerMapChange
+#define TILEREVERT EvtRevertMapChange
 #define MNTS EvtBackToTitle
 #define MNCH EvtChangeChapterWM
 #define MNC2 EvtChangeChapterBM
@@ -79,11 +83,14 @@
 #define LOAD2 EvtLoadUnit2
 #define CHECK_AT EvtGetPidAt
 #define CHECK_ACTIVE EvrGetActiveUnitPid
-#define MOVE EvtMoveUnit
-#define MOVEONTO EvtMoveUnitToTarget
-#define MOVE_1STEP EvtMoveUnitOneStpe
-#define MOVEFORCED EvtMoveUnitByQueue
-#define _WARP EvtMoveUnitToValidTerrain /* This is an error on EA stdlib */
+#define MOVE(speed, pid, x, y) EvtMoveUnit(false, speed, pid, x, y)
+#define MOVEONTO(speed, pid, pid_target) EvtMoveUnitToTarget(false, speed, pid, pid_target)
+#define MOVE_1STEP(speed, pid, direction) EvtMoveUnitOneStep(false, speed, pid, direction)
+#define MOVE_DEFINED(pid) EvtMoveUnitByQueue(false, pid)
+#define MOVE_CLOSEST(speed, pid, x, y) EvtMoveUnit(true, speed, pid, x, y)
+#define MOVE_NEXTTO(speed, pid, pid_target) EvtMoveUnitToTarget(true, speed, pid, pid_target)
+#define MOVE_1STEP_CLOSEST(speed, pid, direction) EvtMoveUnitOneStep(true, speed, pid, direction)
+#define MOVE_DEFINED_CLOSEST(pid) EvtMoveUnitByQueue(true, pid)
 #define CHECK_EXISTS EvtCheckUnitExists
 #define CHECK_STATUS EvtGetUnitVisitGroup
 #define CHECK_ALIVE EvtCheckUnitNotDead
@@ -94,6 +101,8 @@
 #define CHECK_CLASS EvtGetUnitJid
 #define CHECK_LUCK EvtGetUnitLuck
 #define ENUN EvtWaitUnitMoving
+#define REMU EvtSetUnitHidden
+#define REVEAL EvtSetUnitUnhidden
 #define SET_HP EvtSetUnitHpFormSlot1
 #define SET_ENDTURN EvtSetUnitUnselectable
 #define _3427 EvtSetUnitHasMoved
@@ -102,6 +111,10 @@
 #define CLEE EvtRemoveAllEimies
 #define KILL EvtKillUnit
 #define DISA_IF EvtWaitUnitDeathFade
+#define SPAWN_ALLY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_ALLY, pid, x, y)
+#define SPAWN_NPC(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_NPC, pid, x, y)
+#define SPAWN_ENEMY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_ENEMY, pid, x, y)
+#define SPAWN_CUTSCENE_ALLY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_CUTSCENE_ALLY, pid, x, y)
 #define DISA EvtRemoveUnit
 #define GIVEITEMTO EvtGiveItemAtSlot3
 #define GIVEITEMTOMAIN EvtGiveMoneymAtSlot3         /* what */
@@ -110,6 +123,7 @@
 #define CHAI_AT EvtChangeAIat
 #define BROWNBOXTEXT EvtDisplayPopupSilently
 #define CURSOR_CHAR EvtDisplayCursorAtUnit
+#define CURSOR_FLASHING EvtDisplayFlashingCursorAt
 #define CURSOR_FLASHING_CHAR EvtDisplayFlashingCursorAtUnit
 #define CURE EvtEndCursor
 #define DISABLEOPTIONS EvtOverrideUnitMenu

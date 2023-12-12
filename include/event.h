@@ -174,9 +174,6 @@ struct ScriptedBattleProc
 extern struct Struct03000428 gUnknown_03000428;
 extern char gUnknown_03000430[4];
 extern struct Unit * gLoadedUnitBuffer;
-// extern ??? gUnknown_030004E4
-// extern ??? gUnknown_030004E6
-// extern ??? gUnknown_030004E8
 extern u32 gEventSlotQueue[]; // event slot queue (just an array)
 extern u32 gEventSlotCounter;
 extern struct ProcCmd gGenericProc[4];
@@ -387,7 +384,7 @@ void sub_800E640(struct EventEngineProc*);
 // ??? Event1F_(???);
 // ??? Event20_(???);
 // ??? sub_800E7D0(???);
-// ??? Event21_(???);
+// ??? Event21_TextBg(???);
 // ??? sub_800EA84(???);
 // ??? sub_800EBB0(???);
 // ??? sub_800EC00(???);

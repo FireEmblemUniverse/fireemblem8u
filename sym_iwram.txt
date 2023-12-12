@@ -21,9 +21,6 @@
 . = 0x000434; gLoadedUnitBuffer = .;
 . = 0x000438; gEventCallQueue = .;
 . = 0x0004B8; gEventSlots = .;
-. = 0x0004E4; gUnknown_030004E4 = .;
-. = 0x0004E6; gUnknown_030004E6 = .;
-. = 0x0004E8; gUnknown_030004E8 = .;
 . = 0x0004F0; gEventSlotQueue = .;
 . = 0x000568; gEventSlotCounter = .;
 . = 0x000570; gEventActiveQueue = .;

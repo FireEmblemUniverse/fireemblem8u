@@ -73,7 +73,13 @@ enum Anim_state2 {
 enum Anim_state3 {
     ANIM_BIT3_TAKE_BACK_ENABLE   = (1 << 0),
     ANIM_BIT3_NEXT_ROUND_START   = (1 << 1),
-    ANIM_BIT3_0004               = (1 << 2),
+
+    /**
+     * If set, C01 will block the anim
+     * set bit when hit effect applied
+     * and then cleared after hitted
+     */
+    ANIM_BIT3_C01_BLOCKING_IN_BATTLE = (1 << 2),
     ANIM_BIT3_HIT_EFFECT_APPLIED = (1 << 3),
     ANIM_BIT3_0010               = (1 << 4),
     ANIM_BIT3_BLOCKING           = (1 << 5),

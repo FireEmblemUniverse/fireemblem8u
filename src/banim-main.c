@@ -35,17 +35,34 @@ void BattleAIS_ExecCommands(void)
 
                 /**
                  * C01
-                 * Wait for HP to deplete: CheckEkrHitDone()
+                 * End of anim
+                 *
+                 * Mode9(BANIM_MODE_STANDING) is always endded in C01.
+                 * Since this mode is used both in:
+                 *      - on battle starting
+                 *      - on unit get hitted
+                 * 
+                 * So we need to ensure that C01 can freeze banim in both of two cases.
+                 *
+                 * - On battle starting, set bit [gCtrlC01Blocking] to freeze anim
+                 * - In battle, set bit [anim::state3::BIT2] to freeze anim
                  */
-                case 1:
-                    if (gEkrDebugUnk3 == 1)
+                case ANIM_CMD_WAIT_01:
+                    if (C01_BLOCKING_PRE_BATTLE(anim))
+                    {
                         anim->pScrCurrent = anim->pScrStart;
-                    else if (!(anim->state3 & ANIM_BIT3_0004))
+                    }
+                    else if (!C01_BLOCKING_IN_BATTLE(anim))
+                    {
                         anim->pScrCurrent = anim->pScrCurrent + 1;
-                    else if (anim->state3 & ANIM_BIT3_HIT_EFFECT_APPLIED) {
-                        if (CheckEkrHitDone() == true) {
+                    }
+                    else if (anim->state3 & ANIM_BIT3_HIT_EFFECT_APPLIED)
+                    {
+                        /* Release the anim lock after battle hitting */
+                        if (CheckEkrHitDone() == true)
+                        {
                             anim->state3 &= ~(ANIM_BIT3_TAKE_BACK_ENABLE |
-                                              ANIM_BIT3_0004 |
+                                              ANIM_BIT3_C01_BLOCKING_IN_BATTLE |
                                               ANIM_BIT3_HIT_EFFECT_APPLIED);
 
                             anim->pScrCurrent = anim->pScrCurrent + 1;
@@ -56,7 +73,7 @@ void BattleAIS_ExecCommands(void)
                     }
                     break;
 
-                case 2:
+                case ANIM_CMD_WAIT_02:
                     if (anim->state3 & ANIM_BIT3_TAKE_BACK_ENABLE) {
                         anim->state3 &= ~ANIM_BIT3_TAKE_BACK_ENABLE;
                         anim->pScrCurrent = anim->pScrCurrent + 1;
@@ -68,7 +85,7 @@ void BattleAIS_ExecCommands(void)
                  * 1. Unset some debuff flashing effect
                  * 2. Exec shinning effect for legend weapon
                  */
-                case 0x03:
+                case ANIM_CMD_WAIT_03:
                     if (GettUnitEfxDebuff(gAnims[0]) & 0xC)
                         SetUnitEfxDebuff(gAnims[0], 0);
 
@@ -98,7 +115,7 @@ void BattleAIS_ExecCommands(void)
                  * C04
                  * Start normal hitted effect if not MISS
                  */
-                case 0x04:
+                case ANIM_CMD_WAIT_04:
                     if (!(anim->state3 & ANIM_BIT3_BLOCKING)) {
                         anim->state3 |= ANIM_BIT3_BLOCKING;
                         anim->state3 |= ANIM_BIT3_BLOCKEND;
@@ -127,7 +144,7 @@ void BattleAIS_ExecCommands(void)
                  * C05
                  * Start spell anim (efxmagic)
                  */
-                case 0x05:
+                case ANIM_CMD_WAIT_05:
                     if (!(anim->state3 & ANIM_BIT3_BLOCKING)) {
                         anim->state3 |= ANIM_BIT3_BLOCKING;
                         anim->state3 |= ANIM_BIT3_BLOCKEND;
@@ -150,7 +167,12 @@ void BattleAIS_ExecCommands(void)
 
                 /**
                  * C06
-                 * Begin opponent's turn after hit
+                 * Attacker anim trigger opponent's next round anim.
+                 * 
+                 * Usually, atttacker anim is written in:
+                 * C06
+                 * C0D
+                 * in end.
                  */
                 case 0x06:
                     anim1 = GetAnimAnotherSide(anim);
@@ -239,7 +261,7 @@ void BattleAIS_ExecCommands(void)
 
                 /**
                  * C0D
-                 * End of dodge animation
+                 * Attack start its own next round anim.
                 */
                 case 0x0D:
                     type = GetAnimNextRoundType(anim);
@@ -259,8 +281,8 @@ void BattleAIS_ExecCommands(void)
                             SwitchAISFrameDataFromBARoundType(anim1, type);
                             SwitchAISFrameDataFromBARoundType(anim2, type);
 
-                            anim1->state3 |= ANIM_BIT3_0004;
-                            anim2->state3 |= ANIM_BIT3_0004;
+                            anim1->state3 |= ANIM_BIT3_C01_BLOCKING_IN_BATTLE;
+                            anim2->state3 |= ANIM_BIT3_C01_BLOCKING_IN_BATTLE;
 
                             type = BattleTypeToAnimModeEndOfDodge[gEkrDistanceType];
                             frame_front = BanimDefaultModeConfig[type * 4 + 0];
@@ -325,7 +347,7 @@ void BattleAIS_ExecCommands(void)
                  * C13
                  * efxTeonoOBJ?
                  */
-                case 0x13:
+                case ANIM_CMD_WAIT_13:
                     if (!(anim->state3 & ANIM_BIT3_BLOCKING)) {
                         anim->state3 |= ANIM_BIT3_BLOCKING;
                     } else if (gUnknown_02017758 == 1) {
@@ -357,7 +379,7 @@ void BattleAIS_ExecCommands(void)
                  * C18
                  * Start of dodge toward the foreground
                  */
-                case 0x18:
+                case ANIM_CMD_WAIT_18:
                     if (anim->state3 & ANIM_BIT3_TAKE_BACK_ENABLE) {
                         anim->state3 &= ~ANIM_BIT3_TAKE_BACK_ENABLE;
                         anim->pScrCurrent = anim->pScrCurrent + 1;
@@ -404,7 +426,7 @@ void BattleAIS_ExecCommands(void)
                         NewEfxHurtmutEff00(anim);
                     break;
 
-                case 0x2D:
+                case ANIM_CMD_WAIT_2D:
                     if (GetRoundFlagByAnim(anim) & ANIM_ROUND_SILENCER) {
                         if (!(anim->state3 & ANIM_BIT3_BLOCKING)) {
                             anim->state3 |= ANIM_BIT3_BLOCKING;
@@ -468,7 +490,7 @@ void BattleAIS_ExecCommands(void)
                         NewEfxSunakemuri(anim, 2);
                     break;
 
-                case 0x39:
+                case ANIM_CMD_WAIT_39:
                     if (!(anim->state3 & ANIM_BIT3_BLOCKING)) {
                         anim->state3 |= ANIM_BIT3_BLOCKING;
                         if (GetAISLayerId(anim) == 0)
@@ -521,7 +543,7 @@ void BattleAIS_ExecCommands(void)
                     }
                     break;
 
-                case 0x52:
+                case ANIM_CMD_WAIT_52:
                     if (GetRoundFlagByAnim(anim) & ANIM_ROUND_SILENCER) {
                         if (!(anim->state3 & ANIM_BIT3_BLOCKING)) {
                             anim->state3 |= ANIM_BIT3_BLOCKING;
@@ -672,7 +694,7 @@ void BattleAIS_ExecCommands(void)
                               ANIM_BIT2_0001);
         }
 
-        if (!(type & ANIM_BIT2_STOP) && gEkrDebugUnk3 != 1)
+        if (!(type & ANIM_BIT2_STOP) && gCtrlC01Blocking != 1)
             continue;
 
         if (anim->state3 & ANIM_BIT3_NEXT_ROUND_START) {
@@ -681,12 +703,12 @@ void BattleAIS_ExecCommands(void)
                 anim1 = gAnims[GetAnimPosition(anim) * 2];
                 SwitchAISFrameDataFromBARoundType(anim1, type);
                 anim1->state3 &= ~ANIM_BIT3_NEXT_ROUND_START;
-                anim1->state3 |= ANIM_BIT3_0004;
+                anim1->state3 |= ANIM_BIT3_C01_BLOCKING_IN_BATTLE;
 
                 anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
                 SwitchAISFrameDataFromBARoundType(anim2, type);
                 anim2->state3 &= ~ANIM_BIT3_NEXT_ROUND_START;
-                anim2->state3 |= ANIM_BIT3_0004;
+                anim2->state3 |= ANIM_BIT3_C01_BLOCKING_IN_BATTLE;
 
                 anim1->nextRoundId = anim1->nextRoundId + 1;
                 anim2->nextRoundId = anim2->nextRoundId + 1;
@@ -707,12 +729,12 @@ void BattleAIS_ExecCommands(void)
                     anim1 = gAnims[GetAnimPosition(anim) * 2];
                     SwitchAISFrameDataFromBARoundType(anim1, type);
                     anim1->state3 &= ~ANIM_BIT3_NEW_ROUND_START;
-                    anim1->state3 |= ANIM_BIT3_0004;
+                    anim1->state3 |= ANIM_BIT3_C01_BLOCKING_IN_BATTLE;
 
                     anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
                     SwitchAISFrameDataFromBARoundType(anim2, type);
                     anim2->state3 &= ~ANIM_BIT3_NEW_ROUND_START;
-                    anim2->state3 |= ANIM_BIT3_0004;
+                    anim2->state3 |= ANIM_BIT3_C01_BLOCKING_IN_BATTLE;
 
                     anim1->nextRoundId = anim1->nextRoundId + 1;
                     anim2->nextRoundId = anim2->nextRoundId + 1;

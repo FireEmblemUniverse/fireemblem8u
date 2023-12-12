@@ -397,7 +397,11 @@ extern struct Font gSomeFontStruct;
 extern struct Anim *gAnims[4];
 extern void *gUnknown_02000010[2];
 extern int gEkrDebugUnk2;
-extern int gEkrDebugUnk3;
+extern int gCtrlC01Blocking;
+
+#define C01_BLOCKING_PRE_BATTLE(anim) (gCtrlC01Blocking == 1)
+#define C01_BLOCKING_IN_BATTLE(anim) ((anim)->state3 & ANIM_BIT3_C01_BLOCKING_IN_BATTLE)
+
 extern s16 gEkrXPosReal[2];
 extern s16 gEkrYPosReal[2];
 extern u16 gEkrXPosBase[];

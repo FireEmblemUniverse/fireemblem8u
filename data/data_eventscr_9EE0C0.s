@@ -1,21 +1,6 @@
     .section .data
 
-.global EventScr_SetBackground
-EventScr_SetBackground:
-    .4byte 0x00080320
-    .4byte 0x80d20c41
-    .4byte 0x0000000c
-    .4byte 0x00101721
-    .4byte 0x80d20820
-    .4byte 0x00001a21
-    .4byte 0xffff2140
-    .4byte 0x00000000
-    .4byte 0x00101720
-    .4byte 0x00000120
-
-.global Event_TextWithBG
-Event_TextWithBG:
-    .incbin "baserom.gba", 0x9ee310, 0x9ee6f4 - 0x9ee310
+    .incbin "baserom.gba", 0x9EE4a0, 0x9ee6f4 - 0x9EE4A0
 
 .global EventScr_Prologue_Tutorial0_Exec
 EventScr_Prologue_Tutorial0_Exec:
