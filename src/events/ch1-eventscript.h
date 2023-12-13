@@ -23,7 +23,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     ENUN
 
     SVAL(EVT_SLOT_B, 0)
-    DISA(-2)
+    DISA(CHAR_EVT_POSITION_AT_SLOTB)
 
     FlashCursor(CHARACTER_BREGUET, 60)
     Text_BG(0x1C, 0x92A)
@@ -42,8 +42,8 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     ENUF(0x1) /* Battle Quotes flag */
 
     SVAL(EVT_SLOT_B, 0x00020002)
-    KILL(-2)
-    DISA_IF(-2)
+    KILL(CHAR_EVT_POSITION_AT_SLOTB)
+    DISA_IF(CHAR_EVT_POSITION_AT_SLOTB)
 
     FlashCursor(CHARACTER_BREGUET, 60)
 
@@ -57,22 +57,22 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     MOVE(0, CHARACTER_BREGUET, 2, 2)
 
     SVAL(EVT_SLOT_B, _EvtParams2(1, 6))
-    MOVE(24, -2, 1, 3)
+    MOVE(24, CHAR_EVT_POSITION_AT_SLOTB, 1, 3)
 
     SVAL(EVT_SLOT_B, _EvtParams2(3, 6))
-    MOVE(24, -2, 3, 3)
+    MOVE(24, CHAR_EVT_POSITION_AT_SLOTB, 3, 3)
 
     SVAL(EVT_SLOT_B, _EvtParams2(1, 8))
-    MOVE(24, -2, 9, 5)
+    MOVE(24, CHAR_EVT_POSITION_AT_SLOTB, 9, 5)
 
     SVAL(EVT_SLOT_B, _EvtParams2(2, 7))
-    MOVE(24, -2, 8, 3)
+    MOVE(24, CHAR_EVT_POSITION_AT_SLOTB, 8, 3)
 
     SVAL(EVT_SLOT_B, _EvtParams2(3, 8))
-    MOVE(24, -2, 4, 7)
+    MOVE(24, CHAR_EVT_POSITION_AT_SLOTB, 4, 7)
 
     SVAL(EVT_SLOT_B, _EvtParams2(2, 9))
-    MOVE(24, -2, 2, 8)
+    MOVE(24, CHAR_EVT_POSITION_AT_SLOTB, 2, 8)
     ENUN
 
     STAL2(60)
@@ -93,7 +93,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     SVAL(EVT_SLOT_2, CHARACTER_SETH)
     CALL(EventScr_MoveUnitS2ToLeader)
 
-    SVAL(EVT_SLOT_2, EventScr_Ch1Tut_9EFDE8)
+    SVAL(EVT_SLOT_2, EventScr_Ch1Tut_OnBeginning)
     CALL(EventScr_CallOnTutorialMode)
 
     ENUT(0xB)
@@ -102,7 +102,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch1_Turn1Player[] = {
-    SVAL(EVT_SLOT_2, EventScr_Ch1Tut_9F00BC)
+    SVAL(EVT_SLOT_2, EventScr_Ch1Tut_ChooseSethTurn1)
     CALL(EventScr_CallOnTutorialMode)
 
     NoFade
@@ -125,7 +125,7 @@ CONST_DATA EventListScr EventScr_Ch1_Turn_AllyReinforceArrive[] = {
     FlashCursor(CHARACTER_FRANZ, 60)
     Text(0x931)
 
-    SVAL(EVT_SLOT_2, EventScr_Ch1Tut_9EFE48)
+    SVAL(EVT_SLOT_2, EventScr_Ch1Tut_GilliamBattle)
     CALL(EventScr_CallOnTutorialMode)
 
     NoFade
@@ -133,7 +133,7 @@ CONST_DATA EventListScr EventScr_Ch1_Turn_AllyReinforceArrive[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch1_Misc_DefeatBoss[] = {
-    SVAL(EVT_SLOT_2, EventScr_Ch1Tut_9F0090)
+    SVAL(EVT_SLOT_2, EventScr_Ch1Tut_GuideMsgSeize)
     CALL(EventScr_CallOnTutorialMode)
 
     NoFade

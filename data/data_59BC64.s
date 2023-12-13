@@ -44,8 +44,8 @@ gUnknown_0859BCA8:  @ 0x0859BCA8
     .4byte sub_802E0B0
     .4byte 0x120
 
-	.global gUnknown_0859BCF4
-gUnknown_0859BCF4:  @ 0x0859BCF4
+	.global EventScr_Ch1Tut_PressAtoGetItem
+EventScr_Ch1Tut_PressAtoGetItem:  @ 0x0859BCF4
 @ Replacing .incbin "baserom.gba", 0x59BCF4, 0x4C
     .4byte 0x31020
     .4byte 0x70228

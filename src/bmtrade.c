@@ -250,7 +250,7 @@ static struct ProcCmd sProcScr_TradeMenu_TutorialEventLock[] = {
 // TODO: actual events!
 extern const u16 gUnknown_0859BC64[];
 extern const u16 gUnknown_0859BCA8[];
-extern const u16 gUnknown_0859BCF4[];
+extern const u16 EventScr_Ch1Tut_PressAtoGetItem[];
 extern const u16 gUnknown_0859BD40[];
 
 void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
@@ -969,7 +969,7 @@ void sub_802E168(struct TradeMenuProc* proc)
 
 void sub_802E188(struct TradeMenuProc* proc)
 {
-    CallEvent(gUnknown_0859BCF4, EV_EXEC_QUIET);
+    CallEvent(EventScr_Ch1Tut_PressAtoGetItem, EV_EXEC_QUIET);
     TradeMenu_StartTutorialEventLock(proc);
 
     StartDoubleTradeMenuTutorialHandCursor();

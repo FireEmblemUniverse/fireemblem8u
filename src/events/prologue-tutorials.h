@@ -33,7 +33,7 @@ CONST_DATA EventListScr EventScr_Prologue_Tutorial0[] = {
 
     TutEventExecType0(
         CHARACTER_EIRIKA,
-        0x00050004,
+        4, 5,
         0x91B,
         0x00080058,
         0x91A,
@@ -49,7 +49,7 @@ CONST_DATA EventListScr EventScr_Prologue_Tutorial1[] = {
     IGNORE_KEYS(0)
 
     TutEventExecType1(
-        0x00050004,
+        4, 5,
         0x91C,
         0x00080058,
         EventScr_Prologue_Tutorial2,
@@ -129,7 +129,7 @@ CONST_DATA EventListScr EventScr_Prologue_Tutorial4[] = {
 
     TutEventExecType0(
         CHARACTER_EIRIKA,
-        0x00050004,
+        4, 5,
         0x91E,      /* It's time to attack the enemy. Place the cursor on Eirika and press the A Button. */
         0x00080058,
         0x91F,      /* The cursor is now on Eirika. Press the A Button. */
@@ -283,7 +283,7 @@ CONST_DATA EventListScr EventScr_Prologue_TutorialA[] = {
 
     TutEventExecType0(
         CHARACTER_EIRIKA,
-        0x00060008,
+        8, 6,
         0x925,      /* Move next to the enemy and press the A Button. */
         0x00080058,
         0x924,      /* The cursor is now on Eirika. Press the A Button. */
@@ -298,7 +298,7 @@ CONST_DATA EventListScr EventScr_Prologue_TutorialB[] = {
     NoFade
     IGNORE_KEYS(0)
     TutEventExecType1(
-        0x00060008,
+        8, 6,
         0x925,      /* Move next to the enemy and press the A Button. */
         0x00080058,
         EventScr_Prologue_TutorialC,

@@ -229,11 +229,17 @@
  * Note that this part of macros is not usable in EventAssembler
  *************************************************************/
 
-#define TutEventExecType0(pid, rect, text1, pos1, text2, pos2, scr_next, scr_this) \
+/**
+ * pid: character you need to select
+ * x, y: cursor need move to
+ * text1: if you don't move cursor to [x, y]
+ * text2: if you don't select the character
+ */
+#define TutEventExecType0(pid, curx, cury, text1, pos1, text2, pos2, scr_next, scr_this) \
     SVAL(EVT_SLOT_D, 0) \
     SVAL(EVT_SLOT_1, (pid)) \
     SAVETOQUEUE \
-    SVAL(EVT_SLOT_1, (rect)) \
+    SVAL(EVT_SLOT_1, (_EvtParams2(curx, cury))) \
     SAVETOQUEUE \
     SVAL(EVT_SLOT_1, (text1)) \
     SAVETOQUEUE \
@@ -249,9 +255,9 @@
     SAVETOQUEUE \
     CALL(EventScr_Prologue_Tutorial0_Exec)
 
-#define TutEventExecType1(rect, text, pos, scr_next, scr_this) \
+#define TutEventExecType1(curx, cury, text, pos, scr_next, scr_this) \
     SVAL(EVT_SLOT_D, 0) \
-    SVAL(EVT_SLOT_1, (rect)) \
+    SVAL(EVT_SLOT_1, (_EvtParams2(curx, cury))) \
     SAVETOQUEUE \
     SVAL(EVT_SLOT_1, (text)) \
     SAVETOQUEUE \

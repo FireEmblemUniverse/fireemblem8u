@@ -5,6 +5,7 @@
 #include "eventinfo.h"
 #include "ea-stdlib.h"
 #include "bmtrap.h"
+#include "chapterdata.h"
 #include "constants/event-flags.h"
 #include "constants/characters.h"
 
@@ -49,20 +50,20 @@ CONST_DATA EventListScr EventListScr_Ch1_UnitMove[] = {
 };
 
 CONST_DATA EventListScr * EventListScr_Ch1_Tutorial[] = {
-    EventScr_Ch1Tut_9EFC9C,
-    EventScr_Ch1Tut_9EFD14,
-    EventScr_Ch1Tut_9EFD74,
-    EventScr_Ch1Tut_9EFDA8,
-    EventScr_Ch1Tut_9EFF20,
-    EventScr_Ch1Tut_9EFF9C,
-    EventScr_Ch1Tut_9EFFFC,
-    EventScr_Ch1Tut_9F0030,
-    EventScr_Ch1Tut_9F0060,
-    EventScr_Ch1Tut_9F0130,
-    EventScr_Ch1Tut_9F01A8,
-    EventScr_Ch1Tut_9F0208,
-    EventScr_Ch1Tut_9F023C,
-    EventScr_Ch1Tut_9F0270,
+    EventScr_Ch1Tut_EirikaVisitHouseIdle1,
+    EventScr_Ch1Tut_EirikaVisitHouseIdle2,
+    EventScr_Ch1Tut_EirikaVisitHouseEnd,
+    EventScr_Ch1Tut_GuideTerrainHeal,
+    EventScr_Ch1Tut_TradeSelectGalliamIdle1,
+    EventScr_Ch1Tut_TradeSelectGalliamIdle2,
+    EventScr_Ch1Tut_TradeSelectGalliamEnd,
+    EventScr_Ch1Tut_AfterTrade,
+    EventScr_Ch1Tut_PostTradeAndItemUseAction,
+    EventScr_Ch1Tut_SethMoveToEnemy,
+    EventScr_Ch1Tut_BeforeSethMoveToEnemy,
+    EventScr_Ch1Tut_AfterSethMoveToEnemy,
+    EventScr_Ch1Tut_GuideOnBKSEL,
+    EventScr_Ch1Tut_AfterSethBattleEirikaVisit,
     NULL
 };
 
