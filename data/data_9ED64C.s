@@ -1,8 +1,76 @@
     .section .data
 
-	.global EventScr_Ch1_BeginingScene
-EventScr_Ch1_BeginingScene:
-    .incbin "baserom.gba", 0x9EF848, 0x9F36A0 - 0x9EF848
+	.global EventScr_Ch1Tut_9EFC9C
+EventScr_Ch1Tut_9EFC9C:
+    .incbin "baserom.gba", 0x9EFC9C, 0x9EFD14 - 0x9EFC9C
+
+	.global EventScr_Ch1Tut_9EFD14
+EventScr_Ch1Tut_9EFD14:
+    .incbin "baserom.gba", 0x9EFD14, 0x9EFD74 - 0x9EFD14
+
+	.global EventScr_Ch1Tut_9EFD74
+EventScr_Ch1Tut_9EFD74:
+    .incbin "baserom.gba", 0x9EFD74, 0x9EFDA8 - 0x9EFD74
+
+	.global EventScr_Ch1Tut_9EFDA8
+EventScr_Ch1Tut_9EFDA8:
+    .incbin "baserom.gba", 0x9EFDA8, 0x9EFDE8 - 0x9EFDA8
+
+	.global EventScr_Ch1Tut_9EFDE8
+EventScr_Ch1Tut_9EFDE8:
+    .incbin "baserom.gba", 0x9EFDE8, 0x9EFE48 - 0x9EFDE8
+
+	.global EventScr_Ch1Tut_9EFE48
+EventScr_Ch1Tut_9EFE48:
+    .incbin "baserom.gba", 0x9EFE48, 0x9EFF20 - 0x9EFE48
+
+	.global EventScr_Ch1Tut_9EFF20
+EventScr_Ch1Tut_9EFF20:
+    .incbin "baserom.gba", 0x9EFF20, 0x9EFF9C - 0x9EFF20
+
+	.global EventScr_Ch1Tut_9EFF9C
+EventScr_Ch1Tut_9EFF9C:
+    .incbin "baserom.gba", 0x9EFF9C, 0x9EFFFC - 0x9EFF9C
+
+	.global EventScr_Ch1Tut_9EFFFC
+EventScr_Ch1Tut_9EFFFC:
+    .incbin "baserom.gba", 0x9EFFFC, 0x9F0030 - 0x9EFFFC
+
+	.global EventScr_Ch1Tut_9F0030
+EventScr_Ch1Tut_9F0030:
+    .incbin "baserom.gba", 0x9F0030, 0x9F0060 - 0x9F0030
+
+	.global EventScr_Ch1Tut_9F0060
+EventScr_Ch1Tut_9F0060:
+    .incbin "baserom.gba", 0x9F0060, 0x9F0090 - 0x9F0060
+
+	.global EventScr_Ch1Tut_9F0090
+EventScr_Ch1Tut_9F0090:
+    .incbin "baserom.gba", 0x9F0090, 0x9F00BC - 0x9F0090
+
+	.global EventScr_Ch1Tut_9F00BC
+EventScr_Ch1Tut_9F00BC:
+    .incbin "baserom.gba", 0x9F00BC, 0x9F0130 - 0x9F00BC
+
+	.global EventScr_Ch1Tut_9F0130
+EventScr_Ch1Tut_9F0130:
+    .incbin "baserom.gba", 0x9F0130, 0x9F01A8 - 0x9F0130
+
+	.global EventScr_Ch1Tut_9F01A8
+EventScr_Ch1Tut_9F01A8:
+    .incbin "baserom.gba", 0x9F01A8, 0x9F0208 - 0x9F01A8
+
+	.global EventScr_Ch1Tut_9F0208
+EventScr_Ch1Tut_9F0208:
+    .incbin "baserom.gba", 0x9F0208, 0x9F023C - 0x9F0208
+
+	.global EventScr_Ch1Tut_9F023C
+EventScr_Ch1Tut_9F023C:
+    .incbin "baserom.gba", 0x9F023C, 0x9F0270 - 0x9F023C
+
+	.global EventScr_Ch1Tut_9F0270
+EventScr_Ch1Tut_9F0270:
+    .incbin "baserom.gba", 0x9F0270, 0x9F36A0 - 0x9F0270
 
 	.global gUnknown_089F36A0
 gUnknown_089F36A0:  @ 0x089F36A0
