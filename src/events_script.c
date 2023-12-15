@@ -10,3 +10,6 @@
 
 #include "events/prologue-eventscript.h"
 #include "events/prologue-tutorials.h"
+
+#include "events/ch1-eventscript.h"
+#include "events/ch1-tutorials.h"

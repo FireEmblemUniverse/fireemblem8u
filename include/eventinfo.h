@@ -36,6 +36,13 @@ enum {
     TUTORIAL_EVT_TYPE_PLAYERPHASE = 6,
 };
 
+enum char_identifier_event {
+    CHAR_EVT_PLAYER_LEADER = 0,
+    CHAR_EVT_ACTIVE_UNIT = -1,
+    CHAR_EVT_POSITION_AT_SLOTB = -2,
+    CHAR_EVT_SLOT2 = -3,
+};
+
 struct EventInfo {
     /* 00 */ EventListScr * listScript;
     /* 04 */ u32 script;
@@ -228,14 +235,14 @@ extern CONST_DATA EventListScr EventScr_CallIfCommonMode[];
 extern CONST_DATA EventListScr EventScr_CallWithModeCheck[];
 extern CONST_DATA EventListScr EventScr_SetFlagIfPlayedThrough[];
 extern CONST_DATA EventListScr Event_TextWithBG[];
-extern CONST_DATA EventListScr EventScr_9EE19C[];
-extern CONST_DATA EventListScr EventScr_9EE1B8[];
-extern CONST_DATA EventListScr EventScr_ExitWithTriggerEidUnset[];
+extern CONST_DATA EventListScr EventScr_UnTriggerIfNotUnit[];
+extern CONST_DATA EventListScr EventScr_UnTriggerIfNotFaction[];
+extern CONST_DATA EventListScr EventScr_EndAndResetTriggEvent[];
 extern CONST_DATA EventListScr EventScr_9EE1E8[];
 extern CONST_DATA EventListScr EventScr_9EE218[];
 extern CONST_DATA EventListScr EventScr_9EE248[];
-extern CONST_DATA EventListScr EventScr_9EE274[];
-extern CONST_DATA EventListScr EventScr_9EE29C[];
+extern CONST_DATA EventListScr EventScr_LoadReinforce[];
+extern CONST_DATA EventListScr EventScr_LoadReinforceHardMode[];
 extern CONST_DATA EventListScr EventScr_TextShowWithFadeIn[];
 extern CONST_DATA EventListScr EventScr_SetBackground[];
 extern CONST_DATA EventListScr Event_TextWithBG[];
@@ -245,7 +252,7 @@ extern CONST_DATA EventListScr EventScr_ApplyTileChangeForFactionIfEnemy[];
 extern CONST_DATA EventListScr EventScr_ApplyTileChangeForFactionIfNPC[];
 extern CONST_DATA EventListScr EventScr_ApplyTileChangeForFaction[];
 extern CONST_DATA EventListScr EventScr_9EE39C[];
-extern CONST_DATA EventListScr EventScr_MoveUnitSbToLeader[];
+extern CONST_DATA EventListScr EventScr_MoveUnitS2ToLeader[];
 extern CONST_DATA EventListScr EventScr_FormatMoveUnit[];
 extern CONST_DATA EventListScr EventScr_Prologue_Tutorial0_Exec[];
 extern CONST_DATA EventListScr EventScr_Prologue_Tutorial1_Exec[];
@@ -282,6 +289,39 @@ extern CONST_DATA EventListScr EventScr_Prologue_TutorialC[];
 extern CONST_DATA EventListScr EventScr_Prologue_TutorialD[];
 extern CONST_DATA EventListScr EventScr_Prologue_TutorialE[];
 extern CONST_DATA EventListScr EventScr_Prologue_9EF828[];
+extern CONST_DATA EventListScr EventScr_Ch1_BeginingScene[];
+extern CONST_DATA EventListScr EventScr_Ch1_Turn1Player[];
+extern CONST_DATA EventListScr EventScr_Ch1_Turn1Enemy[];
+extern CONST_DATA EventListScr EventScr_Ch1_Turn_AllyReinforceArrive[];
+extern CONST_DATA EventListScr EventScr_Ch1_Misc_DefeatBoss[];
+extern CONST_DATA EventListScr EventScr_Ch1_EndingScene[];
+extern CONST_DATA EventListScr EventScr_Ch1_Talk_SethFranz[];
+extern CONST_DATA EventListScr EventScr_Ch1_Talk_EirikaFranz[];
+extern CONST_DATA EventListScr EventScr_Ch1_Loca_Visit1[];
+extern CONST_DATA EventListScr EventScr_Ch1_Loca_Visit2[];
+extern CONST_DATA EventListScr EventScr_Ch1_Misc_Area[];
+extern CONST_DATA EventListScr EventScr_Ch1_Turn_EnemyReinforceArrive[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_GuideWTA[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_EirikaVisitHouseIdle1[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_EirikaVisitHouseIdle2[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_EirikaVisitHouseEnd[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_GuideTerrainHeal[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_OnBeginning[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_GuideMsg944[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_GilliamBattle[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_TradeSelectGalliamIdle1[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_TradeSelectGalliamIdle2[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_TradeSelectGalliamEnd[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_AfterTrade[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_PostTradeAndItemUseAction[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_GuideMsgSeize[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_ChooseSethTurn1[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_SethMoveToEnemy[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_BeforeSethMoveToEnemy[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_AfterSethMoveToEnemy[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_GuideOnBKSEL[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_AfterSethBattleEirikaVisit[];
+extern CONST_DATA EventListScr EventScr_Ch1Tut_MsgOnGuideOption[];
 
 extern struct UnitDefinition UnitDef_Event_PrologueAlly[];
 extern struct UnitDefinition UnitDef_Event_PrologueEnemy[];
@@ -292,5 +332,10 @@ extern struct UnitDefinition UnitDef_Event_PrologueGradoShamans[];
 extern struct UnitDefinition UnitDef_Event_PrologueGradoCavalry[];
 extern struct UnitDefinition UnitDef_Event_PrologueEscapees[];
 extern struct UnitDefinition UnitDef_Event_PrologueValterGroup[];
+extern struct UnitDefinition UnitDef_Event_Ch1Ally[];
+extern struct UnitDefinition UnitDef_Event_Ch1Enemy[];
+extern struct UnitDefinition UnitDef_Event_Ch1AllyReinforce[];
+extern struct UnitDefinition UnitDef_Event_Ch1EnemyReinforce[];
+extern struct UnitDefinition UnitDef_Event_Ch1NPC[];
 
 #endif // GUARD_eventinfo_H

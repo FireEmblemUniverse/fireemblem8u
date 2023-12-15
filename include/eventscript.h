@@ -367,7 +367,7 @@ enum event_sub_cmd_idx {
 #define EvtLoadUnit2(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD2, (restriction)), (EventListScr)(units),
 #define EvtGetPidAt(x, y) _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_AT, _EvtSubParam16u8((x), (y))),
 #define EvrGetActiveUnitPid _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_ACTIVE, 0),
-#define EvtMoveUnit(modify, speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE | (modify) << 3), (speed)), _EvtParams4(pid, 0, (x), (y)),
+#define EvtMoveUnit(modify, speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE | (modify) << 3), (speed)), _EvtParams2((pid), _EvtSubParam16u8((x), (y))),
 #define EvtMoveUnitToTarget(modify, speed, pid, pid_target) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVEONTO | (modify) << 3), (speed)), _EvtParams2((pid), (pid_target)),
 #define EvtMoveUnitOneStep(modify, speed, pid, direction) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE_1STEP | (modify) << 3), (speed)), _EvtParams2((pid), (direction)),
 #define EvtMoveUnitByQueue(modify, pid) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE_DEFINED | (modify) << 3), 0), _EvtParams2((pid), 0),
@@ -399,6 +399,7 @@ enum event_sub_cmd_idx {
 #define EvtChangeAI(pid) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI, (pid)),
 #define EvtChangeAIat(x, y) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI_AT, _EvtSubParam16u8((x), (y))),
 #define EvtDisplayPopupSilently(msg, x, y) _EvtArg0(EV_CMD_DISPLAYPOPUP, 4, EVSUBCMD_BROWNTEXTBOX, (msg)), _EvtParams2((x), (y)),
+#define EvtDisplayCursorAt(x, y) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_AT, _EvtSubParam16u8((x), (y))),
 #define EvtDisplayCursorAtUnit(pid) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_UNIT, (pid)),
 #define EvtEndCursor _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURE, 0),
 #define EvtDisplayFlashingCursorAt(x, y) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_FLASHING_AT, _EvtSubParam16u8((x), (y))),
@@ -433,10 +434,35 @@ enum event_trigger_types {
     _EvtParams2(EVT_LIST_CMD_END, 0),
 
 #define EvtListFlag(ent_flag, scr, flag) \
-    _EvtParams2(EVT_LIST_CMD_FLAG, (ent_flag)), (EventListScr) (scr), (flag),
+    _EvtParams2(EVT_LIST_CMD_FLAG, (ent_flag)), \
+    (EventListScr) (scr), (flag),
 
 #define EvtListTurn(ent_flag, scr, turn, turn_max, faction) \
-    _EvtParams2(EVT_LIST_CMD_TURN, (ent_flag)), (EventListScr) (scr), _EvtParams4((turn), (turn_max), (faction), 0),
+    _EvtParams2(EVT_LIST_CMD_TURN, (ent_flag)), \
+    (EventListScr) (scr), \
+    _EvtParams4((turn), (turn_max), (faction), 0),
+
+#define EvtListTalk(ent_flag, ent_script, pid_a, pid_b) \
+    _EvtParams2(EVT_LIST_CMD_CHAR, (ent_flag)), \
+    (EventListScr) (ent_script), \
+    _EvtParams4((pid_a), (pid_b), 0, 0), \
+    (EventListScr) 0,
+
+#define EvtListConditionalTalk(ent_flag, ent_script, pid_a, pid_b, trigg_eid) \
+    _EvtParams2(EVT_LIST_CMD_CHAR, (ent_flag)), \
+    (EventListScr) (ent_script), \
+    _EvtParams4((pid_a), (pid_b), 0, 0), \
+    _EvtParams2((trigg_eid), 3),
+
+#define EvtListTile(ent_flag, ent_script, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_LOCA, (ent_flag)), \
+    (EventListScr) (ent_script), \
+    _EvtParams4((x), (y), (tile_command), 0),
+
+#define EvtListArea(ent_flag, ent_script, x1, y1, x2, y2) \
+    _EvtParams2(EVT_LIST_CMD_AREA, (ent_flag)), \
+    (EventListScr) (ent_script), \
+    _EvtParams4((x1), (y1), (x2), (y2)),
 
 /* MISC */
 enum event3D_menu1override_bitfiles {

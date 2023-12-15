@@ -581,7 +581,7 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gProcScr_SquareSelectTorch
 // extern ??? gUnknown_0859BC64
 // extern ??? gUnknown_0859BCA8
-// extern ??? gUnknown_0859BCF4
+// extern ??? EventScr_Ch1Tut_PressAtoGetItem
 // extern ??? gUnknown_0859BD40
 extern struct ProcCmd CONST_DATA gProcScr_UpdateTraps[];
 // extern ??? gProc_MapTask

@@ -83,27 +83,27 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_9EE19C[] = {
+CONST_DATA EventListScr EventScr_UnTriggerIfNotUnit[] = {
     CHECK_ACTIVE
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_2)
 
-    CALL(EventScr_ExitWithTriggerEidUnset)
+    CALL(EventScr_EndAndResetTriggEvent)
 
 LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_9EE1B8[] = {
+CONST_DATA EventListScr EventScr_UnTriggerIfNotFaction[] = {
     CHECK_ALLEGIANCE(-1)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_2)
 
-    CALL(EventScr_ExitWithTriggerEidUnset)
+    CALL(EventScr_EndAndResetTriggEvent)
 
 LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_ExitWithTriggerEidUnset[] = {
+CONST_DATA EventListScr EventScr_EndAndResetTriggEvent[] = {
     CHECK_EVENTID_
     SADD(EVT_SLOT_2, EVT_SLOT_C, EVT_SLOT_0)
     ENUF(-1)
@@ -156,7 +156,7 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_9EE274[] = {
+CONST_DATA EventListScr EventScr_LoadReinforce[] = {
     EVBIT_MODIFY(4)
     CALL(EventScr_RemoveBGIfNeeded)
     EVBIT_T(EV_STATE_0008 | EV_STATE_ABORT)
@@ -168,14 +168,14 @@ CONST_DATA EventListScr EventScr_9EE274[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_9EE29C[] = {
+CONST_DATA EventListScr EventScr_LoadReinforceHardMode[] = {
     CHECK_TUTORIAL
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
 
     CHECK_HARD
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
 
-    CALL(EventScr_9EE274)
+    CALL(EventScr_LoadReinforce)
 
 LABEL(0x0)
     ENDA
@@ -264,7 +264,7 @@ LABEL(0x1)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_MoveUnitSbToLeader[] = {
+CONST_DATA EventListScr EventScr_MoveUnitS2ToLeader[] = {
     CHECK_ALIVE(-3)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
 

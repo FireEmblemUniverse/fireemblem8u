@@ -1,8 +1,8 @@
     .section .data
 
-	.global EventScr_Ch1_BeginingScene
-EventScr_Ch1_BeginingScene:
-    .incbin "baserom.gba", 0x9EF848, 0x9F36A0 - 0x9EF848
+	.global EventScr_Ch2_BeginingScene
+EventScr_Ch2_BeginingScene:
+    .incbin "baserom.gba", 0x9F02A0, 0x9F36A0 - 0x9F02A0
 
 	.global gUnknown_089F36A0
 gUnknown_089F36A0:  @ 0x089F36A0
