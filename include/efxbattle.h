@@ -115,6 +115,16 @@ struct ProcEfxALPHA
     /* 5C */ struct Anim * anim;
 };
 
+struct ProcEfxSCR
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    /* 34 */ STRUCT_PAD(0x30, 0x5C);
+    /* 5C */ struct ProcEfx * unk5C;
+};
+
 struct ProcEkrDispUP {
     PROC_HEADER;
 
