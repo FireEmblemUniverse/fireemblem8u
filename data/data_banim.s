@@ -76148,72 +76148,136 @@ gUnknown_08728C04:  @ 0x08728C04
     .4byte 0x84000013
     .4byte 0x81000000
 
-	.global gUnknown_08728C5C
-gUnknown_08728C5C:  @ 0x08728C5C
+	.global Img_LunaBg1
+Img_LunaBg1:  @ 0x08728C5C
 	.incbin "baserom.gba", 0x728C5C, 0xAD0
 
-	.global gUnknown_0872972C
-gUnknown_0872972C:  @ 0x0872972C
-	.incbin "baserom.gba", 0x72972C, 0x150
+	.global Pal_LunaBg1
+Pal_LunaBg1:  @ 0x0872972C
+	.incbin "baserom.gba", 0x72972C, 0x20    @ 0x72974C - 0x72972C
 
-	.global gUnknown_0872987C
-gUnknown_0872987C:  @ 0x0872987C
+	.global Tsa_LunaBg1_A
+Tsa_LunaBg1_A:  @ 0x0872974C
+	.incbin "baserom.gba", 0x72974C, 0x130    @ 0x72987C - 0x72974C
+
+	.global Img_LunaBg2
+Img_LunaBg2:  @ 0x0872987C
 	.incbin "baserom.gba", 0x72987C, 0x760
 
-	.global gUnknown_08729FDC
-gUnknown_08729FDC:  @ 0x08729FDC
+	.global Pal_LunaBg2
+Pal_LunaBg2:  @ 0x08729FDC
 	.incbin "baserom.gba", 0x729FDC, 0x1E0
 
-	.global gUnknown_0872A1BC
-gUnknown_0872A1BC:  @ 0x0872A1BC
-	.incbin "baserom.gba", 0x72A1BC, 0x2CA4
+	.global Tsa_LunaBg2
+Tsa_LunaBg2:  @ 0x0872A1BC
+	.incbin "baserom.gba", 0x72A1BC, 0x1A4    @ 0x72A360 - 0x72A1BC
 
-	.global gUnknown_0872CE60
-gUnknown_0872CE60:  @ 0x0872CE60
-	.incbin "baserom.gba", 0x72CE60, 0xBA4
+	.global Img_LunaBg3_A
+Img_LunaBg3_A:  @ 0x0872A360
+	.incbin "baserom.gba", 0x72A360, 0x125C    @ 0x72B5BC - 0x72A360
 
-	.global gUnknown_0872DA04
-gUnknown_0872DA04:  @ 0x0872DA04
+	.global Img_LunaBg3_B
+Img_LunaBg3_B:  @ 0x0872B5BC
+	.incbin "baserom.gba", 0x72B5BC, 0xCD4    @ 0x72C290 - 0x72B5BC
+
+	.global Img_LunaBg3_C
+Img_LunaBg3_C:  @ 0x0872C290
+	.incbin "baserom.gba", 0x72C290, 0xBD0    @ 0x72CE60 - 0x72C290
+
+	.global Pal_LunaBg3
+Pal_LunaBg3:  @ 0x0872CE60
+	.incbin "baserom.gba", 0x72CE60, 0x20    @ 0x72CE80 - 0x72CE60
+
+	.global Tsa_LunaBg3_A
+Tsa_LunaBg3_A:  @ 0x0872CE80
+	.incbin "baserom.gba", 0x72CE80, 0xB4    @ 0x72CF34 - 0x72CE80
+
+	.global Tsa_LunaBg3_B
+Tsa_LunaBg3_B:  @ 0x0872CF34
+	.incbin "baserom.gba", 0x72CF34, 0xBC    @ 0x72CFF0 - 0x72CF34
+
+	.global Tsa_LunaBg3_C
+Tsa_LunaBg3_C:  @ 0x0872CFF0
+	.incbin "baserom.gba", 0x72CFF0, 0xDC    @ 0x72D0CC - 0x72CFF0
+
+	.global Tsa_LunaBg3_D
+Tsa_LunaBg3_D:  @ 0x0872D0CC
+	.incbin "baserom.gba", 0x72D0CC, 0xE8    @ 0x72D1B4 - 0x72D0CC
+
+	.global Tsa_LunaBg3_E
+Tsa_LunaBg3_E:  @ 0x0872D1B4
+	.incbin "baserom.gba", 0x72D1B4, 0x124    @ 0x72D2D8 - 0x72D1B4
+
+	.global Tsa_LunaBg3_F
+Tsa_LunaBg3_F:  @ 0x0872D2D8
+	.incbin "baserom.gba", 0x72D2D8, 0x120    @ 0x72D3F8 - 0x72D2D8
+
+	.global Tsa_LunaBg3_G
+Tsa_LunaBg3_G:  @ 0x0872D3F8
+	.incbin "baserom.gba", 0x72D3F8, 0x10C    @ 0x72D504 - 0x72D3F8
+
+	.global Tsa_LunaBg3_H
+Tsa_LunaBg3_H:  @ 0x0872D504
+	.incbin "baserom.gba", 0x72D504, 0x10C    @ 0x72D610 - 0x72D504
+
+	.global Tsa_LunaBg3_I
+Tsa_LunaBg3_I:  @ 0x0872D610
+	.incbin "baserom.gba", 0x72D610, 0xFC    @ 0x72D70C - 0x72D610
+
+	.global Tsa_LunaBg3_J
+Tsa_LunaBg3_J:  @ 0x0872D70C
+	.incbin "baserom.gba", 0x72D70C, 0x100    @ 0x72D80C - 0x72D70C
+
+	.global Tsa_LunaBg3_K
+Tsa_LunaBg3_K:  @ 0x0872D80C
+	.incbin "baserom.gba", 0x72D80C, 0xFC    @ 0x72D908 - 0x72D80C
+
+	.global Tsa_LunaBg3_L
+Tsa_LunaBg3_L:  @ 0x0872D908
+	.incbin "baserom.gba", 0x72D908, 0xFC    @ 0x72DA04 - 0x72D908
+
+	.global Img_LunaSprites
+Img_LunaSprites:  @ 0x0872DA04
 	.incbin "baserom.gba", 0x72DA04, 0x400
 
-	.global gUnknown_0872DE04
-gUnknown_0872DE04:  @ 0x0872DE04
+	.global Pal_LunaSprites
+Pal_LunaSprites:  @ 0x0872DE04
 	.incbin "baserom.gba", 0x72DE04, 0x1E8
 
 	.global gUnknown_0872DFEC
 gUnknown_0872DFEC:  @ 0x0872DFEC
 @ Replacing .incbin "baserom.gba", 0x72DFEC, 0x38
-    .4byte gUnknown_0872DE04 + 0x8d
-    .4byte gUnknown_0872DE04 + 0xb1
-    .4byte gUnknown_0872DE04 + 0xd5
-    .4byte gUnknown_0872DE04 + 0xf9
-    .4byte gUnknown_0872DE04 + 0x11d
-    .4byte gUnknown_0872DE04 + 0x141
-    .4byte gUnknown_0872DE04 + 0x165
-    .4byte gUnknown_0872DE04 + 0x189
-    .4byte gUnknown_0872DE04 + 0x1ad
+    .4byte Pal_LunaSprites + 0x8d
+    .4byte Pal_LunaSprites + 0xb1
+    .4byte Pal_LunaSprites + 0xd5
+    .4byte Pal_LunaSprites + 0xf9
+    .4byte Pal_LunaSprites + 0x11d
+    .4byte Pal_LunaSprites + 0x141
+    .4byte Pal_LunaSprites + 0x165
+    .4byte Pal_LunaSprites + 0x189
+    .4byte Pal_LunaSprites + 0x1ad
     .4byte 0x80000000
-    .4byte gUnknown_0872DE04 + 0x23
-    .4byte gUnknown_0872DE04 + 0x47
-    .4byte gUnknown_0872DE04 + 0x6b
+    .4byte Pal_LunaSprites + 0x23
+    .4byte Pal_LunaSprites + 0x47
+    .4byte Pal_LunaSprites + 0x6b
     .4byte 0x80000000
 
 	.global gUnknown_0872E024
 gUnknown_0872E024:  @ 0x0872E024
 @ Replacing .incbin "baserom.gba", 0x72E024, 0x228
-    .4byte gUnknown_0872DE04 + 0x1ad
-    .4byte gUnknown_0872DE04 + 0x189
-    .4byte gUnknown_0872DE04 + 0x165
-    .4byte gUnknown_0872DE04 + 0x141
-    .4byte gUnknown_0872DE04 + 0x11d
-    .4byte gUnknown_0872DE04 + 0xf9
-    .4byte gUnknown_0872DE04 + 0xd5
-    .4byte gUnknown_0872DE04 + 0xb1
-    .4byte gUnknown_0872DE04 + 0x8d
+    .4byte Pal_LunaSprites + 0x1ad
+    .4byte Pal_LunaSprites + 0x189
+    .4byte Pal_LunaSprites + 0x165
+    .4byte Pal_LunaSprites + 0x141
+    .4byte Pal_LunaSprites + 0x11d
+    .4byte Pal_LunaSprites + 0xf9
+    .4byte Pal_LunaSprites + 0xd5
+    .4byte Pal_LunaSprites + 0xb1
+    .4byte Pal_LunaSprites + 0x8d
     .4byte 0x80000000
-    .4byte gUnknown_0872DE04 + 0x6b
-    .4byte gUnknown_0872DE04 + 0x47
-    .4byte gUnknown_0872DE04 + 0x23
+    .4byte Pal_LunaSprites + 0x6b
+    .4byte Pal_LunaSprites + 0x47
+    .4byte Pal_LunaSprites + 0x23
     .4byte 0x80000000
     .4byte 0xffff0001
     .4byte 0x000000d5

@@ -115,6 +115,16 @@ struct ProcEfxALPHA
     /* 5C */ struct Anim * anim;
 };
 
+struct ProcEfxSCR
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
+    /* 34 */ STRUCT_PAD(0x30, 0x5C);
+    /* 5C */ struct ProcEfx * unk5C;
+};
+
 struct ProcEkrDispUP {
     PROC_HEADER;
 
@@ -1790,17 +1800,33 @@ extern u16 Tsa_ShineBg2_I[];
 extern u16 Img_ShineSprites[];
 extern u16 Pal_ShineSprites[];
 extern u32 gUnknown_08728C04[];
-// extern ??? gUnknown_08728C5C
-// extern ??? gUnknown_0872972C
-// extern ??? gUnknown_0872987C
-// extern ??? gUnknown_08729FDC
-// extern ??? gUnknown_0872A1BC
-// extern ??? gUnknown_0872CE60
-// extern ??? gUnknown_0872DA04
-// extern ??? gUnknown_0872DE04
-// extern ??? gUnknown_0872DFEC
-// extern ??? gUnknown_0872E024
-// extern ??? gUnknown_0872E24C
+extern u16 Img_LunaBg1[];
+extern u16 Pal_LunaBg1[];
+extern u16 Tsa_LunaBg1_A[];
+extern u16 Img_LunaBg2[];
+extern u16 Pal_LunaBg2[];
+extern u16 Tsa_LunaBg2[];
+extern u16 Img_LunaBg3_A[];
+extern u16 Img_LunaBg3_B[];
+extern u16 Img_LunaBg3_C[];
+extern u16 Pal_LunaBg3[];
+extern u16 Tsa_LunaBg3_A[];
+extern u16 Tsa_LunaBg3_B[];
+extern u16 Tsa_LunaBg3_C[];
+extern u16 Tsa_LunaBg3_D[];
+extern u16 Tsa_LunaBg3_E[];
+extern u16 Tsa_LunaBg3_F[];
+extern u16 Tsa_LunaBg3_G[];
+extern u16 Tsa_LunaBg3_H[];
+extern u16 Tsa_LunaBg3_I[];
+extern u16 Tsa_LunaBg3_J[];
+extern u16 Tsa_LunaBg3_K[];
+extern u16 Tsa_LunaBg3_L[];
+extern u16 Img_LunaSprites[];
+extern u16 Pal_LunaSprites[];
+extern u32 gUnknown_0872DFEC[];
+extern u32 gUnknown_0872E024[];
+extern u32 gUnknown_0872E24C[];
 // extern ??? gUnknown_0872E25C
 // extern ??? gUnknown_0872E64C
 // extern ??? gUnknown_0872E7EC

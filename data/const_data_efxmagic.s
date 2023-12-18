@@ -1,21 +1,12 @@
     .section .rodata
 
-	.asciz "efxLuna"
+	.asciz "efxExcalibur"
 	.align 2, 0
 
-	.asciz "efxLunaBG"
+	.asciz "efxExcaliburBG"
+	.align 2, 0
 
-	.global gUnknown_080DE0CE
-gUnknown_080DE0CE:  @ 0x080DE0CE
-	.incbin "baserom.gba", 0xDE0CE, 0x38
-
-	.global gUnknown_080DE106
-gUnknown_080DE106:  @ 0x080DE106
-	.incbin "baserom.gba", 0xDE106, 0x4A
-
-	.global gUnknown_080DE150
-gUnknown_080DE150:  @ 0x080DE150
-	.incbin "baserom.gba", 0xDE150, 0x7E
+	.asciz "efxExcaliburBGCOL"
 
 	.global gUnknown_080DE1CE
 gUnknown_080DE1CE:  @ 0x080DE1CE

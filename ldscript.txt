@@ -190,6 +190,7 @@ SECTIONS
         src/banim-efxmagic-healstaves.o(.text);
         src/banim-efxmagic-effectstaves.o(.text);
         src/banim-efxmagic-shine.o(.text);
+        src/banim-efxmagic-luna.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
@@ -468,6 +469,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-healstaves.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-effectstaves.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-shine.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-luna.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
@@ -677,6 +679,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-healstaves.o(.data);
         . = ALIGN(4); src/banim-efxmagic-effectstaves.o(.data);
         . = ALIGN(4); src/banim-efxmagic-shine.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-luna.o(.data);
         . = ALIGN(4); data/banim-efxmagic.o(.data);
         . = ALIGN(4); data/banim-efxmagic-ivaldi.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);
