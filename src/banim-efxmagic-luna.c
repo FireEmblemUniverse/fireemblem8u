@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd ProcScr_efxLuna[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxLuna[] =
+{
+    PROC_NAME("efxLuna"),
+    PROC_REPEAT(sub_80639B0),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063974
 void StartSpellAnimLuna(struct Anim * anim)
@@ -101,18 +110,33 @@ void sub_80639B0(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D6FE4[];
+// clang-format off
 
-extern u16 * gUnknown_085D6FFC[];
+struct ProcCmd CONST_DATA gUnknown_085D6FE4[] =
+{
+    PROC_NAME("efxLunaBG"),
+    PROC_REPEAT(sub_8063BC8),
+    PROC_END,
+};
 
-extern u16 gUnknown_0872972C[];
-extern u16 gUnknown_08728C5C[];
+u16 * CONST_DATA gUnknown_085D6FFC[] =
+{
+    Tsa_0872974C,
+};
 
-extern u16 gUnknown_080DE0CE[];
+// clang-format on
 
 //! FE8U = 0x08063B6C
 void sub_8063B6C(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE0CE[] =
+    {
+         0, 60,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -160,7 +184,23 @@ void sub_8063BC8(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7000[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D7000[] =
+{
+    PROC_NAME("efxLunaSCR"),
+    PROC_REPEAT(sub_8063C40),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_085D7018[] =
+{
+    PROC_NAME("efxLunaSCR2"),
+    PROC_REPEAT(sub_8063D1C),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063C20
 void sub_8063C20(void)
@@ -176,7 +216,20 @@ void sub_8063C20(void)
     return;
 }
 
-extern s16 gUnknown_085D7030[];
+// clang-format off
+
+s16 CONST_DATA gUnknown_085D7030[] = {
+    -256, -250, -245, -239, -234, -228, -223, -217, -212, -206, -201, -196,
+    -190, -185, -179, -174, -168, -163, -157, -152, -147, -141, -136, -130,
+    -125, -119, -114, -108, -103, -98,  -92,  -87,  -81,  -76,  -70,  -65,
+    -59,  -54,  -49,  -43,  -38,  -32,  -27,  -21,  -16,  -10,  -5,   +0,
+    +0,   +5,   +10,  +16,  +21,  +27,  +32,  +38,  +43,  +49,  +54,  +59,
+    +65,  +70,  +76,  +81,  +87,  +92,  +98,  +103, +108, +114, +119, +125,
+    +130, +136, +141, +147, +152, +157, +163, +168, +174, +179, +185, +190,
+    +196, +201, +206, +212, +217, +223, +228, +234, +239, +245, +250, +256,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063C40
 void sub_8063C40(struct ProcEfx * proc)
@@ -228,8 +281,6 @@ void sub_8063C40(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7018[];
-
 //! FE8U = 0x08063CFC
 void sub_8063CFC(ProcPtr proc)
 {
@@ -259,11 +310,19 @@ void sub_8063D1C(struct ProcEfxSCR * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D70F0[];
+// clang-format off
 
-extern u16 gUnknown_0872987C[];
-extern u16 gUnknown_08729FDC[];
-extern u16 gUnknown_0872A1BC[];
+struct ProcCmd CONST_DATA gUnknown_085D70F0[] =
+{
+    PROC_NAME("efxLunaBG2"),
+    PROC_SET_END_CB(sub_8063E58),
+
+    PROC_REPEAT(sub_8063E74),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063D64
 void sub_8063D64(struct Anim * anim, int terminator)
@@ -338,13 +397,47 @@ void sub_8063E74(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7110[];
+// clang-format off
 
-extern u16 gUnknown_080DE106[];
+struct ProcCmd CONST_DATA gUnknown_085D7110[] =
+{
+    PROC_NAME("efxLunaBGCOL"),
+    PROC_MARK(PROC_MARK_A),
+
+    PROC_SET_END_CB(sub_8063EE8),
+
+    PROC_REPEAT(sub_8063EF8),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063EA0
 void sub_8063EA0(struct Anim * anim, int terminator)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE106[] =
+    {
+         0, 4,
+         1, 4,
+         2, 4,
+         3, 4,
+         4, 4,
+         5, 4,
+         6, 4,
+         7, 4,
+         8, 4,
+         9, 4,
+        10, 4,
+        11, 4,
+        12, 4,
+        13, 4,
+        14, 4,
+        -2,
+    };
+    // clang-format on
+
     struct ProcEfxBGCOL * proc;
 
     gEfxBgSemaphore++;
@@ -392,18 +485,71 @@ void sub_8063EF8(struct ProcEfxBGCOL * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7138[];
+// clang-format off
 
-extern u16 * gUnknown_085D7150[];
-extern u16 * gUnknown_085D7180[];
+struct ProcCmd CONST_DATA gUnknown_085D7138[] =
+{
+    PROC_NAME("efxLunaBG3"),
+    PROC_REPEAT(sub_8063FC0),
+    PROC_END,
+};
 
-extern u16 gUnknown_0872CE60[];
+u16 * CONST_DATA gUnknown_085D7150[] =
+{
+    Tsa_0872CE80,
+    Tsa_0872CF34,
+    Tsa_0872CFF0,
+    Tsa_0872D0CC,
+    Tsa_0872D1B4,
+    Tsa_0872D2D8,
+    Tsa_0872D3F8,
+    Tsa_0872D504,
+    Tsa_0872D610,
+    Tsa_0872D70C,
+    Tsa_0872D80C,
+    Tsa_0872D908,
+};
 
-extern u16 gUnknown_080DE150[];
+u16 * CONST_DATA gUnknown_085D7180[] =
+{
+    Img_0872A360,
+    Img_0872A360,
+    Img_0872A360,
+    Img_0872A360,
+    Img_0872A360,
+    Img_0872A360,
+    Img_0872B5BC,
+    Img_0872B5BC,
+    Img_0872B5BC,
+    Img_0872C290,
+    Img_0872C290,
+    Img_0872C290,
+};
+
+// clang-format on
 
 //! FE8U = 0x08063F3C
 void sub_8063F3C(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE150[] =
+    {
+         0, 2,
+         1, 2,
+         2, 2,
+         3, 3,
+         4, 3,
+         5, 3,
+         6, 3,
+         7, 3,
+         8, 3,
+         9, 3,
+        10, 3,
+        11, 2,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -465,10 +611,21 @@ void sub_8063FC0(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxLunaOBJ[];
+// clang-format off
 
-extern u16 gUnknown_0872DA04[];
-extern u16 gUnknown_0872DE04[];
+struct ProcCmd CONST_DATA ProcScr_efxLunaOBJ[] =
+{
+    PROC_NAME("efxLunaOBJ"),
+
+    PROC_REPEAT(sub_8064060),
+    PROC_REPEAT(sub_80640D0),
+    PROC_REPEAT(sub_806416C),
+    PROC_REPEAT(sub_80641F0),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08064024
 void sub_8064024(struct Anim * anim)
@@ -487,8 +644,6 @@ void sub_8064024(struct Anim * anim)
 
     return;
 }
-
-extern u32 gUnknown_0872DFEC[];
 
 //! FE8U = 0x08064060
 void sub_8064060(struct ProcEfxOBJ * proc)
@@ -522,8 +677,6 @@ void sub_8064060(struct ProcEfxOBJ * proc)
 
     return;
 }
-
-extern u32 gUnknown_0872E24C[];
 
 //! FE8U = 0x080640D0
 void sub_80640D0(struct ProcEfxOBJ * proc)
@@ -575,8 +728,6 @@ void sub_80640D0(struct ProcEfxOBJ * proc)
 
     return;
 }
-
-extern u32 gUnknown_0872E024[];
 
 //! FE8U = 0x0806416C
 void sub_806416C(struct ProcEfxOBJ * proc)
@@ -675,7 +826,16 @@ void sub_80641F0(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D71E0[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D71E0[] =
+{
+    PROC_NAME("efxLunaRST"),
+    PROC_REPEAT(sub_80642BC),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806428C
 void sub_806428C(struct Anim * anim, ProcPtr b, int c)
