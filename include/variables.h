@@ -1009,7 +1009,7 @@ extern u8 gGfx_YellowTextBox2[];
 extern u8 gGfx_YellowTextBox3[];
 extern u8 gGfx_YellowTextBox4[];
 extern u8 gGfx_YellowTextBox5[];
-extern u8 CONST_DATA gUnknown_08A02C34[];
+extern u8 CONST_DATA Img_LimitViewSquares[];
 // extern ??? gUnknown_08A02EB4
 // extern ??? gUnknown_08A02F34
 // extern ??? gUnknown_08A02F94

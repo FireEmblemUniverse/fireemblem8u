@@ -1691,7 +1691,7 @@ s8 IsAnyPlayerSideWindowRetracting() {
 }
 
 void MenuButtonDisp_Init(struct PlayerInterfaceProc* proc) {
-    Decompress(gUnknown_08A199C8, OBJ_VRAM1 + 0x1000);
+    Decompress(Img_PrepHelpButtonSprites, OBJ_VRAM1 + 0x1000);
 
     proc->unk_46 = 136;
     proc->unk_48 = 140;

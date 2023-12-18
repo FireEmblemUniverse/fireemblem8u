@@ -1,7 +1,7 @@
     .section .data
 
-	.global gUnknown_08A199C8
-gUnknown_08A199C8:  @ 0x08A199C8
+	.global Img_PrepHelpButtonSprites
+Img_PrepHelpButtonSprites:  @ 0x08A199C8
 	.incbin "baserom.gba", 0xA199C8, 0x244
 
 	.global Img_MenuScrollBar

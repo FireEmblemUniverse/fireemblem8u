@@ -169,7 +169,7 @@ u8 MapMenu_GuideCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
 u8 MapMenu_DangerZone_UnusedEffect(void) {
     gActiveUnit = NULL;
-    gBmSt.unk3E = 0;
+    gBmSt.swapActionRangeCount = 0;
     Proc_Goto(Proc_Find(gProcScr_PlayerPhase), 0xC);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
