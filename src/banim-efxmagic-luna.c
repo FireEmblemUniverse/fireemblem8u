@@ -6,13 +6,14 @@
 #include "efxmagic.h"
 #include "hardware.h"
 #include "bmlib.h"
+#include "ctc.h"
 
 // clang-format off
 
 struct ProcCmd CONST_DATA ProcScr_efxLuna[] =
 {
     PROC_NAME("efxLuna"),
-    PROC_REPEAT(sub_80639B0),
+    PROC_REPEAT(efxLuna_Loop_Main),
     PROC_END,
 };
 
@@ -36,7 +37,7 @@ void StartSpellAnimLuna(struct Anim * anim)
 }
 
 //! FE8U = 0x080639B0
-void sub_80639B0(struct ProcEfx * proc)
+void efxLuna_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -50,23 +51,23 @@ void sub_80639B0(struct ProcEfx * proc)
 
     if (proc->timer == duration + 1)
     {
-        sub_8063B6C(anim);
+        StartSubSpell_efxLunaBG(anim);
 
         SetWinEnable(0, 0, 0);
 
         SetBlendAlpha(0, 16);
 
         NewEfxALPHA(anim, 0, 10, 0, 0x10, 0);
-        sub_806428C(anim, NewefxRestRST(anim, 20, 15, 0x100, 2), 20);
+        StartSubSpell_efxLunaRST(anim, NewefxRestRST(anim, 20, 15, 0x100, 2), 20);
         NewEfxRestWINH(anim, 20, gLCDControlBuffer.bgoffset[BG_1].x, 0);
 
         PlaySFX(0x2BD, 0x100, 120, 1);
     }
     else if (proc->timer == duration + 41)
     {
-        sub_8063C20();
+        StartSubSpell_efxLunaSCR();
         NewEfxRestWINH_(anim, 21, 1);
-        sub_8064024(anim);
+        StartSubSpell_efxLunaOBJ(anim);
         NewEfxALPHA(anim, 0, 25, 16, 0, 0);
     }
     else if (proc->timer == duration + 55)
@@ -75,8 +76,8 @@ void sub_80639B0(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 70)
     {
-        sub_8063D64(anim, 65);
-        sub_8063EA0(anim, 65);
+        StartSubSpell_efxLunaBG2(anim, 65);
+        StartSubSpell_efxLunaBGCOL(anim, 65);
 
         SetBlendAlpha(0, 16);
         NewEfxALPHA(anim, 0, 10, 0, 16, 0);
@@ -87,7 +88,7 @@ void sub_80639B0(struct ProcEfx * proc)
     {
         NewEfxFlashBgWhite(anim, 5);
 
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
         if (!proc->hitted)
@@ -98,7 +99,7 @@ void sub_80639B0(struct ProcEfx * proc)
     else if (proc->timer == duration + 140)
     {
         BG_SetPosition(BG_1, 0, 0);
-        sub_8063F3C(proc->anim);
+        StartSubSpell_efxLunaBG3(proc->anim);
     }
     else if (proc->timer == duration + 190)
     {
@@ -112,25 +113,25 @@ void sub_80639B0(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D6FE4[] =
+struct ProcCmd CONST_DATA ProcScr_efxLunaBG[] =
 {
     PROC_NAME("efxLunaBG"),
-    PROC_REPEAT(sub_8063BC8),
+    PROC_REPEAT(efxLunaBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D6FFC[] =
+u16 * CONST_DATA TsaArray_LunaBg1[] =
 {
-    Tsa_0872974C,
+    Tsa_LunaBg1_A,
 };
 
 // clang-format on
 
 //! FE8U = 0x08063B6C
-void sub_8063B6C(struct Anim * anim)
+void StartSubSpell_efxLunaBG(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE0CE[] =
+    static const u16 frames[] =
     {
          0, 60,
         -1,
@@ -141,18 +142,18 @@ void sub_8063B6C(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D6FE4, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxLunaBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE0CE;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D6FFC;
-    proc->tsar = gUnknown_085D6FFC;
+    proc->tsal = TsaArray_LunaBg1;
+    proc->tsar = TsaArray_LunaBg1;
 
-    SpellFx_RegisterBgPal(gUnknown_0872972C, PLTT_SIZE_4BPP);
-    SpellFx_RegisterBgGfx(gUnknown_08728C5C, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgPal(Pal_LunaBg1, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgGfx(Img_LunaBg1, 32 * 8 * CHR_SIZE);
 
     SpellFx_SetSomeColorEffect();
 
@@ -160,7 +161,7 @@ void sub_8063B6C(struct Anim * anim)
 }
 
 //! FE8U = 0x08063BC8
-void sub_8063BC8(struct ProcEfxBG * proc)
+void efxLunaBG_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -186,39 +187,40 @@ void sub_8063BC8(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7000[] =
+struct ProcCmd CONST_DATA ProcScr_efxLunaSCR[] =
 {
     PROC_NAME("efxLunaSCR"),
-    PROC_REPEAT(sub_8063C40),
+    PROC_REPEAT(efxLunaSCR_Loop),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_085D7018[] =
+struct ProcCmd CONST_DATA ProcScr_efxLunaSCR2[] =
 {
     PROC_NAME("efxLunaSCR2"),
-    PROC_REPEAT(sub_8063D1C),
+    PROC_REPEAT(efxLunaSCR2_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08063C20
-void sub_8063C20(void)
+void StartSubSpell_efxLunaSCR(void)
 {
-    struct ProcEfx * proc = Proc_Start(gUnknown_085D7000, PROC_TREE_3);
+    struct ProcEfx * proc = Proc_Start(ProcScr_efxLunaSCR, PROC_TREE_3);
 
     proc->timer = 0;
     proc->unk2E = 0;
     proc->unk44 = 0;
 
-    sub_8063CFC(proc);
+    StartSubSpell_efxLunaSCR2(proc);
 
     return;
 }
 
 // clang-format off
 
-s16 CONST_DATA gUnknown_085D7030[] = {
+s16 CONST_DATA gLunaBgScrollOffsets[] =
+{
     -256, -250, -245, -239, -234, -228, -223, -217, -212, -206, -201, -196,
     -190, -185, -179, -174, -168, -163, -157, -152, -147, -141, -136, -130,
     -125, -119, -114, -108, -103, -98,  -92,  -87,  -81,  -76,  -70,  -65,
@@ -232,7 +234,7 @@ s16 CONST_DATA gUnknown_085D7030[] = {
 // clang-format on
 
 //! FE8U = 0x08063C40
-void sub_8063C40(struct ProcEfx * proc)
+void efxLunaSCR_Loop(struct ProcEfx * proc)
 {
     u32 i;
 
@@ -248,7 +250,7 @@ void sub_8063C40(struct ProcEfx * proc)
         }
         else if (i < 112)
         {
-            s16 val = gUnknown_085D7030[i - 16] * proc->unk44 >> 12;
+            s16 val = gLunaBgScrollOffsets[i - 16] * proc->unk44 >> 12;
 
             if (val != 0)
             {
@@ -282,9 +284,9 @@ void sub_8063C40(struct ProcEfx * proc)
 }
 
 //! FE8U = 0x08063CFC
-void sub_8063CFC(ProcPtr proc)
+void StartSubSpell_efxLunaSCR2(ProcPtr proc)
 {
-    struct ProcEfxSCR * otherProc = Proc_Start(gUnknown_085D7018, PROC_TREE_3);
+    struct ProcEfxSCR * otherProc = Proc_Start(ProcScr_efxLunaSCR2, PROC_TREE_3);
 
     otherProc->timer = 0;
     otherProc->unk2E = 20;
@@ -294,7 +296,7 @@ void sub_8063CFC(ProcPtr proc)
 }
 
 //! FE8U = 0x08063D1C
-void sub_8063D1C(struct ProcEfxSCR * proc)
+void efxLunaSCR2_Loop(struct ProcEfxSCR * proc)
 {
     struct ProcEfx * otherProc = proc->unk5C;
     otherProc->unk44 = Interpolate(INTERPOLATE_LINEAR, 0, 0x4000, proc->timer, proc->unk2E);
@@ -312,12 +314,12 @@ void sub_8063D1C(struct ProcEfxSCR * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D70F0[] =
+struct ProcCmd CONST_DATA ProcScr_efxLunaBG2[] =
 {
     PROC_NAME("efxLunaBG2"),
-    PROC_SET_END_CB(sub_8063E58),
+    PROC_SET_END_CB(efxLunaBG2_OnEnd),
 
-    PROC_REPEAT(sub_8063E74),
+    PROC_REPEAT(efxLunaBG2_Loop),
 
     PROC_END,
 };
@@ -325,23 +327,23 @@ struct ProcCmd CONST_DATA gUnknown_085D70F0[] =
 // clang-format on
 
 //! FE8U = 0x08063D64
-void sub_8063D64(struct Anim * anim, int terminator)
+void StartSubSpell_efxLunaBG2(struct Anim * anim, int terminator)
 {
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D70F0, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxLunaBG2, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = terminator;
 
-    SpellFx_RegisterBgGfx(gUnknown_0872987C, 32 * 8 * CHR_SIZE);
-    SpellFx_RegisterBgPal(gUnknown_08729FDC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgGfx(Img_LunaBg2, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgPal(Pal_LunaBg2, PLTT_SIZE_4BPP);
 
     SpellFx_ClearBG1();
 
-    LZ77UnCompWram(gUnknown_0872A1BC, gEkrTsaBuffer);
+    LZ77UnCompWram(Tsa_LunaBg2, gEkrTsaBuffer);
 
     if (GetAnimPosition(proc->anim) == 0)
     {
@@ -373,7 +375,7 @@ void sub_8063D64(struct Anim * anim, int terminator)
 }
 
 //! FE8U = 0x08063E58
-void sub_8063E58(void)
+void efxLunaBG2_OnEnd(void)
 {
     SpellFx_ClearBG1();
     gEfxBgSemaphore--;
@@ -383,7 +385,7 @@ void sub_8063E58(void)
 }
 
 //! FE8U = 0x08063E74
-void sub_8063E74(struct ProcEfxBG * proc)
+void efxLunaBG2_Loop(struct ProcEfxBG * proc)
 {
     gLCDControlBuffer.bgoffset[BG_1].y++;
 
@@ -399,14 +401,14 @@ void sub_8063E74(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7110[] =
+struct ProcCmd CONST_DATA ProcScr_efxLunaBGCOL[] =
 {
     PROC_NAME("efxLunaBGCOL"),
     PROC_MARK(PROC_MARK_A),
 
-    PROC_SET_END_CB(sub_8063EE8),
+    PROC_SET_END_CB(efxLunaBGCOL_OnEnd),
 
-    PROC_REPEAT(sub_8063EF8),
+    PROC_REPEAT(efxLunaBGCOL_Loop),
 
     PROC_END,
 };
@@ -414,10 +416,10 @@ struct ProcCmd CONST_DATA gUnknown_085D7110[] =
 // clang-format on
 
 //! FE8U = 0x08063EA0
-void sub_8063EA0(struct Anim * anim, int terminator)
+void StartSubSpell_efxLunaBGCOL(struct Anim * anim, int terminator)
 {
     // clang-format off
-    static const u16 gUnknown_080DE106[] =
+    static const u16 frames[] =
     {
          0, 4,
          1, 4,
@@ -442,30 +444,30 @@ void sub_8063EA0(struct Anim * anim, int terminator)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D7110, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxLunaBGCOL, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->timer2 = 0;
     proc->terminator = terminator;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE106;
+    proc->frame_config = frames;
 
-    proc->pal = gUnknown_08729FDC;
-    SpellFx_RegisterBgPal(gUnknown_08729FDC, PLTT_SIZE_4BPP);
+    proc->pal = Pal_LunaBg2;
+    SpellFx_RegisterBgPal(Pal_LunaBg2, PLTT_SIZE_4BPP);
 
     return;
 }
 
 //! FE8U = 0x08063EE8
-void sub_8063EE8(void)
+void efxLunaBGCOL_OnEnd(void)
 {
     gEfxBgSemaphore--;
     return;
 }
 
 //! FE8U = 0x08063EF8
-void sub_8063EF8(struct ProcEfxBGCOL * proc)
+void efxLunaBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -487,52 +489,52 @@ void sub_8063EF8(struct ProcEfxBGCOL * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7138[] =
+struct ProcCmd CONST_DATA ProcScr_efxLunaBG3[] =
 {
     PROC_NAME("efxLunaBG3"),
-    PROC_REPEAT(sub_8063FC0),
+    PROC_REPEAT(efxLunaBG3_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D7150[] =
+u16 * CONST_DATA TsaArray_LunaBg3[] =
 {
-    Tsa_0872CE80,
-    Tsa_0872CF34,
-    Tsa_0872CFF0,
-    Tsa_0872D0CC,
-    Tsa_0872D1B4,
-    Tsa_0872D2D8,
-    Tsa_0872D3F8,
-    Tsa_0872D504,
-    Tsa_0872D610,
-    Tsa_0872D70C,
-    Tsa_0872D80C,
-    Tsa_0872D908,
+    Tsa_LunaBg3_A,
+    Tsa_LunaBg3_B,
+    Tsa_LunaBg3_C,
+    Tsa_LunaBg3_D,
+    Tsa_LunaBg3_E,
+    Tsa_LunaBg3_F,
+    Tsa_LunaBg3_G,
+    Tsa_LunaBg3_H,
+    Tsa_LunaBg3_I,
+    Tsa_LunaBg3_J,
+    Tsa_LunaBg3_K,
+    Tsa_LunaBg3_L,
 };
 
-u16 * CONST_DATA gUnknown_085D7180[] =
+u16 * CONST_DATA ImgArray_LunaBg3[] =
 {
-    Img_0872A360,
-    Img_0872A360,
-    Img_0872A360,
-    Img_0872A360,
-    Img_0872A360,
-    Img_0872A360,
-    Img_0872B5BC,
-    Img_0872B5BC,
-    Img_0872B5BC,
-    Img_0872C290,
-    Img_0872C290,
-    Img_0872C290,
+    Img_LunaBg3_A,
+    Img_LunaBg3_A,
+    Img_LunaBg3_A,
+    Img_LunaBg3_A,
+    Img_LunaBg3_A,
+    Img_LunaBg3_A,
+    Img_LunaBg3_B,
+    Img_LunaBg3_B,
+    Img_LunaBg3_B,
+    Img_LunaBg3_C,
+    Img_LunaBg3_C,
+    Img_LunaBg3_C,
 };
 
 // clang-format on
 
 //! FE8U = 0x08063F3C
-void sub_8063F3C(struct Anim * anim)
+void StartSubSpell_efxLunaBG3(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE150[] =
+    static const u16 frames[] =
     {
          0, 2,
          1, 2,
@@ -554,18 +556,18 @@ void sub_8063F3C(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D7138, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxLunaBG3, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE150;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D7150;
-    proc->tsar = gUnknown_085D7150;
+    proc->tsal = TsaArray_LunaBg3;
+    proc->tsar = TsaArray_LunaBg3;
 
-    proc->img = gUnknown_085D7180;
+    proc->img = ImgArray_LunaBg3;
 
-    SpellFx_RegisterBgPal(gUnknown_0872CE60, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_LunaBg3, PLTT_SIZE_4BPP);
 
     SpellFx_SetSomeColorEffect();
 
@@ -585,7 +587,7 @@ void sub_8063F3C(struct Anim * anim)
 }
 
 //! FE8U = 0x08063FC0
-void sub_8063FC0(struct ProcEfxBG * proc)
+void efxLunaBG3_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -617,10 +619,10 @@ struct ProcCmd CONST_DATA ProcScr_efxLunaOBJ[] =
 {
     PROC_NAME("efxLunaOBJ"),
 
-    PROC_REPEAT(sub_8064060),
-    PROC_REPEAT(sub_80640D0),
-    PROC_REPEAT(sub_806416C),
-    PROC_REPEAT(sub_80641F0),
+    PROC_REPEAT(efxLunaOBJ_Loop_A),
+    PROC_REPEAT(efxLunaOBJ_Loop_B),
+    PROC_REPEAT(efxLunaOBJ_Loop_C),
+    PROC_REPEAT(efxLunaOBJ_Loop_D),
 
     PROC_END,
 };
@@ -628,7 +630,7 @@ struct ProcCmd CONST_DATA ProcScr_efxLunaOBJ[] =
 // clang-format on
 
 //! FE8U = 0x08064024
-void sub_8064024(struct Anim * anim)
+void StartSubSpell_efxLunaOBJ(struct Anim * anim)
 {
     u32 i;
 
@@ -639,14 +641,14 @@ void sub_8064024(struct Anim * anim)
         proc->unk44 = i;
     }
 
-    SpellFx_RegisterObjPal(gUnknown_0872DE04, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_0872DA04, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_LunaSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_LunaSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x08064060
-void sub_8064060(struct ProcEfxOBJ * proc)
+void efxLunaOBJ_Loop_A(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim;
     u32 * scr;
@@ -664,11 +666,11 @@ void sub_8064060(struct ProcEfxOBJ * proc)
 
     anim->timer = 0;
 
-    anim->oam2Base &= 0x0000F3FF;
-    anim->oam2Base |= 0x800;
+    anim->oam2Base &= ~OAM2_LAYER(3);
+    anim->oam2Base |= OAM2_LAYER(2);
 
-    anim->xPosition = 0x100;
-    anim->yPosition = 0x100;
+    anim->xPosition = 256;
+    anim->yPosition = 256;
 
     proc->unk32 = proc->anim->xPosition;
     proc->unk3A = proc->anim->yPosition;
@@ -679,7 +681,7 @@ void sub_8064060(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x080640D0
-void sub_80640D0(struct ProcEfxOBJ * proc)
+void efxLunaOBJ_Loop_B(struct ProcEfxOBJ * proc)
 {
     int x;
     int y;
@@ -730,7 +732,7 @@ void sub_80640D0(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0806416C
-void sub_806416C(struct ProcEfxOBJ * proc)
+void efxLunaOBJ_Loop_C(struct ProcEfxOBJ * proc)
 {
     int x;
     int y;
@@ -781,7 +783,7 @@ void sub_806416C(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x080641F0
-void sub_80641F0(struct ProcEfxOBJ * proc)
+void efxLunaOBJ_Loop_D(struct ProcEfxOBJ * proc)
 {
     int x;
     int y;
@@ -828,23 +830,23 @@ void sub_80641F0(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D71E0[] =
+struct ProcCmd CONST_DATA ProcScr_efxLunaRST[] =
 {
     PROC_NAME("efxLunaRST"),
-    PROC_REPEAT(sub_80642BC),
+    PROC_REPEAT(efxLunaRST_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0806428C
-void sub_806428C(struct Anim * anim, ProcPtr b, int c)
+void StartSubSpell_efxLunaRST(struct Anim * anim, ProcPtr b, int c)
 {
     struct ProcEfxRST * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D71E0, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxLunaRST, PROC_TREE_3);
 
     proc->anim = anim;
     proc->timer = 0;
@@ -855,7 +857,7 @@ void sub_806428C(struct Anim * anim, ProcPtr b, int c)
 }
 
 //! FE8U = 0x080642BC
-void sub_80642BC(struct ProcEfxRST * proc)
+void efxLunaRST_Loop(struct ProcEfxRST * proc)
 {
     struct ProcEfx * otherProc = proc->unk64;
     otherProc->unk4C = Interpolate(INTERPOLATE_RSQUARE, 0x80, 0, proc->timer, proc->unk2E);

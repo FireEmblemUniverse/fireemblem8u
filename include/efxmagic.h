@@ -245,18 +245,18 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? gShineSpriteCoords
 // extern ??? ProcScr_efxShineOBJ
 // extern ??? ProcScr_efxLuna
-// extern ??? gUnknown_085D6FE4
-// extern ??? gUnknown_085D6FFC
-// extern ??? gUnknown_085D7000
-// extern ??? gUnknown_085D7018
-// extern ??? gUnknown_085D7030
-// extern ??? gUnknown_085D70F0
-// extern ??? gUnknown_085D7110
-// extern ??? gUnknown_085D7138
-// extern ??? gUnknown_085D7150
-// extern ??? gUnknown_085D7180
+// extern ??? ProcScr_efxLunaBG
+// extern ??? TsaArray_LunaBg1
+// extern ??? ProcScr_efxLunaSCR
+// extern ??? ProcScr_efxLunaSCR2
+// extern ??? gLunaBgScrollOffsets
+// extern ??? ProcScr_efxLunaBG2
+// extern ??? ProcScr_efxLunaBGCOL
+// extern ??? ProcScr_efxLunaBG3
+// extern ??? TsaArray_LunaBg3
+// extern ??? ImgArray_LunaBg3
 // extern ??? ProcScr_efxLunaOBJ
-// extern ??? gUnknown_085D71E0
+// extern ??? ProcScr_efxLunaRST
 // extern ??? gUnknown_085D71F8
 // extern ??? gUnknown_085D7210
 // extern ??? gUnknown_085D7240
@@ -622,28 +622,28 @@ void efxShineOBJRND_Loop(struct ProcEfxOBJ * proc);
 void StartSubSpell_efxShineOBJ(struct Anim * anim, int x, int y);
 void efxShineOBJ_Loop(struct ProcEfxOBJ * proc);
 void StartSpellAnimLuna(struct Anim * anim);
-void sub_80639B0(struct ProcEfx * proc);
-void sub_8063B6C(struct Anim * anim);
-void sub_8063BC8(struct ProcEfxBG * proc);
-void sub_8063C20(void);
-void sub_8063C40(struct ProcEfx * proc);
-void sub_8063CFC(ProcPtr proc);
-void sub_8063D1C(struct ProcEfxSCR * proc);
-void sub_8063D64(struct Anim * anim, int terminator);
-void sub_8063E58(void);
-void sub_8063E74(struct ProcEfxBG * proc);
-void sub_8063EA0(struct Anim * anim, int terminator);
-void sub_8063EE8(void);
-void sub_8063EF8(struct ProcEfxBGCOL * proc);
-void sub_8063F3C(struct Anim * anim);
-void sub_8063FC0(struct ProcEfxBG * proc);
-void sub_8064024(struct Anim * anim);
-void sub_8064060(struct ProcEfxOBJ * proc);
-void sub_80640D0(struct ProcEfxOBJ * proc);
-void sub_806416C(struct ProcEfxOBJ * proc);
-void sub_80641F0(struct ProcEfxOBJ * proc);
-void sub_806428C(struct Anim * anim, ProcPtr b, int c);
-void sub_80642BC(struct ProcEfxRST * proc);
+void efxLuna_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxLunaBG(struct Anim * anim);
+void efxLunaBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxLunaSCR(void);
+void efxLunaSCR_Loop(struct ProcEfx * proc);
+void StartSubSpell_efxLunaSCR2(ProcPtr proc);
+void efxLunaSCR2_Loop(struct ProcEfxSCR * proc);
+void StartSubSpell_efxLunaBG2(struct Anim * anim, int terminator);
+void efxLunaBG2_OnEnd(void);
+void efxLunaBG2_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxLunaBGCOL(struct Anim * anim, int terminator);
+void efxLunaBGCOL_OnEnd(void);
+void efxLunaBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxLunaBG3(struct Anim * anim);
+void efxLunaBG3_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxLunaOBJ(struct Anim * anim);
+void efxLunaOBJ_Loop_A(struct ProcEfxOBJ * proc);
+void efxLunaOBJ_Loop_B(struct ProcEfxOBJ * proc);
+void efxLunaOBJ_Loop_C(struct ProcEfxOBJ * proc);
+void efxLunaOBJ_Loop_D(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxLunaRST(struct Anim * anim, ProcPtr b, int c);
+void efxLunaRST_Loop(struct ProcEfxRST * proc);
 void sub_8064308(struct Anim * anim);
 // ??? sub_8064344(???);
 // ??? sub_80644E0(???);
