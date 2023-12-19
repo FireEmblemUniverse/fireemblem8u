@@ -191,6 +191,8 @@ SECTIONS
         src/banim-efxmagic-effectstaves.o(.text);
         src/banim-efxmagic-shine.o(.text);
         src/banim-efxmagic-luna.o(.text);
+        src/banim-efxmagic-excalibur.o(.text);
+        src/banim-efxmagic-gespenst.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
