@@ -257,21 +257,21 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ImgArray_LunaBg3
 // extern ??? ProcScr_efxLunaOBJ
 // extern ??? ProcScr_efxLunaRST
-// extern ??? gUnknown_085D71F8
-// extern ??? gUnknown_085D7210
-// extern ??? gUnknown_085D7240
-// extern ??? gUnknown_085D7268
-// extern ??? gUnknown_085D7280
-// extern ??? gUnknown_085D7298
-// extern ??? gUnknown_085D7398
+// extern ??? ProcScr_efxExcalibur
+// extern ??? ProcScr_efxExcaliburBG
+// extern ??? ProcScr_efxExcaliburBGCOL
+// extern ??? ProcScr_efxExcaliburSCR
+// extern ??? ProcScr_efxExcaliburSCR2
+// extern ??? gExcaliburBgScrollOffsets
+// extern ??? ProcScr_efxExcaliburBG2
 // extern ??? ProcScr_efxExcaliburBGCOL2
-// extern ??? gUnknown_085D73D8
-// extern ??? gUnknown_085D73F8
-// extern ??? gUnknown_085D7418
-// extern ??? gUnknown_085D7430
-// extern ??? gUnknown_085D7448
-// extern ??? gUnknown_085D744C
-// extern ??? gUnknown_085D7450
+// extern ??? ProcScr_efxExcaliburBG3
+// extern ??? ProcScr_efxExcaliburBGCOL3
+// extern ??? ProcScr_efxExcaliburOBJ
+// extern ??? ProcScr_efxExcaliburBG0
+// extern ??? ImgArray_efxExcaliburBG0
+// extern ??? TsaArray_efxExcaliburBG0
+// extern ??? ProcScr_efxGespenstBG4
 // extern ??? ProcScr_efxGespenstBGCOL2
 // extern ??? gUnknown_085D7490
 // extern ??? gUnknown_085D74A8
@@ -644,40 +644,40 @@ void efxLunaOBJ_Loop_C(struct ProcEfxOBJ * proc);
 void efxLunaOBJ_Loop_D(struct ProcEfxOBJ * proc);
 void StartSubSpell_efxLunaRST(struct Anim * anim, ProcPtr b, int c);
 void efxLunaRST_Loop(struct ProcEfxRST * proc);
-void sub_8064308(struct Anim * anim);
-// ??? sub_8064344(???);
-// ??? sub_80644E0(???);
-// ??? sub_806454C(???);
-// ??? sub_8064568(???);
-// ??? sub_80645FC(???);
-// ??? sub_806464C(???);
-// ??? sub_806466C(???);
-// ??? sub_80646B0(???);
-// ??? sub_80646C0(???);
-// ??? sub_80646FC(???);
-// ??? sub_8064720(???);
-// ??? sub_80647D0(???);
-// ??? sub_80647F0(???);
-// ??? sub_8064838(???);
-// ??? sub_806491C(???);
-// ??? sub_8064938(???);
-// ??? sub_8064958(???);
-// ??? sub_806499C(???);
-// ??? sub_80649E4(???);
-// ??? sub_8064AC8(???);
-// ??? sub_8064AE4(???);
-// ??? sub_8064B04(???);
-// ??? sub_8064B48(???);
-// ??? sub_8064B90(???);
-// ??? sub_8064BFC(???);
-// ??? sub_8064C28(???);
-// ??? sub_8064C80(???);
-void nullsub_51(struct Anim * anim);
-// ??? sub_8064D00(???);
-// ??? sub_8064DA8(???);
-// ??? sub_8064DC4(???);
-// ??? sub_8064DE4(???);
-// ??? sub_8064E2C(???);
+void StartSpellAnimExcalibur(struct Anim * anim);
+void efxExcalibur_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxExcaliburBG(struct Anim * anim);
+void efxExcaliburBG_OnEnd(void);
+void efxExcaliburBG_Loop_A(struct ProcEfxBG * proc);
+void efxExcaliburBG_Loop_B(struct ProcEfxBG * proc);
+void efxExcaliburBG_Loop_C(struct ProcEfxBG * proc);
+void StartSubSpell_efxExcaliburBGCOL(struct Anim * anim);
+void efxExcaliburBGCOL_OnEnd(void);
+void efxExcaliburBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxExcaliburSCR(int unk);
+void efxExcaliburSCR_Loop(struct ProcEfx * proc);
+void StartSubSpell_efxExcaliburSCR2(struct ProcEfx * proc, int b);
+void efxExcaliburSCR2_Loop(struct ProcEfxSCR * proc);
+void StartSubSpell_efxExcaliburBG2(struct Anim * anim);
+void efxExcaliburBG2_OnEnd(void);
+void efxExcaliburBG2_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxExcaliburBGCOL2(struct Anim * anim);
+void efxExcaliburBGCOL2_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxExcaliburBG3(struct Anim * anim);
+void efxExcaliburBG3_OnEnd(void);
+void efxExcaliburBG3_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxExcaliburBGCOL3(struct Anim * anim);
+void efxExcaliburBGCOL3_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxExcaliburOBJ(struct Anim * anim);
+void efxExcaliburOBJ_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxExcaliburBG0(struct Anim * anim);
+void efxExcaliburBG0_Loop(struct ProcEfxBG * proc);
+void StartSpellAnimGespenst_Null(struct Anim * anim);
+void StartSubSpell_efxGespenstBG4(struct Anim * anim, int terminator);
+void efxGespenstBG4_OnEnd(void);
+void efxGespenstBG4_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxGespenstBGCOL2(struct Anim * anim);
+void efxGespenstBGCOL2_Loop(struct ProcEfxBGCOL * proc);
 void StartSpellAnimAura(struct Anim * anim);
 // ??? sub_8064EB0(???);
 // ??? sub_8065008(???);

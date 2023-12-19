@@ -37,7 +37,9 @@ struct ProcEfxBG {
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
     /* 30 */ s16 unk30;
-    STRUCT_PAD(0x32, 0x44);
+    /* 32 */ s16 unk32;
+    /* 34 */ s16 unk34;
+    STRUCT_PAD(0x36, 0x44);
     /* 44 */ u32 frame;
     /* 48 */ const u16 * frame_config;
     /* 4C */ u16 ** tsal;
@@ -121,7 +123,9 @@ struct ProcEfxSCR
     /* 29 */ STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ s16 unk2E;
-    /* 34 */ STRUCT_PAD(0x30, 0x5C);
+    /* 34 */ STRUCT_PAD(0x30, 0x44);
+    /* 44 */ int unk44;
+    /* 48 */ STRUCT_PAD(0x48, 0x5C);
     /* 5C */ struct ProcEfx * unk5C;
 };
 
@@ -1777,7 +1781,9 @@ extern u32 gUnknown_08692674[];
 // extern ??? gUnknown_087197E4
 // extern ??? gUnknown_08720D84
 // extern ??? gUnknown_08723208
-// extern ??? gUnknown_08724424
+extern u16 Img_08723274[];
+extern u16 Pal_efxExcaliburBG0[];
+extern u16 Tsa_08724444[];
 // extern ??? gUnknown_087246D8
 // extern ??? gUnknown_08725AD0
 // extern ??? gUnknown_08725AF0
@@ -1827,21 +1833,21 @@ extern u16 Pal_LunaSprites[];
 extern u32 gUnknown_0872DFEC[];
 extern u32 gUnknown_0872E024[];
 extern u32 gUnknown_0872E24C[];
-// extern ??? gUnknown_0872E25C
-// extern ??? gUnknown_0872E64C
-// extern ??? gUnknown_0872E7EC
-extern u16 gUnknown_0872E998[];
-// extern ??? gUnknown_0872FA04
-// extern ??? gUnknown_0872FA84
-// extern ??? gUnknown_0872FEB8
-// extern ??? gUnknown_087302A4
-// extern ??? gUnknown_08730324
-// extern ??? gUnknown_08730780
-// extern ??? gUnknown_087312BC
-// extern ??? gUnknown_08731348
-// extern ??? gUnknown_087313C8
-// extern ??? gUnknown_08732228
-// extern ??? gUnknown_08732368
+extern u16 Img_ExcaliburBg1[];
+extern u16 Pal_ExcaliburBg1[];
+extern u16 Tsa_ExcaliburBg1[];
+extern u16 Img_ExcaliburBg2[];
+extern u16 Pal_ExcaliburBg2[];
+extern u16 Tsa_ExcaliburBg2_Left[];
+extern u16 Tsa_ExcaliburBg2_Right[];
+extern u16 Pal_ExcaliburBg3[];
+extern u16 Img_ExcaliburSprites[];
+extern u16 Pal_ExcaliburSprites[];
+extern u32 gUnknown_087312BC[];
+extern u16 Pal_08731348[];
+extern u16 Img_GespenstBg4[];
+extern u16 Pal_GespenstBg4[];
+extern u16 Tsa_GespenstBg4[];
 // extern ??? gUnknown_087327C4
 // extern ??? gUnknown_0873313C
 // extern ??? gUnknown_0874394C
