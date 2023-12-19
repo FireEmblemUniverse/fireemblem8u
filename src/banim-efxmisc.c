@@ -1122,7 +1122,7 @@ void NewEfxChillEffectBG(struct Anim *anim)
     proc->frame_config = gUnknown_080DF546;
     proc->tsal = gUnknown_085D92D4;
     proc->tsar = gUnknown_085D92D4;
-    SpellFx_RegisterBgGfx(gUnknown_0872E998, 0x2000);
+    SpellFx_RegisterBgGfx(Img_ExcaliburBg2, 0x2000);
     BG_SetPosition(BG_1, 0x0, 0x0);
 }
 

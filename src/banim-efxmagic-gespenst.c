@@ -13,19 +13,19 @@
  */
 
 //! FE8U = 0x08064CFC
-void nullsub_51(struct Anim * anim)
+void StartSpellAnimGespenst_Null(struct Anim * anim)
 {
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7450[] =
+struct ProcCmd CONST_DATA ProcScr_efxGespenstBG4[] =
 {
     PROC_NAME("efxGespenstBG4"),
 
-    PROC_SET_END_CB(sub_8064DA8),
-    PROC_REPEAT(sub_8064DC4),
+    PROC_SET_END_CB(efxGespenstBG4_OnEnd),
+    PROC_REPEAT(efxGespenstBG4_Loop),
 
     PROC_END,
 };
@@ -33,22 +33,22 @@ struct ProcCmd CONST_DATA gUnknown_085D7450[] =
 // clang-format on
 
 //! FE8U = 0x08064D00
-void sub_8064D00(struct Anim * anim, int terminator)
+void StartSubSpell_efxGespenstBG4(struct Anim * anim, int terminator)
 {
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D7450, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxGespenstBG4, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = terminator;
 
-    SpellFx_RegisterBgGfx(gUnknown_087313C8, 32 * 8 * CHR_SIZE);
-    SpellFx_RegisterBgPal(gUnknown_08732228, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgGfx(Img_GespenstBg4, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgPal(Pal_GespenstBg4, PLTT_SIZE_4BPP);
     SpellFx_ClearBG1();
 
-    LZ77UnCompWram(gUnknown_08732368, gEkrTsaBuffer);
+    LZ77UnCompWram(Tsa_GespenstBg4, gEkrTsaBuffer);
     EfxTmCpyBgHFlip(gEkrTsaBuffer, gBG1TilemapBuffer, 30, 20, 1, 0x100);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
@@ -61,7 +61,7 @@ void sub_8064D00(struct Anim * anim, int terminator)
 }
 
 //! FE8U = 0x08064DA8
-void sub_8064DA8(void)
+void efxGespenstBG4_OnEnd(void)
 {
     SpellFx_ClearBG1();
     gEfxBgSemaphore--;
@@ -70,7 +70,7 @@ void sub_8064DA8(void)
 }
 
 //! FE8U = 0x08064DC4
-void sub_8064DC4(struct ProcEfxBG * proc)
+void efxGespenstBG4_Loop(struct ProcEfxBG * proc)
 {
     proc->timer++;
 
@@ -88,17 +88,19 @@ struct ProcCmd CONST_DATA ProcScr_efxGespenstBGCOL2[] =
 {
     PROC_NAME("efxGespenstBGCOL2"),
     PROC_MARK(PROC_MARK_A),
-    PROC_REPEAT(sub_8064E2C),
+
+    PROC_REPEAT(efxGespenstBGCOL2_Loop),
+
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08064DE4
-void sub_8064DE4(struct Anim * anim)
+void StartSubSpell_efxGespenstBGCOL2(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE2E2[] =
+    static const u16 frames[] =
     {
          0, 1,
          1, 1,
@@ -134,16 +136,16 @@ void sub_8064DE4(struct Anim * anim)
     proc->timer2 = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE2E2;
+    proc->frame_config = frames;
 
-    proc->pal = gUnknown_08732228;
-    SpellFx_RegisterBgPal(gUnknown_08731348, PLTT_SIZE_4BPP);
+    proc->pal = Pal_GespenstBg4;
+    SpellFx_RegisterBgPal(Pal_08731348, PLTT_SIZE_4BPP);
 
     return;
 }
 
 //! FE8U = 0x08064E2C
-void sub_8064E2C(struct ProcEfxBGCOL * proc)
+void efxGespenstBGCOL2_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 

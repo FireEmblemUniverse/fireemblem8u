@@ -74879,8 +74879,8 @@ gUnknown_08723208:  @ 0x08723208
 Img_08723274:  @ 0x08723274
 	.incbin "baserom.gba", 0x723274, 0x11B0    @ 0x724424 - 0x723274
 
-	.global gUnknown_08724424
-gUnknown_08724424:  @ 0x08724424
+	.global Pal_efxExcaliburBG0
+Pal_efxExcaliburBG0:  @ 0x08724424
 	.incbin "baserom.gba", 0x724424, 0x20    @ 0x724444 - 0x724424
 
 	.global Tsa_08724444
@@ -75257,99 +75257,99 @@ gUnknown_0872E024:  @ 0x0872E024
 gUnknown_0872E24C:  @ 0x0872E24C
 	.incbin "baserom.gba", 0x72E24C, 0x10
 
-	.global gUnknown_0872E25C
-gUnknown_0872E25C:  @ 0x0872E25C
+	.global Img_ExcaliburBg1
+Img_ExcaliburBg1:  @ 0x0872E25C
 	.incbin "baserom.gba", 0x72E25C, 0x3F0
 
-	.global gUnknown_0872E64C
-gUnknown_0872E64C:  @ 0x0872E64C
+	.global Pal_ExcaliburBg1
+Pal_ExcaliburBg1:  @ 0x0872E64C
 	.incbin "baserom.gba", 0x72E64C, 0x1A0
 
-	.global gUnknown_0872E7EC
-gUnknown_0872E7EC:  @ 0x0872E7EC
+	.global Tsa_ExcaliburBg1
+Tsa_ExcaliburBg1:  @ 0x0872E7EC
 	.incbin "baserom.gba", 0x72E7EC, 0x1AC
 
-	.global gUnknown_0872E998
-gUnknown_0872E998:  @ 0x0872E998
+	.global Img_ExcaliburBg2
+Img_ExcaliburBg2:  @ 0x0872E998
 	.incbin "baserom.gba", 0x72E998, 0x106C
 
-	.global gUnknown_0872FA04
-gUnknown_0872FA04:  @ 0x0872FA04
+	.global Pal_ExcaliburBg2
+Pal_ExcaliburBg2:  @ 0x0872FA04
 	.incbin "baserom.gba", 0x72FA04, 0x80
 
-	.global gUnknown_0872FA84
-gUnknown_0872FA84:  @ 0x0872FA84
+	.global Tsa_ExcaliburBg2_Left
+Tsa_ExcaliburBg2_Left:  @ 0x0872FA84
 	.incbin "baserom.gba", 0x72FA84, 0x434
 
-	.global gUnknown_0872FEB8
-gUnknown_0872FEB8:  @ 0x0872FEB8
+	.global Tsa_ExcaliburBg2_Right
+Tsa_ExcaliburBg2_Right:  @ 0x0872FEB8
 	.incbin "baserom.gba", 0x72FEB8, 0x3EC
 
-	.global gUnknown_087302A4
-gUnknown_087302A4:  @ 0x087302A4
+	.global Pal_ExcaliburBg3
+Pal_ExcaliburBg3:  @ 0x087302A4
 	.incbin "baserom.gba", 0x7302A4, 0x80
 
-	.global gUnknown_08730324
-gUnknown_08730324:  @ 0x08730324
+	.global Img_ExcaliburSprites
+Img_ExcaliburSprites:  @ 0x08730324
 	.incbin "baserom.gba", 0x730324, 0x45C
 
-	.global gUnknown_08730780
-gUnknown_08730780:  @ 0x08730780
+	.global Pal_ExcaliburSprites
+Pal_ExcaliburSprites:  @ 0x08730780
 	.incbin "baserom.gba", 0x730780, 0xB3C
 
 	.global gUnknown_087312BC
 gUnknown_087312BC:  @ 0x087312BC
 @ Replacing .incbin "baserom.gba", 0x7312BC, 0x8C
-    .4byte gUnknown_08730780 + 0x855
-    .4byte gUnknown_08730780 + 0x21
-    .4byte gUnknown_08730780 + 0x75
-    .4byte gUnknown_08730780 + 0xc9
-    .4byte gUnknown_08730780 + 0x11d
-    .4byte gUnknown_08730780 + 0x171
-    .4byte gUnknown_08730780 + 0x1c5
-    .4byte gUnknown_08730780 + 0x219
-    .4byte gUnknown_08730780 + 0x26d
-    .4byte gUnknown_08730780 + 0x2c1
-    .4byte gUnknown_08730780 + 0x315
-    .4byte gUnknown_08730780 + 0x369
-    .4byte gUnknown_08730780 + 0x3bd
-    .4byte gUnknown_08730780 + 0x411
-    .4byte gUnknown_08730780 + 0x465
-    .4byte gUnknown_08730780 + 0x4b9
-    .4byte gUnknown_08730780 + 0x50d
-    .4byte gUnknown_08730780 + 0x561
-    .4byte gUnknown_08730780 + 0x5b5
-    .4byte gUnknown_08730780 + 0x609
-    .4byte gUnknown_08730780 + 0x65d
-    .4byte gUnknown_08730780 + 0x6b1
-    .4byte gUnknown_08730780 + 0x705
-    .4byte gUnknown_08730780 + 0x759
-    .4byte gUnknown_08730780 + 0x7ad
-    .4byte gUnknown_08730780 + 0x801
-    .4byte gUnknown_08730780 + 0x89d
-    .4byte gUnknown_08730780 + 0x8f1
-    .4byte gUnknown_08730780 + 0x945
-    .4byte gUnknown_08730780 + 0x999
-    .4byte gUnknown_08730780 + 0x9ed
-    .4byte gUnknown_08730780 + 0xa41
-    .4byte gUnknown_08730780 + 0xa95
-    .4byte gUnknown_08730780 + 0xae9
+    .4byte Pal_ExcaliburSprites + 0x855
+    .4byte Pal_ExcaliburSprites + 0x21
+    .4byte Pal_ExcaliburSprites + 0x75
+    .4byte Pal_ExcaliburSprites + 0xc9
+    .4byte Pal_ExcaliburSprites + 0x11d
+    .4byte Pal_ExcaliburSprites + 0x171
+    .4byte Pal_ExcaliburSprites + 0x1c5
+    .4byte Pal_ExcaliburSprites + 0x219
+    .4byte Pal_ExcaliburSprites + 0x26d
+    .4byte Pal_ExcaliburSprites + 0x2c1
+    .4byte Pal_ExcaliburSprites + 0x315
+    .4byte Pal_ExcaliburSprites + 0x369
+    .4byte Pal_ExcaliburSprites + 0x3bd
+    .4byte Pal_ExcaliburSprites + 0x411
+    .4byte Pal_ExcaliburSprites + 0x465
+    .4byte Pal_ExcaliburSprites + 0x4b9
+    .4byte Pal_ExcaliburSprites + 0x50d
+    .4byte Pal_ExcaliburSprites + 0x561
+    .4byte Pal_ExcaliburSprites + 0x5b5
+    .4byte Pal_ExcaliburSprites + 0x609
+    .4byte Pal_ExcaliburSprites + 0x65d
+    .4byte Pal_ExcaliburSprites + 0x6b1
+    .4byte Pal_ExcaliburSprites + 0x705
+    .4byte Pal_ExcaliburSprites + 0x759
+    .4byte Pal_ExcaliburSprites + 0x7ad
+    .4byte Pal_ExcaliburSprites + 0x801
+    .4byte Pal_ExcaliburSprites + 0x89d
+    .4byte Pal_ExcaliburSprites + 0x8f1
+    .4byte Pal_ExcaliburSprites + 0x945
+    .4byte Pal_ExcaliburSprites + 0x999
+    .4byte Pal_ExcaliburSprites + 0x9ed
+    .4byte Pal_ExcaliburSprites + 0xa41
+    .4byte Pal_ExcaliburSprites + 0xa95
+    .4byte Pal_ExcaliburSprites + 0xae9
     .4byte 0x81000000
 
-	.global gUnknown_08731348
-gUnknown_08731348:  @ 0x08731348
+	.global Pal_08731348
+Pal_08731348:  @ 0x08731348
 	.incbin "baserom.gba", 0x731348, 0x80
 
-	.global gUnknown_087313C8
-gUnknown_087313C8:  @ 0x087313C8
+	.global Img_GespenstBg4
+Img_GespenstBg4:  @ 0x087313C8
 	.incbin "baserom.gba", 0x7313C8, 0xE60
 
-	.global gUnknown_08732228
-gUnknown_08732228:  @ 0x08732228
+	.global Pal_GespenstBg4
+Pal_GespenstBg4:  @ 0x08732228
 	.incbin "baserom.gba", 0x732228, 0x140
 
-	.global gUnknown_08732368
-gUnknown_08732368:  @ 0x08732368
+	.global Tsa_GespenstBg4
+Tsa_GespenstBg4:  @ 0x08732368
 	.incbin "baserom.gba", 0x732368, 0x45C
 
 	.global gUnknown_087327C4

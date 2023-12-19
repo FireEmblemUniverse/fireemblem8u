@@ -1782,7 +1782,7 @@ extern u32 gUnknown_08692674[];
 // extern ??? gUnknown_08720D84
 // extern ??? gUnknown_08723208
 extern u16 Img_08723274[];
-extern u16 gUnknown_08724424[];
+extern u16 Pal_efxExcaliburBG0[];
 extern u16 Tsa_08724444[];
 // extern ??? gUnknown_087246D8
 // extern ??? gUnknown_08725AD0
@@ -1833,21 +1833,21 @@ extern u16 Pal_LunaSprites[];
 extern u32 gUnknown_0872DFEC[];
 extern u32 gUnknown_0872E024[];
 extern u32 gUnknown_0872E24C[];
-extern u16 gUnknown_0872E25C[];
-extern u16 gUnknown_0872E64C[];
-extern u16 gUnknown_0872E7EC[];
-extern u16 gUnknown_0872E998[];
-extern u16 gUnknown_0872FA04[];
-extern u16 gUnknown_0872FA84[];
-extern u16 gUnknown_0872FEB8[];
-extern u16 gUnknown_087302A4[];
-extern u16 gUnknown_08730324[];
-extern u16 gUnknown_08730780[];
+extern u16 Img_ExcaliburBg1[];
+extern u16 Pal_ExcaliburBg1[];
+extern u16 Tsa_ExcaliburBg1[];
+extern u16 Img_ExcaliburBg2[];
+extern u16 Pal_ExcaliburBg2[];
+extern u16 Tsa_ExcaliburBg2_Left[];
+extern u16 Tsa_ExcaliburBg2_Right[];
+extern u16 Pal_ExcaliburBg3[];
+extern u16 Img_ExcaliburSprites[];
+extern u16 Pal_ExcaliburSprites[];
 extern u32 gUnknown_087312BC[];
-extern u16 gUnknown_08731348[];
-extern u16 gUnknown_087313C8[];
-extern u16 gUnknown_08732228[];
-extern u16 gUnknown_08732368[];
+extern u16 Pal_08731348[];
+extern u16 Img_GespenstBg4[];
+extern u16 Pal_GespenstBg4[];
+extern u16 Tsa_GespenstBg4[];
 // extern ??? gUnknown_087327C4
 // extern ??? gUnknown_0873313C
 // extern ??? gUnknown_0874394C
