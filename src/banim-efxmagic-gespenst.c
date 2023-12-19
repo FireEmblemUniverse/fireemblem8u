@@ -18,11 +18,19 @@ void nullsub_51(struct Anim * anim)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7450[];
+// clang-format off
 
-extern u16 gUnknown_087313C8[];
-extern u16 gUnknown_08732228[];
-extern u16 gUnknown_08732368[];
+struct ProcCmd CONST_DATA gUnknown_085D7450[] =
+{
+    PROC_NAME("efxGespenstBG4"),
+
+    PROC_SET_END_CB(sub_8064DA8),
+    PROC_REPEAT(sub_8064DC4),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08064D00
 void sub_8064D00(struct Anim * anim, int terminator)
@@ -74,15 +82,48 @@ void sub_8064DC4(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxGespenstBGCOL2[];
+// clang-format off
 
-extern u16 gUnknown_08731348[];
+struct ProcCmd CONST_DATA ProcScr_efxGespenstBGCOL2[] =
+{
+    PROC_NAME("efxGespenstBGCOL2"),
+    PROC_MARK(PROC_MARK_A),
+    PROC_REPEAT(sub_8064E2C),
+    PROC_END,
+};
 
-extern u16 gUnknown_080DE2E2[];
+// clang-format on
 
 //! FE8U = 0x08064DE4
 void sub_8064DE4(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE2E2[] =
+    {
+         0, 1,
+         1, 1,
+         2, 1,
+         3, 1,
+         4, 1,
+         5, 1,
+         6, 1,
+         7, 1,
+         8, 1,
+         9, 1,
+         0, 2,
+         1, 2,
+         2, 2,
+         3, 2,
+         4, 2,
+         5, 2,
+         6, 2,
+         7, 2,
+         8, 2,
+         9, 2,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBGCOL * proc;
 
     gEfxBgSemaphore++;

@@ -472,6 +472,8 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-effectstaves.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-shine.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-luna.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-excalibur.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-gespenst.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
@@ -682,6 +684,8 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-effectstaves.o(.data);
         . = ALIGN(4); src/banim-efxmagic-shine.o(.data);
         . = ALIGN(4); src/banim-efxmagic-luna.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-excalibur.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-gespenst.o(.data);
         . = ALIGN(4); data/banim-efxmagic.o(.data);
         . = ALIGN(4); data/banim-efxmagic-ivaldi.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);
