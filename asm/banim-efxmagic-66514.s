@@ -9632,7 +9632,7 @@ _0806B014:
 	movs r1, #0x32
 	bl NewEfxTwobaiRST
 	ldr r0, [r4, #0x5c]
-	bl sub_8065498
+	bl StartSubSpell_efxSuperdruidBG3
 	str r6, [sp]
 	str r6, [sp, #4]
 	adds r0, r5, #0
@@ -10323,7 +10323,7 @@ _0806B5A6:
 	cmp r1, r0
 	bne _0806B5B6
 	adds r0, r5, #0
-	bl sub_80655C4
+	bl StartSubSpell_efxSuperdruidOBJ2
 	b _0806B646
 _0806B5B6:
 	adds r0, r2, #0
