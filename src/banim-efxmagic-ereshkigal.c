@@ -8,21 +8,21 @@
 #include "bmlib.h"
 
 //! FE8U = 0x08065494
-void nullsub_53(struct Anim * anim)
+void StartSpellAnimEreshkigal_Null(struct Anim * anim)
 {
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D75E8[] =
+struct ProcCmd CONST_DATA ProcScr_efxSuperdruidBG3[] =
 {
     PROC_NAME("efxSuperdruidBG3"),
-    PROC_REPEAT(sub_80654F8),
+    PROC_REPEAT(efxSuperdruidBG3_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D7600[] =
+u16 * CONST_DATA ImgArray_EreshkigalBg3[] =
 {
     Img_08746760,
     Img_08746F70,
@@ -36,7 +36,7 @@ u16 * CONST_DATA gUnknown_085D7600[] =
     Img_0874F474,
 };
 
-u16 * CONST_DATA gUnknown_085D7628[] =
+u16 * CONST_DATA TsaArray_EreshkigalBg3[] =
 {
     Tsa_08750288,
     Tsa_087503E4,
@@ -53,10 +53,10 @@ u16 * CONST_DATA gUnknown_085D7628[] =
 // clang-format on
 
 //! FE8U = 0x08065498
-void sub_8065498(struct Anim * anim)
+void StartSubSpell_efxSuperdruidBG3(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE47E[] =
+    static const u16 frames[] =
     {
         0, 1,
         1, 1,
@@ -76,19 +76,19 @@ void sub_8065498(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D75E8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxSuperdruidBG3, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE47E;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D7628;
-    proc->tsar = gUnknown_085D7628;
-    proc->img = gUnknown_085D7600;
+    proc->tsal = TsaArray_EreshkigalBg3;
+    proc->tsar = TsaArray_EreshkigalBg3;
+    proc->img = ImgArray_EreshkigalBg3;
 
     proc->pal = NULL;
-    SpellFx_RegisterBgPal(gUnknown_08750268, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_EreshkigalBg3, PLTT_SIZE_4BPP);
 
     SpellFx_SetSomeColorEffect();
     BG_SetPosition(BG_1, 0, 0);
@@ -97,7 +97,7 @@ void sub_8065498(struct Anim * anim)
 }
 
 //! FE8U = 0x080654F8
-void sub_80654F8(struct ProcEfxEclipseBG * proc)
+void efxSuperdruidBG3_Loop(struct ProcEfxEclipseBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -147,11 +147,11 @@ void sub_80654F8(struct ProcEfxEclipseBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7650[] =
+struct ProcCmd CONST_DATA ProcScr_efxSuperdruidOBJ2[] =
 {
     PROC_NAME("efxSuperdruidOBJ2"),
 
-    PROC_SET_END_CB(sub_8065624),
+    PROC_SET_END_CB(efxSuperdruidOBJ2_OnEnd),
     PROC_SLEEP(13),
 
     PROC_END,
@@ -160,7 +160,7 @@ struct ProcCmd CONST_DATA gUnknown_085D7650[] =
 // clang-format on
 
 //! FE8U = 0x080655C4
-void sub_80655C4(struct Anim * anim)
+void StartSubSpell_efxSuperdruidOBJ2(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -168,7 +168,7 @@ void sub_80655C4(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D7650, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxSuperdruidOBJ2, PROC_TREE_3);
     proc->anim = anim;
 
     scr = gUnknown_08752020;
@@ -185,7 +185,7 @@ void sub_80655C4(struct Anim * anim)
 }
 
 //! FE8U = 0x08065624
-void sub_8065624(void)
+void efxSuperdruidOBJ2_OnEnd(void)
 {
     gEfxBgSemaphore--;
     return;

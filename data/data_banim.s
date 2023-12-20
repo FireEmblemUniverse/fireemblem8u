@@ -75352,12 +75352,12 @@ Pal_GespenstBg4:  @ 0x08732228
 Tsa_GespenstBg4:  @ 0x08732368
 	.incbin "baserom.gba", 0x732368, 0x45C
 
-	.global gUnknown_087327C4
-gUnknown_087327C4:  @ 0x087327C4
+	.global Img_AuraBg1
+Img_AuraBg1:  @ 0x087327C4
 	.incbin "baserom.gba", 0x7327C4, 0x978
 
-	.global gUnknown_0873313C
-gUnknown_0873313C:  @ 0x0873313C
+	.global Pal_AuraBg1
+Pal_AuraBg1:  @ 0x0873313C
 	.incbin "baserom.gba", 0x73313C, 0x20    @ 0x73315C - 0x73313C
 
 	.global Tsa_0873315C
@@ -75520,8 +75520,8 @@ Img_08741288:  @ 0x08741288
 Img_087425A4:  @ 0x087425A4
 	.incbin "baserom.gba", 0x7425A4, 0x13A8    @ 0x74394C - 0x7425A4
 
-	.global gUnknown_0874394C
-gUnknown_0874394C:  @ 0x0874394C
+	.global Pal_AuraBg3
+Pal_AuraBg3:  @ 0x0874394C
 	.incbin "baserom.gba", 0x74394C, 0x20    @ 0x74396C - 0x74394C
 
 	.global Tsa_0874396C
@@ -75753,8 +75753,8 @@ Img_0874E110:  @ 0x0874E110
 Img_0874F474:  @ 0x0874F474
 	.incbin "baserom.gba", 0x74F474, 0xDF4    @ 0x750268 - 0x74F474
 
-	.global gUnknown_08750268
-gUnknown_08750268:  @ 0x08750268
+	.global Pal_EreshkigalBg3
+Pal_EreshkigalBg3:  @ 0x08750268
 	.incbin "baserom.gba", 0x750268, 0x20    @ 0x750288 - 0x750268
 
 	.global Tsa_08750288

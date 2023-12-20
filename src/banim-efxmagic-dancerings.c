@@ -12,14 +12,14 @@
 struct ProcCmd CONST_DATA ProcScr_efxDancepara[] =
 {
     PROC_NAME("efxDancepara"),
-    PROC_REPEAT(sub_8065724),
+    PROC_REPEAT(efxDancepara_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08065634
-void sub_8065634(struct Anim * anim)
+void StartSpellAnimFillasMight(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -36,7 +36,7 @@ void sub_8065634(struct Anim * anim)
 }
 
 //! FE8U = 0x08065670
-void sub_8065670(struct Anim * anim)
+void StartSpellAnimThorsIre(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -53,7 +53,7 @@ void sub_8065670(struct Anim * anim)
 }
 
 //! FE8U = 0x080656AC
-void sub_80656AC(struct Anim * anim)
+void StartSpellAnimNinisGrace(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -70,7 +70,7 @@ void sub_80656AC(struct Anim * anim)
 }
 
 //! FE8U = 0x080656E8
-void sub_80656E8(struct Anim * anim)
+void StartSpellAnimSetsLitany(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -87,7 +87,7 @@ void sub_80656E8(struct Anim * anim)
 }
 
 //! FE8U = 0x08065724
-void sub_8065724(struct ProcEfx * proc)
+void efxDancepara_Loop(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
 
@@ -109,11 +109,11 @@ void sub_8065724(struct ProcEfx * proc)
     }
     if (proc->timer == 125)
     {
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
     }
     else if (proc->timer == 165)
     {
-        anim->state3 |= 2;
+        anim->state3 |= ANIM_BIT3_NEXT_ROUND_START;
 
         SpellFx_Finish();
         Proc_Break(proc);

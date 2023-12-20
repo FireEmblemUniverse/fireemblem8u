@@ -273,18 +273,18 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? TsaArray_efxExcaliburBG0
 // extern ??? ProcScr_efxGespenstBG4
 // extern ??? ProcScr_efxGespenstBGCOL2
-// extern ??? gUnknown_085D7490
-// extern ??? gUnknown_085D74A8
-// extern ??? gUnknown_085D74C0
-// extern ??? gUnknown_085D7530
-// extern ??? gUnknown_085D7550
-// extern ??? gUnknown_085D7570
-// extern ??? gUnknown_085D7588
-// extern ??? gUnknown_085D75B8
-// extern ??? gUnknown_085D75E8
-// extern ??? gUnknown_085D7600
-// extern ??? gUnknown_085D7628
-// extern ??? gUnknown_085D7650
+// extern ??? ProcScr_efxOura
+// extern ??? ProcScr_efxOuraBG
+// extern ??? TsaArray_AuraBg1
+// extern ??? ProcScr_efxOuraBG2
+// extern ??? ProcScr_efxOuraBGCOL
+// extern ??? ProcScr_efxOuraBG3
+// extern ??? TsaArray_AuraBg3
+// extern ??? ImgArray_AuraBg3
+// extern ??? ProcScr_efxSuperdruidBG3
+// extern ??? ImgArray_EreshkigalBg3
+// extern ??? TsaArray_EreshkigalBg3
+// extern ??? ProcScr_efxSuperdruidOBJ2
 // extern ??? ProcScr_efxDancepara
 // extern ??? ProcScr_efxIvaldi
 // extern ??? gUnknown_085D76A0
@@ -679,29 +679,29 @@ void efxGespenstBG4_Loop(struct ProcEfxBG * proc);
 void StartSubSpell_efxGespenstBGCOL2(struct Anim * anim);
 void efxGespenstBGCOL2_Loop(struct ProcEfxBGCOL * proc);
 void StartSpellAnimAura(struct Anim * anim);
-void sub_8064EB0(struct ProcEfx * proc);
-void sub_8065008(struct Anim * anim);
-void sub_806509C(struct Anim * anim);
-void sub_8065130(struct Anim * anim);
-void sub_80651C4(struct ProcEfxBG * proc);
-void sub_806521C(struct Anim * anim);
-void sub_8065300(void);
-void sub_806531C(struct ProcEfxBG * proc);
-void sub_806533C(struct Anim * anim);
-void sub_8065384(struct ProcEfxBGCOL * proc);
-void sub_80653CC(struct Anim * anim);
-void sub_806542C(struct ProcEfxBG * proc);
-void sub_8065490(struct Anim * anim);
-void nullsub_53(struct Anim * anim);
-void sub_8065498(struct Anim * anim);
-void sub_80654F8(struct ProcEfxEclipseBG * proc);
-void sub_80655C4(struct Anim * anim);
-void sub_8065624(void);
-void sub_8065634(struct Anim * anim);
-void sub_8065670(struct Anim * anim);
-void sub_80656AC(struct Anim * anim);
-void sub_80656E8(struct Anim * anim);
-void sub_8065724(struct ProcEfx * proc);
+void efxOura_Loop_Main(struct ProcEfx * proc);
+void StartSubSpell_efxOuraBG_A(struct Anim * anim);
+void StartSubSpell_efxOuraBG_B(struct Anim * anim);
+void StartSubSpell_efxOuraBG_C(struct Anim * anim);
+void efxOuraBG_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxOuraBG2(struct Anim * anim);
+void efxOuraBG2_OnEnd(void);
+void efxOuraBG2_Loop(struct ProcEfxBG * proc);
+void StartSubSpell_efxOuraBGCOL(struct Anim * anim);
+void efxOuraBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartSubSpell_efxOuraBG3(struct Anim * anim);
+void efxOuraBG3_Loop(struct ProcEfxBG * proc);
+void StartSpellAnimLuce_Null(struct Anim * anim);
+void StartSpellAnimEreshkigal_Null(struct Anim * anim);
+void StartSubSpell_efxSuperdruidBG3(struct Anim * anim);
+void efxSuperdruidBG3_Loop(struct ProcEfxEclipseBG * proc);
+void StartSubSpell_efxSuperdruidOBJ2(struct Anim * anim);
+void efxSuperdruidOBJ2_OnEnd(void);
+void StartSpellAnimFillasMight(struct Anim * anim);
+void StartSpellAnimThorsIre(struct Anim * anim);
+void StartSpellAnimNinisGrace(struct Anim * anim);
+void StartSpellAnimSetsLitany(struct Anim * anim);
+void efxDancepara_Loop(struct ProcEfx * proc);
 void StartSpellAnimIvaldi(struct Anim * anim);
 // ??? Loop6C_efxIvaldi(???);
 // ??? StartSpellBG_IvaldiBG1(???);
