@@ -13,17 +13,65 @@ void nullsub_53(struct Anim * anim)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D75E8[];
+// clang-format off
 
-extern u16 * gUnknown_085D7600[];
-extern u16 * gUnknown_085D7628[];
-extern u16 gUnknown_08750268[];
+struct ProcCmd CONST_DATA gUnknown_085D75E8[] =
+{
+    PROC_NAME("efxSuperdruidBG3"),
+    PROC_REPEAT(sub_80654F8),
+    PROC_END,
+};
 
-extern u16 gUnknown_080DE47E[];
+u16 * CONST_DATA gUnknown_085D7600[] =
+{
+    Img_08746760,
+    Img_08746F70,
+    Img_08747C7C,
+    Img_08748E9C,
+    Img_08749DA8,
+    Img_0874AE90,
+    Img_0874BFA8,
+    Img_0874CE98,
+    Img_0874E110,
+    Img_0874F474,
+};
+
+u16 * CONST_DATA gUnknown_085D7628[] =
+{
+    Tsa_08750288,
+    Tsa_087503E4,
+    Tsa_087505C4,
+    Tsa_08750810,
+    Tsa_08750A38,
+    Tsa_08750C88,
+    Tsa_08750EFC,
+    Tsa_08751128,
+    Tsa_0875136C,
+    Tsa_087515C4,
+};
+
+// clang-format on
 
 //! FE8U = 0x08065498
 void sub_8065498(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE47E[] =
+    {
+        0, 1,
+        1, 1,
+        2, 1,
+        3, 1,
+        4, 1,
+        5, 1,
+        6, 1,
+        7, 1,
+        8, 1,
+        9, 3,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -40,7 +88,7 @@ void sub_8065498(struct Anim * anim)
     proc->img = gUnknown_085D7600;
 
     proc->pal = NULL;
-    SpellFx_RegisterBgPal(gUnknown_08750268, 0x20);
+    SpellFx_RegisterBgPal(gUnknown_08750268, PLTT_SIZE_4BPP);
 
     SpellFx_SetSomeColorEffect();
     BG_SetPosition(BG_1, 0, 0);
@@ -97,12 +145,19 @@ void sub_80654F8(struct ProcEfxEclipseBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7650[];
+// clang-format off
 
-extern u32 gUnknown_08752020[];
+struct ProcCmd CONST_DATA gUnknown_085D7650[] =
+{
+    PROC_NAME("efxSuperdruidOBJ2"),
 
-extern u16 gUnknown_08751808[];
-extern u16 gUnknown_08751DB4[];
+    PROC_SET_END_CB(sub_8065624),
+    PROC_SLEEP(13),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080655C4
 void sub_80655C4(struct Anim * anim)
@@ -123,8 +178,8 @@ void sub_80655C4(struct Anim * anim)
     frontAnim->xPosition = anim->xPosition;
     frontAnim->yPosition = anim->yPosition;
 
-    SpellFx_RegisterObjGfx(gUnknown_08751808, 0x1000);
-    SpellFx_RegisterObjPal(gUnknown_08751DB4, 0x20);
+    SpellFx_RegisterObjGfx(gUnknown_08751808, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(gUnknown_08751DB4, PLTT_SIZE_4BPP);
 
     return;
 }

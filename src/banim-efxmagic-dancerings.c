@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd ProcScr_efxDancepara[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxDancepara[] =
+{
+    PROC_NAME("efxDancepara"),
+    PROC_REPEAT(sub_8065724),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08065634
 void sub_8065634(struct Anim * anim)
