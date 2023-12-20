@@ -15,6 +15,7 @@
 #include "soundwrapper.h"
 #include "prepscreen.h"
 #include "bmlib.h"
+#include "helpbox.h"
 #include "sysutil.h"
 #include "constants/faces.h"
 

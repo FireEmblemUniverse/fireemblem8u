@@ -15,6 +15,7 @@
 #include "bmlib.h"
 #include "worldmap.h"
 #include "cgtext.h"
+#include "helpbox.h"
 #include "eventinfo.h"
 #include "event.h"
 

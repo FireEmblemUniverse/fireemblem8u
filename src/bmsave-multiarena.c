@@ -2,6 +2,7 @@
 #include "bmunit.h"
 #include "agb_sram.h"
 #include "bmsave.h"
+#include "sio.h"
 
 struct MultiArenaSaveTeam EWRAM_DATA gMultiArenaSaveTeamBufA = {0};
 struct MultiArenaSaveTeam EWRAM_DATA gMultiArenaSaveTeamBufB = {0};

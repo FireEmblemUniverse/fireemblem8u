@@ -11,9 +11,11 @@
 #include "constants/items.h"
 #include "bmudisp.h"
 #include "worldmap.h"
-
+#include "helpbox.h"
 #include "prepscreen.h"
 s8 CheckInLinkArena();
+
+EWRAM_DATA struct Struct203E87C gUnknown_0203E87C = { 0 };
 
 void PrepScreenMenu_OnPickUnits(struct ProcAtMenu* proc) {
     proc->state = 1;

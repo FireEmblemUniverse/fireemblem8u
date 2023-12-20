@@ -17,6 +17,7 @@
 #include "bmudisp.h"
 #include "bmmind.h"
 #include "bmio.h"
+#include "helpbox.h"
 #include "sysutil.h"
 #include "constants/faces.h"
 

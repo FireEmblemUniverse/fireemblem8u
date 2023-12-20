@@ -255,6 +255,10 @@ struct Unk082058B4
     u8 unk00, unk01, unk02;
 };
 
+extern u16 gManimScanlineBufA[DISPLAY_HEIGHT * 2 * 2];
+extern u16 * gManimScanlineBufs[];
+extern u16 * gManimActiveScanlineBuf;
+
 extern struct Unk082058B4 const gUnknown_082058B4[];
 
 extern CONST_DATA struct MADebugInfo* pMADebugInfoData;

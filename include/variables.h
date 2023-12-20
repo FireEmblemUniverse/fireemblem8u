@@ -95,60 +95,14 @@ extern struct Unit* sUnitStackBase;
 extern struct Unit* sUnitStackTop;
 extern u8 sUnitStackSize;
 
-// extern ??? gUnknown_0203AA7F
-// extern ??? gUnknown_0203AA80
-// extern ??? gUnknown_0203AA8A
-// extern ??? gAiDecision
-// extern ??? gUnknown_0203C624
-// extern ??? gUnknown_0203CA24
-// extern ??? gUnknown_0203DA24
-// extern ??? gUnknown_0203DA30
-// extern ??? gUnknown_0203DA78
-// extern ??? gUnknown_0203DA88
-// extern ??? gUnknown_0203DAB0
-// extern ??? gUnknown_0203DAC0
-// extern ??? gUnknown_0203DAC5
-// extern ??? gUnknown_0203DB10
-// extern ??? gUnknown_0203DB14
-// extern ??? gUnknown_0203DB1C
-// extern ??? gUnknown_0203DB64
-// extern ??? gUnknown_0203DB7C
-// extern ??? gUnknown_0203DC44
-// extern ??? gUnknown_0203DC48
-// extern ??? gUnknown_0203DD0C
-// extern ??? gUnknown_0203DD1C
-// extern ??? gUnknown_0203DD24
-// extern ??? gUnknown_0203DD28
-// extern ??? gUnknown_0203DD2C
-// extern ??? gUnknown_0203DD4C
-// extern ??? gUnknown_0203DD50
-// extern ??? gUnknown_0203DD8C
-// extern ??? gUnknown_0203DD90
-// extern ??? gUnknown_0203DD94
-// extern ??? gUnknown_0203DD95
-// extern ??? gUnknown_0203DD9A
-// extern ??? gUnknown_0203DD9F
-// extern ??? gUnknown_0203DDB4
-// extern ??? gUnknown_0203DDDC
-
 extern int gBattleScriptted;
 // extern ??? gBaArenaFlag
 // extern ??? gpProcefxopCur
 // extern ??? gUnknown_0203E1EC
-// extern ??? gUnknown_0203E1F8
 // extern ??? gManimScanlineBufA
 // extern ??? gManimScanlineBufs
 // extern ??? gManimActiveScanlineBuf
-// extern ??? gUnknown_0203E78C
-// extern ??? gUnknown_0203E794
-// extern ??? gUnknown_0203E7AC
-// extern ??? gUnknown_0203E7C8
-// extern ??? gUnknown_0203E7E4
-// extern ??? gUnknown_0203E7E8
-// extern ??? gUnknown_0203E800
-// extern ??? gUnknown_0203E828
-extern struct Struct203E87C gUnknown_0203E87C;
-// extern ??? gUnknown_0203E884
+
 // extern ??? gExtraMapStatus
 // extern ??? gSaveMenuRTextData
 // extern ??? gUnknown_0203EFB4
@@ -340,7 +294,7 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080D9FB5
 // extern ??? gUnknown_080D9FB7
 // extern ??? gUnknown_080D9FD6
-// extern ??? gUnknown_080D9FE4
+// extern ??? SioDefaultBgConfig
 // extern ??? gUnknown_080DA09C
 // extern ??? gUnknown_080DA0DA
 // extern ??? gUnknown_080DA0FA
@@ -579,10 +533,10 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? ProcScr_MineFx
 // extern ??? gProcScr_SquareSelectWarp
 // extern ??? gProcScr_SquareSelectTorch
-// extern ??? gUnknown_0859BC64
-// extern ??? gUnknown_0859BCA8
-// extern ??? EventScr_Ch1Tut_PressAtoGetItem
-// extern ??? gUnknown_0859BD40
+// extern ??? EventScr_TradeTutStart
+// extern ??? EventScr_TradeTut_SelectItem
+// extern ??? EventScr_TradeTut_PressAtoGetItem
+// extern ??? EventScr_TradeTutDone
 extern struct ProcCmd CONST_DATA gProcScr_UpdateTraps[];
 // extern ??? gProc_MapTask
 extern u16 gGfx_MiscUiGraphics[];
@@ -599,9 +553,9 @@ extern u16 gPal_MapSpriteArena[];
 extern u16 gPal_MapSpriteSepia[];
 extern u8 Pal_Text[];
 extern u8 gUnknown_0859EF20[];
-// extern ??? gUnknown_0859EF40
+extern u16 gUnknown_0859EF40[]; // pal
 extern u16 gPal_HelpTextBox[];
-// extern ??? gPal_YellowTextBox
+extern u16 gPal_YellowTextBox[];
 extern u16 Pal_GreenTextColors[];
 // extern ??? gUnknown_0859EFE0
 // extern ??? gUnknown_0859F000
@@ -680,7 +634,7 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gUnknown_085A93F0
 // extern ??? gUnknown_085A94A0
 // extern ??? gUnknown_085A94AC
-// extern ??? gUnknown_085A9614
+// extern ??? ProcScr_TacticianNameSelection
 // extern ??? gUnknown_085A96D4
 // extern ??? gUnknown_085A96E4
 // extern ??? gUnknown_085A96F4
@@ -751,7 +705,7 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gUnknown_085AADA0
 // extern ??? gUnknown_085AAE0C
 // extern ??? gUnknown_085AB358
-// extern ??? gUnknown_085ABD68
+extern u8 Img_TacticianSelObj[];
 // extern ??? gUnknown_085AC604
 // extern ??? gUnknown_085AC9DC
 // extern ??? gUnknown_085ACD20
@@ -761,7 +715,7 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gUnknown_085AD9CC
 // extern ??? gUnknown_085ADA38
 // extern ??? gUnknown_085ADBE8
-// extern ??? gUnknown_085ADC48
+extern u16 Pal_TacticianSelObj[];
 // extern ??? gUnknown_085ADCC8
 // extern ??? gUnknown_085ADDA8
 // extern ??? gUnknown_085ADDC8
@@ -769,10 +723,10 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gUnknown_085ADE08
 // extern ??? gUnknown_085ADE28
 // extern ??? gUnknown_085ADE48
-// extern ??? gUnknown_085ADE68
+extern u16 Pal_085ADE68[];
 // extern ??? gUnknown_085ADE88
 // extern ??? gUnknown_085ADF40
-// extern ??? gUnknown_085AE190
+extern u16 Tsa_085AE190[];
 // extern ??? gUnknown_085AE464
 // extern ??? gUnknown_085AE778
 // extern ??? gUnknown_085AE7EC
@@ -1045,16 +999,16 @@ extern u8  CONST_DATA gUnknown_08A02204[]; // tsa
 extern u8  CONST_DATA gUnknown_08A02250[]; // tsa
 extern u8  CONST_DATA gUnknown_08A02274[]; // img objects
 extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
-// extern ??? gGfx_HelpTextBox
-// extern ??? gGfx_HelpTextBox2
-// extern ??? gGfx_HelpTextBox3
-// extern ??? gGfx_HelpTextBox4
-// extern ??? gGfx_HelpTextBox5
-// extern ??? gGfx_YellowTextBox
-// extern ??? gGfx_YellowTextBox2
-// extern ??? gGfx_YellowTextBox3
-// extern ??? gGfx_YellowTextBox4
-// extern ??? gGfx_YellowTextBox5
+extern u8 gGfx_HelpTextBox[];
+extern u8 gGfx_HelpTextBox2[];
+extern u8 gGfx_HelpTextBox3[];
+extern u8 gGfx_HelpTextBox4[];
+extern u8 gGfx_HelpTextBox5[];
+extern u8 gGfx_YellowTextBox[];
+extern u8 gGfx_YellowTextBox2[];
+extern u8 gGfx_YellowTextBox3[];
+extern u8 gGfx_YellowTextBox4[];
+extern u8 gGfx_YellowTextBox5[];
 extern u8 CONST_DATA gUnknown_08A02C34[];
 // extern ??? gUnknown_08A02EB4
 // extern ??? gUnknown_08A02F34
@@ -1220,7 +1174,7 @@ extern u8 gUnknown_08A295D4[]; // tsa
 // extern ??? gUnknown_08A29A88
 // extern ??? gUnknown_08A2B1E4
 // extern ??? gUnknown_08A2C11C
-// extern ??? gUnknown_08A2C23C
+extern u16 gUnknown_08A2C23C[];
 // extern ??? gUnknown_08A2C4C8
 // extern ??? gUnknown_08A2C5A8
 // extern ??? gUnknown_08A2C7A4

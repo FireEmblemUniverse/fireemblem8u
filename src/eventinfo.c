@@ -712,10 +712,10 @@ s8 sub_80837D8(void) {
 }
 
 //! FE8U = 0x080837F8
-s8 sub_80837F8(void) {
+s8 CheckTradeTutorial(void) {
     int ret = 0;
 
-    if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD) && (gPlaySt.config.controller != 1)) {
+    if (TUTORIAL_MODE()) {
         ret = CheckFlag(0x87) != 0;
     }
 

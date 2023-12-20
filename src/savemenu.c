@@ -18,44 +18,18 @@
 #include "worldmap.h"
 #include "bonusclaim.h"
 #include "sysutil.h"
+#include "helpbox.h"
 #include "savemenu.h"
 #include "uisupport.h"
 
 #include "constants/characters.h"
 
-struct SaveMenuRTextData
-{
-    u8 pid;
-    s8 level;
-    s8 nodeId;
-};
+extern u16 gUnknown_020007A0[];
 
-extern struct SaveMenuRTextData gSaveMenuRTextData;
-
-struct SaveMenu8A20068Proc {
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int x;
-    /* 30 */ int y;
-    /* 34 */ u8 _pad[0x58-0x34];
-
-    /* 58 */ int msgId;
-};
-
-struct Proc8A204BC
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x4C);
-    /* 4C */ s16 unk_4c;
-    /* 4E */ STRUCT_PAD(0x4E, 0x58);
-    /* 58 */ int unk_58;
-    /* 5C */ int unk_5c;
-};
+EWRAM_DATA struct SaveMenuRTextData gSaveMenuRTextData = { 0 };
 
 // TODO: Implicit declaration
 int LoadBonusContentData(void *);
-
-extern u16 gUnknown_08A2C23C[];
-extern u16 gUnknown_020007A0[];
 
 //! FE8U = 0x080A882C
 void sub_80A882C(ProcPtr proc) {

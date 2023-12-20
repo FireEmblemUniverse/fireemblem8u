@@ -18,6 +18,7 @@
 #include "menu_def.h"
 #include "worldmap.h"
 #include "savemenu.h"
+#include "sio.h"
 
 #include "constants/faces.h"
 

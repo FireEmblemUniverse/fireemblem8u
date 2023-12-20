@@ -10,6 +10,7 @@
 #include "icon.h"
 #include "uiutils.h"
 #include "bm.h"
+#include "helpbox.h"
 #include "face.h"
 #include "bmitem.h"
 #include "soundwrapper.h"

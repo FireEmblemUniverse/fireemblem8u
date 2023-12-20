@@ -14,6 +14,8 @@ struct CgTextSt
     /* 4E */ u16 bldAlpha;
 } BITPACKED;
 
+extern struct CgTextSt gCgTextSt;
+
 enum
 {
     CG_TEXT_FLAG_0 = (1 << 0),

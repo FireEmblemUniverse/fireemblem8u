@@ -16,6 +16,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "bmlib.h"
+#include "helpbox.h"
 #include "worldmap.h"
 #include "uichapterstatus.h"
 
@@ -168,7 +169,7 @@ struct ProcCmd CONST_DATA gProcScr_08A01C04[] = {
 
     PROC_SLEEP(0),
     PROC_CALL(sub_808E3D4),
-    PROC_CALL(sub_8013FD8),
+    PROC_CALL(FadeInBlackSpeed40),
 
     PROC_SLEEP(0),
 

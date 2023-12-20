@@ -9,6 +9,7 @@
 #include "statscreen.h"
 #include "bm.h"
 #include "uiutils.h"
+#include "helpbox.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "sysutil.h"

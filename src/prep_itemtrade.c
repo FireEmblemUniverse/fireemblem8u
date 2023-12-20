@@ -13,6 +13,7 @@
 #include "bm.h"
 #include "statscreen.h"
 #include "sysutil.h"
+#include "helpbox.h"
 #include "prepscreen.h"
 
 //! FE8U = 0x0809B538

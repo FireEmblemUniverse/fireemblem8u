@@ -12,6 +12,20 @@ enum wpn_manim_flash_color {
     SPELL_ASSOC_MCOLOR_LIGHT,
 };
 
+enum spellassoc_efxmagic_idx {
+    SASSOC_EFX_Dummy = 0,
+    SASSOC_EFX_HandAxe,
+    SASSOC_EFX_Arrow,
+    SASSOC_EFX_Javelin,
+    SASSOC_EFX_JavelinCavalier,
+    SASSOC_EFX_JavelinSoldier,
+    SASSOC_EFX_JavelinPaladin,
+    SASSOC_EFX_JavelinPragasus,
+    SASSOC_EFX_JavlinFalcon,
+    SASSOC_EFX_JavlinWyvernRider,
+    SASSOC_EFX_JavlinWyvernLord,
+};
+
 struct SpellAssoc {
     /* 00 */ u16 item;
     /* 02 */ u8 count;

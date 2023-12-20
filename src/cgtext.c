@@ -14,7 +14,7 @@
 #include "sysutil.h"
 #include "cgtext.h"
 
-extern struct CgTextSt gCgTextSt;
+EWRAM_DATA struct CgTextSt gCgTextSt = { 0 };
 
 // clang-format off
 

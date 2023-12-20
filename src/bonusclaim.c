@@ -14,6 +14,7 @@
 #include "bmitem.h"
 #include "bmsave.h"
 #include "prepscreen.h"
+#include "helpbox.h"
 #include "bmlib.h"
 #include "sysutil.h"
 #include "bonusclaim.h"

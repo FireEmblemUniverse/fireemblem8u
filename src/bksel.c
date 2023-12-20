@@ -17,6 +17,7 @@
 #include "bmlib.h"
 #include "eventinfo.h"
 #include "bksel.h"
+#include "helpbox.h"
 
 int GetBattleForecastPanelSide(void)
 {

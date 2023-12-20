@@ -26,6 +26,7 @@
 #include "bb.h"
 #include "bmshop.h"
 #include "uiconfig.h"
+#include "helpbox.h"
 #include "bmudisp.h"
 #include "bm.h"
 #include "prepscreen.h"

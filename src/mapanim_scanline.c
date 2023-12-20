@@ -4,12 +4,10 @@
 #include "bmlib.h"
 #include "mapanim.h"
 
-extern u16 gManimScanlineBufA[DISPLAY_HEIGHT * 2];
-// TODO: gManimScanlineBufB
-
-extern u16 * gManimScanlineBufs[];
-
-extern u16 * gManimActiveScanlineBuf;
+EWRAM_DATA u16 gManimScanlineBufA[DISPLAY_HEIGHT * 2 * 2] = { 0 };
+EWRAM_DATA u16 * gManimScanlineBufs[2] = { NULL };
+EWRAM_DATA u16 * gManimActiveScanlineBuf = NULL;
+EWRAM_DATA u32 unused_0203e760 = 0;
 
 //! FE8U = 0x08081E78
 void InitScanline(void)

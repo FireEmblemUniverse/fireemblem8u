@@ -399,7 +399,7 @@ struct ProcCmd CONST_DATA gProcScr_ArenaUiMain[] = {
     PROC_CALL_ARG(sub_8014BC0, 56),
 
     PROC_CALL(ArenaUi_Init),
-    PROC_CALL(sub_8013FC4),
+    PROC_CALL(FadeInBlackSpeed20),
     PROC_SLEEP(1),
 
     PROC_CALL(ArenaUi_WelcomeDialogue),
@@ -467,7 +467,7 @@ PROC_LABEL(1),
 
     PROC_CALL(ArenaUi_Init),
 
-    PROC_CALL(sub_8013FC4),
+    PROC_CALL(FadeInBlackSpeed20),
     PROC_SLEEP(0),
 
     PROC_CALL(ArenaUi_ResultsDialogue),

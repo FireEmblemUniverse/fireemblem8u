@@ -27,6 +27,8 @@
 
 #include "mapanim.h"
 
+EWRAM_DATA struct MapAnimState gManimSt = { 0 };
+
 // unreferenced
 void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc) {
     if (gManimSt.u62 == 1) {
