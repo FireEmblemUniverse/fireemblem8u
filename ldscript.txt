@@ -194,6 +194,9 @@ SECTIONS
         src/banim-efxmagic-luna.o(.text);
         src/banim-efxmagic-excalibur.o(.text);
         src/banim-efxmagic-gespenst.o(.text);
+        src/banim-efxmagic-aura.o(.text);
+        src/banim-efxmagic-ereshkigal.o(.text);
+        src/banim-efxmagic-dancerings.o(.text);
         asm/banim-efxmagic.o(.text);
         asm/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
