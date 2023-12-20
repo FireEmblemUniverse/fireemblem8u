@@ -14,141 +14,13 @@
 #include "bmlib.h"
 #include "savemenu.h"
 #include "cgtext.h"
+#include "helpbox.h"
 
-struct HelpBoxScrollProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ const char* unk_2c;
-    /* 30 */ struct Font* unk_30;
-
-    /* 34 */ struct Text* unk_34[9]; // unknown size; 3?
-
-    /* 58 */ int unk_58;
-    /* 5C */ s16 unk_5c;
-    /* 5E */ s16 unk_5e;
-    /* 60 */ u16 unk_60;
-    /* 62 */ s16 unk_62;
-    /* 64 */ s16 unk_64;
-};
-
-struct HelpBox8A01650Proc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 _pad[0x58-0x29];
-
-    /* 58 */ int unk_58;
-    /* 5C */ int unk_5c;
-    /* 60 */ int unk_60;
-    /* 64 */ s16 unk_64;
-};
-
-struct HelpBox8A016E0Proc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-
-    /* 38 */ u8 unk_38;
-
-    /* 3C */ u16* unk_3c;
-    /* 40 */ u8 unk_40;
-};
-
-struct HelpBox8A01760Proc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ const char * str;
-    /* 30 */ struct Font * unk_30;
-    /* 34 */ struct Text * unk_34[5];
-
-    /* 48 */ s16 unk_48;
-    /* 4A */ s16 unk_4a;
-    /* 4C */ s16 unk_4c;
-    /* 4E */ s16 unk_4e;
-    /* 50 */ u8 unk_50;
-    /* 51 */ u8 unk_51;
-    /* 52 */ u8 unk_52;
-    /* 53 */ u8 unk_53;
-    /* 54 */ u8 unk_54;
-    /* 55 */ u8 unk_55;
-    /* 56 */ u8 unk_56;
-    /* 57 */ u8 unk_57;
-    /* 58 */ u8 unk_58;
-    /* 59 */ u8 unk_59;
-};
-
-struct HelpBox8A01800Proc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-
-    /* 34 */ u8 _pad[0x5c-0x34];
-
-    /* 5C */ int unk_5c;
-};
-
-struct Struct203E794 {
-    /* 00 */ struct Font font;
-    /* 16 */ struct Text text[3];
-    /* 30 */ u16 unk_30;
-};
-
-extern struct Struct203E794 gUnknown_0203E794;
-
-// gfx
-extern u8 gGfx_HelpTextBox[];
-extern u8 gGfx_HelpTextBox2[];
-extern u8 gGfx_HelpTextBox3[];
-extern u8 gGfx_HelpTextBox4[];
-extern u8 gGfx_HelpTextBox5[];
-
-extern u16 gUnknown_0859EF40[]; // pal
-
-extern struct HelpBoxInfo gUnknown_0203E7C8;
-extern const struct HelpBoxInfo* gUnknown_0203E7E4;
-
-extern struct ProcCmd gProcScr_HelpBoxTextScroll[];
-extern struct ProcCmd gUnknown_08A01650[];
-extern struct ProcCmd gUnknown_08A01678[];
-extern struct ProcCmd gUnknown_08A01698[];
-extern struct ProcCmd gUnknown_08A016C8[];
-extern struct ProcCmd gProcScr_BoxDialogue[];
-extern struct ProcCmd gUnknown_08A01740[];
-extern struct ProcCmd gUnknown_08A01818[];
-
-extern u16 gPal_YellowTextBox[];
-extern u16 gPal_HelpTextBox[];
-
-struct Struct0203E7E8 {
-    /* 00 */ struct Font unk_00;
-    /* 18 */ struct Text unk_18[5];
-    /* 40 */ u16 unk_40;
-    /* 42 */ u16 unk_42;
-};
-
-extern struct Struct0203E7E8 gUnknown_0203E7E8;
-
-extern u8 gGfx_YellowTextBox[];
-extern u8 gGfx_YellowTextBox2[];
-extern u8 gGfx_YellowTextBox3[];
-extern u8 gGfx_YellowTextBox4[];
-extern u8 gGfx_YellowTextBox5[];
-
-// (probably) forward declarations
-
-void sub_808A354(const struct HelpBoxInfo*);
-void sub_808A384(struct HelpBoxProc*, int, int);
-void sub_808A3C4(struct HelpBoxProc*, int, int);
-void sub_808A43C(struct HelpBoxProc*, int, int);
-void sub_808A444(struct HelpBoxProc*);
-int sub_808A454(int);
-void sub_808AC0C(int, int, int);
-void sub_808A9F0(void);
-void sub_808ACFC(int, int, int, int);
-void sub_808BAA4(void);
-void sub_808BA60(int, int, int);
+EWRAM_DATA u32 unuesed_0203E790 = 0;
+EWRAM_DATA struct Struct203E794 gHelpBoxSt = { 0 };
+EWRAM_DATA struct HelpBoxInfo gTmpHelpBoxInfo = { 0 };
+EWRAM_DATA const struct HelpBoxInfo * gpHelpBoxCurrentInfo = NULL;
+EWRAM_DATA struct Struct0203E7E8 gUnknown_0203E7E8 = { 0 };
 
 //! FE8U = 0x08089804
 void LoadHelpBoxGfx(void* vram, int palId) {
@@ -169,17 +41,17 @@ void LoadHelpBoxGfx(void* vram, int palId) {
     Decompress(gGfx_HelpTextBox4, vram + 0xf60);
     Decompress(gGfx_HelpTextBox5, vram + 0x1360);
 
-    InitSpriteTextFont(&gUnknown_0203E794.font, vram, palId);
+    InitSpriteTextFont(&gHelpBoxSt.font, vram, palId);
 
-    InitSpriteText(&gUnknown_0203E794.text[0]);
-    InitSpriteText(&gUnknown_0203E794.text[1]);
-    InitSpriteText(&gUnknown_0203E794.text[2]);
+    InitSpriteText(&gHelpBoxSt.text[0]);
+    InitSpriteText(&gHelpBoxSt.text[1]);
+    InitSpriteText(&gHelpBoxSt.text[2]);
 
     SetTextFont(0);
 
     ApplyPalette(gUnknown_0859EF40, palId);
 
-    gUnknown_0203E794.unk_30 = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
+    gHelpBoxSt.unk_30 = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
 
     return;
 }
@@ -203,18 +75,18 @@ void sub_80898C4(void* vram, int palId) {
     Decompress(gGfx_HelpTextBox4, vram + 0xf60);
     Decompress(gGfx_HelpTextBox5, vram + 0x1360);
 
-    InitSpriteTextFont(&gUnknown_0203E794.font, vram, palId);
+    InitSpriteTextFont(&gHelpBoxSt.font, vram, palId);
 
-    InitSpriteText(&gUnknown_0203E794.text[0]);
-    InitSpriteText(&gUnknown_0203E794.text[1]);
+    InitSpriteText(&gHelpBoxSt.text[0]);
+    InitSpriteText(&gHelpBoxSt.text[1]);
 
-    gUnknown_0203E794.text[2].tile_width = 0;
+    gHelpBoxSt.text[2].tile_width = 0;
 
     SetTextFont(0);
 
     ApplyPalette(gUnknown_0859EF40, palId);
 
-    gUnknown_0203E794.unk_30 = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
+    gHelpBoxSt.unk_30 = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
 
     return;
 }
@@ -270,7 +142,7 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
 
             if (flag_ != 0) {
                 xPx -= 0x20;
-                PutSprite(0, x + xPx, y + yPx, gObject_16x16, gUnknown_0203E794.unk_30 + ix * 4 + iy * 0x40);
+                PutSprite(0, x + xPx, y + yPx, gObject_16x16, gHelpBoxSt.unk_30 + ix * 4 + iy * 0x40);
             } else {
 
                 if (xPx > w) {
@@ -278,7 +150,7 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
                 }
                 xPx -= 0x20;
 
-                PutSprite(0, x + xPx, y + yPx, gObject_32x16, gUnknown_0203E794.unk_30 + ix * 4 + iy * 0x40);
+                PutSprite(0, x + xPx, y + yPx, gObject_32x16, gHelpBoxSt.unk_30 + ix * 4 + iy * 0x40);
 
             }
         }
@@ -294,8 +166,8 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
         if (flag_ != 0) {
             xPx -= 0x20;
 
-            PutSprite(0, x + xPx, y - 8, gObject_16x8, gUnknown_0203E794.unk_30 + 0x1b);
-            PutSprite(0, x + xPx, y + h, gObject_16x8, gUnknown_0203E794.unk_30 + 0x3b);
+            PutSprite(0, x + xPx, y - 8, gObject_16x8, gHelpBoxSt.unk_30 + 0x1b);
+            PutSprite(0, x + xPx, y + h, gObject_16x8, gHelpBoxSt.unk_30 + 0x3b);
 
             flag_ = 0;
         } else {
@@ -304,8 +176,8 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
             }
             xPx -= 0x20;
 
-            PutSprite(0, x + xPx, y - 8, gObject_32x8, gUnknown_0203E794.unk_30 + 0x1b);
-            PutSprite(0, x + xPx, y + h, gObject_32x8, gUnknown_0203E794.unk_30 + 0x3b);
+            PutSprite(0, x + xPx, y - 8, gObject_32x8, gHelpBoxSt.unk_30 + 0x1b);
+            PutSprite(0, x + xPx, y + h, gObject_32x8, gHelpBoxSt.unk_30 + 0x3b);
 
         }
 
@@ -318,26 +190,26 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
         }
         yPx -= 0x10;
 
-        PutSprite(0, x - 8, y + yPx, gObject_8x16, gUnknown_0203E794.unk_30 + 0x5f);
-        PutSprite(0, x + w, y + yPx, gObject_8x16, gUnknown_0203E794.unk_30 + 0x1f);
+        PutSprite(0, x - 8, y + yPx, gObject_8x16, gHelpBoxSt.unk_30 + 0x5f);
+        PutSprite(0, x + w, y + yPx, gObject_8x16, gHelpBoxSt.unk_30 + 0x1f);
 
         if (anotherFlag != 0) {
-            PutSprite(0, x + w - 8, y + yPx, gObject_8x16, gUnknown_0203E794.unk_30 + 0x1a);
+            PutSprite(0, x + w - 8, y + yPx, gObject_8x16, gHelpBoxSt.unk_30 + 0x1a);
         }
     }
 
-    PutSprite(0, x - 8, y - 8, gObject_8x8, gUnknown_0203E794.unk_30 + 0x5b); // top left
-    PutSprite(0, x + w, y - 8, gObject_8x8, gUnknown_0203E794.unk_30 + 0x5c); // top right
-    PutSprite(0, x - 8, y + h, gObject_8x8, gUnknown_0203E794.unk_30 + 0x5d); // bottom left
-    PutSprite(0, x + w, y + h, gObject_8x8, gUnknown_0203E794.unk_30 + 0x5e); // bottom right
+    PutSprite(0, x - 8, y - 8, gObject_8x8, gHelpBoxSt.unk_30 + 0x5b); // top left
+    PutSprite(0, x + w, y - 8, gObject_8x8, gHelpBoxSt.unk_30 + 0x5c); // top right
+    PutSprite(0, x - 8, y + h, gObject_8x8, gHelpBoxSt.unk_30 + 0x5d); // bottom left
+    PutSprite(0, x + w, y + h, gObject_8x8, gHelpBoxSt.unk_30 + 0x5e); // bottom right
 
     if (anotherFlag != 0) {
-        PutSprite(0, x + w - 8, y - 8, gObject_8x8, gUnknown_0203E794.unk_30 + 0x1b);
-        PutSprite(0, x + w - 8, y + h, gObject_8x8, gUnknown_0203E794.unk_30 + 0x3b);
+        PutSprite(0, x + w - 8, y - 8, gObject_8x8, gHelpBoxSt.unk_30 + 0x1b);
+        PutSprite(0, x + w - 8, y + h, gObject_8x8, gHelpBoxSt.unk_30 + 0x3b);
     }
 
     if (unk == 0) {
-        PutSprite(0, x, y - 0xb, gObject_32x16, (0x3FF & gUnknown_0203E794.unk_30) + 0x7b);
+        PutSprite(0, x, y - 0xb, gObject_32x16, (0x3FF & gHelpBoxSt.unk_30) + 0x7b);
     }
 
     return;
@@ -345,13 +217,13 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
 
 //! FE8U = 0x08089C40
 int DrawHelpBoxWeaponLabels(int item) {
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 0, 8, GetWeaponTypeDisplayString(GetItemType(item)));
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 47, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 97, 8, GetStringFromIndex(0x502)); // TODO: msg id "Wt"
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 0, 8, GetWeaponTypeDisplayString(GetItemType(item)));
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 47, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 97, 8, GetStringFromIndex(0x502)); // TODO: msg id "Wt"
 
-    Text_InsertDrawString(&gUnknown_0203E794.text[1], 0, 8, GetStringFromIndex(0x503)); // TODO: msg id "Mt"
-    Text_InsertDrawString(&gUnknown_0203E794.text[1], 47, 8, GetStringFromIndex(0x4F4)); // TODO: msg id "Hit[.]}"
-    Text_InsertDrawString(&gUnknown_0203E794.text[1], 97, 8, GetStringFromIndex(0x501)); // TODO: msg id "Crit"
+    Text_InsertDrawString(&gHelpBoxSt.text[1], 0, 8, GetStringFromIndex(0x503)); // TODO: msg id "Mt"
+    Text_InsertDrawString(&gHelpBoxSt.text[1], 47, 8, GetStringFromIndex(0x4F4)); // TODO: msg id "Hit[.]}"
+    Text_InsertDrawString(&gHelpBoxSt.text[1], 97, 8, GetStringFromIndex(0x501)); // TODO: msg id "Crit"
 
     return 2;
 }
@@ -359,31 +231,31 @@ int DrawHelpBoxWeaponLabels(int item) {
 //! FE8U = 0x08089CD4
 void DrawHelpBoxWeaponStats(int item) {
 
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 32, 7, GetItemDisplayRankString(item));
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 67, 7, GetItemDisplayRangeString(item));
-    Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[0], 129, 7, GetItemWeight(item));
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 32, 7, GetItemDisplayRankString(item));
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 67, 7, GetItemDisplayRangeString(item));
+    Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[0], 129, 7, GetItemWeight(item));
 
-    Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[1], 32, 7, GetItemMight(item));
-    Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[1], 81, 7, GetItemHit(item));
-    Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[1], 129, 7, GetItemCrit(item));
+    Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[1], 32, 7, GetItemMight(item));
+    Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[1], 81, 7, GetItemHit(item));
+    Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[1], 129, 7, GetItemCrit(item));
 
     return;
 }
 
 //! FE8U = 0x08089D50
 int DrawHelpBoxStaffLabels(int item) {
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 0, 8, GetStringFromIndex(0x509)); // TODO: msg id "Staff[.]"
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 30, 7, GetItemDisplayRankString(item));
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 48, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 70, 7, GetItemDisplayRangeString(item));
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 0, 8, GetStringFromIndex(0x509)); // TODO: msg id "Staff[.]"
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 30, 7, GetItemDisplayRankString(item));
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 48, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 70, 7, GetItemDisplayRangeString(item));
 
     return 1;
 }
 
 //! FE8U = 0x08089DB0
 void DrawHelpBoxSaveMenuLabels(void) {
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 0, 8, GetStringFromIndex(0x147)); // TODO: msg id "Base"
-    Text_InsertDrawString(&gUnknown_0203E794.text[0], 90, 8, GetStringFromIndex(0x148)); // TODO: msg id "LV"
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 0, 8, GetStringFromIndex(0x147)); // TODO: msg id "Base"
+    Text_InsertDrawString(&gHelpBoxSt.text[0], 90, 8, GetStringFromIndex(0x148)); // TODO: msg id "LV"
 
     return;
 }
@@ -395,17 +267,17 @@ void DrawHelpBoxSaveMenuStats(void) {
     const char* str = GetWMNodeNameForSaveMenu();
 
     if (str != 0) {
-        Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, str);
+        Text_InsertDrawString(&gHelpBoxSt.text[0], 26, 7, str);
     } else {
-        Text_InsertDrawString(&gUnknown_0203E794.text[0], 26, 7, GetStringFromIndex(0x538));
+        Text_InsertDrawString(&gHelpBoxSt.text[0], 26, 7, GetStringFromIndex(0x538));
     }
 
     level = GetLeaderLevelForSaveMenu();
 
     if (level >= 0) {
-        Text_InsertDrawNumberOrBlank(&gUnknown_0203E794.text[0], 116, 7, level);
+        Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[0], 116, 7, level);
     } else {
-        Text_InsertDrawString(&gUnknown_0203E794.text[0], 108, 7, GetStringFromIndex(0x535));
+        Text_InsertDrawString(&gHelpBoxSt.text[0], 108, 7, GetStringFromIndex(0x535));
     }
 
     return;
@@ -520,7 +392,7 @@ struct ProcCmd CONST_DATA gUnknown_08A01638[] = {
 void sub_8089F58(struct HelpBox8A01650Proc* proc) {
     int item = proc->unk_58;
 
-    SetTextFont(&gUnknown_0203E794.font);
+    SetTextFont(&gHelpBoxSt.font);
     SetTextFontGlyphs(0);
 
     switch (GetHelpBoxItemInfoKind(item)) {
@@ -555,7 +427,7 @@ void sub_8089F58(struct HelpBox8A01650Proc* proc) {
 void sub_8089FCC(struct HelpBox8A01650Proc* proc) {
     int item = proc->unk_58;
 
-    SetTextFont(&gUnknown_0203E794.font);
+    SetTextFont(&gHelpBoxSt.font);
 
     switch (GetHelpBoxItemInfoKind(item)) {
         case 1:
@@ -579,24 +451,24 @@ void sub_808A00C(struct HelpBox8A01650Proc* proc) {
     struct HelpBoxScrollProc* otherProc;
     int textSpeed;
 
-    SetTextFont(&gUnknown_0203E794.font);
+    SetTextFont(&gHelpBoxSt.font);
 
     SetTextFontGlyphs(1);
 
-    Text_SetColor(&gUnknown_0203E794.text[0], 6);
-    Text_SetColor(&gUnknown_0203E794.text[1], 6);
-    Text_SetColor(&gUnknown_0203E794.text[2], 6);
+    Text_SetColor(&gHelpBoxSt.text[0], 6);
+    Text_SetColor(&gHelpBoxSt.text[1], 6);
+    Text_SetColor(&gHelpBoxSt.text[2], 6);
 
     SetTextFont(0);
 
     Proc_EndEach(gProcScr_HelpBoxTextScroll);
 
     otherProc = Proc_Start(gProcScr_HelpBoxTextScroll, PROC_TREE_3);
-    otherProc->unk_30 = &gUnknown_0203E794.font;
+    otherProc->unk_30 = &gHelpBoxSt.font;
 
-    otherProc->unk_34[0] = &gUnknown_0203E794.text[0];
-    otherProc->unk_34[1] = &gUnknown_0203E794.text[1];
-    otherProc->unk_34[2] = &gUnknown_0203E794.text[2];
+    otherProc->unk_34[0] = &gHelpBoxSt.text[0];
+    otherProc->unk_34[1] = &gHelpBoxSt.text[1];
+    otherProc->unk_34[2] = &gHelpBoxSt.text[2];
 
     otherProc->unk_5c = proc->unk_64;
 
@@ -657,11 +529,11 @@ void StartHelpBoxTextInit(int item, int msgId) {
 //! FE8U = 0x0808A118
 void ClearHelpBoxText(void) {
 
-    SetTextFont(&gUnknown_0203E794.font);
+    SetTextFont(&gHelpBoxSt.font);
 
-    SpriteText_DrawBackground(&gUnknown_0203E794.text[0]);
-    SpriteText_DrawBackground(&gUnknown_0203E794.text[1]);
-    SpriteText_DrawBackground(&gUnknown_0203E794.text[2]);
+    SpriteText_DrawBackground(&gHelpBoxSt.text[0]);
+    SpriteText_DrawBackground(&gHelpBoxSt.text[1]);
+    SpriteText_DrawBackground(&gHelpBoxSt.text[2]);
 
     Proc_EndEach(gProcScr_HelpBoxTextScroll);
     Proc_EndEach(gUnknown_08A01650);
@@ -725,13 +597,13 @@ struct ProcCmd CONST_DATA gUnknown_08A01678[] = {
 //! FE8U = 0x0808A1E0
 void sub_808A1E0(int x, int y, int msgId) {
 
-    gUnknown_0203E7C8.xDisplay = x;
-    gUnknown_0203E7C8.yDisplay = y;
-    gUnknown_0203E7C8.mid = msgId;
-    gUnknown_0203E7C8.redirect = 0;
-    gUnknown_0203E7C8.populate = 0;
+    gTmpHelpBoxInfo.xDisplay = x;
+    gTmpHelpBoxInfo.yDisplay = y;
+    gTmpHelpBoxInfo.mid = msgId;
+    gTmpHelpBoxInfo.redirect = 0;
+    gTmpHelpBoxInfo.populate = 0;
 
-    sub_808A354(&gUnknown_0203E7C8);
+    sub_808A354(&gTmpHelpBoxInfo);
 
     return;
 }
@@ -776,7 +648,7 @@ void sub_808A200(const struct HelpBoxInfo* info) {
     ClearHelpBoxText();
     StartHelpBoxTextInit(proc->item, proc->mid);
 
-    gUnknown_0203E7E4 = info;
+    gpHelpBoxCurrentInfo = info;
 
     return;
 }

@@ -195,7 +195,8 @@ struct Unknown_0203DA24
 {
     // TODO: this layout is very temporary, hopefully
     // +0x0C is TextHandles
-    STRUCT_PAD(0x00, 0x9C);
+    u8 unk_00;
+    STRUCT_PAD(0x01, 0x9C);
     u8 unk_9C[5];
     u8 unk_A1[15][15];
 };

@@ -5,6 +5,7 @@
 #include "icon.h"
 #include "hardware.h"
 #include "mapanim.h"
+#include "helpbox.h"
 #include "soundwrapper.h"
 #include "prepscreen.h"
 #include "sysutil.h"

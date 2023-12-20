@@ -15,6 +15,7 @@
 #include "popup.h"
 #include "face.h"
 #include "scene.h"
+#include "helpbox.h"
 #include "menuitempanel.h"
 #include "prepscreen.h"
 

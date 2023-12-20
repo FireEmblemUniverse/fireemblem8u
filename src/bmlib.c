@@ -1198,33 +1198,33 @@ void sub_8013F58(ProcPtr parent)
     StartFadeCore(3, 0x40, parent, sub_80141B0);
 }
 
-void sub_8013F70(ProcPtr parent)
+void FadeInBlackSpeed04(ProcPtr parent)
 {
     StartFadeCore(2, 0x04, parent, NULL);
 }
 
-void sub_8013F84(ProcPtr parent)
+void FadeInBlackSpeed08(ProcPtr parent)
 {
     StartFadeCore(2, 0x08, parent, NULL);
 }
 
-void sub_8013F98(ProcPtr parent)
+void FadeInBlackSpeed08Unk(ProcPtr parent)
 {
     StartFadeCore(2, 0x08, parent, NULL);
     sub_8014170();
 }
 
-void sub_8013FB0(ProcPtr parent)
+void FadeInBlackSpeed10(ProcPtr parent)
 {
     StartFadeCore(2, 0x10, parent, NULL);
 }
 
-void sub_8013FC4(ProcPtr parent)
+void FadeInBlackSpeed20(ProcPtr parent)
 {
     StartFadeCore(2, 0x20, parent, NULL);
 }
 
-void sub_8013FD8(ProcPtr parent)
+void FadeInBlackSpeed40(ProcPtr parent)
 {
     StartFadeCore(2, 0x40, parent, NULL);
 }

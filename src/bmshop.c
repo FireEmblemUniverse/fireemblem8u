@@ -22,6 +22,7 @@
 #include "bmshop.h"
 #include "bmlib.h"
 #include "mapanim.h"
+#include "helpbox.h"
 #include "constants/faces.h"
 #include "constants/items.h"
 
@@ -118,7 +119,7 @@ struct ProcCmd CONST_DATA gProcScr_Shop[] = {
 
     PROC_START_CHILD(gProcScr_08A394D0),
 
-    PROC_CALL(sub_8013FC4),
+    PROC_CALL(FadeInBlackSpeed20),
     PROC_SLEEP(1),
 
     PROC_CALL(ShopProc_EnterShopDialogue),

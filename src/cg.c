@@ -284,8 +284,13 @@ struct CGDataEnt CONST_DATA gCGDataTable[] = {
 };
 
 //! FE8U = 0x080B65EC
-struct CGDataEnt* sub_80B65EC(int unused) {
+struct CGDataEnt * GetCG(int unused)
+{
+#if BUGFIX
+    return gCGDataTable + unused;
+#else
     return gCGDataTable;
+#endif
 }
 
 //! FE8U = 0x080B65F4
@@ -296,10 +301,11 @@ void sub_80B65F4(void) {
 void ModifySaveLinkArenaStruct2B(void *buf, int val);
 
 //! FE8U = 0x080B65F8
-void sub_80B65F8(u16* tm, int offset, int palId, int palCount, int idx) {
+void DisplayCGfx(u16* tm, int offset, int palId, int palCount, int idx)
+{
     int i;
 
-    struct CGDataEnt* cgEnt = sub_80B65EC(idx);
+    struct CGDataEnt* cgEnt = GetCG(idx);
 
     for (i = 0; i < 10; i++) {
         Decompress(cgEnt->img[i], (void*)(VRAM + offset + i*0x800));
@@ -313,6 +319,4 @@ void sub_80B65F8(u16* tm, int offset, int palId, int palCount, int idx) {
     if (idx < 0x80) {
         ModifySaveLinkArenaStruct2B(NULL, idx);
     }
-
-    return;
 }

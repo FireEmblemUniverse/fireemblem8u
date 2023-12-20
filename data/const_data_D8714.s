@@ -139,8 +139,8 @@ gUnknown_080D9FB7:  @ 0x080D9FB7
 gUnknown_080D9FD6:  @ 0x080D9FD6
 	.incbin "baserom.gba", 0xD9FD6, 0xE
 
-	.global gUnknown_080D9FE4
-gUnknown_080D9FE4:  @ 0x080D9FE4
+	.global SioDefaultBgConfig
+SioDefaultBgConfig:  @ 0x080D9FE4
 	.incbin "baserom.gba", 0xD9FE4, 0xB8
 
 	.global gUnknown_080DA09C

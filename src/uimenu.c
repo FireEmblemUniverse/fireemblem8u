@@ -10,7 +10,7 @@
 #include "uiutils.h"
 #include "statscreen.h"
 #include "face.h"
-
+#include "helpbox.h"
 #include "uimenu.h"
 
 // data

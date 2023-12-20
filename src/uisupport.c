@@ -17,6 +17,7 @@
 #include "event.h"
 #include "bmsave.h"
 #include "bmlib.h"
+#include "helpbox.h"
 #include "prepscreen.h"
 #include "eventinfo.h"
 #include "cgtext.h"
@@ -47,8 +48,6 @@ int GetSupportScreenCharIdAt(int);
 void sub_80A199C(struct SupportScreenProc*, int);
 int GetSupportScreenPartnerCount(int);
 void StartSupportUnitSubScreen(s8, int, ProcPtr);
-
-extern u8 gUnknown_0203E884;
 
 //! FE8U = 0x080A0A94
 int GetSupportScreenUnitCount(void) {
@@ -1815,16 +1814,5 @@ void StartSupportUnitSubScreen(s8 fromPrepScreen, int unitIndex, ProcPtr parent)
     proc->fromPrepScreen = fromPrepScreen;
     proc->unitIdx = unitIndex;
 
-    return;
-}
-
-//! FE8U = 0x080A2C2C
-u8 *sub_80A2C2C(void) {
-    gUnknown_0203E884 = 0;
-    return &gUnknown_0203E884;
-}
-
-//! FE8U = 0x080A2C38
-void sub_80A2C38(void) {
     return;
 }

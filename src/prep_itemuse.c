@@ -17,6 +17,7 @@
 #include "soundwrapper.h"
 #include "classchg.h"
 #include "bmlib.h"
+#include "helpbox.h"
 #include "sysutil.h"
 #include "worldmap.h"
 #include "prepscreen.h"

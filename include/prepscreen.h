@@ -146,6 +146,12 @@ struct PrepItemListProc {
     /* 4A */ u16 yOffsetPerPage[9];
 };
 
+struct Struct203E87C {
+    u8 unk00[8];
+};
+
+extern struct Struct203E87C gUnknown_0203E87C;
+
 extern struct Text gPrepMainMenuTexts[9];
 extern u8 gPrepUnitPool[];
 extern u8 gBanimScrRight[];

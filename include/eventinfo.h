@@ -104,6 +104,8 @@ struct ForceDeploymentEnt {
     /* 02 */ u8 chapter;
 };
 
+#define TUTORIAL_MODE() (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD) && gPlaySt.config.controller != 1)
+
 void StartEventFromInfo(struct EventInfo* info, u8 execType);
 struct EventInfo* SearchAvailableEvent(struct EventInfo* info);
 struct EventInfo* SearchNextAvailableEvent(struct EventInfo* info);
@@ -151,7 +153,7 @@ void StartSupportViewerTalk(u8, u8, int);
 // ?? GetSupportTalkSong_(u8 unused, u8 pidA, u8 pidB, int rank);
 void sub_80837B0(void);
 bool sub_80837D8(void);
-bool sub_80837F8(void);
+bool CheckTradeTutorial(void);
 int EvCheck00_Always(struct EventInfo* info);
 // ??? EvCheck01_AFEV(???);
 // ??? EvCheck02_TURN(???);

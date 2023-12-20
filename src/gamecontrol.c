@@ -17,6 +17,7 @@
 #include "worldmap.h"
 #include "savemenu.h"
 #include "gamecontrol.h"
+#include "sio.h"
 
 extern u16 gEvent_8A0035C[];
 extern u16 gEvent_8A00364[];

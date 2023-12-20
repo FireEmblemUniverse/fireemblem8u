@@ -19,6 +19,7 @@
 #include "bmitemuse.h"
 #include "bmcontainer.h"
 #include "worldmap.h"
+#include "helpbox.h"
 #include "sysutil.h"
 #include "constants/items.h"
 

@@ -22,6 +22,7 @@
 #include "bm.h"
 #include "bmsave.h"
 #include "prepscreen.h"
+#include "helpbox.h"
 #include "bmlib.h"
 #include "constants/classes.h"
 

@@ -918,7 +918,7 @@ PROC_LABEL(4),
     PROC_CALL(TitleScreenTryJumpIntroAnim),
 
     PROC_CALL(sub_80C5870),
-    PROC_CALL(sub_8013FC4),
+    PROC_CALL(FadeInBlackSpeed20),
 
     PROC_YIELD,
     PROC_GOTO(1),

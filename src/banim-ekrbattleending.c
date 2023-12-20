@@ -9,6 +9,7 @@
 #include "bm.h"
 #include "bmudisp.h"
 #include "bmio.h"
+#include "sio.h"
 
 CONST_DATA struct ProcCmd ProcScr_ekrBattleEnding[] = {
     PROC_NAME("ekrBattleEnding"),

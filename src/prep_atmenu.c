@@ -13,10 +13,12 @@
 #include "mu.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "helpbox.h"
 #include "bmlib.h"
 #include "prepscreen.h"
 #include "eventcall.h"
 #include "sysutil.h"
+#include "sio.h"
 
 s8 CheckInLinkArena();
 

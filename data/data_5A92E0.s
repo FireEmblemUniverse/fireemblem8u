@@ -155,13 +155,13 @@ gUnknown_085A94AC:  @ 0x085A94AC
         .word sub_8043904
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_LABEL
         .short 0xb, 0x2
         .word 0x0
@@ -182,7 +182,7 @@ gUnknown_085A94AC:  @ 0x085A94AC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -200,13 +200,13 @@ gUnknown_085A94AC:  @ 0x085A94AC
         .word sub_8043904
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_GOTO
         .short 0xc, 0x2
         .word 0x0
@@ -239,7 +239,7 @@ gUnknown_085A94AC:  @ 0x085A94AC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -263,7 +263,7 @@ gUnknown_085A94AC:  @ 0x085A94AC
         .word EndMuralBackground
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -275,23 +275,23 @@ gUnknown_085A94AC:  @ 0x085A94AC
         .word 0x0
 
 
-	.global gUnknown_085A9614
-gUnknown_085A9614:  @ 0x085A9614
+	.global ProcScr_TacticianNameSelection
+ProcScr_TacticianNameSelection:  @ 0x085A9614
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8044768
+        .word TacticianNameSel_InitScreen
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_LABEL
         .short 0xb, 0x0
         .word 0x0
@@ -336,7 +336,7 @@ gUnknown_085A9614:  @ 0x085A9614
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -384,13 +384,13 @@ gUnknown_085A971C:  @ 0x085A971C
         .word sub_8045640
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_80457F8
@@ -399,7 +399,7 @@ gUnknown_085A971C:  @ 0x085A971C
         .word sub_804589C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -474,7 +474,7 @@ ProcScr_SIOPRA:  @ 0x085A979C
         .word sub_8045C28
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -498,7 +498,7 @@ ProcScr_SIOPRA:  @ 0x085A979C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -549,13 +549,13 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_8045DC0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8045F00
@@ -603,7 +603,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -621,13 +621,13 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_8046838
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_SLEEP
         .short 0xe, 0xb4
         .word 0x0
@@ -639,7 +639,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_8042F98
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -663,13 +663,13 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_80467AC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80464B0
@@ -687,7 +687,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_8042F98
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -717,7 +717,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_8045C28
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -759,7 +759,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -792,7 +792,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -843,19 +843,19 @@ ProcScr_SIOTERM:  @ 0x085A9BA0
         .word sub_80469C4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_8046CF0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -906,7 +906,7 @@ ProcScr_SIOTERM:  @ 0x085A9BA0
         .word sub_8046DD0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -933,7 +933,7 @@ ProcScr_SIOTERM:  @ 0x085A9BA0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -948,7 +948,7 @@ ProcScr_SIOTERM:  @ 0x085A9BA0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -987,19 +987,19 @@ ProcScr_SIORESULT:  @ 0x085A9D38
         .word sub_8047008
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_804720C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -1023,13 +1023,13 @@ gUnknown_085A9D98:  @ 0x085A9D98
         .word sub_8047324
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_8047570
@@ -1038,7 +1038,7 @@ gUnknown_085A9D98:  @ 0x085A9D98
         .word sub_804762C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -1059,19 +1059,19 @@ gUnknown_085A9DF8:  @ 0x085A9DF8
         .word sub_8047780
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_8047928
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B920
+        .word Set_0203DDDC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013F40
@@ -1105,11 +1105,11 @@ gUnknown_085A9E88:  @ 0x085A9E88
     .4byte 0x2
     .4byte sub_8047B34
     .4byte 0x2
-    .4byte sub_8013FC4
+    .4byte FadeInBlackSpeed20
     .4byte 0xe
     .4byte 0x0
     .4byte 0x2
-    .4byte sub_804B92C
+    .4byte Clear_0203DDDC
     .4byte 0x3
     .4byte sub_8047C60
     .4byte 0x2000c
@@ -1119,11 +1119,11 @@ gUnknown_085A9E88:  @ 0x085A9E88
     .4byte 0x2
     .4byte sub_8047D88
     .4byte 0x2
-    .4byte sub_8013FC4
+    .4byte FadeInBlackSpeed20
     .4byte 0xe
     .4byte 0x0
     .4byte 0x2
-    .4byte sub_804B92C
+    .4byte Clear_0203DDDC
     .4byte 0x2000b
     .4byte 0x0
     .4byte 0x3
@@ -1133,7 +1133,7 @@ gUnknown_085A9E88:  @ 0x085A9E88
     .4byte 0x3
     .4byte sub_80480B4
     .4byte 0x2
-    .4byte sub_804B920
+    .4byte Set_0203DDDC
     .4byte 0x2
     .4byte sub_8013F40
     .4byte 0xe
@@ -1769,13 +1769,13 @@ ProcScr_SIOMAIN2:  @ 0x085AA6BC
         .word sub_8049828
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013FC4
+        .word FadeInBlackSpeed20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804B92C
+        .word Clear_0203DDDC
         @ PROC_LABEL
         .short 0xb, 0x0
         .word 0x0
@@ -2066,11 +2066,11 @@ gUnknown_085AA980:  @ 0x085AA980
 	.global gUnknown_085AA9A0
 gUnknown_085AA9A0:  @ 0x085AA9A0
 @ replacing .incbin "baserom.gba", 0x005aa9a0, 0x14
-.4byte gUnknown_080D9FE4 + 0x18
-.4byte gUnknown_080D9FE4 + 0x38
-.4byte gUnknown_080D9FE4 + 0x58
-.4byte gUnknown_080D9FE4 + 0x78
-.4byte gUnknown_080D9FE4 + 0x98
+.4byte SioDefaultBgConfig + 0x18
+.4byte SioDefaultBgConfig + 0x38
+.4byte SioDefaultBgConfig + 0x58
+.4byte SioDefaultBgConfig + 0x78
+.4byte SioDefaultBgConfig + 0x98
 
 	.global gUnknown_085AA9B4
 gUnknown_085AA9B4:  @ 0x085AA9B4
@@ -2452,8 +2452,8 @@ gUnknown_085AAE0C:  @ 0x085AAE0C
 gUnknown_085AB358:  @ 0x085AB358
     .incbin "baserom.gba", 0x5AB358, 0xA10
 
-	.global gUnknown_085ABD68
-gUnknown_085ABD68:  @ 0x085ABD68
+	.global Img_TacticianSelObj
+Img_TacticianSelObj:  @ 0x085ABD68
     .incbin "baserom.gba", 0x5ABD68, 0x89C
 
 	.global gUnknown_085AC604
@@ -2492,8 +2492,8 @@ gUnknown_085ADA38:  @ 0x085ADA38
 gUnknown_085ADBE8:  @ 0x085ADBE8
 	.incbin "baserom.gba", 0x5ADBE8, 0x60
 
-	.global gUnknown_085ADC48
-gUnknown_085ADC48:  @ 0x085ADC48
+	.global Pal_TacticianSelObj
+Pal_TacticianSelObj:  @ 0x085ADC48
 	.incbin "baserom.gba", 0x5ADC48, 0x80
 
 	.global gUnknown_085ADCC8
@@ -2524,8 +2524,8 @@ gUnknown_085ADE28:  @ 0x085ADE28
 gUnknown_085ADE48:  @ 0x085ADE48
 	.incbin "baserom.gba", 0x5ADE48, 0x20
 
-	.global gUnknown_085ADE68
-gUnknown_085ADE68:  @ 0x085ADE68
+	.global Pal_085ADE68
+Pal_085ADE68:  @ 0x085ADE68
 	.incbin "baserom.gba", 0x5ADE68, 0x20
 
 	.global gUnknown_085ADE88
@@ -2536,8 +2536,8 @@ gUnknown_085ADE88:  @ 0x085ADE88
 gUnknown_085ADF40:  @ 0x085ADF40
 	.incbin "baserom.gba", 0x5ADF40, 0x250
 
-	.global gUnknown_085AE190
-gUnknown_085AE190:  @ 0x085AE190
+	.global Tsa_085AE190
+Tsa_085AE190:  @ 0x085AE190
 	.incbin "baserom.gba", 0x5AE190, 0x2D4
 
 	.global gUnknown_085AE464

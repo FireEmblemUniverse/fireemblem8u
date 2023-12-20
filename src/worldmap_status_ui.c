@@ -15,7 +15,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "bmio.h"
-
+#include "helpbox.h"
 #include "worldmap.h"
 
 void WorldmapStatus_GetCharDescription(struct HelpBoxProc * proc);

@@ -26,6 +26,7 @@
 #include "popup.h"
 #include "muctrl.h"
 #include "mapanim.h"
+#include "helpbox.h"
 #include "worldmap.h"
 #include "cgtext.h"
 #include "bmmind.h"
@@ -1311,7 +1312,7 @@ u8 Event20_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800E7D0
-u8 sub_800E7D0(u8 mode, u16 bgIndex)
+u8 EventShowTextBgDirect(u8 mode, u16 bgIndex)
 {
     BG_SetPosition(BG_0, 0, 0);
     BG_SetPosition(BG_1, 0, 0);
@@ -1321,19 +1322,19 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex)
     switch (mode)
     {
 
-        case 0:
+        case EVSUBCMD_TEXTSTART:
             return EVC_ERROR;
 
-        case 3:
+        case EVSUBCMD_TUTORIALTEXTBOXSTART:
             return EVC_ERROR;
 
-        case 4:
+        case EVSUBCMD_SOLOTEXTBOXSTART:
             return EVC_ERROR;
 
-        case 5:
+        case EVSUBCMD_0x1A25:
             return EVC_ERROR;
 
-        case 1:
+        case EVSUBCMD_REMOVEPORTRAITS:
             // Randomize background (for support viewers)
             if (bgIndex == 0x37) // TODO: use an enum for convo backgrounds
                 bgIndex = NextRN_N(0x35);
@@ -1360,8 +1361,8 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex)
 
             return EVC_ADVANCE_YIELD;
 
-        case 2:
-            sub_80B65F8(gBG3TilemapBuffer, GetBackgroundTileDataOffset(BG_3), 8, 8, bgIndex);
+        case EVSUBCMD_0x1A22:
+            DisplayCGfx(gBG3TilemapBuffer, GetBackgroundTileDataOffset(BG_3), 8, 8, bgIndex);
 
             BG_EnableSyncByMask(BG3_SYNC_BIT);
             EnablePaletteSync();
@@ -1387,10 +1388,10 @@ u8 Event21_TextBg(struct EventEngineProc * proc)
         evArgument = gEventSlots[2];
 
     switch (subcode) {
-    case 0:
-        return sub_800E7D0(proc->activeTextType, evArgument);
+    case EVSUBCMD_BACG:
+        return EventShowTextBgDirect(proc->activeTextType, evArgument);
 
-    case 1:
+    case EVSUBCMD_0x2141:
         evArgument2_a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
         evArgument3 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
@@ -1402,14 +1403,14 @@ u8 Event21_TextBg(struct EventEngineProc * proc)
             switch (evArgument2_a)
             {
 
-                case 0:
-                case 3:
-                case 4:
-                case 5:
+                case EVSUBCMD_TEXTSTART:
+                case EVSUBCMD_TUTORIALTEXTBOXSTART:
+                case EVSUBCMD_SOLOTEXTBOXSTART:
+                case EVSUBCMD_0x1A25:
                     return EVC_ERROR;
 
-                case 1:
-                case 2:
+                case EVSUBCMD_REMOVEPORTRAITS:
+                case EVSUBCMD_0x1A22:
                     if (EVENT_IS_SKIPPING(proc))
                         return EVC_ADVANCE_CONTINUE;
 
@@ -1422,8 +1423,8 @@ u8 Event21_TextBg(struct EventEngineProc * proc)
 
             break;
 
-        case 1:
-        case 2:
+        case EVSUBCMD_0x2141:
+        case EVSUBCMD_2142:
             switch (evArgument2_a) {
             case 0:
             case 3:
@@ -1458,21 +1459,21 @@ u8 Event21_TextBg(struct EventEngineProc * proc)
             otherProc->pEventEngine = proc;
             break;
 
-        case 2:
+        case EVSUBCMD_2142:
             evArgument2_b = EVT_CMD_ARGV(proc->pEventCurrent)[1];
             evArgument3 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
             if (EVENT_IS_SKIPPING(proc))
                 return EVC_ADVANCE_CONTINUE;
 
-            if (sub_800E7D0(proc->activeTextType, evArgument) == EVC_ERROR)
+            if (EventShowTextBgDirect(proc->activeTextType, evArgument) == EVC_ERROR)
                 return EVC_ERROR;
 
             NewColFadeIn(evArgument3, 0, evArgument2_b, proc);
 
             break;
 
-        case 3:
+        case EVSUBCMD_2143:
             evArgument2_b = EVT_CMD_ARGV(proc->pEventCurrent)[1];
             evArgument3 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
@@ -1611,7 +1612,7 @@ void sub_800EC50(struct ConvoBackgroundFadeProc * proc)
             break;
 
         case 2:
-            sub_80B65F8(gBG2TilemapBuffer, GetBackgroundTileDataOffset(BG_2), 0, 6, proc->bgIndex);
+            DisplayCGfx(gBG2TilemapBuffer, GetBackgroundTileDataOffset(BG_2), 0, 6, proc->bgIndex);
 
             BG_EnableSyncByMask(BG2_SYNC_BIT);
             EnablePaletteSync();
@@ -1663,7 +1664,7 @@ void sub_800ED50(struct ConvoBackgroundFadeProc * proc)
             break;
 
         case 2:
-            sub_80B65F8(gBG3TilemapBuffer, GetBackgroundTileDataOffset(BG_3), 8, 6, proc->bgIndex);
+            DisplayCGfx(gBG3TilemapBuffer, GetBackgroundTileDataOffset(BG_3), 8, 6, proc->bgIndex);
 
             BG_EnableSyncByMask(BG3_SYNC_BIT);
             EnablePaletteSync();
@@ -1711,12 +1712,12 @@ void sub_800EEE8(struct ConvoBackgroundFadeProc * proc)
 
     switch (proc->fadeType)
     {
-        case 0:
-        case 1:
+        case EVSUBCMD_TEXTSTART:
+        case EVSUBCMD_REMOVEPORTRAITS:
             SetBlendAlpha(currentFadeLevel, 0x10 - currentFadeLevel);
             break;
 
-        case 2:
+        case EVSUBCMD_0x1A22:
             SetBlendAlpha(0x10 - currentFadeLevel, currentFadeLevel);
             break;
     }
