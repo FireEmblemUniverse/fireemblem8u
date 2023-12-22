@@ -94,7 +94,7 @@ struct BmSt // Game State Struct
     /* 3B */ u8 altBlendBCb;
     /* 3C */ u8 just_resumed;
     /* 3D */ u8 taken_action;
-    /* 3E */ u8 unk3E;
+    /* 3E */ u8 swapActionRangeCount;
     /* 3F */ s8 unk3F;
 };
 
