@@ -228,7 +228,7 @@ void sub_8041898(void)
     sUnknown_030017EC = 0;
 }
 
-void sub_8041900(void)
+void SioRegisterIrq(void)
 {
     // Multi-Player mode SIO
     REG_RCNT = 0;
@@ -240,13 +240,13 @@ void sub_8041900(void)
     gSioStateId = 0;
     sSioId = -1;
 
-    SetIRQHandler(7, sub_80419DC);
-    SetIRQHandler(6, sub_8041D68);
+    SetIRQHandler(7, SioHandleIrq_Serial);
+    SetIRQHandler(6, SioHandleIrq_Timer3);
 
     REG_IE |= INTR_FLAG_TIMER3 | INTR_FLAG_SERIAL;
 }
 
-void sub_804197C(void)
+void SioReleaseIrq(void)
 {
     // general purpose SIO
     REG_RCNT = 0x8000;
@@ -262,7 +262,7 @@ void sub_804197C(void)
     REG_IE &= ~(INTR_FLAG_TIMER3 | INTR_FLAG_SERIAL);
 }
 
-void sub_80419DC(void)
+void SioHandleIrq_Serial(void)
 {
     int i;
     u16 recv[4];
@@ -452,7 +452,7 @@ void sub_8041C1C(void)
     }
 }
 
-void sub_8041D68(void)
+void SioHandleIrq_Timer3(void)
 {
     REG_TM3CNT_H = 0;
     REG_SIOCNT = sSioCnt | SIO_MULTI_MODE | SIO_INTR_ENABLE | SIO_ENABLE;
@@ -460,10 +460,9 @@ void sub_8041D68(void)
 
 void sub_8041D8C(int num)
 {
-    // TODO: inline init
-    extern u32 gUnknown_080D8714[4];
-    u32 table[4];
-    memcpy(table, gUnknown_080D8714, sizeof(table));
+    u32 table[4] = {
+        0x6C, 0x6C, 0x6C, 0x6C
+    };
 
     PlaySoundEffect(table[num]);
 }
@@ -534,7 +533,7 @@ void sub_8041DC4(void)
 
                     for (j = 0; j < 15; j++)
                     {
-                        gUnknown_0203DA24.unk_A1[i][j] = data_message->bytes[j];
+                        gLinkArenaSt.unk_A1[i][j] = data_message->bytes[j];
                     }
 
                     if ((sub_8042194(i) == 0 && gSioSt->unk_000 == data_message->head.param && gSioSt->unk_004 <= 5) ||
@@ -619,7 +618,7 @@ void sub_8041DC4(void)
                             break;
 
                         case SIO_MSG_86:
-                            gUnknown_0203DA24.unk_9C[message->param] = 1;
+                            gLinkArenaSt.unk_9C[message->param] = 1;
                             gSioSt->playerStatus[message->param] = PLAYER_STATUS_5;
                             gSioSt->unk_009 |= 1 << message->param;
                             gSioSt->timeoutClock[message->param] = 0;

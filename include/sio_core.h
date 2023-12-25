@@ -137,11 +137,11 @@ int sub_80416D0(void);
 void sub_80416E0(u16 arg_0, u16 sioCnt, u16 arg_2);
 void sub_8041718(void);
 void sub_8041898(void);
-void sub_8041900(void);
-void sub_804197C(void);
-void sub_80419DC(void);
+void SioRegisterIrq(void);
+void SioReleaseIrq(void);
+void SioHandleIrq_Serial(void);
 void sub_8041C1C(void);
-void sub_8041D68(void);
+void SioHandleIrq_Timer3(void);
 void sub_8041D8C(int num);
 void sub_8041DC4(void);
 void sub_8042138(void);
@@ -191,16 +191,18 @@ extern struct ProcCmd CONST_DATA gProcScr_SioBigReceive[];
 
 // TODO: NOTE: the following is probably not part of sio_core but some other sio file
 
-struct Unknown_0203DA24
+struct LinkArenaStMaybe
 {
     // TODO: this layout is very temporary, hopefully
     // +0x0C is TextHandles
     u8 unk_00;
-    STRUCT_PAD(0x01, 0x9C);
+    STRUCT_PAD(0x01, 0x03);
+    u8 unk_03;
+    STRUCT_PAD(0x04, 0x9C);
     u8 unk_9C[5];
     u8 unk_A1[15][15];
 };
 
-extern struct Unknown_0203DA24 gUnknown_0203DA24;
+extern struct LinkArenaStMaybe gLinkArenaSt;
 
 #endif // GUARD_SIO_H

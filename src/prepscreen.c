@@ -15,7 +15,7 @@
 #include "prepscreen.h"
 s8 CheckInLinkArena();
 
-EWRAM_DATA struct Struct203E87C gUnknown_0203E87C = { 0 };
+EWRAM_DATA struct SioPidPool gSioPidPool = { 0 };
 
 void PrepScreenMenu_OnPickUnits(struct ProcAtMenu* proc) {
     proc->state = 1;
@@ -85,39 +85,39 @@ void PrepScreenMenu_OnCheckMap(struct ProcAtMenu* proc) {
 void sub_80952CC() {}
 void __malloc_unlock_1() {}
 
-void Reset203E87C()
+void ResetSioPidPool()
 {
     int i;
     for (i = 0; i < 5; i++)
-        gUnknown_0203E87C.unk00[i] = 0;
+        gSioPidPool.pids[i] = 0;
 }
 
-void Reset203E87C_WithVal(u8 val)
+void RegisterSioPid(u8 pid)
 {
     int i;
     for (i = 0; i < 5; i++)
-        if (0 == gUnknown_0203E87C.unk00[i]) {
-            gUnknown_0203E87C.unk00[i] = val;
+        if (0 == gSioPidPool.pids[i]) {
+            gSioPidPool.pids[i] = pid;
             return;
         }
 }
 
-void Modify203E87C(u8 val)
+void RemoveSioPid(u8 pid)
 {
     int i, j;
     for (i = 0; i < 5; i++) {
-        if (gUnknown_0203E87C.unk00[i] != val)
+        if (gSioPidPool.pids[i] != pid)
             continue;
 
         j = i;
         if (i <= 3) {
             while (j <= 3) {
-                gUnknown_0203E87C.unk00[j] = gUnknown_0203E87C.unk00[j + 1];
+                gSioPidPool.pids[j] = gSioPidPool.pids[j + 1];
                 j++;
             }
         }
 
-        gUnknown_0203E87C.unk00[4] = 0;
+        gSioPidPool.pids[4] = 0;
         break;
     }
 }
