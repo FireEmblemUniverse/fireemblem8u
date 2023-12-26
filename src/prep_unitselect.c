@@ -285,7 +285,7 @@ s8 PrepCheckCanSelectUnit(struct ProcPrepUnit *proc, struct Unit *unit)
     if (proc->max_counter > proc->cur_counter) {
         proc->cur_counter++;
         unit->state &= ~(US_UNSELECTABLE | US_NOT_DEPLOYED);
-        Reset203E87C_WithVal(unit->pCharacterData->number);
+        RegisterSioPid(unit->pCharacterData->number);
         PlaySoundEffect(0x6A);
         PrepUnit_DrawUnitListNames(proc, proc->list_num_cur / 2);
         return 1;
@@ -300,7 +300,7 @@ s8 PrepCheckCanUnselectUnit(struct ProcPrepUnit *proc, struct Unit *unit)
     if (!IsCharacterForceDeployed(unit->pCharacterData->number)) {
         proc->cur_counter--;
         unit->state |= US_UNSELECTABLE | US_NOT_DEPLOYED;
-        Modify203E87C(unit->pCharacterData->number);
+        RemoveSioPid(unit->pCharacterData->number);
         PlaySoundEffect(0x6B);
         PrepUnit_DrawUnitListNames(proc, proc->list_num_cur / 2);
         return 1;

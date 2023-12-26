@@ -2128,7 +2128,7 @@ sub_80911E4: @ 0x080911E4
 	str r0, [r2, #0xc]
 	ldr r0, [r2]
 	ldrb r0, [r0, #4]
-	bl Reset203E87C_WithVal
+	bl RegisterSioPid
 	ldrh r0, [r5, #0x3e]
 	lsrs r4, r0, #4
 	adds r0, r4, #6
@@ -2209,7 +2209,7 @@ sub_8091288: @ 0x08091288
 	str r0, [r4, #0xc]
 	ldr r0, [r4]
 	ldrb r0, [r0, #4]
-	bl Modify203E87C
+	bl RemoveSioPid
 	ldrh r0, [r5, #0x3e]
 	lsrs r4, r0, #4
 	adds r0, r4, #6

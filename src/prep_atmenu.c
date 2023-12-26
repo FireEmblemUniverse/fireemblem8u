@@ -494,7 +494,7 @@ void StartPrepAtMenuWithConfig()
 {
     Proc_Start(ProcScr_AtMenu, PROC_TREE_3);
     RemoveSomeUnitItems();
-    Reset203E87C();
+    ResetSioPidPool();
 }
 
 

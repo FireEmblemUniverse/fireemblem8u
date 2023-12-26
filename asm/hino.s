@@ -1621,8 +1621,8 @@ _08014C34: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_8014BE0
 
-	THUMB_FUNC_START sub_8014C38
-sub_8014C38: @ 0x08014C38
+	THUMB_FUNC_START MemCpy
+MemCpy: @ 0x08014C38
 	push {lr}
 	adds r3, r0, #0
 	cmp r2, #0
@@ -1639,7 +1639,7 @@ _08014C4E:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8014C38
+	THUMB_FUNC_END MemCpy
 
 	THUMB_FUNC_START sub_8014C54
 sub_8014C54: @ 0x08014C54

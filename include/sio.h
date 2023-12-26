@@ -3,15 +3,44 @@
 #include "global.h"
 #include "proc.h"
 
-struct ProcTacticianSel {
+struct Proc085AAAC4 {
     PROC_HEADER;
 
-    /* 29 */ STRUCT_PAD(0x29, 0x3C);
-    /* 3C */ u8 unk3C;
+    /* 29 */ STRUCT_PAD(0x29, 0x40);
+    /* 40 */ int unk40;
 };
 
-u32 sub_8042DC8(void const * src, void * dst);
-// ??? sub_8042DE8(???);
+struct ProcTactician {
+    PROC_HEADER;
+
+    /* 2C */ struct Proc085AAAC4 * child1;
+    /* 30 */ u8 line_idx;
+    /* 31 */ u8 text_idx;
+    /* 32 */ u8 unk32;
+    /* 33 */ u8 unk33;
+    /* 34 */ u16 conf_idx;
+    /* 36 */ STRUCT_PAD(0x36, 0x38);
+    /* 38 */ u8 cur_len;                /* used tactician name string length */
+    /* 39 */ u8 unk39;
+    /* 3A */ u16 unk3A;
+    /* 3C */ u8 max_len;                /* pre-configured max string length */
+    /* 3D */ char str[0x4C - 0x3D];
+    /* 4C */ u16 unk4C[0x10];
+};
+
+struct TacticianTextConf {
+    /* 00 */ u8 * str[0xC];
+    /* 30 */ u16 xpos;
+    /* 32 */ u16 unk32;
+    /* 34 */ STRUCT_PAD(0x34, 0x36);
+    /* 36 */ s16 unk36[5];
+};
+
+extern const struct TacticianTextConf gTacticianTextConf[];
+struct TacticianTextConf * GetTacticianTextConf(s16);
+
+u32 SioStrCpy(void const * src, void * dst);
+void SioDrawNumber(struct Text * text, int x, int color, int number);
 // ??? sub_8042E0C(???);
 // ??? sub_8042E2C(???);
 // ??? SetBmStLinkArenaFlag(???);
@@ -33,7 +62,7 @@ void ClearSioBG(void);
 // ??? sub_8043100(???);
 // ??? sub_8043164(???);
 // ??? sub_80431B4(???);
-// ??? sub_804320C(???);
+void SioPlaySoundEffect(int);
 // ??? sub_8043244(???);
 // ??? sub_8043268(???);
 // ??? sub_80432F4(???);
@@ -62,21 +91,20 @@ void ClearSioBG(void);
 // ??? sub_80443B0(???);
 // ??? sub_8044430(???);
 // ??? sub_8044530(???);
-// ??? sub_8044550(???);
-// ??? sub_8044560(???);
-// ??? sub_8044614(???);
-// ??? TacticianDrawCharacters(???);
-// ??? sub_8044750(???);
 
-// ??? TacticianNameSel_InitScreen(???);
-// ??? sub_8044968(???);
-// ??? sub_80449E8(???);
-// ??? sub_8044A40(???);
-// ??? sub_8044AD4(???);
-// ??? sub_8044B2C(???);
+void sub_8044560(struct ProcTactician * proc, u8 * str);
+void sub_8044614(struct ProcTactician * proc);
+void TacticianDrawCharacters(struct ProcTactician * proc);
+int StrLen(u8 * buf);
+void Tactician_InitScreen(struct ProcTactician * proc);
+void SioUpdateTeam(char * str, int team);
+void sub_80449E8(struct ProcTactician * proc, int idx, const struct TacticianTextConf * conf);
+void TacticianTryAppendChar(struct ProcTactician * proc, const struct TacticianTextConf * conf);
+void TacticianTryDeleteChar(struct ProcTactician * proc, const struct TacticianTextConf * conf);
+void SaveTactician(struct ProcTactician * proc, const struct TacticianTextConf * conf);
 // ??? sub_8044B78(???);
 // ??? sub_8044C54(???);
-// ??? sub_8044ED8(???);
+// ??? Tactician_Loop(???);
 // ??? sub_8044F84(???);
 // ??? sub_8044FE4(???);
 // ??? sub_8044FFC(???);
@@ -334,9 +362,9 @@ void InitSioBG(void);
 // ??? sub_804C3AC(???);
 // ??? sub_804C3EC(???);
 // ??? sub_804C47C(???);
-// ??? sub_804C49C(???);
+void NewProc085AA980(ProcPtr parent, int, int);
 // ??? sub_804C4F8(???);
-// ??? sub_804C508(???);
+void sub_804C508(void);
 // ??? sub_804C558(???);
 // ??? sub_804C590(???);
 // ??? sub_804C5A4(???);
@@ -353,7 +381,7 @@ void InitSioBG(void);
 // ??? sub_804CC5C(???);
 // ??? sub_804CC78(???);
 // ??? sub_804CCCC(???);
-// ??? sub_804CD90(???);
+ProcPtr NewProc_085AAAC4(ProcPtr parent, int a, int b);
 // ??? sub_804CDD0(???);
 // ??? sub_804CDE8(???);
 // ??? sub_804CE5C(???);
@@ -406,23 +434,23 @@ void InitSioBG(void);
 // extern ??? gAiDecision
 // extern ??? gUnknown_0203C624
 // extern ??? gUnknown_0203CA24
-// extern ??? gUnknown_0203DA24
+// extern ??? gLinkArenaSt
 // extern ??? gUnknown_0203DA30
 // extern ??? gUnknown_0203DA78
 // extern ??? gUnknown_0203DA88
-// extern ??? gUnknown_0203DAB0
+extern struct Text Texts_0203DAB0;
 // extern ??? gUnknown_0203DAC0
 // extern ??? gUnknown_0203DAC5
 // extern ??? gUnknown_0203DB10
-// extern ??? gUnknown_0203DB14
+extern struct Text Texts_0203DB14[10];
 // extern ??? gUnknown_0203DB1C
 extern struct Font Font_0203DB64;
 // extern ??? gUnknown_0203DB7C
 // extern ??? gUnknown_0203DC44
 // extern ??? gUnknown_0203DC48
 // extern ??? gUnknown_0203DD0C
-// extern ??? gUnknown_0203DD1C
-// extern ??? gUnknown_0203DD24
+extern struct Text Text_0203DB14;
+extern u8 gUnknown_0203DD24;
 // extern ??? gUnknown_0203DD28
 // extern ??? gUnknown_0203DD2C
 // extern ??? gUnknown_0203DD4C
@@ -435,3 +463,54 @@ extern struct Font Font_0203DB64;
 // extern ??? gUnknown_0203DD9F
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
+
+// extern ??? gUnknown_080D8714
+extern s16 gUnknown_080D9C9E[];
+// extern ??? gUnknown_080D9D34
+// extern ??? gUnknown_080D9D4D
+// extern ??? gUnknown_080D9D56
+// extern ??? gUnknown_080D9D5E
+// extern ??? gUnknown_080D9D61
+// extern ??? gUnknown_080D9DE4
+// extern ??? gUnknown_080D9DF2
+// extern ??? gUnknown_080D9E06
+// extern ??? gUnknown_080D9E0E
+// extern ??? gUnknown_080D9E1C
+// extern ??? gUnknown_080D9E44
+// extern ??? gUnknown_080D9E50
+// extern ??? gUnknown_080D9E9C
+// extern ??? gUnknown_080D9EA6
+// extern ??? gUnknown_080D9EC0
+// extern ??? gUnknown_080D9EC8
+// extern ??? gUnknown_080D9EF0
+// extern ??? gUnknown_080D9EFC
+// extern ??? gUnknown_080D9F18
+// extern ??? gUnknown_080D9F20
+// extern ??? gUnknown_080D9F28
+// extern ??? gUnknown_080D9F38
+// extern ??? gUnknown_080D9F48
+// extern ??? gUnknown_080D9F98
+// extern ??? gUnknown_080D9FA0
+// extern ??? gUnknown_080D9FA8
+// extern ??? gUnknown_080D9FB0
+// extern ??? gUnknown_080D9FB5
+// extern ??? gUnknown_080D9FB7
+// extern ??? gUnknown_080D9FD6
+// extern ??? SioDefaultBgConfig
+// extern ??? gUnknown_080DA09C
+// extern ??? gUnknown_080DA0DA
+// extern ??? gUnknown_080DA0FA
+// extern ??? gUnknown_080DA102
+// extern ??? gUnknown_080DA132
+// extern ??? gUnknown_080DA17A
+// extern ??? gUnknown_080DA18E
+// extern ??? gUnknown_080DA1A2
+// extern ??? gUnknown_080DA1B6
+// extern ??? gUnknown_080DA1CA
+// extern ??? gUnknown_080DA20C
+// extern ??? gUnknown_080DA21C
+// extern ??? gUnknown_080DA22C
+// extern ??? gUnknown_080DA25C
+// extern ??? gUnknown_080DA26A
+// extern ??? gUnknown_080DA27E
+// extern ??? gUnknown_080DA2B0

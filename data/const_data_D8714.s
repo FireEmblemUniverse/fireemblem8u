@@ -1,11 +1,7 @@
     .section .rodata
 
-	.global gUnknown_080D8714
-gUnknown_080D8714:  @ 0x080D8714
-	.incbin "baserom.gba", 0xD8714, 0x2C
-
-	.global gUnknown_080D8740
-gUnknown_080D8740:  @ 0x080D8740
+	.global gTacticianTextConf
+gTacticianTextConf:  @ 0x080D8740
 	.incbin "baserom.gba", 0xD8740, 0x155E
 
 	.global gUnknown_080D9C9E

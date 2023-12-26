@@ -125,7 +125,7 @@ void WriteNewMultiArenaSave(void)
         ranking_ent.points = gInitialMultiArenaRankings[i].points;
 
         GetStringFromIndexInBuffer(sArenaCpTeamNameLut[i], rank_name);
-        sub_8042DC8(rank_name, ranking_ent.name);
+        SioStrCpy(rank_name, ranking_ent.name);
         WriteAndVerifySramFast(&ranking_ent, &dst->rankings[i], sizeof(ranking_ent));
     }
 
@@ -155,7 +155,7 @@ bool ReadMultiArenaSaveTeamName(int team, char *dst)
     if (gMultiArenaSaveTeamBufA.name[0] == 0)
         return FALSE;
 
-    sub_8042DC8(gMultiArenaSaveTeamBufA.name, dst);
+    SioStrCpy(gMultiArenaSaveTeamBufA.name, dst);
 
     return TRUE;
 }
