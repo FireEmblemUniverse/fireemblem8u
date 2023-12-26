@@ -47,7 +47,7 @@ enum event_cmd_idx {
     EV_CMD_CHANGEWEATHER    = 0x28,
     EV_CMD_CHANGEFOGVISION  = 0x29,
     EV_CMD_CHANGECHAPTER    = 0x2A,
-    EV_CMD_2B               = 0x2B,
+    EV_CMD_LOAD_PRECONF     = 0x2B,
     EV_CMD_LOADUNIT         = 0x2C,
     EV_CMD_2D               = 0x2D,
     EV_CMD_GET_PID          = 0x2E,
@@ -64,12 +64,12 @@ enum event_cmd_idx {
     EV_CMD_CHANGEAI         = 0x39,
     EV_CMD_DISPLAYPOPUP     = 0x3A,
     EV_CMD_DISPLAYCURSOR    = 0x3B,
-    EV_CMD_3C               = 0x3C,
+    EV_CMD_MOVE_CURSOR      = 0x3C,
     EV_CMD_MENUOVERRIDE     = 0x3D,
     EV_CMD_PREPSCREEN       = 0x3E,
     EV_CMD_SCRIPT_BATTLE    = 0x3F,
     EV_CMD_40               = 0x40,
-    EV_CMD_41               = 0x41,
+    EV_CMD_WARP             = 0x41,
     EV_CMD_42               = 0x42,
     EV_CMD_43               = 0x43,
     EV_CMD_44               = 0x44,
@@ -176,6 +176,12 @@ enum event_sub_cmd_idx {
     EVSUBCMD_2142 = 2,
     EVSUBCMD_2143 = 3,
 
+    /* EV_CMD_CAMERACONTROL */
+    EVSUBCMD_CAMERA_AT = 0,
+    EVSUBCMD_CAMERA_CHAR = 1,
+    EVSUBCMD_CAMERA2_AT = 2,
+    EVSUBCMD_CAMERA2_CHAR = 3,
+
     /* EV_CMD_TILE_CHANGE */
     EVSUBCMD_TILECHANGE = 0,
     EVSUBCMD_TILEREVERT = 1,
@@ -186,6 +192,11 @@ enum event_sub_cmd_idx {
     EVSUBCMD_MNC2 = 2,
     EVSUBCMD_MNC3 = 3,
     EVSUBCMD_MNC4 = 4,
+
+    /* EV_CMD_LOAD_PRECONF */
+    EVSUBCMD_LOAD_SETCOUNT = 0,
+    EVSUBCMD_LOAD_SETCHANCE = 1,
+    EVSUBCMD_LOAD_NOREDA = 2,
 
     /* EV_CMD_LOADUNIT */
     EVSUBCMD_LOAD1 = 0x0,
@@ -217,6 +228,10 @@ enum event_sub_cmd_idx {
     EVSUBCMD_CHECK_COORDS = 6,
     EVSUBCMD_CHECK_CLASS = 7,
     EVSUBCMD_CHECK_LUCK = 8,
+
+    /* EV_CMD_TOGGLERANGE */
+    EVSUBCMD_SHOW_ATTACK_RANGE = 0,
+    EVSUBCMD_HIDE_ATTACK_RANGE = 1,
 
     /* EV_CMD_CHANGESTATE */
     EVSUBCMD_REMU = 0x0,
@@ -266,10 +281,19 @@ enum event_sub_cmd_idx {
     EVSUBCMD_DISABLEOPTIONS = 0,
     EVSUBCMD_DISABLEWEAPONS = 1,
 
+    /* EV_CMD_MOVE_CURSOR */
+    EVSUBCMD_CHECK_CURSOR = 0,
+    EVSUBCMD_SET_CURSOR = 1,
+
     /* EV_CMD_SCRIPT_BATTLE */
     EVSUBCMD_FIGHT = 0,
     EVSUBCMD_FIGHT_MAP = 1,
     EVSUBCMD_FIGHT_SCRIPT = 2,
+
+    /* EV_CMD_WARP */
+    EVSUBCMD_WARP_OUT = 0,
+    EVSUBCMD_WARP_IN = 1,
+    EVSUBCMD_WARP_STAL = 0xF,
 };
 
 #define _EvtSubParam16u8(u8a, u8b) \
@@ -298,8 +322,18 @@ enum event_sub_cmd_idx {
 #define EvtSetFlag(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_ENUT, (flag)),
 #define EventCheckEvbit(index) _EvtArg0(EV_CMD_EVCHECK, 2, EVSUBCMD_CHECK_EVBIT, (index)),
 #define EventCheckFlag(flag) _EvtArg0(EV_CMD_EVCHECK, 2, EVSUBCMD_CHECK_EVENTID, (flag)),
+#define EvtGetRandom(max) _EvtArg0(EV_CMD_RANDOMNUMBER, 2, 0, (max)),
 #define EvtSetSlot(slot, value) _EvtArg0(EV_CMD_SVAL, 4, 0, (slot)), (EventListScr)(value),
-#define EvtSlotAdd(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SADD, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotADD(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SADD, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotSUB(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SSUB, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotMUL(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SMUL, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotDIV(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SDIV, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotMOD(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SMOD, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotAND(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SAND, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotORR(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SORR, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotXOR(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SXOR, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotLSL(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SLSL, _EvtSubParam16u4(to, a, b, 0)),
+#define EvtSlotLSR(to, a, b) _EvtArg0(EV_CMD_SLOT_OPS, 2, EVSUBCMD_SLSR, _EvtSubParam16u4(to, a, b, 0)),
 #define EvtEnqueueFormSlot(slot) _EvtArg0(EV_CMD_QUEUE_OPS, 2, EVSUBCMD_SENQUEUE, (slot)),
 #define EvtEnqueueFormSlot1 _EvtArg0(EV_CMD_QUEUE_OPS, 2, EVSUBCMD_SENQUEUE_S1, 0),
 #define EvtDequeueToSlot(slot) _EvtArg0(EV_CMD_QUEUE_OPS, 2, EVSUBCMD_SDEQUEUE, (slot)),
@@ -355,7 +389,10 @@ enum event_sub_cmd_idx {
 #define EvtDisplayTextBg(bg) _EvtArg0(EV_CMD_SHOWBG, 4, EVSUBCMD_BACG, (bg)), 0,
 #define EvtClearScreen _EvtAutoCmdLen2(EV_CMD_CLEARSCREEN),
 #define EvtLoadMap(chapter) _EvtArg0(EV_CMD_LOMA, 2, 0, (chapter)),
-#define EvtMoveCameraTo(x, y) _EvtArg0(EV_CMD_CAMERACONTROL, 2, 0, _EvtSubParam16u8((x), (y))),
+#define EvtMoveCameraTo(x, y) _EvtArg0(EV_CMD_CAMERACONTROL, 2, EVSUBCMD_CAMERA_AT, _EvtSubParam16u8((x), (y))),
+#define EvtMoveCameraToChar(pid) _EvtArg0(EV_CMD_CAMERACONTROL, 2, EVSUBCMD_CAMERA_CHAR, (pid)),
+#define EvtMoveCameraToCenter(x, y) _EvtArg0(EV_CMD_CAMERACONTROL, 2, EVSUBCMD_CAMERA2_AT, _EvtSubParam16u8((x), (y))),
+#define EvtMoveCameraToCharCenter(pid) _EvtArg0(EV_CMD_CAMERACONTROL, 2, EVSUBCMD_CAMERA2_CHAR, (pid)),
 #define EvtTriggerMapChange(id) _EvtArg0(EV_CMD_TILE_CHANGE, 2, EVSUBCMD_TILECHANGE, (id)),
 #define EvtRevertMapChange(id) _EvtArg0(EV_CMD_TILE_CHANGE, 2, EVSUBCMD_TILEREVERT, (id)),
 #define EvtBackToTitle(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNTS, (chapter)),
@@ -363,6 +400,9 @@ enum event_sub_cmd_idx {
 #define EvtChangeChapterBM(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNC2, (chapter)),
 #define EvtChangeChapterNoSave(chapter) _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNC3, (chapter)),
 #define EvtMoveToGameEnding _EvtArg0(EV_CMD_CHANGECHAPTER, 2, EVSUBCMD_MNC4, 0),
+#define EvtSetLoadUnitCount(cnt) _EvtArg0(EV_CMD_LOAD_PRECONF, 2, EVSUBCMD_LOAD_SETCOUNT, (cnt)),
+#define EvtSetLoadUnitChance(chance) _EvtArg0(EV_CMD_LOAD_PRECONF, 2, EVSUBCMD_LOAD_SETCHANCE, (chance)),
+#define EvtSetLoadUnitNoREDA _EvtArg0(EV_CMD_LOAD_PRECONF, 2, EVSUBCMD_LOAD_NOREDA, 0),
 #define EvtLoadUnit1(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD1, (restriction)), (EventListScr)(units),
 #define EvtLoadUnit2(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD2, (restriction)), (EventListScr)(units),
 #define EvtGetPidAt(x, y) _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_AT, _EvtSubParam16u8((x), (y))),
@@ -381,11 +421,15 @@ enum event_sub_cmd_idx {
 #define EvtGetUnitJid(pid) _EvtArg0(EV_CMD_CHECKSTATE, 2, EVSUBCMD_CHECK_CLASS, (pid)),
 #define EvtGetUnitLuck(pid) _EvtArg0(EV_CMD_CHECKSTATE, 2, EVSUBCMD_CHECK_LUCK, (pid)),
 #define EvtWaitUnitMoving _EvtAutoCmdLen2(EV_CMD_ENUN),
+#define EvtShowAttackRange(pid) _EvtArg0(EV_CMD_TOGGLERANGE, 2, EVSUBCMD_SHOW_ATTACK_RANGE, (pid)),
+#define EvtHideAttackRange _EvtArg0(EV_CMD_TOGGLERANGE, 2, EVSUBCMD_HIDE_ATTACK_RANGE, 0),
 #define EvtSetUnitHidden(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_REMU, (pid)),
 #define EvtSetUnitUnhidden(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_REVEAL, (pid)),
+#define EvtChangeFaction(pid, faction) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_CUSA + (faction), (pid)),
 #define EvtSetUnitHpFormSlot1(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_SET_HP, (pid)),
 #define EvtSetUnitUnselectable(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_SET_ENDTURN, (pid)),
 #define EvtSetUnitHasMoved(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_3427, (pid)),
+#define EvtSetUnitStateFormSlot1(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_SET_STATE, (pid)),
 #define EvtHideAllAlliess _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_CLEA, 0),
 #define EvtRemoveAllNpcs _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_CLEN, 0),
 #define EvtRemoveAllEimies _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_CLEE, 0),
@@ -396,6 +440,7 @@ enum event_sub_cmd_idx {
 #define EvtGiveItemAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTO, (pid)),
 #define EvtGiveMoneymAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTOMAIN, (pid)),
 #define EvtGiveMoneymAtSlot3NoPopup(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVETOSLOT3, (pid)),
+#define EvtSetActiveUnit(pid) _EvtArg0(EV_CMD_CHANGEACTIVEUNIT, 2, 0, (pid)),
 #define EvtChangeAI(pid) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI, (pid)),
 #define EvtChangeAIat(x, y) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI_AT, _EvtSubParam16u8((x), (y))),
 #define EvtDisplayPopupSilently(msg, x, y) _EvtArg0(EV_CMD_DISPLAYPOPUP, 4, EVSUBCMD_BROWNTEXTBOX, (msg)), _EvtParams2((x), (y)),
@@ -406,9 +451,14 @@ enum event_sub_cmd_idx {
 #define EvtDisplayFlashingCursorAtUnit(pid) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_FLASHING_UNIT, (pid)),
 #define EvtOverrideUnitMenu(bitfile) _EvtArg0(EV_CMD_MENUOVERRIDE, 2, EVSUBCMD_DISABLEOPTIONS, (bitfile)),
 #define EvtOverrideWeaponMenu(bitfile) _EvtArg0(EV_CMD_MENUOVERRIDE, 2, EVSUBCMD_DISABLEWEAPONS, (bitfile)),
+#define EvtGetCursorPosition _EvtArg0(EV_CMD_MOVE_CURSOR, 2, EVSUBCMD_CHECK_CURSOR, 0),
+#define EvtSetCursorPosition(x, y) _EvtArg0(EV_CMD_MOVE_CURSOR, 2, EVSUBCMD_SET_CURSOR, _EvtSubParam16u8((x), (y))),
 #define EvtStartEventBattle(actor, target, weapon, ballista) _EvtArg0(EV_CMD_SCRIPT_BATTLE, 4, EVSUBCMD_FIGHT, (actor)), _EvtParams2((target), _EvtSubParam16u8((weapon), (ballista))),
 #define EvtStartEventMapBattle(actor, target, weapon, ballista) _EvtArg0(EV_CMD_SCRIPT_BATTLE, 4, EVSUBCMD_FIGHT_MAP, (actor)), _EvtParams2((target), _EvtSubParam16u8((weapon), (ballista))),
 #define EvtSetScriptedBattle _EvtArg0(EV_CMD_SCRIPT_BATTLE, 4, EVSUBCMD_FIGHT_SCRIPT, 0), (EventListScr)0,
+#define EvtWarpOUT(x, y)  _EvtArg0(EV_CMD_WARP, 2, EVSUBCMD_WARP_OUT, _EvtSubParam16u8(x, y)),
+#define EvtWarpIN(x, y) _EvtArg0(EV_CMD_WARP, 2, EVSUBCMD_WARP_IN, _EvtSubParam16u8(x, y)),
+#define EvtWarpSTAL _EvtArg0(EV_CMD_WARP, 2, EVSUBCMD_WARP_STAL, 0),
 
 enum event_trigger_types {
     EVT_LIST_CMD_END,

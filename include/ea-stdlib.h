@@ -14,10 +14,20 @@
 #define ENUF EvtClearFlag
 #define ENUF_SLOT2 EvtClearFlagAtSlot2
 #define ENUT EvtSetFlag
-#define SVAL EvtSetSlot
 #define CHECK_EVBIT EventCheckEvbit
 #define CHECK_EVENTID EventCheckFlag
-#define SADD EvtSlotAdd
+#define RANDOMNUMBER EvtGetRandom
+#define SVAL EvtSetSlot
+#define SADD EvtSlotADD
+#define SSUB EvtSlotSUB
+#define SMUL EvtSlotMUL
+#define SDIV EvtSlotDIV
+#define SMOD EvtSlotMOD
+#define SAND EvtSlotAND
+#define SORR EvtSlotORR
+#define SXOR EvtSlotXOR
+#define SLSL EvtSlotLSL
+#define SLSR EvtSlotLSR
 #define SENQUEUE EvtEnqueueFormSlot
 #define SENQUEUE1 EvtEnqueueFormSlot1
 #define SDEQUEUE EvtDequeueToSlot
@@ -72,6 +82,9 @@
 #define CLEAN EvtClearScreen
 #define LOMA EvtLoadMap
 #define CAMERA EvtMoveCameraTo
+#define CAMERA_CAHR EvtMoveCameraToChar
+#define CAMERA2 EvtMoveCameraToCenter
+#define CAMERA2_CAHR EvtMoveCameraToCharCenter
 #define TILECHANGE EvtTriggerMapChange
 #define TILEREVERT EvtRevertMapChange
 #define MNTS EvtBackToTitle
@@ -101,24 +114,31 @@
 #define CHECK_CLASS EvtGetUnitJid
 #define CHECK_LUCK EvtGetUnitLuck
 #define ENUN EvtWaitUnitMoving
+#define SHOW_ATTACK_RANGE EvtShowAttackRange
+#define HIDE_ATTACK_RANGE EvtHideAttackRange
 #define REMU EvtSetUnitHidden
 #define REVEAL EvtSetUnitUnhidden
+#define CUSA(pid) EvtChangeFaction(pid, FACTION_ID_BLUE)
+#define CUSN(pid) EvtChangeFaction(pid, FACTION_ID_GREEN)
+#define CUSE(pid) EvtChangeFaction(pid, FACTION_ID_RED)
 #define SET_HP EvtSetUnitHpFormSlot1
 #define SET_ENDTURN EvtSetUnitUnselectable
 #define _3427 EvtSetUnitHasMoved
+#define SET_STATE EvtSetUnitStateFormSlot1
 #define CLEA EvtHideAllAlliess
 #define CLEN EvtRemoveAllNpcs
 #define CLEE EvtRemoveAllEimies
 #define KILL EvtKillUnit
 #define DISA_IF EvtWaitUnitDeathFade
-#define SPAWN_ALLY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_ALLY, pid, x, y)
-#define SPAWN_NPC(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_NPC, pid, x, y)
-#define SPAWN_ENEMY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_ENEMY, pid, x, y)
+#define SPAWN_ALLY(pid, x, y) EvtLoadSingleUnit(FACTION_ID_BLUE, pid, x, y)
+#define SPAWN_NPC(pid, x, y) EvtLoadSingleUnit(FACTION_ID_GREEN, pid, x, y)
+#define SPAWN_ENEMY(pid, x, y) EvtLoadSingleUnit(FACTION_ID_RED, pid, x, y)
 #define SPAWN_CUTSCENE_ALLY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_CUTSCENE_ALLY, pid, x, y)
 #define DISA EvtRemoveUnit
 #define GIVEITEMTO EvtGiveItemAtSlot3
 #define GIVEITEMTOMAIN EvtGiveMoneymAtSlot3         /* what */
 #define GIVETOSLOT3 EvtGiveMoneymAtSlot3NoPopup     /* tf */
+#define SET_ACTIVE EvtSetActiveUnit
 #define CHAI EvtChangeAI
 #define CHAI_AT EvtChangeAIat
 #define BROWNBOXTEXT EvtDisplayPopupSilently
@@ -129,9 +149,14 @@
 #define CURE EvtEndCursor
 #define DISABLEOPTIONS EvtOverrideUnitMenu
 #define DISABLEWEAPONS EvtOverrideWeaponMenu
+#define CHECK_CURSOR EvtGetCursorPosition
+#define SET_CURSOR EvtSetCursorPosition
 #define FIGHT EvtStartEventBattle
 #define FIGHT_MAP EvtStartEventMapBattle
 #define FIGHT_SCRIPT EvtSetScriptedBattle
+#define WARP_OUT EvtWarpOUT
+#define WARP_IN EvtWarpIN
+#define ENDWARP EvtWarpSTAL /* This command name is also not true */
 
 #define CUMO_AT CURSOR_AT
 #define CUMO_CHAR CURSOR_CHAR
@@ -253,7 +278,7 @@
     SAVETOQUEUE \
     SVAL(EVT_SLOT_1, (scr_this)) \
     SAVETOQUEUE \
-    CALL(EventScr_Prologue_Tutorial0_Exec)
+    CALL(EventScr_Tutorial_Exec0)
 
 #define TutEventExecType1(curx, cury, text, pos, scr_next, scr_this) \
     SVAL(EVT_SLOT_D, 0) \
@@ -267,4 +292,4 @@
     SAVETOQUEUE \
     SVAL(EVT_SLOT_1, (scr_this)) \
     SAVETOQUEUE \
-    CALL(EventScr_Prologue_Tutorial1_Exec)
+    CALL(EventScr_Tutorial_Exec1)

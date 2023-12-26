@@ -5,6 +5,7 @@
 #include "bmunit.h"
 #include "chapterdata.h"
 #include "eventinfo.h"
+#include "eventcall.h"
 #include "ea-stdlib.h"
 #include "constants/event-flags.h"
 

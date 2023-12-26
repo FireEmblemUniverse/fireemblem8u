@@ -3,6 +3,7 @@
 #include "global.h"
 #include "event.h"
 #include "eventinfo.h"
+#include "eventcall.h"
 #include "ea-stdlib.h"
 #include "bmtrap.h"
 #include "chapterdata.h"

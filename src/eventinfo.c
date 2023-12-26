@@ -374,23 +374,25 @@ void MaybeCallEndEvent(void) {
 }
 
 //! FE8U = 0x08083308
-struct TrapData* GetTrapPointer(void) {
+const struct TrapData * GetTrapPointer(void)
+{
     return GetChapterEventDataPointer(gPlaySt.chapterIndex)->traps;
 }
 
 //! FE8U = 0x08083320
-struct TrapData* GetHardModeTrapPointer(void) {
+const struct TrapData * GetHardModeTrapPointer(void)
+{
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
-    if (gPlaySt.chapterStateBits & PLAY_FLAG_HARD) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_HARD)
         return evGroup->extraTrapsInHard;
-    }
 
     return NULL;
 }
 
 //! FE8U = 0x08083348
-void* GetChapterAllyUnitDataPointer(void) {
+const void * GetChapterAllyUnitDataPointer(void)
+{
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
     if (GetChapterThing() != 2) {
@@ -414,10 +416,11 @@ void* GetChapterAllyUnitDataPointer(void) {
 }
 
 //! FE8U = 0x080833B0
-const struct UnitDefinition * GetChapterEnemyUnitDefinitions(void) {
+const struct UnitDefinition * GetChapterEnemyUnitDefinitions(void)
+{
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
-    void* ret = NULL;
+    const void * ret = NULL;
 
     switch (gGMData.unk_c9[gGMData.unk_cc]) {
         case 0:
@@ -1269,7 +1272,7 @@ int GetChapterFlagBitsSize(void) {
 void EnqueueTutEvent(uintptr_t ptr, u8 event_enqueue_type)
 {
     u16 i = 0;
-    u32 * tutorialEvents = GetChapterEventDataPointer(gPlaySt.chapterIndex)->tutorialEvents;
+    const u32 * tutorialEvents = GetChapterEventDataPointer(gPlaySt.chapterIndex)->tutorialEvents;
 
     for (; tutorialEvents[i] != 0; i++)
     {

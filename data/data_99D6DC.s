@@ -4,25 +4,25 @@
 gUnknown_0899D6DC:  @ 0x0899D6DC
 	.incbin "baserom.gba", 0x99D6DC, 0x9A18D4 - 0x99D6DC
 
-	.global gUnknown_089A18D4
-gUnknown_089A18D4:  @ 0x089A18D4
+	.global Pal_EventMapAnimMaskfx
+Pal_EventMapAnimMaskfx:  @ 0x089A18D4
 	.incbin "baserom.gba", 0x9A18D4, 0x20
 
-	.global gUnknown_089A18F4
-gUnknown_089A18F4:  @ 0x089A18F4
-	.incbin "baserom.gba", 0x9A18F4, 0x57C
+	.global Img_Congratulations
+Img_Congratulations:  @ 0x089A18F4
+	.incbin "graphics/event/Gfx_Congratulations.4bpp.lz"
 
-	.global gUnknown_089A1E70
-gUnknown_089A1E70:  @ 0x089A1E70
-	.incbin "baserom.gba", 0x9A1E70, 0x49C
+	.global Img_MapClear
+Img_MapClear:  @ 0x089A1E70
+	.incbin "graphics/event/Gfx_MapClear.4bpp.lz"
 
-	.global gUnknown_089A230C
-gUnknown_089A230C:  @ 0x089A230C
-	.incbin "baserom.gba", 0x9A230C, 0x20
+	.global Pal_Congratulations
+Pal_Congratulations:  @ 0x089A230C
+	.incbin "graphics/event/Gfx_Congratulations.gbapal", 0, 0x20
 
-	.global gUnknown_089A232C
-gUnknown_089A232C:  @ 0x089A232C
-	.incbin "baserom.gba", 0x9A232C, 0x20
+	.global Pal_MapClear
+Pal_MapClear:  @ 0x089A232C
+	.incbin "graphics/event/Gfx_MapClear.gbapal", 0, 0x20
 
 	.global gUnknown_089A234C
 gUnknown_089A234C:  @ 0x089A234C

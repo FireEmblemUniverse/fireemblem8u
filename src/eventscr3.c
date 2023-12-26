@@ -733,7 +733,7 @@ void sub_8012324(void)
 //! FE8U = 0x08012344
 int GetChapterAllyUnitCount(void)
 {
-    struct UnitDefinition * uDef = GetChapterAllyUnitDataPointer();
+    const struct UnitDefinition * uDef = GetChapterAllyUnitDataPointer();
 
     int count = 0;
 
@@ -749,10 +749,9 @@ int GetChapterAllyUnitCount(void)
 void InitPlayerUnitPositionsForPrepScreen(void)
 {
     int i;
-    s8 x;
-    s8 y;
+    s8 x, y;
 
-    struct UnitDefinition * uDef = GetChapterAllyUnitDataPointer();
+    const struct UnitDefinition * uDef = GetChapterAllyUnitDataPointer();
 
     for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++)
     {
@@ -837,7 +836,7 @@ void sub_801247C(struct Unit * unit)
     s8 x;
     s8 y;
 
-    struct UnitDefinition * uDef = GetChapterAllyUnitDataPointer();
+    const struct UnitDefinition * uDef = GetChapterAllyUnitDataPointer();
 
     if (UNIT_CATTRIBUTES(unit) & CA_SUPPLY)
     {
