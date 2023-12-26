@@ -2761,7 +2761,7 @@ struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * so
 #endif // !NONMATCHING
 
 //! FE8U = 0x0800FB18
-u8 Event2B_(struct EventEngineProc * proc)
+u8 Event2B_ConfigLoadUnit(struct EventEngineProc * proc)
 {
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
     s16 argument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -2769,33 +2769,25 @@ u8 Event2B_(struct EventEngineProc * proc)
     if (argument < 0)
         argument = gEventSlots[2];
 
-    switch (subcode)
-    {
-        case 0:
-        {
-            proc->unitLoadCount = argument;
-            break;
-        }
+    switch (subcode) {
+    case EVSUBCMD_LOAD_SETCOUNT:
+        proc->unitLoadCount = argument;
+        break;
 
-        case 1:
-        {
-            if (argument < 0)
-                argument = 0;
+    case EVSUBCMD_LOAD_SETCHANCE:
+        if (argument < 0)
+            argument = 0;
 
-            if (argument > 100)
-                argument = 100;
+        if (argument > 100)
+            argument = 100;
 
-            proc->chance = argument;
+        proc->chance = argument;
 
-            break;
-        }
+        break;
 
-        case 2:
-        {
-            proc->diable_REDA = TRUE;
-            break;
-        }
-
+    case 2:
+        proc->diable_REDA = TRUE;
+        break;
     } // switch (subcode)
 
     return EVC_ADVANCE_CONTINUE;
@@ -3100,7 +3092,7 @@ u8 Event31_DisplayEffectRange(struct EventEngineProc * proc)
 
     switch (EVT_SUB_CMD(proc->pEventCurrent))
     {
-        case 0:
+        case EVSUBCMD_SHOW_ATTACK_RANGE:
             unit = GetUnitStructFromEventParameter(EVT_CMD_ARGV(proc->pEventCurrent)[0]);
             if (!unit)
             {
@@ -3117,7 +3109,7 @@ u8 Event31_DisplayEffectRange(struct EventEngineProc * proc)
 
             break;
 
-        case 1:
+        case EVSUBCMD_HIDE_ATTACK_RANGE:
             HideMoveRangeGraphics();
             if (gLoadedUnitBuffer != 0)
             {
@@ -3794,32 +3786,31 @@ u8 Event3B_DisplayCursor(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x08010850
-u8 Event3C_(struct EventEngineProc * proc)
+u8 Event3C_MoveCursor(struct EventEngineProc * proc)
 {
     s8 x;
     s8 y;
 
-    switch (EVT_SUB_CMD(proc->pEventCurrent))
-    {
-        case 0:
-            ((u16 *)(gEventSlots + 0xC))[0] = gBmSt.playerCursor.x;
-            ((u16 *)(gEventSlots + 0xC))[1] = gBmSt.playerCursor.y;
+    switch (EVT_SUB_CMD(proc->pEventCurrent)) {
+    case EVSUBCMD_CHECK_CURSOR:
+        ((u16 *)(gEventSlots + 0xC))[0] = gBmSt.playerCursor.x;
+        ((u16 *)(gEventSlots + 0xC))[1] = gBmSt.playerCursor.y;
 
-            break;
+        break;
 
-        case 1:
-            x = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-            y = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
+    case EVSUBCMD_SET_CURSOR:
+        x = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+        y = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
 
-            if ((x < 0) || (y < 0))
-            {
-                x = ((u16 *)(gEventSlots + 0xB))[0];
-                y = ((u16 *)(gEventSlots + 0xB))[1];
-            }
+        if ((x < 0) || (y < 0))
+        {
+            x = ((u16 *)(gEventSlots + 0xB))[0];
+            y = ((u16 *)(gEventSlots + 0xB))[1];
+        }
 
-            SetCursorMapPosition(x, y);
+        SetCursorMapPosition(x, y);
 
-            break;
+        break;
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -4060,7 +4051,7 @@ u8 Event40_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x08010BEC
-u8 Event41_(struct EventEngineProc * proc)
+u8 Event41_Warp(struct EventEngineProc * proc)
 {
     s8 x;
     s8 y;
@@ -4075,8 +4066,8 @@ u8 Event41_(struct EventEngineProc * proc)
 
     switch (subcmd)
     {
-        case 0:
-        case 1:
+        case EVSUBCMD_WARP_OUT:
+        case EVSUBCMD_WARP_IN:
             x = EVT_CMD_ARGV(proc->pEventCurrent)[0];
             y = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 

@@ -795,11 +795,11 @@ extern u8 gAnimCharaPalConfig[0x100][7];
 extern u8 gAnimCharaPalIt[0x100][7];
 extern u8 gSummonConfig[4][2];
 // extern ??? gUnknown_0895F5A5
-extern u16 CONST_DATA gUnknown_089A18D4[];      /* a palatte */
-extern u16 CONST_DATA gUnknown_089A18F4[];      /* a image */
-extern u16 CONST_DATA gUnknown_089A1E70[];      /* a image */
-extern u16 CONST_DATA gUnknown_089A230C[];      /* a palatte */
-extern u16 CONST_DATA gUnknown_089A232C[];      /* a palatte */
+extern u16 CONST_DATA Pal_EventMapAnimMaskfx[];      /* a palatte */
+extern u16 CONST_DATA Img_Congratulations[];      /* a image */
+extern u16 CONST_DATA Img_MapClear[];      /* a image */
+extern u16 CONST_DATA Pal_Congratulations[];      /* a palatte */
+extern u16 CONST_DATA Pal_MapClear[];      /* a palatte */
 extern u8 gUnknown_089A234C[]; // "combat record" img
 extern u8 gUnknown_089A27B4[]; // "combat record" tsa
 extern u16 gUnknown_089A28E0[]; // "combat record" pal
@@ -849,9 +849,9 @@ extern struct ProcCmd ProcScr_089EE048[];
 extern struct ProcCmd ProcScr_089EE068[];
 extern struct ProcCmd ProcScr_WorldFlush[];
 extern const u16 Obj_089EE99C[];
-extern u16 CONST_DATA *gUnknown_089EE9B0[];    /* images */
+extern u16 CONST_DATA *ImgLut_EventMapAnimMaskfx[];    /* images */
 extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */
-extern struct ProcCmd ProcScr_089EE9E0[];
+extern struct ProcCmd ProcScr_EventMapAnim[];
 extern struct ProcCmd gUnknown_089EEA28[];
 extern const struct MenuDef gUnknown_089F36A0;
 // extern ??? gUnknown_089FF480

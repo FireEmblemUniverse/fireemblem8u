@@ -581,19 +581,20 @@ void sub_8085C58()
     InitDungeon(1);
 }
 
-void sub_8085C64(ProcPtr proc)
+/* Display the "Map Clear!"" Effect (From the Tower of Valni and Lagdou Ruins) */
+void DisplayMapClearMapAnim(ProcPtr proc)
 {
-    sub_8085C7C(proc, 1);
+    DisplayEventMapAnim(proc, 1);
 }
 
-void sub_8085C70(ProcPtr proc)
+void DisplayCongratulationsMapAnim(ProcPtr proc)
 {
-    sub_8085C7C(proc, 0);
+    DisplayEventMapAnim(proc, 0);
 }
 
-void sub_8085C7C(ProcPtr parent, int val)
+void DisplayEventMapAnim(ProcPtr parent, int val)
 {
-    struct Proc89EE9E0 * proc = Proc_StartBlocking(ProcScr_089EE9E0, parent);
+    struct ProcEventMapAnim * proc = Proc_StartBlocking(ProcScr_EventMapAnim, parent);
 
 #ifndef NONMATCHING
     asm("add r2, r0, #0");
@@ -618,15 +619,15 @@ void sub_8085C7C(ProcPtr parent, int val)
     Decompress(Img_PhaseChangeSquares, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_SQUARES));
     ApplyPalette(Pal_PhaseChangePlayer, BGPAL_PHASE_CHANGE);
 
-    sub_8085DCC(0, 0);
-    ApplyPalette(gUnknown_089A18D4, 0);
+    DrawEventMapAnimMaskfx(0, 0);
+    ApplyPalette(Pal_EventMapAnimMaskfx, 0);
 
     if (0 == val) {
-        Decompress(gUnknown_089A18F4, BG_CHR_ADDR(0xA00));
-        ApplyPalette(gUnknown_089A230C, 0x12);
+        Decompress(Img_Congratulations, BG_CHR_ADDR(0xA00));
+        ApplyPalette(Pal_Congratulations, 0x12);
     } else {
-        Decompress(gUnknown_089A1E70, BG_CHR_ADDR(0xA00));
-        ApplyPalette(gUnknown_089A232C, 0x12);
+        Decompress(Img_MapClear, BG_CHR_ADDR(0xA00));
+        ApplyPalette(Pal_MapClear, 0x12);
     }
 
     BG_EnableSyncByMask(3);
@@ -634,12 +635,12 @@ void sub_8085C7C(ProcPtr parent, int val)
     EnablePaletteSync();
 }
 
-void sub_8085DCC(int index, int mode)
+void DrawEventMapAnimMaskfx(int index, int mode)
 {
     if (0 == mode)
-        Decompress(gUnknown_089EE9B0[index], BG_CHR_ADDR(0x140));
+        Decompress(ImgLut_EventMapAnimMaskfx[index], BG_CHR_ADDR(0x140));
     else
-        Decompress(gUnknown_089EE9B0[index], BG_CHR_ADDR(0x200));
+        Decompress(ImgLut_EventMapAnimMaskfx[index], BG_CHR_ADDR(0x200));
 }
 
 void sub_8085E08(int index, int mode)
@@ -656,7 +657,7 @@ void sub_8085E08(int index, int mode)
         *buf += val;
 }
 
-void sub_8085E48(struct Proc89EE9E0 * proc)
+void sub_8085E48(struct ProcEventMapAnim * proc)
 {
     if (0 == proc->mode)
         StartBgm(0x3D, 0);
@@ -667,7 +668,7 @@ void sub_8085E48(struct Proc89EE9E0 * proc)
     proc->timer = 0;
 }
 
-void sub_8085E94(struct Proc89EE9E0 * proc)
+void sub_8085E94(struct ProcEventMapAnim * proc)
 {
     int iy, ix;
     struct Proc89EEA28 *child;
@@ -714,7 +715,7 @@ void nullsub_30()
     return;
 }
 
-void sub_8085F88(struct Proc89EE9E0 * proc)
+void sub_8085F88(struct ProcEventMapAnim * proc)
 {
     int iy, ix;
 
@@ -758,7 +759,7 @@ void sub_8085F88(struct Proc89EE9E0 * proc)
     }
 }
 
-void sub_808609C(struct Proc89EE9E0 * proc)
+void sub_808609C(struct ProcEventMapAnim * proc)
 {
     switch (proc->timer) {
         case 0:
@@ -772,7 +773,7 @@ void sub_808609C(struct Proc89EE9E0 * proc)
                 Proc_Break(proc);
                 return;
             }
-            sub_8085DCC(proc->count, 1 & proc->count);
+            DrawEventMapAnimMaskfx(proc->count, 1 & proc->count);
             proc->timer = -1;
             break;
 
@@ -783,7 +784,7 @@ void sub_808609C(struct Proc89EE9E0 * proc)
     proc->timer++;
 }
 
-void sub_8086100(struct Proc89EE9E0 * proc)
+void sub_8086100(struct ProcEventMapAnim * proc)
 {
     BG_SetPosition(0, 0, 0);
     BG_Fill(gBG0TilemapBuffer, 0);
@@ -829,9 +830,9 @@ void sub_808622C(struct Proc89EEA28 * proc)
     int val = Interpolate(0, 0, 0x10, proc->timer, 8);
 
     if (0 == proc->mode)
-        ApplyPalette(gUnknown_089A230C, 0x12);
+        ApplyPalette(Pal_Congratulations, 0x12);
     else
-        ApplyPalette(gUnknown_089A232C, 0x12);
+        ApplyPalette(Pal_MapClear, 0x12);
 
     EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, val);
     EnablePaletteSync();
@@ -851,9 +852,9 @@ void sub_80862C4(struct Proc89EEA28 * proc)
     int val = Interpolate(0, 0x10, 0, proc->timer, 8);
 
     if (0 == proc->mode)
-        ApplyPalette(gUnknown_089A230C, 0x12);
+        ApplyPalette(Pal_Congratulations, 0x12);
     else
-        ApplyPalette(gUnknown_089A232C, 0x12);
+        ApplyPalette(Pal_MapClear, 0x12);
 
     EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, val);
     EnablePaletteSync();
@@ -880,7 +881,7 @@ void sub_808635C(struct Proc89EEA28 * proc)
     PutSprite(0, 0x18, 0x40, Obj_089EE99C, 0);
 
     if (0x20 == proc->timer)
-        Proc_BreakEach(ProcScr_089EE9E0);
+        Proc_BreakEach(ProcScr_EventMapAnim);
 
     proc->timer++;
 }

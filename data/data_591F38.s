@@ -68,7 +68,7 @@ gEvent_SkirmishRetreat:  @ 0x08592058
     .4byte 0xc41
     .4byte 0x1000c
     .4byte 0xd40
-    .4byte sub_8037D58
+    .4byte StartRetreatProcessing
     .4byte 0x820
     .4byte 0x1b22
     .4byte 0x70228

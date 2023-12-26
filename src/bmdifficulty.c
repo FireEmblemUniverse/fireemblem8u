@@ -150,7 +150,12 @@ void InitDungeon(u8 type) {
     return;
 }
 
-void UnlockPostgameAllyByEnemyCount() {
+/**
+ * If you destroy 200 enemies in a tower or ruins,
+ * turn on the flag to join Riev and Hayden
+ */
+void UnlockPostgameAllyByEnemyCount(void)
+{
     struct Dungeon* dungeon = &gDungeonState.current;
     UpdateDungeonStats(dungeon);
 
@@ -167,8 +172,8 @@ void UnlockPostgameAllyByEnemyCount() {
     return;
 }
 
-void UnlockPostgameAllyByClearCount() {
-
+void UnlockPostgameAllyByClearCount(void)
+{
     UnlockPostgameAllyByEnemyCount();
     UpdateDungeonRecordStats();
 
@@ -187,10 +192,10 @@ void UnlockPostgameAllyByClearCount() {
     return;
 }
 
-void sub_8037D58() {
+void StartRetreatProcessing(void)
+{
     UnlockPostgameAllyByEnemyCount();
     UpdateDungeonEnemiesDefeated();
-
     return;
 }
 
@@ -493,7 +498,8 @@ struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[] = {
 };
 
 // StartDungeonRecordProcAfterDungeonClear?
-void sub_80381F4(ProcPtr proc) {
+void RecordDisplayAfterTowerCleared(ProcPtr proc)
+{
     Proc_StartBlocking(sProcScr_DisplayDungeonRecord_AfterDungeonClear, proc);
     return;
 }
