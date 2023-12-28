@@ -12,7 +12,7 @@
 struct ProcCmd CONST_DATA ProcScr_efxFirebreath[] =
 {
     PROC_NAME("efxFirebreath"),
-    PROC_REPEAT(sub_805D09C),
+    PROC_REPEAT(efxFirebreath_Loop_Main),
     PROC_END,
 };
 
@@ -35,7 +35,7 @@ void StartSpellAnimFireBreath(struct Anim * anim)
 }
 
 //! FE8U = 0x0805D09C
-void sub_805D09C(struct ProcEfx * proc)
+void efxFirebreath_Loop_Main(struct ProcEfx * proc)
 {
     int timer;
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
@@ -53,9 +53,9 @@ void sub_805D09C(struct ProcEfx * proc)
     {
         StartSpellThing_MagicQuake(proc->anim, 90, 10);
 
-        sub_805D14C(anim);
-        sub_805D260(anim);
-        sub_805D2EC(anim);
+        StartSubSpell_efxFirebreathOBJ(anim);
+        StartSubSpell_efxFirebreathBG(anim);
+        StartSubSpell_efxFirebreathBGCOL(anim);
 
         NewEfxALPHA(anim, 40, 15, 16, 0, 0);
 
@@ -86,14 +86,14 @@ void sub_805D09C(struct ProcEfx * proc)
 struct ProcCmd CONST_DATA ProcScr_efxFirebreathOBJ[] =
 {
     PROC_NAME("efxFirebreathOBJ"),
-    PROC_REPEAT(sub_805D1FC),
+    PROC_REPEAT(efxFirebreathOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805D14C
-void sub_805D14C(struct Anim * anim)
+void StartSubSpell_efxFirebreathOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -141,14 +141,14 @@ void sub_805D14C(struct Anim * anim)
         }
     }
 
-    SpellFx_RegisterObjPal(gUnknown_085DE964, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_085DDC64, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_FireBreathSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_BreathSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x0805D1FC
-void sub_805D1FC(struct ProcEfxOBJ * proc)
+void efxFirebreathOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     if (gEkrDistanceType != 0)
     {
@@ -179,14 +179,14 @@ void sub_805D1FC(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxFirebreathBG[] =
 {
     PROC_NAME("efxFirebreathBG"),
-    PROC_REPEAT(sub_805D2B4),
+    PROC_REPEAT(efxFirebreathBG_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805D260
-void sub_805D260(struct Anim * anim)
+void StartSubSpell_efxFirebreathBG(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
     u16 * tsa;
@@ -199,9 +199,9 @@ void sub_805D260(struct Anim * anim)
     proc->timer = 0;
     proc->terminator = 112;
 
-    SpellFx_RegisterBgGfx(gUnknown_087246D8, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgGfx(Img_FireBreathBg, 32 * 8 * CHR_SIZE);
 
-    tsa = gUnknown_08725AF0;
+    tsa = Tsa_FireBreathBg;
     SpellFx_WriteBgMap(proc->anim, tsa, tsa);
 
     SpellFx_ClearBG1Position();
@@ -211,7 +211,7 @@ void sub_805D260(struct Anim * anim)
 }
 
 //! FE8U = 0x0805D2B4
-void sub_805D2B4(struct ProcEfxBG * proc)
+void efxFirebreathBG_Loop(struct ProcEfxBG * proc)
 {
     proc->timer++;
 
@@ -232,17 +232,19 @@ struct ProcCmd CONST_DATA ProcScr_efxFirebreathBGCOL[] =
 {
     PROC_NAME("efxFirebreathBGCOL"),
     PROC_MARK(PROC_MARK_A),
-    PROC_REPEAT(sub_805D328),
+
+    PROC_REPEAT(efxFirebreathBGCOL_Loop),
+
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805D2EC
-void sub_805D2EC(struct Anim * anim)
+void StartSubSpell_efxFirebreathBGCOL(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DCA5C[] =
+    static const u16 frames[] =
     {
         0, 2,
         1, 2,
@@ -309,15 +311,17 @@ void sub_805D2EC(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxFirebreathBGCOL, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
+
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCA5C;
-    proc->pal = gUnknown_08725AD0;
+    proc->frame_config = frames;
+
+    proc->pal = Pal_FireBreathBg;
 
     return;
 }
 
 //! FE8U = 0x0805D328
-void sub_805D328(struct ProcEfxBGCOL * proc)
+void efxFirebreathBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -341,10 +345,10 @@ void sub_805D328(struct ProcEfxBGCOL * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5358[] =
+struct ProcCmd CONST_DATA ProcScr_efxIcebreath[] =
 {
     PROC_NAME("efxIcebreath"),
-    PROC_REPEAT(sub_805D3C4),
+    PROC_REPEAT(efxIcebreath_Loop_Main),
     PROC_END,
 };
 
@@ -359,7 +363,7 @@ void StartSpellAnimIceBreath(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D5358, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxIcebreath, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -368,7 +372,7 @@ void StartSpellAnimIceBreath(struct Anim * anim)
 }
 
 //! FE8U = 0x0805D3C4
-void sub_805D3C4(struct ProcEfx * proc)
+void efxIcebreath_Loop_Main(struct ProcEfx * proc)
 {
     int timer;
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
@@ -378,7 +382,7 @@ void sub_805D3C4(struct ProcEfx * proc)
     if (proc->timer == 1)
     {
         StartSpellThing_MagicQuake(proc->anim, 90, 10);
-        sub_805D444(proc->anim);
+        StartSubSpell_efxIcebreathOBJ(proc->anim);
 
         PlaySFX(0x11e, 0x100, anim->xPosition, 1);
     }
@@ -412,11 +416,11 @@ void sub_805D3C4(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5370[] =
+struct ProcCmd CONST_DATA ProcScr_efxIcebreathOBJ[] =
 {
     PROC_NAME("efxIcebreathOBJ"),
 
-    PROC_SET_END_CB(sub_805D4B8),
+    PROC_SET_END_CB(efxIcebreathOBJ_OnEnd),
     PROC_SLEEP(52),
 
     PROC_END,
@@ -425,7 +429,7 @@ struct ProcCmd CONST_DATA gUnknown_085D5370[] =
 // clang-format on
 
 //! FE8U = 0x0805D444
-void sub_805D444(struct Anim * anim)
+void StartSubSpell_efxIcebreathOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -434,7 +438,7 @@ void sub_805D444(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D5370, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxIcebreathOBJ, PROC_TREE_3);
     proc->anim = anim;
 
     scrB = gUnknown_085E420C;
@@ -451,14 +455,14 @@ void sub_805D444(struct Anim * anim)
         frontAnim->xPosition -= 32;
     }
 
-    SpellFx_RegisterObjPal(gUnknown_085DFA28, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_085DDC64, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_IceBreathSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_BreathSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x0805D4B8
-void sub_805D4B8(struct ProcEfxOBJ * proc)
+void efxIcebreathOBJ_OnEnd(struct ProcEfxOBJ * proc)
 {
     gEfxBgSemaphore--;
     AnimDelete(proc->anim2);
@@ -467,10 +471,10 @@ void sub_805D4B8(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D5390[] =
+struct ProcCmd CONST_DATA ProcScr_efxDarkbreath[] =
 {
     PROC_NAME("efxDarkbreath"),
-    PROC_REPEAT(Loop6C_efxDarkbreath),
+    PROC_REPEAT(efxDarkbreath_Loop_Main),
     PROC_END,
 };
 
@@ -484,7 +488,7 @@ void StartSpellAnimDarkBreath(struct Anim * anim)
     SpellFx_Begin();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D5390, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDarkbreath, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -493,7 +497,7 @@ void StartSpellAnimDarkBreath(struct Anim * anim)
 }
 
 //! FE8U = 0x0805D508
-void Loop6C_efxDarkbreath(struct ProcEfx * proc)
+void efxDarkbreath_Loop_Main(struct ProcEfx * proc)
 {
     int timer;
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
@@ -505,9 +509,9 @@ void Loop6C_efxDarkbreath(struct ProcEfx * proc)
         NewEfxFarAttackWithDistance(proc->anim, -1);
 
         StartSpellThing_MagicQuake(proc->anim, 90, 10);
-        sub_805D59C(proc->anim);
-        sub_805D644(proc->anim);
-        sub_805D6CC(proc->anim);
+        StartSubSpell_efxDarkbreathBG(proc->anim);
+        StartSubSpell_efxDarkbreathBGCOL(proc->anim);
+        StartSubSpell_efxDarkbreathOBJ(proc->anim);
 
         PlaySFX(0x11F, 0x100, anim->xPosition, 1);
     }
@@ -540,14 +544,14 @@ void Loop6C_efxDarkbreath(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D53A8[] =
+struct ProcCmd CONST_DATA ProcScr_efxDarkbreathBG[] =
 {
     PROC_NAME("efxDarkbreathBG"),
-    PROC_REPEAT(sub_805D5EC),
+    PROC_REPEAT(efxDarkbreathBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D53C0[] =
+u16 * CONST_DATA TsaArray_DarkBreathBg[] =
 {
     Tsa_085E64D8,
     Tsa_085E65C0,
@@ -566,10 +570,10 @@ u16 * CONST_DATA gUnknown_085D53C0[] =
 // clang-format on
 
 //! FE8U = 0x0805D59C
-void sub_805D59C(struct Anim * anim)
+void StartSubSpell_efxDarkbreathBG(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DCB78[] =
+    static const u16 frames[] =
     {
         11, 12,
          0,  2,
@@ -596,23 +600,23 @@ void sub_805D59C(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D53A8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDarkbreathBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCB78;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D53C0;
-    proc->tsar = gUnknown_085D53C0;
+    proc->tsal = TsaArray_DarkBreathBg;
+    proc->tsar = TsaArray_DarkBreathBg;
 
-    SpellFx_RegisterBgGfx(gUnknown_085E5AE4, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgGfx(Img_DarkBreathBg, 32 * 8 * CHR_SIZE);
     SpellFx_SetSomeColorEffect();
 
     return;
 }
 
 //! FE8U = 0x0805D5EC
-void sub_805D5EC(struct ProcEfxBG * proc)
+void efxDarkbreathBG_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -638,12 +642,12 @@ void sub_805D5EC(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D53F0[] =
+struct ProcCmd CONST_DATA ProcScr_efxDarkbreathBGCOL[] =
 {
     PROC_NAME("efxDarkbreathBGCOL"),
     PROC_MARK(PROC_MARK_A),
 
-    PROC_REPEAT(sub_805D680),
+    PROC_REPEAT(efxDarkbreathBGCOL_Loop),
 
     PROC_END,
 };
@@ -651,10 +655,10 @@ struct ProcCmd CONST_DATA gUnknown_085D53F0[] =
 // clang-format on
 
 //! FE8U = 0x0805D644
-void sub_805D644(struct Anim * anim)
+void StartSubSpell_efxDarkbreathBGCOL(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DCBD4[] =
+    static const u16 frames[] =
     {
         0, 2,
         1, 2,
@@ -704,11 +708,11 @@ void sub_805D644(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D53F0, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDarkbreathBGCOL, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCBD4;
+    proc->frame_config = frames;
 
     proc->pal = Pal_BoltingBg;
 
@@ -716,7 +720,7 @@ void sub_805D644(struct Anim * anim)
 }
 
 //! FE8U = 0x0805D680
-void sub_805D680(struct ProcEfxBGCOL * proc)
+void efxDarkbreathBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -743,14 +747,14 @@ void sub_805D680(struct ProcEfxBGCOL * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDarkbreathOBJ[] =
 {
     PROC_NAME("efxDarkbreathOBJ"),
-    PROC_REPEAT(sub_805D774),
+    PROC_REPEAT(efxDarkbreathOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805D6CC
-void sub_805D6CC(struct Anim * anim)
+void StartSubSpell_efxDarkbreathOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -784,14 +788,14 @@ void sub_805D6CC(struct Anim * anim)
         frontAnim->yPosition += proc->unk3A;
     }
 
-    SpellFx_RegisterObjPal(gUnknown_085DFA48, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_085DDC64, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_DarkBreathSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_BreathSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x0805D774
-void sub_805D774(struct ProcEfxOBJ * proc)
+void efxDarkbreathOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     if (gEkrDistanceType != 0)
     {

@@ -1530,12 +1530,12 @@ gUnknown_085DD4B4:  @ 0x085DD4B4
     .4byte 0xf001f0e0
     .4byte 0x0001e001
 
-	.global gUnknown_085DDC64
-gUnknown_085DDC64:  @ 0x085DDC64
+	.global Img_BreathSprites
+Img_BreathSprites:  @ 0x085DDC64
 	.incbin "baserom.gba", 0x5DDC64, 0xD00
 
-	.global gUnknown_085DE964
-gUnknown_085DE964:  @ 0x085DE964
+	.global Pal_FireBreathSprites
+Pal_FireBreathSprites:  @ 0x085DE964
 	.incbin "baserom.gba", 0x5DE964, 0x20
 
 	.global gUnknown_085DE984
@@ -1550,12 +1550,12 @@ gUnknown_085DF224:  @ 0x085DF224
 gUnknown_085DFA08:  @ 0x085DFA08
 	.incbin "baserom.gba", 0x5DFA08, 0x20
 
-	.global gUnknown_085DFA28
-gUnknown_085DFA28:  @ 0x085DFA28
+	.global Pal_IceBreathSprites
+Pal_IceBreathSprites:  @ 0x085DFA28
 	.incbin "baserom.gba", 0x5DFA28, 0x20
 
-	.global gUnknown_085DFA48
-gUnknown_085DFA48:  @ 0x085DFA48
+	.global Pal_DarkBreathSprites
+Pal_DarkBreathSprites:  @ 0x085DFA48
 	.incbin "baserom.gba", 0x5DFA48, 0x20
 
 	.global gUnknown_085DFA68
@@ -7016,8 +7016,8 @@ gUnknown_085E5A78:  @ 0x085E5A78
     .4byte gUnknown_085E4E3C + 0xc02
     .4byte 0x80000000
 
-	.global gUnknown_085E5AE4
-gUnknown_085E5AE4:  @ 0x085E5AE4
+	.global Img_DarkBreathBg
+Img_DarkBreathBg:  @ 0x085E5AE4
 	.incbin "baserom.gba", 0x5E5AE4, 0x9F4    @ 0x5E64D8 - 0x5E5AE4
 
 	.global Tsa_085E64D8
@@ -74935,16 +74935,16 @@ Pal_efxExcaliburBG0:  @ 0x08724424
 Tsa_08724444:  @ 0x08724444
 	.incbin "baserom.gba", 0x724444, 0x294    @ 0x7246D8 - 0x724444
 
-	.global gUnknown_087246D8
-gUnknown_087246D8:  @ 0x087246D8
+	.global Img_FireBreathBg
+Img_FireBreathBg:  @ 0x087246D8
 	.incbin "baserom.gba", 0x7246D8, 0x13F8
 
-	.global gUnknown_08725AD0
-gUnknown_08725AD0:  @ 0x08725AD0
+	.global Pal_FireBreathBg
+Pal_FireBreathBg:  @ 0x08725AD0
 	.incbin "baserom.gba", 0x725AD0, 0x20
 
-	.global gUnknown_08725AF0
-gUnknown_08725AF0:  @ 0x08725AF0
+	.global Tsa_FireBreathBg
+Tsa_FireBreathBg:  @ 0x08725AF0
 	.incbin "baserom.gba", 0x725AF0, 0x2BC
 
 	.global gUnknown_08725DAC
@@ -75873,8 +75873,8 @@ Img_0875384C:  @ 0x0875384C
 Img_0875431C:  @ 0x0875431C
 	.incbin "baserom.gba", 0x75431C, 0x554    @ 0x754870 - 0x75431C
 
-	.global gUnknown_08754870
-gUnknown_08754870:  @ 0x08754870
+	.global Pal_SongSprites
+Pal_SongSprites:  @ 0x08754870
 	.incbin "baserom.gba", 0x754870, 0xA0    @ 0x754910 - 0x754870
 
 	.global Tsa_08754910
@@ -75985,69 +75985,69 @@ Tsa_08755E94:  @ 0x08755E94
 Tsa_08755F3C:  @ 0x08755F3C
 	.incbin "baserom.gba", 0x755F3C, 0x98    @ 0x755FD4 - 0x755F3C
 
-	.global gUnknown_08755FD4
-gUnknown_08755FD4:  @ 0x08755FD4
+	.global Img_SongSprites
+Img_SongSprites:  @ 0x08755FD4
 	.incbin "baserom.gba", 0x755FD4, 0x2160
 
 	.global gUnknown_08758134
 gUnknown_08758134:  @ 0x08758134
 @ Replacing .incbin "baserom.gba", 0x758134, 0xE4
-    .4byte gUnknown_08755FD4 + 0x211
-    .4byte gUnknown_08755FD4 + 0x229
-    .4byte gUnknown_08755FD4 + 0x24d
-    .4byte gUnknown_08755FD4 + 0x271
-    .4byte gUnknown_08755FD4 + 0x2a1
-    .4byte gUnknown_08755FD4 + 0x2dd
-    .4byte gUnknown_08755FD4 + 0x319
-    .4byte gUnknown_08755FD4 + 0x361
-    .4byte gUnknown_08755FD4 + 0x3a9
-    .4byte gUnknown_08755FD4 + 0x3fd
-    .4byte gUnknown_08755FD4 + 0x45d
-    .4byte gUnknown_08755FD4 + 0x4c9
-    .4byte gUnknown_08755FD4 + 0x535
-    .4byte gUnknown_08755FD4 + 0x5ad
-    .4byte gUnknown_08755FD4 + 0x625
-    .4byte gUnknown_08755FD4 + 0x69d
-    .4byte gUnknown_08755FD4 + 0x721
-    .4byte gUnknown_08755FD4 + 0x7a5
-    .4byte gUnknown_08755FD4 + 0x841
-    .4byte gUnknown_08755FD4 + 0x8dd
-    .4byte gUnknown_08755FD4 + 0x979
-    .4byte gUnknown_08755FD4 + 0xa15
-    .4byte gUnknown_08755FD4 + 0xabd
-    .4byte gUnknown_08755FD4 + 0xb65
-    .4byte gUnknown_08755FD4 + 0xc0d
-    .4byte gUnknown_08755FD4 + 0xcc1
-    .4byte gUnknown_08755FD4 + 0xd75
-    .4byte gUnknown_08755FD4 + 0xe35
-    .4byte gUnknown_08755FD4 + 0xef5
-    .4byte gUnknown_08755FD4 + 0xfb5
-    .4byte gUnknown_08755FD4 + 0x1081
-    .4byte gUnknown_08755FD4 + 0x114d
-    .4byte gUnknown_08755FD4 + 0x1219
-    .4byte gUnknown_08755FD4 + 0x12e5
-    .4byte gUnknown_08755FD4 + 0x13b1
-    .4byte gUnknown_08755FD4 + 0x147d
-    .4byte gUnknown_08755FD4 + 0x1555
-    .4byte gUnknown_08755FD4 + 0x162d
-    .4byte gUnknown_08755FD4 + 0x1705
-    .4byte gUnknown_08755FD4 + 0x17dd
-    .4byte gUnknown_08755FD4 + 0x18c1
-    .4byte gUnknown_08755FD4 + 0x19a5
-    .4byte gUnknown_08755FD4 + 0x1a89
-    .4byte gUnknown_08755FD4 + 0x1b6d
-    .4byte gUnknown_08755FD4 + 0x1c45
-    .4byte gUnknown_08755FD4 + 0x1d05
-    .4byte gUnknown_08755FD4 + 0x1db9
-    .4byte gUnknown_08755FD4 + 0x1e61
-    .4byte gUnknown_08755FD4 + 0x1ef1
-    .4byte gUnknown_08755FD4 + 0x1f75
-    .4byte gUnknown_08755FD4 + 0x1fed
-    .4byte gUnknown_08755FD4 + 0x2059
-    .4byte gUnknown_08755FD4 + 0x20ad
-    .4byte gUnknown_08755FD4 + 0x20f5
-    .4byte gUnknown_08755FD4 + 0x2125
-    .4byte gUnknown_08755FD4 + 0x2149
+    .4byte Img_SongSprites + 0x211
+    .4byte Img_SongSprites + 0x229
+    .4byte Img_SongSprites + 0x24d
+    .4byte Img_SongSprites + 0x271
+    .4byte Img_SongSprites + 0x2a1
+    .4byte Img_SongSprites + 0x2dd
+    .4byte Img_SongSprites + 0x319
+    .4byte Img_SongSprites + 0x361
+    .4byte Img_SongSprites + 0x3a9
+    .4byte Img_SongSprites + 0x3fd
+    .4byte Img_SongSprites + 0x45d
+    .4byte Img_SongSprites + 0x4c9
+    .4byte Img_SongSprites + 0x535
+    .4byte Img_SongSprites + 0x5ad
+    .4byte Img_SongSprites + 0x625
+    .4byte Img_SongSprites + 0x69d
+    .4byte Img_SongSprites + 0x721
+    .4byte Img_SongSprites + 0x7a5
+    .4byte Img_SongSprites + 0x841
+    .4byte Img_SongSprites + 0x8dd
+    .4byte Img_SongSprites + 0x979
+    .4byte Img_SongSprites + 0xa15
+    .4byte Img_SongSprites + 0xabd
+    .4byte Img_SongSprites + 0xb65
+    .4byte Img_SongSprites + 0xc0d
+    .4byte Img_SongSprites + 0xcc1
+    .4byte Img_SongSprites + 0xd75
+    .4byte Img_SongSprites + 0xe35
+    .4byte Img_SongSprites + 0xef5
+    .4byte Img_SongSprites + 0xfb5
+    .4byte Img_SongSprites + 0x1081
+    .4byte Img_SongSprites + 0x114d
+    .4byte Img_SongSprites + 0x1219
+    .4byte Img_SongSprites + 0x12e5
+    .4byte Img_SongSprites + 0x13b1
+    .4byte Img_SongSprites + 0x147d
+    .4byte Img_SongSprites + 0x1555
+    .4byte Img_SongSprites + 0x162d
+    .4byte Img_SongSprites + 0x1705
+    .4byte Img_SongSprites + 0x17dd
+    .4byte Img_SongSprites + 0x18c1
+    .4byte Img_SongSprites + 0x19a5
+    .4byte Img_SongSprites + 0x1a89
+    .4byte Img_SongSprites + 0x1b6d
+    .4byte Img_SongSprites + 0x1c45
+    .4byte Img_SongSprites + 0x1d05
+    .4byte Img_SongSprites + 0x1db9
+    .4byte Img_SongSprites + 0x1e61
+    .4byte Img_SongSprites + 0x1ef1
+    .4byte Img_SongSprites + 0x1f75
+    .4byte Img_SongSprites + 0x1fed
+    .4byte Img_SongSprites + 0x2059
+    .4byte Img_SongSprites + 0x20ad
+    .4byte Img_SongSprites + 0x20f5
+    .4byte Img_SongSprites + 0x2125
+    .4byte Img_SongSprites + 0x2149
     .4byte 0x80000000
 
 	.global gUnknown_08758218

@@ -13,14 +13,14 @@
 struct ProcCmd CONST_DATA ProcScr_efxShooter[] =
 {
     PROC_NAME("efxShooter"),
-    PROC_REPEAT(sub_805CD5C),
+    PROC_REPEAT(efxShooter_Loop_Main),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805CD0C
-void sub_805CD0C(struct Anim * anim)
+void StartSpellAnimBallista(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -38,7 +38,7 @@ void sub_805CD0C(struct Anim * anim)
 }
 
 //! FE8U = 0x0805CD5C
-void sub_805CD5C(struct ProcEfx * proc)
+void efxShooter_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
 
@@ -59,7 +59,7 @@ void sub_805CD5C(struct ProcEfx * proc)
         }
         else if (timer == 42)
         {
-            sub_805CE1C(anim);
+            StartSubSpell_efxShooterOBJ(anim);
         }
         else if (timer == 45)
         {
@@ -108,14 +108,14 @@ void sub_805CD5C(struct ProcEfx * proc)
 struct ProcCmd CONST_DATA ProcScr_efxShooterOBJ[] =
 {
     PROC_NAME("efxShooterOBJ"),
-    PROC_REPEAT(sub_805CE94),
+    PROC_REPEAT(efxShooterOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805CE1C
-void sub_805CE1C(struct Anim * anim)
+void StartSubSpell_efxShooterOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -146,7 +146,7 @@ void sub_805CE1C(struct Anim * anim)
 }
 
 //! FE8U = 0x0805CE94
-void sub_805CE94(struct ProcEfxOBJ * proc)
+void efxShooterOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 

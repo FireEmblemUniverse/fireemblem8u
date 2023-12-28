@@ -12,7 +12,7 @@
 struct ProcCmd CONST_DATA ProcScr_efxSong[] =
 {
     PROC_NAME("efxSong"),
-    PROC_REPEAT(EfxSongMain),
+    PROC_REPEAT(efxSong_Loop_Main),
     PROC_END,
 };
 
@@ -35,7 +35,7 @@ void StartSpellAnimSong(struct Anim * anim)
 }
 
 //! FE8U = 0x0805C96C
-void EfxSongMain(struct ProcEfx * proc)
+void efxSong_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
 
@@ -43,8 +43,8 @@ void EfxSongMain(struct ProcEfx * proc)
 
     if (proc->timer == 39)
     {
-        sub_805CA64(anim, 0);
-        sub_805CB40(anim, 0);
+        StartSubSpell_efxSongBG(anim, 0);
+        StartSubSpell_efxSongOBJ(anim, 0);
 
         NewEfxRestWINH_(anim, 130, 1);
         NewEfxTwobaiRST(anim, 100);
@@ -64,11 +64,11 @@ void EfxSongMain(struct ProcEfx * proc)
 
         if (GetAnimPosition(anim) == 0)
         {
-            CpuFastSet(gpEfxUnitPaletteBackup[0], gPaletteBuffer + PAL_OFFSET(0x17), 8);
+            CpuFastCopy(gpEfxUnitPaletteBackup[0], gPaletteBuffer + PAL_OFFSET(0x17), 0x20);
         }
         else
         {
-            CpuFastSet(gpEfxUnitPaletteBackup[1], gPaletteBuffer + PAL_OFFSET(0x19), 8);
+            CpuFastCopy(gpEfxUnitPaletteBackup[1], gPaletteBuffer + PAL_OFFSET(0x19), 0x20);
         }
 
         EnableEfxStatusUnits(anim);
@@ -76,7 +76,6 @@ void EfxSongMain(struct ProcEfx * proc)
     else if (proc->timer == 179)
     {
         anim->state3 |= ANIM_BIT3_NEXT_ROUND_START;
-
         SpellFx_Finish();
         Proc_Break(proc);
     }
@@ -89,11 +88,11 @@ void EfxSongMain(struct ProcEfx * proc)
 struct ProcCmd CONST_DATA ProcScr_efxSongBG[] =
 {
     PROC_NAME("efxSongBG"),
-    PROC_REPEAT(EfxSongBgMain),
+    PROC_REPEAT(efxSongBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D5188[] =
+u16 * CONST_DATA TsaArray_SongBg[] =
 {
     Tsa_08754910,
     Tsa_087549B8,
@@ -124,7 +123,7 @@ u16 * CONST_DATA gUnknown_085D5188[] =
     Tsa_08755F3C,
 };
 
-u16 * CONST_DATA gUnknown_085D51F4[] =
+u16 * CONST_DATA ImgArray_SongBg[] =
 {
     Img_08752044,
     Img_08752044,
@@ -158,10 +157,10 @@ u16 * CONST_DATA gUnknown_085D51F4[] =
 // clang-format on
 
 //! FE8U = 0x0805CA64
-void sub_805CA64(struct Anim * anim, int kind)
+void StartSubSpell_efxSongBG(struct Anim * anim, int kind)
 {
     // clang-format off
-    static const u16 gUnknown_080DC956[] =
+    static const u16 frames[] =
     {
          0,  2,
          1,  2,
@@ -202,22 +201,22 @@ void sub_805CA64(struct Anim * anim, int kind)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DC956;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D5188;
-    proc->tsar = gUnknown_085D5188;
+    proc->tsal = TsaArray_SongBg;
+    proc->tsar = TsaArray_SongBg;
 
-    proc->img = gUnknown_085D51F4;
+    proc->img = ImgArray_SongBg;
     proc->pal = NULL;
 
-    SpellFx_RegisterBgPal(gUnknown_08754870 + kind * 0x10, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_SongSprites + kind * 0x10, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     return;
 }
 
 //! FE8U = 0x0805CAC4
-void EfxSongBgMain(struct ProcEfxEclipseBG * proc)
+void efxSongBG_Loop(struct ProcEfxEclipseBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -258,14 +257,14 @@ void EfxSongBgMain(struct ProcEfxEclipseBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxSongOBJ[] =
 {
     PROC_NAME("efxSongOBJ"),
-    PROC_REPEAT(sub_805CBA8),
+    PROC_REPEAT(efxSongOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805CB40
-void sub_805CB40(struct Anim * anim, int kind)
+void StartSubSpell_efxSongOBJ(struct Anim * anim, int kind)
 {
     struct ProcEfxOBJ * proc;
     u32 * scr;
@@ -279,14 +278,14 @@ void sub_805CB40(struct Anim * anim, int kind)
     scr = gUnknown_08758134;
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
 
-    SpellFx_RegisterObjPal(gUnknown_08754870 + kind * 0x10, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_08755FD4, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_SongSprites + kind * 0x10, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_SongSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x0805CBA8
-void sub_805CBA8(struct ProcEfxOBJ * proc)
+void efxSongOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -305,7 +304,7 @@ void sub_805CBA8(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDance[] =
 {
     PROC_NAME("efxDance"),
-    PROC_REPEAT(sub_805CC14),
+    PROC_REPEAT(efxDance_Loop_Main),
     PROC_END,
 };
 
@@ -328,7 +327,7 @@ void StartSpellAnimDance(struct Anim * anim)
 }
 
 //! FE8U = 0x0805CC14
-void sub_805CC14(struct ProcEfx * proc)
+void efxDance_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
 
@@ -336,8 +335,8 @@ void sub_805CC14(struct ProcEfx * proc)
 
     if (proc->timer == 25)
     {
-        sub_805CA64(anim, 0);
-        sub_805CB40(anim, 0);
+        StartSubSpell_efxSongBG(anim, 0);
+        StartSubSpell_efxSongOBJ(anim, 0);
 
         NewEfxRestWINH_(anim, 130, 1);
         NewEfxTwobaiRST(anim, 100);
@@ -357,11 +356,11 @@ void sub_805CC14(struct ProcEfx * proc)
 
         if (GetAnimPosition(anim) == 0)
         {
-            CpuFastSet(gpEfxUnitPaletteBackup[0], gPaletteBuffer + PAL_OFFSET(0x17), 8);
+            CpuFastCopy(gpEfxUnitPaletteBackup[0], gPaletteBuffer + PAL_OFFSET(0x17), 0x20);
         }
         else
         {
-            CpuFastSet(gpEfxUnitPaletteBackup[1], gPaletteBuffer + PAL_OFFSET(0x19), 8);
+            CpuFastCopy(gpEfxUnitPaletteBackup[1], gPaletteBuffer + PAL_OFFSET(0x19), 0x20);
         }
 
         EnableEfxStatusUnits(anim);

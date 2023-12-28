@@ -8,7 +8,7 @@
 #include "bmlib.h"
 
 //! FE8U = 0x0805CEC4
-void nullsub_42(struct Anim * anim)
+void StartSpellAnimEckesachsRanged_Null(struct Anim * anim)
 {
     return;
 }
@@ -18,14 +18,14 @@ void nullsub_42(struct Anim * anim)
 struct ProcCmd CONST_DATA ProcScr_efxHurtmut[] =
 {
     PROC_NAME("efxHurtmut"),
-    PROC_REPEAT(sub_805CF04),
+    PROC_REPEAT(efxHurtmut_Loop_Main),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805CEC8
-void sub_805CEC8(struct Anim * anim)
+void StartSpellAnimBindingBlade(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -42,7 +42,7 @@ void sub_805CEC8(struct Anim * anim)
 }
 
 //! FE8U = 0x0805CF04
-void sub_805CF04(struct ProcEfx * proc)
+void efxHurtmut_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -57,7 +57,7 @@ void sub_805CF04(struct ProcEfx * proc)
     if (proc->timer == duration + 1)
     {
         PlaySFX(0x10D, 0x100, anim->xPosition, 1);
-        sub_805CFC0(anim);
+        StartSubSpell_efxHurtmutOBJ(anim);
 
         NewEfxFlashBgWhite(proc->anim, 6);
 
@@ -93,14 +93,14 @@ void sub_805CF04(struct ProcEfx * proc)
 struct ProcCmd CONST_DATA ProcScr_efxHurtmutOBJ[] =
 {
     PROC_NAME("efxHurtmutOBJ"),
-    PROC_REPEAT(sub_805D030),
+    PROC_REPEAT(efxHurtmutOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805CFC0
-void sub_805CFC0(struct Anim * anim)
+void StartSubSpell_efxHurtmutOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     u32 * scr;
@@ -123,14 +123,14 @@ void sub_805CFC0(struct Anim * anim)
 
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
 
-    SpellFx_RegisterObjPal(gUnknown_085DE964, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_085DDC64, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_FireBreathSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_BreathSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x0805D030
-void sub_805D030(struct ProcEfxOBJ * proc)
+void efxHurtmutOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 

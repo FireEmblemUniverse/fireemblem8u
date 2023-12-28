@@ -590,10 +590,6 @@ extern const u8 Img_080DB9C4[];
 extern const u8 Img_080DBE1C[];
 extern const u8 Img_080DC350[];
 extern const u16 gUnknown_080DC85C[2];
-// extern ??? gUnknown_080DC956
-// extern ??? gUnknown_080DCA5C
-// extern ??? gUnknown_080DCB78
-// extern ??? gUnknown_080DCBD4
 extern const u16 gUnknown_080DCCA6[];
 extern const u16 gUnknown_080DCCC0[];
 extern const u16 gUnknown_080DCD26[];
