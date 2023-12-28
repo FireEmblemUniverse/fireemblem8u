@@ -95,8 +95,8 @@ void efxDancepara_Loop(struct ProcEfx * proc)
 
     if (proc->timer == 25)
     {
-        sub_805CA64(anim, proc->unk44);
-        sub_805CB40(anim, proc->unk44);
+        StartSubSpell_efxSongBG(anim, proc->unk44);
+        StartSubSpell_efxSongOBJ(anim, proc->unk44);
 
         NewEfxRestWINH_(anim, 130, 1);
         NewEfxTwobaiRST(anim, 100);

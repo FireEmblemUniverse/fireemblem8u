@@ -4614,7 +4614,7 @@ _0806894A:
 	ldr r0, _08068968  @ gUnknown_085DFA68
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
-	ldr r0, _0806896C  @ gUnknown_085DDC64
+	ldr r0, _0806896C  @ Img_BreathSprites
 	movs r1, #0x80
 	lsls r1, r1, #5
 	bl SpellFx_RegisterObjGfx
@@ -4624,7 +4624,7 @@ _0806894A:
 	bx r0
 	.align 2, 0
 _08068968: .4byte gUnknown_085DFA68
-_0806896C: .4byte gUnknown_085DDC64
+_0806896C: .4byte Img_BreathSprites
 
 	THUMB_FUNC_END sub_80688C0
 
@@ -4699,11 +4699,11 @@ sub_80689D4: @ 0x080689D4
 	strh r0, [r4, #0x2c]
 	movs r0, #0x70
 	strh r0, [r4, #0x2e]
-	ldr r0, _08068A20  @ gUnknown_087246D8
+	ldr r0, _08068A20  @ Img_FireBreathBg
 	movs r1, #0x80
 	lsls r1, r1, #6
 	bl SpellFx_RegisterBgGfx
-	ldr r2, _08068A24  @ gUnknown_08725AF0
+	ldr r2, _08068A24  @ Tsa_FireBreathBg
 	ldr r0, [r4, #0x5c]
 	adds r1, r2, #0
 	bl SpellFx_WriteBgMap
@@ -4715,8 +4715,8 @@ sub_80689D4: @ 0x080689D4
 	.align 2, 0
 _08068A18: .4byte gEfxBgSemaphore
 _08068A1C: .4byte gUnknown_085D82E0
-_08068A20: .4byte gUnknown_087246D8
-_08068A24: .4byte gUnknown_08725AF0
+_08068A20: .4byte Img_FireBreathBg
+_08068A24: .4byte Tsa_FireBreathBg
 
 	THUMB_FUNC_END sub_80689D4
 
