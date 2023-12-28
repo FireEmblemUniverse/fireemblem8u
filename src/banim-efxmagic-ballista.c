@@ -8,7 +8,16 @@
 #include "bmlib.h"
 #include "ctc.h"
 
-extern struct ProcCmd ProcScr_efxShooter[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxShooter[] =
+{
+    PROC_NAME("efxShooter"),
+    PROC_REPEAT(sub_805CD5C),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805CD0C
 void sub_805CD0C(struct Anim * anim)
@@ -44,17 +53,17 @@ void sub_805CD5C(struct ProcEfx * proc)
     {
         int timer = proc->timer;
 
-        if (timer == 0x22)
+        if (timer == 34)
         {
             PlaySFX(0x137, 0x100, proc->anim->xPosition, 1);
         }
-        else if (timer == 0x2a)
+        else if (timer == 42)
         {
             sub_805CE1C(anim);
         }
-        else if (timer == 0x2d)
+        else if (timer == 45)
         {
-            anim->state3 |= 9;
+            anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
             StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
@@ -80,23 +89,30 @@ void sub_805CD5C(struct ProcEfx * proc)
                 EfxPlayHittedSFX(anim);
             }
         }
-        else if (timer == 0x3e)
+        else if (timer == 62)
         {
             return;
         }
-        else if (timer == 0x40)
+        else if (timer == 64)
         {
             SpellFx_Finish();
             Proc_Break(proc);
         }
     }
+
     return;
 }
 
-extern struct ProcCmd ProcScr_efxShooterOBJ[];
+// clang-format off
 
-extern u32 gUnknown_085DCA5C[];
-extern u32 gUnknown_085DCAF8[];
+struct ProcCmd CONST_DATA ProcScr_efxShooterOBJ[] =
+{
+    PROC_NAME("efxShooterOBJ"),
+    PROC_REPEAT(sub_805CE94),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805CE1C
 void sub_805CE1C(struct Anim * anim)
@@ -140,5 +156,6 @@ void sub_805CE94(struct ProcEfxOBJ * proc)
         gEfxBgSemaphore--;
         Proc_Break(proc);
     }
+
     return;
 }

@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd ProcScr_efxSong[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxSong[] =
+{
+    PROC_NAME("efxSong"),
+    PROC_REPEAT(EfxSongMain),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805C934
 void StartSpellAnimSong(struct Anim * anim)
@@ -49,7 +58,7 @@ void EfxSongMain(struct ProcEfx * proc)
 
     if (proc->timer == 139)
     {
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         sub_8055518(anim, proc->hitted);
 
@@ -66,7 +75,7 @@ void EfxSongMain(struct ProcEfx * proc)
     }
     else if (proc->timer == 179)
     {
-        anim->state3 |= 2;
+        anim->state3 |= ANIM_BIT3_NEXT_ROUND_START;
 
         SpellFx_Finish();
         Proc_Break(proc);
@@ -75,18 +84,116 @@ void EfxSongMain(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxSongBG[];
+// clang-format off
 
-extern u16 * gUnknown_085D5188[];
-extern u16 * gUnknown_085D51F4[];
+struct ProcCmd CONST_DATA ProcScr_efxSongBG[] =
+{
+    PROC_NAME("efxSongBG"),
+    PROC_REPEAT(EfxSongBgMain),
+    PROC_END,
+};
 
-extern u16 gUnknown_08754870[];
+u16 * CONST_DATA gUnknown_085D5188[] =
+{
+    Tsa_08754910,
+    Tsa_087549B8,
+    Tsa_08754A64,
+    Tsa_08754B14,
+    Tsa_08754BD8,
+    Tsa_08754CA4,
+    Tsa_08754D7C,
+    Tsa_08754E5C,
+    Tsa_08754F3C,
+    Tsa_08755028,
+    Tsa_0875511C,
+    Tsa_08755218,
+    Tsa_08755310,
+    Tsa_08755410,
+    Tsa_08755510,
+    Tsa_08755610,
+    Tsa_08755714,
+    Tsa_08755804,
+    Tsa_087558EC,
+    Tsa_087559D0,
+    Tsa_08755AB8,
+    Tsa_08755B94,
+    Tsa_08755C64,
+    Tsa_08755D20,
+    Tsa_08755DE0,
+    Tsa_08755E94,
+    Tsa_08755F3C,
+};
 
-extern u16 gUnknown_080DC956[];
+u16 * CONST_DATA gUnknown_085D51F4[] =
+{
+    Img_08752044,
+    Img_08752044,
+    Img_08752044,
+    Img_08752044,
+    Img_08752044,
+    Img_08752044,
+    Img_08752044,
+    Img_08752044,
+    Img_08752044,
+    Img_08752044,
+    Img_08752C10,
+    Img_08752C10,
+    Img_08752C10,
+    Img_08752C10,
+    Img_08752C10,
+    Img_0875384C,
+    Img_0875384C,
+    Img_0875384C,
+    Img_0875384C,
+    Img_0875384C,
+    Img_0875384C,
+    Img_0875384C,
+    Img_0875431C,
+    Img_0875431C,
+    Img_0875431C,
+    Img_0875431C,
+    Img_0875431C,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805CA64
 void sub_805CA64(struct Anim * anim, int kind)
 {
+    // clang-format off
+    static const u16 gUnknown_080DC956[] =
+    {
+         0,  2,
+         1,  2,
+         2,  2,
+         3,  2,
+         4,  2,
+         5,  2,
+         6,  2,
+         7,  2,
+         8,  2,
+         9,  2,
+        10,  2,
+        11,  2,
+        12,  2,
+        13,  2,
+        14,  2,
+        15,  2,
+        16,  2,
+        17,  2,
+        18,  2,
+        19,  2,
+        20,  2,
+        21,  2,
+        22,  2,
+        23,  2,
+        24,  2,
+        25,  2,
+        26, 48,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -103,7 +210,7 @@ void sub_805CA64(struct Anim * anim, int kind)
     proc->img = gUnknown_085D51F4;
     proc->pal = NULL;
 
-    SpellFx_RegisterBgPal(gUnknown_08754870 + kind * 0x10, 0x20);
+    SpellFx_RegisterBgPal(gUnknown_08754870 + kind * 0x10, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     return;
@@ -146,11 +253,16 @@ void EfxSongBgMain(struct ProcEfxEclipseBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxSongOBJ[];
+// clang-format off
 
-extern u16 gUnknown_08755FD4[];
+struct ProcCmd CONST_DATA ProcScr_efxSongOBJ[] =
+{
+    PROC_NAME("efxSongOBJ"),
+    PROC_REPEAT(sub_805CBA8),
+    PROC_END,
+};
 
-extern u32 gUnknown_08758134[];
+// clang-format on
 
 //! FE8U = 0x0805CB40
 void sub_805CB40(struct Anim * anim, int kind)
@@ -167,8 +279,8 @@ void sub_805CB40(struct Anim * anim, int kind)
     scr = gUnknown_08758134;
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
 
-    SpellFx_RegisterObjPal(gUnknown_08754870 + kind * 0x10, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_08755FD4, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_08754870 + kind * 0x10, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_08755FD4, 32 * 4 * CHR_SIZE);
 
     return;
 }
@@ -188,7 +300,16 @@ void sub_805CBA8(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxDance[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxDance[] =
+{
+    PROC_NAME("efxDance"),
+    PROC_REPEAT(sub_805CC14),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805CBDC
 void StartSpellAnimDance(struct Anim * anim)
@@ -230,7 +351,7 @@ void sub_805CC14(struct ProcEfx * proc)
 
     if (proc->timer == 125)
     {
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         sub_8055518(anim, proc->hitted);
 
@@ -247,7 +368,7 @@ void sub_805CC14(struct ProcEfx * proc)
     }
     else if (proc->timer == 165)
     {
-        anim->state3 |= 2;
+        anim->state3 |= ANIM_BIT3_NEXT_ROUND_START;
         SpellFx_Finish();
         Proc_Break(proc);
     }

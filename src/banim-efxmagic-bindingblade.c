@@ -13,7 +13,16 @@ void nullsub_42(struct Anim * anim)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxHurtmut[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxHurtmut[] =
+{
+    PROC_NAME("efxHurtmut"),
+    PROC_REPEAT(sub_805CF04),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805CEC8
 void sub_805CEC8(struct Anim * anim)
@@ -52,7 +61,7 @@ void sub_805CF04(struct ProcEfx * proc)
 
         NewEfxFlashBgWhite(proc->anim, 6);
 
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
@@ -61,15 +70,15 @@ void sub_805CF04(struct ProcEfx * proc)
             EfxPlayHittedSFX(anim);
         }
     }
-    else if (proc->timer == duration + 0x1c)
+    else if (proc->timer == duration + 28)
     {
-        NewEfxALPHA(anim, 0, 0xe, 0x10, 0, 0);
+        NewEfxALPHA(anim, 0, 14, 16, 0, 0);
     }
-    else if (proc->timer == duration + 0x32)
+    else if (proc->timer == duration + 50)
     {
         return;
     }
-    else if (proc->timer == duration + 0x37)
+    else if (proc->timer == duration + 55)
     {
         SpellFx_Finish();
         RegisterEfxSpellCastEnd();
@@ -79,13 +88,16 @@ void sub_805CF04(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxHurtmutOBJ[];
+// clang-format off
 
-extern u32 gUnknown_085E067C[];
-extern u32 gUnknown_085E12DC[];
+struct ProcCmd CONST_DATA ProcScr_efxHurtmutOBJ[] =
+{
+    PROC_NAME("efxHurtmutOBJ"),
+    PROC_REPEAT(sub_805D030),
+    PROC_END,
+};
 
-extern u16 gUnknown_085DE964[];
-extern u16 gUnknown_085DDC64[];
+// clang-format on
 
 //! FE8U = 0x0805CFC0
 void sub_805CFC0(struct Anim * anim)
@@ -98,7 +110,7 @@ void sub_805CFC0(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxHurtmutOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->terminator = 0x34;
+    proc->terminator = 52;
 
     if (GetAnimPosition(anim) == 0)
     {
@@ -111,8 +123,8 @@ void sub_805CFC0(struct Anim * anim)
 
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
 
-    SpellFx_RegisterObjPal(gUnknown_085DE964, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085DDC64, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_085DE964, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_085DDC64, 32 * 4 * CHR_SIZE);
 
     return;
 }
