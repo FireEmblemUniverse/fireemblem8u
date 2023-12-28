@@ -180,7 +180,10 @@ SECTIONS
         src/banim-efxmagic.o(.text);
         asm/banim-efxmagic-util.o(.text);
         src/banim-efxmagic-phywpn.o(.text);
-        asm/banim-efxmagic-5BA64.o(.text);
+        src/banim-efxmagic-refresh.o(.text);
+        src/banim-efxmagic-ballista.o(.text);
+        src/banim-efxmagic-bindingblade.o(.text);
+        src/banim-efxmagic-breath.o(.text);
         src/banim-efxmagic-thunder.o(.text);
         src/banim-efxmagic-fire.o(.text);
         src/banim-efxmagic-fimbulvetr.o(.text);
