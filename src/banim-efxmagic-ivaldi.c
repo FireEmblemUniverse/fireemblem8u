@@ -35,18 +35,15 @@ void StartSpellAnimIvaldi(struct Anim * anim)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/TDcB4 */
-
+/* https://decomp.me/scratch/4bKK3 */
 //! FE8U = 0x08065810
 void efxIvaldi_Loop_Main(struct ProcEfx * proc)
 {
-    int r0;
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
 
     int duration = EfxGetCamMovDuration();
     int r7 = 0x3e;
+    int chaos = 0xc4;
 
     proc->timer++;
 
@@ -87,7 +84,7 @@ void efxIvaldi_Loop_Main(struct ProcEfx * proc)
         SetBlendTargetB(0, 0, 1, 1, 1);
         StartSubSpell_efxIvaldiWOUT(anim, 0x3c, 0x1e);
     }
-    else if (proc->timer == duration + (r0 = r7 + 0xC4))
+    else if (proc->timer == r7 + chaos + duration)
     {
         StartSpellThing_MagicQuake(anim, 0x78, 10);
         SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
@@ -102,24 +99,31 @@ void efxIvaldi_Loop_Main(struct ProcEfx * proc)
 
         if (!proc->hitted)
         {
-            sub_8072450(anim);
+            EfxPlayHittedSFX(anim);
         }
     }
     else
     {
-        if (proc->timer == duration + (r0 = r7))
+#ifdef NONMATCHING
+        int r2 = r7 + chaos;
+#else
+        register int r0 asm("r0") = chaos, r2;
+        asm(""::"r"(r0));
+        r2 = r7 + r0;
+#endif
+        if (proc->timer == r2 + ({ duration + 0x14; }))
         {
             NewEfxFlashBgWhite(anim, 2);
         }
-        else if (proc->timer == duration + 0x52 + r0)
+        else if (proc->timer == r2 + ({ duration + 0x52; }))
         {
             NewEfxFlashBgWhite(anim, 2);
         }
-        else if (proc->timer == duration + 0x5e + r0)
+        else if (proc->timer == r2 + ({ duration + 0x5e; }))
         {
             NewEfxFlashBgWhite(anim, 2);
         }
-        else if (proc->timer == duration + 0x64 + r0)
+        else if (proc->timer == r2 + ({ duration + 0x64; }))
         {
             SpellFx_Finish();
             RegisterEfxSpellCastEnd();
@@ -129,213 +133,6 @@ void efxIvaldi_Loop_Main(struct ProcEfx * proc)
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void efxIvaldi_Loop_Main(struct ProcEfx * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #4\n\
-        adds r6, r0, #0\n\
-        ldr r0, [r6, #0x5c]\n\
-        bl GetAnimAnotherSide\n\
-        adds r5, r0, #0\n\
-        bl EfxGetCamMovDuration\n\
-        adds r4, r0, #0\n\
-        movs r7, #0x3e\n\
-        ldrh r0, [r6, #0x2c]\n\
-        adds r0, #1\n\
-        strh r0, [r6, #0x2c]\n\
-        lsls r0, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        cmp r0, #1\n\
-        bne _0806583E\n\
-        ldr r0, [r6, #0x5c]\n\
-        movs r1, #1\n\
-        negs r1, r1\n\
-        bl NewEfxFarAttackWithDistance\n\
-    _0806583E:\n\
-        movs r0, #0x2c\n\
-        ldrsh r1, [r6, r0]\n\
-        adds r0, r4, #1\n\
-        cmp r1, r0\n\
-        bne _0806584E\n\
-        bl PrepareSomeIvaldiParticleGraphics\n\
-        b _080659A4\n\
-    _0806584E:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0xb\n\
-        cmp r1, r0\n\
-        bne _08065860\n\
-        adds r0, r5, #0\n\
-        movs r1, #0x1a\n\
-        bl StartSpellOBJ_IvaldiSideWash\n\
-        b _080659A4\n\
-    _08065860:\n\
-        adds r3, r4, #0\n\
-        adds r3, #0x14\n\
-        cmp r1, r3\n\
-        bne _08065888\n\
-        ldr r0, _08065884  @ 0x000003D3\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #1\n\
-        ldr r2, [r6, #0x5c]\n\
-        movs r3, #2\n\
-        ldrsh r2, [r2, r3]\n\
-        movs r3, #1\n\
-        bl PlaySFX\n\
-        adds r0, r5, #0\n\
-        bl StartSpellBG_IvaldiBG1\n\
-        b _080659A4\n\
-        .align 2, 0\n\
-    _08065884: .4byte 0x000003D3\n\
-    _08065888:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x49\n\
-        cmp r1, r0\n\
-        bne _080658AC\n\
-        movs r0, #0xf5\n\
-        lsls r0, r0, #2\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #1\n\
-        ldr r2, [r6, #0x5c]\n\
-        movs r3, #2\n\
-        ldrsh r2, [r2, r3]\n\
-        movs r3, #1\n\
-        bl PlaySFX\n\
-        adds r0, r5, #0\n\
-        bl StartSpellBG_IvaldiBG2\n\
-        b _080659A4\n\
-    _080658AC:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x76\n\
-        cmp r1, r0\n\
-        bne _080658BC\n\
-        adds r0, r5, #0\n\
-        bl StartSpellBG_IvaldiBG3\n\
-        b _080659A4\n\
-    _080658BC:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x7c\n\
-        cmp r1, r0\n\
-        bne _080658CE\n\
-        adds r0, r5, #0\n\
-        movs r1, #0x46\n\
-        bl StartSpellOBJ_IvaldiFall\n\
-        b _080659A4\n\
-    _080658CE:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0xc6\n\
-        cmp r1, r0\n\
-        bne _08065902\n\
-        movs r0, #0\n\
-        str r0, [sp]\n\
-        movs r0, #1\n\
-        movs r1, #1\n\
-        movs r2, #0\n\
-        movs r3, #0\n\
-        bl SetBlendTargetA\n\
-        movs r0, #1\n\
-        str r0, [sp]\n\
-        movs r0, #0\n\
-        movs r1, #0\n\
-        movs r2, #1\n\
-        movs r3, #1\n\
-        bl SetBlendTargetB\n\
-        adds r0, r5, #0\n\
-        movs r1, #0x3c\n\
-        movs r2, #0x1e\n\
-        bl StartSubSpell_efxIvaldiWOUT\n\
-        b _080659A4\n\
-    _08065902:\n\
-        adds r0, r7, #0\n\
-        adds r0, #0xc4\n\
-        adds r0, r4, r0\n\
-        cmp r1, r0\n\
-        bne _0806592A\n\
-        adds r0, r5, #0\n\
-        movs r1, #0x78\n\
-        movs r2, #0xa\n\
-        bl StartSpellThing_MagicQuake\n\
-        movs r0, #1\n\
-        movs r1, #0\n\
-        movs r2, #0x10\n\
-        movs r3, #0\n\
-        bl SetSpecialColorEffectsParameters\n\
-        adds r0, r5, #0\n\
-        bl StartSpellBG_IvaldiBG4\n\
-        b _080659A4\n\
-    _0806592A:\n\
-        ldr r2, _0806595C  @ 0x00000107\n\
-        adds r0, r4, r2\n\
-        cmp r1, r0\n\
-        bne _08065960\n\
-        adds r0, r5, #0\n\
-        movs r1, #0x5c\n\
-        bl StartSubSpell_efxIvaldiOBJUprise\n\
-        ldrh r0, [r5, #0x10]\n\
-        movs r1, #9\n\
-        orrs r0, r1\n\
-        strh r0, [r5, #0x10]\n\
-        adds r4, r6, #0\n\
-        adds r4, #0x29\n\
-        ldrb r1, [r4]\n\
-        adds r0, r5, #0\n\
-        bl StartBattleAnimHitEffectsDefault\n\
-        ldrb r0, [r4]\n\
-        cmp r0, #0\n\
-        bne _080659A4\n\
-        adds r0, r5, #0\n\
-        bl EfxPlayHittedSFX\n\
-        b _080659A4\n\
-        .align 2, 0\n\
-    _0806595C: .4byte 0x00000107\n\
-    _08065960:\n\
-        movs r0, #0xc4\n\
-        adds r2, r7, r0\n\
-        adds r0, r2, r3\n\
-        cmp r1, r0\n\
-        beq _08065982\n\
-        movs r3, #0x2c\n\
-        ldrsh r1, [r6, r3]\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x52\n\
-        adds r0, r2, r0\n\
-        cmp r1, r0\n\
-        beq _08065982\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x5e\n\
-        adds r0, r2, r0\n\
-        cmp r1, r0\n\
-        bne _0806598C\n\
-    _08065982:\n\
-        adds r0, r5, #0\n\
-        movs r1, #2\n\
-        bl NewEfxFlashBgWhite\n\
-        b _080659A4\n\
-    _0806598C:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x64\n\
-        adds r0, r2, r0\n\
-        cmp r1, r0\n\
-        bne _080659A4\n\
-        bl SpellFx_Finish\n\
-        bl RegisterEfxSpellCastEnd\n\
-        adds r0, r6, #0\n\
-        bl Proc_Break\n\
-    _080659A4:\n\
-        add sp, #4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 // clang-format off
 
