@@ -492,6 +492,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-aura.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-ereshkigal.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-dancerings.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-ivaldi.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
@@ -711,7 +712,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-aura.o(.data);
         . = ALIGN(4); src/banim-efxmagic-ereshkigal.o(.data);
         . = ALIGN(4); src/banim-efxmagic-dancerings.o(.data);
-        . = ALIGN(4); data/banim-efxmagic-ivaldi.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-ivaldi.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);
         . = ALIGN(4); src/banim-efxhit.o(.data);
         . = ALIGN(4); data/banim-efxhit.o(.data);
