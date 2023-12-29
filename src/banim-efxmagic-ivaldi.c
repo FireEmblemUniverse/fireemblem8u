@@ -1000,19 +1000,18 @@ u32 * const gUnknown_080DE624[2] = {
     gUnknown_0869316C,
 };
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/ln9S6 */
-
 //! FE8U = 0x08066390
 void StartSubSpell_efxIvaldiOBJ2(struct Anim * anim, int terminator, s16 x, s16 y, u8 kind)
 {
-    const u32 * a = gUnknown_080DE624[0];
-    const u32 * b = gUnknown_080DE624[1];
-
-    u32 * scr;
+    const u32 * a[2], * scr;
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
+
+    void * labels[2];
+
+    labels[0] = &&label;
+    a[0] = gUnknown_080DE624[0];
+    a[1] = gUnknown_080DE624[1];
 
     gEfxBgSemaphore++;
 
@@ -1022,15 +1021,16 @@ void StartSubSpell_efxIvaldiOBJ2(struct Anim * anim, int terminator, s16 x, s16 
     proc->timer = 0;
     proc->terminator = terminator;
 
+label:
     switch (kind)
     {
         case 0:
         default:
-            scr = a;
+            scr = a[0];
             break;
 
         case 1:
-            scr = b;
+            scr = a[1];
             break;
     }
 
@@ -1045,97 +1045,6 @@ void StartSubSpell_efxIvaldiOBJ2(struct Anim * anim, int terminator, s16 x, s16 
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void StartSubSpell_efxIvaldiOBJ2(struct Anim * anim, int terminator, s16 x, s16 y, u8 kind)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #8\n\
-        mov r8, r0\n\
-        mov r9, r1\n\
-        ldr r0, [sp, #0x28]\n\
-        lsls r2, r2, #0x10\n\
-        lsrs r2, r2, #0x10\n\
-        str r2, [sp, #4]\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov sl, r3\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r4, r0, #0x18\n\
-        ldr r0, _080663E8  @ gUnknown_080DE624\n\
-        ldr r6, [r0]\n\
-        ldr r7, [r0, #4]\n\
-        ldr r1, _080663EC  @ gEfxBgSemaphore\n\
-        ldr r0, [r1]\n\
-        adds r0, #1\n\
-        str r0, [r1]\n\
-        ldr r0, _080663F0  @ ProcScr_efxIvaldiOBJ2\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r5, r0, #0\n\
-        mov r0, r8\n\
-        bl GetAnimAnotherSide\n\
-        str r0, [r5, #0x5c]\n\
-        movs r0, #0\n\
-        strh r0, [r5, #0x2c]\n\
-        mov r0, r9\n\
-        strh r0, [r5, #0x2e]\n\
-        cmp r4, #0\n\
-        beq _080663E2\n\
-        cmp r4, #1\n\
-        beq _080663F4\n\
-    _080663E2:\n\
-        adds r3, r6, #0\n\
-        b _080663F6\n\
-        .align 2, 0\n\
-    _080663E8: .4byte gUnknown_080DE624\n\
-    _080663EC: .4byte gEfxBgSemaphore\n\
-    _080663F0: .4byte ProcScr_efxIvaldiOBJ2\n\
-    _080663F4:\n\
-        adds r3, r7, #0\n\
-    _080663F6:\n\
-        ldr r0, [r5, #0x5c]\n\
-        str r3, [sp]\n\
-        adds r1, r3, #0\n\
-        adds r2, r3, #0\n\
-        bl EfxCreateFrontAnim\n\
-        str r0, [r5, #0x60]\n\
-        mov r1, sp\n\
-        ldrh r1, [r1, #4]\n\
-        strh r1, [r0, #2]\n\
-        mov r2, sl\n\
-        strh r2, [r0, #4]\n\
-        ldrh r2, [r0, #8]\n\
-        ldr r1, _08066430  @ 0x0000F3FF\n\
-        ands r1, r2\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #3\n\
-        adds r2, r3, #0\n\
-        orrs r1, r2\n\
-        strh r1, [r0, #8]\n\
-        add sp, #8\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08066430: .4byte 0x0000F3FF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x08066434
 void efxIvaldiOBJ2_Loop(struct ProcEfxOBJ * proc)
