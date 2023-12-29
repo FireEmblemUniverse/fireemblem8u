@@ -1,34 +1,10 @@
     .section .rodata
 
-	.asciz "efxIvaldi"
+	.asciz "efxMaohFlash"
 	.align 2, 0
 
-	.asciz "efxIvaldiBG1"
-	.byte 0
-
-	.global gUnknown_080DE4E6
-gUnknown_080DE4E6:  @ 0x080DE4E6
-	.incbin "baserom.gba", 0xDE4E6, 0x40
-
-	.global gUnknown_080DE526
-gUnknown_080DE526:  @ 0x080DE526
-	.incbin "baserom.gba", 0xDE526, 0x2C
-
-	.global gUnknown_080DE552
-gUnknown_080DE552:  @ 0x080DE552
-	.incbin "baserom.gba", 0xDE552, 0x3C
-
-	.global gUnknown_080DE58E
-gUnknown_080DE58E:  @ 0x080DE58E
-	.incbin "baserom.gba", 0xDE58E, 0x56
-
-	.global gUnknown_080DE5E4
-gUnknown_080DE5E4:  @ 0x080DE5E4
-	.incbin "baserom.gba", 0xDE5E4, 0x40
-
-	.global gUnknown_080DE624
-gUnknown_080DE624:  @ 0x080DE624
-	.incbin "baserom.gba", 0xDE624, 0x38
+	.asciz "efxMaohFlashBG1"
+	.align 2, 0
 
 	.global gUnknown_080DE65C
 gUnknown_080DE65C:  @ 0x080DE65C

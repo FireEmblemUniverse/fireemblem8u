@@ -287,22 +287,22 @@ extern struct ProcCmd gProcScr_efxMistyrainOBJ2[];
 // extern ??? ProcScr_efxSuperdruidOBJ2
 // extern ??? ProcScr_efxDancepara
 // extern ??? ProcScr_efxIvaldi
-// extern ??? gUnknown_085D76A0
-// extern ??? gUnknown_085D76B8
-// extern ??? gUnknown_085D76E8
-// extern ??? gUnknown_085D7700
-// extern ??? ProcScr_efxDanceparaBG3
-// extern ??? gUnknown_085D772C
-// extern ??? gUnknown_085D7758
-// extern ??? gUnknown_085D7784
-// extern ??? ProcScr_efxDanceparaBG4
-// extern ??? gUnknown_085D77C8
-// extern ??? ProcScr_efxDanceparaOBJFall
-// extern ??? efxIvaldiOBJSideWash
-// extern ??? ProcScr_efxDanceparaOBJUprise
-// extern ??? ProcScr_efxDanceparaOBJ1
-// extern ??? ProcScr_efxDanceparaOBJ2
-// extern ??? ProcScr_efxDanceparaWOUT
+// extern ??? ProcScr_efxIvaldiBG1
+// extern ??? TsaArray_IvaldiBg1
+// extern ??? ProcScr_efxIvaldiBG2
+// extern ??? TsaArray_IvaldiBg2
+// extern ??? ProcScr_efxIvaldiBG3
+// extern ??? TsaArray_IvaldiBg3
+// extern ??? ImgArray_IvaldiBg3
+// extern ??? PalArray_IvaldiBg3
+// extern ??? ProcScr_efxIvaldiBG4
+// extern ??? TsaArray_IvaldiBg4
+// extern ??? ProcScr_efxIvaldiOBJFall
+// extern ??? ProcScr_efxIvaldiOBJSideWash
+// extern ??? ProcScr_efxIvaldiOBJUprise
+// extern ??? ProcScr_efxIvaldiOBJ1
+// extern ??? ProcScr_efxIvaldiOBJ2
+// extern ??? ProcScr_efxIvaldiWOUT
 
 void StartSpellAnimation(struct Anim * anim);
 // ??? sub_805B3FC(???);
@@ -703,28 +703,28 @@ void StartSpellAnimNinisGrace(struct Anim * anim);
 void StartSpellAnimSetsLitany(struct Anim * anim);
 void efxDancepara_Loop(struct ProcEfx * proc);
 void StartSpellAnimIvaldi(struct Anim * anim);
-// ??? Loop6C_efxIvaldi(???);
-// ??? StartSpellBG_IvaldiBG1(???);
-// ??? Loop6C_efxIvaldiBG1(???);
-// ??? StartSpellBG_IvaldiBG2(???);
-// ??? Loop6C_efxIvaldiBG2(???);
-// ??? StartSpellBG_IvaldiBG3(???);
-// ??? Loop6C_efxIvaldiBG3(???);
-// ??? StartSpellBG_IvaldiBG4(???);
-// ??? sub_8065CA0(???);
-// ??? PrepareSomeIvaldiParticleGraphics(???);
-// ??? StartSpellOBJ_IvaldiFall(???);
-// ??? sub_8065DF8(???);
-// ??? StartSpellOBJ_IvaldiSideWash(???);
-// ??? Loop6C_efxIvaldiOBJSideWash(???);
-// ??? sub_8066060(???);
-// ??? sub_80660B4(???);
-// ??? sub_8066258(???);
-// ??? sub_806635C(???);
-// ??? sub_8066390(???);
-// ??? sub_8066434(???);
-// ??? sub_8066470(???);
-// ??? sub_80664A8(???);
+void efxIvaldi_Loop_Main(struct ProcEfx * proc);
+void StartSpellBG_IvaldiBG1(struct Anim * anim);
+void efxIvaldiBG1_Loop(struct ProcEfxBG * proc);
+void StartSpellBG_IvaldiBG2(struct Anim * anim);
+void efxIvaldiBG2_Loop(struct ProcEfxBG * proc);
+void StartSpellBG_IvaldiBG3(struct Anim * anim);
+void efxIvaldiBG3_Loop(struct ProcEfxBG * proc);
+void StartSpellBG_IvaldiBG4(struct Anim * anim);
+void efxIvaldiBG4_Loop(struct ProcEfxBG * proc);
+void PrepareSomeIvaldiParticleGraphics(void);
+void StartSpellOBJ_IvaldiFall(struct Anim * anim, int terminator);
+void efxIvaldiOBJFall_Loop(struct ProcEfxOBJ * proc);
+void StartSpellOBJ_IvaldiSideWash(struct Anim * anim, int terminator);
+void efxIvaldiOBJSideWash_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxIvaldiOBJUprise(struct Anim * anim, int terminator);
+void efxIvaldiOBJUprise_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxIvaldiOBJ1(struct Anim * anim, int terminator, s16 x, s16 y, u8 kind);
+void efxIvaldiOBJ1_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxIvaldiOBJ2(struct Anim * anim, int terminator, s16 x, s16 y, u8 kind);
+void efxIvaldiOBJ2_Loop(struct ProcEfxOBJ * proc);
+void StartSubSpell_efxIvaldiWOUT(struct Anim * anim, int duration, int terminator);
+void efxIvaldiWOUT_Loop(struct ProcEfxOBJ * proc);
 void sub_8066514(struct Anim * anim);
 // ??? sub_8066550(???);
 // ??? sub_80666D0(???);
