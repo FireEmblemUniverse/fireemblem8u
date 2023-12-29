@@ -29650,12 +29650,12 @@ gUnknown_08692674:  @ 0x08692674
     .4byte 0x84000013
     .4byte 0x80000000
 
-	.global gUnknown_086926E0
-gUnknown_086926E0:  @ 0x086926E0
+	.global Pal_IvaldiSprites
+Pal_IvaldiSprites:  @ 0x086926E0
 	.incbin "baserom.gba", 0x6926E0, 0x430
 
-	.global gUnknown_08692B10
-gUnknown_08692B10:  @ 0x08692B10
+	.global Img_IvaldiSprites
+Img_IvaldiSprites:  @ 0x08692B10
 	.incbin "baserom.gba", 0x692B10, 0x56C    @ 0x69307C - 0x692B10
 
 	.global gUnknown_0869307C
@@ -29698,12 +29698,12 @@ gUnknown_0869371C:  @ 0x0869371C
 gUnknown_08693760:  @ 0x08693760
 	.incbin "baserom.gba", 0x693760, 0x60    @ 0x6937C0 - 0x693760
 
-	.global gUnknown_086937C0
-gUnknown_086937C0:  @ 0x086937C0
+	.global Img_IvaldiBg1
+Img_IvaldiBg1:  @ 0x086937C0
 	.incbin "baserom.gba", 0x6937C0, 0xE04
 
-	.global gUnknown_086945C4
-gUnknown_086945C4:  @ 0x086945C4
+	.global Pal_IvaldiBg1
+Pal_IvaldiBg1:  @ 0x086945C4
 	.incbin "baserom.gba", 0x6945C4, 0x20    @ 0x6945E4 - 0x6945C4
 
 	.global Tsa_086945E4
@@ -29754,12 +29754,12 @@ Tsa_086958F0:  @ 0x086958F0
 Tsa_08695A34:  @ 0x08695A34
 	.incbin "baserom.gba", 0x695A34, 0xDC    @ 0x695B10 - 0x695A34
 
-	.global gUnknown_08695B10
-gUnknown_08695B10:  @ 0x08695B10
+	.global Img_IvaldiBg2
+Img_IvaldiBg2:  @ 0x08695B10
 	.incbin "baserom.gba", 0x695B10, 0xD30
 
-	.global gUnknown_08696840
-gUnknown_08696840:  @ 0x08696840
+	.global Pal_IvaldiBg2
+Pal_IvaldiBg2:  @ 0x08696840
 	.incbin "baserom.gba", 0x696840, 0x20    @ 0x696860 - 0x696840
 
 	.global Tsa_08696860
@@ -29914,12 +29914,12 @@ Tsa_086A00B0:  @ 0x086A00B0
 Tsa_086A0388:  @ 0x086A0388
 	.incbin "baserom.gba", 0x6A0388, 0x320    @ 0x6A06A8 - 0x6A0388
 
-	.global gUnknown_086A06A8
-gUnknown_086A06A8:  @ 0x086A06A8
+	.global Img_IvaldiBg4
+Img_IvaldiBg4:  @ 0x086A06A8
 	.incbin "baserom.gba", 0x6A06A8, 0x1638
 
-	.global gUnknown_086A1CE0
-gUnknown_086A1CE0:  @ 0x086A1CE0
+	.global Pal_IvaldiBg4
+Pal_IvaldiBg4:  @ 0x086A1CE0
 	.incbin "baserom.gba", 0x6A1CE0, 0x20    @ 0x6A1D00 - 0x6A1CE0
 
 	.global Tsa_086A1D00
