@@ -203,7 +203,7 @@ SECTIONS
         src/banim-efxmagic-aura.o(.text);
         src/banim-efxmagic-ereshkigal.o(.text);
         src/banim-efxmagic-dancerings.o(.text);
-        asm/banim-efxmagic-ivaldi.o(.text);
+        src/banim-efxmagic-ivaldi.o(.text);
         asm/banim-efxmagic-66514.o(.text);
         src/banim-efxhit.o(.text);
         src/banim-efxmisc.o(.text);

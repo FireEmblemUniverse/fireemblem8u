@@ -39,7 +39,9 @@ struct ProcEfxBG {
     /* 30 */ s16 unk30;
     /* 32 */ s16 unk32;
     /* 34 */ s16 unk34;
-    STRUCT_PAD(0x36, 0x44);
+    STRUCT_PAD(0x36, 0x3C);
+    /* 3C */ s16 unk3C;
+    STRUCT_PAD(0x3E, 0x44);
     /* 44 */ u32 frame;
     /* 48 */ const u16 * frame_config;
     /* 4C */ u16 ** tsal;
