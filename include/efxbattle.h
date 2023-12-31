@@ -58,7 +58,8 @@ struct ProcEfxBGCOL {
     /* 2C */ s16 timer;
     /* 2E */ s16 timer2;
     /* 30 */ s16 terminator;
-    STRUCT_PAD(0x32, 0x44);
+    /* 32 */ s16 unk32;
+    STRUCT_PAD(0x34, 0x44);
     /* 44 */ u32 frame;
     /* 48 */ const u16 * frame_config;
     /* 4C */ void * pal;
