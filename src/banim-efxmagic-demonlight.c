@@ -14,14 +14,14 @@
 struct ProcCmd CONST_DATA ProcScr_efxMaohFlash[] =
 {
     PROC_NAME("efxMaohFlash"),
-    PROC_REPEAT(sub_8066550),
+    PROC_REPEAT(efxMaohFlash_Loop_Main),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08066514
-void sub_8066514(struct Anim * anim)
+void StartSpellAnimDemonLight(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -38,7 +38,7 @@ void sub_8066514(struct Anim * anim)
 }
 
 //! FE8U = 0x08066550
-void sub_8066550(struct ProcEfx * proc)
+void efxMaohFlash_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -55,7 +55,7 @@ void sub_8066550(struct ProcEfx * proc)
             NewEfxRestWINH_(anim, 166, 1);
             NewEfxTwobaiRST(anim, 166);
 
-            sub_80666D0(anim);
+            StartSubSpell_efxMaohFlashBG1(anim);
             PlaySFX(0x3B2, 0x100, anim->xPosition, 1);
             break;
         }
@@ -69,8 +69,8 @@ void sub_8066550(struct ProcEfx * proc)
         case 255:
         {
             sub_8066C98();
-            sub_8066CB8(anim, 10, 173, 44);
-            sub_8066DB0(anim, 10, 159, 48);
+            StartSubSpell_efxMaohFlashEyeROBJ2(anim, 10, 173, 44);
+            StartSubSpell_efxMaohFlashEyeLOBJ2(anim, 10, 159, 48);
             break;
         }
 
@@ -78,7 +78,7 @@ void sub_8066550(struct ProcEfx * proc)
         {
             NewEfxRestWINH_(anim, 34, 1);
             NewEfxTwobaiRST(anim, 34);
-            sub_8066A0C(anim);
+            StartSubSpell_efxMaohFlashBG4(anim);
             break;
         }
 
@@ -100,9 +100,9 @@ void sub_8066550(struct ProcEfx * proc)
         {
             EfxPlayHittedSFX(anim);
             StartSpellThing_MagicQuake(anim, 120, 10);
-            sub_80667E0(anim);
-            sub_8066BD4(anim);
-            sub_80671F4(anim, 74);
+            StartSubSpell_efxMaohFlashBG2(anim);
+            StartSubSpell_efxMaohFlashBGCOL(anim);
+            StartSubSpell_efxMaohFlashThunderOBJ(anim, 74);
             PlaySFX(0x3B3, 0x100, anim->xPosition, 1);
         }
         else
@@ -127,11 +127,11 @@ void sub_8066550(struct ProcEfx * proc)
 struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG1[] =
 {
     PROC_NAME("efxMaohFlashBG1"),
-    PROC_REPEAT(sub_8066758),
+    PROC_REPEAT(efxMaohFlashBG1_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D788C[] =
+u16 * CONST_DATA TsaArray_DemonLightBg1_Close[] =
 {
     Tsa_087B2430,
     Tsa_087B26A4,
@@ -167,7 +167,7 @@ u16 * CONST_DATA gUnknown_085D788C[] =
     Tsa_087C5034,
 };
 
-u16 * CONST_DATA gUnknown_085D790C[] =
+u16 * CONST_DATA ImgArray_DemonLightBg1_Close[] =
 {
     Img_087A73F4,
     Img_087A7F38,
@@ -203,7 +203,7 @@ u16 * CONST_DATA gUnknown_085D790C[] =
     Img_087C2308,
 };
 
-u16 * CONST_DATA gUnknown_085D798C[] =
+u16 * CONST_DATA PalArray_DemonLightBg1_Close[] =
 {
     Pal_087B2230,
     Pal_087B2250,
@@ -239,7 +239,7 @@ u16 * CONST_DATA gUnknown_085D798C[] =
     Pal_087C2F14,
 };
 
-u16 * CONST_DATA gUnknown_085D7A0C[] =
+u16 * CONST_DATA TsaArray_DemonLightBg1_Far[] =
 {
     Tsa_087D7BE8,
     Tsa_087D7E5C,
@@ -275,7 +275,7 @@ u16 * CONST_DATA gUnknown_085D7A0C[] =
     Tsa_087EA5D0,
 };
 
-u16 * CONST_DATA gUnknown_085D7A8C[] =
+u16 * CONST_DATA ImgArray_DemonLightBg1_Far[] =
 {
     Img_087CCBF8,
     Img_087CD738,
@@ -311,7 +311,7 @@ u16 * CONST_DATA gUnknown_085D7A8C[] =
     Img_087E78A0,
 };
 
-u16 * CONST_DATA gUnknown_085D7B0C[] =
+u16 * CONST_DATA PalArray_DemonLightBg1_Far[] =
 {
     Pal_087D79E8,
     Pal_087D7A08,
@@ -350,10 +350,10 @@ u16 * CONST_DATA gUnknown_085D7B0C[] =
 // clang-format on
 
 //! FE8U = 0x080666D0
-void sub_80666D0(struct Anim * anim)
+void StartSubSpell_efxMaohFlashBG1(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE65C[] =
+    static const u16 frames[] =
     {
         0, 4,
         1, 4,
@@ -400,21 +400,21 @@ void sub_80666D0(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE65C;
+    proc->frame_config = frames;
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        proc->tsal = gUnknown_085D7A0C;
-        proc->tsar = gUnknown_085D7A0C;
-        proc->img = gUnknown_085D7A8C;
-        proc->pal = gUnknown_085D7B0C;
+        proc->tsal = TsaArray_DemonLightBg1_Far;
+        proc->tsar = TsaArray_DemonLightBg1_Far;
+        proc->img = ImgArray_DemonLightBg1_Far;
+        proc->pal = PalArray_DemonLightBg1_Far;
     }
     else
     {
-        proc->tsal = gUnknown_085D788C;
-        proc->tsar = gUnknown_085D788C;
-        proc->img = gUnknown_085D790C;
-        proc->pal = gUnknown_085D798C;
+        proc->tsal = TsaArray_DemonLightBg1_Close;
+        proc->tsar = TsaArray_DemonLightBg1_Close;
+        proc->img = ImgArray_DemonLightBg1_Close;
+        proc->pal = PalArray_DemonLightBg1_Close;
     }
 
     BG_SetPosition(BG_1, 0, 0);
@@ -424,7 +424,7 @@ void sub_80666D0(struct Anim * anim)
 }
 
 //! FE8U = 0x08066758
-void sub_8066758(struct ProcEfxBG * proc)
+void efxMaohFlashBG1_Loop(struct ProcEfxBG * proc)
 {
     s16 ret;
 
@@ -464,38 +464,38 @@ void sub_8066758(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG2[] =
 {
     PROC_NAME("efxMaohFlashBG2"),
-    PROC_REPEAT(sub_806683C),
+    PROC_REPEAT(efxMaohFlashBG2_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D7BA4[] =
+u16 * CONST_DATA TsaArray_DemonLightBg2[] =
 {
     Tsa_087F3C74,
     Tsa_087F3D60,
     Tsa_087F3E88,
 };
 
-u16 * CONST_DATA gUnknown_085D7BB0[] =
+u16 * CONST_DATA ImgArray_DemonLightBg2[] =
 {
     Img_087F1C94,
     Img_087F2464,
     Img_087F2E40,
 };
 
-u16 * CONST_DATA gUnknown_085D7BBC[] =
+u16 * CONST_DATA PalArray_DemonLightBg2[] =
 {
     Pal_087F3C14,
     Pal_087F3C34,
-    gUnknown_087F3C54,
+    Pal_087F3C54,
 };
 
 // clang-format on
 
 //! FE8U = 0x080667E0
-void sub_80667E0(struct Anim * anim)
+void StartSubSpell_efxMaohFlashBG2(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE6F0[] =
+    static const u16 frames[] =
     {
         0, 2,
         1, 2,
@@ -513,12 +513,12 @@ void sub_80667E0(struct Anim * anim)
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE6F0;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D7BA4;
-    proc->tsar = gUnknown_085D7BA4;
-    proc->img = gUnknown_085D7BB0;
-    proc->pal = gUnknown_085D7BBC;
+    proc->tsal = TsaArray_DemonLightBg2;
+    proc->tsar = TsaArray_DemonLightBg2;
+    proc->img = ImgArray_DemonLightBg2;
+    proc->pal = PalArray_DemonLightBg2;
 
     BG_SetPosition(BG_1, 0, 0);
     SpellFx_SetSomeColorEffect();
@@ -527,7 +527,7 @@ void sub_80667E0(struct Anim * anim)
 }
 
 //! FE8U = 0x0806683C
-void sub_806683C(struct ProcEfxBG * proc)
+void efxMaohFlashBG2_Loop(struct ProcEfxBG * proc)
 {
     s16 ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -585,14 +585,14 @@ void sub_80668DC(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG1BG3[] =
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG3[] =
 {
     PROC_NAME("efxMaohFlashBG3"),
-    PROC_REPEAT(sub_806699C),
+    PROC_REPEAT(efxMaohFlashBG3_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D7BE0[] =
+u16 * CONST_DATA TsaArray_DemonLightBg3_Close[] =
 {
     Tsa_087CC5FC,
     Tsa_087CC734,
@@ -601,7 +601,7 @@ u16 * CONST_DATA gUnknown_085D7BE0[] =
     Tsa_087CCAD8,
 };
 
-u16 * CONST_DATA gUnknown_085D7BF4[] =
+u16 * CONST_DATA ImgArray_DemonLightBg3_Close[] =
 {
     Img_087C9F18,
     Img_087CA68C,
@@ -610,7 +610,7 @@ u16 * CONST_DATA gUnknown_085D7BF4[] =
     Img_087CBDF4,
 };
 
-u16 * CONST_DATA gUnknown_085D7C08[] =
+u16 * CONST_DATA PalArray_DemonLightBg3_Close[] =
 {
     Pal_087CC55C,
     Pal_087CC57C,
@@ -619,7 +619,7 @@ u16 * CONST_DATA gUnknown_085D7C08[] =
     Pal_087CC5DC,
 };
 
-u16 * CONST_DATA gUnknown_085D7C1C[] =
+u16 * CONST_DATA TsaArray_DemonLightBg3_Far[] =
 {
     Tsa_087F16A0,
     Tsa_087F17D8,
@@ -628,7 +628,7 @@ u16 * CONST_DATA gUnknown_085D7C1C[] =
     Tsa_087F1B74,
 };
 
-u16 * CONST_DATA gUnknown_085D7C30[] =
+u16 * CONST_DATA ImgArray_DemonLightBg3_Far[] =
 {
     Img_087EEFBC,
     Img_087EF730,
@@ -637,7 +637,7 @@ u16 * CONST_DATA gUnknown_085D7C30[] =
     Img_087F0E98,
 };
 
-u16 * CONST_DATA gUnknown_085D7C44[] =
+u16 * CONST_DATA PalArray_DemonLightBg3_Far[] =
 {
     Pal_087F1600,
     Pal_087F1620,
@@ -652,7 +652,7 @@ u16 * CONST_DATA gUnknown_085D7C44[] =
 void sub_8066914(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE710[] =
+    static const u16 frames[] =
     {
         0, 6,
         1, 6,
@@ -671,26 +671,26 @@ void sub_8066914(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(ProcScr_efxMaohFlashBG1BG3, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxMaohFlashBG3, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE710;
+    proc->frame_config = frames;
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        proc->tsal = gUnknown_085D7C1C;
-        proc->tsar = gUnknown_085D7C1C;
-        proc->img = gUnknown_085D7C30;
-        proc->pal = gUnknown_085D7C44;
+        proc->tsal = TsaArray_DemonLightBg3_Far;
+        proc->tsar = TsaArray_DemonLightBg3_Far;
+        proc->img = ImgArray_DemonLightBg3_Far;
+        proc->pal = PalArray_DemonLightBg3_Far;
     }
     else
     {
-        proc->tsal = gUnknown_085D7BE0;
-        proc->tsar = gUnknown_085D7BE0;
-        proc->img = gUnknown_085D7BF4;
-        proc->pal = gUnknown_085D7C08;
+        proc->tsal = TsaArray_DemonLightBg3_Close;
+        proc->tsar = TsaArray_DemonLightBg3_Close;
+        proc->img = ImgArray_DemonLightBg3_Close;
+        proc->pal = PalArray_DemonLightBg3_Close;
     }
 
     BG_SetPosition(BG_1, 0, 0);
@@ -700,7 +700,7 @@ void sub_8066914(struct Anim * anim)
 }
 
 //! FE8U = 0x0806699C
-void sub_806699C(struct ProcEfxBG * proc)
+void efxMaohFlashBG3_Loop(struct ProcEfxBG * proc)
 {
     s16 ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -734,11 +734,11 @@ void sub_806699C(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG4[] =
 {
     PROC_NAME("efxMaohFlashBG4"),
-    PROC_REPEAT(sub_8066A94),
+    PROC_REPEAT(efxMaohFlashBG4_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D7C70[] = {
+u16 * CONST_DATA TsaArray_DemonLightBg4_Close[] = {
     Tsa_087C9390,
     Tsa_087C9464,
     Tsa_087C9600,
@@ -749,7 +749,7 @@ u16 * CONST_DATA gUnknown_085D7C70[] = {
     Tsa_087C9E04,
 };
 
-u16 * CONST_DATA gUnknown_085D7C90[] =
+u16 * CONST_DATA ImgArray_DemonLightBg4_Close[] =
 {
     Img_087C5190,
     Img_087C56E4,
@@ -761,7 +761,7 @@ u16 * CONST_DATA gUnknown_085D7C90[] =
     Img_087C8C80,
 };
 
-u16 * CONST_DATA gUnknown_085D7CB0[] =
+u16 * CONST_DATA PalArray_DemonLightBg4_Close[] =
 {
     Pal_087C9290,
     Pal_087C92B0,
@@ -773,7 +773,7 @@ u16 * CONST_DATA gUnknown_085D7CB0[] =
     Pal_087C9370,
 };
 
-u16 * CONST_DATA gUnknown_085D7CD0[] =
+u16 * CONST_DATA TsaArray_DemonLightBg4_Far[] =
 {
     Tsa_087EE4A0,
     Tsa_087EE578,
@@ -785,7 +785,7 @@ u16 * CONST_DATA gUnknown_085D7CD0[] =
     Tsa_087EEEB0,
 };
 
-u16 * CONST_DATA gUnknown_085D7CF0[] =
+u16 * CONST_DATA ImgArray_DemonLightBg4_Far[] =
 {
     Img_087EA72C,
     Img_087EAC80,
@@ -797,7 +797,7 @@ u16 * CONST_DATA gUnknown_085D7CF0[] =
     Img_087EDDC0,
 };
 
-u16 * CONST_DATA gUnknown_085D7D10[] =
+u16 * CONST_DATA PalArray_DemonLightBg4_Far[] =
 {
     Pal_087EE3A0,
     Pal_087EE3C0,
@@ -812,10 +812,10 @@ u16 * CONST_DATA gUnknown_085D7D10[] =
 // clang-format on
 
 //! FE8U = 0x08066A0C
-void sub_8066A0C(struct Anim * anim)
+void StartSubSpell_efxMaohFlashBG4(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE748[] =
+    static const u16 frames[] =
     {
         0, 2,
         1, 2,
@@ -838,21 +838,21 @@ void sub_8066A0C(struct Anim * anim)
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE748;
+    proc->frame_config = frames;
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        proc->tsal = gUnknown_085D7CD0;
-        proc->tsar = gUnknown_085D7CD0;
-        proc->img = gUnknown_085D7CF0;
-        proc->pal = gUnknown_085D7D10;
+        proc->tsal = TsaArray_DemonLightBg4_Far;
+        proc->tsar = TsaArray_DemonLightBg4_Far;
+        proc->img = ImgArray_DemonLightBg4_Far;
+        proc->pal = PalArray_DemonLightBg4_Far;
     }
     else
     {
-        proc->tsal = gUnknown_085D7C70;
-        proc->tsar = gUnknown_085D7C70;
-        proc->img = gUnknown_085D7C90;
-        proc->pal = gUnknown_085D7CB0;
+        proc->tsal = TsaArray_DemonLightBg4_Close;
+        proc->tsar = TsaArray_DemonLightBg4_Close;
+        proc->img = ImgArray_DemonLightBg4_Close;
+        proc->pal = PalArray_DemonLightBg4_Close;
     }
 
     BG_SetPosition(BG_1, 0, 0);
@@ -862,7 +862,7 @@ void sub_8066A0C(struct Anim * anim)
 }
 
 //! FE8U = 0x08066A94
-void sub_8066A94(struct ProcEfxBG * proc)
+void efxMaohFlashBG4_Loop(struct ProcEfxBG * proc)
 {
     s16 ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -899,10 +899,10 @@ struct ProcCmd CONST_DATA ProcScr_efxMaohFlashWOUT[] =
 {
     PROC_NAME("efxMaohFlashWOUT"),
 
-    PROC_REPEAT(sub_8066B40),
+    PROC_REPEAT(efxMaohFlashWOUT_Loop_A),
     PROC_SLEEP(32),
 
-    PROC_REPEAT(sub_8066BBC),
+    PROC_REPEAT(efxMaohFlashWOUT_Loop_B),
 
     PROC_END,
 };
@@ -910,7 +910,7 @@ struct ProcCmd CONST_DATA ProcScr_efxMaohFlashWOUT[] =
 // clang-format on
 
 //! FE8U = 0x08066B14
-void sub_8066B14(struct Anim * anim, int unused, int terminator)
+void StartSubSpell_efxMaohFlashWOUT(struct Anim * anim, int unused, int terminator)
 {
     struct ProcEfxOBJ * proc;
 
@@ -925,7 +925,7 @@ void sub_8066B14(struct Anim * anim, int unused, int terminator)
 }
 
 //! FE8U = 0x08066B40
-void sub_8066B40(struct ProcEfxOBJ * proc)
+void efxMaohFlashWOUT_Loop_A(struct ProcEfxOBJ * proc)
 {
     int val = Interpolate(INTERPOLATE_LINEAR, 0, 16, proc->timer, proc->terminator);
 
@@ -947,7 +947,7 @@ void sub_8066B40(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x08066BBC
-void sub_8066BBC(struct ProcEfxOBJ * proc)
+void efxMaohFlashWOUT_Loop_B(struct ProcEfxOBJ * proc)
 {
     gEfxBgSemaphore--;
     Proc_Break(proc);
@@ -960,17 +960,17 @@ struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBGCOL[] =
 {
     PROC_NAME("efxMaohFlashBGCOL"),
     PROC_SLEEP(4),
-    PROC_REPEAT(sub_8066C1C),
+    PROC_REPEAT(efxMaohFlashBGCOL_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08066BD4
-void sub_8066BD4(struct Anim * anim)
+void StartSubSpell_efxMaohFlashBGCOL(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE792[] =
+    static const u16 frames[] =
     {
         0, 1,
         1, 1,
@@ -1048,16 +1048,16 @@ void sub_8066BD4(struct Anim * anim)
     proc->unk32 = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE792;
+    proc->frame_config = frames;
 
-    proc->pal = gUnknown_087F3C54;
+    proc->pal = Pal_087F3C54;
     SpellFx_RegisterBgPal(gUnknown_08603B50, PLTT_SIZE_4BPP);
 
     return;
 }
 
 //! FE8U = 0x08066C1C
-void sub_8066C1C(struct ProcEfxBGCOL * proc)
+void efxMaohFlashBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     u16 palBuffer[0x10];
 
@@ -1065,7 +1065,7 @@ void sub_8066C1C(struct ProcEfxBGCOL * proc)
 
     if (ret >= 0)
     {
-        CopyPalWithFade(gUnknown_087F3C54, palBuffer, ret - 4);
+        CopyPalWithFade(Pal_087F3C54, palBuffer, ret - 4);
         SpellFx_RegisterBgPal(palBuffer, PLTT_SIZE_4BPP);
     }
     else
@@ -1105,8 +1105,8 @@ int sub_8066C74(int pos)
 //! FE8U = 0x08066C98
 void sub_8066C98(void)
 {
-    SpellFx_RegisterObjPal(gUnknown_087A574C, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_087A5390, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_DemonLightSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_DemonLightSprites, 32 * 4 * CHR_SIZE);
     return;
 }
 
@@ -1115,14 +1115,14 @@ void sub_8066C98(void)
 struct ProcCmd CONST_DATA ProcScr_efxMaohFlashEyeROBJ2[] =
 {
     PROC_NAME("efxMaohFlashEyeROBJ2"),
-    PROC_REPEAT(sub_8066D7C),
+    PROC_REPEAT(efxMaohFlashEyeROBJ2_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08066CB8
-void sub_8066CB8(struct Anim * anim, int terminator, s16 x, s16 y)
+void StartSubSpell_efxMaohFlashEyeROBJ2(struct Anim * anim, int terminator, s16 x, s16 y)
 {
     register int a asm("r0");
     u8 pos;
@@ -1174,7 +1174,7 @@ void sub_8066CB8(struct Anim * anim, int terminator, s16 x, s16 y)
 }
 
 //! FE8U = 0x08066D7C
-void sub_8066D7C(struct ProcEfxOBJ * proc)
+void efxMaohFlashEyeROBJ2_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -1193,14 +1193,14 @@ void sub_8066D7C(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxMaohFlashEyeLOBJ2[] =
 {
     PROC_NAME("efxMaohFlashEyeLOBJ2"),
-    PROC_REPEAT(sub_8066E74),
+    PROC_REPEAT(efxMaohFlashEyeLOBJ2_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08066DB0
-void sub_8066DB0(struct Anim * anim, int terminator, s16 x, s16 y)
+void StartSubSpell_efxMaohFlashEyeLOBJ2(struct Anim * anim, int terminator, s16 x, s16 y)
 {
     register int a asm("r0");
     u8 pos;
@@ -1252,7 +1252,7 @@ void sub_8066DB0(struct Anim * anim, int terminator, s16 x, s16 y)
 }
 
 //! FE8U = 0x08066E74
-void sub_8066E74(struct ProcEfxOBJ * proc)
+void efxMaohFlashEyeLOBJ2_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -1269,8 +1269,8 @@ void sub_8066E74(struct ProcEfxOBJ * proc)
 //! FE8U = 0x08066EA8
 void sub_8066EA8(void)
 {
-    SpellFx_RegisterObjPal(gUnknown_087A5118, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_087A4EEC, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_DemonLightSprites_EyeFlash, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_DemonLightSprites_EyeFlash, 32 * 4 * CHR_SIZE);
     return;
 }
 
@@ -1279,14 +1279,14 @@ void sub_8066EA8(void)
 struct ProcCmd CONST_DATA ProcScr_efxMaohFlashEyeOBJ1[] =
 {
     PROC_NAME("efxMaohFlashEyeOBJ1"),
-    PROC_REPEAT(sub_8066F90),
+    PROC_REPEAT(efxMaohFlashEyeOBJ1_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08066EC8
-void sub_8066EC8(struct Anim * anim, int terminator, s16 x, s16 y)
+void StartSubSpell_efxMaohFlashEyeOBJ1(struct Anim * anim, int terminator, s16 x, s16 y)
 {
     register int a asm("r0");
     u8 pos;
@@ -1338,7 +1338,7 @@ void sub_8066EC8(struct Anim * anim, int terminator, s16 x, s16 y)
 }
 
 //! FE8U = 0x08066F90
-void sub_8066F90(struct ProcEfxOBJ * proc)
+void efxMaohFlashEyeOBJ1_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -1354,17 +1354,17 @@ void sub_8066F90(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG1EyeFire1OBJ1[] =
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashEyeFire1OBJ1[] =
 {
     PROC_NAME("efxMaohFlashEyeFire1OBJ1"),
-    PROC_REPEAT(sub_80670A8),
+    PROC_REPEAT(efxMaohFlashEyeFire1OBJ1_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08066FC4
-void sub_8066FC4(struct Anim * anim, int terminator, s16 x, s16 y)
+void StartSubSpell_efxMaohFlashEyeFire1OBJ1(struct Anim * anim, int terminator, s16 x, s16 y)
 {
     register int a asm("r0");
     u8 pos;
@@ -1385,7 +1385,7 @@ void sub_8066FC4(struct Anim * anim, int terminator, s16 x, s16 y)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(ProcScr_efxMaohFlashBG1EyeFire1OBJ1, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxMaohFlashEyeFire1OBJ1, PROC_TREE_3);
     proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
@@ -1412,14 +1412,14 @@ void sub_8066FC4(struct Anim * anim, int terminator, s16 x, s16 y)
     frontAnim->oam2Base &= ~OAM2_LAYER(3);
     frontAnim->oam2Base |= OAM2_LAYER(1);
 
-    SpellFx_RegisterObjPal(gUnknown_087A61EC, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_087A5BA4, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_DemonLightSprites_087A61EC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_DemonLightSprites_087A5BA4, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x080670A8
-void sub_80670A8(struct ProcEfxOBJ * proc)
+void efxMaohFlashEyeFire1OBJ1_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -1435,17 +1435,17 @@ void sub_80670A8(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7DD8[] =
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashEyeFire2OBJ1[] =
 {
     PROC_NAME("efxMaohFlashEyeFire2OBJ1"),
-    PROC_REPEAT(sub_80671C0),
+    PROC_REPEAT(efxMaohFlashEyeFire2OBJ1_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080670DC
-void sub_80670DC(struct Anim * anim, int terminator, s16 x, s16 y)
+void StartSubSpell_efxMaohFlashEyeFire2OBJ1(struct Anim * anim, int terminator, s16 x, s16 y)
 {
     register int a asm("r0");
     u8 pos;
@@ -1466,7 +1466,7 @@ void sub_80670DC(struct Anim * anim, int terminator, s16 x, s16 y)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D7DD8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxMaohFlashEyeFire2OBJ1, PROC_TREE_3);
     proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
@@ -1493,14 +1493,14 @@ void sub_80670DC(struct Anim * anim, int terminator, s16 x, s16 y)
     frontAnim->oam2Base &= ~OAM2_LAYER(3);
     frontAnim->oam2Base |= OAM2_LAYER(1);
 
-    SpellFx_RegisterObjPal(gUnknown_087A61EC, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_087A5E9C, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_DemonLightSprites_087A61EC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_DemonLightSprites_087A5E9C, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x080671C0
-void sub_80671C0(struct ProcEfxOBJ * proc)
+void efxMaohFlashEyeFire2OBJ1_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -1516,35 +1516,35 @@ void sub_80671C0(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7DF0[] =
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashThunderOBJ[] =
 {
     PROC_NAME("efxMaohFlashThunderOBJ"),
-    PROC_REPEAT(sub_8067244),
+    PROC_REPEAT(efxMaohFlashThunderOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080671F4
-void sub_80671F4(struct Anim * anim, int terminator)
+void StartSubSpell_efxMaohFlashThunderOBJ(struct Anim * anim, int terminator)
 {
     struct ProcEfxOBJ * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D7DF0, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxMaohFlashThunderOBJ, PROC_TREE_3);
     proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
 
-    SpellFx_RegisterObjPal(gUnknown_087A574C, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_087A5390, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_DemonLightSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_DemonLightSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x08067244
-void sub_8067244(struct ProcEfxOBJ * proc)
+void efxMaohFlashThunderOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     u8 pos = GetAnimPosition(proc->anim);
     s16 xBase = sub_8066C74(pos);
@@ -1561,7 +1561,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 184;
         }
-        sub_8067400(proc->anim, 10, xBase, 110);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 110);
     }
     else if (proc->timer == 10)
     {
@@ -1573,7 +1573,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 208;
         }
-        sub_8067400(proc->anim, 10, xBase, 108);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 108);
     }
     else if (proc->timer == 14)
     {
@@ -1585,7 +1585,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 226;
         }
-        sub_8067400(proc->anim, 10, xBase, 104);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 104);
     }
     else if (proc->timer == 24)
     {
@@ -1597,7 +1597,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 142;
         }
-        sub_8067400(proc->anim, 10, xBase, 98);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 98);
     }
     else if (proc->timer == 34)
     {
@@ -1609,7 +1609,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 192;
         }
-        sub_8067400(proc->anim, 10, xBase, 110);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 110);
     }
     else if (proc->timer == 44)
     {
@@ -1621,7 +1621,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 216;
         }
-        sub_8067400(proc->anim, 10, xBase, 108);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 108);
     }
     else if (proc->timer == 48)
     {
@@ -1633,7 +1633,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 234;
         }
-        sub_8067400(proc->anim, 10, xBase, 104);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 104);
     }
     else if (proc->timer == 52)
     {
@@ -1645,7 +1645,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 134;
         }
-        sub_8067400(proc->anim, 10, xBase, 98);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 98);
     }
     else if (proc->timer == 56)
     {
@@ -1657,7 +1657,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 152;
         }
-        sub_8067400(proc->anim, 10, xBase, 110);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 110);
     }
     else if (proc->timer == 60)
     {
@@ -1669,7 +1669,7 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 224;
         }
-        sub_8067400(proc->anim, 10, xBase, 108);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 108);
     }
     else if (proc->timer == 64)
     {
@@ -1681,11 +1681,11 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         {
             xBase += 242;
         }
-        sub_8067400(proc->anim, 10, xBase, 104);
+        StartSubSpell_efxMaohFlashThunderOBJ2(proc->anim, 10, xBase, 104);
     }
     else if (proc->timer == proc->terminator)
     {
-        sub_8066B14(((struct ProcEfx *)(proc->proc_parent))->anim, 90, 45);
+        StartSubSpell_efxMaohFlashWOUT(((struct ProcEfx *)(proc->proc_parent))->anim, 90, 45);
         gEfxBgSemaphore--;
         Proc_Break(proc);
     }
@@ -1695,17 +1695,17 @@ void sub_8067244(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7E08[] =
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashThunderOBJ2[] =
 {
     PROC_NAME("efxMaohFlashThunderOBJ2"),
-    PROC_REPEAT(sub_80674A0),
+    PROC_REPEAT(efxMaohFlashThunderOBJ2_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08067400
-void sub_8067400(struct Anim * anim, int terminator, s16 x, s16 y)
+void StartSubSpell_efxMaohFlashThunderOBJ2(struct Anim * anim, int terminator, s16 x, s16 y)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -1713,7 +1713,7 @@ void sub_8067400(struct Anim * anim, int terminator, s16 x, s16 y)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D7E08, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxMaohFlashThunderOBJ2, PROC_TREE_3);
     proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
@@ -1730,14 +1730,14 @@ void sub_8067400(struct Anim * anim, int terminator, s16 x, s16 y)
     frontAnim->oam2Base &= ~OAM2_LAYER(3);
     frontAnim->oam2Base |= OAM2_LAYER(1);
 
-    SpellFx_RegisterObjPal(gUnknown_087A574C, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_087A5390, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_DemonLightSprites, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_DemonLightSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x080674A0
-void sub_80674A0(struct ProcEfxOBJ * proc)
+void efxMaohFlashThunderOBJ2_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 

@@ -384,12 +384,12 @@ Tsa_87A4D2C:
 Tsa_87A4E0C:
 	.incbin "baserom.gba", 0x7A4E0C, 0x7A4EEC - 0x7A4E0C
 
-	.global gUnknown_087A4EEC
-gUnknown_087A4EEC:  @ 0x087A4EEC
+	.global Img_DemonLightSprites_EyeFlash
+Img_DemonLightSprites_EyeFlash:  @ 0x087A4EEC
 	.incbin "baserom.gba", 0x7A4EEC, 0x22C
 
-	.global gUnknown_087A5118
-gUnknown_087A5118:  @ 0x087A5118
+	.global Pal_DemonLightSprites_EyeFlash
+Pal_DemonLightSprites_EyeFlash:  @ 0x087A5118
 	.incbin "baserom.gba", 0x7A5118, 0x128
 
 	.global gUnknown_087A5240
@@ -400,39 +400,39 @@ gUnknown_087A5240:  @ 0x087A5240
 gUnknown_087A536C:  @ 0x087A536C
 	.incbin "baserom.gba", 0x7A536C, 0x24    @ 0x7A5390 - 0x7A536C
 
-	.global gUnknown_087A5390
-gUnknown_087A5390:  @ 0x087A5390
+	.global Img_DemonLightSprites
+Img_DemonLightSprites:  @ 0x087A5390
 	.incbin "baserom.gba", 0x7A5390, 0x3BC
 
-	.global gUnknown_087A574C
-gUnknown_087A574C:  @ 0x087A574C
+	.global Pal_DemonLightSprites
+Pal_DemonLightSprites:  @ 0x087A574C
 	.incbin "baserom.gba", 0x7A574C, 0x1f4
 
 	.global gUnknown_087A5940
 gUnknown_087A5940:  @ 0x087A5940
-    .4byte gUnknown_087A574C + 0x22
-    .4byte gUnknown_087A574C + 0x6a
-    .4byte gUnknown_087A574C + 0x22
-    .4byte gUnknown_087A574C + 0x6a
-    .4byte gUnknown_087A574C + 0x112
+    .4byte Pal_DemonLightSprites + 0x22
+    .4byte Pal_DemonLightSprites + 0x6a
+    .4byte Pal_DemonLightSprites + 0x22
+    .4byte Pal_DemonLightSprites + 0x6a
+    .4byte Pal_DemonLightSprites + 0x112
     .4byte 0x81000000
 
 	.global gUnknown_087A5958
 gUnknown_087A5958:  @ 0x087A5958
-    .4byte gUnknown_087A574C + 0xe2
-    .4byte gUnknown_087A574C + 0x11e
-    .4byte gUnknown_087A574C + 0x142
-    .4byte gUnknown_087A574C + 0x166
-    .4byte gUnknown_087A574C + 0x112
+    .4byte Pal_DemonLightSprites + 0xe2
+    .4byte Pal_DemonLightSprites + 0x11e
+    .4byte Pal_DemonLightSprites + 0x142
+    .4byte Pal_DemonLightSprites + 0x166
+    .4byte Pal_DemonLightSprites + 0x112
     .4byte 0x81000000
 
 	.global gUnknown_087A5970
 gUnknown_087A5970:  @ 0x087A5970
-    .4byte gUnknown_087A574C + 0xfa
-    .4byte gUnknown_087A574C + 0x18a
-    .4byte gUnknown_087A574C + 0x1ae
-    .4byte gUnknown_087A574C + 0x1d2
-    .4byte gUnknown_087A574C + 0x112
+    .4byte Pal_DemonLightSprites + 0xfa
+    .4byte Pal_DemonLightSprites + 0x18a
+    .4byte Pal_DemonLightSprites + 0x1ae
+    .4byte Pal_DemonLightSprites + 0x1d2
+    .4byte Pal_DemonLightSprites + 0x112
     .4byte 0x81000000
 
 	.global gUnknown_087A5988
@@ -451,16 +451,16 @@ gUnknown_087A5B74:  @ 0x087A5B74
 gUnknown_087A5B8C:  @ 0x087A5B8C
 	.incbin "baserom.gba", 0x7A5B8C, 0x18    @ 0x7A5BA4 - 0x7A5B8C
 
-	.global gUnknown_087A5BA4
-gUnknown_087A5BA4:  @ 0x087A5BA4
+	.global Img_DemonLightSprites_087A5BA4
+Img_DemonLightSprites_087A5BA4:  @ 0x087A5BA4
 	.incbin "baserom.gba", 0x7A5BA4, 0x2F8
 
-	.global gUnknown_087A5E9C
-gUnknown_087A5E9C:  @ 0x087A5E9C
+	.global Img_DemonLightSprites_087A5E9C
+Img_DemonLightSprites_087A5E9C:  @ 0x087A5E9C
 	.incbin "baserom.gba", 0x7A5E9C, 0x350
 
-	.global gUnknown_087A61EC
-gUnknown_087A61EC:  @ 0x087A61EC
+	.global Pal_DemonLightSprites_087A61EC
+Pal_DemonLightSprites_087A61EC:  @ 0x087A61EC
 	.incbin "baserom.gba", 0x7A61EC, 0x488
 
 	.global gUnknown_087A6674
@@ -1579,8 +1579,8 @@ Pal_087F3C14:  @ 0x087F3C14
 Pal_087F3C34:  @ 0x087F3C34
 	.incbin "baserom.gba", 0x7F3C34, 0x20    @ 0x7F3C54 - 0x7F3C34
 
-	.global gUnknown_087F3C54
-gUnknown_087F3C54:  @ 0x087F3C54
+	.global Pal_087F3C54
+Pal_087F3C54:  @ 0x087F3C54
 	.incbin "baserom.gba", 0x7F3C54, 0x20    @ 0x7F3C74 - 0x7F3C54
 
 	.global Tsa_087F3C74
@@ -1597,8 +1597,8 @@ Tsa_087F3E88:  @ 0x087F3E88
 
 	.global BanimScr_DemoKingTunkFace
 BanimScr_DemoKingTunkFace:  @ 0x087F4184
-    .4byte gUnknown_087F3C54 + 0x3ee
-    .4byte 0x70000000 + gUnknown_087F3C54 + 0x4a3
+    .4byte Pal_087F3C54 + 0x3ee
+    .4byte 0x70000000 + Pal_087F3C54 + 0x4a3
     .4byte 0x8400010d
     .4byte 0x80000000
 

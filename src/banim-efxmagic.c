@@ -70,7 +70,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnimSetsLitany,
     StartSpellAnimStone,
     StartSpellAnimIvaldi,
-    sub_8066514,
+    StartSpellAnimDemonLight,
     sub_8068B80,
     StartSpellAnimCrimsonEye,
     StartSpellAnimEvilEye,
