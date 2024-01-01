@@ -1,71 +1,10 @@
     .section .rodata
 
-	.asciz "efxMaohFlash"
+	.asciz "efxStone"
 	.align 2, 0
 
-	.asciz "efxMaohFlashBG1"
+	.asciz "efxStoneBG"
 	.align 2, 0
-
-	.global gUnknown_080DE65C
-gUnknown_080DE65C:  @ 0x080DE65C
-	.incbin "baserom.gba", 0xDE65C, 0x94
-
-	.global gUnknown_080DE6F0
-gUnknown_080DE6F0:  @ 0x080DE6F0
-	.incbin "baserom.gba", 0xDE6F0, 0x20
-
-	.global gUnknown_080DE710
-gUnknown_080DE710:  @ 0x080DE710
-	.incbin "baserom.gba", 0xDE710, 0x38
-
-	.global gUnknown_080DE748
-gUnknown_080DE748:  @ 0x080DE748
-	.incbin "baserom.gba", 0xDE748, 0x4A
-
-	.global gUnknown_080DE792
-gUnknown_080DE792:  @ 0x080DE792
-	.incbin "baserom.gba", 0xDE792, 0x10E
-
-	.global gUnknown_080DE8A0
-gUnknown_080DE8A0:  @ 0x080DE8A0
-@ Replacing .incbin "baserom.gba", 0xDE8A0, 0x20
-    .4byte gUnknown_087A5B5C + 0x18
-    .4byte gUnknown_087A574C + 0x20c
-
-	.global gUnknown_080DE8A8
-gUnknown_080DE8A8:  @ 0x080DE8A8
-	.incbin "baserom.gba", 0xDE8A8, 0x18
-
-	.global gUnknown_080DE8C0
-gUnknown_080DE8C0:  @ 0x080DE8C0
-    .4byte gUnknown_087A5B5C + 0x30
-    .4byte gUnknown_087A5940 + 0x30
-
-	.global gUnknown_080DE8C8
-gUnknown_080DE8C8:  @ 0x080DE8C8
-	.incbin "baserom.gba", 0xDE8C8, 0x14
-
-	.global gUnknown_080DE8DC
-gUnknown_080DE8DC:  @ 0x080DE8DC
-    .4byte 0x087a536c
-    .4byte 0x087a5240
-
-	.global gUnknown_080DE8E4
-gUnknown_080DE8E4:  @ 0x080DE8E4
-	.incbin "baserom.gba", 0xDE8E4, 0x1C
-
-	.global gUnknown_080DE900
-gUnknown_080DE900:  @ 0x080DE900
-	.incbin "baserom.gba", 0xDE900, 0x24
-
-	.global gUnknown_080DE924
-gUnknown_080DE924:  @ 0x080DE924
-    .4byte gUnknown_087A61EC + 0x11f4
-    .4byte gUnknown_087A61EC + 0xd78
-
-	.global gUnknown_080DE92C
-gUnknown_080DE92C:  @ 0x080DE92C
-	.incbin "baserom.gba", 0xDE92C, 0x48
 
 	.global gUnknown_080DE974
 gUnknown_080DE974:  @ 0x080DE974
