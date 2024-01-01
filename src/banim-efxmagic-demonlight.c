@@ -7,8 +7,18 @@
 #include "hardware.h"
 #include "bmlib.h"
 #include "ekrdragon.h"
+#include "ctc.h"
 
-extern struct ProcCmd ProcScr_efxMaohFlash[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlash[] =
+{
+    PROC_NAME("efxMaohFlash"),
+    PROC_REPEAT(sub_8066550),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08066514
 void sub_8066514(struct Anim * anim)
@@ -27,16 +37,6 @@ void sub_8066514(struct Anim * anim)
     return;
 }
 
-void sub_80666D0(struct Anim *);
-void sub_8066914(struct Anim *);
-void sub_8066C98(void);
-void sub_8066CB8(struct Anim * anim, int terminator, s16 x, s16 y);
-void sub_8066DB0(struct Anim * anim, int terminator, s16 x, s16 y);
-void sub_8066A0C(struct Anim *);
-void sub_80667E0(struct Anim *);
-void sub_8066BD4(struct Anim *);
-void sub_80671F4(struct Anim *, int);
-
 //! FE8U = 0x08066550
 void sub_8066550(struct ProcEfx * proc)
 {
@@ -47,42 +47,42 @@ void sub_8066550(struct ProcEfx * proc)
 
     switch (proc->timer)
     {
-        case 0xb:
+        case 11:
         {
-            SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
-            NewEfxALPHA(anim, 0, 0x20, 0, 0x10, 0);
+            SetBlendAlpha(0, 16);
+            NewEfxALPHA(anim, 0, 32, 0, 16, 0);
 
-            NewEfxRestWINH_(anim, 0xa6, 1);
-            NewEfxTwobaiRST(anim, 0xa6);
+            NewEfxRestWINH_(anim, 166, 1);
+            NewEfxTwobaiRST(anim, 166);
 
             sub_80666D0(anim);
-            PlaySFX(0x000003B2, 0x100, anim->xPosition, 1);
+            PlaySFX(0x3B2, 0x100, anim->xPosition, 1);
             break;
         }
 
-        case 0xb1:
+        case 177:
         {
             sub_8066914(anim);
             break;
         }
 
-        case 0xff:
+        case 255:
         {
             sub_8066C98();
-            sub_8066CB8(anim, 10, 0xad, 0x2c);
-            sub_8066DB0(anim, 10, 0x9f, 0x30);
+            sub_8066CB8(anim, 10, 173, 44);
+            sub_8066DB0(anim, 10, 159, 48);
             break;
         }
 
-        case 0x109:
+        case 265:
         {
-            NewEfxRestWINH_(anim, 0x22, 1);
-            NewEfxTwobaiRST(anim, 0x22);
+            NewEfxRestWINH_(anim, 34, 1);
+            NewEfxTwobaiRST(anim, 34);
             sub_8066A0C(anim);
             break;
         }
 
-        case 0x12D:
+        case 301:
         {
             NewEfxFlashBgWhite(anim, 4);
             NewEfxFarAttackWithDistance(proc->anim, -1);
@@ -90,7 +90,7 @@ void sub_8066550(struct ProcEfx * proc)
         }
     }
 
-    if (proc->timer == duration + 0x00000133)
+    if (proc->timer == duration + 307)
     {
         anim->state3 |= 9;
 
@@ -99,18 +99,18 @@ void sub_8066550(struct ProcEfx * proc)
         if (!proc->hitted)
         {
             EfxPlayHittedSFX(anim);
-            StartSpellThing_MagicQuake(anim, 0x78, 10);
+            StartSpellThing_MagicQuake(anim, 120, 10);
             sub_80667E0(anim);
             sub_8066BD4(anim);
-            sub_80671F4(anim, 0x4a);
-            PlaySFX(0x000003B3, 0x100, anim->xPosition, 1);
+            sub_80671F4(anim, 74);
+            PlaySFX(0x3B3, 0x100, anim->xPosition, 1);
         }
         else
         {
-            proc->timer = duration + 0x1c4;
+            proc->timer = duration + 452;
         }
     }
-    else if (proc->timer == duration + 0x000001C9)
+    else if (proc->timer == duration + 457)
     {
         anim->state3 |= 2;
 
@@ -122,21 +122,275 @@ void sub_8066550(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashBG1[];
+// clang-format off
 
-extern u16 * gUnknown_085D788C[];
-extern u16 * gUnknown_085D790C[];
-extern u16 * gUnknown_085D798C[];
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG1[] =
+{
+    PROC_NAME("efxMaohFlashBG1"),
+    PROC_REPEAT(sub_8066758),
+    PROC_END,
+};
 
-extern u16 * gUnknown_085D7A0C[];
-extern u16 * gUnknown_085D7A8C[];
-extern u16 * gUnknown_085D7B0C[];
+u16 * CONST_DATA gUnknown_085D788C[] =
+{
+    Tsa_087B2430,
+    Tsa_087B26A4,
+    Tsa_087B291C,
+    Tsa_087B2B90,
+    Tsa_087B2E04,
+    Tsa_087B307C,
+    Tsa_087B32F0,
+    Tsa_087B3568,
+    Tsa_087B37DC,
+    Tsa_087B3A54,
+    Tsa_087B3CC8,
+    Tsa_087B3F40,
+    Tsa_087B41B4,
+    Tsa_087B4428,
+    Tsa_087B46A0,
+    Tsa_087B4914,
+    Tsa_087C2F34,
+    Tsa_087C31A4,
+    Tsa_087C341C,
+    Tsa_087C3694,
+    Tsa_087C38F0,
+    Tsa_087C3B38,
+    Tsa_087C3D74,
+    Tsa_087C3FA8,
+    Tsa_087C41E0,
+    Tsa_087C4420,
+    Tsa_087C4660,
+    Tsa_087C48AC,
+    Tsa_087C4AF0,
+    Tsa_087C4CA0,
+    Tsa_087C4E64,
+    Tsa_087C5034,
+};
 
-extern u16 gUnknown_080DE65C[];
+u16 * CONST_DATA gUnknown_085D790C[] =
+{
+    Img_087A73F4,
+    Img_087A7F38,
+    Img_087A8A74,
+    Img_087A9598,
+    Img_087AA02C,
+    Img_087AAAA8,
+    Img_087AB558,
+    Img_087ABFF0,
+    Img_087ACAC8,
+    Img_087AD54C,
+    Img_087ADFEC,
+    Img_087AEA74,
+    Img_087AF518,
+    Img_087B0070,
+    Img_087B0C00,
+    Img_087B1728,
+    Img_087B4B88,
+    Img_087B5678,
+    Img_087B6198,
+    Img_087B6D54,
+    Img_087B7AEC,
+    Img_087B8968,
+    Img_087B98FC,
+    Img_087BA910,
+    Img_087BBAA4,
+    Img_087BCCD8,
+    Img_087BDF0C,
+    Img_087BF05C,
+    Img_087BFEF4,
+    Img_087C0A18,
+    Img_087C15E4,
+    Img_087C2308,
+};
+
+u16 * CONST_DATA gUnknown_085D798C[] =
+{
+    Pal_087B2230,
+    Pal_087B2250,
+    Pal_087B2270,
+    Pal_087B2290,
+    Pal_087B22B0,
+    Pal_087B22D0,
+    Pal_087B22F0,
+    Pal_087B2310,
+    Pal_087B2330,
+    Pal_087B2350,
+    Pal_087B2370,
+    Pal_087B2390,
+    Pal_087B23B0,
+    Pal_087B23D0,
+    Pal_087B23F0,
+    Pal_087B2410,
+    Pal_087C2D34,
+    Pal_087C2D54,
+    Pal_087C2D74,
+    Pal_087C2D94,
+    Pal_087C2DB4,
+    Pal_087C2DD4,
+    Pal_087C2DF4,
+    Pal_087C2E14,
+    Pal_087C2E34,
+    Pal_087C2E54,
+    Pal_087C2E74,
+    Pal_087C2E94,
+    Pal_087C2EB4,
+    Pal_087C2ED4,
+    Pal_087C2EF4,
+    Pal_087C2F14,
+};
+
+u16 * CONST_DATA gUnknown_085D7A0C[] =
+{
+    Tsa_087D7BE8,
+    Tsa_087D7E5C,
+    Tsa_087D80D4,
+    Tsa_087D8348,
+    Tsa_087D85BC,
+    Tsa_087D8834,
+    Tsa_087D8AA8,
+    Tsa_087D8D20,
+    Tsa_087D8F94,
+    Tsa_087D920C,
+    Tsa_087D9480,
+    Tsa_087D96F8,
+    Tsa_087D996C,
+    Tsa_087D9BE0,
+    Tsa_087D9E58,
+    Tsa_087DA0CC,
+    Tsa_087E84CC,
+    Tsa_087E873C,
+    Tsa_087E89B4,
+    Tsa_087E8C2C,
+    Tsa_087E8E88,
+    Tsa_087E90D0,
+    Tsa_087E9314,
+    Tsa_087E9554,
+    Tsa_087E9798,
+    Tsa_087E99E0,
+    Tsa_087E9C28,
+    Tsa_087E9E78,
+    Tsa_087EA0C0,
+    Tsa_087EA268,
+    Tsa_087EA41C,
+    Tsa_087EA5D0,
+};
+
+u16 * CONST_DATA gUnknown_085D7A8C[] =
+{
+    Img_087CCBF8,
+    Img_087CD738,
+    Img_087CE274,
+    Img_087CED98,
+    Img_087CF824,
+    Img_087D0298,
+    Img_087D0D3C,
+    Img_087D17C0,
+    Img_087D2294,
+    Img_087D2D18,
+    Img_087D37B8,
+    Img_087D4238,
+    Img_087D4CE4,
+    Img_087D5834,
+    Img_087D63BC,
+    Img_087D6EE4,
+    Img_087DA340,
+    Img_087DAE40,
+    Img_087DB960,
+    Img_087DC518,
+    Img_087DD288,
+    Img_087DE0C8,
+    Img_087DF030,
+    Img_087E002C,
+    Img_087E1190,
+    Img_087E238C,
+    Img_087E358C,
+    Img_087E466C,
+    Img_087E54B4,
+    Img_087E5FD4,
+    Img_087E6B90,
+    Img_087E78A0,
+};
+
+u16 * CONST_DATA gUnknown_085D7B0C[] =
+{
+    Pal_087D79E8,
+    Pal_087D7A08,
+    Pal_087D7A28,
+    Pal_087D7A48,
+    Pal_087D7A68,
+    Pal_087D7A88,
+    Pal_087D7AA8,
+    Pal_087D7AC8,
+    Pal_087D7AE8,
+    Pal_087D7B08,
+    Pal_087D7B28,
+    Pal_087D7B48,
+    Pal_087D7B68,
+    Pal_087D7B88,
+    Pal_087D7BA8,
+    Pal_087D7BC8,
+    Pal_087E82CC,
+    Pal_087E82EC,
+    Pal_087E830C,
+    Pal_087E832C,
+    Pal_087E834C,
+    Pal_087E836C,
+    Pal_087E838C,
+    Pal_087E83AC,
+    Pal_087E83CC,
+    Pal_087E83EC,
+    Pal_087E840C,
+    Pal_087E842C,
+    Pal_087E844C,
+    Pal_087E846C,
+    Pal_087E848C,
+    Pal_087E84AC,
+};
+
+// clang-format on
 
 //! FE8U = 0x080666D0
 void sub_80666D0(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE65C[] =
+    {
+        0, 4,
+        1, 4,
+        2, 4,
+        3, 4,
+        4, 4,
+        5, 4,
+        6, 4,
+        7, 4,
+        8, 4,
+        9, 4,
+        10, 4,
+        11, 4,
+        12, 4,
+        13, 4,
+        14, 4,
+        15, 4,
+        16, 6,
+        17, 6,
+        18, 6,
+        19, 6,
+        20, 5,
+        21, 5,
+        22, 5,
+        23, 5,
+        24, 4,
+        25, 4,
+        26, 4,
+        27, 4,
+        28, 3,
+        29, 3,
+        30, 3,
+        31, 3,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -188,8 +442,8 @@ void sub_8066758(struct ProcEfxBG * proc)
         u16 ** pal = proc->pal;
 
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
-        SpellFx_RegisterBgPal(*(pal + ret), 0x20);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
+        SpellFx_RegisterBgPal(*(pal + ret), PLTT_SIZE_4BPP);
     }
     else
     {
@@ -205,17 +459,51 @@ void sub_8066758(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashBG2[];
+// clang-format off
 
-extern u16 * gUnknown_085D7BA4[];
-extern u16 * gUnknown_085D7BB0[];
-extern u16 * gUnknown_085D7BBC[];
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG2[] =
+{
+    PROC_NAME("efxMaohFlashBG2"),
+    PROC_REPEAT(sub_806683C),
+    PROC_END,
+};
 
-extern u16 gUnknown_080DE6F0[];
+u16 * CONST_DATA gUnknown_085D7BA4[] =
+{
+    Tsa_087F3C74,
+    Tsa_087F3D60,
+    Tsa_087F3E88,
+};
+
+u16 * CONST_DATA gUnknown_085D7BB0[] =
+{
+    Img_087F1C94,
+    Img_087F2464,
+    Img_087F2E40,
+};
+
+u16 * CONST_DATA gUnknown_085D7BBC[] =
+{
+    Pal_087F3C14,
+    Pal_087F3C34,
+    gUnknown_087F3C54,
+};
+
+// clang-format on
 
 //! FE8U = 0x080667E0
 void sub_80667E0(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE6F0[] =
+    {
+        0, 2,
+        1, 2,
+        2, 120,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -238,8 +526,6 @@ void sub_80667E0(struct Anim * anim)
     return;
 }
 
-void sub_80668DC(void);
-
 //! FE8U = 0x0806683C
 void sub_806683C(struct ProcEfxBG * proc)
 {
@@ -247,11 +533,11 @@ void sub_806683C(struct ProcEfxBG * proc)
 
     if (gEkrDistanceType == 0)
     {
-        BG_SetPosition(1, 0x18, 0);
+        BG_SetPosition(BG_1, 24, 0);
     }
     else
     {
-        BG_SetPosition(1, 0, 0);
+        BG_SetPosition(BG_1, 0, 0);
     }
 
     if (ret >= 0)
@@ -263,8 +549,8 @@ void sub_806683C(struct ProcEfxBG * proc)
 
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
         sub_80668DC();
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
-        SpellFx_RegisterBgPal(*(pal + ret), 0x20);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
+        SpellFx_RegisterBgPal(*(pal + ret), PLTT_SIZE_4BPP);
     }
     else
     {
@@ -286,32 +572,101 @@ void sub_80668DC(void)
     int ix;
     int iy;
 
-    for (iy = 0; iy < 0x10; iy++)
+    for (iy = 0; iy < 16; iy++)
     {
         for (ix = 0; ix < 3; ix++)
         {
-            gBG1TilemapBuffer[TILEMAP_INDEX(0x1D + ix, iy)] = gBG1TilemapBuffer[TILEMAP_INDEX(0x1C, iy)];
+            gBG1TilemapBuffer[TILEMAP_INDEX(29 + ix, iy)] = gBG1TilemapBuffer[TILEMAP_INDEX(28, iy)];
         }
     }
 
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashBG1BG3[];
+// clang-format off
 
-extern u16 * gUnknown_085D7BE0[];
-extern u16 * gUnknown_085D7BF4[];
-extern u16 * gUnknown_085D7C08[];
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG1BG3[] =
+{
+    PROC_NAME("efxMaohFlashBG3"),
+    PROC_REPEAT(sub_806699C),
+    PROC_END,
+};
 
-extern u16 * gUnknown_085D7C1C[];
-extern u16 * gUnknown_085D7C30[];
-extern u16 * gUnknown_085D7C44[];
+u16 * CONST_DATA gUnknown_085D7BE0[] =
+{
+    Tsa_087CC5FC,
+    Tsa_087CC734,
+    Tsa_087CC878,
+    Tsa_087CC9B8,
+    Tsa_087CCAD8,
+};
 
-extern u16 gUnknown_080DE710[];
+u16 * CONST_DATA gUnknown_085D7BF4[] =
+{
+    Img_087C9F18,
+    Img_087CA68C,
+    Img_087CAE60,
+    Img_087CB630,
+    Img_087CBDF4,
+};
+
+u16 * CONST_DATA gUnknown_085D7C08[] =
+{
+    Pal_087CC55C,
+    Pal_087CC57C,
+    Pal_087CC59C,
+    Pal_087CC5BC,
+    Pal_087CC5DC,
+};
+
+u16 * CONST_DATA gUnknown_085D7C1C[] =
+{
+    Tsa_087F16A0,
+    Tsa_087F17D8,
+    Tsa_087F191C,
+    Tsa_087F1A54,
+    Tsa_087F1B74,
+};
+
+u16 * CONST_DATA gUnknown_085D7C30[] =
+{
+    Img_087EEFBC,
+    Img_087EF730,
+    Img_087EFF04,
+    Img_087F06D4,
+    Img_087F0E98,
+};
+
+u16 * CONST_DATA gUnknown_085D7C44[] =
+{
+    Pal_087F1600,
+    Pal_087F1620,
+    Pal_087F1640,
+    Pal_087F1660,
+    Pal_087F1680,
+};
+
+// clang-format on
 
 //! FE8U = 0x08066914
 void sub_8066914(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE710[] =
+    {
+        0, 6,
+        1, 6,
+        2, 6,
+        3, 6,
+        4, 6,
+        3, 6,
+        2, 6,
+        1, 6,
+        0, 6,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -357,8 +712,8 @@ void sub_806699C(struct ProcEfxBG * proc)
         u16 ** pal = proc->pal;
 
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
-        SpellFx_RegisterBgPal(*(pal + ret), 0x20);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
+        SpellFx_RegisterBgPal(*(pal + ret), PLTT_SIZE_4BPP);
     }
     else
     {
@@ -374,21 +729,106 @@ void sub_806699C(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashBG4[];
+// clang-format off
 
-extern u16 * gUnknown_085D7CD0[];
-extern u16 * gUnknown_085D7CF0[];
-extern u16 * gUnknown_085D7D10[];
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG4[] =
+{
+    PROC_NAME("efxMaohFlashBG4"),
+    PROC_REPEAT(sub_8066A94),
+    PROC_END,
+};
 
-extern u16 * gUnknown_085D7C70[];
-extern u16 * gUnknown_085D7C90[];
-extern u16 * gUnknown_085D7CB0[];
+u16 * CONST_DATA gUnknown_085D7C70[] = {
+    Tsa_087C9390,
+    Tsa_087C9464,
+    Tsa_087C9600,
+    Tsa_087C9818,
+    Tsa_087C9A2C,
+    Tsa_087C9BEC,
+    Tsa_087C9CF4,
+    Tsa_087C9E04,
+};
 
-extern u16 gUnknown_080DE748[];
+u16 * CONST_DATA gUnknown_085D7C90[] =
+{
+    Img_087C5190,
+    Img_087C56E4,
+    Img_087C619C,
+    Img_087C6CF4,
+    Img_087C7678,
+    Img_087C810C,
+    Img_087C86BC,
+    Img_087C8C80,
+};
+
+u16 * CONST_DATA gUnknown_085D7CB0[] =
+{
+    Pal_087C9290,
+    Pal_087C92B0,
+    Pal_087C92D0,
+    Pal_087C92F0,
+    Pal_087C9310,
+    Pal_087C9330,
+    Pal_087C9350,
+    Pal_087C9370,
+};
+
+u16 * CONST_DATA gUnknown_085D7CD0[] =
+{
+    Tsa_087EE4A0,
+    Tsa_087EE578,
+    Tsa_087EE710,
+    Tsa_087EE8F8,
+    Tsa_087EEAF4,
+    Tsa_087EECA8,
+    Tsa_087EEDAC,
+    Tsa_087EEEB0,
+};
+
+u16 * CONST_DATA gUnknown_085D7CF0[] =
+{
+    Img_087EA72C,
+    Img_087EAC80,
+    Img_087EB704,
+    Img_087EC054,
+    Img_087EC944,
+    Img_087ED2B0,
+    Img_087ED828,
+    Img_087EDDC0,
+};
+
+u16 * CONST_DATA gUnknown_085D7D10[] =
+{
+    Pal_087EE3A0,
+    Pal_087EE3C0,
+    Pal_087EE3E0,
+    Pal_087EE400,
+    Pal_087EE420,
+    Pal_087EE440,
+    Pal_087EE460,
+    Pal_087EE480,
+};
+
+// clang-format on
 
 //! FE8U = 0x08066A0C
 void sub_8066A0C(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE748[] =
+    {
+        0, 2,
+        1, 2,
+        2, 2,
+        3, 2,
+        4, 2,
+        5, 2,
+        6, 3,
+        7, 4,
+        -1
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -436,8 +876,8 @@ void sub_8066A94(struct ProcEfxBG * proc)
         u16 ** pal = proc->pal;
 
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
-        SpellFx_RegisterBgPal(*(pal + ret), 0x20);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
+        SpellFx_RegisterBgPal(*(pal + ret), PLTT_SIZE_4BPP);
     }
     else
     {
@@ -453,7 +893,21 @@ void sub_8066A94(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashWOUT[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashWOUT[] =
+{
+    PROC_NAME("efxMaohFlashWOUT"),
+
+    PROC_REPEAT(sub_8066B40),
+    PROC_SLEEP(32),
+
+    PROC_REPEAT(sub_8066BBC),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08066B14
 void sub_8066B14(struct Anim * anim, int unused, int terminator)
@@ -475,10 +929,10 @@ void sub_8066B40(struct ProcEfxOBJ * proc)
 {
     int val = Interpolate(INTERPOLATE_LINEAR, 0, 16, proc->timer, proc->terminator);
 
-    CpuFastCopy(gPaletteBuffer, gEfxPal, 0x400);
+    CpuFastCopy(gPaletteBuffer, gEfxPal, PLTT_SIZE);
     EfxPalWhiteInOut(gEfxPal, 0, 0x20, val);
 
-    CpuFastCopy(gEfxPal, (void *)PLTT, 0x400);
+    CpuFastCopy(gEfxPal, (void *)PLTT, PLTT_SIZE);
     DisablePaletteSync();
 
     proc->timer++;
@@ -500,15 +954,89 @@ void sub_8066BBC(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashBGCOL[];
+// clang-format off
 
-extern u16 gUnknown_087F3C54[];
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBGCOL[] =
+{
+    PROC_NAME("efxMaohFlashBGCOL"),
+    PROC_SLEEP(4),
+    PROC_REPEAT(sub_8066C1C),
+    PROC_END,
+};
 
-extern u16 gUnknown_080DE792[];
+// clang-format on
 
 //! FE8U = 0x08066BD4
 void sub_8066BD4(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE792[] =
+    {
+        0, 1,
+        1, 1,
+        2, 1,
+        3, 1,
+        4, 1,
+        5, 1,
+        6, 1,
+        7, 1,
+        8, 1,
+        9, 1,
+        10, 1,
+        11, 1,
+        12, 1,
+        13, 1,
+        14, 1,
+        15, 1,
+        14, 1,
+        13, 1,
+        12, 1,
+        11, 1,
+        10, 1,
+        9, 1,
+        8, 1,
+        7, 1,
+        6, 1,
+        5, 1,
+        4, 1,
+        3, 1,
+        2, 1,
+        1, 1,
+        0, 1,
+        1, 1,
+        2, 1,
+        3, 1,
+        4, 1,
+        5, 1,
+        6, 1,
+        7, 1,
+        8, 1,
+        9, 1,
+        10, 1,
+        11, 1,
+        12, 1,
+        13, 1,
+        14, 1,
+        15, 1,
+        14, 1,
+        13, 1,
+        12, 1,
+        11, 1,
+        10, 1,
+        9, 1,
+        8, 1,
+        7, 1,
+        6, 1,
+        5, 1,
+        4, 1,
+        3, 1,
+        2, 1,
+        1, 1,
+        0, 1,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBGCOL * proc;
 
     gEfxBgSemaphore++;
@@ -523,7 +1051,7 @@ void sub_8066BD4(struct Anim * anim)
     proc->frame_config = gUnknown_080DE792;
 
     proc->pal = gUnknown_087F3C54;
-    SpellFx_RegisterBgPal(gUnknown_08603B50, 0x20);
+    SpellFx_RegisterBgPal(gUnknown_08603B50, PLTT_SIZE_4BPP);
 
     return;
 }
@@ -538,7 +1066,7 @@ void sub_8066C1C(struct ProcEfxBGCOL * proc)
     if (ret >= 0)
     {
         CopyPalWithFade(gUnknown_087F3C54, palBuffer, ret - 4);
-        SpellFx_RegisterBgPal(palBuffer, 0x20);
+        SpellFx_RegisterBgPal(palBuffer, PLTT_SIZE_4BPP);
     }
     else
     {
@@ -559,7 +1087,7 @@ int sub_8066C74(int pos)
 
     if (gEkrDistanceType == 0)
     {
-        xNew = 0x18;
+        xNew = 24;
     }
     else
     {
@@ -574,20 +1102,24 @@ int sub_8066C74(int pos)
     return xNew;
 }
 
-extern u16 gUnknown_087A574C[];
-extern u16 gUnknown_087A5390[];
-
 //! FE8U = 0x08066C98
 void sub_8066C98(void)
 {
-    SpellFx_RegisterObjPal(gUnknown_087A574C, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_087A5390, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_087A574C, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_087A5390, 32 * 4 * CHR_SIZE);
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashEyeROBJ2[];
+// clang-format off
 
-#if NONMATCHING
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashEyeROBJ2[] =
+{
+    PROC_NAME("efxMaohFlashEyeROBJ2"),
+    PROC_REPEAT(sub_8066D7C),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08066CB8
 void sub_8066CB8(struct Anim * anim, int terminator, s16 x, s16 y)
@@ -599,26 +1131,32 @@ void sub_8066CB8(struct Anim * anim, int terminator, s16 x, s16 y)
     struct Anim * ref;
 
     u32 * scr;
-    u32 * gUnknown_080DE8A0[2] = { (u32 *)0x087A5B74, (u32 *)0x087A5958 };
+    // clang-format off
+    u32 * gUnknown_080DE8A0[2] =
+    {
+        gUnknown_087A5B74,
+        gUnknown_087A5958
+    };
+    // clang-format on
 
     pos = GetAnimPosition(anim);
 
     gEfxBgSemaphore++;
 
     proc = Proc_Start(ProcScr_efxMaohFlashEyeROBJ2, PROC_TREE_3);
-    proc->anim = (struct Anim *)GetAnimAnotherSide(anim);
+    proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
 
     scr = gUnknown_080DE8A0[pos];
 
-    frontAnim = (struct Anim *)EfxCreateFrontAnim(proc->anim, scr, scr, scr, scr);
+    frontAnim = EfxCreateFrontAnim(proc->anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
     ref = frontAnim;
 
     if (pos != 0)
     {
-        a = (sub_8066C74(pos) + 0xf0);
+        a = (sub_8066C74(pos) + DISPLAY_WIDTH);
         a = a - x;
     }
     else
@@ -629,116 +1167,11 @@ void sub_8066CB8(struct Anim * anim, int terminator, s16 x, s16 y)
     ref->xPosition = frontAnim->xPosition = a;
     proc->anim2->yPosition = frontAnim->yPosition = y;
 
-    frontAnim->oam2Base &= 0xF3FF;
-    frontAnim->oam2Base |= 0x400;
+    frontAnim->oam2Base &= ~OAM2_LAYER(3);
+    frontAnim->oam2Base |= OAM2_LAYER(1);
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_8066CB8(struct Anim * anim, int terminator, s16 x, s16 y)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #0xc\n\
-        adds r4, r0, #0\n\
-        adds r5, r1, #0\n\
-        lsls r2, r2, #0x10\n\
-        lsrs r2, r2, #0x10\n\
-        mov r8, r2\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov r9, r3\n\
-        ldr r0, _08066D34  @ gUnknown_080DE8A0\n\
-        ldr r1, [r0, #4]\n\
-        ldr r0, [r0]\n\
-        str r0, [sp, #4]\n\
-        str r1, [sp, #8]\n\
-        adds r0, r4, #0\n\
-        bl GetAnimPosition\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r7, r0, #0x18\n\
-        ldr r1, _08066D38  @ gEfxBgSemaphore\n\
-        ldr r0, [r1]\n\
-        adds r0, #1\n\
-        str r0, [r1]\n\
-        ldr r0, _08066D3C  @ ProcScr_efxMaohFlashEyeROBJ2\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r6, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl GetAnimAnotherSide\n\
-        str r0, [r6, #0x5c]\n\
-        movs r1, #0\n\
-        strh r1, [r6, #0x2c]\n\
-        strh r5, [r6, #0x2e]\n\
-        lsls r1, r7, #2\n\
-        add r1, sp\n\
-        adds r1, #4\n\
-        ldr r3, [r1]\n\
-        str r3, [sp]\n\
-        adds r1, r3, #0\n\
-        adds r2, r3, #0\n\
-        bl EfxCreateFrontAnim\n\
-        adds r4, r0, #0\n\
-        str r4, [r6, #0x60]\n\
-        adds r5, r4, #0\n\
-        cmp r7, #0\n\
-        beq _08066D40\n\
-        adds r0, r7, #0\n\
-        bl sub_8066C74\n\
-        adds r0, #0xf0\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        subs r0, r0, r1\n\
-        b _08066D4E\n\
-        .align 2, 0\n\
-    _08066D34: .4byte gUnknown_080DE8A0\n\
-    _08066D38: .4byte gEfxBgSemaphore\n\
-    _08066D3C: .4byte ProcScr_efxMaohFlashEyeROBJ2\n\
-    _08066D40:\n\
-        movs r0, #0\n\
-        bl sub_8066C74\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        adds r0, r1, r0\n\
-    _08066D4E:\n\
-        strh r0, [r4, #2]\n\
-        strh r0, [r5, #2]\n\
-        ldr r0, [r6, #0x60]\n\
-        mov r1, r9\n\
-        strh r1, [r4, #4]\n\
-        strh r1, [r0, #4]\n\
-        ldrh r1, [r4, #8]\n\
-        ldr r0, _08066D78  @ 0x0000F3FF\n\
-        ands r0, r1\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4, #8]\n\
-        add sp, #0xc\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08066D78: .4byte 0x0000F3FF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x08066D7C
 void sub_8066D7C(struct ProcEfxOBJ * proc)
@@ -755,9 +1188,16 @@ void sub_8066D7C(struct ProcEfxOBJ * proc)
     return;
 }
 
-#if NONMATCHING
+// clang-format off
 
-extern struct ProcCmd ProcScr_efxMaohFlashEyeLOBJ2[];
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashEyeLOBJ2[] =
+{
+    PROC_NAME("efxMaohFlashEyeLOBJ2"),
+    PROC_REPEAT(sub_8066E74),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08066DB0
 void sub_8066DB0(struct Anim * anim, int terminator, s16 x, s16 y)
@@ -769,26 +1209,32 @@ void sub_8066DB0(struct Anim * anim, int terminator, s16 x, s16 y)
     struct Anim * ref;
 
     u32 * scr;
-    u32 * gUnknown_080DE8C0[2] = { (u32 *)0x087A5B8C, (u32 *)0x087A5970 };
+    // clang-format off
+    u32 * gUnknown_080DE8C0[2] =
+    {
+        gUnknown_087A5B8C,
+        gUnknown_087A5970,
+    };
+    // clang-format on
 
     pos = GetAnimPosition(anim);
 
     gEfxBgSemaphore++;
 
     proc = Proc_Start(ProcScr_efxMaohFlashEyeLOBJ2, PROC_TREE_3);
-    proc->anim = (struct Anim *)GetAnimAnotherSide(anim);
+    proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
 
     scr = gUnknown_080DE8C0[pos];
 
-    frontAnim = (struct Anim *)EfxCreateFrontAnim(proc->anim, scr, scr, scr, scr);
+    frontAnim = EfxCreateFrontAnim(proc->anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
     ref = frontAnim;
 
     if (pos != 0)
     {
-        a = (sub_8066C74(pos) + 0xf0);
+        a = (sub_8066C74(pos) + DISPLAY_WIDTH);
         a = a - x;
     }
     else
@@ -799,116 +1245,11 @@ void sub_8066DB0(struct Anim * anim, int terminator, s16 x, s16 y)
     ref->xPosition = frontAnim->xPosition = a;
     proc->anim2->yPosition = frontAnim->yPosition = y;
 
-    frontAnim->oam2Base &= 0xF3FF;
-    frontAnim->oam2Base |= 0x400;
+    frontAnim->oam2Base &= ~OAM2_LAYER(3);
+    frontAnim->oam2Base |= OAM2_LAYER(1);
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_8066DB0(struct Anim * anim, int terminator, s16 x, s16 y)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #0xc\n\
-        adds r4, r0, #0\n\
-        adds r5, r1, #0\n\
-        lsls r2, r2, #0x10\n\
-        lsrs r2, r2, #0x10\n\
-        mov r8, r2\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov r9, r3\n\
-        ldr r0, _08066E2C  @ gUnknown_080DE8C0\n\
-        ldr r1, [r0, #4]\n\
-        ldr r0, [r0]\n\
-        str r0, [sp, #4]\n\
-        str r1, [sp, #8]\n\
-        adds r0, r4, #0\n\
-        bl GetAnimPosition\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r7, r0, #0x18\n\
-        ldr r1, _08066E30  @ gEfxBgSemaphore\n\
-        ldr r0, [r1]\n\
-        adds r0, #1\n\
-        str r0, [r1]\n\
-        ldr r0, _08066E34  @ ProcScr_efxMaohFlashEyeLOBJ2\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r6, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl GetAnimAnotherSide\n\
-        str r0, [r6, #0x5c]\n\
-        movs r1, #0\n\
-        strh r1, [r6, #0x2c]\n\
-        strh r5, [r6, #0x2e]\n\
-        lsls r1, r7, #2\n\
-        add r1, sp\n\
-        adds r1, #4\n\
-        ldr r3, [r1]\n\
-        str r3, [sp]\n\
-        adds r1, r3, #0\n\
-        adds r2, r3, #0\n\
-        bl EfxCreateFrontAnim\n\
-        adds r4, r0, #0\n\
-        str r4, [r6, #0x60]\n\
-        adds r5, r4, #0\n\
-        cmp r7, #0\n\
-        beq _08066E38\n\
-        adds r0, r7, #0\n\
-        bl sub_8066C74\n\
-        adds r0, #0xf0\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        subs r0, r0, r1\n\
-        b _08066E46\n\
-        .align 2, 0\n\
-    _08066E2C: .4byte gUnknown_080DE8C0\n\
-    _08066E30: .4byte gEfxBgSemaphore\n\
-    _08066E34: .4byte ProcScr_efxMaohFlashEyeLOBJ2\n\
-    _08066E38:\n\
-        movs r0, #0\n\
-        bl sub_8066C74\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        adds r0, r1, r0\n\
-    _08066E46:\n\
-        strh r0, [r4, #2]\n\
-        strh r0, [r5, #2]\n\
-        ldr r0, [r6, #0x60]\n\
-        mov r1, r9\n\
-        strh r1, [r4, #4]\n\
-        strh r1, [r0, #4]\n\
-        ldrh r1, [r4, #8]\n\
-        ldr r0, _08066E70  @ 0x0000F3FF\n\
-        ands r0, r1\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4, #8]\n\
-        add sp, #0xc\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08066E70: .4byte 0x0000F3FF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x08066E74
 void sub_8066E74(struct ProcEfxOBJ * proc)
@@ -925,20 +1266,24 @@ void sub_8066E74(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern u16 gUnknown_087A5118[];
-extern u16 gUnknown_087A4EEC[];
-
 //! FE8U = 0x08066EA8
 void sub_8066EA8(void)
 {
-    SpellFx_RegisterObjPal(gUnknown_087A5118, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_087A4EEC, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_087A5118, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_087A4EEC, 32 * 4 * CHR_SIZE);
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashEyeOBJ1[];
+// clang-format off
 
-#if NONMATCHING
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashEyeOBJ1[] =
+{
+    PROC_NAME("efxMaohFlashEyeOBJ1"),
+    PROC_REPEAT(sub_8066F90),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08066EC8
 void sub_8066EC8(struct Anim * anim, int terminator, s16 x, s16 y)
@@ -950,26 +1295,32 @@ void sub_8066EC8(struct Anim * anim, int terminator, s16 x, s16 y)
     struct Anim * ref;
 
     u32 * scr;
-    u32 * gUnknown_080DE8DC[2] = { (u32 *)0x087A536C, (u32 *)0x087A5240 };
+    // clang-format off
+    u32 * gUnknown_080DE8DC[2] =
+    {
+        gUnknown_087A536C,
+        gUnknown_087A5240
+    };
+    // clang-format on
 
     pos = GetAnimPosition(anim);
 
     gEfxBgSemaphore++;
 
     proc = Proc_Start(ProcScr_efxMaohFlashEyeOBJ1, PROC_TREE_3);
-    proc->anim = (struct Anim *)GetAnimAnotherSide(anim);
+    proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
 
     scr = gUnknown_080DE8DC[pos];
 
-    frontAnim = (struct Anim *)EfxCreateFrontAnim(anim, scr, scr, scr, scr);
+    frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
     ref = frontAnim;
 
     if (pos != 0)
     {
-        a = (sub_8066C74(pos) + 0xf0);
+        a = (sub_8066C74(pos) + DISPLAY_WIDTH);
         a = a - x;
     }
     else
@@ -980,117 +1331,11 @@ void sub_8066EC8(struct Anim * anim, int terminator, s16 x, s16 y)
     ref->xPosition = frontAnim->xPosition = a;
     proc->anim2->yPosition = frontAnim->yPosition = y;
 
-    frontAnim->oam2Base &= 0xF3FF;
-    frontAnim->oam2Base |= 0x400;
+    frontAnim->oam2Base &= ~OAM2_LAYER(3);
+    frontAnim->oam2Base |= OAM2_LAYER(1);
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_8066EC8(struct Anim * anim, int terminator, s16 x, s16 y)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #0xc\n\
-        adds r4, r0, #0\n\
-        adds r5, r1, #0\n\
-        lsls r2, r2, #0x10\n\
-        lsrs r2, r2, #0x10\n\
-        mov r8, r2\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov r9, r3\n\
-        ldr r0, _08066F48  @ gUnknown_080DE8DC\n\
-        ldr r1, [r0, #4]\n\
-        ldr r0, [r0]\n\
-        str r0, [sp, #4]\n\
-        str r1, [sp, #8]\n\
-        adds r0, r4, #0\n\
-        bl GetAnimPosition\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r7, r0, #0x18\n\
-        ldr r1, _08066F4C  @ gEfxBgSemaphore\n\
-        ldr r0, [r1]\n\
-        adds r0, #1\n\
-        str r0, [r1]\n\
-        ldr r0, _08066F50  @ ProcScr_efxMaohFlashEyeOBJ1\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r6, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl GetAnimAnotherSide\n\
-        str r0, [r6, #0x5c]\n\
-        movs r0, #0\n\
-        strh r0, [r6, #0x2c]\n\
-        strh r5, [r6, #0x2e]\n\
-        lsls r0, r7, #2\n\
-        add r0, sp\n\
-        adds r0, #4\n\
-        ldr r3, [r0]\n\
-        str r3, [sp]\n\
-        adds r0, r4, #0\n\
-        adds r1, r3, #0\n\
-        adds r2, r3, #0\n\
-        bl EfxCreateFrontAnim\n\
-        adds r4, r0, #0\n\
-        str r4, [r6, #0x60]\n\
-        adds r5, r4, #0\n\
-        cmp r7, #0\n\
-        beq _08066F54\n\
-        adds r0, r7, #0\n\
-        bl sub_8066C74\n\
-        adds r0, #0xf0\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        subs r0, r0, r1\n\
-        b _08066F62\n\
-        .align 2, 0\n\
-    _08066F48: .4byte gUnknown_080DE8DC\n\
-    _08066F4C: .4byte gEfxBgSemaphore\n\
-    _08066F50: .4byte ProcScr_efxMaohFlashEyeOBJ1\n\
-    _08066F54:\n\
-        movs r0, #0\n\
-        bl sub_8066C74\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        adds r0, r1, r0\n\
-    _08066F62:\n\
-        strh r0, [r4, #2]\n\
-        strh r0, [r5, #2]\n\
-        ldr r0, [r6, #0x60]\n\
-        mov r1, r9\n\
-        strh r1, [r4, #4]\n\
-        strh r1, [r0, #4]\n\
-        ldrh r1, [r4, #8]\n\
-        ldr r0, _08066F8C  @ 0x0000F3FF\n\
-        ands r0, r1\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4, #8]\n\
-        add sp, #0xc\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08066F8C: .4byte 0x0000F3FF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x08066F90
 void sub_8066F90(struct ProcEfxOBJ * proc)
@@ -1107,12 +1352,16 @@ void sub_8066F90(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxMaohFlashBG1EyeFire1OBJ1[];
+// clang-format off
 
-extern u16 gUnknown_087A61EC[];
-extern u16 gUnknown_087A5BA4[];
+struct ProcCmd CONST_DATA ProcScr_efxMaohFlashBG1EyeFire1OBJ1[] =
+{
+    PROC_NAME("efxMaohFlashEyeFire1OBJ1"),
+    PROC_REPEAT(sub_80670A8),
+    PROC_END,
+};
 
-#if NONMATCHING
+// clang-format on
 
 //! FE8U = 0x08066FC4
 void sub_8066FC4(struct Anim * anim, int terminator, s16 x, s16 y)
@@ -1124,29 +1373,32 @@ void sub_8066FC4(struct Anim * anim, int terminator, s16 x, s16 y)
     struct Anim * ref;
 
     u32 * scr;
-    u32 * gUnknown_080DE900[2] = {
-        (u32 *)0x087A6AEC,
-        (u32 *)0x087A6674,
+    // clang-format off
+    u32 * gUnknown_080DE900[2] =
+    {
+        gUnknown_087A6AEC,
+        gUnknown_087A6674,
     };
+    // clang-format on
 
     pos = GetAnimPosition(anim);
 
     gEfxBgSemaphore++;
 
     proc = Proc_Start(ProcScr_efxMaohFlashBG1EyeFire1OBJ1, PROC_TREE_3);
-    proc->anim = (struct Anim *)GetAnimAnotherSide(anim);
+    proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
 
     scr = gUnknown_080DE900[pos];
 
-    frontAnim = (struct Anim *)EfxCreateFrontAnim(anim, scr, scr, scr, scr);
+    frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
     ref = frontAnim;
 
     if (pos != 0)
     {
-        a = (sub_8066C74(pos) + 0xf0);
+        a = (sub_8066C74(pos) + DISPLAY_WIDTH);
         a = a - x;
     }
     else
@@ -1157,129 +1409,14 @@ void sub_8066FC4(struct Anim * anim, int terminator, s16 x, s16 y)
     ref->xPosition = frontAnim->xPosition = a;
     proc->anim2->yPosition = frontAnim->yPosition = y;
 
-    frontAnim->oam2Base &= 0xF3FF;
-    frontAnim->oam2Base |= 0x400;
+    frontAnim->oam2Base &= ~OAM2_LAYER(3);
+    frontAnim->oam2Base |= OAM2_LAYER(1);
 
-    SpellFx_RegisterObjPal(gUnknown_087A61EC, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_087A5BA4, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_087A61EC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_087A5BA4, 32 * 4 * CHR_SIZE);
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_8066FC4(struct Anim * anim, int terminator, s16 x, s16 y)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #0xc\n\
-        adds r4, r0, #0\n\
-        adds r5, r1, #0\n\
-        lsls r2, r2, #0x10\n\
-        lsrs r2, r2, #0x10\n\
-        mov r8, r2\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov r9, r3\n\
-        ldr r0, _08067044  @ gUnknown_080DE900\n\
-        ldr r1, [r0, #4]\n\
-        ldr r0, [r0]\n\
-        str r0, [sp, #4]\n\
-        str r1, [sp, #8]\n\
-        adds r0, r4, #0\n\
-        bl GetAnimPosition\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r7, r0, #0x18\n\
-        ldr r1, _08067048  @ gEfxBgSemaphore\n\
-        ldr r0, [r1]\n\
-        adds r0, #1\n\
-        str r0, [r1]\n\
-        ldr r0, _0806704C  @ ProcScr_efxMaohFlashBG1EyeFire1OBJ1\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r6, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl GetAnimAnotherSide\n\
-        str r0, [r6, #0x5c]\n\
-        movs r0, #0\n\
-        strh r0, [r6, #0x2c]\n\
-        strh r5, [r6, #0x2e]\n\
-        lsls r0, r7, #2\n\
-        add r0, sp\n\
-        adds r0, #4\n\
-        ldr r3, [r0]\n\
-        str r3, [sp]\n\
-        adds r0, r4, #0\n\
-        adds r1, r3, #0\n\
-        adds r2, r3, #0\n\
-        bl EfxCreateFrontAnim\n\
-        adds r4, r0, #0\n\
-        str r4, [r6, #0x60]\n\
-        adds r5, r4, #0\n\
-        cmp r7, #0\n\
-        beq _08067050\n\
-        adds r0, r7, #0\n\
-        bl sub_8066C74\n\
-        adds r0, #0xf0\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        subs r0, r0, r1\n\
-        b _0806705E\n\
-        .align 2, 0\n\
-    _08067044: .4byte gUnknown_080DE900\n\
-    _08067048: .4byte gEfxBgSemaphore\n\
-    _0806704C: .4byte ProcScr_efxMaohFlashBG1EyeFire1OBJ1\n\
-    _08067050:\n\
-        movs r0, #0\n\
-        bl sub_8066C74\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        adds r0, r1, r0\n\
-    _0806705E:\n\
-        strh r0, [r4, #2]\n\
-        strh r0, [r5, #2]\n\
-        ldr r0, [r6, #0x60]\n\
-        mov r1, r9\n\
-        strh r1, [r4, #4]\n\
-        strh r1, [r0, #4]\n\
-        ldrh r1, [r4, #8]\n\
-        ldr r0, _0806709C  @ 0x0000F3FF\n\
-        ands r0, r1\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4, #8]\n\
-        ldr r0, _080670A0  @ gUnknown_087A61EC\n\
-        movs r1, #0x20\n\
-        bl SpellFx_RegisterObjPal\n\
-        ldr r0, _080670A4  @ gUnknown_087A5BA4\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #5\n\
-        bl SpellFx_RegisterObjGfx\n\
-        add sp, #0xc\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0806709C: .4byte 0x0000F3FF\n\
-    _080670A0: .4byte gUnknown_087A61EC\n\
-    _080670A4: .4byte gUnknown_087A5BA4\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080670A8
 void sub_80670A8(struct ProcEfxOBJ * proc)
@@ -1296,12 +1433,16 @@ void sub_80670A8(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7DD8[];
+// clang-format off
 
-extern u16 gUnknown_087A61EC[];
-extern u16 gUnknown_087A5E9C[];
+struct ProcCmd CONST_DATA gUnknown_085D7DD8[] =
+{
+    PROC_NAME("efxMaohFlashEyeFire2OBJ1"),
+    PROC_REPEAT(sub_80671C0),
+    PROC_END,
+};
 
-#if NONMATCHING
+// clang-format on
 
 //! FE8U = 0x080670DC
 void sub_80670DC(struct Anim * anim, int terminator, s16 x, s16 y)
@@ -1313,29 +1454,32 @@ void sub_80670DC(struct Anim * anim, int terminator, s16 x, s16 y)
     struct Anim * ref;
 
     u32 * scr;
-    u32 * gUnknown_080DE924[2] = {
-        (u32 *)0x087A73E0,
-        (u32 *)0x087A6F64,
+    // clang-format off
+    u32 * gUnknown_080DE924[2] =
+    {
+        gUnknown_087A73E0,
+        gUnknown_087A6F64,
     };
+    // clang-format on
 
     pos = GetAnimPosition(anim);
 
     gEfxBgSemaphore++;
 
     proc = Proc_Start(gUnknown_085D7DD8, PROC_TREE_3);
-    proc->anim = (struct Anim *)GetAnimAnotherSide(anim);
+    proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
 
     scr = gUnknown_080DE924[pos];
 
-    frontAnim = (struct Anim *)EfxCreateFrontAnim(anim, scr, scr, scr, scr);
+    frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
     ref = frontAnim;
 
     if (pos != 0)
     {
-        a = (sub_8066C74(pos) + 0xf0);
+        a = (sub_8066C74(pos) + DISPLAY_WIDTH);
         a = a - x;
     }
     else
@@ -1346,129 +1490,14 @@ void sub_80670DC(struct Anim * anim, int terminator, s16 x, s16 y)
     ref->xPosition = frontAnim->xPosition = a;
     proc->anim2->yPosition = frontAnim->yPosition = y;
 
-    frontAnim->oam2Base &= 0xF3FF;
-    frontAnim->oam2Base |= 0x400;
+    frontAnim->oam2Base &= ~OAM2_LAYER(3);
+    frontAnim->oam2Base |= OAM2_LAYER(1);
 
-    SpellFx_RegisterObjPal(gUnknown_087A61EC, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_087A5E9C, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_087A61EC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_087A5E9C, 32 * 4 * CHR_SIZE);
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_80670DC(struct Anim * anim, int terminator, s16 x, s16 y)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #0xc\n\
-        adds r4, r0, #0\n\
-        adds r5, r1, #0\n\
-        lsls r2, r2, #0x10\n\
-        lsrs r2, r2, #0x10\n\
-        mov r8, r2\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov r9, r3\n\
-        ldr r0, _0806715C  @ gUnknown_080DE924\n\
-        ldr r1, [r0, #4]\n\
-        ldr r0, [r0]\n\
-        str r0, [sp, #4]\n\
-        str r1, [sp, #8]\n\
-        adds r0, r4, #0\n\
-        bl GetAnimPosition\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r7, r0, #0x18\n\
-        ldr r1, _08067160  @ gEfxBgSemaphore\n\
-        ldr r0, [r1]\n\
-        adds r0, #1\n\
-        str r0, [r1]\n\
-        ldr r0, _08067164  @ gUnknown_085D7DD8\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r6, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl GetAnimAnotherSide\n\
-        str r0, [r6, #0x5c]\n\
-        movs r0, #0\n\
-        strh r0, [r6, #0x2c]\n\
-        strh r5, [r6, #0x2e]\n\
-        lsls r0, r7, #2\n\
-        add r0, sp\n\
-        adds r0, #4\n\
-        ldr r3, [r0]\n\
-        str r3, [sp]\n\
-        adds r0, r4, #0\n\
-        adds r1, r3, #0\n\
-        adds r2, r3, #0\n\
-        bl EfxCreateFrontAnim\n\
-        adds r4, r0, #0\n\
-        str r4, [r6, #0x60]\n\
-        adds r5, r4, #0\n\
-        cmp r7, #0\n\
-        beq _08067168\n\
-        adds r0, r7, #0\n\
-        bl sub_8066C74\n\
-        adds r0, #0xf0\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        subs r0, r0, r1\n\
-        b _08067176\n\
-        .align 2, 0\n\
-    _0806715C: .4byte gUnknown_080DE924\n\
-    _08067160: .4byte gEfxBgSemaphore\n\
-    _08067164: .4byte gUnknown_085D7DD8\n\
-    _08067168:\n\
-        movs r0, #0\n\
-        bl sub_8066C74\n\
-        mov r2, r8\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        adds r0, r1, r0\n\
-    _08067176:\n\
-        strh r0, [r4, #2]\n\
-        strh r0, [r5, #2]\n\
-        ldr r0, [r6, #0x60]\n\
-        mov r1, r9\n\
-        strh r1, [r4, #4]\n\
-        strh r1, [r0, #4]\n\
-        ldrh r1, [r4, #8]\n\
-        ldr r0, _080671B4  @ 0x0000F3FF\n\
-        ands r0, r1\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4, #8]\n\
-        ldr r0, _080671B8  @ gUnknown_087A61EC\n\
-        movs r1, #0x20\n\
-        bl SpellFx_RegisterObjPal\n\
-        ldr r0, _080671BC  @ gUnknown_087A5E9C\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #5\n\
-        bl SpellFx_RegisterObjGfx\n\
-        add sp, #0xc\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080671B4: .4byte 0x0000F3FF\n\
-    _080671B8: .4byte gUnknown_087A61EC\n\
-    _080671BC: .4byte gUnknown_087A5E9C\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080671C0
 void sub_80671C0(struct ProcEfxOBJ * proc)
@@ -1485,7 +1514,16 @@ void sub_80671C0(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7DF0[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D7DF0[] =
+{
+    PROC_NAME("efxMaohFlashThunderOBJ"),
+    PROC_REPEAT(sub_8067244),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080671F4
 void sub_80671F4(struct Anim * anim, int terminator)
@@ -1499,13 +1537,11 @@ void sub_80671F4(struct Anim * anim, int terminator)
     proc->timer = 0;
     proc->terminator = terminator;
 
-    SpellFx_RegisterObjPal(gUnknown_087A574C, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_087A5390, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_087A574C, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_087A5390, 32 * 4 * CHR_SIZE);
 
     return;
 }
-
-void sub_8067400(struct Anim *, int, s16, s16);
 
 //! FE8U = 0x08067244
 void sub_8067244(struct ProcEfxOBJ * proc)
@@ -1519,75 +1555,75 @@ void sub_8067244(struct ProcEfxOBJ * proc)
     {
         if (pos != 0)
         {
-            xBase += 0x38;
+            xBase += 56;
         }
         else
         {
-            xBase += 0xb8;
+            xBase += 184;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x6e);
+        sub_8067400(proc->anim, 10, xBase, 110);
     }
     else if (proc->timer == 10)
     {
         if (pos != 0)
         {
-            xBase += 0x20;
+            xBase += 32;
         }
         else
         {
-            xBase += 0xd0;
+            xBase += 208;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x6c);
+        sub_8067400(proc->anim, 10, xBase, 108);
     }
-    else if (proc->timer == 0xe)
+    else if (proc->timer == 14)
     {
         if (pos != 0)
         {
-            xBase += 0xe;
+            xBase += 14;
         }
         else
         {
-            xBase += 0xe2;
+            xBase += 226;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x68);
+        sub_8067400(proc->anim, 10, xBase, 104);
     }
-    else if (proc->timer == 0x18)
+    else if (proc->timer == 24)
     {
         if (pos != 0)
         {
-            xBase += 0x62;
+            xBase += 98;
         }
         else
         {
-            xBase += 0x8e;
+            xBase += 142;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x62);
+        sub_8067400(proc->anim, 10, xBase, 98);
     }
-    else if (proc->timer == 0x22)
+    else if (proc->timer == 34)
     {
         if (pos != 0)
         {
-            xBase += 0x30;
+            xBase += 48;
         }
         else
         {
-            xBase += 0xc0;
+            xBase += 192;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x6e);
+        sub_8067400(proc->anim, 10, xBase, 110);
     }
-    else if (proc->timer == 0x2c)
+    else if (proc->timer == 44)
     {
         if (pos != 0)
         {
-            xBase += 0x18;
+            xBase += 24;
         }
         else
         {
-            xBase += 0xd8;
+            xBase += 216;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x6c);
+        sub_8067400(proc->anim, 10, xBase, 108);
     }
-    else if (proc->timer == 0x30)
+    else if (proc->timer == 48)
     {
         if (pos != 0)
         {
@@ -1595,47 +1631,47 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         }
         else
         {
-            xBase += 0xea;
+            xBase += 234;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x68);
+        sub_8067400(proc->anim, 10, xBase, 104);
     }
-    else if (proc->timer == 0x34)
+    else if (proc->timer == 52)
     {
         if (pos != 0)
         {
-            xBase += 0x6a;
+            xBase += 106;
         }
         else
         {
-            xBase += 0x86;
+            xBase += 134;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x62);
+        sub_8067400(proc->anim, 10, xBase, 98);
     }
-    else if (proc->timer == 0x38)
+    else if (proc->timer == 56)
     {
         if (pos != 0)
         {
-            xBase += 0x58;
+            xBase += 88;
         }
         else
         {
-            xBase += 0x98;
+            xBase += 152;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x6e);
+        sub_8067400(proc->anim, 10, xBase, 110);
     }
-    else if (proc->timer == 0x3c)
+    else if (proc->timer == 60)
     {
         if (pos != 0)
         {
-            xBase += 0x10;
+            xBase += 16;
         }
         else
         {
-            xBase += 0xe0;
+            xBase += 224;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x6c);
+        sub_8067400(proc->anim, 10, xBase, 108);
     }
-    else if (proc->timer == 0x40)
+    else if (proc->timer == 64)
     {
         if (pos != 0)
         {
@@ -1643,13 +1679,13 @@ void sub_8067244(struct ProcEfxOBJ * proc)
         }
         else
         {
-            xBase += 0xf2;
+            xBase += 242;
         }
-        sub_8067400(proc->anim, 10, xBase, 0x68);
+        sub_8067400(proc->anim, 10, xBase, 104);
     }
     else if (proc->timer == proc->terminator)
     {
-        sub_8066B14(((struct ProcEfx *)(proc->proc_parent))->anim, 0x5a, 0x2d);
+        sub_8066B14(((struct ProcEfx *)(proc->proc_parent))->anim, 90, 45);
         gEfxBgSemaphore--;
         Proc_Break(proc);
     }
@@ -1657,8 +1693,16 @@ void sub_8067244(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7E08[];
-extern u32 gUnknown_087A5B5C[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D7E08[] =
+{
+    PROC_NAME("efxMaohFlashThunderOBJ2"),
+    PROC_REPEAT(sub_80674A0),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08067400
 void sub_8067400(struct Anim * anim, int terminator, s16 x, s16 y)
@@ -1683,11 +1727,11 @@ void sub_8067400(struct Anim * anim, int terminator, s16 x, s16 y)
     proc->anim2->xPosition = x;
     proc->anim2->yPosition = y;
 
-    frontAnim->oam2Base &= 0x0000F3FF;
-    frontAnim->oam2Base |= 0x400;
+    frontAnim->oam2Base &= ~OAM2_LAYER(3);
+    frontAnim->oam2Base |= OAM2_LAYER(1);
 
-    SpellFx_RegisterObjPal(gUnknown_087A574C, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_087A5390, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_087A574C, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_087A5390, 32 * 4 * CHR_SIZE);
 
     return;
 }
