@@ -205,6 +205,8 @@ SECTIONS
         src/banim-efxmagic-dancerings.o(.text);
         src/banim-efxmagic-ivaldi.o(.text);
         src/banim-efxmagic-demonlight.o(.text);
+        src/banim-efxmagic-stone.o(.text);
+        src/banim-efxmagic-evileye.o(.text);
         asm/banim-efxmagic-66514.o(.text);
         src/banim-efxhit.o(.text);
         src/banim-efxmisc.o(.text);
