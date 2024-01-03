@@ -1,26 +1,10 @@
     .section .rodata
 
-	.asciz "efxStone"
+	.asciz "efxNaglfar"
 	.align 2, 0
 
-	.asciz "efxStoneBG"
-	.align 2, 0
-
-	.global gUnknown_080DE974
-gUnknown_080DE974:  @ 0x080DE974
-	.incbin "baserom.gba", 0xDE974, 0x76
-
-	.global gUnknown_080DE9EA
-gUnknown_080DE9EA:  @ 0x080DE9EA
-	.incbin "baserom.gba", 0xDE9EA, 0x60
-
-	.global gUnknown_080DEA4A
-gUnknown_080DEA4A:  @ 0x080DEA4A
-	.incbin "baserom.gba", 0xDEA4A, 0x2A
-
-	.global gUnknown_080DEA74
-gUnknown_080DEA74:  @ 0x080DEA74
-	.incbin "baserom.gba", 0xDEA74, 0x22
+	.asciz "efxNaglfarBG"
+	.byte 0
 
 	.global gUnknown_080DEA96
 gUnknown_080DEA96:  @ 0x080DEA96

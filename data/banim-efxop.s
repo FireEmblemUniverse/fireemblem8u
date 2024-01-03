@@ -634,12 +634,12 @@ gUnknown_085D9A94:  @ 0x085D9A94
     .4byte gUnknown_086C978C + 0xb110
     .4byte gUnknown_086C978C + 0xb244
     .4byte gUnknown_086C978C + 0xb350
-    .4byte gUnknown_086D8A94 + 0xc0
-    .4byte gUnknown_086D8A94 + 0x1d0
-    .4byte gUnknown_086D8A94 + 0x358
-    .4byte gUnknown_086D8A94 + 0x510
-    .4byte gUnknown_086D8A94 + 0x6dc
-    .4byte gUnknown_086D8A94 + 0x8c0
+    .4byte Pal_EvilEyeBg2_A + 0xc0
+    .4byte Pal_EvilEyeBg2_A + 0x1d0
+    .4byte Pal_EvilEyeBg2_A + 0x358
+    .4byte Pal_EvilEyeBg2_A + 0x510
+    .4byte Pal_EvilEyeBg2_A + 0x6dc
+    .4byte Pal_EvilEyeBg2_A + 0x8c0
 
 	.global gUnknown_085D9AFC
 gUnknown_085D9AFC:  @ 0x085D9AFC
@@ -663,12 +663,12 @@ gUnknown_085D9AFC:  @ 0x085D9AFC
     .4byte gUnknown_086C978C + 0x9ee8
     .4byte gUnknown_086C978C + 0x9f08
     .4byte gUnknown_086C978C + 0x9f28
-    .4byte gUnknown_086D8A94
-    .4byte gUnknown_086D8A94 + 0x20
-    .4byte gUnknown_086D8A94 + 0x40
-    .4byte gUnknown_086D8A94 + 0x60
-    .4byte gUnknown_086D8A94 + 0x80
-    .4byte gUnknown_086D8A94 + 0xa0
+    .4byte Pal_EvilEyeBg2_A
+    .4byte Pal_EvilEyeBg2_A + 0x20
+    .4byte Pal_EvilEyeBg2_A + 0x40
+    .4byte Pal_EvilEyeBg2_A + 0x60
+    .4byte Pal_EvilEyeBg2_A + 0x80
+    .4byte Pal_EvilEyeBg2_A + 0xa0
 
 	.global gUnknown_085D9B64
 gUnknown_085D9B64:  @ 0x085D9B64
@@ -736,25 +736,25 @@ gUnknown_085D9BB4:  @ 0x085D9BB4
 
 	.global gUnknown_085D9C00
 gUnknown_085D9C00:  @ 0x085D9C00
-    .4byte gUnknown_086C794C + 0x20
-    .4byte gUnknown_086C794C + 0xe0
-    .4byte gUnknown_086C794C + 0x1ac
-    .4byte gUnknown_086C794C + 0x284
-    .4byte gUnknown_086C794C + 0x370
-    .4byte gUnknown_086C794C + 0x474
-    .4byte gUnknown_086C794C + 0x588
-    .4byte gUnknown_086C794C + 0x6b0
-    .4byte gUnknown_086C794C + 0x7ec
-    .4byte gUnknown_086C794C + 0x940
-    .4byte gUnknown_086C794C + 0xab8
-    .4byte gUnknown_086C794C + 0xc24
-    .4byte gUnknown_086C794C + 0xd98
-    .4byte gUnknown_086C794C + 0xf14
-    .4byte gUnknown_086C794C + 0x10a0
-    .4byte gUnknown_086C794C + 0x11e4
-    .4byte gUnknown_086C794C + 0x1338
-    .4byte gUnknown_086C794C + 0x149c
-    .4byte gUnknown_086C794C + 0x1600
+    .4byte Pal_StoneBg_086C794C + 0x20
+    .4byte Pal_StoneBg_086C794C + 0xe0
+    .4byte Pal_StoneBg_086C794C + 0x1ac
+    .4byte Pal_StoneBg_086C794C + 0x284
+    .4byte Pal_StoneBg_086C794C + 0x370
+    .4byte Pal_StoneBg_086C794C + 0x474
+    .4byte Pal_StoneBg_086C794C + 0x588
+    .4byte Pal_StoneBg_086C794C + 0x6b0
+    .4byte Pal_StoneBg_086C794C + 0x7ec
+    .4byte Pal_StoneBg_086C794C + 0x940
+    .4byte Pal_StoneBg_086C794C + 0xab8
+    .4byte Pal_StoneBg_086C794C + 0xc24
+    .4byte Pal_StoneBg_086C794C + 0xd98
+    .4byte Pal_StoneBg_086C794C + 0xf14
+    .4byte Pal_StoneBg_086C794C + 0x10a0
+    .4byte Pal_StoneBg_086C794C + 0x11e4
+    .4byte Pal_StoneBg_086C794C + 0x1338
+    .4byte Pal_StoneBg_086C794C + 0x149c
+    .4byte Pal_StoneBg_086C794C + 0x1600
 
 	.global gUnknown_085D9C4C
 gUnknown_085D9C4C:  @ 0x085D9C4C

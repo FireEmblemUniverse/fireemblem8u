@@ -2113,7 +2113,7 @@ sub_806F894: @ 0x0806F894
 	str r0, [r4, #0x4c]
 	ldr r0, _0806F8E8  @ gUnknown_085D9BB4
 	str r0, [r4, #0x54]
-	ldr r1, _0806F8EC  @ gUnknown_086C790C
+	ldr r1, _0806F8EC  @ Pal_StoneBg
 	adds r0, r5, #0
 	bl sub_806EAD4
 	ldr r0, [r6, #0x24]
@@ -2129,7 +2129,7 @@ _0806F8DC: .4byte gUnknown_085D9BA4
 _0806F8E0: .4byte gUnknown_080DF9BE
 _0806F8E4: .4byte gUnknown_085D9C00
 _0806F8E8: .4byte gUnknown_085D9BB4
-_0806F8EC: .4byte gUnknown_086C790C
+_0806F8EC: .4byte Pal_StoneBg
 
 	THUMB_FUNC_END sub_806F894
 
@@ -2161,19 +2161,19 @@ sub_806F8F0: @ 0x0806F8F0
 	bl sub_806EAA4
 	cmp r7, #0x11
 	bne _0806F932
-	ldr r0, _0806F940  @ gUnknown_086C792C
+	ldr r0, _0806F940  @ Pal_StoneBg_086C792C
 	movs r1, #0x20
 	bl SpellFx_RegisterBgPal
 _0806F932:
 	cmp r7, #0x12
 	bne _0806F960
-	ldr r0, _0806F944  @ gUnknown_086C794C
+	ldr r0, _0806F944  @ Pal_StoneBg_086C794C
 	movs r1, #0x20
 	bl SpellFx_RegisterBgPal
 	b _0806F960
 	.align 2, 0
-_0806F940: .4byte gUnknown_086C792C
-_0806F944: .4byte gUnknown_086C794C
+_0806F940: .4byte Pal_StoneBg_086C792C
+_0806F944: .4byte Pal_StoneBg_086C794C
 _0806F948:
 	movs r0, #1
 	negs r0, r0
@@ -2227,10 +2227,10 @@ sub_806F968: @ 0x0806F968
 	strh r1, [r0, #8]
 	bl AnimSort
 	ldr r0, [r5, #0x5c]
-	ldr r1, _0806F9D0  @ gUnknown_086BD76C
+	ldr r1, _0806F9D0  @ Pal_StoneSprites
 	bl sub_806EB2C
 	ldr r0, [r5, #0x5c]
-	ldr r1, _0806F9D4  @ gUnknown_086BD260
+	ldr r1, _0806F9D4  @ Img_StoneSprites
 	bl sub_806EAFC
 	pop {r4, r5, r6}
 	pop {r0}
@@ -2238,8 +2238,8 @@ sub_806F968: @ 0x0806F968
 	.align 2, 0
 _0806F9C8: .4byte gUnknown_085D9C4C
 _0806F9CC: .4byte gUnknown_086BDA5C
-_0806F9D0: .4byte gUnknown_086BD76C
-_0806F9D4: .4byte gUnknown_086BD260
+_0806F9D0: .4byte Pal_StoneSprites
+_0806F9D4: .4byte Img_StoneSprites
 
 	THUMB_FUNC_END sub_806F968
 
