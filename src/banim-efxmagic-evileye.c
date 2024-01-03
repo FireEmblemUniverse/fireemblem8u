@@ -9,10 +9,10 @@
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7F00[] =
+struct ProcCmd CONST_DATA ProcScr_efxEvilEye[] =
 {
     PROC_NAME("efxEvilEye"),
-    PROC_REPEAT(sub_80677D4),
+    PROC_REPEAT(efxEvilEye_Loop_Main),
     PROC_END,
 };
 
@@ -27,7 +27,7 @@ void StartSpellAnimEvilEye(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D7F00, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxEvilEye, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -36,7 +36,7 @@ void StartSpellAnimEvilEye(struct Anim * anim)
 }
 
 //! FE8U = 0x080677D4
-void sub_80677D4(struct ProcEfx * proc)
+void efxEvilEye_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -50,11 +50,11 @@ void sub_80677D4(struct ProcEfx * proc)
     else if (proc->timer == duration + 2)
     {
         PlaySFX(0x3C6, 0x100, anim->xPosition, 1);
-        sub_8067AA0(anim, 60);
+        StartSubSpell_efxEvilEyeOBJ(anim, 60);
     }
     else if (proc->timer == duration + 26)
     {
-        sub_806788C(anim);
+        StartSubSpell_efxEvilEyeBG(anim);
     }
     else if (proc->timer == duration + 88)
     {
@@ -62,7 +62,7 @@ void sub_80677D4(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 90)
     {
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
@@ -83,14 +83,14 @@ void sub_80677D4(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D7F18[] =
+struct ProcCmd CONST_DATA ProcScr_efxEvilEyeBG[] =
 {
     PROC_NAME("efxEvilEyeBG"),
-    PROC_REPEAT(sub_8067914),
+    PROC_REPEAT(efxEvilEyeBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D7F30[] =
+u16 * CONST_DATA ImgArray_EvilEyeBg1[] =
 {
     Img_086C97B4,
     Img_086C9DAC,
@@ -114,7 +114,7 @@ u16 * CONST_DATA gUnknown_085D7F30[] =
     Img_086D2BE4,
 };
 
-u16 * CONST_DATA gUnknown_085D7F80[] =
+u16 * CONST_DATA TsaArray_EvilEyeBg1[] =
 {
     Tsa_086D36D4,
     Tsa_086D37B4,
@@ -138,7 +138,7 @@ u16 * CONST_DATA gUnknown_085D7F80[] =
     Tsa_086D4ADC,
 };
 
-u16 * CONST_DATA gUnknown_085D7FD0[] =
+u16 * CONST_DATA PalArray_EvilEyeBg1[] =
 {
     Pal_086D3454,
     Pal_086D3474,
@@ -165,10 +165,10 @@ u16 * CONST_DATA gUnknown_085D7FD0[] =
 // clang-format on
 
 //! FE8U = 0x0806788C
-void sub_806788C(struct Anim * anim)
+void StartSubSpell_efxEvilEyeBG(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DE9EA[] =
+    static const u16 frames[] =
     {
         0, 3,
         1, 3,
@@ -198,28 +198,28 @@ void sub_806788C(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D7F18, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxEvilEyeBG, PROC_TREE_3);
     proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DE9EA;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D7F80;
-    proc->tsar = gUnknown_085D7F80;
-    proc->img = gUnknown_085D7F30;
-    proc->pal = gUnknown_085D7FD0;
+    proc->tsal = TsaArray_EvilEyeBg1;
+    proc->tsar = TsaArray_EvilEyeBg1;
+    proc->img = ImgArray_EvilEyeBg1;
+    proc->pal = PalArray_EvilEyeBg1;
 
     SpellFx_SetSomeColorEffect();
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
         if (GetAnimPosition(proc->anim) == 0)
         {
-            BG_SetPosition(BG_1, 0xe8, 0);
+            BG_SetPosition(BG_1, 232, 0);
         }
         else
         {
-            BG_SetPosition(BG_1, 0x18, 0);
+            BG_SetPosition(BG_1, 24, 0);
         }
     }
 
@@ -227,7 +227,7 @@ void sub_806788C(struct Anim * anim)
 }
 
 //! FE8U = 0x08067914
-void sub_8067914(struct ProcEfxBG * proc)
+void efxEvilEyeBG_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -261,11 +261,11 @@ void sub_8067914(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxEvilEyeBG2[] =
 {
     PROC_NAME("efxEvilEyeBG2"),
-    PROC_REPEAT(sub_8067A30),
+    PROC_REPEAT(efxEvilEyeBG2_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D8038[] =
+u16 * CONST_DATA ImgArray_EvilEyeBg2[] =
 {
     Img_086D4C08,
     Img_086D5418,
@@ -275,7 +275,7 @@ u16 * CONST_DATA gUnknown_085D8038[] =
     Img_086D7F20,
 };
 
-u16 * CONST_DATA gUnknown_085D8050[] =
+u16 * CONST_DATA TsaArray_EvilEyeBg2_Close[] =
 {
     Tsa_086D8B54,
     Tsa_086D8C64,
@@ -285,7 +285,7 @@ u16 * CONST_DATA gUnknown_085D8050[] =
     Tsa_086D9354,
 };
 
-u16 * CONST_DATA gUnknown_085D8068[] =
+u16 * CONST_DATA TsaArray_EvilEyeBg2_Far[] =
 {
     Tsa_086D8B54,
     Tsa_086D8C64,
@@ -295,9 +295,9 @@ u16 * CONST_DATA gUnknown_085D8068[] =
     Tsa_086D9A74,
 };
 
-u16 * CONST_DATA gUnknown_085D8080[] =
+u16 * CONST_DATA PalArray_EvilEyeBg2[] =
 {
-    gUnknown_086D8A94,
+    Pal_EvilEyeBg2_A,
     Pal_086D8AB4,
     Pal_086D8AD4,
     Pal_086D8AF4,
@@ -311,7 +311,7 @@ u16 * CONST_DATA gUnknown_085D8080[] =
 void sub_8067984(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DEA4A[] =
+    static const u16 frames[] =
     {
         0, 2,
         1, 2,
@@ -331,26 +331,26 @@ void sub_8067984(struct Anim * anim)
     proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEA4A;
+    proc->frame_config = frames;
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
-        proc->tsal = gUnknown_085D8068;
-        proc->tsar = gUnknown_085D8068;
+        proc->tsal = TsaArray_EvilEyeBg2_Far;
+        proc->tsar = TsaArray_EvilEyeBg2_Far;
     }
     else
     {
-        proc->tsal = gUnknown_085D8050;
-        proc->tsar = gUnknown_085D8050;
+        proc->tsal = TsaArray_EvilEyeBg2_Close;
+        proc->tsar = TsaArray_EvilEyeBg2_Close;
     }
 
-    proc->img = gUnknown_085D8038;
-    proc->pal = gUnknown_085D8080;
+    proc->img = ImgArray_EvilEyeBg2;
+    proc->pal = PalArray_EvilEyeBg2;
 
-    SpellFx_RegisterBgPal(gUnknown_086D8A94, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_EvilEyeBg2_A, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
-    if (gEkrDistanceType != 0)
+    if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
     {
         if (GetAnimPosition(proc->anim) == 0)
         {
@@ -366,7 +366,7 @@ void sub_8067984(struct Anim * anim)
 }
 
 //! FE8U = 0x08067A30
-void sub_8067A30(struct ProcEfxBG * proc)
+void efxEvilEyeBG2_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -397,17 +397,17 @@ void sub_8067A30(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D8098[] =
+struct ProcCmd CONST_DATA ProcScr_efxEvilEyeOBJ[] =
 {
     PROC_NAME("efxEvilEyeOBJ"),
-    PROC_REPEAT(sub_8067B48),
+    PROC_REPEAT(efxEvilEyeOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08067AA0
-void sub_8067AA0(struct Anim * anim, int terminator)
+void StartSubSpell_efxEvilEyeOBJ(struct Anim * anim, int terminator)
 {
     u8 pos;
     struct ProcEfxOBJ * proc;
@@ -426,7 +426,7 @@ void sub_8067AA0(struct Anim * anim, int terminator)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D8098, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxEvilEyeOBJ, PROC_TREE_3);
     proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
@@ -448,7 +448,7 @@ void sub_8067AA0(struct Anim * anim, int terminator)
 }
 
 //! FE8U = 0x08067B48
-void sub_8067B48(struct ProcEfxOBJ * proc)
+void efxEvilEyeOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 

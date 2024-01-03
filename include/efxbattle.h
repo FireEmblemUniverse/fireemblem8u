@@ -599,22 +599,22 @@ extern u32 gUnknown_0201FAD8;
 // extern ??? ProcScr_efxMaohFlashEyeFire2OBJ1
 // extern ??? ProcScr_efxMaohFlashThunderOBJ
 // extern ??? ProcScr_efxMaohFlashThunderOBJ2
-// extern ??? gUnknown_085D7E20
+// extern ??? ProcScr_efxStone
 // extern ??? ProcScr_efxStoneBG
-// extern ??? gUnknown_085D7E50
-// extern ??? gUnknown_085D7E9C
-// extern ??? gUnknown_085D7EE8
-// extern ??? gUnknown_085D7F00
-// extern ??? gUnknown_085D7F18
-// extern ??? gUnknown_085D7F30
-// extern ??? gUnknown_085D7F80
-// extern ??? gUnknown_085D7FD0
+// extern ??? ImgArray_StoneBg
+// extern ??? TsaArray_StoneBg
+// extern ??? ProcScr_efxStoneOBJ
+// extern ??? ProcScr_efxEvilEye
+// extern ??? ProcScr_efxEvilEyeBG
+// extern ??? ImgArray_EvilEyeBg1
+// extern ??? TsaArray_EvilEyeBg1
+// extern ??? PalArray_EvilEyeBg1
 // extern ??? ProcScr_efxEvilEyeBG2
-// extern ??? gUnknown_085D8038
-// extern ??? gUnknown_085D8050
-// extern ??? gUnknown_085D8068
-// extern ??? gUnknown_085D8080
-// extern ??? gUnknown_085D8098
+// extern ??? ImgArray_EvilEyeBg2
+// extern ??? TsaArray_EvilEyeBg2_Close
+// extern ??? TsaArray_EvilEyeBg2_Far
+// extern ??? PalArray_EvilEyeBg2
+// extern ??? ProcScr_efxEvilEyeOBJ
 // extern ??? gUnknown_085D80B0
 // extern ??? gUnknown_085D80C8
 // extern ??? gUnknown_085D80E0
@@ -1828,8 +1828,8 @@ extern u16 Tsa_086A1D00[];
 // extern ??? gUnknown_086B5A4C
 // extern ??? gUnknown_086B5EAC
 // extern ??? gUnknown_086BC824
-extern u16 gUnknown_086BD260[];
-extern u16 gUnknown_086BD76C[];
+extern u16 Img_StoneSprites[];
+extern u16 Pal_StoneSprites[];
 extern u32 gUnknown_086BDA5C[];
 extern u16 Img_086BDB7C[];
 extern u16 Img_086BE0CC[];
@@ -1869,9 +1869,9 @@ extern u16 Tsa_086C8B30[];
 extern u16 Tsa_086C8C84[];
 extern u16 Tsa_086C8DE8[];
 extern u16 Tsa_086C8F4C[];
-extern u16 gUnknown_086C790C[];
-extern u16 gUnknown_086C792C[];
-extern u16 gUnknown_086C794C[];
+extern u16 Pal_StoneBg[];
+extern u16 Pal_StoneBg_086C792C[];
+extern u16 Pal_StoneBg_086C794C[];
 extern u16 gUnknown_086C90A4[];
 extern u16 gUnknown_086C93FC[];
 extern u32 gUnknown_086C95C0[];
@@ -1942,7 +1942,7 @@ extern u16 Img_086D5E44[];
 extern u16 Img_086D68AC[];
 extern u16 Img_086D73A4[];
 extern u16 Img_086D7F20[];
-extern u16 gUnknown_086D8A94[];
+extern u16 Pal_EvilEyeBg2_A[];
 extern u16 Pal_086D8AB4[];
 extern u16 Pal_086D8AD4[];
 extern u16 Pal_086D8AF4[];

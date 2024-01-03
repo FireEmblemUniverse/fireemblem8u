@@ -30018,12 +30018,12 @@ gUnknown_086B5EAC:  @ 0x086B5EAC
 gUnknown_086BC824:  @ 0x086BC824
 	.incbin "baserom.gba", 0x6BC824, 0xA3C
 
-	.global gUnknown_086BD260
-gUnknown_086BD260:  @ 0x086BD260
+	.global Img_StoneSprites
+Img_StoneSprites:  @ 0x086BD260
 	.incbin "baserom.gba", 0x6BD260, 0x50C
 
-	.global gUnknown_086BD76C
-gUnknown_086BD76C:  @ 0x086BD76C
+	.global Pal_StoneSprites
+Pal_StoneSprites:  @ 0x086BD76C
 	.incbin "baserom.gba", 0x6BD76C, 0x2F0
 
 	.global gUnknown_086BDA5C
@@ -30106,16 +30106,16 @@ Img_086C669C:  @ 0x086C669C
 Img_086C7010:  @ 0x086C7010
 	.incbin "baserom.gba", 0x6C7010, 0x8FC    @ 0x6C790C - 0x6C7010
 
-	.global gUnknown_086C790C
-gUnknown_086C790C:  @ 0x086C790C
+	.global Pal_StoneBg
+Pal_StoneBg:  @ 0x086C790C
 	.incbin "baserom.gba", 0x6C790C, 0x20
 
-	.global gUnknown_086C792C
-gUnknown_086C792C:  @ 0x086C792C
+	.global Pal_StoneBg_086C792C
+Pal_StoneBg_086C792C:  @ 0x086C792C
 	.incbin "baserom.gba", 0x6C792C, 0x20
 
-	.global gUnknown_086C794C
-gUnknown_086C794C:  @ 0x086C794C
+	.global Pal_StoneBg_086C794C
+Pal_StoneBg_086C794C:  @ 0x086C794C
 	.incbin "baserom.gba", 0x6C794C, 0x20    @ 0x6C796C - 0x6C794C
 
 	.global Tsa_086C796C
@@ -30474,8 +30474,8 @@ Img_086D73A4:  @ 0x086D73A4
 Img_086D7F20:  @ 0x086D7F20
 	.incbin "baserom.gba", 0x6D7F20, 0xB74    @ 0x6D8A94 - 0x6D7F20
 
-	.global gUnknown_086D8A94
-gUnknown_086D8A94:  @ 0x086D8A94
+	.global Pal_EvilEyeBg2_A
+Pal_EvilEyeBg2_A:  @ 0x086D8A94
 	.incbin "baserom.gba", 0x6D8A94, 0x20    @ 0x6D8AB4 - 0x6D8A94
 
 	.global Pal_086D8AB4
