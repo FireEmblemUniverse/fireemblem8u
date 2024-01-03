@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd gUnknown_085D7F00[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D7F00[] =
+{
+    PROC_NAME("efxEvilEye"),
+    PROC_REPEAT(sub_80677D4),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08067798
 void StartSpellAnimEvilEye(struct Anim * anim)
@@ -40,18 +49,18 @@ void sub_80677D4(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 2)
     {
-        PlaySFX(0x000003C6, 0x100, anim->xPosition, 1);
-        sub_8067AA0(anim, 0x3c);
+        PlaySFX(0x3C6, 0x100, anim->xPosition, 1);
+        sub_8067AA0(anim, 60);
     }
-    else if (proc->timer == duration + 0x1a)
+    else if (proc->timer == duration + 26)
     {
         sub_806788C(anim);
     }
-    else if (proc->timer == duration + 0x58)
+    else if (proc->timer == duration + 88)
     {
         sub_8067984(anim);
     }
-    else if (proc->timer == duration + 0x5a)
+    else if (proc->timer == duration + 90)
     {
         anim->state3 |= 9;
 
@@ -62,7 +71,7 @@ void sub_80677D4(struct ProcEfx * proc)
             EfxPlayHittedSFX(anim);
         }
     }
-    else if (proc->timer == duration + 0x74)
+    else if (proc->timer == duration + 116)
     {
         SpellFx_Finish();
         RegisterEfxSpellCastEnd();
@@ -72,17 +81,119 @@ void sub_80677D4(struct ProcEfx * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D7F18[];
+// clang-format off
 
-extern u16 * gUnknown_085D7F30[];
-extern u16 * gUnknown_085D7F80[];
-extern u16 * gUnknown_085D7FD0[];
+struct ProcCmd CONST_DATA gUnknown_085D7F18[] =
+{
+    PROC_NAME("efxEvilEyeBG"),
+    PROC_REPEAT(sub_8067914),
+    PROC_END,
+};
 
-extern u16 gUnknown_080DE9EA[];
+u16 * CONST_DATA gUnknown_085D7F30[] =
+{
+    Img_086C97B4,
+    Img_086C9DAC,
+    Img_086CA3C4,
+    Img_086CAA94,
+    Img_086CB1C4,
+    Img_086CB8F0,
+    Img_086CC0E4,
+    Img_086CC8A0,
+    Img_086CD098,
+    Img_086CD988,
+    Img_086CE15C,
+    Img_086CE9FC,
+    Img_086CF244,
+    Img_086CF9D8,
+    Img_086D0268,
+    Img_086D0B24,
+    Img_086D134C,
+    Img_086D1B6C,
+    Img_086D2400,
+    Img_086D2BE4,
+};
+
+u16 * CONST_DATA gUnknown_085D7F80[] =
+{
+    Tsa_086D36D4,
+    Tsa_086D37B4,
+    Tsa_086D3890,
+    Tsa_086D3978,
+    Tsa_086D3A7C,
+    Tsa_086D3B78,
+    Tsa_086D3C84,
+    Tsa_086D3D8C,
+    Tsa_086D3E94,
+    Tsa_086D3FBC,
+    Tsa_086D40CC,
+    Tsa_086D41F4,
+    Tsa_086D4318,
+    Tsa_086D4428,
+    Tsa_086D454C,
+    Tsa_086D466C,
+    Tsa_086D4788,
+    Tsa_086D489C,
+    Tsa_086D49D0,
+    Tsa_086D4ADC,
+};
+
+u16 * CONST_DATA gUnknown_085D7FD0[] =
+{
+    Pal_086D3454,
+    Pal_086D3474,
+    Pal_086D3494,
+    Pal_086D34B4,
+    Pal_086D34D4,
+    Pal_086D34F4,
+    Pal_086D3514,
+    Pal_086D3534,
+    Pal_086D3554,
+    Pal_086D3574,
+    Pal_086D3594,
+    Pal_086D35B4,
+    Pal_086D35D4,
+    Pal_086D35F4,
+    Pal_086D3614,
+    Pal_086D3634,
+    Pal_086D3654,
+    Pal_086D3674,
+    Pal_086D3694,
+    Pal_086D36B4,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806788C
 void sub_806788C(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DE9EA[] =
+    {
+        0, 3,
+        1, 3,
+        2, 3,
+        3, 3,
+        4, 3,
+        5, 3,
+        6, 3,
+        7, 3,
+        8, 3,
+        9, 3,
+        10, 3,
+        11, 3,
+        12, 3,
+        13, 3,
+        14, 3,
+        15, 3,
+        16, 3,
+        17, 3,
+        18, 3,
+        19, 3,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -128,8 +239,8 @@ void sub_8067914(struct ProcEfxBG * proc)
         u16 ** pal = proc->pal;
 
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
-        SpellFx_RegisterBgPal(*(pal + ret), 0x20);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
+        SpellFx_RegisterBgPal(*(pal + ret), PLTT_SIZE_4BPP);
     }
     else
     {
@@ -145,20 +256,73 @@ void sub_8067914(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxEvilEyeBG2[];
+// clang-format off
 
-extern u16 * gUnknown_085D8038[];
-extern u16 * gUnknown_085D8050[];
-extern u16 * gUnknown_085D8068[];
-extern u16 * gUnknown_085D8080[];
+struct ProcCmd CONST_DATA ProcScr_efxEvilEyeBG2[] =
+{
+    PROC_NAME("efxEvilEyeBG2"),
+    PROC_REPEAT(sub_8067A30),
+    PROC_END,
+};
 
-extern u16 gUnknown_086D8A94[];
+u16 * CONST_DATA gUnknown_085D8038[] =
+{
+    Img_086D4C08,
+    Img_086D5418,
+    Img_086D5E44,
+    Img_086D68AC,
+    Img_086D73A4,
+    Img_086D7F20,
+};
 
-extern u16 gUnknown_080DEA4A[];
+u16 * CONST_DATA gUnknown_085D8050[] =
+{
+    Tsa_086D8B54,
+    Tsa_086D8C64,
+    Tsa_086D8DEC,
+    Tsa_086D8FA4,
+    Tsa_086D9170,
+    Tsa_086D9354,
+};
+
+u16 * CONST_DATA gUnknown_085D8068[] =
+{
+    Tsa_086D8B54,
+    Tsa_086D8C64,
+    Tsa_086D953C,
+    Tsa_086D96F0,
+    Tsa_086D98A8,
+    Tsa_086D9A74,
+};
+
+u16 * CONST_DATA gUnknown_085D8080[] =
+{
+    gUnknown_086D8A94,
+    Pal_086D8AB4,
+    Pal_086D8AD4,
+    Pal_086D8AF4,
+    Pal_086D8B14,
+    Pal_086D8B34,
+};
+
+// clang-format on
 
 //! FE8U = 0x08067984
 void sub_8067984(struct Anim * anim)
 {
+    // clang-format off
+    static const u16 gUnknown_080DEA4A[] =
+    {
+        0, 2,
+        1, 2,
+        2, 2,
+        3, 2,
+        4, 2,
+        5, 2,
+        -1,
+    };
+    // clang-format on
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -183,18 +347,18 @@ void sub_8067984(struct Anim * anim)
     proc->img = gUnknown_085D8038;
     proc->pal = gUnknown_085D8080;
 
-    SpellFx_RegisterBgPal(gUnknown_086D8A94, 0x20);
+    SpellFx_RegisterBgPal(gUnknown_086D8A94, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != 0)
     {
         if (GetAnimPosition(proc->anim) == 0)
         {
-            BG_SetPosition(BG_1, 0xe8, 0);
+            BG_SetPosition(BG_1, 232, 0);
         }
         else
         {
-            BG_SetPosition(BG_1, 0x18, 0);
+            BG_SetPosition(BG_1, 24, 0);
         }
     }
 
@@ -214,8 +378,8 @@ void sub_8067A30(struct ProcEfxBG * proc)
         u16 ** pal = proc->pal;
 
         SpellFx_WriteBgMap(proc->anim, *(tsaL + ret), *(tsaR + ret));
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
-        SpellFx_RegisterBgPal(*(pal + ret), 0x20);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
+        SpellFx_RegisterBgPal(*(pal + ret), PLTT_SIZE_4BPP);
     }
     else
     {
@@ -231,14 +395,16 @@ void sub_8067A30(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D8098[];
+// clang-format off
 
-extern u32 * gUnknown_080DEA74[];
+struct ProcCmd CONST_DATA gUnknown_085D8098[] =
+{
+    PROC_NAME("efxEvilEyeOBJ"),
+    PROC_REPEAT(sub_8067B48),
+    PROC_END,
+};
 
-extern u16 gUnknown_086C93FC[];
-extern u16 gUnknown_086C90A4[];
-
-#if NONMATCHING
+// clang-format on
 
 //! FE8U = 0x08067AA0
 void sub_8067AA0(struct Anim * anim, int terminator)
@@ -248,11 +414,13 @@ void sub_8067AA0(struct Anim * anim, int terminator)
     struct Anim * frontAnim;
     u32 * scr;
 
+    // clang-format off
     u32 * gUnknown_080DEA74[2] =
     {
-        (u32 *)0x086C95C0,
-        (u32 *)0x086C978C,
+        gUnknown_086C95C0,
+        gUnknown_086C978C,
     };
+    // clang-format on
 
     pos = GetAnimPosition(anim);
 
@@ -267,102 +435,17 @@ void sub_8067AA0(struct Anim * anim, int terminator)
 
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
-    frontAnim->yPosition += 0x18;
+    frontAnim->yPosition += 24;
     frontAnim->timer = 0;
-    frontAnim->drawLayerPriority = 0x14;
+    frontAnim->drawLayerPriority = 20;
 
     AnimSort();
 
-    SpellFx_RegisterObjPal(gUnknown_086C93FC, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_086C90A4, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_086C93FC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_086C90A4, 32 * 4 * CHR_SIZE);
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_8067AA0(struct Anim * anim, int terminator)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6}\n\
-        sub sp, #0xc\n\
-        adds r6, r0, #0\n\
-        mov r9, r1\n\
-        ldr r0, _08067B34  @ gUnknown_080DEA74\n\
-        ldr r1, [r0, #4]\n\
-        ldr r0, [r0]\n\
-        str r0, [sp, #4]\n\
-        str r1, [sp, #8]\n\
-        adds r0, r6, #0\n\
-        bl GetAnimPosition\n\
-        adds r4, r0, #0\n\
-        lsls r4, r4, #0x18\n\
-        lsrs r4, r4, #0x18\n\
-        ldr r1, _08067B38  @ gEfxBgSemaphore\n\
-        ldr r0, [r1]\n\
-        adds r0, #1\n\
-        str r0, [r1]\n\
-        ldr r0, _08067B3C  @ gUnknown_085D8098\n\
-        movs r1, #3\n\
-        bl Proc_Start\n\
-        adds r5, r0, #0\n\
-        adds r0, r6, #0\n\
-        bl GetAnimAnotherSide\n\
-        str r0, [r5, #0x5c]\n\
-        movs r0, #0\n\
-        mov r8, r0\n\
-        mov r1, r8\n\
-        strh r1, [r5, #0x2c]\n\
-        mov r0, r9\n\
-        strh r0, [r5, #0x2e]\n\
-        lsls r4, r4, #2\n\
-        add r4, sp\n\
-        adds r4, #4\n\
-        ldr r3, [r4]\n\
-        str r3, [sp]\n\
-        adds r0, r6, #0\n\
-        adds r1, r3, #0\n\
-        adds r2, r3, #0\n\
-        bl EfxCreateFrontAnim\n\
-        str r0, [r5, #0x60]\n\
-        ldrh r1, [r0, #4]\n\
-        adds r1, #0x18\n\
-        strh r1, [r0, #4]\n\
-        mov r1, r8\n\
-        strh r1, [r0, #6]\n\
-        movs r1, #0x14\n\
-        strh r1, [r0, #0xa]\n\
-        bl AnimSort\n\
-        ldr r0, _08067B40  @ gUnknown_086C93FC\n\
-        movs r1, #0x20\n\
-        bl SpellFx_RegisterObjPal\n\
-        ldr r0, _08067B44  @ gUnknown_086C90A4\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #5\n\
-        bl SpellFx_RegisterObjGfx\n\
-        add sp, #0xc\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08067B34: .4byte gUnknown_080DEA74\n\
-    _08067B38: .4byte gEfxBgSemaphore\n\
-    _08067B3C: .4byte gUnknown_085D8098\n\
-    _08067B40: .4byte gUnknown_086C93FC\n\
-    _08067B44: .4byte gUnknown_086C90A4\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x08067B48
 void sub_8067B48(struct ProcEfxOBJ * proc)
