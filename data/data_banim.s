@@ -49786,12 +49786,12 @@ gUnknown_086EAE24:  @ 0x086EAE24
 gUnknown_086FDA44:  @ 0x086FDA44
 	.incbin "baserom.gba", 0x6FDA44, 0xEF4
 
-	.global gUnknown_086FE938
-gUnknown_086FE938:  @ 0x086FE938
+	.global Img_NaglfarSprites_A
+Img_NaglfarSprites_A:  @ 0x086FE938
 	.incbin "baserom.gba", 0x6FE938, 0xA6C
 
-	.global gUnknown_086FF3A4
-gUnknown_086FF3A4:  @ 0x086FF3A4
+	.global Pal_NaglfarSprites_A
+Pal_NaglfarSprites_A:  @ 0x086FF3A4
 	.incbin "baserom.gba", 0x6FF3A4, 0x104    @ 0x6FF4A8 - 0x6FF3A4
 
 	.global gUnknown_086FF4A8
@@ -49842,12 +49842,12 @@ gUnknown_086FF5DC:  @ 0x086FF5DC
 gUnknown_086FF5E4:  @ 0x086FF5E4
 	.incbin "baserom.gba", 0x6FF5E4, 0x8    @ 0x6FF5EC - 0x6FF5E4
 
-	.global gUnknown_086FF5EC
-gUnknown_086FF5EC:  @ 0x086FF5EC
+	.global Img_NaglfarSprites_B
+Img_NaglfarSprites_B:  @ 0x086FF5EC
 	.incbin "baserom.gba", 0x6FF5EC, 0x750
 
-	.global gUnknown_086FFD3C
-gUnknown_086FFD3C:  @ 0x086FFD3C
+	.global Pal_NaglfarSprites_B
+Pal_NaglfarSprites_B:  @ 0x086FFD3C
 	.incbin "baserom.gba", 0x6FFD3C, 0x35C    @ 0x700098 - 0x6FFD3C
 
 	.global gUnknown_08700098
@@ -49866,16 +49866,16 @@ gUnknown_087003EC:  @ 0x087003EC
 gUnknown_087003F8:  @ 0x087003F8
 	.incbin "baserom.gba", 0x7003F8, 0xC    @ 0x700404 - 0x7003F8
 
-	.global Img_08700404
-Img_08700404:  @ 0x08700404
+	.global Img_NaglfarBg1_A
+Img_NaglfarBg1_A:  @ 0x08700404
 	.incbin "baserom.gba", 0x700404, 0xF9C    @ 0x7013A0 - 0x700404
 
-	.global gUnknown_087013A0
-gUnknown_087013A0:  @ 0x087013A0
+	.global Pal_NaglfarBg1_A
+Pal_NaglfarBg1_A:  @ 0x087013A0
 	.incbin "baserom.gba", 0x7013A0, 0x20    @ 0x7013C0 - 0x7013A0
 
-	.global Tsa_087013C0
-Tsa_087013C0:  @ 0x087013C0
+	.global Tsa_NaglfarBg1_A
+Tsa_NaglfarBg1_A:  @ 0x087013C0
 	.incbin "baserom.gba", 0x7013C0, 0x2A0    @ 0x701660 - 0x7013C0
 
 	.global Img_08701660
@@ -50086,8 +50086,8 @@ Img_08716710:  @ 0x08716710
 Img_08717E78:  @ 0x08717E78
 	.incbin "baserom.gba", 0x717E78, 0x196C    @ 0x7197E4 - 0x717E78
 
-	.global gUnknown_087197E4
-gUnknown_087197E4:  @ 0x087197E4
+	.global Pal_NaglfarBg3
+Pal_NaglfarBg3:  @ 0x087197E4
 	.incbin "baserom.gba", 0x7197E4, 0x20    @ 0x719804 - 0x7197E4
 
 	.global Tsa_08719804
@@ -50126,8 +50126,8 @@ Img_0871E6C0:  @ 0x0871E6C0
 Img_0871F9DC:  @ 0x0871F9DC
 	.incbin "baserom.gba", 0x71F9DC, 0x13A8    @ 0x720D84 - 0x71F9DC
 
-	.global gUnknown_08720D84
-gUnknown_08720D84:  @ 0x08720D84
+	.global Pal_NaglfarBg4
+Pal_NaglfarBg4:  @ 0x08720D84
 	.incbin "baserom.gba", 0x720D84, 0x20    @ 0x720DA4 - 0x720D84
 
 	.global Tsa_08720DA4

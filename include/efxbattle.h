@@ -615,24 +615,24 @@ extern u32 gUnknown_0201FAD8;
 // extern ??? TsaArray_EvilEyeBg2_Far
 // extern ??? PalArray_EvilEyeBg2
 // extern ??? ProcScr_efxEvilEyeOBJ
-// extern ??? gUnknown_085D80B0
-// extern ??? gUnknown_085D80C8
-// extern ??? gUnknown_085D80E0
-// extern ??? gUnknown_085D80E4
+// extern ??? ProcScr_efxNaglfar
+// extern ??? ProcScr_efxNaglfarBG
+// extern ??? ImgArray_NaglfarBg1
+// extern ??? TsaArray_NaglfarBg1
 // extern ??? ProcScr_efxNaglfarBG2
-// extern ??? gUnknown_085D8100
-// extern ??? gUnknown_085D8140
-// extern ??? gUnknown_085D8180
-// extern ??? gUnknown_085D81C0
-// extern ??? gUnknown_085D81D8
-// extern ??? gUnknown_085D81E8
-// extern ??? gUnknown_085D81F8
-// extern ??? gUnknown_085D8210
-// extern ??? gUnknown_085D8224
+// extern ??? ImgArray_NaglfarBg2
+// extern ??? TsaArray_NaglfarBg2
+// extern ??? PalArray_NaglfarBg2
+// extern ??? ProcScr_efxNaglfarBG3
+// extern ??? ImgArray_NaglfarBg3
+// extern ??? TsaArray_NaglfarBg3
+// extern ??? ProcScr_efxNaglfarBG4
+// extern ??? ImgArray_NaglfarBg4
+// extern ??? TsaArray_NaglfarBg4
 // extern ??? ProcScr_efxNaglfarOBJ
-// extern ??? gUnknown_085D8250
+// extern ??? ProcScr_efxNaglfarOBJ2
 // extern ??? ProcScr_efxNaglfarOBJRockGyre
-// extern ??? gUnknown_085D8280
+// extern ??? ProcScr_efxNaglfarBlack
 // extern ??? ProcScr_efxDrzDrakbreath
 // extern ??? gUnknown_085D82C8
 // extern ??? gUnknown_085D82E0
@@ -1968,8 +1968,8 @@ extern u16 Tsa_086D9A74[];
 // extern ??? gUnknown_086EAE14
 // extern ??? gUnknown_086EAE24
 // extern ??? gUnknown_086FDA44
-// extern ??? gUnknown_086FE938
-// extern ??? gUnknown_086FF3A4
+extern u16 Img_NaglfarSprites_A[];
+extern u16 Pal_NaglfarSprites_A[];
 extern u32 gUnknown_086FF4A8[];
 extern u32 gUnknown_086FF4B0[];
 extern u32 gUnknown_086FF4B8[];
@@ -1982,15 +1982,15 @@ extern u32 gUnknown_086FF5CC[];
 extern u32 gUnknown_086FF5D4[];
 extern u32 gUnknown_086FF5DC[];
 extern u32 gUnknown_086FF5E4[];
-// extern ??? gUnknown_086FF5EC
-// extern ??? gUnknown_086FFD3C
+extern u16 Img_NaglfarSprites_B[];
+extern u16 Pal_NaglfarSprites_B[];
 extern u32 gUnknown_08700098[];
 extern u32 gUnknown_087000A4[];
 extern u32 gUnknown_087003EC[];
 extern u32 gUnknown_087003F8[];
-extern u16 Img_08700404[];
-// extern ??? gUnknown_087013A0
-extern u16 Tsa_087013C0[];
+extern u16 Img_NaglfarBg1_A[];
+extern u16 Pal_NaglfarBg1_A[];
+extern u16 Tsa_NaglfarBg1_A[];
 extern u16 Img_08701660[];
 extern u16 Img_087020CC[];
 extern u16 Img_08702D98[];
@@ -2043,7 +2043,7 @@ extern u16 Img_08713558[];
 extern u16 Img_08714E64[];
 extern u16 Img_08716710[];
 extern u16 Img_08717E78[];
-// extern ??? gUnknown_087197E4
+extern u16 Pal_NaglfarBg3[];
 extern u16 Tsa_08719804[];
 extern u16 Tsa_08719CA4[];
 extern u16 Tsa_0871A134[];
@@ -2053,7 +2053,7 @@ extern u16 Img_0871BF64[];
 extern u16 Img_0871D310[];
 extern u16 Img_0871E6C0[];
 extern u16 Img_0871F9DC[];
-// extern ??? gUnknown_08720D84
+extern u16 Pal_NaglfarBg4[];
 extern u16 Tsa_08720DA4[];
 extern u16 Tsa_0872101C[];
 extern u16 Tsa_08721294[];

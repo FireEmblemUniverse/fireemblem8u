@@ -9,10 +9,10 @@
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D80B0[] =
+struct ProcCmd CONST_DATA ProcScr_efxNaglfar[] =
 {
     PROC_NAME("efxNaglfar"),
-    PROC_REPEAT(Loop6C_efxNaglfar),
+    PROC_REPEAT(efxNaglfar_Loop_Main),
     PROC_END,
 };
 
@@ -27,7 +27,7 @@ void StartSpellAnimNaglfar(struct Anim * anim)
     NewEfxSpellCast();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D80B0, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxNaglfar, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -36,7 +36,7 @@ void StartSpellAnimNaglfar(struct Anim * anim)
 }
 
 //! FE8U = 0x08067BB8
-void Loop6C_efxNaglfar(struct ProcEfx * proc)
+void efxNaglfar_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -51,9 +51,11 @@ void Loop6C_efxNaglfar(struct ProcEfx * proc)
     {
         NewEfxRestWINH_(anim, 62, 1);
         NewEfxTwobaiRST(anim, 62);
-        sub_8067DC4(anim);
+
+        StartSubSpell_efxNaglfarBG(anim);
         NewEfxALPHA(anim, 0, 30, 0, 16, 0);
-        sub_806823C(anim, 5, 0);
+
+        StartSubSpell_efxNaglfarOBJ2(anim, 5, 0);
         PlaySFX(0x3AF, 0x100, anim->xPosition, 1);
     }
     else if (proc->timer == duration + 50)
@@ -62,7 +64,7 @@ void Loop6C_efxNaglfar(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 55)
     {
-        sub_806823C(anim, 4, 1);
+        StartSubSpell_efxNaglfarOBJ2(anim, 4, 1);
     }
     else if (proc->timer == duration + 56)
     {
@@ -74,14 +76,14 @@ void Loop6C_efxNaglfar(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 70)
     {
-        sub_8068614(anim, 0, 30);
-        sub_806823C(anim, 4, 1);
+        StartSubSpell_efxNaglfarBlack(anim, 0, 30);
+        StartSubSpell_efxNaglfarOBJ2(anim, 4, 1);
     }
     else if (proc->timer == duration + 110)
     {
         NewEfxRestWINH_(anim, 104, 1);
         NewEfxTwobaiRST(anim, 104);
-        sub_8067E98(anim);
+        StartSubSpell_efxNaglfarBG2(anim);
     }
     else if (proc->timer == duration + 166)
     {
@@ -95,9 +97,9 @@ void Loop6C_efxNaglfar(struct ProcEfx * proc)
     else if (proc->timer == duration + 226)
     {
         StartSpellThing_MagicQuake(anim, 76, 10);
-        sub_8067F64(anim);
+        StartSubSpell_efxNaglfarBG3(anim);
         NewEfxWhiteIN(anim, 0, 20);
-        sub_8068314(anim, 76);
+        StartSubSpell_efxNaglfarOBJRockGyre(anim, 76);
     }
     else if (proc->timer == duration + 302)
     {
@@ -108,7 +110,7 @@ void Loop6C_efxNaglfar(struct ProcEfx * proc)
         {
             NewEfxRestWINH_(anim, 66, 1);
             NewEfxTwobaiRST(anim, 66);
-            sub_8068028(anim);
+            StartSubSpell_efxNaglfarBG4(anim);
             NewEfxALPHA(anim, 14, 32, 16, 0, 0);
             PlaySFX(0x3b0, 0x100, anim->xPosition, 1);
         }
@@ -119,7 +121,7 @@ void Loop6C_efxNaglfar(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 314)
     {
-        sub_806823C(anim, 5, 0);
+        StartSubSpell_efxNaglfarOBJ2(anim, 5, 0);
     }
     else if (proc->timer == duration + 384)
     {
@@ -133,32 +135,30 @@ void Loop6C_efxNaglfar(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D80C8[] =
+struct ProcCmd CONST_DATA ProcScr_efxNaglfarBG[] =
 {
     PROC_NAME("efxNaglfarBG"),
-    PROC_REPEAT(Loop6C_efxNaglfarBG),
+    PROC_REPEAT(efxNaglfarBG_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D80E0[] =
+u16 * CONST_DATA ImgArray_NaglfarBg1[] =
 {
-    Img_08700404,
+    Img_NaglfarBg1_A,
 };
 
-u16 * CONST_DATA gUnknown_085D80E4[] =
+u16 * CONST_DATA TsaArray_NaglfarBg1[] =
 {
-    Tsa_087013C0,
+    Tsa_NaglfarBg1_A,
 };
 
 // clang-format on
 
-extern u16 gUnknown_087013A0[];
-
 //! FE8U = 0x08067DC4
-void sub_8067DC4(struct Anim * anim)
+void StartSubSpell_efxNaglfarBG(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DEA96[] =
+    static const u16 frames[] =
     {
         0, 60,
         -1,
@@ -169,25 +169,25 @@ void sub_8067DC4(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D80C8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxNaglfarBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
     proc->unk32 = 0;
-    proc->frame_config = gUnknown_080DEA96;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D80E4;
-    proc->tsar = gUnknown_085D80E4;
-    proc->img = gUnknown_085D80E0;
+    proc->tsal = TsaArray_NaglfarBg1;
+    proc->tsar = TsaArray_NaglfarBg1;
+    proc->img = ImgArray_NaglfarBg1;
 
-    SpellFx_RegisterBgPal(gUnknown_087013A0, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_NaglfarBg1_A, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     return;
 }
 
 //! FE8U = 0x08067E1C
-void Loop6C_efxNaglfarBG(struct ProcEfxBG * proc)
+void efxNaglfarBG_Loop(struct ProcEfxBG * proc)
 {
     s16 ret;
 
@@ -222,11 +222,11 @@ void Loop6C_efxNaglfarBG(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxNaglfarBG2[] =
 {
     PROC_NAME("efxNaglfarBG2"),
-    PROC_REPEAT(Loop6C_efxNaglfarBG2),
+    PROC_REPEAT(efxNaglfarBG2_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D8100[] =
+u16 * CONST_DATA ImgArray_NaglfarBg2[] =
 {
     Img_08701660,
     Img_087020CC,
@@ -246,7 +246,7 @@ u16 * CONST_DATA gUnknown_085D8100[] =
     Img_08710218,
 };
 
-u16 * CONST_DATA gUnknown_085D8140[] =
+u16 * CONST_DATA TsaArray_NaglfarBg2[] =
 {
     Tsa_08710FB8,
     Tsa_087111E0,
@@ -266,7 +266,7 @@ u16 * CONST_DATA gUnknown_085D8140[] =
     Tsa_08713310,
 };
 
-u16 * CONST_DATA gUnknown_085D8180[] =
+u16 * CONST_DATA PalArray_NaglfarBg2[] =
 {
     Pal_08710DB8,
     Pal_08710DD8,
@@ -289,10 +289,10 @@ u16 * CONST_DATA gUnknown_085D8180[] =
 // clang-format on
 
 //! FE8U = 0x08067E98
-void sub_8067E98(struct Anim * anim)
+void StartSubSpell_efxNaglfarBG2(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DEAAA[] =
+    static const u16 frames[] =
     {
         0, 4,
         1, 4,
@@ -321,12 +321,12 @@ void sub_8067E98(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEAAA;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D8140;
-    proc->tsar = gUnknown_085D8140;
-    proc->img = gUnknown_085D8100;
-    proc->pal = gUnknown_085D8180;
+    proc->tsal = TsaArray_NaglfarBg2;
+    proc->tsar = TsaArray_NaglfarBg2;
+    proc->img = ImgArray_NaglfarBg2;
+    proc->pal = PalArray_NaglfarBg2;
 
     SpellFx_SetSomeColorEffect();
 
@@ -334,7 +334,7 @@ void sub_8067E98(struct Anim * anim)
 }
 
 //! FE8U = 0x08067EE8
-void Loop6C_efxNaglfarBG2(struct ProcEfxBG * proc)
+void efxNaglfarBG2_Loop(struct ProcEfxBG * proc)
 {
     s16 ret;
 
@@ -369,14 +369,14 @@ void Loop6C_efxNaglfarBG2(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D81C0[] =
+struct ProcCmd CONST_DATA ProcScr_efxNaglfarBG3[] =
 {
     PROC_NAME("efxNaglfarBG3"),
-    PROC_REPEAT(sub_8067FB8),
+    PROC_REPEAT(efxNaglfarBG3_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D81D8[] =
+u16 * CONST_DATA ImgArray_NaglfarBg3[] =
 {
     Img_08713558,
     Img_08714E64,
@@ -384,7 +384,7 @@ u16 * CONST_DATA gUnknown_085D81D8[] =
     Img_08717E78,
 };
 
-u16 * CONST_DATA gUnknown_085D81E8[] =
+u16 * CONST_DATA TsaArray_NaglfarBg3[] =
 {
     Tsa_08719804,
     Tsa_08719CA4,
@@ -394,13 +394,11 @@ u16 * CONST_DATA gUnknown_085D81E8[] =
 
 // clang-format on
 
-extern u16 gUnknown_087197E4[];
-
 //! FE8U = 0x08067F64
-void sub_8067F64(struct Anim * anim)
+void StartSubSpell_efxNaglfarBG3(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DEAFA[] =
+    static const u16 frames[] =
     {
         0, 3,
         1, 3,
@@ -434,24 +432,24 @@ void sub_8067F64(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D81C0, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxNaglfarBG3, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEAFA;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D81E8;
-    proc->tsar = gUnknown_085D81E8;
-    proc->img = gUnknown_085D81D8;
+    proc->tsal = TsaArray_NaglfarBg3;
+    proc->tsar = TsaArray_NaglfarBg3;
+    proc->img = ImgArray_NaglfarBg3;
 
-    SpellFx_RegisterBgPal(gUnknown_087197E4, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_NaglfarBg3, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     return;
 }
 
 //! FE8U = 0x08067FB8
-void sub_8067FB8(struct ProcEfxBG * proc)
+void efxNaglfarBG3_Loop(struct ProcEfxBG * proc)
 {
     s16 ret;
 
@@ -484,14 +482,14 @@ void sub_8067FB8(struct ProcEfxBG * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D81F8[] =
+struct ProcCmd CONST_DATA ProcScr_efxNaglfarBG4[] =
 {
     PROC_NAME("efxNaglfarBG4"),
-    PROC_REPEAT(sub_806807C),
+    PROC_REPEAT(efxNaglfarBG4_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D8210[] =
+u16 * CONST_DATA ImgArray_NaglfarBg4[] =
 {
     Img_0871AA78,
     Img_0871BF64,
@@ -500,7 +498,7 @@ u16 * CONST_DATA gUnknown_085D8210[] =
     Img_0871F9DC,
 };
 
-u16 * CONST_DATA gUnknown_085D8224[] =
+u16 * CONST_DATA TsaArray_NaglfarBg4[] =
 {
     Tsa_08720DA4,
     Tsa_0872101C,
@@ -511,13 +509,11 @@ u16 * CONST_DATA gUnknown_085D8224[] =
 
 // clang-format on
 
-extern u16 gUnknown_08720D84[];
-
 //! FE8U = 0x08068028
-void sub_8068028(struct Anim * anim)
+void StartSubSpell_efxNaglfarBG4(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DEB6A[] =
+    static const u16 frames[] =
     {
         0, 2,
         1, 2,
@@ -546,24 +542,24 @@ void sub_8068028(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D81F8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxNaglfarBG4, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEB6A;
+    proc->frame_config = frames;
 
-    proc->tsal = gUnknown_085D8224;
-    proc->tsar = gUnknown_085D8224;
-    proc->img = gUnknown_085D8210;
+    proc->tsal = TsaArray_NaglfarBg4;
+    proc->tsar = TsaArray_NaglfarBg4;
+    proc->img = ImgArray_NaglfarBg4;
 
-    SpellFx_RegisterBgPal(gUnknown_08720D84, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_NaglfarBg4, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     return;
 }
 
 //! FE8U = 0x0806807C
-void sub_806807C(struct ProcEfxBG * proc)
+void efxNaglfarBG4_Loop(struct ProcEfxBG * proc)
 {
     s16 ret;
 
@@ -599,17 +595,14 @@ void sub_806807C(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxNaglfarOBJ[] =
 {
     PROC_NAME("efxNaglfarOBJ"),
-    PROC_REPEAT(sub_8068208),
+    PROC_REPEAT(efxNaglfarOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
-extern u16 gUnknown_086FF3A4[];
-extern u16 gUnknown_086FE938[];
-
 //! FE8U = 0x080680EC
-void sub_80680EC(struct Anim * anim, int terminator, s16 x, s16 y, u8 pos, u8 index)
+void StartSubSpell_efxNaglfarOBJ(struct Anim * anim, int terminator, s16 x, s16 y, u8 pos, u8 index)
 {
     struct ProcEfxOBJ * proc;
     u32 * scr;
@@ -672,14 +665,14 @@ void sub_80680EC(struct Anim * anim, int terminator, s16 x, s16 y, u8 pos, u8 in
             break;
     }
 
-    SpellFx_RegisterObjPal(gUnknown_086FF3A4, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_086FE938, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_NaglfarSprites_A, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_NaglfarSprites_A, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x08068208
-void sub_8068208(struct ProcEfxOBJ * proc)
+void efxNaglfarOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -695,22 +688,17 @@ void sub_8068208(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D8250[] =
+struct ProcCmd CONST_DATA ProcScr_efxNaglfarOBJ2[] =
 {
     PROC_NAME("efxNaglfarOBJ2"),
-    PROC_REPEAT(sub_80682E0),
+    PROC_REPEAT(efxNaglfarOBJ2_Loop),
     PROC_END,
 };
 
 // clang-format on
 
-extern u16 gUnknown_086FFD3C[];
-extern u16 gUnknown_086FF5EC[];
-
-extern u32 * gUnknown_080DEC30[];
-
 //! FE8U = 0x0806823C
-void sub_806823C(struct Anim * anim, int terminator, u8 c)
+void StartSubSpell_efxNaglfarOBJ2(struct Anim * anim, int terminator, u8 c)
 {
     u8 pos;
     struct ProcEfxOBJ * proc;
@@ -728,7 +716,7 @@ void sub_806823C(struct Anim * anim, int terminator, u8 c)
     pos = GetAnimPosition(anim);
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D8250, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxNaglfarOBJ2, PROC_TREE_3);
     proc->anim = GetAnimAnotherSide(anim);
     proc->timer = 0;
     proc->terminator = terminator;
@@ -738,14 +726,14 @@ void sub_806823C(struct Anim * anim, int terminator, u8 c)
     proc->anim2 = frontAnim;
     frontAnim->yPosition += 24;
 
-    SpellFx_RegisterObjPal(gUnknown_086FFD3C, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_086FF5EC, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_NaglfarSprites_B, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_NaglfarSprites_B, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x080682E0
-void sub_80682E0(struct ProcEfxOBJ * proc)
+void efxNaglfarOBJ2_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -764,14 +752,14 @@ void sub_80682E0(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxNaglfarOBJRockGyre[] =
 {
     PROC_NAME("efxNaglfarOBJRockGyre"),
-    PROC_REPEAT(sub_8068348),
+    PROC_REPEAT(efxNaglfarOBJRockGyre_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08068314
-void sub_8068314(struct Anim * anim, int terminator)
+void StartSubSpell_efxNaglfarOBJRockGyre(struct Anim * anim, int terminator)
 {
     struct ProcEfxOBJ * proc;
 
@@ -786,150 +774,149 @@ void sub_8068314(struct Anim * anim, int terminator)
 }
 
 //! FE8U = 0x08068348
-void sub_8068348(struct ProcEfxOBJ * proc)
+void efxNaglfarOBJRockGyre_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
     if (proc->timer == 2)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 0, 0);
-        return;
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 0, 0);
     }
     else if (proc->timer == 5)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 0, 1);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 0, 1);
     }
     else if (proc->timer == 7)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 0, 2);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 0, 2);
     }
     else if (proc->timer == 9)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 0, 3);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 0, 3);
     }
     else if (proc->timer == 11)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 0, 4);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 0, 4);
     }
     else if (proc->timer == 13)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 1, 0);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 1, 0);
     }
     else if (proc->timer == 15)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 1, 1);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 1, 1);
     }
     else if (proc->timer == 17)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 1, 2);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 1, 2);
     }
     else if (proc->timer == 19)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 1, 3);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 1, 3);
     }
     else if (proc->timer == 21)
     {
-        sub_80680EC(proc->anim, 2, 0, 0, 1, 4);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 0, 0, 1, 4);
     }
     else if (proc->timer == 23)
     {
-        sub_80680EC(proc->anim, 2, 8, 8, 0, 0);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 8, 8, 0, 0);
     }
     else if (proc->timer == 25)
     {
-        sub_80680EC(proc->anim, 2, 8, 8, 0, 1);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 8, 8, 0, 1);
     }
     else if (proc->timer == 27)
     {
-        sub_80680EC(proc->anim, 2, 8, 8, 0, 2);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 8, 8, 0, 2);
     }
     else if (proc->timer == 29)
     {
-        sub_80680EC(proc->anim, 2, 8, 8, 0, 3);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 8, 8, 0, 3);
     }
     else if (proc->timer == 31)
     {
-        sub_80680EC(proc->anim, 2, 8, 8, 0, 4);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 8, 8, 0, 4);
     }
     else if (proc->timer == 33)
     {
-        sub_80680EC(proc->anim, 2, -16, -8, 1, 0);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -16, -8, 1, 0);
     }
     else if (proc->timer == 35)
     {
-        sub_80680EC(proc->anim, 2, -16, -8, 1, 1);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -16, -8, 1, 1);
     }
     else if (proc->timer == 37)
     {
-        sub_80680EC(proc->anim, 2, -16, -8, 1, 2);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -16, -8, 1, 2);
     }
     else if (proc->timer == 39)
     {
-        sub_80680EC(proc->anim, 2, -16, -8, 1, 3);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -16, -8, 1, 3);
     }
     else if (proc->timer == 41)
     {
-        sub_80680EC(proc->anim, 2, -16, -8, 1, 4);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -16, -8, 1, 4);
     }
     else if (proc->timer == 43)
     {
-        sub_80680EC(proc->anim, 2, 18, 18, 0, 0);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 18, 18, 0, 0);
     }
     else if (proc->timer == 45)
     {
-        sub_80680EC(proc->anim, 2, 18, 18, 0, 1);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 18, 18, 0, 1);
     }
     else if (proc->timer == 47)
     {
-        sub_80680EC(proc->anim, 2, 18, 18, 0, 2);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 18, 18, 0, 2);
     }
     else if (proc->timer == 49)
     {
-        sub_80680EC(proc->anim, 2, 18, 18, 0, 3);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 18, 18, 0, 3);
     }
     else if (proc->timer == 51)
     {
-        sub_80680EC(proc->anim, 2, 18, 18, 0, 4);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 18, 18, 0, 4);
     }
     else if (proc->timer == 53)
     {
-        sub_80680EC(proc->anim, 2, -24, 0, 1, 0);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -24, 0, 1, 0);
     }
     else if (proc->timer == 55)
     {
-        sub_80680EC(proc->anim, 2, -24, 0, 1, 1);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -24, 0, 1, 1);
     }
     else if (proc->timer == 57)
     {
-        sub_80680EC(proc->anim, 2, -24, 0, 1, 2);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -24, 0, 1, 2);
     }
     else if (proc->timer == 59)
     {
-        sub_80680EC(proc->anim, 2, -24, 0, 1, 3);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -24, 0, 1, 3);
     }
     else if (proc->timer == 61)
     {
-        sub_80680EC(proc->anim, 2, -24, 0, 1, 4);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, -24, 0, 1, 4);
     }
     else if (proc->timer == 63)
     {
-        sub_80680EC(proc->anim, 2, 12, 12, 0, 0);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 12, 12, 0, 0);
     }
     else if (proc->timer == 65)
     {
-        sub_80680EC(proc->anim, 2, 12, 12, 0, 1);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 12, 12, 0, 1);
     }
     else if (proc->timer == 67)
     {
-        sub_80680EC(proc->anim, 2, 12, 12, 0, 2);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 12, 12, 0, 2);
     }
     else if (proc->timer == 69)
     {
-        sub_80680EC(proc->anim, 2, 12, 12, 0, 3);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 12, 12, 0, 3);
     }
     else if (proc->timer == 71)
     {
-        sub_80680EC(proc->anim, 2, 12, 12, 0, 4);
+        StartSubSpell_efxNaglfarOBJ(proc->anim, 2, 12, 12, 0, 4);
     }
     else if (proc->timer == proc->terminator)
     {
@@ -943,14 +930,14 @@ void sub_8068348(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D8280[] =
+struct ProcCmd CONST_DATA ProcScr_efxNaglfarBlack[] =
 {
     PROC_NAME("efxNaglfarBlack"),
 
-    PROC_REPEAT(sub_8068638),
-    PROC_REPEAT(sub_8068680),
-    PROC_REPEAT(sub_8068738),
-    PROC_REPEAT(sub_80687D0),
+    PROC_REPEAT(efxNaglfarBlack_Loop_A),
+    PROC_REPEAT(efxNaglfarBlack_Loop_B),
+    PROC_REPEAT(efxNaglfarBlack_Loop_C),
+    PROC_REPEAT(efxNaglfarBlack_Loop_D),
 
     PROC_END,
 };
@@ -958,9 +945,9 @@ struct ProcCmd CONST_DATA gUnknown_085D8280[] =
 // clang-format on
 
 //! FE8U = 0x08068614
-void sub_8068614(struct Anim * anim, int b, int c)
+void StartSubSpell_efxNaglfarBlack(struct Anim * anim, int b, int c)
 {
-    struct ProcEfx * proc = Proc_Start(gUnknown_085D8280, PROC_TREE_VSYNC);
+    struct ProcEfx * proc = Proc_Start(ProcScr_efxNaglfarBlack, PROC_TREE_VSYNC);
 
     proc->anim = anim;
     proc->timer = 0;
@@ -971,7 +958,7 @@ void sub_8068614(struct Anim * anim, int b, int c)
 }
 
 //! FE8U = 0x08068638
-void sub_8068638(struct ProcEfx * proc)
+void efxNaglfarBlack_Loop_A(struct ProcEfx * proc)
 {
     CpuFastCopy(gPaletteBuffer, gEfxPal, 0x400);
 
@@ -989,7 +976,7 @@ void sub_8068638(struct ProcEfx * proc)
 }
 
 //! FE8U = 0x08068680
-void sub_8068680(struct ProcEfx * proc)
+void efxNaglfarBlack_Loop_B(struct ProcEfx * proc)
 {
     int ret = Interpolate(0, 0, 16, proc->timer, proc->unk30);
 
@@ -1017,7 +1004,7 @@ void sub_8068680(struct ProcEfx * proc)
 }
 
 //! FE8U = 0x08068738
-void sub_8068738(struct ProcEfx * proc)
+void efxNaglfarBlack_Loop_C(struct ProcEfx * proc)
 {
     int ret = Interpolate(0, 16, 0, proc->timer, proc->unk30);
 
@@ -1044,7 +1031,7 @@ void sub_8068738(struct ProcEfx * proc)
 }
 
 //! FE8U = 0x080687D0
-void sub_80687D0(struct ProcEfx * proc)
+void efxNaglfarBlack_Loop_D(struct ProcEfx * proc)
 {
     EnablePaletteSync();
     Proc_Break(proc);
