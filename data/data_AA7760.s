@@ -96,7 +96,7 @@ gPal_08AB0B24:  @ 0x08AB0B24
     .4byte 0x33bf277f
     .4byte 0x6bff47bf
     .4byte 0x45ee21ba
-    .4byte gUnknown_086FFD3C + 0x2c4
+    .4byte Pal_NaglfarSprites_B + 0x2c4
     .4byte 0xcd2467b
     .4byte 0x7fff044a
 

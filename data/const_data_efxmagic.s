@@ -1,54 +1,15 @@
     .section .rodata
 
-	.asciz "efxNaglfar"
+	.asciz "efxDrzDrakbreath"
 	.align 2, 0
 
-	.asciz "efxNaglfarBG"
-	.byte 0
+	.asciz "efxDrzDrakbreathOBJ"
+	.align 2, 0
 
-	.global gUnknown_080DEA96
-gUnknown_080DEA96:  @ 0x080DEA96
-	.incbin "baserom.gba", 0xDEA96, 0x14
+	.asciz "efxDrzDrakbreathBG"
+	.align 2, 0
 
-	.global gUnknown_080DEAAA
-gUnknown_080DEAAA:  @ 0x080DEAAA
-	.incbin "baserom.gba", 0xDEAAA, 0x50
-
-	.global gUnknown_080DEAFA
-gUnknown_080DEAFA:  @ 0x080DEAFA
-	.incbin "baserom.gba", 0xDEAFA, 0x70
-
-	.global gUnknown_080DEB6A
-gUnknown_080DEB6A:  @ 0x080DEB6A
-	.incbin "baserom.gba", 0xDEB6A, 0x5E
-
-	.global gUnknown_080DEBC8
-gUnknown_080DEBC8:  @ 0x080DEBC8
-@ replacing .incbin "baserom.gba", 0x000debc8, 0x30
-.4byte gUnknown_086FF3A4 + 0x104
-.4byte gUnknown_086FF3A4 + 0x218
-.4byte gUnknown_086FF3A4 + 0x10c
-.4byte gUnknown_086FF3A4 + 0x220
-.4byte gUnknown_086FF3A4 + 0x114
-.4byte gUnknown_086FF3A4 + 0x228
-.4byte gUnknown_086FF3A4 + 0x11c
-.4byte gUnknown_086FF3A4 + 0x230
-.4byte gUnknown_086FF3A4 + 0x124
-.4byte gUnknown_086FF3A4 + 0x238
-.4byte gUnknown_086FF3A4 + 0x12c
-.4byte gUnknown_086FF3A4 + 0x240
-
-	.global gUnknown_080DEBF8
-gUnknown_080DEBF8:  @ 0x080DEBF8
-	.incbin "baserom.gba", 0xDEBF8, 0x14
-
-	.global gUnknown_080DEC0C
-gUnknown_080DEC0C:  @ 0x080DEC0C
-	.incbin "baserom.gba", 0xDEC0C, 0x24
-
-	.global gUnknown_080DEC30
-gUnknown_080DEC30:  @ 0x080DEC30
-	.incbin "baserom.gba", 0xDEC30, 0x8A
+	.asciz "efxDrzDrakbreathBGCOL"
 
 	.global gUnknown_080DECBA
 gUnknown_080DECBA:  @ 0x080DECBA
