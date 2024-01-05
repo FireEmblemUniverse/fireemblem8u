@@ -1,19 +1,10 @@
     .section .rodata
 
-	.asciz "efxDrzDrakbreath"
+	.asciz "efxDarkGrado"
 	.align 2, 0
 
-	.asciz "efxDrzDrakbreathOBJ"
+	.asciz "efxDarkGradoMapFadeOut"
 	.align 2, 0
-
-	.asciz "efxDrzDrakbreathBG"
-	.align 2, 0
-
-	.asciz "efxDrzDrakbreathBGCOL"
-
-	.global gUnknown_080DECBA
-gUnknown_080DECBA:  @ 0x080DECBA
-	.incbin "baserom.gba", 0xDECBA, 0x102
 
 	.global gUnknown_080DEDBC
 gUnknown_080DEDBC:  @ 0x080DEDBC
