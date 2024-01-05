@@ -1558,39 +1558,39 @@ Pal_IceBreathSprites:  @ 0x085DFA28
 Pal_DarkBreathSprites:  @ 0x085DFA48
 	.incbin "baserom.gba", 0x5DFA48, 0x20
 
-	.global gUnknown_085DFA68
-gUnknown_085DFA68:  @ 0x085DFA68
+	.global Pal_WretchedAirSprites
+Pal_WretchedAirSprites:  @ 0x085DFA68
 	.incbin "baserom.gba", 0x5DFA68, 0xC14
 
 	.global gUnknown_085E067C
 gUnknown_085E067C:  @ 0x085E067C
 @ Replacing .incbin "baserom.gba", 0x5E067C, 0xC60
-    .4byte gUnknown_085DFA68 + 0x22
-    .4byte gUnknown_085DFA68 + 0x3a
-    .4byte gUnknown_085DFA68 + 0x52
-    .4byte gUnknown_085DFA68 + 0x9a
-    .4byte gUnknown_085DFA68 + 0xd6
-    .4byte gUnknown_085DFA68 + 0x136
-    .4byte gUnknown_085DFA68 + 0x1ba
-    .4byte gUnknown_085DFA68 + 0x21a
-    .4byte gUnknown_085DFA68 + 0x27a
-    .4byte gUnknown_085DFA68 + 0x32e
-    .4byte gUnknown_085DFA68 + 0x3be
-    .4byte gUnknown_085DFA68 + 0x48a
-    .4byte gUnknown_085DFA68 + 0x5c2
-    .4byte gUnknown_085DFA68 + 0x68e
-    .4byte gUnknown_085DFA68 + 0x74e
-    .4byte gUnknown_085DFA68 + 0x802
-    .4byte gUnknown_085DFA68 + 0x8c2
-    .4byte gUnknown_085DFA68 + 0x952
-    .4byte gUnknown_085DFA68 + 0x9fa
-    .4byte gUnknown_085DFA68 + 0xa42
-    .4byte gUnknown_085DFA68 + 0xa8a
-    .4byte gUnknown_085DFA68 + 0xaf6
-    .4byte gUnknown_085DFA68 + 0xb56
-    .4byte gUnknown_085DFA68 + 0xb7a
-    .4byte gUnknown_085DFA68 + 0xbc2
-    .4byte gUnknown_085DFA68 + 0xbda
+    .4byte Pal_WretchedAirSprites + 0x22
+    .4byte Pal_WretchedAirSprites + 0x3a
+    .4byte Pal_WretchedAirSprites + 0x52
+    .4byte Pal_WretchedAirSprites + 0x9a
+    .4byte Pal_WretchedAirSprites + 0xd6
+    .4byte Pal_WretchedAirSprites + 0x136
+    .4byte Pal_WretchedAirSprites + 0x1ba
+    .4byte Pal_WretchedAirSprites + 0x21a
+    .4byte Pal_WretchedAirSprites + 0x27a
+    .4byte Pal_WretchedAirSprites + 0x32e
+    .4byte Pal_WretchedAirSprites + 0x3be
+    .4byte Pal_WretchedAirSprites + 0x48a
+    .4byte Pal_WretchedAirSprites + 0x5c2
+    .4byte Pal_WretchedAirSprites + 0x68e
+    .4byte Pal_WretchedAirSprites + 0x74e
+    .4byte Pal_WretchedAirSprites + 0x802
+    .4byte Pal_WretchedAirSprites + 0x8c2
+    .4byte Pal_WretchedAirSprites + 0x952
+    .4byte Pal_WretchedAirSprites + 0x9fa
+    .4byte Pal_WretchedAirSprites + 0xa42
+    .4byte Pal_WretchedAirSprites + 0xa8a
+    .4byte Pal_WretchedAirSprites + 0xaf6
+    .4byte Pal_WretchedAirSprites + 0xb56
+    .4byte Pal_WretchedAirSprites + 0xb7a
+    .4byte Pal_WretchedAirSprites + 0xbc2
+    .4byte Pal_WretchedAirSprites + 0xbda
     .4byte 0x80000000
     .4byte 0x10000000
     .4byte 0xfffc0464

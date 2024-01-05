@@ -12,14 +12,14 @@
 struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreath[] =
 {
     PROC_NAME("efxDrzDrakbreath"),
-    PROC_REPEAT(sub_806881C),
+    PROC_REPEAT(efxDrzDrakbreath_Loop_Main),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080687E4
-void sub_80687E4(struct Anim * anim)
+void StartSpellAnimWretchedAir(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -35,7 +35,7 @@ void sub_80687E4(struct Anim * anim)
 }
 
 //! FE8U = 0x0806881C
-void sub_806881C(struct ProcEfx * proc)
+void efxDrzDrakbreath_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
 
@@ -47,7 +47,7 @@ void sub_806881C(struct ProcEfx * proc)
     if (proc->timer == 1)
     {
         StartSpellThing_MagicQuake(proc->anim, 90, 10);
-        sub_80688C0(anim);
+        StartSubSpell_efxDrzDrakbreathOBJ(anim);
         NewEfxALPHA(anim, 40, 15, 16, 0, 0);
         PlaySFX(0x11D, 0x100, anim->xPosition, 1);
     }
@@ -73,19 +73,19 @@ void sub_806881C(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D82C8[] =
+struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreathOBJ[] =
 {
     PROC_NAME("efxDrzDrakbreathOBJ"),
-    PROC_REPEAT(sub_8068970),
+    PROC_REPEAT(efxDrzDrakbreathOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
-extern u16 gUnknown_085DFA68[];
+extern u16 Pal_WretchedAirSprites[];
 
 //! FE8U = 0x080688C0
-void sub_80688C0(struct Anim * anim)
+void StartSubSpell_efxDrzDrakbreathOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -93,7 +93,7 @@ void sub_80688C0(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D82C8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDrzDrakbreathOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 52;
@@ -133,14 +133,14 @@ void sub_80688C0(struct Anim * anim)
         }
     }
 
-    SpellFx_RegisterObjPal(gUnknown_085DFA68, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjPal(Pal_WretchedAirSprites, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_BreathSprites, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x08068970
-void sub_8068970(struct ProcEfxOBJ * proc)
+void efxDrzDrakbreathOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     if (gEkrDistanceType != 0)
     {
@@ -168,24 +168,24 @@ void sub_8068970(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D82E0[] =
+struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreathBG[] =
 {
     PROC_NAME("efxDrzDrakbreathBG"),
-    PROC_REPEAT(sub_8068A28),
+    PROC_REPEAT(efxDrzDrakbreathBG_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080689D4
-void sub_80689D4(struct Anim * anim)
+void StartSubSpell_efxDrzDrakbreathBG(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
     u16 * tsa;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D82E0, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDrzDrakbreathBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 112;
@@ -201,7 +201,7 @@ void sub_80689D4(struct Anim * anim)
 }
 
 //! FE8U = 0x08068A28
-void sub_8068A28(struct ProcEfxBG * proc)
+void efxDrzDrakbreathBG_Loop(struct ProcEfxBG * proc)
 {
     proc->timer++;
 
@@ -223,7 +223,7 @@ struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreathBGCOL[] =
     PROC_NAME("efxDrzDrakbreathBGCOL"),
     PROC_MARK(PROC_MARK_A),
 
-    PROC_REPEAT(sub_8068A9C),
+    PROC_REPEAT(efxDrzDrakbreathBGCOL_Loop),
 
     PROC_END,
 };
@@ -233,10 +233,10 @@ struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreathBGCOL[] =
 extern u16 gUnknown_08725DAC[];
 
 //! FE8U = 0x08068A60
-void sub_8068A60(struct Anim * anim)
+void StartSubSpell_efxDrzDrakbreathBGCOL(struct Anim * anim)
 {
     // clang-format off
-    static const u16 gUnknown_080DECBA[] =
+    static const u16 frames[] =
     {
         0, 2,
         1, 2,
@@ -304,7 +304,7 @@ void sub_8068A60(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DECBA;
+    proc->frame_config = frames;
 
     proc->pal = gUnknown_08725DAC;
 
@@ -312,7 +312,7 @@ void sub_8068A60(struct Anim * anim)
 }
 
 //! FE8U = 0x08068A9C
-void sub_8068A9C(struct ProcEfxBGCOL * proc)
+void efxDrzDrakbreathBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 

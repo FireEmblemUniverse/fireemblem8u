@@ -634,8 +634,8 @@ extern u32 gUnknown_0201FAD8;
 // extern ??? ProcScr_efxNaglfarOBJRockGyre
 // extern ??? ProcScr_efxNaglfarBlack
 // extern ??? ProcScr_efxDrzDrakbreath
-// extern ??? gUnknown_085D82C8
-// extern ??? gUnknown_085D82E0
+// extern ??? ProcScr_efxDrzDrakbreathOBJ
+// extern ??? ProcScr_efxDrzDrakbreathBG
 // extern ??? ProcScr_efxDrzDrakbreathBGCOL
 // extern ??? gUnknown_085D8318
 // extern ??? gUnknown_085D8330
@@ -984,7 +984,7 @@ extern u16 gUnknown_085DF224[];
 extern u16 gUnknown_085DFA08[];
 extern u16 Pal_IceBreathSprites[];
 extern u16 Pal_DarkBreathSprites[];
-// extern ??? gUnknown_085DFA68
+extern u16 Pal_WretchedAirSprites[];
 extern u32 gUnknown_085E067C[];
 extern u32 gUnknown_085E12DC[];
 extern u32 gUnknown_085E15F4[];
@@ -2066,7 +2066,7 @@ extern u16 Tsa_08724444[];
 extern u16 Img_FireBreathBg[];
 extern u16 Pal_FireBreathBg[];
 extern u16 Tsa_FireBreathBg[];
-// extern ??? gUnknown_08725DAC
+extern u16 gUnknown_08725DAC[];
 extern u16 Img_ShineBg1[];
 extern u16 Pal_ShineBg_08726FF4[];
 extern u16 Tsa_ShineBg1_Left[];
