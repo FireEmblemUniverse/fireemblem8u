@@ -101,7 +101,8 @@ struct ProcEfxOBJ {
     /* 42 */ u16 unk42;
     /* 44 */ int unk44;
     /* 48 */ int unk48;
-    STRUCT_PAD(0x4C, 0x5C);
+    /* 4C */ int unk4C;
+    STRUCT_PAD(0x50, 0x5C);
     /* 5C */ struct Anim * anim;
     /* 60 */ struct Anim * anim2;
     /* 64 */ struct Anim * anim3;
