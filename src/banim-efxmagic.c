@@ -77,7 +77,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     sub_806AEF4,
     sub_806B4F8,
     StartSpellAnimNaglfar,
-    sub_80687E4,
+    StartSpellAnimWretchedAir,
     (void *)NULL
 };
 

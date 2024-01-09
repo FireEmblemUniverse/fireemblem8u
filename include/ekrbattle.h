@@ -616,7 +616,6 @@ extern const u16 gUnknown_080DCDE4[];
 // extern ??? gUnknown_080DEBF8
 // extern ??? gUnknown_080DEC0C
 // extern ??? gUnknown_080DEC30
-// extern ??? gUnknown_080DECBA
 // extern ??? gUnknown_080DEDBC
 // extern ??? gUnknown_080DEDFA
 // extern ??? gUnknown_080DEE40

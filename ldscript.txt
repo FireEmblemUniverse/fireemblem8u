@@ -208,6 +208,7 @@ SECTIONS
         src/banim-efxmagic-stone.o(.text);
         src/banim-efxmagic-evileye.o(.text);
         src/banim-efxmagic-naglfar.o(.text);
+        src/banim-efxmagic-wretchedair.o(.text);
         asm/banim-efxmagic-66514.o(.text);
         src/banim-efxhit.o(.text);
         src/banim-efxmisc.o(.text);
@@ -501,6 +502,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-stone.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-evileye.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-naglfar.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-wretchedair.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
@@ -725,6 +727,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-stone.o(.data);
         . = ALIGN(4); src/banim-efxmagic-evileye.o(.data);
         . = ALIGN(4); src/banim-efxmagic-naglfar.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-wretchedair.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);
         . = ALIGN(4); src/banim-efxhit.o(.data);
         . = ALIGN(4); data/banim-efxhit.o(.data);
