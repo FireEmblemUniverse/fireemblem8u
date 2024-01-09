@@ -29926,12 +29926,12 @@ Pal_IvaldiBg4:  @ 0x086A1CE0
 Tsa_086A1D00:  @ 0x086A1D00
 	.incbin "baserom.gba", 0x6A1D00, 0x4F4    @ 0x6A21F4 - 0x6A1D00
 
-	.global gUnknown_086A21F4
-gUnknown_086A21F4:  @ 0x086A21F4
+	.global Img_GleipnirSprites_Rocks
+Img_GleipnirSprites_Rocks:  @ 0x086A21F4
 	.incbin "baserom.gba", 0x6A21F4, 0x420
 
-	.global gUnknown_086A2614
-gUnknown_086A2614:  @ 0x086A2614
+	.global Pal_GleipnirSprites_Rocks
+Pal_GleipnirSprites_Rocks:  @ 0x086A2614
 	.incbin "baserom.gba", 0x6A2614, 0x110
 
 	.global gUnknown_086A2724
@@ -29950,12 +29950,12 @@ gUnknown_086A2844:  @ 0x086A2844
 gUnknown_086A285C:  @ 0x086A285C
 	.incbin "baserom.gba", 0x6A285C, 0x18
 
-	.global gUnknown_086A2874
-gUnknown_086A2874:  @ 0x086A2874
+	.global Img_GleipnirSprites_Comet
+Img_GleipnirSprites_Comet:  @ 0x086A2874
 	.incbin "baserom.gba", 0x6A2874, 0x474
 
-	.global gUnknown_086A2CE8
-gUnknown_086A2CE8:  @ 0x086A2CE8
+	.global Pal_GleipnirSprites_Comet
+Pal_GleipnirSprites_Comet:  @ 0x086A2CE8
 	.incbin "baserom.gba", 0x6A2CE8, 0xD4
 
 	.global gUnknown_086A2DBC
@@ -30018,8 +30018,8 @@ Img_086A5F2C:  @ 0x086A5F2C
 Img_086A6304:  @ 0x086A6304
 	.incbin "baserom.gba", 0x6A6304, 0x3D4    @ 0x6A66D8 - 0x6A6304
 
-	.global gUnknown_086A66D8
-gUnknown_086A66D8:  @ 0x086A66D8
+	.global Pal_GleipnirBg_Sigil
+Pal_GleipnirBg_Sigil:  @ 0x086A66D8
 	.incbin "baserom.gba", 0x6A66D8, 0x20    @ 0x6A66F8 - 0x6A66D8
 
 	.global Tsa_086A66F8
@@ -30258,16 +30258,16 @@ Tsa_086B3CE8:  @ 0x086B3CE8
 Tsa_086B3F00:  @ 0x086B3F00
 	.incbin "baserom.gba", 0x6B3F00, 0x21C    @ 0x6B411C - 0x6B3F00
 
-	.global Img_086B411C
-Img_086B411C:  @ 0x086B411C
+	.global Img_GleipnirBg_Fog
+Img_GleipnirBg_Fog:  @ 0x086B411C
 	.incbin "baserom.gba", 0x6B411C, 0x11B0    @ 0x6B52CC - 0x6B411C
 
-	.global gUnknown_086B52CC
-gUnknown_086B52CC:  @ 0x086B52CC
+	.global Pal_GleipnirBg_Fog
+Pal_GleipnirBg_Fog:  @ 0x086B52CC
 	.incbin "baserom.gba", 0x6B52CC, 0x20    @ 0x6B52EC - 0x6B52CC
 
-	.global Tsa_086B52EC
-Tsa_086B52EC:  @ 0x086B52EC
+	.global Tsa_GleipnirBg_Fog
+Tsa_GleipnirBg_Fog:  @ 0x086B52EC
 	.incbin "baserom.gba", 0x6B52EC, 0x294    @ 0x6B5580 - 0x6B52EC
 
 	.global gUnknown_086B5580

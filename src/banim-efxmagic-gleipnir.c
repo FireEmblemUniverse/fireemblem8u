@@ -7,29 +7,30 @@
 #include "hardware.h"
 #include "bmlib.h"
 #include "ekrdragon.h"
+#include "ctc.h"
 
 extern int gUnknown_0201FB28;
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D8318[] =
+struct ProcCmd CONST_DATA ProcScr_efxDarkGrado[] =
 {
     PROC_NAME("efxDarkGrado"),
-    PROC_REPEAT(sub_8068BB8),
+    PROC_REPEAT(efxDarkGrado_Loop_Main),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08068B80
-void sub_8068B80(struct Anim * anim)
+void StartSpellAnimGleipnir(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
     SpellFx_Begin();
     SpellFx_ClearBG1Position();
 
-    proc = Proc_Start(gUnknown_085D8318, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDarkGrado, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
@@ -38,7 +39,7 @@ void sub_8068B80(struct Anim * anim)
 }
 
 //! FE8U = 0x08068BB8
-void sub_8068BB8(struct ProcEfx * proc)
+void efxDarkGrado_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -54,22 +55,22 @@ void sub_8068BB8(struct ProcEfx * proc)
         if ((GetBanimDragonStatusType() != EKRDRGON_TYPE_DRACO_ZOMBIE) &&
             (GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING))
         {
-            sub_8068D78();
+            StartSubSpell_efxDarkGradoMapFadeOut();
         }
     }
     else if (proc->timer == duration + 34)
     {
-        sub_80692B0(anim);
+        StartSubSpell_efxDarkGradoBG01(anim);
         PlaySFX(0x3ac, 0x100, 120, 1);
     }
     else if (proc->timer == duration + 96)
     {
-        sub_8069488(anim);
-        sub_8069AC4(anim);
+        StartSubSpell_efxDarkGradoBG02(anim);
+        StartSubSpell_efxDarkGradoOBJ01(anim);
     }
     else if (proc->timer == duration + 206)
     {
-        sub_8069E88(anim);
+        StartSubSpell_efxDarkGradoOBJ02(anim);
     }
     else if (proc->timer == duration + 302)
     {
@@ -83,7 +84,7 @@ void sub_8068BB8(struct ProcEfx * proc)
 
         NewEfxSpellCast();
 
-        anim->state3 |= 9;
+        anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
         StartBattleAnimHitEffectsDefault(anim, proc->hitted);
 
@@ -123,7 +124,7 @@ void sub_8068BB8(struct ProcEfx * proc)
 }
 
 //! FE8U = 0x08068D20
-void sub_8068D20(struct ProcEfx * proc)
+void efxDarkGradoMapFadeOut_Loop(struct ProcEfx * proc)
 {
     int ret = Interpolate(INTERPOLATE_SQUARE, 4, 16, proc->timer, 16);
 
@@ -144,23 +145,23 @@ void sub_8068D20(struct ProcEfx * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D8330[] =
+struct ProcCmd CONST_DATA ProcScr_efxDarkGradoMapFadeOut[] =
 {
     PROC_NAME("efxDarkGradoMapFadeOut"),
-    PROC_REPEAT(sub_8068D20),
+    PROC_REPEAT(efxDarkGradoMapFadeOut_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08068D78
-void sub_8068D78(void)
+void StartSubSpell_efxDarkGradoMapFadeOut(void)
 {
     struct ProcEfx * proc;
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D8330, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDarkGradoMapFadeOut, PROC_TREE_3);
     proc->timer = 0;
 
     return;
@@ -169,13 +170,13 @@ void sub_8068D78(void)
 //! FE8U = 0x08068D9C
 void sub_8068D9C(void)
 {
-    if (gBanimGackgroundIndex == 0)
+    if (gBanimBackgroundIndex == 0)
     {
         EfxChapterMapFadeOUT(4);
     }
     else
     {
-        PutBanimBgPAL(gBanimGackgroundIndex - 1);
+        PutBanimBgPAL(gBanimBackgroundIndex - 1);
         EfxPalBlackInOut(gPaletteBuffer, 6, 10, 0);
         EnablePaletteSync();
     }
@@ -413,7 +414,7 @@ void sub_80690E4(void)
 }
 
 //! FE8U = 0x08069100
-void sub_8069100(struct ProcEfxBG * proc)
+void efxDarkGradoBG01_Loop(struct ProcEfxBG * proc)
 {
     s16 ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -553,7 +554,7 @@ void sub_8069100(struct ProcEfxBG * proc)
 
 // clang-format off
 
-u16 * CONST_DATA gUnknown_085D8348[] =
+u16 * CONST_DATA TsaArray_GleipnirBg_Sigil[] =
 {
     Tsa_086A66F8,
     Tsa_086A68A0,
@@ -568,7 +569,7 @@ u16 * CONST_DATA gUnknown_085D8348[] =
     Tsa_086A71B8,
 };
 
-u16 * CONST_DATA gUnknown_085D8374[] =
+u16 * CONST_DATA ImgArray_GleipnirBg_Sigil[] =
 {
     Img_086A2EC0,
     Img_086A34D0,
@@ -583,7 +584,7 @@ u16 * CONST_DATA gUnknown_085D8374[] =
     Img_086A6304,
 };
 
-const u16 gUnknown_080DEDBC[] =
+const u16 gFrameConfig_GleipnirBg_Sigil[] =
 {
     0, 24,
     1, 4,
@@ -601,14 +602,14 @@ const u16 gUnknown_080DEDBC[] =
 struct ProcCmd CONST_DATA ProcScr_efxDarkGradoBG01[] =
 {
     PROC_NAME("efxDarkGradoBG01"),
-    PROC_REPEAT(sub_8069100),
+    PROC_REPEAT(efxDarkGradoBG01_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080692B0
-void sub_80692B0(struct Anim * anim)
+void StartSubSpell_efxDarkGradoBG01(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
 
@@ -620,13 +621,13 @@ void sub_80692B0(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEDBC;
+    proc->frame_config = gFrameConfig_GleipnirBg_Sigil;
 
-    proc->tsal = gUnknown_085D8348;
-    proc->tsar = gUnknown_085D8348;
-    proc->img = gUnknown_085D8374;
+    proc->tsal = TsaArray_GleipnirBg_Sigil;
+    proc->tsar = TsaArray_GleipnirBg_Sigil;
+    proc->img = ImgArray_GleipnirBg_Sigil;
 
-    SpellFx_RegisterBgPal(gUnknown_086A66D8, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_GleipnirBg_Sigil, PLTT_SIZE_4BPP);
 
     if (gEkrDistanceType == 1)
     {
@@ -650,7 +651,7 @@ void sub_80692B0(struct Anim * anim)
 }
 
 //! FE8U = 0x0806935C
-void sub_806935C(struct ProcEfxBG * proc)
+void efxDarkGradoBG02_Loop_A(struct ProcEfxBG * proc)
 {
     s16 ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -682,7 +683,7 @@ void sub_806935C(struct ProcEfxBG * proc)
 
 // clang-format off
 
-u16 * CONST_DATA gUnknown_085D83B8[] =
+u16 * CONST_DATA TsaArray_GleipnirBg_Nebula[] =
 {
     Tsa_086B2A78,
     Tsa_086B2B30,
@@ -702,7 +703,7 @@ u16 * CONST_DATA gUnknown_085D83B8[] =
     Tsa_086B3F00,
 };
 
-u16 * CONST_DATA gUnknown_085D83F8[] =
+u16 * CONST_DATA ImgArray_GleipnirBg_Nebula[] =
 {
     Img_086A7258,
     Img_086A76C0,
@@ -722,7 +723,7 @@ u16 * CONST_DATA gUnknown_085D83F8[] =
     Img_086B15C4,
 };
 
-u16 * CONST_DATA gUnknown_085D8438[] =
+u16 * CONST_DATA PalArray_GleipnirBg_Nebula[] =
 {
     Pal_086B2878,
     Pal_086B2898,
@@ -742,18 +743,22 @@ u16 * CONST_DATA gUnknown_085D8438[] =
     Pal_086B2A58,
 };
 
-u16 * CONST_DATA gUnknown_085D8478[] =
+u16 * CONST_DATA TsaArray_GleipnirBg_Fog[] =
 {
-    Tsa_086B52EC,
+    Tsa_GleipnirBg_Fog,
 };
 
-u16 * CONST_DATA gUnknown_085D847C[] =
+u16 * CONST_DATA ImgArray_GleipnirBg_Fog[] =
 {
-    Img_086B411C,
-    gUnknown_086B52CC,
+    Img_GleipnirBg_Fog,
 };
 
-const u16 gUnknown_080DEDFA[] =
+u16 * CONST_DATA PalArray_GleipnirBg_Fog[] =
+{
+    Pal_GleipnirBg_Fog,
+};
+
+const u16 gFrameConfig_GleipnirBg_Nebula[] =
 {
     0, 6,
     1, 6,
@@ -775,7 +780,7 @@ const u16 gUnknown_080DEDFA[] =
     -1,
 };
 
-const u16 gUnknown_080DEE40[] =
+const u16 gFrameConfig_GleipnirBg_Fog[] =
 {
     0, 96,
     -1,
@@ -784,23 +789,23 @@ const u16 gUnknown_080DEE40[] =
 // clang-format on
 
 //! FE8U = 0x080693CC
-void sub_80693CC(struct ProcEfxBG * proc)
+void efxDarkGradoBG02_80693CC(struct ProcEfxBG * proc)
 {
     proc->timer = 0;
     proc->terminator = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEE40;
+    proc->frame_config = gFrameConfig_GleipnirBg_Fog;
 
-    proc->tsal = gUnknown_085D8478;
-    proc->img = gUnknown_085D847C;
+    proc->tsal = TsaArray_GleipnirBg_Fog;
+    proc->img = ImgArray_GleipnirBg_Fog;
 
-    SpellFx_RegisterBgPal(gUnknown_086B52CC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_GleipnirBg_Fog, PLTT_SIZE_4BPP);
 
     return;
 }
 
 //! FE8U = 0x08069400
-void sub_8069400(struct ProcEfxBG * proc)
+void efxDarkGradoBG02_Loop_B(struct ProcEfxBG * proc)
 {
     s16 ret;
 
@@ -844,11 +849,11 @@ struct ProcCmd CONST_DATA ProcScr_efxDarkGradoBG02[] =
 {
     PROC_NAME("efxDarkGradoBG02"),
 
-    PROC_REPEAT(sub_806935C),
+    PROC_REPEAT(efxDarkGradoBG02_Loop_A),
     PROC_SLEEP(14),
 
-    PROC_CALL(sub_80693CC),
-    PROC_REPEAT(sub_8069400),
+    PROC_CALL(efxDarkGradoBG02_80693CC),
+    PROC_REPEAT(efxDarkGradoBG02_Loop_B),
 
     PROC_END,
 };
@@ -856,7 +861,7 @@ struct ProcCmd CONST_DATA ProcScr_efxDarkGradoBG02[] =
 // clang-format on
 
 //! FE8U = 0x08069488
-void sub_8069488(struct Anim * anim)
+void StartSubSpell_efxDarkGradoBG02(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
 
@@ -866,11 +871,11 @@ void sub_8069488(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEDFA;
+    proc->frame_config = gFrameConfig_GleipnirBg_Nebula;
 
-    proc->tsal = gUnknown_085D83B8;
-    proc->img = gUnknown_085D83F8;
-    proc->pal = gUnknown_085D8438;
+    proc->tsal = TsaArray_GleipnirBg_Nebula;
+    proc->img = ImgArray_GleipnirBg_Nebula;
+    proc->pal = PalArray_GleipnirBg_Nebula;
 
     if (gEkrDistanceType == 1)
     {
@@ -916,6 +921,8 @@ void sub_8069528(struct Proc085D84B4 * proc)
 }
 
 #if NONMATCHING
+
+/* https://decomp.me/scratch/afZTp */
 
 #define RGB_(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 
@@ -1241,7 +1248,7 @@ void sub_8069530(struct Proc085D84B4 * param_1)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D84B4[] =
+struct ProcCmd CONST_DATA ProcScr_085D84B4[] =
 {
     PROC_CALL(sub_8069528),
     PROC_REPEAT(sub_8069530),
@@ -1256,7 +1263,7 @@ struct ProcCmd CONST_DATA gUnknown_085D84B4[] =
 //! FE8U = 0x080696F0
 void sub_80696F0(void)
 {
-    Proc_Start(gUnknown_085D84B4, PROC_TREE_VSYNC);
+    Proc_Start(ProcScr_085D84B4, PROC_TREE_VSYNC);
     return;
 }
 
@@ -1264,170 +1271,170 @@ void sub_80696F0(void)
 
 s16 CONST_DATA gUnknown_085D84D4[] =
 {
-    0xFFBF, 0xFFA3,
-    0xFFCE, 0xFFA4,
-    0xFFDA, 0xFFA6,
-    0xFFE7, 0xFFAA,
-    0xFFF1, 0xFFAD,
-    0xFFFB, 0xFFB3,
-    0x0002, 0xFFB8,
-    0x0009, 0xFFBE,
-    0x000E, 0xFFC4,
-    0x0013, 0xFFCB,
-    0x0018, 0xFFD3,
-    0x001C, 0xFFDB,
-    0x001D, 0xFFE4,
-    0x001E, 0xFFED,
-    0x001E, 0xFFF6,
-    0x001D, 0xFFFD,
-    0x001B, 0x0003,
-    0x0017, 0x0008,
-    0x0013, 0x000B,
-    0x000F, 0x000E,
+    -65, -93,
+    -50, -92,
+    -38, -90,
+    -25, -86,
+    -15, -83,
+    -5, -77,
+    2, -72,
+    9, -66,
+    14, -60,
+    19, -53,
+    24, -45,
+    28, -37,
+    29, -28,
+    30, -19,
+    30, -10,
+    29, -3,
+    27, 3,
+    23, 8,
+    19, 11,
+    15, 14,
 };
 
 s16 CONST_DATA gUnknown_085D8524[] =
 {
-    0x001C, 0x0035,
-    0x000D, 0x0033,
-    0x0001, 0x0030,
-    0xFFF3, 0x002C,
-    0xFFE8, 0x0024,
-    0xFFDF, 0x0019,
-    0xFFD9, 0x0010,
-    0xFFD5, 0x0005,
-    0xFFD4, 0xFFFC,
-    0xFFD5, 0xFFF3,
-    0xFFD9, 0xFFEC,
-    0xFFE1, 0xFFE7,
-    0xFFE9, 0xFFE7,
-    0xFFF2, 0xFFE8,
-    0xFFF9, 0xFFE9,
-    0xFFFF, 0xFFEC,
-    0x0006, 0xFFF1,
-    0x000A, 0xFFF6,
-    0x000C, 0xFFFC,
-    0x000D, 0x0001,
+    28, 53,
+    13, 51,
+    1, 48,
+    -13, 44,
+    -24, 36,
+    -33, 25,
+    -39, 16,
+    -43, 5,
+    -44, -4,
+    -43, -13,
+    -39, -20,
+    -31, -25,
+    -23, -25,
+    -14, -24,
+    -7, -23,
+    -1, -20,
+    6, -15,
+    10, -10,
+    12, -4,
+    13, 1,
 };
 
 s16 CONST_DATA gUnknown_085D8574[] =
 {
-    0x0096, 0x0012,
-    0x0085, 0x001D,
-    0x0076, 0x0023,
-    0x0066, 0x0027,
-    0x0059, 0x0029,
-    0x004E, 0x002A,
-    0x0044, 0x002A,
-    0x003B, 0x002A,
-    0x0030, 0x0028,
-    0x0025, 0x0025,
-    0x001A, 0x0021,
-    0x0012, 0x001D,
-    0x000B, 0x0018,
-    0x0005, 0x0013,
-    0x0000, 0x000F,
-    0xFFFB, 0x000B,
-    0xFFF7, 0x0005,
-    0xFFF4, 0xFFFF,
-    0xFFF2, 0xFFF7,
-    0xFFF1, 0xFFF0,
+    150, 18,
+    133, 29,
+    118, 35,
+    102, 39,
+    89, 41,
+    78, 42,
+    68, 42,
+    59, 42,
+    48, 40,
+    37, 37,
+    26, 33,
+    18, 29,
+    11, 24,
+    5, 19,
+    0, 15,
+    -5, 11,
+    -9, 5,
+    -12, -1,
+    -14, -9,
+    -15, -16,
 };
 
 s16 CONST_DATA gUnknown_085D85C4[] =
 {
-    0xFFA5, 0xFFFB,
-    0xFFAA, 0xFFEF,
-    0xFFB0, 0xFFE4,
-    0xFFB5, 0xFFDA,
-    0xFFBC, 0xFFD1,
-    0xFFC5, 0xFFC9,
-    0xFFD0, 0xFFC6,
-    0xFFDB, 0xFFC5,
-    0xFFE6, 0xFFC6,
-    0xFFEF, 0xFFC8,
-    0xFFF8, 0xFFCC,
-    0xFFFF, 0xFFD0,
-    0x0006, 0xFFD5,
-    0x000B, 0xFFDB,
-    0x000E, 0xFFE3,
-    0x0010, 0xFFE9,
-    0x0011, 0xFFF0,
-    0x0011, 0xFFF6,
-    0x0010, 0xFFFD,
-    0x000E, 0x0003,
+    -91, -5,
+    -86, -17,
+    -80, -28,
+    -75, -38,
+    -68, -47,
+    -59, -55,
+    -48, -58,
+    -37, -59,
+    -26, -58,
+    -17, -56,
+    -8, -52,
+    -1, -48,
+    6, -43,
+    11, -37,
+    14, -29,
+    16, -23,
+    17, -16,
+    17, -10,
+    16, -3,
+    14, 3,
 };
 
 s16 CONST_DATA gUnknown_085D8614[] =
 {
-    0x0019, 0x0037,
-    0x000F, 0x0035,
-    0x0005, 0x0032,
-    0xFFFB, 0x002E,
-    0xFFF1, 0x0028,
-    0xFFE9, 0x0023,
-    0xFFE2, 0x001C,
-    0xFFDC, 0x0013,
-    0xFFD8, 0x000A,
-    0xFFD5, 0x0001,
-    0xFFD4, 0xFFF8,
-    0xFFD4, 0xFFF0,
-    0xFFD6, 0xFFE8,
-    0xFFDD, 0xFFE3,
-    0xFFE4, 0xFFE2,
-    0xFFEB, 0xFFE2,
-    0xFFF1, 0xFFE3,
-    0xFFF7, 0xFFE6,
-    0xFFFC, 0xFFE9,
-    0x0001, 0xFFEE,
+    25, 55,
+    15, 53,
+    5, 50,
+    -5, 46,
+    -15, 40,
+    -23, 35,
+    -30, 28,
+    -36, 19,
+    -40, 10,
+    -43, 1,
+    -44, -8,
+    -44, -16,
+    -42, -24,
+    -35, -29,
+    -28, -30,
+    -21, -30,
+    -15, -29,
+    -9, -26,
+    -4, -23,
+    1, -18,
 };
 
 s16 CONST_DATA gUnknown_085D8664[] =
 {
-    0x0091, 0xFFB7,
-    0x0092, 0xFFD2,
-    0x008F, 0xFFEA,
-    0x0082, 0x0002,
-    0x0070, 0x0011,
-    0x0061, 0x0018,
-    0x0052, 0x001D,
-    0x0044, 0x0020,
-    0x0036, 0x0023,
-    0x002B, 0x0022,
-    0x0020, 0x0020,
-    0x0016, 0x001E,
-    0x000C, 0x001C,
-    0x0004, 0x0019,
-    0xFFFD, 0x0015,
-    0xFFF7, 0x0010,
-    0xFFF2, 0x000A,
-    0xFFEF, 0x0002,
-    0xFFEE, 0xFFFB,
-    0xFFEE, 0xFFF5,
+    145, -73,
+    146, -46,
+    143, -22,
+    130, 2,
+    112, 17,
+    97, 24,
+    82, 29,
+    68, 32,
+    54, 35,
+    43, 34,
+    32, 32,
+    22, 30,
+    12, 28,
+    4, 25,
+    -3, 21,
+    -9, 16,
+    -14, 10,
+    -17, 2,
+    -18, -5,
+    -18, -11,
 };
 
 s16 CONST_DATA gUnknown_085D86B4[] =
 {
-    0x000E, 0xFFAE,
-    0x001C, 0xFFB2,
-    0x0026, 0xFFB9,
-    0x002E, 0xFFC2,
-    0x0034, 0xFFCC,
-    0x0037, 0xFFD6,
-    0x0039, 0xFFE0,
-    0x0039, 0xFFE9,
-    0x0038, 0xFFF3,
-    0x0035, 0xFFFB,
-    0x0032, 0x0002,
-    0x002D, 0x0007,
-    0x0027, 0x000C,
-    0x0022, 0x000F,
-    0x001C, 0x0012,
-    0x0016, 0x0013,
-    0x0011, 0x0013,
-    0x000C, 0x0012,
-    0x0006, 0x0011,
-    0x0000, 0x000E,
+    14, -82,
+    28, -78,
+    38, -71,
+    46, -62,
+    52, -52,
+    55, -42,
+    57, -32,
+    57, -23,
+    56, -13,
+    53, -5,
+    50, 2,
+    45, 7,
+    39, 12,
+    34, 15,
+    28, 18,
+    22, 19,
+    17, 19,
+    12, 18,
+    6, 17,
+    0, 14,
 };
 
 // clang-format on
@@ -1511,7 +1518,7 @@ int sub_806977C(int a, int b, int c)
 }
 
 //! FE8U = 0x080697F4
-void sub_80697F4(struct ProcEfxOBJ * proc)
+void efxDarkGradoOBJ01piece_Loop(struct ProcEfxOBJ * proc)
 {
     if (GetAnimPosition(proc->anim) == 0)
     {
@@ -1538,10 +1545,10 @@ void sub_80697F4(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D8704[] =
+struct ProcCmd CONST_DATA ProcScr_efxDarkGradoOBJ01piece[] =
 {
     PROC_NAME("efxDarkGradoOBJ01piece"),
-    PROC_REPEAT(sub_80697F4),
+    PROC_REPEAT(efxDarkGradoOBJ01piece_Loop),
     PROC_END,
 };
 
@@ -1556,7 +1563,7 @@ void sub_8069878(struct Anim * anim, s16 b, s16 c, s16 d, u16 e)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(gUnknown_085D8704, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxDarkGradoOBJ01piece, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 20;
@@ -1625,7 +1632,7 @@ void sub_8069878(struct Anim * anim, s16 b, s16 c, s16 d, u16 e)
 }
 
 //! FE8U = 0x080699A8
-void sub_80699A8(struct ProcEfxOBJ * proc)
+void efxDarkGradoOBJ01_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -1661,14 +1668,14 @@ void sub_80699A8(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDarkGradoOBJ01[] =
 {
     PROC_NAME("efxDarkGradoOBJ01"),
-    PROC_REPEAT(sub_80699A8),
+    PROC_REPEAT(efxDarkGradoOBJ01_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08069AC4
-void sub_8069AC4(struct Anim * anim)
+void StartSubSpell_efxDarkGradoOBJ01(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
 
@@ -1677,14 +1684,14 @@ void sub_8069AC4(struct Anim * anim)
     proc->timer = 0;
     proc->terminator = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_086A2614, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_086A21F4, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_GleipnirSprites_Rocks, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_GleipnirSprites_Rocks, 32 * 4 * CHR_SIZE);
 
     return;
 }
 
 //! FE8U = 0x08069AFC
-void sub_8069AFC(struct ProcEfxOBJ * proc)
+void efxDarkGradoOBJ02piece_Loop(struct ProcEfxOBJ * proc)
 {
     proc->unk48 += proc->unk44;
 
@@ -1716,14 +1723,14 @@ void sub_8069AFC(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDarkGradoOBJ02piece[] =
 {
     PROC_NAME("efxDarkGradoOBJ02piece"),
-    PROC_REPEAT(sub_8069AFC),
+    PROC_REPEAT(efxDarkGradoOBJ02piece_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08069B68
-void sub_8069B68(struct Anim * anim, int xOffset, int yPosition, int unk, int terminator)
+void StartSubSpell_efxDarkGradoOBJ02piece_A(struct Anim * anim, int xOffset, int yPosition, int unk, int terminator)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -1772,7 +1779,7 @@ void sub_8069B68(struct Anim * anim, int xOffset, int yPosition, int unk, int te
 }
 
 //! FE8U = 0x08069C18
-void sub_8069C18(struct Anim * anim, int xOffset, int yPosition, int unk, int terminator)
+void StartSubSpell_efxDarkGradoOBJ02piece_B(struct Anim * anim, int xOffset, int yPosition, int unk, int terminator)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -1818,14 +1825,14 @@ void sub_8069C18(struct Anim * anim, int xOffset, int yPosition, int unk, int te
     proc->unk3A = frontAnim->yPosition;
 
     frontAnim->drawLayerPriority = 20;
-    frontAnim->oam2Base |= 0xc00;
+    frontAnim->oam2Base |= OAM2_LAYER(3);
     AnimSort();
 
     return;
 }
 
 //! FE8U = 0x08069CDC
-void sub_8069CDC(struct ProcEfxOBJ * proc)
+void efxDarkGradoOBJ02_Loop(struct ProcEfxOBJ * proc)
 {
     proc->timer++;
 
@@ -1836,27 +1843,27 @@ void sub_8069CDC(struct ProcEfxOBJ * proc)
             switch (proc->unk44)
             {
                 case 0:
-                    sub_8069B68(proc->anim, -64, -16, 0xa80, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_A(proc->anim, -64, -16, 0xa80, 98 - proc->timer);
                     break;
 
                 case 1:
-                    sub_8069B68(proc->anim, -128, -16, 0x780, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_A(proc->anim, -128, -16, 0x780, 98 - proc->timer);
                     break;
 
                 case 2:
-                    sub_8069B68(proc->anim, 0, -16, 0x900, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_A(proc->anim, 0, -16, 0x900, 98 - proc->timer);
                     break;
 
                 case 3:
-                    sub_8069B68(proc->anim, -64, -16, 0x900, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_A(proc->anim, -64, -16, 0x900, 98 - proc->timer);
                     break;
 
                 case 4:
-                    sub_8069B68(proc->anim, -128, -16, 0xa80, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_A(proc->anim, -128, -16, 0xa80, 98 - proc->timer);
                     break;
 
                 case 5:
-                    sub_8069B68(proc->anim, 0, -16, 0x780, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_A(proc->anim, 0, -16, 0x780, 98 - proc->timer);
                     break;
             }
 
@@ -1873,27 +1880,27 @@ void sub_8069CDC(struct ProcEfxOBJ * proc)
             switch (proc->unk48)
             {
                 case 0:
-                    sub_8069C18(proc->anim, -24, 0, 0x540, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_B(proc->anim, -24, 0, 0x540, 98 - proc->timer);
                     break;
 
                 case 1:
-                    sub_8069C18(proc->anim, -56, 0, 0x3c0, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_B(proc->anim, -56, 0, 0x3c0, 98 - proc->timer);
                     break;
 
                 case 2:
-                    sub_8069C18(proc->anim, -88, 0, 0x480, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_B(proc->anim, -88, 0, 0x480, 98 - proc->timer);
                     break;
 
                 case 3:
-                    sub_8069C18(proc->anim, -24, 0, 0x480, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_B(proc->anim, -24, 0, 0x480, 98 - proc->timer);
                     break;
 
                 case 4:
-                    sub_8069C18(proc->anim, -56, 0, 0x540, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_B(proc->anim, -56, 0, 0x540, 98 - proc->timer);
                     break;
 
                 case 5:
-                    sub_8069C18(proc->anim, -88, 0, 0x3c0, 98 - proc->timer);
+                    StartSubSpell_efxDarkGradoOBJ02piece_B(proc->anim, -88, 0, 0x3c0, 98 - proc->timer);
                     break;
             }
 
@@ -1919,14 +1926,14 @@ void sub_8069CDC(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDarkGradoOBJ02[] =
 {
     PROC_NAME("efxDarkGradoOBJ02"),
-    PROC_REPEAT(sub_8069CDC),
+    PROC_REPEAT(efxDarkGradoOBJ02_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08069E88
-void sub_8069E88(struct Anim * anim)
+void StartSubSpell_efxDarkGradoOBJ02(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
 
@@ -1937,8 +1944,8 @@ void sub_8069E88(struct Anim * anim)
     proc->unk44 = 0;
     proc->unk48 = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_086A2CE8, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_086A2874, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_GleipnirSprites_Comet, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_GleipnirSprites_Comet, 32 * 4 * CHR_SIZE);
 
     return;
 }
