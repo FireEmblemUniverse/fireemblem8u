@@ -597,7 +597,7 @@ u8 Event12_StartBGM(struct EventEngineProc * proc)
     return EVC_ADVANCE_YIELD;
 }
 
-u8 Event12_BgmFadeIn(struct EventEngineProc * proc)
+u8 Event13_BgmFadeIn(struct EventEngineProc * proc)
 {
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
     s16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -624,7 +624,7 @@ u8 Event12_BgmFadeIn(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800DE14
-u8 Event14_(struct EventEngineProc * proc)
+u8 Event14_BgmOverideRestore(struct EventEngineProc * proc)
 {
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
     s16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -2884,7 +2884,7 @@ u32 ModifyMoveUnitFlag(struct EventEngineProc * proc, s8 unk)
 }
 
 //! FE8U = 0x0800FD0C
-u8 Event2D_GetPid(struct EventEngineProc * proc)
+u8 Event2D_ChangeSpritePal(struct EventEngineProc * proc)
 {
     u16 palId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 

@@ -853,7 +853,8 @@ extern u16 CONST_DATA *ImgLut_EventMapAnimMaskfx[];    /* images */
 extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */
 extern struct ProcCmd ProcScr_EventMapAnim[];
 extern struct ProcCmd gUnknown_089EEA28[];
-extern const struct MenuDef gUnknown_089F36A0;
+extern struct MenuItemDef MenuItemDef_RouteSplit[];
+extern struct MenuDef MenuDef_RouteSplit;
 // extern ??? gUnknown_089FF480
 // extern ??? gEvent_SkirmishCommonBeginning
 extern u16 gEvent_SkirmishCommonEnd[];
@@ -1042,9 +1043,9 @@ extern u16 gTSA_GoalBox_OneLine[];
 // extern ??? gUnknown_08A20578
 // extern ??? gUnknown_08A20580
 // extern ??? gUnknown_08A20588
-// extern ??? gUnknown_08A20590
+extern u16 Obj_08A20590[];
 // extern ??? gUnknown_08A20650
-// extern ??? gUnknown_08A2067C
+extern u16 * Objs_08A2067C[];
 // extern ??? ProcScr_savedraw
 // extern ??? gProcScr_SaveDrawCursor
 // extern ??? gProcScr_08A206F8
@@ -1103,7 +1104,7 @@ extern u16 gUnknown_08A268D8[]; // pal, fog overlay
 extern u8 gUnknown_08A268F8[]; // tsa, fog overlay
 extern u8 Img_SaveScreenSprits[]; // gfx
 extern u16 Pal_SaveScreenSprits[]; // pal
-// extern ??? gUnknown_08A28088
+extern u16 Pal_08A28088[];
 // extern ??? gUnknown_08A280A8
 extern u8 Img_GameMainMenuObjs[];
 // extern ??? Img_DifficultyMenuObjs

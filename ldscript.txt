@@ -800,7 +800,7 @@ SECTIONS
         . = ALIGN(4); src/events_script_utils.o(.data);
         . = ALIGN(4); data/data_eventscr_9EE0C0.o(.data);
         . = ALIGN(4); src/events_script.o(.data);
-        . = ALIGN(4); data/data_9ED64C.o(.data);
+        . = ALIGN(4); data/data_events_script.o(.data);
         . = ALIGN(4); src/mural_background.o(.data);
         . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); src/chap_title_data.o(.data);

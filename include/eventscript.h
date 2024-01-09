@@ -49,7 +49,7 @@ enum event_cmd_idx {
     EV_CMD_CHANGECHAPTER    = 0x2A,
     EV_CMD_LOAD_PRECONF     = 0x2B,
     EV_CMD_LOADUNIT         = 0x2C,
-    EV_CMD_2D               = 0x2D,
+    EV_CMD_CHANGE_PAL       = 0x2D,
     EV_CMD_GET_PID          = 0x2E,
     EV_CMD_MOVEUNIT         = 0x2F,
     EV_CMD_ENUN             = 0x30,
@@ -133,10 +133,17 @@ enum event_sub_cmd_idx {
     EVSUBCMD_MUSCFAST = 2,
     EVSUBCMD_MUSCMID = 4,
     EVSUBCMD_MUSCSLOW = 6,
+    EVSUBCMD_MUSCSSLOW = 8,
+
+    /* EV_CMD_BGMOVERWRITE */
+    EVSUBCMD_MUSS = 0,
+    EVSUBCMD_MURE = 1,
 
     /* EV_CMD_BGMVOLUMECHANGE */
     EVSUBCMD_MUSI = 0,
     EVSUBCMD_MUNO = 1,
+
+    /* EV_CMD_PLAYSE */
 
     /* EV_CMD_FADE */
     EVSUBCMD_FADU = 0,
@@ -179,8 +186,8 @@ enum event_sub_cmd_idx {
     /* EV_CMD_CAMERACONTROL */
     EVSUBCMD_CAMERA_AT = 0,
     EVSUBCMD_CAMERA_CHAR = 1,
-    EVSUBCMD_CAMERA2_AT = 2,
-    EVSUBCMD_CAMERA2_CHAR = 3,
+    EVSUBCMD_CAMERA2_AT = 8,
+    EVSUBCMD_CAMERA2_CHAR = 9,
 
     /* EV_CMD_TILE_CHANGE */
     EVSUBCMD_TILECHANGE = 0,
@@ -257,6 +264,8 @@ enum event_sub_cmd_idx {
     EVSUBCMD_SPAWN_ENEMY = 2,
     EVSUBCMD_SPAWN_CUTSCENE_ALLY = 0xF,
 
+    /* EV_CMD_CHECKINAREA */
+
     /* EV_CMD_GIVEITEM */
     EVSUBCMD_GIVEITEMTO = 0,
     EVSUBCMD_GIVEITEMTOMAIN = 1,
@@ -313,6 +322,7 @@ enum event_sub_cmd_idx {
 #define _EvtAutoCmdLen2(cmd) _EvtArg0(cmd, 2, 0, 0)
 #define _EvtAutoCmdLen4(cmd) _EvtArg0(cmd, 4, 0, 0)
 
+#define EvtNop _EvtAutoCmdLen2(EV_CMD_NOP),
 #define EvtReturn _EvtArg0(EV_CMD_END, 2, EVSUBCMD_ENDA, 0),
 #define EvtEndAll _EvtArg0(EV_CMD_END, 2, EVSUBCMD_ENDB, 0),
 #define EvtClearEvBits(flag) _EvtArg0(EV_CMD_EVSET, 2, EVSUBCMD_EVBIT_F, (flag)),
@@ -359,8 +369,12 @@ enum event_sub_cmd_idx {
 #define EvtBgmFadeInFast(bgm) _EvtArg0(EV_CMD_BGMCHANGE_13, 2, EVSUBCMD_MUSCFAST, (bgm)),
 #define EvtBgmFadeInMiddleSpeed(bgm) _EvtArg0(EV_CMD_BGMCHANGE_13, 2, EVSUBCMD_MUSCMID, (bgm)),
 #define EvtBgmFadeInSlowly(bgm) _EvtArg0(EV_CMD_BGMCHANGE_13, 2, EVSUBCMD_MUSCSLOW, (bgm)),
+#define EvtBgmFadeInSpeed8(bgm) _EvtArg0(EV_CMD_BGMCHANGE_13, 2, EVSUBCMD_MUSCSSLOW, (bgm)),
+#define EvtOverrideBgm(bgm) _EvtArg0(EV_CMD_BGMOVERWRITE, 2, EVSUBCMD_MUSS, (bgm)),
+#define EvtRestoreBgm(speed) _EvtArg0(EV_CMD_BGMOVERWRITE, 2, EVSUBCMD_MURE, (speed)),
 #define EvtSetVolumeDown _EvtArg0(EV_CMD_BGMVOLUMECHANGE, 2, EVSUBCMD_MUSI, 0),
 #define EvtUnsetVolumeDown _EvtArg0(EV_CMD_BGMVOLUMECHANGE, 2, EVSUBCMD_MUNO, 0),
+#define EvtPlaySong(songid) _EvtArg0(EV_CMD_PLAYSE, 2, 0, (songid)),
 #define EvtFadeOutBlack(speed) _EvtArg0(EV_CMD_FADE, 2, EVSUBCMD_FADU, (speed)),
 #define EvtFadeInBlack(speed) _EvtArg0(EV_CMD_FADE, 2, EVSUBCMD_FADI, (speed)),
 #define EvtFadeOutWhite(speed) _EvtArg0(EV_CMD_FADE, 2, EVSUBCMD_FAWU, (speed)),
@@ -384,7 +398,9 @@ enum event_sub_cmd_idx {
 #define EvtTextStartType5 _EvtArg0(EV_CMD_SETTEXTTYPE, 2, EVSUBCMD_0x1A25, 0),
 #define EvtTextTuorialStart EvtTextStartType3
 #define EvtTextShow(msg) _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_TEXTSHOW, (msg)),
+#define EvtTextShow2(msg) _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_TEXTSHOW2, (msg)),
 #define EvtTextRemoveAll _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_REMA, 0),
+#define EvtContinueText _EvtAutoCmdLen2(EV_CMD_CONTINUETEXT),
 #define EvtTextEnd _EvtAutoCmdLen2(EV_CMD_ENDTEXT),
 #define EvtDisplayTextBg(bg) _EvtArg0(EV_CMD_SHOWBG, 4, EVSUBCMD_BACG, (bg)), 0,
 #define EvtClearScreen _EvtAutoCmdLen2(EV_CMD_CLEARSCREEN),
@@ -405,6 +421,9 @@ enum event_sub_cmd_idx {
 #define EvtSetLoadUnitNoREDA _EvtArg0(EV_CMD_LOAD_PRECONF, 2, EVSUBCMD_LOAD_NOREDA, 0),
 #define EvtLoadUnit1(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD1, (restriction)), (EventListScr)(units),
 #define EvtLoadUnit2(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD2, (restriction)), (EventListScr)(units),
+#define EvtLoadUnit3(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD3, (restriction)), (EventListScr)(units),
+#define EvtLoadUnit4(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD4, (restriction)), (EventListScr)(units),
+#define EvtChangePalSMS(pal) _EvtArg0(EV_CMD_CHANGE_PAL, 2, 0, (pal)),
 #define EvtGetPidAt(x, y) _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_AT, _EvtSubParam16u8((x), (y))),
 #define EvrGetActiveUnitPid _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_ACTIVE, 0),
 #define EvtMoveUnit(modify, speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE | (modify) << 3), (speed)), _EvtParams2((pid), _EvtSubParam16u8((x), (y))),
@@ -437,12 +456,14 @@ enum event_sub_cmd_idx {
 #define EvtWaitUnitDeathFade(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_DISA_IF, (pid)),
 #define EvtLoadSingleUnit(faction, pid, x, y) _EvtArg0(EV_CMD_LOADSINGLEUNIT, 4, (faction), (pid)), _EvtParams4((x), (y), 0, 0),
 #define EvtRemoveUnit(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_DISA, (pid)),
+#define EvtCheckInArea(pid, x, y, w, h) _EvtArg0(EV_CMD_CHECKINAREA, 4, 0, (pid)), _EvtParams4(x, y, w, h),
 #define EvtGiveItemAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTO, (pid)),
 #define EvtGiveMoneymAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTOMAIN, (pid)),
 #define EvtGiveMoneymAtSlot3NoPopup(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVETOSLOT3, (pid)),
 #define EvtSetActiveUnit(pid) _EvtArg0(EV_CMD_CHANGEACTIVEUNIT, 2, 0, (pid)),
 #define EvtChangeAI(pid) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI, (pid)),
 #define EvtChangeAIat(x, y) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI_AT, _EvtSubParam16u8((x), (y))),
+#define EvtDisplayPopup(msg, songid) _EvtArg0(EV_CMD_DISPLAYPOPUP, 4, EVSUBCMD_POPUP, (msg)), _EvtParams2((songid), 0),
 #define EvtDisplayPopupSilently(msg, x, y) _EvtArg0(EV_CMD_DISPLAYPOPUP, 4, EVSUBCMD_BROWNTEXTBOX, (msg)), _EvtParams2((x), (y)),
 #define EvtDisplayCursorAt(x, y) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_AT, _EvtSubParam16u8((x), (y))),
 #define EvtDisplayCursorAtUnit(pid) _EvtArg0(EV_CMD_DISPLAYCURSOR, 2, EVSUBCMD_CURSOR_UNIT, (pid)),

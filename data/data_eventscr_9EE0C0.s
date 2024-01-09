@@ -76,4 +76,18 @@ gUnknown_089EEA28:  @ 0x089EEA28
         .short 0x0, 0x0
         .word 0x0
 
-    .incbin "baserom.gba", 0x9EEA58, 0x9EEBE8 - 0x9EEA58
+	.global EventScr_9EEA58
+EventScr_9EEA58:
+    .incbin "baserom.gba", 0x9EEA58, 0x9EEAAC - 0x9EEA58
+
+	.global EventScr_9EEAAC
+EventScr_9EEAAC:
+    .incbin "baserom.gba", 0x9EEAAC, 0x9EEB00 - 0x9EEAAC
+
+	.global EventScr_9EEB00
+EventScr_9EEB00:
+    .incbin "baserom.gba", 0x9EEB00, 0x9EEBB8 - 0x9EEB00
+
+	.global EventScr_9EEBB8
+EventScr_9EEBB8:
+    .incbin "baserom.gba", 0x9EEBB8, 0x9EEBE8 - 0x9EEBB8

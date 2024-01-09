@@ -35,7 +35,7 @@ int CheckCanKeyComboReset(void);
 u32 GetGameClock(void);
 void SetGameTime(int newTime);
 void IncrementGameClock(void);
-u8 FormatTime();
+u8 FormatTime(u32 frameTotal, u16 * hours, u16 * minutes, u16 * seconds);
 
 void StoreRoutinesToIRAM();
 void DrawGlyphRam();

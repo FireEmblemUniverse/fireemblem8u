@@ -17,6 +17,7 @@ sub_80BC970: @ 0x080BC970
 	ldr r2, _080BCA04  @ 0x0500003A
 	mov r0, sp
 	bl CpuSet
+
 	movs r2, #0
 	adds r0, r4, #0
 	adds r0, #0xa4

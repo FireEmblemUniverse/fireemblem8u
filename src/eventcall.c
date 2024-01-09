@@ -944,7 +944,7 @@ void CallRouteSplitMenu(ProcPtr proc)
     SetTextFont(0);
     InitSystemTextFont();
     LoadUiFrameGraphics();
-    StartMenu(&gUnknown_089F36A0, proc);
+    StartMenu(&MenuDef_RouteSplit, proc);
 }
 
 int MenuCommand_DrawRouteSplit(struct MenuProc* menu, struct MenuItemProc* menu_item)

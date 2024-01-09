@@ -51,8 +51,12 @@
 #define MUSCFAST EvtBgmFadeInFast
 #define MUSCMID EvtBgmFadeInMiddleSpeed
 #define MUSCSLOW EvtBgmFadeInSlowly
+#define MUSCSSLOW EvtBgmFadeInSpeed8
+#define MUSS EvtOverrideBgm
+#define MURE EvtRestoreBgm
 #define MUSI EvtSetVolumeDown
 #define MUNO EvtUnsetVolumeDown
+#define SOUN EvtPlaySong
 #define FADU EvtFadeOutBlack
 #define FADI EvtFadeInBlack
 #define FAWU EvtFadeOutWhite
@@ -77,6 +81,7 @@
 #define _1A25 EvtTextStartType5
 #define TEXTSHOW EvtTextShow
 #define REMA EvtTextRemoveAll
+#define TEXTCONT EvtContinueText
 #define TEXTEND EvtTextEnd
 #define BACG EvtDisplayTextBg
 #define CLEAN EvtClearScreen
@@ -94,6 +99,9 @@
 #define MNC4 EvtMoveToGameEnding
 #define LOAD1 EvtLoadUnit1
 #define LOAD2 EvtLoadUnit2
+#define LOAD3 EvtLoadUnit3
+#define LOAD4 EvtLoadUnit4
+#define UNIT_COLORS EvtChangePalSMS
 #define CHECK_AT EvtGetPidAt
 #define CHECK_ACTIVE EvrGetActiveUnitPid
 #define MOVE(speed, pid, x, y) EvtMoveUnit(false, speed, pid, x, y)
@@ -135,12 +143,14 @@
 #define SPAWN_ENEMY(pid, x, y) EvtLoadSingleUnit(FACTION_ID_RED, pid, x, y)
 #define SPAWN_CUTSCENE_ALLY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_CUTSCENE_ALLY, pid, x, y)
 #define DISA EvtRemoveUnit
+#define CHECK_INAREA EvtCheckInArea
 #define GIVEITEMTO EvtGiveItemAtSlot3
 #define GIVEITEMTOMAIN EvtGiveMoneymAtSlot3         /* what */
 #define GIVETOSLOT3 EvtGiveMoneymAtSlot3NoPopup     /* tf */
 #define SET_ACTIVE EvtSetActiveUnit
 #define CHAI EvtChangeAI
 #define CHAI_AT EvtChangeAIat
+#define NOTIFY EvtDisplayPopup
 #define BROWNBOXTEXT EvtDisplayPopupSilently
 #define CURSOR_AT EvtDisplayCursorAt
 #define CURSOR_CHAR EvtDisplayCursorAtUnit
