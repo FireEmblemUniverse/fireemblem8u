@@ -9,27 +9,27 @@
 
 struct ProcCmd42 {
     PROC_HEADER
-    /* 29 */ u8 unk29;
-    /* 2A */ u8 unk2A;
+    /* 29 */ u8 type;
+    /* 2A */ u8 position;
 };
 
-extern struct CONST_DATA ProcCmd gUnknown_085925F0[];
+extern struct CONST_DATA ProcCmd ProcScr_EventEarthQuake[];
 
 /* Thanks to supper-man YohannDR! */
-void sub_8012B9C(struct ProcCmd42* proc)
+void EventEarthQuakeMain(struct ProcCmd42* proc)
 {
     if (GetGameClock() & 1)
     {
-        switch (proc->unk29)
+        switch (proc->type)
         {
             case 0:
-                switch (proc->unk2A)
+                switch (proc->position)
                 {
-                    case 0:
+                    case POS_L:
                         gBmSt.camera.x ^= 2;
                         break;
                     
-                    case 1:
+                    case POS_R:
                         gBmSt.camera.y ^= 2;
                         break;
                 }
@@ -37,13 +37,13 @@ void sub_8012B9C(struct ProcCmd42* proc)
                 break;
 
             case 1:
-                switch (proc->unk2A)
+                switch (proc->position)
                 {
-                    case 0:
+                    case POS_L:
                         BG_SetPosition(3, GetGameClock() & 2, 0);
                         break;
                     
-                    case 1:
+                    case POS_R:
                         BG_SetPosition(3, 0, GetGameClock() & 2);
                         break;
                 }
@@ -52,32 +52,32 @@ void sub_8012B9C(struct ProcCmd42* proc)
     }
 }
 
-void sub_8012C34(u8 a, u8 b, s8 play_sound)
+void StartEventEarthQuake(u8 type, u8 direction, s8 play_sound)
 {
-    struct ProcCmd42 *proc;
+    struct ProcCmd42 * proc;
 
-    proc = Proc_Find(gUnknown_085925F0);
+    proc = Proc_Find(ProcScr_EventEarthQuake);
     if (!proc) {
         if (1 == play_sound)
             PlaySoundEffect(0x26A);
         
-        proc = Proc_Start(gUnknown_085925F0, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_EventEarthQuake, PROC_TREE_3);
     }
 
-    proc->unk29 = a;
-    proc->unk2A = b;
+    proc->type = type; /* 0 to move camera, 1 to move BG position */
+    proc->position = direction;
 }
 
 /* Thanks to supper-man YohannDR! */
-void sub_8012C88()
+void EndEventEarthQuake()
 {
     struct ProcCmd42 *proc;
 
-    proc = Proc_Find(gUnknown_085925F0);
+    proc = Proc_Find(ProcScr_EventEarthQuake);
     if (!proc)
         return;
 
-    switch (proc->unk29)
+    switch (proc->type)
     {
         case 0:
             (u16)gBmSt.camera.x &= 0xFFFC;
@@ -88,6 +88,6 @@ void sub_8012C88()
             BG_SetPosition(3, 0, 0);
     }
 
-    Proc_EndEach(gUnknown_085925F0);
+    Proc_EndEach(ProcScr_EventEarthQuake);
     Sound_FadeOutSE(4);
 }

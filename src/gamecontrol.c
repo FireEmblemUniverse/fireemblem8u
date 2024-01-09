@@ -19,10 +19,10 @@
 #include "gamecontrol.h"
 #include "sio.h"
 
-extern u16 gEvent_8A0035C[];
-extern u16 gEvent_8A00364[];
-extern u16 gEvent_EirikaModeGameEnd[];
-extern u16 gEvent_EphraimModeGameEnd[];
+extern u16 EventScr_8A0035C[];
+extern u16 EventScr_8A00364[];
+extern u16 EventScr_EirikaModeGameEnd[];
+extern u16 EventScr_EphraimModeGameEnd[];
 
 extern struct ProcCmd CONST_DATA ProcScr_GameEarlyStartUI[]; // pre-intro cutscene
 extern struct ProcCmd CONST_DATA ProcScr_OpAnim[]; // intro cutscene
@@ -642,11 +642,11 @@ void sub_8009E54(ProcPtr proc)
 
     switch (gPlaySt.chapterModeIndex) {
         case 2:
-            CallEvent(gEvent_8A0035C, EV_EXEC_CUTSCENE);
+            CallEvent(EventScr_8A0035C, EV_EXEC_CUTSCENE);
             break;
 
         case 3:
-            CallEvent(gEvent_8A00364, EV_EXEC_CUTSCENE);
+            CallEvent(EventScr_8A00364, EV_EXEC_CUTSCENE);
             break;
     }
 
@@ -662,11 +662,11 @@ void CallGameEndingEvent(ProcPtr proc) {
 
     switch (gPlaySt.chapterModeIndex) {
         case 2:
-            CallEvent(gEvent_EirikaModeGameEnd, EV_EXEC_CUTSCENE);
+            CallEvent(EventScr_EirikaModeGameEnd, EV_EXEC_CUTSCENE);
             break;
 
         case 3:
-            CallEvent(gEvent_EphraimModeGameEnd, EV_EXEC_CUTSCENE);
+            CallEvent(EventScr_EphraimModeGameEnd, EV_EXEC_CUTSCENE);
             break;
     }
 

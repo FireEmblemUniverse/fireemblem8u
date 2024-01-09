@@ -394,7 +394,7 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
 
     sub_80A8A9C(proc);
 
-    proc->unk_58 = New6C_savedraw(proc);
+    proc->savedraw = New6C_savedraw(proc);
 
     return;
 }
@@ -1273,7 +1273,7 @@ void PostSaveMenuHandler(struct SaveMenuProc* proc) {
     if (proc->unk_60 != 0)
         APProc_Delete(proc->unk_60);
 
-    Proc_End(proc->unk_58);
+    Proc_End(proc->savedraw);
 
     SetPrimaryHBlankHandler(0);
 
@@ -1341,7 +1341,7 @@ void sub_80AA158(struct SaveMenuProc* proc) {
 
     proc->action_flag = 0x20;
 
-    Proc_End(proc->unk_58);
+    Proc_End(proc->savedraw);
 
     SetPrimaryHBlankHandler(0);
 
@@ -1599,6 +1599,7 @@ PROC_LABEL(6),
 
     PROC_GOTO(5),
 
+/* New game */
 PROC_LABEL(3),
     PROC_REPEAT(sub_80A99C0),
 
@@ -1999,4 +2000,20 @@ void sub_80AA790(u16 * src, u16 * dst, int count)
     }
 
     return;
+}
+
+void sub_80AA7AC(int a, int b)
+{
+    int offset = (a & 0x3F) >> 2;
+    u16 * _src, * src = gPaletteBuffer;
+    u16 * dst = Pal_08A28088 + offset;
+    int val;
+
+    val = *dst;
+    src[0x111] = val;
+
+    _src = src + (b * 0x20 + 0x1A1);
+    _src[0] = *dst;
+
+    EnablePaletteSync();
 }

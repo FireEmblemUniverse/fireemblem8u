@@ -338,8 +338,8 @@ extern CONST_DATA struct ProcCmd ProcScr_089A448C[];
 // extern ??? gUnknown_089A4664
 // extern ??? gUnknown_089A46AC
 // extern ??? gUnknown_089A46DC
-// extern ??? gUnknown_089A470C
-// extern ??? gUnknown_089A4734
+// extern ??? ProcScr_GlowingCross
+// extern ??? ProcScr_GlowCrossExit
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimDefaultItemEffect[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocNightMare[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocLatona[];
@@ -688,7 +688,7 @@ void sub_8080038(void);
 // ??? sub_80803D8(???);
 void sub_8080408(void);
 // ??? sub_808044C(???);
-// ??? sub_8080474(???);
+void sub_8080474(ProcPtr);
 // ??? sub_8080498(???);
 // ??? sub_8080530(???);
 // ??? sub_80805AC(???);
@@ -711,12 +711,12 @@ void sub_8080E9C(ProcPtr, struct Unit *);
 // ??? sub_8080EE4(???);
 // ??? sub_8080F44(???);
 // ??? sub_8081008(???);
-void sub_8081020(ProcPtr, struct Unit *);
-void sub_8081068(void);
+void StartGlowingCross(ProcPtr, struct Unit *);
+void RemoveGlowingCrossDirectly(void);
 // ??? sub_8081078(???);
 // ??? sub_8081100(???);
 // ??? sub_80811AC(???);
-void sub_80811D0(ProcPtr, int);
+void RemoveGlowingCrossDirectlyWithAnim(ProcPtr, int);
 // ??? sub_80811EC(???);
 // ??? sub_8081208(???);
 // ??? nullsub_58(???);

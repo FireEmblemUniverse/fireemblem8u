@@ -58,7 +58,7 @@ sub_8086690: @ 0x08086690
 	movs r6, #0
 	movs r4, #0x1e
 	strh r4, [r7, #6]
-	ldr r4, _08086798  @ gUnknown_03001CE8
+	ldr r4, _08086798  @ UnitDef_03001CE8
 	mov ip, r4
 	lsls r5, r0, #2
 	adds r5, r5, r0
@@ -135,7 +135,7 @@ _08086788: .4byte gUnknown_03001CC8
 _0808678C: .4byte 0xFFFFF03F
 _08086790: .4byte 0xFFFC0FFF
 _08086794: .4byte 0x0000FFFF
-_08086798: .4byte gUnknown_03001CE8
+_08086798: .4byte UnitDef_03001CE8
 
 	THUMB_FUNC_END sub_8086690
 
@@ -193,7 +193,7 @@ sub_808679C: @ 0x0808679C
 	movs r2, #0
 	movs r3, #5
 	bl sub_8086690
-	ldr r0, _08086838  @ gUnknown_03001CE8
+	ldr r0, _08086838  @ UnitDef_03001CE8
 	adds r0, #0x50
 	movs r1, #0
 	strb r1, [r0]
@@ -215,7 +215,7 @@ _08086828:
 	.align 2, 0
 _08086830: .4byte gUnknown_089FF480
 _08086834: .4byte gUnknown_03001CC0
-_08086838: .4byte gUnknown_03001CE8
+_08086838: .4byte UnitDef_03001CE8
 
 	THUMB_FUNC_END sub_808679C
 

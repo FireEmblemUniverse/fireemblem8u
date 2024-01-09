@@ -339,7 +339,7 @@ void sub_80AC034(struct DifficultyMenuProc * proc)
 //! FE8U = 0x080AC078
 void DifficultySelect_OnEnd(struct DifficultyMenuProc * proc)
 {
-    ((struct SaveMenuProc *)(proc->proc_parent))->unk_58->unk_29 = 1;
+    ((struct SaveMenuProc *)(proc->proc_parent))->savedraw->unk_29 = 1;
     return;
 }
 
@@ -377,7 +377,7 @@ void InitDifficultySelectScreen(struct DifficultyMenuProc * proc)
 
     EnablePaletteSync();
 
-    ((struct SaveMenuProc *)(proc->proc_parent))->unk_58->unk_29 = 0;
+    ((struct SaveMenuProc *)(proc->proc_parent))->savedraw->unk_29 = 0;
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -654,8 +654,6 @@ void DrawDifficultyMenuCursorMaybe(struct DifficultyMenuSpritesProc * proc)
 // Seems to be palettes for easy, normal, difficult; active / inactive; size 0x10 each
 extern u16 gUnknown_08A29498[0x60];
 
-extern u16 gUnknown_08A28088[];
-
 //! FE8U = 0x080AC4F8
 void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx)
 {
@@ -676,7 +674,7 @@ void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx)
     }
 
     color = (frameMaybe % 0x40) / 4;
-    gPaletteBuffer[((5 + 0x10) * 0x10 + 1) + selectedIdx * 0x20] = gUnknown_08A28088[color];
+    gPaletteBuffer[((5 + 0x10) * 0x10 + 1) + selectedIdx * 0x20] = Pal_08A28088[color];
     EnablePaletteSync();
 }
 

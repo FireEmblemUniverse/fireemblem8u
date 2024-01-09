@@ -41,22 +41,34 @@
 #define BLE EvtBLE
 #define BLT EvtBLT
 #define ASMC EvtAsmCall
+#define ASMC2 EvtAsmCallEnableSkip
 #define STAL EvtSleep
 #define STAL1 EvtSleepWithCancel
 #define STAL2 EvtSleepWithGameCtrl
 #define STAL3 EvtSleepWithCancelGameCtrl
 #define EVBIT_MODIFY EvtModifyEvBit
 #define IGNORE_KEYS EvtSetKeyIgnore
+#define COUNTER_CHECK EvtGetCounter
+#define COUNTER_SET EvtSetCounter
+#define COUNTER_INC EvtIncCounter
+#define COUNTER_DEC EvtDecCounter
 #define MUSC EvtStartBgm
-#define MUSCFAST EvtBgmFadeInFast
-#define MUSCMID EvtBgmFadeInMiddleSpeed
-#define MUSCSLOW EvtBgmFadeInSlowly
+#define MUSCFAST(bgm) EvtBgmFadeIn(bgm, 2)
+#define MUSCMID(bgm) EvtBgmFadeIn(bgm, 4)
+#define MUSCSLOW(bgm) EvtBgmFadeIn(bgm, 6)
+#define MUSCSSLOW(bgm) EvtBgmFadeIn(bgm, 8)
+#define MUSS EvtOverrideBgm
+#define MURE EvtRestoreBgm
 #define MUSI EvtSetVolumeDown
 #define MUNO EvtUnsetVolumeDown
+#define SOUN EvtPlaySong
 #define FADU EvtFadeOutBlack
 #define FADI EvtFadeInBlack
 #define FAWU EvtFadeOutWhite
 #define FAWI EvtFadeInWhite
+#define STARTFADE EvtColorFadeStart
+#define ENDFADE EvtColorFadeEnd
+// #define FADECOLORS EvtColorFadeSetup
 #define CHECK_MODE EvtGetMode
 #define CHECK_CHAPTER_NUMBER EvtGetChapterIndex
 #define CHECK_HARD EvtGetIsHard
@@ -77,8 +89,10 @@
 #define _1A25 EvtTextStartType5
 #define TEXTSHOW EvtTextShow
 #define REMA EvtTextRemoveAll
+#define TEXTCONT EvtContinueText
 #define TEXTEND EvtTextEnd
 #define BACG EvtDisplayTextBg
+#define FACE_SHOW EvtDisplayFace
 #define CLEAN EvtClearScreen
 #define LOMA EvtLoadMap
 #define CAMERA EvtMoveCameraTo
@@ -87,6 +101,7 @@
 #define CAMERA2_CAHR EvtMoveCameraToCharCenter
 #define TILECHANGE EvtTriggerMapChange
 #define TILEREVERT EvtRevertMapChange
+#define VCWF(vision) EvtChangeFogVision(false, (vision))
 #define MNTS EvtBackToTitle
 #define MNCH EvtChangeChapterWM
 #define MNC2 EvtChangeChapterBM
@@ -94,6 +109,9 @@
 #define MNC4 EvtMoveToGameEnding
 #define LOAD1 EvtLoadUnit1
 #define LOAD2 EvtLoadUnit2
+#define LOAD3 EvtLoadUnit3
+#define LOAD4 EvtLoadUnit4
+#define UNIT_COLORS EvtChangePalSMS
 #define CHECK_AT EvtGetPidAt
 #define CHECK_ACTIVE EvrGetActiveUnitPid
 #define MOVE(speed, pid, x, y) EvtMoveUnit(false, speed, pid, x, y)
@@ -135,12 +153,14 @@
 #define SPAWN_ENEMY(pid, x, y) EvtLoadSingleUnit(FACTION_ID_RED, pid, x, y)
 #define SPAWN_CUTSCENE_ALLY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_CUTSCENE_ALLY, pid, x, y)
 #define DISA EvtRemoveUnit
+#define CHECK_INAREA EvtCheckInArea
 #define GIVEITEMTO EvtGiveItemAtSlot3
 #define GIVEITEMTOMAIN EvtGiveMoneymAtSlot3         /* what */
 #define GIVETOSLOT3 EvtGiveMoneymAtSlot3NoPopup     /* tf */
 #define SET_ACTIVE EvtSetActiveUnit
 #define CHAI EvtChangeAI
 #define CHAI_AT EvtChangeAIat
+#define NOTIFY EvtDisplayPopup
 #define BROWNBOXTEXT EvtDisplayPopupSilently
 #define CURSOR_AT EvtDisplayCursorAt
 #define CURSOR_CHAR EvtDisplayCursorAtUnit
@@ -151,12 +171,20 @@
 #define DISABLEWEAPONS EvtOverrideWeaponMenu
 #define CHECK_CURSOR EvtGetCursorPosition
 #define SET_CURSOR EvtSetCursorPosition
+#define PREP EvtCallPrepScreen
 #define FIGHT EvtStartEventBattle
 #define FIGHT_MAP EvtStartEventMapBattle
 #define FIGHT_SCRIPT EvtSetScriptedBattle
+#define PROM EvtPromoteUnit
 #define WARP_OUT EvtWarpOUT
 #define WARP_IN EvtWarpIN
 #define ENDWARP EvtWarpSTAL /* This command name is also not true */
+#define EARTHQUAKE_START EvtStartEarthQuake
+#define EARTHQUAKE_END EvtEndEarthQuake
+#define SUMMONUNIT EvtSummonUnit
+#define BREAKSTONE EvtBreakStone
+#define GLOWINGCROSS EvtShowGlowingCross
+#define GLOWINGCROSS_END EvtRemoveGlowingCross
 
 #define CUMO_AT CURSOR_AT
 #define CUMO_CHAR CURSOR_CHAR
@@ -188,7 +216,7 @@
 #define Seize_(eid, scr, x, y) LOCA(eid, scr, x, y, TILE_COMMAND_SEIZE)
 #define Seize(x, y) Seize_(EVFLAG_WIN, EVENT_NOSCRIPT, x, y)
 
-#define CauseGameOverIfLordDies AFEV(0, gEvent_GameOver, EVFLAG_GAMEOVER)
+#define CauseGameOverIfLordDies AFEV(0, EventScr_GameOver, EVFLAG_GAMEOVER)
 #define DefeatBoss(event_scr) AFEV(EVFLAG_WIN, (event_scr), EVFLAG_DEFEAT_BOSS)
 #define DefeatAll(event_scr) AFEV(EVFLAG_WIN, (event_scr), EVFLAG_DEFEAT_ALL)
 #define NoFade EVBIT_T(EV_STATE_SKIPPING | EV_STATE_0002 | EV_STATE_ABORT)

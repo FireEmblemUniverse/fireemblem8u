@@ -1826,12 +1826,12 @@ _0808101C: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_END sub_8081008
 
-	THUMB_FUNC_START sub_8081020
-sub_8081020: @ 0x08081020
+	THUMB_FUNC_START StartGlowingCross
+StartGlowingCross: @ 0x08081020
 	push {r4, lr}
 	adds r2, r0, #0
 	adds r4, r1, #0
-	ldr r0, _08081060  @ gUnknown_089A470C
+	ldr r0, _08081060  @ ProcScr_GlowingCross
 	adds r1, r2, #0
 	bl Proc_Start
 	str r4, [r0, #0x2c]
@@ -1860,22 +1860,22 @@ sub_8081020: @ 0x08081020
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081060: .4byte gUnknown_089A470C
+_08081060: .4byte ProcScr_GlowingCross
 _08081064: .4byte gBmSt
 
-	THUMB_FUNC_END sub_8081020
+	THUMB_FUNC_END StartGlowingCross
 
-	THUMB_FUNC_START sub_8081068
-sub_8081068: @ 0x08081068
+	THUMB_FUNC_START RemoveGlowingCrossDirectly
+RemoveGlowingCrossDirectly: @ 0x08081068
 	push {lr}
-	ldr r0, _08081074  @ gUnknown_089A470C
+	ldr r0, _08081074  @ ProcScr_GlowingCross
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081074: .4byte gUnknown_089A470C
+_08081074: .4byte ProcScr_GlowingCross
 
-	THUMB_FUNC_END sub_8081068
+	THUMB_FUNC_END RemoveGlowingCrossDirectly
 
 	THUMB_FUNC_START sub_8081078
 sub_8081078: @ 0x08081078
@@ -2050,12 +2050,12 @@ _080811CC: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_80811AC
 
-	THUMB_FUNC_START sub_80811D0
-sub_80811D0: @ 0x080811D0
+	THUMB_FUNC_START RemoveGlowingCrossDirectlyWithAnim
+RemoveGlowingCrossDirectlyWithAnim: @ 0x080811D0
 	push {r4, lr}
 	adds r2, r0, #0
 	adds r4, r1, #0
-	ldr r0, _080811E8  @ gUnknown_089A4734
+	ldr r0, _080811E8  @ ProcScr_GlowCrossExit
 	adds r1, r2, #0
 	bl Proc_StartBlocking
 	adds r0, #0x42
@@ -2064,9 +2064,9 @@ sub_80811D0: @ 0x080811D0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080811E8: .4byte gUnknown_089A4734
+_080811E8: .4byte ProcScr_GlowCrossExit
 
-	THUMB_FUNC_END sub_80811D0
+	THUMB_FUNC_END RemoveGlowingCrossDirectlyWithAnim
 
 	THUMB_FUNC_START sub_80811EC
 sub_80811EC: @ 0x080811EC

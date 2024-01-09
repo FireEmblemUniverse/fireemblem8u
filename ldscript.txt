@@ -75,7 +75,7 @@ SECTIONS
         src/eventcmd_warp.o(.text);
         asm/shinningstonefx.o(.text);
         asm/boomfogfx.o(.text);
-        src/eventcmd_42.o(.text);
+        src/bmfx-earthquake.o(.text);
         src/eventcmd_44.o(.text);
         src/bmlib.o(.text);
         asm/hino.o(.text);
@@ -598,7 +598,6 @@ SECTIONS
         . = ALIGN(4); src/msg.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
         . = ALIGN(4); src/eventscr.o(.data);
-        . = ALIGN(4); data/data_591F38.o(.data);
         . = ALIGN(4); src/popup.o(.data);
         . = ALIGN(4); src/eventscr3.o(.data);
         . = ALIGN(4); data/data_5924D8.o(.data);
@@ -800,7 +799,6 @@ SECTIONS
         . = ALIGN(4); src/events_script_utils.o(.data);
         . = ALIGN(4); data/data_eventscr_9EE0C0.o(.data);
         . = ALIGN(4); src/events_script.o(.data);
-        . = ALIGN(4); data/data_9ED64C.o(.data);
         . = ALIGN(4); src/mural_background.o(.data);
         . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); src/chap_title_data.o(.data);

@@ -411,7 +411,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -530,7 +530,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -628,7 +628,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -711,7 +711,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00020820
     .4byte 0x00000120
     .4byte 0x00011020
@@ -891,7 +891,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -950,7 +950,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -1065,7 +1065,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -1193,7 +1193,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -1288,7 +1288,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00000120
     .4byte 0x00011020
@@ -1312,7 +1312,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -1406,7 +1406,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -1530,7 +1530,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -1649,7 +1649,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -1706,7 +1706,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00000120
     .4byte 0x00011020
@@ -1730,7 +1730,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00000a40
@@ -1788,7 +1788,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00000a40
@@ -1937,7 +1937,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00011020
     .4byte 0x00000120
@@ -1996,7 +1996,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2096,7 +2096,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2175,7 +2175,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2270,7 +2270,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2385,7 +2385,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2442,7 +2442,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00000120
     .4byte 0x00011020
@@ -2483,7 +2483,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00000a40
@@ -2603,7 +2603,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2703,7 +2703,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2781,7 +2781,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2876,7 +2876,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -2991,7 +2991,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -3048,7 +3048,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00000120
     .4byte 0x00011020
@@ -3183,7 +3183,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00008680
@@ -3257,7 +3257,7 @@ gUnknown_08A3974C:  @ 0x08A3974C
     .4byte 0x00000000
     .4byte 0x00011020
     .4byte 0x00000a40
-    .4byte gUnknown_08591F28 + 0x18
+    .4byte ProcScr_EventPromoteUnit + 0x18
     .4byte 0x00000120
     .4byte 0x00060e20
     .4byte 0x00000a40
