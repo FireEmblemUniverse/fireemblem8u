@@ -301,7 +301,7 @@
 . = 0x03E0F4; gBattleDeamonActive = .;
 . = 0x03E0F8; gpProcEkrBattleDeamon = .;
 . = 0x03E0FC; gEkrDebugModeMaybe = .;
-. = 0x03E0FE; gBanimGackgroundIndex = .;
+. = 0x03E0FE; gBanimBackgroundIndex = .;
 . = 0x03E100; gEkrInitialHitSide = .;
 . = 0x03E102; gEkrSnowWeather = .;
 . = 0x03E104; gEkrPairSideVaild = .;

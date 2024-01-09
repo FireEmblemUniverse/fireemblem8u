@@ -207,7 +207,7 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
 void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 {
     if (++proc->timer > 0xB) {
-        if (gBanimGackgroundIndex == 0 || GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
+        if (gBanimBackgroundIndex == 0 || GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
 
             /* In normal battle, here will directly end the proc */
             NewEkrBattle();
@@ -237,7 +237,7 @@ void ekrBaStart_8056024(struct ProcEkrBattleStarting *proc)
     else
         gUnknown_0201FAD8 = 0xA;
 
-    PutBanimBG(gBanimGackgroundIndex - 1);
+    PutBanimBG(gBanimBackgroundIndex - 1);
     EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, 0x10);
     Proc_Break(proc);
 }
@@ -246,7 +246,7 @@ void ekrBaStart_8056078(struct ProcEkrBattleStarting *proc)
 {
     int val = Interpolate(0, 0x10, 0, proc->timer, 8);
 
-    PutBanimBgPAL(gBanimGackgroundIndex - 1);
+    PutBanimBgPAL(gBanimBackgroundIndex - 1);
     EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, val);
     EnablePaletteSync();
 

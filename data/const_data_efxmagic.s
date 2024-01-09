@@ -1,22 +1,6 @@
     .section .rodata
 
-	.asciz "efxDarkGrado"
-	.align 2, 0
-
-	.asciz "efxDarkGradoMapFadeOut"
-	.align 2, 0
-
-	.global gUnknown_080DEDBC
-gUnknown_080DEDBC:  @ 0x080DEDBC
-	.incbin "baserom.gba", 0xDEDBC, 0x3E
-
-	.global gUnknown_080DEDFA
-gUnknown_080DEDFA:  @ 0x080DEDFA
-	.incbin "baserom.gba", 0xDEDFA, 0x46
-
-	.global gUnknown_080DEE40
-gUnknown_080DEE40:  @ 0x080DEE40
-	.incbin "baserom.gba", 0xDEE40, 0x82
+	.asciz "efxCrimsonEye"
 
 	.global gUnknown_080DEEC2
 gUnknown_080DEEC2:  @ 0x080DEEC2

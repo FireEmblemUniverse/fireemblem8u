@@ -1286,7 +1286,7 @@ _08057A18:
 	strh r4, [r0, #2]
 	strh r4, [r0]
 _08057A1E:
-	ldr r5, _08057A40  @ gBanimGackgroundIndex
+	ldr r5, _08057A40  @ gBanimBackgroundIndex
 	movs r0, #0
 	strh r0, [r5]
 	bl GetBattleAnimType
@@ -1302,7 +1302,7 @@ _08057A1E:
 	b _08057A50
 	.align 2, 0
 _08057A3C: .4byte gUnknown_0203E1DC
-_08057A40: .4byte gBanimGackgroundIndex
+_08057A40: .4byte gBanimBackgroundIndex
 _08057A44: .4byte gEkrPairSideVaild
 _08057A48: .4byte gEkrPairTerrainID
 _08057A4C:
@@ -1322,7 +1322,7 @@ _08057A66:
 	bl CheckBanimHensei
 	cmp r0, #1
 	bne _08057A74
-	ldr r1, _08057C80  @ gBanimGackgroundIndex
+	ldr r1, _08057C80  @ gBanimBackgroundIndex
 	movs r0, #0x3c
 	strh r0, [r1]
 _08057A74:
@@ -1589,7 +1589,7 @@ _08057C72:
 	.align 2, 0
 _08057C78: .4byte gEkrPairTerrainID
 _08057C7C: .4byte gPlaySt
-_08057C80: .4byte gBanimGackgroundIndex
+_08057C80: .4byte gBanimBackgroundIndex
 _08057C84: .4byte gEkrDistanceType
 _08057C88: .4byte gEkrPairSideVaild
 _08057C8C: .4byte gEkrPairBanimID2

@@ -64,7 +64,7 @@ void sub_8076380(struct ProcEkrHensei *proc)
     NewEkrDispUP();
     NewEkrBattle();
 
-    PutBanimBG(gBanimGackgroundIndex - 1);
+    PutBanimBG(gBanimBackgroundIndex - 1);
     CpuFastCopy(PAL_BG(0), gEfxPal, 0x400);
     EfxPalBlackInOut(PAL_BG(0), 0, 0x20, 0x10);
     EnablePaletteSync();
