@@ -910,7 +910,7 @@ struct Proc085D84B4
 {
     PROC_HEADER;
     STRUCT_PAD(0x29, 0x4C);
-    u16 unk4C;
+    s16 unk4C;
 };
 
 //! FE8U = 0x08069528
@@ -920,81 +920,46 @@ void sub_8069528(struct Proc085D84B4 * proc)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/afZTp */
-
 #define RGB_(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 
 //! FE8U = 0x08069530
 void sub_8069530(struct Proc085D84B4 * param_1)
 {
+    u16 r1;
     int r6;
-    int sp_0c;
+    u16 * r8, * r9;
+    int sp_0c = 0; // redundant initialization
+    int sp_18;
 
-    u16 * r9 = gPaletteBuffer;
-    u16 * r8 = gEfxPal;
+    r9 = gPaletteBuffer;
+    r8 = gEfxPal;
 
-    if (param_1->unk4C >= 0x29)
-    {
+    if (param_1->unk4C > 0x28)
         r6 = Interpolate(0, 0x10, 0, param_1->unk4C - 0x28, 0x18);
-    }
     else if (param_1->unk4C > 0x18)
-    {
         r6 = 0x10;
-    }
     else
-    {
         r6 = Interpolate(0, 0, 0x10, param_1->unk4C, 0x18);
-    }
 
-    *r9 = *r8;
+    *r8 = *r9;
 
     for (sp_0c = 0; sp_0c < 0x20; sp_0c++)
     {
-        u32 r1;
-        int a;
-        int sp_10;
-        volatile int sp_14;
-        int sp_18;
-
-        switch (sp_0c)
-        {
+        switch (sp_0c) {
             case 1:
             case 2:
             case 3:
             case 16:
             case 21:
+            case 22:
             case 27:
             case 28:
             case 29:
             case 30:
-                // _08069624
                 r1 = 0x00007C1F;
                 break;
 
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-            case 15:
-            case 17:
-            case 18:
-            case 19:
-            case 20:
-            case 22:
-            case 23:
-            case 24:
-            case 25:
-            case 26:
-                // _0806962C
+            default:
                 r1 = 0;
                 break;
         }
@@ -1002,21 +967,15 @@ void sub_8069530(struct Proc085D84B4 * param_1)
         r9++;
         r8++;
 
-        a = r1;
-        sp_10 = r1 >> 5;
-        sp_14 = r1 >> 10;
-
-        for (sp_18 = 0; sp_18 <= 0x10; sp_18++)
+        for (sp_18 = 0; sp_18 < 0xF; sp_18++)
         {
-            int r, g, b;
-
-            r = (((*r9 & 0x1f) * (0x10 - r6) + ((a & 0x1f) * r6)) >> 4);
-            g = ((((*r9 >> 5) & 0x1f) * (0x10 - r6) + ((sp_10 & 0x1f) * r6) * 0) >> 4);
-            b = (((((*r9 >> 10) & 0x1f) * (0x10 - r6)) + ((sp_14 & 0x1f) * r6)) >> 4);
+            u8 r = ((*r9 & 0x1f) * (0x10 - r6) + ((r1 & 0x1f) * r6)) >> 4;
+            u8 g = (((*r9 >> 5) & 0x1f) * (0x10 - r6) + (((r1 >> 5) & 0x1f) * r6)) >> 4; // ((r1 >> 5) & 0x1f) == 0 given the two colors
+            u8 b = (((*r9 >> 10) & 0x1f) * (0x10 - r6) + (((r1 >> 10) & 0x1f) * r6)) >> 4;
 
             *r8 = RGB_(r & 0x1f, g & 0x1f, b & 0x1f);
-            r8++;
             r9++;
+            r8++;
         }
     }
 
@@ -1024,227 +983,12 @@ void sub_8069530(struct Proc085D84B4 * param_1)
     DisablePaletteSync();
 
     if (param_1->unk4C == 0x40)
-    {
         Proc_Break(param_1);
-    }
 
     param_1->unk4C++;
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_8069530(struct Proc085D84B4 * param_1)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x1c\n\
-        str r0, [sp, #4]\n\
-        ldr r0, _08069564  @ gPaletteBuffer\n\
-        mov r9, r0\n\
-        ldr r1, _08069568  @ gEfxPal\n\
-        mov r8, r1\n\
-        ldr r0, [sp, #4]\n\
-        adds r0, #0x4c\n\
-        movs r2, #0\n\
-        ldrsh r1, [r0, r2]\n\
-        cmp r1, #0x28\n\
-        ble _0806956C\n\
-        adds r3, r1, #0\n\
-        subs r3, #0x28\n\
-        movs r0, #0x18\n\
-        str r0, [sp]\n\
-        movs r0, #0\n\
-        movs r1, #0x10\n\
-        movs r2, #0\n\
-        b _08069582\n\
-        .align 2, 0\n\
-    _08069564: .4byte gPaletteBuffer\n\
-    _08069568: .4byte gEfxPal\n\
-    _0806956C:\n\
-        cmp r1, #0x18\n\
-        ble _08069574\n\
-        movs r6, #0x10\n\
-        b _08069588\n\
-    _08069574:\n\
-        movs r1, #0\n\
-        ldrsh r3, [r0, r1]\n\
-        movs r0, #0x18\n\
-        str r0, [sp]\n\
-        movs r0, #0\n\
-        movs r1, #0\n\
-        movs r2, #0x10\n\
-    _08069582:\n\
-        bl Interpolate\n\
-        adds r6, r0, #0\n\
-    _08069588:\n\
-        mov r2, r9\n\
-        ldrh r0, [r2]\n\
-        mov r7, r8\n\
-        strh r0, [r7]\n\
-        movs r2, #0\n\
-        ldr r0, [sp, #4]\n\
-        adds r0, #0x4c\n\
-        str r0, [sp, #8]\n\
-    _08069598:\n\
-        subs r0, r2, #1\n\
-        cmp r0, #0x1d\n\
-        bhi _0806962C\n\
-        lsls r0, r0, #2\n\
-        ldr r1, _080695A8  @ _080695AC\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        mov pc, r0\n\
-        .align 2, 0\n\
-    _080695A8: .4byte _080695AC\n\
-    _080695AC: @ jump table\n\
-        .4byte _08069624 @ case 0\n\
-        .4byte _08069624 @ case 1\n\
-        .4byte _08069624 @ case 2\n\
-        .4byte _0806962C @ case 3\n\
-        .4byte _0806962C @ case 4\n\
-        .4byte _0806962C @ case 5\n\
-        .4byte _0806962C @ case 6\n\
-        .4byte _0806962C @ case 7\n\
-        .4byte _0806962C @ case 8\n\
-        .4byte _0806962C @ case 9\n\
-        .4byte _0806962C @ case 10\n\
-        .4byte _0806962C @ case 11\n\
-        .4byte _0806962C @ case 12\n\
-        .4byte _0806962C @ case 13\n\
-        .4byte _0806962C @ case 14\n\
-        .4byte _08069624 @ case 15\n\
-        .4byte _0806962C @ case 16\n\
-        .4byte _0806962C @ case 17\n\
-        .4byte _0806962C @ case 18\n\
-        .4byte _0806962C @ case 19\n\
-        .4byte _08069624 @ case 20\n\
-        .4byte _08069624 @ case 21\n\
-        .4byte _0806962C @ case 22\n\
-        .4byte _0806962C @ case 23\n\
-        .4byte _0806962C @ case 24\n\
-        .4byte _0806962C @ case 25\n\
-        .4byte _08069624 @ case 26\n\
-        .4byte _08069624 @ case 27\n\
-        .4byte _08069624 @ case 28\n\
-        .4byte _08069624 @ case 29\n\
-    _08069624:\n\
-        ldr r1, _08069628  @ 0x00007C1F\n\
-        b _0806962E\n\
-        .align 2, 0\n\
-    _08069628: .4byte 0x00007C1F\n\
-    _0806962C:\n\
-        movs r1, #0\n\
-    _0806962E:\n\
-        movs r7, #2\n\
-        add r9, r7\n\
-        movs r0, #2\n\
-        add r8, r0\n\
-        lsrs r7, r1, #5\n\
-        str r7, [sp, #0x10]\n\
-        lsrs r0, r1, #0xa\n\
-        str r0, [sp, #0x14]\n\
-        adds r2, #1\n\
-        str r2, [sp, #0xc]\n\
-        movs r2, #0x1f\n\
-        mov ip, r2\n\
-        movs r5, #0x1f\n\
-        movs r0, #0x10\n\
-        subs r4, r0, r6\n\
-        movs r7, #0xe\n\
-        str r7, [sp, #0x18]\n\
-        ands r1, r5\n\
-        adds r0, r1, #0\n\
-        muls r0, r6, r0\n\
-        mov sl, r0\n\
-    _08069658:\n\
-        mov r2, r9\n\
-        ldrh r1, [r2]\n\
-        adds r0, r5, #0\n\
-        ands r0, r1\n\
-        adds r3, r0, #0\n\
-        muls r3, r4, r3\n\
-        add r3, sl\n\
-        asrs r3, r3, #4\n\
-        lsls r1, r1, #0x10\n\
-        lsrs r0, r1, #0x15\n\
-        mov r7, ip\n\
-        ands r0, r7\n\
-        adds r2, r0, #0\n\
-        muls r2, r4, r2\n\
-        asrs r2, r2, #4\n\
-        lsrs r1, r1, #0x1a\n\
-        mov r0, ip\n\
-        ands r1, r0\n\
-        muls r1, r4, r1\n\
-        ldr r0, [sp, #0x14]\n\
-        ands r0, r7\n\
-        muls r0, r6, r0\n\
-        adds r1, r1, r0\n\
-        asrs r1, r1, #4\n\
-        ands r1, r5\n\
-        lsls r1, r1, #0xa\n\
-        ands r2, r5\n\
-        lsls r2, r2, #5\n\
-        orrs r1, r2\n\
-        ands r3, r5\n\
-        orrs r3, r1\n\
-        mov r0, r8\n\
-        strh r3, [r0]\n\
-        movs r1, #2\n\
-        add r9, r1\n\
-        add r8, r1\n\
-        ldr r2, [sp, #0x18]\n\
-        subs r2, #1\n\
-        str r2, [sp, #0x18]\n\
-        cmp r2, #0\n\
-        bge _08069658\n\
-        ldr r2, [sp, #0xc]\n\
-        cmp r2, #0x1f\n\
-        bgt _080696B2\n\
-        b _08069598\n\
-    _080696B2:\n\
-        movs r1, #0xa0\n\
-        lsls r1, r1, #0x13\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #1\n\
-        ldr r0, _080696EC  @ gEfxPal\n\
-        bl CpuFastSet\n\
-        bl DisablePaletteSync\n\
-        ldr r7, [sp, #8]\n\
-        movs r1, #0\n\
-        ldrsh r0, [r7, r1]\n\
-        cmp r0, #0x40\n\
-        bne _080696D4\n\
-        ldr r0, [sp, #4]\n\
-        bl Proc_Break\n\
-    _080696D4:\n\
-        ldr r2, [sp, #8]\n\
-        ldrh r0, [r2]\n\
-        adds r0, #1\n\
-        strh r0, [r2]\n\
-        add sp, #0x1c\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080696EC: .4byte gEfxPal\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 // clang-format off
 
