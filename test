@@ -1,0 +1,33 @@
+CONST_DATA struct REDA REDA_PrologueValterGroup0[] = {
+    {
+        .x = 10,
+        .y = 5,
+        .b = 0xffff,
+    },
+};
+CONST_DATA struct REDA REDA_PrologueValterGroup1[] = {
+    {
+        .x = 9,
+        .y = 5,
+        .flags = 0x10,
+        .b = 0xffff,
+        .delayFrames = 16,
+    },
+};
+CONST_DATA struct REDA REDA_PrologueValterGroup2[] = {
+    {
+        .x = 11,
+        .y = 4,
+        .b = 0xffff,
+        .delayFrames = 16,
+    },
+};
+CONST_DATA struct REDA REDA_PrologueValterGroup3[] = {
+    {
+        .x = 11,
+        .y = 6,
+        .b = 0xffff,
+        .delayFrames = 16,
+    },
+};
+// 0x88B3F68

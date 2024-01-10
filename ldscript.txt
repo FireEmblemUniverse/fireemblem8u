@@ -764,6 +764,8 @@ SECTIONS
         . = ALIGN(4); data/data_8AFBD8.o(.data);
         . = ALIGN(4); src/chapterdata.o(.data);
         . = ALIGN(4); data/data_8B363C.o(.data);
+        . = ALIGN(4); src/data_eventudefs.o(.data);
+        . = ALIGN(4); data/data_event_udefs.o(.data);
         . = ALIGN(4); src/monstergen_data.o(.data);
         . = ALIGN(4); data/data_bg.o(.data);
         . = ALIGN(4); src/eventscr2.o(.data);
