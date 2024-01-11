@@ -37,7 +37,7 @@ def dump_one_udef(rom_data, off):
     pid = rom_data[off + 0]
     if pid != 0:
         udef['charIndex'] = PID_IDX(pid)
-        udef['classIndex'] = JID_IDX(rom_data[off + 1])
+        udef['classIndex'] = rom_data[off + 1]
 
         if rom_data[off + 2] != 0:
             udef['leaderCharIndex'] = PID_IDX(rom_data[off + 2])
@@ -79,7 +79,11 @@ def dump_one_udef(rom_data, off):
 
         print("    {")
         print(f"        .charIndex = {udef['charIndex']},")
-        print(f"        .classIndex = {udef['classIndex']},")
+
+        if udef['genMonster'] == 0:
+            print(f"        .classIndex = {JID_IDX(udef['classIndex'])},")
+        else:
+            print(f"        .classIndex = {hex(udef['classIndex'])}, // Group idx for gMonsterClassWeights")
 
         if udef['leaderCharIndex'] != 0:
             print(f"        .leaderCharIndex = {udef['leaderCharIndex']},")
@@ -176,7 +180,7 @@ def main(args):
             if off_end <= off:
                 break
 
-    print(f"// 0x{off + 0x08000000:07X}")
+    print(f"// 0x{off:06X}")
 
 if __name__ == '__main__':
     main(sys.argv)

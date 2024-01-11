@@ -34,11 +34,20 @@ def dump_one_reda(rom_data, off):
 
     return off + 8
 
-def dump_udef_redas(rom_data, off, count, name):
+def dump_udef_redas(rom_data, off, count, prefix):
     for i in range(count):
-        print(f"CONST_DATA struct REDA REDA_{name}{i}[] = " + "{")
+        if prefix == None:
+            print(f"CONST_DATA struct REDA REDA_{off + 0x08000000:08X}[] = " + "{")
+        else:
+            print(f"CONST_DATA struct REDA REDA_{prefix}{i}[] = " + "{")
+
         off = dump_one_reda(rom_data, off)
+
         print("};")
+
+        b = int.from_bytes(rom_data[off + 4:off + 6], 'little')
+        if b != 0xFFFF: # I think this is the terminator
+            break
 
     return off
 
@@ -49,20 +58,20 @@ def main(args):
         start = eval(args[1])
         count = eval(args[2])
     except IndexError:
-        sys.exit(f"Usage: {args[0]} START count [NAME]")
+        sys.exit(f"Usage: {args[0]} START [count] [NAME]")
 
     off = start & 0x01FFFFFF
 
     try:
-        name = args[3]
+        prefix = args[3]
     except IndexError:
-        name = f"REDA_{off + 0x08000000:08X}"
+        prefix = None
 
     with open(rom, 'rb') as f:
         rom_data = f.read()
 
-        off = dump_udef_redas(rom_data, off, count, name)
-        print(f"// 0x{off + 0x08000000:07X}")
+        off = dump_udef_redas(rom_data, off, count, prefix)
+        print(f"// 0x{off:06X}")
 
 if __name__ == '__main__':
     main(sys.argv)
