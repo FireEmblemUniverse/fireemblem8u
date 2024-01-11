@@ -4,6 +4,8 @@
 import sys, ctypes
 import symbols
 
+err_cnt = 0
+
 def dump_one_reda(rom_data, off):
     u32_00 = int.from_bytes(rom_data[off + 0:off + 4], 'little')
 
@@ -30,7 +32,16 @@ def dump_one_reda(rom_data, off):
     if delayFrames != 0:
         print(f"        .delayFrames = {delayFrames},")
 
-    print("    },")
+    global err_cnt
+    if b != 0xFFFF and b != 0xFFFE:
+        err_cnt = err_cnt + 1
+    else:
+        err_cnt = 0
+
+    if err_cnt > 2:
+        print("    }," + "// [WARNING]" + f"0x{off - 16:06X}")
+    else:
+        print("    },")
 
     return off + 8
 
@@ -45,9 +56,9 @@ def dump_udef_redas(rom_data, off, count, prefix):
 
         print("};")
 
-        b = int.from_bytes(rom_data[off + 4:off + 6], 'little')
-        if b != 0xFFFF: # I think this is the terminator
-            break
+        # b = int.from_bytes(rom_data[off + 4:off + 6], 'little')
+        # if b != 0xFFFF: # I think this is the terminator
+            # break
 
     return off
 

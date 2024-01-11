@@ -8,7 +8,7 @@
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
-    ASMC(0x8086415)
+    ASMC(HandleCh5xUnits_Start)
     MUSC(0x2e)
     SVAL(EVT_SLOT_B, 0x4000a)
     LOMA(0x8)
@@ -20,7 +20,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_B, 0x4000b)
     LOMA(0x9)
-    LOAD1(0x1, 0x88b5dac)
+    LOAD1(0x1, UnitDef_088B5DAC)
     ENUN
     FADU(16)
     SPAWN_ENEMY(CHARACTER_VALTER, 10, 10)
@@ -40,13 +40,13 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(32767)
+    MUSCMID(0x7fff)
     CLEA
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0xc0014)
     LOMA(0x7)
-    LOAD2(0x1, 0x88b5dfc)
+    LOAD2(0x1, UnitDef_088B5DFC)
     ENUN
     FADU(16)
     CUMO_CHAR(CHARACTER_EPHRAIM)
@@ -65,7 +65,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     SVAL(EVT_SLOT_B, 0x70009)
     LOMA(0x8)
     FADU(16)
-    LOAD2(0x1, 0x88b5e94)
+    LOAD2(0x1, UnitDef_088B5E94)
     ENUN
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
@@ -86,7 +86,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0x7000e)
     LOMA(0x5)
-    LOAD1(0x1, 0x88b5ac8)
+    LOAD1(0x1, UnitDef_088B5AC8)
     ENUN
     FADU(16)
     CUMO_CHAR(CHARACTER_ZONTA)
@@ -96,7 +96,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     TEXTEND
     REMA
     CAMERA(0, 18)
-    LOAD1(0x1, 0x88b5a64)
+    LOAD1(0x1, UnitDef_088B5A64)
     ENUN
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
@@ -106,12 +106,12 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     TEXTSHOW(0x9db)
     TEXTEND
     REMA
-    MUSCFAST(32767)
+    MUSCFAST(0x7fff)
     ENDA
 };
 
 CONST_DATA EventListScr EventScr_089F25FC[] = {
-    ASMC(0x8086465)
+    ASMC(HandleCh5xUnits_End)
     MUSC(0x31)
     SVAL(EVT_SLOT_2, 0x10)
     CALL(EventScr_SetBackground)
@@ -119,17 +119,17 @@ CONST_DATA EventListScr EventScr_089F25FC[] = {
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(32767)
+    MUSCMID(0x7fff)
     CLEA
     CLEE
     CLEN
     CLEAN
     CAMERA2(13, 9)
-    EvtSetLoadUnitNoREDA
-    LOAD2(0x1, 0x88b5d48)
+    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    LOAD2(0x1, UnitDef_088B5D48)
     ENUN
     FADU(16)
-    LOAD1(0x1, 0x88b5d48)
+    LOAD1(0x1, UnitDef_088B5D48)
     ENUN
     CUMO_CHAR(CHARACTER_FORDE)
     STAL(60)
@@ -144,17 +144,17 @@ CONST_DATA EventListScr EventScr_089F25FC[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0x4000a)
     LOMA(0x8)
-    LOAD1(0x1, 0x88b5fcc)
+    LOAD1(0x1, UnitDef_088B5FCC)
     ENUN
     FADU(16)
     EVBIT_T(9)
-    LOAD2(0x1, 0x88b5f7c)
+    LOAD2(0x1, UnitDef_088B5F7C)
     ENUN
     EVBIT_F(9)
     MUSC(0x26)
-    LOAD1(0x1, 0x88b60a8)
+    LOAD1(0x1, UnitDef_088B60A8)
     ENUN
-    LOAD1(0x1, 0x88b6120)
+    LOAD1(0x1, UnitDef_088B6120)
     ENUN
     CUMO_CHAR(CHARACTER_VALTER)
     STAL(60)
@@ -165,7 +165,7 @@ CONST_DATA EventListScr EventScr_089F25FC[] = {
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(32767)
+    MUSCMID(0x7fff)
 
     // [Unknow] at 0x9f2708
     _EvtArg0(0xa6, 4, 0, 0x0),

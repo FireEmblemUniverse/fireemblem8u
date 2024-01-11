@@ -392,13 +392,13 @@ def parse_event(rom_data, off):
                 case 1:
                     print(f"\tREMOVEPORTRAITS")
                 case 2:
-                    print(f"\t_1A22")
+                    print(f"\tEvtTextStartType2 // ENOSUPP in EA-stdlib")
                 case 3:
                     print(f"\tTUTORIALTEXTBOXSTART")
                 case 4:
                     print(f"\tSOLOTEXTBOXSTART")
                 case 5:
-                    print(f"\t_1A25")
+                    print(f"\tEvtTextStartType5 // ENOSUPP in EA-stdlib")
                 case _:
                     parse_event_err(rom_data, off)
 

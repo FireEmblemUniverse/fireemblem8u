@@ -9,10 +9,10 @@
 
 CONST_DATA EventListScr EventScr_Ch7_BeginingScene[] = {
     MUSC(0x25)
-    LOAD1(0x1, 0x88b6f54)
+    LOAD1(0x1, UnitDef_088B6F54)
     ENUN
     FADU(16)
-    LOAD3(0x0, 0x88b6e78)
+    LOAD3(0x0, UnitDef_088B6E78)
     ENUN
     STAL(15)
     CAMERA2(9, 4)
@@ -29,7 +29,7 @@ CONST_DATA EventListScr EventScr_Ch7_BeginingScene[] = {
     TEXTEND
     CHECK_ALIVE(CHARACTER_FRANZ)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9f7)
+    EvtTextShow2(0x9f7) // ENOSUPP in EA-stdlib
     TEXTEND
 LABEL(0x0)
     CHECK_ALIVE(CHARACTER_GILLIAM)
@@ -38,43 +38,43 @@ LABEL(0x0)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_VANESSA)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9f8)
+    EvtTextShow2(0x9f8) // ENOSUPP in EA-stdlib
     TEXTEND
 LABEL(0x1)
     CHECK_ALIVE(CHARACTER_ROSS)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_GARCIA)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9f9)
+    EvtTextShow2(0x9f9) // ENOSUPP in EA-stdlib
     TEXTEND
 LABEL(0x2)
     CHECK_ALIVE(CHARACTER_COLM)
     BEQ(0x3, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_NEIMI)
     BEQ(0x3, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9fa)
+    EvtTextShow2(0x9fa) // ENOSUPP in EA-stdlib
     TEXTEND
 LABEL(0x3)
     CHECK_ALIVE(CHARACTER_LUTE)
     BEQ(0x4, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_ARTUR)
     BEQ(0x4, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9fb)
+    EvtTextShow2(0x9fb) // ENOSUPP in EA-stdlib
     TEXTEND
 LABEL(0x4)
     CHECK_ALIVE(CHARACTER_JOSHUA)
     BEQ(0x5, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9fc)
+    EvtTextShow2(0x9fc) // ENOSUPP in EA-stdlib
     TEXTEND
 LABEL(0x5)
     CHECK_ALIVE(CHARACTER_NATASHA)
     BEQ(0x6, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9fd)
+    EvtTextShow2(0x9fd) // ENOSUPP in EA-stdlib
     TEXTEND
 LABEL(0x6)
-    EvtTextShow2(0x9fe)
+    EvtTextShow2(0x9fe) // ENOSUPP in EA-stdlib
     TEXTEND
-    CALL(0x8591fd8)
+    CALL(EventScr_08591FD8)
     MUSC(0x9)
     FADU(16)
     SVAL(EVT_SLOT_2, EventScr_089F2EBC)
@@ -106,7 +106,7 @@ CONST_DATA EventListScr EventScr_089F2D28[] = {
     CLEN
     FADU(16)
     MUSC(0x53)
-    LOAD2(0x1, 0x88b710c)
+    LOAD2(0x1, UnitDef_088B710C)
     ENUN
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
@@ -117,7 +117,7 @@ CONST_DATA EventListScr EventScr_089F2D28[] = {
     REMA
     MOVE_1STEP(0x0, CHARACTER_SETH, FACING_RIGHT)
     MOVE_1STEP(0x0, CHARACTER_EIRIKA, FACING_LEFT)
-    LOAD2(0x1, 0x88b7148)
+    LOAD2(0x1, UnitDef_088B7148)
     ENUN
     ENUN
     CUMO_CHAR(CHARACTER_ORSON_CH5X)

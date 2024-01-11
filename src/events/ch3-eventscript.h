@@ -21,10 +21,10 @@ CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
     REMA
     FADI(16)
     CLEAN
-    LOAD1(0x1, 0x88b463c)
+    LOAD1(0x1, UnitDef_088B463C)
     ENUN
     FADU(16)
-    LOAD2(0x1, 0x88b4574)
+    LOAD2(0x1, UnitDef_088B4574)
     ENUN
     SVAL(EVT_SLOT_2, EventScr_089F15A0)
     CALL(EventScr_CallOnTutorialMode)
@@ -37,20 +37,20 @@ CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
     TEXTSHOW(0x98e)
     TEXTEND
     REMA
-    LABEL(0x0)
+LABEL(0x0)
     SVAL(EVT_SLOT_2, EventScr_089F16EC)
     CALL(EventScr_CallOnTutorialMode)
     SVAL(EVT_SLOT_2, 0x2)
     CALL(EventScr_MoveUnitS2ToLeader)
     FADI(16)
-    LOAD1(0x0, 0x88b4574)
+    LOAD1(0x0, UnitDef_088B4574)
     ENUN
     CHECK_TUTORIAL
     BNE(0x1, EVT_SLOT_C, EVT_SLOT_0)
     GOTO(0x2)
-    LABEL(0x1)
+LABEL(0x1)
     MOVE(0xffff, CHARACTER_NEIMI, 3, 9)
-    LABEL(0x2)
+LABEL(0x2)
     CAMERA_CAHR(CHARACTER_BAZBA)
     FADU(16)
     CHECK_TUTORIAL
@@ -63,7 +63,7 @@ CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
     TEXTSHOW(0x990)
     TEXTEND
     REMA
-    LABEL(0xa)
+LABEL(0xa)
     SVAL(EVT_SLOT_2, EventScr_089F1658)
     CALL(EventScr_CallOnTutorialMode)
     SVAL(EVT_SLOT_2, EventScr_089F16CC)
@@ -75,7 +75,7 @@ CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
 CONST_DATA EventListScr EventScr_089F134C[] = {
     CAMERA(0, 0)
     STAL(15)
-    LOAD1(0x1, 0x88b4718)
+    LOAD1(0x1, UnitDef_088B4718)
     ENUN
     MUSC(0xf)
     CUMO_CHAR(CHARACTER_COLM)
@@ -117,19 +117,19 @@ CONST_DATA EventListScr EventScr_089F13CC[] = {
     SVAL(EVT_SLOT_2, 0x9)
     CALL(EventScr_LoadUniqueAlly)
     GOTO(0x1)
-    LABEL(0x0)
+LABEL(0x0)
     SVAL(EVT_SLOT_2, 0x9)
     CALL(EventScr_9EE5BC)
-    LABEL(0x1)
+LABEL(0x1)
     SVAL(EVT_SLOT_2, 0x29)
     CALL(EventScr_SetBackground)
     TEXTSHOW(0x996)
     TEXTEND
     REMA
-    MUSCSLOW(32767)
+    MUSCSLOW(0x7fff)
     FADI(4)
     SVAL(EVT_SLOT_2, 0x2000f)
-    CALL(0x89eea58)
+    CALL(EventScr_9EEA58)
     SVAL(EVT_SLOT_2, 0xc)
     CALL(EventScr_SetBackground)
     TEXTSHOW(0x997)
@@ -137,7 +137,7 @@ CONST_DATA EventListScr EventScr_089F13CC[] = {
     REMA
     FADI(16)
     CLEAN
-    LOAD1(0x1, 0x88b476c)
+    LOAD1(0x1, UnitDef_088B476C)
     ENUN
     FADU(16)
     MUSC(0x2e)
@@ -163,7 +163,7 @@ CONST_DATA EventListScr EventScr_089F13CC[] = {
     MOVE_1STEP(0x10, CHARACTER_GLEN, FACING_LEFT)
     MOVE_1STEP(0x10, CHARACTER_SELENA, FACING_RIGHT)
     ENUN
-    LOAD1(0x1, 0x88b47e4)
+    LOAD1(0x1, UnitDef_088B47E4)
     ENUN
     CUMO_CHAR(CHARACTER_VIGARDE)
     STAL(60)

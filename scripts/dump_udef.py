@@ -59,6 +59,11 @@ def dump_one_udef(rom_data, off):
         udef['sumFlag'] = (val_04 >> 14) & 0x1
         udef['unk_05_7'] = (val_04 >> 15) & 0x1
 
+        if udef['xPosition'] == 63 and udef['yPosition'] == 63:
+            print("// ============================================================")
+            print("// [WARNING]: Maybe REDA data!")
+            print("// ============================================================")
+
         udef['extraData'] = rom_data[off + 6]
         udef['redaCount'] = rom_data[off + 7]
 
