@@ -15,6 +15,7 @@
 #include "worldmap.h"
 #include "bmmind.h"
 #include "eventinfo.h"
+#include "eventcall.h"
 #include "eventscript.h"
 
 #include "constants/characters.h"
@@ -319,7 +320,7 @@ void CallEndEvent(void) {
     if (GetChapterThing() != 2) {
         CallEvent(evGroup->endingSceneEvents, 1);
     } else {
-        CallEvent(gEvent_SkirmishCommonEnd, 1);
+        CallEvent((u16 *)EventScr_SkirmishCommonEnd, 1);
     }
 
     RefreshAllies();

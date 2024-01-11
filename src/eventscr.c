@@ -33,13 +33,16 @@
 #include "eventinfo.h"
 #include "event.h"
 #include "eventscript.h"
+#include "ea-stdlib.h"
+#include "eventcall.h"
+#include "bmdifficulty.h"
 
 void sub_800B910(int, int, int);
 void sub_800B954(int, int, int);
 void sub_800B994(int, int, int);
 void sub_800B9B8(int, int);
 void sub_800BA04(int, int);
-extern u16 gEvent_PostEnd[]; // gEvent_PostEnd
+extern u16 EventScr_PostEnd[]; // EventScr_PostEnd
 
 //! FE8U = 0x0800D5A0
 u8 Event00_NULL(struct EventEngineProc * proc)
@@ -91,8 +94,8 @@ u8 Event01_End(struct EventEngineProc * proc)
 
                 proc->execType = EV_EXEC_UNK5;
 
-                proc->pEventIdk = gEvent_08592114;
-                proc->pEventCurrent = gEvent_08592114;
+                proc->pEventIdk = (u16 *)EventScr_08592114;
+                proc->pEventCurrent = (u16 *)EventScr_08592114;
 
                 return EVC_STOP_CONTINUE;
 
@@ -471,7 +474,7 @@ u8 Event0E_STAL(struct EventEngineProc * proc)
 
 // Counter Operations
 //! FE8U = 0x0800DBE0
-u8 Event0F_(struct EventEngineProc * proc)
+u8 Event0F_CounterOps(struct EventEngineProc * proc)
 {
     do
     {
@@ -482,16 +485,16 @@ u8 Event0F_(struct EventEngineProc * proc)
 
         switch (subcode)
         {
-        case 0: // Check
+        case EVSUBCMD_COUNTER_CHECK: // Check
             gEventSlots[0xC] = (gEventSlotCounter >> shift) & 0xF;
 
             return EVC_ADVANCE_CONTINUE;
 
-        case 1: // Set
+        case EVSUBCMD_COUNTER_SET: // Set
             newValue = (u16)argument >> 8;
             break;
 
-        case 2: // Increment
+        case EVSUBCMD_COUNTER_INC: // Increment
             newValue = ((gEventSlotCounter >> shift) & 0xF) + 1;
 
             if (newValue > 0xF)
@@ -499,7 +502,7 @@ u8 Event0F_(struct EventEngineProc * proc)
 
             break;
 
-        case 3: // Decrement
+        case EVSUBCMD_COUNTER_DEC: // Decrement
             newValue = ((gEventSlotCounter >> shift) & 0xF) - 1;
 
             if (newValue < 0)
@@ -597,7 +600,7 @@ u8 Event12_StartBGM(struct EventEngineProc * proc)
     return EVC_ADVANCE_YIELD;
 }
 
-u8 Event12_BgmFadeIn(struct EventEngineProc * proc)
+u8 Event13_BgmFadeIn(struct EventEngineProc * proc)
 {
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
     s16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -624,7 +627,7 @@ u8 Event12_BgmFadeIn(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800DE14
-u8 Event14_(struct EventEngineProc * proc)
+u8 Event14_BgmOverideRestore(struct EventEngineProc * proc)
 {
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
     s16 evArgument = EVT_CMD_ARGV(proc->pEventCurrent)[0];
@@ -742,7 +745,7 @@ u8 Event17_Fade(struct EventEngineProc * proc)
 // I think this is related to some color filtering effect (?)
 // Messes with palettes
 //! FE8U = 0x0800DFBC
-u8 Event18_(struct EventEngineProc * proc)
+u8 Event18_ColorFade(struct EventEngineProc * proc)
 {
     u32 mask;
 
@@ -2089,7 +2092,7 @@ u8 Event29_SetFogVision(struct EventEngineProc * proc)
     if (EVENT_IS_SKIPPING(proc))
         doDisplay = 0;
 
-    sub_800BAA8(newVision, doDisplay, proc);
+    EventSetFogVisionExt(newVision, doDisplay, proc);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -2884,7 +2887,7 @@ u32 ModifyMoveUnitFlag(struct EventEngineProc * proc, s8 unk)
 }
 
 //! FE8U = 0x0800FD0C
-u8 Event2D_GetPid(struct EventEngineProc * proc)
+u8 Event2D_ChangeSpritePal(struct EventEngineProc * proc)
 {
     u16 palId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
@@ -3997,24 +4000,26 @@ u8 Event3F_ScriptBattle(struct EventEngineProc * proc)
     return EVC_ERROR;
 }
 
-struct Event40Proc
+struct ProcEventPromote
 {
     /* 00 */ PROC_HEADER;
+
     /* 29 */ STRUCT_PAD(0x29, 0x58);
 
-    /* 58 */ struct EventEngineProc * unk_58;
+    /* 58 */ struct EventEngineProc * event_engine;
+
     /* 5C */ STRUCT_PAD(0x5c, 0x64);
 
-    /* 64 */ s16 unk_64;
+    /* 64 */ s16 lock;
 };
 
 //! FE8U = 0x08010B48
-void sub_8010B48(struct Event40Proc * proc)
+void WaitEventPromoteDone(struct ProcEventPromote * proc)
 {
-    if (proc->unk_64 == GetGameLock())
+    if (proc->lock == GetGameLock())
     {
         sub_8012324();
-        Proc_SetMark(proc->unk_58, PROC_MARK_6);
+        Proc_SetMark(proc->event_engine, PROC_MARK_6);
         Proc_Break(proc);
     }
 
@@ -4022,14 +4027,14 @@ void sub_8010B48(struct Event40Proc * proc)
 }
 
 
-struct ProcCmd CONST_DATA gUnknown_08591F28[] =
+struct ProcCmd CONST_DATA ProcScr_EventPromoteUnit[] =
 {
-    PROC_REPEAT(sub_8010B48),
+    PROC_REPEAT(WaitEventPromoteDone),
     PROC_END,
 };
 
 //! FE8U = 0x08010B78
-u8 Event40_(struct EventEngineProc * proc)
+u8 Event40_PromoteUnit(struct EventEngineProc * proc)
 {
     struct Unit * unit;
 
@@ -4037,15 +4042,15 @@ u8 Event40_(struct EventEngineProc * proc)
     u16 jid = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 itemId = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-    struct Event40Proc * childProc = Proc_StartBlocking(gUnknown_08591F28, proc);
-    childProc->unk_58 = proc;
-    childProc->unk_64 = GetGameLock();
+    struct ProcEventPromote * childProc = Proc_StartBlocking(ProcScr_EventPromoteUnit, proc);
+    childProc->event_engine = proc;
+    childProc->lock = GetGameLock();
 
     Proc_SetMark(proc, PROC_MARK_7);
 
     unit = GetUnitStructFromEventParameter(pid);
     SetUnitStatus(unit, 0);
-    sub_8012270(unit, jid, itemId);
+    EventPromoteUnitExt(unit, jid, itemId);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -4101,13 +4106,13 @@ u8 Event41_Warp(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x08010C70
-u8 Event42_(struct EventEngineProc * proc)
+u8 Event42_EarthQuake(struct EventEngineProc * proc)
 {
     u8 c;
 
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
-    u8 a = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-    u8 b = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
+    u8 direction = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u8 play_sound = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
 
     switch (subcmd)
     {
@@ -4134,12 +4139,12 @@ u8 Event42_(struct EventEngineProc * proc)
                     return EVC_ERROR;
             }
 
-            sub_8012C34(subcmd, a, b);
+            StartEventEarthQuake(subcmd, direction, play_sound);
 
             break;
 
         case 0xf:
-            sub_8012C88();
+            EndEventEarthQuake();
             break;
     }
 
@@ -4147,7 +4152,7 @@ u8 Event42_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x08010CF0
-u8 Event43_(struct EventEngineProc * proc)
+u8 Event43_SummonUnit(struct EventEngineProc * proc)
 {
     struct Unit * unit;
 
@@ -4188,7 +4193,7 @@ u8 Event44_BreakingSacredStone(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x08010D5C
-u8 Event45_(struct EventEngineProc * proc)
+u8 Event45_GlowingCross(struct EventEngineProc * proc)
 {
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
 
@@ -4200,25 +4205,209 @@ u8 Event45_(struct EventEngineProc * proc)
 
     switch (subcmd)
     {
-        case 0:
+        case EVSUBCMD_GLOWINGCROSS:
             if (!EVENT_IS_SKIPPING(proc))
             {
-                sub_8081020(proc, unit);
+                StartGlowingCross(proc, unit);
             }
 
             break;
 
-        case 0xf:
+        case EVSUBCMD_GLOWINGCROSS_END:
             if (!EVENT_IS_SKIPPING(proc))
             {
-                sub_80811D0(proc, 0x78);
+                RemoveGlowingCrossDirectlyWithAnim(proc, 0x78);
                 return EVC_ADVANCE_YIELD;
             }
 
-            sub_8081068();
+            RemoveGlowingCrossDirectly();
 
             break;
     }
 
     return EVC_ADVANCE_CONTINUE;
 }
+
+CONST_DATA EventListScr EventScr_Nop[] = {
+    NoFade
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_RemoveBGIfNeeded[] = {
+    EVBIT_MODIFY(0x1)
+    EVBIT_F(2)
+    CHECK_EVBIT(8)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    FADU(16)
+LABEL(0x0)
+    EVBIT_MODIFY(0x0)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_08591F64[] = {
+    EVBIT_MODIFY(0x1)
+    EVBIT_F(2)
+    CHECK_EVBIT(8)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    FADI(16)
+LABEL(0x0)
+    EVBIT_MODIFY(0x0)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_DisplayBattleQuote[] = {
+    EVBIT_MODIFY(0x3)
+    TEXTSHOW(0xffff)
+    TEXTEND
+    REMA
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_TriggerQueuedTileChanges[] = {
+    EVBIT_MODIFY(0x1)
+    TILECHANGE(0xfffd)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_OpenChest[] = {
+    EVBIT_MODIFY(0x1)
+    TILECHANGE(0xfffd)
+    SVAL(EVT_SLOT_7, 0xff)
+    BGT(0x0, EVT_SLOT_3, EVT_SLOT_7)
+    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GOTO(0x1)
+LABEL(0x0)
+    GIVEITEMTOMAIN(CHAR_EVT_ACTIVE_UNIT)
+LABEL(0x1)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_08591FD8[] = {
+    CALL(EventScr_08591F64)
+    CLEAN
+    PREP
+    CLEAN
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_MapSupportConversation[] = {
+    EVBIT_MODIFY(0x3)
+    BEQ(0x0, EVT_SLOT_2, EVT_SLOT_0)
+    MUSC(0xffff)
+    GOTO(0x1)
+LABEL(0x0)
+    MUSI
+LABEL(0x1)
+    SADD(EVT_SLOT_2, EVT_SLOT_3, EVT_SLOT_0)
+    TEXTSHOW(0xffff)
+    TEXTEND
+    REMA
+    NOTIFY(0xc, 0x5a)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_SupportViewerConversation[] = {
+    EVBIT_MODIFY(0x3)
+    REMOVEPORTRAITS
+    BACG(0x37)
+    FADU(16)
+    TEXTSHOW(0xffff)
+    TEXTEND
+    REMA
+    FADI(16)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_SkirmishRetreat[] = {
+    EVBIT_MODIFY(0x4)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, -1)
+    TEXTSHOW(0x8fc)
+    TEXTEND
+    SVAL(EVT_SLOT_7, 0x1)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
+    MUSCMID(0x7fff)
+    FADI(4)
+    MNCH(0xffff)
+    CHECK_SKIRMISH
+    SVAL(EVT_SLOT_1, 0x1)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
+    ASMC(StartRetreatProcessing)
+LABEL(0x0)
+    REMA
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_SuspendPrompt[] = {
+    EVBIT_MODIFY(0x4)
+    TEXTSTART
+    TEXTSHOW(0x8fe)
+    TEXTEND
+    SVAL(EVT_SLOT_7, 0x1)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
+    ASMC(WriteSuspandPlaterIdle)
+    EvtTextShow2(0x8ff)
+    TEXTEND
+    MUSCMID(0x7fff)
+    FADI(4)
+    MNTS(0x0)
+LABEL(0x0)
+    REMA
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_GameOver[] = {
+    EVBIT_MODIFY(0x4)
+    ASMC(EventCallGameOverExt)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_08592114[] = {
+    CHECK_EVBIT(10)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    CALL(EventScr_08592140)
+    GOTO(0x1)
+LABEL(0x0)
+    CALL(0x8592170)
+LABEL(0x1)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_08592140[] = {
+    CHECK_EVBIT(8)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    CHECK_EVBIT(7)
+    BNE(0x63, EVT_SLOT_C, EVT_SLOT_0)
+    FADI(16)
+LABEL(0x0)
+    CLEAN
+    FADU(16)
+LABEL(0x63)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_08592170[] = {
+    CHECK_EVBIT(8)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    FADI(16)
+LABEL(0x0)
+    CHECK_EVBIT(11)
+    BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
+    CHECK_CHAPTER_NUMBER
+    SADD(EVT_SLOT_2, EVT_SLOT_C, EVT_SLOT_0)
+    SVAL(EVT_SLOT_B, 0x0)
+    LOMA(0xffff)
+LABEL(0x1)
+    ENDA
+};
+
+CONST_DATA u16 Obj_EventShinningCursor[] = {
+    4,
+    0x0, 0x01FF, 0x0,
+    0x0, 0x1008, 0x0,
+    0x9, 0x21FF, 0x0,
+    0x9, 0x3008, 0x0,
+};

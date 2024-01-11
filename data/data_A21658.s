@@ -32,8 +32,8 @@ Img_SaveScreenSprits:  @ 0x08A26A74
 Pal_SaveScreenSprits:  @ 0x08A27F68
 	.incbin "baserom.gba", 0xA27F68, 0x120
 
-	.global gUnknown_08A28088
-gUnknown_08A28088:  @ 0x08A28088
+	.global Pal_08A28088
+Pal_08A28088:  @ 0x08A28088
 	.incbin "baserom.gba", 0xA28088, 0x20
 
 	.global gUnknown_08A280A8

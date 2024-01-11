@@ -692,7 +692,7 @@ void EventBattleReloadBmStatus(void)
 }
 
 //! FE8U = 0x08012270
-void sub_8012270(struct Unit * unit, u8 jid, u8 item)
+void EventPromoteUnitExt(struct Unit * unit, u8 jid, u8 item)
 {
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;

@@ -2,38 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80AA7AC
-sub_80AA7AC: @ 0x080AA7AC
-	push {r4, r5, lr}
-	movs r2, #0x3f
-	ands r2, r0
-	asrs r2, r2, #2
-	ldr r4, _080AA7DC  @ gPaletteBuffer
-	lsls r2, r2, #1
-	ldr r0, _080AA7E0  @ gUnknown_08A28088
-	adds r2, r2, r0
-	ldrh r3, [r2]
-	ldr r5, _080AA7E4  @ 0x00000222
-	adds r0, r4, r5
-	strh r3, [r0]
-	lsls r1, r1, #6
-	ldr r0, _080AA7E8  @ 0x00000342
-	adds r1, r1, r0
-	adds r1, r1, r4
-	ldrh r0, [r2]
-	strh r0, [r1]
-	bl EnablePaletteSync
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080AA7DC: .4byte gPaletteBuffer
-_080AA7E0: .4byte gUnknown_08A28088
-_080AA7E4: .4byte 0x00000222
-_080AA7E8: .4byte 0x00000342
-
-	THUMB_FUNC_END sub_80AA7AC
-
 	THUMB_FUNC_START sub_80AA7EC
 sub_80AA7EC: @ 0x080AA7EC
 	push {r4, r5, r6, r7, lr}
@@ -94,7 +62,7 @@ _080AA858:
 	adds r1, #6
 	mov r2, r9
 	subs r2, #0xe
-	ldr r3, _080AA9CC  @ gUnknown_08A20590
+	ldr r3, _080AA9CC  @ Obj_08A20590
 	movs r0, #0x80
 	lsls r0, r0, #6
 	str r0, [sp]
@@ -108,7 +76,7 @@ _080AA858:
 	bls _080AA8BE
 	mov r5, r8
 	adds r5, #0xa
-	ldr r4, _080AA9D0  @ gUnknown_08A2067C
+	ldr r4, _080AA9D0  @ Objs_08A2067C
 	add r0, sp, #4
 	ldrh r0, [r0]
 	movs r6, #0x64
@@ -143,7 +111,7 @@ _080AA8BE:
 	bls _080AA8EE
 	mov r5, r8
 	adds r5, #0x12
-	ldr r4, _080AA9D0  @ gUnknown_08A2067C
+	ldr r4, _080AA9D0  @ Objs_08A2067C
 	add r0, sp, #4
 	ldrh r0, [r0]
 	movs r1, #0xa
@@ -162,7 +130,7 @@ _080AA8BE:
 _080AA8EE:
 	mov r6, r8
 	adds r6, #0x1a
-	ldr r5, _080AA9D0  @ gUnknown_08A2067C
+	ldr r5, _080AA9D0  @ Objs_08A2067C
 	add r0, sp, #4
 	ldrh r0, [r0]
 	movs r1, #0xa
@@ -260,8 +228,8 @@ _080AA8EE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AA9CC: .4byte gUnknown_08A20590
-_080AA9D0: .4byte gUnknown_08A2067C
+_080AA9CC: .4byte Obj_08A20590
+_080AA9D0: .4byte Objs_08A2067C
 _080AA9D4: .4byte gUnknown_08A20650
 
 	THUMB_FUNC_END sub_80AA7EC

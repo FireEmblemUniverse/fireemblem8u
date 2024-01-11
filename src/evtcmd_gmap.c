@@ -127,7 +127,7 @@ void SetSomeRealCamPos(int x, int y, s8 unk)
 }
 
 //! FE8U = 0x0800BAA8
-void sub_800BAA8(s16 visionRange, s8 flag, ProcPtr parent)
+void EventSetFogVisionExt(s16 visionRange, s8 flag, ProcPtr parent)
 {
     if (visionRange < 0)
     {

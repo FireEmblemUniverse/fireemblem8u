@@ -63,14 +63,14 @@ ProcScr_BoomFogFx:  @ 0x085925D0
         .word 0x0
 
 
-	.global gUnknown_085925F0
-gUnknown_085925F0:  @ 0x085925F0
+	.global ProcScr_EventEarthQuake
+ProcScr_EventEarthQuake:  @ 0x085925F0
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8012B9C
+        .word EventEarthQuakeMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

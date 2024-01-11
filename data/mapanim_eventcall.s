@@ -286,8 +286,8 @@ gUnknown_089A46DC:  @ 0x089A46DC
         .word 0x0
 
 
-	.global gUnknown_089A470C
-gUnknown_089A470C:  @ 0x089A470C
+	.global ProcScr_GlowingCross
+ProcScr_GlowingCross:  @ 0x089A470C
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -305,8 +305,8 @@ gUnknown_089A470C:  @ 0x089A470C
         .word 0x0
 
 
-	.global gUnknown_089A4734
-gUnknown_089A4734:  @ 0x089A4734
+	.global ProcScr_GlowCrossExit
+ProcScr_GlowCrossExit:  @ 0x089A4734
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0

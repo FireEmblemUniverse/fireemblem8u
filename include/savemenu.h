@@ -23,7 +23,7 @@ enum {
 
 struct SaveDrawProc {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
+    /* 29 */ bool unk_29;
 };
 
 struct SaveMenuProc {
@@ -57,7 +57,7 @@ struct SaveMenuProc {
 
     int unk_54;
 
-    /* 58 */ struct SaveDrawProc * unk_58;
+    /* 58 */ struct SaveDrawProc * savedraw;
     /* 5C */ u32 unk_5c;
     /* 60 */ ProcPtr unk_60;
 };

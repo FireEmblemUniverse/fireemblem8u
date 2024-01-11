@@ -1,0 +1,917 @@
+#pragma once
+
+#include "global.h"
+#include "event.h"
+#include "eventinfo.h"
+#include "eventcall.h"
+#include "ea-stdlib.h"
+#include "constants/characters.h"
+
+CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
+    MUSC(0x24)
+    SVAL(EVT_SLOT_2, 0x18)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0x954)
+    TEXTEND
+    REMA
+    FADI(16)
+    CLEAN
+    FADU(16)
+    LOAD1(0x1, 0x88b440c)
+    ENUN
+    MUSCMID(32767)
+    LOAD1(0x1, 0x88b4344)
+    ENUN
+    LOAD1(0x1, 0x88b44ac)
+    ENUN
+    STAL2(60)
+    MUSC(0x1a)
+    CUMO_CHAR(CHARACTER_BONE)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0x955)
+    TEXTEND
+    REMA
+    MOVE(0x18, CHARACTER_BAZBA, 14, 9)
+    ENUN
+    DISA(CHARACTER_BAZBA)
+    CUMO_AT(12, 3)
+    STAL(60)
+    CURE
+    MUSC(0x25)
+    SVAL(EVT_SLOT_2, 0x2)
+    SVAL(EVT_SLOT_3, 0x956)
+    CALL(Event_TextWithBG)
+    CUMO_CHAR(CHARACTER_BONE)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0x957)
+    TEXTEND
+    REMA
+    MOVE(0x18, CHARACTER_BONE, 9, 14)
+    ENUN
+    SVAL(EVT_SLOT_B, 0x5000c)
+    MOVE(0x0, CHAR_EVT_POSITION_AT_SLOTB, 12, 3)
+    ENUN
+    SOUN(0xab)
+    SVAL(EVT_SLOT_B, 0x2000c)
+    TILECHANGE(0xffff)
+    SOUN(0x5c)
+    NOTIFY(0x12, 0x0)
+    LOAD1(0x1, 0x88b4434)
+    ENUN
+    SVAL(EVT_SLOT_1, 0x5)
+    SET_HP(CHARACTER_ROSS)
+    CUMO_CHAR(CHARACTER_ROSS)
+    STAL(60)
+    CURE
+    SVAL(EVT_SLOT_2, 0x1d)
+    SVAL(EVT_SLOT_3, 0x958)
+    CALL(Event_TextWithBG)
+    SVAL(EVT_SLOT_2, EventScr_089F0790)
+    CALL(EventScr_CallOnTutorialMode)
+    LOAD1(0x0, 0x88b42cc)
+    ENUN
+    CUMO_CHAR(CHARACTER_VANESSA)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0x959)
+    TEXTEND
+    REMA
+    MOVE(0x18, CHARACTER_VANESSA, 2, 3)
+    ENUN
+    CUMO_CHAR(CHARACTER_VANESSA)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0x95a)
+    TEXTEND
+    REMA
+    SVAL(EVT_SLOT_2, EventScr_089F07B0)
+    CALL(EventScr_CallOnTutorialMode)
+    CUMO_CHAR(CHARACTER_MOULDER)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0x95b)
+    TEXTEND
+    REMA
+    MOVE(0x18, CHARACTER_VANESSA, 6, 3)
+    ENUN
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0484[] = {
+    SVAL(EVT_SLOT_2, EventScr_089F07D0)
+    CALL(EventScr_CallOnTutorialMode)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F049C[] = {
+    SVAL(EVT_SLOT_2, EventScr_089F0C98)
+    CALL(EventScr_CallOnTutorialMode)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F04B4[] = {
+    MUSC(0x31)
+    CHECK_ALIVE(CHARACTER_GARCIA)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    CHECK_ALIVE(CHARACTER_ROSS)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    SVAL(EVT_SLOT_2, 0x1d)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0x962)
+    TEXTEND
+    REMA
+    FADI(16)
+    SVAL(EVT_SLOT_2, 0xa)
+    CALL(EventScr_LoadUniqueAlly)
+    SVAL(EVT_SLOT_2, 0x7)
+    CALL(EventScr_LoadUniqueAlly)
+    LABEL(0x0)
+    SVAL(EVT_SLOT_2, 0x4)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0x963)
+    TEXTEND
+    FADI(4)
+    MUSCSLOW(32767)
+    REMA
+    REMOVEPORTRAITS
+    BACG(0x20)
+    FADU(2)
+    TEXTSHOW(0x964)
+    TEXTEND
+    FAWI(2)
+    REMA
+    BACG(0x16)
+    FAWU(2)
+    MUSC(0x52)
+    BROWNBOXTEXT(0x211, 8, 8)
+    TEXTSHOW(0x965)
+    TEXTEND
+    FAWI(2)
+    MUSCSSLOW(32767) // not supportted in EASTDLIB
+    REMA
+    BACG(0x20)
+    FAWU(2)
+    MUSCSSLOW(74) // not supportted in EASTDLIB
+    TEXTSHOW(0x966)
+    TEXTEND
+    REMA
+    FADI(16)
+    ENUT(208)
+    ENUT(232)
+    ENUT(188)
+    ENUT(184)
+    ENUT(197)
+    ENUT(184)
+    ENUT(192)
+    ENUT(196)
+    ENUT(202)
+    ENUT(222)
+    ENUT(218)
+    ENUT(203)
+    MNCH(0x3)
+    SVAL(EVT_SLOT_2, 0x7)
+    CALL(EventScr_9EE5BC)
+    SVAL(EVT_SLOT_2, 0xa)
+    CALL(EventScr_9EE5BC)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F05FC[] = {
+    MUSS(0x30)
+    STAL(33)
+    IGNORE_KEYS(0x0)
+    TEXTSTART
+    TEXTSHOW(0x967)
+    TEXTEND
+    REMA
+    MURE(0x2)
+    CUSA(CHARACTER_ROSS)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0628[] = {
+    MUSS(0x30)
+    STAL(33)
+    TEXTSTART
+    TEXTSHOW(0x968)
+    TEXTEND
+    REMA
+    MURE(0x2)
+    CUSA(CHARACTER_GARCIA)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0650[] = {
+    IGNORE_KEYS(0x0)
+    CHECK_ACTIVE
+    SVAL(EVT_SLOT_1, 0x1)
+    BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
+    MUSI
+    SVAL(EVT_SLOT_2, 0x2)
+    SVAL(EVT_SLOT_3, 0x969)
+    CALL(Event_TextWithBG)
+    MUNO
+    GOTO(0x1)
+    LABEL(0x0)
+    MUSI
+    SVAL(EVT_SLOT_2, 0x2)
+    SVAL(EVT_SLOT_3, 0x96a)
+    CALL(Event_TextWithBG)
+    MUNO
+    LABEL(0x1)
+    CALL(EventScr_RemoveBGIfNeeded)
+    SVAL(EVT_SLOT_3, 0x76)
+    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F06D0[] = {
+    MUSI
+    SVAL(EVT_SLOT_2, 0x2)
+    SVAL(EVT_SLOT_3, 0x96b)
+    CALL(Event_TextWithBG)
+    MUNO
+    CALL(EventScr_RemoveBGIfNeeded)
+    SVAL(EVT_SLOT_3, 0x6d)
+    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F070C[] = {
+    MUSI
+    SVAL(EVT_SLOT_2, 0x2)
+    SVAL(EVT_SLOT_3, 0x96c)
+    CALL(Event_TextWithBG)
+    MUNO
+    CALL(EventScr_RemoveBGIfNeeded)
+    SVAL(EVT_SLOT_3, 0x6e)
+    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0748[] = {
+    SVAL(EVT_SLOT_2, 0x88b4470)
+    CALL(EventScr_LoadReinforce)
+    SVAL(EVT_SLOT_2, EventScr_089F1154)
+    CALL(EventScr_CallOnTutorialMode)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0770[] = {
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x96d)
+    TEXTEND
+    REMA
+    ENUT(208)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0790[] = {
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x96e)
+    TEXTEND
+    REMA
+    ENUT(232)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F07B0[] = {
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x96f)
+    TEXTEND
+    REMA
+    ENUT(188)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F07D0[] = {
+    MUSC(0x25)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x970)
+    TEXTEND
+    REMA
+    CURSOR_FLASHING_CHAR(CHARACTER_VANESSA)
+    STAL(60)
+    CURE
+    EvtEnqueueConditionalTutCall(EventScr_089F0808, TUTORIAL_EVT_TYPE_ONSELECT)
+    DISABLEOPTIONS(0x4000)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0808[] = {
+    EVBIT_T(7)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x6)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x50009)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x971)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x974)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0880)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0808)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec0)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0880[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x50009)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F08E0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0880)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec1)
+    DISABLEOPTIONS(0xfff7)
+    IGNORE_KEYS(0x10a)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F08E0[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0x380048)
+    TEXTSHOW(0x972)
+    TEXTEND
+    REMA
+    IGNORE_KEYS(0x10a)
+    EvtEnqueueConditionalTutCall(EventScr_089F0910, TUTORIAL_EVT_TYPE_ONSELECT)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0910[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    MUSI
+    TEXTSTART
+    TEXTSHOW(0x95d)
+    TEXTEND
+    REMA
+    MUNO
+    DISABLEOPTIONS(0x0)
+    SHOW_ATTACK_RANGE(CHARACTER_VANESSA)
+    CURSOR_FLASHING(8, 4)
+    STAL(60)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0x580010)
+    TEXTSHOW(0x973)
+    TEXTEND
+    REMA
+    CURE
+    IGNORE_KEYS(0x10a)
+    EvtEnqueueConditionalTutCall(EventScr_089F096C, TUTORIAL_EVT_TYPE_DESTSELECTED)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F096C[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x40008)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F09C8)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F096C)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec1)
+    IGNORE_KEYS(0x10a)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F09C8[] = {
+    EvtEnqueueConditionalTutCall(EventScr_089F09D8, TUTORIAL_EVT_TYPE_POSTACTION)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F09D8[] = {
+    IGNORE_KEYS(0x0)
+    EvtEnqueueCallDirectly(EventScr_089F09F0)
+    ENUT(184)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F09F0[] = {
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x97b)
+    TEXTEND
+    REMA
+    CURSOR_FLASHING_CHAR(CHARACTER_MOULDER)
+    STAL(60)
+    CURE
+    EvtEnqueueConditionalTutCall(EventScr_089F0A28, TUTORIAL_EVT_TYPE_ONSELECT)
+    DISABLEOPTIONS(0x4000)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0A28[] = {
+    EVBIT_T(7)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x5)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x30007)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x97c)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x97b)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0AA0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0A28)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec0)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0AA0[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x30007)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0B00)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0AA0)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec1)
+    DISABLEOPTIONS(0xfffb)
+    IGNORE_KEYS(0x10a)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0B00[] = {
+    EvtEnqueueConditionalTutCall(EventScr_089F0B10, TUTORIAL_EVT_TYPE_POSTACTION)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0B10[] = {
+    IGNORE_KEYS(0x0)
+    CUMO_CHAR(CHARACTER_EIRIKA)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0x95c)
+    TEXTEND
+    REMA
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x980)
+    TEXTEND
+    REMA
+    CURSOR_FLASHING_CHAR(CHARACTER_EIRIKA)
+    STAL(60)
+    CURE
+    EvtEnqueueConditionalTutCall(EventScr_089F0B68, TUTORIAL_EVT_TYPE_ONSELECT)
+    DISABLEOPTIONS(0x4000)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0B68[] = {
+    EVBIT_T(7)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x1)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x20004)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x982)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x981)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0BE0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0B68)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec0)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0BE0[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x20004)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0C40)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0BE0)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec1)
+    DISABLEOPTIONS(0xffdf)
+    IGNORE_KEYS(0x10a)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0C40[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0x380010)
+    TEXTSHOW(0x983)
+    TEXTEND
+    REMA
+    IGNORE_KEYS(0x10a)
+    EvtEnqueueConditionalTutCall(EventScr_089F0C70, TUTORIAL_EVT_TYPE_POSTACTION)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0C70[] = {
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_2, EventScr_089F0770)
+    CALL(EventScr_CallOnTutorialMode)
+    DISABLEOPTIONS(0x0)
+    EvtEnqueueCallDirectly(EventScr_089F11B8)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0C98[] = {
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x975)
+    TEXTEND
+    REMA
+    CURSOR_FLASHING_CHAR(CHARACTER_VANESSA)
+    STAL(60)
+    CURE
+    EvtEnqueueConditionalTutCall(EventScr_089F0CCC, TUTORIAL_EVT_TYPE_ONSELECT)
+    DISABLEOPTIONS(0x4000)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0CCC[] = {
+    EVBIT_T(7)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x6)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x40008)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x976)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x974)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0D48)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0CCC)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec0)
+    IGNORE_KEYS(0x3fe)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0D48[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x40008)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0DA8)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0D48)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec1)
+    DISABLEOPTIONS(0xffef)
+    IGNORE_KEYS(0x10a)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0DA8[] = {
+    EVBIT_T(7)
+    EvtEnqueueConditionalTutCall(EventScr_089F0DB8, TUTORIAL_EVT_TYPE_ONSELECT)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0DB8[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    MUSC(0x9)
+    TEXTSTART
+    TEXTSHOW(0x95e)
+    TEXTEND
+    REMA
+    ENUT(197)
+    DISABLEOPTIONS(0x0)
+    SHOW_ATTACK_RANGE(CHARACTER_VANESSA)
+    CURSOR_FLASHING(9, 4)
+    STAL(60)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0x580010)
+    TEXTSHOW(0x977)
+    TEXTEND
+    REMA
+    CURE
+    IGNORE_KEYS(0x10a)
+    EvtEnqueueConditionalTutCall(EventScr_089F0E14, TUTORIAL_EVT_TYPE_DESTSELECTED)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0E14[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x40009)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0E70)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0E14)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec1)
+    IGNORE_KEYS(0x10a)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0E70[] = {
+    EvtEnqueueConditionalTutCall(EventScr_089F0E80, TUTORIAL_EVT_TYPE_POSTACTION)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0E80[] = {
+    IGNORE_KEYS(0x0)
+    EvtEnqueueCallDirectly(EventScr_089F0E98)
+    ENUT(184)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0E98[] = {
+    CAMERA_CAHR(CHARACTER_MOULDER)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x978)
+    TEXTEND
+    REMA
+    CURSOR_FLASHING_CHAR(CHARACTER_MOULDER)
+    STAL(60)
+    CURE
+    EvtEnqueueConditionalTutCall(EventScr_089F0ED4, TUTORIAL_EVT_TYPE_ONSELECT)
+    DISABLEOPTIONS(0x4000)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0ED4[] = {
+    EVBIT_T(7)
+    CAMERA_CAHR(CHARACTER_MOULDER)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x5)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x30007)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x979)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x978)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0F54)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F0ED4)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec0)
+    IGNORE_KEYS(0x3fe)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0F54[] = {
+    EVBIT_T(7)
+    ASMC(0x801d7e9)
+    DISABLEOPTIONS(0xfffd)
+    IGNORE_KEYS(0x0)
+    EvtEnqueueConditionalTutCall(EventScr_089F0F74, TUTORIAL_EVT_TYPE_AFTERMOVE)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0F74[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0x380010)
+    TEXTSHOW(0x97a)
+    TEXTEND
+    REMA
+    IGNORE_KEYS(0x10a)
+    EvtEnqueueConditionalTutCall(EventScr_089F0FA4, TUTORIAL_EVT_TYPE_POSTACTION)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0FA4[] = {
+    IGNORE_KEYS(0x0)
+    TEXTSTART
+    TEXTSHOW(0x95f)
+    TEXTEND
+    REMA
+    ENUT(192)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x97d)
+    TEXTEND
+    REMA
+    ENUT(196)
+    DISABLEOPTIONS(0x0)
+    EvtEnqueueCallDirectly(EventScr_089F0FEC)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F0FEC[] = {
+    CAMERA_CAHR(CHARACTER_EIRIKA)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x984)
+    TEXTEND
+    REMA
+    CURSOR_FLASHING_CHAR(CHARACTER_EIRIKA)
+    STAL(60)
+    CURE
+    EvtEnqueueConditionalTutCall(EventScr_089F1028, TUTORIAL_EVT_TYPE_ONSELECT)
+    DISABLEOPTIONS(0x4000)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F1028[] = {
+    EVBIT_T(7)
+    CAMERA_CAHR(CHARACTER_EIRIKA)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x1)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x40006)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x986)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x985)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x580020)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F10A4)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F1028)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec0)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F10A4[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x40006)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F1104)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, EventScr_089F10A4)
+    SENQUEUE1
+    CALL(EventScr_Tutorial_Exec1)
+    DISABLEOPTIONS(0xffbf)
+    IGNORE_KEYS(0x10a)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F1104[] = {
+    EVBIT_T(7)
+    IGNORE_KEYS(0x0)
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0x380010)
+    TEXTSHOW(0x987)
+    TEXTEND
+    REMA
+    IGNORE_KEYS(0x10a)
+    EvtEnqueueConditionalTutCall(EventScr_089F1134, TUTORIAL_EVT_TYPE_POSTACTION)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F1134[] = {
+    IGNORE_KEYS(0x0)
+    SVAL(EVT_SLOT_2, EventScr_089F1194)
+    CALL(EventScr_CallOnTutorialMode)
+    DISABLEOPTIONS(0x0)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F1154[] = {
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x97e)
+    TEXTEND
+    REMA
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x98a)
+    TEXTEND
+    REMA
+    ENUT(202)
+    ENUT(222)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F1194[] = {
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x97f)
+    TEXTEND
+    REMA
+    ENUT(218)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089F11B8[] = {
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x988)
+    TEXTEND
+    REMA
+    CUMO_AT(5, 7)
+    STAL(60)
+    CURE
+    TUTORIALTEXTBOXSTART
+    SVAL(EVT_SLOT_B, 0xffffffff)
+    TEXTSHOW(0x989)
+    TEXTEND
+    REMA
+    ENUT(203)
+    EVBIT_T(7)
+    ENDA
+};

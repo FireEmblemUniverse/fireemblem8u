@@ -75,5 +75,3 @@ gUnknown_089EEA28:  @ 0x089EEA28
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-
-    .incbin "baserom.gba", 0x9EEA58, 0x9EEBE8 - 0x9EEA58

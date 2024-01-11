@@ -24,39 +24,39 @@ gUnknown_08A20580:  @ 0x08A20580
 gUnknown_08A20588:  @ 0x08A20588
 	.incbin "baserom.gba", 0xA20588, 0x8
 
-	.global gUnknown_08A20590
-gUnknown_08A20590:  @ 0x08A20590
+	.global Obj_08A20590
+Obj_08A20590:  @ 0x08A20590
 	.incbin "baserom.gba", 0xA20590, 0xC0
 
 	.global gUnknown_08A20650
 gUnknown_08A20650:  @ 0x08A20650
 @ replacing .incbin "baserom.gba", 0x00a20650, 0x2c
-.4byte gUnknown_08A20590 + 0xe
-.4byte gUnknown_08A20590 + 0x16
-.4byte gUnknown_08A20590 + 0x1e
-.4byte gUnknown_08A20590 + 0x26
-.4byte gUnknown_08A20590 + 0x2e
-.4byte gUnknown_08A20590 + 0x36
-.4byte gUnknown_08A20590 + 0x3e
-.4byte gUnknown_08A20590 + 0x46
-.4byte gUnknown_08A20590 + 0x4e
-.4byte gUnknown_08A20590 + 0x56
-.4byte gUnknown_08A20590 + 0x5e
+.4byte Obj_08A20590 + 0xe
+.4byte Obj_08A20590 + 0x16
+.4byte Obj_08A20590 + 0x1e
+.4byte Obj_08A20590 + 0x26
+.4byte Obj_08A20590 + 0x2e
+.4byte Obj_08A20590 + 0x36
+.4byte Obj_08A20590 + 0x3e
+.4byte Obj_08A20590 + 0x46
+.4byte Obj_08A20590 + 0x4e
+.4byte Obj_08A20590 + 0x56
+.4byte Obj_08A20590 + 0x5e
 
-	.global gUnknown_08A2067C
-gUnknown_08A2067C:  @ 0x08A2067C
+	.global Objs_08A2067C
+Objs_08A2067C:  @ 0x08A2067C
 @ replacing .incbin "baserom.gba", 0x00a2067c, 0x2c
-.4byte gUnknown_08A20590 + 0x66
-.4byte gUnknown_08A20590 + 0x6e
-.4byte gUnknown_08A20590 + 0x76
-.4byte gUnknown_08A20590 + 0x7e
-.4byte gUnknown_08A20590 + 0x86
-.4byte gUnknown_08A20590 + 0x8e
-.4byte gUnknown_08A20590 + 0x96
-.4byte gUnknown_08A20590 + 0x9e
-.4byte gUnknown_08A20590 + 0xa6
-.4byte gUnknown_08A20590 + 0xae
-.4byte gUnknown_08A20590 + 0xb6
+.4byte Obj_08A20590 + 0x66
+.4byte Obj_08A20590 + 0x6e
+.4byte Obj_08A20590 + 0x76
+.4byte Obj_08A20590 + 0x7e
+.4byte Obj_08A20590 + 0x86
+.4byte Obj_08A20590 + 0x8e
+.4byte Obj_08A20590 + 0x96
+.4byte Obj_08A20590 + 0x9e
+.4byte Obj_08A20590 + 0xa6
+.4byte Obj_08A20590 + 0xae
+.4byte Obj_08A20590 + 0xb6
 
 	.global ProcScr_savedraw
 ProcScr_savedraw:  @ 0x08A206A8

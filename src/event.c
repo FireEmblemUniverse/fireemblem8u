@@ -19,110 +19,6 @@
 #include "eventinfo.h"
 #include "event.h"
 
-// TODO: actual events
-
-extern const u16 gEvent_DisplayBattleQuote[]; /*
-    1020 0003 | EVBIT_MODIFY 3  // modifies event state bits (how?)
-    1B20 FFFF | TEXTSHOW 0xFFFF // Show text in event slot 2
-    1D20 0000 | TEXTEND         // Ends text
-    1B22 0000 | REMA            // deletes all text-related procs (or something)
-    0120 0000 | ENDA            // ends event execution
-*/
-
-extern const u16 gEvent_TriggerQueuedTileChanges[]; /*
-    1020 0001 | EVBIT_MODIFY 1    // modifies event state bits (how?)
-    2720 FFFD | TILECHANGE 0xFFFD // Changes tile by tile change id in event slot Queue (or something)
-    0120 0000 | ENDA              // ends event execution
-*/
-
-extern const u16 gEvent_OpenChest[]; /*
-    1020 0001           | EVBIT_MODIFY 1
-    2720 FFFD           | TILECHANGE 0xFFFD
-    0540 0007 000000FF  | SVAL s7 0xFF
-    0C43 0000 0003 0007 | BGT 0 s3 s7
-    3720 FFFF           | GIVEITEMTO 0xFFFF
-    0920 0001           | GOTO 1
-    0820 0000           | LABEL 0
-    3721 FFFF           | GIVEITEMTOMAIN 0xFFFF
-    0820 0001           | LABEL 1
-    0120 0000           | ENDA
-*/
-
-extern const u16 gEvent_MapSupportConversation[]; /*
-    1020 0003           | EVBIT_MODIFY 3
-    0C40 0000 0002 0000 | BEQ 0 s2 s0
-    1220 FFFF           | MUSC 0xFFFF
-    0920 0001           | GOTO 1
-    0820 0000           | LABEL 0
-    1520 0000           | MUSI
-    0820 0001           | LABEL 1
-    0620 0032           | SADD $032
-    1B20 FFFF           | TEXTSHOW 0xFFFF
-    1D20 0000           | TEXTEND
-    1B22 0000           | REMA
-    3A40 000C 005A 0000 | NOTIFY 0xC 0x5A 0
-    0228 0007           | EVBIT_T 7 // NoFade
-    0120 0000           | ENDA
-*/
-
-extern const u16 gEvent_SupportViewerConversation[]; /*
-    1020 0003           | EVBIT_MODIFY 3
-    1A21 0000           | REMOVEPORTRAITS
-    2140 0037 0000 0000 | BACG 0x37
-    1720 0010           | FADU 16
-    1B20 FFFF           | TEXTSHOW 0xFFFF
-    1D20 0000           | TEXTEND
-    1B22 0000           | REMA
-    1721 0010           | FADI 16
-    0120 0000           | ENDA
-*/
-
-extern const u16 gEvent_SkirmishRetreat[]; /*
-    EVBIT_MODIFY 4
-    TUTORIALTEXTBOXSTART
-    SVAL sB (-1)
-    TEXTSHOW 0x8FC // "Retreat?        [NL][No][X]"
-    TEXTEND
-    SVAL s7 TRUE
-    BNE 0 sC s7
-    MUSCMID 0x7FFF
-    FADI 4
-    MNCH 0xFFFF
-    CHECK_SKIRMISH
-    SVAL s1 1
-    BNE 0 sC s1
-    ASMC 0x37D59
-    LABEL 0
-    REMA
-    EVBIT_T 7 // NoFade
-    ENDA
-*/
-
-extern const u16 gEvent_SuspendPrompt[]; /*
-    EVBIT_MODIFY 4
-    TEXTSTART
-    TEXTSHOW 0x8FE
-    TEXTEND
-    SVAL s7 TRUE
-    BNE 0 sC s7
-    ASMC 0xB5D5D // Save Suspended game
-    TEXTSHOW2 0x8FF
-    TEXTEND
-    MUSCMID 0x7FFF
-    FADI 4
-    MNTS 0
-    LABEL 0
-    REMA
-    EVBIT_T 7
-    ENDA
-*/
-
-extern const u16 gEvent_GameOver[]; /* Game Over Events?
-    1020 0004           | EVBIT_MODIFY 4
-    0D40 0000 08085375  | ASMC EventCallGameOverExt // game over
-    0120 0000           | ENDA
-*/
-
 void _MarkSomethingInMenu(void) {
     FreezeMenu();
 }
@@ -392,21 +288,21 @@ int sub_800D208(void) {
 
 void CallBattleQuoteEvent(u16 textIndex) {
     // Battle quote (unused?)
-    CallEvent(gEvent_DisplayBattleQuote, EV_EXEC_GAMEPLAY);
+    CallEvent((u16 *)EventScr_DisplayBattleQuote, EV_EXEC_GAMEPLAY);
 
     gEventSlots[0x02] = textIndex;
 }
 
 void CallBattleQuoteEventInBattle(u16 textIndex) {
     // Battle quote
-    EventEngine_CreateBattle(gEvent_DisplayBattleQuote);
+    EventEngine_CreateBattle((u16 *)EventScr_DisplayBattleQuote);
 
     gEventSlots[0x2] = textIndex;
 }
 
 void CallTileChangeEvent(u16 tileChangeIndex) {
     // Generic tile change events?
-    CallEvent(gEvent_TriggerQueuedTileChanges, EV_EXEC_GAMEPLAY);
+    CallEvent((u16 *)EventScr_TriggerQueuedTileChanges, EV_EXEC_GAMEPLAY);
 
     gEventSlots[0xD] = 1; // qp
     gEventSlotQueue[0]   = tileChangeIndex;
@@ -414,7 +310,7 @@ void CallTileChangeEvent(u16 tileChangeIndex) {
 
 void CallChestOpeningEvent(u16 tileChangeIndex, u16 idr) {
     // Chest opening events?
-    CallEvent(gEvent_OpenChest, EV_EXEC_GAMEPLAY);
+    CallEvent((u16 *)EventScr_OpenChest, EV_EXEC_GAMEPLAY);
 
     gEventSlots[0xD] = 1; // qp
     gEventSlotQueue[0]   = tileChangeIndex;
@@ -424,7 +320,7 @@ void CallChestOpeningEvent(u16 tileChangeIndex, u16 idr) {
 void CallMapSupportEvent(u16 musicIndex, u16 textIndex) {
     // Calls text with music (just quiets music when id is 0)
     // On-map supports?
-    CallEvent(gEvent_MapSupportConversation, EV_EXEC_CUTSCENE);
+    CallEvent((u16 *)EventScr_MapSupportConversation, EV_EXEC_CUTSCENE);
 
     gEventSlots[0x2] = musicIndex;
     gEventSlots[0x3] = textIndex;
@@ -432,26 +328,26 @@ void CallMapSupportEvent(u16 musicIndex, u16 textIndex) {
 
 void CallSupportViewerEvent(u16 textIndex) {
     // Calls text with random background (support viewer?)
-    CallEvent(gEvent_SupportViewerConversation, EV_EXEC_QUIET);
+    CallEvent((u16 *)EventScr_SupportViewerConversation, EV_EXEC_QUIET);
 
     gEventSlots[0x2] = textIndex;
 }
 
 void CallRetreatPromptEvent(void) {
     // Calls Retreat events
-    CallEvent(gEvent_SkirmishRetreat, EV_EXEC_CUTSCENE);
+    CallEvent((u16 *)EventScr_SkirmishRetreat, EV_EXEC_CUTSCENE);
 
     gEventSlots[0x2] = gPlaySt.chapterIndex;
 }
 
 void CallSuspendPromptEvent(void) {
     // Calls Suspend events
-    CallEvent(gEvent_SuspendPrompt, EV_EXEC_CUTSCENE);
+    CallEvent((u16 *)EventScr_SuspendPrompt, EV_EXEC_CUTSCENE);
 }
 
 void CallGameOverEvent(void) {
     // Calls Game Over
-    EventEngine_Create(gEvent_GameOver, EV_EXEC_GAMEPLAY);
+    EventEngine_Create((u16 *)EventScr_GameOver, EV_EXEC_GAMEPLAY);
 }
 
 bool8 EventEngine_CanStartSkip(struct EventEngineProc* proc) { // Events_CanSkip

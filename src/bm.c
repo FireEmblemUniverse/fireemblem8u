@@ -68,8 +68,6 @@ extern struct ProcCmd gProcScr_ResetCursorPosition[];
 extern struct ProcCmd ProcScr_PhaseIntro[];
 extern struct ProcCmd gProcScr_ChapterIntroTitleOnly[];
 
-extern u16 gEvent_SkirmishCommonBeginning[];
-
 void BmMain_StartIntroFx(ProcPtr proc);
 int CallBeginningEvents(void);
 void UndeployEveryone(void);
@@ -452,7 +450,7 @@ int CallBeginningEvents(void)
     if (GetChapterThing() != 2)
         CallEvent(pChapterEvents->beginningSceneEvents, 1);
     else
-        CallEvent(gEvent_SkirmishCommonBeginning, 1);
+        CallEvent((u16 *)EventScr_SkirmishCommonBeginning, 1);
 
     return 0;
 }
