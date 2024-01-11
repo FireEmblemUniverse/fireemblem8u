@@ -1,5 +1,7 @@
     .section .data
 
+	.incbin "baserom.gba", 0x80b808, 0x80B90C - 0x80b808
+
 	.global gUnknown_0880B90C
 gUnknown_0880B90C:  @ 0x0880B90C
 	.incbin "baserom.gba", 0x80B90C, 0x28A

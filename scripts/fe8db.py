@@ -591,6 +591,53 @@ def ITEM_IDX(iid):
 
     return iid
 
+_ITYPE_IDX = {
+    0x00: "ITYPE_SWORD",
+    0x01: "ITYPE_LANCE",
+    0x02: "ITYPE_AXE",
+    0x03: "ITYPE_BOW",
+    0x04: "ITYPE_STAFF",
+    0x05: "ITYPE_ANIMA",
+    0x06: "ITYPE_LIGHT",
+    0x07: "ITYPE_DARK",
+    0x08: "ITYPE_BLLST",
+    0x09: "ITYPE_ITEM",
+    0x0A: "ITYPE_DRAGN",
+    0x0B: "ITYPE_11",
+    0x0C: "ITYPE_12",
+}
+
+def ITYPE_IDX(itype):
+    if itype in _ITYPE_IDX:
+        return _ITYPE_IDX[itype]
+
+    return itype
+
+_WPN_EXP = {
+    0: "WPN_EXP_0",
+    1: "WPN_EXP_E",
+    31: "WPN_EXP_D",
+    71: "WPN_EXP_C",
+    121: "WPN_EXP_B",
+    181: "WPN_EXP_A",
+    251: "WPN_EXP_S",
+}
+
+def WPN_EXP(exp):
+    if exp in _WPN_EXP:
+        return _WPN_EXP[exp]
+
+    return exp
+
+WPN_EFFECT = {
+    0: "WPN_EFFECT_NONE",
+    1: "WPN_EFFECT_POISON",
+    2: "WPN_EFFECT_HPDRAIN",
+    3: "WPN_EFFECT_HPHALVE",
+    4: "WPN_EFFECT_DEVIL",
+    5: "WPN_EFFECT_PETRIFY",
+}
+
 DIRECTION_IDX = {
     0: "FACING_LEFT",
     1: "FACING_RIGHT",

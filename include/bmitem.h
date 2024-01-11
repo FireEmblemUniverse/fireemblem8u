@@ -148,7 +148,7 @@ enum {
 #define ITEM_INDEX(aItem) ((aItem) & 0xFF)
 #define ITEM_USES(aItem) ((aItem) >> 8)
 
-extern const struct ItemData gItemData[];
+extern struct ItemData gItemData[];
 
 char* GetItemNameWithArticle(int item, s8 capitalize);
 
@@ -223,5 +223,7 @@ int GetItemCostPerUse(int item);
 int GetItemMaxCost(int item);
 int GetItemAwardedExp(int item);
 const struct ItemData* GetItemData(int item);
+
+extern struct ItemStatBonuses gUnknown_088AEEC4;
 
 #endif // GUARD_ITEMS_H

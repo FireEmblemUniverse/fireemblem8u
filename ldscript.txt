@@ -753,10 +753,11 @@ SECTIONS
         . = ALIGN(4); src/data_characters.o(.data);
         . = ALIGN(4); data/data_characters.o(.data);
         . = ALIGN(4); data/data_classes.o(.data);
-        . = ALIGN(4); data/data_items.o(.data);
+        . = ALIGN(4); src/data_items.o(.data);
         . = ALIGN(4); data/data_80B90C.o(.data);
         . = ALIGN(4); data/data_portrait.o(.data);
         . = ALIGN(4); src/portrait_data.o(.data);
+        . = ALIGN(4); src/data_itemuse.o(.data);
         . = ALIGN(4); data/data_8ADEB0.o(.data);
         . = ALIGN(4); src/unit_icon_wait_data.o(.data);
         . = ALIGN(4); src/spellassoc-data.o(.data);

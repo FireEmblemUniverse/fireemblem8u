@@ -534,8 +534,8 @@ s8 IsItemEffectiveAgainst(u16 item, struct Unit* unit) {
             u32 attributes;
             int i;
 
-            if (GetItemEffectiveness(item) != gUnknown_088ADF2A)
-                if (GetItemEffectiveness(item) != gUnknown_088ADEF1)
+            if (GetItemEffectiveness(item) != ItemEffectiveness_088ADF2A)
+                if (GetItemEffectiveness(item) != ItemEffectiveness_088ADEF1)
                     return TRUE;
 
             attributes = 0;
@@ -563,7 +563,7 @@ s8 IsUnitEffectiveAgainst(struct Unit* actor, struct Unit* target) {
 
     case 0x2B:
     case 0x2C:
-        effList = gUnknown_088ADF39;
+        effList = ItemEffectiveness_088ADF39;
         break;
 
     } // switch (actorClass)
