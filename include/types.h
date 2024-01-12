@@ -247,6 +247,8 @@ enum PlaySt_chapterModeIndex {
     CHAPTER_MODE_COMMON = 1,
     CHAPTER_MODE_EIRIKA = 2,
     CHAPTER_MODE_EPHRAIM = 3,
+
+    CHAPTER_MODE_ANY = 0xFF
 };
 
 struct MsgBuffer

@@ -742,3 +742,10 @@ def TERRAIN_IDX(terrain):
         return _TERRAIN_IDX[terrain]
 
     return hex(terrain)
+
+CHAPTER_MODES = {
+    1: "CHAPTER_MODE_COMMON",
+    2: "CHAPTER_MODE_EIRIKA",
+    3: "CHAPTER_MODE_EPHRAIM",
+    0xFF: "CHAPTER_MODE_ANY",
+}
