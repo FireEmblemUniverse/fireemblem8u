@@ -162,7 +162,7 @@ void GetRescueStaffeePosition(struct Unit* unit, struct Unit* target, int* xOut,
 
     foundDist = 9999;
 
-    GenerateExtendedMovementMap(unit->xPos, unit->yPos, gUnknown_0880BB96);
+    GenerateExtendedMovementMap(unit->xPos, unit->yPos, Unk_TerrainTable_0880BB96);
 
     gBmMapUnit[unit->yPos][unit->xPos] = -1;
 

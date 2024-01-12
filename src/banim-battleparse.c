@@ -13,22 +13,22 @@ static inline s8 _GetBanimTerrainGround(u16 terrain, u16 tileset)
 {
     switch (tileset) {
     case 0x01:
-        return gUnknown_0880C807[terrain];
+        return Unk_TerrainTable_0880C807[terrain];
 
     case 0x02:
-        return gUnknown_0880C848[terrain];
+        return Unk_TerrainTable_0880C848[terrain];
 
     case 0x03:
-        return gUnknown_0880C889[terrain];
+        return Unk_TerrainTable_0880C889[terrain];
 
     case 0x04:
-        return gUnknown_0880C8CA[terrain];
+        return Unk_TerrainTable_0880C8CA[terrain];
 
     case 0x05:
-        return gUnknown_0880C90B[terrain];
+        return Unk_TerrainTable_0880C90B[terrain];
 
     case 0x06:
-        return gUnknown_0880C94C[terrain];
+        return Unk_TerrainTable_0880C94C[terrain];
 
     case 0x07:
         return gUnknown_0880C98D[terrain];
@@ -70,11 +70,11 @@ static inline s8 _GetBanimTerrainGround(u16 terrain, u16 tileset)
         return gUnknown_0880CC99[terrain];
 
     case 0x14:
-        return gUnknown_0880CCDA[terrain];
+        return Unk_TerrainTable_0880CCDA[terrain];
 
     case 0:
     default:
-        return gUnknown_0880C7C6[terrain];
+        return Unk_TerrainTable_0880C7C6[terrain];
     }
 }
 

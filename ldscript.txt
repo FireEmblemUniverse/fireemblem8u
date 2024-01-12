@@ -753,6 +753,7 @@ SECTIONS
         . = ALIGN(4); src/data_characters.o(.data);
         . = ALIGN(4); src/data_classes.o(.data);
         . = ALIGN(4); src/data_items.o(.data);
+        . = ALIGN(4); src/data_terrains.o(.data);
         . = ALIGN(4); data/data_80B90C.o(.data);
         . = ALIGN(4); data/data_portrait.o(.data);
         . = ALIGN(4); src/portrait_data.o(.data);

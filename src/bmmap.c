@@ -662,11 +662,11 @@ char* GetTerrainName(int terrainId) {
 }
 
 int GetTerrainHealAmount(int terrainId) {
-    return gUnknown_0880C744[terrainId];
+    return Unk_TerrainTable_0880C744[terrainId];
 }
 
 s8 GetTerrainHealsStatus(int terrainId) {
-    return gUnknown_0880C785[terrainId];
+    return Unk_TerrainTable_0880C785[terrainId];
 }
 
 void sub_801A278(void) {
