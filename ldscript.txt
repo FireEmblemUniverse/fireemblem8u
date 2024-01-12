@@ -763,7 +763,7 @@ SECTIONS
         . = ALIGN(4); src/data_supports.o(.data);
         . = ALIGN(4); src/data_itembonus.o(.data);
         . = ALIGN(4); src/data_banimconf.o(.data);
-        . = ALIGN(4); data/data_8ADEB0.o(.data);
+        . = ALIGN(4); src/data_banimconfunk.o(.data);
         . = ALIGN(4); src/unit_icon_wait_data.o(.data);
         . = ALIGN(4); src/spellassoc-data.o(.data);
         . = ALIGN(4); src/bmreliance-data.o(.data);

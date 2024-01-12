@@ -854,7 +854,7 @@ extern CONST_DATA u8 Unk_088ADFAA[];
 extern CONST_DATA u8 Unk_088ADFAB[];
 // extern ??? gSupportData
 // extern ??? ItemBonus_Excalibur
-// extern ??? gUnknown_088AF834
+extern u16 * gUnknown_088AF834[];
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A
 // extern ??? gSpellAssocData
