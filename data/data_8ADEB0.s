@@ -1,7 +1,5 @@
 	.section .data
 
-	.incbin "baserom.gba", 0x8AEFD8, 0x8AF6F4 - 0x8AEFD8
-
 	.global gUnknown_088AF6F4
 gUnknown_088AF6F4:
 	.incbin "baserom.gba", 0x8AF6F4, 20

@@ -297,7 +297,7 @@ def dump_one_dat(rom_data, i):
         if pBattleAnimDef == None:
             print(f"        .pBattleAnimDef = (void *)0x{_pBattleAnimDef:08X},")
         else:
-            print(f"        .pBattleAnimDef = &{pBattleAnimDef},")
+            print(f"        .pBattleAnimDef = {pBattleAnimDef},")
 
     pMovCostTable = {}
     pMovCostTable[0] = int.from_bytes(rom_data[off + 0x38:off + 0x3C], 'little')
