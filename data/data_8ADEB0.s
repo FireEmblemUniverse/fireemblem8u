@@ -1,14 +1,20 @@
 	.section .data
 
-	.incbin "baserom.gba", 0x8ADFAC, 0x8AEBAC - 0x8ADFAC
-
 	.global gSupportData
 gSupportData:		@ 0x088AEBAC
 	.incbin "baserom.gba", 0x8AEBAC, 0x318
 
 	.global gUnknown_088AEEC4
 gUnknown_088AEEC4:  @ 0x088AEEC4
-	.incbin "baserom.gba", 0x8AEEC4, 0x970
+	.incbin "baserom.gba", 0x8AEEC4, 0x8AF6F4 - 0x8AEEC4
+
+	.global gUnknown_088AF6F4
+gUnknown_088AF6F4:
+	.incbin "baserom.gba", 0x8AF6F4, 20
+
+	.global gUnknown_088AF708
+gUnknown_088AF708:
+	.incbin "baserom.gba", 0x8AF708, 0x8AF834 - 0x8AF708
 
 	.global gUnknown_088AF834
 gUnknown_088AF834:  @ 0x088AF834

@@ -520,6 +520,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_chapter_maps.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_wait.o(.rodata);
         . = ALIGN(4); data/const_data_1C0AFC.o(.rodata);
+        . = ALIGN(4); src/data_debugpinfo.o(.rodata);
+        . = ALIGN(4); data/const_data_debuginfo.o(.rodata);
         . = ALIGN(4); src/chapterdata.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_move.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
@@ -754,10 +756,10 @@ SECTIONS
         . = ALIGN(4); src/data_classes.o(.data);
         . = ALIGN(4); src/data_items.o(.data);
         . = ALIGN(4); src/data_terrains.o(.data);
-        . = ALIGN(4); data/data_80B90C.o(.data);
         . = ALIGN(4); data/data_portrait.o(.data);
         . = ALIGN(4); src/portrait_data.o(.data);
         . = ALIGN(4); src/data_itemuse.o(.data);
+        . = ALIGN(4); src/data_debugpinfo.o(.data);
         . = ALIGN(4); data/data_8ADEB0.o(.data);
         . = ALIGN(4); src/unit_icon_wait_data.o(.data);
         . = ALIGN(4); src/spellassoc-data.o(.data);

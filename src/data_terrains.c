@@ -4218,7 +4218,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C785[] = {
     [TERRAIN_MAST] = 0,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C7C6[] = {
+CONST_DATA s8 BanimTerrainGroundDefault[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -4286,7 +4286,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C7C6[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C807[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset01[] = {
     [TERRAIN_TILE_00] = 47,
     [TERRAIN_PLAINS] = 47,
     [TERRAIN_ROAD] = 58,
@@ -4354,7 +4354,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C807[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C848[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset02[] = {
     [TERRAIN_TILE_00] = 2,
     [TERRAIN_PLAINS] = 2,
     [TERRAIN_ROAD] = 36,
@@ -4422,7 +4422,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C848[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C889[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset03[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 2,
@@ -4490,7 +4490,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C889[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C8CA[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset04[] = {
     [TERRAIN_TILE_00] = 77,
     [TERRAIN_PLAINS] = 77,
     [TERRAIN_ROAD] = 18,
@@ -4558,7 +4558,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C8CA[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C90B[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset05[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 12,
@@ -4626,7 +4626,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C90B[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C94C[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset06[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -4694,7 +4694,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C94C[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880C98D[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset07[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 12,
     [TERRAIN_ROAD] = 18,
@@ -4762,7 +4762,7 @@ CONST_DATA s8 gUnknown_0880C98D[] = {
     [TERRAIN_MAST] = 105,
 };
 
-CONST_DATA s8 gUnknown_0880C9CE[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset08[] = {
     [TERRAIN_TILE_00] = 105,
     [TERRAIN_PLAINS] = 105,
     [TERRAIN_ROAD] = 105,
@@ -4830,7 +4830,7 @@ CONST_DATA s8 gUnknown_0880C9CE[] = {
     [TERRAIN_MAST] = 105,
 };
 
-CONST_DATA s8 gUnknown_0880CA0F[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset09[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -4898,7 +4898,7 @@ CONST_DATA s8 gUnknown_0880CA0F[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CA50[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset0A[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -4966,7 +4966,7 @@ CONST_DATA s8 gUnknown_0880CA50[] = {
     [TERRAIN_MAST] = 72,
 };
 
-CONST_DATA s8 gUnknown_0880CA91[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset0B[] = {
     [TERRAIN_TILE_00] = 89,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -5034,7 +5034,7 @@ CONST_DATA s8 gUnknown_0880CA91[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CAD2[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset0C[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -5102,7 +5102,7 @@ CONST_DATA s8 gUnknown_0880CAD2[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CB13[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset0D[] = {
     [TERRAIN_TILE_00] = 94,
     [TERRAIN_PLAINS] = 94,
     [TERRAIN_ROAD] = 18,
@@ -5170,7 +5170,7 @@ CONST_DATA s8 gUnknown_0880CB13[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CB54[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset0E[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -5238,7 +5238,7 @@ CONST_DATA s8 gUnknown_0880CB54[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CB95[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset0F[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -5306,7 +5306,7 @@ CONST_DATA s8 gUnknown_0880CB95[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CBD6[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset10[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -5374,7 +5374,7 @@ CONST_DATA s8 gUnknown_0880CBD6[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CC17[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset11[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -5442,7 +5442,7 @@ CONST_DATA s8 gUnknown_0880CC17[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CC58[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset12[] = {
     [TERRAIN_TILE_00] = 77,
     [TERRAIN_PLAINS] = 77,
     [TERRAIN_ROAD] = 18,
@@ -5510,7 +5510,7 @@ CONST_DATA s8 gUnknown_0880CC58[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gUnknown_0880CC99[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset13[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,
@@ -5578,7 +5578,7 @@ CONST_DATA s8 gUnknown_0880CC99[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880CCDA[] = {
+CONST_DATA s8 BanimTerrainGround_Tileset14[] = {
     [TERRAIN_TILE_00] = 1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 18,

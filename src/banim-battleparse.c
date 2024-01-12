@@ -13,68 +13,68 @@ static inline s8 _GetBanimTerrainGround(u16 terrain, u16 tileset)
 {
     switch (tileset) {
     case 0x01:
-        return Unk_TerrainTable_0880C807[terrain];
+        return BanimTerrainGround_Tileset01[terrain];
 
     case 0x02:
-        return Unk_TerrainTable_0880C848[terrain];
+        return BanimTerrainGround_Tileset02[terrain];
 
     case 0x03:
-        return Unk_TerrainTable_0880C889[terrain];
+        return BanimTerrainGround_Tileset03[terrain];
 
     case 0x04:
-        return Unk_TerrainTable_0880C8CA[terrain];
+        return BanimTerrainGround_Tileset04[terrain];
 
     case 0x05:
-        return Unk_TerrainTable_0880C90B[terrain];
+        return BanimTerrainGround_Tileset05[terrain];
 
     case 0x06:
-        return Unk_TerrainTable_0880C94C[terrain];
+        return BanimTerrainGround_Tileset06[terrain];
 
     case 0x07:
-        return gUnknown_0880C98D[terrain];
+        return BanimTerrainGround_Tileset07[terrain];
 
     case 0x08:
-        return gUnknown_0880C9CE[terrain];
+        return BanimTerrainGround_Tileset08[terrain];
 
     case 0x09:
-        return gUnknown_0880CA0F[terrain];
+        return BanimTerrainGround_Tileset09[terrain];
 
     case 0x0A:
-        return gUnknown_0880CA50[terrain];
+        return BanimTerrainGround_Tileset0A[terrain];
 
     case 0x0B:
-        return gUnknown_0880CA91[terrain];
+        return BanimTerrainGround_Tileset0B[terrain];
 
     case 0x0C:
-        return gUnknown_0880CAD2[terrain];
+        return BanimTerrainGround_Tileset0C[terrain];
 
     case 0x0D:
-        return gUnknown_0880CB13[terrain];
+        return BanimTerrainGround_Tileset0D[terrain];
 
     case 0x0E:
-        return gUnknown_0880CB54[terrain];
+        return BanimTerrainGround_Tileset0E[terrain];
 
     case 0x0F:
-        return gUnknown_0880CB95[terrain];
+        return BanimTerrainGround_Tileset0F[terrain];
 
     case 0x10:
-        return gUnknown_0880CBD6[terrain];
+        return BanimTerrainGround_Tileset10[terrain];
 
     case 0x11:
-        return gUnknown_0880CC17[terrain];
+        return BanimTerrainGround_Tileset11[terrain];
 
     case 0x12:
-        return gUnknown_0880CC58[terrain];
+        return BanimTerrainGround_Tileset12[terrain];
 
     case 0x13:
-        return gUnknown_0880CC99[terrain];
+        return BanimTerrainGround_Tileset13[terrain];
 
     case 0x14:
-        return Unk_TerrainTable_0880CCDA[terrain];
+        return BanimTerrainGround_Tileset14[terrain];
 
     case 0:
     default:
-        return Unk_TerrainTable_0880C7C6[terrain];
+        return BanimTerrainGroundDefault[terrain];
     }
 }
 
