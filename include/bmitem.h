@@ -224,6 +224,28 @@ int GetItemMaxCost(int item);
 int GetItemAwardedExp(int item);
 const struct ItemData* GetItemData(int item);
 
-extern struct ItemStatBonuses gUnknown_088AEEC4;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Excalibur;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_DarkGleipnir;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterHp;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterPow;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterSkl;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterSpd;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterLck;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterDef;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterRes;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterMov;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_BoosterCon;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Sieglinde;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Ivaldi;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Vidofnir;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_WretchAir;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Audhulma;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Siegmund;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Garm;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Nidhogg;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_NightMare;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_DemonLight;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_Ravger;
+extern CONST_DATA struct ItemStatBonuses ItemBonus_DivineStone;
 
 #endif // GUARD_ITEMS_H

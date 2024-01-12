@@ -1,8 +1,6 @@
 	.section .data
 
-	.global gUnknown_088AEEC4
-gUnknown_088AEEC4:  @ 0x088AEEC4
-	.incbin "baserom.gba", 0x8AEEC4, 0x8AF6F4 - 0x8AEEC4
+	.incbin "baserom.gba", 0x8AEFD8, 0x8AF6F4 - 0x8AEFD8
 
 	.global gUnknown_088AF6F4
 gUnknown_088AF6F4:
@@ -16,8 +14,8 @@ gUnknown_088AF708:
 gUnknown_088AF834:  @ 0x088AF834
 @ replacing .incbin "baserom.gba", 0x008af834, 0x4c
 .4byte 0
-.4byte gItemUseJidList_SolarBrace + 0x174e
-.4byte gItemUseJidList_SolarBrace + 0x1762
+.4byte gUnknown_088AF6F4
+.4byte gUnknown_088AF708
 .4byte gItemUseJidList_SolarBrace + 0x177a
 .4byte gItemUseJidList_SolarBrace + 0x1792
 .4byte gItemUseJidList_SolarBrace + 0x17aa

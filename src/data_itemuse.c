@@ -16,7 +16,7 @@ CONST_DATA u8 ItemEffectiveness_088ADEB0[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADEBB[] = {
+CONST_DATA u8 ItemEffectiveness_Armor[] = {
     CLASS_ARMOR_KNIGHT,
     CLASS_ARMOR_KNIGHT_F,
     CLASS_GENERAL,
@@ -119,7 +119,7 @@ CONST_DATA u8 ItemEffectiveness_088ADEF1[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADF13[] = {
+CONST_DATA u8 ItemEffectiveness_Dragon[] = {
     CLASS_WYVERN_RIDER,
     CLASS_WYVERN_RIDER_F,
     CLASS_WYVERN_LORD,
@@ -166,7 +166,7 @@ CONST_DATA u8 ItemEffectiveness_088ADF2A[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADF39[] = {
+CONST_DATA u8 ItemEffectiveness_Monsters[] = {
     CLASS_REVENANT,
     CLASS_ENTOUMBED,
     CLASS_BONEWALKER,

@@ -822,15 +822,15 @@ extern CONST_DATA s8 gBanimBackgroundIndexLut14[];
 extern u16 CONST_DATA gUnknown_0880D374[]; // terrainid-to-textid lookup
 // extern ??? gUnknown_088ACBC4
 extern CONST_DATA u8 ItemEffectiveness_088ADEB0[];
-extern CONST_DATA u8 ItemEffectiveness_088ADEBB[];
+extern CONST_DATA u8 ItemEffectiveness_Armor[];
 extern CONST_DATA u8 ItemEffectiveness_088ADEC2[];
 extern CONST_DATA u8 ItemEffectiveness_088ADED7[];
 extern CONST_DATA u8 ItemEffectiveness_088ADEE0[];
 extern CONST_DATA u8 ItemEffectiveness_088ADEF1[];
-extern CONST_DATA u8 ItemEffectiveness_088ADF13[];
+extern CONST_DATA u8 ItemEffectiveness_Dragon[];
 extern CONST_DATA u8 ItemEffectiveness_088ADF1F[];
 extern CONST_DATA u8 ItemEffectiveness_088ADF2A[];
-extern CONST_DATA u8 ItemEffectiveness_088ADF39[];
+extern CONST_DATA u8 ItemEffectiveness_Monsters[];
 extern CONST_DATA u8 JidLutUnk_Tier0[];
 extern CONST_DATA u8 gItemUseJidList_HeroCrest[];
 extern CONST_DATA u8 gItemUseJidList_KnightCrest[];
@@ -853,7 +853,7 @@ extern CONST_DATA u8 Unk_088ADFA9[];
 extern CONST_DATA u8 Unk_088ADFAA[];
 extern CONST_DATA u8 Unk_088ADFAB[];
 // extern ??? gSupportData
-// extern ??? gUnknown_088AEEC4
+// extern ??? ItemBonus_Excalibur
 // extern ??? gUnknown_088AF834
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A
