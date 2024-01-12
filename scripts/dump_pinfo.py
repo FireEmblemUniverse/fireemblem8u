@@ -193,28 +193,20 @@ def dump_one_dat(rom_data, i):
         print(f"        .baseLevel = {baseLevel},")
 
     print("")
-
     baseHP = rom_data[off + 0x0C]
     print(f"        .baseHP  = {baseHP},")
-
     basePow = rom_data[off + 0x0D]
     print(f"        .basePow = {basePow},")
-
     baseSkl = rom_data[off + 0x0E]
     print(f"        .baseSkl = {baseSkl},")
-
     baseSpd = rom_data[off + 0x0F]
     print(f"        .baseSpd = {baseSpd},")
-
     baseDef = rom_data[off + 0x10]
     print(f"        .baseDef = {baseDef},")
-
     baseRes = rom_data[off + 0x11]
     print(f"        .baseRes = {baseRes},")
-
     baseLck = rom_data[off + 0x12]
     print(f"        .baseLck = {baseLck},")
-
     baseCon = rom_data[off + 0x13]
     print(f"        .baseCon = {baseCon},")
 
@@ -252,41 +244,31 @@ def dump_one_dat(rom_data, i):
     print("")
     growthHP = rom_data[off + 0x1C]
     print(f"        .growthHP  = {growthHP},")
-
     growthPow = rom_data[off + 0x1D]
     print(f"        .growthPow = {growthPow},")
-
     growthSkl = rom_data[off + 0x1E]
     print(f"        .growthSkl = {growthSkl},")
-
     growthSpd = rom_data[off + 0x1F]
     print(f"        .growthSpd = {growthSpd},")
-
     growthDef = rom_data[off + 0x20]
     print(f"        .growthDef = {growthDef},")
-
     growthRes = rom_data[off + 0x21]
     print(f"        .growthRes = {growthRes},")
-
     growthLck = rom_data[off + 0x22]
     print(f"        .growthLck = {growthLck},")
 
     _u23 = rom_data[off + 0x23]
     if _u23 != 0:
         print(f"        ._u23 = {hex(_u23)},")
-
     _u24 = rom_data[off + 0x24]
     if _u24 != 0:
         print(f"        ._u23 = {hex(_u24)},")
-
     _u25 = rom_data[off + 0x25]
     if _u25 != 0:
         print(f"        ._u23 = {hex(_u25)},")
-
     _u26 = rom_data[off + 0x26]
     if _u26 != 0:
         print(f"        ._u23 = {hex(_u26)},")
-
     _u27 = rom_data[off + 0x27]
     if _u27 != 0:
         print(f"        ._u23 = {hex(_u27)},")

@@ -713,13 +713,13 @@ extern u16 gUnknown_08803BD0[];
 extern u16 Pal_EkrPopup[];
 extern u16 Tsa_EkrPopup[];
 // extern ??? gCharacterData
-extern const s8 gUnknown_0880B90C[]; // terrainId to ? lookup
-extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
-extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
-extern const s8 gUnknown_0880C479[]; // terrainId to ? lookup
-extern const s8 gUnknown_0880C4BA[]; // terrainId to ? lookup
-extern const s8 gUnknown_0880C744[]; // terrainid-to-healamount lookup
-extern const s8 gUnknown_0880C785[]; // terrainid-to-something lookup
+extern s8 gUnknown_0880B90C[]; // terrainId to ? lookup
+extern s8 gUnknown_0880BB96[]; // Unit drop movement cost table
+extern s8 gUnknown_0880BC18[]; // Ballista mov cost table
+extern s8 gUnknown_0880C479[]; // terrainId to ? lookup
+extern s8 gUnknown_0880C4BA[]; // terrainId to ? lookup
+extern s8 gUnknown_0880C744[]; // terrainid-to-healamount lookup
+extern s8 gUnknown_0880C785[]; // terrainid-to-something lookup
 
 extern u8 gUnknown_0880C7C6[];
 extern u8 gUnknown_0880C807[];
