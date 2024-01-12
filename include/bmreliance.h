@@ -1,6 +1,8 @@
 #ifndef GUARD_BM_RELIANCE_H
 #define GUARD_BM_RELIANCE_H
 
+#include "global.h"
+
 enum
 {
     // Config
@@ -66,5 +68,39 @@ int GetSupportLevelUiChar(int level);
 char* GetAffinityName(int affinity); // unused?
 s8 HaveCharactersMaxSupport(u8 charA, u8 charB);
 void SwapUnitStats(struct Unit* unitA, struct Unit* unitB);
+
+extern CONST_DATA struct SupportData SupportData_088AEBAC;
+extern CONST_DATA struct SupportData SupportData_088AEBC4;
+extern CONST_DATA struct SupportData SupportData_088AEBDC;
+extern CONST_DATA struct SupportData SupportData_088AEBF4;
+extern CONST_DATA struct SupportData SupportData_088AEC0C;
+extern CONST_DATA struct SupportData SupportData_088AEC24;
+extern CONST_DATA struct SupportData SupportData_088AEC3C;
+extern CONST_DATA struct SupportData SupportData_088AEC54;
+extern CONST_DATA struct SupportData SupportData_088AEC6C;
+extern CONST_DATA struct SupportData SupportData_088AEC84;
+extern CONST_DATA struct SupportData SupportData_088AEC9C;
+extern CONST_DATA struct SupportData SupportData_088AECB4;
+extern CONST_DATA struct SupportData SupportData_088AECCC;
+extern CONST_DATA struct SupportData SupportData_088AECE4;
+extern CONST_DATA struct SupportData SupportData_088AECFC;
+extern CONST_DATA struct SupportData SupportData_088AED14;
+extern CONST_DATA struct SupportData SupportData_088AED2C;
+extern CONST_DATA struct SupportData SupportData_088AED44;
+extern CONST_DATA struct SupportData SupportData_088AED5C;
+extern CONST_DATA struct SupportData SupportData_088AED74;
+extern CONST_DATA struct SupportData SupportData_088AED8C;
+extern CONST_DATA struct SupportData SupportData_088AEDA4;
+extern CONST_DATA struct SupportData SupportData_088AEDBC;
+extern CONST_DATA struct SupportData SupportData_088AEDD4;
+extern CONST_DATA struct SupportData SupportData_088AEDEC;
+extern CONST_DATA struct SupportData SupportData_088AEE04;
+extern CONST_DATA struct SupportData SupportData_088AEE1C;
+extern CONST_DATA struct SupportData SupportData_088AEE34;
+extern CONST_DATA struct SupportData SupportData_088AEE4C;
+extern CONST_DATA struct SupportData SupportData_088AEE64;
+extern CONST_DATA struct SupportData SupportData_088AEE7C;
+extern CONST_DATA struct SupportData SupportData_088AEE94;
+extern CONST_DATA struct SupportData SupportData_088AEEAC;
 
 #endif // GUARD_BM_RELIANCE_H

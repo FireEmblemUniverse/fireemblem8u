@@ -1,9 +1,5 @@
 	.section .data
 
-	.global gSupportData
-gSupportData:		@ 0x088AEBAC
-	.incbin "baserom.gba", 0x8AEBAC, 0x318
-
 	.global gUnknown_088AEEC4
 gUnknown_088AEEC4:  @ 0x088AEEC4
 	.incbin "baserom.gba", 0x8AEEC4, 0x8AF6F4 - 0x8AEEC4
