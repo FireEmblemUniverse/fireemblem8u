@@ -8,7 +8,7 @@
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
-    LOAD2(0x1, 0x88b49cc)
+    LOAD2(0x1, UnitDef_088B49CC)
     ENUN
     MUSC(0x52)
     CUMO_CHAR(CHARACTER_EIRIKA)
@@ -21,7 +21,7 @@ CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
     REMA
     FADI(16)
     CLEAN
-    LOAD1(0x1, 0x88b4a80)
+    LOAD1(0x1, UnitDef_088B4A80)
     ENUN
     FADU(16)
     MUSC(0x25)
@@ -51,7 +51,7 @@ CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
     CLEAN
     CAMERA(0, 0)
     FADU(16)
-    LOAD1(0x1, 0x88b4bd4)
+    LOAD1(0x1, UnitDef_088B4BD4)
     ENUN
     CUMO_CHAR(CHARACTER_ARTUR)
     STAL(60)
@@ -93,7 +93,7 @@ CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
     REMA
     SVAL(EVT_SLOT_2, EventScr_089F1CA4)
     CALL(EventScr_CallOnTutorialMode)
-    CALL(0x8591fd8)
+    CALL(EventScr_08591FD8)
     CAMERA(0, 0)
     FADU(16)
     MUSC(0x9)
@@ -114,7 +114,7 @@ CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
 CONST_DATA EventListScr EventScr_089F199C[] = {
     CAMERA2(7, 0)
     STAL(15)
-    LOAD1(0x1, 0x88b4cd8)
+    LOAD1(0x1, UnitDef_088B4CD8)
     ENUN
     MUSC(0x2a)
     CUMO_CHAR(CHARACTER_LARACHEL)
@@ -143,16 +143,16 @@ CONST_DATA EventListScr EventScr_089F19F8[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     SVAL(EVT_SLOT_2, 0x9ad)
     GOTO(0x1)
-    LABEL(0x0)
+LABEL(0x0)
     SVAL(EVT_SLOT_2, 0x9ae)
-    LABEL(0x1)
+LABEL(0x1)
     TEXTSHOW(0xffff)
     TEXTEND
     REMA
     FADI(16)
-    LOAD1(0x1, 0x88b4bfc)
+    LOAD1(0x1, UnitDef_088B4BFC)
     ENUN
-    LABEL(0xa)
+LABEL(0xa)
     MUSC(0x32)
     SVAL(EVT_SLOT_2, 0x18)
     CALL(EventScr_SetBackground)
@@ -162,23 +162,23 @@ CONST_DATA EventListScr EventScr_089F19F8[] = {
     BEQ(0xb, EVT_SLOT_C, EVT_SLOT_0)
     SVAL(EVT_SLOT_2, 0x9af)
     GOTO(0xc)
-    LABEL(0xb)
+LABEL(0xb)
     SVAL(EVT_SLOT_2, 0x9b0)
-    LABEL(0xc)
+LABEL(0xc)
     TEXTSHOW(0xffff)
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(32767)
+    MUSCMID(0x7fff)
     CLEAN
     CAMERA2(7, 7)
     CLEA
     CLEE
     CLEN
-    LOAD2(0x1, 0x88b4d28)
+    LOAD2(0x1, UnitDef_088B4D28)
     ENUN
     FADU(16)
-    LOAD1(0x1, 0x88b4d64)
+    LOAD1(0x1, UnitDef_088B4D64)
     ENUN
     MUSC(0x2a)
     CUMO_CHAR(CHARACTER_LARACHEL)
@@ -211,18 +211,18 @@ CONST_DATA EventListScr EventScr_089F1B38[] = {
     SVAL(EVT_SLOT_3, 0x9b4)
     CALL(Event_TextWithBG)
     GOTO(0x2)
-    LABEL(0x0)
+LABEL(0x0)
     SVAL(EVT_SLOT_2, 0x2)
     SVAL(EVT_SLOT_3, 0x9b2)
     CALL(Event_TextWithBG)
     GOTO(0x2)
-    LABEL(0x1)
+LABEL(0x1)
     SVAL(EVT_SLOT_2, 0x2)
     SVAL(EVT_SLOT_3, 0x9b3)
     CALL(Event_TextWithBG)
-    LABEL(0x2)
+LABEL(0x2)
     MURE(0x4)
-    LOAD1(0x1, 0x88b4bfc)
+    LOAD1(0x1, UnitDef_088B4BFC)
     ENUN
     EVBIT_T(7)
     ENDA
@@ -242,7 +242,7 @@ CONST_DATA EventListScr EventScr_089F1BD8[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F1C14[] = {
-    SVAL(EVT_SLOT_2, 0x88b4c88)
+    SVAL(EVT_SLOT_2, UnitDef_088B4C88)
     CALL(EventScr_LoadReinforce)
     EVBIT_T(7)
     ENDA
@@ -257,7 +257,7 @@ CONST_DATA EventListScr EventScr_089F1C2C[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F1C48[] = {
-    SVAL(EVT_SLOT_2, 0x88b4c24)
+    SVAL(EVT_SLOT_2, UnitDef_088B4C24)
     CALL(EventScr_LoadReinforce)
     EVBIT_T(7)
     ENDA

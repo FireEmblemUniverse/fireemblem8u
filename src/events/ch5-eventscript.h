@@ -13,14 +13,14 @@ CONST_DATA EventListScr EventScr_Ch5_BeginingScene[] = {
     CALL(EventScr_089F3280)
 LABEL(0x8020)
     MUSC(0x25)
-    EvtSetLoadUnitNoREDA
-    LOAD2(0x1, 0x88b593c)
+    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    LOAD2(0x1, UnitDef_088B593C)
     ENUN
     SVAL(EVT_SLOT_2, 0x5)
     SVAL(EVT_SLOT_3, 0x9ba)
     CALL(Event_TextWithBG)
     DISA(CHARACTER_JOSHUA)
-    LOAD2(0x1, 0x88b593c)
+    LOAD2(0x1, UnitDef_088B593C)
     ENUN
     CUMO_CHAR(CHARACTER_JOSHUA)
     STAL(60)
@@ -36,7 +36,7 @@ LABEL(0x8020)
     CLEN
     CLEAN
     MUSC(0x2e)
-    LOAD1(0x1, 0x88b5978)
+    LOAD1(0x1, UnitDef_088B5978)
     ENUN
     FADU(16)
     CUMO_CHAR(CHARACTER_GLEN)
@@ -85,7 +85,7 @@ LABEL(0x8020)
     MOVE_DEFINED(CHARACTER_CORMAG)
     STAL2(30)
     FADI(16)
-    MUSCMID(32767)
+    MUSCMID(0x7fff)
     ENUN
     CLEA
     CLEE
@@ -102,26 +102,26 @@ LABEL(0x8020)
     MUNO
     TEXTSHOW(0x9bf)
     TEXTEND
-    MUSCMID(32767)
+    MUSCMID(0x7fff)
     STAL3(32)
     TEXTCONT
     TEXTEND
     REMA
     CALL(EventScr_TextShowWithFadeIn)
-    LOAD1(0x1, 0x88b59c8)
+    LOAD1(0x1, UnitDef_088B59C8)
     ENUN
-    LOAD1(0x1, 0x88b56f8)
+    LOAD1(0x1, UnitDef_088B56F8)
     ENUN
     MUSC(0x26)
     TEXTSTART
     TEXTSHOW(0x9c0)
     TEXTEND
     REMA
-    LOAD1(0x1, 0x88b5798)
+    LOAD1(0x1, UnitDef_088B5798)
     ENUN
     ENUN
     CAMERA2(7, 14)
-    LOAD2(0x1, 0x88b59f0)
+    LOAD2(0x1, UnitDef_088B59F0)
     ENUN
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
@@ -140,17 +140,17 @@ LABEL(0x8020)
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(32767)
-    LOAD1(0x0, 0x88b4904)
+    MUSCMID(0x7fff)
+    LOAD1(0x0, UnitDef_088B4904)
     ENUN
-    CALL(0x8591fd8)
+    CALL(EventScr_08591FD8)
     FADU(16)
     CAMERA(0, 0)
     MUSC(0x13)
     CUMO_AT(12, 6)
     STAL(60)
     CURE
-    LOAD1(0x1, 0x88b5914)
+    LOAD1(0x1, UnitDef_088B5914)
     ENUN
     MOVE(0x0, CHARACTER_JOSHUA, 9, 7)
     ENUN
@@ -301,7 +301,7 @@ CONST_DATA EventListScr EventScr_089F22A4[] = {
     SVAL(EVT_SLOT_2, EventScr_089F2360)
     CALL(EventScr_CallOnTutorialMode)
     MUSC(0x13)
-    SVAL(EVT_SLOT_2, 0x88b5860)
+    SVAL(EVT_SLOT_2, UnitDef_088B5860)
     CALL(EventScr_LoadReinforce)
     CUMO_AT(14, 16)
     STAL(60)
@@ -315,14 +315,14 @@ CONST_DATA EventListScr EventScr_089F22A4[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F22EC[] = {
-    SVAL(EVT_SLOT_2, 0x88b589c)
+    SVAL(EVT_SLOT_2, UnitDef_088B589C)
     CALL(EventScr_LoadReinforce)
     EVBIT_T(7)
     ENDA
 };
 
 CONST_DATA EventListScr EventScr_089F2304[] = {
-    SVAL(EVT_SLOT_2, 0x88b58d8)
+    SVAL(EVT_SLOT_2, UnitDef_088B58D8)
     CALL(EventScr_LoadReinforce)
     EVBIT_T(7)
     ENDA

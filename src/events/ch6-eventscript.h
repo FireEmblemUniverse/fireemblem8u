@@ -14,14 +14,14 @@ CONST_DATA EventListScr EventScr_Ch6_BeginingScene[] = {
     TEXTSHOW(0x9e4)
     TEXTEND
     REMA
-    MUSCSLOW(32767)
+    MUSCSLOW(0x7fff)
     CALL(EventScr_TextShowWithFadeIn)
     EVBIT_T(9)
-    LOAD2(0x1, 0x88b64b4)
+    LOAD2(0x1, UnitDef_088B64B4)
     ENUN
     EVBIT_F(9)
     CAMERA2(7, 7)
-    LOAD1(0x1, 0x88b61a8)
+    LOAD1(0x1, UnitDef_088B61A8)
     ENUN
     SVAL(EVT_SLOT_2, 0x4b)
     MOVE_CLOSEST(0xffff, CHAR_EVT_SLOT2, 5, 8)
@@ -95,7 +95,7 @@ CONST_DATA EventListScr EventScr_Ch6_BeginingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_2, EventScr_089F2AE4)
     CALL(EventScr_CallOnTutorialMode)
-    CALL(0x8591fd8)
+    CALL(EventScr_08591FD8)
     ENDA
 };
 
@@ -137,7 +137,7 @@ LABEL(0x63)
 };
 
 CONST_DATA EventListScr EventScr_089F29FC[] = {
-    MUSCFAST(32767)
+    MUSCFAST(0x7fff)
     SVAL(EVT_SLOT_2, 0x1a)
     CALL(EventScr_SetBackground)
     CHECK_ALIVE(0xfa)
@@ -150,7 +150,7 @@ CONST_DATA EventListScr EventScr_089F29FC[] = {
     TEXTSHOW(0x9f1)
     TEXTEND
     REMA
-    MUSCMID(32767)
+    MUSCMID(0x7fff)
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x66)
     GIVEITEMTO(CHARACTER_EIRIKA)
@@ -159,9 +159,9 @@ LABEL(0x0)
     MUSC(0x2b)
     TEXTSHOW(0x9f2)
     TEXTEND
-    MUSCSLOW(32767)
+    MUSCSLOW(0x7fff)
     STAL(60)
-    MUSCSLOW(50)
+    MUSCSLOW(0x32)
     TEXTCONT
     TEXTEND
     REMA
@@ -200,7 +200,7 @@ CONST_DATA EventListScr EventScr_089F2AE4[] = {
     TEXTEND
     CHECK_ALIVE(CHARACTER_COLM)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9eb)
+    EvtTextShow2(0x9eb) // ENOSUPP in EA-stdlib
     TEXTEND
 LABEL(0x0)
     REMA
@@ -224,7 +224,7 @@ CONST_DATA EventListScr EventScr_089F2B54[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F2B74[] = {
-    SVAL(EVT_SLOT_2, 0x88b64f0)
+    SVAL(EVT_SLOT_2, UnitDef_088B64F0)
     CALL(EventScr_LoadReinforceHardMode)
     EVBIT_T(7)
     ENDA

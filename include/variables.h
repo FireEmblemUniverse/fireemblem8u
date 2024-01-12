@@ -766,20 +766,37 @@ extern u8 gBanimBackgroundIndexLut13[];
 extern u8 gBanimBackgroundIndexLut14[];
 extern u16 CONST_DATA gUnknown_0880D374[]; // terrainid-to-textid lookup
 // extern ??? gUnknown_088ACBC4
-extern u8 CONST_DATA gUnknown_088ADEF1[]; // Some bow effectiveness list
-extern u8 CONST_DATA gUnknown_088ADF2A[]; // Some bow effectiveness list
-extern u8 CONST_DATA gUnknown_088ADF39[]; // Slayer effectiveness list
-extern u8 CONST_DATA gItemUseJidList_HeroCrest[]; // Hero Crest class list
-extern u8 CONST_DATA gItemUseJidList_KnightCrest[]; // Knight Crest class list
-extern u8 CONST_DATA gItemUseJidList_OrionsBolt[]; // Orion's Bolt class list
-extern u8 CONST_DATA gItemUseJidList_ElysianWhip[]; // Elysian Whip class list
-extern u8 CONST_DATA gItemUseJidList_GuidRing[]; // Guiding ring class list
-extern u8 CONST_DATA gItemUseJidList_MasterSeal[]; // Master seal class list
-extern u8 CONST_DATA gItemUseJidList_HeavenSeal[]; // Heaven seal class list
-extern u8 CONST_DATA gItemUseJidList_OceanSeal[]; // Ocean seal class list
-extern u8 CONST_DATA gItemUseJidList_C1[]; // Unk (C1) class list
-extern u8 CONST_DATA gItemUseJidList_LunarBrace[]; // Lunar Brace class list
-extern u8 CONST_DATA gItemUseJidList_SolarBrace[]; // Solar Brace class list
+extern CONST_DATA u8 ItemEffectiveness_088ADEB0[];
+extern CONST_DATA u8 ItemEffectiveness_088ADEBB[];
+extern CONST_DATA u8 ItemEffectiveness_088ADEC2[];
+extern CONST_DATA u8 ItemEffectiveness_088ADED7[];
+extern CONST_DATA u8 ItemEffectiveness_088ADEE0[];
+extern CONST_DATA u8 ItemEffectiveness_088ADEF1[];
+extern CONST_DATA u8 ItemEffectiveness_088ADF13[];
+extern CONST_DATA u8 ItemEffectiveness_088ADF1F[];
+extern CONST_DATA u8 ItemEffectiveness_088ADF2A[];
+extern CONST_DATA u8 ItemEffectiveness_088ADF39[];
+extern CONST_DATA u8 JidLutUnk_Tier0[];
+extern CONST_DATA u8 gItemUseJidList_HeroCrest[];
+extern CONST_DATA u8 gItemUseJidList_KnightCrest[];
+extern CONST_DATA u8 gItemUseJidList_OrionsBolt[];
+extern CONST_DATA u8 gItemUseJidList_ElysianWhip[];
+extern CONST_DATA u8 gItemUseJidList_GuidRing[];
+extern CONST_DATA u8 Unk_088ADF75[];
+extern CONST_DATA u8 gItemUseJidList_MasterSeal[];
+extern CONST_DATA u8 gItemUseJidList_HeavenSeal[];
+extern CONST_DATA u8 Unk_088ADF99[];
+extern CONST_DATA u8 Unk_088ADF9A[];
+extern CONST_DATA u8 Unk_088ADF9B[];
+extern CONST_DATA u8 gItemUseJidList_OceanSeal[];
+extern CONST_DATA u8 Unk_088ADFA2[];
+extern CONST_DATA u8 gItemUseJidList_C1[];
+extern CONST_DATA u8 gItemUseJidList_LunarBrace[];
+extern CONST_DATA u8 gItemUseJidList_SolarBrace[];
+extern CONST_DATA u8 Unk_088ADFA8[];
+extern CONST_DATA u8 Unk_088ADFA9[];
+extern CONST_DATA u8 Unk_088ADFAA[];
+extern CONST_DATA u8 Unk_088ADFAB[];
 // extern ??? gSupportData
 // extern ??? gUnknown_088AEEC4
 // extern ??? gUnknown_088AF834
