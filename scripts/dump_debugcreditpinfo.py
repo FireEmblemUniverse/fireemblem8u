@@ -4,6 +4,12 @@
 import sys, ctypes
 from fe8db import PID_IDX
 
+def is_rom_ptr(ptr):
+    if (ptr & 0x08000000) == 0x08000000:
+        return True
+
+    return False
+
 def dump_string(rom_data, ptr):
     off = ptr & 0x01FFFFFF
     array = bytearray(b'')
@@ -21,20 +27,25 @@ def dump_string(rom_data, ptr):
     return f"{array.decode('ascii')}".replace('\n', '\\n')
 
 def dump_one_part(rom_data, off):
-    pid = int.from_bytes(rom_data[off + 0x0:off + 0x4], 'little')
-    pid_idx = PID_IDX(pid)
-
-    ptr_pname = int.from_bytes(rom_data[off + 0x4:off + 0x8], 'little')
-    ptr_jname = int.from_bytes(rom_data[off + 0x8:off + 0xC], 'little')
+    ptr_work  = int.from_bytes(rom_data[off + 0x0:off + 0x4], 'little')
+    ptr_name  = int.from_bytes(rom_data[off + 0x4:off + 0x8], 'little')
+    pos_maybe = int.from_bytes(rom_data[off + 0x8:off + 0xC], 'little')
 
     print("\t{")
-    print(f'\t\t.idx = {pid_idx},')
 
-    if ptr_pname != 0:
-        print(f'\t\t.pname = "{dump_string(rom_data, ptr_pname)}",')
+    if ptr_work != 0:
+        if is_rom_ptr(ptr_work):
+            print(f'\t\t.work = "{dump_string(rom_data, ptr_work)}",')
+        else:
+            print(f'\t\t.work = (void *){hex(ptr_work)},')
 
-    if ptr_jname != 0:
-        print(f'\t\t.jname = "{dump_string(rom_data, ptr_jname)}",')
+    if ptr_name != 0:
+        if is_rom_ptr(ptr_name):
+            print(f'\t\t.name = "{dump_string(rom_data, ptr_name)}",')
+        else:
+            print(f'\t\t.name = (void *){hex(ptr_name)},')
+
+    print(f'\t\t.pos_maybe = {hex(pos_maybe)},')
     print("\t},")
 
     return off + 0xC
@@ -58,7 +69,7 @@ def main(args):
     with open(rom, 'rb') as f:
         rom_data = f.read()
 
-        print("CONST_DATA struct DebugPInfo gDebugPInfo[] = {")
+        print("CONST_DATA struct DebugCreditInfo gDebugCreditInfo[] = {")
 
         while True:
             off = dump_one_part(rom_data, off)

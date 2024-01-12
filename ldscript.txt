@@ -521,7 +521,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_unit_icon_wait.o(.rodata);
         . = ALIGN(4); data/const_data_1C0AFC.o(.rodata);
         . = ALIGN(4); src/data_debugpinfo.o(.rodata);
-        . = ALIGN(4); data/const_data_debuginfo.o(.rodata);
+        . = ALIGN(4); src/data_debug_creditinfo.o(.rodata);
         . = ALIGN(4); src/chapterdata.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_move.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
@@ -764,7 +764,7 @@ SECTIONS
         . = ALIGN(4); src/unit_icon_wait_data.o(.data);
         . = ALIGN(4); src/spellassoc-data.o(.data);
         . = ALIGN(4); src/bmreliance-data.o(.data);
-        . = ALIGN(4); data/data_8AFBD8.o(.data);
+        . = ALIGN(4); src/data_debug_creditinfo.o(.data);
         . = ALIGN(4); src/chapterdata.o(.data);
         . = ALIGN(4); data/data_8B363C.o(.data);
         . = ALIGN(4); src/events_udefs.o(.data);
