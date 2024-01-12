@@ -649,3 +649,19 @@ POSITION_IDX = {
     0: "POS_L",
     1: "POS_R",
 }
+
+_UNIT_AFFIN = {
+    1: "UNIT_AFFIN_FIRE",
+    2: "UNIT_AFFIN_THUNDER",
+    3: "UNIT_AFFIN_WIND",
+    4: "UNIT_AFFIN_ICE",
+    5: "UNIT_AFFIN_DARK",
+    6: "UNIT_AFFIN_LIGHT",
+    7: "UNIT_AFFIN_ANIMA",
+}
+
+def UNIT_AFFIN(affin):
+    if affin in _UNIT_AFFIN:
+        return _UNIT_AFFIN[affin]
+
+    return None
