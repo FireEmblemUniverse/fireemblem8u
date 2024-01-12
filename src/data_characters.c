@@ -38,7 +38,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 30,
         .growthLck = 60,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AEBAC,
+        .pSupportData = &SupportData_Eirika,
         .visit_group = 0x7,
     },
     [CHARACTER_SETH - 1] = {
@@ -72,7 +72,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 40,
         .growthRes = 30,
         .growthLck = 25,
-        .pSupportData = &SupportData_088AEBDC,
+        .pSupportData = &SupportData_Seth,
         .visit_group = 0x3,
     },
     [CHARACTER_GILLIAM - 1] = {
@@ -105,7 +105,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 55,
         .growthRes = 20,
         .growthLck = 30,
-        .pSupportData = &SupportData_088AEC0C,
+        .pSupportData = &SupportData_Gilliam,
         .visit_group = 0x4,
     },
     [CHARACTER_FRANZ - 1] = {
@@ -139,7 +139,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 25,
         .growthRes = 20,
         .growthLck = 40,
-        .pSupportData = &SupportData_088AEBF4,
+        .pSupportData = &SupportData_Franz,
         .visit_group = 0x3,
     },
     [CHARACTER_MOULDER - 1] = {
@@ -172,7 +172,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 25,
         .growthRes = 25,
         .growthLck = 20,
-        .pSupportData = &SupportData_088AEC24,
+        .pSupportData = &SupportData_Moulder,
         .visit_group = 0x4,
     },
     [CHARACTER_VANESSA - 1] = {
@@ -206,7 +206,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 30,
         .growthLck = 50,
         .attributes = CA_FEMALE | CA_TRIANGLEATTACK_PEGASI,
-        .pSupportData = &SupportData_088AEC3C,
+        .pSupportData = &SupportData_Vanessa,
         .visit_group = 0xa,
     },
     [CHARACTER_ROSS - 1] = {
@@ -239,7 +239,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 25,
         .growthRes = 20,
         .growthLck = 40,
-        .pSupportData = &SupportData_088AEC6C,
+        .pSupportData = &SupportData_Ross,
         .visit_group = 0x5,
     },
     [CHARACTER_NEIMI - 1] = {
@@ -273,7 +273,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 35,
         .growthLck = 50,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AEC9C,
+        .pSupportData = &SupportData_Neimi,
         .visit_group = 0x7,
     },
     [CHARACTER_COLM - 1] = {
@@ -306,7 +306,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 25,
         .growthRes = 20,
         .growthLck = 45,
-        .pSupportData = &SupportData_088AEC84,
+        .pSupportData = &SupportData_Colm,
     },
     [CHARACTER_GARCIA - 1] = {
         .nameTextId = 0x21b,
@@ -338,7 +338,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 25,
         .growthRes = 15,
         .growthLck = 40,
-        .pSupportData = &SupportData_088AEC54,
+        .pSupportData = &SupportData_Garcia,
         .visit_group = 0x1,
     },
     [CHARACTER_INNES - 1] = {
@@ -371,7 +371,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 20,
         .growthRes = 25,
         .growthLck = 45,
-        .pSupportData = &SupportData_088AED5C,
+        .pSupportData = &SupportData_Innes,
     },
     [CHARACTER_LUTE - 1] = {
         .nameTextId = 0x21d,
@@ -404,7 +404,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 40,
         .growthLck = 45,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AECCC,
+        .pSupportData = &SupportData_Lute,
         .visit_group = 0x7,
     },
     [CHARACTER_NATASHA - 1] = {
@@ -438,7 +438,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 55,
         .growthLck = 60,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AECE4,
+        .pSupportData = &SupportData_Natasha,
         .visit_group = 0xa,
     },
     [CHARACTER_CORMAG - 1] = {
@@ -471,7 +471,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 25,
         .growthRes = 15,
         .growthLck = 35,
-        .pSupportData = &SupportData_088AEE1C,
+        .pSupportData = &SupportData_Cormag,
     },
     [CHARACTER_EPHRAIM - 1] = {
         .nameTextId = 0x220,
@@ -503,7 +503,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 35,
         .growthRes = 25,
         .growthLck = 50,
-        .pSupportData = &SupportData_088AEBC4,
+        .pSupportData = &SupportData_Ephraim,
         .visit_group = 0x3,
     },
     [CHARACTER_FORDE - 1] = {
@@ -537,7 +537,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 20,
         .growthRes = 25,
         .growthLck = 35,
-        .pSupportData = &SupportData_088AED2C,
+        .pSupportData = &SupportData_Forde,
         .visit_group = 0x3,
     },
     [CHARACTER_KYLE - 1] = {
@@ -571,7 +571,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 25,
         .growthRes = 20,
         .growthLck = 20,
-        .pSupportData = &SupportData_088AED14,
+        .pSupportData = &SupportData_Kyle,
         .visit_group = 0x3,
     },
     [CHARACTER_AMELIA - 1] = {
@@ -605,7 +605,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 15,
         .growthLck = 50,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AEE34,
+        .pSupportData = &SupportData_Amelia,
         .visit_group = 0x7,
     },
     [CHARACTER_ARTUR - 1] = {
@@ -638,7 +638,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 15,
         .growthRes = 55,
         .growthLck = 25,
-        .pSupportData = &SupportData_088AECB4,
+        .pSupportData = &SupportData_Artur,
     },
     [CHARACTER_GERIK - 1] = {
         .nameTextId = 0x225,
@@ -670,7 +670,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 35,
         .growthRes = 25,
         .growthLck = 30,
-        .pSupportData = &SupportData_088AED74,
+        .pSupportData = &SupportData_Gerik,
         .visit_group = 0x4,
     },
     [CHARACTER_TETHYS - 1] = {
@@ -700,7 +700,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 75,
         .growthLck = 80,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AED8C,
+        .pSupportData = &SupportData_Tethys,
         .visit_group = 0x7,
     },
     [CHARACTER_MARISA - 1] = {
@@ -734,7 +734,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 25,
         .growthLck = 50,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AEDA4,
+        .pSupportData = &SupportData_Marisa,
         .visit_group = 0xc,
     },
     [CHARACTER_SALEH - 1] = {
@@ -769,7 +769,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 30,
         .growthRes = 35,
         .growthLck = 40,
-        .pSupportData = &SupportData_088AEDBC,
+        .pSupportData = &SupportData_Saleh,
         .visit_group = 0x6,
     },
     [CHARACTER_EWAN - 1] = {
@@ -802,7 +802,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 15,
         .growthRes = 40,
         .growthLck = 50,
-        .pSupportData = &SupportData_088AEDD4,
+        .pSupportData = &SupportData_Ewan,
         .visit_group = 0x5,
     },
     [CHARACTER_LARACHEL - 1] = {
@@ -836,7 +836,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 50,
         .growthLck = 65,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AEDEC,
+        .pSupportData = &SupportData_LArachel,
         .visit_group = 0xb,
     },
     [CHARACTER_DOZLA - 1] = {
@@ -869,7 +869,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 30,
         .growthRes = 25,
         .growthLck = 30,
-        .pSupportData = &SupportData_088AEE04,
+        .pSupportData = &SupportData_Dozla,
         .visit_group = 0x4,
     },
     [0x1b - 1] = {
@@ -924,7 +924,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 25,
         .growthRes = 30,
         .growthLck = 25,
-        .pSupportData = &SupportData_088AEE4C,
+        .pSupportData = &SupportData_Rennac,
     },
     [CHARACTER_DUESSEL - 1] = {
         .nameTextId = 0x22e,
@@ -958,7 +958,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 45,
         .growthRes = 30,
         .growthLck = 20,
-        .pSupportData = &SupportData_088AEE64,
+        .pSupportData = &SupportData_Duessel,
         .visit_group = 0x4,
     },
     [CHARACTER_MYRRH - 1] = {
@@ -988,7 +988,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 30,
         .growthLck = 30,
         .attributes = CA_FEMALE,
-        .pSupportData = &SupportData_088AEE7C,
+        .pSupportData = &SupportData_Myrrh,
         .visit_group = 0xc,
     },
     [CHARACTER_KNOLL - 1] = {
@@ -1021,7 +1021,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 10,
         .growthRes = 45,
         .growthLck = 20,
-        .pSupportData = &SupportData_088AEE94,
+        .pSupportData = &SupportData_Knoll,
         .visit_group = 0x3,
     },
     [CHARACTER_JOSHUA - 1] = {
@@ -1054,7 +1054,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthDef = 20,
         .growthRes = 20,
         .growthLck = 30,
-        .pSupportData = &SupportData_088AECFC,
+        .pSupportData = &SupportData_Joshua,
         .visit_group = 0x3,
     },
     [CHARACTER_SYRENE - 1] = {
@@ -1089,7 +1089,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 50,
         .growthLck = 30,
         .attributes = CA_FEMALE | CA_TRIANGLEATTACK_PEGASI,
-        .pSupportData = &SupportData_088AEEAC,
+        .pSupportData = &SupportData_Syrene,
         .visit_group = 0xa,
     },
     [CHARACTER_TANA - 1] = {
@@ -1123,7 +1123,7 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 25,
         .growthLck = 60,
         .attributes = CA_FEMALE | CA_TRIANGLEATTACK_PEGASI,
-        .pSupportData = &SupportData_088AED44,
+        .pSupportData = &SupportData_Tana,
         .visit_group = 0xa,
     },
     [CHARACTER_LYON_CC - 1] = {

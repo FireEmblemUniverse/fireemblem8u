@@ -2,7 +2,7 @@
 #include "bmreliance.h"
 #include "constants/characters.h"
 
-CONST_DATA struct SupportData SupportData_088AEBAC = {
+CONST_DATA struct SupportData SupportData_Eirika = {
     .characters = {
         CHARACTER_EPHRAIM,
         CHARACTER_SETH,
@@ -33,7 +33,7 @@ CONST_DATA struct SupportData SupportData_088AEBAC = {
     .supportCount = 7,
 };
 
-CONST_DATA struct SupportData SupportData_088AEBC4 = {
+CONST_DATA struct SupportData SupportData_Ephraim = {
     .characters = {
         CHARACTER_EIRIKA,
         CHARACTER_KYLE,
@@ -64,7 +64,7 @@ CONST_DATA struct SupportData SupportData_088AEBC4 = {
     .supportCount = 7,
 };
 
-CONST_DATA struct SupportData SupportData_088AEBDC = {
+CONST_DATA struct SupportData SupportData_Seth = {
     .characters = {
         CHARACTER_FRANZ,
         CHARACTER_EIRIKA,
@@ -89,7 +89,7 @@ CONST_DATA struct SupportData SupportData_088AEBDC = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEBF4 = {
+CONST_DATA struct SupportData SupportData_Franz = {
     .characters = {
         CHARACTER_SETH,
         CHARACTER_GILLIAM,
@@ -114,7 +114,7 @@ CONST_DATA struct SupportData SupportData_088AEBF4 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEC0C = {
+CONST_DATA struct SupportData SupportData_Gilliam = {
     .characters = {
         CHARACTER_GARCIA,
         CHARACTER_FRANZ,
@@ -139,7 +139,7 @@ CONST_DATA struct SupportData SupportData_088AEC0C = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEC24 = {
+CONST_DATA struct SupportData SupportData_Moulder = {
     .characters = {
         CHARACTER_VANESSA,
         CHARACTER_COLM,
@@ -161,7 +161,7 @@ CONST_DATA struct SupportData SupportData_088AEC24 = {
     .supportCount = 4,
 };
 
-CONST_DATA struct SupportData SupportData_088AEC3C = {
+CONST_DATA struct SupportData SupportData_Vanessa = {
     .characters = {
         CHARACTER_MOULDER,
         CHARACTER_SYRENE,
@@ -186,7 +186,7 @@ CONST_DATA struct SupportData SupportData_088AEC3C = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEC54 = {
+CONST_DATA struct SupportData SupportData_Garcia = {
     .characters = {
         CHARACTER_ROSS,
         CHARACTER_DOZLA,
@@ -211,7 +211,7 @@ CONST_DATA struct SupportData SupportData_088AEC54 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEC6C = {
+CONST_DATA struct SupportData SupportData_Ross = {
     .characters = {
         CHARACTER_GARCIA,
         CHARACTER_LUTE,
@@ -236,7 +236,7 @@ CONST_DATA struct SupportData SupportData_088AEC6C = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEC84 = {
+CONST_DATA struct SupportData SupportData_Colm = {
     .characters = {
         CHARACTER_NEIMI,
         CHARACTER_MARISA,
@@ -261,7 +261,7 @@ CONST_DATA struct SupportData SupportData_088AEC84 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEC9C = {
+CONST_DATA struct SupportData SupportData_Neimi = {
     .characters = {
         CHARACTER_COLM,
         CHARACTER_GARCIA,
@@ -286,7 +286,7 @@ CONST_DATA struct SupportData SupportData_088AEC9C = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AECB4 = {
+CONST_DATA struct SupportData SupportData_Artur = {
     .characters = {
         CHARACTER_LUTE,
         CHARACTER_TETHYS,
@@ -311,7 +311,7 @@ CONST_DATA struct SupportData SupportData_088AECB4 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AECCC = {
+CONST_DATA struct SupportData SupportData_Lute = {
     .characters = {
         CHARACTER_ARTUR,
         CHARACTER_ROSS,
@@ -336,7 +336,7 @@ CONST_DATA struct SupportData SupportData_088AECCC = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AECE4 = {
+CONST_DATA struct SupportData SupportData_Natasha = {
     .characters = {
         CHARACTER_JOSHUA,
         CHARACTER_KNOLL,
@@ -361,7 +361,7 @@ CONST_DATA struct SupportData SupportData_088AECE4 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AECFC = {
+CONST_DATA struct SupportData SupportData_Joshua = {
     .characters = {
         CHARACTER_NATASHA,
         CHARACTER_INNES,
@@ -389,7 +389,7 @@ CONST_DATA struct SupportData SupportData_088AECFC = {
     .supportCount = 6,
 };
 
-CONST_DATA struct SupportData SupportData_088AED14 = {
+CONST_DATA struct SupportData SupportData_Kyle = {
     .characters = {
         CHARACTER_FORDE,
         CHARACTER_EPHRAIM,
@@ -414,7 +414,7 @@ CONST_DATA struct SupportData SupportData_088AED14 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AED2C = {
+CONST_DATA struct SupportData SupportData_Forde = {
     .characters = {
         CHARACTER_KYLE,
         CHARACTER_VANESSA,
@@ -439,7 +439,7 @@ CONST_DATA struct SupportData SupportData_088AED2C = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AED44 = {
+CONST_DATA struct SupportData SupportData_Tana = {
     .characters = {
         CHARACTER_EPHRAIM,
         CHARACTER_SYRENE,
@@ -467,7 +467,7 @@ CONST_DATA struct SupportData SupportData_088AED44 = {
     .supportCount = 6,
 };
 
-CONST_DATA struct SupportData SupportData_088AED5C = {
+CONST_DATA struct SupportData SupportData_Innes = {
     .characters = {
         CHARACTER_GERIK,
         CHARACTER_VANESSA,
@@ -495,7 +495,7 @@ CONST_DATA struct SupportData SupportData_088AED5C = {
     .supportCount = 6,
 };
 
-CONST_DATA struct SupportData SupportData_088AED74 = {
+CONST_DATA struct SupportData SupportData_Gerik = {
     .characters = {
         CHARACTER_INNES,
         CHARACTER_TETHYS,
@@ -523,7 +523,7 @@ CONST_DATA struct SupportData SupportData_088AED74 = {
     .supportCount = 6,
 };
 
-CONST_DATA struct SupportData SupportData_088AED8C = {
+CONST_DATA struct SupportData SupportData_Tethys = {
     .characters = {
         CHARACTER_EWAN,
         CHARACTER_GERIK,
@@ -548,7 +548,7 @@ CONST_DATA struct SupportData SupportData_088AED8C = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEDA4 = {
+CONST_DATA struct SupportData SupportData_Marisa = {
     .characters = {
         CHARACTER_TANA,
         CHARACTER_TETHYS,
@@ -573,7 +573,7 @@ CONST_DATA struct SupportData SupportData_088AEDA4 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEDBC = {
+CONST_DATA struct SupportData SupportData_Saleh = {
     .characters = {
         CHARACTER_MYRRH,
         CHARACTER_EWAN,
@@ -595,7 +595,7 @@ CONST_DATA struct SupportData SupportData_088AEDBC = {
     .supportCount = 4,
 };
 
-CONST_DATA struct SupportData SupportData_088AEDD4 = {
+CONST_DATA struct SupportData SupportData_Ewan = {
     .characters = {
         CHARACTER_TETHYS,
         CHARACTER_SALEH,
@@ -620,7 +620,7 @@ CONST_DATA struct SupportData SupportData_088AEDD4 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEDEC = {
+CONST_DATA struct SupportData SupportData_LArachel = {
     .characters = {
         CHARACTER_DOZLA,
         CHARACTER_RENNAC,
@@ -648,7 +648,7 @@ CONST_DATA struct SupportData SupportData_088AEDEC = {
     .supportCount = 6,
 };
 
-CONST_DATA struct SupportData SupportData_088AEE04 = {
+CONST_DATA struct SupportData SupportData_Dozla = {
     .characters = {
         CHARACTER_LARACHEL,
         CHARACTER_MYRRH,
@@ -673,7 +673,7 @@ CONST_DATA struct SupportData SupportData_088AEE04 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEE1C = {
+CONST_DATA struct SupportData SupportData_Cormag = {
     .characters = {
         CHARACTER_DUESSEL,
         CHARACTER_TANA,
@@ -698,7 +698,7 @@ CONST_DATA struct SupportData SupportData_088AEE1C = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEE34 = {
+CONST_DATA struct SupportData SupportData_Amelia = {
     .characters = {
         CHARACTER_NEIMI,
         CHARACTER_DUESSEL,
@@ -723,7 +723,7 @@ CONST_DATA struct SupportData SupportData_088AEE34 = {
     .supportCount = 5,
 };
 
-CONST_DATA struct SupportData SupportData_088AEE4C = {
+CONST_DATA struct SupportData SupportData_Rennac = {
     .characters = {
         CHARACTER_TETHYS,
         CHARACTER_LARACHEL,
@@ -745,7 +745,7 @@ CONST_DATA struct SupportData SupportData_088AEE4C = {
     .supportCount = 4,
 };
 
-CONST_DATA struct SupportData SupportData_088AEE64 = {
+CONST_DATA struct SupportData SupportData_Duessel = {
     .characters = {
         CHARACTER_CORMAG,
         CHARACTER_AMELIA,
@@ -767,7 +767,7 @@ CONST_DATA struct SupportData SupportData_088AEE64 = {
     .supportCount = 4,
 };
 
-CONST_DATA struct SupportData SupportData_088AEE7C = {
+CONST_DATA struct SupportData SupportData_Myrrh = {
     .characters = {
         CHARACTER_SALEH,
         CHARACTER_DOZLA,
@@ -786,7 +786,7 @@ CONST_DATA struct SupportData SupportData_088AEE7C = {
     .supportCount = 3,
 };
 
-CONST_DATA struct SupportData SupportData_088AEE94 = {
+CONST_DATA struct SupportData SupportData_Knoll = {
     .characters = {
         CHARACTER_NATASHA,
         CHARACTER_DUESSEL,
@@ -805,7 +805,7 @@ CONST_DATA struct SupportData SupportData_088AEE94 = {
     .supportCount = 3,
 };
 
-CONST_DATA struct SupportData SupportData_088AEEAC = {
+CONST_DATA struct SupportData SupportData_Syrene = {
     .characters = {
         CHARACTER_KYLE,
         CHARACTER_VANESSA,
