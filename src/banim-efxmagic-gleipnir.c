@@ -908,9 +908,9 @@ void StartSubSpell_efxDarkGradoBG02(struct Anim * anim)
 
 struct Proc085D84B4
 {
-    PROC_HEADER;
-    STRUCT_PAD(0x29, 0x4C);
-    s16 unk4C;
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
+    /* 4C */ s16 unk4C;
 };
 
 //! FE8U = 0x08069528
@@ -989,6 +989,8 @@ void sub_8069530(struct Proc085D84B4 * param_1)
 
     return;
 }
+
+#undef RGB_
 
 // clang-format off
 

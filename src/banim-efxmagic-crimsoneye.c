@@ -183,7 +183,7 @@ void StartSubSpell_efxCrimsonEyeBGFinish1(struct Anim * anim)
 
     BG_SetPosition(BG_1, 0, 0);
 
-    SetPrimaryHBlankHandler(sub_806B088);
+    SetPrimaryHBlankHandler(OnHBlank_806B088);
 
     return;
 }
