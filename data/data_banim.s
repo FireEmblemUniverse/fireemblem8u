@@ -30270,12 +30270,12 @@ Pal_GleipnirBg_Fog:  @ 0x086B52CC
 Tsa_GleipnirBg_Fog:  @ 0x086B52EC
 	.incbin "baserom.gba", 0x6B52EC, 0x294    @ 0x6B5580 - 0x6B52EC
 
-	.global gUnknown_086B5580
-gUnknown_086B5580:  @ 0x086B5580
+	.global Img_CrimsonEyeSprites
+Img_CrimsonEyeSprites:  @ 0x086B5580
 	.incbin "baserom.gba", 0x6B5580, 0x35C
 
-	.global gUnknown_086B58DC
-gUnknown_086B58DC:  @ 0x086B58DC
+	.global Pal_CrimsonEyeSprites
+Pal_CrimsonEyeSprites:  @ 0x086B58DC
 	.incbin "baserom.gba", 0x6B58DC, 0x98
 
 	.global gUnknown_086B5974
@@ -30290,16 +30290,16 @@ gUnknown_086B5984:  @ 0x086B5984
 gUnknown_086B598C:  @ 0x086B598C
 	.incbin "baserom.gba", 0x6B598C, 0xA0
 
-	.global gUnknown_086B5A2C
-gUnknown_086B5A2C:  @ 0x086B5A2C
+	.global Pal_efxGorgonBGFinish
+Pal_efxGorgonBGFinish:  @ 0x086B5A2C
 	.incbin "baserom.gba", 0x6B5A2C, 0x20
 
-	.global gUnknown_086B5A4C
-gUnknown_086B5A4C:  @ 0x086B5A4C
+	.global Img_efxCrimsonEyeBG
+Img_efxCrimsonEyeBG:  @ 0x086B5A4C
 	.incbin "baserom.gba", 0x6B5A4C, 0x460
 
-	.global gUnknown_086B5EAC
-gUnknown_086B5EAC:  @ 0x086B5EAC
+	.global Pal_efxCrimsonEyeBG
+Pal_efxCrimsonEyeBG:  @ 0x086B5EAC
 	.incbin "baserom.gba", 0x6B5EAC, 0x20    @ 0x6B5ECC - 0x6B5EAC
 
 	.global Tsa_086B5ECC
@@ -30350,8 +30350,8 @@ Img_086B9620:  @ 0x086B9620
 Img_086BAF14:  @ 0x086BAF14
 	.incbin "baserom.gba", 0x6BAF14, 0x1910    @ 0x6BC824 - 0x6BAF14
 
-	.global gUnknown_086BC824
-gUnknown_086BC824:  @ 0x086BC824
+	.global Pal_efxCrimsonEyeBGFinish1
+Pal_efxCrimsonEyeBGFinish1:  @ 0x086BC824
 	.incbin "baserom.gba", 0x6BC824, 0x60    @ 0x6BC884 - 0x6BC824
 
 	.global Tsa_086BC884

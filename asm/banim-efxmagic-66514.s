@@ -2117,10 +2117,10 @@ _0806BF56:
 	adds r2, r5, #0
 	adds r3, r4, #0
 	bl SetObjAffine
-	ldr r0, _0806C048  @ gUnknown_086B58DC
+	ldr r0, _0806C048  @ Pal_CrimsonEyeSprites
 	movs r1, #0x20
 	bl SpellFx_RegisterObjPal
-	ldr r0, _0806C04C  @ gUnknown_086B5580
+	ldr r0, _0806C04C  @ Img_CrimsonEyeSprites
 	movs r1, #0x80
 	lsls r1, r1, #5
 	bl SpellFx_RegisterObjGfx
@@ -2134,8 +2134,8 @@ _0806BF56:
 	bx r0
 	.align 2, 0
 _0806C044: .4byte gSinLookup
-_0806C048: .4byte gUnknown_086B58DC
-_0806C04C: .4byte gUnknown_086B5580
+_0806C048: .4byte Pal_CrimsonEyeSprites
+_0806C04C: .4byte Img_CrimsonEyeSprites
 
 	THUMB_FUNC_END sub_806BEEC
 
@@ -2205,11 +2205,11 @@ sub_806C0B8: @ 0x0806C0B8
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	str r1, [r0, #0x44]
-	ldr r1, _0806C104  @ gUnknown_080DF0E0
+	ldr r1, _0806C104  @ gFrameConfig_efxGorgonBGFinish
 	str r1, [r0, #0x48]
-	ldr r1, _0806C108  @ gUnknown_085D8C7C
+	ldr r1, _0806C108  @ TsaArray_efxGorgonBGFinish
 	str r1, [r0, #0x4c]
-	ldr r1, _0806C10C  @ gUnknown_085D8CA0
+	ldr r1, _0806C10C  @ ImgArray_efxGorgonBGFinish
 	str r1, [r0, #0x54]
 	ldr r0, _0806C110  @ gEkrDistanceType
 	movs r1, #0
@@ -2226,9 +2226,9 @@ sub_806C0B8: @ 0x0806C0B8
 	.align 2, 0
 _0806C0FC: .4byte gEfxBgSemaphore
 _0806C100: .4byte ProcScr_efxGorgonBGFinish
-_0806C104: .4byte gUnknown_080DF0E0
-_0806C108: .4byte gUnknown_085D8C7C
-_0806C10C: .4byte gUnknown_085D8CA0
+_0806C104: .4byte gFrameConfig_efxGorgonBGFinish
+_0806C108: .4byte TsaArray_efxGorgonBGFinish
+_0806C10C: .4byte ImgArray_efxGorgonBGFinish
 _0806C110: .4byte gEkrDistanceType
 _0806C114:
 	ldr r1, _0806C120  @ 0x0000FFE8

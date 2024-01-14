@@ -303,8 +303,8 @@ ProcScr_efxGorgonOBJTwister:  @ 0x085D8C64
         .word 0x0
 
 
-	.global gUnknown_085D8C7C
-gUnknown_085D8C7C:  @ 0x085D8C7C
+	.global TsaArray_efxGorgonBGFinish
+TsaArray_efxGorgonBGFinish:  @ 0x085D8C7C
     .4byte gUnknown_086FDA44 + 0x20
     .4byte gUnknown_086FDA44 + 0xc4
     .4byte gUnknown_086FDA44 + 0x29c
@@ -315,8 +315,8 @@ gUnknown_085D8C7C:  @ 0x085D8C7C
     .4byte gUnknown_086FDA44 + 0xc3c
     .4byte gUnknown_086FDA44 + 0xdd8
 
-	.global gUnknown_085D8CA0
-gUnknown_085D8CA0:  @ 0x085D8CA0
+	.global ImgArray_efxGorgonBGFinish
+ImgArray_efxGorgonBGFinish:  @ 0x085D8CA0
     .4byte gUnknown_086EAE24 + 0xa2b0
     .4byte gUnknown_086EAE24 + 0xb440
     .4byte gUnknown_086EAE24 + 0xc32c

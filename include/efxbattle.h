@@ -663,13 +663,13 @@ extern u32 gUnknown_0201FAD8;
 // extern ??? ProcScr_efxDarkGradoOBJ02piece
 // extern ??? ProcScr_efxDarkGradoOBJ02
 // extern ??? ProcScr_efxCrimsonEye
-// extern ??? gUnknown_085D877C
-// extern ??? gUnknown_085D878C
+// extern ??? TsaArray_efxCrimsonEyeBGFinish1
+// extern ??? ImgArray_efxCrimsonEyeBGFinish1
 // extern ??? ProcScr_efxCrimsonEyeBGFinish1
 // extern ??? ProcScr_efxCrimsonEyeOBJFinishPiece
 // extern ??? gUnknown_085D87DC
 // extern ??? ProcScr_efxCrimsonEyeOBJFinish
-// extern ??? gUnknown_085D8874
+// extern ??? TsaArray_efxCrimsonEyeBG
 // extern ??? ProcScr_efxCrimsonEyeBG
 // extern ??? gUnknown_085D88AC
 // extern ??? ProcScr_efxCrimsonEyeOBJ
@@ -695,8 +695,8 @@ extern u32 gUnknown_0201FAD8;
 // extern ??? gUnknown_085D8C24
 // extern ??? ProcScr_efxGorgonOBJTwisterPiece
 // extern ??? ProcScr_efxGorgonOBJTwister
-extern u16 * gUnknown_085D8C7C[];
-extern u16 * gUnknown_085D8CA0[];
+extern u16 * TsaArray_efxGorgonBGFinish[];
+extern u16 * ImgArray_efxGorgonBGFinish[];
 extern struct ProcCmd ProcScr_efxGorgonBGFinish[];
 // extern ??? gUnknown_085D8CE4
 // extern ??? gUnknown_085D8D14
@@ -1893,14 +1893,14 @@ extern u16 Tsa_086B3F00[];
 extern u16 Img_GleipnirBg_Fog[];
 extern u16 Pal_GleipnirBg_Fog[];
 extern u16 Tsa_GleipnirBg_Fog[];
-extern u16 gUnknown_086B5580[];
-extern u16 gUnknown_086B58DC[];
+extern u16 Img_CrimsonEyeSprites[];
+extern u16 Pal_CrimsonEyeSprites[];
 extern u32 gUnknown_086B5974[];
 extern u32 gUnknown_086B5984[];
 extern u32 gUnknown_086B598C[];
-extern u16 gUnknown_086B5A2C[];
-extern u16 gUnknown_086B5A4C[];
-extern u16 gUnknown_086B5EAC[];
+extern u16 Pal_efxGorgonBGFinish[];
+extern u16 Img_efxCrimsonEyeBG[];
+extern u16 Pal_efxCrimsonEyeBG[];
 extern u16 Tsa_086B5ECC[];
 extern u16 Tsa_086B5F78[];
 extern u16 Tsa_086B603C[];
@@ -1913,7 +1913,7 @@ extern u16 Img_086B64BC[];
 extern u16 Img_086B7DA8[];
 extern u16 Img_086B9620[];
 extern u16 Img_086BAF14[];
-extern u16 gUnknown_086BC824[];
+extern u16 Pal_efxCrimsonEyeBGFinish1[];
 extern u16 Tsa_086BC884[];
 extern u16 Tsa_086BCAF8[];
 extern u16 Tsa_086BCD70[];
