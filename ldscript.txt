@@ -506,6 +506,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-naglfar.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-wretchedair.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-gleipnir.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-crimsoneye.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
@@ -731,6 +732,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-naglfar.o(.data);
         . = ALIGN(4); src/banim-efxmagic-wretchedair.o(.data);
         . = ALIGN(4); src/banim-efxmagic-gleipnir.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-crimsoneye.o(.data);
         . = ALIGN(4); data/banim-efxdevilatk.o(.data);
         . = ALIGN(4); src/banim-efxhit.o(.data);
         . = ALIGN(4); data/banim-efxhit.o(.data);

@@ -1,14 +1,6 @@
     .section .rodata
 
-	.asciz "efxCrimsonEye"
-
-	.global gUnknown_080DEEC2
-gUnknown_080DEEC2:  @ 0x080DEEC2
-	.incbin "baserom.gba", 0xDEEC2, 0x5E
-
-	.global gUnknown_080DEF20
-gUnknown_080DEF20:  @ 0x080DEF20
-	.incbin "baserom.gba", 0xDEF20, 0x58
+	.asciz "efxDarkLongMons"
 
 	.global gUnknown_080DEF78
 gUnknown_080DEF78:  @ 0x080DEF78

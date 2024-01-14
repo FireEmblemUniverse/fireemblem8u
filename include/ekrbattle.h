@@ -625,7 +625,7 @@ extern const u16 gUnknown_080DCDE4[];
 // extern ??? gUnknown_080DEFD0
 // extern ??? gUnknown_080DF042
 // extern ??? gUnknown_080DF080
-// extern ??? gUnknown_080DF0E0
+extern u16 gUnknown_080DF0E0[];
 extern const u16 FrameLut_EfxCriricalEffectBGCOL[];
 extern const u16 gUnknown_080DF1EE[];
 extern const u16 gUnknown_080DF26A[];

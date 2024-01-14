@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd ProcScr_efxCrimsonEye[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxCrimsonEye[] =
+{
+    PROC_NAME("efxCrimsonEye"),
+    PROC_REPEAT(sub_8069F00),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08069EC4
 void StartSpellAnimCrimsonEye(struct Anim * anim)
@@ -38,34 +47,34 @@ void sub_8069F00(struct ProcEfx * proc)
     {
         NewEfxFarAttackWithDistance(proc->anim, -1);
     }
-    else if (proc->timer == duration + 0xb)
+    else if (proc->timer == duration + 11)
     {
         sub_806ABCC(anim);
-        PlaySFX(0x000003C7, 0x100, 0xc0, 1);
+        PlaySFX(0x3C7, 0x100, 192, 1);
     }
-    else if (proc->timer == duration + 0x91)
+    else if (proc->timer == duration + 145)
     {
         sub_806A4CC(anim);
     }
-    else if (proc->timer == duration + 0xd1)
+    else if (proc->timer == duration + 209)
     {
         NewEfxFlashBgWhite(anim, 10);
     }
-    else if (proc->timer == duration + 0xd9)
+    else if (proc->timer == duration + 217)
     {
         sub_806A068(anim);
         sub_806A3CC(anim);
-        StartSpellThing_MagicQuake(proc->anim, 0x4a, 2);
+        StartSpellThing_MagicQuake(proc->anim, 74, 2);
     }
-    else if (proc->timer == duration + 0x00000101)
+    else if (proc->timer == duration + 257)
     {
         sub_806C608();
     }
-    else if (proc->timer == duration + 0x00000109)
+    else if (proc->timer == duration + 265)
     {
         sub_806A3F4(anim);
     }
-    else if (proc->timer == duration + 0x00000123)
+    else if (proc->timer == duration + 291)
     {
         anim->state3 |= 9;
 
@@ -76,7 +85,7 @@ void sub_8069F00(struct ProcEfx * proc)
             EfxPlayHittedSFX(anim);
         }
     }
-    else if (proc->timer == duration + 0x00000137)
+    else if (proc->timer == duration + 311)
     {
         SpellFx_Finish();
         RegisterEfxSpellCastEnd();
@@ -102,7 +111,7 @@ void sub_806A008(struct ProcEfxBG * proc)
 
     proc->terminator++;
 
-    if (proc->terminator == 0x30)
+    if (proc->terminator == 48)
     {
         SpellFx_ClearBG1();
         gEfxBgSemaphore--;
@@ -112,18 +121,50 @@ void sub_806A008(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxCrimsonEyeBGFinish1[];
+// clang-format off
 
-extern u16 * gUnknown_085D877C[];
-extern u16 * gUnknown_085D878C[];
+u16 * CONST_DATA gUnknown_085D877C[] =
+{
+    Tsa_086BC884,
+    Tsa_086BCAF8,
+    Tsa_086BCD70,
+    Tsa_086BCFE8,
+};
 
-extern u16 gUnknown_086BC824[];
+u16 * CONST_DATA gUnknown_085D878C[] =
+{
+    Img_086B64BC,
+    Img_086B7DA8,
+    Img_086B9620,
+    Img_086BAF14,
+    Img_086B64BC,
+    Img_086B7DA8,
+    Img_086B9620,
+    Img_086BAF14,
+};
 
-extern u16 gUnknown_080DEEC2[];
+const u16 gUnknown_080DEEC2[] =
+{
+    0, 2,
+    1, 2,
+    2, 2,
+    3, 2,
+    -2,
+};
+
+struct ProcCmd CONST_DATA ProcScr_efxCrimsonEyeBGFinish1[] =
+{
+    PROC_NAME("efxCrimsonEyeBGFinish1"),
+    PROC_REPEAT(sub_806A008),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806A068
 void sub_806A068(struct Anim * anim)
 {
+
     struct ProcEfxBG * proc;
 
     gEfxBgSemaphore++;
@@ -139,9 +180,9 @@ void sub_806A068(struct Anim * anim)
     proc->tsal = gUnknown_085D877C;
     proc->img = gUnknown_085D878C;
 
-    SpellFx_RegisterBgPal(gUnknown_086BC824, 0x20);
+    SpellFx_RegisterBgPal(gUnknown_086BC824, PLTT_SIZE_4BPP);
 
-    BG_SetPosition(1, 0, 0);
+    BG_SetPosition(BG_1, 0, 0);
 
     SetPrimaryHBlankHandler(sub_806B088);
 
@@ -151,8 +192,8 @@ void sub_806A068(struct Anim * anim)
 //! FE8U = 0x0806A0CC
 void sub_806A0CC(struct ProcEfxOBJ * proc)
 {
-    proc->anim2->xPosition = Interpolate(0, 0x78, (s16)proc->unk32, proc->timer, proc->terminator);
-    proc->anim2->yPosition = Interpolate(0, 0x40, (s16)proc->unk3A, proc->timer, proc->terminator);
+    proc->anim2->xPosition = Interpolate(INTERPOLATE_LINEAR, 120, (s16)proc->unk32, proc->timer, proc->terminator);
+    proc->anim2->yPosition = Interpolate(INTERPOLATE_LINEAR, 64, (s16)proc->unk3A, proc->timer, proc->terminator);
 
     proc->timer++;
 
@@ -166,12 +207,52 @@ void sub_806A0CC(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxCrimsonEyeOBJFinishPiece[];
+// clang-format off
 
-extern u32 gUnknown_086B5984[];
-extern u32 gUnknown_086B598C[];
+struct ProcCmd CONST_DATA ProcScr_efxCrimsonEyeOBJFinishPiece[] =
+{
+    PROC_NAME("efxCrimsonEyeOBJFinishPiece"),
+    PROC_REPEAT(sub_806A0CC),
+    PROC_END,
+};
 
-extern s16 gUnknown_085D87DC[];
+s16 CONST_DATA gUnknown_085D87DC[] =
+{
+    0, 0,
+    15, -22,
+    34, -41,
+    56, -56,
+    80, -66,
+    107, -71,
+    133, -71,
+    159, -66,
+    184, -56,
+    206, -41,
+    225, -22,
+    240, 0,
+    250, 24,
+    255, 51,
+    255, 77,
+    250, 103,
+    240, 128,
+    225, 150,
+    206, 169,
+    184, 184,
+    160, 194,
+    133, 199,
+    107, 199,
+    81, 194,
+    56, 184,
+    34, 169,
+    15, 150,
+    0, 128,
+    -10, 104,
+    -15, 77,
+    -15, 51,
+    -10, 25,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806A138
 void sub_806A138(struct Anim * anim, int terminator, u8 c, s8 flag)
@@ -202,8 +283,8 @@ void sub_806A138(struct Anim * anim, int terminator, u8 c, s8 flag)
     proc->unk32 = gUnknown_085D87DC[(c & 0xff) * 2];
     proc->unk3A = gUnknown_085D87DC[((c & 0xff) * 2 + 1)];
 
-    frontAnim->xPosition = Interpolate(0, 0x78, (s16)proc->unk32, proc->timer, proc->terminator);
-    frontAnim->yPosition = Interpolate(0, 0x40, (s16)proc->unk3A, proc->timer, proc->terminator);
+    frontAnim->xPosition = Interpolate(INTERPOLATE_LINEAR, 0x78, (s16)proc->unk32, proc->timer, proc->terminator);
+    frontAnim->yPosition = Interpolate(INTERPOLATE_LINEAR, 0x40, (s16)proc->unk3A, proc->timer, proc->terminator);
 
     return;
 }
@@ -356,7 +437,16 @@ void sub_806A1EC(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxCrimsonEyeOBJFinish[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxCrimsonEyeOBJFinish[] =
+{
+    PROC_NAME("efxCrimsonEyeOBJFinish"),
+    PROC_REPEAT(sub_806A1EC),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806A3CC
 void sub_806A3CC(struct Anim * anim)
@@ -371,15 +461,6 @@ void sub_806A3CC(struct Anim * anim)
 
     return;
 }
-
-extern struct ProcCmd ProcScr_efxGorgonBGFinish[];
-
-extern u16 * gUnknown_085D8C7C[];
-extern u16 * gUnknown_085D8CA0[];
-
-extern u16 gUnknown_086B5A2C[];
-
-extern u16 gUnknown_080DF0E0[];
 
 //! FE8U = 0x0806A3F4
 void sub_806A3F4(struct Anim * anim)
@@ -402,19 +483,19 @@ void sub_806A3F4(struct Anim * anim)
     {
         if (GetAnimPosition(anim) == 0)
         {
-            BG_SetPosition(1, 0x18, 0);
+            BG_SetPosition(BG_1, 0x18, 0);
         }
         else
         {
-            BG_SetPosition(1, 0x0000FFE8, 0);
+            BG_SetPosition(BG_1, -0x18, 0);
         }
     }
     else
     {
-        BG_SetPosition(1, 0, 0);
+        BG_SetPosition(BG_1, 0, 0);
     }
 
-    SpellFx_RegisterBgPal(gUnknown_086B5A2C, 0x20);
+    SpellFx_RegisterBgPal(gUnknown_086B5A2C, PLTT_SIZE_4BPP);
 
     return;
 }
@@ -442,14 +523,41 @@ void sub_806A47C(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxCrimsonEyeBG[];
+// clang-format off
 
-extern u16 * gUnknown_085D8874[];
+u16 * CONST_DATA gUnknown_085D8874[] =
+{
+    Tsa_086B5ECC,
+    Tsa_086B5F78,
+    Tsa_086B603C,
+    Tsa_086B6100,
+    Tsa_086B61C4,
+    Tsa_086B6288,
+    Tsa_086B634C,
+    Tsa_086B6410,
+};
 
-extern u16 gUnknown_086B5A4C[];
-extern u16 gUnknown_086B5EAC[];
+const u16 gUnknown_080DEF20[] =
+{
+    0, 4,
+    1, 4,
+    2, 4,
+    3, 4,
+    4, 4,
+    5, 4,
+    6, 4,
+    7, 36,
+    -1,
+};
 
-extern u16 gUnknown_080DEF20[];
+struct ProcCmd CONST_DATA ProcScr_efxCrimsonEyeBG[] =
+{
+    PROC_NAME("efxCrimsonEyeBG"),
+    PROC_REPEAT(sub_806A47C),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806A4CC
 void sub_806A4CC(struct Anim * anim)
@@ -467,23 +575,23 @@ void sub_806A4CC(struct Anim * anim)
 
     proc->tsal = gUnknown_085D8874;
 
-    SpellFx_RegisterBgGfx(gUnknown_086B5A4C, 0x2000);
-    SpellFx_RegisterBgPal(gUnknown_086B5EAC, 0x20);
+    SpellFx_RegisterBgGfx(gUnknown_086B5A4C, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgPal(gUnknown_086B5EAC, PLTT_SIZE_4BPP);
 
     if (gEkrDistanceType == 1)
     {
         if (GetAnimPosition(proc->anim) == 0)
         {
-            BG_SetPosition(1, 0x18, 0);
+            BG_SetPosition(BG_1, 0x18, 0);
         }
         else
         {
-            BG_SetPosition(1, 0x0000FFE8, 0);
+            BG_SetPosition(BG_1, -0x18, 0);
         }
     }
     else
     {
-        BG_SetPosition(1, 0, 0);
+        BG_SetPosition(BG_1, 0, 0);
     }
 
     SpellFx_SetSomeColorEffect();
@@ -530,7 +638,7 @@ void sub_806A590(int index, int denom, int c)
         c = 0x5a - c;
     }
 
-    denom = (Interpolate(0, 0x100, 0x80, c, 0x2d) * denom) >> 8;
+    denom = (Interpolate(INTERPOLATE_LINEAR, 0x100, 0x80, c, 0x2d) * denom) >> 8;
 
     if (denom < 2)
     {
@@ -550,7 +658,103 @@ void sub_806A590(int index, int denom, int c)
     return;
 }
 
-extern s8 gUnknown_085D88AC[];
+// clang-format off
+
+s8 CONST_DATA gUnknown_085D88AC[] =
+{
+    0, 30,
+    -2, 30,
+    -4, 30,
+    -6, 29,
+    -8, 29,
+    -10, 28,
+    -12, 27,
+    -14, 26,
+    -16, 25,
+    -18, 24,
+    -19, 23,
+    -21, 22,
+    -22, 20,
+    -24, 18,
+    -25, 17,
+    -26, 15,
+    -27, 13,
+    -28, 11,
+    -29, 9,
+    -29, 7,
+    -30, 5,
+    -30, 3,
+    -30, 1,
+    -30, -1,
+    -30, -3,
+    -30, -5,
+    -29, -7,
+    -29, -9,
+    -28, -11,
+    -27, -13,
+    -26, -15,
+    -25, -17,
+    -24, -18,
+    -22, -20,
+    -21, -22,
+    -19, -23,
+    -18, -24,
+    -16, -25,
+    -14, -26,
+    -12, -27,
+    -10, -28,
+    -8, -29,
+    -6, -29,
+    -4, -30,
+    -2, -30,
+    0, -30,
+    2, -30,
+    4, -30,
+    6, -29,
+    8, -29,
+    10, -28,
+    12, -27,
+    14, -26,
+    16, -25,
+    18, -24,
+    19, -23,
+    21, -22,
+    22, -20,
+    24, -18,
+    25, -17,
+    26, -15,
+    27, -13,
+    28, -11,
+    29, -9,
+    29, -7,
+    30, -5,
+    30, -3,
+    30, -1,
+    30, 1,
+    30, 3,
+    30, 5,
+    29, 7,
+    29, 9,
+    28, 11,
+    27, 13,
+    26, 15,
+    25, 17,
+    24, 18,
+    22, 20,
+    21, 22,
+    19, 23,
+    18, 24,
+    16, 25,
+    14, 26,
+    12, 27,
+    10, 28,
+    8, 29,
+    6, 29,
+    4, 30,
+    2, 30,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806A634
 int sub_806A634(int index, int b)
@@ -594,7 +798,7 @@ int sub_806A664(int a, int b)
         var = 0x5a - b;
     }
 
-    a = Interpolate(0, a >> 1, a, var, 0x16);
+    a = Interpolate(INTERPOLATE_LINEAR, a >> 1, a, var, 0x16);
 
     if (b <= 0x2c)
     {
@@ -616,7 +820,7 @@ int sub_806A6C4(int a, int b)
         b = 0x5a - b;
     }
 
-    a = Interpolate(0, a, a >> 1, b, 0x2d);
+    a = Interpolate(INTERPOLATE_LINEAR, a, a >> 1, b, 0x2d);
 
     return var - a;
 }
@@ -633,10 +837,10 @@ void sub_806A6FC(int index, int b, int c)
         c = 0x5a - c;
     }
 
-    hi = Interpolate(0, 0x80, 0x20, b, 0x18);
-    lo = Interpolate(0, 0x100, 0x180, b, 0x18);
+    hi = Interpolate(INTERPOLATE_LINEAR, 0x80, 0x20, b, 0x18);
+    lo = Interpolate(INTERPOLATE_LINEAR, 0x100, 0x180, b, 0x18);
 
-    denom = Interpolate(0, lo, hi, c, 0x2d);
+    denom = Interpolate(INTERPOLATE_LINEAR, lo, hi, c, 0x2d);
 
     if (denom < 2)
     {
@@ -697,10 +901,10 @@ void sub_806A7C4(struct ProcEfxOBJ * proc)
         var = sub_806A560(i * 0x12);
         sub_806A578(anim, var);
 
-        anim->xPosition = proc->unk32 + Interpolate(4, sub_806A634(var, 0), sub_806A634(var, 0x100), proc->timer, 0x10);
-        anim->yPosition = proc->unk3A + Interpolate(4, sub_806A64C(var, 0), sub_806A64C(var, 0x100), proc->timer, 0x10);
+        anim->xPosition = proc->unk32 + Interpolate(INTERPOLATE_RSQUARE, sub_806A634(var, 0), sub_806A634(var, 0x100), proc->timer, 0x10);
+        anim->yPosition = proc->unk3A + Interpolate(INTERPOLATE_RSQUARE, sub_806A64C(var, 0), sub_806A64C(var, 0x100), proc->timer, 0x10);
 
-        sub_806A590(index, Interpolate(4, 2, 0x100, proc->timer, 0x10), var);
+        sub_806A590(index, Interpolate(INTERPOLATE_RSQUARE, 2, 0x100, proc->timer, 0x10), var);
     }
 
     AnimSort();
@@ -788,7 +992,7 @@ void sub_806A9C4(struct ProcEfxOBJ * proc)
     int i;
     int var;
 
-    int ret = Interpolate(4, 0, 0x18, proc->timer, 0x10);
+    int ret = Interpolate(INTERPOLATE_RSQUARE, 0, 0x18, proc->timer, 0x10);
 
     for (i = 0; i < 5; i++)
     {
@@ -886,10 +1090,10 @@ void sub_806AAA0(struct ProcEfxOBJ * proc)
 
         sub_806A578(anim, var);
 
-        anim->xPosition = proc->unk32 + Interpolate(1, sub_806A664(0x18, var), 0, proc->timer, 8);
-        anim->yPosition = proc->unk3A + Interpolate(1, sub_806A6C4(0x18, var), 0, proc->timer, 8);
+        anim->xPosition = proc->unk32 + Interpolate(INTERPOLATE_SQUARE, sub_806A664(0x18, var), 0, proc->timer, 8);
+        anim->yPosition = proc->unk3A + Interpolate(INTERPOLATE_SQUARE, sub_806A6C4(0x18, var), 0, proc->timer, 8);
 
-        sub_806A6FC(index, Interpolate(1, 0x18, 0, proc->timer, 8), var);
+        sub_806A6FC(index, Interpolate(INTERPOLATE_SQUARE, 0x18, 0, proc->timer, 8), var);
     }
 
     AnimSort();
@@ -912,11 +1116,25 @@ void sub_806AAA0(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxCrimsonEyeOBJ[];
-extern u32 gUnknown_086B5974[];
+// clang-format off
 
-extern u16 gUnknown_086B58DC[];
-extern u16 gUnknown_086B5580[];
+struct ProcCmd CONST_DATA ProcScr_efxCrimsonEyeOBJ[] =
+{
+    PROC_NAME("efxCrimsonEyeOBJ"),
+
+    PROC_REPEAT(sub_806A7C4),
+    PROC_SLEEP(16),
+
+    PROC_REPEAT(sub_806A8E8),
+    PROC_SLEEP(16),
+
+    PROC_REPEAT(sub_806A9C4),
+    PROC_REPEAT(sub_806AAA0),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806ABCC
 void sub_806ABCC(struct Anim * anim)
@@ -1028,8 +1246,8 @@ void sub_806ABCC(struct Anim * anim)
     );
     // clang-format on
 
-    SpellFx_RegisterObjPal(gUnknown_086B58DC, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_086B5580, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_086B58DC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_086B5580, 32 * 4 * CHR_SIZE);
 
     return;
 }
