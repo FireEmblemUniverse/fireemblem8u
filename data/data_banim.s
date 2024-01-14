@@ -30900,7 +30900,155 @@ gUnknown_086DA33C:  @ 0x086DA33C
 
 	.global gUnknown_086DA920
 gUnknown_086DA920:  @ 0x086DA920
-	.incbin "baserom.gba", 0x6DA920, 0xD590
+	.incbin "baserom.gba", 0x6DA920, 0x614    @ 0x6DAF34 - 0x6DA920
+
+	.global Img_086DAF34
+Img_086DAF34:  @ 0x086DAF34
+	.incbin "baserom.gba", 0x6DAF34, 0x82C    @ 0x6DB760 - 0x6DAF34
+
+	.global Img_086DB760
+Img_086DB760:  @ 0x086DB760
+	.incbin "baserom.gba", 0x6DB760, 0x904    @ 0x6DC064 - 0x6DB760
+
+	.global Img_086DC064
+Img_086DC064:  @ 0x086DC064
+	.incbin "baserom.gba", 0x6DC064, 0xA00    @ 0x6DCA64 - 0x6DC064
+
+	.global Img_086DCA64
+Img_086DCA64:  @ 0x086DCA64
+	.incbin "baserom.gba", 0x6DCA64, 0xB34    @ 0x6DD598 - 0x6DCA64
+
+	.global Img_086DD598
+Img_086DD598:  @ 0x086DD598
+	.incbin "baserom.gba", 0x6DD598, 0xBD0    @ 0x6DE168 - 0x6DD598
+
+	.global Img_086DE168
+Img_086DE168:  @ 0x086DE168
+	.incbin "baserom.gba", 0x6DE168, 0xC28    @ 0x6DED90 - 0x6DE168
+
+	.global Img_086DED90
+Img_086DED90:  @ 0x086DED90
+	.incbin "baserom.gba", 0x6DED90, 0xC68    @ 0x6DF9F8 - 0x6DED90
+
+	.global Img_086DF9F8
+Img_086DF9F8:  @ 0x086DF9F8
+	.incbin "baserom.gba", 0x6DF9F8, 0xBF8    @ 0x6E05F0 - 0x6DF9F8
+
+	.global Img_086E05F0
+Img_086E05F0:  @ 0x086E05F0
+	.incbin "baserom.gba", 0x6E05F0, 0xCA4    @ 0x6E1294 - 0x6E05F0
+
+	.global Img_086E1294
+Img_086E1294:  @ 0x086E1294
+	.incbin "baserom.gba", 0x6E1294, 0xCC0    @ 0x6E1F54 - 0x6E1294
+
+	.global Img_086E1F54
+Img_086E1F54:  @ 0x086E1F54
+	.incbin "baserom.gba", 0x6E1F54, 0xC94    @ 0x6E2BE8 - 0x6E1F54
+
+	.global Img_086E2BE8
+Img_086E2BE8:  @ 0x086E2BE8
+	.incbin "baserom.gba", 0x6E2BE8, 0xC40    @ 0x6E3828 - 0x6E2BE8
+
+	.global Img_086E3828
+Img_086E3828:  @ 0x086E3828
+	.incbin "baserom.gba", 0x6E3828, 0xBF8    @ 0x6E4420 - 0x6E3828
+
+	.global Img_086E4420
+Img_086E4420:  @ 0x086E4420
+	.incbin "baserom.gba", 0x6E4420, 0xB70    @ 0x6E4F90 - 0x6E4420
+
+	.global Img_086E4F90
+Img_086E4F90:  @ 0x086E4F90
+	.incbin "baserom.gba", 0x6E4F90, 0xAA0    @ 0x6E5A30 - 0x6E4F90
+
+	.global Img_086E5A30
+Img_086E5A30:  @ 0x086E5A30
+	.incbin "baserom.gba", 0x6E5A30, 0xA10    @ 0x6E6440 - 0x6E5A30
+
+	.global Pal_086E6440
+Pal_086E6440:  @ 0x086E6440
+	.incbin "baserom.gba", 0x6E6440, 0x20    @ 0x6E6460 - 0x6E6440
+
+	.global Pal_086E6460
+Pal_086E6460:  @ 0x086E6460
+	.incbin "baserom.gba", 0x6E6460, 0x20    @ 0x6E6480 - 0x6E6460
+
+	.global Pal_086E6480
+Pal_086E6480:  @ 0x086E6480
+	.incbin "baserom.gba", 0x6E6480, 0x20    @ 0x6E64A0 - 0x6E6480
+
+	.global Pal_086E64A0
+Pal_086E64A0:  @ 0x086E64A0
+	.incbin "baserom.gba", 0x6E64A0, 0x20    @ 0x6E64C0 - 0x6E64A0
+
+	.global Pal_086E64C0
+Pal_086E64C0:  @ 0x086E64C0
+	.incbin "baserom.gba", 0x6E64C0, 0x20    @ 0x6E64E0 - 0x6E64C0
+
+	.global Tsa_086E64E0
+Tsa_086E64E0:  @ 0x086E64E0
+	.incbin "baserom.gba", 0x6E64E0, 0x10C    @ 0x6E65EC - 0x6E64E0
+
+	.global Tsa_086E65EC
+Tsa_086E65EC:  @ 0x086E65EC
+	.incbin "baserom.gba", 0x6E65EC, 0x130    @ 0x6E671C - 0x6E65EC
+
+	.global Tsa_086E671C
+Tsa_086E671C:  @ 0x086E671C
+	.incbin "baserom.gba", 0x6E671C, 0x144    @ 0x6E6860 - 0x6E671C
+
+	.global Tsa_086E6860
+Tsa_086E6860:  @ 0x086E6860
+	.incbin "baserom.gba", 0x6E6860, 0x168    @ 0x6E69C8 - 0x6E6860
+
+	.global Tsa_086E69C8
+Tsa_086E69C8:  @ 0x086E69C8
+	.incbin "baserom.gba", 0x6E69C8, 0x170    @ 0x6E6B38 - 0x6E69C8
+
+	.global Tsa_086E6B38
+Tsa_086E6B38:  @ 0x086E6B38
+	.incbin "baserom.gba", 0x6E6B38, 0x18C    @ 0x6E6CC4 - 0x6E6B38
+
+	.global Tsa_086E6CC4
+Tsa_086E6CC4:  @ 0x086E6CC4
+	.incbin "baserom.gba", 0x6E6CC4, 0x19C    @ 0x6E6E60 - 0x6E6CC4
+
+	.global Tsa_086E6E60
+Tsa_086E6E60:  @ 0x086E6E60
+	.incbin "baserom.gba", 0x6E6E60, 0x1AC    @ 0x6E700C - 0x6E6E60
+
+	.global Tsa_086E700C
+Tsa_086E700C:  @ 0x086E700C
+	.incbin "baserom.gba", 0x6E700C, 0x1B0    @ 0x6E71BC - 0x6E700C
+
+	.global Tsa_086E71BC
+Tsa_086E71BC:  @ 0x086E71BC
+	.incbin "baserom.gba", 0x6E71BC, 0x1C4    @ 0x6E7380 - 0x6E71BC
+
+	.global Tsa_086E7380
+Tsa_086E7380:  @ 0x086E7380
+	.incbin "baserom.gba", 0x6E7380, 0x1D0    @ 0x6E7550 - 0x6E7380
+
+	.global Tsa_086E7550
+Tsa_086E7550:  @ 0x086E7550
+	.incbin "baserom.gba", 0x6E7550, 0x1E0    @ 0x6E7730 - 0x6E7550
+
+	.global Tsa_086E7730
+Tsa_086E7730:  @ 0x086E7730
+	.incbin "baserom.gba", 0x6E7730, 0x1E4    @ 0x6E7914 - 0x6E7730
+
+	.global Tsa_086E7914
+Tsa_086E7914:  @ 0x086E7914
+	.incbin "baserom.gba", 0x6E7914, 0x1E8    @ 0x6E7AFC - 0x6E7914
+
+	.global Tsa_086E7AFC
+Tsa_086E7AFC:  @ 0x086E7AFC
+	.incbin "baserom.gba", 0x6E7AFC, 0x1DC    @ 0x6E7CD8 - 0x6E7AFC
+
+	.global Tsa_086E7CD8
+Tsa_086E7CD8:  @ 0x086E7CD8
+	.incbin "baserom.gba", 0x6E7CD8, 0x1D8    @ 0x6E7EB0 - 0x6E7CD8
 
 	.global gUnknown_086E7EB0
 gUnknown_086E7EB0:  @ 0x086E7EB0
@@ -30908,7 +31056,43 @@ gUnknown_086E7EB0:  @ 0x086E7EB0
 
 	.global gUnknown_086E91B8
 gUnknown_086E91B8:  @ 0x086E91B8
-	.incbin "baserom.gba", 0x6E91B8, 0xB88
+	.incbin "baserom.gba", 0x6E91B8, 0x20    @ 0x6E91D8 - 0x6E91B8
+
+	.global Tsa_086E91D8
+Tsa_086E91D8:  @ 0x086E91D8
+	.incbin "baserom.gba", 0x6E91D8, 0xA4    @ 0x6E927C - 0x6E91D8
+
+	.global Tsa_086E927C
+Tsa_086E927C:  @ 0x086E927C
+	.incbin "baserom.gba", 0x6E927C, 0xDC    @ 0x6E9358 - 0x6E927C
+
+	.global Tsa_086E9358
+Tsa_086E9358:  @ 0x086E9358
+	.incbin "baserom.gba", 0x6E9358, 0x11C    @ 0x6E9474 - 0x6E9358
+
+	.global Tsa_086E9474
+Tsa_086E9474:  @ 0x086E9474
+	.incbin "baserom.gba", 0x6E9474, 0x160    @ 0x6E95D4 - 0x6E9474
+
+	.global Tsa_086E95D4
+Tsa_086E95D4:  @ 0x086E95D4
+	.incbin "baserom.gba", 0x6E95D4, 0x184    @ 0x6E9758 - 0x6E95D4
+
+	.global Tsa_086E9758
+Tsa_086E9758:  @ 0x086E9758
+	.incbin "baserom.gba", 0x6E9758, 0x18C    @ 0x6E98E4 - 0x6E9758
+
+	.global Tsa_086E98E4
+Tsa_086E98E4:  @ 0x086E98E4
+	.incbin "baserom.gba", 0x6E98E4, 0x180    @ 0x6E9A64 - 0x6E98E4
+
+	.global Tsa_086E9A64
+Tsa_086E9A64:  @ 0x086E9A64
+	.incbin "baserom.gba", 0x6E9A64, 0x170    @ 0x6E9BD4 - 0x6E9A64
+
+	.global Tsa_086E9BD4
+Tsa_086E9BD4:  @ 0x086E9BD4
+	.incbin "baserom.gba", 0x6E9BD4, 0x16C    @ 0x6E9D40 - 0x6E9BD4
 
 	.global gUnknown_086E9D40
 gUnknown_086E9D40:  @ 0x086E9D40

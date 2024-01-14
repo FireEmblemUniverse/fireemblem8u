@@ -7,7 +7,16 @@
 #include "hardware.h"
 #include "bmlib.h"
 
-extern struct ProcCmd ProcScr_efxDarkLongMons[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxDarkLongMons[] =
+{
+    PROC_NAME("efxDarkLongMons"),
+    PROC_REPEAT(sub_806AF30),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806AEF4
 void sub_806AEF4(struct Anim * anim)
@@ -151,13 +160,100 @@ void sub_806B11C(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxDarkLongMonsBG01[];
+// clang-format off
 
-extern u16 * gUnknown_085D89B8[];
-extern u16 * gUnknown_085D89F8[];
-extern u16 * gUnknown_085D8A38[];
+u16 * CONST_DATA gUnknown_085D89B8[] =
+{
+    Tsa_086E64E0,
+    Tsa_086E65EC,
+    Tsa_086E671C,
+    Tsa_086E6860,
+    Tsa_086E69C8,
+    Tsa_086E6B38,
+    Tsa_086E6CC4,
+    Tsa_086E6E60,
+    Tsa_086E700C,
+    Tsa_086E71BC,
+    Tsa_086E7380,
+    Tsa_086E7550,
+    Tsa_086E7730,
+    Tsa_086E7914,
+    Tsa_086E7AFC,
+    Tsa_086E7CD8,
+};
 
-extern u16 gUnknown_080DEF78[];
+u16 * CONST_DATA gUnknown_085D89F8[] =
+{
+    Img_086DAF34,
+    Img_086DB760,
+    Img_086DC064,
+    Img_086DCA64,
+    Img_086DD598,
+    Img_086DE168,
+    Img_086DED90,
+    Img_086DF9F8,
+    Img_086E05F0,
+    Img_086E1294,
+    Img_086E1F54,
+    Img_086E2BE8,
+    Img_086E3828,
+    Img_086E4420,
+    Img_086E4F90,
+    Img_086E5A30,
+};
+
+u16 * CONST_DATA gUnknown_085D8A38[] =
+{
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6440,
+    Pal_086E6460,
+    Pal_086E6460,
+    Pal_086E6480,
+    Pal_086E64A0,
+    Pal_086E64C0,
+};
+
+const u16 gUnknown_080DEF78[] =
+{
+    0, 4,
+    1, 4,
+    2, 4,
+    3, 4,
+    4, 4,
+    5, 4,
+    6, 4,
+    7, 4,
+    8, 4,
+    9, 4,
+    10, 4,
+    11, 4,
+    12, 4,
+    13, 4,
+    14, 4,
+    15, 4,
+    -1,
+};
+
+struct ProcCmd CONST_DATA ProcScr_efxDarkLongMonsBG01[] =
+{
+    PROC_NAME("efxDarkLongMonsBG01"),
+
+    PROC_REPEAT(sub_806B0AC),
+    PROC_REPEAT(sub_806B11C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806B134
 void sub_806B134(struct Anim * anim)
@@ -207,14 +303,49 @@ void sub_806B194(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxDarkLongMonsBG02[];
+// clang-format off
 
-extern u16 * gUnknown_085D8A98[];
+u16 * CONST_DATA gUnknown_085D8A98[] =
+{
+    Tsa_086E91D8,
+    Tsa_086E927C,
+    Tsa_086E9358,
+    Tsa_086E9474,
+    Tsa_086E95D4,
+    Tsa_086E9758,
+    Tsa_086E98E4,
+    Tsa_086E9A64,
+    Tsa_086E9BD4,
+};
 
-extern u16 gUnknown_086E7EB0[];
-extern u16 gUnknown_086E91B8[];
+const u16 gUnknown_080DEFD0[] =
+{
+    0, 8,
+    1, 8,
+    2, 8,
+    3, 8,
+    4, 8,
+    5, 8,
+    6, 8,
+    7, 8,
+    8, 8,
+    6, 8,
+    7, 8,
+    8, 8,
+    6, 8,
+    7, 8,
+    8, 8,
+    -1,
+};
 
-extern u16 gUnknown_080DEFD0[];
+struct ProcCmd CONST_DATA ProcScr_efxDarkLongMonsBG02[] =
+{
+    PROC_NAME("efxDarkLongMonsBG02"),
+    PROC_REPEAT(sub_806B194),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806B1E8
 void sub_806B1E8(struct Anim * anim)
@@ -288,12 +419,16 @@ void sub_806B24C(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxDarkLongMonsOBJ[];
+// clang-format off
 
-extern u32 gUnknown_086DA920[];
+struct ProcCmd CONST_DATA ProcScr_efxDarkLongMonsOBJ[] =
+{
+    PROC_NAME("efxDarkLongMonsOBJ"),
+    PROC_REPEAT(sub_806B24C),
+    PROC_END,
+};
 
-extern u16 gUnknown_086D9C40[];
-extern u16 gUnknown_086DA33C[];
+// clang-format on
 
 //! FE8U = 0x0806B2C0
 void sub_806B2C0(struct Anim * anim)
@@ -419,7 +554,19 @@ void sub_806B344(struct Proc085D8AEC * proc)
 
 #undef RGB_
 
-extern struct ProcCmd gUnknown_085D8AEC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D8AEC[] =
+{
+    PROC_CALL(sub_806B33C),
+    PROC_REPEAT(sub_806B344),
+
+    PROC_CALL(EnablePaletteSync),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806B4E4
 void sub_806B4E4(void)

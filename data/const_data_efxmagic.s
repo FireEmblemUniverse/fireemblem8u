@@ -1,14 +1,6 @@
     .section .rodata
 
-	.asciz "efxDarkLongMons"
-
-	.global gUnknown_080DEF78
-gUnknown_080DEF78:  @ 0x080DEF78
-	.incbin "baserom.gba", 0xDEF78, 0x58
-
-	.global gUnknown_080DEFD0
-gUnknown_080DEFD0:  @ 0x080DEFD0
-	.incbin "baserom.gba", 0xDEFD0, 0x72
+	.asciz "efxGorgon"
 
 	.global gUnknown_080DF042
 gUnknown_080DF042:  @ 0x080DF042

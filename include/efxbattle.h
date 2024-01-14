@@ -2048,11 +2048,57 @@ extern u16 Tsa_086D953C[];
 extern u16 Tsa_086D96F0[];
 extern u16 Tsa_086D98A8[];
 extern u16 Tsa_086D9A74[];
-// extern ??? gUnknown_086D9C40
-// extern ??? gUnknown_086DA33C
-// extern ??? gUnknown_086DA920
-// extern ??? gUnknown_086E7EB0
-// extern ??? gUnknown_086E91B8
+extern u16 gUnknown_086D9C40[];
+extern u16 gUnknown_086DA33C[];
+extern u32 gUnknown_086DA920[];
+extern u16 Img_086DAF34[];
+extern u16 Img_086DB760[];
+extern u16 Img_086DC064[];
+extern u16 Img_086DCA64[];
+extern u16 Img_086DD598[];
+extern u16 Img_086DE168[];
+extern u16 Img_086DED90[];
+extern u16 Img_086DF9F8[];
+extern u16 Img_086E05F0[];
+extern u16 Img_086E1294[];
+extern u16 Img_086E1F54[];
+extern u16 Img_086E2BE8[];
+extern u16 Img_086E3828[];
+extern u16 Img_086E4420[];
+extern u16 Img_086E4F90[];
+extern u16 Img_086E5A30[];
+extern u16 Pal_086E6440[];
+extern u16 Pal_086E6460[];
+extern u16 Pal_086E6480[];
+extern u16 Pal_086E64A0[];
+extern u16 Pal_086E64C0[];
+extern u16 Tsa_086E64E0[];
+extern u16 Tsa_086E65EC[];
+extern u16 Tsa_086E671C[];
+extern u16 Tsa_086E6860[];
+extern u16 Tsa_086E69C8[];
+extern u16 Tsa_086E6B38[];
+extern u16 Tsa_086E6CC4[];
+extern u16 Tsa_086E6E60[];
+extern u16 Tsa_086E700C[];
+extern u16 Tsa_086E71BC[];
+extern u16 Tsa_086E7380[];
+extern u16 Tsa_086E7550[];
+extern u16 Tsa_086E7730[];
+extern u16 Tsa_086E7914[];
+extern u16 Tsa_086E7AFC[];
+extern u16 Tsa_086E7CD8[];
+extern u16 gUnknown_086E7EB0[];
+extern u16 gUnknown_086E91B8[];
+extern u16 Tsa_086E91D8[];
+extern u16 Tsa_086E927C[];
+extern u16 Tsa_086E9358[];
+extern u16 Tsa_086E9474[];
+extern u16 Tsa_086E95D4[];
+extern u16 Tsa_086E9758[];
+extern u16 Tsa_086E98E4[];
+extern u16 Tsa_086E9A64[];
+extern u16 Tsa_086E9BD4[];
 // extern ??? gUnknown_086E9D40
 // extern ??? gUnknown_086EA3EC
 // extern ??? gUnknown_086EAE14
