@@ -197,7 +197,7 @@ ProcScr_efxGorgonBGFinish:  @ 0x085D8CC4
         .word sub_806C050
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_806B11C
+        .word efxDarkLongMonsBG01_Loop_B
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

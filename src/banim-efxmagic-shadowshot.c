@@ -12,14 +12,14 @@
 struct ProcCmd CONST_DATA ProcScr_efxDarkLongMons[] =
 {
     PROC_NAME("efxDarkLongMons"),
-    PROC_REPEAT(sub_806AF30),
+    PROC_REPEAT(efxDarkLongMons_Loop_Main),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0806AEF4
-void sub_806AEF4(struct Anim * anim)
+void StartSpellAnimShadowshot(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -36,7 +36,7 @@ void sub_806AEF4(struct Anim * anim)
 }
 
 //! FE8U = 0x0806AF30
-void sub_806AF30(struct ProcEfx * proc)
+void efxDarkLongMons_Loop_Main(struct ProcEfx * proc)
 {
     struct Anim * anim = GetAnimAnotherSide(proc->anim);
     int duration = EfxGetCamMovDuration();
@@ -47,24 +47,24 @@ void sub_806AF30(struct ProcEfx * proc)
     {
         NewEfxFarAttackWithDistance(proc->anim, -1);
     }
-    else if (proc->timer == duration + 0xb)
+    else if (proc->timer == duration + 11)
     {
-        sub_806B2C0(anim);
-        PlaySFX(0x000003D5, 0x100, 0x10, 1);
+        StartSubSpell_efxDarkLongMonsOBJ(anim);
+        PlaySFX(0x3D5, 0x100, 16, 1);
     }
-    else if (proc->timer == duration + 0x2b)
+    else if (proc->timer == duration + 43)
     {
-        sub_806B1E8(anim);
+        StartSubSpell_efxDarkLongMonsBG02(anim);
     }
-    else if (proc->timer == duration + 0x97)
+    else if (proc->timer == duration + 151)
     {
         sub_806B4E4();
     }
-    else if (proc->timer == duration + 0xa7)
+    else if (proc->timer == duration + 167)
     {
-        sub_806B134(anim);
+        StartSubSpell_efxDarkLongMonsBG01(anim);
     }
-    else if (proc->timer == duration + 0xeb)
+    else if (proc->timer == duration + 235)
     {
         anim->state3 |= 9;
 
@@ -75,7 +75,7 @@ void sub_806AF30(struct ProcEfx * proc)
             EfxPlayHittedSFX(anim);
         }
     }
-    else if (proc->timer == duration + 0xec)
+    else if (proc->timer == duration + 236)
     {
         if (proc->hitted)
         {
@@ -84,24 +84,24 @@ void sub_806AF30(struct ProcEfx * proc)
             Proc_Break(proc);
         }
     }
-    else if (proc->timer == duration + 0xed)
+    else if (proc->timer == duration + 237)
     {
-        StartSpellThing_MagicQuake(proc->anim, 0x3e, 9);
+        StartSpellThing_MagicQuake(proc->anim, 62, 9);
         NewEfxFlashBgWhite(proc->anim, 10);
     }
-    else if (proc->timer == duration + 0xf7)
+    else if (proc->timer == duration + 247)
     {
-        NewEfxRestWINH_(proc->anim, 0x46, 1);
-        NewEfxTwobaiRST(proc->anim, 0x32);
+        NewEfxRestWINH_(proc->anim, 70, 1);
+        NewEfxTwobaiRST(proc->anim, 50);
         StartSubSpell_efxSuperdruidBG3(proc->anim);
-        NewEfxALPHA(anim, 0x10, 10, 0x10, 0, 0);
-        PlaySFX(0x000003D6, 0x100, 0xc0, 1);
+        NewEfxALPHA(anim, 16, 10, 16, 0, 0);
+        PlaySFX(0x3D6, 0x100, 192, 1);
     }
-    else if (proc->timer == duration + 0x110)
+    else if (proc->timer == duration + 272)
     {
         RegisterEfxSpellCastEnd();
     }
-    else if (proc->timer == duration + 0x0000012B)
+    else if (proc->timer == duration + 299)
     {
         SpellFx_Finish();
         Proc_Break(proc);
@@ -111,7 +111,7 @@ void sub_806AF30(struct ProcEfx * proc)
 }
 
 //! FE8U = 0x0806B088
-void sub_806B088(void)
+void OnHBlank_806B088(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
@@ -124,7 +124,7 @@ void sub_806B088(void)
 }
 
 //! FE8U = 0x0806B0AC
-void sub_806B0AC(struct ProcEfxBG * proc)
+void efxDarkLongMonsBG01_Loop_A(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -134,8 +134,8 @@ void sub_806B0AC(struct ProcEfxBG * proc)
         u16 ** img = proc->img;
         u16 ** pal = proc->pal;
 
-        SpellFx_RegisterBgGfx(*(img + ret), 0x2000);
-        SpellFx_RegisterBgPal(*(pal + ret), 0x20);
+        SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
+        SpellFx_RegisterBgPal(*(pal + ret), PLTT_SIZE_4BPP);
         SpellFx_WriteBgMap(GetAnimAnotherSide(proc->anim), *(tsa + ret), *(tsa + ret));
     }
     else
@@ -153,7 +153,7 @@ void sub_806B0AC(struct ProcEfxBG * proc)
 }
 
 //! FE8U = 0x0806B11C
-void sub_806B11C(struct ProcEfxBG * proc)
+void efxDarkLongMonsBG01_Loop_B(struct ProcEfxBG * proc)
 {
     SetPrimaryHBlankHandler(NULL);
     Proc_Break(proc);
@@ -162,7 +162,7 @@ void sub_806B11C(struct ProcEfxBG * proc)
 
 // clang-format off
 
-u16 * CONST_DATA gUnknown_085D89B8[] =
+u16 * CONST_DATA TsaArray_efxDarkLongMonsBG01[] =
 {
     Tsa_086E64E0,
     Tsa_086E65EC,
@@ -182,7 +182,7 @@ u16 * CONST_DATA gUnknown_085D89B8[] =
     Tsa_086E7CD8,
 };
 
-u16 * CONST_DATA gUnknown_085D89F8[] =
+u16 * CONST_DATA ImgArray_efxDarkLongMonsBG01[] =
 {
     Img_086DAF34,
     Img_086DB760,
@@ -202,7 +202,7 @@ u16 * CONST_DATA gUnknown_085D89F8[] =
     Img_086E5A30,
 };
 
-u16 * CONST_DATA gUnknown_085D8A38[] =
+u16 * CONST_DATA PalArray_efxDarkLongMonsBG01[] =
 {
     Pal_086E6440,
     Pal_086E6440,
@@ -222,7 +222,7 @@ u16 * CONST_DATA gUnknown_085D8A38[] =
     Pal_086E64C0,
 };
 
-const u16 gUnknown_080DEF78[] =
+const u16 gFrameConfig_efxDarkLongMonsBG01[] =
 {
     0, 4,
     1, 4,
@@ -247,8 +247,8 @@ struct ProcCmd CONST_DATA ProcScr_efxDarkLongMonsBG01[] =
 {
     PROC_NAME("efxDarkLongMonsBG01"),
 
-    PROC_REPEAT(sub_806B0AC),
-    PROC_REPEAT(sub_806B11C),
+    PROC_REPEAT(efxDarkLongMonsBG01_Loop_A),
+    PROC_REPEAT(efxDarkLongMonsBG01_Loop_B),
 
     PROC_END,
 };
@@ -256,7 +256,7 @@ struct ProcCmd CONST_DATA ProcScr_efxDarkLongMonsBG01[] =
 // clang-format on
 
 //! FE8U = 0x0806B134
-void sub_806B134(struct Anim * anim)
+void StartSubSpell_efxDarkLongMonsBG01(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
 
@@ -267,21 +267,21 @@ void sub_806B134(struct Anim * anim)
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEF78;
+    proc->frame_config = gFrameConfig_efxDarkLongMonsBG01;
 
-    proc->tsal = gUnknown_085D89B8;
-    proc->img = gUnknown_085D89F8;
-    proc->pal = gUnknown_085D8A38;
+    proc->tsal = TsaArray_efxDarkLongMonsBG01;
+    proc->img = ImgArray_efxDarkLongMonsBG01;
+    proc->pal = PalArray_efxDarkLongMonsBG01;
 
     BG_SetPosition(BG_1, 0, 0);
 
-    SetPrimaryHBlankHandler(sub_806B088);
+    SetPrimaryHBlankHandler(OnHBlank_806B088);
 
     return;
 }
 
 //! FE8U = 0x0806B194
-void sub_806B194(struct ProcEfxBG * proc)
+void efxDarkLongMonsBG02_Loop(struct ProcEfxBG * proc)
 {
     int ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
@@ -305,7 +305,7 @@ void sub_806B194(struct ProcEfxBG * proc)
 
 // clang-format off
 
-u16 * CONST_DATA gUnknown_085D8A98[] =
+u16 * CONST_DATA TsaArray_efxDarkLongMonsBG02[] =
 {
     Tsa_086E91D8,
     Tsa_086E927C,
@@ -318,7 +318,7 @@ u16 * CONST_DATA gUnknown_085D8A98[] =
     Tsa_086E9BD4,
 };
 
-const u16 gUnknown_080DEFD0[] =
+const u16 gFrameConfig_efxDarkLongMonsBG02[] =
 {
     0, 8,
     1, 8,
@@ -341,14 +341,14 @@ const u16 gUnknown_080DEFD0[] =
 struct ProcCmd CONST_DATA ProcScr_efxDarkLongMonsBG02[] =
 {
     PROC_NAME("efxDarkLongMonsBG02"),
-    PROC_REPEAT(sub_806B194),
+    PROC_REPEAT(efxDarkLongMonsBG02_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0806B1E8
-void sub_806B1E8(struct Anim * anim)
+void StartSubSpell_efxDarkLongMonsBG02(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
 
@@ -359,12 +359,12 @@ void sub_806B1E8(struct Anim * anim)
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DEFD0;
+    proc->frame_config = gFrameConfig_efxDarkLongMonsBG02;
 
-    proc->tsal = gUnknown_085D8A98;
+    proc->tsal = TsaArray_efxDarkLongMonsBG02;
 
-    SpellFx_RegisterBgGfx(gUnknown_086E7EB0, 0x2000);
-    SpellFx_RegisterBgPal(gUnknown_086E91B8, 0x20);
+    SpellFx_RegisterBgGfx(gUnknown_086E7EB0, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgPal(gUnknown_086E91B8, PLTT_SIZE_4BPP);
 
     BG_SetPosition(BG_1, 0, 0);
 
@@ -374,7 +374,7 @@ void sub_806B1E8(struct Anim * anim)
 }
 
 //! FE8U = 0x0806B24C
-void sub_806B24C(struct ProcEfxOBJ * proc)
+void efxDarkLongMonsOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     int timer;
 
@@ -388,13 +388,13 @@ void sub_806B24C(struct ProcEfxOBJ * proc)
         return;
     }
 
-    if (proc->timer < 0x10)
+    if (proc->timer < 16)
     {
         timer = proc->timer;
     }
     else
     {
-        if (proc->timer >= proc->terminator - 0x10)
+        if (proc->timer >= proc->terminator - 16)
         {
             timer = proc->terminator - proc->timer;
         }
@@ -408,11 +408,11 @@ void sub_806B24C(struct ProcEfxOBJ * proc)
     {
         if (((timer >> 1) & 1) != 0)
         {
-            proc->anim2->yPosition = 0xe0;
+            proc->anim2->yPosition = 224;
         }
         else
         {
-            proc->anim2->yPosition = 0x20;
+            proc->anim2->yPosition = 32;
         }
     }
 
@@ -424,14 +424,14 @@ void sub_806B24C(struct ProcEfxOBJ * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDarkLongMonsOBJ[] =
 {
     PROC_NAME("efxDarkLongMonsOBJ"),
-    PROC_REPEAT(sub_806B24C),
+    PROC_REPEAT(efxDarkLongMonsOBJ_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0806B2C0
-void sub_806B2C0(struct Anim * anim)
+void StartSubSpell_efxDarkLongMonsOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -442,7 +442,7 @@ void sub_806B2C0(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxDarkLongMonsOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->terminator = 0xbc;
+    proc->terminator = 188;
 
     scr = gUnknown_086DA920;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
@@ -454,13 +454,13 @@ void sub_806B2C0(struct Anim * anim)
     }
     else
     {
-        frontAnim->xPosition = 0x28;
+        frontAnim->xPosition = 40;
     }
 
-    frontAnim->yPosition = 0x20;
+    frontAnim->yPosition = 32;
 
-    SpellFx_RegisterObjPal(gUnknown_086DA33C, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_086D9C40, 0x1000);
+    SpellFx_RegisterObjPal(gUnknown_086DA33C, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(gUnknown_086D9C40, 32 * 4 * CHR_SIZE);
 
     return;
 }
@@ -515,7 +515,7 @@ void sub_806B344(struct Proc085D8AEC * proc)
             case 28:
             case 29:
             case 30:
-                CpuFastCopy(r7, r6, 0x20);
+                CpuFastCopy(r7, r6, PLTT_SIZE_4BPP);
                 r7 += 0x10;
                 r6 += 0x10;
                 continue;
@@ -556,7 +556,7 @@ void sub_806B344(struct Proc085D8AEC * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085D8AEC[] =
+struct ProcCmd CONST_DATA ProcScr_085D8AEC[] =
 {
     PROC_CALL(sub_806B33C),
     PROC_REPEAT(sub_806B344),
@@ -571,6 +571,6 @@ struct ProcCmd CONST_DATA gUnknown_085D8AEC[] =
 //! FE8U = 0x0806B4E4
 void sub_806B4E4(void)
 {
-    Proc_Start(gUnknown_085D8AEC, PROC_TREE_VSYNC);
+    Proc_Start(ProcScr_085D8AEC, PROC_TREE_VSYNC);
     return;
 }

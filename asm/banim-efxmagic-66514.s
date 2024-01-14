@@ -1495,14 +1495,14 @@ _0806C12E:
 	ldr r0, _0806C144  @ gUnknown_086FDA44
 	movs r1, #0x20
 	bl SpellFx_RegisterBgPal
-	ldr r0, _0806C148  @ sub_806B088
+	ldr r0, _0806C148  @ OnHBlank_806B088
 	bl SetPrimaryHBlankHandler
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 _0806C144: .4byte gUnknown_086FDA44
-_0806C148: .4byte sub_806B088
+_0806C148: .4byte OnHBlank_806B088
 
 	THUMB_FUNC_END sub_806C0B8
 

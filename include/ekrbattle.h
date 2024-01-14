@@ -621,8 +621,8 @@ extern const u16 gUnknown_080DCDE4[];
 // extern ??? gFrameConfig_GleipnirBg_Fog
 // extern ??? gFrameConfig_efxCrimsonEyeBGFinish1
 // extern ??? gFrameConfig_efxCrimsonEyeBG
-// extern ??? gUnknown_080DEF78
-// extern ??? gUnknown_080DEFD0
+// extern ??? gFrameConfig_efxDarkLongMonsBG01
+// extern ??? gFrameConfig_efxDarkLongMonsBG02
 // extern ??? gUnknown_080DF042
 // extern ??? gUnknown_080DF080
 extern u16 gFrameConfig_efxGorgonBGFinish[];
