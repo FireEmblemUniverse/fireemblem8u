@@ -211,6 +211,7 @@ SECTIONS
         src/banim-efxmagic-wretchedair.o(.text);
         src/banim-efxmagic-gleipnir.o(.text);
         src/banim-efxmagic-crimsoneye.o(.text);
+        src/banim-efxmagic-shadowshot.o(.text);
         asm/banim-efxmagic-66514.o(.text);
         src/banim-efxhit.o(.text);
         src/banim-efxmisc.o(.text);
