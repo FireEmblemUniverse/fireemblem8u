@@ -210,6 +210,7 @@ SECTIONS
         src/banim-efxmagic-naglfar.o(.text);
         src/banim-efxmagic-wretchedair.o(.text);
         src/banim-efxmagic-gleipnir.o(.text);
+        src/banim-efxmagic-crimsoneye.o(.text);
         asm/banim-efxmagic-66514.o(.text);
         src/banim-efxhit.o(.text);
         src/banim-efxmisc.o(.text);

@@ -106,6 +106,7 @@ struct ProcEfxOBJ {
     /* 5C */ struct Anim * anim;
     /* 60 */ struct Anim * anim2;
     /* 64 */ struct Anim * anim3;
+    /* 68 */ struct Anim * anim4;
 };
 
 struct ProcEfxALPHA
@@ -2495,7 +2496,7 @@ void EfxFlashUnitEffectRestorePal(struct ProcEfxFlashing * proc);
 // ??? sub_806C2D4(???);
 // ??? sub_806C464(???);
 // ??? sub_806C478(???);
-// ??? sub_806C608(???);
+void sub_806C608(void);
 void NewEfxDamageMojiEffect(struct Anim * anim, int hitted);
 void efxDamageMojiEffectMain(struct ProcEfx * proc);
 void NewEfxDamageMojiEffectOBJ(struct Anim * anim, int hitted);
