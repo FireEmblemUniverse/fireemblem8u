@@ -297,7 +297,7 @@ void DrawDifficultyModeText(struct DifficultyMenuProc * proc)
     }
 
     th = proc->unk_38;
-    str = GetStringFromIndex(gTextIds_DifficultyDescription[proc->unk_30]);
+    str = GetStringFromIndex(gTextIds_DifficultyDescription[proc->current_selection]);
 
     while (1)
     {
@@ -390,11 +390,11 @@ void InitDifficultySelectScreen(struct DifficultyMenuProc * proc)
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    proc->unk_34 = StartDrawDifficultyMenuSprites(proc);
-    proc->unk_30 = 0;
-    proc->unk_34->unk_2b = 0;
-    proc->unk_34->unk_2c = gUnknown_08A209FC[proc->unk_30].a;
-    proc->unk_34->unk_2e = gUnknown_08A209FC[proc->unk_30].b;
+    proc->sprites_proc = StartDrawDifficultyMenuSprites(proc);
+    proc->current_selection = 0;
+    proc->sprites_proc->current_selection = 0;
+    proc->sprites_proc->unk_2c = gUnknown_08A209FC[proc->current_selection].a;
+    proc->sprites_proc->unk_2e = gUnknown_08A209FC[proc->current_selection].b;
 
     return;
 }
@@ -402,7 +402,7 @@ void InitDifficultySelectScreen(struct DifficultyMenuProc * proc)
 //! FE8U = 0x080AC1A8
 void DifficultySelect_Init(struct DifficultyMenuProc * proc)
 {
-    proc->unk_30 = 0;
+    proc->current_selection = 0;
     proc->unk_2c = 0;
     InitDifficultySelectScreen(proc);
     return;
@@ -463,26 +463,26 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
     {
-        if (proc->unk_30 == 0)
+        if (proc->current_selection == 0)
         {
-            proc->unk_30 = 2;
+            proc->current_selection = 2;
         }
         else
         {
-            proc->unk_30--;
+            proc->current_selection--;
         }
 
         hasChanged = 1;
     }
     else if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN)
     {
-        if (proc->unk_30 == 2)
+        if (proc->current_selection == 2)
         {
-            proc->unk_30 = 0;
+            proc->current_selection = 0;
         }
         else
         {
-            proc->unk_30++;
+            proc->current_selection++;
         }
 
         hasChanged = 1;
@@ -491,14 +491,14 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
     if (hasChanged != 0)
     {
         PlaySoundEffect(0x66);
-        proc->unk_34->unk_2b = proc->unk_30;
-        sub_80AC680(proc->unk_34, gUnknown_08A209FC[proc->unk_30].a, gUnknown_08A209FC[proc->unk_30].b);
+        proc->sprites_proc->current_selection = proc->current_selection;
+        sub_80AC680(proc->sprites_proc, gUnknown_08A209FC[proc->current_selection].a, gUnknown_08A209FC[proc->current_selection].b);
         DrawDifficultyModeText(proc);
         sub_80AC034(proc);
         return;
     }
 
-    if (proc->unk_34->unk_29_1)
+    if (proc->sprites_proc->unk_29_1)
     {
         return;
     }
@@ -507,7 +507,7 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
     {
         proc->unk_2c = 0;
         PlaySoundEffect(0x6a);
-        switch (proc->unk_30)
+        switch (proc->current_selection)
         {
             case 0:
                 savemenu_SetDifficultyChoice(0, 0);
@@ -754,7 +754,7 @@ void DrawDifficultySprites_Loop(struct DifficultyMenuSpritesProc * proc)
         s16 x = 8; // ?
         s16 y = 48 + i * 32;
 
-        if (i == proc->unk_2b)
+        if (i == proc->current_selection)
         {
             PutSpriteExt(4, x, y, gSprite_08A20AC2, OAM2_PAL(5 + (i * 2)));
         }
@@ -766,7 +766,7 @@ void DrawDifficultySprites_Loop(struct DifficultyMenuSpritesProc * proc)
         PutSpriteExt(4, x, y, gSpriteArray_08A20B08[i], OAM2_PAL(4));
     }
 
-    sub_80AC4F8(proc->unk_2a, proc->unk_2b);
+    sub_80AC4F8(proc->unk_2a, proc->current_selection);
     DrawDifficultyMenuCursorMaybe(proc);
 
     return;
