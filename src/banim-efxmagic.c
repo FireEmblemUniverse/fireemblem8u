@@ -75,7 +75,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnimCrimsonEye,
     StartSpellAnimEvilEye,
     StartSpellAnimShadowshot,
-    sub_806B4F8,
+    StartSpellAnimDemonSurge,
     StartSpellAnimNaglfar,
     StartSpellAnimWretchedAir,
     (void *)NULL
