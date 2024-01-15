@@ -8,7 +8,16 @@
 #include "bmlib.h"
 #include "ekrdragon.h"
 
-extern struct ProcCmd ProcScr_efxGorgon[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxGorgon[] =
+{
+    PROC_NAME("efxGorgon"),
+    PROC_REPEAT(sub_806B534),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806B4F8
 void sub_806B4F8(struct Anim * anim)
@@ -105,8 +114,6 @@ void sub_806B64C(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern u32 gUnknown_086EAE14[];
-
 //! FE8U = 0x0806B664
 void sub_806B664(struct ProcEfxOBJ * proc)
 {
@@ -122,12 +129,20 @@ void sub_806B664(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085D8B24[];
+// clang-format off
 
-extern u32 gUnknown_086EAE24[];
+struct ProcCmd CONST_DATA gUnknown_085D8B24[] =
+{
+    PROC_SET_END_CB(sub_806B64C),
+    PROC_SLEEP(25),
 
-extern u16 gUnknown_086E9D40[];
-extern u16 gUnknown_086EA3EC[];
+    PROC_REPEAT(sub_806B664),
+    PROC_SLEEP(54),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806B680
 void sub_806B680(struct Anim * anim)
@@ -212,13 +227,77 @@ void sub_806B73C(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxGorgonBGDirt[];
+// clang-format off
 
-extern u16 * gUnknown_085D8B4C[];
-extern u16 * gUnknown_085D8B78[];
-extern u16 * gUnknown_085D8BA4[];
+u16 * CONST_DATA gUnknown_085D8B4C[] =
+{
+    Tsa_086F0344,
+    Tsa_086F03EC,
+    Tsa_086F04B8,
+    Tsa_086F05A0,
+    Tsa_086F069C,
+    Tsa_086F079C,
+    Tsa_086F08B8,
+    Tsa_086F09E0,
+    Tsa_086F0B2C,
+    Tsa_086F0C88,
+    Tsa_086F0DF8,
+};
 
-extern u16 gUnknown_080DF042[];
+u16 * CONST_DATA gUnknown_085D8B78[] =
+{
+    Img_086EB8B4,
+    Img_086EBD44,
+    Img_086EC264,
+    Img_086EC7D4,
+    Img_086ECDD8,
+    Img_086ED424,
+    Img_086EDAF8,
+    Img_086EE25C,
+    Img_086EE9F8,
+    Img_086EF1DC,
+    Img_086EF9C8,
+};
+
+u16 * CONST_DATA gUnknown_085D8BA4[] =
+{
+    Pal_086F01E4,
+    Pal_086F0204,
+    Pal_086F0224,
+    Pal_086F0244,
+    Pal_086F0264,
+    Pal_086F0284,
+    Pal_086F02A4,
+    Pal_086F02C4,
+    Pal_086F02E4,
+    Pal_086F0304,
+    Pal_086F0324,
+};
+
+const u16 gUnknown_080DF042[] =
+{
+    0, 5,
+    1, 5,
+    2, 5,
+    3, 5,
+    4, 5,
+    5, 5,
+    6, 5,
+    7, 5,
+    8, 5,
+    9, 5,
+    10, 5,
+    -1,
+};
+
+struct ProcCmd CONST_DATA ProcScr_efxGorgonBGDirt[] =
+{
+    PROC_NAME("efxGorgonBGDirt"),
+    PROC_REPEAT(sub_806B73C),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806B7A8
 void sub_806B7A8(struct Anim * anim)
@@ -288,13 +367,48 @@ void sub_806B830(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxGorgonBGTwister[];
+// clang-format off
 
-extern u16 * gUnknown_085D8BE8[];
-extern u16 * gUnknown_085D8BF4[];
-extern u16 * gUnknown_085D8C00[];
+u16 * CONST_DATA gUnknown_085D8BE8[] =
+{
+    Tsa_086F4A98,
+    Tsa_086F4CCC,
+    Tsa_086F4ED8,
+};
 
-extern u16 gUnknown_080DF080[];
+u16 * CONST_DATA gUnknown_085D8BF4[] =
+{
+    Img_086F0F6C,
+    Img_086F24C8,
+    Img_086F3830,
+};
+
+u16 * CONST_DATA gUnknown_085D8C00[] =
+{
+    Pal_086F4A38,
+    Pal_086F4A58,
+    Pal_086F4A78,
+};
+
+const u16 gUnknown_080DF080[] =
+{
+    0, 2,
+    1, 2,
+    2, 2,
+    0, 2,
+    1, 2,
+    2, 2,
+    -1,
+};
+
+struct ProcCmd CONST_DATA ProcScr_efxGorgonBGTwister[] =
+{
+    PROC_NAME("efxGorgonBGTwister"),
+    PROC_REPEAT(sub_806B830),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806B89C
 void sub_806B89C(struct Anim * anim)
@@ -321,7 +435,7 @@ void sub_806B89C(struct Anim * anim)
         }
         else
         {
-            BG_SetPosition(1, 0x0000FFE8, 0);
+            BG_SetPosition(1, -0x18, 0);
         }
     }
     else
@@ -490,7 +604,21 @@ void sub_806BACC(struct Proc085D8C24 * proc)
 
 #undef RGB_
 
-extern struct ProcCmd gUnknown_085D8C24[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D8C24[] =
+{
+    PROC_CALL(sub_806B938),
+
+    PROC_REPEAT(sub_806B940),
+    PROC_REPEAT(sub_806BACC),
+
+    PROC_CALL(EnablePaletteSync),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806BBDC
 void sub_806BBDC(void)
@@ -543,9 +671,16 @@ void sub_806BBF0(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxGorgonOBJTwisterPiece[];
+// clang-format off
 
-extern u32 gUnknown_086B5974[];
+struct ProcCmd CONST_DATA ProcScr_efxGorgonOBJTwisterPiece[] =
+{
+    PROC_NAME("efxGorgonOBJTwisterPiece"),
+    PROC_REPEAT(sub_806BBF0),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806BC98
 void sub_806BC98(struct Anim * anim, int flag, int c, int terminator)
@@ -678,7 +813,16 @@ void sub_806BD94(struct ProcEfxOBJ * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxGorgonOBJTwister[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxGorgonOBJTwister[] =
+{
+    PROC_NAME("efxGorgonOBJTwister"),
+    PROC_REPEAT(sub_806BD94),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806BEEC
 void sub_806BEEC(struct Anim * anim)
@@ -765,14 +909,57 @@ void sub_806C050(struct ProcEfxBG * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_efxGorgonBGFinish[];
+// clang-format off
 
-extern u16 gFrameConfig_efxGorgonBGFinish[];
+u16 * CONST_DATA TsaArray_efxGorgonBGFinish[] =
+{
+    Tsa_086FDA64,
+    Tsa_086FDB08,
+    Tsa_086FDCE0,
+    Tsa_086FDEC4,
+    Tsa_086FE0D4,
+    Tsa_086FE320,
+    Tsa_086FE4E0,
+    Tsa_086FE680,
+    Tsa_086FE81C,
+};
 
-extern u16 gUnknown_086FDA44[];
+u16 * CONST_DATA ImgArray_efxGorgonBGFinish[] =
+{
+    Img_086F50D4,
+    Img_086F6264,
+    Img_086F7150,
+    Img_086F80B8,
+    Img_086F915C,
+    Img_086FA350,
+    Img_086FB07C,
+    Img_086FBCE8,
+    Img_086FCD58,
+};
 
-extern u16 * TsaArray_efxGorgonBGFinish[];
-extern u16 * ImgArray_efxGorgonBGFinish[];
+const u16 gFrameConfig_efxGorgonBGFinish[] =
+{
+    0, 10,
+    1, 2,
+    2, 2,
+    3, 2,
+    4, 2,
+    5, 2,
+    6, 2,
+    7, 2,
+    8, 2,
+    -1,
+};
+
+struct ProcCmd CONST_DATA ProcScr_efxGorgonBGFinish[] =
+{
+    PROC_NAME("efxGorgonBGFinish"),
+    PROC_REPEAT(sub_806C050),
+    PROC_REPEAT(efxDarkLongMonsBG01_Loop_B),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806C0B8
 void sub_806C0B8(struct Anim * anim)
@@ -799,7 +986,7 @@ void sub_806C0B8(struct Anim * anim)
         }
         else
         {
-            BG_SetPosition(1, 0x0000FFE8, 0);
+            BG_SetPosition(1, -0x18, 0);
         }
     }
     else
@@ -836,7 +1023,7 @@ void sub_806C154(struct Proc085D8CE4 * proc)
     int j;
 
     u16 * src_ = gEfxPal;
-    
+
     for (i = 0, src = gEfxPal; i < 0x20; i++)
     {
         src_++;
@@ -879,8 +1066,10 @@ void sub_806C1B8(struct Proc085D8CE4 * proc)
 
     *r6 = *r7;
 
-    for (sp_08 = 0; sp_08 < 0x20; sp_08++) {
-        switch (sp_08) {
+    for (sp_08 = 0; sp_08 < 0x20; sp_08++)
+    {
+        switch (sp_08)
+        {
             case 1:
             case 2:
             case 3:
@@ -903,7 +1092,8 @@ void sub_806C1B8(struct Proc085D8CE4 * proc)
         r7++;
         r6++;
 
-        for (ip = 0; ip < 0xF; ip++) {
+        for (ip = 0; ip < 0xF; ip++)
+        {
             *r6 = 0;
             r7++;
             r6++;
@@ -917,7 +1107,9 @@ void sub_806C1B8(struct Proc085D8CE4 * proc)
     {
         proc->unk4C = 0;
         Proc_Break(proc);
-    } else {
+    }
+    else
+    {
         proc->unk4C++;
     }
 
@@ -940,8 +1132,10 @@ void sub_806C2D4(struct Proc085D8CE4 * proc)
 
     *r6 = *r7;
 
-    for (sp_08 = 0; sp_08 < 0x20; sp_08++) {
-        switch (sp_08) {
+    for (sp_08 = 0; sp_08 < 0x20; sp_08++)
+    {
+        switch (sp_08)
+        {
             case 1:
             case 2:
             case 3:
@@ -964,7 +1158,8 @@ void sub_806C2D4(struct Proc085D8CE4 * proc)
         r7++;
         r6++;
 
-        for (ip = 0; ip < 0xF; ip++) {
+        for (ip = 0; ip < 0xF; ip++)
+        {
             u8 r = ((*r7 & 0x1f) * (0x10 - sl)) >> 4;
             u8 g = (((*r7 >> 5) & 0x1f) * (0x10 - sl)) >> 4;
             u8 b = (((*r7 >> 10) & 0x1f) * (0x10 - sl)) >> 4;
@@ -982,7 +1177,9 @@ void sub_806C2D4(struct Proc085D8CE4 * proc)
     {
         proc->unk4C = 0;
         Proc_Break(proc);
-    } else {
+    }
+    else
+    {
         proc->unk4C++;
     }
 
@@ -991,7 +1188,22 @@ void sub_806C2D4(struct Proc085D8CE4 * proc)
 
 #undef RGB_
 
-extern struct ProcCmd gUnknown_085D8CE4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D8CE4[] =
+{
+    PROC_CALL(sub_806C14C),
+
+    PROC_REPEAT(sub_806C154),
+    PROC_REPEAT(sub_806C1B8),
+    PROC_REPEAT(sub_806C2D4),
+
+    PROC_CALL(EnablePaletteSync),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806C464
 void sub_806C464(void)
@@ -999,7 +1211,6 @@ void sub_806C464(void)
     Proc_Start(gUnknown_085D8CE4, PROC_TREE_VSYNC);
     return;
 }
-
 
 struct Proc085D8D14
 {
@@ -1022,13 +1233,14 @@ void sub_806C478(struct Proc085D8D14 * proc)
     r7 = gPaletteBuffer;
     r6 = gEfxPal;
 
-
     sl = Interpolate(0, 0, 0x10, proc->unk4C, 8);
 
     *r6 = *r7;
 
-    for (sp_08 = 0; sp_08 < 0x20; sp_08++) {
-        switch (sp_08) {
+    for (sp_08 = 0; sp_08 < 0x20; sp_08++)
+    {
+        switch (sp_08)
+        {
             case 1:
             case 2:
             case 3:
@@ -1051,7 +1263,8 @@ void sub_806C478(struct Proc085D8D14 * proc)
         r7++;
         r6++;
 
-        for (ip = 0; ip < 0xF; ip++) {
+        for (ip = 0; ip < 0xF; ip++)
+        {
             u8 r = ((*r7 & 0x1f) * (0x10 - sl)) >> 4;
             u8 g = (((*r7 >> 5) & 0x1f) * (0x10 - sl)) >> 4;
             u8 b = (((*r7 >> 10) & 0x1f) * (0x10 - sl)) >> 4;
@@ -1069,7 +1282,9 @@ void sub_806C478(struct Proc085D8D14 * proc)
     {
         proc->unk4C = 0;
         Proc_Break(proc);
-    } else {
+    }
+    else
+    {
         proc->unk4C++;
     }
 
@@ -1078,7 +1293,22 @@ void sub_806C478(struct Proc085D8D14 * proc)
 
 #undef RGB_
 
-extern struct ProcCmd gUnknown_085D8D14[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085D8D14[] =
+{
+    PROC_CALL(sub_806C14C),
+
+    PROC_REPEAT(sub_806C478),
+    PROC_REPEAT(sub_806C1B8),
+    PROC_REPEAT(sub_806C2D4),
+
+    PROC_CALL(EnablePaletteSync),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0806C608
 void sub_806C608(void)

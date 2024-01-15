@@ -625,7 +625,7 @@ extern const u16 gUnknown_080DCDE4[];
 // extern ??? gFrameConfig_efxDarkLongMonsBG02
 // extern ??? gUnknown_080DF042
 // extern ??? gUnknown_080DF080
-extern u16 gFrameConfig_efxGorgonBGFinish[];
+extern const u16 gFrameConfig_efxGorgonBGFinish[];
 extern const u16 FrameLut_EfxCriricalEffectBGCOL[];
 extern const u16 gUnknown_080DF1EE[];
 extern const u16 gUnknown_080DF26A[];
