@@ -212,7 +212,7 @@ SECTIONS
         src/banim-efxmagic-gleipnir.o(.text);
         src/banim-efxmagic-crimsoneye.o(.text);
         src/banim-efxmagic-shadowshot.o(.text);
-        asm/banim-efxmagic-66514.o(.text);
+        src/banim-efxmagic-demonsurge.o(.text);
         src/banim-efxhit.o(.text);
         src/banim-efxmisc.o(.text);
         src/banim-efxskill.o(.text);
