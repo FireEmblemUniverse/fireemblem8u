@@ -68,7 +68,7 @@ struct DifficultyMenuSpritesProc
     /* 29 */ u8 unk_29_0 : 1;
     /* 29 */ u8 unk_29_1 : 1;
     /* 2A */ u8 unk_2a;
-    /* 2B */ u8 unk_2b;
+    /* 2B */ u8 current_selection;
     /* 2C */ s16 unk_2c;
     /* 2E */ s16 unk_2e;
     /* 30 */ u16 unk_30;
@@ -84,8 +84,8 @@ struct DifficultyMenuProc
 {
     /* 00 */ PROC_HEADER;
     /* 2C */ int unk_2c;
-    /* 30 */ u8 unk_30;
-    /* 34 */ struct DifficultyMenuSpritesProc * unk_34;
+    /* 30 */ u8 current_selection;
+    /* 34 */ struct DifficultyMenuSpritesProc * sprites_proc;
     /* 38 */ struct Text unk_38[5];
 };
 
