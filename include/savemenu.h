@@ -83,6 +83,7 @@ struct DifficultyMenuSpritesProc
 struct DifficultyMenuProc
 {
     /* 00 */ PROC_HEADER;
+    // Frame counter?
     /* 2C */ int unk_2c;
     /* 30 */ u8 current_selection;
     /* 34 */ struct DifficultyMenuSpritesProc * sprites_proc;
