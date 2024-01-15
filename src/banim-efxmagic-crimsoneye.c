@@ -72,7 +72,7 @@ void efxCrimsonEye_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 265)
     {
-        StartSubSpell_efxGorgonBGFinish(anim);
+        StartSubSpell_efxGorgonBGFinish_(anim);
     }
     else if (proc->timer == duration + 291)
     {
@@ -462,7 +462,7 @@ void StartSubSpell_efxCrimsonEyeOBJFinish(struct Anim * anim)
 }
 
 //! FE8U = 0x0806A3F4
-void StartSubSpell_efxGorgonBGFinish(struct Anim * anim)
+void StartSubSpell_efxGorgonBGFinish_(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
 

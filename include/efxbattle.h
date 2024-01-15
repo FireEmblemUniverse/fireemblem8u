@@ -683,23 +683,23 @@ extern u32 gUnknown_0201FAD8;
 // extern ??? ProcScr_efxDarkLongMonsOBJ
 // extern ??? ProcScr_085D8AEC
 // extern ??? ProcScr_efxGorgon
-// extern ??? gUnknown_085D8B24
-// extern ??? gUnknown_085D8B4C
-// extern ??? gUnknown_085D8B78
-// extern ??? gUnknown_085D8BA4
+// extern ??? ProcScr_085D8B24
+// extern ??? TsaArray_efxGorgonBGDirt
+// extern ??? ImgArray_efxGorgonBGDirt
+// extern ??? PalArray_efxGorgonBGDirt
 // extern ??? ProcScr_efxGorgonBGDirt
-// extern ??? gUnknown_085D8BE8
-// extern ??? gUnknown_085D8BF4
-// extern ??? gUnknown_085D8C00
+// extern ??? TsaArray_efxGorgonBGTwister
+// extern ??? ImgArray_efxGorgonBGTwister
+// extern ??? PalArray_efxGorgonBGTwister
 // extern ??? ProcScr_efxGorgonBGTwister
-// extern ??? gUnknown_085D8C24
+// extern ??? ProcScr_085D8C24
 // extern ??? ProcScr_efxGorgonOBJTwisterPiece
 // extern ??? ProcScr_efxGorgonOBJTwister
 extern u16 * TsaArray_efxGorgonBGFinish[];
 extern u16 * ImgArray_efxGorgonBGFinish[];
 extern struct ProcCmd ProcScr_efxGorgonBGFinish[];
-// extern ??? gUnknown_085D8CE4
-// extern ??? gUnknown_085D8D14
+// extern ??? ProcScr_085D8CE4
+// extern ??? ProcScr_085D8D14
 extern struct ProcCmd ProcScr_efxDamageMojiEffect[];
 extern struct ProcCmd ProcScr_efxDamageMojiEffectOBJ[];
 extern struct ProcCmd ProcScr_efxCriricalEffect[];
@@ -2099,8 +2099,8 @@ extern u16 Tsa_086E9758[];
 extern u16 Tsa_086E98E4[];
 extern u16 Tsa_086E9A64[];
 extern u16 Tsa_086E9BD4[];
-extern u16 gUnknown_086E9D40[];
-extern u16 gUnknown_086EA3EC[];
+extern u16 Img_086E9D40[];
+extern u16 Pal_086EA3EC[];
 extern u32 gUnknown_086EAE14[];
 extern u32 gUnknown_086EAE24[];
 extern u16 Img_086EB8B4[];
@@ -2154,7 +2154,7 @@ extern u16 Img_086FA350[];
 extern u16 Img_086FB07C[];
 extern u16 Img_086FBCE8[];
 extern u16 Img_086FCD58[];
-extern u16 gUnknown_086FDA44[];
+extern u16 Pal_086FDA44[];
 extern u16 Tsa_086FDA64[];
 extern u16 Tsa_086FDB08[];
 extern u16 Tsa_086FDCE0[];

@@ -31094,12 +31094,12 @@ Tsa_086E9A64:  @ 0x086E9A64
 Tsa_086E9BD4:  @ 0x086E9BD4
 	.incbin "baserom.gba", 0x6E9BD4, 0x16C    @ 0x6E9D40 - 0x6E9BD4
 
-	.global gUnknown_086E9D40
-gUnknown_086E9D40:  @ 0x086E9D40
+	.global Img_086E9D40
+Img_086E9D40:  @ 0x086E9D40
 	.incbin "baserom.gba", 0x6E9D40, 0x6AC
 
-	.global gUnknown_086EA3EC
-gUnknown_086EA3EC:  @ 0x086EA3EC
+	.global Pal_086EA3EC
+Pal_086EA3EC:  @ 0x086EA3EC
 	.incbin "baserom.gba", 0x6EA3EC, 0xA28
 
 	.global gUnknown_086EAE14
@@ -31314,8 +31314,8 @@ Img_086FBCE8:  @ 0x086FBCE8
 Img_086FCD58:  @ 0x086FCD58
 	.incbin "baserom.gba", 0x6FCD58, 0xCEC    @ 0x6FDA44 - 0x6FCD58
 
-	.global gUnknown_086FDA44
-gUnknown_086FDA44:  @ 0x086FDA44
+	.global Pal_086FDA44
+Pal_086FDA44:  @ 0x086FDA44
 	.incbin "baserom.gba", 0x6FDA44, 0x20    @ 0x6FDA64 - 0x6FDA44
 
 	.global Tsa_086FDA64
