@@ -563,7 +563,7 @@ s8 IsUnitEffectiveAgainst(struct Unit* actor, struct Unit* target) {
 
     case 0x2B:
     case 0x2C:
-        effList = ItemEffectiveness_088ADF39;
+        effList = ItemEffectiveness_Monsters;
         break;
 
     } // switch (actorClass)

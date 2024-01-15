@@ -122,7 +122,7 @@ enum {
     CLASS_QUEEN               = 0x74,
     CLASS_PRINCE              = 0x75,
     CLASS_QUEEN_2             = 0x76,
-    CLASS_UNK78               = 0x78, // TODO: figure out
+    CLASS_UNK77               = 0x77, // TODO: figure out
     CLASS_FALLEN_PRINCE       = 0x78,
     CLASS_TENT                = 0x79,
     CLASS_PONTIFEX            = 0x7A,

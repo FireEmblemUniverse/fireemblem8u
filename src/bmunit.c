@@ -1015,7 +1015,7 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
     struct Unit* rescuee = GetUnit(unit->rescue);
 
     // Fill the movement map
-    GenerateExtendedMovementMap(unit->xPos, unit->yPos, gUnknown_0880BB96);
+    GenerateExtendedMovementMap(unit->xPos, unit->yPos, TerrainTable_MovCost_FlyNormal);
 
     // Put the active unit on the unit map (kinda, just marking its spot)
     gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0xFF;
@@ -1377,7 +1377,7 @@ int GetUnitLastItem(struct Unit* unit) {
 
 const s8* GetUnitMovementCost(struct Unit* unit) {
     if (unit->state & US_IN_BALLISTA)
-        return gUnknown_0880BC18;
+        return Unk_TerrainTable_0880BC18;
 
     switch (gPlaySt.chapterWeatherId) {
 

@@ -547,8 +547,8 @@ void CallBattleQuoteEventsIfAny(u8 pidA, u8 pidB) {
         if (ent->msg) {
             CallBattleQuoteEventInBattle(ent->msg);
         } else {
-            if (ent->unk_0c != 0) {
-                EventEngine_CreateBattle((u16 *)ent->unk_0c);
+            if (ent->event != 0) {
+                EventEngine_CreateBattle((u16 *)ent->event);
             }
         }
 

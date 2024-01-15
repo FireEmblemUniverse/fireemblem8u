@@ -713,69 +713,124 @@ extern u16 gUnknown_08803BD0[];
 extern u16 Pal_EkrPopup[];
 extern u16 Tsa_EkrPopup[];
 // extern ??? gCharacterData
-extern const s8 gUnknown_0880B90C[]; // terrainId to ? lookup
-extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
-extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
-extern const s8 gUnknown_0880C479[]; // terrainId to ? lookup
-extern const s8 gUnknown_0880C4BA[]; // terrainId to ? lookup
-extern const s8 gUnknown_0880C744[]; // terrainid-to-healamount lookup
-extern const s8 gUnknown_0880C785[]; // terrainid-to-something lookup
 
-extern u8 gUnknown_0880C7C6[];
-extern u8 gUnknown_0880C807[];
-extern u8 gUnknown_0880C848[];
-extern u8 gUnknown_0880C889[];
-extern u8 gUnknown_0880C8CA[];
-extern u8 gUnknown_0880C90B[];
-extern u8 gUnknown_0880C94C[];
-extern u8 gUnknown_0880C98D[];
-extern u8 gUnknown_0880C9CE[];
-extern u8 gUnknown_0880CA0F[];
-extern u8 gUnknown_0880CA50[];
-extern u8 gUnknown_0880CA91[];
-extern u8 gUnknown_0880CAD2[];
-extern u8 gUnknown_0880CB13[];
-extern u8 gUnknown_0880CB54[];
-extern u8 gUnknown_0880CB95[];
-extern u8 gUnknown_0880CBD6[];
-extern u8 gUnknown_0880CC17[];
-extern u8 gUnknown_0880CC58[];
-extern u8 gUnknown_0880CC99[];
-extern u8 gUnknown_0880CCDA[];
+extern CONST_DATA s8 TerrainTable_MovCost_CommonT2Normal[];
+extern CONST_DATA s8 TerrainTable_MovCost_CommonT1Normal[];
+extern CONST_DATA s8 TerrainTable_MovCost_ArmorNormal[];
+extern CONST_DATA s8 TerrainTable_MovCost_FighterNormal[];
+extern CONST_DATA s8 TerrainTable_MovCost_BerserkerNormal[];
+extern CONST_DATA s8 TerrainTable_MovCost_BrigandNormal[];
+extern CONST_DATA s8 TerrainTable_MovCost_PirateNormal[];
+extern CONST_DATA s8 TerrainTable_MovCost_ThiefNormal[];
+extern CONST_DATA s8 TerrainTable_MovCost_MagicNormal[];
+extern CONST_DATA s8 Unk_TerrainTable_0880BA51[];
+extern CONST_DATA s8 TerrainTable_MovCost_HorseT1Normal[];
+extern CONST_DATA s8 TerrainTable_MovCost_HorseT2Normal[];
+extern CONST_DATA s8 Unk_TerrainTable_0880BB14[];
+extern CONST_DATA s8 Unk_TerrainTable_0880BB55[];
+extern CONST_DATA s8 TerrainTable_MovCost_FlyNormal[];
+extern CONST_DATA s8 Unk_TerrainTable_0880BBD7[];
+extern CONST_DATA s8 Unk_TerrainTable_0880BC18[];
+extern CONST_DATA s8 TerrainTable_MovCost_CommonT2Rain[];
+extern CONST_DATA s8 TerrainTable_MovCost_CommonT1Rain[];
+extern CONST_DATA s8 TerrainTable_MovCost_ArmorRain[];
+extern CONST_DATA s8 TerrainTable_MovCost_FighterRain[];
+extern CONST_DATA s8 TerrainTable_MovCost_BerserkerRain[];
+extern CONST_DATA s8 TerrainTable_MovCost_BrigandRain[];
+extern CONST_DATA s8 TerrainTable_MovCost_PirateRain[];
+extern CONST_DATA s8 TerrainTable_MovCost_ThiefRain[];
+extern CONST_DATA s8 TerrainTable_MovCost_MagicRain[];
+extern CONST_DATA s8 Unk_TerrainTable_0880BEA2[];
+extern CONST_DATA s8 TerrainTable_MovCost_HorseT1Rain[];
+extern CONST_DATA s8 TerrainTable_MovCost_HorseT2Rain[];
+extern CONST_DATA s8 Unk_TerrainTable_0880BF65[];
+extern CONST_DATA s8 Unk_TerrainTable_0880BFA6[];
+extern CONST_DATA s8 TerrainTable_MovCost_FlyRain[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C028[];
+extern CONST_DATA s8 TerrainTable_MovCost_CommonT2Snow[];
+extern CONST_DATA s8 TerrainTable_MovCost_CommonT1Snow[];
+extern CONST_DATA s8 TerrainTable_MovCost_ArmorSnow[];
+extern CONST_DATA s8 TerrainTable_MovCost_FighterSnow[];
+extern CONST_DATA s8 TerrainTable_MovCost_BerserkerSnow[];
+extern CONST_DATA s8 TerrainTable_MovCost_BrigandSnow[];
+extern CONST_DATA s8 TerrainTable_MovCost_PirateSnow[];
+extern CONST_DATA s8 TerrainTable_MovCost_ThiefSnow[];
+extern CONST_DATA s8 TerrainTable_MovCost_MagicSnow[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C2B2[];
+extern CONST_DATA s8 TerrainTable_MovCost_HorseT1Snow[];
+extern CONST_DATA s8 TerrainTable_MovCost_HorseT2Snow[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C375[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C3B6[];
+extern CONST_DATA s8 TerrainTable_MovCost_FlySnow[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C438[];
+extern CONST_DATA s8 TerrainTable_Avo_Common[];
+extern CONST_DATA s8 TerrainTable_Def_Common[];
+extern CONST_DATA s8 TerrainTable_Res_Common[];
+extern CONST_DATA s8 TerrainTable_Avo_Fly[];
+extern CONST_DATA s8 TerrainTable_Def_Fly[];
+extern CONST_DATA s8 TerrainTable_Res_Fly[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C5FF[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C640[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C681[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C6C2[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C703[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C744[];
+extern CONST_DATA s8 Unk_TerrainTable_0880C785[];
+extern CONST_DATA s8 BanimTerrainGroundDefault[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset01[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset02[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset03[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset04[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset05[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset06[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset07[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset08[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset09[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset0A[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset0B[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset0C[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset0D[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset0E[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset0F[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset10[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset11[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset12[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset13[];
+extern CONST_DATA s8 BanimTerrainGround_Tileset14[];
+extern CONST_DATA s8 gBanimBackgroundIndexLutDefault[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut01[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut02[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut03[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut04[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut05[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut06[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut07[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut08[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut09[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut0A[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut0B[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut0C[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut0D[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut0E[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut0F[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut10[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut11[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut12[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut13[];
+extern CONST_DATA s8 gBanimBackgroundIndexLut14[];
 
-extern u8 gBanimBackgroundIndexLutDefault[];
-extern u8 gBanimBackgroundIndexLut01[];
-extern u8 gBanimBackgroundIndexLut02[];
-extern u8 gBanimBackgroundIndexLut03[];
-extern u8 gBanimBackgroundIndexLut04[];
-extern u8 gBanimBackgroundIndexLut05[];
-extern u8 gBanimBackgroundIndexLut06[];
-extern u8 gBanimBackgroundIndexLut07[];
-extern u8 gBanimBackgroundIndexLut08[];
-extern u8 gBanimBackgroundIndexLut09[];
-extern u8 gBanimBackgroundIndexLut0A[];
-extern u8 gBanimBackgroundIndexLut0B[];
-extern u8 gBanimBackgroundIndexLut0C[];
-extern u8 gBanimBackgroundIndexLut0D[];
-extern u8 gBanimBackgroundIndexLut0E[];
-extern u8 gBanimBackgroundIndexLut0F[];
-extern u8 gBanimBackgroundIndexLut10[];
-extern u8 gBanimBackgroundIndexLut11[];
-extern u8 gBanimBackgroundIndexLut12[];
-extern u8 gBanimBackgroundIndexLut13[];
-extern u8 gBanimBackgroundIndexLut14[];
 extern u16 CONST_DATA gUnknown_0880D374[]; // terrainid-to-textid lookup
 // extern ??? gUnknown_088ACBC4
 extern CONST_DATA u8 ItemEffectiveness_088ADEB0[];
-extern CONST_DATA u8 ItemEffectiveness_088ADEBB[];
+extern CONST_DATA u8 ItemEffectiveness_Armor[];
 extern CONST_DATA u8 ItemEffectiveness_088ADEC2[];
 extern CONST_DATA u8 ItemEffectiveness_088ADED7[];
 extern CONST_DATA u8 ItemEffectiveness_088ADEE0[];
 extern CONST_DATA u8 ItemEffectiveness_088ADEF1[];
-extern CONST_DATA u8 ItemEffectiveness_088ADF13[];
+extern CONST_DATA u8 ItemEffectiveness_Dragon[];
 extern CONST_DATA u8 ItemEffectiveness_088ADF1F[];
 extern CONST_DATA u8 ItemEffectiveness_088ADF2A[];
-extern CONST_DATA u8 ItemEffectiveness_088ADF39[];
+extern CONST_DATA u8 ItemEffectiveness_Monsters[];
 extern CONST_DATA u8 JidLutUnk_Tier0[];
 extern CONST_DATA u8 gItemUseJidList_HeroCrest[];
 extern CONST_DATA u8 gItemUseJidList_KnightCrest[];
@@ -798,8 +853,8 @@ extern CONST_DATA u8 Unk_088ADFA9[];
 extern CONST_DATA u8 Unk_088ADFAA[];
 extern CONST_DATA u8 Unk_088ADFAB[];
 // extern ??? gSupportData
-// extern ??? gUnknown_088AEEC4
-// extern ??? gUnknown_088AF834
+// extern ??? ItemBonus_Excalibur
+extern u16 * gUnknown_088AF834[];
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A
 // extern ??? gSpellAssocData

@@ -7,22 +7,22 @@ Obj_089EE99C:  @ 0x089EE99C
 	.global ImgLut_EventMapAnimMaskfx
 ImgLut_EventMapAnimMaskfx:  @ 0x089EE9B0
 @ replacing .incbin "baserom.gba", 0x009ee9b0, 0x18
-.4byte gUnknown_0899D6DC
-.4byte gUnknown_0899D6DC + 0x0AC8
-.4byte gUnknown_0899D6DC + 0x1668
-.4byte gUnknown_0899D6DC + 0x20F8
-.4byte gUnknown_0899D6DC + 0x2A78
-.4byte gUnknown_0899D6DC + 0x3188
+.4byte Img_0899D6DC
+.4byte Img_99E1A4
+.4byte Img_99ED44
+.4byte Img_99F7D4
+.4byte Img_9A0154
+.4byte Img_9A0864
 
 	.global gUnknown_089EE9C8
 gUnknown_089EE9C8:  @ 0x089EE9C8
 @ replacing .incbin "baserom.gba", 0x009ee9c8, 0x18
-.4byte gUnknown_0899D6DC + 0x37A8
-.4byte gUnknown_0899D6DC + 0x3974
-.4byte gUnknown_0899D6DC + 0x3B4C
-.4byte gUnknown_0899D6DC + 0x3D10
-.4byte gUnknown_0899D6DC + 0x3ED8
-.4byte gUnknown_0899D6DC + 0x4070
+.4byte TileSet_9A0E84
+.4byte TileSet_9A1050
+.4byte TileSet_9A1228
+.4byte TileSet_9A13EC
+.4byte TileSet_9A15B4
+.4byte TileSet_9A174C
 
 	.global ProcScr_EventMapAnim
 ProcScr_EventMapAnim:  @ 0x089EE9E0

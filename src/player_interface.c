@@ -992,11 +992,11 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
 
     CallARM_FillTileRect(&gUiTmScratchA[0x140] + 0x81, gTSA_TerrainBox_Something, 0x2100);
 
-    if (gUnknown_0880B90C[terrainId] > 0) {
-        StoreNumberStringToSmallBuffer(gUnknown_0880C4BA[terrainId]);
+    if (TerrainTable_MovCost_BerserkerNormal[terrainId] > 0) {
+        StoreNumberStringToSmallBuffer(TerrainTable_Def_Common[terrainId]);
         PutDigits(&gUiTmScratchA[0x140] + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
-        StoreNumberStringToSmallBuffer(gUnknown_0880C479[terrainId]);
+        StoreNumberStringToSmallBuffer(TerrainTable_Avo_Common[terrainId]);
         PutDigits(&gUiTmScratchA[0x140] + 0xA5, gUnknown_02028E44+7, 0x2128, 2);
     }
 

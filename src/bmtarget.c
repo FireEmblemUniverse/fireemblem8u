@@ -1295,7 +1295,7 @@ void TryAddToLightRuneTargetList(int x, int y) {
         return;
     }
 
-    if (gUnknown_0880BB96[gBmMapTerrain[y][x]] <= 0) {
+    if (TerrainTable_MovCost_FlyNormal[gBmMapTerrain[y][x]] <= 0) {
         return;
     }
 

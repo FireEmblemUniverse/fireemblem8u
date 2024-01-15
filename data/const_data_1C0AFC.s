@@ -63,7 +63,3 @@ gTsa_StoneShatter_081C1C90:  @ 081C1C90
     .global gTsa_StoneShatter_081C1CDC
 gTsa_StoneShatter_081C1CDC:  @ 081C1CDC
     .incbin "baserom.gba", 0x1C1CDC, (0x1C1EC0 - 0x1C1CDC)
-
-    .global gUnknown_081C1EC0
-gUnknown_081C1EC0:  @ 081C1EC0
-    .incbin "baserom.gba", 0x1C1EC0, (0x1C32C8 - 0x1C1EC0)
