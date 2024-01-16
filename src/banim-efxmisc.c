@@ -590,8 +590,8 @@ void NewEfxLokmsunaOBJ(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
 
-    scr1 = gUnknown_087584B8;
-    scr2 = gUnknown_087585DC;
+    scr1 = AnimScr_EfxLokmsunaObjLeft;
+    scr2 = AnimScr_EfxLokmsunaObjRight;
     anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
 
@@ -603,7 +603,7 @@ void NewEfxLokmsunaOBJ(struct Anim *anim)
     else
         anim2->oam2Base |= 0x9000;
     
-    SpellFx_RegisterObjGfx(gUnknown_08758218, 0x1000);
+    SpellFx_RegisterObjGfx(Img_EfxLokmsunaObj, 0x1000);
 }
 
 void EfxLokmsunaIOBJMain(struct ProcEfxOBJ *proc)
@@ -694,9 +694,9 @@ void NewEfxSongOBJ2(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 0x28;
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4, gUnknown_085DD4B4);
-    SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxSongObj2, AnimScr_EfxSongObj2, AnimScr_EfxSongObj2, AnimScr_EfxSongObj2);
+    SpellFx_RegisterObjPal(Pal_EfxDanceObj, 0x20);
+    SpellFx_RegisterObjGfx(Img_EfxDanceObj, 0x1000);
     PlaySFX(0xEE, 0x100, proc->anim->xPosition, 0x1);
 }
 
@@ -721,9 +721,9 @@ void NewEfxDanceOBJ(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 0x19;
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484, gUnknown_085DD484);
-    SpellFx_RegisterObjPal(gUnknown_085DCC84, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085DCB10, 0x1000);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxDanceObj, AnimScr_EfxDanceObj, AnimScr_EfxDanceObj, AnimScr_EfxDanceObj);
+    SpellFx_RegisterObjPal(Pal_EfxDanceObj, 0x20);
+    SpellFx_RegisterObjGfx(Img_EfxDanceObj, 0x1000);
     PlaySFX(0xE1, 0x100, proc->anim->xPosition, 0x1);
 }
 

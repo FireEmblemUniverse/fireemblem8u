@@ -31,6 +31,24 @@ ANFMT_INS_TYPE_FRAME   = (ANIM_INS_TYPE_FRAME   << 24)
     .short 0
 .endm
 
+.macro ANIM_SPRITE_XFLIP oam0, oam1, oam2, x, y
+    .short \oam0
+    .short \oam1 + ATTR1_FLIP_X
+    .short \oam2
+    .short \x
+    .short \y
+    .short 0
+.endm
+
+.macro ANIM_SPRITE_AFFIN cnt, pa, pb, pc, pd
+    .short \cnt
+    .short 0xFFFF
+    .short \pa
+    .short \pb
+    .short \pc
+    .short \pd
+.endm
+
 .macro ANIM_SPRITE_END
     ANIM_SPRITE 0x1, 0, 0, 0, 0
 .endm

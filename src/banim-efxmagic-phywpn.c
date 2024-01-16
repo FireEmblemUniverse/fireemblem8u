@@ -599,13 +599,13 @@ void NewEfxTeyariOBJ(struct Anim * anim, int type)
 
     if (type == 0)
     {
-        scr2 = AnimScr_085DC244;
-        scr1 = AnimScr_085DC498;
+        scr2 = AnimScr_EfxTeyariObjType0Right;
+        scr1 = AnimScr_EfxTeyariObjType0Left;
     }
     else
     {
-        scr2 = AnimScr_085DC6F8;
-        scr1 = AnimScr_085DC958;
+        scr2 = AnimScr_EfxTeyariObjType1Right;
+        scr1 = AnimScr_EfxTeyariObjType1Left;
     }
 
     anim2 = EfxCreateFrontAnim(anim, scr1, scr2, scr1, scr2);

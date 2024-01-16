@@ -126,7 +126,7 @@ void StartSubSpell_efxShooterOBJ(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_085DCA5C, gUnknown_085DCAF8, gUnknown_085DCA5C, gUnknown_085DCAF8);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_085DCA5C, AnimScr_085DCAF8, AnimScr_085DCA5C, AnimScr_085DCAF8);
     proc->anim2 = frontAnim;
 
     frontAnim->yPosition += 16;

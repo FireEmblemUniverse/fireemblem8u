@@ -1,3 +1,8 @@
+OBJ_ROT_SCALE_ON        = (1<<8)
+OBJ_DISABLE             = (1<<9)
+OBJ_MODE_1              = (1<<10)
+OBJ_MODE_2              = (2<<10)
+OBJ_MODE_3              = (3<<10)
 ATTR0_MOSAIC            = (1<<12)
 ATTR0_COLOR_256         = (1<<13)
 ATTR0_COLOR_16          = (0<<13)
