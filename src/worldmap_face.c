@@ -308,7 +308,7 @@ int GetWMFaceBlendAmt(void) {
 }
 
 //! FE8U = 0x080B86CC
-void sub_80B86CC(int faceSlot, int faceId, u16 config) {
+void WmDrawFace(int faceSlot, int faceId, u16 config) {
     int bg;
     u32 offset;
 
@@ -383,7 +383,7 @@ void sub_80B86CC(int faceSlot, int faceId, u16 config) {
 }
 
 //! FE8U = 0x080B8844
-void sub_80B8844(int faceSlot, u16 config) {
+void WmClearFace(int faceSlot, u16 config) {
     int bg;
     u32 offset;
 

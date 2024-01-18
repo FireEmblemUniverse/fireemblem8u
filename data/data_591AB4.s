@@ -127,11 +127,11 @@ gEventHiCmdTable:  @ 0x08591C98
     .4byte EventAC_WmUnitMoveWait, EventAD_WmFadeToDarker, EventAE_WmFadeToDarkerWait, EventAF_WmShowTextBox
     .4byte EventB0_WmHideTextBox_Bugged, EventB1_WmTextBoxWait, EventB2_WmFancyFade, EventB3_WmFancyFadeWait
     .4byte EventB4_WmDisplayBigMap, EventB5_WmHideBigMap, EventB6_WmMoveBigMap, EventB7_WmBigMapWait
-    .4byte EventB8_WmShowBigMapHighlight, EventB9_, EventBA_, EventBB_
-    .4byte EventBC_, EventBD_, EventBE_, EventBF_
-    .4byte EventC0_, EventC1_SKIPWM, EventC2_, EventC3_
-    .4byte EventC4_, EventC5_, EventC6_, EventC7_
-    .4byte EventC8_, EventC9_, EventCA_, EventCB_
+    .4byte EventB8_WmShowBigMapHighlight, EventB9_WmRemoveHighlightNationPart1, EventBA_WmRemoveHighlightNationPart2, EventBB_
+    .4byte EventBC_MarkPoint, EventBD_, EventBE_, EventBF_
+    .4byte EventC0_, EventC1_SKIPWM, EventC2_WmNoFade, EventC3_SpawnLord
+    .4byte EventC4_WmShowPortrait, EventC5_WmClearPortrait, EventC6_WmDisplayText, EventC7_
+    .4byte EventC8_, EventC9_RemoveWmText, EventCA_, EventCB_
     .4byte EventCC_, EventCD_, EventCE_, EventCF_
 
 	.global gUnknown_08591DD8

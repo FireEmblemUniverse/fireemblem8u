@@ -53,32 +53,32 @@ gUnknown_08206A51:  @ 0x08206A51
 gUnknown_08206AAB:  @ 0x08206AAB
 	.incbin "baserom.gba", 0x206AAB, 0x45
 
-	.global gUnknown_08206AF0
-gUnknown_08206AF0:  @ 0x08206AF0
+	.global GfxSet_WmNationMap
+GfxSet_WmNationMap:  @ 0x08206AF0
 @ Replacing .incbin "baserom.gba", 0x206AF0, 0x80
-    .4byte gUnknown_08A9E688 + 0x40
-    .4byte gUnknown_08A9E688 + 0x59c
+    .4byte Img_WmHightLightMapFrecia
+    .4byte Pal_WmHighLightNationMap + 0x59c
     .4byte 0x00280036
-    .4byte gUnknown_08A9E688 + 0x60c
-    .4byte gUnknown_08A9E688 + 0xcd0
+    .4byte Pal_WmHighLightNationMap + 0x60c
+    .4byte Pal_WmHighLightNationMap + 0xcd0
     .4byte 0x00750058
-    .4byte gUnknown_08A9E688 + 0xe0c
-    .4byte gUnknown_08A9E688 + 0x1340
+    .4byte Pal_WmHighLightNationMap + 0xe0c
+    .4byte Pal_WmHighLightNationMap + 0x1340
     .4byte 0x005700b1
-    .4byte gUnknown_08A9E688 + 0x13a4
-    .4byte gUnknown_08A9E688 + 0x181c
+    .4byte Pal_WmHighLightNationMap + 0x13a4
+    .4byte Pal_WmHighLightNationMap + 0x181c
     .4byte 0x0039007f
-    .4byte gUnknown_08A9E688 + 0x1878
-    .4byte gUnknown_08A9E688 + 0x1b84
+    .4byte Pal_WmHighLightNationMap + 0x1878
+    .4byte Pal_WmHighLightNationMap + 0x1b84
     .4byte 0x002c009a
-    .4byte gUnknown_08A9E688 + 0x1bb8
-    .4byte gUnknown_08A9E688 + 0x20d8
+    .4byte Pal_WmHighLightNationMap + 0x1bb8
+    .4byte Pal_WmHighLightNationMap + 0x20d8
     .4byte 0x002600bc
-    .4byte gUnknown_08A9E688 + 0x2128
-    .4byte gUnknown_08A9E688 + 0x2508
+    .4byte Pal_WmHighLightNationMap + 0x2128
+    .4byte Pal_WmHighLightNationMap + 0x2508
     .4byte 0x00300084
-    .4byte gUnknown_08A9E688 + 0x2540
-    .4byte gUnknown_08A9E688 + 0x2a5c
+    .4byte Pal_WmHighLightNationMap + 0x2540
+    .4byte Pal_WmHighLightNationMap + 0x2a5c
     .4byte 0x004a0065
     .4byte 0x70616d47
     .4byte 0x204d5220

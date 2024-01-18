@@ -877,7 +877,7 @@ SECTIONS
         . = ALIGN(4); data/data_A2EEF0.o(.data);
         . = ALIGN(4); src/bmshop.o(.data);
         . = ALIGN(4); src/uiarena.o(.data);
-        . = ALIGN(4); data/data_A394DC.o(.data);
+        . = ALIGN(4); src/events_wm.o(.data);
         . = ALIGN(4); src/gamerankings.o(.data);
         . = ALIGN(4); src/cg.o(.data);
         . = ALIGN(4); src/ending_details.o(.data);

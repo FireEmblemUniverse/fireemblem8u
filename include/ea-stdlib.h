@@ -197,6 +197,56 @@
 #define AFEV EvtListFlag
 #define AREA EvtListArea
 
+/* World map events */
+#define WM_CENTERCAMONLORD WmEvtSetCameraOnto
+#define WM_SHOWDRAWNMAP WmEvtShowBigMap
+#define WM_SPAWNLORD WmEvtLoadUnit
+#define WM_FADEOUT WmEvtFadeOut
+#define WM_TEXTDECORATE WmEvtWaitFade
+#define WM_SHOWTEXTWINDOW WmEvtDisplayTextWindow
+#define WM_WAITFORTEXT WmEvtTextBoxWait
+#define WM_TEXTSTART WmEvtTextStart
+#define WM_REMOVETEXT WmEvtRemoveText
+#define WM_TEXT WmEvtShowText
+#define WM_MOVECAM WmEvtGmScroll
+#define WM_WAITFORCAM WmEvtWaitGmScroll
+#define WM_MOVECAM2 WmEvtCamMov2
+#define WM_SHOWPORTRAIT WmEvtShowPortrait
+#define WM_CLEARPORTRAIT WmEvtClearPortrait
+#define WM_HIGHLIGHT WmEvtHighlightNation
+#define WM_HIGHLIGHTCLEAR1 WmEvtHighlightNationClear1
+#define WM_HIGHLIGHTCLEAR2 WmEvtHighlightNationClear2
+#define WM_PLACEDOT WmEvtMarkPoint
+#define WM_FXCLEAR1 WmEvtRemoveMarkPoint1
+#define WM_FXCLEAR2 WmEvtRemoveMarkPoint2
+#define PUTSPRITE WmEvtShowMU
+#define WM_PUTMOVINGSPRITE WmEvtMoveUnit
+#define WM_WAITFORSPRITES WmEvtWaitMU
+#define WM_REMSPRITE WmEvtRemoveMU
+#define WM_PUTSPRITE WmEvtSetUnitPosition
+#define WM_FADEINSPRITE WmEvtFadeMU
+#define WM_WAITFORSPRITELOAD WmEvtWaitMuFade
+#define SKIPWN WmEvtSkipWmEvents
+#define WM_CREATENEXTDESTINATION WmEvtInitDrawNewNode
+#define WM_WAITFORFX WmEvtWaitNodeDisplay
+#define WM_MAKELORDVISIBLE WmEvtShowUnit
+#define WM_DRAWPATH WmEvtDrawPath
+#define WM_WAITFORFXCLEAR1 WmEvtRemoveBigMap
+#define WM_WAITFORFXCLEAR2 WmEvtWaitBigMapRemove
+#define WM_MOVESPRITETO WmEvtMoveUnitInPath
+#define WM_MAKELORDDISAPPEAR WmEvtHideUnit
+#define WM_FADEOUTSPRITE WmEvtUnitFadeOut
+#define WM_REMOVELOCATION WmEvtRemoveNode
+#define WM_REMOVEPATH WmEvtRemovePath
+#define WM_LOADLOCATION2 WmEvtEnableNode
+#define WM_SETDESTINATION WmEvtSetNextStoryNodeSilent
+#define WM_LOADLOCATION3 WmEvtDisplayNode
+#define WM_DRAWPATH2 WmEvtAddPath
+#define WM_SETCAM WmEvtSetCameraAt
+#define DRAWPATH3 WmEvtDisplayPath
+#define WM_MOVECAMTO WmEvtMoveCamToNode
+#define WM_SATURATE_COLORS WmEvtFadeInDark
+
 /* Main Code Helpers */
 
 #define TurnEventPlayer(eid, scr, turn) TURN(eid, scr, turn, 0, FACTION_BLUE)
