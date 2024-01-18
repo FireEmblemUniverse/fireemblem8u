@@ -1,6 +1,7 @@
 #ifndef GUARD_WORLDMAP_H
 #define GUARD_WORLDMAP_H
 
+#include "proc.h"
 #include "hardware.h"
 
 struct GmRouteProc
@@ -244,7 +245,7 @@ struct WorldMapMainProc
     /* 29 */ u8 unk_29_7 : 1;
 
     /* 2A */ s8 unk_2a;
-    /* 2C */ int unk_2c;
+    /* 2C */ int timer;
     /* 30 */ int unk_30;
     /* 34 */ STRUCT_PAD(0x34, 0x3a);
 
@@ -356,8 +357,8 @@ extern struct ProcCmd gProcScr_WorldMapMain[];
 ProcPtr StartWMFaceCtrl(ProcPtr parent);
 void EndWMFaceCtrl(void);
 // ??? GetWMFaceBlendAmt(???);
-void sub_80B86CC(int faceSlot, int faceId, u16 config);
-void sub_80B8844(int faceSlot, u16 config);
+void WmDrawFace(int faceSlot, int faceId, u16 config);
+void WmClearFace(int faceSlot, u16 config);
 void sub_80B895C(void);
 void WorldMap_Destruct(struct WorldMapMainProc *proc);
 void sub_80B8A7C(struct WorldMapMainProc *proc);
@@ -427,7 +428,7 @@ void sub_80BA008(int);
 void EndWM(ProcPtr);
 s8 sub_80BA054(void); // gmap something
 // ??? sub_80BA06C(???);
-void sub_80BA0B4(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int config);
+void WmMergeFace(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int config);
 // ??? sub_80BA100(???);
 // ??? sub_80BA198(???);
 // ??? sub_80BA1F4(???);
@@ -799,7 +800,7 @@ void sub_80C1F5C(void);
 // ??? sub_80C22FC(???);
 // ??? sub_80C2320(???);
 // ??? sub_80C2398(???);
-void Make6C_Gmap_RM(s16, s16, int, int);
+void Make6C_Gmap_RM(s16 x, s16 y, int mask, ProcPtr parent);
 void sub_80C2460(void);
 int sub_80C2470(void);
 // ??? sub_80C2488(???);
@@ -825,8 +826,8 @@ void sub_80C24F8(void);
 // ??? sub_80C29F8(???);
 // ??? sub_80C2A1C(???);
 // ??? sub_80C2A40(???);
-// ??? sub_80C2AAC(???);
-void sub_80C2AD4(int, int); // FEBuilder: "Display place name of world map"
+// ??? DrawWmNationHighLightMapGfx(???);
+void WmShowNationHighlightedMap(int, int); // FEBuilder: "Display place name of world map"
 void sub_80C2B7C(int);
 int sub_80C2BC4(int);
 void sub_80C2C10(int);
@@ -867,8 +868,8 @@ s8 sub_80C3484(int); // GmAutoMuActiveFor
 // ??? sub_80C3590(???);
 // ??? sub_80C35C4(???);
 // ??? sub_80C35EC(???);
-void sub_80C3624(int);
-void sub_80C3660(void);
+void StartWmText(int);
+void RemoveWmText(void);
 void sub_80C368C(ProcPtr);
 void sub_80C36A0(int);
 // ??? sub_80C36E8(???);

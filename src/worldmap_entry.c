@@ -685,7 +685,7 @@ s8 GetGmMuEntryFlag(void)
 }
 
 //! FE8U = 0x080C0240
-s8 GmMuEntryStartShow(int a, int b)
+s8 GmMuEntryStartShow(int speed, int blend)
 {
     struct GmapMuEntryProc * proc = Proc_Find(gProcScr_GmapMuEntry2);
 
@@ -698,8 +698,8 @@ s8 GmMuEntryStartShow(int a, int b)
     proc->unk_2d = 16;
     proc->unk_2e = 0;
     proc->unk_2f = 56;
-    proc->unk_30 = b;
-    proc->unk_34 = a << 12;
+    proc->unk_30 = blend;
+    proc->unk_34 = speed << 12;
     proc->unk_29_0 = 1;
 
     Proc_Goto(proc, 1);

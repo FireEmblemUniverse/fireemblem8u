@@ -1375,9 +1375,9 @@ void WorldMap_HideEverything(void)
 void sub_80B9A34(struct WorldMapMainProc * proc)
 {
 
-    if (proc->unk_2c & 4)
+    if (proc->timer & 4)
     {
-        proc->unk_2c &= ~0x44;
+        proc->timer &= ~0x44;
         NewFadeIn(4, 0);
     }
 
@@ -1411,7 +1411,7 @@ void sub_80B9AB0(void)
     Sound_FadeOutBGM(4);
     SetDispEnable(0, 0, 0, 0, 0);
     sub_80B895C();
-    sub_80C3660();
+    RemoveWmText();
     EndWMFaceCtrl();
     return;
 }
@@ -1487,7 +1487,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
     }
 
     sub_80B895C();
-    sub_80C3660();
+    RemoveWmText();
     EndWMFaceCtrl();
     EndGmMuEntry();
     sub_80C2460();
@@ -1534,7 +1534,7 @@ void WorldMap_WaitForChapterIntroEvents(ProcPtr proc)
 
     SetDispEnable(0, 0, 0, 0, 0);
     sub_80B895C();
-    sub_80C3660();
+    RemoveWmText();
     EndWMFaceCtrl();
     EndGmMuEntry();
     sub_80C2460();
@@ -1668,7 +1668,7 @@ void sub_80B9E64(void)
     s16 y;
 
     sub_80B895C();
-    sub_80C3660();
+    RemoveWmText();
     EndWMFaceCtrl();
 
     *&x = (gGMData.xCamera);
@@ -1800,7 +1800,7 @@ void sub_80B9FD4(ProcPtr unused)
 void sub_80BA008(int unk)
 {
     struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
-    proc->unk_2c = unk;
+    proc->timer = unk;
     Proc_Goto(proc, 0);
 
     return;
@@ -1835,11 +1835,11 @@ void sub_80BA06C(struct Proc8A3DD08 * proc)
     switch (proc->unk_30)
     {
         case 6:
-            sub_80B86CC(proc->unk_34, proc->unk_40, proc->unk_44);
+            WmDrawFace(proc->unk_34, proc->unk_40, proc->unk_44);
             break;
 
         case 7:
-            sub_80B8844(proc->unk_34, proc->unk_44);
+            WmClearFace(proc->unk_34, proc->unk_44);
             break;
     }
 
@@ -1861,7 +1861,7 @@ struct ProcCmd CONST_DATA gProcScr_08A3DD08[] =
 // clang-format on
 
 //! FE8U = 0x080BA0B4
-void sub_80BA0B4(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int config)
+void WmMergeFace(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int config)
 {
     struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
 
@@ -2009,17 +2009,17 @@ void NewWorldMap(void)
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {
-        proc->unk_2c = 4;
+        proc->timer = 4;
     }
     else
     {
         if (gGMData.state.bits.state_1)
         {
-            proc->unk_2c = 12;
+            proc->timer = 12;
         }
         else
         {
-            proc->unk_2c = 16;
+            proc->timer = 16;
         }
     }
 
@@ -2049,7 +2049,7 @@ void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
 
     if ((gGMData.state.bits.state_1) || (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME))
     {
-        sub_80BA008(proc->unk_2c);
+        sub_80BA008(proc->timer);
     }
     else
     {

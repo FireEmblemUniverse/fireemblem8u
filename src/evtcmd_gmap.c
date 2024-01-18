@@ -982,7 +982,7 @@ u8 EventA3_WmShowUnitFaded(struct EventEngineProc * proc)
     struct WorldMapMainProc * worldMapProc;
 
     u16 index = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    s16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    s16 delay = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -991,7 +991,7 @@ u8 EventA3_WmShowUnitFaded(struct EventEngineProc * proc)
     }
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_StartFadeIn(worldMapProc->unk_54, index, b);
+    GmMu_StartFadeIn(worldMapProc->unk_54, index, delay);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -1084,27 +1084,27 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
     struct Sub80C33D4 local;
 
     // Order needed to match
-    u16 r4;
-    u16 r8;
-    u16 r9;
+    u16 flag;
+    u16 delay;
+    u16 time;
 
     s16 index = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 r2 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-    u16 r3 = EVT_CMD_ARGV(proc->pEventCurrent)[3];
-    u16 ip = EVT_CMD_ARGV(proc->pEventCurrent)[4];
-    u16 x = EVT_CMD_ARGV(proc->pEventCurrent)[5];
-    u16 y = EVT_CMD_ARGV(proc->pEventCurrent)[6];
+    u16 acceleration = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    u16 x1 = EVT_CMD_ARGV(proc->pEventCurrent)[3];
+    u16 y1 = EVT_CMD_ARGV(proc->pEventCurrent)[4];
+    u16 x2 = EVT_CMD_ARGV(proc->pEventCurrent)[5];
+    u16 y2 = EVT_CMD_ARGV(proc->pEventCurrent)[6];
 
-    r9 = EVT_CMD_ARGV(proc->pEventCurrent)[7];
-    r4 = EVT_CMD_ARGV(proc->pEventCurrent)[8];
-    r8 = EVT_CMD_ARGV(proc->pEventCurrent)[9];
+    time = EVT_CMD_ARGV(proc->pEventCurrent)[7];
+    flag = EVT_CMD_ARGV(proc->pEventCurrent)[8];
+    delay = EVT_CMD_ARGV(proc->pEventCurrent)[9];
 
     if (EVENT_IS_SKIPPING(proc))
     {
         worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        GmMu_SetPosition(worldMapProc->unk_54, index, x, y);
+        GmMu_SetPosition(worldMapProc->unk_54, index, x2, y2);
 
-        if ((r4 & 2) != 0)
+        if ((flag & 2) != 0)
         {
             HideGmUnit(index);
         }
@@ -1112,15 +1112,15 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
     else
     {
         local.unk_00 = index;
-        local.unk_01 = r2;
+        local.unk_01 = acceleration;
         local.unk_02 = 0;
-        local.unk_06 = r3;
-        local.unk_08 = ip;
-        local.unk_0a = x;
-        local.unk_0c = y;
-        local.unk_10 = r9;
-        local.unk_0e = r8;
-        sub_80C33D4(&local, r4, 0);
+        local.unk_06 = x1;
+        local.unk_08 = y1;
+        local.unk_0a = x2;
+        local.unk_0c = y2;
+        local.unk_10 = time;
+        local.unk_0e = delay;
+        sub_80C33D4(&local, flag, 0);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1263,12 +1263,12 @@ u8 EventAE_WmFadeToDarkerWait(struct EventEngineProc * proc)
 //! FE8U = 0x0800C8B0
 u8 EventAF_WmShowTextBox(struct EventEngineProc * proc)
 {
-    u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    u16 speed = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    u16 blend = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        GmMuEntryStartShow(a, b);
+        GmMuEntryStartShow(speed, blend);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1329,13 +1329,13 @@ u8 EventB3_WmFancyFadeWait(struct EventEngineProc * proc)
 //! FE8U = 0x0800C950
 u8 EventB4_WmDisplayBigMap(struct EventEngineProc * proc)
 {
-    u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    u16 x = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    u16 y = EVT_CMD_ARGV(proc->pEventCurrent)[2];
     int c = EVT_CMD_ARG32_LE(proc->pEventCurrent + 2);
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        Make6C_Gmap_RM(a, b, c, 0);
+        Make6C_Gmap_RM(x, y, c, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1357,16 +1357,16 @@ u8 EventB5_WmHideBigMap(struct EventEngineProc * proc)
 //! FE8U = 0x0800C9A0
 u8 EventB6_WmMoveBigMap(struct EventEngineProc * proc)
 {
-    u16 r1 = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 r2 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-    u16 r3 = EVT_CMD_ARGV(proc->pEventCurrent)[3];
-    u16 r4 = EVT_CMD_ARGV(proc->pEventCurrent)[4];
-    u16 r6 = EVT_CMD_ARGV(proc->pEventCurrent)[5];
-    u16 r7 = EVT_CMD_ARGV(proc->pEventCurrent)[6];
+    u16 x1 = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    u16 y1 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    u16 x2 = EVT_CMD_ARGV(proc->pEventCurrent)[3];
+    u16 y2 = EVT_CMD_ARGV(proc->pEventCurrent)[4];
+    u16 speed = EVT_CMD_ARGV(proc->pEventCurrent)[5];
+    u16 delay = EVT_CMD_ARGV(proc->pEventCurrent)[6];
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        sub_80C1F18(r1, r2, r3, r4, r6, r7, 0);
+        sub_80C1F18(x1, y1, x2, y2, speed, delay, 0);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1392,18 +1392,18 @@ u8 EventB7_WmBigMapWait(struct EventEngineProc * proc)
 //! FE8U = 0x0800CA18
 u8 EventB8_WmShowBigMapHighlight(struct EventEngineProc * proc)
 {
-    int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
+    int nation = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        sub_80C2AD4(a, 0);
+        WmShowNationHighlightedMap(nation, 0);
     }
 
     return EVC_ADVANCE_CONTINUE;
 }
 
 //! FE8U = 0x0800CA38
-u8 EventB9_(struct EventEngineProc * proc)
+u8 EventB9_WmRemoveHighlightNationPart1(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -1420,7 +1420,7 @@ u8 EventB9_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800CA60
-u8 EventBA_(struct EventEngineProc * proc)
+u8 EventBA_WmRemoveHighlightNationPart2(struct EventEngineProc * proc)
 {
     int a = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
@@ -1460,12 +1460,12 @@ u8 EventBB_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800CADC
-u8 EventBC_(struct EventEngineProc * proc)
+u8 EventBC_MarkPoint(struct EventEngineProc * proc)
 {
     u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    u16 pal = EVT_CMD_ARGV(proc->pEventCurrent)[2];
     s16 nodeId = EVT_CMD_ARGV(proc->pEventCurrent)[3];
-    s16 d = EVT_CMD_ARGV(proc->pEventCurrent)[4];
+    s16 eff = EVT_CMD_ARGV(proc->pEventCurrent)[4];
 
     if (!EVENT_IS_SKIPPING(proc))
     {
@@ -1473,7 +1473,7 @@ u8 EventBC_(struct EventEngineProc * proc)
         s16 y;
         *&x = nodeId[gWMNodeData].x;
         *&y = nodeId[gWMNodeData].y;
-        sub_80C2FC0(a, b, x / 2, y / 2, d, 0);
+        sub_80C2FC0(a, pal, x / 2, y / 2, eff, 0);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1544,14 +1544,14 @@ u8 EventC1_SKIPWM(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800CC04
-u8 EventC2_(struct EventEngineProc * proc)
+u8 EventC2_WmNoFade(struct EventEngineProc * proc)
 {
     gGMData.state.bits.state_7 = 1;
     return EVC_ADVANCE_CONTINUE;
 }
 
 //! FE8U = 0x0800CC18
-u8 EventC3_(struct EventEngineProc * proc)
+u8 EventC3_SpawnLord(struct EventEngineProc * proc)
 {
     u16 unitId = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     u16 pid = EVT_CMD_ARGV(proc->pEventCurrent)[2];
@@ -1597,25 +1597,25 @@ u8 EventCF_(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800CC8C
-u8 EventC4_(struct EventEngineProc * proc)
+u8 EventC4_WmShowPortrait(struct EventEngineProc * proc)
 {
-    s16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    s16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-    s16 c = EVT_CMD_ARGV(proc->pEventCurrent)[3];
-    s16 d = EVT_CMD_ARGV(proc->pEventCurrent)[4];
+    s16 face_slot = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    s16 fid = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    s16 config = EVT_CMD_ARGV(proc->pEventCurrent)[3];
+    s16 delay = EVT_CMD_ARGV(proc->pEventCurrent)[4];
 
     if (EVENT_IS_SKIPPING(proc))
     {
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (d)
+    if (delay)
     {
-        sub_80BA0B4(d, 6, a, b, 0, 0, c);
+        WmMergeFace(delay, 6, face_slot, fid, 0, 0, config);
     }
     else
     {
-        sub_80B86CC(a, b, c);
+        WmDrawFace(face_slot, fid, config);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1634,26 +1634,26 @@ void nullsub_32(void)
 }
 
 //! FE8U = 0x0800CCF0
-u8 EventC5_(struct EventEngineProc * proc)
+u8 EventC5_WmClearPortrait(struct EventEngineProc * proc)
 {
 
-    u32 a = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[0];
-    u32 b = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 c = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    u32 face_slot = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u32 config = (u16)EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    u16 delay = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        EndFaceById(a);
+        EndFaceById(face_slot);
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (c)
+    if (delay)
     {
-        sub_80BA0B4(c, 7, a, 0, 0, 0, b);
+        WmMergeFace(delay, 7, face_slot, 0, 0, 0, config);
     }
     else
     {
-        sub_80B8844(a, b);
+        WmClearFace(face_slot, config);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1685,7 +1685,7 @@ void sub_800CD40(struct Proc8591C68 * proc)
 }
 
 //! FE8U = 0x0800CD50
-u8 EventC6_(struct EventEngineProc * proc)
+u8 EventC6_WmDisplayText(struct EventEngineProc * proc)
 {
     u16 a;
     u16 b;
@@ -1716,7 +1716,7 @@ u8 EventC7_(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80C3624(1);
+    StartWmText(1);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -1729,21 +1729,21 @@ u8 EventC8_(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80C3624(0);
+    StartWmText(0);
 
     return EVC_ADVANCE_YIELD;
 }
 
 //! FE8U = 0x0800CDC8
-u8 EventC9_(struct EventEngineProc * proc)
+u8 EventC9_RemoveWmText(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C3660();
+        RemoveWmText();
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80C3660();
+    RemoveWmText();
 
     return EVC_ADVANCE_YIELD;
 }

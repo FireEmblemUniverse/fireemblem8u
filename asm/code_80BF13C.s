@@ -368,7 +368,7 @@ sub_80C168C: @ 0x080C168C
 	adds r0, r4, #0
 	movs r1, #0
 	bl AP_SwitchAnimation
-	ldr r0, _080C16D8  @ gUnknown_08A3EA70
+	ldr r0, _080C16D8  @ ProcScr_GmapSogu
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x50]
@@ -383,14 +383,14 @@ sub_80C168C: @ 0x080C168C
 _080C16CC: .4byte gUnknown_089ADD4C
 _080C16D0: .4byte 0x06013000
 _080C16D4: .4byte gUnknown_089A8EF8
-_080C16D8: .4byte gUnknown_08A3EA70
+_080C16D8: .4byte ProcScr_GmapSogu
 
 	THUMB_FUNC_END sub_80C168C
 
 	THUMB_FUNC_START sub_80C16DC
 sub_80C16DC: @ 0x080C16DC
 	push {lr}
-	ldr r0, _080C16F0  @ gUnknown_08A3EA70
+	ldr r0, _080C16F0  @ ProcScr_GmapSogu
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C16EA
@@ -399,7 +399,7 @@ _080C16EA:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C16F0: .4byte gUnknown_08A3EA70
+_080C16F0: .4byte ProcScr_GmapSogu
 
 	THUMB_FUNC_END sub_80C16DC
 
@@ -883,14 +883,14 @@ sub_80C1A74: @ 0x080C1A74
 	adds r4, r1, #0
 	cmp r2, #0
 	bne _080C1A8C
-	ldr r0, _080C1A88  @ gUnknown_08A3EAA8
+	ldr r0, _080C1A88  @ ProcScr_GmapTimeMons
 	movs r1, #3
 	bl Proc_Start
 	b _080C1A94
 	.align 2, 0
-_080C1A88: .4byte gUnknown_08A3EAA8
+_080C1A88: .4byte ProcScr_GmapTimeMons
 _080C1A8C:
-	ldr r0, _080C1AAC  @ gUnknown_08A3EAA8
+	ldr r0, _080C1AAC  @ ProcScr_GmapTimeMons
 	adds r1, r2, #0
 	bl Proc_StartBlocking
 _080C1A94:
@@ -907,14 +907,14 @@ _080C1AA2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C1AAC: .4byte gUnknown_08A3EAA8
+_080C1AAC: .4byte ProcScr_GmapTimeMons
 
 	THUMB_FUNC_END sub_80C1A74
 
 	THUMB_FUNC_START sub_80C1AB0
 sub_80C1AB0: @ 0x080C1AB0
 	push {r4, lr}
-	ldr r0, _080C1AD4  @ gUnknown_08A3EAA8
+	ldr r0, _080C1AD4  @ ProcScr_GmapTimeMons
 	bl Proc_EndEach
 	movs r4, #0
 _080C1ABA:
@@ -930,7 +930,7 @@ _080C1ABA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C1AD4: .4byte gUnknown_08A3EAA8
+_080C1AD4: .4byte ProcScr_GmapTimeMons
 _080C1AD8: .4byte gProcScr_WorldMapMain
 
 	THUMB_FUNC_END sub_80C1AB0
@@ -938,7 +938,7 @@ _080C1AD8: .4byte gProcScr_WorldMapMain
 	THUMB_FUNC_START sub_80C1ADC
 sub_80C1ADC: @ 0x080C1ADC
 	push {lr}
-	ldr r0, _080C1AF4  @ gUnknown_08A3EAA8
+	ldr r0, _080C1AF4  @ ProcScr_GmapTimeMons
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C1AF0
@@ -950,7 +950,7 @@ _080C1AF0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C1AF4: .4byte gUnknown_08A3EAA8
+_080C1AF4: .4byte ProcScr_GmapTimeMons
 
 	THUMB_FUNC_END sub_80C1ADC
 
@@ -1074,7 +1074,7 @@ _080C1BDC: .4byte gProcScr_WorldMapMain
 	THUMB_FUNC_START sub_80C1BE0
 sub_80C1BE0: @ 0x080C1BE0
 	push {lr}
-	ldr r0, _080C1BF4  @ gUnknown_08A3EAA8
+	ldr r0, _080C1BF4  @ ProcScr_GmapTimeMons
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C1BEE
@@ -1083,7 +1083,7 @@ _080C1BEE:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C1BF4: .4byte gUnknown_08A3EAA8
+_080C1BF4: .4byte ProcScr_GmapTimeMons
 
 	THUMB_FUNC_END sub_80C1BE0
 
@@ -1534,13 +1534,13 @@ sub_80C1F18: @ 0x080C1F18
 	ldr r1, [sp, #0x1c]
 	cmp r1, #0
 	beq _080C1F34
-	ldr r0, _080C1F30  @ gUnknown_08A3EB10
+	ldr r0, _080C1F30  @ ProcScr_GmapRmUpdate2
 	bl Proc_StartBlocking
 	b _080C1F3C
 	.align 2, 0
-_080C1F30: .4byte gUnknown_08A3EB10
+_080C1F30: .4byte ProcScr_GmapRmUpdate2
 _080C1F34:
-	ldr r0, _080C1F58  @ gUnknown_08A3EB10
+	ldr r0, _080C1F58  @ ProcScr_GmapRmUpdate2
 	movs r1, #3
 	bl Proc_Start
 _080C1F3C:
@@ -1558,19 +1558,19 @@ _080C1F3C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C1F58: .4byte gUnknown_08A3EB10
+_080C1F58: .4byte ProcScr_GmapRmUpdate2
 
 	THUMB_FUNC_END sub_80C1F18
 
 	THUMB_FUNC_START sub_80C1F5C
 sub_80C1F5C: @ 0x080C1F5C
 	push {lr}
-	ldr r0, _080C1F68  @ gUnknown_08A3EB10
+	ldr r0, _080C1F68  @ ProcScr_GmapRmUpdate2
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C1F68: .4byte gUnknown_08A3EB10
+_080C1F68: .4byte ProcScr_GmapRmUpdate2
 
 	THUMB_FUNC_END sub_80C1F5C
 
@@ -1666,7 +1666,7 @@ sub_80C1FE0: @ 0x080C1FE0
 	bl CallARM_FillTileRect
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	ldr r0, _080C2058  @ gUnknown_08A3EAF0
+	ldr r0, _080C2058  @ ProcScr_GmapRmUpdate1
 	adds r1, r5, #0
 	bl Proc_Start
 	pop {r4, r5}
@@ -1679,7 +1679,7 @@ _080C2048: .4byte gUnknown_08A9E4C4
 _080C204C: .4byte gUnknown_08A9DF74
 _080C2050: .4byte gGenericBuffer
 _080C2054: .4byte gBG1TilemapBuffer
-_080C2058: .4byte gUnknown_08A3EAF0
+_080C2058: .4byte ProcScr_GmapRmUpdate1
 
 	THUMB_FUNC_END sub_80C1FE0
 
@@ -2164,7 +2164,7 @@ sub_80C2398: @ 0x080C2398
 	negs r0, r0
 	ands r0, r1
 	strb r0, [r2]
-	ldr r0, _080C241C  @ gUnknown_08A3EAF0
+	ldr r0, _080C241C  @ ProcScr_GmapRmUpdate1
 	bl Proc_EndEach
 	pop {r4}
 	pop {r0}
@@ -2173,7 +2173,7 @@ sub_80C2398: @ 0x080C2398
 _080C2410: .4byte gProcScr_WorldMapMain
 _080C2414: .4byte gLCDControlBuffer
 _080C2418: .4byte gGMData
-_080C241C: .4byte gUnknown_08A3EAF0
+_080C241C: .4byte ProcScr_GmapRmUpdate1
 
 	THUMB_FUNC_END sub_80C2398
 
@@ -2186,13 +2186,13 @@ Make6C_Gmap_RM: @ 0x080C2420
 	adds r1, r3, #0
 	cmp r1, #0
 	beq _080C243C
-	ldr r0, _080C2438  @ gUnknown_08A3EB50
+	ldr r0, _080C2438  @ ProcScr_GmapRM
 	bl Proc_StartBlocking
 	b _080C2444
 	.align 2, 0
-_080C2438: .4byte gUnknown_08A3EB50
+_080C2438: .4byte ProcScr_GmapRM
 _080C243C:
-	ldr r0, _080C245C  @ gUnknown_08A3EB50
+	ldr r0, _080C245C  @ ProcScr_GmapRM
 	movs r1, #3
 	bl Proc_Start
 _080C2444:
@@ -2209,26 +2209,26 @@ _080C2444:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C245C: .4byte gUnknown_08A3EB50
+_080C245C: .4byte ProcScr_GmapRM
 
 	THUMB_FUNC_END Make6C_Gmap_RM
 
 	THUMB_FUNC_START sub_80C2460
 sub_80C2460: @ 0x080C2460
 	push {lr}
-	ldr r0, _080C246C  @ gUnknown_08A3EB50
+	ldr r0, _080C246C  @ ProcScr_GmapRM
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C246C: .4byte gUnknown_08A3EB50
+_080C246C: .4byte ProcScr_GmapRM
 
 	THUMB_FUNC_END sub_80C2460
 
 	THUMB_FUNC_START sub_80C2470
 sub_80C2470: @ 0x080C2470
 	push {lr}
-	ldr r0, _080C2484  @ gUnknown_08A3EB50
+	ldr r0, _080C2484  @ ProcScr_GmapRM
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C247E
@@ -2237,7 +2237,7 @@ _080C247E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C2484: .4byte gUnknown_08A3EB50
+_080C2484: .4byte ProcScr_GmapRM
 
 	THUMB_FUNC_END sub_80C2470
 
@@ -2248,7 +2248,7 @@ sub_80C2488: @ 0x080C2488
 	lsrs r5, r0, #0x10
 	lsls r1, r1, #0x10
 	lsrs r4, r1, #0x10
-	ldr r0, _080C24A8  @ gUnknown_08A3EB50
+	ldr r0, _080C24A8  @ ProcScr_GmapRM
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C24A0
@@ -2259,7 +2259,7 @@ _080C24A0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C24A8: .4byte gUnknown_08A3EB50
+_080C24A8: .4byte ProcScr_GmapRM
 
 	THUMB_FUNC_END sub_80C2488
 
@@ -2268,7 +2268,7 @@ GetWMDisplayPosition: @ 0x080C24AC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _080C24C4  @ gUnknown_08A3EB50
+	ldr r0, _080C24C4  @ ProcScr_GmapRM
 	bl Proc_Find
 	adds r1, r0, #0
 	cmp r1, #0
@@ -2276,7 +2276,7 @@ GetWMDisplayPosition: @ 0x080C24AC
 	movs r0, #0
 	b _080C24D2
 	.align 2, 0
-_080C24C4: .4byte gUnknown_08A3EB50
+_080C24C4: .4byte ProcScr_GmapRM
 _080C24C8:
 	ldrh r0, [r1, #0x2e]
 	strh r0, [r4]
@@ -2293,7 +2293,7 @@ _080C24D2:
 	THUMB_FUNC_START sub_80C24D8
 sub_80C24D8: @ 0x080C24D8
 	push {lr}
-	ldr r0, _080C24F4  @ gUnknown_08A3EB50
+	ldr r0, _080C24F4  @ ProcScr_GmapRM
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C24F0
@@ -2307,14 +2307,14 @@ _080C24F0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C24F4: .4byte gUnknown_08A3EB50
+_080C24F4: .4byte ProcScr_GmapRM
 
 	THUMB_FUNC_END sub_80C24D8
 
 	THUMB_FUNC_START sub_80C24F8
 sub_80C24F8: @ 0x080C24F8
 	push {r4, r5, lr}
-	ldr r0, _080C2584  @ gUnknown_08A3EB50
+	ldr r0, _080C2584  @ ProcScr_GmapRM
 	bl Proc_Find
 	adds r5, r0, #0
 	cmp r5, #0
@@ -2369,7 +2369,7 @@ sub_80C24F8: @ 0x080C24F8
 	subs r1, #0xc
 	ands r0, r1
 	strb r0, [r2, #1]
-	ldr r0, _080C2594  @ gUnknown_08A3EAF0
+	ldr r0, _080C2594  @ ProcScr_GmapRmUpdate1
 	bl Proc_EndEach
 	adds r0, r5, #0
 	bl Proc_End
@@ -2378,11 +2378,11 @@ _080C257E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C2584: .4byte gUnknown_08A3EB50
+_080C2584: .4byte ProcScr_GmapRM
 _080C2588: .4byte gProcScr_WorldMapMain
 _080C258C: .4byte gLCDControlBuffer
 _080C2590: .4byte gGMData
-_080C2594: .4byte gUnknown_08A3EAF0
+_080C2594: .4byte ProcScr_GmapRmUpdate1
 
 	THUMB_FUNC_END sub_80C24F8
 
@@ -2545,39 +2545,39 @@ sub_80C26BC: @ 0x080C26BC
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _080C26D0
-	ldr r0, _080C26CC  @ gUnknown_08A3EBE8
+	ldr r0, _080C26CC  @ ProcScr_GmapRmBaPalAnim
 	bl Proc_StartBlocking
 	b _080C26D8
 	.align 2, 0
-_080C26CC: .4byte gUnknown_08A3EBE8
+_080C26CC: .4byte ProcScr_GmapRmBaPalAnim
 _080C26D0:
-	ldr r0, _080C26DC  @ gUnknown_08A3EBE8
+	ldr r0, _080C26DC  @ ProcScr_GmapRmBaPalAnim
 	movs r1, #3
 	bl Proc_Start
 _080C26D8:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C26DC: .4byte gUnknown_08A3EBE8
+_080C26DC: .4byte ProcScr_GmapRmBaPalAnim
 
 	THUMB_FUNC_END sub_80C26BC
 
 	THUMB_FUNC_START sub_80C26E0
 sub_80C26E0: @ 0x080C26E0
 	push {lr}
-	ldr r0, _080C26EC  @ gUnknown_08A3EBE8
+	ldr r0, _080C26EC  @ ProcScr_GmapRmBaPalAnim
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C26EC: .4byte gUnknown_08A3EBE8
+_080C26EC: .4byte ProcScr_GmapRmBaPalAnim
 
 	THUMB_FUNC_END sub_80C26E0
 
 	THUMB_FUNC_START sub_80C26F0
 sub_80C26F0: @ 0x080C26F0
 	push {lr}
-	ldr r0, _080C2704  @ gUnknown_08A3EBE8
+	ldr r0, _080C2704  @ ProcScr_GmapRmBaPalAnim
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C26FE
@@ -2586,21 +2586,21 @@ _080C26FE:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C2704: .4byte gUnknown_08A3EBE8
+_080C2704: .4byte ProcScr_GmapRmBaPalAnim
 
 	THUMB_FUNC_END sub_80C26F0
 
 	THUMB_FUNC_START sub_80C2708
 sub_80C2708: @ 0x080C2708
 	push {lr}
-	ldr r0, _080C2718  @ gUnknown_08A3EBE8
+	ldr r0, _080C2718  @ ProcScr_GmapRmBaPalAnim
 	bl Proc_Find
 	cmp r0, #0
 	bne _080C271C
 	movs r0, #0
 	b _080C2724
 	.align 2, 0
-_080C2718: .4byte gUnknown_08A3EBE8
+_080C2718: .4byte ProcScr_GmapRmBaPalAnim
 _080C271C:
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -2620,7 +2620,7 @@ sub_80C2728: @ 0x080C2728
 	bl AP_Delete
 	ldr r0, [r4, #0x2c]
 	bl AP_Delete
-	ldr r0, _080C274C  @ gUnknown_08A3EC48
+	ldr r0, _080C274C  @ ProcScr_GmapRmBorder
 	bl CountProcs
 	cmp r0, #1
 	bne _080C2746
@@ -2630,7 +2630,7 @@ _080C2746:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C274C: .4byte gUnknown_08A3EC48
+_080C274C: .4byte ProcScr_GmapRmBorder
 
 	THUMB_FUNC_END sub_80C2728
 
@@ -2658,11 +2658,11 @@ sub_80C2750: @ 0x080C2750
 	movs r3, #0
 	bl SetSpecialColorEffectsParameters
 	strh r4, [r5, #0x30]
-	ldr r0, _080C27A0  @ gUnknown_08A3EC48
+	ldr r0, _080C27A0  @ ProcScr_GmapRmBorder
 	bl CountProcs
 	cmp r0, #1
 	bgt _080C2798
-	ldr r0, _080C27A4  @ gUnknown_08A9E688
+	ldr r0, _080C27A4  @ Pal_WmHighLightNationMap
 	movs r1, #0xc8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -2673,8 +2673,8 @@ _080C2798:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C27A0: .4byte gUnknown_08A3EC48
-_080C27A4: .4byte gUnknown_08A9E688
+_080C27A0: .4byte ProcScr_GmapRmBorder
+_080C27A4: .4byte Pal_WmHighLightNationMap
 
 	THUMB_FUNC_END sub_80C2750
 
@@ -2764,7 +2764,7 @@ sub_80C2804: @ 0x080C2804
 	lsls r1, r1, #1
 	adds r0, r5, #0
 	bl DivArm
-	ldr r3, _080C287C  @ gUnknown_08206AF0
+	ldr r3, _080C287C  @ GfxSet_WmNationMap
 	adds r1, r6, #0
 	adds r1, #0x2a
 	ldrb r2, [r1]
@@ -2784,7 +2784,7 @@ sub_80C2804: @ 0x080C2804
 	bl sub_80C27A8
 	b _080C28BA
 	.align 2, 0
-_080C287C: .4byte gUnknown_08206AF0
+_080C287C: .4byte GfxSet_WmNationMap
 _080C2880:
 	movs r0, #0
 	movs r1, #0x10
@@ -2793,7 +2793,7 @@ _080C2880:
 	bl SetSpecialColorEffectsParameters
 	movs r0, #0
 	strh r0, [r6, #0x30]
-	ldr r2, _080C28C0  @ gUnknown_08206AF0
+	ldr r2, _080C28C0  @ GfxSet_WmNationMap
 	adds r0, r6, #0
 	adds r0, #0x2a
 	ldrb r1, [r0]
@@ -2817,14 +2817,14 @@ _080C28BA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C28C0: .4byte gUnknown_08206AF0
+_080C28C0: .4byte GfxSet_WmNationMap
 
 	THUMB_FUNC_END sub_80C2804
 
 	THUMB_FUNC_START sub_80C28C4
 sub_80C28C4: @ 0x080C28C4
 	push {lr}
-	ldr r0, _080C28D8  @ gUnknown_08A3EC48
+	ldr r0, _080C28D8  @ ProcScr_GmapRmBorder
 	bl CountProcs
 	cmp r0, #1
 	bne _080C28D4
@@ -2833,7 +2833,7 @@ _080C28D4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C28D8: .4byte gUnknown_08A3EC48
+_080C28D8: .4byte ProcScr_GmapRmBorder
 
 	THUMB_FUNC_END sub_80C28C4
 
@@ -2874,7 +2874,7 @@ sub_80C28DC: @ 0x080C28DC
 	lsls r1, r1, #1
 	adds r0, r5, #0
 	bl DivArm
-	ldr r3, _080C2950  @ gUnknown_08206AF0
+	ldr r3, _080C2950  @ GfxSet_WmNationMap
 	adds r1, r6, #0
 	adds r1, #0x2a
 	ldrb r1, [r1]
@@ -2892,7 +2892,7 @@ sub_80C28DC: @ 0x080C28DC
 	bl sub_80C27A8
 	b _080C295E
 	.align 2, 0
-_080C2950: .4byte gUnknown_08206AF0
+_080C2950: .4byte GfxSet_WmNationMap
 _080C2954:
 	bl SetDefaultColorEffects
 	adds r0, r6, #0
@@ -2908,7 +2908,7 @@ _080C295E:
 sub_80C2964: @ 0x080C2964
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080C2988  @ gUnknown_08A3EC48
+	ldr r0, _080C2988  @ ProcScr_GmapRmBorder
 	bl CountProcs
 	cmp r0, #1
 	bgt _080C2980
@@ -2922,7 +2922,7 @@ _080C2980:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C2988: .4byte gUnknown_08A3EC48
+_080C2988: .4byte ProcScr_GmapRmBorder
 
 	THUMB_FUNC_END sub_80C2964
 
@@ -2936,7 +2936,7 @@ sub_80C298C: @ 0x080C298C
 	mov r0, sp
 	adds r1, r5, #0
 	bl GetWMDisplayPosition
-	ldr r6, _080C29F4  @ gUnknown_08206AF0
+	ldr r6, _080C29F4  @ GfxSet_WmNationMap
 	adds r7, r4, #0
 	adds r7, #0x2a
 	ldrb r1, [r7]
@@ -2978,7 +2978,7 @@ sub_80C298C: @ 0x080C298C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C29F4: .4byte gUnknown_08206AF0
+_080C29F4: .4byte GfxSet_WmNationMap
 
 	THUMB_FUNC_END sub_80C298C
 
@@ -3028,7 +3028,7 @@ sub_80C2A40: @ 0x080C2A40
 	push {r4, r5, lr}
 	sub sp, #0x18
 	movs r4, #0
-	ldr r1, _080C2A68  @ gUnknown_08A3EC48
+	ldr r1, _080C2A68  @ ProcScr_GmapRmBorder
 	mov r0, sp
 	bl Proc_FindBegin
 	add r5, sp, #0xc
@@ -3045,7 +3045,7 @@ _080C2A50:
 	adds r4, #1
 	b _080C2A50
 	.align 2, 0
-_080C2A68: .4byte gUnknown_08A3EC48
+_080C2A68: .4byte ProcScr_GmapRmBorder
 _080C2A6C:
 	cmp r4, #0
 	bne _080C2A78
@@ -3088,14 +3088,14 @@ _080C2AA4:
 
 	THUMB_FUNC_END sub_80C2A40
 
-	THUMB_FUNC_START sub_80C2AAC
-sub_80C2AAC: @ 0x080C2AAC
+	THUMB_FUNC_START DrawWmNationHighLightMapGfx
+DrawWmNationHighLightMapGfx: @ 0x080C2AAC
 	push {lr}
 	adds r2, r0, #0
 	lsls r2, r2, #0xc
 	ldr r0, _080C2ACC  @ 0x06010000
 	adds r2, r2, r0
-	ldr r3, _080C2AD0  @ gUnknown_08206AF0
+	ldr r3, _080C2AD0  @ GfxSet_WmNationMap
 	lsls r0, r1, #1
 	adds r0, r0, r1
 	lsls r0, r0, #2
@@ -3107,12 +3107,12 @@ sub_80C2AAC: @ 0x080C2AAC
 	bx r0
 	.align 2, 0
 _080C2ACC: .4byte 0x06010000
-_080C2AD0: .4byte gUnknown_08206AF0
+_080C2AD0: .4byte GfxSet_WmNationMap
 
-	THUMB_FUNC_END sub_80C2AAC
+	THUMB_FUNC_END DrawWmNationHighLightMapGfx
 
-	THUMB_FUNC_START sub_80C2AD4
-sub_80C2AD4: @ 0x080C2AD4
+	THUMB_FUNC_START WmShowNationHighlightedMap
+WmShowNationHighlightedMap: @ 0x080C2AD4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -3123,22 +3123,22 @@ sub_80C2AD4: @ 0x080C2AD4
 	mov r8, r0
 	cmp r4, #0
 	beq _080C2AF8
-	ldr r0, _080C2AF4  @ gUnknown_08A3EC48
+	ldr r0, _080C2AF4  @ ProcScr_GmapRmBorder
 	adds r1, r4, #0
 	bl Proc_StartBlocking
 	b _080C2B00
 	.align 2, 0
-_080C2AF4: .4byte gUnknown_08A3EC48
+_080C2AF4: .4byte ProcScr_GmapRmBorder
 _080C2AF8:
-	ldr r0, _080C2B70  @ gUnknown_08A3EC48
+	ldr r0, _080C2B70  @ ProcScr_GmapRmBorder
 	movs r1, #3
 	bl Proc_Start
 _080C2B00:
 	adds r7, r0, #0
 	mov r0, r8
 	adds r1, r6, #0
-	bl sub_80C2AAC
-	ldr r1, _080C2B74  @ gUnknown_08206AF0
+	bl DrawWmNationHighLightMapGfx
+	ldr r1, _080C2B74  @ GfxSet_WmNationMap
 	lsls r0, r6, #1
 	adds r0, r0, r6
 	lsls r0, r0, #2
@@ -3186,11 +3186,11 @@ _080C2B00:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C2B70: .4byte gUnknown_08A3EC48
-_080C2B74: .4byte gUnknown_08206AF0
+_080C2B70: .4byte ProcScr_GmapRmBorder
+_080C2B74: .4byte GfxSet_WmNationMap
 _080C2B78: .4byte 0xFFFF9C00
 
-	THUMB_FUNC_END sub_80C2AD4
+	THUMB_FUNC_END WmShowNationHighlightedMap
 
 	THUMB_FUNC_START sub_80C2B7C
 sub_80C2B7C: @ 0x080C2B7C
@@ -3199,17 +3199,17 @@ sub_80C2B7C: @ 0x080C2B7C
 	adds r4, r0, #0
 	cmp r4, #0
 	bge _080C2B9C
-	ldr r0, _080C2B90  @ gUnknown_08A3EC48
+	ldr r0, _080C2B90  @ ProcScr_GmapRmBorder
 	bl Proc_EndEach
 	b _080C2BB8
 	.align 2, 0
-_080C2B90: .4byte gUnknown_08A3EC48
+_080C2B90: .4byte ProcScr_GmapRmBorder
 _080C2B94:
 	adds r0, r1, #0
 	bl Proc_End
 	b _080C2BB8
 _080C2B9C:
-	ldr r1, _080C2BC0  @ gUnknown_08A3EC48
+	ldr r1, _080C2BC0  @ ProcScr_GmapRmBorder
 	mov r0, sp
 	bl Proc_FindBegin
 _080C2BA4:
@@ -3228,7 +3228,7 @@ _080C2BB8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C2BC0: .4byte gUnknown_08A3EC48
+_080C2BC0: .4byte ProcScr_GmapRmBorder
 
 	THUMB_FUNC_END sub_80C2B7C
 
@@ -3239,16 +3239,16 @@ sub_80C2BC4: @ 0x080C2BC4
 	adds r4, r0, #0
 	cmp r4, #0
 	bge _080C2BE0
-	ldr r0, _080C2BDC  @ gUnknown_08A3EC48
+	ldr r0, _080C2BDC  @ ProcScr_GmapRmBorder
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C2C06
 	movs r0, #1
 	b _080C2C06
 	.align 2, 0
-_080C2BDC: .4byte gUnknown_08A3EC48
+_080C2BDC: .4byte ProcScr_GmapRmBorder
 _080C2BE0:
-	ldr r1, _080C2C00  @ gUnknown_08A3EC48
+	ldr r1, _080C2C00  @ ProcScr_GmapRmBorder
 	mov r0, sp
 	bl Proc_FindBegin
 _080C2BE8:
@@ -3264,7 +3264,7 @@ _080C2BE8:
 	movs r0, #0
 	b _080C2C06
 	.align 2, 0
-_080C2C00: .4byte gUnknown_08A3EC48
+_080C2C00: .4byte ProcScr_GmapRmBorder
 _080C2C04:
 	movs r0, #1
 _080C2C06:
@@ -3280,7 +3280,7 @@ sub_80C2C10: @ 0x080C2C10
 	push {r4, r5, lr}
 	sub sp, #0xc
 	adds r4, r0, #0
-	ldr r1, _080C2C3C  @ gUnknown_08A3EC48
+	ldr r1, _080C2C3C  @ ProcScr_GmapRmBorder
 	mov r0, sp
 	bl Proc_FindBegin
 	movs r5, #1
@@ -3299,7 +3299,7 @@ _080C2C20:
 	strb r5, [r0]
 	b _080C2C4A
 	.align 2, 0
-_080C2C3C: .4byte gUnknown_08A3EC48
+_080C2C3C: .4byte ProcScr_GmapRmBorder
 _080C2C40:
 	adds r0, r1, #0
 	adds r0, #0x29
@@ -4692,8 +4692,8 @@ _080C3620: .4byte gUnknown_08A3EE28
 
 	THUMB_FUNC_END sub_80C35EC
 
-	THUMB_FUNC_START sub_80C3624
-sub_80C3624: @ 0x080C3624
+	THUMB_FUNC_START StartWmText
+StartWmText: @ 0x080C3624
 	push {r4, r5, lr}
 	lsls r0, r0, #0x18
 	lsrs r5, r0, #0x18
@@ -4723,10 +4723,10 @@ _080C3652:
 _080C3658: .4byte gUnknown_08A3EE44
 _080C365C: .4byte gUnknown_0201BE30
 
-	THUMB_FUNC_END sub_80C3624
+	THUMB_FUNC_END StartWmText
 
-	THUMB_FUNC_START sub_80C3660
-sub_80C3660: @ 0x080C3660
+	THUMB_FUNC_START RemoveWmText
+RemoveWmText: @ 0x080C3660
 	push {lr}
 	ldr r0, _080C3684  @ gUnknown_08A3EE44
 	bl Proc_Find
@@ -4749,7 +4749,7 @@ _080C3680:
 _080C3684: .4byte gUnknown_08A3EE44
 _080C3688: .4byte gUnknown_0201BE30
 
-	THUMB_FUNC_END sub_80C3660
+	THUMB_FUNC_END RemoveWmText
 
 	THUMB_FUNC_START sub_80C368C
 sub_80C368C: @ 0x080C368C

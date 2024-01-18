@@ -197,6 +197,37 @@
 #define AFEV EvtListFlag
 #define AREA EvtListArea
 
+/* World map events */
+#define WM_CENTERCAMONLORD WmEvtSetCameraOnto
+#define WM_SHOWDRAWNMAP WmEvtShowBigMap
+#define WM_SPAWNLORD WmEvtLoadUnit
+#define WM_FADEOUT WmEvtFadeOut
+#define WM_TEXTDECORATE WmEvtWaitFade
+#define WM_SHOWTEXTWINDOW WmEvtDisplayTextWindow
+#define WM_WAITFORTEXT WmEvtTextBoxWait
+#define WM_TEXTSTART WmEvtTextStart
+#define WM_REMOVETEXT WmEvtRemoveText
+#define WM_TEXT WmEvtShowText
+#define WM_MOVECAM2 WmEvtCamMov2
+#define WM_SHOWPORTRAIT WmEvtShowPortrait
+#define WM_CLEARPORTRAIT WmEvtClearPortrait
+#define WM_HIGHLIGHT WmEvtHighlightNation
+#define WM_HIGHLIGHTCLEAR1 WmEvtHighlightNationClear1
+#define WM_HIGHLIGHTCLEAR2 WmEvtHighlightNationClear2
+#define WM_PLACEDOT WmEvtMarkPoint
+#define WM_FXCLEAR1 WmEvtRemoveMarkPoint1
+#define WM_FXCLEAR2 WmEvtRemoveMarkPoint2
+#define PUTSPRITE WmEvtShowMU
+#define WM_PUTMOVINGSPRITE WmEvtMoveUnit
+#define WM_WAITFORSPRITES WmEvtWaitMU
+#define WM_REMSPRITE WmEvtRemoveMU
+#define WM_PUTSPRITE WmEvtSetPosition
+#define WM_FADEINSPRITE WmEvtFadeMU
+#define WM_WAITFORSPRITELOAD WmEvtWaitMuFade
+#define SKIPWN WmEvtSkipWmEvents
+#define WM_CREATENEXTDESTINATION WmEvtInitNextStoryNode
+#define WM_WAITFORFX WmEvtWaitNodeDisplay
+
 /* Main Code Helpers */
 
 #define TurnEventPlayer(eid, scr, turn) TURN(eid, scr, turn, 0, FACTION_BLUE)

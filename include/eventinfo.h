@@ -43,6 +43,62 @@ enum char_identifier_event {
     CHAR_EVT_SLOT2 = -3,
 };
 
+enum wm_node_idx {
+    WM_NODE_00 = 0x00,
+    WM_NODE_01 = 1,
+    WM_NODE_02 = 2,
+    WM_NODE_03 = 3,
+    WM_NODE_04 = 4,
+    WM_NODE_05 = 5,
+    WM_NODE_06 = 6,
+    WM_NODE_07 = 7,
+    WM_NODE_08 = 8,
+    WM_NODE_09 = 9,
+    WM_NODE_0A = 10,
+    WM_NODE_0B = 11,
+    WM_NODE_0C = 12,
+    WM_NODE_0D = 13,
+    WM_NODE_0E = 14,
+    WM_NODE_0F = 15,
+    WM_NODE_10 = 16,
+    WM_NODE_11 = 17,
+    WM_NODE_12 = 18,
+    WM_NODE_13 = 19,
+    WM_NODE_14 = 20,
+    WM_NODE_15 = 21,
+    WM_NODE_16 = 22,
+    WM_NODE_17 = 23,
+    WM_NODE_18 = 24,
+    WM_NODE_19 = 25,
+    WM_NODE_1A = 26,
+    WM_NODE_1B = 27,
+    WM_NODE_1C = 28,
+};
+
+enum wm_hightlighted_nation_idx {
+    WM_NATION_Frelia = 0,
+    WM_NATION_Grado = 1,
+    WM_NATION_Jehanna = 2,
+    WM_NATION_Carcino = 3,
+    WM_NATION_ZahaWoods = 4,
+    WM_NATION_Rausten = 5,
+    WM_NATION_Pokhara = 6,
+    WM_NATION_Renais = 7,
+};
+
+enum wm_mu_idx {
+    WM_MU_0 = 0,
+    WM_MU_1 = 1,
+    WM_MU_2 = 2,
+    WM_MU_3 = 3,
+    WM_MU_4 = 4,
+    WM_MU_5 = 5,
+    WM_MU_6 = 6,
+
+    WM_MU_MAX = 7,
+    WM_MU_ANY = -1,
+};
+
 struct EventInfo {
     /* 00 */ const EventListScr * listScript;
     /* 04 */ u32 script;

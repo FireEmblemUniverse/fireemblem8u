@@ -1,10 +1,10 @@
     .section .data
 
-	.global gUnknown_08A3EA70
-gUnknown_08A3EA70:  @ 0x08A3EA70
+	.global ProcScr_GmapSogu
+ProcScr_GmapSogu:  @ 0x08A3EA70
         @ PROC_NAME
         .short 0x1, 0x0
-        .word 0x820693c
+        .word 0x820693c @ Gmap Sogu
         @ PROC_MARK
         .short 0xf, 0x8
         .word 0x0
@@ -25,8 +25,8 @@ gUnknown_08A3EA70:  @ 0x08A3EA70
         .word 0x0
 
 
-	.global gUnknown_08A3EAA8
-gUnknown_08A3EAA8:  @ 0x08A3EAA8
+	.global ProcScr_GmapTimeMons
+ProcScr_GmapTimeMons:  @ 0x08A3EAA8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206ab4
@@ -56,8 +56,8 @@ gUnknown_08A3EAA8:  @ 0x08A3EAA8
         .word 0x0
 
 
-	.global gUnknown_08A3EAF0
-gUnknown_08A3EAF0:  @ 0x08A3EAF0
+	.global ProcScr_GmapRmUpdate1
+ProcScr_GmapRmUpdate1:  @ 0x08A3EAF0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206ac4
@@ -72,8 +72,8 @@ gUnknown_08A3EAF0:  @ 0x08A3EAF0
         .word 0x0
 
 
-	.global gUnknown_08A3EB10
-gUnknown_08A3EB10:  @ 0x08A3EB10
+	.global ProcScr_GmapRmUpdate2
+ProcScr_GmapRmUpdate2:  @ 0x08A3EB10
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206ac4
@@ -100,8 +100,8 @@ gUnknown_08A3EB10:  @ 0x08A3EB10
         .word 0x0
 
 
-	.global gUnknown_08A3EB50
-gUnknown_08A3EB50:  @ 0x08A3EB50
+	.global ProcScr_GmapRM
+ProcScr_GmapRM:  @ 0x08A3EB50
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206ad4
@@ -161,8 +161,8 @@ gUnknown_08A3EB50:  @ 0x08A3EB50
         .word 0x0
 
 
-	.global gUnknown_08A3EBE8
-gUnknown_08A3EBE8:  @ 0x08A3EBE8
+	.global ProcScr_GmapRmBaPalAnim
+ProcScr_GmapRmBaPalAnim:  @ 0x08A3EBE8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206adc
@@ -201,8 +201,8 @@ gUnknown_08A3EBE8:  @ 0x08A3EBE8
         .word 0x0
 
 
-	.global gUnknown_08A3EC48
-gUnknown_08A3EC48:  @ 0x08A3EC48
+	.global ProcScr_GmapRmBorder
+ProcScr_GmapRmBorder:  @ 0x08A3EC48
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206b50
@@ -1504,9 +1504,13 @@ gPal_08A9E5BC:  @ 0x08A9E5BC
 gTsa_08A9E5DC:  @ 0x08A9E5DC
 	.incbin "baserom.gba", 0xA9E5DC, 0xAC
 
-	.global gUnknown_08A9E688
-gUnknown_08A9E688:  @ 0x08A9E688
-	.incbin "baserom.gba", 0xA9E688, 0x2AC4
+	.global Pal_WmHighLightNationMap
+Pal_WmHighLightNationMap:  @ 0x08A9E688
+	.incbin "baserom.gba", 0xA9E688, 0x40
+
+        .global Img_WmHightLightMapFrecia
+Img_WmHightLightMapFrecia:
+        .incbin "baserom.gba", 0xA9E6C8, 0x2A84
 
 	.global gUnknown_08AA114C
 gUnknown_08AA114C:  @ 0x08AA114C
