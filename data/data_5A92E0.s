@@ -1010,7 +1010,7 @@ gUnknown_085AA2B4:  @ 0x085AA2B4
     .4byte 0x10e20
     .4byte 0x70228
     .4byte 0x41020
-    .4byte gUnknown_088B3AD8 + 0xe048
+    .4byte Events_WM_ChapterIntro + 0xe048
     .4byte 0x1d20
     .4byte 0x1b22
     .4byte 0xd40
@@ -1023,7 +1023,7 @@ gUnknown_085AA2D8:  @ 0x085AA2D8
     .4byte 0x10e20
     .4byte 0x70228
     .4byte 0x41020
-    .4byte gUnknown_088B3AD8 + 0x1e048
+    .4byte Events_WM_ChapterIntro + 0x1e048
     .4byte 0x1d20
     .4byte 0x1b22
     .4byte 0xd40

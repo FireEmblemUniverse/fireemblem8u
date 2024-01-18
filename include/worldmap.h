@@ -415,7 +415,7 @@ void sub_80B9DC4(ProcPtr proc);
 void sub_80B9DE0(struct WorldMapMainProc * proc);
 void sub_80B9E40(ProcPtr proc);
 // ??? sub_80B9E64(???);
-void sub_80B9EA4(void);
+void ResetWorldMapScreen(void);
 void DoNothing(void);
 void sub_80B9F14(ProcPtr proc);
 void sub_80B9F24(ProcPtr proc);

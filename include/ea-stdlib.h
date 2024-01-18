@@ -208,6 +208,8 @@
 #define WM_TEXTSTART WmEvtTextStart
 #define WM_REMOVETEXT WmEvtRemoveText
 #define WM_TEXT WmEvtShowText
+#define WM_MOVECAM WmEvtGmScroll
+#define WM_WAITFORCAM WmEvtWaitGmScroll
 #define WM_MOVECAM2 WmEvtCamMov2
 #define WM_SHOWPORTRAIT WmEvtShowPortrait
 #define WM_CLEARPORTRAIT WmEvtClearPortrait
@@ -221,12 +223,29 @@
 #define WM_PUTMOVINGSPRITE WmEvtMoveUnit
 #define WM_WAITFORSPRITES WmEvtWaitMU
 #define WM_REMSPRITE WmEvtRemoveMU
-#define WM_PUTSPRITE WmEvtSetPosition
+#define WM_PUTSPRITE WmEvtSetUnitPosition
 #define WM_FADEINSPRITE WmEvtFadeMU
 #define WM_WAITFORSPRITELOAD WmEvtWaitMuFade
 #define SKIPWN WmEvtSkipWmEvents
-#define WM_CREATENEXTDESTINATION WmEvtInitNextStoryNode
+#define WM_CREATENEXTDESTINATION WmEvtInitDrawNewNode
 #define WM_WAITFORFX WmEvtWaitNodeDisplay
+#define WM_MAKELORDVISIBLE WmEvtShowUnit
+#define WM_DRAWPATH WmEvtDrawPath
+#define WM_WAITFORFXCLEAR1 WmEvtRemoveBigMap
+#define WM_WAITFORFXCLEAR2 WmEvtWaitBigMapRemove
+#define WM_MOVESPRITETO WmEvtMoveUnitInPath
+#define WM_MAKELORDDISAPPEAR WmEvtHideUnit
+#define WM_FADEOUTSPRITE WmEvtUnitFadeOut
+#define WM_REMOVELOCATION WmEvtRemoveNode
+#define WM_REMOVEPATH WmEvtRemovePath
+#define WM_LOADLOCATION2 WmEvtEnableNode
+#define WM_SETDESTINATION WmEvtSetNextStoryNodeSilent
+#define WM_LOADLOCATION3 WmEvtDisplayNode
+#define WM_DRAWPATH2 WmEvtAddPath
+#define WM_SETCAM WmEvtSetCameraAt
+#define DRAWPATH3 WmEvtDisplayPath
+#define WM_MOVECAMTO WmEvtMoveCamToNode
+#define WM_SATURATE_COLORS WmEvtFadeInDark
 
 /* Main Code Helpers */
 

@@ -5,7 +5,7 @@ import sys, ctypes
 import symbols
 from fe8db import PID_IDX, EVENT_COMMANDS, EVENT_SLOTS, DIRECTION_IDX
 from fe8db import EVENT0B_TRIGGER_TYPE, WM_NODES, WM_NATIONS, JID_IDX, FACTION_IDX
-from fe8db import WM_MU_IDX
+from fe8db import WM_MU_IDX, WM_PATH_IDX
 
 # ========================================================================
 elf = "fireemblem8.elf"
@@ -834,6 +834,8 @@ def parse_event(rom_data, off):
             x = arg1
             y = arg2
             _map = arg2_u32_le
+            x = ctypes.c_int16(x).value
+            y = ctypes.c_int16(y).value
             print(f"\tWM_SHOWDRAWNMAP({x}, {y}, {hex(_map)})")
 
         case "EV_CMD_WM_C2":
@@ -869,6 +871,10 @@ def parse_event(rom_data, off):
         case "EV_CMD_WM_MOVECAM2":
             x1, y1 = unpack_EvtParams2(arg32)
             x2, y2 = unpack_EvtParams2(arg2_u32_le)
+            x1 = ctypes.c_int16(x1).value
+            y1 = ctypes.c_int16(y1).value
+            x2 = ctypes.c_int16(x2).value
+            y2 = ctypes.c_int16(y2).value
             speed, delay = unpack_EvtParams2(arg3_u32_le)
             print(f"\tWM_MOVECAM2({x1}, {y1}, {x2}, {y2}, {speed}, {delay})")
 
@@ -951,6 +957,131 @@ def parse_event(rom_data, off):
 
         case "EV_CMD_WM_WAITFORFX":
             print("\tWM_WAITFORFX")
+
+        case "EV_CMD_WM_MAKELORDVISIBLE":
+            mu_id = ctypes.c_int32(arg1_u32_le).value
+            print(f"\tWM_MAKELORDVISIBLE({WM_MU_IDX[mu_id]})")
+
+        case "EV_CMD_WM_DRAWPATH":
+            path_idx = WM_PATH_IDX[arg32]
+            print(f"\tWM_DRAWPATH({path_idx})")
+
+        case "EV_CMD_WM_MOVECAM":
+            x1, y1 = unpack_EvtParams2(arg32)
+            x2, y2 = unpack_EvtParams2(arg2_u32_le)
+            x1 = ctypes.c_int16(x1).value
+            y1 = ctypes.c_int16(y1).value
+            x2 = ctypes.c_int16(x2).value
+            y2 = ctypes.c_int16(y2).value
+            speed, delay = unpack_EvtParams2(arg3_u32_le)
+            print(f"\tWM_MOVECAM({x1}, {y1}, {x2}, {y2}, {speed}, {delay})")
+
+        case "EV_CMD_WM_WAITFORCAM":
+            print("\tWM_WAITFORCAM")
+
+        case "EV_CMD_WM_WAITFORFXCLEAR1":
+            print("\tWmEvtRemoveBigMap // WM_WAITFORFXCLEAR1")
+
+        case "EV_CMD_WM_WAITFORFXCLEAR2":
+            print("\tWmEvtWaitBigMapRemove // WM_WAITFORFXCLEAR2")
+
+        case "EV_CMD_WM_MOVESPRITETO":
+            wm_uid, conf = unpack_EvtParams2(arg1_u32_le)
+            node1, node2 = unpack_EvtParams2(arg2_u32_le)
+            speed, delay = unpack_EvtParams2(arg3_u32_le)
+            speed = ctypes.c_int16(speed).value
+            print(f"\tWM_MOVESPRITETO({WM_MU_IDX[wm_uid]}, 0x{conf:04X}, {WM_NODES[node1]}, {WM_NODES[node2]}, {speed}, {delay})")
+
+        case "EV_CMD_WM_MAKELORDDISAPPEAR":
+            wm_uid = arg1_u32_le
+            print(f"\tWM_MAKELORDDISAPPEAR({WM_MU_IDX[wm_uid]})")
+
+        case "EV_CMD_WM_FADEOUTSPRITE":
+            wm_uid, speed = unpack_EvtParams2(arg1_u32_le)
+            print(f"\tWM_FADEOUTSPRITE({WM_MU_IDX[wm_uid]}, {speed})")
+
+        case "EV_CMD_WM_84":
+            node = arg1_u32_le
+            print(f"\tWmEvtSetCamToNode({WM_NODES[node]}) // ENOSUPP in EA-stdlib")
+
+        case "EV_CMD_WM_A6":
+            wm_uid, node = unpack_EvtParams2(arg1_u32_le)
+            print(f"\tWmEvtSetUnitOnNode({WM_MU_IDX[wm_uid]}, {WM_NODES[node]}) // ENOSUPP in EA-stdlib")
+
+        case "EV_CMD_WM_9B":
+            node = arg1_u32_le
+            print(f"\tWmEvtSetNextStoryNode({WM_NODES[node]}) // ENOSUPP in EA-stdlib")
+
+        case "EV_CMD_WM_REMOVELOCATION":
+            node = arg1_u32_le
+            print(f"\tWM_REMOVELOCATION({WM_NODES[node]})")
+
+        case "EV_CMD_WM_REMOVEPATH":
+            path = arg1_u32_le
+            print(f"\tWM_REMOVEPATH({WM_PATH_IDX[path]})")
+
+        case "EV_CMD_WM_LOADLOCATION2":
+            node = arg1_u32_le
+            print(f"\tWM_LOADLOCATION2({WM_NODES[node]})")
+
+        case "EV_CMD_WM_SETDESTINATION":
+            node = arg1_u32_le
+            print(f"\tWM_SETDESTINATION({WM_NODES[node]})")
+
+        case "EV_CMD_WM_LOADLOCATION3":
+            node = arg1_u32_le
+            print(f"\tWM_LOADLOCATION3({WM_NODES[node]})")
+
+        case "EV_CMD_WM_DRAWPATH2":
+            path = arg1_u32_le
+            print(f"\tWM_DRAWPATH2({WM_PATH_IDX[path]})")
+
+        case "EV_CMD_WM_88":
+            x, y = unpack_EvtParams2(arg1_u32_le)
+            wm_uid, speed = unpack_EvtParams2(arg2_u32_le)
+            delay, _0 = unpack_EvtParams2(arg3_u32_le)
+
+            x = ctypes.c_int16(x).value
+            y = ctypes.c_int16(y).value
+            print(f"\tWmEvtMoveCamToUnit({x}, {y}, {WM_MU_IDX[wm_uid]}, {speed}, {delay}) // ENOSUPP in EA-stdlib")
+
+        case "EV_CMD_WM_MOVECAMTO":
+            x, y = unpack_EvtParams2(arg1_u32_le)
+            node, speed = unpack_EvtParams2(arg2_u32_le)
+            delay, _0 = unpack_EvtParams2(arg3_u32_le)
+
+            x = ctypes.c_int16(x).value
+            y = ctypes.c_int16(y).value
+            print(f"\tWM_MOVECAMTO({x}, {y}, {WM_NODES[node]}, {speed}, {delay})")
+
+        case "EV_CMD_WM_AA":
+            wm_uid = arg1_u32_le
+            print(f"\tWmEvtPasueMove({WM_MU_IDX[wm_uid]}) // ENOSUPP in EA-stdlib")
+
+        case "EV_CMD_WM_AB":
+            wm_uid = arg1_u32_le
+            print(f"\tWmEvtResumeMove({WM_MU_IDX[wm_uid]}) // ENOSUPP in EA-stdlib")
+
+        case "EV_CMD_WM_SETCAM":
+            x, y = unpack_EvtParams2(arg1_u32_le)
+            x = ctypes.c_int16(x).value
+            y = ctypes.c_int16(y).value
+            print(f"\tWM_SETCAM({x}, {y})")
+
+        case "EV_CMD_DRAWPATH3":
+            path = arg1_u32_le
+            print(f"\tDRAWPATH3({WM_PATH_IDX[path]})")
+
+        case "EV_CMD_WM_9D":
+            node = arg1_u32_le
+            print(f"\tWmEvtSetNodeStateNot2({WM_NODES[node]}) // ENOSUPP in EA-stdlib")
+
+        case "EV_CMD_WM_SATURATE_COLORS":
+            speed = arg1_u32_le
+            print(f"\tWmEvtFadeInDark({speed}) // WM_SATURATE_COLORS")
+
+        case "EV_CMD_WM_AE":
+            print("\tWmEvtWaitFadeInDark // ENOSUPP in EA-stdlib")
 
         case _:
             parse_event_todo(rom_data, off)

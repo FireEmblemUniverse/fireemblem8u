@@ -240,70 +240,126 @@ gChapterDataAssetTable:  @ 0x088B363C
 	.word Ch5TownPalettePast
 	.word Ch5TownMapPast
 
-	.global gUnknown_088B39EC
-gUnknown_088B39EC:  @ 0x088B39EC
-@ replacing .incbin "baserom.gba", 0x008b39ec, 0xec
-.4byte 0
-.4byte gUnknown_08A3974C + 0x1c
-.4byte gUnknown_08A3974C + 0x5c0
-.4byte gUnknown_08A3974C + 0x5f8
-.4byte gUnknown_08A3974C + 0x7d4
-.4byte gUnknown_08A3974C + 0x970
-.4byte gUnknown_08A3974C + 0x3144
-.4byte gUnknown_08A3974C + 0xaa0
-.4byte gUnknown_08A3974C + 0xd8c
-.4byte gUnknown_08A3974C + 0xe78
-.4byte gUnknown_08A3974C + 0xf64
-.4byte gUnknown_08A3974C + 0xfe4
-.4byte gUnknown_08A3974C + 0x1244
-.4byte gUnknown_08A3974C + 0x1404
-.4byte gUnknown_08A3974C + 0x1420
-.4byte gUnknown_08A3974C + 0x1564
-.4byte gUnknown_08A3974C + 0x1ddc
-.4byte gUnknown_08A3974C + 0x1e48
-.4byte gUnknown_08A3974C + 0x1fec
-.4byte gUnknown_08A3974C + 0x219c
-.4byte gUnknown_08A3974C + 0x2318
-.4byte gUnknown_08A3974C + 0x2428
-.4byte gUnknown_08A3974C + 0x260c
-.4byte gUnknown_08A3974C + 0x314c
-.4byte gUnknown_08A3974C + 0x170c
-.4byte gUnknown_08A3974C + 0x1940
-.4byte gUnknown_08A3974C + 0x1a8c
-.4byte gUnknown_08A3974C + 0x1aa8
-.4byte gUnknown_08A3974C + 0x1b90
-.4byte gUnknown_08A3974C + 0x2628
-.4byte gUnknown_08A3974C + 0x27dc
-.4byte gUnknown_08A3974C + 0x2968
-.4byte gUnknown_08A3974C + 0x2b14
-.4byte gUnknown_08A3974C + 0x2c90
-.4byte gUnknown_08A3974C + 0x2da0
-.4byte gUnknown_08A3974C + 0x2f84
-.4byte gUnknown_08A3974C + 0x3154
-.4byte gUnknown_08A3974C + 0x1d18
-.4byte gUnknown_08A3974C + 0x1d2c
-.4byte gUnknown_08A3974C + 0x1d34
-.4byte gUnknown_08A3974C + 0x1d3c
-.4byte gUnknown_08A3974C + 0x1d44
-.4byte gUnknown_08A3974C + 0x1d4c
-.4byte gUnknown_08A3974C + 0x1d54
-.4byte gUnknown_08A3974C + 0x1d5c
-.4byte gUnknown_08A3974C + 0x1d74
-.4byte gUnknown_08A3974C + 0x1d84
-.4byte gUnknown_08A3974C + 0x1d8c
-.4byte gUnknown_08A3974C + 0x1d94
-.4byte gUnknown_08A3974C + 0x1d9c
-.4byte gUnknown_08A3974C + 0x1da4
-.4byte gUnknown_08A3974C + 0x1dac
-.4byte gUnknown_08A3974C + 0x1db4
-.4byte gUnknown_08A3974C + 0x1dbc
-.4byte gUnknown_08A3974C + 0x1dc4
-.4byte gUnknown_08A3974C + 0x3114
-.4byte gUnknown_08A3974C + 0x1d10
-.4byte gUnknown_08A3974C + 0x315c
-.4byte gUnknown_08A3974C + 0x3284
+	.global Events_WM_Beginning
+Events_WM_Beginning:  @ 0x088B39EC
+.4byte 0x00000000
+.4byte EventScrWM_Prologue_Beginning
+.4byte EventScrWM_Ch1_Beginning
+.4byte EventScrWM_Ch2_Beginning
+.4byte EventScrWM_Ch3_Beginning
+.4byte EventScrWM_Ch4_Beginning
+.4byte EventScrWM_Ch5x_Beginning
+.4byte EventScrWM_Ch5_Beginning
+.4byte EventScrWM_Ch6_Beginning
+.4byte EventScrWM_Ch7_Beginning
+.4byte EventScrWM_Ch8_Beginning
+.4byte EventScrWM_Ch9a_Beginning
+.4byte EventScrWM_Ch10a_Beginning
+.4byte EventScrWM_Ch12a_Beginning
+.4byte EventScrWM_Ch13a_Beginning
+.4byte EventScrWM_Ch14a_Beginning
+.4byte EventScrWM_Ch15a_Beginning
+.4byte EventScrWM_Ch16a_Beginning
+.4byte EventScrWM_Ch17a_Beginning
+.4byte EventScrWM_Ch18a_Beginning
+.4byte EventScrWM_Ch19a_Beginning
+.4byte EventScrWM_Ch20a_Beginning
+.4byte EventScrWM_Ch21a_Beginning
+.4byte EventScrWM_Ch21ax_Beginning
+.4byte EventScrWM_Ch9b_Beginning
+.4byte EventScrWM_Ch10b_Beginning
+.4byte EventScrWM_Ch12b_Beginning
+.4byte EventScrWM_Ch13b_Beginning
+.4byte EventScrWM_Ch14b_Beginning
+.4byte EventScrWM_Ch15b_Beginning
+.4byte EventScrWM_Ch16b_Beginning
+.4byte EventScrWM_Ch17b_Beginning
+.4byte EventScrWM_Ch18b_Beginning
+.4byte EventScrWM_Ch19b_Beginning
+.4byte EventScrWM_Ch20b_Beginning
+.4byte EventScrWM_Ch21b_Beginning
+.4byte EventScrWM_Ch21bx_Beginning
+.4byte EventScrWM_ValniTower1_Beginning
+.4byte EventScrWM_ValniTower2_Beginning
+.4byte EventScrWM_ValniTower3_Beginning
+.4byte EventScrWM_ValniTower4_Beginning
+.4byte EventScrWM_ValniTower5_Beginning
+.4byte EventScrWM_ValniTower6_Beginning
+.4byte EventScrWM_ValniTower7_Beginning
+.4byte EventScrWM_ValniTower8_Beginning
+.4byte EventScrWM_LagdouRuins1_Beginning
+.4byte EventScrWM_LagdouRuins2_Beginning
+.4byte EventScrWM_LagdouRuins3_Beginning
+.4byte EventScrWM_LagdouRuins4_Beginning
+.4byte EventScrWM_LagdouRuins5_Beginning
+.4byte EventScrWM_LagdouRuins6_Beginning
+.4byte EventScrWM_LagdouRuins7_Beginning
+.4byte EventScrWM_LagdouRuins8_Beginning
+.4byte EventScrWM_LagdouRuins9_Beginning
+.4byte EventScrWM_LagdouRuins10_Beginning
+.4byte EventScrWM_CastleFrelia_Beginning
+.4byte EventScrWM_MelkaenCoast_Beginning
+.4byte EventScrWM_Ch11a_Beginning
+.4byte EventScrWM_Ch11b_Beginning
 
-	.global gUnknown_088B3AD8
-gUnknown_088B3AD8:  @ 0x088B3AD8
-    .incbin "baserom.gba", 0x8B3AD8, 0x8B3BC4 - 0x8B3AD8
-
+	.global Events_WM_ChapterIntro
+Events_WM_ChapterIntro:  @ 0x088B3AD8
+.4byte 0x00000000
+.4byte EventScrWM_Prologue_ChapterIntro
+.4byte EventScrWM_Ch1_ChapterIntro
+.4byte EventScrWM_Ch2_ChapterIntro
+.4byte EventScrWM_Ch3_ChapterIntro
+.4byte EventScrWM_Ch4_ChapterIntro
+.4byte EventScrWM_Ch5x_ChapterIntro
+.4byte EventScrWM_Ch5_ChapterIntro
+.4byte EventScrWM_Ch6_ChapterIntro
+.4byte EventScrWM_Ch7_ChapterIntro
+.4byte EventScrWM_Ch8_ChapterIntro
+.4byte EventScrWM_Ch9a_ChapterIntro
+.4byte EventScrWM_08A3A9EC
+.4byte EventScrWM_08A3AB68
+.4byte EventScrWM_08A3ABC8
+.4byte EventScrWM_08A3AD40
+.4byte EventScrWM_08A3B58C
+.4byte EventScrWM_08A3B678
+.4byte EventScrWM_08A3B808
+.4byte EventScrWM_08A3B944
+.4byte EventScrWM_08A3BAC0
+.4byte EventScrWM_08A3BC8C
+.4byte EventScrWM_08A3BD70
+.4byte EventScrWM_08A3C89C
+.4byte EventScrWM_08A3AF30
+.4byte EventScrWM_08A3B10C
+.4byte EventScrWM_08A3B1F0
+.4byte EventScrWM_08A3B250
+.4byte EventScrWM_08A3B338
+.4byte EventScrWM_08A3BE14
+.4byte EventScrWM_08A3BFF4
+.4byte EventScrWM_08A3C184
+.4byte EventScrWM_08A3C2BC
+.4byte EventScrWM_08A3C438
+.4byte EventScrWM_08A3C604
+.4byte EventScrWM_08A3C6E8
+.4byte EventScrWM_08A3C8A4
+.4byte EventScrWM_08A3B46C
+.4byte EventScrWM_08A3B47C
+.4byte EventScrWM_08A3B484
+.4byte EventScrWM_08A3B48C
+.4byte EventScrWM_08A3B494
+.4byte EventScrWM_08A3B49C
+.4byte EventScrWM_08A3B4A4
+.4byte EventScrWM_08A3B4AC
+.4byte EventScrWM_08A3B4C4
+.4byte EventScrWM_08A3B4D4
+.4byte EventScrWM_08A3B4DC
+.4byte EventScrWM_08A3B4E4
+.4byte EventScrWM_08A3B4EC
+.4byte EventScrWM_08A3B4F4
+.4byte EventScrWM_08A3B4FC
+.4byte EventScrWM_08A3B504
+.4byte EventScrWM_08A3B50C
+.4byte EventScrWM_08A3B514
+.4byte EventScrWM_08A3C888
+.4byte EventScrWM_08A3B460
+.4byte EventScrWM_08A3C904
+.4byte EventScrWM_08A3CA2C

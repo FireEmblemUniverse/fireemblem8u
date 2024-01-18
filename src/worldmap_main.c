@@ -26,8 +26,8 @@ s8 FindGmScrollManage(void);
 // TODO: Implicit declaration?
 void GetWMCenteredCameraPosition(int, int, s16 *, s16 *);
 
-extern u16 * gUnknown_088B39EC[];
-extern u16 * gUnknown_088B3AD8[];
+extern u16 * Events_WM_Beginning[];
+extern u16 * Events_WM_ChapterIntro[];
 
 struct Proc8A3DD30
 {
@@ -1033,7 +1033,7 @@ PROC_LABEL(23),
 
 PROC_LABEL(25),
     PROC_SLEEP(16),
-    PROC_CALL(sub_80B9EA4),
+    PROC_CALL(ResetWorldMapScreen),
 
     PROC_CALL(DoNothing),
 
@@ -1681,7 +1681,7 @@ void sub_80B9E64(void)
 }
 
 //! FE8U = 0x080B9EA4
-void sub_80B9EA4(void)
+void ResetWorldMapScreen(void)
 {
     SetDispEnable(0, 0, 0, 0, 0);
 
@@ -2064,14 +2064,14 @@ void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
 
             gPlaySt.chapterIndex = chIndex;
 
-            if (gUnknown_088B39EC[GetROMChapterStruct(chIndex)->gmapEventId] == 0)
+            if (Events_WM_Beginning[GetROMChapterStruct(chIndex)->gmapEventId] == 0)
             {
                 return;
             }
 
             sub_80BCFB4();
             proc->unk_48->unk_32_1 = 0;
-            CallEvent(gUnknown_088B39EC[GetROMChapterStruct(chIndex)->gmapEventId], 0);
+            CallEvent(Events_WM_Beginning[GetROMChapterStruct(chIndex)->gmapEventId], 0);
         }
     }
 
@@ -2084,9 +2084,9 @@ void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
 //! FE8U = 0x080BA3D4
 void CallChapterWMIntroEvents(ProcPtr proc)
 {
-    if (gUnknown_088B3AD8[GetROMChapterStruct(gPlaySt.chapterIndex)->gmapEventId] != 0)
+    if (Events_WM_ChapterIntro[GetROMChapterStruct(gPlaySt.chapterIndex)->gmapEventId] != 0)
     {
-        CallEvent(gUnknown_088B3AD8[GetROMChapterStruct(gPlaySt.chapterIndex)->gmapEventId], 0);
+        CallEvent(Events_WM_ChapterIntro[GetROMChapterStruct(gPlaySt.chapterIndex)->gmapEventId], 0);
         StartWMFaceCtrl(proc);
         StartGmapMuEntry(NULL);
     }

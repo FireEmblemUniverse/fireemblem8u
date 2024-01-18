@@ -1128,14 +1128,14 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
 
 struct Sub80C3378
 {
-    /* 00 */ u8 unk_00;
+    /* 00 */ u8 wm_uid;
     /* 01 */ u8 unk_01;
     /* 02 */ u8 unk_02;
     /* 04 */ u16 unk_04;
-    /* 06 */ u16 unk_06;
-    /* 08 */ u16 unk_08;
-    /* 0A */ u16 unk_0a;
-    /* 0C */ int unk_0c;
+    /* 06 */ u16 node1;
+    /* 08 */ u16 node2;
+    /* 0A */ u16 delay;
+    /* 0C */ int speed;
 };
 
 //! FE8U = 0x0800C754
@@ -1143,31 +1143,31 @@ u8 EventA9_WmUnitMovePaths(struct EventEngineProc * proc)
 {
     struct Sub80C3378 local;
 
-    s16 r3 = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 r2 = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-    u16 r5 = EVT_CMD_ARGV(proc->pEventCurrent)[3];
-    u16 r4 = EVT_CMD_ARGV(proc->pEventCurrent)[4];
-    u16 r6 = EVT_CMD_ARGV(proc->pEventCurrent)[5];
-    u16 r7 = EVT_CMD_ARGV(proc->pEventCurrent)[6];
+    s16 wm_uid = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    u16 conf = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    u16 node1 = EVT_CMD_ARGV(proc->pEventCurrent)[3];
+    u16 node2 = EVT_CMD_ARGV(proc->pEventCurrent)[4];
+    u16 speed = EVT_CMD_ARGV(proc->pEventCurrent)[5];
+    u16 delay = EVT_CMD_ARGV(proc->pEventCurrent)[6];
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        gGMData.units[r3].location = r4;
+        gGMData.units[wm_uid].location = node2;
 
-        if ((r2 & 2) != 0)
+        if ((conf & 2) != 0)
         {
-            HideGmUnit(r3);
+            HideGmUnit(wm_uid);
         }
     }
     else
     {
-        local.unk_00 = r3;
+        local.wm_uid = wm_uid;
         local.unk_01 = 0;
-        local.unk_06 = r5;
-        local.unk_08 = r4;
-        local.unk_0c = r6;
-        local.unk_0a = r7;
-        sub_80C3378(&local, r2, 0);
+        local.node1 = node1;
+        local.node2 = node2;
+        local.speed = speed;
+        local.delay = delay;
+        sub_80C3378(&local, conf, 0);
     }
 
     return EVC_ADVANCE_CONTINUE;
