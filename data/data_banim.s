@@ -10,336 +10,387 @@ Img_TeonoOBJ:  @ 0x085D9C5C
 Pal_TeonoOBJ:  @ 0x085DA05C
 	.incbin "./graphics/efxmagic/Img_EfxTeonoOBJ.gbapal", 0x0, 0x20
 
-    .global Obj_085DA07C
-Obj_085DA07C:
-AnimSprite_EfxTeonoObj1:
-    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x100 / 0x20, -0x12, -0x04
-    ANIM_SPRITE_END
+.global AnimSprite_EfxTeonoObj_085DA07C
+AnimSprite_EfxTeonoObj_085DA07C:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, -18, -4
+	ANIM_SPRITE_END
 
-AnimSprite_EfxTeonoObj2:
-    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0, -0x29, 0x1
-    ANIM_SPRITE_END
+.global AnimSprite_EfxTeonoObj_085DA094
+AnimSprite_EfxTeonoObj_085DA094:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, -41, 1
+	ANIM_SPRITE_END
 
-AnimSprite_EfxTeonoObj3:
-    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x80 / 0x20, -0x3B, 0x3
-    ANIM_SPRITE_END
+.global AnimSprite_EfxTeonoObj_085DA0AC
+AnimSprite_EfxTeonoObj_085DA0AC:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0004, -59, 3
+	ANIM_SPRITE_END
 
-AnimSprite_EfxTeonoObj4:
-    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x100 / 0x20, -0x4B, 0x3
-    ANIM_SPRITE_END
+.global AnimSprite_EfxTeonoObj_085DA0C4
+AnimSprite_EfxTeonoObj_085DA0C4:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, -75, 3
+	ANIM_SPRITE_END
 
-AnimSprite_EfxTeonoObj5:
-    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0 / 0x20, -0x5B, 0x3
-    ANIM_SPRITE_END
+.global AnimSprite_EfxTeonoObj_085DA0DC
+AnimSprite_EfxTeonoObj_085DA0DC:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, -91, 3
+	ANIM_SPRITE_END
 
-AnimSprite_EfxTeonoObj6:
-    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x80 / 0x20, -0x65, -0x1
-    ANIM_SPRITE_END
+.global AnimSprite_EfxTeonoObj_085DA0F4
+AnimSprite_EfxTeonoObj_085DA0F4:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0004, -101, -1
+	ANIM_SPRITE_END
 
-AnimSprite_EfxTeonoObj7:
-    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x100 / 0x20, -0x68, -0x4
-    ANIM_SPRITE_END
+.global AnimSprite_EfxTeonoObj_085DA10C
+AnimSprite_EfxTeonoObj_085DA10C:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, -104, -4
+	ANIM_SPRITE_END
 
-    .incbin "baserom.gba", 0x5DA124, 0x5DA364 - 0x5DA124
+.global AnimSprite_EfxTeonoObj_085DA124
+AnimSprite_EfxTeonoObj_085DA124:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, -110, -7
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA13C
+AnimSprite_EfxTeonoObj_085DA13C:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0004, -117, -10
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA154
+AnimSprite_EfxTeonoObj_085DA154:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, -121, -16
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA16C
+AnimSprite_EfxTeonoObj_085DA16C:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0040, -114, -18
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0042, -98, -18
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA190
+AnimSprite_EfxTeonoObj_085DA190:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0043, -109, -22
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, -93, -22
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA1B4
+AnimSprite_EfxTeonoObj_085DA1B4:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0012, -101, -24
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0014, -85, -24
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA1D8
+AnimSprite_EfxTeonoObj_085DA1D8:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x000C, -94, -25
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x000E, -78, -25
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA1FC
+AnimSprite_EfxTeonoObj_085DA1FC:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x000F, -83, -26
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0011, -67, -26
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA220
+AnimSprite_EfxTeonoObj_085DA220:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0012, -72, -26
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0014, -56, -26
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA244
+AnimSprite_EfxTeonoObj_085DA244:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x000C, -56, -26
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x000E, -40, -26
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA268
+AnimSprite_EfxTeonoObj_085DA268:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x000F, -46, -26
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0011, -30, -26
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA28C
+AnimSprite_EfxTeonoObj_085DA28C:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0012, -33, -25
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0014, -17, -25
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA2B0
+AnimSprite_EfxTeonoObj_085DA2B0:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0046, -22, -21
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0048, -6, -21
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA2D4
+AnimSprite_EfxTeonoObj_085DA2D4:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0049, -9, -18
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x004B, 7, -18
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA2F8
+AnimSprite_EfxTeonoObj_085DA2F8:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, -5, -10
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA310
+AnimSprite_EfxTeonoObj_085DA310:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, -106, 1
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA328
+AnimSprite_EfxTeonoObj_085DA328:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, -127, -3
+	ANIM_SPRITE_END
+
+.global AnimSprite_EfxTeonoObj_085DA340
+AnimSprite_EfxTeonoObj_085DA340:
+	ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0043, -126, -18
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, -110, -18
+	ANIM_SPRITE_END
 
 	.global AnimScr_TeonoObjCloseRight
 AnimScr_TeonoObjCloseRight:  @ 0x085DA364
 @ Replacing .incbin "baserom.gba", 0x5DA364, 0x5C
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj1, 1
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj2, 2
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj3, 1
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj4, 2
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj5, 1
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj6, 2
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj7, 1
-    .4byte Obj_085DA07C + 0xA9
-    .4byte Obj_085DA07C + 0xC2
-    .4byte Obj_085DA07C + 0xDb
-    .4byte Obj_085DA07C + 0xF2
-    .4byte Obj_085DA07C + 0x116
-    .4byte Obj_085DA07C + 0x13a
-    .4byte Obj_085DA07C + 0x15d
-    .4byte Obj_085DA07C + 0x182
-    .4byte Obj_085DA07C + 0x1A5
-    .4byte Obj_085DA07C + 0x1Ca
-    .4byte Obj_085DA07C + 0x1Ed
-    .4byte Obj_085DA07C + 0x212
-    .4byte Obj_085DA07C + 0x235
-    .4byte Obj_085DA07C + 0x25a
-    .4byte Obj_085DA07C + 0x27d
-    .4byte 0x80000000
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA07C, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA094, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA0AC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA0C4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA0DC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA0F4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA10C, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA124, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA13C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA154, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA16C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA190, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA1B4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA1D8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA1FC, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA220, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA244, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA268, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA28C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA2B0, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA2D4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA2F8, 1
+    ANIMSCR_BLOCKED
 
 	.global AnimScr_TeonoObjFarRight
 AnimScr_TeonoObjFarRight:  @ 0x085DA3C0
 @ Replacing .incbin "baserom.gba", 0x5DA3C0, 0x20
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj1, 1
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj2, 1
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj3, 1
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj4, 2
-    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj5, 1
-    .4byte Obj_085DA07C + 0x296
-    .4byte Obj_085DA07C + 0x2Ae
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA07C, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA094, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA0AC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA0C4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA0DC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA310, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA328, 2
     ANIMSCR_BLOCKED
 
 	.global AnimScr_TeonoObj2Right
 AnimScr_TeonoObj2Right:  @ 0x085DA3E0
-@ Replacing .incbin "baserom.gba", 0x5DA3E0, 0x31C
-    .4byte Obj_085DA07C + 0x2C6
-    .4byte Obj_085DA07C + 0x115
-    .4byte Obj_085DA07C + 0x13a
-    .4byte Obj_085DA07C + 0x15d
-    .4byte Obj_085DA07C + 0x182
-    .4byte Obj_085DA07C + 0x1A6
-    .4byte Obj_085DA07C + 0x1C9
-    .4byte Obj_085DA07C + 0x1Ed
-    .4byte Obj_085DA07C + 0x212
-    .4byte Obj_085DA07C + 0x235
-    .4byte Obj_085DA07C + 0x259
-    .4byte Obj_085DA07C + 0x27d
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA340, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA190, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA1B4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA1D8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA1FC, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA220, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA244, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA268, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA28C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA2B0, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA2D4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxTeonoObj_085DA2F8, 1
     ANIMSCR_BLOCKED
 
-    .4byte 0x90004000
-    .4byte 0xfff20008
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x00090000
-    .4byte 0x00000001
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x001b0004
-    .4byte 0x00000003
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x002b0008
-    .4byte 0x00000003
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x003b0000
-    .4byte 0x00000003
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x00450004
-    .4byte 0x0000ffff
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x00480008
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x004e0000
-    .4byte 0x0000fff9
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x00550004
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x00590008
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0x00620040
-    .4byte 0x0000ffee
-    .4byte 0x10008000
-    .4byte 0x005a0042
-    .4byte 0x0000ffee
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x005d0043
-    .4byte 0x0000ffea
-    .4byte 0x10000000
-    .4byte 0x00550045
-    .4byte 0x0000ffea
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x00550012
-    .4byte 0x0000ffe8
-    .4byte 0x10000000
-    .4byte 0x004d0014
-    .4byte 0x0000ffe8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x004e000c
-    .4byte 0x0000ffe7
-    .4byte 0x10000000
-    .4byte 0x0046000e
-    .4byte 0x0000ffe7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x0043000f
-    .4byte 0x0000ffe6
-    .4byte 0x10000000
-    .4byte 0x003b0011
-    .4byte 0x0000ffe6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x00380012
-    .4byte 0x0000ffe6
-    .4byte 0x10000000
-    .4byte 0x00300014
-    .4byte 0x0000ffe6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x0028000c
-    .4byte 0x0000ffe6
-    .4byte 0x10000000
-    .4byte 0x0020000e
-    .4byte 0x0000ffe6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x001e000f
-    .4byte 0x0000ffe6
-    .4byte 0x10000000
-    .4byte 0x00160011
-    .4byte 0x0000ffe6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x00110012
-    .4byte 0x0000ffe7
-    .4byte 0x10000000
-    .4byte 0x00090014
-    .4byte 0x0000ffe7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x00060046
-    .4byte 0x0000ffeb
-    .4byte 0x10000000
-    .4byte 0xfffe0048
-    .4byte 0x0000ffeb
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xfff90049
-    .4byte 0x0000ffee
-    .4byte 0x10008000
-    .4byte 0xfff1004b
-    .4byte 0x0000ffee
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0xffe50008
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x004a0000
-    .4byte 0x00000001
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0x005f0000
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x006e0043
-    .4byte 0x0000ffee
-    .4byte 0x10000000
-    .4byte 0x00660045
-    .4byte 0x0000ffee
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_085DA414
+AnimSprite_085DA414:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, -14, -4
+    ANIM_SPRITE_END
 
-	.global AnimScr_TeonoObjCloseLeft
-AnimScr_TeonoObjCloseLeft:  @ 0x085DA6FC
-@ Replacing .incbin "baserom.gba", 0x5DA6FC, 0x5C
-    .4byte AnimScr_TeonoObj2Right + 0x35
-    .4byte AnimScr_TeonoObj2Right + 0x4e
-    .4byte AnimScr_TeonoObj2Right + 0x65
-    .4byte AnimScr_TeonoObj2Right + 0x7e
-    .4byte AnimScr_TeonoObj2Right + 0x95
-    .4byte AnimScr_TeonoObj2Right + 0xae
-    .4byte AnimScr_TeonoObj2Right + 0xc5
-    .4byte AnimScr_TeonoObj2Right + 0xdd
-    .4byte AnimScr_TeonoObj2Right + 0xf6
-    .4byte AnimScr_TeonoObj2Right + 0x10f
-    .4byte AnimScr_TeonoObj2Right + 0x126
-    .4byte AnimScr_TeonoObj2Right + 0x14a
-    .4byte AnimScr_TeonoObj2Right + 0x16e
-    .4byte AnimScr_TeonoObj2Right + 0x191
-    .4byte AnimScr_TeonoObj2Right + 0x1b6
-    .4byte AnimScr_TeonoObj2Right + 0x1d9
-    .4byte AnimScr_TeonoObj2Right + 0x1fe
-    .4byte AnimScr_TeonoObj2Right + 0x221
-    .4byte AnimScr_TeonoObj2Right + 0x246
-    .4byte AnimScr_TeonoObj2Right + 0x269
-    .4byte AnimScr_TeonoObj2Right + 0x28e
-    .4byte AnimScr_TeonoObj2Right + 0x2b1
-    .4byte 0x80000000
+.global AnimSprite_085DA42C
+AnimSprite_085DA42C:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, 9, 1
+    ANIM_SPRITE_END
 
-	.global AnimScr_TeonoObjFarLeft
-AnimScr_TeonoObjFarLeft:  @ 0x085DA758
-@ Replacing .incbin "baserom.gba", 0x5DA758, 0x20
-    .4byte AnimScr_TeonoObj2Right + 0x35
-    .4byte AnimScr_TeonoObj2Right + 0x4d
-    .4byte AnimScr_TeonoObj2Right + 0x65
-    .4byte AnimScr_TeonoObj2Right + 0x7e
-    .4byte AnimScr_TeonoObj2Right + 0x95
-    .4byte AnimScr_TeonoObj2Right + 0x2ca
-    .4byte AnimScr_TeonoObj2Right + 0x2e2
-    .4byte 0x80000000
+.global AnimSprite_085DA444
+AnimSprite_085DA444:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0004, 27, 3
+    ANIM_SPRITE_END
 
-	.global AnimScr_TeonoObj2Left
-AnimScr_TeonoObj2Left:  @ 0x085DA778
-@ Replacing .incbin "baserom.gba", 0x5DA778, 0x34
-    .4byte AnimScr_TeonoObj2Right + 0x2fa
-    .4byte AnimScr_TeonoObj2Right + 0x149
-    .4byte AnimScr_TeonoObj2Right + 0x16e
-    .4byte AnimScr_TeonoObj2Right + 0x191
-    .4byte AnimScr_TeonoObj2Right + 0x1b6
-    .4byte AnimScr_TeonoObj2Right + 0x1da
-    .4byte AnimScr_TeonoObj2Right + 0x1fd
-    .4byte AnimScr_TeonoObj2Right + 0x221
-    .4byte AnimScr_TeonoObj2Right + 0x246
-    .4byte AnimScr_TeonoObj2Right + 0x269
-    .4byte AnimScr_TeonoObj2Right + 0x28d
-    .4byte AnimScr_TeonoObj2Right + 0x2b1
-    .4byte 0x80000000
+.global AnimSprite_085DA45C
+AnimSprite_085DA45C:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, 43, 3
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA474
+AnimSprite_085DA474:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, 59, 3
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA48C
+AnimSprite_085DA48C:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0004, 69, -1
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA4A4
+AnimSprite_085DA4A4:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, 72, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA4BC
+AnimSprite_085DA4BC:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, 78, -7
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA4D4
+AnimSprite_085DA4D4:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0004, 85, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA4EC
+AnimSprite_085DA4EC:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, 89, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA504
+AnimSprite_085DA504:
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0040, 98, -18
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0042, 90, -18
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA528
+AnimSprite_085DA528:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0043, 93, -22
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 85, -22
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA54C
+AnimSprite_085DA54C:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0012, 85, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0014, 77, -24
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA570
+AnimSprite_085DA570:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x000C, 78, -25
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x000E, 70, -25
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA594
+AnimSprite_085DA594:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x000F, 67, -26
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0011, 59, -26
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA5B8
+AnimSprite_085DA5B8:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0012, 56, -26
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0014, 48, -26
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA5DC
+AnimSprite_085DA5DC:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x000C, 40, -26
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x000E, 32, -26
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA600
+AnimSprite_085DA600:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x000F, 30, -26
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0011, 22, -26
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA624
+AnimSprite_085DA624:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0012, 17, -25
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0014, 9, -25
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA648
+AnimSprite_085DA648:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0046, 6, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0048, -2, -21
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA66C
+AnimSprite_085DA66C:
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0049, -7, -18
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x004B, -15, -18
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA690
+AnimSprite_085DA690:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0008, -27, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA6A8
+AnimSprite_085DA6A8:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, 74, 1
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA6C0
+AnimSprite_085DA6C0:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, 95, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DA6D8
+AnimSprite_085DA6D8:
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0043, 110, -18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 102, -18
+    ANIM_SPRITE_END
+
+.global AnimScr_TeonoObjCloseLeft
+AnimScr_TeonoObjCloseLeft: @ 0x085DA6FC
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA414, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA42C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA444, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA45C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA474, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA48C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA4A4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA4BC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA4D4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA4EC, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA504, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA528, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA54C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA570, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA594, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA5B8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA5DC, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA600, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA624, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA648, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA66C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA690, 1
+    ANIMSCR_BLOCKED
+
+.global AnimScr_TeonoObjFarLeft
+AnimScr_TeonoObjFarLeft: @ 0x085DA758
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA414, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA42C, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA444, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA45C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA474, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA6A8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA6C0, 2
+    ANIMSCR_BLOCKED
+
+.global AnimScr_TeonoObj2Left
+AnimScr_TeonoObj2Left: @ 0x085DA778
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA6D8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA528, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA54C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA570, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA594, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA5B8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA5DC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA600, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA624, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA648, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA66C, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA690, 1
+    ANIMSCR_BLOCKED
 
 	.global Img_EfxArrowOBJ
 Img_EfxArrowOBJ:  @ 0x085DA7AC
@@ -376,15 +427,35 @@ AnimScr_ArrowFarRight:  @ 0x085DA864
     ANIMSCR_FORCE_SPRITE AnimSprite_EfxArrowObj3, 1
     ANIMSCR_BLOCKED
 
-	.incbin "baserom.gba", 0x5DA874, 0x6C
+.global AnimSprite_085DA874
+AnimSprite_085DA874:
+        ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0000, 45, -14
+        ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0002, 37, -14
+        ANIM_SPRITE_END
+.global AnimSprite_085DA898
+AnimSprite_085DA898:
+        ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0000, 77, -14
+        ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0002, 69, -14
+        ANIM_SPRITE_END
+.global AnimSprite_085DA8BC
+AnimSprite_085DA8BC:
+        ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0000, 109, -14
+        ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0002, 101, -14
+        ANIM_SPRITE_END
 
-	.global AnimScr_ArrowCloseLeft
-AnimScr_ArrowCloseLeft:  @ 0x085DA8E0
-	.incbin "baserom.gba", 0x5DA8E0, 0x10
+.global AnimScr_ArrowCloseLeft
+AnimScr_ArrowCloseLeft: @ 0x5DA8E0
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA874, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA898, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA8BC, 1
+    ANIMSCR_BLOCKED
 
-	.global AnimScr_ArrowFarLeft
-AnimScr_ArrowFarLeft:  @ 0x085DA8F0
-	.incbin "baserom.gba", 0x5DA8F0, 0x10
+.global AnimScr_ArrowFarLeft
+AnimScr_ArrowFarLeft: @ 0x5DA8F0
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA874, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA898, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DA8BC, 1
+    ANIMSCR_BLOCKED
 
 	.global Img_SpellJavelin
 Img_SpellJavelin:  @ 0x085DA900
@@ -466,602 +537,852 @@ Img_SpellJavelinUnk:  @ 0x085DBE20
 Pal_SpellJavelinUnk:  @ 0x085DC050
 	.incbin "./graphics/efxmagic/Img_SpellJavelinUnk.gbapal", 0x0, 0x20
 
-    .incbin "baserom.gba", 0x5DC070, 0x1D4
+.global AnimSprite_085DC070
+AnimSprite_085DC070:
+    ANIM_SPRITE_AFFIN 1, 0xff, 0x16, -0x16, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 9, -29
+    ANIM_SPRITE_END
 
-	.global AnimScr_085DC244
-AnimScr_085DC244:  @ 0x085DC244
-@ Replacing .incbin "baserom.gba", 0x5DC244, 0x254
-    .4byte Pal_SpellJavelinUnk + 0x21
-    .4byte Pal_SpellJavelinUnk + 0x45
-    .4byte Pal_SpellJavelinUnk + 0x69
-    .4byte Pal_SpellJavelinUnk + 0x82
-    .4byte Pal_SpellJavelinUnk + 0xa5
-    .4byte Pal_SpellJavelinUnk + 0xca
-    .4byte Pal_SpellJavelinUnk + 0xee
-    .4byte Pal_SpellJavelinUnk + 0x112
-    .4byte Pal_SpellJavelinUnk + 0x135
-    .4byte Pal_SpellJavelinUnk + 0x15a
-    .4byte Pal_SpellJavelinUnk + 0x17e
-    .4byte Pal_SpellJavelinUnk + 0x1a2
-    .4byte Pal_SpellJavelinUnk + 0x1c7
-    .4byte Pal_SpellJavelinUnk + 0x1de
-    .4byte Pal_SpellJavelinUnk + 0x1c6
-    .4byte Pal_SpellJavelinUnk + 0x1de
-    .4byte Pal_SpellJavelinUnk + 0x1c6
-    .4byte Pal_SpellJavelinUnk + 0x1de
-    .4byte Pal_SpellJavelinUnk + 0x1c6
-    .4byte Pal_SpellJavelinUnk + 0x1de
-    .4byte Pal_SpellJavelinUnk + 0x1c5
-    .4byte Pal_SpellJavelinUnk + 0x1de
-    .4byte Pal_SpellJavelinUnk + 0x1c5
-    .4byte Pal_SpellJavelinUnk + 0x1de
-    .4byte Pal_SpellJavelinUnk + 0x1c5
-    .4byte Pal_SpellJavelinUnk + 0x1de
-    .4byte Pal_SpellJavelinUnk + 0x1c5
-    .4byte Pal_SpellJavelinUnk + 0x1de
-    .4byte Pal_SpellJavelinUnk + 0x1c5
-    .4byte 0x785dc22f
-    .4byte 0x84000013
-    .4byte 0x80000000
-    .4byte 0xffff0001
-    .4byte 0x0016ff01
-    .4byte 0x00ff0016
-    .4byte 0xc0004100
-    .4byte 0xffb70000
-    .4byte 0x0000ffe3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x000dff01
-    .4byte 0x00ff000d
-    .4byte 0xc0004100
-    .4byte 0xffc50000
-    .4byte 0x0000ffe3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xd0004000
-    .4byte 0xffda0000
-    .4byte 0x0000ffe4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xfff7ff01
-    .4byte 0x00fffff7
-    .4byte 0xc0004100
-    .4byte 0xfff50000
-    .4byte 0x0000ffe7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffe9ff02
-    .4byte 0x00feffe9
-    .4byte 0xc0004100
-    .4byte 0x00050000
-    .4byte 0x0000ffe9
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffd3ff05
-    .4byte 0x00fbffd3
-    .4byte 0xc0004100
-    .4byte 0x00130000
-    .4byte 0x0000ffec
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffcbff06
-    .4byte 0x00faffcb
-    .4byte 0xc0004100
-    .4byte 0x00240000
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffc2ff08
-    .4byte 0x00f8ffc2
-    .4byte 0xc0004100
-    .4byte 0x002e0000
-    .4byte 0x0000fff7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0016ff01
-    .4byte 0x00ff0016
-    .4byte 0xc0004100
-    .4byte 0x00310000
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x001fff02
-    .4byte 0x00fe001f
-    .4byte 0xc0004100
-    .4byte 0x00340000
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0016ff01
-    .4byte 0x00ff0016
-    .4byte 0xc0004100
-    .4byte 0x00370000
-    .4byte 0x0000fff2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x000dff01
-    .4byte 0x00ff000d
-    .4byte 0xc0004100
-    .4byte 0x00390000
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xd0004000
-    .4byte 0x003b0000
-    .4byte 0x0000fff2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0xfff8001f
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_085DC094
+AnimSprite_085DC094:
+    ANIM_SPRITE_AFFIN 1, 0xff, 0xd, -0xd, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -5, -29
+    ANIM_SPRITE_END
 
-	.global AnimScr_085DC498
-AnimScr_085DC498:  @ 0x085DC498
-@ Replacing .incbin "baserom.gba", 0x5DC498, 0x260
-    .4byte AnimScr_085DC244 + 0x81
-    .4byte AnimScr_085DC244 + 0xa5
-    .4byte AnimScr_085DC244 + 0xc9
-    .4byte AnimScr_085DC244 + 0xe2
-    .4byte AnimScr_085DC244 + 0x105
-    .4byte AnimScr_085DC244 + 0x12a
-    .4byte AnimScr_085DC244 + 0x14e
-    .4byte AnimScr_085DC244 + 0x172
-    .4byte AnimScr_085DC244 + 0x195
-    .4byte AnimScr_085DC244 + 0x1ba
-    .4byte AnimScr_085DC244 + 0x1de
-    .4byte AnimScr_085DC244 + 0x202
-    .4byte AnimScr_085DC244 + 0x227
-    .4byte AnimScr_085DC244 + 0x23e
-    .4byte AnimScr_085DC244 + 0x226
-    .4byte AnimScr_085DC244 + 0x23e
-    .4byte AnimScr_085DC244 + 0x226
-    .4byte AnimScr_085DC244 + 0x23e
-    .4byte AnimScr_085DC244 + 0x226
-    .4byte AnimScr_085DC244 + 0x23e
-    .4byte AnimScr_085DC244 + 0x225
-    .4byte AnimScr_085DC244 + 0x23e
-    .4byte AnimScr_085DC244 + 0x225
-    .4byte AnimScr_085DC244 + 0x23e
-    .4byte AnimScr_085DC244 + 0x225
-    .4byte AnimScr_085DC244 + 0x23e
-    .4byte AnimScr_085DC244 + 0x225
-    .4byte AnimScr_085DC244 + 0x23e
-    .4byte AnimScr_085DC244 + 0x225
-    .4byte 0x785dc483
-    .4byte 0x84000013
-    .4byte 0x80000000
-    .4byte 0xc0004000
-    .4byte 0x00170000
-    .4byte 0x0000ffcf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xc0004000
-    .4byte 0x00010000
-    .4byte 0x0000ffcf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xc0004000
-    .4byte 0xfff10000
-    .4byte 0x0000ffcf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xfff700ff
-    .4byte 0x00ff0009
-    .4byte 0xc0004100
-    .4byte 0xffdc0000
-    .4byte 0x0000ffd4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xfff200ff
-    .4byte 0x00ff000e
-    .4byte 0xc0004100
-    .4byte 0xffc80000
-    .4byte 0x0000ffdd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffe900fe
-    .4byte 0x00fe0017
-    .4byte 0xc0004100
-    .4byte 0xffb50000
-    .4byte 0x0000ffe4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffe500fe
-    .4byte 0x00fe001b
-    .4byte 0xc0004100
-    .4byte 0xffa40000
-    .4byte 0x0000ffef
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffe900fe
-    .4byte 0x00fe0017
-    .4byte 0xc0004100
-    .4byte 0xff960000
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffc200f8
-    .4byte 0x00f8003e
-    .4byte 0xc0004100
-    .4byte 0xff920000
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x001600ff
-    .4byte 0x00ffffea
-    .4byte 0xc0004100
-    .4byte 0xff8f0000
-    .4byte 0x0000fff7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x001f00fe
-    .4byte 0x00feffe1
-    .4byte 0xc0004100
-    .4byte 0xff8c0000
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x001600ff
-    .4byte 0x00ffffea
-    .4byte 0xc0004100
-    .4byte 0xff890000
-    .4byte 0x0000fff2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x000d00ff
-    .4byte 0x00fffff3
-    .4byte 0xc0004100
-    .4byte 0xff870000
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xc0004000
-    .4byte 0xff850000
-    .4byte 0x0000fff2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x0000001f
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_085DC0B8
+AnimSprite_085DC0B8:
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, -26, -28
+    ANIM_SPRITE_END
 
-	.global AnimScr_085DC6F8
-AnimScr_085DC6F8:  @ 0x085DC6F8
-@ Replacing .incbin "baserom.gba", 0x5DC6F8, 0x260
-    .4byte AnimScr_085DC498 + 0x81
-    .4byte AnimScr_085DC498 + 0x99
-    .4byte AnimScr_085DC498 + 0xc9
-    .4byte AnimScr_085DC498 + 0xed
-    .4byte AnimScr_085DC498 + 0x111
-    .4byte AnimScr_085DC498 + 0x136
-    .4byte AnimScr_085DC498 + 0x159
-    .4byte AnimScr_085DC498 + 0x17e
-    .4byte AnimScr_085DC498 + 0x1a1
-    .4byte AnimScr_085DC498 + 0x1c6
-    .4byte AnimScr_085DC498 + 0x1ea
-    .4byte AnimScr_085DC498 + 0x20e
-    .4byte AnimScr_085DC498 + 0x233
-    .4byte AnimScr_085DC498 + 0x24a
-    .4byte AnimScr_085DC498 + 0x232
-    .4byte AnimScr_085DC498 + 0x24a
-    .4byte AnimScr_085DC498 + 0x232
-    .4byte AnimScr_085DC498 + 0x24a
-    .4byte AnimScr_085DC498 + 0x232
-    .4byte AnimScr_085DC498 + 0x24a
-    .4byte AnimScr_085DC498 + 0x231
-    .4byte AnimScr_085DC498 + 0x24a
-    .4byte AnimScr_085DC498 + 0x231
-    .4byte AnimScr_085DC498 + 0x24a
-    .4byte AnimScr_085DC498 + 0x231
-    .4byte AnimScr_085DC498 + 0x24a
-    .4byte AnimScr_085DC498 + 0x231
-    .4byte AnimScr_085DC498 + 0x24a
-    .4byte AnimScr_085DC498 + 0x231
-    .4byte 0x785dc6e3
-    .4byte 0x84000013
-    .4byte 0x80000000
-    .4byte 0xd0004000
-    .4byte 0xffa90000
-    .4byte 0x0000ffcf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xd0004000
-    .4byte 0xffbf0000
-    .4byte 0x0000ffcf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xd0004000
-    .4byte 0xffcf0000
-    .4byte 0x0000ffcf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xfff7ff01
-    .4byte 0x00fffff7
-    .4byte 0xc0004100
-    .4byte 0xffe40000
-    .4byte 0x0000ffd4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xfff2ff01
-    .4byte 0x00fffff2
-    .4byte 0xc0004100
-    .4byte 0xfff80000
-    .4byte 0x0000ffdd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffe9ff02
-    .4byte 0x00feffe9
-    .4byte 0xc0004100
-    .4byte 0x000b0000
-    .4byte 0x0000ffe4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffe5ff02
-    .4byte 0x00feffe5
-    .4byte 0xc0004100
-    .4byte 0x001c0000
-    .4byte 0x0000ffef
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffe9ff02
-    .4byte 0x00feffe9
-    .4byte 0xc0004100
-    .4byte 0x002a0000
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffc2ff08
-    .4byte 0x00f8ffc2
-    .4byte 0xc0004100
-    .4byte 0x002e0000
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0016ff01
-    .4byte 0x00ff0016
-    .4byte 0xc0004100
-    .4byte 0x00310000
-    .4byte 0x0000fff7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x001fff02
-    .4byte 0x00fe001f
-    .4byte 0xc0004100
-    .4byte 0x00340000
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0016ff01
-    .4byte 0x00ff0016
-    .4byte 0xc0004100
-    .4byte 0x00370000
-    .4byte 0x0000fff2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x000dff01
-    .4byte 0x00ff000d
-    .4byte 0xc0004100
-    .4byte 0x00390000
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xd0004000
-    .4byte 0x003b0000
-    .4byte 0x0000fff2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0xfff8001f
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_085DC0D0
+AnimSprite_085DC0D0:
+    ANIM_SPRITE_AFFIN 1, 0xff, -0x9, 0x9, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -53, -25
+    ANIM_SPRITE_END
 
-	.global AnimScr_085DC958
-AnimScr_085DC958:  @ 0x085DC958
-@ Replacing .incbin "baserom.gba", 0x5DC958, 0x104
-    .4byte AnimScr_085DC6F8 + 0x81
-    .4byte AnimScr_085DC6F8 + 0x99
-    .4byte AnimScr_085DC6F8 + 0xc9
-    .4byte AnimScr_085DC6F8 + 0xed
-    .4byte AnimScr_085DC6F8 + 0x111
-    .4byte AnimScr_085DC6F8 + 0x136
-    .4byte AnimScr_085DC6F8 + 0x159
-    .4byte AnimScr_085DC6F8 + 0x17e
-    .4byte AnimScr_085DC6F8 + 0x1a1
-    .4byte AnimScr_085DC6F8 + 0x1c6
-    .4byte AnimScr_085DC6F8 + 0x1ea
-    .4byte AnimScr_085DC6F8 + 0x20e
-    .4byte AnimScr_085DC6F8 + 0x233
-    .4byte AnimScr_085DC6F8 + 0x24a
-    .4byte AnimScr_085DC6F8 + 0x232
-    .4byte AnimScr_085DC6F8 + 0x24a
-    .4byte AnimScr_085DC6F8 + 0x232
-    .4byte AnimScr_085DC6F8 + 0x24a
-    .4byte AnimScr_085DC6F8 + 0x232
-    .4byte AnimScr_085DC6F8 + 0x24a
-    .4byte AnimScr_085DC6F8 + 0x231
-    .4byte AnimScr_085DC6F8 + 0x24a
-    .4byte AnimScr_085DC6F8 + 0x231
-    .4byte AnimScr_085DC6F8 + 0x24a
-    .4byte AnimScr_085DC6F8 + 0x231
-    .4byte AnimScr_085DC6F8 + 0x24a
-    .4byte AnimScr_085DC6F8 + 0x231
-    .4byte AnimScr_085DC6F8 + 0x24a
-    .4byte AnimScr_085DC6F8 + 0x231
-    .4byte 0x785dc943
-    .4byte 0x84000013
-    .4byte 0x80000000
-    .4byte 0xa0004000
-    .4byte 0xffe81000
-    .4byte 0x0000ffe0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xa0004000
-    .4byte 0x00081000
-    .4byte 0x0000ffd0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xa0004000
-    .4byte 0x00281000
-    .4byte 0x0000ffc0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xa0004000
-    .4byte 0x00481000
-    .4byte 0x0000ffb0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x60000000
-    .4byte 0x00681000
-    .4byte 0x0000ffa0
-    .4byte 0x20008000
-    .4byte 0x00781002
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_085DC0F4
+AnimSprite_085DC0F4:
+    ANIM_SPRITE_AFFIN 1, 0xfe, -0x17, 0x17, 0xfe
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -69, -23
+    ANIM_SPRITE_END
 
-	.global gUnknown_085DCA5C
-gUnknown_085DCA5C:  @ 0x085DCA5C
-	.incbin "baserom.gba", 0x5DCA5C, 0x9C
+.global AnimSprite_085DC118
+AnimSprite_085DC118:
+    ANIM_SPRITE_AFFIN 1, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -83, -20
+    ANIM_SPRITE_END
 
-	.global gUnknown_085DCAF8
-gUnknown_085DCAF8:  @ 0x085DCAF8
-	.incbin "baserom.gba", 0x5DCAF8, 0x18
+.global AnimSprite_085DC13C
+AnimSprite_085DC13C:
+    ANIM_SPRITE_AFFIN 1, 0xfa, -0x35, 0x35, 0xfa
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -100, -15
+    ANIM_SPRITE_END
 
-	.global gUnknown_085DCB10
-gUnknown_085DCB10:  @ 0x085DCB10
-	.incbin "baserom.gba", 0x5DCB10, 0x174
+.global AnimSprite_085DC160
+AnimSprite_085DC160:
+    ANIM_SPRITE_AFFIN 1, 0xf8, -0x3e, 0x3e, 0xf8
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -110, -9
+    ANIM_SPRITE_END
 
-	.global gUnknown_085DCC84
-gUnknown_085DCC84:  @ 0x085DCC84
-	.incbin "baserom.gba", 0x5DCC84, 0x800
+.global AnimSprite_085DC184
+AnimSprite_085DC184:
+    ANIM_SPRITE_AFFIN 1, 0xff, 0x16, -0x16, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -113, -12
+    ANIM_SPRITE_END
 
-	.global gUnknown_085DD484
-gUnknown_085DD484:  @ 0x085DD484
-@ Replacing .incbin "baserom.gba", 0x5DD484, 0x30
-    .4byte gUnknown_085DCC84 + 0x21
-    .4byte gUnknown_085DCC84 + 0x45
-    .4byte gUnknown_085DCC84 + 0x69
-    .4byte gUnknown_085DCC84 + 0x8d
-    .4byte gUnknown_085DCC84 + 0xb2
-    .4byte gUnknown_085DCC84 + 0xd7
-    .4byte 0x785dcd7e
-    .4byte gUnknown_085DCC84 + 0x113
-    .4byte gUnknown_085DCC84 + 0x136
-    .4byte gUnknown_085DCC84 + 0x159
-    .4byte gUnknown_085DCC84 + 0x17d
-    .4byte 0x80000000
+.global AnimSprite_085DC1A8
+AnimSprite_085DC1A8:
+    ANIM_SPRITE_AFFIN 1, 0xfe, 0x1f, -0x1f, 0xfe
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -116, -12
+    ANIM_SPRITE_END
 
-	.global gUnknown_085DD4B4
-gUnknown_085DD4B4:  @ 0x085DD4B4
-@ Replacing .incbin "baserom.gba", 0x5DD4B4, 0x7B0
-    .4byte gUnknown_085DCC84 + 0x51a
-    .4byte gUnknown_085DCC84 + 0x532
-    .4byte gUnknown_085DCC84 + 0x562
-    .4byte gUnknown_085DCC84 + 0x59e
-    .4byte gUnknown_085DCC84 + 0x5fe
-    .4byte gUnknown_085DCC84 + 0x676
-    .4byte gUnknown_085DCC84 + 0x6e2
-    .4byte gUnknown_085DCC84 + 0x736
-    .4byte gUnknown_085DCC84 + 0x78a
-    .4byte gUnknown_085DCC84 + 0x7ba
-    .4byte gUnknown_085DCC84 + 0x7d2
-    .4byte gUnknown_085DCC84 + 0x7ea
-    .4byte gUnknown_085DCC84 + 0x51a
-    .4byte gUnknown_085DCC84 + 0x532
-    .4byte gUnknown_085DCC84 + 0x562
-    .4byte gUnknown_085DCC84 + 0x59e
-    .4byte gUnknown_085DCC84 + 0x5fe
-    .4byte gUnknown_085DCC84 + 0x676
-    .4byte gUnknown_085DCC84 + 0x6e2
-    .4byte gUnknown_085DCC84 + 0x736
-    .4byte gUnknown_085DCC84 + 0x78a
-    .4byte gUnknown_085DCC84 + 0x7ba
-    .4byte gUnknown_085DCC84 + 0x7d2
-    .4byte gUnknown_085DCC84 + 0x7ea
-    .4byte 0x80000000
+.global AnimSprite_085DC1CC
+AnimSprite_085DC1CC:
+    ANIM_SPRITE_AFFIN 1, 0xff, 0x16, -0x16, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -119, -14
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC1F0
+AnimSprite_085DC1F0:
+    ANIM_SPRITE_AFFIN 1, 0xff, 0xd, -0xd, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -121, -15
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC214
+AnimSprite_085DC214:
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, -123, -14
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC22C
+AnimSprite_085DC22C:
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, 0, -8
+    ANIM_SPRITE_END
+
+.global AnimScr_EfxTeyariObjType0Right
+AnimScr_EfxTeyariObjType0Right: @ 0x5DC244
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC070, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC094, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC0B8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC0D0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC0F4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC118, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC13C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC160, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC184, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC1A8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC1CC, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC1F0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC214, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC22C, 31
+    ANIMSCR_WAIT 19
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_085DC2C4
+AnimSprite_085DC2C4:
+	ANIM_SPRITE_AFFIN 1, -0xff, 0x16, 0x16, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -73, -29
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC2E8
+AnimSprite_085DC2E8:
+	ANIM_SPRITE_AFFIN 1, -0xff, 0xd, 0xd, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -59, -29
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC30C
+AnimSprite_085DC30C:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, -38, -28
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC324
+AnimSprite_085DC324:
+	ANIM_SPRITE_AFFIN 1, -0xff, -0x9, -0x9, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -11, -25
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC348
+AnimSprite_085DC348:
+	ANIM_SPRITE_AFFIN 1, -0xfe, -0x17, -0x17, 0xfe
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 5, -23
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC36C
+AnimSprite_085DC36C:
+	ANIM_SPRITE_AFFIN 1, -0xfb, -0x2d, -0x2d, 0xfb
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 19, -20
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC390
+AnimSprite_085DC390:
+	ANIM_SPRITE_AFFIN 1, -0xfa, -0x35, -0x35, 0xfa
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 36, -15
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC3B4
+AnimSprite_085DC3B4:
+	ANIM_SPRITE_AFFIN 1, -0xf8, -0x3e, -0x3e, 0xf8
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 46, -9
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC3D8
+AnimSprite_085DC3D8:
+	ANIM_SPRITE_AFFIN 1, -0xff, 0x16, 0x16, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 49, -12
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC3FC
+AnimSprite_085DC3FC:
+	ANIM_SPRITE_AFFIN 1, -0xfe, 0x1f, 0x1f, 0xfe
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 52, -12
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC420
+AnimSprite_085DC420:
+	ANIM_SPRITE_AFFIN 1, -0xff, 0x16, 0x16, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 55, -14
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC444
+AnimSprite_085DC444:
+	ANIM_SPRITE_AFFIN 1, -0xff, 0xd, 0xd, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 57, -15
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC468
+AnimSprite_085DC468:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, 59, -14
+	ANIM_SPRITE_END
+
+.global AnimSprite_085DC480
+AnimSprite_085DC480:
+	ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, -8, -8
+	ANIM_SPRITE_END
+
+.global AnimScr_EfxTeyariObjType0Left
+AnimScr_EfxTeyariObjType0Left: @ 0x5DC498
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC2C4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC2E8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC30C, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC324, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC348, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC36C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC390, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC3B4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC3D8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC3FC, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC420, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC444, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC468, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC480, 31
+    ANIMSCR_WAIT 19
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_085DC518
+AnimSprite_085DC518:
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, 23, -49
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC530
+AnimSprite_085DC530:
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, 1, -49
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC548
+AnimSprite_085DC548:
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, -15, -49
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC560
+AnimSprite_085DC560:
+    ANIM_SPRITE_AFFIN 1, 0xff, -0x9, 0x9, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -36, -44
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC584
+AnimSprite_085DC584:
+    ANIM_SPRITE_AFFIN 1, 0xff, -0xe, 0xe, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -56, -35
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC5A8
+AnimSprite_085DC5A8:
+    ANIM_SPRITE_AFFIN 1, 0xfe, -0x17, 0x17, 0xfe
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -75, -28
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC5CC
+AnimSprite_085DC5CC:
+    ANIM_SPRITE_AFFIN 1, 0xfe, -0x1b, 0x1b, 0xfe
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -92, -17
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC5F0
+AnimSprite_085DC5F0:
+    ANIM_SPRITE_AFFIN 1, 0xfe, -0x17, 0x17, 0xfe
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -106, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC614
+AnimSprite_085DC614:
+    ANIM_SPRITE_AFFIN 1, 0xf8, -0x3e, 0x3e, 0xf8
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -110, -12
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC638
+AnimSprite_085DC638:
+    ANIM_SPRITE_AFFIN 1, 0xff, 0x16, -0x16, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -113, -9
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC65C
+AnimSprite_085DC65C:
+    ANIM_SPRITE_AFFIN 1, 0xfe, 0x1f, -0x1f, 0xfe
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -116, -12
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC680
+AnimSprite_085DC680:
+    ANIM_SPRITE_AFFIN 1, 0xff, 0x16, -0x16, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -119, -14
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC6A4
+AnimSprite_085DC6A4:
+    ANIM_SPRITE_AFFIN 1, 0xff, 0xd, -0xd, 0xff
+    ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -121, -15
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC6C8
+AnimSprite_085DC6C8:
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, -123, -14
+    ANIM_SPRITE_END
+
+.global AnimSprite_085DC6E0
+AnimSprite_085DC6E0:
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, 0, -8
+    ANIM_SPRITE_END
+
+.global AnimScr_EfxTeyariObjType1Right
+AnimScr_EfxTeyariObjType1Right: @ 0x5DC6F8
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC518, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC530, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC560, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC584, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC5A8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC5CC, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC5F0, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC614, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC638, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC65C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC680, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6A4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6C8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC6E0, 31
+    ANIMSCR_WAIT 19
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_085DC778
+AnimSprite_085DC778:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, -87, -49
+	ANIM_SPRITE_END
+.global AnimSprite_085DC790
+AnimSprite_085DC790:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, -65, -49
+	ANIM_SPRITE_END
+.global AnimSprite_085DC7A8
+AnimSprite_085DC7A8:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, -49, -49
+	ANIM_SPRITE_END
+.global AnimSprite_085DC7C0
+AnimSprite_085DC7C0:
+	ANIM_SPRITE_AFFIN 1, -0xff, -0x9, -0x9, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -28, -44
+	ANIM_SPRITE_END
+.global AnimSprite_085DC7E4
+AnimSprite_085DC7E4:
+	ANIM_SPRITE_AFFIN 1, -0xff, -0xe, -0xe, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, -8, -35
+	ANIM_SPRITE_END
+.global AnimSprite_085DC808
+AnimSprite_085DC808:
+	ANIM_SPRITE_AFFIN 1, -0xfe, -0x17, -0x17, 0xfe
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 11, -28
+	ANIM_SPRITE_END
+.global AnimSprite_085DC82C
+AnimSprite_085DC82C:
+	ANIM_SPRITE_AFFIN 1, -0xfe, -0x1b, -0x1b, 0xfe
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 28, -17
+	ANIM_SPRITE_END
+.global AnimSprite_085DC850
+AnimSprite_085DC850:
+	ANIM_SPRITE_AFFIN 1, -0xfe, -0x17, -0x17, 0xfe
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 42, -10
+	ANIM_SPRITE_END
+.global AnimSprite_085DC874
+AnimSprite_085DC874:
+	ANIM_SPRITE_AFFIN 1, -0xf8, -0x3e, -0x3e, 0xf8
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 46, -12
+	ANIM_SPRITE_END
+.global AnimSprite_085DC898
+AnimSprite_085DC898:
+	ANIM_SPRITE_AFFIN 1, -0xff, 0x16, 0x16, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 49, -9
+	ANIM_SPRITE_END
+.global AnimSprite_085DC8BC
+AnimSprite_085DC8BC:
+	ANIM_SPRITE_AFFIN 1, -0xfe, 0x1f, 0x1f, 0xfe
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 52, -12
+	ANIM_SPRITE_END
+.global AnimSprite_085DC8E0
+AnimSprite_085DC8E0:
+	ANIM_SPRITE_AFFIN 1, -0xff, 0x16, 0x16, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 55, -14
+	ANIM_SPRITE_END
+.global AnimSprite_085DC904
+AnimSprite_085DC904:
+	ANIM_SPRITE_AFFIN 1, -0xff, 0xd, 0xd, 0xff
+	ANIM_SPRITE ATTR0_WIDE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_64, 0x0000, 57, -15
+	ANIM_SPRITE_END
+.global AnimSprite_085DC928
+AnimSprite_085DC928:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_64, 0x0000, 59, -14
+	ANIM_SPRITE_END
+.global AnimSprite_085DC940
+AnimSprite_085DC940:
+	ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, -8, -8
+	ANIM_SPRITE_END
+
+.global AnimScr_EfxTeyariObjType1Left
+AnimScr_EfxTeyariObjType1Left: @ 0x5DC958
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC778, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC790, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC7C0, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC7E4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC808, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC82C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC850, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC874, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC898, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC8BC, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC8E0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC904, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC928, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC940, 31
+    ANIMSCR_WAIT 19
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_085DC9D8
+AnimSprite_085DC9D8:
+	ANIM_SPRITE ATTR0_WIDE, 0xA000, 0x1000, -24, -32
+	ANIM_SPRITE_END
+.global AnimSprite_085DC9F0
+AnimSprite_085DC9F0:
+	ANIM_SPRITE ATTR0_WIDE, 0xA000, 0x1000, 8, -48
+	ANIM_SPRITE_END
+.global AnimSprite_085DCA08
+AnimSprite_085DCA08:
+	ANIM_SPRITE ATTR0_WIDE, 0xA000, 0x1000, 40, -64
+	ANIM_SPRITE_END
+.global AnimSprite_085DCA20
+AnimSprite_085DCA20:
+	ANIM_SPRITE ATTR0_WIDE, 0xA000, 0x1000, 72, -80
+	ANIM_SPRITE_END
+.global AnimSprite_085DCA38
+AnimSprite_085DCA38:
+	ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x1000, 104, -96
+	ANIM_SPRITE ATTR0_TALL, 0x2000, 0x1002, 120, -96
+	ANIM_SPRITE_END
+
+.global AnimScr_085DCA5C
+AnimScr_085DCA5C: @ 0x5DCA5C
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCA38, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCA20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCA08, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC9F0, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DC9D8, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_085DCA74
+AnimSprite_085DCA74:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, 0xA000, 0x1000, -8, -32
+	ANIM_SPRITE_END
+.global AnimSprite_085DCA8C
+AnimSprite_085DCA8C:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, 0xA000, 0x1000, -40, -48
+	ANIM_SPRITE_END
+.global AnimSprite_085DCAA4
+AnimSprite_085DCAA4:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, 0xA000, 0x1000, -72, -64
+	ANIM_SPRITE_END
+.global AnimSprite_085DCABC
+AnimSprite_085DCABC:
+	ANIM_SPRITE_XFLIP ATTR0_WIDE, 0xA000, 0x1000, -104, -80
+	ANIM_SPRITE_END
+.global AnimSprite_085DCAD4
+AnimSprite_085DCAD4:
+	ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x1000, -120, -96
+	ANIM_SPRITE_XFLIP ATTR0_TALL, 0x2000, 0x1002, -128, -96
+	ANIM_SPRITE_END
+
+.global AnimScr_085DCAF8
+AnimScr_085DCAF8: @ 0x5DCAF8
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCAD4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCABC, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCAA4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCA8C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCA74, 2
+    ANIMSCR_BLOCKED
+
+	.global Img_EfxDanceObj
+Img_EfxDanceObj:  @ 0x085DCB10
+	.incbin "./graphics/efxmagic/Gfx_EfxDanceObj.4bpp.lz"
+
+	.global Pal_EfxDanceObj
+Pal_EfxDanceObj:  @ 0x085DCC84
+	.incbin "./graphics/efxmagic/Gfx_EfxDanceObj.gbapal", 0x0, 0x20
+
+.global AnimSprite_085DCCA4
+AnimSprite_085DCCA4:
+	ANIM_SPRITE_AFFIN 1, 0x505, 0x0, 0x0, 0x505
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -13, -62
+	ANIM_SPRITE_END
+.global AnimSprite_085DCCC8
+AnimSprite_085DCCC8:
+	ANIM_SPRITE_AFFIN 1, 0x282, 0x0, 0x0, 0x282
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -63
+	ANIM_SPRITE_END
+.global AnimSprite_085DCCEC
+AnimSprite_085DCCEC:
+	ANIM_SPRITE_AFFIN 1, 0x1ac, 0x0, 0x0, 0x1ac
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -64
+	ANIM_SPRITE_END
+.global AnimSprite_085DCD10
+AnimSprite_085DCD10:
+	ANIM_SPRITE_AFFIN 1, 0x16e, 0x0, 0x0, 0x16e
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -65
+	ANIM_SPRITE_END
+.global AnimSprite_085DCD34
+AnimSprite_085DCD34:
+	ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -66
+	ANIM_SPRITE_END
+.global AnimSprite_085DCD58
+AnimSprite_085DCD58:
+	ANIM_SPRITE_AFFIN 1, 0x11c, 0x0, 0x0, 0x11c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -68
+	ANIM_SPRITE_END
+.global AnimSprite_085DCD7C
+AnimSprite_085DCD7C:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -14, -69
+	ANIM_SPRITE_END
+.global AnimSprite_085DCD94
+AnimSprite_085DCD94:
+	ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -72
+	ANIM_SPRITE_END
+.global AnimSprite_085DCDB8
+AnimSprite_085DCDB8:
+	ANIM_SPRITE_AFFIN 1, 0x1ac, 0x0, 0x0, 0x1ac
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -74
+	ANIM_SPRITE_END
+.global AnimSprite_085DCDDC
+AnimSprite_085DCDDC:
+	ANIM_SPRITE_AFFIN 1, 0x282, 0x0, 0x0, 0x282
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -76
+	ANIM_SPRITE_END
+.global AnimSprite_085DCE00
+AnimSprite_085DCE00:
+	ANIM_SPRITE_AFFIN 1, 0x505, 0x0, 0x0, 0x505
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -14, -79
+	ANIM_SPRITE_END
+.global AnimSprite_085DCE24
+AnimSprite_085DCE24:
+	ANIM_SPRITE_AFFIN 1, 0x11c, 0x0, 0x0, 0x11c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 2, -74
+	ANIM_SPRITE_END
+.global AnimSprite_085DCE48
+AnimSprite_085DCE48:
+	ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 4, -75
+	ANIM_SPRITE_END
+.global AnimSprite_085DCE6C
+AnimSprite_085DCE6C:
+	ANIM_SPRITE_AFFIN 1, 0x16e, 0x0, 0x0, 0x16e
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 6, -76
+	ANIM_SPRITE_END
+.global AnimSprite_085DCE90
+AnimSprite_085DCE90:
+	ANIM_SPRITE_AFFIN 1, 0x1ac, 0x0, 0x0, 0x1ac
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 7, -77
+	ANIM_SPRITE_END
+.global AnimSprite_085DCEB4
+AnimSprite_085DCEB4:
+	ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 8, -78
+	ANIM_SPRITE_END
+.global AnimSprite_085DCED8
+AnimSprite_085DCED8:
+	ANIM_SPRITE_AFFIN 1, 0x1ac, 0x0, 0x0, 0x1ac
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 8, -79
+	ANIM_SPRITE_END
+.global AnimSprite_085DCEFC
+AnimSprite_085DCEFC:
+	ANIM_SPRITE_AFFIN 1, 0x16e, 0x0, 0x0, 0x16e
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 8, -81
+	ANIM_SPRITE_END
+.global AnimSprite_085DCF20
+AnimSprite_085DCF20:
+	ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 7, -82
+	ANIM_SPRITE_END
+.global AnimSprite_085DCF44
+AnimSprite_085DCF44:
+	ANIM_SPRITE_AFFIN 1, 0x11c, 0x0, 0x0, 0x11c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, 5, -83
+	ANIM_SPRITE_END
+.global AnimSprite_085DCF68
+AnimSprite_085DCF68:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 2, -84
+	ANIM_SPRITE_END
+.global AnimSprite_085DCF80
+AnimSprite_085DCF80:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -1, -85
+	ANIM_SPRITE_END
+.global AnimSprite_085DCF98
+AnimSprite_085DCF98:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -5, -86
+	ANIM_SPRITE_END
+.global AnimSprite_085DCFB0
+AnimSprite_085DCFB0:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -8, -87
+	ANIM_SPRITE_END
+.global AnimSprite_085DCFC8
+AnimSprite_085DCFC8:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -11, -88
+	ANIM_SPRITE_END
+.global AnimSprite_085DCFE0
+AnimSprite_085DCFE0:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -14, -89
+	ANIM_SPRITE_END
+.global AnimSprite_085DCFF8
+AnimSprite_085DCFF8:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -16, -90
+	ANIM_SPRITE_END
+.global AnimSprite_085DD010
+AnimSprite_085DD010:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -18, -91
+	ANIM_SPRITE_END
+.global AnimSprite_085DD028
+AnimSprite_085DD028:
+	ANIM_SPRITE_AFFIN 1, 0x11c, 0x0, 0x0, 0x11c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -20, -92
+	ANIM_SPRITE_END
+.global AnimSprite_085DD04C
+AnimSprite_085DD04C:
+	ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -22, -93
+	ANIM_SPRITE_END
+.global AnimSprite_085DD070
+AnimSprite_085DD070:
+	ANIM_SPRITE_AFFIN 1, 0x16e, 0x0, 0x0, 0x16e
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -24, -94
+	ANIM_SPRITE_END
+.global AnimSprite_085DD094
+AnimSprite_085DD094:
+	ANIM_SPRITE_AFFIN 1, 0x1ac, 0x0, 0x0, 0x1ac
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -25, -95
+	ANIM_SPRITE_END
+.global AnimSprite_085DD0B8
+AnimSprite_085DD0B8:
+	ANIM_SPRITE_AFFIN 1, 0x16e, 0x0, 0x0, 0x16e
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -26, -96
+	ANIM_SPRITE_END
+.global AnimSprite_085DD0DC
+AnimSprite_085DD0DC:
+	ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -26, -97
+	ANIM_SPRITE_END
+.global AnimSprite_085DD100
+AnimSprite_085DD100:
+	ANIM_SPRITE_AFFIN 1, 0x11c, 0x0, 0x0, 0x11c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -26, -98
+	ANIM_SPRITE_END
+.global AnimSprite_085DD124
+AnimSprite_085DD124:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -25, -99
+	ANIM_SPRITE_END
+.global AnimSprite_085DD13C
+AnimSprite_085DD13C:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -23, -100
+	ANIM_SPRITE_END
+.global AnimSprite_085DD154
+AnimSprite_085DD154:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -21, -101
+	ANIM_SPRITE_END
+.global AnimSprite_085DD16C
+AnimSprite_085DD16C:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -18, -102
+	ANIM_SPRITE_END
+.global AnimSprite_085DD184
+AnimSprite_085DD184:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -15, -103
+	ANIM_SPRITE_END
+.global AnimSprite_085DD19C
+AnimSprite_085DD19C:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -16, -16
+	ANIM_SPRITE_END
+.global AnimSprite_085DD1B4
+AnimSprite_085DD1B4:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -16, -16
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 16, -32
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -24, -40
+	ANIM_SPRITE_END
+.global AnimSprite_085DD1E4
+AnimSprite_085DD1E4:
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, -16, -19
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 8, 0
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -24, -40
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 16, -32
+	ANIM_SPRITE_END
+.global AnimSprite_085DD220
+AnimSprite_085DD220:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 0, -24
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 8, 0
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -16, -16
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -8, -8
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, 16, -35
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, -24, -43
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 24, -16
+	ANIM_SPRITE_END
+.global AnimSprite_085DD280
+AnimSprite_085DD280:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -16, -16
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 0, -24
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, 8, -3
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -14, 1
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 8, -16
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -8, -8
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 16, -32
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -24, -40
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 24, -16
+	ANIM_SPRITE_END
+.global AnimSprite_085DD2F8
+AnimSprite_085DD2F8:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 8, -16
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, 0, -27
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -14, 1
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 8, 0
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, -8, -11
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 16, -32
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -24, -40
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, 24, -19
+	ANIM_SPRITE_END
+.global AnimSprite_085DD364
+AnimSprite_085DD364:
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, 8, -19
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, -14, -2
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 0, -24
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -8, -8
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 8, 0
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 24, -16
+	ANIM_SPRITE_END
+.global AnimSprite_085DD3B8
+AnimSprite_085DD3B8:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, 8, -16
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -14, 0
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 0, -24
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -8, -8
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -32, -16
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 24, -16
+	ANIM_SPRITE_END
+.global AnimSprite_085DD40C
+AnimSprite_085DD40C:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, 8, -16
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -14, 0
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -32, -16
+	ANIM_SPRITE_END
+.global AnimSprite_085DD43C
+AnimSprite_085DD43C:
+	ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0002, -32, -19
+	ANIM_SPRITE_END
+.global AnimSprite_085DD454
+AnimSprite_085DD454:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0003, -32, -16
+	ANIM_SPRITE_END
+.global AnimSprite_085DD46C
+AnimSprite_085DD46C:
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0023, -32, -16
+	ANIM_SPRITE_END
+
+.global AnimScr_EfxDanceObj
+AnimScr_EfxDanceObj: @ 0x5DD484
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCCA4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCCC8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCCEC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCD10, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCD34, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCD58, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCD7C, 30
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCD94, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCDB8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCDDC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DCE00, 1
+    ANIMSCR_BLOCKED
+
+.global AnimScr_EfxSongObj2
+AnimScr_EfxSongObj2: @ 0x5DD4B4
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD19C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD1B4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD1E4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD220, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD280, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD2F8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD364, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD3B8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD40C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD43C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD454, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD46C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD19C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD1B4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD1E4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD220, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD280, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD2F8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD364, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD3B8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD40C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD43C, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD454, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_085DD46C, 2
+    ANIMSCR_BLOCKED
+
+.global gUnk_085dd518
+gUnk_085dd518:
     .4byte 0x00040010
     .4byte 0xf0000031
     .4byte 0x0f014001
@@ -32849,19 +33170,19 @@ gUnknown_08758134:  @ 0x08758134
     .4byte Img_SongSprites + 0x2149
     .4byte 0x80000000
 
-	.global gUnknown_08758218
-gUnknown_08758218:  @ 0x08758218
+	.global Img_EfxLokmsunaObj
+Img_EfxLokmsunaObj:  @ 0x08758218
 	.incbin "baserom.gba", 0x758218, 0x2A0
 
-	.global gUnknown_087584B8
-gUnknown_087584B8:  @ 0x087584B8
+	.global AnimScr_EfxLokmsunaObjLeft
+AnimScr_EfxLokmsunaObjLeft:  @ 0x087584B8
 @ Replacing .incbin "baserom.gba", 0x7584B8, 0x124
-    .4byte gUnknown_08758218 + 0x19a
-    .4byte gUnknown_08758218 + 0x1ca
-    .4byte gUnknown_08758218 + 0x212
-    .4byte gUnknown_08758218 + 0x24f
-    .4byte gUnknown_08758218 + 0x273
-    .4byte gUnknown_08758218 + 0x28b
+    .4byte Img_EfxLokmsunaObj + 0x19a
+    .4byte Img_EfxLokmsunaObj + 0x1ca
+    .4byte Img_EfxLokmsunaObj + 0x212
+    .4byte Img_EfxLokmsunaObj + 0x24f
+    .4byte Img_EfxLokmsunaObj + 0x273
+    .4byte Img_EfxLokmsunaObj + 0x28b
     .4byte 0x80000000
     .4byte 0x50004000
     .4byte 0xfff20000
@@ -32930,13 +33251,13 @@ gUnknown_087584B8:  @ 0x087584B8
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_087585DC
-gUnknown_087585DC:  @ 0x087585DC
+	.global AnimScr_EfxLokmsunaObjRight
+AnimScr_EfxLokmsunaObjRight:  @ 0x087585DC
 @ Replacing .incbin "baserom.gba", 0x7585DC, 0x1C
-    .4byte gUnknown_087584B8 + 0x1e
-    .4byte gUnknown_087584B8 + 0x4e
-    .4byte gUnknown_087584B8 + 0x96
-    .4byte gUnknown_087584B8 + 0xd3
-    .4byte gUnknown_087584B8 + 0xf7
-    .4byte gUnknown_087584B8 + 0x10f
+    .4byte AnimScr_EfxLokmsunaObjLeft + 0x1e
+    .4byte AnimScr_EfxLokmsunaObjLeft + 0x4e
+    .4byte AnimScr_EfxLokmsunaObjLeft + 0x96
+    .4byte AnimScr_EfxLokmsunaObjLeft + 0xd3
+    .4byte AnimScr_EfxLokmsunaObjLeft + 0xf7
+    .4byte AnimScr_EfxLokmsunaObjLeft + 0x10f
     .4byte 0x80000000
