@@ -1407,7 +1407,12 @@ bool PrepareBattleGraphicsMaybe(void)
     return true;
 }
 
-u16 sub_8057CAC(struct Unit * unit, const struct BattleAnimDef * pBattleAnimDef, u16 item, int * out)
+/*
+* Same as "GetBattleAnimationId" (FE8U:0x08058848) in banim-ekrcmd.c, except
+* this function accounts for the unique battle animation IDs in the
+* CharacterData struct.
+*/
+u16 GetBattleAnimationId_WithUnique(struct Unit * unit, const struct BattleAnimDef * pBattleAnimDef, u16 item, int * out)
 {
     const struct BattleAnimDef * animDef;
     int i;
@@ -1423,19 +1428,19 @@ u16 sub_8057CAC(struct Unit * unit, const struct BattleAnimDef * pBattleAnimDef,
 
     ret = 0;
 
-    if ((pBattleAnimDef == NULL))
+    if (pBattleAnimDef == NULL)
     {
         return -1;
     }
 
-    if (GetItemType(item) == 9 && !IsItemDisplayedInBattle(item))
+    if (GetItemType(item) == ITYPE_ITEM && !IsItemDisplayedInBattle(item))
     {
         return -1;
     }
 
     if (item == 0)
     {
-        itemType = 9;
+        itemType = ITYPE_ITEM;
     }
     else
     {
@@ -1444,11 +1449,11 @@ u16 sub_8057CAC(struct Unit * unit, const struct BattleAnimDef * pBattleAnimDef,
 
     animDef = pBattleAnimDef;
 
-    idx = unit->pCharacterData->_u25[((UNIT_CATTRIBUTES(unit) >> 8 & 1))];
+    idx = unit->pCharacterData->_u25[(UNIT_CATTRIBUTES(unit) >> 8 & 1)];
 
     if (idx != 0)
     {
-        animDef = gUnknown_088AF834[idx];
+        animDef = gUnitSpecificBanimConfigs[idx];
     }
 
     *out = 0;

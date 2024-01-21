@@ -740,7 +740,7 @@ extern CONST_DATA struct BattleAnimDef AnimConf_088AF6BC[];
 extern CONST_DATA struct BattleAnimDef AnimConf_088AF6C8[];
 extern CONST_DATA struct BattleAnimDef AnimConf_088AF6E0[];
 
-extern struct BattleAnimDef * gUnknown_088AF834[];
+extern struct BattleAnimDef * gUnitSpecificBanimConfigs[];
 
 void SetBanimLinkArenaFlag(int unk);
 int GetBanimLinkArenaFlag(void);

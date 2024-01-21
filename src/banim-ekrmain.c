@@ -244,7 +244,7 @@ void UpdateBanimFrame(void)
         {
             u16 pid, jid;
             u16 i;
-            u16 idx = sub_8057CAC(gpEkrTriangleUnits[0], gpEkrTriangleUnits[0]->pClassData->pBattleAnimDef, 0, &val1);
+            u16 idx = GetBattleAnimationId_WithUnique(gpEkrTriangleUnits[0], gpEkrTriangleUnits[0]->pClassData->pBattleAnimDef, 0, &val1);
             gBanimTriAtkPalettes[0] = banim[idx].pal;
 
             pid = gpEkrTriangleUnits[0]->pCharacterData->number - 1;
@@ -260,7 +260,7 @@ void UpdateBanimFrame(void)
         {
             u16 pid, jid;
             u16 i;
-            u16 idx = sub_8057CAC(gpEkrTriangleUnits[1], gpEkrTriangleUnits[1]->pClassData->pBattleAnimDef, 0, &val1);
+            u16 idx = GetBattleAnimationId_WithUnique(gpEkrTriangleUnits[1], gpEkrTriangleUnits[1]->pClassData->pBattleAnimDef, 0, &val1);
             gBanimTriAtkPalettes[1] = banim[idx].pal;
 
             pid = gpEkrTriangleUnits[1]->pCharacterData->number - 1;

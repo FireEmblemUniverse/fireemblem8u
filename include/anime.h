@@ -194,7 +194,7 @@ void AnimDelete(struct Anim * anim);
 void AnimDisplay(struct Anim * anim);
 
 bool PrepareBattleGraphicsMaybe(void);
-u16 sub_8057CAC(struct Unit * unit, const struct BattleAnimDef * pBattleAnimDef, u16, int * out);
+u16 GetBattleAnimationId_WithUnique(struct Unit * unit, const struct BattleAnimDef * pBattleAnimDef, u16, int * out);
 int GetBanimTerrainGround(u16 terrain, u16 tileset);
 int GetBanimBackgroundIndex(u16 terrain, u16 tileset);
 s16 GetSpellAnimId(u16 jid, u16 weapon);
