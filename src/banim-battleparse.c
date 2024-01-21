@@ -84,7 +84,7 @@ int GetBanimTerrainGround(u16 terrain, u16 tileset)
     return ret - 1;
 }
 
-s8 GetBanimBackgroundIndex(u16 terrain, u16 tileset)
+int GetBanimBackgroundIndex(u16 terrain, u16 tileset)
 {
     switch (tileset) {
     case 0x01:
