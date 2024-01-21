@@ -47,8 +47,7 @@ struct CharacterData
 
     /* 23 */ u8 _u23;
     /* 24 */ u8 _u24;
-    /* 25 */ u8 _u25;
-    /* 26 */ u8 _u26;
+    /* 25 */ u8 _u25[2]; // Unique animation IDs in FE7
     /* 27 */ u8 _u27;
 
     /* 28 */ u32 attributes;
