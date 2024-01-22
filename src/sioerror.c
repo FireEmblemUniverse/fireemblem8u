@@ -49,7 +49,7 @@ struct HelpBoxScrollProc {
     ///* 64 */ s16 unk_64; TODO - Harmonize with definition in "helpbox.c"
 };
 
-void sub_8089EEC(struct HelpBoxScrollProc* proc);
+void HelpBoxDrawOneLineExt(struct HelpBoxScrollProc* proc);
 
 //! FE8U = 0x0808DB34
 void PutSioErrorMessage(void) {
@@ -83,7 +83,7 @@ void PutSioErrorMessage(void) {
     *    the connections, and retry.[.]"
     */
 
-    sub_8089EEC(proc);
+    HelpBoxDrawOneLineExt(proc);
 
     PutText(&th[0], gBG0TilemapBuffer + TILEMAP_INDEX(4,  6));
     PutText(&th[1], gBG0TilemapBuffer + TILEMAP_INDEX(4,  9));

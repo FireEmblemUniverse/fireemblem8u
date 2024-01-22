@@ -16,6 +16,7 @@
 #include "scene.h"
 #include "savemenu.h"
 
+#include "eventscript.h"
 #include "event.h"
 
 void GetWMCenteredCameraPosition(s16, s16, s16 *, s16 *);
@@ -1622,7 +1623,7 @@ u8 EventC4_WmShowPortrait(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800CCE8
-void sub_800CCE8(void)
+void nop_800CCE8(void)
 {
     return;
 }
@@ -1659,14 +1660,10 @@ u8 EventC5_WmClearPortrait(struct EventEngineProc * proc)
     return EVC_ADVANCE_CONTINUE;
 }
 
-struct Proc8591C68
-{
-    /* 00 */ PROC_HEADER;
-    /* 2A */ s16 faceSlot;
-};
+
 
 //! FE8U = 0x0800CD38
-void sub_800CD38(struct Proc8591C68 * proc)
+void nop_800CD38(struct Proc8591C68 * proc)
 {
     return;
 }
@@ -1678,7 +1675,7 @@ void nullsub_34(struct Proc8591C68 * proc)
 }
 
 //! FE8U = 0x0800CD40
-void sub_800CD40(struct Proc8591C68 * proc)
+void EventFaceDeamonDelete(struct Proc8591C68 * proc)
 {
     EndFaceById(proc->faceSlot);
     return;

@@ -41,8 +41,6 @@ void sub_800B910(int, int, int);
 void sub_800B954(int, int, int);
 void sub_800B994(int, int, int);
 void sub_800B9B8(int, int);
-void sub_800BA04(int, int);
-extern u16 EventScr_PostEnd[]; // EventScr_PostEnd
 
 //! FE8U = 0x0800D5A0
 u8 Event00_NULL(struct EventEngineProc * proc)

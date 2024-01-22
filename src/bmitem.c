@@ -673,13 +673,18 @@ int GetDisplayRankStringFromExp(int wexp) {
     return rankTextIdLookup[GetWeaponLevelFromExp(wexp)];
 }
 
-char* GetWeaponTypeDisplayString(int wpnType) {
+char * GetWeaponTypeDisplayString(int wpnType) {
     int wtypeTextIdLookup[] = {
         // TODO: TEXT ID CONSTANTS
         0x505, 0x506, 0x507, 0x508, // Sword, Lance, Axe, Box
         0x509, 0x50A, 0x50B, 0x50C, // Staff, Anima, Light, Dark
         0x50D, 0x50E, 0x50F,        // Item, Bllsta, Dragon
     };
+
+#if BUGFIX
+    if (wpnType > ITYPE_DRAGN)
+        return NULL;
+#endif
 
     return GetStringFromIndex(wtypeTextIdLookup[wpnType]);
 }

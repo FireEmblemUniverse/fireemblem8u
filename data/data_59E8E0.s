@@ -52,8 +52,8 @@ Pal_Text:  @ 0x0859EF00
 gUnknown_0859EF20:  @ 0x0859EF20
 	.incbin "baserom.gba", 0x59EF20, 0x20
 
-	.global gUnknown_0859EF40
-gUnknown_0859EF40:  @ 0x0859EF40
+	.global Pal_HelpBox
+Pal_HelpBox:  @ 0x0859EF40
 	.incbin "baserom.gba", 0x59EF40, 0x20
 
 	.global gPal_HelpTextBox

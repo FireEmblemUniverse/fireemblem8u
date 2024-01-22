@@ -17,15 +17,15 @@
 #include "helpbox.h"
 
 EWRAM_DATA u32 unuesed_0203E790 = 0;
-EWRAM_DATA struct Struct203E794 gHelpBoxSt = { 0 };
+EWRAM_DATA struct HelpBoxSt gHelpBoxSt = { 0 };
 EWRAM_DATA struct HelpBoxInfo gTmpHelpBoxInfo = { 0 };
 EWRAM_DATA const struct HelpBoxInfo * gpHelpBoxCurrentInfo = NULL;
 EWRAM_DATA struct Struct0203E7E8 gUnknown_0203E7E8 = { 0 };
 
 //! FE8U = 0x08089804
-void LoadHelpBoxGfx(void* vram, int palId) {
-
-    if (vram == 0) {
+void LoadHelpBoxGfx(void * vram, int palId)
+{
+    if (vram == NULL) {
         vram = (void *)0x06013000;
     }
 
@@ -49,11 +49,9 @@ void LoadHelpBoxGfx(void* vram, int palId) {
 
     SetTextFont(0);
 
-    ApplyPalette(gUnknown_0859EF40, palId);
+    ApplyPalette(Pal_HelpBox, palId);
 
-    gHelpBoxSt.unk_30 = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
-
-    return;
+    gHelpBoxSt.oam2_base = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
 }
 
 //! FE8U = 0x080898C4
@@ -84,9 +82,9 @@ void sub_80898C4(void* vram, int palId) {
 
     SetTextFont(0);
 
-    ApplyPalette(gUnknown_0859EF40, palId);
+    ApplyPalette(Pal_HelpBox, palId);
 
-    gHelpBoxSt.unk_30 = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
+    gHelpBoxSt.oam2_base = (((u32)vram << 0x11) >> 0x16) + (palId & 0xF) * 0x1000;
 
     return;
 }
@@ -142,16 +140,24 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
 
             if (flag_ != 0) {
                 xPx -= 0x20;
-                PutSprite(0, x + xPx, y + yPx, gObject_16x16, gHelpBoxSt.unk_30 + ix * 4 + iy * 0x40);
+                PutSprite(0,
+                x + xPx,
+                y + yPx,
+                gObject_16x16,
+                gHelpBoxSt.oam2_base + ix * 4 + iy * 0x40);
             } else {
 
-                if (xPx > w) {
+                if (xPx > w)
                     xPx = w;
-                }
+
                 xPx -= 0x20;
 
-                PutSprite(0, x + xPx, y + yPx, gObject_32x16, gHelpBoxSt.unk_30 + ix * 4 + iy * 0x40);
-
+                PutSprite(
+                    0,
+                    x + xPx,
+                    y + yPx,
+                    gObject_32x16,
+                    gHelpBoxSt.oam2_base + ix * 4 + iy * 0x40);
             }
         }
 
@@ -166,8 +172,8 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
         if (flag_ != 0) {
             xPx -= 0x20;
 
-            PutSprite(0, x + xPx, y - 8, gObject_16x8, gHelpBoxSt.unk_30 + 0x1b);
-            PutSprite(0, x + xPx, y + h, gObject_16x8, gHelpBoxSt.unk_30 + 0x3b);
+            PutSprite(0, x + xPx, y - 8, gObject_16x8, gHelpBoxSt.oam2_base + 0x1b);
+            PutSprite(0, x + xPx, y + h, gObject_16x8, gHelpBoxSt.oam2_base + 0x3b);
 
             flag_ = 0;
         } else {
@@ -176,8 +182,8 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
             }
             xPx -= 0x20;
 
-            PutSprite(0, x + xPx, y - 8, gObject_32x8, gHelpBoxSt.unk_30 + 0x1b);
-            PutSprite(0, x + xPx, y + h, gObject_32x8, gHelpBoxSt.unk_30 + 0x3b);
+            PutSprite(0, x + xPx, y - 8, gObject_32x8, gHelpBoxSt.oam2_base + 0x1b);
+            PutSprite(0, x + xPx, y + h, gObject_32x8, gHelpBoxSt.oam2_base + 0x3b);
 
         }
 
@@ -190,33 +196,34 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
         }
         yPx -= 0x10;
 
-        PutSprite(0, x - 8, y + yPx, gObject_8x16, gHelpBoxSt.unk_30 + 0x5f);
-        PutSprite(0, x + w, y + yPx, gObject_8x16, gHelpBoxSt.unk_30 + 0x1f);
+        PutSprite(0, x - 8, y + yPx, gObject_8x16, gHelpBoxSt.oam2_base + 0x5f);
+        PutSprite(0, x + w, y + yPx, gObject_8x16, gHelpBoxSt.oam2_base + 0x1f);
 
         if (anotherFlag != 0) {
-            PutSprite(0, x + w - 8, y + yPx, gObject_8x16, gHelpBoxSt.unk_30 + 0x1a);
+            PutSprite(0, x + w - 8, y + yPx, gObject_8x16, gHelpBoxSt.oam2_base + 0x1a);
         }
     }
 
-    PutSprite(0, x - 8, y - 8, gObject_8x8, gHelpBoxSt.unk_30 + 0x5b); // top left
-    PutSprite(0, x + w, y - 8, gObject_8x8, gHelpBoxSt.unk_30 + 0x5c); // top right
-    PutSprite(0, x - 8, y + h, gObject_8x8, gHelpBoxSt.unk_30 + 0x5d); // bottom left
-    PutSprite(0, x + w, y + h, gObject_8x8, gHelpBoxSt.unk_30 + 0x5e); // bottom right
+    PutSprite(0, x - 8, y - 8, gObject_8x8, gHelpBoxSt.oam2_base + 0x5b); // top left
+    PutSprite(0, x + w, y - 8, gObject_8x8, gHelpBoxSt.oam2_base + 0x5c); // top right
+    PutSprite(0, x - 8, y + h, gObject_8x8, gHelpBoxSt.oam2_base + 0x5d); // bottom left
+    PutSprite(0, x + w, y + h, gObject_8x8, gHelpBoxSt.oam2_base + 0x5e); // bottom right
 
     if (anotherFlag != 0) {
-        PutSprite(0, x + w - 8, y - 8, gObject_8x8, gHelpBoxSt.unk_30 + 0x1b);
-        PutSprite(0, x + w - 8, y + h, gObject_8x8, gHelpBoxSt.unk_30 + 0x3b);
+        PutSprite(0, x + w - 8, y - 8, gObject_8x8, gHelpBoxSt.oam2_base + 0x1b);
+        PutSprite(0, x + w - 8, y + h, gObject_8x8, gHelpBoxSt.oam2_base + 0x3b);
     }
 
     if (unk == 0) {
-        PutSprite(0, x, y - 0xb, gObject_32x16, (0x3FF & gHelpBoxSt.unk_30) + 0x7b);
+        PutSprite(0, x, y - 0xb, gObject_32x16, (0x3FF & gHelpBoxSt.oam2_base) + 0x7b);
     }
 
     return;
 }
 
 //! FE8U = 0x08089C40
-int DrawHelpBoxWeaponLabels(int item) {
+int DrawHelpBoxWeaponLabels(int item)
+{
     Text_InsertDrawString(&gHelpBoxSt.text[0], 0, 8, GetWeaponTypeDisplayString(GetItemType(item)));
     Text_InsertDrawString(&gHelpBoxSt.text[0], 47, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
     Text_InsertDrawString(&gHelpBoxSt.text[0], 97, 8, GetStringFromIndex(0x502)); // TODO: msg id "Wt"
@@ -229,8 +236,8 @@ int DrawHelpBoxWeaponLabels(int item) {
 }
 
 //! FE8U = 0x08089CD4
-void DrawHelpBoxWeaponStats(int item) {
-
+void DrawHelpBoxWeaponStats(int item)
+{
     Text_InsertDrawString(&gHelpBoxSt.text[0], 32, 7, GetItemDisplayRankString(item));
     Text_InsertDrawString(&gHelpBoxSt.text[0], 67, 7, GetItemDisplayRangeString(item));
     Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[0], 129, 7, GetItemWeight(item));
@@ -238,30 +245,28 @@ void DrawHelpBoxWeaponStats(int item) {
     Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[1], 32, 7, GetItemMight(item));
     Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[1], 81, 7, GetItemHit(item));
     Text_InsertDrawNumberOrBlank(&gHelpBoxSt.text[1], 129, 7, GetItemCrit(item));
-
-    return;
 }
 
 //! FE8U = 0x08089D50
-int DrawHelpBoxStaffLabels(int item) {
+int DrawHelpBoxStaffLabels(int item)
+{
     Text_InsertDrawString(&gHelpBoxSt.text[0], 0, 8, GetStringFromIndex(0x509)); // TODO: msg id "Staff[.]"
     Text_InsertDrawString(&gHelpBoxSt.text[0], 30, 7, GetItemDisplayRankString(item));
     Text_InsertDrawString(&gHelpBoxSt.text[0], 48, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
     Text_InsertDrawString(&gHelpBoxSt.text[0], 70, 7, GetItemDisplayRangeString(item));
-
     return 1;
 }
 
 //! FE8U = 0x08089DB0
-void DrawHelpBoxSaveMenuLabels(void) {
+void DrawHelpBoxSaveMenuLabels(void)
+{
     Text_InsertDrawString(&gHelpBoxSt.text[0], 0, 8, GetStringFromIndex(0x147)); // TODO: msg id "Base"
     Text_InsertDrawString(&gHelpBoxSt.text[0], 90, 8, GetStringFromIndex(0x148)); // TODO: msg id "LV"
-
-    return;
 }
 
 //! FE8U = 0x08089DE8
-void DrawHelpBoxSaveMenuStats(void) {
+void DrawHelpBoxSaveMenuStats(void) 
+{
     int level;
 
     const char* str = GetWMNodeNameForSaveMenu();
@@ -284,51 +289,46 @@ void DrawHelpBoxSaveMenuStats(void) {
 }
 
 //! FE8U = 0x08089E58
-void HelpBoxTextScroll_OnLoop(struct HelpBoxScrollProc* proc) {
+void HelpBoxTextScroll_OnLoop(struct HelpBoxScrollProc * proc)
+{
     int i;
 
-    proc->unk_5e--;
+    proc->step--;
 
-    if (proc->unk_5e > 0) {
+    if (proc->step > 0) {
         return;
     }
 
-    proc->unk_5e = proc->unk_60;
+    proc->step = proc->speed;
 
-    SetTextFont(proc->unk_30);
+    SetTextFont(proc->font);
 
-    for (i = 0; i < proc->unk_62; i++) {
+    for (i = 0; i < proc->chars_per_step; i++) {
 
-        switch (*proc->unk_2c) {
+        switch (*proc->string) {
+        case CHFE_L_X:
+            Proc_Break(proc);
+            goto _08089EE0;
 
-            case 0:
-                Proc_Break(proc);
-                goto _08089EE0;
-
-            case 1:
-                proc->unk_2c++;
-                proc->unk_5c++;
-
-                continue;
+        case CHFE_L_NL:
+            proc->string++;
+            proc->pretext_lines++;
+            continue;
 
 
-            case 4:
-                proc->unk_2c++;
+        case CHFE_L_Pause8:
+            proc->string++;
+            continue;
 
-                continue;
-
-            default:
-                proc->unk_2c = Text_DrawCharacter(proc->unk_34[proc->unk_5c], proc->unk_2c);
-
-                continue;
+        default:
+            proc->string = Text_DrawCharacter(proc->texts[proc->pretext_lines], proc->string);
+            continue;
         }
 
     }
 
 _08089EE0:
     SetTextFont(0);
-
-    return;
 }
 
 struct ProcCmd CONST_DATA gProcScr_HelpBoxTextScroll[] = {
@@ -337,104 +337,101 @@ struct ProcCmd CONST_DATA gProcScr_HelpBoxTextScroll[] = {
 };
 
 //! FE8U = 0x08089EEC
-void sub_8089EEC(struct HelpBoxScrollProc* proc) {
+void HelpBoxDrawOneLineExt(struct HelpBoxScrollProc * proc) {
     int i;
 
-    SetTextFont(proc->unk_30);
+    SetTextFont(proc->font);
 
     for (i = 0; i < 6; i++) {
         struct Text* th;
 _08089EF8:
-        th = proc->unk_34[i];
+        th = proc->texts[i];
 
-        Text_SetCursor(th, GetStringTextCenteredPos(th->tile_width * 8, proc->unk_2c));
+        Text_SetCursor(th, GetStringTextCenteredPos(th->tile_width * 8, proc->string));
 
         while (1) {
-            switch (*proc->unk_2c) {
-                case 0:
+            switch (*proc->string) {
+            case CHFE_L_X:
+                goto _08089F4C;
+
+            case CHFE_L_NL:
+                proc->string++;
+
+                i++;
+                if (i < 6) {
+                    goto _08089EF8;
+                } else {
                     goto _08089F4C;
+                }
 
-                case 1:
-                    proc->unk_2c++;
+            case CHFE_L_Pause16:
+            case CHFE_L_Pause8:
+                proc->string++;
 
-                    i++;
-                    if (i < 6) {
-                        goto _08089EF8;
-                    } else {
-                        goto _08089F4C;
-                    }
+                continue;
 
-                case 5:
-                case 4:
-                    proc->unk_2c++;
-
-                    continue;
-
-                default:
-                    proc->unk_2c = Text_DrawCharacter(th, proc->unk_2c);
-                    continue;
+            default:
+                proc->string = Text_DrawCharacter(th, proc->string);
+                continue;
             }
         }
     }
 
 _08089F4C:
-    SetTextFont(proc->unk_30);
-    return;
+    SetTextFont(proc->font);
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A01638[] = {
+struct ProcCmd CONST_DATA ProcScr_HelpBoxDrawOneLineUnused[] = {
     PROC_SLEEP(0),
-    PROC_CALL(sub_8089EEC),
+    PROC_CALL(HelpBoxDrawOneLineExt),
     PROC_END,
 };
 
 //! FE8U = 0x08089F58
-void sub_8089F58(struct HelpBox8A01650Proc* proc) {
-    int item = proc->unk_58;
+void HelpBoxSetupstringLines(struct ProcHelpBoxIntro* proc) {
+    int item = proc->item;
 
     SetTextFont(&gHelpBoxSt.font);
     SetTextFontGlyphs(0);
 
     switch (GetHelpBoxItemInfoKind(item)) {
-        case 0:
-            proc->unk_64 = 0;
+        case HB_EXTINFO_NONE:
+            proc->pretext_lines = 0;
             break;
 
-        case 1:
+        case HB_EXTINFO_WEAPON:
             DrawHelpBoxWeaponLabels(item);
-            proc->unk_64 = 2;
+            proc->pretext_lines = 2;
             break;
 
-        case 2:
+        case HB_EXTINFO_STAFF:
             DrawHelpBoxStaffLabels(item);
-            proc->unk_64 = 1;
+            proc->pretext_lines = 1;
             break;
 
-        case 3:
+        case HB_EXTINFO_SAVEINFO:
             DrawHelpBoxSaveMenuLabels();
-            proc->unk_64 = 1;
+            proc->pretext_lines = 1;
             break;
     }
 
     SetTextFont(0);
 
     Proc_Break(proc);
-
-    return;
 }
 
 //! FE8U = 0x08089FCC
-void sub_8089FCC(struct HelpBox8A01650Proc* proc) {
-    int item = proc->unk_58;
+void HelpBoxDrawstring(struct ProcHelpBoxIntro* proc) {
+    int item = proc->item;
 
     SetTextFont(&gHelpBoxSt.font);
 
     switch (GetHelpBoxItemInfoKind(item)) {
-        case 1:
+        case HB_EXTINFO_WEAPON:
             DrawHelpBoxWeaponStats(item);
             break;
 
-        case 3:
+        case HB_EXTINFO_SAVEINFO:
             DrawHelpBoxSaveMenuStats();
             break;
     }
@@ -442,13 +439,12 @@ void sub_8089FCC(struct HelpBox8A01650Proc* proc) {
     SetTextFont(0);
 
     Proc_Break(proc);
-
-    return;
 }
 
 //! FE8U = 0x0808A00C
-void sub_808A00C(struct HelpBox8A01650Proc* proc) {
-    struct HelpBoxScrollProc* otherProc;
+void HelpBoxIntroDrawTexts(struct ProcHelpBoxIntro * proc)
+{
+    struct HelpBoxScrollProc * otherProc;
     int textSpeed;
 
     SetTextFont(&gHelpBoxSt.font);
@@ -464,66 +460,61 @@ void sub_808A00C(struct HelpBox8A01650Proc* proc) {
     Proc_EndEach(gProcScr_HelpBoxTextScroll);
 
     otherProc = Proc_Start(gProcScr_HelpBoxTextScroll, PROC_TREE_3);
-    otherProc->unk_30 = &gHelpBoxSt.font;
+    otherProc->font = &gHelpBoxSt.font;
 
-    otherProc->unk_34[0] = &gHelpBoxSt.text[0];
-    otherProc->unk_34[1] = &gHelpBoxSt.text[1];
-    otherProc->unk_34[2] = &gHelpBoxSt.text[2];
+    otherProc->texts[0] = &gHelpBoxSt.text[0];
+    otherProc->texts[1] = &gHelpBoxSt.text[1];
+    otherProc->texts[2] = &gHelpBoxSt.text[2];
 
-    otherProc->unk_5c = proc->unk_64;
+    otherProc->pretext_lines = proc->pretext_lines;
 
     // TODO: Unknown? Seems pointless, but needed for match
-    GetStringFromIndex(proc->unk_5c);
+    GetStringFromIndex(proc->msg);
 
-    otherProc->unk_2c = StringInsertSpecialPrefixByCtrl();
-
-    otherProc->unk_62 = 1;
-
-    otherProc->unk_5e = 0;
+    otherProc->string = StringInsertSpecialPrefixByCtrl();
+    otherProc->chars_per_step = 1;
+    otherProc->step = 0;
 
     textSpeed = gPlaySt.config.textSpeed;
     switch (gPlaySt.config.textSpeed) {
-        case 0:
-            otherProc->unk_60 = 2;
-            break;
+    case 0: /* default speed */
+        otherProc->speed = 2;
+        break;
 
-        case 1:
-            otherProc->unk_60 = textSpeed;
-            break;
+    case 1: /* slow */
+        otherProc->speed = textSpeed;
+        break;
 
-        case 2:
-            otherProc->unk_60 = 1;
-            otherProc->unk_62 = textSpeed;
-            break;
+    case 2: /* fast */
+        otherProc->speed = 1;
+        otherProc->chars_per_step = textSpeed;
+        break;
 
-        case 3:
-            otherProc->unk_60 = 0;
-            otherProc->unk_62 = 0x7f;
-            break;
+    case 3: /* draw all at once */
+        otherProc->speed = 0;
+        otherProc->chars_per_step = 0x7f;
+        break;
     }
-
-    return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A01650[] = {
+struct ProcCmd CONST_DATA ProcScr_HelpBoxIntro[] = {
     PROC_SLEEP(6),
 
-    PROC_REPEAT(sub_8089F58),
-    PROC_REPEAT(sub_8089FCC),
+    PROC_REPEAT(HelpBoxSetupstringLines),
+    PROC_REPEAT(HelpBoxDrawstring),
 
-    PROC_CALL(sub_808A00C),
+    PROC_CALL(HelpBoxIntroDrawTexts),
 
     PROC_END,
 };
 
 //! FE8U = 0x0808A0FC
-void StartHelpBoxTextInit(int item, int msgId) {
-    struct HelpBox8A01650Proc* proc = Proc_Start(gUnknown_08A01650, PROC_TREE_3);
+void StartHelpBoxTextInit(int item, int msgId)
+{
+    struct ProcHelpBoxIntro * proc = Proc_Start(ProcScr_HelpBoxIntro, PROC_TREE_3);
 
-    proc->unk_58 = item;
-    proc->unk_5c = msgId;
-
-    return;
+    proc->item = item;
+    proc->msg = msgId;
 }
 
 //! FE8U = 0x0808A118
@@ -536,7 +527,7 @@ void ClearHelpBoxText(void) {
     SpriteText_DrawBackground(&gHelpBoxSt.text[2]);
 
     Proc_EndEach(gProcScr_HelpBoxTextScroll);
-    Proc_EndEach(gUnknown_08A01650);
+    Proc_EndEach(ProcScr_HelpBoxIntro);
 
     SetTextFont(0);
 
@@ -544,22 +535,26 @@ void ClearHelpBoxText(void) {
 }
 
 //! FE8U = 0x0808A160
-void sub_808A160(struct HelpBoxProc* proc) {
-
+void HelpBoxIntro_bug_808A160(struct HelpBoxProc * proc)
+{
     UpdateHelpBoxDisplay(proc, 5);
 
-    if (proc->timer < proc->timerMax) {
+    /* This function cannot be used */
+    if (proc->timer < proc->timerMax)
+    {
         proc->timer++;
-    }
 
-    return;
+#if BUGFIX
+        Proc_Break(proc);
+#endif
+    }
 }
 
 //! FE8U = 0x0808A188
-void sub_808A188(struct HelpBoxProc* proc) {
+void sub_808A188(struct HelpBoxProc * proc) {
     int time;
 
-    sub_808A444(proc);
+    SetHelpBoxDefaultRect(proc);
 
     sub_808A43C(proc, proc->info->xDisplay, proc->info->yDisplay);
 
@@ -573,7 +568,7 @@ void sub_808A188(struct HelpBoxProc* proc) {
 }
 
 //! FE8U = 0x0808A1B8
-void sub_808A1B8(struct HelpBoxProc* proc) {
+void sub_808A1B8(struct HelpBoxProc * proc) {
 
     UpdateHelpBoxDisplay(proc, 0);
 
@@ -586,8 +581,8 @@ void sub_808A1B8(struct HelpBoxProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A01678[] = {
-    PROC_REPEAT(sub_808A160),
+struct ProcCmd CONST_DATA ProcScr_Helpbox_bug_08A01678[] = {
+    PROC_REPEAT(HelpBoxIntro_bug_808A160),
     PROC_CALL(sub_808A188),
     PROC_REPEAT(sub_808A1B8),
 
@@ -613,16 +608,16 @@ void sub_808A200(const struct HelpBoxInfo* info) {
     int wTextBox;
     int hTextBox;
 
-    struct HelpBoxProc* proc = Proc_Find(gUnknown_08A01678);
+    struct HelpBoxProc * proc = Proc_Find(ProcScr_Helpbox_bug_08A01678);
 
     if (!proc) {
-        proc = Proc_Start(gUnknown_08A01678, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_Helpbox_bug_08A01678, PROC_TREE_3);
 
         PlaySoundEffect(0x70);
 
         sub_808A43C(proc, info->xDisplay, info->yDisplay);
 
-        sub_808A444(proc);
+        SetHelpBoxDefaultRect(proc);
     } else {
         proc->xBoxInit = proc->xBox;
         proc->yBoxInit = proc->yBox;
@@ -660,13 +655,13 @@ void sub_808A2D0(void) {
 
     ClearHelpBoxText();
 
-    Proc_BreakEach(gUnknown_08A01678);
+    Proc_BreakEach(ProcScr_Helpbox_bug_08A01678);
 
     return;
 }
 
 //! FE8U = 0x0808A2FC
-void sub_808A2FC(struct HelpBoxProc* proc) {
+void sub_808A2FC(struct HelpBoxProc * proc) {
 
     proc->moveKey = 0;
 
@@ -680,7 +675,7 @@ void sub_808A2FC(struct HelpBoxProc* proc) {
 }
 
 //! FE8U = 0x0808A320
-void sub_808A320(struct HelpBoxProc* proc) {
+void sub_808A320(struct HelpBoxProc * proc) {
 
     if (gKeyStatusPtr->newKeys & A_BUTTON) {
         Proc_Break(proc);
@@ -690,7 +685,7 @@ void sub_808A320(struct HelpBoxProc* proc) {
 }
 
 //! FE8U = 0x0808A340
-void sub_808A340(struct HelpBoxProc* proc) {
+void sub_808A340(struct HelpBoxProc * proc) {
 
     sub_808A2D0();
     Proc_End(proc);
@@ -711,7 +706,7 @@ PROC_LABEL(0),
 
 //! FE8U = 0x0808A354
 void sub_808A354(const struct HelpBoxInfo* info) {
-    struct HelpBoxProc* proc = Proc_Start(gUnknown_08A01698, PROC_TREE_3);
+    struct HelpBoxProc * proc = Proc_Start(gUnknown_08A01698, PROC_TREE_3);
 
     proc->info = info;
 
@@ -724,7 +719,7 @@ s8 sub_808A36C(void) {
 }
 
 //! FE8U = 0x0808A384
-void sub_808A384(struct HelpBoxProc* proc, int w, int h) {
+void sub_808A384(struct HelpBoxProc * proc, int w, int h) {
 
     w = (w + 0x1f) & 0xe0;
 
@@ -752,7 +747,7 @@ void sub_808A384(struct HelpBoxProc* proc, int w, int h) {
 }
 
 //! FE8U = 0x0808A3C4
-void sub_808A3C4(struct HelpBoxProc* proc, int x, int y) {
+void sub_808A3C4(struct HelpBoxProc * proc, int x, int y) {
     int xSpan = proc->wBoxFinal + 0x10;
     int ySpan = proc->hBoxFinal + 0x10;
 
@@ -778,7 +773,7 @@ void sub_808A3C4(struct HelpBoxProc* proc, int x, int y) {
 }
 
 //! FE8U = 0x0808A43C
-void sub_808A43C(struct HelpBoxProc* proc, int xInit, int yInit) {
+void sub_808A43C(struct HelpBoxProc * proc, int xInit, int yInit) {
     proc->xBoxInit = xInit;
     proc->yBoxInit = yInit;
 
@@ -786,7 +781,7 @@ void sub_808A43C(struct HelpBoxProc* proc, int xInit, int yInit) {
 }
 
 //! FE8U = 0x0808A444
-void sub_808A444(struct HelpBoxProc* proc) {
+void SetHelpBoxDefaultRect(struct HelpBoxProc * proc) {
     proc->wBoxInit = 0x20;
     proc->hBoxInit = 0x10;
 
@@ -830,7 +825,7 @@ struct ProcCmd CONST_DATA gUnknown_08A016C8[] = {
 };
 
 //! FE8U = 0x0808A4C4
-s8 sub_808A4C4(int msgId, ProcPtr parent) {
+s8 StartHelpoxDirect(int msgId, ProcPtr parent) {
     LoadHelpBoxGfx(0, -1);
 
     sub_808A1E0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgId);
@@ -897,14 +892,14 @@ void sub_808A530(int a, int b) {
 }
 
 //! FE8U = 0x0808A5D0
-void sub_808A5D0(void* param_1, int param_2) {
+void sub_808A5D0(void * vram_dst, int param_2) {
     int uVar1;
     int iVar3;
     int iVar4;
     int iVar5;
 
-    if (param_1 == 0) {
-        param_1 = (void *)0x06013000;
+    if (vram_dst == 0) {
+        vram_dst = (void *)0x06013000;
     }
 
     if (param_2 < 0) {
@@ -914,23 +909,23 @@ void sub_808A5D0(void* param_1, int param_2) {
     param_2 = (param_2 & 0xf) + 0x10;
 
     if (GetDialogueBoxConfig() & 0x10) {
-        Decompress(gGfx_YellowTextBox, param_1 + 0x360);
-        Decompress(gGfx_YellowTextBox2, param_1 + 0x760);
-        Decompress(gGfx_YellowTextBox3, param_1 + 0xb60);
-        Decompress(gGfx_YellowTextBox4, param_1 + 0xf80);
-        Decompress(gGfx_YellowTextBox5, param_1 + 0x1380);
+        Decompress(gGfx_YellowTextBox, vram_dst + 0x360);
+        Decompress(gGfx_YellowTextBox2, vram_dst + 0x760);
+        Decompress(gGfx_YellowTextBox3, vram_dst + 0xb60);
+        Decompress(gGfx_YellowTextBox4, vram_dst + 0xf80);
+        Decompress(gGfx_YellowTextBox5, vram_dst + 0x1380);
     } else {
-        Decompress(gGfx_HelpTextBox, param_1 + 0x360);
-        Decompress(gGfx_HelpTextBox2, param_1 + 0x760);
-        Decompress(gGfx_HelpTextBox3, param_1 + 0xb60);
-        Decompress(gGfx_HelpTextBox4, param_1 + 0xf60);
-        Decompress(gGfx_HelpTextBox5, param_1 + 0x1360);
+        Decompress(gGfx_HelpTextBox, vram_dst + 0x360);
+        Decompress(gGfx_HelpTextBox2, vram_dst + 0x760);
+        Decompress(gGfx_HelpTextBox3, vram_dst + 0xb60);
+        Decompress(gGfx_HelpTextBox4, vram_dst + 0xf60);
+        Decompress(gGfx_HelpTextBox5, vram_dst + 0x1360);
     }
 
     ClearAllTalkFlags();
 
     if (!(GetDialogueBoxConfig() & 1)) {
-        InitSpriteTextFont(&gUnknown_0203E7E8.unk_00, param_1, param_2);
+        InitSpriteTextFont(&gUnknown_0203E7E8.unk_00, vram_dst, param_2);
 
         InitSpriteText(&gUnknown_0203E7E8.unk_18[0]);
         InitSpriteText(&gUnknown_0203E7E8.unk_18[1]);
@@ -950,7 +945,7 @@ void sub_808A5D0(void* param_1, int param_2) {
         }
 
     } else {
-        InitSpriteTextFont(&gUnknown_0203E7E8.unk_00, param_1, param_2);
+        InitSpriteTextFont(&gUnknown_0203E7E8.unk_00, vram_dst, param_2);
 
         for (iVar4 = 0; iVar4 < ((u16)GetDialogueBoxConfig() >> 8); iVar4++) {
             InitSpriteText(&gUnknown_0203E7E8.unk_18[iVar4]);
@@ -961,8 +956,8 @@ void sub_808A5D0(void* param_1, int param_2) {
         ApplyPalette(Pal_Text, param_2);
     }
 
-    if (&param_1)
-        gUnknown_0203E7E8.unk_40 = ((((u32)param_1 << 0x11) >> 0x16) + (param_2 & 0xF) * 0x1000);
+    if (&vram_dst)
+        gUnknown_0203E7E8.unk_40 = ((((u32)vram_dst << 0x11) >> 0x16) + (param_2 & 0xF) * 0x1000);
 
     if (GetDialogueBoxConfig() & 0x10) {
         PlaySoundEffect(0x2E6);
@@ -972,7 +967,7 @@ void sub_808A5D0(void* param_1, int param_2) {
 }
 
 //! FE8U = 0x0808A7B0
-void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
+void sub_808A7B0(struct HelpBoxProc * proc, int x, int y) {
     int xSpan;
     int ySpan;
 
@@ -1009,7 +1004,7 @@ void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
     return;
 }
 
-void sub_808A838(struct HelpBoxProc* proc, int w, int h) {
+void sub_808A838(struct HelpBoxProc * proc, int w, int h) {
     w &= 0xF8;
 
     proc->wBoxFinal = w;
@@ -1084,7 +1079,7 @@ PROC_LABEL(2),
 };
 
 //! FE8U = 0x0808A8E4
-void sub_808A8E4(struct HelpBoxProc* proc, int interpolateMethod) {
+void sub_808A8E4(struct HelpBoxProc * proc, int interpolateMethod) {
     int xBox = proc->xBoxFinal;
     int yBox = proc->yBoxFinal;
 
@@ -1101,7 +1096,7 @@ void sub_808A8E4(struct HelpBoxProc* proc, int interpolateMethod) {
 }
 
 //! FE8U = 0x0808A974
-void sub_808A974(struct HelpBoxProc* proc) {
+void sub_808A974(struct HelpBoxProc * proc) {
 
     sub_808A8E4(proc, INTERPOLATE_RCUBIC);
 
@@ -1113,7 +1108,7 @@ void sub_808A974(struct HelpBoxProc* proc) {
 }
 
 //! FE8U = 0x0808A99C
-void sub_808A99C(struct HelpBoxProc* proc) {
+void sub_808A99C(struct HelpBoxProc * proc) {
     ResetHelpBoxInitSize(proc);
 
     proc->timerMax = proc->timerMax / 3;
@@ -1123,7 +1118,7 @@ void sub_808A99C(struct HelpBoxProc* proc) {
 }
 
 //! FE8U = 0x0808A9C0
-void sub_808A9C0(struct HelpBoxProc* proc) {
+void sub_808A9C0(struct HelpBoxProc * proc) {
 
     sub_808A8E4(proc, INTERPOLATE_LINEAR);
 
@@ -1380,7 +1375,7 @@ void sub_808AB98(const char* str, u8* xOut) {
 
 //! FE8U = 0x0808AC0C
 void sub_808AC0C(int x, int y, int msg) {
-    struct HelpBoxProc* proc;
+    struct HelpBoxProc * proc;
 
     int wInner = 0;
     int hInner = 0;
@@ -1523,7 +1518,7 @@ void sub_808ACFC(int x, int y, int width, int height) {
 
 //! FE8U = 0x0808B09C
 void sub_808B09C(struct HelpBox8A01760Proc* proc) {
-    struct HelpBoxProc* helpBoxProc = Proc_Find(gUnknown_08A01740);
+    struct HelpBoxProc * helpBoxProc = Proc_Find(gUnknown_08A01740);
 
     proc->unk_59 = 0;
     proc->unk_50 = helpBoxProc->xBox - 8;
@@ -1598,7 +1593,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
     SetTextFont(proc->unk_30);
 
     for (i = 0; i < iVar5; i++) {
-        struct HelpBoxProc* r3;
+        struct HelpBoxProc * r3;
         const char* r1;
         int r0;
         int a, b;
@@ -1658,7 +1653,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             case 0x13: // [FastPrint] fe6 only?
             case 0x14: // [CloseSpeechFast]
             {
-                struct HelpBoxProc* r4 = Proc_Find(gUnknown_08A01740);
+                struct HelpBoxProc * r4 = Proc_Find(gUnknown_08A01740);
 
                 sub_808B0D4();
 
@@ -1784,7 +1779,7 @@ void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
             case 0x03: { // [A]
                 int x;
                 int y;
-                struct HelpBoxProc* r0;
+                struct HelpBoxProc * r0;
 
                 sub_808B0D4();
 
@@ -1885,7 +1880,7 @@ void sub_808B844(ProcPtr proc) {
 
 //! FE8U = 0x0808B870
 void sub_808B870(struct HelpBox8A01760Proc* proc) {
-    struct HelpBoxProc* helpBoxProc = Proc_Find(gUnknown_08A01740);
+    struct HelpBoxProc * helpBoxProc = Proc_Find(gUnknown_08A01740);
 
     proc->unk_58++;
 

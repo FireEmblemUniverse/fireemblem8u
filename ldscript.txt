@@ -608,14 +608,14 @@ SECTIONS
         . = ALIGN(4); src/ap.o(.data);
         . = ALIGN(4); src/gamecontrol.o(.data);
         . = ALIGN(4); src/msg.o(.data);
-        . = ALIGN(4); data/data_591AB4.o(.data);
+        . = ALIGN(4); src/event.o(.data);
         . = ALIGN(4); src/eventscr.o(.data);
         . = ALIGN(4); src/popup.o(.data);
         . = ALIGN(4); src/eventscr3.o(.data);
         . = ALIGN(4); data/data_5924D8.o(.data);
         . = ALIGN(4); src/eventcmd_44.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
-        . = ALIGN(4); data/data_599714.o(.data);
+        . = ALIGN(4); data/generic_icon.o(.data);
         . = ALIGN(4); src/bmlib.o(.data);
         . = ALIGN(4); data/bmlib.o(.data);
         . = ALIGN(4); src/bm.o(.data);
