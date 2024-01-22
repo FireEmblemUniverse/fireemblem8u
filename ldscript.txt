@@ -65,7 +65,8 @@ SECTIONS
         src/gamecontrol.o(.text);
         src/msg.o(.text);
         asm/spline.o(.text);
-        src/evtcmd_gmap.o(.text);
+        src/eventscr_utils.o(.text);
+        src/eventscr_gmap.o(.text);
         src/event.o(.text);
         src/eventscr.o(.text);
         src/eventscr2.o(.text);
@@ -414,7 +415,8 @@ SECTIONS
         . = ALIGN(4); src/ap.o(.rodata);
         . = ALIGN(4); src/gamecontrol.o(.rodata);
         . = ALIGN(4); src/msg.o(.rodata);
-        . = ALIGN(4); src/evtcmd_gmap.o(.rodata);
+        . = ALIGN(4); src/eventscr_utils.o(.rodata);
+        . = ALIGN(4); src/eventscr_gmap.o(.rodata);
         . = ALIGN(4); src/eventscr.o(.rodata);
         . = ALIGN(4); src/bmlib.o(.rodata);
         . = ALIGN(4); src/bm.o(.rodata);

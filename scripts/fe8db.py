@@ -73,8 +73,8 @@ EVENT_COMMANDS = {
     0x45: "EV_CMD_GLOWING_CROSS",
 
     0x80: "EV_CMD_WM_80",
-    0x81: "EV_CMD_WM_82",
-    0x82: "EV_CMD_WM_81",
+    0x81: "EV_CMD_WM_81",
+    0x82: "EV_CMD_WM_82",
     0x83: "EV_CMD_WM_SETCAM",
     0x84: "EV_CMD_WM_84",
     0x85: "EV_CMD_WM_CENTERCAMONLORD",

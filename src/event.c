@@ -138,7 +138,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     case EV_EXEC_UNK5:
         ReadGameSaveCoreGfx();
         UnpackChapterMapPalette();
-        sub_800BCDC(proc->mapSpritePalIdOverride);
+        ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         if (proc->evStateBits & EV_STATE_CHANGEGM) {
             MU_EndAll();
@@ -149,7 +149,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     case EV_EXEC_GAMEPLAY:
         UnlockGame();
         ResumeMenu();
-        sub_800BB98();
+        ResetBkselPalette();
         ClearCutsceneUnits();
 
         break;
@@ -161,7 +161,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
         sub_808BB74(); // End some more things
 
         if (proc->execType == EV_EXEC_CUTSCENE)
-            sub_800BCDC(proc->mapSpritePalIdOverride);
+            ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         sub_800E640(proc);
     }
