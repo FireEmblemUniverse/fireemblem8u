@@ -203,10 +203,6 @@ void sub_805A580(struct Anim * anim)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/eKPDm */
-
 //! FE8U = 0x0805A5A8
 void sub_805A5A8(struct Anim * anim)
 {
@@ -223,12 +219,24 @@ void sub_805A5A8(struct Anim * anim)
         struct Anim * anim2 = pAnimBuffer->anim2;
 
         const void * unk28 = pAnimBuffer->unk_28;
+#ifndef NONMATCHING
+        register struct BanimModeData * frameData asm("r1") = (void *)unk28 + whoKnows[mode];
+        register u32 r1 asm("r1");
+
+        anim1->pImgSheet = frameData->img;
+        unk28 = anim1->pSpriteDataPool;
+        anim1->pSpriteData = unk28 += r1 = frameData->unk2;
+
+        unk28 = anim2->pSpriteDataPool;
+        anim2->pSpriteData = unk28 += 0x000057F0;
+#else
         struct BanimModeData * frameData = (void *)unk28 + whoKnows[mode];
 
         anim1->pImgSheet = frameData->img;
         anim1->pSpriteData = anim1->pSpriteDataPool + frameData->unk2;
 
         anim2->pSpriteData = anim2->pSpriteDataPool + 0x000057F0;
+#endif
 
         if (pAnimBuffer->unk_2C != anim->pImgSheet)
         {
@@ -239,66 +247,6 @@ void sub_805A5A8(struct Anim * anim)
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_805A5A8(struct Anim * anim)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        adds r6, r0, #0\n\
-        ldr r5, [r6, #0x44]\n\
-        ldr r4, _0805A600  @ banim_data\n\
-        bl GetAISLayerId\n\
-        cmp r0, #0\n\
-        bne _0805A5FA\n\
-        ldr r0, _0805A604  @ BanimDefaultModeConfig\n\
-        ldrb r1, [r0, #0x18]\n\
-        movs r2, #6\n\
-        ldrsh r0, [r5, r2]\n\
-        lsls r0, r0, #5\n\
-        adds r0, r0, r4\n\
-        ldr r0, [r0, #0xc]\n\
-        ldr r2, [r5, #0x14]\n\
-        ldr r3, [r5, #0x18]\n\
-        ldr r4, [r5, #0x28]\n\
-        lsls r1, r1, #2\n\
-        adds r1, r1, r0\n\
-        ldr r1, [r1]\n\
-        adds r1, r4, r1\n\
-        ldr r0, [r1, #4]\n\
-        str r0, [r2, #0x28]\n\
-        ldr r4, [r2, #0x30]\n\
-        ldr r1, [r1, #8]\n\
-        adds r4, r4, r1\n\
-        str r4, [r2, #0x3c]\n\
-        ldr r4, [r3, #0x30]\n\
-        ldr r0, _0805A608  @ 0x000057F0\n\
-        adds r4, r4, r0\n\
-        str r4, [r3, #0x3c]\n\
-        ldr r1, [r5, #0x2c]\n\
-        ldr r0, [r6, #0x28]\n\
-        cmp r1, r0\n\
-        beq _0805A5FA\n\
-        adds r0, r6, #0\n\
-        bl NewEkrChienCHR\n\
-        ldr r0, [r6, #0x28]\n\
-        str r0, [r5, #0x2c]\n\
-    _0805A5FA:\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0805A600: .4byte banim_data\n\
-    _0805A604: .4byte BanimDefaultModeConfig\n\
-    _0805A608: .4byte 0x000057F0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x0805A60C
 void sub_805A60C(struct AnimBuffer * pAnimBuf)
@@ -417,13 +365,10 @@ void sub_805A60C(struct AnimBuffer * pAnimBuf)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/go7Jx */
-
 //! FE8U = 0x0805A7B4
 void sub_805A7B4(struct AnimBuffer * pAnimBuf)
 {
+    struct BattleAnimCharaPal * cbapt = character_battle_animation_palette_table;
     u32 modeA;
     u32 configA;
     u32 modeB;
@@ -526,10 +471,7 @@ void sub_805A7B4(struct AnimBuffer * pAnimBuf)
     LZ77UnCompWram(ba[pAnimBuf->animId].pal, pAnimBuf->unk_20);
 
     if (pAnimBuf->charPalId != -1)
-    {
-        struct BattleAnimCharaPal * cbap = &character_battle_animation_palette_table[pAnimBuf->charPalId];
-        LZ77UnCompWram(cbap->pal, pAnimBuf->unk_20);
-    }
+        LZ77UnCompWram(cbapt[pAnimBuf->charPalId].pal, pAnimBuf->unk_20);
 
     CpuFastCopy(pAnimBuf->unk_20 + pAnimBuf->genericPalId * 0x20, pAnimBuf->oam2Pal * 0x10 + gPaletteBuffer + 0x100, 0x20);
 
@@ -537,201 +479,6 @@ void sub_805A7B4(struct AnimBuffer * pAnimBuf)
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_805A7B4(struct AnimBuffer * pAnimBuf)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        adds r7, r0, #0\n\
-        ldr r0, _0805A82C  @ banim_data\n\
-        mov sl, r0\n\
-        ldr r2, _0805A830  @ BanimDefaultModeConfig\n\
-        ldrh r0, [r7, #0xa]\n\
-        lsls r0, r0, #2\n\
-        adds r1, r0, r2\n\
-        ldrb r4, [r1]\n\
-        adds r0, #2\n\
-        adds r0, r0, r2\n\
-        ldrb r5, [r0]\n\
-        movs r1, #6\n\
-        ldrsh r0, [r7, r1]\n\
-        lsls r0, r0, #5\n\
-        add r0, sl\n\
-        ldr r0, [r0, #0x10]\n\
-        ldr r1, [r7, #0x28]\n\
-        bl LZ77UnCompWram\n\
-        movs r2, #6\n\
-        ldrsh r0, [r7, r2]\n\
-        lsls r0, r0, #5\n\
-        mov r2, sl\n\
-        adds r1, r0, r2\n\
-        ldr r2, [r1, #0xc]\n\
-        ldr r3, [r7, #0x28]\n\
-        ldr r0, _0805A834  @ BanimScr_DefaultAnim\n\
-        mov r8, r0\n\
-        cmp r4, #0xff\n\
-        beq _0805A804\n\
-        lsls r0, r4, #2\n\
-        adds r0, r0, r2\n\
-        ldr r0, [r0]\n\
-        adds r0, r0, r3\n\
-        mov r8, r0\n\
-    _0805A804:\n\
-        ldr r0, _0805A834  @ BanimScr_DefaultAnim\n\
-        mov r9, r0\n\
-        cmp r5, #0xff\n\
-        beq _0805A816\n\
-        lsls r0, r5, #2\n\
-        adds r0, r0, r2\n\
-        ldr r0, [r0]\n\
-        adds r3, r3, r0\n\
-        mov r9, r3\n\
-    _0805A816:\n\
-        ldrh r0, [r7, #0xc]\n\
-        cmp r0, #0\n\
-        bne _0805A83C\n\
-        ldr r4, [r7, #0x24]\n\
-        ldr r0, [r1, #0x18]\n\
-        adds r1, r4, #0\n\
-        bl LZ77UnCompWram\n\
-        ldr r2, _0805A838  @ 0x000057F0\n\
-        adds r1, r4, r2\n\
-        b _0805A84A\n\
-        .align 2, 0\n\
-    _0805A82C: .4byte banim_data\n\
-    _0805A830: .4byte BanimDefaultModeConfig\n\
-    _0805A834: .4byte BanimScr_DefaultAnim\n\
-    _0805A838: .4byte 0x000057F0\n\
-    _0805A83C:\n\
-        ldr r4, [r7, #0x24]\n\
-        ldr r0, [r1, #0x14]\n\
-        adds r1, r4, #0\n\
-        bl LZ77UnCompWram\n\
-        ldr r0, _0805A924  @ 0x000057F0\n\
-        adds r1, r4, r0\n\
-    _0805A84A:\n\
-        movs r0, #1\n\
-        str r0, [r1]\n\
-        ldr r6, [r7, #0x14]\n\
-        mov r1, r8\n\
-        str r1, [r6, #0x24]\n\
-        str r1, [r6, #0x20]\n\
-        ldr r0, [r7, #0x24]\n\
-        str r0, [r6, #0x30]\n\
-        ldrh r0, [r7, #2]\n\
-        movs r5, #0\n\
-        movs r3, #0\n\
-        strh r0, [r6, #2]\n\
-        ldrh r0, [r7, #4]\n\
-        strh r0, [r6, #4]\n\
-        ldrh r0, [r7, #0x10]\n\
-        lsls r0, r0, #0xc\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #4\n\
-        adds r4, r2, #0\n\
-        orrs r0, r4\n\
-        ldrh r1, [r7, #0xe]\n\
-        orrs r0, r1\n\
-        strh r0, [r6, #8]\n\
-        ldrh r1, [r6, #0xc]\n\
-        movs r2, #0xe0\n\
-        lsls r2, r2, #3\n\
-        adds r0, r2, #0\n\
-        ands r0, r1\n\
-        strh r0, [r6, #0xc]\n\
-        strh r3, [r6, #0x10]\n\
-        strh r3, [r6, #6]\n\
-        strh r3, [r6, #0xe]\n\
-        ldrh r0, [r7, #0xa]\n\
-        strb r0, [r6, #0x12]\n\
-        ldr r0, [r7, #0x1c]\n\
-        str r0, [r6, #0x2c]\n\
-        strb r5, [r6, #0x14]\n\
-        str r6, [r7, #0x14]\n\
-        ldr r6, [r7, #0x18]\n\
-        mov r0, r9\n\
-        str r0, [r6, #0x24]\n\
-        str r0, [r6, #0x20]\n\
-        ldr r0, [r7, #0x24]\n\
-        str r0, [r6, #0x30]\n\
-        ldrh r0, [r7, #2]\n\
-        strh r0, [r6, #2]\n\
-        ldrh r0, [r7, #4]\n\
-        strh r0, [r6, #4]\n\
-        ldrh r0, [r7, #0x10]\n\
-        lsls r0, r0, #0xc\n\
-        orrs r0, r4\n\
-        ldrh r1, [r7, #0xe]\n\
-        orrs r0, r1\n\
-        strh r0, [r6, #8]\n\
-        ldrh r0, [r6, #0xc]\n\
-        ands r2, r0\n\
-        strh r2, [r6, #0xc]\n\
-        strh r3, [r6, #0x10]\n\
-        strh r3, [r6, #6]\n\
-        strh r3, [r6, #0xe]\n\
-        ldrh r0, [r7, #0xa]\n\
-        strb r0, [r6, #0x12]\n\
-        ldr r0, [r7, #0x1c]\n\
-        str r0, [r6, #0x2c]\n\
-        strb r5, [r6, #0x14]\n\
-        str r6, [r7, #0x18]\n\
-        movs r1, #6\n\
-        ldrsh r0, [r7, r1]\n\
-        lsls r0, r0, #5\n\
-        add r0, sl\n\
-        ldr r0, [r0, #0x1c]\n\
-        ldr r1, [r7, #0x20]\n\
-        bl LZ77UnCompWram\n\
-        movs r2, #8\n\
-        ldrsh r1, [r7, r2]\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        beq _0805A8FA\n\
-        adds r0, r1, #0\n\
-        lsls r0, r0, #4\n\
-        ldr r2, _0805A928  @ character_battle_animation_palette_table\n\
-        adds r0, r0, r2\n\
-        ldr r0, [r0, #0xc]\n\
-        ldr r1, [r7, #0x20]\n\
-        bl LZ77UnCompWram\n\
-    _0805A8FA:\n\
-        ldrb r1, [r7, #1]\n\
-        lsls r1, r1, #5\n\
-        ldr r0, [r7, #0x20]\n\
-        adds r0, r0, r1\n\
-        ldrh r1, [r7, #0x10]\n\
-        lsls r1, r1, #5\n\
-        ldr r2, _0805A92C  @ gPaletteBuffer+0x200\n\
-        adds r1, r1, r2\n\
-        movs r2, #8\n\
-        bl CpuFastSet\n\
-        bl EnablePaletteSync\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0805A924: .4byte 0x000057F0\n\
-    _0805A928: .4byte character_battle_animation_palette_table\n\
-    _0805A92C: .4byte gPaletteBuffer+0x200\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x0805A930
 void sub_805A930(struct AnimBuffer * pAnimBuf, int animId, int charPalId)
