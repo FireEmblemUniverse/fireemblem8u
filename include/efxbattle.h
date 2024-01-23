@@ -169,40 +169,9 @@ struct Unknown_030053E0 {
 };
 extern struct Unknown_030053E0 gUnknown_030053E0;
 
-struct Unknown_030053A0 {
-    /* 00 */ u8 u00;
-    /* 01 */ u8 u01;
-    /* 02 */ u16 u02;
-    /* 04 */ u16 u04;
-    /* 06 */ u16 u06;
-    /* 08 */ u16 u08;
-    /* 0A */ u16 u0a;
-    /* 0C */ u16 u0c;
-    /* 0E */ u16 u0e;
-    /* 10 */ u16 u10;
-    /* 14 */ struct Anim * anim1;
-    /* 18 */ struct Anim * anim2;
-    /* 1C */ void * u1c;
-    /* 20 */ void * u20;
-    /* 24 */ void * u24;
-    /* 28 */ void * u28;
-    /* 2C */ void * _u2c;
-    /* 30 */ struct Unknown_030053E0 * u30;
-};
+extern struct AnimBuffer gUnknown_030053A0;
 
-extern struct Unknown_030053A0 gUnknown_030053A0;
-
-struct Unknown_0201FADC {
-    /* 00 */ u16 things[8];
-    /* 10 */ u16 _pad_10;
-    /* 14 */ ProcPtr p1;
-    /* 18 */ ProcPtr p2;
-    /* 1c */ u32 u1c;
-    /* 20 */ u8 * u20;
-    /* 24 */ u32 _pad_24;
-};
-
-extern struct Unknown_0201FADC gUnknown_0201FADC;
+extern struct BanimUnkStructComm gUnknown_0201FADC;
 
 struct ProcEfxFlashing {
     PROC_HEADER;

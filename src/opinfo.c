@@ -49,8 +49,8 @@ struct ClassReelEnt {
     /* 0A */ u8 unk_0A;
     /* 0B */ u8 unk_0B;
     /* 0C */ u8 unk_0C;
-    /* 0D */ u8 unk_0D;
-    /* 0E */ u8 unk_0E;
+    /* 0D */ u8 unk_0D; // terrain L
+    /* 0E */ u8 unk_0E; // terrain R
     /* 0F */ u8 unk_0F;
 
     /* 10 */ struct ClassReelAnimScr* script;
@@ -169,9 +169,6 @@ struct OpInfoGaugeDrawProc {
 void sub_805AA68(void *);
 void sub_805AE14(void *);
 void sub_805AE40(void *, s16, s16, s16, s16);
-void sub_805A7B4(void*);
-s8 sub_805A96C(void*);
-void sub_805A990(void*);
 
 // TODO: Forward declarations
 
@@ -1101,29 +1098,7 @@ void sub_80B3740(void) {
     return;
 }
 
-struct OpInfoData {
-    u8 unk_00;
-    u8 unk_01;
-    u16 unk_02;
-    u16 unk_04;
-    u16 unk_06;
-    u16 unk_08;
-    u16 unk_0A;
-    u16 unk_0C;
-    u16 unk_0E;
-    u16 unk_10;
-    void* unk_14;
-    void* unk_18;
-    struct Vec2* unk_1C;
-    void* unk_20;
-    void* unk_24;
-    void* unk_28;
-    int unk_2C;
-    void* unk_30;
-    ProcPtr unk_34;
-};
-
-#define gOpInfoData ((struct OpInfoData *)EWRAM_ENTRY)
+#define gOpInfoData ((struct AnimBuffer *)EWRAM_ENTRY)
 
 struct Unk200A2D8 {
     u16 unk_00;
@@ -1145,23 +1120,7 @@ struct Unk200A2D8 {
 
 extern struct Unk200A2D8 gUnknown_0200A2D8;
 
-struct Unk201DB00 {
-    u16 unk_00;
-    u16 unk_02;
-    u16 unk_04;
-    u16 unk_06;
-    u16 unk_08;
-    u16 unk_0A;
-    u16 unk_0C;
-    u16 unk_0E;
-    int unk_10;
-    int unk_14;
-    int unk_18;
-    void* unk_1C;
-    void* unk_20;
-};
-
-extern struct Unk201DB00 gUnknown_0201DB00;
+extern struct BanimUnkStructComm gUnknown_0201DB00;
 
 ProcPtr StartClassStatsDisplay(ProcPtr);
 
@@ -1318,16 +1277,16 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     SetTalkPrintDelay(4);
 
-    gOpInfoData->unk_08 = proc->classReelEnt->paletteId;
-    gOpInfoData->unk_02 = 0x104;
-    gOpInfoData->unk_04 = 0x58;
-    gOpInfoData->unk_06 = proc->classReelEnt->banimId;
-    gOpInfoData->unk_0A = 6;
-    gOpInfoData->unk_01 = proc->classReelEnt->unk_06;
-    gOpInfoData->unk_0C = 1;
-    gOpInfoData->unk_0E = 0x180;
-    gOpInfoData->unk_10 = 2;
-    gOpInfoData->unk_1C = &gEkrBg0QuakeVec;
+    gOpInfoData->charPalId = proc->classReelEnt->paletteId;
+    gOpInfoData->xPos = 0x104;
+    gOpInfoData->yPos = 0x58;
+    gOpInfoData->animId = proc->classReelEnt->banimId;
+    gOpInfoData->roundType = 6;
+    gOpInfoData->genericPalId = proc->classReelEnt->unk_06;
+    gOpInfoData->state2 = 1;
+    gOpInfoData->oam2Tile = 0x180;
+    gOpInfoData->oam2Pal = 2;
+    gOpInfoData->pImgSheetBuf = &gEkrBg0QuakeVec;
     gOpInfoData->unk_24 = gUnknown_02002038;
     gOpInfoData->unk_20 = gUnknown_02007838;
     gOpInfoData->unk_28 = gUnknown_020078D8;
@@ -1352,17 +1311,17 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     NewEkrUnitMainMini(gOpInfoData);
 
-    gUnknown_0201DB00.unk_00 = proc->classReelEnt->unk_0D;
-    gUnknown_0201DB00.unk_02 = 10;
-    gUnknown_0201DB00.unk_04 = 0x380;
-    gUnknown_0201DB00.unk_06 = proc->classReelEnt->unk_0E;
-    gUnknown_0201DB00.unk_08 = 0xB;
-    gUnknown_0201DB00.unk_0A = 0x3C0;
-    gUnknown_0201DB00.unk_0C = r5;
-    gUnknown_0201DB00.unk_0E = 0xFFFF;
+    gUnknown_0201DB00.unk00 = proc->classReelEnt->unk_0D;
+    gUnknown_0201DB00.unk02 = 10;
+    gUnknown_0201DB00.unk04 = 0x380;
+    gUnknown_0201DB00.unk06 = proc->classReelEnt->unk_0E;
+    gUnknown_0201DB00.unk08 = 11;
+    gUnknown_0201DB00.unk0A = 0x3C0;
+    gUnknown_0201DB00.unk0C = r5;
+    gUnknown_0201DB00.unk0E = -1;
 
-    gUnknown_0201DB00.unk_1C = (void*)0x06010000;
-    gUnknown_0201DB00.unk_20 = &gUnknown_0201DB28;
+    gUnknown_0201DB00.unk1C = (void *)0x06010000;
+    gUnknown_0201DB00.unk20 = &gUnknown_0201DB28;
 
     sub_805AA68(&gUnknown_0201DB00);
     sub_805AE40(&gUnknown_0201DB00, 0xD0, 0x68, 0x130, 0x68);
@@ -1403,32 +1362,14 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
         proc->unk_46 = 180;
     }
 
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 1;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(1, 1, 1, 1, 1);
 
-    gLCDControlBuffer.dispcnt.win0_on = 1;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    SetWinEnable(1, 0, 0);
 
-    gLCDControlBuffer.win0_left = 0;
-    gLCDControlBuffer.win0_top = 80 - proc->unk_2a;
-    gLCDControlBuffer.win0_right = 240;
-    gLCDControlBuffer.win0_bottom = proc->unk_2a + 80;
+    SetWin0Box(0, 80 - proc->unk_2a, 240, proc->unk_2a + 80);
 
-    gLCDControlBuffer.wincnt.win0_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.win0_enableObj = 1;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = 0;
-    gLCDControlBuffer.wincnt.wout_enableObj = 0;
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(0, 0, 0, 0, 0);
 
     if (proc->unk_2a == 80) {
         proc->unk_46 = 180;
@@ -1457,15 +1398,13 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
             break;
 
         case CLASS_REEL_OP_1:
-            // melee normal?
-            gOpInfoData->unk_0A = 0;
+            gOpInfoData->roundType = ANIM_ROUND_HIT_CLOSE;
             sub_805A7B4(gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_2:
-            // melee crit?
-            gOpInfoData->unk_0A = 1;
+            gOpInfoData->roundType = ANIM_ROUND_CRIT_CLOSE;
             sub_805A7B4(gOpInfoData);
 
             break;
@@ -1477,15 +1416,13 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
             break;
 
         case CLASS_REEL_OP_4:
-            // range normal?
-            gOpInfoData->unk_0A = 2;
+            gOpInfoData->roundType = ANIM_ROUND_NONCRIT_FAR;
             sub_805A7B4(gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_6:
-            // melee dodge?
-            gOpInfoData->unk_0A = 4;
+            gOpInfoData->roundType = ANIM_ROUND_TAKING_MISS_CLOSE;
             sub_805A7B4(gOpInfoData);
 
             break;
