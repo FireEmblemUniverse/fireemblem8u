@@ -800,6 +800,10 @@ extern const u16 Img_TriGenerialHandAxeAtkOBJ[];
 
 extern char gNopStr[];
 // extern ??? gUnknown_085B9E4C
+extern u16 gUnknown_085B9E58[];
+extern u16 gUnknown_085B9EF0[];
+extern u16 gUnknown_085B9F88[];
+extern u16 gUnknown_085BA020[];
 extern u16 Img_NODAMGEMIS[];
 extern u16 Pal_085BA2E0[];
 extern u16 Pal_085BA300[];
@@ -841,10 +845,10 @@ extern u16 Tsa5_EfxLvupBG2[];
 extern u16 Tsa6_EfxLvupBG2[];
 extern u16 Img_EfxLvupOBJ2[];
 extern AnimScr AnimScr_EfxLvupOBJ2[];
-// extern ??? gUnknown_085C72AC
-// extern ??? gUnknown_085C7338
-// extern ??? gUnknown_085C73B8
-// extern ??? gUnknown_085C7438
+extern u32 gUnknown_085C72AC[];
+extern u32 gUnknown_085C73B8[];
+extern u32 gUnknown_085C7338[];
+extern u32 gUnknown_085C7438[];
 extern u32 AnimScr_NoDamage[];
 extern u32 AnimScr_Miss[];
 extern u8 Img_EkrLvupNumBig[];

@@ -1,56 +1,5 @@
 	.section .data
 
-	.global gUnknown_085B9D6C
-gUnknown_085B9D6C:  @ 0x085B9D6C
-    .4byte gUnknown_085B9E4C + 0xc
-    .4byte gUnknown_085B9E4C + 0xa4
-    .4byte gUnknown_085B9E4C + 0x13c
-    .4byte gUnknown_085B9E4C + 0x1d4
-    .4byte gUnknown_085B9E4C + 0x13c
-    .4byte gUnknown_085B9E4C + 0x1d4
-    .4byte gUnknown_085B9E4C + 0x13c
-    .4byte gUnknown_085B9E4C + 0x1d4
-    .4byte gUnknown_085B9E4C + 0xc
-    .4byte gUnknown_085B9E4C + 0xa4
-
-	.global gProc_ekrChienCHR
-gProc_ekrChienCHR:  @ 0x085B9D94
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80daf34
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EkrChienCHRMain
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gProc_efxAnimeDrvProc
-gProc_efxAnimeDrvProc:  @ 0x085B9DAC
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80daf40
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ExecAllAIS
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-	.global ProcScr_ekrUnitMainMini
-ProcScr_ekrUnitMainMini:  @ 0x085B9DC4
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80daf50
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EkrUnitMainMiniMain
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gProc_ekrTogiInit
 gProc_ekrTogiInit:  @ 0x085B9DDC
         @ PROC_NAME
@@ -107,7 +56,23 @@ gProc_ekrTogiColor:  @ 0x085B9E34
 
 	.global gUnknown_085B9E4C
 gUnknown_085B9E4C:  @ 0x085B9E4C
-	.incbin "baserom.gba", 0x5B9E4C, 0x26C
+	.incbin "baserom.gba", 0x5B9E4C, 0xC    @ 0x5B9E58 - 0x5B9E4C
+
+	.global gUnknown_085B9E58
+gUnknown_085B9E58:  @ 0x085B9E58
+	.incbin "baserom.gba", 0x5B9E58, 0x98    @ 0x5B9EF0 - 0x5B9E58
+
+	.global gUnknown_085B9EF0
+gUnknown_085B9EF0:  @ 0x085B9EF0
+	.incbin "baserom.gba", 0x5B9EF0, 0x98    @ 0x5B9F88 - 0x5B9EF0
+
+	.global gUnknown_085B9F88
+gUnknown_085B9F88:  @ 0x085B9F88
+	.incbin "baserom.gba", 0x5B9F88, 0x98    @ 0x5BA020 - 0x5B9F88
+
+	.global gUnknown_085BA020
+gUnknown_085BA020:  @ 0x085BA020
+	.incbin "baserom.gba", 0x5BA020, 0x98    @ 0x5BA0B8 - 0x5BA020
 
 	.global Img_NODAMGEMIS
 Img_NODAMGEMIS:  @ 0x085BA0B8

@@ -24,13 +24,6 @@ struct BanimUnkStructCommPriv
     /* 4C */ int unk4C;
 };
 
-extern u32 gUnknown_085C72AC[];
-extern u32 gUnknown_085C73B8[];
-extern u32 gUnknown_085C7338[];
-extern u32 gUnknown_085C7438[];
-
-extern struct ProcCmd ProcScr_ekrUnitMainMini[];
-
 struct ProcEkrUnitMainMini
 {
     /* 00 */ PROC_HEADER;
@@ -830,7 +823,16 @@ bool sub_805A9A4(struct AnimBuffer * pAnimBuf)
     return true;
 }
 
-extern struct ProcCmd gProc_efxAnimeDrvProc[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gProc_efxAnimeDrvProc[] =
+{
+    PROC_NAME("ekrAnimeDrvProc"),
+    PROC_REPEAT(ExecAllAIS),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805A9C0
 void NewEfxAnimeDrvProc(void)
@@ -856,6 +858,19 @@ void ExecAllAIS(void)
     AnimUpdateAll();
     return;
 }
+
+void EkrUnitMainMiniMain(struct ProcEkrUnitMainMini * proc);
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_ekrUnitMainMini[] =
+{
+    PROC_NAME("ekrUnitMainMini"),
+    PROC_REPEAT(EkrUnitMainMiniMain),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0805AA00
 void NewEkrUnitMainMini(struct AnimBuffer * pAnimBuf)
