@@ -37,8 +37,8 @@ Obj_PoisonAnim:  @ 0x089A6F40
 Obj_WallBreakAnim:  @ 0x089A6FD8
 	.incbin "baserom.gba", 0x9A6FD8, 0x1F20
 
-	.global gUnknown_089A8EF8
-gUnknown_089A8EF8:  @ 0x089A8EF8
+	.global ApHandle_GmapSoguSprites
+ApHandle_GmapSoguSprites:  @ 0x089A8EF8
 	.incbin "baserom.gba", 0x9A8EF8, 0x7C
 
 	.global gUnknown_089A8F74
@@ -153,8 +153,8 @@ Img_WallBreakAnim:  @ 0x089ADA80
 Pal_WallBreakAnim:  @ 0x089ADD0C
 	.incbin "baserom.gba", 0x9ADD0C, 0x40
 
-	.global gUnknown_089ADD4C
-gUnknown_089ADD4C:  @ 0x089ADD4C
+	.global Img_GmapSoguSprites
+Img_GmapSoguSprites:  @ 0x089ADD4C
 	.incbin "baserom.gba", 0x9ADD4C, 0x164
 
 	.global Img_PoisonAnim

@@ -62,7 +62,7 @@ struct Proc8A3DD08
 void WorldMap_Destruct(struct WorldMapMainProc * proc)
 {
     Proc_End(proc->unk_50);
-    Proc_End(proc->unk_44);
+    Proc_End(proc->gm_screen);
     Proc_End(proc->unk_48);
 
     SetSecondaryHBlankHandler(NULL);
@@ -522,10 +522,10 @@ void sub_80B9154(struct WorldMapMainProc * proc)
     sub_80B8E60(proc);
     DeployEveryUnit(proc);
 
-    proc->unk_44 = NewMapScreen(PROC_TREE_5);
-    proc->unk_48 = sub_80BB9A4(PROC_TREE_5, 0, 3, 10, proc->unk_44);
-    proc->unk_4c = NewGmapUnitContainer(proc->unk_44, 0x280, 0xc);
-    proc->unk_50 = NewGmapCursor(PROC_TREE_5, 0x12c0, 4, proc->unk_44);
+    proc->gm_screen = NewMapScreen(PROC_TREE_5);
+    proc->unk_48 = sub_80BB9A4(PROC_TREE_5, 0, 3, 10, proc->gm_screen);
+    proc->unk_4c = NewGmapUnitContainer(proc->gm_screen, 0x280, 0xc);
+    proc->unk_50 = NewGmapCursor(PROC_TREE_5, 0x12c0, 4, proc->gm_screen);
     proc->unk_54 = StartGmMu(proc);
 
     sub_80BCA0C(&gGMData);
@@ -538,7 +538,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
         sub_80B9114(proc);
     }
 
-    proc->unk_44->unk_4c->flags |= 3;
+    proc->gm_screen->unk_4c->flags |= 3;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {
@@ -960,8 +960,8 @@ PROC_LABEL(16),
     PROC_GOTO(25),
 
 PROC_LABEL(17),
-    PROC_CALL(sub_80B9DE0),
-    PROC_REPEAT(sub_80B9E40),
+    PROC_CALL(Worlmap_StartGmapSogu),
+    PROC_REPEAT(Worlmap_WaitGmapSogu),
     PROC_SLEEP(8),
 
     PROC_GOTO(3),
@@ -1247,7 +1247,7 @@ void sub_80B9820(ProcPtr proc)
 //! FE8U = 0x080B982C
 void sub_80B982C(struct WorldMapMainProc * proc)
 {
-    struct GmScreenProc * pScreenProc = proc->unk_44;
+    struct GmScreenProc * pScreenProc = proc->gm_screen;
 
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
@@ -1279,7 +1279,7 @@ void sub_80B989C(void)
 //! FE8U = 0x080B98A8
 void sub_80B98A8(struct WorldMapMainProc * proc)
 {
-    struct GmScreenProc * pScreenProc = proc->unk_44;
+    struct GmScreenProc * pScreenProc = proc->gm_screen;
 
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
@@ -1311,7 +1311,7 @@ void sub_80B9918(void)
 //! FE8U = 0x080B9924
 void sub_80B9924(struct WorldMapMainProc * proc)
 {
-    struct GmScreenProc * pScreenProc = proc->unk_44;
+    struct GmScreenProc * pScreenProc = proc->gm_screen;
 
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
@@ -1343,7 +1343,7 @@ void sub_80B9994(void)
 //! FE8U = 0x080B99A0
 void sub_80B99A0(struct WorldMapMainProc * proc)
 {
-    struct GmScreenProc * pScreenProc = proc->unk_44;
+    struct GmScreenProc * pScreenProc = proc->gm_screen;
 
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
@@ -1472,7 +1472,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
         return;
     }
 
-    MapRoute_80BC2DC(proc->unk_44->unk_4c);
+    MapRoute_80BC2DC(proc->gm_screen->unk_4c);
     if (!(gGMData.state.raw & 0x80))
     {
         SetSpecialColorEffectsParameters(0, 0, 0, 0);
@@ -1633,16 +1633,16 @@ void sub_80B9DC4(ProcPtr proc)
 }
 
 //! FE8U = 0x080B9DE0
-void sub_80B9DE0(struct WorldMapMainProc * proc)
+void Worlmap_StartGmapSogu(struct WorldMapMainProc * proc)
 {
     s16 x;
     s16 y;
 
     GmMu_GetPosition(proc->unk_54, 0, &x, &y);
-    sub_80C168C(x, y);
+    NewGmapSogu(x, y);
 
-    *&x = gGMData.units[0].location[gWMNodeData].x;
-    *&y = gGMData.units[0].location[gWMNodeData].y;
+    x = gGMData.units[0].location[gWMNodeData].x;
+    y = gGMData.units[0].location[gWMNodeData].y;
 
     gGMData.unk08 = x << 8;
     gGMData.unk0C = y << 8;
@@ -1651,9 +1651,9 @@ void sub_80B9DE0(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B9E40
-void sub_80B9E40(ProcPtr proc)
+void Worlmap_WaitGmapSogu(ProcPtr proc)
 {
-    if (!sub_80C16DC())
+    if (!GmapSoguExists())
     {
         gGMData.unk01 = 1;
         Proc_Break(proc);

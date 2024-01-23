@@ -281,7 +281,7 @@ u8 Event91_WmAddPath(struct EventEngineProc * proc)
     AddGmPath(&gGMData, &gGMData.openPaths, pathId);
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    worldMapProc->unk_44->unk_4c->flags |= 3;
+    worldMapProc->gm_screen->unk_4c->flags |= 3;
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -296,7 +296,7 @@ u8 Event92_WmRemovePath(struct EventEngineProc * proc)
     RemoveGmPath(&gGMData, &gGMData.openPaths, pathId);
 
     worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    worldMapProc->unk_44->unk_4c->flags |= 3;
+    worldMapProc->gm_screen->unk_4c->flags |= 3;
 
     return EVC_ADVANCE_CONTINUE;
 }

@@ -21,9 +21,9 @@ void sub_80BA424(void)
 {
     sub_8002AC8();
 
-    MapRoute_80BC2DC(((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->unk_44->unk_4c);
+    MapRoute_80BC2DC(((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->gm_screen->unk_4c);
 
-    ((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->unk_44->unk_4c->flags |= 3;
+    ((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->gm_screen->unk_4c->flags |= 3;
 
     return;
 }
@@ -276,8 +276,8 @@ void MapScreen_Init(struct GmScreenProc * proc)
 {
     proc->unk_29_0 = 1;
     proc->unk_2a = 0;
-    proc->unk_36 = 0;
-    proc->unk_34 = 0;
+    proc->y = 0;
+    proc->x = 0;
     proc->unk_3a = 0;
     proc->unk_38 = 0;
 
@@ -425,25 +425,25 @@ void sub_80BAB0C(struct GmScreenProc * proc)
         return;
     }
 
-    proc->unk_34 = gGMData.xCamera;
-    proc->unk_36 = gGMData.yCamera;
+    proc->x = gGMData.xCamera;
+    proc->y = gGMData.yCamera;
 
     if (gGMData.xCamera < 0)
     {
-        proc->unk_34 = 0;
+        proc->x = 0;
     }
     else if (gGMData.xCamera > 0xf0)
     {
-        proc->unk_34 = 0xf0;
+        proc->x = 0xf0;
     }
 
-    if (proc->unk_36 < 0)
+    if (proc->y < 0)
     {
-        proc->unk_36 = 0;
+        proc->y = 0;
     }
 
-    proc->unk_2d = proc->unk_34 / 8;
-    proc->unk_2e = proc->unk_36 / 8;
+    proc->unk_2d = proc->x / 8;
+    proc->unk_2e = proc->y / 8;
 
     if (proc->unk_2a & 4)
     {
@@ -465,10 +465,10 @@ void sub_80BAB0C(struct GmScreenProc * proc)
     }
 
     sub_80BA8A0(proc);
-    BG_SetPosition(BG_3, proc->unk_34, proc->unk_36);
+    BG_SetPosition(BG_3, proc->x, proc->y);
 
-    proc->unk_38 = proc->unk_34;
-    proc->unk_3a = proc->unk_36;
+    proc->unk_38 = proc->x;
+    proc->unk_3a = proc->y;
 
     return;
 }

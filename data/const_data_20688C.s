@@ -1,11 +1,6 @@
 
     .section .rodata
 
-    .global gAsciiStr_GmapSogu
-gAsciiStr_GmapSogu: @ 0x0820693C
-    .asciz "Gmap Sogu"
-    .align 2, 0
-
 	.global gWMMonsterSpawnLocations
 gWMMonsterSpawnLocations:  @ 0x08206948
 @ Replacing .incbin "baserom.gba", 0x206948, 0x9

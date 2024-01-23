@@ -48,7 +48,7 @@ void AddAndDrawGmPath(int pathId, int unk)
     if (!AddGmPath(&gGMData, &gGMData.openPaths, pathId))
     {
         struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
-        MapRoute_BeginRouteTransition(proc->unk_44->unk_4c, unk);
+        MapRoute_BeginRouteTransition(proc->gm_screen->unk_4c, unk);
     }
 
     return;

@@ -518,32 +518,7 @@ extern u8 gEkrBuf1[];
 extern u16 gEkrBarfxBuf[];
 extern u16 gEkrTsaBuffer[0x1000 / 2];
 extern u8 gEkrBuf2[];
-// extern ??? gFont_0201AFC0
-// extern ??? gUnknown_0201AFF0
-// extern ??? gUnknown_0201B0D8
-// extern ??? gUnknown_0201B100
-// extern ??? gUnknown_0201B104
-// extern ??? gUnknown_0201B1E4
-// extern ??? gUnknown_0201B3A4
-// extern ??? gUnknown_0201B430
-// extern ??? gUnknown_0201B458
-// extern ??? gUnknown_0201B718
-// extern ??? gUnknown_0201B71C
-// extern ??? gUnknown_0201B758
-// extern ??? gUnknown_0201B7DA
-// extern ??? gUnknown_0201B864
-// extern ??? gUnknown_0201B930
-// extern ??? gUnknown_0201B958
-// extern ??? gUnknown_0201BBD8
-// extern ??? gUnknown_0201BE30
-// extern ??? gUnknown_0201BE32
-// extern ??? gUnknown_0201C5B4
-// extern ??? gUnknown_0201C5C0
-// extern ??? gUnknown_0201C5CC
-// extern ??? gUnknown_0201C5CF
-// extern ??? gUnknown_0201C5D0
-// extern ??? gUnknown_0201C5D1
-// extern ??? gUnknown_0201C5D4
+
 extern u16 gPalBackupEkrUnitMaybe[0x40 / sizeof(u16)];
 extern u16 gEfxBuf_0201C8D0[0xB58 / sizeof(u16)];
 extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle

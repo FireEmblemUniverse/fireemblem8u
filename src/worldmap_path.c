@@ -632,8 +632,8 @@ void sub_80BBEB8(struct GmRouteProc * proc)
     proc->bgB = 1;
     proc->bgPriority = BG_GetPriority(BG_1);
 
-    *&proc->x1 = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
-    *&proc->y1 = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
+    *&proc->x1 = ((struct GmScreenProc *)(proc->proc_parent))->x;
+    *&proc->y1 = ((struct GmScreenProc *)(proc->proc_parent))->y;
 
     proc->y2 = -2;
     proc->x2 = -2;
@@ -672,8 +672,8 @@ void sub_80BBF60(struct GmRouteProc * proc)
     proc->x2 = proc->x1;
     proc->y2 = proc->y1;
 
-    *&x = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
-    *&y = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
+    *&x = ((struct GmScreenProc *)(proc->proc_parent))->x;
+    *&y = ((struct GmScreenProc *)(proc->proc_parent))->y;
 
     proc->x1 = x / 8;
     proc->y1 = y / 8;
@@ -735,8 +735,8 @@ int sub_80BC0F4(struct GmRouteProc * proc)
     sub_80BBC54(proc);
     sub_80BBCC8(proc->x1, proc->y1, proc->bgB);
 
-    *&x = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
-    *&y = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
+    *&x = ((struct GmScreenProc *)(proc->proc_parent))->x;
+    *&y = ((struct GmScreenProc *)(proc->proc_parent))->y;
 
     BG_SetPosition(proc->bgB, x & 0x1FF, y & 0xff);
 
@@ -821,8 +821,8 @@ void MapRoute_80BC2DC(struct GmRouteProc * proc)
         return;
     }
 
-    *&x = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
-    *&y = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
+    *&x = ((struct GmScreenProc *)(proc->proc_parent))->x;
+    *&y = ((struct GmScreenProc *)(proc->proc_parent))->y;
 
     sub_80BBC54(proc);
 

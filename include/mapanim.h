@@ -373,7 +373,7 @@ extern u16 gUnknown_089A5A6C[];
 // extern ??? gUnknown_089A6254
 extern u16 CONST_DATA Obj_PoisonAnim[];
 extern u16 CONST_DATA Obj_WallBreakAnim[];
-extern const u16 gUnknown_089A8EF8[];
+extern const u16 ApHandle_GmapSoguSprites[];
 extern const u16 gUnknown_089A8F74[];
 extern u8 gGfx_ArenaBuildingFront[];
 extern u8 gTsa_ArenaBuildingFront[];
@@ -402,7 +402,7 @@ extern u8 gUnknown_089AD934[]; // tsa
 extern u16 gUnknown_089AD9F8[]; // pal
 extern u16 CONST_DATA Img_WallBreakAnim[];
 extern u16 CONST_DATA Pal_WallBreakAnim[];
-extern const u8 gUnknown_089ADD4C[];
+extern const u8 Img_GmapSoguSprites[];
 extern u16 CONST_DATA Img_PoisonAnim[];
 extern u16 CONST_DATA Pal_PoisonAnim[];
 // extern ??? gUnknown_089AE224
