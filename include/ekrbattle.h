@@ -907,28 +907,71 @@ s16 GetAnimRoundTypeAnotherSide(struct Anim * anim);
 s16 GetAnimNextRoundTypeAnotherSide(struct Anim * anim);
 void SetAnimStateHidden(int ais_id);
 void SetAnimStateUnHidden(int ais_id);
-// ??? sub_805A3DC(???);
-// ??? sub_805A580(???);
-// ??? sub_805A5A8(???);
-// ??? sub_805A60C(???);
-// ??? sub_805A7B4(???);
-// ??? sub_805A930(???);
-void sub_805A940(void*, u16, u16);
-// ??? sub_805A95C(???);
-// ??? sub_805A96C(???);
-// ??? sub_805A990(???);
-// ??? sub_805A9A4(???);
+
+struct BanimUnkStructComm
+{
+    /* 00 */ s16 unk00; // terrain L
+    /* 02 */ s16 unk02; // pal ID L
+    /* 04 */ s16 unk04; // chr L
+    /* 06 */ s16 unk06; // terrain R
+    /* 08 */ s16 unk08; // pal ID R
+    /* 0A */ s16 unk0A; // chr R
+    /* 0C */ s16 unk0C;
+    /* 0E */ s16 unk0E;
+    /* 10 */ u16 unk10;
+    /* 14 */ ProcPtr proc14; // sub emulator proc a
+    /* 18 */ ProcPtr proc18; // sub emulator proc b
+    /* 1C */ void * unk1C;
+    /* 20 */ void * unk20;
+    /* 24 */ void * unk24;
+};
+
+struct AnimBuffer
+{
+    /* 00 */ u8 unk_00;
+    /* 01 */ u8 genericPalId;
+    /* 02 */ u16 xPos;
+    /* 04 */ u16 yPos;
+    /* 06 */ s16 animId;
+    /* 08 */ s16 charPalId;
+    /* 0A */ u16 roundType;
+    /* 0C */ u16 state2;
+    /* 0E */ u16 oam2Tile;
+    /* 10 */ u16 oam2Pal;
+    /* 14 */ struct Anim * anim1;
+    /* 18 */ struct Anim * anim2;
+    /* 1C */ void * pImgSheetBuf;
+    /* 20 */ void * unk_20; // pal
+    /* 24 */ void * unk_24; // rtlOam
+    /* 28 */ void * unk_28; // frameData
+    /* 2C */ const void * unk_2C; // sheetPointer
+    /* 30 */ void * unk_30; // magicEffects
+    /* 34 */ void * unk_34; // ProcPtr; Procs_ekrUnitMainMini
+};
+
+void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim);
+void sub_805A580(struct Anim *);
+void sub_805A5A8(struct Anim *);
+void sub_805A60C(struct AnimBuffer * pAnimBuf);
+void sub_805A7B4(struct AnimBuffer * pAnimBuf);
+void sub_805A930(struct AnimBuffer * pAnimBuf, int animId, int charPalId);
+void sub_805A940(struct AnimBuffer * pAnimBuf, u16 x, u16 y);
+void sub_805A95C(struct AnimBuffer * pAnimBuf, u16 layer);
+bool sub_805A96C(struct AnimBuffer * pAnimBuf);
+void sub_805A990(struct AnimBuffer * pAnimBuf);
+bool sub_805A9A4(struct AnimBuffer * pAnimBuf);
 void NewEfxAnimeDrvProc(void);
 void EndEfxAnimeDrvProc(void);
-// ??? ExecAllAIS(???);
-void NewEkrUnitMainMini(void *);
-void sub_805AA28(void*);
+void ExecAllAIS(void);
+void NewEkrUnitMainMini(struct AnimBuffer * pAnimBuf);
+void sub_805AA28(struct AnimBuffer * pAnimBuf);
 // ??? EkrUnitMainMiniMain(???);
 // void sub_805AA68(void *);
 // void sub_805AE14(void *);
 // void sub_805AE40(void *, s16, s16, s16, s16);
 // ??? sub_805AE58(???);
 // ??? sub_805AFA0(???);
+
 void SetBanimArenaFlag(int);
 int GetBattleAnimArenaFlag(void);
 // ??? sub_805B034(???);

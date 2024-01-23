@@ -34,7 +34,7 @@ struct Anim {
 
     /* 3C */ const void * pSpriteData;
     /* 40 */ const void * pUnk40;
-    /* 44 */ const void * pUnk44;
+    /* 44 */ void * pUnk44;
 };
 
 enum Anim_state {

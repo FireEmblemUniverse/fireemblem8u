@@ -23,7 +23,7 @@ EWRAM_DATA struct ProcEkrLevelup * gpProcEkrLevelup = NULL;
 EWRAM_DATA u32 gUnknown_020200B8[8] = {0};
 EWRAM_DATA ProcPtr gpProcEfxPartsofScroll = NULL;
 EWRAM_DATA ProcPtr gpProcEfxleveluphb = NULL;
-EWRAM_DATA struct Struct20200E0 gUnknown_020200E0 = {0};
+EWRAM_DATA struct BanimUnkStructComm gUnknown_020200E0 = {0};
 EWRAM_DATA struct Unit * gpEkrLvupUnit = NULL;
 EWRAM_DATA struct BattleUnit * gpEkrLvupBattleUnit = NULL;
 EWRAM_DATA u16 gEkrLvupPreLevel = 0;
@@ -321,7 +321,7 @@ void EkrLvup_OnPrepare(struct ProcEkrLevelup *proc)
 
 void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
 {
-    struct Struct20200E0 *buf = &gUnknown_020200E0;
+    struct BanimUnkStructComm * buf = &gUnknown_020200E0;
 
     CpuFastFill(0, gBG1TilemapBuffer, 0x800);
     CpuFastFill(0, gBG2TilemapBuffer, 0x800);
@@ -341,7 +341,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     buf->unk0E = -1;
     buf->unk1C = OBJ_VRAM0;
     buf->unk20 = gUnknown_020145C8;
-    buf->unk10 = gEkrSnowWeather;
+    buf->unk10 = (u16)gEkrSnowWeather;
 
     if (gEkrDistanceType == 2) {
         if (gEkrInitPosReal == 0)
@@ -351,15 +351,15 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     }
 
     if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING) {
-        struct Struct20200E0_14 *_buf;
+        struct ProcEkrSubAnimeEmulator * _buf;
         sub_805AA68(buf);
 
-        _buf = buf->unk14;
-        _buf->unk4C &= (u16)~OAM2_LAYER(0x3);
-        _buf->unk4C |=       OAM2_LAYER(0x3);
-        _buf = buf->unk18;
-        _buf->unk4C &= (u16)~OAM2_LAYER(0x3);
-        _buf->unk4C |=       OAM2_LAYER(0x3);
+        _buf = buf->proc14;
+        _buf->oam2Base &= (u16)~OAM2_LAYER(0x3);
+        _buf->oam2Base |=       OAM2_LAYER(0x3);
+        _buf = buf->proc18;
+        _buf->oam2Base &= (u16)~OAM2_LAYER(0x3);
+        _buf->oam2Base |=       OAM2_LAYER(0x3);
     }
 
     proc->ais_main->oam2Base &= ~OAM2_LAYER(0x3);
@@ -695,7 +695,7 @@ void EkrLvup_PutWindowOffScreen(struct ProcEkrLevelup *proc)
 
 void EkrLvup_ResetScreen(struct ProcEkrLevelup *proc)
 {
-    struct Struct20200E0 *buf, _buf;
+    struct BanimUnkStructComm *buf, _buf;
     buf = &gUnknown_020200E0;
 
     if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING)

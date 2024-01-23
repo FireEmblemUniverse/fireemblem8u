@@ -23,8 +23,6 @@
 #include "prepscreen.h"
 
 void sub_805AE14(void *);
-bool sub_805A96C(void *);
-void sub_805A990(void *);
 void sub_805AA68(void *);
 void sub_805AE40(void *, s16, s16, s16, s16);
 
@@ -321,8 +319,8 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
     anim1 = gUnknown_030053A0.anim1;
     anim2 = gUnknown_030053A0.anim2;
 
-    p2 = (void *)gUnknown_0201FADC.p1;
-    c2 = (void *)gUnknown_0201FADC.p2;
+    p2 = (void *)gUnknown_0201FADC.proc14;
+    c2 = (void *)gUnknown_0201FADC.proc18;
 
     a = proc->stat;
     tmp = &gUnknown_030053A0;
@@ -520,16 +518,16 @@ void sub_80CD34C(void)
 }
 
 void sub_80CD408(u32 a, s16 b, s16 c) {
-    gUnknown_0201FADC.things[0] = a;
-    gUnknown_0201FADC.things[1] = 0xe;
-    gUnknown_0201FADC.things[2] = 0x380;
-    gUnknown_0201FADC.things[3] = a;
-    gUnknown_0201FADC.things[4] = 0xf;
-    gUnknown_0201FADC.things[5] = 0xf0 << 2;
-    gUnknown_0201FADC.things[6] = 0;
-    gUnknown_0201FADC.things[7] = 0xffff;
-    gUnknown_0201FADC.u1c = 0x06010000;
-    gUnknown_0201FADC.u20 = gUnknown_020145C8;
+    gUnknown_0201FADC.unk00 = a;
+    gUnknown_0201FADC.unk02 = 0xe;
+    gUnknown_0201FADC.unk04 = 0x380;
+    gUnknown_0201FADC.unk06 = a;
+    gUnknown_0201FADC.unk08 = 0xf;
+    gUnknown_0201FADC.unk0A = 0xf0 << 2;
+    gUnknown_0201FADC.unk0C = 0;
+    gUnknown_0201FADC.unk0E = -1;
+    gUnknown_0201FADC.unk1C = (void *)0x06010000;
+    gUnknown_0201FADC.unk20 = gUnknown_020145C8;
     sub_805AA68(&gUnknown_0201FADC);
 
     sub_805AE40(&gUnknown_0201FADC, b, c, b + 0x60, c);
@@ -545,20 +543,20 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
         gUnknown_03005408[0] += 1;
 
     NewEfxAnimeDrvProc();
-    gUnknown_030053A0.u02 = c1;
-    gUnknown_030053A0.u04 = d1;
-    gUnknown_030053A0.u0c = 1;
-    gUnknown_030053A0.u06 = a;
-    gUnknown_030053A0.u08 = b;
-    gUnknown_030053A0.u0a = e;
-    gUnknown_030053A0.u01 = 0;
-    gUnknown_030053A0.u0e = 0x200;
-    gUnknown_030053A0.u10 = 0xa;
-    gUnknown_030053A0.u1c = gBanimLeftImgSheetBuf;
-    gUnknown_030053A0.u24 = gBanimOaml;
-    gUnknown_030053A0.u20 = gBanimPal1;
-    gUnknown_030053A0.u28 = gBanimScrLeft;
-    gUnknown_030053A0.u30 = &gUnknown_030053E0;
+    gUnknown_030053A0.xPos = c1;
+    gUnknown_030053A0.yPos = d1;
+    gUnknown_030053A0.state2 = 1;
+    gUnknown_030053A0.animId = a;
+    gUnknown_030053A0.charPalId = b;
+    gUnknown_030053A0.roundType = e;
+    gUnknown_030053A0.genericPalId = 0;
+    gUnknown_030053A0.oam2Tile = 0x200;
+    gUnknown_030053A0.oam2Pal = 0xa;
+    gUnknown_030053A0.pImgSheetBuf = gBanimLeftImgSheetBuf;
+    gUnknown_030053A0.unk_24 = gBanimOaml;
+    gUnknown_030053A0.unk_20 = gBanimPal1;
+    gUnknown_030053A0.unk_28 = gBanimScrLeft;
+    gUnknown_030053A0.unk_30 = &gUnknown_030053E0;
     gUnknown_030053E0.u00 = 0x4;
     gUnknown_030053E0.u02 = 0;
     gUnknown_030053E0.u04 = 0;

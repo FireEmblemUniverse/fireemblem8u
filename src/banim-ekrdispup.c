@@ -189,7 +189,7 @@ void EfxClearScreenFx(void)
 
 void sub_8051E00(void)
 {
-    struct Unknown_0201FADC * unk0201FADC = &gUnknown_0201FADC;
+    struct BanimUnkStructComm * unk0201FADC = &gUnknown_0201FADC;
     struct BattleAnimTerrain * terrain1 = &battle_terrain_table[gBanimTerrainIndexMaybe[0]];
     struct BattleAnimTerrain * terrain2 = &battle_terrain_table[gBanimTerrainIndexMaybe[1]];
 
@@ -225,17 +225,17 @@ void sub_8051E00(void)
     gUnknown_02000044[0] = gUnknown_085B9D6C[gEkrDistanceType * 2];
     gUnknown_02000044[1] = gUnknown_085B9D6C[gEkrDistanceType * 2 + 1];
 
-    unk0201FADC->things[0] = gBanimTerrainIndexMaybe[0];
-    unk0201FADC->things[1] = 4;
-    unk0201FADC->things[2] = 640;
-    unk0201FADC->things[3] = gBanimTerrainIndexMaybe[1];
-    unk0201FADC->things[4] = 5;
-    unk0201FADC->things[5] = 640;
-    unk0201FADC->things[6] = gEkrDistanceType;
-    unk0201FADC->things[7] = 2;
-    unk0201FADC->u1c = 0;
-    unk0201FADC->u20 = &gUnknown_020145C8[0];
-    unk0201FADC->_pad_10 = gEkrSnowWeather;
+    unk0201FADC->unk00 = gBanimTerrainIndexMaybe[0];
+    unk0201FADC->unk02 = 4;
+    unk0201FADC->unk04 = 640;
+    unk0201FADC->unk06 = gBanimTerrainIndexMaybe[1];
+    unk0201FADC->unk08 = 5;
+    unk0201FADC->unk0A = 640;
+    unk0201FADC->unk0C = gEkrDistanceType;
+    unk0201FADC->unk0E = 2;
+    unk0201FADC->unk1C = 0;
+    unk0201FADC->unk20 = &gUnknown_020145C8[0];
+    unk0201FADC->unk10 = (u16)gEkrSnowWeather;
     sub_805AA68(unk0201FADC);
 }
 

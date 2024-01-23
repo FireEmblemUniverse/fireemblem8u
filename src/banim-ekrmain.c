@@ -15,6 +15,20 @@ CONST_DATA AnimScr BanimScr_DefaultAnim[] = {
     ANIMSCR_BLOCKED
 };
 
+CONST_DATA void * gUnknown_085B9D6C[] =
+{
+    gUnknown_085B9E58,
+    gUnknown_085B9EF0,
+    gUnknown_085B9F88,
+    gUnknown_085BA020,
+    gUnknown_085B9F88,
+    gUnknown_085BA020,
+    gUnknown_085B9F88,
+    gUnknown_085BA020,
+    gUnknown_085B9E58,
+    gUnknown_085B9EF0,
+};
+
 const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4] = {
     /**
      * 00: front mode
@@ -115,14 +129,27 @@ void AnimScrAdvance(struct Anim *anim)
 
 }
 
-void NewEkrChienCHR(struct Anim *anim)
+void EkrChienCHRMain(struct ProcEkrChienCHR * proc);
+
+// clang-format off
+
+struct ProcCmd CONST_DATA gProc_ekrChienCHR[] =
 {
-    struct ProcEkrChienCHR *proc;
+    PROC_NAME("ekrChienCHR"),
+    PROC_REPEAT(EkrChienCHRMain),
+    PROC_END,
+};
+
+// clang-format on
+
+void NewEkrChienCHR(struct Anim * anim)
+{
+    struct ProcEkrChienCHR * proc;
     proc = Proc_Start(gProc_ekrChienCHR, PROC_TREE_3);
     proc->anim = anim;
 }
 
-void EkrChienCHRMain(struct ProcEkrChienCHR *proc)
+void EkrChienCHRMain(struct ProcEkrChienCHR * proc)
 {
     RegisterAISSheetGraphics(proc->anim);
     Proc_Break(proc);
