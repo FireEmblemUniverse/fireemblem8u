@@ -910,6 +910,7 @@ extern CONST_DATA EventListScr EventScr_08A005B4[];
 extern CONST_DATA EventListScr EventScr_08A0062C[];
 extern CONST_DATA EventListScr EventScr_08A00680[];
 
+extern struct UnitDefinition UnitDef_03001CE8[];
 extern CONST_DATA struct UnitDefinition UnitDef_Event_PrologueAlly[];
 extern CONST_DATA struct UnitDefinition UnitDef_Event_PrologueEnemy[];
 extern CONST_DATA struct UnitDefinition UnitDef_Event_PrologueThroneRoomUnits[];
@@ -3007,3 +3008,6 @@ extern CONST_DATA EventScr EventScrWM_Ch11a_Beginning[];
 extern CONST_DATA EventScr EventScrWM_08A3C904[];
 extern CONST_DATA EventScr EventScrWM_Ch11b_Beginning[];
 extern CONST_DATA EventScr EventScrWM_08A3CA2C[];
+
+extern struct MenuItemDef MenuItemDef_RouteSplit[];
+extern struct MenuDef MenuDef_RouteSplit;

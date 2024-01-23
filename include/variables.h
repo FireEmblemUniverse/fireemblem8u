@@ -147,7 +147,6 @@ extern u8 gUnknown_03001C7C;
 // extern ??? gActiveEventRegistry
 // extern ??? gUnknown_03001CC0
 // extern ??? gUnknown_03001CC8
-extern struct UnitDefinition UnitDef_03001CE8[];
 // extern ??? gUnknown_03001D50
 // extern ??? gUnknown_03001DA8
 // extern ??? gUnknown_03001DE8
@@ -495,7 +494,7 @@ extern u16 gPal_MapSpriteArena[];
 extern u16 gPal_MapSpriteSepia[];
 extern u8 Pal_Text[];
 extern u8 gUnknown_0859EF20[];
-extern u16 gUnknown_0859EF40[]; // pal
+extern u16 Pal_HelpBox[]; // pal
 extern u16 gPal_HelpTextBox[];
 extern u16 gPal_YellowTextBox[];
 extern u16 Pal_GreenTextColors[];
@@ -924,8 +923,6 @@ extern u16 CONST_DATA *ImgLut_EventMapAnimMaskfx[];    /* images */
 extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */
 extern struct ProcCmd ProcScr_EventMapAnim[];
 extern struct ProcCmd gUnknown_089EEA28[];
-extern struct MenuItemDef MenuItemDef_RouteSplit[];
-extern struct MenuDef MenuDef_RouteSplit;
 // extern ??? gUnknown_089FF480
 // extern ??? EventScr_SkirmishCommonBeginning
 // extern ??? EventScr_8A0035C
@@ -993,8 +990,8 @@ extern unsigned CONST_DATA gMid_Light;
 extern unsigned CONST_DATA gMid_Dark;
 // extern ??? gUnknown_08A01208
 // extern ??? gProcScr_HelpBoxTextScroll
-// extern ??? gUnknown_08A01650
-// extern ??? gUnknown_08A01678
+// extern ??? ProcScr_HelpBoxIntro
+// extern ??? ProcScr_Helpbox_bug_08A01678
 // extern ??? gUnknown_08A01698
 // extern ??? gUnknown_08A016C8
 // extern ??? gUnknown_08A016D8

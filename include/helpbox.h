@@ -8,28 +8,28 @@
 struct HelpBoxScrollProc {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ const char* unk_2c;
-    /* 30 */ struct Font* unk_30;
+    /* 2C */ const char * string;
+    /* 30 */ struct Font * font;
 
-    /* 34 */ struct Text* unk_34[9]; // unknown size; 3?
+    /* 34 */ struct Text * texts[9]; // unknown size; 3?
 
     /* 58 */ int unk_58;
-    /* 5C */ s16 unk_5c;
-    /* 5E */ s16 unk_5e;
-    /* 60 */ u16 unk_60;
-    /* 62 */ s16 unk_62;
+    /* 5C */ s16 pretext_lines;
+    /* 5E */ s16 step;
+    /* 60 */ u16 speed;
+    /* 62 */ s16 chars_per_step;
     /* 64 */ s16 unk_64;
 };
 
-struct HelpBox8A01650Proc {
+struct ProcHelpBoxIntro {
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 _pad[0x58-0x29];
 
-    /* 58 */ int unk_58;
-    /* 5C */ int unk_5c;
+    /* 58 */ int item;
+    /* 5C */ int msg;
     /* 60 */ int unk_60;
-    /* 64 */ s16 unk_64;
+    /* 64 */ s16 pretext_lines; /* lines for  prefix */
 };
 
 struct HelpBox8A016E0Proc {
@@ -79,13 +79,13 @@ struct HelpBox8A01800Proc {
     /* 5C */ int unk_5c;
 };
 
-struct Struct203E794 {
+struct HelpBoxSt {
     /* 00 */ struct Font font;
     /* 16 */ struct Text text[3];
-    /* 30 */ u16 unk_30;
+    /* 30 */ u16 oam2_base;
 };
 
-extern struct Struct203E794 gHelpBoxSt;
+extern struct HelpBoxSt gHelpBoxSt;
 
 struct Struct0203E7E8 {
     /* 00 */ struct Font unk_00;
@@ -100,8 +100,8 @@ extern struct HelpBoxInfo gTmpHelpBoxInfo;
 extern const struct HelpBoxInfo * gpHelpBoxCurrentInfo;
 
 extern struct ProcCmd gProcScr_HelpBoxTextScroll[];
-extern struct ProcCmd gUnknown_08A01650[];
-extern struct ProcCmd gUnknown_08A01678[];
+extern struct ProcCmd ProcScr_HelpBoxIntro[];
+extern struct ProcCmd ProcScr_Helpbox_bug_08A01678[];
 extern struct ProcCmd gUnknown_08A01698[];
 extern struct ProcCmd gUnknown_08A016C8[];
 extern struct ProcCmd gProcScr_BoxDialogue[];
@@ -117,13 +117,13 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk);
 // ??? DrawHelpBoxSaveMenuLabels(???);
 // ??? DrawHelpBoxSaveMenuStats(???);
 // ??? HelpBoxTextScroll_OnLoop(???);
-// ??? sub_8089EEC(???);
-// ??? sub_8089F58(???);
-// ??? sub_8089FCC(???);
-// ??? sub_808A00C(???);
+// ??? HelpBoxDrawOneLineExt(???);
+// ??? HelpBoxSetupPrefixLines(???);
+// ??? HelpBoxDrawPrefix(???);
+// ??? HelpBoxIntroDrawTexts(???);
 void StartHelpBoxTextInit(int item, int mid);
 void ClearHelpBoxText(void);
-// ??? sub_808A160(???);
+// ??? HelpBoxIntro_bug_808A160(???);
 // ??? sub_808A188(???);
 // ??? sub_808A1B8(???);
 // ??? sub_808A1E0(???);
@@ -137,10 +137,10 @@ void sub_808A354(const struct HelpBoxInfo*);
 void sub_808A384(struct HelpBoxProc*, int, int);
 void sub_808A3C4(struct HelpBoxProc*, int, int);
 void sub_808A43C(struct HelpBoxProc*, int, int);
-void sub_808A444(struct HelpBoxProc*);
+void SetHelpBoxDefaultRect(struct HelpBoxProc*);
 int sub_808A454(int);
 // ??? sub_808A4A4(???);
-// ??? sub_808A4C4(???);
+// ??? StartHelpoxDirect(???);
 // ??? sub_808A4FC(???);
 void SetDialogueBoxConfig(u16);
 // ??? GetDialogueBoxConfig(???);

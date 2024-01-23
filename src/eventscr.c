@@ -37,12 +37,10 @@
 #include "eventcall.h"
 #include "bmdifficulty.h"
 
-void sub_800B910(int, int, int);
-void sub_800B954(int, int, int);
-void sub_800B994(int, int, int);
-void sub_800B9B8(int, int);
-void sub_800BA04(int, int);
-extern u16 EventScr_PostEnd[]; // EventScr_PostEnd
+void CopyBgImage(int, int, int);
+void CopyBgTiles(int, int, int);
+void CopyBgPalette(int, int, int);
+void BgChangeChr(int, int);
 
 //! FE8U = 0x0800D5A0
 u8 Event00_NULL(struct EventEngineProc * proc)
@@ -876,7 +874,7 @@ u8 Event1A_TEXTSTART(struct EventEngineProc * proc)
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
-            sub_800BCDC(proc->mapSpritePalIdOverride);
+            ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         sub_800E640(proc);
     }
@@ -1097,7 +1095,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
             sub_808BB74();
 
             if (proc->execType == EV_EXEC_CUTSCENE)
-                sub_800BCDC(proc->mapSpritePalIdOverride);
+                ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
             sub_800E640(proc);
 
@@ -1118,7 +1116,7 @@ u8 Event1C_TEXTCONT(struct EventEngineProc * proc)
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
-            sub_800BCDC(proc->mapSpritePalIdOverride);
+            ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         sub_800E640(proc);
     }
@@ -1140,7 +1138,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc * proc)
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
-            sub_800BCDC(proc->mapSpritePalIdOverride);
+            ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         sub_800E640(proc);
 
@@ -1272,7 +1270,7 @@ u8 Event1E_(struct EventEngineProc * proc)
         sub_808BB74();
 
         if (proc->execType == EV_EXEC_CUTSCENE)
-            sub_800BCDC(proc->mapSpritePalIdOverride);
+            ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         sub_800E640(proc);
 
@@ -1555,10 +1553,10 @@ void sub_800EA84(struct ConvoBackgroundFadeProc * proc)
 //! FE8U = 0x0800EBB0
 void sub_800EBB0(struct ConvoBackgroundFadeProc * proc)
 {
-    sub_800B910(3, 2, 10);
-    sub_800B954(3, 2, 1);
-    sub_800B994(8, 0, 6);
-    sub_800B9B8(2, -8);
+    CopyBgImage(3, 2, 10);
+    CopyBgTiles(BG_3, BG_2, 1);
+    CopyBgPalette(8, 0, 6);
+    BgChangeChr(BG_2, -8);
 
     SetDispEnable(FALSE, FALSE, TRUE, TRUE, TRUE);
 }
@@ -1566,10 +1564,10 @@ void sub_800EBB0(struct ConvoBackgroundFadeProc * proc)
 //! FE8U = 0x0800EC00
 void sub_800EC00(struct ConvoBackgroundFadeProc * proc)
 {
-    sub_800B910(2, 3, 10);
-    sub_800B954(2, 3, 1);
-    sub_800B994(0, 8, 6);
-    sub_800B9B8(3, 8);
+    CopyBgImage(2, 3, 10);
+    CopyBgTiles(BG_2, BG_3, 1);
+    CopyBgPalette(0, 8, 6);
+    BgChangeChr(BG_3, 8);
 
     SetDispEnable(FALSE, FALSE, TRUE, TRUE, TRUE);
 }
@@ -1692,7 +1690,7 @@ void sub_800EE54(struct ConvoBackgroundFadeProc * proc)
             RenderBmMap();
             RefreshUnitSprites();
 
-            sub_800BCDC(proc->pEventEngine->mapSpritePalIdOverride);
+            ChangeUnitSpritePalette(proc->pEventEngine->mapSpritePalIdOverride);
             ForceSyncUnitSpriteSheet();
 
             Event24_EnableMapDisp(proc->pEventEngine);
@@ -1850,7 +1848,7 @@ struct ProcCmd CONST_DATA gUnknown_08591EB0[] =
 u8 Event22_ClearScreen(struct EventEngineProc * proc)
 {
     RefreshBMapGraphics();
-    sub_800BCDC(proc->mapSpritePalIdOverride);
+    ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -1928,7 +1926,7 @@ u8 Event25_ChangeMap(struct EventEngineProc * proc)
     RefreshUnitSprites();
     RefreshBMapGraphics();
 
-    sub_800BCDC(proc->mapSpritePalIdOverride);
+    ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -2891,7 +2889,7 @@ u8 Event2D_ChangeSpritePal(struct EventEngineProc * proc)
 {
     u16 palId = EVT_CMD_ARGV(proc->pEventCurrent)[0];
 
-    sub_800BCDC(palId);
+    ChangeUnitSpritePalette(palId);
     proc->mapSpritePalIdOverride = palId;
 
     return EVC_ADVANCE_CONTINUE;

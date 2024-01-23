@@ -18,12 +18,61 @@
 #include "helpbox.h"
 #include "eventinfo.h"
 #include "event.h"
+#include "eventscript.h"
 
-void _MarkSomethingInMenu(void) {
+int gUnknown_08591AB4[3] = { 0, 0, 0 };
+
+CONST_DATA struct ProcCmd ProcScr_StdEventEngine[] = {
+    PROC_MARK(PROC_MARK_6),
+    PROC_SET_END_CB(EventEngine_OnEnd),
+    PROC_YIELD,
+    PROC_CALL(_FreezeMenu),
+    PROC_REPEAT(EventEngine_OnUpdate),
+    PROC_YIELD,
+    PROC_END
+};
+
+CONST_DATA struct ProcCmd ProcScr_BattleEventEngine[] = {
+    PROC_MARK(PROC_MARK_6),
+    PROC_SET_END_CB(EventEngine_OnEnd),
+    PROC_YIELD,
+    PROC_REPEAT(EventEngine_OnUpdate),
+    PROC_YIELD,
+    PROC_END
+};
+
+CONST_DATA EventFuncType gEventLoCmdTable[] = {
+    _EventLoCmds
+};
+
+CONST_DATA struct ProcCmd ProcScr_SomeEventDeamon[] = {
+    PROC_MARK(PROC_MARK_8),
+    PROC_YIELD,
+    PROC_CALL(nop_800CCE8),
+    PROC_REPEAT(nullsub_32),
+    PROC_END
+};
+
+CONST_DATA struct ProcCmd ProcScr_EventFaceDeamon[] = {
+    PROC_MARK(PROC_MARK_8),
+    PROC_SET_END_CB(EventFaceDeamonDelete),
+    PROC_YIELD,
+    PROC_CALL(nop_800CD38),
+    PROC_REPEAT(nullsub_34),
+    PROC_END
+};
+
+CONST_DATA EventFuncType gEventHiCmdTable[] = {
+    _EventHiCmds
+};
+
+void _FreezeMenu(void)
+{
     FreezeMenu();
 }
 
-void EventEngine_OnUpdate(struct EventEngineProc* proc) {
+void EventEngine_OnUpdate(struct EventEngineProc * proc)
+{
     if (DoesBMXFADEExist())
         return;
 
@@ -89,7 +138,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     case EV_EXEC_UNK5:
         ReadGameSaveCoreGfx();
         UnpackChapterMapPalette();
-        sub_800BCDC(proc->mapSpritePalIdOverride);
+        ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         if (proc->evStateBits & EV_STATE_CHANGEGM) {
             MU_EndAll();
@@ -100,7 +149,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     case EV_EXEC_GAMEPLAY:
         UnlockGame();
         ResumeMenu();
-        sub_800BB98();
+        ResetBkselPalette();
         ClearCutsceneUnits();
 
         break;
@@ -112,7 +161,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
         sub_808BB74(); // End some more things
 
         if (proc->execType == EV_EXEC_CUTSCENE)
-            sub_800BCDC(proc->mapSpritePalIdOverride);
+            ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         sub_800E640(proc);
     }
@@ -158,7 +207,7 @@ void CallNextQueuedEvent(void) {
 }
 
 void CallEvent(const u16* events, u8 execType) {
-    bool8 found = Proc_Find(gProc_StdEventEngine) != 0;
+    bool8 found = Proc_Find(ProcScr_StdEventEngine) != 0;
 
     if (found)
         EnqueueEventCall(events, execType);
@@ -167,7 +216,7 @@ void CallEvent(const u16* events, u8 execType) {
 }
 
 struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
-    struct EventEngineProc* proc = Proc_Start(gProc_StdEventEngine, PROC_TREE_3);
+    struct EventEngineProc* proc = Proc_Start(ProcScr_StdEventEngine, PROC_TREE_3);
 
     proc->pCallback      = NULL;
 
@@ -207,7 +256,7 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
 }
 
 void EventEngine_CreateBattle(const u16* events) {
-    struct EventEngineProc* proc = Proc_Start(gProc_BattleEventEngine, PROC_TREE_3);
+    struct EventEngineProc* proc = Proc_Start(ProcScr_BattleEventEngine, PROC_TREE_3);
 
     proc->pCallback     = NULL;
 
@@ -232,20 +281,26 @@ void EventEngine_CreateBattle(const u16* events) {
 }
 
 s8 EventEngineExists(void) {
-    return Proc_Find(gProc_StdEventEngine) ? TRUE : FALSE;
+    return Proc_Find(ProcScr_StdEventEngine) ? TRUE : FALSE;
 }
 
 int BattleEventEngineExists(void) {
-    return Proc_Find(gProc_BattleEventEngine) ? TRUE : FALSE;
+    return Proc_Find(ProcScr_BattleEventEngine) ? TRUE : FALSE;
 }
 
 void DeleteEventEngines(void) {
-    Proc_EndEach(gProc_StdEventEngine);
-    Proc_EndEach(gProc_BattleEventEngine);
+    Proc_EndEach(ProcScr_StdEventEngine);
+    Proc_EndEach(ProcScr_BattleEventEngine);
 }
 
-void sub_800D1E4(ProcPtr proc) {
-    Proc_StartBlocking(gUnknown_08591DD8, proc);
+CONST_DATA struct ProcCmd ProcScr_EventEngineDeamon[] = {
+    PROC_WHILE(EventEngineExists),
+    PROC_END
+};
+
+void BlockProcForEventEngine(ProcPtr proc)
+{
+    Proc_StartBlocking(ProcScr_EventEngineDeamon, proc);
 }
 
 void SetEventSlotC(unsigned value) {
@@ -257,8 +312,8 @@ void sub_800D204(void) {} // nullsub
 int sub_800D208(void) {
     struct EventEngineProc* proc;
 
-    if (!(proc = Proc_Find(gProc_StdEventEngine)))
-        if (!(proc = Proc_Find(gProc_BattleEventEngine)))
+    if (!(proc = Proc_Find(ProcScr_StdEventEngine)))
+        if (!(proc = Proc_Find(ProcScr_BattleEventEngine)))
             return FALSE;
 
     switch (proc->activeTextType) {
@@ -373,8 +428,8 @@ bool8 EventEngine_CanStartSkip(struct EventEngineProc* proc) { // Events_CanSkip
 void SetDialogueSkipEvBit(void) {
     struct EventEngineProc* proc;
 
-    if (!(proc = Proc_Find(gProc_StdEventEngine)))
-        if (!(proc = Proc_Find(gProc_BattleEventEngine)))
+    if (!(proc = Proc_Find(ProcScr_StdEventEngine)))
+        if (!(proc = Proc_Find(ProcScr_BattleEventEngine)))
             return;
 
     proc->evStateBits |= EV_STATE_0008;

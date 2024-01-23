@@ -65,7 +65,8 @@ SECTIONS
         src/gamecontrol.o(.text);
         src/msg.o(.text);
         asm/spline.o(.text);
-        src/evtcmd_gmap.o(.text);
+        src/eventscr_utils.o(.text);
+        src/eventscr_gmap.o(.text);
         src/event.o(.text);
         src/eventscr.o(.text);
         src/eventscr2.o(.text);
@@ -413,7 +414,8 @@ SECTIONS
         . = ALIGN(4); src/ap.o(.rodata);
         . = ALIGN(4); src/gamecontrol.o(.rodata);
         . = ALIGN(4); src/msg.o(.rodata);
-        . = ALIGN(4); src/evtcmd_gmap.o(.rodata);
+        . = ALIGN(4); src/eventscr_utils.o(.rodata);
+        . = ALIGN(4); src/eventscr_gmap.o(.rodata);
         . = ALIGN(4); src/eventscr.o(.rodata);
         . = ALIGN(4); src/bmlib.o(.rodata);
         . = ALIGN(4); src/bm.o(.rodata);
@@ -607,14 +609,14 @@ SECTIONS
         . = ALIGN(4); src/ap.o(.data);
         . = ALIGN(4); src/gamecontrol.o(.data);
         . = ALIGN(4); src/msg.o(.data);
-        . = ALIGN(4); data/data_591AB4.o(.data);
+        . = ALIGN(4); src/event.o(.data);
         . = ALIGN(4); src/eventscr.o(.data);
         . = ALIGN(4); src/popup.o(.data);
         . = ALIGN(4); src/eventscr3.o(.data);
         . = ALIGN(4); data/data_5924D8.o(.data);
         . = ALIGN(4); src/eventcmd_44.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
-        . = ALIGN(4); data/data_599714.o(.data);
+        . = ALIGN(4); data/generic_icon.o(.data);
         . = ALIGN(4); src/bmlib.o(.data);
         . = ALIGN(4); data/bmlib.o(.data);
         . = ALIGN(4); src/bm.o(.data);
