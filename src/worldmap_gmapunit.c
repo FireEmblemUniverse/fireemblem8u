@@ -87,8 +87,8 @@ void GmapUnit_Loop(struct GMapUnitProc * proc)
     }
     else
     {
-        x = ((struct GmScreenProc *)(proc->proc_parent))->unk_34;
-        y = ((struct GmScreenProc *)(proc->proc_parent))->unk_36;
+        x = ((struct GmScreenProc *)(proc->proc_parent))->x;
+        y = ((struct GmScreenProc *)(proc->proc_parent))->y;
     }
 
     xOam1 = proc->x - x;

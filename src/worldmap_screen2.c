@@ -165,8 +165,8 @@ s8 sub_80BB744(struct GmScreenProc * proc, s16 xIn, s16 yIn, s16 * xOut, s16 * y
     s16 x;
     s16 y;
 
-    *&x = proc->unk_34;
-    *&y = proc->unk_36;
+    *&x = proc->x;
+    *&y = proc->y;
 
     *xOut = xIn - x;
     *yOut = yIn - y;
@@ -239,8 +239,8 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
 
         icon = gWMNodeIconData + ((gGMData.nodes[proc->nodeId].state & 2) ? node->iconPreClear : node->iconPostClear);
 
-        *&local_28 = proc->pScreenProc->unk_34;
-        *&local_26 = proc->pScreenProc->unk_36;
+        *&local_28 = proc->pScreenProc->x;
+        *&local_26 = proc->pScreenProc->y;
 
         local_2c = ((node->x - icon->xCenter) + icon->xFlagOrigin) - local_28;
         local_2a = ((node->y - icon->yCenter) + icon->yFlagOrigin) - local_26;

@@ -331,6 +331,7 @@ SECTIONS
         src/worldmap_80C0834.o(.text);
         src/worldmap_status_ui.o(.text);
         src/worldmap_effect.o(.text);
+        src/worldmap_sogu.o(.text);
         asm/code_80BF13C.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
@@ -578,6 +579,7 @@ SECTIONS
         . = ALIGN(4); src/worldmap_line_fade.o(.rodata);
         . = ALIGN(4); src/worldmap_tm_confront.o(.rodata);
         . = ALIGN(4); src/worldmap_effect.o(.rodata);
+        . = ALIGN(4); src/worldmap_sogu.o(.rodata);
         . = ALIGN(4); data/const_data_20688C.o(.rodata);
         . = ALIGN(4); src/opsubtitle.o(.rodata);
         . = ALIGN(4); src/classchg-main.o(.rodata);
@@ -900,6 +902,7 @@ SECTIONS
         . = ALIGN(4); src/worldmap_tm_confront.o(.data);
         . = ALIGN(4); src/worldmap_status_ui.o(.data);
         . = ALIGN(4); src/worldmap_effect.o(.data);
+        . = ALIGN(4); src/worldmap_sogu.o(.data);
         . = ALIGN(4); data/data_A3E4D4.o(.data);
         . = ALIGN(4); src/opsubtitle.o(.data);
         . = ALIGN(4); data/data_opsubtitle.o(.data);

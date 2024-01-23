@@ -77,8 +77,8 @@ void GmapCursor_Loop(struct GmapCursorProc * proc)
 
         s16 x;
         s16 y;
-        *&x = proc->pScreenProc->unk_34;
-        *&y = proc->pScreenProc->unk_36;
+        *&x = proc->pScreenProc->x;
+        *&y = proc->pScreenProc->y;
 
         PutSprite(
             4,

@@ -948,11 +948,11 @@ void MU_StartFogBumpFx(int x, int y) {
     struct MUFogBumpFxProc* proc;
 
     Decompress(
-        gUnknown_089ADD4C,
+        Img_GmapSoguSprites,
         OBJ_VRAM0 + 0x20 * 0x180
     );
 
-    ap = AP_Create(gUnknown_089A8EF8, 2);
+    ap = AP_Create(ApHandle_GmapSoguSprites, 2);
 
     ap->tileBase = 0x1180;
     AP_SwitchAnimation(ap, MU_FACING_LEFT);

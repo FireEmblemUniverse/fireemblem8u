@@ -1,30 +1,5 @@
     .section .data
 
-	.global ProcScr_GmapSogu
-ProcScr_GmapSogu:  @ 0x08A3EA70
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x820693c @ Gmap Sogu
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_80C1470
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C1480
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C1524
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C1624
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_GmapTimeMons
 ProcScr_GmapTimeMons:  @ 0x08A3EAA8
         @ PROC_NAME
