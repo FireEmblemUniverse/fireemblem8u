@@ -441,45 +441,39 @@ const struct UnitDefinition * GetChapterEnemyUnitDefinitions(void)
 }
 
 //! FE8U = 0x08083400
-void GetChapterSkirmishLeaderClasses(u8 chapterId, u8* list) {
+void GetChapterSkirmishLeaderClasses(u8 chapterId, u8 * list)
+{
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(chapterId);
 
-    list[0] = ((u8*)(evGroup->enemyUnitsChoice1InEncounter))[1];
-    list[1] = ((u8*)(evGroup->enemyUnitsChoice2InEncounter))[1];
-    list[2] = ((u8*)(evGroup->enemyUnitsChoice3InEncounter))[1];
-
-    return;
+    list[0] = ((struct UnitDefinition *)(evGroup->enemyUnitsChoice1InEncounter))->classIndex;
+    list[1] = ((struct UnitDefinition *)(evGroup->enemyUnitsChoice2InEncounter))->classIndex;
+    list[2] = ((struct UnitDefinition *)(evGroup->enemyUnitsChoice3InEncounter))->classIndex;
 }
 
 //! FE8U = 0x08083424
-s8 sub_8083424(void) {
+bool sub_8083424(void)
+{
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
-    if (evGroup->playerUnitsChoice1InEncounter == 0) {
-        return 0;
-    }
+    if (evGroup->playerUnitsChoice1InEncounter == 0)
+        return false;
 
-    if (evGroup->playerUnitsChoice2InEncounter == 0) {
-        return 0;
-    }
+    if (evGroup->playerUnitsChoice2InEncounter == 0)
+        return false;
 
-    if (evGroup->playerUnitsChoice3InEncounter == 0) {
-        return 0;
-    }
+    if (evGroup->playerUnitsChoice3InEncounter == 0)
+        return false;
 
-    if (evGroup->enemyUnitsChoice1InEncounter == 0) {
-        return 0;
-    }
+    if (evGroup->enemyUnitsChoice1InEncounter == 0)
+        return false;
 
-    if (evGroup->enemyUnitsChoice2InEncounter == 0) {
-        return 0;
-    }
+    if (evGroup->enemyUnitsChoice2InEncounter == 0)
+        return false;
 
-    if (evGroup->enemyUnitsChoice3InEncounter == 0) {
-        return 0;
-    }
+    if (evGroup->enemyUnitsChoice3InEncounter == 0)
+        return false;
 
-    return 1;
+    return true;
 }
 
 //! FE8U = 0x08083468

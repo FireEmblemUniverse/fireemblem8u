@@ -229,7 +229,7 @@ void WriteWorldMapStuff(void* sram_dest, void* src) {
     info.xCursor = pGMapData->xCamera;
     info.yCursor = pGMapData->yCamera;
 
-    info.unk_1c_1 = pGMapData->state.bits.state_1;
+    info.unk_1c_1 = pGMapData->state.bits.monster_merged;
     info.unk_1c_2 = pGMapData->state.bits.state_2;
     info.unk_1c_3 = pGMapData->state.bits.state_4_5;
 
@@ -254,9 +254,9 @@ void ReadWorldMapStuff(const void* sram_src, void* dst) {
     pGMapData->unk_cc = info.skirmishState;
 
     if (info.unk_1c_1) {
-        pGMapData->state.bits.state_1 = 1;
+        pGMapData->state.bits.monster_merged = 1;
     } else {
-        pGMapData->state.bits.state_1 = 0;
+        pGMapData->state.bits.monster_merged = 0;
     }
 
     if (info.unk_1c_2) {

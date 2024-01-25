@@ -26,6 +26,7 @@
 #include "menu_def.h"
 #include "menuitempanel.h"
 #include "bmmind.h"
+#include "worldmap.h"
 #include "constants/characters.h"
 #include "constants/items.h"
 #include "constants/terrains.h"

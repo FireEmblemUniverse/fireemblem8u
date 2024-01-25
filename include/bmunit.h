@@ -192,7 +192,7 @@ struct UnitDefinition
     /* 05 */ u16 extraData  : 8;
     /* 07 */ u16 redaCount  : 8;
 
-    /* 08 */ const void* redas;
+    /* 08 */ const void * redas;
 
     /* 0C */ u8 items[UNIT_DEFINITION_ITEM_COUNT];
 

@@ -99,7 +99,7 @@ bool8 HasConvoyAccess(void)
     unsigned int chapterId;
     if (gGMData.state.bits.state_0)
     {
-        chapterId = sub_80BD048();
+        chapterId = GetNextUnclearedChapter();
         if (chapterId <= 1)
             return false;
         else if (chapterId == 0x38)

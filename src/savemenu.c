@@ -229,8 +229,8 @@ u16 CONST_DATA gBgConfig_SaveMenu[] = {
 };
 
 //! FE8U = 0x080A8AF0
-void sub_80A8AF0(void) {
-    int mapLocation;
+void SaveMenu_SetLcdChapterIdx(void) {
+    int node;
     u32 chapterId;
 
     if (!(gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE)) {
@@ -240,12 +240,12 @@ void sub_80A8AF0(void) {
         if ((gGMData.state.raw & 3) == 3) {
             if (chapterId > 0x01 && chapterId != 0x38) {
 
-                mapLocation = sub_80BD014(&gGMData);
-                if (mapLocation < 0) {
-                    mapLocation = 0;
+                node = GetNextUnclearedNode(&gGMData);
+                if (node < 0) {
+                    node = 0;
                 }
 
-                gPlaySt.chapterIndex = WMLoc_GetChapterId(mapLocation);
+                gPlaySt.chapterIndex = WMLoc_GetChapterId(node);
             }
         } else {
             if (gPlaySt.chapterIndex == 0x06 && CheckFlag(0x88) != 0) {
@@ -1720,7 +1720,7 @@ struct ProcCmd CONST_DATA gProcScr_SaveMenuPostChapter[] = {
 
     PROC_CALL(SaveMenuInit),
 
-    PROC_CALL(sub_80A8AF0),
+    PROC_CALL(SaveMenu_SetLcdChapterIdx),
     PROC_SLEEP(0),
 
     PROC_CALL(ProcSaveMenu_InitScreen),

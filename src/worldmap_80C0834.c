@@ -104,7 +104,7 @@ int sub_80C0960(int chIndex)
 {
     int nodeId = sub_80BCFDC(chIndex);
 
-    if ((gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) || (sub_80BD014(&gGMData) != nodeId))
+    if ((gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) || (GetNextUnclearedNode(&gGMData) != nodeId))
     {
         int i;
 

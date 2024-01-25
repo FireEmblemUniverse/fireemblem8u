@@ -117,7 +117,7 @@ void GmTmConfront_Loop_MoveUnitPositions(struct GmapTmConfrontProc * proc)
             s16 x = proc->unk_30[i].x + DivArm(0x1000, proc->unk_40[i].x * var);
             s16 y = proc->unk_30[i].y + DivArm(0x1000, proc->unk_40[i].y * var);
             GmMu_SetPosition(
-                ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_54, proc->unk_2e[i], x, y);
+                GM_MU, proc->unk_2e[i], x, y);
         }
     }
     else
@@ -125,7 +125,7 @@ void GmTmConfront_Loop_MoveUnitPositions(struct GmapTmConfrontProc * proc)
         for (i = 0; i < 2; i++)
         {
             GmMu_SetPosition(
-                ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_54, proc->unk_2e[i],
+                GM_MU, proc->unk_2e[i],
                 proc->unk_38[i].x, proc->unk_38[i].y);
         }
 
@@ -151,7 +151,7 @@ void GmTmConfront_StartAnim(struct GmapTmConfrontProc * proc)
     for (i = 0; i < 2; i++)
     {
         GmMu_GetPosition(
-            ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_54, proc->unk_2e[i], &x, &y);
+            GM_MU, proc->unk_2e[i], &x, &y);
 
         x_ = x_ + x;
     }

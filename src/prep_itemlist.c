@@ -13,6 +13,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "sysutil.h"
+#include "worldmap.h"
 #include "prepscreen.h"
 
 //! FE8U = 0x0809EB78

@@ -10,7 +10,7 @@
 #include "bmmenu.h"
 #include "bmguide.h"
 
-#include "constants/nodes.h"
+#include "constants/worldmap.h"
 
 #include "worldmap.h"
 

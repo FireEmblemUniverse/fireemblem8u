@@ -6,8 +6,10 @@
 #include "eventcall.h"
 #include "eventscript.h"
 #include "ea-stdlib.h"
+#include "worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
+#include "constants/worldmap.h"
 
 CONST_DATA EventScr EventScrWM_Ch3_BeginningTutorial[] = {
     EvtTextStartType5 // ENOSUPP in EA-stdlib
@@ -48,10 +50,10 @@ CONST_DATA EventScr EventScrWM_Ch3_ChapterIntro[] = {
     WM_WAITFORCAM
     CALL(EventScr_WM_FadeCommon)
     WM_TEXTSTART
-    PUTSPRITE(WM_MU_3, CLASS_EIRIKA_LORD, FACTION_ID_BLUE, WM_NODE_Ide)
+    PUTSPRITE(WM_MU_3, CLASS_EIRIKA_LORD, WM_FACTION_BLUE, WM_NODE_Ide)
     WM_MAKELORDVISIBLE(WM_MU_3)
     WM_MAKELORDDISAPPEAR(WM_MU_0)
-    PUTSPRITE(WM_MU_2, CLASS_THIEF, FACTION_ID_RED, WM_NODE_Ide)
+    PUTSPRITE(WM_MU_2, CLASS_THIEF, WM_FACTION_GREEN, WM_NODE_Ide)
     WM_MOVESPRITETO(WM_MU_2, 0x0003, WM_NODE_Ide, WM_NODE_BorgoRidge, -4, 0)
     WM_WAITFORSPRITES(WM_MU_2)
     WM_REMSPRITE(WM_MU_2)
@@ -64,7 +66,7 @@ CONST_DATA EventScr EventScrWM_Ch3_ChapterIntro[] = {
     WM_REMSPRITE(WM_MU_3)
     WM_CLEARPORTRAIT(0, 0x0634, 0)
     STAL(46)
-    PUTSPRITE(WM_MU_2, CLASS_BRIGAND, FACTION_ID_GREEN, WM_NODE_BorgoRidge)
+    PUTSPRITE(WM_MU_2, CLASS_BRIGAND, WM_FACTION_RED, WM_NODE_BorgoRidge)
     WM_FADEINSPRITE(WM_MU_2, 60)
     WM_SHOWPORTRAIT(0, 0x0033, 0x02BC, 0)
     STAL(6)

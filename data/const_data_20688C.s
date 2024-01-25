@@ -1,52 +1,7 @@
 
     .section .rodata
 
-	.global gWMMonsterSpawnLocations
-gWMMonsterSpawnLocations:  @ 0x08206948
-@ Replacing .incbin "baserom.gba", 0x206948, 0x9
-    .byte 0x04 @ Za'ha Woods WM node ID
-    .byte 0x06 @ Adlas Plains WM node ID
-    .byte 0x0A @ Teraz Plateau WM node ID
-    .byte 0x0C @ Hamill Canyon WM node ID
-    .byte 0x0F @ Bethroen WM node ID
-    .byte 0x11 @ Za'albul Marsh WM node ID
-    .byte 0x15 @ Narube River WM node ID
-    .byte 0x16 @ Neleras Peak WM node ID
-    .byte 0x1C @ Melkaen Peak WM node ID
-
-	.global gWMMonsterSpawnsSize
-gWMMonsterSpawnsSize:  @ 0x08206951
-@ Replacing .incbin "baserom.gba", 0x206951, 0x3
-    .byte 0x09
-    .align 2, 0
-
-	.global gUnknown_08206954
-gUnknown_08206954:  @ 0x08206954
-	.incbin "baserom.gba", 0x206954, 0x84
-
-	.global gUnknown_082069D8
-gUnknown_082069D8:  @ 0x082069D8
-	.incbin "baserom.gba", 0x2069D8, 0xB
-
-	.global gUnknown_082069E3
-gUnknown_082069E3:  @ 0x082069E3
-	.incbin "baserom.gba", 0x2069E3, 0xB
-
-	.global gUnknown_082069EE
-gUnknown_082069EE:  @ 0x082069EE
-	.incbin "baserom.gba", 0x2069EE, 0x5A
-
-	.global gUnknown_08206A48
-gUnknown_08206A48:  @ 0x08206A48
-	.incbin "baserom.gba", 0x206A48, 0x9
-
-	.global gUnknown_08206A51
-gUnknown_08206A51:  @ 0x08206A51
-	.incbin "baserom.gba", 0x206A51, 0x5A
-
-	.global gUnknown_08206AAB
-gUnknown_08206AAB:  @ 0x08206AAB
-	.incbin "baserom.gba", 0x206AAB, 0x45
+    .incbin "baserom.gba", 0x206AC4, 0x206AF0 - 0x206AC4
 
 	.global GfxSet_WmNationMap
 GfxSet_WmNationMap:  @ 0x08206AF0

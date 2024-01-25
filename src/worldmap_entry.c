@@ -278,7 +278,7 @@ s8 GmBaseEntryExists(void)
 //! FE8U = 0x080BFB4C
 void sub_80BFB4C(struct GmapBaseEntryProc * proc)
 {
-    sub_80BE080(((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_54, proc->unk_29, 0);
+    sub_80BE080(GM_MU, proc->unk_29, 0);
 
     gGMData.units[proc->unk_29].state |= 1;
 

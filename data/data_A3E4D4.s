@@ -1,35 +1,5 @@
     .section .data
 
-	.global ProcScr_GmapTimeMons
-ProcScr_GmapTimeMons:  @ 0x08A3EAA8
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x8206ab4
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word nullsub_72
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C18EC
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C1920
-        @ PROC_SLEEP
-        .short 0xe, 0x3c
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C1A58
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
 
 	.global ProcScr_GmapRmUpdate1
 ProcScr_GmapRmUpdate1:  @ 0x08A3EAF0
@@ -41,7 +11,7 @@ ProcScr_GmapRmUpdate1:  @ 0x08A3EAF0
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80C1E2C
+        .word GmapRmUpdate1_Loop
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -219,8 +189,8 @@ ProcScr_GmapRmBorder:  @ 0x08A3EC48
         .word 0x0
 
 
-	.global gUnknown_08A3ECB0
-gUnknown_08A3ECB0:  @ 0x08A3ECB0
+	.global ProcScr_GmapRmBaPalAnim2
+ProcScr_GmapRmBaPalAnim2:  @ 0x08A3ECB0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206adc
@@ -229,10 +199,10 @@ gUnknown_08A3ECB0:  @ 0x08A3ECB0
         .word 0x0
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_80C2C54
+        .word GmapRmBaPalAnim_End
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80C2C58
+        .word GmapRmBaPalAnim_Init
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -241,13 +211,13 @@ gUnknown_08A3ECB0:  @ 0x08A3ECB0
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80C2D44
+        .word GmapRmBaPalAnim_Loop1
         @ PROC_SLEEP
         .short 0xe, 0x2
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80C2DA4
+        .word GmapRmBaPalAnim_Loop2
         @ PROC_SLEEP
         .short 0xe, 0x2
         .word 0x0
@@ -1239,8 +1209,8 @@ gGfx_GMapPI_ShopIcons:  @ 0x08A97A80
 gPal_08A97ACC:  @ 0x08A97ACC
 	.incbin "baserom.gba", 0xA97ACC, 0x20
 
-	.global gUnknown_08A97AEC
-gUnknown_08A97AEC:  @ 0x08A97AEC
+	.global Sprite_08A97AEC
+Sprite_08A97AEC:  @ 0x08A97AEC
 	.incbin "baserom.gba", 0xA97AEC, 0x1AC
 
 	.global gImg_WorldmapNodeRevealEffect

@@ -19,6 +19,7 @@
 #include "bmio.h"
 #include "helpbox.h"
 #include "sysutil.h"
+#include "worldmap.h"
 #include "constants/faces.h"
 
 #include "prepscreen.h"

@@ -24,6 +24,7 @@
 #include "ekrbattle.h"
 #include "bmbattle.h"
 #include "mapanim.h"
+#include "worldmap.h"
 
 struct WeaponTriangleRule {
     s8 attackerWeaponType;
