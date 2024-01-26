@@ -6,8 +6,10 @@
 #include "eventcall.h"
 #include "eventscript.h"
 #include "ea-stdlib.h"
+#include "worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
+#include "constants/worldmap.h"
 
 CONST_DATA EventScr EventScrWM_Ch8_Beginning[] = {
     EVBIT_MODIFY(0x1)

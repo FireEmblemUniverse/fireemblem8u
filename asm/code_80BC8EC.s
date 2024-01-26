@@ -942,8 +942,8 @@ _080BD00E:
 
 	THUMB_FUNC_END sub_80BCFDC
 
-	THUMB_FUNC_START sub_80BD014
-sub_80BD014: @ 0x080BD014
+	THUMB_FUNC_START GetNextUnclearedNode
+GetNextUnclearedNode: @ 0x080BD014
 	push {r4, r5, lr}
 	movs r3, #0
 	movs r5, #1
@@ -974,13 +974,13 @@ _080BD042:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80BD014
+	THUMB_FUNC_END GetNextUnclearedNode
 
-	THUMB_FUNC_START sub_80BD048
-sub_80BD048: @ 0x080BD048
+	THUMB_FUNC_START GetNextUnclearedChapter
+GetNextUnclearedChapter: @ 0x080BD048
 	push {lr}
 	ldr r0, _080BD05C  @ gGMData
-	bl sub_80BD014
+	bl GetNextUnclearedNode
 	cmp r0, #0
 	blt _080BD060
 	bl WMLoc_GetChapterId
@@ -994,7 +994,7 @@ _080BD064:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80BD048
+	THUMB_FUNC_END GetNextUnclearedChapter
 
 	THUMB_FUNC_START GetChapterThing
 GetChapterThing: @ 0x080BD068
@@ -1170,7 +1170,7 @@ sub_80BD224: @ 0x080BD224
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	movs r5, #0
-	bl sub_80BD014
+	bl GetNextUnclearedNode
 	adds r1, r0, #0
 	ldrb r0, [r4, #0x11]
 	cmp r0, r1
@@ -1182,7 +1182,7 @@ sub_80BD224: @ 0x080BD224
 	b _080BD252
 _080BD242:
 	adds r0, r4, #0
-	bl sub_80BD014
+	bl GetNextUnclearedNode
 	adds r1, r0, #0
 	cmp r1, #0
 	bge _080BD250

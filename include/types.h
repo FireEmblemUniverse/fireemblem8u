@@ -378,68 +378,6 @@ struct MMSData
     const void* pAnimation;
 };
 
-struct GMUnit {
-    /* 00 */ u8 state;
-    /* 01 */ u8 location;
-    /* 02 */ s16 id; // character or class ID
-};
-
-struct GMNode {
-    /* 00 */ u8 state;
-};
-
-union GMStateBits {
-    u8 raw;
-    struct {
-        u8 state_0   : 1;
-        u8 state_1   : 1;
-        u8 state_2   : 1;
-        u8 state_3   : 1;
-        u8 state_4_5 : 2;
-        u8 state_6   : 1;
-        u8 state_7   : 1;
-    } __attribute__((packed)) bits;
-} __attribute__((packed));
-
-struct OpenPaths {
-    s8 openPaths[0x20];
-    s8 openPathsLength;
-};
-
-struct GMapData
-{
-    /* 00 */ union GMStateBits state;
-    /* 01 */ u8 unk01;
-    /* 02 */ short xCamera;
-    /* 04 */ short yCamera;
-    /* 08 */ s32 unk08;
-    /* 0C */ s32 unk0C;
-    /* 10 */ struct GMUnit units[8];
-    /* 30 */ struct GMNode nodes[0x1C];
-    /* A0 */ int unk_a0; // pad?
-    /* A4 */ struct OpenPaths openPaths;
-    /* C8 */ u8 unk_c8; // entry node id?
-    /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
-    /* CC */ u8 unk_cc; // used to determine which skirmish enemy block to load
-    /* CD */ u8 unk_cd;
-    /* CE */ u16 unk_ce;
-};
-
-
-enum
-{
-    // For use with GMapData:state
-
-    GMAP_STATE_BIT0 = (1 << 0),
-    GMAP_STATE_BIT1 = (1 << 1),
-    GMAP_STATE_BIT2 = (1 << 2),
-    GMAP_STATE_BIT3 = (1 << 3),
-    GMAP_STATE_BIT4 = (1 << 4),
-    GMAP_STATE_BIT5 = (1 << 5),
-    GMAP_STATE_BIT6 = (1 << 6),
-    GMAP_STATE_BIT7 = (1 << 7),
-};
-
 struct MapChange
 {
     /* 00 */ s8 id;

@@ -322,12 +322,7 @@ extern const struct FaceVramEntry gFaceConfig_PrepItemUseScreen[4];
 // extern ??? gUnknown_08206868
 
 // extern ??? gUnknown_08206954
-// extern ??? gUnknown_082069D8
-// extern ??? gUnknown_082069E3
-// extern ??? gUnknown_082069EE
-// extern ??? gUnknown_08206A48
-// extern ??? gUnknown_08206A51
-// extern ??? gUnknown_08206AAB
+
 // extern ??? GfxSet_WmNationMap
 // extern ??? gUnknown_08206B70
 // extern ??? gUnknown_08206E24
@@ -1253,8 +1248,8 @@ extern u8 gUnknown_08A97410[]; // tsa
 extern u16 gUnknown_08A97A40[]; // pal
 extern u16 gPal_GMapPI_ShopIcons[];
 extern u8 gGfx_GMapPI_ShopIcons[];
-// extern ??? gPal_08A97ACC
-// extern ??? gUnknown_08A97AEC
+extern u16 gPal_08A97ACC[];
+extern u16 Sprite_08A97AEC[]; // ap
 extern u8 gImg_WorldmapNodeRevealEffect[];
 extern u16 gPal_WorldmapNodeRevealEffect[];
 extern u16 gUnknown_08A97E48[]; // pal

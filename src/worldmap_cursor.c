@@ -5,18 +5,6 @@
 
 #include "worldmap.h"
 
-struct Unknown08206498
-{
-    /* 00 */ u16 unk_00;
-    /* 02 */ STRUCT_PAD(0x02, 0x04);
-    /* 04 */ u16 * pSpriteData;
-    /* 08 */ s8 x;
-    /* 09 */ s8 y;
-    /* 0A */ STRUCT_PAD(0x0A, 0x0C);
-};
-
-extern u16 gPal_08A97ACC[];
-
 //! FE8U = 0x080BBA80
 void nullsub_59(void)
 {

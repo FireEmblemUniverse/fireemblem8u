@@ -14,10 +14,10 @@ int WMLoc_GetChapterId(int idx)
     {
         case CHAPTER_MODE_EIRIKA:
         default:
-            return idx[gWMNodeData].unk_04;
+            return idx[gWMNodeData].chapteridx_eirika;
 
         case CHAPTER_MODE_EPHRAIM:
-            return idx[gWMNodeData].unk_05;
+            return idx[gWMNodeData].chapteridx_ephram;
     }
 }
 
@@ -49,7 +49,7 @@ int WMLoc_GetNextLocId(int idx)
 }
 
 //! FE8U = 0x080BB628
-int sub_80BB628(void * unused, int arg1, int arg2, int arg3, int arg4)
+int GetNodeAtPosition(void * unused, int x_point, int y_point, int x_range, int y_range)
 {
     const struct NodeIcon * icon;
     int i;
@@ -66,54 +66,40 @@ int sub_80BB628(void * unused, int arg1, int arg2, int arg3, int arg4)
         int x1, x2;
         int y1, y2;
 
-        if (!(gGMData.nodes[i].state & 1))
-        {
+        if (!(gGMData.nodes[i].state & GM_NODE_STATE_VALID))
             continue;
-        }
 
-        if (gGMData.nodes[i].state & 2)
-        {
+        if (gGMData.nodes[i].state & GM_NODE_STATE_CLEARED)
             icon = &gWMNodeIconData[node->iconPreClear];
-        }
         else
-        {
             icon = &gWMNodeIconData[node->iconPostClear];
-        }
 
         xNode = node->x;
         iconWidth = icon->width;
         xIconCenter = icon->xCenter;
 
-        x1 = xNode - xIconCenter - arg3;
+        x1 = xNode - xIconCenter - x_range;
 
         yNode = node->y;
         iconHeight = icon->height;
         yIconCenter = icon->yCenter;
 
-        y1 = yNode - yIconCenter - arg4;
+        y1 = yNode - yIconCenter - y_range;
 
-        x2 = xNode + iconWidth - xIconCenter + arg3;
-        y2 = yNode + iconHeight - yIconCenter + arg4;
+        x2 = xNode + iconWidth - xIconCenter + x_range;
+        y2 = yNode + iconHeight - yIconCenter + y_range;
 
-        if (arg1 < x1)
-        {
+        if (x_point < x1)
             continue;
-        }
 
-        if (arg1 >= x2)
-        {
+        if (x_point >= x2)
             continue;
-        }
 
-        if (arg2 < y1)
-        {
+        if (y_point < y1)
             continue;
-        }
 
-        if (arg2 >= y2)
-        {
+        if (y_point >= y2)
             continue;
-        }
 
         return i;
     }
@@ -268,9 +254,6 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
     return;
 }
 
-extern struct ProcCmd gProcScr_GmNodeIconDisplay[];
-extern u16 gUnknown_08A97AEC[]; // ap
-
 ProcPtr sub_80BB9A4(ProcPtr parent, int chr, int palId, int unk, ProcPtr pScreenProc)
 {
     struct GmNodeIconDisplayProc * proc = Proc_Start(gProcScr_GmNodeIconDisplay, parent);
@@ -282,7 +265,7 @@ ProcPtr sub_80BB9A4(ProcPtr parent, int chr, int palId, int unk, ProcPtr pScreen
     proc->unk_32_1 = 0;
     proc->nodeId = 0;
 
-    proc->ap = AP_Create(gUnknown_08A97AEC, 11);
+    proc->ap = AP_Create(Sprite_08A97AEC, 11);
     AP_SwitchAnimation(proc->ap, 1);
     proc->ap->tileBase = ((proc->chr + 0x1000) / CHR_SIZE) + OAM2_PAL(proc->pal) + OAM2_LAYER(2);
     return proc;

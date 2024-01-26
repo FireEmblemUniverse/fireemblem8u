@@ -420,7 +420,7 @@ void sub_80B8FD4(void)
 //! FE8U = 0x080B8FEC
 void sub_80B8FEC(struct WorldMapMainProc * proc)
 {
-    int id = sub_80BD014(&gGMData);
+    int id = GetNextUnclearedNode(&gGMData);
 
     if (id >= 0)
     {
@@ -478,7 +478,7 @@ void sub_80B90CC(struct WorldMapMainProc * proc)
 {
     int i;
 
-    if (!gGMData.state.bits.state_1)
+    if (!gGMData.state.bits.monster_merged)
     {
 
         for (i = 4; i < 7; i++)
@@ -533,7 +533,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
     sub_80B8FEC(proc);
     sub_80B90CC(proc);
 
-    if (gGMData.state.bits.state_1)
+    if (gGMData.state.bits.monster_merged)
     {
         sub_80B9114(proc);
     }
@@ -614,7 +614,7 @@ s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
                 Proc_Goto(param_1, 16);
             else
             {
-                iVar4 = sub_80BD014(&gGMData);
+                iVar4 = GetNextUnclearedNode(&gGMData);
                 if (!(gPlaySt.chapterStateBits & 4) && !gPlaySt.config.controller && iVar4 == 2)
                     return 0;
 
@@ -810,17 +810,17 @@ struct ProcCmd CONST_DATA gProcScr_WorldMapMain[] =
 PROC_LABEL(0),
 PROC_LABEL(1),
     PROC_REPEAT(sub_80B9BA4),
-    PROC_CALL(sub_80B9D14),
-    PROC_CALL(sub_80B9D04),
+    PROC_CALL(WorldMap_GenerateRandomMonsters),
+    PROC_CALL(WorldMap_SetMonsterMergedState),
 
     PROC_GOTO(3),
 
 PROC_LABEL(2),
     PROC_CALL(sub_80B9A34),
     PROC_WHILE(FadeInExists),
-    PROC_CALL(sub_80B9DB8),
-    PROC_REPEAT(sub_80B9DC4),
-    PROC_CALL(sub_80B9D04),
+    PROC_CALL(_WmMergeMonsters),
+    PROC_REPEAT(WorldMap_WaitMonsterMerging),
+    PROC_CALL(WorldMap_SetMonsterMergedState),
 
     // fallthrough
 
@@ -1171,7 +1171,7 @@ void sub_80B96F8(struct WorldMapMainProc * proc)
         }
     }
 
-    nodeId = sub_80BB628(proc->unk_48, x >> 8, y >> 8, 0, 0);
+    nodeId = GetNodeAtPosition(proc->unk_48, x >> 8, y >> 8, 0, 0);
     if (nodeId >= 0)
     {
         if (gKeyStatusPtr->newKeys & A_BUTTON)
@@ -1448,7 +1448,7 @@ void WorldMap_InitChapterTransition(struct WorldMapMainProc * proc)
     if (gGMData.units[0].location[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
     {
         gPlaySt.chapterIndex = WMLoc_GetChapterId(proc->unk_3e);
-        gGMData.state.bits.state_1 = 0;
+        gGMData.state.bits.monster_merged = 0;
     }
     else
     {
@@ -1459,7 +1459,7 @@ void WorldMap_InitChapterTransition(struct WorldMapMainProc * proc)
 
     gGMData.unk01 = 0;
 
-    sub_80C1AB0();
+    WmRemoveRandomMonsters();
 
     return;
 }
@@ -1545,21 +1545,20 @@ void WorldMap_WaitForChapterIntroEvents(ProcPtr proc)
 }
 
 //! FE8U = 0x080B9D04
-void sub_80B9D04(void)
+void WorldMap_SetMonsterMergedState(void)
 {
-    gGMData.state.bits.state_1 = 1;
-    return;
+    gGMData.state.bits.monster_merged = 1;
 }
 
 //! FE8U = 0x080B9D14
-void sub_80B9D14(ProcPtr proc)
+void WorldMap_GenerateRandomMonsters(ProcPtr proc)
 {
     int i;
-    int unk;
+    int monster_amt;
 
     s8 flag = 0;
 
-    if (!(gGMData.state.bits.state_1))
+    if (!(gGMData.state.bits.monster_merged))
     {
         flag = 1;
     }
@@ -1567,69 +1566,47 @@ void sub_80B9D14(ProcPtr proc)
     {
         if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
         {
-            for (i = 4; i < 7; i++)
-            {
+            for (i = WM_MONS_UID_ENTRY; i < WM_MONS_UID_END; i++)
                 if (gGMData.units[i].id != 0)
-                {
                     break;
-                }
-            }
 
             if (i == 7)
-            {
                 flag = 1;
-            }
         }
         else
         {
             if (gGMData.units[0].location[gWMNodeData].placementFlag == GMAP_NODE_PLACEMENT_DUNGEON)
             {
-                for (i = 4; i < 7; i++)
-                {
+                for (i = WM_MONS_UID_ENTRY; i < WM_MONS_UID_END; i++)
                     if (gGMData.units[i].id != 0)
-                    {
                         break;
-                    }
-                }
 
-                if (i == 7)
-                {
+                if (i == WM_MONS_UID_END)
                     flag = 1;
-                }
             }
         }
     }
 
     if (flag)
     {
-        sub_80C1A74(0, &unk);
-        if (unk > 0)
-        {
+        NewGmapTimeMons(NULL, &monster_amt);
+        if (monster_amt > 0)
             Proc_Goto(proc, 2);
-        }
     }
-
-    sub_80C1AF8();
-
-    return;
+    WmShowMonsters();
 }
 
 //! FE8U = 0x080B9DB8
-void sub_80B9DB8(void)
+void _WmMergeMonsters(void)
 {
-    sub_80C1ADC();
-    return;
+    WmMergeMonsters();
 }
 
 //! FE8U = 0x080B9DC4
-void sub_80B9DC4(ProcPtr proc)
+void WorldMap_WaitMonsterMerging(ProcPtr proc)
 {
-    if (!sub_80C1BE0())
-    {
+    if (!GmapTimeMonsExists())
         Proc_Break(proc);
-    }
-
-    return;
 }
 
 //! FE8U = 0x080B9DE0
@@ -1742,7 +1719,7 @@ void sub_80B9F54(ProcPtr unused)
     }
     else
     {
-        mapLocation = sub_80BD014(&gGMData);
+        mapLocation = GetNextUnclearedNode(&gGMData);
 
         if (mapLocation >= 0)
         {
@@ -1783,7 +1760,7 @@ void sub_80B9FC0(void)
 //! FE8U = 0x080B9FD4
 void sub_80B9FD4(ProcPtr unused)
 {
-    int mapLocation = sub_80BD014(&gGMData);
+    int mapLocation = GetNextUnclearedNode(&gGMData);
 
     if (mapLocation < 0)
     {
@@ -2013,7 +1990,7 @@ void NewWorldMap(void)
     }
     else
     {
-        if (gGMData.state.bits.state_1)
+        if (gGMData.state.bits.monster_merged)
         {
             proc->timer = 12;
         }
@@ -2047,7 +2024,7 @@ void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
 
     Sound_FadeOutBGM(4);
 
-    if ((gGMData.state.bits.state_1) || (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME))
+    if ((gGMData.state.bits.monster_merged) || (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME))
     {
         sub_80BA008(proc->timer);
     }

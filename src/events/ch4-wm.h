@@ -6,8 +6,10 @@
 #include "eventcall.h"
 #include "eventscript.h"
 #include "ea-stdlib.h"
+#include "worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
+#include "constants/worldmap.h"
 
 CONST_DATA EventScr EventScrWM_Ch4_Beginning[] = {
     EVBIT_MODIFY(0x1)
@@ -43,8 +45,8 @@ CONST_DATA EventScr EventScrWM_Ch4_ChapterIntro[] = {
     TEXTCONT
     TEXTEND
     WM_WAITFORSPRITES(WM_MU_ANY)
-    PUTSPRITE(WM_MU_2, CLASS_REVENANT, FACTION_ID_GREEN, WM_NODE_BorderMulan)
-    PUTSPRITE(WM_MU_3, CLASS_REVENANT, FACTION_ID_GREEN, WM_NODE_BorderMulan)
+    PUTSPRITE(WM_MU_2, CLASS_REVENANT, WM_FACTION_RED, WM_NODE_BorderMulan)
+    PUTSPRITE(WM_MU_3, CLASS_REVENANT, WM_FACTION_RED, WM_NODE_BorderMulan)
     WM_PUTSPRITE(WM_MU_2, 0x8c, 0xa8)
     WM_PUTSPRITE(WM_MU_3, 0x9e, 0xa8)
     WM_FADEINSPRITE(WM_MU_2, 60)

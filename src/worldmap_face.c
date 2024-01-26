@@ -2,6 +2,7 @@
 
 #include "face.h"
 #include "hardware.h"
+#include "worldmap.h"
 
 struct WMFaceWrapper {
     /* 00 */ s16 unk_00; // x?

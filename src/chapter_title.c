@@ -151,7 +151,7 @@ int sub_808979C(struct PlaySt* chapterData) {
 
     unk = sub_80BCFDC(chapterData->chapterIndex);
 
-    if ((chapterData->chapterStateBits & PLAY_FLAG_POSTGAME) || sub_80BD014(&gGMData) != unk) {
+    if ((chapterData->chapterStateBits & PLAY_FLAG_POSTGAME) || GetNextUnclearedNode(&gGMData) != unk) {
 
         for (i = 0; i < gWMMonsterSpawnsSize; i++) {
 

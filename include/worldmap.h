@@ -4,6 +4,22 @@
 #include "proc.h"
 #include "hardware.h"
 
+enum worldmap_unit_alignace {
+    WM_FACTION_BLUE  = 0,
+    WM_FACTION_RED   = 1,
+    WM_FACTION_GREEN = 2,
+};
+
+struct Unknown08206498
+{
+    /* 00 */ u16 unk_00;
+    /* 02 */ STRUCT_PAD(0x02, 0x04);
+    /* 04 */ u16 * pSpriteData;
+    /* 08 */ s8 x;
+    /* 09 */ s8 y;
+    /* 0A */ STRUCT_PAD(0x0A, 0x0C);
+};
+
 struct GmRouteProc
 {
     /* 00 */ PROC_HEADER;
@@ -262,6 +278,9 @@ struct WorldMapMainProc
     /* 54 */ ProcPtr unk_54; // Gmap MU
 };
 
+#define GM_SCREEN (((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->gm_screen)
+#define GM_MU     (((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_54)
+
 struct GMapMovementPathData
 {
     /* 00 */ int elapsedTime;
@@ -299,8 +318,8 @@ struct GMapNodeData
     /* 01 */ s8 encounters;
     /* 02 */ u8 iconPreClear;
     /* 03 */ u8 iconPostClear;
-    /* 04 */ u8 unk_04;  // chapter ID start
-    /* 05 */ u8 unk_05;  // chapter ID end
+    /* 04 */ u8 chapteridx_eirika;  // chapter ID start
+    /* 05 */ u8 chapteridx_ephram;  // chapter ID end
     /* 06 */ s16 unk_06; // event condition flag
     /* 08 */ s8 unk_08[4]; // next destination id
     /* 0C */ u16 * armory;
@@ -339,8 +358,8 @@ struct WMSongTableEnt
 
 extern struct WMSongTableEnt gWMSongTable[];
 
-extern u8 gWMMonsterSpawnsSize;
-extern u8 gWMMonsterSpawnLocations[];
+extern u8 const gWMMonsterSpawnsSize;
+extern u8 const gWMMonsterSpawnLocations[];
 
 extern struct ProcCmd gProcScr_WorldMapMain[];
 
@@ -357,6 +376,138 @@ struct ProcGmapSogu {
 
     /* 64 */ s16 timer;
 };
+
+enum gm_unit_state_bitfile {
+    GM_UNIT_STATE_B0 = 1 << 0,
+    GM_UNIT_STATE_B1 = 1 << 1,
+    GM_UNIT_STATE_B2 = 1 << 2,
+    GM_UNIT_STATE_B3 = 1 << 3,
+    GM_UNIT_STATE_B4 = 1 << 4,
+    GM_UNIT_STATE_B5 = 1 << 5,
+    GM_UNIT_STATE_B6 = 1 << 6,
+    GM_UNIT_STATE_B7 = 1 << 7,
+};
+
+struct GMUnit {
+    /* 00 */ u8 state;
+    /* 01 */ u8 location;
+    /* 02 */ s16 id; // character or class ID
+};
+
+struct GMNode {
+    /* 00 */ u8 state;
+};
+
+/* GMNode::state */
+enum gm_node_states {
+    GM_NODE_STATE_VALID = (1 << 0),
+    GM_NODE_STATE_CLEARED = (1 << 1),
+};
+
+union GMStateBits {
+    u8 raw;
+    struct {
+        u8 state_0   : 1;
+        u8 monster_merged : 1;
+        u8 state_2   : 1;
+        u8 state_3   : 1;
+        u8 state_4_5 : 2;
+        u8 state_6   : 1;
+        u8 state_7   : 1;
+    } __attribute__((packed)) bits;
+} __attribute__((packed));
+
+struct OpenPaths {
+    s8 openPaths[0x20];
+    s8 openPathsLength;
+};
+
+struct GMapData
+{
+    /* 00 */ union GMStateBits state;
+    /* 01 */ u8 unk01;
+    /* 02 */ short xCamera;
+    /* 04 */ short yCamera;
+    /* 08 */ s32 unk08;
+    /* 0C */ s32 unk0C;
+    /* 10 */ struct GMUnit units[8];
+    /* 30 */ struct GMNode nodes[0x1C];
+    /* A0 */ int unk_a0; // pad?
+    /* A4 */ struct OpenPaths openPaths;
+    /* C8 */ u8 unk_c8; // entry node id?
+    /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
+    /* CC */ u8 unk_cc; // used to determine which skirmish enemy block to load
+    /* CD */ u8 unk_cd;
+    /* CE */ u16 unk_ce;
+};
+
+enum
+{
+    // For use with GMapData:state
+
+    GMAP_STATE_BIT0 = (1 << 0),
+    GMAP_STATE_MONSTER_MERGED = (1 << 1),
+    GMAP_STATE_BIT2 = (1 << 2),
+    GMAP_STATE_BIT3 = (1 << 3),
+    GMAP_STATE_BIT4 = (1 << 4),
+    GMAP_STATE_BIT5 = (1 << 5),
+    GMAP_STATE_BIT6 = (1 << 6),
+    GMAP_STATE_BIT7 = (1 << 7),
+};
+
+enum world_map_monster_location_idx {
+    WM_MON_LOC_0 = 0,
+    WM_MON_LOC_1,
+    WM_MON_LOC_2,
+    WM_MON_LOC_3,
+    WM_MON_LOC_4,
+    WM_MON_LOC_5,
+    WM_MON_LOC_6,
+    WM_MON_LOC_7,
+    WM_MON_LOC_8,
+
+    WM_MON_LOC_MAX
+};
+
+#define WM_MONS_UID_ENTRY 4 /* monsters use gGMData.units[3]/[4]/[5] */
+#define WM_MONS_AMT 3
+#define WM_MONS_UID_END (WM_MONS_UID_ENTRY + WM_MONS_AMT)
+
+struct GmapTimeMonsConf {
+    u8 node;
+    u8 jid;
+    u8 unk2;
+    u8 unk3;
+};
+
+struct ProcGmapTimeMons {
+    PROC_HEADER;
+
+    /* 29 */ bool trigger;
+    /* 2C */ struct GmapTimeMonsConf confs[WM_MONS_AMT];
+    /* 38 */ u8 monster_amt;
+    /* 3C */ ProcPtr ap_procs[WM_MONS_AMT];
+};
+
+extern const u8 WmMonsterGenerateRatesIdx_EirikaMode[11];
+extern const u8 WmMonsterGenerateRatesIdx_EphraimMode[11];
+extern const u8 WmMonsterGenerateRates_EirikaMode[WM_MON_LOC_MAX * 10];
+extern const u8 WmMonsterGenerateRates_XmapEirika[WM_MON_LOC_MAX];
+extern const u8 WmMonsterGenerateRates_EphraimMode[WM_MON_LOC_MAX * 10];
+extern const u8 WmMonsterGenerateRates_XmapEphraim[WM_MON_LOC_MAX];
+
+// ??? GetWmMonsterGenAmount(???);
+// ??? GenerateRandomonsterMergeNode(???);
+// ??? GenerateRandomonsterMergeConf(???);
+// ??? nullsub_72(???);
+// ??? GmapTimeMons_Init(???);
+// ??? GmapTimeMons_ExecMonsterMergeMu(???);
+// ??? GmapTimeMons_WaitSpriteDone(???);
+ProcPtr NewGmapTimeMons(ProcPtr parent, int * monster_amt);
+void WmRemoveRandomMonsters(void);
+void WmMergeMonsters(void);
+void WmShowMonsters(void);
+bool GmapTimeMonsExists(void);
 
 bool GmapSugoAdvance(s16 x, s16 y, s16 * outx, s16 * outy);
 // ??? GmapSogu_End(???);
@@ -430,10 +581,10 @@ void sub_80B9AEC(struct WorldMapMainProc *proc);
 void WorldMap_InitChapterTransition(struct WorldMapMainProc *proc);
 void sub_80B9BA4(struct WorldMapMainProc *proc);
 void WorldMap_WaitForChapterIntroEvents(ProcPtr proc);
-void sub_80B9D04(void);
-void sub_80B9D14(ProcPtr proc);
-void sub_80B9DB8(void);
-void sub_80B9DC4(ProcPtr proc);
+void WorldMap_SetMonsterMergedState(void);
+void WorldMap_GenerateRandomMonsters(ProcPtr proc);
+void _WmMergeMonsters(void);
+void WorldMap_WaitMonsterMerging(ProcPtr proc);
 void Worlmap_StartGmapSogu(struct WorldMapMainProc * proc);
 void Worlmap_WaitGmapSogu(ProcPtr proc);
 // ??? sub_80B9E64(???);
@@ -512,9 +663,9 @@ ProcPtr GetGmapUnitFade(void);
 // ??? sub_80BB49C(???);
 void sub_80BB4C0(int index, int arg1, ProcPtr parent);
 void sub_80BB538(int index, int arg1, ProcPtr parent);
-int WMLoc_GetChapterId(int);
+int WMLoc_GetChapterId(int node);
 int WMLoc_GetNextLocId(int idx);
-int sub_80BB628(void * unused, int arg1, int arg2, int arg3, int arg4);
+int GetNodeAtPosition(void * unused, int arg1, int arg2, int arg3, int arg4);
 // ??? sub_80BB6FC(???);
 // ??? sub_80BB708(???);
 // ??? GmapScreen2_Destruct(???);
@@ -586,8 +737,8 @@ s8 sub_80BCCFC(s8, s8, int);
 int sub_80BCE34(int, int, s16, void *, void *, int);
 void sub_80BCFB4(void); // GM_ClearAllStoryLocations
 int sub_80BCFDC(int);
-int sub_80BD014(struct GMapData*); // Get next WM Destination?
-unsigned int sub_80BD048(void);
+int GetNextUnclearedNode(struct GMapData*); // Get next WM Destination?
+unsigned int GetNextUnclearedChapter(void);
 unsigned int GetChapterThing(void);
 int sub_80BD20C(int);
 int sub_80BD224(struct GMapData*);
@@ -773,18 +924,7 @@ void sub_80C09B8(void);
 struct GmapEffectProc * StartGmapEffect(ProcPtr, int);
 // ??? sub_80C13CC(???);
 void EndGmapEffect(void);
-// ??? sub_80C16F4(???);
-// ??? sub_80C1724(???);
-// ??? sub_80C1774(???);
-// ??? nullsub_72(???);
-// ??? sub_80C18EC(???);
-// ??? sub_80C1920(???);
-// ??? sub_80C1A58(???);
-void sub_80C1A74(int, int*);
-void sub_80C1AB0(void);
-void sub_80C1ADC(void);
-void sub_80C1AF8(void);
-s8 sub_80C1BE0(void);
+
 // ??? sub_80C1BF8(???);
 void sub_80C1D00(void);
 void sub_80C1D70(void);
@@ -794,7 +934,7 @@ void sub_80C1DD8(int, int);
 void sub_80C1DE8(int);
 // ??? sub_80C1DFC(???);
 // ??? sub_80C1E14(???);
-// ??? sub_80C1E2C(???);
+// ??? GmapRmUpdate1_Loop(???);
 // ??? sub_80C1E40(???);
 // ??? sub_80C1E54(???);
 // ??? sub_80C1E70(???);
@@ -846,11 +986,11 @@ void WmShowNationHighlightedMap(int, int); // FEBuilder: "Display place name of 
 void sub_80C2B7C(int);
 int sub_80C2BC4(int);
 void sub_80C2C10(int);
-// ??? sub_80C2C54(???);
-// ??? sub_80C2C58(???);
+// ??? GmapRmBaPalAnim_End(???);
+// ??? GmapRmBaPalAnim_Init(???);
 // ??? sub_80C2C80(???);
-// ??? sub_80C2D44(???);
-// ??? sub_80C2DA4(???);
+// ??? GmapRmBaPalAnim_Loop1(???);
+// ??? GmapRmBaPalAnim_Loop2(???);
 // ??? sub_80C2E04(???);
 // ??? sub_80C2E28(???);
 // ??? sub_80C2E38(???);
@@ -959,7 +1099,7 @@ void sub_80C409C(int);
 // extern ??? gProcScr_GmapUnit
 // extern ??? gProcScr_GmapUnitContainer
 // extern ??? gProcScr_GmapUnitFade
-// extern ??? gProcScr_GmNodeIconDisplay
+extern struct ProcCmd gProcScr_GmNodeIconDisplay[];
 // extern ??? gProcScr_GmapCursor
 // extern ??? gProcScr_GMapRoute
 // extern ??? gMenu_WMGeneralMenu
@@ -995,13 +1135,13 @@ extern struct ProcCmd gProcScr_WorldmapStatusUi[];
 // extern ??? gProcScr_GmapEffectPal
 // extern ??? gProcScr_GmapEffect
 extern struct ProcCmd ProcScr_GmapSogu[];
-// extern ??? ProcScr_GmapTimeMons
+extern struct ProcCmd ProcScr_GmapTimeMons[];
 // extern ??? ProcScr_GmapRmUpdate1
 // extern ??? ProcScr_GmapRmUpdate2
 // extern ??? ProcScr_GmapRM
 // extern ??? ProcScr_GmapRmBaPalAnim
 // extern ??? ProcScr_GmapRmBorder
-// extern ??? gUnknown_08A3ECB0
+// extern ??? ProcScr_GmapRmBaPalAnim2
 // extern ??? gUnknown_08A3ED10
 // extern ??? gUnknown_08A3ED18
 // extern ??? gUnknown_08A3ED60

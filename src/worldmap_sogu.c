@@ -10,8 +10,8 @@
 bool GmapSugoAdvance(s16 x, s16 y, s16 * outx, s16 * outy)
 {
     short _x, _y;
-    *&_x = ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->gm_screen->x;
-    *&_y = ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->gm_screen->y;
+    *&_x = GM_SCREEN->x;
+    *&_y = GM_SCREEN->y;
 
     *outx = x - _x;
     *outy = y - _y;

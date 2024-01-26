@@ -2,690 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80C16F4
-sub_80C16F4: @ 0x080C16F4
-	push {r4, r5, r6, lr}
-	movs r6, #0
-	ldr r2, _080C1720  @ gUnknown_08206954
-	lsls r1, r0, #1
-	adds r1, r1, r0
-	lsls r1, r1, #2
-	adds r4, r1, r2
-	movs r5, #2
-_080C1704:
-	bl NextRN_100
-	ldr r1, [r4]
-	cmp r0, r1
-	bge _080C1710
-	adds r6, #1
-_080C1710:
-	adds r4, #4
-	subs r5, #1
-	cmp r5, #0
-	bge _080C1704
-	adds r0, r6, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080C1720: .4byte gUnknown_08206954
-
-	THUMB_FUNC_END sub_80C16F4
-
-	THUMB_FUNC_START sub_80C1724
-sub_80C1724: @ 0x080C1724
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	adds r4, r1, #0
-	movs r2, #0
-	movs r1, #0
-	cmp r1, r4
-	bge _080C173E
-_080C1732:
-	adds r0, r5, r1
-	ldrb r0, [r0]
-	adds r2, r2, r0
-	adds r1, #1
-	cmp r1, r4
-	blt _080C1732
-_080C173E:
-	cmp r2, #0
-	bne _080C1748
-	movs r0, #1
-	negs r0, r0
-	b _080C176E
-_080C1748:
-	adds r0, r2, #0
-	bl NextRN_N
-	adds r3, r0, #0
-	movs r1, #0
-	cmp r1, r4
-	bge _080C176C
-	ldrb r2, [r5]
-	cmp r3, r2
-	blt _080C176C
-_080C175C:
-	adds r1, #1
-	cmp r1, r4
-	bge _080C176C
-	adds r0, r5, r1
-	ldrb r0, [r0]
-	adds r2, r2, r0
-	cmp r3, r2
-	bge _080C175C
-_080C176C:
-	adds r0, r1, #0
-_080C176E:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80C1724
-
-	THUMB_FUNC_START sub_80C1774
-sub_80C1774: @ 0x080C1774
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x1c
-	adds r3, r0, #0
-	str r1, [sp, #0x18]
-	cmp r3, #0
-	blt _080C1800
-	cmp r3, #9
-	ble _080C17F4
-	cmp r3, #0x38
-	beq _080C17F4
-	cmp r3, #0
-	blt _080C1800
-	ldr r0, _080C17BC  @ gPlaySt
-	ldrb r0, [r0, #0x1b]
-	cmp r0, #2
-	beq _080C17A0
-	cmp r0, #3
-	beq _080C17C8
-_080C17A0:
-	movs r2, #0
-	ldr r4, _080C17C0  @ gUnknown_082069D8
-	ldrb r0, [r4]
-	ldr r1, _080C17C4  @ gUnknown_082069EE
-	cmp r0, r3
-	beq _080C17E2
-_080C17AC:
-	adds r2, #1
-	cmp r2, #0xa
-	bhi _080C17E2
-	adds r0, r2, r4
-	ldrb r0, [r0]
-	cmp r0, r3
-	bne _080C17AC
-	b _080C17E2
-	.align 2, 0
-_080C17BC: .4byte gPlaySt
-_080C17C0: .4byte gUnknown_082069D8
-_080C17C4: .4byte gUnknown_082069EE
-_080C17C8:
-	movs r2, #0
-	ldr r4, _080C17F8  @ gUnknown_082069E3
-	ldrb r0, [r4]
-	ldr r1, _080C17FC  @ gUnknown_08206A51
-	cmp r0, r3
-	beq _080C17E2
-_080C17D4:
-	adds r2, #1
-	cmp r2, #0xa
-	bhi _080C17E2
-	adds r0, r2, r4
-	ldrb r0, [r0]
-	cmp r0, r3
-	bne _080C17D4
-_080C17E2:
-	lsls r0, r2, #3
-	adds r0, r0, r2
-	adds r4, r0, r1
-	adds r0, r2, #0
-	bl sub_80C16F4
-	mov r8, r0
-	cmp r0, #0
-	bgt _080C1822
-_080C17F4:
-	movs r0, #0
-	b _080C18C2
-	.align 2, 0
-_080C17F8: .4byte gUnknown_082069E3
-_080C17FC: .4byte gUnknown_08206A51
-_080C1800:
-	ldr r0, _080C1810  @ gPlaySt
-	ldrb r0, [r0, #0x1b]
-	cmp r0, #2
-	beq _080C180C
-	cmp r0, #3
-	beq _080C181C
-_080C180C:
-	ldr r4, _080C1814  @ gUnknown_08206A48
-	b _080C181E
-	.align 2, 0
-_080C1810: .4byte gPlaySt
-_080C1814: .4byte gUnknown_08206A48
-_080C1818:
-	adds r0, r6, #0
-	b _080C18C2
-_080C181C:
-	ldr r4, _080C18D4  @ gUnknown_08206AAB
-_080C181E:
-	movs r0, #3
-	mov r8, r0
-_080C1822:
-	mov r0, sp
-	adds r1, r4, #0
-	movs r2, #9
-	bl memcpy
-	movs r6, #0
-	add r1, sp, #0x10
-	mov sl, r1
-	ldr r3, _080C18D8  @ gWMMonsterSpawnLocations
-	ldr r0, _080C18DC  @ gGMData
-	ldrb r1, [r0, #0x11]
-	movs r2, #0
-_080C183A:
-	adds r0, r6, r3
-	ldrb r0, [r0]
-	cmp r0, r1
-	bne _080C1848
-	mov r4, sp
-	adds r0, r4, r6
-	strb r2, [r0]
-_080C1848:
-	adds r6, #1
-	cmp r6, #8
-	bls _080C183A
-	mov r0, sl
-	bl StoreRNState
-	ldr r5, _080C18E0  @ gGmMonsterRnState
-	adds r0, r5, #0
-	bl LoadRNState
-	movs r6, #0
-	cmp r6, r8
-	bge _080C18B4
-	mov r9, r6
-	add r7, sp, #0xc
-	ldr r4, [sp, #0x18]
-_080C1868:
-	mov r0, sp
-	movs r1, #9
-	bl sub_80C1724
-	adds r5, r0, #0
-	cmp r5, #0
-	blt _080C1818
-	ldr r0, _080C18D8  @ gWMMonsterSpawnLocations
-	adds r0, r5, r0
-	ldrb r0, [r0]
-	strb r0, [r4]
-	ldrb r0, [r4]
-	bl WMLoc_GetChapterId
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r1, r7, #0
-	bl GetChapterSkirmishLeaderClasses
-	movs r0, #3
-	bl NextRN_N
-	adds r1, r7, r0
-	ldrb r1, [r1]
-	strb r1, [r4, #1]
-	mov r1, r9
-	strb r1, [r4, #2]
-	ldr r2, _080C18E4  @ gUnknown_03005349
-	adds r1, r6, r2
-	strb r0, [r1]
-	mov r1, sp
-	adds r0, r1, r5
-	mov r2, r9
-	strb r2, [r0]
-	adds r4, #4
-	adds r6, #1
-	cmp r6, r8
-	blt _080C1868
-_080C18B4:
-	ldr r0, _080C18E0  @ gGmMonsterRnState
-	bl StoreRNState
-	mov r0, sl
-	bl LoadRNState
-	mov r0, r8
-_080C18C2:
-	add sp, #0x1c
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080C18D4: .4byte gUnknown_08206AAB
-_080C18D8: .4byte gWMMonsterSpawnLocations
-_080C18DC: .4byte gGMData
-_080C18E0: .4byte gGmMonsterRnState
-_080C18E4: .4byte gUnknown_03005349
-
-	THUMB_FUNC_END sub_80C1774
-
-	THUMB_FUNC_START nullsub_72
-nullsub_72: @ 0x080C18E8
-	bx lr
-
-	THUMB_FUNC_END nullsub_72
-
-	THUMB_FUNC_START sub_80C18EC
-sub_80C18EC: @ 0x080C18EC
-	push {r4, lr}
-	adds r4, r0, #0
-	adds r1, r4, #0
-	adds r1, #0x29
-	movs r0, #0
-	strb r0, [r1]
-	bl sub_80BD048
-	adds r1, r4, #0
-	adds r1, #0x2c
-	bl sub_80C1774
-	adds r1, r4, #0
-	adds r1, #0x38
-	strb r0, [r1]
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080C1918
-	adds r0, r4, #0
-	movs r1, #0
-	bl Proc_Goto
-_080C1918:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C18EC
-
-	THUMB_FUNC_START sub_80C1920
-sub_80C1920: @ 0x080C1920
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x18
-	adds r7, r0, #0
-	adds r0, #0x29
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _080C1A30
-	ldr r0, _080C1A40  @ gPlaySt
-	adds r0, #0x41
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _080C194C
-	ldr r0, _080C1A44  @ 0x00000312
-	bl m4aSongNumStart
-_080C194C:
-	movs r6, #0
-	adds r0, r7, #0
-	adds r0, #0x38
-	str r0, [sp, #0x10]
-	ldrb r0, [r0]
-	cmp r6, r0
-	bge _080C1A2A
-	add r1, sp, #8
-	mov sl, r1
-	movs r2, #0xa
-	add r2, sp
-	mov r9, r2
-	add r3, sp, #0xc
-	mov r8, r3
-	adds r5, r7, #0
-	adds r5, #0x2c
-	movs r0, #0
-	str r0, [sp, #0x14]
-_080C1970:
-	ldrb r0, [r5]
-	lsls r0, r0, #5
-	ldr r1, _080C1A48  @ gWMNodeData
-	adds r0, r0, r1
-	ldrh r0, [r0, #0x18]
-	mov r2, sl
-	strh r0, [r2]
-	ldrb r0, [r5]
-	lsls r0, r0, #5
-	adds r0, r0, r1
-	ldrh r0, [r0, #0x1a]
-	mov r3, r9
-	strh r0, [r3]
-	ldr r0, _080C1A4C  @ gProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x44]
-	ldrh r0, [r0, #0x34]
-	mov r1, r8
-	strh r0, [r1]
-	mov r4, sp
-	adds r4, #0xe
-	ldr r0, _080C1A4C  @ gProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x44]
-	ldrh r2, [r0, #0x36]
-	strh r2, [r4]
-	mov r3, sl
-	ldrh r0, [r3]
-	mov r3, r8
-	ldrh r1, [r3]
-	subs r0, r0, r1
-	lsls r0, r0, #0x10
-	lsrs r1, r0, #0x10
-	mov r3, r9
-	ldrh r0, [r3]
-	subs r0, r0, r2
-	adds r0, #8
-	lsls r2, r0, #0x10
-	lsrs r0, r2, #0x10
-	cmp r0, #0xaf
-	bhi _080C19EE
-	lsls r1, r1, #0x10
-	lsrs r0, r1, #0x10
-	cmp r0, #0xef
-	bhi _080C19EE
-	asrs r1, r1, #0x10
-	asrs r2, r2, #0x10
-	movs r0, #0
-	str r0, [sp]
-	movs r0, #7
-	str r0, [sp, #4]
-	ldr r0, _080C1A50  @ gUnknown_08A97AEC
-	movs r3, #0xe2
-	lsls r3, r3, #6
-	bl APProc_Create
-	adds r1, r7, #0
-	adds r1, #0x3c
-	ldr r2, [sp, #0x14]
-	adds r1, r1, r2
-	str r0, [r1]
-_080C19EE:
-	adds r4, r6, #4
-	ldrb r1, [r5, #1]
-	ldrb r3, [r5]
-	adds r0, r4, #0
-	movs r2, #1
-	bl SetGmClassUnit
-	ldr r0, _080C1A54  @ gGMData
-	lsls r1, r4, #2
-	adds r1, r1, r0
-	ldrb r2, [r1, #0x10]
-	movs r0, #1
-	orrs r0, r2
-	strb r0, [r1, #0x10]
-	ldr r0, _080C1A4C  @ gProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x54]
-	adds r1, r4, #0
-	bl GmMu_ShowUnit
-	adds r5, #4
-	ldr r3, [sp, #0x14]
-	adds r3, #4
-	str r3, [sp, #0x14]
-	adds r6, #1
-	ldr r0, [sp, #0x10]
-	ldrb r0, [r0]
-	cmp r6, r0
-	blt _080C1970
-_080C1A2A:
-	adds r0, r7, #0
-	bl Proc_Break
-_080C1A30:
-	add sp, #0x18
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C1A40: .4byte gPlaySt
-_080C1A44: .4byte 0x00000312
-_080C1A48: .4byte gWMNodeData
-_080C1A4C: .4byte gProcScr_WorldMapMain
-_080C1A50: .4byte gUnknown_08A97AEC
-_080C1A54: .4byte gGMData
-
-	THUMB_FUNC_END sub_80C1920
-
-	THUMB_FUNC_START sub_80C1A58
-sub_80C1A58: @ 0x080C1A58
-	push {r4, lr}
-	adds r4, r0, #0
-	bl APProc_Exists
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080C1A6C
-	adds r0, r4, #0
-	bl Proc_Break
-_080C1A6C:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C1A58
-
-	THUMB_FUNC_START sub_80C1A74
-sub_80C1A74: @ 0x080C1A74
-	push {r4, lr}
-	adds r2, r0, #0
-	adds r4, r1, #0
-	cmp r2, #0
-	bne _080C1A8C
-	ldr r0, _080C1A88  @ ProcScr_GmapTimeMons
-	movs r1, #3
-	bl Proc_Start
-	b _080C1A94
-	.align 2, 0
-_080C1A88: .4byte ProcScr_GmapTimeMons
-_080C1A8C:
-	ldr r0, _080C1AAC  @ ProcScr_GmapTimeMons
-	adds r1, r2, #0
-	bl Proc_StartBlocking
-_080C1A94:
-	adds r1, r0, #0
-	cmp r4, #0
-	beq _080C1AA2
-	adds r0, r1, #0
-	adds r0, #0x38
-	ldrb r0, [r0]
-	str r0, [r4]
-_080C1AA2:
-	adds r0, r1, #0
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080C1AAC: .4byte ProcScr_GmapTimeMons
-
-	THUMB_FUNC_END sub_80C1A74
-
-	THUMB_FUNC_START sub_80C1AB0
-sub_80C1AB0: @ 0x080C1AB0
-	push {r4, lr}
-	ldr r0, _080C1AD4  @ ProcScr_GmapTimeMons
-	bl Proc_EndEach
-	movs r4, #0
-_080C1ABA:
-	ldr r0, _080C1AD8  @ gProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x54]
-	adds r1, r4, #4
-	bl GmMu_RemoveUnit
-	adds r4, #1
-	cmp r4, #2
-	ble _080C1ABA
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C1AD4: .4byte ProcScr_GmapTimeMons
-_080C1AD8: .4byte gProcScr_WorldMapMain
-
-	THUMB_FUNC_END sub_80C1AB0
-
-	THUMB_FUNC_START sub_80C1ADC
-sub_80C1ADC: @ 0x080C1ADC
-	push {lr}
-	ldr r0, _080C1AF4  @ ProcScr_GmapTimeMons
-	bl Proc_Find
-	cmp r0, #0
-	beq _080C1AF0
-	adds r1, r0, #0
-	adds r1, #0x29
-	movs r0, #1
-	strb r0, [r1]
-_080C1AF0:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C1AF4: .4byte ProcScr_GmapTimeMons
-
-	THUMB_FUNC_END sub_80C1ADC
-
-	THUMB_FUNC_START sub_80C1AF8
-sub_80C1AF8: @ 0x080C1AF8
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	sub sp, #8
-	movs r6, #4
-	ldr r0, _080C1B54  @ gGMData
-	add r1, sp, #4
-	mov r8, r1
-	adds r5, r0, #0
-	adds r5, #0x10
-	ldr r3, _080C1B58  @ gWMNodeData
-	mov r9, r3
-	mov r7, sp
-	adds r7, #6
-_080C1B16:
-	movs r1, #0x12
-	ldrsh r0, [r5, r1]
-	cmp r0, #0
-	beq _080C1BC6
-	ldrb r1, [r5, #0x10]
-	movs r4, #2
-	adds r0, r4, #0
-	ands r0, r1
-	cmp r0, #0
-	beq _080C1B60
-	ldr r0, _080C1B5C  @ gProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r3, [r0, #0x54]
-	ldrb r1, [r5, #0x10]
-	adds r0, r4, #0
-	ands r0, r1
-	movs r2, #0
-	cmp r0, #0
-	beq _080C1B42
-	movs r0, #0x12
-	ldrsh r2, [r5, r0]
-_080C1B42:
-	ldrb r0, [r5, #0x11]
-	str r0, [sp]
-	adds r0, r3, #0
-	adds r1, r6, #0
-	movs r3, #1
-	negs r3, r3
-	bl MapMU_SetUnitClass
-	b _080C1B88
-	.align 2, 0
-_080C1B54: .4byte gGMData
-_080C1B58: .4byte gWMNodeData
-_080C1B5C: .4byte gProcScr_WorldMapMain
-_080C1B60:
-	ldr r0, _080C1BDC  @ gProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r3, [r0, #0x54]
-	ldrb r1, [r5, #0x10]
-	adds r0, r4, #0
-	ands r0, r1
-	movs r2, #0
-	cmp r0, #0
-	bne _080C1B78
-	movs r1, #0x12
-	ldrsh r2, [r5, r1]
-_080C1B78:
-	ldrb r0, [r5, #0x11]
-	str r0, [sp]
-	adds r0, r3, #0
-	adds r1, r6, #0
-	movs r3, #1
-	negs r3, r3
-	bl MapMU_SetUnitChar
-_080C1B88:
-	ldrb r0, [r5, #0x11]
-	lsls r0, r0, #5
-	add r0, r9
-	ldrh r0, [r0, #0x18]
-	mov r3, r8
-	strh r0, [r3]
-	ldrb r0, [r5, #0x11]
-	lsls r0, r0, #5
-	add r0, r9
-	ldrh r0, [r0, #0x1a]
-	strh r0, [r7]
-	ldr r4, _080C1BDC  @ gProcScr_WorldMapMain
-	adds r0, r4, #0
-	bl Proc_Find
-	ldr r0, [r0, #0x54]
-	mov r1, r8
-	movs r3, #0
-	ldrsh r2, [r1, r3]
-	movs r1, #0
-	ldrsh r3, [r7, r1]
-	adds r1, r6, #0
-	bl GmMu_SetPosition
-	adds r0, r4, #0
-	bl Proc_Find
-	ldr r0, [r0, #0x54]
-	adds r1, r6, #0
-	bl GmMu_ShowUnit
-_080C1BC6:
-	adds r5, #4
-	adds r6, #1
-	cmp r6, #6
-	ble _080C1B16
-	add sp, #8
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C1BDC: .4byte gProcScr_WorldMapMain
-
-	THUMB_FUNC_END sub_80C1AF8
-
-	THUMB_FUNC_START sub_80C1BE0
-sub_80C1BE0: @ 0x080C1BE0
-	push {lr}
-	ldr r0, _080C1BF4  @ ProcScr_GmapTimeMons
-	bl Proc_Find
-	cmp r0, #0
-	beq _080C1BEE
-	movs r0, #1
-_080C1BEE:
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080C1BF4: .4byte ProcScr_GmapTimeMons
-
-	THUMB_FUNC_END sub_80C1BE0
-
 	THUMB_FUNC_START sub_80C1BF8
 sub_80C1BF8: @ 0x080C1BF8
 	push {r4, r5, r6, lr}
@@ -991,8 +307,8 @@ _080C1E28: .4byte gUnknown_0201C5CC
 
 	THUMB_FUNC_END sub_80C1E14
 
-	THUMB_FUNC_START sub_80C1E2C
-sub_80C1E2C: @ 0x080C1E2C
+	THUMB_FUNC_START GmapRmUpdate1_Loop
+GmapRmUpdate1_Loop: @ 0x080C1E2C
 	push {lr}
 	ldr r0, [r0, #0x14]
 	ldrh r1, [r0, #0x2e]
@@ -1002,7 +318,7 @@ sub_80C1E2C: @ 0x080C1E2C
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80C1E2C
+	THUMB_FUNC_END GmapRmUpdate1_Loop
 
 	THUMB_FUNC_START sub_80C1E40
 sub_80C1E40: @ 0x080C1E40
@@ -2914,14 +2230,14 @@ _080C2C4A:
 
 	THUMB_FUNC_END sub_80C2C10
 
-	THUMB_FUNC_START sub_80C2C54
-sub_80C2C54: @ 0x080C2C54
+	THUMB_FUNC_START GmapRmBaPalAnim_End
+GmapRmBaPalAnim_End: @ 0x080C2C54
 	bx lr
 
-	THUMB_FUNC_END sub_80C2C54
+	THUMB_FUNC_END GmapRmBaPalAnim_End
 
-	THUMB_FUNC_START sub_80C2C58
-sub_80C2C58: @ 0x080C2C58
+	THUMB_FUNC_START GmapRmBaPalAnim_Init
+GmapRmBaPalAnim_Init: @ 0x080C2C58
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080C2C7C  @ gUnknown_08AA11B0
@@ -2941,7 +2257,7 @@ sub_80C2C58: @ 0x080C2C58
 	.align 2, 0
 _080C2C7C: .4byte gUnknown_08AA11B0
 
-	THUMB_FUNC_END sub_80C2C58
+	THUMB_FUNC_END GmapRmBaPalAnim_Init
 
 	THUMB_FUNC_START sub_80C2C80
 sub_80C2C80: @ 0x080C2C80
@@ -3041,8 +2357,8 @@ _080C2CA6:
 
 	THUMB_FUNC_END sub_80C2C80
 
-	THUMB_FUNC_START sub_80C2D44
-sub_80C2D44: @ 0x080C2D44
+	THUMB_FUNC_START GmapRmBaPalAnim_Loop1
+GmapRmBaPalAnim_Loop1: @ 0x080C2D44
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -3088,10 +2404,10 @@ _080C2D94:
 _080C2D9C: .4byte gUnknown_08AA1190
 _080C2DA0: .4byte gPaletteBuffer + 0x2A0
 
-	THUMB_FUNC_END sub_80C2D44
+	THUMB_FUNC_END GmapRmBaPalAnim_Loop1
 
-	THUMB_FUNC_START sub_80C2DA4
-sub_80C2DA4: @ 0x080C2DA4
+	THUMB_FUNC_START GmapRmBaPalAnim_Loop2
+GmapRmBaPalAnim_Loop2: @ 0x080C2DA4
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -3137,7 +2453,7 @@ _080C2DF4:
 _080C2DFC: .4byte gUnknown_08AA11B0
 _080C2E00: .4byte gPaletteBuffer + 0x2A0
 
-	THUMB_FUNC_END sub_80C2DA4
+	THUMB_FUNC_END GmapRmBaPalAnim_Loop2
 
 	THUMB_FUNC_START sub_80C2E04
 sub_80C2E04: @ 0x080C2E04
@@ -3145,39 +2461,39 @@ sub_80C2E04: @ 0x080C2E04
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _080C2E18
-	ldr r0, _080C2E14  @ gUnknown_08A3ECB0
+	ldr r0, _080C2E14  @ ProcScr_GmapRmBaPalAnim2
 	bl Proc_StartBlocking
 	b _080C2E20
 	.align 2, 0
-_080C2E14: .4byte gUnknown_08A3ECB0
+_080C2E14: .4byte ProcScr_GmapRmBaPalAnim2
 _080C2E18:
-	ldr r0, _080C2E24  @ gUnknown_08A3ECB0
+	ldr r0, _080C2E24  @ ProcScr_GmapRmBaPalAnim2
 	movs r1, #3
 	bl Proc_Start
 _080C2E20:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C2E24: .4byte gUnknown_08A3ECB0
+_080C2E24: .4byte ProcScr_GmapRmBaPalAnim2
 
 	THUMB_FUNC_END sub_80C2E04
 
 	THUMB_FUNC_START sub_80C2E28
 sub_80C2E28: @ 0x080C2E28
 	push {lr}
-	ldr r0, _080C2E34  @ gUnknown_08A3ECB0
+	ldr r0, _080C2E34  @ ProcScr_GmapRmBaPalAnim2
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C2E34: .4byte gUnknown_08A3ECB0
+_080C2E34: .4byte ProcScr_GmapRmBaPalAnim2
 
 	THUMB_FUNC_END sub_80C2E28
 
 	THUMB_FUNC_START sub_80C2E38
 sub_80C2E38: @ 0x080C2E38
 	push {lr}
-	ldr r0, _080C2E4C  @ gUnknown_08A3ECB0
+	ldr r0, _080C2E4C  @ ProcScr_GmapRmBaPalAnim2
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C2E46
@@ -3186,21 +2502,21 @@ _080C2E46:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C2E4C: .4byte gUnknown_08A3ECB0
+_080C2E4C: .4byte ProcScr_GmapRmBaPalAnim2
 
 	THUMB_FUNC_END sub_80C2E38
 
 	THUMB_FUNC_START sub_80C2E50
 sub_80C2E50: @ 0x080C2E50
 	push {lr}
-	ldr r0, _080C2E60  @ gUnknown_08A3ECB0
+	ldr r0, _080C2E60  @ ProcScr_GmapRmBaPalAnim2
 	bl Proc_Find
 	cmp r0, #0
 	bne _080C2E64
 	movs r0, #0
 	b _080C2E6C
 	.align 2, 0
-_080C2E60: .4byte gUnknown_08A3ECB0
+_080C2E60: .4byte ProcScr_GmapRmBaPalAnim2
 _080C2E64:
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -4467,7 +3783,7 @@ sub_80C3770: @ 0x080C3770
 	sub sp, #4
 	adds r4, r0, #0
 	ldr r0, _080C37F4  @ gGMData
-	bl sub_80BD014
+	bl GetNextUnclearedNode
 	cmp r0, #0
 	blt _080C37EA
 	lsls r0, r0, #5

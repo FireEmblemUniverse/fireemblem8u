@@ -23,6 +23,7 @@
 #include "bmlib.h"
 #include "mapanim.h"
 #include "helpbox.h"
+#include "worldmap.h"
 #include "constants/faces.h"
 #include "constants/items.h"
 

@@ -246,7 +246,7 @@ void PutWorldmapStatusDetails(struct WorldmapStatusProc * proc)
         PutNumberOrBlank(TILEMAP_LOCATED(gBG0TilemapBuffer, 23, 17), TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(proc->unit));
     }
 
-    nodeName = GetWorldMapNodeName(sub_80BD014(&gGMData));
+    nodeName = GetWorldMapNodeName(GetNextUnclearedNode(&gGMData));
     x = GetStringTextCenteredPos(72, nodeName);
     Text_Skip(&proc->text[1], 5);
 
