@@ -376,7 +376,7 @@ u8 Event97_WmInitNextStoryNode(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    int nodeId = WMLoc_GetNextLocId(gGMData.unk_c8);
+    int nodeId = WMLoc_GetNextLocId(gGMData.current_node);
 
     if (nodeId < 0)
     {
@@ -510,7 +510,7 @@ u8 Event9C_(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    int nodeId = WMLoc_GetNextLocId(gGMData.unk_c8);
+    int nodeId = WMLoc_GetNextLocId(gGMData.current_node);
 
     if (nodeId >= 0)
     {

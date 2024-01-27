@@ -1,9 +1,7 @@
     .section .data
 
-    @ 0x089E8584
-
     .global gUnknown_089E87EC
-gUnknown_089E87EC:  @ 0x089E87EC
+gUnknown_089E87EC: @ 0x009E87EC
     .4byte 0x00000002
     .4byte EventScr_089F0484
     .4byte 0x00000001
@@ -88,17 +86,17 @@ gUnknown_089E87EC:  @ 0x089E87EC
     .4byte 0x00000000
 
     .global Ch2Events
-Ch2Events:  @ 0x089E8934
+Ch2Events: @ 0x009E8934
     .4byte gUnknown_089E87EC
-    .4byte gFlagBitMaskLut + 0x298
-    .4byte gFlagBitMaskLut + 0x2bc
-    .4byte gFlagBitMaskLut + 0x314
-    .4byte gFlagBitMaskLut + 0x330
-    .4byte gFlagBitMaskLut + 0x334
-    .4byte gFlagBitMaskLut + 0x338
-    .4byte gFlagBitMaskLut + 0x33c
-    .4byte gUnknown_089ED6AC + 0x300
-    .4byte gUnknown_089ED6AC + 0x7f1
+    .4byte 0x089E8814
+    .4byte 0x089E8838
+    .4byte 0x089E8890
+    .4byte 0x089E88AC
+    .4byte 0x089E88B0
+    .4byte 0x089E88B4
+    .4byte 0x089E88B8
+    .4byte 0x089ED9AC
+    .4byte 0x089EDE9D
     .4byte UnitDef_088B42CC
     .4byte UnitDef_088B42CC
     .4byte 0x00000000
@@ -111,7 +109,7 @@ Ch2Events:  @ 0x089E8934
     .4byte EventScr_089F04B4
 
     .global gUnknown_089E8984
-gUnknown_089E8984:  @ 0x089E8984
+gUnknown_089E8984: @ 0x009E8984
     .4byte 0x00070002
     .4byte EventScr_089F134C
     .4byte 0x00400101
@@ -159,17 +157,17 @@ gUnknown_089E8984:  @ 0x089E8984
     .4byte 0x00000000
 
     .global Ch3Events
-Ch3Events:  @ 0x089E8A38
+Ch3Events: @ 0x009E8A38
     .4byte gUnknown_089E8984
-    .4byte gFlagBitMaskLut + 0x424
-    .4byte gFlagBitMaskLut + 0x438
-    .4byte gFlagBitMaskLut + 0x49c
-    .4byte gFlagBitMaskLut + 0x4ac
-    .4byte gFlagBitMaskLut + 0x4b0
-    .4byte gFlagBitMaskLut + 0x4b4
-    .4byte gFlagBitMaskLut + 0x4b8
-    .4byte gUnknown_089ED6AC + 0x301
-    .4byte gUnknown_089ED6AC + 0x7f2
+    .4byte 0x089E89A0
+    .4byte 0x089E89B4
+    .4byte 0x089E8A18
+    .4byte 0x089E8A28
+    .4byte 0x089E8A2C
+    .4byte 0x089E8A30
+    .4byte 0x089E8A34
+    .4byte 0x089ED9AD
+    .4byte 0x089EDE9E
     .4byte UnitDef_088B4574
     .4byte UnitDef_088B4574
     .4byte 0x00000000
@@ -182,37 +180,37 @@ Ch3Events:  @ 0x089E8A38
     .4byte EventScr_089F13CC
 
     .global gUnknown_089E8A88
-gUnknown_089E8A88:  @ 0x089E8A88
+gUnknown_089E8A88: @ 0x009E8A88
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x2f74
+    .4byte EventScr_089F199C
     .4byte 0x00400002
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x31ec
+    .4byte EventScr_089F1C14
     .4byte 0x00000002
     .4byte 0x00080002
-    .4byte gUnknown_089EEA28 + 0x3220
-    .4byte 0x0000ff01
+    .4byte EventScr_089F1C48
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000006
-    .4byte gUnknown_089EEA28 + 0x3110
-    .4byte 0x00100b01
+    .4byte EventScr_089F1B38
+    .4byte 0x00100B01
     .4byte 0x00000005
     .4byte 0x00000001
-    .4byte 0x00200a01
+    .4byte 0x00200A01
     .4byte 0x00000006
-    .4byte gUnknown_089EEA28 + 0x31b0
+    .4byte EventScr_089F1BD8
     .4byte 0x00100208
     .4byte 0x00000005
     .4byte 0x00000001
     .4byte 0x00200108
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte gUnknown_089EEA28 + 0x2fd0
+    .4byte EventScr_089F19F8
     .4byte 0x00000006
-    .4byte 0x0007000b
-    .4byte gUnknown_089EEA28 + 0x3204
-    .4byte 0x0e0e0900
+    .4byte 0x0007000B
+    .4byte EventScr_089F1C2C
+    .4byte 0x0E0E0900
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -223,75 +221,75 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
 
     .global Ch4Events
-Ch4Events: @0x89e8b20
-    .4byte gFlagBitMaskLut + 0x50c
-    .4byte gFlagBitMaskLut + 0x534
-    .4byte gFlagBitMaskLut + 0x538
-    .4byte gFlagBitMaskLut + 0x56c
-    .4byte gFlagBitMaskLut + 0x594
-    .4byte gFlagBitMaskLut + 0x598
-    .4byte gFlagBitMaskLut + 0x59c
-    .4byte gFlagBitMaskLut + 0x5a0
-    .4byte gUnknown_089ED6AC + 0x303
-    .4byte gUnknown_089ED6AC + 0x7f4
-    .4byte Events_WM_ChapterIntro + 0xe2c
-    .4byte Events_WM_ChapterIntro + 0xe2c
-    .4byte Events_WM_ChapterIntro + 0x12dc
-    .4byte Events_WM_ChapterIntro + 0x1548
-    .4byte Events_WM_ChapterIntro + 0x17b4
-    .4byte Events_WM_ChapterIntro + 0x1390
-    .4byte Events_WM_ChapterIntro + 0x15fc
-    .4byte Events_WM_ChapterIntro + 0x1868
-    .4byte gUnknown_089EEA28 + 0x2d7c
-    .4byte gUnknown_089EEA28 + 0x2fd0
+Ch4Events: @ 0x009E8B20
+    .4byte gUnknown_089E8A88
+    .4byte 0x089E8AB0
+    .4byte 0x089E8AB4
+    .4byte 0x089E8AE8
+    .4byte 0x089E8B10
+    .4byte 0x089E8B14
+    .4byte 0x089E8B18
+    .4byte 0x089E8B1C
+    .4byte 0x089ED9AF
+    .4byte 0x089EDEA0
+    .4byte UnitDef_088B4904
+    .4byte UnitDef_088B4904
+    .4byte UnitDef_088B4DB4
+    .4byte UnitDef_Ch4SkirmishAlly2
+    .4byte UnitDef_088B528C
+    .4byte UnitDef_088B4E68
+    .4byte UnitDef_088B50D4
+    .4byte UnitDef_088B5340
+    .4byte EventScr_Ch4_BeginingScene
+    .4byte EventScr_089F19F8
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x387c
+    .4byte EventScr_089F22A4
     .4byte 0x00000002
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x38c4
+    .4byte EventScr_089F22EC
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x38dc
+    .4byte EventScr_089F2304
     .4byte 0x00000008
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte gUnknown_089EEA28 + 0x3848
-    .4byte 0x0000200d
+    .4byte EventScr_089F2270
+    .4byte 0x0000200D
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x12c
+    .4byte 0x0000000A
+    .4byte 0x089ED7D8
     .4byte 0x00160102
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x142
-    .4byte 0x00170a06
+    .4byte 0x0000000A
+    .4byte 0x089ED7EE
+    .4byte 0x00170A06
     .4byte 0x00080006
-    .4byte gUnknown_089EEA28 + 0x3748
-    .4byte 0x00100a0c
+    .4byte EventScr_089F2170
+    .4byte 0x00100A0C
     .4byte 0x00080005
     .4byte 0x00000001
-    .4byte 0x0020090c
+    .4byte 0x0020090C
     .4byte 0x00090006
-    .4byte gUnknown_089EEA28 + 0x3794
-    .4byte 0x0010130c
+    .4byte EventScr_089F21BC
+    .4byte 0x0010130C
     .4byte 0x00090005
     .4byte 0x00000001
-    .4byte 0x0020120c
-    .4byte 0x000a0006
-    .4byte gUnknown_089EEA28 + 0x37d0
+    .4byte 0x0020120C
+    .4byte 0x000A0006
+    .4byte EventScr_089F21F8
     .4byte 0x00100605
-    .4byte 0x000a0005
+    .4byte 0x000A0005
     .4byte 0x00000001
     .4byte 0x00200505
-    .4byte 0x000b0006
-    .4byte gUnknown_089EEA28 + 0x380c
+    .4byte 0x000B0006
+    .4byte EventScr_089F2234
     .4byte 0x00100105
-    .4byte 0x000b0005
+    .4byte 0x000B0005
     .4byte 0x00000001
     .4byte 0x00200005
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte gUnknown_089EEA28 + 0x3668
+    .4byte EventScr_089F2090
     .4byte 0x00000002
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -303,45 +301,44 @@ Ch4Events: @0x89e8b20
     .4byte 0x00000000
 
     .global Ch5EventData
-Ch5EventData: @0x89e8c54
-    .4byte gFlagBitMaskLut + 0x5f4
-    .4byte gFlagBitMaskLut + 0x61c
-    .4byte gFlagBitMaskLut + 0x630
-    .4byte gFlagBitMaskLut + 0x6ac
-    .4byte gFlagBitMaskLut + 0x6c8
-    .4byte gFlagBitMaskLut + 0x6cc
-    .4byte gFlagBitMaskLut + 0x6d0
-    .4byte gFlagBitMaskLut + 0x6d4
-    .4byte gUnknown_089ED6AC + 0x304
-    .4byte gUnknown_089ED6AC + 0x7f5
-    .4byte Events_WM_ChapterIntro + 0x1b58
-    .4byte Events_WM_ChapterIntro + 0x1b58
+Ch5EventData: @ 0x009E8C54
+    .4byte 0x089E8B70
+    .4byte 0x089E8B98
+    .4byte 0x089E8BAC
+    .4byte 0x089E8C28
+    .4byte 0x089E8C44
+    .4byte 0x089E8C48
+    .4byte 0x089E8C4C
+    .4byte 0x089E8C50
+    .4byte 0x089ED9B0
+    .4byte 0x089EDEA1
+    .4byte UnitDef_088B5630
+    .4byte UnitDef_088B5630
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_089EEA28 + 0x3300
-    .4byte gUnknown_089EEA28 + 0x3668
-
+    .4byte EventScr_Ch5_BeginingScene
+    .4byte EventScr_089F2090
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120c17
+    .4byte 0x00120C17
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120a04
+    .4byte 0x00120A04
     .4byte 0x00000007
-    .4byte 0x0000006d
+    .4byte 0x0000006D
     .4byte 0x00140804
     .4byte 0x00000007
-    .4byte 0x0000001a
+    .4byte 0x0000001A
     .4byte 0x00140805
     .4byte 0x00030005
     .4byte 0x00000001
-    .4byte 0x0011070d
+    .4byte 0x0011070D
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -353,45 +350,45 @@ Ch5EventData: @0x89e8c54
     .4byte 0x00000000
 
     .global Ch5XEvents
-Ch5XEvents: @0x89e8d0c
-    .4byte gFlagBitMaskLut + 0x728
-    .4byte gFlagBitMaskLut + 0x72c
-    .4byte gFlagBitMaskLut + 0x730
-    .4byte gFlagBitMaskLut + 0x770
-    .4byte gFlagBitMaskLut + 0x780
-    .4byte gFlagBitMaskLut + 0x784
-    .4byte gFlagBitMaskLut + 0x788
-    .4byte gFlagBitMaskLut + 0x78c
-    .4byte gUnknown_089ED6AC + 0x305
-    .4byte gUnknown_089ED6AC + 0x7f6
-    .4byte Events_WM_ChapterIntro + 0x1f8c
-    .4byte Events_WM_ChapterIntro + 0x1f8c
+Ch5XEvents: @ 0x009E8D0C
+    .4byte 0x089E8CA4
+    .4byte 0x089E8CA8
+    .4byte 0x089E8CAC
+    .4byte 0x089E8CEC
+    .4byte 0x089E8CFC
+    .4byte 0x089E8D00
+    .4byte 0x089E8D04
+    .4byte 0x089E8D08
+    .4byte 0x089ED9B1
+    .4byte 0x089EDEA2
+    .4byte UnitDef_088B5A64
+    .4byte UnitDef_088B5A64
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_089EEA28 + 0x39d4
-    .4byte gUnknown_089EEA28 + 0x3bd4
+    .4byte EventScr_Ch5x_BeginingScene
+    .4byte EventScr_089F25FC
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x414c
+    .4byte EventScr_089F2B74
     .4byte 0x00000004
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000006
-    .4byte gUnknown_089EEA28 + 0x4070
-    .4byte 0x0010120b
+    .4byte EventScr_089F2A98
+    .4byte 0x0010120B
     .4byte 0x00000005
     .4byte 0x00000001
-    .4byte 0x0020110b
+    .4byte 0x0020110B
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte gUnknown_089EEA28 + 0x3fd4
+    .4byte EventScr_089F29FC
     .4byte 0x00000002
-    .4byte 0x0007000b
-    .4byte gUnknown_089EEA28 + 0x3f18
-    .4byte 0x0e1b0918
+    .4byte 0x0007000B
+    .4byte EventScr_089F2940
+    .4byte 0x0E1B0918
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -402,29 +399,29 @@ Ch5XEvents: @0x89e8d0c
     .4byte 0x00000000
 
     .global Ch6Events
-Ch6Events: @0x89e8dc4
-    .4byte gFlagBitMaskLut + 0x7e0
-    .4byte gFlagBitMaskLut + 0x7f0
-    .4byte gFlagBitMaskLut + 0x7f4
-    .4byte gFlagBitMaskLut + 0x810
-    .4byte gFlagBitMaskLut + 0x838
-    .4byte gFlagBitMaskLut + 0x83c
-    .4byte gFlagBitMaskLut + 0x840
-    .4byte gFlagBitMaskLut + 0x844
-    .4byte gUnknown_089ED6AC + 0x30a
-    .4byte gUnknown_089ED6AC + 0x7fb
-    .4byte Events_WM_ChapterIntro + 0x2900
-    .4byte Events_WM_ChapterIntro + 0x2900
-    .4byte Events_WM_ChapterIntro + 0x2a68
-    .4byte Events_WM_ChapterIntro + 0x2d60
-    .4byte Events_WM_ChapterIntro + 0x3058
-    .4byte Events_WM_ChapterIntro + 0x2b30
-    .4byte Events_WM_ChapterIntro + 0x2e28
-    .4byte Events_WM_ChapterIntro + 0x3120
-    .4byte gUnknown_089EEA28 + 0x3cf0
-    .4byte gUnknown_089EEA28 + 0x3fd4
+Ch6Events: @ 0x009E8DC4
+    .4byte 0x089E8D5C
+    .4byte 0x089E8D6C
+    .4byte 0x089E8D70
+    .4byte 0x089E8D8C
+    .4byte 0x089E8DB4
+    .4byte 0x089E8DB8
+    .4byte 0x089E8DBC
+    .4byte 0x089E8DC0
+    .4byte 0x089ED9B6
+    .4byte 0x089EDEA7
+    .4byte UnitDef_088B63D8
+    .4byte UnitDef_088B63D8
+    .4byte UnitDef_088B6540
+    .4byte UnitDef_088B6838
+    .4byte UnitDef_088B6B30
+    .4byte UnitDef_088B6608
+    .4byte UnitDef_088B6900
+    .4byte UnitDef_088B6BF8
+    .4byte EventScr_Ch6_BeginingScene
+    .4byte EventScr_089F29FC
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x42d4
+    .4byte EventScr_089F2CFC
     .4byte 0x00800001
     .4byte 0x00000000
     .4byte 0x00000000
@@ -432,10 +429,10 @@ Ch6Events: @0x89e8dc4
     .4byte 0x00000001
     .4byte 0x00110409
     .4byte 0x00000005
-    .4byte gUnknown_089EEA28 + 0x4444
-    .4byte 0x00100f01
+    .4byte EventScr_089F2E6C
+    .4byte 0x00100F01
     .4byte 0x00000005
-    .4byte gUnknown_089EEA28 + 0x446c
+    .4byte EventScr_089F2E94
     .4byte 0x00101511
     .4byte 0x00000000
     .4byte 0x00000001
@@ -448,67 +445,67 @@ Ch6Events: @0x89e8dc4
     .4byte 0x00000000
 
     .global Ch7EventData
-Ch7EventData: @0x89e8e70
-    .4byte gFlagBitMaskLut + 0x898
-    .4byte gFlagBitMaskLut + 0x8a8
-    .4byte gFlagBitMaskLut + 0x8ac
-    .4byte gFlagBitMaskLut + 0x8d4
-    .4byte gFlagBitMaskLut + 0x8e4
-    .4byte gFlagBitMaskLut + 0x8e8
-    .4byte gFlagBitMaskLut + 0x8ec
-    .4byte gFlagBitMaskLut + 0x8f0
-    .4byte gUnknown_089ED6AC + 0x30b
-    .4byte gUnknown_089ED6AC + 0x7fc
-    .4byte Events_WM_ChapterIntro + 0x33a0
-    .4byte Events_WM_ChapterIntro + 0x33a0
+Ch7EventData: @ 0x009E8E70
+    .4byte 0x089E8E14
+    .4byte 0x089E8E24
+    .4byte 0x089E8E28
+    .4byte 0x089E8E50
+    .4byte 0x089E8E60
+    .4byte 0x089E8E64
+    .4byte 0x089E8E68
+    .4byte 0x089E8E6C
+    .4byte 0x089ED9B7
+    .4byte 0x089EDEA8
+    .4byte UnitDef_088B6E78
+    .4byte UnitDef_088B6E78
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_089EEA28 + 0x4164
-    .4byte gUnknown_089EEA28 + 0x4300
+    .4byte EventScr_Ch7_BeginingScene
+    .4byte EventScr_089F2D28
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x46fc
+    .4byte EventScr_089F3124
     .4byte 0x00000202
-    .4byte 0x000c0002
-    .4byte gUnknown_089EEA28 + 0x4828
-    .4byte 0x0000ff01
+    .4byte 0x000C0002
+    .4byte EventScr_089F3250
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte gUnknown_089EEA28 + 0x4840
+    .4byte EventScr_089F3268
     .4byte 0x00000005
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte gUnknown_089EEA28 + 0x4790
-    .4byte 0x00000f01
+    .4byte EventScr_089F31B8
+    .4byte 0x00000F01
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte gUnknown_089EEA28 + 0x4790
-    .4byte 0x0000010f
+    .4byte EventScr_089F31B8
+    .4byte 0x0000010F
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte gUnknown_089EEA28 + 0x47ac
-    .4byte 0x0000020f
+    .4byte EventScr_089F31D4
+    .4byte 0x0000020F
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte gUnknown_089EEA28 + 0x47ac
-    .4byte 0x00000f02
+    .4byte EventScr_089F31D4
+    .4byte 0x00000F02
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte gUnknown_089EEA28 + 0x47cc
+    .4byte EventScr_089F31F4
     .4byte 0x00001102
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte gUnknown_089EEA28 + 0x47cc
+    .4byte EventScr_089F31F4
     .4byte 0x00000211
     .4byte 0x00000000
-    .4byte 0x000a0003
-    .4byte gUnknown_089EEA28 + 0x47ec
+    .4byte 0x000A0003
+    .4byte EventScr_089F3214
     .4byte 0x00001004
     .4byte 0x00000000
-    .4byte 0x000a0003
-    .4byte gUnknown_089EEA28 + 0x47ec
+    .4byte 0x000A0003
+    .4byte EventScr_089F3214
     .4byte 0x00000410
     .4byte 0x00000000
     .4byte 0x00000000
@@ -526,14 +523,14 @@ Ch7EventData: @0x89e8e70
     .4byte 0x00140302
     .4byte 0x00030005
     .4byte 0x00000001
-    .4byte 0x0011020a
+    .4byte 0x0011020A
     .4byte 0x00000007
-    .4byte 0x0000005b
+    .4byte 0x0000005B
     .4byte 0x00140413
     .4byte 0x00000000
-    .4byte 0x000b000b
-    .4byte gUnknown_089EEA28 + 0x480c
-    .4byte 0x0a0f0005
+    .4byte 0x000B000B
+    .4byte EventScr_Ch8_MiscThiefRainforce
+    .4byte 0x0A0F0005
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -544,85 +541,85 @@ Ch7EventData: @0x89e8e70
     .4byte 0x00000000
 
     .global Ch8EventData
-Ch8EventData: @0x89e8fe4
-    .4byte gFlagBitMaskLut + 0x944
-    .4byte gFlagBitMaskLut + 0x96c
-    .4byte gFlagBitMaskLut + 0x9f0
-    .4byte gFlagBitMaskLut + 0xa3c
-    .4byte gFlagBitMaskLut + 0xa58
-    .4byte gFlagBitMaskLut + 0xa5c
-    .4byte gFlagBitMaskLut + 0xa60
-    .4byte gFlagBitMaskLut + 0xa64
-    .4byte gUnknown_089ED6AC + 0x319
-    .4byte gUnknown_089ED6AC + 0x7fe
-    .4byte Events_WM_ChapterIntro + 0x3828
-    .4byte Events_WM_ChapterIntro + 0x3828
+Ch8EventData: @ 0x009E8FE4
+    .4byte 0x089E8EC0
+    .4byte 0x089E8EE8
+    .4byte 0x089E8F6C
+    .4byte 0x089E8FB8
+    .4byte 0x089E8FD4
+    .4byte 0x089E8FD8
+    .4byte 0x089E8FDC
+    .4byte 0x089E8FE0
+    .4byte 0x089ED9C5
+    .4byte 0x089EDEAA
+    .4byte UnitDef_088B7300
+    .4byte UnitDef_088B7300
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_089EEA28 + 0x4510
-    .4byte gUnknown_089EEA28 + 0x4764
+    .4byte EventScr_Ch8_BeginingScene
+    .4byte EventScr_089F318C
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xae4
+    .4byte EventScr_089F4184
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa30
+    .4byte EventScr_089F40D0
     .4byte 0x00000003
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa48
+    .4byte EventScr_089F40E8
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa18
+    .4byte EventScr_089F40B8
     .4byte 0x00000002
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa78
+    .4byte EventScr_089F4118
     .4byte 0x00000003
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa60
+    .4byte EventScr_089F4100
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa90
+    .4byte EventScr_089F4130
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xaa8
+    .4byte EventScr_089F4148
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x978
-    .4byte 0x0000000c
+    .4byte EventScr_089F4018
+    .4byte 0x0000000C
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x8ac
+    .4byte EventScr_089F3F4C
     .4byte 0x00001201
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x8d4
+    .4byte EventScr_089F3F74
     .4byte 0x00001204
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x14c
+    .4byte 0x0000000A
+    .4byte 0x089ED7F8
     .4byte 0x00170201
     .4byte 0x00080006
-    .4byte MenuDef_RouteSplit + 0x8fc
-    .4byte 0x00100b01
+    .4byte EventScr_089F3F9C
+    .4byte 0x00100B01
     .4byte 0x00080005
     .4byte 0x00000001
-    .4byte 0x00200a01
+    .4byte 0x00200A01
     .4byte 0x00090006
-    .4byte MenuDef_RouteSplit + 0x93c
-    .4byte 0x00100f0b
+    .4byte EventScr_089F3FDC
+    .4byte 0x00100F0B
     .4byte 0x00090005
     .4byte 0x00000001
-    .4byte 0x00200e0b
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x162
+    .4byte 0x00200E0B
+    .4byte 0x0000000A
+    .4byte 0x089ED80E
     .4byte 0x00160501
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x718
+    .4byte EventScr_089F3DB8
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -634,91 +631,91 @@ Ch8EventData: @0x89e8fe4
     .4byte 0x00000000
 
     .global Ch9EirikaEvents
-Ch9EirikaEvents: @0x89e9140
-    .4byte gFlagBitMaskLut + 0xab8
-    .4byte gFlagBitMaskLut + 0xb28
-    .4byte gFlagBitMaskLut + 0xb4c
-    .4byte gFlagBitMaskLut + 0xb98
-    .4byte gFlagBitMaskLut + 0xbb4
-    .4byte gFlagBitMaskLut + 0xbb8
-    .4byte gFlagBitMaskLut + 0xbbc
-    .4byte gFlagBitMaskLut + 0xbc0
-    .4byte gUnknown_089ED6AC + 0x31c
-    .4byte gUnknown_089ED6AC + 0x801
-    .4byte Events_WM_ChapterIntro + 0x4134
-    .4byte Events_WM_ChapterIntro + 0x4134
+Ch9EirikaEvents: @ 0x009E9140
+    .4byte 0x089E9034
+    .4byte 0x089E90A4
+    .4byte 0x089E90C8
+    .4byte 0x089E9114
+    .4byte 0x089E9130
+    .4byte 0x089E9134
+    .4byte 0x089E9138
+    .4byte 0x089E913C
+    .4byte 0x089ED9C8
+    .4byte 0x089EDEAD
+    .4byte UnitDef_088B7C0C
+    .4byte UnitDef_088B7C0C
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x2cc
-    .4byte MenuDef_RouteSplit + 0x718
+    .4byte EventScr_Ch9a_BeginingScene
+    .4byte EventScr_089F3DB8
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xd00
+    .4byte EventScr_089F43A0
     .4byte 0x00800001
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x1180
+    .4byte EventScr_089F4820
     .4byte 0x00000502
-    .4byte 0x000d0002
-    .4byte MenuDef_RouteSplit + 0x10b0
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x122c
-    .4byte 0x0080ff01
+    .4byte 0x000D0002
+    .4byte EventScr_089F4750
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089F48CC
+    .4byte 0x0080FF01
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0xf94
-    .4byte 0x00000b01
+    .4byte EventScr_089F4634
+    .4byte 0x00000B01
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0xfbc
-    .4byte 0x00000b22
+    .4byte EventScr_089F465C
+    .4byte 0x00000B22
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0xfe4
-    .4byte 0x0000140b
+    .4byte EventScr_089F4684
+    .4byte 0x0000140B
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x100c
+    .4byte EventScr_089F46AC
     .4byte 0x00001415
     .4byte 0x00000000
-    .4byte 0x000a0003
-    .4byte MenuDef_RouteSplit + 0x1034
-    .4byte 0x0000150b
+    .4byte 0x000A0003
+    .4byte EventScr_089F46D4
+    .4byte 0x0000150B
     .4byte 0x00000000
-    .4byte 0x000a0003
-    .4byte MenuDef_RouteSplit + 0x105c
+    .4byte 0x000A0003
+    .4byte EventScr_089F46FC
     .4byte 0x00001514
     .4byte 0x00000000
-    .4byte 0x000b0003
-    .4byte MenuDef_RouteSplit + 0x1084
+    .4byte 0x000B0003
+    .4byte EventScr_089F4724
     .4byte 0x00001614
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x0012090a
+    .4byte 0x0012090A
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x0012090b
+    .4byte 0x0012090B
     .4byte 0x00030005
     .4byte 0x00000001
-    .4byte 0x0011010f
+    .4byte 0x0011010F
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x1108
-    .4byte 0x0010060b
+    .4byte EventScr_089F47A8
+    .4byte 0x0010060B
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x1130
-    .4byte 0x0010070a
+    .4byte EventScr_089F47D0
+    .4byte 0x0010070A
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x1158
-    .4byte 0x0010080d
+    .4byte EventScr_089F47F8
+    .4byte 0x0010080D
     .4byte 0x00000000
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0x1198
-    .4byte 0x1e131300
+    .4byte 0x0007000B
+    .4byte EventScr_089F4838
+    .4byte 0x1E131300
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -729,47 +726,47 @@ Ch9EirikaEvents: @0x89e9140
     .4byte 0x00000000
 
     .global Ch10EirikaEvents
-Ch10EirikaEvents: @0x89e92b0
-    .4byte gFlagBitMaskLut + 0xc14
-    .4byte gFlagBitMaskLut + 0xc48
-    .4byte gFlagBitMaskLut + 0xcbc
-    .4byte gFlagBitMaskLut + 0xd08
-    .4byte gFlagBitMaskLut + 0xd24
-    .4byte gFlagBitMaskLut + 0xd28
-    .4byte gFlagBitMaskLut + 0xd2c
-    .4byte gFlagBitMaskLut + 0xd30
-    .4byte gUnknown_089ED6AC + 0x31f
-    .4byte gUnknown_089ED6AC + 0x804
-    .4byte Events_WM_ChapterIntro + 0x4a68
-    .4byte Events_WM_ChapterIntro + 0x4a68
-    .4byte Events_WM_ChapterIntro + 0x51d4
-    .4byte Events_WM_ChapterIntro + 0x54f4
-    .4byte Events_WM_ChapterIntro + 0x5814
-    .4byte Events_WM_ChapterIntro + 0x529c
-    .4byte Events_WM_ChapterIntro + 0x55bc
-    .4byte Events_WM_ChapterIntro + 0x58dc
-    .4byte MenuDef_RouteSplit + 0xafc
-    .4byte MenuDef_RouteSplit + 0xd58
+Ch10EirikaEvents: @ 0x009E92B0
+    .4byte 0x089E9190
+    .4byte 0x089E91C4
+    .4byte 0x089E9238
+    .4byte 0x089E9284
+    .4byte 0x089E92A0
+    .4byte 0x089E92A4
+    .4byte 0x089E92A8
+    .4byte 0x089E92AC
+    .4byte 0x089ED9CB
+    .4byte 0x089EDEB0
+    .4byte UnitDef_088B8540
+    .4byte UnitDef_088B8540
+    .4byte UnitDef_088B8CAC
+    .4byte UnitDef_088B8FCC
+    .4byte UnitDef_088B92EC
+    .4byte UnitDef_088B8D74
+    .4byte UnitDef_088B9094
+    .4byte UnitDef_088B93B4
+    .4byte EventScr_Ch10a_BeginingScene
+    .4byte EventScr_089F43F8
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x1804
+    .4byte EventScr_089F4EA4
     .4byte 0x00000009
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x18a0
+    .4byte EventScr_089F4F40
     .4byte 0x00000504
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x18b8
+    .4byte EventScr_089F4F58
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x18d0
-    .4byte 0x0000000c
+    .4byte EventScr_089F4F70
+    .4byte 0x0000000C
     .4byte 0x00000000
-    .4byte 0x000a0003
-    .4byte MenuDef_RouteSplit + 0x17b4
+    .4byte 0x000A0003
+    .4byte EventScr_089F4E54
     .4byte 0x00001901
     .4byte 0x00000000
-    .4byte 0x000b0003
-    .4byte MenuDef_RouteSplit + 0x17dc
-    .4byte 0x00001a19
+    .4byte 0x000B0003
+    .4byte EventScr_089F4E7C
+    .4byte 0x00001A19
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000007
@@ -777,35 +774,35 @@ Ch10EirikaEvents: @0x89e92b0
     .4byte 0x00140803
     .4byte 0x00000007
     .4byte 0x00000096
-    .4byte 0x00140b0c
+    .4byte 0x00140B0C
     .4byte 0x00000007
-    .4byte 0x0000005d
+    .4byte 0x0000005D
     .4byte 0x00140511
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120b04
+    .4byte 0x00120B04
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120d11
+    .4byte 0x00120D11
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120d12
+    .4byte 0x00120D12
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x13dc
+    .4byte EventScr_089F4A7C
     .4byte 0x00000006
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0x181c
-    .4byte 0x0a15020e
-    .4byte 0x0008000b
-    .4byte MenuDef_RouteSplit + 0x1840
-    .4byte 0x11150b0c
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0x187c
-    .4byte 0x0a050601
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0x187c
-    .4byte 0x0c080806
+    .4byte 0x0007000B
+    .4byte EventScr_089F4EBC
+    .4byte 0x0A15020E
+    .4byte 0x0008000B
+    .4byte EventScr_089F4EE0
+    .4byte 0x11150B0C
+    .4byte 0x0009000B
+    .4byte EventScr_089F4F1C
+    .4byte 0x0A050601
+    .4byte 0x0009000B
+    .4byte EventScr_089F4F1C
+    .4byte 0x0C080806
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -816,56 +813,56 @@ Ch10EirikaEvents: @0x89e92b0
     .4byte 0x00000000
 
     .global Ch11EirikaEvents
-Ch11EirikaEvents: @0x89e9400
-    .4byte gFlagBitMaskLut + 0xd84
-    .4byte gFlagBitMaskLut + 0xdb8
-    .4byte gFlagBitMaskLut + 0xddc
-    .4byte gFlagBitMaskLut + 0xe28
-    .4byte gFlagBitMaskLut + 0xe74
-    .4byte gFlagBitMaskLut + 0xe78
-    .4byte gFlagBitMaskLut + 0xe7c
-    .4byte gFlagBitMaskLut + 0xe80
-    .4byte gUnknown_089ED6AC + 0x333
-    .4byte gUnknown_089ED6AC + 0x806
-    .4byte Events_WM_ChapterIntro + 0x5dbc
-    .4byte Events_WM_ChapterIntro + 0x5dbc
+Ch11EirikaEvents: @ 0x009E9400
+    .4byte 0x089E9300
+    .4byte 0x089E9334
+    .4byte 0x089E9358
+    .4byte 0x089E93A4
+    .4byte 0x089E93F0
+    .4byte 0x089E93F4
+    .4byte 0x089E93F8
+    .4byte 0x089E93FC
+    .4byte 0x089ED9DF
+    .4byte 0x089EDEB2
+    .4byte UnitDef_088B9894
+    .4byte UnitDef_088B9894
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x1258
-    .4byte MenuDef_RouteSplit + 0x13dc
+    .4byte EventScr_Ch11a_BeginingScene
+    .4byte EventScr_089F4A7C
     .4byte 0x00070002
-    .4byte MenuDef_RouteSplit + 0x1e00
-    .4byte 0x0000ff01
+    .4byte EventScr_089F54A0
+    .4byte 0x0000FF01
     .4byte 0x00080002
-    .4byte MenuDef_RouteSplit + 0x1e44
-    .4byte 0x0000ff01
+    .4byte EventScr_089F54E4
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x1ccc
-    .4byte 0x00100a06
+    .4byte EventScr_089F536C
+    .4byte 0x00100A06
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x1d0c
-    .4byte 0x00100c05
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x17a
+    .4byte EventScr_089F53AC
+    .4byte 0x00100C05
+    .4byte 0x0000000A
+    .4byte 0x089ED826
     .4byte 0x00170611
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x1b10
+    .4byte EventScr_089F51B0
     .4byte 0x00000006
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0x1de4
+    .4byte 0x0009000B
+    .4byte EventScr_089F5484
     .4byte 0x09130008
-    .4byte 0x000a000b
-    .4byte MenuDef_RouteSplit + 0x1e28
-    .4byte 0x0f130a00
-    .4byte 0x000a000b
-    .4byte MenuDef_RouteSplit + 0x1e28
+    .4byte 0x000A000B
+    .4byte EventScr_089F54C8
+    .4byte 0x0F130A00
+    .4byte 0x000A000B
+    .4byte EventScr_089F54C8
     .4byte 0x09070000
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -877,62 +874,62 @@ Ch11EirikaEvents: @0x89e9400
     .4byte 0x00000000
 
     .global Ch12EirikaEventData
-Ch12EirikaEventData: @0x89e94e8
-    .4byte gFlagBitMaskLut + 0xed4
-    .4byte gFlagBitMaskLut + 0xef0
-    .4byte gFlagBitMaskLut + 0xef4
-    .4byte gFlagBitMaskLut + 0xf1c
-    .4byte gFlagBitMaskLut + 0xf5c
-    .4byte gFlagBitMaskLut + 0xf60
-    .4byte gFlagBitMaskLut + 0xf64
-    .4byte gFlagBitMaskLut + 0xf68
-    .4byte gUnknown_089ED6AC + 0x335
-    .4byte gUnknown_089ED6AC + 0x808
-    .4byte Events_WM_ChapterIntro + 0x6698
-    .4byte Events_WM_ChapterIntro + 0x6698
+Ch12EirikaEventData: @ 0x009E94E8
+    .4byte 0x089E9450
+    .4byte 0x089E946C
+    .4byte 0x089E9470
+    .4byte 0x089E9498
+    .4byte 0x089E94D8
+    .4byte 0x089E94DC
+    .4byte 0x089E94E0
+    .4byte 0x089E94E4
+    .4byte 0x089ED9E1
+    .4byte 0x089EDEB4
+    .4byte UnitDef_088BA170
+    .4byte UnitDef_088BA170
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x18e8
-    .4byte MenuDef_RouteSplit + 0x1b10
+    .4byte EventScr_Ch12a_BeginingScene
+    .4byte EventScr_089F51B0
     .4byte 0x00030002
-    .4byte MenuDef_RouteSplit + 0x20f8
-    .4byte 0x0000000c
+    .4byte EventScr_089F5798
+    .4byte 0x0000000C
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x23a8
+    .4byte EventScr_089F5A48
     .4byte 0x00000009
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x23f0
+    .4byte EventScr_089F5A90
     .4byte 0x00000905
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x2434
+    .4byte EventScr_089F5AD4
     .4byte 0x00000002
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x244c
+    .4byte EventScr_089F5AEC
     .4byte 0x00000503
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x2464
+    .4byte EventScr_089F5B04
     .4byte 0x00000005
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x232c
+    .4byte EventScr_089F59CC
     .4byte 0x00001201
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x2358
+    .4byte EventScr_089F59F8
     .4byte 0x00001204
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0x2380
-    .4byte 0x00000e01
+    .4byte EventScr_089F5A20
+    .4byte 0x00000E01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x20f8
+    .4byte EventScr_089F5798
     .4byte 0x00000002
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -944,50 +941,50 @@ Ch12EirikaEventData: @0x89e94e8
     .4byte 0x00000000
 
     .global Ch13EirikaEvents
-Ch13EirikaEvents: @0x89e95e8
-    .4byte gFlagBitMaskLut + 0xfbc
-    .4byte gFlagBitMaskLut + 0x1008
-    .4byte gFlagBitMaskLut + 0x103c
-    .4byte gFlagBitMaskLut + 0x1040
-    .4byte gFlagBitMaskLut + 0x105c
-    .4byte gFlagBitMaskLut + 0x1060
-    .4byte gFlagBitMaskLut + 0x1064
-    .4byte gFlagBitMaskLut + 0x1068
-    .4byte gUnknown_089ED6AC + 0x336
-    .4byte gUnknown_089ED6AC + 0x809
-    .4byte Events_WM_ChapterIntro + 0x6e70
-    .4byte Events_WM_ChapterIntro + 0x6e70
-    .4byte Events_WM_ChapterIntro + 0x7640
-    .4byte Events_WM_ChapterIntro + 0x78fc
-    .4byte Events_WM_ChapterIntro + 0x7bb8
-    .4byte Events_WM_ChapterIntro + 0x7708
-    .4byte Events_WM_ChapterIntro + 0x79c4
-    .4byte Events_WM_ChapterIntro + 0x7c80
-    .4byte MenuDef_RouteSplit + 0x1e8c
-    .4byte MenuDef_RouteSplit + 0x20f8
+Ch13EirikaEvents: @ 0x009E95E8
+    .4byte 0x089E9538
+    .4byte 0x089E9584
+    .4byte 0x089E95B8
+    .4byte 0x089E95BC
+    .4byte 0x089E95D8
+    .4byte 0x089E95DC
+    .4byte 0x089E95E0
+    .4byte 0x089E95E4
+    .4byte 0x089ED9E2
+    .4byte 0x089EDEB5
+    .4byte UnitDef_088BA948
+    .4byte UnitDef_088BA948
+    .4byte UnitDef_088BB118
+    .4byte UnitDef_088BB3D4
+    .4byte UnitDef_088BB690
+    .4byte UnitDef_088BB1E0
+    .4byte UnitDef_088BB49C
+    .4byte UnitDef_088BB758
+    .4byte EventScr_Ch13a_BeginingScene
+    .4byte EventScr_089F5798
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x2b98
+    .4byte EventScr_089F6238
     .4byte 0x00000805
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x2bb0
+    .4byte EventScr_089F6250
     .4byte 0x00000806
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x2c1c
-    .4byte 0x0000ff01
+    .4byte 0x000E0002
+    .4byte EventScr_089F62BC
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x2624
+    .4byte EventScr_089F5CC4
     .4byte 0x00800001
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0x2be4
-    .4byte 0x0000ff01
+    .4byte 0x000C0002
+    .4byte EventScr_089F6284
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0x2afc
-    .4byte 0x00001c19
+    .4byte EventScr_089F619C
+    .4byte 0x00001C19
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0x2b24
-    .4byte 0x00001c01
+    .4byte EventScr_089F61C4
+    .4byte 0x00001C01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030005
@@ -998,7 +995,7 @@ Ch13EirikaEvents: @0x89e95e8
     .4byte 0x00121311
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120e0a
+    .4byte 0x00120E0A
     .4byte 0x00000008
     .4byte 0x00000001
     .4byte 0x00121302
@@ -1021,17 +1018,17 @@ Ch13EirikaEvents: @0x89e95e8
     .4byte 0x00000057
     .4byte 0x00140316
     .4byte 0x00000007
-    .4byte 0x0000008d
+    .4byte 0x0000008D
     .4byte 0x00141408
     .4byte 0x00000007
-    .4byte 0x0000001d
+    .4byte 0x0000001D
     .4byte 0x00140516
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x192
+    .4byte 0x0000000A
+    .4byte 0x089ED83E
     .4byte 0x00180404
     .4byte 0x00000007
-    .4byte 0x0000005c
-    .4byte 0x0014140a
+    .4byte 0x0000005C
+    .4byte 0x0014140A
     .4byte 0x00000007
     .4byte 0x00000068
     .4byte 0x00141012
@@ -1042,15 +1039,15 @@ Ch13EirikaEvents: @0x89e95e8
     .4byte 0x00000001
     .4byte 0x00120114
     .4byte 0x00000000
-    .4byte 0x000a000b
-    .4byte MenuDef_RouteSplit + 0x2c50
-    .4byte 0x0b130903
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0x2bfc
+    .4byte 0x000A000B
+    .4byte EventScr_089F62F0
+    .4byte 0x0B130903
+    .4byte 0x000D000B
+    .4byte EventScr_089F629C
     .4byte 0x07050000
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x2bc8
-    .4byte 0x180d1300
+    .4byte 0x000B000B
+    .4byte EventScr_089F6268
+    .4byte 0x180D1300
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -1061,146 +1058,146 @@ Ch13EirikaEvents: @0x89e95e8
     .4byte 0x00000000
 
     .global Ch14EirikaEvents
-Ch14EirikaEvents: @0x89e97b0
-    .4byte gFlagBitMaskLut + 0x10bc
-    .4byte gFlagBitMaskLut + 0x10fc
-    .4byte gFlagBitMaskLut + 0x1120
-    .4byte gFlagBitMaskLut + 0x11f0
-    .4byte gFlagBitMaskLut + 0x1224
-    .4byte gFlagBitMaskLut + 0x1228
-    .4byte gFlagBitMaskLut + 0x122c
-    .4byte gFlagBitMaskLut + 0x1230
-    .4byte gUnknown_089ED6AC + 0x34c
-    .4byte gUnknown_089ED6AC + 0x80d
-    .4byte Events_WM_ChapterIntro + 0x80d0
-    .4byte Events_WM_ChapterIntro + 0x80d0
+Ch14EirikaEvents: @ 0x009E97B0
+    .4byte 0x089E9638
+    .4byte 0x089E9678
+    .4byte 0x089E969C
+    .4byte 0x089E976C
+    .4byte 0x089E97A0
+    .4byte 0x089E97A4
+    .4byte 0x089E97A8
+    .4byte 0x089E97AC
+    .4byte 0x089ED9F8
+    .4byte 0x089EDEB9
+    .4byte UnitDef_088BBBA8
+    .4byte UnitDef_088BBBA8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x249c
-    .4byte MenuDef_RouteSplit + 0x2718
+    .4byte EventScr_Ch14a_BeginingScene
+    .4byte EventScr_089F5DB8
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x3078
+    .4byte EventScr_089F6718
     .4byte 0x00000503
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x3090
+    .4byte EventScr_089F6730
     .4byte 0x00000504
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x30a8
+    .4byte EventScr_089F6748
     .4byte 0x00000908
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x2d64
+    .4byte EventScr_089F6404
     .4byte 0x00800002
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x30d0
+    .4byte EventScr_089F6770
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x30e8
+    .4byte EventScr_089F6788
     .4byte 0x00000604
     .4byte 0x00000000
-    .4byte 0x000d0003
-    .4byte MenuDef_RouteSplit + 0x2fb4
-    .4byte 0x00000f01
+    .4byte 0x000D0003
+    .4byte EventScr_089F6654
+    .4byte 0x00000F01
     .4byte 0x00000000
-    .4byte 0x000d0003
-    .4byte MenuDef_RouteSplit + 0x2fb4
-    .4byte 0x0000010f
+    .4byte 0x000D0003
+    .4byte EventScr_089F6654
+    .4byte 0x0000010F
     .4byte 0x00000000
-    .4byte 0x000e0003
-    .4byte MenuDef_RouteSplit + 0x2fd8
-    .4byte 0x0000020f
+    .4byte 0x000E0003
+    .4byte EventScr_089F6678
+    .4byte 0x0000020F
     .4byte 0x00000000
-    .4byte 0x000e0003
-    .4byte MenuDef_RouteSplit + 0x2fd8
-    .4byte 0x00000f02
+    .4byte 0x000E0003
+    .4byte EventScr_089F6678
+    .4byte 0x00000F02
     .4byte 0x00000000
-    .4byte 0x000f0003
-    .4byte MenuDef_RouteSplit + 0x2ff8
-    .4byte 0x0000100f
+    .4byte 0x000F0003
+    .4byte EventScr_089F6698
+    .4byte 0x0000100F
     .4byte 0x00000000
-    .4byte 0x000f0003
-    .4byte MenuDef_RouteSplit + 0x2ff8
-    .4byte 0x00000f10
-    .4byte 0x00000000
-    .4byte 0x00100003
-    .4byte MenuDef_RouteSplit + 0x3018
-    .4byte 0x0000110f
+    .4byte 0x000F0003
+    .4byte EventScr_089F6698
+    .4byte 0x00000F10
     .4byte 0x00000000
     .4byte 0x00100003
-    .4byte MenuDef_RouteSplit + 0x3018
-    .4byte 0x00000f11
+    .4byte EventScr_089F66B8
+    .4byte 0x0000110F
+    .4byte 0x00000000
+    .4byte 0x00100003
+    .4byte EventScr_089F66B8
+    .4byte 0x00000F11
     .4byte 0x00000000
     .4byte 0x00110003
-    .4byte MenuDef_RouteSplit + 0x3038
-    .4byte 0x00000b0f
+    .4byte EventScr_089F66D8
+    .4byte 0x00000B0F
     .4byte 0x00000000
     .4byte 0x00110003
-    .4byte MenuDef_RouteSplit + 0x3038
-    .4byte 0x00000f0b
+    .4byte EventScr_089F66D8
+    .4byte 0x00000F0B
     .4byte 0x00000000
     .4byte 0x00120003
-    .4byte MenuDef_RouteSplit + 0x3058
-    .4byte 0x00000e1d
+    .4byte EventScr_089F66F8
+    .4byte 0x00000E1D
     .4byte 0x00000000
     .4byte 0x00120003
-    .4byte MenuDef_RouteSplit + 0x3058
-    .4byte 0x00001d0e
+    .4byte EventScr_089F66F8
+    .4byte 0x00001D0E
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000006
-    .4byte MenuDef_RouteSplit + 0x2f28
-    .4byte 0x00100e01
+    .4byte EventScr_089F65C8
+    .4byte 0x00100E01
     .4byte 0x00000005
     .4byte 0x00000001
-    .4byte 0x00200d01
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x1b4
+    .4byte 0x00200D01
+    .4byte 0x0000000A
+    .4byte 0x089ED860
     .4byte 0x00170408
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x2f64
+    .4byte EventScr_089F6604
     .4byte 0x00100611
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x2f8c
-    .4byte 0x00100d05
+    .4byte EventScr_089F662C
+    .4byte 0x00100D05
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x2dd0
+    .4byte EventScr_089F6470
     .4byte 0x00000006
-    .4byte 0x0015000b
-    .4byte MenuDef_RouteSplit + 0x31b8
-    .4byte 0x0a170714
-    .4byte 0x0016000b
-    .4byte MenuDef_RouteSplit + 0x31fc
+    .4byte 0x0015000B
+    .4byte EventScr_089F6858
+    .4byte 0x0A170714
+    .4byte 0x0016000B
+    .4byte EventScr_089F689C
     .4byte 0x02020000
-    .4byte 0x0019000b
-    .4byte MenuDef_RouteSplit + 0x32c8
+    .4byte 0x0019000B
+    .4byte EventScr_089F6968
     .4byte 0x02160012
-    .4byte 0x0018000b
-    .4byte MenuDef_RouteSplit + 0x3284
-    .4byte 0x0b010900
-    .4byte 0x0013000b
-    .4byte MenuDef_RouteSplit + 0x3130
-    .4byte 0x0c090905
-    .4byte 0x001b000b
-    .4byte MenuDef_RouteSplit + 0x330c
-    .4byte 0x0f0a0e08
-    .4byte 0x0014000b
-    .4byte MenuDef_RouteSplit + 0x3174
-    .4byte 0x0d120b0e
-    .4byte 0x0017000b
-    .4byte MenuDef_RouteSplit + 0x3240
-    .4byte 0x15170f16
-    .4byte 0x001a000b
-    .4byte MenuDef_RouteSplit + 0x3100
-    .4byte 0x150e110b
-    .4byte 0x001a000b
-    .4byte MenuDef_RouteSplit + 0x3100
-    .4byte 0x15150e0f
-    .4byte 0x001c000b
-    .4byte MenuDef_RouteSplit + 0x3350
+    .4byte 0x0018000B
+    .4byte EventScr_089F6924
+    .4byte 0x0B010900
+    .4byte 0x0013000B
+    .4byte EventScr_089F67D0
+    .4byte 0x0C090905
+    .4byte 0x001B000B
+    .4byte EventScr_089F69AC
+    .4byte 0x0F0A0E08
+    .4byte 0x0014000B
+    .4byte EventScr_089F6814
+    .4byte 0x0D120B0E
+    .4byte 0x0017000B
+    .4byte EventScr_089F68E0
+    .4byte 0x15170F16
+    .4byte 0x001A000B
+    .4byte EventScr_089F67A0
+    .4byte 0x150E110B
+    .4byte 0x001A000B
+    .4byte EventScr_089F67A0
+    .4byte 0x15150E0F
+    .4byte 0x001C000B
+    .4byte EventScr_089F69F0
     .4byte 0x07000400
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -1212,41 +1209,41 @@ Ch14EirikaEvents: @0x89e97b0
     .4byte 0x00000000
 
     .global Ch15EirikaEvents
-Ch15EirikaEvents: @0x89e9a00
-    .4byte gFlagBitMaskLut + 0x1284
-    .4byte gFlagBitMaskLut + 0x12d0
-    .4byte gFlagBitMaskLut + 0x1394
-    .4byte gFlagBitMaskLut + 0x13d4
-    .4byte gFlagBitMaskLut + 0x1474
-    .4byte gFlagBitMaskLut + 0x1478
-    .4byte gFlagBitMaskLut + 0x147c
-    .4byte gFlagBitMaskLut + 0x1480
-    .4byte gUnknown_089ED6AC + 0x350
-    .4byte gUnknown_089ED6AC + 0x811
-    .4byte Events_WM_ChapterIntro + 0x8b38
-    .4byte Events_WM_ChapterIntro + 0x8b38
+Ch15EirikaEvents: @ 0x009E9A00
+    .4byte 0x089E9800
+    .4byte 0x089E984C
+    .4byte 0x089E9910
+    .4byte 0x089E9950
+    .4byte 0x089E99F0
+    .4byte 0x089E99F4
+    .4byte 0x089E99F8
+    .4byte 0x089E99FC
+    .4byte 0x089ED9FC
+    .4byte 0x089EDEBD
+    .4byte UnitDef_088BC610
+    .4byte UnitDef_088BC610
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x2ca4
-    .4byte MenuDef_RouteSplit + 0x2dd0
+    .4byte EventScr_Ch15a_BeginingScene
+    .4byte EventScr_089F6470
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x3eb8
-    .4byte 0x0000000c
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0x3f04
-    .4byte 0x0000ff01
+    .4byte EventScr_089F7558
+    .4byte 0x0000000C
+    .4byte 0x000C0002
+    .4byte EventScr_089F75A4
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x3f50
-    .4byte 0x00000f0d
+    .4byte EventScr_089F75F0
+    .4byte 0x00000F0D
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030005
     .4byte 0x00000001
-    .4byte 0x0011030d
+    .4byte 0x0011030D
     .4byte 0x00000007
     .4byte 0x13880077
     .4byte 0x00140514
@@ -1255,7 +1252,7 @@ Ch15EirikaEvents: @0x89e9a00
     .4byte 0x00140314
     .4byte 0x00000007
     .4byte 0x00000029
-    .4byte 0x00140c03
+    .4byte 0x00140C03
     .4byte 0x00000008
     .4byte 0x00000001
     .4byte 0x00120401
@@ -1264,17 +1261,17 @@ Ch15EirikaEvents: @0x89e9a00
     .4byte 0x00120304
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120a03
+    .4byte 0x00120A03
     .4byte 0x00000007
     .4byte 0x00000061
     .4byte 0x00140114
     .4byte 0x00000000
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x3ed0
-    .4byte 0x0b150002
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x3ed0
-    .4byte 0x160d1201
+    .4byte 0x000B000B
+    .4byte EventScr_089F7570
+    .4byte 0x0B150002
+    .4byte 0x000B000B
+    .4byte EventScr_089F7570
+    .4byte 0x160D1201
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -1285,102 +1282,102 @@ Ch15EirikaEvents: @0x89e9a00
     .4byte 0x00000000
 
     .global Ch16EirEvents
-Ch16EirEvents: @0x89e9b18
-    .4byte gFlagBitMaskLut + 0x14d4
-    .4byte gFlagBitMaskLut + 0x14fc
-    .4byte gFlagBitMaskLut + 0x1500
-    .4byte gFlagBitMaskLut + 0x1564
-    .4byte gFlagBitMaskLut + 0x158c
-    .4byte gFlagBitMaskLut + 0x1590
-    .4byte gFlagBitMaskLut + 0x1594
-    .4byte gFlagBitMaskLut + 0x1598
-    .4byte gUnknown_089ED6AC + 0x351
-    .4byte gUnknown_089ED6AC + 0x812
-    .4byte Events_WM_ChapterIntro + 0x9380
-    .4byte Events_WM_ChapterIntro + 0x9380
+Ch16EirEvents: @ 0x009E9B18
+    .4byte 0x089E9A50
+    .4byte 0x089E9A78
+    .4byte 0x089E9A7C
+    .4byte 0x089E9AE0
+    .4byte 0x089E9B08
+    .4byte 0x089E9B0C
+    .4byte 0x089E9B10
+    .4byte 0x089E9B14
+    .4byte 0x089ED9FD
+    .4byte 0x089EDEBE
+    .4byte UnitDef_088BCE58
+    .4byte UnitDef_088BCE58
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x3394
-    .4byte MenuDef_RouteSplit + 0x37a0
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x4704
-    .4byte 0x0000ff01
+    .4byte EventScr_Ch16a_BeginingScene
+    .4byte EventScr_089F6E40
+    .4byte 0x000E0002
+    .4byte EventScr_089F7DA4
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x4684
+    .4byte EventScr_089F7D24
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x4684
+    .4byte EventScr_089F7D24
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x4684
+    .4byte EventScr_089F7D24
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x46b4
+    .4byte EventScr_089F7D54
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x46b4
+    .4byte EventScr_089F7D54
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x46b4
+    .4byte EventScr_089F7D54
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x46cc
-    .4byte 0x0000000a
+    .4byte EventScr_089F7D6C
+    .4byte 0x0000000A
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x46cc
-    .4byte 0x0000000c
+    .4byte EventScr_089F7D6C
+    .4byte 0x0000000C
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x469c
+    .4byte EventScr_089F7D3C
     .4byte 0x00000003
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x469c
+    .4byte EventScr_089F7D3C
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x469c
+    .4byte EventScr_089F7D3C
     .4byte 0x00000007
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x469c
+    .4byte EventScr_089F7D3C
     .4byte 0x00000009
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x469c
-    .4byte 0x0000000b
+    .4byte EventScr_089F7D3C
+    .4byte 0x0000000B
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x4634
+    .4byte EventScr_089F7CD4
     .4byte 0x00002122
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x460c
-    .4byte 0x0000210b
+    .4byte EventScr_089F7CAC
+    .4byte 0x0000210B
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x465c
+    .4byte EventScr_089F7CFC
     .4byte 0x00002106
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x1ce
+    .4byte 0x0000000A
+    .4byte 0x089ED87A
     .4byte 0x00171401
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x1e8
-    .4byte 0x0016020c
+    .4byte 0x0000000A
+    .4byte 0x089ED894
+    .4byte 0x0016020C
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x4324
+    .4byte EventScr_089F79C4
     .4byte 0x00000002
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0x46e4
+    .4byte 0x000D000B
+    .4byte EventScr_089F7D84
     .4byte 0x09160011
-    .4byte 0x000f000b
-    .4byte MenuDef_RouteSplit + 0x4738
+    .4byte 0x000F000B
+    .4byte EventScr_089F7DD8
     .4byte 0x08100009
-    .4byte 0x000f000b
-    .4byte MenuDef_RouteSplit + 0x4738
-    .4byte 0x10130a0f
+    .4byte 0x000F000B
+    .4byte EventScr_089F7DD8
+    .4byte 0x10130A0F
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -1391,60 +1388,60 @@ Ch16EirEvents: @0x89e9b18
     .4byte 0x00000000
 
     .global Ch17EirikaEvents
-Ch17EirikaEvents: @0x89e9cb4
-    .4byte gFlagBitMaskLut + 0x15ec
-    .4byte gFlagBitMaskLut + 0x1698
-    .4byte gFlagBitMaskLut + 0x16cc
-    .4byte gFlagBitMaskLut + 0x16e8
-    .4byte gFlagBitMaskLut + 0x1728
-    .4byte gFlagBitMaskLut + 0x172c
-    .4byte gFlagBitMaskLut + 0x1730
-    .4byte gFlagBitMaskLut + 0x1734
-    .4byte gUnknown_089ED6AC + 0x357
-    .4byte gUnknown_089ED6AC + 0x818
-    .4byte Events_WM_ChapterIntro + 0xa380
-    .4byte Events_WM_ChapterIntro + 0xa380
-    .4byte Events_WM_ChapterIntro + 0xaad8
-    .4byte Events_WM_ChapterIntro + 0xadf8
-    .4byte Events_WM_ChapterIntro + 0xb118
-    .4byte Events_WM_ChapterIntro + 0xaba0
-    .4byte Events_WM_ChapterIntro + 0xaec0
-    .4byte Events_WM_ChapterIntro + 0xb1e0
-    .4byte MenuDef_RouteSplit + 0x3f68
-    .4byte MenuDef_RouteSplit + 0x4324
+Ch17EirikaEvents: @ 0x009E9CB4
+    .4byte 0x089E9B68
+    .4byte 0x089E9C14
+    .4byte 0x089E9C48
+    .4byte 0x089E9C64
+    .4byte 0x089E9CA4
+    .4byte 0x089E9CA8
+    .4byte 0x089E9CAC
+    .4byte 0x089E9CB0
+    .4byte 0x089EDA03
+    .4byte 0x089EDEC4
+    .4byte UnitDef_088BDE58
+    .4byte UnitDef_088BDE58
+    .4byte UnitDef_088BE5B0
+    .4byte UnitDef_088BE8D0
+    .4byte UnitDef_088BEBF0
+    .4byte UnitDef_088BE678
+    .4byte UnitDef_088BE998
+    .4byte UnitDef_088BECB8
+    .4byte EventScr_Ch17a_BeginingScene
+    .4byte EventScr_089F79C4
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x4b1c
-    .4byte 0x0000ff01
+    .4byte EventScr_089F81BC
+    .4byte 0x0000FF01
     .4byte 0x00080002
-    .4byte MenuDef_RouteSplit + 0x4b60
-    .4byte 0x0000ff01
-    .4byte 0x000a0002
-    .4byte MenuDef_RouteSplit + 0x4b94
-    .4byte 0x0000ff01
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0x4bc8
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x4c0c
-    .4byte 0x0000ff01
+    .4byte EventScr_089F8200
+    .4byte 0x0000FF01
+    .4byte 0x000A0002
+    .4byte EventScr_089F8234
+    .4byte 0x0000FF01
+    .4byte 0x000C0002
+    .4byte EventScr_089F8268
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089F82AC
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x48e8
+    .4byte EventScr_089F7F88
     .4byte 0x00000006
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0x4b44
-    .4byte 0x1b16140e
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x4bac
-    .4byte 0x0a160010
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0x4b78
-    .4byte 0x13160e13
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0x4bf0
-    .4byte 0x080d0004
+    .4byte 0x0007000B
+    .4byte EventScr_089F81E4
+    .4byte 0x1B16140E
+    .4byte 0x000B000B
+    .4byte EventScr_089F824C
+    .4byte 0x0A160010
+    .4byte 0x0009000B
+    .4byte EventScr_089F8218
+    .4byte 0x13160E13
+    .4byte 0x000D000B
+    .4byte EventScr_089F8290
+    .4byte 0x080D0004
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -1455,86 +1452,86 @@ Ch17EirikaEvents: @0x89e9cb4
     .4byte 0x00000000
 
     .global Ch18EirikaEvents
-Ch18EirikaEvents: @0x89e9da8
-    .4byte gFlagBitMaskLut + 0x1788
-    .4byte gFlagBitMaskLut + 0x17c8
-    .4byte gFlagBitMaskLut + 0x17cc
-    .4byte gFlagBitMaskLut + 0x17d0
-    .4byte gFlagBitMaskLut + 0x181c
-    .4byte gFlagBitMaskLut + 0x1820
-    .4byte gFlagBitMaskLut + 0x1824
-    .4byte gFlagBitMaskLut + 0x1828
-    .4byte gUnknown_089ED6AC + 0x358
-    .4byte gUnknown_089ED6AC + 0x819
-    .4byte Events_WM_ChapterIntro + 0xb510
-    .4byte Events_WM_ChapterIntro + 0xb510
-    .4byte Events_WM_ChapterIntro + 0xbbdc
-    .4byte Events_WM_ChapterIntro + 0xbf88
-    .4byte Events_WM_ChapterIntro + 0xc334
-    .4byte Events_WM_ChapterIntro + 0xbc90
-    .4byte Events_WM_ChapterIntro + 0xc03c
-    .4byte Events_WM_ChapterIntro + 0xc3e8
-    .4byte MenuDef_RouteSplit + 0x479c
-    .4byte MenuDef_RouteSplit + 0x48e8
+Ch18EirikaEvents: @ 0x009E9DA8
+    .4byte 0x089E9D04
+    .4byte 0x089E9D44
+    .4byte 0x089E9D48
+    .4byte 0x089E9D4C
+    .4byte 0x089E9D98
+    .4byte 0x089E9D9C
+    .4byte 0x089E9DA0
+    .4byte 0x089E9DA4
+    .4byte 0x089EDA04
+    .4byte 0x089EDEC5
+    .4byte UnitDef_088BEFE8
+    .4byte UnitDef_088BEFE8
+    .4byte UnitDef_088BF6B4
+    .4byte UnitDef_088BFA60
+    .4byte UnitDef_088BFE0C
+    .4byte UnitDef_088BF768
+    .4byte UnitDef_088BFB14
+    .4byte UnitDef_088BFEC0
+    .4byte EventScr_Ch18a_BeginingScene
+    .4byte EventScr_089F7F88
     .4byte 0x00030002
-    .4byte MenuDef_RouteSplit + 0x4fd8
-    .4byte 0x0000000e
+    .4byte EventScr_089F8678
+    .4byte 0x0000000E
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x529c
+    .4byte EventScr_089F893C
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x52b4
+    .4byte EventScr_089F8954
     .4byte 0x00000706
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x52cc
+    .4byte EventScr_089F896C
     .4byte 0x00000703
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x5300
+    .4byte EventScr_089F89A0
     .4byte 0x00000804
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x5334
-    .4byte 0x00000c08
+    .4byte EventScr_089F89D4
+    .4byte 0x00000C08
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x5368
-    .4byte 0x00000d09
+    .4byte EventScr_089F8A08
+    .4byte 0x00000D09
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x539c
+    .4byte EventScr_089F8A3C
     .4byte 0x00000903
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x53b4
+    .4byte EventScr_089F8A54
     .4byte 0x00000802
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x4fa4
+    .4byte EventScr_089F8644
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000007
     .4byte 0x00000011
-    .4byte 0x00140b02
+    .4byte 0x00140B02
     .4byte 0x00000007
     .4byte 0x00000049
-    .4byte 0x00140b04
+    .4byte 0x00140B04
     .4byte 0x00000007
-    .4byte 0x0000004f
-    .4byte 0x00140a1b
+    .4byte 0x0000004F
+    .4byte 0x00140A1B
     .4byte 0x00000007
     .4byte 0x13880077
-    .4byte 0x00140c1b
+    .4byte 0x00140C1B
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120f03
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x20c
-    .4byte 0x0018071a
+    .4byte 0x00120F03
+    .4byte 0x0000000A
+    .4byte 0x089ED8B8
+    .4byte 0x0018071A
     .4byte 0x00000007
-    .4byte 0x0000005e
-    .4byte 0x00140c03
+    .4byte 0x0000005E
+    .4byte 0x00140C03
     .4byte 0x00000007
-    .4byte 0x0000003b
-    .4byte 0x00140e1b
+    .4byte 0x0000003B
+    .4byte 0x00140E1B
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x4fd8
+    .4byte EventScr_089F8678
     .4byte 0x00000002
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -1546,72 +1543,72 @@ Ch18EirikaEvents: @0x89e9da8
     .4byte 0x00000000
 
     .global Ch19EirikaEvents
-Ch19EirikaEvents: @0x89e9f08
-    .4byte gFlagBitMaskLut + 0x187c
-    .4byte gFlagBitMaskLut + 0x18f8
-    .4byte gFlagBitMaskLut + 0x18fc
-    .4byte gFlagBitMaskLut + 0x1960
-    .4byte gFlagBitMaskLut + 0x197c
-    .4byte gFlagBitMaskLut + 0x1980
-    .4byte gFlagBitMaskLut + 0x1984
-    .4byte gFlagBitMaskLut + 0x1988
-    .4byte gUnknown_089ED6AC + 0x4bb
-    .4byte gUnknown_089ED6AC + 0x81a
-    .4byte Events_WM_ChapterIntro + 0xc7b8
-    .4byte Events_WM_ChapterIntro + 0xc7b8
+Ch19EirikaEvents: @ 0x009E9F08
+    .4byte 0x089E9DF8
+    .4byte 0x089E9E74
+    .4byte 0x089E9E78
+    .4byte 0x089E9EDC
+    .4byte 0x089E9EF8
+    .4byte 0x089E9EFC
+    .4byte 0x089E9F00
+    .4byte 0x089E9F04
+    .4byte 0x089EDB67
+    .4byte 0x089EDEC6
+    .4byte UnitDef_088C0290
+    .4byte UnitDef_088C0290
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x4c34
-    .4byte MenuDef_RouteSplit + 0x4fd8
+    .4byte EventScr_Ch19a_BeginingScene
+    .4byte EventScr_089F8678
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x55c0
+    .4byte EventScr_089F8C60
     .4byte 0x00800001
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x56fc
-    .4byte 0x0000150f
+    .4byte EventScr_089F8D9C
+    .4byte 0x0000150F
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x5740
+    .4byte EventScr_089F8DE0
     .4byte 0x00001610
-    .4byte 0x000a0002
-    .4byte MenuDef_RouteSplit + 0x57a4
-    .4byte 0x0000ff01
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0x57f8
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x5880
-    .4byte 0x0000ff01
+    .4byte 0x000A0002
+    .4byte EventScr_089F8E44
+    .4byte 0x0000FF01
+    .4byte 0x000C0002
+    .4byte EventScr_089F8E98
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089F8F20
+    .4byte 0x0000FF01
     .4byte 0x00100002
-    .4byte MenuDef_RouteSplit + 0x5908
-    .4byte 0x0000ff01
+    .4byte EventScr_089F8FA8
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x59c4
-    .4byte 0x00001d13
+    .4byte EventScr_089F9064
+    .4byte 0x00001D13
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x5a28
+    .4byte EventScr_089F90C8
     .4byte 0x00000605
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030005
     .4byte 0x00000001
-    .4byte 0x00110b0b
+    .4byte 0x00110B0B
     .4byte 0x00000000
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0x5784
-    .4byte 0x0d190011
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x57d8
+    .4byte 0x0009000B
+    .4byte EventScr_089F8E24
+    .4byte 0x0D190011
+    .4byte 0x000B000B
+    .4byte EventScr_089F8E78
     .4byte 0x06100007
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0x5860
-    .4byte 0x14100f07
-    .4byte 0x000f000b
-    .4byte MenuDef_RouteSplit + 0x58e8
-    .4byte 0x0e100707
+    .4byte 0x000D000B
+    .4byte EventScr_089F8F00
+    .4byte 0x14100F07
+    .4byte 0x000F000B
+    .4byte EventScr_089F8F88
+    .4byte 0x0E100707
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -1622,36 +1619,36 @@ Ch19EirikaEvents: @0x89e9f08
     .4byte 0x00000000
 
     .global Ch20EirikaEvents
-Ch20EirikaEvents: @0x89ea02c
-    .4byte gFlagBitMaskLut + 0x19dc
-    .4byte gFlagBitMaskLut + 0x1a4c
-    .4byte gFlagBitMaskLut + 0x1a50
-    .4byte gFlagBitMaskLut + 0x1a60
-    .4byte gFlagBitMaskLut + 0x1aa0
-    .4byte gFlagBitMaskLut + 0x1aa4
-    .4byte gFlagBitMaskLut + 0x1aa8
-    .4byte gFlagBitMaskLut + 0x1aac
-    .4byte gUnknown_089ED6AC + 0x4bd
-    .4byte gUnknown_089ED6AC + 0x81c
-    .4byte Events_WM_ChapterIntro + 0xd29c
-    .4byte Events_WM_ChapterIntro + 0xd29c
+Ch20EirikaEvents: @ 0x009EA02C
+    .4byte 0x089E9F58
+    .4byte 0x089E9FC8
+    .4byte 0x089E9FCC
+    .4byte 0x089E9FDC
+    .4byte 0x089EA01C
+    .4byte 0x089EA020
+    .4byte 0x089EA024
+    .4byte 0x089EA028
+    .4byte 0x089EDB69
+    .4byte 0x089EDEC8
+    .4byte UnitDef_088C0D74
+    .4byte UnitDef_088C0D74
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x53cc
-    .4byte MenuDef_RouteSplit + 0x55ec
-    .4byte 0x000d0002
-    .4byte MenuDef_RouteSplit + 0x5da8
-    .4byte 0x0000ff01
-    .4byte 0x000b0002
-    .4byte MenuDef_RouteSplit + 0x5d00
-    .4byte 0x0000ff01
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0x5d54
-    .4byte 0x0000ff01
+    .4byte EventScr_Ch20a_BeginingScene
+    .4byte EventScr_089F8C8C
+    .4byte 0x000D0002
+    .4byte EventScr_089F9448
+    .4byte 0x0000FF01
+    .4byte 0x000B0002
+    .4byte EventScr_089F93A0
+    .4byte 0x0000FF01
+    .4byte 0x000C0002
+    .4byte EventScr_089F93F4
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000008
@@ -1661,26 +1658,26 @@ Ch20EirikaEvents: @0x89ea02c
     .4byte 0x00000001
     .4byte 0x00121312
     .4byte 0x00000007
-    .4byte 0x0000005b
+    .4byte 0x0000005B
     .4byte 0x00141215
     .4byte 0x00000007
     .4byte 0x00000088
     .4byte 0x00141202
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x5c00
+    .4byte EventScr_089F92A0
     .4byte 0x00000002
-    .4byte 0x000a000b
-    .4byte MenuDef_RouteSplit + 0x5d88
-    .4byte 0x060c050a
-    .4byte 0x0008000b
-    .4byte MenuDef_RouteSplit + 0x5ce0
-    .4byte 0x0c0b0700
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0x5d34
-    .4byte 0x0c16070c
-    .4byte 0x000e000b
-    .4byte MenuDef_RouteSplit + 0x5ddc
+    .4byte 0x000A000B
+    .4byte EventScr_089F9428
+    .4byte 0x060C050A
+    .4byte 0x0008000B
+    .4byte EventScr_089F9380
+    .4byte 0x0C0B0700
+    .4byte 0x0009000B
+    .4byte EventScr_089F93D4
+    .4byte 0x0C16070C
+    .4byte 0x000E000B
+    .4byte EventScr_089F947C
     .4byte 0x04150001
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -1692,32 +1689,32 @@ Ch20EirikaEvents: @0x89ea02c
     .4byte 0x00000000
 
     .global FinalEirikaEvents1
-FinalEirikaEvents1: @0x89ea138
-    .4byte gFlagBitMaskLut + 0x1b00
-    .4byte gFlagBitMaskLut + 0x1b28
-    .4byte gFlagBitMaskLut + 0x1b2c
-    .4byte gFlagBitMaskLut + 0x1b60
-    .4byte gFlagBitMaskLut + 0x1bac
-    .4byte gFlagBitMaskLut + 0x1bb0
-    .4byte gFlagBitMaskLut + 0x1bb4
-    .4byte gFlagBitMaskLut + 0x1bb8
-    .4byte gUnknown_089ED6AC + 0x4bf
-    .4byte gUnknown_089ED6AC + 0x81e
-    .4byte Events_WM_ChapterIntro + 0xdd44
-    .4byte Events_WM_ChapterIntro + 0xdd44
+FinalEirikaEvents1: @ 0x009EA138
+    .4byte 0x089EA07C
+    .4byte 0x089EA0A4
+    .4byte 0x089EA0A8
+    .4byte 0x089EA0DC
+    .4byte 0x089EA128
+    .4byte 0x089EA12C
+    .4byte 0x089EA130
+    .4byte 0x089EA134
+    .4byte 0x089EDB6B
+    .4byte 0x089EDECA
+    .4byte UnitDef_088C181C
+    .4byte UnitDef_088C181C
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x5a40
-    .4byte MenuDef_RouteSplit + 0x5c00
+    .4byte EventScr_Ch21a_BeginingScene
+    .4byte EventScr_089F92A0
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x6870
+    .4byte EventScr_089F9F10
     .4byte 0x00000002
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -1729,60 +1726,60 @@ FinalEirikaEvents1: @0x89ea138
     .4byte 0x00000000
 
     .global FinalEirikaEvents2
-FinalEirikaEvents2: @0x89ea1c0
-    .4byte gFlagBitMaskLut + 0x1c0c
-    .4byte gFlagBitMaskLut + 0x1c10
-    .4byte gFlagBitMaskLut + 0x1c14
-    .4byte gFlagBitMaskLut + 0x1c18
-    .4byte gFlagBitMaskLut + 0x1c34
-    .4byte gFlagBitMaskLut + 0x1c38
-    .4byte gFlagBitMaskLut + 0x1c3c
-    .4byte gFlagBitMaskLut + 0x1c40
-    .4byte gUnknown_089ED6AC + 0x4c0
-    .4byte gUnknown_089ED6AC + 0x81f
-    .4byte Events_WM_ChapterIntro + 0xe46c
-    .4byte Events_WM_ChapterIntro + 0xe46c
+FinalEirikaEvents2: @ 0x009EA1C0
+    .4byte 0x089EA188
+    .4byte 0x089EA18C
+    .4byte 0x089EA190
+    .4byte 0x089EA194
+    .4byte 0x089EA1B0
+    .4byte 0x089EA1B4
+    .4byte 0x089EA1B8
+    .4byte 0x089EA1BC
+    .4byte 0x089EDB6C
+    .4byte 0x089EDECB
+    .4byte UnitDef_088C1F44
+    .4byte UnitDef_088C1F44
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x5e00
-    .4byte MenuDef_RouteSplit + 0x6870
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0x7094
-    .4byte 0x0000ff01
+    .4byte EventScr_089F94A0
+    .4byte EventScr_089F9F10
+    .4byte 0x000C0002
+    .4byte EventScr_089FA734
+    .4byte 0x0000FF01
     .4byte 0x00100002
-    .4byte MenuDef_RouteSplit + 0x70d8
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x714c
-    .4byte 0x0000ff01
+    .4byte EventScr_089FA778
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089FA7EC
+    .4byte 0x0000FF01
     .4byte 0x00120002
-    .4byte MenuDef_RouteSplit + 0x7040
-    .4byte 0x0000ff01
+    .4byte EventScr_089FA6E0
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x6f94
-    .4byte 0x0000120f
+    .4byte EventScr_089FA634
+    .4byte 0x0000120F
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x6fbc
+    .4byte EventScr_089FA65C
     .4byte 0x00001204
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0x6ff0
-    .4byte 0x0000220f
+    .4byte EventScr_089FA690
+    .4byte 0x0000220F
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0x6ff0
-    .4byte 0x00000f22
+    .4byte EventScr_089FA690
+    .4byte 0x00000F22
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00110008
     .4byte 0x00000001
-    .4byte 0x0012110c
+    .4byte 0x0012110C
     .4byte 0x00030005
     .4byte 0x00000001
     .4byte 0x00110716
@@ -1790,36 +1787,36 @@ FinalEirikaEvents2: @0x89ea1c0
     .4byte 0x00000050
     .4byte 0x00140107
     .4byte 0x00000007
-    .4byte 0x09c40077
+    .4byte 0x09C40077
     .4byte 0x00140112
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x0012030c
+    .4byte 0x0012030C
     .4byte 0x00110008
     .4byte 0x00000001
-    .4byte 0x0012110d
+    .4byte 0x0012110D
     .4byte 0x00110008
     .4byte 0x00000001
-    .4byte 0x0012120c
+    .4byte 0x0012120C
     .4byte 0x00110008
     .4byte 0x00000001
-    .4byte 0x0012120d
+    .4byte 0x0012120D
     .4byte 0x00000007
     .4byte 0x00000097
     .4byte 0x00140117
     .4byte 0x00000000
-    .4byte 0x000f0001
-    .4byte MenuDef_RouteSplit + 0x70c8
+    .4byte 0x000F0001
+    .4byte EventScr_089FA768
     .4byte 0x00000011
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0x710c
+    .4byte 0x000D000B
+    .4byte EventScr_089FA7AC
     .4byte 0x04180306
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x7074
+    .4byte 0x000B000B
+    .4byte EventScr_089FA714
     .4byte 0x14111107
-    .4byte 0x000a000b
-    .4byte MenuDef_RouteSplit + 0x7014
-    .4byte 0x10070a03
+    .4byte 0x000A000B
+    .4byte EventScr_089FA6B4
+    .4byte 0x10070A03
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -1830,86 +1827,86 @@ FinalEirikaEvents2: @0x89ea1c0
     .4byte 0x00000000
 
     .global Ch9Events
-Ch9Events: @0x89ea348
-    .4byte gFlagBitMaskLut + 0x1c94
-    .4byte gFlagBitMaskLut + 0x1cc8
-    .4byte gFlagBitMaskLut + 0x1d0c
-    .4byte gFlagBitMaskLut + 0x1d7c
-    .4byte gFlagBitMaskLut + 0x1dbc
-    .4byte gFlagBitMaskLut + 0x1dc0
-    .4byte gFlagBitMaskLut + 0x1dc4
-    .4byte gFlagBitMaskLut + 0x1dc8
-    .4byte gUnknown_089ED6AC + 0x4c1
-    .4byte gUnknown_089ED6AC + 0x820
-    .4byte Events_WM_ChapterIntro + 0xe7f0
-    .4byte Events_WM_ChapterIntro + 0xe7f0
+Ch9Events: @ 0x009EA348
+    .4byte 0x089EA210
+    .4byte 0x089EA244
+    .4byte 0x089EA288
+    .4byte 0x089EA2F8
+    .4byte 0x089EA338
+    .4byte 0x089EA33C
+    .4byte 0x089EA340
+    .4byte 0x089EA344
+    .4byte 0x089EDB6D
+    .4byte 0x089EDECC
+    .4byte UnitDef_088C22C8
+    .4byte UnitDef_088C22C8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x6a98
-    .4byte MenuDef_RouteSplit + 0x6e40
+    .4byte EventScr_089FA138
+    .4byte EventScr_089FA4E0
     .4byte 0x00030002
-    .4byte MenuDef_RouteSplit + 0x7580
-    .4byte 0x0000000b
+    .4byte EventScr_089FAC20
+    .4byte 0x0000000B
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x797c
+    .4byte EventScr_089FB01C
     .4byte 0x00000803
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7994
+    .4byte EventScr_089FB034
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x79bc
+    .4byte EventScr_089FB05C
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7424
+    .4byte EventScr_089FAAC4
     .4byte 0x00800001
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x74dc
+    .4byte EventScr_089FAB7C
     .4byte 0x00800002
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x783c
-    .4byte 0x00001d0f
+    .4byte EventScr_089FAEDC
+    .4byte 0x00001D0F
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0x7864
-    .4byte 0x00000e1d
+    .4byte EventScr_089FAF04
+    .4byte 0x00000E1D
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0x788c
-    .4byte 0x00000e22
+    .4byte EventScr_089FAF2C
+    .4byte 0x00000E22
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte 0x000a0006
-    .4byte MenuDef_RouteSplit + 0x78b4
+    .4byte 0x000A0006
+    .4byte EventScr_089FAF54
     .4byte 0x00100209
-    .4byte 0x000a0005
+    .4byte 0x000A0005
     .4byte 0x00000001
     .4byte 0x00200109
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x21e
-    .4byte 0x00160e09
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x236
-    .4byte 0x00170e08
+    .4byte 0x0000000A
+    .4byte 0x089ED8CA
+    .4byte 0x00160E09
+    .4byte 0x0000000A
+    .4byte 0x089ED8E2
+    .4byte 0x00170E08
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x7954
+    .4byte EventScr_089FAFF4
     .4byte 0x00100105
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x792c
+    .4byte EventScr_089FAFCC
     .4byte 0x00100006
-    .4byte 0x000b0006
-    .4byte MenuDef_RouteSplit + 0x78f0
-    .4byte 0x00100c04
-    .4byte 0x000b0005
+    .4byte 0x000B0006
+    .4byte EventScr_089FAF90
+    .4byte 0x00100C04
+    .4byte 0x000B0005
     .4byte 0x00000001
-    .4byte 0x00200b04
+    .4byte 0x00200B04
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x7580
+    .4byte EventScr_089FAC20
     .4byte 0x00000002
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -1921,67 +1918,67 @@ Ch9Events: @0x89ea348
     .4byte 0x00000000
 
     .global Ch10EphraimEvents
-Ch10EphraimEvents: @0x89ea4a8
-    .4byte gFlagBitMaskLut + 0x1e1c
-    .4byte gFlagBitMaskLut + 0x1e68
-    .4byte gFlagBitMaskLut + 0x1e9c
-    .4byte gFlagBitMaskLut + 0x1f00
-    .4byte gFlagBitMaskLut + 0x1f1c
-    .4byte gFlagBitMaskLut + 0x1f20
-    .4byte gFlagBitMaskLut + 0x1f24
-    .4byte gFlagBitMaskLut + 0x1f28
-    .4byte gUnknown_089ED6AC + 0x4c4
-    .4byte gUnknown_089ED6AC + 0x823
-    .4byte Events_WM_ChapterIntro + 0xf17c
-    .4byte Events_WM_ChapterIntro + 0xf17c
-    .4byte Events_WM_ChapterIntro + 0xf974
-    .4byte Events_WM_ChapterIntro + 0xfc1c
-    .4byte Events_WM_ChapterIntro + 0xfec4
-    .4byte Events_WM_ChapterIntro + 0xfa3c
-    .4byte Events_WM_ChapterIntro + 0xfce4
-    .4byte Events_WM_ChapterIntro + 0xff8c
-    .4byte MenuDef_RouteSplit + 0x7180
-    .4byte MenuDef_RouteSplit + 0x7580
+Ch10EphraimEvents: @ 0x009EA4A8
+    .4byte 0x089EA398
+    .4byte 0x089EA3E4
+    .4byte 0x089EA418
+    .4byte 0x089EA47C
+    .4byte 0x089EA498
+    .4byte 0x089EA49C
+    .4byte 0x089EA4A0
+    .4byte 0x089EA4A4
+    .4byte 0x089EDB70
+    .4byte 0x089EDECF
+    .4byte UnitDef_088C2C54
+    .4byte UnitDef_088C2C54
+    .4byte UnitDef_088C344C
+    .4byte UnitDef_088C36F4
+    .4byte UnitDef_088C399C
+    .4byte UnitDef_088C3514
+    .4byte UnitDef_088C37BC
+    .4byte UnitDef_088C3A64
+    .4byte EventScr_089FA820
+    .4byte EventScr_089FAC20
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7bb0
+    .4byte EventScr_089FB250
     .4byte 0x00000003
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7bf4
+    .4byte EventScr_089FB294
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7d44
+    .4byte EventScr_089FB3E4
     .4byte 0x00000604
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7d5c
+    .4byte EventScr_089FB3FC
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7da4
+    .4byte EventScr_089FB444
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7b44
+    .4byte EventScr_089FB1E4
     .4byte 0x00000002
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7db8
+    .4byte EventScr_089FB458
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7e08
+    .4byte EventScr_089FB4A8
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7de0
+    .4byte EventScr_089FB480
     .4byte 0x00000003
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x7cf4
-    .4byte 0x0000190f
+    .4byte EventScr_089FB394
+    .4byte 0x0000190F
     .4byte 0x00000000
     .4byte 0x00080003
-    .4byte MenuDef_RouteSplit + 0x7d1c
-    .4byte 0x00001a19
+    .4byte EventScr_089FB3BC
+    .4byte 0x00001A19
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x7c78
+    .4byte EventScr_089FB318
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -1993,66 +1990,66 @@ Ch10EphraimEvents: @0x89ea4a8
     .4byte 0x00000000
 
     .global Ch11EphraimEvents
-Ch11EphraimEvents: @0x89ea5bc
-    .4byte gFlagBitMaskLut + 0x1f7c
-    .4byte gFlagBitMaskLut + 0x1fec
-    .4byte gFlagBitMaskLut + 0x2010
-    .4byte gFlagBitMaskLut + 0x2014
-    .4byte gFlagBitMaskLut + 0x2030
-    .4byte gFlagBitMaskLut + 0x2034
-    .4byte gFlagBitMaskLut + 0x2038
-    .4byte gFlagBitMaskLut + 0x203c
-    .4byte gUnknown_089ED6AC + 0x4c6
-    .4byte gUnknown_089ED6AC + 0x825
-    .4byte Events_WM_ChapterIntro + 0x10378
-    .4byte Events_WM_ChapterIntro + 0x10378
+Ch11EphraimEvents: @ 0x009EA5BC
+    .4byte 0x089EA4F8
+    .4byte 0x089EA568
+    .4byte 0x089EA58C
+    .4byte 0x089EA590
+    .4byte 0x089EA5AC
+    .4byte 0x089EA5B0
+    .4byte 0x089EA5B4
+    .4byte 0x089EA5B8
+    .4byte 0x089EDB72
+    .4byte 0x089EDED1
+    .4byte UnitDef_088C3E50
+    .4byte UnitDef_088C3E50
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x79e4
-    .4byte MenuDef_RouteSplit + 0x7c78
+    .4byte EventScr_Ch11b_BeginingScene
+    .4byte EventScr_089FB318
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x7fac
+    .4byte EventScr_089FB64C
     .4byte 0x00800001
     .4byte 0x00080002
-    .4byte MenuDef_RouteSplit + 0x7fd8
+    .4byte EventScr_089FB678
     .4byte 0x00000002
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x82f8
+    .4byte EventScr_089FB998
     .4byte 0x00000403
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8310
+    .4byte EventScr_089FB9B0
     .4byte 0x00000604
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8328
+    .4byte EventScr_089FB9C8
     .4byte 0x00000705
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8340
-    .4byte 0x00000a08
+    .4byte EventScr_089FB9E0
+    .4byte 0x00000A08
     .4byte 0x00000000
     .4byte 0x00070003
-    .4byte MenuDef_RouteSplit + 0x826c
+    .4byte EventScr_089FB90C
     .4byte 0x00001618
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x82d0
+    .4byte EventScr_089FB970
     .4byte 0x00100906
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x24e
+    .4byte 0x0000000A
+    .4byte 0x089ED8FA
     .4byte 0x00170104
     .4byte 0x00000006
-    .4byte MenuDef_RouteSplit + 0x8294
+    .4byte EventScr_089FB934
     .4byte 0x00100505
     .4byte 0x00000005
     .4byte 0x00000001
     .4byte 0x00200405
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x80d0
+    .4byte EventScr_089FB770
     .4byte 0x00000002
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -2062,98 +2059,98 @@ Ch11EphraimEvents: @0x89ea5bc
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global Ch12EphraimEvents
-Ch12EphraimEvents: @0x89ea6cc
-    .4byte gFlagBitMaskLut + 0x2090
-    .4byte gFlagBitMaskLut + 0x20dc
-    .4byte gFlagBitMaskLut + 0x20f0
-    .4byte gFlagBitMaskLut + 0x2124
-    .4byte gFlagBitMaskLut + 0x2140
-    .4byte gFlagBitMaskLut + 0x2144
-    .4byte gFlagBitMaskLut + 0x2148
-    .4byte gFlagBitMaskLut + 0x214c
-    .4byte gUnknown_089ED6AC + 0x4c8
-    .4byte gUnknown_089ED6AC + 0x827
-    .4byte Events_WM_ChapterIntro + 0x10be0
-    .4byte Events_WM_ChapterIntro + 0x10be0
+Ch12EphraimEvents: @ 0x009EA6CC
+    .4byte 0x089EA60C
+    .4byte 0x089EA658
+    .4byte 0x089EA66C
+    .4byte 0x089EA6A0
+    .4byte 0x089EA6BC
+    .4byte 0x089EA6C0
+    .4byte 0x089EA6C4
+    .4byte 0x089EA6C8
+    .4byte 0x089EDB74
+    .4byte 0x089EDED3
+    .4byte UnitDef_088C46B8
+    .4byte UnitDef_088C46B8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x7e34
-    .4byte MenuDef_RouteSplit + 0x80d0
+    .4byte EventScr_Ch12b_BeginingScene
+    .4byte EventScr_089FB770
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8768
+    .4byte EventScr_089FBE08
     .4byte 0x00000807
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8780
+    .4byte EventScr_089FBE20
     .4byte 0x00000403
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8798
+    .4byte EventScr_089FBE38
     .4byte 0x00000503
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x87b0
+    .4byte EventScr_089FBE50
     .4byte 0x00000603
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x868c
-    .4byte 0x0000140f
+    .4byte EventScr_089FBD2C
+    .4byte 0x0000140F
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x868c
-    .4byte 0x00000f14
+    .4byte EventScr_089FBD2C
+    .4byte 0x00000F14
     .4byte 0x00000000
-    .4byte 0x000a0003
-    .4byte MenuDef_RouteSplit + 0x86b0
+    .4byte 0x000A0003
+    .4byte EventScr_089FBD50
     .4byte 0x00001614
     .4byte 0x00000000
-    .4byte 0x000a0003
-    .4byte MenuDef_RouteSplit + 0x86b0
+    .4byte 0x000A0003
+    .4byte EventScr_089FBD50
     .4byte 0x00001416
     .4byte 0x00000000
-    .4byte 0x000b0003
-    .4byte MenuDef_RouteSplit + 0x86d0
+    .4byte 0x000B0003
+    .4byte EventScr_089FBD70
     .4byte 0x00001815
     .4byte 0x00000000
-    .4byte 0x000b0003
-    .4byte MenuDef_RouteSplit + 0x86d0
+    .4byte 0x000B0003
+    .4byte EventScr_089FBD70
     .4byte 0x00001518
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000006
-    .4byte MenuDef_RouteSplit + 0x86f0
+    .4byte EventScr_089FBD90
     .4byte 0x00101204
     .4byte 0x00000005
     .4byte 0x00000001
     .4byte 0x00201104
     .4byte 0x00000006
-    .4byte MenuDef_RouteSplit + 0x872c
-    .4byte 0x00100d11
+    .4byte EventScr_089FBDCC
+    .4byte 0x00100D11
     .4byte 0x00000005
     .4byte 0x00000001
-    .4byte 0x00200c11
+    .4byte 0x00200C11
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x856c
+    .4byte EventScr_089FBC0C
     .4byte 0x00000006
-    .4byte 0x000c0001
-    .4byte MenuDef_RouteSplit + 0x87c8
+    .4byte 0x000C0001
+    .4byte EventScr_089FBE68
     .4byte 0x00000002
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0x85ec
-    .4byte 0x0e0b0d09
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0x85ec
-    .4byte 0x0c0c0a08
-    .4byte 0x0008000b
-    .4byte MenuDef_RouteSplit + 0x863c
-    .4byte 0x0e0b0d09
-    .4byte 0x0008000b
-    .4byte MenuDef_RouteSplit + 0x863c
-    .4byte 0x0c0c0a08
+    .4byte 0x0007000B
+    .4byte EventScr_089FBC8C
+    .4byte 0x0E0B0D09
+    .4byte 0x0007000B
+    .4byte EventScr_089FBC8C
+    .4byte 0x0C0C0A08
+    .4byte 0x0008000B
+    .4byte EventScr_089FBCDC
+    .4byte 0x0E0B0D09
+    .4byte 0x0008000B
+    .4byte EventScr_089FBCDC
+    .4byte 0x0C0C0A08
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -2162,160 +2159,160 @@ Ch12EphraimEvents: @0x89ea6cc
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global Ch13EphraimEventData
-Ch13EphraimEventData: @0x89ea850
-    .4byte gFlagBitMaskLut + 0x21a0
-    .4byte gFlagBitMaskLut + 0x21d4
-    .4byte gFlagBitMaskLut + 0x2238
-    .4byte gFlagBitMaskLut + 0x226c
-    .4byte gFlagBitMaskLut + 0x22c4
-    .4byte gFlagBitMaskLut + 0x22c8
-    .4byte gFlagBitMaskLut + 0x22cc
-    .4byte gFlagBitMaskLut + 0x22d0
-    .4byte gUnknown_089ED6AC + 0x4c9
-    .4byte gUnknown_089ED6AC + 0x828
-    .4byte Events_WM_ChapterIntro + 0x113dc
-    .4byte Events_WM_ChapterIntro + 0x113dc
-    .4byte Events_WM_ChapterIntro + 0x11af8
-    .4byte Events_WM_ChapterIntro + 0x11e04
-    .4byte Events_WM_ChapterIntro + 0x12110
-    .4byte Events_WM_ChapterIntro + 0x11bc0
-    .4byte Events_WM_ChapterIntro + 0x11ecc
-    .4byte Events_WM_ChapterIntro + 0x121d8
-    .4byte MenuDef_RouteSplit + 0x8358
-    .4byte MenuDef_RouteSplit + 0x856c
+Ch13EphraimEventData: @ 0x009EA850
+    .4byte 0x089EA71C
+    .4byte 0x089EA750
+    .4byte 0x089EA7B4
+    .4byte 0x089EA7E8
+    .4byte 0x089EA840
+    .4byte 0x089EA844
+    .4byte 0x089EA848
+    .4byte 0x089EA84C
+    .4byte 0x089EDB75
+    .4byte 0x089EDED4
+    .4byte UnitDef_088C4EB4
+    .4byte UnitDef_088C4EB4
+    .4byte UnitDef_088C55D0
+    .4byte UnitDef_088C58DC
+    .4byte UnitDef_088C5BE8
+    .4byte UnitDef_088C5698
+    .4byte UnitDef_088C59A4
+    .4byte UnitDef_088C5CB0
+    .4byte EventScr_Ch13b_BeginingScene
+    .4byte EventScr_089FBC0C
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8f00
-    .4byte 0x00000002
-    .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8f20
+    .4byte EventScr_089FC5A0
     .4byte 0x00000002
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8f48
+    .4byte EventScr_089FC5C0
+    .4byte 0x00000002
+    .4byte 0x00000002
+    .4byte EventScr_089FC5E8
     .4byte 0x00000003
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8f70
+    .4byte EventScr_089FC610
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x8f98
+    .4byte EventScr_089FC638
     .4byte 0x00000907
-    .4byte 0x000d0002
-    .4byte MenuDef_RouteSplit + 0x8ff0
-    .4byte 0x0000ff01
+    .4byte 0x000D0002
+    .4byte EventScr_089FC690
+    .4byte 0x0000FF01
     .4byte 0x00100002
-    .4byte MenuDef_RouteSplit + 0x905c
-    .4byte 0x0000ff01
+    .4byte EventScr_089FC6FC
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x8e80
-    .4byte 0x00001c19
+    .4byte EventScr_089FC520
+    .4byte 0x00001C19
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x8e8c
-    .4byte 0x00001c0f
+    .4byte EventScr_089FC52C
+    .4byte 0x00001C0F
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030005
     .4byte 0x00000001
-    .4byte 0x0011020e
-    .4byte 0x000e0008
+    .4byte 0x0011020E
+    .4byte 0x000E0008
     .4byte 0x00000001
-    .4byte 0x0012070d
-    .4byte 0x000b0008
+    .4byte 0x0012070D
+    .4byte 0x000B0008
     .4byte 0x00000001
-    .4byte 0x0012140d
+    .4byte 0x0012140D
     .4byte 0x00000007
     .4byte 0x00000068
-    .4byte 0x0014120d
+    .4byte 0x0014120D
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120c06
+    .4byte 0x00120C06
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120c07
+    .4byte 0x00120C07
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120c08
+    .4byte 0x00120C08
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120d06
+    .4byte 0x00120D06
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120d07
+    .4byte 0x00120D07
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120d08
+    .4byte 0x00120D08
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120c14
+    .4byte 0x00120C14
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120c15
+    .4byte 0x00120C15
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120c16
+    .4byte 0x00120C16
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120d16
+    .4byte 0x00120D16
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120d15
+    .4byte 0x00120D15
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120d14
+    .4byte 0x00120D14
     .4byte 0x00000007
     .4byte 0x00000057
-    .4byte 0x0014120f
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x266
-    .4byte 0x00180f04
+    .4byte 0x0014120F
+    .4byte 0x0000000A
+    .4byte 0x089ED912
+    .4byte 0x00180F04
     .4byte 0x00000007
-    .4byte 0x0000001d
-    .4byte 0x0014011b
+    .4byte 0x0000001D
+    .4byte 0x0014011B
     .4byte 0x00000007
-    .4byte 0x0000005b
+    .4byte 0x0000005B
     .4byte 0x00140103
     .4byte 0x00000007
     .4byte 0x27100077
-    .4byte 0x0014120e
-    .4byte 0x000b0008
+    .4byte 0x0014120E
+    .4byte 0x000B0008
     .4byte 0x00000001
-    .4byte 0x0012140e
-    .4byte 0x000b0008
+    .4byte 0x0012140E
+    .4byte 0x000B0008
     .4byte 0x00000001
-    .4byte 0x0012140f
-    .4byte 0x000b0008
+    .4byte 0x0012140F
+    .4byte 0x000B0008
     .4byte 0x00000001
-    .4byte 0x0012150f
-    .4byte 0x000b0008
+    .4byte 0x0012150F
+    .4byte 0x000B0008
     .4byte 0x00000001
-    .4byte 0x0012150e
-    .4byte 0x000b0008
+    .4byte 0x0012150E
+    .4byte 0x000B0008
     .4byte 0x00000001
-    .4byte 0x0012150d
-    .4byte 0x000e0008
+    .4byte 0x0012150D
+    .4byte 0x000E0008
     .4byte 0x00000001
-    .4byte 0x0012070e
-    .4byte 0x000e0008
+    .4byte 0x0012070E
+    .4byte 0x000E0008
     .4byte 0x00000001
-    .4byte 0x0012070f
-    .4byte 0x000e0008
+    .4byte 0x0012070F
+    .4byte 0x000E0008
     .4byte 0x00000001
-    .4byte 0x0012080d
-    .4byte 0x000e0008
+    .4byte 0x0012080D
+    .4byte 0x000E0008
     .4byte 0x00000001
-    .4byte 0x0012080e
-    .4byte 0x000e0008
+    .4byte 0x0012080E
+    .4byte 0x000E0008
     .4byte 0x00000001
-    .4byte 0x0012080f
+    .4byte 0x0012080F
     .4byte 0x00000000
-    .4byte 0x000c0001
-    .4byte MenuDef_RouteSplit + 0x8fc0
-    .4byte 0x0000000b
-    .4byte 0x000f0001
-    .4byte MenuDef_RouteSplit + 0x904c
-    .4byte 0x0000000e
+    .4byte 0x000C0001
+    .4byte EventScr_089FC660
+    .4byte 0x0000000B
+    .4byte 0x000F0001
+    .4byte EventScr_089FC6EC
+    .4byte 0x0000000E
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -2324,137 +2321,137 @@ Ch13EphraimEventData: @0x89ea850
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global Ch14EphraimEventData
-Ch14EphraimEventData: @0x89eaacc
-    .4byte gFlagBitMaskLut + 0x2324
-    .4byte gFlagBitMaskLut + 0x237c
-    .4byte gFlagBitMaskLut + 0x23a0
-    .4byte gFlagBitMaskLut + 0x2518
-    .4byte gFlagBitMaskLut + 0x2540
-    .4byte gFlagBitMaskLut + 0x2544
-    .4byte gFlagBitMaskLut + 0x2548
-    .4byte gFlagBitMaskLut + 0x254c
-    .4byte gUnknown_089ED6AC + 0x4ca
-    .4byte gUnknown_089ED6AC + 0x829
-    .4byte Events_WM_ChapterIntro + 0x124e4
-    .4byte Events_WM_ChapterIntro + 0x124e4
+Ch14EphraimEventData: @ 0x009EAACC
+    .4byte 0x089EA8A0
+    .4byte 0x089EA8F8
+    .4byte 0x089EA91C
+    .4byte 0x089EAA94
+    .4byte 0x089EAABC
+    .4byte 0x089EAAC0
+    .4byte 0x089EAAC4
+    .4byte 0x089EAAC8
+    .4byte 0x089EDB76
+    .4byte 0x089EDED5
+    .4byte UnitDef_088C5FBC
+    .4byte UnitDef_088C5FBC
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x87dc
-    .4byte MenuDef_RouteSplit + 0x89cc
+    .4byte EventScr_Ch14b_BeginingScene
+    .4byte EventScr_089FC06C
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9394
+    .4byte EventScr_089FCA34
     .4byte 0x00000503
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x93ac
+    .4byte EventScr_089FCA4C
     .4byte 0x00000504
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x93c4
+    .4byte EventScr_089FCA64
     .4byte 0x00000908
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x93dc
+    .4byte EventScr_089FCA7C
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x93f4
+    .4byte EventScr_089FCA94
     .4byte 0x00000604
     .4byte 0x00000000
-    .4byte 0x000d0003
-    .4byte MenuDef_RouteSplit + 0x92f0
-    .4byte 0x0000010f
+    .4byte 0x000D0003
+    .4byte EventScr_089FC990
+    .4byte 0x0000010F
     .4byte 0x00000000
-    .4byte 0x000d0003
-    .4byte MenuDef_RouteSplit + 0x92f0
-    .4byte 0x00000f01
+    .4byte 0x000D0003
+    .4byte EventScr_089FC990
+    .4byte 0x00000F01
     .4byte 0x00000000
-    .4byte 0x000e0003
-    .4byte MenuDef_RouteSplit + 0x9314
+    .4byte 0x000E0003
+    .4byte EventScr_089FC9B4
     .4byte 0x00000201
     .4byte 0x00000000
-    .4byte 0x000e0003
-    .4byte MenuDef_RouteSplit + 0x9314
+    .4byte 0x000E0003
+    .4byte EventScr_089FC9B4
     .4byte 0x00000102
     .4byte 0x00000000
-    .4byte 0x000f0003
-    .4byte MenuDef_RouteSplit + 0x9334
+    .4byte 0x000F0003
+    .4byte EventScr_089FC9D4
     .4byte 0x00002201
     .4byte 0x00000000
-    .4byte 0x000f0003
-    .4byte MenuDef_RouteSplit + 0x9334
+    .4byte 0x000F0003
+    .4byte EventScr_089FC9D4
     .4byte 0x00000122
     .4byte 0x00000000
     .4byte 0x00100003
-    .4byte MenuDef_RouteSplit + 0x9354
-    .4byte 0x0000220b
+    .4byte EventScr_089FC9F4
+    .4byte 0x0000220B
     .4byte 0x00000000
     .4byte 0x00100003
-    .4byte MenuDef_RouteSplit + 0x9354
-    .4byte 0x00000b22
+    .4byte EventScr_089FC9F4
+    .4byte 0x00000B22
     .4byte 0x00000000
     .4byte 0x00110003
-    .4byte MenuDef_RouteSplit + 0x9374
+    .4byte EventScr_089FCA14
     .4byte 0x00001817
     .4byte 0x00000000
     .4byte 0x00110003
-    .4byte MenuDef_RouteSplit + 0x9374
+    .4byte EventScr_089FCA14
     .4byte 0x00001718
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000006
-    .4byte MenuDef_RouteSplit + 0x9264
-    .4byte 0x00100e01
+    .4byte EventScr_089FC904
+    .4byte 0x00100E01
     .4byte 0x00000005
     .4byte 0x00000001
-    .4byte 0x00200d01
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x288
+    .4byte 0x00200D01
+    .4byte 0x0000000A
+    .4byte 0x089ED934
     .4byte 0x00170408
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x92a0
+    .4byte EventScr_089FC940
     .4byte 0x00100611
     .4byte 0x00000005
-    .4byte MenuDef_RouteSplit + 0x92c8
-    .4byte 0x00100d05
+    .4byte EventScr_089FC968
+    .4byte 0x00100D05
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x9250
+    .4byte EventScr_089FC8F0
     .4byte 0x00000006
-    .4byte 0x0014000b
-    .4byte MenuDef_RouteSplit + 0x94c4
-    .4byte 0x0a170714
-    .4byte 0x0015000b
-    .4byte MenuDef_RouteSplit + 0x9508
+    .4byte 0x0014000B
+    .4byte EventScr_089FCB64
+    .4byte 0x0A170714
+    .4byte 0x0015000B
+    .4byte EventScr_089FCBA8
     .4byte 0x02020000
-    .4byte 0x0018000b
-    .4byte MenuDef_RouteSplit + 0x95d4
+    .4byte 0x0018000B
+    .4byte EventScr_089FCC74
     .4byte 0x02160012
-    .4byte 0x0017000b
-    .4byte MenuDef_RouteSplit + 0x9590
-    .4byte 0x0b010900
-    .4byte 0x0012000b
-    .4byte MenuDef_RouteSplit + 0x943c
-    .4byte 0x0c090905
-    .4byte 0x001a000b
-    .4byte MenuDef_RouteSplit + 0x9618
-    .4byte 0x0f0a0e08
-    .4byte 0x0013000b
-    .4byte MenuDef_RouteSplit + 0x9480
-    .4byte 0x0d120b0e
-    .4byte 0x0016000b
-    .4byte MenuDef_RouteSplit + 0x954c
-    .4byte 0x15170f16
-    .4byte 0x0019000b
-    .4byte MenuDef_RouteSplit + 0x940c
-    .4byte 0x150e110b
-    .4byte 0x0019000b
-    .4byte MenuDef_RouteSplit + 0x940c
-    .4byte 0x15150e0f
-    .4byte 0x001b000b
-    .4byte MenuDef_RouteSplit + 0x965c
+    .4byte 0x0017000B
+    .4byte EventScr_089FCC30
+    .4byte 0x0B010900
+    .4byte 0x0012000B
+    .4byte EventScr_089FCADC
+    .4byte 0x0C090905
+    .4byte 0x001A000B
+    .4byte EventScr_089FCCB8
+    .4byte 0x0F0A0E08
+    .4byte 0x0013000B
+    .4byte EventScr_089FCB20
+    .4byte 0x0D120B0E
+    .4byte 0x0016000B
+    .4byte EventScr_089FCBEC
+    .4byte 0x15170F16
+    .4byte 0x0019000B
+    .4byte EventScr_089FCAAC
+    .4byte 0x150E110B
+    .4byte 0x0019000B
+    .4byte EventScr_089FCAAC
+    .4byte 0x15150E0F
+    .4byte 0x001B000B
+    .4byte EventScr_089FCCFC
     .4byte 0x07000400
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -2464,49 +2461,49 @@ Ch14EphraimEventData: @0x89eaacc
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global Ch15EphraimEventData
-Ch15EphraimEventData: @0x89eacf0
-    .4byte gFlagBitMaskLut + 0x25a0
-    .4byte gFlagBitMaskLut + 0x25e0
-    .4byte gFlagBitMaskLut + 0x2684
-    .4byte gFlagBitMaskLut + 0x26c4
-    .4byte gFlagBitMaskLut + 0x2764
-    .4byte gFlagBitMaskLut + 0x2768
-    .4byte gFlagBitMaskLut + 0x276c
-    .4byte gFlagBitMaskLut + 0x2770
-    .4byte gUnknown_089ED6AC + 0x4ce
-    .4byte gUnknown_089ED6AC + 0x82d
-    .4byte Events_WM_ChapterIntro + 0x1333c
-    .4byte Events_WM_ChapterIntro + 0x1333c
+Ch15EphraimEventData: @ 0x009EACF0
+    .4byte 0x089EAB1C
+    .4byte 0x089EAB5C
+    .4byte 0x089EAC00
+    .4byte 0x089EAC40
+    .4byte 0x089EACE0
+    .4byte 0x089EACE4
+    .4byte 0x089EACE8
+    .4byte 0x089EACEC
+    .4byte 0x089EDB7A
+    .4byte 0x089EDED9
+    .4byte UnitDef_088C6E14
+    .4byte UnitDef_088C6E14
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x90a0
-    .4byte MenuDef_RouteSplit + 0x9250
-    .4byte 0x000d0002
-    .4byte MenuDef_RouteSplit + 0x97e0
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x9764
-    .4byte 0x0000ff01
+    .4byte EventScr_Ch15b_BeginingScene
+    .4byte EventScr_089FC8F0
+    .4byte 0x000D0002
+    .4byte EventScr_089FCE80
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089FCE04
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9720
+    .4byte EventScr_089FCDC0
     .4byte 0x00000010
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9708
+    .4byte EventScr_089FCDA8
     .4byte 0x00000006
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030005
     .4byte 0x00000001
-    .4byte 0x0011030d
+    .4byte 0x0011030D
     .4byte 0x00000007
     .4byte 0x00000029
-    .4byte 0x00140c03
+    .4byte 0x00140C03
     .4byte 0x00000007
     .4byte 0x00000061
     .4byte 0x00140114
@@ -2518,7 +2515,7 @@ Ch15EphraimEventData: @0x89eacf0
     .4byte 0x00120401
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120a03
+    .4byte 0x00120A03
     .4byte 0x00000008
     .4byte 0x00000001
     .4byte 0x00120304
@@ -2526,18 +2523,18 @@ Ch15EphraimEventData: @0x89eacf0
     .4byte 0x13880077
     .4byte 0x00140514
     .4byte 0x00000000
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x9738
+    .4byte 0x000B000B
+    .4byte EventScr_089FCDD8
     .4byte 0x03080000
-    .4byte 0x000c000b
-    .4byte MenuDef_RouteSplit + 0x97a8
-    .4byte 0x0b150405
-    .4byte 0x000c000b
-    .4byte MenuDef_RouteSplit + 0x97a8
-    .4byte 0x160d1201
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x9738
-    .4byte 0x15150e0e
+    .4byte 0x000C000B
+    .4byte EventScr_089FCE48
+    .4byte 0x0B150405
+    .4byte 0x000C000B
+    .4byte EventScr_089FCE48
+    .4byte 0x160D1201
+    .4byte 0x000B000B
+    .4byte EventScr_089FCDD8
+    .4byte 0x15150E0E
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -2546,104 +2543,104 @@ Ch15EphraimEventData: @0x89eacf0
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global Ch16EphraimEventData
-Ch16EphraimEventData: @0x89eae2c
-    .4byte gFlagBitMaskLut + 0x27c4
-    .4byte gFlagBitMaskLut + 0x27f8
-    .4byte gFlagBitMaskLut + 0x27fc
-    .4byte gFlagBitMaskLut + 0x2860
-    .4byte gFlagBitMaskLut + 0x28a0
-    .4byte gFlagBitMaskLut + 0x28a4
-    .4byte gFlagBitMaskLut + 0x28a8
-    .4byte gFlagBitMaskLut + 0x28ac
-    .4byte gUnknown_089ED6AC + 0x4cf
-    .4byte gUnknown_089ED6AC + 0x82e
-    .4byte Events_WM_ChapterIntro + 0x13b70
-    .4byte Events_WM_ChapterIntro + 0x13b70
+Ch16EphraimEventData: @ 0x009EAE2C
+    .4byte 0x089EAD40
+    .4byte 0x089EAD74
+    .4byte 0x089EAD78
+    .4byte 0x089EADDC
+    .4byte 0x089EAE1C
+    .4byte 0x089EAE20
+    .4byte 0x089EAE24
+    .4byte 0x089EAE28
+    .4byte 0x089EDB7B
+    .4byte 0x089EDEDA
+    .4byte UnitDef_088C7648
+    .4byte UnitDef_088C7648
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x96a0
-    .4byte MenuDef_RouteSplit + 0x96f8
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x98f0
-    .4byte 0x0000ff01
+    .4byte EventScr_Ch16b_BeginingScene
+    .4byte EventScr_089FCD98
+    .4byte 0x000E0002
+    .4byte EventScr_089FCF90
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9870
+    .4byte EventScr_089FCF10
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9870
+    .4byte EventScr_089FCF10
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9870
+    .4byte EventScr_089FCF10
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x98a0
+    .4byte EventScr_089FCF40
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x98a0
+    .4byte EventScr_089FCF40
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x98a0
+    .4byte EventScr_089FCF40
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x98b8
-    .4byte 0x0000000a
+    .4byte EventScr_089FCF58
+    .4byte 0x0000000A
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x98b8
-    .4byte 0x0000000c
+    .4byte EventScr_089FCF58
+    .4byte 0x0000000C
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9888
+    .4byte EventScr_089FCF28
     .4byte 0x00000003
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9888
+    .4byte EventScr_089FCF28
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9888
+    .4byte EventScr_089FCF28
     .4byte 0x00000007
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9888
+    .4byte EventScr_089FCF28
     .4byte 0x00000009
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9888
-    .4byte 0x0000000b
+    .4byte EventScr_089FCF28
+    .4byte 0x0000000B
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x9858
+    .4byte EventScr_089FCEF8
     .4byte 0x00002122
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x984c
-    .4byte 0x0000210b
+    .4byte EventScr_089FCEEC
+    .4byte 0x0000210B
     .4byte 0x00000000
     .4byte 0x00090003
-    .4byte MenuDef_RouteSplit + 0x9864
+    .4byte EventScr_089FCF04
     .4byte 0x00002106
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x2a2
+    .4byte 0x0000000A
+    .4byte 0x089ED94E
     .4byte 0x00171401
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x2bc
-    .4byte 0x0016020c
+    .4byte 0x0000000A
+    .4byte 0x089ED968
+    .4byte 0x0016020C
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x983c
+    .4byte EventScr_089FCEDC
     .4byte 0x00000002
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0x98d0
+    .4byte 0x000D000B
+    .4byte EventScr_089FCF70
     .4byte 0x09160011
-    .4byte 0x000f000b
-    .4byte MenuDef_RouteSplit + 0x9924
+    .4byte 0x000F000B
+    .4byte EventScr_089FCFC4
     .4byte 0x08100009
-    .4byte 0x000f000b
-    .4byte MenuDef_RouteSplit + 0x9924
-    .4byte 0x10130a0f
+    .4byte 0x000F000B
+    .4byte EventScr_089FCFC4
+    .4byte 0x10130A0F
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -2654,60 +2651,60 @@ Ch16EphraimEventData: @0x89eae2c
     .4byte 0x00000000
 
     .global Ch17EphraimEventData
-Ch17EphraimEventData: @0x89eafc8
-    .4byte gFlagBitMaskLut + 0x2900
-    .4byte gFlagBitMaskLut + 0x29ac
-    .4byte gFlagBitMaskLut + 0x29e0
-    .4byte gFlagBitMaskLut + 0x29fc
-    .4byte gFlagBitMaskLut + 0x2a3c
-    .4byte gFlagBitMaskLut + 0x2a40
-    .4byte gFlagBitMaskLut + 0x2a44
-    .4byte gFlagBitMaskLut + 0x2a48
-    .4byte gUnknown_089ED6AC + 0x4d0
-    .4byte gUnknown_089ED6AC + 0x82f
-    .4byte Events_WM_ChapterIntro + 0x141c4
-    .4byte Events_WM_ChapterIntro + 0x141c4
-    .4byte Events_WM_ChapterIntro + 0x14610
-    .4byte Events_WM_ChapterIntro + 0x14930
-    .4byte Events_WM_ChapterIntro + 0x14c50
-    .4byte Events_WM_ChapterIntro + 0x146d8
-    .4byte Events_WM_ChapterIntro + 0x149f8
-    .4byte Events_WM_ChapterIntro + 0x14d18
-    .4byte MenuDef_RouteSplit + 0x9824
-    .4byte MenuDef_RouteSplit + 0x983c
+Ch17EphraimEventData: @ 0x009EAFC8
+    .4byte 0x089EAE7C
+    .4byte 0x089EAF28
+    .4byte 0x089EAF5C
+    .4byte 0x089EAF78
+    .4byte 0x089EAFB8
+    .4byte 0x089EAFBC
+    .4byte 0x089EAFC0
+    .4byte 0x089EAFC4
+    .4byte 0x089EDB7C
+    .4byte 0x089EDEDB
+    .4byte UnitDef_088C7C9C
+    .4byte UnitDef_088C7C9C
+    .4byte UnitDef_088C80E8
+    .4byte UnitDef_088C8408
+    .4byte UnitDef_088C8728
+    .4byte UnitDef_088C81B0
+    .4byte UnitDef_088C84D0
+    .4byte UnitDef_088C87F0
+    .4byte EventScr_Ch17b_BeginingScene
+    .4byte EventScr_089FCEDC
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9bc8
-    .4byte 0x0000ff01
+    .4byte EventScr_089FD268
+    .4byte 0x0000FF01
     .4byte 0x00080002
-    .4byte MenuDef_RouteSplit + 0x9c0c
-    .4byte 0x0000ff01
-    .4byte 0x000a0002
-    .4byte MenuDef_RouteSplit + 0x9c40
-    .4byte 0x0000ff01
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0x9c74
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0x9cb8
-    .4byte 0x0000ff01
+    .4byte EventScr_089FD2AC
+    .4byte 0x0000FF01
+    .4byte 0x000A0002
+    .4byte EventScr_089FD2E0
+    .4byte 0x0000FF01
+    .4byte 0x000C0002
+    .4byte EventScr_089FD314
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089FD358
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x99c8
+    .4byte EventScr_089FD068
     .4byte 0x00000006
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0x9bf0
-    .4byte 0x1b16140e
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0x9c58
-    .4byte 0x0a160010
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0x9c24
-    .4byte 0x13160e13
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0x9c9c
-    .4byte 0x080d0004
+    .4byte 0x0007000B
+    .4byte EventScr_089FD290
+    .4byte 0x1B16140E
+    .4byte 0x000B000B
+    .4byte EventScr_089FD2F8
+    .4byte 0x0A160010
+    .4byte 0x0009000B
+    .4byte EventScr_089FD2C4
+    .4byte 0x13160E13
+    .4byte 0x000D000B
+    .4byte EventScr_089FD33C
+    .4byte 0x080D0004
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -2716,88 +2713,88 @@ Ch17EphraimEventData: @0x89eafc8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global Ch18EphraimEventData
-Ch18EphraimEventData: @0x89eb0bc
-    .4byte gFlagBitMaskLut + 0x2a9c
-    .4byte gFlagBitMaskLut + 0x2adc
-    .4byte gFlagBitMaskLut + 0x2ae0
-    .4byte gFlagBitMaskLut + 0x2ae4
-    .4byte gFlagBitMaskLut + 0x2b30
-    .4byte gFlagBitMaskLut + 0x2b34
-    .4byte gFlagBitMaskLut + 0x2b38
-    .4byte gFlagBitMaskLut + 0x2b3c
-    .4byte gUnknown_089ED6AC + 0x4d1
-    .4byte gUnknown_089ED6AC + 0x830
-    .4byte Events_WM_ChapterIntro + 0x15000
-    .4byte Events_WM_ChapterIntro + 0x15000
-    .4byte Events_WM_ChapterIntro + 0x1562c
-    .4byte Events_WM_ChapterIntro + 0x159d8
-    .4byte Events_WM_ChapterIntro + 0x15d84
-    .4byte Events_WM_ChapterIntro + 0x156e0
-    .4byte Events_WM_ChapterIntro + 0x15a8c
-    .4byte Events_WM_ChapterIntro + 0x15e38
-    .4byte MenuDef_RouteSplit + 0x9988
-    .4byte MenuDef_RouteSplit + 0x99c8
+Ch18EphraimEventData: @ 0x009EB0BC
+    .4byte 0x089EB018
+    .4byte 0x089EB058
+    .4byte 0x089EB05C
+    .4byte 0x089EB060
+    .4byte 0x089EB0AC
+    .4byte 0x089EB0B0
+    .4byte 0x089EB0B4
+    .4byte 0x089EB0B8
+    .4byte 0x089EDB7D
+    .4byte 0x089EDEDC
+    .4byte UnitDef_088C8AD8
+    .4byte UnitDef_088C8AD8
+    .4byte UnitDef_088C9104
+    .4byte UnitDef_088C94B0
+    .4byte UnitDef_088C985C
+    .4byte UnitDef_088C91B8
+    .4byte UnitDef_088C9564
+    .4byte UnitDef_088C9910
+    .4byte EventScr_Ch18b_BeginingScene
+    .4byte EventScr_089FD068
     .4byte 0x00030002
-    .4byte MenuDef_RouteSplit + 0x9d3c
-    .4byte 0x0000000e
+    .4byte EventScr_089FD3DC
+    .4byte 0x0000000E
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9d4c
+    .4byte EventScr_089FD3EC
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9d64
+    .4byte EventScr_089FD404
     .4byte 0x00000706
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9d7c
+    .4byte EventScr_089FD41C
     .4byte 0x00000703
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9db0
+    .4byte EventScr_089FD450
     .4byte 0x00000804
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9de4
-    .4byte 0x00000c08
+    .4byte EventScr_089FD484
+    .4byte 0x00000C08
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9e18
-    .4byte 0x00000d09
+    .4byte EventScr_089FD4B8
+    .4byte 0x00000D09
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9e4c
+    .4byte EventScr_089FD4EC
     .4byte 0x00000903
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9e64
+    .4byte EventScr_089FD504
     .4byte 0x00000802
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9d08
+    .4byte EventScr_089FD3A8
     .4byte 0x00000001
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000007
     .4byte 0x00000011
-    .4byte 0x00140b02
+    .4byte 0x00140B02
     .4byte 0x00000007
     .4byte 0x00000049
-    .4byte 0x00140b04
+    .4byte 0x00140B04
     .4byte 0x00000007
-    .4byte 0x0000004f
-    .4byte 0x00140a1b
+    .4byte 0x0000004F
+    .4byte 0x00140A1B
     .4byte 0x00000007
     .4byte 0x13880077
-    .4byte 0x00140c1b
+    .4byte 0x00140C1B
     .4byte 0x00000008
     .4byte 0x00000001
-    .4byte 0x00120f03
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x2e0
-    .4byte 0x0018071a
+    .4byte 0x00120F03
+    .4byte 0x0000000A
+    .4byte 0x089ED98C
+    .4byte 0x0018071A
     .4byte 0x00000007
-    .4byte 0x0000005e
-    .4byte 0x00140c03
+    .4byte 0x0000005E
+    .4byte 0x00140C03
     .4byte 0x00000007
-    .4byte 0x0000003b
-    .4byte 0x00140e1b
+    .4byte 0x0000003B
+    .4byte 0x00140E1B
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0x9d3c
+    .4byte EventScr_089FD3DC
     .4byte 0x00000002
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -2809,72 +2806,72 @@ Ch18EphraimEventData: @0x89eb0bc
     .4byte 0x00000000
 
     .global Ch19EphraimEventData
-Ch19EphraimEventData: @0x89eb21c
-    .4byte gFlagBitMaskLut + 0x2b90
-    .4byte gFlagBitMaskLut + 0x2c0c
-    .4byte gFlagBitMaskLut + 0x2c10
-    .4byte gFlagBitMaskLut + 0x2c74
-    .4byte gFlagBitMaskLut + 0x2c90
-    .4byte gFlagBitMaskLut + 0x2c94
-    .4byte gFlagBitMaskLut + 0x2c98
-    .4byte gFlagBitMaskLut + 0x2c9c
-    .4byte gUnknown_089ED6AC + 0x634
-    .4byte gUnknown_089ED6AC + 0x831
-    .4byte Events_WM_ChapterIntro + 0x161d8
-    .4byte Events_WM_ChapterIntro + 0x161d8
+Ch19EphraimEventData: @ 0x009EB21C
+    .4byte 0x089EB10C
+    .4byte 0x089EB188
+    .4byte 0x089EB18C
+    .4byte 0x089EB1F0
+    .4byte 0x089EB20C
+    .4byte 0x089EB210
+    .4byte 0x089EB214
+    .4byte 0x089EB218
+    .4byte 0x089EDCE0
+    .4byte 0x089EDEDD
+    .4byte UnitDef_088C9CB0
+    .4byte UnitDef_088C9CB0
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x9ce0
-    .4byte MenuDef_RouteSplit + 0x9d3c
+    .4byte EventScr_Ch19b_BeginingScene
+    .4byte EventScr_089FD3DC
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9ed8
+    .4byte EventScr_089FD578
     .4byte 0x00800001
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9f90
-    .4byte 0x0000150f
+    .4byte EventScr_089FD630
+    .4byte 0x0000150F
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0x9fd4
+    .4byte EventScr_089FD674
     .4byte 0x00001610
-    .4byte 0x000a0002
-    .4byte MenuDef_RouteSplit + 0xa038
-    .4byte 0x0000ff01
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0xa08c
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0xa114
-    .4byte 0x0000ff01
+    .4byte 0x000A0002
+    .4byte EventScr_089FD6D8
+    .4byte 0x0000FF01
+    .4byte 0x000C0002
+    .4byte EventScr_089FD72C
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089FD7B4
+    .4byte 0x0000FF01
     .4byte 0x00100002
-    .4byte MenuDef_RouteSplit + 0xa19c
-    .4byte 0x0000ff01
+    .4byte EventScr_089FD83C
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa258
-    .4byte 0x00001d13
+    .4byte EventScr_089FD8F8
+    .4byte 0x00001D13
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa2bc
+    .4byte EventScr_089FD95C
     .4byte 0x00000605
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030005
     .4byte 0x00000001
-    .4byte 0x00110b0b
+    .4byte 0x00110B0B
     .4byte 0x00000000
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0xa018
-    .4byte 0x0d190011
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0xa06c
+    .4byte 0x0009000B
+    .4byte EventScr_089FD6B8
+    .4byte 0x0D190011
+    .4byte 0x000B000B
+    .4byte EventScr_089FD70C
     .4byte 0x06100007
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0xa0f4
-    .4byte 0x14100f07
-    .4byte 0x000f000b
-    .4byte MenuDef_RouteSplit + 0xa17c
-    .4byte 0x0e100707
+    .4byte 0x000D000B
+    .4byte EventScr_089FD794
+    .4byte 0x14100F07
+    .4byte 0x000F000B
+    .4byte EventScr_089FD81C
+    .4byte 0x0E100707
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -2885,36 +2882,36 @@ Ch19EphraimEventData: @0x89eb21c
     .4byte 0x00000000
 
     .global Ch20EphraimEventData
-Ch20EphraimEventData: @0x89eb340
-    .4byte gFlagBitMaskLut + 0x2cf0
-    .4byte gFlagBitMaskLut + 0x2d60
-    .4byte gFlagBitMaskLut + 0x2d64
-    .4byte gFlagBitMaskLut + 0x2d74
-    .4byte gFlagBitMaskLut + 0x2db4
-    .4byte gFlagBitMaskLut + 0x2db8
-    .4byte gFlagBitMaskLut + 0x2dbc
-    .4byte gFlagBitMaskLut + 0x2dc0
-    .4byte gUnknown_089ED6AC + 0x635
-    .4byte gUnknown_089ED6AC + 0x832
-    .4byte Events_WM_ChapterIntro + 0x16b64
-    .4byte Events_WM_ChapterIntro + 0x16b64
+Ch20EphraimEventData: @ 0x009EB340
+    .4byte 0x089EB26C
+    .4byte 0x089EB2DC
+    .4byte 0x089EB2E0
+    .4byte 0x089EB2F0
+    .4byte 0x089EB330
+    .4byte 0x089EB334
+    .4byte 0x089EB338
+    .4byte 0x089EB33C
+    .4byte 0x089EDCE1
+    .4byte 0x089EDEDE
+    .4byte UnitDef_088CA63C
+    .4byte UnitDef_088CA63C
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0x9e7c
-    .4byte MenuDef_RouteSplit + 0x9ee4
-    .4byte 0x000d0002
-    .4byte MenuDef_RouteSplit + 0xa454
-    .4byte 0x0000ff01
-    .4byte 0x000b0002
-    .4byte MenuDef_RouteSplit + 0xa3ac
-    .4byte 0x0000ff01
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0xa400
-    .4byte 0x0000ff01
+    .4byte EventScr_Ch20b_BeginingScene
+    .4byte EventScr_089FD584
+    .4byte 0x000D0002
+    .4byte EventScr_089FDAF4
+    .4byte 0x0000FF01
+    .4byte 0x000B0002
+    .4byte EventScr_089FDA4C
+    .4byte 0x0000FF01
+    .4byte 0x000C0002
+    .4byte EventScr_089FDAA0
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000008
@@ -2924,26 +2921,26 @@ Ch20EphraimEventData: @0x89eb340
     .4byte 0x00000001
     .4byte 0x00121312
     .4byte 0x00000007
-    .4byte 0x0000005b
+    .4byte 0x0000005B
     .4byte 0x00141215
     .4byte 0x00000007
     .4byte 0x00000088
     .4byte 0x00141202
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0xa318
+    .4byte EventScr_089FD9B8
     .4byte 0x00000002
-    .4byte 0x000a000b
-    .4byte MenuDef_RouteSplit + 0xa434
-    .4byte 0x060c050a
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0xa3e0
-    .4byte 0x0c0b0700
-    .4byte 0x0008000b
-    .4byte MenuDef_RouteSplit + 0xa38c
-    .4byte 0x0c16070c
-    .4byte 0x000e000b
-    .4byte MenuDef_RouteSplit + 0xa488
+    .4byte 0x000A000B
+    .4byte EventScr_089FDAD4
+    .4byte 0x060C050A
+    .4byte 0x0009000B
+    .4byte EventScr_089FDA80
+    .4byte 0x0C0B0700
+    .4byte 0x0008000B
+    .4byte EventScr_089FDA2C
+    .4byte 0x0C16070C
+    .4byte 0x000E000B
+    .4byte EventScr_089FDB28
     .4byte 0x04150001
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -2953,34 +2950,34 @@ Ch20EphraimEventData: @0x89eb340
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global FinalEphraimEvents1
-FinalEphraimEvents1: @0x89eb44c
-    .4byte gFlagBitMaskLut + 0x2e14
-    .4byte gFlagBitMaskLut + 0x2e3c
-    .4byte gFlagBitMaskLut + 0x2e40
-    .4byte gFlagBitMaskLut + 0x2e74
-    .4byte gFlagBitMaskLut + 0x2ec0
-    .4byte gFlagBitMaskLut + 0x2ec4
-    .4byte gFlagBitMaskLut + 0x2ec8
-    .4byte gFlagBitMaskLut + 0x2ecc
-    .4byte gUnknown_089ED6AC + 0x636
-    .4byte gUnknown_089ED6AC + 0x833
-    .4byte Events_WM_ChapterIntro + 0x17588
-    .4byte Events_WM_ChapterIntro + 0x17588
+FinalEphraimEvents1: @ 0x009EB44C
+    .4byte 0x089EB390
+    .4byte 0x089EB3B8
+    .4byte 0x089EB3BC
+    .4byte 0x089EB3F0
+    .4byte 0x089EB43C
+    .4byte 0x089EB440
+    .4byte 0x089EB444
+    .4byte 0x089EB448
+    .4byte 0x089EDCE2
+    .4byte 0x089EDEDF
+    .4byte UnitDef_088CB060
+    .4byte UnitDef_088CB060
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa2d4
-    .4byte MenuDef_RouteSplit + 0xa318
+    .4byte EventScr_Ch21b_BeginingScene
+    .4byte EventScr_089FD9B8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00030001
-    .4byte MenuDef_RouteSplit + 0xa4b8
+    .4byte EventScr_089FDB58
     .4byte 0x00000002
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -2990,40 +2987,40 @@ FinalEphraimEvents1: @0x89eb44c
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global FinalEphraimEvents2
-FinalEphraimEvents2: @0x89eb4d4
-    .4byte gFlagBitMaskLut + 0x2f20
-    .4byte gFlagBitMaskLut + 0x2f24
-    .4byte gFlagBitMaskLut + 0x2f28
-    .4byte gFlagBitMaskLut + 0x2f2c
-    .4byte gFlagBitMaskLut + 0x2f48
-    .4byte gFlagBitMaskLut + 0x2f4c
-    .4byte gFlagBitMaskLut + 0x2f50
-    .4byte gFlagBitMaskLut + 0x2f54
-    .4byte gUnknown_089ED6AC + 0x637
-    .4byte gUnknown_089ED6AC + 0x834
-    .4byte Events_WM_ChapterIntro + 0x17bc8
-    .4byte Events_WM_ChapterIntro + 0x17bc8
+FinalEphraimEvents2: @ 0x009EB4D4
+    .4byte 0x089EB49C
+    .4byte 0x089EB4A0
+    .4byte 0x089EB4A4
+    .4byte 0x089EB4A8
+    .4byte 0x089EB4C4
+    .4byte 0x089EB4C8
+    .4byte 0x089EB4CC
+    .4byte 0x089EB4D0
+    .4byte 0x089EDCE3
+    .4byte 0x089EDEE0
+    .4byte UnitDef_088CB6A0
+    .4byte UnitDef_088CB6A0
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa4ac
-    .4byte MenuDef_RouteSplit + 0xa4b8
+    .4byte EventScr_Ch21x_BeginingScene
+    .4byte EventScr_089FDB58
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x2f2
+    .4byte 0x0000000A
+    .4byte 0x089ED99E
     .4byte 0x00161100
-    .4byte 0x0000000a
-    .4byte gUnknown_089ED6AC + 0x2f6
+    .4byte 0x0000000A
+    .4byte 0x089ED9A2
     .4byte 0x00171101
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xa544
+    .4byte EventScr_089FDBE4
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3035,38 +3032,38 @@ FinalEphraimEvents2: @0x89eb4d4
     .4byte 0x00000000
 
     .global TowerOfValni1Events
-TowerOfValni1Events: @0x89eb574
-    .4byte gFlagBitMaskLut + 0x2fa8
-    .4byte gFlagBitMaskLut + 0x2fac
-    .4byte gFlagBitMaskLut + 0x2fb0
-    .4byte gFlagBitMaskLut + 0x2fcc
-    .4byte gFlagBitMaskLut + 0x2fe8
-    .4byte gFlagBitMaskLut + 0x2fec
-    .4byte gFlagBitMaskLut + 0x2ff0
-    .4byte gFlagBitMaskLut + 0x2ff4
-    .4byte gUnknown_089ED6AC + 0x638
-    .4byte gUnknown_089ED6AC + 0x835
-    .4byte Events_WM_ChapterIntro + 0x17bf0
-    .4byte Events_WM_ChapterIntro + 0x17bf0
+TowerOfValni1Events: @ 0x009EB574
+    .4byte 0x089EB524
+    .4byte 0x089EB528
+    .4byte 0x089EB52C
+    .4byte 0x089EB548
+    .4byte 0x089EB564
+    .4byte 0x089EB568
+    .4byte 0x089EB56C
+    .4byte 0x089EB570
+    .4byte 0x089EDCE4
+    .4byte 0x089EDEE1
+    .4byte UnitDef_088CB6C8
+    .4byte UnitDef_088CB6C8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa4c8
-    .4byte MenuDef_RouteSplit + 0xa544
+    .4byte EventScr_Tower1_BeginingScene
+    .4byte EventScr_089FDBE4
     .4byte 0x00080002
-    .4byte MenuDef_RouteSplit + 0xa658
-    .4byte 0x0000ff01
+    .4byte EventScr_089FDCF8
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xa5f0
+    .4byte EventScr_089FDC90
     .4byte 0x00000006
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0xa624
+    .4byte 0x0007000B
+    .4byte EventScr_089FDCC4
     .4byte 0x11130111
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3076,37 +3073,37 @@ TowerOfValni1Events: @0x89eb574
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global TowerOfValni2Events
-TowerOfValni2Events: @0x89eb614
-    .4byte gFlagBitMaskLut + 0x3048
-    .4byte gFlagBitMaskLut + 0x3058
-    .4byte gFlagBitMaskLut + 0x305c
-    .4byte gFlagBitMaskLut + 0x3060
-    .4byte gFlagBitMaskLut + 0x3088
-    .4byte gFlagBitMaskLut + 0x308c
-    .4byte gFlagBitMaskLut + 0x3090
-    .4byte gFlagBitMaskLut + 0x3094
-    .4byte gUnknown_089ED6AC + 0x639
-    .4byte gUnknown_089ED6AC + 0x836
-    .4byte Events_WM_ChapterIntro + 0x17e40
-    .4byte Events_WM_ChapterIntro + 0x17e40
+TowerOfValni2Events: @ 0x009EB614
+    .4byte 0x089EB5C4
+    .4byte 0x089EB5D4
+    .4byte 0x089EB5D8
+    .4byte 0x089EB5DC
+    .4byte 0x089EB604
+    .4byte 0x089EB608
+    .4byte 0x089EB60C
+    .4byte 0x089EB610
+    .4byte 0x089EDCE5
+    .4byte 0x089EDEE2
+    .4byte UnitDef_088CB918
+    .4byte UnitDef_088CB918
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa578
-    .4byte MenuDef_RouteSplit + 0xa5f0
+    .4byte EventScr_Tower2_BeginingScene
+    .4byte EventScr_089FDC90
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000007
-    .4byte 0x0bb80077
-    .4byte 0x0014030a
+    .4byte 0x0BB80077
+    .4byte 0x0014030A
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xa6e4
+    .4byte EventScr_089FDD84
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3118,32 +3115,32 @@ TowerOfValni2Events: @0x89eb614
     .4byte 0x00000000
 
     .global TowerOfValni3Events
-TowerOfValni3Events: @0x89eb6a8
-    .4byte gFlagBitMaskLut + 0x30e8
-    .4byte gFlagBitMaskLut + 0x30ec
-    .4byte gFlagBitMaskLut + 0x30f0
-    .4byte gFlagBitMaskLut + 0x3100
-    .4byte gFlagBitMaskLut + 0x311c
-    .4byte gFlagBitMaskLut + 0x3120
-    .4byte gFlagBitMaskLut + 0x3124
-    .4byte gFlagBitMaskLut + 0x3128
-    .4byte gUnknown_089ED6AC + 0x63a
-    .4byte gUnknown_089ED6AC + 0x837
-    .4byte Events_WM_ChapterIntro + 0x18160
-    .4byte Events_WM_ChapterIntro + 0x18160
+TowerOfValni3Events: @ 0x009EB6A8
+    .4byte 0x089EB664
+    .4byte 0x089EB668
+    .4byte 0x089EB66C
+    .4byte 0x089EB67C
+    .4byte 0x089EB698
+    .4byte 0x089EB69C
+    .4byte 0x089EB6A0
+    .4byte 0x089EB6A4
+    .4byte 0x089EDCE6
+    .4byte 0x089EDEE3
+    .4byte UnitDef_088CBC38
+    .4byte UnitDef_088CBC38
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa670
-    .4byte MenuDef_RouteSplit + 0xa6e4
+    .4byte EventScr_Tower3_BeginingScene
+    .4byte EventScr_089FDD84
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xa79c
+    .4byte EventScr_089FDE3C
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3153,43 +3150,43 @@ TowerOfValni3Events: @0x89eb6a8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global TowerOfValni4Events
-TowerOfValni4Events: @0x89eb730
-    .4byte gFlagBitMaskLut + 0x317c
-    .4byte gFlagBitMaskLut + 0x3180
-    .4byte gFlagBitMaskLut + 0x3184
-    .4byte gFlagBitMaskLut + 0x3188
-    .4byte gFlagBitMaskLut + 0x31a4
-    .4byte gFlagBitMaskLut + 0x31a8
-    .4byte gFlagBitMaskLut + 0x31ac
-    .4byte gFlagBitMaskLut + 0x31b0
-    .4byte gUnknown_089ED6AC + 0x63b
-    .4byte gUnknown_089ED6AC + 0x838
-    .4byte Events_WM_ChapterIntro + 0x1844c
-    .4byte Events_WM_ChapterIntro + 0x1844c
+TowerOfValni4Events: @ 0x009EB730
+    .4byte 0x089EB6F8
+    .4byte 0x089EB6FC
+    .4byte 0x089EB700
+    .4byte 0x089EB704
+    .4byte 0x089EB720
+    .4byte 0x089EB724
+    .4byte 0x089EB728
+    .4byte 0x089EB72C
+    .4byte 0x089EDCE7
+    .4byte 0x089EDEE4
+    .4byte UnitDef_088CBF24
+    .4byte UnitDef_088CBF24
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa728
-    .4byte MenuDef_RouteSplit + 0xa79c
+    .4byte EventScr_Tower4_BeginingScene
+    .4byte EventScr_089FDE3C
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xa878
+    .4byte EventScr_089FDF18
     .4byte 0x00000602
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0x60
+    .4byte 0x089ED70C
     .4byte 0x00140906
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0x6e
-    .4byte 0x00140e0e
+    .4byte 0x089ED71A
+    .4byte 0x00140E0E
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xa844
+    .4byte EventScr_089FDEE4
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3199,46 +3196,46 @@ TowerOfValni4Events: @0x89eb730
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global TowerOfValni5Events
-TowerOfValni5Events: @0x89eb7dc
-    .4byte gFlagBitMaskLut + 0x3204
-    .4byte gFlagBitMaskLut + 0x3214
-    .4byte gFlagBitMaskLut + 0x3218
-    .4byte gFlagBitMaskLut + 0x3234
-    .4byte gFlagBitMaskLut + 0x3250
-    .4byte gFlagBitMaskLut + 0x3254
-    .4byte gFlagBitMaskLut + 0x3258
-    .4byte gFlagBitMaskLut + 0x325c
-    .4byte gUnknown_089ED6AC + 0x63c
-    .4byte gUnknown_089ED6AC + 0x839
-    .4byte Events_WM_ChapterIntro + 0x186b8
-    .4byte Events_WM_ChapterIntro + 0x186b8
+TowerOfValni5Events: @ 0x009EB7DC
+    .4byte 0x089EB780
+    .4byte 0x089EB790
+    .4byte 0x089EB794
+    .4byte 0x089EB7B0
+    .4byte 0x089EB7CC
+    .4byte 0x089EB7D0
+    .4byte 0x089EB7D4
+    .4byte 0x089EB7D8
+    .4byte 0x089EDCE8
+    .4byte 0x089EDEE5
+    .4byte UnitDef_088CC190
+    .4byte UnitDef_088CC190
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa7d0
-    .4byte MenuDef_RouteSplit + 0xa844
+    .4byte EventScr_Tower5_BeginingScene
+    .4byte EventScr_089FDEE4
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0x7c
+    .4byte 0x089ED728
     .4byte 0x00141202
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0x86
-    .4byte 0x0014010c
+    .4byte 0x089ED732
+    .4byte 0x0014010C
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0x9a
-    .4byte 0x0014010a
+    .4byte 0x089ED746
+    .4byte 0x0014010A
     .4byte 0x00000007
     .4byte 0x13880077
     .4byte 0x00140113
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xa904
+    .4byte EventScr_089FDFA4
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3248,58 +3245,58 @@ TowerOfValni5Events: @0x89eb7dc
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global TowerOfValni6Events
-TowerOfValni6Events: @0x89eb894
-    .4byte gFlagBitMaskLut + 0x32b0
-    .4byte gFlagBitMaskLut + 0x32b4
-    .4byte gFlagBitMaskLut + 0x32b8
-    .4byte gFlagBitMaskLut + 0x32ec
-    .4byte gFlagBitMaskLut + 0x3308
-    .4byte gFlagBitMaskLut + 0x330c
-    .4byte gFlagBitMaskLut + 0x3310
-    .4byte gFlagBitMaskLut + 0x3314
-    .4byte gUnknown_089ED6AC + 0x63d
-    .4byte gUnknown_089ED6AC + 0x83a
-    .4byte Events_WM_ChapterIntro + 0x18af0
-    .4byte Events_WM_ChapterIntro + 0x18af0
+TowerOfValni6Events: @ 0x009EB894
+    .4byte 0x089EB82C
+    .4byte 0x089EB830
+    .4byte 0x089EB834
+    .4byte 0x089EB868
+    .4byte 0x089EB884
+    .4byte 0x089EB888
+    .4byte 0x089EB88C
+    .4byte 0x089EB890
+    .4byte 0x089EDCE9
+    .4byte 0x089EDEE6
+    .4byte UnitDef_088CC5C8
+    .4byte UnitDef_088CC5C8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa890
-    .4byte MenuDef_RouteSplit + 0xa904
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0xaad0
-    .4byte 0x0000ff01
-    .4byte 0x000d0002
-    .4byte MenuDef_RouteSplit + 0xaae8
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0xab00
-    .4byte 0x0000ff01
+    .4byte EventScr_Tower6_BeginingScene
+    .4byte EventScr_089FDFA4
+    .4byte 0x000C0002
+    .4byte EventScr_089FE170
+    .4byte 0x0000FF01
+    .4byte 0x000D0002
+    .4byte EventScr_089FE188
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089FE1A0
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xa9c8
+    .4byte EventScr_089FE068
     .4byte 0x00000006
     .4byte 0x00070001
-    .4byte MenuDef_RouteSplit + 0xa9fc
+    .4byte EventScr_089FE09C
     .4byte 0x00000000
     .4byte 0x00080001
-    .4byte MenuDef_RouteSplit + 0xaa24
+    .4byte EventScr_089FE0C4
     .4byte 0x00000000
     .4byte 0x00090001
-    .4byte MenuDef_RouteSplit + 0xaa4c
+    .4byte EventScr_089FE0EC
     .4byte 0x00000000
-    .4byte 0x000a0001
-    .4byte MenuDef_RouteSplit + 0xaa78
+    .4byte 0x000A0001
+    .4byte EventScr_089FE118
     .4byte 0x00000000
-    .4byte 0x000b0001
-    .4byte MenuDef_RouteSplit + 0xaaa4
+    .4byte 0x000B0001
+    .4byte EventScr_089FE144
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3309,37 +3306,37 @@ TowerOfValni6Events: @0x89eb894
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global TowerOfValni7Events
-TowerOfValni7Events: @0x89eb97c
-    .4byte gFlagBitMaskLut + 0x3368
-    .4byte gFlagBitMaskLut + 0x3390
-    .4byte gFlagBitMaskLut + 0x3394
-    .4byte gFlagBitMaskLut + 0x3398
-    .4byte gFlagBitMaskLut + 0x33f0
-    .4byte gFlagBitMaskLut + 0x33f4
-    .4byte gFlagBitMaskLut + 0x33f8
-    .4byte gFlagBitMaskLut + 0x33fc
-    .4byte gUnknown_089ED6AC + 0x63e
-    .4byte gUnknown_089ED6AC + 0x83b
-    .4byte Events_WM_ChapterIntro + 0x18ee0
-    .4byte Events_WM_ChapterIntro + 0x18ee0
+TowerOfValni7Events: @ 0x009EB97C
+    .4byte 0x089EB8E4
+    .4byte 0x089EB90C
+    .4byte 0x089EB910
+    .4byte 0x089EB914
+    .4byte 0x089EB96C
+    .4byte 0x089EB970
+    .4byte 0x089EB974
+    .4byte 0x089EB978
+    .4byte 0x089EDCEA
+    .4byte 0x089EDEE7
+    .4byte UnitDef_088CC9B8
+    .4byte UnitDef_088CC9B8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xa948
-    .4byte MenuDef_RouteSplit + 0xa9c8
+    .4byte EventScr_Tower7_BeginingScene
+    .4byte EventScr_089FE068
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000007
     .4byte 0x00000075
-    .4byte 0x0014080b
+    .4byte 0x0014080B
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xab8c
+    .4byte EventScr_089FE22C
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3349,52 +3346,52 @@ TowerOfValni7Events: @0x89eb97c
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global TowerOfValni8Events
-TowerOfValni8Events: @0x89eba10
-    .4byte gFlagBitMaskLut + 0x3450
-    .4byte gFlagBitMaskLut + 0x3454
-    .4byte gFlagBitMaskLut + 0x3458
-    .4byte gFlagBitMaskLut + 0x3468
-    .4byte gFlagBitMaskLut + 0x3484
-    .4byte gFlagBitMaskLut + 0x3488
-    .4byte gFlagBitMaskLut + 0x348c
-    .4byte gFlagBitMaskLut + 0x3490
-    .4byte gUnknown_089ED6AC + 0x63f
-    .4byte gUnknown_089ED6AC + 0x83c
-    .4byte Events_WM_ChapterIntro + 0x192dc
-    .4byte Events_WM_ChapterIntro + 0x192dc
+TowerOfValni8Events: @ 0x009EBA10
+    .4byte 0x089EB9CC
+    .4byte 0x089EB9D0
+    .4byte 0x089EB9D4
+    .4byte 0x089EB9E4
+    .4byte 0x089EBA00
+    .4byte 0x089EBA04
+    .4byte 0x089EBA08
+    .4byte 0x089EBA0C
+    .4byte 0x089EDCEB
+    .4byte 0x089EDEE8
+    .4byte UnitDef_088CCDB4
+    .4byte UnitDef_088CCDB4
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xab18
-    .4byte MenuDef_RouteSplit + 0xab8c
+    .4byte EventScr_Tower8_BeginingScene
+    .4byte EventScr_089FE22C
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xac48
+    .4byte EventScr_089FE2E8
     .4byte 0x00000706
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xac60
+    .4byte EventScr_089FE300
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xac48
+    .4byte EventScr_089FE2E8
     .4byte 0x00000009
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xac60
-    .4byte 0x0000000a
+    .4byte EventScr_089FE300
+    .4byte 0x0000000A
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xac2c
+    .4byte EventScr_089FE2CC
     .4byte 0x00000006
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0xac78
-    .4byte 0x110e0302
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0xac78
+    .4byte 0x0007000B
+    .4byte EventScr_089FE318
+    .4byte 0x110E0302
+    .4byte 0x0007000B
+    .4byte EventScr_089FE318
     .4byte 0x11010500
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3404,41 +3401,41 @@ TowerOfValni8Events: @0x89eba10
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins1Event
-LagdouRuins1Event: @0x89ebae0
-    .4byte gFlagBitMaskLut + 0x34e4
-    .4byte gFlagBitMaskLut + 0x3518
-    .4byte gFlagBitMaskLut + 0x351c
-    .4byte gFlagBitMaskLut + 0x3520
-    .4byte gFlagBitMaskLut + 0x3554
-    .4byte gFlagBitMaskLut + 0x3558
-    .4byte gFlagBitMaskLut + 0x355c
-    .4byte gFlagBitMaskLut + 0x3560
-    .4byte gUnknown_089ED6AC + 0x64c
-    .4byte gUnknown_089ED6AC + 0x83d
-    .4byte Events_WM_ChapterIntro + 0x195e8
-    .4byte Events_WM_ChapterIntro + 0x195e8
+LagdouRuins1Event: @ 0x009EBAE0
+    .4byte 0x089EBA60
+    .4byte 0x089EBA94
+    .4byte 0x089EBA98
+    .4byte 0x089EBA9C
+    .4byte 0x089EBAD0
+    .4byte 0x089EBAD4
+    .4byte 0x089EBAD8
+    .4byte 0x089EBADC
+    .4byte 0x089EDCF8
+    .4byte 0x089EDEE9
+    .4byte UnitDef_088CD0C0
+    .4byte UnitDef_088CD0C0
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xabb0
-    .4byte MenuDef_RouteSplit + 0xac2c
+    .4byte EventScr_Ruins1_BeginingScene
+    .4byte EventScr_089FE2CC
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xad1c
+    .4byte EventScr_089FE3BC
     .4byte 0x00000006
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0xad38
-    .4byte 0x1116000a
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0xad38
-    .4byte 0x11090a00
+    .4byte 0x0007000B
+    .4byte EventScr_089FE3D8
+    .4byte 0x1116000A
+    .4byte 0x0007000B
+    .4byte EventScr_089FE3D8
+    .4byte 0x11090A00
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -3449,50 +3446,50 @@ LagdouRuins1Event: @0x89ebae0
     .4byte 0x00000000
 
     .global LagdouRuins2Event
-LagdouRuins2Event: @0x89ebb80
-    .4byte gFlagBitMaskLut + 0x35b4
-    .4byte gFlagBitMaskLut + 0x35b8
-    .4byte gFlagBitMaskLut + 0x35bc
-    .4byte gFlagBitMaskLut + 0x35c0
-    .4byte gFlagBitMaskLut + 0x35f4
-    .4byte gFlagBitMaskLut + 0x35f8
-    .4byte gFlagBitMaskLut + 0x35fc
-    .4byte gFlagBitMaskLut + 0x3600
-    .4byte gUnknown_089ED6AC + 0x64d
-    .4byte gUnknown_089ED6AC + 0x83e
-    .4byte Events_WM_ChapterIntro + 0x19a5c
-    .4byte Events_WM_ChapterIntro + 0x19a5c
+LagdouRuins2Event: @ 0x009EBB80
+    .4byte 0x089EBB30
+    .4byte 0x089EBB34
+    .4byte 0x089EBB38
+    .4byte 0x089EBB3C
+    .4byte 0x089EBB70
+    .4byte 0x089EBB74
+    .4byte 0x089EBB78
+    .4byte 0x089EBB7C
+    .4byte 0x089EDCF9
+    .4byte 0x089EDEEA
+    .4byte UnitDef_088CD534
+    .4byte UnitDef_088CD534
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xaca8
-    .4byte MenuDef_RouteSplit + 0xad1c
+    .4byte EventScr_Ruins2_BeginingScene
+    .4byte EventScr_089FE3BC
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xae04
+    .4byte EventScr_089FE4A4
     .4byte 0x00000704
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xae1c
-    .4byte 0x00000a06
+    .4byte EventScr_089FE4BC
+    .4byte 0x00000A06
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xae34
+    .4byte EventScr_089FE4D4
     .4byte 0x00000003
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xae4c
+    .4byte EventScr_089FE4EC
     .4byte 0x00000002
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xae64
+    .4byte EventScr_089FE504
     .4byte 0x00000002
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0xa8
+    .4byte 0x089ED754
     .4byte 0x00140201
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0xb6
-    .4byte 0x00140f0f
+    .4byte 0x089ED762
+    .4byte 0x00140F0F
     .4byte 0x00000008
     .4byte 0x00000001
     .4byte 0x00120609
@@ -3509,11 +3506,11 @@ LagdouRuins2Event: @0x89ebb80
     .4byte 0x00000001
     .4byte 0x00120608
     .4byte 0x00000007
-    .4byte 0x0bb80077
+    .4byte 0x0BB80077
     .4byte 0x00140311
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xade8
+    .4byte EventScr_089FE488
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3523,46 +3520,46 @@ LagdouRuins2Event: @0x89ebb80
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins3Event
-LagdouRuins3Event: @0x89ebca4
-    .4byte gFlagBitMaskLut + 0x3654
-    .4byte gFlagBitMaskLut + 0x3694
-    .4byte gFlagBitMaskLut + 0x3698
-    .4byte gFlagBitMaskLut + 0x36fc
-    .4byte gFlagBitMaskLut + 0x3718
-    .4byte gFlagBitMaskLut + 0x371c
-    .4byte gFlagBitMaskLut + 0x3720
-    .4byte gFlagBitMaskLut + 0x3724
-    .4byte gUnknown_089ED6AC + 0x64e
-    .4byte gUnknown_089ED6AC + 0x83f
-    .4byte Events_WM_ChapterIntro + 0x19f20
-    .4byte Events_WM_ChapterIntro + 0x19f20
+LagdouRuins3Event: @ 0x009EBCA4
+    .4byte 0x089EBBD0
+    .4byte 0x089EBC10
+    .4byte 0x089EBC14
+    .4byte 0x089EBC78
+    .4byte 0x089EBC94
+    .4byte 0x089EBC98
+    .4byte 0x089EBC9C
+    .4byte 0x089EBCA0
+    .4byte 0x089EDCFA
+    .4byte 0x089EDEEB
+    .4byte UnitDef_088CD9F8
+    .4byte UnitDef_088CD9F8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xad74
-    .4byte MenuDef_RouteSplit + 0xade8
+    .4byte EventScr_Ruins3_BeginingScene
+    .4byte EventScr_089FE488
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xaef0
+    .4byte EventScr_089FE590
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xaf08
+    .4byte EventScr_089FE5A8
     .4byte 0x00000908
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0xc6
+    .4byte 0x089ED772
     .4byte 0x00140212
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0xd0
-    .4byte 0x00141a01
+    .4byte 0x089ED77C
+    .4byte 0x00141A01
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xaf20
+    .4byte EventScr_089FE5C0
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3572,52 +3569,52 @@ LagdouRuins3Event: @0x89ebca4
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins4Event
-LagdouRuins4Event: @0x89ebd5c
-    .4byte gFlagBitMaskLut + 0x3778
-    .4byte gFlagBitMaskLut + 0x3794
-    .4byte gFlagBitMaskLut + 0x3798
-    .4byte gFlagBitMaskLut + 0x37b4
-    .4byte gFlagBitMaskLut + 0x37d0
-    .4byte gFlagBitMaskLut + 0x37d4
-    .4byte gFlagBitMaskLut + 0x37d8
-    .4byte gFlagBitMaskLut + 0x37dc
-    .4byte gUnknown_089ED6AC + 0x64f
-    .4byte gUnknown_089ED6AC + 0x840
-    .4byte Events_WM_ChapterIntro + 0x1a470
-    .4byte Events_WM_ChapterIntro + 0x1a470
+LagdouRuins4Event: @ 0x009EBD5C
+    .4byte 0x089EBCF4
+    .4byte 0x089EBD10
+    .4byte 0x089EBD14
+    .4byte 0x089EBD30
+    .4byte 0x089EBD4C
+    .4byte 0x089EBD50
+    .4byte 0x089EBD54
+    .4byte 0x089EBD58
+    .4byte 0x089EDCFB
+    .4byte 0x089EDEEC
+    .4byte UnitDef_088CDF48
+    .4byte UnitDef_088CDF48
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xae7c
-    .4byte MenuDef_RouteSplit + 0xaf20
+    .4byte EventScr_Ruins4_BeginingScene
+    .4byte EventScr_089FE5C0
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xafdc
+    .4byte EventScr_089FE67C
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xaff4
+    .4byte EventScr_089FE694
     .4byte 0x00000002
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb00c
+    .4byte EventScr_089FE6AC
     .4byte 0x00000004
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0xe6
-    .4byte 0x00140a0d
+    .4byte 0x089ED792
+    .4byte 0x00140A0D
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0xf0
+    .4byte 0x089ED79C
     .4byte 0x00141511
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0xfc
+    .4byte 0x089ED7A8
     .4byte 0x00140404
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xafb0
+    .4byte EventScr_089FE650
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3627,50 +3624,50 @@ LagdouRuins4Event: @0x89ebd5c
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins5Event
-LagdouRuins5Event: @0x89ebe2c
-    .4byte gFlagBitMaskLut + 0x3830
-    .4byte gFlagBitMaskLut + 0x3858
-    .4byte gFlagBitMaskLut + 0x385c
-    .4byte gFlagBitMaskLut + 0x3884
-    .4byte gFlagBitMaskLut + 0x38a0
-    .4byte gFlagBitMaskLut + 0x38a4
-    .4byte gFlagBitMaskLut + 0x38a8
-    .4byte gFlagBitMaskLut + 0x38ac
-    .4byte gUnknown_089ED6AC + 0x650
-    .4byte gUnknown_089ED6AC + 0x841
-    .4byte Events_WM_ChapterIntro + 0x1a894
-    .4byte Events_WM_ChapterIntro + 0x1a894
+LagdouRuins5Event: @ 0x009EBE2C
+    .4byte 0x089EBDAC
+    .4byte 0x089EBDD4
+    .4byte 0x089EBDD8
+    .4byte 0x089EBE00
+    .4byte 0x089EBE1C
+    .4byte 0x089EBE20
+    .4byte 0x089EBE24
+    .4byte 0x089EBE28
+    .4byte 0x089EDCFC
+    .4byte 0x089EDEED
+    .4byte UnitDef_088CE36C
+    .4byte UnitDef_088CE36C
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xaf3c
-    .4byte MenuDef_RouteSplit + 0xafb0
+    .4byte EventScr_Ruins5_BeginingScene
+    .4byte EventScr_089FE650
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb0b4
+    .4byte EventScr_089FE754
     .4byte 0x00000004
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb0cc
+    .4byte EventScr_089FE76C
     .4byte 0x00000005
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb0b4
+    .4byte EventScr_089FE754
     .4byte 0x00000006
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb0e4
+    .4byte EventScr_089FE784
     .4byte 0x00000007
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb0b4
+    .4byte EventScr_089FE754
     .4byte 0x00000008
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb0fc
+    .4byte EventScr_089FE79C
     .4byte 0x00000009
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb0b4
-    .4byte 0x0000000a
+    .4byte EventScr_089FE754
+    .4byte 0x0000000A
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000008
@@ -3678,7 +3675,7 @@ LagdouRuins5Event: @0x89ebe2c
     .4byte 0x00120710
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xb098
+    .4byte EventScr_089FE738
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3688,74 +3685,74 @@ LagdouRuins5Event: @0x89ebe2c
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins6Event
-LagdouRuins6Event: @0x89ebf14
-    .4byte gFlagBitMaskLut + 0x3900
-    .4byte gFlagBitMaskLut + 0x3958
-    .4byte gFlagBitMaskLut + 0x395c
-    .4byte gFlagBitMaskLut + 0x396c
-    .4byte gFlagBitMaskLut + 0x3988
-    .4byte gFlagBitMaskLut + 0x398c
-    .4byte gFlagBitMaskLut + 0x3990
-    .4byte gFlagBitMaskLut + 0x3994
-    .4byte gUnknown_089ED6AC + 0x6cf
-    .4byte gUnknown_089ED6AC + 0x842
-    .4byte Events_WM_ChapterIntro + 0x1ac68
-    .4byte Events_WM_ChapterIntro + 0x1ac68
+LagdouRuins6Event: @ 0x009EBF14
+    .4byte 0x089EBE7C
+    .4byte 0x089EBED4
+    .4byte 0x089EBED8
+    .4byte 0x089EBEE8
+    .4byte 0x089EBF04
+    .4byte 0x089EBF08
+    .4byte 0x089EBF0C
+    .4byte 0x089EBF10
+    .4byte 0x089EDD7B
+    .4byte 0x089EDEEE
+    .4byte UnitDef_088CE740
+    .4byte UnitDef_088CE740
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xb024
-    .4byte MenuDef_RouteSplit + 0xb098
+    .4byte EventScr_Ruins6_BeginingScene
+    .4byte EventScr_089FE738
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb1c0
+    .4byte EventScr_089FE860
     .4byte 0x00000403
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb1d8
+    .4byte EventScr_089FE878
     .4byte 0x00000504
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb1f0
+    .4byte EventScr_089FE890
     .4byte 0x00000605
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb208
+    .4byte EventScr_089FE8A8
     .4byte 0x00000604
     .4byte 0x00080002
-    .4byte MenuDef_RouteSplit + 0xb240
-    .4byte 0x0000ff01
-    .4byte 0x000a0002
-    .4byte MenuDef_RouteSplit + 0xb294
-    .4byte 0x0000ff01
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0xb2e8
-    .4byte 0x0000ff01
+    .4byte EventScr_089FE8E0
+    .4byte 0x0000FF01
+    .4byte 0x000A0002
+    .4byte EventScr_089FE934
+    .4byte 0x0000FF01
+    .4byte 0x000C0002
+    .4byte EventScr_089FE988
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb31c
-    .4byte 0x00000a09
+    .4byte EventScr_089FE9BC
+    .4byte 0x00000A09
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0x10a
-    .4byte 0x00140b05
+    .4byte 0x089ED7B6
+    .4byte 0x00140B05
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xb194
+    .4byte EventScr_089FE834
     .4byte 0x00000006
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0xb220
-    .4byte 0x0c060a02
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0xb274
-    .4byte 0x1518110e
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0xb274
+    .4byte 0x0007000B
+    .4byte EventScr_089FE8C0
+    .4byte 0x0C060A02
+    .4byte 0x0009000B
+    .4byte EventScr_089FE914
+    .4byte 0x1518110E
+    .4byte 0x0009000B
+    .4byte EventScr_089FE914
     .4byte 0x19181615
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0xb2c8
-    .4byte 0x1914160d
+    .4byte 0x000B000B
+    .4byte EventScr_089FE968
+    .4byte 0x1914160D
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -3764,77 +3761,77 @@ LagdouRuins6Event: @0x89ebf14
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins7Event
-LagdouRuins7Event: @0x89ec038
-    .4byte gFlagBitMaskLut + 0x39e8
-    .4byte gFlagBitMaskLut + 0x3a4c
-    .4byte gFlagBitMaskLut + 0x3a50
-    .4byte gFlagBitMaskLut + 0x3a60
-    .4byte gFlagBitMaskLut + 0x3aac
-    .4byte gFlagBitMaskLut + 0x3ab0
-    .4byte gFlagBitMaskLut + 0x3ab4
-    .4byte gFlagBitMaskLut + 0x3ab8
-    .4byte gUnknown_089ED6AC + 0x6d0
-    .4byte gUnknown_089ED6AC + 0x843
-    .4byte Events_WM_ChapterIntro + 0x1b1ac
-    .4byte Events_WM_ChapterIntro + 0x1b1ac
+LagdouRuins7Event: @ 0x009EC038
+    .4byte 0x089EBF64
+    .4byte 0x089EBFC8
+    .4byte 0x089EBFCC
+    .4byte 0x089EBFDC
+    .4byte 0x089EC028
+    .4byte 0x089EC02C
+    .4byte 0x089EC030
+    .4byte 0x089EC034
+    .4byte 0x089EDD7C
+    .4byte 0x089EDEEF
+    .4byte UnitDef_088CEC84
+    .4byte UnitDef_088CEC84
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xb114
-    .4byte MenuDef_RouteSplit + 0xb194
+    .4byte EventScr_Ruins7_BeginingScene
+    .4byte EventScr_089FE834
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb530
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEBD0
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb5a0
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEC40
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb5fc
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEC9C
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb690
-    .4byte 0x0000ff01
+    .4byte EventScr_089FED30
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb710
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEDB0
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb780
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEE20
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb7dc
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEE7C
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb874
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEF14
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb8f8
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEF98
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xb9a4
-    .4byte 0x0000ff01
+    .4byte EventScr_089FF044
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xba3c
-    .4byte 0x0000ff01
+    .4byte EventScr_089FF0DC
+    .4byte 0x0000FF01
     .4byte 0x00000002
-    .4byte MenuDef_RouteSplit + 0xbab0
-    .4byte 0x0000ff01
+    .4byte EventScr_089FF150
+    .4byte 0x0000FF01
     .4byte 0x00080002
-    .4byte MenuDef_RouteSplit + 0xb3f4
-    .4byte 0x0000ff01
-    .4byte 0x000a0002
-    .4byte MenuDef_RouteSplit + 0xb448
-    .4byte 0x0000ff01
-    .4byte 0x000c0002
-    .4byte MenuDef_RouteSplit + 0xb49c
-    .4byte 0x0000ff01
-    .4byte 0x000e0002
-    .4byte MenuDef_RouteSplit + 0xb4fc
-    .4byte 0x0000ff01
+    .4byte EventScr_089FEA94
+    .4byte 0x0000FF01
+    .4byte 0x000A0002
+    .4byte EventScr_089FEAE8
+    .4byte 0x0000FF01
+    .4byte 0x000C0002
+    .4byte EventScr_089FEB3C
+    .4byte 0x0000FF01
+    .4byte 0x000E0002
+    .4byte EventScr_089FEB9C
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000008
@@ -3844,27 +3841,27 @@ LagdouRuins7Event: @0x89ec038
     .4byte 0x00000001
     .4byte 0x00120511
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0x112
-    .4byte 0x00140c04
+    .4byte 0x089ED7BE
+    .4byte 0x00140C04
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xb3b8
+    .4byte EventScr_089FEA58
     .4byte 0x00000006
-    .4byte 0x000b000b
-    .4byte MenuDef_RouteSplit + 0xb47c
-    .4byte 0x0d12080f
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0xb4d0
-    .4byte 0x0713000d
-    .4byte 0x000d000b
-    .4byte MenuDef_RouteSplit + 0xb4d0
-    .4byte 0x060c0007
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0xb3d4
-    .4byte 0x0e0b0b08
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0xb428
-    .4byte 0x14130f0d
+    .4byte 0x000B000B
+    .4byte EventScr_089FEB1C
+    .4byte 0x0D12080F
+    .4byte 0x000D000B
+    .4byte EventScr_089FEB70
+    .4byte 0x0713000D
+    .4byte 0x000D000B
+    .4byte EventScr_089FEB70
+    .4byte 0x060C0007
+    .4byte 0x0007000B
+    .4byte EventScr_089FEA74
+    .4byte 0x0E0B0B08
+    .4byte 0x0009000B
+    .4byte EventScr_089FEAC8
+    .4byte 0x14130F0D
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -3873,47 +3870,47 @@ LagdouRuins7Event: @0x89ec038
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins8Event
-LagdouRuins8Event: @0x89ec1e0
-    .4byte gFlagBitMaskLut + 0x3b0c
-    .4byte gFlagBitMaskLut + 0x3bd0
-    .4byte gFlagBitMaskLut + 0x3bd4
-    .4byte gFlagBitMaskLut + 0x3bfc
-    .4byte gFlagBitMaskLut + 0x3c54
-    .4byte gFlagBitMaskLut + 0x3c58
-    .4byte gFlagBitMaskLut + 0x3c5c
-    .4byte gFlagBitMaskLut + 0x3c60
-    .4byte gUnknown_089ED6AC + 0x6d1
-    .4byte gUnknown_089ED6AC + 0x844
-    .4byte Events_WM_ChapterIntro + 0x1b634
-    .4byte Events_WM_ChapterIntro + 0x1b634
+LagdouRuins8Event: @ 0x009EC1E0
+    .4byte 0x089EC088
+    .4byte 0x089EC14C
+    .4byte 0x089EC150
+    .4byte 0x089EC178
+    .4byte 0x089EC1D0
+    .4byte 0x089EC1D4
+    .4byte 0x089EC1D8
+    .4byte 0x089EC1DC
+    .4byte 0x089EDD7D
+    .4byte 0x089EDEF0
+    .4byte UnitDef_088CF10C
+    .4byte UnitDef_088CF10C
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xb334
-    .4byte MenuDef_RouteSplit + 0xb3b8
+    .4byte EventScr_Ruins8_BeginingScene
+    .4byte EventScr_089FEA58
     .4byte 0x00080002
-    .4byte MenuDef_RouteSplit + 0xbbe8
-    .4byte 0x0000ff01
+    .4byte EventScr_089FF288
+    .4byte 0x0000FF01
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xbb88
+    .4byte EventScr_089FF228
     .4byte 0x00000006
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0xbba4
-    .4byte 0x0b110008
-    .4byte 0x0007000b
-    .4byte MenuDef_RouteSplit + 0xbbc8
+    .4byte 0x0009000B
+    .4byte EventScr_089FF244
+    .4byte 0x0B110008
+    .4byte 0x0007000B
+    .4byte EventScr_089FF268
     .4byte 0x05070000
-    .4byte 0x0009000b
-    .4byte MenuDef_RouteSplit + 0xbba4
-    .4byte 0x0b070600
+    .4byte 0x0009000B
+    .4byte EventScr_089FF244
+    .4byte 0x0B070600
     .4byte 0x00000001
     .4byte EventScr_GameOver
     .4byte 0x00000065
@@ -3922,37 +3919,37 @@ LagdouRuins8Event: @0x89ec1e0
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins9Event
-LagdouRuins9Event: @0x89ec298
-    .4byte gFlagBitMaskLut + 0x3cb4
-    .4byte gFlagBitMaskLut + 0x3cc4
-    .4byte gFlagBitMaskLut + 0x3cc8
-    .4byte gFlagBitMaskLut + 0x3ccc
-    .4byte gFlagBitMaskLut + 0x3d0c
-    .4byte gFlagBitMaskLut + 0x3d10
-    .4byte gFlagBitMaskLut + 0x3d14
-    .4byte gFlagBitMaskLut + 0x3d18
-    .4byte gUnknown_089ED6AC + 0x6d2
-    .4byte gUnknown_089ED6AC + 0x845
-    .4byte Events_WM_ChapterIntro + 0x1baf8
-    .4byte Events_WM_ChapterIntro + 0x1baf8
+LagdouRuins9Event: @ 0x009EC298
+    .4byte 0x089EC230
+    .4byte 0x089EC240
+    .4byte 0x089EC244
+    .4byte 0x089EC248
+    .4byte 0x089EC288
+    .4byte 0x089EC28C
+    .4byte 0x089EC290
+    .4byte 0x089EC294
+    .4byte 0x089EDD7E
+    .4byte 0x089EDEF1
+    .4byte UnitDef_088CF5D0
+    .4byte UnitDef_088CF5D0
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte MenuDef_RouteSplit + 0xbb10
-    .4byte MenuDef_RouteSplit + 0xbb88
+    .4byte EventScr_Ruins9_BeginingScene
+    .4byte EventScr_089FF228
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000005
-    .4byte gUnknown_089ED6AC + 0x11a
+    .4byte 0x089ED7C6
     .4byte 0x00140209
     .4byte 0x00000000
     .4byte 0x00000001
-    .4byte MenuDef_RouteSplit + 0xbc90
+    .4byte EventScr_089FF330
     .4byte 0x00000006
     .4byte 0x00000001
     .4byte EventScr_GameOver
@@ -3962,19 +3959,19 @@ LagdouRuins9Event: @0x89ec298
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LagdouRuins10Event
-LagdouRuins10Event: @0x89ec32c
-    .4byte gFlagBitMaskLut + 0x3d6c
-    .4byte gFlagBitMaskLut + 0x3d70
-    .4byte gFlagBitMaskLut + 0x3d74
-    .4byte gFlagBitMaskLut + 0x3d84
-    .4byte gFlagBitMaskLut + 0x3da0
-    .4byte gFlagBitMaskLut + 0x3da4
-    .4byte gFlagBitMaskLut + 0x3da8
-    .4byte gFlagBitMaskLut + 0x3dac
-    .4byte gUnknown_089ED6AC + 0x7c9
-    .4byte gUnknown_089ED6AC + 0x8be
+LagdouRuins10Event: @ 0x009EC32C
+    .4byte 0x089EC2E8
+    .4byte 0x089EC2EC
+    .4byte 0x089EC2F0
+    .4byte 0x089EC300
+    .4byte 0x089EC31C
+    .4byte 0x089EC320
+    .4byte 0x089EC324
+    .4byte 0x089EC328
+    .4byte 0x089EDE75
+    .4byte 0x089EDF6A
     .4byte UnitDef_088CFA30
     .4byte UnitDef_088CFA30
     .4byte 0x00000000
@@ -3999,19 +3996,19 @@ LagdouRuins10Event: @0x89ec32c
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global LordsSplitEvents
-LordsSplitEvents: @0x89ec3b4
-    .4byte gFlagBitMaskLut + 0x3e00
-    .4byte gFlagBitMaskLut + 0x3e04
-    .4byte gFlagBitMaskLut + 0x3e08
-    .4byte gFlagBitMaskLut + 0x3e18
-    .4byte gFlagBitMaskLut + 0x3e28
-    .4byte gFlagBitMaskLut + 0x3e2c
-    .4byte gFlagBitMaskLut + 0x3e30
-    .4byte gFlagBitMaskLut + 0x3e34
-    .4byte gUnknown_089ED6AC + 0x7ca
-    .4byte gUnknown_089ED6AC + 0x8bf
+LordsSplitEvents: @ 0x009EC3B4
+    .4byte 0x089EC37C
+    .4byte 0x089EC380
+    .4byte 0x089EC384
+    .4byte 0x089EC394
+    .4byte 0x089EC3A4
+    .4byte 0x089EC3A8
+    .4byte 0x089EC3AC
+    .4byte 0x089EC3B0
+    .4byte 0x089EDE76
+    .4byte 0x089EDF6B
     .4byte UnitDef_088CFBD4
     .4byte UnitDef_088CFBD4
     .4byte 0x00000000
@@ -4036,19 +4033,19 @@ LordsSplitEvents: @0x89ec3b4
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global MelkaenCoastEvent
-MelkaenCoastEvent: @0x89ec43c
-    .4byte gFlagBitMaskLut + 0x3e88
-    .4byte gFlagBitMaskLut + 0x3e8c
-    .4byte gFlagBitMaskLut + 0x3e90
-    .4byte gFlagBitMaskLut + 0x3e94
-    .4byte gFlagBitMaskLut + 0x3eb0
-    .4byte gFlagBitMaskLut + 0x3eb4
-    .4byte gFlagBitMaskLut + 0x3eb8
-    .4byte gFlagBitMaskLut + 0x3ebc
-    .4byte gUnknown_089ED6AC + 0x7cb
-    .4byte gUnknown_089ED6AC + 0x8c0
+MelkaenCoastEvent: @ 0x009EC43C
+    .4byte 0x089EC404
+    .4byte 0x089EC408
+    .4byte 0x089EC40C
+    .4byte 0x089EC410
+    .4byte 0x089EC42C
+    .4byte 0x089EC430
+    .4byte 0x089EC434
+    .4byte 0x089EC438
+    .4byte 0x089EDE77
+    .4byte 0x089EDF6C
     .4byte UnitDef_088CFBFC
     .4byte UnitDef_088CFBFC
     .4byte UnitDef_088D00D4
@@ -4130,19 +4127,19 @@ MelkaenCoastEvent: @0x89ec43c
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global AnInterestingMapEvents
-AnInterestingMapEvents: @0x89ec5a8
-    .4byte gFlagBitMaskLut + 0x3f10
-    .4byte gFlagBitMaskLut + 0x4004
-    .4byte gFlagBitMaskLut + 0x4008
-    .4byte gFlagBitMaskLut + 0x400c
-    .4byte gFlagBitMaskLut + 0x401c
-    .4byte gFlagBitMaskLut + 0x4020
-    .4byte gFlagBitMaskLut + 0x4024
-    .4byte gFlagBitMaskLut + 0x4028
-    .4byte gUnknown_089ED6AC + 0x7cc
-    .4byte gUnknown_089ED6AC + 0x8c1
+AnInterestingMapEvents: @ 0x009EC5A8
+    .4byte 0x089EC48C
+    .4byte 0x089EC580
+    .4byte 0x089EC584
+    .4byte 0x089EC588
+    .4byte 0x089EC598
+    .4byte 0x089EC59C
+    .4byte 0x089EC5A0
+    .4byte 0x089EC5A4
+    .4byte 0x089EDE78
+    .4byte 0x089EDF6D
     .4byte UnitDef_088D0F5C
     .4byte UnitDef_088D0F5C
     .4byte 0x00000000
@@ -4182,19 +4179,19 @@ AnInterestingMapEvents: @0x89ec5a8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    
+
     .global DebugMapEvents
-DebugMapEvents: @0x89ec66c
-    .4byte gFlagBitMaskLut + 0x407c
-    .4byte gFlagBitMaskLut + 0x4080
-    .4byte gFlagBitMaskLut + 0x4084
-    .4byte gFlagBitMaskLut + 0x40ac
-    .4byte gFlagBitMaskLut + 0x40e0
-    .4byte gFlagBitMaskLut + 0x40e4
-    .4byte gFlagBitMaskLut + 0x40e8
-    .4byte gFlagBitMaskLut + 0x40ec
-    .4byte gUnknown_089ED6AC + 0x7cd
-    .4byte gUnknown_089ED6AC + 0x8c2
+DebugMapEvents: @ 0x009EC66C
+    .4byte 0x089EC5F8
+    .4byte 0x089EC5FC
+    .4byte 0x089EC600
+    .4byte 0x089EC628
+    .4byte 0x089EC65C
+    .4byte 0x089EC660
+    .4byte 0x089EC664
+    .4byte 0x089EC668
+    .4byte 0x089EDE79
+    .4byte 0x089EDF6E
     .4byte UnitDef_088D118C
     .4byte UnitDef_088D118C
     .4byte 0x00000000

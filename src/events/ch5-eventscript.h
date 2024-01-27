@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch5_BeginingScene[] = {
@@ -13,7 +13,7 @@ CONST_DATA EventListScr EventScr_Ch5_BeginingScene[] = {
     CALL(EventScr_089F3280)
 LABEL(0x8020)
     MUSC(0x25)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088B593C)
     ENUN
     SVAL(EVT_SLOT_2, 0x5)

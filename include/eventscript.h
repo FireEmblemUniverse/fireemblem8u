@@ -758,7 +758,7 @@ enum event_sub_cmd_idx {
 #define WmEvtGmScroll(x1, y1, x2, y2, speed, delay) _EvtArg0(EV_CMD_WM_MOVECAM, 8, 0, 0), _EvtParams2(x1, y1), _EvtParams2(x2, y2), _EvtParams2(speed, delay),
 #define WmEvtWaitGmScroll _EvtAutoCmdLen2(EV_CMD_WM_WAITFORCAM),
 #define WmEvtDrawPath(path) _EvtArg0(EV_CMD_WM_DRAWPATH, 4, 0, 0), (EventScr)(path),
-#define WmEvtInitDrawNewNode _EvtAutoCmdLen2(EV_CMD_WM_CREATENEXTDESTINATION),
+#define WmEvtDrawNodeNextChapter _EvtAutoCmdLen2(EV_CMD_WM_CREATENEXTDESTINATION),
 #define WmEvtWaitNodeDisplay _EvtAutoCmdLen2(EV_CMD_WM_WAITFORFX),
 #define WmEvtShowMU(wm_uid, jid, faction, node) _EvtArg0(EV_CMD_PUTSPRITE, 6, 0, 0), _EvtParams2(wm_uid, jid), _EvtParams2(faction, node),
 #define WmEvtRemoveMU(wm_uid) _EvtArg0(EV_CMD_WM_REMSPRITE, 4, 0, 0), (EventScr)(wm_uid),

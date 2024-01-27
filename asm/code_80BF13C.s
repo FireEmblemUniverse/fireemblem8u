@@ -2,311 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80C1BF8
-sub_80C1BF8: @ 0x080C1BF8
-	push {r4, r5, r6, lr}
-	ldr r0, _080C1C4C  @ 0x04000006
-	ldrh r0, [r0]
-	adds r0, #1
-	lsls r0, r0, #0x10
-	lsrs r3, r0, #0x10
-	adds r6, r3, #0
-	cmp r3, #0xe4
-	bne _080C1C0C
-	movs r3, #0
-_080C1C0C:
-	cmp r3, #0x9f
-	bhi _080C1C60
-	ldr r0, _080C1C50  @ gUnknown_0201C5D1
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _080C1CB0
-	ldr r0, _080C1C54  @ gUnknown_0201C5D0
-	ldrb r1, [r0]
-	lsls r0, r1, #4
-	subs r0, r0, r1
-	lsls r0, r0, #6
-	ldr r1, _080C1C58  @ gUnknown_0201BE32
-	adds r0, r0, r1
-	lsls r1, r3, #1
-	adds r1, r0, r1
-	ldr r4, _080C1C5C  @ gUnknown_0201C5C0
-	movs r5, #0xa0
-	lsls r5, r5, #1
-	movs r3, #2
-_080C1C36:
-	ldr r2, [r4]
-	cmp r2, #0
-	beq _080C1C40
-	ldrh r0, [r1]
-	strh r0, [r2]
-_080C1C40:
-	adds r1, r1, r5
-	adds r4, #4
-	subs r3, #1
-	cmp r3, #0
-	bge _080C1C36
-	b _080C1CB0
-	.align 2, 0
-_080C1C4C: .4byte 0x04000006
-_080C1C50: .4byte gUnknown_0201C5D1
-_080C1C54: .4byte gUnknown_0201C5D0
-_080C1C58: .4byte gUnknown_0201BE32
-_080C1C5C: .4byte gUnknown_0201C5C0
-_080C1C60:
-	cmp r3, #0xa0
-	bne _080C1CB0
-	ldr r0, _080C1C94  @ gUnknown_0201BE30
-	ldrb r1, [r0]
-	movs r0, #4
-	ands r0, r1
-	lsls r0, r0, #0x18
-	lsrs r1, r0, #0x18
-	cmp r1, #0
-	beq _080C1CAC
-	ldr r1, _080C1C98  @ gUnknown_0201C5D1
-	movs r0, #1
-	strb r0, [r1]
-	ldr r1, _080C1C9C  @ gUnknown_0201C5D0
-	ldr r0, _080C1CA0  @ gUnknown_0201C5CF
-	ldrb r0, [r0]
-	strb r0, [r1]
-	ldr r2, _080C1CA4  @ gUnknown_0201C5B4
-	ldr r1, _080C1CA8  @ gUnknown_0201C5C0
-	movs r3, #2
-_080C1C88:
-	ldm r2!, {r0}
-	stm r1!, {r0}
-	subs r3, #1
-	cmp r3, #0
-	bge _080C1C88
-	b _080C1CB0
-	.align 2, 0
-_080C1C94: .4byte gUnknown_0201BE30
-_080C1C98: .4byte gUnknown_0201C5D1
-_080C1C9C: .4byte gUnknown_0201C5D0
-_080C1CA0: .4byte gUnknown_0201C5CF
-_080C1CA4: .4byte gUnknown_0201C5B4
-_080C1CA8: .4byte gUnknown_0201C5C0
-_080C1CAC:
-	ldr r0, _080C1CEC  @ gUnknown_0201C5D1
-	strb r1, [r0]
-_080C1CB0:
-	movs r3, #0
-	cmp r6, #0x9f
-	bhi _080C1CB8
-	adds r3, r6, #0
-_080C1CB8:
-	movs r0, #1
-	ands r0, r3
-	cmp r0, #0
-	bne _080C1CE4
-	ldr r0, _080C1CF0  @ gUnknown_0201BE30
-	ldrb r1, [r0]
-	movs r0, #2
-	ands r0, r1
-	cmp r0, #0
-	beq _080C1CE4
-	ldr r1, _080C1CF4  @ gManimActiveScanlineBuf
-	cmp r3, #0
-	bne _080C1CD8
-	ldr r0, _080C1CF8  @ gManimScanlineBufs
-	ldr r0, [r0]
-	str r0, [r1]
-_080C1CD8:
-	ldr r2, _080C1CFC  @ 0x04000040
-	ldr r1, [r1]
-	lsls r0, r3, #1
-	adds r0, r0, r1
-	ldrh r0, [r0]
-	strh r0, [r2]
-_080C1CE4:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C1CEC: .4byte gUnknown_0201C5D1
-_080C1CF0: .4byte gUnknown_0201BE30
-_080C1CF4: .4byte gManimActiveScanlineBuf
-_080C1CF8: .4byte gManimScanlineBufs
-_080C1CFC: .4byte 0x04000040
-
-	THUMB_FUNC_END sub_80C1BF8
-
-	THUMB_FUNC_START sub_80C1D00
-sub_80C1D00: @ 0x080C1D00
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	movs r1, #0
-	ldr r0, _080C1D50  @ gUnknown_0201C5D0
-	mov r8, r0
-	ldr r6, _080C1D54  @ gUnknown_0201C5CF
-	ldr r7, _080C1D58  @ gUnknown_0201C5D1
-	ldr r0, _080C1D5C  @ gUnknown_0201BE30
-	mov ip, r0
-	ldr r5, _080C1D60  @ gUnknown_0201C5CC
-	movs r2, #0
-	ldr r4, _080C1D64  @ gUnknown_0201C5B4
-	ldr r3, _080C1D68  @ gUnknown_0201C5C0
-_080C1D1C:
-	adds r0, r1, r5
-	strb r2, [r0]
-	stm r4!, {r2}
-	stm r3!, {r2}
-	adds r1, #1
-	cmp r1, #2
-	ble _080C1D1C
-	movs r0, #0
-	strb r0, [r6]
-	mov r1, r8
-	strb r0, [r1]
-	strb r0, [r7]
-	mov r1, ip
-	strb r0, [r1]
-	movs r0, #0
-	bl SetPrimaryHBlankHandler
-	ldr r0, _080C1D6C  @ sub_80C1BF8
-	bl SetPrimaryHBlankHandler
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C1D50: .4byte gUnknown_0201C5D0
-_080C1D54: .4byte gUnknown_0201C5CF
-_080C1D58: .4byte gUnknown_0201C5D1
-_080C1D5C: .4byte gUnknown_0201BE30
-_080C1D60: .4byte gUnknown_0201C5CC
-_080C1D64: .4byte gUnknown_0201C5B4
-_080C1D68: .4byte gUnknown_0201C5C0
-_080C1D6C: .4byte sub_80C1BF8
-
-	THUMB_FUNC_END sub_80C1D00
-
-	THUMB_FUNC_START sub_80C1D70
-sub_80C1D70: @ 0x080C1D70
-	push {r4, lr}
-	sub sp, #4
-	movs r0, #0
-	bl SetPrimaryHBlankHandler
-	mov r0, sp
-	movs r4, #0
-	strh r4, [r0]
-	ldr r1, _080C1D94  @ gUnknown_0201BE32
-	ldr r2, _080C1D98  @ 0x010003C0
-	bl CpuSet
-	ldr r0, _080C1D9C  @ gUnknown_0201BE30
-	strb r4, [r0]
-	add sp, #4
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C1D94: .4byte gUnknown_0201BE32
-_080C1D98: .4byte 0x010003C0
-_080C1D9C: .4byte gUnknown_0201BE30
-
-	THUMB_FUNC_END sub_80C1D70
-
-	THUMB_FUNC_START sub_80C1DA0
-sub_80C1DA0: @ 0x080C1DA0
-	adds r3, r0, #0
-	ldr r0, _080C1DC0  @ gUnknown_0201C5CF
-	ldrb r2, [r0]
-	adds r2, r2, r1
-	movs r0, #1
-	ands r2, r0
-	lsls r0, r2, #4
-	subs r0, r0, r2
-	lsls r0, r0, #6
-	lsls r1, r3, #2
-	adds r1, r1, r3
-	lsls r1, r1, #6
-	ldr r2, _080C1DC4  @ gUnknown_0201BE32
-	adds r1, r1, r2
-	adds r0, r0, r1
-	bx lr
-	.align 2, 0
-_080C1DC0: .4byte gUnknown_0201C5CF
-_080C1DC4: .4byte gUnknown_0201BE32
-
-	THUMB_FUNC_END sub_80C1DA0
-
-	THUMB_FUNC_START sub_80C1DC8
-sub_80C1DC8: @ 0x080C1DC8
-	ldr r0, _080C1DD4  @ gUnknown_0201C5CF
-	ldrb r1, [r0]
-	movs r2, #1
-	eors r1, r2
-	strb r1, [r0]
-	bx lr
-	.align 2, 0
-_080C1DD4: .4byte gUnknown_0201C5CF
-
-	THUMB_FUNC_END sub_80C1DC8
-
-	THUMB_FUNC_START sub_80C1DD8
-sub_80C1DD8: @ 0x080C1DD8
-	ldr r2, _080C1DE4  @ gUnknown_0201C5B4
-	lsls r0, r0, #2
-	adds r0, r0, r2
-	str r1, [r0]
-	bx lr
-	.align 2, 0
-_080C1DE4: .4byte gUnknown_0201C5B4
-
-	THUMB_FUNC_END sub_80C1DD8
-
-	THUMB_FUNC_START sub_80C1DE8
-sub_80C1DE8: @ 0x080C1DE8
-	ldr r1, _080C1DF8  @ gUnknown_0201C5CC
-	adds r0, r0, r1
-	ldrb r2, [r0]
-	movs r1, #3
-	ands r1, r2
-	strb r1, [r0]
-	bx lr
-	.align 2, 0
-_080C1DF8: .4byte gUnknown_0201C5CC
-
-	THUMB_FUNC_END sub_80C1DE8
-
-	THUMB_FUNC_START sub_80C1DFC
-sub_80C1DFC: @ 0x080C1DFC
-	ldr r1, _080C1E10  @ gUnknown_0201C5CC
-	adds r0, r0, r1
-	ldrb r2, [r0]
-	movs r1, #3
-	ands r1, r2
-	movs r2, #1
-	orrs r1, r2
-	strb r1, [r0]
-	bx lr
-	.align 2, 0
-_080C1E10: .4byte gUnknown_0201C5CC
-
-	THUMB_FUNC_END sub_80C1DFC
-
-	THUMB_FUNC_START sub_80C1E14
-sub_80C1E14: @ 0x080C1E14
-	ldr r1, _080C1E28  @ gUnknown_0201C5CC
-	adds r0, r0, r1
-	ldrb r2, [r0]
-	movs r1, #3
-	ands r1, r2
-	movs r2, #2
-	orrs r1, r2
-	strb r1, [r0]
-	bx lr
-	.align 2, 0
-_080C1E28: .4byte gUnknown_0201C5CC
-
-	THUMB_FUNC_END sub_80C1E14
-
 	THUMB_FUNC_START GmapRmUpdate1_Loop
 GmapRmUpdate1_Loop: @ 0x080C1E2C
 	push {lr}
@@ -3562,7 +3257,7 @@ sub_80C35C4: @ 0x080C35C4
 	adds r0, #0x2a
 	strb r2, [r0]
 	bl sub_80C3590
-	ldr r2, _080C35E8  @ gUnknown_0201BE30
+	ldr r2, _080C35E8  @ gWmHblankStatus
 	ldrb r1, [r2]
 	movs r0, #0xfe
 	ands r0, r1
@@ -3570,7 +3265,7 @@ sub_80C35C4: @ 0x080C35C4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C35E8: .4byte gUnknown_0201BE30
+_080C35E8: .4byte gWmHblankStatus
 
 	THUMB_FUNC_END sub_80C35C4
 
@@ -3618,7 +3313,7 @@ StartWmText: @ 0x080C3624
 	cmp r4, #0
 	beq _080C3652
 	bl sub_80C3590
-	ldr r2, _080C365C  @ gUnknown_0201BE30
+	ldr r2, _080C365C  @ gWmHblankStatus
 	ldrb r1, [r2]
 	movs r0, #0xfe
 	ands r0, r1
@@ -3636,7 +3331,7 @@ _080C3652:
 	bx r0
 	.align 2, 0
 _080C3658: .4byte gUnknown_08A3EE44
-_080C365C: .4byte gUnknown_0201BE30
+_080C365C: .4byte gWmHblankStatus
 
 	THUMB_FUNC_END StartWmText
 
@@ -3648,7 +3343,7 @@ RemoveWmText: @ 0x080C3660
 	adds r3, r0, #0
 	cmp r3, #0
 	beq _080C3680
-	ldr r2, _080C3688  @ gUnknown_0201BE30
+	ldr r2, _080C3688  @ gWmHblankStatus
 	ldrb r1, [r2]
 	movs r0, #0xfe
 	ands r0, r1
@@ -3662,7 +3357,7 @@ _080C3680:
 	bx r0
 	.align 2, 0
 _080C3684: .4byte gUnknown_08A3EE44
-_080C3688: .4byte gUnknown_0201BE30
+_080C3688: .4byte gWmHblankStatus
 
 	THUMB_FUNC_END RemoveWmText
 

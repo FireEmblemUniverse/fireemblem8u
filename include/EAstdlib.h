@@ -227,7 +227,7 @@
 #define WM_FADEINSPRITE WmEvtFadeMU
 #define WM_WAITFORSPRITELOAD WmEvtWaitMuFade
 #define SKIPWN WmEvtSkipWmEvents
-#define WM_CREATENEXTDESTINATION WmEvtInitDrawNewNode
+#define WM_CREATENEXTDESTINATION WmEvtDrawNodeNextChapter
 #define WM_WAITFORFX WmEvtWaitNodeDisplay
 #define WM_MAKELORDVISIBLE WmEvtShowUnit
 #define WM_DRAWPATH WmEvtDrawPath
@@ -246,86 +246,6 @@
 #define DRAWPATH3 WmEvtDisplayPath
 #define WM_MOVECAMTO WmEvtMoveCamToNode
 #define WM_SATURATE_COLORS WmEvtFadeInDark
-
-/* Main Code Helpers */
-
-#define TurnEventPlayer(eid, scr, turn) TURN(eid, scr, turn, 0, FACTION_BLUE)
-#define TurnEventPlayer_(eid, scr, turn, dura) TURN(eid, scr, turn, turn + dura - 1, FACTION_BLUE)
-#define TurnEventEnemy(eid, scr, turn) TURN(eid, scr, turn, 0, FACTION_RED)
-#define TurnEventEnemy_(eid, scr, turn, dura) TURN(eid, scr, turn, turn + dura - 1, FACTION_RED)
-#define TurnEventNPC(eid, scr, turn) TURN(eid, scr, turn, 0, FACTION_GREEN)
-#define TurnEventNPC_(eid, scr, turn, dura) TURN(eid, scr, turn, turn + dura - 1, FACTION_GREEN)
-#define Survive(scr, turn) TurnEventPlayer(0, scr, turn)
-#define OpeningTurnEvent(scr) TurnEventPlayer(0, scr, 1)
-
-#define CharacterEvent(eid, scr, pid1, pid2) CHAR((eid), (scr), (pid1), (pid2))
-#define CharacterEvent_(eid, scr, pid1, pid2, trigg_eid) CHAR_((eid), (scr), (pid1), (pid2), (trigg_eid))
-#define CharacterEventBothWays(eid, scr, pid1, pid2) CharacterEvent(eid, scr, pid1, pid2) CharacterEvent(eid, scr, pid2, pid1)
-
-#define House(eid, scr, x, y) LOCA(eid, scr, x, y, TILE_COMMAND_VISIT)
-#define Seize_(eid, scr, x, y) LOCA(eid, scr, x, y, TILE_COMMAND_SEIZE)
-#define Seize(x, y) Seize_(EVFLAG_WIN, EVENT_NOSCRIPT, x, y)
-
-#define CauseGameOverIfLordDies AFEV(0, EventScr_GameOver, EVFLAG_GAMEOVER)
-#define DefeatBoss(event_scr) AFEV(EVFLAG_WIN, (event_scr), EVFLAG_DEFEAT_BOSS)
-#define DefeatAll(event_scr) AFEV(EVFLAG_WIN, (event_scr), EVFLAG_DEFEAT_ALL)
-#define NoFade EVBIT_T(EV_STATE_SKIPPING | EV_STATE_0002 | EV_STATE_ABORT)
-
-#define HouseEvent(msg, bg) \
-    MUSI \
-    Text_BG(bg, msg) \
-    MUNO \
-    NoFade \
-    ENDA
-
-#define ConvoEvent(textID) \
-    MUSI \
-    Text(textID) \
-    MUNO \
-    NoFade \
-    ENDA
-
-/* Unit Helpers */
-#define FlashCursor(pid, time) \
-    CUMO_CHAR(pid) \
-    STAL(time) \
-    CURE
-
-#define StartBattle                           SVAL(EVT_SLOT_D, 0)
-#define NormalDamage(combatantNumber,damage)  SVAL(EVT_SLOT_1, combatantNumber + damage * 0x100) SAVETOQUEUE
-#define CriticalHit(combatantNumber,damage)   SVAL(EVT_SLOT_1, combatantNumber + damage * 0x100 + 0x00010000) SAVETOQUEUE
-#define MissedAttack(combatantNumber,damage)  SVAL(EVT_SLOT_1, combatantNumber + damage * 0x100 + 0x00020000) SAVETOQUEUE
-#define Silencer(combatantNumber,damage)      SVAL(EVT_SLOT_1, combatantNumber + damage * 0x100 + 0x00080000) SAVETOQUEUE
-#define SureShot(combatantNumber,damage)      SVAL(EVT_SLOT_1, combatantNumber + damage * 0x100 + 0x00400000) SAVETOQUEUE
-#define Poison(combatantNumber,damage)        SVAL(EVT_SLOT_1, combatantNumber + damage * 0x100 + 0x00400000) SAVETOQUEUE
-#define DevilReversal(combatantNumber,damage) SVAL(EVT_SLOT_1, combatantNumber + damage * 0x100 + 0x00800000) SAVETOQUEUE
-#define Pierce(combatantNumber,damage)        SVAL(EVT_SLOT_1, combatantNumber + damage * 0x100 + 0xC0000000) SAVETOQUEUE
-#define EndAttack                             SVAL(EVT_SLOT_1, 0xFFFFFFFF) SAVETOQUEUE
-
-/* Convo Helpers */
-#define Text(msg) \
-    TEXTSTART \
-    TEXTSHOW(msg) \
-    TEXTEND \
-    REMA
-
-#define Text_BG(bg, msg) \
-    EvtSetSlot(EVT_SLOT_2, (bg)) \
-    EvtSetSlot(EVT_SLOT_3, (msg)) \
-    EvtCall(Event_TextWithBG)
-
-#define SetBackground(bg) \
-    SVAL(EVT_SLOT_2, bg) \
-    CALL(EventScr_SetBackground)
-
-/* Code Ailases */
-#define SLOTS_SETFROMQUEUE SDEQUEUE
-#define SAVETOQUEUE SENQUEUE1
-#define STQFROMSLOT SENQUEUE1
-
-/* End Of Chapter Helpers.txt */
-#define MoveToChapter(chapter) MNCH(chapter)
-
 
 /*************************************************************
  * None EA stdlib but Mokha macros
@@ -371,3 +291,11 @@
     SVAL(EVT_SLOT_1, (scr_this)) \
     SAVETOQUEUE \
     CALL(EventScr_Tutorial_Exec1)
+
+#include "EA_Standard_Library/Main_Code_Helpers.h"
+#include "EA_Standard_Library/Unit_Helpers.h"
+#include "EA_Standard_Library/Convo_Helpers.h"
+#include "EA_Standard_Library/Code_Ailases.h"
+#include "EA_Standard_Library/End_Of_Chapter_Helpers.h"
+#include "EA_Standard_Library/Conditional_Helpers.h"
+#include "EA_Standard_Library/AI_Helpers.h"

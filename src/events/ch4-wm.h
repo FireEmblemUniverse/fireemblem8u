@@ -5,7 +5,7 @@
 #include "eventinfo.h"
 #include "eventcall.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"

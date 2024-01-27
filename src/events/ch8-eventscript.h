@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "uimenu.h"
 #include "fontgrp.h"
 #include "constants/characters.h"
@@ -216,7 +216,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CALL(EventScr_SetBackground)
     TEXTSHOW(0xc02)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     CLEA
@@ -227,7 +227,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     UNIT_COLORS(0x4)
     LOAD2(0x1, UnitDef_088B788C)
     ENUN
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x20f, 8, 8)
     CUMO_CHAR(CHARACTER_EIRIKA)
@@ -255,7 +255,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     FAWU(16)
     TEXTSHOW(0xc04)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     SVAL(EVT_SLOT_B, 0x14000e)

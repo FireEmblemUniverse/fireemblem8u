@@ -3,7 +3,7 @@
 #include "eventinfo.h"
 #include "eventcall.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 
@@ -11,7 +11,7 @@ CONST_DATA EventScr EventScr_WM_FadeCommon[] = {
     WmEvtFadeInDark(60) // WM_SATURATE_COLORS
     WM_SHOWTEXTWINDOW(40, 0x0001)
     WM_WAITFORTEXT
-    WmEvtWaitFadeInDark // ENOSUPP in EA-stdlib
+    WmEvtWaitFadeInDark // ENOSUPP in EAstdlib
     ENDA
 };
 

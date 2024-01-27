@@ -333,6 +333,7 @@ SECTIONS
         src/worldmap_effect.o(.text);
         src/worldmap_sogu.o(.text);
         src/worldmap_timemons.o(.text);
+        src/worldmap_hb.o(.text);
         asm/code_80BF13C.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);

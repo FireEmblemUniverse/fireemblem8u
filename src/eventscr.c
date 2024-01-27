@@ -33,7 +33,7 @@
 #include "eventinfo.h"
 #include "event.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "eventcall.h"
 #include "bmdifficulty.h"
 
@@ -4323,8 +4323,7 @@ CONST_DATA EventListScr EventScr_SkirmishRetreat[] = {
     SVAL(EVT_SLOT_B, -1)
     TEXTSHOW(0x8fc)
     TEXTEND
-    SVAL(EVT_SLOT_7, 0x1)
-    BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
+    IfNoSelectedGoto(0x0)
     MUSCMID(0x7fff)
     FADI(4)
     MNCH(0xffff)
@@ -4343,8 +4342,7 @@ CONST_DATA EventListScr EventScr_SuspendPrompt[] = {
     TEXTSTART
     TEXTSHOW(0x8fe)
     TEXTEND
-    SVAL(EVT_SLOT_7, 0x1)
-    BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
+    IfNoSelectedGoto(0x0)
     ASMC(WriteSuspandPlaterIdle)
     EvtTextShow2(0x8ff)
     TEXTEND

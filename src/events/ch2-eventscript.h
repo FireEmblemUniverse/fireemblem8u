@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "playerphase.h"
 #include "constants/characters.h"
 
@@ -158,11 +158,11 @@ LABEL(0x0)
     TEXTSHOW(0x965)
     TEXTEND
     FAWI(2)
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     REMA
     BACG(0x20)
     FAWU(2)
-    EvtBgmFadeIn(0x4a, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x4a, 8) // ENOSUPP in EAstdlib
     TEXTSHOW(0x966)
     TEXTEND
     REMA
@@ -314,7 +314,7 @@ CONST_DATA EventListScr EventScr_089F07D0[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_VANESSA)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0808, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0808, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     ENDA
 };
@@ -371,7 +371,7 @@ CONST_DATA EventListScr EventScr_089F08E0[] = {
     TEXTEND
     REMA
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F0910, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0910, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     ENDA
 };
 
@@ -395,7 +395,7 @@ CONST_DATA EventListScr EventScr_089F0910[] = {
     REMA
     CURE
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F096C, TUTORIAL_EVT_TYPE_DESTSELECTED) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F096C, TUTORIAL_EVT_TYPE_DESTSELECTED) // ENOSUPP in EAstdlib
     ENDA
 };
 
@@ -419,14 +419,14 @@ CONST_DATA EventListScr EventScr_089F096C[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F09C8[] = {
-    EvtEnqueueConditionalTutCall(EventScr_089F09D8, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F09D8, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     EVBIT_T(7)
     ENDA
 };
 
 CONST_DATA EventListScr EventScr_089F09D8[] = {
     IGNORE_KEYS(0x0)
-    EvtEnqueueCallDirectly(EventScr_089F09F0) // ENOSUPP in EA-stdlib
+    EvtEnqueueCallDirectly(EventScr_089F09F0) // ENOSUPP in EAstdlib
     ENUT(184)
     EVBIT_T(7)
     ENDA
@@ -441,7 +441,7 @@ CONST_DATA EventListScr EventScr_089F09F0[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_MOULDER)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0A28, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0A28, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     EVBIT_T(7)
     ENDA
@@ -491,7 +491,7 @@ CONST_DATA EventListScr EventScr_089F0AA0[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F0B00[] = {
-    EvtEnqueueConditionalTutCall(EventScr_089F0B10, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0B10, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     EVBIT_T(7)
     ENDA
 };
@@ -513,7 +513,7 @@ CONST_DATA EventListScr EventScr_089F0B10[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0B68, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0B68, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     EVBIT_T(7)
     ENDA
@@ -571,7 +571,7 @@ CONST_DATA EventListScr EventScr_089F0C40[] = {
     TEXTEND
     REMA
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F0C70, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0C70, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     ENDA
 };
 
@@ -580,7 +580,7 @@ CONST_DATA EventListScr EventScr_089F0C70[] = {
     SVAL(EVT_SLOT_2, EventScr_089F0770)
     CALL(EventScr_CallOnTutorialMode)
     DISABLEOPTIONS(0x0)
-    EvtEnqueueCallDirectly(EventScr_089F11B8) // ENOSUPP in EA-stdlib
+    EvtEnqueueCallDirectly(EventScr_089F11B8) // ENOSUPP in EAstdlib
     EVBIT_T(7)
     ENDA
 };
@@ -594,7 +594,7 @@ CONST_DATA EventListScr EventScr_089F0C98[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_VANESSA)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0CCC, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0CCC, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     ENDA
 };
@@ -645,7 +645,7 @@ CONST_DATA EventListScr EventScr_089F0D48[] = {
 
 CONST_DATA EventListScr EventScr_089F0DA8[] = {
     EVBIT_T(7)
-    EvtEnqueueConditionalTutCall(EventScr_089F0DB8, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0DB8, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     ENDA
 };
 
@@ -669,7 +669,7 @@ CONST_DATA EventListScr EventScr_089F0DB8[] = {
     REMA
     CURE
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F0E14, TUTORIAL_EVT_TYPE_DESTSELECTED) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0E14, TUTORIAL_EVT_TYPE_DESTSELECTED) // ENOSUPP in EAstdlib
     ENDA
 };
 
@@ -693,14 +693,14 @@ CONST_DATA EventListScr EventScr_089F0E14[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F0E70[] = {
-    EvtEnqueueConditionalTutCall(EventScr_089F0E80, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0E80, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     EVBIT_T(7)
     ENDA
 };
 
 CONST_DATA EventListScr EventScr_089F0E80[] = {
     IGNORE_KEYS(0x0)
-    EvtEnqueueCallDirectly(EventScr_089F0E98) // ENOSUPP in EA-stdlib
+    EvtEnqueueCallDirectly(EventScr_089F0E98) // ENOSUPP in EAstdlib
     ENUT(184)
     EVBIT_T(7)
     ENDA
@@ -716,7 +716,7 @@ CONST_DATA EventListScr EventScr_089F0E98[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_MOULDER)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0ED4, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0ED4, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     EVBIT_T(7)
     ENDA
@@ -752,7 +752,7 @@ CONST_DATA EventListScr EventScr_089F0F54[] = {
     ASMC(PlayPhaseForcePressAButtonInRangeDisp)
     DISABLEOPTIONS(0xfffd)
     IGNORE_KEYS(0x0)
-    EvtEnqueueConditionalTutCall(EventScr_089F0F74, TUTORIAL_EVT_TYPE_AFTERMOVE) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0F74, TUTORIAL_EVT_TYPE_AFTERMOVE) // ENOSUPP in EAstdlib
     ENDA
 };
 
@@ -765,7 +765,7 @@ CONST_DATA EventListScr EventScr_089F0F74[] = {
     TEXTEND
     REMA
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F0FA4, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F0FA4, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     ENDA
 };
 
@@ -783,7 +783,7 @@ CONST_DATA EventListScr EventScr_089F0FA4[] = {
     REMA
     ENUT(196)
     DISABLEOPTIONS(0x0)
-    EvtEnqueueCallDirectly(EventScr_089F0FEC) // ENOSUPP in EA-stdlib
+    EvtEnqueueCallDirectly(EventScr_089F0FEC) // ENOSUPP in EAstdlib
     EVBIT_T(7)
     ENDA
 };
@@ -798,7 +798,7 @@ CONST_DATA EventListScr EventScr_089F0FEC[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F1028, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F1028, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     EVBIT_T(7)
     ENDA
@@ -857,7 +857,7 @@ CONST_DATA EventListScr EventScr_089F1104[] = {
     TEXTEND
     REMA
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F1134, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EA-stdlib
+    EvtEnqueueConditionalTutCall(EventScr_089F1134, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     ENDA
 };
 

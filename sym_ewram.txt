@@ -182,7 +182,7 @@
 . = 0x01B930; gUnknown_0201B930 = .;
 . = 0x01B958; gUnknown_0201B958 = .;
 . = 0x01BBD8; gUnknown_0201BBD8 = .;
-. = 0x01BE30; gUnknown_0201BE30 = .;
+. = 0x01BE30; gWmHblankStatus = .;
 . = 0x01BE32; gUnknown_0201BE32 = .;
 . = 0x01C5B4; gUnknown_0201C5B4 = .;
 . = 0x01C5C0; gUnknown_0201C5C0 = .;
