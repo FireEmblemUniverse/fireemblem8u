@@ -3,6 +3,7 @@
 
 #include "proc.h"
 #include "hardware.h"
+#include "spline.h"
 
 enum worldmap_unit_alignace {
     WM_FACTION_BLUE  = 0,
@@ -722,6 +723,34 @@ struct MenuProc *StartWMNodeMenu(struct WorldMapMainProc *parent);
 // ??? WMMenu_OnSecretShopSelected(???);
 // ??? WMMenu_OnManageItemsSelected(???);
 void GmDataInit(void);
+
+// this is a buffer at 0x201AFF0, indexed by node ID
+struct GMapNodeLink
+{
+    s8 numConnections; // number of connections from this node
+    s8 connections[7]; // node IDs of each connected node
+};
+
+extern struct GMapNodeLink gUnknown_0201AFF0[];
+
+struct Unknown0201B100
+{
+    u8 a;
+    u8 b[0x20];
+};
+
+extern struct Unknown0201B100 gUnknown_0201B100[];
+
+struct Unknown0201B0D8
+{
+    /* 00 */ s8 unk_00[0x10];
+    /* 10 */ s8 unk_10[0x10];
+    /* 20 */ int unk_20;
+    /* 24 */ int unk_24;
+};
+
+extern struct Unknown0201B0D8 gUnknown_0201B0D8;
+
 // ??? GmPathsInit(???);
 bool AddGmPath(struct GMapData*, struct OpenPaths*, int);
 bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int idx);
@@ -732,11 +761,11 @@ int sub_80BCA1C(int);
 // ??? sub_80BCA90(???);
 // ??? sub_80BCAB8(???);
 // ??? sub_80BCBAC(???);
-s8 sub_80BCCFC(s8, s8, int);
+s8 sub_80BCCFC(s8, s8, s8);
 // ??? sub_80BCDE4(???);
-int sub_80BCE34(int, int, s16, void *, void *, int);
+int sub_80BCE34(int, int, s16, u16 *, struct Struct0859E7D4 *, int);
 void sub_80BCFB4(void); // GM_ClearAllStoryLocations
-int sub_80BCFDC(int);
+int sub_80BCFDC(u32);
 int GetNextUnclearedNode(struct GMapData*); // Get next WM Destination?
 unsigned int GetNextUnclearedChapter(void);
 unsigned int GetChapterThing(void);
