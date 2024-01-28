@@ -828,7 +828,7 @@ u8 Event19_Checks(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CHECK_SKIRMISH: // Check Chapter Type?
-        gEventSlots[0xC] = GetChapterThing();
+        gEventSlots[0xC] = GetBattleMapKind();
         break;
 
     case EVSUBCMD_CHECK_TUTORIAL: // Check Some option or difficult mode

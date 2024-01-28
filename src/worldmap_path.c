@@ -14,6 +14,8 @@
 
 #include "worldmap.h"
 
+// clang-format off
+
 const struct GMapMovementPathData gUnknown_082064BC[] =
 {
     { 1351, 128, 88, },
@@ -443,6 +445,8 @@ const struct GMapPathData gWMPathData[] =
 };
 
 extern u16 gUnknown_02019D00[];
+
+// clang-format on
 
 //! FE8U = 0x080BBBF4
 void sub_80BBBF4(u8 * data, u16 * buf, int size, u16 oam2)
@@ -890,11 +894,11 @@ ProcPtr StartGMapRoute(ProcPtr parent, struct OpenPaths * pPaths, int c, int d)
 }
 
 //! FE8U = 0x080BC3D4
-int sub_80BC3D4(int idx)
+int sub_80BC3D4(int pathId)
 {
     int count;
 
-    const struct GMapMovementPathData * pMovementPath = idx[gWMPathData].movementPath;
+    const struct GMapMovementPathData * pMovementPath = pathId[gWMPathData].movementPath;
 
     if (pMovementPath == NULL)
     {
@@ -1394,7 +1398,7 @@ bool AddGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int idx)
     {
         pPaths->openPaths[pPaths->openPathsLength] = idx;
         pPaths->openPathsLength += 1;
-        sub_80BCA0C(pGMapData);
+        RefreshGmNodeLinks(pGMapData);
         return false;
     }
     else
@@ -1417,7 +1421,7 @@ bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int id
     {
         pPaths->openPathsLength--;
         pPaths->openPaths[pPaths->openPathsLength] = 0xff;
-        sub_80BCA0C(pGMapData);
+        RefreshGmNodeLinks(pGMapData);
         return false;
     }
 
@@ -1436,9 +1440,954 @@ bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int id
         }
 
         pPaths->openPathsLength--;
-        sub_80BCA0C(pGMapData);
+        RefreshGmNodeLinks(pGMapData);
         return false;
     }
 
     return true;
+}
+
+#if NONMATCHING
+
+/* https://decomp.me/scratch/yGsRY */
+
+//! FE8U = 0x080BC970
+void RefreshGmNodeLinksExt(struct GMapData * param_1, struct GMapNodeLink * param_2)
+{
+    int pathId;
+    int i;
+    struct GMapNodeLink * pcVar6;
+    int j;
+    struct OpenPaths * paths;
+    s8 * r9;
+    int r5;
+    s8 len;
+
+    CpuFill32(0, param_2, sizeof(struct GMapNodeLink) * 0x1d);
+    paths = &param_1->openPaths;
+
+    for (i = 0, r9 = paths->openPaths; i < paths->openPathsLength; i++)
+    {
+        pathId = r9[i];
+
+        for (j = 0; j < 2; j++)
+        {
+            int r2 = pathId[gWMPathData].node[j];
+
+            pcVar6 = (param_2 + r2);
+
+            pcVar6->numConnections[pcVar6->connections] = pathId[gWMPathData].node[1 - j];
+            pcVar6->numConnections++;
+
+            if (r2 == 0)
+            {
+                pcVar6->numConnections[pcVar6->connections] = pathId[gWMPathData].node[1 - j];
+            }
+        }
+    }
+
+    return;
+}
+
+#else
+
+NAKEDFUNC
+void RefreshGmNodeLinksExt(struct GMapData * param_1, struct GMapNodeLink * param_2)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, r9\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        sub sp, #4\n\
+        adds r4, r0, #0\n\
+        mov r8, r1\n\
+        movs r0, #0\n\
+        str r0, [sp]\n\
+        ldr r2, _080BCA04  @ 0x0500003A\n\
+        mov r0, sp\n\
+        bl CpuSet\n\
+        movs r2, #0\n\
+        adds r0, r4, #0\n\
+        adds r0, #0xa4\n\
+        adds r4, #0xc4\n\
+        movs r1, #0\n\
+        ldrsb r1, [r4, r1]\n\
+        cmp r2, r1\n\
+        bge _080BC9F4\n\
+        mov r9, r0\n\
+        ldr r3, _080BCA08  @ gWMPathData\n\
+        mov sl, r3\n\
+        mov ip, r1\n\
+    _080BC9A4:\n\
+        adds r0, r0, r2\n\
+        movs r1, #0\n\
+        ldrsb r1, [r0, r1]\n\
+        movs r5, #0\n\
+        adds r7, r2, #1\n\
+        lsls r0, r1, #1\n\
+        adds r0, r0, r1\n\
+        lsls r0, r0, #2\n\
+        add r0, sl\n\
+        adds r6, r0, #4\n\
+        adds r4, r0, #5\n\
+    _080BC9BA:\n\
+        adds r0, r6, r5\n\
+        movs r2, #0\n\
+        ldrsb r2, [r0, r2]\n\
+        lsls r0, r2, #3\n\
+        mov r1, r8\n\
+        adds r3, r1, r0\n\
+        movs r0, #0\n\
+        ldrsb r0, [r3, r0]\n\
+        adds r0, r3, r0\n\
+        ldrb r1, [r4]\n\
+        strb r1, [r0, #1]\n\
+        ldrb r0, [r3]\n\
+        adds r0, #1\n\
+        strb r0, [r3]\n\
+        cmp r2, #0\n\
+        bne _080BC9E4\n\
+        movs r0, #0\n\
+        ldrsb r0, [r3, r0]\n\
+        adds r0, r3, r0\n\
+        ldrb r1, [r4]\n\
+        strb r1, [r0, #1]\n\
+    _080BC9E4:\n\
+        subs r4, #1\n\
+        adds r5, #1\n\
+        cmp r5, #1\n\
+        ble _080BC9BA\n\
+        adds r2, r7, #0\n\
+        mov r0, r9\n\
+        cmp r2, ip\n\
+        blt _080BC9A4\n\
+    _080BC9F4:\n\
+        add sp, #4\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _080BCA04: .4byte 0x0500003A\n\
+    _080BCA08: .4byte gWMPathData\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif
+
+//! FE8U = 0x080BCA0C
+void RefreshGmNodeLinks(struct GMapData * param_1)
+{
+    RefreshGmNodeLinksExt(param_1, gUnknown_0201AFF0);
+    return;
+}
+
+//! FE8U = 0x080BCA1C
+int sub_80BCA1C(int nodeId)
+{
+    int i;
+
+    for (i = 4; i < 7; i++)
+    {
+        if (gGMData.units[i].id == 0)
+        {
+            continue;
+        }
+
+        if (nodeId != gGMData.units[i].location)
+        {
+            continue;
+        }
+
+        return i;
+    }
+
+    return -1;
+}
+
+//! FE8U = 0x080BCA54
+void sub_80BCA54(struct Unknown0201B100 * buf)
+{
+    int i;
+
+    buf->a = 0;
+
+    for (i = 4; i < 7; i++)
+    {
+        if (gGMData.units[i].id != 0)
+        {
+            buf->b[buf->a] = gGMData.units[i].location;
+            buf->a++;
+        }
+    }
+
+    return;
+}
+
+//! FE8U = 0x080BCA90
+s8 sub_80BCA90(struct Unknown0201B100 * buf, int target)
+{
+    int i;
+
+    for (i = 0; i < buf->a; i++)
+    {
+        if (buf->b[i] == target)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+//! FE8U = 0x080BCAB8
+int sub_80BCAB8(struct Unknown0201B0D8 * buf, struct GMapNodeLink * links, s8 param_3, s8 param_4, s8 param_5, int param_6)
+{
+    s8 * connections;
+    int i;
+    int j;
+    struct GMapNodeLink * link;
+
+    if (param_6 < buf->unk_20)
+    {
+        link = &links[param_4];
+
+        for (i = 0; i < link->numConnections; i++)
+        {
+            s8 r2;
+
+            connections = link->connections;
+            if (connections[i] == param_3)
+                continue;
+
+            r2 = connections[i] == param_5;
+
+            if (r2 || !sub_80BCA90(gUnknown_0201B100, connections[i]))
+            {
+                connections = link->connections; // redundant
+                buf->unk_10[param_6] = connections[i];
+
+                if (r2)
+                {
+                    if (param_6 < buf->unk_20)
+                    {
+                        for (j = 1; j <= param_6; j++)
+                            buf->unk_00[j] = buf->unk_10[j];
+
+                        buf->unk_20 = param_6;
+                    }
+
+                    return 1;
+                }
+
+                sub_80BCAB8(buf, links, param_4, connections[i], param_5, param_6 + 1);
+            }
+        }
+    }
+
+    return 0;
+}
+
+#if NONMATCHING
+
+/* https://decomp.me/scratch/eDz84 */
+
+//! FE8U = 0x080BCBAC
+int sub_80BCBAC(struct Unknown0201B0D8 * buf, struct GMapNodeLink * param_2, s8 param_3, s8 param_4, s8 param_5, int param_6, int param_7)
+{
+    int i;
+    int j;
+    s8 * connections;
+    struct GMapNodeLink * link;
+
+    if (param_6 < buf->unk_20)
+    {
+
+        link = &param_2[param_4];
+
+        for (i = 0; i < link->numConnections; i++)
+        {
+            s8 r2;
+            s8 r2_;
+
+            connections = link->connections;
+
+            if (connections[i] == param_3)
+            {
+                continue;
+            }
+
+            r2 = connections[i] == param_5;
+
+            buf->unk_10[param_6] = connections[i];
+
+            if (param_7 >= 0)
+            {
+                connections = link->connections; // redundant here too ?
+                if (!r2)
+                {
+                    sub_80BCBAC(buf, param_2, param_4, connections[i], param_5, param_6 + 1, param_7 + 1);
+                    continue;
+                }
+                else
+                {
+                    r2 = 0;
+                    if (param_7 < buf->unk_24)
+                    {
+                        buf->unk_24 = param_7;
+                        r2 = 1;
+                    }
+                    else if ((param_7 == buf->unk_24) && (param_6 < buf->unk_20))
+                    {
+                        r2 = 1;
+                    }
+
+                    if (r2)
+                    {
+
+                        for (j = 1; j <= param_6; j++)
+                        {
+                            buf->unk_00[j] = buf->unk_10[j];
+                        }
+
+                        buf->unk_20 = param_6;
+                    }
+
+                    return 1;
+                }
+            }
+            else
+            {
+                if (!r2)
+                {
+
+                    if (sub_80BCA90(gUnknown_0201B100, connections[i]))
+                    {
+                        sub_80BCBAC(buf, param_2, param_4, connections[i], param_5, param_6 + 1, param_7 + 1);
+                        continue;
+                    }
+                }
+                else
+                {
+                    if (param_6 < buf->unk_20)
+                    {
+                        for (j = 1; j <= param_6; j++)
+                        {
+                            buf->unk_00[j] = buf->unk_10[j];
+                        }
+
+                        buf->unk_20 = param_6;
+                    }
+
+                    return 1;
+                }
+            }
+
+            sub_80BCBAC(buf, param_2, param_4, connections[i], param_5, param_6 + 1, param_7);
+        }
+    }
+
+    return 0;
+}
+
+#else
+
+NAKEDFUNC
+int sub_80BCBAC(struct Unknown0201B0D8 * buf, struct GMapNodeLink * param_2, s8 param_3, s8 param_4, s8 param_5, int param_6, int param_7)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, r9\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        sub sp, #0x1c\n\
+        adds r6, r0, #0\n\
+        mov r8, r1\n\
+        ldr r0, [sp, #0x3c]\n\
+        ldr r7, [sp, #0x40]\n\
+        ldr r1, [sp, #0x44]\n\
+        mov r9, r1\n\
+        lsls r2, r2, #0x18\n\
+        lsrs r2, r2, #0x18\n\
+        str r2, [sp, #0xc]\n\
+        lsls r3, r3, #0x18\n\
+        lsrs r3, r3, #0x18\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r0, r0, #0x18\n\
+        str r0, [sp, #0x10]\n\
+        ldr r0, [r6, #0x20]\n\
+        cmp r7, r0\n\
+        blt _080BCBDC\n\
+        b _080BCCE8\n\
+    _080BCBDC:\n\
+        lsls r0, r3, #0x18\n\
+        asrs r1, r0, #0x15\n\
+        add r1, r8\n\
+        str r1, [sp, #0x18]\n\
+        movs r2, #0\n\
+        str r2, [sp, #0x14]\n\
+        ldrb r1, [r1]\n\
+        lsls r1, r1, #0x18\n\
+        asrs r1, r1, #0x18\n\
+        mov sl, r0\n\
+        cmp r2, r1\n\
+        blt _080BCBF6\n\
+        b _080BCCE8\n\
+    _080BCBF6:\n\
+        ldr r5, [sp, #0x18]\n\
+        adds r5, #1\n\
+    _080BCBFA:\n\
+        ldrb r3, [r5]\n\
+        movs r1, #0\n\
+        ldrsb r1, [r5, r1]\n\
+        ldr r4, [sp, #0xc]\n\
+        lsls r0, r4, #0x18\n\
+        asrs r0, r0, #0x18\n\
+        cmp r1, r0\n\
+        beq _080BCCD4\n\
+        movs r2, #0\n\
+        ldr r4, [sp, #0x10]\n\
+        lsls r0, r4, #0x18\n\
+        asrs r4, r0, #0x18\n\
+        cmp r1, r4\n\
+        bne _080BCC18\n\
+        movs r2, #1\n\
+    _080BCC18:\n\
+        adds r1, r6, #0\n\
+        adds r1, #0x10\n\
+        adds r0, r1, r7\n\
+        strb r3, [r0]\n\
+        adds r3, r1, #0\n\
+        mov r0, r9\n\
+        cmp r0, #0\n\
+        blt _080BCC62\n\
+        cmp r2, #0\n\
+        beq _080BCC76\n\
+        movs r2, #0\n\
+        ldr r0, [r6, #0x24]\n\
+        cmp r9, r0\n\
+        bge _080BCC3C\n\
+        mov r1, r9\n\
+        str r1, [r6, #0x24]\n\
+        movs r2, #1\n\
+        b _080BCC4C\n\
+    _080BCC3C:\n\
+        cmp r9, r0\n\
+        bne _080BCC48\n\
+        ldr r0, [r6, #0x20]\n\
+        cmp r7, r0\n\
+        bge _080BCC48\n\
+        movs r2, #1\n\
+    _080BCC48:\n\
+        cmp r2, #0\n\
+        beq _080BCCB6\n\
+    _080BCC4C:\n\
+        movs r2, #1\n\
+        cmp r2, r7\n\
+        bgt _080BCCB4\n\
+    _080BCC52:\n\
+        adds r0, r6, r2\n\
+        adds r1, r3, r2\n\
+        ldrb r1, [r1]\n\
+        strb r1, [r0]\n\
+        adds r2, #1\n\
+        cmp r2, r7\n\
+        ble _080BCC52\n\
+        b _080BCCB4\n\
+    _080BCC62:\n\
+        cmp r2, #0\n\
+        bne _080BCC98\n\
+        movs r1, #0\n\
+        ldrsb r1, [r5, r1]\n\
+        ldr r0, _080BCC94  @ gUnknown_0201B100\n\
+        bl sub_80BCA90\n\
+        lsls r0, r0, #0x18\n\
+        cmp r0, #0\n\
+        beq _080BCCBA\n\
+    _080BCC76:\n\
+        movs r3, #0\n\
+        ldrsb r3, [r5, r3]\n\
+        str r4, [sp]\n\
+        adds r0, r7, #1\n\
+        str r0, [sp, #4]\n\
+        mov r0, r9\n\
+        adds r0, #1\n\
+        str r0, [sp, #8]\n\
+        adds r0, r6, #0\n\
+        mov r1, r8\n\
+        mov r4, sl\n\
+        asrs r2, r4, #0x18\n\
+        bl sub_80BCBAC\n\
+        b _080BCCD4\n\
+        .align 2, 0\n\
+    _080BCC94: .4byte gUnknown_0201B100\n\
+    _080BCC98:\n\
+        ldr r0, [r6, #0x20]\n\
+        cmp r7, r0\n\
+        bge _080BCCB6\n\
+        movs r2, #1\n\
+        cmp r2, r7\n\
+        bgt _080BCCB4\n\
+        adds r3, r1, #0\n\
+    _080BCCA6:\n\
+        adds r0, r6, r2\n\
+        adds r1, r3, r2\n\
+        ldrb r1, [r1]\n\
+        strb r1, [r0]\n\
+        adds r2, #1\n\
+        cmp r2, r7\n\
+        ble _080BCCA6\n\
+    _080BCCB4:\n\
+        str r7, [r6, #0x20]\n\
+    _080BCCB6:\n\
+        movs r0, #1\n\
+        b _080BCCEA\n\
+    _080BCCBA:\n\
+        movs r3, #0\n\
+        ldrsb r3, [r5, r3]\n\
+        str r4, [sp]\n\
+        adds r0, r7, #1\n\
+        str r0, [sp, #4]\n\
+        mov r0, r9\n\
+        str r0, [sp, #8]\n\
+        adds r0, r6, #0\n\
+        mov r1, r8\n\
+        mov r4, sl\n\
+        asrs r2, r4, #0x18\n\
+        bl sub_80BCBAC\n\
+    _080BCCD4:\n\
+        adds r5, #1\n\
+        ldr r0, [sp, #0x14]\n\
+        adds r0, #1\n\
+        str r0, [sp, #0x14]\n\
+        ldr r1, [sp, #0x18]\n\
+        movs r0, #0\n\
+        ldrsb r0, [r1, r0]\n\
+        ldr r2, [sp, #0x14]\n\
+        cmp r2, r0\n\
+        blt _080BCBFA\n\
+    _080BCCE8:\n\
+        movs r0, #0\n\
+    _080BCCEA:\n\
+        add sp, #0x1c\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r1}\n\
+        bx r1\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif
+
+// FIXME: Probably should be in a different file due to the alignment
+
+const u8 ALIGNED(4) gUnknown_08206868[] =
+{
+    0, 0, 2, 1, 1, 1, 1,
+};
+
+//! FE8U = 0x080BCCFC
+s8 sub_80BCCFC(s8 a, s8 b, s8 flag)
+{
+    int ret;
+    int r4;
+    struct Unknown0201B0D8 * r6;
+
+    sub_80BCA54(gUnknown_0201B100);
+
+    if (flag != 0)
+    {
+        gUnknown_0201B0D8.unk_24 = 0x10;
+    }
+
+    r6 = &gUnknown_0201B0D8;
+    r6->unk_20 = 0x10;
+
+    CpuFill32(0, r6->unk_00, 0x10);
+    CpuFill32(0, r6->unk_10, 0x10);
+
+    r6->unk_00[0] = a;
+    r6->unk_10[0] = a;
+
+    if (flag != 0)
+    {
+        ret = sub_80BCBAC(r6, gUnknown_0201AFF0, -1, a, b, r4 = 1, -1);
+    }
+    else
+    {
+        ret = sub_80BCAB8(r6, gUnknown_0201AFF0, -1, a, b, r4 = 1);
+    }
+
+    if (ret != 0)
+    {
+        r6->unk_00[1] = r6->unk_10[1];
+        r6->unk_20 = r4;
+
+        return 1;
+    }
+
+    return gUnknown_0201B0D8.unk_20 < 0x10;
+}
+
+//! FE8U = 0x080BCDE4
+int sub_80BCDE4(int nodeA, int nodeB, int * startingNode)
+{
+    u32 i;
+
+    for (i = 0; i < WM_PATH_MAX; i++)
+    {
+        if ((nodeA == gWMPathData[i].node[0]) && (nodeB == gWMPathData[i].node[1]))
+        {
+            *startingNode = 0;
+            return i;
+        }
+
+        if ((nodeA == gWMPathData[i].node[1]) && (nodeB == gWMPathData[i].node[0]))
+        {
+            *startingNode = 1;
+            return i;
+        }
+    }
+    return -1;
+}
+
+//! FE8U = 0x080BCE34
+int sub_80BCE34(int nodeA, int nodeB, s16 c, u16 * d, struct Struct0859E7D4 * e, int f)
+{
+    int nodeId;
+    int pathId;
+    int i;
+    int startingNodeIdx;
+    int local_24;
+
+    pathId = sub_80BCDE4(nodeA, nodeB, &startingNodeIdx);
+
+    if (pathId < 0)
+    {
+        return 0;
+    }
+
+    *d = 0;
+
+    nodeId = pathId[gWMPathData].node[startingNodeIdx];
+
+    e->x = nodeId[gWMNodeData].x << (f);
+    e->y = nodeId[gWMNodeData].y << (f);
+
+    d++;
+    e++;
+
+    local_24 = sub_80BC3D4(pathId);
+
+    if (startingNodeIdx == 0)
+    {
+        for (i = 0; i < local_24; i++)
+        {
+            *d = DivArm(0x1000, pathId[gWMPathData].movementPath[i].elapsedTime * c);
+
+            e->x = pathId[gWMPathData].movementPath[i].x << (f);
+            e->y = pathId[gWMPathData].movementPath[i].y << (f);
+
+            d++;
+            e++;
+        }
+    }
+    else
+    {
+        for (i = local_24 - 1; i >= 0; i--)
+        {
+            *d = DivArm(0x1000, c * (0x1000 - (pathId[gWMPathData].movementPath[i].elapsedTime)));
+
+            e->x = pathId[gWMPathData].movementPath[i].x << (f);
+            e->y = pathId[gWMPathData].movementPath[i].y << (f);
+
+            d++;
+            e++;
+        }
+    }
+
+    *d = c;
+
+    nodeId = pathId[gWMPathData].node[1 - startingNodeIdx];
+    e->x = nodeId[gWMNodeData].x << (f);
+    e->y = nodeId[gWMNodeData].y << (f);
+
+    return local_24 + 2;
+}
+
+//! FE8U = 0x080BCFB4
+void ResetGmStoryNode(void)
+{
+    int i;
+
+    for (i = 0; i < NODE_MAX; i++)
+    {
+        gGMData.nodes[i].state &= ~GM_NODE_STATE_CLEARED;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080BCFDC
+int sub_80BCFDC(u32 chapterId)
+{
+    int i;
+
+    if (chapterId - 0x25 < 9)
+    {
+        chapterId = 0x24;
+    }
+    else if (chapterId - 0x2f < 9)
+    {
+        chapterId = 0x2e;
+    }
+
+    for (i = 0; i < NODE_MAX; i++)
+    {
+        if (chapterId == WMLoc_GetChapterId(i))
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+//! FE8U = 0x080BD014
+int GetNextUnclearedNode(struct GMapData * worldMapData)
+{
+    int i;
+
+    for (i = 0; i < NODE_MAX; i++)
+    {
+        if (!(worldMapData->nodes[i].state & GM_NODE_STATE_VALID))
+        {
+            continue;
+        }
+
+        if (!(worldMapData->nodes[i].state & GM_NODE_STATE_CLEARED))
+        {
+            continue;
+        }
+
+        return i;
+    }
+
+    return -1;
+}
+
+//! FE8U = 0x080BD048
+u32 GetNextUnclearedChapter(void)
+{
+    int nodeId = GetNextUnclearedNode(&gGMData);
+
+    if (nodeId < 0)
+    {
+        return -1;
+    }
+
+    return WMLoc_GetChapterId(nodeId);
+}
+
+//! FE8U = 0x080BD068
+u32 GetBattleMapKind(void)
+{
+    int i;
+    u32 chapterId = gPlaySt.chapterIndex;
+
+    switch (chapterId)
+    {
+        case 0x02:
+        case 0x03:
+        case 0x04:
+        case 0x06:
+        case 0x07:
+        case 0x08:
+        case 0x09:
+        case 0x0A:
+        case 0x0B:
+        case 0x0D:
+        case 0x0E:
+        case 0x0F:
+        case 0x10:
+        case 0x11:
+        case 0x12:
+        case 0x13:
+        case 0x14:
+        case 0x17:
+        case 0x18:
+        case 0x1A:
+        case 0x1B:
+        case 0x1C:
+        case 0x1D:
+        case 0x1E:
+        case 0x1F:
+        case 0x20:
+        case 0x21:
+        case 0x24:
+        case 0x25:
+        case 0x26:
+        case 0x27:
+        case 0x28:
+        case 0x29:
+        case 0x2A:
+        case 0x2B:
+        case 0x2C:
+        case 0x2D:
+        case 0x2E:
+        case 0x2F:
+        case 0x30:
+        case 0x31:
+        case 0x32:
+        case 0x33:
+        case 0x34:
+        case 0x35:
+        case 0x36:
+        case 0x37:
+        case 0x39:
+        case 0x3A:
+        case 0x3D:
+        case 0x3E:
+        default:
+            if (chapterId - 0x25 < 9)
+            {
+                chapterId = 0x24;
+            }
+            else if (chapterId - 0x2f < 9)
+            {
+                chapterId = 0x2e;
+            }
+
+            for (i = 0; i < NODE_MAX; i++)
+            {
+                if (chapterId == WMLoc_GetChapterId(i))
+                {
+                    if (!(gGMData.nodes[i].state & GM_NODE_STATE_CLEARED))
+                    {
+                        if ((u8)i[gWMNodeData].encounters != 3)
+                        {
+                            break;
+                        }
+                    }
+                    else if (i[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
+                    {
+                        return 0;
+                    }
+
+                    return 1;
+                }
+            }
+
+            break;
+
+        case 0x00:
+        case 0x01:
+        case 0x05:
+        case 0x0C:
+        case 0x15:
+        case 0x16:
+        case 0x19:
+        case 0x22:
+        case 0x23:
+        case 0x38:
+        case 0x3B:
+        case 0x3C:
+        case 0x3F:
+        case 0x40:
+        case 0x41:
+        case 0x42:
+        case 0x43:
+        case 0x44:
+        case 0x45:
+        case 0x46:
+        case 0x47:
+            return 0;
+    }
+
+    return 2;
+}
+
+//! FE8U = 0x080BD20C
+int sub_80BD20C(int index)
+{
+    if (index >= 7)
+    {
+        index = 0;
+    }
+
+    return gUnknown_08206868[index];
+}
+
+//! FE8U = 0x080BD224
+int sub_80BD224(struct GMapData * worldMapData)
+{
+    int chapterId = 0;
+
+    int nodeId = GetNextUnclearedNode(worldMapData);
+
+    if (worldMapData->units[WM_MU_0].location == nodeId)
+    {
+        if (nodeId >= 0)
+        {
+            chapterId = WMLoc_GetChapterId(WMLoc_GetNextLocId(nodeId));
+        }
+    }
+    else
+    {
+        nodeId = GetNextUnclearedNode(worldMapData);
+
+        if (nodeId < 0)
+        {
+            nodeId = 0;
+        }
+
+        chapterId = WMLoc_GetChapterId(nodeId);
+    }
+
+    return chapterId;
+}
+
+//! FE8U = 0x080BD260
+void sub_80BD260(struct GMapData * src, void * dst)
+{
+    CpuSet(&src->unk_ce, dst, 3);
+    return;
+}
+
+//! FE8U = 0x080BD270
+void sub_80BD270(struct GMapData * dst, void * src)
+{
+    CpuSet(src, &dst->unk_ce, 3);
+    return;
+}
+
+//! FE8U = 0x080BD284
+struct Unknown0201B0D8 * sub_80BD284(void)
+{
+    return &gUnknown_0201B0D8;
+}
+
+//! FE8U = 0x080BD28C
+int sub_80BD28C(int idx)
+{
+    return gUnknown_0201B0D8.unk_00[idx];
+}
+
+//! FE8U = 0x080BD29C
+int sub_80BD29C(void)
+{
+    return gUnknown_0201B0D8.unk_20 + 1;
 }
