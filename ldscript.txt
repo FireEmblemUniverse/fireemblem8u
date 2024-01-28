@@ -892,7 +892,6 @@ SECTIONS
         . = ALIGN(4); src/worldmap_screen2.o(.data);
         . = ALIGN(4); src/worldmap_cursor.o(.data);
         . = ALIGN(4); src/worldmap_path.o(.data);
-        . = ALIGN(4); data/data_A3DFC4.o(.data);
         . = ALIGN(4); src/worldmap_mapmu.o(.data);
         . = ALIGN(4); src/worldmap_player_interface.o(.data);
         . = ALIGN(4); src/worldmap_scrollmanage.o(.data);

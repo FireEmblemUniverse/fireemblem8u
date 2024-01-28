@@ -21,11 +21,20 @@ extern u16 gUnknown_08A3E2F8[];
 
 extern struct Struct02003BE8 gUnknown_0201B3A4[];
 
-extern int gUnknown_08A3E22C[];
-extern int gUnknown_08A3E23C[];
-
 extern u16 gUnknown_0201B104[];
 extern struct Struct0859E7D4 gUnknown_0201B1E4[];
+
+int CONST_DATA gUnknown_08A3E22C[] =
+{
+    0, 0, 0, 0,
+};
+
+int CONST_DATA gUnknown_08A3E23C[] =
+{
+    0x08001000,
+    0x00001000,
+    0x00000000,
+};
 
 //! FE8U = 0x080BD2A8
 void GmMuPrim_OnEnd_Null(void)
@@ -154,7 +163,6 @@ void GmMuPrim_80BD444(struct GMapMuPrimProc * proc)
     unkSplineStruct->unk_0C = gUnknown_08A3E22C;
     unkSplineStruct->unk_10 = gUnknown_08A3E23C;
     unkSplineStruct->unk_02 = sub_80BCE34(proc->unk_2d, proc->unk_2e, proc->unk_50, unkSplineStruct->unk_04, unkSplineStruct->unk_08, 4);
-
 
     MapUnitC_SetPosition(
         ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_2d[gWMNodeData].x,
