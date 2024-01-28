@@ -1694,9 +1694,6 @@ int sub_80BCAB8(struct Unknown0201B0D8 * buf, struct GMapNodeLink * links, s8 pa
 
     return 0;
 }
-
-#if NONMATCHING
-
 /* https://decomp.me/scratch/eDz84 */
 
 //! FE8U = 0x080BCBAC
@@ -1715,7 +1712,6 @@ int sub_80BCBAC(struct Unknown0201B0D8 * buf, struct GMapNodeLink * param_2, s8 
         for (i = 0; i < link->numConnections; i++)
         {
             s8 r2;
-            s8 r2_;
 
             connections = link->connections;
 
@@ -1738,12 +1734,25 @@ int sub_80BCBAC(struct Unknown0201B0D8 * buf, struct GMapNodeLink * param_2, s8 
                 }
                 else
                 {
-                    r2 = 0;
+                    s8 r2 = 0;
+#ifndef NONMATCHING
+                    register int r1 asm("r1");
+
+                    asm("":::"r1");
+                    if (param_7 < buf->unk_24)
+                    {
+                        r1 = param_7;
+                        if (r1) { ++r1; --r1; }
+                        buf->unk_24 = r1;
+                        r2 = 1;
+                    }
+#else
                     if (param_7 < buf->unk_24)
                     {
                         buf->unk_24 = param_7;
                         r2 = 1;
                     }
+#endif
                     else if ((param_7 == buf->unk_24) && (param_6 < buf->unk_20))
                     {
                         r2 = 1;
@@ -1796,201 +1805,6 @@ int sub_80BCBAC(struct Unknown0201B0D8 * buf, struct GMapNodeLink * param_2, s8 
 
     return 0;
 }
-
-#else
-
-NAKEDFUNC
-int sub_80BCBAC(struct Unknown0201B0D8 * buf, struct GMapNodeLink * param_2, s8 param_3, s8 param_4, s8 param_5, int param_6, int param_7)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x1c\n\
-        adds r6, r0, #0\n\
-        mov r8, r1\n\
-        ldr r0, [sp, #0x3c]\n\
-        ldr r7, [sp, #0x40]\n\
-        ldr r1, [sp, #0x44]\n\
-        mov r9, r1\n\
-        lsls r2, r2, #0x18\n\
-        lsrs r2, r2, #0x18\n\
-        str r2, [sp, #0xc]\n\
-        lsls r3, r3, #0x18\n\
-        lsrs r3, r3, #0x18\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        str r0, [sp, #0x10]\n\
-        ldr r0, [r6, #0x20]\n\
-        cmp r7, r0\n\
-        blt _080BCBDC\n\
-        b _080BCCE8\n\
-    _080BCBDC:\n\
-        lsls r0, r3, #0x18\n\
-        asrs r1, r0, #0x15\n\
-        add r1, r8\n\
-        str r1, [sp, #0x18]\n\
-        movs r2, #0\n\
-        str r2, [sp, #0x14]\n\
-        ldrb r1, [r1]\n\
-        lsls r1, r1, #0x18\n\
-        asrs r1, r1, #0x18\n\
-        mov sl, r0\n\
-        cmp r2, r1\n\
-        blt _080BCBF6\n\
-        b _080BCCE8\n\
-    _080BCBF6:\n\
-        ldr r5, [sp, #0x18]\n\
-        adds r5, #1\n\
-    _080BCBFA:\n\
-        ldrb r3, [r5]\n\
-        movs r1, #0\n\
-        ldrsb r1, [r5, r1]\n\
-        ldr r4, [sp, #0xc]\n\
-        lsls r0, r4, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r1, r0\n\
-        beq _080BCCD4\n\
-        movs r2, #0\n\
-        ldr r4, [sp, #0x10]\n\
-        lsls r0, r4, #0x18\n\
-        asrs r4, r0, #0x18\n\
-        cmp r1, r4\n\
-        bne _080BCC18\n\
-        movs r2, #1\n\
-    _080BCC18:\n\
-        adds r1, r6, #0\n\
-        adds r1, #0x10\n\
-        adds r0, r1, r7\n\
-        strb r3, [r0]\n\
-        adds r3, r1, #0\n\
-        mov r0, r9\n\
-        cmp r0, #0\n\
-        blt _080BCC62\n\
-        cmp r2, #0\n\
-        beq _080BCC76\n\
-        movs r2, #0\n\
-        ldr r0, [r6, #0x24]\n\
-        cmp r9, r0\n\
-        bge _080BCC3C\n\
-        mov r1, r9\n\
-        str r1, [r6, #0x24]\n\
-        movs r2, #1\n\
-        b _080BCC4C\n\
-    _080BCC3C:\n\
-        cmp r9, r0\n\
-        bne _080BCC48\n\
-        ldr r0, [r6, #0x20]\n\
-        cmp r7, r0\n\
-        bge _080BCC48\n\
-        movs r2, #1\n\
-    _080BCC48:\n\
-        cmp r2, #0\n\
-        beq _080BCCB6\n\
-    _080BCC4C:\n\
-        movs r2, #1\n\
-        cmp r2, r7\n\
-        bgt _080BCCB4\n\
-    _080BCC52:\n\
-        adds r0, r6, r2\n\
-        adds r1, r3, r2\n\
-        ldrb r1, [r1]\n\
-        strb r1, [r0]\n\
-        adds r2, #1\n\
-        cmp r2, r7\n\
-        ble _080BCC52\n\
-        b _080BCCB4\n\
-    _080BCC62:\n\
-        cmp r2, #0\n\
-        bne _080BCC98\n\
-        movs r1, #0\n\
-        ldrsb r1, [r5, r1]\n\
-        ldr r0, _080BCC94  @ gUnknown_0201B100\n\
-        bl sub_80BCA90\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        beq _080BCCBA\n\
-    _080BCC76:\n\
-        movs r3, #0\n\
-        ldrsb r3, [r5, r3]\n\
-        str r4, [sp]\n\
-        adds r0, r7, #1\n\
-        str r0, [sp, #4]\n\
-        mov r0, r9\n\
-        adds r0, #1\n\
-        str r0, [sp, #8]\n\
-        adds r0, r6, #0\n\
-        mov r1, r8\n\
-        mov r4, sl\n\
-        asrs r2, r4, #0x18\n\
-        bl sub_80BCBAC\n\
-        b _080BCCD4\n\
-        .align 2, 0\n\
-    _080BCC94: .4byte gUnknown_0201B100\n\
-    _080BCC98:\n\
-        ldr r0, [r6, #0x20]\n\
-        cmp r7, r0\n\
-        bge _080BCCB6\n\
-        movs r2, #1\n\
-        cmp r2, r7\n\
-        bgt _080BCCB4\n\
-        adds r3, r1, #0\n\
-    _080BCCA6:\n\
-        adds r0, r6, r2\n\
-        adds r1, r3, r2\n\
-        ldrb r1, [r1]\n\
-        strb r1, [r0]\n\
-        adds r2, #1\n\
-        cmp r2, r7\n\
-        ble _080BCCA6\n\
-    _080BCCB4:\n\
-        str r7, [r6, #0x20]\n\
-    _080BCCB6:\n\
-        movs r0, #1\n\
-        b _080BCCEA\n\
-    _080BCCBA:\n\
-        movs r3, #0\n\
-        ldrsb r3, [r5, r3]\n\
-        str r4, [sp]\n\
-        adds r0, r7, #1\n\
-        str r0, [sp, #4]\n\
-        mov r0, r9\n\
-        str r0, [sp, #8]\n\
-        adds r0, r6, #0\n\
-        mov r1, r8\n\
-        mov r4, sl\n\
-        asrs r2, r4, #0x18\n\
-        bl sub_80BCBAC\n\
-    _080BCCD4:\n\
-        adds r5, #1\n\
-        ldr r0, [sp, #0x14]\n\
-        adds r0, #1\n\
-        str r0, [sp, #0x14]\n\
-        ldr r1, [sp, #0x18]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r1, r0]\n\
-        ldr r2, [sp, #0x14]\n\
-        cmp r2, r0\n\
-        blt _080BCBFA\n\
-    _080BCCE8:\n\
-        movs r0, #0\n\
-    _080BCCEA:\n\
-        add sp, #0x1c\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 // FIXME: Probably should be in a different file due to the alignment
 
