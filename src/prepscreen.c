@@ -163,7 +163,7 @@ s8 IsCharacterForceDeployed(int char_id)
     if (0 != CheckInLinkArena())
         return 0;
 
-    if (0 != GetChapterThing())
+    if (0 != GetBattleMapKind())
         return 0;
 
     return IsCharacterForceDeployed_(char_id);
@@ -577,7 +577,7 @@ void Prep_DrawChapterGoal(int VRAM_offset, int pal)
     SetTextFontGlyphs(0);
     SpriteText_DrawBackgroundExt(&th, 0);
 
-    if (2 != GetChapterThing())
+    if (2 != GetBattleMapKind())
         msg = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowTextId;
     else
         msg = 0x19E;

@@ -124,7 +124,7 @@ u8 MapMenu_OptionsCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) 
 }
 
 u8 sub_802263C(void) {
-    if (GetChapterThing() == 1) {
+    if (GetBattleMapKind() == 1) {
         return MENU_NOTSHOWN;
     }
 
@@ -2372,7 +2372,7 @@ u8 ItemMenuHelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 u8 MapMenu_IsRecordsCommandAvailable(const struct MenuItemDef* def, int number) {
     u8 chapterId;
 
-    if (GetChapterThing() != 1) {
+    if (GetBattleMapKind() != 1) {
         return MENU_NOTSHOWN;
     }
 
@@ -2403,7 +2403,7 @@ u8 MapMenu_RecordsCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) 
 }
 
 u8 MapMenu_IsRetreatCommandAvailable(const struct MenuItemDef* def, int number) {
-    if (GetChapterThing() == 0) {
+    if (GetBattleMapKind() == 0) {
         return MENU_NOTSHOWN;
     }
 

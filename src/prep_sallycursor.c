@@ -337,7 +337,7 @@ int GetPlayerLeaderUnitId(void)
     do
     {
         struct Unit * unit;
-        if (GetChapterThing() == 0)
+        if (GetBattleMapKind() == 0)
         {
             return unitId;
         }
@@ -1192,7 +1192,7 @@ void StartPrepSaveScreen(ProcPtr proc)
 
     if (!(gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE))
     {
-        if ((GetChapterThing() - 1) <= 1)
+        if ((GetBattleMapKind() - 1) <= 1)
         {
             gPlaySt.save_menu_type = 4;
         }

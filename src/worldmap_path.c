@@ -1398,7 +1398,7 @@ bool AddGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int idx)
     {
         pPaths->openPaths[pPaths->openPathsLength] = idx;
         pPaths->openPathsLength += 1;
-        sub_80BCA0C(pGMapData);
+        RefreshGmNodeLinks(pGMapData);
         return false;
     }
     else
@@ -1421,7 +1421,7 @@ bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int id
     {
         pPaths->openPathsLength--;
         pPaths->openPaths[pPaths->openPathsLength] = 0xff;
-        sub_80BCA0C(pGMapData);
+        RefreshGmNodeLinks(pGMapData);
         return false;
     }
 
@@ -1440,7 +1440,7 @@ bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int id
         }
 
         pPaths->openPathsLength--;
-        sub_80BCA0C(pGMapData);
+        RefreshGmNodeLinks(pGMapData);
         return false;
     }
 
@@ -1452,7 +1452,7 @@ bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int id
 /* https://decomp.me/scratch/yGsRY */
 
 //! FE8U = 0x080BC970
-void sub_80BC970(struct GMapData * param_1, struct GMapNodeLink * param_2)
+void RefreshGmNodeLinksExt(struct GMapData * param_1, struct GMapNodeLink * param_2)
 {
     int pathId;
     int i;
@@ -1492,7 +1492,7 @@ void sub_80BC970(struct GMapData * param_1, struct GMapNodeLink * param_2)
 #else
 
 NAKEDFUNC
-void sub_80BC970(struct GMapData * param_1, struct GMapNodeLink * param_2)
+void RefreshGmNodeLinksExt(struct GMapData * param_1, struct GMapNodeLink * param_2)
 {
     asm("\n\
         .syntax unified\n\
@@ -1583,9 +1583,9 @@ void sub_80BC970(struct GMapData * param_1, struct GMapNodeLink * param_2)
 #endif
 
 //! FE8U = 0x080BCA0C
-void sub_80BCA0C(struct GMapData * param_1)
+void RefreshGmNodeLinks(struct GMapData * param_1)
 {
-    sub_80BC970(param_1, gUnknown_0201AFF0);
+    RefreshGmNodeLinksExt(param_1, gUnknown_0201AFF0);
     return;
 }
 
@@ -2129,7 +2129,7 @@ int sub_80BCE34(int nodeA, int nodeB, s16 c, u16 * d, struct Struct0859E7D4 * e,
 }
 
 //! FE8U = 0x080BCFB4
-void sub_80BCFB4(void)
+void ResetGmStoryNode(void)
 {
     int i;
 
@@ -2203,7 +2203,7 @@ u32 GetNextUnclearedChapter(void)
 }
 
 //! FE8U = 0x080BD068
-u32 GetChapterThing(void)
+u32 GetBattleMapKind(void)
 {
     int i;
     u32 chapterId = gPlaySt.chapterIndex;

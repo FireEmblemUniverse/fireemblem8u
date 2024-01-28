@@ -298,7 +298,7 @@ bool IsThereTileCommand15(s8 x, s8 y)
 
 bool ShouldCallEndEvent(void)
 {
-    if (GetChapterThing() == 2)
+    if (GetBattleMapKind() == 2)
         return 0;
 
     return CheckWin();
@@ -306,7 +306,7 @@ bool ShouldCallEndEvent(void)
 
 //! FE8U = 0x0808326C
 void MaybeCallEndEvent_(void) {
-    if (GetChapterThing() != 2) {
+    if (GetBattleMapKind() != 2) {
         MaybeCallEndEvent();
     }
 
@@ -317,7 +317,7 @@ void MaybeCallEndEvent_(void) {
 void CallEndEvent(void) {
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
-    if (GetChapterThing() != 2) {
+    if (GetBattleMapKind() != 2) {
         CallEvent(evGroup->endingSceneEvents, 1);
     } else {
         CallEvent((u16 *)EventScr_SkirmishCommonEnd, 1);
@@ -396,7 +396,7 @@ const void * GetChapterAllyUnitDataPointer(void)
 {
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
-    if (GetChapterThing() != 2) {
+    if (GetBattleMapKind() != 2) {
         if (gPlaySt.chapterStateBits & PLAY_FLAG_HARD) {
             return evGroup->playerUnitsInHard;
         }
@@ -499,7 +499,7 @@ struct BattleTalkEnt* GetAvailableBattleTalk(u8 pid, struct BattleTalkEnt* it) {
 
 //! FE8U = 0x080834B0
 s8 ShouldCallBattleQuote(u8 pidA, u8 pidB) {
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return 0;
     }
 
@@ -526,7 +526,7 @@ s8 ShouldCallBattleQuote(u8 pidA, u8 pidB) {
 void CallBattleQuoteEventsIfAny(u8 pidA, u8 pidB) {
     struct BattleTalkExtEnt* ent;
 
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return;
     }
 
@@ -556,7 +556,7 @@ void CallBattleQuoteEventsIfAny(u8 pidA, u8 pidB) {
 void SetPidDefeatedFlag(u8 pid, int flag) {
     const struct ROMChapterData* chapterData;
 
-    if ((GetChapterThing() == 0) || (chapterData = GetROMChapterStruct(gPlaySt.chapterIndex), pid != chapterData->protectCharacterIndex) || flag != 0x65) {
+    if ((GetBattleMapKind() == 0) || (chapterData = GetROMChapterStruct(gPlaySt.chapterIndex), pid != chapterData->protectCharacterIndex) || flag != 0x65) {
         SetFlag(flag);
         return;
     }
@@ -1310,14 +1310,14 @@ s8 RunPhaseSwitchEvents(void) {
     struct EventInfo* pInfo;
     struct EventInfo info;
 
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return 0;
     }
 
     chapter = gPlaySt.chapterIndex;
 
     if (chapter != 0) {
-        if (GetChapterThing() != 2) {
+        if (GetBattleMapKind() != 2) {
             type = GetROMChapterStruct(chapter)->goalWindowDataType;
         } else {
             type = GOAL_TYPE_DEFEAT_ALL;
@@ -1325,7 +1325,7 @@ s8 RunPhaseSwitchEvents(void) {
 
         if (((type == GOAL_TYPE_DEFEAT_ALL) || (type == GOAL_TYPE_DEFEAT_BOSS)) && (AreAnyEnemyUnitDead() == 0))
         {
-            if (GetChapterThing() == 0)
+            if (GetBattleMapKind() == 0)
                 SetFlag(EVFLAG_WIN);
 
             CallEndEvent();
@@ -1356,7 +1356,7 @@ s8 RunPhaseSwitchEvents(void) {
 s8 CheckForCharacterEvents(u8 pidA, u8 pidB) {
     struct EventInfo info;
 
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return 0;
     }
 
@@ -1375,7 +1375,7 @@ s8 CheckForCharacterEvents(u8 pidA, u8 pidB) {
 void StartCharacterEvent(u8 pidA, u8 pidB) {
     struct EventInfo info;
 
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return;
     }
 
@@ -1435,7 +1435,7 @@ int GetAvailableTileEventCommand(s8 x, s8 y) {
     info.xPos = x;
     info.yPos = y;
 
-    if (SearchAvailableEvent(&info) && (GetChapterThing() != 2)) {
+    if (SearchAvailableEvent(&info) && (GetBattleMapKind() != 2)) {
         return info.commandId;
     }
 
@@ -1461,7 +1461,7 @@ void StartAvailableTileEvent(s8 x, s8 y) {
             // fallthrough
 
         case TILE_COMMAND_SEIZE:
-            if (GetChapterThing() == 2) {
+            if (GetBattleMapKind() == 2) {
                 return;
             }
 
@@ -1475,7 +1475,7 @@ void StartAvailableTileEvent(s8 x, s8 y) {
             return;
 
         case TILE_COMMAND_20:
-            if (GetChapterThing() == 2) {
+            if (GetBattleMapKind() == 2) {
                 return;
             }
 
@@ -1485,7 +1485,7 @@ void StartAvailableTileEvent(s8 x, s8 y) {
 
         case TILE_COMMAND_DOOR:
         case TILE_COMMAND_BRIDGE:
-            if (GetChapterThing() == 2) {
+            if (GetBattleMapKind() == 2) {
                 return;
             }
 
@@ -1500,7 +1500,7 @@ void StartAvailableTileEvent(s8 x, s8 y) {
             return;
 
         case TILE_COMMAND_CHEST:
-            if (GetChapterThing() == 2) {
+            if (GetBattleMapKind() == 2) {
                 return;
             }
 
@@ -1543,7 +1543,7 @@ void StartAvailableTileEvent(s8 x, s8 y) {
             return;
 
         case TILE_COMMAND_ARMORY:
-            if (GetChapterThing() == 2) {
+            if (GetBattleMapKind() == 2) {
                 return;
             }
 
@@ -1552,7 +1552,7 @@ void StartAvailableTileEvent(s8 x, s8 y) {
             return;
 
         case TILE_COMMAND_VENDOR:
-            if (GetChapterThing() == 2) {
+            if (GetBattleMapKind() == 2) {
                 return;
             }
             StartVendorScreenOrphaned(gActiveUnit, (u16*)info.script);
@@ -1560,7 +1560,7 @@ void StartAvailableTileEvent(s8 x, s8 y) {
             return;
 
         case TILE_COMMAND_SECRET:
-            if (GetChapterThing() == 2) {
+            if (GetBattleMapKind() == 2) {
                 return;
             }
 
@@ -1590,7 +1590,7 @@ s8 CheckForWaitEvents(void) {
     if (AreAnyEnemyUnitDead() == 0) {
         SetFlag(6);
 
-        if (GetChapterThing() == 2) {
+        if (GetBattleMapKind() == 2) {
             return 1;
         }
     } else {
@@ -1598,7 +1598,7 @@ s8 CheckForWaitEvents(void) {
     }
 
     if (!CheckFlag(0x65) && (CountAvailableBlueUnits() != 0)) {
-        if (GetChapterThing() == 2) {
+        if (GetBattleMapKind() == 2) {
             return 0;
         }
 
@@ -1623,7 +1623,7 @@ void RunWaitEvents(void) {
 
     if (AreAnyEnemyUnitDead() == 0) {
         SetFlag(6);
-        if (GetChapterThing() == 2) {
+        if (GetBattleMapKind() == 2) {
             CallEndEvent();
             return;
         }
@@ -1636,7 +1636,7 @@ void RunWaitEvents(void) {
         return;
     }
 
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return;
     }
 
@@ -1665,7 +1665,7 @@ s8 TryCallSelectEvents(void) {
     s8 ret;
     struct EventInfo info;
 
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return 0;
     }
 
@@ -1688,7 +1688,7 @@ s8 StartDestSelectedEvent(void) {
     s8 ret;
     struct EventInfo info;
 
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return 0;
     }
 
@@ -1710,7 +1710,7 @@ s8 StartAfterUnitMovedEvent(void) {
     s8 ret;
     struct EventInfo info;
 
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return 0;
     }
 
@@ -1729,7 +1729,7 @@ s8 StartAfterUnitMovedEvent(void) {
 
 //! FE8U = 0x08084560
 s8 CheckBattleForecastTutorialEvent(void) {
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return 0;
     }
 
@@ -1738,7 +1738,7 @@ s8 CheckBattleForecastTutorialEvent(void) {
 
 //! FE8U = 0x0808457C
 void StartBattleForecastTutorialEvent(void) {
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return;
     }
 
@@ -1748,7 +1748,7 @@ void StartBattleForecastTutorialEvent(void) {
 
 //! FE8U = 0x08084590
 void StartPlayerPhaseStartTutorialEvent(void) {
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         return;
     }
 

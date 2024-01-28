@@ -315,7 +315,7 @@ void PidStatsRecordDefeatInfo(u8 pid, u8 killerPid, int deathCause)
     if (NULL == bwl)
         return;
 
-    type = GetChapterThing();
+    type = GetBattleMapKind();
     switch (type) {
     case 2:
         bwl->deathSkirm = true;

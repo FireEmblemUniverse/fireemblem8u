@@ -755,7 +755,7 @@ void ChapterStatus_DrawText(struct ChapterStatusProc* proc) {
     proc->numObjectiveTextLines = 1;
 
     str = GetStringFromIndex(
-        GetChapterThing() != 2 ?
+        GetBattleMapKind() != 2 ?
             GetROMChapterStruct(gPlaySt.chapterIndex)->statusObjectiveTextId
             : 0x1C0 // TODO: Defeat all monsters[.]
     );
