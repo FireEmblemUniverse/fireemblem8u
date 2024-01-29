@@ -330,8 +330,8 @@ void SetupGraphicSystemsForWorldMap(void)
 void sub_80B8E14(void)
 {
     ApplyPalettes(gUnknown_08A97A40, 0x13, 2);
-    Decompress(gUnknown_08A96308, (void *)0x06011000);
-    Decompress(gUnknown_08A97410, gGenericBuffer);
+    Decompress(Img_GmapNodes, (void *)0x06011000);
+    Decompress(Img_GmapCastleNodes, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06010280, 0xc, 4);
 
     return;
@@ -359,7 +359,7 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
     sub_80B8E14();
 
     ApplyPalette(gUnknown_08A97FA4, 0xE);
-    Decompress(gUnknown_08A97ED8, (void *)0x06005000);
+    Decompress(Img_GmapPath, (void *)0x06005000);
 
     LoadUiFrameGraphics();
     ResetText();
@@ -1490,7 +1490,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
     RemoveWmText();
     EndWMFaceCtrl();
     EndGmMuEntry();
-    sub_80C2460();
+    EndGmapRM();
     sub_80C1F5C();
 
     if (gGMData.state.raw & 0xc0)
@@ -1537,7 +1537,7 @@ void WorldMap_WaitForChapterIntroEvents(ProcPtr proc)
     RemoveWmText();
     EndWMFaceCtrl();
     EndGmMuEntry();
-    sub_80C2460();
+    EndGmapRM();
     sub_80C1F5C();
     Proc_Break(proc);
 

@@ -55,7 +55,7 @@ ProcScr_GmapRM:  @ 0x08A3EB50
         .word 0x0
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_80C1F6C
+        .word GmapRm_OnEnd
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80C1FDC
@@ -1185,12 +1185,12 @@ gUnknown_08A95FE4:  @ 0x08A95FE4
 gUnknown_08A96064:  @ 0x08A96064
 	.incbin "baserom.gba", 0xA96064, 0x2A4
 
-	.global gUnknown_08A96308
-gUnknown_08A96308:  @ 0x08A96308
+	.global Img_GmapNodes
+Img_GmapNodes:  @ 0x08A96308
 	.incbin "baserom.gba", 0xA96308, 0x1108
 
-	.global gUnknown_08A97410
-gUnknown_08A97410:  @ 0x08A97410
+	.global Img_GmapCastleNodes
+Img_GmapCastleNodes:  @ 0x08A97410
 	.incbin "baserom.gba", 0xA97410, 0x630
 
 	.global gUnknown_08A97A40
@@ -1225,8 +1225,8 @@ gPal_WorldmapNodeRevealEffect:  @ 0x08A97E28
 gUnknown_08A97E48:  @ 0x08A97E48
 	.incbin "baserom.gba", 0xA97E48, 0x90
 
-	.global gUnknown_08A97ED8
-gUnknown_08A97ED8:  @ 0x08A97ED8
+	.global Img_GmapPath
+Img_GmapPath:  @ 0x08A97ED8
 	.incbin "baserom.gba", 0xA97ED8, 0xCC
 
 	.global gUnknown_08A97FA4
@@ -1425,16 +1425,16 @@ gGfx_GMapPI_LevelNums:  @ 0x08A9901C
 gPal_GMapPI_LevelNums:  @ 0x08A99120
 	.incbin "baserom.gba", 0xA99120, 0x20
 
-	.global gUnknown_08A99140
-gUnknown_08A99140:  @ 0x08A99140
+	.global Img_EventGmap
+Img_EventGmap:  @ 0x08A99140
 	.incbin "baserom.gba", 0xA99140, 0x4E34
 
-	.global gUnknown_08A9DF74
-gUnknown_08A9DF74:  @ 0x08A9DF74
+	.global Tsa_EventGmap
+Tsa_EventGmap:  @ 0x08A9DF74
 	.incbin "baserom.gba", 0xA9DF74, 0x550
 
-	.global gUnknown_08A9E4C4
-gUnknown_08A9E4C4:  @ 0x08A9E4C4
+	.global Pal_EventGmap
+Pal_EventGmap:  @ 0x08A9E4C4
 	.incbin "baserom.gba", 0xA9E4C4, 0x80
 
 	.global gImg_08A9E544
@@ -1453,9 +1453,13 @@ gTsa_08A9E5DC:  @ 0x08A9E5DC
 Pal_WmHighLightNationMap:  @ 0x08A9E688
 	.incbin "baserom.gba", 0xA9E688, 0x40
 
-        .global Img_WmHightLightMapFrecia
+    .global Img_WmHightLightMapFrecia
 Img_WmHightLightMapFrecia:
-        .incbin "baserom.gba", 0xA9E6C8, 0x2A84
+    .incbin "graphics/world_map/nations/Gfx_WmNationFrecia.4bpp.lz"
+
+    .global Ap_WmHightLightMapFrecia
+Ap_WmHightLightMapFrecia:
+    .incbin "baserom.gba", 0xA9EC24, 0xAA114C - 0xA9EC24
 
 	.global gUnknown_08AA114C
 gUnknown_08AA114C:  @ 0x08AA114C

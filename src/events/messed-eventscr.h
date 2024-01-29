@@ -190,18 +190,17 @@ LABEL(0x2)
     CALL(EventScr_TextShowWithFadeIn)
     MOVE_1STEP(0x0, CHARACTER_VALTER, FACING_UP)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x1)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x20000)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x16401)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    NormalDamage(ATTACKER, 0)
+    MissedAttack(DEFENDER, 0)
+    CriticalHit(ATTACKER, 100)
+    EndAttack
     FIGHT(CHARACTER_GLEN, CHARACTER_VALTER, 0, 0)
+
     KILL(CHARACTER_GLEN)
     DISA_IF(CHARACTER_GLEN)
+
     CUMO_CHAR(CHARACTER_VALTER)
     STAL(60)
     CURE
@@ -874,10 +873,11 @@ LABEL(0xb)
     TEXTEND
     REMA
     CALL(EventScr_TextShowWithFadeIn)
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x10000)
-    SENQUEUE1
+
+    StartBattle
+    CriticalHit(DEFENDER, 0)
     FIGHT_MAP(CHARACTER_CAELLACH, CHARACTER_AIAS, 0, 0)
+
     FADI(4)
 LABEL(0x63)
     ENUT(117)
@@ -1138,10 +1138,11 @@ CONST_DATA EventListScr EventScr_089F5DB8[] = {
     CALL(Event_TextWithBG)
     MOVE_1STEP(0x10, CHARACTER_CAELLACH, FACING_UP)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x0)
-    SENQUEUE1
+
+    StartBattle
+    NormalDamage(DEFENDER, 0)
     FIGHT_MAP(CHARACTER_CAELLACH, CHARACTER_ISMAIRE, 0, 0)
+
     DISA(CHARACHER_FRELIAN)
     CUMO_CHAR(CHARACTER_CAELLACH)
     STAL(60)
@@ -2567,16 +2568,14 @@ LABEL(0x1)
     REMA
     LOAD1(0x1, UnitDef_088BE31C)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x1701)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x10f00)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x6401)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    NormalDamage(ATTACKER, 23)
+    CriticalHit(DEFENDER, 15)
+    NormalDamage(ATTACKER, 100)
+    EndAttack
     FIGHT_MAP(CHARACHER_FRELIAN, 0x8d, 0, 0)
+
     DISA(CHARACHER_FRELIAN)
     KILL(0xc1)
     DISA_IF(0xc1)
@@ -2592,14 +2591,13 @@ LABEL(0x1)
     FADU(16)
     LOAD1(0x1, UnitDef_088BE3D0)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x500)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x16401)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    NormalDamage(DEFENDER, 5)
+    CriticalHit(ATTACKER, 100)
+    EndAttack
     FIGHT_MAP(CHARACHER_FRELIAN, 0x8d, 0, 0)
+
     DISA(CHARACHER_FRELIAN)
     KILL(0xc1)
     DISA_IF(0xc1)
@@ -2611,12 +2609,12 @@ LABEL(0x1)
     FADU(16)
     LOAD1(0x1, UnitDef_088BE434)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x16401)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    CriticalHit(ATTACKER, 100)
+    EndAttack
     FIGHT_MAP(CHARACHER_FRELIAN, 0x8d, 0, 0)
+
     DISA(CHARACHER_FRELIAN)
     KILL(0xc1)
     DISA_IF(0xc1)
@@ -3260,12 +3258,12 @@ LABEL(0x2)
     SVAL(EVT_SLOT_2, 0x8d)
     MOVE_CLOSEST(0xffff, CHAR_EVT_SLOT2, 6, 21)
     CALL(EventScr_UnitWarpIN)
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x16400)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    CriticalHit(DEFENDER, 100)
+    EndAttack
     FIGHT_MAP(0x8d, 0xce, 0, 0)
+
     DISA(0xce)
     TEXTSTART
     TEXTSHOW(0xb92)

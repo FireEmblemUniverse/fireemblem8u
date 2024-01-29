@@ -23,7 +23,7 @@ sub_80C1E40: @ 0x080C1E40
 	movs r3, #0x30
 	ldrsh r1, [r0, r3]
 	adds r0, r2, #0
-	bl sub_80C2488
+	bl GmapRMSetPosition
 	pop {r0}
 	bx r0
 
@@ -55,7 +55,7 @@ sub_80C1E70: @ 0x080C1E70
 	ldrsh r0, [r4, r1]
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
-	bl sub_80C2488
+	bl GmapRMSetPosition
 	movs r0, #0
 	strh r0, [r4, #0x34]
 	pop {r4}
@@ -117,14 +117,14 @@ sub_80C1E8C: @ 0x080C1E8C
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_80C2488
+	bl GmapRMSetPosition
 	b _080C1F10
 _080C1EFE:
 	movs r1, #0x2e
 	ldrsh r0, [r7, r1]
 	movs r2, #0x30
 	ldrsh r1, [r7, r2]
-	bl sub_80C2488
+	bl GmapRMSetPosition
 	adds r0, r7, #0
 	bl Proc_Break
 _080C1F10:
@@ -184,8 +184,8 @@ _080C1F68: .4byte ProcScr_GmapRmUpdate2
 
 	THUMB_FUNC_END sub_80C1F5C
 
-	THUMB_FUNC_START sub_80C1F6C
-sub_80C1F6C: @ 0x080C1F6C
+	THUMB_FUNC_START GmapRm_OnEnd
+GmapRm_OnEnd: @ 0x080C1F6C
 	push {r4, lr}
 	ldr r4, _080C1FD0  @ gProcScr_WorldMapMain
 	adds r0, r4, #0
@@ -232,7 +232,7 @@ _080C1FD0: .4byte gProcScr_WorldMapMain
 _080C1FD4: .4byte gBG1TilemapBuffer
 _080C1FD8: .4byte gGMData
 
-	THUMB_FUNC_END sub_80C1F6C
+	THUMB_FUNC_END GmapRm_OnEnd
 
 	THUMB_FUNC_START sub_80C1FDC
 sub_80C1FDC: @ 0x080C1FDC
@@ -257,15 +257,15 @@ sub_80C1FE0: @ 0x080C1FE0
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	ldr r0, _080C2044  @ gUnknown_08A99140
+	ldr r0, _080C2044  @ Img_EventGmap
 	movs r1, #0xc0
 	lsls r1, r1, #0x13
 	bl Decompress
-	ldr r0, _080C2048  @ gUnknown_08A9E4C4
+	ldr r0, _080C2048  @ Pal_EventGmap
 	movs r1, #0xa0
 	movs r2, #0x80
 	bl CopyToPaletteBuffer
-	ldr r0, _080C204C  @ gUnknown_08A9DF74
+	ldr r0, _080C204C  @ Tsa_EventGmap
 	ldr r4, _080C2050  @ gGenericBuffer
 	adds r1, r4, #0
 	bl Decompress
@@ -284,9 +284,9 @@ sub_80C1FE0: @ 0x080C1FE0
 	bx r0
 	.align 2, 0
 _080C2040: .4byte gProcScr_WorldMapMain
-_080C2044: .4byte gUnknown_08A99140
-_080C2048: .4byte gUnknown_08A9E4C4
-_080C204C: .4byte gUnknown_08A9DF74
+_080C2044: .4byte Img_EventGmap
+_080C2048: .4byte Pal_EventGmap
+_080C204C: .4byte Tsa_EventGmap
 _080C2050: .4byte gGenericBuffer
 _080C2054: .4byte gBG1TilemapBuffer
 _080C2058: .4byte ProcScr_GmapRmUpdate1
@@ -441,7 +441,7 @@ sub_80C214C: @ 0x080C214C
 	push {r4, r5, r6}
 	sub sp, #4
 	mov sl, r0
-	ldr r0, _080C2238  @ gUnknown_08A97ED8
+	ldr r0, _080C2238  @ Img_GmapPath
 	ldr r1, _080C223C  @ 0x06005000
 	bl Decompress
 	ldr r4, _080C2240  @ gProcScr_WorldMapMain
@@ -541,7 +541,7 @@ sub_80C214C: @ 0x080C214C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C2238: .4byte gUnknown_08A97ED8
+_080C2238: .4byte Img_GmapPath
 _080C223C: .4byte 0x06005000
 _080C2240: .4byte gProcScr_WorldMapMain
 _080C2244: .4byte gLCDControlBuffer
@@ -787,8 +787,8 @@ _080C241C: .4byte ProcScr_GmapRmUpdate1
 
 	THUMB_FUNC_END sub_80C2398
 
-	THUMB_FUNC_START Make6C_Gmap_RM
-Make6C_Gmap_RM: @ 0x080C2420
+	THUMB_FUNC_START NewGmapRM
+NewGmapRM: @ 0x080C2420
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
@@ -821,10 +821,10 @@ _080C2444:
 	.align 2, 0
 _080C245C: .4byte ProcScr_GmapRM
 
-	THUMB_FUNC_END Make6C_Gmap_RM
+	THUMB_FUNC_END NewGmapRM
 
-	THUMB_FUNC_START sub_80C2460
-sub_80C2460: @ 0x080C2460
+	THUMB_FUNC_START EndGmapRM
+EndGmapRM: @ 0x080C2460
 	push {lr}
 	ldr r0, _080C246C  @ ProcScr_GmapRM
 	bl Proc_EndEach
@@ -833,10 +833,10 @@ sub_80C2460: @ 0x080C2460
 	.align 2, 0
 _080C246C: .4byte ProcScr_GmapRM
 
-	THUMB_FUNC_END sub_80C2460
+	THUMB_FUNC_END EndGmapRM
 
-	THUMB_FUNC_START sub_80C2470
-sub_80C2470: @ 0x080C2470
+	THUMB_FUNC_START GmapRMExists
+GmapRMExists: @ 0x080C2470
 	push {lr}
 	ldr r0, _080C2484  @ ProcScr_GmapRM
 	bl Proc_Find
@@ -849,10 +849,10 @@ _080C247E:
 	.align 2, 0
 _080C2484: .4byte ProcScr_GmapRM
 
-	THUMB_FUNC_END sub_80C2470
+	THUMB_FUNC_END GmapRMExists
 
-	THUMB_FUNC_START sub_80C2488
-sub_80C2488: @ 0x080C2488
+	THUMB_FUNC_START GmapRMSetPosition
+GmapRMSetPosition: @ 0x080C2488
 	push {r4, r5, lr}
 	lsls r0, r0, #0x10
 	lsrs r5, r0, #0x10
@@ -871,7 +871,7 @@ _080C24A0:
 	.align 2, 0
 _080C24A8: .4byte ProcScr_GmapRM
 
-	THUMB_FUNC_END sub_80C2488
+	THUMB_FUNC_END GmapRMSetPosition
 
 	THUMB_FUNC_START GetWMDisplayPosition
 GetWMDisplayPosition: @ 0x080C24AC

@@ -10,47 +10,55 @@
 
 CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     MUSC(0x24)
+
     SVAL(EVT_SLOT_2, 0x18)
     CALL(EventScr_SetBackground)
+
     TEXTSHOW(0x954)
     TEXTEND
     REMA
+
     FADI(16)
     CLEAN
     FADU(16)
+
     LOAD1(0x1, UnitDef_088B440C)
     ENUN
+
     MUSCMID(0x7fff)
     LOAD1(0x1, UnitDef_088B4344)
     ENUN
     LOAD1(0x1, UnitDef_088B44AC)
     ENUN
     STAL2(60)
+
     MUSC(0x1a)
     CUMO_CHAR(CHARACTER_BONE)
     STAL(60)
     CURE
-    TEXTSTART
-    TEXTSHOW(0x955)
-    TEXTEND
-    REMA
+
+    Text(0x955)
+
     MOVE(0x18, CHARACTER_BAZBA, 14, 9)
     ENUN
     DISA(CHARACTER_BAZBA)
+
     CUMO_AT(12, 3)
     STAL(60)
     CURE
+
     MUSC(0x25)
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0x956)
-    CALL(Event_TextWithBG)
+    Text_BG(0x2, 0x956)
+
     CUMO_CHAR(CHARACTER_BONE)
     STAL(60)
     CURE
+
     TEXTSTART
     TEXTSHOW(0x957)
     TEXTEND
     REMA
+
     MOVE(0x18, CHARACTER_BONE, 9, 14)
     ENUN
     SVAL(EVT_SLOT_B, 0x5000c)
@@ -68,11 +76,12 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_ROSS)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x1d)
-    SVAL(EVT_SLOT_3, 0x958)
-    CALL(Event_TextWithBG)
+
+    Text_BG(0x1D, 0x958)
+
     SVAL(EVT_SLOT_2, EventScr_089F0790)
     CALL(EventScr_CallOnTutorialMode)
+
     LOAD1(0x0, UnitDef_088B42CC)
     ENUN
     CUMO_CHAR(CHARACTER_VANESSA)
@@ -220,9 +229,9 @@ CONST_DATA EventListScr EventScr_089F0650[] = {
     SVAL(EVT_SLOT_1, 0x1)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0x969)
-    CALL(Event_TextWithBG)
+
+    Text_BG(0x2, 0x969)
+
     MUNO
     GOTO(0x1)
 LABEL(0x0)
