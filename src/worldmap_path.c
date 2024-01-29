@@ -1447,7 +1447,11 @@ bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int id
     return true;
 }
 
-#if NONMATCHING
+#ifdef NONMATCHING
+#define GMapNodeLinkNextConnSlot(gmnl) ((gmnl)->connections[(gmnl)->numConnections])
+#else
+#define GMapNodeLinkNextConnSlot(gmnl) ((((s8 *)(gmnl)) + ((s8 *)(gmnl))[0])[1])
+#endif
 
 /* https://decomp.me/scratch/yGsRY */
 
@@ -1455,132 +1459,35 @@ bool RemoveGmPath(struct GMapData * pGMapData, struct OpenPaths * pPaths, int id
 void RefreshGmNodeLinksExt(struct GMapData * param_1, struct GMapNodeLink * param_2)
 {
     int pathId;
-    int i;
+    int i, j;
     struct GMapNodeLink * pcVar6;
-    int j;
-    struct OpenPaths * paths;
-    s8 * r9;
-    int r5;
-    s8 len;
+    s8 * r0, * r9;
 
     CpuFill32(0, param_2, sizeof(struct GMapNodeLink) * 0x1d);
-    paths = &param_1->openPaths;
-
-    for (i = 0, r9 = paths->openPaths; i < paths->openPathsLength; i++)
+    i = 0;
+    r0 = param_1->openPaths.openPaths;
+    if (i < param_1->openPaths.openPathsLength)
     {
-        pathId = r9[i];
-
-        for (j = 0; j < 2; j++)
+        for (r9 = r0; i < param_1->openPaths.openPathsLength; i++, r0 = r9)
         {
-            int r2 = pathId[gWMPathData].node[j];
+            pathId = r0[i];
 
-            pcVar6 = (param_2 + r2);
-
-            pcVar6->numConnections[pcVar6->connections] = pathId[gWMPathData].node[1 - j];
-            pcVar6->numConnections++;
-
-            if (r2 == 0)
+            for (j = 0; j < 2; j++)
             {
-                pcVar6->numConnections[pcVar6->connections] = pathId[gWMPathData].node[1 - j];
+                int r2 = pathId[gWMPathData].node[j];
+
+                pcVar6 = param_2 + r2;
+                GMapNodeLinkNextConnSlot(pcVar6) = pathId[gWMPathData].node[1-j];
+                pcVar6->numConnections++;
+
+                if (r2 == 0)
+                    GMapNodeLinkNextConnSlot(pcVar6) = pathId[gWMPathData].node[1-j];
             }
         }
     }
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void RefreshGmNodeLinksExt(struct GMapData * param_1, struct GMapNodeLink * param_2)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #4\n\
-        adds r4, r0, #0\n\
-        mov r8, r1\n\
-        movs r0, #0\n\
-        str r0, [sp]\n\
-        ldr r2, _080BCA04  @ 0x0500003A\n\
-        mov r0, sp\n\
-        bl CpuSet\n\
-        movs r2, #0\n\
-        adds r0, r4, #0\n\
-        adds r0, #0xa4\n\
-        adds r4, #0xc4\n\
-        movs r1, #0\n\
-        ldrsb r1, [r4, r1]\n\
-        cmp r2, r1\n\
-        bge _080BC9F4\n\
-        mov r9, r0\n\
-        ldr r3, _080BCA08  @ gWMPathData\n\
-        mov sl, r3\n\
-        mov ip, r1\n\
-    _080BC9A4:\n\
-        adds r0, r0, r2\n\
-        movs r1, #0\n\
-        ldrsb r1, [r0, r1]\n\
-        movs r5, #0\n\
-        adds r7, r2, #1\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #2\n\
-        add r0, sl\n\
-        adds r6, r0, #4\n\
-        adds r4, r0, #5\n\
-    _080BC9BA:\n\
-        adds r0, r6, r5\n\
-        movs r2, #0\n\
-        ldrsb r2, [r0, r2]\n\
-        lsls r0, r2, #3\n\
-        mov r1, r8\n\
-        adds r3, r1, r0\n\
-        movs r0, #0\n\
-        ldrsb r0, [r3, r0]\n\
-        adds r0, r3, r0\n\
-        ldrb r1, [r4]\n\
-        strb r1, [r0, #1]\n\
-        ldrb r0, [r3]\n\
-        adds r0, #1\n\
-        strb r0, [r3]\n\
-        cmp r2, #0\n\
-        bne _080BC9E4\n\
-        movs r0, #0\n\
-        ldrsb r0, [r3, r0]\n\
-        adds r0, r3, r0\n\
-        ldrb r1, [r4]\n\
-        strb r1, [r0, #1]\n\
-    _080BC9E4:\n\
-        subs r4, #1\n\
-        adds r5, #1\n\
-        cmp r5, #1\n\
-        ble _080BC9BA\n\
-        adds r2, r7, #0\n\
-        mov r0, r9\n\
-        cmp r2, ip\n\
-        blt _080BC9A4\n\
-    _080BC9F4:\n\
-        add sp, #4\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080BCA04: .4byte 0x0500003A\n\
-    _080BCA08: .4byte gWMPathData\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080BCA0C
 void RefreshGmNodeLinks(struct GMapData * param_1)
