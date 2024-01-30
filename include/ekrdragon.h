@@ -25,8 +25,8 @@ enum dragonstatue_attr {
     EKRDRGON_ATTR_BANIMFX_PREPARED = 1 << 1,
     EKRDRGON_ATTR_BANIMFINISH = 1 << 2,
     EKRDRGON_ATTR_END = 1 << 3,
-    EKRDRGON_ATTR_B12 = 1 << 12,
-    EKRDRGON_ATTR_B13 = 1 << 13,
+    EKRDRGON_ATTR_DEAD = 1 << 12,
+    EKRDRGON_ATTR_REFRAIN = 1 << 13,
 };
 
 extern struct EkrDragonStatus gEkrDragonStatusLeft, gEkrDragonStatusRight;
@@ -599,20 +599,20 @@ void EfxDracoZombiePrepareTSA(int x, int y, s8 pos);
 // ??? EkrDZ_ReloadCustomBgAndFadeOut(???);
 // ??? EkrDZ_SetDragonStatAttrEndBit(???);
 void NewEkrDragonDracoZombie(struct Anim *anim);
-void SetEkrDragonStatusAttrFinished(struct Anim *anim);
-void SetEkrDragonStatusAttrBit12(struct Anim *anim);
-void SetEkrDragonStatusAttrBit13(struct Anim *anim);
-bool CheckEkrDragonDeadEffectMaybe(struct Anim *anim);
-bool CheckEkrDragonStatusAttrBit13(struct Anim *anim);
+void SetEkrDragonExit(struct Anim *anim);
+void SetEkrDragonDead(struct Anim *anim);
+void SetEkrDragonRefrain(struct Anim *anim);
+bool CheckEkrDragonDead(struct Anim *anim);
+bool CheckEkrDragonRefrain(struct Anim *anim);
 void SetAnimStateHiddenForDragon(void);
 void sub_807027C(struct Anim *anim);
-u16 *sub_80702D0(void);
-// ??? sub_80702FC(???);
-// ??? sub_807032C(???);
-void sub_807035C(struct Anim *anim);
+u16 *GetEkrDragonPalette(void);
+// ??? SetEkrDragonPaletteBack(???);
+// ??? SetEkrDragonPaletteFront(???);
+void BanimSetFrontPaletteForDragon(struct Anim *anim);
 void NewEkrDragonQuakeTree3(struct EkrDragonQuakePriv *priv, int, int);
 void NewEkrDragonQuake(struct EkrDragonQuakePriv *priv, int, int, ProcPtr);
-// ??? EkrDragonQuakeMain(???);
+void EkrDragonQuakeMain(struct ProcEkrDragonQuake * proc);
 // ??? NewEkrWhiteINOUT(???);
 // ??? sub_80705A8(???);
 // ??? sub_8070618(???);

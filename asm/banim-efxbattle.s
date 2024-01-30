@@ -1141,7 +1141,7 @@ _08053C9A:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8051B5C
+	bl EkrDispUP_SetPositionSync
 _08053CCE:
 	adds r0, r7, #0
 	bl Proc_End
@@ -1282,7 +1282,7 @@ _08053DAE:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8051B5C
+	bl EkrDispUP_SetPositionSync
 _08053E04:
 	bl GetBanimDragonStatusType
 	cmp r0, #0

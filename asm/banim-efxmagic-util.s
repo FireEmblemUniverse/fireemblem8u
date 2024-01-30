@@ -375,7 +375,7 @@ Loop6C_efxMagicQUAKE: @ 0x0805BCC4
 	negs r1, r1
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8051B5C
+	bl EkrDispUP_SetPositionSync
 	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _0805BD42
@@ -483,7 +483,7 @@ _0805BD68:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8051B5C
+	bl EkrDispUP_SetPositionSync
 	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _0805BE2A

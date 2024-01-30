@@ -28,6 +28,6 @@ Img_080DBE1C:
 Img_080DC350:
 	.incbin "baserom.gba", 0xDC350, 0xDC85C - 0xDC350
 
-	.global gUnknown_080DC85C
-gUnknown_080DC85C:  @ 0x080DC85C
+	.global Pal_080DC85C
+Pal_080DC85C:  @ 0x080DC85C
 	.incbin "baserom.gba", 0xDC85C, 0xDC860 - 0xDC85C

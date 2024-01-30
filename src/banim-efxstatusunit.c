@@ -120,7 +120,7 @@ void EfxStatusUnitSomePalModify(struct Anim *anim, int r, int g, int b)
         EfxSomePalFlash(&PAL_COLOR(0, 0), 0x17, 1, r, g, b);
 
         if (GetEkrDragonStatusUnk1() != 0) {
-            sub_807035C(anim);
+            BanimSetFrontPaletteForDragon(anim);
             EfxSomePalFlash(&PAL_COLOR(0, 0), 0x6, 1, r, g, b);
         }
     } else {

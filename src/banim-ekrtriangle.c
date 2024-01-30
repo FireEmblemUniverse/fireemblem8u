@@ -709,7 +709,7 @@ void EfxTriangleQUAKEMain(struct ProcEfxTriagnleQUAKE * proc)
         -(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x),
         -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
 
-    sub_8051B5C(
+    EkrDispUP_SetPositionSync(
         -(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x),
         -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
 
@@ -727,7 +727,7 @@ void EfxTriangleQUAKEMain(struct ProcEfxTriagnleQUAKE * proc)
         BG_SetPosition(BG_2, 0, 0);
         BG_SetPosition(BG_0, gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
         EkrGauge_Setxy323A(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
-        sub_8051B5C(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
+        EkrDispUP_SetPositionSync(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
 
         ix1 = gEkrXPosReal[0] - gEkrBgXOffset;
         iy1 = gEkrYPosReal[0];

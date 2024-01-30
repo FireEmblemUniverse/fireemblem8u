@@ -287,12 +287,12 @@ void EfxFlashUnitRestorePal(struct ProcEfxFlashing * proc)
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
-        sub_807035C(proc->anim);
+        BanimSetFrontPaletteForDragon(proc->anim);
     }
     else
     {
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
-        sub_807035C(proc->anim);
+        BanimSetFrontPaletteForDragon(proc->anim);
     }
 
     EnablePaletteSync();
@@ -357,12 +357,12 @@ void EfxFlashUnitEffectRestorePal(struct ProcEfxFlashing * proc)
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
-        sub_807035C(proc->anim);
+        BanimSetFrontPaletteForDragon(proc->anim);
     }
     else
     {
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
-        sub_807035C(proc->anim);
+        BanimSetFrontPaletteForDragon(proc->anim);
     }
 
     EnablePaletteSync();

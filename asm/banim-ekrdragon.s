@@ -55,7 +55,7 @@ EkrDragonQuakeMain: @ 0x080703C4
 	negs r1, r1
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8051B5C
+	bl EkrDispUP_SetPositionSync
 	ldrh r1, [r4]
 	ldrh r2, [r4, #2]
 	movs r0, #3
@@ -139,7 +139,7 @@ _08070498:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8051B5C
+	bl EkrDispUP_SetPositionSync
 	movs r0, #3
 	movs r1, #0
 	movs r2, #0
@@ -530,7 +530,7 @@ sub_80707C0: @ 0x080707C0
 	adds r1, r4, #0
 	adds r1, #0x3d
 	strb r0, [r1]
-	bl sub_80702D0
+	bl GetEkrDragonPalette
 	str r0, [r4, #0x34]
 	bl SetDefaultColorEffects_
 	bl SpellFx_ClearBG1
@@ -616,9 +616,9 @@ sub_8070874: @ 0x08070874
 	ldr r0, _0807089C  @ gUnknown_08758720
 	bl Proc_EndEach
 	movs r0, #0
-	bl sub_807032C
+	bl SetEkrDragonPaletteFront
 	movs r0, #0
-	bl sub_80702FC
+	bl SetEkrDragonPaletteBack
 _08070898:
 	pop {r0}
 	bx r0

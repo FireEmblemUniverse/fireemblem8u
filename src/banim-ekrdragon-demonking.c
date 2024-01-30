@@ -177,7 +177,7 @@ void EkrDK_IdleInBattle(struct ProcEkrDragon * proc)
         proc->timer = 0;
         Proc_End(proc->fxproc);
 
-        if (CheckEkrDragonDeadEffectMaybe(proc->anim) == false)
+        if (CheckEkrDragonDead(proc->anim) == false)
             /* Normal end banim */
             proc->fxproc = NewEkrDragonBodvBlack(proc->anim);
         else
@@ -841,7 +841,7 @@ ProcPtr NewEkrDragonBodvBlack(struct Anim * anim)
 
 void sub_80772E4(int val)
 {
-    CpuFastCopy(gUnknown_080E1164, PAL_BG(4), 0x20);
+    CpuFastCopy(Pal_080E1164, PAL_BG(4), 0x20);
     EfxPalBlackInOut(gPaletteBuffer, 4, 1, val);
 }
 
@@ -1165,7 +1165,7 @@ void sub_807789C(struct ProcEkrDragonTunk * proc)
         -(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x),
         -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
     
-    sub_8051B5C(
+    EkrDispUP_SetPositionSync(
         -(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x),
         -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
     
@@ -1221,7 +1221,7 @@ void sub_807789C(struct ProcEkrDragonTunk * proc)
         BG_SetPosition(BG_0, gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
         sub_8077EAC(0, 0);
         EkrGauge_Setxy323A(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
-        sub_8051B5C(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
+        EkrDispUP_SetPositionSync(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
     }
 
     if (proc->timer2 == 0x203) {
@@ -1318,7 +1318,7 @@ void sub_8077C54(s16 x, s16 y)
         -(x + gEkrBg0QuakeVec.x),
         -(y + gEkrBg0QuakeVec.y));
 
-    sub_8051B5C(
+    EkrDispUP_SetPositionSync(
         -(x + gEkrBg0QuakeVec.x),
         -(y + gEkrBg0QuakeVec.y));
 
