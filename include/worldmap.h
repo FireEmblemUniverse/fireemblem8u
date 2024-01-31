@@ -435,7 +435,7 @@ struct GMapData
     /* 30 */ struct GMNode nodes[0x1C];
     /* A0 */ int unk_a0; // pad?
     /* A4 */ struct OpenPaths openPaths;
-    /* C8 */ u8 unk_c8; // entry node id?
+    /* C8 */ u8 current_node; // entry node id?
     /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
     /* CC */ u8 unk_cc; // used to determine which skirmish enemy block to load
     /* CD */ u8 unk_cd;
@@ -590,7 +590,7 @@ void Worlmap_StartGmapSogu(struct WorldMapMainProc * proc);
 void Worlmap_WaitGmapSogu(ProcPtr proc);
 // ??? sub_80B9E64(???);
 void ResetWorldMapScreen(void);
-void DoNothing(void);
+void NULL_080B9F08(void);
 void sub_80B9F14(ProcPtr proc);
 void sub_80B9F24(ProcPtr proc);
 void sub_80B9F34(ProcPtr proc);
@@ -667,7 +667,7 @@ void sub_80BB538(int index, int arg1, ProcPtr parent);
 int WMLoc_GetChapterId(int node);
 int WMLoc_GetNextLocId(int idx);
 int GetNodeAtPosition(void * unused, int arg1, int arg2, int arg3, int arg4);
-// ??? sub_80BB6FC(???);
+void sub_80BB6FC(struct GmNodeIconDisplayProc * proc);
 // ??? sub_80BB708(???);
 // ??? GmapScreen2_Destruct(???);
 // ??? GmapScreen2_Init(???);
@@ -954,12 +954,12 @@ struct GmapEffectProc * StartGmapEffect(ProcPtr, int);
 // ??? sub_80C13CC(???);
 void EndGmapEffect(void);
 
-// ??? sub_80C1BF8(???);
-void sub_80C1D00(void);
-void sub_80C1D70(void);
+// ??? WorldMapHblank(???);
+void SetWorldMapHblank(void);
+void ClearWmHblank(void);
 u16 * sub_80C1DA0(int, int);
 void sub_80C1DC8(void);
-void sub_80C1DD8(int, int);
+void sub_80C1DD8(int idx, uintptr_t reg);
 void sub_80C1DE8(int);
 // ??? sub_80C1DFC(???);
 // ??? sub_80C1E14(???);
@@ -970,7 +970,7 @@ void sub_80C1DE8(int);
 // ??? sub_80C1E8C(???);
 void sub_80C1F18(s16, s16, s16, s16, s16, s16, s8); // StartGmapRMUpdate2
 void sub_80C1F5C(void);
-// ??? sub_80C1F6C(???);
+// ??? GmapRm_OnEnd(???);
 // ??? sub_80C1FDC(???);
 // ??? sub_80C1FE0(???);
 // ??? sub_80C205C(???);
@@ -984,10 +984,10 @@ void sub_80C1F5C(void);
 // ??? sub_80C22FC(???);
 // ??? sub_80C2320(???);
 // ??? sub_80C2398(???);
-void Make6C_Gmap_RM(s16 x, s16 y, int mask, ProcPtr parent);
-void sub_80C2460(void);
-int sub_80C2470(void);
-// ??? sub_80C2488(???);
+void NewGmapRM(s16 x, s16 y, int mask, ProcPtr parent);
+void EndGmapRM(void);
+int GmapRMExists(void);
+// ??? GmapRMSetPosition(???);
 void GetWMDisplayPosition(s16 *, s16 *);
 void sub_80C24D8(void);
 void sub_80C24F8(void);
@@ -1105,14 +1105,14 @@ void sub_80C409C(int);
 // extern ??? gUnknown_0201B930
 // extern ??? gUnknown_0201B958
 // extern ??? gUnknown_0201BBD8
-// extern ??? gUnknown_0201BE30
-// extern ??? gUnknown_0201BE32
-// extern ??? gUnknown_0201C5B4
-// extern ??? gUnknown_0201C5C0
-// extern ??? gUnknown_0201C5CC
-// extern ??? gUnknown_0201C5CF
-// extern ??? gUnknown_0201C5D0
-// extern ??? gUnknown_0201C5D1
+extern u8 gWmHblankStatus;
+extern u16 gUnknown_0201BE32[480 * 2];
+extern u16 * gUnknown_0201C5B4[];
+extern u16 * gUnknown_0201C5C0[];
+extern u8 gUnknown_0201C5CC[3];
+extern u8 gUnknown_0201C5CF;
+extern u8 gUnknown_0201C5D0;
+extern u8 gUnknown_0201C5D1;
 // extern ??? gUnknown_0201C5D4
 
 // extern ??? gProcScr_WorldMapFaceHolder

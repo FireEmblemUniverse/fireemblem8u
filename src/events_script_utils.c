@@ -2,7 +2,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "eventcall.h"
 #include "bmdifficulty.h"
 #include "chapterdata.h"

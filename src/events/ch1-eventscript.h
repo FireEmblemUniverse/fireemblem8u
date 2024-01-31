@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {

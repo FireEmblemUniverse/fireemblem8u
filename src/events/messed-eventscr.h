@@ -5,7 +5,7 @@
 #include "eventinfo.h"
 #include "eventscript.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "mapanim.h"
 #include "bmio.h"
 #include "ending_details.h"
@@ -106,7 +106,7 @@ LABEL(0x1)
     TEXTEND
     CHECK_ALIVE(CHARACTER_DOZLA)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0xa4d) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xa4d) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x2)
     REMA
@@ -137,10 +137,10 @@ LABEL(0x2)
     TEXTSHOW(0xa4e)
     TEXTEND
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FADI(2)
     CLEAN
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088B9F14)
     ENUN
     DISA(CHARACTER_GLEN)
@@ -190,18 +190,17 @@ LABEL(0x2)
     CALL(EventScr_TextShowWithFadeIn)
     MOVE_1STEP(0x0, CHARACTER_VALTER, FACING_UP)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x1)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x20000)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x16401)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    NormalDamage(ATTACKER, 0)
+    MissedAttack(DEFENDER, 0)
+    CriticalHit(ATTACKER, 100)
+    EndAttack
     FIGHT(CHARACTER_GLEN, CHARACTER_VALTER, 0, 0)
+
     KILL(CHARACTER_GLEN)
     DISA_IF(CHARACTER_GLEN)
+
     CUMO_CHAR(CHARACTER_VALTER)
     STAL(60)
     CURE
@@ -676,7 +675,7 @@ CONST_DATA EventListScr EventScr_Ch13a_BeginingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x49)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BB9C4)
     ENUN
     DISA(CHARACTER_MESSENGER)
@@ -874,10 +873,11 @@ LABEL(0xb)
     TEXTEND
     REMA
     CALL(EventScr_TextShowWithFadeIn)
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x10000)
-    SENQUEUE1
+
+    StartBattle
+    CriticalHit(DEFENDER, 0)
     FIGHT_MAP(CHARACTER_CAELLACH, CHARACTER_AIAS, 0, 0)
+
     FADI(4)
 LABEL(0x63)
     ENUT(117)
@@ -991,12 +991,12 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     FADU(128)
     FAWI(2)
     BACG(0x14)
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xa81)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     SVAL(EVT_SLOT_B, 0x4000e)
@@ -1138,10 +1138,11 @@ CONST_DATA EventListScr EventScr_089F5DB8[] = {
     CALL(Event_TextWithBG)
     MOVE_1STEP(0x10, CHARACTER_CAELLACH, FACING_UP)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x0)
-    SENQUEUE1
+
+    StartBattle
+    NormalDamage(DEFENDER, 0)
     FIGHT_MAP(CHARACTER_CAELLACH, CHARACTER_ISMAIRE, 0, 0)
+
     DISA(CHARACHER_FRELIAN)
     CUMO_CHAR(CHARACTER_CAELLACH)
     STAL(60)
@@ -1169,7 +1170,7 @@ CONST_DATA EventListScr EventScr_089F5DB8[] = {
     CLEA
     CLEE
     CLEN
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BC1FC)
     ENUN
     FADU(16)
@@ -1250,7 +1251,7 @@ LABEL(0x1)
     TILECHANGE(0x2)
     CLEAN
     CAMERA(24, 0)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BC2B0)
     ENUN
     DISA(0xcd)
@@ -1289,7 +1290,7 @@ LABEL(0xa)
     TEXTSHOW(0xa95)
     TEXTEND
 LABEL(0xb)
-    EvtBgTransion(0x2b, 1, 4) // ENOSUPP in EA-stdlib
+    EvtBgTransion(0x2b, 1, 4) // ENOSUPP in EAstdlib
     REMOVEPORTRAITS
     TEXTCONT
     TEXTEND
@@ -1533,7 +1534,7 @@ LABEL(0x1)
     STAL(33)
     TEXTCONT
     TEXTEND
-    EvtTextShow2(0xb2a) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xb2a) // ENOSUPP in EAstdlib
     TEXTEND
     MURE(0x4)
     TEXTCONT
@@ -1912,7 +1913,7 @@ LABEL(0x1)
     SVAL(EVT_SLOT_1, 0x2)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_1)
     MUSC(0x2e)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BD8B0)
     ENUN
     REMU(CHARACTER_LYON)
@@ -2067,7 +2068,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0x4000e)
     LOMA(0x10)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BD3D0)
     ENUN
     FADU(4)
@@ -2133,7 +2134,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     STAL(60)
     SVAL(EVT_SLOT_B, 0x4000e)
     LOMA(0x10)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BD420)
     ENUN
     FADU(16)
@@ -2145,13 +2146,13 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     TEXTEND
     REMA
     STARTFADE
-    EvtColorFadeSetup(0x6, 0xa, 4, 128, 128, 128) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 4, 128, 128, 128) // ENOSUPP in EAstdlib
     ASMC2(sub_8080014)
     SVAL(EVT_SLOT_B, 0x3000d)
     TILECHANGE(0xffff)
     SVAL(EVT_SLOT_B, 0x3000e)
     TILECHANGE(0xffff)
-    EvtColorFadeSetup(0x6, 0xa, 4, 256, 256, 256) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 4, 256, 256, 256) // ENOSUPP in EAstdlib
     EVBIT_T(6)
     LOAD2(0x1, UnitDef_088BD420)
     STAL(20)
@@ -2283,7 +2284,7 @@ CONST_DATA EventListScr EventScr_089F731C[] = {
     SADD(EVT_SLOT_A, EVT_SLOT_2, EVT_SLOT_0)
     BACG(0x35)
     STARTFADE
-    EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FAWU(128)
     CALL(EventScr_RemoveBGIfNeeded)
     EVBIT_MODIFY(0x4)
@@ -2337,7 +2338,7 @@ CONST_DATA EventListScr EventScr_089F73F0[] = {
     REMOVEPORTRAITS
     BACG(0x35)
     STARTFADE
-    EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FADU(16)
     GOTO(0x1)
 LABEL(0x0)
@@ -2361,7 +2362,7 @@ CONST_DATA EventListScr EventScr_089F7470[] = {
     REMOVEPORTRAITS
     BACG(0x35)
     STARTFADE
-    EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FADU(16)
     GOTO(0x1)
 LABEL(0x0)
@@ -2454,7 +2455,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xb61)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     BACG(0x21)
@@ -2489,7 +2490,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     CALL(EventScr_SetBackground)
     TEXTSHOW(0xb65)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     REMA
@@ -2512,7 +2513,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     MUSC(0x2d)
     TEXTCONT
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     MUSC(0x26)
@@ -2528,7 +2529,7 @@ LABEL(0x0)
     MUSC(0x2d)
     TEXTCONT
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     MUSC(0x26)
@@ -2567,16 +2568,14 @@ LABEL(0x1)
     REMA
     LOAD1(0x1, UnitDef_088BE31C)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x1701)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x10f00)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x6401)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    NormalDamage(ATTACKER, 23)
+    CriticalHit(DEFENDER, 15)
+    NormalDamage(ATTACKER, 100)
+    EndAttack
     FIGHT_MAP(CHARACHER_FRELIAN, 0x8d, 0, 0)
+
     DISA(CHARACHER_FRELIAN)
     KILL(0xc1)
     DISA_IF(0xc1)
@@ -2592,14 +2591,13 @@ LABEL(0x1)
     FADU(16)
     LOAD1(0x1, UnitDef_088BE3D0)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x500)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0x16401)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    NormalDamage(DEFENDER, 5)
+    CriticalHit(ATTACKER, 100)
+    EndAttack
     FIGHT_MAP(CHARACHER_FRELIAN, 0x8d, 0, 0)
+
     DISA(CHARACHER_FRELIAN)
     KILL(0xc1)
     DISA_IF(0xc1)
@@ -2611,12 +2609,12 @@ LABEL(0x1)
     FADU(16)
     LOAD1(0x1, UnitDef_088BE434)
     ENUN
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x16401)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    CriticalHit(ATTACKER, 100)
+    EndAttack
     FIGHT_MAP(CHARACHER_FRELIAN, 0x8d, 0, 0)
+
     DISA(CHARACHER_FRELIAN)
     KILL(0xc1)
     DISA_IF(0xc1)
@@ -3238,7 +3236,7 @@ LABEL(0x2)
     CLEAN
     CAMERA(0, 24)
     UNIT_COLORS(0x3)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C095C)
     ENUN
     LOAD1(0x1, UnitDef_088C0984)
@@ -3260,12 +3258,12 @@ LABEL(0x2)
     SVAL(EVT_SLOT_2, 0x8d)
     MOVE_CLOSEST(0xffff, CHAR_EVT_SLOT2, 6, 21)
     CALL(EventScr_UnitWarpIN)
-    SVAL(EVT_SLOT_D, 0x0)
-    SVAL(EVT_SLOT_1, 0x16400)
-    SENQUEUE1
-    SVAL(EVT_SLOT_1, 0xffffffff)
-    SENQUEUE1
+
+    StartBattle
+    CriticalHit(DEFENDER, 100)
+    EndAttack
     FIGHT_MAP(0x8d, 0xce, 0, 0)
+
     DISA(0xce)
     TEXTSTART
     TEXTSHOW(0xb92)
@@ -3276,7 +3274,7 @@ LABEL(0x2)
     UNIT_COLORS(0x0)
     CLEE
     CAMERA2(16, 11)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C09C0)
     ENUN
     FADU(16)
@@ -3436,14 +3434,14 @@ LABEL(0xb)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x14, EVT_SLOT_C, EVT_SLOT_1)
-    EvtTextShow2(0xba2) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xba2) // ENOSUPP in EAstdlib
     TEXTEND
     GOTO(0x15)
 LABEL(0x14)
-    EvtTextShow2(0xba3) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xba3) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x15)
-    EvtTextShow2(0xba4) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xba4) // ENOSUPP in EAstdlib
     TEXTEND
     REMA
     CALL(EventScr_RemoveBGIfNeeded)
@@ -3646,9 +3644,9 @@ LABEL(0x3)
     FADU(16)
     STAL(15)
     STARTFADE
-    EvtColorFadeSetup(0x6, 0xa, 8, 128, 128, 128) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 8, 128, 128, 128) // ENOSUPP in EAstdlib
     SUMMONUNIT(CHARACTER_MORVA)
-    EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EAstdlib
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
@@ -3710,7 +3708,7 @@ CONST_DATA EventListScr EventScr_089F8CCC[] = {
     LOAD2(0x1, UnitDef_088C16E8)
     ENUN
     CAMERA2_CAHR(CHARACTER_MYRRH)
-    EvtBgmFadeIn(0x29, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x29, 8) // ENOSUPP in EAstdlib
     FADU(4)
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
@@ -3956,7 +3954,7 @@ LABEL(0x0)
     TEXTEND
 LABEL(0x1)
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
     LOAD1(0x1, UnitDef_088C172C)
@@ -3986,18 +3984,18 @@ LABEL(0xa)
 LABEL(0xb)
     STARTFADE
     MUSCSLOW(0x7fff)
-    EvtColorFadeSetup(0x6, 0xa, 8, 128, 128, 128) // ENOSUPP in EA-stdlib
-    EvtColorFadeSetup(0x1d, 0x1, 4, 0, 0, 0) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 8, 128, 128, 128) // ENOSUPP in EAstdlib
+    EvtColorFadeSetup(0x1d, 0x1, 4, 0, 0, 0) // ENOSUPP in EAstdlib
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitFlushingOUT)
     DISA(CHARACTER_LYON)
     STAL(30)
     SPAWN_ENEMY(CHARACTER_LYON_FINAL, 0, 0)
-    EvtColorFadeSetup(0x1d, 0x1, 0, 256, 256, 256) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x1d, 0x1, 0, 256, 256, 256) // ENOSUPP in EAstdlib
     SVAL(EVT_SLOT_2, 0x6c)
     MOVE_CLOSEST(0xffff, CHAR_EVT_SLOT2, 11, 18)
     CALL(EventScr_UnitFlushingIN)
-    EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EAstdlib
     ENDA
 };
 
@@ -4008,7 +4006,7 @@ CONST_DATA EventListScr EventScr_089F92A0[] = {
     CLEE
     CLEN
     CAMERA2(11, 4)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C1E48)
     ENUN
     FADU(4)
@@ -4032,7 +4030,7 @@ CONST_DATA EventListScr EventScr_089F92A0[] = {
 
 CONST_DATA EventListScr EventScr_089F9314[] = {
     STARTFADE
-    EvtColorFadeSetup(0x6, 0xa, 4, 0, 0, 0) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 4, 0, 0, 0) // ENOSUPP in EAstdlib
     STAL(30)
     MOVE_1STEP(0x2, CHARACTER_LYON, FACING_UP)
     ENUN
@@ -4134,7 +4132,7 @@ CONST_DATA EventListScr EventScr_089F94A0[] = {
 
 CONST_DATA EventListScr EventScr_089F94AC[] = {
     STARTFADE
-    EvtColorFadeSetup(0x6, 0xa, 0, 0, 0, 0) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 0, 0, 0, 0) // ENOSUPP in EAstdlib
     FADU(128)
     SOLOTEXTBOXSTART
     CHECK_MODE
@@ -4156,7 +4154,7 @@ LABEL(0x1)
     ASMC(sub_807F878)
     LOAD1(0x1, UnitDef_088C2098)
     ENUN
-    EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EAstdlib
     MUSC(0x2f)
     ASMC(sub_807FCC0)
     EVBIT_MODIFY(0x0)
@@ -4857,7 +4855,7 @@ CONST_DATA EventListScr EventScr_089FA138[] = {
     CAMERA(0, 0)
     LOAD1(0x1, UnitDef_088C23B8)
     ENUN
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD1(0x1, UnitDef_088C2868)
     ENUN
     FADU(16)
@@ -4988,7 +4986,7 @@ CONST_DATA EventListScr EventScr_089FA4E0[] = {
     CLEA
     CLEE
     CLEN
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C28CC)
     ENUN
     FADU(16)
@@ -5227,10 +5225,10 @@ CONST_DATA EventListScr EventScr_089FA820[] = {
     ENUN
     LOAD1(0x1, UnitDef_088C3168)
     ENUN
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C31CC)
     ENUN
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C31F4)
     ENUN
     FADU(16)
@@ -5460,7 +5458,7 @@ LABEL(0x2)
     TEXTCONT
     TEXTEND
     BEQ(0x3, EVT_SLOT_7, EVT_SLOT_0)
-    EvtTextShow2(0xac3) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xac3) // ENOSUPP in EAstdlib
     TEXTEND
     REMA
     CALL(EventScr_RemoveBGIfNeeded)
@@ -5472,7 +5470,7 @@ LABEL(0x3)
     FADI(16)
     CLEAN
     CAMERA(0, 19)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C33AC)
     ENUN
     FADU(16)
@@ -5667,7 +5665,7 @@ CONST_DATA EventListScr EventScr_Ch11b_BeginingScene[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x3e)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C42B0)
     ENUN
     MUSC(0x4b)
@@ -5805,7 +5803,7 @@ CONST_DATA EventListScr EventScr_089FB318[] = {
     TEXTEND
     CHECK_ALIVE(CHARACTER_DOZLA)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0xad8) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xad8) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x0)
     REMA
@@ -5903,10 +5901,10 @@ CONST_DATA EventListScr EventScr_089FB4A8[] = {
 
 CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
     MUSC(0x24)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C4D0C)
     ENUN
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C4D5C)
     ENUN
     FADU(16)
@@ -6063,7 +6061,7 @@ LABEL(0x1)
     CLEE
     CLEN
     CAMERA(20, 0)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C4DC0)
     ENUN
     FADU(16)
@@ -6277,7 +6275,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     REMA
     FADI(16)
     CLEAN
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C54A4)
     ENUN
     FADU(16)
@@ -6305,7 +6303,7 @@ CONST_DATA EventListScr EventScr_089FBC0C[] = {
     CLEE
     CLEN
     CAMERA2(14, 13)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C54CC)
     ENUN
     FADU(16)
@@ -6479,13 +6477,13 @@ CONST_DATA EventListScr EventScr_Ch14b_BeginingScene[] = {
     REMA
     REMOVEPORTRAITS
     BACG(0xf)
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xafb)
     TEXTEND
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
     MUSCSLOW(0x4d)
@@ -6586,13 +6584,13 @@ CONST_DATA EventListScr EventScr_089FC06C[] = {
     ENUN
     FADU(16)
     STARTFADE
-    EvtColorFadeSetup(0x6, 0xa, 4, 128, 128, 128) // ENOSUPP in EA-stdlib
-    EvtColorFadeSetup(0x1d, 0x1, 2, 0, 0, 0) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 4, 128, 128, 128) // ENOSUPP in EAstdlib
+    EvtColorFadeSetup(0x1d, 0x1, 2, 0, 0, 0) // ENOSUPP in EAstdlib
     SOUN(0xd6)
     SVAL(EVT_SLOT_2, 0x6b)
     CALL(EventScr_UnitFlushingOUT)
     DISA(CHARACTER_VIGARDE)
-    EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EAstdlib
     ENDFADE
     MOVE_1STEP(0x10, CHARACTER_EPHRAIM, FACING_UP)
     ENUN
@@ -6660,7 +6658,7 @@ CONST_DATA EventListScr EventScr_089FC06C[] = {
     CLEE
     CLEN
     CAMERA(26, 13)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C6AC4)
     ENUN
     FADU(16)
@@ -6681,7 +6679,7 @@ CONST_DATA EventListScr EventScr_089FC06C[] = {
     CALL(EventScr_SetBackground)
     TEXTSHOW(0xb09)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     CLEA
@@ -6723,7 +6721,7 @@ CONST_DATA EventListScr EventScr_089FC06C[] = {
     TEXTSHOW(0xb0c)
     TEXTEND
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEA
     CLEE
@@ -7801,7 +7799,7 @@ CONST_DATA EventListScr EventScr_089FD584[] = {
     STAL(60)
     CURE
     FAWI(2)
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
     REMOVEPORTRAITS
     BACG(0xf)
     FAWU(2)
@@ -7816,7 +7814,7 @@ CONST_DATA EventListScr EventScr_089FD584[] = {
     TEXTSHOW(0xbb8)
     TEXTEND
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
     FAWU(2)
@@ -8029,7 +8027,7 @@ CONST_DATA EventListScr EventScr_089FD9B8[] = {
     CLEE
     CLEN
     CAMERA2(11, 4)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088CB614)
     ENUN
     FADU(4)
@@ -10448,7 +10446,7 @@ CONST_DATA EventListScr EventScr_08A00544[] = {
 };
 
 CONST_DATA EventListScr EventScr_08A005B4[] = {
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, REDA_088D1BA0)
     ENUN
     LOAD2(0x1, 0xffffffff)
@@ -10488,7 +10486,7 @@ CONST_DATA EventListScr EventScr_08A0062C[] = {
     SADD(EVT_SLOT_2, EVT_SLOT_3, EVT_SLOT_0)
     TEXTSHOW(0xffff)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FADI(2)
     REMA
     CLEA
@@ -10503,11 +10501,11 @@ CONST_DATA EventListScr EventScr_08A00680[] = {
     MUSC(0x42)
     ASMC(sub_80C4878)
     STAL(90)
-    EvtTextStartType2 // ENOSUPP in EA-stdlib
-    EvtBgFadeIn(0x0, 0, 2) // ENOSUPP in EA-stdlib
+    EvtTextStartType2 // ENOSUPP in EAstdlib
+    EvtBgFadeIn(0x0, 0, 2) // ENOSUPP in EAstdlib
     TEXTSHOW(0xc22)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EA-stdlib
+    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FADI(2)
     REMA
     EVBIT_F(2)

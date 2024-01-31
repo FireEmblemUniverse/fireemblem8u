@@ -22,7 +22,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 
 EWRAM_DATA struct TradeMenuProc * gpTradeMenuProc = NULL;
 

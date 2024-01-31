@@ -5,7 +5,7 @@
 #include "eventinfo.h"
 #include "eventcall.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -20,7 +20,7 @@ CONST_DATA EventScr EventScrWM_Ch8_Beginning[] = {
     WM_LOADLOCATION2(WM_NODE_Renvall2)
     WM_SETDESTINATION(WM_NODE_Renvall2)
     WM_DRAWPATH2(WM_PATH_07)
-    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Renvall2) // ENOSUPP in EA-stdlib
+    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Renvall2) // ENOSUPP in EAstdlib
     SKIPWN
     ENDA
 };

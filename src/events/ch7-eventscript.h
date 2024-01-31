@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch7_BeginingScene[] = {
@@ -29,7 +29,7 @@ CONST_DATA EventListScr EventScr_Ch7_BeginingScene[] = {
     TEXTEND
     CHECK_ALIVE(CHARACTER_FRANZ)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9f7) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9f7) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x0)
     CHECK_ALIVE(CHARACTER_GILLIAM)
@@ -38,41 +38,41 @@ LABEL(0x0)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_VANESSA)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9f8) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9f8) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x1)
     CHECK_ALIVE(CHARACTER_ROSS)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_GARCIA)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9f9) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9f9) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x2)
     CHECK_ALIVE(CHARACTER_COLM)
     BEQ(0x3, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_NEIMI)
     BEQ(0x3, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9fa) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9fa) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x3)
     CHECK_ALIVE(CHARACTER_LUTE)
     BEQ(0x4, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_ARTUR)
     BEQ(0x4, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9fb) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9fb) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x4)
     CHECK_ALIVE(CHARACTER_JOSHUA)
     BEQ(0x5, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9fc) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9fc) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x5)
     CHECK_ALIVE(CHARACTER_NATASHA)
     BEQ(0x6, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9fd) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9fd) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x6)
-    EvtTextShow2(0x9fe) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9fe) // ENOSUPP in EAstdlib
     TEXTEND
     CALL(EventScr_08591FD8)
     MUSC(0x9)

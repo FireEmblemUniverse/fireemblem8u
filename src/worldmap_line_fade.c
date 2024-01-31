@@ -14,12 +14,12 @@ struct GmapLineFadeProc
     /* 2C */ s16 unk_2c;
 };
 
-extern u8 gUnknown_0201BE30;
+extern u8 gWmHblankStatus;
 
 //! FE8U = 0x080C0308
 void GmapLineFade_OnEnd(void)
 {
-    gUnknown_0201BE30 &= ~4;
+    gWmHblankStatus &= ~4;
 
     SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0, 0, 0);
 
@@ -118,7 +118,7 @@ void GmapLineFade_Init(struct GmapLineFadeProc * proc)
     SetBlendBackdropA(0);
     SetBlendBackdropB(0);
 
-    gUnknown_0201BE30 |= 4;
+    gWmHblankStatus |= 4;
 
     return;
 }

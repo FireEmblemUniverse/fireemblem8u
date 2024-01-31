@@ -2,6 +2,8 @@
 #include "bmunit.h"
 #include "muctrl.h"
 #include "eventcall.h"
+#include "eventscript.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/items.h"
@@ -281,7 +283,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -382,7 +384,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4434[] = {
             ITEM_AXE_HANDAXE,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     { 0 },
 };
@@ -728,7 +730,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x8e,
@@ -743,7 +745,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -758,7 +760,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -774,7 +776,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
             ITEM_SWORD_IRON,
             ITEM_ANTITOXIN,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -789,7 +791,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -805,7 +807,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
             ITEM_AXE_STEEL,
             ITEM_PUREWATER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -820,7 +822,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -835,7 +837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -852,7 +854,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
             ITEM_AXE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8e,
@@ -869,7 +871,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
             ITEM_AXE_IRON,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -890,7 +892,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4718[] = {
             ITEM_LOCKPICK,
             ITEM_VULNERARY,
         },
-        .ai = {0x6, 0x5, 0x8, 0x0},
+        .ai = {LootingThiefAI, 0x8, 0x0},
     },
     { 0 },
 };
@@ -1440,7 +1442,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1453,7 +1455,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1466,7 +1468,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1479,7 +1481,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -1492,7 +1494,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -1505,7 +1507,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -1518,7 +1520,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1531,7 +1533,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -1557,7 +1559,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1570,7 +1572,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -1583,7 +1585,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1596,7 +1598,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1609,7 +1611,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_ENTOUMBED_CH4,
@@ -1621,7 +1623,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -1634,7 +1636,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -1693,7 +1695,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
             ITEM_MONSTER_FETIDCLW,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x0, 0xc, 0x20},
+        .ai = {DefaultAI, 0xc, 0x20},
     },
     {
         .charIndex = 0xaa,
@@ -1708,7 +1710,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1723,7 +1725,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -1738,7 +1740,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -1758,7 +1760,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C88[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -1788,7 +1790,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C88[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -2044,7 +2046,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -2057,7 +2059,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -2070,7 +2072,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2082,7 +2084,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2094,7 +2096,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2106,7 +2108,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2118,7 +2120,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -2130,7 +2132,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2142,7 +2144,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2154,7 +2156,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2166,7 +2168,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2178,7 +2180,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2190,7 +2192,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2202,7 +2204,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2226,7 +2228,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -2238,7 +2240,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2262,7 +2264,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -2274,7 +2276,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2286,7 +2288,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -2421,7 +2423,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2434,7 +2436,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2447,7 +2449,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2459,7 +2461,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2471,7 +2473,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2483,7 +2485,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2495,7 +2497,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -2507,7 +2509,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2519,7 +2521,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2531,7 +2533,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2543,7 +2545,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2555,7 +2557,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2567,7 +2569,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2579,7 +2581,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2603,7 +2605,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -2615,7 +2617,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2639,7 +2641,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -2651,7 +2653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2663,7 +2665,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -2798,7 +2800,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -2811,7 +2813,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -2824,7 +2826,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2836,7 +2838,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2848,7 +2850,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2860,7 +2862,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2872,7 +2874,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -2884,7 +2886,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2896,7 +2898,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2908,7 +2910,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2920,7 +2922,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -2932,7 +2934,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2944,7 +2946,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2956,7 +2958,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -2980,7 +2982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -2992,7 +2994,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -3016,7 +3018,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -3028,7 +3030,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -3040,7 +3042,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -3466,7 +3468,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -3481,7 +3483,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3496,7 +3498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3511,7 +3513,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3526,7 +3528,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3541,7 +3543,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3556,7 +3558,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -3576,7 +3578,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3591,7 +3593,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3606,7 +3608,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3621,7 +3623,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3636,7 +3638,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3651,7 +3653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -3696,7 +3698,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -4072,7 +4074,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -4085,7 +4087,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4098,7 +4100,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_ZONTA,
@@ -4110,7 +4112,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -4123,7 +4125,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4136,7 +4138,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4151,7 +4153,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
             ITEM_BOW_IRON,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4164,7 +4166,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4177,7 +4179,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LIGHT_LIGHTNING,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4190,7 +4192,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4203,7 +4205,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4216,7 +4218,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4229,7 +4231,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4242,7 +4244,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4255,7 +4257,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4268,7 +4270,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4281,7 +4283,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4294,7 +4296,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4307,7 +4309,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4320,7 +4322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4333,7 +4335,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4346,7 +4348,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4359,7 +4361,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4374,7 +4376,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4387,7 +4389,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4402,7 +4404,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
             ITEM_ANIMA_FIRE,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4415,7 +4417,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4428,7 +4430,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4441,7 +4443,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4456,7 +4458,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
             ITEM_AXE_IRON,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -4469,7 +4471,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -5058,7 +5060,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5072,7 +5074,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5085,7 +5087,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_AXE_VENIN,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5098,7 +5100,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5111,7 +5113,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5124,7 +5126,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5137,7 +5139,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5150,7 +5152,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5163,7 +5165,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_STAFF_MEND,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5176,7 +5178,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5189,7 +5191,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5203,7 +5205,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_BLADE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x7f,
@@ -5281,7 +5283,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x3, 0x3, 0x0, 0x0},
+        .ai = {GuardTileAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5294,7 +5296,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xf9,
@@ -5304,7 +5306,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .level = 1,
         .xPosition = 26,
         .yPosition = 12,
-        .ai = {0x6, 0x3, 0x0, 0x0},
+        .ai = {DoNothing, 0x0, 0x0},
     },
     {
         .charIndex = 0xfa,
@@ -5314,7 +5316,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .level = 1,
         .xPosition = 25,
         .yPosition = 13,
-        .ai = {0x6, 0x3, 0x60, 0x0},
+        .ai = {DoNothing, 0x60, 0x0},
     },
     {
         .charIndex = 0xfb,
@@ -5324,7 +5326,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .level = 1,
         .xPosition = 25,
         .yPosition = 12,
-        .ai = {0x6, 0x3, 0x0, 0x0},
+        .ai = {DoNothing, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5349,7 +5351,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5363,7 +5365,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
             ITEM_LANCE_HORSESLAYER,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5376,7 +5378,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5391,7 +5393,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_HALBERD,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     { 0 },
 };
@@ -5561,7 +5563,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B64F0[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x1, 0x0},
+        .ai = {DefaultAI, 0x1, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5577,7 +5579,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B64F0[] = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x1, 0x0},
+        .ai = {DefaultAI, 0x1, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -5593,7 +5595,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B64F0[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x1, 0x0},
+        .ai = {DefaultAI, 0x1, 0x0},
     },
     { 0 },
 };
@@ -5733,7 +5735,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -5746,7 +5748,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -5759,7 +5761,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -5771,7 +5773,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -5795,7 +5797,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -5807,7 +5809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -5819,7 +5821,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -5831,7 +5833,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -5855,7 +5857,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -5891,7 +5893,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -5915,7 +5917,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -5939,7 +5941,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -5951,7 +5953,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -5963,7 +5965,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -5975,7 +5977,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -5987,7 +5989,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -5999,7 +6001,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -6023,7 +6025,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -6035,7 +6037,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -6047,7 +6049,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -6187,7 +6189,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -6200,7 +6202,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -6213,7 +6215,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -6225,7 +6227,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6249,7 +6251,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6261,7 +6263,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6273,7 +6275,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6285,7 +6287,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6309,7 +6311,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6345,7 +6347,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6369,7 +6371,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -6393,7 +6395,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -6405,7 +6407,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -6417,7 +6419,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6429,7 +6431,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6441,7 +6443,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -6453,7 +6455,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -6477,7 +6479,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -6489,7 +6491,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -6501,7 +6503,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -6642,7 +6644,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6655,7 +6657,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6668,7 +6670,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -6680,7 +6682,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6704,7 +6706,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6716,7 +6718,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6728,7 +6730,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6740,7 +6742,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6764,7 +6766,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -6800,7 +6802,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6824,7 +6826,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -6848,7 +6850,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -6860,7 +6862,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -6872,7 +6874,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6884,7 +6886,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -6896,7 +6898,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -6908,7 +6910,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -6932,7 +6934,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -6944,7 +6946,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -6956,7 +6958,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -7186,7 +7188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7199,7 +7201,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7212,7 +7214,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7225,7 +7227,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7238,7 +7240,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7251,7 +7253,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7264,7 +7266,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7277,7 +7279,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7290,7 +7292,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7303,7 +7305,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7316,7 +7318,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7330,7 +7332,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
             ITEM_ANIMA_THUNDER,
             ITEM_BOOSTER_POW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7343,7 +7345,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7356,7 +7358,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7369,7 +7371,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7384,7 +7386,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
             ITEM_ANIMA_THUNDER,
             ITEM_PUREWATER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_MURRAY,
@@ -7399,7 +7401,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_KNIGHTCREST,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -7414,7 +7416,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -7429,7 +7431,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -8004,7 +8006,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
             ITEM_LANCE_SILVER,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -8019,7 +8021,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8034,7 +8036,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8049,7 +8051,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8064,7 +8066,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8079,7 +8081,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8094,7 +8096,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8109,7 +8111,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8124,7 +8126,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8141,7 +8143,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8156,7 +8158,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8171,7 +8173,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8186,7 +8188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8201,7 +8203,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8216,7 +8218,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8231,7 +8233,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8246,7 +8248,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8261,7 +8263,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8276,7 +8278,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8291,7 +8293,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8306,7 +8308,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8321,7 +8323,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8336,7 +8338,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8351,7 +8353,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8366,7 +8368,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8381,7 +8383,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8396,7 +8398,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -8466,7 +8468,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7648[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8481,7 +8483,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7648[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8495,7 +8497,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7648[] = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -8515,7 +8517,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7698[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8531,7 +8533,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7698[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8546,7 +8548,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7698[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -8614,7 +8616,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B774C[] = {
         .yPosition = 10,
         .redaCount = 2,
         .redas = REDA_088B72D8,
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8626,7 +8628,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B774C[] = {
         .yPosition = 9,
         .redaCount = 1,
         .redas = REDA_088B72E8,
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -8656,7 +8658,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8669,7 +8671,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8682,7 +8684,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8695,7 +8697,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -8710,7 +8712,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -9452,7 +9454,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
             ITEM_AXE_STEEL,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9465,7 +9467,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9478,7 +9480,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9491,7 +9493,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9504,7 +9506,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9519,7 +9521,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9534,7 +9536,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9548,7 +9550,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9561,7 +9563,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9576,7 +9578,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9589,7 +9591,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9602,7 +9604,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9617,7 +9619,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9630,7 +9632,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9644,7 +9646,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9657,7 +9659,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9670,7 +9672,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9685,7 +9687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9698,7 +9700,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9711,7 +9713,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9724,7 +9726,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9772,7 +9774,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7EDC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9785,7 +9787,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7EDC[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9876,7 +9878,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7F90[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9889,7 +9891,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7F90[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -9907,7 +9909,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7FCC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9920,7 +9922,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7FCC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -9938,7 +9940,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8008[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9951,7 +9953,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8008[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -9969,7 +9971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8044[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -9982,7 +9984,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8044[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -10001,7 +10003,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8080[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -10014,7 +10016,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8080[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -10034,7 +10036,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x85,
@@ -10049,7 +10051,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x84,
@@ -10064,7 +10066,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = CHARACTER_AMELIA,
@@ -10079,7 +10081,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
             ITEM_LANCE_SLIM,
             ITEM_BOOSTER_SPD,
         },
-        .ai = {0x0, 0x3, 0x10, 0x0},
+        .ai = {AttackInRangeAI, 0x10, 0x0},
     },
     { 0 },
 };
@@ -10098,7 +10100,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8120[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa7,
@@ -10111,7 +10113,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8120[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -10821,7 +10823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_LIGHT_DIVINE,
             ITEM_GUIDINGRING,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0xa8,
@@ -10835,7 +10837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10848,7 +10850,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10861,7 +10863,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10876,7 +10878,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0xa8,
@@ -10890,7 +10892,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_LANCEREAVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10903,7 +10905,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10916,7 +10918,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10929,7 +10931,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10942,7 +10944,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10955,7 +10957,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10968,7 +10970,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10981,7 +10983,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_SLIM,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -10994,7 +10996,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_SLIM,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11008,7 +11010,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_SWORD_STEEL,
             ITEM_REDGEM,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11021,7 +11023,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_SLIM,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11036,7 +11038,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_KILLER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11049,7 +11051,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11062,7 +11064,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11075,7 +11077,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11088,7 +11090,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11140,7 +11142,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_SWORD_SHAMSIR,
             ITEM_VULNERARY,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11153,7 +11155,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11166,7 +11168,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11179,7 +11181,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11192,7 +11194,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11205,7 +11207,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x65,
@@ -11219,7 +11221,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x65,
@@ -11233,7 +11235,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x65,
@@ -11247,7 +11249,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11263,7 +11265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
             ITEM_STAFF_HEAL,
             ITEM_STAFF_TORCH,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -11281,7 +11283,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8900[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11295,7 +11297,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8900[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11308,7 +11310,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8900[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11321,7 +11323,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8900[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11334,7 +11336,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8900[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11347,7 +11349,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8900[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -11366,7 +11368,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B898C[] = {
             ITEM_WHITEGEM,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x3, 0x0},
+        .ai = {AttackInRangeAI, 0x3, 0x0},
     },
     {
         .charIndex = CHARACTER_GERIK,
@@ -11380,7 +11382,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B898C[] = {
             ITEM_VULNERARY,
             ITEM_HEROCREST,
         },
-        .ai = {0x0, 0x3, 0x3, 0x0},
+        .ai = {AttackInRangeAI, 0x3, 0x0},
     },
     {
         .charIndex = CHARACTER_TETHYS,
@@ -11394,7 +11396,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B898C[] = {
             ITEM_VULNERARY,
             ITEM_BOOSTER_LCK,
         },
-        .ai = {0x3, 0x3, 0x0, 0x0},
+        .ai = {GuardTileAI, 0x0, 0x0},
     },
     { 0 },
 };
@@ -11412,7 +11414,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B89DC[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x65,
@@ -11425,7 +11427,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B89DC[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -11445,7 +11447,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11460,7 +11462,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11475,7 +11477,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11490,7 +11492,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11506,7 +11508,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
             ITEM_LANCE_SLIM,
             ITEM_BOOSTER_RES,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -11526,7 +11528,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11541,7 +11543,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11556,7 +11558,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11571,7 +11573,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -11592,7 +11594,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8AF4[] = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11606,7 +11608,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8AF4[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa8,
@@ -11622,7 +11624,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8AF4[] = {
             ITEM_LANCE_SLIM,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -11991,7 +11993,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -12004,7 +12006,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -12017,7 +12019,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12029,7 +12031,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12041,7 +12043,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12053,7 +12055,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -12065,7 +12067,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12077,7 +12079,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12089,7 +12091,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12101,7 +12103,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12113,7 +12115,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -12161,7 +12163,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -12173,7 +12175,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 26,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -12185,7 +12187,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -12197,7 +12199,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -12209,7 +12211,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -12221,7 +12223,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -12233,7 +12235,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -12245,7 +12247,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -12257,7 +12259,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -12269,7 +12271,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12281,7 +12283,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12293,7 +12295,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12305,7 +12307,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12317,7 +12319,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12329,7 +12331,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -12470,7 +12472,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -12483,7 +12485,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -12496,7 +12498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12508,7 +12510,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12520,7 +12522,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12532,7 +12534,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -12544,7 +12546,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12556,7 +12558,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12568,7 +12570,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12580,7 +12582,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12592,7 +12594,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -12640,7 +12642,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -12652,7 +12654,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 26,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -12664,7 +12666,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -12676,7 +12678,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -12688,7 +12690,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -12700,7 +12702,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -12712,7 +12714,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -12724,7 +12726,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -12736,7 +12738,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -12748,7 +12750,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12760,7 +12762,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12772,7 +12774,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12784,7 +12786,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12796,7 +12798,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -12808,7 +12810,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -12948,7 +12950,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12961,7 +12963,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12974,7 +12976,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12986,7 +12988,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -12998,7 +13000,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -13010,7 +13012,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -13022,7 +13024,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13034,7 +13036,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13046,7 +13048,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13058,7 +13060,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13070,7 +13072,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -13118,7 +13120,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13130,7 +13132,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 26,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -13142,7 +13144,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13154,7 +13156,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -13166,7 +13168,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -13178,7 +13180,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -13190,7 +13192,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -13202,7 +13204,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -13214,7 +13216,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13226,7 +13228,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13238,7 +13240,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13250,7 +13252,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13262,7 +13264,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13274,7 +13276,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -13286,7 +13288,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -13869,7 +13871,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -13882,7 +13884,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13895,7 +13897,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13908,7 +13910,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13921,7 +13923,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13934,7 +13936,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13949,7 +13951,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
             ITEM_SWORD_SLIM,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13962,7 +13964,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13975,7 +13977,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -13988,7 +13990,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -14001,7 +14003,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -14014,7 +14016,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -14027,7 +14029,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -14040,7 +14042,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -14053,7 +14055,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -14066,7 +14068,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -14079,7 +14081,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -14105,7 +14107,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -14118,7 +14120,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -14134,7 +14136,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
             ITEM_DOORKEY,
             ITEM_CHESTKEY,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -14147,7 +14149,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -14160,7 +14162,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -14173,7 +14175,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -14186,7 +14188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -14199,7 +14201,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -14212,7 +14214,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -14225,7 +14227,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -14238,7 +14240,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -14251,7 +14253,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -14264,7 +14266,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -14277,7 +14279,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_SWORD_VENIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -14290,7 +14292,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -14303,7 +14305,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_BOW_VENIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -14316,7 +14318,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -14329,7 +14331,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -14342,7 +14344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -14355,7 +14357,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -14380,7 +14382,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -14393,7 +14395,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -14414,7 +14416,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9CCC[] = {
             ITEM_ELIXIR,
             ITEM_STAFF_TORCH,
         },
-        .ai = {0xe, 0x3, 0x0, 0x0},
+        .ai = {HealUnits, 0x0, 0x0},
     },
     {
         .charIndex = CHARACTER_DOZLA,
@@ -14430,7 +14432,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9CCC[] = {
             ITEM_AXE_BATTLEAXE,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     { 0 },
 };
@@ -14451,7 +14453,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D08[] = {
             ITEM_DOORKEY,
             ITEM_CHESTKEY,
         },
-        .ai = {0x6, 0x5, 0xc, 0x0},
+        .ai = {LootingThiefAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -14471,7 +14473,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -14486,7 +14488,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -14501,7 +14503,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -14552,7 +14554,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D80[] = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -14572,7 +14574,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9DD0[] = {
         .items = {
             ITEM_LANCE_VENIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -14588,7 +14590,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9DD0[] = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -15362,7 +15364,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
             ITEM_AXE_HALBERD,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15375,7 +15377,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15389,7 +15391,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15404,7 +15406,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15419,7 +15421,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15432,7 +15434,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15445,7 +15447,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -15458,7 +15460,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -15471,7 +15473,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -15484,7 +15486,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -15497,7 +15499,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -15512,7 +15514,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -15525,7 +15527,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -15540,7 +15542,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -15555,7 +15557,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -15570,7 +15572,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -15583,7 +15585,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -15596,7 +15598,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xac,
@@ -15609,7 +15611,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -15622,7 +15624,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -15635,7 +15637,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -15648,7 +15650,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -15663,7 +15665,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -15678,7 +15680,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -15691,7 +15693,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -15704,7 +15706,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -15717,7 +15719,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -15730,7 +15732,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -15743,7 +15745,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -15756,7 +15758,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -15769,7 +15771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -15787,7 +15789,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA4F4[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -15807,7 +15809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15822,7 +15824,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15837,7 +15839,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15853,7 +15855,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -15874,7 +15876,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA580[] = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15889,7 +15891,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA580[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -15905,7 +15907,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA580[] = {
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -16013,7 +16015,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA670[] = {
         .yPosition = 4,
         .redaCount = 3,
         .redas = REDA_088BA108,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -16031,7 +16033,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -16044,7 +16046,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -16057,7 +16059,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -16072,7 +16074,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -16087,7 +16089,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -16100,7 +16102,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -16120,7 +16122,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA738[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -16135,7 +16137,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA738[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -16150,7 +16152,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA738[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -16170,7 +16172,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA788[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -16186,7 +16188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA788[] = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -16206,7 +16208,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA7C4[] = {
         .items = {
             ITEM_LANCE_SHORTSPEAR,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -16710,7 +16712,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA4C[] = {
             ITEM_AXE_SWORDSLAYER,
             ITEM_KNIGHTCREST,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     { 0 },
 };
@@ -16728,7 +16730,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16741,7 +16743,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16754,7 +16756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16767,7 +16769,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16780,7 +16782,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16793,7 +16795,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16806,7 +16808,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16820,7 +16822,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
             ITEM_SWORD_STEEL,
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16834,7 +16836,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
             ITEM_SWORD_IRON,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16847,7 +16849,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16860,7 +16862,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16873,7 +16875,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_STAFF_SLEEP,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16886,7 +16888,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16901,7 +16903,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
             ITEM_STAFF_MEND,
             ITEM_REDGEM,
         },
-        .ai = {0xe, 0x3, 0x8, 0x0},
+        .ai = {HealUnits, 0x8, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16915,7 +16917,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
             ITEM_SWORD_STEEL,
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16928,7 +16930,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16941,7 +16943,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16954,7 +16956,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16967,7 +16969,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -16980,7 +16982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -16998,7 +17000,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAC18[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17011,7 +17013,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAC18[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17024,7 +17026,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAC18[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17052,7 +17054,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAC18[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17065,7 +17067,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAC18[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17103,7 +17105,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa9,
@@ -17118,7 +17120,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa9,
@@ -17134,7 +17136,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
             ITEM_AXE_VENIN,
             ITEM_BOOSTER_CON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa9,
@@ -17149,7 +17151,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa9,
@@ -17196,7 +17198,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
             ITEM_AXE_SWORDSLAYER,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa9,
@@ -17211,7 +17213,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xa9,
@@ -17226,7 +17228,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17275,7 +17277,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BADBC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17289,7 +17291,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BADBC[] = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17307,7 +17309,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BADF8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17320,7 +17322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BADF8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17334,7 +17336,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BADF8[] = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17353,7 +17355,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAE48[] = {
         .items = {
             ITEM_SWORD_ZANBATO,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17367,7 +17369,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAE48[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17385,7 +17387,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAE84[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17398,7 +17400,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAE84[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17418,7 +17420,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAEC0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_CORMAG,
@@ -17436,7 +17438,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAEC0[] = {
             ITEM_LANCE_STEEL,
             ITEM_ELYSIANWHIP,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -17452,7 +17454,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAEC0[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17472,7 +17474,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAF10[] = {
             ITEM_VULNERARY,
             ITEM_BOOSTER_SPD,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17490,7 +17492,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAF38[] = {
         .itemDrop = 1,
         .redaCount = 1,
         .redas = REDA_088BA8A8,
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -17640,7 +17642,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -17655,7 +17657,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -17670,7 +17672,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -17685,7 +17687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -17700,7 +17702,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -17880,7 +17882,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
             ITEM_AXE_SWORDSLAYER,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -17893,7 +17895,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -17906,7 +17908,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -17918,7 +17920,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -17930,7 +17932,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -17942,7 +17944,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -17954,7 +17956,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -17966,7 +17968,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -18002,7 +18004,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18014,7 +18016,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18026,7 +18028,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18038,7 +18040,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18062,7 +18064,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18074,7 +18076,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18086,7 +18088,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18098,7 +18100,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18110,7 +18112,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18122,7 +18124,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18134,7 +18136,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -18146,7 +18148,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -18158,7 +18160,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -18307,7 +18309,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .items = {
             ITEM_SWORD_ZANBATO,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -18320,7 +18322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -18334,7 +18336,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -18346,7 +18348,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18358,7 +18360,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18370,7 +18372,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18382,7 +18384,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -18394,7 +18396,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -18430,7 +18432,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18442,7 +18444,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18454,7 +18456,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18466,7 +18468,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18490,7 +18492,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18502,7 +18504,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18514,7 +18516,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18526,7 +18528,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18538,7 +18540,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18550,7 +18552,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18562,7 +18564,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -18574,7 +18576,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -18586,7 +18588,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -18735,7 +18737,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -18748,7 +18750,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -18761,7 +18763,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -18773,7 +18775,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18785,7 +18787,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18797,7 +18799,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18809,7 +18811,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -18821,7 +18823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -18857,7 +18859,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18869,7 +18871,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18881,7 +18883,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18893,7 +18895,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18917,7 +18919,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18929,7 +18931,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -18941,7 +18943,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18953,7 +18955,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18965,7 +18967,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18977,7 +18979,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -18989,7 +18991,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -19001,7 +19003,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -19013,7 +19015,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -19580,7 +19582,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LIGHT_LIGHTNING,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19593,7 +19595,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LIGHT_LIGHTNING,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19608,7 +19610,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_STAFF_BERSERK,
             ITEM_STAFF_MEND,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19621,7 +19623,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19634,7 +19636,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19647,7 +19649,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19660,7 +19662,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19673,7 +19675,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19686,7 +19688,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19699,7 +19701,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19712,7 +19714,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19727,7 +19729,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19740,7 +19742,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19753,7 +19755,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19766,7 +19768,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19779,7 +19781,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19794,7 +19796,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -19809,7 +19811,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -19822,7 +19824,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19835,7 +19837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19848,7 +19850,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19861,7 +19863,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19874,7 +19876,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19889,7 +19891,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_SWORD_KILLER,
             ITEM_HEROCREST,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19903,7 +19905,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19917,7 +19919,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19931,7 +19933,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_AXE_SWORDREAVER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19944,7 +19946,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19957,7 +19959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19970,7 +19972,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19983,7 +19985,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -19996,7 +19998,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20009,7 +20011,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20022,7 +20024,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20035,7 +20037,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20050,7 +20052,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -20065,7 +20067,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = CHARACTER_RENNAC,
@@ -20080,7 +20082,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
             ITEM_VULNERARY,
             ITEM_MEMBERCARD,
         },
-        .ai = {0x6, 0x5, 0x8, 0x0},
+        .ai = {LootingThiefAI, 0x8, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20093,7 +20095,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20106,7 +20108,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_CARLYLE,
@@ -20118,7 +20120,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_SWORD_WINDSWORD,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -20131,7 +20133,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -20149,7 +20151,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC008[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -20171,7 +20173,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC030[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -20186,7 +20188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC030[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -20201,7 +20203,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC030[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -20219,7 +20221,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC080[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20232,7 +20234,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC080[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -20252,7 +20254,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC0BC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20267,7 +20269,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC0BC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20282,7 +20284,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC0BC[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -20296,7 +20298,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC10C[] = {
         .level = 9,
         .xPosition = 9,
         .yPosition = 5,
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -20313,7 +20315,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC134[] = {
         .yPosition = 11,
         .redaCount = 2,
         .redas = REDA_088BBAD8,
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_LYON,
@@ -20325,7 +20327,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC134[] = {
         .yPosition = 11,
         .redaCount = 2,
         .redas = REDA_088BBAE8,
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -20345,7 +20347,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x84,
@@ -20361,7 +20363,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20376,7 +20378,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20389,7 +20391,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .items = {
             ITEM_BOW_SILVER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20404,7 +20406,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -20419,7 +20421,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -21229,7 +21231,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_LANCE_KILLER,
             ITEM_DELPHISHIELD,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -21242,7 +21244,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21256,7 +21258,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21269,7 +21271,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21283,7 +21285,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21296,7 +21298,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -21309,7 +21311,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21322,7 +21324,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21335,7 +21337,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -21349,7 +21351,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_SWORD_STEEL,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -21363,7 +21365,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_SWORD_STEEL,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21392,7 +21394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_STAFF_SLEEP,
             ITEM_STAFF_MEND,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21405,7 +21407,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21418,7 +21420,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21431,7 +21433,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21444,7 +21446,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21470,7 +21472,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21484,7 +21486,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_AXE_DEVIL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21499,7 +21501,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_DARK_ECLIPSE,
             ITEM_GUIDINGRING,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21512,7 +21514,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_BLADE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21526,7 +21528,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_CAELLACH,
@@ -21541,7 +21543,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_AXE_SILVER,
             ITEM_HOPLON_SHIELD,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -21567,7 +21569,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_BLADE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21580,7 +21582,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_BLADE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21595,7 +21597,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
             ITEM_AXE_DRAGON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21634,7 +21636,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_BLADE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21647,7 +21649,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_BLADE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21673,7 +21675,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21686,7 +21688,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21699,7 +21701,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21712,7 +21714,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21725,7 +21727,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21738,7 +21740,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21751,7 +21753,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -21769,7 +21771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCA48[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x82,
@@ -21782,7 +21784,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCA48[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -21795,7 +21797,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCA48[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x82,
@@ -21809,7 +21811,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCA48[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x82,
@@ -21823,7 +21825,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCA48[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -21836,7 +21838,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCA48[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -21908,7 +21910,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB24[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21924,7 +21926,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB24[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -21944,7 +21946,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB60[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21959,7 +21961,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB60[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -21979,7 +21981,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB9C[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -21994,7 +21996,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB9C[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -22014,7 +22016,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCBD8[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -22050,7 +22052,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -22065,7 +22067,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -22111,7 +22113,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -22153,7 +22155,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -22210,7 +22212,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCD04[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -22224,7 +22226,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCD04[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -22683,7 +22685,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
             ITEM_LANCE_SPEAR,
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x90,
@@ -22698,7 +22700,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
             ITEM_ANIMA_BOLTING,
             ITEM_REDGEM,
         },
-        .ai = {0x6, 0x3, 0x9, 0x0},
+        .ai = {DoNothing, 0x9, 0x0},
     },
     {
         .charIndex = 0x90,
@@ -22713,7 +22715,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
             ITEM_LIGHT_DIVINE,
             ITEM_LIGHT_PURGE,
         },
-        .ai = {0x6, 0x3, 0x9, 0x0},
+        .ai = {DoNothing, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22726,7 +22728,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22739,7 +22741,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22753,7 +22755,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22766,7 +22768,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22779,7 +22781,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22792,7 +22794,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22805,7 +22807,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22818,7 +22820,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22831,7 +22833,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -22844,7 +22846,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22857,7 +22859,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22870,7 +22872,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22885,7 +22887,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
             ITEM_SWORD_SILVER,
             ITEM_HEROCREST,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22899,7 +22901,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_STAFF_PHYSIC,
         },
-        .ai = {0xe, 0x3, 0x1, 0x0},
+        .ai = {HealUnits, 0x1, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22913,7 +22915,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
             ITEM_STAFF_PHYSIC,
             ITEM_VULNERARY,
         },
-        .ai = {0xe, 0x3, 0x1, 0x0},
+        .ai = {HealUnits, 0x1, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22929,7 +22931,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x8d,
@@ -22942,7 +22944,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22955,7 +22957,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22968,7 +22970,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_AXE_VENIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22981,7 +22983,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -22994,7 +22996,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23007,7 +23009,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23020,7 +23022,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23033,7 +23035,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23046,7 +23048,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23061,7 +23063,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
             ITEM_DARK_LUNA,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -23079,7 +23081,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD1B4[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23092,7 +23094,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD1B4[] = {
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23105,7 +23107,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD1B4[] = {
         .items = {
             ITEM_LANCE_KILLER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23118,7 +23120,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD1B4[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -23131,7 +23133,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD1B4[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -23144,7 +23146,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD1B4[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -23163,7 +23165,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
             ITEM_LANCE_SILVER,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23178,7 +23180,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23193,7 +23195,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23208,7 +23210,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -23233,7 +23235,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD2B8[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23248,7 +23250,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD2B8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23263,7 +23265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD2B8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -23283,7 +23285,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD308[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23298,7 +23300,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD308[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -23313,7 +23315,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD308[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -23371,7 +23373,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD3A8[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -25271,7 +25273,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25284,7 +25286,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25297,7 +25299,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25311,7 +25313,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_AXE_BRAVE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25324,7 +25326,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25339,7 +25341,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
             ITEM_ANIMA_ELFIRE,
             ITEM_GUIDINGRING,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25353,7 +25355,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_ANIMA_FIMBULVETR,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25366,7 +25368,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25379,7 +25381,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25392,7 +25394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25431,7 +25433,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25444,7 +25446,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25457,7 +25459,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25470,7 +25472,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_LYON,
@@ -25484,7 +25486,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
             ITEM_DARK_FENRIR,
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x8d,
@@ -25511,7 +25513,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
             ITEM_AXE_SILVER,
             ITEM_BOOSTER_DEF,
         },
-        .ai = {0x0, 0x3, 0xa, 0x0},
+        .ai = {AttackInRangeAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -25531,7 +25533,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
             ITEM_LANCE_SILVER,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0x0, 0x0},
+        .ai = {GuardTileAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xf7,
@@ -25542,7 +25544,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .yPosition = 5,
         .redaCount = 2,
         .redas = REDA_088BDD18,
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xf6,
@@ -25553,7 +25555,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .yPosition = 5,
         .redaCount = 1,
         .redas = REDA_088BDD28,
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xf5,
@@ -25564,7 +25566,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .yPosition = 5,
         .redaCount = 1,
         .redas = REDA_088BDD30,
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xf4,
@@ -25575,7 +25577,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .yPosition = 5,
         .redaCount = 1,
         .redas = REDA_088BDD38,
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     { 0 },
 };
@@ -25595,7 +25597,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE1DC[] = {
         .items = {
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25610,7 +25612,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE1DC[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25625,7 +25627,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE1DC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -25643,7 +25645,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE22C[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25656,7 +25658,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE22C[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -25676,7 +25678,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE268[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25691,7 +25693,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE268[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -25709,7 +25711,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE2A4[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25722,7 +25724,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE2A4[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -25740,7 +25742,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE2E0[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -25753,7 +25755,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE2E0[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -25773,7 +25775,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = CHARACHER_FRELIAN,
@@ -25891,7 +25893,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE3D0[] = {
         .items = {
             ITEM_ANIMA_FIMBULVETR,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0xc1,
@@ -25914,7 +25916,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE3D0[] = {
         .yPosition = 5,
         .redaCount = 1,
         .redas = REDA_088BDDD0,
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -25934,7 +25936,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -25946,7 +25948,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .yPosition = 6,
         .redaCount = 1,
         .redas = REDA_088BDDE0,
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -25958,7 +25960,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .yPosition = 6,
         .redaCount = 1,
         .redas = REDA_088BDDE8,
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACHER_FRELIAN,
@@ -26256,7 +26258,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -26270,7 +26272,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -26284,7 +26286,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
             ITEM_LANCE_BRAVE,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -26296,7 +26298,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -26308,7 +26310,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -26320,7 +26322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -26356,7 +26358,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26392,7 +26394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26416,7 +26418,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26428,7 +26430,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -26440,7 +26442,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -26476,7 +26478,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26488,7 +26490,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26512,7 +26514,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -26524,7 +26526,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -26536,7 +26538,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -26548,7 +26550,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -26560,7 +26562,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -26572,7 +26574,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -26584,7 +26586,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26736,7 +26738,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -26749,7 +26751,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -26762,7 +26764,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -26774,7 +26776,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -26786,7 +26788,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -26798,7 +26800,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -26834,7 +26836,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26870,7 +26872,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26894,7 +26896,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26906,7 +26908,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -26918,7 +26920,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -26954,7 +26956,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26966,7 +26968,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -26990,7 +26992,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -27002,7 +27004,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -27014,7 +27016,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -27026,7 +27028,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -27038,7 +27040,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -27050,7 +27052,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -27062,7 +27064,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -27214,7 +27216,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -27227,7 +27229,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -27240,7 +27242,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -27252,7 +27254,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -27264,7 +27266,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -27276,7 +27278,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -27312,7 +27314,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -27348,7 +27350,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -27372,7 +27374,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -27384,7 +27386,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -27396,7 +27398,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -27432,7 +27434,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -27444,7 +27446,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -27468,7 +27470,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -27480,7 +27482,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -27492,7 +27494,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -27504,7 +27506,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -27516,7 +27518,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -27528,7 +27530,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -27540,7 +27542,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -27937,7 +27939,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -27951,7 +27953,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -27966,7 +27968,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -27980,7 +27982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -27994,7 +27996,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28009,7 +28011,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28024,7 +28026,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28039,7 +28041,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28054,7 +28056,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28068,7 +28070,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28083,7 +28085,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28097,7 +28099,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28111,7 +28113,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28126,7 +28128,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28140,7 +28142,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x0, 0x4, 0x0},
+        .ai = {0x3, 0x0, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28155,7 +28157,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28170,7 +28172,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28184,7 +28186,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28199,7 +28201,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x0, 0x4, 0x0},
+        .ai = {0x3, 0x0, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -28213,7 +28215,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -28227,7 +28229,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xbb,
@@ -28241,7 +28243,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -28255,7 +28257,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb9,
@@ -28270,7 +28272,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -28284,7 +28286,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xbb,
@@ -28298,7 +28300,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x2, 0x3, 0x4, 0x0},
+        .ai = {0x2, 0x3, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb9,
@@ -28313,7 +28315,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xbb,
@@ -28328,7 +28330,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
             ITEM_LANCE_VENIN,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -28541,7 +28543,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF4D4[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28556,7 +28558,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF4D4[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28571,7 +28573,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF4D4[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28587,7 +28589,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF4D4[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28602,7 +28604,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF4D4[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -28618,7 +28620,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF4D4[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -28639,7 +28641,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF560[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -28655,7 +28657,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF560[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -28674,7 +28676,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF59C[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -28688,7 +28690,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF59C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -28709,7 +28711,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF5D8[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -28725,7 +28727,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF5D8[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x12, 0x4, 0x0},
+        .ai = {0x0, 0x12, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -28741,7 +28743,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF5D8[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x12, 0x4, 0x0},
+        .ai = {0x0, 0x12, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -28760,7 +28762,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF628[] = {
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -28781,7 +28783,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF650[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -28797,7 +28799,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF650[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -28818,7 +28820,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF68C[] = {
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -28947,7 +28949,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -28958,7 +28960,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 12,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -28969,7 +28971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 14,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -28980,7 +28982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 20,
         .yPosition = 26,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -28991,7 +28993,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 21,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29002,7 +29004,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 8,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29013,7 +29015,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 10,
         .yPosition = 13,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29024,7 +29026,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 14,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29035,7 +29037,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 16,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29046,7 +29048,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 19,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29057,7 +29059,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 20,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29068,7 +29070,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 9,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29079,7 +29081,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 16,
         .yPosition = 23,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29090,7 +29092,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 22,
         .yPosition = 20,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -29101,7 +29103,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 22,
         .yPosition = 24,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -29112,7 +29114,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 7,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -29123,7 +29125,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 7,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -29134,7 +29136,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 8,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -29145,7 +29147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 10,
         .yPosition = 16,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -29156,7 +29158,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 7,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -29167,7 +29169,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 22,
         .yPosition = 8,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -29178,7 +29180,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 8,
         .yPosition = 9,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -29189,7 +29191,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 19,
         .yPosition = 24,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -29200,7 +29202,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 18,
         .yPosition = 25,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -29211,7 +29213,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 18,
         .yPosition = 10,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -29222,7 +29224,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 13,
         .yPosition = 13,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -29233,7 +29235,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .xPosition = 14,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29247,7 +29249,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29261,7 +29263,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29275,7 +29277,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29289,7 +29291,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29302,7 +29304,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29316,7 +29318,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29329,7 +29331,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29342,7 +29344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29355,7 +29357,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29368,7 +29370,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -29495,7 +29497,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -29508,7 +29510,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -29521,7 +29523,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .items = {
             ITEM_LANCE_VENIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -29532,7 +29534,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .xPosition = 20,
         .yPosition = 26,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -29543,7 +29545,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .xPosition = 21,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29555,7 +29557,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29567,7 +29569,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29579,7 +29581,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29591,7 +29593,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29603,7 +29605,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29615,7 +29617,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29627,7 +29629,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29639,7 +29641,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -29651,7 +29653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -29663,7 +29665,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -29675,7 +29677,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -29687,7 +29689,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -29699,7 +29701,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -29711,7 +29713,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -29723,7 +29725,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -29735,7 +29737,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -29747,7 +29749,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -29759,7 +29761,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -29771,7 +29773,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -29783,7 +29785,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -29795,7 +29797,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -29807,7 +29809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29821,7 +29823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29835,7 +29837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29848,7 +29850,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29862,7 +29864,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29876,7 +29878,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29890,7 +29892,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29904,7 +29906,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29918,7 +29920,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29932,7 +29934,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -29945,7 +29947,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -30073,7 +30075,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -30086,7 +30088,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -30099,7 +30101,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -30110,7 +30112,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .xPosition = 20,
         .yPosition = 25,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -30121,7 +30123,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .xPosition = 21,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30133,7 +30135,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30145,7 +30147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30157,7 +30159,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30169,7 +30171,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30181,7 +30183,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30193,7 +30195,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30205,7 +30207,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30217,7 +30219,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -30229,7 +30231,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -30241,7 +30243,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -30253,7 +30255,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -30265,7 +30267,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -30277,7 +30279,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -30289,7 +30291,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -30301,7 +30303,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -30313,7 +30315,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -30325,7 +30327,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -30337,7 +30339,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -30349,7 +30351,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -30361,7 +30363,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -30373,7 +30375,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -30385,7 +30387,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30399,7 +30401,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30413,7 +30415,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30427,7 +30429,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30441,7 +30443,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30454,7 +30456,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30467,7 +30469,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30480,7 +30482,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30494,7 +30496,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30508,7 +30510,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -30522,7 +30524,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -30972,7 +30974,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_LIGHT_AURA,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -30985,7 +30987,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -30998,7 +31000,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31011,7 +31013,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31024,7 +31026,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31037,7 +31039,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31051,7 +31053,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
             ITEM_BOW_STEEL,
             ITEM_BOOSTER_LCK,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31064,7 +31066,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31077,7 +31079,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31090,7 +31092,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31103,7 +31105,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31117,7 +31119,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_LANCE_BRAVE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31130,7 +31132,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31144,7 +31146,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_SWORD_BRAVE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31157,7 +31159,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31170,7 +31172,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31183,7 +31185,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31197,7 +31199,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31211,7 +31213,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31225,7 +31227,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
             ITEM_AXE_STEEL,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31238,7 +31240,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31251,7 +31253,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31265,7 +31267,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_BOW_BRAVE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31278,7 +31280,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
         .items = {
             ITEM_BOW_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31306,7 +31308,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0600[] = {
         .level = 17,
         .xPosition = 16,
         .yPosition = 10,
-        .ai = {0x6, 0x3, 0x0, 0x20},
+        .ai = {DoNothing, 0x0, 0x20},
     },
     {
         .charIndex = 0xcd,
@@ -31321,7 +31323,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0600[] = {
             ITEM_AXE_SILVER,
             ITEM_BLADE_SILVER,
         },
-        .ai = {0x3, 0x3, 0x0, 0x20},
+        .ai = {GuardTileAI, 0x0, 0x20},
     },
     { 0 },
 };
@@ -31339,7 +31341,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -31353,7 +31355,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -31367,7 +31369,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -31380,7 +31382,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -31394,7 +31396,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -31408,7 +31410,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -31422,7 +31424,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -31436,7 +31438,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     { 0 },
 };
@@ -31494,7 +31496,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0740[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31509,7 +31511,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0740[] = {
         .items = {
             ITEM_BOW_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -31529,7 +31531,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C077C[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31544,7 +31546,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C077C[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -31562,7 +31564,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C07B8[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31575,7 +31577,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C07B8[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -31593,7 +31595,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C07F4[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31607,7 +31609,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C07F4[] = {
             ITEM_AXE_SILVER,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -31625,7 +31627,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0830[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31638,7 +31640,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0830[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31651,7 +31653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0830[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31665,7 +31667,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0830[] = {
             ITEM_SWORD_SILVER,
             ITEM_BOW_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -31685,7 +31687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0894[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31701,7 +31703,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0894[] = {
             ITEM_AXE_SILVER,
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31804,7 +31806,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0984[] = {
         .level = 5,
         .xPosition = 0,
         .yPosition = 24,
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -31817,7 +31819,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0984[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -32638,7 +32640,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LIGHT_AURA,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -32651,7 +32653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -32666,7 +32668,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_AXE_VENIN,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -32705,7 +32707,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -32718,7 +32720,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -32733,7 +32735,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_AXE_STEEL,
             ITEM_ANTITOXIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -32746,7 +32748,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_AXE_HALBERD,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -32759,7 +32761,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -32772,7 +32774,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -32787,7 +32789,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_ANTITOXIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -32800,7 +32802,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_VENIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -32839,7 +32841,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32853,7 +32855,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32866,7 +32868,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -32879,7 +32881,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -32892,7 +32894,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32905,7 +32907,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32918,7 +32920,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32931,7 +32933,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32945,7 +32947,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_SWORD_LANCEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32958,7 +32960,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32972,7 +32974,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -32986,7 +32988,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -32999,7 +33001,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -33013,7 +33015,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_AXE_SWORDSLAYER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -33028,7 +33030,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_BOW_SHORTBOW,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -33041,7 +33043,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -33054,7 +33056,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_AXE_HALBERD,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -33069,7 +33071,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -33083,7 +33085,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -33096,7 +33098,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_SWORD_ARMORSLAYER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -33110,7 +33112,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -33123,7 +33125,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -33136,7 +33138,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -33149,7 +33151,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_SWORD_LANCEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -33162,7 +33164,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -33175,7 +33177,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -33189,7 +33191,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -33203,7 +33205,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -33217,7 +33219,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -33231,7 +33233,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -33245,7 +33247,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33262,7 +33264,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C129C[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x3, 0x3, 0xc, 0x20},
+        .ai = {GuardTileAI, 0xc, 0x20},
     },
     { 0 },
 };
@@ -33281,7 +33283,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C12C4[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -33295,7 +33297,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C12C4[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -33309,7 +33311,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C12C4[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33329,7 +33331,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1314[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -33344,7 +33346,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1314[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33365,7 +33367,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1350[] = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33385,7 +33387,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1378[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -33400,7 +33402,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1378[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33421,7 +33423,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C13B4[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33441,7 +33443,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C13DC[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -33456,7 +33458,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C13DC[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33476,7 +33478,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1418[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -33492,7 +33494,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1418[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -33507,7 +33509,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1418[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33527,7 +33529,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1468[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -33543,7 +33545,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1468[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -33558,7 +33560,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1468[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33578,7 +33580,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C14B8[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -33593,7 +33595,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C14B8[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -33608,7 +33610,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C14B8[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33628,7 +33630,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1508[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -33678,7 +33680,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1558[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -33693,7 +33695,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1558[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33713,7 +33715,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1594[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33733,7 +33735,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15BC[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33754,7 +33756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15E4[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -33770,7 +33772,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15E4[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -33785,7 +33787,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15E4[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -33908,7 +33910,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C172C[] = {
         .yPosition = 23,
         .redaCount = 1,
         .redas = REDA_088C1710,
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -34271,7 +34273,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_DARK_NAGLFAR,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0xb9,
@@ -34285,7 +34287,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -34299,7 +34301,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -34312,7 +34314,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -34325,7 +34327,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -34338,7 +34340,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -34351,7 +34353,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -34364,7 +34366,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_AXE_SWORDREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34379,7 +34381,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
             ITEM_SWORD_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34392,7 +34394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34405,7 +34407,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34418,7 +34420,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34459,7 +34461,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34474,7 +34476,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34487,7 +34489,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34500,7 +34502,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -34513,7 +34515,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -34526,7 +34528,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34539,7 +34541,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34552,7 +34554,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34565,7 +34567,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -34579,7 +34581,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -34593,7 +34595,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -34606,7 +34608,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -34619,7 +34621,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34658,7 +34660,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34671,7 +34673,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -34684,7 +34686,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -34697,7 +34699,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -34710,7 +34712,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -34724,7 +34726,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -34738,7 +34740,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -34758,7 +34760,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -34773,7 +34775,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -34788,7 +34790,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -34803,7 +34805,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -34818,7 +34820,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -34838,7 +34840,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -34853,7 +34855,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -34868,7 +34870,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -34883,7 +34885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -34902,7 +34904,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1CE0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34916,7 +34918,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1CE0[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -34930,7 +34932,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1CE0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -34950,7 +34952,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -34965,7 +34967,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -34980,7 +34982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -34995,7 +34997,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -35010,7 +35012,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -35040,7 +35042,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -35487,7 +35489,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2098[] = {
             ITEM_RAVAGER,
             ITEM_NIGHTMARE,
         },
-        .ai = {0x14, 0x3, 0x9, 0x0},
+        .ai = {DemonKingAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -36228,7 +36230,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_KILLER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -36242,7 +36244,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
             ITEM_STAFF_SLEEP,
             ITEM_STAFF_HEAL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36257,7 +36259,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
             ITEM_ANIMA_THUNDER,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36270,7 +36272,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36284,7 +36286,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
             ITEM_BOW_LONGBOW,
             ITEM_REDGEM,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36298,7 +36300,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36312,7 +36314,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36325,7 +36327,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36338,7 +36340,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36364,7 +36366,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36377,7 +36379,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36390,7 +36392,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36403,7 +36405,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36416,7 +36418,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36431,7 +36433,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36446,7 +36448,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -36459,7 +36461,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36472,7 +36474,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36485,7 +36487,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36498,7 +36500,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36511,7 +36513,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -36525,7 +36527,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -36538,7 +36540,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36551,7 +36553,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36564,7 +36566,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36590,7 +36592,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36603,7 +36605,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .items = {
             ITEM_BLADE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -36623,7 +36625,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .items = {
             ITEM_SWORD_ARMORSLAYER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36640,7 +36642,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
             ITEM_STAFF_PHYSIC,
             ITEM_STAFF_HEAL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36655,7 +36657,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36670,7 +36672,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .items = {
             ITEM_BOW_SHORTBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36686,7 +36688,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36701,7 +36703,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -36719,7 +36721,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C269C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_AMELIA,
@@ -36733,7 +36735,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C269C[] = {
             ITEM_BOOSTER_SPD,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -36765,7 +36767,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C26D8[] = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     { 0 },
 };
@@ -36785,7 +36787,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2714[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36801,7 +36803,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2714[] = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36816,7 +36818,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2714[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -36834,7 +36836,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2764[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -36852,7 +36854,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C278C[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36865,7 +36867,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C278C[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -36883,7 +36885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C27C8[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36896,7 +36898,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C27C8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36909,7 +36911,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C27C8[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -36922,7 +36924,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C27C8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -36968,7 +36970,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2868[] = {
         .itemDrop = 1,
         .redaCount = 3,
         .redas = REDA_088C2278,
-        .ai = {0x0, 0x0, 0x0, 0x20},
+        .ai = {DefaultAI, 0x0, 0x20},
     },
     { 0 },
 };
@@ -36986,7 +36988,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2890[] = {
             ITEM_LANCE_SLIM,
             ITEM_BOOSTER_LCK,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_SOLDIER_83,
@@ -36997,7 +36999,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2890[] = {
         .xPosition = 20,
         .yPosition = 8,
         .itemDrop = 1,
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -37855,7 +37857,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D44[] = {
             ITEM_ANIMA_BOLTING,
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     { 0 },
 };
@@ -37875,7 +37877,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -37906,7 +37908,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
         .items = {
             ITEM_BOW_KILLER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -37970,7 +37972,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2DF8[] = {
             ITEM_BOW_KILLER,
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     { 0 },
 };
@@ -37988,7 +37990,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38001,7 +38003,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38014,7 +38016,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38027,7 +38029,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38040,7 +38042,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38053,7 +38055,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38105,7 +38107,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
         .items = {
             ITEM_BALLISTA_REGULAR,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38135,7 +38137,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_HORSESLAYER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38150,7 +38152,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38163,7 +38165,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -38243,7 +38245,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
             ITEM_LANCE_STEEL,
             ITEM_VULNERARY,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x89,
@@ -38259,7 +38261,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x3, 0x3, 0xb, 0x0},
+        .ai = {GuardTileAI, 0xb, 0x0},
     },
     {
         .charIndex = 0x8a,
@@ -38275,7 +38277,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
             ITEM_SWORD_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x3, 0x3, 0xb, 0x0},
+        .ai = {GuardTileAI, 0xb, 0x0},
     },
     {
         .charIndex = 0x8b,
@@ -38291,7 +38293,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x3, 0x3, 0xb, 0x0},
+        .ai = {GuardTileAI, 0xb, 0x0},
     },
     { 0 },
 };
@@ -38309,7 +38311,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3014[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38322,7 +38324,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3014[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -38342,7 +38344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3050[] = {
             ITEM_LANCE_KILLER,
             ITEM_ELYSIANWHIP,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_SOLDIER_83,
@@ -38357,7 +38359,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3050[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_SOLDIER_83,
@@ -38372,7 +38374,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3050[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -38392,7 +38394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38407,7 +38409,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38422,7 +38424,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38438,7 +38440,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38453,7 +38455,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -38521,7 +38523,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3168[] = {
         .level = 5,
         .xPosition = 11,
         .yPosition = 13,
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -38531,7 +38533,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3168[] = {
         .level = 5,
         .xPosition = 10,
         .yPosition = 12,
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -38541,7 +38543,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3168[] = {
         .level = 5,
         .xPosition = 9,
         .yPosition = 12,
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -38551,7 +38553,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3168[] = {
         .level = 5,
         .xPosition = 10,
         .yPosition = 14,
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     { 0 },
 };
@@ -38768,7 +38770,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3334[] = {
         .yPosition = 11,
         .redaCount = 1,
         .redas = REDA_088C2BF4,
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -38785,7 +38787,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C335C[] = {
         .yPosition = 11,
         .redaCount = 1,
         .redas = REDA_088C2BFC,
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -38802,7 +38804,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3384[] = {
         .yPosition = 13,
         .redaCount = 1,
         .redas = REDA_088C2C04,
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -39011,7 +39013,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -39024,7 +39026,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -39037,7 +39039,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39049,7 +39051,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39061,7 +39063,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -39073,7 +39075,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39085,7 +39087,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39097,7 +39099,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -39109,7 +39111,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39121,7 +39123,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39133,7 +39135,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39145,7 +39147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39157,7 +39159,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -39169,7 +39171,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39181,7 +39183,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39205,7 +39207,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39217,7 +39219,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39229,7 +39231,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -39253,7 +39255,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -39265,7 +39267,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -39277,7 +39279,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -39418,7 +39420,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -39432,7 +39434,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -39445,7 +39447,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .items = {
             ITEM_AXE_SWORDREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39457,7 +39459,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39469,7 +39471,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -39481,7 +39483,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39493,7 +39495,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39505,7 +39507,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -39517,7 +39519,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39529,7 +39531,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39541,7 +39543,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39553,7 +39555,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39565,7 +39567,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -39577,7 +39579,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39589,7 +39591,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39613,7 +39615,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39625,7 +39627,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39637,7 +39639,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -39661,7 +39663,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -39673,7 +39675,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -39685,7 +39687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -39825,7 +39827,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -39838,7 +39840,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -39851,7 +39853,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39863,7 +39865,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39875,7 +39877,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -39887,7 +39889,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39899,7 +39901,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39911,7 +39913,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -39923,7 +39925,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39935,7 +39937,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39947,7 +39949,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39959,7 +39961,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -39971,7 +39973,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -39983,7 +39985,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -39995,7 +39997,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -40019,7 +40021,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -40031,7 +40033,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -40043,7 +40045,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -40067,7 +40069,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -40079,7 +40081,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -40091,7 +40093,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -40620,7 +40622,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -40633,7 +40635,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -40646,7 +40648,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -40659,7 +40661,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -40672,7 +40674,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -40685,7 +40687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -40698,7 +40700,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -40711,7 +40713,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -40724,7 +40726,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -40737,7 +40739,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -40758,7 +40760,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C401C[] = {
             ITEM_AXE_BATTLEAXE,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x3, 0x8, 0x0},
+        .ai = {AttackInRangeAI, 0x8, 0x0},
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -40774,7 +40776,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C401C[] = {
             ITEM_WHITEGEM,
             ITEM_ELIXIR,
         },
-        .ai = {0xe, 0x3, 0x0, 0x0},
+        .ai = {HealUnits, 0x0, 0x0},
     },
     { 0 },
 };
@@ -40792,7 +40794,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -40805,7 +40807,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -40818,7 +40820,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -40831,7 +40833,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -40844,7 +40846,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -40857,7 +40859,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -40870,7 +40872,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -40883,7 +40885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -40896,7 +40898,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -40909,7 +40911,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -40922,7 +40924,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -40935,7 +40937,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -40954,7 +40956,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -40967,7 +40969,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -40980,7 +40982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -40993,7 +40995,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -41006,7 +41008,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -41019,7 +41021,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -41032,7 +41034,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -41045,7 +41047,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -41058,7 +41060,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -41122,7 +41124,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4260[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -41137,7 +41139,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4260[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -41308,7 +41310,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C43F0[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -41322,7 +41324,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C43F0[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -41341,7 +41343,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C442C[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -41355,7 +41357,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C442C[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -41385,7 +41387,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4490[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -41400,7 +41402,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4490[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -41420,7 +41422,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C44CC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -41435,7 +41437,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C44CC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -41933,7 +41935,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
             ITEM_AXE_SILVER,
             ITEM_HOPLON_SHIELD,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -41946,7 +41948,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x82,
@@ -41959,7 +41961,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -41972,7 +41974,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -41985,7 +41987,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -41998,7 +42000,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42011,7 +42013,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42024,7 +42026,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42037,7 +42039,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42050,7 +42052,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42063,7 +42065,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42076,7 +42078,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_BOW_KILLER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_MARISA,
@@ -42089,7 +42091,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
             ITEM_SWORD_SHAMSIR,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42102,7 +42104,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42115,7 +42117,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42129,7 +42131,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42168,7 +42170,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42183,7 +42185,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
             ITEM_DARK_LUNA,
             ITEM_GUIDINGRING,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42196,7 +42198,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42209,7 +42211,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42222,7 +42224,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42235,7 +42237,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42248,7 +42250,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42263,7 +42265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42278,7 +42280,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42293,7 +42295,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42308,7 +42310,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42323,7 +42325,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42338,7 +42340,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42354,7 +42356,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42369,7 +42371,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42384,7 +42386,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42399,7 +42401,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42414,7 +42416,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42469,7 +42471,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_SWORDSLAYER,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -42484,7 +42486,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -42499,7 +42501,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -42514,7 +42516,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -42529,7 +42531,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -42544,7 +42546,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -42564,7 +42566,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4B68[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -42579,7 +42581,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4B68[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -42594,7 +42596,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4B68[] = {
         .items = {
             ITEM_LANCE_VENIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -42614,7 +42616,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BB8[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -42629,7 +42631,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BB8[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -42649,7 +42651,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BF4[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -42697,7 +42699,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4C44[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -42710,7 +42712,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4C44[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -42728,7 +42730,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4C80[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -42746,7 +42748,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4CA8[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -42764,7 +42766,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4CD0[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -42777,7 +42779,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4CD0[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -43186,7 +43188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FA4[] = {
             ITEM_ANIMA_BOLTING,
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     { 0 },
 };
@@ -43204,7 +43206,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43217,7 +43219,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43233,7 +43235,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
             ITEM_STAFF_MEND,
             ITEM_BOOSTER_POW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x20},
+        .ai = {AttackInRangeAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -43259,7 +43261,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43272,7 +43274,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43285,7 +43287,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43298,7 +43300,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43324,7 +43326,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43337,7 +43339,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43350,7 +43352,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43364,7 +43366,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_DRAGON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43377,7 +43379,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43390,7 +43392,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43403,7 +43405,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43418,7 +43420,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_HALBERD,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43431,7 +43433,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43444,7 +43446,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43457,7 +43459,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43470,7 +43472,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43483,7 +43485,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_BOW_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43496,7 +43498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43509,7 +43511,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43522,7 +43524,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43535,7 +43537,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43548,7 +43550,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43561,7 +43563,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43576,7 +43578,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
             ITEM_AXE_HANDAXE,
             ITEM_REDGEM,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43589,7 +43591,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_AXE_KILLER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43602,7 +43604,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43615,7 +43617,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43629,7 +43631,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
             ITEM_ANIMA_ELFIRE,
             ITEM_BOOSTER_SPD,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43642,7 +43644,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
         .items = {
             ITEM_LANCE_KILLER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -43732,7 +43734,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5314[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43746,7 +43748,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5314[] = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -43765,7 +43767,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5350[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -43950,7 +43952,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43963,7 +43965,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43976,7 +43978,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -43989,7 +43991,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -44002,7 +44004,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_LANCE_KILLER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -44015,7 +44017,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -44028,7 +44030,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -44041,7 +44043,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -44055,7 +44057,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
         .items = {
             ITEM_SWORD_ZANBATO,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -44196,7 +44198,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -44210,7 +44212,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -44224,7 +44226,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
             ITEM_AXE_SWORDSLAYER,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44236,7 +44238,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44248,7 +44250,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44260,7 +44262,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44272,7 +44274,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44284,7 +44286,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44296,7 +44298,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -44308,7 +44310,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -44320,7 +44322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -44344,7 +44346,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -44368,7 +44370,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44380,7 +44382,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -44392,7 +44394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44404,7 +44406,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -44416,7 +44418,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44428,7 +44430,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44440,7 +44442,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44464,7 +44466,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44476,7 +44478,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44488,7 +44490,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -44500,7 +44502,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -44512,7 +44514,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -44665,7 +44667,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -44678,7 +44680,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -44691,7 +44693,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44703,7 +44705,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44715,7 +44717,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44727,7 +44729,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44739,7 +44741,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44751,7 +44753,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -44763,7 +44765,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -44775,7 +44777,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -44787,7 +44789,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -44811,7 +44813,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -44835,7 +44837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44847,7 +44849,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -44859,7 +44861,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44871,7 +44873,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -44883,7 +44885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44895,7 +44897,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44907,7 +44909,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44931,7 +44933,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44943,7 +44945,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -44955,7 +44957,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -44967,7 +44969,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -44979,7 +44981,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -45131,7 +45133,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -45144,7 +45146,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -45157,7 +45159,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -45169,7 +45171,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -45181,7 +45183,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -45193,7 +45195,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -45205,7 +45207,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -45217,7 +45219,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -45229,7 +45231,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -45241,7 +45243,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -45253,7 +45255,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -45277,7 +45279,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -45301,7 +45303,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -45313,7 +45315,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -45325,7 +45327,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -45337,7 +45339,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -45349,7 +45351,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -45361,7 +45363,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -45373,7 +45375,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -45397,7 +45399,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -45409,7 +45411,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -45421,7 +45423,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -45433,7 +45435,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -45445,7 +45447,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -45813,7 +45815,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60C0[] = {
             ITEM_LANCE_SPEAR,
             ITEM_KNIGHTCREST,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = CHARACTER_LYON,
@@ -45842,7 +45844,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_STAFF_SILENCE,
             ITEM_LIGHT_SHINE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45857,7 +45859,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_STAFF_SLEEP,
             ITEM_LIGHT_SHINE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45871,7 +45873,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_DARK_LUNA,
             ITEM_STAFF_BERSERK,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45887,7 +45889,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_STAFF_BERSERK,
             ITEM_REDGEM,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45901,7 +45903,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_DARK_LUNA,
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45916,7 +45918,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_DARK_LUNA,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45931,7 +45933,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_DARK_LUNA,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45944,7 +45946,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45957,7 +45959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45970,7 +45972,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45984,7 +45986,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_SWORD_ARMORSLAYER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -45997,7 +45999,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46010,7 +46012,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46026,7 +46028,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -46092,7 +46094,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_AXE_SWORDREAVER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46105,7 +46107,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46119,7 +46121,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46133,7 +46135,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46146,7 +46148,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46162,7 +46164,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -46178,7 +46180,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -46192,7 +46194,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_BOW_LONGBOW,
             ITEM_BOOSTER_CON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46205,7 +46207,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46218,7 +46220,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_SWORD_LANCEREAVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46231,7 +46233,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46244,7 +46246,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46257,7 +46259,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46270,7 +46272,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46283,7 +46285,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46296,7 +46298,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46309,7 +46311,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46322,7 +46324,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46336,7 +46338,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46350,7 +46352,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46364,7 +46366,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46378,7 +46380,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46392,7 +46394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46432,7 +46434,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C646C[] = {
             ITEM_ELIXIR,
             ITEM_MEMBERCARD,
         },
-        .ai = {0x6, 0x5, 0x8, 0x0},
+        .ai = {LootingThiefAI, 0x8, 0x0},
     },
     { 0 },
 };
@@ -46453,7 +46455,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6494[] = {
         .items = {
             ITEM_AXE_HAMMER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46468,7 +46470,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6494[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46488,7 +46490,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C64D0[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46503,7 +46505,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C64D0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46523,7 +46525,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C650C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46538,7 +46540,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C650C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46558,7 +46560,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6548[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46573,7 +46575,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6548[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46591,7 +46593,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6584[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46604,7 +46606,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6584[] = {
         .items = {
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46625,7 +46627,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C65C0[] = {
             ITEM_STAFF_PHYSIC,
             ITEM_STAFF_MEND,
         },
-        .ai = {0xe, 0x3, 0x8, 0x0},
+        .ai = {HealUnits, 0x8, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46640,7 +46642,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C65C0[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46655,7 +46657,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C65C0[] = {
         .items = {
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46676,7 +46678,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6610[] = {
             ITEM_STAFF_PHYSIC,
             ITEM_STAFF_MEND,
         },
-        .ai = {0xe, 0x3, 0x8, 0x0},
+        .ai = {HealUnits, 0x8, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46691,7 +46693,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6610[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46706,7 +46708,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6610[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46849,7 +46851,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67A0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46864,7 +46866,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67A0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46884,7 +46886,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67DC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46899,7 +46901,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67DC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46919,7 +46921,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6818[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46934,7 +46936,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6818[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -46954,7 +46956,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6854[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -46969,7 +46971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6854[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -48063,7 +48065,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_LANCE_KILLER,
             ITEM_DELPHISHIELD,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -48076,7 +48078,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48090,7 +48092,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48103,7 +48105,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48117,7 +48119,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48130,7 +48132,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -48143,7 +48145,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x82,
@@ -48156,7 +48158,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -48169,7 +48171,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x82,
@@ -48183,7 +48185,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x82,
@@ -48197,7 +48199,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -48210,7 +48212,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -48223,7 +48225,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48236,7 +48238,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48249,7 +48251,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -48263,7 +48265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_SWORD_STEEL,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x81,
@@ -48277,7 +48279,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_SWORD_STEEL,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48306,7 +48308,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_STAFF_BERSERK,
             ITEM_STAFF_MEND,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48319,7 +48321,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48332,7 +48334,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48372,7 +48374,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_AXE_DEVIL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48387,7 +48389,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_DARK_ECLIPSE,
             ITEM_GUIDINGRING,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48428,7 +48430,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_AXE_DRAGON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48441,7 +48443,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_AXE_HAMMER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48480,7 +48482,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48506,7 +48508,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48519,7 +48521,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48532,7 +48534,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48545,7 +48547,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48573,7 +48575,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
             ITEM_AXE_SILVER,
             ITEM_HOPLON_SHIELD,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x80,
@@ -48586,7 +48588,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48599,7 +48601,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48613,7 +48615,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -48663,7 +48665,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7274[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -48733,7 +48735,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7314[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48748,7 +48750,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7314[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -48768,7 +48770,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7350[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48784,7 +48786,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7350[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -48804,7 +48806,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C738C[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48819,7 +48821,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C738C[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48834,7 +48836,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C738C[] = {
         .items = {
             ITEM_ANIMA_THUNDER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -48870,7 +48872,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48885,7 +48887,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48931,7 +48933,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -48973,7 +48975,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -48991,7 +48993,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C74A4[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x80,
@@ -49005,7 +49007,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C74A4[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -49164,7 +49166,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C75D0[] = {
         .level = 6,
         .xPosition = 6,
         .yPosition = 2,
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -49414,7 +49416,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_SWORD_RUNESWORD,
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x91,
@@ -49428,7 +49430,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_DARK_NOSFERATU,
             ITEM_DARK_ECLIPSE,
         },
-        .ai = {0x6, 0x3, 0x9, 0x0},
+        .ai = {DoNothing, 0x9, 0x0},
     },
     {
         .charIndex = 0x91,
@@ -49442,7 +49444,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_DARK_LUNA,
             ITEM_DARK_ECLIPSE,
         },
-        .ai = {0x6, 0x3, 0x9, 0x0},
+        .ai = {DoNothing, 0x9, 0x0},
     },
     {
         .charIndex = 0x91,
@@ -49456,7 +49458,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_DARK_NOSFERATU,
             ITEM_DARK_ECLIPSE,
         },
-        .ai = {0x6, 0x3, 0x9, 0x0},
+        .ai = {DoNothing, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -49471,7 +49473,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_AXE_STEEL,
             ITEM_HEROCREST,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -49484,7 +49486,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -49497,7 +49499,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -49510,7 +49512,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -49523,7 +49525,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -49536,7 +49538,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -49549,7 +49551,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -49562,7 +49564,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x90,
@@ -49575,7 +49577,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x90,
@@ -49588,7 +49590,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LIGHT_LIGHTNING,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x90,
@@ -49601,7 +49603,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LIGHT_LIGHTNING,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x90,
@@ -49614,7 +49616,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x3, 0x3, 0x2, 0x0},
+        .ai = {GuardTileAI, 0x2, 0x0},
     },
     {
         .charIndex = 0x90,
@@ -49627,7 +49629,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x3, 0x3, 0x2, 0x0},
+        .ai = {GuardTileAI, 0x2, 0x0},
     },
     {
         .charIndex = 0x90,
@@ -49640,7 +49642,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49655,7 +49657,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x3, 0x3, 0x2, 0x20},
+        .ai = {GuardTileAI, 0x2, 0x20},
     },
     {
         .charIndex = 0x8d,
@@ -49668,7 +49670,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0x2, 0x0},
+        .ai = {GuardTileAI, 0x2, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49681,7 +49683,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49694,7 +49696,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_ANIMA_FIRE,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49707,7 +49709,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LIGHT_LIGHTNING,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49720,7 +49722,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LIGHT_LIGHTNING,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49762,7 +49764,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x3, 0x3, 0x2, 0x0},
+        .ai = {GuardTileAI, 0x2, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49775,7 +49777,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x3, 0x3, 0x2, 0x0},
+        .ai = {GuardTileAI, 0x2, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49790,7 +49792,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
         },
-        .ai = {0x3, 0x3, 0x2, 0x20},
+        .ai = {GuardTileAI, 0x2, 0x20},
     },
     {
         .charIndex = 0x8d,
@@ -49805,7 +49807,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_DARK_LUNA,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49818,7 +49820,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49831,7 +49833,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49844,7 +49846,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49857,7 +49859,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49870,7 +49872,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49883,7 +49885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49897,7 +49899,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
             ITEM_STAFF_BERSERK,
             ITEM_STAFF_MEND,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -49917,7 +49919,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A44[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49932,7 +49934,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A44[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -49957,7 +49959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49972,7 +49974,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -49987,7 +49989,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50002,7 +50004,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50016,7 +50018,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
             ITEM_AXE_STEEL,
             ITEM_REDGEM,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -50035,7 +50037,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B0C[] = {
             ITEM_ANIMA_ELFIRE,
             ITEM_STAFF_SLEEP,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -50050,7 +50052,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B0C[] = {
             ITEM_LIGHT_DIVINE,
             ITEM_LIGHT_PURGE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -50070,7 +50072,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50085,7 +50087,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50100,7 +50102,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
         .items = {
             ITEM_LIGHT_DIVINE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50115,7 +50117,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -50134,7 +50136,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BAC[] = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
         },
-        .ai = {0x6, 0x5, 0x9, 0x0},
+        .ai = {LootingThiefAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -50153,7 +50155,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BD4[] = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
         },
-        .ai = {0x6, 0x5, 0x9, 0x0},
+        .ai = {LootingThiefAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -50171,7 +50173,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BFC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -50184,7 +50186,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BFC[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -50197,7 +50199,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BFC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x2, 0x0},
+        .ai = {AttackInRangeAI, 0x2, 0x0},
     },
     {
         .charIndex = 0x8f,
@@ -50210,7 +50212,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BFC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0x2, 0x0},
+        .ai = {AttackInRangeAI, 0x2, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50223,7 +50225,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BFC[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -50517,7 +50519,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50530,7 +50532,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50543,7 +50545,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50557,7 +50559,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_AXE_BRAVE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50570,7 +50572,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50585,7 +50587,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
             ITEM_ANIMA_ELFIRE,
             ITEM_GUIDINGRING,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50599,7 +50601,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_ANIMA_FIMBULVETR,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50612,7 +50614,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50625,7 +50627,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50638,7 +50640,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_LANCE_SLIM,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50677,7 +50679,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x3, 0x9, 0x0},
+        .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50690,7 +50692,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50703,7 +50705,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50716,7 +50718,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = CHARACTER_LYON,
@@ -50730,7 +50732,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
             ITEM_DARK_FENRIR,
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0x8d,
@@ -50757,7 +50759,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
             ITEM_AXE_BATTLEAXE,
             ITEM_BOOSTER_DEF,
         },
-        .ai = {0x0, 0x3, 0xa, 0x0},
+        .ai = {AttackInRangeAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -50777,7 +50779,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FA8[] = {
         .items = {
             ITEM_DARK_NOSFERATU,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50792,7 +50794,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FA8[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50807,7 +50809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FA8[] = {
         .items = {
             ITEM_DARK_FLUX,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -50825,7 +50827,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FF8[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50838,7 +50840,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FF8[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -50858,7 +50860,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8034[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50873,7 +50875,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8034[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -50891,7 +50893,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8070[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50904,7 +50906,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8070[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -50922,7 +50924,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C80AC[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -50935,7 +50937,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C80AC[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0xa, 0x0},
+        .ai = {DefaultAI, 0xa, 0x0},
     },
     { 0 },
 };
@@ -51075,7 +51077,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -51089,7 +51091,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -51103,7 +51105,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
             ITEM_LANCE_BRAVE,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -51115,7 +51117,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -51127,7 +51129,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -51139,7 +51141,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -51175,7 +51177,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51211,7 +51213,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51235,7 +51237,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51247,7 +51249,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -51259,7 +51261,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -51295,7 +51297,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51307,7 +51309,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51331,7 +51333,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -51343,7 +51345,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -51355,7 +51357,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -51367,7 +51369,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -51379,7 +51381,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -51391,7 +51393,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -51403,7 +51405,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51555,7 +51557,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -51568,7 +51570,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -51581,7 +51583,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -51593,7 +51595,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -51605,7 +51607,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -51617,7 +51619,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -51653,7 +51655,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51689,7 +51691,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51713,7 +51715,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51725,7 +51727,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -51737,7 +51739,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -51773,7 +51775,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51785,7 +51787,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -51809,7 +51811,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -51821,7 +51823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -51833,7 +51835,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -51845,7 +51847,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -51857,7 +51859,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -51869,7 +51871,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -51881,7 +51883,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -52033,7 +52035,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -52046,7 +52048,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -52059,7 +52061,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -52071,7 +52073,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -52083,7 +52085,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -52095,7 +52097,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -52131,7 +52133,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -52167,7 +52169,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -52191,7 +52193,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -52203,7 +52205,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -52215,7 +52217,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -52251,7 +52253,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -52263,7 +52265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -52287,7 +52289,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -52299,7 +52301,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -52311,7 +52313,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -52323,7 +52325,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -52335,7 +52337,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -52347,7 +52349,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -52359,7 +52361,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -52679,7 +52681,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52693,7 +52695,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52708,7 +52710,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52722,7 +52724,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52736,7 +52738,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52751,7 +52753,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52766,7 +52768,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52781,7 +52783,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52796,7 +52798,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52810,7 +52812,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52825,7 +52827,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52839,7 +52841,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52853,7 +52855,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52868,7 +52870,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52882,7 +52884,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x0, 0x4, 0x0},
+        .ai = {0x3, 0x0, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52897,7 +52899,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52912,7 +52914,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52926,7 +52928,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -52941,7 +52943,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x0, 0x4, 0x0},
+        .ai = {0x3, 0x0, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -52955,7 +52957,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -52969,7 +52971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xbb,
@@ -52983,7 +52985,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -52997,7 +52999,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb9,
@@ -53012,7 +53014,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb7,
@@ -53026,7 +53028,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xbb,
@@ -53040,7 +53042,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x2, 0x3, 0x4, 0x0},
+        .ai = {0x2, 0x3, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb9,
@@ -53055,7 +53057,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xbb,
@@ -53070,7 +53072,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
             ITEM_LANCE_VENIN,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -53209,7 +53211,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8F24[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53224,7 +53226,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8F24[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53239,7 +53241,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8F24[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53255,7 +53257,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8F24[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53270,7 +53272,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8F24[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53286,7 +53288,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8F24[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0x4, 0x0},
+        .ai = {GuardTileAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -53307,7 +53309,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8FB0[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -53323,7 +53325,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8FB0[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -53342,7 +53344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8FEC[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -53356,7 +53358,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8FEC[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -53377,7 +53379,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9028[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -53393,7 +53395,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9028[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x12, 0x4, 0x0},
+        .ai = {0x0, 0x12, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -53409,7 +53411,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9028[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x12, 0x4, 0x0},
+        .ai = {0x0, 0x12, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -53428,7 +53430,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9078[] = {
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -53449,7 +53451,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C90A0[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb0,
@@ -53465,7 +53467,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C90A0[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -53486,7 +53488,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C90DC[] = {
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     { 0 },
 };
@@ -53615,7 +53617,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -53626,7 +53628,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 12,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -53637,7 +53639,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 14,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -53648,7 +53650,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 20,
         .yPosition = 26,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -53659,7 +53661,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 21,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53670,7 +53672,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 8,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53681,7 +53683,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 10,
         .yPosition = 13,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53692,7 +53694,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 14,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53703,7 +53705,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 16,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53714,7 +53716,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 19,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53725,7 +53727,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 20,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53736,7 +53738,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 9,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53747,7 +53749,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 16,
         .yPosition = 23,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -53758,7 +53760,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 22,
         .yPosition = 20,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -53769,7 +53771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 22,
         .yPosition = 24,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -53780,7 +53782,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 7,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -53791,7 +53793,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 7,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -53802,7 +53804,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 8,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -53813,7 +53815,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 10,
         .yPosition = 16,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -53824,7 +53826,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 7,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -53835,7 +53837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 22,
         .yPosition = 8,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -53846,7 +53848,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 8,
         .yPosition = 9,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -53857,7 +53859,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 19,
         .yPosition = 24,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -53868,7 +53870,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 18,
         .yPosition = 25,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -53879,7 +53881,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 18,
         .yPosition = 10,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -53890,7 +53892,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 13,
         .yPosition = 13,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -53901,7 +53903,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .xPosition = 14,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53915,7 +53917,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53929,7 +53931,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53943,7 +53945,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53957,7 +53959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53970,7 +53972,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53984,7 +53986,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -53997,7 +53999,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54010,7 +54012,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54023,7 +54025,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54036,7 +54038,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -54163,7 +54165,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -54176,7 +54178,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -54189,7 +54191,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .items = {
             ITEM_LANCE_VENIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -54200,7 +54202,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .xPosition = 20,
         .yPosition = 26,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -54211,7 +54213,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .xPosition = 21,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54223,7 +54225,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54235,7 +54237,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54247,7 +54249,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54259,7 +54261,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54271,7 +54273,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54283,7 +54285,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54295,7 +54297,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54307,7 +54309,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54319,7 +54321,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -54331,7 +54333,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -54343,7 +54345,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -54355,7 +54357,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -54367,7 +54369,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -54379,7 +54381,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -54391,7 +54393,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -54403,7 +54405,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -54415,7 +54417,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -54427,7 +54429,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -54439,7 +54441,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -54451,7 +54453,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -54463,7 +54465,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -54475,7 +54477,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54489,7 +54491,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54503,7 +54505,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54516,7 +54518,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54530,7 +54532,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54544,7 +54546,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54558,7 +54560,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54572,7 +54574,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54586,7 +54588,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54600,7 +54602,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -54613,7 +54615,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -54741,7 +54743,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -54754,7 +54756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -54767,7 +54769,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -54778,7 +54780,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .xPosition = 20,
         .yPosition = 25,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -54789,7 +54791,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .xPosition = 21,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54801,7 +54803,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54813,7 +54815,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54825,7 +54827,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54837,7 +54839,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54849,7 +54851,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54861,7 +54863,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54873,7 +54875,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54885,7 +54887,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -54897,7 +54899,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -54909,7 +54911,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -54921,7 +54923,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -54933,7 +54935,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -54945,7 +54947,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -54957,7 +54959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -54969,7 +54971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -54981,7 +54983,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -54993,7 +54995,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -55005,7 +55007,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 24,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -55017,7 +55019,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -55029,7 +55031,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -55041,7 +55043,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -55053,7 +55055,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55067,7 +55069,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55081,7 +55083,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55095,7 +55097,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55109,7 +55111,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55122,7 +55124,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55135,7 +55137,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55148,7 +55150,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55162,7 +55164,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55176,7 +55178,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -55190,7 +55192,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -55596,7 +55598,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_LIGHT_AURA,
         },
-        .ai = {0x3, 0x3, 0x9, 0x0},
+        .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55609,7 +55611,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55622,7 +55624,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55635,7 +55637,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55648,7 +55650,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55661,7 +55663,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55675,7 +55677,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
             ITEM_BOW_STEEL,
             ITEM_BOOSTER_LCK,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55688,7 +55690,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55701,7 +55703,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55714,7 +55716,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55727,7 +55729,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_DARK_LUNA,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55741,7 +55743,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_LANCE_BRAVE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55754,7 +55756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55768,7 +55770,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_SWORD_BRAVE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55781,7 +55783,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55794,7 +55796,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55807,7 +55809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_AXE_IRON,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55821,7 +55823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55835,7 +55837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55849,7 +55851,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
             ITEM_AXE_STEEL,
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55862,7 +55864,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55875,7 +55877,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55889,7 +55891,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_BOW_BRAVE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55902,7 +55904,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
         .items = {
             ITEM_BOW_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55973,7 +55975,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA070[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -55988,7 +55990,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA070[] = {
         .items = {
             ITEM_BOW_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -56008,7 +56010,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA0AC[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -56023,7 +56025,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA0AC[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -56041,7 +56043,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA0E8[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -56054,7 +56056,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA0E8[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -56072,7 +56074,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA124[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -56086,7 +56088,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA124[] = {
             ITEM_AXE_SILVER,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -56104,7 +56106,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA160[] = {
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -56117,7 +56119,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA160[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -56130,7 +56132,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA160[] = {
         .items = {
             ITEM_LANCE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -56144,7 +56146,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA160[] = {
             ITEM_SWORD_SILVER,
             ITEM_BOW_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -56164,7 +56166,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA1C4[] = {
         .items = {
             ITEM_SWORD_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -56179,7 +56181,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA1C4[] = {
         .items = {
             ITEM_AXE_SILVER,
         },
-        .ai = {0x0, 0x0, 0x9, 0x0},
+        .ai = {DefaultAI, 0x9, 0x0},
     },
     {
         .charIndex = 0x8d,
@@ -56209,7 +56211,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA214[] = {
         .level = 17,
         .xPosition = 16,
         .yPosition = 10,
-        .ai = {0x6, 0x3, 0x0, 0x20},
+        .ai = {DoNothing, 0x0, 0x20},
     },
     {
         .charIndex = 0xcd,
@@ -56224,7 +56226,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA214[] = {
             ITEM_AXE_SILVER,
             ITEM_BLADE_SILVER,
         },
-        .ai = {0x3, 0x3, 0x0, 0x20},
+        .ai = {GuardTileAI, 0x0, 0x20},
     },
     { 0 },
 };
@@ -56478,7 +56480,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -56491,7 +56493,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -56504,7 +56506,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -56517,7 +56519,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -56531,7 +56533,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -56545,7 +56547,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -56559,7 +56561,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
         .charIndex = 0xcd,
@@ -56573,7 +56575,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x3, 0x0, 0x0},
+        .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     { 0 },
 };
@@ -57065,7 +57067,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LIGHT_AURA,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57078,7 +57080,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57093,7 +57095,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_AXE_VENIN,
             ITEM_VULNERARY,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57132,7 +57134,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57145,7 +57147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -57160,7 +57162,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_AXE_STEEL,
             ITEM_ANTITOXIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -57173,7 +57175,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_AXE_HALBERD,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -57186,7 +57188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -57199,7 +57201,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -57214,7 +57216,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_ANTITOXIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -57227,7 +57229,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_VENIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -57266,7 +57268,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57280,7 +57282,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57293,7 +57295,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -57306,7 +57308,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -57319,7 +57321,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57332,7 +57334,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57345,7 +57347,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57358,7 +57360,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57372,7 +57374,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_SWORD_LANCEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57385,7 +57387,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57399,7 +57401,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57413,7 +57415,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -57426,7 +57428,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57440,7 +57442,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_AXE_SWORDSLAYER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57455,7 +57457,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_BOW_SHORTBOW,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57468,7 +57470,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57481,7 +57483,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_AXE_HALBERD,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -57496,7 +57498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_ELIXIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57510,7 +57512,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_BLADE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57523,7 +57525,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_SWORD_ARMORSLAYER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57537,7 +57539,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57550,7 +57552,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57563,7 +57565,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -57576,7 +57578,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_SWORD_LANCEREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -57589,7 +57591,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -57602,7 +57604,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -57616,7 +57618,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -57630,7 +57632,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -57644,7 +57646,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -57658,7 +57660,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -57672,7 +57674,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -57689,7 +57691,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAB64[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x3, 0x3, 0xc, 0x20},
+        .ai = {GuardTileAI, 0xc, 0x20},
     },
     { 0 },
 };
@@ -57709,7 +57711,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAB8C[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -57724,7 +57726,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAB8C[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -57745,7 +57747,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CABC8[] = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -57765,7 +57767,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CABF0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -57780,7 +57782,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CABF0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -57801,7 +57803,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC2C[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -57821,7 +57823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC54[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -57836,7 +57838,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC54[] = {
         .items = {
             ITEM_AXE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -57856,7 +57858,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC90[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -57872,7 +57874,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC90[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -57887,7 +57889,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC90[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -57907,7 +57909,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CACE0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -57923,7 +57925,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CACE0[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -57938,7 +57940,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CACE0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -57958,7 +57960,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD30[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -57973,7 +57975,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD30[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -57988,7 +57990,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD30[] = {
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -58008,7 +58010,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD80[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -58058,7 +58060,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CADD0[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -58073,7 +58075,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CADD0[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -58093,7 +58095,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE0C[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -58113,7 +58115,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE34[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -58134,7 +58136,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE5C[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -58150,7 +58152,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE5C[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -58165,7 +58167,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE5C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -58276,7 +58278,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAF88[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -58290,7 +58292,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAF88[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -58304,7 +58306,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAF88[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -58603,7 +58605,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_DARK_NAGLFAR,
         },
-        .ai = {0x3, 0x3, 0x9, 0x20},
+        .ai = {GuardTileAI, 0x9, 0x20},
     },
     {
         .charIndex = 0xb9,
@@ -58617,7 +58619,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -58631,7 +58633,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
             ITEM_MONSTER_DEMONSURG,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -58644,7 +58646,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -58657,7 +58659,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -58670,7 +58672,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -58683,7 +58685,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -58696,7 +58698,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_AXE_SWORDREAVER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58711,7 +58713,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
             ITEM_SWORD_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58724,7 +58726,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58737,7 +58739,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58750,7 +58752,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58791,7 +58793,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58806,7 +58808,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58819,7 +58821,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58832,7 +58834,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -58845,7 +58847,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -58858,7 +58860,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58871,7 +58873,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58884,7 +58886,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58897,7 +58899,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -58911,7 +58913,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -58925,7 +58927,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -58938,7 +58940,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -58951,7 +58953,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -58990,7 +58992,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -59003,7 +59005,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -59016,7 +59018,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -59029,7 +59031,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -59042,7 +59044,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -59056,7 +59058,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -59070,7 +59072,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -59090,7 +59092,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -59105,7 +59107,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -59120,7 +59122,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -59135,7 +59137,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -59150,7 +59152,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -59170,7 +59172,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -59185,7 +59187,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -59200,7 +59202,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -59215,7 +59217,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -59234,7 +59236,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB524[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -59248,7 +59250,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB524[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -59262,7 +59264,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB524[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -59282,7 +59284,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59297,7 +59299,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59312,7 +59314,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59327,7 +59329,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59342,7 +59344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -59372,7 +59374,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -59566,7 +59568,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x20},
+        .ai = {AttackInRangeAI, 0xc, 0x20},
     },
     {
         .charIndex = 0xaa,
@@ -59578,7 +59580,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x20},
+        .ai = {DefaultAI, 0xc, 0x20},
     },
     {
         .charIndex = 0xaa,
@@ -59590,7 +59592,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59602,7 +59604,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59614,7 +59616,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59626,7 +59628,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59638,7 +59640,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59650,7 +59652,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59662,7 +59664,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59674,7 +59676,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59686,7 +59688,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59698,7 +59700,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59710,7 +59712,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59722,7 +59724,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59734,7 +59736,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59746,7 +59748,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -59758,7 +59760,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -59919,7 +59921,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .items = {
             ITEM_AXE_TOMAHAWK,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -59931,7 +59933,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -59943,7 +59945,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -59955,7 +59957,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -59967,7 +59969,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -59979,7 +59981,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -59991,7 +59993,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60003,7 +60005,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60015,7 +60017,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -60027,7 +60029,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -60051,7 +60053,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60063,7 +60065,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60111,7 +60113,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -60123,7 +60125,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -60134,7 +60136,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .xPosition = 18,
         .yPosition = 16,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60145,7 +60147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .xPosition = 7,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -60156,7 +60158,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .xPosition = 4,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60167,7 +60169,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .xPosition = 7,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -60180,7 +60182,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -60193,7 +60195,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -60204,7 +60206,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
         .xPosition = 3,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -60222,7 +60224,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBBD4[] = {
         .genMonster = 1,
         .redaCount = 1,
         .redas = REDA_088CB8F8,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -60235,7 +60237,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBBD4[] = {
         .genMonster = 1,
         .redaCount = 1,
         .redas = REDA_088CB900,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb5,
@@ -60388,7 +60390,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60400,7 +60402,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60412,7 +60414,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60424,7 +60426,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60436,7 +60438,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60448,7 +60450,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60460,7 +60462,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60472,7 +60474,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60496,7 +60498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60508,7 +60510,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60520,7 +60522,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60532,7 +60534,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60544,7 +60546,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60556,7 +60558,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60568,7 +60570,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60580,7 +60582,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60592,7 +60594,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -60603,7 +60605,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .xPosition = 1,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -60614,7 +60616,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .xPosition = 3,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -60625,7 +60627,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .xPosition = 1,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60636,7 +60638,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .xPosition = 8,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60647,7 +60649,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .xPosition = 12,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -60658,7 +60660,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .xPosition = 10,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60670,7 +60672,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60681,7 +60683,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
         .xPosition = 11,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -60821,7 +60823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -60833,7 +60835,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -60845,7 +60847,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -60883,7 +60885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .sumFlag = 1,
         .redaCount = 1,
         .redas = REDA_088CBF1C,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -60895,7 +60897,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -60907,7 +60909,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -60919,7 +60921,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60931,7 +60933,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -60943,7 +60945,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -60954,7 +60956,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .xPosition = 18,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -60966,7 +60968,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -60978,7 +60980,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -60990,7 +60992,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -61002,7 +61004,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -61014,7 +61016,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -61025,7 +61027,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .xPosition = 4,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -61036,7 +61038,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .xPosition = 2,
         .yPosition = 7,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -61047,7 +61049,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .xPosition = 16,
         .yPosition = 7,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -61181,7 +61183,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
             ITEM_MONSTER_FETIDCLW,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0x5f,
@@ -61196,7 +61198,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
             ITEM_MONSTER_FETIDCLW,
             ITEM_CHESTKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61208,7 +61210,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61220,7 +61222,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61232,7 +61234,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61244,7 +61246,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61256,7 +61258,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61268,7 +61270,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61280,7 +61282,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61292,7 +61294,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61304,7 +61306,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61316,7 +61318,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61328,7 +61330,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61340,7 +61342,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61352,7 +61354,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61364,7 +61366,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61376,7 +61378,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61388,7 +61390,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61400,7 +61402,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61412,7 +61414,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61424,7 +61426,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61436,7 +61438,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61448,7 +61450,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61460,7 +61462,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61472,7 +61474,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61484,7 +61486,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61496,7 +61498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61508,7 +61510,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61520,7 +61522,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61532,7 +61534,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61544,7 +61546,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61556,7 +61558,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61568,7 +61570,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61580,7 +61582,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61592,7 +61594,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61604,7 +61606,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61616,7 +61618,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61628,7 +61630,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61640,7 +61642,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61652,7 +61654,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -61674,7 +61676,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC58C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -61685,7 +61687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC58C[] = {
         .xPosition = 14,
         .yPosition = 9,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -61812,7 +61814,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_SWORD_BRAVE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -61823,7 +61825,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .xPosition = 20,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -61837,7 +61839,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_BOW_SHORTBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -61851,7 +61853,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -61865,7 +61867,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -61878,7 +61880,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x20},
+        .ai = {DefaultAI, 0xc, 0x20},
     },
     {
         .charIndex = 0xae,
@@ -61892,7 +61894,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -61905,7 +61907,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_SWORD_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x20},
+        .ai = {AttackInRangeAI, 0xc, 0x20},
     },
     {
         .charIndex = 0xad,
@@ -61918,7 +61920,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -61931,7 +61933,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -61944,7 +61946,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -61957,7 +61959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -61972,7 +61974,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
             ITEM_SWORD_KILLER,
             ITEM_CHESTKEY,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -61985,7 +61987,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62023,7 +62025,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -62035,7 +62037,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62047,7 +62049,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62072,7 +62074,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62084,7 +62086,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62096,7 +62098,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62119,7 +62121,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62131,7 +62133,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -62143,7 +62145,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62168,7 +62170,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .xPosition = 18,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -62180,7 +62182,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62204,7 +62206,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .xPosition = 5,
         .yPosition = 8,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xad,
@@ -62216,7 +62218,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62227,7 +62229,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .xPosition = 8,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62239,7 +62241,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62261,7 +62263,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
         .xPosition = 5,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -62437,7 +62439,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -62450,7 +62452,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -62463,7 +62465,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -62475,7 +62477,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -62488,7 +62490,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -62500,7 +62502,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -62512,7 +62514,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb7,
@@ -62524,7 +62526,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -62536,7 +62538,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -62548,7 +62550,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -62560,7 +62562,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -62572,7 +62574,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -62584,7 +62586,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -62596,7 +62598,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -62608,7 +62610,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -62620,7 +62622,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -62632,7 +62634,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb0,
@@ -62645,7 +62647,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62657,7 +62659,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62670,7 +62672,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62682,7 +62684,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62694,7 +62696,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xac,
@@ -62706,7 +62708,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -62718,7 +62720,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -62730,7 +62732,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -62742,7 +62744,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -62755,7 +62757,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -62767,7 +62769,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -62779,7 +62781,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb3,
@@ -62792,7 +62794,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaa,
@@ -62803,7 +62805,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
         .xPosition = 6,
         .yPosition = 12,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -62828,7 +62830,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD00[] = {
         .items = {
             ITEM_LANCE_IRON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -62863,7 +62865,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD3C[] = {
         .items = {
             ITEM_LANCE_STEEL,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -62898,7 +62900,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD78[] = {
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbb,
@@ -63042,7 +63044,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_AXE_SWORDSLAYER,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -63055,7 +63057,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .items = {
             ITEM_AXE_DEVIL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -63068,7 +63070,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .items = {
             ITEM_AXE_HAMMER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63080,7 +63082,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63092,7 +63094,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63104,7 +63106,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63116,7 +63118,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63128,7 +63130,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63140,7 +63142,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63152,7 +63154,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63164,7 +63166,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63176,7 +63178,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63188,7 +63190,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63200,7 +63202,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63212,7 +63214,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63224,7 +63226,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63236,7 +63238,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63248,7 +63250,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63260,7 +63262,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63272,7 +63274,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63284,7 +63286,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63296,7 +63298,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63308,7 +63310,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -63320,7 +63322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -63332,7 +63334,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -63344,7 +63346,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -63356,7 +63358,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63370,7 +63372,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -63503,7 +63505,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
             ITEM_BLADE_STEEL,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63516,7 +63518,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -63529,7 +63531,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -63542,7 +63544,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .items = {
             ITEM_BOW_KILLER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xab,
@@ -63553,7 +63555,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .xPosition = 7,
         .yPosition = 17,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63565,7 +63567,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63577,7 +63579,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63589,7 +63591,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63601,7 +63603,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63613,7 +63615,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -63649,7 +63651,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63661,7 +63663,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -63673,7 +63675,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63685,7 +63687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63697,7 +63699,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63709,7 +63711,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -63721,7 +63723,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -63733,7 +63735,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63745,7 +63747,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -63758,7 +63760,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .items = {
             ITEM_AXE_HAMMER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63770,7 +63772,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63782,7 +63784,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -63794,7 +63796,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -63806,7 +63808,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -63818,7 +63820,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -63829,7 +63831,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .xPosition = 1,
         .yPosition = 8,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63841,7 +63843,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63853,7 +63855,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63865,7 +63867,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63877,7 +63879,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63889,7 +63891,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63901,7 +63903,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63913,7 +63915,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -63925,7 +63927,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -63937,7 +63939,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -63949,7 +63951,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -63961,7 +63963,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -63972,7 +63974,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
         .xPosition = 4,
         .yPosition = 15,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -63993,7 +63995,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD4BC[] = {
         .xPosition = 19,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -64005,7 +64007,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD4BC[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -64021,7 +64023,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD4F8[] = {
         .xPosition = 19,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -64032,7 +64034,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD4F8[] = {
         .xPosition = 19,
         .yPosition = 15,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -64160,7 +64162,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
             ITEM_AXE_BATTLEAXE,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64174,7 +64176,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64186,7 +64188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64198,7 +64200,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64210,7 +64212,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64222,7 +64224,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64234,7 +64236,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64246,7 +64248,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64258,7 +64260,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64270,7 +64272,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64282,7 +64284,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64294,7 +64296,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64306,7 +64308,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64318,7 +64320,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -64330,7 +64332,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -64342,7 +64344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -64354,7 +64356,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -64366,7 +64368,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -64378,7 +64380,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -64390,7 +64392,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -64402,7 +64404,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = CHARACTER_MONSTER_BA,
@@ -64414,7 +64416,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -64426,7 +64428,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -64438,7 +64440,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -64450,7 +64452,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -64462,7 +64464,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -64474,7 +64476,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -64486,7 +64488,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -64498,7 +64500,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64510,7 +64512,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64522,7 +64524,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64534,7 +64536,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64546,7 +64548,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64558,7 +64560,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64569,7 +64571,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .xPosition = 7,
         .yPosition = 17,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64580,7 +64582,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .xPosition = 8,
         .yPosition = 17,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64591,7 +64593,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .xPosition = 21,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64603,7 +64605,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -64615,7 +64617,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -64626,7 +64628,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .xPosition = 22,
         .yPosition = 12,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -64638,7 +64640,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -64650,7 +64652,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -64662,7 +64664,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -64674,7 +64676,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -64685,7 +64687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .xPosition = 21,
         .yPosition = 12,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -64697,7 +64699,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -64709,7 +64711,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -64721,7 +64723,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -64746,7 +64748,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
         .items = {
             ITEM_SWORD_IRON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -64881,7 +64883,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
             ITEM_BLADE_STEEL,
             ITEM_BLUEGEM,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -64894,7 +64896,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .items = {
             ITEM_BOW_SHORTBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -64907,7 +64909,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64921,7 +64923,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64935,7 +64937,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64949,7 +64951,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64963,7 +64965,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64977,7 +64979,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -64991,7 +64993,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65002,7 +65004,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 18,
         .yPosition = 19,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65014,7 +65016,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65026,7 +65028,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65038,7 +65040,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65050,7 +65052,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65061,7 +65063,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 18,
         .yPosition = 26,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65073,7 +65075,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65085,7 +65087,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65097,7 +65099,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65109,7 +65111,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65121,7 +65123,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65133,7 +65135,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65145,7 +65147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65157,7 +65159,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 22,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65169,7 +65171,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65181,7 +65183,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65193,7 +65195,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 17,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65204,7 +65206,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 16,
         .yPosition = 26,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65216,7 +65218,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65228,7 +65230,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65251,7 +65253,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 2,
         .yPosition = 19,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65262,7 +65264,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 1,
         .yPosition = 17,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65273,7 +65275,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 1,
         .yPosition = 21,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65284,7 +65286,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 0,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65295,7 +65297,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 2,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65306,7 +65308,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 1,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65317,7 +65319,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 1,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65328,7 +65330,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 16,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65339,7 +65341,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 18,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65350,7 +65352,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 18,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65361,7 +65363,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 16,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65372,7 +65374,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 8,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65383,7 +65385,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 9,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65394,7 +65396,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
         .xPosition = 0,
         .yPosition = 19,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -65410,7 +65412,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
             ITEM_SWORD_STEEL,
             ITEM_CHESTKEY,
         },
-        .ai = {0x3, 0x3, 0xc, 0x20},
+        .ai = {GuardTileAI, 0xc, 0x20},
     },
     { 0 },
 };
@@ -65431,7 +65433,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDE58[] = {
         .xPosition = 13,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -65447,7 +65449,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDE80[] = {
         .xPosition = 4,
         .yPosition = 0,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65458,7 +65460,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDE80[] = {
         .xPosition = 5,
         .yPosition = 0,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -65477,7 +65479,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDEBC[] = {
             ITEM_BLADE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x6, 0x5, 0xc, 0x0},
+        .ai = {LootingThiefAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -65496,7 +65498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDEE4[] = {
             ITEM_BLADE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x6, 0x5, 0xc, 0x0},
+        .ai = {LootingThiefAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -65515,7 +65517,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDF0C[] = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
         },
-        .ai = {0x6, 0x5, 0xc, 0x0},
+        .ai = {LootingThiefAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -65673,7 +65675,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65684,7 +65686,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .xPosition = 20,
         .yPosition = 25,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -65695,7 +65697,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .xPosition = 18,
         .yPosition = 25,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65707,7 +65709,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65719,7 +65721,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65731,7 +65733,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65743,7 +65745,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65755,7 +65757,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65767,7 +65769,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65779,7 +65781,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65791,7 +65793,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -65803,7 +65805,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65815,7 +65817,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65827,7 +65829,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65839,7 +65841,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65851,7 +65853,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65863,7 +65865,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65875,7 +65877,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 11,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65887,7 +65889,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65899,7 +65901,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65911,7 +65913,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 4,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65923,7 +65925,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 26,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -65935,7 +65937,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 27,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -65947,7 +65949,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -65959,7 +65961,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 22,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -65971,7 +65973,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -65983,7 +65985,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -65995,7 +65997,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -66007,7 +66009,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 25,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -66019,7 +66021,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -66031,7 +66033,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -66044,7 +66046,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -66057,7 +66059,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -66070,7 +66072,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .items = {
             ITEM_BOW_SHORTBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -66083,7 +66085,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -66096,7 +66098,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -66120,7 +66122,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE31C[] = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
         },
-        .ai = {0x6, 0x5, 0x9, 0x0},
+        .ai = {LootingThiefAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -66139,7 +66141,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE344[] = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
         },
-        .ai = {0x6, 0x5, 0x9, 0x0},
+        .ai = {LootingThiefAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -66282,7 +66284,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
             ITEM_BOW_STEEL,
             ITEM_WHITEGEM,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66295,7 +66297,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66309,7 +66311,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -66320,7 +66322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 4,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -66331,7 +66333,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 17,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -66342,7 +66344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 15,
         .yPosition = 21,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -66353,7 +66355,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 13,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -66364,7 +66366,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 12,
         .yPosition = 10,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -66375,7 +66377,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 9,
         .yPosition = 13,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66386,7 +66388,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 1,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66397,7 +66399,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 18,
         .yPosition = 21,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66408,7 +66410,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 11,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66419,7 +66421,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 8,
         .yPosition = 8,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66430,7 +66432,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 10,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66441,7 +66443,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 19,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66485,7 +66487,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 7,
         .yPosition = 12,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66496,7 +66498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 5,
         .yPosition = 9,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66507,7 +66509,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 13,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66518,7 +66520,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 17,
         .yPosition = 19,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66529,7 +66531,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 17,
         .yPosition = 13,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66540,7 +66542,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 17,
         .yPosition = 9,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66551,7 +66553,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 11,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66562,7 +66564,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 1,
         .yPosition = 8,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66573,7 +66575,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 17,
         .yPosition = 23,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66584,7 +66586,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 12,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66595,7 +66597,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 12,
         .yPosition = 15,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66606,7 +66608,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 10,
         .yPosition = 17,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -66617,7 +66619,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
         .xPosition = 11,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -66642,7 +66644,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE6C8[] = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
         },
-        .ai = {0x6, 0x5, 0x9, 0x0},
+        .ai = {LootingThiefAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -66661,7 +66663,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE6F0[] = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
         },
-        .ai = {0x6, 0x5, 0x9, 0x0},
+        .ai = {LootingThiefAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -66680,7 +66682,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE718[] = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
         },
-        .ai = {0x6, 0x5, 0x9, 0x0},
+        .ai = {LootingThiefAI, 0x9, 0x0},
     },
     { 0 },
 };
@@ -66833,7 +66835,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -66846,7 +66848,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -66859,7 +66861,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -66874,7 +66876,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -66888,7 +66890,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -66901,7 +66903,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -66917,7 +66919,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x20},
+        .ai = {AttackInRangeAI, 0xc, 0x20},
     },
     {
         .charIndex = 0xaf,
@@ -66932,7 +66934,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
             ITEM_BOW_LONGBOW,
             ITEM_DOORKEY,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -66945,7 +66947,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -66958,7 +66960,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_BOW_SHORTBOW,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -66972,7 +66974,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -66984,7 +66986,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .yPosition = 26,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -66996,7 +66998,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67008,7 +67010,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .yPosition = 20,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67020,7 +67022,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67031,7 +67033,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 8,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67042,7 +67044,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 10,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67053,7 +67055,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 12,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67064,7 +67066,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 2,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67075,7 +67077,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 2,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67086,7 +67088,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 2,
         .yPosition = 17,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67097,7 +67099,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 1,
         .yPosition = 20,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67109,7 +67111,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67120,7 +67122,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 9,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67131,7 +67133,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 13,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67142,7 +67144,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 1,
         .yPosition = 25,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67156,7 +67158,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67170,7 +67172,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67184,7 +67186,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67198,7 +67200,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67239,7 +67241,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67252,7 +67254,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67265,7 +67267,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67278,7 +67280,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67289,7 +67291,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 14,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67301,7 +67303,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67312,7 +67314,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 19,
         .yPosition = 23,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67324,7 +67326,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67337,7 +67339,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .items = {
             ITEM_MONSTER_STONE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67348,7 +67350,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
         .xPosition = 17,
         .yPosition = 15,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -67370,7 +67372,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEB8C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67382,7 +67384,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEB8C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -67398,7 +67400,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEBC8[] = {
         .xPosition = 10,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67409,7 +67411,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEBC8[] = {
         .xPosition = 12,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -67425,7 +67427,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEC04[] = {
         .xPosition = 10,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -67436,7 +67438,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEC04[] = {
         .xPosition = 12,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -67452,7 +67454,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEC40[] = {
         .xPosition = 10,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67463,7 +67465,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEC40[] = {
         .xPosition = 12,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -67640,7 +67642,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
             ITEM_MONSTER_STONE,
             ITEM_BLACKGEM,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67653,7 +67655,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67666,7 +67668,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67679,7 +67681,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .items = {
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67693,7 +67695,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67707,7 +67709,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67720,7 +67722,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67733,7 +67735,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -67746,7 +67748,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .items = {
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -67759,7 +67761,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .items = {
             ITEM_LANCE_SPEAR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67771,7 +67773,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67783,7 +67785,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67795,7 +67797,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67807,7 +67809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67819,7 +67821,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67831,7 +67833,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67843,7 +67845,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67855,7 +67857,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67867,7 +67869,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67878,7 +67880,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .xPosition = 22,
         .yPosition = 12,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67889,7 +67891,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .xPosition = 17,
         .yPosition = 23,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67900,7 +67902,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .xPosition = 21,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67911,7 +67913,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .xPosition = 12,
         .yPosition = 23,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67922,7 +67924,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .xPosition = 7,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67933,7 +67935,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .xPosition = 3,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -67947,7 +67949,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -67958,7 +67960,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
         .xPosition = 23,
         .yPosition = 8,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -67979,7 +67981,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEFB8[] = {
         .xPosition = 5,
         .yPosition = 0,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -67995,7 +67997,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEFE0[] = {
         .xPosition = 14,
         .yPosition = 0,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68006,7 +68008,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEFE0[] = {
         .xPosition = 0,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68022,7 +68024,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF01C[] = {
         .xPosition = 24,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68038,7 +68040,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF044[] = {
         .xPosition = 3,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68054,7 +68056,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF06C[] = {
         .xPosition = 0,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68070,7 +68072,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF094[] = {
         .xPosition = 24,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68088,7 +68090,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF0BC[] = {
         .genMonster = 1,
         .redaCount = 1,
         .redas = REDA_088CEC7C,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68104,7 +68106,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF0E4[] = {
         .xPosition = 22,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68245,7 +68247,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
             ITEM_LANCE_BRAVE,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -68259,7 +68261,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
             ITEM_LANCE_AXEREAVER,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -68273,7 +68275,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
             ITEM_LANCE_HORSESLAYER,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68286,7 +68288,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68299,7 +68301,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -68313,7 +68315,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -68327,7 +68329,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
             ITEM_AXE_SWORDREAVER,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -68342,7 +68344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
             ITEM_AXE_DEVIL,
             ITEM_DOORKEY,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68353,7 +68355,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .xPosition = 2,
         .yPosition = 7,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68365,7 +68367,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68377,7 +68379,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 18,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68389,7 +68391,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 10,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68401,7 +68403,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68413,7 +68415,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68425,7 +68427,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68437,7 +68439,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68449,7 +68451,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68461,7 +68463,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68473,7 +68475,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68485,7 +68487,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68497,7 +68499,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 12,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68509,7 +68511,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68521,7 +68523,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68533,7 +68535,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68545,7 +68547,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -68556,7 +68558,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .xPosition = 16,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -68567,7 +68569,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .xPosition = 17,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -68578,7 +68580,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .xPosition = 9,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -68589,7 +68591,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .xPosition = 10,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -68600,7 +68602,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .xPosition = 9,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -68611,7 +68613,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .xPosition = 10,
         .yPosition = 7,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68623,7 +68625,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68635,7 +68637,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68647,7 +68649,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68659,7 +68661,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68671,7 +68673,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68683,7 +68685,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -68716,7 +68718,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
         .xPosition = 4,
         .yPosition = 13,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68737,7 +68739,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF51C[] = {
         .xPosition = 10,
         .yPosition = 12,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68753,7 +68755,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF544[] = {
         .xPosition = 16,
         .yPosition = 16,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68769,7 +68771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF56C[] = {
         .xPosition = 19,
         .yPosition = 10,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -68780,7 +68782,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF56C[] = {
         .xPosition = 19,
         .yPosition = 11,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68796,7 +68798,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF5A8[] = {
         .xPosition = 19,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -68924,7 +68926,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
             ITEM_AXE_TOMAHAWK,
             ITEM_AXE_BRAVE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68938,7 +68940,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68952,7 +68954,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68966,7 +68968,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68980,7 +68982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -68994,7 +68996,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -69008,7 +69010,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -69021,7 +69023,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .items = {
             ITEM_BOW_BRAVE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -69034,7 +69036,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .items = {
             ITEM_BOW_STEEL,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -69045,7 +69047,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 9,
         .yPosition = 14,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -69056,7 +69058,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 7,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -69067,7 +69069,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 2,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -69078,7 +69080,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 0,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69089,7 +69091,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 11,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69100,7 +69102,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 14,
         .yPosition = 2,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69111,7 +69113,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 16,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69122,7 +69124,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 12,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69133,7 +69135,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 6,
         .yPosition = 6,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69144,7 +69146,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 6,
         .yPosition = 21,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69155,7 +69157,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 5,
         .yPosition = 17,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69166,7 +69168,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 10,
         .yPosition = 22,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69177,7 +69179,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 15,
         .yPosition = 7,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69188,7 +69190,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 6,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69199,7 +69201,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 8,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69210,7 +69212,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 6,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69221,7 +69223,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 15,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69232,7 +69234,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 13,
         .yPosition = 3,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69243,7 +69245,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 14,
         .yPosition = 13,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69254,7 +69256,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 13,
         .yPosition = 17,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69265,7 +69267,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 17,
         .yPosition = 5,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69276,7 +69278,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 12,
         .yPosition = 20,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69287,7 +69289,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 17,
         .yPosition = 18,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69298,7 +69300,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 17,
         .yPosition = 9,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69309,7 +69311,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 17,
         .yPosition = 22,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69320,7 +69322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .xPosition = 6,
         .yPosition = 19,
         .genMonster = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69332,7 +69334,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69344,7 +69346,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69356,7 +69358,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69368,7 +69370,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69380,7 +69382,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69392,7 +69394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .yPosition = 22,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69404,7 +69406,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69416,7 +69418,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -69437,7 +69439,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFA08[] = {
         .xPosition = 0,
         .yPosition = 0,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -69566,7 +69568,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
             ITEM_MONSTER_WRETCHAIR,
             ITEM_GOLDGEM,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69579,7 +69581,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69593,7 +69595,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69608,7 +69610,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69621,7 +69623,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69636,7 +69638,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69651,7 +69653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69666,7 +69668,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69679,7 +69681,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -69692,7 +69694,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
@@ -69848,7 +69850,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
             ITEM_AXE_BATTLEAXE,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -69859,7 +69861,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .xPosition = 10,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -69870,7 +69872,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -69884,7 +69886,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69897,7 +69899,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_BOW_KILLER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -69908,7 +69910,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .xPosition = 19,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69920,7 +69922,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69932,7 +69934,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69944,7 +69946,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69956,7 +69958,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69968,7 +69970,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -69980,7 +69982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -69992,7 +69994,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -70004,7 +70006,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70016,7 +70018,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70028,7 +70030,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70088,7 +70090,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 22,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70100,7 +70102,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70112,7 +70114,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70126,7 +70128,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70140,7 +70142,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70154,7 +70156,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70168,7 +70170,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70182,7 +70184,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70210,7 +70212,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -70224,7 +70226,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -70238,7 +70240,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -70252,7 +70254,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -70266,7 +70268,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -70290,7 +70292,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -70314,7 +70316,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -70326,7 +70328,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -70338,7 +70340,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -70350,7 +70352,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70362,7 +70364,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70398,7 +70400,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -70410,7 +70412,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -70422,7 +70424,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -70434,7 +70436,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -70446,7 +70448,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -70458,7 +70460,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -70613,7 +70615,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
             ITEM_AXE_BATTLEAXE,
             ITEM_AXE_HANDAXE,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -70624,7 +70626,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .xPosition = 10,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -70635,7 +70637,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .xPosition = 12,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -70649,7 +70651,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -70662,7 +70664,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_BOW_KILLER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70673,7 +70675,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .xPosition = 19,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70685,7 +70687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70697,7 +70699,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -70709,7 +70711,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70721,7 +70723,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70733,7 +70735,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70745,7 +70747,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -70757,7 +70759,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -70769,7 +70771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70781,7 +70783,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70793,7 +70795,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70853,7 +70855,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 22,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70865,7 +70867,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -70877,7 +70879,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70891,7 +70893,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70905,7 +70907,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70919,7 +70921,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70933,7 +70935,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70947,7 +70949,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -70975,7 +70977,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -70989,7 +70991,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -71003,7 +71005,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -71017,7 +71019,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -71031,7 +71033,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -71055,7 +71057,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -71079,7 +71081,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -71091,7 +71093,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -71103,7 +71105,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -71115,7 +71117,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71127,7 +71129,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71163,7 +71165,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -71175,7 +71177,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -71187,7 +71189,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -71199,7 +71201,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -71211,7 +71213,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -71223,7 +71225,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -71378,7 +71380,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
             ITEM_MONSTER_SHADOWSHT,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -71389,7 +71391,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .xPosition = 10,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -71400,7 +71402,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .xPosition = 12,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -71414,7 +71416,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -71427,7 +71429,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_BOW_KILLER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -71438,7 +71440,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .xPosition = 19,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71450,7 +71452,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71462,7 +71464,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -71474,7 +71476,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71486,7 +71488,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71498,7 +71500,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71510,7 +71512,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -71522,7 +71524,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -71534,7 +71536,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71546,7 +71548,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71558,7 +71560,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71618,7 +71620,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 22,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71630,7 +71632,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71642,7 +71644,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -71656,7 +71658,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -71670,7 +71672,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -71684,7 +71686,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -71698,7 +71700,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -71712,7 +71714,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -71740,7 +71742,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -71754,7 +71756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -71768,7 +71770,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -71782,7 +71784,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -71796,7 +71798,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -71820,7 +71822,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -71844,7 +71846,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -71856,7 +71858,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -71868,7 +71870,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -71880,7 +71882,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71892,7 +71894,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -71928,7 +71930,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -71940,7 +71942,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -71952,7 +71954,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -71964,7 +71966,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -71976,7 +71978,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -71988,7 +71990,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -72143,7 +72145,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
             ITEM_AXE_KILLER,
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -72154,7 +72156,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .xPosition = 10,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -72165,7 +72167,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .xPosition = 12,
         .yPosition = 4,
         .genMonster = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb9,
@@ -72179,7 +72181,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -72192,7 +72194,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_BOW_KILLER,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -72203,7 +72205,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .xPosition = 19,
         .yPosition = 1,
         .genMonster = 1,
-        .ai = {0x3, 0x3, 0xc, 0x0},
+        .ai = {GuardTileAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72215,7 +72217,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72227,7 +72229,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 21,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -72239,7 +72241,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72251,7 +72253,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 16,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72263,7 +72265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72275,7 +72277,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 19,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -72287,7 +72289,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -72299,7 +72301,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 14,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72311,7 +72313,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72323,7 +72325,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 13,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72383,7 +72385,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 22,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72395,7 +72397,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72407,7 +72409,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 23,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -72421,7 +72423,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -72435,7 +72437,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -72449,7 +72451,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -72463,7 +72465,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -72477,7 +72479,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0xc, 0x0},
+        .ai = {DefaultAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb1,
@@ -72505,7 +72507,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -72519,7 +72521,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -72533,7 +72535,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -72547,7 +72549,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb8,
@@ -72561,7 +72563,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -72585,7 +72587,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 5,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -72609,7 +72611,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 7,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb6,
@@ -72621,7 +72623,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 6,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -72633,7 +72635,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 2,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb4,
@@ -72645,7 +72647,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 3,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72657,7 +72659,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 15,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xae,
@@ -72693,7 +72695,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 9,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -72705,7 +72707,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xaf,
@@ -72717,7 +72719,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 8,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -72729,7 +72731,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 1,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -72741,7 +72743,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xbc,
@@ -72753,7 +72755,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
         .yPosition = 0,
         .genMonster = 1,
         .sumFlag = 1,
-        .ai = {0x0, 0x3, 0xc, 0x0},
+        .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
         .charIndex = 0xb2,
@@ -72898,7 +72900,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0F5C[] = {
             ITEM_DEMONLIGHT,
             ITEM_NIGHTMARE,
         },
-        .ai = {0x0, 0x0, 0x1, 0x0},
+        .ai = {DefaultAI, 0x1, 0x0},
     },
     {
         .charIndex = 0xbd,
@@ -74963,7 +74965,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
         .items = {
             ITEM_MONSTER_WRETCHAIR,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xab,
@@ -74976,7 +74978,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xaf,
@@ -74989,7 +74991,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
         .items = {
             ITEM_BOW_KILLER,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xae,
@@ -75002,7 +75004,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
         .items = {
             ITEM_SWORD_RUNESWORD,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb8,
@@ -75016,7 +75018,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
             ITEM_MONSTER_CRIMSNEYE,
             ITEM_MONSTER_SHADOWSHT,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb6,
@@ -75030,7 +75032,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
             ITEM_AXE_HALBERD,
             ITEM_BOW_LONGBOW,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb1,
@@ -75043,7 +75045,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xae,
@@ -75056,7 +75058,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
         .items = {
             ITEM_SWORD_KILLER,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb4,
@@ -75069,7 +75071,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xbc,
@@ -75083,7 +75085,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
             ITEM_LANCE_HEAVYSPEAR,
             ITEM_LANCE_JAVELIN,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb9,
@@ -75097,7 +75099,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
             ITEM_MONSTER_STONE,
             ITEM_MONSTER_DEMONSURG,
         },
-        .ai = {0x0, 0x0, 0x4, 0x0},
+        .ai = {DefaultAI, NoRecovery, Normal},
     },
     {
         .charIndex = 0xb2,
@@ -75110,7 +75112,7 @@ CONST_DATA struct UnitDefinition gUnitDefSumDK[] = {
         .items = {
             ITEM_AXE_BATTLEAXE,
         },
-        .ai = {0x0, 0x3, 0x4, 0x0},
+        .ai = {AttackInRangeAI, NoRecovery, Normal},
     },
     { 0 },
 };

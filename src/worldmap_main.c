@@ -67,7 +67,7 @@ void WorldMap_Destruct(struct WorldMapMainProc * proc)
 
     SetSecondaryHBlankHandler(NULL);
 
-    sub_80C1D70();
+    ClearWmHblank();
 
     SetPrimaryHBlankHandler(NULL);
 
@@ -330,8 +330,8 @@ void SetupGraphicSystemsForWorldMap(void)
 void sub_80B8E14(void)
 {
     ApplyPalettes(gUnknown_08A97A40, 0x13, 2);
-    Decompress(gUnknown_08A96308, (void *)0x06011000);
-    Decompress(gUnknown_08A97410, gGenericBuffer);
+    Decompress(Img_GmapNodes, (void *)0x06011000);
+    Decompress(Img_GmapCastleNodes, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06010280, 0xc, 4);
 
     return;
@@ -359,7 +359,7 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
     sub_80B8E14();
 
     ApplyPalette(gUnknown_08A97FA4, 0xE);
-    Decompress(gUnknown_08A97ED8, (void *)0x06005000);
+    Decompress(Img_GmapPath, (void *)0x06005000);
 
     LoadUiFrameGraphics();
     ResetText();
@@ -378,7 +378,7 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
 
-    sub_80C1D00();
+    SetWorldMapHblank();
 
     return;
 }
@@ -1035,7 +1035,7 @@ PROC_LABEL(25),
     PROC_SLEEP(16),
     PROC_CALL(ResetWorldMapScreen),
 
-    PROC_CALL(DoNothing),
+    PROC_CALL(NULL_080B9F08),
 
     PROC_END,
 };
@@ -1232,7 +1232,7 @@ void sub_80B9804(ProcPtr proc)
 //! FE8U = 0x080B9810
 void sub_80B9810(ProcPtr unused)
 {
-    sub_80C1D70();
+    ClearWmHblank();
     Proc_EndEachMarked(PROC_MARK_8);
     return;
 }
@@ -1490,7 +1490,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
     RemoveWmText();
     EndWMFaceCtrl();
     EndGmMuEntry();
-    sub_80C2460();
+    EndGmapRM();
     sub_80C1F5C();
 
     if (gGMData.state.raw & 0xc0)
@@ -1537,7 +1537,7 @@ void WorldMap_WaitForChapterIntroEvents(ProcPtr proc)
     RemoveWmText();
     EndWMFaceCtrl();
     EndGmMuEntry();
-    sub_80C2460();
+    EndGmapRM();
     sub_80C1F5C();
     Proc_Break(proc);
 
@@ -1673,7 +1673,7 @@ void ResetWorldMapScreen(void)
 }
 
 //! FE8U = 0x080B9F08
-void DoNothing(void)
+void NULL_080B9F08(void)
 {
     nullsub_22();
     return;
@@ -2020,7 +2020,7 @@ struct ProcCmd CONST_DATA gProcScr_WorldMapWrapper[] =
 void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
 {
     int chIndex;
-    int iVar2;
+    int node_next;
 
     Sound_FadeOutBGM(4);
 
@@ -2032,12 +2032,12 @@ void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
     {
         int loc = gGMData.units[0].location;
 
-        gGMData.unk_c8 = loc;
-        iVar2 = WMLoc_GetNextLocId(loc);
+        gGMData.current_node = loc;
+        node_next = WMLoc_GetNextLocId(loc);
 
-        if (iVar2 > -1)
+        if (node_next > -1)
         {
-            chIndex = WMLoc_GetChapterId(iVar2);
+            chIndex = WMLoc_GetChapterId(node_next);
 
             gPlaySt.chapterIndex = chIndex;
 

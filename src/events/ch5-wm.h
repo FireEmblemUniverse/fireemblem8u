@@ -5,7 +5,7 @@
 #include "eventinfo.h"
 #include "eventcall.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -39,7 +39,7 @@ LABEL(0x2)
 CONST_DATA EventScr EventScrWM_08A3A268[] = {
     EVBIT_MODIFY(0x1)
     WM_SPAWNLORD(WM_MU_0, CHARACTER_EIRIKA, WM_NODE_Renvall2)
-    WmEvtSetCamToNode(WM_NODE_AdlasPlains) // ENOSUPP in EA-stdlib
+    WmEvtSetCamToNode(WM_NODE_AdlasPlains) // ENOSUPP in EAstdlib
     WM_FADEOUT(0)
     WM_TEXTDECORATE // WaitFade
     EVBIT_MODIFY(0x0)
@@ -47,8 +47,8 @@ CONST_DATA EventScr EventScrWM_08A3A268[] = {
     WM_WAITFORSPRITES(WM_MU_0)
     WM_MOVESPRITETO(WM_MU_0, 0x0004, WM_NODE_AdlasPlains, WM_NODE_Serafew, -2, 0)
     WM_WAITFORSPRITES(WM_MU_0)
-    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Serafew) // ENOSUPP in EA-stdlib
-    WmEvtSetNextStoryNode(WM_NODE_Serafew) // ENOSUPP in EA-stdlib
+    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Serafew) // ENOSUPP in EAstdlib
+    WmEvtSetNextStoryNode(WM_NODE_Serafew) // ENOSUPP in EAstdlib
     SKIPWN
     ENDA
 };

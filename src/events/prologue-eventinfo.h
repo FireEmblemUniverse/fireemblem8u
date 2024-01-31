@@ -6,7 +6,7 @@
 #include "chapterdata.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/event-flags.h"
 
 CONST_DATA EventListScr EventListScr_Prologue_Turn[] = {

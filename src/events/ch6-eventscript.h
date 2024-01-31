@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch6_BeginingScene[] = {
@@ -200,7 +200,7 @@ CONST_DATA EventListScr EventScr_089F2AE4[] = {
     TEXTEND
     CHECK_ALIVE(CHARACTER_COLM)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    EvtTextShow2(0x9eb) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0x9eb) // ENOSUPP in EAstdlib
     TEXTEND
 LABEL(0x0)
     REMA

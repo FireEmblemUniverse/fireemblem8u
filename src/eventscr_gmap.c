@@ -376,7 +376,7 @@ u8 Event97_WmInitNextStoryNode(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    int nodeId = WMLoc_GetNextLocId(gGMData.unk_c8);
+    int nodeId = WMLoc_GetNextLocId(gGMData.current_node);
 
     if (nodeId < 0)
     {
@@ -510,7 +510,7 @@ u8 Event9C_(struct EventEngineProc * proc)
 {
     struct WorldMapMainProc * worldMapProc;
 
-    int nodeId = WMLoc_GetNextLocId(gGMData.unk_c8);
+    int nodeId = WMLoc_GetNextLocId(gGMData.current_node);
 
     if (nodeId >= 0)
     {
@@ -952,7 +952,7 @@ u8 EventB4_WmDisplayBigMap(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        Make6C_Gmap_RM(x, y, c, NULL);
+        NewGmapRM(x, y, c, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -998,7 +998,7 @@ u8 EventB7_WmBigMapWait(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (sub_80C2470())
+    if (GmapRMExists())
     {
         return EVC_STOP_YIELD;
     }

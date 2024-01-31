@@ -5,14 +5,14 @@
 #include "eventinfo.h"
 #include "eventcall.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "worldmap.h"
 #include "constants/worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 
 CONST_DATA EventScr EventScrWM_08A3A70C[] = {
-    EvtTextStartType5 // ENOSUPP in EA-stdlib
+    EvtTextStartType5 // ENOSUPP in EAstdlib
     SVAL(EVT_SLOT_B, 0x54000c)
     TEXTSHOW(0x8e5)
     TEXTEND
@@ -45,7 +45,7 @@ CONST_DATA EventScr EventScrWM_Ch9a_Beginning[] = {
     STAL(40)
     WM_DRAWPATH(WM_PATH_08)
     STAL(70)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 46, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 46, 0) // ENOSUPP in EAstdlib
     STAL(60)
     WM_WAITFORCAM
     MUSC(0x5)
@@ -288,7 +288,7 @@ CONST_DATA EventScr EventScrWM_Ch14a_Beginning[] = {
     WM_DRAWPATH(WM_PATH_0D)
     STAL(70)
     STAL(26)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EAstdlib
     WM_WAITFORCAM
     STAL(26)
     WM_MAKELORDVISIBLE(WM_MU_0)
@@ -372,7 +372,7 @@ CONST_DATA EventScr EventScrWM_Ch9b_Beginning[] = {
     STAL(40)
     WM_DRAWPATH(WM_PATH_0E)
     STAL(70)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 46, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 46, 0) // ENOSUPP in EAstdlib
     STAL(60)
     WM_WAITFORCAM
     MUSC(0x6)
@@ -397,7 +397,7 @@ CONST_DATA EventScr EventScrWM_08A3AF30[] = {
     WM_MOVECAM(-1, -1, 0, 64, 80, 0)
     WM_WAITFORCAM
     STAL(30)
-    WmEvtPasueMove(WM_MU_0) // ENOSUPP in EA-stdlib
+    WmEvtPasueMove(WM_MU_0) // ENOSUPP in EAstdlib
     WM_TEXT(0x08F1, 0)
     TEXTEND
     WM_CLEARPORTRAIT(0, 0x0100, 0)
@@ -429,7 +429,7 @@ CONST_DATA EventScr EventScrWM_08A3AF30[] = {
     TEXTEND
     WM_WAITFORSPRITELOAD
     WM_FADEOUTSPRITE(WM_MU_2, 60)
-    WmEvtResumeMove(WM_MU_0) // ENOSUPP in EA-stdlib
+    WmEvtResumeMove(WM_MU_0) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     WM_WAITFORSPRITES(WM_MU_ANY)
@@ -458,7 +458,7 @@ CONST_DATA EventScr EventScrWM_Ch10b_Beginning[] = {
     WM_DRAWPATH(WM_PATH_0F)
     STAL(70)
     STAL(26)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EAstdlib
     WM_WAITFORCAM
     STAL(26)
     WM_MAKELORDVISIBLE(WM_MU_0)
@@ -606,7 +606,7 @@ CONST_DATA EventScr EventScrWM_08A3B338[] = {
     STAL(46)
     WM_MOVESPRITETO(WM_MU_0, 0x0000, WM_NODE_ZaalbulMarsh, WM_NODE_GradoKeep, -4, 0)
     STAL(100)
-    WmEvtPasueMove(WM_MU_0) // ENOSUPP in EA-stdlib
+    WmEvtPasueMove(WM_MU_0) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     PUTSPRITE(WM_MU_2, CLASS_GENERAL, WM_FACTION_RED, WM_NODE_GradoKeep)
@@ -616,7 +616,7 @@ CONST_DATA EventScr EventScrWM_08A3B338[] = {
     WM_WAITFORSPRITELOAD
     WM_CLEARPORTRAIT(0, 0x0100, 0)
     WM_FADEOUTSPRITE(WM_MU_2, 60)
-    WmEvtResumeMove(WM_MU_0) // ENOSUPP in EA-stdlib
+    WmEvtResumeMove(WM_MU_0) // ENOSUPP in EAstdlib
     STAL(46)
     WM_WAITFORSPRITELOAD
     WM_WAITFORSPRITES(WM_MU_ANY)
@@ -827,7 +827,7 @@ CONST_DATA EventScr EventScrWM_Ch15a_Beginning[] = {
     WM_LOADLOCATION2(WM_NODE_JehannaHall2)
     WM_SETDESTINATION(WM_NODE_JehannaHall2)
     WM_DRAWPATH2(WM_PATH_16)
-    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_JehannaHall2) // ENOSUPP in EA-stdlib
+    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_JehannaHall2) // ENOSUPP in EAstdlib
     SKIPWN
     WM_MAKELORDVISIBLE(WM_MU_0)
     EVBIT_MODIFY(0x1)
@@ -867,7 +867,7 @@ CONST_DATA EventScr EventScrWM_Ch16a_Beginning[] = {
     STAL(40)
     WM_DRAWPATH(WM_PATH_15)
     STAL(70)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 30, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 30, 0) // ENOSUPP in EAstdlib
     STAL(60)
     WM_MAKELORDVISIBLE(WM_MU_0)
     EVBIT_MODIFY(0x1)
@@ -937,7 +937,7 @@ CONST_DATA EventScr EventScrWM_Ch17a_Beginning[] = {
     WM_DRAWPATH(WM_PATH_18)
     STAL(70)
     STAL(26)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EAstdlib
     WM_WAITFORCAM
     STAL(26)
     WM_MAKELORDVISIBLE(WM_MU_0)
@@ -1133,7 +1133,7 @@ CONST_DATA EventScr EventScrWM_Ch20a_Beginning[] = {
     WM_DRAWPATH(WM_PATH_1E)
     STAL(60)
     STAL(26)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EAstdlib
     WM_WAITFORCAM
     STAL(26)
     STAL(20)
@@ -1216,7 +1216,7 @@ CONST_DATA EventScr EventScrWM_Ch15b_Beginning[] = {
     WM_DRAWPATH(WM_PATH_13)
     STAL(70)
     STAL(26)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EAstdlib
     WM_WAITFORCAM
     STAL(26)
     WM_MAKELORDVISIBLE(WM_MU_0)
@@ -1297,7 +1297,7 @@ CONST_DATA EventScr EventScrWM_Ch16b_Beginning[] = {
     STAL(40)
     WM_DRAWPATH(WM_PATH_15)
     STAL(70)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 30, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 30, 0) // ENOSUPP in EAstdlib
     STAL(60)
     WM_MAKELORDVISIBLE(WM_MU_0)
     EVBIT_MODIFY(0x1)
@@ -1367,7 +1367,7 @@ CONST_DATA EventScr EventScrWM_Ch17b_Beginning[] = {
     WM_DRAWPATH(WM_PATH_18)
     STAL(70)
     STAL(26)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EAstdlib
     WM_WAITFORCAM
     STAL(26)
     WM_MAKELORDVISIBLE(WM_MU_0)
@@ -1562,7 +1562,7 @@ CONST_DATA EventScr EventScrWM_Ch20b_Beginning[] = {
     WM_DRAWPATH(WM_PATH_1E)
     STAL(60)
     STAL(26)
-    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EA-stdlib
+    WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 26, 0) // ENOSUPP in EAstdlib
     WM_WAITFORCAM
     STAL(26)
     STAL(20)
@@ -1630,7 +1630,7 @@ CONST_DATA EventScr EventScrWM_08A3C6EC[] = {
     WM_SPAWNLORD(WM_MU_0, CHARACTER_EIRIKA, WM_NODE_BorderMulan)
     WM_CENTERCAMONLORD(WM_MU_0)
     WM_LOADLOCATION2(WM_NODE_BorderMulan)
-    WmEvtSetNodeStateNot2(WM_NODE_BorderMulan) // ENOSUPP in EA-stdlib
+    WmEvtSetNodeStateNot2(WM_NODE_BorderMulan) // ENOSUPP in EAstdlib
     WM_SETCAM(0, 12)
     WM_FADEOUT(0)
     WM_TEXTDECORATE // WaitFade
@@ -1662,11 +1662,11 @@ CONST_DATA EventScr EventScrWM_08A3C79C[] = {
     EVBIT_MODIFY(0x1)
     WM_SPAWNLORD(WM_MU_0, CHARACTER_EIRIKA, WM_NODE_Serafew)
     WM_CENTERCAMONLORD(WM_MU_0)
-    WmEvtSetNodeStateNot2(WM_NODE_Serafew) // ENOSUPP in EA-stdlib
+    WmEvtSetNodeStateNot2(WM_NODE_Serafew) // ENOSUPP in EAstdlib
     WM_FADEOUT(0)
     WM_TEXTDECORATE // WaitFade
     EVBIT_MODIFY(0x0)
-    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Serafew) // ENOSUPP in EA-stdlib
+    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Serafew) // ENOSUPP in EAstdlib
     WM_MAKELORDVISIBLE(WM_MU_0)
     WM_MOVESPRITETO(WM_MU_0, 0x0004, WM_NODE_Serafew, WM_NODE_ZahaWoods, -2, 0)
     WM_WAITFORSPRITES(WM_MU_0)
@@ -1678,7 +1678,7 @@ CONST_DATA EventScr EventScrWM_08A3C79C[] = {
     WM_MOVESPRITETO(WM_MU_0, 0x0004, WM_NODE_Ide, WM_NODE_CastleFrelia, -2, 0)
     WM_WAITFORSPRITES(WM_MU_0)
     WM_WAITFORCAM
-    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_CastleFrelia) // ENOSUPP in EA-stdlib
+    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_CastleFrelia) // ENOSUPP in EAstdlib
     SKIPWN
     ENDA
 };

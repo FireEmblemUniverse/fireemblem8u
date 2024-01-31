@@ -5,14 +5,14 @@
 #include "eventinfo.h"
 #include "eventcall.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/worldmap.h"
 
 CONST_DATA EventScr EventScrWM_Ch3_BeginningTutorial[] = {
-    EvtTextStartType5 // ENOSUPP in EA-stdlib
+    EvtTextStartType5 // ENOSUPP in EAstdlib
     SVAL(EVT_SLOT_B, 0x4000c)
     TEXTSHOW(0x8df)
     TEXTEND

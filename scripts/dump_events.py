@@ -224,12 +224,12 @@ def parse_event(rom_data, off):
         case "EV_CMD_ENQUEUE_CALL":
             match sub_cmd:
                 case 0:
-                    print(f"\tEvtEnqueueCallDirectly({try_get_ptr_symbol(arg32)}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtEnqueueCallDirectly({try_get_ptr_symbol(arg32)}) // ENOSUPP in EAstdlib")
                 case 1:
                     if arg0 not in EVENT0B_TRIGGER_TYPE:
                         parse_event_err(rom_data, off)
                     else:
-                        print(f"\tEvtEnqueueConditionalTutCall({try_get_ptr_symbol(arg32)}, {EVENT0B_TRIGGER_TYPE[arg0]}) // ENOSUPP in EA-stdlib")
+                        print(f"\tEvtEnqueueConditionalTutCall({try_get_ptr_symbol(arg32)}, {EVENT0B_TRIGGER_TYPE[arg0]}) // ENOSUPP in EAstdlib")
                 case _:
                     parse_event_err(rom_data, off)
 
@@ -308,7 +308,7 @@ def parse_event(rom_data, off):
                 case 6:
                     print(f"\tMUSCSLOW({hex(bgm)})")
                 case _:
-                    print(f"\tEvtBgmFadeIn({hex(bgm)}, {sub_cmd}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtBgmFadeIn({hex(bgm)}, {sub_cmd}) // ENOSUPP in EAstdlib")
 
         case "EV_CMD_BGMOVERWRITE":
             match sub_cmd:
@@ -357,7 +357,7 @@ def parse_event(rom_data, off):
                 case 1:
                     print(f"\tENDFADE")
                 case 2:
-                    print(f"\tEvtColorFadeSetup({hex(form)}, {hex(to)}, {speed}, {r}, {g}, {b}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtColorFadeSetup({hex(form)}, {hex(to)}, {speed}, {r}, {g}, {b}) // ENOSUPP in EAstdlib")
                 case _:
                     parse_event_err(rom_data, off)
 
@@ -395,13 +395,13 @@ def parse_event(rom_data, off):
                 case 1:
                     print(f"\tREMOVEPORTRAITS")
                 case 2:
-                    print(f"\tEvtTextStartType2 // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtTextStartType2 // ENOSUPP in EAstdlib")
                 case 3:
                     print(f"\tTUTORIALTEXTBOXSTART")
                 case 4:
                     print(f"\tSOLOTEXTBOXSTART")
                 case 5:
-                    print(f"\tEvtTextStartType5 // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtTextStartType5 // ENOSUPP in EAstdlib")
                 case _:
                     parse_event_err(rom_data, off)
 
@@ -411,7 +411,7 @@ def parse_event(rom_data, off):
                 case 0:
                     print(f"\tTEXTSHOW({hex(msg)})")
                 case 1:
-                    print(f"\tEvtTextShow2({hex(msg)}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtTextShow2({hex(msg)}) // ENOSUPP in EAstdlib")
                 case 2:
                     print(f"\tREMA")
                 case _:
@@ -438,13 +438,13 @@ def parse_event(rom_data, off):
                     print(f"\tBACG({hex(bg)})")
                 case 1:
                     _type, speed = unpack_EvtParams2(arg32)
-                    print(f"\tEvtBgTransion({hex(bg)}, {_type}, {speed}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtBgTransion({hex(bg)}, {_type}, {speed}) // ENOSUPP in EAstdlib")
                 case 2:
                     color, speed = unpack_EvtParams2(arg32)
-                    print(f"\tEvtBgFadeIn({hex(bg)}, {color}, {speed}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtBgFadeIn({hex(bg)}, {color}, {speed}) // ENOSUPP in EAstdlib")
                 case 3:
                     color, speed = unpack_EvtParams2(arg32)
-                    print(f"\tEvtBgFadeOut({color}, {speed}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtBgFadeOut({color}, {speed}) // ENOSUPP in EAstdlib")
                 case _:
                     parse_event_todo(rom_data, off) # todo
 
@@ -491,7 +491,7 @@ def parse_event(rom_data, off):
                 case 0:
                     print(f"\tVCWF({arg0})")
                 case 1:
-                    print(f"\tEvtChangeFogVision(true, {arg0}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtChangeFogVision(true, {arg0}) // ENOSUPP in EAstdlib")
                 case _:
                     parse_event_err(rom_data, off)
 
@@ -513,11 +513,11 @@ def parse_event(rom_data, off):
         case "EV_CMD_LOAD_PRECONF":
             match sub_cmd:
                 case 0:
-                    print(f"\tEvtSetLoadUnitCount({hex(arg0)}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtSetLoadUnitCount({hex(arg0)}) // ENOSUPP in EAstdlib")
                 case 1:
-                    print(f"\tEvtSetLoadUnitChance({hex(arg0)}) // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtSetLoadUnitChance({hex(arg0)}) // ENOSUPP in EAstdlib")
                 case 2:
-                    print(f"\tEvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib")
+                    print(f"\tEvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib")
                 case _:
                     parse_event_err(rom_data, off)
 
@@ -839,7 +839,7 @@ def parse_event(rom_data, off):
             print(f"\tWM_SHOWDRAWNMAP({x}, {y}, {hex(_map)})")
 
         case "EV_CMD_WM_C2":
-            print("\tWmEvtNoFade // ENOSUPP in EA-stdlib")
+            print("\tWmEvtNoFade // ENOSUPP in EAstdlib")
 
         case "EV_CMD_WM_SPAWNLORD":
             mu_id, pid = unpack_EvtParams2(arg1_u32_le)
@@ -1002,15 +1002,15 @@ def parse_event(rom_data, off):
 
         case "EV_CMD_WM_84":
             node = arg1_u32_le
-            print(f"\tWmEvtSetCamToNode({WM_NODES[node]}) // ENOSUPP in EA-stdlib")
+            print(f"\tWmEvtSetCamToNode({WM_NODES[node]}) // ENOSUPP in EAstdlib")
 
         case "EV_CMD_WM_A6":
             wm_uid, node = unpack_EvtParams2(arg1_u32_le)
-            print(f"\tWmEvtSetUnitOnNode({WM_MU_IDX[wm_uid]}, {WM_NODES[node]}) // ENOSUPP in EA-stdlib")
+            print(f"\tWmEvtSetUnitOnNode({WM_MU_IDX[wm_uid]}, {WM_NODES[node]}) // ENOSUPP in EAstdlib")
 
         case "EV_CMD_WM_9B":
             node = arg1_u32_le
-            print(f"\tWmEvtSetNextStoryNode({WM_NODES[node]}) // ENOSUPP in EA-stdlib")
+            print(f"\tWmEvtSetNextStoryNode({WM_NODES[node]}) // ENOSUPP in EAstdlib")
 
         case "EV_CMD_WM_REMOVELOCATION":
             node = arg1_u32_le
@@ -1043,7 +1043,7 @@ def parse_event(rom_data, off):
 
             x = ctypes.c_int16(x).value
             y = ctypes.c_int16(y).value
-            print(f"\tWmEvtMoveCamToUnit({x}, {y}, {WM_MU_IDX[wm_uid]}, {speed}, {delay}) // ENOSUPP in EA-stdlib")
+            print(f"\tWmEvtMoveCamToUnit({x}, {y}, {WM_MU_IDX[wm_uid]}, {speed}, {delay}) // ENOSUPP in EAstdlib")
 
         case "EV_CMD_WM_MOVECAMTO":
             x, y = unpack_EvtParams2(arg1_u32_le)
@@ -1056,11 +1056,11 @@ def parse_event(rom_data, off):
 
         case "EV_CMD_WM_AA":
             wm_uid = arg1_u32_le
-            print(f"\tWmEvtPasueMove({WM_MU_IDX[wm_uid]}) // ENOSUPP in EA-stdlib")
+            print(f"\tWmEvtPasueMove({WM_MU_IDX[wm_uid]}) // ENOSUPP in EAstdlib")
 
         case "EV_CMD_WM_AB":
             wm_uid = arg1_u32_le
-            print(f"\tWmEvtResumeMove({WM_MU_IDX[wm_uid]}) // ENOSUPP in EA-stdlib")
+            print(f"\tWmEvtResumeMove({WM_MU_IDX[wm_uid]}) // ENOSUPP in EAstdlib")
 
         case "EV_CMD_WM_SETCAM":
             x, y = unpack_EvtParams2(arg1_u32_le)
@@ -1074,14 +1074,14 @@ def parse_event(rom_data, off):
 
         case "EV_CMD_WM_9D":
             node = arg1_u32_le
-            print(f"\tWmEvtSetNodeStateNot2({WM_NODES[node]}) // ENOSUPP in EA-stdlib")
+            print(f"\tWmEvtSetNodeStateNot2({WM_NODES[node]}) // ENOSUPP in EAstdlib")
 
         case "EV_CMD_WM_SATURATE_COLORS":
             speed = arg1_u32_le
             print(f"\tWmEvtFadeInDark({speed}) // WM_SATURATE_COLORS")
 
         case "EV_CMD_WM_AE":
-            print("\tWmEvtWaitFadeInDark // ENOSUPP in EA-stdlib")
+            print("\tWmEvtWaitFadeInDark // ENOSUPP in EAstdlib")
 
         case _:
             parse_event_todo(rom_data, off)

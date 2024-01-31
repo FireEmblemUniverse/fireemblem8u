@@ -2,7 +2,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventscript.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "chapterdata.h"
 #include "constants/event-flags.h"
 #include "bmunit.h"

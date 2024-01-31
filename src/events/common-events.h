@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_9EEA58[] = {
@@ -55,14 +55,14 @@ CONST_DATA EventListScr EventScr_9EEB00[] = {
     BLT(0x0, EVT_SLOT_C, EVT_SLOT_4)
     EVBIT_F(3)
     SDEQUEUE(EVT_SLOT_2)
-    EvtTextShow2(0xffff) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xffff) // ENOSUPP in EAstdlib
     TEXTEND
     SVAL(EVT_SLOT_7, 0x1)
     BNE(0x1, EVT_SLOT_C, EVT_SLOT_7)
     SDEQUEUE(EVT_SLOT_2)
     MUSS(0x30)
     STAL(33)
-    EvtTextShow2(0xffff) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xffff) // ENOSUPP in EAstdlib
     TEXTEND
     REMA
     SADD(EVT_SLOT_2, EVT_SLOT_3, EVT_SLOT_0)
@@ -76,7 +76,7 @@ LABEL(0x0)
     SDEQUEUE(EVT_SLOT_2)
     SDEQUEUE(EVT_SLOT_2)
     SDEQUEUE(EVT_SLOT_2)
-    EvtTextShow2(0xffff) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xffff) // ENOSUPP in EAstdlib
     TEXTEND
     REMA
     MUNO
@@ -84,7 +84,7 @@ LABEL(0x0)
 LABEL(0x1)
     SDEQUEUE(EVT_SLOT_2)
     SDEQUEUE(EVT_SLOT_2)
-    EvtTextShow2(0xffff) // ENOSUPP in EA-stdlib
+    EvtTextShow2(0xffff) // ENOSUPP in EAstdlib
     TEXTEND
     REMA
     MUNO
@@ -96,9 +96,9 @@ LABEL(0x2)
 
 CONST_DATA EventListScr EventScr_CallBreakStone[] = {
     STARTFADE
-    EvtColorFadeSetup(0x0, 0x20, 8, 128, 128, 128) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x0, 0x20, 8, 128, 128, 128) // ENOSUPP in EAstdlib
     STAL(30)
     BREAKSTONE(CHAR_EVT_SLOT2)
-    EvtColorFadeSetup(0x0, 0x20, 4, 256, 256, 256) // ENOSUPP in EA-stdlib
+    EvtColorFadeSetup(0x0, 0x20, 4, 256, 256, 256) // ENOSUPP in EAstdlib
     ENDA
 };

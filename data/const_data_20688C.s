@@ -7,8 +7,8 @@
 GfxSet_WmNationMap:  @ 0x08206AF0
 @ Replacing .incbin "baserom.gba", 0x206AF0, 0x80
     .4byte Img_WmHightLightMapFrecia
-    .4byte Pal_WmHighLightNationMap + 0x59c
-    .4byte 0x00280036
+    .4byte Ap_WmHightLightMapFrecia
+    .2byte 54, 40
     .4byte Pal_WmHighLightNationMap + 0x60c
     .4byte Pal_WmHighLightNationMap + 0xcd0
     .4byte 0x00750058
@@ -30,6 +30,7 @@ GfxSet_WmNationMap:  @ 0x08206AF0
     .4byte Pal_WmHighLightNationMap + 0x2540
     .4byte Pal_WmHighLightNationMap + 0x2a5c
     .4byte 0x004a0065
+
     .4byte 0x70616d47
     .4byte 0x204d5220
     .4byte 0x64726f62

@@ -44,7 +44,7 @@ struct GmapMuEntryProc
     /* 40 */ int unk_40;
 };
 
-extern u8 gUnknown_0201BE30;
+extern u8 gWmHblankStatus;
 
 extern u16 gPal_08A9E5BC[];
 extern u8 gImg_08A9E544[];
@@ -514,7 +514,7 @@ void GmMuEntry_80BFEF8(struct GmapMuEntryProc * proc)
     sub_80C1DD8(1, 0x05000054);
     sub_80C1DE8(1);
 
-    gUnknown_0201BE30 |= 4;
+    gWmHblankStatus |= 4;
 
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 1, 1, 1);
@@ -547,7 +547,7 @@ void GmMuEntry_80BFFD0(struct GmapMuEntryProc * proc)
     sub_80C1DD8(1, 0x05000054);
     sub_80C1DE8(1);
 
-    gUnknown_0201BE30 |= 4;
+    gWmHblankStatus |= 4;
 
     return;
 }

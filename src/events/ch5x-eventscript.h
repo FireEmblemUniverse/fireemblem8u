@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
@@ -125,7 +125,7 @@ CONST_DATA EventListScr EventScr_089F25FC[] = {
     CLEN
     CLEAN
     CAMERA2(13, 9)
-    EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088B5D48)
     ENUN
     FADU(16)

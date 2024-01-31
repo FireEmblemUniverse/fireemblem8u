@@ -4,7 +4,7 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
-#include "ea-stdlib.h"
+#include "EAstdlib.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch10a_BeginingScene[] = {
@@ -29,7 +29,7 @@ CONST_DATA EventListScr EventScr_Ch10a_BeginingScene[] = {
 	CLEN
 	CAMERA2(9, 11)
 	UNIT_COLORS(0x2)
-	EvtSetLoadUnitNoREDA // ENOSUPP in EA-stdlib
+	EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
 	LOAD2(0x1, UnitDef_088B96E0)
 	ENUN
 	SVAL(EVT_SLOT_B, 0xd0007)
