@@ -62,7 +62,7 @@ void efxStone_Loop_Main(struct ProcEfx * proc)
 
             StartSubSpell_efxStoneBG(anim);
 
-            if (GettUnitEfxDebuff(anim) == UNIT_STATUS_NONE)
+            if (GetUnitEfxDebuff(anim) == UNIT_STATUS_NONE)
             {
                 SetUnitEfxDebuff(anim, UNIT_STATUS_PETRIFY);
             }

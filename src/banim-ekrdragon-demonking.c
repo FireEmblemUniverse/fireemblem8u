@@ -1,22 +1,10 @@
-#include "global.h"
-#include "proc.h"
-#include "bmbattle.h"
-#include "constants/items.h"
-#include "hardware.h"
-#include "uiutils.h"
-#include "bmlib.h"
-#include "bmmap.h"
-#include "anime.h"
-#include "ekrbattle.h"
-#include "efxbattle.h"
-#include "ekrdragon.h"
-#include "soundwrapper.h"
+#include "gbafe.h"
 
 void sub_805AA68(void *);
 void sub_805AE14(void *);
 void sub_805AE40(void *, s16, s16, s16, s16);
 
-EWRAM_DATA u16 gEkrSomePalBuf[0x20] = {0};
+EWRAM_DATA u16 gEkrBgPaletteBackup[0x20] = {0};
 
 CONST_DATA struct ProcCmd ProcScr_EkrDK[] = {
     PROC_YIELD,
@@ -121,7 +109,7 @@ void EkrDK_BgMovement(struct ProcEkrDragon * proc)
     int val1 = Interpolate(INTERPOLATE_RCUBIC, -0x20, 0, proc->tcounter, 0x78);
     int val2 = Interpolate(INTERPOLATE_RCUBIC, -0x50, 0, proc->tcounter, 0x78);
 
-    EkrDragonTmCpyExt(gEkrBgXOffset + val1, val2);
+    EkrDragonTmCpyExt(gEkrBgPosition + val1, val2);
     
     if (proc->tcounter == 0x78) {
         Proc_Break(proc);
@@ -151,7 +139,7 @@ void PrepareDemonKingBGFx(struct ProcEkrDragon * proc)
     Decompress(Img_DemonKingBG, (void *)0x06008000);
     Decompress(Tsa_DemonKingBG1, gEkrTsaBuffer);
     EkrDragonTmCpyWithDistance();
-    EkrDragonTmCpyExt(gEkrBgXOffset - 0x20, -0x50);
+    EkrDragonTmCpyExt(gEkrBgPosition - 0x20, -0x50);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;
@@ -257,7 +245,7 @@ ProcPtr NewEkrDragonBaseHide(struct Anim * anim)
 void EkrDragonBaseHideMain(struct ProcEfxDKfx * proc)
 {
     int val = Interpolate(INTERPOLATE_SQUARE, 0, 0x10, proc->timer, 8);
-    CpuFastCopy(gEkrSomePalBuf, PAL_BG(4), 0x40);
+    CpuFastCopy(gEkrBgPaletteBackup, PAL_BG(4), 0x40);
     EfxPalBlackInOut(PAL_BG(0), 4, 2, val);
     EnablePaletteSync();
 
@@ -288,7 +276,7 @@ ProcPtr NewEkrDragonBaseAppear(struct Anim * anim)
     proc->timer = 0;
     FillBGRect(gBG2TilemapBuffer, 0x20, 0x20, 0, 0);
     sub_805AA68(&gUnknown_0201FADC);
-    CpuFastCopy(PAL_BG(4), gEkrSomePalBuf, 0x40);
+    CpuFastCopy(PAL_BG(4), gEkrBgPaletteBackup, 0x40);
     EfxPalBlackInOut(PAL_BG(0), 4, 2, 0x10);
     return proc;
 }
@@ -297,7 +285,7 @@ ProcPtr NewEkrDragonBaseAppear(struct Anim * anim)
 void EkrDragonBaseAppearMain(struct ProcEfxDKfx * proc)
 {
     int val = Interpolate(INTERPOLATE_SQUARE, 0x10, 0, proc->timer, 8);
-    CpuFastCopy(gEkrSomePalBuf, PAL_BG(4), 0x40);
+    CpuFastCopy(gEkrBgPaletteBackup, PAL_BG(4), 0x40);
     EfxPalBlackInOut(PAL_BG(0), 4, 2, val);
     EnablePaletteSync();
 
@@ -352,14 +340,14 @@ void EfxDKUpdateFrontAnimPostion(struct ProcEfxDKfx * proc)
     int val1, val2, val3, val4;
 
     if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
-        val1 = gEkrXPosReal[0] - gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
+        val1 = gEkrXPosReal[0] - gEkrBg2QuakeVec.x - gEkrBgPosition - gUnknown_03004FA0;
         val2 = gEkrYPosReal[0] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
     } else {
-        val1 = gEkrXPosReal[0] + gEkrBg2QuakeVec.x - gEkrBgXOffset;
+        val1 = gEkrXPosReal[0] + gEkrBg2QuakeVec.x - gEkrBgPosition;
         val2 = gEkrYPosReal[0] - gEkrBg2QuakeVec.y;
     }
 
-    val3 = gEkrXPosReal[1] + gEkrBg2QuakeVec.x - gEkrBgXOffset - gUnknown_03004FA0;
+    val3 = gEkrXPosReal[1] + gEkrBg2QuakeVec.x - gEkrBgPosition - gUnknown_03004FA0;
     val4 = gEkrYPosReal[1] - gEkrBg2QuakeVec.y - gUnknown_03004FA4;
 
     switch (gEkrDistanceType) {
@@ -417,7 +405,7 @@ void sub_8076C54(struct ProcEfxDKBody1 * proc)
     }while(0);
     }
 
-    val1 += gEkrBgXOffset;
+    val1 += gEkrBgPosition;
     EkrDragonTmCpyExt(val1, val2);
     if (proc->timer > 0x1E) {
         gEkrXQuakeOff = -56;
@@ -445,7 +433,7 @@ void sub_8076D60(struct ProcEfxDKBody1 * proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_LINEAR, -56, 8, proc->timer, 0xA);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_LINEAR, 16, -8, proc->timer, 0xA);
 
-    EkrDragonTmCpyExt(gEkrBgXOffset, 0);
+    EkrDragonTmCpyExt(gEkrBgPosition, 0);
 
     gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
@@ -470,7 +458,7 @@ void sub_8076E00(struct ProcEfxDKBody1 * proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 8, 0, proc->timer, 20);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, -8, 0, proc->timer, 20);
 
-    EkrDragonTmCpyExt(gEkrBgXOffset, 0);
+    EkrDragonTmCpyExt(gEkrBgPosition, 0);
 
     gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
@@ -489,7 +477,7 @@ void sub_8076E84(struct ProcEfxDKBody1 * proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0, 0, proc->timer, 0x32);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0, 0, proc->timer, 0x32);
 
-    EkrDragonTmCpyExt(gEkrBgXOffset, 0);
+    EkrDragonTmCpyExt(gEkrBgPosition, 0);
 
     gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
@@ -522,7 +510,7 @@ void sub_8076F48(struct ProcEfxDKBody1 * proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0, -20, proc->timer, 5);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, 0, -10, proc->timer, 5);
 
-    EkrDragonTmCpyExt(gEkrBgXOffset, 0);
+    EkrDragonTmCpyExt(gEkrBgPosition, 0);
 
     gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
@@ -546,7 +534,7 @@ void sub_8076FD4(struct ProcEfxDKBody1 * proc)
     gEkrXQuakeOff = Interpolate(INTERPOLATE_RCUBIC, -20, 0, proc->timer, 4);
     gEkrYQuakeOff = Interpolate(INTERPOLATE_RCUBIC, -10, 0, proc->timer, 4);
 
-    EkrDragonTmCpyExt(gEkrBgXOffset, 0);
+    EkrDragonTmCpyExt(gEkrBgPosition, 0);
 
     gEkrXPosReal[0] = proc->xPos + gEkrXQuakeOff;
     gEkrYPosReal[0] = proc->yPos + gEkrYQuakeOff;
@@ -727,7 +715,7 @@ void EkrDragonBodyAnimeMain(struct ProcEfxDKfx * proc)
     if (ret >= 0) {
         LZ77UnCompWram(proc->tsa_set[ret], gEkrTsaBuffer);
         EkrDragonTmCpyWithDistance();
-        EkrDragonTmCpyExt(gEkrBgXOffset, 0);
+        EkrDragonTmCpyExt(gEkrBgPosition, 0);
         return;
     }
 
@@ -1324,9 +1312,9 @@ void sub_8077C54(s16 x, s16 y)
 
     BG_SetPosition(BG_3, x, y);
 
-    ix1 = gEkrXPosReal[0] - x - gEkrBgXOffset;
+    ix1 = gEkrXPosReal[0] - x - gEkrBgPosition;
     iy1 = gEkrYPosReal[0] - y;
-    ix2 = gEkrXPosReal[1] + x - gEkrBgXOffset;
+    ix2 = gEkrXPosReal[1] + x - gEkrBgPosition;
     iy2 = gEkrYPosReal[1] - y;
 
     SetEkrFrontAnimPostion(0, ix1, iy1);

@@ -64,7 +64,7 @@ EkrDragonQuakeMain: @ 0x080703C4
 	ldrh r1, [r0]
 	ldrh r0, [r4]
 	subs r1, r1, r0
-	ldr r2, _08070560  @ gEkrBgXOffset
+	ldr r2, _08070560  @ gEkrBgPosition
 	ldr r5, [r2]
 	subs r1, r1, r5
 	lsls r1, r1, #0x10
@@ -144,7 +144,7 @@ _08070498:
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	ldr r7, _08070560  @ gEkrBgXOffset
+	ldr r7, _08070560  @ gEkrBgPosition
 	ldr r2, [r7]
 	ldr r0, _0807055C  @ gEkrXPosReal
 	ldrh r1, [r0]
@@ -194,7 +194,7 @@ _08070544:
 _08070554: .4byte gEkrBg2QuakeVec
 _08070558: .4byte gEkrBg0QuakeVec
 _0807055C: .4byte gEkrXPosReal
-_08070560: .4byte gEkrBgXOffset
+_08070560: .4byte gEkrBgPosition
 _08070564: .4byte gEkrYPosReal
 
 	THUMB_FUNC_END EkrDragonQuakeMain

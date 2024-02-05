@@ -101,7 +101,7 @@ struct ProcEkrDragonQuake {
 
     /* 30 */ u8 _pad_30[0x5C - 0x30];
 
-    /* 5C */ struct EkrDragonQuakePriv *priv;
+    /* 5C */ struct EkrDragonQuakePriv * priv;
     /* 60 */ ProcPtr subproc;
 };
 
@@ -216,7 +216,7 @@ extern CONST_DATA struct EfxSelfThunderBGFrame gEfxSelfThunderBGFrames[];
 // extern ??? gEkrDragonStatusLeft
 // extern ??? gEkrDragonStatusRight
 extern u16 gEkrDragonPalBackup[0x40 / sizeof(u16)];
-extern u16 gEkrSomePalBuf[0x20];
+extern u16 gEkrBgPaletteBackup[0x20];
 
 extern u16 Img_EfxDracoZombie[];
 extern u16 Tsa_EfxDracoZombieBaseLeft[];
@@ -604,7 +604,7 @@ void SetEkrDragonDead(struct Anim *anim);
 void SetEkrDragonRefrain(struct Anim *anim);
 bool CheckEkrDragonDead(struct Anim *anim);
 bool CheckEkrDragonRefrain(struct Anim *anim);
-void SetAnimStateHiddenForDragon(void);
+void InitEkrDragonStatus(void);
 void sub_807027C(struct Anim *anim);
 u16 *GetEkrDragonPalette(void);
 // ??? SetEkrDragonPaletteBack(???);

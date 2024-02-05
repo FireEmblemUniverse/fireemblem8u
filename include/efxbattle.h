@@ -288,8 +288,8 @@ void DeleteEach6C_efxStatusUnit(void);
 void DisableEfxStatusUnits(struct Anim * anim);
 void EnableEfxStatusUnits(struct Anim * anim);
 void SetUnitEfxDebuff(struct Anim * anim, int debuff);
-u32 GettUnitEfxDebuff(struct Anim * anim);
-void EfxStatusUnitSomePalModify(struct Anim * anim, int, int, int);
+u32 GetUnitEfxDebuff(struct Anim * anim);
+void EfxStatusUnitFlashing(struct Anim * anim, int, int, int);
 void EfxStatusUnitMain(struct ProcEfxStatusUnit * proc);
 void EfxStatusUnitEnd(struct ProcEfxStatusUnit * proc);
 

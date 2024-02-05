@@ -157,17 +157,17 @@ void nullsub_36(void)
 
 void ekrBattle_Init(struct ProcEkrBattle *proc)
 {
-    gEkrBgXOffset = 0;
+    gEkrBgPosition = 0;
     if (gEkrInitPosReal == 0) {
         if (gEkrDistanceType == EKR_DISTANCE_FAR)
-            gEkrBgXOffset = -0x20;
+            gEkrBgPosition = -0x20;
         else
-            gEkrBgXOffset = -0xF0;
+            gEkrBgPosition = -0xF0;
     }
 
-    InitBothAIS();
+    InitMainAnims();
     RegisterEkrDragonStatusType();
-    SetAnimStateHiddenForDragon();
+    InitEkrDragonStatus();
 
     gCtrlC01Blocking = 1;
 
@@ -479,10 +479,10 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     } /* switch */
 
                     if (val == 2) {
-                        if (GettUnitEfxDebuff(anim1) & 0xC)
+                        if (GetUnitEfxDebuff(anim1) & 0xC)
                             SetUnitEfxDebuff(anim1, UNIT_STATUS_NONE);
 
-                        if (GettUnitEfxDebuff(anim2) & 0xC)
+                        if (GetUnitEfxDebuff(anim2) & 0xC)
                             SetUnitEfxDebuff(anim2, UNIT_STATUS_NONE);
 
                         if (anim1->xPosition == 0x44)
@@ -492,7 +492,7 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                         ParseBattleHitToBanimCmd();
                         AnimClearAll();
                         UpdateBanimFrame();
-                        InitBothAIS();
+                        InitMainAnims();
 
                         proc->timer = 0;
                         proc->proc_idleCb = (ProcFunc)ekrBattleTriggerNewRoundStart;
@@ -882,7 +882,7 @@ void ekrBattle_PostDragonStatusEffect(struct ProcEkrBattle *proc)
 
     if (gEkrDebugModeMaybe == 0) {
         NewEkrNamewinAppear(2, 7, 0);
-        EkrTryRestoreBGM();
+        EkrRestoreBGM();
     }
 
     proc->proc_idleCb = (ProcFunc)nullsub_69;

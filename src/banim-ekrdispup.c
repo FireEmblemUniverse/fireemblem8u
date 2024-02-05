@@ -1,13 +1,4 @@
-#include "global.h"
-#include "proc.h"
-#include "ekrbattle.h"
-#include "anime.h"
-#include "hardware.h"
-#include "efxbattle.h"
-#include "banim_data.h"
-#include "ekrlevelup.h"
-#include "bmitem.h"
-#include "eventinfo.h"
+#include "gbafe.h"
 
 void sub_805AA68(void *);
 void sub_805AE14(void *);
@@ -299,8 +290,8 @@ void EfxPrepareScreenFx(void)
     sub_8070D04(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gPalIndexEfxHpBarUnk[0], 0), PAL_BG(0x2), 0x20);
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gPalIndexEfxHpBarUnk[1], 0), PAL_BG(0x3), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gEkrFactions[POS_L], 0), PAL_BG(0x2), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gEkrFactions[POS_R], 0), PAL_BG(0x3), 0x20);
     EnablePaletteSync();
 
     gEkrBg0QuakeVec.x = 0;

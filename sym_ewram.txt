@@ -216,7 +216,7 @@
 . = 0x01FAD8; gUnknown_0201FAD8 = .;
 . = 0x01FADC; gUnknown_0201FADC = .;
 . = 0x01FB04; gBanimDoneFlag = .;
-. = 0x01FB0C; gEkrBgXOffset = .;
+. = 0x01FB0C; gEkrBgPosition = .;
 . = 0x01FB18; gpProcEfxAnimeDrv = .;
 . = 0x01FB1C; gpImgSheet = .;
 . = 0x01FB24; gUnknown_0201FB24 = .;
@@ -308,7 +308,7 @@
 . = 0x03E108; gEkrInitialPosition = .;
 . = 0x03E10C; gEkrPairBanimID = .;
 . = 0x03E110; gAnimCharaPalIndex = .;
-. = 0x03E114; gPalIndexEfxHpBarUnk = .;
+. = 0x03E114; gEkrFactions = .;
 . = 0x03E118; gEkrSpellAnimIndex = .;
 . = 0x03E11A; gUnknown_0203E11A = .;
 . = 0x03E11C; gBanimTerrainIndexMaybe = .;

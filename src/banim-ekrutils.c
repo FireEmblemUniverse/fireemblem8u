@@ -88,12 +88,12 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
         roundt2 = GetRoundFlagByAnim(animr5);
 
         if (roundt1 & ANIM_ROUND_POISON) {
-            if (GettUnitEfxDebuff(animr7) == UNIT_STATUS_NONE)
+            if (GetUnitEfxDebuff(animr7) == UNIT_STATUS_NONE)
                 SetUnitEfxDebuff(animr7, UNIT_STATUS_POISON);
         }
 
         if (roundt2 & ANIM_ROUND_POISON) {
-            if (GettUnitEfxDebuff(animr5) == UNIT_STATUS_NONE)
+            if (GetUnitEfxDebuff(animr5) == UNIT_STATUS_NONE)
                 SetUnitEfxDebuff(animr5, UNIT_STATUS_POISON);
         }
 
@@ -181,7 +181,7 @@ void StartBattleAnimResireHitEffects(struct Anim * anim, int type)
     }
 }
 
-void sub_8055518(struct Anim * anim, int type)
+void StartBattleAnimStatusChgHitEffects(struct Anim * anim, int type)
 {
     struct Anim * anim1;
 
@@ -576,9 +576,9 @@ void sub_8055A64(struct ProcEfxSpdQuake *proc)
 
 void sub_8055B38(struct ProcEfxSpdQuake *proc)
 {
-    int x1 = gEkrXPosReal[0] - gEkrBgXOffset;
+    int x1 = gEkrXPosReal[0] - gEkrBgPosition;
     int x2 = gEkrYPosReal[0];
-    int y1 = gEkrXPosReal[1] - gEkrBgXOffset;
+    int y1 = gEkrXPosReal[1] - gEkrBgPosition;
     int y2 = gEkrYPosReal[1];
 
     SetEkrFrontAnimPostion(EKR_POS_L, x1, x2);
@@ -591,7 +591,7 @@ void sub_8055B38(struct ProcEfxSpdQuake *proc)
     
     case EKR_DISTANCE_FAR:
     case EKR_DISTANCE_FARFAR:
-        sub_8053618(gEkrBgXOffset);
+        sub_8053618(gEkrBgPosition);
         break;
     }
 

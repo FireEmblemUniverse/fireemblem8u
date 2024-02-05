@@ -145,9 +145,9 @@ void efxRestRSTMain(struct ProcEfx *proc)
     u16 *buf;
 
     if (gEkrBg1ScrollFlip == 0)
-        buf = gpEkrLvupBg1ScrollOffsetList2;
+        buf = gpBg1ScrollOffsetList2;
     else
-        buf = gpEkrLvupBg1ScrollOffsetList1;
+        buf = gpBg1ScrollOffsetList1;
 
     val1 = proc->unk2E;
     proc->unk2E += proc->unk50;
@@ -180,9 +180,9 @@ void NewEfxTwobaiRST(struct Anim *anim, int unk44)
     proc->unk44 = unk44;
 
     for (i = 0; i < 0x78; i++)
-        gpEkrLvupBg1ScrollOffsetList1[i] = -(i / 2);
+        gpBg1ScrollOffsetList1[i] = -(i / 2);
 
-    buf = gpEkrLvupBg1ScrollOffsetList2;
+    buf = gpBg1ScrollOffsetList2;
     for (j = 0; j < 0x78; buf++, j++)
         *buf = -(j / 2);
 }
@@ -224,9 +224,9 @@ void DummvRSTMain(struct ProcEfx *proc)
     u16 *buf;
 
     if (gEkrBg1ScrollFlip == 0)
-        buf = gpEkrLvupBg1ScrollOffsetList2;
+        buf = gpBg1ScrollOffsetList2;
     else
-        buf = gpEkrLvupBg1ScrollOffsetList1;
+        buf = gpBg1ScrollOffsetList1;
 
     for (i = 0; i < 0x78; i++)
         buf[i] = gLCDControlBuffer.bgoffset[1].x;
@@ -276,9 +276,9 @@ void EfxRestWINMain(struct ProcEfx *proc)
     s16 *buf2, *base;
 
     if (gEkrBg2ScrollFlip == 0)
-        buf = gpEkrLvupBg2ScrollOffsetTable2;
+        buf = gpBg2ScrollOffsetTable2;
     else
-        buf = gpEkrLvupBg2ScrollOffsetTable1;
+        buf = gpBg2ScrollOffsetTable1;
 
     base = proc->unk54;
     val2 = base[proc->unk2E];
@@ -310,35 +310,35 @@ void EfxRestWINMain(struct ProcEfx *proc)
 void EfxMagicHBlank_805B724(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK))
-        REG_BG1HOFS = *gpEkrLvupBg1ScrollOffset++;
+        REG_BG1HOFS = *gpBg1ScrollOffset++;
 }
 
 void EfxMagicHBlank_805B750(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK))
-        REG_BG1VOFS = *gpEkrLvupBg1ScrollOffset++;
+        REG_BG1VOFS = *gpBg1ScrollOffset++;
 }
 
 void EfxMagicHBlank_805B77C(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
-        REG_BG2VOFS = *gpEkrLvupBg2ScrollOffset++;
-        REG_BG1HOFS = *gpEkrLvupBg1ScrollOffset++;
+        REG_BG2VOFS = *gpBg2ScrollOffset++;
+        REG_BG1HOFS = *gpBg1ScrollOffset++;
     }
 }
 
 void EfxMagicHBlank_805B7BC(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
-        REG_BG2VOFS = *gpEkrLvupBg2ScrollOffset++;
-        REG_BG1VOFS = *gpEkrLvupBg1ScrollOffset++;
+        REG_BG2VOFS = *gpBg2ScrollOffset++;
+        REG_BG1VOFS = *gpBg1ScrollOffset++;
     }
 }
 
 void EfxMagicHBlank_805B7FC(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
-        REG_BG2VOFS = *gpEkrLvupBg2ScrollOffset++;
+        REG_BG2VOFS = *gpBg2ScrollOffset++;
     }
 }
 
@@ -358,29 +358,29 @@ void NewEfxRestWINH(struct Anim *anim, int a, s16 b, u32 c)
     gEfxBgSemaphore++;
 
     if (c == 2) {
-        buf = gpEkrLvupBg2ScrollOffsetTable1;
+        buf = gpBg2ScrollOffsetTable1;
         for (i = 0; i < 0xA0; buf++, i++)
             *buf = b;
 
-        buf = gpEkrLvupBg2ScrollOffsetTable2;
+        buf = gpBg2ScrollOffsetTable2;
         for (i = 0; i < 0xA0; buf++, i++)
             *buf = b;
 
         gEkrBg2ScrollFlip = 0;
-        gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable1;
-        gpEkrLvupBg2ScrollOffset = gpEkrLvupBg2ScrollOffsetTable1;
+        gpBg2ScrollOffsetStart = gpBg2ScrollOffsetTable1;
+        gpBg2ScrollOffset = gpBg2ScrollOffsetTable1;
     }
 
-    buf = gpEkrLvupBg1ScrollOffsetList1;
+    buf = gpBg1ScrollOffsetList1;
     for (i = 0; i < 0xA0; buf++, i++)
         *buf = b;
 
-    buf = gpEkrLvupBg1ScrollOffsetList2;
+    buf = gpBg1ScrollOffsetList2;
     for (i = 0; i < 0xA0; buf++, i++)
         *buf = b;
 
     gEkrBg1ScrollFlip = 0;
-    gpEkrLvupBg1ScrollOffset = gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList1;
+    gpBg1ScrollOffset = gpBg1ScrollOffsetStart = gpBg1ScrollOffsetList1;
 
     switch (c) {
     case 0:
@@ -419,24 +419,24 @@ void sub_805B958(struct ProcEfx *proc)
         if (proc->unk48 == 0x2) {
             if (gEkrBg2ScrollFlip == 1) {
                 gEkrBg2ScrollFlip = 0;
-                gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable1;
+                gpBg2ScrollOffsetStart = gpBg2ScrollOffsetTable1;
             } else {
                 gEkrBg2ScrollFlip = 1;
-                gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable2;
+                gpBg2ScrollOffsetStart = gpBg2ScrollOffsetTable2;
             }
         }
 
         if (gEkrBg1ScrollFlip == 1) {
             gEkrBg1ScrollFlip = 0;
-            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList1;
+            gpBg1ScrollOffsetStart = gpBg1ScrollOffsetList1;
         } else {
             gEkrBg1ScrollFlip = 1;
-            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList2;
+            gpBg1ScrollOffsetStart = gpBg1ScrollOffsetList2;
         }
     }
 
-    gpEkrLvupBg2ScrollOffset = gpEkrLvupBg2ScrollOffsetStart;
-    gpEkrLvupBg1ScrollOffset = gpEkrLvupBg1ScrollOffsetStart;
+    gpBg2ScrollOffset = gpBg2ScrollOffsetStart;
+    gpBg1ScrollOffset = gpBg1ScrollOffsetStart;
 
     if (++proc->timer == proc->unk44) {
         gEfxBgSemaphore--;

@@ -1,10 +1,4 @@
-#include "global.h"
-#include "hardware.h"
-#include "proc.h"
-#include "anime.h"
-#include "ekrbattle.h"
-#include "efxbattle.h"
-#include "ekrdragon.h"
+#include "gbafe.h"
 
 void SetEkrDragonExit(struct Anim * anim)
 {
@@ -39,7 +33,7 @@ bool CheckEkrDragonRefrain(struct Anim * anim)
         return false;
 }
 
-void SetAnimStateHiddenForDragon(void)
+void InitEkrDragonStatus(void)
 {
     switch (GetBanimDragonStatusType()) {
     case EKRDRGON_TYPE_DRACO_ZOMBIE:
@@ -150,3 +144,39 @@ void NewEkrDragonQuake(struct EkrDragonQuakePriv *priv, int b, int c, ProcPtr pa
     proc->unk2C = 0;
     proc->unk2E = b;
 }
+
+#if 0
+void EkrDragonQuakeMain(struct ProcEkrDragonQuake * proc)
+{
+    struct EkrDragonQuakePriv * priv = proc->priv;
+
+    BG_SetPosition(BG_2, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
+    BG_SetPosition(BG_0, gEkrBg0QuakeVec.x + gEkrBg2QuakeVec.x, gEkrBg0QuakeVec.y + gEkrBg2QuakeVec.y);
+
+    EkrGauge_Setxy323A(
+        -(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x),
+        -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
+
+    EkrDispUP_SetPositionSync(
+        -(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x),
+        -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
+
+    BG_SetPosition(BG_3, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
+
+    SetEkrFrontAnimPostion(
+        POS_L,
+        gEkrXPosReal[POS_L] - gEkrBg2QuakeVec.x - gEkrBgPosition,
+        gEkrYPosReal[POS_L] - gEkrBg2QuakeVec.y);
+
+    SetEkrFrontAnimPostion(
+        POS_R,
+        gEkrXPosReal[POS_R] - gEkrBg2QuakeVec.x - gEkrBgPosition,
+        gEkrYPosReal[POS_R] - gEkrBg2QuakeVec.y);
+
+    if (priv)
+    {
+        priv->unk32 = gEkrXPosReal[POS_L] - gEkrBg2QuakeVec.x;
+        priv->unk3A = gEkrYPosReal[POS_L] - gEkrBg2QuakeVec.y;
+    }
+}
+#endif

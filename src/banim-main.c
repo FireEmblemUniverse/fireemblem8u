@@ -86,16 +86,16 @@ void BattleAIS_ExecCommands(void)
                  * 2. Exec shinning effect for legend weapon
                  */
                 case ANIM_CMD_WAIT_03:
-                    if (GettUnitEfxDebuff(gAnims[0]) & 0xC)
+                    if (GetUnitEfxDebuff(gAnims[0]) & 0xC)
                         SetUnitEfxDebuff(gAnims[0], 0);
 
-                    if (GettUnitEfxDebuff(gAnims[1]) & 0xC)
+                    if (GetUnitEfxDebuff(gAnims[1]) & 0xC)
                         SetUnitEfxDebuff(gAnims[1], 0);
 
-                    if (GettUnitEfxDebuff(gAnims[2]) & 0xC)
+                    if (GetUnitEfxDebuff(gAnims[2]) & 0xC)
                         SetUnitEfxDebuff(gAnims[2], 0);
 
-                    if (GettUnitEfxDebuff(gAnims[3]) & 0xC)
+                    if (GetUnitEfxDebuff(gAnims[3]) & 0xC)
                         SetUnitEfxDebuff(gAnims[3], 0);
                     
                     if (!(anim->state3 & ANIM_BIT3_BLOCKING)) {

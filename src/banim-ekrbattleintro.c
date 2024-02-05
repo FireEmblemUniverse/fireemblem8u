@@ -1154,13 +1154,13 @@ bool PrepareBattleGraphicsMaybe(void)
     if (valid_l)
     {
         u8 i1 = -0x40 & unit_bu1->index;
-        gPalIndexEfxHpBarUnk[0] = GetAllegienceId(i1);
+        gEkrFactions[POS_L] = GetAllegienceId(i1);
     }
 
     if (valid_r)
     {
         u8 i2 = -0x40 & unit_bu2->index;
-        gPalIndexEfxHpBarUnk[1] = GetAllegienceId(i2);
+        gEkrFactions[POS_R] = GetAllegienceId(i2);
     }
 
     gEkrPids[1] = 0;

@@ -33,7 +33,7 @@ void EfxDracoZombiePrepareTSA(int x, int y, s8 pos)
     
     EkrDragonTmCpyWithDistance();
 
-    x += gEkrBgXOffset;
+    x += gEkrBgPosition;
     EkrDragonTmCpyExt(x, y);
 }
 
@@ -100,7 +100,7 @@ void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon * proc)
     x = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->tcounter].lox, gEkrDracoZombiTsaSetLut[proc->tcounter + 1].lox, proc->timer, gEkrDracoZombiTsaSetLut[proc->tcounter].time);
     y = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->tcounter].loy, gEkrDracoZombiTsaSetLut[proc->tcounter + 1].loy, proc->timer, gEkrDracoZombiTsaSetLut[proc->tcounter].time);
 
-    EkrDragonTmCpyExt(x + gEkrBgXOffset, y);
+    EkrDragonTmCpyExt(x + gEkrBgPosition, y);
 
     proc->timer++;
     if (proc->timer == gEkrDracoZombiTsaSetLut[proc->tcounter].time) {

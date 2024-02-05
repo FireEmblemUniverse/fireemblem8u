@@ -100,7 +100,7 @@ const u16 BanimLeftDefaultPos[5] = {
     [EKR_DISTANCE_PROMOTION]  = 0x00
 };
 
-void AnimScrAdvance(struct Anim *anim)
+void AnimScrAdvance(struct Anim * anim)
 {
     u32 inst;
 
@@ -155,7 +155,7 @@ void EkrChienCHRMain(struct ProcEkrChienCHR * proc)
     Proc_Break(proc);
 }
 
-void RegisterAISSheetGraphics(struct Anim *anim)
+void RegisterAISSheetGraphics(struct Anim * anim)
 {
     void *mmap;
     mmap = (void *)0x06010000 + (anim->oam2Base & 0x3FF) * 0x20;
@@ -216,7 +216,7 @@ void UpdateBanimFrame(void)
 
     if (gEkrPairSideVaild[EKR_POS_L] == true) {
         bid = gEkrPairBanimID2[EKR_POS_L];
-        bid_pal = gPalIndexEfxHpBarUnk[EKR_POS_L];
+        bid_pal = gEkrFactions[EKR_POS_L];
         chara_pal = gAnimCharaPalIndex[EKR_POS_L];
 
         LZ77UnCompWram(banim[bid].script, gBanimScrLeft);
@@ -246,7 +246,7 @@ void UpdateBanimFrame(void)
 
     if (gEkrPairSideVaild[EKR_POS_R] == true) {
         bid = gEkrPairBanimID2[EKR_POS_R];
-        bid_pal = gPalIndexEfxHpBarUnk[EKR_POS_R];
+        bid_pal = gEkrFactions[EKR_POS_R];
         chara_pal = gAnimCharaPalIndex[EKR_POS_R];
 
         LZ77UnCompWram(banim[bid].script, gBanimScrRight);
@@ -303,9 +303,9 @@ void UpdateBanimFrame(void)
     }
 }
 
-void InitBothAIS(void)
+void InitMainAnims(void)
 {
-    struct Anim *anim1, *anim2;
+    struct Anim * anim1, *anim2;
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:
@@ -366,7 +366,7 @@ void InitBattleAnimFrame(int round_type_left, int round_type_right)
 
 void InitLeftAnim(int round_type)
 {
-    struct Anim *anim;
+    struct Anim * anim;
     u32 frame_front = BanimDefaultModeConfig[round_type * 4 + 0];
     u32 priority_front = BanimDefaultModeConfig[round_type * 4 + 1];
     u32 frame_back = BanimDefaultModeConfig[round_type * 4 + 2];
@@ -389,7 +389,7 @@ label1:
         if (frame_front == 0xFF)
             scr = BanimScr_DefaultAnim;
         do anim = AnimCreate(scr, priority_front); while (0);
-        anim->xPosition = gEkrXPosReal[0] - gEkrBgXOffset;
+        anim->xPosition = gEkrXPosReal[0] - gEkrBgPosition;
         anim->yPosition = gEkrYPosReal[0];
         anim->oam2Base = OAM2_PAL(0x7) + OAM2_LAYER(0x2) + OAM2_CHR(0x4000 / 0x20);
         anim->state2 |= ANIM_BIT2_0400 | ANIM_BIT2_BACK_FRAME;
@@ -407,7 +407,7 @@ label2:
         if (frame_back == 0xFF)
             scr = BanimScr_DefaultAnim;
         anim = AnimCreate(scr, priority_back);
-        anim->xPosition = gEkrXPosReal[0] - gEkrBgXOffset;
+        anim->xPosition = gEkrXPosReal[0] - gEkrBgPosition;
         anim->yPosition = gEkrYPosReal[0];
         anim->oam2Base = OAM2_PAL(0x7) + OAM2_LAYER(0x2) + OAM2_CHR(0x4000 / 0x20);
         anim->state2 |= ANIM_BIT2_0400 | ANIM_BIT2_FRONT_FRAME;
@@ -421,7 +421,7 @@ label2:
 
 void InitRightAnim(int round_type)
 {
-    struct Anim *anim;
+    struct Anim * anim;
     u32 frame_front = BanimDefaultModeConfig[round_type * 4 + 0];
     u32 priority_front = BanimDefaultModeConfig[round_type * 4 + 1];
     u32 frame_back = BanimDefaultModeConfig[round_type * 4 + 2];
@@ -444,7 +444,7 @@ label1:
         if (frame_front == 0xFF)
             scr = BanimScr_DefaultAnim;
         do anim = AnimCreate(scr, priority_front); while (0);
-        anim->xPosition = gEkrXPosReal[1] - gEkrBgXOffset;
+        anim->xPosition = gEkrXPosReal[1] - gEkrBgPosition;
         anim->yPosition = gEkrYPosReal[1];
         anim->oam2Base = OAM2_PAL(0x9) + OAM2_LAYER(0x2) + OAM2_CHR(0x6000 / 0x20);
         anim->state2 |= ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
@@ -462,7 +462,7 @@ label2:
         if (frame_back == 0xFF)
             scr = BanimScr_DefaultAnim;
         anim = AnimCreate(scr, priority_back);
-        anim->xPosition = gEkrXPosReal[1] - gEkrBgXOffset;
+        anim->xPosition = gEkrXPosReal[1] - gEkrBgPosition;
         anim->yPosition = gEkrYPosReal[1];
         anim->oam2Base = OAM2_PAL(0x9) + OAM2_LAYER(0x2) + OAM2_CHR(0x6000 / 0x20);
         anim->state2 |= ANIM_BIT2_FRONT_FRAME | ANIM_BIT2_POS_RIGHT | ANIM_BIT2_0400;
@@ -474,7 +474,7 @@ label2:
     }
 }
 
-void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
+void SwitchAISFrameDataFromBARoundType(struct Anim * anim, int type)
 {
     u32 frame, priority;
     const u32 *scr;
@@ -515,7 +515,7 @@ void SwitchAISFrameDataFromBARoundType(struct Anim *anim, int type)
     EkrDragonBodyAnimeSet54(anim);
 }
 
-int GetAISLayerId(struct Anim *anim)
+int GetAISLayerId(struct Anim * anim)
 {
     if (!(anim->state2 & ANIM_BIT2_FRONT_FRAME))
         return 0;
@@ -523,7 +523,7 @@ int GetAISLayerId(struct Anim *anim)
     return 1;
 }
 
-int GetAnimPosition(struct Anim *anim)
+int GetAnimPosition(struct Anim * anim)
 {
     if (!(anim->state2 & ANIM_BIT2_POS_RIGHT))
         return EKR_POS_L;
@@ -591,7 +591,7 @@ int CheckRound2(s16 type)
     }
 }
 
-int CheckRoundCrit(struct Anim *anim)
+int CheckRoundCrit(struct Anim * anim)
 {
     switch(anim->currentRoundType) {
     case ANIM_ROUND_CRIT_CLOSE:
@@ -611,27 +611,27 @@ int CheckRoundCrit(struct Anim *anim)
     }
 }
 
-struct Anim *GetAnimAnotherSide(struct Anim *anim)
+struct Anim *GetAnimAnotherSide(struct Anim * anim)
 {
     return gAnims[(1 ^ GetAnimPosition(anim)) * 2];
 }
 
-s16 GetAnimRoundType(struct Anim *anim)
+s16 GetAnimRoundType(struct Anim * anim)
 {
     return GetBattleAnimRoundType((anim->nextRoundId - 1) * 2 + GetAnimPosition(anim));
 }
 
-s16 GetAnimNextRoundType(struct Anim *anim)
+s16 GetAnimNextRoundType(struct Anim * anim)
 {
     return GetBattleAnimRoundType(anim->nextRoundId * 2 + GetAnimPosition(anim));
 }
 
-s16 GetAnimRoundTypeAnotherSide(struct Anim *anim)
+s16 GetAnimRoundTypeAnotherSide(struct Anim * anim)
 {
     return GetBattleAnimRoundType((anim->nextRoundId - 1) * 2 + (1 ^ GetAnimPosition(anim)));
 }
 
-s16 GetAnimNextRoundTypeAnotherSide(struct Anim *anim)
+s16 GetAnimNextRoundTypeAnotherSide(struct Anim * anim)
 {
     return GetBattleAnimRoundType(anim->nextRoundId * 2 + (1 ^ GetAnimPosition(anim)));
 }
@@ -639,7 +639,7 @@ s16 GetAnimNextRoundTypeAnotherSide(struct Anim *anim)
 void SetAnimStateHidden(int pos)
 {
     if (pos == EKR_POS_L) {
-        struct Anim *anim;
+        struct Anim * anim;
 
         anim = gAnims[0];
         anim->state |= ANIM_BIT_HIDDEN;
@@ -650,7 +650,7 @@ void SetAnimStateHidden(int pos)
     }
 
     if (pos == EKR_POS_R) {
-        struct Anim *anim;
+        struct Anim * anim;
 
         anim = gAnims[2];
         anim->state |= ANIM_BIT_HIDDEN;
@@ -664,7 +664,7 @@ void SetAnimStateHidden(int pos)
 void SetAnimStateUnHidden(int pos)
 {
     if (pos == EKR_POS_L) {
-        struct Anim *anim;
+        struct Anim * anim;
 
         anim = gAnims[0];
         anim->state &= ~ANIM_BIT_HIDDEN;
@@ -675,7 +675,7 @@ void SetAnimStateUnHidden(int pos)
     }
 
     if (pos == EKR_POS_R) {
-        struct Anim *anim;
+        struct Anim * anim;
 
         anim = gAnims[2];
         anim->state &= ~ANIM_BIT_HIDDEN;
