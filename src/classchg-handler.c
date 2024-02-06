@@ -6,8 +6,10 @@
 #include "bmio.h"
 #include "bmmap.h"
 #include "bmmind.h"
-#include "bmitem.h"
 #include "mu.h"
+
+// TODO: Implicit declaration
+u32 GetUnitEquippedWeapon(struct Unit *);
 
 CONST_DATA struct ProcCmd ProcScr_PromoHandler[] = {
     PROC_SLEEP(3),
