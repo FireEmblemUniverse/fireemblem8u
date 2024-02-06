@@ -142,7 +142,7 @@ extern u32 gUnknown_0200F15C[];
 void sub_8090D80(struct UnitListScreenProc *);
 void sub_8092298(u8, u8, s8);
 void sub_80922F0(struct UnitListScreenProc *, u8, u16 *, u8, s8);
-bool sub_8092BF0(int, int);
+bool sub_8092BF0(u8, u8);
 void sub_8097FDC(void);
 
 bool CheckInLinkArena(void);
@@ -2621,4 +2621,343 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
 int sub_8092BE4(struct Unit * unit)
 {
     return (unit->state & US_SOLOANIM);
+}
+
+bool sub_8092BF0(u8 arg_0, u8 arg_1)
+{
+    u8 cache[0x40];
+    u8 r2 = arg_1 & 1;
+
+    #define PREPARE_VARS \
+        bool changed = FALSE; \
+        u8 i, j, tmp_cache; \
+        void * tmp_addr;
+
+    #define BUILD_CACHE(key) \
+    { \
+        for (i = 0; i < gUnknown_0200F158; i++) \
+        { \
+            cache[i] = key(i); \
+        } \
+    }
+
+    #define RETURN_IF_CHANGED if (changed) return TRUE;
+
+    #define SWAP(i, j) \
+    { \
+        tmp_addr = gUnknown_0200D6E0[(i)]; \
+        gUnknown_0200D6E0[(i)] = gUnknown_0200D6E0[(j)]; \
+        gUnknown_0200D6E0[(j)] = tmp_addr; \
+    }
+
+    #define SWAP_CACHE(i, j) \
+    { \
+        tmp_cache = cache[(i)]; \
+        cache[(i)] = cache[(j)]; \
+        cache[(j)] = tmp_cache; \
+        SWAP(i, j) \
+    }
+
+    #define SORT_CORE_KEY(key, arrow, swap) \
+    { \
+        /* this is a bubble sort, I think */ \
+        for (i = 0; i < gUnknown_0200F158 - 1; i++) \
+        { \
+            for (j = 0; j < gUnknown_0200F158 - 1 - i; j++) \
+            { \
+                if (key(j + 1) arrow key(j)) \
+                { \
+                    /* swap */ \
+                    swap(j, j + 1) \
+                    changed = TRUE; \
+                } \
+            } \
+        } \
+    }
+
+    #define SORT_CORE(cond, swap) \
+    { \
+        /* this is a bubble sort, I think */ \
+        for (i = 0; i < gUnknown_0200F158 - 1; i++) \
+        { \
+            for (j = 0; j < gUnknown_0200F158 - 1 - i; j++) \
+            { \
+                if (cond) \
+                { \
+                    /* swap */ \
+                    swap(j, j + 1) \
+                    changed = TRUE; \
+                } \
+            } \
+        } \
+    }
+
+    #define SORT_REAL(cond_asc, cond_dsc) \
+        if (r2 == 0) \
+        { \
+            PREPARE_VARS \
+            SORT_CORE(cond_asc, SWAP) \
+            RETURN_IF_CHANGED \
+        } \
+        else \
+        { \
+            PREPARE_VARS \
+            SORT_CORE(cond_dsc, SWAP) \
+            RETURN_IF_CHANGED \
+        }
+
+    #define SORT(cond) SORT_REAL(cond, !(cond))
+
+    #define SORT_BY_KEY(key) \
+        if (r2 == 0) \
+        { \
+            PREPARE_VARS \
+            SORT_CORE_KEY(key, >, SWAP) \
+            RETURN_IF_CHANGED \
+        } \
+        else \
+        { \
+            PREPARE_VARS \
+            SORT_CORE_KEY(key, <, SWAP) \
+            RETURN_IF_CHANGED \
+        }
+
+    #define SORT_MAIN(sort_a, sort_b) \
+        if (r2 == 0) \
+        { \
+            PREPARE_VARS \
+            sort_a \
+            RETURN_IF_CHANGED \
+        } \
+        else \
+        { \
+            PREPARE_VARS \
+            sort_b \
+            RETURN_IF_CHANGED \
+        } \
+        break;
+
+    #define COND_FIELD(field) ((gUnknown_0200D6E0[j + 1]->field) < (gUnknown_0200D6E0[j]->field))
+    #define COND_UNIT_FIELD(field) COND_FIELD(unit->field)
+
+    #define SORT_BY_FUNC(func) \
+        SORT_REAL(func(gUnknown_0200D6E0[j + 1]->unit) > func(gUnknown_0200D6E0[j]->unit), \
+            func(gUnknown_0200D6E0[j + 1]->unit) < func(gUnknown_0200D6E0[j]->unit))
+
+    #define SORT_BY_UNIT_FIELD(field) \
+        SORT_REAL((gUnknown_0200D6E0[j + 1]->unit->field) > (gUnknown_0200D6E0[j]->unit->field), \
+            (gUnknown_0200D6E0[j + 1]->unit->field) < (gUnknown_0200D6E0[j]->unit->field))
+
+    switch (arg_0)
+    {
+        case 1:
+            #define KEY_A(i) (gUnknown_0200D6E0[(i)]->unit->pCharacterData->sort_order)
+            #define KEY_B(i) (gUnknown_0200D6E0[(i)]->unit->state & US_UNSELECTABLE)
+
+            SORT_MAIN(
+                SORT_CORE_KEY(KEY_A, <, SWAP) SORT_CORE_KEY(KEY_B, <, SWAP),
+                SORT_CORE_KEY(KEY_A, >, SWAP) SORT_CORE_KEY(KEY_B, >, SWAP))
+
+            #undef KEY_B
+            #undef KEY_A
+
+        case 3:
+            #define KEY(i) (gUnknown_0200D6E0[(i)]->unit->level)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 2:
+            #define KEY(i) (gUnknown_0200D6E0[(i)]->unit->pClassData->sort_order)
+            SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
+            #undef KEY
+
+        case 4:
+            SORT_BY_UNIT_FIELD(exp)
+            break;
+
+        case 5:
+            SORT_BY_FUNC(GetUnitCurrentHp)
+            break;
+
+        case 6:
+            SORT_BY_FUNC(GetUnitMaxHp)
+            break;
+
+        case 7:
+            SORT_BY_FUNC(GetUnitPower)
+            break;
+
+        case 8:
+            SORT_BY_FUNC(GetUnitSkill)
+            break;
+
+        case 9:
+            SORT_BY_FUNC(GetUnitSpeed)
+            break;
+
+        case 10:
+            SORT_BY_FUNC(GetUnitLuck)
+            break;
+
+        case 11:
+            SORT_BY_FUNC(GetUnitDefense)
+            break;
+
+        case 12:
+            SORT_BY_FUNC(GetUnitResistance)
+            break;
+
+        case 19:
+            SORT_BY_FUNC(UNIT_CON)
+            break;
+
+        case 20:
+            SORT_BY_FUNC(GetUnitAid)
+            break;
+
+        case 13:
+            #define KEY(i) (GetUnitAffinityIcon(gUnknown_0200D6E0[(i)]->unit))
+            SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
+            #undef KEY
+
+        case 14:
+            SORT_MAIN(
+            {
+                for (i = 0; i < gUnknown_0200F158; i++)
+                {
+                    cache[i] = GetItemIndex(GetUnitEquippedWeapon(gUnknown_0200D6E0[i]->unit));
+                }
+
+                for (i = 0; i < gUnknown_0200F158 - 1; i++)
+                {
+                    for (j = 0; j < gUnknown_0200F158 - 1 - i; j++)
+                    {
+                        if (cache[j + 1] > cache[j])
+                        {
+                            SWAP_CACHE(j, j + 1)
+                            changed = TRUE;
+                        }
+                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gUnknown_0200D6E0[j + 1]->unit) > GetUnitEquippedWeapon(gUnknown_0200D6E0[j]->unit))
+                        {
+                            SWAP_CACHE(j, j + 1)
+                            changed = TRUE;
+                        }
+                    }
+                }
+            },
+            {
+                for (i = 0; i < gUnknown_0200F158; i++)
+                {
+                    cache[i] = GetItemIndex(GetUnitEquippedWeapon(gUnknown_0200D6E0[i]->unit));
+                }
+
+                for (i = 0; i < gUnknown_0200F158 - 1; i++)
+                {
+                    for (j = 0; j < gUnknown_0200F158 - 1 - i; j++)
+                    {
+                        if (cache[j + 1] < cache[j])
+                        {
+                            SWAP_CACHE(j, j + 1)
+                            changed = TRUE;
+                        }
+                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gUnknown_0200D6E0[j + 1]->unit) < GetUnitEquippedWeapon(gUnknown_0200D6E0[j]->unit))
+                        {
+                            SWAP_CACHE(j, j + 1)
+                            changed = TRUE;
+                        }
+                    }
+                }
+            })
+
+        case 15:
+            #define KEY(i) (gUnknown_0200D6E0[(i)]->battleAttack)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 16:
+            #define KEY(i) (gUnknown_0200D6E0[(i)]->battleHitRate)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 17:
+            #define KEY(i) (gUnknown_0200D6E0[(i)]->battleAvoidRate)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 18:
+            SORT_BY_FUNC(UNIT_MOV)
+            break;
+
+        case 21:
+            SORT_BY_UNIT_FIELD(statusIndex)
+            break;
+
+        case 22:
+            SORT_MAIN(
+            {
+                for (i = 0; i < gUnknown_0200F158; i++)
+                {
+                    if ((gUnknown_0200D6E0[i]->unit->state & US_RESCUING) != 0)
+                        cache[i] = 1;
+                    else
+                        cache[i] = 0;
+                }
+
+                SORT_CORE(cache[j + 1] > cache[j], SWAP_CACHE)
+            },
+            {
+                for (i = 0; i < gUnknown_0200F158; i++)
+                {
+                    if ((gUnknown_0200D6E0[i]->unit->state & US_RESCUING) != 0)
+                        cache[i] = 1;
+                    else
+                        cache[i] = 0;
+                }
+
+                SORT_CORE(cache[j + 1] < cache[j], SWAP_CACHE)
+            })
+
+        case 23:
+            SORT_BY_UNIT_FIELD(ranks[0])
+            break;
+
+        case 24:
+            SORT_BY_UNIT_FIELD(ranks[1])
+            break;
+
+        case 25:
+            SORT_BY_UNIT_FIELD(ranks[2])
+            break;
+
+        case 26:
+            SORT_BY_UNIT_FIELD(ranks[3])
+            break;
+
+        case 27:
+            SORT_BY_UNIT_FIELD(ranks[4])
+            break;
+
+        case 28:
+            SORT_BY_UNIT_FIELD(ranks[5])
+            break;
+
+        case 29:
+            SORT_BY_UNIT_FIELD(ranks[6])
+            break;
+
+        case 30:
+            SORT_BY_UNIT_FIELD(ranks[7])
+            break;
+
+        case 31:
+            #define KEY(i) (gUnknown_0200D6E0[(i)]->supportCount)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 32:
+            SORT_BY_FUNC(sub_8092BE4)
+            break;
+    }
+
+    return FALSE;
 }
