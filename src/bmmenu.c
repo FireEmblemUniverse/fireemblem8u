@@ -41,6 +41,7 @@
 #include "bmguide.h"
 #include "menuitempanel.h"
 #include "bmmind.h"
+#include "unitlistscreen.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/terrains.h"

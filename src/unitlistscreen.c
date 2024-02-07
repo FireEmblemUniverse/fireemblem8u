@@ -17,106 +17,12 @@
 #include "helpbox.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "bmio.h"
 
-enum
-{
-    UNITLIST_PAGE_SOLOANIM = 0,
-    UNITLIST_PAGE_1 = 1,
-    UNITLIST_PAGE_2 = 2,
-    UNITLIST_PAGE_3 = 3,
-    UNITLIST_PAGE_4 = 4,
-    UNITLIST_PAGE_WEXP = 5,
-    UNITLIST_PAGE_SUPPORT = 6,
-};
+#include "unitlistscreen.h"
 
-enum
-{
-    UNITLIST_MODE_FIELD = 0,
-    UNITLIST_MODE_PREPMENU = 1,
-    // UNITLIST_MODE_2 = 2,
-    UNITLIST_MODE_SOLOANIM = 3,
-    UNITLIST_MODE_4 = 4,
-};
+bool CheckInLinkArena(void);
 
-struct UnitListScreenProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ u8 unk_2a;
-    /* 2B */ u8 unk_2b;
-    /* 2C */ u8 unk_2c;
-    /* 2D */ u8 unk_2d;
-    /* 2E */ u8 unk_2e;
-    /* 2F */ u8 unk_2f;
-    /* 30 */ u8 unk_30;
-    /* 31 */ u8 unk_31;
-    /* 32 */ u8 unk_32;
-    /* 33 */ u8 unk_33;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 unk_35;
-    /* 36 */ u8 unk_36;
-    /* 37 */ u8 unk_37;
-    /* 38 */ u8 unk_38;
-    /* 39 */ u8 unk_39;
-    /* 3A */ u8 unk_3a;
-    /* 3B */ u8 unk_3b;
-    /* 3C */ u16 unk_3c;
-    /* 3E */ u16 unk_3e;
-    /* 44 */ ProcPtr unk_40;
-    /* 48 */ ProcPtr unk_44;
-};
-
-struct UnitListScreenSpritesProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct UnitListScreenProc * unk_2c;
-    /* 30 */ u8 unk_30;
-    /* 34 */ ProcPtr unk_34;
-    /* 38 */ u16 unk_38;
-    /* 3A */ u8 unk_3a;
-    /* 3B */ u8 unk_3b;
-    /* 3C */ u8 unk_3c;
-    /* 3E */ s16 unk_3e;
-    /* 40 */ s16 unk_40;
-    /* 42 */ s16 unk_42;
-    /* 44 */ s16 unk_44;
-    /* 46 */ s16 unk_46;
-    /* 48 */ s16 unk_48;
-};
-
-struct UnitListScreenField
-{
-    /* 00 */ u8 sortKey;
-    /* 01 */ STRUCT_PAD(0x01, 0x04);
-    /* 04 */ int labelString;
-    /* 08 */ u8 xColumn;
-    /* 09 */ STRUCT_PAD(0x09, 0x0C);
-    /* 0C */ u32 helpTextId;
-};
-
-extern struct UnitListScreenField gUnknown_08A17C48[][9];
-
-struct SortedUnitEnt
-{
-    /* 00 */ struct Unit * unit;
-    /* 04 */ s16 battleAttack;
-    /* 06 */ s16 battleHitRate;
-    /* 08 */ s16 battleAvoidRate;
-    /* 0A */ u8 supportCount;
-};
-
-extern struct SortedUnitEnt gUnknown_0200D3E0[]; // gSortedUnitsBuf
-extern struct SortedUnitEnt * gUnknown_0200D6E0[]; // gSortedUnits
-
-struct Unknown_02013460
-{
-    /* 00 */ u16 unk_00[8]; // 0x10
-    /* 10 */ u16 unk_10; // this is part of unk_00
-};
-
-extern struct Unknown_02013460 gUnknown_02013460;
-
-extern int gUnknown_08205B84[];
 extern u16 gUnknown_08A17B64[];
 extern u16 gUnknown_08A17B6C[];
 extern u16 * gUnknown_08A17C20[];
@@ -126,7 +32,6 @@ extern u8 gUnknown_08A1CDC4[]; // img
 extern u8 gUnknown_08A1D288[]; // img
 
 extern u16 gUnknown_08A1A084[];
-extern u16 Pal_SysBrownBox[];
 
 extern u8 gUnknown_08A1C8B4[]; // tsa
 
@@ -137,18 +42,206 @@ extern struct Text gUnknown_0200E148;
 extern struct Text gUnknown_0200E150;
 extern struct Unit gUnknown_0200E158[];
 extern u8 gUnknown_0200F158;
-extern u32 gUnknown_0200F15C[];
-
-void sub_8090D80(struct UnitListScreenProc *);
-void sub_8092298(u8, u8, s8);
-void sub_80922F0(struct UnitListScreenProc *, u8, u16 *, u8, s8);
-bool sub_8092BF0(u8, u8);
-void sub_8097FDC(void);
-
-bool CheckInLinkArena(void);
-
-struct Text gUnknown_0200E150;
 extern u32 gUnknown_0200F15C[]; // equipped item icons
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_bmenu[] =
+{
+    PROC_NAME("bmenu"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_CALL(LockGame),
+
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(BMapDispSuspend),
+    PROC_CALL(sub_8091180),
+
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WaitForFade),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8091AB4),
+    PROC_REPEAT(sub_8091AEC),
+
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(sub_8091C00),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+
+    PROC_CALL(MU_EndAll),
+
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(UnlockGame),
+
+    PROC_GOTO(4),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_8091CC0),
+    PROC_REPEAT(sub_8091D54),
+    PROC_REPEAT(sub_8091F10),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(3),
+    PROC_CALL(sub_8090620),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80906AC),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80906D8),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(4),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA ProcScr_bmenu2[] =
+{
+    PROC_NAME("bmenu"),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_8091180),
+
+    PROC_CALL(StartMidFadeFromBlack),
+    PROC_REPEAT(WaitForFade),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8091AB4),
+    PROC_REPEAT(sub_8091AEC),
+
+    PROC_CALL(StartMidFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(sub_8091C00),
+
+    PROC_GOTO(4),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_8091CC0),
+    PROC_REPEAT(sub_8091D54),
+    PROC_REPEAT(sub_8091F10),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(3),
+    PROC_CALL(sub_8090620),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80906AC),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80906D8),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(4),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A17990[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(sub_8091180),
+
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WaitForFade),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8091AB4),
+    PROC_REPEAT(sub_8091AEC),
+
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(sub_8091C00),
+
+    PROC_GOTO(4),
+
+PROC_LABEL(3),
+    PROC_CALL(sub_8090620),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80906AC),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80906D8),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(4),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA ProcScr_bmenu3[] =
+{
+    PROC_NAME("bmenu"),
+
+    PROC_CALL(LockGame),
+
+    PROC_CALL(sub_8091180),
+
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WaitForFade),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8091AB4),
+    PROC_REPEAT(sub_8091AEC),
+
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(sub_8091C00),
+
+    PROC_CALL(UnlockGame),
+
+    PROC_GOTO(4),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_8091CC0),
+    PROC_REPEAT(sub_8091D54),
+    PROC_REPEAT(sub_8091F10),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(3),
+    PROC_CALL(sub_8090620),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80906AC),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80906D8),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(4),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA ProcScr_bmview[] =
+{
+    PROC_NAME("bmview"),
+
+    PROC_CALL(sub_80906F8),
+    PROC_REPEAT(sub_8090784),
+
+    PROC_CALL(nullsub_63),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0809014C
 void sub_809014C(void)
@@ -421,8 +514,8 @@ void sub_8090514(s8 flag)
     {
         SetWinEnable(1, 1, 0);
 
-        SetWin0Box(0, 0x3A, 0xF0, 0x98);
-        SetWin1Box(0, 0, 0xF0, 0x20);
+        SetWin0Box(0, 58, 240, 152);
+        SetWin1Box(0, 0, 240, 32);
 
         SetWin0Layers(1, 1, 1, 1, 1);
         SetWin1Layers(0, 1, 1, 1, 1);
@@ -432,7 +525,7 @@ void sub_8090514(s8 flag)
     {
         SetWinEnable(1, 0, 0);
 
-        SetWin0Box(0, 0x3A, 0xF0, 0x98);
+        SetWin0Box(0, 58, 240, 152);
 
         SetWin0Layers(1, 1, 1, 1, 1);
         SetWOutLayers(0, 1, 1, 1, 1);
@@ -453,11 +546,13 @@ void sub_8090620(struct UnitListScreenProc * proc)
 
     if (proc->unk_39 == 1)
     {
-        SetStatScreenConfig(0x11);
+        SetStatScreenConfig(STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONUNK16);
     }
     else
     {
-        SetStatScreenConfig(0x1f);
+        SetStatScreenConfig(
+            STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONBENCHED | STATSCREEN_CONFIG_NONUNK9 |
+            STATSCREEN_CONFIG_NONROOFED | STATSCREEN_CONFIG_NONUNK16);
     }
 
     StartStatScreen(gUnknown_0200D6E0[proc->unk_30]->unit, proc);
@@ -518,14 +613,16 @@ void sub_8090784(struct UnitListScreenSpritesProc * proc)
     int r7;
     int r8;
 
-    int hack[4];
-    memcpy(hack, gUnknown_08205B84, 16);
+    int gUnknown_08205B84[4] =
+    {
+        0, 1, 2, 1,
+    };
 
     PutSpriteExt(
-        0xb, (proc->unk_2c->unk_34 == 0) ? 0xe2 : 0x000020E2, hack[(proc->unk_3b / 8) % 4] + 7, gUnknown_08A17B64,
-        0x9000);
+        0xb, (proc->unk_2c->unk_34 == 0) ? 226 : 226 + OAM1_VFLIP, gUnknown_08205B84[(proc->unk_3b / 8) % 4] + 7, gUnknown_08A17B64,
+        OAM2_PAL(9));
 
-    PutSpriteExt(0xd, 0x10, 8, gUnknown_08A17C20[proc->unk_2c->unk_2f], 0x9000);
+    PutSpriteExt(0xd, 0x10, 8, gUnknown_08A17C20[proc->unk_2c->unk_2f], OAM2_PAL(9));
 
     UpdateMenuScrollBarConfig(10, proc->unk_2c->unk_3e, gUnknown_0200F158, 6);
 
@@ -536,7 +633,7 @@ void sub_8090784(struct UnitListScreenSpritesProc * proc)
     }
     else
     {
-        PutSpriteExt(0xd, 4, proc->unk_2c->unk_2c * 16 + 0x40, gUnknown_08A17B6C, 0x9000);
+        PutSpriteExt(0xd, 4, proc->unk_2c->unk_2c * 16 + 0x40, gUnknown_08A17B6C, OAM2_PAL(9));
     }
 
     if ((proc->unk_38 != proc->unk_2c->unk_3e) || ((proc->unk_2c->unk_3e % 0x10) != 0))
@@ -544,7 +641,7 @@ void sub_8090784(struct UnitListScreenSpritesProc * proc)
         gPaletteBuffer[0x19E] = gUnknown_02013460.unk_10;
         EnablePaletteSync();
 
-        proc->unk_3c = 0x20;
+        proc->unk_3c = 32;
         proc->unk_38 = proc->unk_2c->unk_3e;
 
         if (proc->unk_3a == 0)
@@ -620,14 +717,14 @@ void sub_8090784(struct UnitListScreenSpritesProc * proc)
 
     if ((proc->unk_2c->unk_2f > 1) && (proc->unk_2c->unk_39 != 3))
     {
-        PutSprite(0, proc->unk_3e, 0x28, gObject_8x8, (((u16)proc->unk_42 >> 5) % 6) + 0x00001414);
-        PutSprite(0, proc->unk_3e, 0x30, gObject_8x8, (((u16)proc->unk_42 >> 5) % 6) + 0x0000141A);
+        PutSprite(0, proc->unk_3e, 40, gObject_8x8, (((u16)proc->unk_42 >> 5) % 6) + OAM2_CHR(0x14) + OAM2_LAYER(1) + OAM2_PAL(1));
+        PutSprite(0, proc->unk_3e, 48, gObject_8x8, (((u16)proc->unk_42 >> 5) % 6) + OAM2_CHR(0x1A) + OAM2_LAYER(1) + OAM2_PAL(1));
     }
 
     if ((proc->unk_2c->unk_2f < proc->unk_2c->unk_2e) && (proc->unk_2c->unk_39 != 3))
     {
-        PutSprite(0, proc->unk_40, 0x28, gObject_8x8_HFlipped, (((u16)proc->unk_44 >> 5) % 6) + 0x00001414);
-        PutSprite(0, proc->unk_40, 0x30, gObject_8x8_HFlipped, (((u16)proc->unk_44 >> 5) % 6) + 0x0000141A);
+        PutSprite(0, proc->unk_40, 40, gObject_8x8_HFlipped, (((u16)proc->unk_44 >> 5) % 6) + OAM2_CHR(0x14) + OAM2_LAYER(1) + OAM2_PAL(1));
+        PutSprite(0, proc->unk_40, 48, gObject_8x8_HFlipped, (((u16)proc->unk_44 >> 5) % 6) + OAM2_CHR(0x1A) + OAM2_LAYER(1) + OAM2_PAL(1));
     }
 
     proc->unk_3b++;
@@ -810,7 +907,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     ResetIconGraphics();
     SetupMapSpritesPalettes();
 
-    CpuFastFill(0, gPaletteBuffer + 0x1B0, 0x20);
+    CpuFastFill(0, gPaletteBuffer + 0x1B0, PLTT_SIZE_4BPP);
 
     LoadObjUIGfx();
 
@@ -865,7 +962,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     Decompress(gUnknown_08A1CD68, (void *)0x06014800);
     Decompress(proc->unk_2f != 0 ? gUnknown_08A1CDC4 : gUnknown_08A1D288, (void *)0x06015800);
 
-    CopyToPaletteBuffer(Pal_SysBrownBox, 0x320, 0x40);
+    ApplyPalettes(Pal_SysBrownBox, 0x19, 2);
 
     sub_8097FDC();
 
@@ -901,8 +998,8 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     ClearText(&gUnknown_0200E140);
     Text_SetCursor(&gUnknown_0200E140, 4);
     Text_SetColor(&gUnknown_0200E140, 0);
-    Text_DrawString(&gUnknown_0200E140, GetStringFromIndex(0x000004E5));
-    PutText(&gUnknown_0200E140, gBG2TilemapBuffer + 0xa3);
+    Text_DrawString(&gUnknown_0200E140, GetStringFromIndex(0x4E5));
+    PutText(&gUnknown_0200E140, TILEMAP_LOCATED(gBG2TilemapBuffer, 3, 5));
 
     for (i = 0; i < 20; i++)
     {
@@ -917,7 +1014,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     sub_8092298(proc->unk_2e, proc->unk_2f, 1);
 
     SetWinEnable(1, 0, 0);
-    SetWin0Box(0x10, 0x3a, 0xe0, 0x98);
+    SetWin0Box(16, 58, 224, 152);
     SetWin0Layers(1, 1, 1, 1, 1);
     SetWOutLayers(0, 1, 1, 1, 1);
 
@@ -926,7 +1023,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     BG_SetPosition(BG_3, 0, 0);
     BG_SetPosition(BG_2, 0, 0);
     BG_SetPosition(BG_1, 0, 0);
-    BG_SetPosition(BG_0, 0, (proc->unk_3e - 0x38) & 0xff);
+    BG_SetPosition(BG_0, 0, (proc->unk_3e - 56) & 0xff);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;
@@ -934,10 +1031,10 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     Decompress(gImg_UiSpinningArrow_Horizontal, gBG1TilemapBuffer + 0x280);
-    CopyToPaletteBuffer(gUnknown_08A1A084, 0x1e0, 0x20);
+    ApplyPalette(gUnknown_08A1A084, 0xf);
 
     proc->unk_40 = Proc_Start(ProcScr_bmview, proc);
-    proc->unk_44 = (ProcPtr)StartMuralBackground(0, 0, 10);
+    proc->unk_44 = StartMuralBackground(0, 0, 10);
     LoadHelpBoxGfx(0, -1);
 
     return;
@@ -1509,6 +1606,8 @@ extern u8 gUnknown_08A17B30[];
 
 #if NONMATCHING
 
+/* https://decomp.me/scratch/lXNoY */
+
 //! FE8U = 0x08091D54
 void sub_8091D54(struct UnitListScreenProc * proc)
 {
@@ -1831,7 +1930,11 @@ void sub_8091D54(struct UnitListScreenProc * proc)
 
 #endif
 
+extern u8 gUnknown_08A17B36[];
+
 #if NONMATCHING
+
+/* https://decomp.me/scratch/vSnVv */
 
 #define TILEMAP_INDEX_(aX, aY) ((aX) + (aY) * 0x20)
 
@@ -1844,7 +1947,7 @@ void sub_8091F10(struct UnitListScreenProc * proc)
     int y;
     int off;
 
-    proc->unk_38 += gUnknown_08A17B30[proc->unk_3c];
+    proc->unk_38 += gUnknown_08A17B36[proc->unk_3c];
 
     if (proc->unk_38 > 20)
     {
@@ -2529,12 +2632,20 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
         {
             for (i = 0; i < 8; i++)
             {
-                int hack[7];
-                memcpy(hack, gUnknown_08205B94, 7 * 4);
+                const int gUnknown_08205B94[] =
+                {
+                    [WPN_LEVEL_0] = TEXT_SPECIAL_DASH,
+                    [WPN_LEVEL_E] = TEXT_SPECIAL_E,
+                    [WPN_LEVEL_D] = TEXT_SPECIAL_D,
+                    [WPN_LEVEL_C] = TEXT_SPECIAL_C,
+                    [WPN_LEVEL_B] = TEXT_SPECIAL_B,
+                    [WPN_LEVEL_A] = TEXT_SPECIAL_A,
+                    [WPN_LEVEL_S] = TEXT_SPECIAL_S,
+                };
 
                 num = GetWeaponLevelFromExp(gUnknown_0200D6E0[unitNum]->unit->ranks[i]);
 
-                PutSpecialChar(tm + y * 0x20 + 10 + 2 * i, num == WPN_LEVEL_S ? TEXT_COLOR_SYSTEM_GREEN : 2, hack[num]);
+                PutSpecialChar(tm + y * 0x20 + 10 + 2 * i, num == WPN_LEVEL_S ? TEXT_COLOR_SYSTEM_GREEN : 2, gUnknown_08205B94[num]);
             }
 
             break;
@@ -2623,6 +2734,7 @@ int sub_8092BE4(struct Unit * unit)
     return (unit->state & US_SOLOANIM);
 }
 
+//! FE8U = 0x08092BF0
 bool sub_8092BF0(u8 arg_0, u8 arg_1)
 {
     u8 cache[0x40];
@@ -2961,3 +3073,694 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
 
     return FALSE;
 }
+
+// clang-format off
+
+u8 CONST_DATA gUnknown_08A17B30[] =
+{
+    5, 4, 4, 3, 3, 2,
+};
+
+u8 CONST_DATA gUnknown_08A17B36[] =
+{
+    5, 4, 3, 2, 2, 2, 1, 1, 1, 0,
+};
+
+u16 CONST_DATA Sprite_08A17B40[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x25C),
+};
+
+u16 CONST_DATA Sprite_08A17B48[] =
+{
+    1,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x25D),
+};
+
+u16 CONST_DATA Sprite_08A17B50[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x25F),
+};
+
+u16 * CONST_DATA gUnknown_08A17B58[] =
+{
+    Sprite_08A17B40,
+    Sprite_08A17B48,
+    Sprite_08A17B50,
+};
+
+u16 CONST_DATA gUnknown_08A17B64[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x2DF),
+};
+
+u16 CONST_DATA gUnknown_08A17B6C[] =
+{
+    7,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x24B) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x24C) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(64), OAM2_CHR(0x24C) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(96), OAM2_CHR(0x24C) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(128), OAM2_CHR(0x24C) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(160), OAM2_CHR(0x24C) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(192) + OAM1_HFLIP, OAM2_CHR(0x24B) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA Sprite_08A17B98[] =
+{
+    2,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x2C0),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(48), OAM2_CHR(0x2C4),
+};
+
+u16 CONST_DATA Sprite_08A17BA6[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x2CA),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(40), OAM2_CHR(0x2CE),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(72), OAM2_CHR(0x2D2),
+};
+
+u16 CONST_DATA Sprite_08A17BBA[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(12), OAM2_CHR(0x2D4),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(44), OAM2_CHR(0x2D8),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(76), OAM2_CHR(0x2DC),
+};
+
+u16 CONST_DATA Sprite_08A17BCE[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x300),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(40), OAM2_CHR(0x304),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(72), OAM2_CHR(0x308),
+};
+
+u16 CONST_DATA Sprite_08A17BE2[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x30A),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(40), OAM2_CHR(0x30E),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(72), OAM2_CHR(0x312),
+};
+
+u16 CONST_DATA Sprite_08A17BF6[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x314),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x318),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x31C),
+};
+
+u16 CONST_DATA Sprite_08A17C0A[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(12), OAM2_CHR(0x2C0),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(44), OAM2_CHR(0x2C4),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(76), OAM2_CHR(0x2C8),
+};
+
+u16 * CONST_DATA gUnknown_08A17C20[] =
+{
+    Sprite_08A17C0A,
+    Sprite_08A17B98,
+    Sprite_08A17BA6,
+    Sprite_08A17BBA,
+    Sprite_08A17BCE,
+    Sprite_08A17BE2,
+    Sprite_08A17BF6,
+    Sprite_08A17BF6,
+    Sprite_08A17BF6,
+    Sprite_08A17BF6,
+};
+
+
+struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
+{
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x00000002,
+            .labelString = 0x000004E6,
+            .xColumn = 0x00000040,
+            .helpTextId = 0x000006E8,
+        },
+        {
+            .sortKey = 0x0000000E,
+            .labelString = 0x000004F2,
+            .xColumn = 0x00000088,
+            .helpTextId = 0x000006EB,
+        },
+        {
+            .sortKey = 0x00000020,
+            .labelString = 0x000004FC,
+            .xColumn = 0x000000C0,
+            .helpTextId = 0x000006F4,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x00000002,
+            .labelString = 0x000004E6,
+            .xColumn = 0x00000044,
+            .helpTextId = 0x000006E8,
+        },
+        {
+            .sortKey = 0x00000003,
+            .labelString = 0x000004E7,
+            .xColumn = 0x00000081,
+            .helpTextId = 0x00000542,
+        },
+        {
+            .sortKey = 0x00000004,
+            .labelString = 0x000004E8,
+            .xColumn = 0x00000098,
+            .helpTextId = 0x00000543,
+        },
+        {
+            .sortKey = 0x00000005,
+            .labelString = 0x000004E9,
+            .xColumn = 0x000000B0,
+            .helpTextId = 0x00000544,
+        },
+        {
+            .sortKey = 0x00000006,
+            .labelString = 0x000004EA,
+            .xColumn = 0x000000C4,
+            .helpTextId = 0x000006E9,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x00000007,
+            .labelString = 0x000004EB,
+            .xColumn = 0x00000040,
+            .helpTextId = 0x000006EA,
+        },
+        {
+            .sortKey = 0x00000008,
+            .labelString = 0x000004EC,
+            .xColumn = 0x0000005B,
+            .helpTextId = 0x00000548,
+        },
+        {
+            .sortKey = 0x00000009,
+            .labelString = 0x000004ED,
+            .xColumn = 0x00000071,
+            .helpTextId = 0x00000549,
+        },
+        {
+            .sortKey = 0x0000000A,
+            .labelString = 0x000004EE,
+            .xColumn = 0x00000088,
+            .helpTextId = 0x0000054A,
+        },
+        {
+            .sortKey = 0x0000000B,
+            .labelString = 0x000004EF,
+            .xColumn = 0x000000A1,
+            .helpTextId = 0x0000054B,
+        },
+        {
+            .sortKey = 0x0000000C,
+            .labelString = 0x000004F0,
+            .xColumn = 0x000000B8,
+            .helpTextId = 0x0000054C,
+        },
+        {
+            .sortKey = 0x0000000D,
+            .labelString = 0x000004F1,
+            .xColumn = 0x000000CB,
+            .helpTextId = 0x00000551,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x0000000E,
+            .labelString = 0x000004F2,
+            .xColumn = 0x00000050,
+            .helpTextId = 0x000006EB,
+        },
+        {
+            .sortKey = 0x0000000F,
+            .labelString = 0x000004F3,
+            .xColumn = 0x00000087,
+            .helpTextId = 0x0000055C,
+        },
+        {
+            .sortKey = 0x00000010,
+            .labelString = 0x000004F4,
+            .xColumn = 0x000000A6,
+            .helpTextId = 0x0000055D,
+        },
+        {
+            .sortKey = 0x00000011,
+            .labelString = 0x000004F5,
+            .xColumn = 0x000000C8,
+            .helpTextId = 0x00000560,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x00000012,
+            .labelString = 0x000004F6,
+            .xColumn = 0x00000044,
+            .helpTextId = 0x0000054D,
+        },
+        {
+            .sortKey = 0x00000013,
+            .labelString = 0x000004F7,
+            .xColumn = 0x00000060,
+            .helpTextId = 0x0000054E,
+        },
+        {
+            .sortKey = 0x00000014,
+            .labelString = 0x000004F8,
+            .xColumn = 0x0000007B,
+            .helpTextId = 0x0000054F,
+        },
+        {
+            .sortKey = 0x00000016,
+            .labelString = 0x000004F9,
+            .xColumn = 0x0000008C,
+            .helpTextId = 0x00000550,
+        },
+        {
+            .sortKey = 0x00000015,
+            .labelString = 0x000004FA,
+            .xColumn = 0x000000BC,
+            .helpTextId = 0x000006EC,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x00000017,
+            .labelString = 0,
+            .xColumn = 0x0000004C,
+            .helpTextId = 0x00000561,
+        },
+        {
+            .sortKey = 0x00000018,
+            .labelString = 0,
+            .xColumn = 0x0000005C,
+            .helpTextId = 0x00000562,
+        },
+        {
+            .sortKey = 0x00000019,
+            .labelString = 0,
+            .xColumn = 0x0000006C,
+            .helpTextId = 0x00000563,
+        },
+        {
+            .sortKey = 0x0000001A,
+            .labelString = 0,
+            .xColumn = 0x0000007C,
+            .helpTextId = 0x00000564,
+        },
+        {
+            .sortKey = 0x0000001B,
+            .labelString = 0,
+            .xColumn = 0x0000008C,
+            .helpTextId = 0x00000568,
+        },
+        {
+            .sortKey = 0x0000001C,
+            .labelString = 0,
+            .xColumn = 0x0000009C,
+            .helpTextId = 0x00000565,
+        },
+        {
+            .sortKey = 0x0000001D,
+            .labelString = 0,
+            .xColumn = 0x000000AC,
+            .helpTextId = 0x00000566,
+        },
+        {
+            .sortKey = 0x0000001E,
+            .labelString = 0,
+            .xColumn = 0x000000BC,
+            .helpTextId = 0x00000567,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x0000001F,
+            .labelString = 0x000004FB,
+            .xColumn = 0x0000004A,
+            .helpTextId = 0x0000056A,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x0000001F,
+            .labelString = 0x000004FB,
+            .xColumn = 0x0000004A,
+            .helpTextId = 0x0000056A,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x0000001F,
+            .labelString = 0x000004FB,
+            .xColumn = 0x0000004A,
+            .helpTextId = 0x0000056A,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+    {
+        {
+            .sortKey = 0x00000001,
+            .labelString = 0x000004E5,
+            .xColumn = 0x00000014,
+            .helpTextId = 0x000006E7,
+        },
+        {
+            .sortKey = 0x0000001F,
+            .labelString = 0x000004FB,
+            .xColumn = 0x0000004A,
+            .helpTextId = 0x0000056A,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+        {
+            .sortKey = 0,
+            .labelString = 0,
+            .xColumn = 0,
+            .helpTextId = 0,
+        },
+    },
+};
+
+// clang-format on

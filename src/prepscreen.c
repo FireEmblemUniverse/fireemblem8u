@@ -20,9 +20,30 @@ s8 CheckInLinkArena();
 
 EWRAM_DATA struct SioPidPool gSioPidPool = { 0 };
 
-extern u8 gUnknown_08A1A41C[];
-extern u8 gUnknown_08A1A434[];
-extern u8 gUnknown_08A1A474[];
+// clang-format off
+
+u16 CONST_DATA gBgConfig_ItemUseScreen[] =
+{
+    0x0000, 0xE000, 0x0000,
+    0x0000, 0xE800, 0x0000,
+    0x0000, 0xF000, 0x0000,
+    0x8000, 0xF800, 0x0000,
+};
+
+int CONST_DATA gUnknown_08A18200[][3] =
+{
+    { 0x57A, 0x57A, 0x75D, },
+    { 0x57B, 0x57C, 0x75E, },
+    { 0x57D, 0x581,     0, },
+    {     0,     0, 0x75F, },
+    { 0x57D, 0x57F,     0, },
+    {     0,     0,     0, },
+    {     0,     0,     0, },
+    { 0x580, 0x580,     0, },
+    { 0x582, 0x582,     0, },
+};
+
+// clang-format on
 
 //! FE8U = 0x08094FF4
 u8 CanPrepScreenSave(void)
@@ -36,8 +57,6 @@ u8 CanPrepScreenSave(void)
 
     return 1;
 }
-
-extern int gUnknown_08A18200[][3];
 
 //! FE8U = 0x08095024
 int sub_8095024(void)
@@ -107,16 +126,19 @@ int sub_80950C4(int val)
     return count;
 }
 
-extern void * gUnknown_08205BB0[];
-
 //! FE8U = 0x080950E8
 void sub_80950E8(int vram, int palId)
 {
-    void * hack[4];
-    memcpy(hack, gUnknown_08205BB0, 4 * 4);
+    u16 * gUnknown_08205BB0[4] =
+    {
+        gUnknown_08A1D850,
+        gUnknown_08A1D870,
+        gUnknown_08A1D890,
+        gUnknown_08A1D8B0,
+    };
 
     Decompress(Img_PrepWindow, (void *)(vram + 0x6000000));
-    CopyToPaletteBuffer(hack[gPlaySt.config.windowColor], palId * 0x20, 0x20);
+    ApplyPalette(gUnknown_08205BB0[gPlaySt.config.windowColor], palId);
 
     return;
 }

@@ -18,6 +18,7 @@
 #include "constants/video-global.h"
 #include "bmlib.h"
 #include "sysutil.h"
+#include "unitlistscreen.h"
 #include "prepscreen.h"
 
 s8 CheckInLinkArena();

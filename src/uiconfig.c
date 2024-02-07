@@ -15,6 +15,7 @@
 #include "prepscreen.h"
 #include "bmlib.h"
 #include "worldmap.h"
+#include "unitlistscreen.h"
 #include "uiconfig.h"
 #include "sysutil.h"
 
