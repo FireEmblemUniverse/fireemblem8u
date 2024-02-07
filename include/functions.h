@@ -612,7 +612,7 @@ void RemoveSioPid(u8 val);
 // ??? FortuneSubMenu_OnOptionSelected(???);
 // ??? FortuneSubMenu_HandleOptionSwitch(???);
 void StartFortuneSubMenu(int, ProcPtr);
-int sub_80A095C(int);
+bool sub_80A095C(int);
 // ??? GetChapterDivinationTextIdHectorStory(???);
 // ??? GetChapterDivinationTextIdBeginning(???);
 // ??? GetChapterDivinationTextIdEnding(???);

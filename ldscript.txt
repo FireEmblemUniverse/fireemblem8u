@@ -266,7 +266,6 @@ SECTIONS
         src/uichapterstatus.o(.text);
         src/cgtext.o(.text);
         src/unitlistscreen.o(.text);
-        asm/unitlistscreen.o(.text);
         src/prepscreen.o(.text);
         src/prep_atmenu.o(.text);
         src/prep_menuproc.o(.text);

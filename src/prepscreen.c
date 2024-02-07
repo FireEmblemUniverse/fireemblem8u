@@ -12,10 +12,133 @@
 #include "bmudisp.h"
 #include "worldmap.h"
 #include "helpbox.h"
+#include "bmlib.h"
+
 #include "prepscreen.h"
+
 s8 CheckInLinkArena();
 
 EWRAM_DATA struct SioPidPool gSioPidPool = { 0 };
+
+extern u8 gUnknown_08A1A41C[];
+extern u8 gUnknown_08A1A434[];
+extern u8 gUnknown_08A1A474[];
+
+//! FE8U = 0x08094FF4
+u8 CanPrepScreenSave(void)
+{
+    u32 chapterIndex = gPlaySt.chapterIndex;
+
+    if ((!gGMData.state.bits.state_0) && (chapterIndex - 0x24 < 0x14))
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+extern int gUnknown_08A18200[][3];
+
+//! FE8U = 0x08095024
+int sub_8095024(void)
+{
+    int index = GetActivePrepMenuItemIndex();
+
+    if (CheckInLinkArena())
+    {
+        return gUnknown_08A18200[index][2];
+    }
+
+    if (index == 4)
+    {
+        if (!sub_80A095C(2))
+        {
+            return gUnknown_08A18200[4][0];
+        }
+    }
+    else if (index == 2)
+    {
+        if (!CanPrepScreenSave())
+        {
+            return gUnknown_08A18200[2][0];
+        }
+    }
+
+    return gUnknown_08A18200[index][1];
+}
+
+//! FE8U = 0x08095094
+int sub_8095094(int target, int val)
+{
+    int i;
+
+    int count = 0;
+
+    for (i = 0; i < 4; i++)
+    {
+        if (((val >> i) & 1) != 0)
+        {
+            if (target == count)
+            {
+                return i;
+            }
+
+            count++;
+        }
+    }
+
+    return -1;
+}
+
+//! FE8U = 0x080950C4
+int sub_80950C4(int val)
+{
+    int i;
+    int count = 0;
+
+    for (i = 0; i < 4; i++)
+    {
+        if (((val >> i) & 1) != 0)
+        {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+extern void * gUnknown_08205BB0[];
+
+//! FE8U = 0x080950E8
+void sub_80950E8(int vram, int palId)
+{
+    void * hack[4];
+    memcpy(hack, gUnknown_08205BB0, 4 * 4);
+
+    Decompress(Img_PrepWindow, (void *)(vram + 0x6000000));
+    CopyToPaletteBuffer(hack[gPlaySt.config.windowColor], palId * 0x20, 0x20);
+
+    return;
+}
+
+//! FE8U = 0x08095138
+void sub_8095138(u16 * tm, int b, u32 c, int d)
+{
+    int i;
+
+    CallARM_FillTileRect(tm, gUnknown_08A1A41C, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
+
+    for (i = 0; i < b; i++)
+    {
+        CallARM_FillTileRect(
+            (i * 0x40) + tm + 0x20, gUnknown_08A1A434, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
+    }
+
+    CallARM_FillTileRect(
+        i * 0x40 + tm + 0x20, gUnknown_08A1A474, (u16)(d * 0x1000 + ((c / 2) & 0xffff) / 0x10));
+
+    return;
+}
 
 void PrepScreenMenu_OnPickUnits(struct ProcAtMenu* proc) {
     proc->state = 1;

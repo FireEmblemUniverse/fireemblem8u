@@ -215,7 +215,7 @@ void StartFortuneSubMenu(int option, ProcPtr parent) {
 }
 
 //! FE8U = 0x080A095C
-int sub_80A095C(int var) {
+bool sub_80A095C(int var) {
     switch (var) {
         case 0:
             return 1;
