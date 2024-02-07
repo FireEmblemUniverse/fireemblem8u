@@ -15,85 +15,9 @@
 // TODO: temp rodata - name of proc
 const char gUnknown_08205DE0[] = "savedraw";
 
-struct SaveDrawCursorProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ u16 unk_2a;
-    /* 2C */ u8 save_slot;
-    /* 2E */ s16 unk_2e;
-    /* 30 */ s16 active_options;
-    /* 32 */ s16 unk_32;
-    /* 34 */ s16 unk_34;
-    /* 36 */ u8 unk_36;
-    /* 37 */ u8 unk_37;
-    /* 38 */ u8 unk_38;
-    /* 39 */ u8 unk_39;
-    /* 3A */ u8 unk_3a;
-};
-
-struct SaveMenuUnusedProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ int save_slot;
-    /* 30 */ int active_options;
-    /* 34 */ struct SaveDrawCursorProc* unk_34;
-};
-
-struct SaveMenu8A206F8Proc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 _pad[0x3e - 0x29];
-
-    /* 3E */ u16 unk_3e;
-    /* 40 */ u16 unk_40;
-};
-
-struct SqMaskProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 unk_29;
-    /* 2A */ s8 unk_2a;
-    /* 2B */ u8 unk_2b;
-};
-
-struct Unknown020007E0 {
-    /* 00 */ u32 unk_00;
-    /* 04 */ int unk_04;
-    /* 08 */ s16 unk_08;
-    /* 0A */ s16 unk_0a;
-    /* 0C */ s8 unk_0c;
-    /* 0D */ s8 unk_0d;
-    /* 0E */ s8 unk_0e;
-};
-// sizeof = 0x10
-
-extern struct Unknown020007E0 gUnknown_020007E0[];
-
-extern struct Font gUnknown_02000920;
-extern struct Text gUnknown_02000938;
-
-struct Unknown03004990 {
-    /* 000 */ u8 unk[0x79E - 0x000];
-    /* 79E */ u8 unk_79E;
-};
-
-extern struct Unknown03004990* gUnknown_03004990;
-
-extern u16 gUnknown_08A20570[];
-extern u16 gUnknown_08A20578[];
-extern u16 gUnknown_08A20580[];
-
-void sub_80AA9D8(ProcPtr);
-u8 sub_80A88B8(u8);
-
-void sub_8014DA8(void*);
-void sub_8014E3C(void);
-void sub_8014EC4(int, int);
-void sub_8014EF4(int);
-
-
 //! FE8U = 0x080AB314
-void SaveDrawCursor_Init(struct SaveDrawCursorProc* proc) {
+void SaveDrawCursor_Init(struct SaveDrawCursorProc * proc)
+{
     proc->unk_36 = 0;
 
     proc->unk_2a = 0;
@@ -110,7 +34,8 @@ void SaveDrawCursor_Init(struct SaveDrawCursorProc* proc) {
 }
 
 //! FE8U = 0x080AB340
-void SaveDrawCursor_Loop(struct SaveDrawCursorProc* proc) {
+void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
+{
     s16 yOam0;
     s16 xOam1;
     u16 xOam1_;
@@ -197,7 +122,8 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc* proc) {
 }
 
 //! FE8U = 0x080AB4F4
-void sub_80AB4F4(int a, s16 b, s16 c, struct SaveMenuUnusedProc* proc) {
+void sub_80AB4F4(int a, s16 b, s16 c, struct SaveMenuUnusedProc * proc)
+{
     struct SaveDrawCursorProc* drawCursorProc = proc->unk_34;
 
     drawCursorProc->unk_32 = c - 12;
@@ -208,7 +134,8 @@ void sub_80AB4F4(int a, s16 b, s16 c, struct SaveMenuUnusedProc* proc) {
 }
 
 //! FE8U = 0x080AB514
-void sub_80AB514(int a, int b, struct SaveMenuUnusedProc* proc) {
+void sub_80AB514(int a, int b, struct SaveMenuUnusedProc * proc)
+{
     struct SaveDrawCursorProc* drawCursorProc = proc->unk_34;
 
     drawCursorProc->unk_37 = b;
@@ -228,7 +155,8 @@ struct ProcCmd CONST_DATA gProcScr_SaveDrawCursor[] = {
 };
 
 //! FE8U = 0x080AB534
-struct SaveMenuCursorProc* StartSaveDrawCursor(ProcPtr parent) {
+struct SaveMenuCursorProc* StartSaveDrawCursor(ProcPtr parent)
+{
     return Proc_Start(gProcScr_SaveDrawCursor, parent);
 }
 
@@ -320,7 +248,8 @@ void sub_80AB56C(u32 a) {
 }
 
 //! FE8U = 0x080AB720
-void sub_80AB720(struct SaveMenu8A206F8Proc* proc) {
+void sub_80AB720(struct SaveMenu8A206F8Proc * proc)
+{
     proc->unk_40 = 0;
     proc->unk_3e = 0;
 
@@ -427,7 +356,8 @@ void AddExtraMenuOption(struct SaveMenuProc* proc, int option) {
 }
 
 //! FE8U = 0x080AB89C
-void sub_80AB89C(struct SaveMenuProc* proc) {
+void sub_80AB89C(struct SaveMenuProc * proc)
+{
     int i;
 
     int count = 0;
@@ -584,7 +514,8 @@ s8 sub_80AB9FC(struct SaveMenuProc* proc, int b) {
 }
 
 //! FE8U = 0x080ABA98
-s8 sub_80ABA98(struct SaveMenuProc* proc) {
+s8 sub_80ABA98(struct SaveMenuProc * proc)
+{
 
     if ((proc->action_flag & proc->active_options) != 0) {
         return 1;
@@ -594,7 +525,8 @@ s8 sub_80ABA98(struct SaveMenuProc* proc) {
 }
 
 //! FE8U = 0x080ABAB4
-void SqMask_Loop(struct SqMaskProc* proc) {
+void SqMask_Loop(struct SqMaskProc * proc)
+{
     proc->unk_29 += proc->unk_2b;
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
@@ -642,7 +574,8 @@ struct ProcCmd CONST_DATA gProcScr_SqMask[] = {
 };
 
 //! FE8U = 0x080ABBB0
-void StartSqMask(struct SaveMenuProc* parent, int b, int c) {
+void StartSqMask(struct SaveMenuProc* parent, int b, int c)
+{
     u8 castB = b;
     u8 castC = c;
 
@@ -656,7 +589,8 @@ void StartSqMask(struct SaveMenuProc* parent, int b, int c) {
 }
 
 //! FE8U = 0x080ABBE4
-void SaveBgUp_Loop(void) {
+void SaveBgUp_Loop(void)
+{
     RegisterDataMove(gBG2TilemapBuffer, (void*)0x06007000, 0x800);
     return;
 }
@@ -671,6 +605,7 @@ struct ProcCmd CONST_DATA gProcScr_SaveBgUp[] = {
 };
 
 //! FE8U = 0x080ABC00
-ProcPtr StartSaveBgUp(ProcPtr parent) {
+ProcPtr StartSaveBgUp(ProcPtr parent)
+{
     return Proc_Start(gProcScr_SaveBgUp, parent);
 }
