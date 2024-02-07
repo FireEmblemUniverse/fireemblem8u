@@ -679,7 +679,7 @@ void sub_809B458(struct ProcPrepUnit *proc)
     PrepSetLatestCharId(
         GetUnitFromPrepList(proc->list_num_cur)->pCharacterData->number);
 
-    sub_80920DC(proc);
+    StartUnitListScreenPrepMenu(proc);
 }
 
 void sub_809B478(struct ProcPrepUnit *proc)

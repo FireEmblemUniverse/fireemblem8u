@@ -113,7 +113,7 @@ u8 CommandEffectEndPlayerPhase(struct MenuProc* menu, struct MenuItemProc* menuI
 
 u8 MapMenu_UnitCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     Proc_Goto(Proc_Find(gProcScr_PlayerPhase), 10);
-    sub_80920C4();
+    StartUnitListScreenField();
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }

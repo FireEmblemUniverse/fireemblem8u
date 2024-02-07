@@ -129,16 +129,16 @@ int sub_80950C4(int val)
 //! FE8U = 0x080950E8
 void sub_80950E8(int vram, int palId)
 {
-    u16 * gUnknown_08205BB0[4] =
+    u16 * palettes[4] =
     {
-        gUnknown_08A1D850,
-        gUnknown_08A1D870,
-        gUnknown_08A1D890,
-        gUnknown_08A1D8B0,
+        Pal_08A1D850,
+        Pal_08A1D870,
+        Pal_08A1D890,
+        Pal_08A1D8B0,
     };
 
     Decompress(Img_PrepWindow, (void *)(vram + 0x6000000));
-    ApplyPalette(gUnknown_08205BB0[gPlaySt.config.windowColor], palId);
+    ApplyPalette(palettes[gPlaySt.config.windowColor], palId);
 
     return;
 }
@@ -148,16 +148,16 @@ void sub_8095138(u16 * tm, int b, u32 c, int d)
 {
     int i;
 
-    CallARM_FillTileRect(tm, gUnknown_08A1A41C, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
+    CallARM_FillTileRect(tm, Tsa_08A1A41C, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
 
     for (i = 0; i < b; i++)
     {
         CallARM_FillTileRect(
-            (i * 0x40) + tm + 0x20, gUnknown_08A1A434, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
+            (i * 0x40) + tm + 0x20, Tsa_08A1A434, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
     }
 
     CallARM_FillTileRect(
-        i * 0x40 + tm + 0x20, gUnknown_08A1A474, (u16)(d * 0x1000 + ((c / 2) & 0xffff) / 0x10));
+        i * 0x40 + tm + 0x20, Tsa_08A1A474, (u16)(d * 0x1000 + ((c / 2) & 0xffff) / 0x10));
 
     return;
 }

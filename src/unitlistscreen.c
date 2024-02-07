@@ -23,17 +23,20 @@
 
 bool CheckInLinkArena(void);
 
-extern u16 gUnknown_08A17B64[];
-extern u16 gUnknown_08A17B6C[];
-extern u16 * gUnknown_08A17C20[];
+extern u16 Sprite_08A17B64[];
+extern u16 Sprite_08A17B6C[];
+extern u16 * gSpriteArray_08A17C20[];
 
-extern u8 gUnknown_08A1CD68[]; // img
-extern u8 gUnknown_08A1CDC4[]; // img
-extern u8 gUnknown_08A1D288[]; // img
+extern u8 Img_08A1CD68[];
+extern u8 Img_UnitListBanners[];
+extern u8 Img_UnitListBanner_Animation[];
 
-extern u16 gUnknown_08A1A084[];
+extern u16 Pal_08A1A084[];
 
 extern u8 gUnknown_08A1C8B4[]; // tsa
+
+extern u16 gUnknown_0200D7E0[];
+extern u16 gUnknown_0200DFE0[];
 
 extern struct Text gUnknown_0200E060[];
 extern struct Text gUnknown_0200E098[][3];
@@ -46,7 +49,7 @@ extern u32 gUnknown_0200F15C[]; // equipped item icons
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_bmenu[] =
+struct ProcCmd CONST_DATA ProcScr_UnitListScreen_Field[] =
 {
     PROC_NAME("bmenu"),
     PROC_MARK(PROC_MARK_8),
@@ -57,19 +60,20 @@ struct ProcCmd CONST_DATA ProcScr_bmenu[] =
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(BMapDispSuspend),
-    PROC_CALL(sub_8091180),
+
+    PROC_CALL(UnitList_Init),
 
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_8091AB4),
+    PROC_CALL(UnitList_SetBlendEffects),
     PROC_REPEAT(sub_8091AEC),
 
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(sub_8091C00),
+    PROC_CALL(UnitList_OnEnd),
 
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
@@ -84,20 +88,20 @@ PROC_LABEL(1),
     PROC_GOTO(4),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_8091CC0),
+    PROC_CALL(UnitList_StartPageChange),
     PROC_REPEAT(sub_8091D54),
     PROC_REPEAT(sub_8091F10),
 
     PROC_GOTO(1),
 
 PROC_LABEL(3),
-    PROC_CALL(sub_8090620),
+    PROC_CALL(UnitList_StartStatScreen),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80906AC),
+    PROC_CALL(UnitList_ResetFromStatScreen),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80906D8),
+    PROC_CALL(UnitList_ResetDispFromStatScreen),
 
     PROC_GOTO(1),
 
@@ -105,42 +109,42 @@ PROC_LABEL(4),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA ProcScr_bmenu2[] =
+struct ProcCmd CONST_DATA ProcScr_UnitListScreen_PrepMenu[] =
 {
     PROC_NAME("bmenu"),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_8091180),
+    PROC_CALL(UnitList_Init),
 
     PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_8091AB4),
+    PROC_CALL(UnitList_SetBlendEffects),
     PROC_REPEAT(sub_8091AEC),
 
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(sub_8091C00),
+    PROC_CALL(UnitList_OnEnd),
 
     PROC_GOTO(4),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_8091CC0),
+    PROC_CALL(UnitList_StartPageChange),
     PROC_REPEAT(sub_8091D54),
     PROC_REPEAT(sub_8091F10),
 
     PROC_GOTO(1),
 
 PROC_LABEL(3),
-    PROC_CALL(sub_8090620),
+    PROC_CALL(UnitList_StartStatScreen),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80906AC),
+    PROC_CALL(UnitList_ResetFromStatScreen),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80906D8),
+    PROC_CALL(UnitList_ResetDispFromStatScreen),
 
     PROC_GOTO(1),
 
@@ -148,34 +152,34 @@ PROC_LABEL(4),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A17990[] =
+struct ProcCmd CONST_DATA ProcScr_UnitListScreen_SoloAnim[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_8091180),
+    PROC_CALL(UnitList_Init),
 
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_8091AB4),
+    PROC_CALL(UnitList_SetBlendEffects),
     PROC_REPEAT(sub_8091AEC),
 
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(sub_8091C00),
+    PROC_CALL(UnitList_OnEnd),
 
     PROC_GOTO(4),
 
 PROC_LABEL(3),
-    PROC_CALL(sub_8090620),
+    PROC_CALL(UnitList_StartStatScreen),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80906AC),
+    PROC_CALL(UnitList_ResetFromStatScreen),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80906D8),
+    PROC_CALL(UnitList_ResetDispFromStatScreen),
 
     PROC_GOTO(1),
 
@@ -183,45 +187,45 @@ PROC_LABEL(4),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA ProcScr_bmenu3[] =
+struct ProcCmd CONST_DATA ProcScr_UnitListScreen_WorldMap[] =
 {
     PROC_NAME("bmenu"),
 
     PROC_CALL(LockGame),
 
-    PROC_CALL(sub_8091180),
+    PROC_CALL(UnitList_Init),
 
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_8091AB4),
+    PROC_CALL(UnitList_SetBlendEffects),
     PROC_REPEAT(sub_8091AEC),
 
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
-    PROC_CALL(sub_8091C00),
+    PROC_CALL(UnitList_OnEnd),
 
     PROC_CALL(UnlockGame),
 
     PROC_GOTO(4),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_8091CC0),
+    PROC_CALL(UnitList_StartPageChange),
     PROC_REPEAT(sub_8091D54),
     PROC_REPEAT(sub_8091F10),
 
     PROC_GOTO(1),
 
 PROC_LABEL(3),
-    PROC_CALL(sub_8090620),
+    PROC_CALL(UnitList_StartStatScreen),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80906AC),
+    PROC_CALL(UnitList_ResetFromStatScreen),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80906D8),
+    PROC_CALL(UnitList_ResetDispFromStatScreen),
 
     PROC_GOTO(1),
 
@@ -233,10 +237,10 @@ struct ProcCmd CONST_DATA ProcScr_bmview[] =
 {
     PROC_NAME("bmview"),
 
-    PROC_CALL(sub_80906F8),
-    PROC_REPEAT(sub_8090784),
+    PROC_CALL(UnitListScreenSprites_Init),
+    PROC_REPEAT(UnitListScreenSprites_Main),
 
-    PROC_CALL(nullsub_63),
+    PROC_CALL(UnitListScreenSprites_Dummy),
 
     PROC_END,
 };
@@ -289,21 +293,21 @@ void sub_809014C(void)
     return;
 }
 
-extern u16 * gUnknown_08A17B58[];
+extern u16 * gSpriteArray_08A17B58[];
 
 //! FE8U = 0x080901BC
 void sub_80901BC(u8 x, u8 y, u8 width)
 {
     int i;
 
-    PutSpriteExt(0xd, x, y, gUnknown_08A17B58[0], OAM2_PAL(5));
+    PutSpriteExt(0xd, x, y, gSpriteArray_08A17B58[0], OAM2_PAL(5));
 
     for (i = 0; i < width - 1; i++)
     {
-        PutSpriteExt(0xd, x + i * 16 + 8, y, gUnknown_08A17B58[1], OAM2_PAL(5));
+        PutSpriteExt(0xd, x + i * 16 + 8, y, gSpriteArray_08A17B58[1], OAM2_PAL(5));
     }
 
-    PutSpriteExt(0xd, x + i * 16 + 8, y, gUnknown_08A17B58[2], OAM2_PAL(5));
+    PutSpriteExt(0xd, x + i * 16 + 8, y, gSpriteArray_08A17B58[2], OAM2_PAL(5));
 
     return;
 }
@@ -322,7 +326,7 @@ void sub_8090238(u8 key)
     {
         for (j = 0; j < 9; j++)
         {
-            if (gUnknown_08A17C48[i][j].sortKey == key)
+            if (gUnitListScreenFields[i][j].sortKey == key)
             {
                 Text_SetCursor(&gUnknown_0200E150, 0);
                 Text_SetColor(&gUnknown_0200E150, 0);
@@ -337,7 +341,7 @@ void sub_8090238(u8 key)
                 else
                 {
                     Text_Skip(&gUnknown_0200E150, 4);
-                    Text_DrawString(&gUnknown_0200E150, GetStringFromIndex(gUnknown_08A17C48[i][j].labelString));
+                    Text_DrawString(&gUnknown_0200E150, GetStringFromIndex(gUnitListScreenFields[i][j].labelString));
                     PutText(&gUnknown_0200E150, TILEMAP_LOCATED(gBG2TilemapBuffer, 21, 1));
                 }
 
@@ -352,13 +356,13 @@ void sub_8090238(u8 key)
 }
 
 //! FE8U = 0x08090324
-void sub_8090324(int unk)
+void sub_8090324(int itemIconId)
 {
     int i;
 
     for (i = 0; i < 8; i++)
     {
-        if (gUnknown_0200F15C[i] == unk)
+        if (gUnknown_0200F15C[i] == itemIconId)
         {
             return;
         }
@@ -366,9 +370,9 @@ void sub_8090324(int unk)
 
     for (i = 0; i < 8; i++)
     {
-        if (gUnknown_0200F15C[i] == 0xFF)
+        if (gUnknown_0200F15C[i] == UINT8_MAX)
         {
-            gUnknown_0200F15C[i] = unk;
+            gUnknown_0200F15C[i] = itemIconId;
             return;
         }
     }
@@ -395,9 +399,9 @@ void sub_8090358(u16 arg_0)
 
     for (i = 0; i < 8 && i + offset < gUnknown_0200F158; i++)
     {
-        if (GetUnitEquippedWeapon(gUnknown_0200D6E0[offset + i]->unit) != 0)
+        if (GetUnitEquippedWeapon(gSortedUnits[offset + i]->unit) != 0)
         {
-            displayIcons[i] = GetItemIconId(GetUnitEquippedWeapon(gUnknown_0200D6E0[offset + i]->unit));
+            displayIcons[i] = GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[offset + i]->unit));
         }
     }
 
@@ -444,14 +448,14 @@ void sub_8090418(struct UnitListScreenProc * proc, s8 unk)
     {
         if (unk != 0)
         {
-            if (gUnknown_0200D6E0[i]->unit->pCharacterData->number == unitId)
+            if (gSortedUnits[i]->unit->pCharacterData->number == unitId)
                 goto _080904FC;
 
             continue;
         }
         else
         {
-            if (gUnknown_0200D6E0[i]->unit->index == unitId)
+            if (gSortedUnits[i]->unit->index == unitId)
                 goto _080904FC;
 
             continue;
@@ -535,16 +539,16 @@ void sub_8090514(s8 flag)
 }
 
 //! FE8U = 0x08090620
-void sub_8090620(struct UnitListScreenProc * proc)
+void UnitList_StartStatScreen(struct UnitListScreenProc * proc)
 {
     MU_EndAll();
-    Proc_End(proc->unk_40);
-    Proc_End(proc->unk_44);
+    Proc_End(proc->pSpriteProc);
+    Proc_End(proc->pMuralProc);
     EndGreenText();
 
     SetWinEnable(0, 0, 0);
 
-    if (proc->unk_39 == 1)
+    if (proc->mode == UNITLIST_MODE_PREPMENU)
     {
         SetStatScreenConfig(STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONUNK16);
     }
@@ -555,7 +559,7 @@ void sub_8090620(struct UnitListScreenProc * proc)
             STATSCREEN_CONFIG_NONROOFED | STATSCREEN_CONFIG_NONUNK16);
     }
 
-    StartStatScreen(gUnknown_0200D6E0[proc->unk_30]->unit, proc);
+    StartStatScreen(gSortedUnits[proc->unk_30]->unit, proc);
     gPlaySt.lastUnitSortType = (proc->unk_34 << 7) + proc->unk_32;
     proc->unk_29 = 4;
 
@@ -563,7 +567,7 @@ void sub_8090620(struct UnitListScreenProc * proc)
 }
 
 //! FE8U = 0x080906AC
-void sub_80906AC(struct UnitListScreenProc * proc)
+void UnitList_ResetFromStatScreen(struct UnitListScreenProc * proc)
 {
     sub_8090D80(proc);
     SetDispEnable(0, 0, 0, 0, 0);
@@ -572,14 +576,14 @@ void sub_80906AC(struct UnitListScreenProc * proc)
 }
 
 //! FE8U = 0x080906D8
-void sub_80906D8(void)
+void UnitList_ResetDispFromStatScreen(void)
 {
     SetDispEnable(1, 1, 1, 1, 1);
     return;
 }
 
 //! FE8U = 0x080906F8
-void sub_80906F8(struct UnitListScreenSpritesProc * proc)
+void UnitListScreenSprites_Init(struct UnitListScreenSpritesProc * proc)
 {
     proc->unk_2c = proc->proc_parent;
     proc->unk_3b = 0;
@@ -607,7 +611,7 @@ void sub_80906F8(struct UnitListScreenSpritesProc * proc)
 }
 
 //! FE8U = 0x08090784
-void sub_8090784(struct UnitListScreenSpritesProc * proc)
+void UnitListScreenSprites_Main(struct UnitListScreenSpritesProc * proc)
 {
     int i;
     int r7;
@@ -619,21 +623,21 @@ void sub_8090784(struct UnitListScreenSpritesProc * proc)
     };
 
     PutSpriteExt(
-        0xb, (proc->unk_2c->unk_34 == 0) ? 226 : 226 + OAM1_VFLIP, gUnknown_08205B84[(proc->unk_3b / 8) % 4] + 7, gUnknown_08A17B64,
+        0xb, (proc->unk_2c->unk_34 == 0) ? 226 : 226 + OAM1_VFLIP, gUnknown_08205B84[(proc->unk_3b / 8) % 4] + 7, Sprite_08A17B64,
         OAM2_PAL(9));
 
-    PutSpriteExt(0xd, 0x10, 8, gUnknown_08A17C20[proc->unk_2c->unk_2f], OAM2_PAL(9));
+    PutSpriteExt(0xd, 0x10, 8, gSpriteArray_08A17C20[proc->unk_2c->page], OAM2_PAL(9));
 
     UpdateMenuScrollBarConfig(10, proc->unk_2c->unk_3e, gUnknown_0200F158, 6);
 
     if (proc->unk_2c->unk_29 >= 3)
     {
         DisplayUiHand(
-            gUnknown_08A17C48[proc->unk_2c->unk_2f][proc->unk_2c->unk_2d].xColumn, proc->unk_2c->unk_2c * 16 + 40);
+            gUnitListScreenFields[proc->unk_2c->page][proc->unk_2c->unk_2d].xColumn, proc->unk_2c->unk_2c * 16 + 40);
     }
     else
     {
-        PutSpriteExt(0xd, 4, proc->unk_2c->unk_2c * 16 + 0x40, gUnknown_08A17B6C, OAM2_PAL(9));
+        PutSpriteExt(0xd, 4, proc->unk_2c->unk_2c * 16 + 0x40, Sprite_08A17B6C, OAM2_PAL(9));
     }
 
     if ((proc->unk_38 != proc->unk_2c->unk_3e) || ((proc->unk_2c->unk_3e % 0x10) != 0))
@@ -669,12 +673,12 @@ void sub_8090784(struct UnitListScreenSpritesProc * proc)
 
     for (i = 0; i < 6 && i + r7 < gUnknown_0200F158; i++)
     {
-        PutUnitSprite(4, 8, 56 + i * 16 + r8, gUnknown_0200D6E0[i + r7]->unit);
+        PutUnitSprite(4, 8, 56 + i * 16 + r8, gSortedUnits[i + r7]->unit);
     }
 
     if ((proc->unk_3a != 0) && ((i + r7) < gUnknown_0200F158))
     {
-        PutUnitSprite(4, 8, 56 + i * 16 + r8, gUnknown_0200D6E0[i + r7]->unit);
+        PutUnitSprite(4, 8, 56 + i * 16 + r8, gSortedUnits[i + r7]->unit);
     }
 
     if ((gKeyStatusPtr->newKeys & 0x20) != 0)
@@ -709,19 +713,19 @@ void sub_8090784(struct UnitListScreenSpritesProc * proc)
             proc->unk_3e++;
         }
 
-        if (proc->unk_40 > 0xe1)
+        if (proc->unk_40 > 225)
         {
             proc->unk_40--;
         }
     }
 
-    if ((proc->unk_2c->unk_2f > 1) && (proc->unk_2c->unk_39 != 3))
+    if ((proc->unk_2c->page > 1) && (proc->unk_2c->mode != UNITLIST_MODE_SOLOANIM))
     {
         PutSprite(0, proc->unk_3e, 40, gObject_8x8, (((u16)proc->unk_42 >> 5) % 6) + OAM2_CHR(0x14) + OAM2_LAYER(1) + OAM2_PAL(1));
         PutSprite(0, proc->unk_3e, 48, gObject_8x8, (((u16)proc->unk_42 >> 5) % 6) + OAM2_CHR(0x1A) + OAM2_LAYER(1) + OAM2_PAL(1));
     }
 
-    if ((proc->unk_2c->unk_2f < proc->unk_2c->unk_2e) && (proc->unk_2c->unk_39 != 3))
+    if ((proc->unk_2c->page < proc->unk_2c->unk_2e) && (proc->unk_2c->mode != UNITLIST_MODE_SOLOANIM))
     {
         PutSprite(0, proc->unk_40, 40, gObject_8x8_HFlipped, (((u16)proc->unk_44 >> 5) % 6) + OAM2_CHR(0x14) + OAM2_LAYER(1) + OAM2_PAL(1));
         PutSprite(0, proc->unk_40, 48, gObject_8x8_HFlipped, (((u16)proc->unk_44 >> 5) % 6) + OAM2_CHR(0x1A) + OAM2_LAYER(1) + OAM2_PAL(1));
@@ -734,7 +738,7 @@ void sub_8090784(struct UnitListScreenSpritesProc * proc)
 }
 
 //! FE8U = 0x08090B44
-void nullsub_63(void)
+void UnitListScreenSprites_Dummy(void)
 {
     return;
 }
@@ -748,16 +752,16 @@ void sub_8090B48(struct Unit * unit, struct UnitListScreenProc * proc)
 
     if ((unit->state & US_NOT_DEPLOYED) == 0)
     {
-        proc->unk_3b++;
+        proc->deployedCount++;
     }
 
-    gUnknown_0200D3E0[gUnknown_0200F158].unit = unit;
+    gSortedUnitsBuf[gUnknown_0200F158].unit = unit;
 
     BattleGenerateUiStats(unit, -1);
 
-    gUnknown_0200D3E0[gUnknown_0200F158].battleAttack = ((gBattleActor.battleAttack + 1) & 0xff) - 1;
-    gUnknown_0200D3E0[gUnknown_0200F158].battleHitRate = ((gBattleActor.battleHitRate + 1) & 0xff) - 1;
-    gUnknown_0200D3E0[gUnknown_0200F158].battleAvoidRate = ((gBattleActor.battleAvoidRate + 1) & 0xff) - 1;
+    gSortedUnitsBuf[gUnknown_0200F158].battleAttack = ((gBattleActor.battleAttack + 1) & 0xff) - 1;
+    gSortedUnitsBuf[gUnknown_0200F158].battleHitRate = ((gBattleActor.battleHitRate + 1) & 0xff) - 1;
+    gSortedUnitsBuf[gUnknown_0200F158].battleAvoidRate = ((gBattleActor.battleAvoidRate + 1) & 0xff) - 1;
 
     supporterCount = GetUnitSupporterCount(unit);
     supportCountNow = 0;
@@ -778,8 +782,8 @@ void sub_8090B48(struct Unit * unit, struct UnitListScreenProc * proc)
         }
     }
 
-    gUnknown_0200D3E0[gUnknown_0200F158].supportCount = supportCountNow;
-    gUnknown_0200D6E0[gUnknown_0200F158] = &gUnknown_0200D3E0[gUnknown_0200F158];
+    gSortedUnitsBuf[gUnknown_0200F158].supportCount = supportCountNow;
+    gSortedUnits[gUnknown_0200F158] = &gSortedUnitsBuf[gUnknown_0200F158];
 
     gUnknown_0200F158++;
 
@@ -793,7 +797,7 @@ void sub_8090C58(struct UnitListScreenProc * proc)
 {
     gUnknown_0200F158 = 0;
 
-    if (proc->unk_39 == 1)
+    if (proc->mode == UNITLIST_MODE_PREPMENU)
     {
         int i;
 
@@ -844,7 +848,7 @@ void sub_8090D00(struct UnitListScreenProc * proc)
 {
     gUnknown_0200F158 = 0;
 
-    if (proc->unk_39 == 1)
+    if (proc->mode == UNITLIST_MODE_PREPMENU)
     {
         int i;
 
@@ -890,8 +894,6 @@ void sub_8090D00(struct UnitListScreenProc * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_bmview[];
-
 //! FE8U = 0x08090D80
 void sub_8090D80(struct UnitListScreenProc * proc)
 {
@@ -913,12 +915,12 @@ void sub_8090D80(struct UnitListScreenProc * proc)
 
     StartGreenText(proc);
 
-    proc->unk_3b = 0;
+    proc->deployedCount = 0;
     proc->unk_2e = 6;
 
     sub_8090D00(proc);
 
-    if ((proc->unk_39 != 1) || (proc->unk_2a == 1))
+    if ((proc->mode != UNITLIST_MODE_PREPMENU) || (proc->unk_2a == 1))
     {
         val = gPlaySt.lastUnitSortType;
 
@@ -929,7 +931,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
             proc->unk_32 = val & 0x7f;
         }
 
-        if ((proc->unk_29 != 4) && (proc->unk_2f != 0))
+        if ((proc->unk_29 != 4) && (proc->page != 0))
         {
             val = gPlaySt.unk19 / 16;
 
@@ -937,18 +939,18 @@ void sub_8090D80(struct UnitListScreenProc * proc)
             {
                 if (val > 6)
                 {
-                    proc->unk_2f = 6;
+                    proc->page = 6;
                 }
                 else
                 {
-                    proc->unk_2f = val;
+                    proc->page = val;
                 }
 
-                proc->unk_36 = proc->unk_2f;
+                proc->pageTarget = proc->page;
             }
         }
 
-        sub_8092BF0(proc->unk_32, proc->unk_34);
+        SortUnitList(proc->unk_32, proc->unk_34);
     }
 
     BG_Fill(gBG0TilemapBuffer, 0);
@@ -959,8 +961,8 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     LoadIconPalettes(4);
     LoadUiFrameGraphics();
 
-    Decompress(gUnknown_08A1CD68, (void *)0x06014800);
-    Decompress(proc->unk_2f != 0 ? gUnknown_08A1CDC4 : gUnknown_08A1D288, (void *)0x06015800);
+    Decompress(Img_08A1CD68, (void *)0x06014800);
+    Decompress(proc->page != 0 ? Img_UnitListBanners : Img_UnitListBanner_Animation, (void *)0x06015800);
 
     ApplyPalettes(Pal_SysBrownBox, 0x19, 2);
 
@@ -987,13 +989,13 @@ void sub_8090D80(struct UnitListScreenProc * proc)
         sub_8090418(proc, 0);
         proc->unk_29 = 0;
     }
-    else if (proc->unk_39 == 1)
+    else if (proc->mode == UNITLIST_MODE_PREPMENU)
     {
         sub_8090418(proc, 1);
     }
 
     proc->unk_3c = 0;
-    proc->unk_2b = 0;
+    proc->helpActive = 0;
 
     ClearText(&gUnknown_0200E140);
     Text_SetCursor(&gUnknown_0200E140, 4);
@@ -1008,10 +1010,10 @@ void sub_8090D80(struct UnitListScreenProc * proc)
 
     for (i = proc->unk_3e / 16; i < (proc->unk_3e / 16) + 6 && i < gUnknown_0200F158; i++)
     {
-        sub_80922F0(proc, i, gBG0TilemapBuffer, proc->unk_2f, 1);
+        UnitList_PutRow(proc, i, gBG0TilemapBuffer, proc->page, 1);
     }
 
-    sub_8092298(proc->unk_2e, proc->unk_2f, 1);
+    sub_8092298(proc->unk_2e, proc->page, 1);
 
     SetWinEnable(1, 0, 0);
     SetWin0Box(16, 58, 224, 152);
@@ -1031,17 +1033,17 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     Decompress(gImg_UiSpinningArrow_Horizontal, gBG1TilemapBuffer + 0x280);
-    ApplyPalette(gUnknown_08A1A084, 0xf);
+    ApplyPalette(Pal_08A1A084, 0xf);
 
-    proc->unk_40 = Proc_Start(ProcScr_bmview, proc);
-    proc->unk_44 = StartMuralBackground(0, 0, 10);
+    proc->pSpriteProc = Proc_Start(ProcScr_bmview, proc);
+    proc->pMuralProc = StartMuralBackground(0, 0, 10);
     LoadHelpBoxGfx(0, -1);
 
     return;
 }
 
 //! FE8U = 0x08091180
-void sub_8091180(struct UnitListScreenProc * proc)
+void UnitList_Init(struct UnitListScreenProc * proc)
 {
     proc->unk_29 = 0;
     proc->unk_31 = 1;
@@ -1049,16 +1051,16 @@ void sub_8091180(struct UnitListScreenProc * proc)
     proc->unk_2d = 0;
     proc->unk_30 = 0;
 
-    if (proc->unk_39 == 3)
+    if (proc->mode == UNITLIST_MODE_SOLOANIM)
     {
-        proc->unk_2f = 0;
+        proc->page = 0;
     }
     else
     {
-        proc->unk_2f = 1;
+        proc->page = 1;
     }
 
-    proc->unk_36 = proc->unk_2f;
+    proc->pageTarget = proc->page;
 
     proc->unk_3e = 0;
     proc->unk_32 = 1;
@@ -1073,11 +1075,11 @@ void sub_8091180(struct UnitListScreenProc * proc)
 }
 
 //! FE8U = 0x080911E4
-void sub_80911E4(struct Unit * unit, struct UnitListScreenProc * proc)
+void UnitList_DeployUnit(struct Unit * unit, struct UnitListScreenProc * proc)
 {
     int i;
 
-    if (proc->unk_3a > proc->unk_3b)
+    if (proc->allyCount > proc->deployedCount)
     {
         unit->state &= ~(US_UNSELECTABLE | US_NOT_DEPLOYED);
 
@@ -1085,10 +1087,10 @@ void sub_80911E4(struct Unit * unit, struct UnitListScreenProc * proc)
 
         for (i = proc->unk_3e / 16; i < (proc->unk_3e / 16) + 6 && i < gUnknown_0200F158; i++)
         {
-            sub_80922F0(proc, i, gBG0TilemapBuffer, proc->unk_2f, 1);
+            UnitList_PutRow(proc, i, gBG0TilemapBuffer, proc->page, 1);
         }
 
-        proc->unk_3b++;
+        proc->deployedCount++;
         PlaySoundEffect(0x6a);
     }
     else
@@ -1100,7 +1102,7 @@ void sub_80911E4(struct Unit * unit, struct UnitListScreenProc * proc)
 }
 
 //! FE8U = 0x08091288
-void sub_8091288(struct Unit * unit, struct UnitListScreenProc * proc)
+void UnitList_UndeployUnit(struct Unit * unit, struct UnitListScreenProc * proc)
 {
     int i;
 
@@ -1112,10 +1114,10 @@ void sub_8091288(struct Unit * unit, struct UnitListScreenProc * proc)
 
         for (i = proc->unk_3e / 16; i < (proc->unk_3e / 16) + 6 && i < gUnknown_0200F158; i++)
         {
-            sub_80922F0(proc, i, gBG0TilemapBuffer, proc->unk_2f, 1);
+            UnitList_PutRow(proc, i, gBG0TilemapBuffer, proc->page, 1);
         }
 
-        proc->unk_3b--;
+        proc->deployedCount--;
         PlaySoundEffect(0x6b);
     }
     else
@@ -1127,14 +1129,14 @@ void sub_8091288(struct Unit * unit, struct UnitListScreenProc * proc)
 }
 
 //! FE8U = 0x0809132C
-void sub_809132C(struct UnitListScreenProc * proc)
+void UnitList_TogglePrepDeployState(struct UnitListScreenProc * proc)
 {
     int index = proc->unk_30;
-    struct Unit * unit = gUnknown_0200D6E0[index]->unit;
+    struct Unit * unit = gSortedUnits[index]->unit;
 
     if ((unit->state & US_BIT25) != 0)
     {
-        StartPrepErrorHelpbox(0, proc->unk_2c * 16 + 0x38, 0xC52, proc);
+        StartPrepErrorHelpbox(0, proc->unk_2c * 16 + 56, 0xC52, proc);
         return;
     }
 
@@ -1142,27 +1144,27 @@ void sub_809132C(struct UnitListScreenProc * proc)
     {
         if (CheckInLinkArena() && !CanUnitBeDeployedLinkArena(unit))
         {
-            StartPrepErrorHelpbox(0, proc->unk_2c * 16 + 0x38, 0x88A, proc);
+            StartPrepErrorHelpbox(0, proc->unk_2c * 16 + 56, 0x88A, proc);
             return;
         }
 
         if (CheckInLinkArena() && !sub_8097E38(unit))
         {
-            StartPrepErrorHelpbox(0, proc->unk_2c * 16 + 0x38, 0x889, proc);
+            StartPrepErrorHelpbox(0, proc->unk_2c * 16 + 56, 0x889, proc);
             return;
         }
 
-        sub_80911E4(unit, proc);
+        UnitList_DeployUnit(unit, proc);
         return;
     }
 
-    sub_8091288(unit, proc);
+    UnitList_UndeployUnit(unit, proc);
 
     return;
 }
 
 //! FE8U = 0x080913D8
-void sub_80913D8(struct Unit * unit, int step)
+void UnitList_ToggleSoloAnimState(struct Unit * unit, int step)
 {
     int animState;
 
@@ -1173,7 +1175,7 @@ void sub_80913D8(struct Unit * unit, int step)
     }
 
     animState = (unit->state & US_SOLOANIM) >> 14;
-    animState = ((animState + step + 3)) % 3;
+    animState = (animState + step + 3) % 3;
     animState = animState << 14;
 
     unit->state = (unit->state & ~US_SOLOANIM) | animState;
@@ -1203,21 +1205,24 @@ void sub_809144C(struct UnitListScreenProc * proc)
 
     if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0)
     {
-        switch (proc->unk_39)
+        switch (proc->mode)
         {
-            case 1:
-                sub_809132C(proc);
+            case UNITLIST_MODE_PREPMENU:
+                UnitList_TogglePrepDeployState(proc);
+
                 break;
 
-            case 3:
-                sub_80913D8(gUnknown_0200D6E0[proc->unk_30]->unit, 1);
-                sub_80922F0(proc, proc->unk_30, gBG0TilemapBuffer, proc->unk_2f, 0);
+            case UNITLIST_MODE_SOLOANIM:
+                UnitList_ToggleSoloAnimState(gSortedUnits[proc->unk_30]->unit, 1);
+                UnitList_PutRow(proc, proc->unk_30, gBG0TilemapBuffer, proc->page, 0);
+
                 break;
 
-            case 0:
-                SetLastStatScreenUid(gUnknown_0200D6E0[proc->unk_30]->unit->index);
+            case UNITLIST_MODE_FIELD:
+                SetLastStatScreenUid(gSortedUnits[proc->unk_30]->unit->index);
                 PlaySoundEffect(0x6A);
                 Proc_Break(proc);
+
                 break;
 
             default:
@@ -1229,21 +1234,21 @@ void sub_809144C(struct UnitListScreenProc * proc)
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) != 0)
     {
-        if (proc->unk_39 == 3)
+        if (proc->mode == UNITLIST_MODE_SOLOANIM)
         {
             if ((gKeyStatusPtr->newKeys & DPAD_LEFT) == 0)
                 return;
 
-            sub_80913D8(gUnknown_0200D6E0[proc->unk_30]->unit, -1);
-            sub_80922F0(proc, proc->unk_30, gBG0TilemapBuffer, proc->unk_2f, 0);
+            UnitList_ToggleSoloAnimState(gSortedUnits[proc->unk_30]->unit, -1);
+            UnitList_PutRow(proc, proc->unk_30, gBG0TilemapBuffer, proc->page, 0);
 
             return;
         }
 
-        if (proc->unk_2f < 2)
+        if (proc->page < 2)
             return;
 
-        proc->unk_36--;
+        proc->pageTarget--;
         Proc_Goto(proc, 2);
         proc->unk_2d = 0;
         PlaySoundEffect(0x6F);
@@ -1253,20 +1258,20 @@ void sub_809144C(struct UnitListScreenProc * proc)
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) != 0)
     {
-        if (proc->unk_39 == 3)
+        if (proc->mode == UNITLIST_MODE_SOLOANIM)
         {
             if ((gKeyStatusPtr->newKeys & DPAD_RIGHT) == 0)
                 return;
 
-            sub_80913D8(gUnknown_0200D6E0[proc->unk_30]->unit, +1);
-            sub_80922F0(proc, proc->unk_30, gBG0TilemapBuffer, proc->unk_2f, 0);
+            UnitList_ToggleSoloAnimState(gSortedUnits[proc->unk_30]->unit, +1);
+            UnitList_PutRow(proc, proc->unk_30, gBG0TilemapBuffer, proc->page, 0);
 
             return;
         }
 
-        if (proc->unk_2f < proc->unk_2e)
+        if (proc->page < proc->unk_2e)
         {
-            proc->unk_36++;
+            proc->pageTarget++;
             proc->unk_2d = 0;
             PlaySoundEffect(0x6F);
             Proc_Goto(proc, 2);
@@ -1301,7 +1306,7 @@ void sub_809144C(struct UnitListScreenProc * proc)
                     proc->unk_2c = 1;
                 }
 
-                sub_80922F0(proc, proc->unk_3e / 16 - 1, gBG0TilemapBuffer, proc->unk_2f, 1);
+                UnitList_PutRow(proc, proc->unk_3e / 16 - 1, gBG0TilemapBuffer, proc->page, 1);
                 proc->unk_29 = 2;
                 proc->unk_3e = -(proc->unk_31 * 4) + proc->unk_3e;
                 BG_SetPosition(0, 0, (proc->unk_3e - 0x38) & 0xFF);
@@ -1330,7 +1335,7 @@ void sub_809144C(struct UnitListScreenProc * proc)
 
             if (proc->unk_2c == 4 && proc->unk_30 != gUnknown_0200F158 - 1)
             {
-                sub_80922F0(proc, 6 + proc->unk_3e / 16, gBG0TilemapBuffer, proc->unk_2f, 1);
+                UnitList_PutRow(proc, 6 + proc->unk_3e / 16, gBG0TilemapBuffer, proc->page, 1);
                 proc->unk_29 = 1;
                 proc->unk_3e = proc->unk_3e + proc->unk_31 * 4;
                 BG_SetPosition(0, 0, (proc->unk_3e - 0x38) & 0xFF);
@@ -1350,27 +1355,27 @@ void sub_80917D8(struct UnitListScreenProc * proc)
     int i;
     u8 unk_32;
 
-    if (proc->unk_2b != 0 && (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON)) != 0)
+    if (proc->helpActive != 0 && (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON)) != 0)
     {
         CloseHelpBox();
-        proc->unk_2b = 0;
+        proc->helpActive = 0;
         return;
     }
 
-    if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0 && proc->unk_2b == 0)
+    if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0 && proc->helpActive == 0)
     {
         unk_32 = proc->unk_32;
 
         proc->unk_2a = 1;
         PlaySoundEffect(0x6A);
-        proc->unk_32 = gUnknown_08A17C48[proc->unk_2f][proc->unk_2d].sortKey;
+        proc->unk_32 = gUnitListScreenFields[proc->page][proc->unk_2d].sortKey;
         proc->unk_33 = (proc->unk_33 + 1) & 1;
 
-        if (sub_8092BF0(proc->unk_32, proc->unk_33))
+        if (SortUnitList(proc->unk_32, proc->unk_33))
         {
             for (i = 0; i < 6 && i < gUnknown_0200F158; i++)
             {
-                sub_80922F0(proc, i, gBG0TilemapBuffer, proc->unk_2f, 1);
+                UnitList_PutRow(proc, i, gBG0TilemapBuffer, proc->page, 1);
             }
 
             sub_8090358(proc->unk_3e);
@@ -1386,7 +1391,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
         return;
     }
 
-    if (((gKeyStatusPtr->repeatedKeys & DPAD_DOWN) != 0) && proc->unk_2b == 0)
+    if (((gKeyStatusPtr->repeatedKeys & DPAD_DOWN) != 0) && proc->helpActive == 0)
     {
         PlaySoundEffect(0x66);
         proc->unk_33 = 1;
@@ -1400,16 +1405,16 @@ void sub_80917D8(struct UnitListScreenProc * proc)
 
         if (proc->unk_2d == 0)
         {
-            if (proc->unk_2f < 2)
+            if (proc->page < 2)
                 return;
 
-            if (proc->unk_39 == 3)
+            if (proc->mode == UNITLIST_MODE_SOLOANIM)
                 return;
 
             PlaySoundEffect(0x6F);
-            proc->unk_36--;
+            proc->pageTarget--;
 
-            for (i = 8; i > 0 && gUnknown_08A17C48[proc->unk_36][i].xColumn == 0; i--)
+            for (i = 8; i > 0 && gUnitListScreenFields[proc->pageTarget][i].xColumn == 0; i--)
             {
             }
 
@@ -1427,17 +1432,17 @@ void sub_80917D8(struct UnitListScreenProc * proc)
     {
         proc->unk_33 = 1;
 
-        if (proc->unk_2d == 8 || gUnknown_08A17C48[proc->unk_2f][proc->unk_2d + 1].xColumn == 0)
+        if (proc->unk_2d == 8 || gUnitListScreenFields[proc->page][proc->unk_2d + 1].xColumn == 0)
         {
-            if (proc->unk_2f < proc->unk_2e)
+            if (proc->page < proc->unk_2e)
             {
-                if (proc->unk_39 == 3)
+                if (proc->mode == UNITLIST_MODE_SOLOANIM)
                     return;
 
                 proc->unk_2d = 0;
                 PlaySoundEffect(0x6F);
 
-                proc->unk_36++;
+                proc->pageTarget++;
                 Proc_Goto(proc, 2);
             }
             return;
@@ -1451,20 +1456,20 @@ void sub_80917D8(struct UnitListScreenProc * proc)
         return;
     }
 
-    if ((gKeyStatusPtr->newKeys & R_BUTTON) != 0 && proc->unk_2b == 0)
+    if ((gKeyStatusPtr->newKeys & R_BUTTON) != 0 && proc->helpActive == 0)
     {
-        proc->unk_2b = 1;
+        proc->helpActive = 1;
 
         StartHelpBox(
-            gUnknown_08A17C48[proc->unk_2f][proc->unk_2d].xColumn, 0x28,
-            gUnknown_08A17C48[proc->unk_2f][proc->unk_2d].helpTextId);
+            gUnitListScreenFields[proc->page][proc->unk_2d].xColumn, 0x28,
+            gUnitListScreenFields[proc->page][proc->unk_2d].helpTextId);
     }
 
     return;
 }
 
 //! FE8U = 0x08091AB4
-void sub_8091AB4(void)
+void UnitList_SetBlendEffects(void)
 {
     SetBlendAlpha(14, 3);
     SetBlendTargetA(0, 1, 0, 0, 0);
@@ -1477,7 +1482,7 @@ void sub_8091AEC(struct UnitListScreenProc * proc)
 {
     int prev = proc->unk_2d;
 
-    if (((gKeyStatusPtr->newKeys & 2) != 0) && (proc->unk_2b == 0))
+    if (((gKeyStatusPtr->newKeys & B_BUTTON) != 0) && (proc->helpActive == 0))
     {
         PlaySoundEffect(0x6b);
         SetLastStatScreenUid(0);
@@ -1497,7 +1502,7 @@ void sub_8091AEC(struct UnitListScreenProc * proc)
 
         case 1:
             proc->unk_3e += 4 * proc->unk_31;
-            BG_SetPosition(0, 0, (proc->unk_3e - 0x38) & 0xFF);
+            BG_SetPosition(0, 0, (proc->unk_3e - 56) & 0xFF);
 
             if ((proc->unk_3e % 0x10) == 0)
             {
@@ -1509,7 +1514,7 @@ void sub_8091AEC(struct UnitListScreenProc * proc)
 
         case 2:
             proc->unk_3e += -(4 * proc->unk_31);
-            BG_SetPosition(0, 0, (proc->unk_3e - 0x38) & 0xFF);
+            BG_SetPosition(0, 0, (proc->unk_3e - 56) & 0xFF);
 
             if ((proc->unk_3e % 0x10) == 0)
             {
@@ -1520,42 +1525,42 @@ void sub_8091AEC(struct UnitListScreenProc * proc)
             break;
     }
 
-    if ((proc->unk_2b != 0) && (prev != proc->unk_2d))
+    if ((proc->helpActive != 0) && (prev != proc->unk_2d))
     {
         StartHelpBox(
-            gUnknown_08A17C48[proc->unk_36][proc->unk_2d].xColumn, 0x28,
-            gUnknown_08A17C48[proc->unk_36][proc->unk_2d].helpTextId);
+            gUnitListScreenFields[proc->pageTarget][proc->unk_2d].xColumn, 40,
+            gUnitListScreenFields[proc->pageTarget][proc->unk_2d].helpTextId);
     }
 
     return;
 }
 
 //! FE8U = 0x08091C00
-void sub_8091C00(struct UnitListScreenProc * proc)
+void UnitList_OnEnd(struct UnitListScreenProc * proc)
 {
     int page;
 
-    if (proc->unk_39 == 1)
+    if (proc->mode == UNITLIST_MODE_PREPMENU)
     {
-        PrepSetLatestCharId(gUnknown_0200D6E0[proc->unk_30]->unit->pCharacterData->number);
+        PrepSetLatestCharId(gSortedUnits[proc->unk_30]->unit->pCharacterData->number);
         sub_809014C();
     }
 
     gPlaySt.lastUnitSortType = (proc->unk_34 << 7) + proc->unk_32;
 
-    page = proc->unk_2f;
+    page = proc->page;
     if (page != 0)
     {
-        page = (proc->unk_2f << 4);
+        page = (proc->page << 4);
         gPlaySt.unk19 &= 0xf;
         gPlaySt.unk19 |= page;
     }
 
-    Proc_End(proc->unk_40);
+    Proc_End(proc->pSpriteProc);
 
-    if (proc->unk_44 != NULL)
+    if (proc->pMuralProc != NULL)
     {
-        Proc_End(proc->unk_44);
+        Proc_End(proc->pMuralProc);
     }
 
     EndGreenText();
@@ -1574,13 +1579,8 @@ void sub_8091C00(struct UnitListScreenProc * proc)
     return;
 }
 
-extern u16 gUnknown_0200D7E0[];
-extern u16 gUnknown_0200DFE0[];
-
-void sub_80921CC(u16 *, u8);
-
 //! FE8U = 0x08091CC0
-void sub_8091CC0(struct UnitListScreenProc * proc)
+void UnitList_StartPageChange(struct UnitListScreenProc * proc)
 {
     int i;
 
@@ -1588,15 +1588,15 @@ void sub_8091CC0(struct UnitListScreenProc * proc)
 
     for (i = proc->unk_3e / 16; i < proc->unk_3e / 16 + 6 && i < gUnknown_0200F158; i++)
     {
-        sub_80922F0(proc, i, gUnknown_0200D7E0, proc->unk_2f, 0);
+        UnitList_PutRow(proc, i, gUnknown_0200D7E0, proc->page, 0);
     }
 
     TileMap_FillRect(gUnknown_0200DFE0, 31, 1, 0);
 
-    sub_80921CC(gUnknown_0200DFE0, proc->unk_2f);
+    UnitList_DrawColumnNames(gUnknown_0200DFE0, proc->page);
 
     proc->unk_3c = 0;
-    proc->unk_37 = proc->unk_2f;
+    proc->unk_37 = proc->page;
     proc->unk_38 = 0;
 
     return;
@@ -1626,7 +1626,7 @@ void sub_8091D54(struct UnitListScreenProc * proc)
 
     for (i = 0; i < 20; i++)
     {
-        if (proc->unk_36 > proc->unk_2f)
+        if (proc->pageTarget > proc->page)
         {
             if (i + proc->unk_38 > 20)
             {
@@ -1669,7 +1669,7 @@ void sub_8091D54(struct UnitListScreenProc * proc)
         return;
     }
 
-    proc->unk_2f = proc->unk_36;
+    proc->page = proc->pageTarget;
 
     TileMap_FillRect(gBG2TilemapBuffer + 0x150 / 2, 0x16, 1, 0);
     TileMap_FillRect(gBG0TilemapBuffer + 0x10 / 2, 0x16, 0x1F, 0);
@@ -1684,11 +1684,11 @@ void sub_8091D54(struct UnitListScreenProc * proc)
 
     for (r4 = proc->unk_3e / 16; r4 < proc->unk_3e / 16 + 6 && r4 < gUnknown_0200F158; r4++)
     {
-        sub_80922F0(proc, r4, gUnknown_0200D7E0, proc->unk_2f, 0);
+        UnitList_PutRow(proc, r4, gUnknown_0200D7E0, proc->page, 0);
     }
 
-    sub_80921CC(gUnknown_0200DFE0, proc->unk_2f);
-    sub_8092298(proc->unk_2e, proc->unk_2f, 0);
+    UnitList_DrawColumnNames(gUnknown_0200DFE0, proc->page);
+    sub_8092298(proc->unk_2e, proc->page, 0);
 
     proc->unk_38 = 0;
     proc->unk_3c = 0;
@@ -1883,7 +1883,7 @@ void sub_8091D54(struct UnitListScreenProc * proc)
         str r0, [sp]\n\
         adds r0, r5, #0\n\
         ldr r2, _08091F04  @ gUnknown_0200D7E0\n\
-        bl sub_80922F0\n\
+        bl UnitList_PutRow\n\
         adds r4, #1\n\
         ldrh r0, [r5, #0x3e]\n\
         lsrs r0, r0, #4\n\
@@ -1899,7 +1899,7 @@ void sub_8091D54(struct UnitListScreenProc * proc)
         ldr r0, _08091F0C  @ gUnknown_0200DFE0\n\
         mov r2, sl\n\
         ldrb r1, [r2]\n\
-        bl sub_80921CC\n\
+        bl UnitList_DrawColumnNames\n\
         ldrb r0, [r6]\n\
         mov r2, sl\n\
         ldrb r1, [r2]\n\
@@ -1958,7 +1958,7 @@ void sub_8091F10(struct UnitListScreenProc * proc)
     {
         proc->unk_3c++;
 
-        if (proc->unk_36 > proc->unk_37)
+        if (proc->pageTarget > proc->unk_37)
         {
             int r6 = 0x1c;
             int r3 = 8;
@@ -2245,122 +2245,114 @@ void sub_8091F10(struct UnitListScreenProc * proc)
 
 #endif
 
-extern struct ProcCmd ProcScr_bmenu[];
-
 //! FE8U = 0x080920C4
-void sub_80920C4(void)
+void StartUnitListScreenField(void)
 {
-    struct UnitListScreenProc * proc = Proc_Start(ProcScr_bmenu, PROC_TREE_3);
+    struct UnitListScreenProc * proc = Proc_Start(ProcScr_UnitListScreen_Field, PROC_TREE_3);
 
-    proc->unk_39 = 0;
+    proc->mode = UNITLIST_MODE_FIELD;
 
     return;
 }
-
-extern struct ProcCmd ProcScr_bmenu2[];
 
 //! FE8U = 0x080920DC
-void sub_80920DC(ProcPtr parent)
+void StartUnitListScreenPrepMenu(ProcPtr parent)
 {
     struct UnitListScreenProc * proc;
 
     if (parent == NULL)
     {
-        proc = Proc_Start(ProcScr_bmenu2, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_UnitListScreen_PrepMenu, PROC_TREE_3);
     }
     else
     {
-        proc = Proc_StartBlocking(ProcScr_bmenu2, parent);
+        proc = Proc_StartBlocking(ProcScr_UnitListScreen_PrepMenu, parent);
     }
 
-    proc->unk_39 = 1;
+    proc->mode = UNITLIST_MODE_PREPMENU;
 
-    if (CheckInLinkArena() == 1)
+    if (CheckInLinkArena() == true)
     {
-        proc->unk_3a = 5;
+        proc->allyCount = 5;
     }
     else
     {
-        proc->unk_3a = GetChapterAllyUnitCount();
+        proc->allyCount = GetChapterAllyUnitCount();
     }
 
-    proc->unk_3b = 0;
+    proc->deployedCount = 0;
 
     return;
 }
 
-extern struct ProcCmd gUnknown_08A17990[];
-
 //! FE8U = 0x08092134
-void sub_8092134(ProcPtr parent)
+void StartUnitListScreenForSoloAnim(ProcPtr parent)
 {
     struct UnitListScreenProc * proc;
 
     if (parent == NULL)
     {
-        proc = Proc_Start(gUnknown_08A17990, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_UnitListScreen_SoloAnim, PROC_TREE_3);
     }
     else
     {
-        proc = Proc_StartBlocking(gUnknown_08A17990, parent);
+        proc = Proc_StartBlocking(ProcScr_UnitListScreen_SoloAnim, parent);
     }
 
-    proc->unk_39 = 3;
+    proc->mode = UNITLIST_MODE_SOLOANIM;
 
     return;
 }
 
 //! FE8U = 0x08092164
-void sub_8092164(ProcPtr parent)
+void StartUnitListScreenUnk(ProcPtr parent)
 {
     struct UnitListScreenProc * proc;
 
     if (parent == NULL)
     {
-        proc = Proc_Start(ProcScr_bmenu2, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_UnitListScreen_PrepMenu, PROC_TREE_3);
     }
     else
     {
-        proc = Proc_StartBlocking(ProcScr_bmenu2, parent);
+        proc = Proc_StartBlocking(ProcScr_UnitListScreen_PrepMenu, parent);
     }
 
-    proc->unk_39 = 4;
+    proc->mode = UNITLIST_MODE_4;
 
     return;
 }
 
-extern struct ProcCmd ProcScr_bmenu3[];
-
 //! FE8U = 0x08092194
-void sub_8092194(ProcPtr parent)
+void StartUnitListScreenWorldMap(ProcPtr parent)
 {
     struct UnitListScreenProc * proc;
 
     if (parent == NULL)
     {
-        proc = Proc_Start(ProcScr_bmenu3, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_UnitListScreen_WorldMap, PROC_TREE_3);
     }
     else
     {
-        proc = Proc_StartBlocking(ProcScr_bmenu3, parent);
+        proc = Proc_StartBlocking(ProcScr_UnitListScreen_WorldMap, parent);
     }
 
     ResetUnitSprites();
 
-    proc->unk_39 = 5;
+    proc->mode = UNITLIST_MODE_WORLDMAP;
 
     return;
 }
 
 //! FE8U = 0x080921CC
-void sub_80921CC(u16 * tm, u8 page)
+void UnitList_DrawColumnNames(u16 * tm, u8 page)
 {
     int i;
 
     TileMap_FillRect(tm + 9, 19, 1, 0);
     ClearText(&gUnknown_0200E148);
 
-    if (page == 5)
+    if (page == UNITLIST_PAGE_WEXP)
     {
         for (i = 0; i < 8; i++)
         {
@@ -2369,11 +2361,11 @@ void sub_80921CC(u16 * tm, u8 page)
     }
     else
     {
-        for (i = 1; i < 9 && gUnknown_08A17C48[page][i].xColumn != 0; i++)
+        for (i = 1; i < 9 && gUnitListScreenFields[page][i].xColumn != 0; i++)
         {
-            Text_SetCursor(&gUnknown_0200E148, gUnknown_08A17C48[page][i].xColumn - 0x40);
-            Text_SetColor(&gUnknown_0200E148, 0);
-            Text_DrawString(&gUnknown_0200E148, GetStringFromIndex(gUnknown_08A17C48[page][i].labelString));
+            Text_SetCursor(&gUnknown_0200E148, gUnitListScreenFields[page][i].xColumn - 64);
+            Text_SetColor(&gUnknown_0200E148, TEXT_COLOR_SYSTEM_WHITE);
+            Text_DrawString(&gUnknown_0200E148, GetStringFromIndex(gUnitListScreenFields[page][i].labelString));
         }
 
         PutText(&gUnknown_0200E148, tm + 8);
@@ -2385,18 +2377,18 @@ void sub_80921CC(u16 * tm, u8 page)
 }
 
 //! FE8U = 0x08092298
-void sub_8092298(u8 maxPages, u8 page, s8 flag)
+void sub_8092298(u8 maxPages, u8 page, s8 drawColumnNames)
 {
-    if (page != 0)
+    if (page != UNITLIST_PAGE_SOLOANIM)
     {
         PutNumber(TILEMAP_LOCATED(gBG2TilemapBuffer, 26, 3), TEXT_COLOR_SYSTEM_BLUE, page);
         PutSpecialChar(TILEMAP_LOCATED(gBG2TilemapBuffer, 27, 3), TEXT_COLOR_SYSTEM_WHITE, TEXT_SPECIAL_SLASH);
         PutNumber(TILEMAP_LOCATED(gBG2TilemapBuffer, 28, 3), TEXT_COLOR_SYSTEM_BLUE, maxPages);
     }
 
-    if (flag)
+    if (drawColumnNames)
     {
-        sub_80921CC(TILEMAP_LOCATED(gBG2TilemapBuffer, 0, 5), page);
+        UnitList_DrawColumnNames(TILEMAP_LOCATED(gBG2TilemapBuffer, 0, 5), page);
     }
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -2404,10 +2396,8 @@ void sub_8092298(u8 maxPages, u8 page, s8 flag)
     return;
 }
 
-extern int gUnknown_08205B94[];
-
 //! FE8U = 0x080922F0
-void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page, s8 putName)
+void UnitList_PutRow(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page, s8 putName)
 {
     u8 inactive;
     u8 i;
@@ -2417,7 +2407,7 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
     int row = unitNum % 7;
     int y = (unitNum * 2) & 0x1F;
 
-    if ((gUnknown_0200D6E0[unitNum]->unit->state & US_NOT_DEPLOYED) != 0)
+    if ((gSortedUnits[unitNum]->unit->state & US_NOT_DEPLOYED) != 0)
         inactive = 1;
     else
         inactive = 0;
@@ -2427,8 +2417,8 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
         ClearText(&gUnknown_0200E060[row]);
         Text_SetCursor(&gUnknown_0200E060[row], 0);
 
-        if (!CheckInLinkArena() && proc->unk_39 == UNITLIST_MODE_PREPMENU &&
-            IsCharacterForceDeployed(gUnknown_0200D6E0[unitNum]->unit->pCharacterData->number))
+        if (!CheckInLinkArena() && proc->mode == UNITLIST_MODE_PREPMENU &&
+            IsCharacterForceDeployed(gSortedUnits[unitNum]->unit->pCharacterData->number))
         {
             Text_SetColor(&gUnknown_0200E060[row], TEXT_COLOR_SYSTEM_GREEN);
         }
@@ -2438,7 +2428,7 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
         }
 
         Text_DrawString(
-            &gUnknown_0200E060[row], GetStringFromIndex(gUnknown_0200D6E0[unitNum]->unit->pCharacterData->nameTextId));
+            &gUnknown_0200E060[row], GetStringFromIndex(gSortedUnits[unitNum]->unit->pCharacterData->nameTextId));
         PutText(&gUnknown_0200E060[row], tm + y * 0x20 + 3);
     }
 
@@ -2452,10 +2442,10 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
         case UNITLIST_PAGE_SOLOANIM:
             PutDrawText(
                 &gUnknown_0200E098[row][0], tm + y * 0x20 + 8, 0, 0, 0,
-                GetStringFromIndex(gUnknown_0200D6E0[unitNum]->unit->pClassData->nameTextId));
+                GetStringFromIndex(gSortedUnits[unitNum]->unit->pClassData->nameTextId));
             Text_SetColor(&gUnknown_0200E098[row][1], inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE);
 
-            if (GetUnitEquippedWeapon(gUnknown_0200D6E0[unitNum]->unit) == 0)
+            if (GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit) == 0)
             {
                 PutDrawText(
                     &gUnknown_0200E098[row][1], tm + y * 0x20 + 17,
@@ -2466,16 +2456,16 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
                 PutDrawText(
                     &gUnknown_0200E098[row][1], tm + y * 0x20 + 17,
                     inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0,
-                    GetItemName(GetUnitEquippedWeapon(gUnknown_0200D6E0[unitNum]->unit)));
+                    GetItemName(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)));
                 DrawIcon(
-                    tm + y * 0x20 + 15, GetItemIconId(GetUnitEquippedWeapon(gUnknown_0200D6E0[unitNum]->unit)),
+                    tm + y * 0x20 + 15, GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)),
                     TILEREF(0, 4));
-                sub_8090324(GetItemIconId(GetUnitEquippedWeapon(gUnknown_0200D6E0[unitNum]->unit)));
+                sub_8090324(GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)));
             }
 
             ClearText(&gUnknown_0200E098[row][2]);
 
-            switch (gUnknown_0200D6E0[unitNum]->unit->state & US_SOLOANIM)
+            switch (gSortedUnits[unitNum]->unit->state & US_SOLOANIM)
             {
                 case US_SOLOANIM_1:
                     PutDrawText(&gUnknown_0200E098[row][2], tm + y * 0x20 + 24, 4, 8, 0, GetStringFromIndex(0xBF));
@@ -2497,56 +2487,56 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
             PutDrawText(
                 &gUnknown_0200E098[row][0], tm + y * 0x20 + 8,
                 inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 4, 0,
-                GetStringFromIndex(gUnknown_0200D6E0[unitNum]->unit->pClassData->nameTextId));
+                GetStringFromIndex(gSortedUnits[unitNum]->unit->pClassData->nameTextId));
 
             // level
             PutNumberOrBlank(
                 tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                gUnknown_0200D6E0[unitNum]->unit->level);
+                gSortedUnits[unitNum]->unit->level);
 
             // exp
             PutNumberOrBlank(
                 tm + y * 0x20 + 20, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                gUnknown_0200D6E0[unitNum]->unit->exp);
+                gSortedUnits[unitNum]->unit->exp);
 
             // hp
             PutNumberOrBlank(
                 tm + y * 0x20 + 23, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                GetUnitCurrentHp(gUnknown_0200D6E0[unitNum]->unit));
+                GetUnitCurrentHp(gSortedUnits[unitNum]->unit));
             PutSpecialChar(tm + y * 0x20 + 24, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0x16);
             PutNumberOrBlank(
                 tm + y * 0x20 + 26, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                GetUnitMaxHp(gUnknown_0200D6E0[unitNum]->unit));
+                GetUnitMaxHp(gSortedUnits[unitNum]->unit));
 
             break;
 
         case UNITLIST_PAGE_2:
             PutNumberOrBlank(
                 tm + y * 0x20 + 9,
-                UNIT_POW_MAX(gUnknown_0200D6E0[unitNum]->unit) == gUnknown_0200D6E0[unitNum]->unit->pow ? 4 : 2,
-                GetUnitPower(gUnknown_0200D6E0[unitNum]->unit));
+                UNIT_POW_MAX(gSortedUnits[unitNum]->unit) == gSortedUnits[unitNum]->unit->pow ? 4 : 2,
+                GetUnitPower(gSortedUnits[unitNum]->unit));
             PutNumberOrBlank(
                 tm + y * 0x20 + 12,
-                UNIT_SKL_MAX(gUnknown_0200D6E0[unitNum]->unit) == gUnknown_0200D6E0[unitNum]->unit->skl ? 4 : 2,
-                GetUnitSkill(gUnknown_0200D6E0[unitNum]->unit));
+                UNIT_SKL_MAX(gSortedUnits[unitNum]->unit) == gSortedUnits[unitNum]->unit->skl ? 4 : 2,
+                GetUnitSkill(gSortedUnits[unitNum]->unit));
             PutNumberOrBlank(
                 tm + y * 0x20 + 15,
-                UNIT_SPD_MAX(gUnknown_0200D6E0[unitNum]->unit) == gUnknown_0200D6E0[unitNum]->unit->spd ? 4 : 2,
-                GetUnitSpeed(gUnknown_0200D6E0[unitNum]->unit));
+                UNIT_SPD_MAX(gSortedUnits[unitNum]->unit) == gSortedUnits[unitNum]->unit->spd ? 4 : 2,
+                GetUnitSpeed(gSortedUnits[unitNum]->unit));
             PutNumberOrBlank(
                 tm + y * 0x20 + 18,
-                UNIT_LCK_MAX(gUnknown_0200D6E0[unitNum]->unit) == gUnknown_0200D6E0[unitNum]->unit->lck ? 4 : 2,
-                GetUnitLuck(gUnknown_0200D6E0[unitNum]->unit));
+                UNIT_LCK_MAX(gSortedUnits[unitNum]->unit) == gSortedUnits[unitNum]->unit->lck ? 4 : 2,
+                GetUnitLuck(gSortedUnits[unitNum]->unit));
             PutNumberOrBlank(
                 tm + y * 0x20 + 21,
-                UNIT_DEF_MAX(gUnknown_0200D6E0[unitNum]->unit) == gUnknown_0200D6E0[unitNum]->unit->def ? 4 : 2,
-                GetUnitDefense(gUnknown_0200D6E0[unitNum]->unit));
+                UNIT_DEF_MAX(gSortedUnits[unitNum]->unit) == gSortedUnits[unitNum]->unit->def ? 4 : 2,
+                GetUnitDefense(gSortedUnits[unitNum]->unit));
             PutNumberOrBlank(
                 tm + y * 0x20 + 24,
-                UNIT_RES_MAX(gUnknown_0200D6E0[unitNum]->unit) == gUnknown_0200D6E0[unitNum]->unit->res ? 4 : 2,
-                GetUnitResistance(gUnknown_0200D6E0[unitNum]->unit));
+                UNIT_RES_MAX(gSortedUnits[unitNum]->unit) == gSortedUnits[unitNum]->unit->res ? 4 : 2,
+                GetUnitResistance(gSortedUnits[unitNum]->unit));
 
-            icon = GetUnitAffinityIcon(gUnknown_0200D6E0[unitNum]->unit);
+            icon = GetUnitAffinityIcon(gSortedUnits[unitNum]->unit);
 
             if (icon == -1)
             {
@@ -2560,7 +2550,7 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
             break;
 
         case UNITLIST_PAGE_3:
-            if (GetUnitEquippedWeapon(gUnknown_0200D6E0[unitNum]->unit) == 0)
+            if (GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit) == 0)
             {
                 PutDrawText(
                     &gUnknown_0200E098[row][0], tm + y * 0x20 + 10,
@@ -2568,39 +2558,39 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
             }
             else
             {
-                char const * name = GetItemName(GetUnitEquippedWeapon(gUnknown_0200D6E0[unitNum]->unit));
+                char const * name = GetItemName(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit));
 
                 PutDrawText(
                     &gUnknown_0200E098[row][0], tm + y * 0x20 + 10,
                     inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, name);
 
                 DrawIcon(
-                    tm + y * 0x20 + 8, GetItemIconId(GetUnitEquippedWeapon(gUnknown_0200D6E0[unitNum]->unit)),
+                    tm + y * 0x20 + 8, GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)),
                     TILEREF(0, 4));
-                sub_8090324(GetItemIconId(GetUnitEquippedWeapon(gUnknown_0200D6E0[unitNum]->unit)));
+                sub_8090324(GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)));
             }
 
             PutNumberOrBlank(
                 tm + y * 0x20 + 18, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                gUnknown_0200D6E0[unitNum]->battleAttack);
+                gSortedUnits[unitNum]->battleAttack);
 
             PutNumberOrBlank(
                 tm + y * 0x20 + 22, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                gUnknown_0200D6E0[unitNum]->battleHitRate);
+                gSortedUnits[unitNum]->battleHitRate);
 
             PutNumberOrBlank(
                 tm + y * 0x20 + 26, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                gUnknown_0200D6E0[unitNum]->battleAvoidRate);
+                gSortedUnits[unitNum]->battleAvoidRate);
 
             break;
 
         case UNITLIST_PAGE_4:
-            if ((gUnknown_0200D6E0[unitNum]->unit->state & US_RESCUING) != 0)
+            if ((gSortedUnits[unitNum]->unit->state & US_RESCUING) != 0)
             {
                 PutDrawText(
                     &gUnknown_0200E098[row][1], tm + y * 0x20 + 17,
                     inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 2, 0,
-                    GetUnitRescueName(gUnknown_0200D6E0[unitNum]->unit));
+                    GetUnitRescueName(gSortedUnits[unitNum]->unit));
             }
             else
             {
@@ -2611,20 +2601,20 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
 
             PutNumberOrBlank(
                 tm + y * 0x20 + 10, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                UNIT_MOV(gUnknown_0200D6E0[unitNum]->unit));
+                UNIT_MOV(gSortedUnits[unitNum]->unit));
 
             PutNumberOrBlank(
                 tm + y * 0x20 + 13, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                UNIT_CON(gUnknown_0200D6E0[unitNum]->unit));
+                UNIT_CON(gSortedUnits[unitNum]->unit));
 
             PutNumberOrBlank(
                 tm + y * 0x20 + 16, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                GetUnitAid(gUnknown_0200D6E0[unitNum]->unit));
+                GetUnitAid(gSortedUnits[unitNum]->unit));
 
             PutDrawText(
                 &gUnknown_0200E098[row][0], tm + y * 0x20 + 23,
                 inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 2, 0,
-                GetUnitStatusName(gUnknown_0200D6E0[unitNum]->unit));
+                GetUnitStatusName(gSortedUnits[unitNum]->unit));
 
             break;
 
@@ -2632,7 +2622,7 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
         {
             for (i = 0; i < 8; i++)
             {
-                const int gUnknown_08205B94[] =
+                const int wpnLevelRankChars[] =
                 {
                     [WPN_LEVEL_0] = TEXT_SPECIAL_DASH,
                     [WPN_LEVEL_E] = TEXT_SPECIAL_E,
@@ -2643,9 +2633,9 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
                     [WPN_LEVEL_S] = TEXT_SPECIAL_S,
                 };
 
-                num = GetWeaponLevelFromExp(gUnknown_0200D6E0[unitNum]->unit->ranks[i]);
+                num = GetWeaponLevelFromExp(gSortedUnits[unitNum]->unit->ranks[i]);
 
-                PutSpecialChar(tm + y * 0x20 + 10 + 2 * i, num == WPN_LEVEL_S ? TEXT_COLOR_SYSTEM_GREEN : 2, gUnknown_08205B94[num]);
+                PutSpecialChar(tm + y * 0x20 + 10 + 2 * i, num == WPN_LEVEL_S ? TEXT_COLOR_SYSTEM_GREEN : 2, wpnLevelRankChars[num]);
             }
 
             break;
@@ -2660,29 +2650,29 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
             supportStart = (page - UNITLIST_PAGE_SUPPORT) * 3;
             supportPassed = 0;
             num = 0;
-            supportCount = GetUnitSupporterCount(gUnknown_0200D6E0[unitNum]->unit);
+            supportCount = GetUnitSupporterCount(gSortedUnits[unitNum]->unit);
 
             ClearText(&gUnknown_0200E098[row][2]);
 
             for (i = 0; i < supportCount; i++)
             {
-                if (CanUnitSupportNow(gUnknown_0200D6E0[unitNum]->unit, i))
+                if (CanUnitSupportNow(gSortedUnits[unitNum]->unit, i))
                 {
                     if (supportPassed >= supportStart)
                     {
                         struct Unit * other;
-                        if (GetUnitSupporterUnit(gUnknown_0200D6E0[unitNum]->unit, i) == NULL)
+                        if (GetUnitSupporterUnit(gSortedUnits[unitNum]->unit, i) == NULL)
                         {
                             continue;
                         }
 
-                        other = GetUnitSupporterUnit(gUnknown_0200D6E0[unitNum]->unit, i);
+                        other = GetUnitSupporterUnit(gSortedUnits[unitNum]->unit, i);
 
                         // ?? Why cast to u16?
                         if (((u16)(other->state & US_NOT_DEPLOYED)) == 0)
                         {
                             char const * name = GetStringFromIndex(
-                                (GetCharacterData(GetUnitSupporterCharacter(gUnknown_0200D6E0[unitNum]->unit, i)))
+                                (GetCharacterData(GetUnitSupporterCharacter(gSortedUnits[unitNum]->unit, i)))
                                     ->nameTextId);
 
                             PutDrawText(
@@ -2692,7 +2682,7 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
                         else
                         {
                             char const * name = GetStringFromIndex(
-                                (GetCharacterData(GetUnitSupporterCharacter(gUnknown_0200D6E0[unitNum]->unit, i)))
+                                (GetCharacterData(GetUnitSupporterCharacter(gSortedUnits[unitNum]->unit, i)))
                                     ->nameTextId);
 
                             PutDrawText(
@@ -2729,16 +2719,16 @@ void sub_80922F0(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page
 }
 
 //! FE8U = 0x08092BE4
-int sub_8092BE4(struct Unit * unit)
+int SortUnitList_GetUnitSoloAnimation(struct Unit * unit)
 {
     return (unit->state & US_SOLOANIM);
 }
 
 //! FE8U = 0x08092BF0
-bool sub_8092BF0(u8 arg_0, u8 arg_1)
+bool SortUnitList(u8 key, u8 order)
 {
     u8 cache[0x40];
-    u8 r2 = arg_1 & 1;
+    u8 r2 = order & 1;
 
     #define PREPARE_VARS \
         bool changed = FALSE; \
@@ -2757,9 +2747,9 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
 
     #define SWAP(i, j) \
     { \
-        tmp_addr = gUnknown_0200D6E0[(i)]; \
-        gUnknown_0200D6E0[(i)] = gUnknown_0200D6E0[(j)]; \
-        gUnknown_0200D6E0[(j)] = tmp_addr; \
+        tmp_addr = gSortedUnits[(i)]; \
+        gSortedUnits[(i)] = gSortedUnits[(j)]; \
+        gSortedUnits[(j)] = tmp_addr; \
     }
 
     #define SWAP_CACHE(i, j) \
@@ -2849,22 +2839,22 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
         } \
         break;
 
-    #define COND_FIELD(field) ((gUnknown_0200D6E0[j + 1]->field) < (gUnknown_0200D6E0[j]->field))
+    #define COND_FIELD(field) ((gSortedUnits[j + 1]->field) < (gSortedUnits[j]->field))
     #define COND_UNIT_FIELD(field) COND_FIELD(unit->field)
 
     #define SORT_BY_FUNC(func) \
-        SORT_REAL(func(gUnknown_0200D6E0[j + 1]->unit) > func(gUnknown_0200D6E0[j]->unit), \
-            func(gUnknown_0200D6E0[j + 1]->unit) < func(gUnknown_0200D6E0[j]->unit))
+        SORT_REAL(func(gSortedUnits[j + 1]->unit) > func(gSortedUnits[j]->unit), \
+            func(gSortedUnits[j + 1]->unit) < func(gSortedUnits[j]->unit))
 
     #define SORT_BY_UNIT_FIELD(field) \
-        SORT_REAL((gUnknown_0200D6E0[j + 1]->unit->field) > (gUnknown_0200D6E0[j]->unit->field), \
-            (gUnknown_0200D6E0[j + 1]->unit->field) < (gUnknown_0200D6E0[j]->unit->field))
+        SORT_REAL((gSortedUnits[j + 1]->unit->field) > (gSortedUnits[j]->unit->field), \
+            (gSortedUnits[j + 1]->unit->field) < (gSortedUnits[j]->unit->field))
 
-    switch (arg_0)
+    switch (key)
     {
-        case 1:
-            #define KEY_A(i) (gUnknown_0200D6E0[(i)]->unit->pCharacterData->sort_order)
-            #define KEY_B(i) (gUnknown_0200D6E0[(i)]->unit->state & US_UNSELECTABLE)
+        case UNITLIST_SORTKEY_1:
+            #define KEY_A(i) (gSortedUnits[(i)]->unit->pCharacterData->sort_order)
+            #define KEY_B(i) (gSortedUnits[(i)]->unit->state & US_UNSELECTABLE)
 
             SORT_MAIN(
                 SORT_CORE_KEY(KEY_A, <, SWAP) SORT_CORE_KEY(KEY_B, <, SWAP),
@@ -2873,71 +2863,71 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
             #undef KEY_B
             #undef KEY_A
 
-        case 3:
-            #define KEY(i) (gUnknown_0200D6E0[(i)]->unit->level)
+        case UNITLIST_SORTKEY_3:
+            #define KEY(i) (gSortedUnits[(i)]->unit->level)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 2:
-            #define KEY(i) (gUnknown_0200D6E0[(i)]->unit->pClassData->sort_order)
+        case UNITLIST_SORTKEY_2:
+            #define KEY(i) (gSortedUnits[(i)]->unit->pClassData->sort_order)
             SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
             #undef KEY
 
-        case 4:
+        case UNITLIST_SORTKEY_4:
             SORT_BY_UNIT_FIELD(exp)
             break;
 
-        case 5:
+        case UNITLIST_SORTKEY_5:
             SORT_BY_FUNC(GetUnitCurrentHp)
             break;
 
-        case 6:
+        case UNITLIST_SORTKEY_6:
             SORT_BY_FUNC(GetUnitMaxHp)
             break;
 
-        case 7:
+        case UNITLIST_SORTKEY_7:
             SORT_BY_FUNC(GetUnitPower)
             break;
 
-        case 8:
+        case UNITLIST_SORTKEY_8:
             SORT_BY_FUNC(GetUnitSkill)
             break;
 
-        case 9:
+        case UNITLIST_SORTKEY_9:
             SORT_BY_FUNC(GetUnitSpeed)
             break;
 
-        case 10:
+        case UNITLIST_SORTKEY_10:
             SORT_BY_FUNC(GetUnitLuck)
             break;
 
-        case 11:
+        case UNITLIST_SORTKEY_11:
             SORT_BY_FUNC(GetUnitDefense)
             break;
 
-        case 12:
+        case UNITLIST_SORTKEY_12:
             SORT_BY_FUNC(GetUnitResistance)
             break;
 
-        case 19:
+        case UNITLIST_SORTKEY_19:
             SORT_BY_FUNC(UNIT_CON)
             break;
 
-        case 20:
+        case UNITLIST_SORTKEY_20:
             SORT_BY_FUNC(GetUnitAid)
             break;
 
-        case 13:
-            #define KEY(i) (GetUnitAffinityIcon(gUnknown_0200D6E0[(i)]->unit))
+        case UNITLIST_SORTKEY_13:
+            #define KEY(i) (GetUnitAffinityIcon(gSortedUnits[(i)]->unit))
             SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
             #undef KEY
 
-        case 14:
+        case UNITLIST_SORTKEY_14:
             SORT_MAIN(
             {
                 for (i = 0; i < gUnknown_0200F158; i++)
                 {
-                    cache[i] = GetItemIndex(GetUnitEquippedWeapon(gUnknown_0200D6E0[i]->unit));
+                    cache[i] = GetItemIndex(GetUnitEquippedWeapon(gSortedUnits[i]->unit));
                 }
 
                 for (i = 0; i < gUnknown_0200F158 - 1; i++)
@@ -2949,7 +2939,7 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
                             SWAP_CACHE(j, j + 1)
                             changed = TRUE;
                         }
-                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gUnknown_0200D6E0[j + 1]->unit) > GetUnitEquippedWeapon(gUnknown_0200D6E0[j]->unit))
+                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gSortedUnits[j + 1]->unit) > GetUnitEquippedWeapon(gSortedUnits[j]->unit))
                         {
                             SWAP_CACHE(j, j + 1)
                             changed = TRUE;
@@ -2960,7 +2950,7 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
             {
                 for (i = 0; i < gUnknown_0200F158; i++)
                 {
-                    cache[i] = GetItemIndex(GetUnitEquippedWeapon(gUnknown_0200D6E0[i]->unit));
+                    cache[i] = GetItemIndex(GetUnitEquippedWeapon(gSortedUnits[i]->unit));
                 }
 
                 for (i = 0; i < gUnknown_0200F158 - 1; i++)
@@ -2972,7 +2962,7 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
                             SWAP_CACHE(j, j + 1)
                             changed = TRUE;
                         }
-                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gUnknown_0200D6E0[j + 1]->unit) < GetUnitEquippedWeapon(gUnknown_0200D6E0[j]->unit))
+                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gSortedUnits[j + 1]->unit) < GetUnitEquippedWeapon(gSortedUnits[j]->unit))
                         {
                             SWAP_CACHE(j, j + 1)
                             changed = TRUE;
@@ -2981,35 +2971,35 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
                 }
             })
 
-        case 15:
-            #define KEY(i) (gUnknown_0200D6E0[(i)]->battleAttack)
+        case UNITLIST_SORTKEY_15:
+            #define KEY(i) (gSortedUnits[(i)]->battleAttack)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 16:
-            #define KEY(i) (gUnknown_0200D6E0[(i)]->battleHitRate)
+        case UNITLIST_SORTKEY_16:
+            #define KEY(i) (gSortedUnits[(i)]->battleHitRate)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 17:
-            #define KEY(i) (gUnknown_0200D6E0[(i)]->battleAvoidRate)
+        case UNITLIST_SORTKEY_17:
+            #define KEY(i) (gSortedUnits[(i)]->battleAvoidRate)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 18:
+        case UNITLIST_SORTKEY_18:
             SORT_BY_FUNC(UNIT_MOV)
             break;
 
-        case 21:
+        case UNITLIST_SORTKEY_21:
             SORT_BY_UNIT_FIELD(statusIndex)
             break;
 
-        case 22:
+        case UNITLIST_SORTKEY_22:
             SORT_MAIN(
             {
                 for (i = 0; i < gUnknown_0200F158; i++)
                 {
-                    if ((gUnknown_0200D6E0[i]->unit->state & US_RESCUING) != 0)
+                    if ((gSortedUnits[i]->unit->state & US_RESCUING) != 0)
                         cache[i] = 1;
                     else
                         cache[i] = 0;
@@ -3020,7 +3010,7 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
             {
                 for (i = 0; i < gUnknown_0200F158; i++)
                 {
-                    if ((gUnknown_0200D6E0[i]->unit->state & US_RESCUING) != 0)
+                    if ((gSortedUnits[i]->unit->state & US_RESCUING) != 0)
                         cache[i] = 1;
                     else
                         cache[i] = 0;
@@ -3029,45 +3019,45 @@ bool sub_8092BF0(u8 arg_0, u8 arg_1)
                 SORT_CORE(cache[j + 1] < cache[j], SWAP_CACHE)
             })
 
-        case 23:
+        case UNITLIST_SORTKEY_23:
             SORT_BY_UNIT_FIELD(ranks[0])
             break;
 
-        case 24:
+        case UNITLIST_SORTKEY_24:
             SORT_BY_UNIT_FIELD(ranks[1])
             break;
 
-        case 25:
+        case UNITLIST_SORTKEY_25:
             SORT_BY_UNIT_FIELD(ranks[2])
             break;
 
-        case 26:
+        case UNITLIST_SORTKEY_26:
             SORT_BY_UNIT_FIELD(ranks[3])
             break;
 
-        case 27:
+        case UNITLIST_SORTKEY_27:
             SORT_BY_UNIT_FIELD(ranks[4])
             break;
 
-        case 28:
+        case UNITLIST_SORTKEY_28:
             SORT_BY_UNIT_FIELD(ranks[5])
             break;
 
-        case 29:
+        case UNITLIST_SORTKEY_29:
             SORT_BY_UNIT_FIELD(ranks[6])
             break;
 
-        case 30:
+        case UNITLIST_SORTKEY_30:
             SORT_BY_UNIT_FIELD(ranks[7])
             break;
 
-        case 31:
-            #define KEY(i) (gUnknown_0200D6E0[(i)]->supportCount)
+        case UNITLIST_SORTKEY_31:
+            #define KEY(i) (gSortedUnits[(i)]->supportCount)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 32:
-            SORT_BY_FUNC(sub_8092BE4)
+        case UNITLIST_SORTKEY_32:
+            SORT_BY_FUNC(SortUnitList_GetUnitSoloAnimation)
             break;
     }
 
@@ -3104,20 +3094,20 @@ u16 CONST_DATA Sprite_08A17B50[] =
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x25F),
 };
 
-u16 * CONST_DATA gUnknown_08A17B58[] =
+u16 * CONST_DATA gSpriteArray_08A17B58[] =
 {
     Sprite_08A17B40,
     Sprite_08A17B48,
     Sprite_08A17B50,
 };
 
-u16 CONST_DATA gUnknown_08A17B64[] =
+u16 CONST_DATA Sprite_08A17B64[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x2DF),
 };
 
-u16 CONST_DATA gUnknown_08A17B6C[] =
+u16 CONST_DATA Sprite_08A17B6C[] =
 {
     7,
     OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x24B) + OAM2_LAYER(2),
@@ -3184,7 +3174,7 @@ u16 CONST_DATA Sprite_08A17C0A[] =
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(76), OAM2_CHR(0x2C8),
 };
 
-u16 * CONST_DATA gUnknown_08A17C20[] =
+u16 * CONST_DATA gSpriteArray_08A17C20[] =
 {
     Sprite_08A17C0A,
     Sprite_08A17B98,
@@ -3199,31 +3189,32 @@ u16 * CONST_DATA gUnknown_08A17C20[] =
 };
 
 
-struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
+struct UnitListScreenField CONST_DATA gUnitListScreenFields[][9] =
 {
+    [UNITLIST_PAGE_SOLOANIM] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x00000002,
+            .sortKey = UNITLIST_SORTKEY_2,
             .labelString = 0x000004E6,
-            .xColumn = 0x00000040,
+            .xColumn = 64,
             .helpTextId = 0x000006E8,
         },
         {
-            .sortKey = 0x0000000E,
+            .sortKey = UNITLIST_SORTKEY_14,
             .labelString = 0x000004F2,
-            .xColumn = 0x00000088,
+            .xColumn = 136,
             .helpTextId = 0x000006EB,
         },
         {
-            .sortKey = 0x00000020,
+            .sortKey = UNITLIST_SORTKEY_32,
             .labelString = 0x000004FC,
-            .xColumn = 0x000000C0,
+            .xColumn = 192,
             .helpTextId = 0x000006F4,
         },
         {
@@ -3257,41 +3248,42 @@ struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
             .helpTextId = 0,
         },
     },
+    [UNITLIST_PAGE_1] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x00000002,
+            .sortKey = UNITLIST_SORTKEY_2,
             .labelString = 0x000004E6,
-            .xColumn = 0x00000044,
+            .xColumn = 68,
             .helpTextId = 0x000006E8,
         },
         {
-            .sortKey = 0x00000003,
+            .sortKey = UNITLIST_SORTKEY_3,
             .labelString = 0x000004E7,
-            .xColumn = 0x00000081,
+            .xColumn = 129,
             .helpTextId = 0x00000542,
         },
         {
-            .sortKey = 0x00000004,
+            .sortKey = UNITLIST_SORTKEY_4,
             .labelString = 0x000004E8,
-            .xColumn = 0x00000098,
+            .xColumn = 152,
             .helpTextId = 0x00000543,
         },
         {
-            .sortKey = 0x00000005,
+            .sortKey = UNITLIST_SORTKEY_5,
             .labelString = 0x000004E9,
-            .xColumn = 0x000000B0,
+            .xColumn = 176,
             .helpTextId = 0x00000544,
         },
         {
-            .sortKey = 0x00000006,
+            .sortKey = UNITLIST_SORTKEY_6,
             .labelString = 0x000004EA,
-            .xColumn = 0x000000C4,
+            .xColumn = 196,
             .helpTextId = 0x000006E9,
         },
         {
@@ -3313,53 +3305,54 @@ struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
             .helpTextId = 0,
         },
     },
+    [UNITLIST_PAGE_2] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x00000007,
+            .sortKey = UNITLIST_SORTKEY_7,
             .labelString = 0x000004EB,
-            .xColumn = 0x00000040,
+            .xColumn = 64,
             .helpTextId = 0x000006EA,
         },
         {
-            .sortKey = 0x00000008,
+            .sortKey = UNITLIST_SORTKEY_8,
             .labelString = 0x000004EC,
-            .xColumn = 0x0000005B,
+            .xColumn = 91,
             .helpTextId = 0x00000548,
         },
         {
-            .sortKey = 0x00000009,
+            .sortKey = UNITLIST_SORTKEY_9,
             .labelString = 0x000004ED,
-            .xColumn = 0x00000071,
+            .xColumn = 113,
             .helpTextId = 0x00000549,
         },
         {
-            .sortKey = 0x0000000A,
+            .sortKey = UNITLIST_SORTKEY_10,
             .labelString = 0x000004EE,
-            .xColumn = 0x00000088,
+            .xColumn = 136,
             .helpTextId = 0x0000054A,
         },
         {
-            .sortKey = 0x0000000B,
+            .sortKey = UNITLIST_SORTKEY_11,
             .labelString = 0x000004EF,
-            .xColumn = 0x000000A1,
+            .xColumn = 161,
             .helpTextId = 0x0000054B,
         },
         {
-            .sortKey = 0x0000000C,
+            .sortKey = UNITLIST_SORTKEY_12,
             .labelString = 0x000004F0,
-            .xColumn = 0x000000B8,
+            .xColumn = 184,
             .helpTextId = 0x0000054C,
         },
         {
-            .sortKey = 0x0000000D,
+            .sortKey = UNITLIST_SORTKEY_13,
             .labelString = 0x000004F1,
-            .xColumn = 0x000000CB,
+            .xColumn = 203,
             .helpTextId = 0x00000551,
         },
         {
@@ -3369,35 +3362,36 @@ struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
             .helpTextId = 0,
         },
     },
+    [UNITLIST_PAGE_3] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x0000000E,
+            .sortKey = UNITLIST_SORTKEY_14,
             .labelString = 0x000004F2,
-            .xColumn = 0x00000050,
+            .xColumn = 80,
             .helpTextId = 0x000006EB,
         },
         {
-            .sortKey = 0x0000000F,
+            .sortKey = UNITLIST_SORTKEY_15,
             .labelString = 0x000004F3,
-            .xColumn = 0x00000087,
+            .xColumn = 135,
             .helpTextId = 0x0000055C,
         },
         {
-            .sortKey = 0x00000010,
+            .sortKey = UNITLIST_SORTKEY_16,
             .labelString = 0x000004F4,
-            .xColumn = 0x000000A6,
+            .xColumn = 166,
             .helpTextId = 0x0000055D,
         },
         {
-            .sortKey = 0x00000011,
+            .sortKey = UNITLIST_SORTKEY_17,
             .labelString = 0x000004F5,
-            .xColumn = 0x000000C8,
+            .xColumn = 200,
             .helpTextId = 0x00000560,
         },
         {
@@ -3425,41 +3419,42 @@ struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
             .helpTextId = 0,
         },
     },
+    [UNITLIST_PAGE_4] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x00000012,
+            .sortKey = UNITLIST_SORTKEY_18,
             .labelString = 0x000004F6,
-            .xColumn = 0x00000044,
+            .xColumn = 68,
             .helpTextId = 0x0000054D,
         },
         {
-            .sortKey = 0x00000013,
+            .sortKey = UNITLIST_SORTKEY_19,
             .labelString = 0x000004F7,
-            .xColumn = 0x00000060,
+            .xColumn = 96,
             .helpTextId = 0x0000054E,
         },
         {
-            .sortKey = 0x00000014,
+            .sortKey = UNITLIST_SORTKEY_20,
             .labelString = 0x000004F8,
-            .xColumn = 0x0000007B,
+            .xColumn = 123,
             .helpTextId = 0x0000054F,
         },
         {
-            .sortKey = 0x00000016,
+            .sortKey = UNITLIST_SORTKEY_22,
             .labelString = 0x000004F9,
-            .xColumn = 0x0000008C,
+            .xColumn = 140,
             .helpTextId = 0x00000550,
         },
         {
-            .sortKey = 0x00000015,
+            .sortKey = UNITLIST_SORTKEY_21,
             .labelString = 0x000004FA,
-            .xColumn = 0x000000BC,
+            .xColumn = 188,
             .helpTextId = 0x000006EC,
         },
         {
@@ -3481,73 +3476,75 @@ struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
             .helpTextId = 0,
         },
     },
+    [UNITLIST_PAGE_WEXP] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x00000017,
+            .sortKey = UNITLIST_SORTKEY_23,
             .labelString = 0,
-            .xColumn = 0x0000004C,
+            .xColumn = 76,
             .helpTextId = 0x00000561,
         },
         {
-            .sortKey = 0x00000018,
+            .sortKey = UNITLIST_SORTKEY_24,
             .labelString = 0,
-            .xColumn = 0x0000005C,
+            .xColumn = 92,
             .helpTextId = 0x00000562,
         },
         {
-            .sortKey = 0x00000019,
+            .sortKey = UNITLIST_SORTKEY_25,
             .labelString = 0,
-            .xColumn = 0x0000006C,
+            .xColumn = 108,
             .helpTextId = 0x00000563,
         },
         {
-            .sortKey = 0x0000001A,
+            .sortKey = UNITLIST_SORTKEY_26,
             .labelString = 0,
-            .xColumn = 0x0000007C,
+            .xColumn = 124,
             .helpTextId = 0x00000564,
         },
         {
-            .sortKey = 0x0000001B,
+            .sortKey = UNITLIST_SORTKEY_27,
             .labelString = 0,
-            .xColumn = 0x0000008C,
+            .xColumn = 140,
             .helpTextId = 0x00000568,
         },
         {
-            .sortKey = 0x0000001C,
+            .sortKey = UNITLIST_SORTKEY_28,
             .labelString = 0,
-            .xColumn = 0x0000009C,
+            .xColumn = 156,
             .helpTextId = 0x00000565,
         },
         {
-            .sortKey = 0x0000001D,
+            .sortKey = UNITLIST_SORTKEY_29,
             .labelString = 0,
-            .xColumn = 0x000000AC,
+            .xColumn = 172,
             .helpTextId = 0x00000566,
         },
         {
-            .sortKey = 0x0000001E,
+            .sortKey = UNITLIST_SORTKEY_30,
             .labelString = 0,
-            .xColumn = 0x000000BC,
+            .xColumn = 188,
             .helpTextId = 0x00000567,
         },
     },
+    [UNITLIST_PAGE_SUPPORT] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x0000001F,
+            .sortKey = UNITLIST_SORTKEY_31,
             .labelString = 0x000004FB,
-            .xColumn = 0x0000004A,
+            .xColumn = 74,
             .helpTextId = 0x0000056A,
         },
         {
@@ -3593,17 +3590,18 @@ struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
             .helpTextId = 0,
         },
     },
+    [UNITLIST_PAGE_SUPPORT + 1] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x0000001F,
+            .sortKey = UNITLIST_SORTKEY_31,
             .labelString = 0x000004FB,
-            .xColumn = 0x0000004A,
+            .xColumn = 74,
             .helpTextId = 0x0000056A,
         },
         {
@@ -3649,17 +3647,18 @@ struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
             .helpTextId = 0,
         },
     },
+    [UNITLIST_PAGE_SUPPORT + 2] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x0000001F,
+            .sortKey = UNITLIST_SORTKEY_31,
             .labelString = 0x000004FB,
-            .xColumn = 0x0000004A,
+            .xColumn = 74,
             .helpTextId = 0x0000056A,
         },
         {
@@ -3705,17 +3704,18 @@ struct UnitListScreenField CONST_DATA gUnknown_08A17C48[][9] =
             .helpTextId = 0,
         },
     },
+    [UNITLIST_PAGE_SUPPORT + 3] =
     {
         {
-            .sortKey = 0x00000001,
+            .sortKey = UNITLIST_SORTKEY_1,
             .labelString = 0x000004E5,
-            .xColumn = 0x00000014,
+            .xColumn = 20,
             .helpTextId = 0x000006E7,
         },
         {
-            .sortKey = 0x0000001F,
+            .sortKey = UNITLIST_SORTKEY_31,
             .labelString = 0x000004FB,
-            .xColumn = 0x0000004A,
+            .xColumn = 74,
             .helpTextId = 0x0000056A,
         },
         {

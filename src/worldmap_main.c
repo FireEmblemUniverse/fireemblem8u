@@ -1241,7 +1241,7 @@ void sub_80B9810(ProcPtr unused)
 //! FE8U = 0x080B9820
 void sub_80B9820(ProcPtr proc)
 {
-    sub_8092194(proc);
+    StartUnitListScreenWorldMap(proc);
     return;
 }
 

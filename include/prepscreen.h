@@ -242,13 +242,13 @@ extern u16 CONST_DATA Img_PrepHelpButtonSprites[];
 extern u8 Img_MenuScrollBar[];
 extern u16 Pal_MenuScrollBar[];
 extern u8 gUnknown_08A19CCC[]; // gfx
-extern u16 gUnknown_08A1A084[]; // pal
+extern u16 Pal_08A1A084[]; // pal
 extern u8 gUnknown_08A1A0A4[]; // gfx
 extern u8 gUnknown_08A1A23C[]; // gfx
 extern u16 gUnknown_08A1A3FC[]; // pal
-extern u8 CONST_DATA gUnknown_08A1A41C[];
-extern u8 CONST_DATA gUnknown_08A1A434[];
-extern u8 CONST_DATA gUnknown_08A1A474[];
+extern u8 CONST_DATA Tsa_08A1A41C[];
+extern u8 CONST_DATA Tsa_08A1A434[];
+extern u8 CONST_DATA Tsa_08A1A474[];
 extern u8 CONST_DATA gUnknown_08A1A4C8[];
 extern u8 gGfx_SupportScreenBanner[];
 extern u8 CONST_DATA gUnknown_08A1AC88[];
@@ -275,19 +275,19 @@ extern u16 gUnknown_08A1BD60[];
 extern u8 gImg_UiSpinningArrow_Vertical[]; // arrow gfx
 extern u8 gImg_UiSpinningArrow_Horizontal[];
 // extern ??? gUnknown_08A1C8B4
-// extern ??? gUnknown_08A1CD68
-// extern ??? gUnknown_08A1CDC4
-// extern ??? gUnknown_08A1D288
+// extern ??? Img_08A1CD68
+// extern ??? Img_UnitListBanners
+// extern ??? Img_UnitListBanner_Animation
 extern u16 Pal_08A1D448[];
 extern u16 CONST_DATA gUnknown_08A1D4C8[];
 extern u8 Img_PrepTextShadow[];
 extern u8 CONST_DATA gUnknown_08A1D510[];
 extern u16 CONST_DATA Pal_MapBattleInfoNum[]; // 'R is info' palette
 extern u8 Img_PrepPopupWindow[];
-extern u16 gUnknown_08A1D850[];
-extern u16 gUnknown_08A1D870[];
-extern u16 gUnknown_08A1D890[];
-extern u16 gUnknown_08A1D8B0[];
+extern u16 Pal_08A1D850[];
+extern u16 Pal_08A1D870[];
+extern u16 Pal_08A1D890[];
+extern u16 Pal_08A1D8B0[];
 extern u8 Img_PrepWindow[];
 extern u8 gUnknown_08A1DB80[];
 extern u8 gTsa_SupportSubScreen[];

@@ -1043,7 +1043,7 @@ s8 sub_80B2464(struct ConfigProc* proc) {
     Proc_EndEach(gProcScr_RedrawConfigHelpText);
 
     if (proc->unk_36 != 0) {
-        sub_8092134(proc);
+        StartUnitListScreenForSoloAnim(proc);
         Proc_Goto(proc, 0);
 
         return 0;

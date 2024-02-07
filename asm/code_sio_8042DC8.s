@@ -1388,7 +1388,7 @@ sub_8043CF4: @ 0x08043CF4
 	mov r2, sp
 	bl ReadMultiArenaSaveTeam
 	adds r0, r4, #0
-	bl sub_8092164
+	bl StartUnitListScreenUnk
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -1402,7 +1402,7 @@ _08043D38: .4byte gUnknown_0203DB7C
 sub_8043D3C: @ 0x08043D3C
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08043D58  @ ProcScr_bmenu2
+	ldr r0, _08043D58  @ ProcScr_UnitListScreen_PrepMenu
 	bl Proc_Find
 	cmp r0, #0
 	bne _08043D50
@@ -1413,7 +1413,7 @@ _08043D50:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08043D58: .4byte ProcScr_bmenu2
+_08043D58: .4byte ProcScr_UnitListScreen_PrepMenu
 
 	THUMB_FUNC_END sub_8043D3C
 
