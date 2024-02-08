@@ -169,7 +169,7 @@ void DrawItemMenuLineLong(struct Text* text, int item, s8 isGrayed, u16* mapOut)
 void DrawItemMenuLineNoColor(struct Text* text, int item, u16* mapOut);
 void DrawItemStatScreenLine(struct Text* text, int item, int nameColor, u16* mapOut);
 u16 GetItemAfterUse(int item);
-u32 GetUnitEquippedWeapon(struct Unit* unit);
+u16 GetUnitEquippedWeapon(struct Unit* unit);
 int GetUnitEquippedWeaponSlot(struct Unit* unit);
 s8 IsItemCoveringRange(int item, int range);
 void EquipUnitItemSlot(struct Unit* unit, int itemSlot);

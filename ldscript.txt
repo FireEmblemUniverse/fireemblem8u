@@ -265,7 +265,7 @@ SECTIONS
         src/sioerror.o(.text);
         src/uichapterstatus.o(.text);
         src/cgtext.o(.text);
-        asm/unitlistscreen.o(.text);
+        src/unitlistscreen.o(.text);
         src/prepscreen.o(.text);
         src/prep_atmenu.o(.text);
         src/prep_menuproc.o(.text);
@@ -544,7 +544,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/player_interface.o(.rodata);
-        . = ALIGN(4); data/const_data_205B84.o(.rodata);
+        . = ALIGN(4); src/unitlistscreen.o(.rodata);
+        . = ALIGN(4); src/prepscreen.o(.rodata);
         . = ALIGN(4); src/prep_atmenu.o(.rodata);
         . = ALIGN(4); src/prep_menuscroll.o(.rodata);
         . = ALIGN(4); src/prep_sallycir.o(.rodata);
@@ -837,6 +838,8 @@ SECTIONS
         . = ALIGN(4); data/data_A01CC4.o(.data);
         . = ALIGN(4); data/data_chap_title.o(.data);
         . = ALIGN(4); data/data_A167C8.o(.data);
+        . = ALIGN(4); src/unitlistscreen.o(.data);
+        . = ALIGN(4); src/prepscreen.o(.data);
         . = ALIGN(4); src/prep_atmenu.o(.data);
         . = ALIGN(4); src/prep_menuproc.o(.data);
         . = ALIGN(4); src/prep_menuscroll.o(.data);

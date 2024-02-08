@@ -16,8 +16,8 @@ Pal_MenuScrollBar:  @ 0x08A19CAC
 gUnknown_08A19CCC:  @ 0x08A19CCC
 	.incbin "baserom.gba", 0xA19CCC, 0x3B8
 
-	.global gUnknown_08A1A084
-gUnknown_08A1A084:  @ 0x08A1A084
+	.global Pal_08A1A084
+Pal_08A1A084:  @ 0x08A1A084
 	.incbin "baserom.gba", 0xA1A084, 0x20
 
 	.global gUnknown_08A1A0A4
@@ -40,16 +40,16 @@ gUnknown_08A1A3FC:  @ 0x08A1A3FC
     .4byte 0x32ca01a1
     .4byte 0x30a5
 
-	.global gUnknown_08A1A41C
-gUnknown_08A1A41C:  @ 0x08A1A41C
+	.global Tsa_08A1A41C
+Tsa_08A1A41C:  @ 0x08A1A41C
 	.incbin "baserom.gba", 0xA1A41C, 0x18
 
-	.global gUnknown_08A1A434
-gUnknown_08A1A434:  @ 0x08A1A434
+	.global Tsa_08A1A434
+Tsa_08A1A434:  @ 0x08A1A434
 	.incbin "baserom.gba", 0xA1A434, 0x40
 
-	.global gUnknown_08A1A474
-gUnknown_08A1A474:  @ 0x08A1A474
+	.global Tsa_08A1A474
+Tsa_08A1A474:  @ 0x08A1A474
 	.incbin "baserom.gba", 0xA1A474, 0x54
 
 	.global gUnknown_08A1A4C8
@@ -156,16 +156,16 @@ gImg_UiSpinningArrow_Horizontal:  @ 0x08A1C7D8
 gUnknown_08A1C8B4:  @ 0x08A1C8B4
 	.incbin "baserom.gba", 0xA1C8B4, 0x4B4
 
-	.global gUnknown_08A1CD68
-gUnknown_08A1CD68:  @ 0x08A1CD68
+	.global Img_08A1CD68
+Img_08A1CD68:  @ 0x08A1CD68
 	.incbin "baserom.gba", 0xA1CD68, 0x5C
 
-	.global gUnknown_08A1CDC4
-gUnknown_08A1CDC4:  @ 0x08A1CDC4
+	.global Img_UnitListBanners
+Img_UnitListBanners:  @ 0x08A1CDC4
 	.incbin "baserom.gba", 0xA1CDC4, 0x4C4
 
-	.global gUnknown_08A1D288
-gUnknown_08A1D288:  @ 0x08A1D288
+	.global Img_UnitListBanner_Animation
+Img_UnitListBanner_Animation:  @ 0x08A1D288
 	.incbin "baserom.gba", 0xA1D288, 0x1C0
 
 	.global Pal_08A1D448
@@ -192,20 +192,20 @@ Pal_MapBattleInfoNum:  @ 0x08A1D79C
 Img_PrepPopupWindow:  @ 0x08A1D7DC
 	.incbin "baserom.gba", 0xA1D7DC, 0x74
 
-	.global gUnknown_08A1D850
-gUnknown_08A1D850:  @ 0x08A1D850
+	.global Pal_08A1D850
+Pal_08A1D850:  @ 0x08A1D850
 	.incbin "baserom.gba", 0xA1D850, 0x20
 
-	.global gUnknown_08A1D870
-gUnknown_08A1D870:  @ 0x08A1D870
+	.global Pal_08A1D870
+Pal_08A1D870:  @ 0x08A1D870
 	.incbin "baserom.gba", 0xA1D870, 0x20
 
-	.global gUnknown_08A1D890
-gUnknown_08A1D890:  @ 0x08A1D890
+	.global Pal_08A1D890
+Pal_08A1D890:  @ 0x08A1D890
 	.incbin "baserom.gba", 0xA1D890, 0x20
 
-	.global gUnknown_08A1D8B0
-gUnknown_08A1D8B0:  @ 0x08A1D8B0
+	.global Pal_08A1D8B0
+Pal_08A1D8B0:  @ 0x08A1D8B0
 	.incbin "baserom.gba", 0xA1D8B0, 0x20
 
 	.global Img_PrepWindow

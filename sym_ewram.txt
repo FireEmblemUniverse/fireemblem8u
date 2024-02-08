@@ -82,8 +82,8 @@
 . = 0x00AF00; gUnknown_0200AF00 = .;
 . = 0x00C300; gUnknown_0200C300 = .;
 . = 0x00CB00; gUnknown_0200CB00 = .;
-. = 0x00D3E0; gUnknown_0200D3E0 = .;
-. = 0x00D6E0; gUnknown_0200D6E0 = .;
+. = 0x00D3E0; gSortedUnitsBuf = .;
+. = 0x00D6E0; gSortedUnits = .;
 . = 0x00D7E0; gUnknown_0200D7E0 = .;
 . = 0x00DFE0; gUnknown_0200DFE0 = .;
 . = 0x00E060; gUnknown_0200E060 = .;
