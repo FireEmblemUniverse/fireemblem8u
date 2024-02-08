@@ -35,8 +35,8 @@ extern u16 Pal_08A1A084[];
 
 extern u8 gUnknown_08A1C8B4[]; // tsa
 
-extern u16 gUnknown_0200D7E0[];
-extern u16 gUnknown_0200DFE0[];
+extern u16 gUnknown_0200D7E0[][0x20];
+extern u16 gUnknown_0200DFE0[][0x20];
 
 extern struct Text gUnknown_0200E060[];
 extern struct Text gUnknown_0200E098[][3];
@@ -1584,16 +1584,16 @@ void UnitList_StartPageChange(struct UnitListScreenProc * proc)
 {
     int i;
 
-    TileMap_FillRect(gUnknown_0200D7E0, 31, 31, 0);
+    TileMap_FillRect(gUnknown_0200D7E0[0], 31, 31, 0);
 
     for (i = proc->unk_3e / 16; i < proc->unk_3e / 16 + 6 && i < gUnknown_0200F158; i++)
     {
-        UnitList_PutRow(proc, i, gUnknown_0200D7E0, proc->page, 0);
+        UnitList_PutRow(proc, i, gUnknown_0200D7E0[0], proc->page, 0);
     }
 
-    TileMap_FillRect(gUnknown_0200DFE0, 31, 1, 0);
+    TileMap_FillRect(gUnknown_0200DFE0[0], 31, 1, 0);
 
-    UnitList_DrawColumnNames(gUnknown_0200DFE0, proc->page);
+    UnitList_DrawColumnNames(gUnknown_0200DFE0[0], proc->page);
 
     proc->unk_3c = 0;
     proc->unk_37 = proc->page;
@@ -1603,10 +1603,6 @@ void UnitList_StartPageChange(struct UnitListScreenProc * proc)
 }
 
 extern u8 gUnknown_08A17B30[];
-
-#if NONMATCHING
-
-/* https://decomp.me/scratch/lXNoY */
 
 //! FE8U = 0x08091D54
 void sub_8091D54(struct UnitListScreenProc * proc)
@@ -1652,13 +1648,14 @@ void sub_8091D54(struct UnitListScreenProc * proc)
         for (r4 = proc->unk_3e / 8; r4 < 12 + proc->unk_3e / 8; r4++)
         {
             int off = 8 + (r4 & 0x1F) * 0x20;
-            gBG0TilemapBuffer[off + i] = *(gUnknown_0200D7E0 + r1 + (r4 & 0x1F) * 0x20);
+            if (gBG0TilemapBuffer == gBG0TilemapBuffer && gUnknown_0200D7E0 == gUnknown_0200D7E0)
+                gBG0TilemapBuffer[off + i] = gUnknown_0200D7E0[r4 & 0x1F][r1];
         }
 
         for (r4 = 0; r4 < 2; r4++)
         {
             int off = 0xA8 + r4 * 0x20;
-            gBG2TilemapBuffer[off + i] = *(gUnknown_0200DFE0 + r1 + r4 * 0x20);
+            gBG2TilemapBuffer[off + i] = gUnknown_0200DFE0[r4][r1];
         }
     }
 
@@ -1684,10 +1681,10 @@ void sub_8091D54(struct UnitListScreenProc * proc)
 
     for (r4 = proc->unk_3e / 16; r4 < proc->unk_3e / 16 + 6 && r4 < gUnknown_0200F158; r4++)
     {
-        UnitList_PutRow(proc, r4, gUnknown_0200D7E0, proc->page, 0);
+        UnitList_PutRow(proc, r4, gUnknown_0200D7E0[0], proc->page, 0);
     }
 
-    UnitList_DrawColumnNames(gUnknown_0200DFE0, proc->page);
+    UnitList_DrawColumnNames(gUnknown_0200DFE0[0], proc->page);
     sub_8092298(proc->unk_2e, proc->page, 0);
 
     proc->unk_38 = 0;
@@ -1698,254 +1695,18 @@ void sub_8091D54(struct UnitListScreenProc * proc)
     return;
 }
 
-#else
-
-NAKEDFUNC
-void sub_8091D54(struct UnitListScreenProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x10\n\
-        adds r5, r0, #0\n\
-        adds r2, r5, #0\n\
-        adds r2, #0x38\n\
-        ldr r1, _08091DB4  @ gUnknown_08A17B30\n\
-        ldrh r0, [r5, #0x3c]\n\
-        adds r0, r0, r1\n\
-        ldrb r0, [r0]\n\
-        ldrb r1, [r2]\n\
-        adds r0, r0, r1\n\
-        strb r0, [r2]\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        cmp r0, #0x14\n\
-        bls _08091D80\n\
-        movs r0, #0x14\n\
-        strb r0, [r2]\n\
-    _08091D80:\n\
-        ldrh r0, [r5, #0x3c]\n\
-        adds r0, #1\n\
-        strh r0, [r5, #0x3c]\n\
-        movs r3, #0\n\
-        str r2, [sp, #0xc]\n\
-        adds r2, r5, #0\n\
-        adds r2, #0x36\n\
-        str r2, [sp, #8]\n\
-        movs r0, #0x2f\n\
-        adds r0, r0, r5\n\
-        mov sl, r0\n\
-        ldr r1, [sp, #0xc]\n\
-        str r1, [sp, #4]\n\
-    _08091D9A:\n\
-        ldr r2, [sp, #8]\n\
-        ldrb r0, [r2]\n\
-        mov r1, sl\n\
-        ldrb r1, [r1]\n\
-        cmp r0, r1\n\
-        bls _08091DB8\n\
-        ldr r2, [sp, #4]\n\
-        ldrb r0, [r2]\n\
-        adds r0, r3, r0\n\
-        cmp r0, #0x14\n\
-        bgt _08091DC0\n\
-        b _08091DC6\n\
-        .align 2, 0\n\
-    _08091DB4: .4byte gUnknown_08A17B30\n\
-    _08091DB8:\n\
-        ldr r1, [sp, #4]\n\
-        ldrb r0, [r1]\n\
-        cmp r3, r0\n\
-        bge _08091DC4\n\
-    _08091DC0:\n\
-        movs r1, #0\n\
-        b _08091DCC\n\
-    _08091DC4:\n\
-        subs r0, r3, r0\n\
-    _08091DC6:\n\
-        adds r0, #8\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r1, r0, #0x18\n\
-    _08091DCC:\n\
-        ldrh r0, [r5, #0x3e]\n\
-        lsrs r4, r0, #3\n\
-        adds r0, r4, #0\n\
-        adds r0, #0xc\n\
-        lsls r6, r1, #1\n\
-        adds r2, r3, #1\n\
-        mov r9, r2\n\
-        cmp r4, r0\n\
-        bge _08091E10\n\
-        movs r0, #0x1f\n\
-        mov r8, r0\n\
-        ldr r1, _08091E8C  @ gBG0TilemapBuffer\n\
-        mov ip, r1\n\
-        ldr r7, _08091E90  @ gUnknown_0200D7E0\n\
-        adds r2, r6, #0\n\
-    _08091DEA:\n\
-        adds r0, r4, #0\n\
-        mov r1, r8\n\
-        ands r0, r1\n\
-        lsls r1, r0, #5\n\
-        adds r1, #8\n\
-        adds r1, r1, r3\n\
-        lsls r1, r1, #1\n\
-        add r1, ip\n\
-        lsls r0, r0, #6\n\
-        adds r0, r2, r0\n\
-        adds r0, r0, r7\n\
-        ldrh r0, [r0]\n\
-        strh r0, [r1]\n\
-        adds r4, #1\n\
-        ldrh r0, [r5, #0x3e]\n\
-        lsrs r0, r0, #3\n\
-        adds r0, #0xc\n\
-        cmp r4, r0\n\
-        blt _08091DEA\n\
-    _08091E10:\n\
-        ldr r0, _08091E94  @ gBG2TilemapBuffer\n\
-        ldr r1, _08091E98  @ gUnknown_0200DFE0\n\
-        adds r2, r6, r1\n\
-        adds r1, r3, #0\n\
-        adds r1, #0xa8\n\
-        movs r4, #1\n\
-        lsls r1, r1, #1\n\
-        adds r1, r1, r0\n\
-    _08091E20:\n\
-        ldrh r0, [r2]\n\
-        strh r0, [r1]\n\
-        adds r2, #0x40\n\
-        adds r1, #0x40\n\
-        subs r4, #1\n\
-        cmp r4, #0\n\
-        bge _08091E20\n\
-        mov r3, r9\n\
-        cmp r3, #0x13\n\
-        ble _08091D9A\n\
-        movs r0, #5\n\
-        bl BG_EnableSyncByMask\n\
-        ldr r2, [sp, #0xc]\n\
-        ldrb r0, [r2]\n\
-        cmp r0, #0x13\n\
-        bls _08091EF4\n\
-        ldr r1, [sp, #8]\n\
-        ldrb r0, [r1]\n\
-        mov r2, sl\n\
-        strb r0, [r2]\n\
-        ldr r0, _08091E9C  @ gBG2TilemapBuffer+0x150\n\
-        movs r1, #0x16\n\
-        movs r2, #1\n\
-        movs r3, #0\n\
-        bl TileMap_FillRect\n\
-        ldr r0, _08091EA0  @ gBG0TilemapBuffer+0x010\n\
-        movs r1, #0x16\n\
-        movs r2, #0x1f\n\
-        movs r3, #0\n\
-        bl TileMap_FillRect\n\
-        adds r4, r5, #0\n\
-        adds r4, #0x32\n\
-        adds r6, r5, #0\n\
-        adds r6, #0x2e\n\
-        ldr r1, _08091EA4  @ gUnknown_0200F15C\n\
-        movs r2, #0xff\n\
-        adds r0, r1, #0\n\
-        adds r0, #0x4c\n\
-    _08091E72:\n\
-        str r2, [r0]\n\
-        subs r0, #4\n\
-        cmp r0, r1\n\
-        bge _08091E72\n\
-        bl ResetIconGraphics\n\
-        ldrb r0, [r4]\n\
-        bl sub_8090238\n\
-        ldrh r0, [r5, #0x3e]\n\
-        lsrs r4, r0, #4\n\
-        adds r0, r4, #6\n\
-        b _08091EC4\n\
-        .align 2, 0\n\
-    _08091E8C: .4byte gBG0TilemapBuffer\n\
-    _08091E90: .4byte gUnknown_0200D7E0\n\
-    _08091E94: .4byte gBG2TilemapBuffer\n\
-    _08091E98: .4byte gUnknown_0200DFE0\n\
-    _08091E9C: .4byte gBG2TilemapBuffer+0x150\n\
-    _08091EA0: .4byte gBG0TilemapBuffer+0x010\n\
-    _08091EA4: .4byte gUnknown_0200F15C\n\
-    _08091EA8:\n\
-        lsls r1, r4, #0x18\n\
-        lsrs r1, r1, #0x18\n\
-        mov r0, sl\n\
-        ldrb r3, [r0]\n\
-        movs r0, #0\n\
-        str r0, [sp]\n\
-        adds r0, r5, #0\n\
-        ldr r2, _08091F04  @ gUnknown_0200D7E0\n\
-        bl UnitList_PutRow\n\
-        adds r4, #1\n\
-        ldrh r0, [r5, #0x3e]\n\
-        lsrs r0, r0, #4\n\
-        adds r0, #6\n\
-    _08091EC4:\n\
-        cmp r4, r0\n\
-        bge _08091ED0\n\
-        ldr r0, _08091F08  @ gUnknown_0200F158\n\
-        ldrb r0, [r0]\n\
-        cmp r4, r0\n\
-        blt _08091EA8\n\
-    _08091ED0:\n\
-        ldr r0, _08091F0C  @ gUnknown_0200DFE0\n\
-        mov r2, sl\n\
-        ldrb r1, [r2]\n\
-        bl UnitList_DrawColumnNames\n\
-        ldrb r0, [r6]\n\
-        mov r2, sl\n\
-        ldrb r1, [r2]\n\
-        movs r2, #0\n\
-        bl sub_8092298\n\
-        movs r0, #0\n\
-        ldr r1, [sp, #0xc]\n\
-        strb r0, [r1]\n\
-        strh r0, [r5, #0x3c]\n\
-        adds r0, r5, #0\n\
-        bl Proc_Break\n\
-    _08091EF4:\n\
-        add sp, #0x10\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08091F04: .4byte gUnknown_0200D7E0\n\
-    _08091F08: .4byte gUnknown_0200F158\n\
-    _08091F0C: .4byte gUnknown_0200DFE0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
-
 extern u8 gUnknown_08A17B36[];
 
 #if NONMATCHING
 
-/* https://decomp.me/scratch/vSnVv */
+/* https://decomp.me/scratch/3RUUz */
 
 #define TILEMAP_INDEX_(aX, aY) ((aX) + (aY) * 0x20)
 
 //! FE8U = 0x08091F10
 void sub_8091F10(struct UnitListScreenProc * proc)
 {
-    int r5;
-    int r4;
-    u8 r1;
-    int y;
-    int off;
+    int r4, r5;
 
     proc->unk_38 += gUnknown_08A17B36[proc->unk_3c];
 
@@ -1954,53 +1715,39 @@ void sub_8091F10(struct UnitListScreenProc * proc)
         proc->unk_38 = 20;
     }
 
-    do
+    proc->unk_3c++;
+
+    if (proc->pageTarget > proc->unk_37)
     {
-        proc->unk_3c++;
-
-        if (proc->pageTarget > proc->unk_37)
+        for (r5 = 0; r5 < proc->unk_38; r5++)
         {
-            int r6 = 0x1c;
-            int r3 = 8;
-            for (r5 = 0; r5 < proc->unk_38; r5++)
+            for (r4 = proc->unk_3e / 8; r4 < proc->unk_3e / 8 + 12; r4++)
             {
-                for (r4 = proc->unk_3e / 8; r4 < proc->unk_3e / 8 + 12; r4++)
-                {
-                    y = r4 & 0x1f;
-                    off = TILEMAP_INDEX_(r5 + r3, y);
-                    gBG0TilemapBuffer[TILEMAP_INDEX_((r5 + r6) - proc->unk_38, y)] = gUnknown_0200D7E0[off];
-                }
+                gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + (({r5 + 0x1c;}) - proc->unk_38)] = gUnknown_0200D7E0[r4 & 0x1f][r5 + 8];
+            }
 
-                for (r4 = 0; r4 < 2; r4++)
-                {
-                    gBG2TilemapBuffer[TILEMAP_INDEX_((r5 + r6) - proc->unk_38, r4 + 5)] =
-                        gUnknown_0200DFE0[TILEMAP_INDEX_(r5 + r3, r4)];
-                }
+            for (r4 = 0; r4 < 2; r4++)
+            {
+                gBG2TilemapBuffer[(r4 + 5) * 0x20 + (({r5 + 0x1c;}) - proc->unk_38)] = gUnknown_0200DFE0[r4][r5 + 8];
             }
         }
-        else
+    }
+    else
+    {
+        for (r5 = 0; r5 < proc->unk_38; r5++)
         {
-            int r6 = 0x1c;
-            int r3 = 8;
-            for (r5 = 0; r5 < proc->unk_38; r5++)
+            for (r4 = proc->unk_3e / 8; r4 < proc->unk_3e / 8 + 12; r4++)
             {
+                // gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + 8 + r5] = gUnknown_0200D7E0[r4 & 0x1f][({r5 + 0x1c;}) - proc->unk_38];
+                gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + ({r5 + 8;})] = gUnknown_0200D7E0[r4 & 0x1f][({r5 + 0x1c;}) - proc->unk_38];
+            }
 
-                for (r4 = proc->unk_3e / 8; r4 < 12 + proc->unk_3e / 8; r4++)
-                {
-                    y = r4 & 0x1f;
-                    gBG0TilemapBuffer[TILEMAP_INDEX_(r5 + r3, y)] =
-                        gUnknown_0200D7E0[TILEMAP_INDEX_((r5 + r6) - proc->unk_38, y)];
-                    r6 = 0x1c;
-                }
-
-                for (r4 = 0; r4 < 2; r4++)
-                {
-                    gBG2TilemapBuffer[TILEMAP_INDEX_(r5 + r3, r4 + 5)] =
-                        gUnknown_0200DFE0[TILEMAP_INDEX_(((r5 + r6) - proc->unk_38), r4)];
-                }
+            for (r4 = 0; r4 < 2; r4++)
+            {
+                gBG2TilemapBuffer[(r4 + 5) * 0x20 + (r5 + 8)] = gUnknown_0200DFE0[r4][({r5 + 0x1c;}) - proc->unk_38];
             }
         }
-    } while (0);
+    }
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG2_SYNC_BIT);
 
