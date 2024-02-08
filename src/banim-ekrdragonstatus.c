@@ -1,9 +1,4 @@
-#include "global.h"
-#include "hardware.h"
-#include "anime.h"
-#include "ekrbattle.h"
-#include "efxbattle.h"
-#include "ekrdragon.h"
+#include "gbafe.h"
 
 EWRAM_DATA struct EkrDragonStatus gEkrDragonStatusLeft  = {0};
 EWRAM_DATA struct EkrDragonStatus gEkrDragonStatusRight = {0};

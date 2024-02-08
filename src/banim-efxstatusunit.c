@@ -104,28 +104,32 @@ void SetUnitEfxDebuff(struct Anim *anim, int debuff)
     procs[GetAnimPosition(anim)]->debuff = debuff;
 
     if (debuff == UNIT_STATUS_NONE)
-        EfxStatusUnitSomePalModify(anim, 0, 0, 0);
+        EfxStatusUnitFlashing(anim, 0, 0, 0);
 }
 
-u32 GettUnitEfxDebuff(struct Anim *anim)
+u32 GetUnitEfxDebuff(struct Anim *anim)
 {
     struct ProcEfxStatusUnit **procs = gpProcEfxStatusUnits;
     return procs[GetAnimPosition(anim)]->debuff;
 }
 
-void EfxStatusUnitSomePalModify(struct Anim *anim, int r, int g, int b)
+void EfxStatusUnitFlashing(struct Anim *anim, int r, int g, int b)
 {
-    if (GetAnimPosition(anim) == EKR_POS_L) {
+    if (GetAnimPosition(anim) == EKR_POS_L)
+    {
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], &PAL_COLOR(0x17, 0), 0x20);
-        EfxSomePalFlash(&PAL_COLOR(0, 0), 0x17, 1, r, g, b);
+        EfxPalFlashingInOut(&PAL_COLOR(0, 0), 0x17, 1, r, g, b);
 
-        if (GetEkrDragonStatusUnk1() != 0) {
-            sub_807035C(anim);
-            EfxSomePalFlash(&PAL_COLOR(0, 0), 0x6, 1, r, g, b);
+        if (GetEkrDragonStatusUnk1() != 0)
+        {
+            BanimSetFrontPaletteForDragon(anim);
+            EfxPalFlashingInOut(&PAL_COLOR(0, 0), 0x6, 1, r, g, b);
         }
-    } else {
+    }
+    else
+    {
         CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], &PAL_COLOR(0x19, 0), 0x20);
-        EfxSomePalFlash(&PAL_COLOR(0, 0), 0x19, 1, r, g, b);
+        EfxPalFlashingInOut(&PAL_COLOR(0, 0), 0x19, 1, r, g, b);
     }
 }
 
@@ -133,7 +137,7 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
 {
     int ret, _ret;
 
-    if (GettUnitEfxDebuff(proc->anim) == UNIT_STATUS_NONE || proc->invalid == true)
+    if (GetUnitEfxDebuff(proc->anim) == UNIT_STATUS_NONE || proc->invalid == true)
         return;
 
     if (proc->debuff != proc->debuf_bak) {
@@ -194,11 +198,11 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
     case UNIT_STATUS_POISON:
     case UNIT_STATUS_SLEEP:
     case UNIT_STATUS_BERSERK:
-        EfxStatusUnitSomePalModify(proc->anim, proc->red, proc->green, proc->blue);
+        EfxStatusUnitFlashing(proc->anim, proc->red, proc->green, proc->blue);
         break;
 
     case UNIT_STATUS_12:
-        EfxStatusUnitSomePalModify(proc->anim, proc->red, proc->green, proc->blue);
+        EfxStatusUnitFlashing(proc->anim, proc->red, proc->green, proc->blue);
         break;
 
     case UNIT_STATUS_PETRIFY:
@@ -224,7 +228,7 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
         break;
 
     case UNIT_STATUS_SILENCED:
-        EfxStatusUnitSomePalModify(proc->anim, proc->red, proc->green, proc->blue);
+        EfxStatusUnitFlashing(proc->anim, proc->red, proc->green, proc->blue);
         break;
 
     default:

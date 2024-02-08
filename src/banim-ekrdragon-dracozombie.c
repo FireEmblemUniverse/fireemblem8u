@@ -1,13 +1,6 @@
-#include "global.h"
-#include "hardware.h"
-#include "bmlib.h"
-#include "bmmap.h"
-#include "anime.h"
-#include "ekrbattle.h"
-#include "efxbattle.h"
-#include "ekrdragon.h"
+#include "gbafe.h"
 
-void EkrDZ_PrepareBanimfx(struct ProcEkrDragon *proc);
+void EkrDZ_PrepareBanimfx(struct ProcEkrDragon * proc);
 
 void Fill16_EkrTsaBuffer(u32 val)
 {
@@ -22,7 +15,7 @@ void Fill16_EkrTsaBuffer(u32 val)
         *buf++ = tmp;
 }
 
-void EkrDZ_CustomBgFadeIn(struct ProcEkrDragon *proc)
+void EkrDZ_CustomBgFadeIn(struct ProcEkrDragon * proc)
 {
     EfxChapterMapFadeOUT(Interpolate(INTERPOLATE_SQUARE, 4, 0x10, proc->timer, 8));
     if (++proc->timer == 0x9) {
@@ -40,11 +33,11 @@ void EfxDracoZombiePrepareTSA(int x, int y, s8 pos)
     
     EkrDragonTmCpyWithDistance();
 
-    x += gEkrBgXOffset;
+    x += gEkrBgPosition;
     EkrDragonTmCpyExt(x, y);
 }
 
-void EfxDracoZombiePrepareImg(struct ProcEkrDragon *proc)
+void EfxDracoZombiePrepareImg(struct ProcEkrDragon * proc)
 {
     Fill16_EkrTsaBuffer(0);
     EfxTmFill(0);
@@ -65,7 +58,7 @@ void EfxDracoZombiePrepareImg(struct ProcEkrDragon *proc)
     proc->tcounter = 0;
 }
 
-void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon *proc)
+void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon * proc)
 {
     int x, y;
 
@@ -107,7 +100,7 @@ void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon *proc)
     x = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->tcounter].lox, gEkrDracoZombiTsaSetLut[proc->tcounter + 1].lox, proc->timer, gEkrDracoZombiTsaSetLut[proc->tcounter].time);
     y = Interpolate(INTERPOLATE_LINEAR, gEkrDracoZombiTsaSetLut[proc->tcounter].loy, gEkrDracoZombiTsaSetLut[proc->tcounter + 1].loy, proc->timer, gEkrDracoZombiTsaSetLut[proc->tcounter].time);
 
-    EkrDragonTmCpyExt(x + gEkrBgXOffset, y);
+    EkrDragonTmCpyExt(x + gEkrBgPosition, y);
 
     proc->timer++;
     if (proc->timer == gEkrDracoZombiTsaSetLut[proc->tcounter].time) {
@@ -116,7 +109,7 @@ void EkrDZ_MonsterFlyIntoScreen(struct ProcEkrDragon *proc)
     }
 }
 
-void EkrDZ_PrepareBanimfx(struct ProcEkrDragon *proc)
+void EkrDZ_PrepareBanimfx(struct ProcEkrDragon * proc)
 {
     EfxDracoZombiePrepareTSA(0, 0, 0);
 
@@ -129,7 +122,7 @@ void EkrDZ_PrepareBanimfx(struct ProcEkrDragon *proc)
     gEkrSpellAnimIndex[0] = 0x15;
 }
 
-void EkrDZ_TriggerPreparedFlag(struct ProcEkrDragon *proc)
+void EkrDZ_TriggerPreparedFlag(struct ProcEkrDragon * proc)
 {
     if (GetEkrDragonStatusAttr(GetAnimAnotherSide(proc->anim)) != EKRDRGON_ATTR_START) {
         AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_BANIMFX_PREPARED);
@@ -137,13 +130,13 @@ void EkrDZ_TriggerPreparedFlag(struct ProcEkrDragon *proc)
     }
 }
 
-void EkrDZ_IdleInBattle(struct ProcEkrDragon *proc)
+void EkrDZ_IdleInBattle(struct ProcEkrDragon * proc)
 {
     u16 attr = GetEkrDragonStatusAttr(proc->anim);
     if (attr & EKRDRGON_ATTR_BANIMFINISH) {
         proc->timer = 0;
 
-        if (CheckEkrDragonStatusAttrBit13(proc->anim) == false) {
+        if (CheckEkrDragonRefrain(proc->anim) == false) {
             SetAnimStateHidden(GetAnimPosition(proc->anim));
             EfxDracoZombiePrepareTSA(0, 0, 1);
         }
@@ -152,11 +145,11 @@ void EkrDZ_IdleInBattle(struct ProcEkrDragon *proc)
     }
 }
 
-void EkrDZ_ReloadCustomBg(struct ProcEkrDragon *proc)
+void EkrDZ_ReloadCustomBg(struct ProcEkrDragon * proc)
 {
     int val;
 
-    if (CheckEkrDragonStatusAttrBit13(proc->anim) == true) {
+    if (CheckEkrDragonRefrain(proc->anim) == true) {
         BG_Fill(gBG3TilemapBuffer, 0x6000);
         BG_EnableSyncByMask(BG3_SYNC_BIT);
         EfxPalBlackInOut(PAL_BG(0), 6, 1, 0x10);
@@ -209,7 +202,7 @@ void EkrDZ_ReloadCustomBg(struct ProcEkrDragon *proc)
     }
 }
 
-void EkrDZ_ReloadCustomBgAndFadeOut(struct ProcEkrDragon *proc)
+void EkrDZ_ReloadCustomBgAndFadeOut(struct ProcEkrDragon * proc)
 {
     int val;
 
@@ -221,7 +214,7 @@ void EkrDZ_ReloadCustomBgAndFadeOut(struct ProcEkrDragon *proc)
     val = Interpolate(INTERPOLATE_RSQUARE, 0x10, 4, proc->timer, 8);
     EfxChapterMapFadeOUT(val);
 
-    if (CheckEkrDragonStatusAttrBit13(proc->anim) == false) {
+    if (CheckEkrDragonRefrain(proc->anim) == false) {
         val = Interpolate(INTERPOLATE_RSQUARE, 0x10, 0, proc->timer, 8);
 
         switch (gEkrDistanceType) {
@@ -246,16 +239,16 @@ void EkrDZ_ReloadCustomBgAndFadeOut(struct ProcEkrDragon *proc)
     }
 }
 
-void EkrDZ_SetDragonStatAttrEndBit(struct ProcEkrDragon *proc)
+void EkrDZ_SetDragonStatAttrEndBit(struct ProcEkrDragon * proc)
 {
     AddEkrDragonStatusAttr(proc->anim, EKRDRGON_ATTR_END);
     Proc_Break(proc);
 }
 
-void NewEkrDragonDracoZombie(struct Anim *anim)
+void NewEkrDragonDracoZombie(struct Anim * anim)
 {
-    struct EkrDragonStatus *ekrsp = GetEkrDragonStatus(anim);
-    struct ProcEkrDragon *proc = Proc_Start(ProcScr_EkrDracoZombie, PROC_TREE_3);
+    struct EkrDragonStatus * ekrsp = GetEkrDragonStatus(anim);
+    struct ProcEkrDragon * proc = Proc_Start(ProcScr_EkrDracoZombie, PROC_TREE_3);
 
     ekrsp->proc = proc;
     AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_START);
@@ -263,147 +256,6 @@ void NewEkrDragonDracoZombie(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
 }
-
-void SetEkrDragonStatusAttrFinished(struct Anim *anim)
-{
-    AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_BANIMFINISH);
-}
-
-void SetEkrDragonStatusAttrBit12(struct Anim *anim)
-{
-    AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_B12);
-}
-
-void SetEkrDragonStatusAttrBit13(struct Anim *anim)
-{
-    AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_B13);
-}
-
-bool CheckEkrDragonDeadEffectMaybe(struct Anim *anim)
-{
-    u16 attr = GetEkrDragonStatusAttr(anim);
-    if (attr & EKRDRGON_ATTR_B12)
-        return true;
-    else
-        return false;
-}
-
-bool CheckEkrDragonStatusAttrBit13(struct Anim *anim)
-{
-    u16 attr = GetEkrDragonStatusAttr(anim);
-    if (attr & EKRDRGON_ATTR_B13)
-        return true;
-    else
-        return false;
-}
-
-void SetAnimStateHiddenForDragon(void)
-{
-    switch (GetBanimDragonStatusType()) {
-    case EKRDRGON_TYPE_DRACO_ZOMBIE:
-        SetAnimStateHidden(EKR_POS_L);
-        break;
-
-    case EKRDRGON_TYPE_DEMON_KING:
-        SetAnimStateHidden(EKR_POS_L);
-        break;
-
-    case EKRDRGON_TYPE_NORMAL:
-    case EKRDRGON_TYPE_MYRRH:
-    default:
-        break;
-    }
-}
-
-void sub_807027C(struct Anim *anim)
-{
-    u16 *pal;
-    switch (GetBanimDragonStatusType())
-    {
-        case EKRDRGON_TYPE_NORMAL:
-        case EKRDRGON_TYPE_MYRRH:
-            return;
-        
-        case EKRDRGON_TYPE_DRACO_ZOMBIE:
-            pal = gUnknown_08802D24;
-            break;
-    
-        case EKRDRGON_TYPE_DEMON_KING:
-            pal = gUnknown_08802D24;
-            break;
-    }
-
-    if (GetAnimPosition(anim) == EKR_POS_L)
-        CpuFastCopy(pal, PAL_BG(6), 0x20);
-    else
-        CpuFastCopy(pal, PAL_BG(7), 0x20);
-
-    EnablePaletteSync();
-}
-
-u16 *sub_80702D0(void)
-{
-    u32 type = GetBanimDragonStatusType();
-    switch (type) {
-    case EKRDRGON_TYPE_DRACO_ZOMBIE:
-        return Pal_EfxDracoZombie;
-
-    case EKRDRGON_TYPE_DEMON_KING:
-        return Pal_DemonKingBG;
-
-    case EKRDRGON_TYPE_NORMAL:
-    case EKRDRGON_TYPE_MYRRH:
-        break;
-    }
-
-    /**
-     * return NULL;
-     */
-}
-
-void sub_80702FC(int pos)
-{
-    if (pos == EKR_POS_L)
-        CpuFastCopy(sub_80702D0(), PAL_OBJ(0x7), 0x20);
-    else
-        CpuFastCopy(sub_80702D0(), PAL_OBJ(0x9), 0x20);
-
-    EnablePaletteSync();
-}
-
-void sub_807032C(int pos)
-{
-    if (pos == EKR_POS_L)
-        CpuFastCopy(sub_80702D0(), PAL_BG(0x6), 0x20);
-    else
-        CpuFastCopy(sub_80702D0(), PAL_BG(0x7), 0x20);
-
-    EnablePaletteSync();
-}
-
-void sub_807035C(struct Anim *anim)
-{
-    if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL && GetBanimDragonStatusType() != EKRDRGON_TYPE_MYRRH)
-        sub_807032C(GetAnimPosition(anim));
-}
-
-void NewEkrDragonQuakeTree3(struct EkrDragonQuakePriv *priv, int b, int c)
-{
-    NewEkrDragonQuake(priv, b, c, PROC_TREE_3);
-}
-
-void NewEkrDragonQuake(struct EkrDragonQuakePriv *priv, int b, int c, ProcPtr parent)
-{
-    struct ProcEkrDragonQuake *proc;
-    
-    proc = Proc_Start(ProcScr_ekrDragonQuake, parent);
-    proc->priv = priv;
-    proc->subproc = NewEfxQuakePure(c, 0);
-    proc->unk2C = 0;
-    proc->unk2E = b;
-}
-
-void EkrDragonQuakeMain(struct ProcEkrDragonQuake *proc);
 
 CONST_DATA struct EkrDracoZombiTsaSet gEkrDracoZombiTsaSetLut[] = {
     { Tsa_EfxDracoZombie1,  3,  97, 0x8F, 0 },
@@ -451,11 +303,5 @@ PROC_LABEL(0x0),
 
     /* Communicate to ekrbattle to trigger battle ending */
     PROC_REPEAT(EkrDZ_SetDragonStatAttrEndBit),
-    PROC_END
-};
-
-CONST_DATA struct ProcCmd ProcScr_ekrDragonQuake[] = {
-    PROC_NAME((void *)0x80dfa0c),
-    PROC_REPEAT(EkrDragonQuakeMain),
     PROC_END
 };

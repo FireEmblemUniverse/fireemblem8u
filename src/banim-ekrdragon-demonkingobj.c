@@ -1,10 +1,4 @@
-#include "global.h"
-#include "anime.h"
-#include "ekrbattle.h"
-#include "efxbattle.h"
-#include "ekrdragon.h"
-#include "hardware.h"
-#include "bmlib.h"
+#include "gbafe.h"
 
 CONST_DATA struct ProcCmd ProcScr_08801800[] = {
     PROC_CALL(sub_8077D30),
@@ -19,8 +13,8 @@ void sub_8077D30(struct Proc08801800 *proc)
 /* This function is unusable */
 void sub_8077D38(struct Proc08801800 *proc)
 {
-    sub_8077EAC(-gUnknown_03004FA0 + gEkrBgXOffset, -gUnknown_03004FA4);
-    EkrDragonTmCpyExt(-gUnknown_03004FA0 + gEkrBgXOffset, -gUnknown_03004FA4);
+    sub_8077EAC(-gUnknown_03004FA0 + gEkrBgPosition, -gUnknown_03004FA4);
+    EkrDragonTmCpyExt(-gUnknown_03004FA0 + gEkrBgPosition, -gUnknown_03004FA4);
     proc->timer++;
 }
 
@@ -52,7 +46,7 @@ void sub_8077DC8(void)
     Decompress(Tsa_087F45D0, gEkrTsaBuffer);
     EfxTmCpyBG(gEkrTsaBuffer, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
     BG_EnableSyncByMask(BG1_SYNC_BIT);
-    sub_8077EAC(gEkrBgXOffset, 0);
+    sub_8077EAC(gEkrBgPosition, 0);
     SetBlackPal(0x1);
     EnablePaletteSync();
     CpuFill16(0, (void *)(BG_VRAM + 0x2000), 0x1000);

@@ -895,7 +895,7 @@ void EkrPlayMainBGM(void)
 
     gEkrMainBgmPlaying = 1;
 
-    songid = gPalIndexEfxHpBarUnk[gEkrInitialHitSide] != 1 ? 0x19 : 0x1A;
+    songid = gEkrFactions[gEkrInitialHitSide] != 1 ? 0x19 : 0x1A;
 
     if (GetBattleAnimArenaFlag() == 1)
     {
@@ -1011,7 +1011,7 @@ void EkrPlayMainBGM(void)
     gEkrMainBgmPlaying = false;
 }
 
-void EkrTryRestoreBGM(void)
+void EkrRestoreBGM(void)
 {
     if (CheckBanimHensei() == true || gBmSt.gameStateBits & BM_FLAG_5 || gEkrMainBgmPlaying == false)
     {

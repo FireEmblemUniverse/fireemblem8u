@@ -162,11 +162,11 @@ EfxCircleWINMain: @ 0x0805BB84
 	adds r5, r0, #0
 	ldr r0, _0805BC04  @ gEkrBg2ScrollFlip
 	ldr r0, [r0]
-	ldr r1, _0805BC08  @ gpEkrLvupBg2ScrollOffsetTable1
+	ldr r1, _0805BC08  @ gpBg2ScrollOffsetTable1
 	mov r8, r1
 	cmp r0, #0
 	bne _0805BB9E
-	ldr r2, _0805BC0C  @ gpEkrLvupBg2ScrollOffsetTable2
+	ldr r2, _0805BC0C  @ gpBg2ScrollOffsetTable2
 	mov r8, r2
 _0805BB9E:
 	ldr r4, [r5, #0x54]
@@ -226,8 +226,8 @@ _0805BBFC:
 	b _0805BC44
 	.align 2, 0
 _0805BC04: .4byte gEkrBg2ScrollFlip
-_0805BC08: .4byte gpEkrLvupBg2ScrollOffsetTable1
-_0805BC0C: .4byte gpEkrLvupBg2ScrollOffsetTable2
+_0805BC08: .4byte gpBg2ScrollOffsetTable1
+_0805BC0C: .4byte gpBg2ScrollOffsetTable2
 _0805BC10: .4byte 0x0000FFFF
 _0805BC14:
 	ldrh r2, [r5, #0x32]
@@ -375,7 +375,7 @@ Loop6C_efxMagicQUAKE: @ 0x0805BCC4
 	negs r1, r1
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8051B5C
+	bl EkrDispUP_SetPositionSync
 	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _0805BD42
@@ -402,7 +402,7 @@ _0805BD60:
 	ldrh r3, [r4]
 	adds r0, r0, r3
 _0805BD68:
-	ldr r3, _0805BE7C  @ gEkrBgXOffset
+	ldr r3, _0805BE7C  @ gEkrBgPosition
 	ldr r1, [r3]
 	subs r0, r0, r1
 	lsls r0, r0, #0x10
@@ -420,7 +420,7 @@ _0805BD68:
 	mov r1, r9
 	ldrh r1, [r1, #2]
 	adds r0, r0, r1
-	ldr r3, _0805BE7C  @ gEkrBgXOffset
+	ldr r3, _0805BE7C  @ gEkrBgPosition
 	ldr r1, [r3]
 	subs r0, r0, r1
 	lsls r0, r0, #0x10
@@ -483,7 +483,7 @@ _0805BD68:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8051B5C
+	bl EkrDispUP_SetPositionSync
 	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq _0805BE2A
@@ -492,7 +492,7 @@ _0805BD68:
 	movs r2, #0
 	bl BG_SetPosition
 _0805BE2A:
-	ldr r0, _0805BE7C  @ gEkrBgXOffset
+	ldr r0, _0805BE7C  @ gEkrBgPosition
 	ldr r2, [r0]
 	mov r3, r9
 	ldrh r1, [r3]
@@ -530,7 +530,7 @@ _0805BE6A:
 	bx r0
 	.align 2, 0
 _0805BE78: .4byte gEkrXPosReal
-_0805BE7C: .4byte gEkrBgXOffset
+_0805BE7C: .4byte gEkrBgPosition
 _0805BE80: .4byte gEkrYPosReal
 _0805BE84: .4byte gEkrBg2QuakeVec
 _0805BE88: .4byte gEfxBgSemaphore

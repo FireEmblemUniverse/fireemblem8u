@@ -495,7 +495,7 @@ void EfxPalWhiteInOut(u16 * pal_buf, int line, int length, int ref)
     }
 }
 
-void EfxSomePalFlash(u16 * pal_buf, int line, int length, int r0, int g0, int b0)
+void EfxPalFlashingInOut(u16 * pal_buf, int line, int length, int r0, int g0, int b0)
 {
     int i, j;
 

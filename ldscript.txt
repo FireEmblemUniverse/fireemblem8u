@@ -218,6 +218,7 @@ SECTIONS
         asm/banim-efxop.o(.text);
         src/banim-ekrdragonstatus.o(.text);
         src/banim-ekrdragon-dracozombie.o(.text);
+        src/banim-ekrdragon-utils.o(.text);
         asm/banim-ekrdragon.o(.text);
         src/banim-ekrdragon-myrrh.o(.text);
         src/banim-efxutils.o(.text);
@@ -755,6 +756,7 @@ SECTIONS
         . = ALIGN(4); data/banim-efxop.o(.data);
         . = ALIGN(4); data/data_banim.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-dracozombie.o(.data);
+        . = ALIGN(4); src/banim-ekrdragon-utils.o(.data);
         . = ALIGN(4); data/data-ekrdragon.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-myrrh.o(.data);
         . = ALIGN(4); src/banim-efxutils.o(.data);

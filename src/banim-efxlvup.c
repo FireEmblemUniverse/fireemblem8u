@@ -10,16 +10,16 @@
 #include "bmlib.h"
 
 EWRAM_DATA int gEkrBg2ScrollFlip = 0;
-EWRAM_DATA u16 * gpEkrLvupBg2ScrollOffsetStart = NULL;
-EWRAM_DATA u16 * gpEkrLvupBg2ScrollOffset = NULL;
-EWRAM_DATA u16 gpEkrLvupBg2ScrollOffsetTable1[160] = {0};
-EWRAM_DATA u16 gpEkrLvupBg2ScrollOffsetTable2[160] = {0};
+EWRAM_DATA u16 * gpBg2ScrollOffsetStart = NULL;
+EWRAM_DATA u16 * gpBg2ScrollOffset = NULL;
+EWRAM_DATA u16 gpBg2ScrollOffsetTable1[160] = {0};
+EWRAM_DATA u16 gpBg2ScrollOffsetTable2[160] = {0};
 
 EWRAM_DATA int gEkrBg1ScrollFlip = 0;
-EWRAM_DATA u16 * gpEkrLvupBg1ScrollOffsetStart = NULL;
-EWRAM_DATA u16 * gpEkrLvupBg1ScrollOffset = NULL;
-EWRAM_DATA u16 gpEkrLvupBg1ScrollOffsetList1[160] = {0};
-EWRAM_DATA u16 gpEkrLvupBg1ScrollOffsetList2[160] = {0};
+EWRAM_DATA u16 * gpBg1ScrollOffsetStart = NULL;
+EWRAM_DATA u16 * gpBg1ScrollOffset = NULL;
+EWRAM_DATA u16 gpBg1ScrollOffsetList1[160] = {0};
+EWRAM_DATA u16 gpBg1ScrollOffsetList2[160] = {0};
 
 EWRAM_DATA int gUnknown_02020044 = 0;
 
@@ -45,12 +45,12 @@ void EfxUpdatePartsofScroll(void)
     u32 i;
 
     u16 * buf1 = (gEkrBg1ScrollFlip == 0)
-               ? gpEkrLvupBg2ScrollOffsetTable2
-               : gpEkrLvupBg2ScrollOffsetTable1;
+               ? gpBg2ScrollOffsetTable2
+               : gpBg2ScrollOffsetTable1;
 
     u16 * buf2 = (gEkrBg1ScrollFlip == 0)
-               ? gpEkrLvupBg1ScrollOffsetList2
-               : gpEkrLvupBg1ScrollOffsetList1;
+               ? gpBg1ScrollOffsetList2
+               : gpBg1ScrollOffsetList1;
 
     for (i = 0; i < 0xA0; i++)
     {
@@ -119,12 +119,12 @@ CONST_DATA s16 gUnknown_0875941C[] = {
 void EfxPartsofScroll2Main(ProcPtr proc)
 {
     u16 * buf1 = (gEkrBg1ScrollFlip == 0)
-               ? gpEkrLvupBg2ScrollOffsetTable2
-               : gpEkrLvupBg2ScrollOffsetTable1;
+               ? gpBg2ScrollOffsetTable2
+               : gpBg2ScrollOffsetTable1;
 
     u16 * buf2 = (gEkrBg1ScrollFlip == 0)
-               ? gpEkrLvupBg1ScrollOffsetList2
-               : gpEkrLvupBg1ScrollOffsetList1;
+               ? gpBg1ScrollOffsetList2
+               : gpBg1ScrollOffsetList1;
 
     u32 i = 0;
 
@@ -180,19 +180,19 @@ ProcPtr NewEfxleveluphb(void)
 
     gEfxBgSemaphore++;
 
-    buf = gpEkrLvupBg2ScrollOffsetTable1;
+    buf = gpBg2ScrollOffsetTable1;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    buf = gpEkrLvupBg2ScrollOffsetTable2;
+    buf = gpBg2ScrollOffsetTable2;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    buf = gpEkrLvupBg1ScrollOffsetList1;
+    buf = gpBg1ScrollOffsetList1;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
-    buf = gpEkrLvupBg1ScrollOffsetList2;
+    buf = gpBg1ScrollOffsetList2;
     for (i = 0; i < 0xA0; i++)
         *buf++ = 0;
 
@@ -203,14 +203,14 @@ ProcPtr NewEfxleveluphb(void)
 #ifndef NONMATCHING
     asm("":::"v7"); // by me
 #endif
-    buf = gpEkrLvupBg2ScrollOffsetTable1;
-    gpEkrLvupBg2ScrollOffsetStart = buf;
-    buf = gpEkrLvupBg1ScrollOffsetList1;
-    gpEkrLvupBg1ScrollOffsetStart = buf;
-    buf = gpEkrLvupBg2ScrollOffsetStart;
-    gpEkrLvupBg2ScrollOffset = buf;
-    buf = gpEkrLvupBg1ScrollOffsetStart;
-    gpEkrLvupBg1ScrollOffset = buf;
+    buf = gpBg2ScrollOffsetTable1;
+    gpBg2ScrollOffsetStart = buf;
+    buf = gpBg1ScrollOffsetList1;
+    gpBg1ScrollOffsetStart = buf;
+    buf = gpBg2ScrollOffsetStart;
+    gpBg2ScrollOffset = buf;
+    buf = gpBg1ScrollOffsetStart;
+    gpBg1ScrollOffset = buf;
 
     proc = Proc_Start(v, PROC_TREE_VSYNC);
     proc->timer = 0;
@@ -234,27 +234,27 @@ void EfxleveluphbMain(ProcPtr proc)
         if (gEkrBg2ScrollFlip == 1)
         {
             gEkrBg2ScrollFlip = 0;
-            gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable1;
+            gpBg2ScrollOffsetStart = gpBg2ScrollOffsetTable1;
         }
         else
         {
             gEkrBg2ScrollFlip = 1;
-            gpEkrLvupBg2ScrollOffsetStart = gpEkrLvupBg2ScrollOffsetTable2;
+            gpBg2ScrollOffsetStart = gpBg2ScrollOffsetTable2;
         }
     
         if (gEkrBg1ScrollFlip == 1)
         {
             gEkrBg1ScrollFlip = 0;
-            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList1;
+            gpBg1ScrollOffsetStart = gpBg1ScrollOffsetList1;
         }
         else
         {
             gEkrBg1ScrollFlip = 1;
-            gpEkrLvupBg1ScrollOffsetStart = gpEkrLvupBg1ScrollOffsetList2;
+            gpBg1ScrollOffsetStart = gpBg1ScrollOffsetList2;
         }
     }
-    gpEkrLvupBg2ScrollOffset = gpEkrLvupBg2ScrollOffsetStart;
-    gpEkrLvupBg1ScrollOffset = gpEkrLvupBg1ScrollOffsetStart;
+    gpBg2ScrollOffset = gpBg2ScrollOffsetStart;
+    gpBg1ScrollOffset = gpBg1ScrollOffsetStart;
 }
 
 void EkrLvupHBlank(void)
@@ -263,8 +263,8 @@ void EkrLvupHBlank(void)
     if (REG_DISPSTAT & DISPSTAT_VBLANK)
         return;
 
-    REG_BG2HOFS = *gpEkrLvupBg2ScrollOffset++;
-    REG_BG1HOFS = *gpEkrLvupBg1ScrollOffset++;
+    REG_BG2HOFS = *gpBg2ScrollOffset++;
+    REG_BG1HOFS = *gpBg1ScrollOffset++;
 }
 
 void EfxPartsofScroll2HBlank(void)
@@ -273,8 +273,8 @@ void EfxPartsofScroll2HBlank(void)
     if (REG_DISPSTAT & DISPSTAT_VBLANK)
         return;
 
-    REG_BG2VOFS = gLCDControlBuffer.bgoffset[2].y + *gpEkrLvupBg2ScrollOffset++;
-    REG_BG1VOFS = gLCDControlBuffer.bgoffset[1].y + *gpEkrLvupBg1ScrollOffset++;
+    REG_BG2VOFS = gLCDControlBuffer.bgoffset[2].y + *gpBg2ScrollOffset++;
+    REG_BG1VOFS = gLCDControlBuffer.bgoffset[1].y + *gpBg1ScrollOffset++;
 }
 
 CONST_DATA struct ProcCmd ProcScr_Efxlvupbg[] = {

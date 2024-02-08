@@ -1667,7 +1667,7 @@ void efxRest_Loop_Main(struct ProcEfx * proc)
     {
         anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
-        sub_8055518(anim, proc->hitted);
+        StartBattleAnimStatusChgHitEffects(anim, proc->hitted);
 
         if (GetAnimPosition(anim) == 0)
         {

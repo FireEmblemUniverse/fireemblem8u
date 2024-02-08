@@ -1383,7 +1383,7 @@ void sub_80AA1BC(struct SaveMenuProc* proc) {
 }
 
 //! FE8U = 0x080AA1EC
-void sub_80AA1EC(struct SaveMenuProc* proc) {
+void SaveMenu_ResetLcdFormDifficulty(struct SaveMenuProc* proc) {
     proc->unk_29 = 0;
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
@@ -1449,7 +1449,7 @@ void sub_80AA2A8(struct SaveMenuProc* proc) {
 }
 
 //! FE8U = 0x080AA30C
-void sub_80AA30C(struct SaveMenuProc* proc) {
+void SaveMenu_ReloadScreenFormDifficulty(struct SaveMenuProc* proc) {
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -1496,7 +1496,7 @@ void sub_80AA30C(struct SaveMenuProc* proc) {
 }
 
 //! FE8U = 0x080AA458
-void sub_80AA458(struct SaveMenuProc* proc) {
+void SaveMenu_PostDifficultHandler(struct SaveMenuProc* proc) {
     if (proc->unk_2a == 3) {
         Proc_Goto(proc, 2);
     } else {
@@ -1556,7 +1556,7 @@ PROC_LABEL(2),
     PROC_GOTO(15),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_80AA1EC),
+    PROC_CALL(SaveMenu_ResetLcdFormDifficulty),
 
     PROC_CALL_ARG(NewFadeOut, 8),
     PROC_WHILE(FadeOutExists),
@@ -1566,13 +1566,13 @@ PROC_LABEL(1),
     PROC_CALL(NewNewGameDifficultySelect),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80AA30C),
-    PROC_CALL(sub_80AA1EC),
+    PROC_CALL(SaveMenu_ReloadScreenFormDifficulty),
+    PROC_CALL(SaveMenu_ResetLcdFormDifficulty),
 
     PROC_CALL_ARG(NewFadeIn, 8),
     PROC_WHILE(FadeInExists),
 
-    PROC_CALL(sub_80AA458),
+    PROC_CALL(SaveMenu_PostDifficultHandler),
 
     // fallthrough
 

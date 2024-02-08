@@ -42,6 +42,6 @@ gUnknown_080DF954:  @ 0x080DF954
 gUnknown_080DF9BE:  @ 0x080DF9BE
 	.incbin "baserom.gba", 0xDF9BE, 0x17A6
 
-	.global gUnknown_080E1164
-gUnknown_080E1164:  @ 0x080E1164
+	.global Pal_080E1164
+Pal_080E1164:  @ 0x080E1164
 	.incbin "baserom.gba", 0xE1164, 0x230

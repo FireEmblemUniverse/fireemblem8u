@@ -853,8 +853,8 @@ void NewEfxSRankWeaponEffectSCR(void)
 {
     u32 i;
     u16 *dst = !gEkrBg1ScrollFlip
-        ? gpEkrLvupBg1ScrollOffsetList2
-        : gpEkrLvupBg1ScrollOffsetList1;
+        ? gpBg1ScrollOffsetList2
+        : gpBg1ScrollOffsetList1;
 
     for (i = 0; i < 160; dst++, i++) {
         if (i < 120) {

@@ -68,10 +68,10 @@ void efxSilence_Loop_Main(struct ProcEfx * proc)
 
         anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
-        sub_8055518(anim, proc->hitted);
+        StartBattleAnimStatusChgHitEffects(anim, proc->hitted);
         NewEfxFlashBgWhite(proc->anim, 10);
 
-        if (!proc->hitted && (GettUnitEfxDebuff(anim) == 0))
+        if (!proc->hitted && (GetUnitEfxDebuff(anim) == 0))
         {
             SetUnitEfxDebuff(anim, 3);
         }
@@ -310,9 +310,9 @@ void efxSleep_Loop_Main(struct ProcEfx * proc)
     {
         anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
-        sub_8055518(anim, proc->hitted);
+        StartBattleAnimStatusChgHitEffects(anim, proc->hitted);
 
-        if (!proc->hitted && GettUnitEfxDebuff(anim) == 0)
+        if (!proc->hitted && GetUnitEfxDebuff(anim) == 0)
         {
             SetUnitEfxDebuff(anim, 2);
         }
@@ -674,7 +674,7 @@ void efxHammarne_Loop_Main(struct ProcEfx * proc)
     else if (proc->timer == duration + 200)
     {
         anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
-        sub_8055518(anim, proc->hitted);
+        StartBattleAnimStatusChgHitEffects(anim, proc->hitted);
     }
     else if (proc->timer == duration + 300)
     {
@@ -899,9 +899,9 @@ void efxBerserk_Loop_Main(struct ProcEfx * proc)
         NewEfxFlashBgWhite(anim, 5);
         anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
 
-        sub_8055518(anim, proc->hitted);
+        StartBattleAnimStatusChgHitEffects(anim, proc->hitted);
 
-        if (!proc->hitted && (GettUnitEfxDebuff(anim) == 0))
+        if (!proc->hitted && (GetUnitEfxDebuff(anim) == 0))
         {
             SetUnitEfxDebuff(anim, 4);
         }
@@ -1371,7 +1371,7 @@ void efxMshield_Loop_Main(struct ProcEfx * proc)
     else if (proc->timer == duration + 225)
     {
         anim->state3 |= (ANIM_BIT3_TAKE_BACK_ENABLE | ANIM_BIT3_HIT_EFFECT_APPLIED);
-        sub_8055518(anim, proc->hitted);
+        StartBattleAnimStatusChgHitEffects(anim, proc->hitted);
     }
     else if (proc->timer == duration + 230)
     {

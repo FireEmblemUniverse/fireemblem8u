@@ -157,17 +157,17 @@ void nullsub_36(void)
 
 void ekrBattle_Init(struct ProcEkrBattle *proc)
 {
-    gEkrBgXOffset = 0;
+    gEkrBgPosition = 0;
     if (gEkrInitPosReal == 0) {
         if (gEkrDistanceType == EKR_DISTANCE_FAR)
-            gEkrBgXOffset = -0x20;
+            gEkrBgPosition = -0x20;
         else
-            gEkrBgXOffset = -0xF0;
+            gEkrBgPosition = -0xF0;
     }
 
-    InitBothAIS();
+    InitMainAnims();
     RegisterEkrDragonStatusType();
-    SetAnimStateHiddenForDragon();
+    InitEkrDragonStatus();
 
     gCtrlC01Blocking = 1;
 
@@ -206,7 +206,7 @@ void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc)
         return;
 
     EnableEkrGauge();
-    sub_8051B90();
+    AsyncEkrDispUP();
     CpuFastFill(0, gBG0TilemapBuffer, 0x800);
     BG_SetPosition(BG_0, gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
     BG_SetPosition(BG_1, 0, 0);
@@ -235,7 +235,7 @@ void ekrBattleWaitPreEvent(struct ProcEkrBattle *proc)
     NewEkrWindowAppear(0, 7);
     NewEkrNamewinAppear(0, 7, 0);
     DisableEkrGauge();
-    sub_8051BA0();
+    UnAsyncEkrDispUP();
     EkrGauge_Clr4C50();
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050134;
 }
@@ -479,10 +479,10 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     } /* switch */
 
                     if (val == 2) {
-                        if (GettUnitEfxDebuff(anim1) & 0xC)
+                        if (GetUnitEfxDebuff(anim1) & 0xC)
                             SetUnitEfxDebuff(anim1, UNIT_STATUS_NONE);
 
-                        if (GettUnitEfxDebuff(anim2) & 0xC)
+                        if (GetUnitEfxDebuff(anim2) & 0xC)
                             SetUnitEfxDebuff(anim2, UNIT_STATUS_NONE);
 
                         if (anim1->xPosition == 0x44)
@@ -492,7 +492,7 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                         ParseBattleHitToBanimCmd();
                         AnimClearAll();
                         UpdateBanimFrame();
-                        InitBothAIS();
+                        InitMainAnims();
 
                         proc->timer = 0;
                         proc->proc_idleCb = (ProcFunc)ekrBattleTriggerNewRoundStart;
@@ -539,7 +539,7 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
     proc->timer = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_WaitForPostBattleAct;
 
-    if (CheckEkrDragonDeadEffectMaybe(gAnims[0]) != false)
+    if (CheckEkrDragonDead(gAnims[0]) != false)
         return;
 
     if (gEkrPairExpGain[EKR_POS_L] != 0)
@@ -822,17 +822,17 @@ void ekrBattle_TriggerDragonStatusFinished(struct ProcEkrBattle *proc)
         proc->anim = gAnims[0];
         switch (GetEkrDragonStatusType(proc->anim)) {
         case EKRDRGON_TYPE_DEMON_KING:
-            SetEkrDragonStatusAttrFinished(proc->anim);
+            SetEkrDragonExit(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
 
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
-            SetEkrDragonStatusAttrFinished(proc->anim);
+            SetEkrDragonExit(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
 
         case EKRDRGON_TYPE_MYRRH:
-            SetEkrDragonStatusAttrFinished(proc->anim);
+            SetEkrDragonExit(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
 
@@ -847,17 +847,17 @@ void ekrBattle_TriggerDragonStatusFinished(struct ProcEkrBattle *proc)
         proc->anim = gAnims[2];
         switch (GetEkrDragonStatusType(proc->anim)) {
         case EKRDRGON_TYPE_DEMON_KING:
-            SetEkrDragonStatusAttrFinished(proc->anim);
+            SetEkrDragonExit(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
 
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
-            SetEkrDragonStatusAttrFinished(proc->anim);
+            SetEkrDragonExit(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
 
         case EKRDRGON_TYPE_MYRRH:
-            SetEkrDragonStatusAttrFinished(proc->anim);
+            SetEkrDragonExit(proc->anim);
             proc->proc_idleCb = (ProcFunc)ekrBattle_WaitEkrDragonEndIdle;
             break;
 
@@ -882,7 +882,7 @@ void ekrBattle_PostDragonStatusEffect(struct ProcEkrBattle *proc)
 
     if (gEkrDebugModeMaybe == 0) {
         NewEkrNamewinAppear(2, 7, 0);
-        EkrTryRestoreBGM();
+        EkrRestoreBGM();
     }
 
     proc->proc_idleCb = (ProcFunc)nullsub_69;

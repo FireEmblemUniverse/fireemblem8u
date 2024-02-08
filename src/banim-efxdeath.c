@@ -64,7 +64,7 @@ void sub_8052EAC(struct ProcEfxDead *proc)
 {
     if (CheckEkrWindowAppearUnexist() == true) {
         EnableEkrGauge();
-        sub_8051B90();
+        AsyncEkrDispUP();
 
         CpuFastFill(0, gBG0TilemapBuffer, 0x800);
         BG_SetPosition(BG_0, gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
@@ -91,7 +91,7 @@ void sub_8052F24(struct ProcEfxDead *proc)
         NewEkrNamewinAppear(0, 7, 0);
 
         DisableEkrGauge();
-        sub_8051BA0();
+        UnAsyncEkrDispUP();
         EkrGauge_Clr4C50();
         Proc_Break(proc);
     }
@@ -137,9 +137,9 @@ void sub_8052FEC(struct ProcEfxDead *proc)
 
     if (gEfxBgSemaphore == false && gEfxSpellAnimExists == false) {
         if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DEMON_KING)
-            SetEkrDragonStatusAttrBit12(proc->anim1);
+            SetEkrDragonDead(proc->anim1);
         else if (hp == 0)
-            SetEkrDragonStatusAttrBit13(proc->anim1);
+            SetEkrDragonRefrain(proc->anim1);
         else
             NewEfxDeadPika(proc->anim1, proc->anim2);
 
@@ -154,10 +154,10 @@ void sub_8053080(struct ProcEfxDead *proc)
     s16 time = ++proc->timer;
 
     if (time == 0x1E) {
-        if (CheckEkrDragonDeadEffectMaybe(anim) == true)
+        if (CheckEkrDragonDead(anim) == true)
             return;
         
-        if (CheckEkrDragonStatusAttrBit13(proc->anim1) != false) {
+        if (CheckEkrDragonRefrain(proc->anim1) != false) {
             NewEfxDeadDragonAlpha(proc->anim1, proc->anim2);
             EfxPlaySE(0xD6, 0x100);
             M4aPlayWithPostionCtrl(0xD6, anim->xPosition, 1);

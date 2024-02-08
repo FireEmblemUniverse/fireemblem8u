@@ -1,3 +1,5 @@
+#pragma once
+
 // packer data block header
 // used in battle animation, battle animation character palette, battle animation terrain
 // data block format: header -> pointer table -> compressed data

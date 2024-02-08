@@ -1,12 +1,4 @@
-#include "global.h"
-#include "hardware.h"
-#include "icon.h"
-#include "bmitem.h"
-#include "anime.h"
-#include "ekrbattle.h"
-#include "efxbattle.h"
-#include "uiutils.h"
-#include "hardware.h"
+#include "gbafe.h"
 
 void sub_8050E40(void *_src, void *_dst)
 {
@@ -78,12 +70,12 @@ void NewEkrGauge(void)
     if (gEkrGaugeHp[0] > 0x50)
         CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(0xB), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gPalIndexEfxHpBarUnk[0] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802B04 + gEkrFactions[POS_L] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
 
     if (gEkrGaugeHp[1] > 0x50)
         CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(0xC), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gPalIndexEfxHpBarUnk[1] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802B04 + gEkrFactions[POS_R] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
 
     gBanimSomeHp[0] = -1;
     gBanimSomeHp[1] = -1;
@@ -92,8 +84,8 @@ void NewEkrGauge(void)
     LZ77UnCompVram(Img_EfxWTAArrow1, (void *)0x6013940);
     LZ77UnCompVram(Img_EfxWTAArrow2, (void *)0x6013D40);
 
-    CpuFastCopy(gUnknown_08802884 + gPalIndexEfxHpBarUnk[0] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
-    CpuFastCopy(gUnknown_08802884 + gPalIndexEfxHpBarUnk[1] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
+    CpuFastCopy(gUnknown_08802884 + gEkrFactions[POS_L] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
+    CpuFastCopy(gUnknown_08802884 + gEkrFactions[POS_R] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
 
     EnablePaletteSync();
 

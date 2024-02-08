@@ -1,13 +1,4 @@
-#include "global.h"
-#include "proc.h"
-#include "ekrbattle.h"
-#include "anime.h"
-#include "hardware.h"
-#include "efxbattle.h"
-#include "banim_data.h"
-#include "ekrlevelup.h"
-#include "bmitem.h"
-#include "eventinfo.h"
+#include "gbafe.h"
 
 void sub_805AA68(void *);
 void sub_805AE14(void *);
@@ -22,10 +13,10 @@ CONST_DATA struct ProcCmd gProc_ekrDispUP[] = {
 void NewEkrDispUP(void)
 {
     gpProcEkrDispUP = Proc_Start(gProc_ekrDispUP, PROC_TREE_5);
-    EkrDispUP_8051B48(0, 0);
+    EkrDispUP_SetPositionUnsync(0, 0);
     EkrDispUpClear4C50();
-    sub_8051BA0();
-    sub_8051B80();
+    UnAsyncEkrDispUP();
+    UnsyncEkrDispUP();
 }
 
 void EndEkrDispUP(void)
@@ -55,89 +46,89 @@ void EkrDispUpSet50(void)
     gpProcEkrDispUP->unk50 = 1;
 }
 
-void EkrDispUP_8051B48(u16 a, u16 b)
+void EkrDispUP_SetPositionUnsync(u16 x, u16 y)
 {
-    gpProcEkrDispUP->unk32 = a;
-    gpProcEkrDispUP->unk3A = b;
-    gpProcEkrDispUP->unk29 = 0;
+    gpProcEkrDispUP->x = x; /* unused actually */
+    gpProcEkrDispUP->y = y; /* unused actually */
+    gpProcEkrDispUP->sync = 0;
 }
 
-void sub_8051B5C(u16 a, u16 b)
+void EkrDispUP_SetPositionSync(u16 x, u16 y)
 {
-    gpProcEkrDispUP->unk32 = a;
-    gpProcEkrDispUP->unk3A = b;
-    gpProcEkrDispUP->unk29 = 1;
+    gpProcEkrDispUP->x = x; /* unused actually */
+    gpProcEkrDispUP->y = y; /* unused actually */
+    gpProcEkrDispUP->sync = 1;
 }
 
-void sub_8051B70(void)
+void SyncEkrDispUP(void)
 {
-    gpProcEkrDispUP->unk29 = 1;
+    gpProcEkrDispUP->sync = true;
 }
 
-void sub_8051B80(void)
+void UnsyncEkrDispUP(void)
 {
-    gpProcEkrDispUP->unk29 = 0;
+    gpProcEkrDispUP->sync = false;
 }
 
-void sub_8051B90(void)
+void AsyncEkrDispUP(void)
 {
-    gpProcEkrDispUP->unk2A = 1;
+    gpProcEkrDispUP->asnyc = true;
 }
 
-void sub_8051BA0(void)
+void UnAsyncEkrDispUP(void)
 {
-    gpProcEkrDispUP->unk2A = 0;
+    gpProcEkrDispUP->asnyc = false;
 }
 
 #define gBG0TilemapBuffer2D ((u16 (*)[1])gBG0TilemapBuffer)
 
 void ekrDispUPMain(struct ProcEkrDispUP *proc)
 {
-    int val0, val1, val2, val3, val4;
-    int r2 = 15; // for matching
+    int val0, iy, height, map_idx, ix1;
+    int ix2 = 15; // for matching
 
-    if (proc->unk2A == 1)
+    if (proc->asnyc == true)
         return;
 
-    if (proc->unk29 != 0)
+    if (proc->sync != false)
         return;
 
-    val0 = (proc->unk3A << 0x10) >> 0x13;
-    val1 = val0 << 5;
-    if (val1 < 0)
-        val1 = 0;
+    val0 = (proc->y << 0x10) >> 0x13;
+    iy = val0 << 5;
+    if (iy < 0)
+        iy = 0;
 
-    val2 = val0 + 7;
-    if (val2 > 6)
-        val2 = 6;
+    height = val0 + 7;
+    if (height > 6)
+        height = 6;
 
-    val3 = 30 * (6 - val2);
+    map_idx = 30 * (6 - height);
 
     if (gEkrDistanceType >= 0)
     {
         if (gEkrDistanceType <= 2)
-            val4 = 0;
+            ix1 = 0;
         else
             goto label;
     }
     else
     {
-        val4 = 0; // for matching, can be any value
+        ix1 = 0; // for matching, can be any value
     label:
-        val4 = 15;
+        ix1 = 15;
     }
 
     FillBGRect(gBG0TilemapBuffer, 30, 7, 0, 128);
 
-    if (val2 > 0) {
+    if (height > 0) {
         if (proc->unk4C == 0) { 
-            EfxTmCpyBG(&gUnknown_0880210C[val3], &gBG0TilemapBuffer2D[val1][val4], 15, val2, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[val1][val4], 15, val2, 2, 128);
+            EfxTmCpyBG(&gUnknown_0880210C[map_idx], &gBG0TilemapBuffer2D[iy][ix1], 15, height, -1, -1);
+            sub_8070D04(&gBG0TilemapBuffer2D[iy][ix1], 15, height, 2, 128);
         }
 
         if (proc->unk50 == 0) {
-            EfxTmCpyBG(&gUnknown_088021C0[val3], &gBG0TilemapBuffer2D[val1][r2], r2, val2, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[val1][r2], 15, val2, 3, 128);
+            EfxTmCpyBG(&gUnknown_088021C0[map_idx], &gBG0TilemapBuffer2D[iy][ix2], ix2, height, -1, -1);
+            sub_8070D04(&gBG0TilemapBuffer2D[iy][ix2], 15, height, 3, 128);
         }
     }
 
@@ -299,8 +290,8 @@ void EfxPrepareScreenFx(void)
     sub_8070D04(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gPalIndexEfxHpBarUnk[0], 0), PAL_BG(0x2), 0x20);
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gPalIndexEfxHpBarUnk[1], 0), PAL_BG(0x3), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gEkrFactions[POS_L], 0), PAL_BG(0x2), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gEkrFactions[POS_R], 0), PAL_BG(0x3), 0x20);
     EnablePaletteSync();
 
     gEkrBg0QuakeVec.x = 0;

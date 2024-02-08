@@ -67,8 +67,8 @@ gUnknown_085B9804:  @ 0x085B9804
     .4byte gUnknown_080DA66E + 0x208
     .4byte 0
 
-	.global gProc_efxHitQuakePure
-gProc_efxHitQuakePure:  @ 0x085B9884
+	.global ProcScr_EfxHitQuakePure
+ProcScr_EfxHitQuakePure:  @ 0x085B9884
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dabd0
@@ -93,8 +93,8 @@ gProc_efxQuake:  @ 0x085B989C
         .word 0x0
 
 
-	.global gProc_efxHitQuake
-gProc_efxHitQuake:  @ 0x085B98B4
+	.global ProcScr_EfxHitQuake
+ProcScr_EfxHitQuake:  @ 0x085B98B4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dabec

@@ -238,8 +238,8 @@ void efxLunaSCR_Loop(struct ProcEfx * proc)
 {
     u32 i;
 
-    u16 * bg2Scroll = (gEkrBg1ScrollFlip == 0) ? gpEkrLvupBg2ScrollOffsetTable2 : gpEkrLvupBg2ScrollOffsetTable1;
-    u16 * bg1Scroll = (gEkrBg1ScrollFlip == 0) ? gpEkrLvupBg1ScrollOffsetList2 : gpEkrLvupBg1ScrollOffsetList1;
+    u16 * bg2Scroll = (gEkrBg1ScrollFlip == 0) ? gpBg2ScrollOffsetTable2 : gpBg2ScrollOffsetTable1;
+    u16 * bg1Scroll = (gEkrBg1ScrollFlip == 0) ? gpBg1ScrollOffsetList2 : gpBg1ScrollOffsetList1;
 
     for (i = 0; i < DISPLAY_HEIGHT; i++)
     {

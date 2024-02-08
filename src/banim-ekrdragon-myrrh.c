@@ -1,18 +1,4 @@
-#include "global.h"
-#include "hardware.h"
-#include "uiutils.h"
-#include "bmmap.h"
-#include "anime.h"
-#include "ekrbattle.h"
-#include "efxbattle.h"
-#include "ekrdragon.h"
-#include "banim_data.h"
-#include "bmitem.h"
-#include "bmunit.h"
-#include "bmbattle.h"
-#include "constants/classes.h"
-#include "constants/items.h"
-#include "constants/banims.h"
+#include "gbafe.h"
 
 CONST_DATA struct ProcCmd ProcScr_EkrMyrrh[] = {
     PROC_SLEEP(0x3C),
