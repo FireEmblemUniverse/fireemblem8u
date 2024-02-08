@@ -1648,8 +1648,7 @@ void sub_8091D54(struct UnitListScreenProc * proc)
         for (r4 = proc->unk_3e / 8; r4 < 12 + proc->unk_3e / 8; r4++)
         {
             int off = 8 + (r4 & 0x1F) * 0x20;
-            if (gBG0TilemapBuffer == gBG0TilemapBuffer && gUnknown_0200D7E0 == gUnknown_0200D7E0)
-                gBG0TilemapBuffer[off + i] = gUnknown_0200D7E0[r4 & 0x1F][r1];
+            gBG0TilemapBuffer[off + i] = gUnknown_0200D7E0[r4 & 0x1F][r1];
         }
 
         for (r4 = 0; r4 < 2; r4++)
