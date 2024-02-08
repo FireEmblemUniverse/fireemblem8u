@@ -35,8 +35,8 @@ extern u16 Pal_08A1A084[];
 
 extern u8 gUnknown_08A1C8B4[]; // tsa
 
-extern u16 gUnknown_0200D7E0[];
-extern u16 gUnknown_0200DFE0[];
+extern u16 gUnknown_0200D7E0[][0x20];
+extern u16 gUnknown_0200DFE0[][0x20];
 
 extern struct Text gUnknown_0200E060[];
 extern struct Text gUnknown_0200E098[][3];
@@ -1584,16 +1584,16 @@ void UnitList_StartPageChange(struct UnitListScreenProc * proc)
 {
     int i;
 
-    TileMap_FillRect(gUnknown_0200D7E0, 31, 31, 0);
+    TileMap_FillRect(gUnknown_0200D7E0[0], 31, 31, 0);
 
     for (i = proc->unk_3e / 16; i < proc->unk_3e / 16 + 6 && i < gUnknown_0200F158; i++)
     {
-        UnitList_PutRow(proc, i, gUnknown_0200D7E0, proc->page, 0);
+        UnitList_PutRow(proc, i, gUnknown_0200D7E0[0], proc->page, 0);
     }
 
-    TileMap_FillRect(gUnknown_0200DFE0, 31, 1, 0);
+    TileMap_FillRect(gUnknown_0200DFE0[0], 31, 1, 0);
 
-    UnitList_DrawColumnNames(gUnknown_0200DFE0, proc->page);
+    UnitList_DrawColumnNames(gUnknown_0200DFE0[0], proc->page);
 
     proc->unk_3c = 0;
     proc->unk_37 = proc->page;
@@ -1649,13 +1649,13 @@ void sub_8091D54(struct UnitListScreenProc * proc)
         {
             int off = 8 + (r4 & 0x1F) * 0x20;
             if (gBG0TilemapBuffer == gBG0TilemapBuffer && gUnknown_0200D7E0 == gUnknown_0200D7E0)
-                gBG0TilemapBuffer[off + i] = (gUnknown_0200D7E0 + r1)[(r4 & 0x1F) * 0x20];
+                gBG0TilemapBuffer[off + i] = gUnknown_0200D7E0[r4 & 0x1F][r1];
         }
 
         for (r4 = 0; r4 < 2; r4++)
         {
             int off = 0xA8 + r4 * 0x20;
-            gBG2TilemapBuffer[off + i] = (gUnknown_0200DFE0 + r1)[r4 * 0x20];
+            gBG2TilemapBuffer[off + i] = gUnknown_0200DFE0[r4][r1];
         }
     }
 
@@ -1681,10 +1681,10 @@ void sub_8091D54(struct UnitListScreenProc * proc)
 
     for (r4 = proc->unk_3e / 16; r4 < proc->unk_3e / 16 + 6 && r4 < gUnknown_0200F158; r4++)
     {
-        UnitList_PutRow(proc, r4, gUnknown_0200D7E0, proc->page, 0);
+        UnitList_PutRow(proc, r4, gUnknown_0200D7E0[0], proc->page, 0);
     }
 
-    UnitList_DrawColumnNames(gUnknown_0200DFE0, proc->page);
+    UnitList_DrawColumnNames(gUnknown_0200DFE0[0], proc->page);
     sub_8092298(proc->unk_2e, proc->page, 0);
 
     proc->unk_38 = 0;
@@ -1699,18 +1699,14 @@ extern u8 gUnknown_08A17B36[];
 
 #if NONMATCHING
 
-/* https://decomp.me/scratch/vSnVv */
+/* https://decomp.me/scratch/3RUUz */
 
 #define TILEMAP_INDEX_(aX, aY) ((aX) + (aY) * 0x20)
 
 //! FE8U = 0x08091F10
 void sub_8091F10(struct UnitListScreenProc * proc)
 {
-    int r5;
-    int r4;
-    u8 r1;
-    int y;
-    int off;
+    int r4, r5;
 
     proc->unk_38 += gUnknown_08A17B36[proc->unk_3c];
 
@@ -1719,53 +1715,39 @@ void sub_8091F10(struct UnitListScreenProc * proc)
         proc->unk_38 = 20;
     }
 
-    do
+    proc->unk_3c++;
+
+    if (proc->pageTarget > proc->unk_37)
     {
-        proc->unk_3c++;
-
-        if (proc->pageTarget > proc->unk_37)
+        for (r5 = 0; r5 < proc->unk_38; r5++)
         {
-            int r6 = 0x1c;
-            int r3 = 8;
-            for (r5 = 0; r5 < proc->unk_38; r5++)
+            for (r4 = proc->unk_3e / 8; r4 < proc->unk_3e / 8 + 12; r4++)
             {
-                for (r4 = proc->unk_3e / 8; r4 < proc->unk_3e / 8 + 12; r4++)
-                {
-                    y = r4 & 0x1f;
-                    off = TILEMAP_INDEX_(r5 + r3, y);
-                    gBG0TilemapBuffer[TILEMAP_INDEX_((r5 + r6) - proc->unk_38, y)] = gUnknown_0200D7E0[off];
-                }
+                gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + (({r5 + 0x1c;}) - proc->unk_38)] = gUnknown_0200D7E0[r4 & 0x1f][r5 + 8];
+            }
 
-                for (r4 = 0; r4 < 2; r4++)
-                {
-                    gBG2TilemapBuffer[TILEMAP_INDEX_((r5 + r6) - proc->unk_38, r4 + 5)] =
-                        gUnknown_0200DFE0[TILEMAP_INDEX_(r5 + r3, r4)];
-                }
+            for (r4 = 0; r4 < 2; r4++)
+            {
+                gBG2TilemapBuffer[(r4 + 5) * 0x20 + (({r5 + 0x1c;}) - proc->unk_38)] = gUnknown_0200DFE0[r4][r5 + 8];
             }
         }
-        else
+    }
+    else
+    {
+        for (r5 = 0; r5 < proc->unk_38; r5++)
         {
-            int r6 = 0x1c;
-            int r3 = 8;
-            for (r5 = 0; r5 < proc->unk_38; r5++)
+            for (r4 = proc->unk_3e / 8; r4 < proc->unk_3e / 8 + 12; r4++)
             {
+                // gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + 8 + r5] = gUnknown_0200D7E0[r4 & 0x1f][({r5 + 0x1c;}) - proc->unk_38];
+                gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + ({r5 + 8;})] = gUnknown_0200D7E0[r4 & 0x1f][({r5 + 0x1c;}) - proc->unk_38];
+            }
 
-                for (r4 = proc->unk_3e / 8; r4 < 12 + proc->unk_3e / 8; r4++)
-                {
-                    y = r4 & 0x1f;
-                    gBG0TilemapBuffer[TILEMAP_INDEX_(r5 + r3, y)] =
-                        gUnknown_0200D7E0[TILEMAP_INDEX_((r5 + r6) - proc->unk_38, y)];
-                    r6 = 0x1c;
-                }
-
-                for (r4 = 0; r4 < 2; r4++)
-                {
-                    gBG2TilemapBuffer[TILEMAP_INDEX_(r5 + r3, r4 + 5)] =
-                        gUnknown_0200DFE0[TILEMAP_INDEX_(((r5 + r6) - proc->unk_38), r4)];
-                }
+            for (r4 = 0; r4 < 2; r4++)
+            {
+                gBG2TilemapBuffer[(r4 + 5) * 0x20 + (r5 + 8)] = gUnknown_0200DFE0[r4][({r5 + 0x1c;}) - proc->unk_38];
             }
         }
-    } while (0);
+    }
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG2_SYNC_BIT);
 
