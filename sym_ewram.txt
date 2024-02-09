@@ -219,7 +219,7 @@
 . = 0x01FB0C; gEkrBgPosition = .;
 . = 0x01FB18; gpProcEfxAnimeDrv = .;
 . = 0x01FB1C; gpImgSheet = .;
-. = 0x01FB24; gUnknown_0201FB24 = .;
+. = 0x01FB24; gpProcEkrTogiColor = .;
 . = 0x01FB28; gUnknown_0201FB28 = .;
 . = 0x01FB2C;
 . = ALIGN(4); src/banim-efxlvup.o(ewram_data);

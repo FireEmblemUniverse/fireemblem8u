@@ -463,7 +463,7 @@ extern u32 gBanimDoneFlag[];
 extern u32 gEkrBgPosition;
 // extern ??? gpProcEfxAnimeDrv
 extern const void *gpImgSheet[2];
-// extern ??? gUnknown_0201FB24
+// extern ??? gpProcEkrTogiColor
 // extern ??? gUnknown_0201FB28
 extern int gEkrBg2ScrollFlip;
 extern u16 * gpBg2ScrollOffsetStart;
@@ -583,7 +583,6 @@ extern const u8 BanimTypesPosLeft[5];
 extern const u8 BanimTypesPosRight[5];
 extern const u16 BanimLeftDefaultPos[5];
 // extern ??? gUnknown_080DAF60
-// extern ??? gUnknown_080DB026
 extern const u8 Img_080DB034[];
 extern const u8 Img_080DB538[];
 extern const u8 Img_080DB9C4[];
@@ -972,13 +971,36 @@ void sub_805AA28(struct AnimBuffer * pAnimBuf);
 // ??? sub_805AE58(???);
 // ??? sub_805AFA0(???);
 
-void SetBanimArenaFlag(int);
+struct ProcEkrTogi
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2c);
+    /* 2C */ s16 unk_2c;
+    /* 2E */ s16 unk_2e;
+};
+
+struct ProcEfxBGCOL;
+
+void SetBanimArenaFlag(int flag);
 int GetBattleAnimArenaFlag(void);
-// ??? sub_805B034(???);
+void sub_805B034(int x);
 void PlaySound8FForArenaMaybe(void);
 void sub_805B094(void);
 void BeginAnimsOnBattle_Arena(void);
 void ExecBattleAnimArenaExit(void);
+void NewEkrTogiInitPROC(void);
+void ekrTogiInit_Init(ProcPtr proc);
+void ekrTogiInit_LoadGfx(struct ProcEkrTogi * proc);
+void ekrTogiInit_Loop(struct ProcEkrTogi * proc);
+void ekrTogiInit_End(ProcPtr proc);
+void NewEkrTogiEndPROC(void);
+void ekrTogiEnd_Init(struct ProcEkrTogi * proc);
+void ekrTogiEnd_Loop(struct ProcEkrTogi * proc);
+void ekrTogiEnd_End(ProcPtr proc);
+void NewEkrTogiColor(void);
+void EndEkrTogiColor(void);
+void ekrTogiColor_Loop(struct ProcEfxBGCOL * proc);
+
 void sub_8070D04(u16 * tm, u16 width, u16 height, int pal, int chr);
 void FillBGRect(u16 * tm, u16 width, u16 height, int pal, int chr);
 void sub_8070DBC(u16 * tm, u16 width, u16 height, int pal, int chr);
