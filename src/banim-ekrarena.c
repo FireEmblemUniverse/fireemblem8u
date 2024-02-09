@@ -9,7 +9,7 @@
 
 extern u16 gUnknown_0201D438[];
 extern int gBaArenaFlag;
-extern struct ProcEfxBGCOL * gUnknown_0201FB24;
+extern struct ProcEfxBGCOL * gpProcEkrTogiColor;
 
 //! FE8U = 0x0805B01C
 void SetBanimArenaFlag(int flag)
@@ -95,10 +95,10 @@ struct ProcCmd CONST_DATA gProc_ekrTogiInit[] =
 {
     PROC_NAME("ekrTogiInitPROC"),
 
-    PROC_REPEAT(sub_805B104),
-    PROC_REPEAT(sub_805B18C),
-    PROC_REPEAT(sub_805B200),
-    PROC_REPEAT(sub_805B264),
+    PROC_REPEAT(ekrTogiInit_Init),
+    PROC_REPEAT(ekrTogiInit_LoadGfx),
+    PROC_REPEAT(ekrTogiInit_Loop),
+    PROC_REPEAT(ekrTogiInit_End),
 
     PROC_END,
 };
@@ -113,7 +113,7 @@ void NewEkrTogiInitPROC(void)
 }
 
 //! FE8U = 0x0805B104
-void sub_805B104(ProcPtr proc)
+void ekrTogiInit_Init(ProcPtr proc)
 {
     InitOam(0);
 
@@ -126,7 +126,7 @@ void sub_805B104(ProcPtr proc)
     NewEkrDispUP();
     NewEkrBattle();
 
-    CpuFastCopy(gUnknown_085BEF94, gPaletteBuffer + 0x60, 0x80);
+    CpuFastCopy(Pal_ArenaBattleBg_A, gPaletteBuffer + 0x60, 0x80);
     CpuFastCopy(gPaletteBuffer, gEfxPal, 0x400);
     CpuFastCopy(gEfxPal, gPaletteBuffer, 0x400);
     EfxPalBlackInOut(gPaletteBuffer, 0, 0x20, 0x10);
@@ -139,10 +139,10 @@ void sub_805B104(ProcPtr proc)
 }
 
 //! FE8U = 0x0805B18C
-void sub_805B18C(struct ProcEkrTogi * proc)
+void ekrTogiInit_LoadGfx(struct ProcEkrTogi * proc)
 {
-    LZ77UnCompVram(gUnknown_085BC188, (void *)0x06008000);
-    LZ77UnCompWram(gUnknown_085BE7F4, gEkrTsaBuffer);
+    LZ77UnCompVram(Img_ArenaBattleBg, (void *)0x06008000);
+    LZ77UnCompWram(Tsa_ArenaBattleBg, gEkrTsaBuffer);
     EfxTmCpyExt(gEkrTsaBuffer, -1, gEfxFrameTmap, 66, 46, 20, 6, 0);
     sub_805B034(0);
 
@@ -159,7 +159,7 @@ void sub_805B18C(struct ProcEkrTogi * proc)
 }
 
 //! FE8U = 0x0805B200
-void sub_805B200(struct ProcEkrTogi * proc)
+void ekrTogiInit_Loop(struct ProcEkrTogi * proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->unk_2c, proc->unk_2e);
 
@@ -177,7 +177,7 @@ void sub_805B200(struct ProcEkrTogi * proc)
 }
 
 //! FE8U = 0x0805B264
-void sub_805B264(ProcPtr proc)
+void ekrTogiInit_End(ProcPtr proc)
 {
     NewEkrTogiColor();
     Proc_Break(proc);
@@ -190,9 +190,9 @@ struct ProcCmd CONST_DATA gProc_ekrTogiEnd[] =
 {
     PROC_NAME("ekrTogiEndPROC"),
 
-    PROC_REPEAT(sub_805B290),
-    PROC_REPEAT(sub_805B2BC),
-    PROC_REPEAT(sub_805B320),
+    PROC_REPEAT(ekrTogiEnd_Init),
+    PROC_REPEAT(ekrTogiEnd_Loop),
+    PROC_REPEAT(ekrTogiEnd_End),
 
     PROC_END,
 };
@@ -208,7 +208,7 @@ void NewEkrTogiEndPROC(void)
 }
 
 //! FE8U = 0x0805B290
-void sub_805B290(struct ProcEkrTogi * proc)
+void ekrTogiEnd_Init(struct ProcEkrTogi * proc)
 {
     CpuFastCopy(gPaletteBuffer, gEfxPal, 0x400);
 
@@ -221,7 +221,7 @@ void sub_805B290(struct ProcEkrTogi * proc)
 }
 
 //! FE8U = 0x0805B2BC
-void sub_805B2BC(struct ProcEkrTogi * proc)
+void ekrTogiEnd_Loop(struct ProcEkrTogi * proc)
 {
     int ret = Interpolate(INTERPOLATE_LINEAR, 0, 16, proc->unk_2c, proc->unk_2e);
 
@@ -234,11 +234,12 @@ void sub_805B2BC(struct ProcEkrTogi * proc)
     {
         Proc_Break(proc);
     }
+
     return;
 }
 
 //! FE8U = 0x0805B320
-void sub_805B320(ProcPtr proc)
+void ekrTogiEnd_End(ProcPtr proc)
 {
     EndEkrBattleDeamon();
     EndEkrGauge();
@@ -256,15 +257,15 @@ void sub_805B320(ProcPtr proc)
 struct ProcCmd CONST_DATA gProc_ekrTogiColor[] =
 {
     PROC_NAME("ekrTogiColor"),
-    PROC_REPEAT(sub_805B394),
+    PROC_REPEAT(ekrTogiColor_Loop),
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085B9E4C[] =
+u16 * CONST_DATA PalArray_ArenaBattleBg[] =
 {
-    gUnknown_085BEF94,
-    gUnknown_085BF014,
-    gUnknown_085BF094,
+    Pal_ArenaBattleBg_A,
+    Pal_ArenaBattleBg_B,
+    Pal_ArenaBattleBg_C,
 };
 
 // clang-format on
@@ -273,7 +274,7 @@ u16 * CONST_DATA gUnknown_085B9E4C[] =
 void NewEkrTogiColor(void)
 {
     // clang-format off
-    const static u16 gUnknown_080DB026[] =
+    const static u16 frames[] =
     {
         0, 10,
         1, 10,
@@ -282,13 +283,13 @@ void NewEkrTogiColor(void)
     };
     // clang-format on
 
-    gUnknown_0201FB24 = Proc_Start(gProc_ekrTogiColor, PROC_TREE_3);
+    gpProcEkrTogiColor = Proc_Start(gProc_ekrTogiColor, PROC_TREE_3);
 
-    gUnknown_0201FB24->timer = 0;
+    gpProcEkrTogiColor->timer = 0;
 
-    gUnknown_0201FB24->frame = 0;
-    gUnknown_0201FB24->frame_config = gUnknown_080DB026;
-    gUnknown_0201FB24->pal = gUnknown_085B9E4C;
+    gpProcEkrTogiColor->frame = 0;
+    gpProcEkrTogiColor->frame_config = frames;
+    gpProcEkrTogiColor->pal = PalArray_ArenaBattleBg;
 
     return;
 }
@@ -296,12 +297,12 @@ void NewEkrTogiColor(void)
 //! FE8U = 0x0805B380
 void EndEkrTogiColor(void)
 {
-    Proc_End(gUnknown_0201FB24);
+    Proc_End(gpProcEkrTogiColor);
     return;
 }
 
 //! FE8U = 0x0805B394
-void sub_805B394(struct ProcEfxBGCOL * proc)
+void ekrTogiColor_Loop(struct ProcEfxBGCOL * proc)
 {
     s16 ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
 
