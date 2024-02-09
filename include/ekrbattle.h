@@ -972,13 +972,36 @@ void sub_805AA28(struct AnimBuffer * pAnimBuf);
 // ??? sub_805AE58(???);
 // ??? sub_805AFA0(???);
 
-void SetBanimArenaFlag(int);
+struct ProcEkrTogi
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2c);
+    /* 2C */ s16 unk_2c;
+    /* 2E */ s16 unk_2e;
+};
+
+struct ProcEfxBGCOL;
+
+void SetBanimArenaFlag(int flag);
 int GetBattleAnimArenaFlag(void);
-// ??? sub_805B034(???);
+void sub_805B034(int x);
 void PlaySound8FForArenaMaybe(void);
 void sub_805B094(void);
 void BeginAnimsOnBattle_Arena(void);
 void ExecBattleAnimArenaExit(void);
+void NewEkrTogiInitPROC(void);
+void sub_805B104(ProcPtr proc);
+void sub_805B18C(struct ProcEkrTogi * proc);
+void sub_805B200(struct ProcEkrTogi * proc);
+void sub_805B264(ProcPtr proc);
+void NewEkrTogiEndPROC(void);
+void sub_805B290(struct ProcEkrTogi * proc);
+void sub_805B2BC(struct ProcEkrTogi * proc);
+void sub_805B320(ProcPtr proc);
+void NewEkrTogiColor(void);
+void EndEkrTogiColor(void);
+void sub_805B394(struct ProcEfxBGCOL * proc);
+
 void sub_8070D04(u16 * tm, u16 width, u16 height, int pal, int chr);
 void FillBGRect(u16 * tm, u16 width, u16 height, int pal, int chr);
 void sub_8070DBC(u16 * tm, u16 width, u16 height, int pal, int chr);

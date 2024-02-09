@@ -786,9 +786,11 @@ extern u16 Pal_085BA320[];
 // extern ??? gUnknown_085BA340
 extern u16 Img_LvupApfx[];
 extern u16 Pal_LvupApfx[];
-// extern ??? gUnknown_085BC188
-// extern ??? gUnknown_085BE7F4
-// extern ??? gUnknown_085BEF94
+extern u8 gUnknown_085BC188[];
+extern u8 gUnknown_085BE7F4[];
+extern u16 gUnknown_085BEF94[];
+extern u16 gUnknown_085BF014[];
+extern u16 gUnknown_085BF094[];
 extern u16 Img1_EfxLvupBG[];
 extern u16 Img2_EfxLvupBG[];
 extern u16 Img3_EfxLvupBG[];

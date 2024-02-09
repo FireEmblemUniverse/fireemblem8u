@@ -20,7 +20,17 @@ gUnknown_085BE7F4:  @ 0x085BE7F4
 
 	.global gUnknown_085BEF94
 gUnknown_085BEF94:  @ 0x085BEF94
-	.incbin "baserom.gba", 0x5BEF94, 0x5BF708 - 0x5BEF94
+	.incbin "baserom.gba", 0x5BEF94, 0x80
+
+	.global gUnknown_085BF014
+gUnknown_085BF014:  @ 0x085BF014
+	.incbin "baserom.gba", 0x5BF014, 0x80
+
+	.global gUnknown_085BF094
+gUnknown_085BF094:  @ 0x085BF094
+	.incbin "baserom.gba", 0x5BF094, 0x80
+
+	.incbin "baserom.gba", 0x5BF114, 0x5F4
 
 	.global Img1_EfxLvupBG
 Img1_EfxLvupBG:
