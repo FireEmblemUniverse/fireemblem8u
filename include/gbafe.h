@@ -108,7 +108,6 @@
 #include "bmidoten.h"
 #include "cp_common.h"
 #include "soundwrapper.h"
-#include "stone_shatter.h"
 #include "bmmenu.h"
 #include "bb.h"
 #include "bmusailment.h"

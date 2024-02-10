@@ -128,6 +128,7 @@ bool SaveMenuPostChapterHandleHelpBox(struct SaveMenuProc  * proc);
 void sub_80A8A9C(struct SaveMenuProc * proc);
 void SaveMenu_SetLcdChapterIdx(void);
 void SaveMenu_Init(void);
+void ProcSaveMenu_InitScreen(struct SaveMenuProc * proc);
 void SaveMenu_LoadExtraMenuGraphics(struct SaveMenuProc * proc);
 void SaveMenuInit(struct SaveMenuProc * proc);
 void SaveMenuInitUnused(struct SaveMenuProc * proc);

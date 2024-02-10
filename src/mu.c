@@ -1194,8 +1194,10 @@ void MU_AdvanceStepSfx(struct MUProc* proc) {
     }
 }
 
-void MU_OnLoop(struct MUProc* proc) {
-    if (proc->stateId) {
+void MU_OnLoop(struct MUProc * proc)
+{
+    if (proc->stateId)
+    {
         if (proc->moveTimer == 0)
             if ((u8)(proc->stateId - MU_STATE_MOVEMENT) <= (MU_STATE_WAITING - MU_STATE_MOVEMENT))
                 MU_InterpretCommandScript(proc);

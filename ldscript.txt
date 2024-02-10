@@ -77,7 +77,7 @@ SECTIONS
         asm/shinningstonefx.o(.text);
         asm/boomfogfx.o(.text);
         src/bmfx-earthquake.o(.text);
-        src/eventcmd_44.o(.text);
+        src/bmfx-stoneshatter.o(.text);
         src/bmlib.o(.text);
         asm/hino.o(.text);
         src/bm.o(.text);
@@ -299,7 +299,7 @@ SECTIONS
         src/cursor_hand.o(.text);
         src/spinning_arrow.o(.text);
         src/sysutil.o(.text);
-        src/stone_shatter.o(.text);
+        src/sysutil-bmbgfx.o(.text);
         src/code_80AE86C.o(.text);
         src/soundroom.o(.text);
         src/extramenu_unk.o(.text);
@@ -620,7 +620,7 @@ SECTIONS
         . = ALIGN(4); src/popup.o(.data);
         . = ALIGN(4); src/eventscr3.o(.data);
         . = ALIGN(4); data/data_5924D8.o(.data);
-        . = ALIGN(4); src/eventcmd_44.o(.data);
+        . = ALIGN(4); src/bmfx-stoneshatter.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/generic_icon.o(.data);
         . = ALIGN(4); src/bmlib.o(.data);
@@ -872,7 +872,7 @@ SECTIONS
         . = ALIGN(4); src/cursor_hand.o(.data);
         . = ALIGN(4); src/spinning_arrow.o(.data);
         . = ALIGN(4); src/sysutil.o(.data);
-        . = ALIGN(4); src/stone_shatter.o(.data);
+        . = ALIGN(4); src/sysutil-bmbgfx.o(.data);
         . = ALIGN(4); src/code_80AE86C.o(.data);
         . = ALIGN(4); src/soundroom_data.o(.data);
         . = ALIGN(4); src/soundroom.o(.data);

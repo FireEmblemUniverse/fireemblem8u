@@ -16,37 +16,11 @@
 #include "sysutil.h"
 #include "worldmap.h"
 
-// arm_call.s
-void CALLARM_MaybeScreenFadeIn();
-
-// code.s
-void sub_80895B4(int, int);
-int sub_808979C(struct PlaySt*);
-void sub_808966C(int, int);
-void sub_80896FC(u16*, int, int);
-
-
-extern u8 Img_CommGameBgScreen[];
-
-extern u8 gUnknown_08B17B64[];
-extern u8 gUnknown_08B18D68[];
-extern u8 gUnknown_08B19874[];
-extern u8 gUnknown_08B19DEC[];
-
-extern u16 gUnknown_08B18F34[];
-extern u16 gUnknown_08B19854[];
-extern u16 gUnknown_08B196D8[];
-
-void ChapterIntro_Bg3Scroll_Loop(void);
-
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_Bg3Scroll[] = {
     PROC_REPEAT(ChapterIntro_Bg3Scroll_Loop),
 
     PROC_END,
 };
-
-void ChapterIntro_KeyListen_Init(struct ChapterIntroFXProc* proc);
-void ChapterIntro_KeyListen_Loop(struct ChapterIntroFXProc* proc);
 
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_KeyListen[] = {
     PROC_CALL(ChapterIntro_KeyListen_Init),
@@ -54,9 +28,6 @@ struct ProcCmd CONST_DATA sProcScr_ChapterIntro_KeyListen[] = {
 
     PROC_END,
 };
-
-void ChapterIntro_801FFD0(struct ChapterIntroFXProc* proc);
-void ChapterIntro_801FFD8_Loop(struct ChapterIntroFXProc* proc);
 
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B108[] = {
     PROC_CALL(ChapterIntro_801FFD0),
@@ -84,9 +55,6 @@ static u16 CONST_DATA gUnknown_0859B144[] = {
     0x0400, 0x0000,
 };
 
-void ChapterIntro_80207C8(void);
-extern struct ProcCmd sProcScr_ChapterIntro_0859B198[];
-
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B160[] = {
     PROC_SLEEP(0x1E),
     PROC_START_CHILD(sProcScr_ChapterIntro_0859B198),
@@ -95,9 +63,6 @@ struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B160[] = {
     PROC_END,
 };
 
-void ChapterIntro_LightBurst_Init(struct ChapterIntroFXProc* proc);
-void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc);
-
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_LightBurst[] = {
     PROC_CALL(ChapterIntro_LightBurst_Init),
     PROC_REPEAT(ChapterIntro_LightBurst_Loop),
@@ -105,40 +70,12 @@ struct ProcCmd CONST_DATA sProcScr_ChapterIntro_LightBurst[] = {
     PROC_END,
 };
 
-void ChapterIntro_BeginCloseTextMaybe(struct ChapterIntroFXProc* proc);
-void ChapterIntro_LoopCloseTextMaybe(struct ChapterIntroFXProc* proc);
-
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B198[] = {
     PROC_CALL(ChapterIntro_BeginCloseTextMaybe),
     PROC_REPEAT(ChapterIntro_LoopCloseTextMaybe),
 
     PROC_END,
 };
-
-void ChapterIntro_Init(struct ChapterIntroFXProc* proc);
-void ChapterIntro_SetSkipTarget(s16 arg, struct ChapterIntroFXProc* proc);
-void ChapterIntro_Init_PlaySound316(struct ChapterIntroFXProc* proc);
-void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc);
-void ChapterIntro_InitBLDCNT(void);
-void ChapterIntro_DrawChapterTitleMaybe(void);
-void ChapterIntro_80204AC(struct ChapterIntroFXProc* proc);
-void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc);
-void ChapterIntro_SetBG_802009C(void);
-void ChapterIntro_8020944(struct ChapterIntroFXProc* proc);
-void ChapterIntro_80209D8(struct ChapterIntroFXProc* proc);
-void ChapterIntro_SetTimerMaybe(s16 arg, struct ChapterIntroFXProc* proc);
-void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc* proc);
-void ChapterIntro_8020A40(struct ChapterIntroFXProc* proc);
-void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc);
-void ChapterIntro_8020B20(void);
-void ChapterIntro_InitMapDisplay(void);
-void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc);
-void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc);
-void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc* proc);
-void ChapterIntro_LoopFadeOut(struct ChapterIntroFXProc* proc);
-void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc);
-void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc* proc);
-void ChapterIntro_80210C8(void);
 
 struct ProcCmd CONST_DATA gProcScr_ChapterIntro[] = {
     PROC_CALL(BMapDispSuspend),
@@ -215,8 +152,7 @@ PROC_LABEL(0x63),
     PROC_END,
 };
 
-void ChapterIntro_8020AF8(void);
-void ChapterIntro_8021188(struct ChapterIntroFXProc* proc);
+
 
 struct ProcCmd CONST_DATA sProcScr_0859B318[] = {
     PROC_CALL(ChapterIntro_8020AF8),

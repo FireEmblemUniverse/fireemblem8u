@@ -30,10 +30,10 @@ struct MuCtrlProc
     /* 41 */ s8 unk_41;
     /* 42 */ s8 unk_42;
     /* 43 */ s8 unk_43;
-    /* 44 */ struct REDA unk_44;
+    /* 44 */ struct REDA reda_cur;
 };
 
-// ??? CopyEventMoveToBuffer(???);
+// ??? CopyEventMoveREDAs(???);
 // ??? ClearEventMoveBuffer(???);
 void MuCtr_StartDefinedMove(struct Unit * unit, const struct REDA * redas, s16 count, u16 flags);
 void MuCtr_StartMoveTowards(struct Unit *, s8, s8, u8, u16);
@@ -53,7 +53,7 @@ void MuCtr_ExecREDA_807A358(struct MuCtrlProc *);
 void AdjustNewUnitPosition(struct Unit *, struct Vec2 *, u16);
 u8 * sub_807A644(struct Unit * unit, struct Vec2 * pos, s8 flag);
 
-extern struct REDABuffer gUnknown_03001A30;
+extern struct REDABuffer gEventREDAs;
 extern s8 gUnknown_03001C34;
 extern u8 gUnknown_03001C35;
 extern u16 gUnknown_03001C36;

@@ -507,21 +507,21 @@ void DrawStatBarGfx(int arg0, int arg1, u16* tilemap, int arg3, int arg4, int ar
 // ??? BackgroundSlide_Init(???);
 // ??? BackgroundSlide_Loop(???);
 ProcPtr StartMuralBackground(ProcPtr, void*, int);
-// ??? StartMuralBackgroundAlt(???);
+ProcPtr StartMuralBackgroundAlt(ProcPtr parent, void * vram, int pal, u8 flag);
 ProcPtr StartMuralBackgroundExt(ProcPtr, void*, int, int, int);
 void EndMuralBackground(void);
 
 void sub_80895B4(int, int);
 void sub_8089624(int, u32);
-// ??? sub_808966C(???);
+void sub_808966C(int, int);
 void sub_8089678(int);
-// ??? sub_80896A8(???);
+void sub_80896A8(int chr);
 void sub_80896D8(u16 bg[], int);
-// ??? sub_80896FC(???);
-// ??? sub_8089720(???);
-// ??? sub_8089744(???);
-int sub_8089768(struct PlaySt*);
-int sub_808979C(struct PlaySt*);
+void sub_80896FC(u16 *, int, int);
+void sub_8089720(u16 * tm, int pal);
+void sub_8089744(u16 * tm, int pal);
+int sub_8089768(struct PlaySt *);
+int sub_808979C(struct PlaySt *);
 
 // ??? sub_809014C(???);
 // ??? sub_80901BC(???);
