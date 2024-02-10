@@ -241,6 +241,7 @@ enum
 
     // Helpers
     US_UNAVAILABLE = (US_DEAD | US_NOT_DEPLOYED | US_BIT16),
+    US_SOLOANIM = (US_SOLOANIM_1 | US_SOLOANIM_2),
 };
 
 enum

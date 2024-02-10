@@ -989,7 +989,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     gPlaySt.chapterTurnNumber = 0;
 
     // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapKind() == 2) {
         if (!(gPlaySt.chapterStateBits & PLAY_FLAG_PREPSCREEN))
             gPlaySt.chapterVisionRange = 3 * (NextRN_100() & 1);
     } else {

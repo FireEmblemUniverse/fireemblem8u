@@ -507,10 +507,10 @@ void sub_8098BE8(void) {
 //! FE8U = 0x08098C3C
 void PutImg_PrepItemUseUnk(int vram, int pal) {
     u16* Pals_PrepWindow[] = {
-        gUnknown_08A1D850,
-        gUnknown_08A1D870,
-        gUnknown_08A1D890,
-        gUnknown_08A1D8B0,
+        Pal_08A1D850,
+        Pal_08A1D870,
+        Pal_08A1D890,
+        Pal_08A1D8B0,
     };
 
     Decompress(Img_PrepWindow, (void *)(0x6000000 + vram));

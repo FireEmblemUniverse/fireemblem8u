@@ -10,17 +10,27 @@ Pal_LvupApfx:  @ 0x085BB2DC
 
     .incbin "baserom.gba", 0x5BB2FC, 0x5BC188 - 0x5BB2FC
 
-	.global gUnknown_085BC188
-gUnknown_085BC188:  @ 0x085BC188
+	.global Img_ArenaBattleBg
+Img_ArenaBattleBg:  @ 0x085BC188
 	.incbin "baserom.gba", 0x5BC188, 0x266C
 
-	.global gUnknown_085BE7F4
-gUnknown_085BE7F4:  @ 0x085BE7F4
+	.global Tsa_ArenaBattleBg
+Tsa_ArenaBattleBg:  @ 0x085BE7F4
 	.incbin "baserom.gba", 0x5BE7F4, 0x7A0
 
-	.global gUnknown_085BEF94
-gUnknown_085BEF94:  @ 0x085BEF94
-	.incbin "baserom.gba", 0x5BEF94, 0x5BF708 - 0x5BEF94
+	.global Pal_ArenaBattleBg_A
+Pal_ArenaBattleBg_A:  @ 0x085BEF94
+	.incbin "baserom.gba", 0x5BEF94, 0x80
+
+	.global Pal_ArenaBattleBg_B
+Pal_ArenaBattleBg_B:  @ 0x085BF014
+	.incbin "baserom.gba", 0x5BF014, 0x80
+
+	.global Pal_ArenaBattleBg_C
+Pal_ArenaBattleBg_C:  @ 0x085BF094
+	.incbin "baserom.gba", 0x5BF094, 0x80
+
+	.incbin "baserom.gba", 0x5BF114, 0x5F4
 
 	.global Img1_EfxLvupBG
 Img1_EfxLvupBG:

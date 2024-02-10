@@ -1112,7 +1112,7 @@ void PutUnitSpriteIconsOam(void) {
         0xD,
     };
 
-    if (GetChapterThing() != 2) {
+    if (GetBattleMapKind() != 2) {
         protectCharacterId = GetROMChapterStruct(gPlaySt.chapterIndex)->protectCharacterIndex;
     } else {
         protectCharacterId = 0;

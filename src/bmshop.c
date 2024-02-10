@@ -1423,7 +1423,7 @@ void DisplayShopUiArrows(void) {
 
 void UnpackUiVArrowGfx(int index, int palIdx) {
     Decompress(gImg_UiSpinningArrow_Vertical, (void *)((0x3FF & index) * 0x20 + 0x06010000));
-    ApplyPalette(gUnknown_08A1A084, palIdx + 0x10);
+    ApplyPalette(Pal_08A1A084, palIdx + 0x10);
 
     return;
 }

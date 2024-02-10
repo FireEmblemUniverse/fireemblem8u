@@ -1428,7 +1428,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
     ClearText(&proc->unk_2c[0]);
     ClearText(&proc->unk_2c[1]);
 
-    if (GetChapterThing() != 2) {
+    if (GetBattleMapKind() != 2) {
         goalTextId = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowTextId;
     } else {
         goalTextId = 0x19E; // TODO: msgid "Defeat enemy"
@@ -1437,7 +1437,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
     str = GetStringFromIndex(goalTextId);
     Text_InsertDrawString(&proc->unk_2c[0], GetStringTextCenteredPos(0x40, str), 0, str);
 
-    if (GetChapterThing() != 2) {
+    if (GetBattleMapKind() != 2) {
         goalWindowType = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowDataType;
     } else {
         goalWindowType = 1;
@@ -1465,7 +1465,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
         case 2:
             turnNumber = gPlaySt.chapterTurnNumber;
 
-            if (GetChapterThing() != 2) {
+            if (GetBattleMapKind() != 2) {
 
                 if (turnNumber >= (GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowEndTurnNumber - 1)) {
                     goto _0808D3DC;
@@ -1486,7 +1486,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
 
             th = &proc->unk_2c[1];
 
-            if (GetChapterThing() != 2) {
+            if (GetBattleMapKind() != 2) {
                 lastTurnNumber = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowEndTurnNumber - 1;
             } else {
                 lastTurnNumber = -1;

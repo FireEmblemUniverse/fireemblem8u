@@ -18,6 +18,7 @@
 #include "uiconfig.h"
 #include "savemenu.h"
 #include "sysutil.h"
+#include "unitlistscreen.h"
 #include "worldmap.h"
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
@@ -528,7 +529,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
     proc->unk_50 = NewGmapCursor(PROC_TREE_5, 0x12c0, 4, proc->gm_screen);
     proc->unk_54 = StartGmMu(proc);
 
-    sub_80BCA0C(&gGMData);
+    RefreshGmNodeLinks(&gGMData);
     sub_80C368C(proc);
     sub_80B8FEC(proc);
     sub_80B90CC(proc);
@@ -542,7 +543,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {
-        sub_80BCFB4();
+        ResetGmStoryNode();
         proc->unk_48->unk_32_1 = 0;
     }
 
@@ -1240,7 +1241,7 @@ void sub_80B9810(ProcPtr unused)
 //! FE8U = 0x080B9820
 void sub_80B9820(ProcPtr proc)
 {
-    sub_8092194(proc);
+    StartUnitListScreenWorldMap(proc);
     return;
 }
 
@@ -2046,7 +2047,7 @@ void WorldMap_SetupChapterStuff(struct WorldMapMainProc * proc)
                 return;
             }
 
-            sub_80BCFB4();
+            ResetGmStoryNode();
             proc->unk_48->unk_32_1 = 0;
             CallEvent(Events_WM_Beginning[GetROMChapterStruct(chIndex)->gmapEventId], 0);
         }

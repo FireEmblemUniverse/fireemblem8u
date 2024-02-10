@@ -32,6 +32,8 @@ enum
     NODE_TOWER_OF_VALNI     = 0x1A,
     NODE_LAGDOU_RUINS       = 0x1B,
     NODE_MELKAEN_COAST      = 0x1C,
+
+    NODE_MAX                = 0x1D,
 };
 
 enum wm_node_idx {
@@ -100,6 +102,8 @@ enum wm_path_idx {
     WM_PATH_1D = 0x1D,
     WM_PATH_1E = 0x1E,
     WM_PATH_1F = 0x1F,
+
+    WM_PATH_MAX = 0x20,
 };
 
 enum wm_hightlighted_nation_idx {

@@ -41,6 +41,7 @@
 #include "bmguide.h"
 #include "menuitempanel.h"
 #include "bmmind.h"
+#include "unitlistscreen.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/terrains.h"
@@ -112,7 +113,7 @@ u8 CommandEffectEndPlayerPhase(struct MenuProc* menu, struct MenuItemProc* menuI
 
 u8 MapMenu_UnitCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     Proc_Goto(Proc_Find(gProcScr_PlayerPhase), 10);
-    sub_80920C4();
+    StartUnitListScreenField();
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -124,7 +125,7 @@ u8 MapMenu_OptionsCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) 
 }
 
 u8 sub_802263C(void) {
-    if (GetChapterThing() == 1) {
+    if (GetBattleMapKind() == 1) {
         return MENU_NOTSHOWN;
     }
 
@@ -2372,7 +2373,7 @@ u8 ItemMenuHelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 u8 MapMenu_IsRecordsCommandAvailable(const struct MenuItemDef* def, int number) {
     u8 chapterId;
 
-    if (GetChapterThing() != 1) {
+    if (GetBattleMapKind() != 1) {
         return MENU_NOTSHOWN;
     }
 
@@ -2403,7 +2404,7 @@ u8 MapMenu_RecordsCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) 
 }
 
 u8 MapMenu_IsRetreatCommandAvailable(const struct MenuItemDef* def, int number) {
-    if (GetChapterThing() == 0) {
+    if (GetBattleMapKind() == 0) {
         return MENU_NOTSHOWN;
     }
 

@@ -774,7 +774,7 @@ extern const u16 Img_TriGenerialAxeAtkOBJ[];
 extern const u16 Img_TriGenerialHandAxeAtkOBJ[];
 
 extern char gNopStr[];
-// extern ??? gUnknown_085B9E4C
+// extern ??? PalArray_ArenaBattleBg
 extern u16 gUnknown_085B9E58[];
 extern u16 gUnknown_085B9EF0[];
 extern u16 gUnknown_085B9F88[];
@@ -786,9 +786,11 @@ extern u16 Pal_085BA320[];
 // extern ??? gUnknown_085BA340
 extern u16 Img_LvupApfx[];
 extern u16 Pal_LvupApfx[];
-// extern ??? gUnknown_085BC188
-// extern ??? gUnknown_085BE7F4
-// extern ??? gUnknown_085BEF94
+extern u8 Img_ArenaBattleBg[];
+extern u8 Tsa_ArenaBattleBg[];
+extern u16 Pal_ArenaBattleBg_A[];
+extern u16 Pal_ArenaBattleBg_B[];
+extern u16 Pal_ArenaBattleBg_C[];
 extern u16 Img1_EfxLvupBG[];
 extern u16 Img2_EfxLvupBG[];
 extern u16 Img3_EfxLvupBG[];

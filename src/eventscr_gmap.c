@@ -385,7 +385,7 @@ u8 Event97_WmInitNextStoryNode(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80BCFB4();
+        ResetGmStoryNode();
         gGMData.nodes[nodeId].state |= 1;
         gGMData.nodes[nodeId].state |= 2;
 
@@ -400,7 +400,7 @@ u8 Event97_WmInitNextStoryNode(struct EventEngineProc * proc)
         if (!(gGMData.nodes[nodeId].state & 1))
         {
             StartGmBaseEntry(nodeId, 0, NULL);
-            sub_80BCFB4();
+            ResetGmStoryNode();
             gGMData.nodes[nodeId].state |= 2;
         }
     }
@@ -445,7 +445,7 @@ u8 Event98_WmSetNextStoryNodePath(struct EventEngineProc * proc)
     else
     {
         StartGmBaseEntry(nodeId, 0, NULL);
-        sub_80BCFB4();
+        ResetGmStoryNode();
         gGMData.nodes[nodeId].state |= 2;
     }
 
@@ -514,7 +514,7 @@ u8 Event9C_(struct EventEngineProc * proc)
 
     if (nodeId >= 0)
     {
-        sub_80BCFB4();
+        ResetGmStoryNode();
 
         gGMData.nodes[nodeId].state |= 2;
 
