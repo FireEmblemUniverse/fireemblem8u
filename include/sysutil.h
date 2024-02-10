@@ -30,7 +30,7 @@ struct SysBlackBoxProc {
     /* 4E */ u16 chr;
 };
 
-extern struct ProcCmd ProcScr_SysSysBlackBox[];
+extern struct ProcCmd ProcScr_SysBlackBox[];
 
 void SysBlackBox_Init(struct SysBlackBoxProc * proc);
 void SysBlackBox_Main(struct SysBlackBoxProc * proc);
@@ -197,3 +197,62 @@ void NewFadeInWhite2(int speed, ProcPtr parent);
 void NewFadeOutWhite2(int speed, ProcPtr parent);
 void WipeAllPalette(void);
 void EndFadeInOut(void);
+
+struct BmBgxConf
+{
+    /* 00 */ u8 type;
+    /* 04 */ void * data;
+    /* 08 */ u16 size;
+    /* 0A */ u8 duration;
+    /* 0B */ STRUCT_PAD(0x0b, 0x0c);
+};
+
+enum BmBgxConf_type {
+    BMFX_CONFT_IMG = 0,  /* Uncomprsssed image */ 
+    BMFX_CONFT_ZIMG = 1, /* Compresssed  image */
+    BMFX_CONFT_TSA = 2,
+    BMFX_CONFT_PAL = 3,
+    BMFX_CONFT_LOOP_START = 4,
+    BMFX_CONFT_LOOP = 5,
+    BMFX_CONFT_BLOCKING = 6,
+    BMFX_CONFT_7,
+    BMFX_CONFT_CALL_IDLE = 8,
+    BMFX_CONFT_BREAK = 9,
+    BMFX_CONFT_END = 10
+};
+
+typedef s8 bmfx_idle(ProcPtr);
+
+struct ProcBmBgfx {
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct BmBgxConf * conf;
+    /* 30 */ u16 x;
+    /* 32 */ u16 y;
+    /* 34 */ u8 bg;
+    /* 35 */ u8 pal_bank;
+    /* 36 */ s8 counter; /* counter for loop */
+    /* 37 */ u8 flip; /* 1 --> 0 --> 1 --> 0 */
+    /* 38 */ u8 timer;
+    /* 39 */ u8 func_call_type; /* 0 = idle, 1 = cmd call */
+    /* 3A */ bool loop_en;
+    /* 3B */ STRUCT_PAD(0x3b, 0x3c);
+    /* 3C */ int vram_base;
+    /* 40 */ u32 vram_base_offset;
+    /* 44 */ int vram_free_space;
+    /* 48 */ u32 size_per_fx; /* Size of each frame usage in VRAM */
+    /* 4C */ int total_duration;
+    /* 50 */ int counter_procloop;
+    /* 54 */ int counter_functioncall;
+    /* 58 */ s8 (* callback)(ProcPtr);
+};
+
+void BmBgfx_Init(struct ProcBmBgfx * proc);
+void BmBgfx_Loop(struct ProcBmBgfx * proc);
+void BmBgfx_End(struct ProcBmBgfx * proc);
+s8 CheckBmBgfxDone(void);
+void BmBgfxAdvance(void);
+void EndBmBgfx(void);
+void BmBgfxSetLoopEN(u8);
+void StartBmBgfx(struct BmBgxConf * input, int bg, int x, int y, int e, int f, int g, void * func, ProcPtr parent);
+
+extern struct ProcCmd ProcScr_BmBgfx[];

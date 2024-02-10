@@ -118,74 +118,73 @@ struct Proc8A204BC
     /* 5C */ int unk_5c;
 };
 
-// ??? sub_80A882C(???);
-// ??? SaveMenuIndexToValidBitfile(???);
-// ??? sub_80A887C(???);
-// ??? sub_80A88B8(???);
-// ??? sub_80A88E0(???);
-// ??? LoadSaveMenuHelpText(???);
-// ??? SaveMenuPostChapterHandleHelpBox(???);
-// ??? sub_80A8A9C(???);
-// ??? SaveMenu_SetLcdChapterIdx(???);
-// ??? SaveMenu_Init(???);
-// ??? ProcSaveMenu_InitScreen(???);
-// ??? SaveMenu_LoadExtraMenuGraphics(???);
-// ??? SaveMenuInit(???);
-// ??? SaveMenuInitUnused(???);
-// ??? sub_80A9014(???);
-// ??? Loop6C_savemenu(???);
-// ??? SaveMenuWriteNewGame(???);
-// ??? sub_80A9290(???);
-// ??? SaveMenuPostChapterIDLE(???);
-// ??? sub_80A96D0(???);
-// ??? sub_80A96DC(???);
-// ??? sub_80A96EC(???);
-// ??? sub_80A99C0(???);
-// ??? sub_80A9A08(???);
-// ??? sub_80A9A18(???);
-// ??? sub_80A9A68(???);
-// ??? sub_80A9AB0(???);
-// ??? sub_80A9AF4(???);
-// ??? sub_80A9B44(???);
-// ??? sub_80A9B90(???);
-s8 sub_80A9D20(struct SaveMenuProc*, int);
-// ??? sub_80A9D84(???);
-// ??? sub_80A9DBC(???);
-// ??? sub_80A9DFC(???);
-// ??? sub_80A9E1C(???);
-// ??? sub_80AA018(???);
-// ??? PostSaveMenuHandler(???);
-// ??? ExtraMapStartSomeBgm(???);
-// ??? ExecExtraMap(???);
-// ??? CallExtraMap(???);
-// ??? sub_80AA158(???);
-// ??? sub_80AA1BC(???);
-// ??? SaveMenu_ResetLcdFormDifficulty(???);
-// ??? sub_80AA248(???);
-// ??? sub_80AA2A8(???);
-// ??? SaveMenu_ReloadScreenFormDifficulty(???);
-// ??? SaveMenu_PostDifficultHandler(???);
-// ??? sub_80AA47C(???);
-// ??? sub_80AA49C(???);
-// ??? sub_80AA4B4(???);
+void sub_80A882C(ProcPtr proc);
+u8 SaveMenuIndexToValidBitfile(u8 bitfile, u32 index);
+u8 sub_80A887C(u8 a, u8 b);
+u8 sub_80A88B8(u8);
+void sub_80A88E0(struct SaveMenuProc * proc);
+int LoadSaveMenuHelpText(int slot);
+bool SaveMenuPostChapterHandleHelpBox(struct SaveMenuProc  * proc);
+void sub_80A8A9C(struct SaveMenuProc * proc);
+void SaveMenu_SetLcdChapterIdx(void);
+void SaveMenu_Init(void);
+void ProcSaveMenu_InitScreen(struct SaveMenuProc * proc);
+void SaveMenu_LoadExtraMenuGraphics(struct SaveMenuProc * proc);
+void SaveMenuInit(struct SaveMenuProc * proc);
+void SaveMenuInitUnused(struct SaveMenuProc * proc);
+void sub_80A9014(struct SaveMenuProc * proc);
+void Loop6C_savemenu(struct SaveMenuProc * proc);
+void SaveMenuWriteNewGame(struct SaveMenuProc * proc);
+void sub_80A9290(struct SaveMenuProc * proc);
+void SaveMenuPostChapterIDLE(struct SaveMenuProc * proc);
+void sub_80A96D0(struct SaveMenuProc * proc);
+void sub_80A96DC(struct SaveMenuProc * proc);
+void sub_80A96EC(struct SaveMenuProc * proc);
+void sub_80A99C0(struct SaveMenuProc * proc);
+void sub_80A9A08(struct SaveMenuProc * proc);
+void sub_80A9A18(struct SaveMenuProc * proc);
+void sub_80A9A68(struct SaveMenuProc * proc);
+void sub_80A9AB0(struct SaveMenuProc * proc);
+void sub_80A9AF4(struct SaveMenuProc * proc);
+void sub_80A9B44(struct SaveMenuProc * proc);
+void sub_80A9B90(struct SaveMenuProc * proc);
+s8 sub_80A9D20(struct SaveMenuProc *, int);
+void sub_80A9D84(struct SaveMenu8A20068Proc * proc);
+void sub_80A9DBC(struct SaveMenu8A20068Proc * proc);
+void sub_80A9DFC(int x, int y, int msgId, ProcPtr parent);
+void sub_80A9E1C(struct SaveMenuProc  * proc);
+void sub_80AA018(struct SaveMenuProc  * proc);
+void PostSaveMenuHandler(struct SaveMenuProc  * proc);
+void ExtraMapStartSomeBgm(struct SaveMenuProc * proc);
+void ExecExtraMap(struct SaveMenuProc * proc);
+void sub_80AA158(struct SaveMenuProc * proc);
+void sub_80AA1BC(struct SaveMenuProc * proc);
+void SaveMenu_ResetLcdFormDifficulty(struct SaveMenuProc * proc);
+void sub_80AA248(struct SaveMenuProc * proc);
+void sub_80AA2A8(struct SaveMenuProc * proc);
+void SaveMenu_ReloadScreenFormDifficulty(struct SaveMenuProc * proc);
+void SaveMenu_PostDifficultHandler(struct SaveMenuProc * proc);
+void sub_80AA47C(struct SaveMenuProc * proc);
+void sub_80AA49C(struct SaveMenuProc * proc);
+void sub_80AA4B4(void);
 void Make6C_SaveMenuNewGame(ProcPtr);
-// ??? sub_80AA4F8(???);
+void sub_80AA4F8(ProcPtr proc);
 void Make6C_SaveMenuPostChapter(ProcPtr);
 void savemenu_SetDifficultyChoice(int, int);
-// ??? sub_80AA550(???);
-// ??? sub_80AA614(???);
-// ??? sub_80AA658(???);
-// ??? sub_80AA69C(???);
-// ??? sub_80AA6D8(???);
+void sub_80AA550(struct Proc8A204BC * proc);
+void sub_80AA614(struct Proc8A204BC * proc);
+void sub_80AA658(struct Proc8A204BC * proc);
+void sub_80AA69C(struct Proc8A204BC * proc);
+void sub_80AA6D8(void);
 void sub_80AA6EC(ProcPtr);
 void sub_80AA700(void);
-// ??? GetLeaderNameForSaveMenu(???);
+const char * GetLeaderNameForSaveMenu(void);
 int GetLeaderLevelForSaveMenu(void);
 const char * GetWMNodeNameForSaveMenu(void);
 void sub_80AA790(u16 *, u16 *, int);
-// ??? sub_80AA7AC(???);
+void sub_80AA7AC(int a, int b);
 // ??? sub_80AA7EC(???);
-// ??? sub_80AA9D8(???);
+void sub_80AA9D8(ProcPtr);
 // ??? sub_80AAA6C(???);
 // ??? sub_80AAA78(???);
 // ??? sub_80AAB78(???);
@@ -197,12 +196,81 @@ void sub_80AA790(u16 *, u16 *, int);
 // ??? sub_80AAF6C(???);
 // ??? sub_80AB05C(???);
 // ??? sub_80AB2A0(???);
+
+struct SaveDrawCursorProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2A */ u16 unk_2a;
+    /* 2C */ u8 save_slot;
+    /* 2E */ s16 unk_2e;
+    /* 30 */ s16 active_options;
+    /* 32 */ s16 unk_32;
+    /* 34 */ s16 unk_34;
+    /* 36 */ u8 unk_36;
+    /* 37 */ u8 unk_37;
+    /* 38 */ u8 unk_38;
+    /* 39 */ u8 unk_39;
+    /* 3A */ u8 unk_3a;
+};
+
+struct SaveMenuUnusedProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ int save_slot;
+    /* 30 */ int active_options;
+    /* 34 */ struct SaveDrawCursorProc* unk_34;
+};
+
+struct SaveMenu8A206F8Proc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 _pad[0x3e - 0x29];
+
+    /* 3E */ u16 unk_3e;
+    /* 40 */ u16 unk_40;
+};
+
+struct SqMaskProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 unk_29;
+    /* 2A */ s8 unk_2a;
+    /* 2B */ u8 unk_2b;
+};
+
+struct Unknown020007E0 {
+    /* 00 */ u32 unk_00;
+    /* 04 */ int unk_04;
+    /* 08 */ s16 unk_08;
+    /* 0A */ s16 unk_0a;
+    /* 0C */ s8 unk_0c;
+    /* 0D */ s8 unk_0d;
+    /* 0E */ s8 unk_0e;
+};
+// sizeof = 0x10
+
+extern struct Unknown020007E0 gUnknown_020007E0[];
+
+extern struct Font gUnknown_02000920;
+extern struct Text gUnknown_02000938;
+
+struct Unknown03004990 {
+    /* 000 */ u8 unk[0x79E - 0x000];
+    /* 79E */ u8 unk_79E;
+};
+
+extern struct Unknown03004990* gUnknown_03004990;
+
+extern u16 gUnknown_08A20570[];
+extern u16 gUnknown_08A20578[];
+extern u16 gUnknown_08A20580[];
+
 ProcPtr New6C_savedraw(ProcPtr);
-// ??? SaveDrawCursor_Init(???);
-// ??? SaveDrawCursor_Loop(???);
-// ??? sub_80AB4F4(???);
-// ??? sub_80AB514(???);
-// ??? StartSaveDrawCursor(???);
+void SaveDrawCursor_Init(struct SaveDrawCursorProc * proc);
+void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc);
+void sub_80AB4F4(int a, s16 b, s16 c, struct SaveMenuUnusedProc * proc);
+void sub_80AB514(int a, int b, struct SaveMenuUnusedProc * proc);
+struct SaveMenuCursorProc * StartSaveDrawCursor(ProcPtr parent);
 // ??? sub_80AB548(???);
 // ??? sub_80AB56C(???);
 // ??? sub_80AB720(???);
@@ -217,29 +285,29 @@ void sub_80AB89C(struct SaveMenuProc*);
 u8 SaveMenuModifySaveSlot(u8, int, int);
 s8 sub_80AB9FC(struct SaveMenuProc*, int);
 s8 sub_80ABA98(struct SaveMenuProc*);
-// ??? SqMask_Loop(???);
+void StartSqMask(struct SaveMenuProc* parent, int b, int c);
 void StartSqMask(struct SaveMenuProc*, int, int);
-// ??? SaveBgUp_Loop(???);
-// ??? StartSaveBgUp(???);
+void SaveBgUp_Loop(void);
+ProcPtr StartSaveBgUp(ProcPtr parent);
 void sub_80ABC14(u8, struct SaveMenuProc*);
 void sub_80ABD88(u8);
-// ??? sub_80ABE3C(???);
+void sub_80ABE3C(int param_1, int param_2);
 u8 SaveMenuGetValidMenuAmt(u8 endMask, struct SaveMenuProc * proc);
 void sub_80ABF74(u8);
 void DrawDifficultyModeText(struct DifficultyMenuProc *);
 void sub_80AC034(struct DifficultyMenuProc *);
-// ??? DifficultySelect_OnEnd(???);
-// ??? InitDifficultySelectScreen(???);
-// ??? DifficultySelect_Init(???);
-// ??? sub_80AC1BC(???);
-// ??? sub_80AC22C(???);
-// ??? DifficultySelect_Loop_KeyHandler(???);
-// ??? nullsub_64(???);
+void DifficultySelect_OnEnd(struct DifficultyMenuProc * proc);
+void InitDifficultySelectScreen(struct DifficultyMenuProc * proc);
+void DifficultySelect_Init(struct DifficultyMenuProc * proc);
+void sub_80AC1BC(struct DifficultyMenuProc * proc);
+void sub_80AC22C(struct DifficultyMenuProc * proc);
+void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc);
+void nullsub_64(void);
 void NewNewGameDifficultySelect(ProcPtr);
-// ??? DrawDifficultySprite_Init(???);
-// ??? DrawDifficultyMenuCursorMaybe(???);
-// ??? sub_80AC4F8(???);
-// ??? DrawDifficultySprites_Loop(???);
+void DrawDifficultySprite_Init(struct DifficultyMenuSpritesProc * proc);
+void DrawDifficultyMenuCursorMaybe(struct DifficultyMenuSpritesProc * proc);
+void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx);
+void DrawDifficultySprites_Loop(struct DifficultyMenuSpritesProc * proc);
 void sub_80AC680(struct DifficultyMenuSpritesProc *, int, int);
 ProcPtr StartDrawDifficultyMenuSprites(ProcPtr);
 

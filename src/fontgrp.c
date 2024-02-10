@@ -370,7 +370,7 @@ void ResetTextFont(void)
     sSpecialCharStList[0].color = -1;
 }
 
-void SetTextFont(struct Font *font)
+void SetTextFont(struct Font * font)
 {
     if (font == NULL)
         gActiveFont = &gDefaultFont;

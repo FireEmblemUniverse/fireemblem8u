@@ -18,15 +18,15 @@
 */
 
 //! FE8U = 0x08079CD8
-struct REDA * CopyEventMoveToBuffer(const struct REDA * redas, u8 count)
+struct REDA * CopyEventMoveREDAs(const struct REDA * redas, u8 count)
 {
     u8 i;
 
     for (i = 0; i < 4; i++)
     {
-        if (((gUnknown_03001A30.usedBuffers >> i) & 1) == 0)
+        if (((gEventREDAs.usedBuffers >> i) & 1) == 0)
         {
-            struct REDA * buffer = gUnknown_03001A30.buf[i];
+            struct REDA * buffer = gEventREDAs.buf[i];
 
             while (count != 0)
             {
@@ -34,8 +34,8 @@ struct REDA * CopyEventMoveToBuffer(const struct REDA * redas, u8 count)
                 count--;
             }
 
-            gUnknown_03001A30.usedBuffers |= (1 << i);
-            return gUnknown_03001A30.buf[i];
+            gEventREDAs.usedBuffers |= (1 << i);
+            return gEventREDAs.buf[i];
         }
     }
 }
@@ -47,14 +47,12 @@ void ClearEventMoveBuffer(const struct REDA * redas)
 
     for (i = 0; i < 4; i++)
     {
-        if (gUnknown_03001A30.buf[i] == redas)
+        if (gEventREDAs.buf[i] == redas)
         {
-            gUnknown_03001A30.usedBuffers &= ~(1 << i);
+            gEventREDAs.usedBuffers &= ~(1 << i);
             return;
         }
     }
-
-    return;
 }
 
 //! FE8U = 0x08079D74
@@ -69,18 +67,16 @@ void MuCtr_StartDefinedMove(struct Unit * unit, const struct REDA * redas, s16 c
             break;
 
         case 1:
-            proc->unk_44 = *redas;
-            redas = &proc->unk_44;
+            proc->reda_cur = *redas;
+            redas = &proc->reda_cur;
             break;
 
         default:
-            redas = CopyEventMoveToBuffer(redas, count);
+            redas = CopyEventMoveREDAs(redas, count);
             break;
     }
 
     MuCtr_InitDefinedMove(proc, unit, redas, count, flags);
-
-    return;
 }
 
 //! FE8U = 0x08079DDC
@@ -92,7 +88,7 @@ void MuCtr_StartMoveTowards(struct Unit * unit, s8 x, s8 y, u8 flagsA, u16 flags
 
     struct MuCtrlProc * proc = Proc_Start(gProcScr_MuCtrl, PROC_TREE_5);
 
-    reda = &proc->unk_44;
+    reda = &proc->reda_cur;
 
     x_ = x;
     reda->x = x_;
@@ -152,8 +148,6 @@ void MuCtr_InitDefinedMove(struct MuCtrlProc * proc, struct Unit * unit, const s
     gBmMapOther[pos.y][pos.x] = unit->pCharacterData->number;
 
     MU_Hide(proc->muProc);
-
-    return;
 }
 
 //! FE8U = 0x08079F84

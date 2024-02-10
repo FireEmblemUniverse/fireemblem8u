@@ -152,6 +152,6 @@ gUnknown_08A2E5EC:  @ 0x08A2E5EC
 gUnknown_08A2E8F0:  @ 0x08A2E8F0
 	.incbin "baserom.gba", 0xA2E8F0, 0x60
 
-	.global gUnknown_08A2E950
-gUnknown_08A2E950:  @ 0x08A2E950
+	.global Img_SysBlackBox
+Img_SysBlackBox:  @ 0x08A2E950
 	.incbin "baserom.gba", 0xA2E950, 0x24

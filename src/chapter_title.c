@@ -56,7 +56,7 @@ void sub_8089624(int chr, u32 titleId) {
     return;
 }
 
-void sub_808966C(int chr, u32 titleId) {
+void sub_808966C(int chr, int titleId) {
     sub_8089624(chr, titleId);
     return;
 }
@@ -105,7 +105,8 @@ void sub_80896FC(u16* tm, int pal, int c) {
     return;
 }
 
-void sub_8089720(u16* tm, int pal) {
+void sub_8089720(u16 * tm, int pal)
+{
     int i;
 
     int tile = TILEREF(gChapterTitleFxSt.unk_00, pal);

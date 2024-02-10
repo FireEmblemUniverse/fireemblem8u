@@ -65,7 +65,8 @@ ProcPtr StartMuralBackground(ProcPtr parent, void* vram, int pal) {
 }
 
 //! FE8U = 0x08086C50
-ProcPtr StartMuralBackgroundAlt(ProcPtr parent, void* vram, int pal, u8 flag) {
+ProcPtr StartMuralBackgroundAlt(ProcPtr parent, void * vram, int pal, u8 flag)
+{
     int tileref;
     int i;
     u16* tm = gBG3TilemapBuffer;

@@ -43,6 +43,53 @@ struct ChapterIntroFXProc {
     /* 68 */ s16 unk_68;
 };
 
+void ChapterIntro_Bg3Scroll_Loop(void);
+void ChapterIntro_KeyListen_Init(struct ChapterIntroFXProc * proc);
+void ChapterIntro_KeyListen_Loop(struct ChapterIntroFXProc * proc);
+void ChapterIntro_801FFD0(struct ChapterIntroFXProc * proc);
+void ChapterIntro_801FFD8_Loop(struct ChapterIntroFXProc * proc);
+void ChapterIntro_LightBurst_Init(struct ChapterIntroFXProc * proc);
+void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc * proc);
+void ChapterIntro_BeginCloseTextMaybe(struct ChapterIntroFXProc * proc);
+void ChapterIntro_LoopCloseTextMaybe(struct ChapterIntroFXProc * proc);
+void ChapterIntro_Init(struct ChapterIntroFXProc * proc);
+void ChapterIntro_SetSkipTarget(s16 arg, struct ChapterIntroFXProc * proc);
+void ChapterIntro_Init_PlaySound316(struct ChapterIntroFXProc * proc);
+void ChapterIntro_DrawingLights(struct ChapterIntroFXProc * proc);
+void ChapterIntro_InitBLDCNT(void);
+void ChapterIntro_DrawChapterTitleMaybe(void);
+void ChapterIntro_80204AC(struct ChapterIntroFXProc * proc);
+void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc * proc);
+void ChapterIntro_SetBG_802009C(void);
+void ChapterIntro_8020944(struct ChapterIntroFXProc * proc);
+void ChapterIntro_80209D8(struct ChapterIntroFXProc * proc);
+void ChapterIntro_SetTimerMaybe(s16 arg, struct ChapterIntroFXProc * proc);
+void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc * proc);
+void ChapterIntro_8020A40(struct ChapterIntroFXProc * proc);
+void ChapterIntro_8020A8C(struct ChapterIntroFXProc * proc);
+void ChapterIntro_8020B20(void);
+void ChapterIntro_InitMapDisplay(void);
+void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc * proc);
+void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc * proc);
+void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc * proc);
+void ChapterIntro_LoopFadeOut(struct ChapterIntroFXProc * proc);
+void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc * proc);
+void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc * proc);
+void ChapterIntro_80210C8(void);
+void ChapterIntro_8020AF8(void);
+void ChapterIntro_8021188(struct ChapterIntroFXProc * proc);
+
+void ChapterIntro_80207C8(void);
+extern struct ProcCmd sProcScr_ChapterIntro_0859B198[];
+extern u8 Img_CommGameBgScreen[];
+extern u8 gUnknown_08B17B64[];
+extern u8 gUnknown_08B18D68[];
+extern u8 gUnknown_08B19874[];
+extern u8 gUnknown_08B19DEC[];
+extern u16 gUnknown_08B18F34[];
+extern u16 gUnknown_08B19854[];
+extern u16 gUnknown_08B196D8[];
+
 void ProcBmFx_CommonEnd(struct ProcBmFx *proc);
 
 void StartPrepUnitSwap(ProcPtr parent, struct Unit *unit, int x_dest, int y_dest);

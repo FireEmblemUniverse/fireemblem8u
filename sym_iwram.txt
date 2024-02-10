@@ -57,7 +57,7 @@
 . = 0x0018F0; gUnknown_030018F0 = .;
 . = 0x0018F8;
 . = ALIGN(4); src/mu.o(.bss);
-. = 0x001A30; gUnknown_03001A30 = .;
+. = 0x001A30; gEventREDAs = .;
 . = 0x001A34; gUnknown_03001A34 = .;
 . = 0x001C34; gUnknown_03001C34 = .;
 . = 0x001C35; gUnknown_03001C35 = .;

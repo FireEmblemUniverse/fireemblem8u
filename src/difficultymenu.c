@@ -13,16 +13,6 @@
 #include "sysutil.h"
 #include "savemenu.h"
 
-extern u8 gUnknown_02000940[];
-extern u8 gUnknown_02000944[];
-extern struct PlaySt_OptionBits gUnknown_02000948[];
-
-struct Unknown_08A209FC
-{
-    s8 a;
-    s8 b;
-};
-
 struct Unknown_08A209FC gUnknown_08A209FC[] =
 {
     { 0, 0x20, },
@@ -598,8 +588,6 @@ void DrawDifficultySprite_Init(struct DifficultyMenuSpritesProc * proc)
 
     return;
 }
-
-extern u8 gUnknown_08A20B14[];
 
 // clang-format off
 

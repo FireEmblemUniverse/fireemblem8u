@@ -151,7 +151,7 @@ void SysBlackBox_Main(struct SysBlackBoxProc * proc)
     }
 }
 
-struct ProcCmd CONST_DATA ProcScr_SysSysBlackBox[] = {
+struct ProcCmd CONST_DATA ProcScr_SysBlackBox[] = {
     PROC_CALL(SysBlackBox_Init),
 
 PROC_LABEL(0),
@@ -165,24 +165,24 @@ PROC_LABEL(1),
 
 ProcPtr NewSysBlackBoxHandler(ProcPtr parent)
 {
-    Proc_End(Proc_Find(ProcScr_SysSysBlackBox));
-    return Proc_Start(ProcScr_SysSysBlackBox, parent);
+    Proc_End(Proc_Find(ProcScr_SysBlackBox));
+    return Proc_Start(ProcScr_SysBlackBox, parent);
 }
 
 void SysBlackBoxSetGfx(u32 obj_offset)
 {
-    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysBlackBox);
 
     if (proc != NULL)
     {
         proc->chr = ((obj_offset << 0xf) >> 0x14);
-        Decompress(gUnknown_08A2E950, OBJ_VRAM0 + obj_offset);
+        Decompress(Img_SysBlackBox, OBJ_VRAM0 + obj_offset);
     }
 }
 
 void EnableSysBlackBox(int index, int x, int y, int width, int height, u16 oam2)
 {
-    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysBlackBox);
 
     if (proc != NULL)
     {
@@ -198,21 +198,21 @@ void EnableSysBlackBox(int index, int x, int y, int width, int height, u16 oam2)
 
 void DisableSysBlackBox(int index)
 {
-    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysBlackBox);
     if (proc != NULL)
         proc->valid[index] = 0;
 }
 
 void BlockAllSysBlackBoxs(void)
 {
-    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysBlackBox);
     if (proc != NULL)
         Proc_Goto(proc, 1);
 }
 
 void UnblockAllSysBlackBoxs(void)
 {
-    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysSysBlackBox);
+    struct SysBlackBoxProc * proc = Proc_Find(ProcScr_SysBlackBox);
     if (proc != NULL)
     {
         Proc_Goto(proc, 0);
@@ -222,7 +222,7 @@ void UnblockAllSysBlackBoxs(void)
 
 void EndSysBlackBoxs(void)
 {
-    Proc_End(Proc_Find(ProcScr_SysSysBlackBox));
+    Proc_End(Proc_Find(ProcScr_SysBlackBox));
 }
 
 void ParallelWorker_OnLoop(struct ParallelWorkerProc * proc)
@@ -432,7 +432,12 @@ void SysGrayBox_Loop(struct ProcSysGrayBox * proc)
 
         oam2 = OAM2_PAL(proc->pal) + proc->chr + priv->chr;
 
-        PutSpriteExt(priv->layer, priv->x & 0x1FF, priv->y & 0xFF, gObject_8x8, oam2);
+        PutSpriteExt(
+            priv->layer,
+            priv->x & 0x1FF,
+            priv->y & 0xFF,
+            gObject_8x8,
+            oam2);
 
         PutSpriteExt(priv->layer,
             ((priv->x + (priv->width - 1) * 8) & 0x1FF) + 0x1000,
