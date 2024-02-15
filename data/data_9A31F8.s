@@ -321,40 +321,40 @@ gUnknown_089B6AA0:  @ 0x089B6AA0
 gUnknown_089B73D4:  @ 0x089B73D4
 	.incbin "baserom.gba", 0x9B73D4, 0x23C
 
-	.global Img_089B7610
-Img_089B7610:  @ 0x089B7610
+	.global Img_GorgonHatchCloud
+Img_GorgonHatchCloud:  @ 0x089B7610
 	.incbin "baserom.gba", 0x9B7610, 0xAB4
 
-	.global Pal_089B80C4
-Pal_089B80C4:  @ 0x089B80C4
+	.global Pal_GorgonHatchCloud
+Pal_GorgonHatchCloud:  @ 0x089B80C4
 	.incbin "baserom.gba", 0x9B80C4, 0x9B80E4 - 0x9B80C4
 
-	.global Img_089B80E4
-Img_089B80E4:  @ 0x089B80E4
+	.global Tsa_GorgonHatchCloud_A
+Tsa_GorgonHatchCloud_A:  @ 0x089B80E4
 	.incbin "baserom.gba", 0x9B80E4, 0x9B8140 - 0x9B80E4
 
-	.global Img_089B8140
-Img_089B8140:  @ 0x089B8140
+	.global Tsa_GorgonHatchCloud_B
+Tsa_GorgonHatchCloud_B:  @ 0x089B8140
 	.incbin "baserom.gba", 0x9B8140, 0x9B81A4 - 0x9B8140
 
-	.global Img_089B81A4
-Img_089B81A4:  @ 0x089B81A4
+	.global Tsa_GorgonHatchCloud_C
+Tsa_GorgonHatchCloud_C:  @ 0x089B81A4
 	.incbin "baserom.gba", 0x9B81A4, 0x9B8214 - 0x9B81A4
 
-	.global Img_089B8214
-Img_089B8214:  @ 0x089B8214
+	.global Tsa_GorgonHatchCloud_D
+Tsa_GorgonHatchCloud_D:  @ 0x089B8214
 	.incbin "baserom.gba", 0x9B8214, 0x9B828C - 0x9B8214
 
-	.global Img_089B828C
-Img_089B828C:  @ 0x089B828C
+	.global Tsa_GorgonHatchCloud_E
+Tsa_GorgonHatchCloud_E:  @ 0x089B828C
 	.incbin "baserom.gba", 0x9B828C, 0x9B82F0 - 0x9B828C
 
-	.global Img_089B82F0
-Img_089B82F0:  @ 0x089B82F0
+	.global Tsa_GorgonHatchCloud_F
+Tsa_GorgonHatchCloud_F:  @ 0x089B82F0
 	.incbin "baserom.gba", 0x9B82F0, 0x9B835C - 0x9B82F0
 
-	.global Img_089B835C
-Img_089B835C:  @ 0x089B835C
+	.global Tsa_GorgonHatchCloud_G
+Tsa_GorgonHatchCloud_G:  @ 0x089B835C
 	.incbin "baserom.gba", 0x9B835C, 0x9E714C - 0x9B835C
 
 	.global gUnknown_089E714C
