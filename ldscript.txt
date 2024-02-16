@@ -215,7 +215,7 @@ SECTIONS
         src/banim-efxhit.o(.text);
         src/banim-efxmisc.o(.text);
         src/banim-efxskill.o(.text);
-        asm/banim-efxop.o(.text);
+        src/banim-efxop.o(.text);
         src/banim-ekrdragonstatus.o(.text);
         src/banim-ekrdragon-dracozombie.o(.text);
         src/banim-ekrdragon-utils.o(.text);
