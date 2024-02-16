@@ -11544,7 +11544,15 @@ gUnknown_085F2DC0:  @ 0x085F2DC0
 
 	.global gUnknown_085F367C
 gUnknown_085F367C:  @ 0x085F367C
-	.incbin "baserom.gba", 0x5F367C, 0x42C
+	.incbin "baserom.gba", 0x5F367C, 0x200    @ 0x5F387C - 0x5F367C
+
+	.global Tsa_085F387C
+Tsa_085F387C:  @ 0x085F387C
+	.incbin "baserom.gba", 0x5F387C, 0xCC    @ 0x5F3948 - 0x5F387C
+
+	.global Tsa_085F3948
+Tsa_085F3948:  @ 0x085F3948
+	.incbin "baserom.gba", 0x5F3948, 0x160    @ 0x5F3AA8 - 0x5F3948
 
 	.global Img_BoltingSprites
 Img_BoltingSprites:  @ 0x085F3AA8
@@ -12341,7 +12349,55 @@ gUnknown_085F5638:  @ 0x085F5638
 
 	.global gUnknown_085F6230
 gUnknown_085F6230:  @ 0x085F6230
-	.incbin "baserom.gba", 0x5F6230, 0x1538
+	.incbin "baserom.gba", 0x5F6230, 0x20    @ 0x5F6250 - 0x5F6230
+
+	.global Tsa_085F6250
+Tsa_085F6250:  @ 0x085F6250
+	.incbin "baserom.gba", 0x5F6250, 0xA8    @ 0x5F62F8 - 0x5F6250
+
+	.global Tsa_085F62F8
+Tsa_085F62F8:  @ 0x085F62F8
+	.incbin "baserom.gba", 0x5F62F8, 0xA8    @ 0x5F63A0 - 0x5F62F8
+
+	.global Tsa_085F63A0
+Tsa_085F63A0:  @ 0x085F63A0
+	.incbin "baserom.gba", 0x5F63A0, 0xB8    @ 0x5F6458 - 0x5F63A0
+
+	.global Tsa_085F6458
+Tsa_085F6458:  @ 0x085F6458
+	.incbin "baserom.gba", 0x5F6458, 0xC8    @ 0x5F6520 - 0x5F6458
+
+	.global Tsa_085F6520
+Tsa_085F6520:  @ 0x085F6520
+	.incbin "baserom.gba", 0x5F6520, 0xD0    @ 0x5F65F0 - 0x5F6520
+
+	.global Tsa_085F65F0
+Tsa_085F65F0:  @ 0x085F65F0
+	.incbin "baserom.gba", 0x5F65F0, 0x100    @ 0x5F66F0 - 0x5F65F0
+
+	.global Tsa_085F66F0
+Tsa_085F66F0:  @ 0x085F66F0
+	.incbin "baserom.gba", 0x5F66F0, 0x108    @ 0x5F67F8 - 0x5F66F0
+
+	.global Tsa_085F67F8
+Tsa_085F67F8:  @ 0x085F67F8
+	.incbin "baserom.gba", 0x5F67F8, 0x114    @ 0x5F690C - 0x5F67F8
+
+	.global Tsa_085F690C
+Tsa_085F690C:  @ 0x085F690C
+	.incbin "baserom.gba", 0x5F690C, 0x138    @ 0x5F6A44 - 0x5F690C
+
+	.global Tsa_085F6A44
+Tsa_085F6A44:  @ 0x085F6A44
+	.incbin "baserom.gba", 0x5F6A44, 0x104    @ 0x5F6B48 - 0x5F6A44
+
+	.global Tsa_085F6B48
+Tsa_085F6B48:  @ 0x085F6B48
+	.incbin "baserom.gba", 0x5F6B48, 0xD4    @ 0x5F6C1C - 0x5F6B48
+
+	.global Tsa_085F6C1C
+Tsa_085F6C1C:  @ 0x085F6C1C
+	.incbin "baserom.gba", 0x5F6C1C, 0xB4C    @ 0x5F7768 - 0x5F6C1C
 
 	.global gUnknown_085F7768
 gUnknown_085F7768:  @ 0x085F7768
