@@ -33,7 +33,6 @@ struct ProcEkrUnitMainMini
 
 extern ProcPtr gpProcEfxAnimeDrv;
 
-void ExecEfxop(struct Anim *);
 void sub_805AE58(void *);
 
 //! FE8U = 0x0805A3DC
@@ -85,7 +84,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
                 // _0805A4F8
                 if (GetAISLayerId(anim) == 0)
                 {
-                    ExecEfxop(anim);
+                    StartClassReelSpellAnim(anim);
                 }
 
                 // fallthrough
@@ -103,7 +102,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 
             case 14:
                 // _0805A518
-                ExecEfxop(anim);
+                StartClassReelSpellAnim(anim);
                 break;
 
             case 24:

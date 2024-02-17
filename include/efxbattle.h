@@ -417,10 +417,6 @@ extern CONST_DATA u16 Tsa_EfxSkillE[];
 extern CONST_DATA u16 Tsa_EfxSkillF[];
 extern CONST_DATA u16 Tsa_EfxSkill10[];
 
-void sub_806E8F0(void);
-void sub_806E904(void);
-void sub_806E920(void);
-
 extern const u16 FrameLut_EfxSkill[];
 
 struct ProcEfxDamageMojiEffectOBJ {
@@ -695,14 +691,14 @@ extern u16 *TsaLut_EfxSkill[];
 extern u16 *ImgLut_EfxSkill[];
 extern u16 *PalLut_EfxSkill[];
 extern struct ProcCmd ProcScr_efxSkillCommonBG[];
-// extern ??? gpEfxopFuncLut
+// extern ??? gClassReelSpellAnimFuncLut
 // extern ??? ProcScr_efxopFire
 // extern ??? ProcScr_efxopFireBG
-// extern ??? gUnknown_085D9494
+// extern ??? TsaArray_Fire_ClassReel
 // extern ??? ProcScr_efxopFireOBJ
 // extern ??? ProcScr_efxopThunder
 // extern ??? ProcScr_efxopThunderBG
-// extern ??? gUnknown_085D951C
+// extern ??? TsaArray_Thunder_ClassReel
 // extern ??? ProcScr_efxopThunderBGCOL
 // extern ??? ProcScr_efxopThunderOBJ
 // extern ??? ProcScr_efxopLive
@@ -713,27 +709,17 @@ extern struct ProcCmd ProcScr_efxSkillCommonBG[];
 // extern ??? ProcScr_efxopLiveOBJ
 // extern ??? ProcScr_efxopLightning
 // extern ??? ProcScr_efxopLightningBG
-// extern ??? gUnknown_085D9638
-// extern ??? gUnknown_085D96BC
-// extern ??? gUnknown_085D9740
-// extern ??? gUnknown_085D97C4
-// extern ??? gUnknown_085D97DC
-// extern ??? gUnknown_085D9880
-// extern ??? gUnknown_085D9924
-// extern ??? gUnknown_085D996C
+// extern ??? ImgArray_Light_ClassReel
+// extern ??? PalArray_Light_ClassReel
+// extern ??? TsaArray_Light_ClassReel
+// extern ??? ProcScr_efxopMistyrainBG
+// extern ??? TsaArray_Flux_ClassReel
+// extern ??? ImgArray_Flux_ClassReel
+// extern ??? ProcScr_efxopMistyrainOBJ
+// extern ??? ProcScr_efxopMistyrainOBJ2
 // extern ??? ProcScr_efxopMistyrain
 // extern ??? ProcScr_efxopMyrrh
 
-// extern ??? gUnknown_080DF644
-// extern ??? gUnknown_080DF6A8
-// extern ??? gUnknown_080DF6C6
-// extern ??? gUnknown_080DF730
-// extern ??? gUnknown_080DF748
-// extern ??? gUnknown_080DF7CE
-// extern ??? gUnknown_080DF866
-// extern ??? gUnknown_080DF898
-// extern ??? gUnknown_080DF954
-// extern ??? gUnknown_080DF9BE
 extern u16 Pal_080E1164[];
 extern const u16 gBarfxTileConf1[];
 extern const u16 gBarfxTileConf2[];
@@ -875,17 +861,17 @@ extern u32 AnimScr_EkrBaseKaiten7[];
 extern u32 AnimScr_EkrBaseKaiten6[];
 extern u32 AnimScr_EkrBaseKaiten2[];
 
-// extern ??? gUnknown_085D99EC
-// extern ??? gUnknown_085D9A1C
-// extern ??? gUnknown_085D9A2C
-// extern ??? gUnknown_085D9A94
-// extern ??? gUnknown_085D9AFC
-// extern ??? gUnknown_085D9B64
-// extern ??? gUnknown_085D9B74
-// extern ??? gUnknown_085D9BA4
-// extern ??? gUnknown_085D9BB4
-// extern ??? gUnknown_085D9C00
-// extern ??? gUnknown_085D9C4C
+// extern ??? ProcScr_efxopEvilEye
+// extern ??? ProcScr_efxopEvilEyeBG
+// extern ??? ImgArray_EvilEye_ClassReel
+// extern ??? TsaArray_EvilEye_ClassReel
+// extern ??? PalArray_EvilEye_ClassReel
+// extern ??? ProcScr_efxopEvilEyeOBJ
+// extern ??? ProcScr_efxopStone
+// extern ??? ProcScr_efxopStoneBG
+// extern ??? ImgArray_Stone_ClassReel
+// extern ??? TsaArray_Stone_ClassReel
+// extern ??? ProcScr_efxopStoneOBJ
 extern u16 Img_TeonoOBJ[];
 extern u16 Pal_TeonoOBJ[];
 extern u32 AnimScr_TeonoObjCloseRight[];
@@ -1024,16 +1010,30 @@ extern u32 gUnknown_085F29C0[];
 extern u32 gUnknown_085F2C3C[];
 extern u32 gUnknown_085F2D44[];
 extern u32 gUnknown_085F2DAC[];
-extern u16 gUnknown_085F2DC0[];
-extern u16 gUnknown_085F367C[];
+extern u16 Img_ThunderSpellBg[];
+extern u16 Pal_ThunderSpellBg[];
 extern u16 Img_BoltingSprites[];
 extern u16 Pal_BoltingSprites[];
+extern u16 Tsa_085F387C[];
+extern u16 Tsa_085F3948[];
 extern u32 gUnknown_085F4A24[];
 extern u32 gUnknown_085F5550[];
-extern u16 gUnknown_085F5638[];
-extern u16 gUnknown_085F6230[];
-extern u16 gUnknown_085F7768[];
-extern u16 gUnknown_085F7D64[];
+extern u16 Img_FireSpellBg[];
+extern u16 Pal_FireSpellBg[];
+extern u16 Tsa_085F6250[];
+extern u16 Tsa_085F62F8[];
+extern u16 Tsa_085F63A0[];
+extern u16 Tsa_085F6458[];
+extern u16 Tsa_085F6520[];
+extern u16 Tsa_085F65F0[];
+extern u16 Tsa_085F66F0[];
+extern u16 Tsa_085F67F8[];
+extern u16 Tsa_085F690C[];
+extern u16 Tsa_085F6A44[];
+extern u16 Tsa_085F6B48[];
+extern u16 Tsa_085F6C1C[];
+extern u16 Img_FireSpellSprites[];
+extern u16 Pal_FireSpellSprites[];
 extern u32 gUnknown_085F80B4[];
 extern u32 gUnknown_085F80E0[];
 extern u32 gUnknown_085F843C[];
@@ -1162,8 +1162,8 @@ extern u16 Img_08628224[];
 extern u16 Img_08629480[];
 extern u16 Img_08629B04[];
 extern u16 Img_0862A060[];
-extern u16 gUnknown_0862A2D0[];
-extern u16 gUnknown_0862A2F0[];
+extern u16 Pal_0862A2D0[];
+extern u16 Pal_0862A2F0[];
 extern u16 Tsa_0862A310[];
 extern u16 Tsa_0862A40C[];
 extern u16 Tsa_0862A50C[];
@@ -1559,11 +1559,11 @@ extern u16 Tsa_0866EC80[];
 extern u16 Img_PurgeSprites[];
 extern u16 Pal_PurgeSprites[];
 extern u32 gUnknown_0866F58C[];
-extern u16 gUnknown_0866F5E4[];
+extern u16 Img_HealSpellBg[];
 extern u16 * gUnknown_0866F774[];
-extern u16 gUnknown_086700D4[];
-extern u16 gUnknown_086702D4[];
-extern u16 Pal_FimbulvetrSprites_Snow[];
+extern u16 Pal_HealSpellBg[];
+extern u16 Img_HealSprites_Sparkles[];
+extern u16 Pal_HealSprites_Sparkles[];
 extern u16 gUnknown_08670548[];
 extern u16 * gUnknown_08670D40[];
 extern u16 * gUnknown_086716A0[];
@@ -1912,8 +1912,8 @@ extern u16 Tsa_086C8F4C[];
 extern u16 Pal_StoneBg[];
 extern u16 Pal_StoneBg_086C792C[];
 extern u16 Pal_StoneBg_086C794C[];
-extern u16 gUnknown_086C90A4[];
-extern u16 gUnknown_086C93FC[];
+extern u16 Img_086C90A4[];
+extern u16 Pal_086C93FC[];
 extern u32 gUnknown_086C95C0[];
 extern u32 gUnknown_086C978C[];
 extern u16 Img_086C97B4[];
@@ -2632,74 +2632,97 @@ void NewEfxChillAnime(struct Anim * anim, int arg1);
 // ??? sub_806E290(???);
 void nullsub_17(struct Anim * anim);
 
-// ??? SetGlbProcefxopCur(???);
-// ??? sub_806E948(???);
-// ??? sub_806E954(???);
-// ??? sub_806E95C(???);
-// ??? sub_806E9B4(???);
-// ??? sub_806E9E4(???);
-// ??? sub_806EA38(???);
-// ??? sub_806EAA4(???);
-// ??? sub_806EAD4(???);
-// ??? sub_806EAFC(???);
-// ??? sub_806EB2C(???);
-// ??? ExecEfxop(???);
-// ??? nullsub_73(???);
-// ??? NewEfxopFire(???);
-// ??? sub_806EB9C(???);
-// ??? NewEfxopFireBG(???);
-// ??? sub_806EC1C(???);
-// ??? NewEfxopFireOBJ(???);
-// ??? sub_806ECE8(???);
-// ??? NewEfxopThunder(???);
-// ??? sub_806ED2C(???);
-// ??? sub_806ED54(???);
-// ??? sub_806EDB0(???);
-// ??? sub_806EE34(???);
-// ??? sub_806EE68(???);
-// ??? sub_806EEA8(???);
-// ??? sub_806EF24(???);
-// ??? NewEfxopLive(???);
-// ??? sub_806EF64(???);
-// ??? sub_806EFB8(???);
-// ??? sub_806F00C(???);
-// ??? sub_806F058(???);
-// ??? sub_806F08C(???);
-// ??? sub_806F0CC(???);
-// ??? sub_806F0FC(???);
-// ??? sub_806F118(???);
-// ??? sub_806F184(???);
-// ??? sub_806F1E8(???);
-// ??? NewEfxopLightning(???);
-// ??? sub_806F230(???);
-// ??? sub_806F248(???);
-// ??? sub_806F2A0(???);
-// ??? sub_806F304(???);
-// ??? sub_806F38C(???);
-// ??? sub_806F3F8(???);
-// ??? sub_806F450(???);
-// ??? sub_806F47C(???);
-// ??? sub_806F4B4(???);
-// ??? sub_806F4C0(???);
-// ??? sub_806F4F8(???);
-// ??? sub_806F530(???);
-// ??? sub_806F568(???);
-// ??? sub_806F594(???);
-// ??? NewEfxopMistyrain(???);
-// ??? sub_806F5E0(???);
-// ??? NewEfxopMyrrh(???);
-// ??? sub_806F668(???);
-// ??? sub_806F6B4(???);
-// ??? sub_806F6D4(???);
-// ??? sub_806F6EC(???);
-// ??? sub_806F704(???);
-// ??? sub_806F75C(???);
-// ??? sub_806F7C0(???);
-// ??? sub_806F820(???);
-// ??? sub_806F844(???);
-// ??? sub_806F864(???);
-// ??? sub_806F87C(???);
-// ??? sub_806F894(???);
-// ??? sub_806F8F0(???);
-// ??? sub_806F968(???);
-// ??? sub_806F9D8(???);
+struct AnimMagicFxBuffer
+{
+    /* 00 */ u16 magicFuncIdx;
+    /* 02 */ s16 xOffsetBg;
+    /* 04 */ s16 yOffsetBg;
+    /* 06 */ u16 xOffsetObj;
+    /* 08 */ u16 yOffsetObj;
+    /* 0A */ u16 bgChr;
+    /* 0C */ u16 bgPalId;
+    /* 0E */ u16 objChr;
+    /* 10 */ u16 objPalId;
+    /* 12 */ u16 bg;
+    /* 14 */ u16 * bgTmBuf;
+    /* 18 */ void * bgImgBuf; // Used for decompression
+    /* 1C */ void * bgTsaBuf; // Used for decompression
+    /* 20 */ void * objImgBuf; // Used for decompression
+    /* 24 */ void (*resetCallback)(void);
+};
+
+void ResetClassReelSpell(void);
+void EndActiveClassReelSpell(void);
+void EndActiveClassReelBgColorProc(void);
+void SetActiveClassReelSpell(ProcPtr proc);
+void SetActiveCRSpellBgColorProc(ProcPtr proc);
+struct AnimMagicFxBuffer * GetMagicEffectBufferFor(struct Anim * anim);
+void SetCRSpellBgPosition(struct Anim * anim, struct AnimMagicFxBuffer * magicFx);
+void ClearCRSpellBgTmBuf(struct Anim * anim);
+struct Anim * CRSpellCreateFrontAnim(struct Anim * anim, u16 scrIdx, void * scrA, void * scrB);
+void CRSpell_WriteBgMap(struct Anim * anim, u16 notFlipped, void * src, u16 isCompressed);
+void CRSpell_RegisterBgGfx(struct Anim * anim, void * src);
+void CRSpell_RegisterBgPal(struct Anim * anim, u16 * src);
+void CRSpell_RegisterObjGfx(struct Anim * anim, void * src);
+void CRSpell_RegisterObjPal(struct Anim * anim, u16 * src);
+
+void StartClassReelSpellAnim(struct Anim * anim);
+void StartClassReelSpellAnimDummy(struct Anim * anim);
+void StartClassReelSpellAnimFire(struct Anim * anim);
+void efxopFire_Loop_Main(struct ProcEfx * proc);
+void StartCRSubSpell_efxopFireBG(struct Anim * anim, struct ProcEfx * parent);
+void efxopFireBG_Loop(struct ProcEfxBG * proc);
+void StartCRSubSpell_efxopFireOBJ(struct Anim * anim, struct ProcEfx * parent);
+void efxopFireOBJ_Loop(struct ProcEfxOBJ * proc);
+void StartClassReelSpellAnimThunder(struct Anim * anim);
+void efxopThunder_Loop_Main(struct ProcEfx * proc);
+void StartCRSubSpell_efxopThunderBG(struct Anim * anim, struct ProcEfx * unused);
+void efxopThunderBG_Loop(struct ProcEfxBG * proc);
+void StartCRSubSpell_efxopThunderBGCOL(struct Anim * anim, struct ProcEfx * unused);
+void efxopThunderBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartCRSubSpell_efxopThunderOBJ(struct Anim * anim, struct ProcEfx * unused);
+void efxopThunderOBJ_Loop(struct ProcEfxOBJ * proc);
+void StartClassReelSpellAnimHeal(struct Anim * anim);
+void efxopLive_Loop_Main(struct ProcEfx * proc);
+void StartCRSubSpell_efxopLiveBG(struct Anim * anim, struct ProcEfx * unused);
+void efxopLiveBG_Loop(struct ProcEfxBG * proc);
+void StartCRSubSpell_efxopLiveBGCOL(struct Anim * anim, struct ProcEfx * unused);
+void efxopLiveBGCOL_Loop(struct ProcEfxBGCOL * proc);
+void StartCRSubSpell_efxopLiveALPHA(struct Anim * anim, int timer, int c, int d, struct ProcEfx * unused);
+void efxopLiveALPHA_Loop_A(struct ProcEfxALPHA * proc);
+void efxopLiveALPHA_Loop_B(struct ProcEfxALPHA * proc);
+void StartCRSubSpell_efxopLiveOBJ(struct Anim * anim, struct ProcEfx * unused);
+void efxopLiveOBJ_Loop(struct ProcEfxOBJ * proc);
+void StartClassReelSpellAnimLight(struct Anim * anim);
+void efxopLightning_Loop_Main(struct ProcEfx * proc);
+void StartCRSubSpell_efxopLightningBG(struct Anim * anim, struct ProcEfx * parent);
+void efxopLightningBG_Loop(struct ProcEfxBG * proc);
+void StartCRSubSpell_efxopMistyrainBG(struct Anim * anim, struct ProcEfx * parent);
+void StartCRSubSpell_efxopMistyrainBG_2(struct Anim * anim, struct ProcEfx * parent);
+void efxopMistyrainBG_Loop(struct ProcEfxBG * proc);
+void StartCRSubSpell_efxopMistyrainOBJ(struct Anim * anim, struct ProcEfx * parent);
+struct ProcEfxOBJ * StartCRSubSpell_efxopMistyrainOBJ2(struct Anim * anim, struct ProcEfx * parent);
+void efxopMistyrainOBJ_OnEnd(struct ProcEfxOBJ * proc);
+void efxopMistyrainOBJ_Loop_A(struct ProcEfxOBJ * proc);
+void efxopMistyrainOBJ_Loop_B(struct ProcEfxOBJ * proc);
+void efxopMistyrainOBJ_Loop_C(struct ProcEfxOBJ * proc);
+void efxopMistyrainOBJ2_Loop_A(struct ProcEfxOBJ * proc);
+void efxopMistyrainOBJ2_Loop_B(struct ProcEfxOBJ * proc);
+void StartClassReelSpellAnimFlux(struct Anim * anim);
+void efxopMistyrain_Loop_Main(struct ProcEfx * proc);
+void StartClassReelSpellAnimMyrrh(struct Anim * anim);
+void efxopMyrrh_Loop_Main(ProcPtr proc);
+void StartClassReelSpellAnimEvilEye(struct Anim * anim);
+void efxopEvilEye_Loop_A(struct ProcEfx * proc);
+void efxopEvilEye_Loop_B(struct ProcEfx * proc);
+void StartCRSubSpell_efxopEvilEyeBG(struct Anim * anim, struct ProcEfx * parent);
+void efxopEvilEyeBG_Loop(struct ProcEfxBG * proc);
+void StartCRSubSpell_efxopEvilEyeOBJ(struct Anim * anim, struct ProcEfx * parent);
+void efxopEvilEyeOBJ_Loop(struct ProcEfxOBJ * proc);
+void StartClassReelSpellAnimStone(struct Anim * anim);
+void efxopStone_Loop_A(struct ProcEfx * proc);
+void efxopStone_Loop_B(struct ProcEfx * proc);
+void StartCRSubSpell_efxopStoneBG(struct Anim * anim, struct ProcEfx * parent);
+void efxopStoneBG_Loop(struct ProcEfxBG * proc);
+void StartCRSubSpell_efxopStoneOBJ(struct Anim * anim, struct ProcEfx * parent);
+void efxopStoneOBJ_Loop(struct ProcEfxOBJ * proc);

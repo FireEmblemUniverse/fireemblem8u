@@ -28,33 +28,33 @@ ProcScr_efxFireBG:  @ 0x085D54B8
 
 	.global gUnknown_085D54D0
 gUnknown_085D54D0:  @ 0x085D54D0
-    .4byte gUnknown_085F6230 + 0x20
-    .4byte gUnknown_085F6230 + 0xc8
-    .4byte gUnknown_085F6230 + 0x170
-    .4byte gUnknown_085F6230 + 0x228
-    .4byte gUnknown_085F6230 + 0x2f0
-    .4byte gUnknown_085F6230 + 0x3c0
-    .4byte gUnknown_085F6230 + 0x4c0
-    .4byte gUnknown_085F6230 + 0x5c8
-    .4byte gUnknown_085F6230 + 0x6dc
-    .4byte gUnknown_085F6230 + 0x814
-    .4byte gUnknown_085F6230 + 0x918
-    .4byte gUnknown_085F6230 + 0x9ec
+    .4byte Pal_FireSpellBg + 0x20
+    .4byte Pal_FireSpellBg + 0xc8
+    .4byte Pal_FireSpellBg + 0x170
+    .4byte Pal_FireSpellBg + 0x228
+    .4byte Pal_FireSpellBg + 0x2f0
+    .4byte Pal_FireSpellBg + 0x3c0
+    .4byte Pal_FireSpellBg + 0x4c0
+    .4byte Pal_FireSpellBg + 0x5c8
+    .4byte Pal_FireSpellBg + 0x6dc
+    .4byte Pal_FireSpellBg + 0x814
+    .4byte Pal_FireSpellBg + 0x918
+    .4byte Pal_FireSpellBg + 0x9ec
 
 	.global gUnknown_085D5500
 gUnknown_085D5500:  @ 0x085D5500
-    .4byte gUnknown_085F6230 + 0xaac
-    .4byte gUnknown_085F6230 + 0xb54
-    .4byte gUnknown_085F6230 + 0xbfc
-    .4byte gUnknown_085F6230 + 0xcb4
-    .4byte gUnknown_085F6230 + 0xd7c
-    .4byte gUnknown_085F6230 + 0xe4c
-    .4byte gUnknown_085F6230 + 0xf4c
-    .4byte gUnknown_085F6230 + 0x1054
-    .4byte gUnknown_085F6230 + 0x1168
-    .4byte gUnknown_085F6230 + 0x12a0
-    .4byte gUnknown_085F6230 + 0x13a4
-    .4byte gUnknown_085F6230 + 0x1478
+    .4byte Pal_FireSpellBg + 0xaac
+    .4byte Pal_FireSpellBg + 0xb54
+    .4byte Pal_FireSpellBg + 0xbfc
+    .4byte Pal_FireSpellBg + 0xcb4
+    .4byte Pal_FireSpellBg + 0xd7c
+    .4byte Pal_FireSpellBg + 0xe4c
+    .4byte Pal_FireSpellBg + 0xf4c
+    .4byte Pal_FireSpellBg + 0x1054
+    .4byte Pal_FireSpellBg + 0x1168
+    .4byte Pal_FireSpellBg + 0x12a0
+    .4byte Pal_FireSpellBg + 0x13a4
+    .4byte Pal_FireSpellBg + 0x1478
 
 	.global ProcScr_efxFireOBJ
 ProcScr_efxFireOBJ:  @ 0x085D5530

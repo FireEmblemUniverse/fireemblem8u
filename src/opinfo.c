@@ -196,7 +196,7 @@ void ClassReel_Init(struct OpInfoProc* proc) {
 
     NewEfxAnimeDrvProc();
 
-    sub_806E8F0();
+    ResetClassReelSpell();
 
     proc->unk_38 = 0;
     proc->unk_3c = 0;
@@ -306,7 +306,7 @@ void ClassReel_OnEnd(ProcPtr proc) {
 
     EndEfxAnimeDrvProc();
     sub_8009A84(0);
-    sub_806E920();
+    EndActiveClassReelBgColorProc();
 
     return;
 }
@@ -1100,25 +1100,7 @@ void sub_80B3740(void) {
 
 #define gOpInfoData ((struct AnimBuffer *)EWRAM_ENTRY)
 
-struct Unk200A2D8 {
-    u16 unk_00;
-    u16 unk_02;
-    u16 unk_04;
-    u16 unk_06;
-    u16 unk_08;
-    u16 unk_0A;
-    u16 unk_0C;
-    u16 unk_0E;
-    u16 unk_10;
-    u16 unk_12;
-    void* unk_14;
-    void* unk_18;
-    void* unk_1C;
-    void* unk_20;
-    void* unk_24;
-};
-
-extern struct Unk200A2D8 gUnknown_0200A2D8;
+extern struct AnimMagicFxBuffer gUnknown_0200A2D8;
 
 extern struct BanimUnkStructComm gUnknown_0201DB00;
 
@@ -1293,21 +1275,21 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     gOpInfoData->unk_30 = &gUnknown_0200A2D8;
 
-    gUnknown_0200A2D8.unk_00 = proc->classReelEnt->magicFx;
-    gUnknown_0200A2D8.unk_02 = proc->classReelEnt->unk_09;
-    gUnknown_0200A2D8.unk_04 = proc->classReelEnt->unk_0A;
-    gUnknown_0200A2D8.unk_06 = proc->classReelEnt->unk_0B;
-    gUnknown_0200A2D8.unk_08 = proc->classReelEnt->unk_0C;
-    gUnknown_0200A2D8.unk_0E = 0x280;
-    gUnknown_0200A2D8.unk_10 = 0xF;
-    gUnknown_0200A2D8.unk_0A = 0x200;
-    gUnknown_0200A2D8.unk_0C = 0xF;
-    gUnknown_0200A2D8.unk_12 = 1;
-    gUnknown_0200A2D8.unk_14 = gBG1TilemapBuffer;
-    gUnknown_0200A2D8.unk_18 = gUnknown_0200A300;
-    gUnknown_0200A2D8.unk_1C = gUnknown_0200C300;
-    gUnknown_0200A2D8.unk_20 = gUnknown_0200CB00;
-    gUnknown_0200A2D8.unk_24 = sub_80B3740;
+    gUnknown_0200A2D8.magicFuncIdx = proc->classReelEnt->magicFx;
+    gUnknown_0200A2D8.xOffsetBg = proc->classReelEnt->unk_09;
+    gUnknown_0200A2D8.yOffsetBg = proc->classReelEnt->unk_0A;
+    gUnknown_0200A2D8.xOffsetObj = proc->classReelEnt->unk_0B;
+    gUnknown_0200A2D8.yOffsetObj = proc->classReelEnt->unk_0C;
+    gUnknown_0200A2D8.objChr = 0x280;
+    gUnknown_0200A2D8.objPalId = 0xF;
+    gUnknown_0200A2D8.bgChr = 0x200;
+    gUnknown_0200A2D8.bgPalId = 0xF;
+    gUnknown_0200A2D8.bg = 1;
+    gUnknown_0200A2D8.bgTmBuf = gBG1TilemapBuffer;
+    gUnknown_0200A2D8.bgImgBuf = gUnknown_0200A300;
+    gUnknown_0200A2D8.bgTsaBuf = gUnknown_0200C300;
+    gUnknown_0200A2D8.objImgBuf = gUnknown_0200CB00;
+    gUnknown_0200A2D8.resetCallback = sub_80B3740;
 
     NewEkrUnitMainMini(gOpInfoData);
 
@@ -1478,9 +1460,9 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
     SetPrimaryHBlankHandler(0);
 
     EndTalk();
-    sub_806E920();
+    EndActiveClassReelBgColorProc();
     sub_805AE14(&gUnknown_0201DB00);
-    sub_806E904();
+    EndActiveClassReelSpell();
     sub_805AA28(gOpInfoData);
 
     if (proc->unk_3c != 0) {

@@ -380,7 +380,7 @@ void StartSubSpell_efxFimbulvetrOBJ(struct Anim * anim)
     proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_0861ACB8, gUnknown_0861ACB8, gUnknown_0861ACB8, gUnknown_0861ACB8);
     proc->anim2->xPosition += 24;
 
-    SpellFx_RegisterObjPal(Pal_FimbulvetrSprites_Snow, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjPal(Pal_HealSprites_Sparkles, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_FimbulvetrSprites_Snow, 32 * 4 * CHR_SIZE);
 
     return;
@@ -427,7 +427,7 @@ void StartSubSpell_efxFimbulvetrOBJ2(struct Anim * anim)
     proc->unk44 = 1;
     proc->unk48 = 0;
 
-    SpellFx_RegisterObjPal(Pal_FimbulvetrSprites_Snow, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjPal(Pal_HealSprites_Sparkles, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_FimbulvetrSprites_Snow, 32 * 4 * CHR_SIZE);
 
     return;

@@ -235,7 +235,7 @@ void StartSubSpell_efxMistyrainBG(struct Anim * anim)
     proc->frame_config = frames;
     proc->tsar = proc->tsal = gUnknown_085D5920;
     proc->img = gUnknown_085D59C4;
-    SpellFx_RegisterBgPal(gUnknown_0862A2D0, 0x20);
+    SpellFx_RegisterBgPal(Pal_0862A2D0, 0x20);
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != 0)
@@ -317,7 +317,7 @@ void StartSubSpell_efxMistyrainBG2(struct Anim * anim)
     proc->tsar = proc->tsal = gUnknown_085D5920;
     proc->img = gUnknown_085D59C4;
 
-    SpellFx_RegisterBgPal(gUnknown_0862A2F0, 0x20);
+    SpellFx_RegisterBgPal(Pal_0862A2F0, 0x20);
     SpellFx_SetSomeColorEffect();
 
     SetBlendAlpha(10, 7);

@@ -28,13 +28,13 @@ ProcScr_efxThunderBG:  @ 0x085D5440
 
 	.global gUnknown_085D5458
 gUnknown_085D5458:  @ 0x085D5458
-    .4byte gUnknown_085F367C + 0x200
-    .4byte gUnknown_085F367C + 0x2cc
+    .4byte Pal_ThunderSpellBg + 0x200
+    .4byte Pal_ThunderSpellBg + 0x2cc
 
 	.global gUnknown_085D5460
 gUnknown_085D5460:  @ 0x085D5460
-    .4byte gUnknown_085F367C + 0x200
-    .4byte gUnknown_085F367C + 0x2cc
+    .4byte Pal_ThunderSpellBg + 0x200
+    .4byte Pal_ThunderSpellBg + 0x2cc
 
 	.global ProcScr_efxThunderBGCOL
 ProcScr_efxThunderBGCOL:  @ 0x085D5468

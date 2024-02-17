@@ -104,8 +104,8 @@ void NewEfxFireBG(struct Anim *anim)
     proc->tsal = gUnknown_085D54D0;
     proc->tsar = gUnknown_085D5500;
 
-    SpellFx_RegisterBgPal(gUnknown_085F6230, 0x20);
-    SpellFx_RegisterBgGfx(gUnknown_085F5638, 0x2000);
+    SpellFx_RegisterBgPal(Pal_FireSpellBg, 0x20);
+    SpellFx_RegisterBgGfx(Img_FireSpellBg, 0x2000);
     SpellFx_SetSomeColorEffect();
 }
 
@@ -146,8 +146,8 @@ void NewEfxFireOBJ(struct Anim *anim)
     
     anim2->yPosition = anim->yPosition + 0x8;
 
-    SpellFx_RegisterObjPal(gUnknown_085F7D64, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085F7768, 0x1000);
+    SpellFx_RegisterObjPal(Pal_FireSpellSprites, 0x20);
+    SpellFx_RegisterObjGfx(Img_FireSpellSprites, 0x1000);
 }
 
 void sub_805DDA8(struct ProcEfxOBJ *proc)
