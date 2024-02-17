@@ -196,7 +196,7 @@ void ClassReel_Init(struct OpInfoProc* proc) {
 
     NewEfxAnimeDrvProc();
 
-    sub_806E8F0();
+    ResetClassReelSpell();
 
     proc->unk_38 = 0;
     proc->unk_3c = 0;
@@ -306,7 +306,7 @@ void ClassReel_OnEnd(ProcPtr proc) {
 
     EndEfxAnimeDrvProc();
     sub_8009A84(0);
-    sub_806E920();
+    EndActiveClassReelBgColorProc();
 
     return;
 }
@@ -1460,9 +1460,9 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
     SetPrimaryHBlankHandler(0);
 
     EndTalk();
-    sub_806E920();
+    EndActiveClassReelBgColorProc();
     sub_805AE14(&gUnknown_0201DB00);
-    sub_806E904();
+    EndActiveClassReelSpell();
     sub_805AA28(gOpInfoData);
 
     if (proc->unk_3c != 0) {

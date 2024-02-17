@@ -67,7 +67,7 @@ void NewEfxThunderBG(struct Anim *anim)
     proc->tsal = gUnknown_085D5458;
     proc->tsar = gUnknown_085D5460;
 
-    SpellFx_RegisterBgGfx(gUnknown_085F2DC0, 0x10C0);
+    SpellFx_RegisterBgGfx(Img_ThunderSpellBg, 0x10C0);
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
@@ -116,7 +116,7 @@ void NewEfxThunderBGCOL(struct Anim * anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = gUnknown_080DCCC0;
-    proc->pal = gUnknown_085F367C;
+    proc->pal = Pal_ThunderSpellBg;
 }
 
 void sub_805D9F8(struct ProcEfxBGCOL * proc)

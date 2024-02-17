@@ -97,8 +97,8 @@ extern u8 sUnitStackSize;
 
 extern int gBattleScriptted;
 // extern ??? gBaArenaFlag
-// extern ??? gpProcefxopCur
-// extern ??? gUnknown_0203E1EC
+// extern ??? gpActiveClassReelSpellProc
+// extern ??? gpActiveCRSpellBgColorProc
 // extern ??? gManimScanlineBufA
 // extern ??? gManimScanlineBufs
 // extern ??? gManimActiveScanlineBuf

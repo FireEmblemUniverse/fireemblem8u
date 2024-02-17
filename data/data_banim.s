@@ -11538,12 +11538,12 @@ gUnknown_085F2D44:  @ 0x085F2D44
 gUnknown_085F2DAC:  @ 0x085F2DAC
 	.incbin "baserom.gba", 0x5F2DAC, 0x14
 
-	.global gUnknown_085F2DC0
-gUnknown_085F2DC0:  @ 0x085F2DC0
+	.global Img_ThunderSpellBg
+Img_ThunderSpellBg:  @ 0x085F2DC0
 	.incbin "baserom.gba", 0x5F2DC0, 0x8BC
 
-	.global gUnknown_085F367C
-gUnknown_085F367C:  @ 0x085F367C
+	.global Pal_ThunderSpellBg
+Pal_ThunderSpellBg:  @ 0x085F367C
 	.incbin "baserom.gba", 0x5F367C, 0x200    @ 0x5F387C - 0x5F367C
 
 	.global Tsa_085F387C
@@ -12343,12 +12343,12 @@ gUnknown_085F5550:  @ 0x085F5550
     .4byte gUnknown_085F4A24 + 0xac1
     .4byte 0x80000000
 
-	.global gUnknown_085F5638
-gUnknown_085F5638:  @ 0x085F5638
+	.global Img_FireSpellBg
+Img_FireSpellBg:  @ 0x085F5638
 	.incbin "baserom.gba", 0x5F5638, 0xBF8
 
-	.global gUnknown_085F6230
-gUnknown_085F6230:  @ 0x085F6230
+	.global Pal_FireSpellBg
+Pal_FireSpellBg:  @ 0x085F6230
 	.incbin "baserom.gba", 0x5F6230, 0x20    @ 0x5F6250 - 0x5F6230
 
 	.global Tsa_085F6250
@@ -12399,42 +12399,42 @@ Tsa_085F6B48:  @ 0x085F6B48
 Tsa_085F6C1C:  @ 0x085F6C1C
 	.incbin "baserom.gba", 0x5F6C1C, 0xB4C    @ 0x5F7768 - 0x5F6C1C
 
-	.global gUnknown_085F7768
-gUnknown_085F7768:  @ 0x085F7768
+	.global Img_FireSpellSprites
+Img_FireSpellSprites:  @ 0x085F7768
 	.incbin "baserom.gba", 0x5F7768, 0x5FC
 
-	.global gUnknown_085F7D64
-gUnknown_085F7D64:  @ 0x085F7D64
+	.global Pal_FireSpellSprites
+Pal_FireSpellSprites:  @ 0x085F7D64
 	.incbin "baserom.gba", 0x5F7D64, 0x350
 
 	.global gUnknown_085F80B4
 gUnknown_085F80B4:  @ 0x085F80B4
 @ Replacing .incbin "baserom.gba", 0x5F80B4, 0x2C
     .4byte 0x685f7f4d
-    .4byte gUnknown_085F7D64 + 0x23
-    .4byte gUnknown_085F7D64 + 0x3a
-    .4byte gUnknown_085F7D64 + 0x5e
+    .4byte Pal_FireSpellSprites + 0x23
+    .4byte Pal_FireSpellSprites + 0x3a
+    .4byte Pal_FireSpellSprites + 0x5e
     .4byte 0x285f7de6
-    .4byte gUnknown_085F7D64 + 0xa7
-    .4byte gUnknown_085F7D64 + 0xca
-    .4byte gUnknown_085F7D64 + 0x11e
-    .4byte gUnknown_085F7D64 + 0x17e
-    .4byte gUnknown_085F7D64 + 0x1d2
+    .4byte Pal_FireSpellSprites + 0xa7
+    .4byte Pal_FireSpellSprites + 0xca
+    .4byte Pal_FireSpellSprites + 0x11e
+    .4byte Pal_FireSpellSprites + 0x17e
+    .4byte Pal_FireSpellSprites + 0x1d2
     .4byte 0x80000000
 
 	.global gUnknown_085F80E0
 gUnknown_085F80E0:  @ 0x085F80E0
 @ Replacing .incbin "baserom.gba", 0x5F80E0, 0x35C
     .4byte 0x685f7f4d
-    .4byte gUnknown_085F7D64 + 0x23
-    .4byte gUnknown_085F7D64 + 0x3a
-    .4byte gUnknown_085F7D64 + 0x5e
+    .4byte Pal_FireSpellSprites + 0x23
+    .4byte Pal_FireSpellSprites + 0x3a
+    .4byte Pal_FireSpellSprites + 0x5e
     .4byte 0x285f7de6
-    .4byte gUnknown_085F7D64 + 0xa7
-    .4byte gUnknown_085F7D64 + 0x202
-    .4byte gUnknown_085F7D64 + 0x256
-    .4byte gUnknown_085F7D64 + 0x2b6
-    .4byte gUnknown_085F7D64 + 0x30a
+    .4byte Pal_FireSpellSprites + 0xa7
+    .4byte Pal_FireSpellSprites + 0x202
+    .4byte Pal_FireSpellSprites + 0x256
+    .4byte Pal_FireSpellSprites + 0x2b6
+    .4byte Pal_FireSpellSprites + 0x30a
     .4byte 0x80000000
     .4byte 0x50000000
     .4byte 0xfff80000
@@ -24586,12 +24586,12 @@ Img_08629B04:  @ 0x08629B04
 Img_0862A060:  @ 0x0862A060
 	.incbin "baserom.gba", 0x62A060, 0x270    @ 0x62A2D0 - 0x62A060
 
-	.global gUnknown_0862A2D0
-gUnknown_0862A2D0:  @ 0x0862A2D0
+	.global Pal_0862A2D0
+Pal_0862A2D0:  @ 0x0862A2D0
 	.incbin "baserom.gba", 0x62A2D0, 0x20
 
-	.global gUnknown_0862A2F0
-gUnknown_0862A2F0:  @ 0x0862A2F0
+	.global Pal_0862A2F0
+Pal_0862A2F0:  @ 0x0862A2F0
 	.incbin "baserom.gba", 0x62A2F0, 0x20    @ 0x62A310 - 0x62A2F0
 
 	.global Tsa_0862A310
@@ -26362,24 +26362,24 @@ gUnknown_0866F58C:  @ 0x0866F58C
     .4byte 0x84000013
     .4byte 0x80000000
 
-	.global gUnknown_0866F5E4
-gUnknown_0866F5E4:  @ 0x0866F5E4
+	.global Img_HealSpellBg
+Img_HealSpellBg:  @ 0x0866F5E4
 	.incbin "baserom.gba", 0x66F5E4, 0x190
 
 	.global gUnknown_0866F774
 gUnknown_0866F774:  @ 0x0866F774
 	.incbin "baserom.gba", 0x66F774, 0x960
 
-	.global gUnknown_086700D4
-gUnknown_086700D4:  @ 0x086700D4
+	.global Pal_HealSpellBg
+Pal_HealSpellBg:  @ 0x086700D4
 	.incbin "baserom.gba", 0x6700D4, 0x200
 
-	.global gUnknown_086702D4
-gUnknown_086702D4:  @ 0x086702D4
+	.global Img_HealSprites_Sparkles
+Img_HealSprites_Sparkles:  @ 0x086702D4
 	.incbin "baserom.gba", 0x6702D4, 0x254
 
-	.global Pal_FimbulvetrSprites_Snow
-Pal_FimbulvetrSprites_Snow:  @ 0x08670528
+	.global Pal_HealSprites_Sparkles
+Pal_HealSprites_Sparkles:  @ 0x08670528
 	.incbin "baserom.gba", 0x670528, 0x20
 
 	.global gUnknown_08670548
@@ -30923,12 +30923,12 @@ Tsa_086C8DE8:  @ 0x086C8DE8
 Tsa_086C8F4C:  @ 0x086C8F4C
 	.incbin "baserom.gba", 0x6C8F4C, 0x158    @ 0x6C90A4 - 0x6C8F4C
 
-	.global gUnknown_086C90A4
-gUnknown_086C90A4:  @ 0x086C90A4
+	.global Img_086C90A4
+Img_086C90A4:  @ 0x086C90A4
 	.incbin "baserom.gba", 0x6C90A4, 0x358
 
-	.global gUnknown_086C93FC
-gUnknown_086C93FC:  @ 0x086C93FC
+	.global Pal_086C93FC
+Pal_086C93FC:  @ 0x086C93FC
 	.incbin "baserom.gba", 0x6C93FC, 0x1C4
 
 	.global gUnknown_086C95C0

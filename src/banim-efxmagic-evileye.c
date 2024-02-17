@@ -441,8 +441,8 @@ void StartSubSpell_efxEvilEyeOBJ(struct Anim * anim, int terminator)
 
     AnimSort();
 
-    SpellFx_RegisterObjPal(gUnknown_086C93FC, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_086C90A4, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_086C93FC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_086C90A4, 32 * 4 * CHR_SIZE);
 
     return;
 }

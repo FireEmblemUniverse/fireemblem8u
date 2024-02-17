@@ -573,7 +573,7 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
     gUnknown_030053E0.u20 = gEkrBuf2;
     gUnknown_030053E0.u24 = sub_80CD34C;
 
-    sub_806E8F0();
+    ResetClassReelSpell();
     NewEkrUnitMainMini(&gUnknown_030053A0);
 }
 

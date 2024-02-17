@@ -430,7 +430,7 @@ void StartSubSpell_efxLiveBG_A(struct Anim * anim, u32 kind)
             proc->tsal = gUnknown_0866F774;
             proc->tsar = gUnknown_0866F774;
 
-            SpellFx_RegisterBgGfx(gUnknown_0866F5E4, 32 * 1 * CHR_SIZE);
+            SpellFx_RegisterBgGfx(Img_HealSpellBg, 32 * 1 * CHR_SIZE);
 
             if (gEkrDistanceType != 0)
             {
@@ -485,7 +485,7 @@ void StartSubSpell_efxLiveBG_B(struct Anim * anim, u32 kind)
             proc->tsal = gUnknown_0866F774;
             proc->tsar = gUnknown_0866F774;
 
-            SpellFx_RegisterBgGfx(gUnknown_0866F5E4, 32 * 1 * CHR_SIZE);
+            SpellFx_RegisterBgGfx(Img_HealSpellBg, 32 * 1 * CHR_SIZE);
 
             if (gEkrDistanceType != 0)
             {
@@ -670,7 +670,7 @@ void StartSubSpell_efxLiveBGCOL_A(struct Anim * anim, u32 kind)
 
     if (kind == 0)
     {
-        proc->pal = gUnknown_086700D4;
+        proc->pal = Pal_HealSpellBg;
     }
     else if (kind == 1)
     {
@@ -711,7 +711,7 @@ void StartSubSpell_efxLiveBGCOL_B(struct Anim * anim, u32 kind)
 
     if (kind == 0)
     {
-        proc->pal = gUnknown_086700D4;
+        proc->pal = Pal_HealSpellBg;
     }
     else if (kind == 1)
     {
@@ -843,8 +843,8 @@ void StartSubSpell_efxLiveOBJ(struct Anim * anim)
 
     proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_08675114, gUnknown_08675114, gUnknown_08675114, gUnknown_08675114);
 
-    SpellFx_RegisterObjPal(Pal_FimbulvetrSprites_Snow, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_086702D4, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_HealSprites_Sparkles, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_HealSprites_Sparkles, 32 * 4 * CHR_SIZE);
 
     return;
 }
@@ -876,8 +876,8 @@ void StartSubSpell_efxReserveOBJ(struct Anim * anim)
 
     proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_08675114, gUnknown_08675114, gUnknown_08675114, gUnknown_08675114);
 
-    SpellFx_RegisterObjPal(Pal_FimbulvetrSprites_Snow, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_086702D4, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_HealSprites_Sparkles, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_HealSprites_Sparkles, 32 * 4 * CHR_SIZE);
 
     return;
 }
@@ -1175,7 +1175,7 @@ void StartSubSpell_efxReserveBG(struct Anim * anim)
     proc->tsal = TsaArray_Fortify;
     proc->tsar = TsaArray_Fortify;
 
-    SpellFx_RegisterBgGfx(gUnknown_0866F5E4, 32 * 1 * CHR_SIZE);
+    SpellFx_RegisterBgGfx(Img_HealSpellBg, 32 * 1 * CHR_SIZE);
     SpellFx_SetSomeColorEffect();
 
     return;
@@ -1570,7 +1570,7 @@ void StartSubSpell_efxReserveBGCOL2(struct Anim * anim, u32 kind)
 
     if (kind == 0)
     {
-        proc->pal = gUnknown_086700D4;
+        proc->pal = Pal_HealSpellBg;
     }
     else
     {
