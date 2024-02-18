@@ -293,15 +293,20 @@ void LoadTrapData(const struct TrapData * data)
     return;
 }
 
-void LoadChapterTraps() {
+//! FE8U = 0x08037910
+void LoadChapterTraps(void)
+{
     LoadTrapData(GetTrapPointer());
     LoadTrapData(GetHardModeTrapPointer());
 
     return;
 }
 
-void AddGorgonEggTrap(s8 x, s8 y, u8 turnsToHatch, u8 level, u8 unk_05) {
-    AddDamagingTrap(x, y, TRAP_GORGON_EGG, turnsToHatch, level, 1, unk_05);
+//! FE8U = 0x08037928
+void AddGorgonEggTrap(s8 x, s8 y, u8 meta, u8 delay, u8 level)
+{
+    // The value of the "meta" parameter appears to be unused in the game logic
+    AddDamagingTrap(x, y, TRAP_GORGON_EGG, meta, delay, 1, level);
 
     return;
 }

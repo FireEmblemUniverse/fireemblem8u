@@ -654,55 +654,72 @@ void MakePoisonDamageTargetList(int faction) {
     return;
 }
 
-void MakeGorgonEggHatchTargetList(int faction) {
+//! FE8U = 0x08025A64
+void MakeGorgonEggHatchTargetList(int faction)
+{
     int i;
-    s8 r8;
+    s8 damage;
 
     InitTargets(0, 0);
 
-    // Seems to be required to match
-    r8 = 5;
+    // Amount that the Gorgon Egg "heals" per turn
+    damage = 5;
 
-    for (i = faction + 1; i < faction + 0x40; i++) {
-        struct Unit* unit = GetUnit(i);
-        struct Trap* trap;
-        int turnsToHatch;
-        int state;
+    for (i = faction + 1; i < faction + 0x40; i++)
+    {
+        struct Unit * unit = GetUnit(i);
+        struct Trap * trap;
+        int delay;
 
-        if (!UNIT_IS_VALID(unit)) {
+        if (!UNIT_IS_VALID(unit))
+        {
             continue;
         }
 
-        state = unit->state & (US_DEAD | US_NOT_DEPLOYED | US_RESCUED | US_BIT16);
-
-        if (state) {
+        if (unit->state & (US_DEAD | US_NOT_DEPLOYED | US_RESCUED | US_BIT16))
+        {
             continue;
         }
 
-        if (unit->statusIndex != UNIT_STATUS_RECOVER) {
+        if (unit->statusIndex != UNIT_STATUS_RECOVER)
+        {
             continue;
         }
 
-        trap = GetTypedTrapAt(unit->xPos, unit->yPos, 0xC);
+        trap = GetTypedTrapAt(unit->xPos, unit->yPos, TRAP_GORGON_EGG);
 
-        if (trap == 0) {
+        if (trap == NULL)
+        {
             continue;
         }
 
-        turnsToHatch = (u8)trap->data[0] - 1;
-        if (turnsToHatch > 0) {
-            trap->data[0] = turnsToHatch;
-            trap->data[2] = trap->data[1];
-        } else {
-            trap->data[0] = state;
+        // If the egg was assigned a "delay", count down this value first.
+        // The egg does not start healing until the "delay" is 0.
 
-            trap->data[2]++;
+        delay = (u8)trap->data[TRAP_EXTDATA_TRAP_TURNFIRST] - 1;
 
-            if (trap->data[2] >= trap->data[1]) {
-                trap->data[2] = state;
-                AddTarget(unit->xPos, unit->yPos, unit->index, r8);
-            }
+        if (delay > 0)
+        {
+            trap->data[TRAP_EXTDATA_TRAP_TURNFIRST] = delay;
+            trap->data[TRAP_EXTDATA_TRAP_COUNTER] = trap->data[TRAP_EXTDATA_TRAP_TURNNEXT];
+
+            continue;
         }
+
+        trap->data[TRAP_EXTDATA_TRAP_TURNFIRST] = 0;
+
+        trap->data[TRAP_EXTDATA_TRAP_COUNTER]++;
+
+        // Only heal the egg if the turn counter is greater than the interval.
+        // In vanilla FE8, the interval is hard-coded to 1 (i.e. the egg heals every turn).
+
+        if (trap->data[TRAP_EXTDATA_TRAP_COUNTER] < trap->data[TRAP_EXTDATA_TRAP_TURNNEXT])
+        {
+            continue;
+        }
+
+        trap->data[TRAP_EXTDATA_TRAP_COUNTER] = 0;
+        AddTarget(unit->xPos, unit->yPos, unit->index, damage);
     }
 
     return;

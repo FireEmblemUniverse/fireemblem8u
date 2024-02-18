@@ -162,19 +162,25 @@ void MapAnim_Poison2ResetMap(void)
     MU_EndAll();
 }
 
-CONST_DATA struct ProcCmd ProcScr_089A398C[] = {
-    PROC_SLEEP(0x1),
-    PROC_CALL(sub_807CE18),
-    PROC_REPEAT(sub_807CE78),
-    PROC_CALL(sub_807D09C),
-    PROC_SLEEP(0x14),
+CONST_DATA struct ProcCmd ProcScr_MapAnimGorgonHatch[] =
+{
+    PROC_SLEEP(1),
+
+    PROC_CALL(MapAnim_GorgonHatch_Init),
+    PROC_REPEAT(MapAnim_GorgonHatch_Loop),
+
+    PROC_CALL(MapAnim_GorgonHatch_ClearBg2),
+    PROC_SLEEP(20),
+
     PROC_CALL(MapLatonafx_End),
+
     PROC_END
 };
 
-void sub_807CDD0(struct Unit * unit)
+//! FE8U = 0x0807CDD0
+void MapAnim_StartGorgonHatchAnim(struct Unit * unit)
 {
-    struct MAEffectProc * proc = Proc_Start(ProcScr_089A398C, PROC_TREE_3);
+    struct MAEffectProc * proc = Proc_Start(ProcScr_MapAnimGorgonHatch, PROC_TREE_3);
 
     proc->unit = unit;
 
@@ -182,21 +188,22 @@ void sub_807CDD0(struct Unit * unit)
     proc->yDisplay = 8 * (1 + 2 * SCREEN_TILE_Y(unit->yPos));
 }
 
-void sub_807CE18(struct MAEffectProc * proc)
+//! FE8U = 0x0807CE18
+void MapAnim_GorgonHatch_Init(struct MAEffectProc * proc)
 {
     sub_807E978();
     BG_SetPosition(BG_2, 0, 0);
 
     // TODO: BM_BANIM_BGCHR_...
     Decompress(
-        Img_089B7610,
-        (void*)(VRAM) + GetBackgroundTileDataOffset(BG_2) + BM_BGCHR_BANIM_UNK160 * 0x20);
+        Img_GorgonHatchCloud,
+        (void *)(VRAM) + GetBackgroundTileDataOffset(BG_2) + BM_BGCHR_BANIM_UNK160 * CHR_SIZE);
 
     ApplyPalette(
-        Pal_089B80C4,
+        Pal_GorgonHatchCloud,
         BM_BGPAL_BANIM_UNK4);
 
-    SetSpecialColorEffectsParameters(1, 16, 16, 0);
+    SetBlendAlpha(16, 16);
 
     proc->unk40 = 0;
     proc->unk42 = 0;
@@ -204,17 +211,19 @@ void sub_807CE18(struct MAEffectProc * proc)
     EnablePaletteSync();
 }
 
-CONST_DATA u16 * ImgLut_089A39C4[] = {
-    Img_089B80E4,
-    Img_089B8140,
-    Img_089B81A4,
-    Img_089B8214,
-    Img_089B828C,
-    Img_089B82F0,
-    Img_089B835C,
+CONST_DATA u16 * TsaLut_GorgonHatchCloud[] =
+{
+    Tsa_GorgonHatchCloud_A,
+    Tsa_GorgonHatchCloud_B,
+    Tsa_GorgonHatchCloud_C,
+    Tsa_GorgonHatchCloud_D,
+    Tsa_GorgonHatchCloud_E,
+    Tsa_GorgonHatchCloud_F,
+    Tsa_GorgonHatchCloud_G,
 };
 
-void sub_807CE78(struct MAEffectProc * proc)
+//! FE8U = 0x0807CE78
+void MapAnim_GorgonHatch_Loop(struct MAEffectProc * proc)
 {
     if (proc->unk42 == 0)
     {
@@ -222,16 +231,16 @@ void sub_807CE78(struct MAEffectProc * proc)
             PlaySeSpacial(0x3CA, proc->xDisplay); // TODO: song ids
 
         else if (proc->unk40 == 1)
-            sub_807CF30(proc);
+            LoadGorgonFromEgg(proc);
 
         else if (proc->unk40 > 6)
         {
-            Proc_Break((struct Proc*) proc);
+            Proc_Break(proc);
             return;
         }
 
         Decompress(
-            ImgLut_089A39C4[proc->unk40],
+            TsaLut_GorgonHatchCloud[proc->unk40],
             gGenericBuffer);
 
         sub_800159C(
@@ -250,7 +259,8 @@ void sub_807CE78(struct MAEffectProc * proc)
     proc->unk42--;
 }
 
-void sub_807CF30(struct MAEffectProc* proc)
+//! FE8U = 0x0807CF30
+void LoadGorgonFromEgg(struct MAEffectProc * proc)
 {
     int unused = DivRem(AdvanceGetLCGRNValue(), 101);
 
@@ -268,13 +278,13 @@ void sub_807CF30(struct MAEffectProc* proc)
     gUnitDefEggHatching.autolevel = TRUE;
 
     if (UNIT_FACTION(proc->unit) == FACTION_BLUE)
-        gUnitDefEggHatching.allegiance = 0;
+        gUnitDefEggHatching.allegiance = FACTION_ID_BLUE;
 
     else if (UNIT_FACTION(proc->unit) == FACTION_RED)
-        gUnitDefEggHatching.allegiance = 2;
+        gUnitDefEggHatching.allegiance = FACTION_ID_RED;
 
     else if (UNIT_FACTION(proc->unit) == FACTION_GREEN)
-        gUnitDefEggHatching.allegiance = 1;
+        gUnitDefEggHatching.allegiance = FACTION_ID_GREEN;
 
     gUnitDefEggHatching.level = level;
 
@@ -313,7 +323,8 @@ void sub_807CF30(struct MAEffectProc* proc)
     MU_EndAll();
 }
 
-void sub_807D09C(void)
+//! FE8U = 0x0807D09C
+void MapAnim_GorgonHatch_ClearBg2(void)
 {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);

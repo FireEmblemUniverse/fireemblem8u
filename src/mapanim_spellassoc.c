@@ -346,10 +346,10 @@ void sub_8081950(ProcPtr proc)
     NewMapAnimPoisonAnim2(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
-void sub_8081970(ProcPtr proc)
+void MapAnim_StartGorgonHatchConditional(ProcPtr proc)
 {
     if (gManimSt.actor[0].hp_cur >= gManimSt.actor[0].hp_max)
-        sub_807CDD0(gManimSt.actor[gManimSt.targetActorId].unit);
+        MapAnim_StartGorgonHatchAnim(gManimSt.actor[gManimSt.targetActorId].unit);
     else
         Proc_EndEach(ProcScr_EggDmgMapEffect2);
 }
@@ -914,24 +914,33 @@ CONST_DATA struct ProcCmd ProcScr_PoisonDmgMapEffect[] = {
     PROC_END
 };
 
-CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect1[] = {
+CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect1[] =
+{
     PROC_CALL(MapAnim_MoveCameraOnTarget),
-    PROC_SLEEP(0x2),
+    PROC_SLEEP(2),
+
     PROC_CALL(SpellWarpStartFlashFade),
     PROC_CALL(MapAnim_BeginRoundSpecificAnims),
-    PROC_SLEEP(0x5),
+    PROC_SLEEP(5),
+
     PROC_REPEAT(MapAnim_WaitForHPToEndChangingMaybe),
-    PROC_SLEEP(0x5),
+    PROC_SLEEP(5),
+
     PROC_CALL(sub_8081E60),
+
     PROC_END
 };
 
-CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect2[] = {
+CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect2[] =
+{
     PROC_CALL(MapAnim_MoveCameraOnTarget),
-    PROC_SLEEP(0x2),
-    PROC_CALL(sub_8081970),
-    PROC_SLEEP(0x2),
-    PROC_SLEEP(0x32),
+    PROC_SLEEP(2),
+
+    PROC_CALL(MapAnim_StartGorgonHatchConditional),
+    PROC_SLEEP(2),
+
+    PROC_SLEEP(50),
+
     PROC_END
 };
 

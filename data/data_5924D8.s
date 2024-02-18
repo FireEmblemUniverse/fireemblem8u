@@ -54,7 +54,7 @@ ProcScr_BoomFogFx:  @ 0x085925D0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807CE18
+        .word MapAnim_GorgonHatch_Init
         @ PROC_WHILE
         .short 0x14, 0x0
         .word APProc_Exists
