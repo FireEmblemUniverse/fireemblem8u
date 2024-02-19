@@ -472,7 +472,7 @@ int AreAnyEnemyUnitDead(void);
 // ??? sub_8085354(???);
 // ??? sub_8085370(???);
 
-void sub_8086690(u8 a, int b, int c, int d, int e, int f);
+// void AutoGenerateUnitdef(u8 a, int b, int c, int d, int e, int f);
 void sub_808679C(void);
 // ??? sub_808683C(???);
 // ??? sub_8086928(???);

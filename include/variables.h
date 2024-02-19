@@ -145,8 +145,7 @@ extern u16 gUnknown_030018F0[];
 // extern ??? gUnknown_03001C74
 extern u8 gUnknown_03001C7C;
 // extern ??? gActiveEventRegistry
-// extern ??? gUnknown_03001CC0
-// extern ??? gUnknown_03001CC8
+
 // extern ??? gUnknown_03001D50
 // extern ??? gUnknown_03001DA8
 // extern ??? gUnknown_03001DE8
@@ -916,7 +915,7 @@ extern u16 CONST_DATA *ImgLut_EventMapAnimMaskfx[];    /* images */
 extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */
 extern struct ProcCmd ProcScr_EventMapAnim[];
 extern struct ProcCmd gUnknown_089EEA28[];
-// extern ??? gUnknown_089FF480
+// extern ??? gAutoUdefJids
 // extern ??? EventScr_SkirmishCommonBeginning
 // extern ??? EventScr_8A0035C
 // extern ??? EventScr_8A00364
