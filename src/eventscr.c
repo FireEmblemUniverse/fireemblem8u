@@ -36,10 +36,8 @@
 #include "EAstdlib.h"
 #include "eventcall.h"
 #include "bmdifficulty.h"
+#include "bmfx.h"
 
-void CopyBgImage(int, int, int);
-void CopyBgTiles(int, int, int);
-void CopyBgPalette(int, int, int);
 void BgChangeChr(int, int);
 
 //! FE8U = 0x0800D5A0
@@ -749,13 +747,13 @@ u8 Event18_ColorFade(struct EventEngineProc * proc)
 
     u8 subcode = EVT_SUB_CMD(proc->pEventCurrent);
 
-    u8 evArgumentBitStart = EVT_CMD_ARGV(proc->pEventCurrent)[0];
-    u8 evArgumentBitCount = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
+    u8 start = EVT_CMD_ARGV(proc->pEventCurrent)[0];
+    u8 size  = EVT_CMD_ARGV(proc->pEventCurrent)[0] >> 8;
 
-    u32 evArgument2 = proc->pEventCurrent[2];
-    u32 evArgument3 = proc->pEventCurrent[3];
-    u32 evArgument4 = proc->pEventCurrent[4];
-    u32 evArgument5 = proc->pEventCurrent[5];
+    u16 speed = proc->pEventCurrent[2];
+    u16 r = proc->pEventCurrent[3];
+    u16 g = proc->pEventCurrent[4];
+    u16 b = proc->pEventCurrent[5];
 
     switch (subcode)
     {
@@ -772,18 +770,18 @@ u8 Event18_ColorFade(struct EventEngineProc * proc)
             s8 i;
 
             if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
-                evArgument2 = 0;
+                speed = 0;
 
             mask = 0;
 
-            for (i = evArgumentBitCount; i > 0; --i)
+            for (i = size; i > 0; --i)
             {
-                s8 tmp = evArgumentBitStart;
+                s8 tmp = start;
                 mask = mask | (1 << tmp);
-                evArgumentBitStart = tmp + 1;
+                start = tmp + 1;
             }
 
-            sub_8012890(evArgument2, mask, evArgument3, evArgument4, evArgument5, proc);
+            NewEventFadefx(speed, mask, r, g, b, proc);
 
             return EVC_ADVANCE_YIELD;
         }

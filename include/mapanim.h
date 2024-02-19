@@ -15,6 +15,9 @@ enum {
 #define SCREEN_TILE_X(xPos) ((xPos) - (gBmSt.camera.x >> 4))
 #define SCREEN_TILE_Y(yPos) ((yPos) - (gBmSt.camera.y >> 4))
 
+#define SCREEN_TILE_IX(xPos) ((xPos) * 16 - (gBmSt.camera.x))
+#define SCREEN_TILE_IY(yPos) ((yPos) * 16 - (gBmSt.camera.y))
+
 struct MAExpBarProc {
     /* 00 */ PROC_HEADER;
 
@@ -370,7 +373,7 @@ extern CONST_DATA struct ProcCmd ProcScr_SpellAssocWarp[];
 extern u16 SpriteAnim_ManimStatGain[];
 extern u16 gUnknown_089A5A6C[];
 // extern ??? gUnknown_089A61F8
-// extern ??? gUnknown_089A6254
+extern u16 ApConf_089A6254[];
 extern u16 CONST_DATA Obj_PoisonAnim[];
 extern u16 CONST_DATA Obj_WallBreakAnim[];
 extern const u16 ApHandle_GmapSoguSprites[];
@@ -422,8 +425,8 @@ extern u16 CONST_DATA Pal_089AFFB8[];
 extern u8 CONST_DATA gUnknown_089AFFF8[];
 // extern ??? gUnknown_089B03D4
 // extern ??? gUnknown_089B068C
-// extern ??? gUnknown_089B06AC
-// extern ??? gUnknown_089B0700
+extern u8 Img_089B06AC[];
+extern u16 Pal_089B0700[];
 // extern ??? gUnknown_089B0720
 // extern ??? gUnknown_089B0820
 // extern ??? gUnknown_089B0840
@@ -620,12 +623,12 @@ void MapAnimCallSpellAssocBarrierfx(struct Unit * unit);
 // ??? sub_807E67C(???);
 // ??? sub_807E6E0(???);
 void sub_807E760(int, int);
-// ??? sub_807E79C(???);
-// ??? sub_807E7C4(???);
+void HideUnitUnlockDoor(void);
+void UnhideUnit(void);
 // ??? sub_807E7E0(???);
 // ??? sub_807E8B0(???);
 // ??? sub_807E934(???);
-void sub_807E978(void);
+void SetDefaultMapAnimScreenConf(void);
 // ??? sub_807EA20(???);
 // ??? sub_807EA50(???);
 // ??? sub_807EA60(???);

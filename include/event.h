@@ -253,9 +253,9 @@ unsigned SlotQueuePop(void);
 void SetEventSlotCounter(unsigned value);
 unsigned GetEventSlotCounter(void);
 
-// void CopyBgImage(u8 bg1, u8 bg2, u8 c);
-// void CopyBgTiles(u8 a, u8 bg, u8 c);
-// void CopyBgPalette(u8 a, u8 b, u8 c);
+void CopyBgImage(u8 bg1, u8 bg2, u8 nbgs);
+void CopyBgTiles(u8 src, u8 dst, u8 nbgs);
+void CopyBgPalette(u8 src, u8 dst, u8 npals);
 // void BgChangeChr(u8 bg, u8 b);
 void sub_800BA04(u8, u8);
 void sub_800BA34(void);

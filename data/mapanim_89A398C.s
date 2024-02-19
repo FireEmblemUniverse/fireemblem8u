@@ -418,13 +418,13 @@ gUnknown_089A3E6C:  @ 0x089A3E6C
         .word sub_807DA68
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807E79C
+        .word HideUnitUnlockDoor
         @ PROC_SLEEP
         .short 0xe, 0x4
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807E7C4
+        .word UnhideUnit
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

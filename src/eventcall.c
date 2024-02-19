@@ -36,6 +36,7 @@
 #include "prepscreen.h"
 #include "eventinfo.h"
 #include "mapanim.h"
+#include "muctrl.h"
 
 #include "eventcall.h"
 
@@ -1037,4 +1038,79 @@ void AutolevelSecondaryLord()
             break;
         }
     }
+}
+
+void AutoGenerateUnitdef(u8 idx, int jid, s8 x_from, s8 y_from, s8 x_to, s8 y_to)
+{
+    gUdefREDAs[idx].x = x_to;
+    gUdefREDAs[idx].y = y_to;
+    gUdefREDAs[idx].flags = 0;
+    gUdefREDAs[idx].a = 0;
+    gUdefREDAs[idx].b = 0xFFFF;
+    gUdefREDAs[idx].delayFrames = 30;
+
+
+    gUdefs[idx].charIndex = CHARACTER_EIRIKA;
+    gUdefs[idx].classIndex = jid;
+    gUdefs[idx].leaderCharIndex = 0;
+    gUdefs[idx].autolevel = false;
+    gUdefs[idx].allegiance = FACTION_ID_RED;
+    gUdefs[idx].level = 1;
+    gUdefs[idx].xPosition = x_from;
+    gUdefs[idx].yPosition = y_from;
+    gUdefs[idx].genMonster = false;
+    gUdefs[idx].itemDrop = true;
+    gUdefs[idx].unk_05_7 = false;
+    gUdefs[idx].extraData = 0;
+    gUdefs[idx].redaCount = 1;
+    gUdefs[idx].redas = &gUdefREDAs[idx];
+
+    gUdefs[idx].items[0] = 0;
+    gUdefs[idx].items[1] = 0;
+    gUdefs[idx].items[2] = 0;
+    gUdefs[idx].items[3] = 0;
+
+    gUdefs[idx].ai[0] = 0;
+    gUdefs[idx].ai[1] = 0;
+    gUdefs[idx].ai[2] = 0;
+    gUdefs[idx].ai[3] = 0;
+}
+
+void sub_808679C(void)
+{
+#if NONMATCHING
+    AutoGenerateUnitdef(0, gAutoUdefJids[0 + 4 * gUdefCnt], 0, 2, 14, 2);
+    AutoGenerateUnitdef(1, gAutoUdefJids[1 + 4 * gUdefCnt], 0, 3, 14, 3);
+    AutoGenerateUnitdef(2, gAutoUdefJids[2 + 4 * gUdefCnt], 0, 4, 14, 4);
+    AutoGenerateUnitdef(3, gAutoUdefJids[3 + 4 * gUdefCnt], 0, 5, 14, 5);
+#else
+    int val;
+    u8 jid;
+    u8 * jid_lut;
+
+    jid = gAutoUdefJids[0 + 4 * gUdefCnt];
+    AutoGenerateUnitdef(0, jid, 0, 2, 14, 2);
+
+    val = 4 * gUdefCnt;
+    jid_lut = gAutoUdefJids + 1;
+    jid = jid_lut[val];
+    AutoGenerateUnitdef(1, jid, 0, 3, 14, 3);
+
+    val = 4 * gUdefCnt;
+    jid_lut = gAutoUdefJids + 2;
+    jid = jid_lut[val];
+    AutoGenerateUnitdef(2, jid, 0, 4, 14, 4);
+
+    val = 4 * gUdefCnt;
+    jid_lut = gAutoUdefJids + 3;
+    jid = jid_lut[val];
+    AutoGenerateUnitdef(3, jid, 0, 5, 14, 5);
+#endif
+
+    /* Terminator */
+    gUdefs[4].charIndex = 0;
+
+    gUdefCnt++;
+    if (gAutoUdefJids[4 * gUdefCnt] == 0)
+        gUdefCnt = 0;
 }

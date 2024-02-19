@@ -118,7 +118,7 @@ extern int gBattleScriptted;
 // extern ??? gPopupNumber
 // extern ??? ItemBackupEvtBattle
 // extern ??? gUnknown_03000600
-// extern ??? gUnknown_03000700
+// extern ??? sEventFadeSt
 // extern ??? gUnknown_03000800
 // extern ??? gUnknown_03000808
 // extern ??? gUnknown_03001788
@@ -145,8 +145,7 @@ extern u16 gUnknown_030018F0[];
 // extern ??? gUnknown_03001C74
 extern u8 gUnknown_03001C7C;
 // extern ??? gActiveEventRegistry
-// extern ??? gUnknown_03001CC0
-// extern ??? gUnknown_03001CC8
+
 // extern ??? gUnknown_03001D50
 // extern ??? gUnknown_03001DA8
 // extern ??? gUnknown_03001DE8
@@ -416,13 +415,13 @@ extern const char *gStrPrefix[][2];
 // extern ??? gPopup_WpnBroken
 // extern ??? gPopup_WRankUp
 // extern ??? gPopup_NewAlly
-// extern ??? gProcScr_BrownTextBox
-// extern ??? gProcScr_08592530
-// extern ??? gUnknown_08592568
-// extern ??? gUnknown_08592580
-// extern ??? ProcScr_BoomFogFx
-// extern ??? ProcScr_EventEarthQuake
-// extern ??? gProcScr_StoneShatterEvent
+extern struct ProcCmd CONST_DATA gProcScr_BrownTextBox[];
+extern struct ProcCmd CONST_DATA gProcScr_08592530[];
+extern struct ProcCmd CONST_DATA ProcScr_EventFadefx[];
+extern struct ProcCmd CONST_DATA ProcScr_ShinningStonefx[];
+extern struct ProcCmd CONST_DATA ProcScr_BoomFogFx[];
+extern struct ProcCmd CONST_DATA ProcScr_EventEarthQuake[];
+extern struct ProcCmd CONST_DATA gProcScr_StoneShatterEvent[];
 // extern ??? BmBgxConf_StoneShatter
 // extern ??? gUnknown_085926F4
 // extern ??? gUnknown_085996F4
@@ -916,7 +915,7 @@ extern u16 CONST_DATA *ImgLut_EventMapAnimMaskfx[];    /* images */
 extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */
 extern struct ProcCmd ProcScr_EventMapAnim[];
 extern struct ProcCmd gUnknown_089EEA28[];
-// extern ??? gUnknown_089FF480
+// extern ??? gAutoUdefJids
 // extern ??? EventScr_SkirmishCommonBeginning
 // extern ??? EventScr_8A0035C
 // extern ??? EventScr_8A00364

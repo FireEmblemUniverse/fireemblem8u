@@ -9554,7 +9554,7 @@ CONST_DATA EventListScr EventScr_089FF478[] = {
     ENDA
 };
 
-CONST_DATA u8 gUnknown_089FF480[8] = {
+CONST_DATA u8 gAutoUdefJids[8] = {
     0x58, 0x5B, 0x5F, 0x61, 0, 0, 0, 0
 };
 
@@ -9565,7 +9565,7 @@ LABEL(0x0)
     CLEE
     CLEN
     ASMC(sub_808679C)
-    LOAD2(0x1, UnitDef_03001CE8)
+    LOAD2(0x1, gUdefs)
     ENUN
     GOTO(0x0)
     ENDA

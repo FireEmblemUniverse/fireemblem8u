@@ -123,6 +123,11 @@ u8 Command_EirikaMode(struct MenuProc* menu, struct MenuItemProc* menu_item);
 u8 Command_EphraimMode(struct MenuProc* menu, struct MenuItemProc* menu_item);
 void AutolevelSecondaryLord();
 
+extern u8 gUdefCnt;
+extern struct UnitDefinition gUdefs[];
+extern struct REDA gUdefREDAs[];
+extern CONST_DATA u8 gAutoUdefJids[8];
+
 extern CONST_DATA EventListScr EventScr_9EEA58[];
 extern CONST_DATA EventListScr EventScr_9EEAAC[];
 extern CONST_DATA EventListScr EventScr_9EEB00[];
@@ -830,7 +835,7 @@ extern CONST_DATA EventListScr EventScr_089FF450[];
 extern CONST_DATA EventListScr EventScr_089FF458[];
 extern CONST_DATA EventListScr EventScr_089FF474[];
 extern CONST_DATA EventListScr EventScr_089FF478[];
-// extern CONST_DATA EventListScr gUnknown_089FF480[];
+// extern CONST_DATA EventListScr gAutoUdefJids[];
 extern CONST_DATA EventListScr EventScr_089FF4B8[];
 extern CONST_DATA EventListScr EventScr_089FF4D8[];
 extern CONST_DATA EventListScr EventScr_089FF4E4[];
@@ -910,7 +915,6 @@ extern CONST_DATA EventListScr EventScr_08A005B4[];
 extern CONST_DATA EventListScr EventScr_08A0062C[];
 extern CONST_DATA EventListScr EventScr_08A00680[];
 
-extern struct UnitDefinition UnitDef_03001CE8[];
 extern CONST_DATA struct UnitDefinition UnitDef_Event_PrologueAlly[];
 extern CONST_DATA struct UnitDefinition UnitDef_Event_PrologueEnemy[];
 extern CONST_DATA struct UnitDefinition UnitDef_Event_PrologueThroneRoomUnits[];

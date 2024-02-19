@@ -28,7 +28,7 @@
 . = 0x0005D0; src/popup.o(.bss);
 . = 0x0005FC; ItemBackupEvtBattle = .;
 . = 0x000600; gUnknown_03000600 = .;
-. = 0x000700; gUnknown_03000700 = .;
+. = 0x000700; src/eventfx-fade.o(.bss);
 . = 0x000800; gUnknown_03000800 = .;
 . = 0x000808;
 . = ALIGN(4); src/bmmap.o(.bss);
@@ -69,9 +69,9 @@
 . = 0x001C74; gUnknown_03001C74 = .;
 . = 0x001C7C; gUnknown_03001C7C = .;
 . = 0x001C80; gActiveEventRegistry = .;
-. = 0x001CC0; gUnknown_03001CC0 = .;
-. = 0x001CC8; gUnknown_03001CC8 = .;
-. = 0x001CE8; UnitDef_03001CE8 = .;
+. = 0x001CC0; gUdefCnt = .;
+. = 0x001CC8; gUdefREDAs = .;
+. = 0x001CE8; gUdefs = .;
 . = 0x001D50; gUnknown_03001D50 = .;
 . = 0x001DA0; gText_GoldBox = .;
 . = 0x001DA8; gUnknown_03001DA8 = .;
