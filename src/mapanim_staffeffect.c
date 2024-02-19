@@ -34,7 +34,7 @@ void MapAnimCallSpellAssocLatonafx(struct Unit * unit)
 
 void MapLatonafx_Init(struct MAEffectProc * proc)
 {
-    sub_807E978();
+    SetDefaultMapAnimScreenConf();
     BG_SetPosition(2, 0, 0);
 
     Decompress(
@@ -255,7 +255,7 @@ void MapAnimCallSpellAssocNightMarefx(struct Unit * unit)
 
 void NightMarefx_Init(struct MAEffectProc * proc)
 {
-    sub_807E978();
+    SetDefaultMapAnimScreenConf();
     BG_SetPosition(2, 0, 0);
 
     Decompress(

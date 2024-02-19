@@ -118,7 +118,7 @@ extern int gBattleScriptted;
 // extern ??? gPopupNumber
 // extern ??? ItemBackupEvtBattle
 // extern ??? gUnknown_03000600
-// extern ??? gUnknown_03000700
+// extern ??? sEventFadeSt
 // extern ??? gUnknown_03000800
 // extern ??? gUnknown_03000808
 // extern ??? gUnknown_03001788
@@ -416,13 +416,13 @@ extern const char *gStrPrefix[][2];
 // extern ??? gPopup_WpnBroken
 // extern ??? gPopup_WRankUp
 // extern ??? gPopup_NewAlly
-// extern ??? gProcScr_BrownTextBox
-// extern ??? gProcScr_08592530
-// extern ??? gUnknown_08592568
-// extern ??? gUnknown_08592580
-// extern ??? ProcScr_BoomFogFx
-// extern ??? ProcScr_EventEarthQuake
-// extern ??? gProcScr_StoneShatterEvent
+extern struct ProcCmd CONST_DATA gProcScr_BrownTextBox[];
+extern struct ProcCmd CONST_DATA gProcScr_08592530[];
+extern struct ProcCmd CONST_DATA ProcScr_EventFadefx[];
+extern struct ProcCmd CONST_DATA ProcScr_ShinningStonefx[];
+extern struct ProcCmd CONST_DATA ProcScr_BoomFogFx[];
+extern struct ProcCmd CONST_DATA ProcScr_EventEarthQuake[];
+extern struct ProcCmd CONST_DATA gProcScr_StoneShatterEvent[];
 // extern ??? BmBgxConf_StoneShatter
 // extern ??? gUnknown_085926F4
 // extern ??? gUnknown_085996F4

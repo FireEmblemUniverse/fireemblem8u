@@ -191,7 +191,7 @@ void MapAnim_StartGorgonHatchAnim(struct Unit * unit)
 //! FE8U = 0x0807CE18
 void MapAnim_GorgonHatch_Init(struct MAEffectProc * proc)
 {
-    sub_807E978();
+    SetDefaultMapAnimScreenConf();
     BG_SetPosition(BG_2, 0, 0);
 
     // TODO: BM_BANIM_BGCHR_...

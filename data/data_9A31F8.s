@@ -25,8 +25,8 @@ gUnknown_089A5A6C:  @ 0x089A5A6C
 gUnknown_089A61F8:  @ 0x089A61F8
 	.incbin "baserom.gba", 0x9A61F8, 0x5C
 
-	.global gUnknown_089A6254
-gUnknown_089A6254:  @ 0x089A6254
+	.global ApConf_089A6254
+ApConf_089A6254:  @ 0x089A6254
 	.incbin "baserom.gba", 0x9A6254, 0xCEC
 
 	.global Obj_PoisonAnim
@@ -233,12 +233,12 @@ gUnknown_089B03D4:  @ 0x089B03D4
 gUnknown_089B068C:  @ 0x089B068C
 	.incbin "baserom.gba", 0x9B068C, 0x20
 
-	.global gUnknown_089B06AC
-gUnknown_089B06AC:  @ 0x089B06AC
+	.global Img_089B06AC
+Img_089B06AC:  @ 0x089B06AC
 	.incbin "baserom.gba", 0x9B06AC, 0x54
 
-	.global gUnknown_089B0700
-gUnknown_089B0700:  @ 0x089B0700
+	.global Pal_089B0700
+Pal_089B0700:  @ 0x089B0700
 	.incbin "baserom.gba", 0x9B0700, 0x20
 
 	.global gUnknown_089B0720

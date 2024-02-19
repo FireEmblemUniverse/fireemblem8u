@@ -1481,7 +1481,7 @@ _08080D68: .4byte gBmSt
 sub_8080D6C: @ 0x08080D6C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
@@ -1672,7 +1672,7 @@ _08080EE0: .4byte gBmSt
 sub_8080EE4: @ 0x08080EE4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
@@ -1881,7 +1881,7 @@ _08081074: .4byte ProcScr_GlowingCross
 sub_8081078: @ 0x08081078
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	ldr r2, _080810F0  @ gLCDControlBuffer
 	ldrb r3, [r2, #0xc]
 	movs r1, #4

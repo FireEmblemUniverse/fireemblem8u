@@ -226,7 +226,7 @@ sub_807D6D8: @ 0x0807D6D8
 	movs r1, #0x80
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -776,7 +776,7 @@ sub_807DB30: @ 0x0807DB30
 	adds r0, r7, #0
 	bl Proc_Break
 _0807DB80:
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #1
 	movs r1, #0xc
 	movs r2, #0xc
@@ -885,7 +885,7 @@ _0807DBFC:
 _0807DC60:
 	bl InitScanline
 	bl sub_8081EAC
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
@@ -1072,7 +1072,7 @@ sub_807DDC8: @ 0x0807DDC8
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	ldr r0, _0807DE1C  @ gUnknown_089B1E10
 	ldr r1, _0807DE20  @ 0x06013800
 	bl Decompress
@@ -1160,7 +1160,7 @@ sub_807DE80: @ 0x0807DE80
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -1508,7 +1508,7 @@ sub_807E118: @ 0x0807E118
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	ldr r0, _0807E168  @ Img_SleepSprites
 	ldr r1, _0807E16C  @ 0x06013800
 	bl Decompress
@@ -1637,7 +1637,7 @@ _0807E228: .4byte gBmSt
 sub_807E22C: @ 0x0807E22C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
@@ -1824,7 +1824,7 @@ sub_807E390: @ 0x0807E390
 	bl sub_8081EAC
 	ldr r0, _0807E3F0  @ sub_8081FA8
 	bl SetPrimaryHBlankHandler
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -1985,7 +1985,7 @@ sub_807E4D0: @ 0x0807E4D0
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	ldr r4, _0807E568  @ gUnknown_089B2618
 	movs r0, #2
 	bl GetBackgroundTileDataOffset
@@ -2191,7 +2191,7 @@ sub_807E67C: @ 0x0807E67C
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -2322,8 +2322,8 @@ _0807E798: .4byte gBmSt
 
 	THUMB_FUNC_END sub_807E760
 
-	THUMB_FUNC_START sub_807E79C
-sub_807E79C: @ 0x0807E79C
+	THUMB_FUNC_START HideUnitUnlockDoor
+HideUnitUnlockDoor: @ 0x0807E79C
 	push {r4, lr}
 	ldr r4, _0807E7C0  @ gActionData
 	ldrb r0, [r4, #0xc]
@@ -2343,10 +2343,10 @@ sub_807E79C: @ 0x0807E79C
 	.align 2, 0
 _0807E7C0: .4byte gActionData
 
-	THUMB_FUNC_END sub_807E79C
+	THUMB_FUNC_END HideUnitUnlockDoor
 
-	THUMB_FUNC_START sub_807E7C4
-sub_807E7C4: @ 0x0807E7C4
+	THUMB_FUNC_START UnhideUnit
+UnhideUnit: @ 0x0807E7C4
 	push {lr}
 	ldr r0, _0807E7DC  @ gActionData
 	ldrb r0, [r0, #0xc]
@@ -2361,7 +2361,7 @@ sub_807E7C4: @ 0x0807E7C4
 	.align 2, 0
 _0807E7DC: .4byte gActionData
 
-	THUMB_FUNC_END sub_807E7C4
+	THUMB_FUNC_END UnhideUnit
 
 	THUMB_FUNC_START sub_807E7E0
 sub_807E7E0: @ 0x0807E7E0
@@ -2410,10 +2410,10 @@ _0807E822:
 	bl sub_801474C
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	ldr r0, _0807E8A0  @ gUnknown_089B06AC
+	ldr r0, _0807E8A0  @ Img_089B06AC
 	ldr r1, _0807E8A4  @ 0x06013800
 	bl Decompress
-	ldr r0, _0807E8A8  @ gUnknown_089B0700
+	ldr r0, _0807E8A8  @ Pal_089B0700
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -2426,7 +2426,7 @@ _0807E822:
 	bl sub_80144CC
 	bl InitScanline
 	bl sub_8081EAC
-	bl sub_807E978
+	bl SetDefaultMapAnimScreenConf
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0x10
@@ -2446,9 +2446,9 @@ _0807E890: .4byte 0x06002C00
 _0807E894: .4byte gBG2TilemapBuffer
 _0807E898: .4byte 0x00004160
 _0807E89C: .4byte gUnknown_089B0840
-_0807E8A0: .4byte gUnknown_089B06AC
+_0807E8A0: .4byte Img_089B06AC
 _0807E8A4: .4byte 0x06013800
-_0807E8A8: .4byte gUnknown_089B0700
+_0807E8A8: .4byte Pal_089B0700
 _0807E8AC: .4byte gUnknown_089B0820
 
 	THUMB_FUNC_END sub_807E7E0
@@ -2487,7 +2487,7 @@ sub_807E8B0: @ 0x0807E8B0
 	strh r0, [r4]
 	adds r0, r7, #0
 	bl Proc_Break
-	ldr r5, _0807E92C  @ gUnknown_089A6254
+	ldr r5, _0807E92C  @ ApConf_089A6254
 	ldr r1, [r7, #0x30]
 	ldr r2, [r7, #0x34]
 	ldr r6, _0807E930  @ 0x000041C0
@@ -2514,7 +2514,7 @@ _0807E920:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807E92C: .4byte gUnknown_089A6254
+_0807E92C: .4byte ApConf_089A6254
 _0807E930: .4byte 0x000041C0
 
 	THUMB_FUNC_END sub_807E8B0
@@ -2555,8 +2555,8 @@ _0807E96E:
 
 	THUMB_FUNC_END sub_807E934
 
-	THUMB_FUNC_START sub_807E978
-sub_807E978: @ 0x0807E978
+	THUMB_FUNC_START SetDefaultMapAnimScreenConf
+SetDefaultMapAnimScreenConf: @ 0x0807E978
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -2637,7 +2637,7 @@ sub_807E978: @ 0x0807E978
 	.align 2, 0
 _0807EA1C: .4byte gLCDControlBuffer
 
-	THUMB_FUNC_END sub_807E978
+	THUMB_FUNC_END SetDefaultMapAnimScreenConf
 
 	THUMB_FUNC_START sub_807EA20
 sub_807EA20: @ 0x0807EA20
