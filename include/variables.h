@@ -320,7 +320,6 @@ extern const struct FaceVramEntry gFaceConfig_PrepItemUseScreen[4];
 
 // extern ??? gUnknown_08206954
 
-// extern ??? GfxSet_WmNationMap
 // extern ??? gUnknown_08206B70
 // extern ??? gUnknown_08206E24
 // extern ??? gUnknown_08206FB4
@@ -1285,6 +1284,22 @@ extern u8 gImg_08A9E544[];
 extern u16 gPal_08A9E5BC[];
 extern u8 gTsa_08A9E5DC[];
 extern u16 Pal_WmHighLightNationMap[];
+extern u16 Img_WmHightLightMapFrecia[];
+extern u16 Ap_WmHightLightMapFrecia[];
+extern u16 Img_WmHightLightMap2[];
+extern u16 Ap_WmHightLightMap2[];
+extern u16 Img_WmHightLightMap3[];
+extern u16 Ap_WmHightLightMap3[];
+extern u16 Img_WmHightLightMap4[];
+extern u16 Ap_WmHightLightMap4[];
+extern u16 Img_WmHightLightMap5[];
+extern u16 Ap_WmHightLightMap5[];
+extern u16 Img_WmHightLightMap6[];
+extern u16 Ap_WmHightLightMap6[];
+extern u16 Img_WmHightLightMap7[];
+extern u16 Ap_WmHightLightMap7[];
+extern u16 Img_WmHightLightMap8[];
+extern u16 Ap_WmHightLightMap8[];
 // extern ??? gUnknown_08AA114C
 // extern ??? gUnknown_08AA1190
 // extern ??? gUnknown_08AA11B0

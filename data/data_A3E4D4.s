@@ -1,46 +1,4 @@
     .section .data
-	.global ProcScr_GmapRmBorder1
-ProcScr_GmapRmBorder1:  @ 0x08A3EC48
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x8206b50
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word GmapRmBorder1_End
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRmBorder1_80C2750
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRmBorder1_80C2804
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRmBorder1_80C2964
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRmBorder1_80C29F8
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRmBorder1_80C2A1C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRmBorder1_80C29F8
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRmBorder1_80C28C4
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRmBorder1_80C28DC
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
 
 	.global ProcScr_GmapRmBaPalAnim2
 ProcScr_GmapRmBaPalAnim2:  @ 0x08A3ECB0
@@ -1312,7 +1270,63 @@ Img_WmHightLightMapFrecia:
 
     .global Ap_WmHightLightMapFrecia
 Ap_WmHightLightMapFrecia:
-    .incbin "baserom.gba", 0xA9EC24, 0xAA114C - 0xA9EC24
+    .incbin "baserom.gba", 0xA9EC24, 0xA9EC94 - 0xA9EC24
+
+    .global Img_WmHightLightMap2
+Img_WmHightLightMap2:
+    .incbin "baserom.gba", 0xA9EC94, 0xA9F358 - 0xA9EC94
+
+    .global Ap_WmHightLightMap2
+Ap_WmHightLightMap2:
+    .incbin "baserom.gba", 0xA9F358, 0xA9F494 - 0xA9F358
+
+    .global Img_WmHightLightMap3
+Img_WmHightLightMap3:
+    .incbin "baserom.gba", 0xA9F494, 0xA9F9C8 - 0xA9F494
+
+    .global Ap_WmHightLightMap3
+Ap_WmHightLightMap3:
+    .incbin "baserom.gba", 0xA9F9C8, 0xA9FA2C - 0xA9F9C8
+
+    .global Img_WmHightLightMap4
+Img_WmHightLightMap4:
+    .incbin "baserom.gba", 0xA9FA2C, 0xA9FEA4 - 0xA9FA2C
+
+    .global Ap_WmHightLightMap4
+Ap_WmHightLightMap4:
+    .incbin "baserom.gba", 0xA9FEA4, 0xA9FF00 - 0xA9FEA4
+
+    .global Img_WmHightLightMap5
+Img_WmHightLightMap5:
+    .incbin "baserom.gba", 0xA9FF00, 0xAA020C - 0xA9FF00
+
+    .global Ap_WmHightLightMap5
+Ap_WmHightLightMap5:
+    .incbin "baserom.gba", 0xAA020C, 0xAA0240 - 0xAA020C
+
+    .global Img_WmHightLightMap6
+Img_WmHightLightMap6:
+    .incbin "baserom.gba", 0xAA0240, 0xAA0760 - 0xAA0240
+
+    .global Ap_WmHightLightMap6
+Ap_WmHightLightMap6:
+    .incbin "baserom.gba", 0xAA0760, 0xAA07B0 - 0xAA0760
+
+    .global Img_WmHightLightMap7
+Img_WmHightLightMap7:
+    .incbin "baserom.gba", 0xAA07B0, 0xAA0B90 - 0xAA07B0
+
+    .global Ap_WmHightLightMap7
+Ap_WmHightLightMap7:
+    .incbin "baserom.gba", 0xAA0B90, 0xAA0BC8 - 0xAA0B90
+
+    .global Img_WmHightLightMap8
+Img_WmHightLightMap8:
+    .incbin "baserom.gba", 0xAA0BC8, 0xAA10E4 - 0xAA0BC8
+
+    .global Ap_WmHightLightMap8
+Ap_WmHightLightMap8:
+    .incbin "baserom.gba", 0xAA10E4, 0xAA114C - 0xAA10E4
 
 	.global gUnknown_08AA114C
 gUnknown_08AA114C:  @ 0x08AA114C

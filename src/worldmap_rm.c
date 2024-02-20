@@ -3,6 +3,7 @@
 #include "hardware.h"
 #include "hardware.h"
 #include "bm.h"
+#include "gba_sprites.h"
 #include "bmlib.h"
 #include "uiutils.h"
 #include "worldmap.h"
@@ -469,3 +470,202 @@ bool CheckGmapRmBaPalAnim1State(void)
 
     return 0;
 }
+
+void GmapRmBorder1_End(struct ProcGmapRmBorder1 * proc)
+{
+    AP_Delete(proc->sprite2);
+    AP_Delete(proc->sprite1);
+
+    if (CountProcs(ProcScr_GmapRmBorder1) == 1)
+        EndGmapRmBaPalAnim1();
+}
+
+void GmapRmBorder1_80C2750(struct ProcGmapRmBorder1 * proc)
+{
+    SetBlendTargetA(0, 0, 0, 0, 0);
+    SetBlendTargetB(0, 1, 0, 0, 0);
+    SetBlendConfig(0, 0, 0x10, 0);
+
+    proc->timer = 0;
+
+    if (CountProcs(ProcScr_GmapRmBorder1) <= 1)
+    {
+        ApplyPalette(Pal_WmHighLightNationMap, 0x19);
+    }
+}
+
+void GmapRmBorder1_PutSprite2(struct ProcGmapRmBorder1 * proc, int x, int y, bool transparency)
+{
+    s16 ix, iy;
+    GmapRm_GetPosition(&ix, &iy);
+
+    x -= ix;
+    y -= iy;
+
+    if (transparency)
+        AP_Update(proc->sprite2, x, OBJ_TRANSLUCENT | y);
+    else
+        AP_Update(proc->sprite2, x, y);
+}
+
+const struct GmMapRmBorderSet GfxSet_WmNationMap[WM_NATION_MAX] = {
+    [WM_NATION_Frelia] = {
+        Img_WmHightLightMapFrecia,
+        Ap_WmHightLightMapFrecia,
+        0x36, 0x28
+    },
+    [WM_NATION_Grado] = {
+        Img_WmHightLightMap2,
+        Ap_WmHightLightMap2,
+        0x58, 0x75
+    },
+    [WM_NATION_Jehanna] = {
+        Img_WmHightLightMap3,
+        Ap_WmHightLightMap3,
+        0xB1, 0x57
+    },
+    [WM_NATION_Carcino] = {
+        Img_WmHightLightMap4,
+        Ap_WmHightLightMap4,
+        0x7F, 0x39
+    },
+    [WM_NATION_ZahaWoods] = {
+        Img_WmHightLightMap5,
+        Ap_WmHightLightMap5,
+        0x9A, 0x2C
+    },
+    [WM_NATION_Rausten] = {
+        Img_WmHightLightMap6,
+        Ap_WmHightLightMap6,
+        0xBC, 0x26
+    },
+    [WM_NATION_Pokhara] = {
+        Img_WmHightLightMap7,
+        Ap_WmHightLightMap7,
+        0x84, 0x30
+    },
+    [WM_NATION_Renais] = {
+        Img_WmHightLightMap8,
+        Ap_WmHightLightMap8,
+        0x65, 0x4A
+    },
+};
+
+void GmapRmBorder1_NationMergeIn(struct ProcGmapRmBorder1 * proc)
+{
+    int offset, x, y;
+
+    if (++proc->timer < 22)
+    {
+        u32 coeff = sub_800B7E0(proc->timer, 22, 2);
+        int ret = DivArm(0x1000, coeff * 0x10);
+
+        SetBlendConfig(0, ret, 0x10 - ret, 0);
+        offset = DivArm(0x1000, (0x1000 - coeff) * 18);
+
+        x = GfxSet_WmNationMap[proc->index].x + offset;
+        y = GfxSet_WmNationMap[proc->index].y;
+
+        GmapRmBorder1_PutSprite2(proc, x, y, 1);
+    }
+    else
+    {
+        SetBlendConfig(0, 0x10, 0x10, 0);
+        proc->timer = 0;
+
+        x = GfxSet_WmNationMap[proc->index].x;
+        y = GfxSet_WmNationMap[proc->index].y;
+
+        GmapRmBorder1_PutSprite2(proc, x, y, 0);
+        Proc_Break(proc);
+    }
+}
+
+void GmapRmBorder1_80C28C4(struct ProcGmapRmBorder1 * proc)
+{
+    if (CountProcs(ProcScr_GmapRmBorder1) == 1)
+        EndGmapRmBaPalAnim1();
+}
+
+void GmapRmBorder1_NationMergeOut(struct ProcGmapRmBorder1 * proc)
+{
+    int offset, x, y;
+
+    if (++proc->timer < 22)
+    {
+        u32 coeff = sub_800B7E0(proc->timer, 22, 2);
+        int ret = DivArm(0x1000, coeff * 0x10);
+
+        SetBlendConfig(0, 0x10 - ret, ret, 0);
+        offset = DivArm(0x1000, coeff * 18);
+
+        x = GfxSet_WmNationMap[proc->index].x - offset;
+        y = GfxSet_WmNationMap[proc->index].y;
+
+        GmapRmBorder1_PutSprite2(proc, x, y, 1);
+    }
+    else
+    {
+        SetDefaultColorEffects();
+        Proc_Break(proc);
+    }
+}
+
+void GmapRmBorder1_80C2964(struct ProcGmapRmBorder1 * proc)
+{
+    if (CountProcs(ProcScr_GmapRmBorder1) <= 1)
+    {
+        StartGmapRmBaPalAnim1(NULL);
+        Proc_Goto(proc, 1);
+    }
+}
+
+void GmapRmBorder1_PutSpriteAll(struct ProcGmapRmBorder1 * proc)
+{
+    s16 ix, iy, x, y;
+    GmapRm_GetPosition(&ix, &iy);
+
+    x = GfxSet_WmNationMap[proc->index].x - ix;
+    y = GfxSet_WmNationMap[proc->index].y - iy;
+
+    AP_Update(proc->sprite1, x, OBJ_TRANSLUCENT | y);
+
+    x = GfxSet_WmNationMap[proc->index].x;
+    y = GfxSet_WmNationMap[proc->index].y;
+
+    GmapRmBorder1_PutSprite2(proc, x, y, 0);
+}
+
+void GmapRmBorder1_80C29F8(struct ProcGmapRmBorder1 * proc)
+{
+    GmapRmBorder1_PutSpriteAll(proc);
+    if (CheckGmapRmBaPalAnim1State())
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+}
+
+void GmapRmBorder1_80C2A1C(struct ProcGmapRmBorder1 * proc)
+{
+    GmapRmBorder1_PutSpriteAll(proc);
+    if (proc->flag)
+        Proc_Break(proc);
+}
+
+struct ProcCmd CONST_DATA ProcScr_GmapRmBorder1[] = {
+    PROC_NAME("Gmap RM border"),
+    PROC_MARK(8),
+    PROC_SET_END_CB(GmapRmBorder1_End),
+    PROC_CALL(GmapRmBorder1_80C2750),
+    PROC_REPEAT(GmapRmBorder1_NationMergeIn),
+    PROC_CALL(GmapRmBorder1_80C2964),
+    PROC_REPEAT(GmapRmBorder1_80C29F8),
+
+PROC_LABEL(1),
+    PROC_REPEAT(GmapRmBorder1_80C2A1C),
+    PROC_REPEAT(GmapRmBorder1_80C29F8),
+    PROC_CALL(GmapRmBorder1_80C28C4),
+    PROC_REPEAT(GmapRmBorder1_NationMergeOut),
+    PROC_END,
+};

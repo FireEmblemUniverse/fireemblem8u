@@ -4,6 +4,8 @@
 #include "proc.h"
 #include "hardware.h"
 #include "spline.h"
+#include "ap.h"
+#include "constants/worldmap.h"
 
 enum worldmap_unit_alignace {
     WM_FACTION_BLUE  = 0,
@@ -1071,25 +1073,42 @@ void GmapRmBaPalAnim1_End(struct ProcGmapRmBaPalAnim * proc);
 void GmapRmBaPalAnim1_Init(struct ProcGmapRmBaPalAnim * proc);
 void GmapRmBaPalAnim1_Loop1(struct ProcGmapRmBaPalAnim * proc);
 void GmapRmBaPalAnim1_Loop2(struct ProcGmapRmBaPalAnim * proc);
-// ??? StartGmapRmBaPalAnim1(???);
-// ??? EndGmapRmBaPalAnim1(???);
-// ??? CheckGmapRmBaPalAnim1Exists(???);
-// ??? CheckGmapRmBaPalAnim1State(???);
+ProcPtr StartGmapRmBaPalAnim1(ProcPtr parent);
+void EndGmapRmBaPalAnim1(void);
+bool CheckGmapRmBaPalAnim1Exists(void);
+bool CheckGmapRmBaPalAnim1State(void);
 
-// ??? GmapRmBorder1_End(???);
-// ??? GmapRmBorder1_80C2750(???);
-// ??? sub_80C27A8(???);
-// ??? GmapRmBorder1_80C2804(???);
-// ??? GmapRmBorder1_80C28C4(???);
-// ??? GmapRmBorder1_80C28DC(???);
-// ??? GmapRmBorder1_80C2964(???);
-// ??? sub_80C298C(???);
-// ??? GmapRmBorder1_80C29F8(???);
-// ??? GmapRmBorder1_80C2A1C(???);
-// ??? sub_80C2A40(???);
+struct ProcGmapRmBorder1 {
+    PROC_HEADER;
+
+    /* 29 */ bool flag;
+    /* 2A */ u8 index;
+    /* 2C */ struct APHandle * sprite1;
+    /* 30 */ s16 timer;
+    /* 34 */ struct APHandle * sprite2;
+};
+
+struct GmMapRmBorderSet {
+    void * img;
+    void * sprite;
+    s16 x, y;
+};
+extern const struct GmMapRmBorderSet GfxSet_WmNationMap[WM_NATION_MAX];
+
+void GmapRmBorder1_End(struct ProcGmapRmBorder1 * proc);
+void GmapRmBorder1_80C2750(struct ProcGmapRmBorder1 * proc);
+void GmapRmBorder1_PutSprite2(struct ProcGmapRmBorder1 * proc, int x, int y, bool transparency);
+void GmapRmBorder1_NationMergeIn(struct ProcGmapRmBorder1 * proc);
+void GmapRmBorder1_80C28C4(struct ProcGmapRmBorder1 * proc);
+void GmapRmBorder1_NationMergeOut(struct ProcGmapRmBorder1 * proc);
+void GmapRmBorder1_80C2964(struct ProcGmapRmBorder1 * proc);
+void GmapRmBorder1_PutSpriteAll(struct ProcGmapRmBorder1 * proc);
+void GmapRmBorder1_80C29F8(struct ProcGmapRmBorder1 * proc);
+void GmapRmBorder1_80C2A1C(struct ProcGmapRmBorder1 * proc);
+// ??? StartGmapRmBorder1(???);
 // ??? DrawWmNationHighLightMapGfx(???);
 void WmShowNationHighlightedMap(int, int); // FEBuilder: "Display place name of world map"
-void sub_80C2B7C(int);
+void EndGmapRmBorder1(int);
 int sub_80C2BC4(int);
 void sub_80C2C10(int);
 // ??? GmapRmBaPalAnim2_End(???);

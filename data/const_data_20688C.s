@@ -1,42 +1,7 @@
 
     .section .rodata
 
-	.global GfxSet_WmNationMap
-GfxSet_WmNationMap:  @ 0x08206AF0
-@ Replacing .incbin "baserom.gba", 0x206AF0, 0x80
-    .4byte Img_WmHightLightMapFrecia
-    .4byte Ap_WmHightLightMapFrecia
-    .2byte 54, 40
-    .4byte Pal_WmHighLightNationMap + 0x60c
-    .4byte Pal_WmHighLightNationMap + 0xcd0
-    .4byte 0x00750058
-    .4byte Pal_WmHighLightNationMap + 0xe0c
-    .4byte Pal_WmHighLightNationMap + 0x1340
-    .4byte 0x005700b1
-    .4byte Pal_WmHighLightNationMap + 0x13a4
-    .4byte Pal_WmHighLightNationMap + 0x181c
-    .4byte 0x0039007f
-    .4byte Pal_WmHighLightNationMap + 0x1878
-    .4byte Pal_WmHighLightNationMap + 0x1b84
-    .4byte 0x002c009a
-    .4byte Pal_WmHighLightNationMap + 0x1bb8
-    .4byte Pal_WmHighLightNationMap + 0x20d8
-    .4byte 0x002600bc
-    .4byte Pal_WmHighLightNationMap + 0x2128
-    .4byte Pal_WmHighLightNationMap + 0x2508
-    .4byte 0x00300084
-    .4byte Pal_WmHighLightNationMap + 0x2540
-    .4byte Pal_WmHighLightNationMap + 0x2a5c
-    .4byte 0x004a0065
-
-    .4byte 0x70616d47
-    .4byte 0x204d5220
-    .4byte 0x64726f62
-    .4byte 0x00007265
-    .4byte 0x70616d47
-    .4byte 0x74754120
-    .4byte 0x754d206f
-    .4byte 0x00000000
+    .incbin "baserom.gba", 0x206B60, 0x10
 
 	.global gUnknown_08206B70
 gUnknown_08206B70:  @ 0x08206B70

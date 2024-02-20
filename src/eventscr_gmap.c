@@ -1005,7 +1005,7 @@ u8 EventB9_WmRemoveHighlightNationPart1(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C2B7C(-1);
+        EndGmapRmBorder1(-1);
 
         return EVC_ADVANCE_CONTINUE;
     }
@@ -1024,7 +1024,7 @@ u8 EventBA_WmRemoveHighlightNationPart2(struct EventEngineProc * proc)
     {
         if (sub_80C2BC4(a))
         {
-            sub_80C2B7C(a);
+            EndGmapRmBorder1(a);
         }
 
         return EVC_ADVANCE_CONTINUE;
