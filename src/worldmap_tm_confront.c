@@ -33,8 +33,7 @@ void GmTmConfront_LoadPositions(struct GmapTmConfrontProc * proc, const struct V
 
     for (i = 0; i < 2; i++)
     {
-        struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        GmMu_GetPosition(worldMapProc->unk_54, proc->unk_2e[i], &proc->unk_30[i].x, &proc->unk_30[i].y);
+        GmMu_GetPosition(GM_MU, proc->unk_2e[i], &proc->unk_30[i].x, &proc->unk_30[i].y);
         proc->unk_40[i].x = posArray[i].x;
         proc->unk_40[i].y = posArray[i].y;
         proc->unk_38[i].x = proc->unk_30[i].x + posArray[i].x;

@@ -328,7 +328,7 @@ void SetupGraphicSystemsForWorldMap(void)
 }
 
 //! FE8U = 0x080B8E14
-void sub_80B8E14(void)
+void SetupGmapNodeGfx(void)
 {
     ApplyPalettes(gUnknown_08A97A40, 0x13, 2);
     Decompress(Img_GmapNodes, (void *)0x06011000);
@@ -357,7 +357,7 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
     Decompress(gUnknown_08AA11D0, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06015300, 8, 2);
 
-    sub_80B8E14();
+    SetupGmapNodeGfx();
 
     ApplyPalette(gUnknown_08A97FA4, 0xE);
     Decompress(Img_GmapPath, (void *)0x06005000);
@@ -539,7 +539,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
         sub_80B9114(proc);
     }
 
-    proc->gm_screen->unk_4c->flags |= 3;
+    proc->gm_screen->gmroute->flags |= 3;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {
@@ -795,7 +795,7 @@ void sub_80B93E0(struct WorldMapMainProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_WorldMapMain[] =
+struct ProcCmd CONST_DATA ProcScr_WorldMapMain[] =
 {
     PROC_SET_END_CB(WorldMap_Destruct),
 
@@ -1253,7 +1253,7 @@ void sub_80B982C(struct WorldMapMainProc * proc)
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
 
-    pScreenProc->unk_4c->flags |= 3;
+    pScreenProc->gmroute->flags |= 3;
 
     MapUnitC_SetGfxNeedsUpdate(proc->unk_4c, -1);
 
@@ -1285,7 +1285,7 @@ void sub_80B98A8(struct WorldMapMainProc * proc)
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
 
-    pScreenProc->unk_4c->flags |= 3;
+    pScreenProc->gmroute->flags |= 3;
 
     MapUnitC_SetGfxNeedsUpdate(proc->unk_4c, -1);
 
@@ -1317,7 +1317,7 @@ void sub_80B9924(struct WorldMapMainProc * proc)
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
 
-    pScreenProc->unk_4c->flags |= 3;
+    pScreenProc->gmroute->flags |= 3;
 
     MapUnitC_SetGfxNeedsUpdate(proc->unk_4c, -1);
 
@@ -1349,7 +1349,7 @@ void sub_80B99A0(struct WorldMapMainProc * proc)
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
 
-    pScreenProc->unk_4c->flags |= 3;
+    pScreenProc->gmroute->flags |= 3;
 
     MapUnitC_SetGfxNeedsUpdate(proc->unk_4c, -1);
 
@@ -1473,7 +1473,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
         return;
     }
 
-    MapRoute_80BC2DC(proc->gm_screen->unk_4c);
+    MapRoute_80BC2DC(proc->gm_screen->gmroute);
     if (!(gGMData.state.raw & 0x80))
     {
         SetSpecialColorEffectsParameters(0, 0, 0, 0);
@@ -1492,7 +1492,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
     EndWMFaceCtrl();
     EndGmMuEntry();
     EndGmapRM();
-    sub_80C1F5C();
+    EndGmapRmUpdateExt();
 
     if (gGMData.state.raw & 0xc0)
     {
@@ -1539,7 +1539,7 @@ void WorldMap_WaitForChapterIntroEvents(ProcPtr proc)
     EndWMFaceCtrl();
     EndGmMuEntry();
     EndGmapRM();
-    sub_80C1F5C();
+    EndGmapRmUpdateExt();
     Proc_Break(proc);
 
     return;
@@ -1754,7 +1754,7 @@ void sub_80B9F54(ProcPtr unused)
 //! FE8U = 0x080B9FC0
 void sub_80B9FC0(void)
 {
-    sub_80B9F54(Proc_Find(gProcScr_WorldMapMain));
+    sub_80B9F54(Proc_Find(ProcScr_WorldMapMain));
     return;
 }
 
@@ -1777,7 +1777,7 @@ void sub_80B9FD4(ProcPtr unused)
 //! FE8U = 0x080BA008
 void sub_80BA008(int unk)
 {
-    struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * proc = Proc_Find(ProcScr_WorldMapMain);
     proc->timer = unk;
     Proc_Goto(proc, 0);
 
@@ -1788,7 +1788,7 @@ void sub_80BA008(int unk)
 void EndWM(ProcPtr unused)
 {
     Proc_End(Proc_Find(ProcScr_BmFadeIN));
-    Proc_End(Proc_Find(gProcScr_WorldMapMain));
+    Proc_End(Proc_Find(ProcScr_WorldMapMain));
     ResetDialogueScreen();
     APProc_DeleteAll();
     SetupBackgrounds(NULL);
@@ -1796,9 +1796,9 @@ void EndWM(ProcPtr unused)
 }
 
 //! FE8U = 0x080BA054
-s8 sub_80BA054(void)
+s8 WM_Exists(void)
 {
-    return (Proc_Find(gProcScr_WorldMapMain) != 0) ? 1 : 0;
+    return (Proc_Find(ProcScr_WorldMapMain) != 0) ? 1 : 0;
 }
 
 //! FE8U = 0x080BA06C
@@ -1841,7 +1841,7 @@ struct ProcCmd CONST_DATA gProcScr_08A3DD08[] =
 //! FE8U = 0x080BA0B4
 void WmMergeFace(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int config)
 {
-    struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
 
     struct Proc8A3DD08 * proc = Proc_Start(gProcScr_08A3DD08, parent);
     proc->unk_2c = timerMaybe; // timer?
@@ -1901,7 +1901,7 @@ void sub_80BA198(int color)
 {
     int i;
 
-    struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
     struct Proc8A3DD30 * proc = Proc_Start(gProcScr_08A3DD20, parent);
 
     proc->unk_30 = color & 0x1f;
@@ -1962,7 +1962,7 @@ void sub_80BA288(int color)
 {
     int i;
 
-    struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
     struct Proc8A3DD38 * proc = Proc_Start(gProcScr_08A3DD38, parent);
 
     proc->unk_30 = color & 0x1f;
@@ -1981,7 +1981,7 @@ void sub_80BA288(int color)
 //! FE8U = 0x080BA2E4
 void NewWorldMap(void)
 {
-    struct WorldMapMainProc * proc = Proc_Start(gProcScr_WorldMapMain, PROC_TREE_3);
+    struct WorldMapMainProc * proc = Proc_Start(ProcScr_WorldMapMain, PROC_TREE_3);
 
     proc->unk_29_1 = 0;
 
@@ -2010,7 +2010,7 @@ struct ProcCmd CONST_DATA gProcScr_WorldMapWrapper[] =
     PROC_CALL(NewWorldMap),
     PROC_YIELD,
 
-    PROC_WHILE_EXISTS(gProcScr_WorldMapMain),
+    PROC_WHILE_EXISTS(ProcScr_WorldMapMain),
     PROC_END_EACH(ProcScr_BmFadeIN),
     PROC_YIELD,
 

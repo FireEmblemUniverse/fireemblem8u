@@ -20,12 +20,8 @@ extern u16 gUnknown_08A96064[]; // FEB: worldmap_big_palettemap Length:673
 void sub_80BA424(void)
 {
     sub_8002AC8();
-
-    MapRoute_80BC2DC(((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->gm_screen->unk_4c);
-
-    ((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->gm_screen->unk_4c->flags |= 3;
-
-    return;
+    MapRoute_80BC2DC(GM_SCREEN->gmroute);
+    GM_SCREEN->gmroute->flags |= 3;
 }
 
 //! FE8U = 0x080BA458
@@ -498,6 +494,6 @@ struct ProcCmd CONST_DATA gProcScr_GMapScreen[] =
 ProcPtr NewMapScreen(ProcPtr parent)
 {
     struct GmScreenProc * proc = Proc_Start(gProcScr_GMapScreen, parent);
-    proc->unk_4c = StartGMapRoute(proc, &gGMData.openPaths, 0x5000, 0xe);
+    proc->gmroute = StartGMapRoute(proc, &gGMData.openPaths, 0x5000, 0xe);
     return proc;
 }

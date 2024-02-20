@@ -75,16 +75,15 @@ void RestoreBlendState(struct BlendStruct * blend)
 //! FE8U = 0x080BF804
 void GmapBaseEntry_OnEnd(struct GmapBaseEntryProc * proc)
 {
-    ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_34[(proc->unk_29 / 0x20)] &=
-        ~(1 << (proc->unk_29 % 0x20));
+    GM_ICON->unk_34[(proc->unk_29 / 0x20)] &= ~(1 << (proc->unk_29 % 0x20));
     EnablePaletteSync();
 
     gGMData.nodes[proc->unk_29].state |= 1;
 
     if ((gGMData.nodes[proc->unk_29].state & 2) != 0)
     {
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->nodeId = proc->unk_29;
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_32_1 = 1;
+        GM_ICON->nodeId = proc->unk_29;
+        GM_ICON->unk_32_1 = 1;
     }
 
     EndGmapEffect();
@@ -112,13 +111,12 @@ void GmapBaseEntry_80BF8CC(struct GmapBaseEntryProc * proc)
 {
     gGMData.nodes[proc->unk_29].state |= 1;
 
-    ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_34[(proc->unk_29 / 0x20)] |=
-        (1 << (proc->unk_29 % 0x20));
+    GM_ICON->unk_34[(proc->unk_29 / 0x20)] |= (1 << (proc->unk_29 % 0x20));
 
     if ((gGMData.nodes[proc->unk_29].state & 2) != 0)
     {
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->nodeId = proc->unk_29;
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_32_1 = 1;
+        GM_ICON->nodeId = proc->unk_29;
+        GM_ICON->unk_32_1 = 1;
     }
 
     SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0, 0x10, 0);
@@ -168,7 +166,7 @@ void GmapBaseEntry_80BF988(struct GmapBaseEntryProc * proc)
     }
     else
     {
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_34[(proc->unk_29 / 0x20)] &=
+        GM_ICON->unk_34[(proc->unk_29 / 0x20)] &=
             ~(1 << (proc->unk_29 % 0x20));
         Proc_Break(proc);
     }
@@ -307,7 +305,7 @@ void sub_80BFBCC(struct GmapBaseEntryProc * proc)
 {
     gGMData.units[proc->unk_29].state |= 1;
 
-    sub_80BE080(((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->unk_54, proc->unk_29, 1);
+    sub_80BE080(GM_MU, proc->unk_29, 1);
 
     SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0, 0x10, 0);
 
@@ -356,7 +354,7 @@ void sub_80BFC44(struct GmapBaseEntryProc * proc)
     }
     else
     {
-        sub_80BE080(((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->unk_54, proc->unk_29, 0);
+        sub_80BE080(GM_MU, proc->unk_29, 0);
         Proc_Break(proc);
     }
 

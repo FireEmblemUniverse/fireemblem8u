@@ -517,11 +517,10 @@ void GmapUnitFade_Destruct(struct GMapUnitFadeProc * proc)
     {
         if (proc->unk_2a < 0)
         {
-            MapUnitC_SetDisplayEnabled(((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_4c, proc->unk_30[i], 0);
+            MapUnitC_SetDisplayEnabled(GM_UNITC, proc->unk_30[i], 0);
         }
 
-        MapUnitC_SetFaction(
-            ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_4c, proc->unk_30[i], -1);
+        MapUnitC_SetFaction(GM_UNITC, proc->unk_30[i], -1);
     }
 
     return;
@@ -713,8 +712,7 @@ void sub_80BB49C(int index)
 //! FE8U = 0x080BB4C0
 void sub_80BB4C0(int index, int arg1, ProcPtr parent)
 {
-    struct GMapUnitContainerProc * containerProc =
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_4c;
+    struct GMapUnitContainerProc * containerProc = GM_UNITC;
     struct GMapUnitProc * mapUnitProc = containerProc->pMapUnitProcs[index];
 
     if (GetGmapUnitFade() == NULL)
@@ -727,7 +725,7 @@ void sub_80BB4C0(int index, int arg1, ProcPtr parent)
     }
 
     MapUnitC_SetPalette(containerProc, index, 10);
-    MapUnitC_SetDisplayEnabled(((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_4c, index, 1);
+    MapUnitC_SetDisplayEnabled(GM_UNITC, index, 1);
 
     return;
 }
@@ -735,8 +733,7 @@ void sub_80BB4C0(int index, int arg1, ProcPtr parent)
 //! FE8U = 0x080BB538
 void sub_80BB538(int index, int arg1, ProcPtr parent)
 {
-    struct GMapUnitContainerProc * containerProc =
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_4c;
+    struct GMapUnitContainerProc * containerProc = GM_UNITC;
     struct GMapUnitProc * mapUnitProc = containerProc->pMapUnitProcs[index];
 
     if (GetGmapUnitFade() == NULL)
@@ -749,7 +746,7 @@ void sub_80BB538(int index, int arg1, ProcPtr parent)
     }
 
     MapUnitC_SetPalette(containerProc, index, 10);
-    MapUnitC_SetDisplayEnabled(((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_4c, index, 1);
+    MapUnitC_SetDisplayEnabled(GM_UNITC, index, 1);
 
     return;
 }

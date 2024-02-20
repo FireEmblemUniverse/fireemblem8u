@@ -287,7 +287,7 @@ void StartGmScroll(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 de
 {
     struct GmScrollInfo info;
 
-    struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * worldMapProc = GM_MAIN;
     info.unk_00 = &worldMapProc->unk_30;
 
     info.unk_04 = 1;
@@ -301,22 +301,19 @@ void StartGmScroll(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 de
 
     StartGmScrollManage(&info, worldMapProc);
 
-    ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_50->unk_32--;
-
-    return;
+    GM_CURSOR->unk_32--;
 }
 
 //! FE8U = 0x080BF490
 int sub_80BF490(void)
 {
-    struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    return !(worldMapProc->unk_30 & 1);
+    return !(GM_MAIN->unk_30 & 1);
 }
 
 //! FE8U = 0x080BF4A8
 void EndGmScroll(void)
 {
-    struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * worldMapProc = Proc_Find(ProcScr_WorldMapMain);
     Proc_EndEach(gProcScr_GmScrollManage);
 
     worldMapProc->unk_30 |= 1;

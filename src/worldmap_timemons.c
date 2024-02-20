@@ -285,7 +285,7 @@ void GmapTimeMons_ExecMonsterMergeMu(struct ProcGmapTimeMons * proc)
             wm_uid = i + 4;
             SetGmClassUnit(wm_uid, proc->confs[i].jid, WM_FACTION_RED, proc->confs[i].node);
             gGMData.units[wm_uid].state |= GM_UNIT_STATE_B0;
-            GmMu_ShowUnit(((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_54, wm_uid);
+            GmMu_ShowUnit(GM_MU, wm_uid);
         }
         Proc_Break(proc);
     }

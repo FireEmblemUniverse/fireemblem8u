@@ -5,41 +5,31 @@
 //! FE8U = 0x080BF4D0
 void SetGmClassUnit(int id, int jid, int allegiance, int nodeId)
 {
-    struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
-    MapMU_SetUnitClass(proc->unk_54, id, jid, allegiance, nodeId);
-    return;
+    MapMU_SetUnitClass(GM_MU, id, jid, allegiance, nodeId);
 }
 
 //! FE8U = 0x080BF504
 void SetGmCharUnit(int id, int pid, int allegiance, int nodeId)
 {
-    struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
-    MapMU_SetUnitChar(proc->unk_54, id, pid, allegiance, nodeId);
-    return;
+    MapMU_SetUnitChar(GM_MU, id, pid, allegiance, nodeId);
 }
 
 //! FE8U = 0x080BF538
 void RemoveGmUnit(int index)
 {
-    struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_RemoveUnit(proc->unk_54, index);
-    return;
+    GmMu_RemoveUnit(GM_MU, index);
 }
 
 //! FE8U = 0x080BF554
 void ShowGmUnit(int index)
 {
-    struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_ShowUnit(proc->unk_54, index);
-    return;
+    GmMu_ShowUnit(GM_MU, index);
 }
 
 //! FE8U = 0x080BF570
 void HideGmUnit(int index)
 {
-    struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_HideUnit(proc->unk_54, index);
-    return;
+    GmMu_HideUnit(GM_MU, index);
 }
 
 //! FE8U = 0x080BF58C
@@ -47,9 +37,6 @@ void AddAndDrawGmPath(int pathId, int unk)
 {
     if (!AddGmPath(&gGMData, &gGMData.openPaths, pathId))
     {
-        struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
-        MapRoute_BeginRouteTransition(proc->gm_screen->unk_4c, unk);
+        MapRoute_BeginRouteTransition(GM_SCREEN->gmroute, unk);
     }
-
-    return;
 }

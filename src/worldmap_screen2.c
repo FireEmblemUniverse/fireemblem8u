@@ -108,16 +108,16 @@ int GetNodeAtPosition(void * unused, int x_point, int y_point, int x_range, int 
 }
 
 //! FE8U = 0x080BB6FC
-void sub_80BB6FC(struct GmNodeIconDisplayProc * proc)
+void SkipGmNodeIconDisplay(struct GmNodeIconDisplayProc * proc)
 {
-    proc->unk_32_0 = 1;
+    proc->skip = 1;
     return;
 }
 
 //! FE8U = 0x080BB708
-void sub_80BB708(struct GmNodeIconDisplayProc * proc)
+void UnskipGmNodeIconDisplay(struct GmNodeIconDisplayProc * proc)
 {
-    proc->unk_32_0 = 0;
+    proc->skip = 0;
     return;
 }
 
@@ -140,7 +140,7 @@ void GmapScreen2_Init(struct GmNodeIconDisplayProc * proc)
         ptr[i] = 0;
     }
 
-    proc->unk_32_0 = 1;
+    proc->skip = 1;
 
     return;
 }
@@ -177,7 +177,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
     const struct GMapNodeData * node;
     const struct NodeIcon * icon;
 
-    if (!proc->unk_32_0)
+    if (!proc->skip)
     {
         return;
     }

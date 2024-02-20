@@ -1277,13 +1277,14 @@ extern u8 gUnknown_08A98EAC[]; // tsa
 extern u8 gUnknown_08A98F30[]; // tsa
 extern u8 gGfx_GMapPI_LevelNums[];
 extern u16 gPal_GMapPI_LevelNums[];
-// extern ??? Img_EventGmap
-// extern ??? Tsa_EventGmap
-// extern ??? Pal_EventGmap
-// extern ??? gImg_08A9E544
-// extern ??? gPal_08A9E5BC
-// extern ??? gTsa_08A9E5DC
-// extern ??? Pal_WmHighLightNationMap
+extern u8 Img_EventGmap[];
+extern u8 Tsa_EventGmap[];
+extern u16 Pal_EventGmap[];
+extern u8 gGfx_GMapPI_LevelNums[];
+extern u8 gImg_08A9E544[];
+extern u16 gPal_08A9E5BC[];
+extern u8 gTsa_08A9E5DC[];
+extern u16 Pal_WmHighLightNationMap[];
 // extern ??? gUnknown_08AA114C
 // extern ??? gUnknown_08AA1190
 // extern ??? gUnknown_08AA11B0
