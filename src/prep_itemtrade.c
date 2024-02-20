@@ -287,7 +287,7 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc * proc)
     EnableSysBrownBox(0, -0x28, -1, 1);
     EnableSysBrownBox(1, 0xb8, -1, 0);
 
-    SetSpecialColorEffectsParameters(1, 0xe, 4, 0);
+    SetBlendConfig(1, 0xe, 4, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);

@@ -1064,7 +1064,7 @@ void GlowBlendCtrl_OnInit(struct StatScreenEffectProc* proc)
     proc->timer = 0;
     proc->blendDirection = 0;
 
-    SetSpecialColorEffectsParameters(1, proc->timer, 0x10, 0);
+    SetBlendConfig(1, proc->timer, 0x10, 0);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
@@ -1083,7 +1083,7 @@ void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc)
             proc->blendDirection = 0;
     }
 
-    SetSpecialColorEffectsParameters(1, proc->timer >> 3, 0x10, 0);
+    SetBlendConfig(1, proc->timer >> 3, 0x10, 0);
 }
 
 void StartGlowBlendCtrl(void)
@@ -1132,7 +1132,7 @@ void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc)
 
 void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
 {
-    SetSpecialColorEffectsParameters(1, proc->timer, 0x10 - proc->timer, 0);
+    SetBlendConfig(1, proc->timer, 0x10 - proc->timer, 0);
 
     MU_SetDisplayPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
@@ -1171,7 +1171,7 @@ void UnitSlide_InitFadeIn(struct StatScreenEffectProc* proc)
 
 void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
 {
-    SetSpecialColorEffectsParameters(1, 0x10 - proc->timer, proc->timer, 0);
+    SetBlendConfig(1, 0x10 - proc->timer, proc->timer, 0);
 
     MU_SetDisplayPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
@@ -1479,7 +1479,7 @@ void StatScreen_BlackenScreen(void)
     gLCDControlBuffer.dispcnt.bg3_on = FALSE;
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendBackdropA(1);
@@ -1649,7 +1649,7 @@ void StatScreen_OnIdle(struct Proc* proc)
         gLCDControlBuffer.dispcnt.bg3_on = TRUE;
         gLCDControlBuffer.dispcnt.obj_on = TRUE;
 
-        SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+        SetBlendConfig(3, 0, 0, 0x10);
 
         SetBlendTargetA(0, 0, 0, 0, 0);
         SetBlendBackdropA(1);

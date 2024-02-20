@@ -239,7 +239,7 @@ void NewEfxDeadAlpha(struct Anim *anim1, struct Anim *anim2)
     anim2->drawLayerPriority = 0xA;
     AnimSort();
 
-    SetSpecialColorEffectsParameters(0, 0x10, 0x10, 0x0);
+    SetBlendConfig(0, 0x10, 0x10, 0x0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 0);
 
@@ -266,7 +266,7 @@ void EfxDeadAlphaMain(struct ProcEfxDead *proc)
         return;
     }
 
-    SetSpecialColorEffectsParameters(
+    SetBlendConfig(
         0,
         Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, 0x3C),
         0x10, 0
@@ -295,7 +295,7 @@ void NewEfxDeadDragonAlpha(struct Anim *anim1, struct Anim *anim2)
     proc->timer = 0;
     proc->terminator = 0;
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0x0);
+    SetBlendConfig(1, 0x10, 0x10, 0x0);
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(0, 0, 1, 0, 0);
 
@@ -317,7 +317,7 @@ void EfxDeadDragonAlphaMain(struct ProcEfxDead *proc)
         return;
     }
         
-    SetSpecialColorEffectsParameters(
+    SetBlendConfig(
         1,
         Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, 0x3C),
         0x10, 0

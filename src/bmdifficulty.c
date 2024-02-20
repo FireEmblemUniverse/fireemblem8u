@@ -560,7 +560,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     // Load and display background
 
-    SetSpecialColorEffectsParameters(1, 6, 16, 0);
+    SetBlendConfig(1, 6, 16, 0);
 
     Decompress(gUnknown_08A21658, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
 

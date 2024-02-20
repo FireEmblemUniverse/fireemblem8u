@@ -101,7 +101,7 @@ _08080330:
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0x10
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldr r2, _08080374  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #2
@@ -158,14 +158,14 @@ sub_808038C: @ 0x0808038C
 	movs r0, #2
 	movs r1, #0x10
 	movs r2, #0x10
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080803C8
 _080803B6:
 	movs r0, #2
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r0, r4, #0
 	bl Proc_Break
 _080803C8:
@@ -592,7 +592,7 @@ sub_8080660: @ 0x08080660
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #2
 	movs r1, #8
 	movs r2, #8
@@ -1502,7 +1502,7 @@ sub_8080D6C: @ 0x08080D6C
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r0, r5, #0
 	adds r0, #0x40
 	movs r1, #0
@@ -1693,7 +1693,7 @@ sub_8080EE4: @ 0x08080EE4
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r0, r5, #0
 	adds r0, #0x40
 	movs r1, #0
@@ -1921,7 +1921,7 @@ sub_8081078: @ 0x08081078
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r0, r5, #0
 	adds r0, #0x40
 	movs r1, #0
@@ -2076,7 +2076,7 @@ sub_80811EC: @ 0x080811EC
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r4, #0x40
 	movs r0, #0
 	strh r0, [r4]
@@ -2113,14 +2113,14 @@ sub_8081208: @ 0x08081208
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _08081254
 _08081242:
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r0, r4, #0
 	bl Proc_Break
 _08081254:

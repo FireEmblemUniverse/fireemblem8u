@@ -41,7 +41,7 @@ void MapLatonafx_Init(struct MAEffectProc * proc)
         gUnknown_089AF950,
         (void *)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
 
-    SetSpecialColorEffectsParameters(1, 16, 16, 0);
+    SetBlendConfig(1, 16, 16, 0);
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendBackdropA(0);
     SetBlendTargetB(0, 0, 0, 1, 1);
@@ -133,7 +133,7 @@ void MapLatonaBlinkingfx_Init(struct MAEffectProc * proc)
 
 void MapLatonaBlinkingfx_Main(struct MAEffectProc * proc)
 {
-    SetSpecialColorEffectsParameters(2, 0, 0, (proc->unk64--) >> 2);
+    SetBlendConfig(2, 0, 0, (proc->unk64--) >> 2);
 
     if (proc->unk64 == 0)
     {
@@ -186,7 +186,7 @@ void MapLatonaShiningfx_Start(struct MAAnotherProc * proc)
         proc->unk54, proc->unk54);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendConfig(1, 0, 0x10, 0);
     proc->timer2 = 0;
 }
 
@@ -194,7 +194,7 @@ void MapLatonaShiningfx_Loop1(struct MAAnotherProc * proc)
 {
     proc->timer2 += 2;
 
-    SetSpecialColorEffectsParameters(1, proc->timer2, 0x10, 0);
+    SetBlendConfig(1, proc->timer2, 0x10, 0);
 
     if (proc->timer2 > 7)
     {
@@ -217,7 +217,7 @@ void MapLatonaShiningfx_Loop3(struct MAAnotherProc * proc)
         return;
     }
 
-    SetSpecialColorEffectsParameters(1,
+    SetBlendConfig(1,
         Interpolate(0, 8, 0, proc->timer2++, proc->terminator), 0x10, 0);
 
     if (proc->timer2 >= proc->terminator)
@@ -266,7 +266,7 @@ void NightMarefx_Init(struct MAEffectProc * proc)
         Pal_089B4BFC,
         BM_BGPAL_BANIM_UNK4);
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendConfig(1, 0x10, 0x10, 0);
 
     proc->unk40 = 0;
     proc->unk42 = 0;

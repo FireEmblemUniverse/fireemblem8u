@@ -110,7 +110,7 @@ void ArenaUi_Init(ProcPtr proc) {
     gLCDControlBuffer.wincnt.win1_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 0;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 8);
+    SetBlendConfig(3, 0, 0, 8);
 
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(0, 0, 0, 0, 0);

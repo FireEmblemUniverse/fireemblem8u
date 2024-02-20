@@ -476,8 +476,8 @@ void sub_80BEBD4(struct GMapPIProc * proc)
 
     sub_80BEB2C(proc);
 
-    *&proc->xNew = gGMData.unk08 >> 8;
-    *&proc->yNew = gGMData.unk0C >> 8;
+    *&proc->xNew = gGMData.ix >> 8;
+    *&proc->yNew = gGMData.iy >> 8;
 
     proc->xPrev = proc->xNew;
     proc->yPrev = proc->yNew;
@@ -531,16 +531,16 @@ void sub_80BECB8(struct GMapPIProc * proc)
     proc->xPrev = proc->xNew;
     proc->yPrev = proc->yNew;
 
-    proc->xNew = gGMData.unk08 >> 8;
-    proc->yNew = gGMData.unk0C >> 8;
+    proc->xNew = gGMData.ix >> 8;
+    proc->yNew = gGMData.iy >> 8;
 
     if (proc->xNew == proc->xPrev && proc->yNew == proc->yPrev)
         return;
 
-    height = gGMData.unk0C >> 8;
+    height = gGMData.iy >> 8;
 
     nodeId = GetNodeAtPosition(
-        ((struct UnkParentProc *)(proc->proc_parent))->unk_48, gGMData.unk08 >> 8, gGMData.unk0C >> 8, 0, 0);
+        ((struct UnkParentProc *)(proc->proc_parent))->unk_48, gGMData.ix >> 8, gGMData.iy >> 8, 0, 0);
 
     if (nodeId < 0)
     {
@@ -733,8 +733,8 @@ void sub_80BEF6C(struct GMapPIProc * proc)
     s16 x;
     s16 y;
 
-    *&x = gGMData.unk08 >> 8;
-    *&y = gGMData.unk0C >> 8;
+    *&x = gGMData.ix >> 8;
+    *&y = gGMData.iy >> 8;
 
     nodeId = GetNodeAtPosition(((struct UnkParentProc *)(proc->proc_parent))->unk_48, x, y, 0, 0);
 
@@ -766,8 +766,8 @@ void GMapPI_Init(struct GMapPIProc * proc)
     ClearText(&proc->text[0]);
     ClearText(&proc->text[1]);
 
-    *&x = gGMData.unk08 >> 8;
-    *&y = gGMData.unk0C >> 8;
+    *&x = gGMData.ix >> 8;
+    *&y = gGMData.iy >> 8;
 
     nodeId = GetNodeAtPosition(((struct UnkParentProc *)(proc->proc_parent))->unk_48, x, y, 0, 0);
 

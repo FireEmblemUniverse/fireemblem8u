@@ -2,882 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-
-	THUMB_FUNC_START GmapRm_80C20B0
-GmapRm_80C20B0: @ 0x080C20B0
-	push {r4, r5, lr}
-	sub sp, #4
-	adds r5, r0, #0
-	movs r4, #0
-	str r4, [sp]
-	movs r0, #0
-	movs r1, #1
-	movs r2, #0
-	movs r3, #0
-	bl SetBlendTargetA
-	movs r0, #1
-	str r0, [sp]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #1
-	movs r3, #1
-	bl SetBlendTargetB
-	movs r0, #1
-	movs r1, #0x10
-	movs r2, #0
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	ldr r2, _080C2108  @ gLCDControlBuffer
-	ldrb r0, [r2, #1]
-	movs r1, #1
-	orrs r0, r1
-	movs r1, #2
-	orrs r0, r1
-	movs r1, #4
-	orrs r0, r1
-	movs r1, #8
-	orrs r0, r1
-	movs r1, #0x10
-	orrs r0, r1
-	strb r0, [r2, #1]
-	strh r4, [r5, #0x2a]
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C2108: .4byte gLCDControlBuffer
-
-	THUMB_FUNC_END GmapRm_80C20B0
-
-	THUMB_FUNC_START GmapRm_80C210C
-GmapRm_80C210C: @ 0x080C210C
-	push {lr}
-	adds r1, r0, #0
-	ldrh r0, [r1, #0x2a]
-	adds r0, #1
-	strh r0, [r1, #0x2a]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	cmp r0, #0x4a
-	bhi _080C2142
-	ldrh r0, [r1, #0x2a]
-	lsls r0, r0, #4
-	movs r1, #0x4b
-	bl __divsi3
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	lsls r1, r0, #0x18
-	lsrs r1, r1, #0x18
-	movs r2, #0x10
-	subs r2, r2, r0
-	lsls r2, r2, #0x18
-	lsrs r2, r2, #0x18
-	movs r0, #1
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	b _080C2148
-_080C2142:
-	adds r0, r1, #0
-	bl Proc_Break
-_080C2148:
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END GmapRm_80C210C
-
-	THUMB_FUNC_START GmapRm_80C214C
-GmapRm_80C214C: @ 0x080C214C
-	push {r4, r5, r6, lr}
-	mov r6, sl
-	mov r5, r9
-	mov r4, r8
-	push {r4, r5, r6}
-	sub sp, #4
-	mov sl, r0
-	ldr r0, _080C2238  @ Img_GmapPath
-	ldr r1, _080C223C  @ 0x06005000
-	bl Decompress
-	ldr r4, _080C2240  @ ProcScr_WorldMapMain
-	adds r0, r4, #0
-	bl Proc_Find
-	ldr r0, [r0, #0x44]
-	ldr r1, [r0, #0x4c]
-	adds r1, #0x31
-	ldrb r0, [r1]
-	movs r2, #4
-	mov r8, r2
-	movs r2, #0
-	mov r9, r2
-	mov r2, r8
-	orrs r0, r2
-	strb r0, [r1]
-	adds r0, r4, #0
-	bl Proc_Find
-	ldr r0, [r0, #0x44]
-	ldr r0, [r0, #0x4c]
-	adds r0, #0x31
-	ldrb r1, [r0]
-	movs r5, #3
-	orrs r1, r5
-	strb r1, [r0]
-	adds r0, r4, #0
-	bl Proc_Find
-	ldr r0, [r0, #0x48]
-	bl SkipGmNodeIconDisplay
-	movs r0, #1
-	movs r1, #0x10
-	movs r2, #0
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	mov r0, sl
-	bl sub_80C22FC
-	ldr r4, _080C2244  @ gLCDControlBuffer
-	ldrb r2, [r4, #0xc]
-	movs r1, #4
-	negs r1, r1
-	adds r0, r1, #0
-	ands r0, r2
-	strb r0, [r4, #0xc]
-	ldrb r0, [r4, #0x10]
-	ands r1, r0
-	movs r6, #1
-	orrs r1, r6
-	strb r1, [r4, #0x10]
-	ldrb r0, [r4, #0x14]
-	orrs r0, r5
-	strb r0, [r4, #0x14]
-	ldrb r0, [r4, #0x18]
-	orrs r0, r5
-	strb r0, [r4, #0x18]
-	mov r0, r9
-	str r0, [sp]
-	movs r0, #0
-	movs r1, #1
-	movs r2, #0
-	movs r3, #0
-	bl SetBlendTargetA
-	movs r0, #1
-	str r0, [sp]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #1
-	movs r3, #1
-	bl SetBlendTargetB
-	ldrb r0, [r4, #1]
-	orrs r0, r6
-	movs r1, #2
-	orrs r0, r1
-	mov r1, r8
-	orrs r0, r1
-	movs r1, #8
-	orrs r0, r1
-	movs r1, #0x10
-	orrs r0, r1
-	strb r0, [r4, #1]
-	ldr r2, _080C2248  @ gGMData
-	ldrb r1, [r2]
-	movs r0, #9
-	negs r0, r0
-	ands r0, r1
-	strb r0, [r2]
-	bl SetupGmapNodeGfx
-	bl LoadObjUIGfx
-	mov r0, r9
-	mov r2, sl
-	strh r0, [r2, #0x2a]
-	add sp, #4
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C2238: .4byte Img_GmapPath
-_080C223C: .4byte 0x06005000
-_080C2240: .4byte ProcScr_WorldMapMain
-_080C2244: .4byte gLCDControlBuffer
-_080C2248: .4byte gGMData
-
-	THUMB_FUNC_END GmapRm_80C214C
-
-	THUMB_FUNC_START GmapRm_80C224C
-GmapRm_80C224C: @ 0x080C224C
-	push {lr}
-	adds r1, r0, #0
-	ldrh r0, [r1, #0x2a]
-	adds r0, #1
-	strh r0, [r1, #0x2a]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	cmp r0, #0x4a
-	bhi _080C2284
-	ldrh r0, [r1, #0x2a]
-	lsls r0, r0, #4
-	movs r1, #0x4b
-	bl __divsi3
-	adds r2, r0, #0
-	lsls r2, r2, #0x10
-	lsrs r2, r2, #0x10
-	movs r1, #0x10
-	subs r1, r1, r2
-	lsls r1, r1, #0x18
-	lsrs r1, r1, #0x18
-	lsls r2, r2, #0x18
-	lsrs r2, r2, #0x18
-	movs r0, #1
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	b _080C228A
-_080C2284:
-	adds r0, r1, #0
-	bl Proc_Break
-_080C228A:
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END GmapRm_80C224C
-
-	THUMB_FUNC_START sub_80C2290
-sub_80C2290: @ 0x080C2290
-	push {r4, r5, r6, r7, lr}
-	adds r6, r0, #0
-	movs r5, #2
-	ldr r7, _080C22D4  @ gGMData
-	adds r4, r7, #0
-	adds r4, #8
-_080C229C:
-	movs r1, #0x12
-	ldrsh r0, [r4, r1]
-	cmp r0, #0
-	beq _080C22B4
-	ldrb r0, [r7, #0x11]
-	ldrb r1, [r4, #0x11]
-	cmp r0, r1
-	bne _080C22B4
-	ldr r0, [r6, #0x54]
-	adds r1, r5, #0
-	bl GmMu_RemoveUnit
-_080C22B4:
-	adds r4, #4
-	adds r5, #1
-	cmp r5, #6
-	ble _080C229C
-	ldr r0, _080C22D4  @ gGMData
-	ldrb r1, [r0, #0x10]
-	movs r0, #1
-	ands r0, r1
-	cmp r0, #0
-	beq _080C22D8
-	adds r2, r6, #0
-	adds r2, #0x29
-	ldrb r1, [r2]
-	movs r0, #8
-	orrs r0, r1
-	b _080C22E2
-	.align 2, 0
-_080C22D4: .4byte gGMData
-_080C22D8:
-	adds r2, r6, #0
-	adds r2, #0x29
-	ldrb r1, [r2]
-	movs r0, #0xf7
-	ands r0, r1
-_080C22E2:
-	strb r0, [r2]
-	ldr r0, _080C22F8  @ ProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x54]
-	movs r1, #0
-	bl GmMu_HideUnit
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C22F8: .4byte ProcScr_WorldMapMain
-
-	THUMB_FUNC_END sub_80C2290
-
-	THUMB_FUNC_START sub_80C22FC
-sub_80C22FC: @ 0x080C22FC
-	push {lr}
-	adds r0, #0x29
-	ldrb r1, [r0]
-	movs r0, #8
-	ands r0, r1
-	cmp r0, #0
-	beq _080C2318
-	ldr r0, _080C231C  @ ProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x54]
-	movs r1, #0
-	bl GmMu_ShowUnit
-_080C2318:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C231C: .4byte ProcScr_WorldMapMain
-
-	THUMB_FUNC_END sub_80C22FC
-
-	THUMB_FUNC_START GmapRm_80C2320
-GmapRm_80C2320: @ 0x080C2320
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _080C238C  @ ProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x48]
-	bl UnskipGmNodeIconDisplay
-	movs r0, #0
-	movs r1, #0x10
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	adds r0, r4, #0
-	bl sub_80C2290
-	ldr r2, _080C2390  @ gLCDControlBuffer
-	ldrb r3, [r2, #0xc]
-	movs r1, #4
-	negs r1, r1
-	adds r0, r1, #0
-	ands r0, r3
-	strb r0, [r2, #0xc]
-	ldrb r0, [r2, #0x10]
-	movs r3, #3
-	orrs r0, r3
-	strb r0, [r2, #0x10]
-	ldrb r0, [r2, #0x14]
-	ands r1, r0
-	movs r0, #1
-	orrs r1, r0
-	strb r1, [r2, #0x14]
-	ldrb r0, [r2, #0x18]
-	orrs r0, r3
-	strb r0, [r2, #0x18]
-	movs r0, #2
-	bl BG_GetMapBuffer
-	movs r1, #0
-	bl BG_Fill
-	movs r0, #4
-	bl BG_EnableSyncByMask
-	ldr r2, _080C2394  @ gGMData
-	ldrb r0, [r2]
-	movs r1, #8
-	orrs r0, r1
-	strb r0, [r2]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C238C: .4byte ProcScr_WorldMapMain
-_080C2390: .4byte gLCDControlBuffer
-_080C2394: .4byte gGMData
-
-	THUMB_FUNC_END GmapRm_80C2320
-
-	THUMB_FUNC_START GmapRm_80C2398
-GmapRm_80C2398: @ 0x080C2398
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _080C2410  @ ProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x48]
-	bl SkipGmNodeIconDisplay
-	movs r0, #0
-	movs r1, #0x10
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	adds r0, r4, #0
-	bl sub_80C22FC
-	ldr r2, _080C2414  @ gLCDControlBuffer
-	ldrb r3, [r2, #0xc]
-	movs r1, #4
-	negs r1, r1
-	adds r0, r1, #0
-	ands r0, r3
-	strb r0, [r2, #0xc]
-	ldrb r0, [r2, #0x10]
-	ands r1, r0
-	movs r3, #1
-	orrs r1, r3
-	strb r1, [r2, #0x10]
-	ldrb r0, [r2, #0x14]
-	movs r1, #3
-	orrs r0, r1
-	strb r0, [r2, #0x14]
-	ldrb r0, [r2, #0x18]
-	orrs r0, r1
-	strb r0, [r2, #0x18]
-	ldrb r0, [r2, #1]
-	orrs r0, r3
-	movs r1, #2
-	orrs r0, r1
-	movs r1, #4
-	orrs r0, r1
-	movs r1, #8
-	orrs r0, r1
-	movs r1, #0x10
-	orrs r0, r1
-	strb r0, [r2, #1]
-	ldr r2, _080C2418  @ gGMData
-	ldrb r1, [r2]
-	movs r0, #9
-	negs r0, r0
-	ands r0, r1
-	strb r0, [r2]
-	ldr r0, _080C241C  @ ProcScr_GmapRmUpdateDirect
-	bl Proc_EndEach
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C2410: .4byte ProcScr_WorldMapMain
-_080C2414: .4byte gLCDControlBuffer
-_080C2418: .4byte gGMData
-_080C241C: .4byte ProcScr_GmapRmUpdateDirect
-
-	THUMB_FUNC_END GmapRm_80C2398
-
-	THUMB_FUNC_START NewGmapRM
-NewGmapRM: @ 0x080C2420
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	adds r6, r1, #0
-	adds r4, r2, #0
-	adds r1, r3, #0
-	cmp r1, #0
-	beq _080C243C
-	ldr r0, _080C2438  @ ProcScr_GmapRM
-	bl Proc_StartBlocking
-	b _080C2444
-	.align 2, 0
-_080C2438: .4byte ProcScr_GmapRM
-_080C243C:
-	ldr r0, _080C245C  @ ProcScr_GmapRM
-	movs r1, #3
-	bl Proc_Start
-_080C2444:
-	adds r1, r0, #0
-	adds r2, r1, #0
-	adds r2, #0x29
-	movs r0, #0xfb
-	ands r0, r4
-	strb r0, [r2]
-	strh r5, [r1, #0x2e]
-	strh r6, [r1, #0x30]
-	adds r0, r1, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080C245C: .4byte ProcScr_GmapRM
-
-	THUMB_FUNC_END NewGmapRM
-
-	THUMB_FUNC_START EndGmapRM
-EndGmapRM: @ 0x080C2460
-	push {lr}
-	ldr r0, _080C246C  @ ProcScr_GmapRM
-	bl Proc_EndEach
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C246C: .4byte ProcScr_GmapRM
-
-	THUMB_FUNC_END EndGmapRM
-
-	THUMB_FUNC_START GmapRMExists
-GmapRMExists: @ 0x080C2470
-	push {lr}
-	ldr r0, _080C2484  @ ProcScr_GmapRM
-	bl Proc_Find
-	cmp r0, #0
-	beq _080C247E
-	movs r0, #1
-_080C247E:
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080C2484: .4byte ProcScr_GmapRM
-
-	THUMB_FUNC_END GmapRMExists
-
-	THUMB_FUNC_START GmapRMSetPosition
-GmapRMSetPosition: @ 0x080C2488
-	push {r4, r5, lr}
-	lsls r0, r0, #0x10
-	lsrs r5, r0, #0x10
-	lsls r1, r1, #0x10
-	lsrs r4, r1, #0x10
-	ldr r0, _080C24A8  @ ProcScr_GmapRM
-	bl Proc_Find
-	cmp r0, #0
-	beq _080C24A0
-	strh r5, [r0, #0x2e]
-	strh r4, [r0, #0x30]
-_080C24A0:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C24A8: .4byte ProcScr_GmapRM
-
-	THUMB_FUNC_END GmapRMSetPosition
-
-	THUMB_FUNC_START GetWMDisplayPosition
-GetWMDisplayPosition: @ 0x080C24AC
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	adds r5, r1, #0
-	ldr r0, _080C24C4  @ ProcScr_GmapRM
-	bl Proc_Find
-	adds r1, r0, #0
-	cmp r1, #0
-	bne _080C24C8
-	movs r0, #0
-	b _080C24D2
-	.align 2, 0
-_080C24C4: .4byte ProcScr_GmapRM
-_080C24C8:
-	ldrh r0, [r1, #0x2e]
-	strh r0, [r4]
-	ldrh r0, [r1, #0x30]
-	strh r0, [r5]
-	movs r0, #1
-_080C24D2:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END GetWMDisplayPosition
-
-	THUMB_FUNC_START sub_80C24D8
-sub_80C24D8: @ 0x080C24D8
-	push {lr}
-	ldr r0, _080C24F4  @ ProcScr_GmapRM
-	bl Proc_Find
-	cmp r0, #0
-	beq _080C24F0
-	adds r2, r0, #0
-	adds r2, #0x29
-	ldrb r1, [r2]
-	movs r0, #4
-	orrs r0, r1
-	strb r0, [r2]
-_080C24F0:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C24F4: .4byte ProcScr_GmapRM
-
-	THUMB_FUNC_END sub_80C24D8
-
-	THUMB_FUNC_START sub_80C24F8
-sub_80C24F8: @ 0x080C24F8
-	push {r4, r5, lr}
-	ldr r0, _080C2584  @ ProcScr_GmapRM
-	bl Proc_Find
-	adds r5, r0, #0
-	cmp r5, #0
-	beq _080C257E
-	ldr r0, _080C2588  @ ProcScr_WorldMapMain
-	bl Proc_Find
-	ldr r0, [r0, #0x48]
-	bl SkipGmNodeIconDisplay
-	movs r0, #0
-	movs r1, #0x10
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	adds r0, r5, #0
-	bl sub_80C22FC
-	ldr r2, _080C258C  @ gLCDControlBuffer
-	ldrb r3, [r2, #0xc]
-	movs r1, #4
-	negs r1, r1
-	adds r0, r1, #0
-	ands r0, r3
-	strb r0, [r2, #0xc]
-	ldrb r0, [r2, #0x10]
-	ands r1, r0
-	movs r0, #1
-	orrs r1, r0
-	strb r1, [r2, #0x10]
-	ldrb r0, [r2, #0x14]
-	movs r1, #3
-	orrs r0, r1
-	strb r0, [r2, #0x14]
-	ldrb r0, [r2, #0x18]
-	orrs r0, r1
-	strb r0, [r2, #0x18]
-	ldr r3, _080C2590  @ gGMData
-	ldrb r1, [r3]
-	movs r4, #9
-	negs r4, r4
-	adds r0, r4, #0
-	ands r0, r1
-	strb r0, [r3]
-	ldrb r1, [r2, #1]
-	movs r0, #2
-	negs r0, r0
-	ands r0, r1
-	movs r1, #3
-	negs r1, r1
-	ands r0, r1
-	subs r1, #2
-	ands r0, r1
-	ands r0, r4
-	subs r1, #0xc
-	ands r0, r1
-	strb r0, [r2, #1]
-	ldr r0, _080C2594  @ ProcScr_GmapRmUpdateDirect
-	bl Proc_EndEach
-	adds r0, r5, #0
-	bl Proc_End
-_080C257E:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C2584: .4byte ProcScr_GmapRM
-_080C2588: .4byte ProcScr_WorldMapMain
-_080C258C: .4byte gLCDControlBuffer
-_080C2590: .4byte gGMData
-_080C2594: .4byte ProcScr_GmapRmUpdateDirect
-
-	THUMB_FUNC_END sub_80C24F8
-
-	THUMB_FUNC_START sub_80C2598
-sub_80C2598: @ 0x080C2598
-	push {lr}
-	bl GetWMFaceBlendAmt
-	lsls r1, r0, #0x18
-	lsrs r1, r1, #0x18
-	movs r2, #0x10
-	subs r2, r2, r0
-	lsls r2, r2, #0x18
-	lsrs r2, r2, #0x18
-	movs r0, #0
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C2598
-
-	THUMB_FUNC_START sub_80C25B8
-sub_80C25B8: @ 0x080C25B8
-	push {r4, r5, lr}
-	sub sp, #4
-	adds r4, r0, #0
-	movs r5, #0
-	str r5, [sp]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #0
-	movs r3, #0
-	bl SetBlendTargetA
-	str r5, [sp]
-	movs r0, #0
-	movs r1, #1
-	movs r2, #0
-	movs r3, #0
-	bl SetBlendTargetB
-	movs r0, #0
-	movs r1, #0
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	strh r5, [r4, #0x2a]
-	adds r4, #0x29
-	movs r0, #1
-	strb r0, [r4]
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C25B8
-
-	THUMB_FUNC_START sub_80C25F8
-sub_80C25F8: @ 0x080C25F8
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2a]
-	adds r0, #1
-	strh r0, [r4, #0x2a]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x2c
-	bgt _080C263C
-	movs r1, #0x2a
-	ldrsh r0, [r4, r1]
-	movs r1, #0x2d
-	movs r2, #0
-	bl sub_800B84C
-	adds r1, r0, #0
-	movs r0, #0x80
-	lsls r0, r0, #5
-	lsls r1, r1, #4
-	bl DivArm
-	adds r1, r0, #0
-	lsls r1, r1, #0x18
-	lsrs r1, r1, #0x18
-	movs r0, #0
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	adds r1, r4, #0
-	adds r1, #0x29
-	movs r0, #0
-	strb r0, [r1]
-	b _080C2652
-_080C263C:
-	movs r0, #0
-	movs r1, #0x10
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	movs r0, #0
-	strh r0, [r4, #0x2a]
-	adds r0, r4, #0
-	bl Proc_Break
-_080C2652:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C25F8
-
-	THUMB_FUNC_START sub_80C2658
-sub_80C2658: @ 0x080C2658
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2a]
-	adds r0, #1
-	strh r0, [r4, #0x2a]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x2c
-	bgt _080C2696
-	movs r1, #0x2a
-	ldrsh r0, [r4, r1]
-	movs r1, #0x2d
-	movs r2, #0
-	bl sub_800B84C
-	adds r1, r0, #0
-	movs r0, #0x80
-	lsls r0, r0, #5
-	lsls r1, r1, #4
-	bl DivArm
-	movs r1, #0x10
-	subs r1, r1, r0
-	lsls r1, r1, #0x18
-	lsrs r1, r1, #0x18
-	movs r0, #0
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	b _080C26B4
-_080C2696:
-	movs r0, #0
-	movs r1, #0
-	movs r2, #0x10
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	movs r0, #0
-	strh r0, [r4, #0x2a]
-	adds r1, r4, #0
-	adds r1, #0x29
-	movs r0, #1
-	strb r0, [r1]
-	adds r0, r4, #0
-	bl Proc_Break
-_080C26B4:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80C2658
-
-	THUMB_FUNC_START sub_80C26BC
-sub_80C26BC: @ 0x080C26BC
-	push {lr}
-	adds r1, r0, #0
-	cmp r1, #0
-	beq _080C26D0
-	ldr r0, _080C26CC  @ ProcScr_GmapRmBaPalAnim
-	bl Proc_StartBlocking
-	b _080C26D8
-	.align 2, 0
-_080C26CC: .4byte ProcScr_GmapRmBaPalAnim
-_080C26D0:
-	ldr r0, _080C26DC  @ ProcScr_GmapRmBaPalAnim
-	movs r1, #3
-	bl Proc_Start
-_080C26D8:
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080C26DC: .4byte ProcScr_GmapRmBaPalAnim
-
-	THUMB_FUNC_END sub_80C26BC
-
-	THUMB_FUNC_START sub_80C26E0
-sub_80C26E0: @ 0x080C26E0
-	push {lr}
-	ldr r0, _080C26EC  @ ProcScr_GmapRmBaPalAnim
-	bl Proc_EndEach
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080C26EC: .4byte ProcScr_GmapRmBaPalAnim
-
-	THUMB_FUNC_END sub_80C26E0
-
-	THUMB_FUNC_START sub_80C26F0
-sub_80C26F0: @ 0x080C26F0
-	push {lr}
-	ldr r0, _080C2704  @ ProcScr_GmapRmBaPalAnim
-	bl Proc_Find
-	cmp r0, #0
-	beq _080C26FE
-	movs r0, #1
-_080C26FE:
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080C2704: .4byte ProcScr_GmapRmBaPalAnim
-
-	THUMB_FUNC_END sub_80C26F0
-
-	THUMB_FUNC_START sub_80C2708
-sub_80C2708: @ 0x080C2708
-	push {lr}
-	ldr r0, _080C2718  @ ProcScr_GmapRmBaPalAnim
-	bl Proc_Find
-	cmp r0, #0
-	bne _080C271C
-	movs r0, #0
-	b _080C2724
-	.align 2, 0
-_080C2718: .4byte ProcScr_GmapRmBaPalAnim
-_080C271C:
-	adds r0, #0x29
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-_080C2724:
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80C2708
-
-	THUMB_FUNC_START sub_80C2728
-sub_80C2728: @ 0x080C2728
+	THUMB_FUNC_START GmapRmBorder1_End
+GmapRmBorder1_End: @ 0x080C2728
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x34]
@@ -888,7 +14,7 @@ sub_80C2728: @ 0x080C2728
 	bl CountProcs
 	cmp r0, #1
 	bne _080C2746
-	bl sub_80C26E0
+	bl EndGmapRmBaPalAnim1
 _080C2746:
 	pop {r4}
 	pop {r0}
@@ -896,10 +22,10 @@ _080C2746:
 	.align 2, 0
 _080C274C: .4byte ProcScr_GmapRmBorder1
 
-	THUMB_FUNC_END sub_80C2728
+	THUMB_FUNC_END GmapRmBorder1_End
 
-	THUMB_FUNC_START sub_80C2750
-sub_80C2750: @ 0x080C2750
+	THUMB_FUNC_START GmapRmBorder1_80C2750
+GmapRmBorder1_80C2750: @ 0x080C2750
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -920,7 +46,7 @@ sub_80C2750: @ 0x080C2750
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	strh r4, [r5, #0x30]
 	ldr r0, _080C27A0  @ ProcScr_GmapRmBorder1
 	bl CountProcs
@@ -940,7 +66,7 @@ _080C2798:
 _080C27A0: .4byte ProcScr_GmapRmBorder1
 _080C27A4: .4byte Pal_WmHighLightNationMap
 
-	THUMB_FUNC_END sub_80C2750
+	THUMB_FUNC_END GmapRmBorder1_80C2750
 
 	THUMB_FUNC_START sub_80C27A8
 sub_80C27A8: @ 0x080C27A8
@@ -957,7 +83,7 @@ sub_80C27A8: @ 0x080C27A8
 	adds r5, #2
 	mov r0, sp
 	adds r1, r5, #0
-	bl GetWMDisplayPosition
+	bl GmapRm_GetPosition
 	mov r0, sp
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -991,8 +117,8 @@ _080C27F6:
 
 	THUMB_FUNC_END sub_80C27A8
 
-	THUMB_FUNC_START sub_80C2804
-sub_80C2804: @ 0x080C2804
+	THUMB_FUNC_START GmapRmBorder1_80C2804
+GmapRmBorder1_80C2804: @ 0x080C2804
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldrh r0, [r6, #0x30]
@@ -1021,7 +147,7 @@ sub_80C2804: @ 0x080C2804
 	lsrs r2, r2, #0x18
 	movs r0, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	subs r4, r5, r4
 	lsls r1, r4, #3
 	adds r1, r1, r4
@@ -1054,7 +180,7 @@ _080C2880:
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #0
 	strh r0, [r6, #0x30]
 	ldr r2, _080C28C0  @ GfxSet_WmNationMap
@@ -1083,26 +209,26 @@ _080C28BA:
 	.align 2, 0
 _080C28C0: .4byte GfxSet_WmNationMap
 
-	THUMB_FUNC_END sub_80C2804
+	THUMB_FUNC_END GmapRmBorder1_80C2804
 
-	THUMB_FUNC_START sub_80C28C4
-sub_80C28C4: @ 0x080C28C4
+	THUMB_FUNC_START GmapRmBorder1_80C28C4
+GmapRmBorder1_80C28C4: @ 0x080C28C4
 	push {lr}
 	ldr r0, _080C28D8  @ ProcScr_GmapRmBorder1
 	bl CountProcs
 	cmp r0, #1
 	bne _080C28D4
-	bl sub_80C26E0
+	bl EndGmapRmBaPalAnim1
 _080C28D4:
 	pop {r0}
 	bx r0
 	.align 2, 0
 _080C28D8: .4byte ProcScr_GmapRmBorder1
 
-	THUMB_FUNC_END sub_80C28C4
+	THUMB_FUNC_END GmapRmBorder1_80C28C4
 
-	THUMB_FUNC_START sub_80C28DC
-sub_80C28DC: @ 0x080C28DC
+	THUMB_FUNC_START GmapRmBorder1_80C28DC
+GmapRmBorder1_80C28DC: @ 0x080C28DC
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldrh r0, [r6, #0x30]
@@ -1132,7 +258,7 @@ sub_80C28DC: @ 0x080C28DC
 	lsrs r2, r2, #0x18
 	movs r0, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	lsls r1, r4, #3
 	adds r1, r1, r4
 	lsls r1, r1, #1
@@ -1166,10 +292,10 @@ _080C295E:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80C28DC
+	THUMB_FUNC_END GmapRmBorder1_80C28DC
 
-	THUMB_FUNC_START sub_80C2964
-sub_80C2964: @ 0x080C2964
+	THUMB_FUNC_START GmapRmBorder1_80C2964
+GmapRmBorder1_80C2964: @ 0x080C2964
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080C2988  @ ProcScr_GmapRmBorder1
@@ -1177,7 +303,7 @@ sub_80C2964: @ 0x080C2964
 	cmp r0, #1
 	bgt _080C2980
 	movs r0, #0
-	bl sub_80C26BC
+	bl StartGmapRmBaPalAnim1
 	adds r0, r4, #0
 	movs r1, #1
 	bl Proc_Goto
@@ -1188,7 +314,7 @@ _080C2980:
 	.align 2, 0
 _080C2988: .4byte ProcScr_GmapRmBorder1
 
-	THUMB_FUNC_END sub_80C2964
+	THUMB_FUNC_END GmapRmBorder1_80C2964
 
 	THUMB_FUNC_START sub_80C298C
 sub_80C298C: @ 0x080C298C
@@ -1199,7 +325,7 @@ sub_80C298C: @ 0x080C298C
 	adds r5, #2
 	mov r0, sp
 	adds r1, r5, #0
-	bl GetWMDisplayPosition
+	bl GmapRm_GetPosition
 	ldr r6, _080C29F4  @ GfxSet_WmNationMap
 	adds r7, r4, #0
 	adds r7, #0x2a
@@ -1246,12 +372,12 @@ _080C29F4: .4byte GfxSet_WmNationMap
 
 	THUMB_FUNC_END sub_80C298C
 
-	THUMB_FUNC_START sub_80C29F8
-sub_80C29F8: @ 0x080C29F8
+	THUMB_FUNC_START GmapRmBorder1_80C29F8
+GmapRmBorder1_80C29F8: @ 0x080C29F8
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80C298C
-	bl sub_80C2708
+	bl CheckGmapRmBaPalAnim1State
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080C2A14
@@ -1264,10 +390,10 @@ _080C2A14:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80C29F8
+	THUMB_FUNC_END GmapRmBorder1_80C29F8
 
-	THUMB_FUNC_START sub_80C2A1C
-sub_80C2A1C: @ 0x080C2A1C
+	THUMB_FUNC_START GmapRmBorder1_80C2A1C
+GmapRmBorder1_80C2A1C: @ 0x080C2A1C
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80C298C
@@ -1285,7 +411,7 @@ _080C2A38:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80C2A1C
+	THUMB_FUNC_END GmapRmBorder1_80C2A1C
 
 	THUMB_FUNC_START sub_80C2A40
 sub_80C2A40: @ 0x080C2A40
@@ -1579,14 +705,14 @@ _080C2C4A:
 
 	THUMB_FUNC_END sub_80C2C10
 
-	THUMB_FUNC_START GmapRmBaPalAnim_End
-GmapRmBaPalAnim_End: @ 0x080C2C54
+	THUMB_FUNC_START GmapRmBaPalAnim2_End
+GmapRmBaPalAnim2_End: @ 0x080C2C54
 	bx lr
 
-	THUMB_FUNC_END GmapRmBaPalAnim_End
+	THUMB_FUNC_END GmapRmBaPalAnim2_End
 
-	THUMB_FUNC_START GmapRmBaPalAnim_Init
-GmapRmBaPalAnim_Init: @ 0x080C2C58
+	THUMB_FUNC_START GmapRmBaPalAnim2_Init
+GmapRmBaPalAnim2_Init: @ 0x080C2C58
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080C2C7C  @ gUnknown_08AA11B0
@@ -1606,7 +732,7 @@ GmapRmBaPalAnim_Init: @ 0x080C2C58
 	.align 2, 0
 _080C2C7C: .4byte gUnknown_08AA11B0
 
-	THUMB_FUNC_END GmapRmBaPalAnim_Init
+	THUMB_FUNC_END GmapRmBaPalAnim2_Init
 
 	THUMB_FUNC_START sub_80C2C80
 sub_80C2C80: @ 0x080C2C80
@@ -1706,8 +832,8 @@ _080C2CA6:
 
 	THUMB_FUNC_END sub_80C2C80
 
-	THUMB_FUNC_START GmapRmBaPalAnim_Loop1
-GmapRmBaPalAnim_Loop1: @ 0x080C2D44
+	THUMB_FUNC_START GmapRmBaPalAnim2_Loop1
+GmapRmBaPalAnim2_Loop1: @ 0x080C2D44
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -1753,10 +879,10 @@ _080C2D94:
 _080C2D9C: .4byte gUnknown_08AA1190
 _080C2DA0: .4byte gPaletteBuffer + 0x2A0
 
-	THUMB_FUNC_END GmapRmBaPalAnim_Loop1
+	THUMB_FUNC_END GmapRmBaPalAnim2_Loop1
 
-	THUMB_FUNC_START GmapRmBaPalAnim_Loop2
-GmapRmBaPalAnim_Loop2: @ 0x080C2DA4
+	THUMB_FUNC_START GmapRmBaPalAnim2_Loop2
+GmapRmBaPalAnim2_Loop2: @ 0x080C2DA4
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -1802,7 +928,7 @@ _080C2DF4:
 _080C2DFC: .4byte gUnknown_08AA11B0
 _080C2E00: .4byte gPaletteBuffer + 0x2A0
 
-	THUMB_FUNC_END GmapRmBaPalAnim_Loop2
+	THUMB_FUNC_END GmapRmBaPalAnim2_Loop2
 
 	THUMB_FUNC_START sub_80C2E04
 sub_80C2E04: @ 0x080C2E04
@@ -1950,7 +1076,7 @@ sub_80C2EF0: @ 0x080C2EF0
 	adds r4, #6
 	add r0, sp, #4
 	adds r1, r4, #0
-	bl GetWMDisplayPosition
+	bl GmapRm_GetPosition
 	add r0, sp, #4
 	ldrh r0, [r0]
 	adds r0, #4
@@ -3975,7 +3101,7 @@ sub_80C3DAC: @ 0x080C3DAC
 	movs r1, #0xe
 	movs r2, #3
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #0
 	str r0, [sp]
 	movs r1, #1
@@ -4004,7 +3130,7 @@ sub_80C3DAC: @ 0x080C3DAC
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	bl EnablePaletteSync
-	ldr r0, _080C3E7C  @ gUnknown_08A3EE74
+	ldr r0, _080C3E7C  @ ProcScr_GmapRader
 	ldr r1, [r4, #0x14]
 	bl Proc_Start
 	add sp, #4
@@ -4017,7 +3143,7 @@ _080C3E6C: .4byte gUnknown_08AA1280
 _080C3E70: .4byte 0x06003C00
 _080C3E74: .4byte gUnknown_08AA188C
 _080C3E78: .4byte gPal_GMapPI_ShopIcons
-_080C3E7C: .4byte gUnknown_08A3EE74
+_080C3E7C: .4byte ProcScr_GmapRader
 
 	THUMB_FUNC_END sub_80C3DAC
 
@@ -4037,7 +3163,7 @@ _080C3E90: .4byte gUnknown_08A3EED4
 	THUMB_FUNC_START sub_80C3E94
 sub_80C3E94: @ 0x080C3E94
 	push {lr}
-	ldr r0, _080C3EB8  @ gUnknown_08A3EE74
+	ldr r0, _080C3EB8  @ ProcScr_GmapRader
 	bl Proc_EndEach
 	ldr r0, _080C3EBC  @ gUnknown_08A3EED4
 	bl Proc_EndEach
@@ -4050,7 +3176,7 @@ sub_80C3E94: @ 0x080C3E94
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C3EB8: .4byte gUnknown_08A3EE74
+_080C3EB8: .4byte ProcScr_GmapRader
 _080C3EBC: .4byte gUnknown_08A3EED4
 _080C3EC0: .4byte gBG1TilemapBuffer
 
@@ -4250,13 +3376,13 @@ sub_80C400C: @ 0x080C400C
 	adds r4, r0, #0
 	cmp r1, #0
 	beq _080C4020
-	ldr r0, _080C401C  @ gUnknown_08A3EEEC
+	ldr r0, _080C401C  @ ProcScr_GmapBaseMenu
 	bl Proc_StartBlocking
 	b _080C4028
 	.align 2, 0
-_080C401C: .4byte gUnknown_08A3EEEC
+_080C401C: .4byte ProcScr_GmapBaseMenu
 _080C4020:
-	ldr r0, _080C4034  @ gUnknown_08A3EEEC
+	ldr r0, _080C4034  @ ProcScr_GmapBaseMenu
 	movs r1, #3
 	bl Proc_Start
 _080C4028:
@@ -4267,38 +3393,38 @@ _080C4028:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C4034: .4byte gUnknown_08A3EEEC
+_080C4034: .4byte ProcScr_GmapBaseMenu
 
 	THUMB_FUNC_END sub_80C400C
 
 	THUMB_FUNC_START sub_80C4038
 sub_80C4038: @ 0x080C4038
 	push {lr}
-	ldr r0, _080C4044  @ gUnknown_08A3EEEC
+	ldr r0, _080C4044  @ ProcScr_GmapBaseMenu
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C4044: .4byte gUnknown_08A3EEEC
+_080C4044: .4byte ProcScr_GmapBaseMenu
 
 	THUMB_FUNC_END sub_80C4038
 
 	THUMB_FUNC_START sub_80C4048
 sub_80C4048: @ 0x080C4048
 	push {lr}
-	ldr r0, _080C4054  @ gUnknown_08A3EEEC
+	ldr r0, _080C4054  @ ProcScr_GmapBaseMenu
 	bl Proc_Find
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C4054: .4byte gUnknown_08A3EEEC
+_080C4054: .4byte ProcScr_GmapBaseMenu
 
 	THUMB_FUNC_END sub_80C4048
 
 	THUMB_FUNC_START sub_80C4058
 sub_80C4058: @ 0x080C4058
 	push {lr}
-	ldr r0, _080C406C  @ gUnknown_08A3EEEC
+	ldr r0, _080C406C  @ ProcScr_GmapBaseMenu
 	bl Proc_Find
 	cmp r0, #0
 	beq _080C4066
@@ -4307,7 +3433,7 @@ _080C4066:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080C406C: .4byte gUnknown_08A3EEEC
+_080C406C: .4byte ProcScr_GmapBaseMenu
 
 	THUMB_FUNC_END sub_80C4058
 
@@ -4401,14 +3527,14 @@ sub_80C40B8: @ 0x080C40B8
 	lsrs r2, r2, #0x18
 	movs r0, #1
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C4124
 _080C4100:
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldr r0, [r4, #0x2c]
 	ldrh r0, [r0, #0x30]
 	strh r0, [r4, #0x34]
@@ -4512,14 +3638,14 @@ sub_80C4184: @ 0x080C4184
 	lsrs r2, r2, #0x18
 	movs r0, #1
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C41DC
 _080C41CA:
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r0, r4, #0
 	bl Proc_Break
 _080C41DC:
@@ -4921,7 +4047,7 @@ sub_80C4460: @ 0x080C4460
 	movs r1, #0x10
 	movs r2, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #1
@@ -5355,7 +4481,7 @@ sub_80C47F4: @ 0x080C47F4
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldr r0, _080C4874  @ gBG3TilemapBuffer
 	movs r1, #1
 	negs r1, r1

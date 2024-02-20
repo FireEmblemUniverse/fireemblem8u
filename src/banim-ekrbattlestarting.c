@@ -118,7 +118,7 @@ void ekrBaStart_InitScreen(struct ProcEkrBattleStarting *proc)
     CpuFastFill(0, gBG2TilemapBuffer, 0x800);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 4);
+    SetBlendConfig(3, 0, 0, 4);
     SetBlendTargetA(0, 0, 0, 1, 0);
 
     SetWinEnable(1, 0, 0);

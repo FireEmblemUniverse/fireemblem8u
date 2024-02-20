@@ -237,9 +237,9 @@ void GameIntroHealthSafetyWaitButton(struct ProcOpAnimHS * proc)
     val = 0x10 - ((proc->palette_timer - ((proc->palette_timer / 64) * 64)) >> 0x1);
 
     if (val >= 0)
-        SetSpecialColorEffectsParameters(2, 0, 0, val);
+        SetBlendConfig(2, 0, 0, val);
     else
-        SetSpecialColorEffectsParameters(2, 0, 0, -val);
+        SetBlendConfig(2, 0, 0, -val);
 
     if (proc->palette_timer > 0xE0F || gKeyStatusPtr->newKeys & 0x3FF)
     {
@@ -247,7 +247,7 @@ void GameIntroHealthSafetyWaitButton(struct ProcOpAnimHS * proc)
         SetDispEnable(0, 1, 0, 0, 0);
         SetBlendTargetA(0, 0, 0, 0, 0);
         SetBlendTargetB(0, 0, 0, 0, 0);
-        SetSpecialColorEffectsParameters(0, 0, 0, 0);
+        SetBlendConfig(0, 0, 0, 0);
         Proc_Break(proc);
     }
 }

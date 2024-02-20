@@ -268,7 +268,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    SetSpecialColorEffectsParameters(0, 8, 8, 8);
+    SetBlendConfig(0, 8, 8, 8);
 
     StartGreenText((struct Proc*)proc);
 

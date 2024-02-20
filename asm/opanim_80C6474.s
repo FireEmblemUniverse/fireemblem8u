@@ -85,7 +85,7 @@ _080C7D30:
 	movs r1, #8
 	movs r2, #8
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0
@@ -902,7 +902,7 @@ _080C8436:
 	lsrs r2, r2, #0x18
 	movs r0, #1
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C8462:
 	ldrh r1, [r6, #0x36]
 	movs r2, #0xde
@@ -986,7 +986,7 @@ sub_80C84D8: @ 0x080C84D8
 	movs r1, #8
 	movs r2, #8
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1
@@ -1062,7 +1062,7 @@ sub_80C8580: @ 0x080C8580
 	movs r1, #8
 	movs r2, #8
 	movs r3, #0xe
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r5, #0
 	str r5, [sp]
 	movs r0, #0
@@ -1100,7 +1100,7 @@ sub_80C85B0: @ 0x080C85B0
 	movs r0, #3
 	movs r1, #8
 	movs r2, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldrh r1, [r4]
 	movs r2, #0
 	ldrsh r0, [r4, r2]
@@ -1138,7 +1138,7 @@ sub_80C8608: @ 0x080C8608
 	movs r1, #8
 	movs r2, #8
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r5, #0
 	str r5, [sp]
 	movs r0, #0
@@ -1176,7 +1176,7 @@ sub_80C8638: @ 0x080C8638
 	movs r0, #3
 	movs r1, #8
 	movs r2, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldrh r1, [r4]
 	movs r2, #0
 	ldrsh r0, [r4, r2]
@@ -2006,7 +2006,7 @@ sub_80C8D30: @ 0x080C8D30
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C8D78
 _080C8D66:
 	movs r1, #0x19
@@ -2016,7 +2016,7 @@ _080C8D66:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C8D78:
 	ldrh r0, [r7, #0x3e]
 	adds r0, #1
@@ -2188,7 +2188,7 @@ sub_80C8ED4: @ 0x080C8ED4
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C8F1A
 _080C8F08:
 	movs r1, #0x19
@@ -2198,7 +2198,7 @@ _080C8F08:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C8F1A:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -2335,7 +2335,7 @@ sub_80C9024: @ 0x080C9024
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C906A
 _080C9058:
 	movs r1, #0x19
@@ -2345,7 +2345,7 @@ _080C9058:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C906A:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -2436,7 +2436,7 @@ sub_80C9100: @ 0x080C9100
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C9146
 _080C9134:
 	movs r1, #0x19
@@ -2446,7 +2446,7 @@ _080C9134:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C9146:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -2562,7 +2562,7 @@ sub_80C9218: @ 0x080C9218
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C925E
 _080C924C:
 	movs r1, #0x19
@@ -2572,7 +2572,7 @@ _080C924C:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C925E:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -2688,7 +2688,7 @@ sub_80C9330: @ 0x080C9330
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C9376
 _080C9364:
 	movs r1, #0x19
@@ -2698,7 +2698,7 @@ _080C9364:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C9376:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -2789,7 +2789,7 @@ sub_80C940C: @ 0x080C940C
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C9452
 _080C9440:
 	movs r1, #0x19
@@ -2799,7 +2799,7 @@ _080C9440:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C9452:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -2936,7 +2936,7 @@ sub_80C955C: @ 0x080C955C
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C95A2
 _080C9590:
 	movs r1, #0x19
@@ -2946,7 +2946,7 @@ _080C9590:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C95A2:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -3037,7 +3037,7 @@ sub_80C9638: @ 0x080C9638
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C967E
 _080C966C:
 	movs r1, #0x19
@@ -3047,7 +3047,7 @@ _080C966C:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C967E:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -3163,7 +3163,7 @@ sub_80C9750: @ 0x080C9750
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C9796
 _080C9784:
 	movs r1, #0x19
@@ -3173,7 +3173,7 @@ _080C9784:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C9796:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -3310,7 +3310,7 @@ sub_80C98A0: @ 0x080C98A0
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C98E6
 _080C98D4:
 	movs r1, #0x19
@@ -3320,7 +3320,7 @@ _080C98D4:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C98E6:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -3436,7 +3436,7 @@ sub_80C99B8: @ 0x080C99B8
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _080C99FE
 _080C99EC:
 	movs r1, #0x19
@@ -3446,7 +3446,7 @@ _080C99EC:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _080C99FE:
 	ldrh r0, [r4, #0x3e]
 	adds r0, #1
@@ -3547,7 +3547,7 @@ sub_80C9A94: @ 0x080C9A94
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0x30
 	bne _080C9AF0
@@ -3660,7 +3660,7 @@ sub_80C9B6C: @ 0x080C9B6C
 	movs r1, #0x10
 	movs r2, #0
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r5, #0
 	str r5, [sp]
 	movs r0, #0
@@ -3965,7 +3965,7 @@ sub_80C9DF0: @ 0x080C9DF0
 	movs r1, #0x10
 	movs r2, #0
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0
@@ -4096,7 +4096,7 @@ sub_80C9EE8: @ 0x080C9EE8
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0
@@ -4396,7 +4396,7 @@ sub_80CA10C: @ 0x080CA10C
 	lsrs r2, r2, #0x18
 	movs r0, #1
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	adds r0, r6, #0
@@ -4578,7 +4578,7 @@ sub_80CA26C: @ 0x080CA26C
 	movs r1, #0x10
 	movs r2, #0
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldrb r0, [r5, #1]
 	movs r3, #1
 	orrs r0, r3
@@ -4611,7 +4611,7 @@ _080CA2E6:
 	lsrs r2, r2, #0x18
 	movs r0, #1
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	ldrh r3, [r7, #0x2a]
@@ -5333,7 +5333,7 @@ _080CA8A8:
 	movs r1, #0x10
 	movs r2, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
@@ -5475,7 +5475,7 @@ sub_80CA940: @ 0x080CA940
 	movs r1, #4
 	movs r2, #8
 	movs r3, #8
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #0
 	str r0, [sp]
 	movs r1, #0

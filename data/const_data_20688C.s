@@ -1,8 +1,6 @@
 
     .section .rodata
 
-    .incbin "baserom.gba", 0x206AD4, 0x206AF0 - 0x206AD4
-
 	.global GfxSet_WmNationMap
 GfxSet_WmNationMap:  @ 0x08206AF0
 @ Replacing .incbin "baserom.gba", 0x206AF0, 0x80

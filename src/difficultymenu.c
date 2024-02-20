@@ -488,7 +488,7 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
         return;
     }
 
-    if (proc->sprites_proc->unk_29_1)
+    if (proc->sprites_proc->flags_1)
     {
         return;
     }
@@ -579,8 +579,8 @@ void NewNewGameDifficultySelect(ProcPtr parent)
 //! FE8U = 0x080AC3F4
 void DrawDifficultySprite_Init(struct DifficultyMenuSpritesProc * proc)
 {
-    proc->unk_29_0 = 0;
-    proc->unk_29_1 = 0;
+    proc->flags_0 = 0;
+    proc->flags_1 = 0;
 
     proc->unk_2a = 0;
     proc->unk_2e = 0;
@@ -602,18 +602,18 @@ u16 CONST_DATA gSprite_08A20A98[] =
 //! FE8U = 0x080AC418
 void DrawDifficultyMenuCursorMaybe(struct DifficultyMenuSpritesProc * proc)
 {
-    if (proc->unk_29_0)
+    if (proc->flags_0)
     {
         proc->unk_38 = proc->unk_34 - proc->unk_30;
         proc->unk_3a = proc->unk_36 - proc->unk_32;
         proc->unk_2c = proc->unk_30;
         proc->unk_2e = proc->unk_32;
         proc->unk_3c = 0;
-        proc->unk_29_0 = 0;
-        proc->unk_29_1 = 1;
+        proc->flags_0 = 0;
+        proc->flags_1 = 1;
     }
 
-    if (proc->unk_29_1)
+    if (proc->flags_1)
     {
         proc->unk_3c++;
 
@@ -628,7 +628,7 @@ void DrawDifficultyMenuCursorMaybe(struct DifficultyMenuSpritesProc * proc)
         {
             proc->unk_2c = proc->unk_34;
             proc->unk_2e = proc->unk_36;
-            proc->unk_29_1 = 0;
+            proc->flags_1 = 0;
         }
     }
 
@@ -767,7 +767,7 @@ void sub_80AC680(struct DifficultyMenuSpritesProc * proc, int param_2, int param
     proc->unk_32 = proc->unk_2e;
     proc->unk_34 = param_2;
     proc->unk_36 = param_3;
-    proc->unk_29_0 = 1;
+    proc->flags_0 = 1;
 
     return;
 }

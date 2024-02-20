@@ -122,7 +122,7 @@ void sub_80B82C8(int bg, u32 offset, int xIn, int yIn, u8 isFlippedMaybe) {
 void HandleWMFaceFade(struct WMFaceCtrlProc* proc) {
     int i;
 
-    SetSpecialColorEffectsParameters(1, proc->blendAmt >> 1, 0x10 - (proc->blendAmt >> 1), 0);
+    SetBlendConfig(1, proc->blendAmt >> 1, 0x10 - (proc->blendAmt >> 1), 0);
 
     proc->blendAmt += proc->increment;
 
@@ -288,13 +288,15 @@ ProcPtr StartWMFaceCtrl(ProcPtr parent) {
 }
 
 //! FE8U = 0x080B8694
-void EndWMFaceCtrl(void) {
+void EndWMFaceCtrl(void)
+{
     Proc_EndEach(gProcScr_WorldMapFaceCtrl);
     return;
 }
 
 //! FE8U = 0x080B86A4
-int GetWMFaceBlendAmt(void) {
+int GetWMFaceBlendAmt(void)
+{
     struct WMFaceCtrlProc* proc;
 
     Proc_Find(gProcScr_WorldMapFaceCtrl);
@@ -309,7 +311,8 @@ int GetWMFaceBlendAmt(void) {
 }
 
 //! FE8U = 0x080B86CC
-void WmDrawFace(int faceSlot, int faceId, u16 config) {
+void WmDrawFace(int faceSlot, int faceId, u16 config)
+{
     int bg;
     u32 offset;
 
@@ -376,7 +379,7 @@ void WmDrawFace(int faceSlot, int faceId, u16 config) {
 
         if (proc->blendAmt == 0x20) {
             proc->blendAmt = 0;
-            SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+            SetBlendConfig(1, 0, 0x10, 0);
         }
     }
 
@@ -431,7 +434,7 @@ void WmClearFace(int faceSlot, u16 config) {
 
         if (proc->blendAmt == 0) {
             proc->blendAmt = 0x20;
-            SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
+            SetBlendConfig(1, 0x10, 0, 0);
         }
     }
 
@@ -463,7 +466,7 @@ void sub_80B895C(void) {
 
             if (proc->blendAmt == 0) {
                 proc->blendAmt = 0x20;
-                SetSpecialColorEffectsParameters(0, 0x10, 0, 0);
+                SetBlendConfig(0, 0x10, 0, 0);
             }
         }
     }

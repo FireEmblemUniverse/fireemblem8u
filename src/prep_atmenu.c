@@ -385,7 +385,7 @@ void AtMenu_ResetScreenEffect(struct ProcAtMenu * proc)
     EndMuralBackground_();
     EndPrepSpecialCharEffect();
     SetupBackgrounds(0);
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendBackdropA(1);
 

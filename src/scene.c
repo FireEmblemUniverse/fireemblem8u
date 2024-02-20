@@ -2052,7 +2052,7 @@ void TalkOpen_InitBlend(struct Proc* proc) {
         gLCDControlBuffer.wincnt.win0_enableBlend = 1;
         gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-        SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+        SetBlendConfig(1, 0, 0x10, 0);
     }
 
     return;
@@ -2077,7 +2077,7 @@ void TalkOpen_OnIdle(struct Proc* proc) {
     BG_SetPosition(1, 0, var / 2);
 
     if (!CheckTalkFlag(TALK_FLAG_8)) {
-        SetSpecialColorEffectsParameters(1, var / 2 + 0x10, 1 - var / 2, 0);
+        SetBlendConfig(1, var / 2 + 0x10, 1 - var / 2, 0);
     }
 
     if (proc->unk58 == 12) {

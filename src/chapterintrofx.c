@@ -381,7 +381,7 @@ void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.win0_right = 0;
     gLCDControlBuffer.win0_bottom = 0;
 
-    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+    SetBlendConfig(0, 0, 0, 0);
 
     MaybeResetSomePal();
 
@@ -603,10 +603,10 @@ void ChapterIntro_LightBurst_Init(struct ChapterIntroFXProc* proc) {
 
 void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
     if (proc->unk_66 == 0) {
-        SetSpecialColorEffectsParameters(1, 0x10, proc->unk_4E, 0);
+        SetBlendConfig(1, 0x10, proc->unk_4E, 0);
         proc->unk_4E++;
     } else {
-        SetSpecialColorEffectsParameters(1, ((u16)proc->unk_4E << 0x10) >> 0x11 & 0xFF, 0x10, 0);
+        SetBlendConfig(1, ((u16)proc->unk_4E << 0x10) >> 0x11 & 0xFF, 0x10, 0);
         proc->unk_4E--;
     }
 
@@ -627,7 +627,7 @@ void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
         }
 
         proc->unk_4E = 0x20;
-        SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+        SetBlendConfig(1, 0x10, 0x10, 0);
         proc->unk_66++;
 
         return;
@@ -637,7 +637,7 @@ void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
         return;
     }
 
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendConfig(1, 0, 0x10, 0);
     Proc_EndEach(sProcScr_ChapterIntro_LightBurst);
     Proc_Break(proc);
 
@@ -681,7 +681,7 @@ void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_80209D8(struct ChapterIntroFXProc* proc) {
-    SetSpecialColorEffectsParameters(1, proc->unk_4C, 0x10, 0);
+    SetBlendConfig(1, proc->unk_4C, 0x10, 0);
 
     if ((proc->unk_50 == 3) || ((GetGameClock() & 3) == 0)) {
         if (proc->unk_52 != 0) {
@@ -691,7 +691,7 @@ void ChapterIntro_80209D8(struct ChapterIntroFXProc* proc) {
         }
 
         if (proc->unk_4C > 5) {
-            SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
+            SetBlendConfig(1, 6, 0x10, 0);
             Proc_Break(proc);
         }
     }
@@ -763,7 +763,7 @@ void ChapterIntro_InitMapDisplay() {
     gLCDControlBuffer.dispcnt.bg3_on = 1;
     gLCDControlBuffer.dispcnt.obj_on = 1;
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
+    SetBlendConfig(1, 0x10, 0, 0);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
@@ -850,7 +850,7 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
                 tmp = proc->unk_4C + 0xE;
             }
 
-            SetSpecialColorEffectsParameters(
+            SetBlendConfig(
                 1,
                 ((tmp >> 3) + 0xC) & 0xFF,
                 (4 - (tmp >> 3)) & 0xFF,

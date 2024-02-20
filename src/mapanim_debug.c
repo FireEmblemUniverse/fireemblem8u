@@ -173,7 +173,7 @@ void MADebug_InitScreen(struct MADebugProc* proc)
     MU_EndAll();
     ResetText();
 
-    SetSpecialColorEffectsParameters(2, 8, 8, 0);
+    SetBlendConfig(2, 8, 8, 0);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);

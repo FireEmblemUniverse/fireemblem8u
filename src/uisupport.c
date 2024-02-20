@@ -547,7 +547,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
 
     for (i = 0; i <= 20; i++) {
@@ -611,7 +611,7 @@ void SupportScreen_OnEnd(ProcPtr proc) {
 
 //! FE8U = 0x080A157C
 void SupportScreen_UpdateBlend(void) {
-    SetSpecialColorEffectsParameters(1, 0xe, 3, 0);
+    SetBlendConfig(1, 0xe, 3, 0);
     SetBlendTargetA(0, 1, 0, 0, 1);
     SetBlendTargetB(0, 0, 0, 1, 0);
     return;
@@ -1338,7 +1338,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     BG_SetPosition(1, 4, 0);
     BG_SetPosition(2, 0, 0);
 
-    SetSpecialColorEffectsParameters(1, 0xd, 3, 0);
+    SetBlendConfig(1, 0xd, 3, 0);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
@@ -1457,7 +1457,7 @@ void sub_80A25F8(struct SubScreenProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendTargetB(0, 1, 0, 0, 0);
 
@@ -1489,7 +1489,7 @@ void SupportSubScreen_StartSwapPage(struct SubScreenProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 1;
     gLCDControlBuffer.bg3cnt.priority = 0;
 
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendConfig(1, 0, 0x10, 0);
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(1, 1, 1, 0, 1);
 
@@ -1545,7 +1545,7 @@ void SupportSubScreen_SwapPageOut_ToLeft(struct SubScreenProc* proc) {
     proc->x = -b * 8;
     sub_80A2730(b);
 
-    SetSpecialColorEffectsParameters(1, c, 0x10 - c, 0);
+    SetBlendConfig(1, c, 0x10 - c, 0);
 
     if (proc->unk_3a == 10) {
         Proc_Break(proc);
@@ -1571,7 +1571,7 @@ void SupportSubScreen_SwapPageIn_FromRight(struct SubScreenProc* proc) {
     proc->x = (8 - b) * 8;
 
     sub_80A2730(b - 8);
-    SetSpecialColorEffectsParameters(1, 0x10 - c, c, 0);
+    SetBlendConfig(1, 0x10 - c, c, 0);
 
     if (proc->unk_3a == 10) {
         Proc_Break(proc);
@@ -1596,7 +1596,7 @@ void SupportSubScreen_SwapPageOut_ToRight(struct SubScreenProc* proc) {
     proc->x = b * 8;
 
     sub_80A2730(-b);
-    SetSpecialColorEffectsParameters(1, c, 0x10 - c, 0);
+    SetBlendConfig(1, c, 0x10 - c, 0);
 
     if (proc->unk_3a == 10) {
         Proc_Break(proc);
@@ -1622,7 +1622,7 @@ void SupportSubScreen_SwapPageIn_FromLeft(struct SubScreenProc* proc) {
     proc->x = (b - 8) * 8;
 
     sub_80A2730(8 - b);
-    SetSpecialColorEffectsParameters(1, 0x10 - c, c, 0);
+    SetBlendConfig(1, 0x10 - c, c, 0);
 
     if (proc->unk_3a == 10) {
         Proc_Break(proc);
@@ -1679,7 +1679,7 @@ void SupportSubScreen_EndSwapPage(struct SubScreenProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 1;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    SetSpecialColorEffectsParameters(1, 0, 0xc, 0);
+    SetBlendConfig(1, 0, 0xc, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(1, 1, 1, 1, 1);
 

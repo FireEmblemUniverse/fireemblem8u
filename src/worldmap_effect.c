@@ -101,16 +101,16 @@ void GmapEffectPal_Init(struct GmapEffectProc * proc)
     proc->unk_2e = 4;
     proc->unk_2c = 4;
 
-    proc->unk_29_0 = 0;
+    proc->flags_0 = 0;
 
     if (gGMData.state.bits.state_3)
     {
-        proc->unk_29_1 = 1;
+        proc->flags_1 = 1;
         proc->unk_2a = -1;
     }
     else
     {
-        proc->unk_29_1 = 0;
+        proc->flags_1 = 0;
         proc->unk_2a = 0;
     }
 
@@ -126,7 +126,7 @@ void GmapEffectPal_Init(struct GmapEffectProc * proc)
     SetBlendBackdropA(0);
     SetBlendBackdropB(0);
 
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 16, 16, 0);
+    SetBlendConfig(BLEND_EFFECT_NONE, 16, 16, 0);
 
     return;
 }
@@ -149,7 +149,7 @@ void GmapEffectPal_Loop(struct GmapEffectProc * proc)
 
     for (i = 0; i < 16; i++)
     {
-        if (proc->unk_29_0)
+        if (proc->flags_0)
         {
             idx = (proc->unk_30 + i) & 0x1f;
         }
@@ -161,7 +161,7 @@ void GmapEffectPal_Loop(struct GmapEffectProc * proc)
         }
 
         pal[i] = idx[gUnknown_08A97E48];
-        SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 15 - proc->unk_30, 16, 0);
+        SetBlendConfig(BLEND_EFFECT_NONE, 15 - proc->unk_30, 16, 0);
     }
 
     proc->unk_2c = proc->unk_2e;
@@ -171,7 +171,7 @@ void GmapEffectPal_Loop(struct GmapEffectProc * proc)
 
     if (proc->unk_30 > 15)
     {
-        if (!(proc->unk_29_1))
+        if (!(proc->flags_1))
         {
             proc->unk_2b_0 = 1;
             Proc_Break(proc);
@@ -190,7 +190,7 @@ void GmapEffectPal_Loop(struct GmapEffectProc * proc)
 
             if (proc->unk_2a == 0)
             {
-                proc->unk_29_1 = 0;
+                proc->flags_1 = 0;
             }
         }
     }
@@ -300,7 +300,7 @@ void GmapEffect_80C119C(struct GmapEffectProc * proc)
 
     if (gGMData.state.bits.state_3)
     {
-        GetWMDisplayPosition(&x, &y);
+        GmapRm_GetPosition(&x, &y);
     }
     else
     {
@@ -386,7 +386,7 @@ void GmapEffect_Init(struct GmapEffectProc * proc)
 
     proc->unk_2e = 0;
     proc->unk_2c = 0;
-    proc->unk_29_0 = 0;
+    proc->flags_0 = 0;
 
     return;
 }
@@ -406,7 +406,7 @@ void GmapEffect_Loop(struct GmapEffectProc * proc)
         Proc_Break(proc);
     }
 
-    if (proc->unk_29_0)
+    if (proc->flags_0)
     {
         GmapEffect_80C119C(proc);
     }

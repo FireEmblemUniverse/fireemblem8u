@@ -48,7 +48,7 @@ _0805BAB0:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _0805BAFE
 _0805BAC0:
 	lsls r3, r4, #0x18
@@ -56,7 +56,7 @@ _0805BAC0:
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	b _0805BAFE
 _0805BAD0:
 	movs r0, #0x2c
@@ -79,7 +79,7 @@ _0805BAD0:
 	lsrs r2, r2, #0x18
 	movs r0, #1
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 _0805BAFE:
 	movs r0, #0x2c
 	ldrsh r1, [r5, r0]

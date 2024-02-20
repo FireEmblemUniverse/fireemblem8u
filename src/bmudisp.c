@@ -1524,7 +1524,8 @@ void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit* unit) {
 }
 
 //! FE8U = 0x08027F28
-void SMS_DisplayOne(int class, int layer, int x, int y, int oam2, s8 isBlend) {
+void SMS_DisplayOne(int class, int layer, int x, int y, int oam2, s8 isBlend)
+{
 
     if (x < -16 || x > DISPLAY_WIDTH+16) {
         return;

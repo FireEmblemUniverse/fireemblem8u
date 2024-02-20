@@ -270,7 +270,7 @@ void MapScreen_OnDelete(struct GmScreenProc * proc)
 //! FE8U = 0x080BA764
 void MapScreen_Init(struct GmScreenProc * proc)
 {
-    proc->unk_29_0 = 1;
+    proc->flags_0 = 1;
     proc->unk_2a = 0;
     proc->y = 0;
     proc->x = 0;
@@ -416,7 +416,7 @@ void sub_80BAB00(void)
 //! FE8U = 0x080BAB0C
 void sub_80BAB0C(struct GmScreenProc * proc)
 {
-    if (!(proc->unk_29_0))
+    if (!(proc->flags_0))
     {
         return;
     }

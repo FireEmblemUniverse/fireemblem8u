@@ -203,7 +203,7 @@ void sub_8085578(ProcPtr proc)
 void sub_80855A0(struct UnkProc80855A0 * proc)
 {
     proc->unk4D = 1;
-    SetSpecialColorEffectsParameters(3, 0, 0, 16);
+    SetBlendConfig(3, 0, 0, 16);
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendBackdropA(1);
 }
@@ -459,7 +459,7 @@ void WorldFlushInit(struct ProcWorldFlush * proc)
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 0;
 
-    SetSpecialColorEffectsParameters(2, 0, 0, 0);
+    SetBlendConfig(2, 0, 0, 0);
     SetPrimaryHBlankHandler(WorldFlushHBlank);
     PlaySoundEffect(0x269);
 }
@@ -482,7 +482,7 @@ void WorldFlushOut(struct ProcWorldFlush * proc)
     val3 = 0x10 - val2;
 
     sub_8082730(0x78, 0x68, val1);
-    SetSpecialColorEffectsParameters(2, 0, 0, val3);
+    SetBlendConfig(2, 0, 0, val3);
 
     count = proc->count;
     max_count = 0x40;
@@ -524,7 +524,7 @@ void WorldFlushIn(struct ProcWorldFlush * proc)
     val0 = 0x10 - val3;
 
     sub_8082730(0x78, 0x30, val2);
-    SetSpecialColorEffectsParameters(2, 0, 0, val0);
+    SetBlendConfig(2, 0, 0, val0);
 
     count = proc->count;
     max_count = 0x80;
@@ -535,7 +535,7 @@ void WorldFlushIn(struct ProcWorldFlush * proc)
 void WorldFlushCallBack(void)
 {
     SetPrimaryHBlankHandler(0);
-    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+    SetBlendConfig(0, 0, 0, 0);
     
     SetWinEnable(0, 0, 0);
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
@@ -613,7 +613,7 @@ void DisplayEventMapAnim(ProcPtr parent, int val)
 
     SetWinEnable(0, 0, 0);
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
-    SetSpecialColorEffectsParameters(1, 4, 0xC, 0);
+    SetBlendConfig(1, 4, 0xC, 0);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);
 
@@ -753,7 +753,7 @@ void sub_8085F88(struct ProcEventMapAnim * proc)
         Proc_EndEach(gUnknown_089EEA28);
         proc->timer = 0;
         proc->count = 0;
-        SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+        SetBlendConfig(1, 0x10, 0x10, 0);
         SetBlendTargetA(1, 0, 0, 0, 0);
         SetBlendTargetB(0, 1, 1, 1, 1);
         Proc_Break(proc);

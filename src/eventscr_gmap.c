@@ -217,8 +217,8 @@ u8 Event8C_WmSetCursor_Unsure(struct EventEngineProc * proc)
     s16 x = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     s16 y = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-    gGMData.unk08 = x << 8;
-    gGMData.unk0C = y << 8;
+    gGMData.ix = x << 8;
+    gGMData.iy = y << 8;
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -931,7 +931,7 @@ u8 EventB4_WmDisplayBigMap(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        NewGmapRM(x, y, c, NULL);
+        StartGmapRm((s16)x, (s16)y, c, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -942,11 +942,11 @@ u8 EventB5_WmHideBigMap(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C24F8();
+        GmapRm_EndAll();
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80C24D8();
+    GmapRm_SetUnblocked();
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -973,7 +973,7 @@ u8 EventB7_WmBigMapWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C24F8();
+        GmapRm_EndAll();
         return EVC_ADVANCE_CONTINUE;
     }
 

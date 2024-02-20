@@ -76,7 +76,7 @@ void WorldMap_Destruct(struct WorldMapMainProc * proc)
     ClearTalkText();
 
     ResetUnitSprites();
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
 
     sub_80BF15C();
     sub_80C3E94();
@@ -100,7 +100,7 @@ void sub_80B8A7C(struct WorldMapMainProc * proc)
     proc->unk_40 = 0;
     proc->unk_41 = 0;
 
-    proc->unk_29_1 = 1;
+    proc->flags_1 = 1;
 
     gGMData.unk01 = 0;
 
@@ -219,7 +219,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
             a.unk_06 = b;
             a.unk_08 = c;
             a.unk_0c = -1;
-            a.unk_01 = proc->unk_29_1;
+            a.unk_01 = proc->flags_1;
             a.unk_0a = 0;
             a.unk_02 = 1;
             a.unk_03 = 0xff;
@@ -231,7 +231,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         }
         else
         {
-            if (proc->unk_29_1)
+            if (proc->flags_1)
             {
                 if (gKeyStatusPtr->heldKeys & A_BUTTON)
                 {
@@ -245,7 +245,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
     {
         int location;
 
-        proc->unk_29_1 = 0;
+        proc->flags_1 = 0;
         gGMData.units[0].location = sub_80BD28C(proc->unk_40);
         GmMu_80BE108(proc->unk_54, 0, 0);
 
@@ -375,7 +375,7 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
 
     SetBlankBgColor(0, 0, 0);
 
-    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+    SetBlendConfig(0, 0, 0, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
 
@@ -558,8 +558,8 @@ void sub_80B9218(ProcPtr proc)
     s16 a, b, c, d;
     s16 cough;
 
-    *&a = gGMData.unk08 >> 8;
-    *&b = gGMData.unk0C >> 8;
+    *&a = gGMData.ix >> 8;
+    *&b = gGMData.iy >> 8;
     *&c = gGMData.xCamera;
     *&d = gGMData.yCamera;
 
@@ -738,8 +738,8 @@ void sub_80B93E0(struct WorldMapMainProc * proc)
         }
     } while (0);
 
-    xCursorPrev = ((gGMData.unk08 >> 8) / 16);
-    yCursorPrev = ((gGMData.unk0C >> 8) / 16);
+    xCursorPrev = ((gGMData.ix >> 8) / 16);
+    yCursorPrev = ((gGMData.iy >> 8) / 16);
 
     xCursorNew = xCursorPrev;
     yCursorNew = yCursorPrev;
@@ -1076,8 +1076,8 @@ int sub_80B95B0(void)
 {
     int i;
 
-    int x = gGMData.unk08 >> 8;
-    int y = gGMData.unk0C >> 8;
+    int x = gGMData.ix >> 8;
+    int y = gGMData.iy >> 8;
 
     int best = 0x7800;
     int idx = 0;
@@ -1112,8 +1112,8 @@ void sub_80B961C(ProcPtr proc, int nodeId)
     *&x = nodeId[gWMNodeData].x;
     *&y = nodeId[gWMNodeData].y;
 
-    gGMData.unk08 = x << 8;
-    gGMData.unk0C = y << 8;
+    gGMData.ix = x << 8;
+    gGMData.iy = y << 8;
 
     GetWMCenteredCameraPosition(x, y, &xOut, &yOut);
 
@@ -1157,8 +1157,8 @@ void sub_80B96F8(struct WorldMapMainProc * proc)
 {
     int nodeId;
 
-    int x = gGMData.unk08;
-    int y = gGMData.unk0C;
+    int x = gGMData.ix;
+    int y = gGMData.iy;
 
     if (gKeyStatusPtr->newKeys & SELECT_BUTTON)
     {
@@ -1209,8 +1209,8 @@ void sub_80B96F8(struct WorldMapMainProc * proc)
     else
     {
         sub_80B93E0(proc);
-        gGMData.unk08 = x;
-        gGMData.unk0C = y;
+        gGMData.ix = x;
+        gGMData.iy = y;
         sub_80B9218(proc);
     }
     return;
@@ -1476,7 +1476,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
     MapRoute_80BC2DC(proc->gm_screen->gmroute);
     if (!(gGMData.state.raw & 0x80))
     {
-        SetSpecialColorEffectsParameters(0, 0, 0, 0);
+        SetBlendConfig(0, 0, 0, 0);
         SetBlendTargetA(0, 0, 0, 0, 0);
         SetBlendTargetB(0, 0, 1, 0, 0);
         SetBlendBackdropA(0);
@@ -1511,8 +1511,8 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
         int x = gGMData.units[0].location[gWMNodeData].x;
         int y = gGMData.units[0].location[gWMNodeData].y;
 
-        gGMData.unk08 = x << 8;
-        gGMData.unk0C = y << 8;
+        gGMData.ix = x << 8;
+        gGMData.iy = y << 8;
 
         GetWMCenteredCameraPosition(x, y, &xCamera, &yCamera);
 
@@ -1622,8 +1622,8 @@ void Worlmap_StartGmapSogu(struct WorldMapMainProc * proc)
     x = gGMData.units[0].location[gWMNodeData].x;
     y = gGMData.units[0].location[gWMNodeData].y;
 
-    gGMData.unk08 = x << 8;
-    gGMData.unk0C = y << 8;
+    gGMData.ix = x << 8;
+    gGMData.iy = y << 8;
 
     return;
 }
@@ -1652,8 +1652,8 @@ void sub_80B9E64(void)
     *&x = (gGMData.xCamera);
     *&y = (gGMData.yCamera);
 
-    gGMData.unk08 = (x + 120) << 8;
-    gGMData.unk0C = (y + 80) << 8;
+    gGMData.ix = (x + 120) << 8;
+    gGMData.iy = (y + 80) << 8;
 
     return;
 }
@@ -1663,7 +1663,7 @@ void ResetWorldMapScreen(void)
 {
     SetDispEnable(0, 0, 0, 0, 0);
 
-    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+    SetBlendConfig(0, 0, 0, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
 
@@ -1983,7 +1983,7 @@ void NewWorldMap(void)
 {
     struct WorldMapMainProc * proc = Proc_Start(ProcScr_WorldMapMain, PROC_TREE_3);
 
-    proc->unk_29_1 = 0;
+    proc->flags_1 = 0;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {

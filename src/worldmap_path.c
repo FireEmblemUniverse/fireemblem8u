@@ -1132,7 +1132,7 @@ struct MenuProc * StartWMNodeMenu(struct WorldMapMainProc * parent)
 
     InitTextFont(&gFont_0201AFC0, (void *)0x06001000, 0x80, 0);
 
-    if ((gGMData.unk08 >> 8) - gGMData.xCamera < 152)
+    if ((gGMData.ix >> 8) - gGMData.xCamera < 152)
     {
         menuProc = StartMenuAt(&gMenu_WMNodeMenu, gMenuRect_WMNodeMenuRectA, parent);
     }

@@ -36,7 +36,7 @@ void SpellFx_ClearBG1(void)
 
 void SpellFx_SetSomeColorEffect(void)
 {
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendConfig(1, 0x10, 0x10, 0);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);
     SetWinEnable(1, 0, 0);

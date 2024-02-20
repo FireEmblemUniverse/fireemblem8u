@@ -291,7 +291,7 @@ void SaveMenu_SetLcdChapterIdx(void)
     SetBlendBackdropA(0);
     SetBlendBackdropB(0);
 
-    SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
+    SetBlendConfig(1, 6, 0x10, 0);
 
     return;
 }
@@ -322,7 +322,7 @@ void SaveMenu_Init(void)
     SetBlendBackdropA(0);
     SetBlendBackdropB(0);
 
-    SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
+    SetBlendConfig(1, 6, 0x10, 0);
 
     return;
 }

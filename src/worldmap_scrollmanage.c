@@ -51,8 +51,8 @@ struct GmScrollInfo
 //! FE8U = 0x080BF180
 void GmMoveCursor_OnEnd(struct GMapMoveCursorProc * proc)
 {
-    gGMData.unk08 = proc->unk_38;
-    gGMData.unk0C = proc->unk_3c;
+    gGMData.ix = proc->unk_38;
+    gGMData.iy = proc->unk_3c;
     return;
 }
 
@@ -74,13 +74,13 @@ void GmMoveCursor_OnLoop(struct GMapMoveCursorProc * proc)
         int x = proc->unk_30 + DivArm(0x1000, proc->unk_44 * coeff);
         int y = proc->unk_34 + DivArm(0x1000, proc->unk_48 * coeff);
 
-        gGMData.unk08 = x;
-        gGMData.unk0C = y;
+        gGMData.ix = x;
+        gGMData.iy = y;
     }
     else
     {
-        gGMData.unk08 = proc->unk_38;
-        gGMData.unk0C = proc->unk_3c;
+        gGMData.ix = proc->unk_38;
+        gGMData.iy = proc->unk_3c;
         Proc_End(proc);
     }
 
@@ -121,8 +121,8 @@ ProcPtr StartGmMoveCursor(struct Vec2 * posA, struct Vec2 * posB, int c, int d, 
 
     if (posA == NULL)
     {
-        proc->unk_30 = gGMData.unk08;
-        proc->unk_34 = gGMData.unk0C;
+        proc->unk_30 = gGMData.ix;
+        proc->unk_34 = gGMData.iy;
     }
     else
     {

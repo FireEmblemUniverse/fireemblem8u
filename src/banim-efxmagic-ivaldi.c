@@ -87,7 +87,7 @@ void efxIvaldi_Loop_Main(struct ProcEfx * proc)
     else if (proc->timer == r7 + chaos + duration)
     {
         StartSpellThing_MagicQuake(anim, 0x78, 10);
-        SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+        SetBlendConfig(1, 0, 0x10, 0);
         StartSpellBG_IvaldiBG4(anim);
     }
     else if (proc->timer == duration + 0x107)

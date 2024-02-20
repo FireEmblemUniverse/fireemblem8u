@@ -682,7 +682,7 @@ _080456EC:
 	movs r1, #8
 	movs r2, #8
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	str r5, [sp]
 	movs r0, #0
 	movs r1, #0
@@ -13075,7 +13075,7 @@ sub_804B938: @ 0x0804B938
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -13894,7 +13894,7 @@ sub_804BF4C: @ 0x0804BF4C
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldr r0, [r4, #0x30]
 	strh r5, [r0, #0x18]
 	ldr r0, [r4, #0x30]
@@ -14100,7 +14100,7 @@ _0804C0C4:
 	movs r1, #0xc
 	movs r2, #0xc
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	add sp, #0x10
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -14680,7 +14680,7 @@ sub_804C508: @ 0x0804C508
 	movs r1, #0x10
 	movs r2, #4
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0
@@ -14722,7 +14722,7 @@ sub_804C558: @ 0x0804C558
 	movs r1, #0x10
 	movs r2, #4
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0
@@ -14750,7 +14750,7 @@ sub_804C590: @ 0x0804C590
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	pop {r0}
 	bx r0
 
@@ -17108,7 +17108,7 @@ sub_804D778: @ 0x0804D778
 	movs r1, #8
 	movs r2, #0xc
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0

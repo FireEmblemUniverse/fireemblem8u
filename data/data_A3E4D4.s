@@ -1,106 +1,4 @@
     .section .data
-
-	.global ProcScr_GmapRM
-ProcScr_GmapRM:  @ 0x08A3EB50
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x8206ad4
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word GmapRm_OnEnd
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRm_InitNop
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRm_StartUpdateDirect
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRm_80C205C
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRm_80C20B0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRm_80C210C
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRm_80C2320
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRm_80C2094
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRm_80C2078
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRm_80C214C
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRm_80C224C
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRm_80C2398
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_GmapRmBaPalAnim
-ProcScr_GmapRmBaPalAnim:  @ 0x08A3EBE8
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x8206adc
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_80C2598
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C25B8
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C25F8
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C2658
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_GOTO
-        .short 0xc, 0x0
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_GmapRmBorder1
 ProcScr_GmapRmBorder1:  @ 0x08A3EC48
         @ PROC_NAME
@@ -111,34 +9,34 @@ ProcScr_GmapRmBorder1:  @ 0x08A3EC48
         .word 0x0
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_80C2728
+        .word GmapRmBorder1_End
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80C2750
+        .word GmapRmBorder1_80C2750
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80C2804
+        .word GmapRmBorder1_80C2804
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80C2964
+        .word GmapRmBorder1_80C2964
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80C29F8
+        .word GmapRmBorder1_80C29F8
         @ PROC_LABEL
         .short 0xb, 0x1
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80C2A1C
+        .word GmapRmBorder1_80C2A1C
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80C29F8
+        .word GmapRmBorder1_80C29F8
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80C28C4
+        .word GmapRmBorder1_80C28C4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80C28DC
+        .word GmapRmBorder1_80C28DC
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -154,10 +52,10 @@ ProcScr_GmapRmBaPalAnim2:  @ 0x08A3ECB0
         .word 0x0
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word GmapRmBaPalAnim_End
+        .word GmapRmBaPalAnim2_End
         @ PROC_CALL
         .short 0x2, 0x0
-        .word GmapRmBaPalAnim_Init
+        .word GmapRmBaPalAnim2_Init
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -166,13 +64,13 @@ ProcScr_GmapRmBaPalAnim2:  @ 0x08A3ECB0
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word GmapRmBaPalAnim_Loop1
+        .word GmapRmBaPalAnim2_Loop1
         @ PROC_SLEEP
         .short 0xe, 0x2
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word GmapRmBaPalAnim_Loop2
+        .word GmapRmBaPalAnim2_Loop2
         @ PROC_SLEEP
         .short 0xe, 0x2
         .word 0x0
@@ -328,8 +226,8 @@ gUnknown_08A3EE6C:  @ 0x08A3EE6C
 gUnknown_08A3EE70:  @ 0x08A3EE70
 	.incbin "baserom.gba", 0xA3EE70, 0x4
 
-	.global gUnknown_08A3EE74
-gUnknown_08A3EE74:  @ 0x08A3EE74
+	.global ProcScr_GmapRader
+ProcScr_GmapRader:  @ 0x08A3EE74
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206b84
@@ -381,8 +279,8 @@ gUnknown_08A3EED4:  @ 0x08A3EED4
         .word 0x0
 
 
-	.global gUnknown_08A3EEEC
-gUnknown_08A3EEEC:  @ 0x08A3EEEC
+	.global ProcScr_GmapBaseMenu
+ProcScr_GmapBaseMenu:  @ 0x08A3EEEC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8206b90

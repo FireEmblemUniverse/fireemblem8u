@@ -781,7 +781,7 @@ void Minimap_InitOpenAnim(struct MinimapProc* proc) {
 
     SetBlendBackdropB(1);
 
-    SetSpecialColorEffectsParameters(3, 16, 0, 0);
+    SetBlendConfig(3, 16, 0, 0);
 
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.win1_enableBlend = 1;
@@ -801,7 +801,7 @@ void Minimap_OpenAnim(struct MinimapProc* proc) {
     int angle;
     struct Vec2 arr[4];
 
-    SetSpecialColorEffectsParameters(3, 16, 0, proc->animClock / 4);
+    SetBlendConfig(3, 16, 0, proc->animClock / 4);
 
     unk = Interpolate(INTERPOLATE_RCUBIC, 0, 256, proc->animClock, 16);
     angle = unk / 4 - 64;
@@ -854,7 +854,7 @@ void Minimap_InitCloseAnim(struct MinimapProc* proc) {
     SetBlendTargetA(0, 0, 1, 1, 0);
     SetBlendTargetB(1, 1, 1, 1, 1);
 
-    SetSpecialColorEffectsParameters(3, 16, 0, 4);
+    SetBlendConfig(3, 16, 0, 4);
 
     gMinimapFrontWinBuf = gMinimapWinBuf;
     gMinimapBackWinBuf = gMinimapWinBuf - 320;
@@ -872,7 +872,7 @@ void Minimap_CloseAnim(struct MinimapProc* proc) {
     int angle;
     struct Vec2 arr[4];
 
-    SetSpecialColorEffectsParameters(3, 16, 0, 4 - (proc->animClock / 4));
+    SetBlendConfig(3, 16, 0, 4 - (proc->animClock / 4));
 
     unk = Interpolate(INTERPOLATE_CUBIC, 256, 0, proc->animClock, 16);
     angle = 64 - (unk / 4);
@@ -1147,11 +1147,11 @@ void Minimap_Main(ProcPtr proc) {
     if (gKeyStatusPtr->heldKeys & (R_BUTTON | L_BUTTON)) {
         SetBlendTargetA(0, 1, 0, 0, 0);
         SetBlendTargetB(0, 0, 1, 1, 1);
-        SetSpecialColorEffectsParameters(1, 8, 8, 0);
+        SetBlendConfig(1, 8, 8, 0);
     } else {
         SetBlendTargetA(0, 0, 1, 1, 0);
         SetBlendTargetB(1, 1, 1, 1, 1);
-        SetSpecialColorEffectsParameters(3, 16, 0, 4);
+        SetBlendConfig(3, 16, 0, 4);
     }
 
     if (((gBmSt.camera.x & 0xF) == 0) && ((gBmSt.camera.y & 0xF) == 0) && (gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON))) {

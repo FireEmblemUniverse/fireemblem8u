@@ -131,7 +131,7 @@ void ProcLightRuneAnim_Init(struct ProcBmFx *proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     PlaySoundEffect(0x2D8);
 
-    SetSpecialColorEffectsParameters(0x1, 0x10, 0x10, 0x0);
+    SetBlendConfig(0x1, 0x10, 0x10, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 1, 1, 1);
 
@@ -194,7 +194,7 @@ void ProcLightRuneAnim2_Init(struct ProcBmFx *proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     PlaySoundEffect(0x2D8);
 
-    SetSpecialColorEffectsParameters(0x1, 0x10, 0x10, 0x0);
+    SetBlendConfig(0x1, 0x10, 0x10, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 1, 1, 1);
 
@@ -257,7 +257,7 @@ void ProcLightRuneAnim3_Init(struct ProcBmFx *proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     PlaySoundEffect(0x2D8);
 
-    SetSpecialColorEffectsParameters(0x1, 0x10, 0x10, 0x0);
+    SetBlendConfig(0x1, 0x10, 0x10, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 1, 1, 1);
 

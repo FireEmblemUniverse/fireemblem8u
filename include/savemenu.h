@@ -65,8 +65,8 @@ struct SaveMenuProc {
 struct DifficultyMenuSpritesProc
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29_0 : 1;
-    /* 29 */ u8 unk_29_1 : 1;
+    /* 29 */ u8 flags_0 : 1;
+    /* 29 */ u8 flags_1 : 1;
     /* 2A */ u8 unk_2a;
     /* 2B */ u8 current_selection;
     /* 2C */ s16 unk_2c;

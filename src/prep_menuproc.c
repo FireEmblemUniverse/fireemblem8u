@@ -38,7 +38,7 @@ void TraineePromo_ResetScreenEffect()
     gLCDControlBuffer.bg1cnt.priority = 1;
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
 }
 
@@ -75,7 +75,7 @@ void NullExpForChar100AndResetScreen()
     if (unit)
         unit->exp = -1;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
     SetDispEnable(0, 0, 0, 0, 0);
     CallSomeSoundMaybe(0x34, 0x100, 0x100, 0x20, NULL);
 }
@@ -91,7 +91,7 @@ void PrepPromoteDebugMaybe(struct Proc08A184B4 *proc)
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
     EndAllProcChildren(proc);
     Proc_StartBlocking(ProcScr_PrepPromoteDebug, proc);

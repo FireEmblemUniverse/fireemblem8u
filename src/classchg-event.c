@@ -108,7 +108,7 @@ void PromoTrainee_InitScreen(struct ProcPromoTraineeEvent *proc)
 
     SetDispEnable(1, 0, 0, 1, 1);
     InitTalk(0x200, 3, 1);
-    SetSpecialColorEffectsParameters(1, 14, 8, 0);
+    SetBlendConfig(1, 14, 8, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 }

@@ -21,7 +21,7 @@ void GmapLineFade_OnEnd(void)
 {
     gWmHblankStatus &= ~4;
 
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0, 0, 0);
+    SetBlendConfig(BLEND_EFFECT_NONE, 0, 0, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 0, 0);
@@ -108,7 +108,7 @@ void GmapLineFade_Init(struct GmapLineFadeProc * proc)
     sub_80C1DD8(0, 0x04000054);
     sub_80C1DE8(0);
 
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_DARKEN, 16, 16, 16);
+    SetBlendConfig(BLEND_EFFECT_DARKEN, 16, 16, 16);
 
     SetDispEnable(0, 1, 1, 1, 1);
 

@@ -47,8 +47,8 @@ int sub_80C089C(int a, int b, int c, int d)
     s16 x2;
     s16 y2;
 
-    *&x1 = (gGMData.unk08 >> 8);
-    *&y1 = (gGMData.unk0C >> 8);
+    *&x1 = (gGMData.ix >> 8);
+    *&y1 = (gGMData.iy >> 8);
 
     *&x2 = gGMData.xCamera;
     *&y2 = gGMData.yCamera;

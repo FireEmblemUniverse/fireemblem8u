@@ -10,24 +10,8 @@
 
 #include "worldmap.h"
 
-struct GMapUnitFadeProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ s8 unk_29;
-    /* 2A */ s8 unk_2a;
-    /* 2B */ u8 unk_2b;
-    /* 2C */ u16 unk_2c;
-    /* 2E */ u16 unk_2e;
-    /* 30 */ u8 unk_30[7];
-    /* 37 */ u8 unk_37;
-};
-
 // TODO: bmudisp.h - implicit declaration
 void SMS_DisplayOne(int class, int layer, int x, int y, int oam2, int isBlend);
-
-void GetWMDisplayPosition(s16 *, s16 *);
-
-extern u8 gUnknown_0200AF00[];
 
 //! FE8U = 0x080BAC1C
 const void * MMS_GetGfx(u16 idx)
@@ -83,7 +67,7 @@ void GmapUnit_Loop(struct GMapUnitProc * proc)
 
     if (gGMData.state.bits.state_3)
     {
-        GetWMDisplayPosition(&x, &y);
+        GmapRm_GetPosition(&x, &y);
     }
     else
     {

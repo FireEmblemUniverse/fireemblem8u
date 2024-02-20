@@ -82,7 +82,7 @@ void ProcDanceAnim_Init(struct ProcBmFx *proc)
     BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    SetSpecialColorEffectsParameters(0x1, 0x10, 0x10, 0x0);
+    SetBlendConfig(0x1, 0x10, 0x10, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 1, 1, 1);
     proc->counter = 0;
@@ -115,7 +115,7 @@ void ProcDanceAnim_ResetTimer(struct ProcBmFx *proc)
 
 void ProcDanceAnim_Loop_Blend(struct ProcBmFx *proc)
 {
-    SetSpecialColorEffectsParameters(1, proc->counter, 0x10, 0);
+    SetBlendConfig(1, proc->counter, 0x10, 0);
 
     proc->counter--;
 

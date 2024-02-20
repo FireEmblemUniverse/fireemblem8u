@@ -63,7 +63,7 @@ extern u32 gBanimOaml[];
 extern u32 gBanimOamr2[];
 // extern ??? gUnknown_0200A2D8
 // extern ??? gUnknown_0200A300
-// extern ??? gUnknown_0200AF00
+extern u8 gUnknown_0200AF00[];
 // extern ??? gUnknown_0200C300
 // extern ??? gUnknown_0200CB00
 // extern ??? gSortedUnitsBuf
