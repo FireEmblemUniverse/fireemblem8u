@@ -343,7 +343,7 @@ void sub_807F89C(struct MAEffectProc * proc)
     SetBlendTargetB(0, 0, 1, 0, 0);
     SetBlendBackdropB(1);
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendConfig(1, 0x10, 0x10, 0);
 
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(2, 0, 0);
@@ -539,7 +539,7 @@ void sub_807FCE4(struct MAEffectProc * proc)
     SetBlendTargetB(0, 0, 0, 1, 1);
     SetBlendBackdropB(1);
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendConfig(1, 0x10, 0x10, 0);
 
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(2, 0, 0);
@@ -694,7 +694,7 @@ void sub_8080050(struct MAEffectProc * proc)
     SetBlendTargetB(0, 0, 0, 1, 1);
     SetBlendBackdropB(1);
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendConfig(1, 0x10, 0x10, 0);
 
     BG_SetPosition(2, 0, 0);
 

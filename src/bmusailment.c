@@ -359,7 +359,7 @@ void StatusHealEffect_BlendSpriteAnim_Loop(struct UnknownBMUSAilmentProc* proc) 
 
     proc->unk_2C += proc->unk_34;
 
-    SetSpecialColorEffectsParameters(1, proc->unk_2C & 0xFF, 0x10, 0);
+    SetBlendConfig(1, proc->unk_2C & 0xFF, 0x10, 0);
 
     proc->unk_4C--;
 

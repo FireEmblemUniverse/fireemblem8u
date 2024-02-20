@@ -1036,7 +1036,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     SetBlendTargetA(TRUE, TRUE, TRUE, TRUE, TRUE);
     SetBlendBackdropA(TRUE);
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
 }
 
 void RestartBattleMap(void) {
@@ -1139,7 +1139,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
     SetBlendTargetA(TRUE, TRUE, TRUE, TRUE, TRUE);
     SetBlendBackdropA(TRUE);
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
 }
 
 void RefreshBMapDisplay_FromBattle(void) {

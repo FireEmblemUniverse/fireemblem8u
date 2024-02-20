@@ -87,7 +87,7 @@ void EkrClasschgMain(struct ProcEkrClasschg * proc)
     {
         NewEkrClasschgBG2(proc->anim);
         SetWinEnable(0, 0, 0);
-        SetSpecialColorEffectsParameters(0x1, 0x0, 0x10, 0x0);
+        SetBlendConfig(0x1, 0x0, 0x10, 0x0);
         NewEfxALPHA(proc->anim, 0, 0x38, 0x0, 0x10, 0x0);
 
         BG_SetPosition(BG_0, 0, 0);
@@ -564,7 +564,7 @@ void NewEfxClasschgFIN(struct Anim * anim, int duration)
     EfxTmCpyBG(gUnknown_08684AB8, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
     BG_EnableSyncByMask(BG1_SYNC_BIT);
     SpellFx_SetSomeColorEffect();
-    SetSpecialColorEffectsParameters(0x1, 0xE, 0x8, 0x0);
+    SetBlendConfig(0x1, 0xE, 0x8, 0x0);
 
     gLCDControlBuffer.wincnt.wobj_enableBlend = 1;
     SetWinEnable(0, 0, 1);

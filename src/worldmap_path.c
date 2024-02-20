@@ -988,21 +988,21 @@ int WMGeneralMenu_OnEnd(struct MenuProc * menu)
 //! FE8U = 0x080BC4AC
 u8 WMGeneralMenu_OnCancel(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 3);
+    Proc_Goto(GM_MAIN, 3);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC4C4
 u8 WMMenu_OnUnitSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 9);
+    Proc_Goto(GM_MAIN, 9);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC4DC
 u8 WMMenu_OnStatusSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 12);
+    Proc_Goto(GM_MAIN, 12);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
@@ -1035,21 +1035,21 @@ int WMMenu_OnGuideDraw(struct MenuProc * menuProc, struct MenuItemProc * menuIte
 //! FE8U = 0x080BC56C
 u8 WMMenu_OnGuideSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 10);
+    Proc_Goto(GM_MAIN, 10);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC584
 u8 WMMenu_OnOptionsSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 11);
+    Proc_Goto(GM_MAIN, 11);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x080BC59C
 u8 WMMenu_OnSaveSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 13);
+    Proc_Goto(GM_MAIN, 13);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
@@ -1132,7 +1132,7 @@ struct MenuProc * StartWMNodeMenu(struct WorldMapMainProc * parent)
 
     InitTextFont(&gFont_0201AFC0, (void *)0x06001000, 0x80, 0);
 
-    if ((gGMData.unk08 >> 8) - gGMData.xCamera < 152)
+    if ((gGMData.ix >> 8) - gGMData.xCamera < 152)
     {
         menuProc = StartMenuAt(&gMenu_WMNodeMenu, gMenuRect_WMNodeMenuRectA, parent);
     }
@@ -1171,7 +1171,7 @@ int WMNodeMenu_OnEnd(struct MenuProc * menu)
 u8 WMNodeMenu_OnCancel(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = 0;
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 3);
+    Proc_Goto(GM_MAIN, 3);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
 }
 
@@ -1254,7 +1254,7 @@ u8 sub_80BC754(const struct MenuItemDef * def, int number)
 u8 WMMenu_OnArmorySelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = menuProc->itemCurrent;
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 19);
+    Proc_Goto(GM_MAIN, 19);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
@@ -1262,7 +1262,7 @@ u8 WMMenu_OnArmorySelected(struct MenuProc * menuProc, struct MenuItemProc * men
 u8 WMMenu_OnVendorSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = menuProc->itemCurrent;
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 20);
+    Proc_Goto(GM_MAIN, 20);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
@@ -1270,7 +1270,7 @@ u8 WMMenu_OnVendorSelected(struct MenuProc * menuProc, struct MenuItemProc * men
 u8 WMMenu_OnSecretShopSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = menuProc->itemCurrent;
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 21);
+    Proc_Goto(GM_MAIN, 21);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
@@ -1278,7 +1278,7 @@ u8 WMMenu_OnSecretShopSelected(struct MenuProc * menuProc, struct MenuItemProc *
 u8 WMMenu_OnManageItemsSelected(struct MenuProc * menuProc, struct MenuItemProc * menuItemProc)
 {
     gGMData.unk_cd = menuProc->itemCurrent;
-    Proc_Goto(Proc_Find(gProcScr_WorldMapMain), 22);
+    Proc_Goto(GM_MAIN, 22);
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 

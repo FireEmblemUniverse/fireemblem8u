@@ -491,7 +491,7 @@ void PhaseIntro_InitDisp(ProcPtr proc)
     gBmSt.altBlendACa = 0;
     gBmSt.altBlendACb = 0x10;
 
-    SetSpecialColorEffectsParameters(1, gBmSt.altBlendBCa, gBmSt.altBlendBCb, 0);
+    SetBlendConfig(1, gBmSt.altBlendBCa, gBmSt.altBlendBCb, 0);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);
@@ -502,7 +502,7 @@ void PhaseIntro_InitDisp(ProcPtr proc)
 
 void PhaseIntro_WaitForEnd(ProcPtr proc)
 {
-    SetSpecialColorEffectsParameters(1, gBmSt.altBlendBCa, gBmSt.altBlendBCb, 0);
+    SetBlendConfig(1, gBmSt.altBlendBCa, gBmSt.altBlendBCb, 0);
 
     if (Proc_Find(gProcScr_PhaseIntroText) == NULL && Proc_Find(gProcScr_PhaseIntroSquares) == NULL && Proc_Find(gProcScr_PhaseIntroBlendBox) == NULL)
     {

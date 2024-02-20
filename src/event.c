@@ -439,7 +439,7 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
     proc->evStateBits |= EV_STATE_SKIPPING;
 
     if (!GetZero()) {
-        if (sub_80BA054() == TRUE) // World Map check
+        if (WM_Exists() == TRUE) // World Map check
             sub_800D488(proc);
         else if (!(proc->evStateBits & EV_STATE_NOFADE)) {
             if (proc->evStateBits & EV_STATE_FADEDIN)

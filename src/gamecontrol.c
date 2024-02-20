@@ -631,7 +631,7 @@ void GameCtrlStartIntroMonologue(struct GameCtrlProc * proc)
 
 void sub_8009E28(ProcPtr proc)
 {
-    SetSpecialColorEffectsParameters(3, 0, 0, 16);
+    SetBlendConfig(3, 0, 0, 16);
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendBackdropA(1);
 }

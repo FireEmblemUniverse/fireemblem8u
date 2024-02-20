@@ -138,7 +138,7 @@ void SetupOpAnimWorldMapfx(struct ProcOpAnim * proc)
     }
 
     EnablePaletteSync();
-    SetSpecialColorEffectsParameters(0x1, 0x0, 0x10, 0x8);
+    SetBlendConfig(0x1, 0x0, 0x10, 0x8);
     SetBlendTargetA(0, 0, 0, 0, 1);
     SetBlendTargetB(1, 1, 1, 1, 0);
 
@@ -226,7 +226,7 @@ bool OpAnimBldAlphaExists(void)
 
 void OpAnimUpdateScreen1(struct ProcOpAnim * proc)
 {
-    SetSpecialColorEffectsParameters(1, 8, 0x10, 8);
+    SetBlendConfig(1, 8, 0x10, 8);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 0, 0);
     SetDispEnable(0, 1, 1, 0, 1);
@@ -315,7 +315,7 @@ void sub_80C7050(struct ProcOpAnim * proc)
     SetBlendBackdropA(0);
     SetBlendBackdropB(0);
 
-    SetSpecialColorEffectsParameters(1, 8, 8, 8);
+    SetBlendConfig(1, 8, 8, 8);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 0);
@@ -971,7 +971,7 @@ void OpAnimEphraimExit(struct ProcOpAnim * proc)
             if (time1 > 0x17)
             {
                 ret = Interpolate(0, 0x10, 0, time - 0x1B, 0x8);
-                SetSpecialColorEffectsParameters(1, ret, 0x10 - ret, 8);
+                SetBlendConfig(1, ret, 0x10 - ret, 8);
             }
             ret = Interpolate(1, proc->unk36, 0x180, time2, 0x18);
             sub_80C689C(ret, proc->unk32, 0xC8, BG_0, (void *)gGenericBuffer, (void *)(gGenericBuffer + 0x800), 0);

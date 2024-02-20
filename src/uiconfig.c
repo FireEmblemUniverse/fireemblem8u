@@ -534,7 +534,7 @@ void Config_Init(struct ConfigProc* proc) {
     gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 
-    SetSpecialColorEffectsParameters(1, 14, 4, 0);
+    SetBlendConfig(1, 14, 4, 0);
 
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);

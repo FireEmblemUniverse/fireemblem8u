@@ -30,7 +30,7 @@ struct GmapBaseEntryProc
 struct GmapMuEntryProc
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29_0 : 1;
+    /* 29 */ u8 flags_0 : 1;
     /* 2A */ u8 unk_2a;
     /* 2B */ u8 unk_2b;
     /* 2C */ u8 unk_2c;
@@ -75,16 +75,15 @@ void RestoreBlendState(struct BlendStruct * blend)
 //! FE8U = 0x080BF804
 void GmapBaseEntry_OnEnd(struct GmapBaseEntryProc * proc)
 {
-    ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_34[(proc->unk_29 / 0x20)] &=
-        ~(1 << (proc->unk_29 % 0x20));
+    GM_ICON->unk_34[(proc->unk_29 / 0x20)] &= ~(1 << (proc->unk_29 % 0x20));
     EnablePaletteSync();
 
     gGMData.nodes[proc->unk_29].state |= 1;
 
     if ((gGMData.nodes[proc->unk_29].state & 2) != 0)
     {
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->nodeId = proc->unk_29;
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_32_1 = 1;
+        GM_ICON->nodeId = proc->unk_29;
+        GM_ICON->unk_32_1 = 1;
     }
 
     EndGmapEffect();
@@ -112,16 +111,15 @@ void GmapBaseEntry_80BF8CC(struct GmapBaseEntryProc * proc)
 {
     gGMData.nodes[proc->unk_29].state |= 1;
 
-    ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_34[(proc->unk_29 / 0x20)] |=
-        (1 << (proc->unk_29 % 0x20));
+    GM_ICON->unk_34[(proc->unk_29 / 0x20)] |= (1 << (proc->unk_29 % 0x20));
 
     if ((gGMData.nodes[proc->unk_29].state & 2) != 0)
     {
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->nodeId = proc->unk_29;
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_32_1 = 1;
+        GM_ICON->nodeId = proc->unk_29;
+        GM_ICON->unk_32_1 = 1;
     }
 
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0, 0x10, 0);
+    SetBlendConfig(BLEND_EFFECT_NONE, 0, 0x10, 0);
 
     switch (proc->unk_2a)
     {
@@ -163,12 +161,12 @@ void GmapBaseEntry_80BF988(struct GmapBaseEntryProc * proc)
 
     if (proc->unk_2d < 0x10)
     {
-        SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, proc->unk_2d, 0x10 - proc->unk_2d, 0);
+        SetBlendConfig(BLEND_EFFECT_NONE, proc->unk_2d, 0x10 - proc->unk_2d, 0);
         proc->unk_2c = proc->unk_2b;
     }
     else
     {
-        ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_48->unk_34[(proc->unk_29 / 0x20)] &=
+        GM_ICON->unk_34[(proc->unk_29 / 0x20)] &=
             ~(1 << (proc->unk_29 % 0x20));
         Proc_Break(proc);
     }
@@ -209,7 +207,7 @@ void GmapBaseEntry_80BFA1C(struct GmapBaseEntryProc * proc)
     }
 
     otherProc = StartGmapEffect(proc, unk);
-    otherProc->unk_29_0 = 1;
+    otherProc->flags_0 = 1;
 
     otherProc->unk_2c = proc->unk_29[gWMNodeData].x + (nodeIcon->width / 2 - nodeIcon->xCenter);
     otherProc->unk_2e = proc->unk_29[gWMNodeData].y + (nodeIcon->height / 2 - nodeIcon->yCenter);
@@ -307,9 +305,9 @@ void sub_80BFBCC(struct GmapBaseEntryProc * proc)
 {
     gGMData.units[proc->unk_29].state |= 1;
 
-    sub_80BE080(((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->unk_54, proc->unk_29, 1);
+    sub_80BE080(GM_MU, proc->unk_29, 1);
 
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0, 0x10, 0);
+    SetBlendConfig(BLEND_EFFECT_NONE, 0, 0x10, 0);
 
     switch (proc->unk_2a)
     {
@@ -351,12 +349,12 @@ void sub_80BFC44(struct GmapBaseEntryProc * proc)
 
     if (proc->unk_2d < 0x10)
     {
-        SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, proc->unk_2d, 0x10 - proc->unk_2d, 0);
+        SetBlendConfig(BLEND_EFFECT_NONE, proc->unk_2d, 0x10 - proc->unk_2d, 0);
         proc->unk_2c = proc->unk_2b;
     }
     else
     {
-        sub_80BE080(((struct WorldMapMainProc *)(Proc_Find(gProcScr_WorldMapMain)))->unk_54, proc->unk_29, 0);
+        sub_80BE080(GM_MU, proc->unk_29, 0);
         Proc_Break(proc);
     }
 
@@ -440,7 +438,7 @@ void GmMuEntry_OnEnd_Null(void)
 //! FE8U = 0x080BFD80
 void GmMuEntry_Init(struct GmapMuEntryProc * proc)
 {
-    proc->unk_29_0 = 0;
+    proc->flags_0 = 0;
     proc->unk_2b = 0;
     proc->unk_2a = 0;
 
@@ -572,10 +570,10 @@ void GmMuEntry_80C0080(struct GmapMuEntryProc * proc)
     {
         sub_80C1DD8(0, 0);
         unk = 0x1000;
-        SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0, 0x10, 0);
+        SetBlendConfig(BLEND_EFFECT_NONE, 0, 0x10, 0);
         proc->unk_2a = proc->unk_2d;
         proc->unk_2b = proc->unk_2f;
-        proc->unk_29_0 = 0;
+        proc->flags_0 = 0;
 
         Proc_Goto(proc, 0);
     }
@@ -605,7 +603,7 @@ void GmMuEntry_80C0144(struct GmapMuEntryProc * proc)
         proc->unk_2a = proc->unk_2d;
         proc->unk_2b = proc->unk_2f;
 
-        proc->unk_29_0 = 0;
+        proc->flags_0 = 0;
 
         Proc_Goto(proc, 0);
     }
@@ -681,7 +679,7 @@ s8 GmMuEntryExists(void)
 s8 GetGmMuEntryFlag(void)
 {
     struct GmapMuEntryProc * proc = Proc_Find(gProcScr_GmapMuEntry2);
-    return proc->unk_29_0;
+    return proc->flags_0;
 }
 
 //! FE8U = 0x080C0240
@@ -689,7 +687,7 @@ s8 GmMuEntryStartShow(int speed, int blend)
 {
     struct GmapMuEntryProc * proc = Proc_Find(gProcScr_GmapMuEntry2);
 
-    if (proc->unk_29_0)
+    if (proc->flags_0)
     {
         return 1;
     }
@@ -700,7 +698,7 @@ s8 GmMuEntryStartShow(int speed, int blend)
     proc->unk_2f = 56;
     proc->unk_30 = blend;
     proc->unk_34 = speed << 12;
-    proc->unk_29_0 = 1;
+    proc->flags_0 = 1;
 
     Proc_Goto(proc, 1);
 
@@ -712,7 +710,7 @@ s8 GmMuEntryStartHide(int a, int b)
 {
     struct GmapMuEntryProc * proc = Proc_Find(gProcScr_GmapMuEntry2);
 
-    if (proc->unk_29_0)
+    if (proc->flags_0)
     {
         return 1;
     }
@@ -723,7 +721,7 @@ s8 GmMuEntryStartHide(int a, int b)
     proc->unk_2f = 0;
     proc->unk_30 = b;
     proc->unk_34 = a << 12;
-    proc->unk_29_0 = 1;
+    proc->flags_0 = 1;
 
     Proc_Goto(proc, 2);
 

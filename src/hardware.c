@@ -896,7 +896,7 @@ int BG_GetPriority(int bg)
     return sBGControlStructPtrs[bg]->priority;
 }
 
-void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY)
+void SetBlendConfig(u16 effect, u8 coeffA, u8 coeffB, u8 blendY)
 {
     gLCDControlBuffer.bldcnt.effect = effect;
     gLCDControlBuffer.blendCoeffA = coeffA;
@@ -928,7 +928,7 @@ void SetBlendBackdropB(int a)
 
 void SetDefaultColorEffects(void)
 {
-    SetSpecialColorEffectsParameters(0, 16, 0, 0);
+    SetBlendConfig(0, 16, 0, 0);
 }
 
 void EnablePaletteSync(void)

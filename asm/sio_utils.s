@@ -173,7 +173,7 @@ sub_8042EB4: @ 0x08042EB4
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	str r4, [r5, #0x58]
 	add sp, #4
 	pop {r4, r5}
@@ -220,7 +220,7 @@ _08042F0C:
 	lsrs r2, r2, #0x18
 	movs r0, #1
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	add sp, #4
 	pop {r4}
 	pop {r0}

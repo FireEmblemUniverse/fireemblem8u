@@ -55,8 +55,8 @@ void GmapCursor_Loop(struct GmapCursorProc * proc)
 {
     proc->unk_32 = gGMData.unk01;
 
-    proc->unk_38 = gGMData.unk08;
-    proc->unk_3c = gGMData.unk0C;
+    proc->unk_38 = gGMData.ix;
+    proc->unk_3c = gGMData.iy;
 
     if (proc->unk_32 > 0)
     {
@@ -70,8 +70,8 @@ void GmapCursor_Loop(struct GmapCursorProc * proc)
 
         PutSprite(
             4,
-            (gGMData.unk08 >> 8) - x - ptr->x,
-            (gGMData.unk0C >> 8) - y - ptr->y,
+            (gGMData.ix >> 8) - x - ptr->x,
+            (gGMData.iy >> 8) - y - ptr->y,
             ptr->pSpriteData,
             (chr / CHR_SIZE) + ptr->unk_00 + OAM2_PAL(proc->pal) + OAM2_LAYER(2)
         );

@@ -96,7 +96,7 @@ void ProcEventWrapAnim_Init(struct ProcBmFx *proc)
 
     PlaySoundEffect(0x0B4);
 
-    SetSpecialColorEffectsParameters(0x1, 0xA, 0xC, 0x0);
+    SetBlendConfig(0x1, 0xA, 0xC, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 1, 1, 1);
 

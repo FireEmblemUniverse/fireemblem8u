@@ -684,7 +684,7 @@ void DrawChapterStatusTextForUnit(struct Unit* unit) {
 
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    SetSpecialColorEffectsParameters(1, 13, 3, 0);
+    SetBlendConfig(1, 13, 3, 0);
 
     SetBlendBackdropA(0);
 

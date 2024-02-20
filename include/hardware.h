@@ -336,16 +336,16 @@ enum {
 }
 
 #define SetBlendAlpha(ca, cb) \
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_ALPHA, (ca), (cb), 0)
+    SetBlendConfig(BLEND_EFFECT_ALPHA, (ca), (cb), 0)
 
 #define SetBlendBrighten(cy) \
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_BRIGHTEN, 0, 0, (cy))
+    SetBlendConfig(BLEND_EFFECT_BRIGHTEN, 0, 0, (cy))
 
 #define SetBlendDarken(cy) \
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_DARKEN, 0, 0, (cy))
+    SetBlendConfig(BLEND_EFFECT_DARKEN, 0, 0, (cy))
 
 #define SetBlendNone() \
-    SetSpecialColorEffectsParameters(BLEND_EFFECT_NONE, 0x10, 0, 0)
+    SetBlendConfig(BLEND_EFFECT_NONE, 0x10, 0, 0)
 
 // Functions
 
@@ -408,7 +408,7 @@ void SetSecondaryHBlankHandler(void(*)(void));
 int GetBackgroundFromBufferPointer(u16 *ptr);
 void BG_SetPriority(int bg, int priority);
 int BG_GetPriority(int bg);
-void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
+void SetBlendConfig(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
 void SetBlendTargetA(int, int, int, int, int);
 void SetBlendTargetB(int, int, int, int, int);
 void SetBlendBackdropA(int);

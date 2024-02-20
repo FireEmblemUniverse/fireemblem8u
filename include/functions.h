@@ -168,7 +168,7 @@ void sub_8014BD0(ProcPtr, int);
 // ??? sub_8014BE0(???);
 void MemCpy(const void * src, void * dst, int size);
 // ??? sub_8014C54(???);
-// ??? sub_8014CA4(???);
+int sub_8014CA4(int, int, int, int);
 // ??? sub_8014CC4(???);
 void sub_8014DA8(void*);
 void sub_8014E3C(void);

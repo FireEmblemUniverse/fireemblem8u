@@ -217,8 +217,8 @@ u8 Event8C_WmSetCursor_Unsure(struct EventEngineProc * proc)
     s16 x = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     s16 y = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-    gGMData.unk08 = x << 8;
-    gGMData.unk0C = y << 8;
+    gGMData.ix = x << 8;
+    gGMData.iy = y << 8;
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -280,8 +280,7 @@ u8 Event91_WmAddPath(struct EventEngineProc * proc)
 
     AddGmPath(&gGMData, &gGMData.openPaths, pathId);
 
-    worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    worldMapProc->gm_screen->unk_4c->flags |= 3;
+    GM_SCREEN->gmroute->flags |= 3;
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -295,8 +294,7 @@ u8 Event92_WmRemovePath(struct EventEngineProc * proc)
 
     RemoveGmPath(&gGMData, &gGMData.openPaths, pathId);
 
-    worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    worldMapProc->gm_screen->unk_4c->flags |= 3;
+    GM_SCREEN->gmroute->flags |= 3;
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -389,11 +387,8 @@ u8 Event97_WmInitNextStoryNode(struct EventEngineProc * proc)
         gGMData.nodes[nodeId].state |= 1;
         gGMData.nodes[nodeId].state |= 2;
 
-        worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        worldMapProc->unk_48->nodeId = nodeId;
-
-        worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        worldMapProc->unk_48->unk_32_1 = 1;
+        GM_ICON->nodeId = nodeId;
+        GM_ICON->unk_32_1 = 1;
     }
     else
     {
@@ -436,11 +431,8 @@ u8 Event98_WmSetNextStoryNodePath(struct EventEngineProc * proc)
         gGMData.nodes[nodeId].state |= 1;
         gGMData.nodes[nodeId].state |= 2;
 
-        worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        worldMapProc->unk_48->nodeId = nodeId;
-
-        worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        worldMapProc->unk_48->unk_32_1 = 1;
+        GM_ICON->nodeId = nodeId;
+        GM_ICON->unk_32_1 = 1;
     }
     else
     {
@@ -482,11 +474,8 @@ u8 Event9A_WmSetStoryNodeSilent(struct EventEngineProc * proc)
 
     gGMData.nodes[nodeId].state |= 2;
 
-    worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    worldMapProc->unk_48->nodeId = nodeId;
-
-    worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    worldMapProc->unk_48->unk_32_1 = 1;
+    GM_ICON->nodeId = nodeId;
+    GM_ICON->unk_32_1 = 1;
 
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -518,8 +507,7 @@ u8 Event9C_(struct EventEngineProc * proc)
 
         gGMData.nodes[nodeId].state |= 2;
 
-        worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        worldMapProc->unk_48->nodeId = nodeId;
+        GM_ICON->nodeId = nodeId;
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -606,10 +594,7 @@ u8 EventA3_WmShowUnitFaded(struct EventEngineProc * proc)
         ShowGmUnit(index);
         return EVC_ADVANCE_CONTINUE;
     }
-
-    worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_StartFadeIn(worldMapProc->unk_54, index, delay);
-
+    GmMu_StartFadeIn(GM_MU, index, delay);
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -627,8 +612,7 @@ u8 EventA4_WmHideUnitFaded(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_StartFadeOut(worldMapProc->unk_54, index, b);
+    GmMu_StartFadeOut(GM_MU, index, b);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -659,8 +643,7 @@ u8 EventA6_WmUnitSetOnNode(struct EventEngineProc * proc)
 
     gGMData.units[unitId].location = nodeId;
 
-    worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_SetNode(worldMapProc->unk_54, unitId, nodeId);
+    GmMu_SetNode(GM_MU, unitId, nodeId);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -674,8 +657,7 @@ u8 EventA7_WmUnitSetPosition(struct EventEngineProc * proc)
     s16 x = EVT_CMD_ARGV(proc->pEventCurrent)[3];
     s16 y = EVT_CMD_ARGV(proc->pEventCurrent)[4];
 
-    worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    GmMu_SetPosition(worldMapProc->unk_54, index, x, y);
+    GmMu_SetPosition(GM_MU, index, x, y);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -718,8 +700,7 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        GmMu_SetPosition(worldMapProc->unk_54, index, x2, y2);
+        GmMu_SetPosition(GM_MU, index, x2, y2);
 
         if ((flag & 2) != 0)
         {
@@ -799,8 +780,7 @@ u8 EventAA_WmUnitPauseMove(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        GmMu_PauseMovement(worldMapProc->unk_54, index);
+        GmMu_PauseMovement(GM_MU, index);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -815,8 +795,7 @@ u8 EventAB_WmUnitResumeMove(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-        GmMu_ResumeMovement(worldMapProc->unk_54, index);
+        GmMu_ResumeMovement(GM_MU, index);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -952,7 +931,7 @@ u8 EventB4_WmDisplayBigMap(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        NewGmapRM(x, y, c, NULL);
+        StartGmapRm((s16)x, (s16)y, c, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -963,11 +942,11 @@ u8 EventB5_WmHideBigMap(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C24F8();
+        GmapRm_EndAll();
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80C24D8();
+    GmapRm_SetUnblocked();
     return EVC_ADVANCE_CONTINUE;
 }
 
@@ -983,7 +962,7 @@ u8 EventB6_WmMoveBigMap(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        sub_80C1F18(x1, y1, x2, y2, speed, delay, 0);
+        StartGmapRmUpdateExt((s16)x1, (s16)y1, (s16)x2, (s16)y2, (s16)speed, (s16)delay, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -994,7 +973,7 @@ u8 EventB7_WmBigMapWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C24F8();
+        GmapRm_EndAll();
         return EVC_ADVANCE_CONTINUE;
     }
 
@@ -1026,7 +1005,7 @@ u8 EventB9_WmRemoveHighlightNationPart1(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C2B7C(-1);
+        EndGmapRmBorder1(-1);
 
         return EVC_ADVANCE_CONTINUE;
     }
@@ -1045,7 +1024,7 @@ u8 EventBA_WmRemoveHighlightNationPart2(struct EventEngineProc * proc)
     {
         if (sub_80C2BC4(a))
         {
-            sub_80C2B7C(a);
+            EndGmapRmBorder1(a);
         }
 
         return EVC_ADVANCE_CONTINUE;
@@ -1139,8 +1118,8 @@ u8 EventBE_(struct EventEngineProc * proc)
 //! FE8U = 0x0800CBAC
 u8 EventBF_(struct EventEngineProc * proc)
 {
-    sub_80B9FD4(Proc_Find(gProcScr_WorldMapMain));
-    sub_80B9810(Proc_Find(gProcScr_WorldMapMain));
+    sub_80B9FD4(GM_MAIN);
+    sub_80B9810(GM_MAIN);
     Make6C_SaveMenuPostChapter(proc);
 
     return EVC_ADVANCE_YIELD;
@@ -1149,7 +1128,7 @@ u8 EventBF_(struct EventEngineProc * proc)
 //! FE8U = 0x0800CBD8
 u8 EventC0_(struct EventEngineProc * proc)
 {
-    sub_80B9154(Proc_Find(gProcScr_WorldMapMain));
+    sub_80B9154(GM_MAIN);
     return EVC_ADVANCE_YIELD;
 }
 

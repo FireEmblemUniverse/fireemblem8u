@@ -40,7 +40,7 @@ void bmxfade_init(struct BmxfadeProc *proc)
 
 void bmxfade_loop(struct BmxfadeProc *proc)
 {
-    SetSpecialColorEffectsParameters(1, proc->counter, 0x10 - proc->counter, 0);
+    SetBlendConfig(1, proc->counter, 0x10 - proc->counter, 0);
 
     if (--proc->counter >= 0)
         return;

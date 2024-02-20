@@ -1481,7 +1481,7 @@ void MU_StartDeathFade(struct MUProc* muProc) {
     proc->pMUProc = muProc;
     proc->timeLeft = 0x20;
 
-    SetSpecialColorEffectsParameters(0, 0x10, 0x10, 0);
+    SetBlendConfig(0, 0x10, 0x10, 0);
 
     muProc->pAPHandle->frameTimer = 0;
     muProc->pAPHandle->frameInterval = 0;
@@ -1501,7 +1501,7 @@ void MU_StartDeathFade(struct MUProc* muProc) {
 void MU_DeathFade_OnLoop(struct MUEffectProc* proc) {
     short time = (proc->timeLeft--) >> 1;
 
-    SetSpecialColorEffectsParameters(0, (u8) time, 0x10, 0);
+    SetBlendConfig(0, (u8) time, 0x10, 0);
 
     if (proc->timeLeft == 0) {
         MU_End(proc->pMUProc);

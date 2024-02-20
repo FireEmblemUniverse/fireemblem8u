@@ -76,7 +76,7 @@ void WorldMap_Destruct(struct WorldMapMainProc * proc)
     ClearTalkText();
 
     ResetUnitSprites();
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
 
     sub_80BF15C();
     sub_80C3E94();
@@ -100,7 +100,7 @@ void sub_80B8A7C(struct WorldMapMainProc * proc)
     proc->unk_40 = 0;
     proc->unk_41 = 0;
 
-    proc->unk_29_1 = 1;
+    proc->flags_1 = 1;
 
     gGMData.unk01 = 0;
 
@@ -219,7 +219,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
             a.unk_06 = b;
             a.unk_08 = c;
             a.unk_0c = -1;
-            a.unk_01 = proc->unk_29_1;
+            a.unk_01 = proc->flags_1;
             a.unk_0a = 0;
             a.unk_02 = 1;
             a.unk_03 = 0xff;
@@ -231,7 +231,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         }
         else
         {
-            if (proc->unk_29_1)
+            if (proc->flags_1)
             {
                 if (gKeyStatusPtr->heldKeys & A_BUTTON)
                 {
@@ -245,7 +245,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
     {
         int location;
 
-        proc->unk_29_1 = 0;
+        proc->flags_1 = 0;
         gGMData.units[0].location = sub_80BD28C(proc->unk_40);
         GmMu_80BE108(proc->unk_54, 0, 0);
 
@@ -328,7 +328,7 @@ void SetupGraphicSystemsForWorldMap(void)
 }
 
 //! FE8U = 0x080B8E14
-void sub_80B8E14(void)
+void SetupGmapNodeGfx(void)
 {
     ApplyPalettes(gUnknown_08A97A40, 0x13, 2);
     Decompress(Img_GmapNodes, (void *)0x06011000);
@@ -357,7 +357,7 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
     Decompress(gUnknown_08AA11D0, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06015300, 8, 2);
 
-    sub_80B8E14();
+    SetupGmapNodeGfx();
 
     ApplyPalette(gUnknown_08A97FA4, 0xE);
     Decompress(Img_GmapPath, (void *)0x06005000);
@@ -375,7 +375,7 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
 
     SetBlankBgColor(0, 0, 0);
 
-    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+    SetBlendConfig(0, 0, 0, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
 
@@ -539,7 +539,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
         sub_80B9114(proc);
     }
 
-    proc->gm_screen->unk_4c->flags |= 3;
+    proc->gm_screen->gmroute->flags |= 3;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {
@@ -558,8 +558,8 @@ void sub_80B9218(ProcPtr proc)
     s16 a, b, c, d;
     s16 cough;
 
-    *&a = gGMData.unk08 >> 8;
-    *&b = gGMData.unk0C >> 8;
+    *&a = gGMData.ix >> 8;
+    *&b = gGMData.iy >> 8;
     *&c = gGMData.xCamera;
     *&d = gGMData.yCamera;
 
@@ -738,8 +738,8 @@ void sub_80B93E0(struct WorldMapMainProc * proc)
         }
     } while (0);
 
-    xCursorPrev = ((gGMData.unk08 >> 8) / 16);
-    yCursorPrev = ((gGMData.unk0C >> 8) / 16);
+    xCursorPrev = ((gGMData.ix >> 8) / 16);
+    yCursorPrev = ((gGMData.iy >> 8) / 16);
 
     xCursorNew = xCursorPrev;
     yCursorNew = yCursorPrev;
@@ -795,7 +795,7 @@ void sub_80B93E0(struct WorldMapMainProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_WorldMapMain[] =
+struct ProcCmd CONST_DATA ProcScr_WorldMapMain[] =
 {
     PROC_SET_END_CB(WorldMap_Destruct),
 
@@ -1076,8 +1076,8 @@ int sub_80B95B0(void)
 {
     int i;
 
-    int x = gGMData.unk08 >> 8;
-    int y = gGMData.unk0C >> 8;
+    int x = gGMData.ix >> 8;
+    int y = gGMData.iy >> 8;
 
     int best = 0x7800;
     int idx = 0;
@@ -1112,8 +1112,8 @@ void sub_80B961C(ProcPtr proc, int nodeId)
     *&x = nodeId[gWMNodeData].x;
     *&y = nodeId[gWMNodeData].y;
 
-    gGMData.unk08 = x << 8;
-    gGMData.unk0C = y << 8;
+    gGMData.ix = x << 8;
+    gGMData.iy = y << 8;
 
     GetWMCenteredCameraPosition(x, y, &xOut, &yOut);
 
@@ -1157,8 +1157,8 @@ void sub_80B96F8(struct WorldMapMainProc * proc)
 {
     int nodeId;
 
-    int x = gGMData.unk08;
-    int y = gGMData.unk0C;
+    int x = gGMData.ix;
+    int y = gGMData.iy;
 
     if (gKeyStatusPtr->newKeys & SELECT_BUTTON)
     {
@@ -1209,8 +1209,8 @@ void sub_80B96F8(struct WorldMapMainProc * proc)
     else
     {
         sub_80B93E0(proc);
-        gGMData.unk08 = x;
-        gGMData.unk0C = y;
+        gGMData.ix = x;
+        gGMData.iy = y;
         sub_80B9218(proc);
     }
     return;
@@ -1253,7 +1253,7 @@ void sub_80B982C(struct WorldMapMainProc * proc)
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
 
-    pScreenProc->unk_4c->flags |= 3;
+    pScreenProc->gmroute->flags |= 3;
 
     MapUnitC_SetGfxNeedsUpdate(proc->unk_4c, -1);
 
@@ -1285,7 +1285,7 @@ void sub_80B98A8(struct WorldMapMainProc * proc)
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
 
-    pScreenProc->unk_4c->flags |= 3;
+    pScreenProc->gmroute->flags |= 3;
 
     MapUnitC_SetGfxNeedsUpdate(proc->unk_4c, -1);
 
@@ -1317,7 +1317,7 @@ void sub_80B9924(struct WorldMapMainProc * proc)
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
 
-    pScreenProc->unk_4c->flags |= 3;
+    pScreenProc->gmroute->flags |= 3;
 
     MapUnitC_SetGfxNeedsUpdate(proc->unk_4c, -1);
 
@@ -1349,7 +1349,7 @@ void sub_80B99A0(struct WorldMapMainProc * proc)
     pScreenProc->unk_2a |= 1;
     pScreenProc->unk_2a |= 6;
 
-    pScreenProc->unk_4c->flags |= 3;
+    pScreenProc->gmroute->flags |= 3;
 
     MapUnitC_SetGfxNeedsUpdate(proc->unk_4c, -1);
 
@@ -1473,10 +1473,10 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
         return;
     }
 
-    MapRoute_80BC2DC(proc->gm_screen->unk_4c);
+    MapRoute_80BC2DC(proc->gm_screen->gmroute);
     if (!(gGMData.state.raw & 0x80))
     {
-        SetSpecialColorEffectsParameters(0, 0, 0, 0);
+        SetBlendConfig(0, 0, 0, 0);
         SetBlendTargetA(0, 0, 0, 0, 0);
         SetBlendTargetB(0, 0, 1, 0, 0);
         SetBlendBackdropA(0);
@@ -1492,7 +1492,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
     EndWMFaceCtrl();
     EndGmMuEntry();
     EndGmapRM();
-    sub_80C1F5C();
+    EndGmapRmUpdateExt();
 
     if (gGMData.state.raw & 0xc0)
     {
@@ -1511,8 +1511,8 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
         int x = gGMData.units[0].location[gWMNodeData].x;
         int y = gGMData.units[0].location[gWMNodeData].y;
 
-        gGMData.unk08 = x << 8;
-        gGMData.unk0C = y << 8;
+        gGMData.ix = x << 8;
+        gGMData.iy = y << 8;
 
         GetWMCenteredCameraPosition(x, y, &xCamera, &yCamera);
 
@@ -1539,7 +1539,7 @@ void WorldMap_WaitForChapterIntroEvents(ProcPtr proc)
     EndWMFaceCtrl();
     EndGmMuEntry();
     EndGmapRM();
-    sub_80C1F5C();
+    EndGmapRmUpdateExt();
     Proc_Break(proc);
 
     return;
@@ -1622,8 +1622,8 @@ void Worlmap_StartGmapSogu(struct WorldMapMainProc * proc)
     x = gGMData.units[0].location[gWMNodeData].x;
     y = gGMData.units[0].location[gWMNodeData].y;
 
-    gGMData.unk08 = x << 8;
-    gGMData.unk0C = y << 8;
+    gGMData.ix = x << 8;
+    gGMData.iy = y << 8;
 
     return;
 }
@@ -1652,8 +1652,8 @@ void sub_80B9E64(void)
     *&x = (gGMData.xCamera);
     *&y = (gGMData.yCamera);
 
-    gGMData.unk08 = (x + 120) << 8;
-    gGMData.unk0C = (y + 80) << 8;
+    gGMData.ix = (x + 120) << 8;
+    gGMData.iy = (y + 80) << 8;
 
     return;
 }
@@ -1663,7 +1663,7 @@ void ResetWorldMapScreen(void)
 {
     SetDispEnable(0, 0, 0, 0, 0);
 
-    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+    SetBlendConfig(0, 0, 0, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
 
@@ -1754,7 +1754,7 @@ void sub_80B9F54(ProcPtr unused)
 //! FE8U = 0x080B9FC0
 void sub_80B9FC0(void)
 {
-    sub_80B9F54(Proc_Find(gProcScr_WorldMapMain));
+    sub_80B9F54(Proc_Find(ProcScr_WorldMapMain));
     return;
 }
 
@@ -1777,7 +1777,7 @@ void sub_80B9FD4(ProcPtr unused)
 //! FE8U = 0x080BA008
 void sub_80BA008(int unk)
 {
-    struct WorldMapMainProc * proc = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * proc = Proc_Find(ProcScr_WorldMapMain);
     proc->timer = unk;
     Proc_Goto(proc, 0);
 
@@ -1788,7 +1788,7 @@ void sub_80BA008(int unk)
 void EndWM(ProcPtr unused)
 {
     Proc_End(Proc_Find(ProcScr_BmFadeIN));
-    Proc_End(Proc_Find(gProcScr_WorldMapMain));
+    Proc_End(Proc_Find(ProcScr_WorldMapMain));
     ResetDialogueScreen();
     APProc_DeleteAll();
     SetupBackgrounds(NULL);
@@ -1796,9 +1796,9 @@ void EndWM(ProcPtr unused)
 }
 
 //! FE8U = 0x080BA054
-s8 sub_80BA054(void)
+s8 WM_Exists(void)
 {
-    return (Proc_Find(gProcScr_WorldMapMain) != 0) ? 1 : 0;
+    return (Proc_Find(ProcScr_WorldMapMain) != 0) ? 1 : 0;
 }
 
 //! FE8U = 0x080BA06C
@@ -1841,7 +1841,7 @@ struct ProcCmd CONST_DATA gProcScr_08A3DD08[] =
 //! FE8U = 0x080BA0B4
 void WmMergeFace(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int config)
 {
-    struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
 
     struct Proc8A3DD08 * proc = Proc_Start(gProcScr_08A3DD08, parent);
     proc->unk_2c = timerMaybe; // timer?
@@ -1901,7 +1901,7 @@ void sub_80BA198(int color)
 {
     int i;
 
-    struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
     struct Proc8A3DD30 * proc = Proc_Start(gProcScr_08A3DD20, parent);
 
     proc->unk_30 = color & 0x1f;
@@ -1962,7 +1962,7 @@ void sub_80BA288(int color)
 {
     int i;
 
-    struct WorldMapMainProc * parent = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
     struct Proc8A3DD38 * proc = Proc_Start(gProcScr_08A3DD38, parent);
 
     proc->unk_30 = color & 0x1f;
@@ -1981,9 +1981,9 @@ void sub_80BA288(int color)
 //! FE8U = 0x080BA2E4
 void NewWorldMap(void)
 {
-    struct WorldMapMainProc * proc = Proc_Start(gProcScr_WorldMapMain, PROC_TREE_3);
+    struct WorldMapMainProc * proc = Proc_Start(ProcScr_WorldMapMain, PROC_TREE_3);
 
-    proc->unk_29_1 = 0;
+    proc->flags_1 = 0;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {
@@ -2010,7 +2010,7 @@ struct ProcCmd CONST_DATA gProcScr_WorldMapWrapper[] =
     PROC_CALL(NewWorldMap),
     PROC_YIELD,
 
-    PROC_WHILE_EXISTS(gProcScr_WorldMapMain),
+    PROC_WHILE_EXISTS(ProcScr_WorldMapMain),
     PROC_END_EACH(ProcScr_BmFadeIN),
     PROC_YIELD,
 

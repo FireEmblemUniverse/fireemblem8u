@@ -436,7 +436,7 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     gLCDControlBuffer.dispcnt.win1_on = 0;
     gLCDControlBuffer.dispcnt.objWin_on = 0;
 
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendConfig(1, 0, 0x10, 0);
 
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 1);
@@ -502,7 +502,7 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 // unused??
 void sub_80B2DF0(struct OpInfoEnterProc* proc) {
 
-    SetSpecialColorEffectsParameters(2, 0, 0, DarknessCoeff(proc->timer, 1));
+    SetBlendConfig(2, 0, 0, DarknessCoeff(proc->timer, 1));
 
     SetBlendBackdropA(1);
 
@@ -902,7 +902,7 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc* proc) {
 
     proc->unk_4e -= 0x40;
 
-    SetSpecialColorEffectsParameters(1, unkB, 0x10, 0);
+    SetBlendConfig(1, unkB, 0x10, 0);
 
     proc->unk_4c++;
 
@@ -1064,7 +1064,7 @@ void sub_80B36E0(void) {
 
 void sub_80B3740(void) {
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendConfig(1, 0x10, 0x10, 0);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);

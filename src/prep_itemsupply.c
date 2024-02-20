@@ -420,7 +420,7 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc * proc)
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    SetSpecialColorEffectsParameters(0, 0, 0, 8);
+    SetBlendConfig(0, 0, 0, 8);
     StartGreenText(proc);
     StartHelpPromptSprite(195, 147, 9, proc);
 

@@ -92,7 +92,7 @@ _0807D622:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldrh r0, [r6]
 	lsls r0, r0, #2
 	adds r0, r0, r4
@@ -231,7 +231,7 @@ sub_807D6D8: @ 0x0807D6D8
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r5, #0x40
 	movs r0, #0
 	strh r0, [r5]
@@ -525,7 +525,7 @@ _0807D97A:
 	ldrb r2, [r2]
 	movs r0, #1
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #0
 	str r0, [sp]
 	movs r1, #0
@@ -583,7 +583,7 @@ _0807D9EC:
 	ldrb r2, [r2]
 	movs r0, #1
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r0, #0
 	str r0, [sp]
 	movs r1, #0
@@ -781,7 +781,7 @@ _0807DB80:
 	movs r1, #0xc
 	movs r2, #0xc
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	add sp, #0x10
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -890,7 +890,7 @@ _0807DC60:
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	add sp, #8
 	pop {r4, r5}
 	pop {r0}
@@ -945,7 +945,7 @@ _0807DCE6:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldrh r0, [r4]
 	cmp r0, #0x27
 	bls _0807DD04
@@ -999,7 +999,7 @@ _0807DD50:
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldrh r0, [r4]
 	cmp r0, #0x45
 	bls _0807DD6A
@@ -1165,7 +1165,7 @@ sub_807DE80: @ 0x0807DE80
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldr r4, _0807DED0  @ gUnknown_089B0AD0
 	movs r0, #2
 	bl GetBackgroundTileDataOffset
@@ -1280,7 +1280,7 @@ sub_807DF5C: @ 0x0807DF5C
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r1, #0
 	ldrsh r0, [r4, r1]
 	add r0, sp
@@ -1325,7 +1325,7 @@ sub_807DFAC: @ 0x0807DFAC
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r1, #0
 	ldrsh r0, [r4, r1]
 	cmp r0, #0x1e
@@ -1658,7 +1658,7 @@ sub_807E22C: @ 0x0807E22C
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r0, r5, #0
 	adds r0, #0x40
 	movs r1, #0
@@ -1829,7 +1829,7 @@ sub_807E390: @ 0x0807E390
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldr r0, _0807E3F4  @ gBG2TilemapBuffer
 	ldr r1, _0807E3F8  @ gGenericBuffer
 	ldr r2, _0807E3FC  @ 0x00004160
@@ -2034,7 +2034,7 @@ sub_807E4D0: @ 0x0807E4D0
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	add sp, #8
 	pop {r4, r5, r6}
 	pop {r0}
@@ -2093,7 +2093,7 @@ _0807E5A8:
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	add sp, #8
 	pop {r4, r5}
 	pop {r0}
@@ -2128,7 +2128,7 @@ sub_807E5F0: @ 0x0807E5F0
 	movs r0, #1
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	movs r1, #0
 	ldrsh r0, [r4, r1]
 	cmp r0, #0x1d
@@ -2196,7 +2196,7 @@ sub_807E67C: @ 0x0807E67C
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	ldr r4, _0807E6D4  @ gUnknown_089B2880
 	movs r0, #2
 	bl GetBackgroundTileDataOffset
@@ -2431,7 +2431,7 @@ _0807E822:
 	movs r1, #0x10
 	movs r2, #0x10
 	movs r3, #0
-	bl SetSpecialColorEffectsParameters
+	bl SetBlendConfig
 	adds r1, r5, #0
 	adds r1, #0x48
 	movs r0, #1

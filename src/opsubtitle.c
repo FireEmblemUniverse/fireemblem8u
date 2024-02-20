@@ -178,7 +178,7 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
     gLCDControlBuffer.dispcnt.win1_on = 0;
     gLCDControlBuffer.dispcnt.objWin_on = 0;
 
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendConfig(1, 0, 0x10, 0);
 
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 1);
@@ -244,7 +244,7 @@ void Subtitle_LightFlareFx_Loop(struct OpSubtitleProc* proc) {
 
     proc->unk_4e -= 64;
 
-    SetSpecialColorEffectsParameters(1, b, 0x10, 0);
+    SetBlendConfig(1, b, 0x10, 0);
 
     proc->unk_4c++;
 
@@ -483,9 +483,9 @@ void sub_80C4F60(struct OpSubtitleProc* proc) {
         int coeff = sub_800B7E0(proc->timer_2c, 80, 0);
         s16 var = DivArm(0x1000, coeff << 4);
 
-        SetSpecialColorEffectsParameters(1, 0x10 - var, var, 0);
+        SetBlendConfig(1, 0x10 - var, var, 0);
     } else {
-        SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+        SetBlendConfig(1, 0, 0x10, 0);
 
         if (proc->index < 5) {
             Proc_Break(proc);
@@ -515,9 +515,9 @@ void sub_80C501C(struct OpSubtitleProc* proc) {
         int coeff = sub_800B7E0(proc->timer_2c, 80, 0);
         s16 var = DivArm(0x1000, (0x1000 - coeff) << 4);
 
-        SetSpecialColorEffectsParameters(1, 0x10 - var, var, 0);
+        SetBlendConfig(1, 0x10 - var, var, 0);
     } else {
-        SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
+        SetBlendConfig(1, 0x10, 0, 0);
 
         proc->timer_2c = 0;
         proc->index++;
@@ -656,7 +656,7 @@ void sub_80C5218(struct OpSubtitleProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 3;
     gLCDControlBuffer.bg3cnt.priority = 0;
 
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendConfig(1, 0, 0x10, 0);
 
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(1, 1, 0, 0, 0);

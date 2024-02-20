@@ -447,7 +447,7 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 0;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 8);
+    SetBlendConfig(3, 0, 0, 8);
     SetBlendTargetA(0,0,0,1,0);
     StartGreenText(proc);
     StartHelpPromptSprite(0xC0, 0x90, 9, proc);
@@ -679,7 +679,7 @@ void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse * proc)
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    SetSpecialColorEffectsParameters(0, 0, 0, 8);
+    SetBlendConfig(0, 0, 0, 8);
     EndSysBrownBox();
     EndAllParallelWorkers();
     EndFaceById(0);

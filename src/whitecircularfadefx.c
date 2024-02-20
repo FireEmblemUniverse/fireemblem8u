@@ -78,7 +78,7 @@ void ProcWhiteCircleFx_Loop(struct ProcWhiteCircleFx *proc)
 
 void ProcWhiteCircleFx_End(struct ProcWhiteCircleFx *proc)
 {
-    SetSpecialColorEffectsParameters(2, 0, 0, 0x10);
+    SetBlendConfig(2, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendTargetB(1, 1, 1, 1, 1);
     ClearBg0Bg1();
@@ -109,7 +109,7 @@ void StartCircularFadeAnim(ProcPtr parent, int x, int y)
     }
 
     EnablePaletteSync();
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendConfig(1, 0x10, 0x10, 0);
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 1, 1, 1);
     BG_SetPosition(0, 0, 0);

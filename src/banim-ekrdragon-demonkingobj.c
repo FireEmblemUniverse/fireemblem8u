@@ -51,7 +51,7 @@ void sub_8077DC8(void)
     EnablePaletteSync();
     CpuFill16(0, (void *)(BG_VRAM + 0x2000), 0x1000);
     BG_EnableSyncByMask(BG1_SYNC_BIT);
-    SetSpecialColorEffectsParameters(0x1, 0x0, 0x10, 0x0);
+    SetBlendConfig(0x1, 0x0, 0x10, 0x0);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 0, 1);
 }

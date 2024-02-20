@@ -140,7 +140,7 @@ void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc * proc)
     EnableSysBrownBox(1, 184, -1, 0);
 
     // TODO: special effect constants
-    SetSpecialColorEffectsParameters(1, 12, 6, 0);
+    SetBlendConfig(1, 12, 6, 0);
 
     // TODO: name functions
     SetBlendTargetA(FALSE, FALSE, FALSE, FALSE, FALSE);

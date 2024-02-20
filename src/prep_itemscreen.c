@@ -359,7 +359,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc * proc)
     UpdateMenuScrollBarConfig(6, proc->unk_34, ((PrepGetUnitAmount() - 1) / 3) + 1, 4);
     sub_8097668();
     PrepUpdateSMS();
-    SetSpecialColorEffectsParameters(1, 8, 8, 0);
+    SetBlendConfig(1, 8, 8, 0);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 1, 0, 0, 0);
 

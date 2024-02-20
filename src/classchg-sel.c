@@ -503,7 +503,7 @@ bool sub_80CD330(struct ProcPromoMain *proc)
 
 void sub_80CD34C(void)
 {
-    SetSpecialColorEffectsParameters(1, 16, 16, 0);
+    SetBlendConfig(1, 16, 16, 0);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);
 

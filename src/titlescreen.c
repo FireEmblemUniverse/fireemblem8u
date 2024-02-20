@@ -263,7 +263,7 @@ void sub_80C5870(void) {
     gLCDControlBuffer.dispcnt.bg3_on = 0;
     gLCDControlBuffer.dispcnt.obj_on = 1;
 
-    SetSpecialColorEffectsParameters(1, 8, 8, 0);
+    SetBlendConfig(1, 8, 8, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 0);
@@ -355,7 +355,7 @@ void sub_80C5A44(struct TitleScreenProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 0;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    SetSpecialColorEffectsParameters(2, 8, 8, 0x10);
+    SetBlendConfig(2, 8, 8, 0x10);
 
     SetBlendTargetA(1, 1, 1, 1, 1);
 
@@ -420,7 +420,7 @@ void sub_80C5BD4(void) {
 
     gLCDControlBuffer.dispcnt.mode = 0;
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0x10);
+    SetBlendConfig(1, 0x10, 0x10, 0x10);
 
     SetBlendTargetA(0, 0, 0, 0, 1);
     SetBlendTargetB(0, 1, 0, 0, 0);
@@ -498,7 +498,7 @@ void Title_PrepareMainScreenWithExtendedBgm(void) {
     gLCDControlBuffer.dispcnt.bg3_on = 0;
     gLCDControlBuffer.dispcnt.obj_on = 1;
 
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendConfig(1, 0, 0x10, 0);
 
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 0, 0, 0);
@@ -657,7 +657,7 @@ void nullsub_23(int a, int b) {
 //! FE8U = 0x080C6104
 void sub_80C6104(struct TitleScreenProc* proc) {
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+    SetBlendConfig(1, 0x10, 0x10, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 0);
@@ -846,7 +846,7 @@ void sub_80C62DC(struct TitleScreenProc* proc) {
 
     Proc_Start(gProcScr_DrawTitleSprites, proc);
 
-    SetSpecialColorEffectsParameters(1, 8, 8, 0);
+    SetBlendConfig(1, 8, 8, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 0);

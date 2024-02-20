@@ -172,7 +172,7 @@ void GameOverScreen_Init(struct ProcGameOverScreen *proc)
 
     SetPrimaryHBlankHandler(GameOverScreenHBlank);
 
-    SetSpecialColorEffectsParameters(1, 14, 14, 0);
+    SetBlendConfig(1, 14, 14, 0);
 
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);

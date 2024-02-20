@@ -198,7 +198,7 @@ void StarsBlinking(struct ProcEmitStars *proc)
 {
     int blend = 0x10 - proc->stars < 0 ? 0 : 0x10 - proc->stars;
 
-    SetSpecialColorEffectsParameters(2, 0, 0, blend);
+    SetBlendConfig(2, 0, 0, blend);
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendTargetB(1, 1, 1, 1, 1);
 

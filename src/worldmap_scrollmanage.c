@@ -51,8 +51,8 @@ struct GmScrollInfo
 //! FE8U = 0x080BF180
 void GmMoveCursor_OnEnd(struct GMapMoveCursorProc * proc)
 {
-    gGMData.unk08 = proc->unk_38;
-    gGMData.unk0C = proc->unk_3c;
+    gGMData.ix = proc->unk_38;
+    gGMData.iy = proc->unk_3c;
     return;
 }
 
@@ -74,13 +74,13 @@ void GmMoveCursor_OnLoop(struct GMapMoveCursorProc * proc)
         int x = proc->unk_30 + DivArm(0x1000, proc->unk_44 * coeff);
         int y = proc->unk_34 + DivArm(0x1000, proc->unk_48 * coeff);
 
-        gGMData.unk08 = x;
-        gGMData.unk0C = y;
+        gGMData.ix = x;
+        gGMData.iy = y;
     }
     else
     {
-        gGMData.unk08 = proc->unk_38;
-        gGMData.unk0C = proc->unk_3c;
+        gGMData.ix = proc->unk_38;
+        gGMData.iy = proc->unk_3c;
         Proc_End(proc);
     }
 
@@ -121,8 +121,8 @@ ProcPtr StartGmMoveCursor(struct Vec2 * posA, struct Vec2 * posB, int c, int d, 
 
     if (posA == NULL)
     {
-        proc->unk_30 = gGMData.unk08;
-        proc->unk_34 = gGMData.unk0C;
+        proc->unk_30 = gGMData.ix;
+        proc->unk_34 = gGMData.iy;
     }
     else
     {
@@ -287,7 +287,7 @@ void StartGmScroll(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 de
 {
     struct GmScrollInfo info;
 
-    struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * worldMapProc = GM_MAIN;
     info.unk_00 = &worldMapProc->unk_30;
 
     info.unk_04 = 1;
@@ -301,22 +301,19 @@ void StartGmScroll(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 de
 
     StartGmScrollManage(&info, worldMapProc);
 
-    ((struct WorldMapMainProc *)Proc_Find(gProcScr_WorldMapMain))->unk_50->unk_32--;
-
-    return;
+    GM_CURSOR->unk_32--;
 }
 
 //! FE8U = 0x080BF490
 int sub_80BF490(void)
 {
-    struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
-    return !(worldMapProc->unk_30 & 1);
+    return !(GM_MAIN->unk_30 & 1);
 }
 
 //! FE8U = 0x080BF4A8
 void EndGmScroll(void)
 {
-    struct WorldMapMainProc * worldMapProc = Proc_Find(gProcScr_WorldMapMain);
+    struct WorldMapMainProc * worldMapProc = Proc_Find(ProcScr_WorldMapMain);
     Proc_EndEach(gProcScr_GmScrollManage);
 
     worldMapProc->unk_30 |= 1;

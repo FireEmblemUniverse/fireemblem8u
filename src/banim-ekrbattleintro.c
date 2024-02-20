@@ -162,7 +162,7 @@ void NewEkrBaseKaiten(int identifier)
     u32 r6;
     const u8 * src;
 
-    SetSpecialColorEffectsParameters(0, 10, 6, 0);
+    SetBlendConfig(0, 10, 6, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 0);
 

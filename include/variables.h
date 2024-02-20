@@ -63,7 +63,7 @@ extern u32 gBanimOaml[];
 extern u32 gBanimOamr2[];
 // extern ??? gUnknown_0200A2D8
 // extern ??? gUnknown_0200A300
-// extern ??? gUnknown_0200AF00
+extern u8 gUnknown_0200AF00[];
 // extern ??? gUnknown_0200C300
 // extern ??? gUnknown_0200CB00
 // extern ??? gSortedUnitsBuf
@@ -320,7 +320,6 @@ extern const struct FaceVramEntry gFaceConfig_PrepItemUseScreen[4];
 
 // extern ??? gUnknown_08206954
 
-// extern ??? GfxSet_WmNationMap
 // extern ??? gUnknown_08206B70
 // extern ??? gUnknown_08206E24
 // extern ??? gUnknown_08206FB4
@@ -1277,13 +1276,30 @@ extern u8 gUnknown_08A98EAC[]; // tsa
 extern u8 gUnknown_08A98F30[]; // tsa
 extern u8 gGfx_GMapPI_LevelNums[];
 extern u16 gPal_GMapPI_LevelNums[];
-// extern ??? Img_EventGmap
-// extern ??? Tsa_EventGmap
-// extern ??? Pal_EventGmap
-// extern ??? gImg_08A9E544
-// extern ??? gPal_08A9E5BC
-// extern ??? gTsa_08A9E5DC
-// extern ??? Pal_WmHighLightNationMap
+extern u8 Img_EventGmap[];
+extern u8 Tsa_EventGmap[];
+extern u16 Pal_EventGmap[];
+extern u8 gGfx_GMapPI_LevelNums[];
+extern u8 gImg_08A9E544[];
+extern u16 gPal_08A9E5BC[];
+extern u8 gTsa_08A9E5DC[];
+extern u16 Pal_WmHighLightNationMap[];
+extern u16 Img_WmHightLightMapFrecia[];
+extern u16 Ap_WmHightLightMapFrecia[];
+extern u16 Img_WmHightLightMap2[];
+extern u16 Ap_WmHightLightMap2[];
+extern u16 Img_WmHightLightMap3[];
+extern u16 Ap_WmHightLightMap3[];
+extern u16 Img_WmHightLightMap4[];
+extern u16 Ap_WmHightLightMap4[];
+extern u16 Img_WmHightLightMap5[];
+extern u16 Ap_WmHightLightMap5[];
+extern u16 Img_WmHightLightMap6[];
+extern u16 Ap_WmHightLightMap6[];
+extern u16 Img_WmHightLightMap7[];
+extern u16 Ap_WmHightLightMap7[];
+extern u16 Img_WmHightLightMap8[];
+extern u16 Ap_WmHightLightMap8[];
 // extern ??? gUnknown_08AA114C
 // extern ??? gUnknown_08AA1190
 // extern ??? gUnknown_08AA11B0

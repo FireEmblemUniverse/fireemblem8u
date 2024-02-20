@@ -905,7 +905,7 @@ void FadeToBlack_OnInit(struct Proc * proc)
     gLCDControlBuffer.wincnt.wobj_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0);
+    SetBlendConfig(3, 0, 0, 0);
 
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendBackdropA(1);
@@ -937,7 +937,7 @@ void FadeFromBlack_OnInit(struct Proc * proc)
     gLCDControlBuffer.wincnt.wobj_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
 
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendTargetB(1, 1, 1, 1, 1);
@@ -965,13 +965,13 @@ void FadeFromCommon_OnLoop(struct Proc *proc)
 void FadeToWhite_OnInit(struct Proc *proc)
 {
     FadeToBlack_OnInit(proc);
-    SetSpecialColorEffectsParameters(2, 0, 0, 0);
+    SetBlendConfig(2, 0, 0, 0);
 }
 
 void FadeFromWhite_OnInit(struct Proc * proc)
 {
     FadeFromBlack_OnInit(proc);
-    SetSpecialColorEffectsParameters(2, 0, 0, 0x10);
+    SetBlendConfig(2, 0, 0, 0x10);
 }
 
 struct ProcCmd CONST_DATA ProcScr_FadeToBlack[] =

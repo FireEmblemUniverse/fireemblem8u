@@ -703,7 +703,7 @@ void CharacterEnding_End(void) {
     ResetDialogueScreen();
     EndEndingBattleText();
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
 
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendTargetB(0, 0, 0, 0, 0);
@@ -959,7 +959,7 @@ void sub_80B71DC(struct EndingBattleDisplayProc* proc) {
 void sub_80B723C(struct EndingBattleDisplayProc* proc) {
     proc->unk_34 = 0;
 
-    SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
+    SetBlendConfig(1, 0x10, 0, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 0, 0);
@@ -973,7 +973,7 @@ void sub_80B7274(struct EndingBattleDisplayProc* proc) {
 
     proc->unk_34++;
 
-    SetSpecialColorEffectsParameters(1, 0x10 - var, var, 0);
+    SetBlendConfig(1, 0x10 - var, var, 0);
 
     if (var == 8) {
         Proc_Break(proc);
@@ -1173,7 +1173,7 @@ void Fin_Loop_KeyListener(struct FinScreenProc* proc) {
 
 //! FE8U = 0x080B7500
 void sub_80B7500(struct FinScreenProc* proc) {
-    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    SetBlendConfig(1, 0, 0x10, 0);
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
@@ -1192,7 +1192,7 @@ void sub_80B7540(struct FinScreenProc* proc) {
     proc->unk_4c++;
 
     b = a >> 2;
-    SetSpecialColorEffectsParameters(1, b, 0x10, 0);
+    SetBlendConfig(1, b, 0x10, 0);
 
     if (b == 16) {
         Proc_Break(proc);
@@ -1204,7 +1204,7 @@ void sub_80B7540(struct FinScreenProc* proc) {
 
 //! FE8U = 0x080B7574
 void Fin_End(void) {
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetBlendConfig(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
     return;
 }
@@ -1750,7 +1750,7 @@ void sub_80B8014(void) {
 
     SetBlendBackdropA(0);
     SetBlendBackdropB(0);
-    SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
+    SetBlendConfig(1, 6, 0x10, 0);
 
     Decompress(gUnknown_08A21658, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
     ApplyPalettes(gUnknown_08A25DCC, 8, 8);

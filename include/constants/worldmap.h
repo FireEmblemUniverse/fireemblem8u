@@ -115,6 +115,8 @@ enum wm_hightlighted_nation_idx {
     WM_NATION_Rausten = 5,
     WM_NATION_Pokhara = 6,
     WM_NATION_Renais = 7,
+
+    WM_NATION_MAX = 8,
 };
 
 enum wm_mu_idx {

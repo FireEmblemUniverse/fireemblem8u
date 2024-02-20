@@ -1295,7 +1295,7 @@ void InitPlayerPhaseInterface() {
     BG_SetPosition(1, 0, 0);
     BG_SetPosition(2, 0, 0);
 
-    SetSpecialColorEffectsParameters(1, 0xD, 3, 0);
+    SetBlendConfig(1, 0xD, 3, 0);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
 
