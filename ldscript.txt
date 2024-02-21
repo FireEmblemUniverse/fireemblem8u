@@ -306,7 +306,7 @@ SECTIONS
         src/extramenu_unk.o(.text);
         src/bonusclaim.o(.text);
         src/uiconfig.o(.text);
-        asm/code_80B24DC.o(.text);
+        src/colorfade.o(.text);
         src/opinfo.o(.text);
         src/classdisplayfont.o(.text);
         src/bmshop.o(.text);
