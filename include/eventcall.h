@@ -49,6 +49,14 @@ struct Proc89EEA28 {
     /* 64 */ s16 mode;
 };
 
+struct Unknown03000600 {
+    u8 pid;
+    s8 x;
+    s8 y;
+
+    u8 _pad_;
+};
+
 void EventCallGameOverExt(ProcPtr proc);
 void GameOver_FadeOutCurrentBgm(ProcPtr proc);
 void SkilGameOverForToturialExtraMap(ProcPtr proc);

@@ -79,7 +79,8 @@ SECTIONS
         src/eventfx-earthquake.o(.text);
         src/eventfx-stoneshatter.o(.text);
         src/bmlib.o(.text);
-        asm/hino.o(.text);
+        asm/bmlib-hblank.o(.text);
+        src/bmlib-math.o(.text);
         src/bm.o(.text);
         src/bmitem.o(.text);
         src/bmunit.o(.text);
@@ -546,6 +547,7 @@ SECTIONS
         . = ALIGN(4); src/muctrl.o(.rodata);
         . = ALIGN(4); src/mapanim_api.o(.rodata);
         . = ALIGN(4); src/mapanim_debug.o(.rodata);
+        . = ALIGN(4); src/mapanim_staffeffect.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/player_interface.o(.rodata);
@@ -631,7 +633,6 @@ SECTIONS
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/generic_icon.o(.data);
         . = ALIGN(4); src/bmlib.o(.data);
-        . = ALIGN(4); data/bmlib.o(.data);
         . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);

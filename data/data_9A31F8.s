@@ -185,20 +185,20 @@ Img_089AE7A4:  @ 0x089AE7A4
 Pal_089AE7C4:  @ 0x089AE7C4
 	.incbin "baserom.gba", 0x9AE7C4, 0x40
 
-	.global gUnknown_089AE804
-gUnknown_089AE804:  @ 0x089AE804
+	.global Img_MapAnimAntitoxinPureWater
+Img_MapAnimAntitoxinPureWater:  @ 0x089AE804
 	.incbin "baserom.gba", 0x9AE804, 0xB0C
 
 	.global gUnknown_089AF310
 gUnknown_089AF310:  @ 0x089AF310
 	.incbin "baserom.gba", 0x9AF310, 0x600
 
-	.global gUnknown_089AF910
-gUnknown_089AF910:  @ 0x089AF910
+	.global Pal_MapAnimPureWater
+Pal_MapAnimPureWater:  @ 0x089AF910
 	.incbin "baserom.gba", 0x9AF910, 0x20
 
-	.global gUnknown_089AF930
-gUnknown_089AF930:  @ 0x089AF930
+	.global Pal_MapAnimAntitoxin
+Pal_MapAnimAntitoxin:  @ 0x089AF930
 	.incbin "baserom.gba", 0x9AF930, 0x20
 
 	.global gUnknown_089AF950
@@ -305,13 +305,145 @@ gUnknown_089B2880:  @ 0x089B2880
 gUnknown_089B343C:  @ 0x089B343C
 	.incbin "baserom.gba", 0x9B343C, 0x194
 
-	.global Img_089B35D0
-Img_089B35D0:  @ 0x089B35D0
+	.global Img_NightMareMapAnimfx
+Img_NightMareMapAnimfx:  @ 0x089B35D0
 	.incbin "baserom.gba", 0x9B35D0, 0x162C
 
-	.global Pal_089B4BFC
-Pal_089B4BFC:  @ 0x089B4BFC
-    .incbin "baserom.gba", 0x9B4BFC, 0x1EA4
+	.global Pal_NightMareMapAnimfx
+Pal_NightMareMapAnimfx:  @ 0x089B4BFC
+    .incbin "baserom.gba", 0x9B4BFC, 0x9B4C1C - 0x9B4BFC
+
+.global Tsa_NightMareMapAnimfx1
+Tsa_NightMareMapAnimfx1:
+	.incbin "baserom.gba", 0x9B4C1C, 0x9B4C80 - 0x9B4C1C
+
+.global Tsa_NightMareMapAnimfx2
+Tsa_NightMareMapAnimfx2:
+	.incbin "baserom.gba", 0x9B4C80, 0x9B4CE8 - 0x9B4C80
+
+.global Tsa_NightMareMapAnimfx3
+Tsa_NightMareMapAnimfx3:
+	.incbin "baserom.gba", 0x9B4CE8, 0x9B4D64 - 0x9B4CE8
+
+.global Tsa_NightMareMapAnimfx4
+Tsa_NightMareMapAnimfx4:
+	.incbin "baserom.gba", 0x9B4D64, 0x9B4DDC - 0x9B4D64
+
+.global Tsa_NightMareMapAnimfx5
+Tsa_NightMareMapAnimfx5:
+	.incbin "baserom.gba", 0x9B4DDC, 0x9B4E4C - 0x9B4DDC
+
+.global Tsa_NightMareMapAnimfx6
+Tsa_NightMareMapAnimfx6:
+	.incbin "baserom.gba", 0x9B4E4C, 0x9B4EB8 - 0x9B4E4C
+
+.global Tsa_NightMareMapAnimfx7
+Tsa_NightMareMapAnimfx7:
+	.incbin "baserom.gba", 0x9B4EB8, 0x9B4F2C - 0x9B4EB8
+
+.global Tsa_NightMareMapAnimfx8
+Tsa_NightMareMapAnimfx8:
+	.incbin "baserom.gba", 0x9B4F2C, 0x9B4FA4 - 0x9B4F2C
+
+.global Tsa_NightMareMapAnimfx9
+Tsa_NightMareMapAnimfx9:
+	.incbin "baserom.gba", 0x9B4FA4, 0x9B501C - 0x9B4FA4
+
+.global Tsa_NightMareMapAnimfx10
+Tsa_NightMareMapAnimfx10:
+	.incbin "baserom.gba", 0x9B501C, 0x9B5094 - 0x9B501C
+
+.global Tsa_NightMareMapAnimfx11
+Tsa_NightMareMapAnimfx11:
+	.incbin "baserom.gba", 0x9B5094, 0x9B5118 - 0x9B5094
+
+.global Tsa_NightMareMapAnimfx12
+Tsa_NightMareMapAnimfx12:
+	.incbin "baserom.gba", 0x9B5118, 0x9B519C - 0x9B5118
+
+.global Tsa_NightMareMapAnimfx13
+Tsa_NightMareMapAnimfx13:
+	.incbin "baserom.gba", 0x9B519C, 0x9B5220 - 0x9B519C
+
+.global Tsa_NightMareMapAnimfx14
+Tsa_NightMareMapAnimfx14:
+	.incbin "baserom.gba", 0x9B5220, 0x9B52A4 - 0x9B5220
+
+.global Tsa_NightMareMapAnimfx15
+Tsa_NightMareMapAnimfx15:
+	.incbin "baserom.gba", 0x9B52A4, 0x9B5310 - 0x9B52A4
+
+.global Tsa_NightMareMapAnimfx16
+Tsa_NightMareMapAnimfx16:
+	.incbin "baserom.gba", 0x9B5310, 0x9B5398 - 0x9B5310
+
+.global Tsa_NightMareMapAnimfx17
+Tsa_NightMareMapAnimfx17:
+	.incbin "baserom.gba", 0x9B5398, 0x9B5434 - 0x9B5398
+
+.global Tsa_NightMareMapAnimfx18
+Tsa_NightMareMapAnimfx18:
+	.incbin "baserom.gba", 0x9B5434, 0x9B54F0 - 0x9B5434
+
+.global Tsa_NightMareMapAnimfx19
+Tsa_NightMareMapAnimfx19:
+	.incbin "baserom.gba", 0x9B54F0, 0x9B55EC - 0x9B54F0
+
+.global Tsa_NightMareMapAnimfx20
+Tsa_NightMareMapAnimfx20:
+	.incbin "baserom.gba", 0x9B55EC, 0x9B5720 - 0x9B55EC
+
+.global Tsa_NightMareMapAnimfx21
+Tsa_NightMareMapAnimfx21:
+	.incbin "baserom.gba", 0x9B5720, 0x9B58DC - 0x9B5720
+
+.global Tsa_NightMareMapAnimfx22
+Tsa_NightMareMapAnimfx22:
+	.incbin "baserom.gba", 0x9B58DC, 0x9B5B38 - 0x9B58DC
+
+.global Tsa_NightMareMapAnimfx23
+Tsa_NightMareMapAnimfx23:
+	.incbin "baserom.gba", 0x9B5B38, 0x9B5C6C - 0x9B5B38
+
+.global Tsa_NightMareMapAnimfx24
+Tsa_NightMareMapAnimfx24:
+	.incbin "baserom.gba", 0x9B5C6C, 0x9B5E0C - 0x9B5C6C
+
+.global Tsa_NightMareMapAnimfx25
+Tsa_NightMareMapAnimfx25:
+	.incbin "baserom.gba", 0x9B5E0C, 0x9B6050 - 0x9B5E0C
+
+.global Tsa_NightMareMapAnimfx26
+Tsa_NightMareMapAnimfx26:
+	.incbin "baserom.gba", 0x9B6050, 0x9B6174 - 0x9B6050
+
+.global Tsa_NightMareMapAnimfx27
+Tsa_NightMareMapAnimfx27:
+	.incbin "baserom.gba", 0x9B6174, 0x9B630C - 0x9B6174
+
+.global Tsa_NightMareMapAnimfx28
+Tsa_NightMareMapAnimfx28:
+	.incbin "baserom.gba", 0x9B630C, 0x9B6510 - 0x9B630C
+
+.global Tsa_NightMareMapAnimfx29
+Tsa_NightMareMapAnimfx29:
+	.incbin "baserom.gba", 0x9B6510, 0x9B65D4 - 0x9B6510
+
+.global Tsa_NightMareMapAnimfx30
+Tsa_NightMareMapAnimfx30:
+	.incbin "baserom.gba", 0x9B65D4, 0x9B66BC - 0x9B65D4
+
+.global Tsa_NightMareMapAnimfx31
+Tsa_NightMareMapAnimfx31:
+	.incbin "baserom.gba", 0x9B66BC, 0x9B6808 - 0x9B66BC
+
+.global Tsa_NightMareMapAnimfx32
+Tsa_NightMareMapAnimfx32:
+	.incbin "baserom.gba", 0x9B6808, 0x9B69BC - 0x9B6808
+
+.global Tsa_NightMareMapAnimfx33
+Tsa_NightMareMapAnimfx33:
+	.incbin "baserom.gba", 0x9B69BC, 0x9B6AA0 - 0x9B69BC
 
 	.global gUnknown_089B6AA0
 gUnknown_089B6AA0:  @ 0x089B6AA0

@@ -753,7 +753,7 @@ PROC_LABEL(99),
     PROC_GOTO(0),
 
 PROC_LABEL(100),
-    PROC_CALL_ARG(sub_8014BD0, 7),
+    PROC_CALL_ARG(_FadeBgmOut, 7),
 
     PROC_CALL_ARG(NewFadeOut, 2),
     PROC_WHILE(FadeOutExists),
@@ -1219,7 +1219,7 @@ struct ProcCmd CONST_DATA gProcScr_FinScreen[] = {
 
 PROC_LABEL(0),
     PROC_REPEAT(Fin_Loop_KeyListener),
-    PROC_CALL_ARG(sub_8014BD0, 4),
+    PROC_CALL_ARG(_FadeBgmOut, 4),
 
     PROC_CALL_ARG(NewFadeOut, 4),
     PROC_WHILE(FadeOutExists),

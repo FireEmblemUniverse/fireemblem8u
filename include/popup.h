@@ -86,6 +86,20 @@ struct GotItemPopupProc {
     /* 58 */ int item;
 };
 
+struct BrownTextBoxProc {
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x30);
+    /* 30 */ int x;
+    /* 34 */ int y;
+    /* 38 */ u32 chr;
+    /* 3C */ int pal;
+    /* 40 */ int textId;
+    /* 44 */ int width;
+    /* 48 */ u16 oam0Attr;
+    /* 4A */ STRUCT_PAD(0x4A, 0x4C);
+    /* 4C */ s16 blendVal;
+};
+
 void SetPopupUnit(struct Unit* unit);
 void SetPopupItem(u16 item);
 void SetPopupNumber(u32 num);
@@ -116,5 +130,60 @@ void NewPopup2_PlanC(ProcPtr parent, int item, int msg);
 void NewPopup2_PlanD(ProcPtr parent, int item, int msg0, int msg1);
 void NewPopup2_DropItem(ProcPtr parent, int item);
 void NewPopup2_SendItem(ProcPtr parent, int item);
+
+// ??? ParsePopupInstAndGetLen(???);
+// ??? GeneratePopupText(???);
+void PopupProc_Init(struct PopupProc * proc);
+void PopupProc_PrepareGfx(struct PopupProc * proc);
+void PopupProc_MaybeSetVolume(struct PopupProc * proc);
+void PopupProc_PlaySound(struct PopupProc * proc);
+void PopupProc_MaybeResetVolume(struct PopupProc * proc);
+void PopupIconUpdateProc_Loop(struct PopupIconUpdateProc * proc);
+void PopupProc_GfxDraw(struct PopupProc * proc);
+void PopupProc_WaitForPress(struct PopupProc * proc);
+void PopupProc_GfxClear(struct PopupProc * proc);
+// ??? SetPopupUnit(???);
+// ??? SetPopupItem(???);
+// ??? SetPopupNumber(???);
+// ??? NewPopup_Simple(???);
+// ??? NewPopupCore(???);
+// ??? NewPopup_ItemGot_unused(???);
+void ItemGot_DisplayLePopup(struct GotItemPopupProc * proc);
+void ItemGot_GotLeItem(struct GotItemPopupProc * proc);
+// ??? NewPopup_ItemGot(???);
+// ??? NewPopup_GeneralItemGot(???);
+// ??? NewGoldNumPopup_unused(???);
+// ??? NewNumberPopup_unused(???);
+// ??? NewPopup_GoldGot(???);
+void NewPopup_ItemStealing(u16 weapon, ProcPtr parent);
+void NewPopup_WeaponBroke(u16 weapon, ProcPtr parent);
+void NewPopup_WRankIncrease(u16 weapon, ProcPtr parent);
+// ??? NewPopup_NewAlly(???);
+// ??? NewPopup_VerySimple(???);
+// ??? BrownTextBox_Loop(???);
+// ??? nullsub_44(???);
+// ??? sub_8011A1C(???);
+// ??? sub_8011A48(???);
+// ??? sub_8011AA0(???);
+// ??? sub_8011AF4(???);
+// ??? sub_8011B4C(???);
+// ??? sub_8011B90(???);
+// ??? StartBrownTextBoxCore(???);
+void StartBrownTextBox(int, s16, s16, ProcPtr);
+
+extern struct ProcCmd CONST_DATA ProcScr_Popup[];
+extern struct ProcCmd CONST_DATA ProcScr_PopupUpdateIcon[];
+extern struct PopupInstruction CONST_DATA PopupScr_GotItem[];
+extern struct PopupInstruction CONST_DATA PopupScr_ItemWasPilfered[];
+extern struct ProcCmd CONST_DATA ProcScr_GotItem[];
+extern struct PopupInstruction CONST_DATA PopupScr_GotGold[];
+extern struct PopupInstruction CONST_DATA PopupScr_GoldWasStole[];
+extern struct PopupInstruction CONST_DATA PopupScr_StoleItem[];
+extern struct PopupInstruction CONST_DATA PopupScr_ItemStolen[];
+extern struct PopupInstruction CONST_DATA PopupScr_WpnBroken[];
+extern struct PopupInstruction CONST_DATA PopupScr_WRankUp[];
+extern struct PopupInstruction CONST_DATA PopupScr_NewAlly[];
+extern struct ProcCmd CONST_DATA ProcScr_BrownTextBox[];
+extern struct ProcCmd CONST_DATA ProcScr_08592530[];
 
 #endif /* GUARD_POPUP_H */

@@ -5,7 +5,7 @@
 #include "hardware.h"
 #include "fontgrp.h"
 #include "bmsave.h"
-
+#include "bmlib.h"
 #include "savemenu.h"
 
 /*

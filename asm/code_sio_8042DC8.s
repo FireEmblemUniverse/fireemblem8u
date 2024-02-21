@@ -774,7 +774,7 @@ _080437F4:
 	movs r1, #1
 	mov r2, r8
 	adds r3, r4, #0
-	bl sub_8014C54
+	bl PutDrawTextCentered
 	movs r1, #3
 	add r8, r1
 	adds r5, #8
@@ -839,7 +839,7 @@ _08043876:
 	str r0, [sp]
 	adds r0, r4, #0
 	movs r1, #1
-	bl sub_8014C54
+	bl PutDrawTextCentered
 	adds r6, #1
 	b _08043848
 	.align 2, 0
@@ -1819,7 +1819,7 @@ _0804403C:
 	movs r1, #0xa
 	str r1, [sp]
 	movs r1, #1
-	bl sub_8014C54
+	bl PutDrawTextCentered
 	bl sub_8043D5C
 	adds r1, r7, #0
 	adds r1, #0x5c

@@ -6,6 +6,7 @@
 #include "bmbattle.h"
 #include "eventinfo.h"
 #include "m4a.h"
+#include "bmlib.h"
 #include "soundwrapper.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -117,7 +118,7 @@ void M4aPlayWithPostionCtrl(int songid, int x, int flag)
         struct MusicPlayerInfo * info;
         info = gMPlayTable[gSongTable[songid].ms].info;
         m4aMPlayImmInit(info);
-        m4aMPlayPanpotControl(info, 0xFFFF, RerangeSomething(x));
+        m4aMPlayPanpotControl(info, 0xFFFF, Screen2Pan(x));
     }
 }
 

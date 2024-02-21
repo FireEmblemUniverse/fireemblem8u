@@ -253,7 +253,7 @@ void AiStartStealAction(struct CpPerformProc* proc) {
     return;
 }
 
-struct PopupInstruction CONST_DATA gPopup_085A80A4[] = {
+struct PopupInstruction CONST_DATA PopupScr_085A80A4[] = {
     POPUP_SOUND(0x5C),
     POPUP_MSG(0x12), // TODO: msgid "The village was destroyed."
     POPUP_END
@@ -279,7 +279,7 @@ s8 AiPillageAction(struct CpPerformProc* proc) {
 
         PlaySoundEffect(0xAB);
 
-        NewPopup_Simple(gPopup_085A80A4, 0x60, 0, proc);
+        NewPopup_Simple(PopupScr_085A80A4, 0x60, 0, proc);
     }
 
     return 1;

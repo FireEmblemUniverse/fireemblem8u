@@ -184,7 +184,7 @@ void GameOverScreen_Init(struct ProcGameOverScreen *proc)
     proc->counter1 = 21;
 
     for (i = 0; i < 10; ++i)
-        CALLARM_MaybeScreenFadeIn();
+        CALLARM_ColorFadeTick();
 
     EnablePaletteSync();
 }
@@ -193,7 +193,7 @@ void GameOverScreen_LoopFadeIn(struct ProcGameOverScreen *proc)
 {
     if ((GetGameClock() % 8) == 0)
     {
-        CALLARM_MaybeScreenFadeIn();
+        CALLARM_ColorFadeTick();
         EnablePaletteSync();
 
         proc->counter1--;
@@ -229,7 +229,7 @@ void GameOverScreen_BeginFadeOut(struct ProcGameOverScreen *proc)
 
 void GameOverScreen_LoopFadeOut(struct ProcGameOverScreen *proc)
 {
-    CALLARM_MaybeScreenFadeIn();
+    CALLARM_ColorFadeTick();
     EnablePaletteSync();
 
     proc->counter1++;

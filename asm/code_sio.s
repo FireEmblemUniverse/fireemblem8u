@@ -1429,7 +1429,7 @@ _08045D0C:
 	adds r0, r4, #0
 	movs r1, #0xb
 	adds r2, r7, #0
-	bl sub_8014C54
+	bl PutDrawTextCentered
 	ldr r0, _08045D74  @ gUnknown_085ADDA8
 	mov r1, r8
 	movs r2, #0x20
@@ -1447,7 +1447,7 @@ _08045D78:
 	movs r1, #0xb
 	adds r2, r7, #0
 	mov r3, sl
-	bl sub_8014C54
+	bl PutDrawTextCentered
 	lsls r0, r6, #5
 	ldr r1, _08045DBC  @ Pal_TacticianSelObj
 	adds r0, r0, r1

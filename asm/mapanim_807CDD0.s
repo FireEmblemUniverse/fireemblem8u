@@ -2,250 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START NightMarefx_InitGfx
-NightMarefx_InitGfx: @ 0x0807D57C
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	adds r5, r0, #0
-	adds r0, #0x42
-	ldrh r0, [r0]
-	cmp r0, #0
-	bne _0807D64A
-	adds r0, r5, #0
-	adds r0, #0x40
-	ldrh r1, [r0]
-	adds r6, r0, #0
-	cmp r1, #0
-	bne _0807D5A2
-	movs r0, #0xe1
-	lsls r0, r0, #2
-	ldr r1, [r5, #0x30]
-	bl PlaySeSpacial
-	b _0807D5AE
-_0807D5A2:
-	cmp r1, #0x21
-	bls _0807D5AE
-	adds r0, r5, #0
-	bl Proc_Break
-	b _0807D654
-_0807D5AE:
-	ldr r0, _0807D5D0  @ gUnknown_0820579C
-	ldrh r1, [r6]
-	lsls r1, r1, #2
-	adds r1, r1, r0
-	movs r0, #0
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	bge _0807D5D8
-	ldr r0, _0807D5D4  @ gBG2TilemapBuffer
-	movs r1, #0
-	bl BG_Fill
-	movs r0, #4
-	bl BG_EnableSyncByMask
-	b _0807D622
-	.align 2, 0
-_0807D5D0: .4byte gUnknown_0820579C
-_0807D5D4: .4byte gBG2TilemapBuffer
-_0807D5D8:
-	ldr r0, _0807D65C  @ gUnknown_089A3AB8
-	ldrb r1, [r1]
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	lsls r1, r1, #2
-	adds r1, r1, r0
-	ldr r0, [r1]
-	ldr r4, _0807D660  @ gGenericBuffer
-	adds r1, r4, #0
-	bl Decompress
-	ldr r1, _0807D664  @ gBG2TilemapBuffer
-	ldr r0, [r5, #0x30]
-	cmp r0, #0
-	bge _0807D5F8
-	adds r0, #7
-_0807D5F8:
-	asrs r0, r0, #3
-	subs r0, #9
-	lsls r0, r0, #0x10
-	asrs r2, r0, #0x10
-	ldr r3, [r5, #0x34]
-	cmp r3, #0
-	bge _0807D608
-	adds r3, #7
-_0807D608:
-	asrs r3, r3, #3
-	subs r3, #9
-	lsls r3, r3, #0x10
-	asrs r3, r3, #0x10
-	ldr r0, _0807D668  @ 0x00004160
-	str r0, [sp]
-	adds r0, r1, #0
-	adds r1, r4, #0
-	bl sub_800159C
-	movs r0, #4
-	bl BG_EnableSyncByMask
-_0807D622:
-	ldr r4, _0807D66C  @ gUnknown_0820579C
-	ldrh r0, [r6]
-	lsls r0, r0, #2
-	adds r0, r0, r4
-	ldrb r1, [r0, #2]
-	movs r0, #1
-	movs r2, #0x10
-	movs r3, #0
-	bl SetBlendConfig
-	ldrh r0, [r6]
-	lsls r0, r0, #2
-	adds r0, r0, r4
-	ldrb r0, [r0, #1]
-	adds r1, r5, #0
-	adds r1, #0x42
-	strh r0, [r1]
-	ldrh r0, [r6]
-	adds r0, #1
-	strh r0, [r6]
-_0807D64A:
-	adds r1, r5, #0
-	adds r1, #0x42
-	ldrh r0, [r1]
-	subs r0, #1
-	strh r0, [r1]
-_0807D654:
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807D65C: .4byte gUnknown_089A3AB8
-_0807D660: .4byte gGenericBuffer
-_0807D664: .4byte gBG2TilemapBuffer
-_0807D668: .4byte 0x00004160
-_0807D66C: .4byte gUnknown_0820579C
-
-	THUMB_FUNC_END NightMarefx_InitGfx
-
-	THUMB_FUNC_START NightMarefx_CallBlinking
-NightMarefx_CallBlinking: @ 0x0807D670
-	push {lr}
-	ldr r0, _0807D684  @ gBG2TilemapBuffer
-	movs r1, #0
-	bl BG_Fill
-	movs r0, #4
-	bl BG_EnableSyncByMask
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807D684: .4byte gBG2TilemapBuffer
-
-	THUMB_FUNC_END NightMarefx_CallBlinking
-
-	THUMB_FUNC_START MapAnimCallSpellAssocAntitoxinPureWaterfx
-MapAnimCallSpellAssocAntitoxinPureWaterfx: @ 0x0807D688
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	adds r5, r1, #0
-	adds r6, r2, #0
-	ldr r0, _0807D6D0  @ gUnknown_089A3B3C
-	movs r1, #3
-	bl Proc_Start
-	str r4, [r0, #0x2c]
-	movs r2, #0x10
-	ldrsb r2, [r4, r2]
-	ldr r3, _0807D6D4  @ gBmSt
-	ldrh r1, [r3, #0xc]
-	lsls r1, r1, #0x10
-	asrs r1, r1, #0x14
-	subs r2, r2, r1
-	lsls r2, r2, #1
-	adds r2, #1
-	lsls r2, r2, #3
-	str r2, [r0, #0x30]
-	movs r2, #0x11
-	ldrsb r2, [r4, r2]
-	ldrh r1, [r3, #0xe]
-	lsls r1, r1, #0x10
-	asrs r1, r1, #0x14
-	subs r2, r2, r1
-	lsls r2, r2, #1
-	adds r2, #1
-	lsls r2, r2, #3
-	str r2, [r0, #0x34]
-	str r5, [r0, #0x50]
-	str r6, [r0, #0x54]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807D6D0: .4byte gUnknown_089A3B3C
-_0807D6D4: .4byte gBmSt
-
-	THUMB_FUNC_END MapAnimCallSpellAssocAntitoxinPureWaterfx
-
-	THUMB_FUNC_START sub_807D6D8
-sub_807D6D8: @ 0x0807D6D8
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r1, [r5, #0x30]
-	movs r0, #0xb6
-	bl PlaySeSpacial
-	ldr r2, _0807D758  @ gLCDControlBuffer
-	ldrb r3, [r2, #0xc]
-	movs r1, #4
-	negs r1, r1
-	adds r0, r1, #0
-	ands r0, r3
-	strb r0, [r2, #0xc]
-	ldrb r3, [r2, #0x10]
-	adds r0, r1, #0
-	ands r0, r3
-	movs r4, #1
-	orrs r0, r4
-	strb r0, [r2, #0x10]
-	ldrb r3, [r2, #0x14]
-	adds r0, r1, #0
-	ands r0, r3
-	orrs r0, r4
-	strb r0, [r2, #0x14]
-	ldrb r0, [r2, #0x18]
-	ands r1, r0
-	movs r0, #2
-	orrs r1, r0
-	strb r1, [r2, #0x18]
-	movs r0, #2
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	ldr r4, [r5, #0x50]
-	movs r0, #2
-	bl GetBackgroundTileDataOffset
-	adds r1, r0, #0
-	ldr r0, _0807D75C  @ 0x06002C00
-	adds r1, r1, r0
-	adds r0, r4, #0
-	bl Decompress
-	ldr r0, [r5, #0x54]
-	movs r1, #0x80
-	movs r2, #0x20
-	bl CopyToPaletteBuffer
-	bl SetDefaultMapAnimScreenConf
-	movs r0, #1
-	movs r1, #0x10
-	movs r2, #0x10
-	movs r3, #0
-	bl SetBlendConfig
-	adds r5, #0x40
-	movs r0, #0
-	strh r0, [r5]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807D758: .4byte gLCDControlBuffer
-_0807D75C: .4byte 0x06002C00
-
-	THUMB_FUNC_END sub_807D6D8
-
-	THUMB_FUNC_START sub_807D760
-sub_807D760: @ 0x0807D760
+	THUMB_FUNC_START AntitoxinPureWaterfx_Loop
+AntitoxinPureWaterfx_Loop: @ 0x0807D760
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x10
 	adds r6, r0, #0
@@ -304,7 +62,7 @@ _0807D7CC: .4byte 0x00004160
 _0807D7D0: .4byte gUnknown_089AF310
 _0807D7D4: .4byte gUnknown_089A3B6C
 
-	THUMB_FUNC_END sub_807D760
+	THUMB_FUNC_END AntitoxinPureWaterfx_Loop
 
 	THUMB_FUNC_START sub_807D7D8
 sub_807D7D8: @ 0x0807D7D8
@@ -455,7 +213,7 @@ sub_807D860: @ 0x0807D860
 	movs r1, #0x80
 	movs r2, #0x20
 	movs r3, #4
-	bl NewPaletteAnimator_
+	bl StartPaletteAnimatorNormal
 	adds r1, r6, #0
 	adds r1, #0x40
 	movs r0, #0
@@ -608,8 +366,8 @@ _0807D9EC:
 
 	THUMB_FUNC_END sub_807D9B8
 
-	THUMB_FUNC_START MapLatonafx_End
-MapLatonafx_End: @ 0x0807DA2C
+	THUMB_FUNC_START MapSpellAnim_CommonEnd
+MapSpellAnim_CommonEnd: @ 0x0807DA2C
 	push {lr}
 	bl DeleteAllPaletteAnimator
 	ldr r0, _0807DA60  @ gBG2TilemapBuffer
@@ -635,7 +393,7 @@ MapLatonafx_End: @ 0x0807DA2C
 _0807DA60: .4byte gBG2TilemapBuffer
 _0807DA64: .4byte gLCDControlBuffer
 
-	THUMB_FUNC_END MapLatonafx_End
+	THUMB_FUNC_END MapSpellAnim_CommonEnd
 
 	THUMB_FUNC_START sub_807DA68
 sub_807DA68: @ 0x0807DA68
@@ -2423,7 +2181,7 @@ _0807E822:
 	movs r1, #0x80
 	movs r2, #0x20
 	movs r3, #4
-	bl sub_80144CC
+	bl StartPaletteAnimatorReverse
 	bl InitScanline
 	bl sub_8081EAC
 	bl SetDefaultMapAnimScreenConf

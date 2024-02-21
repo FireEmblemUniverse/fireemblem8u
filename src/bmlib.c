@@ -5,6 +5,9 @@
 #include "hardware.h"
 #include "proc.h"
 #include "bm.h"
+#include "m4a.h"
+#include "soundwrapper.h"
+#include "fontgrp.h"
 #include "bmlib.h"
 
 struct Struct8012F98 {
@@ -947,7 +950,7 @@ void FadeFromBlack_OnInit(struct Proc * proc)
     proc->unk66 = 0x100;
 }
 
-void FadeFromCommon_OnLoop(struct Proc *proc)
+void FadeFromCommon_OnLoop(struct Proc * proc)
 {
     if (gLCDControlBuffer.blendY == 0) {
         Proc_End(proc);
@@ -1288,6 +1291,15 @@ struct FadeKindEnt const gUnknown_080D7964[] =
     { Proc_StartBlocking, ColorFadeSetupFromColorToWhite, +1 }, // to white locking
 };
 
+struct ProcCmd CONST_DATA ProcScr_FadeCore[] = {
+    PROC_MARK(10),
+    PROC_CALL(FadeCore_Init),
+    PROC_YIELD,
+    PROC_CALL(FadeCore_Tick),
+    PROC_REPEAT(FadeCore_Loop),
+    PROC_END,
+};
+
 void StartFadeCore(int kind, int speed, ProcPtr parent, void * end_callback)
 {
     ProcPtr (* spawn_proc)(struct ProcCmd const * scr, ProcPtr parent);
@@ -1299,10 +1311,10 @@ void StartFadeCore(int kind, int speed, ProcPtr parent, void * end_callback)
     spawn_proc = gUnknown_080D7964[kind].spawn_proc;
     proc = spawn_proc(ProcScr_FadeCore, parent);
 
-    proc->unk_54 = speed;
+    proc->speed = speed;
     proc->on_end = end_callback;
 
-    component_step = proc->unk_54 >> 4;
+    component_step = proc->speed >> 4;
 
     if (component_step == 0)
         component_step = 1;
@@ -1317,19 +1329,688 @@ void FadeCoreEndEach(void)
     Proc_EndEach(ProcScr_FadeCore);
 }
 
-void sub_80140F4(struct FadeCoreProc * proc)
+void FadeCore_Init(struct FadeCoreProc * proc)
 {
-    proc->unk_58 = 0;
-    proc->unk_5C = 0;
+    proc->looper = 0;
+    proc->counter = 0;
     proc->on_end = NULL;
 }
 
-void sub_8014100(struct FadeCoreProc * proc)
+void FadeCore_Loop(struct FadeCoreProc * proc)
 {
-    if (!sub_8014124(proc)) {
+    if (!FadeCore_Tick(proc)) {
         if (proc->on_end)
             proc->on_end();
 
         Proc_Break(proc);
     }
+}
+
+bool FadeCore_Tick(struct FadeCoreProc * proc)
+{
+    proc->looper += proc->speed;
+    proc->counter += proc->speed;
+
+    if (proc->looper < 0x10)
+    { 
+        if (proc->counter != proc->speed)
+            return TRUE;
+    }
+    else
+    {
+        proc->looper = proc->looper - 0x10;
+    }
+
+    CALLARM_ColorFadeTick();
+    SetBackdropColor(0);
+
+    if (proc->counter >= 0x200)
+        return FALSE;
+
+    return TRUE;
+}
+
+void sub_8014170(void)
+{
+    sub_800183C(0x10, 0x10, 0);
+    sub_8014194();
+}
+
+void sub_8014184(int a, int b)
+{
+    sub_800183C(a, b, 0);
+    sub_8014194();
+}
+
+void sub_8014194(void)
+{
+    struct FadeCoreProc * proc = Proc_Find(ProcScr_FadeCore);
+
+    if (proc)
+        proc->on_end = NULL;
+}
+
+void sub_80141B0(void)
+{
+    SetBlendDarken(0x10);
+    SetBlendTargetA(1, 1, 1, 1, 1);
+    SetBlendBackdropA(1);
+    SetBackdropColor(0);
+    SetDispEnable(0, 0, 0, 0, 0);
+}
+
+void sub_801420C(void)
+{
+    SetBlendBrighten(0x10);
+
+    SetBlendTargetA(1, 1, 1, 1, 1);
+    SetBlendBackdropA(1);
+}
+
+struct ProcCmd CONST_DATA ProcScr_TemporaryLock[] = {
+    PROC_YIELD,
+    PROC_REPEAT(TemporaryLock_OnLoop),
+    PROC_END,
+};
+
+void StartTemporaryLock(ProcPtr proc, int duration)
+{
+    struct Proc * gproc;
+
+    gproc = Proc_StartBlocking(ProcScr_TemporaryLock, proc);
+    gproc->unk58 = duration;
+}
+
+void TemporaryLock_OnLoop(struct Proc * proc)
+{
+    if (proc->unk58 == 0)
+    {
+        Proc_Break(proc);
+        return;
+    }
+    proc->unk58--;
+}
+
+char CONST_DATA SJisZero[] = "０";
+char CONST_DATA SJisDash[] = "ー";
+
+int NumberToStringSJis(int number, char * buf)
+{
+    int numOff, numStart;
+
+    numOff = 0;
+
+    if (number == 0)
+    {
+        *buf++ = SJisZero[0];
+        *buf++ = SJisZero[1];
+        *buf++ = '\0';
+
+        return 1;
+    }
+
+    if (number < 0)
+    {
+        buf[0] = SJisDash[0];
+        buf[1] = SJisDash[1];
+
+        number = -number;
+        numOff = 2;
+    }
+
+    if (number > 99999)
+        numOff += 10;
+    else if (number > 9999)
+        numOff += 8;
+    else if (number > 999)
+        numOff += 6;
+    else if (number > 99)
+        numOff += 4;
+    else if (number > 9)
+        numOff += 2;
+
+    numStart = numOff;
+
+    while (number > 0)
+    {
+        int rem = DivRem(number, 10);
+
+        buf[numOff]   = SJisZero[0];
+        buf[numOff+1] = SJisZero[1] + rem;
+
+        number = Div(number, 10);
+        numOff -= 2;
+    }
+
+    *(buf + numStart + 2) = '\0';
+    return (numStart >> 1) + 1;
+}
+
+char CONST_DATA AsciiZero = '0';
+char CONST_DATA AsciiDash = '-';
+
+int NumberToStringAscii(int number, char * buf)
+{
+    int numOff, numStart;
+
+    numOff = 0;
+
+    if (number == 0)
+    {
+        buf[0] = AsciiZero;
+        buf[1] = '\0';
+
+        return 1;
+    }
+
+    if (number < 0)
+    {
+        *buf++ = AsciiDash;
+        number = -number;
+    }
+
+    if (number > 99999)
+        numOff = 5;
+    else if (number > 9999)
+        numOff = 4;
+    else if (number > 999)
+        numOff = 3;
+    else if (number > 99)
+        numOff = 2;
+    else if (number > 9)
+        numOff = 1;
+
+    numStart = numOff;
+
+    while (number > 0)
+    {
+        int rem = DivRem(number, 10);
+
+        buf[numOff] = AsciiZero + rem;
+
+        number = Div(number, 10);
+        numOff -= 1;
+    }
+
+    *(buf + numStart + 1) = '\0';
+    return numStart + 1;
+}
+
+static struct Text tmp_text;
+
+struct Text * PutStringCentered(u16 * tm, int color, int width, char const * str)
+{
+    struct Text * const text = &tmp_text;
+
+    InitText(text, width);
+
+    Text_SetCursor(text, (width * 8 - GetStringTextLen(str) - 1) / 2);
+    Text_SetColor(text, color);
+    Text_DrawString(text, str);
+
+    PutText(text, tm);
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    return text;
+}
+
+struct Text * PutString(u16 * tm, int color, char const * str)
+{
+    struct Text * const text = &tmp_text;
+
+    InitText(text, (GetStringTextLen(str) + 7) / 8);
+
+    Text_SetColor(text, color);
+    Text_DrawString(text, str);
+
+    PutText(text, tm);
+
+    return text;
+}
+
+struct ProcCmd CONST_DATA ProcScr_PaletteAnimator[] = {
+    PROC_REPEAT(PaletteAnimator_Loop),
+};
+
+void DeleteAllPaletteAnimator(void)
+{
+    Proc_EndEach(ProcScr_PaletteAnimator);
+}
+
+ProcPtr StartPaletteAnimatorExt(u16 const * colors, int pal_offset, int pal_size, int interval, ProcPtr parent)
+{
+    struct ProcPaletteAnimator * proc;
+
+    proc = Proc_Start(ProcScr_PaletteAnimator, parent);
+
+    proc->colors = colors;
+    proc->palOffset = pal_offset;
+    proc->colorCount = pal_size / 2;
+    proc->clock = interval;
+    proc->clock_end = interval;
+    proc->counter = 0;
+    proc->reverseOrder = 0;
+
+    return proc;
+}
+
+void StartPaletteAnimatorReverse(u16 const * colors, int pal_offset, int pal_size, int interval, ProcPtr parent)
+{
+    struct ProcPaletteAnimator * proc;
+    proc = StartPaletteAnimatorExt(colors, pal_offset, pal_size, interval, parent);
+    proc->reverseOrder = false;
+}
+
+void StartPaletteAnimatorNormal(u16 const * colors, int pal_offset, int pal_size, int interval, ProcPtr parent)
+{
+    struct ProcPaletteAnimator * proc;
+    proc = StartPaletteAnimatorExt(colors, pal_offset, pal_size, interval, parent);
+    proc->reverseOrder = true;
+}
+
+void PaletteAnimator_Loop(struct ProcPaletteAnimator * proc)
+{
+    int colornum;
+
+    proc->clock++;
+
+    if (proc->clock < proc->clock_end)
+        return;
+
+    proc->clock = 0;
+
+    colornum = DivRem(proc->counter, proc->colorCount);
+
+    if (proc->reverseOrder)
+        colornum = proc->colorCount - colornum - 1;
+
+    CopyToPaletteBuffer(proc->colors + colornum, proc->palOffset, 2*proc->colorCount - 2*colornum);
+
+    if (colornum > 0)
+        CopyToPaletteBuffer(proc->colors, proc->palOffset + 2*proc->colorCount - 2*colornum, 2*colornum);
+
+    proc->counter++;
+}
+
+void sub_8014560(u16 * tm, int x, int y, u16 tileref, int width, int height)
+{
+    int ix, iy;
+
+    for (iy = y; iy < y + height; ++iy)
+    {
+        for (ix = x; ix < x + width; ++ix, ++tileref)
+        {
+            if ((ix >= 0 && ix < 0x20) && (iy >= 0 && iy < 0x20))
+                tm[TILEMAP_INDEX(ix, iy)] = tileref;
+        }
+    }
+}
+
+void sub_80145C8(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, bool hflip)
+{
+    int ix, iy;
+
+    u16 const * src_1 = src;
+
+    if (hflip)
+    {
+        for (iy = 0; iy < height; ++iy)
+        {
+            for (ix = 0; ix < width; ++ix)
+            {
+                if ((x+ix >= 0 && x+ix < 0x20) && (y+iy >= 0 && y+iy < 0x20))
+                {
+                    *(tm + (x + ix) + ((y + iy) * 0x20)) = (*(src_1 + (width - 1 - ix) + (iy * 0x20)) + tileref) ^ TILE_HFLIP;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (iy = 0; iy < height; ++iy)
+        {
+            for (ix = 0; ix < width; ++ix)
+            {
+                if ((x+ix >= 0 && x+ix < 0x20) && (y+iy >= 0 && y+iy < 0x20))
+                {
+                    *(tm + (x + ix) + ((y + iy) * 0x20)) = *(src_1 + ix + (iy * 0x20)) + tileref;
+                }
+            }
+        }
+    }
+}
+
+void sub_80146A0(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
+{
+    int ix, iy;
+
+    u16 const * src_1 = src;
+
+    int r4 = Div(0x20, width);
+    int r6 = Div(arg_7, r4);
+    int r0 = DivRem(arg_7, r4);
+
+    src_1 = src_1 + (width * r0) + (r6 * height) * 32;
+
+    for (iy = 0; iy < height; ++iy)
+    {
+        for (ix = 0; ix < width; ++ix)
+        {
+            if ((x+ix >= 0 && x+ix < 0x20) && (y+iy >= 0 && y+iy < 0x20))
+            {
+                *(tm + (x + ix) + ((y + iy) * 32)) = *(src_1 + ix + (iy * 32)) + tileref;
+            }
+        }
+    }
+}
+
+void sub_801474C(u16 * tm, int x, int y, u16 tileref, int width, int height, u8 const * src, int arg_7)
+{
+    int ix, iy;
+    int r0, r5;
+
+    u16 const * src_1 = (u16 const *) src;
+
+    u16 r9 = *src + 1;
+
+    src_1 = src_1 + 1;
+
+    r5 = Div(r9, width);
+    r0 = Div(arg_7, r5);
+
+    src_1 = src_1 + width * (arg_7 - r5 * r0) + ((r0 * height) * 0x20);
+
+    for (iy = 0; iy < height; ++iy)
+    {
+        for (ix = 0; ix < width; ++ix)
+        {
+            if ((x+ix >= 0 && x+ix < 0x20) && (y+iy >= 0 && y+iy < 0x20))
+            {
+                *(tm + (x + ix) + ((y + iy) * 32)) = *(src_1 + ix + (r9 * (height - iy - 1))) + tileref;
+            }
+        }
+    }
+}
+
+void sub_8014804(u16 * tm, int x, int y, u32 const * arg_3, u16 tileref)
+{
+    s16 iy, ix;
+
+    u16 const * r2 = ((u16 const *) arg_3) + 1;
+
+    s16 r9 = 0xFF & (((u32 const *) arg_3)[0] >> 0);
+    s16 r3 = 0xFF & (((u32 const *) arg_3)[0] >> 8);
+
+    for (iy = r3; iy >= 0; --iy)
+    {
+        if ((y + iy >= 0 && y + iy < 0x20))
+        {
+            u16 * r1 = x + (y + iy) * 32 + tm;
+
+            for (ix = r9; ix >= 0; --ix, r2++, r1++)
+            {
+                if (x+ix >= 0 && x+ix < 0x20)
+                    *(r1) = *r2 + tileref;
+            }
+        }
+    }
+}
+
+void CallDelayed_OnLoop(struct CallDelayedProc * proc)
+{
+    proc->clock--;
+
+    if (proc->clock == -1)
+    {
+        void (* func)(void) = (void(*)(void)) proc->func;
+
+        func();
+        Proc_Break(proc);
+    }
+}
+
+void CallDelayedArg_OnLoop(struct CallDelayedProc * proc)
+{
+    proc->clock--;
+
+    if (proc->clock == -1)
+    {
+        void (* func)(int) = (void(*)(int)) proc->func;
+
+        func(proc->arg);
+        Proc_Break(proc);
+    }
+}
+
+struct ProcCmd CONST_DATA ProcScr_CallDelayed[] = {
+    PROC_REPEAT(CallDelayed_OnLoop),
+    PROC_END,
+};
+
+void CallDelayed(void (* func)(void), int delay)
+{
+    struct CallDelayedProc * proc = Proc_Start(ProcScr_CallDelayed, PROC_TREE_3);
+
+    proc->func = func;
+    proc->clock = delay;
+}
+
+struct ProcCmd CONST_DATA ProcScr_CallDelayedArg[] = {
+    PROC_REPEAT(CallDelayedArg_OnLoop),
+    PROC_END,
+};
+
+void CallDelayedArg(void (* func)(int), int arg, int delay)
+{
+    struct CallDelayedProc * proc = Proc_Start(ProcScr_CallDelayedArg, PROC_TREE_3);
+
+    proc->func = func;
+    proc->arg = arg;
+    proc->clock = delay;
+}
+
+void sub_8014904(u8 * out, int size)
+{
+    while (size > 0)
+    {
+        *out++ = 0;
+        size--;
+    }
+}
+
+void sub_801491C(u8 * out, int size, int value)
+{
+    while (size > 0)
+    {
+        *out++ = value;
+        size--;
+    }
+}
+
+void sub_8014930(u16 * out, int size, int value)
+{
+    while (size > 0)
+    {
+        *out++ = value;
+        size--;
+    }
+}
+
+u16 CONST_DATA Pal_AllBlack[] = { RGB_16TIMES(0,  0,  0)  };
+u16 CONST_DATA Pal_AllWhite[] = { RGB_16TIMES(31, 31, 31) };
+u16 CONST_DATA Pal_AllRed[]   = { RGB_16TIMES(31, 0,  0)  };
+u16 CONST_DATA Pal_AllGreen[] = { RGB_16TIMES(0,  31, 0)  };
+u16 CONST_DATA Pal_AllBlue[]  = { RGB_16TIMES(0,  0,  31) };
+u16 CONST_DATA Pal_AllYellow[] = { RGB_16TIMES(30, 31, 1)  };
+
+struct ProcCmd CONST_DATA ProcScr_PartialGameLock[] = {
+    PROC_REPEAT(PartialGameLock_OnLoop),
+    PROC_END,
+};
+
+void StartPartialGameLock(ProcPtr proc)
+{
+    struct Proc * gproc;
+
+    gproc = Proc_StartBlocking(ProcScr_PartialGameLock, proc);
+    gproc->unk64 = GetGameLock();
+}
+
+void PartialGameLock_OnLoop(struct Proc * proc)
+{
+    if (GetGameLock() == proc->unk64)
+        Proc_Break(proc);
+}
+
+void VramCopy(u8 const * src, u8 * dst, int size)
+{
+    if ((size & 0x1F) != 0)
+        CpuCopy16(src, dst, size);
+    else
+        CpuFastCopy(src, dst, size);
+}
+
+void VramCopyInRaw(u8 const * src, u8 * dst, int width, int height)
+{
+    int i, line_size = width * CHR_SIZE;
+
+    for (i = 0; i < height; ++i)
+    {
+        VramCopy(src, dst, line_size);
+
+        src += line_size;
+        dst += 0x20 * CHR_SIZE;
+    }
+}
+
+void PutTmLinear(u16 const * src, u16 * dst, int size, u16 tileref)
+{
+    while (size > 0)
+    {
+        *dst++ = *src++ + tileref;
+        size -= 2;
+    }
+}
+
+u16 * GetTmOffsetById(int bgid, int x, int y)
+{
+    switch (bgid) {
+    case 0:
+        return gBG0TilemapBuffer + TILEMAP_INDEX(x, y);
+
+    case 1:
+        return gBG1TilemapBuffer + TILEMAP_INDEX(x, y);
+
+    case 2:
+        return gBG2TilemapBuffer + TILEMAP_INDEX(x, y);
+
+    case 3:
+        return gBG3TilemapBuffer + TILEMAP_INDEX(x, y);
+
+    default:
+        return NULL;
+    }
+}
+
+void sub_8014A78(void)
+{
+    if (gLCDControlBuffer.bg0cnt.colorMode == 0)
+        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(0)), 0x10, 0);
+
+    if (gLCDControlBuffer.bg1cnt.colorMode == 0)
+        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(1)), 0x10, 0);
+
+    if (gLCDControlBuffer.bg2cnt.colorMode == 0)
+        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(2)), 0x10, 0);
+
+    if (gLCDControlBuffer.bg3cnt.colorMode == 0)
+        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(3)), 0x10, 0);
+}
+
+int Screen2Pan(int x)
+{
+    if (x < 0)
+        return -0x60;
+
+    if (x >= DISPLAY_WIDTH)
+        return +0x5F;
+
+    return Div(0xC0 * x, DISPLAY_WIDTH) - 0x60;
+}
+
+void PlaySeSpacial(int song, int x)
+{
+    struct MusicPlayerInfo * info;
+
+    PlaySoundEffect(song);
+
+    info = gMPlayTable[gSongTable[song].ms].info;
+
+    m4aMPlayImmInit(info);
+    m4aMPlayPanpotControl(info, 0xFFFF, Screen2Pan(x));
+}
+
+void PlaySeDelayed(int song, int delay)
+{
+    CallDelayedArg(PlaySeFunc, song, delay);
+}
+
+void PlaySeFunc(int song)
+{
+    PlaySoundEffect(song);
+}
+
+void _StartBgm(short song)
+{
+    StartBgm(song, NULL);
+}
+
+void _FadeBgmOut(short speed)
+{
+    Sound_FadeOutBGM(speed);
+}
+
+void sub_8014BE0(int palid)
+{
+    int i;
+
+    u16 * pal = gPaletteBuffer + palid * 0x10;
+
+    for (i = 0; i < 0x10; ++i)
+    {
+        int red   = ((pal[i] & (0x1F))       / 4) * 3;
+        int green = ((pal[i] & (0x1F << 5))  / 4) * 3;
+        int blue  = ((pal[i] & (0x1F << 10)) / 4) * 3;
+
+        pal[i] = (red & (0x1F)) | (green & (0x1F << 5)) | (blue & (0x1F << 10));
+    }
+}
+
+void MemCpy(const void * _src, void * _dst, int size)
+{
+    u8 const * src = _src;
+    u8 * dst = _dst;
+    while (size != 0)
+    {
+        *dst = *src;
+
+        dst++;
+        src++;
+
+        size--;
+    }
+}
+
+void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int width)
+{
+    int off;
+
+    off = GetStringTextLen(str);
+    off = (width*8 - off) >> 1;
+
+    Text_SetCursor(text, off);
+    Text_DrawString(text, str);
+
+    PutText(text, gBG0TilemapBuffer + TILEMAP_INDEX(x, y));
 }

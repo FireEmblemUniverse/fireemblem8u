@@ -25,12 +25,13 @@
 . = 0x000568; gEventSlotCounter = .;
 . = 0x000570; gEventActiveQueue = .;
 . = 0x0005B0; gGenericProc = .;
-. = 0x0005D0; src/popup.o(.bss);
-. = 0x0005FC; ItemBackupEvtBattle = .;
+. = 0x0005D0;
+. = ALIGN(4); src/popup.o(.bss);
+. = ALIGN(4); src/eventscr3.o(.bss);
 . = 0x000600; gUnknown_03000600 = .;
-. = 0x000700; src/eventfx-fade.o(.bss);
-. = 0x000800; gUnknown_03000800 = .;
-. = 0x000808;
+. = 0x000700;
+. = ALIGN(4); src/eventfx-fade.o(.bss);
+. = ALIGN(4); src/bmlib.o(.bss);
 . = ALIGN(4); src/bmmap.o(.bss);
 . = 0x001780; gDebugChapterModeIndex = .;
 . = 0x001788; gUnknown_03001788 = .;
@@ -58,7 +59,6 @@
 . = 0x0018F8;
 . = ALIGN(4); src/mu.o(.bss);
 . = 0x001A30; gEventREDAs = .;
-. = 0x001A34; gUnknown_03001A34 = .;
 . = 0x001C34; gUnknown_03001C34 = .;
 . = 0x001C35; gUnknown_03001C35 = .;
 . = 0x001C36; gUnknown_03001C36 = .;
