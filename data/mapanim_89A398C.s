@@ -1,68 +1,5 @@
 	.section .data
 
-	.global gUnknown_089A3AB8
-gUnknown_089A3AB8:  @ 0x089A3AB8
-@ replacing .incbin "baserom.gba", 0x009a3ab8, 0x84
-.4byte Pal_089B4BFC + 0x20
-.4byte Pal_089B4BFC + 0x84
-.4byte Pal_089B4BFC + 0xec
-.4byte Pal_089B4BFC + 0x168
-.4byte Pal_089B4BFC + 0x1e0
-.4byte Pal_089B4BFC + 0x250
-.4byte Pal_089B4BFC + 0x2bc
-.4byte Pal_089B4BFC + 0x330
-.4byte Pal_089B4BFC + 0x3a8
-.4byte Pal_089B4BFC + 0x420
-.4byte Pal_089B4BFC + 0x498
-.4byte Pal_089B4BFC + 0x51c
-.4byte Pal_089B4BFC + 0x5a0
-.4byte Pal_089B4BFC + 0x624
-.4byte Pal_089B4BFC + 0x6a8
-.4byte Pal_089B4BFC + 0x714
-.4byte Pal_089B4BFC + 0x79c
-.4byte Pal_089B4BFC + 0x838
-.4byte Pal_089B4BFC + 0x8f4
-.4byte Pal_089B4BFC + 0x9f0
-.4byte Pal_089B4BFC + 0xb24
-.4byte Pal_089B4BFC + 0xce0
-.4byte Pal_089B4BFC + 0xf3c
-.4byte Pal_089B4BFC + 0x1070
-.4byte Pal_089B4BFC + 0x1210
-.4byte Pal_089B4BFC + 0x1454
-.4byte Pal_089B4BFC + 0x1578
-.4byte Pal_089B4BFC + 0x1710
-.4byte Pal_089B4BFC + 0x1914
-.4byte Pal_089B4BFC + 0x19d8
-.4byte Pal_089B4BFC + 0x1ac0
-.4byte Pal_089B4BFC + 0x1c0c
-.4byte Pal_089B4BFC + 0x1dc0
-
-	.global gUnknown_089A3B3C
-gUnknown_089A3B3C:  @ 0x089A3B3C
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807D6D8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807D760
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapLatonafx_End
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089A3B6C
-gUnknown_089A3B6C:  @ 0x089A3B6C
-	.incbin "baserom.gba", 0x9A3B6C, 0x18
-
 	.global gUnknown_089A3B84
 gUnknown_089A3B84:  @ 0x089A3B84
         @ PROC_SLEEP
@@ -98,7 +35,7 @@ gUnknown_089A3BA4:  @ 0x089A3BA4
         .word sub_807D9B8
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -120,7 +57,7 @@ gUnknown_089A3BDC:  @ 0x089A3BDC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -180,7 +117,7 @@ gUnknown_089A3C6C:  @ 0x089A3C6C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -208,7 +145,7 @@ gUnknown_089A3C94:  @ 0x089A3C94
         .word sub_807DFAC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -236,7 +173,7 @@ gUnknown_089A3CD4:  @ 0x089A3CD4
         .word sub_807DFAC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -264,7 +201,7 @@ gUnknown_089A3D14:  @ 0x089A3D14
         .word sub_807E1B0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -289,7 +226,7 @@ gUnknown_089A3D54:  @ 0x089A3D54
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -368,7 +305,7 @@ gUnknown_089A3E04:  @ 0x089A3E04
         .word sub_807E5F0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -387,7 +324,7 @@ gUnknown_089A3E44:  @ 0x089A3E44
         .word sub_807E6E0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

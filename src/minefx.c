@@ -41,7 +41,7 @@ void StartMineAnim(ProcPtr parent, int x, int y)
     x = x * 0x10 - gBmSt.camera.x + 8;
     y = y * 0x10 - gBmSt.camera.y + 4;
 
-    NewBlockingTimer(parent, 0x20);
+    StartTemporaryLock(parent, 0x20);
     Decompress(Img_MineFx, OBJ_CHR_ADDR(OBJCHR_MINEFX));
     ApplyPalette(Pal_MineFx, OBJPAL_MINEFX);
     APProc_Create(SpritAnim_MineFx, x, y, 0x5180, 0, 0);

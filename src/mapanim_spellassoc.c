@@ -9,6 +9,7 @@
 #include "bmio.h"
 #include "bmudisp.h"
 #include "spellassoc.h"
+#include "bmlib.h"
 #include "soundwrapper.h"
 #include "constants/classes.h"
 #include "constants/terrains.h"
@@ -377,13 +378,13 @@ void MapAnimCallSpellAssocNightMare(ProcPtr proc)
 void MapAnimCallSpellAssocAntitoxin(ProcPtr proc)
 {
     MapAnimCallSpellAssocAntitoxinPureWaterfx(gManimSt.actor[gManimSt.subjectActorId].unit,
-        gUnknown_089AE804, gUnknown_089AF930);
+        Img_MapAnimAntitoxinPureWater, Pal_MapAnimAntitoxin);
 }
 
 void MapAnimCallSpellAssocPureWater(ProcPtr proc)
 {
     MapAnimCallSpellAssocAntitoxinPureWaterfx(gManimSt.actor[gManimSt.subjectActorId].unit,
-        gUnknown_089AE804, gUnknown_089AF910);
+        Img_MapAnimAntitoxinPureWater, Pal_MapAnimPureWater);
 }
 
 void MapAnimCallSpellAssocElixir(ProcPtr proc)

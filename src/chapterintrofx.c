@@ -387,7 +387,7 @@ void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
 
     sub_80017B4(0, 2, 0x40, -1);
 
-    CALLARM_MaybeScreenFadeIn();
+    CALLARM_ColorFadeTick();
 
     EnablePaletteSync();
 
@@ -715,7 +715,7 @@ void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc) {
     int clock = GetGameClock() & 3;
 
     if ((clock) == 0) {
-        CALLARM_MaybeScreenFadeIn();
+        CALLARM_ColorFadeTick();
         EnablePaletteSync();
 
         proc->unk_4C--;
@@ -809,7 +809,7 @@ void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
     MaybeSmoothChangeSomePal(PAL_OBJ(0), 0x10, 2, 1);
     MaybeSmoothChangeSomePal(PAL_OBJ(7), 0x17, 1, 1);
 
-    CALLARM_MaybeScreenFadeIn();
+    CALLARM_ColorFadeTick();
 
     EnablePaletteSync();
 
@@ -824,7 +824,7 @@ void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
 
 void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
     if ((GetGameClock() & 1) == 0) {
-        CALLARM_MaybeScreenFadeIn();
+        CALLARM_ColorFadeTick();
         if (GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather == 5) {
             WfxFlamesInitGradientPublic();
         }
@@ -923,7 +923,7 @@ void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_LoopFadeOut(struct ChapterIntroFXProc* proc) {
-    CALLARM_MaybeScreenFadeIn();
+    CALLARM_ColorFadeTick();
     EnablePaletteSync();
 
     proc->unk_4C--;
@@ -964,7 +964,7 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
     MaybeSmoothChangeSomePal(PAL_OBJ(0), 0x10, 2, 2);
     MaybeSmoothChangeSomePal(PAL_OBJ(7), 0x17, 1, 2);
 
-    CALLARM_MaybeScreenFadeIn();
+    CALLARM_ColorFadeTick();
 
     EnablePaletteSync();
 
@@ -978,7 +978,7 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc* proc) {
-    CALLARM_MaybeScreenFadeIn();
+    CALLARM_ColorFadeTick();
 
     if ((GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather) == 5) {
         WfxFlamesInitGradientPublic();
@@ -1072,7 +1072,7 @@ void ChapterIntro_80210C8() {
 
 void ChapterIntro_8021188(struct ChapterIntroFXProc* proc) {
     if ((GetGameClock() & 1) == 0) {
-        CALLARM_MaybeScreenFadeIn();
+        CALLARM_ColorFadeTick();
 
         if (GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather == 5) {
             WfxFlamesInitGradientPublic();

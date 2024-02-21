@@ -546,6 +546,7 @@ SECTIONS
         . = ALIGN(4); src/muctrl.o(.rodata);
         . = ALIGN(4); src/mapanim_api.o(.rodata);
         . = ALIGN(4); src/mapanim_debug.o(.rodata);
+        . = ALIGN(4); src/mapanim_staffeffect.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/player_interface.o(.rodata);

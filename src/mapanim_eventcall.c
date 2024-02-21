@@ -348,23 +348,23 @@ void sub_807F89C(struct MAEffectProc * proc)
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(2, 0, 0);
 
-    proc->unk40 = 0;
-    proc->unk42 = 0;
+    proc->frame = 0;
+    proc->timer = 0;
     proc->unk44 = 0;
 }
 
 void sub_807F964(struct MAEffectProc * proc)
 {
-    if (proc->unk42 == 0)
+    if (proc->timer == 0)
     {
-        if (proc->unk40 == 0)
+        if (proc->frame == 0)
         {
             PlaySeSpacial(0x140, proc->xDisplay);
         }
-        else if (proc->unk40 > 0x13)
+        else if (proc->frame > 0x13)
         {
-            proc->unk40 = 0;
-            proc->unk42 = 0;
+            proc->frame = 0;
+            proc->timer = 0;
             proc->unk44 = 1;
 
             gLCDControlBuffer.dispcnt.bg0_on = 0;
@@ -378,11 +378,11 @@ void sub_807F964(struct MAEffectProc * proc)
         }
 
         Decompress(
-            MapAnimfxConf_089A40AC[proc->unk40].img,
+            MapAnimfxConf_089A40AC[proc->frame].img,
             (void*) VRAM + gUnknown_08205884[proc->unk44] * 0x20);
 
         Decompress(
-            MapAnimfxConf_089A40AC[proc->unk40].tsa,
+            MapAnimfxConf_089A40AC[proc->frame].tsa,
             gGenericBuffer);
 
         sub_800159C(
@@ -393,27 +393,27 @@ void sub_807F964(struct MAEffectProc * proc)
 
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-        ApplyPalette(MapAnimfxConf_089A40AC[proc->unk40].pal, gUnknown_0820588C[proc->unk44]);
+        ApplyPalette(MapAnimfxConf_089A40AC[proc->frame].pal, gUnknown_0820588C[proc->unk44]);
         EnablePaletteSync();
 
-        proc->unk40++;
-        proc->unk42 = 3;
+        proc->frame++;
+        proc->timer = 3;
         proc->unk44 = proc->unk44 ^ 1;
     }
 
-    proc->unk42--;
+    proc->timer--;
 }
 
 void sub_807FAA0(struct MAEffectProc * proc)
 {
-    if (proc->unk42 == 0)
+    if (proc->timer == 0)
     {
         Decompress(
-            MapAnimfxConf_089A419C[proc->unk40].img,
+            MapAnimfxConf_089A419C[proc->frame].img,
             (void*) VRAM + gUnknown_08205884[proc->unk44]*0x20);
 
         Decompress(
-            MapAnimfxConf_089A419C[proc->unk40].tsa,
+            MapAnimfxConf_089A419C[proc->frame].tsa,
             gGenericBuffer);
 
         sub_800159C(
@@ -424,10 +424,10 @@ void sub_807FAA0(struct MAEffectProc * proc)
 
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-        ApplyPalette(MapAnimfxConf_089A419C[proc->unk40].pal, gUnknown_0820588C[proc->unk44]);
+        ApplyPalette(MapAnimfxConf_089A419C[proc->frame].pal, gUnknown_0820588C[proc->unk44]);
         EnablePaletteSync();
 
-        if (proc->unk40 == 0)
+        if (proc->frame == 0)
         {
             gLCDControlBuffer.dispcnt.bg0_on = 0;
             gLCDControlBuffer.dispcnt.bg1_on = 0;
@@ -435,24 +435,24 @@ void sub_807FAA0(struct MAEffectProc * proc)
             gLCDControlBuffer.dispcnt.bg3_on = 0;
             gLCDControlBuffer.dispcnt.obj_on = 0;
         }
-        else if (proc->unk40 > 0x16)
+        else if (proc->frame > 0x16)
         {
             Proc_Break(proc);
         }
 
-        proc->unk42 = gUnknown_0820588E[proc->unk40];
-        proc->unk40++;
+        proc->timer = gUnknown_0820588E[proc->frame];
+        proc->frame++;
         proc->unk44 = proc->unk44 ^ 1;
     }
 
-    proc->unk42--;
+    proc->timer--;
 }
 
 void sub_807FBCC(struct MAEffectProc * proc)
 {
-    if (proc->unk42 == 0)
+    if (proc->timer == 0)
     {
-        proc->unk40 = 0;
+        proc->frame = 0;
 
         CpuFastFill(-1,
             (void*) VRAM + 0x20 * 0x2FF, 0x20);
@@ -471,14 +471,14 @@ void sub_807FBCC(struct MAEffectProc * proc)
 
         Proc_Break((struct Proc*) proc);
     }
-    proc->unk42--;
+    proc->timer--;
 }
 
 void sub_807FC58(struct MAEffectProc * proc)
 {
-    u16 brightness = proc->unk40 * 4;
+    u16 brightness = proc->frame * 4;
 
-    if (proc->unk40 < 8)
+    if (proc->frame < 8)
     {
         gPaletteBuffer[0x3F] = RGB(brightness, brightness, brightness);
     }
@@ -489,7 +489,7 @@ void sub_807FC58(struct MAEffectProc * proc)
     }
 
     EnablePaletteSync();
-    proc->unk40++;
+    proc->frame++;
 }
 
 void sub_807FCA8(void)
@@ -505,7 +505,7 @@ CONST_DATA struct ProcCmd ProcScr_089A4394[] = {
     PROC_REPEAT(sub_807FE0C),
     PROC_CALL(sub_807FFF0),
     PROC_SLEEP(60),
-    PROC_CALL(MapLatonafx_End),
+    PROC_CALL(MapSpellAnim_CommonEnd),
     PROC_END
 };
 
@@ -547,8 +547,8 @@ void sub_807FCE4(struct MAEffectProc * proc)
     gPaletteBuffer[0x3F] = RGB(31, 31, 31);
     EnablePaletteSync();
 
-    proc->unk40 = 0;
-    proc->unk42 = 0;
+    proc->frame = 0;
+    proc->timer = 0;
     proc->unk44 = 0;
 
     proc->unk48 = 119;
@@ -569,13 +569,13 @@ void sub_807FDC8(struct MAEffectProc * proc)
 
 void sub_807FE0C(struct MAEffectProc * proc)
 {
-    if (proc->unk42 == 0)
+    if (proc->timer == 0)
     {
-        if (proc->unk40 != 0)
+        if (proc->frame != 0)
         {
-            if (proc->unk40 > 11)
+            if (proc->frame > 11)
             {
-                proc->unk40 = proc->unk42;
+                proc->frame = proc->timer;
                 Proc_Break(proc);
                 return;
             }
@@ -590,11 +590,11 @@ void sub_807FE0C(struct MAEffectProc * proc)
         }
 
         Decompress(
-            MapAnimfxConf_089A42BC[proc->unk40].img,
+            MapAnimfxConf_089A42BC[proc->frame].img,
             (void*) VRAM + gUnknown_08205884[proc->unk44]*0x20);
 
         Decompress(
-            MapAnimfxConf_089A42BC[proc->unk40].tsa,
+            MapAnimfxConf_089A42BC[proc->frame].tsa,
             gGenericBuffer);
 
         sub_800159C(
@@ -607,20 +607,20 @@ void sub_807FE0C(struct MAEffectProc * proc)
 
         if (proc->unk48 < 0)
         {
-            ApplyPalette(MapAnimfxConf_089A42BC[proc->unk40].pal, gUnknown_0820588C[proc->unk44]);
+            ApplyPalette(MapAnimfxConf_089A42BC[proc->frame].pal, gUnknown_0820588C[proc->unk44]);
             EnablePaletteSync();
         }
 
-        proc->unk4A = proc->unk40;
-        proc->unk40++;
+        proc->unk4A = proc->frame;
+        proc->frame++;
 
-        proc->unk42 = 4;
+        proc->timer = 4;
 
         proc->unk4C = proc->unk44;
         proc->unk44 ^= 1;
     }
 
-    proc->unk42--;
+    proc->timer--;
 
     if (proc->unk48 >= 0)
     {
@@ -698,8 +698,8 @@ void sub_8080050(struct MAEffectProc * proc)
 
     BG_SetPosition(2, 0, 0);
 
-    proc->unk40 = 0;
-    proc->unk42 = 0;
+    proc->frame = 0;
+    proc->timer = 0;
     proc->unk44 = 0;
 
     gUnknown_03001C7C = 0;
@@ -714,10 +714,10 @@ void sub_8080050(struct MAEffectProc * proc)
 
 void sub_8080138(struct MAEffectProc* proc)
 {
-    if (proc->unk42 == 0)
+    if (proc->timer == 0)
     {
         struct Proc8080050* vsync;
-        u8 v0 = gUnknown_082058B4[proc->unk40].unk00;
+        u8 v0 = gUnknown_082058B4[proc->frame].unk00;
 
         Decompress(
             gUnknown_089A43D4[v0].img,
@@ -744,28 +744,28 @@ void sub_8080138(struct MAEffectProc* proc)
         vsync = (void*) Proc_Find(ProcScr_089A448C);
 
         vsync->unk29 = 1;
-        vsync->unk2A = gUnknown_082058B4[proc->unk40].unk02;
+        vsync->unk2A = gUnknown_082058B4[proc->frame].unk02;
 
-        if (proc->unk40 == 0)
+        if (proc->frame == 0)
             PlaySeSpacial(0x13F, proc->xDisplay); // TODO: song ids
 
-        proc->unk42 = gUnknown_082058B4[proc->unk40].unk01;
+        proc->timer = gUnknown_082058B4[proc->frame].unk01;
 
-        if (proc->unk40 > 6)
+        if (proc->frame > 6)
         {
             vsync->unk29 = 1;
             vsync->unk2A = 0;
 
-            proc->unk40 = 0;
+            proc->frame = 0;
 
             Proc_Break(proc);
         }
         else
         {
-            proc->unk40++;
+            proc->frame++;
             proc->unk44 ^= 1;
         }
     }
 
-    proc->unk42--;
+    proc->timer--;
 }

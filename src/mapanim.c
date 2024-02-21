@@ -135,7 +135,7 @@ void MapAnim_ShowPoisonEffectIfAny(ProcPtr p) {
     struct MapAnimState *state = &gManimSt;
     if (state->hitAttributes & 0x40) {
         NewMapPoisonEffect(state->actor[state->targetActorId].unit);
-        NewBlockingTimer(p, 100);
+        StartTemporaryLock(p, 100);
     }
 }
 

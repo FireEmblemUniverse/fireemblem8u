@@ -6,6 +6,7 @@
 #include "bmbattle.h"
 #include "eventinfo.h"
 #include "m4a.h"
+#include "bmlib.h"
 #include "soundwrapper.h"
 #include "constants/characters.h"
 #include "constants/classes.h"

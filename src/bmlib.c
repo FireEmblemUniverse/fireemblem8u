@@ -1288,6 +1288,15 @@ struct FadeKindEnt const gUnknown_080D7964[] =
     { Proc_StartBlocking, ColorFadeSetupFromColorToWhite, +1 }, // to white locking
 };
 
+struct ProcCmd CONST_DATA ProcScr_FadeCore[] = {
+    PROC_MARK(10),
+    PROC_CALL(FadeCore_Init),
+    PROC_YIELD,
+    PROC_CALL(FadeCore_Tick),
+    PROC_REPEAT(FadeCore_Loop),
+    PROC_END,
+};
+
 void StartFadeCore(int kind, int speed, ProcPtr parent, void * end_callback)
 {
     ProcPtr (* spawn_proc)(struct ProcCmd const * scr, ProcPtr parent);
@@ -1299,10 +1308,10 @@ void StartFadeCore(int kind, int speed, ProcPtr parent, void * end_callback)
     spawn_proc = gUnknown_080D7964[kind].spawn_proc;
     proc = spawn_proc(ProcScr_FadeCore, parent);
 
-    proc->unk_54 = speed;
+    proc->speed = speed;
     proc->on_end = end_callback;
 
-    component_step = proc->unk_54 >> 4;
+    component_step = proc->speed >> 4;
 
     if (component_step == 0)
         component_step = 1;
@@ -1317,19 +1326,107 @@ void FadeCoreEndEach(void)
     Proc_EndEach(ProcScr_FadeCore);
 }
 
-void sub_80140F4(struct FadeCoreProc * proc)
+void FadeCore_Init(struct FadeCoreProc * proc)
 {
-    proc->unk_58 = 0;
-    proc->unk_5C = 0;
+    proc->looper = 0;
+    proc->counter = 0;
     proc->on_end = NULL;
 }
 
-void sub_8014100(struct FadeCoreProc * proc)
+void FadeCore_Loop(struct FadeCoreProc * proc)
 {
-    if (!sub_8014124(proc)) {
+    if (!FadeCore_Tick(proc)) {
         if (proc->on_end)
             proc->on_end();
 
         Proc_Break(proc);
     }
 }
+
+bool FadeCore_Tick(struct FadeCoreProc * proc)
+{
+    proc->looper += proc->speed;
+    proc->counter += proc->speed;
+
+    if (proc->looper < 0x10)
+    { 
+        if (proc->counter != proc->speed)
+            return TRUE;
+    }
+    else
+    {
+        proc->looper = proc->looper - 0x10;
+    }
+
+    CALLARM_ColorFadeTick();
+    SetBackdropColor(0);
+
+    if (proc->counter >= 0x200)
+        return FALSE;
+
+    return TRUE;
+}
+
+void sub_8014170(void)
+{
+    sub_800183C(0x10, 0x10, 0);
+    sub_8014194();
+}
+
+void sub_8014184(int a, int b)
+{
+    sub_800183C(a, b, 0);
+    sub_8014194();
+}
+
+void sub_8014194(void)
+{
+    struct FadeCoreProc * proc = Proc_Find(ProcScr_FadeCore);
+
+    if (proc)
+        proc->on_end = NULL;
+}
+
+void sub_80141B0(void)
+{
+    SetBlendDarken(0x10);
+    SetBlendTargetA(1, 1, 1, 1, 1);
+    SetBlendBackdropA(1);
+    SetBackdropColor(0);
+    SetDispEnable(0, 0, 0, 0, 0);
+}
+
+void sub_801420C(void)
+{
+    SetBlendBrighten(0x10);
+
+    SetBlendTargetA(1, 1, 1, 1, 1);
+    SetBlendBackdropA(1);
+}
+
+struct ProcCmd CONST_DATA ProcScr_TemporaryLock[] = {
+    PROC_YIELD,
+    PROC_REPEAT(TemporaryLock_OnLoop),
+    PROC_END,
+};
+
+void StartTemporaryLock(ProcPtr proc, int duration)
+{
+    struct Proc * gproc;
+
+    gproc = Proc_StartBlocking(ProcScr_TemporaryLock, proc);
+    gproc->unk58 = duration;
+}
+
+void TemporaryLock_OnLoop(struct Proc * proc)
+{
+    if (proc->unk58 == 0)
+    {
+        Proc_Break(proc);
+        return;
+    }
+    proc->unk58--;
+}
+
+char CONST_DATA gUnknown_0859A0EC[] = "０";
+//char CONST_DATA gUnknown_0859A0F0[] = "ー";

@@ -347,6 +347,10 @@ enum {
 #define SetBlendNone() \
     SetBlendConfig(BLEND_EFFECT_NONE, 0x10, 0, 0)
 
+#define SetBackdropColor(color) \
+    gPaletteBuffer[0] = (color); \
+    EnablePaletteSync()
+
 // Functions
 
 void CopyToPaletteBuffer(const void* src, int b, int size);

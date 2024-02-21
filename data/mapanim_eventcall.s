@@ -60,7 +60,7 @@ ProcScr_089A4434:  @ 0x089A4434
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -198,7 +198,7 @@ gUnknown_089A45DC:  @ 0x089A45DC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -258,7 +258,7 @@ gUnknown_089A46AC:  @ 0x089A46AC
         .word sub_8080E84
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -280,7 +280,7 @@ gUnknown_089A46DC:  @ 0x089A46DC
         .word sub_8081008
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -321,7 +321,7 @@ ProcScr_GlowCrossExit:  @ 0x089A4734
         .word nullsub_58
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapLatonafx_End
+        .word MapSpellAnim_CommonEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

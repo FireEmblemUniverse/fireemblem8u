@@ -172,7 +172,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimGorgonHatch[] =
     PROC_CALL(MapAnim_GorgonHatch_ClearBg2),
     PROC_SLEEP(20),
 
-    PROC_CALL(MapLatonafx_End),
+    PROC_CALL(MapSpellAnim_CommonEnd),
 
     PROC_END
 };
@@ -205,8 +205,8 @@ void MapAnim_GorgonHatch_Init(struct MAEffectProc * proc)
 
     SetBlendAlpha(16, 16);
 
-    proc->unk40 = 0;
-    proc->unk42 = 0;
+    proc->frame = 0;
+    proc->timer = 0;
 
     EnablePaletteSync();
 }
@@ -225,22 +225,22 @@ CONST_DATA u16 * TsaLut_GorgonHatchCloud[] =
 //! FE8U = 0x0807CE78
 void MapAnim_GorgonHatch_Loop(struct MAEffectProc * proc)
 {
-    if (proc->unk42 == 0)
+    if (proc->timer == 0)
     {
-        if (proc->unk40 == 0)
+        if (proc->frame == 0)
             PlaySeSpacial(0x3CA, proc->xDisplay); // TODO: song ids
 
-        else if (proc->unk40 == 1)
+        else if (proc->frame == 1)
             LoadGorgonFromEgg(proc);
 
-        else if (proc->unk40 > 6)
+        else if (proc->frame > 6)
         {
             Proc_Break(proc);
             return;
         }
 
         Decompress(
-            TsaLut_GorgonHatchCloud[proc->unk40],
+            TsaLut_GorgonHatchCloud[proc->frame],
             gGenericBuffer);
 
         sub_800159C(
@@ -252,11 +252,11 @@ void MapAnim_GorgonHatch_Loop(struct MAEffectProc * proc)
 
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-        proc->unk40++;
-        proc->unk42 = 5;
+        proc->frame++;
+        proc->timer = 5;
     }
 
-    proc->unk42--;
+    proc->timer--;
 }
 
 //! FE8U = 0x0807CF30

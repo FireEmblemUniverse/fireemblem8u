@@ -282,7 +282,7 @@ void ArenaUi_ShowGoldBoxOnVictoryOrDraw(ProcPtr proc) {
         case 3:
             DisplayGoldBoxText(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1B, 0x6));
             PlaySoundEffect(0xb9);
-            NewBlockingTimer(proc, 60);
+            StartTemporaryLock(proc, 60);
 
             break;
 
