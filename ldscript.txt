@@ -569,7 +569,7 @@ SECTIONS
         . = ALIGN(4); src/savedrawcursor.o(.rodata);
         . = ALIGN(4); src/sysutil.o(.rodata);
         . = ALIGN(4); src/uiconfig.o(.rodata);
-        . = ALIGN(4); data/const_data_205E74.o(.rodata);
+        . = ALIGN(4); src/colorfade.o(.rodata);
         . = ALIGN(4); src/opinfo.o(.rodata);
         . = ALIGN(4); src/gamerankings.o(.rodata);
         . = ALIGN(4); src/worldmap_face.o(.rodata);
@@ -891,7 +891,7 @@ SECTIONS
         . = ALIGN(4); src/bonusclaim.o(.data);
         . = ALIGN(4); data/data_A21658.o(.data);
         . = ALIGN(4); src/uiconfig.o(.data);
-        . = ALIGN(4); data/data_A2EE90.o(.data);
+        . = ALIGN(4); src/colorfade.o(.data);
         . = ALIGN(4); src/opinfo.o(.data);
         . = ALIGN(4); src/classdisplayfont.o(.data);
         . = ALIGN(4); data/data_A2EEF0.o(.data);

@@ -1,30 +1,16 @@
 #include "global.h"
 
 #include "hardware.h"
+#include "colorfade.h"
 
 extern u16 gUnknown_02014EF4[];
 
-struct ColFadeProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x4E);
-
-    /* 4E */ u16 unk_4e;
-
-    /* 50 */ STRUCT_PAD(0x50, 0x58);
-
-    /* 58 */ int unk_58;
-    /* 5C */ int unk_5c;
-    /* 60 */ int unk_60;
-    /* 64 */ u16 unk_64;
-};
-
 //! FE8U = 0x080B24DC
-void sub_80B24DC(struct ColFadeProc * proc)
+void ColFadeOut_Init(struct ColFadeProc * proc)
 {
     int i;
 
-    for (i = proc->unk_5c; i < proc->unk_5c + proc->unk_60; i++)
+    for (i = proc->start; i < proc->start + proc->amount; i++)
     {
         gUnknown_02014EF4[i] = gPaletteBuffer[i];
     }
@@ -33,45 +19,45 @@ void sub_80B24DC(struct ColFadeProc * proc)
 }
 
 //! FE8U = 0x080B2518
-void nullsub_67(void)
+void ColFadeIn_Init_Null(void)
 {
     return;
 }
 
 //! FE8U = 0x080B251C
-void sub_80B251C(struct ColFadeProc * proc)
+void ColFadeOut_Loop(struct ColFadeProc * proc)
 {
     int i;
 
-    u16 val = 0x100 - proc->unk_4e;
+    u16 val = 0x100 - proc->current;
 
-    for (i = proc->unk_5c; i < proc->unk_5c + proc->unk_60; i++)
+    for (i = proc->start; i < proc->start + proc->amount; i++)
     {
         int r, r1, r2;
         int g, g1, g2;
         int b, b1, b2;
 
-        b1 = (gUnknown_02014EF4[i] & 0x7c00);
-        b2 = (proc->unk_58 & 0x7c00);
+        b1 = (gUnknown_02014EF4[i] & BLUE_MASK);
+        b2 = (proc->color & BLUE_MASK);
         b2 = b1 - b2;
-        b = ((b2 * val / 0x100) + proc->unk_58) & 0x7c00;
+        b = ((b2 * val / 0x100) + proc->color) & BLUE_MASK;
 
-        g1 = (gUnknown_02014EF4[i] & 0x3e0);
-        g2 = (proc->unk_58 & 0x3e0);
+        g1 = (gUnknown_02014EF4[i] & GREEN_MASK);
+        g2 = (proc->color & GREEN_MASK);
         g2 = (g1 - g2);
-        g = ((g2 * val / 0x100) + proc->unk_58) & 0x3e0;
+        g = ((g2 * val / 0x100) + proc->color) & GREEN_MASK;
 
-        r1 = (gUnknown_02014EF4[i] & 0x1f);
-        r2 = (proc->unk_58 & 0x1f);
+        r1 = (gUnknown_02014EF4[i] & RED_MASK);
+        r2 = (proc->color & RED_MASK);
         r2 = r1 - r2;
-        r = ((r2 * val / 0x100) + proc->unk_58) & 0x1f;
+        r = ((r2 * val / 0x100) + proc->color) & RED_MASK;
 
         gPaletteBuffer[i] = b | g | r;
     }
 
     EnablePaletteSync();
 
-    proc->unk_4e += proc->unk_64;
+    proc->current += proc->speed;
 
     if (val == 0)
     {
@@ -82,34 +68,34 @@ void sub_80B251C(struct ColFadeProc * proc)
 }
 
 //! FE8U = 0x080B2608
-void sub_80B2608(struct ColFadeProc * proc)
+void ColFadeIn_Loop(struct ColFadeProc * proc)
 {
     int i;
 
-    u16 val = 0x100 - proc->unk_4e;
+    u16 val = 0x100 - proc->current;
 
     if (val != 0)
     {
-        for (i = proc->unk_5c; i < proc->unk_5c + proc->unk_60; i++)
+        for (i = proc->start; i < proc->start + proc->amount; i++)
         {
             int r, r1, r2;
             int g, g1, g2;
             int b, b1, b2;
 
-            b1 = (proc->unk_58 & 0x7c00);
-            b2 = (gUnknown_02014EF4[i] & 0x7c00);
+            b1 = (proc->color & BLUE_MASK);
+            b2 = (gUnknown_02014EF4[i] & BLUE_MASK);
             b2 = b1 - b2;
-            b = ((b2 * val / 0x100) + gUnknown_02014EF4[i]) & 0x7c00;
+            b = ((b2 * val / 0x100) + gUnknown_02014EF4[i]) & BLUE_MASK;
 
-            g1 = (proc->unk_58 & 0x3e0);
-            g2 = (gUnknown_02014EF4[i] & 0x3e0);
+            g1 = (proc->color & GREEN_MASK);
+            g2 = (gUnknown_02014EF4[i] & GREEN_MASK);
             g2 = (g1 - g2);
-            g = ((g2 * val / 0x100) + gUnknown_02014EF4[i]) & 0x3e0;
+            g = ((g2 * val / 0x100) + gUnknown_02014EF4[i]) & GREEN_MASK;
 
-            r1 = (proc->unk_58 & 0x1f);
-            r2 = (gUnknown_02014EF4[i] & 0x1f);
+            r1 = (proc->color & RED_MASK);
+            r2 = (gUnknown_02014EF4[i] & RED_MASK);
             r2 = r1 - r2;
-            r = ((r2 * val / 0x100) + gUnknown_02014EF4[i]) & 0x1f;
+            r = ((r2 * val / 0x100) + gUnknown_02014EF4[i]) & RED_MASK;
 
             gPaletteBuffer[i] = b | g | r;
         }
@@ -117,11 +103,11 @@ void sub_80B2608(struct ColFadeProc * proc)
 
     EnablePaletteSync();
 
-    proc->unk_4e += proc->unk_64;
+    proc->current += proc->speed;
 
     if (val == 0)
     {
-        for (i = proc->unk_5c; i < proc->unk_5c + proc->unk_60; i++)
+        for (i = proc->start; i < proc->start + proc->amount; i++)
         {
             gPaletteBuffer[i] = gUnknown_02014EF4[i];
             gPaletteBuffer[i] = gUnknown_02014EF4[i];
@@ -134,34 +120,49 @@ void sub_80B2608(struct ColFadeProc * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_ColFadeOut[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_ColFadeOut[] =
+{
+    PROC_NAME("ColFadeOut"),
+    PROC_SLEEP(2),
+
+    PROC_CALL(ColFadeOut_Init),
+    PROC_YIELD,
+
+    PROC_REPEAT(ColFadeOut_Loop),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080B272C
 void NewColFadeOut(int speed, int kind, int color, ProcPtr parent)
 {
     struct ColFadeProc * proc = Proc_StartBlocking(ProcScr_ColFadeOut, parent);
 
-    proc->unk_64 = speed;
-    proc->unk_58 = color;
-    proc->unk_4e = 0;
+    proc->speed = speed;
+    proc->color = color;
+    proc->current = 0;
 
     switch (kind)
     {
         case 0:
-            proc->unk_5c = 0x80;
-            proc->unk_60 = 0x80;
+            proc->start = 0x80;
+            proc->amount = 0x80;
 
             break;
 
         case 1:
-            proc->unk_5c = 0;
-            proc->unk_60 = 0x200;
+            proc->start = 0;
+            proc->amount = 0x200;
 
             break;
 
         case 2:
-            proc->unk_5c = 0;
-            proc->unk_60 = 0x400;
+            proc->start = 0;
+            proc->amount = 0x400;
 
             break;
     }
@@ -169,7 +170,22 @@ void NewColFadeOut(int speed, int kind, int color, ProcPtr parent)
     return;
 }
 
-extern struct ProcCmd ProcScr_ColFadeIn[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_ColFadeIn[] =
+{
+    PROC_NAME("ColFadeIn"),
+    PROC_SLEEP(2),
+
+    PROC_CALL(ColFadeIn_Init_Null),
+    PROC_YIELD,
+
+    PROC_REPEAT(ColFadeIn_Loop),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080B2780
 void NewColFadeIn(int speed, int kind, int color, ProcPtr parent)
@@ -178,33 +194,33 @@ void NewColFadeIn(int speed, int kind, int color, ProcPtr parent)
 
     struct ColFadeProc * proc = Proc_StartBlocking(ProcScr_ColFadeIn, parent);
 
-    proc->unk_64 = speed;
-    proc->unk_58 = color;
+    proc->speed = speed;
+    proc->color = color;
 
-    proc->unk_4e = 0;
+    proc->current = 0;
 
     switch (kind)
     {
         case 0:
-            proc->unk_5c = 0x80;
-            proc->unk_60 = 0x80;
+            proc->start = 0x80;
+            proc->amount = 0x80;
 
             break;
 
         case 1:
-            proc->unk_5c = 0;
-            proc->unk_60 = 0x200;
+            proc->start = 0;
+            proc->amount = 0x200;
 
             break;
 
         case 2:
-            proc->unk_5c = 0;
-            proc->unk_60 = 0x400;
+            proc->start = 0;
+            proc->amount = 0x400;
 
             break;
     }
 
-    for (i = proc->unk_5c; i < proc->unk_5c + proc->unk_60; i++)
+    for (i = proc->start; i < proc->start + proc->amount; i++)
     {
         gUnknown_02014EF4[i] = gPaletteBuffer[i];
         gPaletteBuffer[i] = 0;
