@@ -51,9 +51,9 @@ void MapLatonafx_Init(struct MAEffectProc * proc)
     proc->timer = 0;
 
     if (GetItemIndex(gManimSt.actor[0].bu->weaponBefore) == ITEM_STAFF_LATONA)
-        sub_80144CC(Pal_089AFFB8, 0x80, 0x20, 2, (struct Proc*) proc);
+        StartPaletteAnimatorReverse(Pal_089AFFB8, 0x80, 0x20, 2, (struct Proc*) proc);
     else
-        sub_80144CC(Pal_089AFF78, 0x80, 0x20, 2, (struct Proc*) proc);
+        StartPaletteAnimatorReverse(Pal_089AFF78, 0x80, 0x20, 2, (struct Proc*) proc);
 }
 
 CONST_DATA s16 MapLatonafxLocation[0x8] = {
@@ -68,12 +68,12 @@ void MapLatonafx_InitGfx(struct MAEffectProc * proc)
     if (proc->timer > 2)
     {
         DeleteAllPaletteAnimator();
-        NewPaletteAnimator_(Pal_089AFF78, 0x80, 0x20, 4, proc);
+        StartPaletteAnimatorNormal(Pal_089AFF78, 0x80, 0x20, 4, proc);
 
         if (GetItemIndex(gManimSt.actor[0].bu->weaponBefore) == ITEM_STAFF_LATONA)
-            NewPaletteAnimator_(Pal_089AFFB8, 0x80, 0x20, 4, (struct Proc*) proc);
+            StartPaletteAnimatorNormal(Pal_089AFFB8, 0x80, 0x20, 4, (struct Proc*) proc);
         else
-            NewPaletteAnimator_(Pal_089AFF78, 0x80, 0x20, 4, (struct Proc*) proc);
+            StartPaletteAnimatorNormal(Pal_089AFF78, 0x80, 0x20, 4, (struct Proc*) proc);
 
         Decompress(
             gUnknown_089AFFF8,

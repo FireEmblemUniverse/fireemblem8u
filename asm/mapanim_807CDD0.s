@@ -213,7 +213,7 @@ sub_807D860: @ 0x0807D860
 	movs r1, #0x80
 	movs r2, #0x20
 	movs r3, #4
-	bl NewPaletteAnimator_
+	bl StartPaletteAnimatorNormal
 	adds r1, r6, #0
 	adds r1, #0x40
 	movs r0, #0
@@ -2181,7 +2181,7 @@ _0807E822:
 	movs r1, #0x80
 	movs r2, #0x20
 	movs r3, #4
-	bl sub_80144CC
+	bl StartPaletteAnimatorReverse
 	bl InitScanline
 	bl sub_8081EAC
 	bl SetDefaultMapAnimScreenConf

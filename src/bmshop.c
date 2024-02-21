@@ -54,7 +54,7 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeIn[] = {
     PROC_CALL(LockGame),
     PROC_SLEEP(1),
 
-    PROC_CALL_ARG(sub_8014BD0, -1),
+    PROC_CALL_ARG(_FadeBgmOut, -1),
     PROC_CALL(StartMidFadeToBlack),
 
     PROC_REPEAT(WaitForFade),
@@ -225,7 +225,7 @@ PROC_LABEL(12),
     PROC_CALL(ShopProc_ExitShopDialogue),
     PROC_SLEEP(1),
 
-    PROC_CALL_ARG(sub_8014BD0, 2),
+    PROC_CALL_ARG(_FadeBgmOut, 2),
 
     PROC_CALL(sub_8013F40),
     PROC_SLEEP(1),
@@ -841,7 +841,7 @@ void ShopProc_Loop_SellKeyHandler(struct BmShopProc* proc) {
 
 void ShopProc_HandleSellConfirmPrompt(struct BmShopProc* proc) {
     if (GetTalkChoiceResult() == 1) {
-        sub_8014B88(0xB9, 8);
+        PlaySeDelayed(0xB9, 8);
 
         gActionData.unitActionType = UNIT_ACTION_SHOPPED;
 
@@ -1450,7 +1450,7 @@ void DisplayUiVArrow(int x, int y, u16 oam2Base, int d) {
 }
 
 void HandleShopBuyAction(struct BmShopProc* proc) {
-    sub_8014B88(0xB9, 8);
+    PlaySeDelayed(0xB9, 8);
 
     gActionData.unitActionType = UNIT_ACTION_SHOPPED;
 

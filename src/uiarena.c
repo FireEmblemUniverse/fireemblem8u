@@ -227,7 +227,7 @@ void ArenaUi_StartArenaBattle(ProcPtr proc) {
 
 //! FE8U = 0x080B5B00
 void sub_80B5B00(ProcPtr proc) {
-    sub_8014944(proc);
+    StartPartialGameLock(proc);
     return;
 }
 
@@ -390,13 +390,13 @@ struct ProcCmd CONST_DATA gProcScr_ArenaUiMain[] = {
     PROC_CALL(LockGame),
 
     PROC_SLEEP(1),
-    PROC_CALL_ARG(sub_8014BD0, 65535),
+    PROC_CALL_ARG(_FadeBgmOut, 65535),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(BMapDispSuspend),
 
-    PROC_CALL_ARG(sub_8014BC0, 56),
+    PROC_CALL_ARG(_StartBgm, 56),
 
     PROC_CALL(ArenaUi_Init),
     PROC_CALL(FadeInBlackSpeed20),
@@ -421,7 +421,7 @@ struct ProcCmd CONST_DATA gProcScr_ArenaUiMain[] = {
     PROC_SLEEP(1),
 
 PROC_LABEL(0),
-    PROC_CALL_ARG(sub_8014BD0, 2),
+    PROC_CALL_ARG(_FadeBgmOut, 2),
     PROC_CALL(sub_8013F40),
     PROC_SLEEP(1),
 
@@ -482,7 +482,7 @@ PROC_LABEL(2),
     PROC_END_EACH(gProcScr_ArenaUiResultBgm),
     PROC_SLEEP(0),
 
-    PROC_CALL_ARG(sub_8014BD0, 2),
+    PROC_CALL_ARG(_FadeBgmOut, 2),
     PROC_CALL(sub_8013F40),
     PROC_SLEEP(0),
 

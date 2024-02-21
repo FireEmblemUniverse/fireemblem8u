@@ -802,7 +802,7 @@ struct ProcCmd CONST_DATA ProcScr_WorldMapMain[] =
     PROC_CALL(sub_80B8FD4),
     PROC_CALL(sub_80B9154),
 
-    PROC_CALL_ARG(sub_8014BD0, 1),
+    PROC_CALL_ARG(_FadeBgmOut, 1),
     PROC_SLEEP(4),
 
     PROC_CALL(WorldMap_SetupChapterStuff),

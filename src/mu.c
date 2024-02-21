@@ -163,10 +163,10 @@ static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
 static const u16* CONST_DATA sMUFlashColorLookup[] = {
     Pal_AllWhite,
     Pal_AllBlack,
-    gUnknown_0859A160,
-    gUnknown_0859A180,
-    gUnknown_0859A1A0,
-    gUnknown_0859A1C0,
+    Pal_AllRed,
+    Pal_AllGreen,
+    Pal_AllBlue,
+    Pal_AllYellow,
 };
 
 // gProc_MUStepSound
@@ -1657,7 +1657,7 @@ void MU_StartActionAnim(struct MUProc* proc) {
     proc->pAPHandle->frameTimer    = 0;
     proc->pAPHandle->frameInterval = 0x100;
 
-    SetupFutureCall(MU_EndSelectionApAnim, (int) proc->pAPHandle, 30);
+    CallDelayedArg(MU_EndSelectionApAnim, (int) proc->pAPHandle, 30);
 }
 
 void MU_EndSelectionApAnim(int argAp) {
@@ -1671,7 +1671,7 @@ void MU_StartDelayedFaceTarget(struct MUProc* proc) {
     proc->pAPHandle->frameTimer    = 0;
     proc->pAPHandle->frameInterval = 0x100;
 
-    SetupFutureCall(MU_EndRefaceApAnim, (int) proc->pAPHandle, 30);
+    CallDelayedArg(MU_EndRefaceApAnim, (int) proc->pAPHandle, 30);
 }
 
 void MU_EndRefaceApAnim(int argAp) {
@@ -1693,7 +1693,7 @@ void MU_StartFastMoveAnim(struct MUProc* proc) {
     proc->pAPHandle->frameTimer    = 0;
     proc->pAPHandle->frameInterval = 0x40;
 
-    SetupFutureCall(MU_EndFasterApAnim, (int) proc->pAPHandle, 20);
+    CallDelayedArg(MU_EndFasterApAnim, (int) proc->pAPHandle, 20);
 }
 
 void MU_EndFasterApAnim(int argAp) {

@@ -1239,7 +1239,7 @@ gUnknown_085AA4CC:  @ 0x085AA4CC
         .word 0x0
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
-        .word sProcScr_Popup
+        .word ProcScr_Popup
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_804B554
@@ -1248,7 +1248,7 @@ gUnknown_085AA4CC:  @ 0x085AA4CC
         .word 0x0
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
-        .word sProcScr_Popup
+        .word ProcScr_Popup
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_804B5E0
@@ -1558,10 +1558,10 @@ gUnknown_085AA824:  @ 0x085AA824
 @ replacing .incbin "baserom.gba", 0x005aa824, 0x18
 .4byte Pal_AllWhite
 .4byte Pal_AllBlack
-.4byte gUnknown_0859A160
-.4byte gUnknown_0859A180
-.4byte gUnknown_0859A1A0
-.4byte gUnknown_0859A1C0
+.4byte Pal_AllRed
+.4byte Pal_AllGreen
+.4byte Pal_AllBlue
+.4byte Pal_AllYellow
 
 	.global gUnknown_085AA83C
 gUnknown_085AA83C:  @ 0x085AA83C

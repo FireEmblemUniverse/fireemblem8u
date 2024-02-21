@@ -21,6 +21,7 @@
 #include "spellassoc.h"
 #include "bmlib.h"
 #include "eventinfo.h"
+#include "popup.h"
 #include "constants/characters.h"
 #include "constants/items.h"
 #include "constants/classes.h"

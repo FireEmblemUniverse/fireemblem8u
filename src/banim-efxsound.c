@@ -118,7 +118,7 @@ void M4aPlayWithPostionCtrl(int songid, int x, int flag)
         struct MusicPlayerInfo * info;
         info = gMPlayTable[gSongTable[songid].ms].info;
         m4aMPlayImmInit(info);
-        m4aMPlayPanpotControl(info, 0xFFFF, RerangeSomething(x));
+        m4aMPlayPanpotControl(info, 0xFFFF, Screen2Pan(x));
     }
 }
 

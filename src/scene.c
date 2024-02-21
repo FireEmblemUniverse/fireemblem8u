@@ -1101,7 +1101,7 @@ int TalkInterpret(ProcPtr proc) {
 
                 case 0x05: // [G]
                     // _080076D0
-                    String_FromNumber(sTalkState->userNumber, sTalkState->userNumberString);
+                    NumberToStringAscii(sTalkState->userNumber, sTalkState->userNumberString);
 
                     sTalkState->str--;
 
@@ -2269,7 +2269,7 @@ void ClearPrimaryHBlank(void) {
 
 //! FE8U = 0x08008B30
 void TalkPutSpriteText_OnEnd(void) {
-    SetupFutureCall2(ClearPrimaryHBlank, 1);
+    CallDelayed(ClearPrimaryHBlank, 1);
     return;
 }
 
@@ -2447,7 +2447,7 @@ int GetStrTalkLen(const char* str, s8 isBubbleOpen) {
 
                     case 0x05:
                         // _08008E8C
-                        NumberToString(sTalkState->userNumber, buf);
+                        NumberToStringSJis(sTalkState->userNumber, buf);
                         currentLineLen += GetStrTalkLen(buf, isBubbleOpen);
 
                         str++;

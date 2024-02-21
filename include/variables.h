@@ -116,8 +116,6 @@ extern int gBattleScriptted;
 // extern ??? gpPopupUnit
 // extern ??? gPopupItem
 // extern ??? gPopupNumber
-// extern ??? ItemBackupEvtBattle
-// extern ??? gUnknown_03000600
 // extern ??? sEventFadeSt
 // extern ??? gUnknown_03000800
 // extern ??? gUnknown_03000808
@@ -402,20 +400,6 @@ extern const char *gStrPrefix[][2];
 //extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gStrPrefix;
 // extern ??? gUnknown_08591AB4
 
-// extern ??? sProcScr_Popup
-// extern ??? sProcScr_PopupUpdateIcon
-// extern ??? gPopup_GotItem
-// extern ??? gPopup_ItemWasPilfered
-// extern ??? sProcScr_GotItem
-// extern ??? gPopup_GotGold
-// extern ??? gPopup_GoldWasStole
-// extern ??? gPopup_StoleItem
-// extern ??? gPopup_ItemStolen
-// extern ??? gPopup_WpnBroken
-// extern ??? gPopup_WRankUp
-// extern ??? gPopup_NewAlly
-extern struct ProcCmd CONST_DATA gProcScr_BrownTextBox[];
-extern struct ProcCmd CONST_DATA gProcScr_08592530[];
 extern struct ProcCmd CONST_DATA ProcScr_EventFadefx[];
 extern struct ProcCmd CONST_DATA ProcScr_ShinningStonefx[];
 extern struct ProcCmd CONST_DATA ProcScr_BoomFogFx[];
@@ -426,7 +410,7 @@ extern struct ProcCmd CONST_DATA gProcScr_StoneShatterEvent[];
 // extern ??? gUnknown_085996F4
 // extern ??? gUnknown_08599FD4
 
-// extern ??? gUnknown_0859A1E0
+// extern ??? ProcScr_PartialGameLock
 // extern ??? gStatusNameTextIdLookup
 // extern ??? gUnitLookup
 // extern ??? gTilesetTerrainLookup
@@ -1242,8 +1226,8 @@ extern u8 gTsa_FinScreen[];
 extern u16 gUnknown_08A40AD4[]; // pal
 extern u8 gUnknown_08A40B14[]; // tsa
 // extern ??? gUnknown_08A40FC8
-// extern ??? gGfx_BrownTextBox
-// extern ??? gPal_BrownTextBox
+extern u8 gGfx_BrownTextBox[];
+extern u16 gPal_BrownTextBox[];
 // extern ??? gUnknown_08A83364
 // extern ??? gUnknown_08A95F64
 // extern ??? gUnknown_08A95FE4

@@ -35,9 +35,9 @@ void MapAnim_SubjectResetAnim(ProcPtr proc)
 void sub_80812C0(void)
 {
     if (gManimSt.actor[gManimSt.subjectActorId].unit->pClassData->number == CLASS_DANCER)
-        SetupFutureCall2(sub_8081348, 0x9);
+        CallDelayed(sub_8081348, 0x9);
     else
-        SetupFutureCall2(sub_8081384, 0xC);
+        CallDelayed(sub_8081384, 0xC);
 
     gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameTimer = 0;
     gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameInterval = 0x100;
