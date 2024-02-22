@@ -70,12 +70,12 @@ void NewEkrGauge(void)
     if (gEkrGaugeHp[0] > 0x50)
         CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(0xB), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gEkrFactions[POS_L] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802B04 + gBanimFactionPal[POS_L] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
 
     if (gEkrGaugeHp[1] > 0x50)
         CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(0xC), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gEkrFactions[POS_R] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
+        CpuCopy16(gUnknown_08802B04 + gBanimFactionPal[POS_R] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
 
     gBanimSomeHp[0] = -1;
     gBanimSomeHp[1] = -1;
@@ -84,19 +84,19 @@ void NewEkrGauge(void)
     LZ77UnCompVram(Img_EfxWTAArrow1, (void *)0x6013940);
     LZ77UnCompVram(Img_EfxWTAArrow2, (void *)0x6013D40);
 
-    CpuFastCopy(gUnknown_08802884 + gEkrFactions[POS_L] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
-    CpuFastCopy(gUnknown_08802884 + gEkrFactions[POS_R] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
+    CpuFastCopy(gUnknown_08802884 + gBanimFactionPal[POS_L] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
+    CpuFastCopy(gUnknown_08802884 + gBanimFactionPal[POS_R] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
 
     EnablePaletteSync();
 
     /* decode value to number for display: 998 --> 9 9 8 */
-    ModDec(gEkrPairHit[0], &gDecodedEkrHitDmgCritBuf[0x0]);
-    ModDec(gEkrPairDmgPair[0], &gDecodedEkrHitDmgCritBuf[0x3]);
-    ModDec(gEkrPairCritPair[0], &gDecodedEkrHitDmgCritBuf[0x6]);
+    ModDec(gEkrGaugeHit[0], &gEkrGaugeDecoder[0x0]);
+    ModDec(gEkrGaugeDmg[0], &gEkrGaugeDecoder[0x3]);
+    ModDec(gEkrGaugeCrt[0], &gEkrGaugeDecoder[0x6]);
 
-    ModDec(gEkrPairHit[1], &gDecodedEkrHitDmgCritBuf[0x9]);
-    ModDec(gEkrPairDmgPair[1], &gDecodedEkrHitDmgCritBuf[0xC]);
-    ModDec(gEkrPairCritPair[1], &gDecodedEkrHitDmgCritBuf[0xF]);
+    ModDec(gEkrGaugeHit[1], &gEkrGaugeDecoder[0x9]);
+    ModDec(gEkrGaugeDmg[1], &gEkrGaugeDecoder[0xC]);
+    ModDec(gEkrGaugeCrt[1], &gEkrGaugeDecoder[0xF]);
 
     CpuFastFill(0, gObjBuf_EkrSideHitDmgCrit, 0x400);
 
@@ -106,7 +106,7 @@ void NewEkrGauge(void)
             int r4 = i * 0x40 + j * 0x10;
 
             CpuCopy16(
-                gUnknown_088026E4 + gDecodedEkrHitDmgCritBuf[i * 3 + j] * 0x10,
+                gUnknown_088026E4 + gEkrGaugeDecoder[i * 3 + j] * 0x10,
                 gObjBuf_EkrSideHitDmgCrit + r4,
                 0x10 * sizeof(u16));
         }
@@ -307,13 +307,13 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
     gBanimSomeHp[POS_R] != gEkrGaugeHp[POS_R];
 
     lhp = gEkrGaugeHp[POS_L];       /* R7 */
-    lhpmax = gEkrPairMaxHP[POS_L];  /* r6 */
+    lhpmax = gBanimMaxHP[POS_L];  /* r6 */
     rhp = gEkrGaugeHp[POS_R];       /* R8 */
-    rhpmax = gEkrPairMaxHP[POS_R];  /* var64 */
+    rhpmax = gBanimMaxHP[POS_R];  /* var64 */
 
     switch (gEkrDistanceType) {
     case 3:
-        if (gEkrPairSideVaild[POS_L] == true)
+        if (gBanimValid[POS_L] == true)
             y2 = proc->unk32 + 0x38;
         else
             y2 = proc->unk32 - 0x38;

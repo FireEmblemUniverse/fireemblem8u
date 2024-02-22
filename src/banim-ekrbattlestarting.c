@@ -107,11 +107,11 @@ void ekrBaStart_InitScreen(struct ProcEkrBattleStarting *proc)
     proc->timer = 0;
     proc->terminator = 0xF;
 
-    val = (gEkrPairBmLoc[0] + gEkrPairBmLoc[2]) * 8 + 8;
+    val = (gEkrBmLocation[0] + gEkrBmLocation[2]) * 8 + 8;
     proc->x2 = val;
     proc->x1 = val;
 
-    val = (gEkrPairBmLoc[1] + gEkrPairBmLoc[3]) * 8 + 8;
+    val = (gEkrBmLocation[1] + gEkrBmLocation[3]) * 8 + 8;
     proc->y2 = val;
     proc->y1 = val;
 
@@ -172,12 +172,12 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
             break;
 
         case EKR_DISTANCE_MONOCOMBAT:
-            if (gEkrPairSideVaild[EKR_POS_L] == false) {
+            if (gBanimValid[EKR_POS_L] == false) {
                 EkrGauge_Set4C();
                 EkrDispUpSet4C();
             }
 
-            if (gEkrPairSideVaild[EKR_POS_R] == false) {
+            if (gBanimValid[EKR_POS_R] == false) {
                 EkrGauge_Set50();
                 EkrDispUpSet50();
             }
@@ -207,7 +207,7 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
 void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
 {
     if (++proc->timer > 0xB) {
-        if (gBanimBackgroundIndex == 0 || GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
+        if (gBanimBG == 0 || GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL) {
 
             /* In normal battle, here will directly end the proc */
             NewEkrBattle();
@@ -237,7 +237,7 @@ void ekrBaStart_8056024(struct ProcEkrBattleStarting *proc)
     else
         gUnknown_0201FAD8 = 0xA;
 
-    PutBanimBG(gBanimBackgroundIndex - 1);
+    PutBanimBG(gBanimBG - 1);
     EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, 0x10);
     Proc_Break(proc);
 }
@@ -246,7 +246,7 @@ void ekrBaStart_8056078(struct ProcEkrBattleStarting *proc)
 {
     int val = Interpolate(0, 0x10, 0, proc->timer, 8);
 
-    PutBanimBgPAL(gBanimBackgroundIndex - 1);
+    PutBanimBgPAL(gBanimBG - 1);
     EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, val);
     EnablePaletteSync();
 

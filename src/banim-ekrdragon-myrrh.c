@@ -140,8 +140,8 @@ void RegisterEkrDragonStatusType(void)
 
     struct BattleUnit *bu1a = bu1, *bu2a = bu2;
 
-    u16 validl = gEkrPairSideVaild[EKR_POS_L];
-    u16 validr = gEkrPairSideVaild[EKR_POS_R];
+    u16 validl = gBanimValid[EKR_POS_L];
+    u16 validr = gBanimValid[EKR_POS_R];
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:

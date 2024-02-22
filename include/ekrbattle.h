@@ -385,10 +385,17 @@ int CheckEfxSoundSeExist(void);
  */
 extern int gBanimBossBGMs[];
 
+enum banim_faction_palette_idx {
+    BANIMPAL_BLUE = 0,
+    BANIMPAL_RED = 1,
+    BANIMPAL_GREEN = 2,
+    BANIMPAL_PURPLE = 3,
+};
+
 extern int gEkrDebugTimer, gEkrDebugUnk1;
 
-extern u16 gEkrPairBanimID[2];
-extern s16 gAnimCharaPalIndex[2];
+extern u16 gBanimIdx_bak[2];
+extern s16 gBanimUniquePal[2];
 
 extern struct BattleUnit *gpEkrBattleUnitLeft;
 extern struct BattleUnit *gpEkrBattleUnitRight;
@@ -422,36 +429,36 @@ extern int gBanimLinkArenaFlag;
 extern int gBattleDeamonActive;
 extern struct ProcEkrBattleDeamon *gpProcEkrBattleDeamon;
 extern s16 gEkrDebugModeMaybe;
-extern s16 gBanimBackgroundIndex;
+extern s16 gBanimBG;
 extern s16 gEkrInitialHitSide;
 extern s16 gEkrSnowWeather;
-extern s16 gEkrPairSideVaild[2];
+extern s16 gBanimValid[2];
 extern s16 gEkrInitialPosition[2];
-extern s16 gEkrFactions[2];
+extern s16 gBanimFactionPal[2];
 extern s16 gEkrSpellAnimIndex[];
 // extern ??? gUnknown_0203E11A
-extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
-extern EWRAM_DATA short gEkrPairBmLoc[4];
+extern EWRAM_DATA s16 gBanimFloorfx[2];
+extern EWRAM_DATA short gEkrBmLocation[4];
 
 extern s16 gEfxPairHpBufOffset[];
-extern s16 gEkrPairBanimID2[];
+extern s16 gBanimIdx[];
 extern u8 gEkrPids[2];
 extern struct Unit *gpEkrTriangleUnits[2];
 extern char *gBanimTriAtkPalettes[2];
-extern void * gUnknown_0203E1A4[2];
+extern void * gBanimForceUnitChgDebug[2];
 extern s16 gEkrGaugeHp[2];
-extern s16 gEkrPairMaxHP[2];
+extern s16 gBanimMaxHP[2];
 extern s16 gBanimSomeHp[2];
-extern s16 gEkrPairHit[2];
-extern s16 gEkrPairDmgPair[2];
-extern s16 gEkrPairCritPair[2];
-extern s16 gEkrPairExpPrevious[2];
-extern s16 gEkrPairExpGain[2];
-extern s16 gEkrPairTerrainID[2];
-extern s16 gEkrPairBaseCon[2];
-extern s16 gEkrPairWTABonus[2];
-extern s16 gEkrPairEffectiveAgainst[2];
-extern s16 gUnknown_0203E1DC[2];
+extern s16 gEkrGaugeHit[2];
+extern s16 gEkrGaugeDmg[2];
+extern s16 gEkrGaugeCrt[2];
+extern s16 gBanimExpPrevious[2];
+extern s16 gBanimExpGain[2];
+extern s16 gBanimTerrain[2];
+extern s16 gBanimCon[2];
+extern s16 gBanimWtaBonus[2];
+extern s16 gBanimEffectiveness[2];
+extern s16 gBanimUniquePaletteDisabled[2];
 
 extern u8 gBanimScrLeft[];
 extern u8 gBanimScrRight[];
@@ -886,7 +893,7 @@ void AnimScrAdvance(struct Anim * anim);
 void NewEkrChienCHR(struct Anim * anim);
 // ??? EkrChienCHRMain(???);
 void RegisterAISSheetGraphics(struct Anim * anim);
-void sub_8059970(u32 *, int);
+void ApplyBanimUniquePalette(u32 *, int);
 int GetBanimPalette(int banim_id, enum ekr_battle_unit_position pos);
 void UpdateBanimFrame(void);
 void InitMainAnims(void);

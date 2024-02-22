@@ -88,68 +88,68 @@ int GetBanimBackgroundIndex(u16 terrain, u16 tileset)
 {
     switch (tileset) {
     case 0x01:
-        return gBanimBackgroundIndexLut01[terrain];
+        return gBanimBGLut01[terrain];
 
     case 0x02:
-        return gBanimBackgroundIndexLut02[terrain];
+        return gBanimBGLut02[terrain];
 
     case 0x03:
-        return gBanimBackgroundIndexLut03[terrain];
+        return gBanimBGLut03[terrain];
 
     case 0x04:
-        return gBanimBackgroundIndexLut04[terrain];
+        return gBanimBGLut04[terrain];
 
     case 0x05:
-        return gBanimBackgroundIndexLut05[terrain];
+        return gBanimBGLut05[terrain];
 
     case 0x06:
-        return gBanimBackgroundIndexLut06[terrain];
+        return gBanimBGLut06[terrain];
 
     case 0x07:
-        return gBanimBackgroundIndexLut07[terrain];
+        return gBanimBGLut07[terrain];
 
     case 0x08:
-        return gBanimBackgroundIndexLut08[terrain];
+        return gBanimBGLut08[terrain];
 
     case 0x09:
-        return gBanimBackgroundIndexLut09[terrain];
+        return gBanimBGLut09[terrain];
 
     case 0x0A:
-        return gBanimBackgroundIndexLut0A[terrain];
+        return gBanimBGLut0A[terrain];
 
     case 0x0B:
-        return gBanimBackgroundIndexLut0B[terrain];
+        return gBanimBGLut0B[terrain];
 
     case 0x0C:
-        return gBanimBackgroundIndexLut0C[terrain];
+        return gBanimBGLut0C[terrain];
 
     case 0x0D:
-        return gBanimBackgroundIndexLut0D[terrain];
+        return gBanimBGLut0D[terrain];
 
     case 0x0E:
-        return gBanimBackgroundIndexLut0E[terrain];
+        return gBanimBGLut0E[terrain];
 
     case 0x0F:
-        return gBanimBackgroundIndexLut0F[terrain];
+        return gBanimBGLut0F[terrain];
 
     case 0x10:
-        return gBanimBackgroundIndexLut10[terrain];
+        return gBanimBGLut10[terrain];
 
     case 0x11:
-        return gBanimBackgroundIndexLut11[terrain];
+        return gBanimBGLut11[terrain];
 
     case 0x12:
-        return gBanimBackgroundIndexLut12[terrain];
+        return gBanimBGLut12[terrain];
 
     case 0x13:
-        return gBanimBackgroundIndexLut13[terrain];
+        return gBanimBGLut13[terrain];
 
     case 0x14:
-        return gBanimBackgroundIndexLut14[terrain];
+        return gBanimBGLut14[terrain];
 
     case 0:
     default:
-        return gBanimBackgroundIndexLutDefault[terrain];
+        return gBanimBGLutDefault[terrain];
     }
 }
 
@@ -468,8 +468,8 @@ void ParseBattleHitToBanimCmd(void)
                     gEfxHpLut[r10 * 2 + 1] = new_hp;
 
                     new_hp = GetEfxHp(r9 * 2) + hit->hpChange;
-                    if (new_hp > gEkrPairMaxHP[POS_L])
-                        new_hp = gEkrPairMaxHP[POS_L];
+                    if (new_hp > gBanimMaxHP[POS_L])
+                        new_hp = gBanimMaxHP[POS_L];
 
                     r9 = r9 + 1;
                     gEfxHpLut[r9 * 2] = new_hp;
@@ -484,8 +484,8 @@ void ParseBattleHitToBanimCmd(void)
                     gEfxHpLut[r9 * 2] = new_hp;
 
                     new_hp = GetEfxHp(r10 * 2 + 1) + hit->hpChange;
-                    if (new_hp > gEkrPairMaxHP[POS_R])
-                        new_hp = gEkrPairMaxHP[POS_R];
+                    if (new_hp > gBanimMaxHP[POS_R])
+                        new_hp = gBanimMaxHP[POS_R];
 
                     r10 = r10 + 1;
                     gEfxHpLut[r10 * 2 + 1] = new_hp;
@@ -1076,7 +1076,7 @@ void ParseBattleHitToBanimCmd(void)
         ldrsb r1, [r7, r1]\n\
         adds r0, r0, r1\n\
         lsls r0, r0, #0x10\n\
-        ldr r3, _08058630  @ gEkrPairMaxHP\n\
+        ldr r3, _08058630  @ gBanimMaxHP\n\
         lsrs r2, r0, #0x10\n\
         asrs r0, r0, #0x10\n\
         movs r5, #0\n\
@@ -1095,7 +1095,7 @@ void ParseBattleHitToBanimCmd(void)
         .align 2, 0\n\
     _08058628: .4byte gEkrInitialPosition\n\
     _0805862C: .4byte gEfxHpLut\n\
-    _08058630: .4byte gEkrPairMaxHP\n\
+    _08058630: .4byte gBanimMaxHP\n\
     _08058634:\n\
         mov r1, r9\n\
         lsls r0, r1, #1\n\
@@ -1126,7 +1126,7 @@ void ParseBattleHitToBanimCmd(void)
         ldrsb r1, [r7, r1]\n\
         adds r0, r0, r1\n\
         lsls r0, r0, #0x10\n\
-        ldr r3, _0805869C  @ gEkrPairMaxHP\n\
+        ldr r3, _0805869C  @ gBanimMaxHP\n\
         lsrs r2, r0, #0x10\n\
         asrs r0, r0, #0x10\n\
         movs r5, #2\n\
@@ -1149,7 +1149,7 @@ void ParseBattleHitToBanimCmd(void)
         b _0805881C\n\
         .align 2, 0\n\
     _08058698: .4byte gEfxHpLut\n\
-    _0805869C: .4byte gEkrPairMaxHP\n\
+    _0805869C: .4byte gBanimMaxHP\n\
     _080586A0:\n\
         ldr r0, _08058764  @ gEkrInitialPosition\n\
         movs r1, #0\n\

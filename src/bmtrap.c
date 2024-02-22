@@ -216,7 +216,7 @@ bool HandlePostActionTraps(ProcPtr proc) {
 
     WriteSuspendSave(3);
 
-    if (GetBattleAnimType() == 1) {
+    if (GetBattleAnimPreconfType() == PLAY_ANIMCONF_OFF) {
         RefreshUnitSprites();
     }
 

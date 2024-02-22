@@ -564,7 +564,7 @@ struct ProcCmd CONST_DATA ProcScr_efxResireRST[] =
 // clang-format on
 
 //! FE8U = 0x0805F838
-void StartSubSpell_efxResireRST(struct Anim * anim, ProcPtr b, int c)
+void StartSubSpell_efxResireRST(struct Anim * anim, ProcPtr efxproc, int c)
 {
     struct ProcEfxRST * proc;
 
@@ -573,8 +573,8 @@ void StartSubSpell_efxResireRST(struct Anim * anim, ProcPtr b, int c)
     proc = Proc_Start(ProcScr_efxResireRST, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = c;
-    proc->unk64 = b;
+    proc->duration = c;
+    proc->efxproc = efxproc;
 
     return;
 }
@@ -582,13 +582,13 @@ void StartSubSpell_efxResireRST(struct Anim * anim, ProcPtr b, int c)
 //! FE8U = 0x0805F868
 void efxResireRST_Loop(struct ProcEfxRST * proc)
 {
-    struct ProcEfx * otherProc = proc->unk64;
+    struct ProcEfx * otherProc = proc->efxproc;
 
-    otherProc->unk4C = Interpolate(INTERPOLATE_RSQUARE, 0, 128, proc->timer, proc->unk2E);
+    otherProc->frame = Interpolate(INTERPOLATE_RSQUARE, 0, 128, proc->timer, proc->duration);
 
     proc->timer++;
 
-    if (proc->timer > proc->unk2E)
+    if (proc->timer > proc->duration)
     {
         gEfxBgSemaphore--;
         Proc_Break(proc);

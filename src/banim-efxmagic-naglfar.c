@@ -951,7 +951,7 @@ void StartSubSpell_efxNaglfarBlack(struct Anim * anim, int b, int c)
 
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = b;
+    proc->step = b;
     proc->unk30 = c;
 
     return;

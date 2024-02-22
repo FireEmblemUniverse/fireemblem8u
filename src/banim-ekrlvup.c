@@ -331,10 +331,10 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     RegisterDataMove(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xA), 0x800);
     RegisterDataMove(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xB), 0x800);
 
-    buf->unk00 = gBanimTerrainIndexMaybe[EKR_POS_L];
+    buf->unk00 = gBanimFloorfx[EKR_POS_L];
     buf->unk02 = 3;
     buf->unk04 = 0x100;
-    buf->unk06 = gBanimTerrainIndexMaybe[EKR_POS_R];
+    buf->unk06 = gBanimFloorfx[EKR_POS_R];
     buf->unk08 = 4;
     buf->unk0A = 0x140;
     buf->unk0C = gEkrDistanceType;
@@ -637,7 +637,7 @@ void EkrLvup_MainAnime(struct ProcEkrLevelup *proc)
                     diff);
 
                 if (proc->index == EKRLVUP_STAT_HP) {
-                    gEkrPairMaxHP[1] = gEkrLvupBaseStatus[proc->index];
+                    gBanimMaxHP[1] = gEkrLvupBaseStatus[proc->index];
                     gBanimSomeHp[1] = -1;
                 }
                 proc->timer = 0;
@@ -709,10 +709,10 @@ void EkrLvup_ResetScreen(struct ProcEkrLevelup *proc)
     SetBackgroundScreenSize(2, 0);
 
     buf = &_buf;
-    buf->unk00 = gBanimTerrainIndexMaybe[0];
+    buf->unk00 = gBanimFloorfx[0];
     buf->unk02 = 4;
     buf->unk04 = 0x280;
-    buf->unk06 = gBanimTerrainIndexMaybe[1];
+    buf->unk06 = gBanimFloorfx[1];
     buf->unk08 = 5;
     buf->unk0A = 0x280;
     buf->unk0C = gEkrDistanceType;

@@ -188,7 +188,7 @@ void EkrDZ_ReloadCustomBg(struct ProcEkrDragon * proc)
     
     if (++proc->timer == 0x9) {
         proc->timer = 0;
-        gEkrPairSideVaild[GetAnimPosition(proc->anim)] = false;
+        gBanimValid[GetAnimPosition(proc->anim)] = false;
         BG_Fill(gBG3TilemapBuffer, 0x6000);
         BG_EnableSyncByMask(BG3_SYNC_BIT);
         SetEkrDragonStatusUnk1(0);

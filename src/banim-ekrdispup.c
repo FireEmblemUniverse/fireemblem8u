@@ -181,8 +181,8 @@ void EfxClearScreenFx(void)
 void sub_8051E00(void)
 {
     struct BanimUnkStructComm * unk0201FADC = &gUnknown_0201FADC;
-    struct BattleAnimTerrain * terrain1 = &battle_terrain_table[gBanimTerrainIndexMaybe[0]];
-    struct BattleAnimTerrain * terrain2 = &battle_terrain_table[gBanimTerrainIndexMaybe[1]];
+    struct BattleAnimTerrain * terrain1 = &battle_terrain_table[gBanimFloorfx[0]];
+    struct BattleAnimTerrain * terrain2 = &battle_terrain_table[gBanimFloorfx[1]];
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:
@@ -216,10 +216,10 @@ void sub_8051E00(void)
     gUnknown_02000044[0] = gUnknown_085B9D6C[gEkrDistanceType * 2];
     gUnknown_02000044[1] = gUnknown_085B9D6C[gEkrDistanceType * 2 + 1];
 
-    unk0201FADC->unk00 = gBanimTerrainIndexMaybe[0];
+    unk0201FADC->unk00 = gBanimFloorfx[0];
     unk0201FADC->unk02 = 4;
     unk0201FADC->unk04 = 640;
-    unk0201FADC->unk06 = gBanimTerrainIndexMaybe[1];
+    unk0201FADC->unk06 = gBanimFloorfx[1];
     unk0201FADC->unk08 = 5;
     unk0201FADC->unk0A = 640;
     unk0201FADC->unk0C = gEkrDistanceType;
@@ -241,7 +241,7 @@ void EfxPrepareScreenFx(void)
     LZ77UnCompVram(gUnknown_08801C14, (void *)0x6001000);
 
     /* left unit name */
-    if (gEkrPairSideVaild[EKR_POS_L] == false)
+    if (gBanimValid[EKR_POS_L] == false)
         str = gNopStr;
     else
         str = GetStringFromIndex(gpEkrBattleUnitLeft->unit.pCharacterData->nameTextId);
@@ -252,7 +252,7 @@ void EfxPrepareScreenFx(void)
     Text_DrawString(&gTextEkrlvupMsg[0], str);
 
     /* left unit item */
-    if (gEkrPairSideVaild[EKR_POS_L] == false)
+    if (gBanimValid[EKR_POS_L] == false)
         str = gNopStr;
     else
         str = GetItemName(gpEkrBattleUnitLeft->weaponBefore);
@@ -263,7 +263,7 @@ void EfxPrepareScreenFx(void)
     Text_DrawString(&gTextEkrlvupMsg[2], str);
 
     /* right unit name */
-    if (gEkrPairSideVaild[EKR_POS_R] == false)
+    if (gBanimValid[EKR_POS_R] == false)
         str = gNopStr;
     else
         str = GetStringFromIndex(gpEkrBattleUnitRight->unit.pCharacterData->nameTextId);
@@ -274,7 +274,7 @@ void EfxPrepareScreenFx(void)
     Text_DrawString(&gTextEkrlvupMsg[3], str);
 
     /* right unit item */
-    if (gEkrPairSideVaild[EKR_POS_R] == false)
+    if (gBanimValid[EKR_POS_R] == false)
         str = gNopStr;
     else
         str = GetItemName(gpEkrBattleUnitRight->weaponBefore);
@@ -290,8 +290,8 @@ void EfxPrepareScreenFx(void)
     sub_8070D04(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gEkrFactions[POS_L], 0), PAL_BG(0x2), 0x20);
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gEkrFactions[POS_R], 0), PAL_BG(0x3), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gBanimFactionPal[POS_L], 0), PAL_BG(0x2), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gBanimFactionPal[POS_R], 0), PAL_BG(0x3), 0x20);
     EnablePaletteSync();
 
     gEkrBg0QuakeVec.x = 0;

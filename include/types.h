@@ -221,6 +221,14 @@ struct PlaySt { // Chapter Data Struct
     u8 tutorial_counter;
 } BITPACKED;
 
+/* PlaySt::config::animationType */
+enum PlaySt_AnimConfType {
+    PLAY_ANIMCONF_ON = 0,
+    PLAY_ANIMCONF_OFF = 1,
+    PLAY_ANIMCONF_SOLO_ANIM = 2,
+    PLAY_ANIMCONF_ON_UNIQUE_BG = 3,
+};
+
 /**
  * Use with PlaySt field chapterStateBits
  */

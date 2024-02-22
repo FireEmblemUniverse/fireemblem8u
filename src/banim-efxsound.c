@@ -137,9 +137,9 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
 
     pos = GetAnimPosition(anim);
     if (pos == POS_L)
-        terrain = gEkrPairTerrainID[POS_L];
+        terrain = gBanimTerrain[POS_L];
     else
-        terrain = gEkrPairTerrainID[POS_R];
+        terrain = gBanimTerrain[POS_R];
 
     sound_type = GetEfxSoundType1FromTerrain(terrain);
     if (terrain == TERRAIN_BRIDGE_14)
@@ -149,9 +149,9 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
     }
 
     if (pos == POS_L)
-        basecon = gEkrPairBaseCon[POS_L];
+        basecon = gBanimCon[POS_L];
     else
-        basecon = gEkrPairBaseCon[POS_R];
+        basecon = gBanimCon[POS_R];
 
     val2 = GetEfxSoundType2FromBaseCon(basecon);
 
@@ -325,9 +325,9 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
 
     case 52:
         if (pos != POS_L)
-            tmp = gEkrPairBanimID2[POS_L];
+            tmp = gBanimIdx[POS_L];
         else
-            tmp = gEkrPairBanimID2[POS_R];
+            tmp = gBanimIdx[POS_R];
 
         switch (tmp) {
         case 0xBC:  /* todo: battle anim index */
@@ -896,7 +896,7 @@ void EkrPlayMainBGM(void)
 
     gEkrMainBgmPlaying = 1;
 
-    songid = gEkrFactions[gEkrInitialHitSide] != 1 ? 0x19 : 0x1A;
+    songid = gBanimFactionPal[gEkrInitialHitSide] != 1 ? 0x19 : 0x1A;
 
     if (GetBattleAnimArenaFlag() == 1)
     {
@@ -924,7 +924,7 @@ void EkrPlayMainBGM(void)
     if (!EkrCheckAttackRound(1))
         ret = false;
 
-    if (gEkrPairSideVaild[POS_L] == false)
+    if (gBanimValid[POS_L] == false)
         ret = false;
 
     pid = UNIT_CHAR_ID(&bul->unit);
@@ -958,7 +958,7 @@ void EkrPlayMainBGM(void)
     if (UNIT_FACTION(GetUnitFromCharId(UNIT_CHAR_ID(&bul->unit))) == FACTION_BLUE)
         songid2 = -1;
 
-    if (gEkrPairSideVaild[POS_L] == false)
+    if (gBanimValid[POS_L] == false)
         songid2 = -1;
 
     if (songid2 != -1)

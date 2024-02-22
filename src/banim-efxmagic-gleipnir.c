@@ -170,13 +170,13 @@ void StartSubSpell_efxDarkGradoMapFadeOut(void)
 //! FE8U = 0x08068D9C
 void sub_8068D9C(void)
 {
-    if (gBanimBackgroundIndex == 0)
+    if (gBanimBG == 0)
     {
         EfxChapterMapFadeOUT(4);
     }
     else
     {
-        PutBanimBgPAL(gBanimBackgroundIndex - 1);
+        PutBanimBgPAL(gBanimBG - 1);
         EfxPalBlackInOut(gPaletteBuffer, 6, 10, 0);
         EnablePaletteSync();
     }

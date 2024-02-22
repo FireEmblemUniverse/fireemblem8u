@@ -14,14 +14,14 @@ struct ProcEfx {
     /* 2A */ u8 type;
     /* 2B */ STRUCT_PAD(0x2B, 0x2C);
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
+    /* 2E */ s16 step;
     /* 30 */ s16 unk30;
     /* 32 */ u16 unk32;
     /* 34 */ STRUCT_PAD(0x34, 0x44);
     /* 44 */ u32 unk44;
     /* 48 */ u32 unk48;
-    /* 4C */ u32 unk4C;
-    /* 50 */ u32 unk50;
+    /* 4C */ u32 frame;
+    /* 50 */ u32 speed;
     /* 54 */ s16 * unk54;
     /* 58 */ s16 ** unk58;
     /* 5C */ struct Anim * anim;
@@ -33,15 +33,21 @@ struct ProcEfxBG {
     PROC_HEADER;
 
     /* 29 */ u8 unk29;
+
     STRUCT_PAD(0x2A, 0x2C);
+
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
     /* 30 */ s16 unk30;
     /* 32 */ s16 unk32;
     /* 34 */ s16 unk34;
+
     STRUCT_PAD(0x36, 0x3C);
+
     /* 3C */ s16 unk3C;
+
     STRUCT_PAD(0x3E, 0x44);
+
     /* 44 */ u32 frame;
     /* 48 */ const u16 * frame_config;
     /* 4C */ u16 ** tsal;
@@ -55,30 +61,37 @@ struct ProcEfxBGCOL {
     PROC_HEADER;
 
     STRUCT_PAD(0x29, 0x2C);
+
     /* 2C */ s16 timer;
     /* 2E */ s16 timer2;
     /* 30 */ s16 terminator;
     /* 32 */ s16 unk32;
+
     STRUCT_PAD(0x34, 0x44);
+
     /* 44 */ u32 frame;
     /* 48 */ const u16 * frame_config;
     /* 4C */ void * pal;
+
     STRUCT_PAD(0x50, 0x5C);
+
     /* 5C */ struct Anim * anim;
 };
 
-struct ProcEfxRST
-{
+struct ProcEfxRST {
     PROC_HEADER;
 
     STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
-    /* 2E */ s16 unk2E;
-    /* 30 */ s16 unk30;
-    STRUCT_PAD(0x32, 0x5C);
+    /* 2E */ s16 duration;
+
+    STRUCT_PAD(0x30, 0x5C);
+
     /* 5C */ struct Anim * anim;
+
     STRUCT_PAD(0x60, 0x64);
-    /* 64 */ ProcPtr unk64;
+
+    /* 64 */ struct ProcEfx * efxproc;
 };
 
 struct ProcEfxOBJ {
@@ -86,7 +99,9 @@ struct ProcEfxOBJ {
 
     /* 29 */ u8 unk29;
     /* 2A */ u8 unk2A;
+
     STRUCT_PAD(0x2B, 0x2C);
+
     /* 2C */ s16 timer;
     /* 2E */ s16 terminator;
     /* 30 */ u16 unk30;
@@ -102,30 +117,36 @@ struct ProcEfxOBJ {
     /* 44 */ int unk44;
     /* 48 */ int unk48;
     /* 4C */ int unk4C;
+
     STRUCT_PAD(0x50, 0x5C);
+
     /* 5C */ struct Anim * anim;
     /* 60 */ struct Anim * anim2;
     /* 64 */ struct Anim * anim3;
     /* 68 */ struct Anim * anim4;
 };
 
-struct ProcEfxALPHA
-{
+struct ProcEfxALPHA {
     PROC_HEADER;
 
     /* 29 */ u8 unk29;
+
     STRUCT_PAD(0x2A, 0x2C);
+
     /* 2C */ s16 timer;
     /* 2E */ s16 unk2E;
     /* 30 */ s16 unk30;
+
     STRUCT_PAD(0x32, 0x5C);
+
     /* 5C */ struct Anim * anim;
 };
 
-struct ProcEfxSCR
-{
+struct ProcEfxSCR {
     /* 00 */ PROC_HEADER;
+
     /* 29 */ STRUCT_PAD(0x29, 0x2C);
+
     /* 2C */ s16 timer;
     /* 2E */ s16 unk2E;
     /* 34 */ STRUCT_PAD(0x30, 0x44);
@@ -139,11 +160,17 @@ struct ProcEkrDispUP {
 
     /* 29 */ u8 sync;
     /* 2A */ u8 asnyc;
+
     /* 2B */ u8 _pad_2B[0x32 - 0x2B];
+
     /* 32 */ u16 x; /* unused actually */
+
     /* 34 */ u8 _pad_32[0x3A - 0x34];
+
     /* 3A */ u16 y;
+
     /* 3C */ u8 _pad_3C[0x4C - 0x3C];
+
     /* 4C */ u32 unk4C;
     /* 50 */ u32 unk50;
 };
@@ -458,7 +485,7 @@ extern u16 gUnknown_02016DC8[];
 // extern ??? gUnknown_02017248
 // extern ??? gUnknown_02017448
 // extern ??? gUnknown_020176F0
-extern u16 gDecodedEkrHitDmgCritBuf[];
+extern u16 gEkrGaugeDecoder[];
 extern u32 gEkrBattleEndFlag;
 extern u32 gEkrHPBarCount;
 extern u32 gEfxSpellAnimExists;

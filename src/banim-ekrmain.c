@@ -163,11 +163,11 @@ void RegisterAISSheetGraphics(struct Anim * anim)
     RegisterDataMove(anim->pImgSheetBuf, mmap, 0x2000);
 }
 
-void sub_8059970(u32 *buf, int pos)
+void ApplyBanimUniquePalette(u32 *buf, int pos)
 {
     u32 i;
 
-    if (gUnknown_0203E1DC[pos] == 0)
+    if (gBanimUniquePaletteDisabled[pos] == 0)
         return;
 
     for (i = 0; i < 8; i++)
@@ -214,22 +214,22 @@ void UpdateBanimFrame(void)
     gpImgSheet[1] = NULL;
     gpImgSheet[0] = NULL;
 
-    if (gEkrPairSideVaild[EKR_POS_L] == true) {
-        bid = gEkrPairBanimID2[EKR_POS_L];
-        bid_pal = gEkrFactions[EKR_POS_L];
-        chara_pal = gAnimCharaPalIndex[EKR_POS_L];
+    if (gBanimValid[EKR_POS_L] == true) {
+        bid = gBanimIdx[EKR_POS_L];
+        bid_pal = gBanimFactionPal[EKR_POS_L];
+        chara_pal = gBanimUniquePal[EKR_POS_L];
 
         LZ77UnCompWram(banim[bid].script, gBanimScrLeft);
         gpBanimModesLeft = banim[bid].modes;
-        LZ77UnCompWram(banim[GetBanimPalette(bid, 0)].pal, gBanimPal1);
+        LZ77UnCompWram(banim[GetBanimPalette(bid, 0)].pal, gBanimPaletteLeft);
 
         if (chara_pal != -1) {
-            LZ77UnCompWram(cbapt[chara_pal].pal, gBanimPal1);
-            sub_8059970((u32 *)gBanimPal1, 0);
+            LZ77UnCompWram(cbapt[chara_pal].pal, gBanimPaletteLeft);
+            ApplyBanimUniquePalette((u32 *)gBanimPaletteLeft, POS_L);
         }
 
-        gpEfxUnitPaletteBackup[0] = &PAL_BUF_COLOR(gBanimPal1, bid_pal, 0);
-        CpuFastCopy(&PAL_BUF_COLOR(gBanimPal1, bid_pal, 0), PAL_OBJ(0x7), 0x20);
+        gpEfxUnitPaletteBackup[POS_L] = &PAL_BUF_COLOR(gBanimPaletteLeft, bid_pal, 0);
+        CpuFastCopy(&PAL_BUF_COLOR(gBanimPaletteLeft, bid_pal, 0), PAL_OBJ(0x7), 0x20);
         CpuFastCopy(gBanimTriAtkPalettes[0], PAL_OBJ(0x8), 0x20);
 
         /* WTF a horrible bug... */
@@ -244,22 +244,22 @@ void UpdateBanimFrame(void)
         gBanimOaml[0x57F0 / 4] = 1;
     }
 
-    if (gEkrPairSideVaild[EKR_POS_R] == true) {
-        bid = gEkrPairBanimID2[EKR_POS_R];
-        bid_pal = gEkrFactions[EKR_POS_R];
-        chara_pal = gAnimCharaPalIndex[EKR_POS_R];
+    if (gBanimValid[EKR_POS_R] == true) {
+        bid = gBanimIdx[EKR_POS_R];
+        bid_pal = gBanimFactionPal[EKR_POS_R];
+        chara_pal = gBanimUniquePal[EKR_POS_R];
 
         LZ77UnCompWram(banim[bid].script, gBanimScrRight);
         gpBanimModesRight = banim[bid].modes;
-        LZ77UnCompWram(banim[GetBanimPalette(bid, 1)].pal, gBanimPal2);
+        LZ77UnCompWram(banim[GetBanimPalette(bid, 1)].pal, gBanimPaletteRight);
 
         if (chara_pal != -1) {
-            LZ77UnCompWram(cbapt[chara_pal].pal, gBanimPal2);
-            sub_8059970((u32 *)gBanimPal2, 1);
+            LZ77UnCompWram(cbapt[chara_pal].pal, gBanimPaletteRight);
+            ApplyBanimUniquePalette((u32 *)gBanimPaletteRight, POS_R);
         }
 
-        gpEfxUnitPaletteBackup[1] = &PAL_BUF_COLOR(gBanimPal2, bid_pal, 0);
-        CpuFastCopy(&PAL_BUF_COLOR(gBanimPal2, bid_pal, 0), PAL_OBJ(0x9), 0x20);
+        gpEfxUnitPaletteBackup[POS_R] = &PAL_BUF_COLOR(gBanimPaletteRight, bid_pal, 0);
+        CpuFastCopy(&PAL_BUF_COLOR(gBanimPaletteRight, bid_pal, 0), PAL_OBJ(0x9), 0x20);
         CpuFastCopy(gBanimTriAtkPalettes[1], PAL_OBJ(0xA), 0x20);
 
         EnablePaletteSync();
@@ -351,10 +351,10 @@ void InitBattleAnimFrame(int round_type_left, int round_type_right)
     gAnims[2] = NULL;
     gAnims[3] = NULL;
 
-    if (gEkrPairSideVaild[EKR_POS_L] == true)
+    if (gBanimValid[EKR_POS_L] == true)
         InitLeftAnim(round_type_left);
 
-    if (gEkrPairSideVaild[EKR_POS_R] == true)
+    if (gBanimValid[EKR_POS_R] == true)
         InitRightAnim(round_type_right);
 
     /* Hide the left anim on init promotion */

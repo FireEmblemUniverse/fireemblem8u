@@ -110,32 +110,29 @@ u16 * FilterBattleAnimCharacterPalette(s16 index, u16 item)
     }
 }
 
-int GetAllegienceId(u32 arg)
+int GetBanimFactionPalette(u32 arg)
 {
     u8 _arg = arg;
-    switch (_arg)
-    {
-    /*  ? */
+    switch (_arg) {
     case FACTION_RED:
-        return FACTION_ID_GREEN;
+        return BANIMPAL_RED;
 
-    /* ? */
     case FACTION_GREEN:
-        return FACTION_ID_RED;
+        return BANIMPAL_GREEN;
 
     case FACTION_PURPLE:
-        return FACTION_ID_PURPLE;
+        return BANIMPAL_PURPLE;
 
     case FACTION_BLUE:
-        return FACTION_ID_BLUE;
+        return BANIMPAL_BLUE;
     }
 
-    return FACTION_ID_BLUE;
+    return BANIMPAL_BLUE;
 }
 
 void EkrPrepareBanimfx(struct Anim * anim, u16 index)
 {
-    gEkrPairBanimID2[GetAnimPosition(anim)] = index;
+    gBanimIdx[GetAnimPosition(anim)] = index;
     UpdateBanimFrame();
     SwitchAISFrameDataFromBARoundType(anim, 6);
 }
@@ -266,15 +263,15 @@ bool CheckBattleScriptted(void)
 
 int GetEkrHit(int pos)
 {
-    return gEkrPairHit[pos];
+    return gEkrGaugeHit[pos];
 }
 
 int GetEkrDmg(int pos)
 {
-    return gEkrPairDmgPair[pos];
+    return gEkrGaugeDmg[pos];
 }
 
 int GetEkrCrit(int pos)
 {
-    return gEkrPairCritPair[pos];
+    return gEkrGaugeCrt[pos];
 }

@@ -315,7 +315,7 @@ void BattleAIS_ExecCommands(void)
                             }
 #endif
 
-                            if (gUnknown_0203E1A4[GetAnimPosition(anim)] == NULL) {
+                            if (gBanimForceUnitChgDebug[GetAnimPosition(anim)] == NULL) {
                                 if (gpImgSheet[GetAnimPosition(anim1)] != anim1->pImgSheet) {
                                     NewEkrChienCHR(anim1);
                                     gpImgSheet[GetAnimPosition(anim1)] = anim1->pImgSheet;
@@ -674,7 +674,7 @@ void BattleAIS_ExecCommands(void)
         // _080596E0
         if (type & ANIM_BIT2_FRAME) {
             if (GetAISLayerId(anim) == 0) {
-                if (gUnknown_0203E1A4[GetAnimPosition(anim)] == NULL)
+                if (gBanimForceUnitChgDebug[GetAnimPosition(anim)] == NULL)
                     if (!(anim->state3 & ANIM_BIT3_4000))
                         if (gpImgSheet[GetAnimPosition(anim)] != anim->pImgSheet) {
                             RegisterAISSheetGraphics(anim);

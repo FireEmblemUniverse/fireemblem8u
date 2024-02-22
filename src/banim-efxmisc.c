@@ -299,7 +299,7 @@ void NewEfxMagfcast(struct Anim *anim, int type)
     proc->anim = anim;
     proc->timer = 0;
 
-    id2 = gEkrPairBanimID2[GetAnimPosition(anim)] - 0x6A;
+    id2 = gBanimIdx[GetAnimPosition(anim)] - 0x6A;
     switch (id2) {
     case 0x0:
     case 0x1:
@@ -465,7 +465,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
 
     proc->anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
 
-    terrain = gEkrPairTerrainID[GetAnimPosition(proc->anim)];
+    terrain = gBanimTerrain[GetAnimPosition(proc->anim)];
     switch (terrain) {
     case TERRAIN_PLAINS:
     case TERRAIN_ROAD:
@@ -844,7 +844,7 @@ void NewEfxSRankWeaponEffectSCR(void)
     struct ProcEfx *proc;
     proc = Proc_Start(efxSRankWeaponEffectSCR, PROC_TREE_3);
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->step = 0;
     proc->unk44 = 0;
     NewEfxSRankWeaponEffectSCR2(proc);
 }
@@ -982,7 +982,7 @@ void NewEfxMantBatabata(struct Anim *anim)
     struct ProcEfxOBJ *proc;
     struct Anim *anim2;
 
-    banim_index = gEkrPairBanimID2[GetAnimPosition(anim)] - 0x6A;
+    banim_index = gBanimIdx[GetAnimPosition(anim)] - 0x6A;
     switch (banim_index) {
     case 0x2:
     case 0x4:

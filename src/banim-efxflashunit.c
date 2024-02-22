@@ -70,7 +70,7 @@ void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc)
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
         if (gEkrGaugeHp[EKR_POS_L] <= 80)
-            CpuCopy16(&PAL_BUF_COLOR(gUnknown_08802B04, gEkrFactions[EKR_POS_L], 0),
+            CpuCopy16(&PAL_BUF_COLOR(gUnknown_08802B04, gBanimFactionPal[EKR_POS_L], 0),
                       PAL_OBJ(OBPAL_EFXHPBAR_L), 0x20);
         else
             CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20); /* Why right? */
@@ -78,7 +78,7 @@ void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc)
     else
     {
         if (gEkrGaugeHp[EKR_POS_R] <= 80)
-            CpuCopy16(&PAL_BUF_COLOR(gUnknown_08802B04, gEkrFactions[EKR_POS_R], 0),
+            CpuCopy16(&PAL_BUF_COLOR(gUnknown_08802B04, gBanimFactionPal[EKR_POS_R], 0),
                       PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
         else
             CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
@@ -137,12 +137,12 @@ void NewEfxHPBarColorChange(struct Anim * anim)
     proc->unk29 = 0;
 
     EfxSplitColor(
-        gUnknown_08802B04 + gEkrFactions[POS_L] * 0x10,
+        gUnknown_08802B04 + gBanimFactionPal[POS_L] * 0x10,
         gEfxSplitedColorBuf,
         0x10);
 
     EfxSplitColor(
-        gUnknown_08802BC4 + gEkrFactions[POS_L] * 0x10,
+        gUnknown_08802BC4 + gBanimFactionPal[POS_L] * 0x10,
         gUnknown_0201F978,
         0x10);
 
@@ -153,12 +153,12 @@ void NewEfxHPBarColorChange(struct Anim * anim)
         0x10, 5);
 
     EfxSplitColor(
-        gUnknown_08802B04 + gEkrFactions[POS_R] * 0x10,
+        gUnknown_08802B04 + gBanimFactionPal[POS_R] * 0x10,
         gUnknown_0201FA08,
         0x10);
 
     EfxSplitColor(
-        gUnknown_08802BC4 + gEkrFactions[POS_R] * 0x10,
+        gUnknown_08802BC4 + gBanimFactionPal[POS_R] * 0x10,
         gUnknown_0201FA38,
         0x10);
 

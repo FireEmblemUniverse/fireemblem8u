@@ -194,7 +194,7 @@ void EkrDK_ReloadTerrainEtc(struct ProcEkrDragon * proc)
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     SetAnimStateHidden(GetAnimPosition(proc->anim));
-    gEkrPairSideVaild[GetAnimPosition(proc->anim)] = false;
+    gBanimValid[GetAnimPosition(proc->anim)] = false;
 
     /* Reload the terrain palette */
     NewEkrDragonBaseAppear(proc->anim);

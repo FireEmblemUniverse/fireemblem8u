@@ -85,7 +85,7 @@ void sub_8052F24(struct ProcEfxDead *proc)
         PlaySound8FForArenaMaybe();
         NewEfxDead(proc->anim1, proc->anim2);
         EfxPrepareScreenFx();
-        gEkrPairSideVaild[GetAnimPosition(proc->anim1)] = false;
+        gBanimValid[GetAnimPosition(proc->anim1)] = false;
         BG_EnableSyncByMask(BG0_SYNC_BIT);
         NewEkrWindowAppear(0, 7);
         NewEkrNamewinAppear(0, 7, 0);

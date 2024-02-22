@@ -337,7 +337,7 @@ void ekrBattleSetFlashingEffect(struct ProcEkrBattle *proc)
 {
     NewEfxStatusUnit(gAnims[0]);
     NewEfxStatusUnit(gAnims[2]);
-    NewEfxWeaponIcon(gEkrPairEffectiveAgainst[0], gEkrPairEffectiveAgainst[1]);
+    NewEfxWeaponIcon(gBanimEffectiveness[0], gBanimEffectiveness[1]);
 
     if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
         DisableEfxStatusUnits(gAnims[0]);
@@ -371,7 +371,7 @@ void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc)
     if (++proc->timer <= 0x1E)
         return;
 
-    if (gEkrPairSideVaild[0] == true) {
+    if (gBanimValid[0] == true) {
         anim = gAnims[0];
         anim->state3 = ANIM_BIT3_NEW_ROUND_START;
         anim->state2 |= ANIM_BIT2_STOP;
@@ -381,7 +381,7 @@ void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc)
         anim->state2 |= ANIM_BIT2_STOP;
     }
 
-    if (gEkrPairSideVaild[1] == true) {
+    if (gBanimValid[1] == true) {
         anim = gAnims[2];
         anim->state3 = ANIM_BIT3_NEW_ROUND_START;
         anim->state2 |= ANIM_BIT2_STOP;
@@ -417,7 +417,7 @@ void ekrBattle_WaitPromotionIdle(struct ProcEkrBattle *proc)
 {
     if (EkrClasschgFinished() == true) {
         EndEkrClasschg();
-        gEkrPairExpGain[0] = 1;
+        gBanimExpGain[0] = 1;
         proc->proc_idleCb = (ProcFunc)ekrBattle_ExecEkrLvup;
     }
 }
@@ -436,20 +436,20 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
             if (GetBattleAnimArenaFlag() == 0)
                 ret = 1;
             else {
-                gEkrPairExpGain[0] = gpEkrBattleUnitLeft->expGain;
-                gEkrPairExpGain[1] = gpEkrBattleUnitRight->expGain;
+                gBanimExpGain[0] = gpEkrBattleUnitLeft->expGain;
+                gBanimExpGain[1] = gpEkrBattleUnitRight->expGain;
 
                 if (gEkrGaugeHp[0] == 0) {
                     ArenaSetResult(1);
                     ret = 1;
                 } else if (gEkrGaugeHp[1] == 0) {
                     ArenaSetResult(2);
-                    gEkrPairExpGain[1] = 0;
+                    gBanimExpGain[1] = 0;
                     ret = 1;
                 } else if (proc->speedup == true) {
                     sub_805B094();
                     ArenaSetResult(4);
-                    gEkrPairExpGain[1] = 0;
+                    gBanimExpGain[1] = 0;
                     ret = 1;
                 } else {
                     u8 val = 0;
@@ -457,9 +457,9 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     struct Anim *anim2 = gAnims[2];
 
                     switch (anim1->currentRoundType) {
-                    case 6:
-                    case 7:
-                    case 8:
+                    case BANIM_MODE_CLOSE_DODGE:
+                    case BANIM_MODE_RANGED_DODGE:
+                    case BANIM_MODE_STANDING:
                         val = 1;
                         break;
 
@@ -468,9 +468,9 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     } /* switch */
 
                     switch (anim2->currentRoundType) {
-                    case 6:
-                    case 7:
-                    case 8:
+                    case BANIM_MODE_CLOSE_DODGE:
+                    case BANIM_MODE_RANGED_DODGE:
+                    case BANIM_MODE_STANDING:
                         val++;
                         break;
 
@@ -479,6 +479,22 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     } /* switch */
 
                     if (val == 2) {
+                        /**
+                         * After both side of banim is done, exec new frame.
+                         * Both of actor and target use C0D to update Anim::currentRoundType
+                         *
+                         * However, in the most cases, this part will not be exec.
+                         * Becase the actor anim will use C06 to trigger another side battle anim's state:
+                         *
+                         * Anim::state3::ANIM_BIT3_NEXT_ROUND_START,
+                         *
+                         * which may cause target anim automatically
+                         * update its anim in BattleAIS_ExecCommands()
+                         *
+                         * As a result, this part of code is only used if:
+                         * 1. the developer failed to insert C06 for attack anim in mistake
+                         * 2. arena
+                         */
                         if (GetUnitEfxDebuff(anim1) & 0xC)
                             SetUnitEfxDebuff(anim1, UNIT_STATUS_NONE);
 
@@ -542,7 +558,7 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
     if (CheckEkrDragonDead(gAnims[0]) != false)
         return;
 
-    if (gEkrPairExpGain[EKR_POS_L] != 0)
+    if (gBanimExpGain[EKR_POS_L] != 0)
         pos = EKR_POS_L;
     else
         pos = EKR_POS_R;
@@ -562,7 +578,7 @@ void ekrBattle_WaitForPostBattleAct(struct ProcEkrBattle *proc)
     if (++proc->timer < 0x1E)
         return;
 
-    if (GetBanimLinkArenaFlag() != 1 && gEkrPairExpGain[EKR_POS_L] != -gEkrPairExpGain[EKR_POS_R])
+    if (GetBanimLinkArenaFlag() != 1 && gBanimExpGain[EKR_POS_L] != -gBanimExpGain[EKR_POS_R])
         proc->proc_idleCb = (ProcFunc)ekrBattleExecExpGain;
     else
         proc->proc_idleCb = (ProcFunc)ekrNewEkrPopup;
@@ -610,10 +626,10 @@ void ekrBattleExecExpGain(struct ProcEkrBattle * proc)
 
     EkrGauge_Setup44(1);
 
-    if (gEkrPairExpGain[EKR_POS_L] != 0)
-        val0 = gEkrPairExpPrevious[EKR_POS_L];
+    if (gBanimExpGain[EKR_POS_L] != 0)
+        val0 = gBanimExpPrevious[EKR_POS_L];
     else
-        val0 = gEkrPairExpPrevious[EKR_POS_R];
+        val0 = gBanimExpPrevious[EKR_POS_R];
 
     val1 = DivRem(val0, 100);
     val2 = Div(val1, 10);
@@ -649,12 +665,12 @@ void ekrBattle_80508F0(struct ProcEkrBattle *proc)
 void ekrBattle_8050940(struct ProcEkrBattle *proc)
 {
     if (++proc->timer > 10) {
-        if (gEkrPairExpGain[0] != 0) {
-            proc->timer = gEkrPairExpPrevious[0];
-            proc->end = gEkrPairExpPrevious[0] + gEkrPairExpGain[0];
-        } else if (gEkrPairExpGain[1] != 0) {
-            proc->timer = gEkrPairExpPrevious[1];
-            proc->end = gEkrPairExpPrevious[1] + gEkrPairExpGain[1];
+        if (gBanimExpGain[0] != 0) {
+            proc->timer = gBanimExpPrevious[0];
+            proc->end = gBanimExpPrevious[0] + gBanimExpGain[0];
+        } else if (gBanimExpGain[1] != 0) {
+            proc->timer = gBanimExpPrevious[1];
+            proc->end = gBanimExpPrevious[1] + gBanimExpGain[1];
         }
 
         proc->proc_idleCb = (ProcFunc)ekrBattleWaitExpBarIdle;
@@ -722,10 +738,10 @@ void ekrBattleLvupHanlder(struct ProcEkrBattle *proc)
     int c;
 
     if (++proc->timer == 0x18) {
-        if (gEkrPairExpGain[EKR_POS_L] != 0)
-            c = gEkrPairExpPrevious[EKR_POS_L] + gEkrPairExpGain[EKR_POS_L];
+        if (gBanimExpGain[EKR_POS_L] != 0)
+            c = gBanimExpPrevious[EKR_POS_L] + gBanimExpGain[EKR_POS_L];
         else
-            c = gEkrPairExpPrevious[EKR_POS_R] + gEkrPairExpGain[EKR_POS_R];
+            c = gBanimExpPrevious[EKR_POS_R] + gBanimExpGain[EKR_POS_R];
         if (c >= 100)
             NewEkrLvlupFan();
     }
@@ -754,10 +770,10 @@ void ekrBattleLvupHanlder(struct ProcEkrBattle *proc)
 
     SetWin0Box(0, 0, 0xF0, 0xA0);
 
-    if (gEkrPairExpGain[EKR_POS_L] != 0)
-        c = gEkrPairExpPrevious[EKR_POS_L] + gEkrPairExpGain[EKR_POS_L];
+    if (gBanimExpGain[EKR_POS_L] != 0)
+        c = gBanimExpPrevious[EKR_POS_L] + gBanimExpGain[EKR_POS_L];
     else
-        c = gEkrPairExpPrevious[EKR_POS_R] + gEkrPairExpGain[EKR_POS_R];
+        c = gBanimExpPrevious[EKR_POS_R] + gBanimExpGain[EKR_POS_R];
     if (c >= 100)
         proc->proc_idleCb = (ProcFunc)ekrBattle_ExecEkrLvup;
     else
@@ -768,7 +784,7 @@ void ekrBattle_ExecEkrLvup(struct ProcEkrBattle *proc)
 {
     struct Anim *anim;
 
-    if (gEkrPairExpGain[EKR_POS_L] != 0)
+    if (gBanimExpGain[EKR_POS_L] != 0)
         anim = gAnims[EKR_POS_L * 2];
     else
         anim = gAnims[EKR_POS_R * 2];
