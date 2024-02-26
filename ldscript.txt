@@ -61,6 +61,7 @@ SECTIONS
         src/face.o(.text);
         src/scene.o(.text);
         asm/scene.o(.text);
+        src/sprite-animfx.o(.text);
         src/ap.o(.text);
         src/gamecontrol.o(.text);
         src/msg.o(.text);
@@ -618,6 +619,7 @@ SECTIONS
         . = ALIGN(4); src/ctc.o(.data);
         . = ALIGN(4); src/face.o(.data);
         . = ALIGN(4); src/scene.o(.data);
+        . = ALIGN(4); src/sprite-animfx.o(.data);
         . = ALIGN(4); src/ap.o(.data);
         . = ALIGN(4); src/gamecontrol.o(.data);
         . = ALIGN(4); src/msg.o(.data);

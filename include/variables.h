@@ -393,9 +393,10 @@ extern u16 gUnknown_08589A9C[];
 extern struct Glyph *TextGlyphs_System[];
 extern struct Glyph *TextGlyphs_Talk[];
 extern struct Glyph *TextGlyphs_Special[];
-// extern ??? gUnknown_0859160C
-// extern ??? gUnknown_08591624
-// extern ??? gUnknown_0859163C
+extern struct ProcCmd CONST_DATA gProcScr_TalkPutSpriteText_Unused[];
+extern struct ProcCmd CONST_DATA gUnknown_0859160C[];
+extern struct ProcCmd CONST_DATA gUnknown_0859163C[];
+
 extern const char *gStrPrefix[][2];
 //extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gStrPrefix;
 // extern ??? gUnknown_08591AB4
