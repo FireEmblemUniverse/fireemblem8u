@@ -204,6 +204,6 @@ u16 GetBattleAnimationId(struct Unit * unit, const struct BattleAnimDef * anim_d
 bool CheckBattleHasHit(void);
 // ??? sub_805893C(???);
 u16 * FilterBattleAnimCharacterPalette(s16 banim_index, u16 item);
-int GetAllegienceId(u32 faction);
+int GetBanimFactionPalette(u32 faction);
 
 #endif // GUARD_ANIME_H

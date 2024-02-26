@@ -344,7 +344,7 @@ void StartSubSpell_efxExcaliburSCR(int unk)
 {
     struct ProcEfx * proc = Proc_Start(ProcScr_efxExcaliburSCR, PROC_TREE_3);
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->step = 0;
     proc->unk44 = 0;
 
     StartSubSpell_efxExcaliburSCR2(proc, unk);

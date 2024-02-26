@@ -99,7 +99,7 @@ void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar * proc)
             else {
                 PlaySound8FForArenaMaybe();
                 NewEfxDead(anim1, anim2);
-                gEkrPairSideVaild[GetAnimPosition(proc->anim60)] = false;
+                gBanimValid[GetAnimPosition(proc->anim60)] = false;
             }
         }
 
@@ -298,7 +298,7 @@ void EfxHPBarResire_805282C(struct ProcEfxHPBar * proc)
             else {
                 PlaySound8FForArenaMaybe();
                 NewEfxDead(anim3, anim4);
-                gEkrPairSideVaild[GetAnimPosition(proc->anim60)] = false;
+                gBanimValid[GetAnimPosition(proc->anim60)] = false;
             }
         }
     

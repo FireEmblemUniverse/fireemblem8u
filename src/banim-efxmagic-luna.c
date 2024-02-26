@@ -209,7 +209,7 @@ void StartSubSpell_efxLunaSCR(void)
     struct ProcEfx * proc = Proc_Start(ProcScr_efxLunaSCR, PROC_TREE_3);
 
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->step = 0;
     proc->unk44 = 0;
 
     StartSubSpell_efxLunaSCR2(proc);
@@ -840,7 +840,7 @@ struct ProcCmd CONST_DATA ProcScr_efxLunaRST[] =
 // clang-format on
 
 //! FE8U = 0x0806428C
-void StartSubSpell_efxLunaRST(struct Anim * anim, ProcPtr b, int c)
+void StartSubSpell_efxLunaRST(struct Anim * anim, ProcPtr efxproc, int duration)
 {
     struct ProcEfxRST * proc;
 
@@ -850,25 +850,21 @@ void StartSubSpell_efxLunaRST(struct Anim * anim, ProcPtr b, int c)
 
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = c;
-    proc->unk64 = b;
-
-    return;
+    proc->duration = duration;
+    proc->efxproc = efxproc;
 }
 
 //! FE8U = 0x080642BC
 void efxLunaRST_Loop(struct ProcEfxRST * proc)
 {
-    struct ProcEfx * otherProc = proc->unk64;
-    otherProc->unk4C = Interpolate(INTERPOLATE_RSQUARE, 0x80, 0, proc->timer, proc->unk2E);
+    struct ProcEfx * otherProc = proc->efxproc;
+    otherProc->frame = Interpolate(INTERPOLATE_RSQUARE, 0x80, 0, proc->timer, proc->duration);
 
     proc->timer++;
 
-    if (proc->timer > proc->unk2E)
+    if (proc->timer > proc->duration)
     {
         gEfxBgSemaphore--;
         Proc_Break(proc);
     }
-
-    return;
 }

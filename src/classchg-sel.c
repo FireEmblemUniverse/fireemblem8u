@@ -554,7 +554,7 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
     gUnknown_030053A0.oam2Pal = 0xa;
     gUnknown_030053A0.pImgSheetBuf = gBanimLeftImgSheetBuf;
     gUnknown_030053A0.unk_24 = gBanimOaml;
-    gUnknown_030053A0.unk_20 = gBanimPal1;
+    gUnknown_030053A0.unk_20 = gBanimPaletteLeft;
     gUnknown_030053A0.unk_28 = gBanimScrLeft;
     gUnknown_030053A0.unk_30 = &gUnknown_030053E0;
     gUnknown_030053E0.u00 = 0x4;

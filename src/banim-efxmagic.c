@@ -114,7 +114,7 @@ CONST_DATA struct ProcCmd ProcScr_efxRestRST[] = {
     PROC_END
 };
 
-ProcPtr NewefxRestRST(struct Anim *anim, int unk44, int unk48, int frame, int unk50)
+ProcPtr NewefxRestRST(struct Anim *anim, int unk44, int unk48, int frame, int speed)
 {
     struct ProcEfx *proc;
 
@@ -123,11 +123,11 @@ ProcPtr NewefxRestRST(struct Anim *anim, int unk44, int unk48, int frame, int un
 
     proc->anim = anim;
     proc->timer = 0,
-    proc->unk2E = 0;
+    proc->step = 0;
     proc->unk44 = unk44;
     proc->unk48 = unk48;
-    proc->unk4C = frame;
-    proc->unk50 = unk50;
+    proc->frame = frame;
+    proc->speed = speed;
 
     return proc;
 }
@@ -149,12 +149,12 @@ void efxRestRSTMain(struct ProcEfx *proc)
     else
         buf = gpBg1ScrollOffsetList1;
 
-    val1 = proc->unk2E;
-    proc->unk2E += proc->unk50;
+    val1 = proc->step;
+    proc->step += proc->speed;
 
     for (i = 0; i < 0x78; buf++, i++) {
         val1 += proc->unk48;
-        *buf = (((gUnknown_0875879C[val1] * proc->unk4C) << 8) >> 0x10) + gLCDControlBuffer.bgoffset[1].x;
+        *buf = (((gUnknown_0875879C[val1] * proc->frame) << 8) >> 0x10) + gLCDControlBuffer.bgoffset[1].x;
     }
 
     if (++proc->timer == proc->unk44)
@@ -176,7 +176,7 @@ void NewEfxTwobaiRST(struct Anim *anim, int unk44)
 
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->step = 0;
     proc->unk44 = unk44;
 
     for (i = 0; i < 0x78; i++)
@@ -209,7 +209,7 @@ void NewDummvRST(struct Anim *anim, int unk44)
 
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->step = 0;
     proc->unk44 = unk44;
 }
 
@@ -250,7 +250,7 @@ void NewEfxRestWIN(struct Anim *anim, int unk44, void *unk54, void *unk58)
 
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->step = 0;
     proc->unk44 = unk44;
     proc->unk54 = unk54;
     proc->unk58 = unk58;
@@ -281,11 +281,11 @@ void EfxRestWINMain(struct ProcEfx *proc)
         buf = gpBg2ScrollOffsetTable1;
 
     base = proc->unk54;
-    val2 = base[proc->unk2E];
+    val2 = base[proc->step];
     buf2 = proc->unk58[val2];
 
     if (val2 != 0xFFFF) {
-        proc->unk2E++;
+        proc->step++;
         for (i = 0; i < 0x78; buf2 = buf2 + 2, buf++, i++) {
             if (buf2[0] == 0x7FFF)
                 buf[0] = 0;
@@ -452,11 +452,11 @@ void NewEfxALPHA(struct Anim *anim, int a, int b, int c, int d, int e)
     proc = Proc_Start(ProcScr_efxALPHA, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->unk2E = a;
+    proc->step = a;
     proc->unk30 = a + b;
     proc->unk44 = c;
     proc->unk48 = d;
-    proc->unk4C = e;
+    proc->frame = e;
 }
 
 const char aEfxalpha[] = "efxALPHA";

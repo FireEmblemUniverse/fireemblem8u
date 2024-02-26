@@ -49,8 +49,8 @@ extern u16 gUiTmScratchA[];
 extern u16 gUiTmScratchB[];
 extern u16 gUiTmScratchC[];
 
-extern u16 gBanimPal1[];
-extern u16 gBanimPal2[];
+extern u16 gBanimPaletteLeft[];
+extern u16 gBanimPaletteRight[];
 extern u32 gBanimOaml[];
 
 // extern ??? gChapterStatusText
@@ -771,27 +771,27 @@ extern CONST_DATA s8 BanimTerrainGround_Tileset11[];
 extern CONST_DATA s8 BanimTerrainGround_Tileset12[];
 extern CONST_DATA s8 BanimTerrainGround_Tileset13[];
 extern CONST_DATA s8 BanimTerrainGround_Tileset14[];
-extern CONST_DATA s8 gBanimBackgroundIndexLutDefault[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut01[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut02[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut03[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut04[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut05[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut06[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut07[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut08[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut09[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut0A[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut0B[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut0C[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut0D[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut0E[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut0F[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut10[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut11[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut12[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut13[];
-extern CONST_DATA s8 gBanimBackgroundIndexLut14[];
+extern CONST_DATA s8 gBanimBGLutDefault[];
+extern CONST_DATA s8 gBanimBGLut01[];
+extern CONST_DATA s8 gBanimBGLut02[];
+extern CONST_DATA s8 gBanimBGLut03[];
+extern CONST_DATA s8 gBanimBGLut04[];
+extern CONST_DATA s8 gBanimBGLut05[];
+extern CONST_DATA s8 gBanimBGLut06[];
+extern CONST_DATA s8 gBanimBGLut07[];
+extern CONST_DATA s8 gBanimBGLut08[];
+extern CONST_DATA s8 gBanimBGLut09[];
+extern CONST_DATA s8 gBanimBGLut0A[];
+extern CONST_DATA s8 gBanimBGLut0B[];
+extern CONST_DATA s8 gBanimBGLut0C[];
+extern CONST_DATA s8 gBanimBGLut0D[];
+extern CONST_DATA s8 gBanimBGLut0E[];
+extern CONST_DATA s8 gBanimBGLut0F[];
+extern CONST_DATA s8 gBanimBGLut10[];
+extern CONST_DATA s8 gBanimBGLut11[];
+extern CONST_DATA s8 gBanimBGLut12[];
+extern CONST_DATA s8 gBanimBGLut13[];
+extern CONST_DATA s8 gBanimBGLut14[];
 
 extern u16 CONST_DATA gUnknown_0880D374[]; // terrainid-to-textid lookup
 // extern ??? gUnknown_088ACBC4

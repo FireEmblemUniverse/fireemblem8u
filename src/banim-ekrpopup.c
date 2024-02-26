@@ -314,7 +314,7 @@ void NewEkrPopup(void)
         proc->rdebuf = 0;
         proc->rbuf = 0;
     
-        if (gEkrFactions[EKR_POS_L] == FACTION_ID_BLUE)
+        if (gBanimFactionPal[EKR_POS_L] == FACTION_ID_BLUE)
         {
             if (HasBattleUnitGainedWeaponLevel(gpEkrBattleUnitLeft) == true)
                 proc->lbuff = gpEkrBattleUnitLeft->weaponBefore;
@@ -323,7 +323,7 @@ void NewEkrPopup(void)
                 proc->ldebuf = gpEkrBattleUnitLeft->weaponBefore;
         }
     
-        if (gEkrFactions[EKR_POS_R] == FACTION_ID_BLUE)
+        if (gBanimFactionPal[EKR_POS_R] == FACTION_ID_BLUE)
         {
             if (HasBattleUnitGainedWeaponLevel(gpEkrBattleUnitRight) == true)
                 proc->rbuf = gpEkrBattleUnitRight->weaponBefore;

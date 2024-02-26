@@ -5646,7 +5646,7 @@ CONST_DATA s8 BanimTerrainGround_Tileset14[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLutDefault[] = {
+CONST_DATA s8 gBanimBGLutDefault[] = {
     [TERRAIN_TILE_00] = 3,
     [TERRAIN_PLAINS] = 3,
     [TERRAIN_ROAD] = 3,
@@ -5714,7 +5714,7 @@ CONST_DATA s8 gBanimBackgroundIndexLutDefault[] = {
     [TERRAIN_MAST] = 2,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut01[] = {
+CONST_DATA s8 gBanimBGLut01[] = {
     [TERRAIN_TILE_00] = 18,
     [TERRAIN_PLAINS] = 18,
     [TERRAIN_ROAD] = 18,
@@ -5782,7 +5782,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut01[] = {
     [TERRAIN_MAST] = 2,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut02[] = {
+CONST_DATA s8 gBanimBGLut02[] = {
     [TERRAIN_TILE_00] = 56,
     [TERRAIN_PLAINS] = 56,
     [TERRAIN_ROAD] = 56,
@@ -5850,7 +5850,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut02[] = {
     [TERRAIN_MAST] = 56,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut03[] = {
+CONST_DATA s8 gBanimBGLut03[] = {
     [TERRAIN_TILE_00] = 10,
     [TERRAIN_PLAINS] = 10,
     [TERRAIN_ROAD] = 10,
@@ -5918,7 +5918,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut03[] = {
     [TERRAIN_MAST] = 10,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut04[] = {
+CONST_DATA s8 gBanimBGLut04[] = {
     [TERRAIN_TILE_00] = 37,
     [TERRAIN_PLAINS] = 37,
     [TERRAIN_ROAD] = 37,
@@ -5986,7 +5986,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut04[] = {
     [TERRAIN_MAST] = 13,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut05[] = {
+CONST_DATA s8 gBanimBGLut05[] = {
     [TERRAIN_TILE_00] = 47,
     [TERRAIN_PLAINS] = 47,
     [TERRAIN_ROAD] = 47,
@@ -6054,7 +6054,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut05[] = {
     [TERRAIN_MAST] = 25,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut06[] = {
+CONST_DATA s8 gBanimBGLut06[] = {
     [TERRAIN_TILE_00] = 59,
     [TERRAIN_PLAINS] = 59,
     [TERRAIN_ROAD] = 59,
@@ -6122,7 +6122,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut06[] = {
     [TERRAIN_MAST] = 25,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut07[] = {
+CONST_DATA s8 gBanimBGLut07[] = {
     [TERRAIN_TILE_00] = 59,
     [TERRAIN_PLAINS] = 59,
     [TERRAIN_ROAD] = 59,
@@ -6190,7 +6190,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut07[] = {
     [TERRAIN_MAST] = 13,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut08[] = {
+CONST_DATA s8 gBanimBGLut08[] = {
     [TERRAIN_TILE_00] = 13,
     [TERRAIN_PLAINS] = 13,
     [TERRAIN_ROAD] = 13,
@@ -6258,7 +6258,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut08[] = {
     [TERRAIN_MAST] = 13,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut09[] = {
+CONST_DATA s8 gBanimBGLut09[] = {
     [TERRAIN_TILE_00] = 8,
     [TERRAIN_PLAINS] = 8,
     [TERRAIN_ROAD] = 8,
@@ -6326,7 +6326,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut09[] = {
     [TERRAIN_MAST] = 8,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut0A[] = {
+CONST_DATA s8 gBanimBGLut0A[] = {
     [TERRAIN_TILE_00] = 47,
     [TERRAIN_PLAINS] = 47,
     [TERRAIN_ROAD] = 47,
@@ -6394,7 +6394,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut0A[] = {
     [TERRAIN_MAST] = 47,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut0B[] = {
+CONST_DATA s8 gBanimBGLut0B[] = {
     [TERRAIN_TILE_00] = 15,
     [TERRAIN_PLAINS] = 15,
     [TERRAIN_ROAD] = 8,
@@ -6462,7 +6462,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut0B[] = {
     [TERRAIN_MAST] = 8,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut0C[] = {
+CONST_DATA s8 gBanimBGLut0C[] = {
     [TERRAIN_TILE_00] = 47,
     [TERRAIN_PLAINS] = 47,
     [TERRAIN_ROAD] = 8,
@@ -6530,7 +6530,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut0C[] = {
     [TERRAIN_MAST] = 8,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut0D[] = {
+CONST_DATA s8 gBanimBGLut0D[] = {
     [TERRAIN_TILE_00] = 36,
     [TERRAIN_PLAINS] = 36,
     [TERRAIN_ROAD] = 36,
@@ -6598,7 +6598,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut0D[] = {
     [TERRAIN_MAST] = 8,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut0E[] = {
+CONST_DATA s8 gBanimBGLut0E[] = {
     [TERRAIN_TILE_00] = 47,
     [TERRAIN_PLAINS] = 47,
     [TERRAIN_ROAD] = 3,
@@ -6666,7 +6666,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut0E[] = {
     [TERRAIN_MAST] = 8,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut0F[] = {
+CONST_DATA s8 gBanimBGLut0F[] = {
     [TERRAIN_TILE_00] = 3,
     [TERRAIN_PLAINS] = 3,
     [TERRAIN_ROAD] = 3,
@@ -6734,7 +6734,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut0F[] = {
     [TERRAIN_MAST] = 61,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut10[] = {
+CONST_DATA s8 gBanimBGLut10[] = {
     [TERRAIN_TILE_00] = 3,
     [TERRAIN_PLAINS] = 3,
     [TERRAIN_ROAD] = 3,
@@ -6802,7 +6802,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut10[] = {
     [TERRAIN_MAST] = 2,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut11[] = {
+CONST_DATA s8 gBanimBGLut11[] = {
     [TERRAIN_TILE_00] = 3,
     [TERRAIN_PLAINS] = 38,
     [TERRAIN_ROAD] = 3,
@@ -6870,7 +6870,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut11[] = {
     [TERRAIN_MAST] = 2,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut12[] = {
+CONST_DATA s8 gBanimBGLut12[] = {
     [TERRAIN_TILE_00] = 6,
     [TERRAIN_PLAINS] = 6,
     [TERRAIN_ROAD] = 6,
@@ -6938,7 +6938,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut12[] = {
     [TERRAIN_MAST] = 2,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut13[] = {
+CONST_DATA s8 gBanimBGLut13[] = {
     [TERRAIN_TILE_00] = 3,
     [TERRAIN_PLAINS] = 3,
     [TERRAIN_ROAD] = 3,
@@ -7006,7 +7006,7 @@ CONST_DATA s8 gBanimBackgroundIndexLut13[] = {
     [TERRAIN_MAST] = 2,
 };
 
-CONST_DATA s8 gBanimBackgroundIndexLut14[] = {
+CONST_DATA s8 gBanimBGLut14[] = {
     [TERRAIN_TILE_00] = 3,
     [TERRAIN_PLAINS] = 3,
     [TERRAIN_ROAD] = 3,

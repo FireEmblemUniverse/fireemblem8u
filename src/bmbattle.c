@@ -2041,40 +2041,39 @@ void BeginBattleAnimations(void) {
     }
 }
 
-int GetUnitSoloBattleAnimType(struct Unit* unit) {
+int GetSoloAnimPreconfType(struct Unit* unit) {
     // TODO: battle anim type constants
 
     if (unit->state & US_SOLOANIM_1)
-        return 0;
+        return PLAY_ANIMCONF_ON;
 
     if (unit->state & US_SOLOANIM_2)
-        return 3;
+        return PLAY_ANIMCONF_ON_UNIQUE_BG;
 
-    return 1;
+    return PLAY_ANIMCONF_OFF;
 }
 
-int GetBattleAnimType(void) {
-    // TODO: battle anim type constants
+int GetBattleAnimPreconfType(void) {
 
     // If not solo anim, return global type
-    if (gPlaySt.config.animationType != 2)
+    if (gPlaySt.config.animationType != PLAY_ANIMCONF_SOLO_ANIM)
         return gPlaySt.config.animationType;
 
     // If both units are players, use actor solo anim type
     if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)
         if (UNIT_FACTION(&gBattleTarget.unit) == FACTION_BLUE)
-            return GetUnitSoloBattleAnimType(&gBattleActor.unit);
+            return GetSoloAnimPreconfType(&gBattleActor.unit);
 
     // If neither are players, return 1
     if (UNIT_FACTION(&gBattleActor.unit) != FACTION_BLUE)
         if (UNIT_FACTION(&gBattleTarget.unit) != FACTION_BLUE)
-            return 1;
+            return PLAY_ANIMCONF_OFF;
 
     // Return solo anim type for the one that is a player unit
     if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)
-        return GetUnitSoloBattleAnimType(&gBattleActor.unit);
+        return GetSoloAnimPreconfType(&gBattleActor.unit);
     else
-        return GetUnitSoloBattleAnimType(&gBattleTarget.unit);
+        return GetSoloAnimPreconfType(&gBattleTarget.unit);
 }
 
 void BattlePrintDebugUnitInfo(struct BattleUnit* actor, struct BattleUnit* target) {

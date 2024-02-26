@@ -36,7 +36,7 @@ ProcPtr NewEfxPartsofScroll(void)
         Proc_Start(ProcScr_EfxPartsofScroll, PROC_TREE_3);
 
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->step = 0;
     return proc;
 }
 
@@ -100,7 +100,7 @@ ProcPtr NewEfxPartsofScroll2(void)
         Proc_Start(ProcScr_EfxPartsofScroll2, PROC_TREE_3);
 
     proc->timer = 0;
-    proc->unk2E = 0;
+    proc->step = 0;
     return proc;
 }
 

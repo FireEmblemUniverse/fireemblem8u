@@ -168,34 +168,34 @@ void NewEkrBaseKaiten(int identifier)
 
     gLCDControlBuffer.bldcnt.target2_bd_on = 1;
 
-    if (gEkrPairBmLoc[0] == gEkrPairBmLoc[2])
+    if (gEkrBmLocation[POS_L] == gEkrBmLocation[2])
     {
-        if (gEkrPairBmLoc[1] >= gEkrPairBmLoc[3])
+        if (gEkrBmLocation[POS_R] >= gEkrBmLocation[3])
             mode = 6;
         else
             mode = 2;
     }
     else
     {
-        if (gEkrPairBmLoc[1] == gEkrPairBmLoc[3])
+        if (gEkrBmLocation[POS_R] == gEkrBmLocation[3])
         {
-            if (gEkrPairBmLoc[0] < gEkrPairBmLoc[2])
+            if (gEkrBmLocation[0] < gEkrBmLocation[2])
                 mode = 0;
             else
                 mode = 4;
         }
         else
         {
-            if (gEkrPairBmLoc[0] < gEkrPairBmLoc[2])
+            if (gEkrBmLocation[0] < gEkrBmLocation[2])
             {
-                if (gEkrPairBmLoc[1] >= gEkrPairBmLoc[3])
+                if (gEkrBmLocation[1] >= gEkrBmLocation[3])
                     mode = 7;
                 else
                     mode = 1;
             }
             else
             {
-                if (gEkrPairBmLoc[1] >= gEkrPairBmLoc[3])
+                if (gEkrBmLocation[1] >= gEkrBmLocation[3])
                     mode = 5;
                 else
                     mode = 3;
@@ -231,8 +231,8 @@ void NewEkrBaseKaiten(int identifier)
         proc->unk29 = 0;
         proc->timer = 0;
         proc->terminator = 0xB;
-        proc->x1 = (gEkrPairBmLoc[0] + gEkrPairBmLoc[2]) * 8 + 8;
-        proc->y1 = (gEkrPairBmLoc[1] + gEkrPairBmLoc[3]) * 8 + 8;
+        proc->x1 = (gEkrBmLocation[0] + gEkrBmLocation[2]) * 8 + 8;
+        proc->y1 = (gEkrBmLocation[1] + gEkrBmLocation[3]) * 8 + 8;
         proc->x2 = 0x78;
         proc->y2 = 0x68;
 
@@ -267,8 +267,8 @@ void NewEkrBaseKaiten(int identifier)
         proc->unk29 = 0;
         proc->timer = 0;
         proc->terminator = 0xB;
-        proc->x1 = gEkrPairBmLoc[0] * 0x10 + 8;
-        proc->y1 = gEkrPairBmLoc[1] * 0x10 + 8;
+        proc->x1 = gEkrBmLocation[0] * 0x10 + 8;
+        proc->y1 = gEkrBmLocation[1] * 0x10 + 8;
         proc->x2 = 0x48;
         proc->y2 = 0x68;
 
@@ -304,8 +304,8 @@ void NewEkrBaseKaiten(int identifier)
         proc->unk29 = 1;
         proc->timer = 0;
         proc->terminator = 0xB;
-        proc->x1 = gEkrPairBmLoc[2] * 0x10 + 8;
-        proc->y1 = gEkrPairBmLoc[3] * 0x10 + 8;
+        proc->x1 = gEkrBmLocation[2] * 0x10 + 8;
+        proc->y1 = gEkrBmLocation[3] * 0x10 + 8;
         proc->x2 = 0xA8;
         proc->y2 = 0x68;
 
@@ -342,8 +342,8 @@ void NewEkrBaseKaiten(int identifier)
         proc->unk29 = 0;
         proc->timer = 0;
         proc->terminator = 0xB;
-        proc->x1 = gEkrPairBmLoc[2] * 0x10 + 8;
-        proc->y1 = gEkrPairBmLoc[3] * 0x10 + 8;
+        proc->x1 = gEkrBmLocation[2] * 0x10 + 8;
+        proc->y1 = gEkrBmLocation[3] * 0x10 + 8;
         proc->x2 = 0x78;
         proc->y2 = 0x68;
 
@@ -430,10 +430,10 @@ void NewEkrUnitKakudai(int identifier)
     case EKR_DISTANCE_FAR:
     case EKR_DISTANCE_FARFAR:
     case EKR_DISTANCE_MONOCOMBAT:
-        if (gEkrPairSideVaild[POS_L] == true && GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL)
+        if (gBanimValid[POS_L] == true && GetBanimDragonStatusType() == EKRDRGON_TYPE_NORMAL)
             proc->valid_l = 1;
 
-        if (gEkrPairSideVaild[POS_R] == true)
+        if (gBanimValid[POS_R] == true)
             proc->valid_r = 1;
         return;
 
@@ -505,7 +505,7 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
         if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
             EfxPalModifyPetrifyEffect(gPaletteBuffer, 0x17, 1);
 
-    if (gEkrPairSideVaild[POS_L] == true)
+    if (gBanimValid[POS_L] == true)
     {
         struct BanimModeData * unk;
         const void * src;
@@ -516,7 +516,7 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
         LZ77UnCompWram(src, gBanimLeftImgSheetBuf);
     }
 
-    if (gEkrPairSideVaild[POS_R] == true)
+    if (gBanimValid[POS_R] == true)
     {
         struct BanimModeData * unk;
         const void * src;
@@ -527,11 +527,11 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
         LZ77UnCompWram(src, gBanimRightImgSheetBuf);
     }
 
-    if (gUnknown_0203E1A4[POS_L] != NULL)
-        LZ77UnCompWram(gUnknown_0203E1A4[POS_L], gEkrKakudaiSomeBufLeft);
+    if (gBanimForceUnitChgDebug[POS_L] != NULL)
+        LZ77UnCompWram(gBanimForceUnitChgDebug[POS_L], gEkrKakudaiSomeBufLeft);
 
-    if (gUnknown_0203E1A4[POS_R] != NULL)
-        LZ77UnCompWram(gUnknown_0203E1A4[POS_R], gEkrKakudaiSomeBufRight);
+    if (gBanimForceUnitChgDebug[POS_R] != NULL)
+        LZ77UnCompWram(gBanimForceUnitChgDebug[POS_R], gEkrKakudaiSomeBufRight);
 
     ptr = OBJ_VRAM1;
     RegisterDataMove(gBanimLeftImgSheetBuf, ptr, 0x4000);
@@ -539,10 +539,10 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
     proc->timer = 0;
     proc->terminator = 0xB;
 
-    proc->x1 = gEkrPairBmLoc[0] * 0x10 + 8;
-    proc->y1 = gEkrPairBmLoc[1] * 0x10 + 8;
-    proc->x2 = gEkrPairBmLoc[2] * 0x10 + 8;
-    proc->y2 = gEkrPairBmLoc[3] * 0x10 + 8;
+    proc->x1 = gEkrBmLocation[0] * 0x10 + 8;
+    proc->y1 = gEkrBmLocation[1] * 0x10 + 8;
+    proc->x2 = gEkrBmLocation[2] * 0x10 + 8;
+    proc->y2 = gEkrBmLocation[3] * 0x10 + 8;
     proc->left_pos = BanimTypesPosLeft[gEkrDistanceType];
     proc->right_pos = BanimTypesPosRight[gEkrDistanceType];
 
@@ -833,9 +833,9 @@ bool PrepareBattleGraphicsMaybe(void)
     struct Unit * unit_bu2;
     struct BattleUnit * bu1;
     struct BattleUnit * bu2;
-    const struct CharacterData * sp_10;
-    const struct CharacterData * sp_14;
-    int v62;
+    const struct CharacterData * pinfo1;
+    const struct CharacterData * pinfo2;
+    int usrdefined_enable;
     const void * animdef1;
     const void * animdef2;
     s16 valid_l;
@@ -866,16 +866,16 @@ bool PrepareBattleGraphicsMaybe(void)
         bu1 = gpEkrBattleUnitLeft = &gBattleActor;
         bu2 = gpEkrBattleUnitRight = &gBattleTarget;
 
-        gEkrInitialPosition[0] = gEkrInitialPosition[1] = 0;
-        gEkrPairSideVaild[EKR_POS_R] = gEkrPairSideVaild[EKR_POS_L] = true;
+        gEkrInitialPosition[POS_L] = gEkrInitialPosition[POS_R] = 0;
+        gBanimValid[EKR_POS_R] = gBanimValid[EKR_POS_L] = true;
     }
     else
     {
         int pos;
         u8 i1 = -0x40 & gBattleActor.unit.index;
-        u16 faction1 = GetAllegienceId(i1);
+        u16 faction1 = GetBanimFactionPalette(i1);
         u8 i2 = -0x40 & gBattleTarget.unit.index;
-        u16 faction2 = GetAllegienceId(i2);
+        u16 faction2 = GetBanimFactionPalette(i2);
 
         if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
             char_cnt = 2;
@@ -884,42 +884,42 @@ bool PrepareBattleGraphicsMaybe(void)
         else
             char_cnt = GetSpellAssocCharCount(GetItemIndex(gBattleActor.weaponBefore));
 
-        gEkrPairSideVaild[EKR_POS_L] = gEkrPairSideVaild[EKR_POS_R] = true;
+        gBanimValid[EKR_POS_L] = gBanimValid[EKR_POS_R] = true;
 
         if (EKR_POS_R == GetPosFunc(faction1, faction2))
         {
             bu1 = gpEkrBattleUnitLeft = &gBattleTarget;
             bu2 = gpEkrBattleUnitRight = &gBattleActor;
 
-            gEkrInitialPosition[0] = true;
-            gEkrInitialPosition[1] = false;
+            gEkrInitialPosition[POS_L] = true;
+            gEkrInitialPosition[POS_R] = false;
 
             if (char_cnt == 1)
-                gEkrPairSideVaild[EKR_POS_L] = false;
+                gBanimValid[EKR_POS_L] = false;
         }
         else
         {
             bu1 = gpEkrBattleUnitLeft = &gBattleActor;
             bu2 = gpEkrBattleUnitRight = &gBattleTarget;
 
-            gEkrInitialPosition[0] = false;
-            gEkrInitialPosition[1] = true;
+            gEkrInitialPosition[POS_L] = false;
+            gEkrInitialPosition[POS_R] = true;
 
             if (char_cnt == 1)
-                gEkrPairSideVaild[EKR_POS_R] = false;
+                gBanimValid[EKR_POS_R] = false;
         }
     }
 
     unit_bu1 = &bu1->unit;
     unit_bu2 = &bu2->unit;
 
-    sp_10 = unit_bu1->pCharacterData;
-    sp_14 = unit_bu2->pCharacterData;
+    pinfo1 = unit_bu1->pCharacterData;
+    pinfo2 = unit_bu2->pCharacterData;
 
     animdef1 = animdef2 = 0;
 
-    valid_l = gEkrPairSideVaild[0];
-    valid_r = gEkrPairSideVaild[1];
+    valid_l = gBanimValid[POS_L];
+    valid_r = gBanimValid[POS_R];
 
     if (valid_l)
         animdef1 = unit_bu1->pClassData->pBattleAnimDef;
@@ -929,14 +929,14 @@ bool PrepareBattleGraphicsMaybe(void)
 
     if (valid_l)
     {
-        gEkrPairBmLoc[0] = (16 * unit_bu1->xPos - gBmSt.camera.x) >> 4;
-        gEkrPairBmLoc[1] = (16 * unit_bu1->yPos - gBmSt.camera.y) >> 4;
+        gEkrBmLocation[POS_L] = (16 * unit_bu1->xPos - gBmSt.camera.x) >> 4;
+        gEkrBmLocation[POS_R] = (16 * unit_bu1->yPos - gBmSt.camera.y) >> 4;
     }
 
     if (valid_r)
     {
-        gEkrPairBmLoc[2] = (16 * unit_bu2->xPos - gBmSt.camera.x) >> 4;
-        gEkrPairBmLoc[3] = (16 * unit_bu2->yPos - gBmSt.camera.y) >> 4;
+        gEkrBmLocation[2] = (16 * unit_bu2->xPos - gBmSt.camera.x) >> 4;
+        gEkrBmLocation[3] = (16 * unit_bu2->yPos - gBmSt.camera.y) >> 4;
     }
 
     if (gEkrDistanceType != EKR_DISTANCE_PROMOTION)
@@ -950,8 +950,8 @@ bool PrepareBattleGraphicsMaybe(void)
             if (valid_l + valid_r == 2)
             {
                 s16 x_distance, y_distance;
-                x_distance = ABS(gEkrPairBmLoc[0] - gEkrPairBmLoc[2]);
-                y_distance = ABS(gEkrPairBmLoc[1] - gEkrPairBmLoc[3]);
+                x_distance = ABS(gEkrBmLocation[POS_L] - gEkrBmLocation[2]);
+                y_distance = ABS(gEkrBmLocation[1] - gEkrBmLocation[3]);
 
                 if (x_distance + y_distance <= 1)
                 {
@@ -971,19 +971,19 @@ bool PrepareBattleGraphicsMaybe(void)
 
     if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
     {
-        gEkrPairBanimID2[0] = gEkrPairBanimID[0] = GetBattleAnimationId(unit_bu1, animdef1, bu1->weapon, &animid1);
-        gEkrPairBanimID2[1] = gEkrPairBanimID[1] = GetBattleAnimationId(unit_bu2, animdef2, bu2->weapon, &animid2);
+        gBanimIdx[POS_L] = gBanimIdx_bak[POS_L] = GetBattleAnimationId(unit_bu1, animdef1, bu1->weapon, &animid1);
+        gBanimIdx[POS_R] = gBanimIdx_bak[POS_R] = GetBattleAnimationId(unit_bu2, animdef2, bu2->weapon, &animid2);
     }
     else
     {
         if (valid_l)
         {
-            gEkrPairBanimID2[0] = gEkrPairBanimID[0] = GetBattleAnimationId(unit_bu1, animdef1, bu1->weaponBefore, &animid1);
+            gBanimIdx[POS_L] = gBanimIdx_bak[POS_L] = GetBattleAnimationId(unit_bu1, animdef1, bu1->weaponBefore, &animid1);
         }
 
         if (valid_r)
         {
-            gEkrPairBanimID2[1] = gEkrPairBanimID[1] = GetBattleAnimationId(unit_bu2, animdef2, bu2->weaponBefore, &animid2);
+            gBanimIdx[POS_R] = gBanimIdx_bak[POS_R] = GetBattleAnimationId(unit_bu2, animdef2, bu2->weaponBefore, &animid2);
         }
     }
 
@@ -991,13 +991,13 @@ bool PrepareBattleGraphicsMaybe(void)
     jid = unit_bu1->pClassData->number;
 
     if (valid_l)
-        gAnimCharaPalIndex[0] = -1;
+        gBanimUniquePal[POS_L] = -1;
 
     for (i = 0; i < 7; i++)
     {
         if (gAnimCharaPalConfig[pid][i] == jid && valid_l)
         {
-            gAnimCharaPalIndex[0] = gAnimCharaPalIt[pid][i] - 1;
+            gBanimUniquePal[POS_L] = gAnimCharaPalIt[pid][i] - 1;
             break;
         }
     }
@@ -1006,53 +1006,53 @@ bool PrepareBattleGraphicsMaybe(void)
     jid = unit_bu2->pClassData->number;
 
     if (valid_r)
-        gAnimCharaPalIndex[1] = -1;
+        gBanimUniquePal[POS_R] = -1;
 
     for (i = 0; i < 7; i++)
     {
         if (gAnimCharaPalConfig[pid][i] == jid && valid_r)
         {
-            gAnimCharaPalIndex[1] = gAnimCharaPalIt[pid][i] - 1;
+            gBanimUniquePal[POS_R] = gAnimCharaPalIt[pid][i] - 1;
             break;
         }
     }
 
     if (valid_l)
-        gBanimTriAtkPalettes[0] = (void *)FilterBattleAnimCharacterPalette(gEkrPairBanimID2[0], bu1->weaponBefore);
+        gBanimTriAtkPalettes[POS_L] = (void *)FilterBattleAnimCharacterPalette(gBanimIdx[POS_L], bu1->weaponBefore);
 
     if (valid_r)
-        gBanimTriAtkPalettes[1] = (void *)FilterBattleAnimCharacterPalette(gEkrPairBanimID2[1], bu2->weaponBefore);
+        gBanimTriAtkPalettes[POS_R] = (void *)FilterBattleAnimCharacterPalette(gBanimIdx[POS_R], bu2->weaponBefore);
 
-    gEkrPairTerrainID[0] = bu1->terrainId;
-    gEkrPairTerrainID[1] = bu2->terrainId;
+    gBanimTerrain[POS_L] = bu1->terrainId;
+    gBanimTerrain[POS_R] = bu2->terrainId;
 
-    gBanimTerrainIndexMaybe[0] = gBanimTerrainIndexMaybe[1] = -1;
+    gBanimFloorfx[POS_L] = gBanimFloorfx[POS_R] = -1;
 
     if (valid_l)
-        gBanimTerrainIndexMaybe[0] =
+        gBanimFloorfx[POS_L] =
             GetBanimTerrainGround(bu1->terrainId, GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
 
     if (valid_r)
-        gBanimTerrainIndexMaybe[1] =
+        gBanimFloorfx[POS_R] =
             GetBanimTerrainGround(bu2->terrainId, GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
 
     if (gBmSt.gameStateBits & BM_FLAG_LINKARENA)
     {
-        gEkrPairTerrainID[1] = gEkrPairTerrainID[0] = TERRAIN_ARENA_30;
+        gBanimTerrain[POS_R] = gBanimTerrain[POS_L] = TERRAIN_ARENA_30;
 
         if (valid_l)
-            gBanimTerrainIndexMaybe[0] =
-                GetBanimTerrainGround(gEkrPairTerrainID[0], GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
+            gBanimFloorfx[POS_L] =
+                GetBanimTerrainGround(gBanimTerrain[POS_L], GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
 
         if (valid_r)
-            gBanimTerrainIndexMaybe[1] =
-                GetBanimTerrainGround(gEkrPairTerrainID[1], GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
+            gBanimFloorfx[POS_R] =
+                GetBanimTerrainGround(gBanimTerrain[POS_R], GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
     }
 
     if (CheckBanimHensei() == true)
     {
-        gBanimTerrainIndexMaybe[0] = gBanimTerrainIndexMaybe[1] = 20;
-        gEkrPairTerrainID[0] = gEkrPairTerrainID[1] = TERRAIN_ARENA_30;
+        gBanimFloorfx[POS_L] = gBanimFloorfx[POS_R] = 20;
+        gBanimTerrain[POS_L] = gBanimTerrain[POS_R] = TERRAIN_ARENA_30;
     }
 
     switch (gEkrDistanceType)
@@ -1064,7 +1064,7 @@ bool PrepareBattleGraphicsMaybe(void)
             break;
 
         case EKR_DISTANCE_PROMOTION:
-            gBanimTerrainIndexMaybe[0] = gBanimTerrainIndexMaybe[1];
+            gBanimFloorfx[POS_L] = gBanimFloorfx[POS_R];
             break;
     }
 
@@ -1081,49 +1081,49 @@ bool PrepareBattleGraphicsMaybe(void)
     }
 
     if (valid_l)
-        gEkrPairBaseCon[0] = unit_bu1->pClassData->baseCon;
+        gBanimCon[POS_L] = unit_bu1->pClassData->baseCon;
 
     if (valid_r)
-        gEkrPairBaseCon[1] = unit_bu2->pClassData->baseCon;
+        gBanimCon[POS_R] = unit_bu2->pClassData->baseCon;
 
     if (valid_l)
     {
-        gEkrGaugeHp[0] = bu1->hpInitial;
-        gEkrPairMaxHP[0] = unit_bu1->maxHP;
+        gEkrGaugeHp[POS_L] = bu1->hpInitial;
+        gBanimMaxHP[POS_L] = unit_bu1->maxHP;
     }
 
     if (valid_r)
     {
-        gEkrGaugeHp[1] = bu2->hpInitial;
-        gEkrPairMaxHP[1] = unit_bu2->maxHP;
+        gEkrGaugeHp[POS_R] = bu2->hpInitial;
+        gBanimMaxHP[POS_R] = unit_bu2->maxHP;
     }
 
     ParseBattleHitToBanimCmd();
 
     if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
     {
-        gEkrSpellAnimIndex[1] = 1;
-        gEkrSpellAnimIndex[0] = 1;
+        gEkrSpellAnimIndex[POS_R] = 1;
+        gEkrSpellAnimIndex[POS_L] = 1;
     }
     else
     {
         if (valid_l)
-            gEkrSpellAnimIndex[0] = GetSpellAnimId(unit_bu1->pClassData->number, bu1->weaponBefore);
+            gEkrSpellAnimIndex[POS_L] = GetSpellAnimId(unit_bu1->pClassData->number, bu1->weaponBefore);
 
         if (valid_r)
-            gEkrSpellAnimIndex[1] = GetSpellAnimId(unit_bu2->pClassData->number, bu2->weaponBefore);
+            gEkrSpellAnimIndex[POS_R] = GetSpellAnimId(unit_bu2->pClassData->number, bu2->weaponBefore);
 
         if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
             if (!IsItemDisplayedInBattle(bu2->weaponBefore))
                 if (unit_bu2->pClassData->number == CLASS_DANCER)
-                    gEkrSpellAnimIndex[1] = 0xF;
+                    gEkrSpellAnimIndex[POS_R] = 0xF;
     }
 
     if (valid_l)
-        UnsetMapStaffAnim(&gEkrSpellAnimIndex[0], 0, bu1->weaponBefore);
+        UnsetMapStaffAnim(&gEkrSpellAnimIndex[POS_L], 0, bu1->weaponBefore);
 
     if (valid_r)
-        UnsetMapStaffAnim(&gEkrSpellAnimIndex[1], 1, bu2->weaponBefore);
+        UnsetMapStaffAnim(&gEkrSpellAnimIndex[POS_R], 1, bu2->weaponBefore);
 
     switch (gEkrDistanceType)
     {
@@ -1133,11 +1133,11 @@ bool PrepareBattleGraphicsMaybe(void)
             switch (unit_bu1->pClassData->number)
             {
                 case CLASS_DRACO_ZOMBIE:
-                    SetEkrDragonStatusType(gAnims[0], EKRDRGON_TYPE_DRACO_ZOMBIE);
+                    SetEkrDragonStatusType(gAnims[POS_L], EKRDRGON_TYPE_DRACO_ZOMBIE);
                     break;
 
                 case CLASS_DEMON_KING:
-                    SetEkrDragonStatusType(gAnims[0], EKRDRGON_TYPE_DEMON_KING);
+                    SetEkrDragonStatusType(gAnims[POS_L], EKRDRGON_TYPE_DEMON_KING);
                     break;
             }
 
@@ -1154,124 +1154,124 @@ bool PrepareBattleGraphicsMaybe(void)
     if (valid_l)
     {
         u8 i1 = -0x40 & unit_bu1->index;
-        gEkrFactions[POS_L] = GetAllegienceId(i1);
+        gBanimFactionPal[POS_L] = GetBanimFactionPalette(i1);
     }
 
     if (valid_r)
     {
         u8 i2 = -0x40 & unit_bu2->index;
-        gEkrFactions[POS_R] = GetAllegienceId(i2);
+        gBanimFactionPal[POS_R] = GetBanimFactionPalette(i2);
     }
 
-    gEkrPids[1] = 0;
-    gEkrPids[0] = 0;
+    gEkrPids[POS_R] = 0;
+    gEkrPids[POS_L] = 0;
 
     if (valid_l)
-        gEkrPids[0] = sp_10->number;
+        gEkrPids[POS_L] = pinfo1->number;
 
     if (valid_r)
-        gEkrPids[1] = sp_14->number;
+        gEkrPids[POS_R] = pinfo2->number;
 
     if (valid_l)
-        gEkrPairHit[0] = bu1->battleEffectiveHitRate;
+        gEkrGaugeHit[POS_L] = bu1->battleEffectiveHitRate;
 
     if (valid_r)
-        gEkrPairHit[1] = bu2->battleEffectiveHitRate;
+        gEkrGaugeHit[POS_R] = bu2->battleEffectiveHitRate;
 
-    if (gEkrPairHit[0] == 0xFF)
-        gEkrPairHit[0] = -1;
+    if (gEkrGaugeHit[POS_L] == 0xFF)
+        gEkrGaugeHit[POS_L] = -1;
 
-    if (gEkrPairHit[1] == 0xFF)
-        gEkrPairHit[1] = -1;
+    if (gEkrGaugeHit[POS_R] == 0xFF)
+        gEkrGaugeHit[POS_R] = -1;
 
     if (valid_l)
     {
-        gEkrPairDmgPair[0] = bu1->battleAttack - bu2->battleDefense;
-        if (gEkrPairDmgPair[0] < 0)
-            gEkrPairDmgPair[0] = 0;
+        gEkrGaugeDmg[POS_L] = bu1->battleAttack - bu2->battleDefense;
+        if (gEkrGaugeDmg[POS_L] < 0)
+            gEkrGaugeDmg[POS_L] = 0;
 
         if (bu1->battleAttack == 0xFF)
-            gEkrPairDmgPair[0] = -1;
+            gEkrGaugeDmg[POS_L] = -1;
 
         if (GetItemIndex(bu1->weapon) == ITEM_MONSTER_STONE)
-            gEkrPairDmgPair[0] = -1;
+            gEkrGaugeDmg[POS_L] = -1;
     }
 
     if (valid_r)
     {
-        gEkrPairDmgPair[1] = bu2->battleAttack - bu1->battleDefense;
-        if (gEkrPairDmgPair[1] < 0)
-            gEkrPairDmgPair[1] = 0;
+        gEkrGaugeDmg[POS_R] = bu2->battleAttack - bu1->battleDefense;
+        if (gEkrGaugeDmg[POS_R] < 0)
+            gEkrGaugeDmg[POS_R] = 0;
 
         if (bu2->battleAttack == 0xFF)
-            gEkrPairDmgPair[1] = -1;
+            gEkrGaugeDmg[POS_R] = -1;
 
         if (GetItemIndex(bu2->weapon) == ITEM_MONSTER_STONE)
-            gEkrPairDmgPair[1] = -1;
+            gEkrGaugeDmg[POS_R] = -1;
     }
 
     if (valid_l)
-        gEkrPairCritPair[0] = bu1->battleEffectiveCritRate;
+        gEkrGaugeCrt[POS_L] = bu1->battleEffectiveCritRate;
 
     if (valid_r)
-        gEkrPairCritPair[1] = bu2->battleEffectiveCritRate;
+        gEkrGaugeCrt[POS_R] = bu2->battleEffectiveCritRate;
 
-    if (gEkrPairCritPair[0] == 0xFF)
-        gEkrPairCritPair[0] = -1;
+    if (gEkrGaugeCrt[POS_L] == 0xFF)
+        gEkrGaugeCrt[POS_L] = -1;
 
-    if (gEkrPairCritPair[1] == 0xFF)
-        gEkrPairCritPair[1] = -1;
+    if (gEkrGaugeCrt[POS_R] == 0xFF)
+        gEkrGaugeCrt[POS_R] = -1;
 
     if (GetItemIndex(bu1->weapon) == ITEM_MONSTER_STONE)
-        gEkrPairCritPair[0] = -1;
+        gEkrGaugeCrt[POS_L] = -1;
 
     if (GetItemIndex(bu2->weapon) == ITEM_MONSTER_STONE)
-        gEkrPairCritPair[1] = -1;
+        gEkrGaugeCrt[POS_R] = -1;
 
     if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
     {
-        gEkrPairHit[1] = -1;
-        gEkrPairDmgPair[1] = -1;
-        gEkrPairCritPair[1] = -1;
+        gEkrGaugeHit[POS_R] = -1;
+        gEkrGaugeDmg[POS_R] = -1;
+        gEkrGaugeCrt[POS_R] = -1;
     }
 
     if (valid_l)
-        gEkrPairExpPrevious[0] = (s8)bu1->expPrevious; // needed explicit casts
+        gBanimExpPrevious[POS_L] = (s8)bu1->expPrevious; // needed explicit casts
 
     if (valid_r)
-        gEkrPairExpPrevious[1] = (s8)bu2->expPrevious; // needed explicit casts
+        gBanimExpPrevious[POS_R] = (s8)bu2->expPrevious; // needed explicit casts
 
     if (valid_l)
-        gEkrPairExpGain[0] = bu1->expGain;
+        gBanimExpGain[POS_L] = bu1->expGain;
 
     if (valid_r)
-        gEkrPairExpGain[1] = bu2->expGain;
+        gBanimExpGain[POS_R] = bu2->expGain;
 
-    gEkrPairWTABonus[1] = 0;
-    gEkrPairWTABonus[0] = 0;
+    gBanimWtaBonus[POS_R] = 0;
+    gBanimWtaBonus[POS_L] = 0;
 
     if (gEkrDistanceType != EKR_DISTANCE_PROMOTION)
     {
         if (valid_l)
-            gEkrPairWTABonus[0] = bu1->wTriangleHitBonus;
+            gBanimWtaBonus[POS_L] = bu1->wTriangleHitBonus;
 
         if (valid_r)
-            gEkrPairWTABonus[1] = bu2->wTriangleHitBonus;
+            gBanimWtaBonus[POS_R] = bu2->wTriangleHitBonus;
 
         if (valid_l)
-            gEkrPairEffectiveAgainst[0] = IsUnitEffectiveAgainst(unit_bu1, unit_bu2);
+            gBanimEffectiveness[POS_L] = IsUnitEffectiveAgainst(unit_bu1, unit_bu2);
 
         if (valid_r)
-            gEkrPairEffectiveAgainst[1] = IsUnitEffectiveAgainst(unit_bu2, unit_bu1);
+            gBanimEffectiveness[POS_R] = IsUnitEffectiveAgainst(unit_bu2, unit_bu1);
 
-        if (!gEkrPairEffectiveAgainst[0] && valid_l)
-            gEkrPairEffectiveAgainst[0] = IsItemEffectiveAgainst(bu1->weapon, unit_bu2);
+        if (!gBanimEffectiveness[POS_L] && valid_l)
+            gBanimEffectiveness[POS_L] = IsItemEffectiveAgainst(bu1->weapon, unit_bu2);
 
-        if (!gEkrPairEffectiveAgainst[1] && valid_r)
-            gEkrPairEffectiveAgainst[1] = IsItemEffectiveAgainst(bu2->weapon, unit_bu1);
+        if (!gBanimEffectiveness[POS_R] && valid_r)
+            gBanimEffectiveness[POS_R] = IsItemEffectiveAgainst(bu2->weapon, unit_bu1);
     }
 
-    gUnknown_0203E1A4[0] = gUnknown_0203E1A4[1] = (void *)zero = 0;
+    gBanimForceUnitChgDebug[POS_L] = gBanimForceUnitChgDebug[POS_R] = (void *)zero = 0;
 
     if (valid_l)
         (void)GetItemIndex(bu1->weaponBefore);
@@ -1281,43 +1281,51 @@ bool PrepareBattleGraphicsMaybe(void)
 
     if (GetBanimLinkArenaFlag() == true || gPlaySt.config.unitColor)
     {
-        gUnknown_0203E1DC[0] = gUnknown_0203E1DC[1] = 1;
+        gBanimUniquePaletteDisabled[POS_L] = gBanimUniquePaletteDisabled[POS_R] = 1;
     }
     else
     {
-        gUnknown_0203E1DC[0] = gUnknown_0203E1DC[1] = zero;
+        gBanimUniquePaletteDisabled[POS_L] = gBanimUniquePaletteDisabled[POS_R] = zero;
     }
 
     ++zero; --zero; // :/
 
-    gBanimBackgroundIndex = 0;
+    gBanimBG = 0;
 
-    if (GetBattleAnimType() == 3)
+    if (GetBattleAnimPreconfType() == PLAY_ANIMCONF_ON_UNIQUE_BG)
     {
-        if (gEkrPairSideVaild[0] != false)
-            gBanimBackgroundIndex =
-                GetBanimBackgroundIndex(gEkrPairTerrainID[0], GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
+        if (gBanimValid[POS_L] != false)
+            gBanimBG =
+                GetBanimBackgroundIndex(gBanimTerrain[POS_L], GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
         else
-            gBanimBackgroundIndex =
-                GetBanimBackgroundIndex(gEkrPairTerrainID[1], GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
+            gBanimBG =
+                GetBanimBackgroundIndex(gBanimTerrain[POS_R], GetROMChapterStruct(gPlaySt.chapterIndex)->battleTileSet);
     }
 
     if (CheckBanimHensei() == 1)
-        gBanimBackgroundIndex = 0x3C;
+        gBanimBG = 0x3C;
 
-    v62 = 0;
-    if (GetBattleAnimType() == 0)
-        v62 = 1;
-    if (GetBattleAnimType() == 3)
-        v62 = 1;
-    if (GetBattleAnimType() == 1)
+    usrdefined_enable = false;
+    if (GetBattleAnimPreconfType() == PLAY_ANIMCONF_ON)
+        usrdefined_enable = true;
+    if (GetBattleAnimPreconfType() == PLAY_ANIMCONF_ON_UNIQUE_BG)
+        usrdefined_enable = true;
+    if (GetBattleAnimPreconfType() == PLAY_ANIMCONF_OFF)
     {
+        /**
+         * Banim can also display regardless used-configuration
+         * in the following case:
+         *
+         * 1. promotion
+         * 2. arena
+         * 3. scriptted battle
+         */
         if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
-            v62 = 1;
-        if (GetBattleAnimArenaFlag() == 1)
-            v62 = 1;
-        if ((CheckBattleScriptted() == 1))
-            v62 = 1;
+            usrdefined_enable = true;
+        if (GetBattleAnimArenaFlag() == true)
+            usrdefined_enable = true;
+        if ((CheckBattleScriptted() == true))
+            usrdefined_enable = true;
     }
 
     SetBattleUnscriptted();
@@ -1359,48 +1367,48 @@ bool PrepareBattleGraphicsMaybe(void)
         unit_bu2->pClassData->number != CLASS_PHANTOM && unit_bu2->pClassData->number != CLASS_DRACO_ZOMBIE)
         return true;
 
-    if (v62 == false)
+    if (usrdefined_enable == false)
         return false;
 
-    if (gEkrPairSideVaild[0] == true)
+    if (gBanimValid[POS_L] == true)
     {
         if (unit_bu1->statusIndex == UNIT_STATUS_BERSERK)
             return false;
 
-        if (gEkrPairBanimID2[0] == -1)
+        if (gBanimIdx[POS_L] == -1)
             return false;
 
-        if (gEkrSpellAnimIndex[0] == -2)
+        if (gEkrSpellAnimIndex[POS_L] == -2)
             return false;
 
-        if (gBanimTerrainIndexMaybe[0] == -1)
+        if (gBanimFloorfx[POS_L] == -1)
             return false;
 
-        if (gEkrPairTerrainID[0] == TERRAIN_WALL_1B)
+        if (gBanimTerrain[POS_L] == TERRAIN_WALL_1B)
             return false;
 
-        if (gEkrPairTerrainID[0] == TERRAIN_SNAG)
+        if (gBanimTerrain[POS_L] == TERRAIN_SNAG)
             return false;
     }
 
-    if (gEkrPairSideVaild[1] == true)
+    if (gBanimValid[POS_R] == true)
     {
         if (unit_bu2->statusIndex == UNIT_STATUS_BERSERK)
             return false;
 
-        if (gEkrPairBanimID2[1] == -1)
+        if (gBanimIdx[POS_R] == -1)
             return false;
 
-        if (gEkrSpellAnimIndex[1] == -2)
+        if (gEkrSpellAnimIndex[POS_R] == -2)
             return false;
 
-        if (gBanimTerrainIndexMaybe[1] == -1)
+        if (gBanimFloorfx[POS_R] == -1)
             return false;
 
-        if (gEkrPairTerrainID[1] == TERRAIN_WALL_1B)
+        if (gBanimTerrain[POS_R] == TERRAIN_WALL_1B)
             return false;
 
-        if (gEkrPairTerrainID[1] == TERRAIN_SNAG)
+        if (gBanimTerrain[POS_R] == TERRAIN_SNAG)
             return false;
     }
 
