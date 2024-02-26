@@ -37,6 +37,7 @@
 #include "eventcall.h"
 #include "bmdifficulty.h"
 #include "bmfx.h"
+#include "colorfade.h"
 
 void BgChangeChr(int, int);
 

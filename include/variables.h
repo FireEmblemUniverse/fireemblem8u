@@ -1187,8 +1187,7 @@ extern u8 gUnknown_08A2E4C4[]; // TSA
 extern u8 gUnknown_08A2E5EC[]; // Gfx
 extern u16 gUnknown_08A2E8F0[]; // Pal
 extern u8 Img_SysBlackBox[]; // Gfx
-// extern ??? ProcScr_ColFadeOut
-// extern ??? ProcScr_ColFadeIn
+
 extern u8 gUnknown_08A301B0[]; // gfx?
 extern u16 gUnknown_08A30780[]; // pal
 extern u8 gUnknown_08A30800[]; // gfx
