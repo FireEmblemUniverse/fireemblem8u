@@ -343,8 +343,8 @@ void SpellFx_WriteBgMapExt(struct Anim * anim, const u16 * src, int width, int h
 void SpellFx_RegisterObjGfx(const u16 * img, u32 size)
 {
     u16 * dst = OBJ_VRAM0 + VRAMOFF_BANIM_SPELL_OBJ;
-    LZ77UnCompWram(img, gEkrBuf2);
-    RegisterDataMove(gEkrBuf2, dst, size);
+    LZ77UnCompWram(img, gSpellAnimObjfx);
+    RegisterDataMove(gSpellAnimObjfx, dst, size);
 }
 
 void SpellFx_RegisterObjPal(const u16 * pal, u32 size)
@@ -356,8 +356,8 @@ void SpellFx_RegisterObjPal(const u16 * pal, u32 size)
 void SpellFx_RegisterBgGfx(const u16 * img, u32 size)
 {
     u16 *dst = (void *)BG_VRAM + VRAMOFF_BANIM_SPELL_BG;
-    LZ77UnCompWram(img, gEkrBuf1);
-    RegisterDataMove(gEkrBuf1, dst, size);
+    LZ77UnCompWram(img, gSpellAnimBgfx);
+    RegisterDataMove(gSpellAnimBgfx, dst, size);
 }
 
 void SpellFx_RegisterBgPal(const u16 * pal, u32 size)

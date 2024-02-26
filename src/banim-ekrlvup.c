@@ -417,14 +417,14 @@ void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
     struct BattleUnit *bu2 = gpEkrBattleUnitRight;
     struct Anim *anim = proc->ais_main;
 
-    LZ77UnCompWram(Img_LevelUpBoxFrame, gEkrBuf1);
+    LZ77UnCompWram(Img_LevelUpBoxFrame, gSpellAnimBgfx);
     LZ77UnCompWram(Tsa_LevelUpBoxFrame, gEkrTsaBuffer);
     EfxTmCpyBG(gEkrTsaBuffer, TILEMAP_LOCATED(gBG1TilemapBuffer, 0, 0x6), 0x20, 0x14, 1, 0x100);
-    RegisterDataMove(gEkrBuf1, (void *)BG_VRAM + 0x2000, 0x8C0);
+    RegisterDataMove(gSpellAnimBgfx, (void *)BG_VRAM + 0x2000, 0x8C0);
     CpuFastCopy(Pal_LevelUpBoxFrame, PAL_BG(1), 0x20);
 
-    LZ77UnCompWram(Img_LvupApfx, gEkrBuf2);
-    RegisterDataMove(gEkrBuf2, OBJ_VRAM0 + 0x1400, 0xC00);
+    LZ77UnCompWram(Img_LvupApfx, gSpellAnimObjfx);
+    RegisterDataMove(gSpellAnimObjfx, OBJ_VRAM0 + 0x1400, 0xC00);
     CpuFastCopy(Pal_LvupApfx, PAL_OBJ(1), 0x20);
 
     EnablePaletteSync();

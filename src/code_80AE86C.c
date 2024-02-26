@@ -120,7 +120,7 @@ void sub_80AE99C(void)
 }
 
 //! FE8U = 0x080AE9B0
-ProcPtr sub_80AE9B0(u8 * gfx, u16 * pal, const void * apDef, int x, int y, int animId, int palId, int palCount, u16 chr, int aObjNode)
+ProcPtr StartSpriteAnimfx(const u8 * gfx, const u16 * pal, const void * apDef, int x, int y, int animId, int palId, int palCount, u16 chr, int aObjNode)
 {
     if (gfx != NULL)
     {

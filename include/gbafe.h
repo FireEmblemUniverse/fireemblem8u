@@ -133,3 +133,4 @@
 #include "trapfx.h"
 #include "statscreen.h"
 #include "cp_data.h"
+#include "sprite-animfx.h"

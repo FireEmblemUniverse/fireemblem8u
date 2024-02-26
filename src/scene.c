@@ -30,9 +30,6 @@ void sub_8008FB4(ProcPtr);
 void sub_800903C(ProcPtr);
 void sub_800904C(ProcPtr);
 void sub_8009100(ProcPtr);
-void sub_8009250(ProcPtr);
-void sub_8009198(ProcPtr);
-void sub_8009200(ProcPtr);
 
 // rearrange!!!
 
@@ -335,18 +332,6 @@ struct ProcCmd CONST_DATA gUnknown_0859163C[] =
     PROC_CALL(sub_800903C),
     PROC_REPEAT(sub_800904C),
     PROC_REPEAT(sub_8009100),
-
-    PROC_END,
-};
-
-struct ProcCmd CONST_DATA gUnused_0859166C[] =
-{
-    PROC_SLEEP(0),
-
-    PROC_SET_END_CB(sub_8009250),
-
-    PROC_CALL(sub_8009198),
-    PROC_REPEAT(sub_8009200),
 
     PROC_END,
 };

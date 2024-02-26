@@ -506,10 +506,10 @@ extern s16 gUnknown_02017764[2];
 extern s16 gUnknown_02017768[2];
 
 extern s16 gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
-extern u8 gEkrBuf1[];
+extern u8 gSpellAnimBgfx[];
 extern u16 gEkrBarfxBuf[];
 extern u16 gEkrTsaBuffer[0x1000 / 2];
-extern u8 gEkrBuf2[];
+extern u8 gSpellAnimObjfx[];
 
 extern u16 gPalBackupEkrUnitMaybe[0x40 / sizeof(u16)];
 extern u16 gEfxBuf_0201C8D0[0xB58 / sizeof(u16)];
