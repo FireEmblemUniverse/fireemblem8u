@@ -16,10 +16,6 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
-int EWRAM_DATA gEkrWindowAppearExist = false;
-int EWRAM_DATA gEkrNamewinAppearExist = false;
-int EWRAM_DATA gProcEkrBaseAppearExist = false;
-
 CONST_DATA struct ProcCmd ProcScr_EkrBaseKaiten[] = {
     PROC_NAME("ekrBaseKaiten"),
     PROC_REPEAT(EkrBaseKaitenMain),

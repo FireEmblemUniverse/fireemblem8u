@@ -16,14 +16,104 @@
 #include "ekrtriangle.h"
 #include "eventinfo.h"
 
-EWRAM_DATA struct Anim *gAnims[4] = {NULL};
-EWRAM_DATA void *gUnknown_02000010[2] = {NULL};
-EWRAM_DATA int gEkrDebugTimer = 0;
-EWRAM_DATA int gEkrDebugUnk1 = 0;
-EWRAM_DATA int gEkrDebugUnk2 = 0;
-EWRAM_DATA int gCtrlC01Blocking = 0;
-EWRAM_DATA s16 gEkrXPosReal[2] = {0};
-EWRAM_DATA s16 gEkrYPosReal[2] = {0};
+/* ekr */
+EWRAM_OVERLAY(banim) struct Anim * gAnims[4] = {NULL};
+EWRAM_OVERLAY(banim) void * gUnknown_02000010[2] = {NULL};
+EWRAM_OVERLAY(banim) int gEkrDebugTimer = 0;
+EWRAM_OVERLAY(banim) int gEkrDebugUnk1 = 0;
+EWRAM_OVERLAY(banim) int gEkrDebugUnk2 = 0;
+EWRAM_OVERLAY(banim) int gCtrlC01Blocking = 0;
+EWRAM_OVERLAY(banim) s16 gEkrXPosReal[2] = {0};
+EWRAM_OVERLAY(banim) s16 gEkrYPosReal[2] = {0};
+EWRAM_OVERLAY(banim) u16 gEkrXPosBase[2] = {0};
+EWRAM_OVERLAY(banim) u16 gEkrYPosBase[2] = {0};
+EWRAM_OVERLAY(banim) struct Vec2 gEkrBg0QuakeVec = {0};
+EWRAM_OVERLAY(banim) void * gUnknown_0200003C[2] = {0};
+EWRAM_OVERLAY(banim) void * gUnknown_02000044[2] = {0};
+EWRAM_OVERLAY(banim) void * gBanimTerrainPaletteMaybe[2] = {0};
+EWRAM_OVERLAY(banim) u16 * gpEfxUnitPaletteBackup[2] = {0};
+EWRAM_OVERLAY(banim) int * gpBanimModesLeft = NULL;
+EWRAM_OVERLAY(banim) int * gpBanimModesRight = NULL;
+EWRAM_OVERLAY(banim) struct ProcEkrBattle * gpProcEkrBattle = NULL;
+EWRAM_OVERLAY(banim) struct ProcEkrGauge * gpProcEkrGauge = NULL;
+EWRAM_OVERLAY(banim) struct ProcEkrDispUP * gpProcEkrDispUP = NULL;
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_20000700[0x18] = {0};
+EWRAM_OVERLAY(banim) u8 gBanimLeftImgSheetBuf[0x2000] = {0};
+EWRAM_OVERLAY(banim) u8 gBanimRightImgSheetBuf[0x2000] = {0};
+EWRAM_OVERLAY(banim) u16 gBanimPaletteLeft[0x50] = {0};
+EWRAM_OVERLAY(banim) u16 gBanimPaletteRight[0x50] = {0};
+EWRAM_OVERLAY(banim) u32 gBanimOaml[0x1600] = {0};
+EWRAM_OVERLAY(banim) u32 gBanimOamr2[0x1600] = {0};
+EWRAM_OVERLAY(banim) u8 gBanimScrLeft[0x2A00] = {0};
+EWRAM_OVERLAY(banim) u8 gBanimScrRight[0x2A00] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_020145C8[0x2000] = {0};
+EWRAM_OVERLAY(banim) u16 gEfxPal[0x130] = {0};
+EWRAM_OVERLAY(banim) u16 gEfxTerrainPalette[0xD0] = {0};
+EWRAM_OVERLAY(banim) u16 gObjBuf_EkrSideHitDmgCrit[0x200] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_02016DC8[0x80] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_02016E48[0x200] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_02017048[0x200] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_02017248[0x200] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_02017448[0x200] = {0};
+EWRAM_OVERLAY(banim) struct Font gBanimFont = {0};
+EWRAM_OVERLAY(banim) struct Text gBanimText[20] = {0};
+EWRAM_OVERLAY(banim) u16 gEkrGaugeDecoder[18] = {0};
+EWRAM_OVERLAY(banim) u32 gEkrBattleEndFlag = 0;
+
+/* efx */
+EWRAM_OVERLAY(banim) u32 gEkrHPBarCount = 0;
+EWRAM_OVERLAY(banim) u32 gEfxSpellAnimExists = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_02017730 = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_02017734 = 0;
+EWRAM_OVERLAY(banim) u32 gEkrDeadEventExist = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_0201773C = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_02017740 = 0;
+EWRAM_OVERLAY(banim) u32 gEkrInitPosReal = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_02017748 = 0;
+EWRAM_OVERLAY(banim) u32 gEfxBgSemaphore = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_02017750 = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_02017754 = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_02017758 = 0;
+EWRAM_OVERLAY(banim) u32 gUnknown_0201775C = 0;
+EWRAM_OVERLAY(banim) struct Vec2 gEkrBg2QuakeVec = {0};
+EWRAM_OVERLAY(banim) s16 gUnknown_02017764[2] = {0};
+EWRAM_OVERLAY(banim) s16 gUnknown_02017768[2] = {0};
+EWRAM_OVERLAY(banim) struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2] = {NULL};
+EWRAM_OVERLAY(banim) struct ProcEfxWeaponIcon *gpProcEfxWeaponIcon = NULL;
+EWRAM_OVERLAY(banim) struct ProcEfxSpellCast * gpProcEfxSpellCast = NULL;
+EWRAM_OVERLAY(banim) struct ProcEfxHPBarColorChange * gpProcEfxHPBarColorChange =NULL;
+EWRAM_OVERLAY(banim) s16 gEkrHitEfxBool[2] = {0};
+EWRAM_OVERLAY(banim) s16 gUnk_Banim_02017784[6] = {0};
+EWRAM_OVERLAY(banim) u8 gSpellAnimBgfx[0x1D00] = {0};
+EWRAM_OVERLAY(banim) u16 gEkrBarfxBuf[0x180] = {0};
+EWRAM_OVERLAY(banim) u16 gEkrTsaBuffer[0x1000 / sizeof(u16)] = {0};
+EWRAM_OVERLAY(banim) u8 gBuf_Banim[0x2000] = {0};
+EWRAM_OVERLAY(banim) u16 gPal_Banim[0xA0] = {0};
+EWRAM_OVERLAY(banim) u16 gTmA_Banim[0xB58 / sizeof(u16)] = {0};
+EWRAM_OVERLAY(banim) u16 gTmB_Banim[0x2520 / sizeof(u16)] = {0};
+EWRAM_OVERLAY(banim) u8 gEfxSplitedColorBufA[0x30] = {0};
+EWRAM_OVERLAY(banim) u8 gEfxSplitedColorBufB[0x30] = {0};
+EWRAM_OVERLAY(banim) s16 gEfxSplitedColorBufC[0x30 / 2] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_0201F9D8[0x30] = {0};
+EWRAM_OVERLAY(banim) u8 gEfxSplitedColorBufD[0x30] = {0};
+EWRAM_OVERLAY(banim) u8 gEfxSplitedColorBufE[0x30] = {0};
+EWRAM_OVERLAY(banim) s16 gEfxSplitedColorBufF[0x30 / 2] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_0201FA98[0x30] = {0};
+EWRAM_OVERLAY(banim) int gUnknown_0201FAC8 = 0;
+
+/* ekrmain */
+EWRAM_OVERLAY(banim) int gEkrWindowAppearExist = false;
+EWRAM_OVERLAY(banim) int gEkrNamewinAppearExist = false;
+EWRAM_OVERLAY(banim) int gProcEkrBaseAppearExist = false;
+EWRAM_OVERLAY(banim) u32 gUnknown_0201FAD8 = 0;
+EWRAM_OVERLAY(banim) struct BanimUnkStructComm gUnknown_0201FADC = {0};
+EWRAM_OVERLAY(banim) u32 gBanimDoneFlag[2] = {0};
+EWRAM_OVERLAY(banim) u32 gEkrBgPosition = 0;
+EWRAM_OVERLAY(banim) u32 gUnk_Banim_0201FB10[2] = {0};
+EWRAM_OVERLAY(banim) ProcPtr gpProcEfxAnimeDrv = NULL;
+EWRAM_OVERLAY(banim) const void * gpImgSheet[2] = {0};
+EWRAM_OVERLAY(banim) struct ProcEfxBGCOL * gpProcEkrTogiColor = NULL;
+EWRAM_OVERLAY(banim) int gUnk_Banim_0201FB28 = 0;
 
 void SetBanimLinkArenaFlag(int flag)
 {

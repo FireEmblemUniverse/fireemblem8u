@@ -399,7 +399,7 @@ extern s16 gBanimUniquePal[2];
 
 extern struct BattleUnit *gpEkrBattleUnitLeft;
 extern struct BattleUnit *gpEkrBattleUnitRight;
-extern struct Font gSomeFontStruct;
+extern struct Font gBanimFont;
 
 extern struct Anim *gAnims[4];
 extern void *gUnknown_02000010[2];
@@ -411,8 +411,8 @@ extern int gCtrlC01Blocking;
 
 extern s16 gEkrXPosReal[2];
 extern s16 gEkrYPosReal[2];
-extern u16 gEkrXPosBase[];
-extern u16 gEkrYPosBase[];
+extern u16 gEkrXPosBase[2];
+extern u16 gEkrYPosBase[2];
 extern struct Vec2 gEkrBg0QuakeVec;
 extern void *gUnknown_0200003C[2];
 extern void *gUnknown_02000044[2];
@@ -422,8 +422,23 @@ extern int *gpBanimModesLeft;
 extern int *gpBanimModesRight;
 extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
-extern u8 gBanimLeftImgSheetBuf[];
-extern u8 gBanimRightImgSheetBuf[];
+extern u8 gBanimLeftImgSheetBuf[0x2000];
+extern u8 gBanimRightImgSheetBuf[0x2000];
+extern u16 gBanimPaletteLeft[0x50];
+extern u16 gBanimPaletteRight[0x50];
+extern u32 gBanimOaml[0x1600];
+extern u32 gBanimOamr2[0x1600];
+extern u16 gEfxPal[];
+extern u16 gEfxTerrainPalette[];
+extern u16 gObjBuf_EkrSideHitDmgCrit[];
+extern u8 gUnk_Banim_02016DC8[];
+extern u8 gUnk_Banim_02016E48[0x200];
+extern u8 gUnk_Banim_02017048[0x200];
+extern u8 gUnk_Banim_02017248[0x200];
+extern u8 gUnk_Banim_02017448[0x200];
+extern struct Text gBanimText[20];
+extern u16 gEkrGaugeDecoder[];
+extern u32 gEkrBattleEndFlag;
 
 extern int gBanimLinkArenaFlag;
 extern int gBattleDeamonActive;
@@ -462,16 +477,13 @@ extern s16 gBanimUniquePaletteDisabled[2];
 
 extern u8 gBanimScrLeft[];
 extern u8 gBanimScrRight[];
-extern u8 gUnknown_020145C8[];
-// extern ??? gUnknown_020146F4
-// extern ??? gUnknown_02014DC8
-// extern ??? gUnknown_02014EF4
+extern u8 gUnk_Banim_020145C8[];
 extern u32 gBanimDoneFlag[];
 extern u32 gEkrBgPosition;
-// extern ??? gpProcEfxAnimeDrv
+extern ProcPtr gpProcEfxAnimeDrv;
 extern const void *gpImgSheet[2];
-// extern ??? gpProcEkrTogiColor
-// extern ??? gUnknown_0201FB28
+extern struct ProcEfxBGCOL * gpProcEkrTogiColor;
+extern int gUnk_Banim_0201FB28;
 extern int gEkrBg2ScrollFlip;
 extern u16 * gpBg2ScrollOffsetStart;
 extern u16 * gpBg2ScrollOffset;

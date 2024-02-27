@@ -476,17 +476,6 @@ struct ProcEkrHensei {
     /* 2E */ s16 terminator;
 };
 
-extern u16 gEfxPal[];
-// extern ??? gUnknown_02016828
-extern u16 gObjBuf_EkrSideHitDmgCrit[];
-extern u16 gUnknown_02016DC8[];
-// extern ??? gUnknown_02016E48
-// extern ??? gUnknown_02017048
-// extern ??? gUnknown_02017248
-// extern ??? gUnknown_02017448
-// extern ??? gUnknown_020176F0
-extern u16 gEkrGaugeDecoder[];
-extern u32 gEkrBattleEndFlag;
 extern u32 gEkrHPBarCount;
 extern u32 gEfxSpellAnimExists;
 extern u32 gUnknown_02017730;
@@ -509,26 +498,16 @@ extern s16 gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit ro
 extern u8 gSpellAnimBgfx[];
 extern u16 gEkrBarfxBuf[];
 extern u16 gEkrTsaBuffer[0x1000 / 2];
-extern u8 gSpellAnimObjfx[];
-
-extern u16 gPalBackupEkrUnitMaybe[0x40 / sizeof(u16)];
-extern u16 gEfxBuf_0201C8D0[0xB58 / sizeof(u16)];
-extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
-extern u16 gEfxFrameTmap[0x2520 / 2];
-// extern ??? gUnknown_0201D438
-extern u16 gUnknown_0201D46A[];
-// extern ??? gUnknown_0201DB00
-// extern ??? gUnknown_0201DB28
-// extern ??? gUnknown_0201F148
-// extern ??? gUnknown_0201F160
-// extern ??? gUnknown_0201F198
-// extern ??? gSoundRoomVolumeGraphBuffer
-extern u8 gEfxSplitedColorBuf[];
-extern u8 gUnknown_0201F978[];
-extern u16 gUnknown_0201F9A8[];
-extern u8 gUnknown_0201FA08[];
-extern u8 gUnknown_0201FA38[];
-extern u16 gUnknown_0201FA68[];
+extern u8 gBuf_Banim[];
+extern u16 gPal_Banim[0x140 / sizeof(u16)];
+extern u16 gTmA_Banim[0xB58 / sizeof(u16)];
+extern u16 gTmB_Banim[0x2520 / 2];
+extern u8 gEfxSplitedColorBufA[];
+extern u8 gEfxSplitedColorBufB[];
+extern s16 gEfxSplitedColorBufC[];
+extern u8 gEfxSplitedColorBufD[];
+extern u8 gEfxSplitedColorBufE[];
+extern s16 gEfxSplitedColorBufF[];
 extern int gUnknown_0201FAC8;
 
 extern u32 gUnknown_0201FAD8;

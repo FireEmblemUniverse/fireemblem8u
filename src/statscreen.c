@@ -29,10 +29,14 @@
 #include "statscreen.h"
 
 struct StatScreenInfo EWRAM_DATA sStatScreenInfo = {};
-
 struct HelpBoxInfo EWRAM_DATA sMutableHbi = {};
-const struct HelpBoxInfo* EWRAM_DATA sLastHbi = NULL;
+const struct HelpBoxInfo * EWRAM_DATA sLastHbi = NULL;
 struct Vec2 EWRAM_DATA sHbOrigin = {};
+
+EWRAM_OVERLAY(0) struct StatScreenSt gStatScreen = {0};
+EWRAM_OVERLAY(0) u16 gUiTmScratchA[0x280] = {0};
+EWRAM_OVERLAY(0) u16 gUiTmScratchB[0x280] = {0};
+EWRAM_OVERLAY(0) u16 gUiTmScratchC[0x240] = {0};
 
 struct SSTextDispInfo const sPage0TextInfo[] =
 {

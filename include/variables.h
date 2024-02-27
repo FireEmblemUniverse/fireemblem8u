@@ -7,6 +7,7 @@
 #include "proc.h"
 
 extern u8 __ewram_start[];
+extern u8 gUnk_02000000[];
 // extern ??? gAnims
 // extern ??? gMinimapWinBuf
 // extern ??? gMinimapFrontWinBuf
@@ -49,10 +50,6 @@ extern u16 gUiTmScratchA[];
 extern u16 gUiTmScratchB[];
 extern u16 gUiTmScratchC[];
 
-extern u16 gBanimPaletteLeft[];
-extern u16 gBanimPaletteRight[];
-extern u32 gBanimOaml[];
-
 // extern ??? gChapterStatusText
 // extern ??? gUnknown_02004BBC
 // extern ??? gMUGfxBuffer
@@ -60,7 +57,6 @@ extern u32 gBanimOaml[];
 // extern ??? gUnknown_020078D8
 // extern ??? gUnknown_02008000
 // extern ??? gUnknown_020087A0
-extern u32 gBanimOamr2[];
 // extern ??? gUnknown_0200A2D8
 // extern ??? gUnknown_0200A300
 extern u8 gUnknown_0200AF00[];
@@ -80,6 +76,9 @@ extern u8 gUnknown_0200AF00[];
 // extern ??? gUnknown_0200E158
 // extern ??? gUnknown_0200F158
 // extern ??? gUnknown_0200F15C
+extern u16 gUnk_OpSubtitle_0201CDD4[]; // used as a palette buffer in opsubtitle
+// extern ??? gUnk_Opinfo_0201DB00
+// extern ??? gUnk_OpInfo_0201DB28
 extern char gStringBufferAlt[];
 
 // TODO: define this in hardware.c?
@@ -96,7 +95,7 @@ extern struct Unit* sUnitStackTop;
 extern u8 sUnitStackSize;
 
 extern int gBattleScriptted;
-// extern ??? gBaArenaFlag
+extern int gBaArenaFlag;
 // extern ??? gpActiveClassReelSpellProc
 // extern ??? gpActiveCRSpellBgColorProc
 // extern ??? gManimScanlineBufA

@@ -275,7 +275,7 @@ struct ProcCmd CONST_DATA gProcScr_08A206F8[] = {
 //! FE8U = 0x080AB760
 void sub_80AB760(void* unused) {
     Proc_Start(gProcScr_08A206F8, PROC_TREE_3);
-    sub_8014DA8(EWRAM_ENTRY);
+    sub_8014DA8(gUnk_02000000);
     return;
 }
 

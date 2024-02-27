@@ -9,19 +9,19 @@
 #include "ctc.h"
 #include "bmlib.h"
 
-EWRAM_DATA int gEkrBg2ScrollFlip = 0;
-EWRAM_DATA u16 * gpBg2ScrollOffsetStart = NULL;
-EWRAM_DATA u16 * gpBg2ScrollOffset = NULL;
-EWRAM_DATA u16 gpBg2ScrollOffsetTable1[160] = {0};
-EWRAM_DATA u16 gpBg2ScrollOffsetTable2[160] = {0};
+EWRAM_OVERLAY(banim) int gEkrBg2ScrollFlip = 0;
+EWRAM_OVERLAY(banim) u16 * gpBg2ScrollOffsetStart = NULL;
+EWRAM_OVERLAY(banim) u16 * gpBg2ScrollOffset = NULL;
+EWRAM_OVERLAY(banim) u16 gpBg2ScrollOffsetTable1[160] = {0};
+EWRAM_OVERLAY(banim) u16 gpBg2ScrollOffsetTable2[160] = {0};
 
-EWRAM_DATA int gEkrBg1ScrollFlip = 0;
-EWRAM_DATA u16 * gpBg1ScrollOffsetStart = NULL;
-EWRAM_DATA u16 * gpBg1ScrollOffset = NULL;
-EWRAM_DATA u16 gpBg1ScrollOffsetList1[160] = {0};
-EWRAM_DATA u16 gpBg1ScrollOffsetList2[160] = {0};
+EWRAM_OVERLAY(banim) int gEkrBg1ScrollFlip = 0;
+EWRAM_OVERLAY(banim) u16 * gpBg1ScrollOffsetStart = NULL;
+EWRAM_OVERLAY(banim) u16 * gpBg1ScrollOffset = NULL;
+EWRAM_OVERLAY(banim) u16 gpBg1ScrollOffsetList1[160] = {0};
+EWRAM_OVERLAY(banim) u16 gpBg1ScrollOffsetList2[160] = {0};
 
-EWRAM_DATA int gUnknown_02020044 = 0;
+EWRAM_OVERLAY(banim) int gUnknown_02020044 = 0;
 
 CONST_DATA struct ProcCmd ProcScr_EfxPartsofScroll[] = {
     PROC_NAME("efxPartsofScroll"),

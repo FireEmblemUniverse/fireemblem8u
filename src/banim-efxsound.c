@@ -13,8 +13,8 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
-EWRAM_DATA int gEkrMainBgmPlaying = false;
-EWRAM_DATA int gEfxSoundSeExist = false;
+EWRAM_OVERLAY(banim) int gEkrMainBgmPlaying = false;
+EWRAM_OVERLAY(banim) int gEfxSoundSeExist = false;
 
 CONST_DATA struct ProcCmd ProcScr_efxSoundSE[] = {
     PROC_NAME("efxSoundSE"),

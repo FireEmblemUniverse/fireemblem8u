@@ -9,8 +9,6 @@
 #include "ekrdragon.h"
 #include "ctc.h"
 
-extern int gUnknown_0201FB28;
-
 // clang-format off
 
 struct ProcCmd CONST_DATA ProcScr_efxDarkGrado[] =
@@ -191,11 +189,11 @@ void sub_8068DD8(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 0xd);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 0xd);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -208,11 +206,11 @@ void sub_8068E14(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 0xc);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 0xc);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -225,11 +223,11 @@ void sub_8068E50(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 0xb);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 0xb);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -242,11 +240,11 @@ void sub_8068E8C(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 0xa);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 0xa);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -259,11 +257,11 @@ void sub_8068EC8(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 9);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 9);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -276,11 +274,11 @@ void sub_8068F04(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 8);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 8);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -293,11 +291,11 @@ void sub_8068F40(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 7);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 7);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -310,11 +308,11 @@ void sub_8068F7C(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 6);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 6);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -327,11 +325,11 @@ void sub_8068FB8(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 5);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 5);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -344,11 +342,11 @@ void sub_8068FF4(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 4);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 4);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -361,11 +359,11 @@ void sub_8069030(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 3);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 3);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -378,11 +376,11 @@ void sub_806906C(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 2);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 2);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -395,11 +393,11 @@ void sub_80690A8(void)
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnknown_0201FB28;
+        int tmp = gUnk_Banim_0201FB28;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnknown_0201FB28 - tmp2), 1);
+        int result = Div((gUnk_Banim_0201FB28 - tmp2), 1);
 
-        REG_BG1VOFS = -gUnknown_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
     }
 
     return;
@@ -409,7 +407,7 @@ void sub_80690A8(void)
 void sub_80690E4(void)
 {
     u16 vcount = REG_VCOUNT + 1;
-    REG_BG1VOFS = -gUnknown_0201FB28;
+    REG_BG1VOFS = -gUnk_Banim_0201FB28;
     return;
 }
 
@@ -615,7 +613,7 @@ void StartSubSpell_efxDarkGradoBG01(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    gUnknown_0201FB28 = 0x10;
+    gUnk_Banim_0201FB28 = 0x10;
 
     proc = Proc_Start(ProcScr_efxDarkGradoBG01, PROC_TREE_3);
     proc->anim = anim;

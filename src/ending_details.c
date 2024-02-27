@@ -1762,7 +1762,7 @@ void sub_80B8014(void) {
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
     BG_EnableSyncByMask(0xc);
-    sub_80AB760(EWRAM_ENTRY);
+    sub_80AB760(gUnk_02000000);
     StartBgm(0x46, 0);
 
     return;

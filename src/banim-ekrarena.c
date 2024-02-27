@@ -7,10 +7,6 @@
 
 #include "ekrbattle.h"
 
-extern u16 gUnknown_0201D438[];
-extern int gBaArenaFlag;
-extern struct ProcEfxBGCOL * gpProcEkrTogiColor;
-
 //! FE8U = 0x0805B01C
 void SetBanimArenaFlag(int flag)
 {
@@ -31,7 +27,7 @@ void sub_805B034(int x)
     int x2 = x & 7;
 
     BG_SetPosition(BG_3, x2, 0);
-    EfxTmCpyExt(gUnknown_0201D438 + x1, 66, gBG3TilemapBuffer, 32, 32, 22, -1, -1);
+    EfxTmCpyExt(gTmB_Banim + 8 + x1, 66, gBG3TilemapBuffer, 32, 32, 22, -1, -1);
 
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 
@@ -143,7 +139,7 @@ void ekrTogiInit_LoadGfx(struct ProcEkrTogi * proc)
 {
     LZ77UnCompVram(Img_ArenaBattleBg, (void *)0x06008000);
     LZ77UnCompWram(Tsa_ArenaBattleBg, gEkrTsaBuffer);
-    EfxTmCpyExt(gEkrTsaBuffer, -1, gEfxFrameTmap, 66, 46, 20, 6, 0);
+    EfxTmCpyExt(gEkrTsaBuffer, -1, gTmB_Banim, 66, 46, 20, 6, 0);
     sub_805B034(0);
 
     BG_EnableSyncByMask(BG3_SYNC_BIT);

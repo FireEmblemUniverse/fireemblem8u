@@ -134,7 +134,7 @@ void NewEfxSpellCast(void)
     proc->terminator = 4;
 
     if (NULL == gpProcEfxSpellCast)
-        CpuFastCopy(PAL_BG(0x6), gPalBackupEkrUnitMaybe, 0x140);
+        CpuFastCopy(PAL_BG(0x6), gPal_Banim, 0x140);
     else
         Proc_End(gpProcEfxSpellCast);
 
@@ -170,7 +170,7 @@ void sub_8055038(struct ProcEfxSpellCast *proc)
 {
     int val = Interpolate(INTERPOLATE_LINEAR, 0, 0x8, proc->timer, proc->terminator);
     
-    CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_BG(0x6), 0x140);
+    CpuFastCopy(gPal_Banim, PAL_BG(0x6), 0x140);
     EfxPalBlackInOut(PAL_BG(0x0), 0x6, 0xA, val);
     EnablePaletteSync();
 
@@ -180,7 +180,7 @@ void sub_8055038(struct ProcEfxSpellCast *proc)
 
 void sub_805509C(struct ProcEfxSpellCast *proc)
 {
-    CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_BG(0x6), 0x140);
+    CpuFastCopy(gPal_Banim, PAL_BG(0x6), 0x140);
     EfxPalBlackInOut(PAL_BG(0x0), 0x6, 0xA, 0x8);
 
     if (true == proc->done) {
@@ -193,13 +193,13 @@ void sub_80550DC(struct ProcEfxSpellCast *proc)
 {
     int val = Interpolate(INTERPOLATE_LINEAR, 0x8, 0, proc->timer, proc->terminator);
 
-    CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_BG(0x6), 0x140);
+    CpuFastCopy(gPal_Banim, PAL_BG(0x6), 0x140);
     EfxPalBlackInOut(PAL_BG(0x0), 0x6, 0xA, val);
     EnablePaletteSync();
 
     if (++proc->timer == (proc->terminator + 1)) {
         gpProcEfxSpellCast = NULL;
-        CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_BG(0x6), 0x140);
+        CpuFastCopy(gPal_Banim, PAL_BG(0x6), 0x140);
         EnablePaletteSync();
         Proc_Break(proc);
     }
