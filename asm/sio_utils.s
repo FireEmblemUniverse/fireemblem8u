@@ -477,7 +477,7 @@ sub_8043100: @ 0x08043100
 	adds r6, r0, #0
 	adds r4, r1, #0
 	lsls r1, r4, #3
-	ldr r0, _0804312C  @ gUnknown_0203DD0C
+	ldr r0, _0804312C  @ gUnk_Sio_0203DD0C
 	adds r5, r1, r0
 	adds r0, r5, #0
 	bl ClearText
@@ -493,7 +493,7 @@ sub_8043100: @ 0x08043100
 	bl PutText
 	b _0804315A
 	.align 2, 0
-_0804312C: .4byte gUnknown_0203DD0C
+_0804312C: .4byte gUnk_Sio_0203DD0C
 _08043130: .4byte gBG2TilemapBuffer+0x002
 _08043134:
 	adds r0, r6, #0
@@ -523,7 +523,7 @@ _08043160: .4byte gBG2TilemapBuffer+0x002
 	THUMB_FUNC_START sub_8043164
 sub_8043164: @ 0x08043164
 	push {r4, r5, lr}
-	ldr r5, _080431A8  @ gUnknown_0203DA88
+	ldr r5, _080431A8  @ gUnk_Sio_0203DA88
 	movs r4, #5
 _0804316A:
 	adds r0, r5, #0
@@ -543,7 +543,7 @@ _0804317E:
 	subs r4, #1
 	cmp r4, #0
 	bge _0804317E
-	ldr r5, _080431B0  @ gUnknown_0203DD0C
+	ldr r5, _080431B0  @ gUnk_Sio_0203DD0C
 	movs r4, #1
 _08043192:
 	adds r0, r5, #0
@@ -557,9 +557,9 @@ _08043192:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080431A8: .4byte gUnknown_0203DA88
+_080431A8: .4byte gUnk_Sio_0203DA88
 _080431AC: .4byte gLinkArenaSt+0x0C
-_080431B0: .4byte gUnknown_0203DD0C
+_080431B0: .4byte gUnk_Sio_0203DD0C
 
 	THUMB_FUNC_END sub_8043164
 

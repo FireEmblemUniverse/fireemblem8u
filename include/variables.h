@@ -21,14 +21,14 @@ extern u16 *gMinimapObjectFlashPal;
 extern u8 gUnknown_02000940[];
 extern u8 gUnknown_02000944[];
 extern struct PlaySt_OptionBits gUnknown_02000948[];
-// extern ??? gUnknown_02000C60
-// extern ??? gUnknown_02000C78
-// extern ??? gUnknown_02000F00
+// extern ??? gUnk_Sio_02000C60
+// extern ??? gUnk_Sio_02000C78
+// extern ??? gUnk_Sio_02000F00
 // extern ??? gBmMapBuffer
 extern u8 gEkrKakudaiSomeBufLeft[];
-// extern ??? gUnknown_02001180
-// extern ??? gUnknown_02001184
-// extern ??? gUnknown_02001188
+// extern ??? gUnk_Sio_02001180
+// extern ??? gUnk_Sio_02001184
+// extern ??? gUnk_Sio_02001188
 // extern ??? gConvoyItemCount
 // extern ??? gUnknown_02002038
 // extern ??? gBanimRightImgSheetBuf

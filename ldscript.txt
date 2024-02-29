@@ -43,17 +43,10 @@ SECTIONS
         . = 0x000944; gUnknown_02000944 = .;
         . = 0x000948; gUnknown_02000948 = .;
         . = 0x000968; gBonusClaimData = .;
-        . = 0x000C60; gUnknown_02000C60 = .;
-        . = 0x000C78; gUnknown_02000C78 = .;
         . = 0x000D68; gBonusClaimDataUpdated = .;
-        . = 0x000F00; gUnknown_02000F00 = .;
         . = 0x000FA0; gUnknown_02000FA0 = .;
         . = 0x001000; gBmMapBuffer = .;
-        . = 0x001088; gEkrKakudaiSomeBufLeft = .;
         . = 0x001168; gBonusClaimItemList = .;
-        . = 0x001180; gUnknown_02001180 = .;
-        . = 0x001184; gUnknown_02001184 = .;
-        . = 0x001188; gUnknown_02001188 = .;
         . = 0x001368; gBonusClaimConfig = .;
         . = 0x001568; gBonusClaimItemCount = .;
         . = 0x001668; gBonusClaimText = .;
@@ -67,7 +60,6 @@ SECTIONS
         . = 0x0027DC; src/bmio.o(ewram_overlay_0);
         . = 0x002FDC; gaBattleForecastTextStructs = .;
         . = 0x00300C; gBkselPals = .;
-        . = 0x003088; gEkrKakudaiSomeBufRight = .;
         . = 0x00310C; gUnknown_0200310C = .;
         . = 0x0038AC; gUnknown_020038AC = .;
         . = 0x0038C4; gUnknown_020038C4 = .;
@@ -188,6 +180,19 @@ SECTIONS
     }
     __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
+    . = __ewram_overlay_beg;
+    ewram_overlay_sio (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000; gUnk_Sio_02000000 = .;
+        . = 0x000C60; gUnk_Sio_02000C60 = .;
+        . = 0x000C78; gUnk_Sio_02000C78 = .;
+        . = 0x000F00; gUnk_Sio_02000F00 = .;
+        . = 0x001180; gUnk_Sio_02001180 = .;
+        . = 0x001184; gUnk_Sio_02001184 = .;
+        . = 0x001188; gUnk_Sio_02001188 = .;
+    }
+    __ewram_overlay_end = MAX(., __ewram_overlay_end);
+
     . = __ewram_overlay_end;
     ewram_data (NOLOAD) : ALIGN(4)
     {
@@ -222,33 +227,33 @@ SECTIONS
         . = ALIGN(4); src/cp_0803E2F4.o(ewram_data);
         . = ALIGN(4); src/sio_core.o(ewram_data);
         . = 0x0203DA24 - __ewram_overlay_end; gLinkArenaSt = .;
-        . = 0x0203DA78 - __ewram_overlay_end; gUnknown_0203DA78 = .;
-        . = 0x0203DA88 - __ewram_overlay_end; gUnknown_0203DA88 = .;
+        . = 0x0203DA78 - __ewram_overlay_end; gUnk_Sio_0203DA78 = .;
+        . = 0x0203DA88 - __ewram_overlay_end; gUnk_Sio_0203DA88 = .;
         . = 0x0203DAB0 - __ewram_overlay_end; Texts_0203DAB0 = .;
-        . = 0x0203DAC0 - __ewram_overlay_end; gUnknown_0203DAC0 = .;
-        . = 0x0203DAC5 - __ewram_overlay_end; gUnknown_0203DAC5 = .;
-        . = 0x0203DB10 - __ewram_overlay_end; gUnknown_0203DB10 = .;
+        . = 0x0203DAC0 - __ewram_overlay_end; gUnk_Sio_0203DAC0 = .;
+        . = 0x0203DAC5 - __ewram_overlay_end; gUnk_Sio_0203DAC5 = .;
+        . = 0x0203DB10 - __ewram_overlay_end; gUnk_Sio_0203DB10 = .;
         . = 0x0203DB14 - __ewram_overlay_end; Texts_0203DB14 = .;
-        . = 0x0203DB1C - __ewram_overlay_end; gUnknown_0203DB1C = .;
+        . = 0x0203DB1C - __ewram_overlay_end; gUnk_Sio_0203DB1C = .;
         . = 0x0203DB64 - __ewram_overlay_end; Font_0203DB64 = .;
-        . = 0x0203DB7C - __ewram_overlay_end; gUnknown_0203DB7C = .;
-        . = 0x0203DC44 - __ewram_overlay_end; gUnknown_0203DC44 = .;
-        . = 0x0203DC48 - __ewram_overlay_end; gUnknown_0203DC48 = .;
-        . = 0x0203DD0C - __ewram_overlay_end; gUnknown_0203DD0C = .;
+        . = 0x0203DB7C - __ewram_overlay_end; gUnk_Sio_0203DB7C = .;
+        . = 0x0203DC44 - __ewram_overlay_end; gUnk_Sio_0203DC44 = .;
+        . = 0x0203DC48 - __ewram_overlay_end; gUnk_Sio_0203DC48 = .;
+        . = 0x0203DD0C - __ewram_overlay_end; gUnk_Sio_0203DD0C = .;
         . = 0x0203DD1C - __ewram_overlay_end; Text_0203DB14 = .;
-        . = 0x0203DD24 - __ewram_overlay_end; gUnknown_0203DD24 = .;
-        . = 0x0203DD28 - __ewram_overlay_end; gUnknown_0203DD28 = .;
-        . = 0x0203DD2C - __ewram_overlay_end; gUnknown_0203DD2C = .;
-        . = 0x0203DD4C - __ewram_overlay_end; gUnknown_0203DD4C = .;
-        . = 0x0203DD50 - __ewram_overlay_end; gUnknown_0203DD50 = .;
-        . = 0x0203DD8C - __ewram_overlay_end; gUnknown_0203DD8C = .;
-        . = 0x0203DD90 - __ewram_overlay_end; gUnknown_0203DD90 = .;
-        . = 0x0203DD94 - __ewram_overlay_end; gUnknown_0203DD94 = .;
-        . = 0x0203DD95 - __ewram_overlay_end; gUnknown_0203DD95 = .;
-        . = 0x0203DD9A - __ewram_overlay_end; gUnknown_0203DD9A = .;
-        . = 0x0203DD9F - __ewram_overlay_end; gUnknown_0203DD9F = .;
-        . = 0x0203DDB4 - __ewram_overlay_end; gUnknown_0203DDB4 = .;
-        . = 0x0203DDDC - __ewram_overlay_end; gUnknown_0203DDDC = .;
+        . = 0x0203DD24 - __ewram_overlay_end; gUnk_Sio_0203DD24 = .;
+        . = 0x0203DD28 - __ewram_overlay_end; gUnk_Sio_0203DD28 = .;
+        . = 0x0203DD2C - __ewram_overlay_end; gUnk_Sio_0203DD2C = .;
+        . = 0x0203DD4C - __ewram_overlay_end; gUnk_Sio_0203DD4C = .;
+        . = 0x0203DD50 - __ewram_overlay_end; gUnk_Sio_0203DD50 = .;
+        . = 0x0203DD8C - __ewram_overlay_end; gUnk_Sio_0203DD8C = .;
+        . = 0x0203DD90 - __ewram_overlay_end; gUnk_Sio_0203DD90 = .;
+        . = 0x0203DD94 - __ewram_overlay_end; gUnk_Sio_0203DD94 = .;
+        . = 0x0203DD95 - __ewram_overlay_end; gUnk_Sio_0203DD95 = .;
+        . = 0x0203DD9A - __ewram_overlay_end; gUnk_Sio_0203DD9A = .;
+        . = 0x0203DD9F - __ewram_overlay_end; gUnk_Sio_0203DD9F = .;
+        . = 0x0203DDB4 - __ewram_overlay_end; gUnk_Sio_0203DDB4 = .;
+        . = 0x0203DDDC - __ewram_overlay_end; gUnk_Sio_0203DDDC = .;
         . = 0x0203DDE0 - __ewram_overlay_end;
         . = ALIGN(4); src/uiutils.o(ewram_data);
         . = ALIGN(4); src/uiselecttarget.o(ewram_data);

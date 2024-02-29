@@ -688,7 +688,7 @@ _080451A0:
 	bne _080451C8
 	movs r0, #2
 	bl SioPlaySoundEffect
-	ldr r1, _080451C4  @ gUnknown_0203DD24
+	ldr r1, _080451C4  @ gUnk_Sio_0203DD24
 	movs r0, #1
 	strb r0, [r1]
 	adds r0, r5, #0
@@ -696,7 +696,7 @@ _080451A0:
 	bl Proc_Goto
 	b _080451CE
 	.align 2, 0
-_080451C4: .4byte gUnknown_0203DD24
+_080451C4: .4byte gUnk_Sio_0203DD24
 _080451C8:
 	movs r0, #1
 	bl SioPlaySoundEffect

@@ -428,35 +428,37 @@ ProcPtr NewProc_085AAAC4(ProcPtr parent, int a, int b);
 // ??? sub_804E024(???);
 // ??? sub_804E03C(???);
 
+// extern ??? gUnk_Sio_02000000
+
 // extern ??? gLinkArenaSt
 // extern ??? gUnknown_0203DA30
-// extern ??? gUnknown_0203DA78
-// extern ??? gUnknown_0203DA88
+// extern ??? gUnk_Sio_0203DA78
+// extern ??? gUnk_Sio_0203DA88
 extern struct Text Texts_0203DAB0;
-// extern ??? gUnknown_0203DAC0
-// extern ??? gUnknown_0203DAC5
-// extern ??? gUnknown_0203DB10
+// extern ??? gUnk_Sio_0203DAC0
+// extern ??? gUnk_Sio_0203DAC5
+// extern ??? gUnk_Sio_0203DB10
 extern struct Text Texts_0203DB14[10];
-// extern ??? gUnknown_0203DB1C
+// extern ??? gUnk_Sio_0203DB1C
 extern struct Font Font_0203DB64;
-// extern ??? gUnknown_0203DB7C
-// extern ??? gUnknown_0203DC44
-// extern ??? gUnknown_0203DC48
-// extern ??? gUnknown_0203DD0C
+// extern ??? gUnk_Sio_0203DB7C
+// extern ??? gUnk_Sio_0203DC44
+// extern ??? gUnk_Sio_0203DC48
+// extern ??? gUnk_Sio_0203DD0C
 extern struct Text Text_0203DB14;
-extern u8 gUnknown_0203DD24;
-// extern ??? gUnknown_0203DD28
-// extern ??? gUnknown_0203DD2C
-// extern ??? gUnknown_0203DD4C
-// extern ??? gUnknown_0203DD50
-// extern ??? gUnknown_0203DD8C
-// extern ??? gUnknown_0203DD90
-// extern ??? gUnknown_0203DD94
-// extern ??? gUnknown_0203DD95
-// extern ??? gUnknown_0203DD9A
-// extern ??? gUnknown_0203DD9F
-// extern ??? gUnknown_0203DDB4
-// extern ??? gUnknown_0203DDDC
+extern u8 gUnk_Sio_0203DD24;
+// extern ??? gUnk_Sio_0203DD28
+// extern ??? gUnk_Sio_0203DD2C
+// extern ??? gUnk_Sio_0203DD4C
+// extern ??? gUnk_Sio_0203DD50
+// extern ??? gUnk_Sio_0203DD8C
+// extern ??? gUnk_Sio_0203DD90
+// extern ??? gUnk_Sio_0203DD94
+// extern ??? gUnk_Sio_0203DD95
+// extern ??? gUnk_Sio_0203DD9A
+// extern ??? gUnk_Sio_0203DD9F
+// extern ??? gUnk_Sio_0203DDB4
+// extern ??? gUnk_Sio_0203DDDC
 
 // extern ??? gUnknown_080D8714
 extern s16 gUnknown_080D9C9E[];
