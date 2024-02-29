@@ -82,7 +82,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon * proc)
     struct Anim * anim = proc->anim;
     struct BattleAnim * banim = banim_data;
 
-    if (GetEfxHp(2 * gEfxPairHpBufOffset[GetAnimPosition(anim)] + GetAnimPosition(anim)) <= 0) {
+    if (GetEfxHp(2 * gEfxHpLutOff[GetAnimPosition(anim)] + GetAnimPosition(anim)) <= 0) {
 
         /* Transform from dragon to loli */
         proc->timer = 0;

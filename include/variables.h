@@ -104,7 +104,6 @@ extern int gBaArenaFlag;
 
 // extern ??? gExtraMapStatus
 // extern ??? gSaveMenuRTextData
-// extern ??? gUnknown_0203EFB4
 
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue

@@ -340,8 +340,8 @@ void InitMainAnims(void)
         break;
     }
 
-    gEfxPairHpBufOffset[0] = 0;
-    gEfxPairHpBufOffset[1] = 0;
+    gEfxHpLutOff[0] = 0;
+    gEfxHpLutOff[1] = 0;
 }
 
 void InitBattleAnimFrame(int round_type_left, int round_type_right)

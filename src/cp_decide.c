@@ -23,6 +23,8 @@ static void DecideScriptA(void);
 static void DecideScriptB(void);
 static void DecideSpecialItems(void);
 
+EWRAM_DATA struct AiDecision gAiDecision = {0};
+
 typedef void(*DecideFunc)(void);
 
 static DecideFunc CONST_DATA sDecideFuncList[] =

@@ -9,8 +9,8 @@
 #include "ctc.h"
 #include "efxmagic.h"
 
-extern ProcPtr gpActiveClassReelSpellProc;
-extern ProcPtr gpActiveCRSpellBgColorProc;
+EWRAM_DATA ProcPtr gpActiveClassReelSpellProc = NULL;
+EWRAM_DATA ProcPtr gpActiveCRSpellBgColorProc = NULL;
 
 //! FE8U = 0x0806E8F0
 void ResetClassReelSpell(void)

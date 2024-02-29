@@ -163,7 +163,7 @@ _080513BE:
 	movs r0, #1
 	bl BG_EnableSyncByMask
 _080513C4:
-	ldr r3, _08051424  @ gBanimSomeHp
+	ldr r3, _08051424  @ gEkrGaugeHpBak
 	ldr r0, _08051428  @ gEkrGaugeHp
 	movs r4, #0
 	ldrsh r2, [r3, r4]
@@ -212,7 +212,7 @@ _080513EE:
 	.align 2, 0
 _0805141C: .4byte gUnknown_08802428
 _08051420: .4byte gBG0TilemapBuffer
-_08051424: .4byte gBanimSomeHp
+_08051424: .4byte gEkrGaugeHpBak
 _08051428: .4byte gEkrGaugeHp
 _0805142C: .4byte gBanimMaxHP
 _08051430: .4byte gEkrDistanceType

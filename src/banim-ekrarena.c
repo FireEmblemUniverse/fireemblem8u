@@ -7,6 +7,8 @@
 
 #include "ekrbattle.h"
 
+EWRAM_DATA int gBaArenaFlag = 0;
+
 //! FE8U = 0x0805B01C
 void SetBanimArenaFlag(int flag)
 {

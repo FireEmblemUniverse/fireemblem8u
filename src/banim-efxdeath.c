@@ -131,7 +131,7 @@ void sub_8052FEC(struct ProcEfxDead *proc)
     int hp;
 
     if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DRACO_ZOMBIE && GetAnimPosition(proc->anim1) == EKR_POS_L) {
-        hp = GetEfxHp(gEfxPairHpBufOffset[GetAnimPosition(proc->anim1)] * 2 + GetAnimPosition(proc->anim1));
+        hp = GetEfxHp(gEfxHpLutOff[GetAnimPosition(proc->anim1)] * 2 + GetAnimPosition(proc->anim1));
     } else
         hp = 1;
 

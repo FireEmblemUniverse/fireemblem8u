@@ -49,7 +49,7 @@ void NewEfxHPBar(struct Anim * anim)
         proc->anim60 = gAnims[EKR_POS_R * 2];
     }
 
-    val1 = gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)];
+    val1 = gEfxHpLutOff[GetAnimPosition(proc->anim60)];
     val2 = val1 + 1;
 
     proc->pre = GetEfxHp(val1 * 2 + GetAnimPosition(proc->anim60));
@@ -84,7 +84,7 @@ void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar * proc)
     }
 
     if (proc->timer == 0x1E && proc->finished == true) {
-        gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)]++;
+        gEfxHpLutOff[GetAnimPosition(proc->anim60)]++;
         gEkrHitEfxBool[GetAnimPosition(proc->anim60)] = 0;
     
         if (proc->post == 0) {
@@ -174,7 +174,7 @@ void NewEfxHPBarResire(struct Anim *anim)
         proc->anim60 = gAnims[EKR_POS_R * 2];
     }
 
-    val1 = gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)];
+    val1 = gEfxHpLutOff[GetAnimPosition(proc->anim60)];
     val2 = val1 + 1;
 
     proc->pre = GetEfxHp(val1 * 2 + GetAnimPosition(proc->anim60));
@@ -211,7 +211,7 @@ void EfxHPBarResire_80526C8(struct ProcEfxHPBar * proc)
     }
 
     if (proc->timer == 0x54 && proc->finished == true) {
-        gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)]++;
+        gEfxHpLutOff[GetAnimPosition(proc->anim60)]++;
         gEkrHitEfxBool[GetAnimPosition(proc->anim60)] = 0;
 
         if (proc->post == 0)
@@ -237,7 +237,7 @@ void EfxHPBarResire_8052788(struct ProcEfxHPBar * proc)
     if (++proc->pos <= proc->cur)
         return;
 
-    val1 = gEfxPairHpBufOffset[GetAnimPosition(proc->anim5C)];
+    val1 = gEfxHpLutOff[GetAnimPosition(proc->anim5C)];
     val2 = val1 + 1;
 
     proc->pre = GetEfxHp(val1 * 2 + GetAnimPosition(proc->anim5C));
@@ -283,7 +283,7 @@ void EfxHPBarResire_805282C(struct ProcEfxHPBar * proc)
     }
 
     if (proc->timer == 30 && proc->finished == true) {
-        gEfxPairHpBufOffset[GetAnimPosition(proc->anim5C)]++;
+        gEfxHpLutOff[GetAnimPosition(proc->anim5C)]++;
         gEkrHitEfxBool[GetAnimPosition(proc->anim5C)] = 0;
     
         if (proc->death == true) {
@@ -367,7 +367,7 @@ void NewEfxHPBarLive(struct Anim * anim)
         proc->anim60 = gAnims[2];
     }
 
-    val1 = gEfxPairHpBufOffset[GetAnimPosition(proc->anim60)];
+    val1 = gEfxHpLutOff[GetAnimPosition(proc->anim60)];
     val2 = val1 + 1;
 
     proc->pre = GetEfxHp(val1 * 2 + GetAnimPosition(proc->anim60));
@@ -408,7 +408,7 @@ void EfxHPBarLiveMain(struct ProcEfxHPBar * proc)
     }
 
     if (proc->timer == 0x1E && proc->finished == true) {
-        gEfxPairHpBufOffset[GetAnimPosition(anim)]++;
+        gEfxHpLutOff[GetAnimPosition(anim)]++;
         gEkrHitEfxBool[GetAnimPosition(anim)] = 0;
         Proc_Break(proc);
         return;
@@ -452,10 +452,10 @@ void EfxNoDamageMain(struct ProcEfxHPBar * proc)
     ++proc->pos;
     val = proc->pos;
     if (val == 8) {
-        gEfxPairHpBufOffset[GetAnimPosition(proc->anim5C)]++;
+        gEfxHpLutOff[GetAnimPosition(proc->anim5C)]++;
     
         if (proc->death == true)
-            gEfxPairHpBufOffset[GetAnimPosition(anim)]++;
+            gEfxHpLutOff[GetAnimPosition(anim)]++;
     
         Proc_Break(proc);
     }

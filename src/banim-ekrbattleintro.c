@@ -16,6 +16,43 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
+EWRAM_DATA s16 gEkrDebugModeMaybe = 0;
+EWRAM_DATA s16 gBanimBG = 0;
+EWRAM_DATA s16 gEkrInitialHitSide = 0;
+EWRAM_DATA s16 gEkrSnowWeather = 0;
+EWRAM_DATA s16 gBanimValid[2] = {0};
+EWRAM_DATA s16 gEkrInitialPosition[2] = {0};
+EWRAM_DATA u16 gBanimIdx_bak[2] = {0};
+EWRAM_DATA s16 gBanimUniquePal[2] = {0};
+EWRAM_DATA s16 gBanimFactionPal[2] = {0};
+EWRAM_DATA s16 gEkrSpellAnimIndex[2] = {0};
+EWRAM_DATA s16 gBanimFloorfx[2] = {0};
+EWRAM_DATA s16 gEkrDistanceType = EKR_DISTANCE_CLOSE;
+EWRAM_DATA s16 gEkrBmLocation[4] = {0};
+EWRAM_DATA u16 gAnimRoundData[20] = {0};
+EWRAM_DATA s16 gEfxHpLutOff[2] = {0};
+EWRAM_DATA u16 gEfxHpLut[22] = {0};
+EWRAM_DATA s16 gBanimIdx[2] = {0};
+EWRAM_DATA struct BattleUnit * gpEkrBattleUnitLeft = NULL;
+EWRAM_DATA struct BattleUnit * gpEkrBattleUnitRight = NULL;
+EWRAM_DATA u8 gEkrPids[2] = {0};
+EWRAM_DATA struct Unit * gpEkrTriangleUnits[2] = {0};
+EWRAM_DATA char * gBanimTriAtkPalettes[2] = {0};
+EWRAM_DATA void * gBanimForceUnitChgDebug[2] = {0};
+EWRAM_DATA s16 gEkrGaugeHp[2] = {0};
+EWRAM_DATA s16 gBanimMaxHP[2] = {0};
+EWRAM_DATA s16 gEkrGaugeHpBak[2] = {0};
+EWRAM_DATA s16 gEkrGaugeHit[2] = {0};
+EWRAM_DATA s16 gEkrGaugeDmg[2] = {0};
+EWRAM_DATA s16 gEkrGaugeCrt[2] = {0};
+EWRAM_DATA s16 gBanimExpPrevious[2] = {0};
+EWRAM_DATA s16 gBanimExpGain[2] = {0};
+EWRAM_DATA s16 gBanimTerrain[2] = {0};
+EWRAM_DATA s16 gBanimCon[2] = {0};
+EWRAM_DATA s16 gBanimWtaBonus[2] = {0};
+EWRAM_DATA s16 gBanimEffectiveness[2] = {0};
+EWRAM_DATA s16 gBanimUniquePaletteDisabled[2] = {0};
+
 CONST_DATA struct ProcCmd ProcScr_EkrBaseKaiten[] = {
     PROC_NAME("ekrBaseKaiten"),
     PROC_REPEAT(EkrBaseKaitenMain),

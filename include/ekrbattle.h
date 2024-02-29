@@ -442,7 +442,7 @@ extern u32 gEkrBattleEndFlag;
 
 extern int gBanimLinkArenaFlag;
 extern int gBattleDeamonActive;
-extern struct ProcEkrBattleDeamon *gpProcEkrBattleDeamon;
+extern struct ProcEkrBattleDeamon * gpProcEkrBattleDeamon;
 extern s16 gEkrDebugModeMaybe;
 extern s16 gBanimBG;
 extern s16 gEkrInitialHitSide;
@@ -450,20 +450,19 @@ extern s16 gEkrSnowWeather;
 extern s16 gBanimValid[2];
 extern s16 gEkrInitialPosition[2];
 extern s16 gBanimFactionPal[2];
-extern s16 gEkrSpellAnimIndex[];
-// extern ??? gUnknown_0203E11A
+extern s16 gEkrSpellAnimIndex[2];
 extern EWRAM_DATA s16 gBanimFloorfx[2];
 extern EWRAM_DATA short gEkrBmLocation[4];
 
-extern s16 gEfxPairHpBufOffset[];
-extern s16 gBanimIdx[];
+extern s16 gEfxHpLutOff[];
+extern s16 gBanimIdx[2];
 extern u8 gEkrPids[2];
 extern struct Unit *gpEkrTriangleUnits[2];
 extern char *gBanimTriAtkPalettes[2];
 extern void * gBanimForceUnitChgDebug[2];
 extern s16 gEkrGaugeHp[2];
 extern s16 gBanimMaxHP[2];
-extern s16 gBanimSomeHp[2];
+extern s16 gEkrGaugeHpBak[2];
 extern s16 gEkrGaugeHit[2];
 extern s16 gEkrGaugeDmg[2];
 extern s16 gEkrGaugeCrt[2];

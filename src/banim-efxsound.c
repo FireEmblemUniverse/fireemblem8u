@@ -756,7 +756,7 @@ u16 GetEfxSoundType2FromBaseCon(u16 basecon)
 s16 GetEfxHpChangeType(struct Anim * anim)
 {
     int offset, hp1, hp2;
-    offset = gEfxPairHpBufOffset[GetAnimPosition(anim)];
+    offset = gEfxHpLutOff[GetAnimPosition(anim)];
     offset = offset * 2 + GetAnimPosition(anim);
 
     hp1 = GetEfxHp(offset);

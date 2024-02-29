@@ -115,6 +115,11 @@ EWRAM_OVERLAY(banim) const void * gpImgSheet[2] = {0};
 EWRAM_OVERLAY(banim) struct ProcEfxBGCOL * gpProcEkrTogiColor = NULL;
 EWRAM_OVERLAY(banim) int gUnk_Banim_0201FB28 = 0;
 
+/* EWRAM data */
+EWRAM_DATA int gBanimLinkArenaFlag = 0;
+EWRAM_DATA int gBattleDeamonActive = 0;
+EWRAM_DATA struct ProcEkrBattleDeamon * gpProcEkrBattleDeamon = NULL;
+
 void SetBanimLinkArenaFlag(int flag)
 {
     gBanimLinkArenaFlag = flag;

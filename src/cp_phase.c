@@ -11,6 +11,8 @@ static void AiPhaseInit(struct Proc* proc);
 static void AiPhaseBerserkInit(struct Proc* proc);
 static void AiPhaseCleanup(struct Proc* proc);
 
+EWRAM_DATA struct AiState gAiState = {0};
+
 CONST_DATA
 struct ProcCmd gProcScr_CpPhase[] =
 {

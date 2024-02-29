@@ -428,12 +428,6 @@ ProcPtr NewProc_085AAAC4(ProcPtr parent, int a, int b);
 // ??? sub_804E024(???);
 // ??? sub_804E03C(???);
 
-// extern ??? gUnknown_0203AA7F
-// extern ??? gUnknown_0203AA80
-// extern ??? gUnknown_0203AA8A
-// extern ??? gAiDecision
-// extern ??? gUnknown_0203C624
-// extern ??? gUnknown_0203CA24
 // extern ??? gLinkArenaSt
 // extern ??? gUnknown_0203DA30
 // extern ??? gUnknown_0203DA78
