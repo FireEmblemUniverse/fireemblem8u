@@ -37,6 +37,7 @@
 #include "eventinfo.h"
 #include "mapanim.h"
 #include "muctrl.h"
+#include "scene.h"
 
 #include "eventcall.h"
 

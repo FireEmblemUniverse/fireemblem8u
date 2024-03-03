@@ -26,43 +26,6 @@ extern u8 CONST_DATA gUnknown_089E8384[];
 extern u8 CONST_DATA gUnknown_089E82E0[];
 extern u8 CONST_DATA gUnknown_089E8238[];
 
-void sub_8008FB4(ProcPtr);
-void sub_800903C(ProcPtr);
-void sub_800904C(ProcPtr);
-void sub_8009100(ProcPtr);
-
-// rearrange!!!
-
-int GetTalkFaceHPos(int);
-void StartTalkFaceMove(int, int, s8);
-void ClearPutTalkText(void);
-void sub_8008F64(int, int, int, ProcPtr);
-void PutTalkBubbleTm(int, int, int, int, int);
-void PutTalkBubbleTail(int, int, int, int);
-void InitTalkTextWin(int, int, int, int);
-void StartOpenTalkBubble(void);
-s8 TalkPrepNextChar(ProcPtr);
-s8 TalkSpritePrepNextChar(ProcPtr);
-
-void SetTalkFaceLayer(int, int);
-s8 IsTalkFaceMoving(void);
-void ClearTalkBubble(void);
-void StartTalkOpen(int, ProcPtr);
-s8 TalkHasCorrectBubble(void);
-
-
-void TalkBgSync(int);
-int GetTalkPauseCmdDuration(int);
-void ClearTalkText(void);
-void TalkFlushAllLine(void);
-void ClearTalkBubble(void);
-int SetActiveTalkFace(int);
-
-void MoveTalkFace(int, int);
-void StartTalkWaitForInput(ProcPtr parent, int x, int y);
-void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16* tm, int defaultChoice, int color, ProcPtr parent);
-
-
 #define TALK_TEXT_BY_LINE(line) (sTalkText + ((line) + sTalkState->topTextNum) % sTalkState->lines)
 
 static struct TalkState sTalkStateCore;
@@ -255,11 +218,6 @@ struct ProcCmd CONST_DATA gProcScr_TalkBubbleOpen[] =
     PROC_REPEAT(TalkBubbleOpen_OnIdle),
     PROC_END,
 };
-
-void TalkOpen_OnEnd(void);
-void TalkOpen_InitBlend(struct Proc*);
-void TalkOpen_PutTalkBubble(struct Proc*);
-void TalkOpen_OnIdle(struct Proc*);
 
 struct ProcCmd CONST_DATA gProcScr_TalkOpen[] =
 {
@@ -2512,7 +2470,7 @@ _08008F06:
 }
 
 //! FE8U = 0x08008F18
-bool8 GetZero(void) {
+bool GetZero(void) {
     // Maybe "IsTalkDebugActive" in FE6
     return 0;
 }
@@ -2533,22 +2491,28 @@ void TalkBgSync(int bg) {
 }
 
 //! FE8U = 0x08008F3C
-s8 sub_8008F3C(void) {
-    if (Proc_Find(gUnknown_08591624)) return 1;
-    // TODO: FIXME: no return value when the proc is NULL
+bool sub_8008F3C(void) {
+    if (Proc_Find(gUnknown_08591624))
+        return true;
+
+#if BUGFIX
+    return false;
+#endif
 }
 
 //! FE8U = 0x08008F54
-void sub_8008F54(void) {
+void sub_8008F54(void)
+{
     Proc_EndEach(gUnknown_08591624);
     return;
 }
 
 //! FE8U = 0x08008F64
-void sub_8008F64(int chr, int b, int c, ProcPtr parent) {
-    struct TalkDebugProc* proc = Proc_Start(gUnknown_08591624, 0);
+void sub_8008F64(int chr, int b, int c, ProcPtr parent)
+{
+    struct TalkDebugProc * proc = Proc_Start(gUnknown_08591624, PROC_TREE_VSYNC);
 
-    proc->unk_4c = (0x3FF & chr) * 0x20 + 0x06010000;
+    proc->unk_4c = (0x3FF & chr) * CHR_SIZE + 0x06010000;
     proc->unk_54 = b;
     proc->unk_58 = c;
     Proc_StartBlocking(gUnknown_0859160C, parent);
@@ -2557,7 +2521,144 @@ void sub_8008F64(int chr, int b, int c, ProcPtr parent) {
 }
 
 //! FE8U = 0x08008FAC
-void sub_8008FAC(struct TalkDebugProc* proc) {
+void sub_8008FAC(struct TalkDebugProc * proc)
+{
     proc->unk_64 = 0;
+    return;
+}
+
+//! FE8U = 0x08008FB4
+void sub_8008FB4(struct TalkDebugProc * proc)
+{
+    int i;
+    int j;
+
+    u32 * vram = (void *)proc->unk_4c;
+
+    for (i = 0; i < proc->unk_54 * 8; i += 8)
+    {
+        for (j = 0; j <= 0x300; j += 0x100)
+        {
+            (vram + i + j)[0] = (vram + i + j)[1];
+            (vram + i + j)[1] = (vram + i + j)[2];
+            (vram + i + j)[2] = (vram + i + j)[3];
+            (vram + i + j)[3] = (vram + i + j)[4];
+            (vram + i + j)[4] = (vram + i + j)[5];
+            (vram + i + j)[5] = (vram + i + j)[6];
+            (vram + i + j)[6] = (vram + i + j)[7];
+
+            if (j < 0x300)
+            {
+                (vram + i + j)[7] = (vram + i + j)[0x100];
+            }
+            else
+            {
+                (vram + i + j)[7] = proc->unk_58;
+            }
+        }
+    }
+
+    proc->unk_64++;
+
+    if (proc->unk_64 > 15)
+    {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+// The functions below seem to be unrelated to the dialog system
+// Possibly from a leftover event script command from FE7?
+
+//! FE8U = 0x08009038
+void nullsub_15(void)
+{
+    return;
+}
+
+//! FE8U = 0x0800903C
+void sub_800903C(struct Proc0859163C * proc)
+{
+    proc->unk_3c = 0;
+    ArchiveCurrentPalettes();
+    return;
+}
+
+//! FE8U = 0x0800904C
+void sub_800904C(struct Proc0859163C * proc)
+{
+    int r;
+    int g;
+    int b;
+
+    proc->unk_3c += proc->unk_34;
+
+    if (proc->unk_3c < 0x100)
+    {
+        r = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_40) / 0x100;
+        g = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_48) / 0x100;
+        b = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_44) / 0x100;
+    }
+    else
+    {
+        r = (proc->unk_40 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
+        g = (proc->unk_48 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
+        b = (proc->unk_44 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
+    }
+
+    WriteFadedPaletteFromArchive(r, g, b, proc->unk_30);
+
+    if (proc->unk_3c == 0x100)
+    {
+        proc->unk_2c--;
+
+        if (proc->unk_2c < 1)
+        {
+            proc->unk_3c = 0;
+            Proc_Break(proc);
+        }
+    }
+    else if (proc->unk_3c == 0x200)
+    {
+        proc->unk_3c = 0;
+    }
+
+    return;
+}
+
+//! FE8U = 0x08009100
+void sub_8009100(struct Proc0859163C * proc)
+{
+    proc->unk_3c += proc->unk_38;
+
+    WriteFadedPaletteFromArchive(
+        ((0x100 - proc->unk_3c) * proc->unk_40 + (proc->unk_3c * 0x100)) / 0x100,
+        ((0x100 - proc->unk_3c) * proc->unk_48 + (proc->unk_3c * 0x100)) / 0x100,
+        ((0x100 - proc->unk_3c) * proc->unk_44 + (proc->unk_3c * 0x100)) / 0x100,
+        proc->unk_30
+    );
+
+    if (proc->unk_3c == 0x100)
+    {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0800915C
+void sub_800915C(int a, int b, int c, int d, int e, int f, int g, ProcPtr parent)
+{
+    struct Proc0859163C * proc = Proc_StartBlocking(gUnknown_0859163C, parent);
+
+    proc->unk_2c = b;
+    proc->unk_30 = a;
+    proc->unk_34 = c;
+    proc->unk_38 = d;
+    proc->unk_40 = e;
+    proc->unk_48 = f;
+    proc->unk_44 = g;
+
     return;
 }

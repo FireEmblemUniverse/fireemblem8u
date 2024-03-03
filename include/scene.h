@@ -91,6 +91,19 @@ struct TalkDebugProc {
     s16 unk_64;
 };
 
+struct Proc0859163C
+{
+    PROC_HEADER;
+    int unk_2c;
+    int unk_30;
+    int unk_34;
+    int unk_38;
+    int unk_3c;
+    int unk_40;
+    int unk_44;
+    int unk_48;
+};
+
 struct ChoiceEntryInfo
 {
     /* 00 */ u16 msgid;
@@ -193,13 +206,19 @@ void TalkPutSpriteText_OnIdle(struct Proc*);
 void ClearPrimaryHBlank(void);
 void TalkPutSpriteText_OnEnd(void);
 int GetStrTalkLen(const char*, s8);
-bool8 GetZero(void); // idk
+bool GetZero(void);
 void sub_8008F1C(void);
 void TalkBgSync(int bg);
-s8 sub_8008F3C(void);
+bool sub_8008F3C(void);
 void sub_8008F54(void);
 void sub_8008F64(int chr, int b, int c, ProcPtr parent);
-void sub_8008FAC(struct TalkDebugProc*);
+void sub_8008FAC(struct TalkDebugProc *);
+void sub_8008FB4(struct TalkDebugProc *);
+void nullsub_15(void);
+void sub_800903C(struct Proc0859163C *);
+void sub_800904C(struct Proc0859163C *);
+void sub_8009100(struct Proc0859163C *);
+void sub_800915C(int, int, int, int, int, int, int, ProcPtr);
 
 extern struct ProcCmd gProcScr_TalkOpen[];
 
