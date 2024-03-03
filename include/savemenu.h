@@ -24,6 +24,21 @@ enum {
 struct SaveDrawProc {
     /* 00 */ PROC_HEADER;
     /* 29 */ bool unk_29;
+    /* 2A */ u16 unk_2a;
+    /* 2C */ u16 unk_2c;
+    /* 2E */ u16 unk_2e;
+    /* 30 */ u16 unk_30;
+    /* 32 */ s8 unk_32;
+    /* 33 */ u8 unk_33;
+    /* 34 */ ProcPtr unk_34;
+    /* 38 */ u8 unk_38;
+    /* 39 */ u8 unk_39;
+    /* 3A */ u8 unk_3a;
+    /* 3B */ u8 unk_3b;
+    /* 3C */ u8 unk_3c;
+    // 3D - unused?
+    /* 3E */ u16 unk_3e;
+    /* 40 */ u16 unk_40;
 };
 
 struct SaveMenuProc {
@@ -184,7 +199,7 @@ const char * GetWMNodeNameForSaveMenu(void);
 void sub_80AA790(u16 *, u16 *, int);
 void sub_80AA7AC(int a, int b);
 // ??? sub_80AA7EC(???);
-void sub_80AA9D8(ProcPtr);
+void sub_80AA9D8(struct SaveDrawProc *);
 // ??? sub_80AAA6C(???);
 // ??? sub_80AAA78(???);
 // ??? sub_80AAB78(???);
@@ -196,6 +211,7 @@ void sub_80AA9D8(ProcPtr);
 // ??? sub_80AAF6C(???);
 // ??? sub_80AB05C(???);
 // ??? sub_80AB2A0(???);
+struct SaveDrawProc * New6C_savedraw(ProcPtr);
 
 struct SaveDrawCursorProc {
     /* 00 */ PROC_HEADER;
@@ -211,23 +227,6 @@ struct SaveDrawCursorProc {
     /* 38 */ u8 unk_38;
     /* 39 */ u8 unk_39;
     /* 3A */ u8 unk_3a;
-};
-
-struct SaveMenuUnusedProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ int save_slot;
-    /* 30 */ int active_options;
-    /* 34 */ struct SaveDrawCursorProc* unk_34;
-};
-
-struct SaveMenu8A206F8Proc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 _pad[0x3e - 0x29];
-
-    /* 3E */ u16 unk_3e;
-    /* 40 */ u16 unk_40;
 };
 
 struct SqMaskProc {
@@ -265,14 +264,13 @@ extern u16 gUnknown_08A20570[];
 extern u16 gUnknown_08A20578[];
 extern u16 gUnknown_08A20580[];
 
-ProcPtr New6C_savedraw(ProcPtr);
 void SaveDrawCursor_Init(struct SaveDrawCursorProc * proc);
 void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc);
-void sub_80AB4F4(int a, s16 b, s16 c, struct SaveMenuUnusedProc * proc);
-void sub_80AB514(int a, int b, struct SaveMenuUnusedProc * proc);
+void sub_80AB4F4(int a, s16 b, s16 c, struct SaveDrawProc * proc);
+void sub_80AB514(int a, u8 b, struct SaveDrawProc * proc);
 struct SaveMenuCursorProc * StartSaveDrawCursor(ProcPtr parent);
-// ??? sub_80AB548(???);
-// ??? sub_80AB56C(???);
+void sub_80AB548(void);
+void sub_80AB56C(u32 a);
 // ??? sub_80AB720(???);
 void sub_80AB760(void*);
 void sub_80AB77C(void);

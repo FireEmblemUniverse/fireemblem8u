@@ -122,7 +122,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
 }
 
 //! FE8U = 0x080AB4F4
-void sub_80AB4F4(int a, s16 b, s16 c, struct SaveMenuUnusedProc * proc)
+void sub_80AB4F4(int a, s16 b, s16 c, struct SaveDrawProc * proc)
 {
     struct SaveDrawCursorProc* drawCursorProc = proc->unk_34;
 
@@ -134,7 +134,7 @@ void sub_80AB4F4(int a, s16 b, s16 c, struct SaveMenuUnusedProc * proc)
 }
 
 //! FE8U = 0x080AB514
-void sub_80AB514(int a, int b, struct SaveMenuUnusedProc * proc)
+void sub_80AB514(int a, u8 b, struct SaveDrawProc * proc)
 {
     struct SaveDrawCursorProc* drawCursorProc = proc->unk_34;
 
@@ -248,7 +248,7 @@ void sub_80AB56C(u32 a) {
 }
 
 //! FE8U = 0x080AB720
-void sub_80AB720(struct SaveMenu8A206F8Proc * proc)
+void sub_80AB720(struct SaveDrawProc * proc)
 {
     proc->unk_40 = 0;
     proc->unk_3e = 0;
