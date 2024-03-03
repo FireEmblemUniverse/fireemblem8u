@@ -223,8 +223,6 @@ extern const u16 gUnknown_080D7504[];
 // extern ??? gUnknown_080D77BC
 // extern ??? gUnknown_080D77DC
 // extern ??? gUnknown_080D77FC
-// extern ??? gUnknown_080D78EC
-// extern ??? gUnknown_080D7908
 // extern ??? gUnknown_080D792C
 // extern ??? gUnknown_080D793C
 // extern ??? UnitMenuOverrideConf
@@ -392,8 +390,8 @@ extern struct Glyph *TextGlyphs_System[];
 extern struct Glyph *TextGlyphs_Talk[];
 extern struct Glyph *TextGlyphs_Special[];
 extern struct ProcCmd CONST_DATA gProcScr_TalkPutSpriteText_Unused[];
-extern struct ProcCmd CONST_DATA gUnknown_0859160C[];
-extern struct ProcCmd CONST_DATA gUnknown_0859163C[];
+extern struct ProcCmd CONST_DATA ProcScr_0859160C[];
+extern struct ProcCmd CONST_DATA ProcScr_0859163C[];
 
 extern const char *gStrPrefix[][2];
 //extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gStrPrefix;
@@ -472,8 +470,8 @@ extern u16 Pal_HelpBox[]; // pal
 extern u16 gPal_HelpTextBox[];
 extern u16 gPal_YellowTextBox[];
 extern u16 Pal_GreenTextColors[];
-// extern ??? gUnknown_0859EFE0
-// extern ??? gUnknown_0859F000
+extern u16 Pal_Text_Inverted[];
+extern u16 Pal_TalkBubble_Inverted[];
 // extern ??? Img_PhaseChangeUnk
 // extern ??? Img_PhaseChangePlayer
 extern CONST_DATA u16 Pal_PhaseChangePlayer[];
@@ -880,8 +878,8 @@ extern CONST_DATA struct ProcCmd gProcScr_MU_89A2CF8[];
 #define gMMSDataTable unit_icon_move_table
 extern CONST_DATA struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 
-// extern ??? gUnknown_089E8238
-// extern ??? gUnknown_089E84D4
+// extern ??? Img_TalkBubble
+extern u16 Pal_TalkBubble[];
 // extern ??? gUnknown_089ED67C
 // extern ??? gUnknown_089ED694
 // extern ??? gUnknown_089ED6AC

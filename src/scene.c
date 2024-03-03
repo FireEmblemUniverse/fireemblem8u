@@ -19,12 +19,12 @@
 #include "scene.h"
 
 // various bits of the box opening animation
-extern u8 CONST_DATA gUnknown_089E8484[];
-extern u8 CONST_DATA gUnknown_089E8434[];
-extern u8 CONST_DATA gUnknown_089E83E0[];
-extern u8 CONST_DATA gUnknown_089E8384[];
-extern u8 CONST_DATA gUnknown_089E82E0[];
-extern u8 CONST_DATA gUnknown_089E8238[];
+extern u8 CONST_DATA Img_TalkBubbleOpening_A[];
+extern u8 CONST_DATA Img_TalkBubbleOpening_B[];
+extern u8 CONST_DATA Img_TalkBubbleOpening_C[];
+extern u8 CONST_DATA Img_TalkBubbleOpening_D[];
+extern u8 CONST_DATA Img_TalkBubbleOpening_E[];
+extern u8 CONST_DATA Img_TalkBubble[];
 
 #define TALK_TEXT_BY_LINE(line) (sTalkText + ((line) + sTalkState->topTextNum) % sTalkState->lines)
 
@@ -60,7 +60,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkLock[] =
     PROC_BLOCK,
 };
 
-struct FaceVramEntry CONST_DATA gUnknown_08591390[4] =
+struct FaceVramEntry CONST_DATA FaceConfig_FightEvent[4] =
 {
     [0] =
     {
@@ -198,7 +198,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkShiftClear[] =
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gProcScr_085914F0[] =
+struct ProcCmd CONST_DATA ProcScr_TalkSpriteShiftClear[] =
 {
     PROC_MARK(PROC_MARK_5),
 
@@ -267,7 +267,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkPutSpriteText_Unused[] =
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_0859160C[] =
+struct ProcCmd CONST_DATA ProcScr_0859160C[] =
 {
     PROC_SET_END_CB(sub_8008F54),
     PROC_WHILE(sub_8008F3C),
@@ -275,7 +275,7 @@ struct ProcCmd CONST_DATA gUnknown_0859160C[] =
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08591624[] =
+struct ProcCmd CONST_DATA ProcScr_08591624[] =
 {
     PROC_CALL(sub_8008FAC),
     PROC_REPEAT(sub_8008FB4),
@@ -283,9 +283,9 @@ struct ProcCmd CONST_DATA gUnknown_08591624[] =
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_0859163C[] =
+struct ProcCmd CONST_DATA ProcScr_0859163C[] =
 {
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_CALL(sub_800903C),
     PROC_REPEAT(sub_800904C),
@@ -293,11 +293,6 @@ struct ProcCmd CONST_DATA gUnknown_0859163C[] =
 
     PROC_END,
 };
-
-extern u16 gUnknown_089E84D4[];
-
-extern u16 gUnknown_0859F000[];
-extern u16 gUnknown_0859EFE0[];
 
 //! FE8U = 0x080067E8
 void ClearTalkFaceRefs(void) {
@@ -320,13 +315,13 @@ void InitTalk(int chr, int lines, s8 unpackBubble) {
     sTalkState->lines = lines;
 
     for (i = 0; i < lines; i++) {
-        InitText(sTalkText + i, 0x1e);
+        InitText(sTalkText + i, 30);
         Text_SetColor(sTalkText + i, 1);
     }
 
     if (unpackBubble != 0) {
-        Decompress(gUnknown_089E8238, (void*)(GetBackgroundTileDataOffset(1) + 0x06000200));
-        ApplyPalette(gUnknown_089E84D4, 3);
+        Decompress(Img_TalkBubble, (void*)(GetBackgroundTileDataOffset(BG_1) + 0x06000200));
+        ApplyPalette(Pal_TalkBubble, 3);
     }
 
     ClearTalkFaceRefs();
@@ -338,16 +333,16 @@ void InitTalk(int chr, int lines, s8 unpackBubble) {
 void InitSpriteTalk(int chr, int lines, int palId) {
     int i;
 
-    InitSpriteTextFont(&sTalkFont, (void*)(0x06010000 + (0x3FF & chr) * 0x20), palId);
+    InitSpriteTextFont(&sTalkFont, (void*)(0x06010000 + (0x3FF & chr) * CHR_SIZE), palId);
 
     SetTextFont(&sTalkFont);
-    SetTextFontGlyphs(1);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
     ApplyPalette(gUnknown_0859EF20, palId + 0x10);
 
-    gPaletteBuffer[((palId + 0x10) * 0x10 + 4)] = 0x00007247;
-    gPaletteBuffer[((palId + 0x10) * 0x10 + 0xe)] = 0x000031AE;
-    gPaletteBuffer[((palId + 0x10) * 0x10 + 0xf)] = 0x00007FFF;
+    PAL_OBJ_COLOR(palId, 4) = RGB(7, 18, 28);
+    PAL_OBJ_COLOR(palId, 14) = RGB(14, 13, 12);
+    PAL_OBJ_COLOR(palId, 15) = RGB(31, 31, 31);
 
     sTalkState->lines = lines;
 
@@ -396,13 +391,13 @@ ProcPtr StartTalkExt(int x, int y, const char* str, ProcPtr parent) {
     sTalkState->speakingFaceSlot = (s8)0xff;
     sTalkState->putLines = 0;
     sTalkState->instantScroll = 0;
-    sTalkState->unk16 = 1;
-    sTalkState->unk17 = 0;
+    sTalkState->mouthMoveEnabled = 1;
+    sTalkState->faceSmileEnabled = 0;
 
     sTalkState->config = 0;
 
-    sTalkState->unk38 = 0;
-    sTalkState->unk83 = 0;
+    sTalkState->unk38 = NULL;
+    sTalkState->invertedFlags = 0;
 
     sTalkState->activeWidth = Div(GetStrTalkLen(sTalkState->str, 0) + 7, 8) + 2;
 
@@ -514,7 +509,7 @@ void TalkSkipListener_OnIdle(ProcPtr proc) {
 
         BG_Fill(gBG0TilemapBuffer, 0);
         BG_Fill(gBG1TilemapBuffer, 0);
-        BG_EnableSyncByMask(3);
+        BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
         return;
     }
@@ -536,8 +531,8 @@ void Talk_OnInit(void) {
     if (!CheckTalkFlag(TALK_FLAG_SPRITE)) {
         LoadObjUIGfx();
 
-        BG_SetPosition(0, 0, 0);
-        BG_SetPosition(1, 0, 0);
+        BG_SetPosition(BG_0, 0, 0);
+        BG_SetPosition(BG_1, 0, 0);
     }
 
     Proc_Start(gProcScr_TalkSkipListener, PROC_TREE_3);
@@ -563,7 +558,6 @@ void Talk_OnIdle(ProcPtr proc) {
     sTalkState->printClock = 0;
 
     while (1) {
-
         SetTalkFaceNoMouthMove(sTalkState->activeFaceSlot);
 
         switch (TalkInterpret(proc)) {
@@ -652,7 +646,6 @@ s8 TalkPrepNextChar(ProcPtr proc) {
     if (sTalkState->lineActive >= sTalkState->lines) {
         sTalkState->instantScroll = 0;
         Proc_StartBlocking(gProcScr_TalkShiftClear, proc);
-
         return 1;
     }
 
@@ -667,7 +660,7 @@ s8 TalkPrepNextChar(ProcPtr proc) {
         sTalkState->putLines = 1;
     }
 
-    if (sTalkState->unk16 != 0) {
+    if (sTalkState->mouthMoveEnabled != 0) {
         SetTalkFaceMouthMove(sTalkState->activeFaceSlot);
     }
 
@@ -679,13 +672,14 @@ s8 TalkSpritePrepNextChar(ProcPtr proc) {
 
     if (sTalkState->lineActive >= sTalkState->lines) {
         sTalkState->instantScroll = 0;
-        Proc_StartBlocking(gProcScr_085914F0, proc);
+        Proc_StartBlocking(ProcScr_TalkSpriteShiftClear, proc);
         return 1;
     }
 
     if (sTalkState->putLines == 0) {
         sTalkState->putLines = 1;
     }
+
     return 0;
 }
 
@@ -729,14 +723,18 @@ void sub_8006F00(void) {
 }
 
 //! FE8U = 0x08006F8C
-void sub_8006F8C(int flag) {
-    if (flag != 0) {
-        ApplyPalette(gUnknown_0859F000, 3);
-        ApplyPalette(gUnknown_0859EFE0, 2);
-    } else {
-        ApplyPalette(gUnknown_089E84D4, 3);
+void TalkToggleInvertedPalette(int flag) {
+    if (flag != 0)
+    {
+        ApplyPalette(Pal_TalkBubble_Inverted, 3);
+        ApplyPalette(Pal_Text_Inverted, 2);
+    }
+    else
+    {
+        ApplyPalette(Pal_TalkBubble, 3);
         ApplyPalette(Pal_Text, 2);
     }
+
     return;
 }
 
@@ -848,13 +846,13 @@ int TalkInterpret(ProcPtr proc) {
 
         case CHFE_L_ToggleMouthMove: // [ToggleMouthMove]
             // _08007394
-            sTalkState->unk16 = 1 - sTalkState->unk16;
+            sTalkState->mouthMoveEnabled = 1 - sTalkState->mouthMoveEnabled;
             sTalkState->str++;
             return 3;
 
         case CHFE_L_ToggleSmile: // [ToggleSmile]
             // _080073A0
-            sTalkState->unk17 = 1 - sTalkState->unk17;
+            sTalkState->faceSmileEnabled = 1 - sTalkState->faceSmileEnabled;
             sTalkState->str++;
             return 3;
 
@@ -1032,7 +1030,7 @@ int TalkInterpret(ProcPtr proc) {
                     return 3;
                 case 0x25: // [ToggleColorInvert]
                     // _080076AC
-                    sTalkState->unk83 = 3 - (sTalkState->unk83 & 1);
+                    sTalkState->invertedFlags = 3 - (sTalkState->invertedFlags & 1);
                     sTalkState->str++;
                     return 3;
 
@@ -1168,7 +1166,7 @@ int SetActiveTalkFace(int slot) {
 
 //! FE8U = 0x08007844
 void SetupFaceGfxDataInBanim(void) {
-    SetupFaceGfxData(gUnknown_08591390);
+    SetupFaceGfxData(FaceConfig_FightEvent);
     return;
 }
 
@@ -1184,11 +1182,11 @@ void TalkLoadFace(ProcPtr proc) {
     if ((s8)IsBattleDeamonActive()) {
         SetupFaceGfxDataInBanim();
     } else {
-        faceDisp |= 2;
+        faceDisp |= FACE_DISP_KIND(FACE_96x80);
     }
 
     if (GetTalkFaceHPos(sTalkState->activeFaceSlot) <= 14) {
-        faceDisp |= 1;
+        faceDisp |= FACE_DISP_FLIPPED;
     }
 
     faceId = sTalkState->str[0];
@@ -1200,12 +1198,12 @@ void TalkLoadFace(ProcPtr proc) {
         faceId = faceId - 0x100;
     }
 
-    if (sTalkState->faces[sTalkState->activeFaceSlot] != 0) {
+    if (sTalkState->faces[sTalkState->activeFaceSlot] != NULL) {
         sub_80066E0(sTalkState->faces[sTalkState->activeFaceSlot], faceId);
         return;
     }
 
-    sTalkState->faces[sTalkState->activeFaceSlot] = StartFaceAuto(faceId, GetTalkFaceHPos(sTalkState->activeFaceSlot) * 8, 0x50, faceDisp);
+    sTalkState->faces[sTalkState->activeFaceSlot] = StartFaceAuto(faceId, GetTalkFaceHPos(sTalkState->activeFaceSlot) * 8, 80, faceDisp);
 
     StartFaceFadeIn(sTalkState->faces[sTalkState->activeFaceSlot]);
 
@@ -1227,7 +1225,7 @@ int GetFaceIdByXPos(int x) {
     int i;
 
     for (i = 0; i < 4; i++) {
-        if (gFaces[i] == 0) {
+        if (gFaces[i] == NULL) {
             continue;
         }
 
@@ -1375,7 +1373,7 @@ void TalkFaceMove_OnIdle(struct Proc* proc) {
         Proc_Break(proc);
     } else {
         gFaces[proc->unk64]->xPos = Interpolate(
-            4,
+            INTERPOLATE_RSQUARE,
             proc->unk68,
             GetTalkFaceHPos(proc->unk66) * 8,
             proc->unk58++,
@@ -1794,15 +1792,15 @@ void PutTalkBubble(int xAnchor, int yAnchor, int width, int height) {
     sTalkState->xText = x + 1;
     sTalkState->yText = y + 1;
 
-    PutTalkBubbleTm(1, x, y, width, height);
+    PutTalkBubbleTm(BG_1, x, y, width, height);
 
-    if (sTalkState->unk83 & 2) {
-        sub_8006F8C(sTalkState->unk83 & 1);
-        sTalkState->unk83 ^= 2;
+    if (sTalkState->invertedFlags & 2) {
+        TalkToggleInvertedPalette(sTalkState->invertedFlags & 1);
+        sTalkState->invertedFlags ^= 2;
     }
 
-    if (!(sTalkState->unk83 & 1)) {
-        PutTalkBubbleTail(1, xTail, yAnchor, kind);
+    if (!(sTalkState->invertedFlags & 1)) {
+        PutTalkBubbleTail(BG_1, xTail, yAnchor, kind);
     }
 
     InitTalkTextWin(x, y, width, height);
@@ -1824,13 +1822,13 @@ void StartOpenTalkBubble(void) {
 
 //! FE8U = 0x080083F8
 void TalkBubbleOpen_OnIdle(struct Proc* proc) {
-    const void* const gUnknown_080D78EC[] = {
-        gUnknown_089E8484,
-        gUnknown_089E8434,
-        gUnknown_089E83E0,
-        gUnknown_089E8384,
-        gUnknown_089E82E0,
-        gUnknown_089E8238,
+    const void * const imgList[] = {
+        Img_TalkBubbleOpening_A,
+        Img_TalkBubbleOpening_B,
+        Img_TalkBubbleOpening_C,
+        Img_TalkBubbleOpening_D,
+        Img_TalkBubbleOpening_E,
+        Img_TalkBubble,
 
         NULL,
     };
@@ -1839,9 +1837,9 @@ void TalkBubbleOpen_OnIdle(struct Proc* proc) {
         return;
     }
 
-    Decompress(gUnknown_080D78EC[proc->unk64 >> 1], (void*)(GetBackgroundTileDataOffset(1) + 0x06000200));
+    Decompress(imgList[proc->unk64 >> 1], (void*)(GetBackgroundTileDataOffset(1) + 0x06000200));
 
-    if (gUnknown_080D78EC[(proc->unk64 >> 1) + 1] == 0) {
+    if (imgList[(proc->unk64 >> 1) + 1] == NULL) {
         Proc_Break(proc);
     }
 
@@ -1850,26 +1848,12 @@ void TalkBubbleOpen_OnIdle(struct Proc* proc) {
 
 //! FE8U = 0x08008464
 void InitTalkTextWin(int x, int y, int width, int height) {
-    gLCDControlBuffer.dispcnt.win0_on = 1;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    SetWinEnable(1, 0, 0);
 
-    gLCDControlBuffer.win0_left = (x + 1) * 8;
-    gLCDControlBuffer.win0_top = (y + 1) * 8;
-    gLCDControlBuffer.win0_right = (x + width - 1) * 8;
-    gLCDControlBuffer.win0_bottom = (y + height - 1) * 8;
+    SetWin0Box((x + 1) * 8, (y + 1) * 8, (x + width - 1) * 8, (y + height - 1) * 8);
 
-    gLCDControlBuffer.wincnt.win0_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.win0_enableObj = 1;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.wout_enableObj = 1;
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(0, 1, 1, 1, 1);
 
     return;
 }
@@ -1943,7 +1927,6 @@ void PutTalkBubbleTail(int bg, int x, int y, int kind) {
 
 //! FE8U = 0x08008668
 void PutTalkBubbleTm(int bg, int x, int y, int width, int height) {
-
     int i;
     int j;
 
@@ -1995,7 +1978,7 @@ void TalkOpen_InitBlend(struct Proc* proc) {
         gLCDControlBuffer.wincnt.win0_enableBlend = 1;
         gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-        SetBlendConfig(1, 0, 0x10, 0);
+        SetBlendAlpha(0, 16);
     }
 
     return;
@@ -2015,12 +1998,12 @@ void TalkOpen_OnIdle(struct Proc* proc) {
 
     proc->unk58++;
 
-    var = Interpolate(4, -30, 0, proc->unk58, 12);
+    var = Interpolate(INTERPOLATE_RSQUARE, -30, 0, proc->unk58, 12);
 
-    BG_SetPosition(1, 0, var / 2);
+    BG_SetPosition(BG_1, 0, var / 2);
 
     if (!CheckTalkFlag(TALK_FLAG_8)) {
-        SetBlendConfig(1, var / 2 + 0x10, 1 - var / 2, 0);
+        SetBlendAlpha(var / 2 + 16, 1 - var / 2);
     }
 
     if (proc->unk58 == 12) {
@@ -2080,8 +2063,8 @@ int GetTalkFaceHPos(int talkFace) {
 
 //! FE8U = 0x08008960
 void SetTalkFaceDisp(int talkFace, int faceDisp) {
+    const int lut[] = { 0, FACE_DISP_SMILE };
 
-    const int gUnknown_080D7908[] = { 0, 8 };
     int disp;
 
     if (talkFace == 0xff) {
@@ -2089,16 +2072,16 @@ void SetTalkFaceDisp(int talkFace, int faceDisp) {
     }
 
     disp = GetFaceDisplayBits(sTalkState->faces[talkFace]);
-    disp &= 0xffffffc7;
+    disp &= ~(FACE_DISP_SMILE | FACE_DISP_TALK_1 | FACE_DISP_TALK_2);
 
-    SetFaceDisplayBits(sTalkState->faces[talkFace], disp | faceDisp | gUnknown_080D7908[sTalkState->unk17]);
+    SetFaceDisplayBits(sTalkState->faces[talkFace], disp | faceDisp | lut[sTalkState->faceSmileEnabled]);
 
     return;
 }
 
 //! FE8U = 0x080089B8
 void SetTalkFaceMouthMove(int talkFace) {
-    SetTalkFaceDisp(talkFace, 0x10);
+    SetTalkFaceDisp(talkFace, FACE_DISP_TALK_1);
     return;
 }
 
@@ -2125,10 +2108,8 @@ int GetTalkChoiceResult(void) {
 
 //! FE8U = 0x08008A0C
 int SetTalkChoiceResult(int result) {
-    int result2 = result;
-    ++result; --result;
-    sTalkChoiceResult = result2;
-    return result;
+    sTalkChoiceResult = result;
+    // return; // BUG
 }
 
 //! FE8U = 0x08008A18
@@ -2190,7 +2171,7 @@ void TalkPutSpriteText_OnIdle(struct Proc* proc) {
         proc->x,
         proc->y,
         gSprite_TalkTextBack,
-        (0x3FF & proc->unk52) | ((proc->unk64 & 0xf) << 0xc)
+        OAM2_CHR(proc->unk52) | OAM2_PAL(proc->unk64)
     );
 
     PutSprite(
@@ -2198,7 +2179,7 @@ void TalkPutSpriteText_OnIdle(struct Proc* proc) {
         proc->x,
         proc->y,
         gSprite_TalkTextFront,
-        (0x3FF & proc->unk52) | ((sTalkFont.palid & 0xf) << 0xc)
+        OAM2_CHR(proc->unk52) | OAM2_PAL(sTalkFont.palid)
     );
 
     return;
@@ -2492,7 +2473,7 @@ void TalkBgSync(int bg) {
 
 //! FE8U = 0x08008F3C
 bool sub_8008F3C(void) {
-    if (Proc_Find(gUnknown_08591624))
+    if (Proc_Find(ProcScr_08591624))
         return true;
 
 #if BUGFIX
@@ -2503,19 +2484,19 @@ bool sub_8008F3C(void) {
 //! FE8U = 0x08008F54
 void sub_8008F54(void)
 {
-    Proc_EndEach(gUnknown_08591624);
+    Proc_EndEach(ProcScr_08591624);
     return;
 }
 
 //! FE8U = 0x08008F64
 void sub_8008F64(int chr, int b, int c, ProcPtr parent)
 {
-    struct TalkDebugProc * proc = Proc_Start(gUnknown_08591624, PROC_TREE_VSYNC);
+    struct TalkDebugProc * proc = Proc_Start(ProcScr_08591624, PROC_TREE_VSYNC);
 
     proc->unk_4c = (0x3FF & chr) * CHR_SIZE + 0x06010000;
     proc->unk_54 = b;
     proc->unk_58 = c;
-    Proc_StartBlocking(gUnknown_0859160C, parent);
+    Proc_StartBlocking(ProcScr_0859160C, parent);
 
     return;
 }
@@ -2650,7 +2631,7 @@ void sub_8009100(struct Proc0859163C * proc)
 //! FE8U = 0x0800915C
 void sub_800915C(int a, int b, int c, int d, int e, int f, int g, ProcPtr parent)
 {
-    struct Proc0859163C * proc = Proc_StartBlocking(gUnknown_0859163C, parent);
+    struct Proc0859163C * proc = Proc_StartBlocking(ProcScr_0859163C, parent);
 
     proc->unk_2c = b;
     proc->unk_30 = a;

@@ -68,12 +68,12 @@ gPal_YellowTextBox:  @ 0x0859EF80
 Pal_GreenTextColors:  @ 0x0859EFC0
 	.incbin "baserom.gba", 0x59EFC0, 0x20
 
-	.global gUnknown_0859EFE0
-gUnknown_0859EFE0:  @ 0x0859EFE0
+	.global Pal_Text_Inverted
+Pal_Text_Inverted:  @ 0x0859EFE0
 	.incbin "baserom.gba", 0x59EFE0, 0x20
 
-	.global gUnknown_0859F000
-gUnknown_0859F000:  @ 0x0859F000
+	.global Pal_TalkBubble_Inverted
+Pal_TalkBubble_Inverted:  @ 0x0859F000
 	.incbin "baserom.gba", 0x59F000, 0x20
 
 	.global Img_PhaseChangeUnk

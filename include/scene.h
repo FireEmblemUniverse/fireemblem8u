@@ -66,8 +66,8 @@ struct TalkState
     /* 13 */ s8 printDelay;
     /* 14 */ s8 printClock;
     /* 15 */ u8 putLines;
-    /* 16 */ u8 unk16;
-    /* 17 */ u8 unk17;
+    /* 16 */ u8 mouthMoveEnabled;
+    /* 17 */ u8 faceSmileEnabled;
     /* 18 */ struct FaceProc* faces[8];
     /* 38 */ void(*unk38)(ProcPtr proc);
     /* 3C */ u32 userNumber;
@@ -75,7 +75,7 @@ struct TalkState
     /* 60 */ char userString[0x20];
     /* 80 */ u16 config;
     /* 82 */ u8 unk82;
-    /* 83 */ u8 unk83;
+    /* 83 */ u8 invertedFlags;
 };
 
 struct TalkDebugProc {
@@ -147,7 +147,7 @@ void LockTalk(ProcPtr proc);
 s8 IsTalkLocked(void);
 void ResumeTalk(void);
 void sub_8006F00(void);
-void sub_8006F8C(int flag);
+void TalkToggleInvertedPalette(int flag);
 int TalkInterpret(ProcPtr);
 int SetActiveTalkFace(int);
 void SetupFaceGfxDataInBanim(void);
