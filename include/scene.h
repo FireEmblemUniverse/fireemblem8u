@@ -66,8 +66,8 @@ struct TalkState
     /* 13 */ s8 printDelay;
     /* 14 */ s8 printClock;
     /* 15 */ u8 putLines;
-    /* 16 */ u8 unk16;
-    /* 17 */ u8 unk17;
+    /* 16 */ u8 mouthMoveEnabled;
+    /* 17 */ u8 faceSmileEnabled;
     /* 18 */ struct FaceProc* faces[8];
     /* 38 */ void(*unk38)(ProcPtr proc);
     /* 3C */ u32 userNumber;
@@ -75,7 +75,7 @@ struct TalkState
     /* 60 */ char userString[0x20];
     /* 80 */ u16 config;
     /* 82 */ u8 unk82;
-    /* 83 */ u8 unk83;
+    /* 83 */ u8 invertedFlags;
 };
 
 struct TalkDebugProc {
@@ -89,6 +89,19 @@ struct TalkDebugProc {
     int unk_5c;
     int unk_60;
     s16 unk_64;
+};
+
+struct Proc0859163C
+{
+    PROC_HEADER;
+    int unk_2c;
+    int unk_30;
+    int unk_34;
+    int unk_38;
+    int unk_3c;
+    int unk_40;
+    int unk_44;
+    int unk_48;
 };
 
 struct ChoiceEntryInfo
@@ -134,7 +147,7 @@ void LockTalk(ProcPtr proc);
 s8 IsTalkLocked(void);
 void ResumeTalk(void);
 void sub_8006F00(void);
-void sub_8006F8C(int flag);
+void TalkToggleInvertedPalette(int flag);
 int TalkInterpret(ProcPtr);
 int SetActiveTalkFace(int);
 void SetupFaceGfxDataInBanim(void);
@@ -193,13 +206,19 @@ void TalkPutSpriteText_OnIdle(struct Proc*);
 void ClearPrimaryHBlank(void);
 void TalkPutSpriteText_OnEnd(void);
 int GetStrTalkLen(const char*, s8);
-bool8 GetZero(void); // idk
+bool GetZero(void);
 void sub_8008F1C(void);
 void TalkBgSync(int bg);
-s8 sub_8008F3C(void);
+bool sub_8008F3C(void);
 void sub_8008F54(void);
 void sub_8008F64(int chr, int b, int c, ProcPtr parent);
-void sub_8008FAC(struct TalkDebugProc*);
+void sub_8008FAC(struct TalkDebugProc *);
+void sub_8008FB4(struct TalkDebugProc *);
+void nullsub_15(void);
+void sub_800903C(struct Proc0859163C *);
+void sub_800904C(struct Proc0859163C *);
+void sub_8009100(struct Proc0859163C *);
+void sub_800915C(int, int, int, int, int, int, int, ProcPtr);
 
 extern struct ProcCmd gProcScr_TalkOpen[];
 

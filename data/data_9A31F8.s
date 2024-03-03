@@ -497,30 +497,30 @@ gUnknown_089E714C:  @ 0x089E714C
 gUnknown_089E7DEC:  @ 0x089E7DEC
 	.incbin "baserom.gba", 0x9E7DEC, 0x44C
 
-	.global gUnknown_089E8238
-gUnknown_089E8238:  @ 0x089E8238
+	.global Img_TalkBubble
+Img_TalkBubble:  @ 0x089E8238
     .incbin "baserom.gba", 0x9E8238, 0xA8
 
-	.global gUnknown_089E82E0
-gUnknown_089E82E0:  @ 0x089E82E0
+	.global Img_TalkBubbleOpening_E
+Img_TalkBubbleOpening_E:  @ 0x089E82E0
 	.incbin "baserom.gba", 0x9E82E0, 0xA4
 
-	.global gUnknown_089E8384
-gUnknown_089E8384:  @ 0x089E8384
+	.global Img_TalkBubbleOpening_D
+Img_TalkBubbleOpening_D:  @ 0x089E8384
 	.incbin "baserom.gba", 0x9E8384, 0x5C
 
-	.global gUnknown_089E83E0
-gUnknown_089E83E0:  @ 0x089E83E0
+	.global Img_TalkBubbleOpening_C
+Img_TalkBubbleOpening_C:  @ 0x089E83E0
 	.incbin "baserom.gba", 0x9E83E0, 0x54
 
-	.global gUnknown_089E8434
-gUnknown_089E8434:  @ 0x089E8434
+	.global Img_TalkBubbleOpening_B
+Img_TalkBubbleOpening_B:  @ 0x089E8434
 	.incbin "baserom.gba", 0x9E8434, 0x50
 
-	.global gUnknown_089E8484
-gUnknown_089E8484:  @ 0x089E8484
+	.global Img_TalkBubbleOpening_A
+Img_TalkBubbleOpening_A:  @ 0x089E8484
 	.incbin "baserom.gba", 0x9E8484, 0x50
 
-	.global gUnknown_089E84D4
-gUnknown_089E84D4:  @ 0x089E84D4
+	.global Pal_TalkBubble
+Pal_TalkBubble:  @ 0x089E84D4
 	.incbin "baserom.gba", 0x9E84D4, 0x20
