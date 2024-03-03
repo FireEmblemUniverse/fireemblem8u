@@ -200,8 +200,8 @@ void sub_80AA790(u16 *, u16 *, int);
 void sub_80AA7AC(int a, int b);
 // ??? sub_80AA7EC(???);
 void sub_80AA9D8(struct SaveDrawProc *);
-// ??? sub_80AAA6C(???);
-// ??? sub_80AAA78(???);
+// ??? SaveDraw_OnEnd(???);
+// ??? SaveDraw_Init(???);
 // ??? sub_80AAB78(???);
 // ??? sub_80AABC4(???);
 // ??? sub_80AAC40(???);
@@ -210,8 +210,8 @@ void sub_80AA9D8(struct SaveDrawProc *);
 // ??? sub_80AAE90(???);
 // ??? sub_80AAF6C(???);
 // ??? sub_80AB05C(???);
-// ??? sub_80AB2A0(???);
-struct SaveDrawProc * New6C_savedraw(ProcPtr);
+// ??? SaveDraw_Loop_Main(???);
+struct SaveDrawProc * StartSaveDraw(ProcPtr);
 
 struct SaveDrawCursorProc {
     /* 00 */ PROC_HEADER;
@@ -260,9 +260,9 @@ struct Unknown03004990 {
 
 extern struct Unknown03004990* gUnknown_03004990;
 
-extern u16 gUnknown_08A20570[];
-extern u16 gUnknown_08A20578[];
-extern u16 gUnknown_08A20580[];
+extern u16 Sprite_08A20570[];
+extern u16 Sprite_08A20578[];
+extern u16 Sprite_08A20580[];
 
 void SaveDrawCursor_Init(struct SaveDrawCursorProc * proc);
 void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc);
@@ -316,20 +316,24 @@ ProcPtr StartDrawDifficultyMenuSprites(ProcPtr);
 // extern ??? gProcScr_SaveMenuPostChapter
 // extern ??? gUnknown_08A204B8
 // extern ??? gUnknown_08A204BC;
-extern u16 gUnknown_08A2051C[];
-extern u16 gUnknown_08A20536[];
-extern u16 gUnknown_08A20570[];
-extern u16 gUnknown_08A20578[];
-extern u16 gUnknown_08A20580[];
-extern u16 gUnknown_08A20588[];
-extern u16 Obj_08A20590[];
-extern u16 * gUnknown_08A20650[];
-extern u16 * Objs_08A2067C[];
+extern u16 Sprite_08A2051C[];
+extern u16 Sprite_08A20536[];
+extern u16 Sprite_08A20570[];
+extern u16 Sprite_08A20578[];
+extern u16 Sprite_08A20580[];
+extern u16 Sprite_08A20588[];
+extern u16 Sprite_08A20590[];
+extern u16 * SpriteArray_08A20650[];
+extern u16 * SpriteArray_08A2067C[];
 // extern ??? ProcScr_savedraw
 // extern ??? gProcScr_SaveDrawCursor
 // extern ??? gProcScr_08A206F8
 // extern ??? gUnknown_08A20720
 // extern ??? gProcScr_SqMask
 // extern ??? gProcScr_SaveBgUp
+extern u16 * SpriteArray_08A2099C[];
+extern u16 * SpriteArray_08A209B8[];
+extern u16 * SpriteArray_08A209E4[];
+extern u16 * SpriteArray_08A209F0[];
 
 #endif // GUARD_SAVEMENU_H

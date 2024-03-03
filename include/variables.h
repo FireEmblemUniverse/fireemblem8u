@@ -1070,11 +1070,6 @@ extern u16 gTSA_GoalBox_OneLine[];
 // extern ??? sArenaCpTeamNameLut
 // extern ??? gpSramExtraData
 
-// extern ??? gUnknown_08A2099C
-// extern ??? gUnknown_08A209B8
-extern u16* gUnknown_08A209E4[];
-extern u16* gUnknown_08A209F0[];
-
 struct Unknown_08A209FC
 {
     s8 a;

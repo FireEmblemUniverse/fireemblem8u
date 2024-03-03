@@ -17,7 +17,8 @@
 
 // clang-format off
 
-u16 CONST_DATA gUnknown_08A2051C[] = {
+u16 CONST_DATA Sprite_08A2051C[] =
+{
     4,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x40) + OAM2_LAYER(2),
     OAM0_SHAPE_8x32, OAM1_SIZE_8x32 + OAM1_X(64), OAM2_CHR(0x48) + OAM2_LAYER(2),
@@ -25,7 +26,7 @@ u16 CONST_DATA gUnknown_08A2051C[] = {
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(80) + OAM1_HFLIP, OAM2_CHR(0x40) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gUnknown_08A20536[] =
+u16 CONST_DATA Sprite_08A20536[] =
 {
     3,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x49) + OAM2_LAYER(2),
@@ -44,31 +45,31 @@ u16 CONST_DATA Sprite_08A2054A[] =
     OAM0_SHAPE_32x16 + OAM0_Y(32), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x82) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA gUnknown_08A20570[] =
+u16 CONST_DATA Sprite_08A20570[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x5C) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA gUnknown_08A20578[] =
+u16 CONST_DATA Sprite_08A20578[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1D1) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gUnknown_08A20580[] =
+u16 CONST_DATA Sprite_08A20580[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1F1) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gUnknown_08A20588[] =
+u16 CONST_DATA Sprite_08A20588[] =
 {
     1,
     OAM0_SHAPE_32x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x32 + OAM1_AFFINE_ID(3), OAM2_CHR(0xDC) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Obj_08A20590[] =
+u16 CONST_DATA Sprite_08A20590[] =
 {
     2,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x196) + OAM2_LAYER(2),
@@ -207,7 +208,7 @@ u16 CONST_DATA Sprite_08A20646[] =
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1D0) + OAM2_LAYER(1),
 };
 
-u16 * CONST_DATA gUnknown_08A20650[] =
+u16 * CONST_DATA SpriteArray_08A20650[] =
 {
     Sprite_08A2059E,
     Sprite_08A205A6,
@@ -222,7 +223,7 @@ u16 * CONST_DATA gUnknown_08A20650[] =
     Sprite_08A205EE,
 };
 
-u16 * CONST_DATA Objs_08A2067C[] =
+u16 * CONST_DATA SpriteArray_08A2067C[] =
 {
     Sprite_08A205F6,
     Sprite_08A205FE,
@@ -264,26 +265,26 @@ void sub_80AA7EC(struct SaveDrawProc * proc)
         FormatTime(saveMenuProc->unk_48[saveMenuProc->save_slot], &hours, &minutes, &seconds);
     }
 
-    PutSpriteExt(13, x + 6, y - 14, Obj_08A20590, OAM2_PAL(2));
+    PutSpriteExt(13, x + 6, y - 14, Sprite_08A20590, OAM2_PAL(2));
 
     if (hours > 99)
     {
-        PutSpriteExt(13, x + 10, y - 8, Objs_08A2067C[(hours / 100)], OAM2_PAL(7));
+        PutSpriteExt(13, x + 10, y - 8, SpriteArray_08A2067C[(hours / 100)], OAM2_PAL(7));
         hours = hours - ((hours / 100) * 100);
     }
 
     if (hours > 9)
     {
-        PutSpriteExt(13, x + 18, y - 8, Objs_08A2067C[(hours / 10)], OAM2_PAL(7));
+        PutSpriteExt(13, x + 18, y - 8, SpriteArray_08A2067C[(hours / 10)], OAM2_PAL(7));
     }
 
-    PutSpriteExt(13, x + 26, y - 8, Objs_08A2067C[(hours % 10)], OAM2_PAL(7));
-    PutSpriteExt(13, x + 34, y - 7, Objs_08A2067C[10], OAM2_PAL(7));
-    PutSpriteExt(13, x + 42, y - 8, Objs_08A2067C[(minutes / 10)], OAM2_PAL(7));
-    PutSpriteExt(13, x + 50, y - 8, Objs_08A2067C[(minutes % 10)], OAM2_PAL(7));
-    PutSpriteExt(13, x + 58, y + 1, gUnknown_08A20650[10], OAM2_PAL(7));
-    PutSpriteExt(13, x + 66, y, gUnknown_08A20650[(seconds / 10)], OAM2_PAL(7));
-    PutSpriteExt(13, x + 74, y, gUnknown_08A20650[(seconds % 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 26, y - 8, SpriteArray_08A2067C[(hours % 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 34, y - 7, SpriteArray_08A2067C[10], OAM2_PAL(7));
+    PutSpriteExt(13, x + 42, y - 8, SpriteArray_08A2067C[(minutes / 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 50, y - 8, SpriteArray_08A2067C[(minutes % 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 58, y + 1, SpriteArray_08A20650[10], OAM2_PAL(7));
+    PutSpriteExt(13, x + 66, y, SpriteArray_08A20650[(seconds / 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 74, y, SpriteArray_08A20650[(seconds % 10)], OAM2_PAL(7));
 
     return;
 }
@@ -414,14 +415,14 @@ void sub_80AA9D8(struct SaveDrawProc * proc)
 #endif
 
 //! FE8U = 0x080AAA6C
-void sub_80AAA6C(void)
+void SaveDraw_OnEnd(void)
 {
     sub_8014E3C();
     return;
 }
 
 //! FE8U = 0x080AAA78
-void sub_80AAA78(struct SaveDrawProc * proc)
+void SaveDraw_Init(struct SaveDrawProc * proc)
 {
     proc->unk_29 = 1;
     proc->unk_2c = 0;
@@ -483,23 +484,19 @@ void sub_80AAB78(s8 flag, u16 color)
     return;
 }
 
-extern u16 * gUnknown_08A209B8[];
-
 //! FE8U = 0x080AABC4
 void sub_80AABC4(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palIdB)
 {
-    PutSpriteExt(4, OAM1_X(x), y, gUnknown_08A2051C, OAM2_PAL(palIdA));
-    PutSpriteExt(4, OAM1_X(x + 8), y + 8, gUnknown_08A209B8[spriteIdx], OAM2_PAL(palIdB));
+    PutSpriteExt(4, OAM1_X(x), y, Sprite_08A2051C, OAM2_PAL(palIdA));
+    PutSpriteExt(4, OAM1_X(x + 8), y + 8, SpriteArray_08A209B8[spriteIdx], OAM2_PAL(palIdB));
     return;
 }
-
-extern u16 * gUnknown_08A2099C[];
 
 //! FE8U = 0x080AAC40
 void sub_80AAC40(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palIdB)
 {
-    PutSpriteExt(4, OAM1_X(x), y, gUnknown_08A2051C, OAM2_PAL(palIdA));
-    PutSpriteExt(4, OAM1_X(x + 8), y + 8, gUnknown_08A2099C[spriteIdx], OAM2_PAL(palIdB));
+    PutSpriteExt(4, OAM1_X(x), y, Sprite_08A2051C, OAM2_PAL(palIdA));
+    PutSpriteExt(4, OAM1_X(x + 8), y + 8, SpriteArray_08A2099C[spriteIdx], OAM2_PAL(palIdB));
     return;
 }
 
@@ -526,7 +523,6 @@ void sub_80AACBC(struct SaveDrawProc * proc)
             }
             else
             {
-
                 // clang-format off
                 SetObjAffine(
                     3,
@@ -548,7 +544,7 @@ void sub_80AACBC(struct SaveDrawProc * proc)
     return;
 }
 
-extern u16 * gUnknown_08A209B8[];
+extern u16 * SpriteArray_08A209B8[];
 
 //! FE8U = 0x080AADE0
 void sub_80AADE0(struct SaveDrawProc * proc)
@@ -558,7 +554,7 @@ void sub_80AADE0(struct SaveDrawProc * proc)
 
     int y = OAM0_Y(((SAVE_MENU_PARENT(proc)->unk_2f * 48) / 0xdc) + 0x1d0);
 
-    PutSpriteExt(4, 48, y, gUnknown_08A2051C, OAM2_PAL(2));
+    PutSpriteExt(4, 48, y, Sprite_08A2051C, OAM2_PAL(2));
 
     saveMenuProc = SAVE_MENU_PARENT(proc);
 
@@ -566,17 +562,17 @@ void sub_80AADE0(struct SaveDrawProc * proc)
     {
         if (saveMenuProc->unk_35 & 0x10)
         {
-            PutSpriteExt(4, 56, y + 8, gUnknown_08A209B8[10], OAM2_PAL(4));
+            PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[10], OAM2_PAL(4));
         }
         else
         {
-            PutSpriteExt(4, 56, y + 8, gUnknown_08A209B8[8], OAM2_PAL(4));
+            PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[8], OAM2_PAL(4));
         }
     }
     else
     {
         spriteIdx = sub_80A88B8(saveMenuProc->action_flag);
-        PutSpriteExt(4, 56, y + 8, gUnknown_08A209B8[spriteIdx], OAM2_PAL(4));
+        PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[spriteIdx], OAM2_PAL(4));
     }
 
     return;
@@ -673,9 +669,6 @@ void sub_80AAF6C(struct SaveDrawProc * proc)
     return;
 }
 
-extern u16 * gUnknown_08A209E4[];
-extern u16 * gUnknown_08A209F0[];
-
 //! FE8U = 0x080AB05C
 void sub_80AB05C(struct SaveDrawProc * proc)
 {
@@ -699,10 +692,10 @@ void sub_80AB05C(struct SaveDrawProc * proc)
             }
 
             PutSpriteExt(
-                4, OAM1_X(248 - SAVE_MENU_PARENT(proc)->unk_2f), y + 32 + (i * 32), gUnknown_08A209F0[i],
+                4, OAM1_X(248 - SAVE_MENU_PARENT(proc)->unk_2f), y + 32 + (i * 32), SpriteArray_08A209F0[i],
                 OAM2_PAL(i * 2 + 10));
             PutSpriteExt(
-                4, OAM1_X(248 - SAVE_MENU_PARENT(proc)->unk_2f), (y + 32 + (i * 32)) + 8, gUnknown_08A209E4[i],
+                4, OAM1_X(248 - SAVE_MENU_PARENT(proc)->unk_2f), (y + 32 + (i * 32)) + 8, SpriteArray_08A209E4[i],
                 OAM2_PAL(i * 2 + 11));
         }
 
@@ -719,9 +712,9 @@ void sub_80AB05C(struct SaveDrawProc * proc)
 
                 // redundant
                 if (SAVE_MENU_PARENT(proc)->action_flag & 1)
-                    PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->unk_3f * 0x20 + 0x1e, gUnknown_08A20588, 0x3000);
+                    PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->unk_3f * 0x20 + 0x1e, Sprite_08A20588, 0x3000);
                 else
-                    PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->unk_3f * 0x20 + 0x1e, gUnknown_08A20588, 0x3000);
+                    PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->unk_3f * 0x20 + 0x1e, Sprite_08A20588, 0x3000);
             }
             else
             {
@@ -737,7 +730,7 @@ void sub_80AB05C(struct SaveDrawProc * proc)
                         SAVE_MENU_PARENT(proc)->unk_60, 320, SAVE_MENU_PARENT(proc)->unk_3f * 32 + 48, 0x3140);
                     PutSpriteExt(
                         4, 422 - SAVE_MENU_PARENT(proc)->unk_2f, SAVE_MENU_PARENT(proc)->unk_3f * 32 + 30,
-                        gUnknown_08A20588, 0x3000);
+                        Sprite_08A20588, 0x3000);
                 }
             }
         }
@@ -747,7 +740,7 @@ void sub_80AB05C(struct SaveDrawProc * proc)
     {
         if (SAVE_MENU_PARENT(proc)->unk_36 != 0)
         {
-            PutSpriteExt(4, 44, 128, gUnknown_08A20536, OAM2_PAL(2));
+            PutSpriteExt(4, 44, 128, Sprite_08A20536, OAM2_PAL(2));
             DisplayUiHand(((SAVE_MENU_PARENT(proc)->unk_36 - 1) % 2) * 44 + 52, 136);
             sub_80AB4F4(1, 12, SAVE_MENU_PARENT(proc)->save_slot * 32 + 32, proc);
         }
@@ -769,7 +762,7 @@ void sub_80AB05C(struct SaveDrawProc * proc)
 }
 
 //! FE8U = 0x080AB2A0
-void sub_80AB2A0(struct SaveDrawProc * proc)
+void SaveDraw_Loop_Main(struct SaveDrawProc * proc)
 {
     if (proc->unk_29 != 0)
     {
@@ -803,10 +796,10 @@ struct ProcCmd CONST_DATA ProcScr_savedraw[] =
 {
     PROC_NAME("savedraw"),
     PROC_MARK(PROC_MARK_C),
-    PROC_SET_END_CB(sub_80AAA6C),
+    PROC_SET_END_CB(SaveDraw_OnEnd),
 
-    PROC_CALL(sub_80AAA78),
-    PROC_REPEAT(sub_80AB2A0),
+    PROC_CALL(SaveDraw_Init),
+    PROC_REPEAT(SaveDraw_Loop_Main),
 
     PROC_END,
 };
@@ -814,7 +807,7 @@ struct ProcCmd CONST_DATA ProcScr_savedraw[] =
 // clang-format on
 
 //! FE8U = 0x080AB300
-struct SaveDrawProc * New6C_savedraw(ProcPtr parent)
+struct SaveDrawProc * StartSaveDraw(ProcPtr parent)
 {
     return Proc_Start(ProcScr_savedraw, parent);
 }
@@ -881,7 +874,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
                 4,
                 xOam1 & 0x1FF,
                 (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
-                gUnknown_08A20570,
+                Sprite_08A20570,
                 0x3000
             );
 
@@ -891,7 +884,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
                 4,
                 (xOam1 & 0x1FF) | 0x1000,
                 (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
-                gUnknown_08A20570,
+                Sprite_08A20570,
                 0x3000
             );
         } else {
@@ -899,7 +892,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
                 4,
                 4,
                 (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
-                gUnknown_08A20570,
+                Sprite_08A20570,
                 0x3000
             );
         }
@@ -912,7 +905,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
     }
 
     if (proc->unk_38 != 0) {
-        PutSpriteExt(4, 6, proc->unk_37, gUnknown_08A20570, 0x3000);
+        PutSpriteExt(4, 6, proc->unk_37, Sprite_08A20570, 0x3000);
     }
 
     if (proc->unk_39 != 0) {
@@ -996,7 +989,7 @@ void sub_80AB56C(u32 a) {
                         0xe,
                         ((int)ptr->unk_00 / 12) & 0x1FF,
                         (ptr->unk_04 / 12) & 0xff,
-                        gUnknown_08A20580,
+                        Sprite_08A20580,
                         0x3000
                     );
                 } else {
@@ -1004,7 +997,7 @@ void sub_80AB56C(u32 a) {
                         0xe,
                         ((int)ptr->unk_00 / 12) & 0x1FF,
                         (ptr->unk_04 / 12) & 0xff,
-                        gUnknown_08A20578,
+                        Sprite_08A20578,
                         0x3000
                     );
                 }
@@ -1320,7 +1313,6 @@ s8 sub_80AB9FC(struct SaveMenuProc* proc, int b) {
 //! FE8U = 0x080ABA98
 s8 sub_80ABA98(struct SaveMenuProc * proc)
 {
-
     if ((proc->action_flag & proc->active_options) != 0) {
         return 1;
     }
@@ -1333,33 +1325,16 @@ void SqMask_Loop(struct SqMaskProc * proc)
 {
     proc->unk_29 += proc->unk_2b;
 
-    gLCDControlBuffer.dispcnt.win0_on = 0;
-    gLCDControlBuffer.dispcnt.win1_on = 1;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    SetWinEnable(0, 1, 0);
 
     if (proc->unk_2a >= 1) {
-        gLCDControlBuffer.win1_left = proc->unk_29 * 3;
-        gLCDControlBuffer.win1_top = proc->unk_29 * 2;
-        gLCDControlBuffer.win1_right = -0x10 - (proc->unk_29 * 3);
-        gLCDControlBuffer.win1_bottom = -0x60 - (proc->unk_29 * 2);
+        SetWin1Box(proc->unk_29 * 3, proc->unk_29 * 2, -0x10 - (proc->unk_29 * 3), -0x60 - (proc->unk_29 * 2));
     } else {
-        gLCDControlBuffer.win1_left = 0x78 - (proc->unk_29 * 3);
-        gLCDControlBuffer.win1_top = 0x50 - (proc->unk_29 * 2);
-        gLCDControlBuffer.win1_right = proc->unk_29 * 3 + 0x78;
-        gLCDControlBuffer.win1_bottom = proc->unk_29 * 2 + 0x50;
+        SetWin1Box(0x78 - (proc->unk_29 * 3), 0x50 - (proc->unk_29 * 2), proc->unk_29 * 3 + 0x78, proc->unk_29 * 2 + 0x50);
     }
 
-    gLCDControlBuffer.wincnt.win1_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.win1_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.win1_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.win1_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.win1_enableObj = 1;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = 0;
-    gLCDControlBuffer.wincnt.wout_enableObj = 0;
+    SetWin1Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(0, 0, 0, 0, 0);
 
     if (proc->unk_29 > 0x27) {
         Proc_Break(proc);
