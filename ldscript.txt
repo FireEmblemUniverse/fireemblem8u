@@ -543,7 +543,6 @@ SECTIONS
         src/minimap.o(.text);
         src/savemenu.o(.text);
         src/savedraw.o(.text);
-        src/savedrawcursor.o(.text);
         src/difficultymenu.o(.text);
         asm/code_80AC6AC.o(.text);
         src/cursor_hand.o(.text);
@@ -815,7 +814,7 @@ SECTIONS
         . = ALIGN(4); src/bmsave-misc.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); src/savemenu.o(.rodata);
-        . = ALIGN(4); src/savedrawcursor.o(.rodata);
+        . = ALIGN(4); src/savedraw.o(.rodata);
         . = ALIGN(4); src/sysutil.o(.rodata);
         . = ALIGN(4); src/uiconfig.o(.rodata);
         . = ALIGN(4); src/colorfade.o(.rodata);
@@ -1127,7 +1126,6 @@ SECTIONS
         . = ALIGN(4); data/data_minimap.o(.data);
         . = ALIGN(4); src/savemenu.o(.data);
         . = ALIGN(4); src/savedraw.o(.data);
-        . = ALIGN(4); src/savedrawcursor.o(.data);
         . = ALIGN(4); src/savemenu_data.o(.data);
         . = ALIGN(4); src/difficultymenu.o(.data);
         . = ALIGN(4); src/cursor_hand.o(.data);
