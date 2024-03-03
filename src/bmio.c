@@ -115,9 +115,8 @@ static void WfxUpdate(void);
 static void ClearBattleMapState(void);
 static void InitMoreBMapGraphics(void);
 
-// TODO: figure out if those variables should really belong to EWRAM_DATA
-static EWRAM_DATA union WeatherEffectData sWeatherEffect = {};
-static EWRAM_DATA union GradientEffectData sGradientEffect = {};
+EWRAM_OVERLAY(0) union WeatherEffectData sWeatherEffect = {};
+EWRAM_OVERLAY(0) union GradientEffectData sGradientEffect = {};
 
 static CONST_DATA struct ProcCmd sProc_BMVSync[] = { // gProc_VBlankHandler
     PROC_MARK(PROC_MARK_1),

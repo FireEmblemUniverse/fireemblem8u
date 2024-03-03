@@ -6,7 +6,9 @@
 #include "gba/gba.h"
 
 // this is for denoting objects that *should* be const, but weren't in the original source (resulting in them being emitted in the .data section)
-#define CONST_DATA __attribute__((section(".data")))
+#define SECTION(name) __attribute__((section(name)))
+#define CONST_DATA SECTION(".data")
+#define EWRAM_OVERLAY(id) SECTION("ewram_overlay_" # id)
 
 // this is for denoting objects that *should* be const, but need to not be for functions to match.
 #define SHOULD_BE_CONST

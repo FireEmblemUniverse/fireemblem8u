@@ -129,7 +129,7 @@ void Tactician_InitScreen(struct ProcTactician * proc)
     InitText(&Texts_0203DAB0, 0xC);
     NewProc085AA980(proc->child1, 3, 0x500);
     sub_804C508();
-    gUnknown_0203DD24 = 0;
+    gUnk_Sio_0203DD24 = 0;
     proc->text_idx = 0;
     sub_8044614(proc);
 

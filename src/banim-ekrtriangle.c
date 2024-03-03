@@ -12,7 +12,7 @@
 #include "ekrtriangle.h"
 #include "ctc.h"
 
-EWRAM_DATA int gEkrTriangleInvalid = 0;
+EWRAM_OVERLAY(banim) int gEkrTriangleInvalid = 0;
 
 bool CheckEkrTriangleInvalid(void)
 {
@@ -368,8 +368,8 @@ void NewEkrTriPegasusKnightOBJ(struct Anim * anim, u32 pos, u32 etype, u32 ewtyp
     }
 
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
-    LZ77UnCompWram(pal, gSpellAnimObjfx);
-    SpellFx_RegisterObjPal((u16 *)gSpellAnimObjfx, 0x20);
+    LZ77UnCompWram(pal, gBuf_Banim);
+    SpellFx_RegisterObjPal((u16 *)gBuf_Banim, 0x20);
 
     img = Img_TriPegasusKnightOBJ;
     if (etype != EKR_TRI_JTYPE_DEFAULT)
@@ -503,9 +503,9 @@ void NewEkrTriArmorKnightOBJ(struct Anim *anim, u32 etype1, u32 etype2, u32 ewty
     proc->anim2 = anim2;
     anim2->oam2Base = OAM2_PAL(0x8) + OAM2_LAYER(0x2) + OAM2_CHR(0x0800 / 0x20);
 
-    LZ77UnCompWram(pal, gSpellAnimObjfx);
-    CpuFastCopy(gSpellAnimObjfx, PAL_OBJ(0x8), 0x20);
-    LZ77UnCompWram(img, gSpellAnimObjfx);
+    LZ77UnCompWram(pal, gBuf_Banim);
+    CpuFastCopy(gBuf_Banim, PAL_OBJ(0x8), 0x20);
+    LZ77UnCompWram(img, gBuf_Banim);
 
     pal = gBanimTriAtkPalettes[1];
     if (etype2 == EKR_TRI_JTYPE_DEFAULT)
@@ -539,13 +539,13 @@ void NewEkrTriArmorKnightOBJ(struct Anim *anim, u32 etype1, u32 etype2, u32 ewty
     proc->anim3 = anim2;
     anim2->oam2Base = OAM2_PAL(0xA) + OAM2_LAYER(0x2) + OAM2_CHR(0x1000 / 0x20);
 
-    LZ77UnCompWram(pal, &gSpellAnimObjfx[0x800]);
-    CpuFastCopy(&gSpellAnimObjfx[0x800], PAL_OBJ(0xA), 0x20);
-    LZ77UnCompWram(img, &gSpellAnimObjfx[0x800]);
+    LZ77UnCompWram(pal, &gBuf_Banim[0x800]);
+    CpuFastCopy(&gBuf_Banim[0x800], PAL_OBJ(0xA), 0x20);
+    LZ77UnCompWram(img, &gBuf_Banim[0x800]);
 
 {
     u16 * dst = OBJ_VRAM0 + 0x800;
-    RegisterDataMove(gSpellAnimObjfx, dst, 0x1000);
+    RegisterDataMove(gBuf_Banim, dst, 0x1000);
 }
     EnablePaletteSync();
 
@@ -649,8 +649,8 @@ void NewEkrTriArmorKnightOBJ2(struct Anim * anim, u32 pos, u32 etype, u32 ewtype
         proc->anim2->xPosition = proc->unk32;
     }
 
-    LZ77UnCompWram(pal, gSpellAnimObjfx);
-    SpellFx_RegisterObjPal((u16 *)gSpellAnimObjfx, 0x20);
+    LZ77UnCompWram(pal, gBuf_Banim);
+    SpellFx_RegisterObjPal((u16 *)gBuf_Banim, 0x20);
     SpellFx_RegisterObjGfx(buf, 0x1000);
 }
 

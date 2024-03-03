@@ -1,8 +1,8 @@
 #include "gbafe.h"
 
-EWRAM_DATA struct EkrDragonStatus gEkrDragonStatusLeft  = {0};
-EWRAM_DATA struct EkrDragonStatus gEkrDragonStatusRight = {0};
-EWRAM_DATA u16 gEkrDragonPalBackup[0x40 / sizeof(u16)] = {0};
+EWRAM_OVERLAY(banim) struct EkrDragonStatus gEkrDragonStatusLeft  = {0};
+EWRAM_OVERLAY(banim) struct EkrDragonStatus gEkrDragonStatusRight = {0};
+EWRAM_OVERLAY(banim) u16 gEkrDragonPalBackup[0x40 / sizeof(u16)] = {0};
 
 u32 GetEkrDragonStatusType_(struct Anim * anim);
 
@@ -97,7 +97,7 @@ void EkrDragonTmCpyHFlip(int x, int y)
     iy = y >> 3;
 
     EfxTmCpyExtHFlip(gEkrTsaBuffer, -1,
-        EFX_TILEMAP_LOC(gEfxFrameTmap, ix, iy),
+        EFX_TILEMAP_LOC(gTmB_Banim, ix, iy),
         EFX_BG_WIDTH,
         TILE_SIZE_4BPP, TILE_SIZE_4BPP, 6, 0);
 }
@@ -128,7 +128,7 @@ void EkrDragonTmCpyExt(int x, int y)
 
     BG_SetPosition(BG_3, x & tmp3, y & tmp3);
 
-    buf = gEfxFrameTmap + 0x21 + _x;
+    buf = gTmB_Banim + 0x21 + _x;
     buf += 66 * _y;
 
     EfxTmCpyExt(

@@ -163,7 +163,7 @@ _080513BE:
 	movs r0, #1
 	bl BG_EnableSyncByMask
 _080513C4:
-	ldr r3, _08051424  @ gBanimSomeHp
+	ldr r3, _08051424  @ gEkrGaugeHpBak
 	ldr r0, _08051428  @ gEkrGaugeHp
 	movs r4, #0
 	ldrsh r2, [r3, r4]
@@ -212,7 +212,7 @@ _080513EE:
 	.align 2, 0
 _0805141C: .4byte gUnknown_08802428
 _08051420: .4byte gBG0TilemapBuffer
-_08051424: .4byte gBanimSomeHp
+_08051424: .4byte gEkrGaugeHpBak
 _08051428: .4byte gEkrGaugeHp
 _0805142C: .4byte gBanimMaxHP
 _08051430: .4byte gEkrDistanceType
@@ -353,7 +353,7 @@ _080514F4:
 	add r0, sp, #0xd0
 	movs r1, #0
 	str r1, [r0]
-	ldr r1, _080515BC  @ gUnknown_02016DC8
+	ldr r1, _080515BC  @ gUnk_Banim_02016DC8
 	ldr r2, _080515C0  @ 0x01000020
 	bl CpuFastSet
 	movs r0, #0
@@ -370,7 +370,7 @@ _0805154A:
 	lsls r0, r0, #5
 	ldr r1, _080515C4  @ gUnknown_088026E4
 	adds r0, r0, r1
-	ldr r7, _080515BC  @ gUnknown_02016DC8
+	ldr r7, _080515BC  @ gUnk_Banim_02016DC8
 	adds r1, r5, r7
 	movs r2, #0x10
 	bl CpuSet
@@ -420,7 +420,7 @@ _08051582:
 	str r4, [sp, #0x24]
 	b _08051602
 	.align 2, 0
-_080515BC: .4byte gUnknown_02016DC8
+_080515BC: .4byte gUnk_Banim_02016DC8
 _080515C0: .4byte 0x01000020
 _080515C4: .4byte gUnknown_088026E4
 _080515C8: .4byte 0x060139C0
@@ -594,7 +594,7 @@ _080516DA:
 	ldr r3, [sp, #0xd8]
 	cmp r3, #1
 	bne _08051726
-	ldr r1, _08051784  @ gUnknown_02016E48
+	ldr r1, _08051784  @ gUnk_Banim_02016E48
 	adds r0, r4, #0
 	bl sub_8050E40
 _08051726:
@@ -626,7 +626,7 @@ _0805174A:
 	ldr r1, [sp, #0xd8]
 	cmp r1, #1
 	bne _08051768
-	ldr r1, _08051788  @ gUnknown_02017248
+	ldr r1, _08051788  @ gUnk_Banim_02017248
 	adds r0, r4, #0
 	bl sub_8050E40
 _08051768:
@@ -641,8 +641,8 @@ _08051768:
 _08051778: .4byte gUnknown_085B940C
 _0805177C: .4byte 0xFFD80000
 _08051780: .4byte gUnknown_085B93D0
-_08051784: .4byte gUnknown_02016E48
-_08051788: .4byte gUnknown_02017248
+_08051784: .4byte gUnk_Banim_02016E48
+_08051788: .4byte gUnk_Banim_02017248
 _0805178C:
 	add r0, sp, #8
 	add r2, sp, #0xf4
@@ -748,7 +748,7 @@ _08051800:
 	ldr r3, [sp, #0xd8]
 	cmp r3, #1
 	bne _08051858
-	ldr r1, _080518B0  @ gUnknown_02017048
+	ldr r1, _080518B0  @ gUnk_Banim_02017048
 	adds r0, r4, #0
 	bl sub_8050E40
 _08051858:
@@ -780,7 +780,7 @@ _0805187C:
 	ldr r1, [sp, #0xd8]
 	cmp r1, #1
 	bne _0805189A
-	ldr r1, _080518B4  @ gUnknown_02017448
+	ldr r1, _080518B4  @ gUnk_Banim_02017448
 	adds r0, r4, #0
 	bl sub_8050E40
 _0805189A:
@@ -794,8 +794,8 @@ _0805189A:
 	.align 2, 0
 _080518A8: .4byte 0xFFD80000
 _080518AC: .4byte gUnknown_085B93D0
-_080518B0: .4byte gUnknown_02017048
-_080518B4: .4byte gUnknown_02017448
+_080518B0: .4byte gUnk_Banim_02017048
+_080518B4: .4byte gUnk_Banim_02017448
 _080518B8:
 	add r0, sp, #8
 	add r2, sp, #0xf4
@@ -819,7 +819,7 @@ _080518DC:
 	ldr r3, [sp, #0xd8]
 	cmp r3, #1
 	bne _080518EE
-	ldr r0, _08051A90  @ gUnknown_02016E48
+	ldr r0, _08051A90  @ gUnk_Banim_02016E48
 	ldr r1, _08051A94  @ 0x06013000
 	movs r2, #0x80
 	lsls r2, r2, #4
@@ -1030,7 +1030,7 @@ _08051A7E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08051A90: .4byte gUnknown_02016E48
+_08051A90: .4byte gUnk_Banim_02016E48
 _08051A94: .4byte 0x06013000
 _08051A98: .4byte gUnknown_085B9424
 _08051A9C: .4byte 0x0000B1D0

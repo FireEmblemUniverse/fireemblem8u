@@ -709,7 +709,7 @@ void sub_80C5328(void) {
 //! FE8U = 0x080C5370
 void sub_80C5370(struct OpSubtitleProc* proc) {
     proc->timer_2c = 0;
-    CpuFastCopy(gPaletteBuffer, gUnknown_0201CDD4, 0x200);
+    CpuFastCopy(gPaletteBuffer, gUnk_OpSubtitle_0201CDD4, 0x200);
 
     return;
 }
@@ -723,7 +723,7 @@ void sub_80C538C(struct OpSubtitleProc* proc) {
         int coeff = 0x1000 - sub_800B7E0(proc->timer_2c, 60, 0);
 
         sub_80C4BB4(
-            gUnknown_0201CDD4,
+            gUnk_OpSubtitle_0201CDD4,
             gPaletteBuffer,
             0x200,
             coeff

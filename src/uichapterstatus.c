@@ -52,8 +52,8 @@ struct Struct2004BBC {
     struct Font font;
 };
 
-EWRAM_DATA struct Text gChapterStatusText[2] = {0};
-EWRAM_DATA struct Struct2004BBC gUnknown_02004BBC = {0};
+EWRAM_OVERLAY(0) struct Text gChapterStatusText[2] = {0};
+EWRAM_OVERLAY(0) struct Struct2004BBC gUnknown_02004BBC = {0};
 
 u16 sSprite_08A01AA4[] = {
     1,

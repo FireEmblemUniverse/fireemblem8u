@@ -6,6 +6,8 @@
 #include "bmitem.h"
 #include "constants/items.h"
 
+EWRAM_DATA int gBattleScriptted = 0;
+
 u16 GetBattleAnimationId(struct Unit * unit, const struct BattleAnimDef * anim_def, u16 wpn, u32 * out)
 {
     int i, j, ret;

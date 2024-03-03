@@ -282,10 +282,8 @@ struct ProcCmd CONST_DATA gProcScr_08A394D0[] = {
     PROC_REPEAT(sub_80B5378),
 };
 
-extern struct Text gShopItemTexts[6];
-
-extern struct ShopState sShopState;
-extern int gUnknown_0203EFB4; // TODO: Is this meant to be part of ShopState?
+EWRAM_DATA struct Text gShopItemTexts[6] = {0};
+EWRAM_DATA struct ShopState sShopState = {0};
 struct ShopState* CONST_DATA gShopState = &sShopState;
 
 struct Text gText_GoldBox;
@@ -1503,14 +1501,16 @@ int sub_80B5498(int pos, int lastIdx, s8 unk) {
 }
 
 void sub_80B5528(int unk) {
-    gUnknown_0203EFB4 = unk;
+    int * pint = &sShopState.unk1C;
+    *pint = unk;
     return;
 }
 
 int sub_80B5534(int a, int b, int c, int d) {
-    int var = gUnknown_0203EFB4;
+    int * pint = &sShopState.unk1C;
+    int var = *pint;
 
-    gUnknown_0203EFB4 = a;
+    *pint = a;
 
     if (a == var) {
         return 0;

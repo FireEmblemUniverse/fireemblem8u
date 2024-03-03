@@ -45,7 +45,7 @@ struct Unknown201F148
     /* 50 */ u16 unk_50;
 };
 
-extern struct Unknown201F148 gUnknown_0201F148;
+extern struct Unknown201F148 gUnk_SoundRoom_0201F148;
 extern u8 gSoundRoomVolumeGraphBuffer[][0x31];
 
 extern u8 gUnknown_08A2C908[]; // gfx
@@ -594,11 +594,11 @@ void sub_80AF3C8(struct SoundRoomProc * proc)
 
 void sub_80AF4D0(u16 * tm, struct SoundRoomProc * proc)
 {
-    PutText(&gUnknown_0201F148.text[0], tm);
+    PutText(&gUnk_SoundRoom_0201F148.text[0], tm);
     PutNumber(
         tm + 8, (proc->completionPercent == 100) ? TEXT_COLOR_SYSTEM_GREEN : TEXT_COLOR_SYSTEM_BLUE,
         proc->completionPercent);
-    PutText(&gUnknown_0201F148.text[6], tm + 9);
+    PutText(&gUnk_SoundRoom_0201F148.text[6], tm + 9);
     return;
 }
 
@@ -1236,38 +1236,38 @@ void sub_80AFF30(void)
 
     u32 vram = 0x06014000;
 
-    InitSpriteTextFont(&gUnknown_0201F148.font, (void *)vram, 5);
+    InitSpriteTextFont(&gUnk_SoundRoom_0201F148.font, (void *)vram, 5);
 
     ApplyPalettes(Pal_Text, 0x1A, 2);
     gPaletteBuffer[0x1A * 0x10] = 0;
 
     EnablePaletteSync();
 
-    SetTextFont(&gUnknown_0201F148.font);
-    InitSpriteText(&gUnknown_0201F148.text[1]);
-    InitSpriteText(&gUnknown_0201F148.text[2]);
+    SetTextFont(&gUnk_SoundRoom_0201F148.font);
+    InitSpriteText(&gUnk_SoundRoom_0201F148.text[1]);
+    InitSpriteText(&gUnk_SoundRoom_0201F148.text[2]);
 
     for (i = 0; i < 3; i++)
     {
-        InitSpriteText(&gUnknown_0201F148.text[3 + i]);
+        InitSpriteText(&gUnk_SoundRoom_0201F148.text[3 + i]);
     }
 
     SetTextFont(NULL);
 
-    gUnknown_0201F148.unk_50 = (((0x1FFFF & vram) >> 5) & 0x3FF) + 0xa000;
+    gUnk_SoundRoom_0201F148.unk_50 = (((0x1FFFF & vram) >> 5) & 0x3FF) + 0xa000;
 
     SetTextFont(NULL);
     SetTextFontGlyphs(0);
 
-    InitText(&gUnknown_0201F148.text[0], 5);
-    ClearText(&gUnknown_0201F148.text[0]);
+    InitText(&gUnk_SoundRoom_0201F148.text[0], 5);
+    ClearText(&gUnk_SoundRoom_0201F148.text[0]);
 
-    Text_InsertDrawString(&gUnknown_0201F148.text[0], 0, 0, GetStringFromIndex(0x5AA)); // TODO: msgid "Success[.]"
+    Text_InsertDrawString(&gUnk_SoundRoom_0201F148.text[0], 0, 0, GetStringFromIndex(0x5AA)); // TODO: msgid "Success[.]"
 
-    InitText(&gUnknown_0201F148.text[6], 2);
-    ClearText(&gUnknown_0201F148.text[6]);
+    InitText(&gUnk_SoundRoom_0201F148.text[6], 2);
+    ClearText(&gUnk_SoundRoom_0201F148.text[6]);
 
-    Text_DrawString(&gUnknown_0201F148.text[6], GetStringFromIndex(0x5AE)); // TODO: msgid "%[.]"
+    Text_DrawString(&gUnk_SoundRoom_0201F148.text[6], GetStringFromIndex(0x5AE)); // TODO: msgid "%[.]"
 
     return;
 }
@@ -1286,14 +1286,14 @@ void DrawSoundRoomSongTitle(int index)
         str = GetStringFromIndex(gSoundRoomTable[index].nameTextId);
     }
 
-    SetTextFont(&gUnknown_0201F148.font);
+    SetTextFont(&gUnk_SoundRoom_0201F148.font);
     SetTextFontGlyphs(1);
 
-    SpriteText_DrawBackgroundExt(&gUnknown_0201F148.text[1], 0);
+    SpriteText_DrawBackgroundExt(&gUnk_SoundRoom_0201F148.text[1], 0);
 
-    Text_SetCursor(&gUnknown_0201F148.text[1], GetStringTextCenteredPos(176, str));
-    Text_SetColor(&gUnknown_0201F148.text[1], 0);
-    Text_DrawString(&gUnknown_0201F148.text[1], str);
+    Text_SetCursor(&gUnk_SoundRoom_0201F148.text[1], GetStringTextCenteredPos(176, str));
+    Text_SetColor(&gUnk_SoundRoom_0201F148.text[1], 0);
+    Text_DrawString(&gUnk_SoundRoom_0201F148.text[1], str);
 
     SetTextFont(NULL);
 
@@ -1321,7 +1321,7 @@ void sub_80B0088(int y, u16 unk)
 
         for (i = 0; i < 5; i++)
         {
-            PutSpriteExt(4, 36 + i * 32, y + 264, gObject_32x16, i * 4 + gUnknown_0201F148.unk_50 + 0x1000);
+            PutSpriteExt(4, 36 + i * 32, y + 264, gObject_32x16, i * 4 + gUnk_SoundRoom_0201F148.unk_50 + 0x1000);
         }
 
         for (i = 0; i < 3; i++)

@@ -339,10 +339,10 @@ void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc);
 // TODO: figure out what to do with those
 // (It's in the weird EWRAM overlay area)
 
-extern struct StatScreenSt gStatScreen; // statscreen state
-extern u16 gUiTmScratchA[0x280]; // bg0 tilemap buffer for stat screen page
-extern u16 gUiTmScratchB[0x280]; // bg0 tilemap buffer for stat screen page in fe6
-extern u16 gUiTmScratchC[0x240]; // bg2 tilemap buffer for stat screen page
+extern struct StatScreenSt gStatScreen;
+extern u16 gUiTmScratchA[0x280];
+extern u16 gUiTmScratchB[0x280];
+extern u16 gUiTmScratchC[0x240];
 
 extern struct StatScreenInfo sStatScreenInfo;
 extern struct HelpBoxInfo sMutableHbi;

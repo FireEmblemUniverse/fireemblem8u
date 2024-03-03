@@ -318,7 +318,7 @@ sub_8053618: @ 0x08053618
 	movs r2, #0
 	bl BG_SetPosition
 	lsls r4, r4, #1
-	ldr r0, _08053670  @ gEfxBuf_0201C8D0 + 0x42
+	ldr r0, _08053670  @ gTmA_Banim + 0x42
 	adds r4, r4, r0
 	movs r0, #0x84
 	lsls r0, r0, #1
@@ -343,7 +343,7 @@ _08053668:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08053670: .4byte gEfxBuf_0201C8D0 + 0x42
+_08053670: .4byte gTmA_Banim + 0x42
 _08053674: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_END sub_8053618
@@ -968,7 +968,7 @@ _08053B10:
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
-	ldr r1, _08053BAC  @ gUnknown_02016828
+	ldr r1, _08053BAC  @ gEfxTerrainPalette
 	movs r2, #8
 	bl CpuFastSet
 _08053B56:
@@ -1007,7 +1007,7 @@ _08053B9C: .4byte gUnknown_0200003C
 _08053BA0: .4byte 0x06011800
 _08053BA4: .4byte gEkrSpellAnimIndex
 _08053BA8: .4byte gBanimTerrainPaletteMaybe
-_08053BAC: .4byte gUnknown_02016828
+_08053BAC: .4byte gEfxTerrainPalette
 _08053BB0: .4byte gPaletteBuffer+0x260
 _08053BB4: .4byte gEkrDistanceType
 _08053BB8: .4byte gEkrBgPosition

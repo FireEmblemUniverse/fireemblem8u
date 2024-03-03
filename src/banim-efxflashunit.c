@@ -138,34 +138,34 @@ void NewEfxHPBarColorChange(struct Anim * anim)
 
     EfxSplitColor(
         gUnknown_08802B04 + gBanimFactionPal[POS_L] * 0x10,
-        gEfxSplitedColorBuf,
+        gEfxSplitedColorBufA,
         0x10);
 
     EfxSplitColor(
         gUnknown_08802BC4 + gBanimFactionPal[POS_L] * 0x10,
-        gUnknown_0201F978,
+        gEfxSplitedColorBufB,
         0x10);
 
     sub_8071574(
-        gEfxSplitedColorBuf,
-        gUnknown_0201F978,
-        gUnknown_0201F9A8,
+        gEfxSplitedColorBufA,
+        gEfxSplitedColorBufB,
+        gEfxSplitedColorBufC,
         0x10, 5);
 
     EfxSplitColor(
         gUnknown_08802B04 + gBanimFactionPal[POS_R] * 0x10,
-        gUnknown_0201FA08,
+        gEfxSplitedColorBufD,
         0x10);
 
     EfxSplitColor(
         gUnknown_08802BC4 + gBanimFactionPal[POS_R] * 0x10,
-        gUnknown_0201FA38,
+        gEfxSplitedColorBufE,
         0x10);
 
     sub_8071574(
-        gUnknown_0201FA08,
-        gUnknown_0201FA38,
-        gUnknown_0201FA68,
+        gEfxSplitedColorBufD,
+        gEfxSplitedColorBufE,
+        gEfxSplitedColorBufF,
         0x10, 5);
 }
 
@@ -203,15 +203,15 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
 
     if (gEkrGaugeHp[EKR_POS_L] <= 80)
     {
-        buf1 = gEfxSplitedColorBuf;
-        buf2 = gUnknown_0201F978;
-        buf3 = gUnknown_0201F9A8;
+        buf1 = gEfxSplitedColorBufA;
+        buf2 = gEfxSplitedColorBufB;
+        buf3 = gEfxSplitedColorBufC;
 
         EfxDecodeSplitedPalette(
             PAL_OBJ(OBPAL_EFXHPBAR_L),
-            (s8 *)gEfxSplitedColorBuf,
-            (s8 *)gUnknown_0201F978,
-            (s16 *)gUnknown_0201F9A8,
+            (s8 *)gEfxSplitedColorBufA,
+            (s8 *)gEfxSplitedColorBufB,
+            (s16 *)gEfxSplitedColorBufC,
             0x10,
             proc->unk54,
             5);
@@ -221,9 +221,9 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
 
     if (gEkrGaugeHp[EKR_POS_R] <= 80)
     {
-        buf1 = gUnknown_0201FA08;
-        buf2 = gUnknown_0201FA38;
-        buf3 = gUnknown_0201FA68;
+        buf1 = gEfxSplitedColorBufD;
+        buf2 = gEfxSplitedColorBufE;
+        buf3 = gEfxSplitedColorBufF;
 
         EfxDecodeSplitedPalette(
             PAL_OBJ(OBPAL_EFXHPBAR_R),

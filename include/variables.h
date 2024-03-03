@@ -7,6 +7,7 @@
 #include "proc.h"
 
 extern u8 __ewram_start[];
+extern u8 gUnk_02000000[];
 // extern ??? gAnims
 // extern ??? gMinimapWinBuf
 // extern ??? gMinimapFrontWinBuf
@@ -20,14 +21,14 @@ extern u16 *gMinimapObjectFlashPal;
 extern u8 gUnknown_02000940[];
 extern u8 gUnknown_02000944[];
 extern struct PlaySt_OptionBits gUnknown_02000948[];
-// extern ??? gUnknown_02000C60
-// extern ??? gUnknown_02000C78
-// extern ??? gUnknown_02000F00
+// extern ??? gUnk_Sio_02000C60
+// extern ??? gUnk_Sio_02000C78
+// extern ??? gUnk_Sio_02000F00
 // extern ??? gBmMapBuffer
 extern u8 gEkrKakudaiSomeBufLeft[];
-// extern ??? gUnknown_02001180
-// extern ??? gUnknown_02001184
-// extern ??? gUnknown_02001188
+// extern ??? gUnk_Sio_02001180
+// extern ??? gUnk_Sio_02001184
+// extern ??? gUnk_Sio_02001188
 // extern ??? gConvoyItemCount
 // extern ??? gUnknown_02002038
 // extern ??? gBanimRightImgSheetBuf
@@ -49,10 +50,6 @@ extern u16 gUiTmScratchA[];
 extern u16 gUiTmScratchB[];
 extern u16 gUiTmScratchC[];
 
-extern u16 gBanimPaletteLeft[];
-extern u16 gBanimPaletteRight[];
-extern u32 gBanimOaml[];
-
 // extern ??? gChapterStatusText
 // extern ??? gUnknown_02004BBC
 // extern ??? gMUGfxBuffer
@@ -60,7 +57,6 @@ extern u32 gBanimOaml[];
 // extern ??? gUnknown_020078D8
 // extern ??? gUnknown_02008000
 // extern ??? gUnknown_020087A0
-extern u32 gBanimOamr2[];
 // extern ??? gUnknown_0200A2D8
 // extern ??? gUnknown_0200A300
 extern u8 gUnknown_0200AF00[];
@@ -80,6 +76,9 @@ extern u8 gUnknown_0200AF00[];
 // extern ??? gUnknown_0200E158
 // extern ??? gUnknown_0200F158
 // extern ??? gUnknown_0200F15C
+extern u16 gUnk_OpSubtitle_0201CDD4[]; // used as a palette buffer in opsubtitle
+// extern ??? gUnk_Opinfo_0201DB00
+// extern ??? gUnk_OpInfo_0201DB28
 extern char gStringBufferAlt[];
 
 // TODO: define this in hardware.c?
@@ -96,7 +95,7 @@ extern struct Unit* sUnitStackTop;
 extern u8 sUnitStackSize;
 
 extern int gBattleScriptted;
-// extern ??? gBaArenaFlag
+extern int gBaArenaFlag;
 // extern ??? gpActiveClassReelSpellProc
 // extern ??? gpActiveCRSpellBgColorProc
 // extern ??? gManimScanlineBufA
@@ -105,7 +104,6 @@ extern int gBattleScriptted;
 
 // extern ??? gExtraMapStatus
 // extern ??? gSaveMenuRTextData
-// extern ??? gUnknown_0203EFB4
 
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue

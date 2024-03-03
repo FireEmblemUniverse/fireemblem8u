@@ -20,150 +20,7 @@
 #include "sysutil.h"
 #include "constants/classes.h"
 
-enum ClassReelScrOpCode {
-    CLASS_REEL_OP_0,
-    CLASS_REEL_OP_1,
-    CLASS_REEL_OP_2,
-    CLASS_REEL_OP_3,
-    CLASS_REEL_OP_4,
-    CLASS_REEL_OP_5,
-    CLASS_REEL_OP_6,
-    CLASS_REEL_OP_7,
-    CLASS_REEL_OP_8,
-};
-
-struct ClassReelAnimScr {
-    u16 opCode : 8;
-    u16 extra  : 8;
-} __attribute__((packed));
-
-struct ClassReelEnt {
-    /* 00 */ u32 descTextId;
-
-    /* 04 */ s8 paletteId;
-    /* 05 */ u8 classId;
-    /* 06 */ u8 unk_06;
-    /* 07 */ u8 banimId;
-    /* 08 */ u8 magicFx;
-    /* 09 */ u8 unk_09;
-    /* 0A */ u8 unk_0A;
-    /* 0B */ u8 unk_0B;
-    /* 0C */ u8 unk_0C;
-    /* 0D */ u8 unk_0D; // terrain L
-    /* 0E */ u8 unk_0E; // terrain R
-    /* 0F */ u8 unk_0F;
-
-    /* 10 */ struct ClassReelAnimScr* script;
-};
-
-struct OpInfoProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 unk_29;
-    /* 2A */ u8 unk_2a;
-    /* 2B */ u8 unk_2b;
-    /* 2C */ u8 mode;
-    /* 2D */ u8 unk_2d;
-    /* 2E */ u8 unk_2e;
-    /* 2F */ u8 unk_2f;
-    /* 30 */ u16 unk_30;
-
-    /* 32 */ s8 unk_32;
-    /* 33 */ u8 classSet;
-    /* 34 */ u8 index;
-
-    /* 38 */ int unk_38;
-    /* 3C */ int unk_3c;
-
-    /* 40 */ u8 _pad[0x4C-0x40];
-
-    /* 4C */ struct ClassReelEnt* classReelEnt;
-};
-
-struct OpInfoEnterProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ u16 timer;
-    /* 2C */ u16 unk_2c;
-    /* 2E */ u8 classNameLength;
-
-    /* 2F */ u8 _pad1[0x34-0x2F];
-
-    /* 34 */ ProcPtr** letterProcsPtr;
-    /* 38 */ ProcPtr iconProc;
-    /* 3C */ ProcPtr parentProc;
-    /* 40 */ struct ClassReelEnt* classReelEnt;
-};
-
-struct OpInfoViewProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 unk_29;
-    /* 2A */ u16 timer;
-
-    /* 2C */ u8 charIndex;
-
-    /* 2E */ s16 unk_2e;
-
-    /* 30 */ s16 unk_30;
-};
-
-struct OpInfoIconProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ u16 timer;
-
-    /* 2C */ u8 classId;
-    /* 2D */ u8 numIcons;
-    /* 2E */ u8 unk_2e;
-};
-
-struct OpInfoFlareProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 _pad[0x4C-0x29];
-
-    /* 4C */ s16 unk_4c;
-    /* 4E */ s16 unk_4e;
-};
-
-struct OpInfoBurstProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 _pad[0x4C-0x29];
-
-    /* 4C */ s16 unk_4c;
-
-    /* 4E */ u8 _pad2[0x64-0x4E];
-
-    /* 64 */ s16 unk_64;
-    /* 66 */ s16 unk_66;
-    /* 68 */ s16 unk_68;
-};
-
-struct OpInfoClassDisplayProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ u16 unk_2a;
-    /* 2C */ u16 unk_2c;
-
-    /* 30 */ ProcPtr unk_30;
-    /* 34 */ struct ClassReelEnt* classReelEnt;
-    /* 38 */ struct ClassReelAnimScr* script;
-    /* 3C */ ProcPtr unk_3c;
-    /* 40 */ u8 unk_40[6];
-    /* 46 */ u8 unk_46;
-};
-
-struct OpInfoGaugeDrawProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ u16 unk_2a;
-    /* 2C */ u16 unk_2c;
-    /* 30 */ struct OpInfoClassDisplayProc* unk_30;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 unk_35;
-};
+EWRAM_OVERLAY(gamestart) struct AnimBuffer gOpInfoData = {0};
 
 // TODO: Move elsewhere
 void sub_805AA68(void *);
@@ -1098,12 +955,6 @@ void sub_80B3740(void) {
     return;
 }
 
-#define gOpInfoData ((struct AnimBuffer *)EWRAM_ENTRY)
-
-extern struct AnimMagicFxBuffer gUnknown_0200A2D8;
-
-extern struct BanimUnkStructComm gUnknown_0201DB00;
-
 ProcPtr StartClassStatsDisplay(ProcPtr);
 
 extern u8 gUnknown_02002038[];
@@ -1114,9 +965,9 @@ extern u8 gUnknown_0200A300[];
 extern u8 gUnknown_0200C300[];
 extern u8 gUnknown_0200CB00[];
 
-extern struct Text gUnknown_0201FB28[6];
+extern struct Text gUnk_OpInfo_0201FB28[6];
 
-extern u8 gUnknown_0201DB28[];
+extern u8 gUnk_OpInfo_0201DB28[];
 
 const int gUnknown_08205EDC[2][6] = {
     {
@@ -1219,20 +1070,20 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     for (i = 0; i <= 5; i++) {
 
-        InitText(&gUnknown_0201FB28[i], 3);
+        InitText(&gUnk_OpInfo_0201FB28[i], 3);
 
-        ClearText(&gUnknown_0201FB28[i]);
+        ClearText(&gUnk_OpInfo_0201FB28[i]);
 
-        Text_SetColor(&gUnknown_0201FB28[i], 3);
-        Text_SetCursor(&gUnknown_0201FB28[i], 0);
+        Text_SetColor(&gUnk_OpInfo_0201FB28[i], 3);
+        Text_SetCursor(&gUnk_OpInfo_0201FB28[i], 0);
 
         if (hasMagicRank != 0) {
-            Text_DrawString(&gUnknown_0201FB28[i], GetStringFromIndex(hack.hack_2d[1][i]));
+            Text_DrawString(&gUnk_OpInfo_0201FB28[i], GetStringFromIndex(hack.hack_2d[1][i]));
         } else {
-            Text_DrawString(&gUnknown_0201FB28[i], GetStringFromIndex(hack.hack_4d[0][i][1][-1]));
+            Text_DrawString(&gUnk_OpInfo_0201FB28[i], GetStringFromIndex(hack.hack_4d[0][i][1][-1]));
         }
 
-        PutText(&gUnknown_0201FB28[i], buffer + 0x21 + (i * 0x40));
+        PutText(&gUnk_OpInfo_0201FB28[i], buffer + 0x21 + (i * 0x40));
 
         PutNumber(buffer + 0x25 + (i * 0x40), 0, proc->unk_40[i]);
     }
@@ -1259,21 +1110,21 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     SetTalkPrintDelay(4);
 
-    gOpInfoData->charPalId = proc->classReelEnt->paletteId;
-    gOpInfoData->xPos = 0x104;
-    gOpInfoData->yPos = 0x58;
-    gOpInfoData->animId = proc->classReelEnt->banimId;
-    gOpInfoData->roundType = 6;
-    gOpInfoData->genericPalId = proc->classReelEnt->unk_06;
-    gOpInfoData->state2 = 1;
-    gOpInfoData->oam2Tile = 0x180;
-    gOpInfoData->oam2Pal = 2;
-    gOpInfoData->pImgSheetBuf = &gEkrBg0QuakeVec;
-    gOpInfoData->unk_24 = gUnknown_02002038;
-    gOpInfoData->unk_20 = gUnknown_02007838;
-    gOpInfoData->unk_28 = gUnknown_020078D8;
+    gOpInfoData.charPalId = proc->classReelEnt->paletteId;
+    gOpInfoData.xPos = 0x104;
+    gOpInfoData.yPos = 0x58;
+    gOpInfoData.animId = proc->classReelEnt->banimId;
+    gOpInfoData.roundType = 6;
+    gOpInfoData.genericPalId = proc->classReelEnt->unk_06;
+    gOpInfoData.state2 = 1;
+    gOpInfoData.oam2Tile = 0x180;
+    gOpInfoData.oam2Pal = 2;
+    gOpInfoData.pImgSheetBuf = &gEkrBg0QuakeVec;
+    gOpInfoData.unk_24 = gUnknown_02002038;
+    gOpInfoData.unk_20 = gUnknown_02007838;
+    gOpInfoData.unk_28 = gUnknown_020078D8;
 
-    gOpInfoData->unk_30 = &gUnknown_0200A2D8;
+    gOpInfoData.unk_30 = &gUnknown_0200A2D8;
 
     gUnknown_0200A2D8.magicFuncIdx = proc->classReelEnt->magicFx;
     gUnknown_0200A2D8.xOffsetBg = proc->classReelEnt->unk_09;
@@ -1291,22 +1142,22 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     gUnknown_0200A2D8.objImgBuf = gUnknown_0200CB00;
     gUnknown_0200A2D8.resetCallback = sub_80B3740;
 
-    NewEkrUnitMainMini(gOpInfoData);
+    NewEkrUnitMainMini(&gOpInfoData);
 
-    gUnknown_0201DB00.unk00 = proc->classReelEnt->unk_0D;
-    gUnknown_0201DB00.unk02 = 10;
-    gUnknown_0201DB00.unk04 = 0x380;
-    gUnknown_0201DB00.unk06 = proc->classReelEnt->unk_0E;
-    gUnknown_0201DB00.unk08 = 11;
-    gUnknown_0201DB00.unk0A = 0x3C0;
-    gUnknown_0201DB00.unk0C = r5;
-    gUnknown_0201DB00.unk0E = -1;
+    gUnk_Opinfo_0201DB00.unk00 = proc->classReelEnt->unk_0D;
+    gUnk_Opinfo_0201DB00.unk02 = 10;
+    gUnk_Opinfo_0201DB00.unk04 = 0x380;
+    gUnk_Opinfo_0201DB00.unk06 = proc->classReelEnt->unk_0E;
+    gUnk_Opinfo_0201DB00.unk08 = 11;
+    gUnk_Opinfo_0201DB00.unk0A = 0x3C0;
+    gUnk_Opinfo_0201DB00.unk0C = r5;
+    gUnk_Opinfo_0201DB00.unk0E = -1;
 
-    gUnknown_0201DB00.unk1C = (void *)0x06010000;
-    gUnknown_0201DB00.unk20 = &gUnknown_0201DB28;
+    gUnk_Opinfo_0201DB00.unk1C = (void *)0x06010000;
+    gUnk_Opinfo_0201DB00.unk20 = &gUnk_OpInfo_0201DB28;
 
-    sub_805AA68(&gUnknown_0201DB00);
-    sub_805AE40(&gUnknown_0201DB00, 0xD0, 0x68, 0x130, 0x68);
+    sub_805AA68(&gUnk_Opinfo_0201DB00);
+    sub_805AE40(&gUnk_Opinfo_0201DB00, 0xD0, 0x68, 0x130, 0x68);
 
     SetPrimaryHBlankHandler(sub_80B36E0);
 
@@ -1364,8 +1215,8 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
         proc->unk_2a += 4;
     }
 
-    sub_805A940(gOpInfoData, proc->unk_46, 88);
-    sub_805AE40(&gUnknown_0201DB00, proc->unk_46 - 48, 104, proc->unk_46 + 48, 104);
+    sub_805A940(&gOpInfoData, proc->unk_46, 88);
+    sub_805AE40(&gUnk_Opinfo_0201DB00, proc->unk_46 - 48, 104, proc->unk_46 + 48, 104);
 
     sub_80B40E4(proc->unk_3c, 100);
 
@@ -1380,32 +1231,32 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
             break;
 
         case CLASS_REEL_OP_1:
-            gOpInfoData->roundType = ANIM_ROUND_HIT_CLOSE;
-            sub_805A7B4(gOpInfoData);
+            gOpInfoData.roundType = ANIM_ROUND_HIT_CLOSE;
+            sub_805A7B4(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_2:
-            gOpInfoData->roundType = ANIM_ROUND_CRIT_CLOSE;
-            sub_805A7B4(gOpInfoData);
+            gOpInfoData.roundType = ANIM_ROUND_CRIT_CLOSE;
+            sub_805A7B4(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_3:
         case CLASS_REEL_OP_7:
-            sub_805A990(gOpInfoData);
+            sub_805A990(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_4:
-            gOpInfoData->roundType = ANIM_ROUND_NONCRIT_FAR;
-            sub_805A7B4(gOpInfoData);
+            gOpInfoData.roundType = ANIM_ROUND_NONCRIT_FAR;
+            sub_805A7B4(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_6:
-            gOpInfoData->roundType = ANIM_ROUND_TAKING_MISS_CLOSE;
-            sub_805A7B4(gOpInfoData);
+            gOpInfoData.roundType = ANIM_ROUND_TAKING_MISS_CLOSE;
+            sub_805A7B4(&gOpInfoData);
 
             break;
 
@@ -1446,7 +1297,7 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
             break;
 
         case CLASS_REEL_OP_8:
-            if (sub_805A96C(gOpInfoData) != 0) {
+            if (sub_805A96C(&gOpInfoData) != 0) {
                 proc->script++;
                 Proc_Break(proc);
             }
@@ -1461,9 +1312,9 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
 
     EndTalk();
     EndActiveClassReelBgColorProc();
-    sub_805AE14(&gUnknown_0201DB00);
+    sub_805AE14(&gUnk_Opinfo_0201DB00);
     EndActiveClassReelSpell();
-    sub_805AA28(gOpInfoData);
+    sub_805AA28(&gOpInfoData);
 
     if (proc->unk_3c != 0) {
         Proc_End(proc->unk_3c);

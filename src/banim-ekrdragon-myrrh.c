@@ -33,12 +33,12 @@ void EkrMyr_PrepareBanimfx(struct ProcEkrDragon * proc)
 
     EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_INTRO - 1);
     SwitchAISFrameDataFromBARoundType(anim, 0);
-    LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
+    LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPal_Banim);
 
     if (GetAnimPosition(anim) == EKR_POS_L)
-        CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x7), 0x40);
+        CpuFastCopy(gPal_Banim, PAL_OBJ(0x7), 0x40);
     else
-        CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x9), 0x40);
+        CpuFastCopy(gPal_Banim, PAL_OBJ(0x9), 0x40);
 
     EnablePaletteSync();
     Proc_Break(proc);
@@ -82,7 +82,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon * proc)
     struct Anim * anim = proc->anim;
     struct BattleAnim * banim = banim_data;
 
-    if (GetEfxHp(2 * gEfxPairHpBufOffset[GetAnimPosition(anim)] + GetAnimPosition(anim)) <= 0) {
+    if (GetEfxHp(2 * gEfxHpLutOff[GetAnimPosition(anim)] + GetAnimPosition(anim)) <= 0) {
 
         /* Transform from dragon to loli */
         proc->timer = 0;
@@ -97,12 +97,12 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon * proc)
     EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_EXIT - 1);
     SwitchAISFrameDataFromBARoundType(anim, 0);
     Proc_Break(proc);
-    LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPalBackupEkrUnitMaybe);
+    LZ77UnCompWram(banim[BANIM_INDEX_MYRRH_INTRO - 1].pal, gPal_Banim);
 
     if (GetAnimPosition(anim) == EKR_POS_L)
-        CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x7), 0x40);
+        CpuFastCopy(gPal_Banim, PAL_OBJ(0x7), 0x40);
     else
-        CpuFastCopy(gPalBackupEkrUnitMaybe, PAL_OBJ(0x9), 0x40);
+        CpuFastCopy(gPal_Banim, PAL_OBJ(0x9), 0x40);
 
     EnablePaletteSync();
 }

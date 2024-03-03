@@ -9,7 +9,7 @@
 #include "hardware.h"
 #include "proc.h"
 
-EWRAM_DATA struct ProcEkrClasschg * gpProcEkrClasschg = NULL;
+EWRAM_OVERLAY(banim) struct ProcEkrClasschg * gpProcEkrClasschg = NULL;
 
 bool EkrClasschgFinished(void)
 {

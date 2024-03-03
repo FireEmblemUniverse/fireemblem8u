@@ -77,8 +77,8 @@ void NewEkrGauge(void)
     else
         CpuCopy16(gUnknown_08802B04 + gBanimFactionPal[POS_R] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
 
-    gBanimSomeHp[0] = -1;
-    gBanimSomeHp[1] = -1;
+    gEkrGaugeHpBak[0] = -1;
+    gEkrGaugeHpBak[1] = -1;
 
     LZ77UnCompVram(Img_EfxSideHitDmgCrit, (void *)0x6013800);
     LZ77UnCompVram(Img_EfxWTAArrow1, (void *)0x6013940);
@@ -297,14 +297,14 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
     }
 
     /* _080513C4 */
-    if (gBanimSomeHp[POS_L] != gEkrGaugeHp[POS_L])
+    if (gEkrGaugeHpBak[POS_L] != gEkrGaugeHp[POS_L])
         ret = true;
 
-    if (gBanimSomeHp[POS_R] != gEkrGaugeHp[POS_R])
+    if (gEkrGaugeHpBak[POS_R] != gEkrGaugeHp[POS_R])
         ret = true;
 
-    gBanimSomeHp[POS_L] != gEkrGaugeHp[POS_L];
-    gBanimSomeHp[POS_R] != gEkrGaugeHp[POS_R];
+    gEkrGaugeHpBak[POS_L] != gEkrGaugeHp[POS_L];
+    gEkrGaugeHpBak[POS_R] != gEkrGaugeHp[POS_R];
 
     lhp = gEkrGaugeHp[POS_L];       /* R7 */
     lhpmax = gBanimMaxHP[POS_L];  /* r6 */
@@ -376,17 +376,17 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
 
     if (ret == 1)
     {
-        CpuFastFill16(0, gUnknown_02016DC8, 0x80);
+        CpuFastFill16(0, gUnk_Banim_02016DC8, 0x80);
         for (i = 0; i <= 1; i++)
         {
             for (j = 0; j <= 1; j++)
             {
                 int hp = buf[i * 2 + j];
-                CpuCopy16(gUnknown_088026E4 + hp * 0x10, gUnknown_02016DC8 + i * 0x20 + j * 0x10, 0x20);
+                CpuCopy16(gUnknown_088026E4 + hp * 0x10, gUnk_Banim_02016DC8 + i * 0x20 + j * 0x10, 0x20);
             }
         }
-        RegisterDataMove(gUnknown_02016DC8, (void *)0x60139C0, 0x40);
-        RegisterDataMove(gUnknown_02016DC8 + 0x40, (void *)0x6013DC0, 0x40);
+        RegisterDataMove(gUnk_Banim_02016DC8, (void *)0x60139C0, 0x40);
+        RegisterDataMove(gUnk_Banim_02016DC8 + 0x40, (void *)0x6013DC0, 0x40);
     }
 
     anim->oam2Base = proc->unk44 | 0xB1CE;

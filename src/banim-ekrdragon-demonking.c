@@ -4,7 +4,7 @@ void sub_805AA68(void *);
 void sub_805AE14(void *);
 void sub_805AE40(void *, s16, s16, s16, s16);
 
-EWRAM_DATA u16 gEkrBgPaletteBackup[0x20] = {0};
+EWRAM_OVERLAY(banim) u16 gEkrBgPaletteBackup[0x20] = {0};
 
 CONST_DATA struct ProcCmd ProcScr_EkrDK[] = {
     PROC_YIELD,
@@ -906,11 +906,11 @@ void sub_8077474(int arg1, int arg2)
     Decompress(Tsa_DemonKingBG1, gEkrTsaBuffer);
 
     EfxTmCpyExtHFlip(&gEkrTsaBuffer[0x3C0], -1,
-        EFX_TILEMAP_LOC(gEfxFrameTmap, _a1, _a2),
+        EFX_TILEMAP_LOC(gTmB_Banim, _a1, _a2),
         EFX_BG_WIDTH, TILE_SIZE_4BPP, 2, 6, 0);
 
     EfxTmCpyExtHFlip(gEkrTsaBuffer, -1,
-        EFX_TILEMAP_LOC(gEfxFrameTmap, _a1, _a2 + 2),
+        EFX_TILEMAP_LOC(gTmB_Banim, _a1, _a2 + 2),
         EFX_BG_WIDTH, TILE_SIZE_4BPP,
         30, 6, 0);
 }
@@ -924,7 +924,7 @@ void sub_807750C(int arg1, int arg2)
 
     BG_SetPosition(BG_3, a, b);
     EfxTmCpyExt(
-        EFX_TILEMAP_LOC(gEfxFrameTmap, _a1, _a2),
+        EFX_TILEMAP_LOC(gTmB_Banim, _a1, _a2),
         EFX_BG_WIDTH,
         gBG3TilemapBuffer,
         TILE_SIZE_4BPP, TILE_SIZE_4BPP, TILE_SIZE_4BPP, -1, -1);
@@ -1056,7 +1056,7 @@ void EfxTmDecompress(int xtile, int ytile, const u16 *tsa)
     LZ77UnCompWram(tsa, gEkrTsaBuffer);
 
     EfxTmCpyExtHFlip(gEkrTsaBuffer, -1,
-        EFX_TILEMAP_LOC(gEfxFrameTmap, x, y),
+        EFX_TILEMAP_LOC(gTmB_Banim, x, y),
         EFX_BG_WIDTH, TILE_SIZE_4BPP,
         TILE_SIZE_4BPP, 6, 0);
 }
@@ -1070,7 +1070,7 @@ void EfxBG3TmSetPosition(int xtile, int ytile)
 
     BG_SetPosition(BG_3, xbg, ybg);
     EfxTmCpyExt(
-        EFX_TILEMAP_LOC(gEfxFrameTmap, x, y),
+        EFX_TILEMAP_LOC(gTmB_Banim, x, y),
         EFX_BG_WIDTH,
         gBG3TilemapBuffer,
         TILE_SIZE_4BPP, TILE_SIZE_4BPP, TILE_SIZE_4BPP, -1, -1);

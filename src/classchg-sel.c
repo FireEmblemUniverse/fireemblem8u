@@ -527,7 +527,7 @@ void sub_80CD408(u32 a, s16 b, s16 c) {
     gUnknown_0201FADC.unk0C = 0;
     gUnknown_0201FADC.unk0E = -1;
     gUnknown_0201FADC.unk1C = (void *)0x06010000;
-    gUnknown_0201FADC.unk20 = gUnknown_020145C8;
+    gUnknown_0201FADC.unk20 = gUnk_Banim_020145C8;
     sub_805AA68(&gUnknown_0201FADC);
 
     sub_805AE40(&gUnknown_0201FADC, b, c, b + 0x60, c);
@@ -570,7 +570,7 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
     gUnknown_030053E0.buf = gBG1TilemapBuffer;
     gUnknown_030053E0.u18 = gSpellAnimBgfx;
     gUnknown_030053E0.u1c = (void *)gEkrTsaBuffer;
-    gUnknown_030053E0.u20 = gSpellAnimObjfx;
+    gUnknown_030053E0.u20 = gBuf_Banim;
     gUnknown_030053E0.u24 = sub_80CD34C;
 
     ResetClassReelSpell();

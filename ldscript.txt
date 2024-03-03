@@ -23,12 +23,261 @@ gMaxLines = 0;
 SECTIONS
 {
     /* TODO: figure out what is COMMON and .bss */
+    __ewram_overlay_beg = 0x02000000;
+    __ewram_overlay_end = __ewram_overlay_beg;
 
-    . = ORIGIN(ewram);
-    EWRAM (NOLOAD) :
-    ALIGN(4)
+    . = __ewram_overlay_beg;
+    ewram_overlay_0 (NOLOAD) : ALIGN(4)
     {
-        INCLUDE "sym_ewram.txt"
+        . = 0x000000; gUnk_02000000 = .;
+        . = 0x000280; gMinimapWinBuf = .;
+        . = 0x000500; gMinimapFrontWinBuf = .;
+        . = 0x000504; gMinimapBackWinBuf = .;
+        . = 0x000508; gMinimapDisplayedWinBuf = .;
+        . = 0x00050C; gMinimapObjectFlashPal = .;
+        . = 0x0007A0; gUnknown_020007A0 = .;
+        . = 0x0007E0; gUnknown_020007E0 = .;
+        . = 0x000920; gUnknown_02000920 = .;
+        . = 0x000938; gUnknown_02000938 = .;
+        . = 0x000940; gUnknown_02000940 = .;
+        . = 0x000944; gUnknown_02000944 = .;
+        . = 0x000948; gUnknown_02000948 = .;
+        . = 0x000968; gBonusClaimData = .;
+        . = 0x000D68; gBonusClaimDataUpdated = .;
+        . = 0x000FA0; gUnknown_02000FA0 = .;
+        . = 0x001000; gBmMapBuffer = .;
+        . = 0x001168; gBonusClaimItemList = .;
+        . = 0x001368; gBonusClaimConfig = .;
+        . = 0x001568; gBonusClaimItemCount = .;
+        . = 0x001668; gBonusClaimText = .;
+        . = 0x0017A0; gUnknown_020017A0 = .;
+        . = 0x001F70; gConvoyItemCount = .;
+        . = 0x001FA0; gUnknown_02001FA0 = .;
+        . = 0x002038; gUnknown_02002038 = .;
+        . = 0x002774; gUnknown_02002774 = .;
+        . = 0x00278C; gTradeMenuText = .;
+        . = 0x0027A0; gUnknown_020027A0 = .;
+        . = 0x0027DC; src/bmio.o(ewram_overlay_0);
+        . = 0x002FDC; gaBattleForecastTextStructs = .;
+        . = 0x00300C; gBkselPals = .;
+        . = 0x00310C; gUnknown_0200310C = .;
+        . = 0x0038AC; gUnknown_020038AC = .;
+        . = 0x0038C4; gUnknown_020038C4 = .;
+        . = 0x0038C8; gUnknown_020038C8 = .;
+        . = 0x003B08; gUnknown_02003B08 = .;
+        . = 0x003B48; gUnknown_02003B48 = .;
+        . = 0x003B70; gUnknown_02003B70 = .;
+        . = 0x003B88; gUnknown_02003B88 = .;
+        . = 0x003BA8; gUnknown_02003BA8 = .;
+        . = 0x003BE8; gUnknown_02003BE8 = .;
+        . = 0x003BFC;
+        . = ALIGN(4); src/statscreen.o(ewram_overlay_0);
+        . = ALIGN(4); src/uichapterstatus.o(ewram_overlay_0);
+        . = 0x004BE0; gMUGfxBuffer = .;
+        . = 0x007838; gUnknown_02007838 = .;
+        . = 0x0078D8; gUnknown_020078D8 = .;
+        . = 0x008000; gUnknown_02008000 = .;
+        . = 0x0087A0; gUnknown_020087A0 = .;
+        . = 0x00A2D8; gUnknown_0200A2D8 = .;
+        . = 0x00A300; gUnknown_0200A300 = .;
+        . = 0x00AF00; gUnknown_0200AF00 = .;
+        . = 0x00C300; gUnknown_0200C300 = .;
+        . = 0x00CB00; gUnknown_0200CB00 = .;
+        . = 0x00D3E0; gSortedUnitsBuf = .;
+        . = 0x00D6E0; gSortedUnits = .;
+        . = 0x00D7E0; gUnknown_0200D7E0 = .;
+        . = 0x00DFE0; gUnknown_0200DFE0 = .;
+        . = 0x00E060; gUnknown_0200E060 = .;
+        . = 0x00E098; gUnknown_0200E098 = .;
+        . = 0x00E0A0; gUnknown_0200E0A0 = .;
+        . = 0x00E0A8; gUnknown_0200E0A8 = .;
+        . = 0x00E140; gUnknown_0200E140 = .;
+        . = 0x00E148; gUnknown_0200E148 = .;
+        . = 0x00E150; gUnknown_0200E150 = .;
+        . = 0x00E158; gUnknown_0200E158 = .;
+        . = 0x00F158; gUnknown_0200F158 = .;
+        . = 0x00F15C; gUnknown_0200F15C = .;
+        . = 0x00F17C; gStringBufferAlt = .;
+        . = 0x01117C; gPrepMainMenuTexts = .;
+        . = 0x0111CC; gPrepUnitPool = .;
+        . = 0x0121CC; gPrepUnitList = .;
+        . = 0x0122D4; gPrepScreenItemList = .;
+        . = 0x012914; gUnknown_02012914 = .;
+        . = 0x012F54; gUnknown_02012F54 = .;
+        . = 0x012F56; gUnknown_02012F56 = .;
+        . = 0x012F58; gUnknown_02012F58 = .;
+        . = 0x013458; gUnknown_02013458 = .;
+        . = 0x013460; gUnknown_02013460 = .;
+        . = 0x013498; gPrepItemTexts = .;
+        . = 0x013510; gPrepItemScreenTexts = .;
+        . = 0x013590; gUnknown_02013590 = .;
+        . = 0x013598; gPrepUnitTexts = .;
+        . = 0x013648; gUnknown_02013648 = .;
+        . = 0x013660; gUnknown_02013660 = .;
+        . = 0x013668; gUnknown_02013668 = .;
+        . = 0x013670; gUnknown_02013670 = .;
+        . = 0x013698; gUnknown_02013698 = .;
+        . = 0x0136D8; gUnknown_020136D8 = .;
+        . = 0x0136F0; sSupportScreenUnitCount = .;
+        . = 0x0136F4; gUnknown_020136F4 = .;
+        . = 0x014EF4; gUnknown_02014EF4 = .;
+        . = 0x019D00; gUnknown_02019D00 = .;
+        . = 0x01AFC0; gFont_0201AFC0 = .;
+        . = 0x01AFF0; gUnknown_0201AFF0 = .;
+        . = 0x01B0D8; gUnknown_0201B0D8 = .;
+        . = 0x01B100; gUnknown_0201B100 = .;
+        . = 0x01B104; gUnknown_0201B104 = .;
+        . = 0x01B1E4; gUnknown_0201B1E4 = .;
+        . = 0x01B3A4; gUnknown_0201B3A4 = .;
+        . = 0x01B430; gUnknown_0201B430 = .;
+        . = 0x01B458; gUnknown_0201B458 = .;
+        . = 0x01B718; gUnknown_0201B718 = .;
+        . = 0x01B71C; gUnknown_0201B71C = .;
+        . = 0x01B758; gUnknown_0201B758 = .;
+        . = 0x01B7DA; gUnknown_0201B7DA = .;
+        . = 0x01B864; gUnknown_0201B864 = .;
+        . = 0x01B930; gUnknown_0201B930 = .;
+        . = 0x01B958; gUnknown_0201B958 = .;
+        . = 0x01BBD8; gUnknown_0201BBD8 = .;
+        . = 0x01BE30; gWmHblankStatus = .;
+        . = 0x01BE32; gUnknown_0201BE32 = .;
+        . = 0x01C5B4; gUnknown_0201C5B4 = .;
+        . = 0x01C5C0; gUnknown_0201C5C0 = .;
+        . = 0x01C5CC; gUnknown_0201C5CC = .;
+        . = 0x01C5CF; gUnknown_0201C5CF = .;
+        . = 0x01C5D0; gUnknown_0201C5D0 = .;
+        . = 0x01C5D1; gUnknown_0201C5D1 = .;
+        . = 0x01C5D4; gUnknown_0201C5D4 = .;
+        . = 0x01F148; gUnk_SoundRoom_0201F148 = .;
+        . = 0x01F19C; gSoundRoomVolumeGraphBuffer = .;
+    }
+    __ewram_overlay_end = MAX(., __ewram_overlay_end);
+
+    . = __ewram_overlay_beg;
+    ewram_overlay_gamestart (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000;
+        . = ALIGN(4); src/opinfo.o(ewram_overlay_gamestart);
+        . = 0x01CDD4; gUnk_OpSubtitle_0201CDD4 = .;
+        . = 0x01DB00; gUnk_Opinfo_0201DB00 = .;
+        . = 0x01DB28; gUnk_OpInfo_0201DB28 = .;
+        . = 0x01FB28; gUnk_OpInfo_0201FB28 = .;
+    }
+    __ewram_overlay_end = MAX(., __ewram_overlay_end);
+
+    . = __ewram_overlay_beg;
+    ewram_overlay_banim (NOLOAD) : ALIGN(4)
+    {
+        . = ALIGN(4); src/banim-ekrbattle.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-efxlvup.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrdragonstatus.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-efxsound.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrclasschg.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrlvup.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrtriangle.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrpopup.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrdragon-demonking.o(ewram_overlay_banim);
+    }
+    __ewram_overlay_end = MAX(., __ewram_overlay_end);
+
+    . = __ewram_overlay_beg;
+    ewram_overlay_sio (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000; gUnk_Sio_02000000 = .;
+        . = 0x000C60; gUnk_Sio_02000C60 = .;
+        . = 0x000C78; gUnk_Sio_02000C78 = .;
+        . = 0x000F00; gUnk_Sio_02000F00 = .;
+        . = 0x001180; gUnk_Sio_02001180 = .;
+        . = 0x001184; gUnk_Sio_02001184 = .;
+        . = 0x001188; gUnk_Sio_02001188 = .;
+    }
+    __ewram_overlay_end = MAX(., __ewram_overlay_end);
+
+    . = __ewram_overlay_end;
+    ewram_data (NOLOAD) : ALIGN(4)
+    {
+        . = 0x02020188 - __ewram_overlay_end; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
+        . = 0x02022188 - __ewram_overlay_end; gOpAnimSt = .;
+        . = 0x02022288 - __ewram_overlay_end;
+        . = ALIGN(4); src/hardware.o(ewram_data);
+        . = ALIGN(4); src/soundwrapper.o(ewram_data);
+        . = ALIGN(4); src/proc.o(ewram_data);
+        . = ALIGN(4); src/icon.o(ewram_data);
+        . = ALIGN(4); src/fontgrp.o(ewram_data);
+        . = ALIGN(4); src/animedrv.o(ewram_data);
+        . = ALIGN(4); src/ctc.o(ewram_data);
+        . = ALIGN(4); src/face.o(ewram_data);
+        . = ALIGN(4); src/msg.o(ewram_data);
+        . = ALIGN(4); src/bm.o(ewram_data);
+        . = ALIGN(4); src/bmunit.o(ewram_data);
+        . = ALIGN(4); src/bmmap.o(ewram_data);
+        . = ALIGN(4); src/bmtarget.o(ewram_data);
+        . = ALIGN(4); src/bmudisp.o(ewram_data);
+        . = ALIGN(4); src/bmbattle.o(ewram_data);
+        . = ALIGN(4); src/bmtrade.o(ewram_data);
+        . = ALIGN(4); src/bmtrick.o(ewram_data);
+        . = ALIGN(4); src/bmcontainer.o(ewram_data);
+        . = ALIGN(4); src/bmusort.o(ewram_data);
+        . = ALIGN(4); src/bmarena.o(ewram_data);
+        . = ALIGN(4); src/bmmind.o(ewram_data);
+        . = ALIGN(4); src/bmpatharrowdisp.o(ewram_data);
+        . = ALIGN(4); src/unitinfowindow.o(ewram_data);
+        . = ALIGN(4); src/cp_phase.o(ewram_data);
+        . = ALIGN(4); src/cp_decide.o(ewram_data);
+        . = ALIGN(4); src/cp_0803E2F4.o(ewram_data);
+        . = ALIGN(4); src/sio_core.o(ewram_data);
+        . = 0x0203DA24 - __ewram_overlay_end; gLinkArenaSt = .;
+        . = 0x0203DA78 - __ewram_overlay_end; gUnk_Sio_0203DA78 = .;
+        . = 0x0203DA88 - __ewram_overlay_end; gUnk_Sio_0203DA88 = .;
+        . = 0x0203DAB0 - __ewram_overlay_end; Texts_0203DAB0 = .;
+        . = 0x0203DAC0 - __ewram_overlay_end; gUnk_Sio_0203DAC0 = .;
+        . = 0x0203DAC5 - __ewram_overlay_end; gUnk_Sio_0203DAC5 = .;
+        . = 0x0203DB10 - __ewram_overlay_end; gUnk_Sio_0203DB10 = .;
+        . = 0x0203DB14 - __ewram_overlay_end; Texts_0203DB14 = .;
+        . = 0x0203DB1C - __ewram_overlay_end; gUnk_Sio_0203DB1C = .;
+        . = 0x0203DB64 - __ewram_overlay_end; Font_0203DB64 = .;
+        . = 0x0203DB7C - __ewram_overlay_end; gUnk_Sio_0203DB7C = .;
+        . = 0x0203DC44 - __ewram_overlay_end; gUnk_Sio_0203DC44 = .;
+        . = 0x0203DC48 - __ewram_overlay_end; gUnk_Sio_0203DC48 = .;
+        . = 0x0203DD0C - __ewram_overlay_end; gUnk_Sio_0203DD0C = .;
+        . = 0x0203DD1C - __ewram_overlay_end; Text_0203DB14 = .;
+        . = 0x0203DD24 - __ewram_overlay_end; gUnk_Sio_0203DD24 = .;
+        . = 0x0203DD28 - __ewram_overlay_end; gUnk_Sio_0203DD28 = .;
+        . = 0x0203DD2C - __ewram_overlay_end; gUnk_Sio_0203DD2C = .;
+        . = 0x0203DD4C - __ewram_overlay_end; gUnk_Sio_0203DD4C = .;
+        . = 0x0203DD50 - __ewram_overlay_end; gUnk_Sio_0203DD50 = .;
+        . = 0x0203DD8C - __ewram_overlay_end; gUnk_Sio_0203DD8C = .;
+        . = 0x0203DD90 - __ewram_overlay_end; gUnk_Sio_0203DD90 = .;
+        . = 0x0203DD94 - __ewram_overlay_end; gUnk_Sio_0203DD94 = .;
+        . = 0x0203DD95 - __ewram_overlay_end; gUnk_Sio_0203DD95 = .;
+        . = 0x0203DD9A - __ewram_overlay_end; gUnk_Sio_0203DD9A = .;
+        . = 0x0203DD9F - __ewram_overlay_end; gUnk_Sio_0203DD9F = .;
+        . = 0x0203DDB4 - __ewram_overlay_end; gUnk_Sio_0203DDB4 = .;
+        . = 0x0203DDDC - __ewram_overlay_end; gUnk_Sio_0203DDDC = .;
+        . = 0x0203DDE0 - __ewram_overlay_end;
+        . = ALIGN(4); src/uiutils.o(ewram_data);
+        . = ALIGN(4); src/uiselecttarget.o(ewram_data);
+        . = ALIGN(4); src/banim-ekrbattle.o(ewram_data);
+        . = ALIGN(4); src/banim-ekrbattleintro.o(ewram_data);
+        . = ALIGN(4); src/banim-ekrcmd.o(ewram_data);
+        . = ALIGN(4); src/banim-ekrarena.o(ewram_data);
+        . = ALIGN(4); src/banim-efxop.o(ewram_data);
+        . = ALIGN(4); src/mapanim.o(ewram_data);
+        . = ALIGN(4); src/mapanim_scanline.o(ewram_data);
+        . = ALIGN(4); src/statscreen.o(ewram_data);
+        . = ALIGN(4); src/chapter_title.o(ewram_data);
+        . = ALIGN(4); src/helpbox.o(ewram_data);
+        . = ALIGN(4); src/cgtext.o(ewram_data);
+        . = ALIGN(4); src/prepscreen.o(ewram_data);
+        . = ALIGN(4); src/bmsave-lib.o(ewram_data);
+        . = ALIGN(4); src/bmsave-bwl.o(ewram_data);
+        . = ALIGN(4); src/bmsave.o(ewram_data);
+        . = ALIGN(4); src/bmsave-multiarena.o(ewram_data);
+        . = ALIGN(4); src/bmsave-xmap.o(ewram_data);
+        . = ALIGN(4); src/savemenu.o(ewram_data);
+        . = ALIGN(4); src/bmshop.o(ewram_data);
+        . = 0x0203EFB8 - __ewram_overlay_end; gLoadUnitBuffer = .;
+        . = 0x0203EFB8 - __ewram_overlay_end; end = .;
     }
 
     . = ORIGIN(iwram);

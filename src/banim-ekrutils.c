@@ -105,8 +105,8 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
             animr8 = animr9;
         }
 
-        val1 = gEfxPairHpBufOffset[GetAnimPosition(animr5)];
-        val2 = gEfxPairHpBufOffset[GetAnimPosition(animr5)];
+        val1 = gEfxHpLutOff[GetAnimPosition(animr5)];
+        val2 = gEfxHpLutOff[GetAnimPosition(animr5)];
         val2++;
     
         val1 = GetEfxHp(val1 * 2 + GetAnimPosition(animr5));
@@ -148,8 +148,8 @@ void StartBattleAnimResireHitEffects(struct Anim * anim, int type)
         animR8 = gAnims[3];
     }
 
-    val1 = gEfxPairHpBufOffset[GetAnimPosition(animR5)];
-    val2 = gEfxPairHpBufOffset[GetAnimPosition(animR5)];
+    val1 = gEfxHpLutOff[GetAnimPosition(animR5)];
+    val2 = gEfxHpLutOff[GetAnimPosition(animR5)];
     val2++;
 
     {
@@ -343,8 +343,8 @@ void SpellFx_WriteBgMapExt(struct Anim * anim, const u16 * src, int width, int h
 void SpellFx_RegisterObjGfx(const u16 * img, u32 size)
 {
     u16 * dst = OBJ_VRAM0 + VRAMOFF_BANIM_SPELL_OBJ;
-    LZ77UnCompWram(img, gSpellAnimObjfx);
-    RegisterDataMove(gSpellAnimObjfx, dst, size);
+    LZ77UnCompWram(img, gBuf_Banim);
+    RegisterDataMove(gBuf_Banim, dst, size);
 }
 
 void SpellFx_RegisterObjPal(const u16 * pal, u32 size)
@@ -473,14 +473,14 @@ int EfxGetCamMovDuration(void)
 
 void sub_80559B0(u32 val)
 {
-    u16 * dst = gEfxBuf_0201C8D0;
-    CpuFill32(val, dst, sizeof(gEfxBuf_0201C8D0));
+    u16 * dst = gTmA_Banim;
+    CpuFill32(val, dst, sizeof(gTmA_Banim));
 }
 
 void EfxTmFill(u32 val)
 {
-    u16 * dst = gEfxFrameTmap;
-    CpuFill32(val, dst, sizeof(gEfxFrameTmap));
+    u16 * dst = gTmB_Banim;
+    CpuFill32(val, dst, sizeof(gTmB_Banim));
 }
 
 void SetEkrFrontAnimPostion(int pos, s16 x, s16 y)

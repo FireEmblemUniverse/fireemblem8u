@@ -31,8 +31,6 @@ struct ProcEkrUnitMainMini
     /* 5C */ void * unk_5C;
 };
 
-extern ProcPtr gpProcEfxAnimeDrv;
-
 void sub_805AE58(void *);
 
 //! FE8U = 0x0805A3DC

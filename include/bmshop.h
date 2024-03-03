@@ -55,6 +55,7 @@ struct ShopState {
     /* 10 */ int unk_10;
     /* 14 */ ShopFunc unk_14;
     /* 18 */ ProcPtr unk_18;
+    /* 1C */ int unk1C;
 };
 
 int ShopProc_GetPortraitIndex(struct BmShopProc* proc);

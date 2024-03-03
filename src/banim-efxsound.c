@@ -13,8 +13,8 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
-EWRAM_DATA int gEkrMainBgmPlaying = false;
-EWRAM_DATA int gEfxSoundSeExist = false;
+EWRAM_OVERLAY(banim) int gEkrMainBgmPlaying = false;
+EWRAM_OVERLAY(banim) int gEfxSoundSeExist = false;
 
 CONST_DATA struct ProcCmd ProcScr_efxSoundSE[] = {
     PROC_NAME("efxSoundSE"),
@@ -756,7 +756,7 @@ u16 GetEfxSoundType2FromBaseCon(u16 basecon)
 s16 GetEfxHpChangeType(struct Anim * anim)
 {
     int offset, hp1, hp2;
-    offset = gEfxPairHpBufOffset[GetAnimPosition(anim)];
+    offset = gEfxHpLutOff[GetAnimPosition(anim)];
     offset = offset * 2 + GetAnimPosition(anim);
 
     hp1 = GetEfxHp(offset);

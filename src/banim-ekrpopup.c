@@ -11,8 +11,8 @@
 #include "soundwrapper.h"
 #include "ctc.h"
 
-EWRAM_DATA struct ProcEkrPopup *gpProcEkrPopup = NULL;
-EWRAM_DATA int gEkrPopupEnded = false;
+EWRAM_OVERLAY(banim) struct ProcEkrPopup *gpProcEkrPopup = NULL;
+EWRAM_OVERLAY(banim) int gEkrPopupEnded = false;
 
 void PutBanimBgIMG(int index)
 {
@@ -137,7 +137,7 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
 
     LZ77UnCompVram(Img_EkrPopup, (void *)BG_VRAM + 0x2000);
     LZ77UnCompWram(Tsa_EkrPopup, (void *)gEkrTsaBuffer);
-    InitTextFont(&gSomeFontStruct, (void *)BG_VRAM + 0x2100, 0x108, 1);
+    InitTextFont(&gBanimFont, (void *)BG_VRAM + 0x2100, 0x108, 1);
     SetTextDrawNoClear();
     CpuFastCopy(Pal_EkrPopup, PAL_BG(0x1), 0x20);
 
@@ -170,7 +170,7 @@ void DrawBattlePopup(struct ProcEkrPopup *proc, int type, u32 priv)
     width_popupbox = (width3 + 7) >> 3;
     MakeBattlePopupTileMapFromTSA(gBG1TilemapBuffer, width_popupbox);
 
-    text = &gTextEkrlvupMsg[0];
+    text = &gBanimText[0];
     InitText(text, width_popupbox);
     xcursor = (width_popupbox * 8 - width3) >> 1;
     Text_SetCursor(text, xcursor);
