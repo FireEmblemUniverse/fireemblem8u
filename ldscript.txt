@@ -1126,7 +1126,7 @@ SECTIONS
         . = ALIGN(4); src/minimap.o(.data);
         . = ALIGN(4); data/data_minimap.o(.data);
         . = ALIGN(4); src/savemenu.o(.data);
-        . = ALIGN(4); data/data_A20050.o(.data);
+        . = ALIGN(4); src/savedraw.o(.data);
         . = ALIGN(4); src/savedrawcursor.o(.data);
         . = ALIGN(4); src/savemenu_data.o(.data);
         . = ALIGN(4); src/difficultymenu.o(.data);

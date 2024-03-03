@@ -309,4 +309,27 @@ void DrawDifficultySprites_Loop(struct DifficultyMenuSpritesProc * proc);
 void sub_80AC680(struct DifficultyMenuSpritesProc *, int, int);
 ProcPtr StartDrawDifficultyMenuSprites(ProcPtr);
 
+// extern ??? gBgConfig_SaveMenu
+// extern ??? gProcScr_08A20068
+// extern ??? ProcScr_CallExtraMap
+// extern ??? ProcScr_SaveMenu
+// extern ??? gProcScr_SaveMenuPostChapter
+// extern ??? gUnknown_08A204B8
+// extern ??? gUnknown_08A204BC;
+extern u16 gUnknown_08A2051C[];
+extern u16 gUnknown_08A20536[];
+extern u16 gUnknown_08A20570[];
+extern u16 gUnknown_08A20578[];
+extern u16 gUnknown_08A20580[];
+extern u16 gUnknown_08A20588[];
+extern u16 Obj_08A20590[];
+extern u16 * gUnknown_08A20650[];
+extern u16 * Objs_08A2067C[];
+// extern ??? ProcScr_savedraw
+// extern ??? gProcScr_SaveDrawCursor
+// extern ??? gProcScr_08A206F8
+// extern ??? gUnknown_08A20720
+// extern ??? gProcScr_SqMask
+// extern ??? gProcScr_SaveBgUp
+
 #endif // GUARD_SAVEMENU_H

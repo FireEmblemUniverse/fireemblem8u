@@ -10,9 +10,229 @@
 
 #define SAVE_MENU_PARENT(proc) ((struct SaveMenuProc *)(proc->proc_parent))
 
-extern u16 gUnknown_08A20590[];
-extern u16 * gUnknown_08A2067C[];
-extern u16 * gUnknown_08A20650[];
+// clang-format off
+
+u16 CONST_DATA gUnknown_08A2051C[] = {
+    4,
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x40) + OAM2_LAYER(2),
+    OAM0_SHAPE_8x32, OAM1_SIZE_8x32 + OAM1_X(64), OAM2_CHR(0x48) + OAM2_LAYER(2),
+    OAM0_SHAPE_8x32, OAM1_SIZE_8x32 + OAM1_X(72) + OAM1_HFLIP, OAM2_CHR(0x48) + OAM2_LAYER(2),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(80) + OAM1_HFLIP, OAM2_CHR(0x40) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA gUnknown_08A20536[] =
+{
+    3,
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x49) + OAM2_LAYER(2),
+    OAM0_SHAPE_16x32, OAM1_SIZE_16x32 + OAM1_X(64), OAM2_CHR(0x51) + OAM2_LAYER(2),
+    OAM0_SHAPE_8x32, OAM1_SIZE_8x32 + OAM1_X(80), OAM2_CHR(0x53) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA Sprite_08A2054A[] =
+{
+    6,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x40) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x42) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16, OAM2_CHR(0x60) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x62) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16 + OAM0_Y(32), OAM1_SIZE_32x16, OAM2_CHR(0x80) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16 + OAM0_Y(32), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x82) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA gUnknown_08A20570[] =
+{
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x5C) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA gUnknown_08A20578[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1D1) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA gUnknown_08A20580[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1F1) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA gUnknown_08A20588[] =
+{
+    1,
+    OAM0_SHAPE_32x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x32 + OAM1_AFFINE_ID(3), OAM2_CHR(0xDC) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Obj_08A20590[] =
+{
+    2,
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x196) + OAM2_LAYER(2),
+    OAM0_SHAPE_16x32, OAM1_SIZE_16x32 + OAM1_X(64), OAM2_CHR(0x19E) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA Sprite_08A2059E[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C0) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205A6[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C1) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205AE[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C2) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205B6[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C3) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205BE[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C4) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205C6[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C5) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205CE[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E0) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205D6[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E1) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205DE[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E2) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205E6[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E3) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205EE[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E4) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205F6[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1C6) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A205FE[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1C7) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A20606[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1C8) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A2060E[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1C9) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A20616[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CA) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A2061E[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CB) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A20626[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CC) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A2062E[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CD) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A20636[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CE) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A2063E[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CF) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_08A20646[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1D0) + OAM2_LAYER(1),
+};
+
+u16 * CONST_DATA gUnknown_08A20650[] =
+{
+    Sprite_08A2059E,
+    Sprite_08A205A6,
+    Sprite_08A205AE,
+    Sprite_08A205B6,
+    Sprite_08A205BE,
+    Sprite_08A205C6,
+    Sprite_08A205CE,
+    Sprite_08A205D6,
+    Sprite_08A205DE,
+    Sprite_08A205E6,
+    Sprite_08A205EE,
+};
+
+u16 * CONST_DATA Objs_08A2067C[] =
+{
+    Sprite_08A205F6,
+    Sprite_08A205FE,
+    Sprite_08A20606,
+    Sprite_08A2060E,
+    Sprite_08A20616,
+    Sprite_08A2061E,
+    Sprite_08A20626,
+    Sprite_08A2062E,
+    Sprite_08A20636,
+    Sprite_08A2063E,
+    Sprite_08A20646,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AA7EC
 void sub_80AA7EC(struct SaveDrawProc * proc)
@@ -195,8 +415,6 @@ void sub_80AAA6C(void)
     return;
 }
 
-extern u16 gUnknown_08A280A8[];
-
 //! FE8U = 0x080AAA78
 void sub_80AAA78(struct SaveDrawProc * proc)
 {
@@ -261,7 +479,6 @@ void sub_80AAB78(s8 flag, u16 color)
 }
 
 extern u16 * gUnknown_08A209B8[];
-extern u16 gUnknown_08A2051C[];
 
 //! FE8U = 0x080AABC4
 void sub_80AABC4(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palIdB)
@@ -272,7 +489,6 @@ void sub_80AABC4(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palId
 }
 
 extern u16 * gUnknown_08A2099C[];
-extern u16 gUnknown_08A2051C[];
 
 //! FE8U = 0x080AAC40
 void sub_80AAC40(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palIdB)
@@ -327,10 +543,7 @@ void sub_80AACBC(struct SaveDrawProc * proc)
     return;
 }
 
-extern u16 gUnknown_08A2051C[];
 extern u16 * gUnknown_08A209B8[];
-
-u8 sub_80A88B8(u8);
 
 //! FE8U = 0x080AADE0
 void sub_80AADE0(struct SaveDrawProc * proc)
@@ -457,8 +670,6 @@ void sub_80AAF6C(struct SaveDrawProc * proc)
 
 extern u16 * gUnknown_08A209E4[];
 extern u16 * gUnknown_08A209F0[];
-extern u16 gUnknown_08A20588[];
-extern u16 gUnknown_08A20536[];
 
 //! FE8U = 0x080AB05C
 void sub_80AB05C(struct SaveDrawProc * proc)
@@ -581,7 +792,23 @@ void sub_80AB2A0(struct SaveDrawProc * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_savedraw[];
+// clang-format off
+
+extern char gUnknown_08205DE0[];
+
+struct ProcCmd CONST_DATA ProcScr_savedraw[] =
+{
+    PROC_NAME(gUnknown_08205DE0),
+    PROC_MARK(PROC_MARK_C),
+    PROC_SET_END_CB(sub_80AAA6C),
+
+    PROC_CALL(sub_80AAA78),
+    PROC_REPEAT(sub_80AB2A0),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080AB300
 struct SaveDrawProc * New6C_savedraw(ProcPtr parent)
