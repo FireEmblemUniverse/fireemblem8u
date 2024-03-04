@@ -37,19 +37,17 @@ void sub_8081EAC(void)
 }
 
 //! FE8U = 0x08081F24
-void sub_8081F24(int x, int y, int arg3)
+void UpdateMapAnimScanline(int x, int y, int arg3)
 {
     InitScanlineBuf(gManimScanlineBufs[1]);
-    sub_80823FC(gManimScanlineBufs[1], x, y, arg3);
+    MapAnimScanlineCore(gManimScanlineBufs[1], x, y, arg3);
     SwapScanlineBufs();
-    return;
 }
 
 //! FE8U = 0x08081F58
-void sub_8081F58(void)
+void MapAnimResetHBlank(void)
 {
     SetPrimaryHBlankHandler(NULL);
-    return;
 }
 
 //! FE8U = 0x08081F64
@@ -73,7 +71,7 @@ void sub_8081F64(void)
 }
 
 //! FE8U = 0x08081FA8
-void sub_8081FA8(void)
+void HBlank_MapAnimEffect_Unk_8081FA8(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -180,7 +178,7 @@ void StartManimFrameGradientScanlineEffect(u16 yTop, u16 yBottom, u16 colorArg3,
 }
 
 //! FE8U = 0x0808218C
-void sub_808218C(int x, int y, int a, int b, u8 * unk)
+void sub_808218C(int x, int y, int a, int b, const u8 * unk)
 {
     int var;
 
@@ -359,7 +357,7 @@ void SetScanlineBufWinR(u16 * buf, int x, int y)
 }
 
 //! FE8U = 0x080823FC
-void sub_80823FC(u16 * buf, int x, int y, int arg4)
+void MapAnimScanlineCore(u16 * buf, int x, int y, int arg4)
 {
     int i;
 
@@ -385,8 +383,6 @@ void sub_80823FC(u16 * buf, int x, int y, int arg4)
             var = var - 1;
         }
     }
-
-    return;
 }
 
 //! FE8U = 0x080824C4

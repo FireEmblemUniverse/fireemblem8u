@@ -465,65 +465,64 @@ void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits)
     }
 }
 
-void sub_800159C(u16 *a1, u16 *a2, s16 a3, s16 a4, u16 a5) // TODO: handle type of a1
+void AddAttr2dBitMap(u16 * _dst, u16 * _src, s16 ix, s16 iy, u16 chr) // TODO: handle type of a1
 {
     u16 *dst;
-    s16 r4, r5;
-    s16 ip;
-    s16 sp04;
-    s16 sp08;
-    s16 sp0C;
+    s16 width, height;
+    s16 _width;
+    s16 _height;
+    s16 _ix, _iy;
 
-    r4 = ((u8 *)a2)[0] + 1;
-    sp04 = ((u8 *)a2)[1];
-    r5 = sp04 + 1;
-    ip = r4;
-    sp04 = r5;
-    ++a2;
-    sp0C = 0;
-    sp08 = 0;
+    width = ((u8 *)_src)[0] + 1;
+    _height = ((u8 *)_src)[1];
+    height = _height + 1;
+    _width = width;
+    _height = height;
+    ++_src;
+    _iy = 0;
+    _ix = 0;
 
-    if (a3 + r4 > 0x20)
-        r4 = 0x20 - a3;
+    if (ix + width > 0x20)
+        width = 0x20 - ix;
 
-    if (a3 < 0)
+    if (ix < 0)
     {
-        sp08 = -a3;
-        r4 -= sp08;
-        a3 = 0;
+        _ix = -ix;
+        width -= _ix;
+        ix = 0;
     }
 
-    if (r4 > 0)
+    if (width > 0)
     {
         int i, j;
-        if (a4 + r5 > 0x20)
-            r5 = 0x20 - a4;
+        if (iy + height > 0x20)
+            height = 0x20 - iy;
 
-        if (a4 < 0)
+        if (iy < 0)
         {
-            sp0C = -a4;
-            r5 -= sp0C;
-            a4 = 0;
+            _iy = -iy;
+            height -= _iy;
+            iy = 0;
         }
 
-        if (r5 > 0)
+        if (height > 0)
         {
-            a2 += ip * (sp04 - (sp0C + r5));
-            dst = a1 + (a4 + r5 - 1) * 0x20 + a3;
+            _src += _width * (_height - (_iy + height));
+            dst = _dst + (iy + height - 1) * 0x20 + ix;
 
-            for (i = r5 - 1; i >= 0; --i)
+            for (i = height - 1; i >= 0; --i)
             {
-                const u16 *src = a2 + sp08;
+                const u16 *src = _src + _ix;
                 u16 *dst2 = dst;
 
-                for (j = 0; r4 > j; ++j)
+                for (j = 0; width > j; ++j)
                 {
-                    *dst2 = *src + a5;
+                    *dst2 = *src + chr;
                     ++src;
                     ++dst2;
                 }
 
-                a2 += ip;
+                _src += _width;
                 dst -= 0x20;
             }
         }
@@ -928,7 +927,7 @@ void SetBlendBackdropB(int a)
 
 void SetDefaultColorEffects(void)
 {
-    SetBlendConfig(0, 16, 0, 0);
+    SetBlendNone();
 }
 
 void EnablePaletteSync(void)

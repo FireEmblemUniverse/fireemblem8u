@@ -1,7 +1,7 @@
 	.section .data
 
-	.global gUnknown_089A52FC
-gUnknown_089A52FC:  @ 0x089A52FC
+	.global ProcScr_ManimShiftingSineWaveScanlineBuf
+ProcScr_ManimShiftingSineWaveScanlineBuf:  @ 0x089A52FC
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80825B0
@@ -21,8 +21,8 @@ SpriteAnim_ManimStatGain:  @ 0x089A5314
 gUnknown_089A5A6C:  @ 0x089A5A6C
 	.incbin "baserom.gba", 0x9A5A6C, 0x78C
 
-	.global gUnknown_089A61F8
-gUnknown_089A61F8:  @ 0x089A61F8
+	.global ApConf_MapAnimTorchfx
+ApConf_MapAnimTorchfx:  @ 0x089A61F8
 	.incbin "baserom.gba", 0x9A61F8, 0x5C
 
 	.global ApConf_089A6254
@@ -225,84 +225,84 @@ Pal_089AFFB8:  @ 0x089AFFB8
 gUnknown_089AFFF8:  @ 0x089AFFF8
     .incbin "baserom.gba", 0x9AFFF8, 0x3DC
 
-	.global gUnknown_089B03D4
-gUnknown_089B03D4:  @ 0x089B03D4
+	.global Img_MapAnimTorchfx
+Img_MapAnimTorchfx:  @ 0x089B03D4
 	.incbin "baserom.gba", 0x9B03D4, 0x2B8
 
-	.global gUnknown_089B068C
-gUnknown_089B068C:  @ 0x089B068C
+	.global Pal_MapAnimTorchfx
+Pal_MapAnimTorchfx:  @ 0x089B068C
 	.incbin "baserom.gba", 0x9B068C, 0x20
 
-	.global Img_089B06AC
-Img_089B06AC:  @ 0x089B06AC
+	.global Img_MapAnimUnlockObjfx
+Img_MapAnimUnlockObjfx:  @ 0x089B06AC
 	.incbin "baserom.gba", 0x9B06AC, 0x54
 
-	.global Pal_089B0700
-Pal_089B0700:  @ 0x089B0700
+	.global Pal_MapAnimUnlockObjfx
+Pal_MapAnimUnlockObjfx:  @ 0x089B0700
 	.incbin "baserom.gba", 0x9B0700, 0x20
 
-	.global gUnknown_089B0720
-gUnknown_089B0720:  @ 0x089B0720
+	.global Img_MapAnimUnlockBgfx
+Img_MapAnimUnlockBgfx:  @ 0x089B0720
 	.incbin "baserom.gba", 0x9B0720, 0x100
 
-	.global gUnknown_089B0820
-gUnknown_089B0820:  @ 0x089B0820
+	.global Pal_MapAnimUnlockObjfx_Unk
+Pal_MapAnimUnlockObjfx_Unk:  @ 0x089B0820
 	.incbin "baserom.gba", 0x9B0820, 0x20
 
-	.global gUnknown_089B0840
-gUnknown_089B0840:  @ 0x089B0840
+	.global Tsa_MapAnimUnlockBgfx
+Tsa_MapAnimUnlockBgfx:  @ 0x089B0840
     .incbin "baserom.gba", 0x9B0840, 0x24
 
-	.global gUnknown_089B0864
-gUnknown_089B0864:  @ 0x089B0864
+	.global Tsa_089B0864
+Tsa_089B0864:  @ 0x089B0864
 	.incbin "baserom.gba", 0x9B0864, 0x26C
 
-	.global gUnknown_089B0AD0
-gUnknown_089B0AD0:  @ 0x089B0AD0
+	.global Img_MapAnimRepairfx
+Img_MapAnimRepairfx:  @ 0x089B0AD0
 	.incbin "baserom.gba", 0x9B0AD0, 0xCD4
 
-	.global gUnknown_089B17A4
-gUnknown_089B17A4:  @ 0x089B17A4
+	.global Tsa_089B17A4
+Tsa_089B17A4:  @ 0x089B17A4
 	.incbin "baserom.gba", 0x9B17A4, 0x26C
 
-	.global gUnknown_089B1A10
-gUnknown_089B1A10:  @ 0x089B1A10
+	.global ApConf_MapAnimSleep
+ApConf_MapAnimSleep:  @ 0x089B1A10
 	.incbin "baserom.gba", 0x9B1A10, 0x400
 
-	.global gUnknown_089B1E10
-gUnknown_089B1E10:  @ 0x089B1E10
+	.global Img_MapAnimBerserkfx
+Img_MapAnimBerserkfx:  @ 0x089B1E10
 	.incbin "baserom.gba", 0x9B1E10, 0x2D8
 
-	.global gUnknown_089B20E8
-gUnknown_089B20E8:  @ 0x089B20E8
+	.global Pal_MapAnimBerserkfx
+Pal_MapAnimBerserkfx:  @ 0x089B20E8
 	.incbin "baserom.gba", 0x9B20E8, 0x20
 
-	.global gUnknown_089B2108
-gUnknown_089B2108:  @ 0x089B2108
+	.global ApConf_MapAnimBerserkfx
+ApConf_MapAnimBerserkfx:  @ 0x089B2108
 	.incbin "baserom.gba", 0x9B2108, 0xD0
 
-	.global gUnknown_089B21D8
-gUnknown_089B21D8:  @ 0x089B21D8
+	.global Img_ManimSilenceObjfx
+Img_ManimSilenceObjfx:  @ 0x089B21D8
 	.incbin "baserom.gba", 0x9B21D8, 0x440
 
-	.global gUnknown_089B2618
-gUnknown_089B2618:  @ 0x089B2618
+	.global Img_ManimSilenceBgfx
+Img_ManimSilenceBgfx:  @ 0x089B2618
     .incbin "baserom.gba", 0x9B2618, 0x110
 
-	.global gUnknown_089B2728
-gUnknown_089B2728:  @ 0x089B2728
+	.global Pal_ManimSilencefx
+Pal_ManimSilencefx:  @ 0x089B2728
 	.incbin "baserom.gba", 0x9B2728, 0x20
 
-	.global gUnknown_089B2748
-gUnknown_089B2748:  @ 0x089B2748
+	.global ApConf_ManimSilencefx
+ApConf_ManimSilencefx:  @ 0x089B2748
 	.incbin "baserom.gba", 0x9B2748, 0x138
 
-	.global gUnknown_089B2880
-gUnknown_089B2880:  @ 0x089B2880
+	.global Img_ManimBarrierBgfx
+Img_ManimBarrierBgfx:  @ 0x089B2880
 	.incbin "baserom.gba", 0x9B2880, 0xBBC
 
-	.global gUnknown_089B343C
-gUnknown_089B343C:  @ 0x089B343C
+	.global Tsa_089B343C
+Tsa_089B343C:  @ 0x089B343C
 	.incbin "baserom.gba", 0x9B343C, 0x194
 
 	.global Img_NightMareMapAnimfx
@@ -445,13 +445,53 @@ Tsa_NightMareMapAnimfx32:
 Tsa_NightMareMapAnimfx33:
 	.incbin "baserom.gba", 0x9B69BC, 0x9B6AA0 - 0x9B69BC
 
-	.global gUnknown_089B6AA0
-gUnknown_089B6AA0:  @ 0x089B6AA0
+	.global Img_MonsterStoneMapAnimfx
+Img_MonsterStoneMapAnimfx:  @ 0x089B6AA0
 	.incbin "baserom.gba", 0x9B6AA0, 0x934
 
-	.global gUnknown_089B73D4
-gUnknown_089B73D4:  @ 0x089B73D4
-	.incbin "baserom.gba", 0x9B73D4, 0x23C
+	.global Pal_MonsterStoneMapAnimfx
+Pal_MonsterStoneMapAnimfx:  @ 0x089B73D4
+	.incbin "baserom.gba", 0x9B73D4, 0x20
+
+	.global Tsa1_MonsterStoneMapAnimfx
+Tsa1_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B73F4, 0x9B7414 - 0x9B73F4
+
+	.global Tsa2_MonsterStoneMapAnimfx
+Tsa2_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B7414, 0x9B743C - 0x9B7414
+
+	.global Tsa3_MonsterStoneMapAnimfx
+Tsa3_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B743C, 0x9B7468 - 0x9B743C
+
+	.global Tsa4_MonsterStoneMapAnimfx
+Tsa4_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B7468, 0x9B749C - 0x9B7468
+
+	.global Tsa5_MonsterStoneMapAnimfx
+Tsa5_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B749C, 0x9B74D4 - 0x9B749C
+
+	.global Tsa6_MonsterStoneMapAnimfx
+Tsa6_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B74D4, 0x9B7514 - 0x9B74D4
+
+	.global Tsa7_MonsterStoneMapAnimfx
+Tsa7_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B7514, 0x9B7554 - 0x9B7514
+
+	.global Tsa8_MonsterStoneMapAnimfx
+Tsa8_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B7554, 0x9B759C - 0x9B7554
+
+	.global Tsa9_MonsterStoneMapAnimfx
+Tsa9_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B759C, 0x9B75D8 - 0x9B759C
+
+	.global Tsa10_MonsterStoneMapAnimfx
+Tsa10_MonsterStoneMapAnimfx:
+	.incbin "baserom.gba", 0x9B75D8, 0x9B7610 - 0x9B75D8
 
 	.global Img_GorgonHatchCloud
 Img_GorgonHatchCloud:  @ 0x089B7610

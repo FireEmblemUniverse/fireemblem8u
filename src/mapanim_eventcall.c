@@ -385,7 +385,7 @@ void sub_807F964(struct MAEffectProc * proc)
             MapAnimfxConf_089A40AC[proc->frame].tsa,
             gGenericBuffer);
 
-        sub_800159C(
+        AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (u16 *)gGenericBuffer,
             0, 0,
@@ -416,7 +416,7 @@ void sub_807FAA0(struct MAEffectProc * proc)
             MapAnimfxConf_089A419C[proc->frame].tsa,
             gGenericBuffer);
 
-        sub_800159C(
+        AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (u16 *)gGenericBuffer,
             0, 0,
@@ -597,7 +597,7 @@ void sub_807FE0C(struct MAEffectProc * proc)
             MapAnimfxConf_089A42BC[proc->frame].tsa,
             gGenericBuffer);
 
-        sub_800159C(
+        AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (u16*) gGenericBuffer,
             0, 0,
@@ -611,7 +611,7 @@ void sub_807FE0C(struct MAEffectProc * proc)
             EnablePaletteSync();
         }
 
-        proc->unk4A = proc->frame;
+        proc->frame_idx = proc->frame;
         proc->frame++;
 
         proc->timer = 4;
@@ -626,7 +626,7 @@ void sub_807FE0C(struct MAEffectProc * proc)
     {
         int i, addedBrightness = proc->unk48 * 32 / 240;
 
-        const u16 * const in  = MapAnimfxConf_089A42BC[proc->unk4A].pal;
+        const u16 * const in  = MapAnimfxConf_089A42BC[proc->frame_idx].pal;
         u16 *       const out = &gPaletteBuffer[0x10 * gUnknown_0820588C[proc->unk4C]];
 
         for (i = 1; i < 16; ++i)
@@ -727,7 +727,7 @@ void sub_8080138(struct MAEffectProc* proc)
             gUnknown_089A43D4[v0].tsa,
             gGenericBuffer);
 
-        sub_800159C(
+        AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (u16*) gGenericBuffer,
             0, 0,

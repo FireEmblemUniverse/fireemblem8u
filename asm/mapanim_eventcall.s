@@ -332,7 +332,7 @@ sub_8080498: @ 0x08080498
 	mov r1, r9
 	movs r2, #0
 	movs r3, #0
-	bl sub_800159C
+	bl AddAttr2dBitMap
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	movs r2, #4
@@ -401,7 +401,7 @@ sub_8080530: @ 0x08080530
 	adds r1, r4, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_800159C
+	bl AddAttr2dBitMap
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	add sp, #4
@@ -1585,7 +1585,7 @@ _08080E3A:
 	str r0, [sp]
 	adds r0, r1, #0
 	adds r1, r6, #0
-	bl sub_800159C
+	bl AddAttr2dBitMap
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	ldrh r0, [r5]
@@ -1782,7 +1782,7 @@ _08080FBE:
 	str r0, [sp]
 	adds r0, r1, #0
 	adds r1, r6, #0
-	bl sub_800159C
+	bl AddAttr2dBitMap
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	ldrh r0, [r5]
@@ -1999,7 +1999,7 @@ _08081160:
 	str r0, [sp]
 	adds r0, r1, #0
 	adds r1, r6, #0
-	bl sub_800159C
+	bl AddAttr2dBitMap
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	ldrh r0, [r5]
