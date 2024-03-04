@@ -1593,7 +1593,7 @@ extern u16 Img_08679B04[];
 extern u16 Img_0867A130[];
 extern u16 Img_0867A828[];
 extern u16 Img_0867AE48[];
-extern u16 gUnknown_0867B5A4[];
+extern u16 Pal_MapAnimRestore[];
 extern u16 Tsa_0867B5C4[];
 extern u16 Tsa_0867B670[];
 extern u16 Tsa_0867B724[];

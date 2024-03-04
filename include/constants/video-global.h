@@ -39,6 +39,8 @@ enum
 
     BGCHR_MANIM_1 = 1,
     BGCHR_MANIM_140 = 0x140,
+    BGCHR_MANIM_160 = 0x160,
+    OBCHR_MANIM_1C0 = 0x1C0,
     BGCHR_MANIM_200 = 0x200,
 };
 

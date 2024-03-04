@@ -1789,7 +1789,7 @@ void StartSubSpell_efxRestBG(struct Anim * anim)
 
     proc->img = ImgArray_RestoreBg;
 
-    SpellFx_RegisterBgPal(gUnknown_0867B5A4, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_MapAnimRestore, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     return;

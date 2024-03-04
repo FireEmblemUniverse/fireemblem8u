@@ -270,10 +270,10 @@ extern u8 gTsa_StoneShatter_081C1CDC[];
 
 extern const u8 gUnknown_08205714[4];
 // extern ??? NigtMarefxConf
-// extern ??? gUnknown_08205824
-// extern ??? gUnknown_08205833
-// extern ??? gUnknown_08205846
-// extern ??? gUnknown_08205855
+extern const u8 gUnknown_08205824[];
+extern const u8 gUnknown_08205833[];
+extern const u8 gUnknown_08205846[];
+extern const u8 gUnknown_08205855[];
 extern const int gUnknown_08205884[];
 extern const u8 gUnknown_0820588C[];
 extern const u8 gUnknown_0820588E[];

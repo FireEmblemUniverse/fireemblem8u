@@ -29298,8 +29298,8 @@ Img_0867A828:  @ 0x0867A828
 Img_0867AE48:  @ 0x0867AE48
 	.incbin "baserom.gba", 0x67AE48, 0x75C    @ 0x67B5A4 - 0x67AE48
 
-	.global gUnknown_0867B5A4
-gUnknown_0867B5A4:  @ 0x0867B5A4
+	.global Pal_MapAnimRestore
+Pal_MapAnimRestore:  @ 0x0867B5A4
 	.incbin "baserom.gba", 0x67B5A4, 0x20    @ 0x67B5C4 - 0x67B5A4
 
 	.global Tsa_0867B5C4
@@ -29357,47 +29357,47 @@ Tsa_0867C09C:  @ 0x0867C09C
 	.global gUnknown_0867EE04
 gUnknown_0867EE04:  @ 0x0867EE04
 @ Replacing .incbin "baserom.gba", 0x67EE04, 0xB0
-    .4byte gUnknown_0867B5A4 + 0xc3a
-    .4byte gUnknown_0867B5A4 + 0xc52
-    .4byte gUnknown_0867B5A4 + 0xc76
-    .4byte gUnknown_0867B5A4 + 0xcb2
-    .4byte gUnknown_0867B5A4 + 0xd06
-    .4byte gUnknown_0867B5A4 + 0xd72
-    .4byte gUnknown_0867B5A4 + 0xdf6
-    .4byte gUnknown_0867B5A4 + 0xe92
-    .4byte gUnknown_0867B5A4 + 0xf52
-    .4byte gUnknown_0867B5A4 + 0x1036
-    .4byte gUnknown_0867B5A4 + 0x113e
-    .4byte gUnknown_0867B5A4 + 0x126a
-    .4byte gUnknown_0867B5A4 + 0x13ba
-    .4byte gUnknown_0867B5A4 + 0x1522
-    .4byte gUnknown_0867B5A4 + 0x16a2
-    .4byte gUnknown_0867B5A4 + 0x1846
-    .4byte gUnknown_0867B5A4 + 0x1a02
-    .4byte gUnknown_0867B5A4 + 0x1bd6
-    .4byte gUnknown_0867B5A4 + 0x1db6
-    .4byte gUnknown_0867B5A4 + 0x1fa2
-    .4byte gUnknown_0867B5A4 + 0x218e
-    .4byte gUnknown_0867B5A4 + 0x236e
-    .4byte gUnknown_0867B5A4 + 0x2542
-    .4byte gUnknown_0867B5A4 + 0x270a
-    .4byte gUnknown_0867B5A4 + 0x28ae
-    .4byte gUnknown_0867B5A4 + 0x2a2e
-    .4byte gUnknown_0867B5A4 + 0x2b96
-    .4byte gUnknown_0867B5A4 + 0x2ce6
-    .4byte gUnknown_0867B5A4 + 0x2e12
-    .4byte gUnknown_0867B5A4 + 0x2f1a
-    .4byte gUnknown_0867B5A4 + 0x300a
-    .4byte gUnknown_0867B5A4 + 0x30e2
-    .4byte gUnknown_0867B5A4 + 0x31a2
-    .4byte gUnknown_0867B5A4 + 0x323e
-    .4byte gUnknown_0867B5A4 + 0x32ce
-    .4byte gUnknown_0867B5A4 + 0x3346
-    .4byte gUnknown_0867B5A4 + 0x33a6
-    .4byte gUnknown_0867B5A4 + 0x33ee
-    .4byte gUnknown_0867B5A4 + 0x342a
-    .4byte gUnknown_0867B5A4 + 0x345a
-    .4byte gUnknown_0867B5A4 + 0x347e
+    .4byte Pal_MapAnimRestore + 0xc3a
+    .4byte Pal_MapAnimRestore + 0xc52
+    .4byte Pal_MapAnimRestore + 0xc76
+    .4byte Pal_MapAnimRestore + 0xcb2
+    .4byte Pal_MapAnimRestore + 0xd06
+    .4byte Pal_MapAnimRestore + 0xd72
+    .4byte Pal_MapAnimRestore + 0xdf6
+    .4byte Pal_MapAnimRestore + 0xe92
+    .4byte Pal_MapAnimRestore + 0xf52
+    .4byte Pal_MapAnimRestore + 0x1036
+    .4byte Pal_MapAnimRestore + 0x113e
+    .4byte Pal_MapAnimRestore + 0x126a
+    .4byte Pal_MapAnimRestore + 0x13ba
+    .4byte Pal_MapAnimRestore + 0x1522
+    .4byte Pal_MapAnimRestore + 0x16a2
+    .4byte Pal_MapAnimRestore + 0x1846
+    .4byte Pal_MapAnimRestore + 0x1a02
+    .4byte Pal_MapAnimRestore + 0x1bd6
+    .4byte Pal_MapAnimRestore + 0x1db6
+    .4byte Pal_MapAnimRestore + 0x1fa2
+    .4byte Pal_MapAnimRestore + 0x218e
+    .4byte Pal_MapAnimRestore + 0x236e
+    .4byte Pal_MapAnimRestore + 0x2542
+    .4byte Pal_MapAnimRestore + 0x270a
+    .4byte Pal_MapAnimRestore + 0x28ae
+    .4byte Pal_MapAnimRestore + 0x2a2e
+    .4byte Pal_MapAnimRestore + 0x2b96
+    .4byte Pal_MapAnimRestore + 0x2ce6
+    .4byte Pal_MapAnimRestore + 0x2e12
+    .4byte Pal_MapAnimRestore + 0x2f1a
+    .4byte Pal_MapAnimRestore + 0x300a
+    .4byte Pal_MapAnimRestore + 0x30e2
+    .4byte Pal_MapAnimRestore + 0x31a2
+    .4byte Pal_MapAnimRestore + 0x323e
+    .4byte Pal_MapAnimRestore + 0x32ce
+    .4byte Pal_MapAnimRestore + 0x3346
+    .4byte Pal_MapAnimRestore + 0x33a6
+    .4byte Pal_MapAnimRestore + 0x33ee
+    .4byte Pal_MapAnimRestore + 0x342a
+    .4byte Pal_MapAnimRestore + 0x345a
+    .4byte Pal_MapAnimRestore + 0x347e
     .4byte 0x7867ea3b
     .4byte 0x84000013
     .4byte 0x81000000

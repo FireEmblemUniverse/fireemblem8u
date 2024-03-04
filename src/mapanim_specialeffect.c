@@ -243,7 +243,7 @@ void MapAnim_GorgonHatch_Loop(struct MAEffectProc * proc)
             TsaLut_GorgonHatchCloud[proc->frame],
             gGenericBuffer);
 
-        sub_800159C(
+        AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (void *)gGenericBuffer,
             proc->xDisplay / 8 - 8,

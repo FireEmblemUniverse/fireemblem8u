@@ -35,8 +35,8 @@ void Eventfx_SetScreenConfig(void)
 void ShinningStonefx_InitGfx(struct ProcShinningStonefx * proc)
 {
     PlaySeSpacial(0x8D, proc->x);
-    Decompress(Img_089B06AC, OBJ_VRAM0 + 0x3800);
-    ApplyPalette(Pal_089B0700, 0x14);
+    Decompress(Img_MapAnimUnlockObjfx, OBJ_VRAM0 + 0x3800);
+    ApplyPalette(Pal_MapAnimUnlockObjfx, 0x14);
     proc->timer = 1;
 }
 

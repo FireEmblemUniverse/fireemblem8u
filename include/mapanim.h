@@ -108,7 +108,7 @@ struct MAEffectProc {
     STRUCT_PAD(0x46, 0x48);
 
     /* 48 */ short unk48;
-    /* 4A */ short unk4A;
+    /* 4A */ short frame_idx;
     /* 4C */ short unk4C;
 
     STRUCT_PAD(0x4E, 0x50);
@@ -317,24 +317,22 @@ extern CONST_DATA struct ProcCmd ProcScr_MapLatonaShiningfx[];
 extern CONST_DATA struct ProcCmd ProcScr_NightMarefx[];
 extern CONST_DATA void * TsaSet_NightMareMapAnimfx[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimAntitoxinPureWaterfx[];
-// extern ??? gUnknown_089A3B6C
-// extern ??? gUnknown_089A3B84
-// extern ??? gUnknown_089A3BA4
-// extern ??? gUnknown_089A3BDC
-// extern ??? gUnknown_089A3C0C
-// extern ??? gUnknown_089A3C24
-// extern ??? gUnknown_089A3C6C
-// extern ??? gUnknown_089A3C94
-// extern ??? gUnknown_089A3CD4
-// extern ??? gUnknown_089A3D14
-// extern ??? gUnknown_089A3D54
-// extern ??? gUnknown_089A3D8C
-// extern ??? gUnknown_089A3DB4
-// extern ??? gUnknown_089A3DFC
-// extern ??? gUnknown_089A3E04
-// extern ??? gUnknown_089A3E44
-// extern ??? gUnknown_089A3E6C
-// extern ??? gUnknown_089A3EC4
+extern CONST_DATA struct ProcCmd ProcScr_089A3B84[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimEffectAnimator[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimWarpFlashy[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimTorch[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimBerserk[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimRepair[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimRestore[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSleep[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimMonsterStone[];
+extern CONST_DATA void * TsaSet_MonsterStoneMapAnimfx[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimEffect_Unk_089A3DB4[];
+extern CONST_DATA u8 gUnknown_089A3DFC[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSilencefx[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimBarrierfx[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimUnlock[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimEffect_Unk_089A3EC4[];
 // extern ??? gManimLevelUpLabelInfoList
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpStatGainLabel[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpLabelColor[];
@@ -386,10 +384,10 @@ extern CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect2[];
 extern CONST_DATA struct ProcCmd ProcScr_CritAtkMapEffect[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocBarrier[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocWarp[];
-// extern ??? gUnknown_089A52FC
+extern CONST_DATA struct ProcCmd ProcScr_ManimShiftingSineWaveScanlineBuf[];
 extern u16 SpriteAnim_ManimStatGain[];
 extern u16 gUnknown_089A5A6C[];
-// extern ??? gUnknown_089A61F8
+extern u16 ApConf_MapAnimTorchfx[];
 extern u16 ApConf_089A6254[];
 extern u16 CONST_DATA Obj_PoisonAnim[];
 extern u16 CONST_DATA Obj_WallBreakAnim[];
@@ -425,13 +423,13 @@ extern u16 CONST_DATA Pal_WallBreakAnim[];
 extern const u8 Img_GmapSoguSprites[];
 extern u16 CONST_DATA Img_PoisonAnim[];
 extern u16 CONST_DATA Pal_PoisonAnim[];
-// extern ??? gUnknown_089AE224
-// extern ??? gUnknown_089AE484
-// extern ??? gUnknown_089AE4A4
+extern u16 CONST_DATA gUnknown_089AE224[];
+extern u16 CONST_DATA gUnknown_089AE484[];
+extern u16 CONST_DATA gUnknown_089AE4A4[];
 extern u8 Img_089AE7A4[];
 extern u16 Pal_089AE7C4[];
 extern u8 CONST_DATA Img_MapAnimAntitoxinPureWater[];
-// extern ??? gUnknown_089AF310
+extern u16 CONST_DATA gUnknown_089AF310[];
 extern u16 CONST_DATA Pal_MapAnimPureWater[];
 extern u16 CONST_DATA Pal_MapAnimAntitoxin[];
 extern u8 CONST_DATA gUnknown_089AF950[];
@@ -440,26 +438,26 @@ extern u8 CONST_DATA gUnknown_089AFCBC[];
 extern u16 CONST_DATA Pal_089AFF78[];
 extern u16 CONST_DATA Pal_089AFFB8[];
 extern u8 CONST_DATA gUnknown_089AFFF8[];
-// extern ??? gUnknown_089B03D4
-// extern ??? gUnknown_089B068C
-extern u8 Img_089B06AC[];
-extern u16 Pal_089B0700[];
-// extern ??? gUnknown_089B0720
-// extern ??? gUnknown_089B0820
-// extern ??? gUnknown_089B0840
-// extern ??? gUnknown_089B0864
-// extern ??? gUnknown_089B0AD0
-// extern ??? gUnknown_089B17A4
-// extern ??? gUnknown_089B1A10
-// extern ??? gUnknown_089B1E10
-// extern ??? gUnknown_089B20E8
-// extern ??? gUnknown_089B2108
-// extern ??? gUnknown_089B21D8
-// extern ??? gUnknown_089B2618
-// extern ??? gUnknown_089B2728
-// extern ??? gUnknown_089B2748
-// extern ??? gUnknown_089B2880
-// extern ??? gUnknown_089B343C
+extern u8 CONST_DATA Img_MapAnimTorchfx[];
+extern u16 CONST_DATA Pal_MapAnimTorchfx[];
+extern u8 Img_MapAnimUnlockObjfx[];
+extern u16 Pal_MapAnimUnlockObjfx[];
+extern u8 Img_MapAnimUnlockBgfx[];
+extern u16 Pal_MapAnimUnlockObjfx_Unk[];
+extern u8 Tsa_MapAnimUnlockBgfx[];
+extern u8 Tsa_089B0864[];
+extern u8 Img_MapAnimRepairfx[];
+extern u8 Tsa_089B17A4[];
+extern u16 ApConf_MapAnimSleep[];
+extern u8 Img_MapAnimBerserkfx[];
+extern u16 Pal_MapAnimBerserkfx[];
+extern u16 ApConf_MapAnimBerserkfx[];
+extern u8 Img_ManimSilenceObjfx[];
+extern u8 Img_ManimSilenceBgfx[];
+extern u16 Pal_ManimSilencefx[];
+extern u16 ApConf_ManimSilencefx[];
+extern u8 Img_ManimBarrierBgfx[];
+extern u8 Tsa_089B343C[];
 extern u16 Img_NightMareMapAnimfx[];
 extern u16 Pal_NightMareMapAnimfx[];
 extern u8 Tsa_NightMareMapAnimfx1[];
@@ -495,8 +493,18 @@ extern u8 Tsa_NightMareMapAnimfx30[];
 extern u8 Tsa_NightMareMapAnimfx31[];
 extern u8 Tsa_NightMareMapAnimfx32[];
 extern u8 Tsa_NightMareMapAnimfx33[];
-// extern ??? gUnknown_089B6AA0
-// extern ??? gUnknown_089B73D4
+extern u8 Img_MonsterStoneMapAnimfx[];
+extern u16 Pal_MonsterStoneMapAnimfx[];
+extern u8 Tsa1_MonsterStoneMapAnimfx[];
+extern u8 Tsa2_MonsterStoneMapAnimfx[];
+extern u8 Tsa3_MonsterStoneMapAnimfx[];
+extern u8 Tsa4_MonsterStoneMapAnimfx[];
+extern u8 Tsa5_MonsterStoneMapAnimfx[];
+extern u8 Tsa6_MonsterStoneMapAnimfx[];
+extern u8 Tsa7_MonsterStoneMapAnimfx[];
+extern u8 Tsa8_MonsterStoneMapAnimfx[];
+extern u8 Tsa9_MonsterStoneMapAnimfx[];
+extern u8 Tsa10_MonsterStoneMapAnimfx[];
 extern u16 Img_GorgonHatchCloud[];
 extern u16 Pal_GorgonHatchCloud[];
 extern u16 Tsa_GorgonHatchCloud_A[];
@@ -626,62 +634,94 @@ void NightMarefx_End(struct MAEffectProc * proc);
 void MapAnimCallSpellAssocAntitoxinPureWaterfx(struct Unit * unit, u8 * img, u16 * pal);
 void AntitoxinPureWaterfx_Init(struct MAEffectProc * proc);
 void AntitoxinPureWaterfx_Loop(struct MAEffectProc * proc);
-// ??? sub_807D7D8(???);
-// ??? sub_807D818(???);
-void NewMapAnimEffectAnimator(struct Unit * unit, u8 * unk1, u16 * unk2, int unk3);
-// ??? sub_807D860(???);
-// ??? sub_807D944(???);
-// ??? sub_807D9B8(???);
-void MapSpellAnim_CommonEnd(void);
-// ??? sub_807DA68(???);
-void New6C_SomethingFlashy(struct Unit * unit, int x, int y);
-// ??? sub_807DAE8(???);
-// ??? sub_807DB30(???);
-void sub_807DBA8(struct Unit * unit);
-// ??? sub_807DBE4(???);
-// ??? sub_807DCA8(???);
-// ??? sub_807DD0C(???);
-// ??? sub_807DD74(???);
-void sub_807DD80(struct Unit * unit);
-// ??? sub_807DDC8(???);
-void sub_807DE30(struct Unit * unit);
-// ??? sub_807DE70(???);
-// ??? sub_807DE80(???);
-// ??? sub_807DEDC(???);
-// ??? sub_807DF5C(???);
-// ??? sub_807DFAC(???);
-void sub_807DFF4(struct Unit * unit);
-// ??? sub_807E038(???);
-// ??? sub_807E054(???);
-void sub_807E0D4(struct Unit * unit);
-// ??? sub_807E118(???);
-// ??? sub_807E17C(???);
-// ??? sub_807E1B0(???);
-void sub_807E1E4(struct Unit * unit);
-// ??? sub_807E22C(???);
-// ??? sub_807E28C(???);
-// ??? sub_807E334(???);
-// ??? sub_807E34C(???);
-// ??? sub_807E390(???);
-// ??? sub_807E404(???);
-// ??? sub_807E448(???);
+
+/* Unused mapanim effect? */
+void sub_807D7D8(struct Unit * unit);
+void sub_807D818(struct MAEffectProc * proc);
+
+/* This is just the same as MAEffectProc */
+struct ProcMapAnimator {
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ u8 pad_30[0x40 - 0x30];
+    /* 40 */ u16 ca;
+    /* 42 */ u16 cb;
+    /* 44 */ u8 pad_44[0x50 - 0x44];
+    /* 50 */ void const * img;
+    /* 54 */ void const * pal;
+    /* 58 */ u16 song;
+};
+
+void NewMapAnimEffectAnimator(struct Unit * unit, void const * img, void const * pal, u16 song);
+void MapAnimEffectAnimator_Init(struct ProcMapAnimator * proc);
+void MapAnimEffectAnimator_Loop1(struct ProcMapAnimator * proc);
+void MapAnimEffectAnimator_Loop2(struct ProcMapAnimator * proc);
+void MapSpellAnim_CommonEnd(ProcPtr proc);
+void MapSpellAnim_EndWithHBlank(ProcPtr proc);
+void StartWarpFlashy(struct Unit * unit, int x, int y);
+void WarpFlashy_Init(struct MAEffectProc * proc);
+void WarpFlashy_Loop(struct MAEffectProc * proc);
+void MapAnimTorchEffect(struct Unit * unit);
+void MapAnimTorch_Init(struct MAEffectProc * proc);
+void MapAnimTorch_Loop1(struct MAEffectProc * proc);
+void MapAnimTorch_Loop2(struct MAEffectProc * proc);
+void MapAnimTorch_ResetHBlank(struct MAEffectProc * proc);
+void MapAnimBerserkEffect(struct Unit * unit);
+void MapAnimBerserk_Loop(struct MAEffectProc * proc);
+void MapAnimRepairEffect(struct Unit * unit);
+void MapAnimRepair_Init(struct MAEffectProc * proc);
+void MapAnimRepair_Init0(struct MAEffectProc * proc);
+void MapAnimRepair_Loop1(struct MAEffectProc * proc);
+void MapAnimRepair_Loop2(struct MAEffectProc * proc);
+void MapAnimRepair_Loop3(struct MAEffectProc * proc);
+void MapAnimRestoreEffect(struct Unit * unit);
+void MapAnimRestore_Init(struct MAEffectProc * proc);
+void MapAnimRestore_Loop(struct MAEffectProc * proc);
+void MapAnimSleepEffect(struct Unit * unit);
+void MapAnimSleep_Init(struct MAEffectProc * proc);
+void MapAnimSleep_Anim1(struct MAEffectProc * proc);
+void MapAnimSleep_Anim2(struct MAEffectProc * proc);
+void MapAnimMonsterStoneEffect(struct Unit * unit);
+void MapAnimMonsterStone_Init(struct MAEffectProc * proc);
+void MapAnimMonsterStone_Loop1(struct MAEffectProc * proc);
+void MapAnimMonsterStone_Resetfx(struct MAEffectProc * proc);
+
+/* Unused mapanim effect? */
+void StartMapAnimEffect_Unk_089A3DB4(struct Unit * unit);
+void MapAnim_Init_807E390(struct MAEffectProc * proc);
+void MapAnim_Loop1_807E404(struct MAEffectProc * proc);
+void MapAnim_Loop2_807E448(struct MAEffectProc * proc);
+
 void MapAnimCallSpellAssocSilencefx(struct Unit * unit);
-// ??? sub_807E4D0(???);
-// ??? sub_807E584(???);
-// ??? sub_807E5F0(???);
+void MapAnimSilence_InitGfx(struct MAEffectProc * proc);
+void MapAnimSilence_InitScreenConf(struct MAEffectProc * proc);
+void MapAnimSilence_Loop(struct MAEffectProc * proc);
 void MapAnimCallSpellAssocBarrierfx(struct Unit * unit);
-// ??? sub_807E67C(???);
-// ??? sub_807E6E0(???);
-void sub_807E760(int, int);
+void MapAnimBarrierfx_Init(struct MAEffectProc * proc);
+void MapAnimBarrierfx_Loop(struct MAEffectProc * proc);
+void MapAnimUnlockEffect(int, int);
 void HideUnitUnlockDoor(void);
 void UnhideUnit(void);
-// ??? sub_807E7E0(???);
-// ??? sub_807E8B0(???);
-// ??? sub_807E934(???);
+void MapAnimUnlock_Init(struct MAEffectProc * proc);
+void MapAnimUnlock_Loop1(struct MAEffectProc * proc);
+void MapAnimUnlock_Loop2(struct MAEffectProc * proc);
 void SetDefaultMapAnimScreenConf(void);
-// ??? sub_807EA20(???);
-// ??? sub_807EA50(???);
-// ??? sub_807EA60(???);
+
+struct ManimSomethingProc_08067498
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x58);
+    /* 58 */ int bg;
+    /* 5C */ STRUCT_PAD(0x5C, 0x64);
+    /* 64 */ s16 x;
+    /* 66 */ s16 x_inc;
+    /* 68 */ s16 y;
+    /* 6A */ s16 y_inc;
+};
+
+void StartMapAnimEffect_Unk_089A3EC4(int bg, int x_inc, int y_inc, ProcPtr parent);
+void sub_807EA50(void);
+void sub_807EA60(struct ManimSomethingProc_08067498 * proc);
 void PutManimLevelUpFrame(int actor_id, int x, int y);
 void PutManimLevelUpStat(int actor_id, int x, int y, int stat_num, bool after_gain);
 int GetManimLevelUpStatGain(int actor_id, int stat_num);
@@ -826,16 +866,16 @@ void MapAnimSpellAssocResetPal(ProcPtr proc);
 void sub_8081E60(ProcPtr proc);
 
 void InitScanline();
-// ??? sub_8081EAC(???);
-// ??? sub_8081F24(???);
-// ??? sub_8081F58(???);
+void sub_8081EAC(void);
+void UpdateMapAnimScanline(int x, int y, int arg3);
+void MapAnimResetHBlank(void);
 void sub_8081F64(void);
-// ??? sub_8081FA8(???);
-// ??? sub_8081FFC(???);
-// ??? sub_8082050(???);
-// ??? sub_8082094(???);
+void HBlank_MapAnimEffect_Unk_8081FA8(void);
+void sub_8081FFC(void);
+void sub_8082050(void);
+void sub_8082094(void);
 void StartManimFrameGradientScanlineEffect(u16, u16, u16, u16);
-// ??? sub_808218C(???);
+void sub_808218C(int x, int y, int a, int b, const u8 * unk);
 // ??? PrepareSineWaveScanlineBuf(???);
 // ??? sub_8082268(???);
 // ??? sub_80822AC(???);
@@ -845,7 +885,7 @@ void SwapScanlineBufs(void);
 void InitScanlineBuf(u16 *);
 void SetScanlineBufWinL(u16 * buf, int x, int y);
 void SetScanlineBufWinR(u16 * buf, int x, int y);
-void sub_80823FC(u16 *, int, int, int);
+void MapAnimScanlineCore(u16 *, int, int, int);
 void PrepareGradientScanlineBuf(u16 *, u16, u16, u16, u16);
 // ??? sub_80825B0(???);
 // ??? sub_80825B8(???);

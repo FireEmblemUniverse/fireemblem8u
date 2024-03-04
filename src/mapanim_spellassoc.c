@@ -426,14 +426,14 @@ void SpellWarpStartFlashy(ProcPtr proc)
     gManimSt.ytarget = gBattleTarget.changePow;
 
     unit = gManimSt.actor[gManimSt.targetActorId].unit;
-    New6C_SomethingFlashy(unit, unit->xPos, unit->yPos);
+    StartWarpFlashy(unit, unit->xPos, unit->yPos);
 }
 
 void SpellWarpStartFlashyAtNewPos(ProcPtr proc)
 {
     struct Unit * unit;
     unit = gManimSt.actor[gManimSt.targetActorId].unit;
-    New6C_SomethingFlashy(
+    StartWarpFlashy(
         gManimSt.actor[gManimSt.targetActorId].unit,
         gManimSt.xtarget,
         gManimSt.ytarget
@@ -442,37 +442,37 @@ void SpellWarpStartFlashyAtNewPos(ProcPtr proc)
 
 void MapAnimCallSpellAssocTorch(ProcPtr proc)
 {
-    sub_807DBA8(gManimSt.actor[gManimSt.subjectActorId].unit);
+    MapAnimTorchEffect(gManimSt.actor[gManimSt.subjectActorId].unit);
 }
 
 void MapAnimCallSpellAssocUnlock(ProcPtr proc)
 {
-    sub_807E760(gManimSt.xtarget, gManimSt.ytarget);
+    MapAnimUnlockEffect(gManimSt.xtarget, gManimSt.ytarget);
 }
 
 void MapAnimCallSpellAssocBerserk(ProcPtr proc)
 {
-    sub_807DD80(gManimSt.actor[gManimSt.targetActorId].unit);
+    MapAnimBerserkEffect(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
 void MapAnimCallSpellAssocRestore(ProcPtr proc)
 {
-    sub_807DFF4(gManimSt.actor[gManimSt.targetActorId].unit);
+    MapAnimRestoreEffect(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
 void MapAnimCallSpellAssocSleep(ProcPtr proc)
 {
-    sub_807E0D4(gManimSt.actor[gManimSt.targetActorId].unit);
+    MapAnimSleepEffect(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
 void MapAnimCallSpellAssocMonsterStone(ProcPtr proc)
 {
-    sub_807E1E4(gManimSt.actor[gManimSt.targetActorId].unit);
+    MapAnimMonsterStoneEffect(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
 void MapAnimCallSpellAssocRepair(ProcPtr proc)
 {
-    sub_807DE30(gManimSt.actor[gManimSt.targetActorId].unit);
+    MapAnimRepairEffect(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
 void SpellWarpStartFlashFade(ProcPtr proc)
