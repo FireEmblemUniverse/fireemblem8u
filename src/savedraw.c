@@ -289,39 +289,32 @@ void sub_80AA7EC(struct SaveDrawProc * proc)
     return;
 }
 
-struct Unknown8A215A4
-{
-    s16 a;
-    int b;
-    int c;
-};
-
-struct Unknown8A215A4 * sub_8014E74(int, int);
+u16 * sub_8014E74(int, int);
 void sub_8014EA8(void);
-
-#if NONMATCHING
-
-/* https://decomp.me/scratch/srRsF */
 
 //! FE8U = 0x080AA9D8
 void sub_80AA9D8(struct SaveDrawProc * proc)
 {
-    struct Unknown8A215A4 * ptr;
+    u16 * ptr;
     int i;
-    u16 x;
-    s16 unk_40;
+    s16 x;
+    u32 unk_40;
+    u32 r6;
 
     proc->unk_3e++;
-
     proc->unk_40 += 2;
 
-    x = (proc->unk_3e << 0x14) >> 0x17;
-    unk_40 = (proc->unk_40 >> 3) & 0xff;
+    x = (proc->unk_3e & 0xfff) >> 3;
+    unk_40 = (proc->unk_40 / 8) & 0xff;
 
-    for (ptr = sub_8014E74(0, 1), i = 0; i < 0x100; ptr++, i++)
+    ptr = sub_8014E74(0, 1);
+    r6 = unk_40;
+
+    for (i = 0; i < 0xA0; i++)
     {
-        int v = SIN(unk_40 * i) / 0x300;
-        ptr->a = ((v + x) & 0x1ff);
+        int v = SIN(r6) / 0x300;
+        ptr[i] = (v + x) & 0x1ff;
+        r6 += 0xC;
     }
 
     BG_SetPosition(2, x, unk_40);
@@ -330,89 +323,6 @@ void sub_80AA9D8(struct SaveDrawProc * proc)
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_80AA9D8(struct SaveDrawProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        ldrh r1, [r0, #0x3e]\n\
-        adds r1, #1\n\
-        strh r1, [r0, #0x3e]\n\
-        adds r2, r0, #0\n\
-        adds r2, #0x40\n\
-        ldrh r1, [r2]\n\
-        adds r1, #2\n\
-        strh r1, [r2]\n\
-        ldrh r4, [r0, #0x3e]\n\
-        lsls r4, r4, #0x14\n\
-        lsrs r4, r4, #0x17\n\
-        ldrh r0, [r2]\n\
-        lsrs r7, r0, #3\n\
-        movs r0, #0xff\n\
-        ands r7, r0\n\
-        movs r0, #0\n\
-        movs r1, #1\n\
-        bl sub_8014E74\n\
-        adds r6, r7, #0\n\
-        ldr r1, _080AAA64  @ gSinLookup\n\
-        mov sl, r1\n\
-        lsls r4, r4, #0x10\n\
-        asrs r2, r4, #0x10\n\
-        mov r8, r2\n\
-        adds r5, r0, #0\n\
-        mov r9, r4\n\
-        movs r4, #0x9f\n\
-    _080AAA1A:\n\
-        movs r0, #0xff\n\
-        ands r0, r6\n\
-        lsls r0, r0, #1\n\
-        add r0, sl\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        movs r1, #0xc0\n\
-        lsls r1, r1, #2\n\
-        bl __divsi3\n\
-        lsls r0, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        add r0, r8\n\
-        ldr r2, _080AAA68  @ 0x000001FF\n\
-        adds r1, r2, #0\n\
-        ands r0, r1\n\
-        strh r0, [r5]\n\
-        adds r6, #0xc\n\
-        adds r5, #2\n\
-        subs r4, #1\n\
-        cmp r4, #0\n\
-        bge _080AAA1A\n\
-        mov r0, r9\n\
-        lsrs r1, r0, #0x10\n\
-        adds r2, r7, #0\n\
-        movs r0, #2\n\
-        bl BG_SetPosition\n\
-        bl sub_8014EA8\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080AAA64: .4byte gSinLookup\n\
-    _080AAA68: .4byte 0x000001FF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080AAA6C
 void SaveDraw_OnEnd(void)
