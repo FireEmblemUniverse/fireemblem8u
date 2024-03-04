@@ -24,6 +24,21 @@ enum {
 struct SaveDrawProc {
     /* 00 */ PROC_HEADER;
     /* 29 */ bool unk_29;
+    /* 2A */ u16 unk_2a;
+    /* 2C */ u16 unk_2c;
+    /* 2E */ u16 unk_2e;
+    /* 30 */ u16 unk_30;
+    /* 32 */ s8 unk_32;
+    /* 33 */ u8 unk_33;
+    /* 34 */ ProcPtr unk_34;
+    /* 38 */ u8 unk_38;
+    /* 39 */ u8 unk_39;
+    /* 3A */ u8 unk_3a;
+    /* 3B */ u8 unk_3b;
+    /* 3C */ u8 unk_3c;
+    // 3D - unused?
+    /* 3E */ u16 unk_3e;
+    /* 40 */ u16 unk_40;
 };
 
 struct SaveMenuProc {
@@ -184,9 +199,9 @@ const char * GetWMNodeNameForSaveMenu(void);
 void sub_80AA790(u16 *, u16 *, int);
 void sub_80AA7AC(int a, int b);
 // ??? sub_80AA7EC(???);
-void sub_80AA9D8(ProcPtr);
-// ??? sub_80AAA6C(???);
-// ??? sub_80AAA78(???);
+void sub_80AA9D8(struct SaveDrawProc *);
+// ??? SaveDraw_OnEnd(???);
+// ??? SaveDraw_Init(???);
 // ??? sub_80AAB78(???);
 // ??? sub_80AABC4(???);
 // ??? sub_80AAC40(???);
@@ -195,7 +210,8 @@ void sub_80AA9D8(ProcPtr);
 // ??? sub_80AAE90(???);
 // ??? sub_80AAF6C(???);
 // ??? sub_80AB05C(???);
-// ??? sub_80AB2A0(???);
+// ??? SaveDraw_Loop_Main(???);
+struct SaveDrawProc * StartSaveDraw(ProcPtr);
 
 struct SaveDrawCursorProc {
     /* 00 */ PROC_HEADER;
@@ -211,23 +227,6 @@ struct SaveDrawCursorProc {
     /* 38 */ u8 unk_38;
     /* 39 */ u8 unk_39;
     /* 3A */ u8 unk_3a;
-};
-
-struct SaveMenuUnusedProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ int save_slot;
-    /* 30 */ int active_options;
-    /* 34 */ struct SaveDrawCursorProc* unk_34;
-};
-
-struct SaveMenu8A206F8Proc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 _pad[0x3e - 0x29];
-
-    /* 3E */ u16 unk_3e;
-    /* 40 */ u16 unk_40;
 };
 
 struct SqMaskProc {
@@ -261,18 +260,17 @@ struct Unknown03004990 {
 
 extern struct Unknown03004990* gUnknown_03004990;
 
-extern u16 gUnknown_08A20570[];
-extern u16 gUnknown_08A20578[];
-extern u16 gUnknown_08A20580[];
+extern u16 Sprite_08A20570[];
+extern u16 Sprite_08A20578[];
+extern u16 Sprite_08A20580[];
 
-ProcPtr New6C_savedraw(ProcPtr);
 void SaveDrawCursor_Init(struct SaveDrawCursorProc * proc);
 void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc);
-void sub_80AB4F4(int a, s16 b, s16 c, struct SaveMenuUnusedProc * proc);
-void sub_80AB514(int a, int b, struct SaveMenuUnusedProc * proc);
+void sub_80AB4F4(int a, s16 b, s16 c, struct SaveDrawProc * proc);
+void sub_80AB514(int a, u8 b, struct SaveDrawProc * proc);
 struct SaveMenuCursorProc * StartSaveDrawCursor(ProcPtr parent);
-// ??? sub_80AB548(???);
-// ??? sub_80AB56C(???);
+void sub_80AB548(void);
+void sub_80AB56C(u32 a);
 // ??? sub_80AB720(???);
 void sub_80AB760(void*);
 void sub_80AB77C(void);
@@ -310,5 +308,32 @@ void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx);
 void DrawDifficultySprites_Loop(struct DifficultyMenuSpritesProc * proc);
 void sub_80AC680(struct DifficultyMenuSpritesProc *, int, int);
 ProcPtr StartDrawDifficultyMenuSprites(ProcPtr);
+
+// extern ??? gBgConfig_SaveMenu
+// extern ??? gProcScr_08A20068
+// extern ??? ProcScr_CallExtraMap
+// extern ??? ProcScr_SaveMenu
+// extern ??? gProcScr_SaveMenuPostChapter
+// extern ??? gUnknown_08A204B8
+// extern ??? gUnknown_08A204BC;
+extern u16 Sprite_08A2051C[];
+extern u16 Sprite_08A20536[];
+extern u16 Sprite_08A20570[];
+extern u16 Sprite_08A20578[];
+extern u16 Sprite_08A20580[];
+extern u16 Sprite_08A20588[];
+extern u16 Sprite_08A20590[];
+extern u16 * SpriteArray_08A20650[];
+extern u16 * SpriteArray_08A2067C[];
+// extern ??? ProcScr_savedraw
+// extern ??? gProcScr_SaveDrawCursor
+// extern ??? gProcScr_08A206F8
+// extern ??? gUnknown_08A20720
+// extern ??? gProcScr_SqMask
+// extern ??? gProcScr_SaveBgUp
+extern u16 * SpriteArray_08A2099C[];
+extern u16 * SpriteArray_08A209B8[];
+extern u16 * SpriteArray_08A209E4[];
+extern u16 * SpriteArray_08A209F0[];
 
 #endif // GUARD_SAVEMENU_H

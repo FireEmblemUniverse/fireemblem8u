@@ -17,6 +17,7 @@
 #include "helpbox.h"
 #include "bmlib.h"
 #include "sysutil.h"
+#include "savemenu.h"
 #include "bonusclaim.h"
 
 #include "constants/characters.h"
@@ -33,8 +34,8 @@ int LoadBonusContentData(void*);
 
 //! FE8U = 0x080B0638
 void PutChapterBannerSprites(void) {
-    PutSpriteExt(4, 24, 8, *gUnknown_08A209F0, 0x8000);
-    PutSpriteExt(4, 24, 16, *gUnknown_08A209E4, 0x9000);
+    PutSpriteExt(4, 24, 8, *SpriteArray_08A209F0, 0x8000);
+    PutSpriteExt(4, 24, 16, *SpriteArray_08A209E4, 0x9000);
     return;
 }
 

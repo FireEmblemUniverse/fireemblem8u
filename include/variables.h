@@ -1069,32 +1069,6 @@ extern u16 gTSA_GoalBox_OneLine[];
 // extern ??? sSupportUnkLut
 // extern ??? sArenaCpTeamNameLut
 // extern ??? gpSramExtraData
-// extern ??? gBgConfig_SaveMenu
-// extern ??? gProcScr_08A20068
-// extern ??? ProcScr_CallExtraMap
-// extern ??? ProcScr_SaveMenu
-// extern ??? gProcScr_SaveMenuPostChapter
-// extern ??? gUnknown_08A204B8
-// extern ??? gUnknown_08A204BC
-// extern ??? gUnknown_08A2051C
-// extern ??? gUnknown_08A20536
-// extern ??? gUnknown_08A20570
-// extern ??? gUnknown_08A20578
-// extern ??? gUnknown_08A20580
-// extern ??? gUnknown_08A20588
-extern u16 Obj_08A20590[];
-// extern ??? gUnknown_08A20650
-extern u16 * Objs_08A2067C[];
-// extern ??? ProcScr_savedraw
-// extern ??? gProcScr_SaveDrawCursor
-// extern ??? gProcScr_08A206F8
-// extern ??? gUnknown_08A20720
-// extern ??? gProcScr_SqMask
-// extern ??? gProcScr_SaveBgUp
-// extern ??? gUnknown_08A2099C
-// extern ??? gUnknown_08A209B8
-extern u16* gUnknown_08A209E4[];
-extern u16* gUnknown_08A209F0[];
 
 struct Unknown_08A209FC
 {
@@ -1153,7 +1127,7 @@ extern u8 gUnknown_08A268F8[]; // tsa, fog overlay
 extern u8 Img_SaveScreenSprits[]; // gfx
 extern u16 Pal_SaveScreenSprits[]; // pal
 extern u16 Pal_08A28088[];
-// extern ??? gUnknown_08A280A8
+extern u16 gUnknown_08A280A8[]; // ap
 extern u8 Img_GameMainMenuObjs[];
 // extern ??? Img_DifficultyMenuObjs
 // extern ??? Pal_DifficultyMenuObjs

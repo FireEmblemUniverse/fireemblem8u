@@ -202,9 +202,7 @@ u16 CONST_DATA gSprite_08A20976[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(2) + OAM1_X(160), OAM2_CHR(0x3D4) + OAM2_LAYER(2),
 };
 
-// clang-format on
-
-u16 * CONST_DATA gUnknown_08A2099C[] =
+u16 * CONST_DATA SpriteArray_08A2099C[] =
 {
     gSprite_08A2084A,
     gSprite_08A20864,
@@ -215,7 +213,7 @@ u16 * CONST_DATA gUnknown_08A2099C[] =
     gSprite_08A208E6,
 };
 
-u16 * CONST_DATA gUnknown_08A209B8[] =
+u16 * CONST_DATA SpriteArray_08A209B8[] =
 {
     gSprite_08A2077C,
     gSprite_08A20796,
@@ -230,16 +228,18 @@ u16 * CONST_DATA gUnknown_08A209B8[] =
     gSprite_08A2080E,
 };
 
-u16 * CONST_DATA gUnknown_08A209E4[] =
+u16 * CONST_DATA SpriteArray_08A209E4[] =
 {
     gSprite_08A2092A,
     gSprite_08A20950,
     gSprite_08A20976,
 };
 
-u16 * CONST_DATA gUnknown_08A209F0[] =
+u16 * CONST_DATA SpriteArray_08A209F0[] =
 {
     gSprite_08A208EE,
     gSprite_08A20902,
     gSprite_08A20916,
 };
+
+// clang-format on

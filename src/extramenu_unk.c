@@ -4,6 +4,7 @@
 #include "hardware.h"
 #include "ctc.h"
 #include "bmlib.h"
+#include "savemenu.h"
 
 struct Proc8A21568 {
     /* 00 */ PROC_HEADER;
@@ -15,9 +16,6 @@ struct Proc8A21568 {
 extern u16 gUnknown_08A2C11C[]; // pal
 extern u8 gUnknown_08A29A88[]; // gfx
 extern u8 gUnknown_08A2B1E4[]; // gfx
-
-extern u16 gUnknown_08A2051C[]; // sprite
-extern u16* gUnknown_08A2099C[]; // sprite array
 
 //! FE8U = 0x080B0458
 void sub_80B0458(void) {
@@ -96,8 +94,8 @@ void nullsub_66(void) {
 //! FE8U = 0x080B05C4
 void sub_80B05C4(struct Proc8A21568* proc) {
     if (proc->unk_58 >= 0) {
-        PutSpriteExt(4, 56, 8, gUnknown_08A2051C, 0x2000);
-        PutSpriteExt(4, 64, 16, gUnknown_08A2099C[proc->unk_58], 0x3000);
+        PutSpriteExt(4, 56, 8, Sprite_08A2051C, 0x2000);
+        PutSpriteExt(4, 64, 16, SpriteArray_08A2099C[proc->unk_58], 0x3000);
     }
     return;
 }

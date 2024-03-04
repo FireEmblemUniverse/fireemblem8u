@@ -402,7 +402,7 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc * proc)
 
     sub_80A8A9C(proc);
 
-    proc->savedraw = New6C_savedraw(proc);
+    proc->savedraw = StartSaveDraw(proc);
 
     return;
 }
